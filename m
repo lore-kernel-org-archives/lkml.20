@@ -1,106 +1,106 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793395226;
-	b=3sfHZd6Ep6e827BoDulICxg8DD5VjS9pWQmtLRgTuWkMABcDcJVLViLfoslMVMs4oZqA
-	 L8EOQVx/sLTQhvxxdLoZLLufIB/U3jAOci5B4vlCt6BR+uw1laoHBdR1V0g6Cg+P9prT0
-	 zNQ9mDlMiLkQiVM5BBRVq+SkAtX9xeuTQolc+ZKmT8Ss4E+BA61eEOObjVGtVgs15FVnx
-	 8YEP8ynEFcbHEjWj1rB0xXs60iQspU3fMLoqMjjtEgDpVUpNz9EUs/3YzVwhPAwcABij3
-	 BnQwbMm8+eFWeQazZZcBUWzqEz/ikAlsL4Gp7Pf04+CKb3ffviFeTDjsb7UGuDR1bwA==
+	t=1793395224;
+	b=yPnZ1ry7ziG37tmLqnSlD+m08eagt0UeTxT4V8015SLGngQbat1kOen1sWSTYHDjIGWe
+	 6J8eFwjs4v9xnOZmRhFbLsIpJdxeQyKDvz5OSXdW8gkantKazHlcjuj3FwFV13ZbmlPrN
+	 +itaJCl0TY9ezvgtiEtMdi19wz05U3PV5bMaPU4s8BmLciX+0HZy7mnsOxdgNKPoNrzop
+	 8/r4TIvRpAGkE8J0dJKrcwhmz/uNS2L/j5BGrZtnq85NukKDdgTiLRgadJwPvsIuPOz3t
+	 I8vY66CSXPDYCXdNk5g+x3mrJdjRe8/rkcthYBn7CK2csKdrvp6ZnpZt2S6wllvXU3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395226;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793395224;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=EBi+4vqum/3afQRqz1Ij7O0mXXKsUQXJCICSv/kHoKg=;
-	b=uHqFcEZdACiZN8/U8T3coAxYFoBHPlxuffwJFcnLQxq6IImTCzIeNYBYJoLPaewnHywC
-	 s6iDm/3YhSuT+o4ohSl1ufRhQtBqgWJ3gFSpxB0OcTSuyY1dnEeSqg18Kl7Y1RsnC9w3x
-	 SmxIMRMpSGenyV6zu0GN6cH0O7JCUud95NZ6Zr2ojLp9RdnPfnjVf1XfDfQYzLVBflFjY
-	 1FIAr49A2pW6jQAXdwfg6TQVa922FYoU+F/ncfKOvJU3MU6PtTcv27fpTN3PPQcBHuqn7
-	 YqTJb6fUoKibvUXwO8KQzErU4IYFpyp1WCQiwE1sGLhYSWW3rvkDTUZSxrbIKtInAVw==
+	bh=bXITc4r/k3gIKO9tsd9AinmWdIi6qZi1pki5UqGvEcE=;
+	b=ijovIrZKZ58jVM3LMV9Z3yzW4gi55WrdXS70BdYuBo4DiEXZ1NYmUdXeqU82nBlUUjN2
+	 OBNTLCsZkshL3aCBDvFn43gtXcr3fYkeav/uHzF2SbTHqyS8oOHEyhy2upyHGBhGwQGbA
+	 x6O35r3+y0als68SdSZrbw5xuYFJsvZcq6e8dXTpsdxIHZXy+RAC9sqFFhQ8kq45xhBpQ
+	 XXlhDzecZG44f+L2jKniJTaY+AhyD4FX//FVcOyCVXN5xTDehwT3KXdnHdgYFZ56tKcZr
+	 52X4SrPIFRtrQGf6pONeml+6brizalRThjZGSFrjKjCHzV4rr/L7ng4E4830/XfgD7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YvfnNKdJ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ed+r2+Qc;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=j7MGnNVx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=O2bMxAd4;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF66D606A335
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:20:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF66D606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611A3606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:20:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 611A3606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YvfnNKdJ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ed+r2+Qc
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69ULAV1X1222876
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:20:24 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=j7MGnNVx;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=O2bMxAd4
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69ULAk4M3473778
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:20:22 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=EBi+4vqum/3
-	afQRqz1Ij7O0mXXKsUQXJCICSv/kHoKg=; b=YvfnNKdJyRGrVuQSdBddPYEQOEr
-	EP0IlDRVZUwhRJw7kq/+ZIWIpXIsNJWmdv/BXS4HRTbQiRzezs6mWEX+IHEk6vr4
-	v2zKK0QjIEyDmUk4SeaC+qXmb2AE+0+JVPMgTwVV4M6aUJ0K8PDSShIQpW+ch37h
-	9Mewq+GFoQk4B+DNVD5Wo16Rkx1RLnuxwBzJQyMoD0WrY61N13u6O4XzZqDD6lf8
-	9rur5yJSoHr7BuaCfXR8WvlA/0fE0nMT6lh6fzDZJz3PGXlwDEgStFZtzyqJZSMu
-	zbyBUH7pWmNG8GxqZGEFyki1W38jWvXYrMTLTRfZOzOR1+YQ6z6dV7CXeuw==
+	:mime-version:references:subject:to; s=qcppdkim1; bh=bXITc4r/k3g
+	IKO9tsd9AinmWdIi6qZi1pki5UqGvEcE=; b=j7MGnNVx5qgAes3sEili6ubx7eE
+	RbdJJv51DdjFEZ1WnQseudWzQIe1inlPBOwSFrjZvSXO8r/izuWRlsa93Od4lfRu
+	De7TFeYIotWIs0tGLtjdmpBfHmeWSYUk/rMjxU/nGVfJQPOufXVLv14z23BKRlAh
+	Kl3dJ4TWGfnTOGSOXO5h1T5XAOd2o46ZYptBcdjds91cnuqbu9B+YnjrgDodxfLl
+	j3m2fr1NZkBfoaU2H2yJVDZYHGmHGocEvcpwzfSQ/N7YchbN46sGScpMZk62YWNx
+	lpz/UnvnSp9H3a4RMrGiqCOSpD2l/qA+xnAFgx7MxVzpEUQrqRtbBfRixVQ==
 Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn2x080w0-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn2x0g0tn-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:20:23 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ae1d132d52so1023584a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:20:23 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:20:22 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ab7f1efe5dso1989368a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:20:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793395223; x=1794000023; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793395222; x=1794000022; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EBi+4vqum/3afQRqz1Ij7O0mXXKsUQXJCICSv/kHoKg=;
-        b=Ed+r2+QcR4dg94rtzPLrFGs/JQ7NViB7lrAZ9qSAnFYqSUiyft8L/WSX6zOqqUbjGQ
-         vlh+CKEqhdA+LzBkpCL3g9JnUl2yN7GX/17NWYGV1NQbDOV8RMV8zxBZCcnMUoGddKgH
-         dXokVkVWEG8LqFiLopqzh6+WTIgpCBPOdnyVdZgKdbepSilJKt8oidX0EITt8+f4mCsX
-         IiIgy5rv3ZQ3gg3e4VhFvnNaRsiBQbr6W7pYo32z5/WhebWcC7+uV/ZQ/vO5FcfLjs9m
-         JZqcbYNXGBxNbL9ahiQwNu1qzlYHUA1VkTv3KINKhp+/s8g4wKNfixyekE0duVETl5ve
-         MjeQ==
+        bh=bXITc4r/k3gIKO9tsd9AinmWdIi6qZi1pki5UqGvEcE=;
+        b=O2bMxAd4Rvmjp8AQff2oEQO//iQr07w4U94bUdH1hufGUTLjZ0FaDGQ/kEElNLS6/b
+         fm05IMgA16bRVuA5BkEG/NdQ82wGw3pBuNFF2HPMvEy+iZi7MTWDDUdRiiRxo64BW1/x
+         8os8gBYUsNGqKk3jz3cCq2pBlpboUYGBHqBcfwNLHBjJmbXoCACNJ8c1Auk17TKNyxOi
+         3L7eXFInmodWdpUY/93uA3xOs48Mbn3XikFz4nVwEc3LaLXZw3WVOOJNR8yNw8OQwsbO
+         Mb/bTkF03t8q+o39syS569/rNqZ+q3qAag6yDtc5bAVu6nyZarezKKCW31kDwo/+j0U9
+         Gvfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793395223; x=1794000023;
+        d=1e100.net; s=20260707; t=1793395222; x=1794000022;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EBi+4vqum/3afQRqz1Ij7O0mXXKsUQXJCICSv/kHoKg=;
-        b=fQl7fxVwzAnzQZO+j+PTZoUlSQeA0/KFhVRAihESyo2YY6tQt4OOA0H4gvjRnz9Zte
-         zs73HRa3g/ibJNPwQQDODGNm0u0rqD/KrcikTuJrfZN1u99eYVg7zrt5weGx3QJCJBOq
-         xk6iDbAt88bpwUe+2IWx6vqg+VdkQ3y/PAodQz+dELI3Dd81+4tUvfr35uC9HUVfWcRH
-         TPsSFn6Tu6Xd+llVc6iy8bTdTjRjEsG98qHWFUTMbIKOG3DfRnITqahDxEbG3s3cRteD
-         eqGZOzfveWfgWJo+hKdb1AjbixuiKChA8AMNpWG7zRFaePj+B5zjWATStGa60vMQ6+Ul
-         Cu9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy+duBgcOEv3P/obI0758byV3ulR2THLBGp92s0G0QQlhUIXu7UQkjvE8mDTTzcjPiLHmpdfeICtk8uEU8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJGC7zLHokeM3rVrHizC1WehsvFEYZ/OR3oO9Hp+ylBOxrOpNZZ
-	LrXn9pNd+y5tpnSht9KpVmgDDo66XpDRKDP24UaZTD+lJxYbBVIk/+DmojDYv9paFi2lMKhruo+
-	RM3RQOuyx8uQG01pWmiDp8ne21fqpj67GLbDrI4FOra7bum32jEnLYarCXX8qb92rIUM=
-X-Gm-Gg: AYBFou1IUg/caKdlOZ66fy/VWvOOkcmIfetYunT5zk6jY/OTZ0lQZaTVy68/nYCpBLB
-	EAfnzWfb9mu6zWsHAqRcGLJ1tSw/F0/AFpIC/utRX9VulMuqeNFG5T4Ax5ri4ojdz+m+GLzdTUj
-	cpPwnuIO4DwI2HNXrJZVnxahp88bXMyKaZptdxk8tpN9CO60DQwk5qMZpze4ZSp/+pVhr/v/pU4
-	wf88ZBchJIVkZ//kpExk5HMnC6gqLtiUXRyV2vW/ncIZOwr6RfxspTEJRM6sAGQ94mjIKDscuCy
-	NziMJWlzaR+bVcQDYZmhoUg3lgL+V97NCcqthkATpWFDJIF1qKmjKiA7Cco81nmZoAkc6knQ19K
-	XT6J5klfp4oprhViFo33BQk2qdDi5tAS3AFhIK+uAPkr7NsC/azlrjTVJF39pKyNw9o1LnxFeJe
-	QYN1euW5H4TzsvJ8yyXu59OQ==
-X-Received: by 2002:a17:90b:5827:b0:3ac:17c:6e74 with SMTP id 98e67ed59e1d1-3ae897c212emr2830661a91.53.1793395220261;
+        bh=bXITc4r/k3gIKO9tsd9AinmWdIi6qZi1pki5UqGvEcE=;
+        b=q2ToN/qB8Toz5zUYpI3GucW6ZgfWGzO8t3ekYG8HqKZP8B8+De4PThOkXA5159poZ0
+         aaMzdLXnW1rNLqjsVqCq3NyYylyJqnVtGqkjYSK2AjIF1bkQwquVrkiE+ZbZ3s2rgJDb
+         a8Q4zvq4bL8/L2rYb9yJ9XRHUHo65fDgYIjJ8aHjJk40GhynbZ60sfZdghS8MdUJoGMy
+         DeU8vxbXT6T5daDPr6dq40SnCxHelTKI9oSTtrPpcZQuXwL++Wpu1O/5EntzrM8PtYU1
+         jl+VYPWYYnMGthCTh9mprPbq3k82Mleshed7HS9EppW7wpbVpbXVnp+tBZXSe/SO/7l5
+         z3Rw==
+X-Forwarded-Encrypted: i=1; AKwUvBxpfQqiTeQbrX6yY5g0l/7paesWo1jSH5GNh907QzUDuYHFb4rjOlowYkHX5NyXKCaGF+pWvVOuwoaucTs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFbYfdcWGGE7toT8YVxK9aMMAIDRVlCYYiHDHYFLlSOcmfJ10w
+	OV4sCxwa0f5azVpn3javTRJmHUGhACgZ7d0sQJj4mHFzD+05nXHsX3Bt7iztXBmwRlMSxgpESKF
+	+sTSpUyMUpZI4fdplqP67RonAwec/cAymEmo/FO+qvLPaEqee9ejFyqM3nIfuiNhscU8=
+X-Gm-Gg: AYBFou0bKZxgAv94tKQURPe9WdWEqsj/NCSpVDagpQjEn7hyj/tje93wsDbdGxc0oex
+	HY0cmEYMNxK62k/KXibtj26UQo7aSYLM5o3n0mOQzHCifRTCWV4E808yXcHEtxp7to679fx5KYK
+	2G2RQNgXayv9T0PyKBAKaasr5imk7mD1am7bZ4iQRhlb0V5UxDVof7bMMNKYIQeT0S/j7qBPtJ9
+	iD/h7oXjTYoJXfGhCchBf1AM6Bjd+tx4HUw4qYdHm8cI0GR+bBI/sjt0VNhAjY7QuOltawj7maC
+	XOjOcXilr9F8SiiiJFQg1LPYIyQX7X5Ql3yyJ9cXrll4DKQJXQ5hOdM1rUoylfNXy6o3QcRjlGP
+	nZt3CVYi0/O7FIsKG9TMVDd4tyZzuWhnvFNy9WLmVMyi+v4+pHlKBSDvxrPKrIbjK4tvLzmGi18
+	dEFLvb4DFylI8b/ZXesqBjIw==
+X-Received: by 2002:a17:90b:5703:b0:3ac:aa8d:19ee with SMTP id 98e67ed59e1d1-3ae8977c3f1mr2933003a91.38.1793395221069;
+        Fri, 30 Oct 2026 14:20:21 -0700 (PDT)
+X-Received: by 2002:a17:90b:5703:b0:3ac:aa8d:19ee with SMTP id 98e67ed59e1d1-3ae8977c3f1mr2932972a91.38.1793395220325;
         Fri, 30 Oct 2026 14:20:20 -0700 (PDT)
-X-Received: by 2002:a17:90b:5827:b0:3ac:17c:6e74 with SMTP id 98e67ed59e1d1-3ae897c212emr2830560a91.53.1793395217970;
-        Fri, 30 Oct 2026 14:20:17 -0700 (PDT)
 Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net. [67.168.198.145])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845ecaf5sm5292361a91.16.2026.10.30.14.20.16
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e9583c1sm10518231a91.10.2026.10.30.14.20.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 14:20:16 -0700 (PDT)
+        Fri, 30 Oct 2026 14:20:19 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -108,17 +108,17 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
         Jie Zhang <jie.zhang@oss.qualcomm.com>,
         Akhil P Oommen <akhilpo@oss.qualcomm.com>,
         Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
         Dmitry Baryshkov <lumag@kernel.org>,
         Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
         Marijn Suijten <marijn.suijten@somainline.org>,
         David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Konrad Dybcio <konradybcio@kernel.org>,
         linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v4 14/19] drm/msm/a8xx: Import generated headers
-Date: Fri, 30 Oct 2026 14:18:16 -0700
-Message-ID: <20261030211928.45761-15-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v4 15/19] drm/msm/a8xx: devcoredump state capture support
+Date: Fri, 30 Oct 2026 14:18:17 -0700
+Message-ID: <20261030211928.45761-16-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261030211928.45761-1-robin.clark@oss.qualcomm.com>
 References: <20261030211928.45761-1-robin.clark@oss.qualcomm.com>
@@ -132,13803 +132,1808 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4NSBTYWx0ZWRfX32xF8TGjHCd3
- 46D0XAbTYsEDHPAWqnu3KTztxvhkCJE2ubx52E2vYukKywfntNZa1E8ah2xkRJzy7JQJTQGv8ka
- VwF2YEY2HSsTXONl2PUejX0gb0+vHLU=
-X-Authority-Analysis: v=2.4 cv=d4xgWhjE c=1 sm=1 tr=0 ts=6ae50a17 cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4NSBTYWx0ZWRfXw9zC77pwwj5b
+ 8EpKjB/JTFqwTXxy6LSG0Ft+dvq+Tzy1OKxwspBdonVh6Lc/k4RNwNppr/GV1G2f2AqwVALSU9y
+ GGyU0xe2kqYfa5hDhdrLYjMr1nyrV3+5k0ogPTkgLbja+3KrAIE6Ncr15otjYzm2UN9pzwuiQl5
+ oSgY+veDp7srX4VQT7aeUSVynpNUY8N4wTsiJSvdVMokaZkztfsMuSXkssbTkD6Ooz8g0fegxtz
+ JAn6mgG/msVOl8bJ5Es72qoiJAXRzEjzGw0G+YLTgnEbvgRTj2H2fcX5GHAabaKoYuw19FoRz7k
+ QGEXx9M61sXYtxKtI9vOJpQxMk78sXOWdEGOF84e/mbF72aUS1XraST+5Tqs5/dhb3rbnWHmlMg
+ ZTM9hGxf+igeqy3GL8otGg+88K8j6z/tdVF7DZeuJCUUBql2WkpfCV9G50/ge0ybsfAYBQD4TSE
+ 3UtE9CpMVXWbTfX9s7A==
+X-Proofpoint-ORIG-GUID: hJ_CKkakgdRYbqQ7QDeejFB6Yc2-VtXD
+X-Proofpoint-GUID: hJ_CKkakgdRYbqQ7QDeejFB6Yc2-VtXD
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4NSBTYWx0ZWRfX/O8gqVRaODUW
+ B2trBLMrES0TRCVOvf8b2J2IbcWMeGEywPNvJPsxz/BT5MsQbEwLR6UfwDQbsRg/E8FjsKNHXPq
+ KoUwsCY9uF2tE6OGuELEohin07udm/E=
+X-Authority-Analysis: v=2.4 cv=Arx7T+9P c=1 sm=1 tr=0 ts=6ae50a16 cx=c_pps
  a=vVfyC5vLCtgYJKYeQD43oA==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=XoANGMzHQFYRo_r-HjgA:9 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4NSBTYWx0ZWRfX2MpiaqABUeYS
- njCpzyvCF8NJ0P2375UaDaNAWpZOUks05cw3rXHPm+S2ojceMDEyXET+iKEQlwObARuiVoC0qQj
- U8fOWJOMQCoi9p1pBIa8ymP/gmknSjwVHcSwkRwndqnVXQt5LqAr9fLO/YPTmC4f+/y/44k0Jmz
- fHRaf+GOM30v/oV06PQhMLjAnv5pPUOXFXlFIfJmmPajKTaNBYZTD6eWtaRP7gid7cXbHUO1uuA
- 72g8JlJ4WIDPSn47r/HOPJJfmb6Cuhrr4b64PdbjOW8Sz/UeZO9aDm2sRu7c4pfVxVdVVfAx8u0
- K8pYXifbTXZildF6PAy/J29kxNoVpJrvz/cFyzw1MkMT8hhzS+JX8ds76rFTcPcl39Kvr3VUjNu
- tXWO62Xy7KHCDWnqKhz+NXXRU5YF/zQjKBaLP6cgplhIVTLMuVsNYwat7HL6ydYStYM3J/kb916
- /A9BIdRHSyvTNRvilyw==
-X-Proofpoint-ORIG-GUID: LGxwU1Jh8twJznFlpy-XiIjNtdCsLFTf
-X-Proofpoint-GUID: LGxwU1Jh8twJznFlpy-XiIjNtdCsLFTf
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=R6_R1F-nLbiv8mM3OOcA:9 a=rl5im9kqc5Lf4LNbBjHf:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-30_06,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 impostorscore=0 spamscore=0 suspectscore=0
- malwarescore=0 clxscore=1015 phishscore=0 adultscore=0 lowpriorityscore=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0 phishscore=0
+ suspectscore=0 spamscore=0 priorityscore=1501 clxscore=1015 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610300085
 
-Wire up the generated GPU snapshot tables, which will be used in
-the next commit, immediately.
+This attempts to make it easier to compare to kgsl, the downstream
+driver, to make it easier to spot bugs or missing things.  Such as
+re-using function names, etc.
 
-The generated tables also contain nonctx reglist and protect table.
-We'll switch to those in later commits.
-
+Co-developed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Tested-by: Alexander Koskovich <akoskovich@pm.me> # Milos (Nothing Phone 3a)
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a8xx_catalog.c     |   15 +
- .../gpu/drm/msm/adreno/adreno_gen8_snapshot.h |  576 ++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.h       |    2 +
- .../drm/msm/adreno/catalog/adreno_glymur.h    | 2307 ++++++++++++++++
- .../gpu/drm/msm/adreno/catalog/adreno_hawi.h  | 2387 +++++++++++++++++
- .../drm/msm/adreno/catalog/adreno_kaanapali.h | 2317 ++++++++++++++++
- .../gpu/drm/msm/adreno/catalog/adreno_maili.h | 1882 +++++++++++++
- .../gpu/drm/msm/adreno/catalog/adreno_milos.h | 1977 ++++++++++++++
- .../drm/msm/adreno/catalog/adreno_pakala.h    | 2161 +++++++++++++++
- 9 files changed, 13624 insertions(+)
- create mode 100644 drivers/gpu/drm/msm/adreno/adreno_gen8_snapshot.h
- create mode 100644 drivers/gpu/drm/msm/adreno/catalog/adreno_glymur.h
- create mode 100644 drivers/gpu/drm/msm/adreno/catalog/adreno_hawi.h
- create mode 100644 drivers/gpu/drm/msm/adreno/catalog/adreno_kaanapali.h
- create mode 100644 drivers/gpu/drm/msm/adreno/catalog/adreno_maili.h
- create mode 100644 drivers/gpu/drm/msm/adreno/catalog/adreno_milos.h
- create mode 100644 drivers/gpu/drm/msm/adreno/catalog/adreno_pakala.h
+ drivers/gpu/drm/msm/Makefile                  |    4 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |    7 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |    5 +
+ drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c   | 1401 +++++++++++++++++
+ drivers/gpu/drm/msm/adreno/adreno_snapshot.h  |  209 +++
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml |    4 +
+ 6 files changed, 1629 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c
 
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-index 8d85f6cad960..ad9141f76d88 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-@@ -10,6 +10,14 @@
- #include "a6xx_gpu.h"
- #include "a6xx.xml.h"
+diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+index 6196a325b6f1..042fd8fd3f57 100644
+--- a/drivers/gpu/drm/msm/Makefile
++++ b/drivers/gpu/drm/msm/Makefile
+@@ -31,7 +31,9 @@ adreno-y := \
  
-+#include "adreno_gen8_snapshot.h"
-+#include "catalog/adreno_glymur.h"
-+#include "catalog/adreno_hawi.h"
-+#include "catalog/adreno_kaanapali.h"
-+#include "catalog/adreno_maili.h"
-+#include "catalog/adreno_milos.h"
-+#include "catalog/adreno_pakala.h"
+ adreno-$(CONFIG_DEBUG_FS) += adreno/a5xx_debugfs.o \
+ 
+-adreno-$(CONFIG_DRM_MSM_GPU_STATE)	+= adreno/a6xx_gpu_state.o
++adreno-$(CONFIG_DRM_MSM_GPU_STATE) += \
++	adreno/a6xx_gpu_state.o \
++	adreno/a8xx_gpu_state.o \
+ 
+ msm-display-$(CONFIG_DRM_MSM_HDMI) += \
+ 	hdmi/hdmi.o \
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 70c0024bdef4..cfe9ef7ae652 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -2946,9 +2946,16 @@ const struct adreno_gpu_funcs a8xx_gpu_funcs = {
+ 		.active_ring = a6xx_active_ring,
+ 		.irq = a8xx_irq,
+ 		.destroy = a6xx_destroy,
++#if defined(CONFIG_DRM_MSM_GPU_STATE)
++		.show = a8xx_show,
++#endif
+ 		.gpu_busy = a8xx_gpu_busy,
+ 		.gpu_get_freq = a6xx_gmu_get_freq,
+ 		.gpu_set_freq = a6xx_gpu_set_freq,
++#if defined(CONFIG_DRM_MSM_GPU_STATE)
++		.gpu_state_get = a8xx_gpu_state_get,
++		.gpu_state_put = a8xx_gpu_state_put,
++#endif
+ 		.create_vm = a6xx_create_vm,
+ 		.create_private_vm = a6xx_create_private_vm,
+ 		.get_rptr = a6xx_get_rptr,
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+index 639e63c29f4b..18656ac339a9 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+@@ -369,4 +369,9 @@ void a8xx_preempt_irq(struct msm_gpu *gpu);
+ bool a8xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
+ void a8xx_perfcntr_flush(struct msm_gpu *gpu);
+ void a8xx_recover(struct msm_gpu *gpu);
++void a8xx_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
++		struct drm_printer *p);
++struct msm_gpu_state *a8xx_gpu_state_get(struct msm_gpu *gpu);
++int a8xx_gpu_state_put(struct msm_gpu_state *state);
 +
- static const struct adreno_reglist_pipe a830_nonctxt_regs[] = {
- 	{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
- 	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BR) | BIT(PIPE_BV) },
-@@ -1577,6 +1585,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 			{ 221, 3 },
- 			{ 190, 4 },
- 		),
-+		.snapshot_block_list = &pakala_snapshot_block_list,
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(0x44070001),
- 		.family = ADRENO_8XX_GEN2,
-@@ -1620,6 +1629,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 			{ 357, 2 },
- 			{ 284, 3 },
- 		),
-+		.snapshot_block_list = &glymur_snapshot_block_list,
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(0x44050a01),
- 		.family = ADRENO_8XX_GEN2,
-@@ -1665,6 +1675,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 			{ 252, 2 },
- 			{ 221, 3 },
- 		),
-+		.snapshot_block_list = &kaanapali_snapshot_block_list,
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(0x44010000),
- 		.family = ADRENO_8XX_GEN1,
-@@ -1707,6 +1718,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 			{ 242, 1 },
- 			{ 221, 2 },
- 		),
-+		.snapshot_block_list = &milos_snapshot_block_list,
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(0x44060000),
- 		.family = ADRENO_8XX_GEN2,
-@@ -1749,6 +1761,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 			{ 357, 2 },
- 			{ 284, 3 },
- 		),
-+		.snapshot_block_list = &glymur_snapshot_block_list,
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(0x44041400),
- 		.family = ADRENO_8XX_GEN2,
-@@ -1792,6 +1805,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 			{ 0xd8, 0 },
- 			{ 0x11c, 1 },
- 		),
-+		.snapshot_block_list = &maili_snapshot_block_list,
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(0x44051401),
- 		.family = ADRENO_8XX_GEN2,
-@@ -1835,6 +1849,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 			{ 284, 2 },
- 			{ 216, 3 },
- 		),
-+		.snapshot_block_list = &hawi_snapshot_block_list,
- 	}
- };
- 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gen8_snapshot.h b/drivers/gpu/drm/msm/adreno/adreno_gen8_snapshot.h
+ #endif /* __A6XX_GPU_H__ */
+diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c
 new file mode 100644
-index 000000000000..1ce3744483dc
+index 000000000000..3c696244cd66
 --- /dev/null
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gen8_snapshot.h
-@@ -0,0 +1,576 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
++++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c
+@@ -0,0 +1,1401 @@
++// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ *
-+ * THIS FILE IS AUTOGENERATED!
 + */
 +
-+#pragma once
++#include "msm_gem.h"
++#include "a6xx_gpu.h"
++#include "a6xx_gmu.h"
++#include "adreno_snapshot.h"
++#include "adreno_gen8_snapshot.h"
 +
-+#include "linux/types.h"
++#define NUM_SLICES(gpu)  (hweight32((gpu)->slice_mask))
 +
++static inline int next_slice(int slice, u32 slice_mask)
++{
++	for (; slice < fls(slice_mask); slice++)
++		if (BIT(slice) & slice_mask)
++			return slice;
 +
++	return slice;
++}
 +
-+#define PIPE_NONE             0
-+#define PIPE_BR               1
-+#define PIPE_BV               2
-+#define PIPE_LPAC             3
++#define NEXT_SLICE(_slice, _region, _slice_mask) \
++	((_region == UNSLICE) ? fls(_slice_mask) : next_slice(_slice, _slice_mask))
 +
-+#define CP_PIPE_NONE          0
-+#define CP_PIPE_BR            1
-+#define CP_PIPE_BV            2
-+#define CP_PIPE_LPAC          3
-+#define CP_PIPE_AQE0          4
-+#define CP_PIPE_AQE1          5
-+#define CP_PIPE_DDE_BR        6
-+#define CP_PIPE_DDE_BV        7
++#define FIRST_SLICE(_region, _slice_mask) \
++	((_region == UNSLICE) ? 0 : NEXT_SLICE(0, _region, _slice_mask))
 +
-+#define CLUSTER_NONE          0
-+#define CLUSTER_FE_US         1
-+#define CLUSTER_FE_S          2
-+#define CLUSTER_SP_VS         3
-+#define CLUSTER_VPC_VS        4
-+#define CLUSTER_VPC_US        5
-+#define CLUSTER_GRAS          6
-+#define CLUSTER_SP_PS         7
-+#define CLUSTER_VPC_PS        8
-+#define CLUSTER_PS            9
++#define FOR_EACH_SLICE(_slice, _region, _slice_mask) \
++	for (_slice = FIRST_SLICE(_region, _slice_mask); \
++	     _slice < fls(_slice_mask); \
++	     _slice = NEXT_SLICE(++(_slice), _region, _slice_mask))
 +
-+#define STATE_NON_CONTEXT     0
-+#define STATE_TOGGLE_CTXT     1
-+#define STATE_FORCE_CTXT_0    2
-+#define STATE_FORCE_CTXT_1    3
++/* Use SLICE_ID to access the region (0 for unsliced) */
++#define SLICE_ID(region, j) ((region == SLICE) ? j : 0)
 +
-+#define HLSQ_STATE            0
-+#define HLSQ_DP               1
-+#define SP_TOP                2
-+#define USPTP                 3
-+#define HLSQ_DP_STR           4
++/*
++ * Use HEADER_SLICE_ID to specify the slice in the section header (UINT_MAX for unsliced).
++ * This allows snapshot parsers to differentiate between slice ID 0 and unsliced regions.
++ */
++#define HEADER_SLICE_ID(region, j) ((region == SLICE) ? j : UINT_MAX)
++
++#define GEN8_CP_APERTURE_REG_VAL_NS(_sliceid, _pipe, _cluster, _context) ( \
++		A8XX_CP_APERTURE_CNTL_HOST_SLICEID(_sliceid) |		\
++		A8XX_CP_APERTURE_CNTL_HOST_PIPEID(_pipe) |		\
++		A8XX_CP_APERTURE_CNTL_HOST_CLUSTERID(_cluster) |	\
++		A8XX_CP_APERTURE_CNTL_HOST_CONTEXTID3D(_context) |	\
++		0)
++
++#define GEN8_CP_APERTURE_REG_VAL(_sliceid, _pipe, _cluster, _context) (	\
++		A8XX_CP_APERTURE_CNTL_HOST_USESLICEID |			\
++		GEN8_CP_APERTURE_REG_VAL_NS(_sliceid, _pipe, _cluster, _context))
++
++#define GEN8_SP_READ_SEL_VAL(_contextid, _sliceid, _location, _pipe, _statetype, _usptp, _sptp) ( \
++		A7XX_SP_READ_SEL_CONTEXT(_contextid) |			\
++		A7XX_SP_READ_SEL_SLICE(_sliceid) |			\
++		A7XX_SP_READ_SEL_LOCATION(_location) |			\
++		A7XX_SP_READ_SEL_PIPE(_pipe) |				\
++		A7XX_SP_READ_SEL_STATETYPE(_statetype) |		\
++		A7XX_SP_READ_SEL_USPTP(_usptp) |			\
++		A7XX_SP_READ_SEL_SPTP(_sptp) |				\
++		0)
++
++/*
++ * Allocate 4MB for the crashdumper scratch region - 2MB for the script and
++ * the rest for the data.
++ *
++ * Note gen8_snapshot_indexed_registers() is worst case, needing separate
++ * CD_WRITE + CD_READ per reg, 0xa000 times (so script is ~1.2MB)
++ *
++ * TODO we could perhaps be clever and fill in the out addrs in a 2nd pass
++ * to accomodate invocations that need larger script and smaller data, like
++ * indexed regs.
++ */
++#define A8XX_CD_SIZE        SZ_4M
++#define A8XX_CD_DATA_OFFSET (2 * SZ_1M)
++#define A8XX_CD_DATA_SIZE   (A8XX_CD_SIZE - A8XX_CD_DATA_OFFSET)
++
++static int a8xx_crashdumper_init(struct msm_gpu *gpu,
++				 struct adreno_crashdumper *dumper)
++{
++	dumper->ptr = msm_gem_kernel_new(gpu->dev,
++		A8XX_CD_SIZE, MSM_BO_WC, gpu->vm,
++		&dumper->bo, &dumper->iova);
++
++	if (!IS_ERR(dumper->ptr)) {
++		msm_gem_object_set_name(dumper->bo, "crashdump");
++		dumper->data_offset = A8XX_CD_DATA_OFFSET;
++	}
++
++	return PTR_ERR_OR_ZERO(dumper->ptr);
++}
++
++static inline int __cd_run(struct msm_gpu *gpu, struct adreno_crashdumper *dumper)
++{
++	u32 val;
++	int ret;
++
++	if (IS_ERR_OR_NULL(dumper->ptr))
++		return -EINVAL;
++
++	/* Make sure all pending memory writes are posted */
++	wmb();
++
++	gpu_write64(gpu, REG_A8XX_CP_CRASH_DUMP_SCRIPT_BASE, dumper->iova);
++
++	gpu_write(gpu, REG_A8XX_CP_CRASH_DUMP_CNTL, 1);
++
++	/* NOTE: kgsl uses 500ms timeout */
++	ret = gpu_poll_timeout(gpu, REG_A8XX_CP_CRASH_DUMP_STATUS, val,
++			       val & 0x02, 100, 100000);
++
++	gpu_write(gpu, REG_A8XX_CP_CRASH_DUMP_CNTL, 0);
++
++	drm_WARN_ONCE(gpu->dev, ret, "crashdumper timed out: status=%08x (%d)\n", val, ret);
++
++	return ret;
++}
++
++static inline bool __cd_check_overflow(struct cd_script *p)
++{
++	if (WARN_ON_ONCE(p->in > (u64 *)(p->dumper->ptr + A8XX_CD_DATA_OFFSET)))
++		return false;
++	if (WARN_ON_ONCE(p->out > p->dumper->iova + A8XX_CD_SIZE))
++		return false;
++	return true;
++}
++
++static const struct gen8_snapshot_block_list *
++block_list(struct msm_gpu *gpu)
++{
++	return to_adreno_gpu(gpu)->info->snapshot_block_list;
++}
++
++/* The GMU is ioremapped separately, matching how it is described in dt.
++ * However the snapshot tables generated from hw spec do not take into
++ * account dt, and consider it as yet another sub-block of the GPU.  This
++ * helper helps to bridge the worlds.
++ */
++static uint32_t reg_read(struct msm_gpu *gpu, uint32_t reg)
++{
++	struct a6xx_gmu *gmu = &to_a6xx_gpu(to_adreno_gpu(gpu))->gmu;
++	if ((reg << 2) >= gmu->mmio_offset)
++		return gmu_read(gmu, reg);
++	return gpu_read(gpu, reg);
++}
++
++static void adreno_snapshot_registers_v2(struct msm_gpu *gpu,
++					 struct adreno_gpu_state *state,
++					 const u32 *ptr)
++{
++	int k, count;
++
++	/* Figure out how many registers we are going to dump */
++	count = adreno_snapshot_regs_count(ptr);
++
++	snapshot_sect (state, REGS_V2, 4 * count, {}) {
++		for (; ptr[0] != UINT_MAX; ptr += 2) {
++			u32 cnt = REG_COUNT(ptr);
++
++			if (cnt == 1) {
++				snapshot_sect_u32(&sect, BIT(31) | ptr[0]);
++			} else {
++				snapshot_sect_u32(&sect, ptr[0]);
++				snapshot_sect_u32(&sect, cnt);
++			}
++
++			for (k = ptr[0]; k <= ptr[1]; k++) {
++				snapshot_sect_u32(&sect, reg_read(gpu, k));
++			}
++		}
++	}
++}
++
++static void snapshot_mvc_regs_v3_subheader(struct adreno_snapshot_sect *sect, const u32 *ptr)
++{
++	/*
++	 * Note this might look like adreno_snapshot_registers_v2(),
++	 * but looks are deceiving.  The meaning of b31 is inverted
++	 * and the 2nd dword is end-offset instead of count.
++	 */
++	if (REG_COUNT(ptr) == 1) {
++		snapshot_sect_u32(sect, ptr[0]);
++	} else {
++		snapshot_sect_u32(sect, BIT(31) | ptr[0]);
++		snapshot_sect_u32(sect, ptr[1]);
++	}
++}
++
++static void gen8_legacy_snapshot_registers(struct msm_gpu *gpu,
++					   struct adreno_gpu_state *state,
++					   const struct gen8_reg_list *regs,
++					   u32 slice_id)
++{
++	int count;
++
++	/* Figure out how many registers we are going to dump */
++	count = adreno_snapshot_regs_count(regs->regs);
++
++	snapshot_sect (state, MVC_V3, 4 * count, {
++		.ctxt_id = 0,
++		.cluster_id = CLUSTER_NONE,
++		.pipe_id = PIPE_NONE,
++		.location_id = UINT_MAX,
++		.sp_id = UINT_MAX,
++		.usptp_id = UINT_MAX,
++		.slice_id = HEADER_SLICE_ID(regs->slice_region, slice_id),
++	}) {
++		unsigned long flags;
++
++		if (regs->sel)
++			gpu_write(gpu, regs->sel->host_reg, regs->sel->val);
++
++		if (regs->slice_region) {
++			u32 val = GEN8_CP_APERTURE_REG_VAL(slice_id, 0, 0, 0);
++			a8xx_aperture_acquire_raw(gpu, val, &flags);
++		}
++
++		/* Make sure the previous writes are posted before reading */
++		mb();
++
++		for (const u32 *ptr = regs->regs; ptr[0] != UINT_MAX; ptr += 2) {
++			snapshot_mvc_regs_v3_subheader(&sect, ptr);
++
++			for (int k = ptr[0]; k <= ptr[1]; k++) {
++				snapshot_sect_u32(&sect, reg_read(gpu, k));
++			}
++		}
++
++		if (regs->slice_region)
++			a8xx_aperture_release(gpu, flags);
++	}
++}
++
++static bool gen8_reglist_snapshot(struct msm_gpu *gpu, struct adreno_gpu_state *state,
++				  struct adreno_crashdumper *dumper)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
++	u32 slice_mask = to_a6xx_gpu(to_adreno_gpu(gpu))->slice_mask;
++
++	if (!dumper) {
++		for (u32 i = 0; i < b->num_reg_list; i++) {
++			const struct gen8_reg_list *regs = &b->reg_list[i];
++			u32 j;
++
++			FOR_EACH_SLICE (j, regs->slice_region, slice_mask) {
++				u32 slice_id = SLICE_ID(regs->slice_region, j);
++				gen8_legacy_snapshot_registers(gpu, state, regs, slice_id);
++			}
++
++			/*
++			 * The downstream reglist contains registers in other memory regions
++			 * (cx_misc/cx_mem and cx_dbgc) and we need to plumb through their
++			 * offsets and map them to read them on the CPU. For now only read the
++			 * first two regions.
++			 */
++			if (i == 1)
++				break;
++		}
++		return true;
++	}
++
++	for (u32 i = 0; i < b->num_reg_list; i++) {
++		const struct gen8_reg_list *regs = &b->reg_list[i];
++		u32 j;
++
++		FOR_EACH_SLICE (j, regs->slice_region, slice_mask) {
++			u32 slice_id = SLICE_ID(regs->slice_region, j);
++			struct cd_script p = CD_INIT(dumper);
++
++			CD_WRITE(&p, REG_A8XX_CP_APERTURE_CNTL_CD,
++				 GEN8_CP_APERTURE_REG_VAL(j, 0, 0, 0));
++
++			/* Program the SEL_CNTL_CD register appropriately */
++			if (regs->sel)
++				CD_WRITE(&p, regs->sel->cd_reg, regs->sel->val);
++
++			for (const u32 *ptr = regs->regs; ptr[0] != UINT_MAX; ptr += 2) {
++				u32 count = REG_COUNT(ptr);
++
++				CD_READ(&p, ptr[0], count);
++			}
++
++			/* Marker for end of script */
++			CD_FINISH(&p);
++
++			/* Try to run the crash dumper and bail if it times out */
++			if (CD_RUN(&p, gpu))
++				return false;
++
++			u32 count = adreno_snapshot_regs_count(regs->regs);
++			snapshot_sect (state, MVC_V3, 4 * count, {
++				.ctxt_id = 0,
++				.cluster_id = CLUSTER_NONE,
++				.pipe_id = PIPE_NONE,
++				.location_id = UINT_MAX,
++				.sp_id = UINT_MAX,
++				.usptp_id = UINT_MAX,
++				.slice_id = HEADER_SLICE_ID(regs->slice_region, slice_id),
++			}) {
++				const u32 *src = dumper->ptr + A8XX_CD_DATA_OFFSET;
++
++				for (const u32 *ptr = regs->regs; ptr[0] != UINT_MAX; ptr += 2) {
++					u32 count = REG_COUNT(ptr);
++
++					snapshot_mvc_regs_v3_subheader(&sect, ptr);
++					snapshot_sect_data(&sect, src, count * sizeof(u32));
++
++					src += count;
++				}
++			}
++		}
++	}
++
++	return true;
++}
++
++static bool gen8_snapshot_indexed_registers(
++	struct msm_gpu *gpu, struct adreno_gpu_state *state, struct adreno_crashdumper *dumper,
++	u32 index, u32 data, u32 start, u32 count, u32 pipe_id, u32 slice_id)
++{
++	struct adreno_snapshot_indexed_regs_v2 hdr = {
++		.index_reg = index,
++		.data_reg = data,
++		.count = count,
++		.start = start,
++		.pipe_id = pipe_id,
++		.slice_id = slice_id,
++	};
++	u32 s = (slice_id == UINT_MAX) ? 0 : slice_id;
++
++	if (!dumper) {
++		snapshot_sect (state, INDEXED_REGS_V2, count * sizeof(u32), hdr) {
++			unsigned long flags;
++
++			u32 val = GEN8_CP_APERTURE_REG_VAL(s, pipe_id, 0, 0);
++			a8xx_aperture_acquire_raw(gpu, val, &flags);
++
++			for (int i = 0; i < count; i++) {
++				/* Write the address register */
++				gpu_write(gpu, index, start + i);
++
++				/* Make sure the write finishes */
++				wmb();
++
++				snapshot_sect_u32(&sect, reg_read(gpu, data));
++
++				/* Make sure the read finishes */
++				rmb();
++			}
++
++			a8xx_aperture_release(gpu, flags);
++		}
++
++		return true;
++	}
++
++	struct cd_script p = CD_INIT(dumper);
++
++	CD_WRITE(&p, REG_A8XX_CP_APERTURE_CNTL_CD,
++		 GEN8_CP_APERTURE_REG_VAL(s, pipe_id, 0, 0));
++
++	for (int i = 0; i < count; i++) {
++		/* Write the address register */
++		CD_WRITE(&p, index, start + i);
++		CD_READ(&p, data, 1);
++	}
++
++	/* Marker for end of script */
++	CD_FINISH(&p);
++
++	/* Try to run the crash dumper and bail if it times out */
++	if (CD_RUN(&p, gpu))
++		return false;
++
++	snapshot_sect (state, INDEXED_REGS_V2, count * sizeof(u32), hdr) {
++		const u32 *src = dumper->ptr + A8XX_CD_DATA_OFFSET;
++		snapshot_sect_data(&sect, src, count * sizeof(u32));
++	}
++
++	return true;
++}
++
++static bool gen8_snapshot_cp_indexed_regs(struct msm_gpu *gpu,
++					  struct adreno_gpu_state *state,
++					  struct adreno_crashdumper *dumper)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
++
++	for (int i = 0; i < b->index_registers_len; i++) {
++		bool ret = gen8_snapshot_indexed_registers(gpu, state, dumper,
++			b->index_registers[i].addr,
++			b->index_registers[i].data, 0,
++			b->index_registers[i].size,
++			b->index_registers[i].pipe_id, UINT_MAX);
++		if (!ret)
++			return false;
++	}
++
++	return true;
++}
++
++static bool gen8_snapshot_mempool(struct msm_gpu *gpu,
++				  struct adreno_gpu_state *state,
++				  struct adreno_crashdumper *dumper)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
++	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(to_adreno_gpu(gpu));
++	u32 slice_mask = a6xx_gpu->slice_mask;
++	u32 first_slice = a8xx_get_first_slice(a6xx_gpu);
++	bool ret = true;
++
++	for (int i = 0; i < b->mempool_index_registers_len && ret; i++) {
++		const struct gen8_cp_indexed_reg *cp_indexed_reg =
++			&b->mempool_index_registers[i];
++		unsigned long flags;
++		u32 j;
++
++		FOR_EACH_SLICE (j, cp_indexed_reg->slice_region, slice_mask) {
++			u32 pipe_id = cp_indexed_reg->pipe_id;
++
++			/* Set CP_CHICKEN_DBG[StabilizeMVC] to stabilize it while dumping */
++			a8xx_aperture_acquire_raw(gpu,
++				GEN8_CP_APERTURE_REG_VAL_NS(first_slice, pipe_id, 0, 0),
++				&flags);
++			gpu_rmw(gpu, REG_A8XX_CP_CHICKEN_DBG_PIPE, BIT(2), BIT(2));
++			a8xx_aperture_release(gpu, flags);
++
++			a8xx_aperture_acquire_raw(gpu,
++				GEN8_CP_APERTURE_REG_VAL(j, pipe_id, 0, 0),
++				&flags);
++			gpu_rmw(gpu, REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE, BIT(2), BIT(2));
++			a8xx_aperture_release(gpu, flags);
++
++			ret = gen8_snapshot_indexed_registers(gpu, state, dumper,
++				cp_indexed_reg->addr,
++				cp_indexed_reg->data, 0,
++				cp_indexed_reg->size,
++				cp_indexed_reg->pipe_id,
++				HEADER_SLICE_ID(cp_indexed_reg->slice_region, j));
++
++			/* Reset CP_CHICKEN_DBG[StabilizeMVC] once we are done */
++			a8xx_aperture_acquire_raw(gpu,
++				GEN8_CP_APERTURE_REG_VAL_NS(first_slice, pipe_id, 0, 0),
++				&flags);
++			gpu_rmw(gpu, REG_A8XX_CP_CHICKEN_DBG_PIPE, BIT(2), 0);
++			a8xx_aperture_release(gpu, flags);
++
++			a8xx_aperture_acquire_raw(gpu,
++				GEN8_CP_APERTURE_REG_VAL(j, pipe_id, 0, 0),
++				&flags);
++			gpu_rmw(gpu, REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE, BIT(2), 0);
++			a8xx_aperture_release(gpu, flags);
++
++			if (!ret)
++				break;
++		}
++	}
++
++	/* Clear aperture register */
++	a8xx_aperture_clear(gpu);
++
++	return ret;
++}
++
++static void gen8_legacy_snapshot_mvc(struct msm_gpu *gpu,
++				     struct adreno_gpu_state *state,
++				     const struct gen8_cluster_registers *cluster,
++				     u32 slice_id)
++{
++	int count;
++
++	/* Figure out how many registers we are going to dump */
++	count = adreno_snapshot_regs_count(cluster->regs);
++
++	snapshot_sect (state, MVC_V3, 4 * count, {
++		.ctxt_id = (cluster->context_id == STATE_FORCE_CTXT_1) ? 1 : 0,
++		.cluster_id = cluster->cluster_id,
++		.pipe_id = cluster->pipe_id,
++		.location_id = UINT_MAX,
++		.sp_id = UINT_MAX,
++		.usptp_id = UINT_MAX,
++		.slice_id = HEADER_SLICE_ID(cluster->slice_region, slice_id),
++	}) {
++		unsigned long flags;
++
++		/*
++		 * Set the AHB control for the Host to read from the
++		 * cluster/context for this iteration.
++		 */
++		u32 val = GEN8_CP_APERTURE_REG_VAL(
++			slice_id, cluster->pipe_id,
++			cluster->cluster_id, cluster->context_id);
++		a8xx_aperture_acquire_raw(gpu, val, &flags);
++
++		if (cluster->sel)
++			gpu_write(gpu, cluster->sel->host_reg, cluster->sel->val);
++
++		/* Make sure the previous writes are posted before reading */
++		mb();
++
++		for (const u32 *ptr = cluster->regs; ptr[0] != UINT_MAX; ptr += 2) {
++			snapshot_mvc_regs_v3_subheader(&sect, ptr);
++
++			for (int k = ptr[0]; k <= ptr[1]; k++) {
++				snapshot_sect_u32(&sect, reg_read(gpu, k));
++			}
++		}
++
++		a8xx_aperture_release(gpu, flags);
++	}
++}
++
++static bool gen8_snapshot_mvc_regs(
++	struct msm_gpu *gpu, struct adreno_gpu_state *state, struct adreno_crashdumper *dumper,
++	const struct gen8_cluster_registers *clusters, size_t num_cluster)
++{
++	u32 slice_mask = to_a6xx_gpu(to_adreno_gpu(gpu))->slice_mask;
++
++	if (!dumper) {
++		for (int i = 0; i < num_cluster; i++) {
++			const struct gen8_cluster_registers *cluster = &clusters[i];
++			u32 j;
++
++			FOR_EACH_SLICE (j, cluster->slice_region, slice_mask) {
++				u32 slice_id = SLICE_ID(cluster->slice_region, j);
++				gen8_legacy_snapshot_mvc(gpu, state, cluster, slice_id);
++			}
++		}
++		return true;
++	}
++
++	for (int i = 0; i < num_cluster; i++) {
++		const struct gen8_cluster_registers *cluster = &clusters[i];
++		u32 j;
++
++		FOR_EACH_SLICE (j, cluster->slice_region, slice_mask) {
++			u32 slice_id = SLICE_ID(cluster->slice_region, j);
++			struct cd_script p = CD_INIT(dumper);
++
++			CD_WRITE(&p, REG_A8XX_CP_APERTURE_CNTL_CD,
++				 GEN8_CP_APERTURE_REG_VAL(j, cluster->pipe_id,
++							  cluster->cluster_id,
++							  cluster->context_id));
++
++			if (cluster->sel)
++				CD_WRITE(&p, cluster->sel->cd_reg, cluster->sel->val);
++
++			for (const u32 *ptr = cluster->regs; ptr[0] != UINT_MAX; ptr += 2) {
++				CD_READ(&p, ptr[0], REG_COUNT(ptr));
++			}
++
++			/* Marker for end of script */
++			CD_FINISH(&p);
++
++			/* Try to run the crash dumper and bail if it times out */
++			if (CD_RUN(&p, gpu))
++				return false;
++
++			u32 count = adreno_snapshot_regs_count(cluster->regs);
++
++			snapshot_sect (state, MVC_V3, 4 * count, {
++				.ctxt_id = (cluster->context_id == STATE_FORCE_CTXT_1) ? 1 : 0,
++				.cluster_id = cluster->cluster_id,
++				.pipe_id = cluster->pipe_id,
++				.location_id = UINT_MAX,
++				.sp_id = UINT_MAX,
++				.usptp_id = UINT_MAX,
++				.slice_id = HEADER_SLICE_ID(cluster->slice_region, slice_id),
++			}) {
++				const u32 *src = dumper->ptr + A8XX_CD_DATA_OFFSET;
++
++				for (const u32 *ptr = cluster->regs; ptr[0] != UINT_MAX; ptr += 2) {
++					u32 count = REG_COUNT(ptr);
++
++					snapshot_mvc_regs_v3_subheader(&sect, ptr);
++					snapshot_sect_data(&sect, src, count * sizeof(u32));
++
++					src += count;
++				}
++			}
++		}
++	}
++	return true;
++}
++
++static u32 gen8_read_dbgahb(struct msm_gpu *gpu, u32 regbase, u32 reg)
++{
++	return gpu_read(gpu, REG_A7XX_SP_AHB_READ_APERTURE + reg - regbase);
++}
++
++static void gen8_legacy_snapshot_cluster_dbgahb(
++	struct msm_gpu *gpu, struct adreno_gpu_state *state,
++	const struct gen8_sptp_cluster_registers *cluster,
++	u32 sp, u32 usptp, u32 slice_id)
++{
++	int count;
++
++	/* Figure out how many registers we are going to dump */
++	count = adreno_snapshot_regs_count(cluster->regs);
++
++	snapshot_sect (state, MVC_V3, 4 * count, {
++		.ctxt_id = cluster->context_id,
++		.cluster_id = cluster->cluster_id,
++		.pipe_id = cluster->pipe_id,
++		.location_id = cluster->location_id,
++		.sp_id = sp,
++		.usptp_id = usptp,
++		.slice_id = HEADER_SLICE_ID(cluster->slice_region, slice_id),
++	}) {
++		u32 read_sel = GEN8_SP_READ_SEL_VAL(
++			cluster->context_id, slice_id, cluster->location_id,
++			cluster->pipe_id, cluster->statetype, usptp, sp);
++
++		gpu_write(gpu, REG_A7XX_SP_READ_SEL, read_sel);
++
++		/*
++		 * An explicit barrier is needed so that reads do not happen before
++		 * the register write.
++		 */
++		mb();
++
++		for (const u32 *ptr = cluster->regs; ptr[0] != UINT_MAX; ptr += 2) {
++			snapshot_mvc_regs_v3_subheader(&sect, ptr);
++
++			for (int k = ptr[0]; k <= ptr[1]; k++) {
++				u32 val = gen8_read_dbgahb(gpu, cluster->regbase, k);
++				snapshot_sect_u32(&sect, val);
++			}
++		}
++	}
++}
++
++static bool gen8_snapshot_dbgahb_regs(struct msm_gpu *gpu,
++				      struct adreno_gpu_state *state,
++				      struct adreno_crashdumper *dumper)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
++	u32 slice_mask = to_a6xx_gpu(to_adreno_gpu(gpu))->slice_mask;
++
++	if (!dumper) {
++		for (int i = 0; i < b->num_sptp_clusters; i++) {
++			const struct gen8_sptp_cluster_registers *cluster =
++				&b->sptp_clusters[i];
++
++			for (u32 sp = 0; sp < cluster->num_sps; sp++) {
++				for (u32 usptp = 0; usptp < cluster->num_usptps; usptp++) {
++					u32 j;
++
++					FOR_EACH_SLICE (j, cluster->slice_region, slice_mask) {
++						u32 slice_id = SLICE_ID(cluster->slice_region, j);
++
++						gen8_legacy_snapshot_cluster_dbgahb(
++							gpu, state, cluster,
++							sp, usptp, slice_id);
++					}
++				}
++			}
++		}
++
++		return true;
++	}
++
++	for (int i = 0; i < b->num_sptp_clusters; i++) {
++		const struct gen8_sptp_cluster_registers *cluster =
++			&b->sptp_clusters[i];
++
++		for (u32 sp = 0; sp < cluster->num_sps; sp++) {
++			for (u32 usptp = 0; usptp < cluster->num_usptps; usptp++) {
++				u32 j;
++
++				FOR_EACH_SLICE (j, cluster->slice_region, slice_mask) {
++					u32 slice_id = SLICE_ID(cluster->slice_region, j);
++
++					/* Build the crash script */
++					struct cd_script p = CD_INIT(dumper);
++
++					u32 read_sel = GEN8_SP_READ_SEL_VAL(
++						cluster->context_id, slice_id,
++						cluster->location_id, cluster->pipe_id,
++						cluster->statetype, usptp, sp);
++
++					/* Program the aperture */
++					CD_WRITE(&p, REG_A7XX_SP_READ_SEL, read_sel);
++
++					for (const u32 *ptr = cluster->regs; ptr[0] != UINT_MAX; ptr += 2) {
++						u32 count = REG_COUNT(ptr);
++						u32 reg = REG_A7XX_SP_AHB_READ_APERTURE + ptr[0] - cluster->regbase;
++
++						CD_READ(&p, reg, count);
++					}
++
++					/* Marker for end of script */
++					CD_FINISH(&p);
++
++					/* Try to run the crash dumper and bail if it times out */
++					if (CD_RUN(&p, gpu))
++						return false;
++
++					u32 count = adreno_snapshot_regs_count(cluster->regs);
++					snapshot_sect (state, MVC_V3, 4 * count, {
++						.ctxt_id = cluster->context_id,
++						.cluster_id = cluster->cluster_id,
++						.pipe_id = cluster->pipe_id,
++						.location_id = cluster->location_id,
++						.sp_id = sp,
++						.usptp_id = usptp,
++						.slice_id = HEADER_SLICE_ID(cluster->slice_region, slice_id),
++					}) {
++						const u32 *src = dumper->ptr + A8XX_CD_DATA_OFFSET;
++
++						for (const u32 *ptr = cluster->regs; ptr[0] != UINT_MAX; ptr += 2) {
++							u32 count = REG_COUNT(ptr);
++
++							snapshot_mvc_regs_v3_subheader(&sect, ptr);
++							snapshot_sect_data(&sect, src, count * sizeof(u32));
++
++							src += count;
++						}
++					}
++				}
++			}
++		}
++	}
++
++	return true;
++}
++
++static void gen8_legacy_snapshot_shader(struct msm_gpu *gpu, struct adreno_gpu_state *state,
++					const struct gen8_shader_block *block,
++					u32 sp, u32 ctxt, u32 slice_id)
++{
++	snapshot_sect (state, SHADER_V3, block->size * sizeof(u32), {
++		.type = block->statetype,
++		.slice_id = HEADER_SLICE_ID(block->slice_region, slice_id),
++		.sp_index = sp,
++		.usptp = block->usptp_id,
++		.pipe_id = block->pipeid,
++		.location = block->location,
++		.ctxt_id = ctxt,
++		.size = block->size,
++	}) {
++		u32 read_sel = GEN8_SP_READ_SEL_VAL(
++			ctxt, slice_id, block->location, block->pipeid,
++			block->statetype, block->usptp_id, sp);
++
++		gpu_write(gpu, REG_A7XX_SP_READ_SEL, read_sel);
++
++		/*
++		 * An explicit barrier is needed so that reads do not happen before
++		 * the register write.
++		 */
++		mb();
++
++		for (int i = 0; i < block->size; i++) {
++			u32 val = gpu_read(gpu, REG_A7XX_SP_AHB_READ_APERTURE + i);
++			snapshot_sect_u32(&sect, val);
++		}
++	}
++}
++
++static bool gen8_snapshot_shader(struct msm_gpu *gpu,
++				 struct adreno_gpu_state *state,
++				 struct adreno_crashdumper *dumper)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
++	u32 slice_mask = to_a6xx_gpu(to_adreno_gpu(gpu))->slice_mask;
++
++	if (!dumper) {
++		for (int i = 0; i < b->num_shader_blocks; i++) {
++			const struct gen8_shader_block *block = &b->shader_blocks[i];
++			u32 j;
++
++			FOR_EACH_SLICE (j, block->slice_region, slice_mask) {
++				u32 slice_id = SLICE_ID(block->slice_region, j);
++
++				for (u32 sp = 0; sp < block->num_sps; sp++) {
++					for (u32 ctxt = 0; ctxt < block->num_ctx; ctxt++) {
++						gen8_legacy_snapshot_shader(
++							gpu, state, block, sp, ctxt, slice_id);
++					}
++				}
++			}
++		}
++
++		return true;
++	}
++
++	for (int i = 0; i < b->num_shader_blocks; i++) {
++		const struct gen8_shader_block *block = &b->shader_blocks[i];
++		u32 j;
++
++		FOR_EACH_SLICE (j, block->slice_region, slice_mask) {
++			u32 slice_id = SLICE_ID(block->slice_region, j);
++
++			for (u32 sp = 0; sp < block->num_sps; sp++) {
++				for (u32 ctxt = 0; ctxt < block->num_ctx; ctxt++) {
++					/* Build the crash script */
++					struct cd_script p = CD_INIT(dumper);
++
++					u32 read_sel = GEN8_SP_READ_SEL_VAL(
++						ctxt, slice_id, block->location, block->pipeid,
++						block->statetype, block->usptp_id, sp);
++
++					/* Program the aperture */
++					CD_WRITE(&p, REG_A7XX_SP_READ_SEL, read_sel);
++
++					/* Read all the data in one chunk */
++					CD_READ(&p, REG_A7XX_SP_AHB_READ_APERTURE, block->size);
++
++					/* Marker for end of script */
++					CD_FINISH(&p);
++
++					/* Try to run the crash dumper and bail if it times out */
++					if (CD_RUN(&p, gpu))
++						return false;
++
++					snapshot_sect (state, SHADER_V3, block->size * sizeof(u32), {
++						.type = block->statetype,
++						.slice_id = HEADER_SLICE_ID(block->slice_region, slice_id),
++						.sp_index = sp,
++						.usptp = block->usptp_id,
++						.pipe_id = block->pipeid,
++						.location = block->location,
++						.ctxt_id = ctxt,
++						.size = block->size,
++					}) {
++						const u32 *src = dumper->ptr + A8XX_CD_DATA_OFFSET;
++						snapshot_sect_data(&sect, src, block->size * sizeof(u32));
++					}
++				}
++			}
++		}
++	}
++
++	return true;
++}
++
++static void a8xx_snapshot_gmu_bo(struct adreno_gpu_state *state,
++				 struct a6xx_gmu_bo *bo,
++				 unsigned type)
++{
++	snapshot_sect (state, GMU_MEMORY, bo->size, {
++		.type = type,
++		.gmuaddr = bo->iova,
++	}) {
++		snapshot_sect_data(&sect, bo->virt, bo->size);
++	}
++}
++
++static void a8xx_snapshot_gpu_bo(struct adreno_gpu_state *state,
++				 struct drm_gem_object *bo,
++				 uint64_t iova)
++{
++	if (!IS_ERR_OR_NULL(bo))
++		return;
++
++	snapshot_sect (state, GPU_OBJECT_V2, bo->size, {
++		.type = SNAPSHOT_GPU_OBJECT_GLOBAL,
++		.gpuaddr = iova,
++		.size = bo->size / 4,  /* dwords */
++	}) {
++		void *ptr = msm_gem_get_vaddr(bo);
++		snapshot_sect_data(&sect, ptr, bo->size);
++		msm_gem_put_vaddr(bo);
++	}
++}
++
++static void a8xx_snapshot_gmu_hfi_history(struct msm_gpu *gpu,
++					  struct adreno_gpu_state *state)
++{
++	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
++	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
++	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
++	unsigned i, j;
++
++	BUILD_BUG_ON(ARRAY_SIZE(gmu->queues) != ARRAY_SIZE(state->hfi_queue_history));
++
++	for (i = 0; i < ARRAY_SIZE(gmu->queues); i++) {
++		struct a6xx_hfi_queue *queue = &gmu->queues[i];
++		for (j = 0; j < HFI_HISTORY_SZ; j++) {
++			unsigned idx = (j + queue->history_idx) % HFI_HISTORY_SZ;
++			state->hfi_queue_history[i][j] = queue->history[idx];
++		}
++	}
++}
 +
 +#define GEN8_DEBUGBUS_BLOCK_SIZE 0x100
 +
-+struct gen8_debugbus_info{
-+	u32 debugbus_id;
-+	u32 debugbus_lastusedindex;
-+};
++#define GEN8_DEBUGBUS_BLOCK_IDX_1 128
++#define GEN8_DEBUGBUS_BLOCK_IDX_2 192
 +
-+struct gen8_sel_reg {
-+	u32 host_reg;
-+	u32 cd_reg;
-+	u32 val;
-+};
++static void gen8_dbgc_debugbus_select(struct msm_gpu *gpu, u32 block_id, u32 index)
++{
++	u32 reg;
 +
++	reg = A7XX_DBGC_CFG_DBGBUS_SEL_D_PING_INDEX(index) |
++		A7XX_DBGC_CFG_DBGBUS_SEL_D_PING_BLK_SEL(block_id);
 +
-+struct gen8_shader_block {
-+	/* statetype: Type identifier for the block */
-+	u32 statetype;
-+	/* size: Size of the block (in dwords) */
-+	u32 size;
-+	/* num_sps: The number of SPs to dump */
-+	u32 num_sps;
-+	/* num_usptps: The number of USPTPs to dump */
-+	u32 usptp_id;
-+	/* pipeid: Pipe identifier for the block data  */
-+	u32 pipeid;
-+	/* location: Location identifier for the block data */
-+	u32 location;
-+	/* slice_region: slice region, if SLICE then loop over all slices */
-+	u32 slice_region;
-+	/* num_ctx: repeat id to loop */
-+	u32 num_ctx;
-+};
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_A, reg);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_B, reg);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_C, reg);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_D, reg);
 +
-+struct gen8_cluster_registers {
-+	/* cluster_id: Cluster identifier */
-+	u32 cluster_id;
-+	/* slice_region: is it slice or unslice */
-+	u32 slice_region;
-+	/* pipe_id: Pipe Identifier */
-+	u32 pipe_id;
-+	/* context_id: one of STATE_ that identifies the context to dump */
-+	u32 context_id;
-+	/* regs: Pointer to an array of register pairs */
-+	const u32 *regs;
-+	/* sel: Pointer to a selector register to write before reading */
-+	const struct gen8_sel_reg *sel;
-+};
++	/*
++	 * There needs to be a delay of 1 us to ensure enough time for correct
++	 * data is funneled into the trace buffer
++	 */
++	udelay(1);
++}
 +
-+struct gen8_sptp_cluster_registers {
-+	/* cluster_id: Cluster identifier */
-+	u32 cluster_id;
-+	/* slice_region: is it slice or unslice */
-+	u32 slice_region;
-+	/* num_sps: The number of SPs to dump */
-+	u32 num_sps;
-+	/* num_usptps: The number of USPs to dump */
-+	u32 num_usptps;
-+	/* statetype: SP block state type for the cluster */
-+	u32 statetype;
-+	/* pipe_id: Pipe identifier */
-+	u32 pipe_id;
-+	/* context_id: Context identifier */
-+	u32 context_id;
-+	/* location_id: Location identifier */
-+	u32 location_id;
-+	/* regs: Pointer to the list of register pairs to read */
-+	const u32 *regs;
-+	/* regbase: Dword offset of the register block in the GPu register space */
-+	u32 regbase;
-+};
++static void gen8_dbgc_side_debug_bus_read(struct msm_gpu *gpu,
++	u32 block_id, u32 index, struct adreno_snapshot_sect *sect)
++{
++	u32 reg, side_data;
 +
-+struct gen8_cp_indexed_reg {
-+	u32 addr;
-+	u32 data;
-+	u32 slice_region;
-+	u32 pipe_id;
-+	u32 size;
-+};
++	gen8_dbgc_debugbus_select(gpu, block_id, index);
 +
-+struct gen8_pc_indexed_reg {
-+	u32 addr;
-+	u32 data;
-+	u32 slice_region;
-+	u32 pipe_id;
-+	u32 size;
-+};
++	reg = gpu_read(gpu, REG_A6XX_DBGC_CFG_DBGBUS_OVER);
++	side_data = FIELD_GET(GENMASK(27, 24), reg);
 +
-+struct gen8_reg_list {
-+	u32 slice_region;
-+	const u32       *regs;
-+	const struct gen8_sel_reg *sel;
-+};
++	snapshot_sect_u32(sect, side_data);
++}
 +
++static void gen8_snapshot_dbgc_side_debugbus_block(
++	struct msm_gpu *gpu, uint32_t block_id, size_t count,
++	struct adreno_snapshot_sect *sect)
++{
++	for (int i = 0; i < count; i++)
++		gen8_dbgc_side_debug_bus_read(gpu, block_id, i, sect);
++}
 +
++static void gen8_dbgc_debug_bus_read(struct msm_gpu *gpu,
++	u32 block_id, u32 index, struct adreno_snapshot_sect *sect)
++{
++	gen8_dbgc_debugbus_select(gpu, block_id, index);
 +
-+#define UNSLICE                 0
-+#define SLICE                   1
++	snapshot_sect_u32(sect, gpu_read(gpu, REG_A6XX_DBGC_CFG_DBGBUS_TRACE_BUF2));
++	snapshot_sect_u32(sect, gpu_read(gpu, REG_A6XX_DBGC_CFG_DBGBUS_TRACE_BUF1));
++}
 +
-+enum gen8_uSPTPSelectID_ids {
-+	uSPTP0                         = 0,
-+	uSPTP1                         = 1,
-+	Reserved2                      = 2,
-+	Reserved3                      = 3,
-+	uSPTP0_nSP0                    = 4,
-+	uSPTP0_nSP1                    = 5,
-+	uSPTP0_nSP2                    = 6,
-+	Reserved7                      = 7,
-+	uSPTP1_nSP0                    = 8,
-+	uSPTP1_nSP1                    = 9,
-+	uSPTP1_nSP2                    = 10,
-+	Reserved11                     = 11,
-+	Reserved12                     = 12,
-+	Reserved13                     = 13,
-+	Reserved14                     = 14,
-+	SPTOP                          = 15,
-+};
++static void gen8_snapshot_dbgc_debugbus_block(
++	struct msm_gpu *gpu, uint32_t block_id, size_t count,
++	struct adreno_snapshot_sect *sect)
++{
++	for (int i = 0; i < count; i++)
++		gen8_dbgc_debug_bus_read(gpu, block_id, i, sect);
++}
 +
++static void gen8_snapshot_debugbus(struct msm_gpu *gpu, struct adreno_gpu_state *state)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
 +
-+enum gen8_debugbus_ids {
-+	DEBUGBUS_GBIF_CX_GC_US_I_0          = 1,
-+	DEBUGBUS_GMU_CX_GC_US_I_0           = 2,
-+	DEBUGBUS_CX_GC_US_I_0               = 3,
-+	DEBUGBUS_GBIF_GX_GC_US_I_0          = 8,
-+	DEBUGBUS_GMU_GX_GC_US_I_0           = 9,
-+	DEBUGBUS_DBGC_GC_US_I_0             = 10,
-+	DEBUGBUS_RBBM_GC_US_I_0             = 11,
-+	DEBUGBUS_LARC_GC_US_I_0             = 12,
-+	DEBUGBUS_COM_GC_US_I_0              = 13,
-+	DEBUGBUS_HLSQ_GC_US_I_0             = 14,
-+	DEBUGBUS_CGC_GC_US_I_0              = 15,
-+	DEBUGBUS_VSC_GC_US_I_0_0            = 20,
-+	DEBUGBUS_VSC_GC_US_I_0_1            = 21,
-+	DEBUGBUS_UFC_GC_US_I_0              = 24,
-+	DEBUGBUS_UFC_GC_US_I_1              = 25,
-+	DEBUGBUS_CP_GC_US_I_0_0             = 40,
-+	DEBUGBUS_CP_GC_US_I_0_1             = 41,
-+	DEBUGBUS_CP_GC_US_I_0_2             = 42,
-+	DEBUGBUS_PC_BR_US_I_0               = 56,
-+	DEBUGBUS_PC_BV_US_I_0               = 57,
-+	DEBUGBUS_GPC_BR_US_I_0              = 58,
-+	DEBUGBUS_GPC_BV_US_I_0              = 59,
-+	DEBUGBUS_VPC_BR_US_I_0              = 60,
-+	DEBUGBUS_VPC_BV_US_I_0              = 61,
-+	DEBUGBUS_UCHE_WRAPPER_GC_US_I_0     = 80,
-+	DEBUGBUS_UCHE_GC_US_I_0             = 81,
-+	DEBUGBUS_UCHE_GC_US_I_1             = 82,
-+	DEBUGBUS_UCHE_GC_US_I_0_1           = 83,
-+	DEBUGBUS_UCHE_GC_US_I_1_1           = 84,
-+	DEBUGBUS_CP_GC_S_0_I_0              = 128,
-+	DEBUGBUS_PC_BR_S_0_I_0              = 129,
-+	DEBUGBUS_PC_BV_S_0_I_0              = 130,
-+	DEBUGBUS_TESS_GC_S_0_I_0            = 131,
-+	DEBUGBUS_TSEFE_GC_S_0_I_0           = 132,
-+	DEBUGBUS_TSEBE_GC_S_0_I_0           = 133,
-+	DEBUGBUS_RAS_GC_S_0_I_0             = 134,
-+	DEBUGBUS_LRZ_BR_S_0_I_0             = 135,
-+	DEBUGBUS_LRZ_BV_S_0_I_0             = 136,
-+	DEBUGBUS_VFDP_GC_S_0_I_0            = 137,
-+	DEBUGBUS_GPC_BR_S_0_I_0             = 138,
-+	DEBUGBUS_GPC_BV_S_0_I_0             = 139,
-+	DEBUGBUS_VPCFE_BR_S_0_I_0           = 140,
-+	DEBUGBUS_VPCFE_BV_S_0_I_0           = 141,
-+	DEBUGBUS_VPCBE_BR_S_0_I_0           = 142,
-+	DEBUGBUS_VPCBE_BV_S_0_I_0           = 143,
-+	DEBUGBUS_CCHE_GC_S_0_I_0            = 144,
-+	DEBUGBUS_DBGC_GC_S_0_I_0            = 145,
-+	DEBUGBUS_LARC_GC_S_0_I_0            = 146,
-+	DEBUGBUS_RBBM_GC_S_0_I_0            = 147,
-+	DEBUGBUS_CCRE_GC_S_0_I_0            = 148,
-+	DEBUGBUS_CGC_GC_S_0_I_0             = 149,
-+	DEBUGBUS_GMU_GC_S_0_I_0             = 150,
-+	DEBUGBUS_SLICE_GC_S_0_I_0           = 151,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_0_I_0  = 152,
-+	DEBUGBUS_SLICE_HM1_S_0_I_0          = 154,
-+	DEBUGBUS_SLICE_HM1_S_0_I_1          = 155,
-+	DEBUGBUS_USP_GC_S_0_I_0             = 160,
-+	DEBUGBUS_USP_GC_S_0_I_1             = 161,
-+	DEBUGBUS_USPTP_GC_S_0_I_0           = 166,
-+	DEBUGBUS_USPTP_GC_S_0_I_1           = 167,
-+	DEBUGBUS_USPTP_GC_S_0_I_2           = 168,
-+	DEBUGBUS_USPTP_GC_S_0_I_3           = 169,
-+	DEBUGBUS_TP_GC_S_0_I_0              = 178,
-+	DEBUGBUS_TP_GC_S_0_I_1              = 179,
-+	DEBUGBUS_TP_GC_S_0_I_2              = 180,
-+	DEBUGBUS_TP_GC_S_0_I_3              = 181,
-+	DEBUGBUS_RB_GC_S_0_I_0              = 190,
-+	DEBUGBUS_RB_GC_S_0_I_1              = 191,
-+	DEBUGBUS_CCU_GC_S_0_I_0             = 196,
-+	DEBUGBUS_CCU_GC_S_0_I_1             = 197,
-+	DEBUGBUS_HLSQ_GC_S_0_I_0            = 202,
-+	DEBUGBUS_HLSQ_GC_S_0_I_1            = 203,
-+	DEBUGBUS_VFD_GC_S_0_I_0             = 208,
-+	DEBUGBUS_VFD_GC_S_0_I_1             = 209,
-+	DEBUGBUS_NSP_S_0_I_0                = 214,
-+	DEBUGBUS_NSP_S_0_I_1                = 215,
-+	DEBUGBUS_NSP_S_0_I_2                = 216,
-+	DEBUGBUS_NSP_S_0_I_3                = 217,
-+	DEBUGBUS_NSP_S_0_I_4                = 218,
-+	DEBUGBUS_NSP_S_0_I_5                = 219,
-+	DEBUGBUS_NSP_S_0_I_6                = 220,
-+	DEBUGBUS_NSP_S_0_I_7                = 221,
-+	DEBUGBUS_MALU_S_0_I_0               = 230,
-+	DEBUGBUS_MALU_S_0_I_1               = 231,
-+	DEBUGBUS_MALU_S_0_I_2               = 232,
-+	DEBUGBUS_MALU_S_0_I_3               = 233,
-+	DEBUGBUS_CP_GC_S_1_I_0              = 256,
-+	DEBUGBUS_PC_BR_S_1_I_0              = 257,
-+	DEBUGBUS_PC_BV_S_1_I_0              = 258,
-+	DEBUGBUS_TESS_GC_S_1_I_0            = 259,
-+	DEBUGBUS_TSEFE_GC_S_1_I_0           = 260,
-+	DEBUGBUS_TSEBE_GC_S_1_I_0           = 261,
-+	DEBUGBUS_RAS_GC_S_1_I_0             = 262,
-+	DEBUGBUS_LRZ_BR_S_1_I_0             = 263,
-+	DEBUGBUS_LRZ_BV_S_1_I_0             = 264,
-+	DEBUGBUS_VFDP_GC_S_1_I_0            = 265,
-+	DEBUGBUS_GPC_BR_S_1_I_0             = 266,
-+	DEBUGBUS_GPC_BV_S_1_I_0             = 267,
-+	DEBUGBUS_VPCFE_BR_S_1_I_0           = 268,
-+	DEBUGBUS_VPCFE_BV_S_1_I_0           = 269,
-+	DEBUGBUS_VPCBE_BR_S_1_I_0           = 270,
-+	DEBUGBUS_VPCBE_BV_S_1_I_0           = 271,
-+	DEBUGBUS_CCHE_GC_S_1_I_0            = 272,
-+	DEBUGBUS_DBGC_GC_S_1_I_0            = 273,
-+	DEBUGBUS_LARC_GC_S_1_I_0            = 274,
-+	DEBUGBUS_RBBM_GC_S_1_I_0            = 275,
-+	DEBUGBUS_CCRE_GC_S_1_I_0            = 276,
-+	DEBUGBUS_CGC_GC_S_1_I_0             = 277,
-+	DEBUGBUS_GMU_GC_S_1_I_0             = 278,
-+	DEBUGBUS_SLICE_GC_S_1_I_0           = 279,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_1_I_0  = 280,
-+	DEBUGBUS_SLICE_HM1_S_1_I_0          = 282,
-+	DEBUGBUS_SLICE_HM1_S_1_I_1          = 283,
-+	DEBUGBUS_USP_GC_S_1_I_0             = 288,
-+	DEBUGBUS_USP_GC_S_1_I_1             = 289,
-+	DEBUGBUS_USPTP_GC_S_1_I_0           = 294,
-+	DEBUGBUS_USPTP_GC_S_1_I_1           = 295,
-+	DEBUGBUS_USPTP_GC_S_1_I_2           = 296,
-+	DEBUGBUS_USPTP_GC_S_1_I_3           = 297,
-+	DEBUGBUS_TP_GC_S_1_I_0              = 306,
-+	DEBUGBUS_TP_GC_S_1_I_1              = 307,
-+	DEBUGBUS_TP_GC_S_1_I_2              = 308,
-+	DEBUGBUS_TP_GC_S_1_I_3              = 309,
-+	DEBUGBUS_RB_GC_S_1_I_0              = 318,
-+	DEBUGBUS_RB_GC_S_1_I_1              = 319,
-+	DEBUGBUS_CCU_GC_S_1_I_0             = 324,
-+	DEBUGBUS_CCU_GC_S_1_I_1             = 325,
-+	DEBUGBUS_HLSQ_GC_S_1_I_0            = 330,
-+	DEBUGBUS_HLSQ_GC_S_1_I_1            = 331,
-+	DEBUGBUS_VFD_GC_S_1_I_0             = 336,
-+	DEBUGBUS_NSP_S_1_I_0                = 342,
-+	DEBUGBUS_NSP_S_1_I_1                = 343,
-+	DEBUGBUS_NSP_S_1_I_2                = 344,
-+	DEBUGBUS_NSP_S_1_I_3                = 345,
-+	DEBUGBUS_NSP_S_1_I_4                = 346,
-+	DEBUGBUS_NSP_S_1_I_5                = 347,
-+	DEBUGBUS_NSP_S_1_I_6                = 348,
-+	DEBUGBUS_NSP_S_1_I_7                = 349,
-+	DEBUGBUS_MALU_S_1_I_0               = 358,
-+	DEBUGBUS_MALU_S_1_I_1               = 359,
-+	DEBUGBUS_MALU_S_1_I_2               = 360,
-+	DEBUGBUS_MALU_S_1_I_3               = 361,
-+	DEBUGBUS_VFD_GC_S_1_I_1             = 337,
-+	DEBUGBUS_CP_GC_S_2_I_0              = 384,
-+	DEBUGBUS_PC_BR_S_2_I_0              = 385,
-+	DEBUGBUS_PC_BV_S_2_I_0              = 386,
-+	DEBUGBUS_TESS_GC_S_2_I_0            = 387,
-+	DEBUGBUS_TSEFE_GC_S_2_I_0           = 388,
-+	DEBUGBUS_TSEBE_GC_S_2_I_0           = 389,
-+	DEBUGBUS_RAS_GC_S_2_I_0             = 390,
-+	DEBUGBUS_LRZ_BR_S_2_I_0             = 391,
-+	DEBUGBUS_LRZ_BV_S_2_I_0             = 392,
-+	DEBUGBUS_VFDP_GC_S_2_I_0            = 393,
-+	DEBUGBUS_GPC_BR_S_2_I_0             = 394,
-+	DEBUGBUS_GPC_BV_S_2_I_0             = 395,
-+	DEBUGBUS_VPCFE_BR_S_2_I_0           = 396,
-+	DEBUGBUS_VPCFE_BV_S_2_I_0           = 397,
-+	DEBUGBUS_VPCBE_BR_S_2_I_0           = 398,
-+	DEBUGBUS_VPCBE_BV_S_2_I_0           = 399,
-+	DEBUGBUS_CCHE_GC_S_2_I_0            = 400,
-+	DEBUGBUS_DBGC_GC_S_2_I_0            = 401,
-+	DEBUGBUS_LARC_GC_S_2_I_0            = 402,
-+	DEBUGBUS_RBBM_GC_S_2_I_0            = 403,
-+	DEBUGBUS_CCRE_GC_S_2_I_0            = 404,
-+	DEBUGBUS_CGC_GC_S_2_I_0             = 405,
-+	DEBUGBUS_GMU_GC_S_2_I_0             = 406,
-+	DEBUGBUS_SLICE_GC_S_2_I_0           = 407,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_2_I_0  = 408,
-+	DEBUGBUS_SLICE_HM1_S_2_I_0          = 410,
-+	DEBUGBUS_SLICE_HM1_S_2_I_1          = 411,
-+	DEBUGBUS_USP_GC_S_2_I_0             = 416,
-+	DEBUGBUS_USP_GC_S_2_I_1             = 417,
-+	DEBUGBUS_USPTP_GC_S_2_I_0           = 422,
-+	DEBUGBUS_USPTP_GC_S_2_I_1           = 423,
-+	DEBUGBUS_USPTP_GC_S_2_I_2           = 424,
-+	DEBUGBUS_USPTP_GC_S_2_I_3           = 425,
-+	DEBUGBUS_TP_GC_S_2_I_0              = 434,
-+	DEBUGBUS_TP_GC_S_2_I_1              = 435,
-+	DEBUGBUS_TP_GC_S_2_I_2              = 436,
-+	DEBUGBUS_TP_GC_S_2_I_3              = 437,
-+	DEBUGBUS_RB_GC_S_2_I_0              = 446,
-+	DEBUGBUS_RB_GC_S_2_I_1              = 447,
-+	DEBUGBUS_CCU_GC_S_2_I_0             = 452,
-+	DEBUGBUS_CCU_GC_S_2_I_1             = 453,
-+	DEBUGBUS_HLSQ_GC_S_2_I_0            = 458,
-+	DEBUGBUS_HLSQ_GC_S_2_I_1            = 459,
-+	DEBUGBUS_VFD_GC_S_2_I_0             = 464,
-+	DEBUGBUS_VFD_GC_S_2_I_1             = 465,
-+	DEBUGBUS_NSP_S_2_I_0                = 470,
-+	DEBUGBUS_NSP_S_2_I_1                = 471,
-+	DEBUGBUS_NSP_S_2_I_2                = 472,
-+	DEBUGBUS_NSP_S_2_I_3                = 473,
-+	DEBUGBUS_NSP_S_2_I_4                = 474,
-+	DEBUGBUS_NSP_S_2_I_5                = 475,
-+	DEBUGBUS_NSP_S_2_I_6                = 476,
-+	DEBUGBUS_NSP_S_2_I_7                = 477,
-+	DEBUGBUS_MALU_S_2_I_0               = 486,
-+	DEBUGBUS_MALU_S_2_I_1               = 487,
-+	DEBUGBUS_MALU_S_2_I_2               = 488,
-+	DEBUGBUS_MALU_S_2_I_3               = 489,
-+	/* Slice 3 - present in gen8_1_0 (4-slice GPU) */
-+	DEBUGBUS_CP_GC_S_3_I_0              = 512,
-+	DEBUGBUS_PC_BR_S_3_I_0              = 513,
-+	DEBUGBUS_PC_BV_S_3_I_0              = 514,
-+	DEBUGBUS_TESS_GC_S_3_I_0            = 515,
-+	DEBUGBUS_TSEFE_GC_S_3_I_0           = 516,
-+	DEBUGBUS_TSEBE_GC_S_3_I_0           = 517,
-+	DEBUGBUS_RAS_GC_S_3_I_0             = 518,
-+	DEBUGBUS_LRZ_BR_S_3_I_0             = 519,
-+	DEBUGBUS_LRZ_BV_S_3_I_0             = 520,
-+	DEBUGBUS_VFDP_GC_S_3_I_0            = 521,
-+	DEBUGBUS_GPC_BR_S_3_I_0             = 522,
-+	DEBUGBUS_GPC_BV_S_3_I_0             = 523,
-+	DEBUGBUS_VPCFE_BR_S_3_I_0           = 524,
-+	DEBUGBUS_VPCFE_BV_S_3_I_0           = 525,
-+	DEBUGBUS_VPCBE_BR_S_3_I_0           = 526,
-+	DEBUGBUS_VPCBE_BV_S_3_I_0           = 527,
-+	DEBUGBUS_CCHE_GC_S_3_I_0            = 528,
-+	DEBUGBUS_DBGC_GC_S_3_I_0            = 529,
-+	DEBUGBUS_LARC_GC_S_3_I_0            = 530,
-+	DEBUGBUS_RBBM_GC_S_3_I_0            = 531,
-+	DEBUGBUS_CCRE_GC_S_3_I_0            = 532,
-+	DEBUGBUS_CGC_GC_S_3_I_0             = 533,
-+	DEBUGBUS_GMU_GC_S_3_I_0             = 534,
-+	DEBUGBUS_SLICE_GC_S_3_I_0           = 535,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_3_I_0  = 536,
-+	DEBUGBUS_USP_GC_S_3_I_0             = 544,
-+	DEBUGBUS_USP_GC_S_3_I_1             = 545,
-+	DEBUGBUS_USPTP_GC_S_3_I_0           = 550,
-+	DEBUGBUS_USPTP_GC_S_3_I_1           = 551,
-+	DEBUGBUS_USPTP_GC_S_3_I_2           = 552,
-+	DEBUGBUS_USPTP_GC_S_3_I_3           = 553,
-+	DEBUGBUS_TP_GC_S_3_I_0              = 562,
-+	DEBUGBUS_TP_GC_S_3_I_1              = 563,
-+	DEBUGBUS_TP_GC_S_3_I_2              = 564,
-+	DEBUGBUS_TP_GC_S_3_I_3              = 565,
-+	DEBUGBUS_RB_GC_S_3_I_0              = 574,
-+	DEBUGBUS_RB_GC_S_3_I_1              = 575,
-+	DEBUGBUS_CCU_GC_S_3_I_0             = 580,
-+	DEBUGBUS_CCU_GC_S_3_I_1             = 581,
-+	DEBUGBUS_HLSQ_GC_S_3_I_0            = 586,
-+	DEBUGBUS_HLSQ_GC_S_3_I_1            = 587,
-+	DEBUGBUS_VFD_GC_S_3_I_0             = 592,
-+	DEBUGBUS_VFD_GC_S_3_I_1             = 593,
-+};
++	/* Set up the GX debug bus */
 +
-+/* Not easy to get the generated code to directly use reg offsets for these: */
-+#define GEN8_RB_SUB_BLOCK_SEL_CNTL_HOST REG_A6XX_RB_SUB_BLOCK_SEL_CNTL_HOST
-+#define GEN8_RB_SUB_BLOCK_SEL_CNTL_CD   REG_A6XX_RB_SUB_BLOCK_SEL_CNTL_CD
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_CNTLT,
++		A6XX_DBGC_CFG_DBGBUS_CNTLT_SEGT(0xf));
++
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_CNTLM,
++		A6XX_DBGC_CFG_DBGBUS_CNTLM_ENABLE(0xf));
++
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_IVTL_0, 0);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_IVTL_1, 0);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_IVTL_2, 0);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_IVTL_3, 0);
++
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_BYTEL_0, 0x76543210);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_BYTEL_1, 0xFEDCBA98);
++
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_MASKL_0, 0);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_MASKL_1, 0);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_MASKL_2, 0);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_MASKL_3, 0);
++
++	/* Read the blocks: */
++
++	for (int i = 0; i < b->debugbus_blocks_len; i++) {
++		size_t count = GEN8_DEBUGBUS_BLOCK_SIZE;
++		uint32_t block_id = b->debugbus_blocks[i];
++
++		snapshot_sect (state, DEBUGBUS, 4 * 2 * count, {
++			/* debugbus section hdr: */
++			.id = block_id,
++			.count = count * 2,
++		}) {
++			gen8_snapshot_dbgc_debugbus_block(gpu, block_id, count, &sect);
++		}
++
++		snapshot_sect (state, SIDE_DEBUGBUS, 4 * count, {
++			/* side_debugbus section hdr: */
++			.id = block_id,
++			.size = count,
++			.valid_data = 0x4,
++		}) {
++			gen8_snapshot_dbgc_side_debugbus_block(gpu, block_id, count, &sect);
++		}
++	}
++
++	for (int i = 0; i < b->gbif_debugbus_blocks_len; i++) {
++		size_t count = GEN8_DEBUGBUS_BLOCK_SIZE;
++		uint32_t block_id = b->gbif_debugbus_blocks[i];
++
++		snapshot_sect (state, DEBUGBUS, 4 * 2 * count, {
++			/* debugbus section hdr: */
++			.id = block_id,
++			.count = count * 2,
++		}) {
++			gen8_snapshot_dbgc_debugbus_block(gpu, block_id, count, &sect);
++		}
++
++		snapshot_sect (state, SIDE_DEBUGBUS, 4 * count, {
++			/* side_debugbus section hdr: */
++			.id = block_id,
++			.size = count,
++			.valid_data = 0x4,
++		}) {
++			gen8_snapshot_dbgc_side_debugbus_block(gpu, block_id, count, &sect);
++		}
++	}
++}
++
++#define cxdbg_write(gpu, offset, val) \
++	gpu_write((gpu), (offset) + 0x18400, (val))
++
++#define cxdbg_read(gpu, offset) \
++	gpu_read((gpu), (offset) + 0x18400)
++
++static void gen8_cx_dbgc_debugbus_select(struct msm_gpu *gpu, u32 block_id, u32 index)
++{
++	u32 reg;
++
++	reg = A7XX_CX_DBGC_CFG_DBGBUS_SEL_A_PING_INDEX(index) |
++		A7XX_CX_DBGC_CFG_DBGBUS_SEL_A_PING_BLK_SEL(block_id);
++
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_SEL_A, reg);
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_SEL_B, reg);
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_SEL_C, reg);
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_SEL_D, reg);
++
++	/*
++	 * There needs to be a delay of 1 us to ensure enough time for correct
++	 * data is funneled into the trace buffer
++	 */
++	udelay(1);
++}
++
++static void gen8_debugbus_internal_read_setup(struct msm_gpu *gpu)
++{
++	/* Clear the DBGC logic/events */
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_CNTLM, 0x70000000);
++
++	/* Enable the internal buffer mode and program to tail mode */
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_OPL, 0x28000000);
++
++	/* Program the logic unit 0 to high when the side data is 1 */
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_BYTEL_0, 0x0000000c);
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_MASKL_0, 0x000000f0);
++
++	/* Enable the DBGC logic/events */
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_CNTLM, 0x07000000);
++}
++
++static void gen8_cx_gc_us_i_0_debugbus_read(
++	struct msm_gpu *gpu, u32 block_id, u32 index, u32 data[2])
++{
++	gen8_cx_dbgc_debugbus_select(gpu, block_id, index);
++
++	/*
++	 * Select lower 32 bits of internal buffer data for internal mux[1:0]
++	 * DBGC_CFG_DBGBUS_IDX.internalIndex0 = 24 (0x18)
++	 * DBGC_CFG_DBGBUS_IDX.internalIndex1 = 25 (0x19)
++	 */
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_IDX, 0x00001918);
++	udelay(1);
++
++	data[0] = cxdbg_read(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_TRACE_BUF3);
++
++	/*
++	 * Select upper 32 bits of internal buffer data for internal mux[1:0]
++	 * DBGC_CFG_DBGBUS_IDX.internalIndex0 = 26 (0x1a)
++	 * DBGC_CFG_DBGBUS_IDX.internalIndex1 = 27 (0x1b)
++	 */
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_IDX, 0x00001a1b);
++	udelay(1);
++
++	data[1] = cxdbg_read(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_TRACE_BUF3);
++}
++
++/* gen8_cx_dbgc_debug_bus_read() - Read data from trace bus */
++static void gen8_cx_debug_bus_read(
++	struct msm_gpu *gpu, u32 block_id, u32 index, u32 data[2])
++{
++	gen8_cx_dbgc_debugbus_select(gpu, block_id, index);
++
++	data[0] = cxdbg_read(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_TRACE_BUF2);
++	data[1] = cxdbg_read(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_TRACE_BUF1);
++}
++
++static void gen8_snapshot_cx_dbgc_debugbus_block(
++	struct msm_gpu *gpu, uint32_t block_id, size_t count,
++	struct adreno_snapshot_sect *sect)
++{
++	/* This block requires an out of order access due to a HW limitation.
++	 * (QCTDD12240539)
++	 */
++	if (block_id == DEBUGBUS_CX_GC_US_I_0) {
++		static u32 data[GEN8_DEBUGBUS_BLOCK_SIZE * 2];
++		gen8_debugbus_internal_read_setup(gpu);
++		for (int i = 0; i < GEN8_DEBUGBUS_BLOCK_IDX_1; i++)
++			gen8_cx_gc_us_i_0_debugbus_read(gpu, block_id, i, &data[i * 2]);
++		for (int i = GEN8_DEBUGBUS_BLOCK_IDX_2; i < GEN8_DEBUGBUS_BLOCK_SIZE; i++)
++			gen8_cx_gc_us_i_0_debugbus_read(gpu, block_id, i, &data[i * 2]);
++		for (int i = GEN8_DEBUGBUS_BLOCK_IDX_1; i < GEN8_DEBUGBUS_BLOCK_IDX_2; i++)
++			gen8_cx_gc_us_i_0_debugbus_read(gpu, block_id, i, &data[i * 2]);
++		snapshot_sect_arr(sect, data);
++	} else {
++		for (int i = 0; i < count; i++) {
++			u32 data[2];
++			gen8_cx_debug_bus_read(gpu, block_id, i, data);
++			snapshot_sect_arr(sect, data);
++		}
++	}
++}
 +
 +
-+enum gen8_statetype_ids {
-+	TP0_NCTX_REG                   = 0,
-+	TP0_CTX0_3D_CVS_REG            = 1,
-+	TP0_CTX0_3D_CPS_REG            = 2,
-+	TP0_CTX1_3D_CVS_REG            = 3,
-+	TP0_CTX1_3D_CPS_REG            = 4,
-+	TP0_CTX2_3D_CPS_REG            = 5,
-+	TP0_CTX3_3D_CPS_REG            = 6,
-+	TP0_TMO_DATA                   = 9,
-+	TP0_SMO_DATA                   = 10,
-+	TP0_MIPMAP_BASE_DATA           = 11,
-+	TP_3D_CVS_REG                  = 12,
-+	TP_3D_CPS_REG                  = 13,
-+	SP_3D_CVS_REG                  = 16,
-+	SP_3D_CPS_REG                  = 17,
-+	SP_LB_DATA_RAM                 = 22,
-+	SP_INST_DATA_RAM               = 23,
-+	SP_STH                         = 24,
-+	SP_EVQ                         = 25,
-+	SP_CONSMNG                     = 26,
-+	HLSQ_INST_DATA_RAM             = 30,
-+	SP_INST_DATA_3                 = 31,
-+	SP_NCTX_REG                    = 32,
-+	SP_CTX0_3D_CVS_REG             = 33,
-+	SP_CTX0_3D_CPS_REG             = 34,
-+	SP_CTX1_3D_CVS_REG             = 35,
-+	SP_CTX1_3D_CPS_REG             = 36,
-+	SP_CTX2_3D_CPS_REG             = 37,
-+	SP_CTX3_3D_CPS_REG             = 38,
-+	SP_INST_DATA                   = 39,
-+	SP_INST_DATA_1                 = 40,
-+	SP_LB_0_DATA                   = 41,
-+	SP_LB_1_DATA                   = 42,
-+	SP_LB_2_DATA                   = 43,
-+	SP_LB_3_DATA                   = 44,
-+	SP_LB_4_DATA                   = 45,
-+	SP_LB_5_DATA                   = 46,
-+	SP_LB_6_DATA                   = 47,
-+	SP_LB_7_DATA                   = 48,
-+	SP_CB_RAM                      = 49,
-+	SP_LB_13_DATA                  = 50,
-+	SP_LB_14_DATA                  = 51,
-+	SP_INST_TAG                    = 52,
-+	SP_INST_DATA_2                 = 53,
-+	SP_TMO_TAG                     = 54,
-+	SP_SMO_TAG                     = 55,
-+	SP_STATE_DATA                  = 56,
-+	SP_HWAVE_RAM                   = 57,
-+	SP_L0_INST_BUF                 = 58,
-+	SP_LB_8_DATA                   = 59,
-+	SP_LB_9_DATA                   = 60,
-+	SP_LB_10_DATA                  = 61,
-+	SP_LB_11_DATA                  = 62,
-+	SP_LB_12_DATA                  = 63,
-+	HLSQ_DATAPATH_DSTR_META        = 64,
-+	HLSQ_DESC_REMAP_META           = 65,
-+	HLSQ_SLICE_TOP_META            = 66,
-+	HLSQ_L2STC_TAG_RAM             = 67,
-+	HLSQ_L2STC_INFO_CMD            = 68,
-+	HLSQ_CVS_BE_CTXT_BUF_RAM_TAG   = 69,
-+	HLSQ_CPS_BE_CTXT_BUF_RAM_TAG   = 70,
-+	HLSQ_GFX_CVS_BE_CTXT_BUF_RAM   = 71,
-+	HLSQ_GFX_CPS_BE_CTXT_BUF_RAM   = 72,
-+	HLSQ_CHUNK_CVS_RAM             = 73,
-+	HLSQ_CHUNK_CPS_RAM             = 74,
-+	HLSQ_CHUNK_CVS_RAM_TAG         = 75,
-+	HLSQ_CHUNK_CPS_RAM_TAG         = 76,
-+	HLSQ_ICB_CVS_CB_BASE_TAG       = 77,
-+	HLSQ_ICB_CPS_CB_BASE_TAG       = 78,
-+	HLSQ_CVS_MISC_RAM              = 79,
-+	HLSQ_CPS_MISC_RAM              = 80,
-+	HLSQ_CPS_MISC_RAM_1            = 81,
-+	HLSQ_INST_RAM                  = 82,
-+	HLSQ_GFX_CVS_CONST_RAM         = 83,
-+	HLSQ_GFX_CPS_CONST_RAM         = 84,
-+	HLSQ_CVS_MISC_RAM_TAG          = 85,
-+	HLSQ_CPS_MISC_RAM_TAG          = 86,
-+	HLSQ_INST_RAM_TAG              = 87,
-+	HLSQ_GFX_CVS_CONST_RAM_TAG     = 88,
-+	HLSQ_GFX_CPS_CONST_RAM_TAG     = 89,
-+	HLSQ_GFX_LOCAL_MISC_RAM        = 90,
-+	HLSQ_GFX_LOCAL_MISC_RAM_TAG    = 91,
-+	HLSQ_INST_RAM_1                = 92,
-+	HLSQ_STPROC_META               = 93,
-+	HLSQ_SLICE_BACKEND_META        = 94,
-+	HLSQ_INST_RAM_2                = 95,
-+	HLSQ_DATAPATH_META             = 96,
-+	HLSQ_FRONTEND_META             = 97,
-+	HLSQ_INDIRECT_META             = 98,
-+	HLSQ_BACKEND_META              = 99,
-+	HLSQ_SHADOW_SP_RAM             = 100,
-+};
++/* gen8_cx_side_dbgc_debug_bus_read() - Read data from trace bus */
++static void gen8_cx_side_debug_bus_read(
++	struct msm_gpu *gpu, u32 block_id, u32 index, struct adreno_snapshot_sect *sect)
++{
++	u32 reg, side_data;
 +
-+struct gen8_snapshot_block_list {
-+	/* pre_crashdumper_regs : Registers which need to be dumped before CD runs */
-+	const struct gen8_reg_list *pre_crashdumper_regs;
-+	/* pre_crashdumper_regs_size : Size of registers which need to be dumped before CD runs */
-+	size_t num_pre_crashdumper_regs;
-+	/* debugbus_blocks : List of debugbus blocks */
-+	const u32 *debugbus_blocks;
-+	/* debugbus_blocks_len : Length of the debugbus list */
-+	size_t debugbus_blocks_len;
-+	/* gbif_debugbus_blocks : List of GBIF debugbus blocks */
-+	const u32 *gbif_debugbus_blocks;
-+	/* gbif_debugbus_blocks_len : Length of GBIF debugbus list */
-+	size_t gbif_debugbus_blocks_len;
-+	/* cx_debugbus_blocks : List of CX debugbus blocks */
-+	const u32 *cx_debugbus_blocks;
-+	/* cx_debugbus_blocks_len : Length of the CX debugbus list */
-+	size_t cx_debugbus_blocks_len;
-+	/* external_core_regs : List of external core registers */
-+	const u32 **external_core_regs;
-+	/* num_external_core_regs : length of external core registers list */
-+	size_t num_external_core_regs;
-+	/* gmu_cx_unsliced_regs : List of GMU CX unsliced registers */
-+	const u32 *gmu_cx_unsliced_regs;
-+	/* gmu_gx_registers : List of GMU registers */
-+	const struct gen8_reg_list *gmu_gx_regs;
-+	/* num_gmu_gx_regs : Length of GMU registers list */
-+	size_t num_gmu_gx_regs;
-+	/* rscc_regs : List of RSCC registers */
-+	const u32 *rscc_regs;
-+	/* reg_list : List of GPU internal registers */
-+	const struct gen8_reg_list *reg_list;
-+	size_t num_reg_list;
-+	/* reg_list : List of cx_misc registers */
-+	const u32 *cx_misc_regs;
-+	/* shader_blocks : List of GPU shader memory */
-+	const struct gen8_shader_block *shader_blocks;
-+	/* num_shader_blocks : Length of the shader memory list */
-+	size_t num_shader_blocks;
-+	/* cp_cluster_registers : List of GPU CP cluster registers */
-+	const struct gen8_cluster_registers *cp_clusters;
-+	/* num_cp_clusters : Length of GPU CP cluster registers list */
-+	size_t num_cp_clusters;
-+	/* cluster_registers : List of GPU cluster registers */
-+	const struct gen8_cluster_registers *clusters;
-+	/* num_clusters : Length of GPU cluster registers list */
-+	size_t num_clusters;
-+	/* spstp_cluster_registers : List of GPU SPTP cluster registers */
-+	const struct gen8_sptp_cluster_registers *sptp_clusters;
-+	/* num_sptp_clusters : Length of GPU SPTP cluster registers list */
-+	size_t num_sptp_clusters;
-+	/* index_registers : List of index_registers */
-+	const struct gen8_cp_indexed_reg *index_registers;
-+	/* index_registers_len : Length of the index registers */
-+	size_t index_registers_len;
-+	/* mempool_index_registers : List of CP mempool_index_registers */
-+	const struct gen8_cp_indexed_reg *mempool_index_registers;
-+	/* mempool_index_registers_len : Length of the mempool index registers */
-+	size_t mempool_index_registers_len;
-+	/* pc_index_registers : List of PC index_registers */
-+	const struct gen8_pc_indexed_reg *pc_index_registers;
-+	/* pc_index_registers_len : Length of the PC index registers */
-+	size_t pc_index_registers_len;
-+};
++	gen8_cx_dbgc_debugbus_select(gpu, block_id, index);
 +
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index c43efb85fde7..ed83dd927b54 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -129,6 +129,8 @@ struct adreno_info {
- 	 */
- 	struct adreno_speedbin *speedbins;
- 	u64 preempt_record_size;
++	reg = cxdbg_read(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_OVER);
++	side_data = FIELD_GET(GENMASK(27, 24), reg);
 +
-+	const void *snapshot_block_list;
- };
++	snapshot_sect_u32(sect, side_data);
++
++}
++
++static void gen8_snapshot_cx_side_dbgc_debugbus_block(
++	struct msm_gpu *gpu, uint32_t block_id, size_t count,
++	struct adreno_snapshot_sect *sect)
++{
++	for (int i = 0; i < count; i++)
++		gen8_cx_side_debug_bus_read(gpu, block_id, i, sect);
++}
++
++static void gen8_snapshot_cx_debugbus(struct msm_gpu *gpu, struct adreno_gpu_state *state)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
++
++	/* Set up the CX debug bus */
++
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_CNTLT,
++		A6XX_DBGC_CFG_DBGBUS_CNTLT_SEGT(0xf));
++
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_CNTLM,
++		A6XX_DBGC_CFG_DBGBUS_CNTLM_ENABLE(0xf));
++
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_IVTL_0, 0);
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_IVTL_1, 0);
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_IVTL_2, 0);
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_IVTL_3, 0);
++
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_BYTEL_0, 0x76543210);
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_BYTEL_1, 0xFEDCBA98);
++
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_MASKL_0, 0);
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_MASKL_1, 0);
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_MASKL_2, 0);
++	cxdbg_write(gpu, REG_A6XX_CX_DBGC_CFG_DBGBUS_MASKL_3, 0);
++
++	/* Read the blocks: */
++
++	for (int i = 0; i < b->cx_debugbus_blocks_len; i++) {
++		size_t count = GEN8_DEBUGBUS_BLOCK_SIZE;
++		uint32_t block_id = b->cx_debugbus_blocks[i];
++
++		snapshot_sect (state, DEBUGBUS, 4 * 2 * count, {
++			/* debugbus section hdr: */
++			.id = block_id,
++			.count = count * 2,
++		}) {
++			gen8_snapshot_cx_dbgc_debugbus_block(gpu, block_id, count, &sect);
++		}
++
++		snapshot_sect (state, SIDE_DEBUGBUS, 4 * count, {
++			/* side_debugbus section hdr: */
++			.id = block_id,
++			.size = count,
++			.valid_data = 0x4,
++		}) {
++			gen8_snapshot_cx_side_dbgc_debugbus_block(gpu, block_id, count, &sect);
++		}
++	}
++}
++
++struct msm_gpu_state *a8xx_gpu_state_get(struct msm_gpu *gpu)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
++	struct adreno_crashdumper _dumper = { 0 }, *dumper = NULL;
++	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
++	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
++	struct adreno_gpu_state *state;
++
++	/*
++	 * GPU state snapshot is inherently single threaded.  All paths
++	 * are serialized on gpu->lock.  Make that clear, and prevent
++	 * future bugs:
++	 */
++	WARN_ON_ONCE(!mutex_is_locked(&gpu->lock));
++
++	if (!b)
++		return NULL;
++
++	state = kzalloc_obj(*state);
++	if (!state)
++		return ERR_PTR(-ENOMEM);
++
++	INIT_LIST_HEAD(&state->objs);
++
++	/* Get the generic state from the adreno core */
++	adreno_gpu_state_get(gpu, &state->base);
++
++	adreno_snapshot_registers_v2(gpu, state, b->gmu_cx_unsliced_regs);
++
++	a8xx_snapshot_gmu_bo(state, &a6xx_gpu->gmu.log, SNAPSHOT_GMU_MEM_LOG);
++	a8xx_snapshot_gmu_bo(state, &a6xx_gpu->gmu.hfi, SNAPSHOT_GMU_MEM_HFI);
++	a8xx_snapshot_gmu_bo(state, &a6xx_gpu->gmu.debug, SNAPSHOT_GMU_MEM_DEBUG);
++
++	a8xx_snapshot_gmu_hfi_history(gpu, state);
++
++	snapshot_sect (state, DEBUG, 4, {
++		.type = SNAPSHOT_DEBUG_SLICE_MASK,
++		.size = 1,
++	}) {
++		snapshot_sect_u32(&sect, a6xx_gpu->slice_mask);
++	}
++	gen8_snapshot_cx_debugbus(gpu, state);
++
++	/* If GX isn't on the rest of the data isn't going to be accessible */
++	if (!a6xx_gmu_gx_is_on(adreno_gpu))
++		return &state->base;
++
++	gen8_snapshot_debugbus(gpu, state);
++
++	/*
++	 * Try to initialize the crashdumper, if we are not dumping state
++	 * with the SMMU stalled.  The crashdumper needs memory access to
++	 * write out GPU state, so we need to skip this when the SMMU is
++	 * stalled in response to an iova fault
++	 */
++	bool stalled = !!(gpu_read(gpu, REG_A8XX_RBBM_MISC_STATUS) &
++			A8XX_RBBM_MISC_STATUS_SMMU_STALLED_ON_FAULT);
++	if (!stalled && !gpu->needs_hw_init &&
++	    !a8xx_crashdumper_init(gpu, &_dumper)) {
++		dumper = &_dumper;
++	}
++
++	/* Clear aperture register */
++	a8xx_aperture_clear(gpu);
++
++	/*
++	 * Assert the isStatic bit before triggering snapshot.
++	 * BIT(0): GPU activity during snapshot dump
++	 * BIT(1): GPU UNSLICE activity during snapshot dump
++	 * Similarly, BIT(4) for slice-0, BIT(5) for slice-1 and so on.
++	 */
++	gpu_write(gpu, REG_A8XX_RBBM_SNAPSHOT_STATUS, BIT(0) | BIT(1) |
++			FIELD_PREP(GENMASK(7, 4), a6xx_gpu->slice_mask));
++
++	/* Dump the registers which get affected by crash dumper trigger */
++	for (int i = 0; i < b->num_pre_crashdumper_regs; i++) {
++		const struct gen8_reg_list *regs = &b->pre_crashdumper_regs[i];
++		u32 j;
++
++		FOR_EACH_SLICE (j, regs->slice_region, a6xx_gpu->slice_mask) {
++			u32 slice_id = SLICE_ID(regs->slice_region, j);
++			gen8_legacy_snapshot_registers(gpu, state, regs, slice_id);
++		}
++	}
++
++	/*
++	 * If crashdumper timed out while dumping this section skip everything
++	 * since even AHB acceses to the GPU might cause NoC errors.
++	 */
++	if (!gen8_reglist_snapshot(gpu, state, dumper))
++		goto out;
++
++	/* CP indexed regs data */
++	if (!gen8_snapshot_cp_indexed_regs(gpu, state, dumper))
++		goto out;
++
++	/* Mempool debug data */
++	if (!gen8_snapshot_mempool(gpu, state, dumper))
++		goto out;
++
++	/*
++	 * CP MVC register section
++	 * If crashdumper timed out while dumping any section below skip everything
++	 * since even AHB acceses to the GPU might cause NoC errors.
++	 */
++	if (!gen8_snapshot_mvc_regs(gpu, state, dumper, b->cp_clusters, b->num_cp_clusters))
++		goto out;
++
++	/* MVC register section */
++	if (!gen8_snapshot_mvc_regs(gpu, state, dumper, b->clusters, b->num_clusters))
++		goto out;
++
++	/* registers dumped through DBG AHB */
++	if (!gen8_snapshot_dbgahb_regs(gpu, state, dumper))
++		goto out;
++
++	/* Shader memory */
++	if (!gen8_snapshot_shader(gpu, state, dumper))
++		goto out;
++
++	/*
++	 * Capture preempt records after cp_clusters, to make this easier
++	 * to decode (ie. so we already know CP_CONTEXT_SWITCH_SMMU_INFO and
++	 * CP_CONTEXT_SWITCH_PRIV_NON_SECURE_RESTORE_ADDR) when crashdec sees
++	 * the logged GPU objs)
++	 */
++	for (unsigned i = 0; i < gpu->nr_rings; i++) {
++		a8xx_snapshot_gpu_bo(state, a6xx_gpu->preempt_bo[i],
++				     a6xx_gpu->preempt_iova[i]);
++		a8xx_snapshot_gpu_bo(state, a6xx_gpu->preempt_smmu_bo[i],
++				     a6xx_gpu->preempt_smmu_iova[i]);
++	}
++
++out:
++	gpu_write(gpu, REG_A8XX_RBBM_SNAPSHOT_STATUS, 0x0);
++
++	if (dumper)
++		msm_gem_kernel_put(dumper->bo, gpu->vm);
++
++	state->gpu_initialized = !gpu->needs_hw_init;
++
++	return  &state->base;
++}
++
++static void a8xx_gpu_state_destroy(struct kref *kref)
++{
++	struct adreno_state_memobj *obj, *tmp;
++	struct msm_gpu_state *state = container_of(kref,
++			struct msm_gpu_state, ref);
++	struct adreno_gpu_state *adreno_state = container_of(state,
++			struct adreno_gpu_state, base);
++
++	list_for_each_entry_safe (obj, tmp, &adreno_state->objs, node) {
++		list_del(&obj->node);
++		kvfree(obj->ptr);
++		kfree(obj);
++	}
++
++	adreno_gpu_state_destroy(state);
++	kfree(adreno_state);
++}
++
++int a8xx_gpu_state_put(struct msm_gpu_state *state)
++{
++	if (IS_ERR_OR_NULL(state))
++		return 1;
++
++	return kref_put(&state->ref, a8xx_gpu_state_destroy);
++}
++
++void a8xx_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
++		struct drm_printer *p)
++{
++	struct adreno_gpu_state *adreno_state = container_of(state,
++			struct adreno_gpu_state, base);
++	struct adreno_state_memobj *obj;
++
++	if (IS_ERR_OR_NULL(state))
++		return;
++
++	drm_printf(p, "gpu-initialized: %d\n", adreno_state->gpu_initialized);
++
++	adreno_show(gpu, state, p);
++
++	drm_puts(p, "gmu-hfi:\n");
++	for (int i = 0; i < ARRAY_SIZE(adreno_state->hfi_queue_history); i++) {
++		drm_printf(p, "    queue-history[%u]:", i);
++		for (int j = 0; j < HFI_HISTORY_SZ; j++) {
++			drm_printf(p, " %d", adreno_state->hfi_queue_history[i][j]);
++		}
++		drm_printf(p, "\n");
++	}
++
++	/*
++	 * Parsing note: do not assume each snapshot obj is only a single
++	 * section, assume sub-allocation.
++	 */
++	drm_puts(p, "snapshot:\n");
++	list_for_each_entry (obj, &adreno_state->objs, node) {
++		drm_printf(p, "    size: %zu\n", obj->size);
++		adreno_show_object(p, &obj->ptr, obj->size, &obj->encoded);
++	}
++}
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_snapshot.h b/drivers/gpu/drm/msm/adreno/adreno_snapshot.h
+index f9956e0bc1d5..1c56be7249f7 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_snapshot.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_snapshot.h
+@@ -7,6 +7,8 @@
  
- #define ADRENO_CHIP_IDS(tbl...) (uint32_t[]) { tbl, 0 }
-diff --git a/drivers/gpu/drm/msm/adreno/catalog/adreno_glymur.h b/drivers/gpu/drm/msm/adreno/catalog/adreno_glymur.h
-new file mode 100644
-index 000000000000..2989aef06809
---- /dev/null
-+++ b/drivers/gpu/drm/msm/adreno/catalog/adreno_glymur.h
-@@ -0,0 +1,2307 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ *
-+ * THIS FILE IS AUTOGENERATED!
-+ */
-+
-+#pragma once
-+
-+
-+
-+static const u32 glymur_debugbus_blocks[] = {
-+	DEBUGBUS_GBIF_GX_GC_US_I_0,
-+	DEBUGBUS_GMU_GX_GC_US_I_0,
-+	DEBUGBUS_DBGC_GC_US_I_0,
-+	DEBUGBUS_RBBM_GC_US_I_0,
-+	DEBUGBUS_LARC_GC_US_I_0,
-+	DEBUGBUS_COM_GC_US_I_0,
-+	DEBUGBUS_HLSQ_GC_US_I_0,
-+	DEBUGBUS_CGC_GC_US_I_0,
-+	DEBUGBUS_VSC_GC_US_I_0_0,
-+	DEBUGBUS_VSC_GC_US_I_0_1,
-+	DEBUGBUS_UFC_GC_US_I_0,
-+	DEBUGBUS_UFC_GC_US_I_1,
-+	DEBUGBUS_CP_GC_US_I_0_0,
-+	DEBUGBUS_CP_GC_US_I_0_1,
-+	DEBUGBUS_CP_GC_US_I_0_2,
-+	DEBUGBUS_PC_BR_US_I_0,
-+	DEBUGBUS_PC_BV_US_I_0,
-+	DEBUGBUS_GPC_BR_US_I_0,
-+	DEBUGBUS_GPC_BV_US_I_0,
-+	DEBUGBUS_VPC_BR_US_I_0,
-+	DEBUGBUS_VPC_BV_US_I_0,
-+	DEBUGBUS_UCHE_WRAPPER_GC_US_I_0,
-+	DEBUGBUS_UCHE_GC_US_I_0,
-+	DEBUGBUS_UCHE_GC_US_I_1,
-+	DEBUGBUS_UCHE_GC_US_I_0_1,
-+	DEBUGBUS_UCHE_GC_US_I_1_1,
-+	DEBUGBUS_CP_GC_S_0_I_0,
-+	DEBUGBUS_PC_BR_S_0_I_0,
-+	DEBUGBUS_PC_BV_S_0_I_0,
-+	DEBUGBUS_TESS_GC_S_0_I_0,
-+	DEBUGBUS_TSEFE_GC_S_0_I_0,
-+	DEBUGBUS_TSEBE_GC_S_0_I_0,
-+	DEBUGBUS_RAS_GC_S_0_I_0,
-+	DEBUGBUS_LRZ_BR_S_0_I_0,
-+	DEBUGBUS_LRZ_BV_S_0_I_0,
-+	DEBUGBUS_VFDP_GC_S_0_I_0,
-+	DEBUGBUS_GPC_BR_S_0_I_0,
-+	DEBUGBUS_GPC_BV_S_0_I_0,
-+	DEBUGBUS_VPCFE_BR_S_0_I_0,
-+	DEBUGBUS_VPCFE_BV_S_0_I_0,
-+	DEBUGBUS_VPCBE_BR_S_0_I_0,
-+	DEBUGBUS_VPCBE_BV_S_0_I_0,
-+	DEBUGBUS_CCHE_GC_S_0_I_0,
-+	DEBUGBUS_DBGC_GC_S_0_I_0,
-+	DEBUGBUS_LARC_GC_S_0_I_0,
-+	DEBUGBUS_RBBM_GC_S_0_I_0,
-+	DEBUGBUS_CCRE_GC_S_0_I_0,
-+	DEBUGBUS_CGC_GC_S_0_I_0,
-+	DEBUGBUS_GMU_GC_S_0_I_0,
-+	DEBUGBUS_SLICE_GC_S_0_I_0,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_0_I_0,
-+	DEBUGBUS_USP_GC_S_0_I_0,
-+	DEBUGBUS_USP_GC_S_0_I_1,
-+	DEBUGBUS_USPTP_GC_S_0_I_0,
-+	DEBUGBUS_USPTP_GC_S_0_I_1,
-+	DEBUGBUS_USPTP_GC_S_0_I_2,
-+	DEBUGBUS_USPTP_GC_S_0_I_3,
-+	DEBUGBUS_TP_GC_S_0_I_0,
-+	DEBUGBUS_TP_GC_S_0_I_1,
-+	DEBUGBUS_TP_GC_S_0_I_2,
-+	DEBUGBUS_TP_GC_S_0_I_3,
-+	DEBUGBUS_RB_GC_S_0_I_0,
-+	DEBUGBUS_RB_GC_S_0_I_1,
-+	DEBUGBUS_CCU_GC_S_0_I_0,
-+	DEBUGBUS_CCU_GC_S_0_I_1,
-+	DEBUGBUS_HLSQ_GC_S_0_I_0,
-+	DEBUGBUS_HLSQ_GC_S_0_I_1,
-+	DEBUGBUS_VFD_GC_S_0_I_0,
-+	DEBUGBUS_VFD_GC_S_0_I_1,
-+	DEBUGBUS_CP_GC_S_1_I_0,
-+	DEBUGBUS_PC_BR_S_1_I_0,
-+	DEBUGBUS_PC_BV_S_1_I_0,
-+	DEBUGBUS_TESS_GC_S_1_I_0,
-+	DEBUGBUS_TSEFE_GC_S_1_I_0,
-+	DEBUGBUS_TSEBE_GC_S_1_I_0,
-+	DEBUGBUS_RAS_GC_S_1_I_0,
-+	DEBUGBUS_LRZ_BR_S_1_I_0,
-+	DEBUGBUS_LRZ_BV_S_1_I_0,
-+	DEBUGBUS_VFDP_GC_S_1_I_0,
-+	DEBUGBUS_GPC_BR_S_1_I_0,
-+	DEBUGBUS_GPC_BV_S_1_I_0,
-+	DEBUGBUS_VPCFE_BR_S_1_I_0,
-+	DEBUGBUS_VPCFE_BV_S_1_I_0,
-+	DEBUGBUS_VPCBE_BR_S_1_I_0,
-+	DEBUGBUS_VPCBE_BV_S_1_I_0,
-+	DEBUGBUS_CCHE_GC_S_1_I_0,
-+	DEBUGBUS_DBGC_GC_S_1_I_0,
-+	DEBUGBUS_LARC_GC_S_1_I_0,
-+	DEBUGBUS_RBBM_GC_S_1_I_0,
-+	DEBUGBUS_CCRE_GC_S_1_I_0,
-+	DEBUGBUS_CGC_GC_S_1_I_0,
-+	DEBUGBUS_GMU_GC_S_1_I_0,
-+	DEBUGBUS_SLICE_GC_S_1_I_0,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_1_I_0,
-+	DEBUGBUS_USP_GC_S_1_I_0,
-+	DEBUGBUS_USP_GC_S_1_I_1,
-+	DEBUGBUS_USPTP_GC_S_1_I_0,
-+	DEBUGBUS_USPTP_GC_S_1_I_1,
-+	DEBUGBUS_USPTP_GC_S_1_I_2,
-+	DEBUGBUS_USPTP_GC_S_1_I_3,
-+	DEBUGBUS_TP_GC_S_1_I_0,
-+	DEBUGBUS_TP_GC_S_1_I_1,
-+	DEBUGBUS_TP_GC_S_1_I_2,
-+	DEBUGBUS_TP_GC_S_1_I_3,
-+	DEBUGBUS_RB_GC_S_1_I_0,
-+	DEBUGBUS_RB_GC_S_1_I_1,
-+	DEBUGBUS_CCU_GC_S_1_I_0,
-+	DEBUGBUS_CCU_GC_S_1_I_1,
-+	DEBUGBUS_HLSQ_GC_S_1_I_0,
-+	DEBUGBUS_HLSQ_GC_S_1_I_1,
-+	DEBUGBUS_VFD_GC_S_1_I_0,
-+	DEBUGBUS_VFD_GC_S_1_I_1,
-+	DEBUGBUS_CP_GC_S_2_I_0,
-+	DEBUGBUS_PC_BR_S_2_I_0,
-+	DEBUGBUS_PC_BV_S_2_I_0,
-+	DEBUGBUS_TESS_GC_S_2_I_0,
-+	DEBUGBUS_TSEFE_GC_S_2_I_0,
-+	DEBUGBUS_TSEBE_GC_S_2_I_0,
-+	DEBUGBUS_RAS_GC_S_2_I_0,
-+	DEBUGBUS_LRZ_BR_S_2_I_0,
-+	DEBUGBUS_LRZ_BV_S_2_I_0,
-+	DEBUGBUS_VFDP_GC_S_2_I_0,
-+	DEBUGBUS_GPC_BR_S_2_I_0,
-+	DEBUGBUS_GPC_BV_S_2_I_0,
-+	DEBUGBUS_VPCFE_BR_S_2_I_0,
-+	DEBUGBUS_VPCFE_BV_S_2_I_0,
-+	DEBUGBUS_VPCBE_BR_S_2_I_0,
-+	DEBUGBUS_VPCBE_BV_S_2_I_0,
-+	DEBUGBUS_CCHE_GC_S_2_I_0,
-+	DEBUGBUS_DBGC_GC_S_2_I_0,
-+	DEBUGBUS_LARC_GC_S_2_I_0,
-+	DEBUGBUS_RBBM_GC_S_2_I_0,
-+	DEBUGBUS_CCRE_GC_S_2_I_0,
-+	DEBUGBUS_CGC_GC_S_2_I_0,
-+	DEBUGBUS_GMU_GC_S_2_I_0,
-+	DEBUGBUS_SLICE_GC_S_2_I_0,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_2_I_0,
-+	DEBUGBUS_USP_GC_S_2_I_0,
-+	DEBUGBUS_USP_GC_S_2_I_1,
-+	DEBUGBUS_USPTP_GC_S_2_I_0,
-+	DEBUGBUS_USPTP_GC_S_2_I_1,
-+	DEBUGBUS_USPTP_GC_S_2_I_2,
-+	DEBUGBUS_USPTP_GC_S_2_I_3,
-+	DEBUGBUS_TP_GC_S_2_I_0,
-+	DEBUGBUS_TP_GC_S_2_I_1,
-+	DEBUGBUS_TP_GC_S_2_I_2,
-+	DEBUGBUS_TP_GC_S_2_I_3,
-+	DEBUGBUS_RB_GC_S_2_I_0,
-+	DEBUGBUS_RB_GC_S_2_I_1,
-+	DEBUGBUS_CCU_GC_S_2_I_0,
-+	DEBUGBUS_CCU_GC_S_2_I_1,
-+	DEBUGBUS_HLSQ_GC_S_2_I_0,
-+	DEBUGBUS_HLSQ_GC_S_2_I_1,
-+	DEBUGBUS_VFD_GC_S_2_I_0,
-+	DEBUGBUS_VFD_GC_S_2_I_1,
-+	DEBUGBUS_CP_GC_S_3_I_0,
-+	DEBUGBUS_PC_BR_S_3_I_0,
-+	DEBUGBUS_PC_BV_S_3_I_0,
-+	DEBUGBUS_TESS_GC_S_3_I_0,
-+	DEBUGBUS_TSEFE_GC_S_3_I_0,
-+	DEBUGBUS_TSEBE_GC_S_3_I_0,
-+	DEBUGBUS_RAS_GC_S_3_I_0,
-+	DEBUGBUS_LRZ_BR_S_3_I_0,
-+	DEBUGBUS_LRZ_BV_S_3_I_0,
-+	DEBUGBUS_VFDP_GC_S_3_I_0,
-+	DEBUGBUS_GPC_BR_S_3_I_0,
-+	DEBUGBUS_GPC_BV_S_3_I_0,
-+	DEBUGBUS_VPCFE_BR_S_3_I_0,
-+	DEBUGBUS_VPCFE_BV_S_3_I_0,
-+	DEBUGBUS_VPCBE_BR_S_3_I_0,
-+	DEBUGBUS_VPCBE_BV_S_3_I_0,
-+	DEBUGBUS_CCHE_GC_S_3_I_0,
-+	DEBUGBUS_DBGC_GC_S_3_I_0,
-+	DEBUGBUS_LARC_GC_S_3_I_0,
-+	DEBUGBUS_RBBM_GC_S_3_I_0,
-+	DEBUGBUS_CCRE_GC_S_3_I_0,
-+	DEBUGBUS_CGC_GC_S_3_I_0,
-+	DEBUGBUS_GMU_GC_S_3_I_0,
-+	DEBUGBUS_SLICE_GC_S_3_I_0,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_3_I_0,
-+	DEBUGBUS_USP_GC_S_3_I_0,
-+	DEBUGBUS_USP_GC_S_3_I_1,
-+	DEBUGBUS_USPTP_GC_S_3_I_0,
-+	DEBUGBUS_USPTP_GC_S_3_I_1,
-+	DEBUGBUS_USPTP_GC_S_3_I_2,
-+	DEBUGBUS_USPTP_GC_S_3_I_3,
-+	DEBUGBUS_TP_GC_S_3_I_0,
-+	DEBUGBUS_TP_GC_S_3_I_1,
-+	DEBUGBUS_TP_GC_S_3_I_2,
-+	DEBUGBUS_TP_GC_S_3_I_3,
-+	DEBUGBUS_RB_GC_S_3_I_0,
-+	DEBUGBUS_RB_GC_S_3_I_1,
-+	DEBUGBUS_CCU_GC_S_3_I_0,
-+	DEBUGBUS_CCU_GC_S_3_I_1,
-+	DEBUGBUS_HLSQ_GC_S_3_I_0,
-+	DEBUGBUS_HLSQ_GC_S_3_I_1,
-+	DEBUGBUS_VFD_GC_S_3_I_0,
-+	DEBUGBUS_VFD_GC_S_3_I_1,
-+};
-+static const u32 glymur_gbif_debugbus_blocks[] = {};
-+
-+static const u32 glymur_cx_debugbus_blocks[] = {
-+    DEBUGBUS_GBIF_CX_GC_US_I_0,
-+    DEBUGBUS_GMU_CX_GC_US_I_0,
-+    DEBUGBUS_CX_GC_US_I_0,
-+};
-+
-+static const struct gen8_shader_block glymur_shader_blocks[] = {
-+	{ TP0_TMO_DATA, 0x0200, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_TMO_DATA, 0x0200, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_SMO_DATA, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_SMO_DATA, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_MIPMAP_BASE_DATA, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_MIPMAP_BASE_DATA, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_DATA_RAM, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 15},
-+	{ SP_LB_DATA_RAM, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 15},
-+	{ SP_INST_DATA_RAM, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 4},
-+	{ SP_INST_DATA_RAM, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 4},
-+	{ SP_STH, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STH, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0200, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0200, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0200, 2, SPTOP, PIPE_BR, SP_TOP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, uSPTP0, PIPE_BV, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, uSPTP1, PIPE_BV, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, SPTOP, PIPE_BV, SP_TOP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, uSPTP0, PIPE_LPAC, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, uSPTP1, PIPE_LPAC, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, SPTOP, PIPE_LPAC, SP_TOP, SLICE, 1},
-+	{ SP_CONSMNG, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_CONSMNG, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ HLSQ_INST_DATA_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 4},
-+	{ SP_CB_RAM, 0x0390, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_CB_RAM, 0x0390, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_TAG, 0x0100, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_TAG, 0x0100, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_TMO_TAG, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_TMO_TAG, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_SMO_TAG, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_SMO_TAG, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STATE_DATA, 0x0040, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STATE_DATA, 0x0040, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_HWAVE_RAM, 0x0200, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_HWAVE_RAM, 0x0200, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_L0_INST_BUF, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_L0_INST_BUF, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ HLSQ_DATAPATH_DSTR_META, 0x0600, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DATAPATH_DSTR_META, 0x0020, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x00A0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x000C, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x0008, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0048, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0048, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_L2STC_TAG_RAM, 0x0200, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_L2STC_INFO_CMD, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_BE_CTXT_BUF_RAM, 0x0400, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_BE_CTXT_BUF_RAM, 0x0400, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_BE_CTXT_BUF_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_CHUNK_CVS_RAM, 0x01C0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM, 0x01C0, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM, 0x0300, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM, 0x0180, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CVS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CVS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CPS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CPS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM, 0x0540, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM, 0x0540, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_CPS_MISC_RAM, 0x00B0, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_CPS_MISC_RAM_1, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_GFX_CPS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_CVS_MISC_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_TAG, 0x0600, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_TAG, 0x0012, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0010, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0004, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM_TAG, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x03C0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x0280, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x0050, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM_TAG, 0x0014, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM_TAG, 0x000C, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_STPROC_META, 0x0400, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x0188, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x0188, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x00C0, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DATAPATH_META, 0x0020, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INDIRECT_META, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0034, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0034, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+};
-+
-+/*
-+ * Block   : ['AHB_PRECD']
-+ * REGION  : UNSLICE
-+ * pairs   : 1 (Regs:2)
-+ */
-+static const u32 glymur_ahb_precd_gpu_registers[] = {
-+	 0x00012, 0x00013,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_ahb_precd_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['AHB_PRECD']
-+ * REGION  : SLICE
-+ * pairs   : 1 (Regs:3)
-+ */
-+static const u32 glymur_ahb_precd_gpu_slice_registers[] = {
-+	 0x00580, 0x00582,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_ahb_precd_gpu_slice_registers), 8));
-+
-+/*
-+ * Block   : ['AHB_SECURE']
-+ * REGION  : UNSLICE
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 glymur_ahb_secure_gpu_registers[] = {
-+	 0x0f400, 0x0f400, 0x0f800, 0x0f803, 0x0fc00, 0x0fc01,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_ahb_secure_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['AHB_SECURE']
-+ * REGION  : UNSLICE
-+ * pairs   : 1 (Regs:3)
-+ */
-+static const u32 glymur_ahb_secure_cp_cp_pipe_none_registers[] = {
-+	 0x0f000, 0x0f002,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_ahb_secure_cp_cp_pipe_none_registers), 8));
-+
-+/*
-+ * Block   : ['GBIF']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 10 (Regs:62)
-+ */
-+static const u32 glymur_gbif_registers[] = {
-+	 0x03c00, 0x03c0b, 0x03c40, 0x03c42, 0x03c45, 0x03c47, 0x03c49, 0x03c4e,
-+	 0x03c50, 0x03c57, 0x03cc0, 0x03cc4, 0x03cc6, 0x03cd5, 0x03ce0, 0x03ce5,
-+	 0x03d00, 0x03d01, 0x03d03, 0x03d03,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_gbif_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'GRAS', 'PC']
-+ * Block   : ['RBBM', 'RDVM', 'UCHE']
-+ * Block   : ['VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 117 (Regs:1156)
-+ */
-+static const u32 glymur_gpu_registers[] = {
-+	 0x00008, 0x0000d, 0x00010, 0x00011, 0x00015, 0x00016, 0x00018, 0x00018,
-+	 0x0001a, 0x0001a, 0x0001c, 0x0001c, 0x0001e, 0x0001e, 0x00028, 0x0002b,
-+	 0x0002d, 0x00039, 0x00040, 0x00053, 0x00062, 0x00066, 0x00069, 0x0006e,
-+	 0x00071, 0x00072, 0x00074, 0x00074, 0x00076, 0x0007c, 0x0007f, 0x0009a,
-+	 0x0009d, 0x000af, 0x000b2, 0x000d4, 0x000d7, 0x000e2, 0x000e5, 0x000e6,
-+	 0x000e9, 0x000f1, 0x000f4, 0x000f6, 0x000f9, 0x00108, 0x0010b, 0x0010e,
-+	 0x00111, 0x00111, 0x00114, 0x0011c, 0x0011f, 0x00121, 0x00125, 0x00125,
-+	 0x00127, 0x00127, 0x00129, 0x00129, 0x0012b, 0x00131, 0x00134, 0x00138,
-+	 0x0013a, 0x0013a, 0x0013c, 0x0013f, 0x00142, 0x00150, 0x00153, 0x00155,
-+	 0x00158, 0x00159, 0x0015c, 0x0015c, 0x00166, 0x00179, 0x0019e, 0x001a3,
-+	 0x001b0, 0x002c9, 0x002e2, 0x0036b, 0x00380, 0x0039b, 0x003a4, 0x003ab,
-+	 0x003b4, 0x003c5, 0x003ce, 0x003cf, 0x003e0, 0x003e0, 0x003f0, 0x003f0,
-+	 0x00440, 0x00444, 0x0044d, 0x0044f, 0x00460, 0x00460, 0x00c02, 0x00c04,
-+	 0x00c06, 0x00c06, 0x00c10, 0x00cd9, 0x00ce0, 0x00d0c, 0x00df0, 0x00df4,
-+	 0x00e01, 0x00e04, 0x00e06, 0x00e09, 0x00e0e, 0x00e13, 0x00e15, 0x00e18,
-+	 0x00e20, 0x00e37, 0x0ec00, 0x0ec01, 0x0ec05, 0x0ec05, 0x0ec07, 0x0ec07,
-+	 0x0ec0a, 0x0ec0a, 0x0ec12, 0x0ec12, 0x0ec26, 0x0ec28, 0x0ec2b, 0x0ec2d,
-+	 0x0ec2f, 0x0ec2f, 0x0ec40, 0x0ec41, 0x0ec45, 0x0ec45, 0x0ec47, 0x0ec47,
-+	 0x0ec4a, 0x0ec4a, 0x0ec52, 0x0ec52, 0x0ec66, 0x0ec68, 0x0ec6b, 0x0ec6d,
-+	 0x0ec6f, 0x0ec6f, 0x0ec80, 0x0ec81, 0x0ec85, 0x0ec85, 0x0ec87, 0x0ec87,
-+	 0x0ec8a, 0x0ec8a, 0x0ec92, 0x0ec92, 0x0eca6, 0x0eca8, 0x0ecab, 0x0ecad,
-+	 0x0ecaf, 0x0ecaf, 0x0ecc0, 0x0ecc1, 0x0ecc5, 0x0ecc5, 0x0ecc7, 0x0ecc7,
-+	 0x0ecca, 0x0ecca, 0x0ecd2, 0x0ecd2, 0x0ece6, 0x0ece8, 0x0eceb, 0x0eced,
-+	 0x0ecef, 0x0ecef, 0x0ed00, 0x0ed01, 0x0ed05, 0x0ed05, 0x0ed07, 0x0ed07,
-+	 0x0ed0a, 0x0ed0a, 0x0ed12, 0x0ed12, 0x0ed26, 0x0ed28, 0x0ed2b, 0x0ed2d,
-+	 0x0ed2f, 0x0ed2f, 0x0ed40, 0x0ed41, 0x0ed45, 0x0ed45, 0x0ed47, 0x0ed47,
-+	 0x0ed4a, 0x0ed4a, 0x0ed52, 0x0ed52, 0x0ed66, 0x0ed68, 0x0ed6b, 0x0ed6d,
-+	 0x0ed6f, 0x0ed6f, 0x0ed80, 0x0ed81, 0x0ed85, 0x0ed85, 0x0ed87, 0x0ed87,
-+	 0x0ed8a, 0x0ed8a, 0x0ed92, 0x0ed92, 0x0eda6, 0x0eda8, 0x0edab, 0x0edad,
-+	 0x0edaf, 0x0edaf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'GRAS', 'PC']
-+ * Block   : ['RBBM', 'RDVM', 'UCHE']
-+ * Block   : ['VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 12 (Regs:86)
-+ */
-+static const u32 glymur_gpu_slice_registers[] = {
-+	 0x00500, 0x00500, 0x00583, 0x00584, 0x00586, 0x0058b, 0x0058f, 0x00599,
-+	 0x005a0, 0x005b3, 0x005c0, 0x005c0, 0x005c2, 0x005c6, 0x005e0, 0x005e3,
-+	 0x005ec, 0x005ec, 0x00f01, 0x00f02, 0x00f04, 0x00f0c, 0x00f20, 0x00f37,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_gpu_slice_registers), 8));
-+
-+/*
-+ * Block   : ['GMUGX']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 15 (Regs:174)
-+ */
-+static const u32 glymur_gmugx_registers[] = {
-+	 0x0dc00, 0x0dc0d, 0x0dc10, 0x0dc11, 0x0dc13, 0x0dc15, 0x0dc18, 0x0dc1a,
-+	 0x0dc1c, 0x0dc2f, 0x0dc40, 0x0dc42, 0x0dc60, 0x0dc7f, 0x0dc88, 0x0dc90,
-+	 0x0dc98, 0x0dc99, 0x0dca0, 0x0dcbf, 0x0dcc8, 0x0dcd0, 0x0dcd8, 0x0dcd9,
-+	 0x0dce0, 0x0dcff, 0x0dd08, 0x0dd10, 0x0dd18, 0x0dd19,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_gmugx_registers), 8));
-+
-+/*
-+ * Block   : ['GMUGX']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 23 (Regs:314)
-+ */
-+static const u32 glymur_gmugx_slice_registers[] = {
-+	 0x0e400, 0x0e401, 0x0e404, 0x0e40a, 0x0e40c, 0x0e42f, 0x0e438, 0x0e440,
-+	 0x0e448, 0x0e449, 0x0e450, 0x0e46f, 0x0e478, 0x0e480, 0x0e488, 0x0e489,
-+	 0x0e490, 0x0e4af, 0x0e4b8, 0x0e4c0, 0x0e4c8, 0x0e4c9, 0x0e4d0, 0x0e4ef,
-+	 0x0e4f8, 0x0e500, 0x0e508, 0x0e509, 0x0e510, 0x0e52f, 0x0e538, 0x0e540,
-+	 0x0e548, 0x0e549, 0x0e550, 0x0e56f, 0x0e578, 0x0e580, 0x0e588, 0x0e589,
-+	 0x0e590, 0x0e5af, 0x0e5b8, 0x0e5c0, 0x0e5c8, 0x0e5c9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_gmugx_slice_registers), 8));
-+
-+/*
-+ * Block   : ['GMUAO']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 63 (Regs:290)
-+ */
-+static const u32 glymur_gmuao_registers[] = {
-+	 0x10001, 0x10001, 0x10003, 0x10003, 0x10401, 0x10401, 0x10403, 0x10403,
-+	 0x10801, 0x10801, 0x10803, 0x10803, 0x10c01, 0x10c01, 0x10c03, 0x10c03,
-+	 0x11001, 0x11001, 0x11003, 0x11003, 0x11401, 0x11401, 0x11403, 0x11403,
-+	 0x11801, 0x11801, 0x11803, 0x11803, 0x11c01, 0x11c01, 0x11c03, 0x11c03,
-+	 0x1b000, 0x1b063, 0x1b0ff, 0x1b163, 0x1b1ff, 0x1b200, 0x22400, 0x22401,
-+	 0x22408, 0x22409, 0x22410, 0x22411, 0x22418, 0x22419, 0x22420, 0x22421,
-+	 0x23801, 0x23801, 0x23803, 0x23803, 0x23805, 0x23805, 0x23807, 0x23807,
-+	 0x23809, 0x23809, 0x2380b, 0x2380b, 0x2380d, 0x2380d, 0x2380f, 0x2380f,
-+	 0x23811, 0x23811, 0x23813, 0x23813, 0x23815, 0x23815, 0x23817, 0x23817,
-+	 0x23819, 0x23819, 0x2381b, 0x2381b, 0x2381d, 0x2381d, 0x2381f, 0x23820,
-+	 0x23822, 0x23822, 0x23824, 0x23824, 0x23826, 0x23826, 0x23828, 0x23828,
-+	 0x2382a, 0x2382a, 0x2382c, 0x2382c, 0x2382e, 0x2382e, 0x23830, 0x23830,
-+	 0x23832, 0x23832, 0x23834, 0x23834, 0x23836, 0x23836, 0x23838, 0x23838,
-+	 0x2383a, 0x2383a, 0x2383c, 0x2383c, 0x2383e, 0x2383e, 0x23840, 0x23847,
-+	 0x23b00, 0x23b01, 0x23b03, 0x23b03, 0x23b05, 0x23b0e, 0x23b10, 0x23b13,
-+	 0x23b15, 0x23b16, 0x23b28, 0x23b28, 0x23b30, 0x23b30,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_gmuao_registers), 8));
-+
-+/*
-+ * Block   : ['GMUCX', 'GMUCX_RAM']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 154 (Regs:819)
-+ */
-+static const u32 glymur_gmucx_registers[] = {
-+	 0x1f400, 0x1f40b, 0x1f40f, 0x1f411, 0x1f500, 0x1f500, 0x1f507, 0x1f507,
-+	 0x1f509, 0x1f50b, 0x1f700, 0x1f701, 0x1f704, 0x1f706, 0x1f708, 0x1f709,
-+	 0x1f70c, 0x1f70d, 0x1f710, 0x1f711, 0x1f713, 0x1f716, 0x1f718, 0x1f71d,
-+	 0x1f720, 0x1f725, 0x1f729, 0x1f729, 0x1f730, 0x1f747, 0x1f750, 0x1f75a,
-+	 0x1f75c, 0x1f75c, 0x1f780, 0x1f781, 0x1f784, 0x1f78b, 0x1f790, 0x1f797,
-+	 0x1f7a0, 0x1f7a7, 0x1f7b0, 0x1f7bd, 0x1f7e0, 0x1f7e1, 0x1f7e4, 0x1f7e5,
-+	 0x1f7e8, 0x1f7e9, 0x1f7ec, 0x1f7ed, 0x1f800, 0x1f804, 0x1f807, 0x1f808,
-+	 0x1f80b, 0x1f80c, 0x1f80f, 0x1f80f, 0x1f811, 0x1f811, 0x1f813, 0x1f817,
-+	 0x1f819, 0x1f81c, 0x1f824, 0x1f830, 0x1f840, 0x1f842, 0x1f848, 0x1f848,
-+	 0x1f84c, 0x1f84c, 0x1f850, 0x1f850, 0x1f858, 0x1f859, 0x1f868, 0x1f869,
-+	 0x1f878, 0x1f883, 0x1f930, 0x1f931, 0x1f934, 0x1f935, 0x1f938, 0x1f939,
-+	 0x1f93c, 0x1f93d, 0x1f940, 0x1f941, 0x1f943, 0x1f943, 0x1f948, 0x1f94a,
-+	 0x1f94f, 0x1f951, 0x1f954, 0x1f955, 0x1f95d, 0x1f95d, 0x1f962, 0x1f96e,
-+	 0x1f970, 0x1f973, 0x1f97c, 0x1f97e, 0x1f980, 0x1f981, 0x1f984, 0x1f986,
-+	 0x1f992, 0x1f993, 0x1f996, 0x1f99e, 0x1f9c0, 0x1f9cf, 0x1f9f0, 0x1f9f1,
-+	 0x1f9f8, 0x1f9fa, 0x1f9fc, 0x1f9fc, 0x1fa00, 0x1fa03, 0x1fc00, 0x1fc01,
-+	 0x1fc04, 0x1fc0d, 0x1fc10, 0x1fc10, 0x1fc14, 0x1fc14, 0x1fc18, 0x1fc19,
-+	 0x1fc20, 0x1fc20, 0x1fc24, 0x1fc26, 0x1fc30, 0x1fc33, 0x1fc38, 0x1fc3b,
-+	 0x1fc40, 0x1fc49, 0x1fc50, 0x1fc59, 0x1fc60, 0x1fc7f, 0x1fca0, 0x1fcef,
-+	 0x1fd80, 0x1fd81, 0x1fd83, 0x1fd84, 0x1fd88, 0x1fda7, 0x1fdb0, 0x1fdb3,
-+	 0x1fdb8, 0x1fdbb, 0x1fdc0, 0x1fdc3, 0x1fdc8, 0x1fdcb, 0x1fdd0, 0x1fdd3,
-+	 0x1fdd8, 0x1fddb, 0x1fde0, 0x1fde3, 0x1fe00, 0x1fe01, 0x1fe03, 0x1fe05,
-+	 0x1fe08, 0x1fe0a, 0x1fe10, 0x1fe12, 0x1fe40, 0x1fe44, 0x1fe70, 0x1fe71,
-+	 0x1fe74, 0x1fe78, 0x1fe88, 0x1fe8c, 0x1fe9c, 0x1fe9c, 0x1fec0, 0x1fec4,
-+	 0x1fef0, 0x1fef1, 0x1fef4, 0x1fef8, 0x1ff08, 0x1ff0c, 0x1ff1c, 0x1ff1c,
-+	 0x1ff20, 0x1ff21, 0x20000, 0x20007, 0x20010, 0x20015, 0x20018, 0x2001a,
-+	 0x2001c, 0x20022, 0x20024, 0x20025, 0x2002a, 0x2002c, 0x20030, 0x20031,
-+	 0x20034, 0x20036, 0x20080, 0x2008d, 0x20120, 0x20120, 0x20128, 0x20128,
-+	 0x20200, 0x20204, 0x20208, 0x20209, 0x20210, 0x20212, 0x20214, 0x20214,
-+	 0x20216, 0x20216, 0x20218, 0x20218, 0x2021a, 0x2021a, 0x20220, 0x20222,
-+	 0x20224, 0x20226, 0x20228, 0x20229, 0x2022c, 0x2022d, 0x20230, 0x2024f,
-+	 0x20260, 0x20261, 0x20268, 0x20269, 0x20270, 0x20272, 0x20278, 0x20279,
-+	 0x2027c, 0x2028c, 0x20300, 0x20301, 0x20304, 0x20305, 0x20308, 0x2030c,
-+	 0x20310, 0x20314, 0x20318, 0x2031a, 0x20320, 0x20322, 0x20324, 0x20326,
-+	 0x20328, 0x2032a, 0x2032c, 0x2032e, 0x20330, 0x20333, 0x20338, 0x20338,
-+	 0x20340, 0x2034f, 0x20380, 0x20385, 0x20400, 0x20400, 0x20404, 0x20404,
-+	 0x20410, 0x20414, 0x20420, 0x20422, 0x20480, 0x2048d, 0x20800, 0x20806,
-+	 0x20810, 0x20811, 0x20814, 0x20815, 0x20820, 0x20838, 0x20840, 0x20841,
-+	 0x20844, 0x20845, 0x20850, 0x20868,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_gmucx_registers), 8));
-+
-+/*
-+ * Block   : ['CX_MISC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 7 (Regs:71)
-+ */
-+static const u32 glymur_cx_misc_registers[] = {
-+	 0x27800, 0x27800, 0x27810, 0x27814, 0x27820, 0x27824, 0x27828, 0x2782a,
-+	 0x27832, 0x27857, 0x27880, 0x2788c, 0x27c00, 0x27c05,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_cx_misc_registers), 8));
-+
-+/*
-+ * Block   : ['DBGC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 21 (Regs:152)
-+ */
-+static const u32 glymur_dbgc_registers[] = {
-+	 0x00600, 0x0061c, 0x0061e, 0x0063d, 0x00640, 0x00644, 0x00650, 0x00655,
-+	 0x00660, 0x00660, 0x00662, 0x00668, 0x0066a, 0x0066a, 0x00680, 0x00685,
-+	 0x00700, 0x00704, 0x00707, 0x0070a, 0x0070f, 0x00716, 0x00720, 0x00724,
-+	 0x00730, 0x00732, 0x00740, 0x00740, 0x00742, 0x0074a, 0x00750, 0x00755,
-+	 0x00759, 0x0075c, 0x00760, 0x00763, 0x00770, 0x00770, 0x00780, 0x0078d,
-+	 0x00790, 0x00790,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_dbgc_registers), 8));
-+
-+/*
-+ * Block   : ['DBGC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 2 (Regs:61)
-+ */
-+static const u32 glymur_dbgc_slice_registers[] = {
-+	 0x007a0, 0x007d5, 0x007e0, 0x007e6,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_dbgc_slice_registers), 8));
-+
-+/*
-+ * Block   : ['CX_DBGC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 6 (Regs:75)
-+ */
-+static const u32 glymur_cx_dbgc_registers[] = {
-+	 0x18400, 0x1841c, 0x1841e, 0x1843d, 0x18440, 0x18444, 0x18450, 0x18455,
-+	 0x1846a, 0x1846a, 0x18580, 0x18581,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_cx_dbgc_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 14 (Regs:307)
-+ */
-+static const u32 glymur_cp_cp_pipe_none_registers[] = {
-+	 0x00800, 0x0081e, 0x00820, 0x0082d, 0x00838, 0x0083e, 0x00840, 0x00847,
-+	 0x0084b, 0x0084c, 0x00850, 0x0088f, 0x008b5, 0x008b6, 0x008c0, 0x008cb,
-+	 0x008d0, 0x008e4, 0x008e7, 0x008ee, 0x008fa, 0x008fd, 0x00928, 0x00929,
-+	 0x00958, 0x0095b, 0x00980, 0x009ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_cp_cp_pipe_none_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 8 (Regs:96)
-+ */
-+static const u32 glymur_cp_cp_pipe_br_registers[] = {
-+	 0x00830, 0x00837, 0x0084d, 0x0084f, 0x008a0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f9, 0x00900, 0x0091e, 0x00920, 0x00926, 0x00930, 0x0093a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_cp_cp_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : SLICE
-+ * Pipeline: CP_PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:23)
-+ */
-+static const u32 glymur_cp_slice_cp_pipe_br_registers[] = {
-+	 0x00b00, 0x00b0c, 0x00b10, 0x00b10, 0x00b80, 0x00b84, 0x00b90, 0x00b93,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_cp_slice_cp_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:72)
-+ */
-+static const u32 glymur_cp_cp_pipe_bv_registers[] = {
-+	 0x00830, 0x00835, 0x0084d, 0x0084f, 0x008b0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f9, 0x00900, 0x00913, 0x00918, 0x0091d, 0x00920, 0x00925,
-+	 0x00930, 0x0093a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_cp_cp_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : SLICE
-+ * Pipeline: CP_PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:23)
-+ */
-+static const u32 glymur_cp_slice_cp_pipe_bv_registers[] = {
-+	 0x00b00, 0x00b0c, 0x00b10, 0x00b10, 0x00b80, 0x00b84, 0x00b90, 0x00b93,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_cp_slice_cp_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_LPAC
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:77)
-+ */
-+static const u32 glymur_cp_cp_pipe_lpac_registers[] = {
-+	 0x00830, 0x00837, 0x0084d, 0x0084f, 0x008a0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f5, 0x008f8, 0x008f9, 0x00900, 0x00913, 0x00918, 0x0091d,
-+	 0x00920, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_cp_cp_pipe_lpac_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_AQE0
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:22)
-+ */
-+static const u32 glymur_cp_cp_pipe_aqe0_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x00910, 0x00913,
-+	 0x0091d, 0x0091d, 0x00925, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_cp_cp_pipe_aqe0_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_AQE1
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:22)
-+ */
-+static const u32 glymur_cp_cp_pipe_aqe1_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x00910, 0x00913,
-+	 0x0091d, 0x0091d, 0x00925, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_cp_cp_pipe_aqe1_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_DDE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:36)
-+ */
-+static const u32 glymur_cp_cp_pipe_dde_br_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x008fe, 0x008ff,
-+	 0x0090c, 0x00917, 0x0091c, 0x0091e, 0x00924, 0x00926,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_cp_cp_pipe_dde_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_DDE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:36)
-+ */
-+static const u32 glymur_cp_cp_pipe_dde_bv_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x008fe, 0x008ff,
-+	 0x0090c, 0x00917, 0x0091c, 0x0091e, 0x00924, 0x00926,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_cp_cp_pipe_dde_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:1125)
-+ */
-+static const u32 glymur_non_context_pipe_br_registers[] = {
-+	 0x09600, 0x09605, 0x09610, 0x09617, 0x09620, 0x09627, 0x09670, 0x0967b,
-+	 0x09e00, 0x09e15, 0x09e17, 0x09e23, 0x09e30, 0x09e3f, 0x09e50, 0x09e59,
-+	 0x09e60, 0x09e65, 0x0d200, 0x0d5ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_non_context_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 21 (Regs:301)
-+ */
-+static const u32 glymur_non_context_slice_pipe_br_registers[] = {
-+	 0x08600, 0x08602, 0x08610, 0x08613, 0x08700, 0x08704, 0x08710, 0x08713,
-+	 0x08720, 0x08723, 0x08730, 0x08733, 0x08740, 0x08744, 0x09680, 0x09681,
-+	 0x09690, 0x0969b, 0x09740, 0x09745, 0x09750, 0x0975b, 0x09770, 0x097ef,
-+	 0x09f00, 0x09f0f, 0x09f20, 0x09f23, 0x09f30, 0x09f31, 0x0a600, 0x0a600,
-+	 0x0a603, 0x0a603, 0x0a610, 0x0a61f, 0x0a630, 0x0a632, 0x0a638, 0x0a63c,
-+	 0x0a640, 0x0a67f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_non_context_slice_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:1124)
-+ */
-+static const u32 glymur_non_context_pipe_bv_registers[] = {
-+	 0x09600, 0x09605, 0x09610, 0x09617, 0x09620, 0x09627, 0x09670, 0x0967b,
-+	 0x09e00, 0x09e04, 0x09e06, 0x09e15, 0x09e17, 0x09e23, 0x09e30, 0x09e3f,
-+	 0x09e50, 0x09e59, 0x09e60, 0x09e65, 0x0d200, 0x0d5ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_non_context_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 21 (Regs:301)
-+ */
-+static const u32 glymur_non_context_slice_pipe_bv_registers[] = {
-+	 0x08600, 0x08602, 0x08610, 0x08613, 0x08700, 0x08704, 0x08710, 0x08713,
-+	 0x08720, 0x08723, 0x08730, 0x08733, 0x08740, 0x08744, 0x09680, 0x09681,
-+	 0x09690, 0x0969b, 0x09740, 0x09745, 0x09750, 0x0975b, 0x09770, 0x097ef,
-+	 0x09f00, 0x09f0f, 0x09f20, 0x09f23, 0x09f30, 0x09f31, 0x0a600, 0x0a600,
-+	 0x0a603, 0x0a603, 0x0a610, 0x0a61f, 0x0a630, 0x0a632, 0x0a638, 0x0a63c,
-+	 0x0a640, 0x0a67f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_non_context_slice_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 1 (Regs:1)
-+ */
-+static const u32 glymur_non_context_pipe_lpac_registers[] = {
-+	 0x00e14, 0x00e14,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_non_context_pipe_lpac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:26)
-+ */
-+static const u32 glymur_non_context_rb_pipe_br_rbp_registers[] = {
-+	 0x08f00, 0x08f07, 0x08f10, 0x08f15, 0x08f20, 0x08f29, 0x08f30, 0x08f31,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_non_context_rb_pipe_br_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 5 (Regs:46)
-+ */
-+static const u32 glymur_non_context_rb_slice_pipe_br_rac_registers[] = {
-+	 0x08e09, 0x08e0b, 0x08e10, 0x08e17, 0x08e51, 0x08e5a, 0x08e69, 0x08e71,
-+	 0x08ea0, 0x08eaf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_non_context_rb_slice_pipe_br_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:31)
-+ */
-+static const u32 glymur_non_context_rb_slice_pipe_br_rbp_registers[] = {
-+	 0x08e01, 0x08e01, 0x08e04, 0x08e04, 0x08e06, 0x08e08, 0x08e0c, 0x08e0c,
-+	 0x08e18, 0x08e1c, 0x08e3b, 0x08e40, 0x08e50, 0x08e50, 0x08e5d, 0x08e60,
-+	 0x08e77, 0x08e7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_non_context_rb_slice_pipe_br_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: HLSQ_STATE
-+ * pairs   : 10 (Regs:99)
-+ */
-+static const u32 glymur_non_context_sp_pipe_none_hlsq_state_registers[] = {
-+	 0x0ae05, 0x0ae05, 0x0ae10, 0x0ae13, 0x0ae15, 0x0ae16, 0x0ae52, 0x0ae52,
-+	 0x0ae60, 0x0ae67, 0x0ae69, 0x0ae6e, 0x0ae70, 0x0ae76, 0x0aec0, 0x0aec5,
-+	 0x0aed0, 0x0aeef, 0x0af00, 0x0af1f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_non_context_sp_pipe_none_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: SP_TOP
-+ * pairs   : 6 (Regs:60)
-+ */
-+static const u32 glymur_non_context_sp_pipe_none_sp_top_registers[] = {
-+	 0x0ae00, 0x0ae0c, 0x0ae0f, 0x0ae0f, 0x0ae35, 0x0ae35, 0x0ae3a, 0x0ae3f,
-+	 0x0ae50, 0x0ae52, 0x0ae80, 0x0aea3,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_non_context_sp_pipe_none_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: USPTP
-+ * pairs   : 9 (Regs:64)
-+ */
-+static const u32 glymur_non_context_sp_pipe_none_usptp_registers[] = {
-+	 0x0ae00, 0x0ae0c, 0x0ae0f, 0x0ae0f, 0x0ae17, 0x0ae19, 0x0ae30, 0x0ae32,
-+	 0x0ae35, 0x0ae35, 0x0ae3a, 0x0ae3b, 0x0ae3e, 0x0ae3f, 0x0ae50, 0x0ae52,
-+	 0x0ae80, 0x0aea3,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_non_context_sp_pipe_none_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:48)
-+ */
-+static const u32 glymur_non_context_tpl1_pipe_none_usptp_registers[] = {
-+	 0x0b600, 0x0b600, 0x0b602, 0x0b602, 0x0b604, 0x0b604, 0x0b606, 0x0b61e,
-+	 0x0b620, 0x0b633,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_non_context_tpl1_pipe_none_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 8 (Regs:232)
-+ */
-+static const u32 glymur_gras_slice_pipe_br_cluster_vpc_vs_registers[] = {
-+	 0x08200, 0x08213, 0x08220, 0x08225, 0x08230, 0x0823b, 0x08240, 0x0825f,
-+	 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_gras_slice_pipe_br_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_GRAS
-+ * pairs   : 13 (Regs:326)
-+ */
-+static const u32 glymur_gras_slice_pipe_br_cluster_gras_registers[] = {
-+	 0x08080, 0x08080, 0x08086, 0x08092, 0x080c0, 0x080df, 0x08101, 0x08110,
-+	 0x08130, 0x0814f, 0x08200, 0x08213, 0x08220, 0x08225, 0x08230, 0x0823b,
-+	 0x08240, 0x0825f, 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f,
-+	 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_gras_slice_pipe_br_cluster_gras_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 8 (Regs:232)
-+ */
-+static const u32 glymur_gras_slice_pipe_bv_cluster_vpc_vs_registers[] = {
-+	 0x08200, 0x08213, 0x08220, 0x08225, 0x08230, 0x0823b, 0x08240, 0x0825f,
-+	 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_gras_slice_pipe_bv_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_GRAS
-+ * pairs   : 13 (Regs:326)
-+ */
-+static const u32 glymur_gras_slice_pipe_bv_cluster_gras_registers[] = {
-+	 0x08080, 0x08080, 0x08086, 0x08092, 0x080c0, 0x080df, 0x08101, 0x08110,
-+	 0x08130, 0x0814f, 0x08200, 0x08213, 0x08220, 0x08225, 0x08230, 0x0823b,
-+	 0x08240, 0x0825f, 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f,
-+	 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_gras_slice_pipe_bv_cluster_gras_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_US
-+ * pairs   : 6 (Regs:35)
-+ */
-+static const u32 glymur_pc_pipe_br_cluster_fe_us_registers[] = {
-+	 0x09805, 0x09807, 0x0980b, 0x0980b, 0x09812, 0x09817, 0x0981a, 0x0981b,
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_pc_pipe_br_cluster_fe_us_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:23)
-+ */
-+static const u32 glymur_pc_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_pc_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_US
-+ * pairs   : 6 (Regs:35)
-+ */
-+static const u32 glymur_pc_pipe_bv_cluster_fe_us_registers[] = {
-+	 0x09805, 0x09807, 0x0980b, 0x0980b, 0x09812, 0x09817, 0x0981a, 0x0981b,
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_pc_pipe_bv_cluster_fe_us_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:23)
-+ */
-+static const u32 glymur_pc_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_pc_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VFD']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:236)
-+ */
-+static const u32 glymur_vfd_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x0a000, 0x0a009, 0x0a00e, 0x0a0ef,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_vfd_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VFD']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:236)
-+ */
-+static const u32 glymur_vfd_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x0a000, 0x0a009, 0x0a00e, 0x0a0ef,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_vfd_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 1 (Regs:27)
-+ */
-+static const u32 glymur_vpc_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_vpc_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 2 (Regs:29)
-+ */
-+static const u32 glymur_vpc_slice_pipe_br_cluster_vpc_vs_registers[] = {
-+	 0x090c0, 0x090c1, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_vpc_slice_pipe_br_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_US
-+ * pairs   : 3 (Regs:58)
-+ */
-+static const u32 glymur_vpc_pipe_br_cluster_vpc_us_registers[] = {
-+	 0x09180, 0x09180, 0x09182, 0x0919f, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_vpc_pipe_br_cluster_vpc_us_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_PS
-+ * pairs   : 4 (Regs:52)
-+ */
-+static const u32 glymur_vpc_slice_pipe_br_cluster_vpc_ps_registers[] = {
-+	 0x09240, 0x0924f, 0x09252, 0x09255, 0x09278, 0x0927c, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_vpc_slice_pipe_br_cluster_vpc_ps_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 1 (Regs:27)
-+ */
-+static const u32 glymur_vpc_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_vpc_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 2 (Regs:29)
-+ */
-+static const u32 glymur_vpc_slice_pipe_bv_cluster_vpc_vs_registers[] = {
-+	 0x090c0, 0x090c1, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_vpc_slice_pipe_bv_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_US
-+ * pairs   : 3 (Regs:58)
-+ */
-+static const u32 glymur_vpc_pipe_bv_cluster_vpc_us_registers[] = {
-+	 0x09180, 0x09180, 0x09182, 0x0919f, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_vpc_pipe_bv_cluster_vpc_us_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_PS
-+ * pairs   : 4 (Regs:52)
-+ */
-+static const u32 glymur_vpc_slice_pipe_bv_cluster_vpc_ps_registers[] = {
-+	 0x09240, 0x0924f, 0x09252, 0x09255, 0x09278, 0x0927c, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_vpc_slice_pipe_bv_cluster_vpc_ps_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 36 (Regs:151)
-+ */
-+static const u32 glymur_rb_slice_pipe_br_cluster_ps_rac_registers[] = {
-+	 0x08802, 0x08802, 0x08804, 0x0880a, 0x0880e, 0x08811, 0x08813, 0x08814,
-+	 0x08818, 0x0881e, 0x08821, 0x08821, 0x08823, 0x08826, 0x08829, 0x08829,
-+	 0x0882b, 0x0882e, 0x08831, 0x08831, 0x08833, 0x08836, 0x08839, 0x08839,
-+	 0x0883b, 0x0883e, 0x08841, 0x08841, 0x08843, 0x08846, 0x08849, 0x08849,
-+	 0x0884b, 0x0884e, 0x08851, 0x08851, 0x08853, 0x08856, 0x08859, 0x08859,
-+	 0x0885b, 0x0885e, 0x08860, 0x08864, 0x08870, 0x08870, 0x08873, 0x08876,
-+	 0x08878, 0x08879, 0x08882, 0x08885, 0x08887, 0x08889, 0x08891, 0x08891,
-+	 0x08898, 0x08899, 0x088b0, 0x088cf, 0x088e5, 0x088e5, 0x088f4, 0x088f5,
-+	 0x08930, 0x08937, 0x08c00, 0x08c01, 0x08c18, 0x08c1f, 0x08c26, 0x08c34,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_rb_slice_pipe_br_cluster_ps_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 36 (Regs:104)
-+ */
-+static const u32 glymur_rb_slice_pipe_br_cluster_ps_rbp_registers[] = {
-+	 0x08800, 0x08801, 0x08803, 0x08803, 0x0880b, 0x0880d, 0x08812, 0x08812,
-+	 0x08815, 0x08816, 0x08820, 0x08820, 0x08822, 0x08822, 0x08827, 0x08828,
-+	 0x0882a, 0x0882a, 0x0882f, 0x08830, 0x08832, 0x08832, 0x08837, 0x08838,
-+	 0x0883a, 0x0883a, 0x0883f, 0x08840, 0x08842, 0x08842, 0x08847, 0x08848,
-+	 0x0884a, 0x0884a, 0x0884f, 0x08850, 0x08852, 0x08852, 0x08857, 0x08858,
-+	 0x0885a, 0x0885a, 0x0885f, 0x0885f, 0x08865, 0x08865, 0x08871, 0x08872,
-+	 0x08877, 0x08877, 0x08880, 0x08881, 0x08886, 0x08886, 0x08890, 0x08890,
-+	 0x088d0, 0x088e4, 0x088e6, 0x088e6, 0x088e8, 0x088ea, 0x088f0, 0x088f1,
-+	 0x08900, 0x0891a, 0x08927, 0x08928, 0x08c17, 0x08c17, 0x08c20, 0x08c25,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_rb_slice_pipe_br_cluster_ps_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 32 (Regs:198)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers[] = {
-+	 0x0a800, 0x0a801, 0x0a81b, 0x0a81d, 0x0a822, 0x0a822, 0x0a824, 0x0a824,
-+	 0x0a827, 0x0a82a, 0x0a82e, 0x0a82e, 0x0a830, 0x0a830, 0x0a832, 0x0a835,
-+	 0x0a83a, 0x0a83a, 0x0a83c, 0x0a83c, 0x0a83f, 0x0a841, 0x0a85b, 0x0a85d,
-+	 0x0a862, 0x0a862, 0x0a864, 0x0a864, 0x0a867, 0x0a867, 0x0a870, 0x0a870,
-+	 0x0a872, 0x0a872, 0x0a88c, 0x0a88e, 0x0a893, 0x0a893, 0x0a895, 0x0a895,
-+	 0x0a898, 0x0a898, 0x0a89a, 0x0a89d, 0x0a8b0, 0x0a8bb, 0x0a8c0, 0x0a8c3,
-+	 0x0a974, 0x0a977, 0x0ab00, 0x0ab03, 0x0ab05, 0x0ab05, 0x0ab09, 0x0ab09,
-+	 0x0ab23, 0x0ab26, 0x0abd0, 0x0ac1f, 0x0ac40, 0x0ac4f, 0x0ac60, 0x0ac7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 19 (Regs:44)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers[] = {
-+	 0x0a800, 0x0a800, 0x0a81c, 0x0a81d, 0x0a822, 0x0a824, 0x0a826, 0x0a827,
-+	 0x0a82d, 0x0a82d, 0x0a82f, 0x0a831, 0x0a834, 0x0a835, 0x0a83a, 0x0a83c,
-+	 0x0a83e, 0x0a840, 0x0a85c, 0x0a85d, 0x0a862, 0x0a864, 0x0a866, 0x0a868,
-+	 0x0a870, 0x0a871, 0x0a88d, 0x0a88e, 0x0a893, 0x0a895, 0x0a897, 0x0a899,
-+	 0x0ab00, 0x0ab00, 0x0ab02, 0x0ab05, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 15 (Regs:145)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_vs_usptp_registers[] = {
-+	 0x0a800, 0x0a81b, 0x0a81e, 0x0a821, 0x0a823, 0x0a827, 0x0a82d, 0x0a82d,
-+	 0x0a82f, 0x0a833, 0x0a836, 0x0a839, 0x0a83b, 0x0a85b, 0x0a85e, 0x0a861,
-+	 0x0a863, 0x0a868, 0x0a870, 0x0a88c, 0x0a88f, 0x0a892, 0x0a894, 0x0a899,
-+	 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977, 0x0ab00, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 21 (Regs:169)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers[] = {
-+	 0x0a980, 0x0a984, 0x0a9a7, 0x0a9a7, 0x0a9aa, 0x0a9aa, 0x0a9af, 0x0a9b0,
-+	 0x0a9b2, 0x0a9b5, 0x0a9ba, 0x0a9ba, 0x0a9bc, 0x0a9bc, 0x0a9c4, 0x0a9c4,
-+	 0x0a9cd, 0x0a9cd, 0x0a9fa, 0x0a9fc, 0x0aa00, 0x0aa00, 0x0aa0d, 0x0aa12,
-+	 0x0aa30, 0x0aa31, 0x0aaf2, 0x0aaf3, 0x0ab00, 0x0ab03, 0x0ab05, 0x0ab05,
-+	 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab26, 0x0abd0, 0x0ac1f, 0x0ac40, 0x0ac4f,
-+	 0x0ac60, 0x0ac7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:44)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers[] = {
-+	 0x0a9e0, 0x0a9f9, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_DP
-+ * pairs   : 2 (Regs:14)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers[] = {
-+	 0x0a9b0, 0x0a9b1, 0x0a9d4, 0x0a9df,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 15 (Regs:31)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers[] = {
-+	 0x0a980, 0x0a980, 0x0a982, 0x0a984, 0x0a9a7, 0x0a9a8, 0x0a9aa, 0x0a9ab,
-+	 0x0a9ae, 0x0a9ae, 0x0a9b0, 0x0a9b1, 0x0a9b3, 0x0a9b5, 0x0a9ba, 0x0a9bc,
-+	 0x0a9be, 0x0a9be, 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0aa00, 0x0aa03,
-+	 0x0ab00, 0x0ab00, 0x0ab02, 0x0ab05, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:44)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers[] = {
-+	 0x0a9e0, 0x0a9f9, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 15 (Regs:80)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_ps_usptp_registers[] = {
-+	 0x0a980, 0x0a982, 0x0a985, 0x0a99d, 0x0a9a8, 0x0a9a9, 0x0a9ab, 0x0a9ae,
-+	 0x0a9b0, 0x0a9b3, 0x0a9b6, 0x0a9b9, 0x0a9bb, 0x0a9bf, 0x0a9c2, 0x0a9c3,
-+	 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0a9d0, 0x0a9d3, 0x0aa01, 0x0aa0c,
-+	 0x0aa30, 0x0aa31, 0x0aaf2, 0x0aaf3, 0x0ab00, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 glymur_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 31 (Regs:196)
-+ */
-+static const u32 glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers[] = {
-+	 0x0a800, 0x0a801, 0x0a81b, 0x0a81d, 0x0a822, 0x0a822, 0x0a824, 0x0a824,
-+	 0x0a827, 0x0a82a, 0x0a82e, 0x0a82e, 0x0a830, 0x0a830, 0x0a832, 0x0a835,
-+	 0x0a83a, 0x0a83a, 0x0a83c, 0x0a83c, 0x0a83f, 0x0a841, 0x0a85b, 0x0a85d,
-+	 0x0a862, 0x0a862, 0x0a864, 0x0a864, 0x0a867, 0x0a867, 0x0a870, 0x0a870,
-+	 0x0a872, 0x0a872, 0x0a88c, 0x0a88e, 0x0a893, 0x0a893, 0x0a895, 0x0a895,
-+	 0x0a898, 0x0a898, 0x0a89a, 0x0a89d, 0x0a8b0, 0x0a8bb, 0x0a8c0, 0x0a8c3,
-+	 0x0a974, 0x0a977, 0x0ab00, 0x0ab02, 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab26,
-+	 0x0abd0, 0x0ac1f, 0x0ac40, 0x0ac4f, 0x0ac60, 0x0ac7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 19 (Regs:41)
-+ */
-+static const u32 glymur_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers[] = {
-+	 0x0a800, 0x0a800, 0x0a81c, 0x0a81d, 0x0a822, 0x0a824, 0x0a826, 0x0a827,
-+	 0x0a82d, 0x0a82d, 0x0a82f, 0x0a831, 0x0a834, 0x0a835, 0x0a83a, 0x0a83c,
-+	 0x0a83e, 0x0a840, 0x0a85c, 0x0a85d, 0x0a862, 0x0a864, 0x0a866, 0x0a868,
-+	 0x0a870, 0x0a871, 0x0a88d, 0x0a88e, 0x0a893, 0x0a895, 0x0a897, 0x0a899,
-+	 0x0ab00, 0x0ab00, 0x0ab02, 0x0ab02, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 glymur_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 16 (Regs:142)
-+ */
-+static const u32 glymur_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers[] = {
-+	 0x0a800, 0x0a81b, 0x0a81e, 0x0a821, 0x0a823, 0x0a827, 0x0a82d, 0x0a82d,
-+	 0x0a82f, 0x0a833, 0x0a836, 0x0a839, 0x0a83b, 0x0a85b, 0x0a85e, 0x0a861,
-+	 0x0a863, 0x0a868, 0x0a870, 0x0a88c, 0x0a88f, 0x0a892, 0x0a894, 0x0a899,
-+	 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977, 0x0ab00, 0x0ab02, 0x0ab06, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 glymur_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 16 (Regs:156)
-+ */
-+static const u32 glymur_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers[] = {
-+	 0x0a9b0, 0x0a9b0, 0x0a9b2, 0x0a9b5, 0x0a9ba, 0x0a9ba, 0x0a9bc, 0x0a9bc,
-+	 0x0a9c4, 0x0a9c4, 0x0a9cd, 0x0a9cd, 0x0a9fa, 0x0a9fc, 0x0aa00, 0x0aa00,
-+	 0x0aa10, 0x0aa12, 0x0aa31, 0x0aa35, 0x0aaf3, 0x0aaf3, 0x0ab00, 0x0ab01,
-+	 0x0ab23, 0x0ab26, 0x0abd0, 0x0ac1f, 0x0ac40, 0x0ac4f, 0x0ac60, 0x0ac7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:22)
-+ */
-+static const u32 glymur_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers[] = {
-+	 0x0a9e2, 0x0a9e3, 0x0a9e6, 0x0a9f9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 glymur_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_DP
-+ * pairs   : 2 (Regs:14)
-+ */
-+static const u32 glymur_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers[] = {
-+	 0x0a9b0, 0x0a9b1, 0x0a9d4, 0x0a9df,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 8 (Regs:14)
-+ */
-+static const u32 glymur_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers[] = {
-+	 0x0a9b0, 0x0a9b1, 0x0a9b3, 0x0a9b5, 0x0a9ba, 0x0a9bc, 0x0a9be, 0x0a9be,
-+	 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0aa00, 0x0aa00, 0x0ab00, 0x0ab00,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:22)
-+ */
-+static const u32 glymur_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers[] = {
-+	 0x0a9e2, 0x0a9e3, 0x0a9e6, 0x0a9f9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 11 (Regs:26)
-+ */
-+static const u32 glymur_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers[] = {
-+	 0x0a9b0, 0x0a9b3, 0x0a9b6, 0x0a9b9, 0x0a9bb, 0x0a9be, 0x0a9c2, 0x0a9c3,
-+	 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0a9d0, 0x0a9d3, 0x0aa31, 0x0aa31,
-+	 0x0aaf3, 0x0aaf3, 0x0ab00, 0x0ab01, 0x0ab06, 0x0ab06,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 glymur_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 glymur_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers[] = {
-+	 0x0b300, 0x0b304, 0x0b307, 0x0b307, 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:34)
-+ */
-+static const u32 glymur_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers[] = {
-+	 0x0b180, 0x0b182, 0x0b2c0, 0x0b2d7, 0x0b300, 0x0b304, 0x0b307, 0x0b307,
-+	 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 glymur_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers[] = {
-+	 0x0b300, 0x0b304, 0x0b307, 0x0b307, 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:7)
-+ */
-+static const u32 glymur_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers[] = {
-+	 0x0b180, 0x0b181, 0x0b300, 0x0b301, 0x0b304, 0x0b304, 0x0b307, 0x0b307,
-+	 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(glymur_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers), 8));
-+
-+static const struct gen8_sel_reg glymur_rb_rac_sel = {
-+	.host_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_HOST,
-+	.cd_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_CD,
-+	.val = 0,
-+};
-+
-+static const struct gen8_sel_reg glymur_rb_rbp_sel = {
-+	.host_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_HOST,
-+	.cd_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_CD,
-+	.val = 0x9,
-+};
-+
-+static const struct gen8_cluster_registers glymur_cp_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_NONE, STATE_NON_CONTEXT,
-+		glymur_cp_cp_pipe_none_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_BR, STATE_NON_CONTEXT,
-+		glymur_cp_cp_pipe_br_registers,  },
-+	{ CLUSTER_NONE, SLICE, CP_PIPE_BR, STATE_NON_CONTEXT,
-+		glymur_cp_slice_cp_pipe_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_BV, STATE_NON_CONTEXT,
-+		glymur_cp_cp_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, SLICE, CP_PIPE_BV, STATE_NON_CONTEXT,
-+		glymur_cp_slice_cp_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_LPAC, STATE_NON_CONTEXT,
-+		glymur_cp_cp_pipe_lpac_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_AQE0, STATE_NON_CONTEXT,
-+		glymur_cp_cp_pipe_aqe0_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_AQE1, STATE_NON_CONTEXT,
-+		glymur_cp_cp_pipe_aqe1_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_DDE_BR, STATE_NON_CONTEXT,
-+		glymur_cp_cp_pipe_dde_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_DDE_BV, STATE_NON_CONTEXT,
-+		glymur_cp_cp_pipe_dde_bv_registers,  },
-+};
-+
-+static const struct gen8_cluster_registers glymur_mvc_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		glymur_non_context_pipe_br_registers,  },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		glymur_non_context_slice_pipe_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		glymur_non_context_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, SLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		glymur_non_context_slice_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_LPAC, STATE_NON_CONTEXT,
-+		glymur_non_context_pipe_lpac_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		glymur_non_context_rb_pipe_br_rbp_registers, &glymur_rb_rbp_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		glymur_non_context_rb_slice_pipe_br_rac_registers, &glymur_rb_rac_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		glymur_non_context_rb_slice_pipe_br_rbp_registers, &glymur_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		glymur_rb_slice_pipe_br_cluster_ps_rac_registers, &glymur_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		glymur_rb_slice_pipe_br_cluster_ps_rac_registers, &glymur_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		glymur_rb_slice_pipe_br_cluster_ps_rbp_registers, &glymur_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		glymur_rb_slice_pipe_br_cluster_ps_rbp_registers, &glymur_rb_rbp_sel, },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		glymur_gras_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		glymur_gras_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		glymur_gras_slice_pipe_br_cluster_gras_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		glymur_gras_slice_pipe_br_cluster_gras_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		glymur_gras_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		glymur_gras_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		glymur_gras_slice_pipe_bv_cluster_gras_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		glymur_gras_slice_pipe_bv_cluster_gras_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		glymur_pc_pipe_br_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		glymur_pc_pipe_br_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		glymur_pc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		glymur_pc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		glymur_pc_pipe_bv_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		glymur_pc_pipe_bv_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		glymur_pc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		glymur_pc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		glymur_vfd_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		glymur_vfd_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		glymur_vfd_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		glymur_vfd_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		glymur_vpc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		glymur_vpc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		glymur_vpc_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		glymur_vpc_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		glymur_vpc_pipe_br_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		glymur_vpc_pipe_br_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		glymur_vpc_slice_pipe_br_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		glymur_vpc_slice_pipe_br_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		glymur_vpc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		glymur_vpc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		glymur_vpc_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		glymur_vpc_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		glymur_vpc_pipe_bv_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		glymur_vpc_pipe_bv_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		glymur_vpc_slice_pipe_bv_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		glymur_vpc_slice_pipe_bv_cluster_vpc_ps_registers,  },
-+};
-+
-+static const struct gen8_sptp_cluster_registers glymur_sptp_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_NONE, 0, HLSQ_STATE,
-+		glymur_non_context_sp_pipe_none_hlsq_state_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_NONE, 0, SP_TOP,
-+		glymur_non_context_sp_pipe_none_sp_top_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_NONE, 0, USPTP,
-+		glymur_non_context_sp_pipe_none_usptp_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, TP0_NCTX_REG, PIPE_NONE, 0, USPTP,
-+		glymur_non_context_tpl1_pipe_none_usptp_registers, 0xb600},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 2, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 3, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 4, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 5, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 6, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 7, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 2, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 3, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 4, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 5, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 6, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 7, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 2, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 3, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, USPTP,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		glymur_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 2, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 3, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 4, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 5, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 6, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 7, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 2, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 3, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 4, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 5, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 6, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 7, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, SP_TOP,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, SP_TOP,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, SP_TOP,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, SP_TOP,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, USPTP,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		glymur_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 2, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 3, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 4, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 5, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 6, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 7, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 2, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 3, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 4, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 5, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 6, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 7, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, HLSQ_DP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, HLSQ_DP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 2, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 3, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 4, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 5, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 6, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 7, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 8, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 9, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 10, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 11, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 12, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 13, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 14, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 15, SP_TOP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, USPTP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		glymur_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		glymur_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		glymur_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		glymur_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_DP,
-+		glymur_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, SP_TOP,
-+		glymur_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, SP_TOP,
-+		glymur_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		glymur_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		glymur_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		glymur_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP_3D_CVS_REG, PIPE_BR, 1, USPTP,
-+		glymur_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		glymur_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP_3D_CVS_REG, PIPE_BV, 1, USPTP,
-+		glymur_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, TP_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		glymur_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, TP_3D_CPS_REG, PIPE_BR, 1, USPTP,
-+		glymur_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, TP_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		glymur_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers, 0xb000},
-+};
-+
-+/* 
-+ * Before dumping the CP MVC
-+ * Program CP_APERTURE_CNTL_* with pipeID={CP_PIPE}
-+ * Then dump corresponding {Register_PIPE}
-+ */
-+
-+static const struct gen8_cp_indexed_reg glymur_cp_indexed_reg_list[] = {
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_BR, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_BV, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_LPAC, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_AQE0, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_AQE1, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_DDE_BR, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_DDE_BV, 0x00040},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_BR, 0x00200},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_BV, 0x00200},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_LPAC, 0x00200},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_BR, 0x00800},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_BV, 0x00800},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_LPAC, 0x00200},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_AQE0, 0x00100},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_AQE1, 0x00100},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_DDE_BR, 0x00200},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_DDE_BV, 0x00200},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_BR, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_BV, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_LPAC, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_AQE0, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_AQE1, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_DDE_BR, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_DDE_BV, 0x0a000},
-+	{ 0x000008fa /* CP_RESOURCE_TABLE_DBG_ADDR_BV       */, 0x000008fb /* CP_RESOURCE_TABLE_DBG_DATA_BV       */, UNSLICE, CP_PIPE_NONE, 0x04100},
-+	{ 0x000008fc /* CP_FIFO_DBG_ADDR_LPAC               */, 0x000008fd /* CP_FIFO_DBG_DATA_LPAC               */, UNSLICE, CP_PIPE_NONE, 0x00040},
-+	{ 0x000008fe /* CP_FIFO_DBG_ADDR_DDE_PIPE           */, 0x000008ff /* CP_FIFO_DBG_DATA_DDE_PIPE           */, UNSLICE, CP_PIPE_DDE_BR, 0x01101},
-+	{ 0x000008fe /* CP_FIFO_DBG_ADDR_DDE_PIPE           */, 0x000008ff /* CP_FIFO_DBG_DATA_DDE_PIPE           */, UNSLICE, CP_PIPE_DDE_BV, 0x01101},
-+};
-+
-+
-+/* 
-+ * Before dumping the CP Mempool over the CP_*_MEM_POOL_DBG_ADDR/DATA 
-+ * indexed register pair it must be stabilized. 
-+ * for p in [CP_PIPE_BR, CP_PIPE_BV]:
-+ *   Program CP_APERTURE_CNTL_* with pipeID={p} sliceID={MAX_UINT}
-+ *   Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 1.
-+ *   Dump CP_MEM_POOL_DBG_ADDR_PIPE for pipe=p
-+ *   Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 0. 
-+ *
-+ * same thing for CP_SLICE_MEM_POOL_DBG_ADDR_PIPE
-+ * for p in [CP_PIPE_BR, CP_PIPE_BV]:
-+ *   for s in [0,1,2]:
-+ *     Program CP_APERTURE_CNTL_* with pipeID={p} sliceID={s}
-+ *     Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 1.
-+ *     Program CP_SLICE_CHICKEN_DBG[crashStabilizeMVC] bit = 1.
-+ *     Dump CP_SLICE_MEM_POOL_DBG_ADDR_PIPE for pipe=p, sliceID=s
-+ *     Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 0.  
-+ *     Program CP_SLICE_CHICKEN_DBG[crashStabilizeMVC] bit = 0.
-+ */
-+
-+static const struct gen8_cp_indexed_reg glymur_cp_mempool_reg_list[] = {
-+	{ 0x000008f6 /* CP_MEM_POOL_DBG_ADDR_PIPE           */, 0x000008f7 /* CP_MEM_POOL_DBG_DATA_PIPE           */, UNSLICE, CP_PIPE_BR, 0x02400},
-+	{ 0x000008f6 /* CP_MEM_POOL_DBG_ADDR_PIPE           */, 0x000008f7 /* CP_MEM_POOL_DBG_DATA_PIPE           */, UNSLICE, CP_PIPE_BV, 0x02400},
-+	{ 0x00000b00 /* CP_SLICE_MEM_POOL_DBG_ADDR_PIPE     */, 0x00000b01 /* CP_SLICE_MEM_POOL_DBG_DATA_PIPE     */, SLICE, CP_PIPE_BR, 0x02400},
-+	{ 0x00000b00 /* CP_SLICE_MEM_POOL_DBG_ADDR_PIPE     */, 0x00000b01 /* CP_SLICE_MEM_POOL_DBG_DATA_PIPE     */, SLICE, CP_PIPE_BV, 0x02400},
-+};
-+
-+
-+static const struct gen8_pc_indexed_reg glymur_pc_indexed_reg_list[] = {
-+};
-+
-+static const struct gen8_reg_list glymur_misc_registers[] = {
-+	{ UNSLICE, glymur_gpu_registers },
-+	{ SLICE, glymur_gpu_slice_registers },
-+	{ UNSLICE, glymur_cx_misc_registers },
-+	{ UNSLICE, glymur_dbgc_registers },
-+	{ SLICE, glymur_dbgc_slice_registers },
-+	{ UNSLICE, glymur_cx_dbgc_registers },
-+};
-+
-+static const struct gen8_reg_list glymur_ahb_registers[] = {
-+	{ UNSLICE, glymur_gbif_registers },
-+	{ UNSLICE, glymur_ahb_precd_gpu_registers },
-+	{ SLICE, glymur_ahb_precd_gpu_slice_registers },
-+	{ UNSLICE, glymur_ahb_secure_gpu_registers },
-+	{ UNSLICE, glymur_ahb_secure_cp_cp_pipe_none_registers },
-+};
-+
-+static const struct gen8_reg_list glymur_gmu_registers[] = {
-+	{ UNSLICE, glymur_gmugx_registers },
-+	{ SLICE, glymur_gmugx_slice_registers },
-+	{ UNSLICE, glymur_gmuao_registers },
-+	{ UNSLICE, glymur_gmucx_registers },
-+};
-+
-+const struct gen8_snapshot_block_list glymur_snapshot_block_list = {
-+        .pre_crashdumper_regs = glymur_ahb_registers,
-+        .num_pre_crashdumper_regs = ARRAY_SIZE(glymur_ahb_registers),
-+        .debugbus_blocks = glymur_debugbus_blocks,
-+        .debugbus_blocks_len = ARRAY_SIZE(glymur_debugbus_blocks),
-+        .gbif_debugbus_blocks = glymur_gbif_debugbus_blocks,
-+        .gbif_debugbus_blocks_len = ARRAY_SIZE(glymur_gbif_debugbus_blocks),
-+        .cx_debugbus_blocks = glymur_cx_debugbus_blocks,
-+        .cx_debugbus_blocks_len = ARRAY_SIZE(glymur_cx_debugbus_blocks),
-+        .gmu_cx_unsliced_regs = glymur_gmucx_registers,
-+        .gmu_gx_regs = glymur_gmu_registers,
-+        .num_gmu_gx_regs = ARRAY_SIZE(glymur_gmu_registers),
-+        .reg_list = glymur_misc_registers,
-+        .num_reg_list = ARRAY_SIZE(glymur_misc_registers),
-+        .cx_misc_regs = glymur_cx_misc_registers,
-+        .shader_blocks = glymur_shader_blocks,
-+        .num_shader_blocks = ARRAY_SIZE(glymur_shader_blocks),
-+        .cp_clusters = glymur_cp_clusters,
-+        .num_cp_clusters = ARRAY_SIZE(glymur_cp_clusters),
-+        .clusters = glymur_mvc_clusters,
-+        .num_clusters = ARRAY_SIZE(glymur_mvc_clusters),
-+        .sptp_clusters = glymur_sptp_clusters,
-+        .num_sptp_clusters = ARRAY_SIZE(glymur_sptp_clusters),
-+        .index_registers = glymur_cp_indexed_reg_list,
-+        .index_registers_len = ARRAY_SIZE(glymur_cp_indexed_reg_list),
-+        .mempool_index_registers = glymur_cp_mempool_reg_list,
-+        .mempool_index_registers_len = ARRAY_SIZE(glymur_cp_mempool_reg_list),
-+        .pc_index_registers = glymur_pc_indexed_reg_list,
-+        .pc_index_registers_len = ARRAY_SIZE(glymur_pc_indexed_reg_list),
-+};
-+static const u32 glymur_protect_regs[] __maybe_unused = {
-+	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
-+	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
-+	A6XX_PROTECT_NORDWR(0x00440, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00449, 0x0016),
-+	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
-+	A6XX_PROTECT_NORDWR(0x005e8, 0x0117),
-+	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
-+	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
-+	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
-+	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
-+	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
-+	A6XX_PROTECT_NORDWR(0x00837, 0x0099),
-+	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
-+	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
-+	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
-+	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
-+	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00e03, 0x001c),
-+	A6XX_PROTECT_NORDWR(0x00f01, 0x001e),
-+	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
-+	A6XX_PROTECT_RDONLY(0x03cc6, 0x0039),
-+	A6XX_PROTECT_NORDWR(0x03d00, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x08600, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08700, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08740, 0x00bf),
-+	A6XX_PROTECT_NORDWR(0x08e00, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08e3b, 0x00c4),
-+	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x08f01, 0x0002),
-+	A6XX_PROTECT_NORDWR(0x08f20, 0x019f),
-+	A6XX_PROTECT_NORDWR(0x09600, 0x006f),
-+	A6XX_PROTECT_NORDWR(0x09680, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x09740, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x09770, 0x008f),
-+	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
-+	A6XX_PROTECT_NORDWR(0x09e00, 0x002f),
-+	A6XX_PROTECT_NORDWR(0x09e50, 0x00af),
-+	A6XX_PROTECT_NORDWR(0x09f20, 0x00df),
-+	A6XX_PROTECT_NORDWR(0x0a600, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x0a630, 0x01cf),
-+	A6XX_PROTECT_NORDWR(0x0a82e, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
-+	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
-+	A6XX_PROTECT_NORDWR(0x0ae10, 0x004f),
-+	A6XX_PROTECT_NORDWR(0x0ae66, 0x0019),
-+	A6XX_PROTECT_RDONLY(0x0aed0, 0x002f),
-+	A6XX_PROTECT_NORDWR(0x0af00, 0x027f),
-+	A6XX_PROTECT_NORDWR(0x0b600, 0x001f),
-+	A6XX_PROTECT_NORDWR(0x0d200, 0x03ff),
-+	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
-+	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
-+	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
-+	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
-+	A6XX_PROTECT_RDONLY(0x1f878, 0x0507),
-+	A6XX_PROTECT_NORDWR(0x1f930, 0x032f),
-+	A6XX_PROTECT_NORDWR(0x1fd80, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
-+	A6XX_PROTECT_RDONLY(0x27880, 0x0001),
-+	A6XX_PROTECT_NORDWR(0x27882, 0x037d),
-+	A6XX_PROTECT_NORDWR(0x27c06, 0x0000),
-+};
-+DECLARE_ADRENO_PROTECT(glymur_protect, 80);
-\ No newline at end of file
-diff --git a/drivers/gpu/drm/msm/adreno/catalog/adreno_hawi.h b/drivers/gpu/drm/msm/adreno/catalog/adreno_hawi.h
-new file mode 100644
-index 000000000000..c701b74173ba
---- /dev/null
-+++ b/drivers/gpu/drm/msm/adreno/catalog/adreno_hawi.h
-@@ -0,0 +1,2387 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ *
-+ * THIS FILE IS AUTOGENERATED!
-+ */
-+
-+#pragma once
-+
-+
-+
-+static const u32 hawi_debugbus_blocks[] = {
-+	DEBUGBUS_GMU_GX_GC_US_I_0,
-+	DEBUGBUS_DBGC_GC_US_I_0,
-+	DEBUGBUS_RBBM_GC_US_I_0,
-+	DEBUGBUS_LARC_GC_US_I_0,
-+	DEBUGBUS_COM_GC_US_I_0,
-+	DEBUGBUS_HLSQ_GC_US_I_0,
-+	DEBUGBUS_CGC_GC_US_I_0,
-+	DEBUGBUS_VSC_GC_US_I_0_0,
-+	DEBUGBUS_VSC_GC_US_I_0_1,
-+	DEBUGBUS_UFC_GC_US_I_0,
-+	DEBUGBUS_UFC_GC_US_I_1,
-+	DEBUGBUS_CP_GC_US_I_0_0,
-+	DEBUGBUS_CP_GC_US_I_0_1,
-+	DEBUGBUS_CP_GC_US_I_0_2,
-+	DEBUGBUS_PC_BR_US_I_0,
-+	DEBUGBUS_PC_BV_US_I_0,
-+	DEBUGBUS_GPC_BR_US_I_0,
-+	DEBUGBUS_GPC_BV_US_I_0,
-+	DEBUGBUS_VPC_BR_US_I_0,
-+	DEBUGBUS_VPC_BV_US_I_0,
-+	DEBUGBUS_UCHE_WRAPPER_GC_US_I_0,
-+	DEBUGBUS_UCHE_GC_US_I_0,
-+	DEBUGBUS_UCHE_GC_US_I_1,
-+	DEBUGBUS_UCHE_GC_US_I_0_1,
-+	DEBUGBUS_UCHE_GC_US_I_1_1,
-+	DEBUGBUS_CP_GC_S_0_I_0,
-+	DEBUGBUS_PC_BR_S_0_I_0,
-+	DEBUGBUS_PC_BV_S_0_I_0,
-+	DEBUGBUS_TESS_GC_S_0_I_0,
-+	DEBUGBUS_TSEFE_GC_S_0_I_0,
-+	DEBUGBUS_TSEBE_GC_S_0_I_0,
-+	DEBUGBUS_RAS_GC_S_0_I_0,
-+	DEBUGBUS_LRZ_BR_S_0_I_0,
-+	DEBUGBUS_LRZ_BV_S_0_I_0,
-+	DEBUGBUS_VFDP_GC_S_0_I_0,
-+	DEBUGBUS_GPC_BR_S_0_I_0,
-+	DEBUGBUS_GPC_BV_S_0_I_0,
-+	DEBUGBUS_VPCFE_BR_S_0_I_0,
-+	DEBUGBUS_VPCFE_BV_S_0_I_0,
-+	DEBUGBUS_VPCBE_BR_S_0_I_0,
-+	DEBUGBUS_VPCBE_BV_S_0_I_0,
-+	DEBUGBUS_CCHE_GC_S_0_I_0,
-+	DEBUGBUS_DBGC_GC_S_0_I_0,
-+	DEBUGBUS_LARC_GC_S_0_I_0,
-+	DEBUGBUS_RBBM_GC_S_0_I_0,
-+	DEBUGBUS_CCRE_GC_S_0_I_0,
-+	DEBUGBUS_CGC_GC_S_0_I_0,
-+	DEBUGBUS_GMU_GC_S_0_I_0,
-+	DEBUGBUS_SLICE_GC_S_0_I_0,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_0_I_0,
-+	DEBUGBUS_SLICE_HM1_S_0_I_0,
-+	DEBUGBUS_SLICE_HM1_S_0_I_1,
-+	DEBUGBUS_USP_GC_S_0_I_0,
-+	DEBUGBUS_USP_GC_S_0_I_1,
-+	DEBUGBUS_USPTP_GC_S_0_I_0,
-+	DEBUGBUS_USPTP_GC_S_0_I_1,
-+	DEBUGBUS_USPTP_GC_S_0_I_2,
-+	DEBUGBUS_USPTP_GC_S_0_I_3,
-+	DEBUGBUS_TP_GC_S_0_I_0,
-+	DEBUGBUS_TP_GC_S_0_I_1,
-+	DEBUGBUS_TP_GC_S_0_I_2,
-+	DEBUGBUS_TP_GC_S_0_I_3,
-+	DEBUGBUS_RB_GC_S_0_I_0,
-+	DEBUGBUS_RB_GC_S_0_I_1,
-+	DEBUGBUS_CCU_GC_S_0_I_0,
-+	DEBUGBUS_CCU_GC_S_0_I_1,
-+	DEBUGBUS_HLSQ_GC_S_0_I_0,
-+	DEBUGBUS_HLSQ_GC_S_0_I_1,
-+	DEBUGBUS_VFD_GC_S_0_I_0,
-+	DEBUGBUS_VFD_GC_S_0_I_1,
-+	DEBUGBUS_NSP_S_0_I_0,
-+	DEBUGBUS_NSP_S_0_I_1,
-+	DEBUGBUS_NSP_S_0_I_2,
-+	DEBUGBUS_NSP_S_0_I_3,
-+	DEBUGBUS_NSP_S_0_I_4,
-+	DEBUGBUS_NSP_S_0_I_5,
-+	DEBUGBUS_NSP_S_0_I_6,
-+	DEBUGBUS_NSP_S_0_I_7,
-+	DEBUGBUS_MALU_S_0_I_0,
-+	DEBUGBUS_MALU_S_0_I_1,
-+	DEBUGBUS_MALU_S_0_I_2,
-+	DEBUGBUS_MALU_S_0_I_3,
-+	DEBUGBUS_CP_GC_S_1_I_0,
-+	DEBUGBUS_PC_BR_S_1_I_0,
-+	DEBUGBUS_PC_BV_S_1_I_0,
-+	DEBUGBUS_TESS_GC_S_1_I_0,
-+	DEBUGBUS_TSEFE_GC_S_1_I_0,
-+	DEBUGBUS_TSEBE_GC_S_1_I_0,
-+	DEBUGBUS_RAS_GC_S_1_I_0,
-+	DEBUGBUS_LRZ_BR_S_1_I_0,
-+	DEBUGBUS_LRZ_BV_S_1_I_0,
-+	DEBUGBUS_VFDP_GC_S_1_I_0,
-+	DEBUGBUS_GPC_BR_S_1_I_0,
-+	DEBUGBUS_GPC_BV_S_1_I_0,
-+	DEBUGBUS_VPCFE_BR_S_1_I_0,
-+	DEBUGBUS_VPCFE_BV_S_1_I_0,
-+	DEBUGBUS_VPCBE_BR_S_1_I_0,
-+	DEBUGBUS_VPCBE_BV_S_1_I_0,
-+	DEBUGBUS_CCHE_GC_S_1_I_0,
-+	DEBUGBUS_DBGC_GC_S_1_I_0,
-+	DEBUGBUS_LARC_GC_S_1_I_0,
-+	DEBUGBUS_RBBM_GC_S_1_I_0,
-+	DEBUGBUS_CCRE_GC_S_1_I_0,
-+	DEBUGBUS_CGC_GC_S_1_I_0,
-+	DEBUGBUS_GMU_GC_S_1_I_0,
-+	DEBUGBUS_SLICE_GC_S_1_I_0,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_1_I_0,
-+	DEBUGBUS_SLICE_HM1_S_1_I_0,
-+	DEBUGBUS_SLICE_HM1_S_1_I_1,
-+	DEBUGBUS_USP_GC_S_1_I_0,
-+	DEBUGBUS_USP_GC_S_1_I_1,
-+	DEBUGBUS_USPTP_GC_S_1_I_0,
-+	DEBUGBUS_USPTP_GC_S_1_I_1,
-+	DEBUGBUS_USPTP_GC_S_1_I_2,
-+	DEBUGBUS_USPTP_GC_S_1_I_3,
-+	DEBUGBUS_TP_GC_S_1_I_0,
-+	DEBUGBUS_TP_GC_S_1_I_1,
-+	DEBUGBUS_TP_GC_S_1_I_2,
-+	DEBUGBUS_TP_GC_S_1_I_3,
-+	DEBUGBUS_RB_GC_S_1_I_0,
-+	DEBUGBUS_RB_GC_S_1_I_1,
-+	DEBUGBUS_CCU_GC_S_1_I_0,
-+	DEBUGBUS_CCU_GC_S_1_I_1,
-+	DEBUGBUS_HLSQ_GC_S_1_I_0,
-+	DEBUGBUS_HLSQ_GC_S_1_I_1,
-+	DEBUGBUS_VFD_GC_S_1_I_0,
-+	DEBUGBUS_VFD_GC_S_1_I_1,
-+	DEBUGBUS_NSP_S_1_I_0,
-+	DEBUGBUS_NSP_S_1_I_1,
-+	DEBUGBUS_NSP_S_1_I_2,
-+	DEBUGBUS_NSP_S_1_I_3,
-+	DEBUGBUS_NSP_S_1_I_4,
-+	DEBUGBUS_NSP_S_1_I_5,
-+	DEBUGBUS_NSP_S_1_I_6,
-+	DEBUGBUS_NSP_S_1_I_7,
-+	DEBUGBUS_MALU_S_1_I_0,
-+	DEBUGBUS_MALU_S_1_I_1,
-+	DEBUGBUS_MALU_S_1_I_2,
-+	DEBUGBUS_MALU_S_1_I_3,
-+	DEBUGBUS_CP_GC_S_2_I_0,
-+	DEBUGBUS_PC_BR_S_2_I_0,
-+	DEBUGBUS_PC_BV_S_2_I_0,
-+	DEBUGBUS_TESS_GC_S_2_I_0,
-+	DEBUGBUS_TSEFE_GC_S_2_I_0,
-+	DEBUGBUS_TSEBE_GC_S_2_I_0,
-+	DEBUGBUS_RAS_GC_S_2_I_0,
-+	DEBUGBUS_LRZ_BR_S_2_I_0,
-+	DEBUGBUS_LRZ_BV_S_2_I_0,
-+	DEBUGBUS_VFDP_GC_S_2_I_0,
-+	DEBUGBUS_GPC_BR_S_2_I_0,
-+	DEBUGBUS_GPC_BV_S_2_I_0,
-+	DEBUGBUS_VPCFE_BR_S_2_I_0,
-+	DEBUGBUS_VPCFE_BV_S_2_I_0,
-+	DEBUGBUS_VPCBE_BR_S_2_I_0,
-+	DEBUGBUS_VPCBE_BV_S_2_I_0,
-+	DEBUGBUS_CCHE_GC_S_2_I_0,
-+	DEBUGBUS_DBGC_GC_S_2_I_0,
-+	DEBUGBUS_LARC_GC_S_2_I_0,
-+	DEBUGBUS_RBBM_GC_S_2_I_0,
-+	DEBUGBUS_CCRE_GC_S_2_I_0,
-+	DEBUGBUS_CGC_GC_S_2_I_0,
-+	DEBUGBUS_GMU_GC_S_2_I_0,
-+	DEBUGBUS_SLICE_GC_S_2_I_0,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_2_I_0,
-+	DEBUGBUS_SLICE_HM1_S_2_I_0,
-+	DEBUGBUS_SLICE_HM1_S_2_I_1,
-+	DEBUGBUS_USP_GC_S_2_I_0,
-+	DEBUGBUS_USP_GC_S_2_I_1,
-+	DEBUGBUS_USPTP_GC_S_2_I_0,
-+	DEBUGBUS_USPTP_GC_S_2_I_1,
-+	DEBUGBUS_USPTP_GC_S_2_I_2,
-+	DEBUGBUS_USPTP_GC_S_2_I_3,
-+	DEBUGBUS_TP_GC_S_2_I_0,
-+	DEBUGBUS_TP_GC_S_2_I_1,
-+	DEBUGBUS_TP_GC_S_2_I_2,
-+	DEBUGBUS_TP_GC_S_2_I_3,
-+	DEBUGBUS_RB_GC_S_2_I_0,
-+	DEBUGBUS_RB_GC_S_2_I_1,
-+	DEBUGBUS_CCU_GC_S_2_I_0,
-+	DEBUGBUS_CCU_GC_S_2_I_1,
-+	DEBUGBUS_HLSQ_GC_S_2_I_0,
-+	DEBUGBUS_HLSQ_GC_S_2_I_1,
-+	DEBUGBUS_VFD_GC_S_2_I_0,
-+	DEBUGBUS_VFD_GC_S_2_I_1,
-+	DEBUGBUS_NSP_S_2_I_0,
-+	DEBUGBUS_NSP_S_2_I_1,
-+	DEBUGBUS_NSP_S_2_I_2,
-+	DEBUGBUS_NSP_S_2_I_3,
-+	DEBUGBUS_NSP_S_2_I_4,
-+	DEBUGBUS_NSP_S_2_I_5,
-+	DEBUGBUS_NSP_S_2_I_6,
-+	DEBUGBUS_NSP_S_2_I_7,
-+	DEBUGBUS_MALU_S_2_I_0,
-+	DEBUGBUS_MALU_S_2_I_1,
-+	DEBUGBUS_MALU_S_2_I_2,
-+	DEBUGBUS_MALU_S_2_I_3,
-+};
-+
-+static const u32 hawi_gbif_debugbus_blocks[] = {
-+    DEBUGBUS_GBIF_GX_GC_US_I_0,
-+};
-+
-+static const u32 hawi_cx_debugbus_blocks[] = {
-+    DEBUGBUS_GBIF_CX_GC_US_I_0,
-+    DEBUGBUS_GMU_CX_GC_US_I_0,
-+    DEBUGBUS_CX_GC_US_I_0,
-+};
-+
-+static const struct gen8_shader_block hawi_shader_blocks[] = {
-+	{ TP0_TMO_DATA, 0x0200, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_TMO_DATA, 0x0200, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_SMO_DATA, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_SMO_DATA, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_MIPMAP_BASE_DATA, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_MIPMAP_BASE_DATA, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_DATA_RAM, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 15},
-+	{ SP_LB_DATA_RAM, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 15},
-+	{ SP_INST_DATA_RAM, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 4},
-+	{ SP_INST_DATA_RAM, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 4},
-+	{ SP_STH, 0x0800, 2, uSPTP0_nSP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STH, 0x0800, 2, uSPTP0_nSP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STH, 0x0800, 2, uSPTP1_nSP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STH, 0x0800, 2, uSPTP1_nSP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0200, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0200, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0200, 2, SPTOP, PIPE_BR, SP_TOP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, uSPTP0, PIPE_BV, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, uSPTP1, PIPE_BV, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, SPTOP, PIPE_BV, SP_TOP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, uSPTP0, PIPE_LPAC, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, uSPTP1, PIPE_LPAC, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, SPTOP, PIPE_LPAC, SP_TOP, SLICE, 1},
-+	{ SP_CONSMNG, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_CONSMNG, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ HLSQ_INST_DATA_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 4},
-+	{ SP_CB_RAM, 0x0390, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_CB_RAM, 0x0390, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_TAG, 0x0100, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_TAG, 0x0100, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_TMO_TAG, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_TMO_TAG, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_SMO_TAG, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_SMO_TAG, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STATE_DATA, 0x0040, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STATE_DATA, 0x0040, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_HWAVE_RAM, 0x0200, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_HWAVE_RAM, 0x0200, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_L0_INST_BUF, 0x0080, 2, uSPTP0_nSP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_L0_INST_BUF, 0x0080, 2, uSPTP0_nSP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_L0_INST_BUF, 0x0080, 2, uSPTP1_nSP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_L0_INST_BUF, 0x0080, 2, uSPTP1_nSP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ HLSQ_DATAPATH_DSTR_META, 0x0600, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DATAPATH_DSTR_META, 0x0020, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x00A0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x000C, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x0008, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0048, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0048, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_L2STC_TAG_RAM, 0x0200, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_L2STC_INFO_CMD, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_BE_CTXT_BUF_RAM, 0x0400, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_BE_CTXT_BUF_RAM, 0x0400, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_BE_CTXT_BUF_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_CHUNK_CVS_RAM, 0x01C0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM, 0x01C0, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM, 0x0300, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM, 0x0180, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CVS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CVS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CPS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CPS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM, 0x0540, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM, 0x0540, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_CPS_MISC_RAM, 0x00B0, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_CPS_MISC_RAM_1, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_GFX_CPS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_CVS_MISC_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_TAG, 0x0600, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_TAG, 0x0012, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0010, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0004, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM_TAG, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x03C0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x0280, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x0050, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM_TAG, 0x0014, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM_TAG, 0x000C, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_STPROC_META, 0x0400, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x0188, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x0188, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x00C0, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DATAPATH_META, 0x0020, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INDIRECT_META, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0034, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0034, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SHADOW_SP_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_SHADOW_SP_RAM, 0x0800, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 2},
-+};
-+
-+/*
-+ * Block   : ['AHB_PRECD']
-+ * REGION  : UNSLICE
-+ * pairs   : 1 (Regs:2)
-+ */
-+static const u32 hawi_ahb_precd_gpu_registers[] = {
-+	 0x00012, 0x00013,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_ahb_precd_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['AHB_PRECD']
-+ * REGION  : SLICE
-+ * pairs   : 1 (Regs:3)
-+ */
-+static const u32 hawi_ahb_precd_gpu_slice_registers[] = {
-+	 0x00580, 0x00582,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_ahb_precd_gpu_slice_registers), 8));
-+
-+/*
-+ * Block   : ['AHB_SECURE']
-+ * REGION  : UNSLICE
-+ * pairs   : 3 (Regs:8)
-+ */
-+static const u32 hawi_ahb_secure_gpu_registers[] = {
-+	 0x0f400, 0x0f400, 0x0f800, 0x0f804, 0x0fc00, 0x0fc01,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_ahb_secure_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['GBIF']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 9 (Regs:71)
-+ */
-+static const u32 hawi_gbif_registers[] = {
-+	 0x03c00, 0x03c0b, 0x03c40, 0x03c42, 0x03c45, 0x03c4e, 0x03c50, 0x03c5f,
-+	 0x03cc0, 0x03cc4, 0x03cc6, 0x03cd5, 0x03ce0, 0x03ce5, 0x03d00, 0x03d01,
-+	 0x03d03, 0x03d03,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_gbif_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'GRAS', 'PC']
-+ * Block   : ['RBBM', 'RDVM', 'UCHE']
-+ * Block   : ['VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 115 (Regs:1211)
-+ */
-+static const u32 hawi_gpu_registers[] = {
-+	 0x00008, 0x0000d, 0x00010, 0x00011, 0x00015, 0x00016, 0x00018, 0x00018,
-+	 0x0001a, 0x0001a, 0x0001c, 0x0001c, 0x0001e, 0x0001e, 0x00028, 0x0002b,
-+	 0x0002d, 0x00039, 0x00040, 0x00053, 0x00062, 0x00066, 0x00069, 0x0006e,
-+	 0x00071, 0x00072, 0x00074, 0x00074, 0x00076, 0x0009a, 0x0009d, 0x000d4,
-+	 0x000d7, 0x000e3, 0x000e5, 0x000e6, 0x000e9, 0x000f1, 0x000f4, 0x000f6,
-+	 0x000f9, 0x00108, 0x0010b, 0x0010e, 0x00111, 0x00111, 0x00114, 0x0011c,
-+	 0x0011f, 0x00121, 0x00125, 0x00125, 0x00127, 0x00127, 0x00129, 0x00129,
-+	 0x0012b, 0x00131, 0x00134, 0x00138, 0x0013a, 0x0013a, 0x0013c, 0x0013f,
-+	 0x00142, 0x00151, 0x00153, 0x00155, 0x00158, 0x00159, 0x0015c, 0x0015c,
-+	 0x00166, 0x0017b, 0x0019e, 0x001a3, 0x001b0, 0x002d9, 0x002e2, 0x0037d,
-+	 0x00380, 0x0039b, 0x003a4, 0x003ab, 0x003b4, 0x003c5, 0x003ce, 0x003cf,
-+	 0x003e0, 0x003e0, 0x003f0, 0x003f0, 0x00440, 0x00444, 0x0044d, 0x0044f,
-+	 0x00460, 0x00460, 0x00c02, 0x00c04, 0x00c06, 0x00c0c, 0x00c10, 0x00cd9,
-+	 0x00ce0, 0x00d0c, 0x00df0, 0x00df9, 0x00e01, 0x00e04, 0x00e06, 0x00e09,
-+	 0x00e0e, 0x00e13, 0x00e15, 0x00e1a, 0x00e20, 0x00e37, 0x0ec00, 0x0ec01,
-+	 0x0ec05, 0x0ec05, 0x0ec07, 0x0ec07, 0x0ec0a, 0x0ec0a, 0x0ec12, 0x0ec12,
-+	 0x0ec26, 0x0ec28, 0x0ec2b, 0x0ec2d, 0x0ec2f, 0x0ec2f, 0x0ec40, 0x0ec41,
-+	 0x0ec45, 0x0ec45, 0x0ec47, 0x0ec47, 0x0ec4a, 0x0ec4a, 0x0ec52, 0x0ec52,
-+	 0x0ec66, 0x0ec68, 0x0ec6b, 0x0ec6d, 0x0ec6f, 0x0ec6f, 0x0ec80, 0x0ec81,
-+	 0x0ec85, 0x0ec85, 0x0ec87, 0x0ec87, 0x0ec8a, 0x0ec8a, 0x0ec92, 0x0ec92,
-+	 0x0eca6, 0x0eca8, 0x0ecab, 0x0ecad, 0x0ecaf, 0x0ecaf, 0x0ecc0, 0x0ecc1,
-+	 0x0ecc5, 0x0ecc5, 0x0ecc7, 0x0ecc7, 0x0ecca, 0x0ecca, 0x0ecd2, 0x0ecd2,
-+	 0x0ece6, 0x0ece8, 0x0eceb, 0x0eced, 0x0ecef, 0x0ecef, 0x0ed00, 0x0ed01,
-+	 0x0ed05, 0x0ed05, 0x0ed07, 0x0ed07, 0x0ed0a, 0x0ed0a, 0x0ed12, 0x0ed12,
-+	 0x0ed26, 0x0ed28, 0x0ed2b, 0x0ed2d, 0x0ed2f, 0x0ed2f, 0x0ed40, 0x0ed41,
-+	 0x0ed45, 0x0ed45, 0x0ed47, 0x0ed47, 0x0ed4a, 0x0ed4a, 0x0ed52, 0x0ed52,
-+	 0x0ed66, 0x0ed68, 0x0ed6b, 0x0ed6d, 0x0ed6f, 0x0ed6f, 0x0ed80, 0x0ed81,
-+	 0x0ed85, 0x0ed85, 0x0ed87, 0x0ed87, 0x0ed8a, 0x0ed8a, 0x0ed92, 0x0ed92,
-+	 0x0eda6, 0x0eda8, 0x0edab, 0x0edad, 0x0edaf, 0x0edaf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'GRAS', 'PC']
-+ * Block   : ['RBBM', 'RDVM', 'UCHE']
-+ * Block   : ['VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 12 (Regs:91)
-+ */
-+static const u32 hawi_gpu_slice_registers[] = {
-+	 0x00500, 0x00500, 0x00583, 0x00584, 0x00586, 0x0058d, 0x0058f, 0x00599,
-+	 0x005a0, 0x005b3, 0x005c0, 0x005c0, 0x005c2, 0x005c6, 0x005e0, 0x005e3,
-+	 0x005ec, 0x005ec, 0x00f01, 0x00f02, 0x00f04, 0x00f0f, 0x00f20, 0x00f37,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_gpu_slice_registers), 8));
-+
-+/*
-+ * Block   : ['GMUGX']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 16 (Regs:180)
-+ */
-+static const u32 hawi_gmugx_registers[] = {
-+	 0x0dc00, 0x0dc0d, 0x0dc10, 0x0dc11, 0x0dc13, 0x0dc16, 0x0dc18, 0x0dc1a,
-+	 0x0dc1c, 0x0dc2f, 0x0dc40, 0x0dc42, 0x0dc60, 0x0dc7f, 0x0dc88, 0x0dc90,
-+	 0x0dc98, 0x0dc99, 0x0dca0, 0x0dcbf, 0x0dcc8, 0x0dcd0, 0x0dcd8, 0x0dcd9,
-+	 0x0dce0, 0x0dcff, 0x0dd08, 0x0dd10, 0x0dd18, 0x0dd19, 0x0de00, 0x0de04,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_gmugx_registers), 8));
-+
-+/*
-+ * Block   : ['GMUGX']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 25 (Regs:331)
-+ */
-+static const u32 hawi_gmugx_slice_registers[] = {
-+	 0x0e400, 0x0e402, 0x0e404, 0x0e40a, 0x0e40c, 0x0e42f, 0x0e438, 0x0e440,
-+	 0x0e448, 0x0e449, 0x0e450, 0x0e46f, 0x0e478, 0x0e480, 0x0e488, 0x0e489,
-+	 0x0e490, 0x0e4af, 0x0e4b8, 0x0e4c0, 0x0e4c8, 0x0e4c9, 0x0e4d0, 0x0e4ef,
-+	 0x0e4f8, 0x0e500, 0x0e508, 0x0e509, 0x0e510, 0x0e52f, 0x0e538, 0x0e540,
-+	 0x0e548, 0x0e549, 0x0e550, 0x0e56f, 0x0e578, 0x0e580, 0x0e588, 0x0e589,
-+	 0x0e590, 0x0e5af, 0x0e5b8, 0x0e5c0, 0x0e5c8, 0x0e5c9, 0x0e600, 0x0e60b,
-+	 0x0e610, 0x0e613,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_gmugx_slice_registers), 8));
-+
-+/*
-+ * Block   : ['GMUAO']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 60 (Regs:87)
-+ */
-+static const u32 hawi_gmuao_registers[] = {
-+	 0x10001, 0x10001, 0x10003, 0x10003, 0x10401, 0x10401, 0x10403, 0x10403,
-+	 0x10801, 0x10801, 0x10803, 0x10803, 0x10c01, 0x10c01, 0x10c03, 0x10c03,
-+	 0x11001, 0x11001, 0x11003, 0x11003, 0x11401, 0x11401, 0x11403, 0x11403,
-+	 0x11801, 0x11801, 0x11803, 0x11803, 0x11c01, 0x11c01, 0x11c03, 0x11c03,
-+	 0x22400, 0x22401, 0x22408, 0x22409, 0x22410, 0x22411, 0x22418, 0x22419,
-+	 0x22420, 0x22421, 0x23801, 0x23801, 0x23803, 0x23803, 0x23805, 0x23805,
-+	 0x23807, 0x23807, 0x23809, 0x23809, 0x2380b, 0x2380b, 0x2380d, 0x2380d,
-+	 0x2380f, 0x2380f, 0x23811, 0x23811, 0x23813, 0x23813, 0x23815, 0x23815,
-+	 0x23817, 0x23817, 0x23819, 0x23819, 0x2381b, 0x2381b, 0x2381d, 0x2381d,
-+	 0x2381f, 0x23820, 0x23822, 0x23822, 0x23824, 0x23824, 0x23826, 0x23826,
-+	 0x23828, 0x23828, 0x2382a, 0x2382a, 0x2382c, 0x2382c, 0x2382e, 0x2382e,
-+	 0x23830, 0x23830, 0x23832, 0x23832, 0x23834, 0x23834, 0x23836, 0x23836,
-+	 0x23838, 0x23838, 0x2383a, 0x2383a, 0x2383c, 0x2383c, 0x2383e, 0x2383e,
-+	 0x23840, 0x23847, 0x23b00, 0x23b01, 0x23b03, 0x23b03, 0x23b05, 0x23b0e,
-+	 0x23b10, 0x23b13, 0x23b15, 0x23b16, 0x23b28, 0x23b28, 0x23b30, 0x23b30,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_gmuao_registers), 8));
-+
-+/*
-+ * Block   : ['GMUCX', 'GMUCX_RAM']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 146 (Regs:747)
-+ */
-+static const u32 hawi_gmucx_registers[] = {
-+	 0x1f400, 0x1f40b, 0x1f40f, 0x1f411, 0x1f500, 0x1f500, 0x1f507, 0x1f507,
-+	 0x1f509, 0x1f50b, 0x1f700, 0x1f701, 0x1f704, 0x1f706, 0x1f708, 0x1f709,
-+	 0x1f70c, 0x1f70d, 0x1f710, 0x1f711, 0x1f713, 0x1f716, 0x1f718, 0x1f71d,
-+	 0x1f720, 0x1f725, 0x1f729, 0x1f729, 0x1f730, 0x1f747, 0x1f750, 0x1f75a,
-+	 0x1f75c, 0x1f75c, 0x1f780, 0x1f781, 0x1f784, 0x1f78b, 0x1f790, 0x1f797,
-+	 0x1f7a0, 0x1f7a7, 0x1f7b0, 0x1f7ba, 0x1f7e0, 0x1f7e1, 0x1f7e4, 0x1f7e5,
-+	 0x1f7e8, 0x1f7e9, 0x1f7ec, 0x1f7ed, 0x1f800, 0x1f804, 0x1f807, 0x1f808,
-+	 0x1f80b, 0x1f80c, 0x1f80f, 0x1f80f, 0x1f811, 0x1f811, 0x1f813, 0x1f817,
-+	 0x1f819, 0x1f81c, 0x1f824, 0x1f830, 0x1f838, 0x1f838, 0x1f840, 0x1f842,
-+	 0x1f848, 0x1f849, 0x1f84c, 0x1f84c, 0x1f850, 0x1f850, 0x1f858, 0x1f859,
-+	 0x1f868, 0x1f869, 0x1f878, 0x1f883, 0x1f930, 0x1f931, 0x1f934, 0x1f935,
-+	 0x1f938, 0x1f939, 0x1f93c, 0x1f93d, 0x1f940, 0x1f941, 0x1f943, 0x1f943,
-+	 0x1f948, 0x1f94a, 0x1f94f, 0x1f951, 0x1f954, 0x1f956, 0x1f95d, 0x1f95d,
-+	 0x1f962, 0x1f96e, 0x1f970, 0x1f976, 0x1f97c, 0x1f97e, 0x1f980, 0x1f981,
-+	 0x1f984, 0x1f986, 0x1f992, 0x1f993, 0x1f996, 0x1f99e, 0x1f9c0, 0x1f9cf,
-+	 0x1f9f0, 0x1f9f1, 0x1f9f8, 0x1f9fa, 0x1f9fc, 0x1f9fc, 0x1fa00, 0x1fa03,
-+	 0x1fc00, 0x1fc01, 0x1fc04, 0x1fc0d, 0x1fc10, 0x1fc11, 0x1fc14, 0x1fc14,
-+	 0x1fc18, 0x1fc19, 0x1fc20, 0x1fc20, 0x1fc24, 0x1fc26, 0x1fc30, 0x1fc33,
-+	 0x1fc38, 0x1fc3b, 0x1fc40, 0x1fc49, 0x1fc50, 0x1fc59, 0x1fc60, 0x1fc7f,
-+	 0x1fca0, 0x1fcef, 0x1fd80, 0x1fd81, 0x1fd83, 0x1fd84, 0x1fd88, 0x1fda7,
-+	 0x1fdb0, 0x1fdb3, 0x1fdb8, 0x1fdbb, 0x1fdc0, 0x1fdc3, 0x1fdc8, 0x1fdcb,
-+	 0x1fdd0, 0x1fdd3, 0x1fdd8, 0x1fddb, 0x1fde0, 0x1fde3, 0x1fe00, 0x1fe01,
-+	 0x1fe03, 0x1fe05, 0x1fe08, 0x1fe0a, 0x1fe10, 0x1fe12, 0x1fe40, 0x1fe44,
-+	 0x1fe70, 0x1fe71, 0x1fe74, 0x1fe77, 0x1fe88, 0x1fe8b, 0x1fe9c, 0x1fe9c,
-+	 0x1fec0, 0x1fec4, 0x1fef0, 0x1fef1, 0x1fef4, 0x1fef7, 0x1ff08, 0x1ff0b,
-+	 0x1ff1c, 0x1ff1c, 0x1ff20, 0x1ff21, 0x1ff80, 0x1ff82, 0x1ff84, 0x1ff86,
-+	 0x20000, 0x20009, 0x20010, 0x2001a, 0x2001c, 0x20022, 0x20024, 0x20025,
-+	 0x2002a, 0x2002c, 0x20030, 0x20031, 0x20034, 0x20036, 0x20080, 0x2008a,
-+	 0x20120, 0x20120, 0x20128, 0x20128, 0x20200, 0x20204, 0x20208, 0x20209,
-+	 0x20210, 0x20212, 0x20214, 0x20214, 0x20216, 0x20216, 0x20218, 0x20218,
-+	 0x2021a, 0x2021a, 0x20220, 0x20222, 0x20224, 0x20226, 0x20228, 0x20229,
-+	 0x2022c, 0x2022d, 0x20230, 0x2024f, 0x20260, 0x20261, 0x20268, 0x20269,
-+	 0x20270, 0x20274, 0x20278, 0x20279, 0x2027c, 0x2028c, 0x20300, 0x20301,
-+	 0x20304, 0x20305, 0x20308, 0x2030c, 0x20310, 0x20314, 0x20318, 0x2031a,
-+	 0x20320, 0x20322, 0x20324, 0x20326, 0x20328, 0x2032a, 0x2032c, 0x2032e,
-+	 0x20330, 0x20333, 0x20338, 0x20338, 0x20340, 0x2034f, 0x20378, 0x2037d,
-+	 0x20380, 0x20385, 0x20415, 0x20416,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_gmucx_registers), 8));
-+
-+/*
-+ * Block   : ['CX_MISC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 11 (Regs:94)
-+ */
-+static const u32 hawi_cx_misc_registers[] = {
-+	 0x1ac00, 0x1ac01, 0x27800, 0x27800, 0x27810, 0x27814, 0x27820, 0x27824,
-+	 0x27828, 0x2782a, 0x27832, 0x27857, 0x27880, 0x2788b, 0x2788d, 0x27898,
-+	 0x278a8, 0x278ae, 0x278b5, 0x278b7, 0x27c00, 0x27c05,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_cx_misc_registers), 8));
-+
-+/*
-+ * Block   : ['DBGC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 22 (Regs:155)
-+ */
-+static const u32 hawi_dbgc_registers[] = {
-+	 0x00600, 0x0061c, 0x0061e, 0x0063d, 0x00640, 0x00644, 0x00650, 0x00655,
-+	 0x00660, 0x00660, 0x00662, 0x00668, 0x0066a, 0x0066a, 0x00680, 0x00685,
-+	 0x00700, 0x00704, 0x00707, 0x0070a, 0x0070f, 0x00716, 0x00720, 0x00724,
-+	 0x00730, 0x00732, 0x00740, 0x00740, 0x00742, 0x0074a, 0x00750, 0x00755,
-+	 0x00759, 0x0075c, 0x00760, 0x00763, 0x00770, 0x00770, 0x00775, 0x00777,
-+	 0x00780, 0x0078d, 0x00790, 0x00790,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_dbgc_registers), 8));
-+
-+/*
-+ * Block   : ['DBGC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 2 (Regs:65)
-+ */
-+static const u32 hawi_dbgc_slice_registers[] = {
-+	 0x007a0, 0x007d9, 0x007e0, 0x007e6,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_dbgc_slice_registers), 8));
-+
-+/*
-+ * Block   : ['CX_DBGC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 6 (Regs:75)
-+ */
-+static const u32 hawi_cx_dbgc_registers[] = {
-+	 0x18400, 0x1841c, 0x1841e, 0x1843d, 0x18440, 0x18444, 0x18450, 0x18455,
-+	 0x1846a, 0x1846a, 0x18580, 0x18581,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_cx_dbgc_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 14 (Regs:308)
-+ */
-+static const u32 hawi_cp_cp_pipe_none_registers[] = {
-+	 0x00800, 0x0081e, 0x00820, 0x0082d, 0x00838, 0x0083e, 0x00840, 0x00847,
-+	 0x0084a, 0x0084c, 0x00850, 0x0088f, 0x008b5, 0x008b6, 0x008c0, 0x008cb,
-+	 0x008d0, 0x008e4, 0x008e7, 0x008ee, 0x008fa, 0x008fd, 0x00928, 0x00929,
-+	 0x00958, 0x0095b, 0x00980, 0x009ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_cp_cp_pipe_none_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 8 (Regs:96)
-+ */
-+static const u32 hawi_cp_cp_pipe_br_registers[] = {
-+	 0x00830, 0x00837, 0x0084d, 0x0084f, 0x008a0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f9, 0x00900, 0x0091e, 0x00920, 0x00926, 0x00930, 0x0093a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_cp_cp_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : SLICE
-+ * Pipeline: CP_PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:23)
-+ */
-+static const u32 hawi_cp_slice_cp_pipe_br_registers[] = {
-+	 0x00b00, 0x00b0c, 0x00b10, 0x00b10, 0x00b80, 0x00b84, 0x00b90, 0x00b93,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_cp_slice_cp_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:88)
-+ */
-+static const u32 hawi_cp_cp_pipe_bv_registers[] = {
-+	 0x00830, 0x00835, 0x0084d, 0x0084f, 0x008a0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f9, 0x00900, 0x00913, 0x00918, 0x0091d, 0x00920, 0x00925,
-+	 0x00930, 0x0093a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_cp_cp_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : SLICE
-+ * Pipeline: CP_PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:23)
-+ */
-+static const u32 hawi_cp_slice_cp_pipe_bv_registers[] = {
-+	 0x00b00, 0x00b0c, 0x00b10, 0x00b10, 0x00b80, 0x00b84, 0x00b90, 0x00b93,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_cp_slice_cp_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_LPAC
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:77)
-+ */
-+static const u32 hawi_cp_cp_pipe_lpac_registers[] = {
-+	 0x00830, 0x00837, 0x0084d, 0x0084f, 0x008a0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f5, 0x008f8, 0x008f9, 0x00900, 0x00913, 0x00918, 0x0091d,
-+	 0x00920, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_cp_cp_pipe_lpac_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_AQE0
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:22)
-+ */
-+static const u32 hawi_cp_cp_pipe_aqe0_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x00910, 0x00913,
-+	 0x0091d, 0x0091d, 0x00925, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_cp_cp_pipe_aqe0_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_AQE1
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:22)
-+ */
-+static const u32 hawi_cp_cp_pipe_aqe1_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x00910, 0x00913,
-+	 0x0091d, 0x0091d, 0x00925, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_cp_cp_pipe_aqe1_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_DDE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:54)
-+ */
-+static const u32 hawi_cp_cp_pipe_dde_br_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x008fe, 0x00917,
-+	 0x00919, 0x0091e, 0x00921, 0x00926,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_cp_cp_pipe_dde_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_DDE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:54)
-+ */
-+static const u32 hawi_cp_cp_pipe_dde_bv_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x008fe, 0x00917,
-+	 0x00919, 0x0091e, 0x00921, 0x00926,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_cp_cp_pipe_dde_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:798)
-+ */
-+static const u32 hawi_non_context_pipe_br_registers[] = {
-+	 0x00e40, 0x00eef, 0x09600, 0x09605, 0x09610, 0x09617, 0x09620, 0x09627,
-+	 0x09670, 0x0967b, 0x09e00, 0x09e15, 0x09e17, 0x09e23, 0x09e30, 0x09e3f,
-+	 0x09e50, 0x09e59, 0x09e60, 0x09e6e, 0x0d400, 0x0d5ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_non_context_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 21 (Regs:303)
-+ */
-+static const u32 hawi_non_context_slice_pipe_br_registers[] = {
-+	 0x08600, 0x08602, 0x08610, 0x08613, 0x08700, 0x08704, 0x08710, 0x08713,
-+	 0x08720, 0x08723, 0x08730, 0x08733, 0x08740, 0x08744, 0x09680, 0x09681,
-+	 0x09690, 0x0969b, 0x09740, 0x09745, 0x09750, 0x0975b, 0x09770, 0x097ef,
-+	 0x09f00, 0x09f0f, 0x09f20, 0x09f23, 0x09f30, 0x09f31, 0x0a600, 0x0a600,
-+	 0x0a603, 0x0a603, 0x0a610, 0x0a61f, 0x0a630, 0x0a632, 0x0a638, 0x0a63e,
-+	 0x0a640, 0x0a67f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_non_context_slice_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 12 (Regs:797)
-+ */
-+static const u32 hawi_non_context_pipe_bv_registers[] = {
-+	 0x00e40, 0x00eef, 0x09600, 0x09605, 0x09610, 0x09617, 0x09620, 0x09627,
-+	 0x09670, 0x0967b, 0x09e00, 0x09e04, 0x09e06, 0x09e15, 0x09e17, 0x09e23,
-+	 0x09e30, 0x09e3f, 0x09e50, 0x09e59, 0x09e60, 0x09e6e, 0x0d400, 0x0d5ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_non_context_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 21 (Regs:303)
-+ */
-+static const u32 hawi_non_context_slice_pipe_bv_registers[] = {
-+	 0x08600, 0x08602, 0x08610, 0x08613, 0x08700, 0x08704, 0x08710, 0x08713,
-+	 0x08720, 0x08723, 0x08730, 0x08733, 0x08740, 0x08744, 0x09680, 0x09681,
-+	 0x09690, 0x0969b, 0x09740, 0x09745, 0x09750, 0x0975b, 0x09770, 0x097ef,
-+	 0x09f00, 0x09f0f, 0x09f20, 0x09f23, 0x09f30, 0x09f31, 0x0a600, 0x0a600,
-+	 0x0a603, 0x0a603, 0x0a610, 0x0a61f, 0x0a630, 0x0a632, 0x0a638, 0x0a63e,
-+	 0x0a640, 0x0a67f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_non_context_slice_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 2 (Regs:177)
-+ */
-+static const u32 hawi_non_context_pipe_lpac_registers[] = {
-+	 0x00e14, 0x00e14, 0x00e40, 0x00eef,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_non_context_pipe_lpac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:27)
-+ */
-+static const u32 hawi_non_context_rb_pipe_br_rbp_registers[] = {
-+	 0x08f00, 0x08f07, 0x08f10, 0x08f15, 0x08f20, 0x08f2a, 0x08f30, 0x08f31,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_non_context_rb_pipe_br_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 5 (Regs:46)
-+ */
-+static const u32 hawi_non_context_rb_slice_pipe_br_rac_registers[] = {
-+	 0x08e09, 0x08e0b, 0x08e10, 0x08e17, 0x08e51, 0x08e5a, 0x08e69, 0x08e71,
-+	 0x08ea0, 0x08eaf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_non_context_rb_slice_pipe_br_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:31)
-+ */
-+static const u32 hawi_non_context_rb_slice_pipe_br_rbp_registers[] = {
-+	 0x08e01, 0x08e01, 0x08e04, 0x08e04, 0x08e06, 0x08e08, 0x08e0c, 0x08e0c,
-+	 0x08e18, 0x08e1c, 0x08e3b, 0x08e40, 0x08e50, 0x08e50, 0x08e5d, 0x08e60,
-+	 0x08e77, 0x08e7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_non_context_rb_slice_pipe_br_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 2 (Regs:17)
-+ */
-+static const u32 hawi_non_context_rb_slice_pipe_bv_rac_registers[] = {
-+	 0x08e10, 0x08e17, 0x08e69, 0x08e71,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_non_context_rb_slice_pipe_bv_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 6 (Regs:23)
-+ */
-+static const u32 hawi_non_context_rb_slice_pipe_bv_rbp_registers[] = {
-+	 0x08e01, 0x08e01, 0x08e04, 0x08e04, 0x08e18, 0x08e1c, 0x08e3b, 0x08e40,
-+	 0x08e5e, 0x08e60, 0x08e79, 0x08e7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_non_context_rb_slice_pipe_bv_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: HLSQ_STATE
-+ * pairs   : 10 (Regs:99)
-+ */
-+static const u32 hawi_non_context_sp_pipe_none_hlsq_state_registers[] = {
-+	 0x0ae05, 0x0ae05, 0x0ae10, 0x0ae13, 0x0ae15, 0x0ae16, 0x0ae52, 0x0ae52,
-+	 0x0ae60, 0x0ae67, 0x0ae69, 0x0ae6e, 0x0ae70, 0x0ae76, 0x0aec0, 0x0aec5,
-+	 0x0aed0, 0x0aeef, 0x0af00, 0x0af1f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_non_context_sp_pipe_none_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: SP_TOP
-+ * pairs   : 6 (Regs:63)
-+ */
-+static const u32 hawi_non_context_sp_pipe_none_sp_top_registers[] = {
-+	 0x0ae00, 0x0ae0f, 0x0ae14, 0x0ae14, 0x0ae35, 0x0ae35, 0x0ae3a, 0x0ae3f,
-+	 0x0ae50, 0x0ae52, 0x0ae80, 0x0aea3,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_non_context_sp_pipe_none_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: USPTP
-+ * pairs   : 9 (Regs:67)
-+ */
-+static const u32 hawi_non_context_sp_pipe_none_usptp_registers[] = {
-+	 0x0ae00, 0x0ae0f, 0x0ae14, 0x0ae14, 0x0ae17, 0x0ae19, 0x0ae30, 0x0ae32,
-+	 0x0ae35, 0x0ae35, 0x0ae3a, 0x0ae3b, 0x0ae3e, 0x0ae3f, 0x0ae50, 0x0ae52,
-+	 0x0ae80, 0x0aea3,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_non_context_sp_pipe_none_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:48)
-+ */
-+static const u32 hawi_non_context_tpl1_pipe_none_usptp_registers[] = {
-+	 0x0b600, 0x0b600, 0x0b602, 0x0b602, 0x0b604, 0x0b604, 0x0b606, 0x0b61e,
-+	 0x0b620, 0x0b633,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_non_context_tpl1_pipe_none_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 12 (Regs:303)
-+ */
-+static const u32 hawi_gras_slice_pipe_br_cluster_vpc_vs_registers[] = {
-+	 0x08200, 0x08219, 0x08220, 0x08225, 0x08228, 0x0822d, 0x08230, 0x0823b,
-+	 0x08240, 0x0825f, 0x08262, 0x08266, 0x08269, 0x0826d, 0x08270, 0x0828f,
-+	 0x0829f, 0x082b7, 0x082d0, 0x0832f, 0x08335, 0x08365, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_gras_slice_pipe_br_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_GRAS
-+ * pairs   : 16 (Regs:366)
-+ */
-+static const u32 hawi_gras_slice_pipe_br_cluster_gras_registers[] = {
-+	 0x08080, 0x08081, 0x08086, 0x08092, 0x080c0, 0x080df, 0x08101, 0x08110,
-+	 0x08200, 0x08219, 0x08220, 0x08225, 0x08228, 0x0822d, 0x08230, 0x0823b,
-+	 0x08240, 0x0825f, 0x08262, 0x08266, 0x08269, 0x0826d, 0x08270, 0x0828f,
-+	 0x0829f, 0x082b7, 0x082d0, 0x0832f, 0x08335, 0x08365, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_gras_slice_pipe_br_cluster_gras_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 12 (Regs:303)
-+ */
-+static const u32 hawi_gras_slice_pipe_bv_cluster_vpc_vs_registers[] = {
-+	 0x08200, 0x08219, 0x08220, 0x08225, 0x08228, 0x0822d, 0x08230, 0x0823b,
-+	 0x08240, 0x0825f, 0x08262, 0x08266, 0x08269, 0x0826d, 0x08270, 0x0828f,
-+	 0x0829f, 0x082b7, 0x082d0, 0x0832f, 0x08335, 0x08365, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_gras_slice_pipe_bv_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_GRAS
-+ * pairs   : 16 (Regs:366)
-+ */
-+static const u32 hawi_gras_slice_pipe_bv_cluster_gras_registers[] = {
-+	 0x08080, 0x08081, 0x08086, 0x08092, 0x080c0, 0x080df, 0x08101, 0x08110,
-+	 0x08200, 0x08219, 0x08220, 0x08225, 0x08228, 0x0822d, 0x08230, 0x0823b,
-+	 0x08240, 0x0825f, 0x08262, 0x08266, 0x08269, 0x0826d, 0x08270, 0x0828f,
-+	 0x0829f, 0x082b7, 0x082d0, 0x0832f, 0x08335, 0x08365, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_gras_slice_pipe_bv_cluster_gras_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_US
-+ * pairs   : 6 (Regs:36)
-+ */
-+static const u32 hawi_pc_pipe_br_cluster_fe_us_registers[] = {
-+	 0x09805, 0x09807, 0x0980b, 0x0980b, 0x09812, 0x09817, 0x0981a, 0x0981b,
-+	 0x09b00, 0x09b0e, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_pc_pipe_br_cluster_fe_us_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:24)
-+ */
-+static const u32 hawi_pc_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x09b00, 0x09b0e, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_pc_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_US
-+ * pairs   : 6 (Regs:36)
-+ */
-+static const u32 hawi_pc_pipe_bv_cluster_fe_us_registers[] = {
-+	 0x09805, 0x09807, 0x0980b, 0x0980b, 0x09812, 0x09817, 0x0981a, 0x0981b,
-+	 0x09b00, 0x09b0e, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_pc_pipe_bv_cluster_fe_us_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:24)
-+ */
-+static const u32 hawi_pc_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x09b00, 0x09b0e, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_pc_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VFD']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:238)
-+ */
-+static const u32 hawi_vfd_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x0a000, 0x0a00b, 0x0a00e, 0x0a0ef,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_vfd_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VFD']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:238)
-+ */
-+static const u32 hawi_vfd_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x0a000, 0x0a00b, 0x0a00e, 0x0a0ef,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_vfd_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 1 (Regs:29)
-+ */
-+static const u32 hawi_vpc_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x09300, 0x0931c,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_vpc_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 2 (Regs:31)
-+ */
-+static const u32 hawi_vpc_slice_pipe_br_cluster_vpc_vs_registers[] = {
-+	 0x090c0, 0x090c1, 0x09300, 0x0931c,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_vpc_slice_pipe_br_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_US
-+ * pairs   : 3 (Regs:60)
-+ */
-+static const u32 hawi_vpc_pipe_br_cluster_vpc_us_registers[] = {
-+	 0x09180, 0x09180, 0x09182, 0x0919f, 0x09300, 0x0931c,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_vpc_pipe_br_cluster_vpc_us_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_PS
-+ * pairs   : 5 (Regs:58)
-+ */
-+static const u32 hawi_vpc_slice_pipe_br_cluster_vpc_ps_registers[] = {
-+	 0x09240, 0x0924f, 0x09252, 0x09255, 0x0925a, 0x0925d, 0x09278, 0x0927c,
-+	 0x09300, 0x0931c,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_vpc_slice_pipe_br_cluster_vpc_ps_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 1 (Regs:29)
-+ */
-+static const u32 hawi_vpc_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x09300, 0x0931c,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_vpc_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 2 (Regs:31)
-+ */
-+static const u32 hawi_vpc_slice_pipe_bv_cluster_vpc_vs_registers[] = {
-+	 0x090c0, 0x090c1, 0x09300, 0x0931c,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_vpc_slice_pipe_bv_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_US
-+ * pairs   : 3 (Regs:60)
-+ */
-+static const u32 hawi_vpc_pipe_bv_cluster_vpc_us_registers[] = {
-+	 0x09180, 0x09180, 0x09182, 0x0919f, 0x09300, 0x0931c,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_vpc_pipe_bv_cluster_vpc_us_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_PS
-+ * pairs   : 5 (Regs:58)
-+ */
-+static const u32 hawi_vpc_slice_pipe_bv_cluster_vpc_ps_registers[] = {
-+	 0x09240, 0x0924f, 0x09252, 0x09255, 0x0925a, 0x0925d, 0x09278, 0x0927c,
-+	 0x09300, 0x0931c,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_vpc_slice_pipe_bv_cluster_vpc_ps_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 42 (Regs:177)
-+ */
-+static const u32 hawi_rb_slice_pipe_br_cluster_ps_rac_registers[] = {
-+	 0x08802, 0x08802, 0x08804, 0x0880a, 0x0880e, 0x08811, 0x08813, 0x08814,
-+	 0x08818, 0x0881f, 0x08821, 0x08821, 0x08823, 0x08826, 0x08829, 0x08829,
-+	 0x0882b, 0x0882e, 0x08831, 0x08831, 0x08833, 0x08836, 0x08839, 0x08839,
-+	 0x0883b, 0x0883e, 0x08841, 0x08841, 0x08843, 0x08846, 0x08849, 0x08849,
-+	 0x0884b, 0x0884e, 0x08851, 0x08851, 0x08853, 0x08856, 0x08859, 0x08859,
-+	 0x0885b, 0x0885e, 0x08860, 0x08864, 0x08866, 0x08866, 0x08869, 0x0886a,
-+	 0x08870, 0x08870, 0x08873, 0x08876, 0x08878, 0x08879, 0x08882, 0x08885,
-+	 0x08887, 0x08889, 0x08891, 0x08891, 0x08898, 0x08899, 0x088a0, 0x088a7,
-+	 0x088ad, 0x088ae, 0x088b0, 0x088cf, 0x088e5, 0x088e5, 0x088f4, 0x088f5,
-+	 0x08930, 0x08937, 0x08950, 0x08955, 0x08960, 0x08965, 0x08c00, 0x08c01,
-+	 0x08c18, 0x08c1f, 0x08c26, 0x08c34,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_rb_slice_pipe_br_cluster_ps_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 38 (Regs:108)
-+ */
-+static const u32 hawi_rb_slice_pipe_br_cluster_ps_rbp_registers[] = {
-+	 0x08800, 0x08801, 0x08803, 0x08803, 0x0880b, 0x0880d, 0x08812, 0x08812,
-+	 0x08815, 0x08817, 0x08820, 0x08820, 0x08822, 0x08822, 0x08827, 0x08828,
-+	 0x0882a, 0x0882a, 0x0882f, 0x08830, 0x08832, 0x08832, 0x08837, 0x08838,
-+	 0x0883a, 0x0883a, 0x0883f, 0x08840, 0x08842, 0x08842, 0x08847, 0x08848,
-+	 0x0884a, 0x0884a, 0x0884f, 0x08850, 0x08852, 0x08852, 0x08857, 0x08858,
-+	 0x0885a, 0x0885a, 0x0885f, 0x0885f, 0x08865, 0x08865, 0x08867, 0x08868,
-+	 0x08871, 0x08872, 0x08877, 0x08877, 0x08880, 0x08881, 0x08886, 0x08886,
-+	 0x08890, 0x08890, 0x088af, 0x088af, 0x088d0, 0x088e4, 0x088e6, 0x088e6,
-+	 0x088e8, 0x088ea, 0x088f0, 0x088f1, 0x08900, 0x0891a, 0x08927, 0x08928,
-+	 0x08c17, 0x08c17, 0x08c20, 0x08c25,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_rb_slice_pipe_br_cluster_ps_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 12 (Regs:67)
-+ */
-+static const u32 hawi_rb_slice_pipe_bv_cluster_ps_rac_registers[] = {
-+	 0x08802, 0x08802, 0x08804, 0x08808, 0x08870, 0x08870, 0x08873, 0x08876,
-+	 0x08878, 0x08879, 0x08882, 0x08885, 0x08887, 0x08889, 0x08898, 0x08899,
-+	 0x088b0, 0x088cf, 0x088e5, 0x088e5, 0x08950, 0x08955, 0x08960, 0x08965,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_rb_slice_pipe_bv_cluster_ps_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 13 (Regs:38)
-+ */
-+static const u32 hawi_rb_slice_pipe_bv_cluster_ps_rbp_registers[] = {
-+	 0x08800, 0x08801, 0x08803, 0x08803, 0x08817, 0x08817, 0x08865, 0x08865,
-+	 0x08867, 0x08868, 0x08871, 0x08872, 0x08877, 0x08877, 0x08880, 0x08881,
-+	 0x08886, 0x08886, 0x088d0, 0x088d4, 0x088d7, 0x088e4, 0x088e8, 0x088ea,
-+	 0x08900, 0x08902,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_rb_slice_pipe_bv_cluster_ps_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 30 (Regs:226)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers[] = {
-+	 0x0a800, 0x0a801, 0x0a81b, 0x0a81d, 0x0a822, 0x0a822, 0x0a824, 0x0a824,
-+	 0x0a827, 0x0a82a, 0x0a82e, 0x0a82e, 0x0a830, 0x0a830, 0x0a832, 0x0a835,
-+	 0x0a83a, 0x0a83a, 0x0a83c, 0x0a83c, 0x0a83f, 0x0a841, 0x0a85b, 0x0a85d,
-+	 0x0a862, 0x0a862, 0x0a864, 0x0a864, 0x0a867, 0x0a867, 0x0a870, 0x0a870,
-+	 0x0a872, 0x0a872, 0x0a88c, 0x0a88e, 0x0a893, 0x0a893, 0x0a895, 0x0a895,
-+	 0x0a898, 0x0a898, 0x0a8b0, 0x0a8bb, 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977,
-+	 0x0ab00, 0x0ab03, 0x0ab05, 0x0ab05, 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab26,
-+	 0x0abd0, 0x0ac4f, 0x0ac60, 0x0ac7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 3 (Regs:82)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b, 0x0ac90, 0x0acbf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 20 (Regs:48)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers[] = {
-+	 0x0a800, 0x0a800, 0x0a81c, 0x0a81d, 0x0a822, 0x0a824, 0x0a826, 0x0a827,
-+	 0x0a82d, 0x0a82d, 0x0a82f, 0x0a831, 0x0a834, 0x0a835, 0x0a83a, 0x0a83c,
-+	 0x0a83e, 0x0a840, 0x0a85c, 0x0a85d, 0x0a862, 0x0a864, 0x0a866, 0x0a868,
-+	 0x0a870, 0x0a871, 0x0a88d, 0x0a88e, 0x0a893, 0x0a895, 0x0a897, 0x0a899,
-+	 0x0a978, 0x0a97b, 0x0ab00, 0x0ab00, 0x0ab02, 0x0ab05, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 3 (Regs:82)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b, 0x0ac90, 0x0acbf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 15 (Regs:153)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_vs_usptp_registers[] = {
-+	 0x0a800, 0x0a81b, 0x0a81e, 0x0a821, 0x0a823, 0x0a827, 0x0a82d, 0x0a82d,
-+	 0x0a82f, 0x0a833, 0x0a836, 0x0a839, 0x0a83b, 0x0a85b, 0x0a85e, 0x0a861,
-+	 0x0a863, 0x0a868, 0x0a870, 0x0a88c, 0x0a88f, 0x0a892, 0x0a894, 0x0a89d,
-+	 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a97b, 0x0ab00, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 19 (Regs:199)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers[] = {
-+	 0x0a980, 0x0a984, 0x0a9a7, 0x0a9a7, 0x0a9aa, 0x0a9aa, 0x0a9b0, 0x0a9b0,
-+	 0x0a9b2, 0x0a9b5, 0x0a9ba, 0x0a9ba, 0x0a9bc, 0x0a9bc, 0x0a9cd, 0x0a9cd,
-+	 0x0a9fa, 0x0a9fc, 0x0aa00, 0x0aa00, 0x0aa0d, 0x0aa12, 0x0aa30, 0x0aa31,
-+	 0x0aaf2, 0x0aaf3, 0x0ab00, 0x0ab03, 0x0ab05, 0x0ab05, 0x0ab09, 0x0ab09,
-+	 0x0ab23, 0x0ab26, 0x0abd0, 0x0ac4f, 0x0ac60, 0x0ac7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 6 (Regs:140)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers[] = {
-+	 0x0a9e0, 0x0a9f9, 0x0aa14, 0x0aa2f, 0x0aa36, 0x0aa3f, 0x0aae0, 0x0aae9,
-+	 0x0ab0a, 0x0ab1b, 0x0ac90, 0x0acbf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_DP
-+ * pairs   : 2 (Regs:14)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers[] = {
-+	 0x0a9b0, 0x0a9b1, 0x0a9d4, 0x0a9df,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 16 (Regs:33)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers[] = {
-+	 0x0a980, 0x0a980, 0x0a982, 0x0a984, 0x0a9a7, 0x0a9a8, 0x0a9aa, 0x0a9ab,
-+	 0x0a9ae, 0x0a9ae, 0x0a9b0, 0x0a9b1, 0x0a9b3, 0x0a9b5, 0x0a9ba, 0x0a9bc,
-+	 0x0a9be, 0x0a9be, 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0aa00, 0x0aa03,
-+	 0x0aaf4, 0x0aaf5, 0x0ab00, 0x0ab00, 0x0ab02, 0x0ab05, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 6 (Regs:140)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers[] = {
-+	 0x0a9e0, 0x0a9f9, 0x0aa14, 0x0aa2f, 0x0aa36, 0x0aa3f, 0x0aae0, 0x0aae9,
-+	 0x0ab0a, 0x0ab1b, 0x0ac90, 0x0acbf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 13 (Regs:87)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_ps_usptp_registers[] = {
-+	 0x0a980, 0x0a982, 0x0a985, 0x0a99d, 0x0a9a8, 0x0a9a9, 0x0a9ab, 0x0a9b3,
-+	 0x0a9b6, 0x0a9b9, 0x0a9bb, 0x0a9bf, 0x0a9c2, 0x0a9c5, 0x0a9cd, 0x0a9ce,
-+	 0x0a9d0, 0x0a9d4, 0x0aa01, 0x0aa0c, 0x0aa30, 0x0aa31, 0x0aaf2, 0x0aaf7,
-+	 0x0ab00, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 hawi_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 29 (Regs:224)
-+ */
-+static const u32 hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers[] = {
-+	 0x0a800, 0x0a801, 0x0a81b, 0x0a81d, 0x0a822, 0x0a822, 0x0a824, 0x0a824,
-+	 0x0a827, 0x0a82a, 0x0a82e, 0x0a82e, 0x0a830, 0x0a830, 0x0a832, 0x0a835,
-+	 0x0a83a, 0x0a83a, 0x0a83c, 0x0a83c, 0x0a83f, 0x0a841, 0x0a85b, 0x0a85d,
-+	 0x0a862, 0x0a862, 0x0a864, 0x0a864, 0x0a867, 0x0a867, 0x0a870, 0x0a870,
-+	 0x0a872, 0x0a872, 0x0a88c, 0x0a88e, 0x0a893, 0x0a893, 0x0a895, 0x0a895,
-+	 0x0a898, 0x0a898, 0x0a8b0, 0x0a8bb, 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977,
-+	 0x0ab00, 0x0ab02, 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab26, 0x0abd0, 0x0ac4f,
-+	 0x0ac60, 0x0ac7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 3 (Regs:82)
-+ */
-+static const u32 hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b, 0x0ac90, 0x0acbf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 20 (Regs:45)
-+ */
-+static const u32 hawi_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers[] = {
-+	 0x0a800, 0x0a800, 0x0a81c, 0x0a81d, 0x0a822, 0x0a824, 0x0a826, 0x0a827,
-+	 0x0a82d, 0x0a82d, 0x0a82f, 0x0a831, 0x0a834, 0x0a835, 0x0a83a, 0x0a83c,
-+	 0x0a83e, 0x0a840, 0x0a85c, 0x0a85d, 0x0a862, 0x0a864, 0x0a866, 0x0a868,
-+	 0x0a870, 0x0a871, 0x0a88d, 0x0a88e, 0x0a893, 0x0a895, 0x0a897, 0x0a899,
-+	 0x0a978, 0x0a97b, 0x0ab00, 0x0ab00, 0x0ab02, 0x0ab02, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 3 (Regs:82)
-+ */
-+static const u32 hawi_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b, 0x0ac90, 0x0acbf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 16 (Regs:150)
-+ */
-+static const u32 hawi_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers[] = {
-+	 0x0a800, 0x0a81b, 0x0a81e, 0x0a821, 0x0a823, 0x0a827, 0x0a82d, 0x0a82d,
-+	 0x0a82f, 0x0a833, 0x0a836, 0x0a839, 0x0a83b, 0x0a85b, 0x0a85e, 0x0a861,
-+	 0x0a863, 0x0a868, 0x0a870, 0x0a88c, 0x0a88f, 0x0a892, 0x0a894, 0x0a89d,
-+	 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a97b, 0x0ab00, 0x0ab02, 0x0ab06, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 hawi_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 14 (Regs:187)
-+ */
-+static const u32 hawi_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers[] = {
-+	 0x0a9b0, 0x0a9b0, 0x0a9b2, 0x0a9b5, 0x0a9ba, 0x0a9ba, 0x0a9bc, 0x0a9bc,
-+	 0x0a9cd, 0x0a9cd, 0x0a9fa, 0x0a9fc, 0x0aa00, 0x0aa00, 0x0aa10, 0x0aa12,
-+	 0x0aa31, 0x0aa35, 0x0aaf3, 0x0aaf3, 0x0ab00, 0x0ab01, 0x0ab23, 0x0ab26,
-+	 0x0abd0, 0x0ac4f, 0x0ac60, 0x0ac7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 5 (Regs:70)
-+ */
-+static const u32 hawi_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers[] = {
-+	 0x0a9e2, 0x0a9e3, 0x0a9e6, 0x0a9f9, 0x0aa14, 0x0aa2f, 0x0aa36, 0x0aa3f,
-+	 0x0aae0, 0x0aae9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 hawi_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_DP
-+ * pairs   : 2 (Regs:14)
-+ */
-+static const u32 hawi_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers[] = {
-+	 0x0a9b0, 0x0a9b1, 0x0a9d4, 0x0a9df,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 9 (Regs:15)
-+ */
-+static const u32 hawi_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers[] = {
-+	 0x0a9b0, 0x0a9b1, 0x0a9b3, 0x0a9b5, 0x0a9ba, 0x0a9bc, 0x0a9be, 0x0a9be,
-+	 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0aa00, 0x0aa00, 0x0aaf5, 0x0aaf5,
-+	 0x0ab00, 0x0ab00,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 5 (Regs:70)
-+ */
-+static const u32 hawi_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers[] = {
-+	 0x0a9e2, 0x0a9e3, 0x0a9e6, 0x0a9f9, 0x0aa14, 0x0aa2f, 0x0aa36, 0x0aa3f,
-+	 0x0aae0, 0x0aae9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 11 (Regs:29)
-+ */
-+static const u32 hawi_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers[] = {
-+	 0x0a9b0, 0x0a9b3, 0x0a9b6, 0x0a9b9, 0x0a9bb, 0x0a9be, 0x0a9c2, 0x0a9c5,
-+	 0x0a9cd, 0x0a9ce, 0x0a9d0, 0x0a9d4, 0x0aa31, 0x0aa31, 0x0aaf3, 0x0aaf3,
-+	 0x0aaf5, 0x0aaf5, 0x0ab00, 0x0ab01, 0x0ab06, 0x0ab06,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 hawi_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 hawi_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers[] = {
-+	 0x0b300, 0x0b304, 0x0b307, 0x0b307, 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:34)
-+ */
-+static const u32 hawi_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers[] = {
-+	 0x0b180, 0x0b182, 0x0b2c0, 0x0b2d7, 0x0b300, 0x0b304, 0x0b307, 0x0b307,
-+	 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 hawi_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers[] = {
-+	 0x0b300, 0x0b304, 0x0b307, 0x0b307, 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:7)
-+ */
-+static const u32 hawi_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers[] = {
-+	 0x0b180, 0x0b181, 0x0b300, 0x0b301, 0x0b304, 0x0b304, 0x0b307, 0x0b307,
-+	 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(hawi_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers), 8));
-+
-+static const struct gen8_sel_reg hawi_rb_rac_sel = {
-+	.host_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_HOST,
-+	.cd_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_CD,
-+	.val = 0,
-+};
-+
-+static const struct gen8_sel_reg hawi_rb_rbp_sel = {
-+	.host_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_HOST,
-+	.cd_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_CD,
-+	.val = 0x9,
-+};
-+
-+static const struct gen8_cluster_registers hawi_cp_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_NONE, STATE_NON_CONTEXT,
-+		hawi_cp_cp_pipe_none_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_BR, STATE_NON_CONTEXT,
-+		hawi_cp_cp_pipe_br_registers,  },
-+	{ CLUSTER_NONE, SLICE, CP_PIPE_BR, STATE_NON_CONTEXT,
-+		hawi_cp_slice_cp_pipe_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_BV, STATE_NON_CONTEXT,
-+		hawi_cp_cp_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, SLICE, CP_PIPE_BV, STATE_NON_CONTEXT,
-+		hawi_cp_slice_cp_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_LPAC, STATE_NON_CONTEXT,
-+		hawi_cp_cp_pipe_lpac_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_AQE0, STATE_NON_CONTEXT,
-+		hawi_cp_cp_pipe_aqe0_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_AQE1, STATE_NON_CONTEXT,
-+		hawi_cp_cp_pipe_aqe1_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_DDE_BR, STATE_NON_CONTEXT,
-+		hawi_cp_cp_pipe_dde_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_DDE_BV, STATE_NON_CONTEXT,
-+		hawi_cp_cp_pipe_dde_bv_registers,  },
-+};
-+
-+static const struct gen8_cluster_registers hawi_mvc_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		hawi_non_context_pipe_br_registers,  },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		hawi_non_context_slice_pipe_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		hawi_non_context_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, SLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		hawi_non_context_slice_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_LPAC, STATE_NON_CONTEXT,
-+		hawi_non_context_pipe_lpac_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		hawi_non_context_rb_pipe_br_rbp_registers, &hawi_rb_rbp_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		hawi_non_context_rb_slice_pipe_br_rac_registers, &hawi_rb_rac_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		hawi_non_context_rb_slice_pipe_br_rbp_registers, &hawi_rb_rbp_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		hawi_non_context_rb_slice_pipe_bv_rac_registers, &hawi_rb_rac_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		hawi_non_context_rb_slice_pipe_bv_rbp_registers, &hawi_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		hawi_rb_slice_pipe_br_cluster_ps_rac_registers, &hawi_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		hawi_rb_slice_pipe_br_cluster_ps_rac_registers, &hawi_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		hawi_rb_slice_pipe_br_cluster_ps_rbp_registers, &hawi_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		hawi_rb_slice_pipe_br_cluster_ps_rbp_registers, &hawi_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		hawi_rb_slice_pipe_bv_cluster_ps_rac_registers, &hawi_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		hawi_rb_slice_pipe_bv_cluster_ps_rac_registers, &hawi_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		hawi_rb_slice_pipe_bv_cluster_ps_rbp_registers, &hawi_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		hawi_rb_slice_pipe_bv_cluster_ps_rbp_registers, &hawi_rb_rbp_sel, },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		hawi_gras_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		hawi_gras_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		hawi_gras_slice_pipe_br_cluster_gras_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		hawi_gras_slice_pipe_br_cluster_gras_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		hawi_gras_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		hawi_gras_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		hawi_gras_slice_pipe_bv_cluster_gras_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		hawi_gras_slice_pipe_bv_cluster_gras_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		hawi_pc_pipe_br_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		hawi_pc_pipe_br_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		hawi_pc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		hawi_pc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		hawi_pc_pipe_bv_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		hawi_pc_pipe_bv_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		hawi_pc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		hawi_pc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		hawi_vfd_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		hawi_vfd_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		hawi_vfd_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		hawi_vfd_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		hawi_vpc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		hawi_vpc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		hawi_vpc_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		hawi_vpc_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		hawi_vpc_pipe_br_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		hawi_vpc_pipe_br_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		hawi_vpc_slice_pipe_br_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		hawi_vpc_slice_pipe_br_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		hawi_vpc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		hawi_vpc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		hawi_vpc_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		hawi_vpc_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		hawi_vpc_pipe_bv_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		hawi_vpc_pipe_bv_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		hawi_vpc_slice_pipe_bv_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		hawi_vpc_slice_pipe_bv_cluster_vpc_ps_registers,  },
-+};
-+
-+static const struct gen8_sptp_cluster_registers hawi_sptp_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_NONE, 0, HLSQ_STATE,
-+		hawi_non_context_sp_pipe_none_hlsq_state_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_NONE, 0, SP_TOP,
-+		hawi_non_context_sp_pipe_none_sp_top_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_NONE, 0, USPTP,
-+		hawi_non_context_sp_pipe_none_usptp_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, TP0_NCTX_REG, PIPE_NONE, 0, USPTP,
-+		hawi_non_context_tpl1_pipe_none_usptp_registers, 0xb600},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 2, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 3, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 4, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 5, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 6, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 7, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 2, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 3, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 4, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 5, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 6, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 7, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 2, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 3, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, USPTP,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		hawi_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 2, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 3, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 4, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 5, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 6, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 7, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 2, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 3, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 4, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 5, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 6, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 7, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, SP_TOP,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, SP_TOP,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, SP_TOP,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, SP_TOP,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, USPTP,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		hawi_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 2, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 3, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 4, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 5, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 6, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 7, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 2, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 3, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 4, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 5, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 6, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 7, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, HLSQ_DP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, HLSQ_DP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 2, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 3, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 4, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 5, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 6, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 7, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 8, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 9, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 10, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 11, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 12, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 13, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 14, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 15, SP_TOP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, USPTP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		hawi_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		hawi_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		hawi_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		hawi_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_DP,
-+		hawi_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, SP_TOP,
-+		hawi_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, SP_TOP,
-+		hawi_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		hawi_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		hawi_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		hawi_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP_3D_CVS_REG, PIPE_BR, 1, USPTP,
-+		hawi_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		hawi_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP_3D_CVS_REG, PIPE_BV, 1, USPTP,
-+		hawi_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, TP_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		hawi_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, TP_3D_CPS_REG, PIPE_BR, 1, USPTP,
-+		hawi_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, TP_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		hawi_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers, 0xb000},
-+};
-+
-+/* 
-+ * Before dumping the CP MVC
-+ * Program CP_APERTURE_CNTL_* with pipeID={CP_PIPE}
-+ * Then dump corresponding {Register_PIPE}
-+ */
-+
-+static const struct gen8_cp_indexed_reg hawi_cp_indexed_reg_list[] = {
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_BR, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_BV, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_LPAC, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_AQE0, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_AQE1, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_DDE_BR, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_DDE_BV, 0x00040},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_BR, 0x00200},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_BV, 0x00200},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_LPAC, 0x00200},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_BR, 0x00800},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_BV, 0x00800},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_LPAC, 0x00200},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_AQE0, 0x00100},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_AQE1, 0x00100},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_DDE_BR, 0x00400},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_DDE_BV, 0x00400},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_BR, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_BV, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_LPAC, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_AQE0, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_AQE1, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_DDE_BR, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_DDE_BV, 0x0a000},
-+	{ 0x000008fa /* CP_RESOURCE_TABLE_DBG_ADDR_BV       */, 0x000008fb /* CP_RESOURCE_TABLE_DBG_DATA_BV       */, UNSLICE, CP_PIPE_NONE, 0x04100},
-+	{ 0x000008fc /* CP_FIFO_DBG_ADDR_LPAC               */, 0x000008fd /* CP_FIFO_DBG_DATA_LPAC               */, UNSLICE, CP_PIPE_NONE, 0x00040},
-+	{ 0x000008fe /* CP_FIFO_DBG_ADDR_DDE_PIPE           */, 0x000008ff /* CP_FIFO_DBG_DATA_DDE_PIPE           */, UNSLICE, CP_PIPE_DDE_BR, 0x01101},
-+	{ 0x000008fe /* CP_FIFO_DBG_ADDR_DDE_PIPE           */, 0x000008ff /* CP_FIFO_DBG_DATA_DDE_PIPE           */, UNSLICE, CP_PIPE_DDE_BV, 0x01101},
-+};
-+
-+
-+/* 
-+ * Before dumping the CP Mempool over the CP_*_MEM_POOL_DBG_ADDR/DATA 
-+ * indexed register pair it must be stabilized. 
-+ * for p in [CP_PIPE_BR, CP_PIPE_BV]:
-+ *   Program CP_APERTURE_CNTL_* with pipeID={p} sliceID={MAX_UINT}
-+ *   Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 1.
-+ *   Dump CP_MEM_POOL_DBG_ADDR_PIPE for pipe=p
-+ *   Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 0. 
-+ *
-+ * same thing for CP_SLICE_MEM_POOL_DBG_ADDR_PIPE
-+ * for p in [CP_PIPE_BR, CP_PIPE_BV]:
-+ *   for s in [0,1,2]:
-+ *     Program CP_APERTURE_CNTL_* with pipeID={p} sliceID={s}
-+ *     Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 1.
-+ *     Program CP_SLICE_CHICKEN_DBG[crashStabilizeMVC] bit = 1.
-+ *     Dump CP_SLICE_MEM_POOL_DBG_ADDR_PIPE for pipe=p, sliceID=s
-+ *     Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 0.  
-+ *     Program CP_SLICE_CHICKEN_DBG[crashStabilizeMVC] bit = 0.
-+ */
-+
-+static const struct gen8_cp_indexed_reg hawi_cp_mempool_reg_list[] = {
-+	{ 0x000008f6 /* CP_MEM_POOL_DBG_ADDR_PIPE           */, 0x000008f7 /* CP_MEM_POOL_DBG_DATA_PIPE           */, UNSLICE, CP_PIPE_BR, 0x02400},
-+	{ 0x000008f6 /* CP_MEM_POOL_DBG_ADDR_PIPE           */, 0x000008f7 /* CP_MEM_POOL_DBG_DATA_PIPE           */, UNSLICE, CP_PIPE_BV, 0x02400},
-+	{ 0x00000b00 /* CP_SLICE_MEM_POOL_DBG_ADDR_PIPE     */, 0x00000b01 /* CP_SLICE_MEM_POOL_DBG_DATA_PIPE     */, SLICE, CP_PIPE_BR, 0x02400},
-+	{ 0x00000b00 /* CP_SLICE_MEM_POOL_DBG_ADDR_PIPE     */, 0x00000b01 /* CP_SLICE_MEM_POOL_DBG_DATA_PIPE     */, SLICE, CP_PIPE_BV, 0x02400},
-+};
-+
-+
-+static const struct gen8_pc_indexed_reg hawi_pc_indexed_reg_list[] = {
-+	{ 0x00009e6c, 0x00009e6d, UNSLICE, PIPE_BR, 0x002bc},
-+	{ 0x00009e6c, 0x00009e6d, UNSLICE, PIPE_BV, 0x002bc},
-+};
-+
-+static const struct gen8_reg_list hawi_misc_registers[] = {
-+	{ UNSLICE, hawi_gpu_registers },
-+	{ SLICE, hawi_gpu_slice_registers },
-+	{ UNSLICE, hawi_cx_misc_registers },
-+	{ UNSLICE, hawi_dbgc_registers },
-+	{ SLICE, hawi_dbgc_slice_registers },
-+	{ UNSLICE, hawi_cx_dbgc_registers },
-+};
-+
-+static const struct gen8_reg_list hawi_ahb_registers[] = {
-+	{ UNSLICE, hawi_gbif_registers },
-+	{ UNSLICE, hawi_ahb_precd_gpu_registers },
-+	{ SLICE, hawi_ahb_precd_gpu_slice_registers },
-+	{ UNSLICE, hawi_ahb_secure_gpu_registers },
-+};
-+
-+static const struct gen8_reg_list hawi_gmu_registers[] = {
-+	{ UNSLICE, hawi_gmugx_registers },
-+	{ SLICE, hawi_gmugx_slice_registers },
-+	{ UNSLICE, hawi_gmuao_registers },
-+	{ UNSLICE, hawi_gmucx_registers },
-+};
-+
-+const struct gen8_snapshot_block_list hawi_snapshot_block_list = {
-+        .pre_crashdumper_regs = hawi_ahb_registers,
-+        .num_pre_crashdumper_regs = ARRAY_SIZE(hawi_ahb_registers),
-+        .debugbus_blocks = hawi_debugbus_blocks,
-+        .debugbus_blocks_len = ARRAY_SIZE(hawi_debugbus_blocks),
-+        .gbif_debugbus_blocks = hawi_gbif_debugbus_blocks,
-+        .gbif_debugbus_blocks_len = ARRAY_SIZE(hawi_gbif_debugbus_blocks),
-+        .cx_debugbus_blocks = hawi_cx_debugbus_blocks,
-+        .cx_debugbus_blocks_len = ARRAY_SIZE(hawi_cx_debugbus_blocks),
-+        .gmu_cx_unsliced_regs = hawi_gmucx_registers,
-+        .gmu_gx_regs = hawi_gmu_registers,
-+        .num_gmu_gx_regs = ARRAY_SIZE(hawi_gmu_registers),
-+        .reg_list = hawi_misc_registers,
-+        .num_reg_list = ARRAY_SIZE(hawi_misc_registers),
-+        .cx_misc_regs = hawi_cx_misc_registers,
-+        .shader_blocks = hawi_shader_blocks,
-+        .num_shader_blocks = ARRAY_SIZE(hawi_shader_blocks),
-+        .cp_clusters = hawi_cp_clusters,
-+        .num_cp_clusters = ARRAY_SIZE(hawi_cp_clusters),
-+        .clusters = hawi_mvc_clusters,
-+        .num_clusters = ARRAY_SIZE(hawi_mvc_clusters),
-+        .sptp_clusters = hawi_sptp_clusters,
-+        .num_sptp_clusters = ARRAY_SIZE(hawi_sptp_clusters),
-+        .index_registers = hawi_cp_indexed_reg_list,
-+        .index_registers_len = ARRAY_SIZE(hawi_cp_indexed_reg_list),
-+        .mempool_index_registers = hawi_cp_mempool_reg_list,
-+        .mempool_index_registers_len = ARRAY_SIZE(hawi_cp_mempool_reg_list),
-+        .pc_index_registers = hawi_pc_indexed_reg_list,
-+        .pc_index_registers_len = ARRAY_SIZE(hawi_pc_indexed_reg_list),
-+};
-+static const u32 hawi_protect_regs[] __maybe_unused = {
-+	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
-+	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
-+	A6XX_PROTECT_NORDWR(0x00440, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00449, 0x0016),
-+	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
-+	A6XX_PROTECT_NORDWR(0x005e8, 0x0117),
-+	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
-+	A6XX_PROTECT_RDONLY(0x00759, 0x001b),
-+	A6XX_PROTECT_NORDWR(0x00775, 0x000a),
-+	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
-+	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
-+	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
-+	A6XX_PROTECT_NORDWR(0x00837, 0x0099),
-+	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
-+	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
-+	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
-+	A6XX_PROTECT_NORDWR(0x00c07, 0x0008),
-+	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
-+	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00df5, 0x0003),
-+	A6XX_PROTECT_RDONLY(0x00df9, 0x0007),
-+	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00e03, 0x001c),
-+	A6XX_PROTECT_NORDWR(0x00e40, 0x00df),
-+	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
-+	A6XX_PROTECT_RDONLY(0x03cc6, 0x0039),
-+	A6XX_PROTECT_NORDWR(0x03d00, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x08600, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08700, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08740, 0x00bf),
-+	A6XX_PROTECT_NORDWR(0x08e00, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08e3b, 0x00c4),
-+	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x08f01, 0x0002),
-+	A6XX_PROTECT_NORDWR(0x08f20, 0x019f),
-+	A6XX_PROTECT_NORDWR(0x09600, 0x006f),
-+	A6XX_PROTECT_NORDWR(0x09680, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x09740, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x09770, 0x008f),
-+	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
-+	A6XX_PROTECT_NORDWR(0x09e00, 0x002f),
-+	A6XX_PROTECT_NORDWR(0x09e50, 0x00af),
-+	A6XX_PROTECT_NORDWR(0x09f20, 0x00df),
-+	A6XX_PROTECT_NORDWR(0x0a600, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x0a630, 0x01cf),
-+	A6XX_PROTECT_NORDWR(0x0a82e, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
-+	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
-+	A6XX_PROTECT_NORDWR(0x0ae10, 0x004f),
-+	A6XX_PROTECT_NORDWR(0x0ae66, 0x0019),
-+	A6XX_PROTECT_RDONLY(0x0aed0, 0x002f),
-+	A6XX_PROTECT_NORDWR(0x0af00, 0x027f),
-+	A6XX_PROTECT_NORDWR(0x0b600, 0x001f),
-+	A6XX_PROTECT_NORDWR(0x0d400, 0x01ff),
-+	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
-+	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
-+	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
-+	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x1ac00, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
-+	A6XX_PROTECT_RDONLY(0x1f878, 0x0507),
-+	A6XX_PROTECT_NORDWR(0x1f930, 0x032f),
-+	A6XX_PROTECT_NORDWR(0x1fd80, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
-+	A6XX_PROTECT_RDONLY(0x27880, 0x0001),
-+	A6XX_PROTECT_NORDWR(0x27882, 0x037d),
-+	A6XX_PROTECT_NORDWR(0x27c06, 0x0000),
-+};
-+DECLARE_ADRENO_PROTECT(hawi_protect, 80);
-\ No newline at end of file
-diff --git a/drivers/gpu/drm/msm/adreno/catalog/adreno_kaanapali.h b/drivers/gpu/drm/msm/adreno/catalog/adreno_kaanapali.h
-new file mode 100644
-index 000000000000..19a3ecbbdf23
---- /dev/null
-+++ b/drivers/gpu/drm/msm/adreno/catalog/adreno_kaanapali.h
-@@ -0,0 +1,2317 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ *
-+ * THIS FILE IS AUTOGENERATED!
-+ */
-+
-+#pragma once
-+
-+
-+
-+static const u32 kaanapali_debugbus_blocks[] = {
-+	DEBUGBUS_GMU_GX_GC_US_I_0,
-+	DEBUGBUS_DBGC_GC_US_I_0,
-+	DEBUGBUS_RBBM_GC_US_I_0,
-+	DEBUGBUS_LARC_GC_US_I_0,
-+	DEBUGBUS_COM_GC_US_I_0,
-+	DEBUGBUS_HLSQ_GC_US_I_0,
-+	DEBUGBUS_CGC_GC_US_I_0,
-+	DEBUGBUS_VSC_GC_US_I_0_0,
-+	DEBUGBUS_VSC_GC_US_I_0_1,
-+	DEBUGBUS_UFC_GC_US_I_0,
-+	DEBUGBUS_UFC_GC_US_I_1,
-+	DEBUGBUS_CP_GC_US_I_0_0,
-+	DEBUGBUS_CP_GC_US_I_0_1,
-+	DEBUGBUS_CP_GC_US_I_0_2,
-+	DEBUGBUS_PC_BR_US_I_0,
-+	DEBUGBUS_PC_BV_US_I_0,
-+	DEBUGBUS_GPC_BR_US_I_0,
-+	DEBUGBUS_GPC_BV_US_I_0,
-+	DEBUGBUS_VPC_BR_US_I_0,
-+	DEBUGBUS_VPC_BV_US_I_0,
-+	DEBUGBUS_UCHE_WRAPPER_GC_US_I_0,
-+	DEBUGBUS_UCHE_GC_US_I_0,
-+	DEBUGBUS_UCHE_GC_US_I_1,
-+	DEBUGBUS_UCHE_GC_US_I_0_1,
-+	DEBUGBUS_UCHE_GC_US_I_1_1,
-+	DEBUGBUS_CP_GC_S_0_I_0,
-+	DEBUGBUS_PC_BR_S_0_I_0,
-+	DEBUGBUS_PC_BV_S_0_I_0,
-+	DEBUGBUS_TESS_GC_S_0_I_0,
-+	DEBUGBUS_TSEFE_GC_S_0_I_0,
-+	DEBUGBUS_TSEBE_GC_S_0_I_0,
-+	DEBUGBUS_RAS_GC_S_0_I_0,
-+	DEBUGBUS_LRZ_BR_S_0_I_0,
-+	DEBUGBUS_LRZ_BV_S_0_I_0,
-+	DEBUGBUS_VFDP_GC_S_0_I_0,
-+	DEBUGBUS_GPC_BR_S_0_I_0,
-+	DEBUGBUS_GPC_BV_S_0_I_0,
-+	DEBUGBUS_VPCFE_BR_S_0_I_0,
-+	DEBUGBUS_VPCFE_BV_S_0_I_0,
-+	DEBUGBUS_VPCBE_BR_S_0_I_0,
-+	DEBUGBUS_VPCBE_BV_S_0_I_0,
-+	DEBUGBUS_CCHE_GC_S_0_I_0,
-+	DEBUGBUS_DBGC_GC_S_0_I_0,
-+	DEBUGBUS_LARC_GC_S_0_I_0,
-+	DEBUGBUS_RBBM_GC_S_0_I_0,
-+	DEBUGBUS_CCRE_GC_S_0_I_0,
-+	DEBUGBUS_CGC_GC_S_0_I_0,
-+	DEBUGBUS_GMU_GC_S_0_I_0,
-+	DEBUGBUS_SLICE_GC_S_0_I_0,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_0_I_0,
-+	DEBUGBUS_USP_GC_S_0_I_0,
-+	DEBUGBUS_USP_GC_S_0_I_1,
-+	DEBUGBUS_USPTP_GC_S_0_I_0,
-+	DEBUGBUS_USPTP_GC_S_0_I_1,
-+	DEBUGBUS_USPTP_GC_S_0_I_2,
-+	DEBUGBUS_USPTP_GC_S_0_I_3,
-+	DEBUGBUS_TP_GC_S_0_I_0,
-+	DEBUGBUS_TP_GC_S_0_I_1,
-+	DEBUGBUS_TP_GC_S_0_I_2,
-+	DEBUGBUS_TP_GC_S_0_I_3,
-+	DEBUGBUS_RB_GC_S_0_I_0,
-+	DEBUGBUS_RB_GC_S_0_I_1,
-+	DEBUGBUS_CCU_GC_S_0_I_0,
-+	DEBUGBUS_CCU_GC_S_0_I_1,
-+	DEBUGBUS_HLSQ_GC_S_0_I_0,
-+	DEBUGBUS_HLSQ_GC_S_0_I_1,
-+	DEBUGBUS_VFD_GC_S_0_I_0,
-+	DEBUGBUS_VFD_GC_S_0_I_1,
-+	DEBUGBUS_CP_GC_S_1_I_0,
-+	DEBUGBUS_PC_BR_S_1_I_0,
-+	DEBUGBUS_PC_BV_S_1_I_0,
-+	DEBUGBUS_TESS_GC_S_1_I_0,
-+	DEBUGBUS_TSEFE_GC_S_1_I_0,
-+	DEBUGBUS_TSEBE_GC_S_1_I_0,
-+	DEBUGBUS_RAS_GC_S_1_I_0,
-+	DEBUGBUS_LRZ_BR_S_1_I_0,
-+	DEBUGBUS_LRZ_BV_S_1_I_0,
-+	DEBUGBUS_VFDP_GC_S_1_I_0,
-+	DEBUGBUS_GPC_BR_S_1_I_0,
-+	DEBUGBUS_GPC_BV_S_1_I_0,
-+	DEBUGBUS_VPCFE_BR_S_1_I_0,
-+	DEBUGBUS_VPCFE_BV_S_1_I_0,
-+	DEBUGBUS_VPCBE_BR_S_1_I_0,
-+	DEBUGBUS_VPCBE_BV_S_1_I_0,
-+	DEBUGBUS_CCHE_GC_S_1_I_0,
-+	DEBUGBUS_DBGC_GC_S_1_I_0,
-+	DEBUGBUS_LARC_GC_S_1_I_0,
-+	DEBUGBUS_RBBM_GC_S_1_I_0,
-+	DEBUGBUS_CCRE_GC_S_1_I_0,
-+	DEBUGBUS_CGC_GC_S_1_I_0,
-+	DEBUGBUS_GMU_GC_S_1_I_0,
-+	DEBUGBUS_SLICE_GC_S_1_I_0,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_1_I_0,
-+	DEBUGBUS_USP_GC_S_1_I_0,
-+	DEBUGBUS_USP_GC_S_1_I_1,
-+	DEBUGBUS_USPTP_GC_S_1_I_0,
-+	DEBUGBUS_USPTP_GC_S_1_I_1,
-+	DEBUGBUS_USPTP_GC_S_1_I_2,
-+	DEBUGBUS_USPTP_GC_S_1_I_3,
-+	DEBUGBUS_TP_GC_S_1_I_0,
-+	DEBUGBUS_TP_GC_S_1_I_1,
-+	DEBUGBUS_TP_GC_S_1_I_2,
-+	DEBUGBUS_TP_GC_S_1_I_3,
-+	DEBUGBUS_RB_GC_S_1_I_0,
-+	DEBUGBUS_RB_GC_S_1_I_1,
-+	DEBUGBUS_CCU_GC_S_1_I_0,
-+	DEBUGBUS_CCU_GC_S_1_I_1,
-+	DEBUGBUS_HLSQ_GC_S_1_I_0,
-+	DEBUGBUS_HLSQ_GC_S_1_I_1,
-+	DEBUGBUS_VFD_GC_S_1_I_0,
-+	DEBUGBUS_VFD_GC_S_1_I_1,
-+	DEBUGBUS_CP_GC_S_2_I_0,
-+	DEBUGBUS_PC_BR_S_2_I_0,
-+	DEBUGBUS_PC_BV_S_2_I_0,
-+	DEBUGBUS_TESS_GC_S_2_I_0,
-+	DEBUGBUS_TSEFE_GC_S_2_I_0,
-+	DEBUGBUS_TSEBE_GC_S_2_I_0,
-+	DEBUGBUS_RAS_GC_S_2_I_0,
-+	DEBUGBUS_LRZ_BR_S_2_I_0,
-+	DEBUGBUS_LRZ_BV_S_2_I_0,
-+	DEBUGBUS_VFDP_GC_S_2_I_0,
-+	DEBUGBUS_GPC_BR_S_2_I_0,
-+	DEBUGBUS_GPC_BV_S_2_I_0,
-+	DEBUGBUS_VPCFE_BR_S_2_I_0,
-+	DEBUGBUS_VPCFE_BV_S_2_I_0,
-+	DEBUGBUS_VPCBE_BR_S_2_I_0,
-+	DEBUGBUS_VPCBE_BV_S_2_I_0,
-+	DEBUGBUS_CCHE_GC_S_2_I_0,
-+	DEBUGBUS_DBGC_GC_S_2_I_0,
-+	DEBUGBUS_LARC_GC_S_2_I_0,
-+	DEBUGBUS_RBBM_GC_S_2_I_0,
-+	DEBUGBUS_CCRE_GC_S_2_I_0,
-+	DEBUGBUS_CGC_GC_S_2_I_0,
-+	DEBUGBUS_GMU_GC_S_2_I_0,
-+	DEBUGBUS_SLICE_GC_S_2_I_0,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_2_I_0,
-+	DEBUGBUS_USP_GC_S_2_I_0,
-+	DEBUGBUS_USP_GC_S_2_I_1,
-+	DEBUGBUS_USPTP_GC_S_2_I_0,
-+	DEBUGBUS_USPTP_GC_S_2_I_1,
-+	DEBUGBUS_USPTP_GC_S_2_I_2,
-+	DEBUGBUS_USPTP_GC_S_2_I_3,
-+	DEBUGBUS_TP_GC_S_2_I_0,
-+	DEBUGBUS_TP_GC_S_2_I_1,
-+	DEBUGBUS_TP_GC_S_2_I_2,
-+	DEBUGBUS_TP_GC_S_2_I_3,
-+	DEBUGBUS_RB_GC_S_2_I_0,
-+	DEBUGBUS_RB_GC_S_2_I_1,
-+	DEBUGBUS_CCU_GC_S_2_I_0,
-+	DEBUGBUS_CCU_GC_S_2_I_1,
-+	DEBUGBUS_HLSQ_GC_S_2_I_0,
-+	DEBUGBUS_HLSQ_GC_S_2_I_1,
-+	DEBUGBUS_VFD_GC_S_2_I_0,
-+	DEBUGBUS_VFD_GC_S_2_I_1,
-+};
-+
-+static const u32 kaanapali_gbif_debugbus_blocks[] = {
-+    DEBUGBUS_GBIF_GX_GC_US_I_0,
-+};
-+
-+static const u32 kaanapali_cx_debugbus_blocks[] = {
-+    DEBUGBUS_GBIF_CX_GC_US_I_0,
-+    DEBUGBUS_GMU_CX_GC_US_I_0,
-+    DEBUGBUS_CX_GC_US_I_0,
-+};
-+
-+static const struct gen8_shader_block kaanapali_shader_blocks[] = {
-+	{ TP0_TMO_DATA, 0x0200, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_TMO_DATA, 0x0200, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_SMO_DATA, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_SMO_DATA, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_MIPMAP_BASE_DATA, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_MIPMAP_BASE_DATA, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_DATA_RAM, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 15},
-+	{ SP_LB_DATA_RAM, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 15},
-+	{ SP_INST_DATA_RAM, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 4},
-+	{ SP_INST_DATA_RAM, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 4},
-+	{ SP_STH, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STH, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0200, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0200, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0200, 2, SPTOP, PIPE_BR, SP_TOP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, uSPTP0, PIPE_BV, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, uSPTP1, PIPE_BV, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, SPTOP, PIPE_BV, SP_TOP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, uSPTP0, PIPE_LPAC, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, uSPTP1, PIPE_LPAC, USPTP, SLICE, 1},
-+	{ SP_EVQ, 0x0040, 2, SPTOP, PIPE_LPAC, SP_TOP, SLICE, 1},
-+	{ SP_CONSMNG, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_CONSMNG, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ HLSQ_INST_DATA_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 4},
-+	{ SP_CB_RAM, 0x0390, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_CB_RAM, 0x0390, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_TAG, 0x0100, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_TAG, 0x0100, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_TMO_TAG, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_TMO_TAG, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_SMO_TAG, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_SMO_TAG, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STATE_DATA, 0x0040, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STATE_DATA, 0x0040, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_HWAVE_RAM, 0x0200, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_HWAVE_RAM, 0x0200, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_L0_INST_BUF, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_L0_INST_BUF, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ HLSQ_DATAPATH_DSTR_META, 0x0600, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DATAPATH_DSTR_META, 0x0020, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x00A0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x000C, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x0008, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0048, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0048, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_L2STC_TAG_RAM, 0x0200, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_L2STC_INFO_CMD, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_BE_CTXT_BUF_RAM, 0x0400, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_BE_CTXT_BUF_RAM, 0x0400, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_BE_CTXT_BUF_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_CHUNK_CVS_RAM, 0x01C0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM, 0x01C0, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM, 0x0300, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM, 0x0180, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CVS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CVS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CPS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CPS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM, 0x0540, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM, 0x0540, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_CPS_MISC_RAM, 0x00B0, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_CPS_MISC_RAM_1, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_GFX_CPS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 2},
-+	{ HLSQ_CVS_MISC_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_TAG, 0x0600, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_TAG, 0x0012, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0010, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0004, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM_TAG, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x03C0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x0280, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x0050, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM_TAG, 0x0014, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM_TAG, 0x000C, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_STPROC_META, 0x0400, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x0188, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x0188, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x00C0, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DATAPATH_META, 0x0020, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INDIRECT_META, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0034, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0034, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+};
-+
-+/*
-+ * Block   : ['AHB_PRECD']
-+ * REGION  : UNSLICE
-+ * pairs   : 1 (Regs:2)
-+ */
-+static const u32 kaanapali_ahb_precd_gpu_registers[] = {
-+	 0x00012, 0x00013,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_ahb_precd_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['AHB_PRECD']
-+ * REGION  : SLICE
-+ * pairs   : 1 (Regs:3)
-+ */
-+static const u32 kaanapali_ahb_precd_gpu_slice_registers[] = {
-+	 0x00580, 0x00582,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_ahb_precd_gpu_slice_registers), 8));
-+
-+/*
-+ * Block   : ['AHB_SECURE']
-+ * REGION  : UNSLICE
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 kaanapali_ahb_secure_gpu_registers[] = {
-+	 0x0f400, 0x0f400, 0x0f800, 0x0f803, 0x0fc00, 0x0fc01,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_ahb_secure_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['GBIF']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 10 (Regs:62)
-+ */
-+static const u32 kaanapali_gbif_registers[] = {
-+	 0x03c00, 0x03c0b, 0x03c40, 0x03c42, 0x03c45, 0x03c47, 0x03c49, 0x03c4e,
-+	 0x03c50, 0x03c57, 0x03cc0, 0x03cc4, 0x03cc6, 0x03cd5, 0x03ce0, 0x03ce5,
-+	 0x03d00, 0x03d01, 0x03d03, 0x03d03,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_gbif_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'GRAS', 'PC']
-+ * Block   : ['RBBM', 'RDVM', 'UCHE']
-+ * Block   : ['VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 116 (Regs:1184)
-+ */
-+static const u32 kaanapali_gpu_registers[] = {
-+	 0x00008, 0x0000d, 0x00010, 0x00011, 0x00015, 0x00016, 0x00018, 0x00018,
-+	 0x0001a, 0x0001a, 0x0001c, 0x0001c, 0x0001e, 0x0001e, 0x00028, 0x0002b,
-+	 0x0002d, 0x00039, 0x00040, 0x00053, 0x00062, 0x00066, 0x00069, 0x0006e,
-+	 0x00071, 0x00072, 0x00074, 0x00074, 0x00076, 0x0009a, 0x0009d, 0x000af,
-+	 0x000b2, 0x000d4, 0x000d7, 0x000e3, 0x000e5, 0x000e6, 0x000e9, 0x000f1,
-+	 0x000f4, 0x000f6, 0x000f9, 0x00108, 0x0010b, 0x0010e, 0x00111, 0x00111,
-+	 0x00114, 0x0011c, 0x0011f, 0x00121, 0x00125, 0x00125, 0x00127, 0x00127,
-+	 0x00129, 0x00129, 0x0012b, 0x00131, 0x00134, 0x00138, 0x0013a, 0x0013a,
-+	 0x0013c, 0x0013f, 0x00142, 0x00151, 0x00153, 0x00155, 0x00158, 0x00159,
-+	 0x0015c, 0x0015c, 0x00166, 0x00179, 0x0019e, 0x001a3, 0x001b0, 0x002c9,
-+	 0x002e2, 0x0037d, 0x00380, 0x0039b, 0x003a4, 0x003ab, 0x003b4, 0x003c5,
-+	 0x003ce, 0x003cf, 0x003e0, 0x003e0, 0x003f0, 0x003f0, 0x00440, 0x00444,
-+	 0x0044d, 0x0044f, 0x00460, 0x00460, 0x00c02, 0x00c04, 0x00c06, 0x00c0c,
-+	 0x00c10, 0x00cd9, 0x00ce0, 0x00d0c, 0x00df0, 0x00df4, 0x00e01, 0x00e04,
-+	 0x00e06, 0x00e09, 0x00e0e, 0x00e13, 0x00e15, 0x00e18, 0x00e20, 0x00e37,
-+	 0x0ec00, 0x0ec01, 0x0ec05, 0x0ec05, 0x0ec07, 0x0ec07, 0x0ec0a, 0x0ec0a,
-+	 0x0ec12, 0x0ec12, 0x0ec26, 0x0ec28, 0x0ec2b, 0x0ec2d, 0x0ec2f, 0x0ec2f,
-+	 0x0ec40, 0x0ec41, 0x0ec45, 0x0ec45, 0x0ec47, 0x0ec47, 0x0ec4a, 0x0ec4a,
-+	 0x0ec52, 0x0ec52, 0x0ec66, 0x0ec68, 0x0ec6b, 0x0ec6d, 0x0ec6f, 0x0ec6f,
-+	 0x0ec80, 0x0ec81, 0x0ec85, 0x0ec85, 0x0ec87, 0x0ec87, 0x0ec8a, 0x0ec8a,
-+	 0x0ec92, 0x0ec92, 0x0eca6, 0x0eca8, 0x0ecab, 0x0ecad, 0x0ecaf, 0x0ecaf,
-+	 0x0ecc0, 0x0ecc1, 0x0ecc5, 0x0ecc5, 0x0ecc7, 0x0ecc7, 0x0ecca, 0x0ecca,
-+	 0x0ecd2, 0x0ecd2, 0x0ece6, 0x0ece8, 0x0eceb, 0x0eced, 0x0ecef, 0x0ecef,
-+	 0x0ed00, 0x0ed01, 0x0ed05, 0x0ed05, 0x0ed07, 0x0ed07, 0x0ed0a, 0x0ed0a,
-+	 0x0ed12, 0x0ed12, 0x0ed26, 0x0ed28, 0x0ed2b, 0x0ed2d, 0x0ed2f, 0x0ed2f,
-+	 0x0ed40, 0x0ed41, 0x0ed45, 0x0ed45, 0x0ed47, 0x0ed47, 0x0ed4a, 0x0ed4a,
-+	 0x0ed52, 0x0ed52, 0x0ed66, 0x0ed68, 0x0ed6b, 0x0ed6d, 0x0ed6f, 0x0ed6f,
-+	 0x0ed80, 0x0ed81, 0x0ed85, 0x0ed85, 0x0ed87, 0x0ed87, 0x0ed8a, 0x0ed8a,
-+	 0x0ed92, 0x0ed92, 0x0eda6, 0x0eda8, 0x0edab, 0x0edad, 0x0edaf, 0x0edaf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'GRAS', 'PC']
-+ * Block   : ['RBBM', 'RDVM', 'UCHE']
-+ * Block   : ['VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 12 (Regs:88)
-+ */
-+static const u32 kaanapali_gpu_slice_registers[] = {
-+	 0x00500, 0x00500, 0x00583, 0x00584, 0x00586, 0x0058d, 0x0058f, 0x00599,
-+	 0x005a0, 0x005b3, 0x005c0, 0x005c0, 0x005c2, 0x005c6, 0x005e0, 0x005e3,
-+	 0x005ec, 0x005ec, 0x00f01, 0x00f02, 0x00f04, 0x00f0c, 0x00f20, 0x00f37,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_gpu_slice_registers), 8));
-+
-+/*
-+ * Block   : ['GMUGX']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 15 (Regs:174)
-+ */
-+static const u32 kaanapali_gmugx_registers[] = {
-+	 0x0dc00, 0x0dc0d, 0x0dc10, 0x0dc11, 0x0dc13, 0x0dc15, 0x0dc18, 0x0dc1a,
-+	 0x0dc1c, 0x0dc2f, 0x0dc40, 0x0dc42, 0x0dc60, 0x0dc7f, 0x0dc88, 0x0dc90,
-+	 0x0dc98, 0x0dc99, 0x0dca0, 0x0dcbf, 0x0dcc8, 0x0dcd0, 0x0dcd8, 0x0dcd9,
-+	 0x0dce0, 0x0dcff, 0x0dd08, 0x0dd10, 0x0dd18, 0x0dd19,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_gmugx_registers), 8));
-+
-+/*
-+ * Block   : ['GMUGX']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 23 (Regs:314)
-+ */
-+static const u32 kaanapali_gmugx_slice_registers[] = {
-+	 0x0e400, 0x0e401, 0x0e404, 0x0e40a, 0x0e40c, 0x0e42f, 0x0e438, 0x0e440,
-+	 0x0e448, 0x0e449, 0x0e450, 0x0e46f, 0x0e478, 0x0e480, 0x0e488, 0x0e489,
-+	 0x0e490, 0x0e4af, 0x0e4b8, 0x0e4c0, 0x0e4c8, 0x0e4c9, 0x0e4d0, 0x0e4ef,
-+	 0x0e4f8, 0x0e500, 0x0e508, 0x0e509, 0x0e510, 0x0e52f, 0x0e538, 0x0e540,
-+	 0x0e548, 0x0e549, 0x0e550, 0x0e56f, 0x0e578, 0x0e580, 0x0e588, 0x0e589,
-+	 0x0e590, 0x0e5af, 0x0e5b8, 0x0e5c0, 0x0e5c8, 0x0e5c9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_gmugx_slice_registers), 8));
-+
-+/*
-+ * Block   : ['GMUAO']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 39 (Regs:61)
-+ */
-+static const u32 kaanapali_gmuao_registers[] = {
-+	 0x23801, 0x23801, 0x23803, 0x23803, 0x23805, 0x23805, 0x23807, 0x23807,
-+	 0x23809, 0x23809, 0x2380b, 0x2380b, 0x2380d, 0x2380d, 0x2380f, 0x2380f,
-+	 0x23811, 0x23811, 0x23813, 0x23813, 0x23815, 0x23815, 0x23817, 0x23817,
-+	 0x23819, 0x23819, 0x2381b, 0x2381b, 0x2381d, 0x2381d, 0x2381f, 0x23820,
-+	 0x23822, 0x23822, 0x23824, 0x23824, 0x23826, 0x23826, 0x23828, 0x23828,
-+	 0x2382a, 0x2382a, 0x2382c, 0x2382c, 0x2382e, 0x2382e, 0x23830, 0x23830,
-+	 0x23832, 0x23832, 0x23834, 0x23834, 0x23836, 0x23836, 0x23838, 0x23838,
-+	 0x2383a, 0x2383a, 0x2383c, 0x2383c, 0x2383e, 0x2383e, 0x23840, 0x23847,
-+	 0x23b00, 0x23b01, 0x23b03, 0x23b03, 0x23b05, 0x23b0e, 0x23b10, 0x23b13,
-+	 0x23b15, 0x23b16, 0x23b28, 0x23b28, 0x23b30, 0x23b30,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_gmuao_registers), 8));
-+
-+/*
-+ * Block   : ['GMUCX', 'GMUCX_RAM']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 136 (Regs:710)
-+ */
-+static const u32 kaanapali_gmucx_registers[] = {
-+	 0x1f400, 0x1f40b, 0x1f40f, 0x1f411, 0x1f500, 0x1f500, 0x1f507, 0x1f507,
-+	 0x1f509, 0x1f50b, 0x1f700, 0x1f701, 0x1f704, 0x1f706, 0x1f708, 0x1f709,
-+	 0x1f70c, 0x1f70d, 0x1f710, 0x1f711, 0x1f713, 0x1f716, 0x1f718, 0x1f71d,
-+	 0x1f720, 0x1f725, 0x1f729, 0x1f729, 0x1f730, 0x1f747, 0x1f750, 0x1f75a,
-+	 0x1f75c, 0x1f75c, 0x1f780, 0x1f781, 0x1f784, 0x1f78b, 0x1f790, 0x1f797,
-+	 0x1f7a0, 0x1f7a7, 0x1f7b0, 0x1f7ba, 0x1f7e0, 0x1f7e1, 0x1f7e4, 0x1f7e5,
-+	 0x1f7e8, 0x1f7e9, 0x1f7ec, 0x1f7ed, 0x1f800, 0x1f804, 0x1f807, 0x1f808,
-+	 0x1f80b, 0x1f80c, 0x1f80f, 0x1f80f, 0x1f811, 0x1f811, 0x1f813, 0x1f817,
-+	 0x1f819, 0x1f81c, 0x1f824, 0x1f830, 0x1f840, 0x1f842, 0x1f848, 0x1f848,
-+	 0x1f84c, 0x1f84c, 0x1f850, 0x1f850, 0x1f858, 0x1f859, 0x1f868, 0x1f869,
-+	 0x1f878, 0x1f883, 0x1f930, 0x1f931, 0x1f934, 0x1f935, 0x1f938, 0x1f939,
-+	 0x1f93c, 0x1f93d, 0x1f940, 0x1f941, 0x1f943, 0x1f943, 0x1f948, 0x1f94a,
-+	 0x1f94f, 0x1f951, 0x1f954, 0x1f955, 0x1f95d, 0x1f95d, 0x1f962, 0x1f96e,
-+	 0x1f970, 0x1f973, 0x1f97c, 0x1f97e, 0x1f980, 0x1f981, 0x1f984, 0x1f986,
-+	 0x1f992, 0x1f993, 0x1f996, 0x1f99e, 0x1f9c0, 0x1f9cf, 0x1f9f0, 0x1f9f1,
-+	 0x1f9f8, 0x1f9fa, 0x1f9fc, 0x1f9fc, 0x1fa00, 0x1fa03, 0x1fc00, 0x1fc01,
-+	 0x1fc04, 0x1fc0d, 0x1fc10, 0x1fc10, 0x1fc14, 0x1fc14, 0x1fc18, 0x1fc19,
-+	 0x1fc20, 0x1fc20, 0x1fc24, 0x1fc26, 0x1fc30, 0x1fc33, 0x1fc38, 0x1fc3b,
-+	 0x1fc40, 0x1fc49, 0x1fc50, 0x1fc59, 0x1fc60, 0x1fc7f, 0x1fca0, 0x1fcef,
-+	 0x1fd80, 0x1fd81, 0x1fd83, 0x1fd84, 0x1fd88, 0x1fda7, 0x1fdb0, 0x1fdb3,
-+	 0x1fdb8, 0x1fdbb, 0x1fdc0, 0x1fdc3, 0x1fdc8, 0x1fdcb, 0x1fdd0, 0x1fdd3,
-+	 0x1fdd8, 0x1fddb, 0x1fde0, 0x1fde3, 0x1fe00, 0x1fe01, 0x1fe03, 0x1fe05,
-+	 0x1fe08, 0x1fe0a, 0x1fe10, 0x1fe12, 0x1fe40, 0x1fe44, 0x1fe70, 0x1fe71,
-+	 0x1fe74, 0x1fe77, 0x1fe88, 0x1fe8b, 0x1fe9c, 0x1fe9c, 0x1fec0, 0x1fec4,
-+	 0x1fef0, 0x1fef1, 0x1fef4, 0x1fef7, 0x1ff08, 0x1ff0b, 0x1ff1c, 0x1ff1c,
-+	 0x1ff20, 0x1ff21, 0x20000, 0x20007, 0x20010, 0x20015, 0x20018, 0x2001a,
-+	 0x2001c, 0x20022, 0x20024, 0x20025, 0x2002a, 0x2002c, 0x20030, 0x20031,
-+	 0x20034, 0x20036, 0x20080, 0x2008a, 0x20120, 0x20120, 0x20128, 0x20128,
-+	 0x20200, 0x20204, 0x20208, 0x20209, 0x20224, 0x20226, 0x20228, 0x20229,
-+	 0x2022c, 0x2022d, 0x20230, 0x2024f, 0x20260, 0x20261, 0x20268, 0x20269,
-+	 0x20270, 0x20272, 0x20278, 0x20279, 0x2027c, 0x2028c, 0x20300, 0x20301,
-+	 0x20304, 0x20305, 0x20308, 0x2030c, 0x20310, 0x20314, 0x20318, 0x2031a,
-+	 0x20320, 0x20322, 0x20324, 0x20326, 0x20328, 0x2032a, 0x2032c, 0x2032e,
-+	 0x20330, 0x20333, 0x20338, 0x20338, 0x20340, 0x2034f, 0x20380, 0x20385,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_gmucx_registers), 8));
-+
-+/*
-+ * Block   : ['CX_MISC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 7 (Regs:70)
-+ */
-+static const u32 kaanapali_cx_misc_registers[] = {
-+	 0x27800, 0x27800, 0x27810, 0x27814, 0x27820, 0x27824, 0x27828, 0x2782a,
-+	 0x27832, 0x27857, 0x27880, 0x2788b, 0x27c00, 0x27c05,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_cx_misc_registers), 8));
-+
-+/*
-+ * Block   : ['DBGC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 22 (Regs:155)
-+ */
-+static const u32 kaanapali_dbgc_registers[] = {
-+	 0x00600, 0x0061c, 0x0061e, 0x0063d, 0x00640, 0x00644, 0x00650, 0x00655,
-+	 0x00660, 0x00660, 0x00662, 0x00668, 0x0066a, 0x0066a, 0x00680, 0x00685,
-+	 0x00700, 0x00704, 0x00707, 0x0070a, 0x0070f, 0x00716, 0x00720, 0x00724,
-+	 0x00730, 0x00732, 0x00740, 0x00740, 0x00742, 0x0074a, 0x00750, 0x00755,
-+	 0x00759, 0x0075c, 0x00760, 0x00763, 0x00770, 0x00770, 0x00775, 0x00777,
-+	 0x00780, 0x0078d, 0x00790, 0x00790,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_dbgc_registers), 8));
-+
-+/*
-+ * Block   : ['DBGC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 2 (Regs:65)
-+ */
-+static const u32 kaanapali_dbgc_slice_registers[] = {
-+	 0x007a0, 0x007d9, 0x007e0, 0x007e6,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_dbgc_slice_registers), 8));
-+
-+/*
-+ * Block   : ['CX_DBGC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 6 (Regs:75)
-+ */
-+static const u32 kaanapali_cx_dbgc_registers[] = {
-+	 0x18400, 0x1841c, 0x1841e, 0x1843d, 0x18440, 0x18444, 0x18450, 0x18455,
-+	 0x1846a, 0x1846a, 0x18580, 0x18581,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_cx_dbgc_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 14 (Regs:307)
-+ */
-+static const u32 kaanapali_cp_cp_pipe_none_registers[] = {
-+	 0x00800, 0x0081e, 0x00820, 0x0082d, 0x00838, 0x0083e, 0x00840, 0x00847,
-+	 0x0084b, 0x0084c, 0x00850, 0x0088f, 0x008b5, 0x008b6, 0x008c0, 0x008cb,
-+	 0x008d0, 0x008e4, 0x008e7, 0x008ee, 0x008fa, 0x008fd, 0x00928, 0x00929,
-+	 0x00958, 0x0095b, 0x00980, 0x009ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_cp_cp_pipe_none_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 8 (Regs:96)
-+ */
-+static const u32 kaanapali_cp_cp_pipe_br_registers[] = {
-+	 0x00830, 0x00837, 0x0084d, 0x0084f, 0x008a0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f9, 0x00900, 0x0091e, 0x00920, 0x00926, 0x00930, 0x0093a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_cp_cp_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : SLICE
-+ * Pipeline: CP_PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:23)
-+ */
-+static const u32 kaanapali_cp_slice_cp_pipe_br_registers[] = {
-+	 0x00b00, 0x00b0c, 0x00b10, 0x00b10, 0x00b80, 0x00b84, 0x00b90, 0x00b93,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_cp_slice_cp_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:72)
-+ */
-+static const u32 kaanapali_cp_cp_pipe_bv_registers[] = {
-+	 0x00830, 0x00835, 0x0084d, 0x0084f, 0x008b0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f9, 0x00900, 0x00913, 0x00918, 0x0091d, 0x00920, 0x00925,
-+	 0x00930, 0x0093a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_cp_cp_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : SLICE
-+ * Pipeline: CP_PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:23)
-+ */
-+static const u32 kaanapali_cp_slice_cp_pipe_bv_registers[] = {
-+	 0x00b00, 0x00b0c, 0x00b10, 0x00b10, 0x00b80, 0x00b84, 0x00b90, 0x00b93,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_cp_slice_cp_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_LPAC
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:77)
-+ */
-+static const u32 kaanapali_cp_cp_pipe_lpac_registers[] = {
-+	 0x00830, 0x00837, 0x0084d, 0x0084f, 0x008a0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f5, 0x008f8, 0x008f9, 0x00900, 0x00913, 0x00918, 0x0091d,
-+	 0x00920, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_cp_cp_pipe_lpac_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_AQE0
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:22)
-+ */
-+static const u32 kaanapali_cp_cp_pipe_aqe0_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x00910, 0x00913,
-+	 0x0091d, 0x0091d, 0x00925, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_cp_cp_pipe_aqe0_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_AQE1
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:22)
-+ */
-+static const u32 kaanapali_cp_cp_pipe_aqe1_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x00910, 0x00913,
-+	 0x0091d, 0x0091d, 0x00925, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_cp_cp_pipe_aqe1_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_DDE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:36)
-+ */
-+static const u32 kaanapali_cp_cp_pipe_dde_br_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x008fe, 0x008ff,
-+	 0x0090c, 0x00917, 0x0091c, 0x0091e, 0x00924, 0x00926,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_cp_cp_pipe_dde_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_DDE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:36)
-+ */
-+static const u32 kaanapali_cp_cp_pipe_dde_bv_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x008fe, 0x008ff,
-+	 0x0090c, 0x00917, 0x0091c, 0x0091e, 0x00924, 0x00926,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_cp_cp_pipe_dde_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:1301)
-+ */
-+static const u32 kaanapali_non_context_pipe_br_registers[] = {
-+	 0x00e40, 0x00eef, 0x09600, 0x09605, 0x09610, 0x09617, 0x09620, 0x09627,
-+	 0x09670, 0x0967b, 0x09e00, 0x09e15, 0x09e17, 0x09e23, 0x09e30, 0x09e3f,
-+	 0x09e50, 0x09e59, 0x09e60, 0x09e65, 0x0d200, 0x0d5ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_non_context_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 21 (Regs:301)
-+ */
-+static const u32 kaanapali_non_context_slice_pipe_br_registers[] = {
-+	 0x08600, 0x08602, 0x08610, 0x08613, 0x08700, 0x08704, 0x08710, 0x08713,
-+	 0x08720, 0x08723, 0x08730, 0x08733, 0x08740, 0x08744, 0x09680, 0x09681,
-+	 0x09690, 0x0969b, 0x09740, 0x09745, 0x09750, 0x0975b, 0x09770, 0x097ef,
-+	 0x09f00, 0x09f0f, 0x09f20, 0x09f23, 0x09f30, 0x09f31, 0x0a600, 0x0a600,
-+	 0x0a603, 0x0a603, 0x0a610, 0x0a61f, 0x0a630, 0x0a632, 0x0a638, 0x0a63c,
-+	 0x0a640, 0x0a67f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_non_context_slice_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 12 (Regs:1300)
-+ */
-+static const u32 kaanapali_non_context_pipe_bv_registers[] = {
-+	 0x00e40, 0x00eef, 0x09600, 0x09605, 0x09610, 0x09617, 0x09620, 0x09627,
-+	 0x09670, 0x0967b, 0x09e00, 0x09e04, 0x09e06, 0x09e15, 0x09e17, 0x09e23,
-+	 0x09e30, 0x09e3f, 0x09e50, 0x09e59, 0x09e60, 0x09e65, 0x0d200, 0x0d5ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_non_context_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 21 (Regs:301)
-+ */
-+static const u32 kaanapali_non_context_slice_pipe_bv_registers[] = {
-+	 0x08600, 0x08602, 0x08610, 0x08613, 0x08700, 0x08704, 0x08710, 0x08713,
-+	 0x08720, 0x08723, 0x08730, 0x08733, 0x08740, 0x08744, 0x09680, 0x09681,
-+	 0x09690, 0x0969b, 0x09740, 0x09745, 0x09750, 0x0975b, 0x09770, 0x097ef,
-+	 0x09f00, 0x09f0f, 0x09f20, 0x09f23, 0x09f30, 0x09f31, 0x0a600, 0x0a600,
-+	 0x0a603, 0x0a603, 0x0a610, 0x0a61f, 0x0a630, 0x0a632, 0x0a638, 0x0a63c,
-+	 0x0a640, 0x0a67f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_non_context_slice_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 2 (Regs:177)
-+ */
-+static const u32 kaanapali_non_context_pipe_lpac_registers[] = {
-+	 0x00e14, 0x00e14, 0x00e40, 0x00eef,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_non_context_pipe_lpac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:27)
-+ */
-+static const u32 kaanapali_non_context_rb_pipe_br_rbp_registers[] = {
-+	 0x08f00, 0x08f07, 0x08f10, 0x08f15, 0x08f20, 0x08f2a, 0x08f30, 0x08f31,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_non_context_rb_pipe_br_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 5 (Regs:46)
-+ */
-+static const u32 kaanapali_non_context_rb_slice_pipe_br_rac_registers[] = {
-+	 0x08e09, 0x08e0b, 0x08e10, 0x08e17, 0x08e51, 0x08e5a, 0x08e69, 0x08e71,
-+	 0x08ea0, 0x08eaf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_non_context_rb_slice_pipe_br_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:31)
-+ */
-+static const u32 kaanapali_non_context_rb_slice_pipe_br_rbp_registers[] = {
-+	 0x08e01, 0x08e01, 0x08e04, 0x08e04, 0x08e06, 0x08e08, 0x08e0c, 0x08e0c,
-+	 0x08e18, 0x08e1c, 0x08e3b, 0x08e40, 0x08e50, 0x08e50, 0x08e5d, 0x08e60,
-+	 0x08e77, 0x08e7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_non_context_rb_slice_pipe_br_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 2 (Regs:17)
-+ */
-+static const u32 kaanapali_non_context_rb_slice_pipe_bv_rac_registers[] = {
-+	 0x08e10, 0x08e17, 0x08e69, 0x08e71,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_non_context_rb_slice_pipe_bv_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 6 (Regs:23)
-+ */
-+static const u32 kaanapali_non_context_rb_slice_pipe_bv_rbp_registers[] = {
-+	 0x08e01, 0x08e01, 0x08e04, 0x08e04, 0x08e18, 0x08e1c, 0x08e3b, 0x08e40,
-+	 0x08e5e, 0x08e60, 0x08e79, 0x08e7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_non_context_rb_slice_pipe_bv_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: HLSQ_STATE
-+ * pairs   : 10 (Regs:99)
-+ */
-+static const u32 kaanapali_non_context_sp_pipe_none_hlsq_state_registers[] = {
-+	 0x0ae05, 0x0ae05, 0x0ae10, 0x0ae13, 0x0ae15, 0x0ae16, 0x0ae52, 0x0ae52,
-+	 0x0ae60, 0x0ae67, 0x0ae69, 0x0ae6e, 0x0ae70, 0x0ae76, 0x0aec0, 0x0aec5,
-+	 0x0aed0, 0x0aeef, 0x0af00, 0x0af1f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_non_context_sp_pipe_none_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: SP_TOP
-+ * pairs   : 6 (Regs:60)
-+ */
-+static const u32 kaanapali_non_context_sp_pipe_none_sp_top_registers[] = {
-+	 0x0ae00, 0x0ae0c, 0x0ae0f, 0x0ae0f, 0x0ae35, 0x0ae35, 0x0ae3a, 0x0ae3f,
-+	 0x0ae50, 0x0ae52, 0x0ae80, 0x0aea3,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_non_context_sp_pipe_none_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: USPTP
-+ * pairs   : 9 (Regs:64)
-+ */
-+static const u32 kaanapali_non_context_sp_pipe_none_usptp_registers[] = {
-+	 0x0ae00, 0x0ae0c, 0x0ae0f, 0x0ae0f, 0x0ae17, 0x0ae19, 0x0ae30, 0x0ae32,
-+	 0x0ae35, 0x0ae35, 0x0ae3a, 0x0ae3b, 0x0ae3e, 0x0ae3f, 0x0ae50, 0x0ae52,
-+	 0x0ae80, 0x0aea3,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_non_context_sp_pipe_none_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:48)
-+ */
-+static const u32 kaanapali_non_context_tpl1_pipe_none_usptp_registers[] = {
-+	 0x0b600, 0x0b600, 0x0b602, 0x0b602, 0x0b604, 0x0b604, 0x0b606, 0x0b61e,
-+	 0x0b620, 0x0b633,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_non_context_tpl1_pipe_none_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 9 (Regs:238)
-+ */
-+static const u32 kaanapali_gras_slice_pipe_br_cluster_vpc_vs_registers[] = {
-+	 0x08200, 0x08213, 0x08220, 0x08225, 0x08228, 0x0822d, 0x08230, 0x0823b,
-+	 0x08240, 0x0825f, 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f,
-+	 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_gras_slice_pipe_br_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_GRAS
-+ * pairs   : 14 (Regs:332)
-+ */
-+static const u32 kaanapali_gras_slice_pipe_br_cluster_gras_registers[] = {
-+	 0x08080, 0x08080, 0x08086, 0x08092, 0x080c0, 0x080df, 0x08101, 0x08110,
-+	 0x08130, 0x0814f, 0x08200, 0x08213, 0x08220, 0x08225, 0x08228, 0x0822d,
-+	 0x08230, 0x0823b, 0x08240, 0x0825f, 0x08270, 0x0828f, 0x0829f, 0x082b7,
-+	 0x082d0, 0x0832f, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_gras_slice_pipe_br_cluster_gras_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 9 (Regs:238)
-+ */
-+static const u32 kaanapali_gras_slice_pipe_bv_cluster_vpc_vs_registers[] = {
-+	 0x08200, 0x08213, 0x08220, 0x08225, 0x08228, 0x0822d, 0x08230, 0x0823b,
-+	 0x08240, 0x0825f, 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f,
-+	 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_gras_slice_pipe_bv_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_GRAS
-+ * pairs   : 14 (Regs:332)
-+ */
-+static const u32 kaanapali_gras_slice_pipe_bv_cluster_gras_registers[] = {
-+	 0x08080, 0x08080, 0x08086, 0x08092, 0x080c0, 0x080df, 0x08101, 0x08110,
-+	 0x08130, 0x0814f, 0x08200, 0x08213, 0x08220, 0x08225, 0x08228, 0x0822d,
-+	 0x08230, 0x0823b, 0x08240, 0x0825f, 0x08270, 0x0828f, 0x0829f, 0x082b7,
-+	 0x082d0, 0x0832f, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_gras_slice_pipe_bv_cluster_gras_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_US
-+ * pairs   : 6 (Regs:35)
-+ */
-+static const u32 kaanapali_pc_pipe_br_cluster_fe_us_registers[] = {
-+	 0x09805, 0x09807, 0x0980b, 0x0980b, 0x09812, 0x09817, 0x0981a, 0x0981b,
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_pc_pipe_br_cluster_fe_us_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:23)
-+ */
-+static const u32 kaanapali_pc_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_pc_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_US
-+ * pairs   : 6 (Regs:35)
-+ */
-+static const u32 kaanapali_pc_pipe_bv_cluster_fe_us_registers[] = {
-+	 0x09805, 0x09807, 0x0980b, 0x0980b, 0x09812, 0x09817, 0x0981a, 0x0981b,
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_pc_pipe_bv_cluster_fe_us_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:23)
-+ */
-+static const u32 kaanapali_pc_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_pc_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VFD']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:236)
-+ */
-+static const u32 kaanapali_vfd_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x0a000, 0x0a009, 0x0a00e, 0x0a0ef,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_vfd_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VFD']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:236)
-+ */
-+static const u32 kaanapali_vfd_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x0a000, 0x0a009, 0x0a00e, 0x0a0ef,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_vfd_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 1 (Regs:27)
-+ */
-+static const u32 kaanapali_vpc_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_vpc_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 2 (Regs:29)
-+ */
-+static const u32 kaanapali_vpc_slice_pipe_br_cluster_vpc_vs_registers[] = {
-+	 0x090c0, 0x090c1, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_vpc_slice_pipe_br_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_US
-+ * pairs   : 3 (Regs:58)
-+ */
-+static const u32 kaanapali_vpc_pipe_br_cluster_vpc_us_registers[] = {
-+	 0x09180, 0x09180, 0x09182, 0x0919f, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_vpc_pipe_br_cluster_vpc_us_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_PS
-+ * pairs   : 4 (Regs:52)
-+ */
-+static const u32 kaanapali_vpc_slice_pipe_br_cluster_vpc_ps_registers[] = {
-+	 0x09240, 0x0924f, 0x09252, 0x09255, 0x09278, 0x0927c, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_vpc_slice_pipe_br_cluster_vpc_ps_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 1 (Regs:27)
-+ */
-+static const u32 kaanapali_vpc_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_vpc_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 2 (Regs:29)
-+ */
-+static const u32 kaanapali_vpc_slice_pipe_bv_cluster_vpc_vs_registers[] = {
-+	 0x090c0, 0x090c1, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_vpc_slice_pipe_bv_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_US
-+ * pairs   : 3 (Regs:58)
-+ */
-+static const u32 kaanapali_vpc_pipe_bv_cluster_vpc_us_registers[] = {
-+	 0x09180, 0x09180, 0x09182, 0x0919f, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_vpc_pipe_bv_cluster_vpc_us_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_PS
-+ * pairs   : 4 (Regs:52)
-+ */
-+static const u32 kaanapali_vpc_slice_pipe_bv_cluster_vpc_ps_registers[] = {
-+	 0x09240, 0x0924f, 0x09252, 0x09255, 0x09278, 0x0927c, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_vpc_slice_pipe_bv_cluster_vpc_ps_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 38 (Regs:162)
-+ */
-+static const u32 kaanapali_rb_slice_pipe_br_cluster_ps_rac_registers[] = {
-+	 0x08802, 0x08802, 0x08804, 0x0880a, 0x0880e, 0x08811, 0x08813, 0x08814,
-+	 0x08818, 0x0881f, 0x08821, 0x08821, 0x08823, 0x08826, 0x08829, 0x08829,
-+	 0x0882b, 0x0882e, 0x08831, 0x08831, 0x08833, 0x08836, 0x08839, 0x08839,
-+	 0x0883b, 0x0883e, 0x08841, 0x08841, 0x08843, 0x08846, 0x08849, 0x08849,
-+	 0x0884b, 0x0884e, 0x08851, 0x08851, 0x08853, 0x08856, 0x08859, 0x08859,
-+	 0x0885b, 0x0885e, 0x08860, 0x08864, 0x08870, 0x08870, 0x08873, 0x08876,
-+	 0x08878, 0x08879, 0x08882, 0x08885, 0x08887, 0x08889, 0x08891, 0x08891,
-+	 0x08898, 0x08899, 0x088a0, 0x088a7, 0x088ad, 0x088ae, 0x088b0, 0x088cf,
-+	 0x088e5, 0x088e5, 0x088f4, 0x088f5, 0x08930, 0x08937, 0x08c00, 0x08c01,
-+	 0x08c18, 0x08c1f, 0x08c26, 0x08c34,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_rb_slice_pipe_br_cluster_ps_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 37 (Regs:106)
-+ */
-+static const u32 kaanapali_rb_slice_pipe_br_cluster_ps_rbp_registers[] = {
-+	 0x08800, 0x08801, 0x08803, 0x08803, 0x0880b, 0x0880d, 0x08812, 0x08812,
-+	 0x08815, 0x08817, 0x08820, 0x08820, 0x08822, 0x08822, 0x08827, 0x08828,
-+	 0x0882a, 0x0882a, 0x0882f, 0x08830, 0x08832, 0x08832, 0x08837, 0x08838,
-+	 0x0883a, 0x0883a, 0x0883f, 0x08840, 0x08842, 0x08842, 0x08847, 0x08848,
-+	 0x0884a, 0x0884a, 0x0884f, 0x08850, 0x08852, 0x08852, 0x08857, 0x08858,
-+	 0x0885a, 0x0885a, 0x0885f, 0x0885f, 0x08865, 0x08865, 0x08871, 0x08872,
-+	 0x08877, 0x08877, 0x08880, 0x08881, 0x08886, 0x08886, 0x08890, 0x08890,
-+	 0x088af, 0x088af, 0x088d0, 0x088e4, 0x088e6, 0x088e6, 0x088e8, 0x088ea,
-+	 0x088f0, 0x088f1, 0x08900, 0x0891a, 0x08927, 0x08928, 0x08c17, 0x08c17,
-+	 0x08c20, 0x08c25,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_rb_slice_pipe_br_cluster_ps_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 10 (Regs:55)
-+ */
-+static const u32 kaanapali_rb_slice_pipe_bv_cluster_ps_rac_registers[] = {
-+	 0x08802, 0x08802, 0x08804, 0x08808, 0x08870, 0x08870, 0x08873, 0x08876,
-+	 0x08878, 0x08879, 0x08882, 0x08885, 0x08887, 0x08889, 0x08898, 0x08899,
-+	 0x088b0, 0x088cf, 0x088e5, 0x088e5,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_rb_slice_pipe_bv_cluster_ps_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 12 (Regs:36)
-+ */
-+static const u32 kaanapali_rb_slice_pipe_bv_cluster_ps_rbp_registers[] = {
-+	 0x08800, 0x08801, 0x08803, 0x08803, 0x08817, 0x08817, 0x08865, 0x08865,
-+	 0x08871, 0x08872, 0x08877, 0x08877, 0x08880, 0x08881, 0x08886, 0x08886,
-+	 0x088d0, 0x088d4, 0x088d7, 0x088e4, 0x088e8, 0x088ea, 0x08900, 0x08902,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_rb_slice_pipe_bv_cluster_ps_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 32 (Regs:198)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers[] = {
-+	 0x0a800, 0x0a801, 0x0a81b, 0x0a81d, 0x0a822, 0x0a822, 0x0a824, 0x0a824,
-+	 0x0a827, 0x0a82a, 0x0a82e, 0x0a82e, 0x0a830, 0x0a830, 0x0a832, 0x0a835,
-+	 0x0a83a, 0x0a83a, 0x0a83c, 0x0a83c, 0x0a83f, 0x0a841, 0x0a85b, 0x0a85d,
-+	 0x0a862, 0x0a862, 0x0a864, 0x0a864, 0x0a867, 0x0a867, 0x0a870, 0x0a870,
-+	 0x0a872, 0x0a872, 0x0a88c, 0x0a88e, 0x0a893, 0x0a893, 0x0a895, 0x0a895,
-+	 0x0a898, 0x0a898, 0x0a89a, 0x0a89d, 0x0a8b0, 0x0a8bb, 0x0a8c0, 0x0a8c3,
-+	 0x0a974, 0x0a977, 0x0ab00, 0x0ab03, 0x0ab05, 0x0ab05, 0x0ab09, 0x0ab09,
-+	 0x0ab23, 0x0ab26, 0x0abd0, 0x0ac1f, 0x0ac40, 0x0ac4f, 0x0ac60, 0x0ac7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 19 (Regs:44)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers[] = {
-+	 0x0a800, 0x0a800, 0x0a81c, 0x0a81d, 0x0a822, 0x0a824, 0x0a826, 0x0a827,
-+	 0x0a82d, 0x0a82d, 0x0a82f, 0x0a831, 0x0a834, 0x0a835, 0x0a83a, 0x0a83c,
-+	 0x0a83e, 0x0a840, 0x0a85c, 0x0a85d, 0x0a862, 0x0a864, 0x0a866, 0x0a868,
-+	 0x0a870, 0x0a871, 0x0a88d, 0x0a88e, 0x0a893, 0x0a895, 0x0a897, 0x0a899,
-+	 0x0ab00, 0x0ab00, 0x0ab02, 0x0ab05, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 15 (Regs:145)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_vs_usptp_registers[] = {
-+	 0x0a800, 0x0a81b, 0x0a81e, 0x0a821, 0x0a823, 0x0a827, 0x0a82d, 0x0a82d,
-+	 0x0a82f, 0x0a833, 0x0a836, 0x0a839, 0x0a83b, 0x0a85b, 0x0a85e, 0x0a861,
-+	 0x0a863, 0x0a868, 0x0a870, 0x0a88c, 0x0a88f, 0x0a892, 0x0a894, 0x0a899,
-+	 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977, 0x0ab00, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 21 (Regs:169)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers[] = {
-+	 0x0a980, 0x0a984, 0x0a9a7, 0x0a9a7, 0x0a9aa, 0x0a9aa, 0x0a9af, 0x0a9b0,
-+	 0x0a9b2, 0x0a9b5, 0x0a9ba, 0x0a9ba, 0x0a9bc, 0x0a9bc, 0x0a9c4, 0x0a9c4,
-+	 0x0a9cd, 0x0a9cd, 0x0a9fa, 0x0a9fc, 0x0aa00, 0x0aa00, 0x0aa0d, 0x0aa12,
-+	 0x0aa30, 0x0aa31, 0x0aaf2, 0x0aaf3, 0x0ab00, 0x0ab03, 0x0ab05, 0x0ab05,
-+	 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab26, 0x0abd0, 0x0ac1f, 0x0ac40, 0x0ac4f,
-+	 0x0ac60, 0x0ac7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:44)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers[] = {
-+	 0x0a9e0, 0x0a9f9, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_DP
-+ * pairs   : 2 (Regs:14)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers[] = {
-+	 0x0a9b0, 0x0a9b1, 0x0a9d4, 0x0a9df,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 15 (Regs:31)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers[] = {
-+	 0x0a980, 0x0a980, 0x0a982, 0x0a984, 0x0a9a7, 0x0a9a8, 0x0a9aa, 0x0a9ab,
-+	 0x0a9ae, 0x0a9ae, 0x0a9b0, 0x0a9b1, 0x0a9b3, 0x0a9b5, 0x0a9ba, 0x0a9bc,
-+	 0x0a9be, 0x0a9be, 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0aa00, 0x0aa03,
-+	 0x0ab00, 0x0ab00, 0x0ab02, 0x0ab05, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:44)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers[] = {
-+	 0x0a9e0, 0x0a9f9, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 15 (Regs:80)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_ps_usptp_registers[] = {
-+	 0x0a980, 0x0a982, 0x0a985, 0x0a99d, 0x0a9a8, 0x0a9a9, 0x0a9ab, 0x0a9ae,
-+	 0x0a9b0, 0x0a9b3, 0x0a9b6, 0x0a9b9, 0x0a9bb, 0x0a9bf, 0x0a9c2, 0x0a9c3,
-+	 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0a9d0, 0x0a9d3, 0x0aa01, 0x0aa0c,
-+	 0x0aa30, 0x0aa31, 0x0aaf2, 0x0aaf3, 0x0ab00, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 31 (Regs:196)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers[] = {
-+	 0x0a800, 0x0a801, 0x0a81b, 0x0a81d, 0x0a822, 0x0a822, 0x0a824, 0x0a824,
-+	 0x0a827, 0x0a82a, 0x0a82e, 0x0a82e, 0x0a830, 0x0a830, 0x0a832, 0x0a835,
-+	 0x0a83a, 0x0a83a, 0x0a83c, 0x0a83c, 0x0a83f, 0x0a841, 0x0a85b, 0x0a85d,
-+	 0x0a862, 0x0a862, 0x0a864, 0x0a864, 0x0a867, 0x0a867, 0x0a870, 0x0a870,
-+	 0x0a872, 0x0a872, 0x0a88c, 0x0a88e, 0x0a893, 0x0a893, 0x0a895, 0x0a895,
-+	 0x0a898, 0x0a898, 0x0a89a, 0x0a89d, 0x0a8b0, 0x0a8bb, 0x0a8c0, 0x0a8c3,
-+	 0x0a974, 0x0a977, 0x0ab00, 0x0ab02, 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab26,
-+	 0x0abd0, 0x0ac1f, 0x0ac40, 0x0ac4f, 0x0ac60, 0x0ac7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 19 (Regs:41)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers[] = {
-+	 0x0a800, 0x0a800, 0x0a81c, 0x0a81d, 0x0a822, 0x0a824, 0x0a826, 0x0a827,
-+	 0x0a82d, 0x0a82d, 0x0a82f, 0x0a831, 0x0a834, 0x0a835, 0x0a83a, 0x0a83c,
-+	 0x0a83e, 0x0a840, 0x0a85c, 0x0a85d, 0x0a862, 0x0a864, 0x0a866, 0x0a868,
-+	 0x0a870, 0x0a871, 0x0a88d, 0x0a88e, 0x0a893, 0x0a895, 0x0a897, 0x0a899,
-+	 0x0ab00, 0x0ab00, 0x0ab02, 0x0ab02, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 16 (Regs:142)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers[] = {
-+	 0x0a800, 0x0a81b, 0x0a81e, 0x0a821, 0x0a823, 0x0a827, 0x0a82d, 0x0a82d,
-+	 0x0a82f, 0x0a833, 0x0a836, 0x0a839, 0x0a83b, 0x0a85b, 0x0a85e, 0x0a861,
-+	 0x0a863, 0x0a868, 0x0a870, 0x0a88c, 0x0a88f, 0x0a892, 0x0a894, 0x0a899,
-+	 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977, 0x0ab00, 0x0ab02, 0x0ab06, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 16 (Regs:156)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers[] = {
-+	 0x0a9b0, 0x0a9b0, 0x0a9b2, 0x0a9b5, 0x0a9ba, 0x0a9ba, 0x0a9bc, 0x0a9bc,
-+	 0x0a9c4, 0x0a9c4, 0x0a9cd, 0x0a9cd, 0x0a9fa, 0x0a9fc, 0x0aa00, 0x0aa00,
-+	 0x0aa10, 0x0aa12, 0x0aa31, 0x0aa35, 0x0aaf3, 0x0aaf3, 0x0ab00, 0x0ab01,
-+	 0x0ab23, 0x0ab26, 0x0abd0, 0x0ac1f, 0x0ac40, 0x0ac4f, 0x0ac60, 0x0ac7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:22)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers[] = {
-+	 0x0a9e2, 0x0a9e3, 0x0a9e6, 0x0a9f9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_DP
-+ * pairs   : 2 (Regs:14)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers[] = {
-+	 0x0a9b0, 0x0a9b1, 0x0a9d4, 0x0a9df,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 8 (Regs:14)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers[] = {
-+	 0x0a9b0, 0x0a9b1, 0x0a9b3, 0x0a9b5, 0x0a9ba, 0x0a9bc, 0x0a9be, 0x0a9be,
-+	 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0aa00, 0x0aa00, 0x0ab00, 0x0ab00,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:22)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers[] = {
-+	 0x0a9e2, 0x0a9e3, 0x0a9e6, 0x0a9f9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 11 (Regs:26)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers[] = {
-+	 0x0a9b0, 0x0a9b3, 0x0a9b6, 0x0a9b9, 0x0a9bb, 0x0a9be, 0x0a9c2, 0x0a9c3,
-+	 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0a9d0, 0x0a9d3, 0x0aa31, 0x0aa31,
-+	 0x0aaf3, 0x0aaf3, 0x0ab00, 0x0ab01, 0x0ab06, 0x0ab06,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 kaanapali_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers[] = {
-+	 0x0b300, 0x0b304, 0x0b307, 0x0b307, 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:34)
-+ */
-+static const u32 kaanapali_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers[] = {
-+	 0x0b180, 0x0b182, 0x0b2c0, 0x0b2d7, 0x0b300, 0x0b304, 0x0b307, 0x0b307,
-+	 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 kaanapali_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers[] = {
-+	 0x0b300, 0x0b304, 0x0b307, 0x0b307, 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:7)
-+ */
-+static const u32 kaanapali_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers[] = {
-+	 0x0b180, 0x0b181, 0x0b300, 0x0b301, 0x0b304, 0x0b304, 0x0b307, 0x0b307,
-+	 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(kaanapali_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers), 8));
-+
-+static const struct gen8_sel_reg kaanapali_rb_rac_sel = {
-+	.host_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_HOST,
-+	.cd_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_CD,
-+	.val = 0,
-+};
-+
-+static const struct gen8_sel_reg kaanapali_rb_rbp_sel = {
-+	.host_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_HOST,
-+	.cd_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_CD,
-+	.val = 0x9,
-+};
-+
-+static const struct gen8_cluster_registers kaanapali_cp_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_NONE, STATE_NON_CONTEXT,
-+		kaanapali_cp_cp_pipe_none_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_BR, STATE_NON_CONTEXT,
-+		kaanapali_cp_cp_pipe_br_registers,  },
-+	{ CLUSTER_NONE, SLICE, CP_PIPE_BR, STATE_NON_CONTEXT,
-+		kaanapali_cp_slice_cp_pipe_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_BV, STATE_NON_CONTEXT,
-+		kaanapali_cp_cp_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, SLICE, CP_PIPE_BV, STATE_NON_CONTEXT,
-+		kaanapali_cp_slice_cp_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_LPAC, STATE_NON_CONTEXT,
-+		kaanapali_cp_cp_pipe_lpac_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_AQE0, STATE_NON_CONTEXT,
-+		kaanapali_cp_cp_pipe_aqe0_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_AQE1, STATE_NON_CONTEXT,
-+		kaanapali_cp_cp_pipe_aqe1_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_DDE_BR, STATE_NON_CONTEXT,
-+		kaanapali_cp_cp_pipe_dde_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_DDE_BV, STATE_NON_CONTEXT,
-+		kaanapali_cp_cp_pipe_dde_bv_registers,  },
-+};
-+
-+static const struct gen8_cluster_registers kaanapali_mvc_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		kaanapali_non_context_pipe_br_registers,  },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		kaanapali_non_context_slice_pipe_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		kaanapali_non_context_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, SLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		kaanapali_non_context_slice_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_LPAC, STATE_NON_CONTEXT,
-+		kaanapali_non_context_pipe_lpac_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		kaanapali_non_context_rb_pipe_br_rbp_registers, &kaanapali_rb_rbp_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		kaanapali_non_context_rb_slice_pipe_br_rac_registers, &kaanapali_rb_rac_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		kaanapali_non_context_rb_slice_pipe_br_rbp_registers, &kaanapali_rb_rbp_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		kaanapali_non_context_rb_slice_pipe_bv_rac_registers, &kaanapali_rb_rac_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		kaanapali_non_context_rb_slice_pipe_bv_rbp_registers, &kaanapali_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		kaanapali_rb_slice_pipe_br_cluster_ps_rac_registers, &kaanapali_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		kaanapali_rb_slice_pipe_br_cluster_ps_rac_registers, &kaanapali_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		kaanapali_rb_slice_pipe_br_cluster_ps_rbp_registers, &kaanapali_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		kaanapali_rb_slice_pipe_br_cluster_ps_rbp_registers, &kaanapali_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		kaanapali_rb_slice_pipe_bv_cluster_ps_rac_registers, &kaanapali_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		kaanapali_rb_slice_pipe_bv_cluster_ps_rac_registers, &kaanapali_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		kaanapali_rb_slice_pipe_bv_cluster_ps_rbp_registers, &kaanapali_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		kaanapali_rb_slice_pipe_bv_cluster_ps_rbp_registers, &kaanapali_rb_rbp_sel, },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		kaanapali_gras_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		kaanapali_gras_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		kaanapali_gras_slice_pipe_br_cluster_gras_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		kaanapali_gras_slice_pipe_br_cluster_gras_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		kaanapali_gras_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		kaanapali_gras_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		kaanapali_gras_slice_pipe_bv_cluster_gras_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		kaanapali_gras_slice_pipe_bv_cluster_gras_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		kaanapali_pc_pipe_br_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		kaanapali_pc_pipe_br_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		kaanapali_pc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		kaanapali_pc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		kaanapali_pc_pipe_bv_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		kaanapali_pc_pipe_bv_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		kaanapali_pc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		kaanapali_pc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		kaanapali_vfd_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		kaanapali_vfd_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		kaanapali_vfd_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		kaanapali_vfd_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		kaanapali_vpc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		kaanapali_vpc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		kaanapali_vpc_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		kaanapali_vpc_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		kaanapali_vpc_pipe_br_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		kaanapali_vpc_pipe_br_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		kaanapali_vpc_slice_pipe_br_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		kaanapali_vpc_slice_pipe_br_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		kaanapali_vpc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		kaanapali_vpc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		kaanapali_vpc_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		kaanapali_vpc_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		kaanapali_vpc_pipe_bv_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		kaanapali_vpc_pipe_bv_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		kaanapali_vpc_slice_pipe_bv_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		kaanapali_vpc_slice_pipe_bv_cluster_vpc_ps_registers,  },
-+};
-+
-+static const struct gen8_sptp_cluster_registers kaanapali_sptp_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_NONE, 0, HLSQ_STATE,
-+		kaanapali_non_context_sp_pipe_none_hlsq_state_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_NONE, 0, SP_TOP,
-+		kaanapali_non_context_sp_pipe_none_sp_top_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_NONE, 0, USPTP,
-+		kaanapali_non_context_sp_pipe_none_usptp_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, TP0_NCTX_REG, PIPE_NONE, 0, USPTP,
-+		kaanapali_non_context_tpl1_pipe_none_usptp_registers, 0xb600},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 2, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 3, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 4, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 5, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 6, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 7, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 2, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 3, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 4, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 5, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 6, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 7, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 2, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 3, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 1, USPTP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 2, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 3, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 4, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 5, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 6, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 7, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 2, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 3, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 4, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 5, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 6, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 7, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, SP_TOP,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, SP_TOP,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, SP_TOP,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, SP_TOP,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 1, USPTP,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		kaanapali_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 2, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 3, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 4, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 5, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 6, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 7, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 2, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 3, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 4, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 5, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 6, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 7, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, HLSQ_DP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, HLSQ_DP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 2, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 3, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 4, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 5, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 6, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 7, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 8, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 9, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 10, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 11, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 12, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 13, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 14, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 15, SP_TOP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 1, USPTP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		kaanapali_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_DP,
-+		kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, SP_TOP,
-+		kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, SP_TOP,
-+		kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		kaanapali_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		kaanapali_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP_3D_CVS_REG, PIPE_BR, 1, USPTP,
-+		kaanapali_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		kaanapali_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP_3D_CVS_REG, PIPE_BV, 1, USPTP,
-+		kaanapali_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, TP_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		kaanapali_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, TP_3D_CPS_REG, PIPE_BR, 1, USPTP,
-+		kaanapali_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, TP_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		kaanapali_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers, 0xb000},
-+};
-+
-+/* 
-+ * Before dumping the CP MVC
-+ * Program CP_APERTURE_CNTL_* with pipeID={CP_PIPE}
-+ * Then dump corresponding {Register_PIPE}
-+ */
-+
-+static const struct gen8_cp_indexed_reg kaanapali_cp_indexed_reg_list[] = {
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_BR, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_BV, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_LPAC, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_AQE0, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_AQE1, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_DDE_BR, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_DDE_BV, 0x00040},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_BR, 0x00200},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_BV, 0x00200},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_LPAC, 0x00200},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_BR, 0x00800},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_BV, 0x00800},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_LPAC, 0x00200},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_AQE0, 0x00100},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_AQE1, 0x00100},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_DDE_BR, 0x00200},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_DDE_BV, 0x00200},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_BR, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_BV, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_LPAC, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_AQE0, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_AQE1, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_DDE_BR, 0x0a000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_DDE_BV, 0x0a000},
-+	{ 0x000008fa /* CP_RESOURCE_TABLE_DBG_ADDR_BV       */, 0x000008fb /* CP_RESOURCE_TABLE_DBG_DATA_BV       */, UNSLICE, CP_PIPE_NONE, 0x04100},
-+	{ 0x000008fc /* CP_FIFO_DBG_ADDR_LPAC               */, 0x000008fd /* CP_FIFO_DBG_DATA_LPAC               */, UNSLICE, CP_PIPE_NONE, 0x00040},
-+	{ 0x000008fe /* CP_FIFO_DBG_ADDR_DDE_PIPE           */, 0x000008ff /* CP_FIFO_DBG_DATA_DDE_PIPE           */, UNSLICE, CP_PIPE_DDE_BR, 0x01101},
-+	{ 0x000008fe /* CP_FIFO_DBG_ADDR_DDE_PIPE           */, 0x000008ff /* CP_FIFO_DBG_DATA_DDE_PIPE           */, UNSLICE, CP_PIPE_DDE_BV, 0x01101},
-+};
-+
-+
-+/* 
-+ * Before dumping the CP Mempool over the CP_*_MEM_POOL_DBG_ADDR/DATA 
-+ * indexed register pair it must be stabilized. 
-+ * for p in [CP_PIPE_BR, CP_PIPE_BV]:
-+ *   Program CP_APERTURE_CNTL_* with pipeID={p} sliceID={MAX_UINT}
-+ *   Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 1.
-+ *   Dump CP_MEM_POOL_DBG_ADDR_PIPE for pipe=p
-+ *   Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 0. 
-+ *
-+ * same thing for CP_SLICE_MEM_POOL_DBG_ADDR_PIPE
-+ * for p in [CP_PIPE_BR, CP_PIPE_BV]:
-+ *   for s in [0,1,2]:
-+ *     Program CP_APERTURE_CNTL_* with pipeID={p} sliceID={s}
-+ *     Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 1.
-+ *     Program CP_SLICE_CHICKEN_DBG[crashStabilizeMVC] bit = 1.
-+ *     Dump CP_SLICE_MEM_POOL_DBG_ADDR_PIPE for pipe=p, sliceID=s
-+ *     Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 0.  
-+ *     Program CP_SLICE_CHICKEN_DBG[crashStabilizeMVC] bit = 0.
-+ */
-+
-+static const struct gen8_cp_indexed_reg kaanapali_cp_mempool_reg_list[] = {
-+	{ 0x000008f6 /* CP_MEM_POOL_DBG_ADDR_PIPE           */, 0x000008f7 /* CP_MEM_POOL_DBG_DATA_PIPE           */, UNSLICE, CP_PIPE_BR, 0x02400},
-+	{ 0x000008f6 /* CP_MEM_POOL_DBG_ADDR_PIPE           */, 0x000008f7 /* CP_MEM_POOL_DBG_DATA_PIPE           */, UNSLICE, CP_PIPE_BV, 0x02400},
-+	{ 0x00000b00 /* CP_SLICE_MEM_POOL_DBG_ADDR_PIPE     */, 0x00000b01 /* CP_SLICE_MEM_POOL_DBG_DATA_PIPE     */, SLICE, CP_PIPE_BR, 0x02400},
-+	{ 0x00000b00 /* CP_SLICE_MEM_POOL_DBG_ADDR_PIPE     */, 0x00000b01 /* CP_SLICE_MEM_POOL_DBG_DATA_PIPE     */, SLICE, CP_PIPE_BV, 0x02400},
-+};
-+
-+
-+static const struct gen8_pc_indexed_reg kaanapali_pc_indexed_reg_list[] = {
-+};
-+
-+static const struct gen8_reg_list kaanapali_misc_registers[] = {
-+	{ UNSLICE, kaanapali_gpu_registers },
-+	{ SLICE, kaanapali_gpu_slice_registers },
-+	{ UNSLICE, kaanapali_cx_misc_registers },
-+	{ UNSLICE, kaanapali_dbgc_registers },
-+	{ SLICE, kaanapali_dbgc_slice_registers },
-+	{ UNSLICE, kaanapali_cx_dbgc_registers },
-+};
-+
-+static const struct gen8_reg_list kaanapali_ahb_registers[] = {
-+	{ UNSLICE, kaanapali_gbif_registers },
-+	{ UNSLICE, kaanapali_ahb_precd_gpu_registers },
-+	{ SLICE, kaanapali_ahb_precd_gpu_slice_registers },
-+	{ UNSLICE, kaanapali_ahb_secure_gpu_registers },
-+};
-+
-+static const struct gen8_reg_list kaanapali_gmu_registers[] = {
-+	{ UNSLICE, kaanapali_gmugx_registers },
-+	{ SLICE, kaanapali_gmugx_slice_registers },
-+	{ UNSLICE, kaanapali_gmuao_registers },
-+	{ UNSLICE, kaanapali_gmucx_registers },
-+};
-+
-+const struct gen8_snapshot_block_list kaanapali_snapshot_block_list = {
-+        .pre_crashdumper_regs = kaanapali_ahb_registers,
-+        .num_pre_crashdumper_regs = ARRAY_SIZE(kaanapali_ahb_registers),
-+        .debugbus_blocks = kaanapali_debugbus_blocks,
-+        .debugbus_blocks_len = ARRAY_SIZE(kaanapali_debugbus_blocks),
-+        .gbif_debugbus_blocks = kaanapali_gbif_debugbus_blocks,
-+        .gbif_debugbus_blocks_len = ARRAY_SIZE(kaanapali_gbif_debugbus_blocks),
-+        .cx_debugbus_blocks = kaanapali_cx_debugbus_blocks,
-+        .cx_debugbus_blocks_len = ARRAY_SIZE(kaanapali_cx_debugbus_blocks),
-+        .gmu_cx_unsliced_regs = kaanapali_gmucx_registers,
-+        .gmu_gx_regs = kaanapali_gmu_registers,
-+        .num_gmu_gx_regs = ARRAY_SIZE(kaanapali_gmu_registers),
-+        .reg_list = kaanapali_misc_registers,
-+        .num_reg_list = ARRAY_SIZE(kaanapali_misc_registers),
-+        .cx_misc_regs = kaanapali_cx_misc_registers,
-+        .shader_blocks = kaanapali_shader_blocks,
-+        .num_shader_blocks = ARRAY_SIZE(kaanapali_shader_blocks),
-+        .cp_clusters = kaanapali_cp_clusters,
-+        .num_cp_clusters = ARRAY_SIZE(kaanapali_cp_clusters),
-+        .clusters = kaanapali_mvc_clusters,
-+        .num_clusters = ARRAY_SIZE(kaanapali_mvc_clusters),
-+        .sptp_clusters = kaanapali_sptp_clusters,
-+        .num_sptp_clusters = ARRAY_SIZE(kaanapali_sptp_clusters),
-+        .index_registers = kaanapali_cp_indexed_reg_list,
-+        .index_registers_len = ARRAY_SIZE(kaanapali_cp_indexed_reg_list),
-+        .mempool_index_registers = kaanapali_cp_mempool_reg_list,
-+        .mempool_index_registers_len = ARRAY_SIZE(kaanapali_cp_mempool_reg_list),
-+        .pc_index_registers = kaanapali_pc_indexed_reg_list,
-+        .pc_index_registers_len = ARRAY_SIZE(kaanapali_pc_indexed_reg_list),
-+};
-+static const u32 kaanapali_protect_regs[] __maybe_unused = {
-+	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
-+	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
-+	A6XX_PROTECT_NORDWR(0x00440, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00449, 0x0016),
-+	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
-+	A6XX_PROTECT_NORDWR(0x005e8, 0x0117),
-+	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
-+	A6XX_PROTECT_RDONLY(0x00759, 0x001b),
-+	A6XX_PROTECT_NORDWR(0x00775, 0x000a),
-+	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
-+	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
-+	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
-+	A6XX_PROTECT_NORDWR(0x00837, 0x0099),
-+	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
-+	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
-+	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
-+	A6XX_PROTECT_NORDWR(0x00c07, 0x0008),
-+	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
-+	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00e03, 0x001c),
-+	A6XX_PROTECT_NORDWR(0x00e40, 0x00df),
-+	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
-+	A6XX_PROTECT_RDONLY(0x03cc6, 0x0039),
-+	A6XX_PROTECT_NORDWR(0x03d00, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x08600, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08700, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08740, 0x00bf),
-+	A6XX_PROTECT_NORDWR(0x08e00, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08e3b, 0x00c4),
-+	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x08f01, 0x0002),
-+	A6XX_PROTECT_NORDWR(0x08f20, 0x019f),
-+	A6XX_PROTECT_NORDWR(0x09600, 0x006f),
-+	A6XX_PROTECT_NORDWR(0x09680, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x09740, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x09770, 0x008f),
-+	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
-+	A6XX_PROTECT_NORDWR(0x09e00, 0x002f),
-+	A6XX_PROTECT_NORDWR(0x09e50, 0x00af),
-+	A6XX_PROTECT_NORDWR(0x09f20, 0x00df),
-+	A6XX_PROTECT_NORDWR(0x0a600, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x0a630, 0x01cf),
-+	A6XX_PROTECT_NORDWR(0x0a82e, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
-+	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
-+	A6XX_PROTECT_NORDWR(0x0ae10, 0x004f),
-+	A6XX_PROTECT_NORDWR(0x0ae66, 0x0019),
-+	A6XX_PROTECT_RDONLY(0x0aed0, 0x002f),
-+	A6XX_PROTECT_NORDWR(0x0af00, 0x027f),
-+	A6XX_PROTECT_NORDWR(0x0b600, 0x001f),
-+	A6XX_PROTECT_NORDWR(0x0d200, 0x03ff),
-+	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
-+	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
-+	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
-+	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
-+	A6XX_PROTECT_RDONLY(0x1f878, 0x0507),
-+	A6XX_PROTECT_NORDWR(0x1f930, 0x032f),
-+	A6XX_PROTECT_NORDWR(0x1fd80, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
-+	A6XX_PROTECT_RDONLY(0x27880, 0x0001),
-+	A6XX_PROTECT_NORDWR(0x27882, 0x037d),
-+	A6XX_PROTECT_NORDWR(0x27c06, 0x0000),
-+};
-+DECLARE_ADRENO_PROTECT(kaanapali_protect, 80);
-\ No newline at end of file
-diff --git a/drivers/gpu/drm/msm/adreno/catalog/adreno_maili.h b/drivers/gpu/drm/msm/adreno/catalog/adreno_maili.h
-new file mode 100644
-index 000000000000..c735140ff615
---- /dev/null
-+++ b/drivers/gpu/drm/msm/adreno/catalog/adreno_maili.h
-@@ -0,0 +1,1882 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ *
-+ * THIS FILE IS AUTOGENERATED!
-+ */
-+
-+#pragma once
-+
-+
-+
-+static const u32 maili_debugbus_blocks[] = {
-+	DEBUGBUS_GMU_GX_GC_US_I_0,
-+	DEBUGBUS_DBGC_GC_US_I_0,
-+	DEBUGBUS_RBBM_GC_US_I_0,
-+	DEBUGBUS_LARC_GC_US_I_0,
-+	DEBUGBUS_COM_GC_US_I_0,
-+	DEBUGBUS_HLSQ_GC_US_I_0,
-+	DEBUGBUS_CGC_GC_US_I_0,
-+	DEBUGBUS_VSC_GC_US_I_0_0,
-+	DEBUGBUS_VSC_GC_US_I_0_1,
-+	DEBUGBUS_UFC_GC_US_I_0,
-+	DEBUGBUS_UFC_GC_US_I_1,
-+	DEBUGBUS_CP_GC_US_I_0_0,
-+	DEBUGBUS_CP_GC_US_I_0_1,
-+	DEBUGBUS_CP_GC_US_I_0_2,
-+	DEBUGBUS_PC_BR_US_I_0,
-+	DEBUGBUS_PC_BV_US_I_0,
-+	DEBUGBUS_GPC_BR_US_I_0,
-+	DEBUGBUS_GPC_BV_US_I_0,
-+	DEBUGBUS_VPC_BR_US_I_0,
-+	DEBUGBUS_VPC_BV_US_I_0,
-+	DEBUGBUS_UCHE_WRAPPER_GC_US_I_0,
-+	DEBUGBUS_UCHE_GC_US_I_0,
-+	DEBUGBUS_CP_GC_S_0_I_0,
-+	DEBUGBUS_PC_BR_S_0_I_0,
-+	DEBUGBUS_PC_BV_S_0_I_0,
-+	DEBUGBUS_TESS_GC_S_0_I_0,
-+	DEBUGBUS_TSEBE_GC_S_0_I_0,
-+	DEBUGBUS_RAS_GC_S_0_I_0,
-+	DEBUGBUS_LRZ_BR_S_0_I_0,
-+	DEBUGBUS_LRZ_BV_S_0_I_0,
-+	DEBUGBUS_VFDP_GC_S_0_I_0,
-+	DEBUGBUS_GPC_BR_S_0_I_0,
-+	DEBUGBUS_GPC_BV_S_0_I_0,
-+	DEBUGBUS_VPCFE_BR_S_0_I_0,
-+	DEBUGBUS_VPCFE_BV_S_0_I_0,
-+	DEBUGBUS_VPCBE_BR_S_0_I_0,
-+	DEBUGBUS_VPCBE_BV_S_0_I_0,
-+	DEBUGBUS_DBGC_GC_S_0_I_0,
-+	DEBUGBUS_LARC_GC_S_0_I_0,
-+	DEBUGBUS_RBBM_GC_S_0_I_0,
-+	DEBUGBUS_CCRE_GC_S_0_I_0,
-+	DEBUGBUS_CGC_GC_S_0_I_0,
-+	DEBUGBUS_GMU_GC_S_0_I_0,
-+	DEBUGBUS_SLICE_GC_S_0_I_0,
-+	DEBUGBUS_USP_GC_S_0_I_0,
-+	DEBUGBUS_USPTP_GC_S_0_I_0,
-+	DEBUGBUS_USPTP_GC_S_0_I_1,
-+	DEBUGBUS_TP_GC_S_0_I_0,
-+	DEBUGBUS_TP_GC_S_0_I_1,
-+	DEBUGBUS_RB_GC_S_0_I_0,
-+	DEBUGBUS_CCU_GC_S_0_I_0,
-+	DEBUGBUS_HLSQ_GC_S_0_I_0,
-+	DEBUGBUS_VFD_GC_S_0_I_0,
-+};
-+
-+static const u32 maili_gbif_debugbus_blocks[] = {
-+    DEBUGBUS_GBIF_GX_GC_US_I_0,
-+};
-+
-+static const u32 maili_cx_debugbus_blocks[] = {
-+    DEBUGBUS_GBIF_CX_GC_US_I_0,
-+    DEBUGBUS_GMU_CX_GC_US_I_0,
-+    DEBUGBUS_CX_GC_US_I_0,
-+};
-+
-+static const struct gen8_shader_block maili_shader_blocks[] = {
-+	{ TP0_TMO_DATA, 0x0200, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_TMO_DATA, 0x0200, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_SMO_DATA, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_SMO_DATA, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_MIPMAP_BASE_DATA, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_MIPMAP_BASE_DATA, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_CB_RAM, 0x0390, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_CB_RAM, 0x0390, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_TAG, 0x0100, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_TAG, 0x0100, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_TMO_TAG, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_TMO_TAG, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_SMO_TAG, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_SMO_TAG, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STATE_DATA, 0x0040, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STATE_DATA, 0x0040, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_HWAVE_RAM, 0x0200, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_HWAVE_RAM, 0x0200, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_L0_INST_BUF, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_L0_INST_BUF, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ HLSQ_DATAPATH_DSTR_META, 0x0600, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DATAPATH_DSTR_META, 0x0020, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x00A0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x000C, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x0008, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0048, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0048, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_L2STC_TAG_RAM, 0x0200, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_L2STC_INFO_CMD, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_BE_CTXT_BUF_RAM, 0x0400, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_BE_CTXT_BUF_RAM, 0x0400, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_BE_CTXT_BUF_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM, 0x01C0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM, 0x01C0, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM, 0x0300, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM, 0x0180, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CVS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CVS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CPS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CPS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM, 0x0540, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM, 0x0540, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM, 0x00B0, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_1, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_TAG, 0x0600, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_TAG, 0x0012, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0010, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0004, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM_TAG, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x03C0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x0280, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x0050, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM_TAG, 0x0014, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM_TAG, 0x000C, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_STPROC_META, 0x0400, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x0188, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x0188, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x00C0, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DATAPATH_META, 0x0020, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INDIRECT_META, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0034, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0034, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+};
-+
-+/*
-+ * Block   : ['AHB_PRECD']
-+ * REGION  : UNSLICE
-+ * pairs   : 1 (Regs:2)
-+ */
-+static const u32 maili_ahb_precd_gpu_registers[] = {
-+	 0x00012, 0x00013,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_ahb_precd_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['AHB_PRECD']
-+ * REGION  : SLICE
-+ * pairs   : 1 (Regs:3)
-+ */
-+static const u32 maili_ahb_precd_gpu_slice_registers[] = {
-+	 0x00580, 0x00582,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_ahb_precd_gpu_slice_registers), 8));
-+
-+/*
-+ * Block   : ['AHB_SECURE']
-+ * REGION  : UNSLICE
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 maili_ahb_secure_gpu_registers[] = {
-+	 0x0f400, 0x0f400, 0x0f800, 0x0f803, 0x0fc00, 0x0fc01,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_ahb_secure_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['GBIF']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 8 (Regs:59)
-+ */
-+static const u32 maili_gbif_registers[] = {
-+	 0x03c00, 0x03c0b, 0x03c40, 0x03c42, 0x03c45, 0x03c47, 0x03c49, 0x03c4e,
-+	 0x03c50, 0x03c57, 0x03cc0, 0x03cc4, 0x03cc6, 0x03cd5, 0x03ce0, 0x03ce5,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_gbif_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'GRAS', 'PC']
-+ * Block   : ['RBBM', 'RDVM', 'UCHE']
-+ * Block   : ['VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 115 (Regs:1150)
-+ */
-+static const u32 maili_gpu_registers[] = {
-+	 0x00008, 0x0000d, 0x00010, 0x00011, 0x00015, 0x00016, 0x00018, 0x00018,
-+	 0x0001a, 0x0001a, 0x0001c, 0x0001c, 0x00028, 0x0002b, 0x0002d, 0x00039,
-+	 0x00040, 0x00053, 0x00062, 0x00066, 0x00069, 0x0006e, 0x00071, 0x00072,
-+	 0x00074, 0x00074, 0x00076, 0x0007c, 0x0007f, 0x0009a, 0x0009d, 0x000af,
-+	 0x000b2, 0x000d4, 0x000d7, 0x000e2, 0x000e5, 0x000e6, 0x000e9, 0x000f1,
-+	 0x000f4, 0x000f6, 0x000f9, 0x00108, 0x0010b, 0x0010e, 0x00111, 0x00111,
-+	 0x00114, 0x0011c, 0x0011f, 0x00121, 0x00125, 0x00125, 0x00127, 0x00127,
-+	 0x00129, 0x00129, 0x0012b, 0x00131, 0x00134, 0x00138, 0x0013a, 0x0013a,
-+	 0x0013c, 0x0013f, 0x00142, 0x00150, 0x00153, 0x00155, 0x00158, 0x00159,
-+	 0x0015c, 0x0015c, 0x00166, 0x00179, 0x0019e, 0x001a3, 0x001b0, 0x002c9,
-+	 0x002e2, 0x0036b, 0x00380, 0x0039b, 0x003a4, 0x003ab, 0x003b4, 0x003c5,
-+	 0x003ce, 0x003cf, 0x003e0, 0x003e0, 0x003f0, 0x003f0, 0x00440, 0x00444,
-+	 0x00460, 0x00460, 0x00c02, 0x00c04, 0x00c06, 0x00c06, 0x00c10, 0x00cd9,
-+	 0x00ce0, 0x00d0c, 0x00df0, 0x00df4, 0x00e01, 0x00e04, 0x00e06, 0x00e09,
-+	 0x00e0e, 0x00e13, 0x00e15, 0x00e16, 0x00e20, 0x00e37, 0x0ec00, 0x0ec01,
-+	 0x0ec05, 0x0ec05, 0x0ec07, 0x0ec07, 0x0ec0a, 0x0ec0a, 0x0ec12, 0x0ec12,
-+	 0x0ec26, 0x0ec28, 0x0ec2b, 0x0ec2d, 0x0ec2f, 0x0ec2f, 0x0ec40, 0x0ec41,
-+	 0x0ec45, 0x0ec45, 0x0ec47, 0x0ec47, 0x0ec4a, 0x0ec4a, 0x0ec52, 0x0ec52,
-+	 0x0ec66, 0x0ec68, 0x0ec6b, 0x0ec6d, 0x0ec6f, 0x0ec6f, 0x0ec80, 0x0ec81,
-+	 0x0ec85, 0x0ec85, 0x0ec87, 0x0ec87, 0x0ec8a, 0x0ec8a, 0x0ec92, 0x0ec92,
-+	 0x0eca6, 0x0eca8, 0x0ecab, 0x0ecad, 0x0ecaf, 0x0ecaf, 0x0ecc0, 0x0ecc1,
-+	 0x0ecc5, 0x0ecc5, 0x0ecc7, 0x0ecc7, 0x0ecca, 0x0ecca, 0x0ecd2, 0x0ecd2,
-+	 0x0ece6, 0x0ece8, 0x0eceb, 0x0eced, 0x0ecef, 0x0ecef, 0x0ed00, 0x0ed01,
-+	 0x0ed05, 0x0ed05, 0x0ed07, 0x0ed07, 0x0ed0a, 0x0ed0a, 0x0ed12, 0x0ed12,
-+	 0x0ed26, 0x0ed28, 0x0ed2b, 0x0ed2d, 0x0ed2f, 0x0ed2f, 0x0ed40, 0x0ed41,
-+	 0x0ed45, 0x0ed45, 0x0ed47, 0x0ed47, 0x0ed4a, 0x0ed4a, 0x0ed52, 0x0ed52,
-+	 0x0ed66, 0x0ed68, 0x0ed6b, 0x0ed6d, 0x0ed6f, 0x0ed6f, 0x0ed80, 0x0ed81,
-+	 0x0ed85, 0x0ed85, 0x0ed87, 0x0ed87, 0x0ed8a, 0x0ed8a, 0x0ed92, 0x0ed92,
-+	 0x0eda6, 0x0eda8, 0x0edab, 0x0edad, 0x0edaf, 0x0edaf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'GRAS', 'PC']
-+ * Block   : ['RBBM', 'RDVM', 'UCHE']
-+ * Block   : ['VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 12 (Regs:86)
-+ */
-+static const u32 maili_gpu_slice_registers[] = {
-+	 0x00500, 0x00500, 0x00583, 0x00584, 0x00586, 0x0058b, 0x0058f, 0x00599,
-+	 0x005a0, 0x005b3, 0x005c0, 0x005c0, 0x005c2, 0x005c6, 0x005e0, 0x005e3,
-+	 0x005ec, 0x005ec, 0x00f01, 0x00f02, 0x00f04, 0x00f0c, 0x00f20, 0x00f37,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_gpu_slice_registers), 8));
-+
-+/*
-+ * Block   : ['GMUGX']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 17 (Regs:170)
-+ */
-+static const u32 maili_gmugx_registers[] = {
-+	 0x0dc00, 0x0dc0d, 0x0dc10, 0x0dc11, 0x0dc13, 0x0dc15, 0x0dc18, 0x0dc1a,
-+	 0x0dc1c, 0x0dc23, 0x0dc26, 0x0dc2b, 0x0dc2e, 0x0dc2f, 0x0dc40, 0x0dc42,
-+	 0x0dc60, 0x0dc7f, 0x0dc88, 0x0dc90, 0x0dc98, 0x0dc99, 0x0dca0, 0x0dcbf,
-+	 0x0dcc8, 0x0dcd0, 0x0dcd8, 0x0dcd9, 0x0dce0, 0x0dcff, 0x0dd08, 0x0dd10,
-+	 0x0dd18, 0x0dd19,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_gmugx_registers), 8));
-+
-+/*
-+ * Block   : ['GMUGX']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 19 (Regs:224)
-+ */
-+static const u32 maili_gmugx_slice_registers[] = {
-+	 0x0e400, 0x0e401, 0x0e404, 0x0e404, 0x0e406, 0x0e408, 0x0e40a, 0x0e40a,
-+	 0x0e40e, 0x0e42f, 0x0e438, 0x0e440, 0x0e448, 0x0e449, 0x0e490, 0x0e4af,
-+	 0x0e4b8, 0x0e4c0, 0x0e4c8, 0x0e4c9, 0x0e4d0, 0x0e4ef, 0x0e4f8, 0x0e500,
-+	 0x0e508, 0x0e509, 0x0e510, 0x0e52f, 0x0e538, 0x0e540, 0x0e548, 0x0e549,
-+	 0x0e590, 0x0e5af, 0x0e5b8, 0x0e5c0, 0x0e5c8, 0x0e5c9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_gmugx_slice_registers), 8));
-+
-+/*
-+ * Block   : ['GMUAO']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 39 (Regs:61)
-+ */
-+static const u32 maili_gmuao_registers[] = {
-+	 0x23801, 0x23801, 0x23803, 0x23803, 0x23805, 0x23805, 0x23807, 0x23807,
-+	 0x23809, 0x23809, 0x2380b, 0x2380b, 0x2380d, 0x2380d, 0x2380f, 0x2380f,
-+	 0x23811, 0x23811, 0x23813, 0x23813, 0x23815, 0x23815, 0x23817, 0x23817,
-+	 0x23819, 0x23819, 0x2381b, 0x2381b, 0x2381d, 0x2381d, 0x2381f, 0x23820,
-+	 0x23822, 0x23822, 0x23824, 0x23824, 0x23826, 0x23826, 0x23828, 0x23828,
-+	 0x2382a, 0x2382a, 0x2382c, 0x2382c, 0x2382e, 0x2382e, 0x23830, 0x23830,
-+	 0x23832, 0x23832, 0x23834, 0x23834, 0x23836, 0x23836, 0x23838, 0x23838,
-+	 0x2383a, 0x2383a, 0x2383c, 0x2383c, 0x2383e, 0x2383e, 0x23840, 0x23847,
-+	 0x23b00, 0x23b01, 0x23b03, 0x23b03, 0x23b05, 0x23b0e, 0x23b10, 0x23b13,
-+	 0x23b15, 0x23b16, 0x23b28, 0x23b28, 0x23b30, 0x23b30,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_gmuao_registers), 8));
-+
-+/*
-+ * Block   : ['GMUCX', 'GMUCX_RAM']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 97 (Regs:494)
-+ */
-+static const u32 maili_gmucx_registers[] = {
-+	 0x1f400, 0x1f40b, 0x1f40f, 0x1f411, 0x1f500, 0x1f500, 0x1f507, 0x1f507,
-+	 0x1f509, 0x1f50b, 0x1f700, 0x1f701, 0x1f704, 0x1f706, 0x1f708, 0x1f709,
-+	 0x1f70c, 0x1f70d, 0x1f710, 0x1f711, 0x1f713, 0x1f716, 0x1f718, 0x1f71d,
-+	 0x1f720, 0x1f725, 0x1f729, 0x1f729, 0x1f730, 0x1f747, 0x1f750, 0x1f75a,
-+	 0x1f75c, 0x1f75c, 0x1f780, 0x1f781, 0x1f784, 0x1f78b, 0x1f790, 0x1f797,
-+	 0x1f7a0, 0x1f7a7, 0x1f7b0, 0x1f7b7, 0x1f7e0, 0x1f7e1, 0x1f7e4, 0x1f7e5,
-+	 0x1f7e8, 0x1f7e9, 0x1f7ec, 0x1f7ed, 0x1f800, 0x1f804, 0x1f807, 0x1f808,
-+	 0x1f80b, 0x1f80c, 0x1f80f, 0x1f80f, 0x1f811, 0x1f811, 0x1f813, 0x1f817,
-+	 0x1f819, 0x1f81c, 0x1f824, 0x1f830, 0x1f840, 0x1f842, 0x1f848, 0x1f848,
-+	 0x1f84c, 0x1f84c, 0x1f850, 0x1f850, 0x1f858, 0x1f859, 0x1f868, 0x1f869,
-+	 0x1f878, 0x1f883, 0x1f930, 0x1f931, 0x1f934, 0x1f935, 0x1f938, 0x1f939,
-+	 0x1f93c, 0x1f93d, 0x1f940, 0x1f941, 0x1f943, 0x1f943, 0x1f948, 0x1f94a,
-+	 0x1f94f, 0x1f951, 0x1f954, 0x1f955, 0x1f95d, 0x1f95d, 0x1f962, 0x1f96b,
-+	 0x1f97c, 0x1f97e, 0x1f980, 0x1f981, 0x1f984, 0x1f986, 0x1f992, 0x1f993,
-+	 0x1f996, 0x1f99e, 0x1f9c0, 0x1f9cf, 0x1f9f0, 0x1f9f1, 0x1f9f8, 0x1f9fa,
-+	 0x1f9fc, 0x1f9fc, 0x1fa00, 0x1fa03, 0x1fc00, 0x1fc01, 0x1fc04, 0x1fc07,
-+	 0x1fc10, 0x1fc10, 0x1fc14, 0x1fc14, 0x1fc18, 0x1fc19, 0x1fc20, 0x1fc20,
-+	 0x1fc24, 0x1fc26, 0x1fc30, 0x1fc33, 0x1fc38, 0x1fc3b, 0x1fc40, 0x1fc49,
-+	 0x1fc50, 0x1fc59, 0x1fc60, 0x1fc7f, 0x1fca0, 0x1fcef, 0x20000, 0x20007,
-+	 0x20010, 0x20015, 0x20018, 0x2001a, 0x2001c, 0x2001d, 0x20020, 0x20021,
-+	 0x20024, 0x20025, 0x2002a, 0x2002c, 0x20030, 0x20031, 0x20034, 0x20036,
-+	 0x20080, 0x20087, 0x20300, 0x20301, 0x20304, 0x20305, 0x20308, 0x2030c,
-+	 0x20310, 0x20314, 0x20318, 0x2031a, 0x20320, 0x20322, 0x20324, 0x20326,
-+	 0x20328, 0x2032a, 0x20330, 0x20333, 0x20338, 0x20338, 0x20340, 0x20345,
-+	 0x20348, 0x2034f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_gmucx_registers), 8));
-+
-+/*
-+ * Block   : ['CX_MISC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 6 (Regs:57)
-+ */
-+static const u32 maili_cx_misc_registers[] = {
-+	 0x27810, 0x27814, 0x27820, 0x27824, 0x27828, 0x2782a, 0x27832, 0x27857,
-+	 0x27880, 0x27883, 0x27c00, 0x27c01,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_cx_misc_registers), 8));
-+
-+/*
-+ * Block   : ['DBGC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 21 (Regs:152)
-+ */
-+static const u32 maili_dbgc_registers[] = {
-+	 0x00600, 0x0061c, 0x0061e, 0x0063d, 0x00640, 0x00644, 0x00650, 0x00655,
-+	 0x00660, 0x00660, 0x00662, 0x00668, 0x0066a, 0x0066a, 0x00680, 0x00685,
-+	 0x00700, 0x00704, 0x00707, 0x0070a, 0x0070f, 0x00716, 0x00720, 0x00724,
-+	 0x00730, 0x00732, 0x00740, 0x00740, 0x00742, 0x0074a, 0x00750, 0x00755,
-+	 0x00759, 0x0075c, 0x00760, 0x00763, 0x00770, 0x00770, 0x00780, 0x0078d,
-+	 0x00790, 0x00790,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_dbgc_registers), 8));
-+
-+/*
-+ * Block   : ['DBGC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 2 (Regs:61)
-+ */
-+static const u32 maili_dbgc_slice_registers[] = {
-+	 0x007a0, 0x007d5, 0x007e0, 0x007e6,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_dbgc_slice_registers), 8));
-+
-+/*
-+ * Block   : ['CX_DBGC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 6 (Regs:75)
-+ */
-+static const u32 maili_cx_dbgc_registers[] = {
-+	 0x18400, 0x1841c, 0x1841e, 0x1843d, 0x18440, 0x18444, 0x18450, 0x18455,
-+	 0x1846a, 0x1846a, 0x18580, 0x18581,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_cx_dbgc_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 15 (Regs:297)
-+ */
-+static const u32 maili_cp_cp_pipe_none_registers[] = {
-+	 0x00800, 0x0080a, 0x00813, 0x0081e, 0x00820, 0x0082d, 0x00838, 0x0083e,
-+	 0x00840, 0x00847, 0x0084b, 0x0084c, 0x00850, 0x0088f, 0x008b5, 0x008b6,
-+	 0x008c0, 0x008cb, 0x008d0, 0x008e4, 0x008e7, 0x008ee, 0x008fa, 0x008fb,
-+	 0x00928, 0x00929, 0x00958, 0x0095b, 0x00980, 0x009ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_cp_cp_pipe_none_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 8 (Regs:96)
-+ */
-+static const u32 maili_cp_cp_pipe_br_registers[] = {
-+	 0x00830, 0x00837, 0x0084d, 0x0084f, 0x008a0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f9, 0x00900, 0x0091e, 0x00920, 0x00926, 0x00930, 0x0093a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_cp_cp_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : SLICE
-+ * Pipeline: CP_PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:23)
-+ */
-+static const u32 maili_cp_slice_cp_pipe_br_registers[] = {
-+	 0x00b00, 0x00b0c, 0x00b10, 0x00b10, 0x00b80, 0x00b84, 0x00b90, 0x00b93,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_cp_slice_cp_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:72)
-+ */
-+static const u32 maili_cp_cp_pipe_bv_registers[] = {
-+	 0x00830, 0x00835, 0x0084d, 0x0084f, 0x008b0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f9, 0x00900, 0x00913, 0x00918, 0x0091d, 0x00920, 0x00925,
-+	 0x00930, 0x0093a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_cp_cp_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : SLICE
-+ * Pipeline: CP_PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:23)
-+ */
-+static const u32 maili_cp_slice_cp_pipe_bv_registers[] = {
-+	 0x00b00, 0x00b0c, 0x00b10, 0x00b10, 0x00b80, 0x00b84, 0x00b90, 0x00b93,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_cp_slice_cp_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_LPAC
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:77)
-+ */
-+static const u32 maili_cp_cp_pipe_lpac_registers[] = {
-+	 0x00830, 0x00837, 0x0084d, 0x0084f, 0x008a0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f5, 0x008f8, 0x008f9, 0x00900, 0x00913, 0x00918, 0x0091d,
-+	 0x00920, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_cp_cp_pipe_lpac_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_AQE0
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:22)
-+ */
-+static const u32 maili_cp_cp_pipe_aqe0_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x00910, 0x00913,
-+	 0x0091d, 0x0091d, 0x00925, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_cp_cp_pipe_aqe0_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_AQE1
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:22)
-+ */
-+static const u32 maili_cp_cp_pipe_aqe1_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x00910, 0x00913,
-+	 0x0091d, 0x0091d, 0x00925, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_cp_cp_pipe_aqe1_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_DDE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:34)
-+ */
-+static const u32 maili_cp_cp_pipe_dde_br_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x0090c, 0x00917,
-+	 0x0091c, 0x0091e, 0x00924, 0x00926,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_cp_cp_pipe_dde_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_DDE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:34)
-+ */
-+static const u32 maili_cp_cp_pipe_dde_bv_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x0090c, 0x00917,
-+	 0x0091c, 0x0091e, 0x00924, 0x00926,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_cp_cp_pipe_dde_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:612)
-+ */
-+static const u32 maili_non_context_pipe_br_registers[] = {
-+	 0x09600, 0x09605, 0x09610, 0x09617, 0x09620, 0x09627, 0x09670, 0x0967b,
-+	 0x09e00, 0x09e04, 0x09e06, 0x09e15, 0x09e17, 0x09e23, 0x09e30, 0x09e3f,
-+	 0x09e50, 0x09e59, 0x09e60, 0x09e65, 0x0d400, 0x0d5ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_non_context_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 20 (Regs:294)
-+ */
-+static const u32 maili_non_context_slice_pipe_br_registers[] = {
-+	 0x08600, 0x08602, 0x08610, 0x08613, 0x08700, 0x08703, 0x08710, 0x08713,
-+	 0x08720, 0x08723, 0x08730, 0x08733, 0x09680, 0x09681, 0x09690, 0x0969b,
-+	 0x09740, 0x09745, 0x09750, 0x0975b, 0x09770, 0x097ef, 0x09f00, 0x09f0f,
-+	 0x09f20, 0x09f23, 0x09f30, 0x09f30, 0x0a600, 0x0a600, 0x0a603, 0x0a603,
-+	 0x0a610, 0x0a61f, 0x0a630, 0x0a632, 0x0a638, 0x0a63c, 0x0a640, 0x0a67f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_non_context_slice_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:612)
-+ */
-+static const u32 maili_non_context_pipe_bv_registers[] = {
-+	 0x09600, 0x09605, 0x09610, 0x09617, 0x09620, 0x09627, 0x09670, 0x0967b,
-+	 0x09e00, 0x09e04, 0x09e06, 0x09e15, 0x09e17, 0x09e23, 0x09e30, 0x09e3f,
-+	 0x09e50, 0x09e59, 0x09e60, 0x09e65, 0x0d400, 0x0d5ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_non_context_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 20 (Regs:294)
-+ */
-+static const u32 maili_non_context_slice_pipe_bv_registers[] = {
-+	 0x08600, 0x08602, 0x08610, 0x08613, 0x08700, 0x08703, 0x08710, 0x08713,
-+	 0x08720, 0x08723, 0x08730, 0x08733, 0x09680, 0x09681, 0x09690, 0x0969b,
-+	 0x09740, 0x09745, 0x09750, 0x0975b, 0x09770, 0x097ef, 0x09f00, 0x09f0f,
-+	 0x09f20, 0x09f23, 0x09f30, 0x09f30, 0x0a600, 0x0a600, 0x0a603, 0x0a603,
-+	 0x0a610, 0x0a61f, 0x0a630, 0x0a632, 0x0a638, 0x0a63c, 0x0a640, 0x0a67f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_non_context_slice_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 1 (Regs:1)
-+ */
-+static const u32 maili_non_context_pipe_lpac_registers[] = {
-+	 0x00e14, 0x00e14,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_non_context_pipe_lpac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:26)
-+ */
-+static const u32 maili_non_context_rb_pipe_br_rbp_registers[] = {
-+	 0x08f00, 0x08f07, 0x08f10, 0x08f15, 0x08f20, 0x08f29, 0x08f30, 0x08f31,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_non_context_rb_pipe_br_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 3 (Regs:13)
-+ */
-+static const u32 maili_non_context_rb_slice_pipe_br_rac_registers[] = {
-+	 0x08e09, 0x08e0b, 0x08e10, 0x08e17, 0x08e51, 0x08e52,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_non_context_rb_slice_pipe_br_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 8 (Regs:20)
-+ */
-+static const u32 maili_non_context_rb_slice_pipe_br_rbp_registers[] = {
-+	 0x08e01, 0x08e01, 0x08e04, 0x08e04, 0x08e06, 0x08e08, 0x08e0c, 0x08e0c,
-+	 0x08e18, 0x08e1c, 0x08e3b, 0x08e40, 0x08e50, 0x08e50, 0x08e77, 0x08e78,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_non_context_rb_slice_pipe_br_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: HLSQ_STATE
-+ * pairs   : 8 (Regs:34)
-+ */
-+static const u32 maili_non_context_sp_pipe_none_hlsq_state_registers[] = {
-+	 0x0ae05, 0x0ae05, 0x0ae10, 0x0ae13, 0x0ae15, 0x0ae16, 0x0ae52, 0x0ae52,
-+	 0x0ae60, 0x0ae67, 0x0ae69, 0x0ae6e, 0x0ae70, 0x0ae75, 0x0aec0, 0x0aec5,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_non_context_sp_pipe_none_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: SP_TOP
-+ * pairs   : 6 (Regs:60)
-+ */
-+static const u32 maili_non_context_sp_pipe_none_sp_top_registers[] = {
-+	 0x0ae00, 0x0ae0c, 0x0ae0f, 0x0ae0f, 0x0ae35, 0x0ae35, 0x0ae3a, 0x0ae3f,
-+	 0x0ae50, 0x0ae52, 0x0ae80, 0x0aea3,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_non_context_sp_pipe_none_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: USPTP
-+ * pairs   : 9 (Regs:64)
-+ */
-+static const u32 maili_non_context_sp_pipe_none_usptp_registers[] = {
-+	 0x0ae00, 0x0ae0c, 0x0ae0f, 0x0ae0f, 0x0ae17, 0x0ae19, 0x0ae30, 0x0ae32,
-+	 0x0ae35, 0x0ae35, 0x0ae3a, 0x0ae3b, 0x0ae3e, 0x0ae3f, 0x0ae50, 0x0ae52,
-+	 0x0ae80, 0x0aea3,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_non_context_sp_pipe_none_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:48)
-+ */
-+static const u32 maili_non_context_tpl1_pipe_none_usptp_registers[] = {
-+	 0x0b600, 0x0b600, 0x0b602, 0x0b602, 0x0b604, 0x0b604, 0x0b606, 0x0b61e,
-+	 0x0b620, 0x0b633,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_non_context_tpl1_pipe_none_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 8 (Regs:232)
-+ */
-+static const u32 maili_gras_slice_pipe_br_cluster_vpc_vs_registers[] = {
-+	 0x08200, 0x08213, 0x08220, 0x08225, 0x08230, 0x0823b, 0x08240, 0x0825f,
-+	 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_gras_slice_pipe_br_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_GRAS
-+ * pairs   : 12 (Regs:294)
-+ */
-+static const u32 maili_gras_slice_pipe_br_cluster_gras_registers[] = {
-+	 0x08080, 0x08080, 0x08086, 0x08092, 0x080c0, 0x080df, 0x08101, 0x08110,
-+	 0x08200, 0x08213, 0x08220, 0x08225, 0x08230, 0x0823b, 0x08240, 0x0825f,
-+	 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_gras_slice_pipe_br_cluster_gras_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 8 (Regs:232)
-+ */
-+static const u32 maili_gras_slice_pipe_bv_cluster_vpc_vs_registers[] = {
-+	 0x08200, 0x08213, 0x08220, 0x08225, 0x08230, 0x0823b, 0x08240, 0x0825f,
-+	 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_gras_slice_pipe_bv_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_GRAS
-+ * pairs   : 12 (Regs:294)
-+ */
-+static const u32 maili_gras_slice_pipe_bv_cluster_gras_registers[] = {
-+	 0x08080, 0x08080, 0x08086, 0x08092, 0x080c0, 0x080df, 0x08101, 0x08110,
-+	 0x08200, 0x08213, 0x08220, 0x08225, 0x08230, 0x0823b, 0x08240, 0x0825f,
-+	 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_gras_slice_pipe_bv_cluster_gras_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_US
-+ * pairs   : 6 (Regs:35)
-+ */
-+static const u32 maili_pc_pipe_br_cluster_fe_us_registers[] = {
-+	 0x09805, 0x09807, 0x0980b, 0x0980b, 0x09812, 0x09817, 0x0981a, 0x0981b,
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_pc_pipe_br_cluster_fe_us_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:23)
-+ */
-+static const u32 maili_pc_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_pc_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_US
-+ * pairs   : 6 (Regs:35)
-+ */
-+static const u32 maili_pc_pipe_bv_cluster_fe_us_registers[] = {
-+	 0x09805, 0x09807, 0x0980b, 0x0980b, 0x09812, 0x09817, 0x0981a, 0x0981b,
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_pc_pipe_bv_cluster_fe_us_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:23)
-+ */
-+static const u32 maili_pc_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_pc_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VFD']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:236)
-+ */
-+static const u32 maili_vfd_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x0a000, 0x0a009, 0x0a00e, 0x0a0ef,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_vfd_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VFD']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:236)
-+ */
-+static const u32 maili_vfd_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x0a000, 0x0a009, 0x0a00e, 0x0a0ef,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_vfd_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 1 (Regs:27)
-+ */
-+static const u32 maili_vpc_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_vpc_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 2 (Regs:29)
-+ */
-+static const u32 maili_vpc_slice_pipe_br_cluster_vpc_vs_registers[] = {
-+	 0x090c0, 0x090c1, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_vpc_slice_pipe_br_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_US
-+ * pairs   : 3 (Regs:58)
-+ */
-+static const u32 maili_vpc_pipe_br_cluster_vpc_us_registers[] = {
-+	 0x09180, 0x09180, 0x09182, 0x0919f, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_vpc_pipe_br_cluster_vpc_us_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_PS
-+ * pairs   : 4 (Regs:52)
-+ */
-+static const u32 maili_vpc_slice_pipe_br_cluster_vpc_ps_registers[] = {
-+	 0x09240, 0x0924f, 0x09252, 0x09255, 0x09278, 0x0927c, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_vpc_slice_pipe_br_cluster_vpc_ps_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 1 (Regs:27)
-+ */
-+static const u32 maili_vpc_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_vpc_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 2 (Regs:29)
-+ */
-+static const u32 maili_vpc_slice_pipe_bv_cluster_vpc_vs_registers[] = {
-+	 0x090c0, 0x090c1, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_vpc_slice_pipe_bv_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_US
-+ * pairs   : 3 (Regs:58)
-+ */
-+static const u32 maili_vpc_pipe_bv_cluster_vpc_us_registers[] = {
-+	 0x09180, 0x09180, 0x09182, 0x0919f, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_vpc_pipe_bv_cluster_vpc_us_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_PS
-+ * pairs   : 4 (Regs:52)
-+ */
-+static const u32 maili_vpc_slice_pipe_bv_cluster_vpc_ps_registers[] = {
-+	 0x09240, 0x0924f, 0x09252, 0x09255, 0x09278, 0x0927c, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_vpc_slice_pipe_bv_cluster_vpc_ps_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 36 (Regs:151)
-+ */
-+static const u32 maili_rb_slice_pipe_br_cluster_ps_rac_registers[] = {
-+	 0x08802, 0x08802, 0x08804, 0x0880a, 0x0880e, 0x08811, 0x08813, 0x08814,
-+	 0x08818, 0x0881e, 0x08821, 0x08821, 0x08823, 0x08826, 0x08829, 0x08829,
-+	 0x0882b, 0x0882e, 0x08831, 0x08831, 0x08833, 0x08836, 0x08839, 0x08839,
-+	 0x0883b, 0x0883e, 0x08841, 0x08841, 0x08843, 0x08846, 0x08849, 0x08849,
-+	 0x0884b, 0x0884e, 0x08851, 0x08851, 0x08853, 0x08856, 0x08859, 0x08859,
-+	 0x0885b, 0x0885e, 0x08860, 0x08864, 0x08870, 0x08870, 0x08873, 0x08876,
-+	 0x08878, 0x08879, 0x08882, 0x08885, 0x08887, 0x08889, 0x08891, 0x08891,
-+	 0x08898, 0x08899, 0x088b0, 0x088cf, 0x088e5, 0x088e5, 0x088f4, 0x088f5,
-+	 0x08930, 0x08937, 0x08c00, 0x08c01, 0x08c18, 0x08c1f, 0x08c26, 0x08c34,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_rb_slice_pipe_br_cluster_ps_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 36 (Regs:104)
-+ */
-+static const u32 maili_rb_slice_pipe_br_cluster_ps_rbp_registers[] = {
-+	 0x08800, 0x08801, 0x08803, 0x08803, 0x0880b, 0x0880d, 0x08812, 0x08812,
-+	 0x08815, 0x08816, 0x08820, 0x08820, 0x08822, 0x08822, 0x08827, 0x08828,
-+	 0x0882a, 0x0882a, 0x0882f, 0x08830, 0x08832, 0x08832, 0x08837, 0x08838,
-+	 0x0883a, 0x0883a, 0x0883f, 0x08840, 0x08842, 0x08842, 0x08847, 0x08848,
-+	 0x0884a, 0x0884a, 0x0884f, 0x08850, 0x08852, 0x08852, 0x08857, 0x08858,
-+	 0x0885a, 0x0885a, 0x0885f, 0x0885f, 0x08865, 0x08865, 0x08871, 0x08872,
-+	 0x08877, 0x08877, 0x08880, 0x08881, 0x08886, 0x08886, 0x08890, 0x08890,
-+	 0x088d0, 0x088e4, 0x088e6, 0x088e6, 0x088e8, 0x088ea, 0x088f0, 0x088f1,
-+	 0x08900, 0x0891a, 0x08927, 0x08928, 0x08c17, 0x08c17, 0x08c20, 0x08c25,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_rb_slice_pipe_br_cluster_ps_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 29 (Regs:114)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers[] = {
-+	 0x0a800, 0x0a801, 0x0a81b, 0x0a81d, 0x0a822, 0x0a822, 0x0a824, 0x0a824,
-+	 0x0a827, 0x0a82a, 0x0a830, 0x0a830, 0x0a832, 0x0a835, 0x0a83a, 0x0a83a,
-+	 0x0a83c, 0x0a83c, 0x0a83f, 0x0a841, 0x0a85b, 0x0a85d, 0x0a862, 0x0a862,
-+	 0x0a864, 0x0a864, 0x0a867, 0x0a867, 0x0a870, 0x0a870, 0x0a872, 0x0a872,
-+	 0x0a88c, 0x0a88e, 0x0a893, 0x0a893, 0x0a895, 0x0a895, 0x0a898, 0x0a898,
-+	 0x0a89a, 0x0a89d, 0x0a8b0, 0x0a8bb, 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977,
-+	 0x0ab00, 0x0ab03, 0x0ab05, 0x0ab05, 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab23,
-+	 0x0abd0, 0x0abff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 23 (Regs:39)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers[] = {
-+	 0x0a800, 0x0a800, 0x0a81c, 0x0a81d, 0x0a822, 0x0a824, 0x0a826, 0x0a826,
-+	 0x0a82d, 0x0a82d, 0x0a82f, 0x0a831, 0x0a834, 0x0a835, 0x0a83a, 0x0a83c,
-+	 0x0a83e, 0x0a83e, 0x0a840, 0x0a840, 0x0a85c, 0x0a85d, 0x0a862, 0x0a864,
-+	 0x0a866, 0x0a866, 0x0a868, 0x0a868, 0x0a870, 0x0a871, 0x0a88d, 0x0a88e,
-+	 0x0a893, 0x0a895, 0x0a897, 0x0a897, 0x0a899, 0x0a899, 0x0ab00, 0x0ab00,
-+	 0x0ab02, 0x0ab02, 0x0ab04, 0x0ab05, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 15 (Regs:145)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_vs_usptp_registers[] = {
-+	 0x0a800, 0x0a81b, 0x0a81e, 0x0a821, 0x0a823, 0x0a827, 0x0a82d, 0x0a82d,
-+	 0x0a82f, 0x0a833, 0x0a836, 0x0a839, 0x0a83b, 0x0a85b, 0x0a85e, 0x0a861,
-+	 0x0a863, 0x0a868, 0x0a870, 0x0a88c, 0x0a88f, 0x0a892, 0x0a894, 0x0a899,
-+	 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977, 0x0ab00, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 20 (Regs:87)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers[] = {
-+	 0x0a980, 0x0a984, 0x0a9a7, 0x0a9a7, 0x0a9aa, 0x0a9aa, 0x0a9af, 0x0a9b0,
-+	 0x0a9b2, 0x0a9b5, 0x0a9ba, 0x0a9ba, 0x0a9bc, 0x0a9bc, 0x0a9c4, 0x0a9c4,
-+	 0x0a9c6, 0x0a9c6, 0x0a9cd, 0x0a9cd, 0x0a9fa, 0x0a9fc, 0x0aa00, 0x0aa00,
-+	 0x0aa0d, 0x0aa12, 0x0aa30, 0x0aa31, 0x0aaf2, 0x0aaf3, 0x0ab00, 0x0ab03,
-+	 0x0ab05, 0x0ab05, 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab23, 0x0abd0, 0x0abff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:44)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers[] = {
-+	 0x0a9e0, 0x0a9f9, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_DP
-+ * pairs   : 2 (Regs:13)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers[] = {
-+	 0x0a9b1, 0x0a9b1, 0x0a9d4, 0x0a9df,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 16 (Regs:29)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers[] = {
-+	 0x0a980, 0x0a980, 0x0a982, 0x0a984, 0x0a9a7, 0x0a9a8, 0x0a9aa, 0x0a9ab,
-+	 0x0a9ae, 0x0a9ae, 0x0a9b0, 0x0a9b1, 0x0a9b3, 0x0a9b5, 0x0a9ba, 0x0a9bc,
-+	 0x0a9be, 0x0a9be, 0x0a9c5, 0x0a9c5, 0x0a9ce, 0x0a9ce, 0x0aa00, 0x0aa03,
-+	 0x0ab00, 0x0ab00, 0x0ab02, 0x0ab02, 0x0ab04, 0x0ab05, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:44)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers[] = {
-+	 0x0a9e0, 0x0a9f9, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 15 (Regs:80)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_ps_usptp_registers[] = {
-+	 0x0a980, 0x0a982, 0x0a985, 0x0a99d, 0x0a9a8, 0x0a9a9, 0x0a9ab, 0x0a9ae,
-+	 0x0a9b0, 0x0a9b3, 0x0a9b6, 0x0a9b9, 0x0a9bb, 0x0a9bf, 0x0a9c2, 0x0a9c3,
-+	 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0a9d0, 0x0a9d3, 0x0aa01, 0x0aa0c,
-+	 0x0aa30, 0x0aa31, 0x0aaf2, 0x0aaf3, 0x0ab00, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 maili_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 28 (Regs:112)
-+ */
-+static const u32 maili_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers[] = {
-+	 0x0a800, 0x0a801, 0x0a81b, 0x0a81d, 0x0a822, 0x0a822, 0x0a824, 0x0a824,
-+	 0x0a827, 0x0a82a, 0x0a830, 0x0a830, 0x0a832, 0x0a835, 0x0a83a, 0x0a83a,
-+	 0x0a83c, 0x0a83c, 0x0a83f, 0x0a841, 0x0a85b, 0x0a85d, 0x0a862, 0x0a862,
-+	 0x0a864, 0x0a864, 0x0a867, 0x0a867, 0x0a870, 0x0a870, 0x0a872, 0x0a872,
-+	 0x0a88c, 0x0a88e, 0x0a893, 0x0a893, 0x0a895, 0x0a895, 0x0a898, 0x0a898,
-+	 0x0a89a, 0x0a89d, 0x0a8b0, 0x0a8bb, 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977,
-+	 0x0ab00, 0x0ab02, 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab23, 0x0abd0, 0x0abff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 maili_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 maili_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 22 (Regs:37)
-+ */
-+static const u32 maili_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers[] = {
-+	 0x0a800, 0x0a800, 0x0a81c, 0x0a81d, 0x0a822, 0x0a824, 0x0a826, 0x0a826,
-+	 0x0a82d, 0x0a82d, 0x0a82f, 0x0a831, 0x0a834, 0x0a835, 0x0a83a, 0x0a83c,
-+	 0x0a83e, 0x0a83e, 0x0a840, 0x0a840, 0x0a85c, 0x0a85d, 0x0a862, 0x0a864,
-+	 0x0a866, 0x0a866, 0x0a868, 0x0a868, 0x0a870, 0x0a871, 0x0a88d, 0x0a88e,
-+	 0x0a893, 0x0a895, 0x0a897, 0x0a897, 0x0a899, 0x0a899, 0x0ab00, 0x0ab00,
-+	 0x0ab02, 0x0ab02, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 maili_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 16 (Regs:142)
-+ */
-+static const u32 maili_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers[] = {
-+	 0x0a800, 0x0a81b, 0x0a81e, 0x0a821, 0x0a823, 0x0a827, 0x0a82d, 0x0a82d,
-+	 0x0a82f, 0x0a833, 0x0a836, 0x0a839, 0x0a83b, 0x0a85b, 0x0a85e, 0x0a861,
-+	 0x0a863, 0x0a868, 0x0a870, 0x0a88c, 0x0a88f, 0x0a892, 0x0a894, 0x0a899,
-+	 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977, 0x0ab00, 0x0ab02, 0x0ab06, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 maili_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 14 (Regs:73)
-+ */
-+static const u32 maili_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers[] = {
-+	 0x0a9b0, 0x0a9b0, 0x0a9b2, 0x0a9b5, 0x0a9ba, 0x0a9ba, 0x0a9bc, 0x0a9bc,
-+	 0x0a9c4, 0x0a9c4, 0x0a9cd, 0x0a9cd, 0x0a9fa, 0x0a9fc, 0x0aa00, 0x0aa00,
-+	 0x0aa10, 0x0aa12, 0x0aa31, 0x0aa35, 0x0aaf3, 0x0aaf3, 0x0ab00, 0x0ab01,
-+	 0x0ab23, 0x0ab23, 0x0abd0, 0x0abff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:22)
-+ */
-+static const u32 maili_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers[] = {
-+	 0x0a9e2, 0x0a9e3, 0x0a9e6, 0x0a9f9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 maili_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_DP
-+ * pairs   : 2 (Regs:13)
-+ */
-+static const u32 maili_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers[] = {
-+	 0x0a9b1, 0x0a9b1, 0x0a9d4, 0x0a9df,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 8 (Regs:13)
-+ */
-+static const u32 maili_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers[] = {
-+	 0x0a9b0, 0x0a9b1, 0x0a9b3, 0x0a9b5, 0x0a9ba, 0x0a9bc, 0x0a9be, 0x0a9be,
-+	 0x0a9c5, 0x0a9c5, 0x0a9ce, 0x0a9ce, 0x0aa00, 0x0aa00, 0x0ab00, 0x0ab00,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:22)
-+ */
-+static const u32 maili_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers[] = {
-+	 0x0a9e2, 0x0a9e3, 0x0a9e6, 0x0a9f9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 11 (Regs:26)
-+ */
-+static const u32 maili_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers[] = {
-+	 0x0a9b0, 0x0a9b3, 0x0a9b6, 0x0a9b9, 0x0a9bb, 0x0a9be, 0x0a9c2, 0x0a9c3,
-+	 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0a9d0, 0x0a9d3, 0x0aa31, 0x0aa31,
-+	 0x0aaf3, 0x0aaf3, 0x0ab00, 0x0ab01, 0x0ab06, 0x0ab06,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 maili_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 maili_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers[] = {
-+	 0x0b300, 0x0b304, 0x0b307, 0x0b307, 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:34)
-+ */
-+static const u32 maili_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers[] = {
-+	 0x0b180, 0x0b182, 0x0b2c0, 0x0b2d7, 0x0b300, 0x0b304, 0x0b307, 0x0b307,
-+	 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 maili_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers[] = {
-+	 0x0b300, 0x0b304, 0x0b307, 0x0b307, 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:7)
-+ */
-+static const u32 maili_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers[] = {
-+	 0x0b180, 0x0b181, 0x0b300, 0x0b301, 0x0b304, 0x0b304, 0x0b307, 0x0b307,
-+	 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(maili_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers), 8));
-+
-+static const struct gen8_sel_reg maili_rb_rac_sel = {
-+	.host_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_HOST,
-+	.cd_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_CD,
-+	.val = 0,
-+};
-+
-+static const struct gen8_sel_reg maili_rb_rbp_sel = {
-+	.host_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_HOST,
-+	.cd_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_CD,
-+	.val = 0x9,
-+};
-+
-+static const struct gen8_cluster_registers maili_cp_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_NONE, STATE_NON_CONTEXT,
-+		maili_cp_cp_pipe_none_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_BR, STATE_NON_CONTEXT,
-+		maili_cp_cp_pipe_br_registers,  },
-+	{ CLUSTER_NONE, SLICE, CP_PIPE_BR, STATE_NON_CONTEXT,
-+		maili_cp_slice_cp_pipe_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_BV, STATE_NON_CONTEXT,
-+		maili_cp_cp_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, SLICE, CP_PIPE_BV, STATE_NON_CONTEXT,
-+		maili_cp_slice_cp_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_LPAC, STATE_NON_CONTEXT,
-+		maili_cp_cp_pipe_lpac_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_AQE0, STATE_NON_CONTEXT,
-+		maili_cp_cp_pipe_aqe0_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_AQE1, STATE_NON_CONTEXT,
-+		maili_cp_cp_pipe_aqe1_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_DDE_BR, STATE_NON_CONTEXT,
-+		maili_cp_cp_pipe_dde_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_DDE_BV, STATE_NON_CONTEXT,
-+		maili_cp_cp_pipe_dde_bv_registers,  },
-+};
-+
-+static const struct gen8_cluster_registers maili_mvc_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		maili_non_context_pipe_br_registers,  },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		maili_non_context_slice_pipe_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		maili_non_context_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, SLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		maili_non_context_slice_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_LPAC, STATE_NON_CONTEXT,
-+		maili_non_context_pipe_lpac_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		maili_non_context_rb_pipe_br_rbp_registers, &maili_rb_rbp_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		maili_non_context_rb_slice_pipe_br_rac_registers, &maili_rb_rac_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		maili_non_context_rb_slice_pipe_br_rbp_registers, &maili_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		maili_rb_slice_pipe_br_cluster_ps_rac_registers, &maili_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		maili_rb_slice_pipe_br_cluster_ps_rac_registers, &maili_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		maili_rb_slice_pipe_br_cluster_ps_rbp_registers, &maili_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		maili_rb_slice_pipe_br_cluster_ps_rbp_registers, &maili_rb_rbp_sel, },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		maili_gras_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		maili_gras_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		maili_gras_slice_pipe_br_cluster_gras_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		maili_gras_slice_pipe_br_cluster_gras_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		maili_gras_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		maili_gras_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		maili_gras_slice_pipe_bv_cluster_gras_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		maili_gras_slice_pipe_bv_cluster_gras_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		maili_pc_pipe_br_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		maili_pc_pipe_br_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		maili_pc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		maili_pc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		maili_pc_pipe_bv_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		maili_pc_pipe_bv_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		maili_pc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		maili_pc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		maili_vfd_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		maili_vfd_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		maili_vfd_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		maili_vfd_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		maili_vpc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		maili_vpc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		maili_vpc_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		maili_vpc_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		maili_vpc_pipe_br_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		maili_vpc_pipe_br_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		maili_vpc_slice_pipe_br_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		maili_vpc_slice_pipe_br_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		maili_vpc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		maili_vpc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		maili_vpc_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		maili_vpc_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		maili_vpc_pipe_bv_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		maili_vpc_pipe_bv_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		maili_vpc_slice_pipe_bv_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		maili_vpc_slice_pipe_bv_cluster_vpc_ps_registers,  },
-+};
-+
-+static const struct gen8_sptp_cluster_registers maili_sptp_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_NONE, 0, HLSQ_STATE,
-+		maili_non_context_sp_pipe_none_hlsq_state_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_NONE, 0, SP_TOP,
-+		maili_non_context_sp_pipe_none_sp_top_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_NONE, 0, USPTP,
-+		maili_non_context_sp_pipe_none_usptp_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, TP0_NCTX_REG, PIPE_NONE, 0, USPTP,
-+		maili_non_context_tpl1_pipe_none_usptp_registers, 0xb600},
-+};
-+
-+/* 
-+ * Before dumping the CP MVC
-+ * Program CP_APERTURE_CNTL_* with pipeID={CP_PIPE}
-+ * Then dump corresponding {Register_PIPE}
-+ */
-+
-+static const struct gen8_cp_indexed_reg maili_cp_indexed_reg_list[] = {
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_BR, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_BV, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_LPAC, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_AQE0, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_AQE1, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_DDE_BR, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_DDE_BV, 0x00040},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_BR, 0x00200},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_BV, 0x00200},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_LPAC, 0x00200},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_BR, 0x00800},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_BV, 0x00800},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_LPAC, 0x00200},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_AQE0, 0x00100},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_AQE1, 0x00100},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_DDE_BR, 0x00100},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_DDE_BV, 0x00100},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_BR, 0x08000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_BV, 0x08000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_LPAC, 0x08000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_AQE0, 0x08000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_AQE1, 0x08000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_DDE_BR, 0x08000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_DDE_BV, 0x08000},
-+	{ 0x000008fa /* CP_RESOURCE_TABLE_DBG_ADDR_BV       */, 0x000008fb /* CP_RESOURCE_TABLE_DBG_DATA_BV       */, UNSLICE, CP_PIPE_NONE, 0x04100},
-+};
-+
-+
-+/* 
-+ * Before dumping the CP Mempool over the CP_*_MEM_POOL_DBG_ADDR/DATA 
-+ * indexed register pair it must be stabilized. 
-+ * for p in [CP_PIPE_BR, CP_PIPE_BV]:
-+ *   Program CP_APERTURE_CNTL_* with pipeID={p} sliceID={MAX_UINT}
-+ *   Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 1.
-+ *   Dump CP_MEM_POOL_DBG_ADDR_PIPE for pipe=p
-+ *   Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 0. 
-+ *
-+ * same thing for CP_SLICE_MEM_POOL_DBG_ADDR_PIPE
-+ * for p in [CP_PIPE_BR, CP_PIPE_BV]:
-+ *   for s in [0,1,2]:
-+ *     Program CP_APERTURE_CNTL_* with pipeID={p} sliceID={s}
-+ *     Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 1.
-+ *     Program CP_SLICE_CHICKEN_DBG[crashStabilizeMVC] bit = 1.
-+ *     Dump CP_SLICE_MEM_POOL_DBG_ADDR_PIPE for pipe=p, sliceID=s
-+ *     Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 0.  
-+ *     Program CP_SLICE_CHICKEN_DBG[crashStabilizeMVC] bit = 0.
-+ */
-+
-+static const struct gen8_cp_indexed_reg maili_cp_mempool_reg_list[] = {
-+	{ 0x000008f6 /* CP_MEM_POOL_DBG_ADDR_PIPE           */, 0x000008f7 /* CP_MEM_POOL_DBG_DATA_PIPE           */, UNSLICE, CP_PIPE_BR, 0x02400},
-+	{ 0x000008f6 /* CP_MEM_POOL_DBG_ADDR_PIPE           */, 0x000008f7 /* CP_MEM_POOL_DBG_DATA_PIPE           */, UNSLICE, CP_PIPE_BV, 0x02400},
-+	{ 0x00000b00 /* CP_SLICE_MEM_POOL_DBG_ADDR_PIPE     */, 0x00000b01 /* CP_SLICE_MEM_POOL_DBG_DATA_PIPE     */, SLICE, CP_PIPE_BR, 0x02400},
-+	{ 0x00000b00 /* CP_SLICE_MEM_POOL_DBG_ADDR_PIPE     */, 0x00000b01 /* CP_SLICE_MEM_POOL_DBG_DATA_PIPE     */, SLICE, CP_PIPE_BV, 0x02400},
-+};
-+
-+
-+static const struct gen8_pc_indexed_reg maili_pc_indexed_reg_list[] = {
-+};
-+
-+static const struct gen8_reg_list maili_misc_registers[] = {
-+	{ UNSLICE, maili_gpu_registers },
-+	{ SLICE, maili_gpu_slice_registers },
-+	{ UNSLICE, maili_cx_misc_registers },
-+	{ UNSLICE, maili_dbgc_registers },
-+	{ SLICE, maili_dbgc_slice_registers },
-+	{ UNSLICE, maili_cx_dbgc_registers },
-+};
-+
-+static const struct gen8_reg_list maili_ahb_registers[] = {
-+	{ UNSLICE, maili_gbif_registers },
-+	{ UNSLICE, maili_ahb_precd_gpu_registers },
-+	{ SLICE, maili_ahb_precd_gpu_slice_registers },
-+	{ UNSLICE, maili_ahb_secure_gpu_registers },
-+};
-+
-+static const struct gen8_reg_list maili_gmu_registers[] = {
-+	{ UNSLICE, maili_gmugx_registers },
-+	{ SLICE, maili_gmugx_slice_registers },
-+	{ UNSLICE, maili_gmuao_registers },
-+	{ UNSLICE, maili_gmucx_registers },
-+};
-+
-+const struct gen8_snapshot_block_list maili_snapshot_block_list = {
-+        .pre_crashdumper_regs = maili_ahb_registers,
-+        .num_pre_crashdumper_regs = ARRAY_SIZE(maili_ahb_registers),
-+        .debugbus_blocks = maili_debugbus_blocks,
-+        .debugbus_blocks_len = ARRAY_SIZE(maili_debugbus_blocks),
-+        .gbif_debugbus_blocks = maili_gbif_debugbus_blocks,
-+        .gbif_debugbus_blocks_len = ARRAY_SIZE(maili_gbif_debugbus_blocks),
-+        .cx_debugbus_blocks = maili_cx_debugbus_blocks,
-+        .cx_debugbus_blocks_len = ARRAY_SIZE(maili_cx_debugbus_blocks),
-+        .gmu_cx_unsliced_regs = maili_gmucx_registers,
-+        .gmu_gx_regs = maili_gmu_registers,
-+        .num_gmu_gx_regs = ARRAY_SIZE(maili_gmu_registers),
-+        .reg_list = maili_misc_registers,
-+        .num_reg_list = ARRAY_SIZE(maili_misc_registers),
-+        .cx_misc_regs = maili_cx_misc_registers,
-+        .shader_blocks = maili_shader_blocks,
-+        .num_shader_blocks = ARRAY_SIZE(maili_shader_blocks),
-+        .cp_clusters = maili_cp_clusters,
-+        .num_cp_clusters = ARRAY_SIZE(maili_cp_clusters),
-+        .clusters = maili_mvc_clusters,
-+        .num_clusters = ARRAY_SIZE(maili_mvc_clusters),
-+        .sptp_clusters = maili_sptp_clusters,
-+        .num_sptp_clusters = ARRAY_SIZE(maili_sptp_clusters),
-+        .index_registers = maili_cp_indexed_reg_list,
-+        .index_registers_len = ARRAY_SIZE(maili_cp_indexed_reg_list),
-+        .mempool_index_registers = maili_cp_mempool_reg_list,
-+        .mempool_index_registers_len = ARRAY_SIZE(maili_cp_mempool_reg_list),
-+        .pc_index_registers = maili_pc_indexed_reg_list,
-+        .pc_index_registers_len = ARRAY_SIZE(maili_pc_indexed_reg_list),
-+};
-+static const u32 maili_protect_regs[] __maybe_unused = {
-+	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
-+	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
-+	A6XX_PROTECT_NORDWR(0x00440, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00449, 0x0016),
-+	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
-+	A6XX_PROTECT_NORDWR(0x005e8, 0x0117),
-+	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
-+	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
-+	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
-+	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
-+	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
-+	A6XX_PROTECT_NORDWR(0x00837, 0x0099),
-+	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
-+	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
-+	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
-+	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
-+	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00e03, 0x001c),
-+	A6XX_PROTECT_NORDWR(0x00f01, 0x001e),
-+	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
-+	A6XX_PROTECT_RDONLY(0x03cc6, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x08600, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08700, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08e00, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08e3b, 0x00c4),
-+	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x08f01, 0x0002),
-+	A6XX_PROTECT_NORDWR(0x08f20, 0x019f),
-+	A6XX_PROTECT_NORDWR(0x09600, 0x006f),
-+	A6XX_PROTECT_NORDWR(0x09680, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x09740, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x09770, 0x008f),
-+	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
-+	A6XX_PROTECT_NORDWR(0x09e00, 0x002f),
-+	A6XX_PROTECT_NORDWR(0x09e50, 0x00af),
-+	A6XX_PROTECT_NORDWR(0x09f20, 0x00df),
-+	A6XX_PROTECT_NORDWR(0x0a600, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x0a630, 0x01cf),
-+	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
-+	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
-+	A6XX_PROTECT_NORDWR(0x0ae10, 0x004f),
-+	A6XX_PROTECT_NORDWR(0x0ae66, 0x0019),
-+	A6XX_PROTECT_NORDWR(0x0b600, 0x001f),
-+	A6XX_PROTECT_NORDWR(0x0d400, 0x01ff),
-+	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
-+	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
-+	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
-+	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
-+	A6XX_PROTECT_RDONLY(0x1f878, 0x0787),
-+	A6XX_PROTECT_NORDWR(0x1f930, 0x032f),
-+	A6XX_PROTECT_NORDWR(0x20000, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x27810, 0x006f),
-+	A6XX_PROTECT_RDONLY(0x27880, 0x0001),
-+	A6XX_PROTECT_NORDWR(0x27882, 0x037d),
-+	A6XX_PROTECT_NORDWR(0x27c02, 0x0000),
-+};
-+DECLARE_ADRENO_PROTECT(maili_protect, 80);
-\ No newline at end of file
-diff --git a/drivers/gpu/drm/msm/adreno/catalog/adreno_milos.h b/drivers/gpu/drm/msm/adreno/catalog/adreno_milos.h
-new file mode 100644
-index 000000000000..d21b7870d2da
---- /dev/null
-+++ b/drivers/gpu/drm/msm/adreno/catalog/adreno_milos.h
-@@ -0,0 +1,1977 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ *
-+ * THIS FILE IS AUTOGENERATED!
-+ */
-+
-+#pragma once
-+
-+
-+
-+static const u32 milos_debugbus_blocks[] = {
-+	DEBUGBUS_GMU_GX_GC_US_I_0,
-+	DEBUGBUS_DBGC_GC_US_I_0,
-+	DEBUGBUS_RBBM_GC_US_I_0,
-+	DEBUGBUS_LARC_GC_US_I_0,
-+	DEBUGBUS_COM_GC_US_I_0,
-+	DEBUGBUS_HLSQ_GC_US_I_0,
-+	DEBUGBUS_CGC_GC_US_I_0,
-+	DEBUGBUS_VSC_GC_US_I_0_0,
-+	DEBUGBUS_VSC_GC_US_I_0_1,
-+	DEBUGBUS_UFC_GC_US_I_0,
-+	DEBUGBUS_UFC_GC_US_I_1,
-+	DEBUGBUS_CP_GC_US_I_0_0,
-+	DEBUGBUS_CP_GC_US_I_0_1,
-+	DEBUGBUS_CP_GC_US_I_0_2,
-+	DEBUGBUS_PC_BR_US_I_0,
-+	DEBUGBUS_PC_BV_US_I_0,
-+	DEBUGBUS_GPC_BR_US_I_0,
-+	DEBUGBUS_GPC_BV_US_I_0,
-+	DEBUGBUS_VPC_BR_US_I_0,
-+	DEBUGBUS_VPC_BV_US_I_0,
-+	DEBUGBUS_UCHE_WRAPPER_GC_US_I_0,
-+	DEBUGBUS_UCHE_GC_US_I_0,
-+	DEBUGBUS_CP_GC_S_0_I_0,
-+	DEBUGBUS_PC_BR_S_0_I_0,
-+	DEBUGBUS_PC_BV_S_0_I_0,
-+	DEBUGBUS_TESS_GC_S_0_I_0,
-+	DEBUGBUS_TSEBE_GC_S_0_I_0,
-+	DEBUGBUS_RAS_GC_S_0_I_0,
-+	DEBUGBUS_LRZ_BR_S_0_I_0,
-+	DEBUGBUS_LRZ_BV_S_0_I_0,
-+	DEBUGBUS_VFDP_GC_S_0_I_0,
-+	DEBUGBUS_GPC_BR_S_0_I_0,
-+	DEBUGBUS_GPC_BV_S_0_I_0,
-+	DEBUGBUS_VPCFE_BR_S_0_I_0,
-+	DEBUGBUS_VPCFE_BV_S_0_I_0,
-+	DEBUGBUS_VPCBE_BR_S_0_I_0,
-+	DEBUGBUS_VPCBE_BV_S_0_I_0,
-+	DEBUGBUS_DBGC_GC_S_0_I_0,
-+	DEBUGBUS_LARC_GC_S_0_I_0,
-+	DEBUGBUS_RBBM_GC_S_0_I_0,
-+	DEBUGBUS_CCRE_GC_S_0_I_0,
-+	DEBUGBUS_CGC_GC_S_0_I_0,
-+	DEBUGBUS_GMU_GC_S_0_I_0,
-+	DEBUGBUS_SLICE_GC_S_0_I_0,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_0_I_0,
-+	DEBUGBUS_USP_GC_S_0_I_0,
-+	DEBUGBUS_USPTP_GC_S_0_I_0,
-+	DEBUGBUS_USPTP_GC_S_0_I_1,
-+	DEBUGBUS_TP_GC_S_0_I_0,
-+	DEBUGBUS_TP_GC_S_0_I_1,
-+	DEBUGBUS_RB_GC_S_0_I_0,
-+	DEBUGBUS_CCU_GC_S_0_I_0,
-+	DEBUGBUS_HLSQ_GC_S_0_I_0,
-+	DEBUGBUS_VFD_GC_S_0_I_0,
-+};
-+
-+static const u32 milos_gbif_debugbus_blocks[] = {
-+    DEBUGBUS_GBIF_GX_GC_US_I_0,
-+};
-+
-+static const u32 milos_cx_debugbus_blocks[] = {
-+    DEBUGBUS_GBIF_CX_GC_US_I_0,
-+    DEBUGBUS_GMU_CX_GC_US_I_0,
-+    DEBUGBUS_CX_GC_US_I_0,
-+};
-+
-+static const struct gen8_shader_block milos_shader_blocks[] = {
-+	{ TP0_TMO_DATA, 0x0200, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_TMO_DATA, 0x0200, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_SMO_DATA, 0x0080, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_SMO_DATA, 0x0080, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_MIPMAP_BASE_DATA, 0x0080, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_MIPMAP_BASE_DATA, 0x0080, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA_3, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA_3, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA_1, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA_1, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_0_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_0_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_1_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_1_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_2_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_2_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_3_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_3_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_4_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_4_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_5_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_5_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_6_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_6_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_7_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_7_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_CB_RAM, 0x0390, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_CB_RAM, 0x0390, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_13_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_13_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_14_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_14_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_TAG, 0x0100, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_TAG, 0x0100, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA_2, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA_2, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_TMO_TAG, 0x0080, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_TMO_TAG, 0x0080, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_SMO_TAG, 0x0080, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_SMO_TAG, 0x0080, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STATE_DATA, 0x0040, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STATE_DATA, 0x0040, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_HWAVE_RAM, 0x0200, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_HWAVE_RAM, 0x0200, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_L0_INST_BUF, 0x0080, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_L0_INST_BUF, 0x0080, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_8_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_8_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_9_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_9_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_10_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_10_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_11_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_11_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_12_DATA, 0x0800, 1, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_12_DATA, 0x0800, 1, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ HLSQ_DATAPATH_DSTR_META, 0x0600, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DATAPATH_DSTR_META, 0x0020, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x00A0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x000C, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x0008, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0048, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0048, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_L2STC_TAG_RAM, 0x0200, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_L2STC_INFO_CMD, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_BE_CTXT_BUF_RAM, 0x0400, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_BE_CTXT_BUF_RAM, 0x0400, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_BE_CTXT_BUF_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM, 0x01C0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM, 0x01C0, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM, 0x0300, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CVS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CVS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CPS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM, 0x0540, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM, 0x0540, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM, 0x00B0, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_1, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM, 0x0800, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM, 0x0200, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_TAG, 0x0600, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_TAG, 0x0012, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0010, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0004, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM_TAG, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x03C0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x0280, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x0050, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM_TAG, 0x0014, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM_TAG, 0x000C, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_1, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_STPROC_META, 0x0400, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x0188, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x0188, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x00C0, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_2, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DATAPATH_META, 0x0020, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INDIRECT_META, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0034, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0034, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+};
-+
-+/*
-+ * Block   : ['AHB_PRECD']
-+ * REGION  : UNSLICE
-+ * pairs   : 1 (Regs:2)
-+ */
-+static const u32 milos_ahb_precd_gpu_registers[] = {
-+	 0x00012, 0x00013,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_ahb_precd_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['AHB_PRECD']
-+ * REGION  : SLICE
-+ * pairs   : 1 (Regs:3)
-+ */
-+static const u32 milos_ahb_precd_gpu_slice_registers[] = {
-+	 0x00580, 0x00582,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_ahb_precd_gpu_slice_registers), 8));
-+
-+/*
-+ * Block   : ['AHB_SECURE']
-+ * REGION  : UNSLICE
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 milos_ahb_secure_gpu_registers[] = {
-+	 0x0f400, 0x0f400, 0x0f800, 0x0f803, 0x0fc00, 0x0fc01,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_ahb_secure_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['GBIF']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 8 (Regs:59)
-+ */
-+static const u32 milos_gbif_registers[] = {
-+	 0x03c00, 0x03c0b, 0x03c40, 0x03c42, 0x03c45, 0x03c47, 0x03c49, 0x03c4e,
-+	 0x03c50, 0x03c57, 0x03cc0, 0x03cc4, 0x03cc6, 0x03cd5, 0x03ce0, 0x03ce5,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_gbif_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'GRAS', 'PC']
-+ * Block   : ['RBBM', 'RDVM', 'UCHE']
-+ * Block   : ['VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 117 (Regs:1152)
-+ */
-+static const u32 milos_gpu_registers[] = {
-+	 0x00000, 0x00000, 0x00002, 0x00002, 0x00008, 0x0000d, 0x00010, 0x00011,
-+	 0x00015, 0x00016, 0x00018, 0x00018, 0x0001a, 0x0001a, 0x0001c, 0x0001c,
-+	 0x00028, 0x0002b, 0x0002d, 0x00039, 0x00040, 0x00053, 0x00062, 0x00066,
-+	 0x00069, 0x0006e, 0x00071, 0x00072, 0x00074, 0x00074, 0x00076, 0x0007c,
-+	 0x0007f, 0x0009a, 0x0009d, 0x000af, 0x000b2, 0x000d4, 0x000d7, 0x000e2,
-+	 0x000e5, 0x000e6, 0x000e9, 0x000f1, 0x000f4, 0x000f6, 0x000f9, 0x00108,
-+	 0x0010b, 0x0010e, 0x00111, 0x00111, 0x00114, 0x0011c, 0x0011f, 0x00121,
-+	 0x00125, 0x00125, 0x00127, 0x00127, 0x00129, 0x00129, 0x0012b, 0x00131,
-+	 0x00134, 0x00138, 0x0013a, 0x0013a, 0x0013c, 0x0013f, 0x00142, 0x00150,
-+	 0x00153, 0x00155, 0x00158, 0x00159, 0x0015c, 0x0015c, 0x00166, 0x00179,
-+	 0x0019e, 0x001a3, 0x001b0, 0x002c9, 0x002e2, 0x0036b, 0x00380, 0x0039b,
-+	 0x003a4, 0x003ab, 0x003b4, 0x003c5, 0x003ce, 0x003cf, 0x003e0, 0x003e0,
-+	 0x003f0, 0x003f0, 0x00440, 0x00444, 0x00460, 0x00460, 0x00c02, 0x00c04,
-+	 0x00c06, 0x00c06, 0x00c10, 0x00cd9, 0x00ce0, 0x00d0c, 0x00df0, 0x00df4,
-+	 0x00e01, 0x00e04, 0x00e06, 0x00e09, 0x00e0e, 0x00e13, 0x00e15, 0x00e16,
-+	 0x00e20, 0x00e37, 0x0ec00, 0x0ec01, 0x0ec05, 0x0ec05, 0x0ec07, 0x0ec07,
-+	 0x0ec0a, 0x0ec0a, 0x0ec12, 0x0ec12, 0x0ec26, 0x0ec28, 0x0ec2b, 0x0ec2d,
-+	 0x0ec2f, 0x0ec2f, 0x0ec40, 0x0ec41, 0x0ec45, 0x0ec45, 0x0ec47, 0x0ec47,
-+	 0x0ec4a, 0x0ec4a, 0x0ec52, 0x0ec52, 0x0ec66, 0x0ec68, 0x0ec6b, 0x0ec6d,
-+	 0x0ec6f, 0x0ec6f, 0x0ec80, 0x0ec81, 0x0ec85, 0x0ec85, 0x0ec87, 0x0ec87,
-+	 0x0ec8a, 0x0ec8a, 0x0ec92, 0x0ec92, 0x0eca6, 0x0eca8, 0x0ecab, 0x0ecad,
-+	 0x0ecaf, 0x0ecaf, 0x0ecc0, 0x0ecc1, 0x0ecc5, 0x0ecc5, 0x0ecc7, 0x0ecc7,
-+	 0x0ecca, 0x0ecca, 0x0ecd2, 0x0ecd2, 0x0ece6, 0x0ece8, 0x0eceb, 0x0eced,
-+	 0x0ecef, 0x0ecef, 0x0ed00, 0x0ed01, 0x0ed05, 0x0ed05, 0x0ed07, 0x0ed07,
-+	 0x0ed0a, 0x0ed0a, 0x0ed12, 0x0ed12, 0x0ed26, 0x0ed28, 0x0ed2b, 0x0ed2d,
-+	 0x0ed2f, 0x0ed2f, 0x0ed40, 0x0ed41, 0x0ed45, 0x0ed45, 0x0ed47, 0x0ed47,
-+	 0x0ed4a, 0x0ed4a, 0x0ed52, 0x0ed52, 0x0ed66, 0x0ed68, 0x0ed6b, 0x0ed6d,
-+	 0x0ed6f, 0x0ed6f, 0x0ed80, 0x0ed81, 0x0ed85, 0x0ed85, 0x0ed87, 0x0ed87,
-+	 0x0ed8a, 0x0ed8a, 0x0ed92, 0x0ed92, 0x0eda6, 0x0eda8, 0x0edab, 0x0edad,
-+	 0x0edaf, 0x0edaf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'GRAS', 'PC']
-+ * Block   : ['RBBM', 'RDVM', 'UCHE']
-+ * Block   : ['VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 12 (Regs:86)
-+ */
-+static const u32 milos_gpu_slice_registers[] = {
-+	 0x00500, 0x00500, 0x00583, 0x00584, 0x00586, 0x0058b, 0x0058f, 0x00599,
-+	 0x005a0, 0x005b3, 0x005c0, 0x005c0, 0x005c2, 0x005c6, 0x005e0, 0x005e3,
-+	 0x005ec, 0x005ec, 0x00f01, 0x00f02, 0x00f04, 0x00f0c, 0x00f20, 0x00f37,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_gpu_slice_registers), 8));
-+
-+/*
-+ * Block   : ['GMUGX']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 17 (Regs:170)
-+ */
-+static const u32 milos_gmugx_registers[] = {
-+	 0x0dc00, 0x0dc0d, 0x0dc10, 0x0dc11, 0x0dc13, 0x0dc15, 0x0dc18, 0x0dc1a,
-+	 0x0dc1c, 0x0dc23, 0x0dc26, 0x0dc2b, 0x0dc2e, 0x0dc2f, 0x0dc40, 0x0dc42,
-+	 0x0dc60, 0x0dc7f, 0x0dc88, 0x0dc90, 0x0dc98, 0x0dc99, 0x0dca0, 0x0dcbf,
-+	 0x0dcc8, 0x0dcd0, 0x0dcd8, 0x0dcd9, 0x0dce0, 0x0dcff, 0x0dd08, 0x0dd10,
-+	 0x0dd18, 0x0dd19,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_gmugx_registers), 8));
-+
-+/*
-+ * Block   : ['GMUGX']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 19 (Regs:224)
-+ */
-+static const u32 milos_gmugx_slice_registers[] = {
-+	 0x0e400, 0x0e401, 0x0e404, 0x0e404, 0x0e406, 0x0e408, 0x0e40a, 0x0e40a,
-+	 0x0e40e, 0x0e42f, 0x0e438, 0x0e440, 0x0e448, 0x0e449, 0x0e490, 0x0e4af,
-+	 0x0e4b8, 0x0e4c0, 0x0e4c8, 0x0e4c9, 0x0e4d0, 0x0e4ef, 0x0e4f8, 0x0e500,
-+	 0x0e508, 0x0e509, 0x0e510, 0x0e52f, 0x0e538, 0x0e540, 0x0e548, 0x0e549,
-+	 0x0e590, 0x0e5af, 0x0e5b8, 0x0e5c0, 0x0e5c8, 0x0e5c9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_gmugx_slice_registers), 8));
-+
-+/*
-+ * Block   : ['GMUAO']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 55 (Regs:77)
-+ */
-+static const u32 milos_gmuao_registers[] = {
-+	 0x10001, 0x10001, 0x10003, 0x10003, 0x10401, 0x10401, 0x10403, 0x10403,
-+	 0x10801, 0x10801, 0x10803, 0x10803, 0x10c01, 0x10c01, 0x10c03, 0x10c03,
-+	 0x11001, 0x11001, 0x11003, 0x11003, 0x11401, 0x11401, 0x11403, 0x11403,
-+	 0x11801, 0x11801, 0x11803, 0x11803, 0x11c01, 0x11c01, 0x11c03, 0x11c03,
-+	 0x23801, 0x23801, 0x23803, 0x23803, 0x23805, 0x23805, 0x23807, 0x23807,
-+	 0x23809, 0x23809, 0x2380b, 0x2380b, 0x2380d, 0x2380d, 0x2380f, 0x2380f,
-+	 0x23811, 0x23811, 0x23813, 0x23813, 0x23815, 0x23815, 0x23817, 0x23817,
-+	 0x23819, 0x23819, 0x2381b, 0x2381b, 0x2381d, 0x2381d, 0x2381f, 0x23820,
-+	 0x23822, 0x23822, 0x23824, 0x23824, 0x23826, 0x23826, 0x23828, 0x23828,
-+	 0x2382a, 0x2382a, 0x2382c, 0x2382c, 0x2382e, 0x2382e, 0x23830, 0x23830,
-+	 0x23832, 0x23832, 0x23834, 0x23834, 0x23836, 0x23836, 0x23838, 0x23838,
-+	 0x2383a, 0x2383a, 0x2383c, 0x2383c, 0x2383e, 0x2383e, 0x23840, 0x23847,
-+	 0x23b00, 0x23b01, 0x23b03, 0x23b03, 0x23b05, 0x23b0e, 0x23b10, 0x23b13,
-+	 0x23b15, 0x23b16, 0x23b28, 0x23b28, 0x23b30, 0x23b30,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_gmuao_registers), 8));
-+
-+/*
-+ * Block   : ['GMUCX', 'GMUCX_RAM']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 100 (Regs:522)
-+ */
-+static const u32 milos_gmucx_registers[] = {
-+	 0x1f400, 0x1f40b, 0x1f40f, 0x1f411, 0x1f500, 0x1f500, 0x1f507, 0x1f507,
-+	 0x1f509, 0x1f50b, 0x1f700, 0x1f701, 0x1f704, 0x1f706, 0x1f708, 0x1f709,
-+	 0x1f70c, 0x1f70d, 0x1f710, 0x1f711, 0x1f713, 0x1f716, 0x1f718, 0x1f71d,
-+	 0x1f720, 0x1f725, 0x1f729, 0x1f729, 0x1f730, 0x1f747, 0x1f750, 0x1f75a,
-+	 0x1f75c, 0x1f75c, 0x1f780, 0x1f781, 0x1f784, 0x1f78b, 0x1f790, 0x1f797,
-+	 0x1f7a0, 0x1f7a7, 0x1f7b0, 0x1f7b7, 0x1f7e0, 0x1f7e1, 0x1f7e4, 0x1f7e5,
-+	 0x1f7e8, 0x1f7e9, 0x1f7ec, 0x1f7ed, 0x1f800, 0x1f804, 0x1f807, 0x1f808,
-+	 0x1f80b, 0x1f80c, 0x1f80f, 0x1f80f, 0x1f811, 0x1f811, 0x1f813, 0x1f817,
-+	 0x1f819, 0x1f81c, 0x1f824, 0x1f830, 0x1f840, 0x1f842, 0x1f848, 0x1f848,
-+	 0x1f84c, 0x1f84c, 0x1f850, 0x1f850, 0x1f858, 0x1f859, 0x1f868, 0x1f869,
-+	 0x1f878, 0x1f883, 0x1f930, 0x1f931, 0x1f934, 0x1f935, 0x1f938, 0x1f939,
-+	 0x1f93c, 0x1f93d, 0x1f940, 0x1f941, 0x1f943, 0x1f943, 0x1f948, 0x1f94a,
-+	 0x1f94f, 0x1f951, 0x1f954, 0x1f955, 0x1f95d, 0x1f95d, 0x1f962, 0x1f96b,
-+	 0x1f970, 0x1f970, 0x1f97c, 0x1f97e, 0x1f980, 0x1f981, 0x1f984, 0x1f986,
-+	 0x1f992, 0x1f993, 0x1f996, 0x1f99e, 0x1f9c0, 0x1f9cf, 0x1f9f0, 0x1f9f1,
-+	 0x1f9f8, 0x1f9fa, 0x1f9fc, 0x1f9fc, 0x1fa00, 0x1fa03, 0x1fc00, 0x1fc01,
-+	 0x1fc04, 0x1fc07, 0x1fc10, 0x1fc10, 0x1fc14, 0x1fc14, 0x1fc18, 0x1fc19,
-+	 0x1fc20, 0x1fc20, 0x1fc24, 0x1fc26, 0x1fc30, 0x1fc33, 0x1fc38, 0x1fc3b,
-+	 0x1fc40, 0x1fc49, 0x1fc50, 0x1fc59, 0x1fc60, 0x1fc7f, 0x1fca0, 0x1fcef,
-+	 0x20000, 0x20007, 0x20010, 0x20015, 0x20018, 0x2001a, 0x2001c, 0x2001d,
-+	 0x20020, 0x20021, 0x20024, 0x20025, 0x2002a, 0x2002c, 0x20030, 0x20031,
-+	 0x20034, 0x20036, 0x20080, 0x20087, 0x20300, 0x20301, 0x20304, 0x20305,
-+	 0x20308, 0x2030c, 0x20310, 0x20314, 0x20318, 0x2031a, 0x20320, 0x20322,
-+	 0x20324, 0x20326, 0x20328, 0x2032a, 0x20330, 0x20333, 0x20338, 0x20338,
-+	 0x20340, 0x20350, 0x20354, 0x2035b, 0x20360, 0x20367, 0x20370, 0x20377,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_gmucx_registers), 8));
-+
-+/*
-+ * Block   : ['CX_MISC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 7 (Regs:58)
-+ */
-+static const u32 milos_cx_misc_registers[] = {
-+	 0x27800, 0x27800, 0x27810, 0x27814, 0x27820, 0x27824, 0x27828, 0x2782a,
-+	 0x27832, 0x27857, 0x27880, 0x27883, 0x27c00, 0x27c01,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_cx_misc_registers), 8));
-+
-+/*
-+ * Block   : ['DBGC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 21 (Regs:152)
-+ */
-+static const u32 milos_dbgc_registers[] = {
-+	 0x00600, 0x0061c, 0x0061e, 0x0063d, 0x00640, 0x00644, 0x00650, 0x00655,
-+	 0x00660, 0x00660, 0x00662, 0x00668, 0x0066a, 0x0066a, 0x00680, 0x00685,
-+	 0x00700, 0x00704, 0x00707, 0x0070a, 0x0070f, 0x00716, 0x00720, 0x00724,
-+	 0x00730, 0x00732, 0x00740, 0x00740, 0x00742, 0x0074a, 0x00750, 0x00755,
-+	 0x00759, 0x0075c, 0x00760, 0x00763, 0x00770, 0x00770, 0x00780, 0x0078d,
-+	 0x00790, 0x00790,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_dbgc_registers), 8));
-+
-+/*
-+ * Block   : ['DBGC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 2 (Regs:61)
-+ */
-+static const u32 milos_dbgc_slice_registers[] = {
-+	 0x007a0, 0x007d5, 0x007e0, 0x007e6,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_dbgc_slice_registers), 8));
-+
-+/*
-+ * Block   : ['CX_DBGC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 6 (Regs:75)
-+ */
-+static const u32 milos_cx_dbgc_registers[] = {
-+	 0x18400, 0x1841c, 0x1841e, 0x1843d, 0x18440, 0x18444, 0x18450, 0x18455,
-+	 0x1846a, 0x1846a, 0x18580, 0x18581,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_cx_dbgc_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 15 (Regs:297)
-+ */
-+static const u32 milos_cp_cp_pipe_none_registers[] = {
-+	 0x00800, 0x0080a, 0x00813, 0x0081e, 0x00820, 0x0082d, 0x00838, 0x0083e,
-+	 0x00840, 0x00847, 0x0084b, 0x0084c, 0x00850, 0x0088f, 0x008b5, 0x008b6,
-+	 0x008c0, 0x008cb, 0x008d0, 0x008e4, 0x008e7, 0x008ee, 0x008fa, 0x008fb,
-+	 0x00928, 0x00929, 0x00958, 0x0095b, 0x00980, 0x009ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_cp_cp_pipe_none_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 8 (Regs:96)
-+ */
-+static const u32 milos_cp_cp_pipe_br_registers[] = {
-+	 0x00830, 0x00837, 0x0084d, 0x0084f, 0x008a0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f9, 0x00900, 0x0091e, 0x00920, 0x00926, 0x00930, 0x0093a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_cp_cp_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : SLICE
-+ * Pipeline: CP_PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:23)
-+ */
-+static const u32 milos_cp_slice_cp_pipe_br_registers[] = {
-+	 0x00b00, 0x00b0c, 0x00b10, 0x00b10, 0x00b80, 0x00b84, 0x00b90, 0x00b93,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_cp_slice_cp_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:72)
-+ */
-+static const u32 milos_cp_cp_pipe_bv_registers[] = {
-+	 0x00830, 0x00835, 0x0084d, 0x0084f, 0x008b0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f9, 0x00900, 0x00913, 0x00918, 0x0091d, 0x00920, 0x00925,
-+	 0x00930, 0x0093a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_cp_cp_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : SLICE
-+ * Pipeline: CP_PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:23)
-+ */
-+static const u32 milos_cp_slice_cp_pipe_bv_registers[] = {
-+	 0x00b00, 0x00b0c, 0x00b10, 0x00b10, 0x00b80, 0x00b84, 0x00b90, 0x00b93,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_cp_slice_cp_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_LPAC
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 1 (Regs:8)
-+ */
-+static const u32 milos_cp_cp_pipe_lpac_registers[] = {
-+	 0x00830, 0x00837,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_cp_cp_pipe_lpac_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:1124)
-+ */
-+static const u32 milos_non_context_pipe_br_registers[] = {
-+	 0x09600, 0x09605, 0x09610, 0x09617, 0x09620, 0x09627, 0x09670, 0x0967b,
-+	 0x09e00, 0x09e04, 0x09e06, 0x09e15, 0x09e17, 0x09e23, 0x09e30, 0x09e3f,
-+	 0x09e50, 0x09e59, 0x09e60, 0x09e65, 0x0d200, 0x0d5ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_non_context_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 21 (Regs:300)
-+ */
-+static const u32 milos_non_context_slice_pipe_br_registers[] = {
-+	 0x08600, 0x08602, 0x08610, 0x08613, 0x08700, 0x08703, 0x08710, 0x08713,
-+	 0x08720, 0x08723, 0x08730, 0x08733, 0x08740, 0x08744, 0x09680, 0x09681,
-+	 0x09690, 0x0969b, 0x09740, 0x09745, 0x09750, 0x0975b, 0x09770, 0x097ef,
-+	 0x09f00, 0x09f0f, 0x09f20, 0x09f23, 0x09f30, 0x09f31, 0x0a600, 0x0a600,
-+	 0x0a603, 0x0a603, 0x0a610, 0x0a61f, 0x0a630, 0x0a632, 0x0a638, 0x0a63c,
-+	 0x0a640, 0x0a67f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_non_context_slice_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:1124)
-+ */
-+static const u32 milos_non_context_pipe_bv_registers[] = {
-+	 0x09600, 0x09605, 0x09610, 0x09617, 0x09620, 0x09627, 0x09670, 0x0967b,
-+	 0x09e00, 0x09e04, 0x09e06, 0x09e15, 0x09e17, 0x09e23, 0x09e30, 0x09e3f,
-+	 0x09e50, 0x09e59, 0x09e60, 0x09e65, 0x0d200, 0x0d5ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_non_context_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 21 (Regs:300)
-+ */
-+static const u32 milos_non_context_slice_pipe_bv_registers[] = {
-+	 0x08600, 0x08602, 0x08610, 0x08613, 0x08700, 0x08703, 0x08710, 0x08713,
-+	 0x08720, 0x08723, 0x08730, 0x08733, 0x08740, 0x08744, 0x09680, 0x09681,
-+	 0x09690, 0x0969b, 0x09740, 0x09745, 0x09750, 0x0975b, 0x09770, 0x097ef,
-+	 0x09f00, 0x09f0f, 0x09f20, 0x09f23, 0x09f30, 0x09f31, 0x0a600, 0x0a600,
-+	 0x0a603, 0x0a603, 0x0a610, 0x0a61f, 0x0a630, 0x0a632, 0x0a638, 0x0a63c,
-+	 0x0a640, 0x0a67f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_non_context_slice_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 1 (Regs:1)
-+ */
-+static const u32 milos_non_context_pipe_lpac_registers[] = {
-+	 0x00e14, 0x00e14,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_non_context_pipe_lpac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:26)
-+ */
-+static const u32 milos_non_context_rb_pipe_br_rbp_registers[] = {
-+	 0x08f00, 0x08f07, 0x08f10, 0x08f15, 0x08f20, 0x08f29, 0x08f30, 0x08f31,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_non_context_rb_pipe_br_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 5 (Regs:32)
-+ */
-+static const u32 milos_non_context_rb_slice_pipe_br_rac_registers[] = {
-+	 0x08e09, 0x08e0b, 0x08e10, 0x08e17, 0x08e51, 0x08e5a, 0x08e69, 0x08e6f,
-+	 0x08ea0, 0x08ea3,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_non_context_rb_slice_pipe_br_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:28)
-+ */
-+static const u32 milos_non_context_rb_slice_pipe_br_rbp_registers[] = {
-+	 0x08e01, 0x08e01, 0x08e04, 0x08e04, 0x08e06, 0x08e08, 0x08e0c, 0x08e0c,
-+	 0x08e18, 0x08e1c, 0x08e3b, 0x08e40, 0x08e50, 0x08e50, 0x08e5d, 0x08e5d,
-+	 0x08e77, 0x08e7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_non_context_rb_slice_pipe_br_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * Location: HLSQ_STATE
-+ * pairs   : 8 (Regs:34)
-+ */
-+static const u32 milos_non_context_sp_pipe_br_hlsq_state_registers[] = {
-+	 0x0ae05, 0x0ae05, 0x0ae10, 0x0ae13, 0x0ae15, 0x0ae16, 0x0ae52, 0x0ae52,
-+	 0x0ae60, 0x0ae67, 0x0ae69, 0x0ae6e, 0x0ae70, 0x0ae75, 0x0aec0, 0x0aec5,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_non_context_sp_pipe_br_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * Location: SP_TOP
-+ * pairs   : 6 (Regs:60)
-+ */
-+static const u32 milos_non_context_sp_pipe_br_sp_top_registers[] = {
-+	 0x0ae00, 0x0ae0c, 0x0ae0f, 0x0ae0f, 0x0ae35, 0x0ae35, 0x0ae3a, 0x0ae3f,
-+	 0x0ae50, 0x0ae52, 0x0ae80, 0x0aea3,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_non_context_sp_pipe_br_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * Location: USPTP
-+ * pairs   : 9 (Regs:64)
-+ */
-+static const u32 milos_non_context_sp_pipe_br_usptp_registers[] = {
-+	 0x0ae00, 0x0ae0c, 0x0ae0f, 0x0ae0f, 0x0ae17, 0x0ae19, 0x0ae30, 0x0ae32,
-+	 0x0ae35, 0x0ae35, 0x0ae3a, 0x0ae3b, 0x0ae3e, 0x0ae3f, 0x0ae50, 0x0ae52,
-+	 0x0ae80, 0x0aea3,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_non_context_sp_pipe_br_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:48)
-+ */
-+static const u32 milos_non_context_tpl1_pipe_br_usptp_registers[] = {
-+	 0x0b600, 0x0b600, 0x0b602, 0x0b602, 0x0b604, 0x0b604, 0x0b606, 0x0b61e,
-+	 0x0b620, 0x0b633,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_non_context_tpl1_pipe_br_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 9 (Regs:238)
-+ */
-+static const u32 milos_gras_slice_pipe_br_cluster_vpc_vs_registers[] = {
-+	 0x08200, 0x08213, 0x08220, 0x08225, 0x08228, 0x0822d, 0x08230, 0x0823b,
-+	 0x08240, 0x0825f, 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f,
-+	 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_gras_slice_pipe_br_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_GRAS
-+ * pairs   : 14 (Regs:332)
-+ */
-+static const u32 milos_gras_slice_pipe_br_cluster_gras_registers[] = {
-+	 0x08080, 0x08080, 0x08086, 0x08092, 0x080c0, 0x080df, 0x08101, 0x08110,
-+	 0x08130, 0x0814f, 0x08200, 0x08213, 0x08220, 0x08225, 0x08228, 0x0822d,
-+	 0x08230, 0x0823b, 0x08240, 0x0825f, 0x08270, 0x0828f, 0x0829f, 0x082b7,
-+	 0x082d0, 0x0832f, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_gras_slice_pipe_br_cluster_gras_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 9 (Regs:238)
-+ */
-+static const u32 milos_gras_slice_pipe_bv_cluster_vpc_vs_registers[] = {
-+	 0x08200, 0x08213, 0x08220, 0x08225, 0x08228, 0x0822d, 0x08230, 0x0823b,
-+	 0x08240, 0x0825f, 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f,
-+	 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_gras_slice_pipe_bv_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_GRAS
-+ * pairs   : 14 (Regs:332)
-+ */
-+static const u32 milos_gras_slice_pipe_bv_cluster_gras_registers[] = {
-+	 0x08080, 0x08080, 0x08086, 0x08092, 0x080c0, 0x080df, 0x08101, 0x08110,
-+	 0x08130, 0x0814f, 0x08200, 0x08213, 0x08220, 0x08225, 0x08228, 0x0822d,
-+	 0x08230, 0x0823b, 0x08240, 0x0825f, 0x08270, 0x0828f, 0x0829f, 0x082b7,
-+	 0x082d0, 0x0832f, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_gras_slice_pipe_bv_cluster_gras_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_US
-+ * pairs   : 6 (Regs:35)
-+ */
-+static const u32 milos_pc_pipe_br_cluster_fe_us_registers[] = {
-+	 0x09805, 0x09807, 0x0980b, 0x0980b, 0x09812, 0x09817, 0x0981a, 0x0981b,
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_pc_pipe_br_cluster_fe_us_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:23)
-+ */
-+static const u32 milos_pc_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_pc_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_US
-+ * pairs   : 6 (Regs:35)
-+ */
-+static const u32 milos_pc_pipe_bv_cluster_fe_us_registers[] = {
-+	 0x09805, 0x09807, 0x0980b, 0x0980b, 0x09812, 0x09817, 0x0981a, 0x0981b,
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_pc_pipe_bv_cluster_fe_us_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:23)
-+ */
-+static const u32 milos_pc_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_pc_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VFD']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:236)
-+ */
-+static const u32 milos_vfd_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x0a000, 0x0a009, 0x0a00e, 0x0a0ef,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_vfd_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VFD']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:236)
-+ */
-+static const u32 milos_vfd_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x0a000, 0x0a009, 0x0a00e, 0x0a0ef,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_vfd_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 1 (Regs:27)
-+ */
-+static const u32 milos_vpc_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_vpc_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 2 (Regs:29)
-+ */
-+static const u32 milos_vpc_slice_pipe_br_cluster_vpc_vs_registers[] = {
-+	 0x090c0, 0x090c1, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_vpc_slice_pipe_br_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_US
-+ * pairs   : 3 (Regs:58)
-+ */
-+static const u32 milos_vpc_pipe_br_cluster_vpc_us_registers[] = {
-+	 0x09180, 0x09180, 0x09182, 0x0919f, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_vpc_pipe_br_cluster_vpc_us_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_PS
-+ * pairs   : 4 (Regs:52)
-+ */
-+static const u32 milos_vpc_slice_pipe_br_cluster_vpc_ps_registers[] = {
-+	 0x09240, 0x0924f, 0x09252, 0x09255, 0x09278, 0x0927c, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_vpc_slice_pipe_br_cluster_vpc_ps_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 1 (Regs:27)
-+ */
-+static const u32 milos_vpc_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_vpc_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 2 (Regs:29)
-+ */
-+static const u32 milos_vpc_slice_pipe_bv_cluster_vpc_vs_registers[] = {
-+	 0x090c0, 0x090c1, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_vpc_slice_pipe_bv_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_US
-+ * pairs   : 3 (Regs:58)
-+ */
-+static const u32 milos_vpc_pipe_bv_cluster_vpc_us_registers[] = {
-+	 0x09180, 0x09180, 0x09182, 0x0919f, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_vpc_pipe_bv_cluster_vpc_us_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_PS
-+ * pairs   : 4 (Regs:52)
-+ */
-+static const u32 milos_vpc_slice_pipe_bv_cluster_vpc_ps_registers[] = {
-+	 0x09240, 0x0924f, 0x09252, 0x09255, 0x09278, 0x0927c, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_vpc_slice_pipe_bv_cluster_vpc_ps_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 36 (Regs:151)
-+ */
-+static const u32 milos_rb_slice_pipe_br_cluster_ps_rac_registers[] = {
-+	 0x08802, 0x08802, 0x08804, 0x0880a, 0x0880e, 0x08811, 0x08813, 0x08814,
-+	 0x08818, 0x0881e, 0x08821, 0x08821, 0x08823, 0x08826, 0x08829, 0x08829,
-+	 0x0882b, 0x0882e, 0x08831, 0x08831, 0x08833, 0x08836, 0x08839, 0x08839,
-+	 0x0883b, 0x0883e, 0x08841, 0x08841, 0x08843, 0x08846, 0x08849, 0x08849,
-+	 0x0884b, 0x0884e, 0x08851, 0x08851, 0x08853, 0x08856, 0x08859, 0x08859,
-+	 0x0885b, 0x0885e, 0x08860, 0x08864, 0x08870, 0x08870, 0x08873, 0x08876,
-+	 0x08878, 0x08879, 0x08882, 0x08885, 0x08887, 0x08889, 0x08891, 0x08891,
-+	 0x08898, 0x08899, 0x088b0, 0x088cf, 0x088e5, 0x088e5, 0x088f4, 0x088f5,
-+	 0x08930, 0x08937, 0x08c00, 0x08c01, 0x08c18, 0x08c1f, 0x08c26, 0x08c34,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_rb_slice_pipe_br_cluster_ps_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 36 (Regs:104)
-+ */
-+static const u32 milos_rb_slice_pipe_br_cluster_ps_rbp_registers[] = {
-+	 0x08800, 0x08801, 0x08803, 0x08803, 0x0880b, 0x0880d, 0x08812, 0x08812,
-+	 0x08815, 0x08816, 0x08820, 0x08820, 0x08822, 0x08822, 0x08827, 0x08828,
-+	 0x0882a, 0x0882a, 0x0882f, 0x08830, 0x08832, 0x08832, 0x08837, 0x08838,
-+	 0x0883a, 0x0883a, 0x0883f, 0x08840, 0x08842, 0x08842, 0x08847, 0x08848,
-+	 0x0884a, 0x0884a, 0x0884f, 0x08850, 0x08852, 0x08852, 0x08857, 0x08858,
-+	 0x0885a, 0x0885a, 0x0885f, 0x0885f, 0x08865, 0x08865, 0x08871, 0x08872,
-+	 0x08877, 0x08877, 0x08880, 0x08881, 0x08886, 0x08886, 0x08890, 0x08890,
-+	 0x088d0, 0x088e4, 0x088e6, 0x088e6, 0x088e8, 0x088ea, 0x088f0, 0x088f1,
-+	 0x08900, 0x0891a, 0x08927, 0x08928, 0x08c17, 0x08c17, 0x08c20, 0x08c25,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_rb_slice_pipe_br_cluster_ps_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 29 (Regs:114)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers[] = {
-+	 0x0a800, 0x0a801, 0x0a81b, 0x0a81d, 0x0a822, 0x0a822, 0x0a824, 0x0a824,
-+	 0x0a827, 0x0a82a, 0x0a830, 0x0a830, 0x0a832, 0x0a835, 0x0a83a, 0x0a83a,
-+	 0x0a83c, 0x0a83c, 0x0a83f, 0x0a841, 0x0a85b, 0x0a85d, 0x0a862, 0x0a862,
-+	 0x0a864, 0x0a864, 0x0a867, 0x0a867, 0x0a870, 0x0a870, 0x0a872, 0x0a872,
-+	 0x0a88c, 0x0a88e, 0x0a893, 0x0a893, 0x0a895, 0x0a895, 0x0a898, 0x0a898,
-+	 0x0a89a, 0x0a89d, 0x0a8b0, 0x0a8bb, 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977,
-+	 0x0ab00, 0x0ab03, 0x0ab05, 0x0ab05, 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab23,
-+	 0x0abd0, 0x0abff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 23 (Regs:39)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers[] = {
-+	 0x0a800, 0x0a800, 0x0a81c, 0x0a81d, 0x0a822, 0x0a824, 0x0a826, 0x0a826,
-+	 0x0a82d, 0x0a82d, 0x0a82f, 0x0a831, 0x0a834, 0x0a835, 0x0a83a, 0x0a83c,
-+	 0x0a83e, 0x0a83e, 0x0a840, 0x0a840, 0x0a85c, 0x0a85d, 0x0a862, 0x0a864,
-+	 0x0a866, 0x0a866, 0x0a868, 0x0a868, 0x0a870, 0x0a871, 0x0a88d, 0x0a88e,
-+	 0x0a893, 0x0a895, 0x0a897, 0x0a897, 0x0a899, 0x0a899, 0x0ab00, 0x0ab00,
-+	 0x0ab02, 0x0ab02, 0x0ab04, 0x0ab05, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 15 (Regs:145)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_vs_usptp_registers[] = {
-+	 0x0a800, 0x0a81b, 0x0a81e, 0x0a821, 0x0a823, 0x0a827, 0x0a82d, 0x0a82d,
-+	 0x0a82f, 0x0a833, 0x0a836, 0x0a839, 0x0a83b, 0x0a85b, 0x0a85e, 0x0a861,
-+	 0x0a863, 0x0a868, 0x0a870, 0x0a88c, 0x0a88f, 0x0a892, 0x0a894, 0x0a899,
-+	 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977, 0x0ab00, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 21 (Regs:88)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers[] = {
-+	 0x0a980, 0x0a984, 0x0a99e, 0x0a99e, 0x0a9a7, 0x0a9a7, 0x0a9aa, 0x0a9aa,
-+	 0x0a9af, 0x0a9b0, 0x0a9b2, 0x0a9b5, 0x0a9ba, 0x0a9ba, 0x0a9bc, 0x0a9bc,
-+	 0x0a9c4, 0x0a9c4, 0x0a9c6, 0x0a9c6, 0x0a9cd, 0x0a9cd, 0x0a9fa, 0x0a9fc,
-+	 0x0aa00, 0x0aa00, 0x0aa0d, 0x0aa12, 0x0aa30, 0x0aa31, 0x0aaf2, 0x0aaf3,
-+	 0x0ab00, 0x0ab03, 0x0ab05, 0x0ab05, 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab23,
-+	 0x0abd0, 0x0abff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:44)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers[] = {
-+	 0x0a9e0, 0x0a9f9, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_DP
-+ * pairs   : 2 (Regs:13)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers[] = {
-+	 0x0a9b1, 0x0a9b1, 0x0a9d4, 0x0a9df,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 17 (Regs:34)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers[] = {
-+	 0x0a980, 0x0a980, 0x0a982, 0x0a984, 0x0a99e, 0x0a9a2, 0x0a9a7, 0x0a9a8,
-+	 0x0a9aa, 0x0a9ab, 0x0a9ae, 0x0a9ae, 0x0a9b0, 0x0a9b1, 0x0a9b3, 0x0a9b5,
-+	 0x0a9ba, 0x0a9bc, 0x0a9be, 0x0a9be, 0x0a9c5, 0x0a9c5, 0x0a9ce, 0x0a9ce,
-+	 0x0aa00, 0x0aa03, 0x0ab00, 0x0ab00, 0x0ab02, 0x0ab02, 0x0ab04, 0x0ab05,
-+	 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:44)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers[] = {
-+	 0x0a9e0, 0x0a9f9, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 15 (Regs:89)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_ps_usptp_registers[] = {
-+	 0x0a980, 0x0a982, 0x0a985, 0x0a9a6, 0x0a9a8, 0x0a9a9, 0x0a9ab, 0x0a9ae,
-+	 0x0a9b0, 0x0a9b3, 0x0a9b6, 0x0a9b9, 0x0a9bb, 0x0a9bf, 0x0a9c2, 0x0a9c3,
-+	 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0a9d0, 0x0a9d3, 0x0aa01, 0x0aa0c,
-+	 0x0aa30, 0x0aa31, 0x0aaf2, 0x0aaf3, 0x0ab00, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 milos_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 28 (Regs:112)
-+ */
-+static const u32 milos_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers[] = {
-+	 0x0a800, 0x0a801, 0x0a81b, 0x0a81d, 0x0a822, 0x0a822, 0x0a824, 0x0a824,
-+	 0x0a827, 0x0a82a, 0x0a830, 0x0a830, 0x0a832, 0x0a835, 0x0a83a, 0x0a83a,
-+	 0x0a83c, 0x0a83c, 0x0a83f, 0x0a841, 0x0a85b, 0x0a85d, 0x0a862, 0x0a862,
-+	 0x0a864, 0x0a864, 0x0a867, 0x0a867, 0x0a870, 0x0a870, 0x0a872, 0x0a872,
-+	 0x0a88c, 0x0a88e, 0x0a893, 0x0a893, 0x0a895, 0x0a895, 0x0a898, 0x0a898,
-+	 0x0a89a, 0x0a89d, 0x0a8b0, 0x0a8bb, 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977,
-+	 0x0ab00, 0x0ab02, 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab23, 0x0abd0, 0x0abff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 milos_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 milos_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 22 (Regs:37)
-+ */
-+static const u32 milos_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers[] = {
-+	 0x0a800, 0x0a800, 0x0a81c, 0x0a81d, 0x0a822, 0x0a824, 0x0a826, 0x0a826,
-+	 0x0a82d, 0x0a82d, 0x0a82f, 0x0a831, 0x0a834, 0x0a835, 0x0a83a, 0x0a83c,
-+	 0x0a83e, 0x0a83e, 0x0a840, 0x0a840, 0x0a85c, 0x0a85d, 0x0a862, 0x0a864,
-+	 0x0a866, 0x0a866, 0x0a868, 0x0a868, 0x0a870, 0x0a871, 0x0a88d, 0x0a88e,
-+	 0x0a893, 0x0a895, 0x0a897, 0x0a897, 0x0a899, 0x0a899, 0x0ab00, 0x0ab00,
-+	 0x0ab02, 0x0ab02, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 milos_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 16 (Regs:142)
-+ */
-+static const u32 milos_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers[] = {
-+	 0x0a800, 0x0a81b, 0x0a81e, 0x0a821, 0x0a823, 0x0a827, 0x0a82d, 0x0a82d,
-+	 0x0a82f, 0x0a833, 0x0a836, 0x0a839, 0x0a83b, 0x0a85b, 0x0a85e, 0x0a861,
-+	 0x0a863, 0x0a868, 0x0a870, 0x0a88c, 0x0a88f, 0x0a892, 0x0a894, 0x0a899,
-+	 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977, 0x0ab00, 0x0ab02, 0x0ab06, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 milos_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 14 (Regs:73)
-+ */
-+static const u32 milos_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers[] = {
-+	 0x0a9b0, 0x0a9b0, 0x0a9b2, 0x0a9b5, 0x0a9ba, 0x0a9ba, 0x0a9bc, 0x0a9bc,
-+	 0x0a9c4, 0x0a9c4, 0x0a9cd, 0x0a9cd, 0x0a9fa, 0x0a9fc, 0x0aa00, 0x0aa00,
-+	 0x0aa10, 0x0aa12, 0x0aa31, 0x0aa35, 0x0aaf3, 0x0aaf3, 0x0ab00, 0x0ab01,
-+	 0x0ab23, 0x0ab23, 0x0abd0, 0x0abff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:22)
-+ */
-+static const u32 milos_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers[] = {
-+	 0x0a9e2, 0x0a9e3, 0x0a9e6, 0x0a9f9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 milos_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_DP
-+ * pairs   : 2 (Regs:13)
-+ */
-+static const u32 milos_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers[] = {
-+	 0x0a9b1, 0x0a9b1, 0x0a9d4, 0x0a9df,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 8 (Regs:13)
-+ */
-+static const u32 milos_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers[] = {
-+	 0x0a9b0, 0x0a9b1, 0x0a9b3, 0x0a9b5, 0x0a9ba, 0x0a9bc, 0x0a9be, 0x0a9be,
-+	 0x0a9c5, 0x0a9c5, 0x0a9ce, 0x0a9ce, 0x0aa00, 0x0aa00, 0x0ab00, 0x0ab00,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:22)
-+ */
-+static const u32 milos_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers[] = {
-+	 0x0a9e2, 0x0a9e3, 0x0a9e6, 0x0a9f9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 11 (Regs:26)
-+ */
-+static const u32 milos_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers[] = {
-+	 0x0a9b0, 0x0a9b3, 0x0a9b6, 0x0a9b9, 0x0a9bb, 0x0a9be, 0x0a9c2, 0x0a9c3,
-+	 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0a9d0, 0x0a9d3, 0x0aa31, 0x0aa31,
-+	 0x0aaf3, 0x0aaf3, 0x0ab00, 0x0ab01, 0x0ab06, 0x0ab06,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 milos_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 milos_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers[] = {
-+	 0x0b300, 0x0b304, 0x0b307, 0x0b307, 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 6 (Regs:41)
-+ */
-+static const u32 milos_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers[] = {
-+	 0x0b180, 0x0b183, 0x0b190, 0x0b195, 0x0b2c0, 0x0b2d7, 0x0b300, 0x0b304,
-+	 0x0b307, 0x0b307, 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 milos_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers[] = {
-+	 0x0b300, 0x0b304, 0x0b307, 0x0b307, 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:7)
-+ */
-+static const u32 milos_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers[] = {
-+	 0x0b180, 0x0b181, 0x0b300, 0x0b301, 0x0b304, 0x0b304, 0x0b307, 0x0b307,
-+	 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(milos_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers), 8));
-+
-+static const struct gen8_sel_reg milos_rb_rac_sel = {
-+	.host_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_HOST,
-+	.cd_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_CD,
-+	.val = 0,
-+};
-+
-+static const struct gen8_sel_reg milos_rb_rbp_sel = {
-+	.host_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_HOST,
-+	.cd_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_CD,
-+	.val = 0x9,
-+};
-+
-+static const struct gen8_cluster_registers milos_cp_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_NONE, STATE_NON_CONTEXT,
-+		milos_cp_cp_pipe_none_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_BR, STATE_NON_CONTEXT,
-+		milos_cp_cp_pipe_br_registers,  },
-+	{ CLUSTER_NONE, SLICE, CP_PIPE_BR, STATE_NON_CONTEXT,
-+		milos_cp_slice_cp_pipe_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_BV, STATE_NON_CONTEXT,
-+		milos_cp_cp_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, SLICE, CP_PIPE_BV, STATE_NON_CONTEXT,
-+		milos_cp_slice_cp_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_LPAC, STATE_NON_CONTEXT,
-+		milos_cp_cp_pipe_lpac_registers,  },
-+};
-+
-+static const struct gen8_cluster_registers milos_mvc_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		milos_non_context_pipe_br_registers,  },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		milos_non_context_slice_pipe_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		milos_non_context_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, SLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		milos_non_context_slice_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_LPAC, STATE_NON_CONTEXT,
-+		milos_non_context_pipe_lpac_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		milos_non_context_rb_pipe_br_rbp_registers, &milos_rb_rbp_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		milos_non_context_rb_slice_pipe_br_rac_registers, &milos_rb_rac_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		milos_non_context_rb_slice_pipe_br_rbp_registers, &milos_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		milos_rb_slice_pipe_br_cluster_ps_rac_registers, &milos_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		milos_rb_slice_pipe_br_cluster_ps_rac_registers, &milos_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		milos_rb_slice_pipe_br_cluster_ps_rbp_registers, &milos_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		milos_rb_slice_pipe_br_cluster_ps_rbp_registers, &milos_rb_rbp_sel, },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		milos_gras_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		milos_gras_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		milos_gras_slice_pipe_br_cluster_gras_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		milos_gras_slice_pipe_br_cluster_gras_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		milos_gras_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		milos_gras_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		milos_gras_slice_pipe_bv_cluster_gras_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		milos_gras_slice_pipe_bv_cluster_gras_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		milos_pc_pipe_br_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		milos_pc_pipe_br_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		milos_pc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		milos_pc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		milos_pc_pipe_bv_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		milos_pc_pipe_bv_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		milos_pc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		milos_pc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		milos_vfd_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		milos_vfd_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		milos_vfd_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		milos_vfd_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		milos_vpc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		milos_vpc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		milos_vpc_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		milos_vpc_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		milos_vpc_pipe_br_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		milos_vpc_pipe_br_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		milos_vpc_slice_pipe_br_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		milos_vpc_slice_pipe_br_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		milos_vpc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		milos_vpc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		milos_vpc_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		milos_vpc_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		milos_vpc_pipe_bv_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		milos_vpc_pipe_bv_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		milos_vpc_slice_pipe_bv_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		milos_vpc_slice_pipe_bv_cluster_vpc_ps_registers,  },
-+};
-+
-+static const struct gen8_sptp_cluster_registers milos_sptp_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, 1, 1, SP_NCTX_REG, PIPE_BR, 0, HLSQ_STATE,
-+		milos_non_context_sp_pipe_br_hlsq_state_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 1, 1, SP_NCTX_REG, PIPE_BR, 0, SP_TOP,
-+		milos_non_context_sp_pipe_br_sp_top_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 1, 1, SP_NCTX_REG, PIPE_BR, 0, USPTP,
-+		milos_non_context_sp_pipe_br_usptp_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 1, 1, TP0_NCTX_REG, PIPE_BR, 0, USPTP,
-+		milos_non_context_tpl1_pipe_br_usptp_registers, 0xb600},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX0_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		milos_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX0_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		milos_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX0_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		milos_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX0_3D_CVS_REG, PIPE_BR, 0, SP_TOP,
-+		milos_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX0_3D_CVS_REG, PIPE_BR, 0, SP_TOP,
-+		milos_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX0_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		milos_sp_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX0_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		milos_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX0_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		milos_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX0_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		milos_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX0_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		milos_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX0_3D_CVS_REG, PIPE_BV, 0, SP_TOP,
-+		milos_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX0_3D_CVS_REG, PIPE_BV, 0, SP_TOP,
-+		milos_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX0_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		milos_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX0_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		milos_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX1_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		milos_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX1_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		milos_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX1_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		milos_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX1_3D_CVS_REG, PIPE_BR, 1, SP_TOP,
-+		milos_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX1_3D_CVS_REG, PIPE_BR, 1, SP_TOP,
-+		milos_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX1_3D_CVS_REG, PIPE_BR, 1, USPTP,
-+		milos_sp_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX1_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		milos_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX1_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		milos_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX1_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		milos_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX1_3D_CVS_REG, PIPE_BV, 1, SP_TOP,
-+		milos_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX1_3D_CVS_REG, PIPE_BV, 1, SP_TOP,
-+		milos_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, SP_CTX1_3D_CVS_REG, PIPE_BV, 1, USPTP,
-+		milos_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, HLSQ_DP,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, SP_TOP,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, SP_TOP,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		milos_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		milos_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		milos_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_DP,
-+		milos_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, SP_TOP,
-+		milos_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, SP_TOP,
-+		milos_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		milos_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		milos_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX1_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX1_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX1_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX1_3D_CPS_REG, PIPE_BR, 1, HLSQ_DP,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX1_3D_CPS_REG, PIPE_BR, 1, SP_TOP,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX1_3D_CPS_REG, PIPE_BR, 1, SP_TOP,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX1_3D_CPS_REG, PIPE_BR, 1, USPTP,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX2_3D_CPS_REG, PIPE_BR, 2, HLSQ_DP,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX2_3D_CPS_REG, PIPE_BR, 2, SP_TOP,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX3_3D_CPS_REG, PIPE_BR, 3, HLSQ_DP,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, SP_CTX3_3D_CPS_REG, PIPE_BR, 3, SP_TOP,
-+		milos_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, TP0_CTX0_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		milos_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, TP0_CTX0_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		milos_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, TP0_CTX1_3D_CVS_REG, PIPE_BR, 1, USPTP,
-+		milos_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 1, 1, TP0_CTX1_3D_CVS_REG, PIPE_BV, 1, USPTP,
-+		milos_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, TP0_CTX0_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		milos_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, TP0_CTX0_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		milos_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, TP0_CTX1_3D_CPS_REG, PIPE_BR, 1, USPTP,
-+		milos_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, TP0_CTX2_3D_CPS_REG, PIPE_BR, 2, USPTP,
-+		milos_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 1, 1, TP0_CTX3_3D_CPS_REG, PIPE_BR, 3, USPTP,
-+		milos_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
-+};
-+
-+/* 
-+ * Before dumping the CP MVC
-+ * Program CP_APERTURE_CNTL_* with pipeID={CP_PIPE}
-+ * Then dump corresponding {Register_PIPE}
-+ */
-+
-+static const struct gen8_cp_indexed_reg milos_cp_indexed_reg_list[] = {
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_BR, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_BV, 0x00040},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_BR, 0x00200},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_BV, 0x00200},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_BR, 0x00800},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_BV, 0x00800},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_BR, 0x08000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_BV, 0x08000},
-+	{ 0x000008fa /* CP_RESOURCE_TABLE_DBG_ADDR_BV       */, 0x000008fb /* CP_RESOURCE_TABLE_DBG_DATA_BV       */, UNSLICE, CP_PIPE_NONE, 0x04100},
-+};
-+
-+
-+/* 
-+ * Before dumping the CP Mempool over the CP_*_MEM_POOL_DBG_ADDR/DATA 
-+ * indexed register pair it must be stabilized. 
-+ * for p in [CP_PIPE_BR, CP_PIPE_BV]:
-+ *   Program CP_APERTURE_CNTL_* with pipeID={p} sliceID={MAX_UINT}
-+ *   Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 1.
-+ *   Dump CP_MEM_POOL_DBG_ADDR_PIPE for pipe=p
-+ *   Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 0. 
-+ *
-+ * same thing for CP_SLICE_MEM_POOL_DBG_ADDR_PIPE
-+ * for p in [CP_PIPE_BR, CP_PIPE_BV]:
-+ *   for s in [0,1,2]:
-+ *     Program CP_APERTURE_CNTL_* with pipeID={p} sliceID={s}
-+ *     Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 1.
-+ *     Program CP_SLICE_CHICKEN_DBG[crashStabilizeMVC] bit = 1.
-+ *     Dump CP_SLICE_MEM_POOL_DBG_ADDR_PIPE for pipe=p, sliceID=s
-+ *     Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 0.  
-+ *     Program CP_SLICE_CHICKEN_DBG[crashStabilizeMVC] bit = 0.
-+ */
-+
-+static const struct gen8_cp_indexed_reg milos_cp_mempool_reg_list[] = {
-+	{ 0x000008f6 /* CP_MEM_POOL_DBG_ADDR_PIPE           */, 0x000008f7 /* CP_MEM_POOL_DBG_DATA_PIPE           */, UNSLICE, CP_PIPE_BR, 0x02400},
-+	{ 0x000008f6 /* CP_MEM_POOL_DBG_ADDR_PIPE           */, 0x000008f7 /* CP_MEM_POOL_DBG_DATA_PIPE           */, UNSLICE, CP_PIPE_BV, 0x02400},
-+	{ 0x00000b00 /* CP_SLICE_MEM_POOL_DBG_ADDR_PIPE     */, 0x00000b01 /* CP_SLICE_MEM_POOL_DBG_DATA_PIPE     */, SLICE, CP_PIPE_BR, 0x02400},
-+	{ 0x00000b00 /* CP_SLICE_MEM_POOL_DBG_ADDR_PIPE     */, 0x00000b01 /* CP_SLICE_MEM_POOL_DBG_DATA_PIPE     */, SLICE, CP_PIPE_BV, 0x02400},
-+};
-+
-+
-+static const struct gen8_pc_indexed_reg milos_pc_indexed_reg_list[] = {
-+};
-+
-+static const struct gen8_reg_list milos_misc_registers[] = {
-+	{ UNSLICE, milos_gpu_registers },
-+	{ SLICE, milos_gpu_slice_registers },
-+	{ UNSLICE, milos_cx_misc_registers },
-+	{ UNSLICE, milos_dbgc_registers },
-+	{ SLICE, milos_dbgc_slice_registers },
-+	{ UNSLICE, milos_cx_dbgc_registers },
-+};
-+
-+static const struct gen8_reg_list milos_ahb_registers[] = {
-+	{ UNSLICE, milos_gbif_registers },
-+	{ UNSLICE, milos_ahb_precd_gpu_registers },
-+	{ SLICE, milos_ahb_precd_gpu_slice_registers },
-+	{ UNSLICE, milos_ahb_secure_gpu_registers },
-+};
-+
-+static const struct gen8_reg_list milos_gmu_registers[] = {
-+	{ UNSLICE, milos_gmugx_registers },
-+	{ SLICE, milos_gmugx_slice_registers },
-+	{ UNSLICE, milos_gmuao_registers },
-+	{ UNSLICE, milos_gmucx_registers },
-+};
-+
-+const struct gen8_snapshot_block_list milos_snapshot_block_list = {
-+        .pre_crashdumper_regs = milos_ahb_registers,
-+        .num_pre_crashdumper_regs = ARRAY_SIZE(milos_ahb_registers),
-+        .debugbus_blocks = milos_debugbus_blocks,
-+        .debugbus_blocks_len = ARRAY_SIZE(milos_debugbus_blocks),
-+        .gbif_debugbus_blocks = milos_gbif_debugbus_blocks,
-+        .gbif_debugbus_blocks_len = ARRAY_SIZE(milos_gbif_debugbus_blocks),
-+        .cx_debugbus_blocks = milos_cx_debugbus_blocks,
-+        .cx_debugbus_blocks_len = ARRAY_SIZE(milos_cx_debugbus_blocks),
-+        .gmu_cx_unsliced_regs = milos_gmucx_registers,
-+        .gmu_gx_regs = milos_gmu_registers,
-+        .num_gmu_gx_regs = ARRAY_SIZE(milos_gmu_registers),
-+        .reg_list = milos_misc_registers,
-+        .num_reg_list = ARRAY_SIZE(milos_misc_registers),
-+        .cx_misc_regs = milos_cx_misc_registers,
-+        .shader_blocks = milos_shader_blocks,
-+        .num_shader_blocks = ARRAY_SIZE(milos_shader_blocks),
-+        .cp_clusters = milos_cp_clusters,
-+        .num_cp_clusters = ARRAY_SIZE(milos_cp_clusters),
-+        .clusters = milos_mvc_clusters,
-+        .num_clusters = ARRAY_SIZE(milos_mvc_clusters),
-+        .sptp_clusters = milos_sptp_clusters,
-+        .num_sptp_clusters = ARRAY_SIZE(milos_sptp_clusters),
-+        .index_registers = milos_cp_indexed_reg_list,
-+        .index_registers_len = ARRAY_SIZE(milos_cp_indexed_reg_list),
-+        .mempool_index_registers = milos_cp_mempool_reg_list,
-+        .mempool_index_registers_len = ARRAY_SIZE(milos_cp_mempool_reg_list),
-+        .pc_index_registers = milos_pc_indexed_reg_list,
-+        .pc_index_registers_len = ARRAY_SIZE(milos_pc_indexed_reg_list),
-+};
-+static const u32 milos_protect_regs[] __maybe_unused = {
-+	A6XX_PROTECT_RDONLY(0x00000, 0x03a3),
-+	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
-+	A6XX_PROTECT_NORDWR(0x00440, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00449, 0x0016),
-+	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
-+	A6XX_PROTECT_NORDWR(0x005e8, 0x0117),
-+	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
-+	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
-+	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
-+	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
-+	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
-+	A6XX_PROTECT_NORDWR(0x00837, 0x0099),
-+	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
-+	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
-+	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
-+	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
-+	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00e03, 0x001c),
-+	A6XX_PROTECT_NORDWR(0x00f01, 0x001e),
-+	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
-+	A6XX_PROTECT_RDONLY(0x03cc6, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x08600, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08700, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08740, 0x00bf),
-+	A6XX_PROTECT_NORDWR(0x08e00, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08e3b, 0x00c4),
-+	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x08f01, 0x0002),
-+	A6XX_PROTECT_NORDWR(0x08f20, 0x019f),
-+	A6XX_PROTECT_NORDWR(0x09600, 0x006f),
-+	A6XX_PROTECT_NORDWR(0x09680, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x09740, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x09770, 0x008f),
-+	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
-+	A6XX_PROTECT_NORDWR(0x09e00, 0x002f),
-+	A6XX_PROTECT_NORDWR(0x09e50, 0x00af),
-+	A6XX_PROTECT_NORDWR(0x09f20, 0x00df),
-+	A6XX_PROTECT_NORDWR(0x0a600, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x0a630, 0x01cf),
-+	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
-+	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
-+	A6XX_PROTECT_NORDWR(0x0ae10, 0x004f),
-+	A6XX_PROTECT_NORDWR(0x0ae66, 0x0019),
-+	A6XX_PROTECT_NORDWR(0x0b600, 0x001f),
-+	A6XX_PROTECT_NORDWR(0x0d200, 0x03ff),
-+	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
-+	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
-+	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
-+	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
-+	A6XX_PROTECT_RDONLY(0x1f878, 0x0787),
-+	A6XX_PROTECT_NORDWR(0x1f930, 0x032f),
-+	A6XX_PROTECT_NORDWR(0x20000, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
-+	A6XX_PROTECT_RDONLY(0x27880, 0x0001),
-+	A6XX_PROTECT_NORDWR(0x27882, 0x037d),
-+	A6XX_PROTECT_NORDWR(0x27c02, 0x0000),
-+};
-+DECLARE_ADRENO_PROTECT(milos_protect, 80);
-\ No newline at end of file
-diff --git a/drivers/gpu/drm/msm/adreno/catalog/adreno_pakala.h b/drivers/gpu/drm/msm/adreno/catalog/adreno_pakala.h
-new file mode 100644
-index 000000000000..65fcb3d3b9ee
---- /dev/null
-+++ b/drivers/gpu/drm/msm/adreno/catalog/adreno_pakala.h
-@@ -0,0 +1,2161 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ *
-+ * THIS FILE IS AUTOGENERATED!
-+ */
-+
-+#pragma once
-+
-+
-+
-+static const u32 pakala_debugbus_blocks[] = {
-+	DEBUGBUS_GMU_GX_GC_US_I_0,
-+	DEBUGBUS_DBGC_GC_US_I_0,
-+	DEBUGBUS_RBBM_GC_US_I_0,
-+	DEBUGBUS_LARC_GC_US_I_0,
-+	DEBUGBUS_COM_GC_US_I_0,
-+	DEBUGBUS_HLSQ_GC_US_I_0,
-+	DEBUGBUS_CGC_GC_US_I_0,
-+	DEBUGBUS_VSC_GC_US_I_0_0,
-+	DEBUGBUS_VSC_GC_US_I_0_1,
-+	DEBUGBUS_UFC_GC_US_I_0,
-+	DEBUGBUS_UFC_GC_US_I_1,
-+	DEBUGBUS_CP_GC_US_I_0_0,
-+	DEBUGBUS_CP_GC_US_I_0_1,
-+	DEBUGBUS_CP_GC_US_I_0_2,
-+	DEBUGBUS_PC_BR_US_I_0,
-+	DEBUGBUS_PC_BV_US_I_0,
-+	DEBUGBUS_GPC_BR_US_I_0,
-+	DEBUGBUS_GPC_BV_US_I_0,
-+	DEBUGBUS_VPC_BR_US_I_0,
-+	DEBUGBUS_VPC_BV_US_I_0,
-+	DEBUGBUS_UCHE_WRAPPER_GC_US_I_0,
-+	DEBUGBUS_UCHE_GC_US_I_0,
-+	DEBUGBUS_UCHE_GC_US_I_1,
-+	DEBUGBUS_CP_GC_S_0_I_0,
-+	DEBUGBUS_PC_BR_S_0_I_0,
-+	DEBUGBUS_PC_BV_S_0_I_0,
-+	DEBUGBUS_TESS_GC_S_0_I_0,
-+	DEBUGBUS_TSEFE_GC_S_0_I_0,
-+	DEBUGBUS_TSEBE_GC_S_0_I_0,
-+	DEBUGBUS_RAS_GC_S_0_I_0,
-+	DEBUGBUS_LRZ_BR_S_0_I_0,
-+	DEBUGBUS_LRZ_BV_S_0_I_0,
-+	DEBUGBUS_VFDP_GC_S_0_I_0,
-+	DEBUGBUS_GPC_BR_S_0_I_0,
-+	DEBUGBUS_GPC_BV_S_0_I_0,
-+	DEBUGBUS_VPCFE_BR_S_0_I_0,
-+	DEBUGBUS_VPCFE_BV_S_0_I_0,
-+	DEBUGBUS_VPCBE_BR_S_0_I_0,
-+	DEBUGBUS_VPCBE_BV_S_0_I_0,
-+	DEBUGBUS_CCHE_GC_S_0_I_0,
-+	DEBUGBUS_DBGC_GC_S_0_I_0,
-+	DEBUGBUS_LARC_GC_S_0_I_0,
-+	DEBUGBUS_RBBM_GC_S_0_I_0,
-+	DEBUGBUS_CCRE_GC_S_0_I_0,
-+	DEBUGBUS_CGC_GC_S_0_I_0,
-+	DEBUGBUS_GMU_GC_S_0_I_0,
-+	DEBUGBUS_SLICE_GC_S_0_I_0,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_0_I_0,
-+	DEBUGBUS_USP_GC_S_0_I_0,
-+	DEBUGBUS_USP_GC_S_0_I_1,
-+	DEBUGBUS_USPTP_GC_S_0_I_0,
-+	DEBUGBUS_USPTP_GC_S_0_I_1,
-+	DEBUGBUS_USPTP_GC_S_0_I_2,
-+	DEBUGBUS_USPTP_GC_S_0_I_3,
-+	DEBUGBUS_TP_GC_S_0_I_0,
-+	DEBUGBUS_TP_GC_S_0_I_1,
-+	DEBUGBUS_TP_GC_S_0_I_2,
-+	DEBUGBUS_TP_GC_S_0_I_3,
-+	DEBUGBUS_RB_GC_S_0_I_0,
-+	DEBUGBUS_RB_GC_S_0_I_1,
-+	DEBUGBUS_CCU_GC_S_0_I_0,
-+	DEBUGBUS_CCU_GC_S_0_I_1,
-+	DEBUGBUS_HLSQ_GC_S_0_I_0,
-+	DEBUGBUS_HLSQ_GC_S_0_I_1,
-+	DEBUGBUS_VFD_GC_S_0_I_0,
-+	DEBUGBUS_VFD_GC_S_0_I_1,
-+	DEBUGBUS_CP_GC_S_1_I_0,
-+	DEBUGBUS_PC_BR_S_1_I_0,
-+	DEBUGBUS_PC_BV_S_1_I_0,
-+	DEBUGBUS_TESS_GC_S_1_I_0,
-+	DEBUGBUS_TSEFE_GC_S_1_I_0,
-+	DEBUGBUS_TSEBE_GC_S_1_I_0,
-+	DEBUGBUS_RAS_GC_S_1_I_0,
-+	DEBUGBUS_LRZ_BR_S_1_I_0,
-+	DEBUGBUS_LRZ_BV_S_1_I_0,
-+	DEBUGBUS_VFDP_GC_S_1_I_0,
-+	DEBUGBUS_GPC_BR_S_1_I_0,
-+	DEBUGBUS_GPC_BV_S_1_I_0,
-+	DEBUGBUS_VPCFE_BR_S_1_I_0,
-+	DEBUGBUS_VPCFE_BV_S_1_I_0,
-+	DEBUGBUS_VPCBE_BR_S_1_I_0,
-+	DEBUGBUS_VPCBE_BV_S_1_I_0,
-+	DEBUGBUS_CCHE_GC_S_1_I_0,
-+	DEBUGBUS_DBGC_GC_S_1_I_0,
-+	DEBUGBUS_LARC_GC_S_1_I_0,
-+	DEBUGBUS_RBBM_GC_S_1_I_0,
-+	DEBUGBUS_CCRE_GC_S_1_I_0,
-+	DEBUGBUS_CGC_GC_S_1_I_0,
-+	DEBUGBUS_GMU_GC_S_1_I_0,
-+	DEBUGBUS_SLICE_GC_S_1_I_0,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_1_I_0,
-+	DEBUGBUS_USP_GC_S_1_I_0,
-+	DEBUGBUS_USP_GC_S_1_I_1,
-+	DEBUGBUS_USPTP_GC_S_1_I_0,
-+	DEBUGBUS_USPTP_GC_S_1_I_1,
-+	DEBUGBUS_USPTP_GC_S_1_I_2,
-+	DEBUGBUS_USPTP_GC_S_1_I_3,
-+	DEBUGBUS_TP_GC_S_1_I_0,
-+	DEBUGBUS_TP_GC_S_1_I_1,
-+	DEBUGBUS_TP_GC_S_1_I_2,
-+	DEBUGBUS_TP_GC_S_1_I_3,
-+	DEBUGBUS_RB_GC_S_1_I_0,
-+	DEBUGBUS_RB_GC_S_1_I_1,
-+	DEBUGBUS_CCU_GC_S_1_I_0,
-+	DEBUGBUS_CCU_GC_S_1_I_1,
-+	DEBUGBUS_HLSQ_GC_S_1_I_0,
-+	DEBUGBUS_HLSQ_GC_S_1_I_1,
-+	DEBUGBUS_VFD_GC_S_1_I_0,
-+	DEBUGBUS_VFD_GC_S_1_I_1,
-+	DEBUGBUS_CP_GC_S_2_I_0,
-+	DEBUGBUS_PC_BR_S_2_I_0,
-+	DEBUGBUS_PC_BV_S_2_I_0,
-+	DEBUGBUS_TESS_GC_S_2_I_0,
-+	DEBUGBUS_TSEFE_GC_S_2_I_0,
-+	DEBUGBUS_TSEBE_GC_S_2_I_0,
-+	DEBUGBUS_RAS_GC_S_2_I_0,
-+	DEBUGBUS_LRZ_BR_S_2_I_0,
-+	DEBUGBUS_LRZ_BV_S_2_I_0,
-+	DEBUGBUS_VFDP_GC_S_2_I_0,
-+	DEBUGBUS_GPC_BR_S_2_I_0,
-+	DEBUGBUS_GPC_BV_S_2_I_0,
-+	DEBUGBUS_VPCFE_BR_S_2_I_0,
-+	DEBUGBUS_VPCFE_BV_S_2_I_0,
-+	DEBUGBUS_VPCBE_BR_S_2_I_0,
-+	DEBUGBUS_VPCBE_BV_S_2_I_0,
-+	DEBUGBUS_CCHE_GC_S_2_I_0,
-+	DEBUGBUS_DBGC_GC_S_2_I_0,
-+	DEBUGBUS_LARC_GC_S_2_I_0,
-+	DEBUGBUS_RBBM_GC_S_2_I_0,
-+	DEBUGBUS_CCRE_GC_S_2_I_0,
-+	DEBUGBUS_CGC_GC_S_2_I_0,
-+	DEBUGBUS_GMU_GC_S_2_I_0,
-+	DEBUGBUS_SLICE_GC_S_2_I_0,
-+	DEBUGBUS_HLSQ_SPTP_STAR_GC_S_2_I_0,
-+	DEBUGBUS_USP_GC_S_2_I_0,
-+	DEBUGBUS_USP_GC_S_2_I_1,
-+	DEBUGBUS_USPTP_GC_S_2_I_0,
-+	DEBUGBUS_USPTP_GC_S_2_I_1,
-+	DEBUGBUS_USPTP_GC_S_2_I_2,
-+	DEBUGBUS_USPTP_GC_S_2_I_3,
-+	DEBUGBUS_TP_GC_S_2_I_0,
-+	DEBUGBUS_TP_GC_S_2_I_1,
-+	DEBUGBUS_TP_GC_S_2_I_2,
-+	DEBUGBUS_TP_GC_S_2_I_3,
-+	DEBUGBUS_RB_GC_S_2_I_0,
-+	DEBUGBUS_RB_GC_S_2_I_1,
-+	DEBUGBUS_CCU_GC_S_2_I_0,
-+	DEBUGBUS_CCU_GC_S_2_I_1,
-+	DEBUGBUS_HLSQ_GC_S_2_I_0,
-+	DEBUGBUS_HLSQ_GC_S_2_I_1,
-+	DEBUGBUS_VFD_GC_S_2_I_0,
-+	DEBUGBUS_VFD_GC_S_2_I_1,
-+};
-+
-+static const u32 pakala_gbif_debugbus_blocks[] = {
-+    DEBUGBUS_GBIF_GX_GC_US_I_0,
-+};
-+
-+static const u32 pakala_cx_debugbus_blocks[] = {
-+    DEBUGBUS_GBIF_CX_GC_US_I_0,
-+    DEBUGBUS_GMU_CX_GC_US_I_0,
-+    DEBUGBUS_CX_GC_US_I_0,
-+};
-+
-+static const struct gen8_shader_block pakala_shader_blocks[] = {
-+	{ TP0_TMO_DATA, 0x0200, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_TMO_DATA, 0x0200, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_SMO_DATA, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_SMO_DATA, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_MIPMAP_BASE_DATA, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ TP0_MIPMAP_BASE_DATA, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA_3, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA_3, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA_1, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA_1, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_0_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_0_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_1_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_1_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_2_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_2_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_3_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_3_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_4_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_4_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_5_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_5_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_6_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_6_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_7_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_7_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_CB_RAM, 0x0390, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_CB_RAM, 0x0390, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_13_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_13_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_14_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_14_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_TAG, 0x0100, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_TAG, 0x0100, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA_2, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_INST_DATA_2, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_TMO_TAG, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_TMO_TAG, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_SMO_TAG, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_SMO_TAG, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STATE_DATA, 0x0040, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_STATE_DATA, 0x0040, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_HWAVE_RAM, 0x0200, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_HWAVE_RAM, 0x0200, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_L0_INST_BUF, 0x0080, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_L0_INST_BUF, 0x0080, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_8_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_8_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_9_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_9_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_10_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_10_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_11_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_11_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_12_DATA, 0x0800, 2, uSPTP0, PIPE_BR, USPTP, SLICE, 1},
-+	{ SP_LB_12_DATA, 0x0800, 2, uSPTP1, PIPE_BR, USPTP, SLICE, 1},
-+	{ HLSQ_DATAPATH_DSTR_META, 0x0600, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DATAPATH_DSTR_META, 0x0020, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x00A0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x000C, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DESC_REMAP_META, 0x0008, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0048, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0048, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_TOP_META, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_L2STC_TAG_RAM, 0x0200, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_L2STC_INFO_CMD, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_BE_CTXT_BUF_RAM_TAG, 0x0100, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_BE_CTXT_BUF_RAM, 0x0400, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_BE_CTXT_BUF_RAM, 0x0400, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_BE_CTXT_BUF_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM, 0x01C0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM, 0x01C0, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM, 0x0300, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM, 0x0180, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CVS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CHUNK_CPS_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CVS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CVS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CPS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_ICB_CPS_CB_BASE_TAG, 0x0010, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM, 0x0540, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM, 0x0540, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM, 0x00B0, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_1, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM, 0x0800, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM, 0x0200, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM, 0x0800, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CVS_MISC_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_TAG, 0x0600, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_CPS_MISC_RAM_TAG, 0x0012, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0010, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_TAG, 0x0004, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CVS_CONST_RAM_TAG, 0x0040, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM_TAG, 0x0060, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_CPS_CONST_RAM_TAG, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x03C0, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x0280, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM, 0x0050, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM_TAG, 0x0014, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_GFX_LOCAL_MISC_RAM_TAG, 0x000C, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_1, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_STPROC_META, 0x0400, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x0188, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x0188, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_SLICE_BACKEND_META, 0x00C0, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INST_RAM_2, 0x0800, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_DATAPATH_META, 0x0020, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_FRONTEND_META, 0x0080, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_INDIRECT_META, 0x0010, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0034, 1, uSPTP0, PIPE_BR, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0034, 1, uSPTP0, PIPE_BV, HLSQ_STATE, UNSLICE, 1},
-+	{ HLSQ_BACKEND_META, 0x0020, 1, uSPTP0, PIPE_LPAC, HLSQ_STATE, UNSLICE, 1},
-+};
-+
-+/*
-+ * Block   : ['AHB_PRECD']
-+ * REGION  : UNSLICE
-+ * pairs   : 1 (Regs:2)
-+ */
-+static const u32 pakala_ahb_precd_gpu_registers[] = {
-+	 0x00012, 0x00013,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_ahb_precd_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['AHB_PRECD']
-+ * REGION  : SLICE
-+ * pairs   : 1 (Regs:3)
-+ */
-+static const u32 pakala_ahb_precd_gpu_slice_registers[] = {
-+	 0x00580, 0x00582,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_ahb_precd_gpu_slice_registers), 8));
-+
-+/*
-+ * Block   : ['AHB_SECURE']
-+ * REGION  : UNSLICE
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 pakala_ahb_secure_gpu_registers[] = {
-+	 0x0f400, 0x0f400, 0x0f800, 0x0f803, 0x0fc00, 0x0fc01,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_ahb_secure_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['GBIF']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 8 (Regs:59)
-+ */
-+static const u32 pakala_gbif_registers[] = {
-+	 0x03c00, 0x03c0b, 0x03c40, 0x03c42, 0x03c45, 0x03c47, 0x03c49, 0x03c4e,
-+	 0x03c50, 0x03c57, 0x03cc0, 0x03cc4, 0x03cc6, 0x03cd5, 0x03ce0, 0x03ce5,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_gbif_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'GRAS', 'PC']
-+ * Block   : ['RBBM', 'RDVM', 'UCHE']
-+ * Block   : ['VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 117 (Regs:1152)
-+ */
-+static const u32 pakala_gpu_registers[] = {
-+	 0x00000, 0x00000, 0x00002, 0x00002, 0x00008, 0x0000d, 0x00010, 0x00011,
-+	 0x00015, 0x00016, 0x00018, 0x00018, 0x0001a, 0x0001a, 0x0001c, 0x0001c,
-+	 0x00028, 0x0002b, 0x0002d, 0x00039, 0x00040, 0x00053, 0x00062, 0x00066,
-+	 0x00069, 0x0006e, 0x00071, 0x00072, 0x00074, 0x00074, 0x00076, 0x0007c,
-+	 0x0007f, 0x0009a, 0x0009d, 0x000af, 0x000b2, 0x000d4, 0x000d7, 0x000e2,
-+	 0x000e5, 0x000e6, 0x000e9, 0x000f1, 0x000f4, 0x000f6, 0x000f9, 0x00108,
-+	 0x0010b, 0x0010e, 0x00111, 0x00111, 0x00114, 0x0011c, 0x0011f, 0x00121,
-+	 0x00125, 0x00125, 0x00127, 0x00127, 0x00129, 0x00129, 0x0012b, 0x00131,
-+	 0x00134, 0x00138, 0x0013a, 0x0013a, 0x0013c, 0x0013f, 0x00142, 0x00150,
-+	 0x00153, 0x00155, 0x00158, 0x00159, 0x0015c, 0x0015c, 0x00166, 0x00179,
-+	 0x0019e, 0x001a3, 0x001b0, 0x002c9, 0x002e2, 0x0036b, 0x00380, 0x0039b,
-+	 0x003a4, 0x003ab, 0x003b4, 0x003c5, 0x003ce, 0x003cf, 0x003e0, 0x003e0,
-+	 0x003f0, 0x003f0, 0x00440, 0x00444, 0x00460, 0x00460, 0x00c02, 0x00c04,
-+	 0x00c06, 0x00c06, 0x00c10, 0x00cd9, 0x00ce0, 0x00d0c, 0x00df0, 0x00df4,
-+	 0x00e01, 0x00e04, 0x00e06, 0x00e09, 0x00e0e, 0x00e13, 0x00e15, 0x00e16,
-+	 0x00e20, 0x00e37, 0x0ec00, 0x0ec01, 0x0ec05, 0x0ec05, 0x0ec07, 0x0ec07,
-+	 0x0ec0a, 0x0ec0a, 0x0ec12, 0x0ec12, 0x0ec26, 0x0ec28, 0x0ec2b, 0x0ec2d,
-+	 0x0ec2f, 0x0ec2f, 0x0ec40, 0x0ec41, 0x0ec45, 0x0ec45, 0x0ec47, 0x0ec47,
-+	 0x0ec4a, 0x0ec4a, 0x0ec52, 0x0ec52, 0x0ec66, 0x0ec68, 0x0ec6b, 0x0ec6d,
-+	 0x0ec6f, 0x0ec6f, 0x0ec80, 0x0ec81, 0x0ec85, 0x0ec85, 0x0ec87, 0x0ec87,
-+	 0x0ec8a, 0x0ec8a, 0x0ec92, 0x0ec92, 0x0eca6, 0x0eca8, 0x0ecab, 0x0ecad,
-+	 0x0ecaf, 0x0ecaf, 0x0ecc0, 0x0ecc1, 0x0ecc5, 0x0ecc5, 0x0ecc7, 0x0ecc7,
-+	 0x0ecca, 0x0ecca, 0x0ecd2, 0x0ecd2, 0x0ece6, 0x0ece8, 0x0eceb, 0x0eced,
-+	 0x0ecef, 0x0ecef, 0x0ed00, 0x0ed01, 0x0ed05, 0x0ed05, 0x0ed07, 0x0ed07,
-+	 0x0ed0a, 0x0ed0a, 0x0ed12, 0x0ed12, 0x0ed26, 0x0ed28, 0x0ed2b, 0x0ed2d,
-+	 0x0ed2f, 0x0ed2f, 0x0ed40, 0x0ed41, 0x0ed45, 0x0ed45, 0x0ed47, 0x0ed47,
-+	 0x0ed4a, 0x0ed4a, 0x0ed52, 0x0ed52, 0x0ed66, 0x0ed68, 0x0ed6b, 0x0ed6d,
-+	 0x0ed6f, 0x0ed6f, 0x0ed80, 0x0ed81, 0x0ed85, 0x0ed85, 0x0ed87, 0x0ed87,
-+	 0x0ed8a, 0x0ed8a, 0x0ed92, 0x0ed92, 0x0eda6, 0x0eda8, 0x0edab, 0x0edad,
-+	 0x0edaf, 0x0edaf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_gpu_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'GRAS', 'PC']
-+ * Block   : ['RBBM', 'RDVM', 'UCHE']
-+ * Block   : ['VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 12 (Regs:86)
-+ */
-+static const u32 pakala_gpu_slice_registers[] = {
-+	 0x00500, 0x00500, 0x00583, 0x00584, 0x00586, 0x0058b, 0x0058f, 0x00599,
-+	 0x005a0, 0x005b3, 0x005c0, 0x005c0, 0x005c2, 0x005c6, 0x005e0, 0x005e3,
-+	 0x005ec, 0x005ec, 0x00f01, 0x00f02, 0x00f04, 0x00f0c, 0x00f20, 0x00f37,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_gpu_slice_registers), 8));
-+
-+/*
-+ * Block   : ['GMUGX']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 15 (Regs:174)
-+ */
-+static const u32 pakala_gmugx_registers[] = {
-+	 0x0dc00, 0x0dc0d, 0x0dc10, 0x0dc11, 0x0dc13, 0x0dc15, 0x0dc18, 0x0dc1a,
-+	 0x0dc1c, 0x0dc2f, 0x0dc40, 0x0dc42, 0x0dc60, 0x0dc7f, 0x0dc88, 0x0dc90,
-+	 0x0dc98, 0x0dc99, 0x0dca0, 0x0dcbf, 0x0dcc8, 0x0dcd0, 0x0dcd8, 0x0dcd9,
-+	 0x0dce0, 0x0dcff, 0x0dd08, 0x0dd10, 0x0dd18, 0x0dd19,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_gmugx_registers), 8));
-+
-+/*
-+ * Block   : ['GMUGX']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 23 (Regs:312)
-+ */
-+static const u32 pakala_gmugx_slice_registers[] = {
-+	 0x0e400, 0x0e401, 0x0e404, 0x0e40a, 0x0e40e, 0x0e42f, 0x0e438, 0x0e440,
-+	 0x0e448, 0x0e449, 0x0e450, 0x0e46f, 0x0e478, 0x0e480, 0x0e488, 0x0e489,
-+	 0x0e490, 0x0e4af, 0x0e4b8, 0x0e4c0, 0x0e4c8, 0x0e4c9, 0x0e4d0, 0x0e4ef,
-+	 0x0e4f8, 0x0e500, 0x0e508, 0x0e509, 0x0e510, 0x0e52f, 0x0e538, 0x0e540,
-+	 0x0e548, 0x0e549, 0x0e550, 0x0e56f, 0x0e578, 0x0e580, 0x0e588, 0x0e589,
-+	 0x0e590, 0x0e5af, 0x0e5b8, 0x0e5c0, 0x0e5c8, 0x0e5c9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_gmugx_slice_registers), 8));
-+
-+/*
-+ * Block   : ['GMUAO']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 39 (Regs:61)
-+ */
-+static const u32 pakala_gmuao_registers[] = {
-+	 0x23801, 0x23801, 0x23803, 0x23803, 0x23805, 0x23805, 0x23807, 0x23807,
-+	 0x23809, 0x23809, 0x2380b, 0x2380b, 0x2380d, 0x2380d, 0x2380f, 0x2380f,
-+	 0x23811, 0x23811, 0x23813, 0x23813, 0x23815, 0x23815, 0x23817, 0x23817,
-+	 0x23819, 0x23819, 0x2381b, 0x2381b, 0x2381d, 0x2381d, 0x2381f, 0x23820,
-+	 0x23822, 0x23822, 0x23824, 0x23824, 0x23826, 0x23826, 0x23828, 0x23828,
-+	 0x2382a, 0x2382a, 0x2382c, 0x2382c, 0x2382e, 0x2382e, 0x23830, 0x23830,
-+	 0x23832, 0x23832, 0x23834, 0x23834, 0x23836, 0x23836, 0x23838, 0x23838,
-+	 0x2383a, 0x2383a, 0x2383c, 0x2383c, 0x2383e, 0x2383e, 0x23840, 0x23847,
-+	 0x23b00, 0x23b01, 0x23b03, 0x23b03, 0x23b05, 0x23b0e, 0x23b10, 0x23b13,
-+	 0x23b15, 0x23b16, 0x23b28, 0x23b28, 0x23b30, 0x23b30,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_gmuao_registers), 8));
-+
-+/*
-+ * Block   : ['GMUCX', 'GMUCX_RAM']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 99 (Regs:521)
-+ */
-+static const u32 pakala_gmucx_registers[] = {
-+	 0x1f400, 0x1f40b, 0x1f40f, 0x1f411, 0x1f500, 0x1f500, 0x1f507, 0x1f507,
-+	 0x1f509, 0x1f50b, 0x1f700, 0x1f701, 0x1f704, 0x1f706, 0x1f708, 0x1f709,
-+	 0x1f70c, 0x1f70d, 0x1f710, 0x1f711, 0x1f713, 0x1f716, 0x1f718, 0x1f71d,
-+	 0x1f720, 0x1f725, 0x1f729, 0x1f729, 0x1f730, 0x1f747, 0x1f750, 0x1f75a,
-+	 0x1f75c, 0x1f75c, 0x1f780, 0x1f781, 0x1f784, 0x1f78b, 0x1f790, 0x1f797,
-+	 0x1f7a0, 0x1f7a7, 0x1f7b0, 0x1f7b7, 0x1f7e0, 0x1f7e1, 0x1f7e4, 0x1f7e5,
-+	 0x1f7e8, 0x1f7e9, 0x1f7ec, 0x1f7ed, 0x1f800, 0x1f804, 0x1f807, 0x1f808,
-+	 0x1f80b, 0x1f80c, 0x1f80f, 0x1f80f, 0x1f811, 0x1f811, 0x1f813, 0x1f817,
-+	 0x1f819, 0x1f81c, 0x1f824, 0x1f830, 0x1f840, 0x1f842, 0x1f848, 0x1f848,
-+	 0x1f84c, 0x1f84c, 0x1f850, 0x1f850, 0x1f858, 0x1f859, 0x1f868, 0x1f869,
-+	 0x1f878, 0x1f883, 0x1f930, 0x1f931, 0x1f934, 0x1f935, 0x1f938, 0x1f939,
-+	 0x1f93c, 0x1f93d, 0x1f940, 0x1f941, 0x1f943, 0x1f943, 0x1f948, 0x1f94a,
-+	 0x1f94f, 0x1f951, 0x1f954, 0x1f955, 0x1f95d, 0x1f95d, 0x1f962, 0x1f96b,
-+	 0x1f97c, 0x1f97e, 0x1f980, 0x1f981, 0x1f984, 0x1f986, 0x1f992, 0x1f993,
-+	 0x1f996, 0x1f99e, 0x1f9c0, 0x1f9cf, 0x1f9f0, 0x1f9f1, 0x1f9f8, 0x1f9fa,
-+	 0x1f9fc, 0x1f9fc, 0x1fa00, 0x1fa03, 0x1fc00, 0x1fc01, 0x1fc04, 0x1fc07,
-+	 0x1fc10, 0x1fc10, 0x1fc14, 0x1fc14, 0x1fc18, 0x1fc19, 0x1fc20, 0x1fc20,
-+	 0x1fc24, 0x1fc26, 0x1fc30, 0x1fc33, 0x1fc38, 0x1fc3b, 0x1fc40, 0x1fc49,
-+	 0x1fc50, 0x1fc59, 0x1fc60, 0x1fc7f, 0x1fca0, 0x1fcef, 0x20000, 0x20007,
-+	 0x20010, 0x20015, 0x20018, 0x2001a, 0x2001c, 0x2001d, 0x20020, 0x20021,
-+	 0x20024, 0x20025, 0x2002a, 0x2002c, 0x20030, 0x20031, 0x20034, 0x20036,
-+	 0x20080, 0x20087, 0x20300, 0x20301, 0x20304, 0x20305, 0x20308, 0x2030c,
-+	 0x20310, 0x20314, 0x20318, 0x2031a, 0x20320, 0x20322, 0x20324, 0x20326,
-+	 0x20328, 0x2032a, 0x20330, 0x20333, 0x20338, 0x20338, 0x20340, 0x20350,
-+	 0x20354, 0x2035b, 0x20360, 0x20367, 0x20370, 0x20377,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_gmucx_registers), 8));
-+
-+/*
-+ * Block   : ['CX_MISC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 7 (Regs:58)
-+ */
-+static const u32 pakala_cx_misc_registers[] = {
-+	 0x27800, 0x27800, 0x27810, 0x27814, 0x27820, 0x27824, 0x27828, 0x2782a,
-+	 0x27832, 0x27857, 0x27880, 0x27883, 0x27c00, 0x27c01,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_cx_misc_registers), 8));
-+
-+/*
-+ * Block   : ['DBGC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 21 (Regs:152)
-+ */
-+static const u32 pakala_dbgc_registers[] = {
-+	 0x00600, 0x0061c, 0x0061e, 0x0063d, 0x00640, 0x00644, 0x00650, 0x00655,
-+	 0x00660, 0x00660, 0x00662, 0x00668, 0x0066a, 0x0066a, 0x00680, 0x00685,
-+	 0x00700, 0x00704, 0x00707, 0x0070a, 0x0070f, 0x00716, 0x00720, 0x00724,
-+	 0x00730, 0x00732, 0x00740, 0x00740, 0x00742, 0x0074a, 0x00750, 0x00755,
-+	 0x00759, 0x0075c, 0x00760, 0x00763, 0x00770, 0x00770, 0x00780, 0x0078d,
-+	 0x00790, 0x00790,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_dbgc_registers), 8));
-+
-+/*
-+ * Block   : ['DBGC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 2 (Regs:61)
-+ */
-+static const u32 pakala_dbgc_slice_registers[] = {
-+	 0x007a0, 0x007d5, 0x007e0, 0x007e6,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_dbgc_slice_registers), 8));
-+
-+/*
-+ * Block   : ['CX_DBGC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_NONE
-+ * pairs   : 6 (Regs:75)
-+ */
-+static const u32 pakala_cx_dbgc_registers[] = {
-+	 0x18400, 0x1841c, 0x1841e, 0x1843d, 0x18440, 0x18444, 0x18450, 0x18455,
-+	 0x1846a, 0x1846a, 0x18580, 0x18581,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_cx_dbgc_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_NONE
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 14 (Regs:307)
-+ */
-+static const u32 pakala_cp_cp_pipe_none_registers[] = {
-+	 0x00800, 0x0081e, 0x00820, 0x0082d, 0x00838, 0x0083e, 0x00840, 0x00847,
-+	 0x0084b, 0x0084c, 0x00850, 0x0088f, 0x008b5, 0x008b6, 0x008c0, 0x008cb,
-+	 0x008d0, 0x008e4, 0x008e7, 0x008ee, 0x008fa, 0x008fd, 0x00928, 0x00929,
-+	 0x00958, 0x0095b, 0x00980, 0x009ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_cp_cp_pipe_none_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 8 (Regs:96)
-+ */
-+static const u32 pakala_cp_cp_pipe_br_registers[] = {
-+	 0x00830, 0x00837, 0x0084d, 0x0084f, 0x008a0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f9, 0x00900, 0x0091e, 0x00920, 0x00926, 0x00930, 0x0093a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_cp_cp_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : SLICE
-+ * Pipeline: CP_PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:23)
-+ */
-+static const u32 pakala_cp_slice_cp_pipe_br_registers[] = {
-+	 0x00b00, 0x00b0c, 0x00b10, 0x00b10, 0x00b80, 0x00b84, 0x00b90, 0x00b93,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_cp_slice_cp_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:72)
-+ */
-+static const u32 pakala_cp_cp_pipe_bv_registers[] = {
-+	 0x00830, 0x00835, 0x0084d, 0x0084f, 0x008b0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f9, 0x00900, 0x00913, 0x00918, 0x0091d, 0x00920, 0x00925,
-+	 0x00930, 0x0093a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_cp_cp_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : SLICE
-+ * Pipeline: CP_PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:23)
-+ */
-+static const u32 pakala_cp_slice_cp_pipe_bv_registers[] = {
-+	 0x00b00, 0x00b0c, 0x00b10, 0x00b10, 0x00b80, 0x00b84, 0x00b90, 0x00b93,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_cp_slice_cp_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_LPAC
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:77)
-+ */
-+static const u32 pakala_cp_cp_pipe_lpac_registers[] = {
-+	 0x00830, 0x00837, 0x0084d, 0x0084f, 0x008a0, 0x008b4, 0x008b7, 0x008bb,
-+	 0x008f0, 0x008f5, 0x008f8, 0x008f9, 0x00900, 0x00913, 0x00918, 0x0091d,
-+	 0x00920, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_cp_cp_pipe_lpac_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_AQE0
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:22)
-+ */
-+static const u32 pakala_cp_cp_pipe_aqe0_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x00910, 0x00913,
-+	 0x0091d, 0x0091d, 0x00925, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_cp_cp_pipe_aqe0_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_AQE1
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 10 (Regs:22)
-+ */
-+static const u32 pakala_cp_cp_pipe_aqe1_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x00910, 0x00913,
-+	 0x0091d, 0x0091d, 0x00925, 0x00925,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_cp_cp_pipe_aqe1_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_DDE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:36)
-+ */
-+static const u32 pakala_cp_cp_pipe_dde_br_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x008fe, 0x008ff,
-+	 0x0090c, 0x00917, 0x0091c, 0x0091e, 0x00924, 0x00926,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_cp_cp_pipe_dde_br_registers), 8));
-+
-+/*
-+ * Block   : ['CP']
-+ * REGION  : UNSLICE
-+ * Pipeline: CP_PIPE_DDE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:36)
-+ */
-+static const u32 pakala_cp_cp_pipe_dde_bv_registers[] = {
-+	 0x0084d, 0x0084d, 0x008b0, 0x008b4, 0x008b7, 0x008b9, 0x008bb, 0x008bb,
-+	 0x008f0, 0x008f1, 0x008f4, 0x008f5, 0x008f8, 0x008f9, 0x008fe, 0x008ff,
-+	 0x0090c, 0x00917, 0x0091c, 0x0091e, 0x00924, 0x00926,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_cp_cp_pipe_dde_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:1124)
-+ */
-+static const u32 pakala_non_context_pipe_br_registers[] = {
-+	 0x09600, 0x09605, 0x09610, 0x09617, 0x09620, 0x09627, 0x09670, 0x0967b,
-+	 0x09e00, 0x09e04, 0x09e06, 0x09e15, 0x09e17, 0x09e23, 0x09e30, 0x09e3f,
-+	 0x09e50, 0x09e59, 0x09e60, 0x09e65, 0x0d200, 0x0d5ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_non_context_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 21 (Regs:300)
-+ */
-+static const u32 pakala_non_context_slice_pipe_br_registers[] = {
-+	 0x08600, 0x08602, 0x08610, 0x08613, 0x08700, 0x08703, 0x08710, 0x08713,
-+	 0x08720, 0x08723, 0x08730, 0x08733, 0x08740, 0x08744, 0x09680, 0x09681,
-+	 0x09690, 0x0969b, 0x09740, 0x09745, 0x09750, 0x0975b, 0x09770, 0x097ef,
-+	 0x09f00, 0x09f0f, 0x09f20, 0x09f23, 0x09f30, 0x09f31, 0x0a600, 0x0a600,
-+	 0x0a603, 0x0a603, 0x0a610, 0x0a61f, 0x0a630, 0x0a632, 0x0a638, 0x0a63c,
-+	 0x0a640, 0x0a67f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_non_context_slice_pipe_br_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 11 (Regs:1124)
-+ */
-+static const u32 pakala_non_context_pipe_bv_registers[] = {
-+	 0x09600, 0x09605, 0x09610, 0x09617, 0x09620, 0x09627, 0x09670, 0x0967b,
-+	 0x09e00, 0x09e04, 0x09e06, 0x09e15, 0x09e17, 0x09e23, 0x09e30, 0x09e3f,
-+	 0x09e50, 0x09e59, 0x09e60, 0x09e65, 0x0d200, 0x0d5ff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_non_context_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 21 (Regs:300)
-+ */
-+static const u32 pakala_non_context_slice_pipe_bv_registers[] = {
-+	 0x08600, 0x08602, 0x08610, 0x08613, 0x08700, 0x08703, 0x08710, 0x08713,
-+	 0x08720, 0x08723, 0x08730, 0x08733, 0x08740, 0x08744, 0x09680, 0x09681,
-+	 0x09690, 0x0969b, 0x09740, 0x09745, 0x09750, 0x0975b, 0x09770, 0x097ef,
-+	 0x09f00, 0x09f0f, 0x09f20, 0x09f23, 0x09f30, 0x09f31, 0x0a600, 0x0a600,
-+	 0x0a603, 0x0a603, 0x0a610, 0x0a61f, 0x0a630, 0x0a632, 0x0a638, 0x0a63c,
-+	 0x0a640, 0x0a67f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_non_context_slice_pipe_bv_registers), 8));
-+
-+/*
-+ * Block   : ['BROADCAST', 'CX_DBGC', 'CX_MISC', 'DBGC', 'GBIF', 'GMUAO']
-+ * Block   : ['GMUCX', 'GMUGX', 'GRAS', 'PC', 'RBBM']
-+ * Block   : ['RDVM', 'UCHE', 'VFD', 'VPC', 'VSC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 1 (Regs:1)
-+ */
-+static const u32 pakala_non_context_pipe_lpac_registers[] = {
-+	 0x00e14, 0x00e14,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_non_context_pipe_lpac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 4 (Regs:26)
-+ */
-+static const u32 pakala_non_context_rb_pipe_br_rbp_registers[] = {
-+	 0x08f00, 0x08f07, 0x08f10, 0x08f15, 0x08f20, 0x08f29, 0x08f30, 0x08f31,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_non_context_rb_pipe_br_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 5 (Regs:32)
-+ */
-+static const u32 pakala_non_context_rb_slice_pipe_br_rac_registers[] = {
-+	 0x08e09, 0x08e0b, 0x08e10, 0x08e17, 0x08e51, 0x08e5a, 0x08e69, 0x08e6f,
-+	 0x08ea0, 0x08ea3,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_non_context_rb_slice_pipe_br_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * pairs   : 9 (Regs:28)
-+ */
-+static const u32 pakala_non_context_rb_slice_pipe_br_rbp_registers[] = {
-+	 0x08e01, 0x08e01, 0x08e04, 0x08e04, 0x08e06, 0x08e08, 0x08e0c, 0x08e0c,
-+	 0x08e18, 0x08e1c, 0x08e3b, 0x08e40, 0x08e50, 0x08e50, 0x08e5d, 0x08e5d,
-+	 0x08e77, 0x08e7f,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_non_context_rb_slice_pipe_br_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * Location: HLSQ_STATE
-+ * pairs   : 8 (Regs:34)
-+ */
-+static const u32 pakala_non_context_sp_pipe_br_hlsq_state_registers[] = {
-+	 0x0ae05, 0x0ae05, 0x0ae10, 0x0ae13, 0x0ae15, 0x0ae16, 0x0ae52, 0x0ae52,
-+	 0x0ae60, 0x0ae67, 0x0ae69, 0x0ae6e, 0x0ae70, 0x0ae75, 0x0aec0, 0x0aec5,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_non_context_sp_pipe_br_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * Location: SP_TOP
-+ * pairs   : 6 (Regs:60)
-+ */
-+static const u32 pakala_non_context_sp_pipe_br_sp_top_registers[] = {
-+	 0x0ae00, 0x0ae0c, 0x0ae0f, 0x0ae0f, 0x0ae35, 0x0ae35, 0x0ae3a, 0x0ae3f,
-+	 0x0ae50, 0x0ae52, 0x0ae80, 0x0aea3,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_non_context_sp_pipe_br_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * Location: USPTP
-+ * pairs   : 9 (Regs:64)
-+ */
-+static const u32 pakala_non_context_sp_pipe_br_usptp_registers[] = {
-+	 0x0ae00, 0x0ae0c, 0x0ae0f, 0x0ae0f, 0x0ae17, 0x0ae19, 0x0ae30, 0x0ae32,
-+	 0x0ae35, 0x0ae35, 0x0ae3a, 0x0ae3b, 0x0ae3e, 0x0ae3f, 0x0ae50, 0x0ae52,
-+	 0x0ae80, 0x0aea3,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_non_context_sp_pipe_br_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_NONE
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:48)
-+ */
-+static const u32 pakala_non_context_tpl1_pipe_br_usptp_registers[] = {
-+	 0x0b600, 0x0b600, 0x0b602, 0x0b602, 0x0b604, 0x0b604, 0x0b606, 0x0b61e,
-+	 0x0b620, 0x0b633,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_non_context_tpl1_pipe_br_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 8 (Regs:232)
-+ */
-+static const u32 pakala_gras_slice_pipe_br_cluster_vpc_vs_registers[] = {
-+	 0x08200, 0x08213, 0x08220, 0x08225, 0x08230, 0x0823b, 0x08240, 0x0825f,
-+	 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_gras_slice_pipe_br_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_GRAS
-+ * pairs   : 13 (Regs:326)
-+ */
-+static const u32 pakala_gras_slice_pipe_br_cluster_gras_registers[] = {
-+	 0x08080, 0x08080, 0x08086, 0x08092, 0x080c0, 0x080df, 0x08101, 0x08110,
-+	 0x08130, 0x0814f, 0x08200, 0x08213, 0x08220, 0x08225, 0x08230, 0x0823b,
-+	 0x08240, 0x0825f, 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f,
-+	 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_gras_slice_pipe_br_cluster_gras_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 8 (Regs:232)
-+ */
-+static const u32 pakala_gras_slice_pipe_bv_cluster_vpc_vs_registers[] = {
-+	 0x08200, 0x08213, 0x08220, 0x08225, 0x08230, 0x0823b, 0x08240, 0x0825f,
-+	 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f, 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_gras_slice_pipe_bv_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['GRAS']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_GRAS
-+ * pairs   : 13 (Regs:326)
-+ */
-+static const u32 pakala_gras_slice_pipe_bv_cluster_gras_registers[] = {
-+	 0x08080, 0x08080, 0x08086, 0x08092, 0x080c0, 0x080df, 0x08101, 0x08110,
-+	 0x08130, 0x0814f, 0x08200, 0x08213, 0x08220, 0x08225, 0x08230, 0x0823b,
-+	 0x08240, 0x0825f, 0x08270, 0x0828f, 0x0829f, 0x082b7, 0x082d0, 0x0832f,
-+	 0x08500, 0x08508,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_gras_slice_pipe_bv_cluster_gras_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_US
-+ * pairs   : 6 (Regs:35)
-+ */
-+static const u32 pakala_pc_pipe_br_cluster_fe_us_registers[] = {
-+	 0x09805, 0x09807, 0x0980b, 0x0980b, 0x09812, 0x09817, 0x0981a, 0x0981b,
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_pc_pipe_br_cluster_fe_us_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:23)
-+ */
-+static const u32 pakala_pc_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_pc_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_US
-+ * pairs   : 6 (Regs:35)
-+ */
-+static const u32 pakala_pc_pipe_bv_cluster_fe_us_registers[] = {
-+	 0x09805, 0x09807, 0x0980b, 0x0980b, 0x09812, 0x09817, 0x0981a, 0x0981b,
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_pc_pipe_bv_cluster_fe_us_registers), 8));
-+
-+/*
-+ * Block   : ['PC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:23)
-+ */
-+static const u32 pakala_pc_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x09b00, 0x09b0d, 0x09b10, 0x09b18,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_pc_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VFD']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:236)
-+ */
-+static const u32 pakala_vfd_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x0a000, 0x0a009, 0x0a00e, 0x0a0ef,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_vfd_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VFD']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 2 (Regs:236)
-+ */
-+static const u32 pakala_vfd_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x0a000, 0x0a009, 0x0a00e, 0x0a0ef,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_vfd_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 1 (Regs:27)
-+ */
-+static const u32 pakala_vpc_slice_pipe_br_cluster_fe_s_registers[] = {
-+	 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_vpc_slice_pipe_br_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 2 (Regs:29)
-+ */
-+static const u32 pakala_vpc_slice_pipe_br_cluster_vpc_vs_registers[] = {
-+	 0x090c0, 0x090c1, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_vpc_slice_pipe_br_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_US
-+ * pairs   : 3 (Regs:58)
-+ */
-+static const u32 pakala_vpc_pipe_br_cluster_vpc_us_registers[] = {
-+	 0x09180, 0x09180, 0x09182, 0x0919f, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_vpc_pipe_br_cluster_vpc_us_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_VPC_PS
-+ * pairs   : 4 (Regs:52)
-+ */
-+static const u32 pakala_vpc_slice_pipe_br_cluster_vpc_ps_registers[] = {
-+	 0x09240, 0x0924f, 0x09252, 0x09255, 0x09278, 0x0927c, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_vpc_slice_pipe_br_cluster_vpc_ps_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_FE_S
-+ * pairs   : 1 (Regs:27)
-+ */
-+static const u32 pakala_vpc_slice_pipe_bv_cluster_fe_s_registers[] = {
-+	 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_vpc_slice_pipe_bv_cluster_fe_s_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_VS
-+ * pairs   : 2 (Regs:29)
-+ */
-+static const u32 pakala_vpc_slice_pipe_bv_cluster_vpc_vs_registers[] = {
-+	 0x090c0, 0x090c1, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_vpc_slice_pipe_bv_cluster_vpc_vs_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : UNSLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_US
-+ * pairs   : 3 (Regs:58)
-+ */
-+static const u32 pakala_vpc_pipe_bv_cluster_vpc_us_registers[] = {
-+	 0x09180, 0x09180, 0x09182, 0x0919f, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_vpc_pipe_bv_cluster_vpc_us_registers), 8));
-+
-+/*
-+ * Block   : ['VPC']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_VPC_PS
-+ * pairs   : 4 (Regs:52)
-+ */
-+static const u32 pakala_vpc_slice_pipe_bv_cluster_vpc_ps_registers[] = {
-+	 0x09240, 0x0924f, 0x09252, 0x09255, 0x09278, 0x0927c, 0x09300, 0x0931a,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_vpc_slice_pipe_bv_cluster_vpc_ps_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 36 (Regs:151)
-+ */
-+static const u32 pakala_rb_slice_pipe_br_cluster_ps_rac_registers[] = {
-+	 0x08802, 0x08802, 0x08804, 0x0880a, 0x0880e, 0x08811, 0x08813, 0x08814,
-+	 0x08818, 0x0881e, 0x08821, 0x08821, 0x08823, 0x08826, 0x08829, 0x08829,
-+	 0x0882b, 0x0882e, 0x08831, 0x08831, 0x08833, 0x08836, 0x08839, 0x08839,
-+	 0x0883b, 0x0883e, 0x08841, 0x08841, 0x08843, 0x08846, 0x08849, 0x08849,
-+	 0x0884b, 0x0884e, 0x08851, 0x08851, 0x08853, 0x08856, 0x08859, 0x08859,
-+	 0x0885b, 0x0885e, 0x08860, 0x08864, 0x08870, 0x08870, 0x08873, 0x08876,
-+	 0x08878, 0x08879, 0x08882, 0x08885, 0x08887, 0x08889, 0x08891, 0x08891,
-+	 0x08898, 0x08899, 0x088b0, 0x088cf, 0x088e5, 0x088e5, 0x088f4, 0x088f5,
-+	 0x08930, 0x08937, 0x08c00, 0x08c01, 0x08c18, 0x08c1f, 0x08c26, 0x08c34,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_rb_slice_pipe_br_cluster_ps_rac_registers), 8));
-+
-+/*
-+ * Block   : ['RB']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_PS
-+ * pairs   : 36 (Regs:104)
-+ */
-+static const u32 pakala_rb_slice_pipe_br_cluster_ps_rbp_registers[] = {
-+	 0x08800, 0x08801, 0x08803, 0x08803, 0x0880b, 0x0880d, 0x08812, 0x08812,
-+	 0x08815, 0x08816, 0x08820, 0x08820, 0x08822, 0x08822, 0x08827, 0x08828,
-+	 0x0882a, 0x0882a, 0x0882f, 0x08830, 0x08832, 0x08832, 0x08837, 0x08838,
-+	 0x0883a, 0x0883a, 0x0883f, 0x08840, 0x08842, 0x08842, 0x08847, 0x08848,
-+	 0x0884a, 0x0884a, 0x0884f, 0x08850, 0x08852, 0x08852, 0x08857, 0x08858,
-+	 0x0885a, 0x0885a, 0x0885f, 0x0885f, 0x08865, 0x08865, 0x08871, 0x08872,
-+	 0x08877, 0x08877, 0x08880, 0x08881, 0x08886, 0x08886, 0x08890, 0x08890,
-+	 0x088d0, 0x088e4, 0x088e6, 0x088e6, 0x088e8, 0x088ea, 0x088f0, 0x088f1,
-+	 0x08900, 0x0891a, 0x08927, 0x08928, 0x08c17, 0x08c17, 0x08c20, 0x08c25,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_rb_slice_pipe_br_cluster_ps_rbp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 29 (Regs:114)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers[] = {
-+	 0x0a800, 0x0a801, 0x0a81b, 0x0a81d, 0x0a822, 0x0a822, 0x0a824, 0x0a824,
-+	 0x0a827, 0x0a82a, 0x0a830, 0x0a830, 0x0a832, 0x0a835, 0x0a83a, 0x0a83a,
-+	 0x0a83c, 0x0a83c, 0x0a83f, 0x0a841, 0x0a85b, 0x0a85d, 0x0a862, 0x0a862,
-+	 0x0a864, 0x0a864, 0x0a867, 0x0a867, 0x0a870, 0x0a870, 0x0a872, 0x0a872,
-+	 0x0a88c, 0x0a88e, 0x0a893, 0x0a893, 0x0a895, 0x0a895, 0x0a898, 0x0a898,
-+	 0x0a89a, 0x0a89d, 0x0a8b0, 0x0a8bb, 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977,
-+	 0x0ab00, 0x0ab03, 0x0ab05, 0x0ab05, 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab23,
-+	 0x0abd0, 0x0abff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 23 (Regs:39)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers[] = {
-+	 0x0a800, 0x0a800, 0x0a81c, 0x0a81d, 0x0a822, 0x0a824, 0x0a826, 0x0a826,
-+	 0x0a82d, 0x0a82d, 0x0a82f, 0x0a831, 0x0a834, 0x0a835, 0x0a83a, 0x0a83c,
-+	 0x0a83e, 0x0a83e, 0x0a840, 0x0a840, 0x0a85c, 0x0a85d, 0x0a862, 0x0a864,
-+	 0x0a866, 0x0a866, 0x0a868, 0x0a868, 0x0a870, 0x0a871, 0x0a88d, 0x0a88e,
-+	 0x0a893, 0x0a895, 0x0a897, 0x0a897, 0x0a899, 0x0a899, 0x0ab00, 0x0ab00,
-+	 0x0ab02, 0x0ab02, 0x0ab04, 0x0ab05, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 15 (Regs:145)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_vs_usptp_registers[] = {
-+	 0x0a800, 0x0a81b, 0x0a81e, 0x0a821, 0x0a823, 0x0a827, 0x0a82d, 0x0a82d,
-+	 0x0a82f, 0x0a833, 0x0a836, 0x0a839, 0x0a83b, 0x0a85b, 0x0a85e, 0x0a861,
-+	 0x0a863, 0x0a868, 0x0a870, 0x0a88c, 0x0a88f, 0x0a892, 0x0a894, 0x0a899,
-+	 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977, 0x0ab00, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 21 (Regs:88)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers[] = {
-+	 0x0a980, 0x0a984, 0x0a99e, 0x0a99e, 0x0a9a7, 0x0a9a7, 0x0a9aa, 0x0a9aa,
-+	 0x0a9af, 0x0a9b0, 0x0a9b2, 0x0a9b5, 0x0a9ba, 0x0a9ba, 0x0a9bc, 0x0a9bc,
-+	 0x0a9c4, 0x0a9c4, 0x0a9c6, 0x0a9c6, 0x0a9cd, 0x0a9cd, 0x0a9fa, 0x0a9fc,
-+	 0x0aa00, 0x0aa00, 0x0aa0d, 0x0aa12, 0x0aa30, 0x0aa31, 0x0aaf2, 0x0aaf3,
-+	 0x0ab00, 0x0ab03, 0x0ab05, 0x0ab05, 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab23,
-+	 0x0abd0, 0x0abff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:44)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers[] = {
-+	 0x0a9e0, 0x0a9f9, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_DP
-+ * pairs   : 2 (Regs:13)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers[] = {
-+	 0x0a9b1, 0x0a9b1, 0x0a9d4, 0x0a9df,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 17 (Regs:34)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers[] = {
-+	 0x0a980, 0x0a980, 0x0a982, 0x0a984, 0x0a99e, 0x0a9a2, 0x0a9a7, 0x0a9a8,
-+	 0x0a9aa, 0x0a9ab, 0x0a9ae, 0x0a9ae, 0x0a9b0, 0x0a9b1, 0x0a9b3, 0x0a9b5,
-+	 0x0a9ba, 0x0a9bc, 0x0a9be, 0x0a9be, 0x0a9c5, 0x0a9c5, 0x0a9ce, 0x0a9ce,
-+	 0x0aa00, 0x0aa03, 0x0ab00, 0x0ab00, 0x0ab02, 0x0ab02, 0x0ab04, 0x0ab05,
-+	 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:44)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers[] = {
-+	 0x0a9e0, 0x0a9f9, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 15 (Regs:89)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_ps_usptp_registers[] = {
-+	 0x0a980, 0x0a982, 0x0a985, 0x0a9a6, 0x0a9a8, 0x0a9a9, 0x0a9ab, 0x0a9ae,
-+	 0x0a9b0, 0x0a9b3, 0x0a9b6, 0x0a9b9, 0x0a9bb, 0x0a9bf, 0x0a9c2, 0x0a9c3,
-+	 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0a9d0, 0x0a9d3, 0x0aa01, 0x0aa0c,
-+	 0x0aa30, 0x0aa31, 0x0aaf2, 0x0aaf3, 0x0ab00, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 pakala_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 28 (Regs:112)
-+ */
-+static const u32 pakala_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers[] = {
-+	 0x0a800, 0x0a801, 0x0a81b, 0x0a81d, 0x0a822, 0x0a822, 0x0a824, 0x0a824,
-+	 0x0a827, 0x0a82a, 0x0a830, 0x0a830, 0x0a832, 0x0a835, 0x0a83a, 0x0a83a,
-+	 0x0a83c, 0x0a83c, 0x0a83f, 0x0a841, 0x0a85b, 0x0a85d, 0x0a862, 0x0a862,
-+	 0x0a864, 0x0a864, 0x0a867, 0x0a867, 0x0a870, 0x0a870, 0x0a872, 0x0a872,
-+	 0x0a88c, 0x0a88e, 0x0a893, 0x0a893, 0x0a895, 0x0a895, 0x0a898, 0x0a898,
-+	 0x0a89a, 0x0a89d, 0x0a8b0, 0x0a8bb, 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977,
-+	 0x0ab00, 0x0ab02, 0x0ab09, 0x0ab09, 0x0ab23, 0x0ab23, 0x0abd0, 0x0abff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 pakala_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: HLSQ_STATE
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 pakala_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 22 (Regs:37)
-+ */
-+static const u32 pakala_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers[] = {
-+	 0x0a800, 0x0a800, 0x0a81c, 0x0a81d, 0x0a822, 0x0a824, 0x0a826, 0x0a826,
-+	 0x0a82d, 0x0a82d, 0x0a82f, 0x0a831, 0x0a834, 0x0a835, 0x0a83a, 0x0a83c,
-+	 0x0a83e, 0x0a83e, 0x0a840, 0x0a840, 0x0a85c, 0x0a85d, 0x0a862, 0x0a864,
-+	 0x0a866, 0x0a866, 0x0a868, 0x0a868, 0x0a870, 0x0a871, 0x0a88d, 0x0a88e,
-+	 0x0a893, 0x0a895, 0x0a897, 0x0a897, 0x0a899, 0x0a899, 0x0ab00, 0x0ab00,
-+	 0x0ab02, 0x0ab02, 0x0ab09, 0x0ab09,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:34)
-+ */
-+static const u32 pakala_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers[] = {
-+	 0x0a8a0, 0x0a8af, 0x0ab0a, 0x0ab1b,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 16 (Regs:142)
-+ */
-+static const u32 pakala_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers[] = {
-+	 0x0a800, 0x0a81b, 0x0a81e, 0x0a821, 0x0a823, 0x0a827, 0x0a82d, 0x0a82d,
-+	 0x0a82f, 0x0a833, 0x0a836, 0x0a839, 0x0a83b, 0x0a85b, 0x0a85e, 0x0a861,
-+	 0x0a863, 0x0a868, 0x0a870, 0x0a88c, 0x0a88f, 0x0a892, 0x0a894, 0x0a899,
-+	 0x0a8c0, 0x0a8c3, 0x0a974, 0x0a977, 0x0ab00, 0x0ab02, 0x0ab06, 0x0ab07,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 1 (Regs:160)
-+ */
-+static const u32 pakala_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers[] = {
-+	 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 14 (Regs:73)
-+ */
-+static const u32 pakala_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers[] = {
-+	 0x0a9b0, 0x0a9b0, 0x0a9b2, 0x0a9b5, 0x0a9ba, 0x0a9ba, 0x0a9bc, 0x0a9bc,
-+	 0x0a9c4, 0x0a9c4, 0x0a9cd, 0x0a9cd, 0x0a9fa, 0x0a9fc, 0x0aa00, 0x0aa00,
-+	 0x0aa10, 0x0aa12, 0x0aa31, 0x0aa35, 0x0aaf3, 0x0aaf3, 0x0ab00, 0x0ab01,
-+	 0x0ab23, 0x0ab23, 0x0abd0, 0x0abff,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:22)
-+ */
-+static const u32 pakala_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers[] = {
-+	 0x0a9e2, 0x0a9e3, 0x0a9e6, 0x0a9f9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_STATE
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 pakala_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: HLSQ_DP
-+ * pairs   : 2 (Regs:13)
-+ */
-+static const u32 pakala_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers[] = {
-+	 0x0a9b1, 0x0a9b1, 0x0a9d4, 0x0a9df,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 8 (Regs:13)
-+ */
-+static const u32 pakala_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers[] = {
-+	 0x0a9b0, 0x0a9b1, 0x0a9b3, 0x0a9b5, 0x0a9ba, 0x0a9bc, 0x0a9be, 0x0a9be,
-+	 0x0a9c5, 0x0a9c5, 0x0a9ce, 0x0a9ce, 0x0aa00, 0x0aa00, 0x0ab00, 0x0ab00,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: SP_TOP
-+ * pairs   : 2 (Regs:22)
-+ */
-+static const u32 pakala_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers[] = {
-+	 0x0a9e2, 0x0a9e3, 0x0a9e6, 0x0a9f9,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 11 (Regs:26)
-+ */
-+static const u32 pakala_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers[] = {
-+	 0x0a9b0, 0x0a9b3, 0x0a9b6, 0x0a9b9, 0x0a9bb, 0x0a9be, 0x0a9c2, 0x0a9c3,
-+	 0x0a9c5, 0x0a9c5, 0x0a9cd, 0x0a9ce, 0x0a9d0, 0x0a9d3, 0x0aa31, 0x0aa31,
-+	 0x0aaf3, 0x0aaf3, 0x0ab00, 0x0ab01, 0x0ab06, 0x0ab06,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['SP']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 2 (Regs:320)
-+ */
-+static const u32 pakala_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers[] = {
-+	 0x0aa40, 0x0aadf, 0x0ab30, 0x0abcf,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 pakala_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers[] = {
-+	 0x0b300, 0x0b304, 0x0b307, 0x0b307, 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BR
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 6 (Regs:41)
-+ */
-+static const u32 pakala_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers[] = {
-+	 0x0b180, 0x0b183, 0x0b190, 0x0b195, 0x0b2c0, 0x0b2d7, 0x0b300, 0x0b304,
-+	 0x0b307, 0x0b307, 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_BV
-+ * Cluster : CLUSTER_SP_VS
-+ * Location: USPTP
-+ * pairs   : 3 (Regs:7)
-+ */
-+static const u32 pakala_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers[] = {
-+	 0x0b300, 0x0b304, 0x0b307, 0x0b307, 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers), 8));
-+
-+/*
-+ * Block   : ['TPL1']
-+ * REGION  : SLICE
-+ * Pipeline: PIPE_LPAC
-+ * Cluster : CLUSTER_SP_PS
-+ * Location: USPTP
-+ * pairs   : 5 (Regs:7)
-+ */
-+static const u32 pakala_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers[] = {
-+	 0x0b180, 0x0b181, 0x0b300, 0x0b301, 0x0b304, 0x0b304, 0x0b307, 0x0b307,
-+	 0x0b309, 0x0b309,
-+	 UINT_MAX, UINT_MAX,
-+};
-+static_assert(IS_ALIGNED(sizeof(pakala_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers), 8));
-+
-+static const struct gen8_sel_reg pakala_rb_rac_sel = {
-+	.host_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_HOST,
-+	.cd_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_CD,
-+	.val = 0,
-+};
-+
-+static const struct gen8_sel_reg pakala_rb_rbp_sel = {
-+	.host_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_HOST,
-+	.cd_reg = GEN8_RB_SUB_BLOCK_SEL_CNTL_CD,
-+	.val = 0x9,
-+};
-+
-+static const struct gen8_cluster_registers pakala_cp_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_NONE, STATE_NON_CONTEXT,
-+		pakala_cp_cp_pipe_none_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_BR, STATE_NON_CONTEXT,
-+		pakala_cp_cp_pipe_br_registers,  },
-+	{ CLUSTER_NONE, SLICE, CP_PIPE_BR, STATE_NON_CONTEXT,
-+		pakala_cp_slice_cp_pipe_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_BV, STATE_NON_CONTEXT,
-+		pakala_cp_cp_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, SLICE, CP_PIPE_BV, STATE_NON_CONTEXT,
-+		pakala_cp_slice_cp_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_LPAC, STATE_NON_CONTEXT,
-+		pakala_cp_cp_pipe_lpac_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_AQE0, STATE_NON_CONTEXT,
-+		pakala_cp_cp_pipe_aqe0_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_AQE1, STATE_NON_CONTEXT,
-+		pakala_cp_cp_pipe_aqe1_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_DDE_BR, STATE_NON_CONTEXT,
-+		pakala_cp_cp_pipe_dde_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, CP_PIPE_DDE_BV, STATE_NON_CONTEXT,
-+		pakala_cp_cp_pipe_dde_bv_registers,  },
-+};
-+
-+static const struct gen8_cluster_registers pakala_mvc_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		pakala_non_context_pipe_br_registers,  },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		pakala_non_context_slice_pipe_br_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		pakala_non_context_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, SLICE, PIPE_BV, STATE_NON_CONTEXT,
-+		pakala_non_context_slice_pipe_bv_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_LPAC, STATE_NON_CONTEXT,
-+		pakala_non_context_pipe_lpac_registers,  },
-+	{ CLUSTER_NONE, UNSLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		pakala_non_context_rb_pipe_br_rbp_registers, &pakala_rb_rbp_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		pakala_non_context_rb_slice_pipe_br_rac_registers, &pakala_rb_rac_sel, },
-+	{ CLUSTER_NONE, SLICE, PIPE_BR, STATE_NON_CONTEXT,
-+		pakala_non_context_rb_slice_pipe_br_rbp_registers, &pakala_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		pakala_rb_slice_pipe_br_cluster_ps_rac_registers, &pakala_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		pakala_rb_slice_pipe_br_cluster_ps_rac_registers, &pakala_rb_rac_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		pakala_rb_slice_pipe_br_cluster_ps_rbp_registers, &pakala_rb_rbp_sel, },
-+	{ CLUSTER_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		pakala_rb_slice_pipe_br_cluster_ps_rbp_registers, &pakala_rb_rbp_sel, },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		pakala_gras_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		pakala_gras_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		pakala_gras_slice_pipe_br_cluster_gras_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		pakala_gras_slice_pipe_br_cluster_gras_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		pakala_gras_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		pakala_gras_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		pakala_gras_slice_pipe_bv_cluster_gras_registers,  },
-+	{ CLUSTER_GRAS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		pakala_gras_slice_pipe_bv_cluster_gras_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		pakala_pc_pipe_br_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		pakala_pc_pipe_br_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		pakala_pc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		pakala_pc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		pakala_pc_pipe_bv_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		pakala_pc_pipe_bv_cluster_fe_us_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		pakala_pc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		pakala_pc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		pakala_vfd_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		pakala_vfd_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		pakala_vfd_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		pakala_vfd_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		pakala_vpc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		pakala_vpc_slice_pipe_br_cluster_fe_s_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		pakala_vpc_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		pakala_vpc_slice_pipe_br_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		pakala_vpc_pipe_br_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		pakala_vpc_pipe_br_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_0,
-+		pakala_vpc_slice_pipe_br_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BR, STATE_FORCE_CTXT_1,
-+		pakala_vpc_slice_pipe_br_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		pakala_vpc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_FE_S, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		pakala_vpc_slice_pipe_bv_cluster_fe_s_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		pakala_vpc_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_VS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		pakala_vpc_slice_pipe_bv_cluster_vpc_vs_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		pakala_vpc_pipe_bv_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_US, UNSLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		pakala_vpc_pipe_bv_cluster_vpc_us_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_0,
-+		pakala_vpc_slice_pipe_bv_cluster_vpc_ps_registers,  },
-+	{ CLUSTER_VPC_PS, SLICE, PIPE_BV, STATE_FORCE_CTXT_1,
-+		pakala_vpc_slice_pipe_bv_cluster_vpc_ps_registers,  },
-+};
-+
-+static const struct gen8_sptp_cluster_registers pakala_sptp_clusters[] = {
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_BR, 0, HLSQ_STATE,
-+		pakala_non_context_sp_pipe_br_hlsq_state_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_BR, 0, SP_TOP,
-+		pakala_non_context_sp_pipe_br_sp_top_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, SP_NCTX_REG, PIPE_BR, 0, USPTP,
-+		pakala_non_context_sp_pipe_br_usptp_registers, 0xae00},
-+	{ CLUSTER_NONE, UNSLICE, 2, 1, TP0_NCTX_REG, PIPE_BR, 0, USPTP,
-+		pakala_non_context_tpl1_pipe_br_usptp_registers, 0xb600},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX0_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		pakala_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX0_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		pakala_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX0_3D_CVS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		pakala_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX0_3D_CVS_REG, PIPE_BR, 0, SP_TOP,
-+		pakala_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX0_3D_CVS_REG, PIPE_BR, 0, SP_TOP,
-+		pakala_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX0_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		pakala_sp_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX0_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		pakala_sp_slice_pipe_br_cluster_sp_vs_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX0_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		pakala_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX0_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		pakala_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX0_3D_CVS_REG, PIPE_BV, 0, HLSQ_STATE,
-+		pakala_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX0_3D_CVS_REG, PIPE_BV, 0, SP_TOP,
-+		pakala_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX0_3D_CVS_REG, PIPE_BV, 0, SP_TOP,
-+		pakala_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX0_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		pakala_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX0_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		pakala_sp_slice_pipe_bv_cluster_sp_vs_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX1_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		pakala_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX1_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		pakala_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX1_3D_CVS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		pakala_sp_slice_pipe_br_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX1_3D_CVS_REG, PIPE_BR, 1, SP_TOP,
-+		pakala_sp_slice_pipe_br_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX1_3D_CVS_REG, PIPE_BR, 1, SP_TOP,
-+		pakala_sp_slice_pipe_br_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX1_3D_CVS_REG, PIPE_BR, 1, USPTP,
-+		pakala_sp_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX1_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		pakala_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX1_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		pakala_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX1_3D_CVS_REG, PIPE_BV, 1, HLSQ_STATE,
-+		pakala_sp_slice_pipe_bv_cluster_sp_vs_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX1_3D_CVS_REG, PIPE_BV, 1, SP_TOP,
-+		pakala_sp_slice_pipe_bv_cluster_sp_vs_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX1_3D_CVS_REG, PIPE_BV, 1, SP_TOP,
-+		pakala_sp_slice_pipe_bv_cluster_sp_vs_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, SP_CTX1_3D_CVS_REG, PIPE_BV, 1, USPTP,
-+		pakala_sp_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, HLSQ_STATE,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, HLSQ_DP,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, SP_TOP,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, SP_TOP,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		pakala_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		pakala_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_STATE,
-+		pakala_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, HLSQ_DP,
-+		pakala_sp_slice_pipe_lpac_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, SP_TOP,
-+		pakala_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, SP_TOP,
-+		pakala_sp_slice_pipe_lpac_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		pakala_sp_slice_pipe_lpac_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX0_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		pakala_sp_slice_pipe_lpac_cluster_sp_ps_usptp_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX1_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX1_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX1_3D_CPS_REG, PIPE_BR, 1, HLSQ_STATE,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_state_shared_const_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX1_3D_CPS_REG, PIPE_BR, 1, HLSQ_DP,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX1_3D_CPS_REG, PIPE_BR, 1, SP_TOP,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_sp_top_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX1_3D_CPS_REG, PIPE_BR, 1, SP_TOP,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX1_3D_CPS_REG, PIPE_BR, 1, USPTP,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX2_3D_CPS_REG, PIPE_BR, 2, HLSQ_DP,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX2_3D_CPS_REG, PIPE_BR, 2, SP_TOP,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX3_3D_CPS_REG, PIPE_BR, 3, HLSQ_DP,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_hlsq_dp_registers, 0xa800},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, SP_CTX3_3D_CPS_REG, PIPE_BR, 3, SP_TOP,
-+		pakala_sp_slice_pipe_br_cluster_sp_ps_sp_top_cctx_registers, 0xa800},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP0_CTX0_3D_CVS_REG, PIPE_BR, 0, USPTP,
-+		pakala_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP0_CTX0_3D_CVS_REG, PIPE_BV, 0, USPTP,
-+		pakala_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP0_CTX1_3D_CVS_REG, PIPE_BR, 1, USPTP,
-+		pakala_tpl1_slice_pipe_br_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_VS, SLICE, 2, 1, TP0_CTX1_3D_CVS_REG, PIPE_BV, 1, USPTP,
-+		pakala_tpl1_slice_pipe_bv_cluster_sp_vs_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, TP0_CTX0_3D_CPS_REG, PIPE_BR, 0, USPTP,
-+		pakala_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, TP0_CTX0_3D_CPS_REG, PIPE_LPAC, 0, USPTP,
-+		pakala_tpl1_slice_pipe_lpac_cluster_sp_ps_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, TP0_CTX1_3D_CPS_REG, PIPE_BR, 1, USPTP,
-+		pakala_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, TP0_CTX2_3D_CPS_REG, PIPE_BR, 2, USPTP,
-+		pakala_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
-+	{ CLUSTER_SP_PS, SLICE, 2, 1, TP0_CTX3_3D_CPS_REG, PIPE_BR, 3, USPTP,
-+		pakala_tpl1_slice_pipe_br_cluster_sp_ps_usptp_registers, 0xb000},
-+};
-+
-+/* 
-+ * Before dumping the CP MVC
-+ * Program CP_APERTURE_CNTL_* with pipeID={CP_PIPE}
-+ * Then dump corresponding {Register_PIPE}
-+ */
-+
-+static const struct gen8_cp_indexed_reg pakala_cp_indexed_reg_list[] = {
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_BR, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_BV, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_LPAC, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_AQE0, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_AQE1, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_DDE_BR, 0x00040},
-+	{ 0x000008f0 /* CP_SQE_STAT_ADDR_PIPE               */, 0x000008f1 /* CP_SQE_STAT_DATA_PIPE               */, UNSLICE, CP_PIPE_DDE_BV, 0x00040},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_BR, 0x00200},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_BV, 0x00200},
-+	{ 0x000008f2 /* CP_DRAW_STATE_ADDR_PIPE             */, 0x000008f3 /* CP_DRAW_STATE_DATA_PIPE             */, UNSLICE, CP_PIPE_LPAC, 0x00200},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_BR, 0x00800},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_BV, 0x00800},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_LPAC, 0x00200},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_AQE0, 0x00100},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_AQE1, 0x00100},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_DDE_BR, 0x00100},
-+	{ 0x000008f4 /* CP_ROQ_DBG_ADDR_PIPE                */, 0x000008f5 /* CP_ROQ_DBG_DATA_PIPE                */, UNSLICE, CP_PIPE_DDE_BV, 0x00100},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_BR, 0x08000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_BV, 0x08000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_LPAC, 0x08000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_AQE0, 0x08000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_AQE1, 0x08000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_DDE_BR, 0x08000},
-+	{ 0x000008f8 /* CP_SQE_UCODE_DBG_ADDR_PIPE          */, 0x000008f9 /* CP_SQE_UCODE_DBG_DATA_PIPE          */, UNSLICE, CP_PIPE_DDE_BV, 0x08000},
-+	{ 0x000008fa /* CP_RESOURCE_TABLE_DBG_ADDR_BV       */, 0x000008fb /* CP_RESOURCE_TABLE_DBG_DATA_BV       */, UNSLICE, CP_PIPE_NONE, 0x04100},
-+	{ 0x000008fc /* CP_FIFO_DBG_ADDR_LPAC               */, 0x000008fd /* CP_FIFO_DBG_DATA_LPAC               */, UNSLICE, CP_PIPE_NONE, 0x00040},
-+	{ 0x000008fe /* CP_FIFO_DBG_ADDR_DDE_PIPE           */, 0x000008ff /* CP_FIFO_DBG_DATA_DDE_PIPE           */, UNSLICE, CP_PIPE_DDE_BR, 0x01101},
-+	{ 0x000008fe /* CP_FIFO_DBG_ADDR_DDE_PIPE           */, 0x000008ff /* CP_FIFO_DBG_DATA_DDE_PIPE           */, UNSLICE, CP_PIPE_DDE_BV, 0x01101},
-+};
-+
-+
-+/* 
-+ * Before dumping the CP Mempool over the CP_*_MEM_POOL_DBG_ADDR/DATA 
-+ * indexed register pair it must be stabilized. 
-+ * for p in [CP_PIPE_BR, CP_PIPE_BV]:
-+ *   Program CP_APERTURE_CNTL_* with pipeID={p} sliceID={MAX_UINT}
-+ *   Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 1.
-+ *   Dump CP_MEM_POOL_DBG_ADDR_PIPE for pipe=p
-+ *   Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 0. 
-+ *
-+ * same thing for CP_SLICE_MEM_POOL_DBG_ADDR_PIPE
-+ * for p in [CP_PIPE_BR, CP_PIPE_BV]:
-+ *   for s in [0,1,2]:
-+ *     Program CP_APERTURE_CNTL_* with pipeID={p} sliceID={s}
-+ *     Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 1.
-+ *     Program CP_SLICE_CHICKEN_DBG[crashStabilizeMVC] bit = 1.
-+ *     Dump CP_SLICE_MEM_POOL_DBG_ADDR_PIPE for pipe=p, sliceID=s
-+ *     Program CP_CHICKEN_DBG_PIPE[crashStabilizeMVC] bit = 0.  
-+ *     Program CP_SLICE_CHICKEN_DBG[crashStabilizeMVC] bit = 0.
-+ */
-+
-+static const struct gen8_cp_indexed_reg pakala_cp_mempool_reg_list[] = {
-+	{ 0x000008f6 /* CP_MEM_POOL_DBG_ADDR_PIPE           */, 0x000008f7 /* CP_MEM_POOL_DBG_DATA_PIPE           */, UNSLICE, CP_PIPE_BR, 0x02400},
-+	{ 0x000008f6 /* CP_MEM_POOL_DBG_ADDR_PIPE           */, 0x000008f7 /* CP_MEM_POOL_DBG_DATA_PIPE           */, UNSLICE, CP_PIPE_BV, 0x02400},
-+	{ 0x00000b00 /* CP_SLICE_MEM_POOL_DBG_ADDR_PIPE     */, 0x00000b01 /* CP_SLICE_MEM_POOL_DBG_DATA_PIPE     */, SLICE, CP_PIPE_BR, 0x02400},
-+	{ 0x00000b00 /* CP_SLICE_MEM_POOL_DBG_ADDR_PIPE     */, 0x00000b01 /* CP_SLICE_MEM_POOL_DBG_DATA_PIPE     */, SLICE, CP_PIPE_BV, 0x02400},
-+};
-+
-+
-+static const struct gen8_pc_indexed_reg pakala_pc_indexed_reg_list[] = {
-+};
-+
-+static const struct gen8_reg_list pakala_misc_registers[] = {
-+	{ UNSLICE, pakala_gpu_registers },
-+	{ SLICE, pakala_gpu_slice_registers },
-+	{ UNSLICE, pakala_cx_misc_registers },
-+	{ UNSLICE, pakala_dbgc_registers },
-+	{ SLICE, pakala_dbgc_slice_registers },
-+	{ UNSLICE, pakala_cx_dbgc_registers },
-+};
-+
-+static const struct gen8_reg_list pakala_ahb_registers[] = {
-+	{ UNSLICE, pakala_gbif_registers },
-+	{ UNSLICE, pakala_ahb_precd_gpu_registers },
-+	{ SLICE, pakala_ahb_precd_gpu_slice_registers },
-+	{ UNSLICE, pakala_ahb_secure_gpu_registers },
-+};
-+
-+static const struct gen8_reg_list pakala_gmu_registers[] = {
-+	{ UNSLICE, pakala_gmugx_registers },
-+	{ SLICE, pakala_gmugx_slice_registers },
-+	{ UNSLICE, pakala_gmuao_registers },
-+	{ UNSLICE, pakala_gmucx_registers },
-+};
-+
-+const struct gen8_snapshot_block_list pakala_snapshot_block_list = {
-+        .pre_crashdumper_regs = pakala_ahb_registers,
-+        .num_pre_crashdumper_regs = ARRAY_SIZE(pakala_ahb_registers),
-+        .debugbus_blocks = pakala_debugbus_blocks,
-+        .debugbus_blocks_len = ARRAY_SIZE(pakala_debugbus_blocks),
-+        .gbif_debugbus_blocks = pakala_gbif_debugbus_blocks,
-+        .gbif_debugbus_blocks_len = ARRAY_SIZE(pakala_gbif_debugbus_blocks),
-+        .cx_debugbus_blocks = pakala_cx_debugbus_blocks,
-+        .cx_debugbus_blocks_len = ARRAY_SIZE(pakala_cx_debugbus_blocks),
-+        .gmu_cx_unsliced_regs = pakala_gmucx_registers,
-+        .gmu_gx_regs = pakala_gmu_registers,
-+        .num_gmu_gx_regs = ARRAY_SIZE(pakala_gmu_registers),
-+        .reg_list = pakala_misc_registers,
-+        .num_reg_list = ARRAY_SIZE(pakala_misc_registers),
-+        .cx_misc_regs = pakala_cx_misc_registers,
-+        .shader_blocks = pakala_shader_blocks,
-+        .num_shader_blocks = ARRAY_SIZE(pakala_shader_blocks),
-+        .cp_clusters = pakala_cp_clusters,
-+        .num_cp_clusters = ARRAY_SIZE(pakala_cp_clusters),
-+        .clusters = pakala_mvc_clusters,
-+        .num_clusters = ARRAY_SIZE(pakala_mvc_clusters),
-+        .sptp_clusters = pakala_sptp_clusters,
-+        .num_sptp_clusters = ARRAY_SIZE(pakala_sptp_clusters),
-+        .index_registers = pakala_cp_indexed_reg_list,
-+        .index_registers_len = ARRAY_SIZE(pakala_cp_indexed_reg_list),
-+        .mempool_index_registers = pakala_cp_mempool_reg_list,
-+        .mempool_index_registers_len = ARRAY_SIZE(pakala_cp_mempool_reg_list),
-+        .pc_index_registers = pakala_pc_indexed_reg_list,
-+        .pc_index_registers_len = ARRAY_SIZE(pakala_pc_indexed_reg_list),
-+};
-+static const u32 pakala_protect_regs[] __maybe_unused = {
-+	A6XX_PROTECT_RDONLY(0x00000, 0x03a3),
-+	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
-+	A6XX_PROTECT_NORDWR(0x00440, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00449, 0x0016),
-+	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
-+	A6XX_PROTECT_NORDWR(0x005e8, 0x0117),
-+	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
-+	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
-+	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
-+	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
-+	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
-+	A6XX_PROTECT_NORDWR(0x00837, 0x0099),
-+	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
-+	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
-+	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
-+	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
-+	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x00e03, 0x001c),
-+	A6XX_PROTECT_NORDWR(0x00f01, 0x001e),
-+	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
-+	A6XX_PROTECT_RDONLY(0x03cc6, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x08600, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08700, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08740, 0x00bf),
-+	A6XX_PROTECT_NORDWR(0x08e00, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x08e3b, 0x00c4),
-+	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x08f01, 0x0002),
-+	A6XX_PROTECT_NORDWR(0x08f20, 0x019f),
-+	A6XX_PROTECT_NORDWR(0x09600, 0x006f),
-+	A6XX_PROTECT_NORDWR(0x09680, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x09740, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x09770, 0x008f),
-+	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
-+	A6XX_PROTECT_NORDWR(0x09e00, 0x002f),
-+	A6XX_PROTECT_NORDWR(0x09e50, 0x00af),
-+	A6XX_PROTECT_NORDWR(0x09f20, 0x00df),
-+	A6XX_PROTECT_NORDWR(0x0a600, 0x000f),
-+	A6XX_PROTECT_NORDWR(0x0a630, 0x01cf),
-+	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
-+	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
-+	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
-+	A6XX_PROTECT_NORDWR(0x0ae10, 0x004f),
-+	A6XX_PROTECT_NORDWR(0x0ae66, 0x0019),
-+	A6XX_PROTECT_NORDWR(0x0b600, 0x001f),
-+	A6XX_PROTECT_NORDWR(0x0d200, 0x03ff),
-+	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
-+	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
-+	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
-+	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
-+	A6XX_PROTECT_RDONLY(0x1f878, 0x0787),
-+	A6XX_PROTECT_NORDWR(0x1f930, 0x032f),
-+	A6XX_PROTECT_NORDWR(0x20000, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
-+	A6XX_PROTECT_RDONLY(0x27880, 0x0001),
-+	A6XX_PROTECT_NORDWR(0x27882, 0x037d),
-+	A6XX_PROTECT_NORDWR(0x27c02, 0x0000),
-+};
-+DECLARE_ADRENO_PROTECT(pakala_protect, 80);
-\ No newline at end of file
+ #include <linux/types.h>
+ 
++#include "msm_gpu.h"
++
+ /* Snapshot header */
+ 
+ /* High word is static, low word is snapshot version ID */
+@@ -150,6 +152,7 @@ struct adreno_snapshot_gmu_mem {
+ 	uint64_t gmuaddr;
+ 	uint64_t gpuaddr;
+ } __packed;
++#define STRUCT_GMU_MEMORY adreno_snapshot_gmu_mem
+ 
+ /* Register sub-section header */
+ struct adreno_snapshot_regs {
+@@ -172,6 +175,7 @@ struct adreno_snapshot_indexed_regs_v2 {
+ 	u32 pipe_id;	/* Id of pipe, BV, Br etc */
+ 	u32 slice_id;	/* Slice ID to be dumped */
+ } __packed;
++#define STRUCT_INDEXED_REGS_V2 adreno_snapshot_indexed_regs_v2
+ 
+ /* MVC register sub-section header */
+ struct adreno_snapshot_mvc_regs {
+@@ -195,6 +199,7 @@ struct adreno_snapshot_mvc_regs_v3 {
+ 	u32 sp_id;
+ 	u32 usptp_id;
+ } __packed;
++#define STRUCT_MVC_V3 adreno_snapshot_mvc_regs_v3
+ 
+ /* Debug data sub-section header */
+ 
+@@ -222,17 +227,20 @@ struct adreno_snapshot_debug {
+ 	int type;    /* Type identifier for the attached tata */
+ 	int size;   /* Size of the section in dwords */
+ } __packed;
++#define STRUCT_DEBUG adreno_snapshot_debug
+ 
+ struct adreno_snapshot_debugbus {
+ 	int id;	   /* Debug bus ID */
+ 	int count; /* Number of dwords in the dump */
+ } __packed;
++#define STRUCT_DEBUGBUS adreno_snapshot_debugbus
+ 
+ struct adreno_snapshot_side_debugbus {
+ 	int id;   /* Debug bus ID */
+ 	int size; /* Number of dwords in the dump */
+ 	int valid_data;  /* Mask of valid bits of the side debugbus */
+ } __packed;
++#define STRUCT_SIDE_DEBUGBUS adreno_snapshot_side_debugbus
+ 
+ struct adreno_snapshot_shader {
+ 	int type;  /* SP/TP statetype */
+@@ -259,6 +267,7 @@ struct adreno_snapshot_shader_v3 {
+ 	u32 ctxt_id; /* Context ID */
+ 	u32 size;  /* Number of dwords in the dump */
+ } __packed;
++#define STRUCT_SHADER_V3 adreno_snapshot_shader_v3
+ 
+ #define TRACE_BUF_NUM_SIG 4
+ 
+@@ -302,6 +311,7 @@ struct adreno_snapshot_gpu_object_v2 {
+ 	__u64 ptbase;  /* Base for the pagetable the GPU address is valid in */
+ 	__u64 size;    /* Size of the object (in dwords) */
+ } __packed;
++#define STRUCT_GPU_OBJECT_V2 adreno_snapshot_gpu_object_v2
+ 
+ struct adreno_snapshot_eventlog {
+ 	/** @type: Type of the event log buffer */
+@@ -319,3 +329,202 @@ struct adreno_snapshot_gmu_version {
+ 	u32 value;
+ } __packed;
+ 
++struct adreno_snapshot_empty_header { u8 dummy; };
++#define STRUCT_REGS_V2 adreno_snapshot_debugbus
++
++#define REG_COUNT(_ptr) ((_ptr[1] - _ptr[0]) + 1)
++
++static int adreno_snapshot_regs_count(const u32 *ptr)
++{
++	unsigned int count = 0;
++	unsigned int group_count;
++
++	for ( ; ptr[0] != UINT_MAX; ptr += 2) {
++		group_count = REG_COUNT(ptr);
++		if (group_count == 1)
++			count += group_count + 1;
++		else
++			count += group_count + 2;
++	}
++	return count;
++}
++
++struct adreno_gpu_state {
++	struct msm_gpu_state base;
++
++	s32 hfi_queue_history[HFI_MAX_QUEUES][HFI_HISTORY_SZ];
++
++	/* list of struct adreno_state_memobj */
++	struct list_head objs;
++
++	bool gpu_initialized;
++};
++
++struct adreno_state_memobj {
++	struct list_head node;
++	void *ptr;	/* replaced by ascii85 encoded string in adreno_show_object() */
++	bool encoded;
++	size_t size;
++};
++
++/**
++ * A on-stack helper to build snapshot sections setting the size field when the
++ * helper goes out of scope, to simplify constructing snapshot sections, but
++ * without resorting to the callback approach that kgsl uses.
++ */
++struct adreno_snapshot_sect {
++	struct adreno_state_memobj *obj;
++	void *cur, *end;
++};
++
++static void __snapshot_sect_fini(struct adreno_snapshot_sect *s)
++{
++	if (!s->obj)
++		return;
++	struct adreno_snapshot_section_header *hdr = (void *)s->obj->ptr;
++	hdr->size = s->obj->size = ((u8 *)s->cur - (u8 *)s->obj->ptr);
++}
++
++DEFINE_FREE(sect_fini, struct adreno_snapshot_sect, __snapshot_sect_fini(&_T));
++
++static struct adreno_snapshot_sect
++__snapshot_sect_init(struct adreno_gpu_state *state, uint16_t id, size_t extra_sz,
++		     void *sect_hdr, size_t sect_hdr_sz, const char *func, int line)
++{
++	/* A few section types have no section header: */
++	switch (id) {
++	case ADRENO_SNAPSHOT_SECTION_REGS_V2:
++		sect_hdr_sz = 0;
++		break;
++	default:
++		break;
++	}
++
++	pr_debug("%s:%d: snapshot_sect(id=%04x, extra_sz=%zu, sect_hdr_sz=%zu)\n",
++		 func, line, id, extra_sz, sect_hdr_sz);
++
++	size_t sz = sizeof(struct adreno_snapshot_section_header) + sect_hdr_sz + extra_sz;
++	struct adreno_state_memobj *obj = kzalloc_obj(*obj);
++	void *ptr = kvzalloc(sz, GFP_KERNEL);
++
++	if (!obj || !ptr) {
++		kfree(obj);
++		kvfree(ptr);
++		return (struct adreno_snapshot_sect){};
++	}
++
++	obj->ptr = ptr;
++
++	list_add_tail(&obj->node, &state->objs);
++
++	/* Common snapshot section header: */
++	struct adreno_snapshot_section_header *hdr = ptr;
++	hdr->magic = SNAPSHOT_SECTION_MAGIC;
++	hdr->id = id;
++	/* size filled out in __snapshot_sect_fini() */
++	ptr += sizeof(*hdr);
++
++	/* Section type header: */
++	memcpy(ptr, sect_hdr, sect_hdr_sz);
++	ptr += sect_hdr_sz;
++
++	return (struct adreno_snapshot_sect) {
++		.obj = obj,
++		.cur = ptr,
++		.end = ptr + extra_sz,
++	};
++}
++
++static void
++snapshot_sect_data(struct adreno_snapshot_sect *s, const void *data, size_t sz)
++{
++	/* overflow check: */
++	if (WARN_ON_ONCE(s->cur + sz > s->end))
++		return;
++
++	memcpy(s->cur, data, sz);
++	s->cur += sz;
++}
++
++#define snapshot_sect_arr(_s, _d) snapshot_sect_data(_s, _d, sizeof(_d))
++
++static void
++snapshot_sect_u32(struct adreno_snapshot_sect *s, u32 val)
++{
++	snapshot_sect_data(s, &val, sizeof(val));
++}
++
++#define __snapshot_sect(_label, _state, _id, _extra_sz, ...)		\
++	for (struct adreno_snapshot_sect sect __free(sect_fini) = ({	\
++		struct STRUCT_ ## _id sect_hdr = __VA_ARGS__;		\
++		__snapshot_sect_init(_state, ADRENO_SNAPSHOT_SECTION_ ## _id,	\
++				     _extra_sz, &sect_hdr, 		\
++				     sizeof(sect_hdr), 			\
++				     __func__, __LINE__); });		\
++	     sect.obj; ({ goto _label; }))				\
++		if (false) {						\
++_label:									\
++			break;						\
++		} else
++
++#define snapshot_sect(_id, _extra_sz, ...) \
++	__snapshot_sect(__UNIQUE_ID(label), _id, _extra_sz, __VA_ARGS__)
++
++struct adreno_crashdumper {
++	void *ptr;
++	size_t data_offset;
++	struct drm_gem_object *bo;
++	u64 iova;
++};
++
++/**
++ * On-stack object to represent a single crashdumper invocation, tracking
++ * in/out ptrs and checking for overflow.
++ */
++struct cd_script {
++	struct adreno_crashdumper *dumper;
++	u64 *in;
++	u64 out;
++};
++
++/* These should be implemented by the gen specific backend: */
++static inline int __cd_run(struct msm_gpu *gpu, struct adreno_crashdumper *dumper);
++static inline bool __cd_check_overflow(struct cd_script *p);
++
++static inline struct cd_script CD_INIT(struct adreno_crashdumper *dumper)
++{
++	return (struct cd_script) {
++		.dumper = dumper,
++		.in = dumper->ptr,
++		.out = dumper->iova + dumper->data_offset,
++	};
++}
++
++static inline void CD_WRITE(struct cd_script *p, u32 reg, u32 val)
++{
++	*(p->in++) = val;
++	*(p->in++) = FIELD_PREP(GENMASK_U64(63, 44), reg) | BIT(21) | BIT(0);
++	__cd_check_overflow(p);
++}
++
++static inline void CD_READ(struct cd_script *p, u32 reg, u32 dwords)
++{
++	*(p->in++) = p->out;
++	*(p->in++) = FIELD_PREP(GENMASK_U64(63, 44), reg) | dwords;
++	p->out += sizeof(u32) * dwords;
++	__cd_check_overflow(p);
++}
++
++static void CD_FINISH(struct cd_script *p)
++{
++	*(p->in++) = 0;
++	*(p->in++) = 0;
++	__cd_check_overflow(p);
++}
++
++static int CD_RUN(struct cd_script *p, struct msm_gpu *gpu)
++{
++	if (!__cd_check_overflow(p))
++		return -ENOSPC;
++	return __cd_run(gpu, p->dumper);
++}
+diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
+index cf2fb20203b7..aa639de60ace 100644
+--- a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
++++ b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
+@@ -5086,6 +5086,7 @@ by a particular renderpass/blit.
+ 	<reg32 offset="0x0005" name="CFG_DBGBUS_CNTLM">
+ 		<bitfield high="27" low="24" name="ENABLE"/>
+ 	</reg32>
++	<reg32 offset="0x0006" name="CFG_DBGBUS_OPL"/>
+ 	<reg32 offset="0x0008" name="CFG_DBGBUS_IVTL_0"/>
+ 	<reg32 offset="0x0009" name="CFG_DBGBUS_IVTL_1"/>
+ 	<reg32 offset="0x000a" name="CFG_DBGBUS_IVTL_2"/>
+@@ -5115,8 +5116,11 @@ by a particular renderpass/blit.
+ 		<bitfield high="31" low="28" name="BYTEL15"/>
+ 	</reg32>
+ 
++	<reg32 offset="0x001e" name="CFG_DBGBUS_IDX"/>
++	<reg32 offset="0x0026" name="CFG_DBGBUS_OVER"/>
+ 	<reg32 offset="0x002f" name="CFG_DBGBUS_TRACE_BUF1"/>
+ 	<reg32 offset="0x0030" name="CFG_DBGBUS_TRACE_BUF2"/>
++	<reg32 offset="0x0031" name="CFG_DBGBUS_TRACE_BUF3"/>
+ </domain>
+ 
+ <domain name="A7XX_CX_DBGC" width="32" varset="chip">
 -- 
 2.56.0
 
