@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793364622;
-	b=Z34tV5YWYLgsaTFJkAgwn1M5HI2uqQjE9rVXd08xfpnL1ZO1eWpzgDedAg4hYU3vp7Gb
-	 s9EU3HakjbeG2PatU2HVVsXO9+RiNSMZpSPA0SkjArlyyZ22z//2m8sRO7CTCnJi96QJm
-	 haLY880o+B5BE8WKvEzo9b7VSZLwPe7jSznSKggthJCtHMQyYu+3ivqIUHHXo1yfGD23d
-	 RcvItEBrIasVnmr0/x5yUnTW80Ph1yC8y+DNo/eDfMgECTsVMt/6VXjOSorK7NVoH6rIM
-	 Ge7byJZbG0AeaIcqMVp/1bvkBOP9uD8A8FI0a0gHl3ktI6anwAMT+exWTb8OCM3t0rQ==
+	t=1793364629;
+	b=RvagjOfdB6SjfPaekwDxn1RrXI3OeXS/kagRmq3AKtJmOPVCtGNqgKJ6Y9MZn4iWhaWW
+	 D+zepe+Lagy+EbZId+zxEN8+lLz5xhajL+HTbqc8pytKP3JQ0bMCjDRXWswPjYrxWr9RY
+	 J89ZdvoLssp5cmaURMbyIy+eH0BnviBzIbHB11CpCU7g7gq7eo4T2ME4x/ANH1OPK6Vqk
+	 EW8z+cS32V5dES1unn/QFKLD1WE6vpsLrmC0fBMrnyDiONCuvcExiOU5qU8Li+vSZulgP
+	 q3eZXjkyeAqSeVDldfXD6SOaEmMkdy/Mc+uDpxIb0BnSwpEbqCv+HM8S6XIygLfcohA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793364622;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793364629;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Received:MIME-Version:In-Reply-To:References:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=t8bRsjAT3AdjzhLPogNnMwZmSFERnjnulF5It7XvgSQ=;
-	b=Jtooy2OT78YtoSt90XlJicgRYzA9uoY6nZOFSHKHDELWXjlI86/HWBhURk5ZdLLJL3qS
-	 bTySDWs1b+GpkHfNPo9VN6Yb+OsNsSb8dBKDgrZWDF77TXT6AmKCqCl7+lYAN2Tbk4rPJ
-	 nmcTRgR3NTDRSsWRD/nZYJ7mg0nLoXPsHm98gNfpun9aSYNXVR3jG8PQflWA9OXHKc1pX
-	 fWRfV+93kXNg91MWindcRV8m8arfNWqI61iyH5Yx4zIcrl36U/qn0roxTC5hx2plrIAaK
-	 +CRCSBKIvthyioFA4i1G/1Gv0IlVTx3Znwk6GXDR+UsVRvsgGTGcW9sBua2Gm8CLelA==
+	bh=apsqo/umYNQ4NLY3kr6+1CRtc6C+cK0QqTdi+p9pSSQ=;
+	b=kExTYR3GWg3Qw6NBzM9mLVsydARLKLGtMQAswTXn05WSq6zq8wqLb81VqboYO6dA752y
+	 ONz3WQ/TiY7oGMzghbuqxI96FqOdQ0vefHKIjh7p0OT7dLXoPWpCpFKumiCGBYvSw2NWu
+	 /37DOb/peraQFvzejro9C5ARnbh1gZrntxMcETRnu/bOlsGojTBuggUUzlrx7WOJ40wDS
+	 o+7uqcBV4ArL+rd7sNCJVbN47dV4vCXLcKGzc/1ufnYGNGqncc9lbq+zAtSLPMniqjnDM
+	 sBB3XyEf93HG79BjBZfNQoTvfd11xv5unydpqIZ+9QlqCA+xxE2gZ1I7PCTI1+QWR4A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=QHrlIIjP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Jj9wHGbo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCAB606A335
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:50:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BCAB606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605C460A2627
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:50:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 605C460A2627
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=QHrlIIjP
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b1b13e09ffso854909a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:50:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793364621; cv=none;
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Jj9wHGbo
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso850257a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:50:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793364628; cv=none;
         d=google.com; s=arc-20260327;
-        b=SQn3IImAmaR/O4R1Bm3eoQKeFUS8uTgqE7lT3HOL+jAbJc5tN+/x4u8khHwczfOyw8
-         rwpAnK3YAoeHaz2PHn8BUpQaFoI643gIm3OZ3rABr3yZx1cOvk9eIjmcsBJp8RUJPbEE
-         Ei+kEt/SvbWVXYZMVZ+deJy0j4vy35idsb+gVFihRrRlFV8oLFXhPHxBugfrcCj/x0hR
-         BvFQIVXP45p8+uPJQd/Y0TOvdWX+wL25/6B0Wdlsu91YpOxNGaeawkzRjdt2KIRPmz8s
-         o+mQU/sa3II7KhfZcO/eBzvwt9HfDWH0Ojj0ZXo+GbkdApcWsXUQRAYfG3ZlaE/ynPxt
-         VBfQ==
+        b=haH74ukkWAa+T41ohoKe4SPooyVGW5m9tjCdezI2XzvFNFvYE5PptAyzIwibQUez0D
+         iK2k9D/90t5qw3z1TCOrRWvJJAl/nbwic8Xqi2i7/zFxmBRUiysuAzJIGTCnRSqnXRXl
+         t9+HJJzf4B4jydeqYcR3n7LqwTZbj3K8pIWAdiJzru30/cbrOQQoeQWM8LNsh2Dkelmf
+         jZit1W433DvduYzbuyC6Enl9SJMnEQUx4Mdwc3liPiMrxdPvazlN95Y+CIcSqJm+WGgK
+         uczdv+deeUwbQCDI8BT1MwWsFAAAtV4QIi+SOfzhJkMzZ4a0zCm1BjWUHObIP3CUIbmz
+         1b2A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:references:in-reply-to
          :mime-version:dkim-signature;
-        bh=t8bRsjAT3AdjzhLPogNnMwZmSFERnjnulF5It7XvgSQ=;
-        fh=1xFuZvY54nUrTqgumFulq8mm2KTvuLF3p7LQFiE5rUc=;
-        b=J53Dn061wy/RFFLBpbG5HpVnnOPNM+wHrlYv2TeJa9VaqF+u+AbTRGQJfHsmfLgAoK
-         crn4iU7HL85YDo3Z0gYZc1ES0H6SeVNFYiDuD0n6x1U6bR3iWTvVTEDy84oP/w4QOWF1
-         Rln6R4KuE6UibZjXc37N+CruBtURmf2CxrVXTEV4BIl87iClNeCdahm1dTlcpHqHCVmi
-         Kq9hsMuaHdtI94Zc2xfDkcb4vft7S3uXgRSZ040CU8daXUMrds9yUaaiSYhLIaFDJXb5
-         WpVVIWe3J5CScdUhkvJ1Uheqr6qHfPOkEQ266mScgKZWAvc5laScTKNI1vqeoecjmd92
-         x0Og==;
+        bh=apsqo/umYNQ4NLY3kr6+1CRtc6C+cK0QqTdi+p9pSSQ=;
+        fh=IB0Ozf5l3SuYxjARWpuzZwUS6zGU7W5t9FtxPcHfX80=;
+        b=KHt4QnYSKcWX+cYoahrWbZxHya8wOyfRkRBeN3XmgeULaAKoYeZ6GpL+AzKJ55W7lL
+         uDNdbuM+OuXF8aKc5GKv+9v24nXXS6truSUgpd9gd1GnyVYdiDqMViiNsQVV6rpu9GHD
+         pQTcBZyr95nOO2MS0GOe27sMx2BN6Es8X1P3rtYkkbg4631NqLtxR32Q1+S6TK3YD8bv
+         jiLOf8IE1w64UL8y30/7Do2inEbfcoEEo77S/jWAJaHYOburyYbeZT+7mE9SeVpjD6Y7
+         RIKCBmR0XimlXGtCGohEMn0gkp7ykDQoAre54/D2Y7sYF6fW/diaCdbWd0cMJ8KtVGvq
+         wMvQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793364621; x=1793969421; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1793364628; x=1793969428; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:references
          :in-reply-to:mime-version:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=t8bRsjAT3AdjzhLPogNnMwZmSFERnjnulF5It7XvgSQ=;
-        b=QHrlIIjPYRpyvppFPBu8+5vfCTAFEeBT02gaKSYxL7dgK8lo4tdAzO7fwvBEqG99z1
-         XgorNXrxNiIcXvim5XZdlbG86BCc2jiApMfdqY6bN8FzNmjqQgEWd3DO3w+vc6ZLMXsi
-         8BYhGzf+Fv27F3YR6Y+2yrh/QYWKVzIsoHOgM=
+        bh=apsqo/umYNQ4NLY3kr6+1CRtc6C+cK0QqTdi+p9pSSQ=;
+        b=Jj9wHGbo/QDEQzjCYIErEejQnWr2dSfwImTX+2pg7uc/ZobTx7hM5Wmeye4LaTU9Ov
+         DrbBOAB06J4r3OQGWY0ocJgidwc8fVNk3FoYZh/3A4+lerqVPnmUOVeF6ebntdWgg0a6
+         y2kgkoZmmg6lzF4GQQvUXYPwo46uNBXOCLWsg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793364621; x=1793969421;
+        d=1e100.net; s=20260707; t=1793364628; x=1793969428;
         h=content-type:cc:to:subject:message-id:date:from:references
          :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=t8bRsjAT3AdjzhLPogNnMwZmSFERnjnulF5It7XvgSQ=;
-        b=CfECAYQxZX8hxs71Ize5hpNlNffRBEWkvl/o5rGnZbvzUep8bxs55R2AJ43abiUBuL
-         8MGMIGTam+4F+vOckJaVYKxX/OVwNdHhVcz02kqOr+IiZY/UzOpzJJfJGcwtvAnhntn2
-         v3J1WisGqOVB6HspQeBlsJVyOnRkK7gr3H1EY71OQIHZ0psYWSqsY3+Fq4T68heaEcZW
-         IIFQPqMcEaXmFCc3M1N3FdronEXPT1+UYAbMrqYFRv7Rw93owbWSQq8FM8/Kj/7yR9/O
-         4S9pLwbWFPEgc+OJeKLfP5ozgU0MS9QAjFt66hs75xKpbOoVeP6ARfQYTE/DvPSoyZg+
-         N/Yg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQWwcJ5tjQ0qG6xQoWYTavrWR7PLw99yocgQirKU4Jx+KN/kQM1WfeuHKZiX7vyvhb2foVbhkX8gSaw2s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1sWiqUJCySlp74QSrDxK8QbK2jqQKYzvcv4u1Tg/+V6Vyflh/
-	bd63FQyQeUa8fPFLfa4Rnoh4Ff45w4a/v5FdzcZYKCJNT3FNY/UCW7mw176uJs02eQNnETfVUGL
-	jU7gM7gHRWBfMVwnGzqUOeQCEdOS/LyOdDCX2TTif
-X-Gm-Gg: AYBFou1j/ZTmiJFOgdGy4ae8j9ezVJOaVgkjlzeBnGwMULRe4l2w5h99/WeTYF3mLKI
-	R6TO+V3ogAf3L4vww9P4RXQPgKgsBLx9gXjZiDGFBhc9jbpgvKwANj2JinjltLLBiICKCP1pDGR
-	FzcL7QxFQOWSdaMSuRqHOvCJIvp5l8yoV1m8p0khhFPtIP2Z3ePJmwJpUdwV6MaK95r6dBeujxy
-	zsNnm7oE2knWBkuvPcUbMCqzKqyo8TxgCMJMjmJZvAVvxpDFm1COqf4zppr6Aw1wte4mFRbWm8x
-	ApRKAXlLTKZp2UUm0md+5GnHsRM0tuILOSTNJ0SeQEZBW6MbJZNRvJbmFdOPqkfAORlYE6y7cjq
-	RN70tBgP5Vgd81nH+AynDquukLvf2WdFQOAS9Av3HWUfYHUQyP0U9mQMJuzLTi9RCXytNtLU=
-X-Received: by 2002:a17:907:2d24:b0:c2d:bc33:7be3 with SMTP id
- a640c23a62f3a-c4ca7b804abmr217479166b.47.1793364620924; Fri, 30 Oct 2026
- 05:50:20 -0700 (PDT)
+        bh=apsqo/umYNQ4NLY3kr6+1CRtc6C+cK0QqTdi+p9pSSQ=;
+        b=kapOtGbBUrg7evb7By45fSUzJRp4bc0C3I2xUgn6BXvlL0pa8tFgepfv+NMlyDrnEB
+         9BMf3QUSY1OdRvy9I35U0sHAc6CXmu0opn6gP8DR40Rggdn7YtmMOCvlzUTsHtkrFDCm
+         04D0CGxP28G+RdvJkBPYMSY7buO7OH2ku7iBVaCDMuzG9gLSzJ0/j0SrXK2nYMicqDHS
+         TmZ9ReDDESv3qwcSPG65XBa0SnuOwKG4vU1MF0bku8+KFjYFngNywlGcidOZZRQzXTz5
+         TcLlWOV18onPIIsrsIRbZN7QfnOuCSwt6+2rwm7YgFyXRbExS8jQs9JTZSn8xbZM26Ww
+         t9jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz+70oFwhGGjYJCuk0U+XA7AC767Pq6YaVIWC2FO9lcQkLMXVl6YOXOQ5BeEd8sBDys60w0mBF0tIAZRtE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcsqUaBeoyxYit7zwG8rdTUoT/CkM6bakNXb0AEZPau1vI5SRR
+	S4uithLa2jVFefypYLPjYfMd94NI1Pe2Y5IBjpGP/gIjJxmABQBbsowSfFCpHLolorvXaG5WZFS
+	hUF3QMDM9Rzc+ndfb+DJBuDFkM+U1Tuetw3QpgObC
+X-Gm-Gg: AYBFou3eBmzxV6YEkdJFfpKrtTFs2uN5IamxdmlNVH4ponKYJ0EaWQR7K2rg6u7+too
+	Zb2uYaGeVVH5/AnBvhxVAKgvi/X4pjKrVIF7nHcGUWr7R+sgOuD8Upx4YkT10zVenXd27UumqNb
+	3x4RmQjtMqjhhnCf8va+/J/DlLEtHMworoOSinql4X9iT9vjRXH9d1nOapQ0VD2GrHtR0Xw2ojU
+	bNzxCeLcd9lD5q1kRtCSE0ianG4WlpF6oy3c2TEBIiQc8RIYdDsSou18aF29+F0RMf/swzCE6us
+	uNilIddUJxB435mxoGCQlskqeWLvTOb54UUK+DmNyW5JA7/RFW1ilD/rbi0Rrj0OJjDu4sa0LTw
+	fPrc9gvQIjEGENQYd2B4qPmDSvh5SwzJp0xpZf3dhy7A8OubiBliWAKfoDhQ8PS9LSDsr/SZ+
+X-Received: by 2002:aa7:df01:0:b0:6b4:2aa6:2c01 with SMTP id
+ 4fb4d7f45d1cf-6b4d4388aa5mr1133675a12.10.1793364627770; Fri, 30 Oct 2026
+ 05:50:27 -0700 (PDT)
 Received: from 415065739583 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 30 Oct 2026 05:50:18 -0700
+ HTTPREST; Fri, 30 Oct 2026 07:50:26 -0500
 Received: from 415065739583 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 30 Oct 2026 05:39:26 -0700
+ HTTPREST; Thu, 29 Oct 2026 01:16:39 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,13 +104,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261028215600.1713475-4-dianders@chromium.org>
-References: <20261028215600.1713475-1-dianders@chromium.org> <20261028215600.1713475-4-dianders@chromium.org>
+In-Reply-To: <20261028215600.1713475-7-dianders@chromium.org>
+References: <20261028215600.1713475-1-dianders@chromium.org> <20261028215600.1713475-7-dianders@chromium.org>
 From: Simon Glass <sjg@chromium.org>
-Date: Fri, 30 Oct 2026 05:50:18 -0700
-X-Gm-Features: AclHuK9XH5inA75nLtEVNACEt-kvj5ilQrhpx6qKrKd1EbyJPnQrCjVXnDxbS0A
-Message-ID: <CAFLszTh+c8H6Xcz0LXGjO40XA4=y0jdyAFUr6ygc2OkS9GrHYg@mail.gmail.com>
-Subject: Re: [PATCH v2 03/10] pylibfdt: Add NodeTree live tree representation
+Date: Fri, 30 Oct 2026 07:50:26 -0500
+X-Gm-Features: AclHuK8L6meqwjbfB-L4EcqmtNeCHqn056gMpoY369WMlqost4cGNB_3vwZ7Avo
+Message-ID: <CAFLszThT8vt_C+UCbDXO=Yxx=zK04g+6efRb+Ji5MLyj53UCvA@mail.gmail.com>
+Subject: Re: [PATCH v2 06/10] libfdt: overlay: Update base /__local_fixups__
+ on apply
 To: dianders@chromium.org
 Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
@@ -125,83 +126,103 @@ Content-Type: text/plain; charset="UTF-8"
 Hi Doug,
 
 On 2026-10-28T21:46:49, Douglas Anderson <dianders@chromium.org> wrote:
-> pylibfdt: Add NodeTree live tree representation
+> libfdt: overlay: Update base /__local_fixups__ on apply
 >
-> Add `NodeTree`, an in-memory live tree representation of a devicetree
-> node and its subtree, to `pylibfdt`:
+> When a base device tree is compiled with `dtc -L` (`--local-fixups`), it
+> contains a root `/__local_fixups__` node recording the byte offsets of
+> all phandle references in its properties.
 >
-> - `NodeTree.unflatten(fdt, offset=0)` builds a `NodeTree` hierarchy from
->   an `FdtRo` instance.
-> - `NodeTree.flatten(mem_rsv=(), boot_cpuid_phys=0)` serializes a root
->   `NodeTree` back into a packed FDT blob via `FdtSw`.
-> - `get_node()`, `create_path()`, and `walk()` provide path lookup,
->   intermediate node creation, and pre-order traversal.
-> - `get_str()`, `set_str()`, `get_stringlist()`, `set_stringlist()`,
->   `get_u32()`, `set_u32()`, `get_u32_list()`, and `set_u32_list()`
->   provide typed property access and mutation (updating
->   `Property.as_str()` and `Property.as_stringlist()` so empty `b''`
->   properties raise `ValueError` or return `[]` rather than
->   `IndexError`).
+> Previously, `fdt_overlay_apply()` updated the base tree's `/__symbols__`
+> via `overlay_symbol_update()`, but left the base tree's
+> `/__local_fixups__` untouched. As a result, applying an overlay to a
+
+Please can you put the motivation first and use the present tense
+('fdt_overlay_apply() updates /__symbols__ but leaves
+/__local_fixups__ untouched...')? It would also help to say why anyone
+needs an accurate /__local_fixups__ in the merged tree. Patch 8 gives
+the reason (an OS that wants to know which cells hold phandles, and
+the merged tree matching what 'dtc -L' produces), and that belongs
+here, since this patch changes behaviour for every libfdt user.
+
+> base tree with `/__local_fixups__` left `/__local_fixups__` missing the
+> phandle references introduced by the overlay (both from the overlay's
+> `/__local_fixups__` and from its resolved `/__fixups__`), and left stale
+> offsets if the overlay overwrote a base property that previously had
+> phandle references.
 >
-> Add unit tests in `tests/pylibfdt_tests.py` covering `NodeTree`
-> unflatten/flatten round-tripping and helper methods.
+> Add `overlay_local_fixups_update()` to update the base tree's
+> `/__local_fixups__` whenever `/__local_fixups__` is present in the base
+> tree:
+>
+> - Remove pre-existing `/__local_fixups__` properties for any base
 > [...]
 >
->  pylibfdt/libfdt.i       | 262 +++++++++++++++++++++++++++++++++++++++++++++++-
->  tests/pylibfdt_tests.py |  54 ++++++++++
->  2 files changed, 315 insertions(+), 1 deletion(-)
+>  libfdt/fdt_overlay.c | 621 ++++++++++++++++++++++++++++++++++++++++++++++++++-
+>  tests/run_tests.sh   |  19 ++
+>  2 files changed, 636 insertions(+), 4 deletions(-)
 
-> provide typed property access and mutation (updating
-> `Property.as_str()` and `Property.as_stringlist()` so empty `b''`
-> properties raise `ValueError` or return `[]` rather than
-> `IndexError`).
-
-When you split this out (as David suggests), please can you add tests
-that call Property directly rather than only going through NodeTree?
-
-> diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
-> @@ -1210,6 +1212,264 @@ class NodeAdder():
-> +        node = cls()
-> +        for prop in fdt.properties(offset):
-> +            node.props[prop.name] = bytes(prop)
-> +        for suboff in fdt.subnodes(offset):
-> +            node.children[fdt.get_name(suboff)] = cls.unflatten(fdt, suboff)
-> +        return node
-
-If a blob has two sibling nodes (or two properties) with the same
-name, one is silently dropped. I checked with FdtSw: with two 'a'
-subnodes under the root, only the second survives. libfdt does not
-reject such blobs and fdtfactor reads input it does not control, so I
-think it is better to raise ValueError here than to quietly throw data
-away.
-
-> diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
-> @@ -1210,6 +1212,264 @@ class NodeAdder():
-> +        self._flatten_subtree(sw, '')
-> +        fdt = sw.as_fdt()
-> +        fdt_set_boot_cpuid_phys(fdt._fdt, boot_cpuid_phys)
-> +        fdt.pack()
-
-This reaches into fdt._fdt and calls the raw SWIG function. It would
-be worth adding Fdt.set_boot_cpuid_phys() to go with the existing
-FdtRo.boot_cpuid_phys(), and calling that instead.
-
-> diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
-> @@ -1210,6 +1212,264 @@ class NodeAdder():
-> +class NodeTree:
-> +    """In-memory live tree representation of a devicetree node and its subtree.
+> diff --git a/libfdt/fdt_overlay.c b/libfdt/fdt_overlay.c
+> @@ -1122,6 +1121,616 @@ static int overlay_symbol_update(void *fdt, void *fdto)
+> +		next_lf = fdt_subnode_offset_namelen(fdt, node, name, namelen);
+> +		if (next_lf == -FDT_ERR_NOTFOUND && create) {
+> +			char namebuf[256];
+> +			int old_struct_size = fdt_size_dt_struct(fdt);
 > +
-> +    Attributes:
-> +        props: Dict mapping property name (str) to raw property value (bytes).
-> +        children: Dict mapping child node name (str) to child NodeTree.
-> +    """
+> +			if ((size_t)namelen >= sizeof(namebuf))
+> +				return -FDT_ERR_INTERNAL;
 
-BTW in patch 7, fdtfactor adds 'phandle' and 'fixups' attributes to
-NodeTree objects on the fly, so they carry attributes the class does
-not declare. Since unflatten() uses cls and create_path() uses
-type(self), subclassing already works, so a small subclass in
-fdtfactor declaring these two attributes would be cleaner. What do you
-think?
+I can see why the copy is needed, since the name is in the same blob
+and fdt_add_subnode_namelen() may move it. But libfdt has no limit on
+node-name length, so a valid tree with a long name makes
+fdt_overlay_apply() fail with -FDT_ERR_INTERNAL, which is meant for
+libfdt bugs. It also puts 256 bytes on the stack in code that runs in
+bootloaders. Please can you either avoid the copy (e.g. by re-reading
+the name after the splice, adjusted by the delta) or at least return a
+proper error code and document the limit?
+
+> diff --git a/libfdt/fdt_overlay.c b/libfdt/fdt_overlay.c
+> @@ -1122,6 +1121,616 @@ static int overlay_symbol_update(void *fdt, void *fdto)
+> +		if (old_len % sizeof(uint32_t))
+> +			return -FDT_ERR_BADSTRUCTURE;
+
+-FDT_ERR_BADSTRUCTURE means the structure block is corrupt. Elsewhere
+in this file (e.g. overlay_symbol_update()) a badly sized property
+value gives -FDT_ERR_BADVALUE, and if the property came from the
+overlay's /__local_fixups__, -FDT_ERR_BADOVERLAY fits better.
+
+> diff --git a/libfdt/fdt_overlay.c b/libfdt/fdt_overlay.c
+> @@ -1122,6 +1121,616 @@ static int overlay_symbol_update(void *fdt, void *fdto)
+> +static int overlay_validate_local_fixups(const void *fdto, int ov_lf_root)
+> +{
+> +	int lf_frag;
+
+Just to check, is this needed? overlay_update_local_references()
+already walks the overlay's /__local_fixups__ against the overlay tree
+from the root, returning -FDT_ERR_BADOVERLAY if a node is missing. So
+by this point each /__local_fixups__/<frag>/__overlay__ is known to
+have a matching /<frag>/__overlay__ in fdto. If I have that right,
+this function and its call can go, which also helps with the size
+issue below.
+
+> diff --git a/libfdt/fdt_overlay.c b/libfdt/fdt_overlay.c
+> @@ -1162,6 +1771,10 @@ int fdt_overlay_apply(void *fdt, void *fdto)
+> +	ret = overlay_local_fixups_update(fdt, fdto);
+> +	if (ret)
+> +		goto err;
+
+One thing I'd like to check before this goes in.. this changes what an
+exported function does. A base with /__local_fixups__ now needs more
+free space (so it can hit -FDT_ERR_NOSPACE where it did not before),
+and unrelated empty nodes under /__local_fixups__ get pruned. Please
+can you update the fdt_overlay_apply() comment in libfdt.h to describe
+the new behaviour?
+
+Code size is also worth a look. With -Os, the fdt_overlay.c text grows
+from 3040 to 4904 bytes on Thumb-2 and from 4770 to 7983 on x86_64,
+about 60%. That code goes into things like U-Boot SPL, mostly for
+boards whose base has no /__local_fixups__ at all. Could this be made
+optional for size-sensitive users, or at least slimmed down? What do
+you think?
 
 Regards,
 Simon
