@@ -1,43 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.187.6.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793339088;
-	b=NwqZopA2eSHrAorKboN/2sVoJ7fMVASlFonlnjZ0XsQhtQAjRHw+0NZNFpHHSJX/SssR
-	 8lk//iFxuuhnp/ktdenzMRQEyGyVKhiFxDRcyWPtX5v4DF+d70rh2ovf/wjiOBDkNz/LU
-	 +RpqQTZe0vRpQ4EmO7/EwfxEmHKQ7VzK7LNtgTBi2CvKTNhDseQn1RocZhixINo39aOWa
-	 7xwzU1ld1ccS1oxbafSIOp86sch4pBDSNfjlfMQ37KuzseBmE+aq/nwXLAUsF1YO835WZ
-	 hCwTM2S0Jx5qIaLjHCd3jxtacwlsFgOEXaZjPg2JQkLxzD7D8HyQfNJ3IkTPSys3/OQ==
+	t=1793339433;
+	b=OQnRIDNavCxVj+QcDorkjp2v1DHQQ53SwAaZjTYfRf/Of6OwgPRTP0bxahF0MZKNKQzN
+	 h/SX4T0yUb3VI8+1OaOV5J+ynahJnppI2GZ9z/3pHZRaolz6cJUVV3CqHvKDhJRMe6Tej
+	 PB6YQ/qlBrjCtLnofnud9TUSlI9hkVZCQsPVMMjxaZbl21mBwcS+XKek4RN7tT8dgCLBS
+	 bWlLJEmHacfsqQSFUIlR0C7mDgq/iDpQEHYAXlAaCVzNpusDa+03R0jhCD9p4VRzF7sZ9
+	 3SNeQC0dEArjBltETdXCl/51RTlTXH/i3NOlow7ZJQhYkVnEvKanuIeNyv5quVcqqlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793339088;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793339433;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=tDKGqmiBVLJpzdIws/ZQNznjBJouadAkG3/umP3KG5A=;
-	b=Gc5SyfqWbXF/iJlHpcH/nZznhqJnZMYLy0C/X4dXMZvWHETb41ygqaDroEsXgLoiYOFF
-	 bRIAeVcPuX59TTDKfq7Jkr848h1gbfqNs5OBSxVeSwmNLoqJ4MoCA5b1Po1xHckJIrzhw
-	 5zim0T2xUSXt/PfuVCiaCuCi4zFRYurTCcI+oXCv8X+JyedDABbzfEiabRRzKB8kOf2F2
-	 BGScRBcGxBLANyvvGc/Aq8qWiOsvPxwr6RqRh1R2hzn6mFjTUvLa8ySeDYGi4X95R8JiR
-	 AZaitBbb1OxauR/NB3ZppP882AXb+t8iuCUd7EUj4JePuHsllvK+r+6xdidlCqE7skg==
+	bh=nRLWCqYk1y7vVdpT5+4Ia/48/2K4M5vE4bN2ZGaSYiI=;
+	b=c1P8HmgEYZ/dfb+pi+bw9rprmfliGQeb1o7v9U+ZXy1R4+DPdREw4iT8pcTKz0pV2avP
+	 9yuWIZYvfl520qLk8LbiW8lAcnvwoKZw/jyqXWSi0VsOx/YAObDHD+KhKYlRySAePKumR
+	 dYBSt8iqx9X0eOAtaX0SGxOLfe2xUVIoaJpnulgBKhG+/dMe8Cu/lukcfxx34gw3MAcDn
+	 l65AB1F+CnoCBRpK4QN3Xef0Foh5bZ4JUP/8A6byuS7WPba0IQQvsV4J80xQvj7DVAZTx
+	 uf6Jq5zZpxLs8+YR2/t7geMdbQ6dbrOQtSBZBi2blU23N2SmDUylPHJ8QzefmistZBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.21
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4327606A31A;
-	Fri, 30 Oct 2026 05:44:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4327606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
-	by APP-01 (Coremail) with SMTP id qwCowABnO++1LuRqL2kEDA--.17661S6;
-	Fri, 30 Oct 2026 13:44:26 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Date: Fri, 30 Oct 2026 13:44:15 +0800
-Subject: [PATCH 4/4] drm/panel: ilitek-ili9881c: do a soft reset in
- unprepare callback
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=52.187.6.220
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 036D5606A31A;
+	Fri, 30 Oct 2026 05:50:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 036D5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.52])
+	by app2 (Coremail) with UTF8SMTP id IQEQrMDW_XYdMORqad9lAA--.2791S2;
+	Fri, 30 Oct 2026 13:50:21 +0800 (CST)
+Received: from [100.81.40.43] (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wDXsToaMORq2acKAA--.1267S2;
+	Fri, 30 Oct 2026 13:50:21 +0800 (CST)
+Message-ID: <b95c5ea9-cb4b-4535-8eb0-0318357aa11a@hust.edu.cn>
+Date: Fri, 30 Oct 2026 13:49:11 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -47,75 +45,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-mj070bi30ia2-v1-4-a0f65b65c290@iscas.ac.cn>
-References: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
-In-Reply-To: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, Icenowy Zheng <uwu@icenowy.me>, 
- Han Gao <gaohan@iscas.ac.cn>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-X-Mailer: b4 0.15.0
-X-CM-TRANSID:qwCowABnO++1LuRqL2kEDA--.17661S6
-X-Coremail-Antispam: 1UD129KBjvJXoW7KFWkCFy7ZF48Ar1kGry3Arb_yoW8Jw47pr
-	W7uFy3AFyrtF1ayFWUC3Z2va47ua13KFW0kF98Ka9xuw4UZr40kwnxtFWDWF1DJr4fAF4a
-	vFnrJ3W5XF98ArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
-	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
-	z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
-	4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
-	3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
-	IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
-	M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
-	kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
-	bVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67
-	AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI
-	42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCw
-	CI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnI
-	WIevJa73UjIFyTuYvjfUOyIUUUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/9] docs/zh_CN: align translation paths and update
+ guides
+To: Weijie Yuan <wy@wyuan.org>
+Cc: Weijie Yuan <kernel@wyuan.org>, Alex Shi <alexs@kernel.org>,
+ Yanteng Si <si.yanteng@linux.dev>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261028034134.4144660-1-dzm91@hust.edu.cn>
+ <auGucr4smrSp9g5l@wyuan.org>
+ <0ecb719c-5e0a-400c-b1b3-da2923c40bb4@hust.edu.cn>
+ <auQPB6S1VAFOLuhs@wyuan.org>
+From: Dongliang Mu <dzm91@hust.edu.cn>
+In-Reply-To: <auQPB6S1VAFOLuhs@wyuan.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:IQEQrMDW_XYdMORqad9lAA--.2791S2
+Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvJXoWxJr18tFWfWry7uFy3Gw1fCrg_yoW8Wr4xpF
+	93WFyI9a1fJr1fArn7K3y7JF1fKF47Gay7GF17t3sayFnav3s5tFWrtrZ8uF9rXrn5ua47
+	XF45tF95Xay5uaDanT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQlb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2
+	z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2kKe7AKxVWUAV
+	WUtwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AI
+	YIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VACjcxG62k0Y48FwI0_Gr
+	1j6F4UJwAv7VCjz48v1sIEY20_GFW3Jr1UJwAv7VCY1x0262k0Y48FwI0_Gr1j6F4UJwAm
+	72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4
+	AK6svPMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_GFW3Jr1UJwCFx2IqxVCF
+	s4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUAVWUtwC20s026c02F40E14v26r1j6r18MI
+	8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41l
+	IxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIx
+	AIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2
+	jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU0XVy3UUUUU==
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
-In case of neither reset pin nor switchable power supply is available,
-the LCD module could be DC polarized (which is harmful) when the MIPI
-DSI host is shut down.
 
-It seems that do a soft reset for the LCD controller could stop the LCD
-controller from biasing the liquid crystal, thus preventing the harm.
+On 10/30/26 11:29 AM, Weijie Yuan wrote:
+> Dongliang Mu <dzm91@hust.edu.cn> writes:
+>
+>> On 10/28/26 4:12 PM, Weijie Yuan wrote:
+>>> On Wed, Oct 28, 2026 at 11:41:25AM +0800, Dongliang Mu wrote:
+>>>> Several Chinese translations are no longer at the same relative paths as
+>>>> their English originals, and some Original fields are stale. This series
+>>>> moves the translations to matching paths, adjusts their indexes, and
+>>>> removes stale Original fields. It also updates selected translations to
+>>>> newer English commits.
+>>>>
+>>>> v1->v2:
+>>>> - Drop the unused top-level readme_zh label from the translated
+>>>>     admin-guide README.
+>>> Hmm, so why still keeping these labels here?
+>>>
+>>> [2/9] .. _zh_applying_patches:
+>> This is necessary and used by another location.
+> $ git grep -n -F -- 'zh_applying_patches' Documentation/
+> Documentation/translations/zh_CN/admin-guide/README.rst:82:   :ref:`Documentation/translations/zh_CN/process/applying-patches.rst <zh_applying_patches>`。
+> Documentation/translations/zh_CN/process/applying-patches.rst:11:.. _zh_applying_patches:
+>
+> Seems that it is only used in your patchset? Because I didn't create
+> this label when I made this translation.
 
-Add a soft reset after putting the LCD controller into sleep mode.
 
-Tested on a Sipeed Lichee Console 4A, which has no LCD reset pin, and
-the LCD supply is an always-on one.
+Yes. It originates from the English documentation. To make the 
+translation have the same style, I create a similar top level label in 
+our translation.
 
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
- drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Dongliang Mu
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-index 83148c40e25ca..8b874c6f7d37c 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-@@ -2493,6 +2493,10 @@ static int ili9881c_unprepare(struct drm_panel *panel)
- 
- 	mipi_dsi_dcs_set_display_off_multi(&mctx);
- 	mipi_dsi_dcs_enter_sleep_mode_multi(&mctx);
-+	mipi_dsi_msleep(&mctx, 120);
-+	mipi_dsi_dcs_soft_reset_multi(&mctx);
-+	mipi_dsi_msleep(&mctx, 5);
-+
- 	regulator_disable(ctx->power);
- 	if (ctx->iovcc)
- 		regulator_disable(ctx->iovcc);
 
--- 
-2.56.0
+>
+>>> [4/9] .. _process_index_zh:
+>>> [5/9] .. _magicnumbers_zh:
+>> The above labels needs removed. I forget to clean the same issues in other
+>> patches.
+> Thanks!
 
