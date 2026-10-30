@@ -1,67 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793374660;
-	b=MAb1mI0aq4DJXnO23zVkqSMLo1M+Fy/+j2S+fst6DP4zR2bR1v7xOomc3dXJzPTT/IZD
-	 hsV4MT5aPD9nuTC1mEqfVd0KVXFcAij41wDfUhg3bKAEIlhPambrFUtvBB+yaLZgzqJ/3
-	 dgzDNu4XEPa6Iaa1AtQ6SyB9WeosmDoU13vLZeQb4Gmm6Ml1y6fJPGI1RtOxsR4nidesZ
-	 6VB0M/3vT1oibfle4WnT5EtQC0AKRfOlJSGTyOwMTFsxvul5Z3m5ekfHa2qIXe5zkiIBM
-	 ifhlHKi1QXrWmMJVwV8vmlzHbcvITCj/3Q0b2/Y/g+qGbDitk3te5f3HK68QKDjQN0A==
+	t=1793374671;
+	b=aRKhuVvO1DYz1fYoaKCO0xNSANpLcuwVQKUKwJJAcAmOg/cPZQYynte6VApYIkY0khuy
+	 dPmtAUvYTK7i1RG9vJPV7ngNasFC4EPnunK+f/XzI/e6ppQ9P1DMmC6KvGkjx/k8dVDUh
+	 q8/ITNUzuTjpRBgk8IdvI6PBfI/5XpH7rR+4yto3wQIZbh/jZ27isRQ66cIeh5bcjFMxO
+	 81Mm3cKf6abzfHFEwAKu8vdnDwe2qBxPch5+5oF3W4gfmBZXHZjoUy3vKA7TDLEjIIrXx
+	 seT3WxUj7qm53QSlmTR4ED29//e3MKm4A2WAjbZyGtvUDMdOH0YYzvFgT1avKr+D49w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793374660;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=XCiNX/JVOGez8Xk/1UsypK/8unagw3ySEZpGAE4b/PU=;
-	b=mYAZMhlZCJhs52arXBrAaYF4zwfIs0mW2n5kYGe96GFgEE1A3ULD9Ueahs1PGY8f5Rbv
-	 9MsHYUj7SwpV8naSDWyxEo8EOgFimd0+D3SLVvPf7207vjNF9E9QxrRBU0ZtPnUoWJKTH
-	 0vHMJxsCG0rcmByBf4g4/R4B6BgQaXVPTMeU0ySS9JIg6qu1hsQDN8OBTZfRa5PxfRmRi
-	 Sv2U3EQ2x+g+VqUqeQJ/efKuAG+PRNHBRXRKjwZdgTEf5KcaSQ4Htqper7ZniZUGo5qVc
-	 xE7pJzewBe2jd0By3q/S1skmELQ+uBTuunR2eErztCWO3T/EuaJ5gMZthc0838ThnIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793374671;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=Eb083Lhc9S6Iyxxmprup0mjMXvghWUY0aQYzPG3iQiA=;
+	b=YbCkZyV9SXNuIgVgdtHwAj6htzDnKSuaC2Xm2PMbN7YtyYY46BfgN1MQLPROoBxcrS5m
+	 cAvuLz5qEzpBH03g+aOb9ZR0zlyPRzmeueiVDzfVmGtG2XHsL7G9cOU5qJ/U5D6o4yhEm
+	 BrWH3jhzdgVCM2ipOtSLaZRZpnPRRVM+KhYRn1VJdezT/dATlcGWn9aYTSLlGQqexQXzH
+	 PheqfLOYqkqCqrlIdc+ECIvgirIMyQ9Qdfxy/V+8q3sLThvrjDpx95MCB6dfAWhwGI0UB
+	 yFpQFl4Xs1+V/V2H4f78s0A4IWWE+tqvfwkLsunwf72PQEfUV1nfI9Ools3ju7oeYTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eYPcu94u;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=4rrdJh7a;
+	arc=none smtp.remote-ip=44.202.169.39
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB72606A31F;
-	Fri, 30 Oct 2026 15:37:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB12606A329
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:37:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DB12606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eYPcu94u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F343C1F000C1;
-	Fri, 30 Oct 2026 15:37:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793374659;
-	bh=XCiNX/JVOGez8Xk/1UsypK/8unagw3ySEZpGAE4b/PU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eYPcu94uQR0iroKxabErt/vMeQpkS6GHmYqkY6K/hsBKExvogGDA5qavalpX7diso
-	 sEnExCJ6pL+aMhcXQa9nOCRjMYYsmKIewRxzvQ/IFjkL95xYA5b3zwoQbzVWaKOOwI
-	 o6B6V434EhSr6JrU93kVp62Ys3bkTc0bZyOICc97qraH8Yr4EDwiiiQ47Nbzu/GcKS
-	 tQaNC5Oj8/Hl+RLjGwomsKH0cx8OXnUO7d3HGHazFoYCgzDMengZVnDPHYj5uhY4up
-	 L9HAZAdpfbdd0huC7ZIv/ptlAi//Cx8KKSZPij6Xy9JqY3f/pSEXT6lNiHBz8ozRSr
-	 ePvc9SbJzrMHg==
-Date: Fri, 30 Oct 2026 10:37:34 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	linux-arm-msm@vger.kernel.org, kernel@collabora.com,
-	devicetree@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-rockchip@lists.infradead.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH v2 1/4] dt-bindings: connector: Add DP AltMode VDO
- definitions
-Message-ID: <179337465400.84888.3742821306180062985.robh@kernel.org>
-References: <20261017-dp-altmode-dt-defines-v2-0-7ab3d93553dd@collabora.com>
- <20261017-dp-altmode-dt-defines-v2-1-7ab3d93553dd@collabora.com>
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=4rrdJh7a
+Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
+	by cmsmtp with ESMTPS
+	id MiSyxEWtWMylkMofuxg4M5; Fri, 30 Oct 2026 15:37:50 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id MoftxRl3c1fkWMoftx8byW; Fri, 30 Oct 2026 15:37:50 +0000
+X-Authority-Analysis: v=2.4 cv=CLMqXQrD c=1 sm=1 tr=0 ts=6ae4b9ce
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=EUspDBNiAAAA:8
+ a=_jlGtV7tAAAA:8 a=VwQbUJbxAAAA:8 a=ehfqsZ6UyqGNEVwpBysA:9 a=QEXdDO2ut3YA:10
+ a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:To:Subject:MIME-Version:Date:Message-ID:Sender:
+	Reply-To:Cc:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=Eb083Lhc9S6Iyxxmprup0mjMXvghWUY0aQYzPG3iQiA=; b=4rrdJh7acYmG
+	CXCYblfhWCeYV2jFGxSlDOq0j35sSrQcluKiiOOzoCIvwM/6EodrtGOMj5nkc+PdKXQ6d3PQ5AV8k
+	EMeV2S5OEP0Xt34UCMLFKZgJL+l1AniObzwXX8Gn8fVU+wOG40gfijeI54j6o/W4tCdYx/FmXy9Tv
+	lwd/COPSb+Ctc1wG31apOjCXAW16I4AMmrw4kGUzrPTDJ9vlQj+vk5cFJ+ZFT0SMkoKbjNtNFDi0x
+	pk27jBhxusmHYlu5ukH8qqnjexALbOWlSIZFsb0m9e+KS+tKmW0ZmunS4vf1aRy7Sb7wtrM/IQ6Fv
+	gfH7ntK1UQOZ1AeIg2vv2w==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:39764)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xMoft-00000001ayA-1Z98;
+	Fri, 30 Oct 2026 21:07:49 +0530
+Message-ID: <4b64860b-322b-4646-b132-0b75efb0086d@roeck-us.net>
+Date: Fri, 30 Oct 2026 08:37:48 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,46 +76,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261017-dp-altmode-dt-defines-v2-1-7ab3d93553dd@collabora.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MAINTAINERS: mfd: Drop MEN F21BMC (bouncing email)
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Lee Jones <lee@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>,
+ mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-watchdog@vger.kernel.org
+References: <20261030152821.283215-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261030152821.283215-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xMoft-00000001ayA-1Z98
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:39764
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 16
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfJySRLIftlNjA2oX7SPfMUUHxe3JObjBpWyiQ0H/QdzC3II8/5gxSl4GdtqZus7pG1eF1nCdVqCEYtXxPpqzBpDatUnZM9FPBOwInZweaLrlS10scSZj
+ lpPyCUeZX8evbtvJ/i/UkVK+Dto9b3ighs38TUPaBNwc9lgqVDfjX8Nhnum2w+D+/bJadal5LBWPhJbtx2sNqmfnVcWit/l8I/B1FFiBm+bCCtGrbWpzMZWr
 
+On 10/30/26 08:28, Krzysztof Kozlowski wrote:
+> Emails to Andreas Werner bounce ("reason: 550 5.4.1 Recipient address
+> rejected: Access denied.), so apparently driver is not supported
+> anymore.  Last emails from Andreas Werner are from 2016.  Drop the entry
+> completely.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
 
-On Sat, 17 Oct 2026 21:59:30 +0200, Sebastian Reichel wrote:
-> From: Sebastian Reichel <sebastian.reichel@collabora.com>
-> 
-> The typical USB-C DisplayPort AltMode capabilities for a down facing
-> port (i.e. sending out video data) looks like this:
-> 
-> altmodes {
-> 	displayport {
-> 		svid = /bits/ 16 <0xff01>;
-> 		vdo = <0x00001c46>;
-> 	};
-> };
-> 
-> Improve the readability by adding defines for the numbers, so that
-> the above instead looks like this:
-> 
-> altmodes {
-> 	displayport {
-> 		svid = /bits/ 16 <USB_SVID_DP_ALTMODE>;
-> 		vdo = <VDO_DP(DP_CAP_DPAM_V2_0, DP_CAP_CABLE_TYPE_PASSIVE,
-> 			      DP_CAP_UHBR_13_5_UNSUPPORTED,
-> 			      DP_PIN_UFP_NONE, DP_PIN_DFP_C_D_E,
-> 			      DP_CAP_USB2_USED, DP_CAP_RECEPTACLE,
-> 			      DP_CAP_SIGNALLING_HBR3, DP_CAP_DFP_D)>;
-> 	};
-> };
-> 
-> The generated DT binary will stay unchanged.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Makes sense.
+
+Acked-by: Guenter Roeck <linux@roeck-us.net>
+
 > ---
->  include/dt-bindings/usb/pd.h | 58 ++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 58 insertions(+)
 > 
-
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> Maybe this can go via MFD tree?
+> ---
+>   MAINTAINERS | 9 ---------
+>   1 file changed, 9 deletions(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 365bec8eb7fb..51673747ab91 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17998,15 +17998,6 @@ F:	Documentation/driver-api/men-chameleon-bus.rst
+>   F:	drivers/mcb/
+>   F:	include/linux/mcb.h
+>   
+> -MEN F21BMC (Board Management Controller)
+> -M:	Andreas Werner <andreas.werner@men.de>
+> -S:	Supported
+> -F:	Documentation/hwmon/menf21bmc.rst
+> -F:	drivers/hwmon/menf21bmc_hwmon.c
+> -F:	drivers/leds/leds-menf21bmc.c
+> -F:	drivers/mfd/menf21bmc.c
+> -F:	drivers/watchdog/menf21bmc_wdt.c
+> -
+>   MEN Z069 WATCHDOG DRIVER
+>   M:	Johannes Thumshirn <jth@kernel.org>
+>   L:	linux-watchdog@vger.kernel.org
 
