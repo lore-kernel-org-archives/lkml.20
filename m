@@ -1,54 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793331485;
-	b=0yciwgLkklhefz1i3j2cAey6zL/gZUgNXvNKRxkfN9stDbjEnCRT1hOfJwBtlW7NJt/7
-	 0IzmBvakKzb8MY9sX6DYSdoy6it7gjkuRMzsdthBtckNC22xHJsma6gS0NcDpkTBD0unn
-	 x0afWnDQKC/uZKb554gYPLLYTZAIG/k42cWGpaTNbTZUlQdjBDQkPD6Nl3DycElqRr2oI
-	 WRNjaiTkSZEJ+ZTmnDv3s25Qx2wqyh83wxlYN0oN3s0loF/X+sjLwxKNnV8pDIFlbrU0E
-	 Epdl2HfvU2YNFACCcsQ9YYD7lAwZ7xwU46kTv+oABo/hZmRpd1HCPN78zXMcUb0bArQ==
+	t=1793331863;
+	b=k+i1+KKCd0gr/a3KSfZlssJ4Y1Je+nSy2gdEGcz6UbxEAYN3mGu2OdJXkY4HZlX35MBH
+	 OlRnQkQSC8XmdN35/s18CvPJpO1kOsdZ2sAlLdrdzo+nHizsgz+L5LT+ErReqAujx0hBB
+	 VGzQhJZZ0xWIL6PTdua98FHZ87NGt2EOB74sNhsGlZUuQOCaMfyIzl5GoHMU8bMlnu07r
+	 v5yvqeUcPl+o4AYNv9Jp1S1woa+1UcPh1TJio8iPMEF31VBWBfllxrrr7DGqsYCi1hAid
+	 KukflDNxih06pg9GuReGv2cffrJibMovbeLQX5eYw+wxskGrjLDOMotEVbFgj19gpeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793331485;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=F9FVwiq3RZ2XMJDDjMlkJpeTKbxZbvVF3lcB6CeZo64=;
-	b=HCHL4hz8330MEjmzcAzlTZ92CzOKyI9TSFzSL6+uyi0phNeTCwfiDd/Cmmf7G9MnEuWE
-	 9MKFaxwoN916IfFFLr2eeSJ0AlQntGYE7lJTfZuUBysqHMIMd/vcW1F5TsJU7MQkLXzUs
-	 eTcLGIBnGb6LOfj3r2x707BgOl4+Wop/eQ9zX5SAp+puIo0KTwcZC4kmsJqriaOGVSRLf
-	 sPVZlSP9XnLH05wRipxAS3HcQSocjEdFBw7tpUArva+eK+xk5bS8eCU2cIVQEX5nqpl2t
-	 tcgxJGMxHV/rZuLiFxTgbIoy3JboLDBTd2jxJV5U46Qd+/CeAdiM97UK4EfnSrR58MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793331863;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=v4DQsLR0Sr6pSUF5Nmqru+Sp8EwUJhrxZNM3O9AZMaU=;
+	b=xQkPuC+rVo0YN/2GtgCI7vW4yXm1QXHUxs5yANDyBLXRmOgkJ94VEiuDwo4ShPm1G/5L
+	 zMem6PWhX1Tup+h12HhtAqr4d5vUc2mr66HitL3KaOQvhMfxvxCVZ40kIM/7ESZBSWOPy
+	 tV9fuWccO7Baq0DM993n75GDmKC4WtHOYqSNnLLdjjqf23QCFMBL5g9ddE3dY1utktMFx
+	 ZKObLzyvrwP5gFKr0CO7MTkyoWPagpQa9IZ1GUxXQguuhNCjDVygH2NW5/kHqh03u89En
+	 IiUJd1F5xgJwZ2/LqEOHB5Vz2SXnjY8HFCESS7n9wlKsL7wH4ZyMAzjNjswS0k+yk1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D29606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:38:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1D29606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c55ba309c2so389605b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:38:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793331484; x=1793936284;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=F9FVwiq3RZ2XMJDDjMlkJpeTKbxZbvVF3lcB6CeZo64=;
-        b=quKLaiIXZLapWpc50dhaI15spfcXUG9cpC3PhEIi0BBvh382Q1y1GFTHm6D98Eg+6P
-         l64baB7ZxG7juh+hX9RfayPMUDHEgteH3j9ws49byFZhG7qPrjFA/CsHCRREnzOJvC/w
-         OPmJ6ymkPWYqXyYv0Ku1WOEMwuISSJbWKlDZVKkOT5QgFAicH/NLKFsLDX/askNC7jTG
-         g8Hyk+GuRGvFLlzCrqxJyF8kxR5lLo2bTjKxjO36PuEUqMZIT5YJ58aiBfmqVFts3Y2a
-         IzgcnxPEcsef+19HlS9BcYoOl0w09wZn7Tmo2edXaoL1kQIidXO/4Ts2GjevMohJ6tUH
-         9MqA==
-X-Forwarded-Encrypted: i=1; AKwUvBzd+NpbRifVC6oU5ZogZV5eB37XK8FwwiIfK08Zcwa+GzcgevNJlX7lc64FPPNDs87k6cuX0RpSDKA4mmA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2cBZErLbdE07YSdt8AObqyxO4AfD4fU9W4Ks7THArYw4JE9k0
-	BW502CCvWE37yOTPmUYqxSpimKTbOCA5T9V+67596owAwF9EfSS1U0CoqY5aL0lrWxFxviEaxGD
-	HwP29n0A4ubn/0JC6m51TRJREeLKqM5nUHq7jPwj9HDnaVCwkh/X5GFvoAUc=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1EB6606A31A;
+	Fri, 30 Oct 2026 03:44:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1EB6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jG6R73PgXz8Xrrd;
+	Fri, 30 Oct 2026 11:44:19 +0800 (CST)
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl2.zte.com.cn with SMTP id 69U3i57m012676;
+	Fri, 30 Oct 2026 11:44:05 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp04[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Fri, 30 Oct 2026 11:44:06 +0800 (CST)
+X-Zmail-TransId: 2afb6ae41286f05-83c2a
+X-Mailer: Zmail v1.0
+Message-ID: <20261030114406371EZw_orIqSRlCTxnz_L39Z@zte.com.cn>
+Date: Fri, 30 Oct 2026 11:44:06 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,36 +56,130 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1811:b0:54f:ee4e:51ed with SMTP id
- 5614622812f47-5640dcb8774mr904840b6e.19.1793331483954; Thu, 29 Oct 2026
- 20:38:03 -0700 (PDT)
-Date: Thu, 29 Oct 2026 20:38:03 -0700
-In-Reply-To: <20261030031741.29260-1-gowtham398gs@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae4111b.f57e0135.1770dd.0077.GAE@google.com>
-Subject: Re: [syzbot] [mm?] WARNING in setup_conf
-From: syzbot <syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com>
-To: gowtham398gs@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
+Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIXSB1YmlmczogcHJvcGFnYXRlIHViaWZzX3NoYXNoX2NvcHlfc3RhdGUoKSBlcnJvcnM=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 69U3i57m012676
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Fri, 30 Oct 2026 11:44:19 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE41293.002/4jG6R73PgXz8Xrrd
 
-Hello,
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+ubifs_shash_copy_state() duplicates the rolling hash state with
+crypto_shash_export() and crypto_shash_import().  The export buffer is
+allocated with kmalloc(), so the function can fail with -ENOMEM, and
+crypto_shash_import() can fail as well.
 
-Reported-by: syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com
-Tested-by: syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com
+Five callers ignore the return value.  The target descriptor then has no
+valid state, and the crypto_shash_final() that follows computes a digest
+from uninitialized data.  When preparing an auth node this stores a
+wrong HMAC on the media, so the affected journal head no longer
+authenticates after a remount.  During replay it makes the verification
+of a valid image fail with -EPERM, and in replay_bud() and
+add_replay_bud() it leaves the replay hash state inconsistent with the
+media, which corrupts the auth nodes written by later commits.
 
-Tested on:
+Check the error at all five call sites and propagate it.  In
+add_replay_bud() the descriptor belongs to the new bud, so free it on
+the added error path.
 
-commit:         d89e1d18 Merge tag 'fscrypt-for-linus' of git://git.ke..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=174851a5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=bf3aec6dcf0a7ca2
-dashboard link: https://syzkaller.appspot.com/bug?extid=75f49ec552cc74d9d69b
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1617e22d580000
+Fixes: 6a98bc4614de ("ubifs: Add authentication nodes to journal")
+Fixes: da8ef65f9573 ("ubifs: Authenticate replayed journal")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+diff --git a/fs/ubifs/auth.c b/fs/ubifs/auth.c
+index 1f770795ee70..62dfacfb6d6b 100644
+--- a/fs/ubifs/auth.c
++++ b/fs/ubifs/auth.c
+@@ -70,7 +70,10 @@ int ubifs_prepare_auth_node(struct ubifs_info *c, void *node,
+ 		SHASH_DESC_ON_STACK(hash_desc, c->hash_tfm);
 
-Note: testing is done by a robot and is best-effort only.
+ 		hash_desc->tfm = c->hash_tfm;
+-		ubifs_shash_copy_state(c, inhash, hash_desc);
++
++		err = ubifs_shash_copy_state(c, inhash, hash_desc);
++		if (err)
++			return err;
+
+ 		err = crypto_shash_final(hash_desc, hash);
+ 		if (err)
+diff --git a/fs/ubifs/log.c b/fs/ubifs/log.c
+index c6edcbf35ebc..42cadf558a4f 100644
+--- a/fs/ubifs/log.c
++++ b/fs/ubifs/log.c
+@@ -412,7 +412,11 @@ int ubifs_log_start_commit(struct ubifs_info *c, int *ltail_lnum)
+ 					 UBIFS_REF_NODE_SZ);
+ 		if (err)
+ 			goto out;
+-		ubifs_shash_copy_state(c, c->log_hash, c->jheads[i].log_hash);
++
++		err = ubifs_shash_copy_state(c, c->log_hash,
++					     c->jheads[i].log_hash);
++		if (err)
++			goto out;
+ 	}
+
+ 	ubifs_pad(c, buf + len, ALIGN(len, c->min_io_size) - len);
+diff --git a/fs/ubifs/replay.c b/fs/ubifs/replay.c
+index 263045e05cf1..0b82c67a2dcc 100644
+--- a/fs/ubifs/replay.c
++++ b/fs/ubifs/replay.c
+@@ -566,10 +566,14 @@ authenticate_sleb_hash(struct ubifs_info *c,
+ 		       struct shash_desc *log_hash, u8 *hash)
+ {
+ 	SHASH_DESC_ON_STACK(hash_desc, c->hash_tfm);
++	int err;
+
+ 	hash_desc->tfm = c->hash_tfm;
+
+-	ubifs_shash_copy_state(c, log_hash, hash_desc);
++	err = ubifs_shash_copy_state(c, log_hash, hash_desc);
++	if (err)
++		return err;
++
+ 	return crypto_shash_final(hash_desc, hash);
+ }
+
+@@ -694,8 +698,10 @@ static int replay_bud(struct ubifs_info *c, struct bud_entry *b)
+ 		goto out;
+ 	}
+
+-	ubifs_shash_copy_state(c, b->bud->log_hash,
+-			       c->jheads[b->bud->jhead].log_hash);
++	err = ubifs_shash_copy_state(c, b->bud->log_hash,
++				     c->jheads[b->bud->jhead].log_hash);
++	if (err)
++		goto out;
+
+ 	/*
+ 	 * The bud does not have to start from offset zero - the beginning of
+@@ -915,7 +921,9 @@ static int add_replay_bud(struct ubifs_info *c, int lnum, int offs, int jhead,
+ 		goto out;
+ 	}
+
+-	ubifs_shash_copy_state(c, c->log_hash, bud->log_hash);
++	err = ubifs_shash_copy_state(c, c->log_hash, bud->log_hash);
++	if (err)
++		goto out_free_log_hash;
+
+ 	ubifs_add_bud(c, bud);
+
+@@ -924,6 +932,8 @@ static int add_replay_bud(struct ubifs_info *c, int lnum, int offs, int jhead,
+ 	list_add_tail(&b->list, &c->replay_buds);
+
+ 	return 0;
++out_free_log_hash:
++	kfree(bud->log_hash);
+ out:
+ 	kfree(bud);
+ 	kfree(b);
