@@ -1,55 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793381662;
-	b=u+t59PRUkfr/pDkyYGPKnP4uPCzrK707Whs831MLQdGPZR9BD4YMuh3q59fSqBM5Hrv7
-	 Bzy+p2biiQRwga/YrwuVDz7p8JNtueapko0sZ2ZntrkQ8BrefXXMn2CjHW7YX/0B9mJxD
-	 Ggm3bLY38PuLBA3mgZBrUqQptyQ8NIGV79Jn7Y52t+/EbiFxznwkUzE7H9Z/HrXE9G6IM
-	 Mxxs96oxPxc9X5Z0Hcfnc6Qcb52/FjOeH65nZX4WHEM0JazHKTxOv+GGltyfE6x4s6rvF
-	 YQR6STKhPN/gOiqAzHRgjxmmz+BwArcB6MAOi3rjhsfyh3aZK5nnc5V3bS/zkLUpC8w==
+	t=1793381679;
+	b=VfO7Sqra46jhgLw1wzA66MtduWws2qVp97EC1QW/RrTGCgxAV6k/2L56QWt58lDegE0l
+	 5WHTH4jewxLCVOjBVye0lnkxSlhz6jHnnOYf2hFGBVtPo9GpNJhtDL9CP2FLBToDx9CU+
+	 kQ8URyvSZcXEKlseOsuwryro4OnF+b6PTVm3DLRNl8FlLlxSOCcn9ai9PoLcIAvuKkthN
+	 tMn85SbVB38o8f6Op00g45uYwNGPBVRC5/U3+Smgf7tYsZ4udkL7eq/5Ndj5O7r5U4VdM
+	 0y+KlL4jJWyYashL1bAkXPTkxrlglC1WUuxDnkQogXU/4qp6hFLhgft9Gs2ir7Dq0hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793381662;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
-	bh=VICXlRZ14rhhanz6CJeMesIouFUKGkvUkT9t7FZfz4Q=;
-	b=TnXCtH/jZmLzvSm32E5kFgxhKjhCHP+5RNcuagBAROcHXfhHuUL3yf6TGhffDZtvnI9p
-	 vFIZNaRCIZBd+1j2ECsvYfq4J42g3YYwM0x+4D1r28gErArPc/sNvy0sO5WDVD/B77q5Y
-	 SWyahu+2qJng/wC9GQMNz01QWOMekWV5FH5+jC/kuUdUvKAF0DRoZi7Z6ntJnoj03bmCx
-	 2cRicXDKy8WQCatFwlihmYnEVSB+XTRl6rLzC0KQbuKTyKDyu3ATwRO+ez9z1cosDN4LK
-	 /PmmlNMLtkaKWI3IqJhtTMxJZVi6x8O3k0Qm708pZKz9xsW3SPk7D3H7DCp+v0NnxCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793381679;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=AbmgI+c358WW9X4xsVHrPuf2RX/FnxV0IKlkJ1CVV7g=;
+	b=0pMIFH825ZCpvletRd8mXt6oPFEBnmcbMfmVFD0ju7NL6FNZxLav6FgGBEBUo5Y1C9Sl
+	 4rn/aOFFH6XRq1KsDG/RUJFGtDZu8xzXXG7/3l5UcLihm/yNqMqQpiakx8A4nlLXd9ZwD
+	 dzAUllJItGGo5aGgjTg21eNp7wXAA9M2kQh1jZtYHGdtFuBthu/SjvCf/tNJ77huDjMoV
+	 EhC83vT/FEvXug8b8OCa5IU5398SZlysnwAXoZfMwq5Hcrqlt5n9Q5tqRpaL/0NMfZFf4
+	 Wk+Kl0P6Jh1+wkuMhVDvmpvNbu0CRech1FqWChX76gQ/vAjj8r1c+ytxKchT83hwFiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=epCP46ok;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lNqTdea3;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3D6606A31D;
-	Fri, 30 Oct 2026 17:34:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA3D6606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 191CB606A31A;
+	Fri, 30 Oct 2026 17:34:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 191CB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=epCP46ok
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id AC63C4E413A9;
-	Fri, 30 Oct 2026 17:34:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7394A603C2;
-	Fri, 30 Oct 2026 17:34:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A00FB10328D09;
-	Fri, 30 Oct 2026 18:33:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793381649; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=VICXlRZ14rhhanz6CJeMesIouFUKGkvUkT9t7FZfz4Q=;
-	b=epCP46okpn+q9I/oAstY23ZTzc6zvOUk2WFw9lJqfdty423a8pNpW/0aljG/xZlBCNmILB
-	cyxUtC4Wfa+XvawZp3CtmRabDu9CVIVe9kN0ajZf91nWEi3ETAzROUbH8oYfvgSeXOrBML
-	kSFJubPKKVq4nsZfCM3ZQT0wjG1r8Klktwxywq8lJRUWthbTR+NTCH5bJ063MRv2DHiXr/
-	0VWkfSga6rWzqV0u1TpnoAmluCt0c44RsZshdtlqmUeqrBjGHZjKOHkU8N+JNLHP94NoAr
-	JFyqeVp6OfbFsAyZ32AOvAJUvx9z6Gm5Bjv2rjQgetml1BE+johyjpnx6gtY1g==
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lNqTdea3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793381678; x=1824917678;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=h5PyW5xxg6E88s7pnyR1i1IBAuIVjHfkU9lV97Ro/PE=;
+  b=lNqTdea39+D/EH2wZKQ3JF4odm2g1bG0/pEr2S3mc2FglhsaFiavxg9H
+   Kj7GJ+x4t62ixIfT/pVbdvj4EB3ROT81OAt2ODbWvGF3kp4cXqjdBfSHN
+   2ODJRqTLLsnENgOFlZkTkURCodfgESkFFXBCCXfGT0xCHxLd2+aMw5GoK
+   G896Ufvh5z7bWOQPmAvaXJTE05ej+7vmLoxXoF/YnTqQ3Hn+wCVQ3Ltyk
+   2DdZtEK+Ee41B4ft+LSr4sWriSe8FEyGB2liHx7nuXqEhrRss23JdGTd2
+   WzgaXysTpj71KD8J7UUJYqZZQO8M4LevSDLUIlqeUajkhGO2WUkznx6Hi
+   g==;
+X-CSE-ConnectionGUID: zjePILBGQf+SgPLbAdx+tA==
+X-CSE-MsgGUID: imxLKi9OSuay8t3HPHLD8A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2167724"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2167724"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:34:37 -0700
+X-CSE-ConnectionGUID: Sc2vAOAbSfqxhqW7VjbayQ==
+X-CSE-MsgGUID: JhFRMV2QTAaJUSM7khis0g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5513300"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.85]) ([10.125.109.85])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:34:36 -0700
+Message-ID: <462e07c4-ca77-4111-a4b7-c45bf8a71e3e@intel.com>
+Date: Fri, 30 Oct 2026 10:34:34 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,103 +72,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] cxl/pci: Guard decoder accesses after reset
+To: Richard Cheng <icheng@nvidia.com>, jic23@kernel.org, dave@stgolabs.net,
+ alison.schofield@intel.com, vishal.l.verma@intel.com, iweiny@kernel.org
+Cc: ming.li@zohomail.com, kaihengf@nvidia.com, kobak@nvidia.com,
+ newtonl@nvidia.com, kristinc@nvidia.com, mochs@nvidia.com,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260929020405.9724-1-icheng@nvidia.com>
+ <20260929020405.9724-5-icheng@nvidia.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260929020405.9724-5-icheng@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 13/35] drm/panel: remove the _typed() panel bridge
- functions
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Douglas Anderson <dianders@chromium.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>, 
- Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
- Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Alison Wang <alison.wang@nxp.com>, 
- Paul Kocialkowski <paulk@sys-base.io>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Igor Reznichenko <igor@reznichenko.net>, Michael Walle <mwalle@kernel.org>, 
- Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
- Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- Purism Kernel Team <kernel@puri.sm>, 
- Jerry Han <hanxu5@huaqin.corp-partner.google.com>, 
- Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>, 
- Michael Trimarchi <michael@amarulasolutions.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Casey Connolly <casey.connolly@linaro.org>, 
- Michael Tretter <m.tretter@pengutronix.de>, 
- Cristian Cozzolino <cristian_ci@protonmail.com>, 
- Junjie Cao <junjie.cao@linux.dev>, Ryan Brue <ryanbrue.dev@gmail.com>, 
- Nickolay Goppen <setotau@mainlining.org>, 
- Stefan Mavrodiev <stefan@olimex.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Robert Chiras <robert.chiras@nxp.com>, 
- Alexander Koskovich <akoskovich@pm.me>, 
- Markuss Broks <markuss.broks@gmail.com>, 
- Artur Weber <aweber.kernel@gmail.com>, David Heidelberg <david@ixit.cz>, 
- Dzmitry Sankouski <dsankouski@gmail.com>, 
- Yedaya Katsman <yedaya.ka@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
- linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
-In-Reply-To: <20261026-drm-panel-funcs-v1-13-5e3070a3478f@oss.qualcomm.com>
-References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
- <20261026-drm-panel-funcs-v1-13-5e3070a3478f@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 18:28:25 +0100
-Message-Id: <179338130524.3009485.17598085708064235352.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 26 Oct 2026 13:10:02 +0200, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> The connector type argument of drm_panel_bridge_add_typed() and
-> devm_drm_panel_bridge_add_typed() has been ignored since commit
-> b7797081ccfe ("drm/panel: embed a drm_bridge into every drm_panel"),
-> and they have no users left.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+On 9/28/26 7:04 PM, Richard Cheng wrote:
+> cxl_reset_done() runs even when PCI state restoration is skipped.
+> Reading HDM decoder registers while the device is inaccessible can
+> trigger another error.
+> 
+> Skip decoder checks if the PCI Command read fails, returns all ones, or
+> Memory Space Enable is clear.
+> 
+> Signed-off-by: Richard Cheng <icheng@nvidia.com>
+
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+
+> ---
+>  drivers/cxl/pci.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
+> index c7c91e8dc51d..2294f7761e50 100644
+> --- a/drivers/cxl/pci.c
+> +++ b/drivers/cxl/pci.c
+> @@ -976,6 +976,12 @@ static void cxl_reset_done(struct pci_dev *pdev)
+>  	struct cxl_dev_state *cxlds = pci_get_drvdata(pdev);
+>  	struct cxl_memdev *cxlmd = cxlds->cxlmd;
+>  	struct device *dev = &pdev->dev;
+> +	u32 command;
+> +
+> +	/* PCI state restoration may have been skipped after a failed reset. */
+> +	if (pci_read_config_dword(pdev, PCI_COMMAND, &command) ||
+> +	    PCI_POSSIBLE_ERROR(command) || !(command & PCI_COMMAND_MEMORY))
+> +		return;
+>  
+>  	/*
+>  	 * FLR does not expect to touch the HDM decoders and related
 
