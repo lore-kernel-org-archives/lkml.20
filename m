@@ -1,99 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.16
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793399234;
-	b=KBPjv6WyOmwtTiYgMaIfn24R6BHEOdPRtEPCKFqXb1vprdNUXxL2d1qQoHpCQRZ89YGa
-	 +un0gA1rn9Wza77/kBPop6seqr3m/OJiYVduvjLtObYKdpMbEAIyUHKq8WRp2uwsYZujE
-	 h4TF+gsKit3k/U0cDV4t2e0gB/zsdtL75qTsZBbp81AixMzS68uLuZAe1ICkdpOlyhaOI
-	 CJ21bNX9g+MckpYEuX5T0zxEdcqACcOxRP7hGWY8Vp1QKZ7LjypQ7lOUiwLzbfLBuoB3A
-	 WYHLrGroB68rs9wWjz8MF9iU0GDhWxCM78RaiHMUuCVk0Bw0nqxW929EEq+XS+g9jow==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793399234;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=LVQL6Jj9rKv4vs11VK4F++ssGUdMWPWMIB40ReHi7SU=;
-	b=PLr/jrHEK05/giGhOFqC0Nb6pM86cz6ShsuD8K9YlDXe2rzlikpzAsMR9aNfvPzoF9HR
-	 y1+3gl2URLyjCoWA2lwq94tICKME9UmP/5U3qL5zoMCEQzslv7OjqMixEgdoGPHnx+3IZ
-	 TXd+y9WgfvW6pdp9T07zZDlSsWNVzb1U7CEMgxJf9OnLGSH/e8wlSlm31gRo36jWon2/r
-	 3MiAOnvTxvVjVYXRfkVgnVZCHn5Gzv9me0vrcOlqRmAR+7W+yDXEjb/5uaOkE+2LU2Vt3
-	 zebM5CI8xLMkptFnygBisrigSx2HJ4AGeY8qsHJB3smcQqwF4r5D3aSQ3RWpy25OGew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=jAki38uB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.16
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011016.outbound.protection.outlook.com [52.101.57.16])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793399364;
+	b=YxULz/uPztUiohlVUJ0NJbiaBRKwTLPK66X6ac+JZqLU+RCsHCEGIP6gJ2aWeXmQObZv
+	 Lv5U0mCp57tsV34ONuGfYWvGNhE7Jy33szXfKZbiAtvpUbY1ek+OEpgr0OS/eYoP/eqcC
+	 uPsqikb/8fig7sRCWKlbvnZFwXBV/iLs922YGASXm8fz6jMG1EOr618BVLSrKwrnag81q
+	 j7GoKZPnGYjnkOA10DQEbX/ElsljsBf5TFMkybGQi/qJcvkQndrUxf9f/FeVpPj39vFhw
+	 Y7E8+ejfb7dKqYGI2vQ07IARgd09Q1bcfEKbo75cnx20raYm5gqP5fDeY1ygcAcoaIg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793399364;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=dLDtdwl/TQOX1alCsSuKQovIt8rojZpgzJ91qw+1M1M=;
+	b=sRxgX23YhuWOhIJsNFyreBTNwcN7jqO0G6jv15vfibSdZXuENTAkDA6rIlqwHIdzb7Lh
+	 YqPGLfAWeIZ8bG0b5qyr/O5rMTi3vnxtnId7zbcgvq4nkEH4KIZNSC/zmfgvVqLGo0Ly3
+	 uTeKk0CJ67G36QqxiNpLDybUnPdDxVjI8hq02fvUQ5WbjLoLo0MN25YjnWp4uMRZLHxk1
+	 oFMCclfr5ZtzJPSGNuUuyOxbRZIkMvFrOANg33v5TO3n64GWbTUowntnSfHp5IabxYSVb
+	 2rcA5uM0oQW1L5vTMSBLtB7U7NOjC7XNohOtVIRhDAlg0MOs6SsSllX8EDT8kRIAntw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qwer52Hj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527C4606A31C;
-	Fri, 30 Oct 2026 22:27:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 527C4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C34606A31A;
+	Fri, 30 Oct 2026 22:29:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=jAki38uB
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SvJRURshywYOLTqHtrdmOVSCf1b9KD4jctC1Wrf638UwJbHJU71iVr2ab41VDu5ueiCFPGb1hMOFbvLxIX0FHb0bKG0Q6c8sueANd4Ub9jPrvGdkPTc/QyQI9slRic7Fnqz77l1+BCKenaPNP7bsRA3TTJ5qr/S33nLt9BIEeNz8ZICD2r46ntve8CJSsC3tVjZrc8cGf4RlA/vCeGP6xs/o/tQ0ZS8EbDLCFotVscY52FAWaOsnyL8HXibOHUtVjZ0p5fLJwiuCy5BWiYeimwrXeZYT+muMM2CVsbV73iD44shOjWzwPhcjmnfqPbbI5rWkPCRGlmowVqvUSoKVZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LVQL6Jj9rKv4vs11VK4F++ssGUdMWPWMIB40ReHi7SU=;
- b=ZAgT519yvY9ZMmUZJL/E2ZjUFL6gMKxS7Czk/KE29BI3Ia3ipszHGIA1O4IHJbY56nLJvxk9dSJbMuzCRjiTIdHQZi7XKNSF1MxtzNH2qyh8TkyaJvPEuD/KeGHWEy6QZHVmM5LOZS0MQ8fxSQXw/ZYLsD8vWhfI2AHIy1dQdYquitt1FSAs+lXXsJ6bXJG/rCQILeLEth8hnwY2YMSKjLXRfLQnlLGrGEqTd+t2511xCmlV8sBCner1Dp+2buY4Ub6fwobuhLBcOeQe3KfubitSziGsBQGqKnfjmIrq0dJidA2KYVH2GsiR6NDWPFkW5dMiB5angm3jajvQg3RVBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LVQL6Jj9rKv4vs11VK4F++ssGUdMWPWMIB40ReHi7SU=;
- b=jAki38uB+qzIBfIaLsNFXMqDHnYPwsYbU5p6wypPBQT60xuHWIppGgYYzRMc6CK/TwnyUNZpoQa2PeYDduC7m9+klVoOqFLKQgUKHs3wm6EAXkqcf5297b5gKN33PhfQhqUIelDxgZcO8VRSMISN4HU6UPKQ8parHjkMSW/1zu572Ie9AWbxosT1//AfFPkVLRqCkaxFU9YtLgSAQjJvFHvHBj4hZeZjtdbK1WpDT9oB2J3g4zKR9v96NjZaxRjdrJGqHbdj8hy09yz32MlJ2rFaVlutahMU9SxW+PoPqrplTPEHTu/ZBd8aF282SYlFpzCUzUOOGcX2YOQklVUuJg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
- by CH2PR12MB9496.namprd12.prod.outlook.com (2603:10b6:610:27e::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Fri, 30 Oct
- 2026 22:27:06 +0000
-Received: from SA1PR12MB5614.namprd12.prod.outlook.com
- ([fe80::1a0c:e9e8:f3a5:d9d6]) by SA1PR12MB5614.namprd12.prod.outlook.com
- ([fe80::1a0c:e9e8:f3a5:d9d6%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 22:27:06 +0000
-Message-ID: <c80a53dc-93b8-43c3-8aac-4249d25d1790@nvidia.com>
-Date: Fri, 30 Oct 2026 15:27:04 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] gpu: nova-core: fix stride of NV_PFSP_* registers
-To: Alexandre Courbot <acourbot@nvidia.com>,
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
-Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- nova-gpu@lists.linux.dev, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org
-References: <20261030-r000-cmdq-prep-v1-0-f2befbcd8ba9@nvidia.com>
- <20261030-r000-cmdq-prep-v1-1-f2befbcd8ba9@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <20261030-r000-cmdq-prep-v1-1-f2befbcd8ba9@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR13CA0013.namprd13.prod.outlook.com
- (2603:10b6:a03:2c0::18) To SA1PR12MB5614.namprd12.prod.outlook.com
- (2603:10b6:806:228::7)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qwer52Hj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CC1C1F000C1;
+	Fri, 30 Oct 2026 22:29:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793399363;
+	bh=dLDtdwl/TQOX1alCsSuKQovIt8rojZpgzJ91qw+1M1M=;
+	h=From:Date:Subject:To:Cc;
+	b=Qwer52HjSNACQ/YTSK005xD2/1Rkq4AV5LGO2/uKDYD+KXgoRbAQ8bjtuZ7EQloPk
+	 uKEk8gDG726+KLhvq7vQ7xCQZ1372w2pBkSM5KcynOkSPA8Zw3pQ27T5/2sT+Vxvs6
+	 GCBHXYelsp+lZq5tBDNGQ3bQV9l7iKwBSr/tYa4slWQGF6H0yvakEyQ09fnnGU1Bgy
+	 F2dBwAMQ1KzrXKkX5R6cxIMzLj1D/Grc1IBehR21ZuvyXQO/7epZA1dzJ2RFAYFPHs
+	 KwtvHHQMaCZyYJOr+lbBKgSWgBCLDwN6+AvLvkAPOganXfaWcAc4zgy45J+8MQCALk
+	 k3c6YCNhYiRSA==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Fri, 30 Oct 2026 23:29:13 +0100
+Subject: [PATCH v2] mm/memory-failure: fix folio refcount leak and
+ min_order_for_split() locking
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,115 +53,233 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB5614:EE_|CH2PR12MB9496:EE_
-X-MS-Office365-Filtering-Correlation-Id: 750c9062-5e43-4f44-b07b-08df36d4edd4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|261028144727099003|4143699003|11063799006|56012099006|261022105027099003|261021121427099003|261009223027099003|261026140227099003|10067099003|261021123027099003|261026121527099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	XBIMNqTSNUSDBIBwGmPTFbu2eydwbkxV/9rNIRUGdMNDM2xXJ/+dzkoOXPXMzgYwLZhTltPa8MNiMaBIal+BEyLhRemvlh0eoCUiFUPvKXi/Cf4BA5MhY8x7gCwRIix4JgmlPqBvVUWx67lrD19rPotzbRhmTNvC2uok+BVf9wba+yE4AfATzEILAXqYvVkHltZspWLRNtjp6uCjihCny/AjVxMIyPL3+8fJgb6I7zgxvmA77hZtJoWEnQezXxIUraCmEtW0HcLdnER9G8Jrapg+H/5f5HKZboP5uv9X0Q4RxDFtVVNaasyf5+GNKiel5GYBdpsCw3iwwFDYvyHv+kHOmO2CqbZooLSI6v3Cg3KGIIqnaVMuPn045D1J+4fn4BDNbF2KMgmVjC32dqdyFG2yy+HN6pLu5RUtPZ0Mdoo+Vb2Dvgd31AjcSMihV66eCdIqq8yqbgCQBncTn9Tih+CpPdqYvbTQyzCM1A6R7FeEO2U3Yv2r4W5G2DkH8eCNSapxB3+L0HFAfkhffeDEtbhYr1ztU1qdeu/MW8LWlVCzi5sUE5OaiWHwhVjMbuBd1K1N7LRmRQfrv1zrEquQH/228tA5RG7b9dOO1jigEqlXASvgrjHWvYRsggAl5K/Z62VxjP84ePqPQyTql2YX4zsu/TAl2LORNAKMX9DLEtk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB5614.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(261028144727099003)(4143699003)(11063799006)(56012099006)(261022105027099003)(261021121427099003)(261009223027099003)(261026140227099003)(10067099003)(261021123027099003)(261026121527099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b1BlbC9QVStkNVFYRHlTRitSZkZwUEwwOEhtd2p4SElrZmV4V0o1K3NTZmNT?=
- =?utf-8?B?N2NWRUpkS2RuYmFNQlVvY3BpSHB5Y0EwZzNlWDNuSHNoa0hrd0k2NUo2bnUw?=
- =?utf-8?B?a3Nsa3hrVitmeTNhZHd0dlArbE04blBmR3EvR3dlLzNIekx4S3BPWTNzYnQ4?=
- =?utf-8?B?RDBNNTN1cU51NWhINnhJUHdxbG5tWFRxV1cxTUJKaVplb3FOYkNWcXlXZHZB?=
- =?utf-8?B?SThmVW0vYkZqZU1XVTZvbU1IYWdOM3JaZ2xNdXY0S0plVG1XUmpISU9zdlg5?=
- =?utf-8?B?aHl3bUNjWkdKdEwxbVM3NVJ4N1grVGYvUFppNUxOUjZNZzJpa1l0aWNmR0lT?=
- =?utf-8?B?TElLSElwb2dnU3R5UjJKblg2Qnc3TjNNOHk2N081OXFKOEZrOG85NFZqaG9p?=
- =?utf-8?B?QXB1OWMxQ01NSU1DVkIwSDZnd3Y4WU81VVZtMU5qeXppNTBCNThDU0xBK0lp?=
- =?utf-8?B?WWNJaHdyUHNVaGwzTWloRHp4Snd6eTAwcmRLVkR6SElmZFhSbWtoSHZRdzRh?=
- =?utf-8?B?L0JhOWRucEZoK2plM2JPSFhsL045SlIzeHAyczkvY2d4Yldoek1uTzNJRWRT?=
- =?utf-8?B?VEVvMFFQdVRwUFlFdk01TWYydlczSXNEeWRHS3RsZkJGVmJtSFAwM1NwR01B?=
- =?utf-8?B?QkxqcnFKWUwzak5wL0JwSnNERVJzRThlTW5vRWt5NEJnWXQyK0tRNjZMaTdn?=
- =?utf-8?B?ZDNHLytRaFhveUIzb05tQzAvK2YxdEVlVUYzNmVNemlwWWZlSkZsS1Bhemxr?=
- =?utf-8?B?LzRIeU1JQi9IbGxDOVpvRzlyV1p1OE9EekZwNDloSWQ3QnVXcW9TdjZWUXU2?=
- =?utf-8?B?RHc0Wm9Mbk4wTjNwV2FPWkNBZVhTWWVlTjZRMHUrcTJqdWhiNm1xdkJmaisy?=
- =?utf-8?B?bXdiVmlxWWdwR1k5NnlBaXVxZ2NiZmp4bmMxbjh6QUdqWEdsbkxVQ3NmR1hM?=
- =?utf-8?B?SHJTcjRYY2g0Zlk0VzdvS1k1ZWpoZGExSkVtN2RlYWUwcWdDODJEMDdrQ1RX?=
- =?utf-8?B?V2w2REpNSGJHY2pESUJzZmhWQTkvR1FYeTlJRWd5RU1KNFVpbHkxMWJDUWxK?=
- =?utf-8?B?U1ZYQVl4NzBEbHpRaXBUdW9QSHFObVgxeTZwajUvVkNNVElCVnRna2t4K3FH?=
- =?utf-8?B?dlMxeU5zMVdCTnRzOGk3V2tUcy93MzlkbmlaT2loWTF6U2o4ckNaMzVyL2tB?=
- =?utf-8?B?YlZpOEFtY1owcldBVHdhdlRPL3VpdnROSFloMlZCbnNHZHlVUEs2QXpJSW9w?=
- =?utf-8?B?ZjRjeVUwd0VoYU8wTHlaV25YS0MybGFBQ2tqRTRUYTdrLy9Ob21BaTA3WjFx?=
- =?utf-8?B?d1pqZERJU0cySnp1WXlaMmFoMFE2RDVtN2krV2RKeC8xcVdKTzdoRWxxclMy?=
- =?utf-8?B?NVJUeStpd0xpREcwdXdFWWpVQnYyamxkZlZUL20zbzVBMUdGbXNqQ21hNXJN?=
- =?utf-8?B?dzgrb0g4Ti82dXA5M2VYQkx3aWhzWitxMDdOREdEMk1sbkpkdTB5NE9wSlBi?=
- =?utf-8?B?b3JLTlFPRkwxQ3NqVlhWUWNqYkladll6Y0Y1WTgxSm5xM2VvbSsyRXNzV0o2?=
- =?utf-8?B?RDN6ZGhiMUJjaVpYOW91UUlDVno2QnZSNXozeW0zeWowdDQ3TmxwVFByVHo3?=
- =?utf-8?B?bnRBWlJjZ08xd0duOW5EUU43YkRvb3FvVTR5V0d3aE9QNkZSWi9saHBPU0pT?=
- =?utf-8?B?ZThQZjByeEZwQ2s1bDFZZkpFUFZHSnRZQUVpUU80ZjZrKzRtUktGWW5JWEdW?=
- =?utf-8?B?ZXB3RkxsalRoL1ROQ0piOXJXYW82cUo2WGZ5aDQyVGh4RnRZa3FYaDRienVx?=
- =?utf-8?B?em5YWVVCTHkvVVRmOFI5ZjUzUVpsKzNMbFRLUzR1Lzg4MUsyWVFhdUdhT0hz?=
- =?utf-8?B?OE41UmpaSXdmbGdPclVDVURRWVJSR1V4TXMxYmNKWEd4Yzk2YjgvczF6aEJ6?=
- =?utf-8?B?eEFoTysyV3RsQVFwSXI3NmFEUG1LOFgvRzBPY0JKb3FEZWYxaFZrdVJZeFBX?=
- =?utf-8?B?UmRONDF0RCtMeHh1VUZWa3FSM0FNVkc3WlRmaUZFZ0JaTDJGblBpNkpSZHZE?=
- =?utf-8?B?V0dYTVZoNnlLUHVMWHkwa0lsMHhieW9qT2NUTDZrRUQ0RGhFZkhBVkQyTGkr?=
- =?utf-8?B?NzkzUEtKWnExV0xNc1ZoemRtRzZYNTVQdDYzNWZFQUp6cVNJVkhBUGw1RjZY?=
- =?utf-8?B?eU5XODlXQUJKSUxoSmUwSWw5eFVMWUNQUHAxNjkxdCtVdkJIL2tDSkxFZnJ6?=
- =?utf-8?B?ak9yZ3NrZlhmYmJXU2FtSUQ3WkFPRytwUUdwWDhwcE5vQTVvWHJGTllHQmty?=
- =?utf-8?B?SlZlOXlnRktRQkl0Mi90YVpOdzgrcXBZV2p2dmI1aEZXeTdvODF1UT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 750c9062-5e43-4f44-b07b-08df36d4edd4
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5614.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 22:27:06.3040
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cBdRpDlKar1CAnbghRiyIE9LBU5bE5V85Tw4dCRfx9uQEWJppQr1Sh4vbz/uhfFxkfzNatyuR2L+5BjLtYGpjQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9496
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-try_to_split_thp_page-v2-1-c957c9b42eab@kernel.org>
+X-B4-Tracking: v=1; b=H4sIADga5WoC/4WNQQ6CMBBFr0K6tqa0gsWV9zCkqTDAKKHNtBIJ4
+ e4WPYDLl7z//soCEEJgl2xlBDMGdFMCechYM9ipB45tYiaFLIUWJY+0mOhM8CNGEwdvvE2SVUX
+ VnVrdVKJjaesJOnx/u7f6x+F1f0AT99huDBiio+V7POe79+9jznnOrSwqUEqfQenrE2iC8eioZ
+ /W2bR+qsti4zQAAAA==
+X-Change-ID: 20260806-try_to_split_thp_page-a359f4d8c90f
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Wei Yang <richard.weiyang@gmail.com>, Nico Pache <nico.pache@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Luis Chamberlain <mcgrof@kernel.org>, Tal Zussman <tz2294@columbia.edu>, 
+ Li Youhong <liyouhong@kylinos.cn>, stable@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6794; i=david@kernel.org;
+ h=from:subject:message-id; bh=zPhj2fcNOfjvbM8UZ+0SfU7LezHBma1fbJ46FG4Yrgg=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKeStnkH3yX82lhdspUF0meKZLqvZPUG6ZnZUwTCvLwO
+ DCpZZJeRykLgxgHg6yYIktQ8H2Dly/X1Va78THDzGFlAhnCwMUpABO5KcvIcGz2jbtxazI229rK
+ Cfe92XruzQY3nTX5X6r94hSzJ6wWF2H4zfptzu0H3/VNoy7sPS5zNeTn0+0lZrVb+Hcsksptzhb
+ cwAgA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On 10/30/26 12:41 AM, Alexandre Courbot wrote:
-> OpenRM defines these registers with a stride of 8 bytes, so reflect that
-> fact in our own declarations. That inconsistency went unnoticed because
-> nova-core only ever uses the first register of each array at the moment.
-> 
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
->  drivers/gpu/nova-core/regs.rs | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+hwpoison code can end up calling min_order_for_split() without holding
+the folio lock. There isn't really something that would prevent
+concurrent folio split. Consequently folio->mapping can get set to
+NULL after checking for "!folio->mapping", and if the compiler
+reloads folio->mapping, mapping_min_folio_order() would try to
+dereference NULL.
 
-Reviewed-by: John Hubbard <jhubbard@nvidia.com>
+While very unlikely to happen in practice, let's just enforce that
+min_order_for_split() is called with the folio lock held. We can
+significantly cleanup the calling hwpoison code, and just get rid
+of try_to_split_thp_page() to hold the folio lock for a bit longer.
 
-thanks,
--- 
-John Hubbard
+Just work on folios now, which further cleans up the code. We just
+have to be careful about doing the page_folio() after splitting, which
+we have to do already either way. Do not change the way we split for
+now, this needs more thought and should be done separately.
 
-> 
-> diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-> index 88662da634dc..df2eddc58efb 100644
-> --- a/drivers/gpu/nova-core/regs.rs
-> +++ b/drivers/gpu/nova-core/regs.rs
-> @@ -402,19 +402,19 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
->  register! {
->      base: NovaRegisters;
->  
-> -    pub(crate) NV_PFSP_QUEUE_HEAD(u32)[8] @ 0x008f2c00 {
-> +    pub(crate) NV_PFSP_QUEUE_HEAD(u32)[8, stride = 8] @ 0x008f2c00 {
->          31:0    address => u32;
->      }
->  
-> -    pub(crate) NV_PFSP_QUEUE_TAIL(u32)[8] @ 0x008f2c04 {
-> +    pub(crate) NV_PFSP_QUEUE_TAIL(u32)[8, stride = 8] @ 0x008f2c04 {
->          31:0    address => u32;
->      }
->  
-> -    pub(crate) NV_PFSP_MSGQ_HEAD(u32)[8] @ 0x008f2c80 {
-> +    pub(crate) NV_PFSP_MSGQ_HEAD(u32)[8, stride = 8] @ 0x008f2c80 {
->          31:0    val => u32;
->      }
->  
-> -    pub(crate) NV_PFSP_MSGQ_TAIL(u32)[8] @ 0x008f2c84 {
-> +    pub(crate) NV_PFSP_MSGQ_TAIL(u32)[8, stride = 8] @ 0x008f2c84 {
->          31:0    val => u32;
->      }
->  }
-> 
+Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
+would currently have leaked a folio reference.
 
+In min_order_for_split(), document and assert that we need the folio lock.
+Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
+
+While updating the comment in soft_offline_in_use_page(), just drop the
+"NOTE" part that does not add any value to current code.
+
+The folio->mapping problem was identified by Sashiko, and Li Youhong
+reported it by sending a proposal fix.
+
+This likely does not really warrant CCing stable, but I expect little
+conflicts when doing the backport, so let's just CC stable because of
+the refcount leak.
+
+Reported-by: Li Youhong <liyouhong@kylinos.cn>
+Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
+Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
+Acked-by: Usama Arif <usama.arif@linux.dev>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Acked-by: Miaohe Lin <linmiaohe@huawei.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+Changes in v2:
+- Drop NOTE comment and don't reference new_order.
+- Fixup description and add that we are dropping the NOTE
+- Pick up tags
+- Link to v1: https://patch.msgid.link/20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org
+---
+ mm/huge_memory.c    |  4 ++++
+ mm/memory-failure.c | 63 ++++++++++++++++++-----------------------------------
+ 2 files changed, 25 insertions(+), 42 deletions(-)
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index bd44d58e86845..5d5afefda649e 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4490,10 +4490,14 @@ int folio_split(struct folio *folio, unsigned int new_order,
+  * If a file-backed folio is truncated, 0 will be returned. Any subsequent
+  * split attempt should get -EBUSY from split checking code.
+  *
++ * Context: @folio must be locked.
++ *
+  * Return: @folio's minimum order for split
+  */
+ unsigned int min_order_for_split(struct folio *folio)
+ {
++	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
++
+ 	if (folio_test_anon(folio))
+ 		return 0;
+ 
+diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+index b705f9f97f420..12aa4e52b2bce 100644
+--- a/mm/memory-failure.c
++++ b/mm/memory-failure.c
+@@ -1744,26 +1744,6 @@ static int identify_page_state(unsigned long pfn, struct page *p,
+ 	return page_action(ps, p, pfn);
+ }
+ 
+-/*
+- * When 'release' is 'false', it means that if thp split has failed,
+- * there is still more to do, hence the page refcount we took earlier
+- * is still needed.
+- */
+-static int try_to_split_thp_page(struct page *page, unsigned int new_order,
+-		bool release)
+-{
+-	int ret;
+-
+-	lock_page(page);
+-	ret = split_huge_page_to_order(page, new_order);
+-	unlock_page(page);
+-
+-	if (ret && release)
+-		put_page(page);
+-
+-	return ret;
+-}
+-
+ static void unmap_and_kill(struct list_head *to_kill, unsigned long pfn,
+ 		struct address_space *mapping, pgoff_t index, int flags)
+ {
+@@ -2548,9 +2528,6 @@ int memory_failure(unsigned long pfn, int flags)
+ 	folio_unlock(folio);
+ 
+ 	if (folio_test_large(folio)) {
+-		const int new_order = min_order_for_split(folio);
+-		int err;
+-
+ 		/*
+ 		 * The flag must be set after the refcount is bumped
+ 		 * otherwise it may race with THP split.
+@@ -2565,24 +2542,25 @@ int memory_failure(unsigned long pfn, int flags)
+ 		 * page is a valid handlable page.
+ 		 */
+ 		folio_set_has_hwpoisoned(folio);
+-		err = try_to_split_thp_page(p, new_order, /* release= */ false);
++
++		folio_lock(folio);
++		split_huge_page_to_order(p, min_order_for_split(folio));
++		folio = page_folio(p);
++		folio_unlock(folio);
++
+ 		/*
+ 		 * If splitting a folio to order-0 fails, kill the process.
+ 		 * Split the folio regardless to minimize unusable pages.
+ 		 * Because the memory failure code cannot handle large
+ 		 * folios, this split is always treated as if it failed.
+ 		 */
+-		if (err || new_order) {
+-			/* get folio again in case the original one is split */
+-			folio = page_folio(p);
++		if (folio_test_large(folio)) {
+ 			res = -EHWPOISON;
+ 			kill_procs_now(p, pfn, flags, folio);
+-			put_page(p);
++			folio_put(folio);
+ 			action_result(pfn, MF_MSG_UNSPLIT_THP, MF_FAILED);
+ 			goto unlock_mutex;
+ 		}
+-		VM_BUG_ON_PAGE(!page_count(p), p);
+-		folio = page_folio(p);
+ 	}
+ 
+ 	/*
+@@ -2900,25 +2878,26 @@ static int soft_offline_in_use_page(struct page *page)
+ 		.reason = MR_MEMORY_FAILURE,
+ 	};
+ 
++	folio_lock(folio);
+ 	if (!huge && folio_test_large(folio)) {
+-		const int new_order = min_order_for_split(folio);
+-
+ 		/*
+-		 * If new_order (target split order) is not 0, do not split the
+-		 * folio at all to retain the still accessible large folio.
+-		 * NOTE: if minimizing the number of soft offline pages is
+-		 * preferred, split it to non-zero new_order like it is done in
+-		 * memory_failure().
++		 * If we cannot split to order-0, do not split the folio at all
++		 * to retain the still accessible large folio.
+ 		 */
+-		if (new_order || try_to_split_thp_page(page, /* new_order= */ 0,
+-						       /* release= */ true)) {
++		if (!min_order_for_split(folio))
++			ret = split_huge_page_to_order(page, 0) ? -EBUSY : 0;
++		else
++			ret = -EBUSY;
++		folio = page_folio(page);
++
++		if (ret) {
++			folio_unlock(folio);
++			folio_put(folio);
+ 			pr_info("%#lx: thp split failed\n", pfn);
+-			return -EBUSY;
++			return ret;
+ 		}
+-		folio = page_folio(page);
+ 	}
+ 
+-	folio_lock(folio);
+ 	if (!huge)
+ 		folio_wait_writeback(folio);
+ 	if (PageHWPoison(page)) {
+
+---
+
+base-commit: abf8c33470f78e2226ee3dcdc69004660020ab47
+
+change-id: 20260806-try_to_split_thp_page-a359f4d8c90f
+
+--
+
+Cheers,
+
+David
 
