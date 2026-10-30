@@ -1,60 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793333303;
-	b=SOF8Ji9TKvoLhhmapXKpNGr+AJufGYT6uOXBHR9xB1nvHBa1CYsCNM1s6GldhMvLC9C0
-	 hN1ejmbxH/qcjDe/EYnBv+Q+vZm7q53N/huVAHqpLGCnTCYvOxhgbNmKTIGNoa1tgAgpS
-	 jVe/eqw0TIgx+0T4ntbYEL7F2lMqM2SkQlP0Adji++/1rQuOObCoKN3eb4ZGZyFAoAQag
-	 9biVMi/O065sTZ201UgShxNEobnWOBL2p1RQ3C4XsWAxpTwMCCFmQZqJ1r8fDKcAEV0/l
-	 yzem0/KX5at7TBjEyFo3RpT2IhNP4PKBBuFsmTnuy9KITGhdQ8FbHjVRdLLCAWPNBMw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793333303;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=ewxuNeKaO6r4oMsh/j7jPcWeeo2xBo5mZhFZfUt75lk=;
-	b=uLP4nEcpngrObDVM/wE0RBA8CxxQG0ReAQ0J6bYUJXO3x3XFyzA5PvCfNb6pND/djZ+R
-	 HrcfLbyr1mKyi8V8QKxc2eIxR1hSD6Jo6ZEPQVqVvKgNKmMzgT+9FNyEuTPD3WoKx5N1F
-	 aJgzWcPA4BcBpV9m2dm3S3mIvG/epUmlcKIq2dr6gYgJkV0ok6Xs0vFqw52D4PYrforAf
-	 gLf/ru5AgdIh6prIA4a3xDoeMsgymjBFkdo9+6DCetFfzbeGy8oiQMvCWj52mZI9+84Il
-	 ITOkL1aZIv1ufXhS5K0cPmSlwqEsT9EgQYDVP1Z3o9L+mpF7nBmEkh2kdfB+aLhlOfw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i7RH49Il;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.224.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793333304;
+	b=TdZWONhJi4l6O3tjYX6PPAz2ncqISjVcYpdO6RE2CSQmJuESqa42DO6fvexmNAW/65hM
+	 rtOAjNwiei+KaYlEyolQ1kt0wi0vh0PJLXfKpxr790AvZ25eChxz04fFJT2CmY71i73lj
+	 nu2aQRg03C9f6UAKxv/CG8VB4PGiZxwpfCs36CBUMNnnrMyW4fpStJxd06WsElzNmhHIs
+	 g3baKunjzTUYrYZKdXnLTgZ38jcAuJrrYslhOLM4yxIzlLQxaqJlvNRvsJDuuvjpIkf6q
+	 UHU1jNDYAdDEIXL9s7hW7rPhb1aCLCLIcYvHuBDUYA2SqMh4TmkBKR3JZGT7sPJFEBQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793333304;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=vHMUyTfbM/pleWgtTWChHKF1U6veJ+wlhPLF+0Axq+g=;
+	b=Q92ZwCwrTUVg87rHJG+m/r5NXf66Xxr8DZQOQ4BSW9M4nDtJvUN5kf6IVZq8qKMClmue
+	 QiG1y9Z6NmiDZB/P4tKJwcB24NO62NcTw2lD0b0zAgqhSIGZfFs+IlNLe1AdwU48Z7cW0
+	 pl/+dZbSyPV290KaNjGYnBcv1R4Bw+Y3bK//6QlQ4yC2mBTwlz4rvX2BHsosFhyuejCCp
+	 ILCl2zfK1pDKZJWZD9t8kCkU+E/RA+lZkDEIxsv8nQ97tWtIZdqShtSvqr4rr0mFNoMzH
+	 A+n1a+wBceAL6PELApWBMx9wgRzog7KsKZR/hRf5vwY5tnVL/Bb/KCsEG4HhfTpguAg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=uber.com;
+	spf=fail smtp.mailfrom=uber.com;
+	dkim=pass header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=g4Tvxtcy;
+	arc=fail smtp.remote-ip=74.125.224.43
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69631606A31C;
-	Fri, 30 Oct 2026 04:08:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D123606A322
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:08:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D123606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i7RH49Il
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6804E1F000C1;
-	Fri, 30 Oct 2026 04:08:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793333303;
-	bh=ewxuNeKaO6r4oMsh/j7jPcWeeo2xBo5mZhFZfUt75lk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=i7RH49Il/Nwy0naD1/7S5vwKWnUXuwqlbItGWVc3RZALHnkfCJv2EYUKp/Axu6CEA
-	 a3MpZrUzd4bNyBH0q94kn3JmomWXUrplysI5sNUfxbgghfiDHtEJ1aYXJ7kQ4i7EGU
-	 dbinjij74u2gY3ZJD0T5yY5Nv9c0VGZuuHe8vjDwmXlN0JXH+3oYlZDMOiCqf5sWO5
-	 kY0lP79BJEh9ZLVjmsDdyQSS4x5MGTEFOAzdZNft0IaeP1QQptMIrTgDCfu5S8FRpc
-	 lljt2Zzp8i3rsY2H7IMtdj3thxM5JfrmEgkfiojd+PYBbrE0oY70Mks3UdT2mFvGeL
-	 7/c66zQT8w8QA==
-Subject:
- Re: [PATCH 1/1] octeontx2-af: Fix npc_delete_flow counter read for cn20k
-From: netdev-bot+sashiko@kernel.org
-To: vmukunda@marvell.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, sgoutham@marvell.com,
- rkannoth@marvell.com, gakula@marvell.com, sbhatta@marvell.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com
-Date: Fri, 30 Oct 2026 04:08:21 +0000
-Message-ID: <179333330197.3134.6687682225633311967@kernel.org>
-In-Reply-To: <20261026035140.666684-1-vmukunda@marvell.com>
-References: <20261026035140.666684-1-vmukunda@marvell.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=g4Tvxtcy
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-679a2b540f3so232943d50.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:08:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793333303; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oxOqQs8x/W/nKqSzkRAwaO+dBa8ZKTnXzW8BZjfQkeUugA4vmyH0kzmLh3E8Hz2utF
+         AXRbKdkeF5cgMuNX/t6i9VL0k1HQLWPm70Pd+Fzievevn28L++tjgCuwurBMkYhjR0IY
+         5OfpIZ8eq+P0RXo8OgWzEK4OrD9rheadVnaN008sy+WLZD9/bRYVJjJ1Mnt/HJqe+0rd
+         0J8Z3qX+u3nQp17HCZiFhIqd+kH9BcvBR3Gap7vm3lVNpOZFy78E6WHRcCDQeYAPJ19i
+         jgb96yZ7NR0uEaYh8SMjkKlZbwPT0cFf1/2QFRRMLK3Pkiyo8Vga3w1Xpt3MpCQDCM8P
+         ZQ+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=vHMUyTfbM/pleWgtTWChHKF1U6veJ+wlhPLF+0Axq+g=;
+        fh=eb6k6KvJm8rXMVGtehKcX4gYuZyAH83GaXZ/NMUw1JA=;
+        b=HtY8jBobfjMtVN255hVNbOqLsJ39EoLawmC6G3aI1NPREXQqVORqjFhO6I1dSrtZty
+         5bcZs0h+ovS7sOYcyj5GTkvfxvTFgr1t+1rm6g3mm5MnTaF72PvSCG3I5/0C87zZ+MXZ
+         qOqBXcUgSQ9hXaTVgeUW6KdNmUZlJYOq+9v+zjDbvJp16Dv5IPi0vm5m7aKUZkCixyXf
+         hPBrgk+QhDUaEv1tBCzzYpZU2ATWJ/szpJlbX2fLwQt6+CZw+D4+jFz9nZMNkTznuuhF
+         flCLFGd8G1sbbgrzW3G65ethWm6zeOue7bgJKtxDwJvxBCCMWhOQt3zdUhQ8Ufz6Lcz7
+         3VqA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=uber.com; s=google; t=1793333303; x=1793938103; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vHMUyTfbM/pleWgtTWChHKF1U6veJ+wlhPLF+0Axq+g=;
+        b=g4TvxtcyoKJVhMKVJToPT6eCXbfrGyZ+zJMiGDorDHvROnzFHIb/EQBjjGAvDGhSh5
+         HEdxJlNceOWMaIpUOejZKnyoTkPkB40vBEh4JfeIuz0rttUuvWK1/R7f5t2DHSBqqNyt
+         QkssSHpha8T4bR5vpwOQ7fCvVIEAKEdYPmwI8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793333303; x=1793938103;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vHMUyTfbM/pleWgtTWChHKF1U6veJ+wlhPLF+0Axq+g=;
+        b=f//FjtfQGeC9+n6Q3y2WenMMwxsp5nXol5F34baHLAX1YrBwvr8YJulhIn0pcBDSYT
+         t22RsaB8HGJt0g2T6+ltey5CnFjn88pgZ1mZKeWWj6emw+3bxANbfhaANSKnRW3GEXtg
+         JXz+Be0WcRIKC8blivBakVHmV8onc6teIUeNJNqxsfCXGmTFZeT02zMKHbVAWR/Nhry2
+         vTjIcUUxuowGFQdqbtDK3qZ5oWnDiQnaOAmeSUWx84VUHvMYkpaLe6lmya8umoJRIOyk
+         c+tSy6WEqNLGr3JVkLqVkyaPyMhzHrh8QoE0QRSoCZI8p5ctZ6n5MaOuN0JYTO3iCgVg
+         m5JA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8QW5L3b8690dN5FsA445koYR0wAuJiegI/D9LXS+P/knl2XbBzWDgFK4PtdEtLU84AYM2f3MFoAQ618M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJd9Nw0B0TKUnsSJjGqU6gwLm8/be0dTAaTwLUSF8Oe8li1tPTj
+	Y156mlEDN2B10eohlmHYqaLsAYfvrmNzofZSKSgvg+rnyDVQ3d6Et/F8JuTAs+AZQylBZAVDmeY
+	HrxuQHzh7T7eYnEgSkTkQwXg26H5nsfYRa0IUy1n0qA==
+X-Gm-Gg: AYBFou37/f+6ZnqXqEeo+3hq/D5Nd7NGH7m7mlhBkm3198bpJWkVv6fAx+fY8j54hAP
+	SOdFuJCNtWo7RAPsqOp0pp7DZJc1l+zvvYPE0VCrFRZw8qQmCTF8S2W663ErW0UyGx3J/7+KxDf
+	bdcc7h97pcQq4v5ePr1E+rmAGr2AGyjg90vtGa6i+o2KALPvupwm1uHSB6DhmYt9JJvXWiRB+vo
+	H3qJE/jTSy+aIroCxsytSlWGh+nWudG8QDxfXr3jhPlddwXzFdtJyotVXAb5BD77QqgPynGkR0n
+	Z6XRRrK+2zEq6S8Hm/e5SQQHo8jX6Sk0yViyD3+XwDyzNw7mniDtD9qYfX4oilEBLvvJ8eNQlYr
+	knPmZ7B23zum9HCUGkdgRJRdU6IJEl9p+L+sGApVk/jLqB7KHGA2FAh0rDPQ0oIOs3MOq1w==
+X-Received: by 2002:a05:690e:801:20b0:679:9f7f:5674 with SMTP id
+ 956f58d0204a3-67ba4f6afddmr459057d50.55.1793333303121; Thu, 29 Oct 2026
+ 21:08:23 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,165 +100,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20260928075237.3055101-1-irogers@google.com> <20261027231513.816148-1-irogers@google.com>
+ <20261027231513.816148-4-irogers@google.com>
+In-Reply-To: <20261027231513.816148-4-irogers@google.com>
+From: Alireza Haghdoost <haghdoost@uber.com>
+Date: Thu, 29 Oct 2026 21:08:07 -0700
+X-Gm-Features: AclHuK_7rFAIqZE8MrjY4fMuzF8Cp5z6NDguzVop6O35qi4GKhK3Pu76Vhk8b8M
+Message-ID: <CA+w=M=Ry_Ww4UsraLD_tgDo399GzFAQywR6xy_NHqdy_No5ORw@mail.gmail.com>
+Subject: Re: [PATCH v2 03/18] perf symbol: Add accessor functions for struct
+ symbol fields
+To: Ian Rogers <irogers@google.com>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Jiri Olsa <jolsa@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, Ingo Molnar <mingo@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Tue, Oct 27, 2026 at 4:14 PM Ian Rogers <irogers@google.com> wrote:
+> static void init_rem_hits(void)
+> {
+> - rem_sq_bracket = malloc(sizeof(*rem_sq_bracket) + 6);
+> + rem_sq_bracket = symbol__new(0, 0, 0, 0, "[...]");
 
-Critical: 0 · High: 1 · Medium: 0 (2) · Low: 1 (1)
+Doesn't this make hists__fprintf() pass an interior pointer to free()?
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+At this commit symbol__new() still returns calloc() +
+symbol_conf.priv_size, but hists__fprintf() still frees rem_sq_bracket
+with zfree(). Once symbol__annotation_init() has run, priv_size is not
+zero and free() gets a pointer into the middle of the block.
 
-- [High] The fix is incomplete.
-- [Low] The Fixes tag `Fixes: 5f83b4729440 ("octeontx2-af: Do not access
-  match stats for cn20k")` does not resolve.
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but it sits on
-  the line the patch edits.
-- [Medium] This problem wasn't introduced by this patch, but the patched
-  assignment `rsp->cntr_val = rvu_read64(...)` in…
-- [Low] In rvu_mbox_handler_npc_delete_flow() (rvu_npc_fs.c:1961-1962),
-  the result of rvu_get_blkaddr() is checked for truthiness (`if…
-
---
-
-octeontx2-af: Fix npc_delete_flow counter read for cn20k
-
-This commit makes rvu_mbox_handler_npc_delete_flow() skip the
-NPC_AF_MATCH_STATX read on cn20k silicon. On cn20k the MCAM match counter
-cannot be read from that register, and counter support for cn20k is left
-for later.
-
-> Fixes: 5f83b4729440 ("octeontx2-af: Do not access match stats for cn20k")
-
-[Severity: Low]
-Is this Fixes: tag correct? 5f83b4729440 doesn't resolve to any commit in
-the tree.
-
-The unguarded read in rvu_mbox_handler_npc_delete_flow() came from
-ec87f05402f5 ("octeontx2-af: Install TC filter rules in hardware based on
-priority"). The is_cn20k() guards on the other NPC_AF_MATCH_STATX users
-blame to 4e527f1e5c15 ("octeontx2-af: npc: cn20k: Add new mailboxes for
-CN20K silicon").
-
-Could this be a hash from an internal tree? If so, should the tag point to
-one of the upstream commits above?
-
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
-> index ec004ea5154cb..948a30c8fe008 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
-> @@ -1959,7 +1959,7 @@ int rvu_mbox_handler_npc_delete_flow(struct rvu *rvu,
->  			/* single rule */
->  			} else if (req->entry == iter->entry) {
->  				blkaddr = rvu_get_blkaddr(rvu, BLKTYPE_NPC, 0);
-> -				if (blkaddr)
-> +				if (blkaddr && !is_cn20k(rvu->pdev))
-
-[Severity: High]
-Is this fix complete for cn20k? rvu_dbg_npc_rx_miss_stats_display() still
-reads NPC_AF_MATCH_STATX without an is_cn20k() check:
-
-drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c:rvu_dbg_npc_rx_miss_stats_display() {
-    ...
-	seq_printf(filp, "\t\tStat %d: \t%lld\n", mcam->rx_miss_act_cntr,
-		   rvu_read64(rvu, blkaddr,
-			      NPC_AF_MATCH_STATX(mcam->rx_miss_act_cntr)));
-    ...
-}
-
-rvu_dbg_npc_init() creates the rx_miss_act_stats file on every silicon,
-cn20k included.
-
-On cn20k, rvu_npc_setup_interfaces() takes the cn20k branch and never
-reserves a counter, so mcam->rx_miss_act_cntr stays 0. The RX loop also
-hits "if (is_cn20k(rvu->pdev)) continue;" before it writes
-NPC_AF_INTFX_MISS_STAT_ACT.
-
-So reading this file on cn20k accesses STATX(0). The commit message says
-that register cannot be read on cn20k, and the value printed is not an RX
-miss count.
-
-After this patch, this debugfs reader seems to be the only
-NPC_AF_MATCH_STATX user in af/ that cn20k can still reach. Should it get
-the same guard, or should the file not be created on cn20k?
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but it is on the line being
-changed. rvu_get_blkaddr() returns -ENODEV on failure, never 0, so
-"if (blkaddr && ...)" lets a negative value through. Other callers in
-these files check "blkaddr < 0".
-
-I don't think it can trigger here. Rules only get onto mcam->mcam_rules
-through rvu_mbox_handler_npc_install_flow() and
-npc_install_mcam_drop_rule(), and both return early when blkaddr < 0.
-
-Would it still be clearer to use blkaddr < 0 here, to match the other
-callers?
-
->  					rsp->cntr_val = rvu_read64(rvu, blkaddr,
->  								   NPC_AF_MATCH_STATX(iter->cntr));
-
-[Severity: Medium]
-This is a pre-existing issue, but should this read also check
-iter->has_cntr?
-
-__rvu_mcam_remove_counter_from_rule() frees the counter and clears
-has_cntr, but rule->cntr keeps the old index:
-
-drivers/net/ethernet/marvell/octeontx2/af/rvu_npc.c:__rvu_mcam_remove_counter_from_rule() {
-    ...
-	free_req.cntr = rule->cntr;
-
-	__npc_mcam_free_counter(rvu, &free_req, &free_rsp);
-	rule->has_cntr = false;
-}
-
-That happens when a PF/VF installs a rule with set_cntr=1 and then
-re-installs it with set_cntr=0, which reaches this in npc_install_flow():
-
-	if (!req->set_cntr && rule->has_cntr)
-		rvu_mcam_remove_counter_from_rule(rvu, owner, rule);
-
-Another PF/VF can then get the freed index through the
-npc_mcam_alloc_counter mailbox. When the first function deletes its rule,
-rsp->cntr_val gets the other function's live match count.
-
-A rule that never had a counter has cntr == 0, so it reads counter 0 the
-same way.
-
-rvu_dbg_npc_mcam_show_rules() already does "if (!iter->has_cntr)
-continue;" before the same register read.
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but does this assignment
-truncate the hardware counter? The value goes into a u16:
-
-drivers/net/ethernet/marvell/octeontx2/af/mbox.h:
-struct npc_delete_flow_rsp {
-	struct mbox_msghdr hdr;
-	u16 cntr_val;
-};
-
-rvu_mbox_handler_npc_mcam_counter_stats() treats the same register as
-48 bits wide:
-
-	rsp->stat = rvu_read64(rvu, blkaddr, NPC_AF_MATCH_STATX(req->cntr));
-	rsp->stat &= BIT_ULL(48) - 1;
-
-The PF TC code passes this value from otx2_del_mcam_flow_entry() back
-through npc_install_flow_req's "u16 cntr_val; /* old counter value */".
-npc_install_flow() then writes it into NPC_AF_MATCH_STATX(rule->cntr).
-
-So any TC flower rule with more than 65535 hits loses the upper bits of
-its count each time its entry is shifted or re-installed. Fixing this
-would need a change to the mailbox message layout.
-
->  				list_move_tail(&iter->list, &del_list);
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026035140.666684-1-vmukunda%40marvell.com
+Should we use symbol__delete(), which subtracts priv_size before freeing?
