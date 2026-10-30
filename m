@@ -1,102 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793362473;
-	b=tIFUkV2BqdxJsPOiEiSh69zYrOxZksPRpz8gaZqPLGk37ZRd1gQ1zx9CWoYdkNXFWLPC
-	 VK2wmMe6ra8uNsR0LTTTLmFz51LiOK+mWijHDXHXNv8vB27G7MHKD/8u7QVjrI4jqjmJ9
-	 MRVmJQtS5KAdL0bSridLukxuStgp47FD9w9TsS6Ph3JGVbO1YOuvHE+pZJCCy3g9vCdoG
-	 XeZdkqbBrphGIC83qVFAtbeR1PNQ5t0IgIO5sx9gy98NRH6qIzSka+g4mtbG3w5bmxIsA
-	 2QMv1FltOCmYShIgR5X5Uo02QZpZNyKpvBL5S79VhE6ohPBoo7iD4vB028Rfg7Deh4Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362473;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=w4dT7+zzouIRSasfVh4mCzZhhWACxjzEVFuCstv7SCs=;
-	b=u702r0nTvC1U/CYpjnBEAxsJjpPNb9JHvFZH1djGjetAm2ZAhlGehbUTklK8FAoGMo7B
-	 ozQ/CX/pYh1ugNTw/uPGEX0npRLwwh8aT7BNqu6hV4SMqzqXXOikGoIKceXcvjh7uLATV
-	 DFm14d0mWl+LswFuBKdHhn1mPPy4V6YS0pi3+FGX1l/FRHBhLt/D7eshcog/Qvu41iz/h
-	 +mlZ8rqh7vag8td5GSYSQ9nFQtUOZBhznl3sCvl6W/vK/4DpQ6MX5B4nq5Vh9s91hNTND
-	 16VRizGG/ZmgKMhkCsePxE91/AnixNqNLh0tKjZQ8TlFPCooAJuKLC5al83ysN/mUKg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O0ll2lyF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.51
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793362476;
+	b=YXwHHcLxkItZrnDix3iQMcQm7ANr1YQv3vs1xUP8P1NhBCaF2HjQgEgxwDm+oQVhT08f
+	 4oRixv5Kcc1Kasd3A5EKxTPjdQnO6fCUmGrH/nYquITPpxXh9dDeu9yjFbA0bHOC2msOl
+	 AW/lbog6qPzqGoUg7x15iqEAonK/Ts8OzAj4g4IRquWA5BBmRXK02lxt0bZ+Qmbrv0s2/
+	 QVbIb3kgr0+bMHcrv+414U+xX1gmxmvfnhSgRc1G8QbtHBD4nwahCq9PLDMwRBj8UX4Ir
+	 AseeV1RiSPmYYaqnCYgXyxw7tjb8Jb3LUuGvH6ShdP/+2ZcyFT/hHDKcGk7RdDD4uZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362476;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=fIsZN7+4fkQBsb9F8HsQdpPNVBhUbbSPmwMZcGaHUyM=;
+	b=EKP2o8UZ1lQ/qFe526bIyyZkNl9Kb/vS/iTizdtcq5/2HOmeSTE5Q3iGwSYHMP7p8nqF
+	 azALB1k/uOMOmTBs00hvf1BSokIW/dDMJjKX9Q494q/LN6T+BDZWukyWkZzkX1OcTflEk
+	 ZvCHgGzY8mY7gpDV5+kANkHTxA1mjNjWH5o+LEERfRQs8i5xIs4sHdLKwbSHfRMD4tvXE
+	 U+p3fw7JriTtbrc2zGkerhEBemZAvFyG74v7pXLwZqwpewV6J/mKQL3swu4P9sinU+Lit
+	 zq8xAdXtXrKCH0HGAlPz/WU9V8pwiZpemLLpr+2H80jz3UrhwlPGsa0dpquwu9enn+A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1CF606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:14:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C1CF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O0ll2lyF
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7cc365db987so425311137.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:14:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793362472; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JVgo/vpB+hGnwGOwdTUpPakHlaJfZpv+C2xhP9Cc6ZLMAphGJG3ItYgt7tvsABS0ph
-         y8QxPeR6fvracbnVv1FuQT5sOTfKivHDyzT7iHxiwOr3V1TaiAtVBdSTAYVuxhTkVkZa
-         k9NLNzeEBKv3EYTBbin46/uCKjDCgfbNcJM5XlJDsMOfncG75ejws8uPZ3O6d5c4VLUf
-         cUeAl0w4cpk6hCKj9Igih6cskLSHkMVYfUgzvOVMuggaZo8ig3cxa2kVLGGTxKeBNSj+
-         zx5eQHtWAqxaJBRVWD/IIM3V9SJZh/IfreqGWur8Gkcgpc0hXg/b3oTrUcUibGu2XhSu
-         uwnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=w4dT7+zzouIRSasfVh4mCzZhhWACxjzEVFuCstv7SCs=;
-        fh=ASey4iKkdRK0CcoSmm2Tk//AOdQTP8bocyV+UB1mVjE=;
-        b=Wrf0kBf+dNJmac43hPmxu+ZJwsxOHu0Pgj8lAuhw8w+uD5AgqlP2OEapLHTFKHYSHw
-         DgEdbkoqRB7HduWLR5KB92o1swXTpUJinFoiI3nPqtYwb0tav8ivoBspGovDH9IvPB1y
-         u8CZHnu8j0MM2Yea/MspVvIW6DHHfc9yYvo6ml88CCNs3wRtdVdpyKW67MxcR3F9mmLp
-         nnOeia6VASybnI6t0B5kXsFO12bf3/ji+DN/OriB4VcSgWVd9czyLqf8W+qCBx2GiGcF
-         1FLoQxY0hNeQrdxZvvXOf/etDpiniiwmX3bTrvh2vSlFd4FQOaKUJcQqGjFpN65cXKox
-         07KA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793362472; x=1793967272; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=w4dT7+zzouIRSasfVh4mCzZhhWACxjzEVFuCstv7SCs=;
-        b=O0ll2lyFg8yedCrW4diHl812+qZaA/T6lvBbBSloOtP+mbxSvKtL7ptL1s04aIaVXy
-         M+EO38xWsDb8S1TxUVk/I46L+j3VSEMj47O+VP5xEbRPUL1E/L/EsX+fCNpvFnfHB2ek
-         svhbUYeVGb0V84eWe4lGBLudh4HsiR/BoNmt1lUANvFCqc7QOgmRGEmV7LDqlIXEgmQ3
-         mA07X9fB0z6JYbD0GbkJpZUnc7sKOZ+N3kidh+Q9s+abYgbBBn9pVgPkpF5DO6PmrMyR
-         DQbLPirtNV2aK7prE3I1ssISnf1geVQK+5Fe+NKCdOI3owHOvYuJMMvBI8baMQj7B7MF
-         EJnw==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DF0606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:14:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46DF0606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b597558c4cso805669b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:14:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793362472; x=1793967272;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793362475; x=1793967275;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=w4dT7+zzouIRSasfVh4mCzZhhWACxjzEVFuCstv7SCs=;
-        b=zONH05iJoR3DlqSNLppSsYC/fHEpDRmd0fXw7Hg+33TG5qtmOXRgBTytO065X1u1zB
-         rNKXPaIN5fSH/IQ2tYsEHto2hPiEYi5d4D5qdp/Tl5uu9BU9c7HSY12V+nN6spIZTWA7
-         RIW+5558JenASHMrD159JzEC4u7604K1ZmDlnd0YyoLxm6bXS1bgRDxjsNobDBN1EN+u
-         SaYLWTFgLRqKuQ23aPvXID/qFtDbCLYpCESOM826W0zOsQwx8M+zm108ub+Lwmr8/4Kd
-         g4DOoxFhvLgizY0ob5zp4SnUKVSFB6azMXMU+TUUK/0jAn2iUisMESTEu40D2XRE80uN
-         0ksA==
-X-Forwarded-Encrypted: i=1; AKwUvBz5CP1gxUKcVv6tSNAveCuK0iLamv0+L0VWtR946x+9Z/JFV5W5Svb7mPqP4Q8xuJ4gXJf4yqqqnUHIul8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJICLD4UU8Xd77JIxbXvku/RwE8om5fJ/R5sTja+pEtn1cPH0py
-	ONkQkK10Ny8ufBiXdghOcJxkRtD7oDR/tB6cQ/AxqdAivmz/OKehiY9Vj1odut65jcoColT+GmR
-	7HP7lg3XOB7+ZsIMY9JnkbRKaldqbi60=
-X-Gm-Gg: AYBFou0/lKnGZj69K5GN5ZU+MC9x4+TtXvLSLmjxN8+6kzVazyaRwjaTTvyTXb1eoqg
-	1gQZMLG+9kaNjbPOdRSBWb/jVdK71drI8s8G5lke7RWR/qcmxeSN6ITs+95Vup4P17d4znLBRko
-	HIFZvN+CdlioqDLMxmdnmKbitXI4ZKdUky0Hnn7MEgsrTtfMk75iI4RUMAENu5ikcjDYvGbZl5N
-	fsRSUPLYpx8RK9LAm2JInyKU7wthaBRNd+7jXA1YnriHAOgFPI73keyrhQRDUM4W0sp3QvMaVTC
-	MBy85YxK+65TwqqWm0yjDyhvv7pbDnLvenE3uZSYgC9KoNxeklP0YAi9rhxRksbcV13WSngTu34
-	muk705GzBUJezEkeBPcIxgkew7DjPfm4KkT9DayV4qjM3T7gtbuv70tH9vycTXDwRUzed94wOrJ
-	dcIt3Gi3/EkYnYPSk6WTHWUW1pSSXrwkS1WD87qrJS0dT7kfr8sm/OJhAYp8ewfeoCorjMJyNo4
-	mbAIFUo9/UYv4OMIB532in5rljfhebRtQpI38zs
-X-Received: by 2002:a05:6102:1481:b0:7cc:33c9:b3cb with SMTP id
- ada2fe7eead31-7d072731e9amr1107407137.29.1793362472486; Fri, 30 Oct 2026
- 05:14:32 -0700 (PDT)
+        bh=fIsZN7+4fkQBsb9F8HsQdpPNVBhUbbSPmwMZcGaHUyM=;
+        b=fgQ6wbGOuBH14fQ1nyzPG6XP3nTtM7xVwX5nayo271fcUHBu93aW821/12Jk+x57pE
+         rdGXWwEel0Z2sRvfAMwnlC6120HWnKoJKdSHX4qhQT/tdfrn0fgdrKq/W1Yq1dXIW549
+         eULFhkn+s4FtTHWrcjHRq15E3J+y2ZCFUnKmDlvJlQQaozH9Q0JTKZkLfmybuDdBg7vg
+         SWRSope1r+i6/t5i9wa99I4wXasaI2ycNC0SXU7kZOlVkMqEmeA6Pxa67cnAZBlG7kz3
+         02cRgPS5I5w5EeFOm3eURXV6k6LNx3t2bylGGSlHfpZ8Jbz4cJXkysHQ+GMQVf5ajbxj
+         Kxwg==
+X-Forwarded-Encrypted: i=1; AKwUvBzQjq0UBVlT8Ns2EewEliKSPGjBhL7ckmCCVf1wUG0xgR2XpiMC0qlZwYb1ThN5jvHnPmwMKpx2FTuKFVc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKy0pj/oaR+7SXY9xO7QnrMrgTMXGwbQPsuFsc0JAycgsD8nwZc
+	TsmRtlDaLy52EfSrYQ91gh6fOisDkG2M+Z7FyecGTunmL4gceSzdFWSSJtQjsmzxDriDN1E7Gcp
+	/F5EWj3642Ycad5fuXqSsieWMtEmA8dgLN3I27RRvz4nWX8BYPvVGyr6WGA0=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,59 +58,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <undine-1792936915899334889-d965251e73c20670@undined.local>
- <cover.1792949723.git.edumucelli@gmail.com> <undine-1793319942513765724-cc2757c235ae029a@undined.local>
-In-Reply-To: <undine-1793319942513765724-cc2757c235ae029a@undined.local>
-From: Eduardo Mucelli <edumucelli@gmail.com>
-Date: Fri, 30 Oct 2026 13:13:55 +0100
-X-Gm-Features: AclHuK8g4qDo8Jre1l7QNAtNn_dnIUq8Ecn97-_j2MMIyL44eN0BKMtSNrY1Tr8
-Message-ID: <CAK0NWSNp75-8m7+nxO0ot4yPSFRTM2+eOKZUwGm-JLmRMEL7-A@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] tools/bootconfig: Fix histogram filters and
- variable names
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+X-Received: by 2002:a05:6808:4704:b0:4f1:6c9c:78d3 with SMTP id
+ 5614622812f47-5640df39312mr1305526b6e.26.1793362475290; Fri, 30 Oct 2026
+ 05:14:35 -0700 (PDT)
+Date: Fri, 30 Oct 2026 05:14:35 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae48a2b.6713f5d0.92cad.0001.GAE@google.com>
+Subject: [syzbot] [wpan?] general protection fault in ieee802154_llsec_dump_table
+ (2)
+From: syzbot <syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com>
+To: alex.aring@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-wpan@vger.kernel.org, miquel.raynal@bootlin.com, netdev@vger.kernel.org, 
+	stefan@datenfreihafen.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Thanks Masami!
+Hello,
 
-On Fri, Oct 30, 2026 at 1:25=E2=80=AFAM Masami Hiramatsu (Google)
-<mhiramat@kernel.org> wrote:
->
-> On Sun, 25 Oct 2026 18:35:22 +0100, Eduardo Mucelli Rezende Oliveira <edu=
-mucelli@gmail.com> wrote:
-> > Hi Masami,
-> >
-> > Thanks for the review. I've combined the two fixes into a series and
-> > used the two sed expressions you suggested.
-> >
-> > The first patch keeps filters when exporting event triggers. The second
-> > handles underscores in histogram variable names, so the exporter keeps
-> > histograms that depend on them.
-> >
-> > Changes in v2:
-> > - Send the two previously separate patches as one series.
-> > - Use separate sed -e expressions for [active] and [paused], avoiding
-> >   GNU sed's alternation extension in patch 1.
-> > - No code changes to patch 2.
-> >
-> > The original submissions are here:
-> > https://lore.kernel.org/all/20261023084947.3264289-1-edumucelli@gmail.c=
-om/
-> > https://lore.kernel.org/all/20261024110837.696216-1-edumucelli@gmail.co=
-m/
-> >
-> > Feedback is welcome.
->
-> These looks good to me. Let me pick it.
->
-> Thanks!
->
-> --
-> Masami Hiramatsu (Google) <mhiramat@kernel.org>
+syzbot found the following issue on:
+
+HEAD commit:    c339f4010dea Merge tag 'platform-drivers-x86-v7.4-1' of gi..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=15a3dd95580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=119e5f4d0a8d39cf
+dashboard link: https://syzkaller.appspot.com/bug?extid=9ea34da5ca6100593c90
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=151a448d580000
+
+AI-generated root cause summary:
+In net/ieee802154/nl-mac.c, ieee802154_llsec_dump_table() iterates through all
+network devices in the namespace and assumes any device with dev->type ==
+ARPHRD_IEEE802154 has a non-NULL ml_priv pointing to struct ieee802154_mlme_ops.
+However, devices such as TUN can have their link type changed to
+ARPHRD_IEEE802154 via the TUNSETLINK ioctl without initializing ml_priv (leaving
+it NULL). Consequently, ieee802154_llsec_dump_table() dereferences
+data.ops->llsec at offset 0x38 of a NULL pointer when dumping LLSEC tables,
+leading to a general protection fault / kernel crash (Denial of Service).
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=9ea34da5ca6100593c90
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000007: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000038-0x000000000000003f]
+CPU: 0 UID: 0 PID: 6025 Comm: syz-executor400 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
+RIP: 0010:ieee802154_llsec_dump_table+0x204/0x5d0 net/ieee802154/nl-mac.c:778
+Code: 89 f8 48 c1 e8 03 80 3c 18 00 0f 85 d3 02 00 00 4d 8b be b8 07 00 00 49 8d 7f 38 4c 89 bc 24 98 00 00 00 48 89 f8 48 c1 e8 03 <80> 3c 18 00 0f 85 a5 02 00 00 4d 8b 7f 38 4d 85 ff 0f 84 b2 01 00
+RSP: 0018:ffffc900031ef4a0 EFLAGS: 00010202
+RAX: 0000000000000007 RBX: dffffc0000000000 RCX: 0000000000000000
+RDX: ffff8880314ccb00 RSI: ffffffff8b9ff162 RDI: 0000000000000038
+RBP: 0000000000000026 R08: 0000000000000324 R09: 0000000000000324
+R10: ffffc900031ef40f R11: ffffc900031ef520 R12: ffff888036830610
+R13: 0000000000000000 R14: ffff88805d7a8000 R15: 0000000000000000
+FS:  000055558d27f400(0000) GS:ffff88812248e000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fff8aa5bff8 CR3: 000000002ce9b000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ genl_dumpit+0x125/0x230 net/netlink/genetlink.c:1026
+ netlink_dump+0x53b/0xd00 net/netlink/af_netlink.c:2351
+ __netlink_dump_start+0x6d6/0x990 net/netlink/af_netlink.c:2466
+ genl_family_rcv_msg_dumpit+0x1e2/0x2e0 net/netlink/genetlink.c:1075
+ genl_family_rcv_msg net/netlink/genetlink.c:1191 [inline]
+ genl_rcv_msg+0x471/0x800 net/netlink/genetlink.c:1209
+ netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2576
+ genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+ netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
+ netlink_unicast+0x668/0x950 net/netlink/af_netlink.c:1361
+ netlink_sendmsg+0x9ac/0x10c0 net/netlink/af_netlink.c:1920
+ sock_sendmsg_nosec net/socket.c:800 [inline]
+ __sock_sendmsg net/socket.c:818 [inline]
+ __sys_sendto+0x492/0x4e0 net/socket.c:2283
+ __do_sys_sendto net/socket.c:2290 [inline]
+ __se_sys_sendto net/socket.c:2286 [inline]
+ __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2286
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f0fada8d8b7
+Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007fff8aa5c1d0 EFLAGS: 00000202 ORIG_RAX: 000000000000002c
+RAX: ffffffffffffffda RBX: 000055558d27f400 RCX: 00007f0fada8d8b7
+RDX: 0000000000000014 RSI: 00007fff8aa5c220 RDI: 0000000000000004
+RBP: 0000000000000003 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 00007f0fadac9d23
+R13: 00007fff8aa5c390 R14: 000000000000001d R15: 0000000000000002
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:ieee802154_llsec_dump_table+0x204/0x5d0 net/ieee802154/nl-mac.c:778
+Code: 89 f8 48 c1 e8 03 80 3c 18 00 0f 85 d3 02 00 00 4d 8b be b8 07 00 00 49 8d 7f 38 4c 89 bc 24 98 00 00 00 48 89 f8 48 c1 e8 03 <80> 3c 18 00 0f 85 a5 02 00 00 4d 8b 7f 38 4d 85 ff 0f 84 b2 01 00
+RSP: 0018:ffffc900031ef4a0 EFLAGS: 00010202
+RAX: 0000000000000007 RBX: dffffc0000000000 RCX: 0000000000000000
+RDX: ffff8880314ccb00 RSI: ffffffff8b9ff162 RDI: 0000000000000038
+RBP: 0000000000000026 R08: 0000000000000324 R09: 0000000000000324
+R10: ffffc900031ef40f R11: ffffc900031ef520 R12: ffff888036830610
+R13: 0000000000000000 R14: ffff88805d7a8000 R15: 0000000000000000
+FS:  000055558d27f400(0000) GS:ffff88812258e000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffdac0fedc4 CR3: 000000002ce9b000 CR4: 00000000003526f0
+----------------
+Code disassembly (best guess):
+   0:	89 f8                	mov    %edi,%eax
+   2:	48 c1 e8 03          	shr    $0x3,%rax
+   6:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1)
+   a:	0f 85 d3 02 00 00    	jne    0x2e3
+  10:	4d 8b be b8 07 00 00 	mov    0x7b8(%r14),%r15
+  17:	49 8d 7f 38          	lea    0x38(%r15),%rdi
+  1b:	4c 89 bc 24 98 00 00 	mov    %r15,0x98(%rsp)
+  22:	00
+  23:	48 89 f8             	mov    %rdi,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1) <-- trapping instruction
+  2e:	0f 85 a5 02 00 00    	jne    0x2d9
+  34:	4d 8b 7f 38          	mov    0x38(%r15),%r15
+  38:	4d 85 ff             	test   %r15,%r15
+  3b:	0f                   	.byte 0xf
+  3c:	84                   	.byte 0x84
+  3d:	b2 01                	mov    $0x1,%dl
 
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
---=20
-Eduardo Mucelli R. Oliveira -- http://eduar.do
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
