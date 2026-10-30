@@ -1,94 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793365216;
-	b=NBF2HGleUTnc0Ov4GdvG4ihLaklYaEfpA3ininPZLia92Of144CKjLQjIhlmBRAcaO+K
-	 UTcbsEefuzoJvph1LoLs5cNFRWKgUe3D2aoHHSm4uoNe/I+QetAFFF9L7pSN0AsExlz/1
-	 SAMj8xg9b+iCivqkbk3dhNm0oUoRzVrKCu+3ovFQaZ5gc5qYbtzii8Xyl2yeKyqdEB6tc
-	 s+LJB5/nPG4ry8a1ZpSc+ZymLCE8cv1g99h+HqlaYQ8WKRuF4+0QW04kRIzZlExAZnEGI
-	 iL/0y8Ft9xy/v2o7X6y4Iqy1vzfLZHEhj6mBJ5A4TUTjWHrHA43+/Lkj4mO9pCCb6yA==
+	t=1793365236;
+	b=XFI2oVwO/XEuW0880N8U33WkYpdNzHk71t26E38jCef6HKYL6Z0rIRYBVMLsIwZyF/WW
+	 iuQappURFyM8VDbx/RsOgEyPlsaKs1/U5zkNeKdbEFZFGb36WqJ+6AYDJMy/ZRLAnMJJs
+	 YE1vueKQMR87L0qoVtRpCJ7IS66Q4kLnkMWd3ItkNU6ek1JgBNDTLXzTGL61xsj1x3e8b
+	 BtzFPtSDrEAPBo9/Z2zi3Jqwck4DyUJellbria0OCMHqJS5/wpWN8l5zeXjfG9YQt1TKw
+	 Hx6GUTIDhijHZ/3z/LHQoXs4+cZEFGEH7/X3NOju/ht5ZpasjiEeWNxEu+tMMZkFMhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793365216;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=j+XGS2hwVlkuYOzPsJhAivfW0qw6OY/isoGaMkh2h1w=;
-	b=CGjddP289d/SdboMC0gwPpamUtJz9Bln6do24EQEFxZGJ9oL624Lh7MioXcqvghoV22v
-	 GeQbMOOcPFeR4NEf5l1q15V+NvuwDEHJje94vbF88WQpzZ/AQWkUdOFIx1ofYBbpt29pl
-	 T5AxUWYTAzbmUXglTaIUrMo/bGh2Zq9sbyoGxwGCtCt2eE8m0o1JX3DIFgkNDBwLo/HtH
-	 4ewe+xkA+f05Gmf6y5cVCFGzkDQVh1+r7awZu/4oTaU7ag3Av9iyRFTqmEWAOsT4BG7mc
-	 Hyq7Hnlhl0jmKjwQUEtGG8cgAewfGPyOzPOuk1od2j1sxdEPHCOH56No7pYxaa6ueFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793365236;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=RkbYxVSI5rTYmWPGM60TSax/zjdMIP247/fb4MerUmU=;
+	b=07KW2scNciDsR8paiTVWPNp2luHjqx7B/UnSUez8/P03PduqwKhuBDp7146zAg2wzc+j
+	 F7odEs6XEpyEIxoJ1DxJRiDMbpbLzsz/0Il0pfYQUxFuyTLUf2uLIKGfNvl0I5IMtL9QB
+	 knXm6aknWafs0c5BK7VFUx2nitwpSZEOqtLN+wDj9aRJwPOlpEl1LacVG73hzoxTMNv/H
+	 p9Q0UVKU/q8DVf+qaS2Md/8/JMXJZX3h+LOKuV/oJHPS/hI/Z4XfDARfNtoedHrp81KnI
+	 9jQR4d93EML+X81QVzxQUN7njdqXZfGM3fmmoTawI8rBK5cGhSoXSavQYBBOgLrwgNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=minyard.net;
-	spf=pass smtp.mailfrom=minyard.net;
-	dkim=pass header.d=minyard.net header.i=@minyard.net header.a=rsa-sha256 header.s=google header.b=SW+lz4cc;
-	arc=none smtp.remote-ip=209.85.167.175
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE4B606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:00:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDE4B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=minyard.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=minyard.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=minyard.net header.i=@minyard.net header.a=rsa-sha256 header.s=google header.b=SW+lz4cc
-Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4af81963f35so448759b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:00:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minyard.net; s=google; t=1793365214; x=1793970014; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:reply-to:message-id:subject:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=j+XGS2hwVlkuYOzPsJhAivfW0qw6OY/isoGaMkh2h1w=;
-        b=SW+lz4cc+IFGkxyrSxYB/aCo5Lyvok7AKYCQ8Wz5skuiNIZ4vaNdC7rnD4NuoCYHXp
-         RUqUWGosKn36y+fuQNVuKSDzfhBBKAcuFGSHK2uwnqby/qDm8e5SGkEZoecvOEd3ec4F
-         aTZilWeAZUyl0fJ7KaOZom0/S86Tyw10LYujmkPjheHIXvwXXlYGzkTh7QyAdC3AdjqC
-         CHa19D/MGMYc3+s+guYXRqykq0IFpT7KudMITA2jfaPbBfYW4eSqak9b39RcBt+hetVy
-         KZ146IKiUui4nWPrDx+htYESibj1qbk5nb1e2y3bx6TiGnnSWKtoGr4eYeaNm7EBTaSm
-         XWMQ==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C582606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:00:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C582606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-54213290993so517158b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:00:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793365214; x=1793970014;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793365235; x=1793970035;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=j+XGS2hwVlkuYOzPsJhAivfW0qw6OY/isoGaMkh2h1w=;
-        b=rtHcU3N8q7iBD04dv9Dtbj2f7C2rHomgKU62datW8PN2KLo5cGx39dOfyNG8kxIVb3
-         oBcSAmfcfQnXzAX++IFcMaPU1zAqEUbUosiZGVvkEleG1wPWi/Mvyl8BnxbFUO6W+ifi
-         nu4U2zs5r5LMmk5HV4C36IyrJALng2kWB1MRnsGgMob4Aydj+A3G2KkwdXcSJUSfx0X7
-         RX/ltzRdin14z93tzWfsFjdcQxfIoUztz6MbadASxG5e/w+Mz4kIPoQctZwO/B/8swUD
-         UAChR/WqlFb5Y+jCWzRQ9wAqqo5DGA60DzrQAGjmXBlcQHIDG5LaM9OfYfmgpitjeFzf
-         pEGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQIXMS/eQ+z0IRzwg92zOjnTvzjqYB/GPZbMqPx4a9OCzdsS6hhI/XO+gmQ0H5KdzV1D5rtqGmev2u838=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLuHimYAVvgbOywDeaUAxRkZHeO1A9bl9X8Y/BkL2dtU6HbPugP
-	QVhZ5K6Qo1DhKDcG0Iqa0e/Wz0BdyeDH8rV4XMlmqFXS7L/kUGJERCHzBe4+ZNYOHaI=
-X-Gm-Gg: AYBFou12mSFqUM9BG+W/br/Pk4MT1T694o5zTNAgDSwfhCPA86RKCJcHhZFCcFtWiDJ
-	kWlJX3tUpg6frRhx7VNMksBGFnmreSD2iE6Cm9pi4Vu0qM4PXp+19CZmbazLnAJHxgM/1CBHpmV
-	NZ1Ul0drvZmUS+DajhSFhDt6Nz0RPXsVsXlI210IQKXmbPPrE5C4hF4oIjbUXRloaGGHFGTV3Oy
-	yekQkFzhIG4fYIiB89x5LIG0WGNyqTc16ljZLCqP1G78YYzVuQOm52phOZUpUIxTXik5g6+j3KD
-	WOvodyZp4K7J1Ra/LUy3sV6MDhfR+GoGrEWTCrNsG9vhMzkVJ0rIFiid8G+Es+hdrDDpZwaib95
-	PH5mcJ2TM4MGJbKyBwpC0HHPCzoPKQ//c5dYyAnldjytHMGCG0AYZyarJ0UHEJwnQf2Ac3RHarQ
-	eRqVJhZ8m1Iau7MhaVixsCq6CkFtbvNBpwfMXBF4qcYbYtlrnYG3sD5jIjtp938tZwoLwRgwXRf
-	iDwGCHqc/+0J/nRIThwaCkRc+B4hMi4c5LfibxBpbTwBw6dW//QKTYQe3Y0335OtQ6/4VbKKMX5
-	qWQy/Sp3pPnYbe1sQI5W3qH7SSszncQMTfbB0o7QfnZI1Y0KhZqWs630RmO7bc9LsHSN04ApyWS
-	d6Pm5if/MVNomt0/ju6pfDNjWee7acNVCbVbU1bPfc0ipncbYiJjfttRmPhAaZnJCvYRPlzc=
-X-Received: by 2002:a05:6808:bc6:b0:4f5:e12:b47c with SMTP id 5614622812f47-5640dfec8e9mr1440993b6e.48.1793365213098;
-        Fri, 30 Oct 2026 06:00:13 -0700 (PDT)
-Received: from mail.minyard.net ([2001:470:b8f6:1b:2f32:e466:d3ef:5b82])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fd95562sm1408464b6e.4.2026.10.30.06.00.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 06:00:10 -0700 (PDT)
-Date: Fri, 30 Oct 2026 08:00:06 -0500
-From: Corey Minyard <corey@minyard.net>
-To: Breno Leitao <leitao@debian.org>
-Cc: openipmi-developer@lists.sourceforge.net, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com, Dan Melnic <dmm@meta.com>
-Subject: Re: [PATCH] ipmi:kcs: Rate limit the invalid state warning
-Message-ID: <auSU1tHoDTrIkHoR@mail.minyard.net>
-Reply-To: corey@minyard.net
-References: <20261030-ipmi-v1-1-f84d5fa1fa6c@debian.org>
+        bh=RkbYxVSI5rTYmWPGM60TSax/zjdMIP247/fb4MerUmU=;
+        b=S3N92M5RSuOkUtba81qxgs1/krg4wGywSu/XgkokdCTqm8dt+zLInJtId0SykQ56mC
+         16JhFGknxYgFVJhh6i8K1RBWCZiypFE8CXxYAyuPiBugdo/HeCSNUVp1e4MggGtDNOSs
+         wWKSVNdplSDvgHWcCGGhN5WP1TSp6GzE16T+ZuLG5ZhfOBUcuqdxyd8Y3f/cfn+0w0jY
+         5bLjpLacSb7oKn2pfNfqLqIGwi4ZP+95Zh51NCYms6lN5X1l8mzbwiwDXeV3IPTI2pnO
+         62ZaD29Zzw2/itrO1LIcwWk2aUKudBIan3/OxDudtzr3sETNfhS1zjftRJ0kgj3cSCPg
+         XCkA==
+X-Forwarded-Encrypted: i=1; AKwUvBxDoBZgrceGTaOt6gPoEfLVYyMFRPKB4dP2hokk0dOYr4MD+jc9M35v+dymrwd4FLPD8Vh5pej+BQSbPD4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgYGPcxYZ/msjtPaEg9rKxuxiEWMZnxvMJzXVQPFIA5YHBFOWC
+	Z6KGTezbA1Eq1+q23mH/nn7ZgNr+Xp07nbb9d/XmXib/t2+89a78AhmxfKM+voMh0RYVTWkFdAK
+	FIStzp4WZnGko0KdhbFLokhft4DG/hgcSWQ8b0+GZsPsBFivR5oiKlQ/BIH0=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,99 +58,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030-ipmi-v1-1-f84d5fa1fa6c@debian.org>
+X-Received: by 2002:a05:6808:2218:b0:53c:2a2e:8650 with SMTP id
+ 5614622812f47-5640df72f37mr1342932b6e.34.1793365233620; Fri, 30 Oct 2026
+ 06:00:33 -0700 (PDT)
+Date: Fri, 30 Oct 2026 06:00:33 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae494f1.31fc0900.6b84.00fb.GAE@google.com>
+Subject: [syzbot] [dm?] general protection fault in crypt_setkey
+From: syzbot <syzbot+ff132cb52bce4f44ecc9@syzkaller.appspotmail.com>
+To: agk@redhat.com, bmarzins@redhat.com, dm-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, mpatocka@redhat.com, snitzer@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Oct 30, 2026 at 03:29:45AM -0700, Breno Leitao wrote:
-> start_kcs_transaction() warns each time it is asked to start a
-> transaction while the KCS state machine is busy. The warning is not
-> rate limited, so if the SI layer believes the interface is idle while
-> the state machine is still running, every message sent to the BMC logs
-> another line.
-> 
-> Kernels carrying commit c608966f3f9c ("ipmi: fix msg stack when IPMI is
-> disconnected") hit this. When the interface is declared hosed, the
-> state machine is reset to KCS_ERROR0 rather than KCS_IDLE, and keeps
-> walking the error states while the SI layer, which treats it as idle,
-> tries to start new messages.
-> 
-> One host logged 29K of these lines in four days, several per second:
-> 
->   [Thu Oct 29 14:55:54 2026] ipmi_si dmi-ipmi-si.0: KCS in invalid state 9
->   [Thu Oct 29 14:55:55 2026] ipmi_si dmi-ipmi-si.0: KCS in invalid state 7
->   [Thu Oct 29 14:55:55 2026] ipmi_si dmi-ipmi-si.0: KCS in invalid state 8
->   [Thu Oct 29 14:55:55 2026] ipmi_si dmi-ipmi-si.0: KCS in invalid state 9
->   [Thu Oct 29 14:55:55 2026] ipmi_si dmi-ipmi-si.0: KCS in invalid state 7
+Hello,
 
-The rate limiting is a good idea.  I've included the patch.
+syzbot found the following issue on:
 
-However, it also sounds like you don't have working IPMI hardware on
-these systems.  The change you mention just exacerbates the problem
-here, but I think it would be a good idea to track down why this is
-happening.
+HEAD commit:    6b4b543fa187 Merge tag 'parisc-for-7.4-rc1' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=15f0008d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e0dd24ec63572ca
+dashboard link: https://syzkaller.appspot.com/bug?extid=ff132cb52bce4f44ecc9
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=138a6f0d580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1583c259580000
 
-If you really have working IPMI hardware, then it would be a good
-idea to trace down why this is happening.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-6b4b543f.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/8a7c3186fb53/vmlinux-6b4b543f.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/54ff5a2a5728/bzImage-6b4b543f.xz
 
-If you don't have working IPMI hardware, then it sounds like your
-system is advertising that it has good hardware through SMBIOS or
-ACPI.  It would be good to either fix your firmware or add a deny
-for this particular system.
+AI-generated root cause summary:
+In drivers/md/dm-crypt.c, specifying the optional "integrity_key_size" parameter
+alongside an AEAD integrity profile sets cc->key_mac_size, causing
+crypt_integrity_hmac() to evaluate to true. However, when the specified cipher
+is not an authenc composite algorithm (e.g., rfc7539(chacha20,poly1305)),
+crypt_ctr_auth_cipher() exits early without allocating cc->authenc_key. During
+key initialization, crypt_setkey() calls crypt_copy_authenckey() with the NULL
+cc->authenc_key pointer, leading to a kernel NULL-pointer dereference crash
+(denial of service).
 
-In either case, this points to a bug in the driver; it shouldn't try to
-start a transaction while in error state.  I can't see it, but I believe
-I can reproduce in simulation.
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=ff132cb52bce4f44ecc9
 
-What specific kernel version are you running?
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+ff132cb52bce4f44ecc9@syzkaller.appspotmail.com
 
-BTW, I need a link to the discussion about this so I can add a Closes:
-tag to the git change.
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+CPU: 0 UID: 0 PID: 5579 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:crypt_copy_authenckey drivers/md/dm-crypt.c:2396 [inline]
+RIP: 0010:crypt_setkey+0x1d7/0x980 drivers/md/dm-crypt.c:2417
+Code: 14 24 4c 8b b2 58 06 00 00 8b 5c 24 0c 29 eb 49 8d 7e 04 41 89 df 41 0f cf 48 89 f8 48 c1 e8 03 49 bc 00 00 00 00 00 fc ff df <42> 0f b6 04 20 84 c0 0f 85 00 07 00 00 45 89 7e 04 4c 89 f0 48 c1
+RSP: 0018:ffffc90003aef670 EFLAGS: 00010247
+RAX: 0000000000000000 RBX: 0000000000000010 RCX: ffff888030aa4b00
+RDX: ffff888035b3f000 RSI: 0000000000000020 RDI: 0000000000000004
+RBP: 0000000000000020 R08: ffff888035b3f12f R09: 1ffff11006b67e25
+R10: dffffc0000000000 R11: ffffed1006b67e26 R12: dffffc0000000000
+R13: ffff888035b3f120 R14: 0000000000000000 R15: 0000000010000000
+FS:  0000555578d00500(0000) GS:ffff88808ac1d000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f841a4e84ac CR3: 0000000038575000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ crypt_set_key+0x3a0/0x680 drivers/md/dm-crypt.c:2642
+ crypt_ctr_cipher drivers/md/dm-crypt.c:3067 [inline]
+ crypt_ctr+0x2437/0x3c20 drivers/md/dm-crypt.c:3254
+ dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
+ populate_table drivers/md/dm-ioctl.c:1602 [inline]
+ table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
+ ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
+ dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f7fae39f559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffd11f4b518 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007f7fae625fa0 RCX: 00007f7fae39f559
+RDX: 0000200000000540 RSI: 00000000c138fd09 RDI: 0000000000000003
+RBP: 00007f7fae436b20 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f7fae625fac R14: 00007f7fae625fa0 R15: 00007f7fae625fa0
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:crypt_copy_authenckey drivers/md/dm-crypt.c:2396 [inline]
+RIP: 0010:crypt_setkey+0x1d7/0x980 drivers/md/dm-crypt.c:2417
+Code: 14 24 4c 8b b2 58 06 00 00 8b 5c 24 0c 29 eb 49 8d 7e 04 41 89 df 41 0f cf 48 89 f8 48 c1 e8 03 49 bc 00 00 00 00 00 fc ff df <42> 0f b6 04 20 84 c0 0f 85 00 07 00 00 45 89 7e 04 4c 89 f0 48 c1
+RSP: 0018:ffffc90003aef670 EFLAGS: 00010247
+RAX: 0000000000000000 RBX: 0000000000000010 RCX: ffff888030aa4b00
+RDX: ffff888035b3f000 RSI: 0000000000000020 RDI: 0000000000000004
+RBP: 0000000000000020 R08: ffff888035b3f12f R09: 1ffff11006b67e25
+R10: dffffc0000000000 R11: ffffed1006b67e26 R12: dffffc0000000000
+R13: ffff888035b3f120 R14: 0000000000000000 R15: 0000000010000000
+FS:  0000555578d00500(0000) GS:ffff88808ac1d000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f841a650286 CR3: 0000000038575000 CR4: 0000000000352ef0
+----------------
+Code disassembly (best guess):
+   0:	14 24                	adc    $0x24,%al
+   2:	4c 8b b2 58 06 00 00 	mov    0x658(%rdx),%r14
+   9:	8b 5c 24 0c          	mov    0xc(%rsp),%ebx
+   d:	29 eb                	sub    %ebp,%ebx
+   f:	49 8d 7e 04          	lea    0x4(%r14),%rdi
+  13:	41 89 df             	mov    %ebx,%r15d
+  16:	41 0f cf             	bswap  %r15d
+  19:	48 89 f8             	mov    %rdi,%rax
+  1c:	48 c1 e8 03          	shr    $0x3,%rax
+  20:	49 bc 00 00 00 00 00 	movabs $0xdffffc0000000000,%r12
+  27:	fc ff df
+* 2a:	42 0f b6 04 20       	movzbl (%rax,%r12,1),%eax <-- trapping instruction
+  2f:	84 c0                	test   %al,%al
+  31:	0f 85 00 07 00 00    	jne    0x737
+  37:	45 89 7e 04          	mov    %r15d,0x4(%r14)
+  3b:	4c 89 f0             	mov    %r14,%rax
+  3e:	48                   	rex.W
+  3f:	c1                   	.byte 0xc1
 
-Thanks,
 
--corey
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-> 
-> Across hosts running such kernels at Meta fleet, about 887 million of
-> these lines were logged in one week, all for states 6 to 9 (KCS_ERROR0
-> to KCS_ERROR3).
-> 
-> That commit was reverted by commit 5d09ee1bec87 ("Revert "ipmi: fix msg
-> stack when IPMI is disconnected""), but nothing bounds the warning if
-> the two layers get out of sync again.
-> 
-> Use dev_warn_ratelimited(), as the SI layer already does for its
-> transaction warnings, given it is cheap and will protect us from this
-> crazy flood.
-> 
-> Reported-by: Dan Melnic <dmm@meta.com>
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> ---
->  drivers/char/ipmi/ipmi_kcs_sm.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/char/ipmi/ipmi_kcs_sm.c b/drivers/char/ipmi/ipmi_kcs_sm.c
-> index c89055db39e52e..ae0399ccd82196 100644
-> --- a/drivers/char/ipmi/ipmi_kcs_sm.c
-> +++ b/drivers/char/ipmi/ipmi_kcs_sm.c
-> @@ -271,7 +271,8 @@ static int start_kcs_transaction(struct si_sm_data *kcs, unsigned char *data,
->  		return IPMI_REQ_LEN_EXCEEDED_ERR;
->  
->  	if ((kcs->state != KCS_IDLE) && (kcs->state != KCS_HOSED)) {
-> -		dev_warn(kcs->io->dev, "KCS in invalid state %d\n", kcs->state);
-> +		dev_warn_ratelimited(kcs->io->dev, "KCS in invalid state %d\n",
-> +				     kcs->state);
->  		return IPMI_NOT_IN_MY_STATE_ERR;
->  	}
->  
-> 
-> ---
-> base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
-> base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-> change-id: 20261030-ipmi-a2223415ce84
-> 
-> Best regards,
-> --  
-> Breno Leitao <leitao@debian.org>
-> 
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
