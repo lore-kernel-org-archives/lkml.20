@@ -1,91 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793384311;
-	b=A+I9hJtP9EnBlM8xjsEgxdL0HLyVk4VbJPgZPBFFq1FNK+q+5ECo+w2ydrKkngPUv0+/
-	 7Z5CCWaPZWWjjcu5BC93u81wjpznjSqWIRKHXJeqe7462/qIgwUdBSOBH37srs/Op/ED8
-	 MapXGM++cpmQBD9MKE5mEMq5Qy21TxszCvSXHn75rujJm6kkUOVE5ocSgzLcwNp3ZCZm5
-	 eKGVDl8XmhryR5YxLp5/uG2tY64+g4tO5o7BeMiYlfRe4DGhqP9rpFjNkq4dijt7i2cj9
-	 8eck0czMXvWuVoqHhJyDj5It8qg//0cpkF8EL9LJ108UrRsYzYBQMwgybVnjM+80iJQ==
+	t=1793384306;
+	b=RKkQIXHJ1L6noecZFupK3Zjm3CYviALLEwLELaAkTtb9hDryQgz4A38XVEMxq+he/MP7
+	 5i5HmKnkGphO+WgV8pafRr/qr3pj4zj5d8r5qvCBOOp9HBdXMibvqTWGKHt0kiB/QGEZb
+	 yCChdk1oUwncQ36kIPu9abPl9yqrFcTW9IpN7iO1QuxJlkhyQ1wFwzIjJFrKUjG7v0dbl
+	 88Jtq/+rFFOHV2NCCYc1nLLoJrJ5pg7W7mwhWyboDGPmy853GIppDDj+fX9qkOPrfkisw
+	 S+oo/95ap4SCo+MX7fqlpgUveKmPs0oqGQoHuEB7Fyz3inWXkJH7uvDQgCnTkgq+JgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793384311;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793384306;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+TpGUdvhMV3H/GhPEjCy0KY1DV4UXmx7Z3C1Se8S5rI=;
-	b=j1JQeZhkAZlxFEtSJMDiDB9LvsQkyCfcyI8oLC9zhhWNqTBcvXxolCWxN0vzoOV6guya
-	 tyBO3B8FwgOTDgoA3bxi3dbbl5CqsDK60jlCOa6sMVv/DzLVu13PbN/TcG4wSBehtvShW
-	 EKq/gtm0KyFjbqLRt0CjxpKIJYa/W3Ch6crjrTmfjsBtsrR3U0JXRWxX8t7IS8NrqG4QH
-	 gKIemV4PdoVgeXe4JcvWKmxy+ulzElgXjlw6YCr0EtH73gPMLl+km9WyrIE2AcdN9JXMX
-	 /iebyy9enRZUaLV8hoqzrVb1o7dBlUdv6HeeJcqLO9jmnSO8DIEOevqprao48n9U+Fw==
+	bh=8d1kof1zznXy7nm6rro4noakwVC/Inb4KYV1cw83zlo=;
+	b=YsF9JJFD7yUTiTVVN0+iedTRyswKUNzQlZd42F20x/MKObsjH963w0lF18dUaxQSSAGY
+	 bC30Yc+RcqFJWW4oNuPHHkcxAQl+Po2kKgqMya4w69KuMtjKtoEZEI4odEUf/No55PEso
+	 cIQHY9tUZu+EInR0k1AHZhn1q/iPqDV2eskMJdct4VNsVBmKLetTcZLwTsoHLbAjalIwo
+	 llbjWQ582ubC7Mn4bRKMxULc5EM58m2+G+ZxH3CMW/QIHYZv8m3ot19kXpsy+futuQ2Hy
+	 aYjAo5Q26tO8DhK2LYASOZYxov3F6BagyI5WMxwhU7sBgnkUGsRDQi163CSEN7RtkDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C2XEOoC4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KmGAAVIM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7186A606A322;
-	Fri, 30 Oct 2026 18:18:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1DEF606A31A;
+	Fri, 30 Oct 2026 18:18:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C2XEOoC4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A61031F000C1;
-	Fri, 30 Oct 2026 18:18:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KmGAAVIM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0432A1F0093A;
+	Fri, 30 Oct 2026 18:18:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793384311;
-	bh=+TpGUdvhMV3H/GhPEjCy0KY1DV4UXmx7Z3C1Se8S5rI=;
+	s=k20260515; t=1793384305;
+	bh=8d1kof1zznXy7nm6rro4noakwVC/Inb4KYV1cw83zlo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C2XEOoC4/BSj8bC2Vu8/6qSa2+3P6tl/x9wMN1O1BFLnunwIM+EChoHB16Q5MMtzG
-	 7l5AqUGD5cL52WYqeUPE8Utz4CzvFdVp1g/fG5vr5UzrPhlxo4d6lTVwMcd8FPtU65
-	 wdfJx5q3ZejJR+xHCzWqPg7nIFQ0Z7lSPFGQQyhHKNZXX/geWpMjVKZEXNmshKY5Cj
-	 8hu1BUDk1Lo1wYqkWA9mIkGmKp+LnIB23JdzAj4xkgO20ZzqC1qNSjrmIwlKVg+EAd
-	 03obfjx8NJ7MyYrWfyq0XFxAg0kecvPlRnmLA9U9Aspdo50AGXyNZTJUEzjTQzghVK
-	 DMRLa4VUCrxqg==
-Date: Fri, 30 Oct 2026 13:18:27 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Cunhao Lu <1579567540@qq.com>
-Cc: linux-mmc@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
-	linux-clk@vger.kernel.org, Shawn Lin <shawn.lin@rock-chips.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Jiri Slaby <jirislaby@kernel.org>,
-	David Wu <david.wu@rock-chips.com>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jaehoon Chung <jh80.chung@samsung.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	linux-serial@vger.kernel.org,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Elaine Zhang <zhangqing@rock-chips.com>,
-	linux-kernel@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Linus Walleij <linusw@kernel.org>, linux-pm@vger.kernel.org,
-	linux-usb@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>,
-	linux-gpio@vger.kernel.org, mfd@lists.linux.dev,
-	Brian Masney <bmasney+clk@redhat.com>, linux-i2c@vger.kernel.org,
-	Richard Cochran <richardcochran@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Andi Shyti <andi.shyti@kernel.org>,
-	linux-phy@lists.infradead.org,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Jisheng Zhang <jszhang@kernel.org>, Lee Jones <lee@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>
-Subject: Re: [PATCH 06/27] dt-bindings: gpio: rockchip: Add RK3572 GPIO banks
-Message-ID: <179338430620.1192537.10304827355794981405.robh@kernel.org>
-References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
- <20261022-add-board-ok3572-c-v1-6-0b0fd85a31ee@qq.com>
+	b=KmGAAVIMGJXSXx/3b3QNzONz5+wuJo1adqcBUHn5OoVfETlskqSdntIljapoHGe8Z
+	 6WOyzjatNMZb/PIIqs0UzOFSmRudqEAgmz3ftczMpjPJNgPwmBzXbbWFxRnR/xAi/a
+	 NvaIzVxpTihCf9XCCs7cegxI+Mq8OYgxeWrY3swaq+kJXLy4mSCmHiHxui8WHa85B6
+	 xzblXzZFINQd1rBk0RXz+XuMmYVTdnd17e5x0ZtfK9aNQe8GXwp/krWjdDnYAhWhK2
+	 7NDujZY0Z4fB27it6WvoXNKVdBQ16gNtN3gyEJaPSqGYQ+bu9Gk0Z/RlXFQw5T6HmL
+	 peMzfwRGvVeTg==
+Date: Fri, 30 Oct 2026 11:18:23 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: Mukesh R <mrathor@linux.microsoft.com>
+Cc: Magnus Kulke <magnuskulke@linux.microsoft.com>,
+	linux-hyperv@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+	Magnus Kulke <magnuskulke@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <liuwe@microsoft.com>,
+	Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>
+Subject: Re: [PATCH v4] drivers/hv: remove deposited pages from direct map
+Message-ID: <20261030181823.GA581409@liuwe-devbox-debian-v2.local>
+References: <20260930121047.19993-1-magnuskulke@linux.microsoft.com>
+ <49a7b3b0-5314-c028-d0e6-a46e65ed880d@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,18 +68,113 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261022-add-board-ok3572-c-v1-6-0b0fd85a31ee@qq.com>
+In-Reply-To: <49a7b3b0-5314-c028-d0e6-a46e65ed880d@linux.microsoft.com>
 
-
-On Thu, 22 Oct 2026 00:11:03 +0800, Cunhao Lu wrote:
-> RK3572 GPIO banks have four parent interrupts and a separate debounce
-> clock.
+On Wed, Oct 28, 2026 at 03:54:30PM -0700, Mukesh R wrote:
+> On 9/30/26 05:10, Magnus Kulke wrote:
+> > hv_call_deposit_pages() donates pages (deposit) to hypervisor for L2
+> > guest on L1VH systems via HVCALL_DEPOSIT_MEMORY. The hypervisor takes
+> > ownership of those pages and per contract revokes root partition
+> > access to them, raising a #GP on access from the L1VH root partition.
+> > 
+> > However, the pages remain mapped in the kernel direct map, so kernel
+> > code may still access them even though the hypervisor has revoked
+> > access.
+> > 
+> > Helpers such as "load_unaligned_zeropad()" deliberately read past the
+> > end of a buffer and across page boundaries. A read into an unmapped
+> > page is tolerated and triggers a #PF, for which the kernel executes
+> > a fixup in the exception table.
+> > 
+> > If such a call steps into a page that has been deposited, the access
+> > raises a #GP by the hypervisor from which the above handler cannot
+> > recover and the kernel panics:
+> > 
+> >    Oops: general protection fault, maybe for address 0xff1100941a3dfffc
+> >    RIP: 0010:csum_partial+0xe5/0x110
+> > 
+> > This condition will appear on L1VH system that have created L2
+> > partitions (and hence deposited pages) and exercise networking code
+> > paths such as csum_partial() can trigger this condition when a buffer
+> > ends close to a page boundary (e.g fffc in the above example).
+> > 
+> > The fix is to remove the deposited pages from the direct map before
+> > they are passed to the hypervisor, and restore them when the hypervisor
+> > returns them again.
+> > 
+> > We want to avoid flushing the TLB in the loop, so we use the _noflush()
+> > variant of set_direct_map_valid() when marking a deposited page invalid
+> > and flush the affected page ranges in one go ourselves. In the opposite
+> > direction this is not required:
+> > 
+> >    > If a paging-structure entry is modified to change the P flag from
+> >    > 0 to 1, no invalidation is necessary. This is because no TLB entry
+> >    > or paging-structure cache entry is created with information from a
+> >    > paging-structure entry in which the P flag is 0.
+> > 
+> > (Intel SDM Vol. 3, 4.10.4.3)
+> > 
+> > Signed-off-by: Magnus Kulke <magnuskulke@linux.microsoft.com>
+> > ---
+> > Changes since v3:
+> > - Batch contiguous pages in the restore path
+> > - Adjusted comment about failure modes
+> > 
+> > Changes since v2:
+> > - Checkpatch format fix
+> > 
+> > Changes since RFC:
+> > - Handle direct-map restoration failures without returning unmapped
+> >    pages to the allocator.
+> > - Move freeing of withdrawn pages into the restoration helper.
+> > ---
+> >   drivers/hv/hv_proc.c           | 83 +++++++++++++++++++++++++++++++++-
+> >   drivers/hv/mshv_root_hv_call.c |  4 +-
+> >   include/asm-generic/mshyperv.h |  4 ++
+> >   3 files changed, 87 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
+> > index 57b2c64197cb..b056051a5ac5 100644
+> > --- a/drivers/hv/hv_proc.c
+> > +++ b/drivers/hv/hv_proc.c
+> > @@ -7,7 +7,9 @@
+> >   #include <linux/cpuhotplug.h>
+> >   #include <linux/minmax.h>
+> >   #include <linux/export.h>
+> > +#include <linux/set_memory.h>
+> >   #include <asm/mshyperv.h>
+> > +#include <asm/tlbflush.h>
+> >   /*
+> >    * See struct hv_deposit_memory. The first u64 is partition ID, the rest
+> > @@ -15,6 +17,35 @@
+> >    */
+> >   #define HV_DEPOSIT_MAX (HV_HYP_PAGE_SIZE / sizeof(u64) - 1)
+> > +/*
+> > + * Add or remove a set of physically contiguous page runs from the kernel
+> > + * direct map. Once a page has been deposited the hypervisor owns it and
+> > + * revokes root partition access to it.
+> > + */
+> > +static int hv_deposit_update_direct_map(struct page **pages, int *counts,
+> > +					int num_allocations, bool valid)
+> > +{
+> > +	int i, err, ret = 0;
+> > +
+> > +	for (i = 0; i < num_allocations; ++i) {
+> > +		err = set_direct_map_valid_noflush(pages[i], counts[i], valid);
+> > +		if (err && !ret)
+> > +			ret = err;
+> > +	}
 > 
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
-> ---
->  .../bindings/gpio/rockchip,gpio-bank.yaml          | 24 +++++++++++++++++++++-
->  1 file changed, 23 insertions(+), 1 deletion(-)
+> I realize I am late to the review, so if too late, please ignore.
+> If the caller is going to not continue on error but will revert,
+> what is the reason to keep going on error then?
+> 
+> And this function should undo it itself if there is error instead
+> of forcing the caller to do it imo. It could just undo the part which
+> is done.
 > 
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Magnus, while you work on rebasing the patch, perhaps you can also
+address this.
 
+Wei
