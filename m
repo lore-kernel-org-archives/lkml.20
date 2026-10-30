@@ -1,101 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793332816;
-	b=dS8i05vj3xaqPSbxNPG+qy0YuSAItMqB1uRTNjwzkYfRqTkyKtbjDYgujIJJLV+7l9EW
-	 2kiHszi6gYX2rWemuDVN5xcDCAqU2K0ZW20eu7LUwkrcM1Dewh6EDYs+ab9XJk8rjXrSa
-	 4KrJWFfnFhqavflBF89r6fgg9Zex3NO+cAe6UeJdRoa8D3k2p2lX0ODZEKsl+e6exE4UA
-	 26zE+0/ib9Nb5zYmLAJCt/2pKKgZCuWj/3WufNQHjhZ1wjGWGsKei/M9vDpkO0NIVOET2
-	 3Dyz75O2aoPiMZBAdKEnnCQFl/oAK+vCD74+ndds+gVgotYEKAS/23f3tO0hKIPTANQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793332816;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=w+nM/vAkuCP/V6D3oVU+Bkna7/XRYF0/nbbL7krfSm4=;
-	b=pd9NmdZ+Nigs0rtji+8HepN445ji3ec8sB3bScOJe3whnP7xZVhVBi9VhdzGx1JXq75S
-	 34DfG0AEJYMtcLdzVbMmMDBhhfSsFO4n9YKAHZMskqjs6Rm/kob/we7oD0uMMGAehW6fn
-	 3bDEIVReiEpXQ1/Rz2jMgjRNtFUPe/7KuN/2gDqtjWq83MTQQwh6aNePOGdu6k1+SYqEp
-	 4qi4086ORy1wjXCwMqNExSqz95iWJff9qjBOaPbtHWlL2outYFzu4r9X55W8cMVmYfF7k
-	 1fSmrR+S53MVQcNys6mG88tKMerZXsx2LjfalnZIwC5kjQJtMqN8Hek0xcx6GTciwyQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Epqzn++T;
-	arc=fail smtp.remote-ip=209.85.208.169
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F94606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:00:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55F94606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793332849;
+	b=QGtJwhIJckAzAXDVpvqOs1c1N5NIu/TJ66ti6fZkpjweOhFPTjjn3fVEXJ/s/koh+x70
+	 XumOfDh4+E3rlW5LNvE5og14Sm6fBb8p+PTC46pgjgOKSoAd0L76C8wKDUe1ZvXE8e/ud
+	 HdAUqizgoH3muApufZnht9sw3f59DiUL/EFhzgU+JCau4qtPnjPyVSxq4G86abr6/yYG7
+	 QP107VWTmNyqeTeQXSl4Bx+oANVHBVqDopl7EvTwPlk3gyZFOe0VnbPC4xI2Gpd1ciHxl
+	 hZ4bEL7FDCm1+AjHsqJf+CaEXeu+o3AqSvZqKzWpEz7iU9vXWHUxKVHFTqHRCG7YwVQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793332849;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=ZymhCZv4QhfyzB3ebHwIZug3V/c78mQ4jnj3xtengqc=;
+	b=HJw6FWvDkV0ys4K0XIe8KDJ3vSlOKQUJor6mLol3bkGay1nnlge5waeK94qS6AAYuj4d
+	 d4QyLarwAqkj+MIOUlVYKzzJvxVEI6w41XGIsjYLPT66uMZN4GShPrDNRTdX6Yf1gWTdB
+	 sq6smKjTNUlMcsUz0GVH8oTzQ5mXs5mDON9VGpOjTxHXyMhISsgVQr+XFRa3ywuQ2bMwV
+	 5KYQBeM34fkNAm+D2qnOMyBWCNtVZNYkKtbUal/t9IA2/E47PYo2ejnNORAO/6pvrQrm2
+	 hBaqUoAF8eWXo1RLJlqR+j+0zxHJZjvqvPXZfwpZbgZBm8ORr64D2FVp9zrv8sIB9Sg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=S3gXzT7n;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 18DFC606A31A;
+	Fri, 30 Oct 2026 04:00:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18DFC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Epqzn++T
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3ac65e845a8so3327401fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:00:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793332814; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GmUp9IgI6/h76e1UXIbDAqFhpSvhRZQWzdDTuhFj80dH1VlVsPCdjWW/ZoedeedUST
-         zieR1E4KNhFLAKlsJAkBD8ydI3oXK2cRBcYDLQExmVwDVpDk0QgGkGeZLBM2+2jVSKfI
-         6BiJ1GeivQ3YppsTPy3Oe3H+AC5l4QEVDfsPtMCA33QUwJbIdHOQIrKTsVvraIvxMMvI
-         FzKS6P4SQAoH0kfQsw88grB5o9QQIZJiCmBRMf/ri57gbtsybiEV7v5YUeSTpA7FHyu7
-         EQHrcXS2OEpBVcgGESC3Qe4M4WwOIxWIhSWtGX3Wjahu6itGzWU6M3oKLguJJjfUs84/
-         8eOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=w+nM/vAkuCP/V6D3oVU+Bkna7/XRYF0/nbbL7krfSm4=;
-        fh=WnboeyfxmXsPxfHIuVJHQJaOZCRLyg6qPfSybVfgqxY=;
-        b=hQwbURPtaHS5kJwkJlIfsnADzh7aBeE0uymc8DCMinboPiKGVhp4uDammd+K9OnAFb
-         AnNL2olgTbNH1+lSjuPSvJkPpBCJn0FfEIASjzfBF9TbjeLLMOmmmtwQRaeuDnoNZoia
-         93ELt5dulSbxb6zku05R39mAlJGmGBPQjCsqPw2+pPfaKq74/hczv3CIzHCXSISwuLNV
-         fxOVHiUG/Hkt5GEGiOObg3kvHMHI1ga2DmRgsA247DhhYD+5C8PihEOUXayNLrC2K0s4
-         jK6Q56+uda81mTkQsukHVNA6/sM49jTQ/DVvgLLeLbIZEfDPeIPaiUfKXQ3VsLBzUvzM
-         n+cg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793332814; x=1793937614; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=w+nM/vAkuCP/V6D3oVU+Bkna7/XRYF0/nbbL7krfSm4=;
-        b=Epqzn++T3ThHlw+p2SQJa62uo0Fu2kGBJpXoBicTYzqSdjSehXr1hZjLptWfjIiXJR
-         pJUpUbU4BuEYZm38r0Rw2O4P/EvFduucyYU6TAsyUqtAEiZNP8FI6XujHB+4HA7Gva8J
-         0ytOjdd2fQOkdFHaly+iuSq6qh7BnZ3LszMKs61zPfs1e//5PKcBH96VCAf9QKdMhSSL
-         ZU9BkOHmvzEd9p2R3kyxcQtWW7Wk+34ySlELX+gmgKH+Ug7cj+hk4nUSd9/3xI00DsW7
-         anYJqlX/RjNQdU2NrUFalbMYh2Pa+kT/+EAKIbcHfuQLyvbk4FaG7F9S04mUAUIaClta
-         MOdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793332814; x=1793937614;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w+nM/vAkuCP/V6D3oVU+Bkna7/XRYF0/nbbL7krfSm4=;
-        b=A8t7XMGBYJss7TbVzNkWtSmjY3BqPw/INK9cnOS5kjlDc/1e08npDpXque88neSbff
-         DpFVinI02UNt7Q1yvnb2zRd9432oEGvsQnHO0/VTwl/1kbBXorMpdnIISxxFv9wP66Nn
-         e5XQORHKWecdfzD8ENAQ7OjjfmxqTa67d/bchq21/W0HINStJG55pDWg199xY4mxnati
-         Gl62V+ytgJN6HREQBfasrHi6zNGbp3WeGXu7PE/QgtuALEZtuM7eN6QGabKOE6eONYp9
-         Ed0GXQN+/hucpfjUAVdkQO2n6Pdb0qWpxup32NoHXJrpii2dACMZN0CxJppu8rbBvAOO
-         4rag==
-X-Forwarded-Encrypted: i=1; AKwUvBymgm6mWmkmPs5cHGYkQGe1H/uYO4qX8OnTdPbG6q6wNSyaoisihM4BZsNgoUY+fGv8KFIRVDx5OT/u81E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3xyMfqwYcvXg+/GF4AV/47Rsk7518PKitOVM98uaTXG8IKFot
-	IpQS3p98Om7lI8z9EXbP5EhovtsZn7dLSbRGrNoIHgjJUQTy/hDFjmaICOsR0bS3fyu8xnMe/r3
-	jg/P9YKbPk5aQfSX0NcpxF6DfJJxp3H4=
-X-Gm-Gg: AYBFou0+zdTnfO0TvSkTTn+RdmrCfYtEh4xaqClqGplZKL0yYiKYvqtxMsGy69nFLA1
-	iJqcxuf251u0NbpQldJCXD1P+kG570sSqNlyKbIN/TNbpR6B4YoNQIQjWjp2cuDUJKrm3SEcjHW
-	ea0Ah6vYwAh+NVtERQoVGzf3S7BW3SckecKMCVEDz0sC4mYHpzcg3/DLnUBHO/6vLWcJ1xafKXP
-	YYnCm7cwG+aKxxDZn04lz8737WcZkI+VgNe1G8Ndr4EXNVuEbHJO6gI7IfRxp+ilbThLAwAesMg
-	Sgan5cUmKKQpmCrKi6fsKAdW0FpTOa8HkvskWDet/GgWsIepxt7Arj2b/lE/GTqLeJnL44/DGGY
-	ZvyyFsd1y6cir8ggR5e6kEbXaIxNg1qWs7qIgZSeRojWznNFZ4f8HdmTtvNPW4n7thKnYnGSRzt
-	+4+dPTaPs88GViDHb86cjQnRcM3/k2mS9TkAI2vhRwaKmmxd9La0Dg
-X-Received: by 2002:a2e:bc26:0:b0:3ab:13e6:c351 with SMTP id
- 38308e7fff4ca-3acb7966d6fmr1569531fa.2.1793332814462; Thu, 29 Oct 2026
- 21:00:14 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=S3gXzT7n
+Received: from [192.168.1.70] (unknown [4.194.122.170])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 0049020B7166;
+	Thu, 29 Oct 2026 21:00:31 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0049020B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793332835;
+	bh=ZymhCZv4QhfyzB3ebHwIZug3V/c78mQ4jnj3xtengqc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=S3gXzT7ngOUpeWZ+y63S1dUQvRyR16J3LxH6MTy95tnmo8SQKb3ehM2z9bU5cZxXA
+	 0slBa0D3pONNwxsFuxTqCq7rKts4woRooKbcFoeUy1wLIpZasZIj3G9GI2vIZlZAYY
+	 b/gkDO3Vd+g1uGujfjVirzeUXQLZl+13tL0UYtKI=
+Message-ID: <474b50db-438e-4ab5-8e8e-cf4dd713885a@linux.microsoft.com>
+Date: Fri, 30 Oct 2026 09:30:46 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,33 +53,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028-alpha-profileme-v1-0-d44b52bf2500@gmail.com>
- <20261028-alpha-profileme-v1-5-d44b52bf2500@gmail.com> <CA+=Fv5S5S3o1=2LetFuLQNqjtuw0DTgxVWAYAiAVvsdUNgNEyQ@mail.gmail.com>
-In-Reply-To: <CA+=Fv5S5S3o1=2LetFuLQNqjtuw0DTgxVWAYAiAVvsdUNgNEyQ@mail.gmail.com>
-From: Matt Turner <mattst88@gmail.com>
-Date: Fri, 30 Oct 2026 00:00:02 -0400
-X-Gm-Features: AclHuK_oJ3s5RUCirMOkhYNov1PNLqWTliY-wAZYDiCbHMWHZpexW4vczKNrsL0
-Message-ID: <CAEdQ38EwMT2a09rZMcJDmots55b6bcX0-ARWfb1sC7w7n3VkRg@mail.gmail.com>
-Subject: Re: [PATCH 5/5] alpha/perf: optionally randomize the ProfileMe
- sampling interval
-To: Magnus Lindholm <linmag7@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/hyperv: Account for lazy mm_cpumask maintenance
+To: Michael Kelley <mhklinux@outlook.com>,
+ "haiyangz@microsoft.com" <haiyangz@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>,
+ "decui@microsoft.com" <decui@microsoft.com>,
+ "tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
+ "bp@alien8.de" <bp@alien8.de>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "x86@kernel.org" <x86@kernel.org>, "luto@kernel.org" <luto@kernel.org>,
+ "peterz@infradead.org" <peterz@infradead.org>
+Cc: "hpa@zytor.com" <hpa@zytor.com>, "riel@surriel.com" <riel@surriel.com>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20261029064234.362385-1-namjain@linux.microsoft.com>
+ <MN2PR02MB686397041FA339BEC423FBB3D46D2@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Language: en-US
+From: Naman Jain <namjain@linux.microsoft.com>
+In-Reply-To: <MN2PR02MB686397041FA339BEC423FBB3D46D2@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 29, 2026 at 11:02=E2=80=AFAM Magnus Lindholm <linmag7@gmail.com=
-> wrote:
-> One minor corner case? This  multiplication can overflow for very
-> large  sample periods. I guess normal sampling periods are not
-> affected, is it worth using overflow-safe multiply/shift to avoid this
-> limitation?
 
-Yes, it overflows once the period reaches 2^35. Unlikely, but perf
-allows it. v2 uses mul_u64_u32_shr(), and saturates the sum with
-check_add_overflow() as well.
+
+On 10/30/2026 8:09 AM, Michael Kelley wrote:
+> From: Naman Jain <namjain@linux.microsoft.com> Sent: Wednesday, October 28, 2026 11:43 PM
+>>
+>> CPUs no longer running an mm may remain in mm_cpumask(). Hyper-V treats
+>> these CPUs as flush targets and bypasses the native callbacks that trim
+>> the mask. A single-threaded process can therefore keep issuing
+>> all-processor flushes after visiting all CPUs and returning to one CPU.
+>>
+>> Share the native target predicate and filter the mask before building
+>> either hypercall format or selecting HV_FLUSH_ALL_PROCESSORS. Preserve
+>> lazy-TLB exclusion and unfiltered page-table-freeing flushes, and use
+>> native callbacks for periodic trimming and ASID transitions.
+>>
+>> When no remote targets remain, request immediate trimming through native
+>> callbacks so stale memberships do not unnecessarily prevent later
+>> invalidations from using the local fast path. Leave lazy CPU-mask
+>> maintenance during context switches unchanged.
+>>
+>> Fixes: 209954cbc7d0 ("x86/mm/tlb: Update mm_cpumask lazily")
+>> Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+> 
+> I've read the commit message but haven't yet delved into the code for
+> this patch. But the commit message feels like it is missing some context,
+> particularly with the "Fixes:" tag.
+> 
+> I recall the last significant change to hyperv_flush_tlb_multi(), which takes
+> CPUs in lazy tlb mode into account, and thereby avoids unnecessary flushing
+> (commit 493cc07385cf, made in March 2023). It was a case where the
+> native x86 flush code had gotten smarter, and the Hyper-V PV flush
+> functions had not been updated to be smarter in the same way. Against
+> that context, what is the situation here? Commit 209954cbc7d0 came a
+> year and a half later in November 2024. Did it make things worse for the
+> Hyper-V PV flush functions, and hence is deemed to have "broken"
+> them? Or is it another native flush improvement that the Hyper-V PV
+> flush functions just don't take advantage of?
+> 
+> I'm also curious how the issue was noticed. Was there a real-world
+> performance problem, or is it a case of looking at the code and
+> noticing a native improvement that hadn't been applied to the
+> Hyper-V PV flush functions? The scenario of a single-threaded process
+> visiting all CPUs and then returning to one CPU seems contrived,
+> particularly as CPU counts get large. It may illustrate the improvement
+> that is possible, but to me seems unlikely to be how the problem was
+> originally noticed.
+> 
+> I intended to review the code carefully, but the additional context
+> would be helpful in doing that review.
+> 
+> Michael
+> 
+
+Thanks Michael for looking into this.
+
+We first observed a performance regression between Linux 6.8 and 7.0
+on Azure MI300X VMs running SuperBench's eight-GPU PyTorch LSTM training
+benchmark, using distributed data parallelism in FP32 and FP16.
+Recreating DataLoader workers each epoch triggered long host-to-GPU
+copy stalls and timeouts. We bisected the regression to commit being
+fixed and then developed the reduced reproducer to isolate the excessive
+Hyper-V TLB flushes. The CPU-visiting test came out of that
+investigation, it was not how the problem was originally noticed.
+
+209954cbc7d0 ("x86/mm/tlb: Update mm_cpumask lazily") changed where
+stale mm_cpumask entries are removed. Previously, switching a CPU from
+mm A to mm B cleared its bit in A's mask. After that change, the bit is
+left set for removal by the native TLB flush callback when it finds a
+different mm loaded.
+
+The Hyper-V hypercall path bypasses that callback, so historical
+memberships can persist. The lazy-TLB check from 493cc07385cf does not
+cover this case: a CPU actively running B can have is_lazy == false
+while still appearing in A's mask. Hyper-V then unnecessarily targets
+it when flushing A. If the historical memberships cover all present
+CPUs, the all-processors shortcut is selected before the per-CPU
+lazy-TLB checks.
+
+So the later change did make the Hyper-V path worse for affected
+workloads, rather than merely adding a native optimization that
+Hyper-V could also benefit from. That is the reason for the Fixes tag.
+This is a performance regression, not a stale-translation correctness
+failure.
+
+The reporter has also tested the patch on a 96-vCPU MI300X VM. The
+unpatched SuperBench workload hit the 600-second timeout; two patched
+runs completed in 424 and 436 seconds, with all eight ranks validated.
+The kernel configurations matched apart from kernel identity, and
+the GPU driver source and executable text were unchanged.
+
+For the reduced reproducer, the 96-CPU-history case dropped from
+109.196 us per iteration to 1.594 and 1.616 us in the two patched runs,
+about a 98.5% reduction. Each iteration contains two mprotect() calls
+and a write, these are not individual hypercall timings.
+
+The patch preserves your lazy-TLB exclusion and lazy CPU-mask
+maintenance during context switches. It filters the targets before
+selecting the hypercall format or the all-processors shortcut, and
+uses native callbacks for mask trimming.
+
+I restricted the commit msg to the mentioned 32 vCPU VM because that was
+the one I got my hands on. I'll try to update the commit message or the
+comments to explain the real workload, bisection, and distinction
+between lazy TLB mode and lazy CPU-mask maintenance. But I'll wait for
+any review comments to address them together.
+
+Thanks,
+Naman
+
+>> ---
+>> On a 32-vCPU Hyper-V guest, after a single-threaded process visited all
+>> CPUs and returned to one CPU, the reproducer's median time per iteration
+>> (two mprotect() calls and a write) dropped from 17.235 us to 1.622 us,
+>> a 90.6% reduction. This could be more on higher vCPU VMs.
+>>
+<snip>
+
