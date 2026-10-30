@@ -1,102 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793320533;
-	b=f1m8/8pKTTQXp9dx4WtpMz0jy3QNmMPnokqrXFOllzj4bt8NmdylFYAuj01E2rmra8lV
-	 qXohMyyu4xEjra4D964vAso5Wo8XjV/b1hFlGebKcAtTivp26Blhht49pA39/vqDy7sXv
-	 8EIb0CYRu/OOnX69Rko8IBJNa0UNyLKlF9UHo+xKRsPEQa6sOvwJaummflZIhIoeXpY7M
-	 HkDbP/2zq4vDaMC2zqNoAdzTGAn+KSVH+qYi1e5WwVzwveaYu7qCLqD5Z5yGxMTq/k2Og
-	 vBxkAmzu17afteqwHuF+M+M/hE08Zi2h3hmRGBkLeZPoecyukD0WKXx1zdUxVd/ANFg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793320533;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=vCXebNkndm9LBXsG81Q2mOpTPDq3UCuJ8oTq7IQkTYU=;
-	b=CL8+cywnFsO7nFcvkdnhFL2FI3HQiUUOxvEQICCTwQPDN03wfcvcOkJ5p1Bcz/NSqko0
-	 MMchexG/6Dga30J6VwJsQSg4OegElxAa+PnuXj7dCOMK7D9EsbglDMP6VjhrAZFvfqsvF
-	 7trZbf8MdgXxhuj61kYLlNExVMi/JYjP47xSR4kDVP6OcMaNSAW51I3SWCsqL96EIqlcq
-	 ITZ9zx1vGOIXXjidlgEr9kNxuzBOYq7uW9rlg5VwgF5pfNk4uy0TV6Ajz+z9hNFngneBD
-	 uF0xYOoBCSr9oiQpW158y8UvO7ssx04aH9KnuP/iVT087RjtMB0X0UfgFjT9U631F2g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NveNZKyY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.42
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.142
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793320683;
+	b=lNwUBLm56g7OGgbmNvRAlVmwbP9RgLMgMxvbC1VZnkngujwbWhscdzP5ykz2LHwMwdRj
+	 4viwrMNPYAcVPPGUkLOBpafPXb4xBgvzJGVJkJaRRO0jnmkUU8twr7R52Z8OeZrQtMdX8
+	 Dwjq13nVM5sCfecxwtg4M3PsLHa48I6ge/59gTV0gNdpPGjWb0L/Qme1+iLzdtTH3SuJZ
+	 iLGJDx06l0+h8G1QqP1aO8dOmrWF/s1mzYwotqSsA1PIlNr/hsidDFSiaCqmKvhmSDKId
+	 rerl0WNrVV6h1jWXQc7bQ2anU2x4X7rOqXNcX/VKkr3KymAF53kFnNTY8rxZXuGzPJg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793320683;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+ejUc88EAEnllGPh5+8BwGXy92CaElpvn7NALAOELCc=;
+	b=DGnubRK/3uZqE6Gd4g6ksg5Y9nXqsWLD2QeDxYyLerJ/qSl8P3/FEQRaUYu0hoUzv9tM
+	 G2yiJdiY+4ACgjw3G2XKcg1HyX5y+nEE0EEqZptGTJRhyv5zp4nTy0lHwDO04znLUwFel
+	 amG8P4fs8RWeNkpAByuHXDmPpUk1oYszlKn5kleUP3RhDGlO8/TBMtHDQHxCrB7bqBX8X
+	 elsDV2ZikNfooBUkPzWIU62LAvdzDgge3ZGvuqxVNFJlxWYIFotM9pmXSr3hxw5EFR3e/
+	 PF4A6+6x9KFMNOuu62U9K+yGL7yqmovOqY+LJpypchwyYxvvKiudHSGnhUfaniPoKgg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OFam45+T;
+	arc=none smtp.remote-ip=91.218.175.142
+Received: from mta0.migadu.com (out-142.mta0.migadu.com [91.218.175.142])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86882606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:35:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86882606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC9F606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:38:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FC9F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NveNZKyY
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-9912c47367cso166927241.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:35:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793320531; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eUqU+Uenxe8e6s/knZvl3kdW8Vi6f3XE6vN6Fq9+RfRjmni6jle6y7Yp8SYv1V3Sef
-         53u/LpVKEpS3GLmoKCav8pVAwE/vWs4yJtUe5+p0yY8wFv7acscsoLL9h5PC4YztlLdt
-         5ID3wXfsDgyeHXISUsNbcWCvlDmxHvcu9kzfXyPbwsY7xz96Yq8Z8gojwBGa1N+BBnh3
-         onQWbaY9guLY+N7y4jguVr8STjcASxA23arYrJhI/+Bpx8sSYv/SNmcUzP4GY5Zk0xVV
-         pu03CglsuWscGxDkOC033Ou0j9hPppfwK5ZsyyBFkQeMfxHVu9X3TZf2iuJm6/y79LQP
-         U97Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vCXebNkndm9LBXsG81Q2mOpTPDq3UCuJ8oTq7IQkTYU=;
-        fh=zvOLbplGcmWiFbVV4UDKEflz3aNWj+ClS1Xp59Ob1Us=;
-        b=sz8tVT7qAJggUc60txUIVhXo/l65dIpWsae1MaCnfANue1iTujrWK7Ync3C6jxbu3W
-         QKlfZ/677YaXbkAW4U3/2UD1BlAylzmIj9EeRSQgQuPMyilME+xUJWqSYpvXiYzlWb7N
-         rC+OJQoFqc5lsg4hugTi5qdktFIcJGFrGfB36/mAS16yzDxRb7tx17NwqQ4DlKQmUCxt
-         IED+DjzsBZ6N2q0joA3EZ89OXR4vH+vIPwlGCb9S+QcfPiHrkOytZiTwUTwMvqQePfCm
-         xq62bjfLwBvjRA4kUZQxqQVn0wGLVZAyfoHnK/NBXD6GyVqFZM0FBN6VL8zmDAIwzXyj
-         BPIQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793320531; x=1793925331; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vCXebNkndm9LBXsG81Q2mOpTPDq3UCuJ8oTq7IQkTYU=;
-        b=NveNZKyY/FOrtHSAw1/cT7/BtKuFAKKDeJwA5bNqmY71BgoSFthc2SE+Wxp6Cw2wm1
-         2xhicHAT3TVspQqbqhk5eb4bmSYh54Yq8qBukYr7vCtOk0fZ1OeL+p7CLkVWrrptlPuy
-         rYMdVYrgKAVwbeK0bd0Qmvqi80/NyXv/BnzUCRLSILgqQrpsXqkVQAHvFj1XKl2NC6kh
-         QKHMGWRd3IpmwmebOVoEH25nog3pIvF/gMkxkTbo2wMi8b0G7ivW3O00k0ajpNS2Tt6x
-         9w5YBLwj/vh8AnUlzWuVP5ff/fLXqZzbX44qvzR4SMA93BwX17mHdV2Y3Yb2SH801flH
-         8UPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793320531; x=1793925331;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vCXebNkndm9LBXsG81Q2mOpTPDq3UCuJ8oTq7IQkTYU=;
-        b=jt8UU7t11A5/PVM6zhfhafStopDjVpV7F8AkgT2Z+bnCR8JhYAU9qU3nt7BOEmT2fd
-         b2kweYFLJXA7OmZ0Wa0oar4eqB+JfpqjocmpZLL7nABe8PF23nuA2bDUbB05RIhjVcN5
-         grBt1Bdjqo1Q+irG9tmwaTx0edzfm9GPhYJ7rFwp+0hZnrzvUDIcqCfj31QRlTlFsrA/
-         k1mN2lfcsk/KiWrFk0h9qZKWKc+uvti6JqNR/GfeALYloXuy78ORRmSVre57+c0BzmKk
-         TnmmEpCJshiRg3hNLJcpxpTtWrFiVDjJ92jjmWIWJ7hMvy94ty3sZSo0KP2xu0kTOYrP
-         EsDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwOE16oEZHC1rWt1L59mNMhMPiJrMpvnFZzqWPgPKI0UxT/ubl3TsDIlVD0mUE/d9ju0V57gFqAcHbTJ+s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEdFuYmjARsb4lb8Awnk0ndsfm3d6yC768d73XzKBrKxR+NAZJ
-	FXQpC/dMOZZxKnkR0cruXl04kvCBcmTux3IOnCOatpq6NQC4aerGa1u5LH5frJb5uFRJtn+OEfb
-	/YPCaoIfiGjtlDbr1j544RVp6XPSvUB8=
-X-Gm-Gg: AYBFou2oImAZE9VZvOAAgE3FwtrryfIsCAyc4A/e6PKbLBlmaeaLUQSDUG306QwRHPl
-	svrDniH55iAAyIfCvsJdkwcPCDgjtC21bQGQ6ang0zP7ldBiioi+v9blcb0bnnG098dwkzIzlkF
-	SloHlAhBt/rYfCXjdhNuGQFMTmCjWWjUYo62PXI252b4YIeAyuYs3zr7Nuhi4+I5xdLxLHzxpuH
-	M6W7xNzl57+SLhJVe1jzslpF6/ALl6qCgcpS89CuS1W8qQR/5lkbEHjfoBZut1Gi2trKFbnR3at
-	ARMHlMnU+L0b5QgWGyxXh1Vcsc4Levw5Bs0khaQB2kWj+w/Ri5jbf5GAuHgIUr+BBlF/NIWmMv5
-	hzqx1wtgFWb5vmZPreka6twbKUZba8mhBHK4wyGvxYhggMRuqC8VZSMjL+p/xxdqBohfKJvp019
-	y0s2RLm7Vc6OMOmjqMxQfjtH8q+087AIlCzxA7ZdKMlQxPwKi91L1M0cvCF6nZAWB1c/OOGq8Fu
-	uWYcLGPvKcr2Kpjz86yNSNLmZ2VpA==
-X-Received: by 2002:a05:6102:50a5:b0:7bb:64cc:1362 with SMTP id
- ada2fe7eead31-7d072c2b96amr253188137.6.1793320531134; Thu, 29 Oct 2026
- 17:35:31 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OFam45+T
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=K7GfpJyNnnqUVpQu5f2RWlDjv0X3GwsGthodx3OUA8A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793320679; v=1; x=1793925479;
+ b=OFam45+TF7mmR5EXLqlXsmvZnLUVe6uvtyKJyydYxa4ryun6tv01vTt4Keo+KOiY/DPnNE6y
+ 8qc/4yNm+V0mMtt9bGKB/3lE5jqeTILID0elyoIP/hAN0F52Scie3NNJA1icbA5ZexboQ0f1gJa
+ 9bx17nqYb/WQk38Ey5DKNCh8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7d457b01126d2a8c;
+	Fri, 30 Oct 2026 00:37:59 +0000
+X-Mizu-Trace-ID: 7d457b01126d2a8c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ec68004a-8479-4b76-aaed-2a261f782d24@linux.dev>
+Date: Fri, 30 Oct 2026 08:37:52 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,153 +58,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029-submit-serial-8250-dma-cancel-v1-v8-0-3fd56ba352ed@gmail.com>
- <20261029-submit-serial-8250-dma-cancel-v1-v8-6-3fd56ba352ed@gmail.com>
- <auNW_Oc-Ao5Iw-Gw@ashevche-desk.local> <CADvTj4pOg4w5LpFW_E3qzP7FZDnDgpB8LyR9xxhT_mZre21vFw@mail.gmail.com>
- <20261029222734.3086943-2-rrangel@chromium.org>
-In-Reply-To: <20261029222734.3086943-2-rrangel@chromium.org>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 29 Oct 2026 18:35:19 -0600
-X-Gm-Features: AclHuK9fwQEf1FE2SE005DWVvtH9Aa6gi9TWL3-I0d1O0Zk2jQvC0qB4u35B3dg
-Message-ID: <CADvTj4rRtKyq_7yhpfwGQrbOA=k_jxQymTpZSvdVBB0A-xR-Rw@mail.gmail.com>
-Subject: Re: [PATCH v8 6/6] serial: 8250: retain DMA resources when
- termination fails
-To: Raul E Rangel <rrangel@chromium.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Tony Lindgren <tony@atomide.com>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Richard Genoud <richard.genoud@bootlin.com>, 
-	Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
-	=?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>, Timur Tabi <timur@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
-	linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/9] docs/zh_CN: update admin-guide/index.rst
+ translation
+To: Dongliang Mu <dzm91@hust.edu.cn>, Alex Shi <alexs@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Weijie Yuan <wy@wyuan.org>,
+ Chen-Yu Yeh <chenyou910331@gmail.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261029124429.294868-1-dzm91@hust.edu.cn>
+ <20261029124429.294868-2-dzm91@hust.edu.cn>
+Content-Language: en-US
+From: Yanteng Si <si.yanteng@linux.dev>
+In-Reply-To: <20261029124429.294868-2-dzm91@hust.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 4:27=E2=80=AFPM Raul E Rangel <rrangel@chromium.org=
-> wrote:
+
+在 2026/10/29 20:44, Dongliang Mu 写道:
+> update Documentation/admin-guide/index.rst Chinese translation
 >
-> On Thu, Oct 29, 2026 at 11:19 AM James Hilliard <james.hilliard1@gmail.co=
-m> wrote:
-> > On Thu, Oct 29, 2026 at 8:24 AM Andy Shevchenko
-> > <andriy.shevchenko@linux.intel.com> wrote:
-> > > > + while (rx_ret || tx_ret) {
-> > > > +         dev_err_ratelimited(p->port.dev,
-> > > > > +                                   "DMA termination failed: RX %=
-d, TX %d; retrying\n",
-> > > > > +                                   rx_ret, tx_ret);
-> > > > > +               msleep(100);
-> > > > > +               if (rx_ret)
-> > > > > +                       rx_ret =3D dmaengine_terminate_sync(dma->=
-rxchan);
-> > > > > +               if (tx_ret)
-> > > > > +                       tx_ret =3D dmaengine_terminate_sync(dma->=
-txchan);
-> > > > > +       }
-> > > >
-> > > > Huh?!
-> > > >
-> > > > This is unacceptable. Sleeping is okay, but value should really mat=
-ch the
-> > > > baudspeed and other parameters of the transfer.
-> > ...
-> > Regardless of the retry interval, shutdown cannot release the buffers
-> > until the provider establishes that DMA and its callbacks have stopped.
+> Move the already translated tainted-kernels, media, and unicode entries
+> from the Todolist into their respective sections.
 >
-> Agreed that if dmaengine_terminate_sync() fails, shutdown must not free
-> dma->rx_buf, unmap dma->tx_addr, or kfree(port->xmit_buf) while hardware
-> or a detached callback may still touch them.
+> Update the translation through commit f0efd29aa60c
+> ("doc: Add CPU Isolation documentation")
 >
-> However, because serial8250_release_dma() runs under port->mutex in
-> uart_shutdown(), uart_tty_port_shutdown(), and uart_suspend_port(), an
-> unbounded `while (rx_ret || tx_ret) { msleep(100); ... }` loop means that
-> if a DMA provider returns a persistent error from dmaengine_terminate_syn=
-c()
-> (-ENOSYS, -EINVAL, -ENODEV, -ENXIO, -ETIMEDOUT, or a wedged controller),
-> close(), hangup(), and system suspend will hang forever in
-> TASK_UNINTERRUPTIBLE while holding port->mutex (triggering hung_task_pani=
-c
-> after 120 seconds).
+> Signed-off-by: Dongliang Mu <dzm91@hust.edu.cn>
+Reviewed-by: Yanteng Si <si.yanteng@linux.dev>
 
-That is the current behavior. Returning from shutdown allows serial
-core to free the TX buffer and removal to release the callback
-context. The retry loop prevents those releases, but a permanent
-termination failure blocks teardown indefinitely
 
+> ---
+>   .../translations/zh_CN/admin-guide/index.rst         | 12 +++++++-----
+>   1 file changed, 7 insertions(+), 5 deletions(-)
 >
-> Would it make sense to satisfy both constraints (no UAF on buffers/callba=
-cks,
-> and no infinite sleep in close()/suspend()) by quarantining/leaking only =
-the
-> failed channel's resources instead of looping forever?
-
-Retaining the buffers and channels does not preserve the complete
-callback context.
-
-The callbacks carry a uart_8250_port pointer. For DW, the DMA state is
-embedded in devm-managed private data, which can be freed after
-unbind. The registered 8250 port slot can also be reused. Retaining
-the DMA channel does not prevent either operation.
-
-> Specifically:
-> 1. Bound the retry loop in serial8250_terminate_dma() (or do not loop on
->    non-transient errors, checking `if (dma->rxchan)` / `if (dma->txchan)`=
-).
-> 2. If rx_ret or tx_ret is still non-zero, warn once (`dev_err` / `WARN_ON=
-_ONCE`)
->    and intentionally quarantine/leak only the failed channel's resources:
->    - If rx_ret !=3D 0, leave dma->rxchan non-NULL, keep dma->shutting_dow=
-n =3D true,
->      and skip dma_free_coherent() / dma_release_channel(dma->rxchan).
->    - If tx_ret !=3D 0, leave dma->txchan non-NULL, keep dma->shutting_dow=
-n =3D true
->      and state->xmit_blocked =3D true, skip dma_unmap_single() /
->      uart_xmit_unblock() / dma_release_channel(dma->txchan), and in
->      serial_core.c:uart_free_xmit_buf(), skip `kfree(xmit_buf)` if
->      `state->xmit_blocked` is still set.
-> 3. For a subsequent port reopen after a quarantined failure:
->    - Remove the redundant `up->dma->shutting_down =3D false;` in
->      serial8250_do_startup() before serial8250_request_dma(up) (which alr=
-eady
->      clears shutting_down under port->lock), and have serial8250_request_=
-dma()
->      return -EBUSY if `dma->rxchan || dma->txchan` is still non-NULL so
->      reopen falls back cleanly to PIO (`up->dma =3D NULL`).
-
-Clearing up->dma does not stop hardware accesses. After unsuccessful
-termination, the channel may still access the UART FIFO, so reopening
-with PIO can introduce concurrent FIFO access.
-
-A hardware-specific stop/reset sequence could establish quiescence,
-but its implementation and effects on other channels depend on the
-controller. If the channel cannot be stopped, quarantine also needs
-to preserve callback-context lifetimes and prevent unsafe port reuse.
-
->    - Guard the DMA completion callbacks (`__dma_tx_complete`, `dma_rx_com=
-plete`,
->      `omap_8250_dma_tx_complete`, `__dma_rx_complete`) with `if (!dma || =
-...)`
->      so a late callback after `up->dma =3D NULL` is ignored safely.
-
-The current callbacks fetch p->dma before acquiring the port lock.
-A callback can therefore retain the old non-NULL pointer across the
-assignment of NULL. Checking that cached pointer does not protect
-its backing allocation from being freed.
-
-When termination returns an error, dmaengine_terminate_sync() also
-returns without calling dmaengine_synchronize(), so callback draining
-has not been established.
-
->
-> That way, neither hardware nor a detached callback can ever UAF rx_buf or
-> xmit_buf, while close(), system suspend, and subsequent PIO reopen all
-> complete cleanly without an unbounded msleep() loop.
->
-> Thanks,
-> Raul
+> diff --git a/Documentation/translations/zh_CN/admin-guide/index.rst b/Documentation/translations/zh_CN/admin-guide/index.rst
+> index bd01cf6474c8..23443eb66124 100644
+> --- a/Documentation/translations/zh_CN/admin-guide/index.rst
+> +++ b/Documentation/translations/zh_CN/admin-guide/index.rst
+> @@ -1,7 +1,6 @@
+>   .. SPDX-License-Identifier: GPL-2.0
+>   .. include:: ../disclaimer-zh_CN.rst
+>   
+> -:Original: Documentation/admin-guide/index.rst
+>   
+>   :翻译:
+>   
+> @@ -10,6 +9,7 @@
+>    朱岩 Yan Zhu <zhuyan2015@qq.com>
+>   
+>   
+> +==========================
+>   Linux 内核用户和管理员指南
+>   ==========================
+>   
+> @@ -86,6 +86,7 @@ Todolist:
+>      reporting-regressions
+>      bug-hunting
+>      bug-bisect
+> +   tainted-kernels
+>      init
+>      clearing-warn-once
+>      lockup-watchdogs
+> @@ -95,7 +96,6 @@ Todolist:
+>   
+>   *   quickly-build-trimmed-linux
+>   *   verify-bugs-and-bisect-regressions
+> -*   tainted-kernels
+>   *   ramoops
+>   *   dynamic-debug-howto
+>   *   kdump/index
+> @@ -122,6 +122,7 @@ Todolist:
+>   
+>   *   cgroup-v2
+>   *   cgroup-v1/index
+> +*   cpu-isolation
+>   *   namespaces/index
+>   *   pm/index
+>   *   syscall-user-dispatch
+> @@ -170,6 +171,8 @@ Todolist:
+>   .. toctree::
+>      :maxdepth: 1
+>   
+> +   media/index
+> +
+>   Todolist:
+>   
+>   *   acpi/index
+> @@ -183,7 +186,6 @@ Todolist:
+>   *   hw_random
+>   *   laptops/index
+>   *   lcd-panel-cgram
+> -*   media/index
+>   *   nvme-multipath
+>   *   parport
+>   *   pnp
+> @@ -220,11 +222,11 @@ Todolist:
+>   .. toctree::
+>      :maxdepth: 1
+>   
+> +   unicode
+> +
+>   Todolist:
+>   
+> -*   highuid
+>   *   ldm
+> -*   unicode
+>   
+>   .. only::  subproject and html
+>   
