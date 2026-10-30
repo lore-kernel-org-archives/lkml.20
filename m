@@ -1,59 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793386273;
-	b=Vct2hBmOOMbnbdgokJL+PHAPER+TW/911UG+A8knmH/Kjsqgfthoxp2S0fQOCmRJWc0E
-	 3n6/Rnw6oHZjDEFyDzr2g/DydzEyQAA0/TKOvCxnOajSHn9il1q7kwKq8uc0gWMY4dfaF
-	 W4ir9AZNUEyl/y0m1q8ByjWxP+bj7g6VDarPgW4DjcZ2bRY1MMMZDO95m9YARzfSFQPGh
-	 PYnCb0d4oxuq6IXOGUHEk0cQlUZ91e34HXliXI9NUPTnSLls6TiFKKL7QVt52YjNHozVx
-	 9K9JFiKiH/s6e366AtukRgb2ZGcQnrp5vL95LCC/RahFFKe+GU0eSXVnt58N1zitATw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793386273;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
-	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=0QfhBYw8VeOIYuvlcIqwp+Enfo+SxDpyqV9uKzvrhz8=;
-	b=P+XnGTRxx27ZF9TNVVpSoFheeXe9p7nctFLF3I7LnMxXHxqE19tBIfq9tuMT3SQH52n8
-	 hK7vQxrwsULwYJuYboxk7KVJYbmReE6zYxgcrYAbo1Rov4KcZa0IKXNPXsZHfDAnxGmpm
-	 rSxOix2cbrztIbIv/Ev52+D8WeTB380WwE+Z/qKX5nfwwy5yn/InTr5+Jgq/IkN5ONdtS
-	 itOhewPmYORtEpXiwf8wrMx3JEonJnfuNYOYQnMHgA0yqwyY87XMnOCwvCtBPNHnFtc+z
-	 wIrIb7D4qrKmBoMVtalklrlLsLbkLOZCKb7UKLCplZNIlARxCi2MQjZ4Dg7yt6+oKyw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WtK0EAhl;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793386345;
+	b=TjNH+oIPCuWp5tPwBIerJNhJdpTmPSRN9ctPlk06gbs9H/eVTZFqy8N8Bj6jSSz74t37
+	 gOSD2zHl2T1lqBnY1NrxARg72m9gw2xgtT49z6IHy0C8NI563awggrrP5P4jpggFSZ9A7
+	 1xteQtIGXD2cFvGax+jkcFnX1OXul3lAWc84Vh/LX+oNo8o5LMKTQ37EK5odY+cQ9hfGc
+	 OleNpocQHoCWtV+4UrLOOPl5/pPZ5Sk1IvcEvZDqtwJ7NCwNCPR+Srg6CPdJ3HJiTy++s
+	 w+p+0x6cg+I+5XvHh44860Y6Xwf4yhwoF6DhEXz85MKsGcDyHyWYnX7rV3DierHouQQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793386345;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=gMwNgz1K+UqwzHDkUSJ+VAnfcnDPwyj0X4MirnZJBJA=;
+	b=a2eULYevnIaDTfSm94pfi4WmfEXsV78Tlk3HyR1R97TF4FtiaLfxJoEhhK7RoskmFoZ4
+	 ar/TEn0tttS/YGwudZgY1sWe5jU1ja3f4sJVBYS3da9ARcCriWFIGTLA07QEXOnzGiDgO
+	 siof8DNv+VNIAjGkf31llIhKa72N7kDIWIy7WzFpE9cirH7jahZFj46/k/HuxLyG/IFZW
+	 kW9f4GAbPjTV5EvAAsXJWBQjGd/reLi7RSahPv3jp9YxXV6aTPbS8hsotOnEmiFnmoU5N
+	 huo+tetEo87GxrpdrUZFdP08ze4wfpclzHAcGWXfmE6/OjskG0lUKbag98P/0LoHK2g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=V3cvAagc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B06D606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:51:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B06D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F36606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:52:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79F36606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WtK0EAhl
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id D70EF4E413A1;
-	Fri, 30 Oct 2026 18:51:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 91306603C2;
-	Fri, 30 Oct 2026 18:51:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DAB96103287DA;
-	Fri, 30 Oct 2026 19:50:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793386263; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=0QfhBYw8VeOIYuvlcIqwp+Enfo+SxDpyqV9uKzvrhz8=;
-	b=WtK0EAhl5HEzZAsN55XKY88FNSr0p6pKww1AN6kmzVBVyy16eIov/agU1lep9G7bGUkPyg
-	tvNL6TIyV+eta+5Tb4D+FB8fguBKTDsDu8XZUpAGTwIj0ymLSm9bJkPAYdcHCNNJuFBv+x
-	PXR7Q0rUsBP00e0rKprgxzR9uALqVt4c8C7jj526BRkAGtEQya9zrpp4Mbnc9eD8sWwUR4
-	Ce7Z8afgQ2ZsgsFp4pbvQpSXtsa2L0ZEA1zB9W5Rhu+g2fMb1Tn4iBTqbAZ/GPjGfcgpL9
-	b5hMeKdzC2D5wn7nJPVKn75WyXJFrrgfEG8t8lwurLHPQViHds+QdJrrdpuzng==
-From: =?utf-8?q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?= <alexis.lothore@bootlin.com>
-Subject: [PATCH bpf-next 0/2] selftests/bpf: port test_ftrace.sh into
- test_progs
-Date: Fri, 30 Oct 2026 19:50:39 +0100
-Message-Id: <20261030-ftrace_in_test_progs-v1-0-aa50c5dd1ccc@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=V3cvAagc
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so1723a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:52:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793386344; cv=none;
+        d=google.com; s=arc-20260327;
+        b=anxI0vUMoMJvBZx6mdViIqmpmcZxItY7YN5ivV1za/2SRkTV/yrrDny+IEVKA5eEL8
+         6DPYokcOWRdJiK3DF9e7iaNpWGcATw37i5u6Y3dPN6Ac8dWqSDT8f6j6vw7Q+vr/noGd
+         mHLZIfOifCWUdDq+5h7lNzvOAvYDWsVhenZ8cxmDhXCMiK+qbmN5/66nuOwtwL8PRplN
+         r2ud3YFF1hkdnAwxBA6q7ImbnAt27uBLdxjU60nWpnI+EG5CGsjvbuTJgbM2qBF5xfN9
+         IMvgGu2aoZ2DHkT//9XkEjvOhjRk1gPJqT1lQemAArmKN4PhpETjKbMLxzpRayWHqezo
+         r/Kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gMwNgz1K+UqwzHDkUSJ+VAnfcnDPwyj0X4MirnZJBJA=;
+        fh=xq13oRKEC4IZIrioSLV/l1vjgmMmUqnBhQcUJK7wcxw=;
+        b=T1W3CM7sxjWdqfZobDBitpC1FVcaIG5VesSdwL4A1p7MlWIzfvQXLmeJUJn/+W8By5
+         ZABd4m1I4Zo0hAMDgqk07z9seelq5UHazL7IZyY4tgmrOnLLcd01remn4uZkHUMsuE1d
+         MUVaBxRdn9u7qSTHbKjqw8RnX5AjYO1Zxe8YTjfNvoBWfQtncuTcUP05i8xQxKlnSL5L
+         iYUyPpga8wErV/BIvVdF8F72Qpg+zSNoZicRy8JsfaCpwXQ6Sle6OulFT2D7fbxjFiTN
+         EWdQtDjGNMboJ9zIPbdpGqtg9CQpTpN5bkJTayyjXWwLqlb/rLvPjdFF7CjmOxroOyW5
+         F4tw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793386344; x=1793991144; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gMwNgz1K+UqwzHDkUSJ+VAnfcnDPwyj0X4MirnZJBJA=;
+        b=V3cvAagcz9NLofy2x5V2qdojwN62XrQReT7yU1/H0u/CkKSQBHAO7aR/e7S8j61bYC
+         blm0qi7J3m1EoRlDtyplZzCyPjinrcsRQk+qbEVoI5sK1sFhb21EtdsYP43iRDXxyazA
+         8e41dmxWENNUsxZP3RYHtUQ5YfNxOtYr8YvlzH2qXGOzTWCscdPG5dVNeQW9qBZsGFT+
+         QKGf4+uJlzMxeAQQHK0RynIqyUCvJ81fGy4suDZ1L6UnEtsFH8zicGr2v/HsNsDCVvbQ
+         ku0DVSt69ARpc+iJJe0BJNexq0rmsy2Hzm2RIPFwG1NBtWhdwjJD8lCyx0mHgoBRYsIV
+         yU7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793386344; x=1793991144;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gMwNgz1K+UqwzHDkUSJ+VAnfcnDPwyj0X4MirnZJBJA=;
+        b=oMPnGIWf9oCPhdBm1rUh71I8waTn5VPqs1Q4Ok7HJe+xmYSSuEgkJsayePZF8qWvK6
+         lY94D+T3a0b2WMpLH9LcBdKMd/uzroesEXorM+xVeVDMSW9cOtUIvA3HT0LcYAKHPZyK
+         GCtWp6Dg0l+dNicy/0wYVNHR2zEO48ilzXq0A9eckaSahwR7EWA+3NsZwWbo7d2dL+hi
+         XFPMatSo5NTmtK29ZWOOhX3zsdIAw349fOklMtx4dNHx1hE/6c2l5K233t0Q/DSy0u1s
+         Qh0X/3dGT5fqAh7g0/1Aq2u9HQ67czSC93s4FHUXlpXRZByicV+iqFzPm6MNKNkllhv3
+         6+/g==
+X-Forwarded-Encrypted: i=1; AKwUvBwXY4HOEsjajM+nLz/i4hq9TsGpqnffSKF9FbYwRG4aLEaCxv8s16B7zHed+66S6T1IhmBkOM7KJ1HQR28=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdhMFsQFe5vix9hw632t2aa5PAO/5cRoRWwiOnfeTLJt+VLAiK
+	vGmdWMZoawwTdNCierYB6iKUq4233UJo87yB0BPDIqXBZQVWE30a+7geJBHjpDwXCidL7MGwubj
+	zZduEi8ON40/UxZ7NG1DjeOFxYai+HYC6/sJpvkdj
+X-Gm-Gg: AYBFou3uQz1aEGn/TWrftndGiJ6DYlck45oZTbUuHYqVugcWWTPzd9lCxRrwSisT0i7
+	wJdlKQEMwUGEaN8kUSDHTl+DSWC1zUdm+B8RsHy5DFf9BEwd/LRYlZoHosAMx2Jqh3kG5Km9mmD
+	Afq7Dt4pNefkK3jDt49Xmb5GwIzTmEgsExiKvWh6qnG/lnrV/gpR10opRBLPJA5j7yhnynNNifM
+	ZYIkxjNWfxawC0ENAJlOsfrebujf8q0lRC0f7pZEKdzZKleutDnAYjNjcRYTHNRqHeGx0eZbTCs
+	WyYnm2cGsdW/Zz12k5cDpLuD+N8sn9OmG9yvyg4XRQ3qhPn3A9YFHOj3GZnC0aOg1cBuSMdY/82
+	1VIdI3/jqexqaxwrFGF9VB4cE3gWC7dIDqb00
+X-Received: by 2002:a05:6402:c4e0:20b0:6aa:babf:adeb with SMTP id
+ 4fb4d7f45d1cf-6b4b10e30dcmr165270a12.4.1793386343403; Fri, 30 Oct 2026
+ 11:52:23 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,54 +104,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBAAvyJ7biBGqtCvlBJi3Oh6iGF3WwTx7
- 03rcRhmDhBkQoFHcwDjh4S2XKG9NRCXkGc0NFUGZ13fWjeYpBwiespeUdQX3mYx0z0NNriusyF
- CTQtjov2/fcJYksm4K7wuI+9xxai/K5znFw7uYVyCAAAA
-X-Change-ID: 20261027-ftrace_in_test_progs-d5f70a2330ac
-To: Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>
-Cc: ebpf@linuxfoundation.org, 
- Bastien Curutchet <bastien.curutchet@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, 
- =?utf-8?q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?= <alexis.lothore@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20261030032937.2813-1-ma.mandourr@gmail.com> <auTnBZMSHWKL4j4b@google.com>
+In-Reply-To: <auTnBZMSHWKL4j4b@google.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Fri, 30 Oct 2026 11:52:10 -0700
+X-Gm-Features: AclHuK8UAHwHFUNmjuKkJElV7FdxGOJ-JWfm2QtM5AP_cHYOKFcNO1M9-rt650E
+Message-ID: <CALMp9eS_XAyfRQ0aa7pGmC2t-=mbHA7rngWD9oqOB2U8AJZMsw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] KVM: nVMX: Don't let L2's LMSW modify CR0 bits
+ owned by L1
+To: Sean Christopherson <seanjc@google.com>
+Cc: Mahmoud Abumandour <ma.mandourr@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
-this small series aims to port the test_ftrace.sh script (testing that
-trampolines and function graph behave correctly when both are enabled)
-into the test_progs framework
+On Fri, Oct 30, 2026 at 11:51=E2=80=AFAM Sean Christopherson <seanjc@google=
+.com> wrote:
+>
+> On Thu, Oct 29, 2026, Mahmoud Abumandour wrote:
+> > When L2's LMSW exits to L0 but not to L1, KVM emulates it with
+> > kvm_lmsw(), which ignores vmcs12's CR0 guest/host mask, so L2 can chang=
+e
+> > CR0 bits that L1 owns.
+> >
+> > v2:
+> >  - Patch 2: order the CR0 store before FNOP and check L2's whole CR0.
+>
+> I'll send a v3, I already spent an absurd amount of time figuring all of =
+this
+> out.  I really hate x86 sometimes.
 
-- commit 1 brings a few new helpers to manipulate ftrace from test_progs
-- commit 2 performs the actual porting
-
-Signed-off-by: Alexis Lothoré (eBPF Foundation) <alexis.lothore@bootlin.com>
----
-Alexis Lothoré (eBPF Foundation) (2):
-      selftests/bpf: add helpers to manipulate ftrace
-      selftests/bpf: port test_ftrace.sh to test_progs
-
- .../selftests/bpf/prog_tests/fgraph_trampoline.c   | 129 +++++++++++
- .../selftests/bpf/progs/fgraph_trampoline.c        |  29 +++
- tools/testing/selftests/bpf/test_ftrace.sh         |  44 ----
- tools/testing/selftests/bpf/trace_helpers.c        | 247 ++++++++++++++++++++-
- tools/testing/selftests/bpf/trace_helpers.h        |   9 +
- 5 files changed, 412 insertions(+), 46 deletions(-)
----
-base-commit: 960cc441448b063bbc1f283d7e801af6d872e45c
-change-id: 20261027-ftrace_in_test_progs-d5f70a2330ac
-
-Best regards,
---  
-Alexis Lothoré (eBPF Foundation) <alexis.lothore@bootlin.com>
-
+You should redirect that emotion to KVM APIs!
