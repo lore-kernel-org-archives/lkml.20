@@ -1,41 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.83.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.81.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793342981;
-	b=OtMg3XarBDJoTokgrJseTmXjttWaabmmFKXCWJVmFF5pGjx3KP97bfi6yhZY33aNT96k
-	 XyQF4ydV6XpZSMQgE4LL5L4jvSW/Kb0VmX/6jS84Lyopf0YLRCcq6LVp2tvYdsGyjXLJ0
-	 DHMAmR48kcBnKrK5hl1BtsGYXQ/UsacSw8l0vNhD/ACgbG3QBk0ONhSWlZwDItSUvGR4f
-	 cLJJa95xoch3ad761tYiIc7zx10jluxyflkH+si0rw5Eu9EFqyo0Kp64zUECue55fN/3C
-	 cUC8ZKhEFrZVN/7ncrx4WKazjiOWg2/MYr9KCEe+6/7uhbBn6LJxxCN/6vElWMVe26A==
+	t=1793342983;
+	b=fNBdOkBzcfwlcWX0MIiHyM4U/tvHwptIAnXZZjcSr4yXRPY85WFbL/IdNtMvpNQx0B5x
+	 8/TuCwONObjlJ7NAAEsN4r7eB35LVK4jB359xRq8noAMupxPCVAFlbXNbfAhwvCZl+v5F
+	 tSlcMkrRWFQ3tqnK0VrVqo5IODak2UqEOETi4LjED1zTY10ZF5/ODyHFau/Nb3IRA6EQX
+	 Smkmc/t854UbIbGg5Vr+o+ZZqmOXHRWHzWHxCwioWunKbd4W3IvBcaTHMA0zAGmLZEFvD
+	 Dqf5qMD07XxpxrVioBppBpmu7DyhIuJp0ReEKWKHQPgK0jWg7bRRuQNVg+l9zwE2pjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793342981;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793342983;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=AgPYeLEugJgoEq+vG9KeV8ZAJVbryREVsFUQ1Fma0vY=;
-	b=xO+Pei5Z/vp0L+pcmMpOCeImgA+7McNnAeJkI1bkd27vl3C2IukZmHqBbAGdocvIStWg
-	 0djx5uA9WR1Jv8Ffl+qRYP6iqg7zaaSfuMSMlHocGNytn/MgdNcYsoRuk1OqWxW7KfahA
-	 rl21qIiRaD3L2iyU92mMmefe7siZi2uJPHaO1xQb3uBGsE4yD8yLOmFdc+VLtaM2dHgFz
-	 gCo3rwgoAYtTcIG6tVHmfGIBPa18dQrLbwBDuMkY6bbjWff0cw8Wsxc25H9cbHIfOYWic
-	 yNMuIeHGZpQ0/VHOa4gorYHkB5OUbUJIatJbJDMEyznpv72gQKTj+Zg+ZminnUiHa4g==
+	bh=tCtH0nSoUz9rfFDR40EGktb2UZ4joiDlZGZt7iSx0Yo=;
+	b=g2jLtGeWY+vOzPzfJL6D1hA3C+d/LqKztGEFYtFB7diPN+yq354c4HgjDKjCrmOckV3E
+	 QHVYDhLEXKDxbQwpYMXdDGhB177m15dEvotGWdhkSIW6eB3CXkoudUeL/tvOx1RJPt4nL
+	 P2NsLGltEU2qChjWCV1OBmKZ5ddsaulfTFaXU8vbe4z7CjvWK+IE22/BbvJtPVkB15L+B
+	 Y0CKiiNxzZxGyQdfpHKESQpMj4/PNwmbP+073eZTJFY4iqYPTkNb7zK2Sv4wS1xra4pvN
+	 GyCEoioBmhpRg97CqFanEIc6zWPZCnVvYXrir17GEh3KPpvxCOAtYvY+UoL15RoaHVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=rock-chips.com;
 	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=QfaKInEi;
-	arc=none smtp.remote-ip=156.224.83.154
-Received: from mail-m83154.xmail.ntesmail.com (mail-m83154.xmail.ntesmail.com [156.224.83.154])
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Fm1KqGWl;
+	arc=none smtp.remote-ip=156.224.81.173
+Received: from mail-m81173.xmail.ntesmail.com (mail-m81173.xmail.ntesmail.com [156.224.81.173])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B328F606A31D;
-	Fri, 30 Oct 2026 06:49:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B328F606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A4F606A327;
+	Fri, 30 Oct 2026 06:49:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3A4F606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=QfaKInEi
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Fm1KqGWl
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 52e796924;
-	Fri, 30 Oct 2026 14:49:29 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 52e796933;
+	Fri, 30 Oct 2026 14:49:31 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: Sandy Huang <hjc@rock-chips.com>,
 	Heiko Stuebner <heiko@sntech.de>,
@@ -66,9 +66,9 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
 	linux-kernel@vger.kernel.org,
 	linux-phy@lists.infradead.org,
 	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v4 2/6] dt-bindings: phy: Add rockchip,rk3568-edp-phy
-Date: Fri, 30 Oct 2026 14:49:01 +0800
-Message-Id: <20261030064905.2248999-3-damon.ding@rock-chips.com>
+Subject: [PATCH v4 3/6] drm/bridge: analogix_dp: Add support for RK3568
+Date: Fri, 30 Oct 2026 14:49:02 +0800
+Message-Id: <20261030064905.2248999-4-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261030064905.2248999-1-damon.ding@rock-chips.com>
 References: <20261030064905.2248999-1-damon.ding@rock-chips.com>
@@ -82,163 +82,62 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa18b9216be03a8kunme14bef99793f3
+X-HM-Tid: 0aa18b921e2003a8kunme14bef997940c
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGkJMGFZLGE8fSB1MHh
-	gaHR5WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQ0IYQ1ZNHkgZShkeQ0
+	sYGExWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
 	tIVUpLSEpKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=QfaKInEi50Xe9+Q4iIYs66NJ6q33E2lYOa3LkMcB++LjekVsRHq9abqZvSU9HOd9j1NVhuV1zhKbxRKvkgTdmOj0rKxqu0ZmyFVjLTd/TR/3uMmyZA0Ox6sscPaYqd9X/4frrAtXJCN83m6gvfPet6svNqCJXWeTUtL3ORPiXQE=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=AgPYeLEugJgoEq+vG9KeV8ZAJVbryREVsFUQ1Fma0vY=;
+	b=Fm1KqGWluv5KCKlbJrxdOt5Op5MhL5IaYsAMBGb41c4GB9/0jg6Yo9q//rup4zak5YzBDQsIB7aKSMTHN7fes0w6OL6led9OMrCCxK3xg/0MHo9mbgCzHIupCjIZ4OZRs+/aF46vteIxDc6OoWSgCAwMjPEc6TQdpnemfX9l+KI=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=tCtH0nSoUz9rfFDR40EGktb2UZ4joiDlZGZt7iSx0Yo=;
 	h=date:mime-version:subject:message-id:from;
 
-Document the eDP transmitter PHY with NaNeng IP block found on the
-RK3568 SoC.  The PHY has its own register window inside the eDP PHY
-GRF, so its node is modeled as a child of the eDP PHY GRF syscon with
-a reg property describing that window.  Also add the
-"rockchip,rk3568-edp-phy-grf" compatible and the phy node reference to
-the Rockchip GRF schema.
+The RK3568 SoC integrates an eDP transmitter based on the Analogix
+DisplayPort core.  Like RK3288 and RK3399, its main link consists of
+4 physical lanes running at 1.62/2.7 Gbps per lane.
+
+Add a new RK3568_EDP device type and let it share the link rate and
+lane count limits of the RK3288/RK3399 variants.
 
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-
 ---
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 1 +
+ include/drm/bridge/analogix_dp.h                   | 2 ++
+ 2 files changed, 3 insertions(+)
 
-Changes in v4:
-- Add the reg entry for the PHY node and the ranges/#address-cells/
-  #size-cells for the parent syscon node.
----
- .../bindings/phy/rockchip,rk3568-edp-phy.yaml | 68 +++++++++++++++++++
- .../devicetree/bindings/soc/rockchip/grf.yaml | 20 ++++++
- 2 files changed, 88 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
-
-diff --git a/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
-new file mode 100644
-index 000000000000..b78da00ffefd
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
-@@ -0,0 +1,68 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/rockchip,rk3568-edp-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip eDP Transmitter PHY with NaNeng IP block
-+
-+maintainers:
-+  - Damon Ding <damon.ding@rock-chips.com>
-+  - Heiko Stuebner <heiko@sntech.de>
-+
-+description:
-+  On the RK3568 SoC the eDP PHY is controlled through the eDP PHY GRF
-+  registers, therefore the PHY node is expected to be a child of the
-+  eDP PHY GRF syscon node.
-+
-+properties:
-+  compatible:
-+    const: rockchip,rk3568-edp-phy
-+
-+  reg:
-+    maxItems: 1
-+    description: PHY registers within the eDP PHY GRF.
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    const: refclk
-+
-+  "#phy-cells":
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - "#phy-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/rk3568-cru.h>
-+
-+    soc {
-+      #address-cells = <2>;
-+      #size-cells = <2>;
-+
-+      edp_phy_grf: syscon@fdcb0000 {
-+        compatible = "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
-+        reg = <0x0 0xfdcb0000 0x0 0x8000>;
-+        clocks = <&cru PCLK_EDPPHY_GRF>;
-+        ranges = <0x0 0x0 0xfdcb0000 0x100>;
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+
-+        edp_phy: phy@0 {
-+          compatible = "rockchip,rk3568-edp-phy";
-+          reg = <0x0 0x100>;
-+          clocks = <&pmucru XIN_OSC0_EDPPHY_G>;
-+          clock-names = "refclk";
-+          #phy-cells = <0>;
-+        };
-+      };
-+    };
-diff --git a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-index 7bcb4e2f47ec..c089bd014003 100644
---- a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-+++ b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-@@ -93,6 +93,7 @@ properties:
-               - rockchip,rk3399-grf
-               - rockchip,rk3399-pmugrf
-               - rockchip,rk3562-pmu-grf
-+              - rockchip,rk3568-edp-phy-grf
-               - rockchip,rk3568-grf
-               - rockchip,rk3568-pmugrf
-               - rockchip,rk3576-ioc-grf
-@@ -119,6 +120,8 @@ properties:
-   "#size-cells":
-     const: 1
- 
-+  ranges: true
-+
- required:
-   - compatible
-   - reg
-@@ -156,6 +159,22 @@ allOf:
-           $ref: /schemas/phy/rockchip,rk3288-dp-phy.yaml#
-           unevaluatedProperties: false
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: rockchip,rk3568-edp-phy-grf
-+
-+    then:
-+      required:
-+        - "#address-cells"
-+        - "#size-cells"
-+      patternProperties:
-+        "^phy@[0-9a-f]+$":
-+          type: object
-+          $ref: /schemas/phy/rockchip,rk3568-edp-phy.yaml#
-+          unevaluatedProperties: false
-+
-   - if:
-       properties:
-         compatible:
-@@ -309,6 +328,7 @@ allOf:
-         compatible:
-           contains:
-             enum:
-+              - rockchip,rk3568-edp-phy-grf
-               - rockchip,rk3576-dcphy-grf
-               - rockchip,rk3576-vo1-grf
-               - rockchip,rk3588-vo-grf
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 6df6963740d2..8bb4c48aa3b4 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1319,6 +1319,7 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+ 	switch (dp->plat_data->dev_type) {
+ 	case RK3288_DP:
+ 	case RK3399_EDP:
++	case RK3568_EDP:
+ 		/*
+ 		 * Like Rk3288 DisplayPort TRM indicate that "Main link
+ 		 * containing 4 physical lanes of 2.7/1.62 Gbps/lane".
+diff --git a/include/drm/bridge/analogix_dp.h b/include/drm/bridge/analogix_dp.h
+index 6033137b651e..e05ff4bd689c 100644
+--- a/include/drm/bridge/analogix_dp.h
++++ b/include/drm/bridge/analogix_dp.h
+@@ -16,6 +16,7 @@ enum analogix_dp_devtype {
+ 	EXYNOS_DP,
+ 	RK3288_DP,
+ 	RK3399_EDP,
++	RK3568_EDP,
+ 	RK3576_EDP,
+ 	RK3588_EDP,
+ };
+@@ -25,6 +26,7 @@ static inline bool analogix_dp_is_rockchip(enum analogix_dp_devtype type)
+ 	switch (type) {
+ 	case RK3288_DP:
+ 	case RK3399_EDP:
++	case RK3568_EDP:
+ 	case RK3576_EDP:
+ 	case RK3588_EDP:
+ 		return true;
 -- 
 2.34.1
 
