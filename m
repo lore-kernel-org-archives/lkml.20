@@ -1,74 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793385874;
-	b=0e7jE4Vr4q7jO2K4+AW4ym794YQm4gUAr6N2Qr/cYwKeS4kBByWy9ArQvvOmLWDoWTHk
-	 u9Xwr5gyr9BCi+I4+E0gC9aljBezgnW32Mf6iXDcUnTfespIsBtKY7iaWGX4+bpkJMH3C
-	 D6Tcph9pSpGG0JoN4Ohl4W/qdmEdu3CEd0z7CZLuVxxOU5uZ3RRjlVFcN0ojwJ5n/SaCL
-	 0jtZ+HtwMdWCaZFs4KOYxTsAeqqF9RDdADDB9FcTwKYpHhVbxNFEQfN5f7646QYMbOLrr
-	 kIy3JsI9IgVht1gy+HIDkPKMGytBayZBOAVj3GnUZZSKyX+dpaJCIhG18DH/VNjCR6g==
+	t=1793385911;
+	b=FXejLNsRFpYN35n9+dEzse0M9Is6/4qcP1kDXpobPTrsd5dnULpPFSx3UqOnZksWBsvT
+	 FhGXJ+fmuWXHXS0RW9G7gQ3px8eJJkJGox2ovSvVMgk5nMsSTfIaJG4Y5SHftqVmtt25Q
+	 w5MwNMUJ9Ku8AUqNRP6lyDyZv30y2Iag7Pz/z99gDsnuSInte5dWn5Pwj1FOZEzaZyvkA
+	 n9lXDPDiYmeIDRxUMkZzrU7qhwbdmbLN4ta18G3nzk0KOgvDGr441oeBQHawtIeU1iAEJ
+	 Cu4/RNfU8OUNK3B1fFOFIqEt1VsQx+Hkf9/ZUVTKDQzMK9ULG4BoObOGzBcmEPagFcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793385874;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=plQGU0/59tXvVFv7NZ2tZ2O/Wh2AnzL9Gn/KxlsSxWg=;
-	b=lgncTo/VOH/YH0N79R+x3BEUFj2eu08IaXCVjGjacKHN7lzY+TBLTEEi1tqYwyZ9HhCG
-	 v3QvSxiAns+facU578rAKH08i3eZdg0xZDjgfCK1KpSDufquxkHp+ZAlX9NCxb7rcZqHQ
-	 EdaQ8QuKxcTeITZckPRsUSmQiRiiQGOFSYIucCvYsa3NoXxDXjHclpKOWGNCpuiNeFXDS
-	 edE0LSJxFwF/TF4mud92si8XgPkqiHiVhAzMqSnupp+8u8dBcLBKaDs7q0xxyGYFr6fqg
-	 4Q6ubi/MQgVUAH1ZT6Lkr6pLcWLNjFV16dRK/mvLzTXt1u/qzNK/laR/gPXIDoXTPcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793385911;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5EPCnIcfvXerHvRmTGariLfLXLNGocNWN1mkzax41Wc=;
+	b=pBoH7O0R+/0BJofnNCK/SomzHqMm7xM5KiSw6150WSwijhztKHxMchkRn8XKvd8/F3Ar
+	 ZDPkynXjYk98/cBWReEDSE1JDTIMYseEht3Xy6G4ys49/fdUdgn8Sn26sJ47zk4ltFFG1
+	 9lIAqsRzNW/SZLA8ek5rnpv0IEVC1VgfQJbShbkp+CfHXB2xrEPjbM9FesmOGcz+F5AoP
+	 NES87jppl3OO78ikKK0aKu0oQH1Bmz9IWNrS1qT6FML8jYQX9EW6NJYrWC7fY4xd4ARDX
+	 wo5IDvvAGOypfREl+ECaDCGiQVHTIn6TWhRIvrftJ4Euykz8ysau4Ps290M/OVuVVpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oOP3e5f5;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbaV4lxW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E34606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:44:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5E34606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC079606A31D;
+	Fri, 30 Oct 2026 18:45:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oOP3e5f5
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ae6fda7a00so1076697a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:44:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793385873; x=1793990673; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=plQGU0/59tXvVFv7NZ2tZ2O/Wh2AnzL9Gn/KxlsSxWg=;
-        b=oOP3e5f5EwtSeLWUiI3FRElxXMunJCatDCTKvdAt4IJD4dHYMOr+ws8sv5FW/Nu6L0
-         0gTkhvEWudnm8hbSamuLgmp+fB59bdwBpmeZ3LkRuv9Cj1NhARFo0jYMDeCQYniwvZfQ
-         bq4SSSVRHE5HpZRzcG5dGaBp3qtjdXkmDU2+rv3NFWLHiD6rG0yqWgSZ0LzAOHvtS8Iw
-         YTKWl9wpXOa/DsoR89Q4N3FhffNQLC0GcZIWfUIC20FsMpyprKF0B8t5h4Rj6L+/S2G5
-         dDqdsEauGbylO/D7AtzlOIvKzQFcmY5Zhcq5vddMcfrOgx+MtLQu8Kjb1bzlfYTylFGx
-         fnGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793385873; x=1793990673;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=plQGU0/59tXvVFv7NZ2tZ2O/Wh2AnzL9Gn/KxlsSxWg=;
-        b=BPVqNKPRw7HHVwYd1cYJQeA8bTI5pawYxruUHPZZeDnyLUFGXyJiEXTXJ0yK3cSrAQ
-         bb2SUv7RKczABQZK+rLpHsrnojvcwNVuAoTyM/iVsQ8gsKQSZCuA7bJSIrehX3AbWF3o
-         86KMWrqs1ZBIcQPF1zD+siHvDy/E+GdmLZrc+G+aH7256yLqXxhZVJEPlKEywCgWZ75L
-         iQQo1OJOhSnMQIwknbx0A0OTnhjeL/gUEEKo+7QT6klYoNqsjQWjyus+ryJUiaQjlgD8
-         cYoOXxMVwWZrHodOLcfLgQRZyyZ3yszMPs+5GEQ/HvbRPkm+YAVPQNIC0Zqv2Qww4+CW
-         rIIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwcAssIHXLZE1eSSy34YB6X0Go3MVe3eCjmldKksVZS5cbQ1eHzmrw5vqom8BJIlodSxMYZQkR8VxB9710=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBMs5r5VmfY5ijiHmxi19FFfJytbruUgjWkS2YIQEGT8cojgIB
-	StGClZ4a1uvogD0XG7aZ2eQBA3C2EGYPmda+r8cecJ7eIyldVlAjdgCmNnj1W89DGGOj2mie41W
-	7JTmSsA==
-X-Received: from pjon10.prod.google.com ([2002:a17:90a:928a:b0:3ac:2cdc:a8ca])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:33c5:b0:3a7:ef4:164b
- with SMTP id 98e67ed59e1d1-3ae89574cf7mr2533447a91.2.1793385872887; Fri, 30
- Oct 2026 11:44:32 -0700 (PDT)
-Date: Fri, 30 Oct 2026 11:44:32 -0700
-In-Reply-To: <auTgh5uP5tpL8BlP@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbaV4lxW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4510A1F000C1;
+	Fri, 30 Oct 2026 18:45:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793385910;
+	bh=5EPCnIcfvXerHvRmTGariLfLXLNGocNWN1mkzax41Wc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cbaV4lxWKK5WATUJ1chE7QyUtFKPWgYg/uWeiSgJ06C0O3r29jyraE3caiUocEG0e
+	 bsSNPSvZJzik9l9p6c7QAxBUoOjfPpWPQL9xTeBnXhsl8N0g40eCloezfiWm+OUiDN
+	 trsUdhqAZhMctuclEr2SuSX6wlV4wzbC3YKj6BhzXKJsTOsswTgdlqy6b5HMClSijp
+	 Twf89t9LxdzNen76s/XWYBERULPTZrTbgDTboDE+54t7q5jCujYoGCfVcN/AbfrNDb
+	 QHu4WWYbJ21TJ6UPmhoJQdXRDt66DOV7maeZfLmuTmtrJxrKx/WpjLAAHKIPbdr7VN
+	 jKM/CRNmOzd0w==
+Date: Fri, 30 Oct 2026 18:45:06 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Parshuram Thombare <pthombar@cadence.com>,
+	devicetree@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jisheng Zhang <jszhang@kernel.org>, Fei Xie <fei.xie@horizon.auto>
+Subject: Re: [PATCH 2/3] spi: dt-bindings: cdns,xspi: add ACMD and internal
+ DMA properties
+Message-ID: <20261030-ecologist-booting-a6ae4eb55a28@spud>
+References: <20261029-xspi-cadence-add-acmd-v1-0-53cd44690e04@analog.com>
+ <20261029-xspi-cadence-add-acmd-v1-2-53cd44690e04@analog.com>
+ <20261029-tag-scrutiny-b9ef1299e88c@spud>
+ <auRpD5u6JQgwQM4f@nsa>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,74 +64,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261030032937.2813-1-ma.mandourr@gmail.com> <20261030032937.2813-2-ma.mandourr@gmail.com>
- <auTgh5uP5tpL8BlP@google.com>
-Message-ID: <auTlkNFh5C7nqzoi@google.com>
-Subject: Re: [PATCH v2 1/2] KVM: nVMX: Don't let L2's LMSW modify CR0 bits
- owned by L1
-From: Sean Christopherson <seanjc@google.com>
-To: Mahmoud Abumandour <ma.mandourr@gmail.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="uKc01hmH0VtcXB41"
+Content-Disposition: inline
+In-Reply-To: <auRpD5u6JQgwQM4f@nsa>
 
-On Fri, Oct 30, 2026, Sean Christopherson wrote:
-> On Thu, Oct 29, 2026, Mahmoud Abumandour wrote:
-> diff --git arch/x86/kvm/vmx/vmx.c arch/x86/kvm/vmx/vmx.c
-> index 544b7840897c..2d5feeb8a059 100644
-> --- arch/x86/kvm/vmx/vmx.c
-> +++ arch/x86/kvm/vmx/vmx.c
-> @@ -5743,8 +5743,10 @@ static int handle_cr(struct kvm_vcpu *vcpu)
->                 break;
->         case 3: /* lmsw */
->                 val = (exit_qualification >> LMSW_SOURCE_DATA_SHIFT) & 0x0f;
-> -               trace_kvm_cr_write(0, (kvm_read_cr0_bits(vcpu, ~0xful) | val));
-> -               kvm_lmsw(vcpu, val);
-> +               val |= kvm_read_cr0_bits(vcpu, ~0x0eul);
-> +
-> +               trace_kvm_cr_write(cr, val);
-> +               (void)handle_set_cr0(vcpu, val);
->  
->                 return kvm_skip_emulated_instruction(vcpu);
->         default:
-> 
-> > +			err = handle_set_cr0(vcpu, (cr0 & ~0x0eul) | val);
-> > +			return kvm_complete_insn_gp(vcpu, err);
-> 
-> This needs to (a) be a separate patch and (b) apply to L1 as well (though I'm not
-> even sure if you/AI realize this is a bug fix).   Emulation of LMSW originally
-> suppressed the return value, because outside of VMX operation, LMSW can't #GP on
-> a bad value.  LMSW can't set reserved bits (for the CPU models KVM supports), and
-> it can't toggle any bits that trigger additional checks, e.g. can't try to clear
-> CR0.PG while in 64-bit mode.
-> 
-> But with VMX, must-be-1 and must-be-0 bits become a thing, and so LMSW could #GP
-> if it tried to set/clear a bit in violation of those masks.
-> 
-> Ugh, never mind, screw this.  KVM doesn't support arbitrary MSR_IA32_VMX_CR0_FIXED1
-> values, i.e. doesn't let userspace require that arbitrary bits always be '0', and
-> instead relies on common CR0 reserved bit checks.  KVM (very, very stupidly) does
-> allow userspace to expand the set of must-be-1 (MSR_IA32_VMX_CR0_FIXED0) bits), and
-> so *in theory* LMSW could fault when clearing EM, MP, or TS.  Of course, no sane
-> VMM sets those as must-be-1 bits.  And to make this a complete trainwreck, KVM
-> doesn't update its own guest/host masks, i.e. it's own intercepts, to ensure it
-> enforces the must-be-1 bits.
-> 
-> E.g. if userspace made CR0.TS a must-be-1 bit, then the guest could violate that
-> so long as it doesn't toggle any other bits that would trigger a VM-Exit.
-> 
-> I see absolutely zero reason to try and fix KVM.  Letting userspace make CR0.TS
-> a must-be-1 bit is beyond stupid.  KVM already requires CR0 and CR4 must-be-1
-> masks to be a superset of KVM's "defaults", so userspace can only make things
-> more restrictive.
-> 
-> So, rather than synthesize #GPs, I think we should prevent nVMX MSRs from inducing
-> #GPs in the first place, and then WARN.
+--uKc01hmH0VtcXB41
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Argh, that's not going to work.  Thanks to KVM's massive "attack" surface, a.k.a.
-save/restore APIs, it's possible for userspace to shove a value into vcpu->arch.cr0
-that's in violation of must-be-1 bits.  I.e. userspace can trigger the WARN.
+On Fri, Oct 30, 2026 at 09:57:36AM +0000, Nuno S=E1 wrote:
+> On Thu, Oct 29, 2026 at 06:31:00PM +0000, Conor Dooley wrote:
+> > On Thu, Oct 29, 2026 at 04:03:17PM +0000, Nuno S=E1 wrote:
+> > > The Cadence xSPI controller supports an auto command (ACMD) mode where
+> > > high level sequences (read, program, erase) are handled by the
+> > > controller and data can be moved by its internal DMA. Whether ACMD can
+> > > be used, and whether the internal DMA bus requester interface is wire=
+d,
+> > > depends on how the IP is integrated (e.g. external SRAM, interconnect
+> > > wiring) and cannot be discovered from the controller.
+> > >=20
+> > > Add the cdns,has-acmd and cdns,has-internal-dma boolean properties to
+> > > describe that. The internal DMA is only used by ACMD, so properly
+> > > reflect that.
+> >=20
+> > Why would these properties be needed? What the controller support surely
+> > can be determined from the specific compatible for the SoC integration?
+>=20
+> Alright, I'm more used to describe peripherals than this kind of IPs but
+> I imagined that these being properties of the IP that would make sense
+> to describe them in binding. Ok, but I sees this leaves the door
 
-So as much as I want to WARN, in practice no real world use case will induce a #GP
-on LMSW (or hell, even trigger an exit on LMSW), so I'll go with your patch of
-synthesizing a #GP (which is better than silently failing).
+Basically the "rule" is "if it can be determined from the compatible, it
+should be". Adding properties ends up with people having to figure out
+exactly which features/quirks etc that their device needs and if things
+are discovered after the fact it requires updating devicetrees that may
+be bundled with firmware etc. Properties that are used to say that
+something can do a feature should really only be used when the board
+layout etc is what determines if the feature is available. That's much
+more common for ADCs or w/e that are off-chip devices.
+
+> open to just add properties in integrations that would not make sense
+> and if we're going to have any compatible conditional kind of handling,
+> I guess it makes them pointless.
+
+--uKc01hmH0VtcXB41
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauTlsgAKCRB4tDGHoIJi
+0tT0APsGkClLzsaUhB//dnE4VWj/t8QllLlPxrmNyrTe7hZakgEAi2lH8ESaq6J1
+8mgwDkF846CJavKSTS5WpWN7TgYW/g0=
+=N0N9
+-----END PGP SIGNATURE-----
+
+--uKc01hmH0VtcXB41--
