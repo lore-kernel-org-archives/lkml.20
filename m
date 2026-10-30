@@ -1,144 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.66
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793359317;
-	b=5XgnxXyPQOEmkSE+36kptBAJ2oM4OvH/p8TuRdiFmaB0DV/ya3Fpsrbnn2JDKPBPmi2K
-	 RhSlL+JO8/LL5dFCoZJt2Yj2zbu6uwaZI7BU/6jvJvNctzdIK2HsFhJAhf5VYTVSkrm0D
-	 7tZC8b1X8siPreM1uWAG4jzzUJs99SngeMq6VGoHJwULRobNCvlaCJFU+ciq1KrfBwWwB
-	 o89IDm+EEraMNnqkvjtyzybHqRp4P/vpPSQkn4BATPVc7TGMZF+zmJx308bY+Vm1HawKF
-	 7TUcwnu18xFzYBB2uZKyl4bwoScsgm0uUZUTsf+SxIPBaieT7IOWmf/+NjtccW4rMMg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793359317;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=2BJaCi+D2hZcczG0x4VhOzIjyohDj1Agw6yfXWvba9A=;
-	b=Bh175XrrT6EagstusMHnp6ix7xpYIlb8nEMNcJHPGKKycROQ3o9cnZB5EnOqXCxl5YHU
-	 yEGfnsvtBtJjf2s/vUBGZglDBV1HmkynIrxa1sPQHhLMPru43/HQ0NwSlSL2SVQqia+ip
-	 2jwImcSBamgDNmoo3yM508YTj2Zll7bkr63aOOoABQTt28MMNSWHvrJCasK5sa9ZBO23L
-	 PxJ7M5vlXF9gPllW+zDnDYgQDthZEq05U2vM97ZsSzFKJGdDyWCJGN0ygrjoeFLSgzOS2
-	 t2XjhUNkkGUyW+wCkoSy66z3LYDZKeK1yOZle4mjMG78NERIp1ELBMzd7RsEt1vXxtg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=renesas.com;
-	spf=pass smtp.mailfrom=renesas.com;
-	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=gQrhHd+F;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.66
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011066.outbound.protection.outlook.com [52.101.125.66])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793359322;
+	b=pT0U57c9MmHU/5zL7rnN/cX0QcuvP9QjpfE3Y2wjyAqeNbLEblwCK6PQ3dlt9fECKrQc
+	 qTdbsZl1SurQ/f2regXSaNy8wyIYUPhqqg39ygT7Yi1WDw7RNN4L/YUDtqsrYpG162RhS
+	 m4HBhYVhUChL55WOVzaF/Z6hu1h3ZGbcJ8KIQ/sfQpZVNVABRZjqPwIhUL7KSrXTGLYXj
+	 5u/mKKKZcJKai042mUUs7yFxFz1zxFkO4v2iUvCdSgFODRMUDQ7KORdrEo6ET/jk4e1uK
+	 Fo1tsuzH1vrhd+DhkppyiZh8sTlzyk2xsCkN9fDETfeNUFHtJDdBOwjj+bQY/mzzsUw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793359322;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=vuufPDmq8YPQW8AY0Jp/JU0SY6cRQYf0nWENHHY4ooc=;
+	b=nRB/AUNfZXYikdXkMqKc5UiMij24qLvKmyrkFVUleeljfrbdHMU17/bokVGTAR2yAUjK
+	 W6o6qwVRk2J5BGlnomGMmewWkyIlXhCDKV2xeQ5RPpDg0qcsAgoOQ+B7R1EGGViQm8PQD
+	 hkjgJIexGUwxZlg2uY7l/krp/RWzimHdI4GHE7EqoVqGZiwi49OXg5cJCp8QSYjvmG8Ox
+	 ae3iGw7mmpAQt+RQJN3B6q4OLi66dCcVxux5cNlK/yz6RHFUMIFZ/emoUDF3ZNmlumUSo
+	 ElxGtKWcUdzhPEEm+JOHS1SQXGyEgbIPoDLrfj2OGb0GmImr/LR8QCMibh20KsyLYFg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=PUTZ2qiR;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9B6606A320;
-	Fri, 30 Oct 2026 11:21:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D9B6606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B68D606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:22:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B68D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=gQrhHd+F
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=emGPm4yAu48k/TlkoWysQwg8umercaNC95dOnDTeg+IlPO3GLRtHqpjqTiyLLCxBx/p2BL2L4iF9C9cZqR51qAtHV23SsoVL6aC9kXnzsROygEASBLbSJIIuUujkmgj78QkDiNk+eUQGpP5g/5bFuLEU9Y5mL1h7x2+R3Wy6zarsO6vQjBkkBqh6QKDu4RepZcNop4O6U2oi7jVHiNfbeYSvdpadWu55+qOX2ZGi28INwsQAgchHtB3ONPFPDm4ZvHO8UloiiUQlqC3m8UUH4gKgwLdycpCdGiLSdFJGLCm8L+ubeqjwKdEFvqXDzq0SkcsVnP/87odVzVrcVcOUIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2BJaCi+D2hZcczG0x4VhOzIjyohDj1Agw6yfXWvba9A=;
- b=gUxMqi6FAo6jgnU9pftVEw5FyTVF2M3/gmTcO6Hlkp81A4akc38UDdjw6U/SmmqiqElv4z/NgtEbuF8K8+1BlHPsunfMzG5AoMJhF5duNuEBo9zwrUJhTK/B6gKHNhjYZNUTFds+OJ2fTNnyc10+zlPrn2ic6uRzz0DwYgNOEkcFNCWC31+gIMQPZmBd2TtET37V6JEZTy5pCKqdRLV52jYg3tHPHqIXBHS8Ufos9+DM3a2ymysfWKpVyTx70dNHIACI/3MEDz7cp9R1Wly8GwjnrMK1DhMkN9BHefnmpqVK25Yt0XEFWeY2by1uueOclgWIVDOcLKn2Wkkf3fZoig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2BJaCi+D2hZcczG0x4VhOzIjyohDj1Agw6yfXWvba9A=;
- b=gQrhHd+F7xXXyPnxeDarXuIT7j3HSqnvFaNGOc2cDeLPbysj0y00St4ixeGmFpnDhObJAPt0jYNlnId+WhLVx9MgI1QZshc0FC3PXpjT86/Mi5CXitcYitcAKIBzUtoanOeFWSAPQvvtHB5ifDKOzgT5o2fXAnLSOtugI9/yp7k=
-Received: from OS3PR01MB8667.jpnprd01.prod.outlook.com (2603:1096:604:19b::10)
- by TY7PR01MB14594.jpnprd01.prod.outlook.com (2603:1096:405:240::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 11:21:52 +0000
-Received: from OS3PR01MB8667.jpnprd01.prod.outlook.com
- ([fe80::a7ca:1a29:beab:1921]) by OS3PR01MB8667.jpnprd01.prod.outlook.com
- ([fe80::a7ca:1a29:beab:1921%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 11:21:44 +0000
-From: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-To: Li Youhong <dayou5941@163.com>, Biju Das <biju.das.jz@bp.renesas.com>,
-	"wbg@kernel.org" <wbg@kernel.org>
-CC: "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Li Youhong
-	<liyouhong@kylinos.cn>
-Subject: RE: [PATCH] counter: rz-mtu3-cnt: put runtime PM ref if counter init
- fails
-Thread-Topic: [PATCH] counter: rz-mtu3-cnt: put runtime PM ref if counter init
- fails
-Thread-Index: AQHdaF9oYh5OyXjmQkykjYtP08YTxbcV8O0A
-Date: Fri, 30 Oct 2026 11:21:44 +0000
-Message-ID:
- <OS3PR01MB86679508062A5C22122BED81856D2@OS3PR01MB8667.jpnprd01.prod.outlook.com>
-References: <20261008020506.211566-1-dayou5941@163.com>
-In-Reply-To: <20261008020506.211566-1-dayou5941@163.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OS3PR01MB8667:EE_|TY7PR01MB14594:EE_
-x-ms-office365-filtering-correlation-id: 7ac8312d-ba82-4380-c2fe-08df3677faba
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|6133799003|10067099003|18002099003|22082099003|56012099006|11063799006|261026140227099003|261022105027099003|261028144727099003|261021121427099003|261021123027099003|261009223027099003|38070700021;
-x-microsoft-antispam-message-info:
- cb91d4O5NNdjwARt6Od8lS98mk/vKcy4xTGdKT6xmv1txVG8B/TBCsae5uBmxPzq2Cy6/booI6psuu9bPjEOvanNVcmdHWpqRQzHWa1RaSOrnluu7AJtYd2FEcfOt/KozhTuVuhsP0w3XrNDEGciCe+lh9zIFLDaaE2y/i/fynq+d4n8BhqBzbJ+txs6x8hQNsvAJCOhPKnEXEzfakaf+dkSgwdK7t94TwFF+m1rjUULRMmgrhJmEyRu6Af0JXaBiGomR7E8g/HUWWrwEU1Cvk8GcJnDrQMznpzLv5hsZPM1sdqUSunqEEU70+4rcNLOILEj9jvbeemHsWK+A8QDp7TEcnH7Ts2gHo7sjD1iufFkD8bcXKxgg8jPIloWOS+7T0fUsWU/l6lIxvUKvhE3952rD6yozf2EMpkhxnl6bZzqmiK+kKuDS5Y8/J8NMVg5tn6w6rPb/qk65b7zbY/4vvUcQPkBbN/Flwx6Ib70d5G+E+e9Sju6I78x0KJUqa+03onl9vyetta/GyMcS9X8GSxnCgmQwzcbrXpow9p8EhDQPKkibLpjw7wdXxhzkxrhRz+wghnxUGIqQbv/b46rDRTevLprpFz40XymQFuWLTkkfrMBP++NtYal3fWDXj/WXhZP+OqlBmIJnljz1H5R77JAbfjgfDh9C8PqBnYFjWc0sDtZHGdZtTZUYODHQVt21omGTP4AdhFwhgby9u3GuPBIIVcfwEZGfPgjRCorkbU=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8667.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(261026140227099003)(261022105027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261009223027099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?97iWODCF/MbDo08FKqbxph9gqXDq+ky934WWImG6TpwiwSuJEdwbXN7C7I6r?=
- =?us-ascii?Q?l1VtgF3MC+kOvMRFYfbEWLgXMUPzDDryOGN4YAM+D0cwMRQA5B3/w2I9Aw+p?=
- =?us-ascii?Q?hEO+fW7vLOJ20k4Ok/8stFCfhOsTp62YH9+pW2l5BEgf+3wBZepvI7q9bHdH?=
- =?us-ascii?Q?gASFqMoCQZ6ytNYWI1rA5MeMKkH8xmRSqF8gUtOgkBkpqmVVlbzvk3GWUwsz?=
- =?us-ascii?Q?mnS2GQJqUOfN63ym5kMG1O5zF+72Wg+FSpbPVizf4ibJ/uidFfTtFoBOg+fo?=
- =?us-ascii?Q?aMEZXqnLsfAtwuYzMzTbUEf1mJ5Y4Hfm1FgWpPP5X5ohNgMVehbMOJHrGKdm?=
- =?us-ascii?Q?56p02FdNhHSne9PHBclzNejKzh+BnCPsUS8QsWPPbd0ZkNPiurnwGNZggnXY?=
- =?us-ascii?Q?McAVWCVnOP/v3dfx+c1/Bb70uUhPLj3zdGT2GUiB2DZZfUzGMN0Dl5sFNMuo?=
- =?us-ascii?Q?trb59o2QO2eOkw3IySi18m81+U8WblEtFzTjztxyaMVPeN8CI3DJU0LJChUb?=
- =?us-ascii?Q?1yKcdvIDIIN1KGaG3QTREUFUnI5tnHq00wh1S6G8xd/obRgrtVPNlYNN7pov?=
- =?us-ascii?Q?9GVzPpcs7TrrC/Cc00OMAqFp8UgUbyXzr3q5Kxo9DkLMFbVQybs+lH6jSAtj?=
- =?us-ascii?Q?Nn8IrAxJ5hm9TMOXOL4FajwfOpFG0TSPkPzeHrlF8q+EB3RvcLczThUpZyvq?=
- =?us-ascii?Q?nPPbwWgK8p+RY2MLKP2RhjumdjbgiTbt0WTUJzS+r0C0tgDAF56/D7osZiDU?=
- =?us-ascii?Q?ybHUeF8TpEahM4b8oyX8O9fwPseYW0dDpIYvJZYVD76gZCK2qE3n6NRjolNv?=
- =?us-ascii?Q?EFA/cbKIziEp1K0/U20dcs9ieRdcOzkflqFcmtrvxccr3mSxIDZkzw2Mj443?=
- =?us-ascii?Q?GAaqa4WXtTld2Pu+cJqy23NP9rS6q33lNP2KTpSrGOKKpzbnvSKFz3mA2Qp/?=
- =?us-ascii?Q?ngTdiYonc118Y7eYebwFAUWYoATOJ43wt1VDu+QeTTsu7lUOQieKGe8ND1z6?=
- =?us-ascii?Q?IF6b2od0bYWFalaTv6rNNP4C+f/ALYOBQNk939MMQn/fZKDhb8cqHq2UawDP?=
- =?us-ascii?Q?ZZln6KrlQ1D5OafW6DrewnRZxlJAKIB3v5h9/wzGr3VbnCkjXMqb+7Ad+Z67?=
- =?us-ascii?Q?67UNpEOhHX6SVXwaY9pxWKTY//6VGgu3cHTXRDSBDqidUjNlxcgvyPq2QNfv?=
- =?us-ascii?Q?c+aSQZIav6AouTjpaG5kv5Rok2Pshqx7Ps8zHENR2c+SeSloxP8/hsu5cB4g?=
- =?us-ascii?Q?ALNH8LXnwZVULCv6CGH4FWxLrQ4XE2pAebdN1k6H3PfmXu5czO1KrL40wja4?=
- =?us-ascii?Q?QgzvTAlcq/dEs1V+gnT5AKOA6aVoJ+1jGqVNY8Wn0/JsTv0p4QZD021/AhjY?=
- =?us-ascii?Q?l8ecN2Z7kR0gZemcd6GeLGF+Y6v4o/zDB92TtRpA6p4dZtZbqQU7q6r3NoJb?=
- =?us-ascii?Q?Uhn6c69P7Gh1ZT0w/UdMAGWMZboxKcp587kqApqp372OUlI2NZR+N2MvmZaG?=
- =?us-ascii?Q?qujV2/DgmcMjkGnJwoCQqqblOYKZiNMz/5KEcUXuvdsHJjTHzrsqngQTK3TF?=
- =?us-ascii?Q?f7qTQhpWgx9LlJpZidJt+3yCQXxioYN6Wb3/bFct07OzV9hDcBuTxqUB0XBD?=
- =?us-ascii?Q?XqvAiGSlBcq6c2h+H7N5qlxmqomYLMTOSD1Ovgj14sdX6YHTbvqM9ehyh88r?=
- =?us-ascii?Q?/JNo1YLwPtRSTi7bPN4lbYUHrrgputCwI+4oTpG8i5eqaMu0MMHefxLbchgn?=
- =?us-ascii?Q?+b00Ac6FV2nm2+WQ4M99aD726pJbnLv0LPJXNprU5R0CNBBKtc1R?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=PUTZ2qiR
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e10a70540so362745f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:22:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1793359319; x=1793964119; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vuufPDmq8YPQW8AY0Jp/JU0SY6cRQYf0nWENHHY4ooc=;
+        b=PUTZ2qiRirgz6nwNmDdZoYxxNaDm5c3nm0CWhcwhJyItDYZ7YbMQ1byIe34GqmI/Z4
+         Se0+UayrkOoNnPm1IUJea3avAR0m7/jmt0QCVzLqzXhrWBvMQ3F22QWKRtTo7IZYL3kv
+         1ObDOC5/OhUFcQOvWGVEgkUkCUfODWwcMk2xNEtZ48Ksgdu2hQ3kIPqu+6d5TR9Dnvpi
+         TH5i/joH6IFFSAlH2qr63iK4+vfjES/nKwWMPdOChONSjihN85IFo9OFbEwdwNgpNNqy
+         6H7lz90VK+FogphueqPrhWNuq/TujBd3LCNNFMJjb3RhtWVR6kr+VmBY2MkDHoMcbpbg
+         pwrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793359319; x=1793964119;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=vuufPDmq8YPQW8AY0Jp/JU0SY6cRQYf0nWENHHY4ooc=;
+        b=FQyzdYsN53HGk6bbUOL28x41DFCA/jwPKQcf1O9k9msM2g4O/xv6fNTh3C05jjX2DI
+         xStDAOBiMBxQfvDw7SY9MlFPhhPBNmMA0+PH3iMia4KSqeBC3CU1Infv2Be+jGwjnwFM
+         igZdLZWDlFNVoKLJoPB1y6t16xZGWId/B+HLfzJTXa5DCZ5IrAkus1dhl3pWMTkbphKJ
+         YfskXrrFk25YZ0Q4OFvZ4CZAxwMmNMKweykFib4KoBcCp/0JgJBwnTxcgjsU+vGbmRhx
+         kJRbpm+cpEBhwEZOMao14hPsiTBPb/Z6IwYh2C6WOPyvf0hX3x4C6RxfAxCKFAIcQdwh
+         M7vg==
+X-Forwarded-Encrypted: i=1; AKwUvBxV1bED6Tfv8gH7nqasqZLwPthii35KhtVzSZS5BesMi4Oo9HpSjarhZvLcBvN0M8Zdgg5awfAuhlVgbys=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI4ZHvRMt+ilPIR7Ggr3I+nLBA+0YMdJ4v1tLep/rBK2KYey6Xn
+	9S0BLNrDmVSNiVRS9RW1m5KRQb6ATPlpRkptMibZyTRER2nLW3GjY2oiBAth8oUHKx4=
+X-Gm-Gg: AYBFou2VvKCbcmhi9XRUVj9HT1hORzbGTTlOImQn+4Hp9MR3gmYDHELvldHf2nkwR5H
+	1uE16ZlNYuCRKR981pZwY7hZed2d7ucwowpKlxcKhpeE0LTyvhcEFYmOUOtIqwlXzKZdTr5kEna
+	QFg/hBZnvetZSncP+OEJboC8H8A2mmg9KkC1Y/V6bS1dOhhQ/qNjuepbA6HO+fEFYCYc9+M54RD
+	YvbfFMSzpxzvjwaoOGIbJy2uwBmHaaA7+DPIpOCSEJqfJIk39XzAy7SQtQh125DWnKhY1lzbMPP
+	fT1xLr4LK61s5ekB6aMt+TMItI2kyNMfebo6cDmPzhB+guafXDQttvIRs7i4TLLiPQMEXZ+fq0O
+	Ni0Z165U9A0mL4fyaJBy2IiFSr3YX0/yp8sPig63y3iSwP2wM5AMALGZkyoh1dZCsnw+4H1aKTd
+	Cs1jYa3FhD0e/SAvIbRdlm/BhoO8ZExyOPqg4wCzzYBWsGVh62mmTjdy/9UAAtLIuBBY0M88OSC
+	Yk+UbJtET11NyjjEDwUCP0y3i9KXlQy3YTWAviDRgUO1VgHF/qoQyfvf9nWqZfO3O6yeuOoMnKi
+	TBCgCvmSYUa8NAdR0gCU0M3KIpm6qH/4VeuT+Idu9XvRpVWH
+X-Received: by 2002:a05:600c:8b06:b0:4a8:9a2f:d27 with SMTP id 5b1f17b1804b1-4ac17b2c907mr39680395e9.25.1793359319469;
+        Fri, 30 Oct 2026 04:21:59 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3f9sm2939706f8f.4.2026.10.30.04.21.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 04:21:58 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+Date: Fri, 30 Oct 2026 12:20:47 +0100
+Subject: [PATCH] drm/etnaviv: hold the core in reset while runtime
+ suspended
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -148,60 +92,204 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8667.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ac8312d-ba82-4380-c2fe-08df3677faba
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Oct 2026 11:21:44.4693
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xErYTAzkWcgVWbYoFbbM6vqBRLLKOv+Al2Yo+0LI7P1KvHPsceGTRGG6BBDyY+TkJuRC4+W/CKXxNoKBVxiuva4MAclfqQyBI3SsWHS8LjXN3c5GqVw3vXqyV1Ueb6Zq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7PR01MB14594
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-etnaviv-rpm-reset-v1-1-f45761846329@baylibre.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCQAxG4auUrA10YqvoVaSLdvzVCI4lGQeh9
+ O6OuvwW7y3kMIXTsVnIUNT1mSrCpqF4G9MVrOdqklZ2oZUtI6exaGGbH2xwZO6kP0wS+7CPHdV
+ uNlz0/Xuehr/9Nd0R83dE6/oBkhDNx3UAAAA=
+X-Change-ID: 20261023-etnaviv-rpm-reset-4259b2c517c4
+To: Lucas Stach <l.stach@pengutronix.de>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Simon Lenain <simon.lenain@thalesgroup.com>, 
+ LECOINTRE Philippe <philippe.lecointre@thalesgroup.com>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, etnaviv@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Jerome Brunet <jbrunet@baylibre.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5557; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=68/E5Cj9ssNc1McLhgmPI5778X5fLNH57nbXqLBBDGo=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlPaq/OqfR1uf6k/7KK+7GH+9tTdi5ZPf3CqxV8E+8r5
+ lyU2fVHv6OUhUGMi0FWTJGlhrta/J2k1pdZ03Vuw8xhZQIZwsDFKQAT2XOT4X+ytdRJDcbMxxXn
+ l6bdydN3uPrGLfZip+vhOfxp83o15s1h+F+TrXpzX+x8ZllvHqfIdO2dC+Ru7EwKWKubtu5gbfc
+ NR04A
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-> From: Li Youhong <dayou5941@163.com>
-> Sent: Thursday, October 8, 2026 5:05 AM
->=20
-> From: Li Youhong <liyouhong@kylinos.cn>
->=20
-> Counter enable takes a runtime PM reference before initialization but
-> only puts it on disable. Drop the reference if initialization fails.
->=20
-> Fixes: 0be8907359df ("counter: Add Renesas RZ/G2L MTU3a counter driver")
-> Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
+The reset is asserted at probe and released once, in etnaviv_gpu_init(),
+and is never asserted again. Runtime suspend only stops the clocks, and the
+power domain may then cut power to the core. On the next runtime resume,
+the domain powers the core up again while the reset is still deasserted.
 
-Missing Cc to stable.
+On the Amlogic A311D NPU, the power domain lifts isolation on a core that
+is out of reset, which locks up the SoC on the first runtime resume after
+a runtime suspend. Toggling the reset again solves the problem.
 
-Otherwise, this looks good.
+From an existing comment in the driver, the reset must be deasserted with
+the clock running, so handle it together with the clocks. Rename the clock
+helpers accordingly, as they now handle the reset as well. This way the
+reset is properly handled whether or not CONFIG_PM is enabled.
 
-Reviewed-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Fixes: 6bde14ba5f7e ("drm/etnaviv: add optional reset support")
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+---
+This was found while running the MobileNetV1 demo with Teflon on the
+Khadas VIM3 (Amlogic A311D).
+---
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 64 +++++++++++++++--------------------
+ 1 file changed, 28 insertions(+), 36 deletions(-)
 
-> ---
->  drivers/counter/rz-mtu3-cnt.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/counter/rz-mtu3-cnt.c b/drivers/counter/rz-mtu3-cnt.=
-c
-> index 7bfb6979193c..61fbeb122851 100644
-> --- a/drivers/counter/rz-mtu3-cnt.c
-> +++ b/drivers/counter/rz-mtu3-cnt.c
-> @@ -506,8 +506,11 @@ static int rz_mtu3_count_enable_write(struct counter=
-_device *counter,
->  	if (enable) {
->  		pm_runtime_get_sync(counter->parent);
->  		ret =3D rz_mtu3_initialize_counter(counter, count->id);
-> -		if (ret =3D=3D 0)
-> -			priv->count_is_enabled[count->id] =3D true;
-> +		if (ret < 0) {
-> +			pm_runtime_put(counter->parent);
-> +			goto exit;
-> +		}
-> +		priv->count_is_enabled[count->id] =3D true;
->  	} else {
->  		rz_mtu3_terminate_counter(counter, count->id);
->  		priv->count_is_enabled[count->id] =3D false;
-> --
-> 2.25.1
->=20
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+index e75dab5e407d..b372f454f676 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+@@ -175,29 +175,6 @@ int etnaviv_gpu_get_param(struct etnaviv_gpu *gpu, u32 param, u64 *value)
+ 	return 0;
+ }
+ 
+-static int etnaviv_gpu_reset_deassert(struct etnaviv_gpu *gpu)
+-{
+-	int ret;
+-
+-	/*
+-	 * 32 core clock cycles (slowest clock) required before deassertion
+-	 * 1 microsecond might match all implementations without computation
+-	 */
+-	usleep_range(1, 2);
+-
+-	ret = reset_control_deassert(gpu->rst);
+-	if (ret)
+-		return ret;
+-
+-	/*
+-	 * 128 core clock cycles (slowest clock) required before any activity on AHB
+-	 * 1 microsecond might match all implementations without computation
+-	 */
+-	usleep_range(1, 2);
+-
+-	return 0;
+-}
+-
+ static inline bool etnaviv_is_model_rev(struct etnaviv_gpu *gpu, u32 model, u32 revision)
+ {
+ 	return gpu->identity.model == model &&
+@@ -842,12 +819,6 @@ int etnaviv_gpu_init(struct etnaviv_gpu *gpu)
+ 		goto pm_put;
+ 	}
+ 
+-	ret = etnaviv_gpu_reset_deassert(gpu);
+-	if (ret) {
+-		dev_err(gpu->dev, "GPU reset deassert failed\n");
+-		goto fail;
+-	}
+-
+ 	etnaviv_hw_identify(gpu);
+ 
+ 	if (gpu->identity.model == 0) {
+@@ -1649,7 +1620,7 @@ static irqreturn_t irq_handler(int irq, void *data)
+ 	return ret;
+ }
+ 
+-static int etnaviv_gpu_clk_enable(struct etnaviv_gpu *gpu)
++static int etnaviv_gpu_clk_rst_enable(struct etnaviv_gpu *gpu)
+ {
+ 	int ret;
+ 
+@@ -1669,8 +1640,26 @@ static int etnaviv_gpu_clk_enable(struct etnaviv_gpu *gpu)
+ 	if (ret)
+ 		goto disable_clk_core;
+ 
++	/*
++	 * 32 core clock cycles (slowest clock) required before deassertion
++	 * 1 microsecond might match all implementations without computation
++	 */
++	usleep_range(1, 2);
++
++	ret = reset_control_deassert(gpu->rst);
++	if (ret)
++		goto disable_clk_shader;
++
++	/*
++	 * 128 core clock cycles (slowest clock) required before any activity on AHB
++	 * 1 microsecond might match all implementations without computation
++	 */
++	usleep_range(1, 2);
++
+ 	return 0;
+ 
++disable_clk_shader:
++	clk_disable_unprepare(gpu->clk_shader);
+ disable_clk_core:
+ 	clk_disable_unprepare(gpu->clk_core);
+ disable_clk_bus:
+@@ -1681,8 +1670,11 @@ static int etnaviv_gpu_clk_enable(struct etnaviv_gpu *gpu)
+ 	return ret;
+ }
+ 
+-static int etnaviv_gpu_clk_disable(struct etnaviv_gpu *gpu)
++static int etnaviv_gpu_clk_rst_disable(struct etnaviv_gpu *gpu)
+ {
++	/* The core may lose power: keep it in reset until it is clocked again */
++	reset_control_assert(gpu->rst);
++
+ 	clk_disable_unprepare(gpu->clk_shader);
+ 	clk_disable_unprepare(gpu->clk_core);
+ 	clk_disable_unprepare(gpu->clk_bus);
+@@ -1817,7 +1809,7 @@ static int etnaviv_gpu_bind(struct device *dev, struct device *master,
+ 		goto out_workqueue;
+ 
+ 	if (!IS_ENABLED(CONFIG_PM)) {
+-		ret = etnaviv_gpu_clk_enable(gpu);
++		ret = etnaviv_gpu_clk_rst_enable(gpu);
+ 		if (ret < 0)
+ 			goto out_sched;
+ 	}
+@@ -1863,7 +1855,7 @@ static void etnaviv_gpu_unbind(struct device *dev, struct device *master,
+ 		pm_runtime_put_sync_suspend(gpu->dev);
+ 	} else {
+ 		etnaviv_gpu_hw_suspend(gpu);
+-		etnaviv_gpu_clk_disable(gpu);
++		etnaviv_gpu_clk_rst_disable(gpu);
+ 	}
+ 
+ 	if (gpu->mmu_context)
+@@ -2013,7 +2005,7 @@ static int etnaviv_gpu_rpm_suspend(struct device *dev)
+ 
+ 	gpu->state = ETNA_GPU_STATE_IDENTIFIED;
+ 
+-	return etnaviv_gpu_clk_disable(gpu);
++	return etnaviv_gpu_clk_rst_disable(gpu);
+ }
+ 
+ static int etnaviv_gpu_rpm_resume(struct device *dev)
+@@ -2021,7 +2013,7 @@ static int etnaviv_gpu_rpm_resume(struct device *dev)
+ 	struct etnaviv_gpu *gpu = dev_get_drvdata(dev);
+ 	int ret;
+ 
+-	ret = etnaviv_gpu_clk_enable(gpu);
++	ret = etnaviv_gpu_clk_rst_enable(gpu);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -2029,7 +2021,7 @@ static int etnaviv_gpu_rpm_resume(struct device *dev)
+ 	if (gpu->state == ETNA_GPU_STATE_IDENTIFIED) {
+ 		ret = etnaviv_gpu_hw_resume(gpu);
+ 		if (ret) {
+-			etnaviv_gpu_clk_disable(gpu);
++			etnaviv_gpu_clk_rst_disable(gpu);
+ 			return ret;
+ 		}
+ 	}
+
+---
+base-commit: 14c3f1cbcec18927f1b6faab03f0d95c0bd1da74
+base-tree: https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+change-id: 20261023-etnaviv-rpm-reset-4259b2c517c4
+
+Best regards,
+--  
+Jerome
 
