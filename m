@@ -1,73 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362525;
-	b=Wc+qd/67+nqA0SzKysRGUHTswbpB1jBcgKOvctzD97HkxrG7zD01UlFhiNDm6lOhDh1U
-	 rX9OCblQCMLx2lel78aw+fTPxg9sMYnYuO+FCmGQyg5eqDsy8FAAipTDL2tUlB8EUWDIj
-	 TLka0iAO23Nx+tDRvz+aUjPzOws0LyzvSnm/kL9RD7kOfnMgOCX3nxB87JMzhGdsIVgvV
-	 nrY/xBYU4KnhBDGUXCbQ46fxh6A6XFCHXZ2C7oSHvwEVoYjqk7s6Rw/ZokOIqLF6dh/zd
-	 uVQ7hg4H/mUzvaNUkXsAszS99eGKg2RKBciJ0XbLsPDt0Fim++xulpQPA3M7JCp/aqA==
+	t=1793362520;
+	b=15fCD71Gd7uDz0ZhMPgnUxYl9sONEohinulmZ/PdT3dupLWpqEnYYrHY9J9LmUR2OKd5
+	 /SaWIyIGYR9umXq6h4wCzFbsgyHP+gWFoSKP0rfMpu4oFLF5kXOHCgHF5FMqJH2lIfBBf
+	 U2n99KXPXTY9Si9zsPvyBOxyDMqC/UMsoZEZYZERLUazoRQYA0+iCygGhB0Dht6BaJ2z1
+	 MLMwxRAgqm1/N60lp8F5kfhQI9NaSxdDCj6V3eemIFjI+RnAlU4TuZhbtcrpP+0Asqjax
+	 RR37QKpx2CNClW2Xg3swsc+Tj9FPVYhLIHQkfmn8qs7vl1e7gqNYrGKG+x1wMh4k1Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362525;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=M6vrpTbfwaCimuJf7xEfcbD93enR29jER9mfIcBXf4o=;
-	b=IBP1146mZcozpKPJDL9FUsKJ26gLlcQsU0ORScIUUPP/jlZ+Zo0CxnNoXCTYa6nBEmYF
-	 3eZ+SaYCK79qjBElwfxSyrsPKfqFrxm6BgSJ8wvA61SlAzndVwL10OTEFfUj++xDJ9XeU
-	 pKHSx4Bv+IAisDJb8MymIr5AG5Q/sk8KIZ5OY5iWasjPVrNn8kdy+sXFVpvMFdIQ231ID
-	 kwqZ6xyn0x5ms5hE0fqXP0j5btkCjlDMN/bU7vxBn3GP46hOyNNovl0D9696Fjo+61KCC
-	 9ykeLezuaq+4zvv2dS+7/8eH+CcLPvQ1468e251sHxumF11hcpoFmOBt29+Yf7QX8zQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362520;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:User-Agent:X-stable:X-Patchwork-Hint:X-KernelTest-Patch:
+	 X-KernelTest-Tree:X-KernelTest-Branch:X-KernelTest-Patches:
+	 X-KernelTest-Version:X-KernelTest-Deadline:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=zduN4WfUYv01Llk6xJOg5uu/XzefVpEyKeRryIQDT+Y=;
+	b=yiM9fRmC/BDIlphx0KshFPXZWDJfibmTbFtmjR3+pHq8yv0Dpr3UA0h5djOPkzx20UKs
+	 07tQMMhnOpXVkuABGRC2mYxz5u0fhzUzJi5bi/5bB01GgxYtEds+L5R0jgdDJ8FTKv9lK
+	 +jlI1sfuSmFbQyRJzzgL0VCbbmJ+n3hlow7wc0bsBmDZIW6E/gGYt8eTSiOKhupcYsIR1
+	 7wU1Yj4blpI/ulwfoiBdxmSyKWLSVU0/qhK4MXK2ntITy4uZMu+x26gyzyP+geK1/ARcN
+	 z955UHqhGpv9JcUPxx4yI+qcd03I5VQ4bBVFQUDTxkkXqzFoEyUOYTrMhmWyawaBsrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=iuKGw6pv;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2bMC73my;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C707606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:15:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C707606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5F6606A31D;
+	Fri, 30 Oct 2026 12:15:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=iuKGw6pv
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=M6vrpTbfwaCimuJf7xEfcbD93enR29jER9mfIcBXf4o=; b=iuKGw6pvyPH0U/Wm1hYpuMNVEZ
-	r2ReXV3Ir/s0akOOyvBxVkQYgGDeAxx0TCy3uAzN+G86zYduTzrhhviKIzcQ2oLsYHpDNjoqWjFqK
-	T8UdxtrfBa+T+B8svIVhhtgg30UWa6wThD7vQ0M+JswT5nqZExh/An8nRrV7ZW+I8xYEobeuKB1aP
-	F2vpDN6QZOqqiN1QpK2m8fzL8XQnZ1uJBGn/Tq0xlo2la6q5wFf1ZsJDRIYxL6HbbGDfoPZfZEjOx
-	bCmofoNpLwmCTTedWHPS3C86aUQrc9OqoW/8we9nenEr32PkPelA2wvD2eSoqGhtwtTqrH5nSxJm2
-	FHtbg1nA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xMlVw-00000005tvF-06Y2;
-	Fri, 30 Oct 2026 12:15:20 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id ACE30300578; Fri, 30 Oct 2026 13:15:18 +0100 (CET)
-Date: Fri, 30 Oct 2026 13:15:18 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Qais Yousef <qyousef@layalina.io>
-Cc: Christian Loehle <christian.loehle@arm.com>,
-	Ingo Molnar <mingo@kernel.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org,
-	Wei Wang <wvw@google.com>
-Subject: Re: [PATCH v4 1/2] sched/uclamp: Fix race condition leading to
- imbalanced uclamp_rq
-Message-ID: <20261030121518.GE1813469@noisy.programming.kicks-ass.net>
-References: <20261029131354.11030-1-qyousef@layalina.io>
- <20261029131354.11030-2-qyousef@layalina.io>
- <c4740152-e873-4409-b3a8-16c5a49548dd@arm.com>
- <d944d543-1756-43d8-aa08-bcbbf6df712f@layalina.io>
- <75772ae5-d297-4894-971a-683f92fb87a4@arm.com>
- <20261030112825.z7k57twgua27p2vu@airbuntu>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2bMC73my
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B49D1F000C1;
+	Fri, 30 Oct 2026 12:15:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793362519;
+	bh=zduN4WfUYv01Llk6xJOg5uu/XzefVpEyKeRryIQDT+Y=;
+	h=From:To:Cc:Subject:Date;
+	b=2bMC73mycUo6Qc7xiMztRNLHXVrZbJXFwFEUEZ7oqYk+2Yjd7+owIc6UZCk9CkDA4
+	 E4PPMuVrLb0Ry9NgpN0iYEvFnjC2bCf4mfekMWLW0WOUyfVTmwz/3vCmzpUHjg5xGj
+	 bHKhfCvXc4RRYlMFUUvmN7m+6PhrRQHPLwBEKWRY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com
+Subject: [PATCH 7.2 00/10] 7.2.15-rc1 review
+Date: Fri, 30 Oct 2026 13:15:01 +0100
+Message-ID: <20261030121255.257615100@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,24 +73,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030112825.z7k57twgua27p2vu@airbuntu>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
+X-KernelTest-Patch: http://kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.15-rc1.gz
+X-KernelTest-Tree: git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+X-KernelTest-Branch: linux-7.2.y
+X-KernelTest-Patches: git://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git
+X-KernelTest-Version: 7.2.15-rc1
+X-KernelTest-Deadline: 2026-11-01T12:12+00:00
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 11:28:25AM +0000, Qais Yousef wrote:
+This is the start of the stable review cycle for the 7.2.15 release.
+There are 10 patches in this series, all will be posted as a response
+to this one.  If anyone has any issues with these being applied, please
+let me know.
 
-> Peter/Vincent, what do you think? It seems we have a schrodenger task that is
-> both enqueued and dequeued simultaneously in these throttling paths. Shouldn't
-> this be fixed? If yes, any thoughts on the right approach? Should we throttle
-> if there are no other tasks on the rq too? I didn't realize the semantics are
-> that strong for enforcing the quota.
+Responses should be made by Sun, 01 Nov 2026 12:12:50 +0000.
+Anything received after that time might be too late.
 
-Urgh, nothing is ever straight forward is it ...
+The whole patch series can be found in one patch at:
+	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.15-rc1.gz
+or in the git tree and branch at:
+	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+and the diffstat can be found below.
 
-Bah, so this is because the core does uclamp (for classes that have it
-on) but then the class does the throttle without going through the core
-{en,de}queue.
+thanks,
 
-Does it make sense to have throttle_Cfs_rq_work() and tg_unthrottle_up()
-do uclamp_rq_{dec,inc}() respectively, along with the
-{de,en}queue_task_fair() they're already doing?
+greg k-h
+
+-------------
+Pseudo-Shortlog of commits:
+
+Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+    Linux 7.2.15-rc1
+
+Christian Brauner <brauner@kernel.org>
+    fork: don't create io threads once PF_POSTCOREDUMP is set
+
+Christian Brauner <brauner@kernel.org>
+    fork: move the coredump and exec checks into create_io_thread()
+
+Christian Brauner <brauner@kernel.org>
+    exec: cancel io_uring requests before de_thread()
+
+André Draszik <andre.draszik@linaro.org>
+    kbuild: link-vmlinux.sh: improve detection of third pass requirement
+
+Ridham Khurana <khurana.ridham222@gmail.com>
+    platform: cznic: turris-omnia-mcu: Add missing MODULE_DEVICE_TABLE()
+
+Daniel Schaefer <dhs@frame.work>
+    iio: hid-sensor: als: scale each channel individually
+
+Stefan Metzmacher <metze@samba.org>
+    smb: smbdirect: don't hand out already failed sockets in smbdirect_socket_accept()
+
+Stefan Metzmacher <metze@samba.org>
+    smb: smbdirect: release failed pending sockets of a listener
+
+Stefan Metzmacher <metze@samba.org>
+    smb: smbdirect: don't wait for RDMA_CM_EVENT_DISCONNECTED in smbdirect_socket_destroy_sync()
+
+Namjae Jeon <linkinjeon@kernel.org>
+    ksmbd: wait for negotiation before receiving another PDU
+
+
+-------------
+
+Diffstat:
+
+ Makefile                                       |   4 +-
+ drivers/iio/light/hid-sensor-als.c             |  22 +--
+ drivers/platform/cznic/turris-omnia-mcu-base.c |   1 +
+ fs/exec.c                                      |  11 +-
+ fs/smb/server/server.c                         |   5 +
+ fs/smb/smbdirect/accept.c                      | 227 ++++++++++++++++++-------
+ fs/smb/smbdirect/connection.c                  |  12 +-
+ fs/smb/smbdirect/internal.h                    |   2 +
+ fs/smb/smbdirect/listen.c                      | 137 +++++++++++++--
+ fs/smb/smbdirect/socket.c                      | 113 ++++++++++--
+ fs/smb/smbdirect/socket.h                      |  42 +++++
+ kernel/fork.c                                  |   4 +
+ scripts/link-vmlinux.sh                        |  20 ++-
+ 13 files changed, 489 insertions(+), 111 deletions(-)
+
+
