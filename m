@@ -1,71 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362608;
-	b=sXA6O4dNqJrgfIrp7U4OZ/GWLsXBsFPkCbiZXUtuWWKT032s71s5B42Gcg5i46ZV6yUj
-	 EhmZUceWo7Fcy1Djpgkb5nqjsuKZ68IWmDRIosRRF0yILKBhnpF+R4FGWq0rBAfr3LVtZ
-	 OdFmgko/kv1nGKvI6FNICtNf+iENYNrjWAemUX/MaltBP+IPZkmMkVtx0Ebc8yTUNE/oD
-	 QXwJlawYShjw4rjO3DixtFpFE6CsepzF1sH0KxeWNxvVO3opMgUhUT0z04pPvZ0FBWIkJ
-	 YusQ8H1jYMm04gAcfJIzEL/bz9NITpruzhDfiUPNHtVNBbjMmv8fEEqBN4jh7Ubx1ew==
+	t=1793362644;
+	b=eumLnVE2/K2whfXEODP1cyaWvwrw4bcUvG8m8EAcCu/DAfmkwabV0HJF952T7Dd6rJyZ
+	 VxaGx9vWPb9ymOYxpyFkqeeIZyaIxDkuIiNggwKsw9lop6mmpufqcZSSIEaVKE4YO7QFE
+	 8W/pqMusbVSqASq5nM62KigmeA31Qt6r259gB3C4b8jdtYjTM2yb/7z9SzBvl3M6QPTCn
+	 2bQjcd4DNuN/y5lCobzt3iM6nDkEIOK81Upf6lPVc74bme4JBZP1PY6uhYL81eAnjQs6A
+	 LFuTEnA8GKbNOCO8k8obqJaoqCQCFMojFsEdbWGEaa6/PLozWQx990r9omEUNV6gnFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362608;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362644;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:Mime-Version:X-Mailer:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=401n+ZrTzD2Uf9jF8wRJmI5BgTpaeQ35V3fMgzsFnx8=;
-	b=cs9jDWFZhot4rH/8p62ULZpMjh4ZggC5FgOT5y6UU4OjBh5jw+kNI6NdRCfXHS3A8OgM
-	 MqkI1v0JnnEexpN5YC7x5hf+UsZfyPFiD9GgPHyDo2/hMIAhc8D5VidToWHibhBYqC/8G
-	 iGL7ZnRM/li8zrWVvtyPiIo4NX7iLY4qeJOa/5y53uRyItVR7h+g7anBPpmO9+RSRkBAl
-	 fiGYj2gQYVtxzOPGHYWBdNq/mJh6LHGkyMtFPiyI/6Soookv91DsFqj1TJxMUdnaTBT1e
-	 auo7VT40wBaKz4JceKWERH9XAmazbfD7TXgV+vu8dw1Jf0nXsHXiCclDpk8xqV/F19A==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=HpxrkdHX+pHoxS8QiLrmBd8NFzaZIUXGXtbQN2oLq54=;
+	b=pyEtYfABsfssHRLup1K2ju5dOtbPj6RWgFpSDrttKkcq3WnhENOPeNljXkoZIQVCeNIN
+	 zOAqKL84QFi6KauodBGK95KQsyOf3m8Sa8/ORPJ/n/YFL8b+0ViwU7k6qVS6RSH3lx7q1
+	 nygpQGzki4QI91p3A1KjfTLVQNCiVB7WhSYOmcl5pJ44T0seA9GB9cDTzFKbhjUEKPOYw
+	 tEy3KiAehRXBsBUSPzIR2FoVrc4baehTvrKK80DEGssxi0cF73HBxTn9KYg6SWpCSc8DY
+	 Hwjm5k6xYavn9hm0hxgw1OD22GN/9Gghm8/C4+pmws2BuhWF99l1I8toWzVUr3eu1sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JivvvA3G;
-	arc=none smtp.remote-ip=209.85.210.199
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SExPc0px;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64108606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:16:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64108606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC22606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:17:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CC22606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JivvvA3G
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a03834d8ffso789154b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:16:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SExPc0px
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ae73921fd1so610376a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:17:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793362608; x=1793967408; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793362643; x=1793967443; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=401n+ZrTzD2Uf9jF8wRJmI5BgTpaeQ35V3fMgzsFnx8=;
-        b=JivvvA3G7Ttaj5BpIEgT/nHfrKnLVfGrFerx33hz2KxeaSi0r6tnn4facUBmz1kV49
-         f++UvC2TYyX3R7uDE/xRxjV3UJ7SoIxHyu9SLCHYCKEdJzfuSJ9W8tcQRdkoxOEjdU6C
-         4npNV1fGQegj/ExwOdN0RZuoyOGSdSp1s0p/suUx/3nmBMPMIRlLeuevBSGJuORWMghF
-         AwaId4un8aVWKK2NuGjXP7iiW9YwWqvqjKc/OtHCdrQL1OZAyKkbh4vU832EtUbU+Riz
-         P6IPY7wpdGOl4Xk27mjMAUDYtPho3okr990vSYLOkxIJZl/VFTVw+PQqkmRSEnxIUhH7
-         bMGQ==
+        bh=HpxrkdHX+pHoxS8QiLrmBd8NFzaZIUXGXtbQN2oLq54=;
+        b=SExPc0pxrHXKP0ZT829eqVWuNQOocfBLkPZpMCKVd5V7/jh8ldGjq6kZKGN3llEO8U
+         KI1tKluJpotNwYx8pg3rada5ovdVeCRnwGKjv8CZbF+EMKk85F+KUhJU/2qbBCbOWsWM
+         HfW49msLnrkSYfzpk2V2UAGSP6l2MMS7RRbpEuX8yuPDEmGZC3feOna6ATBrJWGFzQEE
+         WOjdzr7fiwTKjns+noJTb8tTC3EO1Py2DQyYzRbG1qL4DOABf/vQwDNEzxtjOn3sZkxy
+         RnSdRQoFEwu/05DVWGfUpUz521yZhaRlCal1i/KildTgIkdbKA71zVeAqi48PXPsLKQu
+         xZ4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793362608; x=1793967408;
+        d=1e100.net; s=20260707; t=1793362643; x=1793967443;
         h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=401n+ZrTzD2Uf9jF8wRJmI5BgTpaeQ35V3fMgzsFnx8=;
-        b=cfShu8OAoYP1LW0UbwTXCG6XLWwccH8FfMFwQrJchivrY3143BljbX3vYdWmZNbu93
-         hIRc52ampGAAbQ26t+irAiEm5UWCfJQb4+i0DnJtkw1cdmMkv3DYavbMHWoIjbzQnlcK
-         UMECNpuj0pPCA0VMnn3+0tqkzDVMJhGvJSywGF/viFlAv2QjNpOL3HxWpAky3fqot+9U
-         gcC4bVXic8cMhWzKt5NRyAOPwV8xJkWcq8Xf9tttb6LC6izFucmBdtPwweOO3Tha9R4R
-         t1mT1IRhgzs+4MN7gUxLbd2RRx1hQSZVrknAM/Vq3YD7OdMLecWnQ0k+H8pftwXS3prA
-         V4Cw==
-X-Gm-Message-State: AFq9FYKIpyVpJ97zO8BN4zplXIBVrEFj5yT7Uz0M9reFtDesRWwCTj1T
-	zU6qpGQzLI7wXBfYJYulCGCVHtgjPQsPy0G+foXJmp7T5ev+b5UYV8ERdGOpwpmBgryjuODDy1s
-	CGVLljqn3/JZ37vDkajfjnA==
-X-Received: from pffh8-n1.prod.google.com ([2002:a05:6a00:c248:10b0:889:4fa3:fafc])
+        bh=HpxrkdHX+pHoxS8QiLrmBd8NFzaZIUXGXtbQN2oLq54=;
+        b=mkyWvXLMG+/YfVsQ2z0aMikpc4V0l2IXJBtyIat6BFJduK55NIgHgUA0LMqtjXWg3c
+         xbkr6FAe4qyMc0f5DP2bGgs4KeJiMoUe4jMKfJtRH9Z+MK7U/O3f0BoTn1O7n+2nhM4q
+         SKknF8L2fdFzJPNMUh8+rrUiaL5CrIX+pJbevhuDmZckKt4ZUnLvLcMu8H5DyC/+MJ6D
+         xzRMf8+epryFYJNRupimNFR+QVc71kuXHT5dejAtKqOGfj+vUJPwoc7I2Zy3WOppXjcN
+         wDcfbqAmlDGZrp4w+QY4RRjk0lTW3zesfjQlosUybcoNLV5yM0k6cB92MaTW0kzu2TzM
+         5OuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz4L1X4NyWPI53Gs/RBEu5yT8agDjGB5nES+GzEa2LL8SV1rvopTY5Esii/Aqod6s5XnLz4cZGUiBSuFUM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0kEKgwGbhpoakxhuPDRorELLln71q+5JwQR8ezzbbulI/Yj5m
+	W78DG6bGerwBnvgs/T0ifhLn/POymFSJhELSgYIoiXhbLm0k/5igMOjnElmb3UkknodsWAc+ckJ
+	4SniOXNb89L/SwJcgPTre7Q==
+X-Received: from pgby23-n1.prod.google.com ([2002:a05:6a02:6517:10b0:cc7:4919:5ed9])
  (user=jenhaochen job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:17a4:b0:89a:5:92c8 with SMTP id d2e1a72fcca58-8a9bfde72eamr1964748b3a.51.1793362607469;
- Fri, 30 Oct 2026 05:16:47 -0700 (PDT)
-Date: Fri, 30 Oct 2026 12:16:33 +0000
+ 2002:a17:90b:5106:b0:3ab:e588:c295 with SMTP id 98e67ed59e1d1-3ae8983c798mr1659513a91.42.1793362643165;
+ Fri, 30 Oct 2026 05:17:23 -0700 (PDT)
+Date: Fri, 30 Oct 2026 12:17:00 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,56 +77,74 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261030121633.258612-1-jenhaochen@google.com>
-Subject: [PATCH] zstd: Build with -O3 and use shift mask on arm64
+Message-ID: <20261030121700.260975-1-jenhaochen@google.com>
+Subject: [PATCH] mm/zsmalloc: inline obj_malloc() and obj_free()
 From: Jenhao Chen <jenhaochen@google.com>
-To: Nick Terrell <terrelln@fb.com>
-Cc: linux-kernel@vger.kernel.org, Minchan Kim <minchan@kernel.org>, 
-	Martin Liu <liumartin@google.com>, Ben Wei <benwei@google.com>, 
+To: Minchan Kim <minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	minchan@google.com, liumartin@google.com, benwei@google.com, 
 	Jenhao Chen <jenhaochen@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Upstream user-space zstd builds with -O3 by default, and lib/lz4/Makefile
-already sets ccflags-y += -O3. However, lib/zstd/Makefile compiles at
--O2, and BIT_getMiddleBits() only enables the branchless shift-and-mask
-path on x86_64, falling back to a BIT_mask[] lookup table load on arm64.
+In zs_malloc(), the fast path (if (likely(zspage))) allocates from an
+existing zspage via obj_malloc(), while the slow path allocates a new
+zspage via alloc_zspage().
 
-Add ccflags-y += -O3 to lib/zstd/Makefile and enable the shift-and-mask
-path in BIT_getMiddleBits() on __aarch64__. On arm64, this reduces zstd
-CPU cycles by ~7% and improves decompression throughput by 12-23%.
+Because obj_malloc() has three call sites across zs_malloc() and
+migrate_zspage(), Clang at -O2 leaves obj_malloc() out-of-line, adding a
+function call on every fast-path allocation. Conversely, because the
+362-instruction slow-path alloc_zspage() is static with a single caller,
+single-caller inlining under CONFIG_AUTOFDO_CLANG (e.g. with
+CONFIG_ZSMALLOC=m) inlines alloc_zspage() into zs_malloc(), growing it
+from 254 to 691 instructions.
+
+Mark obj_malloc() and obj_free() __always_inline and mark alloc_zspage()
+noinline to keep the fast path inline and the slow-path page allocation
+out-of-line.
 
 Signed-off-by: Jenhao Chen <jenhaochen@google.com>
 ---
- lib/zstd/Makefile           | 2 ++
- lib/zstd/common/bitstream.h | 2 +-
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ mm/zsmalloc.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/lib/zstd/Makefile b/lib/zstd/Makefile
-index be218b5e0ed59..900922ab5b94a 100644
---- a/lib/zstd/Makefile
-+++ b/lib/zstd/Makefile
-@@ -12,6 +12,8 @@ obj-$(CONFIG_ZSTD_COMPRESS) += zstd_compress.o
- obj-$(CONFIG_ZSTD_DECOMPRESS) += zstd_decompress.o
- obj-$(CONFIG_ZSTD_COMMON) += zstd_common.o
+diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
+index 6258a4f5e9fce..5d3443f14a48f 100644
+--- a/mm/zsmalloc.c
++++ b/mm/zsmalloc.c
+@@ -960,9 +960,9 @@ static void create_page_chain(struct size_class *class, struct zspage *zspage,
+ /*
+  * Allocate a zspage for the given size class
+  */
+-static struct zspage *alloc_zspage(struct zs_pool *pool,
+-				   struct size_class *class,
+-				   gfp_t gfp, const int nid)
++static noinline struct zspage *alloc_zspage(struct zs_pool *pool,
++					    struct size_class *class,
++					    gfp_t gfp, const int nid)
+ {
+ 	int i;
+ 	struct zpdesc *zpdescs[ZS_MAX_PAGES_PER_ZSPAGE];
+@@ -1209,8 +1209,9 @@ size_t zs_huge_class_size(struct zs_pool *pool)
+ }
+ EXPORT_SYMBOL_GPL(zs_huge_class_size);
  
-+ccflags-y += -O3
-+
- zstd_compress-y := \
- 		zstd_compress_module.o \
- 		compress/fse_compress.o \
-diff --git a/lib/zstd/common/bitstream.h b/lib/zstd/common/bitstream.h
-index 86439da0eea76..01e69ab7053b4 100644
---- a/lib/zstd/common/bitstream.h
-+++ b/lib/zstd/common/bitstream.h
-@@ -299,7 +299,7 @@ FORCE_INLINE_TEMPLATE BitContainerType BIT_getMiddleBits(BitContainerType bitCon
-      * such cpus old (pre-Haswell, 2013) and their performance is not of that
-      * importance.
-      */
--#if defined(__x86_64__) || defined(_M_X64)
-+#if defined(__x86_64__) || defined(_M_X64) || defined(__aarch64__)
-     return (bitContainer >> (start & regMask)) & ((((U64)1) << nbBits) - 1);
- #else
-     return (bitContainer >> (start & regMask)) & BIT_mask[nbBits];
+-static unsigned long obj_malloc(struct zs_pool *pool,
+-				struct zspage *zspage, unsigned long handle)
++static __always_inline unsigned long obj_malloc(struct zs_pool *pool,
++						struct zspage *zspage,
++						unsigned long handle)
+ {
+ 	int i, nr_zpdesc, offset;
+ 	unsigned long obj;
+@@ -1321,7 +1322,7 @@ unsigned long zs_malloc(struct zs_pool *pool, size_t size, gfp_t gfp,
+ }
+ EXPORT_SYMBOL_GPL(zs_malloc);
+ 
+-static void obj_free(int class_size, unsigned long obj)
++static __always_inline void obj_free(int class_size, unsigned long obj)
+ {
+ 	struct link_free *link;
+ 	struct zspage *zspage;
 -- 
 2.56.0.317.g454f8302e1-goog
-
