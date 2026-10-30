@@ -1,57 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793379287;
-	b=lHvVS9OZoOpa8Wv0MTMOBY/Rn1CckjmBAl4JXs7uLQuovD2UAB888ttzU2J8YzmTde7q
-	 mEoVO8RR/9YNyleh9c0KYyFRZaWjkRAfBcmdUsUqYq5guTDF04TiAMr0rej6MlI3yGQp/
-	 0oyhMn40c/H6w1zhiXGZYda4qPXMum4C5f2hkzIE6D+MSr8Wi6kGSAM7xRSDxZLckesmZ
-	 WNZMOLeTG0XBpnVAoEuMtpc98KeAr1Vg6Mm8E87IKfBbFcp8Z5A9fGvGd2kbgA9poSwdX
-	 kbhXOB3upcwQadL7xm9FpQrr0hpag7HXl42csKYD1a/uIJwWg7HTz0GTnwQVrRUDBdg==
+	t=1793379288;
+	b=uTd0nVUwC9Rmafs+IyDXQoof8LdaK89iWSngkjZdFdAuy6XUKMP+ySOH75fKQZqqiRVj
+	 Yu2mDmDiRAoG2Dh0pMzP0gJRcmK0bD7wO1okgR4bEWb/7qKM+e6ja8f1c1uLsPQ7cZyZF
+	 6QmEVq7bkYEEw1vRaHA0oEelSy9FIAFiiX2wXMTb6mgxeO+aBhty4gqELcvIIgJRkvgGr
+	 SGnKSvo9kcNfRfR+pE8+kmFUmsHOVeag7iiORCDwfvzL9nmD0GpGW8uEj/ekuvP6smqfw
+	 aGtWFcQzucLslAnGVch+QeK0WKWO5xkNs9eRfX5R052qqpBifITK3Z16uriPxvxp7IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793379287;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793379288;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=Zup0ssAFr6iZK+F8bd6TsKJG5vW3IBQaP27+OPMuXxY=;
-	b=D5MMkWRCb30R78ASx3XEY0GQoMj/IiKZERZ+zfBBd7usKo4w7/5gyM3uheDqJyzQ2Yoo
-	 MRhidsXVZvwgeuYvTQl4KzVBP86ZFdrCjFG/gQui5wl17utAVoD0zpKN3bWuRFyw2TeJo
-	 32/F+ozXffEfcMEnj+yaWvYTfNuu3btp/eyWWlEmfUOBTQMWGISQS4ax8P9pcZJJwc7dW
-	 MDM1HjxNdUZ12WOU7Rk5542y+ex6WUxsmaehQ+W+hYxs0uef20c9F0J394btx6IMqQtRv
-	 FBgUexAFB67qU7GgRhBG7cSaIIu7XL9t36KmI2rQTzhSali4dqTX6Lpt0b2ax9aqGiw==
+	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=pQxv4yu+fEpc3hiDDM7wEn6ze+a077cgosVcKLNlT+s=;
+	b=e+4YQeeKxnCux6wxmzacUKrTlRmKYpticrfe5a4eAX9taxoaib98jY887PXs1afcvhFq
+	 46AlKB2ZWs2F30Pnn7f9U94spn58/wvWIc8Y7/CcIdk2KvafDfEmrDASpEeMZUbCjKsg5
+	 PQ0GLe6v3xh/woBfPoprRk46yytYpGhy6DKap5cMasvvf5UekmqknAsblNSVW1mOxPbTk
+	 OdXZW8wA2Zi/soQRgdBmcPgTiy6fJDkw0bO5nKzzea9fv+zoRUdIS+nPBov8TiSasOGkK
+	 pex5nFgu9hQxxUWnvaScRP/88r+/1BYrlyu6Z1jDoMFpxnlX+XPp0R9+q4m+RngRfrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.sdu.edu.cn;
 	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=ddmpdcPB;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=c5Myz7K4;
+	arc=none smtp.remote-ip=101.71.155.101
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC48F606A32C;
-	Fri, 30 Oct 2026 16:54:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC48F606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA623606A339;
+	Fri, 30 Oct 2026 16:54:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA623606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=ddmpdcPB
+	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=c5Myz7K4
 Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 52f74f11f;
-	Sat, 31 Oct 2026 00:54:38 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 52f74f121;
+	Sat, 31 Oct 2026 00:54:42 +0800 (GMT+08:00)
 From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Lee Jones <lee@kernel.org>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,
-	stable@vger.kernel.org,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	mfd@lists.linux.dev,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 5/6] mfd: stmfx: Fix potential IRQ action leaks on removal
-Date: Sat, 31 Oct 2026 00:54:28 +0800
-Message-ID: <fb75e2706d7608956b5198c674fedd2f9cae7d55.1793377422.git.liguangshuo@mail.sdu.edu.cn>
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andy Walls <awalls@md.metrocast.net>
+Subject: [PATCH 0/3] media: Fix potential lifetime errors in probe rollback
+Date: Sat, 31 Oct 2026 00:54:38 +0800
+Message-ID: <cover.1793377439.media.git.liguangshuo@mail.sdu.edu.cn>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1793377422.mfd.git.liguangshuo@mail.sdu.edu.cn>
-References: <cover.1793377422.mfd.git.liguangshuo@mail.sdu.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,59 +56,32 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa18dbc1f2f03a1kunm46158e5a52a2e
+X-HM-Tid: 0aa18dbc2df203a1kunm4d3d9b7e52a39
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCH0JIVksfHkIeGENLSRlLTFYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGExPVk4YH0NNTB9MTh8ZTlYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
 	++
 DKIM-Signature: a=rsa-sha256;
-	b=ddmpdcPBR8UZeA8kfxBKyFYBSAYtV/iJ26Hm5kvVoLbNCpUxTJs/wD4rT5fgmSc2qEcUxom4pcZGMxOx5wz7C2mHlSGtSFX8olaJmRSVEbwtK3l/6vJV5hzDvqub4mLHYhvLGIT+6X3IMV+fyMP1fJo1oLdNI8p+W/P0We9IEXY=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=Zup0ssAFr6iZK+F8bd6TsKJG5vW3IBQaP27+OPMuXxY=;
+	b=c5Myz7K4ZyHDfhmBKZo90FQ0B/EVgegbqORsqRohKfp3fwm1yFkyYpbpA7CO2QkaO0NfufOQk52A0qmcZo3BWJnxH3WCRzylxFJuOMbV3kaolpW80S4U9lqEXQpmlKugzMD0s8Uw2fcQ57l30r5IBsMoa9qMyx9ZnA5KKbom+Tk=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
+	bh=pQxv4yu+fEpc3hiDDM7wEn6ze+a077cgosVcKLNlT+s=;
 	h=date:mime-version:subject:message-id:from;
 
-The remove callback disposes IRQ mappings before device-managed MFD
-children are removed. Their later free_irq() calls cannot find the IRQ
-descriptors, potentially leaking interrupt actions. Remove the children
-explicitly before tearing down the IRQ domain.
+Unregister a Siano client before freeing its context, and avoid freeing
+ALSA private data twice in cx18 and ivtv.
 
-This issue was found by our static analysis tool under development.
+The changed driver objects were build-tested. No hardware testing was
+performed.
 
-Fixes: 06252ade9156 ("mfd: Add ST Multi-Function eXpander (STMFX) core driver")
-Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:gpt-6-astra
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
----
-Build-tested the changed object with x86_64 defconfig plus COMPILE_TEST
-and the driver dependencies (W=1).
-No runtime or fault-injection testing was performed.
+Guangshuo Li (3):
+  media: siano: Fix potential use-after-free on graph failure
+  media: cx18: Fix potential double free on ALSA initialization failure
+  media: ivtv: Fix potential double free on ALSA initialization failure
 
- drivers/mfd/stmfx.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/media/common/siano/smsdvb-main.c | 2 +-
+ drivers/media/pci/cx18/cx18-alsa-main.c  | 1 -
+ drivers/media/pci/ivtv/ivtv-alsa-main.c  | 1 -
+ 3 files changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
-index f683fdb6ece6..82e81e084795 100644
---- a/drivers/mfd/stmfx.c
-+++ b/drivers/mfd/stmfx.c
-@@ -448,9 +448,9 @@ static int stmfx_probe(struct i2c_client *client)
- 	if (ret)
- 		goto err_chip_exit;
- 
--	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
--				   stmfx_cells, ARRAY_SIZE(stmfx_cells), NULL,
--				   0, stmfx->irq_domain);
-+	ret = mfd_add_devices(dev, PLATFORM_DEVID_NONE,
-+			      stmfx_cells, ARRAY_SIZE(stmfx_cells), NULL,
-+			      0, stmfx->irq_domain);
- 	if (ret)
- 		goto err_irq_exit;
- 
-@@ -466,6 +466,8 @@ static int stmfx_probe(struct i2c_client *client)
- 
- static void stmfx_remove(struct i2c_client *client)
- {
-+	mfd_remove_devices(&client->dev);
-+
- 	stmfx_irq_exit(client);
- 
- 	stmfx_chip_exit(client);
+
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
