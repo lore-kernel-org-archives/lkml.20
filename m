@@ -1,92 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.183.194
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793397596;
-	b=QV2PVb8Fz6rKVP4ooNBCQiQRX+DdzHQmDH/I7Vceh45Y7XC3m0XZzZnV7bGbWPOQAOCc
-	 AhPHGKKkigB/eXe9YVi02uhhoeqcBYeJx3rtnkxFXTNo2KovjficM/w+ZATAsjR+7I5Vi
-	 rC9OYwmXAh4eua3skTtJ5ObzWJmh6BMO03muMKJZMsCzhHj+lNZybyB7YWHy9ZsmX43TJ
-	 NGtn1e/NkjYVpcCth7kkvuQOCukllm9r5SNr4Etn7SnaJ9UN+7ZKDTSpbFS/Yt3jFSst8
-	 Sp+AF9Zz1V5XG1QHabM5Gar/NOyBqXDOcCbfmvn1vEl/yNqI4vv08BfsKXgGIqcMvQw==
+	t=1793397609;
+	b=VqhJmSNYi8GvQXz/XXg0nwDdg/rFFBC/OYrgqPq2UZ9U10lusZjvEStTZ00i1nqhSQgv
+	 0jxAZqsAZLcjx1HBivO8md7TgD9JiTd450p1sJDvXcqJsepTunqqv8425AFOTD8lUZ8JA
+	 4ultVv/sJ8En9K5+KxX33s7QU1POOCuq5zY+MGr8IB7m9IzSDztZ4+nLbchsJRBOthDEP
+	 ja4zUIkn94/0GrB++G6X+MGLWLMHdFlrdFoqWsNH2AIUFUS1eUAni6rZTUvxZgjqBpXaw
+	 rkGn4mLQP7q95Fb6Rq00QOzeJuZpHI1nmXBdRbHWtW26rOcnw5R9i7oAsF4Rg4WUAtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793397596;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cqVPzAxRYBnfkyaou+ZmBagBM9cb7geifcCND68rtOU=;
-	b=2TfsgERXYwfW8FtxaisbsE3OdzjpjYd5YpIgDolECi+lXKgwQGwS6QzUhchtwX7kajhg
-	 66LSoI/D026Y+YA+k5ad/hfnaZpzRx+qEy3cxR2XJcaKBL9f6wh+5XZeXCcTfTBUyRjyv
-	 5uUoOVq7C6K28cx5qduGTnPPttoLlTc3jWwvx0ZJ2vd3w61meM3YOgSE5wVsyRhI/iUGC
-	 lKy8PX2pwoOIePoUwSiNNPzXUHNR9JTtfHYWd34yY3egRS2gzNSfpG1SHhLzrrDp6VjTe
-	 wbLn4/XKrLNc6sv4WumdmBjBnxhjCQ1zsNElFyBfJcVNjBWPiYvb8U6BMx5IVmwI41g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793397609;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-GND-Sasl:X-GND-State:
+	 X-GND-Score:X-GND-Cause;
+	bh=SEe+SUWK2rxTs3v/5WQVrWp4ZPCN7HRi54mevK7AlNw=;
+	b=sIDcsUNspBkBLp5k5XmS6lk6XJ+PVLCVgYcu59EOTI2efsXWG/qqXdapWchZD4YE83bf
+	 gGbRa+UTCohWF4yICWhub+DNCm93hHpndoRQldqO+BU8Xm4tIjiFauB/Dcmccmx9+8U7E
+	 3vK7IIce2L73fRaBGogEh1PbNTc6ENUIB2L945IHdYxowsxipMKMQe7scRotisyQijoe6
+	 c7OOz4ldgX7yAogvwtQjjRefvKFzyN0RQKc2mAsXRATOpS9MmvhDkjVXgL+zKXwkcijxw
+	 jdVfXzTfQlIaQEkF9iIRxakdu4udOUwmDriYrsg32tCIijX8VHBxTgwMnRuO5cjYTTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xHPTiUxQ;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=a-marquet.fr;
+	spf=pass smtp.mailfrom=a-marquet.fr;
+	dkim=pass header.d=a-marquet.fr header.i=@a-marquet.fr header.a=rsa-sha256 header.s=gm1 header.b=hGcJfSZL;
+	arc=none smtp.remote-ip=217.70.183.194
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net [217.70.183.194])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58953606A332
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:59:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58953606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61548606A322;
+	Fri, 30 Oct 2026 22:00:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61548606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=a-marquet.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=a-marquet.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xHPTiUxQ
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48c5358fc28so932091f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:59:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793397595; x=1794002395; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cqVPzAxRYBnfkyaou+ZmBagBM9cb7geifcCND68rtOU=;
-        b=xHPTiUxQxKUdyd/EaSzHOImOy3GuKB/zxcHmflNS1dg1DgOLot8Vow7pGI+iuNaH2P
-         tnN1LWEwiIL8DU5gqGs8jUlDih25km7SPhB2SsFNSOLFbAqt4wpSpl9IPOOcZSnrl1Mr
-         Ga8ucI4GPk4RabaPCKN0GJOG9Ks1crXraHfqpe+OeVK3GUkhxBaj4tD3Nc/zaj5upuiT
-         dhmXLYmcZPiWCWzfN7obJUFhmAqEEHjt44efiMOgfj9xaZjvK3LVZDB8ByyP5LlZQLyv
-         4QZYcPxsljDjU0EnpANUgBWSV3/FGDe96vk2v3WaE50gqyoKSm5gsUs2uwEXSjjUA7Tj
-         QAFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793397595; x=1794002395;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cqVPzAxRYBnfkyaou+ZmBagBM9cb7geifcCND68rtOU=;
-        b=fFDYYBxi9wPGPqIwbnhcwiVkTl+QLJrj0iwxQ80IZfTkcvGAhnOyIY616IbDWVG0Et
-         fkC77Rc05MXgny8Tmp1XX/0cm9uRqwPBY7acdFfHZHYSpSy3NqHFyEucsRpWlYGG55ty
-         1QWYdf73UmtGcTAC7x0AVaX1kqfdI/duIjKkxHQ4BjqFcCCTPmOyCZBqk89Sgu1L7cuK
-         0biAMsAjprRRJDEOPIkZiInC3oGE/Na/quBzKXRuBqZufcOWNI5LDHgUEjy33Z81cIzT
-         YeYWoa+X1t4EvdipPrxUxDloB+cJLlC1VGU8gVQblRgimFH9tmZ9YS9cyrU30fXFXIoo
-         mhYg==
-X-Gm-Message-State: AFq9FYIwNav+GBnH3w+Ou4TjhCp8m5flQpwrtXoGOJoZ1+o4APtKSzr9
-	ZUdDpOeOmGQwUnlikV7mPNfKLBG6OEdKaKwdzT4OcfFIS+VeUemKSE1qtqUSyzmqxcI=
-X-Gm-Gg: AYBFou3YN2u2w6S2sMAEz34ER/U0DB3E2nxkw3HMwldQuhgstnQKjf0Ze1kcRqI0G0H
-	Stk3U7kHhI3KP6ONF8w5JzIk/+KvYPnsOTbyQTstGXil/EwQe18qMf2ddqf3csxRjY2KpZUfuHD
-	QopWm8+lNNxDFuuzFnBQEAFJW5eu84GbPxKM90pAerclUsXDdGhU33Dncg2RaYlNrOf6DJ0aers
-	IWfFUoG7H8Mx/JGk2XOMkbFp87U2gr2qwia5BbspjwaGDIYlLajimkkV9qec5YC7UFUijNuI0Gi
-	K9lKMqeFgMpX/WEMvp5S1c81Rbz5lzP8OUIJC0kYfpuTJu+I3BiL0utOszxczbQErMbFVJ+tZlf
-	NbffE+pqua/FGZuPwPpxNv9cxE86zTwHXvDv6BoAjbplqSaXAFpUO+/bDkDSegGGXPqbQ8r398J
-	UuvT1N7AtNwQbc90HCifG57hGL4KFKNEXPTcoEAEit2rCxd9t99i82IVSKPNE4B/3kA1iEeC+GQ
-	OhM6dkhc4/WMfyQ01x5g1XqPzdwRRvMEAd7vatgXbV2t7U1ft4xzXFhE3DAJYh0SpAVKGGwTGhM
-	2setjc6zVS8BHdFgIZbgPU2W3ooavMb5H5WTodJBCq4A
-X-Received: by 2002:a05:600c:a0b:b0:4a1:a6e0:4ce4 with SMTP id 5b1f17b1804b1-4ac183d2043mr76677775e9.33.1793397594525;
-        Fri, 30 Oct 2026 14:59:54 -0700 (PDT)
-Received: from linux-virtualbox ([176.123.27.73])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf723b5dcsm87207155e9.14.2026.10.30.14.59.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 14:59:54 -0700 (PDT)
-From: Salah Ahmed <haddad2inc@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>,
-	linux-wireless@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] wifi: mac80211: keep the tpt LED solid below an idle threshold
-Date: Sat, 31 Oct 2026 00:59:37 +0300
-Message-ID: <20261030215937.18103-3-haddad2inc@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261030215937.18103-1-haddad2inc@gmail.com>
-References: <20261030215937.18103-1-haddad2inc@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=a-marquet.fr header.i=@a-marquet.fr header.a=rsa-sha256 header.s=gm1 header.b=hGcJfSZL
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 5EFCC429A6;
+	Fri, 30 Oct 2026 21:59:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=a-marquet.fr;
+	s=gm1; t=1793397599;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SEe+SUWK2rxTs3v/5WQVrWp4ZPCN7HRi54mevK7AlNw=;
+	b=hGcJfSZL4w1jdsXi0YtwaOVS1gosJ8ykYGNj4MoQmozDdP7h0mXTk3AJPeB5rtpziLvhUr
+	ejPEOeitkSMOKfrKu2DS1Hq/DwBwGRzaoYk3CeYiG91kev0lA0ZbUJs7dHPmdJo/hprlr0
+	PC75sUp60vkTlTF79M9IEF4C72g9Z76/u2RL2Y//YvEBrVnUxXiJ8x88hq6v3BO3bEK0AL
+	qC2wHS7iQOVlDN/IwI5akvA4cN7ZJyiuE2psGMNcXcWrMHR8y0428ISCbRUgawpT5BWLgg
+	rs03U27xnZcJuyPX9pwiXUd5tIImMixZ9b1QBYFKignA6yhM7dXS/gcA3gTLYw==
+Date: Fri, 30 Oct 2026 22:59:51 +0100
+From: Alexandre Marquet <tb@a-marquet.fr>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	Lukas Timmermann <linux@timmermann.space>,
+	Henrik Grimler <henrik@grimler.se>,
+	Hendrik Noack <hendrik-noack@gmx.de>
+Subject: Re: [PATCH 3/3] drm/panel_edp: Add SEC LTL101DL02-002 panel
+Message-ID: <auUTV87eElVyIeTw@laptop-218>
+References: <20261027-drm-misc-next-manta-auxbus-v1-0-3a45c3cf531d@a-marquet.fr>
+ <20261027-drm-misc-next-manta-auxbus-v1-3-3a45c3cf531d@a-marquet.fr>
+ <CAD=FV=XmfYM8diBOh3UidN7xEuB3n+n9oAm_zhopfFLERC2QpQ@mail.gmail.com>
+ <auOyxKTuSNysAA3X@laptop-218>
+ <CAD=FV=VV82NG1CAL9DtLeDYQdjC9Su6nYfLYbjzmhzEY9a0JSg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,61 +91,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD=FV=VV82NG1CAL9DtLeDYQdjC9Su6nYfLYbjzmhzEY9a0JSg@mail.gmail.com>
+X-GND-Sasl: tb@a-marquet.fr
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: dmFkZTFc9EGaCvfEUCaoC4qgd/TP4sAVYRTco+4acfrE+gR7Lwjd88DtzEDt4+fgU97UMKvWoFC7r1VdcMOI/JEGYu+JEgXI3Gdo+5bhtmyy/MFrDPhXfeeCHu4+oIf/Tv81SvsFnGJq+P86UZjv5WkfU0jjAJtIh72ogLJ41sxqBhOph5CEeBM95pjZbbkT9KgWVFnVtqJzOqKBzh4PWWTiCHbbpeJmb5QbyfG+tmATGID1ag3v/Fgmtg+j6JC8e9WnFungznHcvdJv8DrJ0GaOwJtOL/d7k1vGfHZXY0SbsBJb1oDSKSOU52rG3/k/UtihxVETDVzoRyArdHiMPURQLbBcF5Rq2tW3X00I8xtyX2wJ8ka2qYDdRC+l7rCH50lSbOI12uwjvKSbuR+Ahk/0uFfaAOGLYqcc9fVdTq3iPd4CKrfgWEjV2qv1PUOKO9rW4U+zMvgXrmhLGwhOzCzVepCdokQCfVtBTE5gf5FzP9R0ipP7MXEIIpvz2QsngzTb4aMIbE2IQQBi3PeBpSdErj0f7361vJ5j/0Ep5me04GAJSdrgczGsKFZI7NqFi/QPJ3B2JYaNGivv2uZmcRGC4OFcngtyOB85nC77Eaefa4ATUtEVPghavX9NNc2gAkKbVkpS5MHX4DP7H0eeyFMbUVpELBi/KrCrYfzVOPgOnYXjEw
 
-The phy throughput LED blinks whenever the counted traffic is non-zero:
-tpt_trig_timer() walks the blink table from the top and only falls back to
-solid on when no entry matches, which needs tpt == 0 exactly. An access
-point transmits the broadcast and multicast it bridges even with zero
-associated stations - measured at roughly 2 KiB/s on a quiet LAN - so the
-LED blinks at the slowest table step (334 ms) forever and stops indicating
-whether anything is actually being transferred.
+Hi,
 
-Count anything below 12 KiB/s (96 kbit/s) as idle instead. That is the
-threshold the userspace activity monitors used on these devices were tuned
-against: it is above the background of a quiet LAN and well below any real
-transfer, so the LED is solid while nothing moves and still tracks the
-blink table as soon as a station transfers data.
+Le Thu, Oct 29, 2026 at 04:27:30PM -0700, Doug Anderson a écrit :
+> Hi,
+> 
+> On Thu, Oct 29, 2026 at 1:55 PM Alexandre Marquet <tb@a-marquet.fr> wrote:
+> >
+> > > > diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+> > > > index 94bc54c3833a..c92985363093 100644
+> > > > --- a/drivers/gpu/drm/panel/panel-edp.c
+> > > > +++ b/drivers/gpu/drm/panel/panel-edp.c
+> > > > @@ -2198,6 +2198,8 @@ static const struct edp_panel_entry edp_panels[] = {
+> > > >         EDP_PANEL_ENTRY('L', 'G', 'D', 0x0778, &delay_200_500_e200_d200, "134WT1"),
+> > > >         EDP_PANEL_ENTRY('L', 'G', 'D', 0x07fe, &delay_200_500_e200_d200, "LP116WHA-SPB1"),
+> > > >
+> > > > +       EDP_PANEL_ENTRY('S', 'E', 'C', 0x9c0f, &delay_200_500_e50, "LTL101DL02-002"),
+> > > > +
+> > >
+> > > It would also be good to note in the commit message where you got the
+> > > timings from. Datasheet? Downstream code? Guessing?
+> >
+> > Both downstream code and guessing, as I could not get my hand on a
+> > datasheet. I will add an explanation to the commit description.
+> >
+> > Basically, the downstream code waits: at least 500ms before toggling the LCD_EN
+> > GPIO for power on; and 200ms after. I matched the 200ms to the hpd_absent
+> > delay, since in panel-edp.c, hpd_absent is also the delay that happens
+> > right after enabling the LCD regulator (or toggling the enable GPIO, as
+> > appropriate). Similarly, the unprepare delay is called just before
+> > enabling the LCD regulator, through panel_edp_wait(), which matches the
+> > way the 500ms delay is used in the downstream code.
+> >
+> > For the enable delay, I went with the smallest value that would still
+> > work, but I admit that I did not try anything below 50ms.
+> >
+> > >
+> > > I had my AI agent take a look for itself. It found evidence suggesting
+> > > the enable delay should be 97ms, not 50ms. The other ones seem to be
+> > > OK.
+> >
+> > In the downstream code, 97ms is the delay used before setting the
+> > backlight on. My understanding is that this should be used elsewhere
+> > (e.g.: in the backlight node of the device's DTS).
+> 
+> I don't believe I've ever seen a delay in the backlight node of the
+> device's DTS, so that sounds wrong.
 
-Signed-off-by: Salah Ahmed <haddad2inc@gmail.com>
----
- net/mac80211/led.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+I was referring to the post-pwm-on-delay-ms property of pwm-backlight.
+But I tested without this property, and with .enable set to 97ms, and 
+could not find any difference in behaviour.
 
-diff --git a/net/mac80211/led.c b/net/mac80211/led.c
-index b5600d223..78fffe122 100644
---- a/net/mac80211/led.c
-+++ b/net/mac80211/led.c
-@@ -9,6 +9,16 @@
- #include <linux/export.h>
- #include "led.h"
- 
-+/*
-+ * Below this throughput the tpt LED stays solid on instead of blinking at the
-+ * slowest step of the table. An access point transmits the LAN broadcast and
-+ * multicast it bridges even with zero associated stations (measured ~2 KiB/s),
-+ * which is enough to keep the LED blinking forever while nothing is actually
-+ * transferred. 12 KiB/s (96 kbit/s) is the idle rate the userspace activity
-+ * monitors this behaviour was derived from were tuned against.
-+ */
-+#define IEEE80211_TPT_LED_IDLE_KBIT	(12 * 8)
-+
- void ieee80211_led_assoc(struct ieee80211_local *local, bool associated)
- {
- 	if (!atomic_read(&local->assoc_led_active))
-@@ -270,6 +280,12 @@ static void tpt_trig_timer(struct timer_list *t)
- 
- 	tpt = tpt_trig_traffic(local, tpt_trig);
- 
-+	/* Treat anything below the idle threshold as no traffic, so that the
-+	 * LED is solid while the radio only carries background broadcast.
-+	 */
-+	if (tpt < IEEE80211_TPT_LED_IDLE_KBIT)
-+		tpt = 0;
-+
- 	/* default to just solid on */
- 	on = 1;
- 	off = 0;
--- 
-2.53.0
+> 
+> The .enable delay here is described as:
+> 
+> /**
+>  * @enable: Time for the panel to display a valid frame.
+>  *
+>  * The time (in milliseconds) that it takes for the panel to
+>  * display the first valid frame after starting to receive
+>  * video data.
+>  *
+>  * This is (T6-min + max(T7-max, T8-min)) on eDP timing diagrams or
+>  * the delay after link training finishes until we can turn the
+>  * backlight on and see valid data.
+>  */
+> 
+> That sounds like exactly what you're looking for, no?
 
+Indeed. Also having the 97ms value from the downstream code in .enable
+removes the guessing associated with the 50ms in my initial proposal. So
+I will implement this in v2.
+
+Any preference as to where I should put the new delay_200_500_e97
+panel_delay struct? I was thinking after delay_200_500_e80_d50, but
+I noticed that the delays are not strictly in alphabetical order.
+
+Thank you again for your review,
+Best regards,
+Alex.
