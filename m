@@ -1,71 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793379531;
-	b=UC8iKCWifk3sExWPwDehW4zHsKFbVIaUoGHgt+oNrNqn88Ob2y59tTEqAJ3/Be0hWEGt
-	 R7Mz4ja+WZdWmO8MxgR3ZzlAmNMMJOCmL+1H90a3RdLKzx7m6Q9arauAd43EVcYHviUIL
-	 V/XufSNbVhhzSKpYBedgI8SQllnNKGq1IMTaLAmuIbkSJSlMN6KBc9IqnvW90f9oi5PxB
-	 XpSfvB+dl2IN3L76J/dyhwBB1/UGn8UNE7FeAYWtKlW6T2Ew8gf3O1MhZC0e+ceLF+qZh
-	 GpYghKH2Y90zy4Cd32AUCYNvKUqdg6HEA2drJ6KXKXQURNCudx3cY3Ks4TuVyUC7S4Q==
+	t=1793379666;
+	b=0pxnBeYZ3tp+QehfOILLI9Kpo5ir6e5dZuCWEx97totaKrAvGpJUozhzmuLIzHRxcuuO
+	 O2GZ09WAv6CgS5aBRlIdQwyAqLcVRuPYCTPamYrbR7JuIVw38kQ1B+ZlyUDfo/Lc7P+uc
+	 EBCiwAsiYBHmsFMmIOXdJzl+QEXRUVhmiH4goyBM0VKzSsXkYDNrks/lKm+BitoLwUi/6
+	 XRPA2Prh6yY+CMtKy7jgTszGtbZsjqFkRIMtq99N4ZDy5FxM1ZQSaVrxutXjAJrdR+Ysu
+	 6ajIDItuKXKDO0kABT/Lm+Hzg0U2h0ueekeWitWab0rGNVgLhaXYbau9j+Dvk/H8XdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793379531;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=E0o7l/pShR1+SqYicqhHSKEqObfbQ+XkPYrzgPFmubQ=;
-	b=BXR2qSI2jZIinChiEcK8zbKGRhwOTt1wbwRyiTqTBEGqfxMGRDalemfHmt2qJ5P5MiXT
-	 KS4oRCMyAmiU4O66MSaeSlIQzJok+5u0TaIeNgaMIjLU6inRVwfyPMyk7zcfuk917AOfT
-	 LSLAL3O8ocHUI6VVs5+wgqzJa6mOFrarK8DgubJpIT2Qyj0OkPEAc7q4fcv77r+qqu/MA
-	 vlExRW1pB5v5BYJqJLU4C4AiybU6BrYFVj7PtPkovODezFU0kEnD7fQkT43NsCobbwDGz
-	 spjibt0NQeZhCVO4iBHenqvF8TY8/ndoAjls1wSyIDH5LdNFsTE71DyzHJcnpCpY4iQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793379666;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=7N/AcTlGe83vxTjpCzdB0J4XQ6LBuOM/UG4MzfOUgIc=;
+	b=ZkI6jVda0ZIBpOXa12dGm++lZK8TRkyNP5cBj5GjkgRZ5i1tLU9x9lavUzdfAaShe4cm
+	 uuXoO7mhITPNIRDSrLiKoe5Sn2YYZ2QfemclvbY/lQbBXgwO1LOBywdUBzvNZLh2Oz3oG
+	 bRdBOHf1w1RfmKtfkHRkzx+NskniosfLVGgQJnElyPvxBkhHhvLOG0NfLkdaytHd5yPVG
+	 2KvpTt+OsEjsl7kgHbio5c1dnZgno9bvhuR5vE6Uqql2GFtX2vbEY9zKj16hAMwVYwQOX
+	 VtjDEGxo42BwCOe2uejyj5GYXv8dfJL0yUoysgrYKmYhZFvQjHlsmiAKyPhB3KJtKAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=2y909wnk;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yM5w6leR;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8B9C606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:58:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8B9C606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDDE606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:01:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FDDE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=2y909wnk
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jGS3m0SClzlfvqP;
-	Fri, 30 Oct 2026 16:58:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:mime-version:x-mailer:message-id:date
-	:date:subject:subject:from:from:received:received; s=mr01; t=
-	1793379520; x=1795971521; bh=E0o7l/pShR1+SqYicqhHSKEqObfbQ+XkPYr
-	zgPFmubQ=; b=2y909wnklU2A+ClYMerPOG3NZGXIP6oyU5On42tAacJMwUyp9Bh
-	8Ol+pm80xoQPKEE8pQ/73VXnfk2D+kxbxdEsW9OwEzPQ7TwQbYLdEnhnu4Nn6eBR
-	KZ8YDzA/D59VXhamt86aZmUwJ0Zjc0iGjmLP5KVH46+zCu4EOnzq4LO5P+Wr8rxs
-	LzbEbSDzmWJBgU/4AyNikFb8oScL4su+hzcFrGbWWUaIAH4UsClhkEKHMwHfULG9
-	Xd4HZzIeZDbtVqVtFqU3pM9A3eX6YF4glgr9sj/iLTn+KWkv/XPAu3k2tXnLdRdl
-	A43c9QrBQRda6WFMyhbtPVcFW9qlEuXWGQA==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id tIOHeKqG_gr3; Fri, 30 Oct 2026 16:58:40 +0000 (UTC)
-Received: from bvanassche.c.googlers.com.com (57.237.82.34.bc.googleusercontent.com [34.82.237.57])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jGS3h36Y2zlfvqH;
-	Fri, 30 Oct 2026 16:58:40 +0000 (UTC)
-From: Bart Van Assche <bvanassche@acm.org>
-To: Russell King <linux@armlinux.org.uk>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Bart Van Assche <bvanassche@acm.org>
-Subject: [PATCH] ARM: Flush the entire TLB for large kernel ranges
-Date: Fri, 30 Oct 2026 09:58:08 -0700
-Message-ID: <ea3f6c05ad01fedc3859d8c16e98eaf521cee624.1793379488.git.bvanassche@acm.org>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yM5w6leR
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso907197f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:01:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793379665; x=1793984465; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7N/AcTlGe83vxTjpCzdB0J4XQ6LBuOM/UG4MzfOUgIc=;
+        b=yM5w6leRa2ChVRYGNHPLUzxT0TAjhGmbXR8T1nYEpFhvp4B/17T+8Y0Mmgl947BoHi
+         yIQu7/Kce8YxZ6JlFCmRgLq/uSmLz9w/g1+ay8NwtFr/Scz4/k7FEIy8FWjsC4YQKVwC
+         1yKOJeoVEVBj6t0yOg17L57HzeKjkxrvNTXgqLXRAVxODk6bF8pXW7v+VeqcPMb9mAA5
+         tBjuiLt0eP8Z9Nug0IjwerEqTlUnc8xWLQjJ63TM5TuSqXn2tSYzh/3zCeQEakclpXRe
+         AE6l47N4xW22MwRCqXuLYh6ig3+jXoIxR9vKcEyOZ63YMAae7g1/E1L28RXR0/UawXHL
+         Ryeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793379665; x=1793984465;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7N/AcTlGe83vxTjpCzdB0J4XQ6LBuOM/UG4MzfOUgIc=;
+        b=ttJjPjrCEdxqeCcV6xuURcgad4pmicPtacoPSFZV2ybK1d1he8hh563SgVutzHR5mw
+         MsTcfT7y86tWuSaUGlFAw1sK5yoKxe8O4bhvpQieCDhF9vfW6YzCuHGEGoPg2a9/Sau7
+         LMgjUl37G5xT0MnoeHtWpatizK/1PE5KImVFrl/yMH/L3609d+U7/sfLrD6Su9WHTpvq
+         41RERpAH/1pR83eJDiFPkU6KDTEB8E6CMWIUHI23b97KP6XkKKGl+d/9NL5jrTEaSodc
+         TosxnMRO2bNJNbqm+mvlPvKw3AW1zBStAcNcqCJNuUMWC0OPi2E/1/Sj9/S6gt7EWbaO
+         fTrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzqupifbeXCMdXUkd3PwllLRyS5Nr0C4xgAvUAMitFLvlUODfmqnEikWucp9ryCVVjjEGCgdp4MYwAnEdE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKU0D6FcxoAz2rKHoSVmBN59Uk9tIkdN6ePiyKZr2a7O0dz5A51
+	77H8v5frekvdWopA8RwcyRG+6alqfpWcUA+GmHnhw50uCLkwafMFViO0
+X-Gm-Gg: AYBFou11lpKm5a74LaVX87zJopz+JBpAdx32W3DbUWisNdthBQlc+rbDG9xspdua1l6
+	7YymjbyVxZJ+3lTkEMnR9u2Rm7+Zd5T8eo3g3iDlqz5MIVcaPV81PL4w1E91V7yKXjrg10d2CAX
+	i0tap2b0+eYajRADvCj6rmqWB7z3d50i6lj5ivNT5hIatT9famK2aHhW3bnjvkOeciRJHj3i6wG
+	m+GtOUx9KYaehSkrwPyTriM32iVzUoZfHwwqPNfT3e62QeNH2n8YfEUH33fnnDDpQ8WXT3aVhue
+	nJRMzwLG/aRz4YbkhW6zlXtcSvjrPbV+XG+fHscik0MP5pL+PEbt7zxrQ8xZiaR56M1Qp2fkFgb
+	EAsqr2Lqn9Q8YJwcvdrYk5/0e433o0/zsmSk/89hq0yYOpPQSX7yrHV9Bi1sAtzznEopPew+Kw9
+	5nNeXSWlityEaroq1toqop4fQvv/olrNCcUGLrjF0l+JIL9XDkaWXnKKSgsbMurwO19RwwhMKq4
+	MCY8VKldYLjI3+BrKfn60GhzpChwc3fotIn9pN05BEG1Kq7VhI+uPFF+aj+/KNC17TXWfUwAtt5
+	cToPRuD9cBP8uw+gUrKOYz4b3s89hE21Y3v+j3F5ueJvdaxDDPVhKBG0Hbcca+ai0Q==
+X-Received: by 2002:a05:600c:468b:b0:4a1:e225:b122 with SMTP id 5b1f17b1804b1-4ac182dcb7amr64266985e9.14.1793379664392;
+        Fri, 30 Oct 2026 10:01:04 -0700 (PDT)
+Received: from unix.. (244.red-81-44-253.staticip.rima-tde.net. [81.44.253.244])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac0950d533sm41126555e9.3.2026.10.30.10.00.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 10:01:03 -0700 (PDT)
+From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/1] selftests/arm64: GCS must survive io_uring SQPOLL worker exit
+Date: Fri, 30 Oct 2026 14:00:45 -0300
+Message-ID: <20261030170046.439736-1-ivanrwcm25@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179330742036.2531571.12603232226357262067.b4-ty@b4>
+References: <179330742036.2531571.12603232226357262067.b4-ty@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,118 +103,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-__purge_vmap_area_lazy() flushes the TLB for a single range that covers
-all lazily freed vmap areas. On ARM, BPF JIT images and modules are
-allocated below PAGE_OFFSET while other vmalloc allocations are above
-it, so that range can span hundreds of megabytes. flush_tlb_kernel_range(=
-)
-invalidates such a range one page at a time, which takes up to hundreds
-of thousands of per-page TLB maintenance operations. That loop has no
-voluntary preemption points and runs while vmap_purge_lock is held, so
-other tasks that free vmalloc memory are blocked.
+As suggested, a separate kselftest for the io_uring/SQPOLL worker
+path that gcs_reset_thread() also covers.
 
-Flush the entire TLB on both SMP and UP configurations if the range
-touches at least PTRS_PER_PTE (512) pages, matching MAX_DVM_OPS on
-arm64.
+SQPOLL is create_io_thread() (args->fn + CLONE_VM). Without the reset,
+worker exit unmaps the parent's GCS. The test waits for iou-sqp-* to
+leave /proc/self/task after close (teardown is async), then checks the
+parent ss VMA count.
 
-Signed-off-by: Bart Van Assche <bvanassche@acm.org>
----
- arch/arm/include/asm/tlbflush.h | 30 +++++++++++++++++++++++++++++-
- arch/arm/kernel/smp_tlb.c       | 15 +++++++++++++++
- 2 files changed, 44 insertions(+), 1 deletion(-)
+QEMU virt/max: pass with the reset; SIGSEGV on an unpatched kernel.
 
-diff --git a/arch/arm/include/asm/tlbflush.h b/arch/arm/include/asm/tlbfl=
-ush.h
-index 38c6e4a2a0b6..c6a61f4488a9 100644
---- a/arch/arm/include/asm/tlbflush.h
-+++ b/arch/arm/include/asm/tlbflush.h
-@@ -9,6 +9,7 @@
-=20
- #ifndef __ASSEMBLY__
- # include <linux/mm_types.h>
-+# include <asm/page.h>
- #endif
-=20
- #ifdef CONFIG_MMU
-@@ -597,14 +598,41 @@ static inline void clean_pmd_entry(void *pmd)
- #define local_flush_tlb_range(vma,start,end)	__cpu_flush_user_tlb_range(=
-start,end,vma)
- #define local_flush_tlb_kernel_range(s,e)	__cpu_flush_kern_tlb_range(s,e=
-)
-=20
-+/*
-+ * Bound the number of per-page TLB invalidations to avoid soft lock-ups=
- and
-+ * long vmap_purge_lock hold times on large ranges (not necessarily a
-+ * performance improvement). Matches MAX_DVM_OPS (PTRS_PER_PTE) on arm64=
-.
-+ */
-+#define MAX_TLB_KERNEL_RANGE_PAGES	512
-+
-+static inline bool tlb_kernel_range_exceeds_max(unsigned long start,
-+						unsigned long end)
-+{
-+	unsigned long pages;
-+
-+	if (end <=3D start)
-+		return false;
-+
-+	pages =3D ((end - 1) >> PAGE_SHIFT) - (start >> PAGE_SHIFT) + 1;
-+	return pages >=3D MAX_TLB_KERNEL_RANGE_PAGES;
-+}
-+
- #ifndef CONFIG_SMP
- #define flush_tlb_all		local_flush_tlb_all
- #define flush_tlb_mm		local_flush_tlb_mm
- #define flush_tlb_page		local_flush_tlb_page
- #define flush_tlb_kernel_page	local_flush_tlb_kernel_page
- #define flush_tlb_range		local_flush_tlb_range
--#define flush_tlb_kernel_range	local_flush_tlb_kernel_range
- #define flush_bp_all		local_flush_bp_all
-+
-+static inline void flush_tlb_kernel_range(unsigned long start,
-+					  unsigned long end)
-+{
-+	if (tlb_kernel_range_exceeds_max(start, end))
-+		local_flush_tlb_all();
-+	else
-+		local_flush_tlb_kernel_range(start, end);
-+}
- #else
- extern void flush_tlb_all(void);
- extern void flush_tlb_mm(struct mm_struct *mm);
-diff --git a/arch/arm/kernel/smp_tlb.c b/arch/arm/kernel/smp_tlb.c
-index d4908b3736d8..957cc2eb662f 100644
---- a/arch/arm/kernel/smp_tlb.c
-+++ b/arch/arm/kernel/smp_tlb.c
-@@ -4,6 +4,8 @@
-  *
-  *  Copyright (C) 2002 ARM Limited, All Rights Reserved.
-  */
-+#include <linux/build_bug.h>
-+#include <linux/pgtable.h>
- #include <linux/preempt.h>
- #include <linux/smp.h>
- #include <linux/uaccess.h>
-@@ -234,6 +236,19 @@ void flush_tlb_range(struct vm_area_struct *vma,
-=20
- void flush_tlb_kernel_range(unsigned long start, unsigned long end)
- {
-+	static_assert(MAX_TLB_KERNEL_RANGE_PAGES =3D=3D PTRS_PER_PTE);
-+
-+	/*
-+	 * __purge_vmap_area_lazy() may pass a range that spans from the
-+	 * modules area to the end of the vmalloc area. Invalidating such a
-+	 * range page by page takes hundreds of thousands of broadcast TLB
-+	 * operations, without voluntary preemption points.
-+	 */
-+	if (tlb_kernel_range_exceeds_max(start, end)) {
-+		flush_tlb_all();
-+		return;
-+	}
-+
- 	if (tlb_ops_need_broadcast()) {
- 		struct tlb_args ta;
- 		ta.ta_start =3D start;
+Iván Ezequiel Rodriguez (1):
+  selftests/arm64: GCS must survive io_uring SQPOLL worker exit
+
+ tools/testing/selftests/arm64/gcs/Makefile    |   2 +-
+ .../selftests/arm64/gcs/gcs-uring-worker.c    | 254 ++++++++++++++++++
+ 2 files changed, 255 insertions(+), 1 deletion(-)
+ create mode 100644 tools/testing/selftests/arm64/gcs/gcs-uring-worker.c
+
+-- 
+2.43.0
+
