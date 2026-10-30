@@ -1,53 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793331863;
-	b=k+i1+KKCd0gr/a3KSfZlssJ4Y1Je+nSy2gdEGcz6UbxEAYN3mGu2OdJXkY4HZlX35MBH
-	 OlRnQkQSC8XmdN35/s18CvPJpO1kOsdZ2sAlLdrdzo+nHizsgz+L5LT+ErReqAujx0hBB
-	 VGzQhJZZ0xWIL6PTdua98FHZ87NGt2EOB74sNhsGlZUuQOCaMfyIzl5GoHMU8bMlnu07r
-	 v5yvqeUcPl+o4AYNv9Jp1S1woa+1UcPh1TJio8iPMEF31VBWBfllxrrr7DGqsYCi1hAid
-	 KukflDNxih06pg9GuReGv2cffrJibMovbeLQX5eYw+wxskGrjLDOMotEVbFgj19gpeg==
+	t=1793331905;
+	b=0SC8Q2wz8/vsx7nkChgeUtzzydwkJvzjcHmntA26YXWJccIHMvGIYMyljXw5tbaHE+5M
+	 Mr2egn7W5KqcJUpq1LapKvLIBOcvYhCk9r7B8mHvK12bzHyRlC0HytVTmOUgouAGhHZ5j
+	 ejgG3+wteN0mj0MWbgzOzC2F3Acf5IUnq+L2XuccpcYXPsvqda0QHydzAZpR6JKIJ9tip
+	 Oa9ReGFfr9I0XLjMtfAFF+aRt5q0jHi7CrClwIOsadeh2I1ORnqOmPahtMycnbkWxoKZu
+	 ZFRUlwAVdrT9CZ4Z0JqfJEEgbg8VG1JV/q3+U/N9ed3vPbavwx0OB1KI4+57VkuKsew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793331863;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=v4DQsLR0Sr6pSUF5Nmqru+Sp8EwUJhrxZNM3O9AZMaU=;
-	b=xQkPuC+rVo0YN/2GtgCI7vW4yXm1QXHUxs5yANDyBLXRmOgkJ94VEiuDwo4ShPm1G/5L
-	 zMem6PWhX1Tup+h12HhtAqr4d5vUc2mr66HitL3KaOQvhMfxvxCVZ40kIM/7ESZBSWOPy
-	 tV9fuWccO7Baq0DM993n75GDmKC4WtHOYqSNnLLdjjqf23QCFMBL5g9ddE3dY1utktMFx
-	 ZKObLzyvrwP5gFKr0CO7MTkyoWPagpQa9IZ1GUxXQguuhNCjDVygH2NW5/kHqh03u89En
-	 IiUJd1F5xgJwZ2/LqEOHB5Vz2SXnjY8HFCESS7n9wlKsL7wH4ZyMAzjNjswS0k+yk1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793331905;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=XtTfodCHuVaVxXQYCj+jpdhwMxAv9AL4leDlwu5qJfs=;
+	b=Wq5SFiDdmJ5coVEbcnUOk+G19m61F2aiePRjOzYWB4DWRDlZu45+xXgyAQiaGHoCfyQz
+	 4v2HyZdkApCyNLtVOETiX+p/SY+zGc7Ijeh6ClXBm8+Fv1SOyeuIJd/O+VzNSzQNl1jIq
+	 f5+h68GgOPR5ENAJ0g5/ovwVVWfEVCdh5twSUUuCFCSjoZ9oa8YgyjfvI+Fzv1S9qFCRn
+	 u1rzK7dq2T9esRQs5LwNJYxCr5MLMErCgRkHVykwdO7NEtUCR5JTnfjV809+XXfIkfDNC
+	 MM0+HRRD/PN9RLSS7J4VHLiHZxlOViqCIQcPEApECl1CrU2v6S8T4fmIjcVw5iZguyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PABT4ghd;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1EB6606A31A;
-	Fri, 30 Oct 2026 03:44:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1EB6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jG6R73PgXz8Xrrd;
-	Fri, 30 Oct 2026 11:44:19 +0800 (CST)
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl2.zte.com.cn with SMTP id 69U3i57m012676;
-	Fri, 30 Oct 2026 11:44:05 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 30 Oct 2026 11:44:06 +0800 (CST)
-X-Zmail-TransId: 2afb6ae41286f05-83c2a
-X-Mailer: Zmail v1.0
-Message-ID: <20261030114406371EZw_orIqSRlCTxnz_L39Z@zte.com.cn>
-Date: Fri, 30 Oct 2026 11:44:06 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8255A606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:45:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8255A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PABT4ghd
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-353804b591eso504529eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:45:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793331905; x=1793936705; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XtTfodCHuVaVxXQYCj+jpdhwMxAv9AL4leDlwu5qJfs=;
+        b=PABT4ghdsdEaAbxcck22S9YOkFFbrVGSoysOtNnGZC6p4e7k7dwv+OQSy6q+Y7/ejd
+         svT7Y+G4XctRZwkKrKiOlnL0z6qn498DowhfqQpSx3pPIgemwYeenvzjr/UR8UYTIGvg
+         yGw7Bb+x7/rAn32XqGuhPBo6wzlnuJ7o9PYuUWBkwU2ZMuK0OdQDrWB6qdvcKI1FjZ/N
+         Trx/MBJbben51Spfts0XgjAxjitB/Y10m3JExk141IdJpppfD/C+jEyf/3kHd8pDuVkh
+         J+PWZ5Mq8iVOpn0rEzmxuDI0+MP+jCzbqF6wVYaQ4+qHk39AZGNgWE/uRzWj+ZmjGJCf
+         ehfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793331905; x=1793936705;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=XtTfodCHuVaVxXQYCj+jpdhwMxAv9AL4leDlwu5qJfs=;
+        b=uW0vfwgg7TCyT1X5lXEVklopke0voKdZiJc+9JC+simfxCZcdwLBbJlBosrXUIdGBl
+         d67sT8BmLlQonOozkrO3EU79Ue62zs3mMEJQ9ORSW7mPrlRV78OmqCBamvmxmctFQP+5
+         KRpseJ/5fzIsAqB+tQNGCkLVwkqew83tRRzXyFB0Zfr2ugPPBUGyQrlcnXLuiA9Y8laJ
+         c1DGAfgVeuq+/oG1QWa9LX0J0BH8Nn2+S6b1v2BNkx6P/AOjrKsoBtACDBGbTgtd40b8
+         2hpPB/PPzbXgGjKwPQMboCQVgSvwmNiHnXg9taDy4622fxamoVtOxKe2mTYxYqtkk7nG
+         J27g==
+X-Forwarded-Encrypted: i=1; AKwUvBzFCxY21sStggozYRsdnY+5TGfbx3BdVii4vrqHhxx8+43Nl1rOad9P36YSGYNSOW7o0mRIyd0lCBTblHs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGWRWXLou7Rr3VSyl8gCCDnhfmu1ndVi+b2de31yUnlJ+FazE5
+	THhbE+v6YXkE1WRYsMkUMwkvpDY8csX2qDZpfepEzaDt2/rl+eahj8tB
+X-Gm-Gg: AYBFou3SFWiyS7yyQvYlbgT05jpdWKHEeHhGQYtetfz98BA36yj1tc9B59Uvbmrlsfx
+	aaQafEUPThOetegwyLyVRfJ51t2SzOWQ1gzMU05ctg5ACJe78ep75fQV3AF1cCxvgRu4Nf/cZ1w
+	0ZfD5sNI1CZaHkqUxDnVFnt7CE870p291FWY9iXlNRYNOq9dK7cTUsXqSlTVEX3MPszwyqlJ5Eg
+	z9xfZ3R+voEz5otqZa0ogvVepPULUk/pZLXmgvxejzbGfI6EEsJwMU1vbKyUydhi7aMpiqYSc1r
+	EkVmXXfs6ELKlBVxhDwHDh0phw6yJMO+EYedvxmKY0pXBC9YXK17rvVG9BWpv98XBEloPa/OqPF
+	KklYxmDp/xfX25IqmDpqu5LFvK74yYVXTszCYqVs7FK/DLal79pdZNtE2TC/WRA/Kqz24mdl4Ux
+	TBdTpF3GnuP8w1INpWPniLLu6L/nd14l/q/fDnPK5uWbzZXwsE4ZpSzqquqnbBgy6I4YB6SJTKZ
+	W2mUdJ0phJGEoLJXIyiXgIpoSxzPTOYh4ZwKi38+vvP903ZpnUqd5MRGS4EdkKaXClilZMk3Trx
+	5NB4FjW+hcoVFSojQ8jF/IGE
+X-Received: by 2002:a05:7300:c8c2:b0:36a:117:522a with SMTP id 5a478bee46e88-36a423bf71cmr1949263eec.22.1793331904245;
+        Thu, 29 Oct 2026 20:45:04 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1easm2836585eec.5.2026.10.29.20.45.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 20:45:03 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Thu, 29 Oct 2026 23:44:57 -0400
+Subject: [PATCH] mm/shmem: remove truncated folios from the page cache in
+ batches
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,130 +90,125 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
-Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSB1YmlmczogcHJvcGFnYXRlIHViaWZzX3NoYXNoX2NvcHlfc3RhdGUoKSBlcnJvcnM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 69U3i57m012676
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Fri, 30 Oct 2026 11:44:19 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE41293.002/4jG6R73PgXz8Xrrd
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-bug-mm-shmem-undo-batch-v1-1-59b34212fe78@gmail.com>
+X-B4-Tracking: v=1; b=H4sIALkS5GoC/x3MQQqAIBBA0avIrBtQF4JdJVqUjjkLLbQiCO+et
+ HyL/1+oVJgqjOKFQjdX3nOHGgS4uOSNkH03aKmNktriem2YEtaYKOGV/Y7rcrqInqRU3joTFEG
+ vj0KBn/88za19Dg1HF2kAAAA=
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+truncate_inode_pages_range() takes the folios it finds out of the page
+cache with delete_from_page_cache_batch(), which takes the inode's
+i_lock and the i_pages lock once for each batch of up to
+FOLIO_BATCH_SIZE folios.
 
-ubifs_shash_copy_state() duplicates the rolling hash state with
-crypto_shash_export() and crypto_shash_import().  The export buffer is
-allocated with kmalloc(), so the function can fail with -ENOMEM, and
-crypto_shash_import() can fail as well.
+shmem_undo_range() calls truncate_inode_folio() on each folio instead,
+so filemap_remove_folio() takes and drops both locks once per folio.
+Truncating, punching or freeing a tmpfs file or memfd made of small
+folios, such as a large /dev/shm segment, pays for that on every page.
 
-Five callers ignore the return value.  The target descriptor then has no
-valid state, and the crypto_shash_final() that follows computes a digest
-from uninitialized data.  When preparing an auth node this stores a
-wrong HMAC on the media, so the affected journal head no longer
-authenticates after a remount.  During replay it makes the verification
-of a valid image fail with -EPERM, and in replay_bud() and
-add_replay_bud() it leaves the replay hash state inconsistent with the
-media, which corrupts the auth nodes written by later commits.
+Clean each folio up as truncate_inode_folio() does, collect the ones to
+remove and take them out with delete_from_page_cache_batch(), which
+needs truncate_cleanup_folio() outside mm/truncate.c. Swap entries, and
+the folios kept when undoing a failed fallocate(), stay out of the
+batch. Dropping an 8 GiB file of 4K folios, median of five runs,
+averaged over two boots of each kernel, in a 32 vCPU VM:
 
-Check the error at all five call sites and propagate it.  In
-add_replay_bud() the descriptor belongs to the new bud, so free it on
-the added error path.
+                        before    after
+  ftruncate() to 0     1163 ms   913 ms
+  hole punch           1155 ms   914 ms
+  close() of a memfd   1161 ms   914 ms
+  unlink()             1162 ms   916 ms
 
-Fixes: 6a98bc4614de ("ubifs: Add authentication nodes to journal")
-Fixes: da8ef65f9573 ("ubifs: Authenticate replayed journal")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Files of PMD-sized folios take 20-25 ms with or without this change.
+
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
-diff --git a/fs/ubifs/auth.c b/fs/ubifs/auth.c
-index 1f770795ee70..62dfacfb6d6b 100644
---- a/fs/ubifs/auth.c
-+++ b/fs/ubifs/auth.c
-@@ -70,7 +70,10 @@ int ubifs_prepare_auth_node(struct ubifs_info *c, void *node,
- 		SHASH_DESC_ON_STACK(hash_desc, c->hash_tfm);
+To see it, fill and remove a large /dev/shm file:
 
- 		hash_desc->tfm = c->hash_tfm;
--		ubifs_shash_copy_state(c, inhash, hash_desc);
+  fallocate -l 8G /dev/shm/f && time rm /dev/shm/f
+---
+ mm/internal.h |  1 +
+ mm/shmem.c    | 16 +++++++++++++---
+ mm/truncate.c |  2 +-
+ 3 files changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/mm/internal.h b/mm/internal.h
+index 566cbd2dce485..abe64e49a4170 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -628,6 +628,7 @@ unsigned find_lock_entries(struct address_space *mapping, pgoff_t *start,
+ 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
+ unsigned find_get_entries(struct address_space *mapping, pgoff_t *start,
+ 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
++void truncate_cleanup_folio(struct folio *folio);
+ int truncate_inode_folio(struct address_space *mapping, struct folio *folio);
+ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+ 		loff_t lend, pgoff_t *pstart, pgoff_t *pend);
+diff --git a/mm/shmem.c b/mm/shmem.c
+index af21a89abb0f6..16b6e38503bc3 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1352,6 +1352,9 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 	index = start;
+ 	while (index < end && find_lock_entries(mapping, &index, end - 1,
+ 			&fbatch, indices)) {
++		struct folio_batch remove;
 +
-+		err = ubifs_shash_copy_state(c, inhash, hash_desc);
-+		if (err)
-+			return err;
-
- 		err = crypto_shash_final(hash_desc, hash);
- 		if (err)
-diff --git a/fs/ubifs/log.c b/fs/ubifs/log.c
-index c6edcbf35ebc..42cadf558a4f 100644
---- a/fs/ubifs/log.c
-+++ b/fs/ubifs/log.c
-@@ -412,7 +412,11 @@ int ubifs_log_start_commit(struct ubifs_info *c, int *ltail_lnum)
- 					 UBIFS_REF_NODE_SZ);
- 		if (err)
- 			goto out;
--		ubifs_shash_copy_state(c, c->log_hash, c->jheads[i].log_hash);
-+
-+		err = ubifs_shash_copy_state(c, c->log_hash,
-+					     c->jheads[i].log_hash);
-+		if (err)
-+			goto out;
- 	}
-
- 	ubifs_pad(c, buf + len, ALIGN(len, c->min_io_size) - len);
-diff --git a/fs/ubifs/replay.c b/fs/ubifs/replay.c
-index 263045e05cf1..0b82c67a2dcc 100644
---- a/fs/ubifs/replay.c
-+++ b/fs/ubifs/replay.c
-@@ -566,10 +566,14 @@ authenticate_sleb_hash(struct ubifs_info *c,
- 		       struct shash_desc *log_hash, u8 *hash)
++		folio_batch_init(&remove);
+ 		for (i = 0; i < folio_batch_count(&fbatch); i++) {
+ 			folio = fbatch.folios[i];
+ 
+@@ -1363,9 +1366,16 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 				continue;
+ 			}
+ 
+-			if (!unfalloc || !folio_test_uptodate(folio))
+-				truncate_inode_folio(mapping, folio);
+-			folio_unlock(folio);
++			if (!unfalloc || !folio_test_uptodate(folio)) {
++				truncate_cleanup_folio(folio);
++				folio_batch_add(&remove, folio);
++			}
++		}
++		delete_from_page_cache_batch(mapping, &remove);
++		for (i = 0; i < folio_batch_count(&fbatch); i++) {
++			folio = fbatch.folios[i];
++			if (!xa_is_value(folio))
++				folio_unlock(folio);
+ 		}
+ 		folio_batch_remove_exceptionals(&fbatch);
+ 		folio_batch_release(&fbatch);
+diff --git a/mm/truncate.c b/mm/truncate.c
+index 733d2713a875a..c6bf4aa0b91e8 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -151,7 +151,7 @@ EXPORT_SYMBOL_GPL(folio_invalidate);
+  * its lock, b) when a concurrent invalidate_mapping_pages got there first and
+  * c) when tmpfs swizzles a page between a tmpfs inode and swapper_space.
+  */
+-static void truncate_cleanup_folio(struct folio *folio)
++void truncate_cleanup_folio(struct folio *folio)
  {
- 	SHASH_DESC_ON_STACK(hash_desc, c->hash_tfm);
-+	int err;
+ 	if (folio_mapped(folio))
+ 		unmap_mapping_folio(folio);
 
- 	hash_desc->tfm = c->hash_tfm;
+---
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+change-id: 20261029-bug-mm-shmem-undo-batch-de001d9c6f1e
 
--	ubifs_shash_copy_state(c, log_hash, hash_desc);
-+	err = ubifs_shash_copy_state(c, log_hash, hash_desc);
-+	if (err)
-+		return err;
-+
- 	return crypto_shash_final(hash_desc, hash);
- }
+Best regards,
+-- 
+Qiliang Yuan <odys.yuan@gmail.com>
 
-@@ -694,8 +698,10 @@ static int replay_bud(struct ubifs_info *c, struct bud_entry *b)
- 		goto out;
- 	}
-
--	ubifs_shash_copy_state(c, b->bud->log_hash,
--			       c->jheads[b->bud->jhead].log_hash);
-+	err = ubifs_shash_copy_state(c, b->bud->log_hash,
-+				     c->jheads[b->bud->jhead].log_hash);
-+	if (err)
-+		goto out;
-
- 	/*
- 	 * The bud does not have to start from offset zero - the beginning of
-@@ -915,7 +921,9 @@ static int add_replay_bud(struct ubifs_info *c, int lnum, int offs, int jhead,
- 		goto out;
- 	}
-
--	ubifs_shash_copy_state(c, c->log_hash, bud->log_hash);
-+	err = ubifs_shash_copy_state(c, c->log_hash, bud->log_hash);
-+	if (err)
-+		goto out_free_log_hash;
-
- 	ubifs_add_bud(c, bud);
-
-@@ -924,6 +932,8 @@ static int add_replay_bud(struct ubifs_info *c, int lnum, int offs, int jhead,
- 	list_add_tail(&b->list, &c->replay_buds);
-
- 	return 0;
-+out_free_log_hash:
-+	kfree(bud->log_hash);
- out:
- 	kfree(bud);
- 	kfree(b);
