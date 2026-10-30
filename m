@@ -1,67 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793350375;
-	b=2ItHHXZY+CPFLt+Ekc3z+cUn60FMsBCHyIbNBpV4JLLOOLChp3Rl8SK9rcw35i6lCwlr
-	 +Gs3dQ8mwcoHc25zVpQuhmy2FI8qgg8Z3DHATG9tiJXyuMrafEeHbKvlS5I4cGR65TDtg
-	 DkEQ1bXhdfL7czII7KJG4vw96Ctf/rPW0J/Z+sI7ebAkCCuUYqgzBcBomaHY9twDjIM8F
-	 azuBqPFXSPsOodObeVwHDAnATR31FfjwXGYogJgAjyImQ/jM1clIvvp4VEpNkTwT/kn1d
-	 EOpgEUj9y8q4mtJZvdZoITFFZYG6Pk4GqmtK8HcPzHkPYwZW8eB23QP7Wy3//w951fg==
+	t=1793350400;
+	b=iXYMV/iGBWfqD6ost62OwC+ASV8XRygw53JDvRKJSWQl32eYrZnp+T0FATmmdsOTS98Z
+	 VZO0f0WLXClSUAZiKOc1vgEtP73BVIC9uXUfu++QNhg/BkF96jp8fSbseFPn7AJj5e7qq
+	 o7GLt9baBPleg0/UcWiJcRtpfo4bVLrP7mXwhcOIYNDpC9kbDOxYrHFk38N8dwFEumeyu
+	 cITGCIIOtu0C0AH/ePTdFuoyjgKdCsOp0QErB7rfG5k41QBxbU9Se5FC9AU0RaPRAJAxj
+	 edNBwcQFesEDXC3c45APfq1UTmDLKrO9OWxLWeb8dd2ZaYUCIgajmEmE6vRrcwcVQIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793350375;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=FYw+R4tThY9ijxrPMeJ6bkKz9WbQem7Wim2y25tODDo=;
-	b=otrDv3KSsEmDSa7OhjP70YNLOQpnN9hNByZ3Y56u6JjLTA2DKhymm58a3w7cj8pYn1vK
-	 g6OHLfuanT+BAqUFmMUPUctb0uFvj7W+Gm1N/O0t4hyx8+p0/pVRed/NVRHAYQSGZ0sTr
-	 DETTQlfxbj/x5D50VvwEw65LHfkWrYnkXoHowBpcsbWCMV0QFjDgI6CBZMbn7SrtlPc8P
-	 kFbhbvkM2/DIcZm4Sf623VHae8OXZtXL8JyltxHbREGetbQUMk0FcXRGpVDQOjNY/b4at
-	 4JBewSBM31DINYetanD1dUMF41MvP2G3VuuDqF+uuwiImGyrPA4rQkBSNzaWS0v52WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793350400;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KOWLgTTNF56L+ttK/sHSbzAGSYyGQRT1y5BH1OOM+sI=;
+	b=YWQIcBlB2irNwQWe5UajWvDKcTP/CNEhc6Bd8EnprljPFhKsUbEvMSwOQdnbVD/LpgmT
+	 lE4mjSVhqALsk9nO4uQcTb/1oJ9RaL98jCXz9+irzJx44p6Fg01wom9w9Y0JRm2sfsPsI
+	 szoQ7EetwgJGim2hv+LxsJtydMpGmaAHehFalqbNnzVW4uA6lswDro7CA1W26Yzo4JjlQ
+	 FnCkxdn4C6GyUAoOvzTN1I4GPSRY8IoNVgDwiwrxCsPAtN80qPNE4dlcoK1uSKjJSE7wT
+	 zMtj2+oXFzhiB7h1YGblpVw7D0JH8P1weqwZwJXFO5Qd0nanbvwy3mBcRfSzB1lJy8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unibo.it;
-	spf=pass smtp.mailfrom=cs.unibo.it;
-	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=iihKc7CS;
-	arc=none smtp.remote-ip=130.136.161.50
-Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7BCAC606A31A;
-	Fri, 30 Oct 2026 08:52:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BCAC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=vqlrnKlc;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35F11606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:53:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35F11606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=iihKc7CS
-Received: from cs.unibo.it (unknown [94.32.99.206])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPSA id A0A651C0043;
-	Fri, 30 Oct 2026 09:52:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1793350373;
-	bh=q6juWM5f7jikhcMl2i3ywbPNpOJBMHXqoBewrCHl84A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iihKc7CSYD8TVRUP8Uhtr8sZX7SdlWSRlQOevVC+Mm3tmKF/xYwKffgrKG6tvTmgm
-	 u9khgsUeHwN+rB5poSBzmqpI2iF2yG6pwXbM18msSILhIOAc8AWl/knEapyijB0XPR
-	 o72K1nUEJtO+Og3bI6IoxGZ8Ft/DZTHHQirNKbJI=
-Date: Fri, 30 Oct 2026 09:52:51 +0100
-From: Renzo Davoli <renzo@cs.unibo.it>
-To: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-Cc: Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Thomas Gleixner <tglx@kernel.org>, linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>,
-	"Dmitry V . Levin" <ldv@strace.io>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Andrew Morton <akpm@linux-foundation.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/1] powerpc/syscall: Return the preset value of
- skipped syscalls
-Message-ID: <auRa4xcZpLSQD78V@cs.unibo.it>
-References: <20261023180735.853655-1-renzo@cs.unibo.it>
- <auB6vjNg3w5LPVwb@kunlun.suse.cz>
- <auLyYd9-6WwwzPgz@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
- <auNZiOi_tj6ssGZr@cs.unibo.it>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=vqlrnKlc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=vqlrnKlcMUGQL9YtFdWW/LLvN5QB4qq2LS9Wym8oEtfgVtnN/PoyKzq0x8SFQwyuYlWpkkjRNzeqL
+	 Brx0JwB7TVYzOgeLwucIyNNHBnXNzrVdhenUYW+glc4pgU7A+ME94SwhvTAZUoq6cAMxSvnsmZ5MS3
+	 aMEQesdVllSM7/m4=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66ae45afcea1-40318;
+	Fri, 30 Oct 2026 16:53:17 +0800 (CST)
+X-RM-TRANSID:2ee66ae45afcea1-40318
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.101])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86ae45afb1d0-5759e;
+	Fri, 30 Oct 2026 16:53:17 +0800 (CST)
+X-RM-TRANSID:2ee86ae45afb1d0-5759e
+From: laixiangwu <laixiangwu@cmss.chinamobile.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	laixiangwu <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH] fs/ntfs3: Fix memory leak of ntfs_fnd on corrupted index root
+Date: Fri, 30 Oct 2026 16:53:15 +0800
+Message-ID: <20261030085315.1814-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,18 +68,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auNZiOi_tj6ssGZr@cs.unibo.it>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 03:34:48PM +0100, Renzo Davoli wrote:
-> I will send a v3 rebased on current mainline, split in two:
->  1/2 remove TIF_SYSCALL_RET (Fixes: 69cb2be898be), as suggested by
->      Michal
->  2/2 return the preset value of a skipped syscall (Fixes: 05c033db7e9a)
->      using your expression.
+indx_insert_entry(), indx_delete_entry() and indx_update_dup() allocate
+one or two ntfs_fnd structures with fnd_get() before validating the
+index root with get_cmp_func(). If the index root describes an unknown
+collation rule (which can be the case on a corrupted or maliciously
+crafted image), these functions return -EINVAL directly, bypassing the
+"out" labels that release the ntfs_fnd allocations.
 
-v3 here:
-https://lore.kernel.org/lkml/20261030084926.1068384-1-renzo@cs.unibo.it/
+Since the index type and rule fields are user controlled from the
+mounted image, every operation on such an index leaks the ntfs_fnd
+memory and can be repeated to exhaust kernel memory.
 
-renzo
+Release the allocated fnd structures by jumping to the existing error
+labels instead of returning directly.
+
+Fixes: 82cae269cfa9 ("fs/ntfs3: Add initialization of super block")
+Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
+---
+ fs/ntfs3/index.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/fs/ntfs3/index.c b/fs/ntfs3/index.c
+index 689712d34..9b6f410a5 100644
+--- a/fs/ntfs3/index.c
++++ b/fs/ntfs3/index.c
+@@ -2049,7 +2049,8 @@ int indx_insert_entry(struct ntfs_index *indx, struct ntfs_inode *ni,
+ 	cmp = get_cmp_func(root);
+ 	if (unlikely(!cmp)) {
+ 		WARN_ON_ONCE(1);
+-		return -EINVAL;
++		err = -EINVAL;
++		goto out;
+ 	}
+ 
+ 	if (fnd_is_empty(fnd)) {
+@@ -2406,7 +2407,8 @@ int indx_delete_entry(struct ntfs_index *indx, struct ntfs_inode *ni,
+ 	cmp = get_cmp_func(root);
+ 	if (unlikely(!cmp)) {
+ 		WARN_ON_ONCE(1);
+-		return -EINVAL;
++		err = -EINVAL;
++		goto out;
+ 	}
+ 
+ 	/* Locate the entry to remove. */
+@@ -2787,7 +2789,8 @@ int indx_update_dup(struct ntfs_inode *ni, struct ntfs_sb_info *sbi,
+ 	cmp = get_cmp_func(root);
+ 	if (unlikely(!cmp)) {
+ 		WARN_ON_ONCE(1);
+-		return -EINVAL;
++		err = -EINVAL;
++		goto out;
+ 	}
+ 
+ 	/* Find entry in directory. */
+
+
