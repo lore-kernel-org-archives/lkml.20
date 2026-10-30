@@ -1,109 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793332555;
-	b=YrP3yXAgOiw9cybTctaQvksm9W97fu5WQrprKm4FUf58scMj+aonfAeBYZXuPi6p7K5x
-	 hW6kjwjmEdIpSnqlrJQqX6bLRIwMdugr2r1HBB57CGOEQNqxO6idr+7/TE3r0UIzb+r2r
-	 RvOd2szQ1mGImzsAEZOHTwiadKtZexySHCdzTQBz+tuTQ2Nk7RfPZX4aHFJV/mWKz89e/
-	 Mwh9/Cq9FKixeT4iBtMHDF8aCHT6xxGgM5w0Jk2MfoaoTwr7tRsjVj1yYUnvGVFET9gzp
-	 4+syQFbgPstB6DoGzZCUdcgiLdlg387iUgCxJgaxCdxmUY4SFLc8BmgOAyVWqFXqJIA==
+	t=1793332548;
+	b=p9QauEEbfvRad45FgwFlWkRsG/r13jZL6V3I2XujhLV13TWJxACZ8YHVVF/Z44/4OKpc
+	 e8UcxHPQeQLDJLQUV/Lzz5+vQJ21km3Jtv6q0cheXDGZps1Uy+1pT0rxdZrY/138/3PKj
+	 0eZE7JKZyEnK+7Xg/nXbR0cvmJjtJEmgODkTAR9TXeKT0OZ0wsny7QHXuzptJZUIlvK1I
+	 qyU28qMJwWIccUv/JRG8tqsTbEZ62nnow0ql2HK3Mje5VWR8PrJLGrRkTcTRh1TRbhoU2
+	 MQTGJWbk8INCHqwjm0tls3v3Ngo4137gEwMgzcRHJc2jYqqKgJrGTCF9TMKXtDjMHdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793332555;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5zugQx4flv62Sdzk9Wl3acRuLP/zK3sGN6owEqXiGh0=;
-	b=PKvL5sZ/IlkPEV1G1zaeIu4rnIsZnZNaP9NPPU/HjnaPeTM2Gn24f3fI8oqW6sx9TNaI
-	 pla482pZoI9pWG8V5TAJWYp3vGfupgyHoW2iEUy5nHpact5o4TQl+W414H8Wk2D0FzC4Y
-	 2vmphp5lei1d0X40pzGeT+LHOes8G+hO5o4dZfv0kmcOU/PoUoTm+B5Nr9QkcFcG1WVBh
-	 rRA7NMVodL8iWUV30WfvrL96fsC04zaZxi5BgfIN2fhbUPhNSCnag62O5vJfnsgxR14ho
-	 4FgTh6lF69BsRn2r1cU++fj5He7vpt6yGwmlBHAy+sONbtoZHfRVWrrMnS0JNlWOgpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793332548;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZkxPW2ruqc0Icv4y+99LJtMWacocG51kIhVn5Ect5og=;
+	b=jQ2LmCYYWJdu1m9yxBsZ1s+hU12zcFxfOrhs6P6IK6NV/29rjfKsBju4DtB2bAJL2IgZ
+	 bHydfBBpzfJ+VvkMpDSNgNsN7KzzCCMUhL0Vj0l6qncVcHgaTQsZH3uqDqC8T2vbKo/LR
+	 dBUpNADfB0md08Wx0mO+QZBrDi9AjIL4u0ZsQliB1dsfVZgu1SXZ38rMraVjlYyNxMAKU
+	 MnvstV+G7Ania9j5wGkd+rKVK4SDYxmbtYjyCXb/JHmuapdFox4G0BzztRHMr7Cs1iDVt
+	 KvUfh3QC3z148+m63jCIpW73rCcLuoN97J+ksd9VoOP3wxWGmRP6uuHiGhv7yoSoEzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t5Ui1rro;
-	arc=none smtp.remote-ip=74.125.224.47
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=SUUc4n8Y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1AAA606A333
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:55:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1AAA606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6AFF606A31C;
+	Fri, 30 Oct 2026 03:55:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t5Ui1rro
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-67a79750749so143300d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:55:54 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=SUUc4n8Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086BE1F000C1;
+	Fri, 30 Oct 2026 03:55:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793332554; x=1793937354; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5zugQx4flv62Sdzk9Wl3acRuLP/zK3sGN6owEqXiGh0=;
-        b=t5Ui1rroa2f68mTGWFToB8+XjEj0thG1CdW6LQkCVmHvnuwKQplXZqslr0K3qz4wkR
-         qh+ljZgv+SORg8Ji1IJBBO2E6y9TFKjHakhzpzZ1WNWjBhr81HWfS45V7RFnjalR9ob/
-         U7m6haYRt50adBecklGpaeowIcr48DkDPo5fuU3mtaatNjNj/gSQuEy4FtIraXAXZCCX
-         EFHWWLvnebKm04qQCiIwy21qrUDcvywhGSvwvyhXkh8mAuLRv3qR/fTn/IR28dsPfpqG
-         ITS+LaA1MS0IvV2FkqYnyd70hGP00kvOl/SuKzw6ordtMcbSXPTC+IvnOllcbBh5gLIB
-         pe6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793332554; x=1793937354;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5zugQx4flv62Sdzk9Wl3acRuLP/zK3sGN6owEqXiGh0=;
-        b=SJIbsvkhb08DTh0eanQQ0vSXsUlt/IbZWpFVvpkZGLLdlDjyarupUeySPxjCTvJSJW
-         yTZVZsFfvHwLeD8XjwdkEn6DNgw4+13W2KdU8zdEAM65GHdWEZHlcefF+/EV2zQm7/np
-         pQcbnOMjV9bBIfvQbKaGAU3CUhFHR3co83X5jVCIHOpiPsrtnH8lsoMc2Hs++vY+nsiY
-         j/2rgSYi6MJrktuwcQcpzQ6cZNPtwJVqjabOPA8gV04i82hAoYprc8QrReoXAYm4/peK
-         JuhE4JeUy1OJLLwLPQhA5FG/PZxGWJx4xyJB76ZMfk3QFA7wEu3F1WCf6znlBljLla/r
-         xpDA==
-X-Forwarded-Encrypted: i=1; AKwUvBxquBm3yH+/MuodrBcjXRqV554k5ODayJCeVzzkX6ii/j9DnSsPSG6ODZ84JG9DzBnn1d7sKcFdufrZlvM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIir+pHBYuJvd3MLBjrajETs4FdB0CKkSVdnepeNDpo+HCFp0wT
-	QJd4WLlm5F6DKEFhLAj7j5WGCUNmZPn9vKZrB8U4NoXj5yxFc7V9/WGv
-X-Gm-Gg: AYBFou2KUZsNXKb3LD2ofYkJKDcC+wgSphEhtnMXHZW4EjBL5uZWDMRRb2hQn5Xp4cn
-	wCkBbBbqz4cxns9d2Y8tY51HknH1aEdlxle1p+xKXi1bURnUGgqdFqtBGFYUpLOLF354c7yg8du
-	24n1INvXNE7T4+tz7ePu9ZFkppwn1GD1Qht+uGa62WCw0bDUDDxT3azZOVEXVUXyl2yzsgfmGx2
-	13cnRW9oZ2ilQgqfXm9H0D6t6ykOEbHilwJkzj6h0yRC2tROXG/OS+bscBbyhaSOj+xyf7TaiCp
-	+85rwn2Rgo5XBbPWOshXjz/VGU2lLHhINEF1e8Pz+IM3fv2Fkuz6UzbOZ2Sb/k2msMBHxeTdVb4
-	nyClUDUnd88dcl145Fdjq1tHY3v7Q8ugReU5+hyaeegPLLdr/RqqXrPOvSSse/1aMRbhbDQlxqg
-	ca5su/6I93nkv/oLBeb7tFbGKi92RlqcgjpwUI9Cb/e2Rzw+j/kN2Vy1u4eRHElJSiHe6JV4pv8
-	WDBrZcpGXByKmH1f5s/8B6eRxLZCXDCuPt9vqIG4XTZy8lgGYsEoLC8HiZOjlnOWAJkrMk0J54k
-	/9zJfWXk6poSJMAVeqowgbUk53uNUFhQMQbhQQ4qiwvXdmW3+Jca25PZn+Kxg7dMLjvb3CoLp3U
-	bfyh7HIh2XOE=
-X-Received: by 2002:a53:c08f:0:b0:679:b98d:9b65 with SMTP id 956f58d0204a3-67ba4ff16damr696189d50.35.1793332553574;
-        Thu, 29 Oct 2026 20:55:53 -0700 (PDT)
-Received: from KastenNixOS7700x.lan (h191.160.142.40.dynamic.ip.windstream.net. [40.142.160.191])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67ba73addf8sm309599d50.3.2026.10.29.20.55.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 20:55:53 -0700 (PDT)
-From: Josh Kasten <jkasten@gmail.com>
-To: calvin@wbinvd.org
-Cc: Jerry.Zuo@amd.com,
-	airlied@gmail.com,
-	alex.hung@amd.com,
-	alexander.deucher@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	aurabindo.pillai@amd.com,
-	christian.koenig@amd.com,
-	dri-devel@lists.freedesktop.org,
-	george.zhang@amd.com,
-	harry.wentland@amd.com,
-	linux-kernel@vger.kernel.org,
-	mikhail.v.gavrilov@gmail.com,
-	simona@ffwll.ch,
-	siqueira@igalia.com,
-	sunpeng.li@amd.com,
-	Josh Kasten <jkasten@gmail.com>
-Subject: Re: [PATCH] Revert "drm/amd/display: Allocate DCN32/1 dmub memory to GTT"
-Date: Thu, 29 Oct 2026 23:54:18 -0400
-Message-ID: <20261030035423.37193-1-jkasten@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org>
-References: <25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org>
+	d=linux-foundation.org; s=korg; t=1793332543;
+	bh=ZkxPW2ruqc0Icv4y+99LJtMWacocG51kIhVn5Ect5og=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=SUUc4n8Y9twmxefBBWPSiCCNBbkgwNw0CVmf2ItyOZEJv/Y4ha7kDBDwxKdnsbO6J
+	 x1mVLqVUUk290osQYZrec+8tVOIwha/pI8nYNLtqj2PfxUsi1D06/Kx82fUHwiaCFw
+	 9vxMZCneEVL2rlsuJSF/dRDkhIdigfovQ/L2GNrU=
+Date: Thu, 29 Oct 2026 20:55:42 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Nicholas Piggin
+ <npiggin@gmail.com>, Shubhang Kaushik <shubhang@os.amperecomputing.com>,
+ "Christoph Lameter (Ampere)" <cl@gentwo.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Dev Jain
+ <dev.jain@arm.com>, Anshuman Khandual <anshuman.khandual@arm.com>
+Subject: Re: [PATCH v2] mm/vmalloc: reject overflowing vm_map_ram page
+ counts
+Message-Id: <20261029205542.1fdef1d121d9eb720950b67d@linux-foundation.org>
+In-Reply-To: <20261022-vmalloc-reject-overflow-v2-1-0db7a20c53f0@gentwo.org>
+References: <20261022-vmalloc-reject-overflow-v2-1-0db7a20c53f0@gentwo.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,96 +59,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-I am able to reproduce this issue on kernel 7.3 on the AMD RX 7900 XT GPU.
-* XT is not a typo, however both XT & XTX variants are Navi 31 anyway.
-Never seen this issue on 7.2.8, 7.2.11, or 6.18.54.
+On Thu, 22 Oct 2026 23:43:47 -0700 "Shubhang Kaushik (Ampere)" <sh@gentwo.org> wrote:
 
-### Conditions to reproduce banding issue
-#### 1. When sub-viewport (AKA SubVP) is enabled
-Check if it is enabled with the following command:
-`sudo sh -c 'head -v /sys/kernel/debug/dri/0000:*/amdgpu_dm_capabilities'`
+> vm_map_ram() accepts a page count and must either map that many pages or
+> fail. It currently converts the count to a byte size with:
+> 
+>         (unsigned long)count << PAGE_SHIFT
+> 
+> On 32-bit kernels, this conversion overflows when count is greater than
+> ULONG_MAX >> PAGE_SHIFT. vm_map_ram() then allocates and maps only the
+> wrapped byte size, but returns a non-NULL address to its caller.
+> 
+> For example, with 4 KiB pages, a count of 1048577 wraps to PAGE_SIZE.
+> vm_map_ram() therefore returns a mapping containing one page instead of
+> the requested 1048577 pages.
+> 
+> If a caller uses the successful result as a mapping of all requested
+> pages, it can access beyond the allocated mapping. Such an access can
+> fault. If the accessed virtual address is occupied by another vmalloc
+> mapping, it can instead access and corrupt unrelated kernel memory. In a
+> userspace-reachable call path, this can result in a failed operation, a
+> kernel oops or panic, or the effects of corrupted kernel data.
+> 
+> Return NULL before allocating or mapping anything when count * PAGE_SIZE
+> cannot be represented in an unsigned long.
 
-I think the amdgpu driver is in control when SubVP is enabled. In my testing
-with a single active display this gets enabled when at 4K and it's frequency
-is 100hz to 120 hz, inclusive.
-Mikhail Gavrilov gave me this description for additional conditions if SubVP
-get enabled:
-> On DCN 3.2, SubVP itself is limited to:
+Thanks.  Let's cc the developers who commented on the v1 patch.
 
-> * refresh below 120 Hz; or 120–175 Hz for 3840x2160, 3440x1440, 2560x1440
-> and 1920x1080 without scaling, and then, on a single display, only with
-> FreeSync off;
-> * pixel rate up to 1800 MHz;
-> * no overlay planes and no rotation.
-
-#### 2. Memory clock changes
-Make sure the video memory clocks are not locked as the banding only happens
-when the GPU changes it's memory frequency when the frame is being outputted.
-
-This happens more often if the GPU is mostly idle and you move a window or
-resize it in a desktop environment like KDE. I see it as often as a few times
-a second, but sometimes it takes up to 10 seconds of doing this.
-
-#### 3. 10x more often if amdgpu overdrive is enabled
-While I know AMD overdrive needs to be disabled before reporting a bug enabling
-it will allow you to reproduce the bug more often and faster. When 
-`amdgpu.ppfeaturemask=0xfffd7fff` is set I see this bug about 10x more often.
-
-### Confirmed revert of a637a140 fully fixes this
-I confirm on next-20261023 by reverting a637a140 I am no longer seeing this
-issue.
-
-The revert didn't go clean on kernel next-20261023, as there was some changes
-on top, so attached is the patch I generated for the revert of commit a637a140.
-
-### Summary
-
-I don't understand the optimization done in commit a637a140, or if there is
-another related commit that should also be reverted. However what I can say
-is I haven't notice any side effects after running with this revert for a few
-days so far. It might be worth considering reverting commit a637a140 in a 7.3.x
-patch release until a new fix can be tested in next.
-
-Hoping this gets resolved in a future kernel release soon, the banding gets
-to me sometimes and won't want this happing on other AMD GPUs. :(
-Let me know if I can help at all with any additional testing or information!
-
-Signed-off-by: Josh Kasten <jkasten@gmail.com>
----
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-@@ -538,7 +538,6 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
- 		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_CURSOR_OFFLOAD */
- 	};
- 	int r;
--	int mem_domain = AMDGPU_GEM_DOMAIN_GTT;
- 
- 	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
- 	case IP_VERSION(2, 1, 0):
-@@ -675,19 +674,13 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
- 		return -EINVAL;
- 	}
- 
--	/* Limit to allocate dmub to GTT on DCN32/1
--	 * TODO: Other asics with GDDR7 may have worse latency
--	 */
--	if (dmub_asic != DMUB_ASIC_DCN32 &&
--	    dmub_asic != DMUB_ASIC_DCN321)
--		mem_domain |= AMDGPU_GEM_DOMAIN_VRAM;
--
- 	/*
- 	 * Allocate a framebuffer based on the total size of all the regions.
- 	 * TODO: Move this into GART.
- 	 */
- 	r = dmub_bo_create_kernel(adev, region_info.fb_size, PAGE_SIZE,
--				  mem_domain,
-+				  AMDGPU_GEM_DOMAIN_VRAM |
-+				  AMDGPU_GEM_DOMAIN_GTT,
- 				  &adev->dm.dmub_bo,
- 				  &adev->dm.dmub_bo_gpu_addr,
- 				  &adev->dm.dmub_bo_cpu_addr);
----
+> Fixes: db64fe02258f ("mm: rewrite vmap layer")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+> ---
+> Changes in v2:
+>   - Use check_mul_overflow() to validate the page-count-to-byte conversion.
+>   - Describe the short-mapping failure mode and its worst-case effects.
+> 
+> Link to v1: https://lore.kernel.org/r/20261022-vmalloc-reject-overflow-v1-1-5fde0042ffb9@gentwo.org
+> ---
+>  mm/vmalloc.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> index bea9f76ed7e74247d4ce919250c2f02dd5c36483..8a056e424a4f2c037c10f736002839014f1f57dc 100644
+> --- a/mm/vmalloc.c
+> +++ b/mm/vmalloc.c
+> @@ -3083,10 +3083,13 @@ EXPORT_SYMBOL(vm_unmap_ram);
+>   */
+>  void *vm_map_ram(struct page **pages, unsigned int count, int node)
+>  {
+> -	unsigned long size = (unsigned long)count << PAGE_SHIFT;
+> +	unsigned long size;
+>  	unsigned long addr;
+>  	void *mem;
+>  
+> +	if (check_mul_overflow((unsigned long)count, PAGE_SIZE, &size))
+> +		return NULL;
+> +
+>  	if (likely(count <= VMAP_MAX_ALLOC)) {
+>  		mem = vb_alloc(size, GFP_KERNEL);
+>  		if (IS_ERR(mem))
+> 
+> ---
+> base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+> change-id: 20261022-vmalloc-reject-overflow-e532c556f3fa
+> 
+> Best regards,
+> -- 
+> Shubhang Kaushik (Ampere) <sh@gentwo.org>
