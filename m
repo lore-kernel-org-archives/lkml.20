@@ -1,67 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.99
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793326899;
-	b=mUJilHLXqwgq1D4WBlUIVq0/+1oGS3LAUSNVu1Wl1enQGFyM/F4vXLrbDz+Hlrg5emZF
-	 EDz9KLRB75xyT3LEHbTD+NQvoNn8qfgypxVmc3gCsyJlWrLMkTnf561xFfTMrFtIgrjOb
-	 yrtttJpGoqHBk62k5+Vy/tg2eBWTp1mHbvJg4cQpUdv2OkjiSkwqZm0FmGmzVsoDID1dr
-	 f5MYrxcL5eP/JnbD7+G/wKurtXx1dVSQGIyAnr05jgMNWbWMIcyvVfWC+5WJn88yqd/9g
-	 4NhUOUUHgOzM3hLxQWXOiHY//mdKoBNqHrkDeXL7g+QQpFq7uBlXI6d3YuvjCzC1hMg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793326899;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=PUUn0CPDPh2hEHWVe738DxX2+G0wvbw3bsMHEdQr8Vw=;
-	b=c5GRMjqBG3Fge+WfehFFKfPLqde37NuKnU7/8hNnySjgsfnlW5Jrgk1ROEti+AIyvS7L
-	 ISaDWXYt6Cl64TMTXkEX+6jtyRQ7UCl95fYSqL55eT3xlz3z/VU870CBVZ8ByTop8S+hE
-	 AXo6wgs1frVVy4kPd1jap9xo140KA3t+y8/SLswz61wTRt5aK+0mnSMOVjvH5UuZjVyCP
-	 KQFsOp/EbllpMhdFHRFHvjzMrK4cIU+4BeotwVZStLWOuLaEhmNjpUgKqzmBqqdejgcKB
-	 pWboEIKjuZxiCb6y9/XEmKzb6UUFMbpKVPZVI6CWVrYA3TByu7MlVnoVd7knsfivb6Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=none smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=124.71.93.99
-Received: from dggmsgout11.his.huawei.com (dggmsgout11.his.huawei.com [124.71.93.99])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793326925;
+	b=i9e/mRTstJ1z+H9yIGRkW09F11xmJLQQ/1Mrz6zQAr9Tw3gTuJqaFznxXzXWGR5SLxWM
+	 0VV82X+8dOLv4yrKk0edrVr+forASsCIU09/qZQ56iawq6GcNN+LXdIN2Vvr05ZL0hC3g
+	 bMPOam2+JPVSqneHmg4nq13OtEZ4/CwcJznMEwRdn3YtS6Tq3zX5IM8AVKeGNvdBRdrir
+	 Gi1PWGXKh1kavXPbLKIma/7WBOm/tpY3mXcc1gaXNRuz9R1RuqrSNWBTKJZhbYOVTNTQa
+	 ya663R/z17CXlJZLpnMXzvbOXFZdRBT8g7l+hpnzeNdTELBOosRKXo0ae3KDSFNpX6g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793326925;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
+	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=cL8MylXspgrJ0jL5yWbWUPjDhynqUW0OugSNyaAfofA=;
+	b=G9vFmlaX+qJUWZfcsrNzrO41lU9fdmn1GBtHjT8YtXi+fDAXDuFozVHbay9981QIPlJ/
+	 Iu0kTAYAbNjdmvSsccKDrGBQyY/l9V4e7yo30/zh1x/aOChi0Q0H2OlLzld4TQ1CeiSas
+	 9Q3GTJaSav8Mtfg9jc/NiSTW+LJ4PhQ+BnHXeCLG+LXzWw5ZepgwjyYJsdR4MViIwcr+J
+	 MW7IzzSI002MdD+ccYO0M5GydkPGFaf/x52KjFDL3Vhrp/Cs5TSMtFUXaZUfrZdR08HhQ
+	 b2vRyQt786+0WtZ7JCFudJR8+my486LYmrwIGhnzQaeZkG1VCGGq0zJ0+gG9YKn0l9w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SZ8jXkWN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.69
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012069.outbound.protection.outlook.com [40.107.200.69])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5E4606A31E;
-	Fri, 30 Oct 2026 02:21:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A5E4606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggmsgout11.his.huawei.com (SkyGuard) with ESMTP id 4jG4bH6QqWz1c2Hs;
-	Fri, 30 Oct 2026 10:21:15 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id B695340576;
-	Fri, 30 Oct 2026 10:21:33 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgCXzewm_+NqieRyCQ--.40911S6;
-	Fri, 30 Oct 2026 10:21:33 +0800 (CST)
-From: Zhang Yi <yi.zhang@huaweicloud.com>
-To: linux-ext4@vger.kernel.org
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tytso@mit.edu,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	yi.zhang@huaweicloud.com,
-	yizhang089@gmail.com,
-	chengzhihao1@huawei.com,
-	yangerkun@huawei.com,
-	yukuai@fnnas.com
-Subject: [PATCH v2 2/4] ext4: fix extent status cache clearing when truncating inline data
-Date: Fri, 30 Oct 2026 10:13:36 +0800
-Message-ID: <20261030021338.1768292-3-yi.zhang@huaweicloud.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20261030021338.1768292-1-yi.zhang@huaweicloud.com>
-References: <20261030021338.1768292-1-yi.zhang@huaweicloud.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8445606A334
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:22:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8445606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SZ8jXkWN
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kEeplRUTDc4cZUtYi6CSkgMWUe7+U9ObspGHmIYcEdLujrjP9GVizUrE/8ng8YzRcrw9PG/pIM7+M8ES6J6FfLCjdV+jUSbgtIi0RfzjhMM95jHluBNeeAK5iz2ArsyLz9F+fYtVTW6UZjCGbRL1pHtylTLE2F4qeg0n6bMr19R0keIAJqeyf0F+icVwJaDt1yj1GedsvISF9U5XCt6cCIMhDggaW/O+jq4xZjdD9cdcxXDzTBAAdyJF8YTUyHftQdP3D7I6A7UTpy+DBItA9dkxwpx3NLRm37wVMAqRa8rPKWtsb2M/AZH9U16mYztvg2MlcopM1TqG7edMppLU4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cL8MylXspgrJ0jL5yWbWUPjDhynqUW0OugSNyaAfofA=;
+ b=WEG6o83MyE/2uvTRMufQ3PJ1y0xqEPNmH/r7J3BuF8LKX1myCSU5T1f1AjIdl91gGXSHb58SSBc1zT6Fbrm9N14yMmwEk0wLBIrg6JqxUvnFuzkcJEzmahqzcveC/to3mTwfzn+EF6PMJCSCmduD4Wz3Cnuv/ZrVLMhELuPo2WLPIazNANjXqV6yG0ARn8RBcN8DGRZA13aW8HfmoiUwkiMsS58mlaPJ8HvEXrAB8V1t6HvxohT/lMXgrdu6O6rIdV6dyVBrlqSMO79Pe3t6940MybV2Glk5xMeMUy7Wjd71cSn3izqMlYncNEhqAUtrG+2cO/NzajM3wjthVjEATg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cL8MylXspgrJ0jL5yWbWUPjDhynqUW0OugSNyaAfofA=;
+ b=SZ8jXkWNCoe3OgkwgN6WAuU9/SmjEgvenMbOTGsIq4DRmd4uunET8n7iYk9OuI2nAEtiB4qwZnKINB4r3iTs63prHxaUAcxhgRPDFW1xKHAYXUeFjVPbu4Ozvg5nKuj+bTgGgU/6Ss1UEKOMnDJAtznl5iLQquYOAxlhu+pYYTCFhCRHCAChn6RPS4AnvzzaTO8J7Bp8gi9Y8bXsYrPYwlA9IPetG08xsZ6j15cVXrlkx5dZR/9U3XycgDSBdX2uf5b3ARa6SQ3/OIefqsGFwTO+3l2hmCNxi3qagbrgljagCcIqtHFL7hkgGJVGmHJ1MllnSFWEXH+5pASHoECoOw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by PH7PR12MB5595.namprd12.prod.outlook.com (2603:10b6:510:135::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Fri, 30 Oct
+ 2026 02:22:00 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0569.007; Fri, 30 Oct 2026
+ 02:21:59 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, teawater <zhuhui@kylinos.cn>
+Subject: Re: [PATCH] mm/compaction: annotate data race for
+ zone->free_area[order].nr_free
+Date: Thu, 29 Oct 2026 22:21:57 -0400
+X-Mailer: MailMate (3.0r7038)
+Message-ID: <96FC569B-BD1B-4B5C-BA7E-939CD769C513@nvidia.com>
+In-Reply-To: <20261028090747.68086-1-hui.zhu@linux.dev>
+References: <20261028090747.68086-1-hui.zhu@linux.dev>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BN9PR03CA0390.namprd03.prod.outlook.com
+ (2603:10b6:408:f7::35) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,89 +100,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgCXzewm_+NqieRyCQ--.40911S6
-X-Coremail-Antispam: 1UD129KBjvJXoWxXF4UKF17GFyfKw18Xry7KFg_yoW5WFW5pF
-	ZxCw4UGr1kW348GF97Z3WjqF1Fga1xGrW7WFy2gr1DWFy5CFyIgF90krWYva48Kr4vvayj
-	vFWYvr1DCa15JrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmY14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
-	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM2
-	8EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1l
-	e2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI
-	8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwAC
-	jcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0x
-	kIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
-	Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1V
-	AY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAI
-	cVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42
-	IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIev
-	Ja73UjIFyTuYvjfUF5rcDUUUU
-X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH7PR12MB5595:EE_
+X-MS-Office365-Filtering-Correlation-Id: 248aa49d-2269-4571-c86c-08df362c93e8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|366016|1800799024|376014|23010399003|261021121427099003|261009223027099003|261022105027099003|10067099003|56012099006|261021123027099003|261026121527099003|22082099003|18002099003|11063799006|261028144727099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	YxItFUrJml9/M33PkYOQ6RfXC6lHL52rucKkah96TRy/jiUQIdwBAr9/7SAW86f+EIPbHPtjf2Zp4XZIZ5iZ63O/JxQ3OM2nB2/1ui7y2ehdaoLs6mRWhY1cDX4xzHnXMrv4nJC1eSyEshVFm4F9fDkNR0sCuNYDsARIJ8heJ+NV+X5xs8CWqjHd9hbpZmDDqYpWbzLGieJ0CGYRw2DWuAZzlEwMLm7aBzkhPhzo69rPQC5TqZ9x7J/peSE4Pe/l4aBGIaokqexLz9afp6E7zshmJnaMBsK3bAfro8APVgkRa+HTcWpKgt7VkpicHJw99Sbz04ro6I74BlCuvW6u97WNe2OIVLP/XLjG5craTjJ97s+dZVrcADE4jzJz0l8DoTVeeWzcNDbiS6u7HCQg02U2XH5ex4CImH6D5qiaZzZy+hcj219BsvQehbIwbggzaRm0Dqdltc8FPhcNZmzLRLvHtkdfvMDGSRy/fwzSti1Z97MDfEtTPo803xp9npg7UL8BYSYkP9j6o8oFKPHkDsox9JJ792hUo8lxMaPrDZpQiLWqauSCH7NJugs36VHbm12bbqBC7ZUUx1/E5bhvH3XoSZyjItOlkTHalVm+zSz9VgLXJNzjE6eRHwr/qH6WMRx52fJny1TGhW7SYc/SCe07YuXT9wWVRcmTFILbsMU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(376014)(23010399003)(261021121427099003)(261009223027099003)(261022105027099003)(10067099003)(56012099006)(261021123027099003)(261026121527099003)(22082099003)(18002099003)(11063799006)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?dL9zCl8LUqabqybh0ssmKP07dihTEnPnuTqjCRrVLhy7qoUevMtgad8Slz6f?=
+ =?us-ascii?Q?Z6sQEFW78SIQHrzsVLgvLl1JzosqqZsAUqAPIbLKF+t/x+CFhm3y4rt/gAuv?=
+ =?us-ascii?Q?XTcoHLmO+Ce8/dc3zPoy5g+1P1SrF6Cb/1P6f2QVRr3unA6nIKupBubje3vV?=
+ =?us-ascii?Q?JUZxCLdPknmjfw8pKFUu+x3qVTOzOOicUYaKg1jWw83of0Kf6xCTqyCKoNku?=
+ =?us-ascii?Q?frL/zvXGSQSx9aAa7zH4+FkTst9UB1wWwX3wF2qRWuSYUZXhfk+aIhlJKUTo?=
+ =?us-ascii?Q?SN41i7Lkd1xMOxBzpJFX4oCai+niawBG419Xkft58d7UuP61EV4DAzAOqrxw?=
+ =?us-ascii?Q?edfluS34VSkzLXqZiLuf/XnrCzIUg7MqT66xwAzP8+tTk7gvY8uXi/ZAJoek?=
+ =?us-ascii?Q?KxC1xF9F+kJp/YqN/tRdD5LJI6JAKdqNzx7Io4jWmx9iHdoBoT3NxXODz09+?=
+ =?us-ascii?Q?X6WYYd3fP/5+8qDdp1yqNCPJL8kzR7oYh0oZb3zZfjjpatjp08nVM2SicQqh?=
+ =?us-ascii?Q?bvHtuSBeW1AHHibB/LDHz1R/KKKKCygbZEP7TCCkRPJXr0mZKce+ZXVpZbEs?=
+ =?us-ascii?Q?q4oFwFV2aZHtGtG9GM6zFmiMPD+Ty/W8mcs9G7/Uxe+N+W9/ZuYKcfs2tHjn?=
+ =?us-ascii?Q?L7sZH0Y05uRXGVetIS0dC3oMH7Z2vlPRWi+pkkqWFouR6adTJD4g2Cnk9uLk?=
+ =?us-ascii?Q?Dw5H1EMYgGyC8nT1q7QVGa0rgWDrduuFaVeq4MpXJx4zJbgPCP4/ngbnyLGM?=
+ =?us-ascii?Q?AQuVVQ3tvyPy+1MqHrWsSgv1UQLTWpe7njkAoQ6cJ32wjEaf7zIDiJGKq0eX?=
+ =?us-ascii?Q?4lOXOFunD7iB4mOhZi9CDrD5QJEHYSmjfL9btlciN8o1Wscmvky5BHg98AiO?=
+ =?us-ascii?Q?R6nBhEhg+ZGc1vdXxwfZofigL6heyAynixe5y1ohrUSt6rswEt+auBfgzUDy?=
+ =?us-ascii?Q?S7xlVUEfJN37ZDw6dABHPXKvgytuyLWOdAXpiIhe/LzpcjOOi+BCvO7zwMd1?=
+ =?us-ascii?Q?s4UC5Hd1V+rr24azZUNDWtLnSa7am8TFs2nxQb6aJA9j6WwPL41DJL7oKHQg?=
+ =?us-ascii?Q?v811Tdrk5icAUq15l/iAN6lIYaoqKgWC6sxtnqQryeL/vUiEc6Kd8vsoyyeo?=
+ =?us-ascii?Q?kjQHuegzJj4dudN6e9a7h+vEA3X2Ilz0PRaFw5dy82feofAV2o47mZzwXAv8?=
+ =?us-ascii?Q?2gxCfzizLMBgwFh7mT+vReAxDwhdxrarNFaKlZMtL9D1Eo1UPewaxc2d7qs7?=
+ =?us-ascii?Q?x5guwe3Aw3FHKITB3tr7OYVDE15px39qOVGoel6f974DprgfPChbC1UFwH6m?=
+ =?us-ascii?Q?jYJKBn6K2mcBZHGJIXO5s9NdwexslBcWy7SjxT4eJe3cT1m49mnX+U0HCqZW?=
+ =?us-ascii?Q?W0F0hosBIGMq4WTEjbdBdN93izVgkXpmp7ydm4LW6HUvOFd+QB+e94UzHfKP?=
+ =?us-ascii?Q?mF2VLDN6w+lbTj/sudHCFnepxZ7IgKU4QQBGXUPZFzyFP+/yA+HBMC3l/WPp?=
+ =?us-ascii?Q?5cGdL6Oh2WTl1+tJeIJjzTbvCelM+bkVTE2h+TfNnjdYf3Ui9qmGp2trGa8B?=
+ =?us-ascii?Q?50XkZe93itqwj1sYTmtTObGe4W1TfD8OpYLrAhvkp8x31uTDBIQbvvzpW/RO?=
+ =?us-ascii?Q?jM7l3AlNDL/jBrzwj7yXGxRc1XOOnhlaIBkFUtddf+z4DNSB5voAZBT7shDk?=
+ =?us-ascii?Q?OZPtXYdjTzm0+Ux9+Donhna9SzhjGM6qRjWXLCwmbnfsAk0h?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 248aa49d-2269-4571-c86c-08df362c93e8
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 02:21:59.8927
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pM0DS7IRNEKVvDh7686ncyYHO3wrSJsB+VpuVQP4SN4i0nsc5DbijmEaCct7J6ae
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5595
 
-From: Zhang Yi <yi.zhang@huawei.com>
+On 28 Oct 2026, at 5:07, Hui Zhu wrote:
 
-ext4_inline_data_truncate() clears the whole extent status tree of the
-inode when it truncates the inline data, with
+> From: teawater <zhuhui@kylinos.cn>
+>
+> KCSAN reports a data-race on nr_free which also exists on mainline:
+>
+>   BUG: KCSAN: data-race in fast_isolate_freepages+0x284/0x1550 mm/compaction.c:1589
+>
+>   race at unknown origin, with read to 0xffff9894ff3dcb60 of 8 bytes by task 179078 on cpu 12:
+>    fast_isolate_freepages+0x284/0x1550 mm/compaction.c:1589
+>    isolate_freepages+0x52/0x650 mm/compaction.c:1722
+>    compaction_alloc_noprof+0x36e/0x3e0 mm/compaction.c:1850
+>    compaction_alloc+0x21/0x30 mm/compaction.c:1880
+>    migrate_folio_unmap+0x7f/0x820 mm/migrate.c:1177
+>    migrate_pages_batch+0x37e/0x1200 mm/migrate.c:1762
+>    migrate_pages_sync+0xce/0x560 mm/migrate.c:1928
+>    migrate_pages+0x8c6/0xc20 mm/migrate.c:2037
+>    compact_zone+0x539/0x10b0 mm/compaction.c:2660
+>    compact_zone_order+0x1b8/0x230 mm/compaction.c:2795
+>    try_to_compact_pages+0x20b/0x630 mm/compaction.c:2851
+>    __alloc_pages_direct_compact+0x98/0x2b0 mm/page_alloc.c:3722
+>    __alloc_pages_slowpath.constprop.0+0x452/0xdf0 mm/page_alloc.c:4401
+>    __alloc_pages_noprof+0x28a/0x2d0 mm/page_alloc.c:4794
+>    alloc_pages_mpol_noprof+0x1b1/0x470 mm/mempolicy.c:2270
+>    alloc_pages_noprof+0x7a/0xe0 mm/mempolicy.c:2347
+>    io_mem_alloc_compound io_uring/io_uring.c:2848 [inline]
+>    io_pages_map+0xb9/0x330 io_uring/io_uring.c:2892
+>    io_allocate_scq_urings+0x231/0x300 io_uring/io_uring.c:3933
+>    io_uring_create+0x29c/0x9c0 io_uring/io_uring.c:4091
+>    io_uring_setup+0xb6/0x100 io_uring/io_uring.c:4203
+>    __do_sys_io_uring_setup io_uring/io_uring.c:4230 [inline]
+>    __se_sys_io_uring_setup io_uring/io_uring.c:4224 [inline]
+>    __x64_sys_io_uring_setup+0x66/0xe0 io_uring/io_uring.c:4224
+>    x64_sys_call+0x1816/0x1d90 arch/x86/include/generated/asm/syscalls_64.h:426
+>    do_syscall_x64 arch/x86/entry/common.c:51 [inline]
+>    do_syscall_64+0x70/0x2a0 arch/x86/entry/common.c:81
+>    entry_SYSCALL_64_after_hwframe+0x76/0xe0
+>
+>   value changed: 0x00000000000002f4 -> 0x00000000000002f5
+>
+> nr_free is only updated with zone->lock held, but fast_isolate_freepages()
+> and fast_find_migrateblock() read it locklessly to skip an order that has
+> no free pages.  page_alloc.o is excluded from KCSAN, so the writer is not
+> instrumented and the report is of unknown origin.
+>
+> The race is benign: a stale zero only skips the order for this round, and
+> a stale non-zero just finds an empty MIGRATE_MOVABLE freelist under the
+> lock.  Annotate both reads with data_race(), following commit
+> af1c31acc853 ("mm/vmstat: annotate data race for zone->free_area[order].nr_free").
+>
+> No functional change intended.
+>
+> Signed-off-by: teawater <zhuhui@kylinos.cn>
+> ---
+>  mm/compaction.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+>
+With your sob fixed, feel free to add
 
-	ext4_es_remove_extent(inode, 0, EXT_MAX_BLOCKS);
+Acked-by: Zi Yan <ziy@nvidia.com>
 
-It does that when the inode still carries inline data while the
-EXT4_STATE_MAY_INLINE_DATA state bit is already cleared.  This is the
-case once an inline-to-extent conversion has been initiated, which is
-triggered by a delalloc buffered write larger than the inline space in
-ext4_da_convert_inline_data_to_extent().
-
-The clear is meant to drop stale extent status entries of such an inode
-to prevent stale extents and stale reserved space after the conversion,
-but the range is too wide.  It also drops the entries of the blocks
-below the new end of file, that is the blocks that stay in the file.
-
-When writeback of these blocks starts later, the lookup of such a block
-misses the extent status tree, falls back to the extent tree and caches
-a hole entry for it.  Those blocks then have dirty, mapped and delayed
-buffers together with a hole extent status entry.  This is an
-unexpected inconsistency.
-
-This problem has been hidden so far because we allocate blocks and new
-extents for them during writeback.  But once '244392197bb9 ("ext4: skip
-block allocation for holes in the data submission path")' is merged
-during the iomap conversion, the writeback behavior will be normalized,
-and it will no longer allocate blocks for holes, thus exposing this
-problem.
-
-Therefore, restrict the range to the blocks that are actually truncated
-away, and pass EXT_MAX_BLOCKS minus lblk as the length.
-
-Reported-by: syzbot ci <syzbot+ci46f64f7b6a2a188e@syzkaller.appspotmail.com>
-Closes: https://lore.kernel.org/linux-ext4/6ac92a4c.70ed5d86.2ac85.0072.GAE@google.com/
-Fixes: 0add491df4e5 ("ext4: remove extent cache entries when truncating inline data")
-Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
----
- fs/ext4/inline.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index ceee69a66482b..b630e56815bb5 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
-@@ -1905,8 +1905,12 @@ int ext4_inline_data_truncate(struct inode *inode, int *has_inline)
- 		 * the extent status cache must be cleared to avoid leaving
- 		 * behind stale delayed allocated extent entries
- 		 */
--		if (!ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA))
--			ext4_es_remove_extent(inode, 0, EXT_MAX_BLOCKS);
-+		if (!ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)) {
-+			ext4_lblk_t lblk = EXT4_B_TO_LBLK(inode, i_size);
-+
-+			ext4_es_remove_extent(inode, lblk,
-+					      EXT_MAX_BLOCKS - lblk);
-+		}
- 
- 		/* Clear the content in the xattr space. */
- 		if (inline_size > EXT4_MIN_INLINE_DATA_SIZE) {
--- 
-2.52.0
-
+Best Regards,
+Yan, Zi
