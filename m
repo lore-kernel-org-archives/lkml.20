@@ -1,107 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793392287;
-	b=r+zeaMNiq9nsjN1BJ1Bu2CS6LQ+uYPxlb4v1WoKeADmMWrcRdOGfzkwVQH3tz9RSpQHS
-	 FsV7zjC8zQnbwbrS9m16Z8Qv6c4MDsZfhEX3FOhfqaSKr8t2U5SJP7RxqxER/UbiCAFLN
-	 8a941cyL2YzrXQb4u12tXz8p2zc/YgyhDdUXBs70OcX4U0tTDBLgHNNzGw7eHOZrwxFgZ
-	 J3CSrxEkkrJerrcnTKaaggHfapMbny8lWd1erxo3/Xf7gi0HWZq2z9HajHPw7Wne3chmq
-	 4TLG9BbggHYv52cSv/35z+9AGjUlD2F9vpFMh/dtfWl8xEr8UsJnf6L7a+3/NJa6oqA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793392287;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=mGN54Vx5el8Kplz3LeMa55OvW/PjprAFTNep289Fdis=;
-	b=Xxnoxz123HG4OLbCz3YGw8fR3ub2eVL1BgAgcTbkhPmmX/leOKtfig9ejjLSQ/N1Ns4B
-	 Lipp45VfNI0w+EI0XLfopVajeZjJVPIhbQ0k7GzkuAqBrHXJV6YD3HD/gPrL4qOYqLZm2
-	 WuPppYwIL1K3TDgy2AVn9L/U8thEhy3IrAWiRg9nJOSD/hBjsxRx1cseZ2h42tn4IOmsb
-	 2DT/5GR7quiRYhhrQ4u71MB7DAd8B/4GDM28GmD/nXhbI3+0K85DQ+xTl6U0wLI+EAvtN
-	 6hmvurGQ2CQvXHNtFuU4Q7dzaZWDd2VxWUEWO+E1h+yXhQuVRE+GoiM4Pm2UcEo/5RA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QlNGu3k8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.48
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010048.outbound.protection.outlook.com [40.93.198.48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793392450;
+	b=0avanePOpLJkJqUmHisXZJeIUjv2s6w6KbyG8kHlnOK1iIKj2NqmQFIXemojj4yapFLV
+	 pC3qxKFlAiCF9Hwnj4Gyf2JFq3r1Xru6lRCkIsuTk+x+AgRvlsARSWKcikZiTirorL94e
+	 /qC0V+DhyR4Z6pORrilkoRjZ3ep/RP1eccvHN82e4Q6VqdcjqELabxVRl72ihU4u4didd
+	 W+MrSM9OEBMNW9Cm/KI7yGYLd/4qLg+v0/vH4R1gi8w1pEmn92iSCKWBRmN2pekPfbW4r
+	 T6SyWWEwBghWfxnUJK6OxYNz1J9FKIp1oaEOMnJniA8ulYgrVyEvNjEwQG8TelD/6Rw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793392450;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4Nw8NpVUaIYw76IIZWbK2cq2xyPR6mLCTZOaoZttbUk=;
+	b=YXAoNcREIJVzhWWihq0kLgDnUoD4+KWeaMNJB2uqV4MVcZnBSuzLWcVrIOG/1kl3H5iI
+	 2ix0UYUb6BppsdJ93gHeWe+8PPhj0vz3QaVXD6S00kbxwA24hetIuR2M95h6QUpDw3Ajr
+	 xUOgUAnlKtLTC0+cPh8R8AUeyKLvdSVRrpTgFjT+A45oPPscDN1gy/9MEghvntXmRa7Sj
+	 DUNfdgT7jqpxbwPr7ZuULphUJg9AySzeMqqg4mig1HtYWM9Ji0ObdeE3W0PgLjB18cOIU
+	 033p8/zeENNSB8ZOQ3az8rZ0p+NqpkFO/txLoeYcUVvbzUHRSXR+FEwCnZRNyisjQLQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Prlh1tqx;
+	arc=none smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C99606A31C;
-	Fri, 30 Oct 2026 20:31:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46C99606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB46A606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:34:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB46A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QlNGu3k8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TX+W18b6mU02oK5WaqMABf+brf/dl5NDOOZEmqoXzRM//7+aToa4wof8J99dN0qPlKFCMvsvR7jJXp3O3Yy/K046yEI6Qv+LhBHW20kK+qZ7jSxOw1/zUuvH+CGbpQDprnRU6W6AKF6YI++QwvLV7dD1nlENm3zxCWw/I+vF98ZcWFiMZLskKLFfL2A+mG8vvB31Pa0mNlHx3FXByG7ItepiGr3xuSg3X9mJdYgKn1hrSeSEcJMc+uhpLdsZx3lk1zSgCL+eOLNZzpBIOx/92Tx11uIPblghv1DrclJlo6aj7YGHLJkpWOlcFIeOvXvCUUkNzMxbIgAxD/IVUJq0QQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mGN54Vx5el8Kplz3LeMa55OvW/PjprAFTNep289Fdis=;
- b=HP5pS7fSqewuQh+qp2wYtKxcTjl/xOKSKuslXnXBE415wtGTJMIj3evW+CcnJfwJq/qss4rrdfaUIVSAatnLCAtW2C1INNlL20oF8/r9cGozyCcQoHF4k2tRtBcZAS3TfwH/5qSC5NXplnwAOi920RZR0dZTBqpL9WW1gU8b8xKrekn3J4ot7fycE0TWoRUucxTFZvF/jPCAKRpKym0gUOBzv+iKPypEGuMEUZymOYQcOIcr4QS6N8IQHN8xAbokjuShgBuqlXSYDGU7EplSEpQFirdU/4iG/goJmYcHT/3bY8ULl/JYGLXEngZaLx2kBxtjOCVoNH8pD7QKMZdHEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mGN54Vx5el8Kplz3LeMa55OvW/PjprAFTNep289Fdis=;
- b=QlNGu3k8WMoCNv9eEPx4kccBFMFZvkWSahTbSHrotat3N5xMUzAEyQ9baoBHx4X34VndxpqUW5vJ0rXnuqPeBqKuk+tjP877kxgPwGfc105bz45Gf1Vq1tZ80FW6+fQB0uyN8mYXlo1pAEeyCrOnVGahqnnzxX7eW+tGSib2rwc=
-Received: from CH0PR03CA0313.namprd03.prod.outlook.com (2603:10b6:610:118::34)
- by DS0PR12MB7677.namprd12.prod.outlook.com (2603:10b6:8:136::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 20:29:20 +0000
-Received: from BL6PEPF0006C3DC.namprd02.prod.outlook.com
- (2603:10b6:610:118:cafe::5c) by CH0PR03CA0313.outlook.office365.com
- (2603:10b6:610:118::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.8 via Frontend Transport; Fri, 30
- Oct 2026 20:29:20 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0006C3DC.mail.protection.outlook.com (10.167.249.230) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Fri, 30 Oct 2026 20:29:20 +0000
-Received: from bmoger-ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 30 Oct
- 2026 15:29:19 -0500
-From: Babu Moger <babu.moger@amd.com>
-To: <babu.moger@amd.com>, <tony.luck@intel.com>, <reinette.chatre@intel.com>,
-	<bp@alien8.de>
-CC: <x86@kernel.org>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
-	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <kas@kernel.org>, <rick.p.edgecombe@intel.com>,
-	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-coco@lists.linux.dev>, <kvm@vger.kernel.org>
-Subject: [PATCH v6 2/2] x86,fs/resctrl: Keep mbm_assign_mode in default mode at boot
-Date: Fri, 30 Oct 2026 15:28:48 -0500
-Message-ID: <c1e5ef23e83ea663e9aa969e301fac20723a988a.1793392128.git.babu.moger@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1793392128.git.babu.moger@amd.com>
-References: <cover.1793392128.git.babu.moger@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Prlh1tqx
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so1804465a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:34:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793392448; x=1793997248; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4Nw8NpVUaIYw76IIZWbK2cq2xyPR6mLCTZOaoZttbUk=;
+        b=Prlh1tqxN9NJEwFl/0WgLNFvOFVvswkxrWT8RIGJ69ZJy7IxcKRgJ/ZyR4vrmHOGxe
+         8YtPysq/hXarIAkD9sGQXkDnrRV17hIse5z4nRGTRRtXgIRSxPLvP4HWIdPVZvN7GF2O
+         5ZpPAVFy1e/x+LIfy92lf8VvlnkSjbavHIghgGIfbYSs+ib0w0hdu80SyqB15GKU31yr
+         PadK7dRY9nS8DYY99YYef6ty7FLA0HSoNDZ0elKk9urf6QcPVBzFqx3X0njW6d3HGUTR
+         UQPy+Fg7DKLfyDBs0WBXrOZv6zQe2vpUdmjRWf3eai9fZfTZEbOI312DeLREB1XraNqm
+         oZGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793392448; x=1793997248;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4Nw8NpVUaIYw76IIZWbK2cq2xyPR6mLCTZOaoZttbUk=;
+        b=iIVbwx32cJf/5RLFQaYmREOL7IXuNQAm6oHAoqJr0oOI+L3OxKuKifUNyhJ3N9TAI9
+         vZTGuQWcm1SD/XzTguEpjyEzpmT3Y3mg49ODTI7MTk+5hyKst31bf2lx+kJ1mxnqUqxm
+         WsN8M3H4zh3mtQPaxoEmVjBfDi0XBeQrQVsfV1QNJ3yXGkIOmI8S8yz9i6DkSKobHqd5
+         m3Xpa4rT+jfrIJjdsFaGNRydwC2zKtorbyA4IWLd9DxksOPDTIK96caX2Y5sGE/gbuoT
+         T3B0nHuFRN53rixmUCIqIytfImcau78E1uReeY3abld8sI2FdUarFRuXDLEocezbWRdr
+         Gtgw==
+X-Forwarded-Encrypted: i=1; AKwUvBxPemDKcQUl8F4LqKYvavbnIyuQZtfD/JPL0r0/iuj+HrBlIcb/yOuw1hUEKUUul1OvNx7AqiYvDKAGONE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxNm+k9cawJNnDRbLcXqIy9V7ifjRCJi0opR2/TY7zYJk/jcOE
+	AZkFxuD1rCiGvtfoVnK1TStTaM7/D6pqTCL0f7psH0aZ8MFQWWXWIXA=
+X-Gm-Gg: AYBFou2cPSCho0QYJXBSTxITqxVpPuGNZWDe+4LPS+PX9J5DE3VdLvinv2j4oq1m3ui
+	0sQbS8p57eWMpc8fzw43CmHgEO5FNIz+T6IgtNvkhQw/hyypzgUnn97b04RRgYO43vNWS87nUwh
+	iAbglExS8kMu8W2dxBDl8dF/vc8akxUUw6EoUHUm8+yhTdsK6JuAXHiW0xP2ytDIKhL0jsqTPl0
+	jWbsiCPPU79pO6OFovGATINB26ZGPSgiDl6NoSt1EZEn3bprVQsv04l3x1LmupxNTkVRGfEb3Fk
+	Zq70BCBBSinYpxKyaHnelYltr81KItmiP53/fxxdDa3BE9R/tGZRa+c4Ik1FnsWZTsboWyHhc9F
+	RLRnd7tnHPJ0aueTaJsrnSC4mV601XPdhZ1AnELwZvGwPPMahkAeoq3UA7wnxuygt9XdgI/B+9h
+	p56xO0NCgVI1qYFG7GKV8aDD/EQKa57lOKz++IFP0JuzPm4oAYtiwdMnSC3V1xBx8IbrKswOHM5
+	32wIaIdIltW3M+V/CTmzOuR9xduwUdSmk9huxl6+l7wi/PRXgj2nvOAbcJEcAxrv1KpAJL9cx66
+	im9VVNDIaYa+FHM2GTo=
+X-Received: by 2002:a05:6402:74b:b0:6a5:fbc6:cad1 with SMTP id 4fb4d7f45d1cf-6b4d4687f4dmr1772470a12.7.1793392447949;
+        Fri, 30 Oct 2026 13:34:07 -0700 (PDT)
+Received: from fedora ([46.8.219.5])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec9eebb0sm309091a12.8.2026.10.30.13.34.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 13:34:07 -0700 (PDT)
+From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Vitaliy Sochnev <sochnev.v.74@gmail.com>,
+	Mikhail Zhilkin <csharper2005@gmail.com>
+Subject: [PATCH] mtd: spinand: confirm ready state on SkyHigh S35ML chips
+Date: Fri, 30 Oct 2026 22:33:42 +0200
+Message-ID: <20261030203342.91172-1-sochnev.v.74@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,300 +99,236 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3DC:EE_|DS0PR12MB7677:EE_
-X-MS-Office365-Filtering-Correlation-Id: 430197c6-2012-4eb4-473c-08df36c47a46
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|36860700016|82310400026|260925021311599003|260925022911599003|260925021911599003|5023799004|11063799006|56012099006|261009223027099003|261026121527099003|261026140227099003|261028144727099003|261022075727099003|261022113327099003|261021123027099003|261021121427099003|261022105027099003|10067099003|18002099003|18092099006|22082099003|6133799003|13003099007|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	7s27ysFD/agYQTQ5W8HetKkjxMdChA8piFoUrFFLcf78obo+b4sosW2Qtjrp2yRtnc1cdf4CDYOhUYgvdiEZDmMAIYnqM2GgpQv4U0TLjtD0qhwrFZ5/oCzUDRlEFPmABhA3TLCTRTl7ufV05MYBQQfN/FcEJJG459uTrSB4sEpHBkRSZwM31qOmMDnl1sCxmzy+Feaqt1w/+bKEh2rkZCLldz0aM+8PEsFRVv/nXwhtVBfrIMRMeB8vqIQj+PIgd8XVBH+tl+4B/7GygCTKUD4PRrIQgCFfIyX2x3x7c5FjPg+8t1IWzpU4MKKPETL7KBUH5xnT22w7kn0qJAOUmdXYDjz0Uz/67N/Q8wK/0ezFXeo4o8xMHV/eGANtAZ5/UkisAAfzVSV+UF7v2ZMdx6OKhDIerMva+ZWIl6kxX/f7jIWB1FWZ5i5oDsA00ASjY6i1PLDTYvq897yvPFXJEgyIR6WpVKZtjzJuTyVLcMb3EJEE8Rs777zr7Z0LregsRZ+T/fqnHTpK8Yq4mYj+am4LogG8nlsoiyd35mYtfUr6l2bAK0fs/RQEg40rUOs80Zg/wtPTOl9KwNqaJ55V4q8AEGXTrFzh2b0DiRcTrTXaIZ74Be0I/8sdd3lcZRkalRaEy4CmOV0jUnv6TPRcachGB/2MtJgo2Y2Y+yI/Ltg=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(36860700016)(82310400026)(260925021311599003)(260925022911599003)(260925021911599003)(5023799004)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261022075727099003)(261022113327099003)(261021123027099003)(261021121427099003)(261022105027099003)(10067099003)(18002099003)(18092099006)(22082099003)(6133799003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	mT51n57osprcL8+5C2rDPYVtFfYISxFPcQKxoc1b5kKZVUgGHLdR8n0wN2QyeyiK8CE4ixpi5LzPRByz8t3T4TLTdqBzs5aEDtLjXcbzEhh9A4zhuFJNX1UVBig+6ZKaw/P6sAHhaY2kTPPPXwZggpt4C7tbTakNJhJxB7yMBOFDvs1xcHCUIZTGgdAtbLisJ2nGLEorNno1AFYIzLHVtrU/ya2ssJgyh9AMe622I3lk5bv9dpQvVvPEmY/dl/7BV69EF9cL017msiKRxRILPgibf2qSZq4GIwPrlrELhu5/gMt7+6Jc1tpRCGH6XBEIfHLNO4GqAED8KHXpw20k0nDcpMB22A70YZLGurlVk5BNOfKJvXqRRtpB8POH2EEAcKoIDtZhzMSBuS2vlBBs1nFH6NJcADP6hF3WqFoap1uKrlJcFnKyCi3mAU7N6MOr
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 20:29:20.2369
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 430197c6-2012-4eb4-473c-08df36c47a46
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0006C3DC.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7677
 
-The mbm_event mode assigns hardware MBM counters to RMID/event pairs.
-It is intended for deployments that need to manage counter assignment
-on platforms where the number of monitoring groups exceeds the available
-hardware counters. Hardware counters are scarce on these platforms, so
-mbm_event mode suits workflows that monitor a subset of groups at a time
-and rotate assignments as needed.
+On a Nokia XG-040G-MD with a SkyHigh 256 MiB SPI-NAND, UBI reports
+fixable bit-flips during rootfs mount without this workaround:
 
-x86 resctrl enables the mbm_event mode by default on hardware that supports
-it. This breaks the pqos tool [1], which assumes the historical default
-mode. It creates 16 or more monitoring groups and uses two counters per
-group. On a platform with 32 counters per domain, that exhausts the
-mbm_event counters pool, causing additional groups to read "Unassigned".
-pqos interprets a non-numeric event read as zero bandwidth and reports 0
-MB/s for those groups:
+  ubi0: fixable bit-flip detected at PEB 1979
+  ubi0: schedule PEB 1979 for scrubbing
+  ubi0: scrubbed PEB 1979 (LEB 5:53), data moved to PEB 645
 
-  $ sudo pqos -m all:0-4
-  CORE         IPC      MISSES     LLC[KB]   MBL[MB/s]   MBR[MB/s]
-     0        0.69         16k       192.0         0.0         0.0
-     1        0.40          3k         0.0         0.0         0.0
-     2        0.44          1k        64.0         0.0         0.0
-     3        0.39          1k        64.0         0.0         0.0
-     4        0.43          1k         0.0         0.0         0.0
+Other reboots also report fixable bit-flips. A tester reports that after
+applying the workaround, sysupgrade, multiple reboots and an active
+workload produced no such warnings. Long-term operation is unverified.
 
-Leave mbm_assign_mode in default mode during initialization. Default mode
-uses one counter per monitoring group. On existing AMD platforms, the
-default active counters pool is 64 and may be larger on newer hardware.
-The active counters pool is the number of counters that the hardware can
-actively track in default mode.
+spinand_wait() accepts a single non-busy status sample. On these chips,
+the ready bit can briefly clear before the device is actually ready,
+allowing a premature cache read or a new program/erase command. The
+fallback status read for controllers with poll_status offload does not
+provide a second ready confirmation in the usual case.
 
-Deployments within the active counters pool receive accurate bandwidth
-measurements in the default mode. Users can create more monitoring groups
-(for example, 4096 on current hardware) than there are active counters in
-the pool. Beyond that pool, readings may be misleading or report as
-"Unavailable", with no user-visible indication.
+Mark the affected SkyHigh parts with a quirk and require a second ready
+status sample after spinand_wait() for those parts. If the chip becomes
+busy again, repeat the wait while the outer timeout has not elapsed.
+Each inner wait has its own timeout, so the quirk can wait up to roughly
+twice as long. Leave other SPI-NAND parts unchanged.
 
-Default mode is still limited once the number of monitoring groups exceeds
-that active counters pool. After hardware re-allocates a counter, a read
-may return "Unavailable". pqos still treats "Unavailable" as zero.
-Successive reads can be a count, "Unavailable", then another count. pqos
-treats those jumps as wraparound and can report an inconsistent rate:
-
-  $ sudo pqos -m all:0-4
-  CORE     IPC      MISSES     LLC[KB]   MBL[MB/s]   MBR[MB/s]
-  0        0.76         60k        32.0         0.0         0.0
-  1        0.45          1k        32.0         0.0         0.0
-  2        1.57        107k        64.0         0.0 17592186044184.9
-  3        1.62        276k      4928.0         3.2         0.5
-
-Users that need stable measurements beyond the active counters pool should
-use mbm_event mode and rotate assignments as needed. Enable it with:
-
-  # echo mbm_event > /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
-
-Fixes: 0f1576e43adc ("x86/resctrl: Configure mbm_event mode if supported")
-Closes: https://github.com/intel/intel-cmt-cat/issues/311
-Signed-off-by: Babu Moger <babu.moger@amd.com>
-Cc: stable@vger.kernel.org
-Link: https://github.com/intel/intel-cmt-cat # [1]
+Suggested-by: Mikhail Zhilkin <csharper2005@gmail.com>
+Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
 ---
-v6: Minor changelog update.
-    Re-arranged resctrl.rst to accomodate change in auto-assignment.
+Notes for reviewers:
 
-v5: Dropped the patch 2 from v4. As auto-assign is not a requirement when
-    mode is switched to mbm_event, the examples needed some changes.
-    Updated resctrl.rst to take care of that.
-    Few minor changelog update.
+The two ready samples are taken in separate SPI transactions, without an
+explicit delay. The duration of the premature-ready interval has not been
+measured. If both samples fall within that interval, the wait can still
+return too early. Would a measured, explicit delay be preferable here?
 
-v4: Introduced mbm_event counter pool and default active counter pool.
-    Removed duplicate texts in resctrl.rst.
-    Re-arranged the tag order.
+The on-device result comes from a Nokia XG-040G-MD with a 256 MiB SkyHigh
+chip running OpenWrt with this workaround. The linux-next port has only
+been compile-tested; the other S35ML entries flagged by this patch have
+not been tested on hardware with this workaround.
 
-v3: Added pqos output to show the problem.
-    More changelog to detail the issue.
-    Updated the resctrl.rst to mention changes.
+ drivers/mtd/nand/spi/core.c    | 85 +++++++++++++++++++++++++++-------
+ drivers/mtd/nand/spi/skyhigh.c | 12 +++--
+ include/linux/mtd/spinand.h    |  1 +
+ 3 files changed, 76 insertions(+), 22 deletions(-)
 
-v2:
-  Added documentation describing the known issue with the default mode.
-  Will add cc to stable once we have all the things in order.
-  Let me know if I missed anything.
-
-v1:
-  https://lore.kernel.org/lkml/8cb66e18e32e4087a9712c1e68ee6da614efe244.1784322818.git.babu.moger@amd.com/
----
- Documentation/filesystems/resctrl.rst | 87 ++++++++++++++++-----------
- arch/x86/kernel/cpu/resctrl/monitor.c |  1 -
- 2 files changed, 51 insertions(+), 37 deletions(-)
-
-diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
-index b52795e03303..2750f2eabf70 100644
---- a/Documentation/filesystems/resctrl.rst
-+++ b/Documentation/filesystems/resctrl.rst
-@@ -350,12 +350,12 @@ with the following files:
- "mbm_assign_mode":
- 	The supported counter assignment modes. The enclosed brackets indicate which mode
- 	is enabled. The MBM events associated with counters may reset when "mbm_assign_mode"
--	is changed.
-+	is changed. See architecture specific notes below.
- 	::
+diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
+index 133776ba53da0..b051ff1d6be5c 100644
+--- a/drivers/mtd/nand/spi/core.c
++++ b/drivers/mtd/nand/spi/core.c
+@@ -710,6 +710,53 @@ int spinand_wait(struct spinand_device *spinand, unsigned long initial_delay_us,
+ 	return status & STATUS_BUSY ? -ETIMEDOUT : 0;
+ }
  
- 	  # cat /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
--	  [mbm_event]
--	  default
-+	  [default]
-+	  mbm_event
- 
- 	"mbm_event":
- 
-@@ -373,20 +373,17 @@ with the following files:
- 	Moving to mbm_event counter assignment mode requires users to assign the counters
- 	to the events. Otherwise, the MBM event counters will return 'Unassigned' when read.
- 
--	The mode is beneficial for AMD platforms that support more CTRL_MON
--	and MON groups than available hardware counters. By default, this
--	feature is enabled on AMD platforms with the ABMC (Assignable Bandwidth
--	Monitoring Counters) capability, ensuring counters remain assigned even
--	when the corresponding RMID is not actively used by any processor.
-+	It is intended for deployments that need to manage counter assignment on
-+	platforms where the number of monitoring groups exceeds the available
-+	hardware counters. Hardware counters are scarce on these platforms, so
-+	mbm_event mode suits workflows that monitor a subset of groups at a time and
-+	rotate assignments as needed. The mbm_event mode ensures counters remain
-+	assigned even when the corresponding RMID is not actively used.
- 
- 	"default":
- 
- 	In default mode, resctrl assumes there is a hardware counter for each
--	event within every CTRL_MON and MON group. On AMD platforms, it is
--	recommended to use the mbm_event mode, if supported, to prevent reset of MBM
--	events between reads resulting from hardware re-allocating counters. This can
--	result in misleading values or display "Unavailable" if no counter is assigned
--	to the event.
-+	event within every CTRL_MON and MON group.
- 
- 	* To enable "mbm_event" counter assignment mode:
- 	  ::
-@@ -398,6 +395,24 @@ with the following files:
- 
- 	    # echo "default" > /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
- 
-+	In default mode on AMD platforms that support more CTRL_MON and MON groups
-+	than hardware counters, hardware dynamically shares a smaller pool of
-+	counters among RMIDs. One counter from this pool is used per monitoring
-+	group and counts every MBM event of that group's RMID. The size of the pool
-+	is not enumerated to software (unlike "num_mbm_cntrs"), and "num_rmids" may
-+	be much larger. For example, 64 counters in this pool monitor 64 groups.
-+	Newer hardware may provide a larger pool.
++/**
++ * spinand_wait_ready_confirmed() - Wait for the device to be ready
++ * @spinand: the spinand device
++ * @initial_delay_us: delay in us before starting to poll
++ * @poll_delay_us: time to sleep between reads in us
++ * @s: the pointer to variable to store the value of REG_STATUS
++ *
++ * Same as spinand_wait(), except for devices flagged with
++ * SPINAND_PREMATURE_READY_QUIRK, whose ready bit can flip back to busy
++ * shortly after first reporting ready. For those, a ready result from
++ * spinand_wait() is only trusted once a follow-up status read still shows
++ * the device ready, and spinand_wait() is called again otherwise. Each
++ * spinand_wait() gets its own SPINAND_WAITRDY_TIMEOUT_MS budget and no
++ * new one is started once that span has elapsed, so such a device can
++ * spend up to roughly twice that time here.
++ *
++ * Return: 0 on success, a negative error code otherwise.
++ */
++static int spinand_wait_ready_confirmed(struct spinand_device *spinand,
++					unsigned long initial_delay_us,
++					unsigned long poll_delay_us, u8 *s)
++{
++	unsigned long timeo;
++	u8 status;
++	int ret;
 +
-+	On such platforms, while the number of monitoring groups does not exceed
-+	that pool, a counter stays attached to each RMID and readings remain
-+	accurate. Creating more groups than the pool can cause hardware to
-+	re-allocate those counters between successive reads of an event. Bandwidth
-+	values may then be misleading, or a read may return "Unavailable" if no
-+	counter is allocated to the RMID. There is no user-visible indication when
-+	this begins. Users who need stable readings beyond that pool should switch
-+	to mbm_event mode, if supported, and assign counters to the groups of
-+	interest (rotating assignments as needed).
++	if (!(spinand->flags & SPINAND_PREMATURE_READY_QUIRK))
++		return spinand_wait(spinand, initial_delay_us, poll_delay_us, s);
 +
- "num_mbm_cntrs":
- 	The maximum number of counters (total of available and assigned counters) in
- 	each domain when the system supports mbm_event mode.
-@@ -1784,17 +1799,19 @@ View the llc occupancy snapshot::
- Examples on working with mbm_assign_mode
- ========================================
++	timeo = jiffies + msecs_to_jiffies(SPINAND_WAITRDY_TIMEOUT_MS);
++	do {
++		ret = spinand_wait(spinand, initial_delay_us, poll_delay_us,
++				   &status);
++		if (ret < 0)
++			return ret;
++
++		ret = spinand_read_status(spinand, &status);
++		if (ret)
++			return ret;
++	} while ((status & STATUS_BUSY) && time_before(jiffies, timeo));
++
++	if (s)
++		*s = status;
++
++	return status & STATUS_BUSY ? -ETIMEDOUT : 0;
++}
++
+ static int spinand_read_id_op(struct spinand_device *spinand, u8 naddr,
+ 			      u8 ndummy, u8 *buf)
+ {
+@@ -733,10 +780,10 @@ static int spinand_reset_op(struct spinand_device *spinand)
+ 	if (ret)
+ 		return ret;
  
--a. Check if MBM counter assignment mode is supported.
-+a. Check if MBM counter assignment mode is supported. Enable "mbm_event"
-+mode. Switching the mbm_assign_mode may reset all the MBM counters (and
-+thus all MBM events) of all the resctrl groups.
- ::
+-	return spinand_wait(spinand,
+-			    SPINAND_RESET_INITIAL_DELAY_US,
+-			    SPINAND_RESET_POLL_DELAY_US,
+-			    NULL);
++	return spinand_wait_ready_confirmed(spinand,
++					    SPINAND_RESET_INITIAL_DELAY_US,
++					    SPINAND_RESET_POLL_DELAY_US,
++					    NULL);
+ }
  
--  # mount -t resctrl resctrl /sys/fs/resctrl/
--
-+  # cat /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
-+  [default]
-+  mbm_event
-+  # echo "mbm_event" > /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
-   # cat /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
-   [mbm_event]
-   default
+ static int spinand_lock_block(struct spinand_device *spinand, u8 lock)
+@@ -767,10 +814,10 @@ int spinand_read_page(struct spinand_device *spinand,
+ 	if (ret)
+ 		return ret;
  
--The "mbm_event" mode is detected and enabled.
--
- b. Check how many assignable counters are supported.
- ::
+-	ret = spinand_wait(spinand,
+-			   SPINAND_READ_INITIAL_DELAY_US,
+-			   SPINAND_READ_POLL_DELAY_US,
+-			   &status);
++	ret = spinand_wait_ready_confirmed(spinand,
++					   SPINAND_READ_INITIAL_DELAY_US,
++					   SPINAND_READ_POLL_DELAY_US,
++					   &status);
+ 	if (ret < 0)
+ 		return ret;
  
-@@ -1805,36 +1822,39 @@ c. Check how many assignable counters are available for assignment in each domai
- ::
+@@ -814,10 +861,10 @@ int spinand_write_page(struct spinand_device *spinand,
+ 	if (ret)
+ 		return ret;
  
-   # cat /sys/fs/resctrl/info/L3_MON/available_mbm_cntrs
--  0=30;1=30
-+  0=32;1=32
+-	ret = spinand_wait(spinand,
+-			   SPINAND_WRITE_INITIAL_DELAY_US,
+-			   SPINAND_WRITE_POLL_DELAY_US,
+-			   &status);
++	ret = spinand_wait_ready_confirmed(spinand,
++					   SPINAND_WRITE_INITIAL_DELAY_US,
++					   SPINAND_WRITE_POLL_DELAY_US,
++					   &status);
+ 	if (ret)
+ 		return ret;
  
--d. To list the default group's assign states.
-+d. To list the default group's assign states. Counters are unassigned when the mode
-+is switched to "mbm_event".
- ::
+@@ -939,8 +986,10 @@ static int spinand_mtd_continuous_page_read(struct mtd_info *mtd, loff_t from,
+ 		if (ret)
+ 			goto end_cont_read;
  
-   # cat /sys/fs/resctrl/mbm_L3_assignments
--  mbm_total_bytes:0=e;1=e
--  mbm_local_bytes:0=e;1=e
-+  mbm_total_bytes:0=_;1=_
-+  mbm_local_bytes:0=_;1=_
+-		ret = spinand_wait(spinand, SPINAND_READ_INITIAL_DELAY_US,
+-				   SPINAND_READ_POLL_DELAY_US, NULL);
++		ret = spinand_wait_ready_confirmed(spinand,
++						   SPINAND_READ_INITIAL_DELAY_US,
++						   SPINAND_READ_POLL_DELAY_US,
++						   NULL);
+ 		if (ret < 0)
+ 			goto end_cont_read;
  
--e.  To unassign the counter associated with the mbm_total_bytes event on domain 0.
-+e. To assign the counter associated with the mbm_total_bytes event on domain 0
-+in exclusive mode.
- ::
+@@ -1196,10 +1245,10 @@ static int spinand_erase(struct nand_device *nand, const struct nand_pos *pos)
+ 	if (ret)
+ 		return ret;
  
--  # echo "mbm_total_bytes:0=_" > /sys/fs/resctrl/mbm_L3_assignments
-+  # echo "mbm_total_bytes:0=e" > /sys/fs/resctrl/mbm_L3_assignments
-   # cat /sys/fs/resctrl/mbm_L3_assignments
--  mbm_total_bytes:0=_;1=e
--  mbm_local_bytes:0=e;1=e
-+  mbm_total_bytes:0=e;1=_
-+  mbm_local_bytes:0=_;1=_
+-	ret = spinand_wait(spinand,
+-			   SPINAND_ERASE_INITIAL_DELAY_US,
+-			   SPINAND_ERASE_POLL_DELAY_US,
+-			   &status);
++	ret = spinand_wait_ready_confirmed(spinand,
++					   SPINAND_ERASE_INITIAL_DELAY_US,
++					   SPINAND_ERASE_POLL_DELAY_US,
++					   &status);
  
- f. To unassign the counter associated with the mbm_total_bytes event on all domains.
- ::
+ 	if (!ret && (status & STATUS_ERASE_FAILED))
+ 		ret = -EIO;
+diff --git a/drivers/mtd/nand/spi/skyhigh.c b/drivers/mtd/nand/spi/skyhigh.c
+index bf9ce163e6a7b..19f2380b0427a 100644
+--- a/drivers/mtd/nand/spi/skyhigh.c
++++ b/drivers/mtd/nand/spi/skyhigh.c
+@@ -88,7 +88,8 @@ static const struct spinand_info skyhigh_spinand_table[] = {
+ 		     SPINAND_INFO_OP_VARIANTS(&read_cache_variants,
+ 					      &write_cache_variants,
+ 					      &update_cache_variants),
+-		     SPINAND_NO_RAW_ACCESS,
++		     SPINAND_NO_RAW_ACCESS |
++		     SPINAND_PREMATURE_READY_QUIRK,
+ 		     SPINAND_ECCINFO(&skyhigh_spinand_ooblayout,
+ 				     skyhigh_spinand_ecc_get_status)),
+ 	SPINAND_INFO("S35ML01G300",
+@@ -98,7 +99,8 @@ static const struct spinand_info skyhigh_spinand_table[] = {
+ 		     SPINAND_INFO_OP_VARIANTS(&read_cache_variants,
+ 					      &write_cache_variants,
+ 					      &update_cache_variants),
+-		     SPINAND_NO_RAW_ACCESS,
++		     SPINAND_NO_RAW_ACCESS |
++		     SPINAND_PREMATURE_READY_QUIRK,
+ 		     SPINAND_ECCINFO(&skyhigh_spinand_ooblayout,
+ 				     skyhigh_spinand_ecc_get_status)),
+ 	SPINAND_INFO("S35ML02G300",
+@@ -108,7 +110,8 @@ static const struct spinand_info skyhigh_spinand_table[] = {
+ 		     SPINAND_INFO_OP_VARIANTS(&read_cache_variants,
+ 					      &write_cache_variants,
+ 					      &update_cache_variants),
+-		     SPINAND_NO_RAW_ACCESS,
++		     SPINAND_NO_RAW_ACCESS |
++		     SPINAND_PREMATURE_READY_QUIRK,
+ 		     SPINAND_ECCINFO(&skyhigh_spinand_ooblayout,
+ 				     skyhigh_spinand_ecc_get_status)),
+ 	SPINAND_INFO("S35ML04G300",
+@@ -118,7 +121,8 @@ static const struct spinand_info skyhigh_spinand_table[] = {
+ 		     SPINAND_INFO_OP_VARIANTS(&read_cache_variants,
+ 					      &write_cache_variants,
+ 					      &update_cache_variants),
+-		     SPINAND_NO_RAW_ACCESS,
++		     SPINAND_NO_RAW_ACCESS |
++		     SPINAND_PREMATURE_READY_QUIRK,
+ 		     SPINAND_ECCINFO(&skyhigh_spinand_ooblayout,
+ 				     skyhigh_spinand_ecc_get_status)),
+ };
+diff --git a/include/linux/mtd/spinand.h b/include/linux/mtd/spinand.h
+index d7c99fcfb85ef..0767964275cf2 100644
+--- a/include/linux/mtd/spinand.h
++++ b/include/linux/mtd/spinand.h
+@@ -492,6 +492,7 @@ struct spinand_ecc_info {
+ #define SPINAND_HAS_READ_PLANE_SELECT_BIT		BIT(3)
+ #define SPINAND_NO_RAW_ACCESS				BIT(4)
+ #define SPINAND_ODTR_PACKED_PAGE_READ			BIT(5)
++#define SPINAND_PREMATURE_READY_QUIRK			BIT(6)
  
-   # echo "mbm_total_bytes:*=_" > /sys/fs/resctrl/mbm_L3_assignments
--  # cat /sys/fs/resctrl/mbm_L3_assignment
-+  # cat /sys/fs/resctrl/mbm_L3_assignments
-   mbm_total_bytes:0=_;1=_
--  mbm_local_bytes:0=e;1=e
-+  mbm_local_bytes:0=_;1=_
- 
--g. To assign a counter associated with the mbm_total_bytes event on all domains in
--exclusive mode.
-+g. To assign a counter associated with the mbm_total_bytes and mbm_local_bytes
-+events on all domains in exclusive mode.
- ::
- 
-   # echo "mbm_total_bytes:*=e" > /sys/fs/resctrl/mbm_L3_assignments
-+  # echo "mbm_local_bytes:*=e" > /sys/fs/resctrl/mbm_L3_assignments
-   # cat /sys/fs/resctrl/mbm_L3_assignments
-   mbm_total_bytes:0=e;1=e
-   mbm_local_bytes:0=e;1=e
-@@ -1891,13 +1911,8 @@ the MBM counters (and thus all MBM events) of all the resctrl groups.
- 
-   # echo "default" > /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
-   # cat /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
--  mbm_event
-   [default]
--
--m. Unmount the resctrl filesystem.
--::
--
--  # umount /sys/fs/resctrl/
-+  mbm_event
- 
- Intel RDT Errata
- ================
-diff --git a/arch/x86/kernel/cpu/resctrl/monitor.c b/arch/x86/kernel/cpu/resctrl/monitor.c
-index 5d0d3b18f9b8..a6a9090c4808 100644
---- a/arch/x86/kernel/cpu/resctrl/monitor.c
-+++ b/arch/x86/kernel/cpu/resctrl/monitor.c
-@@ -472,7 +472,6 @@ int __init rdt_get_l3_mon_config(struct rdt_resource *r)
- 		cpuid_count(0x80000020, 5, &eax, &ebx, &ecx, &edx);
- 		/* cntr_id is 12 bits and can only encode 4096 counters. */
- 		r->mon.num_mbm_cntrs = min((ebx & GENMASK(15, 0)) + 1, BIT(12));
--		hw_res->mbm_cntr_assign_enabled = true;
- 	}
- 
- 	r->mon_capable = true;
--- 
-2.43.0
+ /**
+  * struct spinand_ondie_ecc_conf - private SPI-NAND on-die ECC engine structure
 
+base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
