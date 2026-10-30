@@ -1,56 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.207
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793359781;
-	b=Q5/qhQGUbqBXlPgj3wiwi2DR8XjfjyjvjxGI6x9KqUptBcmQlOAxvZ1byCgfxYmfyH1r
-	 vBtIps8ntWmYfOyxoNgrkXVZeD3AlMGbpuL1QU1kLOdg2enKiDKmwSFGCVW1R0ldKG9Uy
-	 YWBf8PvLPk/RivRX/qhXqCjUSw+4wcqb9qxyko4R1RKAHyk1SC/NYGI22/DbOG8kyhbr3
-	 QC22jb+sRyEw3i4v4UT5aUO27xQUPb1aK8Vs7FWyN1gw8Db7tqAUH1MFoXOrU83JQK39e
-	 KSSf+8W/bwOGfgwEPhrqy6wAQipWPgHT4UoCLr/so/Z0rf6MhjpsR4jDzCdMFXSPslg==
+	t=1793359816;
+	b=PFs0GO1gLA+3yZBMFscpUeu6ZBzZ0d5zi6JdGxeGX9uocYUQSLH3rCWQPBPCt5nCMX9g
+	 qPYJQmXR5rKqO52Vu9rFYyvGDO/IgrYJ2A0mmBQInQgO1l1iQXUM8gqICArToITixmzFQ
+	 PVBNmBfdPLiL7uPMXdqHKTdCtPyyTv0RYsBK/iZem5sk6TlmP2nSNt2+F8S/3pV3z4s3i
+	 BUuA2CLrgS8f0Cj+ifBPUSZ42xV4vJU56qjTSMQSCR8WJ/zJucJKNUcAynBJNJZomfunh
+	 5TK0c1sKLEwX4bEfVNLzR7EsgxZjxMGV7UoFV8aZK2LqgA7cdqQQFhgKcxkTGm1k4Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793359781;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=9PsBY8Qr09buSCwFFe4vaPMjDOQ5TMptk/E0sw8Tnbk=;
-	b=J+fd85LbvEzT7X9Jb3HhfdteTzuIWGmKO2XWjBzsp3uT9xZEhVXYuD8d4yhqYYzg2fSK
-	 bofwcDVmMeWAZbnwZck/+JmI+BYYv4ZLiJkV3ZEirfqY7nUQgG0JHPtgwhVgBf108Nnfk
-	 4DYUSHSHJ6bIN5hF6fAr0VWbKwAd3DuHuUbTNjlWehYkqwXVSNMf1yrWKpooX4zXRwbva
-	 pxy+IAL8Wr1A/HJOVF3HhlWL/kNtJn1Ijm8J/DPi8ppyXVV3U6ZlyWxQQwvd8QK2mL0xy
-	 SzuOvz5F25CopQRA5yYmtdP9rxLe0lEShwNGsRFS05AIj24+f+bDqnUv1cm6VcrtNQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793359816;
+	h=DMARC-Filter:Date:X-Lima-ML-UUID:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=P9F0Hx3zzFPEhRZXhwMxkkF3mMj+Be93AHgQNYo3wK8=;
+	b=HEs7/6eMJjrIgElTwcoeYKbK8phZhjz2j2tLJBs8N3KnGbq13dOkM6DJdA40gKqZIiFL
+	 +ITpoHRW4b1Pq8zcJgmKq2jwInY+rGBrdv4JJimbjn4ifaBVg8GRnAgKvlb6JnjwLl14T
+	 5S8OQLwFWQ655nuY58UIlCdK1WgUVs5NHgBxj9aAtv4rNuRIo1hhXoSKrdHyNIjecRVQY
+	 /AaUoq6R9qIYyHDBhMOYpiq3slmItcDkq5g9K89BVXP3zZXs/VvRmSMCf1eTt6CLSf4mz
+	 XEObSIhHwytkzrFzlqAQ9WVvzLHPq2G9sYXhA/3WxWBt3P+TeOTk/DWN5kyX2wwU9eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fd5Sonhp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=deq.rocks;
+	spf=none smtp.mailfrom=deq.rocks;
+	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=VoQ8JOOM;
+	arc=none smtp.remote-ip=91.216.248.207
+Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E143A606A31A;
-	Fri, 30 Oct 2026 11:29:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163B3606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:30:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 163B3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fd5Sonhp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C29B71F00A17;
-	Fri, 30 Oct 2026 11:29:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793359780;
-	bh=9PsBY8Qr09buSCwFFe4vaPMjDOQ5TMptk/E0sw8Tnbk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Fd5SonhpQCiLizQIrszFpPErIfMqd3bXuofqz1gvyeMUr3nEb+rDe6M/+GvmlQpZV
-	 T5xeHnVGSvrSPO2CiTr0DFq+55X/QqxDq2kqy+CxAOic29V3p0HmBxXvKvD7qtZ5BM
-	 xk5te4vsl6N1T2K15adVarnb0aFjgpIaHyXc5gQrHGbWzEH4+jBbPz7pyQNUq9xWsC
-	 /47xDOsxVP1r/lvx69VH0mdaqCU3IqQ7g0xbeYbMvqNeZOHR8BAAjRtPFD8EpE8jF9
-	 9c6+AAzvyR76pHib0CMnNTciHUSOaIRnDRWbCioKu8LvpqX/VEcZeB6uNvJoKvgFuo
-	 gqkhuRJ9MwQkw==
-Date: Fri, 30 Oct 2026 12:29:37 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: christian.koever-draxl@student.uibk.ac.at
-Cc: zhentao.guo@amlogic.com, mchehab@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Christian Stefan =?utf-8?B?S8O2dsOpci1EcmF4bA==?= <ckoever@outlook.de>
-Subject: Re: [PATCH 01/11] MAINTAINERS: fix the Amlogic VDEC binding path
-Message-ID: <20261030-invincible-peacock-of-feminism-ecaefe@quoll>
-References: <20261025192507.210058-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192507.210058-2-christian.koever-draxl@student.uibk.ac.at>
+	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=VoQ8JOOM
+Date: Fri, 30 Oct 2026 12:30:00 +0100
+X-Lima-ML-UUID: cb4c68a3-c4df-444f-b29d-b3be3ecdeeb1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
+	s=securedbylima-20251205; t=1793359805;
+	bh=P9F0Hx3zzFPEhRZXhwMxkkF3mMj+Be93AHgQNYo3wK8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=VoQ8JOOMH4GClI4YH5Jdrqd80ih1F+smHYE6S/wn3HdO5dGjaS6fFjukwafT9J1/I
+	 2XBTymfc6kbY421FW0B6zykjikZmi585nL2hLz5jbIHyk16nW/d0JGJQwGR4LQX9TJ
+	 rZUVZCkFHTawB+0W4hZEW2eVb7aXFlksBjAz14PUMXQTAPiuSmlAFIDARByWM8diTH
+	 MMAPGlxlL8GaodhSBCoIlNfPjAxrWdExYi1ckCfXixX606/lD86ExLpd5fKMGZz/ol
+	 /ly7UgjANuU5qkbC6OdZIX261an5MZBqV29BJGlOTZlZaHEsA07I35KkTVB/un2gEd
+	 D8jPXCaYHPpMA==
+From: =?UTF-8?B?QW5kcsOp?= Eikmeyer <dev@deq.rocks>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Ed Schofield <ed@aicharmers.com>, amd-gfx@lists.freedesktop.org, Kenneth
+ Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, Christian
+ =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi
+ GPUs
+Message-ID: <20261030123000.5573e70f@kait2en-mbp15-1>
+In-Reply-To: <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
+References: <20260916144014.879355-1-ed@aicharmers.com>
+	<CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
+Organization: KaiT2en
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,22 +70,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261025192507.210058-2-christian.koever-draxl@student.uibk.ac.at>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Oct 25, 2026 at 08:24:57PM +0100, christian.koever-draxl@student.ui=
-bk.ac.at wrote:
-> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
->=20
-> The binding was renamed to amlogic,s4-vdec.yaml, but the MAINTAINERS
+On Thu, 29 Oct 2026 17:57:49 -0400
+Alex Deucher <alexdeucher@gmail.com> wrote:
 
-What? There is no such file.
+> @Andre Eikmeyer I think this patch should fix your system as well.
 
-Why are you sending fixes for broken patches being just reviewed instead
-of just reviewing them?
+Hi Alex,
 
-Best regards,
-Krzysztof
+I guess you have seen it already but the patch doesn't match the 16,1.
+Its boards are 7340/020f and 7340/0210, and v4 only matches 0218, 0219
+and 021a.
 
+That hang is what I sent a fix for
+https://lore.kernel.org/all/20261024162109.307247-1-dev@deq.rocks/
+
+The VBIOS trains the UMC p-states at different frequencies the pp-table
+lists. The SMU hangs as soon as UCLK switches into level 2. Deferring
+the UCLK enable doesn't change the levels, so the hang just moves from
+boot to later under load.
+
+The two patches can coexist after a trivial rebase.
+
+> ...your system...
+
+I need to clarify here. I actually don't own a 16,1. But I maintain a
+distro (KaiT2en) that specializes on T2 Macs. So the patches I develop
+are extensively tested by the community before submitting. Atharwa is
+part of this community. Ed is not, but Atharwa reviewed and tested the
+code.
+
+Best,
+Andre
