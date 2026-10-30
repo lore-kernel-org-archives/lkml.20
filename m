@@ -1,100 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793345462;
-	b=Pckp3QeekZMLJgRa+LEdEO1Q6HyVKCxXqJtyX5Jo0xFuTWpx7LTLcTANcdd1fJDBZ+DR
-	 FzaGk8wzgOFzCxWcvMl6VLS52WAvI74jfYZsdMty2cb99jwoj5vS5E5rEu4/oX7tRJq0T
-	 O9KSO0uNQvq84Y9I9l1wD2nszv1zfXZTI9XpCgruceDWsUxWEosgXPfa6kCxuS6SGxyRi
-	 q0bo7Vhj9G3PWRHvZmkqpibjBlqxUlUKKCtcdNlGftmnUrU98Noo+OwBqyxQN77KaQ6v2
-	 6QBtpg/3BXTBLDWBHeRxRNVFlq2IQ/L5+UrOtmEPdEBQ7ItAyRHqGnkl59IlTLfYXWg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793345462;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ricWTCs0M4NsESlZHHSGvxdphtzZh7pRSrlVHDLTA7E=;
-	b=FSRTyJvtaFLWyIIf4i45NmAxVo2f90HpcsgrE4Wzp4FyZ6Qm/Xi7rFzxiKufl384PMmN
-	 NrJerALloTWMqziM+XrPfLLcxgx7HVHaUlnDKdUGni1T679ulKpjGyAYURnfb/ne89mvy
-	 PyM8Br85DOGCXbptiyTsGeoRqRwkFNtbQSqCRGI5/UT9qNXa1ukFS+nAqeSpJequM/8kF
-	 eAa6HVET7fg9+PyXG9zeFeTW+BWaFTObm2eVOzQOVnEUVL5CtXDTp7Bs4k0af53UYW/7J
-	 gOhzDVY1Cn+Yh0q+sxfSiOGac7yXu9bYAz+zPZJOHUURpH6oU/gLEsuV2zlHQxQJSzA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nYCh61Ea;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793345471;
+	b=gpsfw0lbegTSrdueirDmE12QVPzLwo8HBK7AdK03AMgb3CR6PYt4Y/tSerUbx+4myqUF
+	 fsxu+Wwa6WB4RgCd4Tho7h9NuBZ38q4pJC6mG8vAnqYsaw0HRdRPrYOVMy7H2YRpa+8Fq
+	 58hYI6fx1HPqXxcdUO2xcwwoZwr8wL6+plpCetuY48k7mY1XLmEKytWppaxrKCGASrtaF
+	 EhnRe3DxNM0SjFRxQ2S90Y0jbtKcnbK8HYXA7J42cMu07LWEM8m1PG4w6ekxaQntv1eNr
+	 hewt3Nd5B8ptrC7d9+f6CSLWgxg4KalbJY9pSX7+FGGsZ1zLqLJje6wBLkSId+8ZPag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793345471;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cXq4inWh1DUA10f/9+r+ZCv4fkXGQ1KhFeRxjGIa1dA=;
+	b=GGfDeVI9UwwCZ5S5jynCEjdyVFInSvkdTirkM6AkKyK/vTip0G3HpF3BVhq2jZVbb4dq
+	 KFneKidWySMmYz6z++CJN8u3So2yW7JntUwJUjhMwFnkcZWmnAS+GM8TRVSaqnYxY2DAh
+	 Bsuc9uJm7CUSyNLZ5fMI693zeI/6S/S0XSQirsIS/cGoKqplooieMNzGdzFPAS4uoqPqo
+	 G26A/h2v1q5YthVs/8vcD/37AcIh5WOr/6rfZu7rC3yykWza+WG3xksTbIfIUIZu36LNG
+	 kLa3Vf5e7rjpLl+ZLSyXb6zlwmxMp6dc9YSAyuWDMNbRYNbN5BjPRorR7cuhpTS4yHg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=i7bsE9sH;
+	arc=none smtp.remote-ip=162.62.57.64
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29180606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:31:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29180606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2589B606A31A;
+	Fri, 30 Oct 2026 07:31:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2589B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nYCh61Ea
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4322d310e7so53375166b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:31:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793345460; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XFJDWWr6yMvIBE1PrBaXS7d8cFmE2v3UooBAndohZju/XH5nS6l/iXU93QqQx4ZL8F
-         WskyLBd2BKu8/9F2Zog2yEzg/sfl2+gvniH17aT6S/CKpqalCWbcoffhZoHjEn087R1s
-         s9EJgzibc1yCaBhDrjZqKXii3KcKBJjNCOHuqEbOVa6JFGXWTJ8DLCjABArv3H2jvwIC
-         3MTwwq2dZ9rzolv1TOL6h7GdRCj5W1up91YtiiIt497ZmKOdgAr2G495u8LTLC97Qad3
-         WVZJUpL1QnFWKwaWILPIZsbRzII0HMUHCrLqOhGXIFJ4xGvuzCOZH8tVS8n/ZzigYBll
-         EHQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ricWTCs0M4NsESlZHHSGvxdphtzZh7pRSrlVHDLTA7E=;
-        fh=kI0u+6aXtM0N86/qL/++essUvIYK28eC3c3aGyFQBmA=;
-        b=n5kirk/IZApCqpPIpP+nIn1WyazNW9f9Iv9rWY/v5uon70/WLbd/1n6guB6QBb4O05
-         KGsG4jxQZA57wajyZd+Nx7u3mcxrUKfCXHTjbjv4K9z1eWzBOIVlj8uv7AcoFEmjYiPn
-         Q4loQ7Du0YBZd7fzOx0FzyqXEL0adRyHY+mLhmvC6lAavFzeoBCy1/9rtPig2AwPt37A
-         KUzFFq+YfXP8wHMcQFV7sIErKRrk7PLphP+osmTp8Ua/XKInPJAiGHAIpofmfj/1/G/O
-         frnF40SgXD2rAav0chnOvseZvj/ofZ2IAxzECC/KwH1ORmeuipS5EeHDEUm1phb0pmdt
-         bvGg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793345460; x=1793950260; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ricWTCs0M4NsESlZHHSGvxdphtzZh7pRSrlVHDLTA7E=;
-        b=nYCh61EadQLM/wqJ+snUmPMgI7slVWEW1E7vHasGasP4v+YCMch/PQEosubLG/BWU0
-         o+zg/H9kHstU22yy0r86r/npXPikuhY7i+OfOHOVoFwHZI3w6w0qyQid3Rnjew3fLVgJ
-         MR94YAkd3qMDJK6QbZOeJGNRoTuY40+rWp0eZckzHjWb9BTQFISjd/HoN9fY9X9WqO1J
-         bbpqJKktxfIcubtQeV3MyF9q9A336wl4dKUPr7Ncvn/QFbcyVjKWVLGsLo3TMRfBf4My
-         iLtDBo0TvcLq9HDAajhxvGoiMXCDd5RsT38ya/TgUopnj7ElYlVcqxNWdrd/JMW+Cnml
-         0Stw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793345460; x=1793950260;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ricWTCs0M4NsESlZHHSGvxdphtzZh7pRSrlVHDLTA7E=;
-        b=cAn4vcIRsthUefKJnqDyL/++BQPX7IAM0VPwjnZfqvJ+pxn8pOObvZ0rcnvCNPo1M4
-         7J7SALiTHic05ElzJCZDaUZNH5BTVx5CMsQ81LoJout9vuqrII0DQfPImK6JQFkSZgWt
-         AhgIMkxDFx99dyhmYGJYYoxuR1Fe5iXZfB+MOOh1qh1aqolKG/apnidMhfCDpsiWo+Pl
-         vdGEaLPmpVwcV7AHl3OGz6I0zXq9LaW9TELs7yZThdb9hp/CAcumfSrR5OTplVe4ZotJ
-         iuFjBd4Rywm9eeEDz6HevIqlQZu2I40kCzlVkZs6dqX4zm3rVfNNuCEzCKh8MZzUPuvd
-         9igQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxgMjIQd2OB2KysLoguRCdc4VBAlP5FavuLZhWOMd1qIcLyVqepo6CiBOTefAxqo+BQjeAIOiXNtbl5hbA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLsvkTZF2Ma1LLC02l8W7iF15abS6KGE/fteWOaa8crKkWKbSK/
-	4eqLZx4aDkQNYwDPHdAciNxhyjr7zb/U62Bw4h3BJXYD7s1VBGayG8yznCZ/RhG9T+nfX5WyKX+
-	OFSPmMhQzkInQP8rrZLVirtL0svCxX0c=
-X-Gm-Gg: AYBFou0spurSf+nTxZ5WJ6jzIUsixEuMH6kBIUtmZXf0e6N0MIVA1r2KqCyMLVuXjuU
-	jiCM3ixYO79zLZaFgjVkG95chrDKxvcGrZKNcB6hNXcgl9ZA6xizdq/UopxdhBkqsdW15/kkiHw
-	4LhXBn/Wy0PaYatTKV0UjHD+Kks+GdoNeNZChqtMr7d5q3fOdlFLd5AlhB7IjyLEDCM5HpfLO6+
-	sXmQs3tDQoyZKxlVV/UdJ4jj+Z8ROlBnHEVKmu+mATVZOfiV8F7zn4FOnMBcs58FYDmrF4xiU9P
-	HsueGKWtF5LtlHRibuffOEd8ux1tgtUSnUzU/7lQYhG37xQVBHEeBwimXNWnJuh7D3EulDRT25r
-	5DW5BF1NtZsoJQrpOCGOHYmThqV1Gejz8GQYHe0BdSzgRX2Jd0/RMPhvdAq3feFWJuAGgQQ==
-X-Received: by 2002:a17:907:60d3:b0:c31:fb29:a137 with SMTP id
- a640c23a62f3a-c4ca7a72d9dmr122779566b.21.1793345460293; Fri, 30 Oct 2026
- 00:31:00 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=i7bsE9sH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793345459; bh=cXq4inWh1DUA10f/9+r+ZCv4fkXGQ1KhFeRxjGIa1dA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=i7bsE9sHd9U5/yuusN6C89zS7jDMgBUy0F+i5c2Ol49ezRAQxMwlyWESpE1DPMXve
+	 zrSakJanCOP6hmyglfXvwkS3gNlYiDNFBKwB+IHexXLCVXI09GbEIDdXooJPXja62b
+	 FA8aqnUUKkezHDnHW7qQtFNWaq2t3aeMbCMgtZMw=
+Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:5510:213f:594e:6216])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id 7B833275; Fri, 30 Oct 2026 15:30:56 +0800
+X-QQ-mid: xmsmtpt1793345456t2arrjze2
+Message-ID: <tencent_7A270291DDE5CD89DAFFE8A745D094D5BD06@qq.com>
+X-QQ-XMAILINFO: NSABRmZchf6l7/ydpWP5/EKxyse1t7e/fO8250h+lopwEatCshrvnv+eHS290q
+	 i1gah0LQOEfKzwF8x+EGRv5vjPANjazqKiUGSxqSI1luBAECgIJS3jDqKNnbScmDma1aAEUqsn97
+	 tTKfPgAjhfbx76PQnoTQDmPHFaldtP08cRunkuoZr8by5+truxh3q5GIfWj8qpMUausiN5Vlvgm1
+	 uLZj4N7b9C9YYtLmJ7+Huv769sM2CBSHpsgiV9mRkRuobGZ+vODipnKg+TBUAS95G0omarBd+SSI
+	 S/mMHJPZCx5eP0Nx9OVh7X6/c4Z2morepbM6+9WHpnYkdBnvgy1QIIuLmGjIKUwuOv37VHJztyaS
+	 gUcbdMnL7zpELY5sodthuLCbOUlXc/Qf3Vl+47e10DVjtQKkJPc548k+LwSk6B8gXghUojGRg8XL
+	 6MzE+awDC6cXzi4mteh5GSE1xVu4PF1p7k9rs4XTOAateew4QHqL6G5C0jgoOp+axZJaa7ZC6ubZ
+	 tDDhqwaOrsvpV9ljzBAP8hupHHtb42k7zw6xg+L7UbrItHckdqeiRbvAvlhc7ex4VfNshkvsr6GJ
+	 195XOWgBepgDdbA1JJoyEt+LbK+ecnB8uxC+GIpYc6n7l3e+oAPnNh2bMG3SBFYFtNA8+XKb4Gln
+	 IIlmBFojXOz9WF0MFF7Yn34NliKbD4SPKVDlPTbZuwypfgAHy07pP1cGnrgD2+MqsCdtW1X6WjFl
+	 WA7eHuXzeGH3WPDaAPmx8vuEHJPeuihZc3Tfi1ej9a1rr4r7oDmXUekiZ7NfgKdFK26t3br/QA3W
+	 XJDCMRMaGb+Xijbodt/7goT0LZsd9Gk5x4PZoQBUfHR1qtKZlbYk7XaxJBwwVA1m/CWBBn5DkyO5
+	 bQbA0mkRCELkPK+Xx4p0jrnSdrPI+/TCLAjl3YOLcavw3QWaI2VoxI+YosvZc6hWB2e5mFTmBHIh
+	 si3s3YPmy/6a7ldg+OsplU4kc/PubCj7guNqitYL6gjRfOOwBd4zSNOjHwNbXkyqAARK07ixIib2
+	 5yKvY4sPDuL1BneMQ1gY8FkgIg9uKKbGBt4z4F8LXyy17V8iRpRrOUVbDYVauzqq2U2XPiTRR1xp
+	 LekKMw7RGWG09yNkXSAaI0ifkGjg==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Yingjie Wang <1075151112@qq.com>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	alexhenrie24@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v3] ipv6: reject wrapped temporary address preferred lifetimes
+Date: Fri, 30 Oct 2026 15:30:56 +0800
+X-OQ-MSGID: <20261030073056.2453450-1-1075151112@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <tencent_C2E4FE9B7C0A05615861782611715EAA9C0A@qq.com>
+References: <tencent_C2E4FE9B7C0A05615861782611715EAA9C0A@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,169 +87,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030-swap-fixes-v1-0-73f73a59f2fc@tencent.com>
- <20261030-swap-fixes-v1-3-73f73a59f2fc@tencent.com> <CAKEwX=MJcyr1GjKNQ81x+fUS07T=THXGivjebt=W0ayjjZ3fgQ@mail.gmail.com>
-In-Reply-To: <CAKEwX=MJcyr1GjKNQ81x+fUS07T=THXGivjebt=W0ayjjZ3fgQ@mail.gmail.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Fri, 30 Oct 2026 15:30:23 +0800
-X-Gm-Features: AclHuK_5zGeSFYxm22Ak0DBi9H9DruGl1-1gM-J338_JJvTdWweQtUaJ6xf3TVs
-Message-ID: <CAMgjq7BHC=68=+2DsdZW7_1_PfdjCyd9fXN_2YZiaXFi1pHy=w@mail.gmail.com>
-Subject: Re: [PATCH 3/3] mm, swap: fix large swap-in across swap file extents
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, Yosry Ahmed <yosry@kernel.org>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Usama Arif <usamaarif642@gmail.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Mani Tofigh <mt4022@columbia.edu>, linux-kernel@vger.kernel.org, 
-	Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 5:21=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote=
-:
->
-> On Thu, Oct 29, 2026 at 11:32=E2=80=AFAM Kairui Song via B4 Relay
-> <devnull+kasong.tencent.com@kernel.org> wrote:
-> >
-> > From: Chris Mason <mason@kernel.org>
-> >
-> > A page fault can give an unprivileged process blocks of other users'
-> > files instead of its own swapped-out data. This affects systems with a
-> > swap file on a synchronous block device, such as brd or zram. For an
-> > anonymous mapping it also takes a huge page size below the PMD size
-> > (mTHP), such as 64 KiB, that is enabled for anonymous memory.
-> >
-> > A swap area is divided into slots of one page each. A swap file is a
-> > regular file, so adjacent swap slots can lie in two extents, far apart
-> > on disk. A folio is read from swap with a single bio that starts at the
-> > sector of the folio's first slot. So all slots of a large folio must be
-> > contiguous on disk.
-> >
-> > The swap allocator knows this: it only hands out a run of slots for a
-> > large folio if the swap area is a block device (SWP_BLKDEV).
-> >
-> > The swap-in path does not. On a synchronous device (SWP_SYNCHRONOUS_IO)=
-,
-> > one that always completes I/O in the submitter's context, do_swap_page(=
-)
-> > can read several swapped-out pages as one large folio (a large swap-in)=
-.
-> > thp_swapin_suitable_orders() makes that decision, and looks only at the
-> > swap offsets (the slot numbers) in the page table.
-> >
-> > Pages that were swapped out one at a time can end up in consecutive,
-> > aligned slots, and are then read as one large folio. If the extent of
-> > the first slot ends inside that folio, the rest of the folio is filled
-> > from the blocks that follow the extent on disk. These blocks can belong
-> > to other files.
-> >
-> > Reproduced with a fragmented swap file on brd and 64 KiB folios enabled=
-.
-> > After single pages were swapped out, a fault returned blocks of a
-> > root-owned file with mode 0600.
-> >
-> > Fix this by allowing a large swap-in only when SWP_BLKDEV is set.
-> >
-> > Known gaps:
-> > - A swap file on zram, brd, pmem or btt is now read one page at a time,
-> >   even where its slots lie in one extent. Its swpin counters in
-> >   /sys/kernel/mm/transparent_hugepage/hugepages-*/stats stay at 0.
->
->
-> I guess we can check for this right? Look for the swap extent of the
-> first offset, then get extent's size (swap_extent->nr_pages).
->
-> Not sure if these users use swap file here though.
+ipv6_create_tempaddr() raises a temporary address's preferred lifetime to
+regen_advance + age + 1 when the configured lifetime is too short. The
+result is stored in a u32, while regen_advance and age are unsigned long.
+If the sum wraps or is truncated, the stored lifetime can still be less
+than or equal to regen_advance + age.
 
-Thanks for the review!
+addrconf_verify_rtnl() then sees the new address as due for regeneration
+and creates another one. Temporary addresses are not limited by
+max_addresses since commit 4b08a8f1bd8c ("ipv6: remove max_addresses
+check from ipv6_create_tempaddr"), so this can cause unbounded address
+growth. With dad_transmits set to -1, a baseline kernel reached 2859
+loopback addresses in two seconds.
 
-I think it's really not a good idea to use swap over FS on a
-zram/brd/pmem device, and we already disable mTHP allocation for any
-such setups, and extents is a burden there. Without high-order
-allocation, there is no high-order swapout, so high-order swapin seems
-much less helpful.
+After storing the adjusted lifetime, verify that it is still greater than
+regen_advance + age. Reject the new address if the check fails.
 
-So keeping the fix simple is a good first step, IMO. We may revisit
-this after mTHP allocation is doable on these devices, and get rid of
-the extent completely.
+On an x86-64 KASAN kernel, the normal configuration created three IPv6
+addresses. The negative dad_transmits, positive multiplication overflow,
+and large retransmission-time cases each left only the loopback and public
+addresses. An i386 defconfig and an x86-64 allmodconfig both built
+addrconf.o with W=1.
 
-> > - With the posted "mm, swap: enable THP swapin for xswap entries"
-> >   applied as well, the large swap-in that it adds never happens. That
-> >   patch gives its swap device SWP_SYNCHRONOUS_IO but not SWP_BLKDEV, so
-> >   the new check would have to let that device pass.
->
-> Mentioning unmerged patches in changelog? ;)
+Fixes: f4bcbf360ac8 ("net: ipv6/addrconf: clamp preferred_lft to the minimum required")
+Cc: stable@vger.kernel.org
+Suggested-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://lore.kernel.org/netdev/20261029175827.GA1411453@shredder/
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
+---
+Changes in v3:
+- Replace the broad input and arithmetic changes with the post-assignment
+  check suggested by Ido Schimmel.
+- Preserve the existing sysctl interface and leave the advance calculation,
+  desynchronization handling and verification path unchanged.
+- Rebase onto net/main at 5838f10563d5 and rerun the focused runtime and
+  cross-architecture build checks.
 
-I can help simplify that part.
+ net/ipv6/addrconf.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
->
-> >
-> > Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io devi=
-ces")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
-> > Signed-off-by: Chris Mason <mason@kernel.org>
-> > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> > Signed-off-by: Kairui Song <kasong@tencent.com>
-> > ---
-> >  mm/memory.c | 16 +++++++++++++---
-> >  1 file changed, 13 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/mm/memory.c b/mm/memory.c
-> > index b65b56fe9714..944f57153c89 100644
-> > --- a/mm/memory.c
-> > +++ b/mm/memory.c
-> > @@ -4863,7 +4863,8 @@ static inline unsigned long thp_swap_suitable_ord=
-ers(pgoff_t swp_offset,
-> >         return orders;
-> >  }
-> >
-> > -static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
-> > +static unsigned long thp_swapin_suitable_orders(struct swap_info_struc=
-t *si,
-> > +                                               struct vm_fault *vmf)
-> >  {
-> >         struct vm_area_struct *vma =3D vmf->vma;
-> >         unsigned long orders;
-> > @@ -4888,6 +4889,14 @@ static unsigned long thp_swapin_suitable_orders(=
-struct vm_fault *vmf)
-> >         if (!zswap_never_enabled())
-> >                 return 0;
-> >
-> > +       /*
-> > +        * Neighbouring slots of a swap file can lie in two extents, an=
-d a folio
-> > +        * is read with one bio. The flag is set in swapon() and stays,=
- so the
-> > +        * race is benign.
-> > +        */
-> > +       if (!data_race(si->flags & SWP_BLKDEV))
-> > +               return 0;
-> > +
-> >         entry =3D softleaf_from_pte(vmf->orig_pte);
-> >         /*
-> >          * Get a list of all the (large) orders below PMD_ORDER that ar=
-e enabled
-> > @@ -4924,7 +4933,8 @@ static unsigned long thp_swapin_suitable_orders(s=
-truct vm_fault *vmf)
-> >         return orders;
-> >  }
-> >  #else /* !CONFIG_TRANSPARENT_HUGEPAGE */
-> > -static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
-> > +static unsigned long thp_swapin_suitable_orders(struct swap_info_struc=
-t *si,
-> > +                                               struct vm_fault *vmf)
->
-> Nice, I think Sashiko is complaining about it on one of my vswap
-> patches lol, and I was wondering how on earth is correct in non-vswap
-> case.
->
-> Fix LGTM:
->
-> Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
+index c8c0dd04982d9..d9d13e78bf13b 100644
+--- a/net/ipv6/addrconf.c
++++ b/net/ipv6/addrconf.c
+@@ -1487,7 +1487,8 @@ static int ipv6_create_tempaddr(struct inet6_ifaddr *ifp, bool block)
+ 	age = (now - tmp_tstamp + ADDRCONF_TIMER_FUZZ_MINUS) / HZ;
+ 	if (cfg.preferred_lft <= regen_advance + age) {
+ 		cfg.preferred_lft = regen_advance + age + 1;
+-		if (cfg.preferred_lft > cfg.valid_lft ||
++		if (cfg.preferred_lft <= regen_advance + age ||
++		    cfg.preferred_lft > cfg.valid_lft ||
+ 		    cfg.preferred_lft > if_public_preferred_lft) {
+ 			in6_ifa_put(ifp);
+ 			in6_dev_put(idev);
 
-Thanks!
+base-commit: 5838f10563d58afca6711edb5e4eda968ca181d9
+
