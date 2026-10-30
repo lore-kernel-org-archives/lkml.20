@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.229.82
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793372878;
-	b=qrHftEoy49q9nGPa3Av4CR6cS5Sgd1cdVghB3DG/LksVG24p1NO5owxFBzyjcbEmMSCZ
-	 WVTXP6tj6GE5sfB8+030H6xlM6mE2tbqq20f2ar+XFXAHpxg76Rl5TqhWwqoJVQPBZsvK
-	 YT+fQFCPwharVhfkjgb4HNajev55SE9Kqq6Pmzj4p6wDJgFnvI+WPnFaHmpkPnWvUHZ2L
-	 b8teuu2x29fzdkh5Os0eKFgcHVnL/Zg5vX8s1QJScpe0OYtvexRdDg4kXkgYmCBiQIMEX
-	 jH1ebBPQKmfAePChguKaAECQ39MXVoW4ct/q7CG9PYFizb2/kMbCGUH1J4cPidzzHqA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793372878;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=btP6hc5X4IN0Mlz529k7fsd+NkP5QZ9brXQS+dJWWPc=;
-	b=JZTenjSyLE9nIgoDBG96S27iiwdrSV7M+GDZrQvvOsy9LDwC3mvjDKnlrTnigHPJb/ta
-	 GluCoge2kUOxWf7d6jNKTaiP8Ff0A/WKzflPpITfekek5XOGG4pgKX69e8eQcxwMX/nN8
-	 HWgBJj2DhaXlijqbS3HJfoOex5m8P8/ASmcHvBQ8lGoawZ3DpnJe0OqQzoaBGbogt7tP7
-	 BRoZ1dpZBzjpTbw3+mAW3sOFmqk8PlA5Mkc/rZVjbx+7SFdJ2k/+O7Ooj2F8pBikA96qN
-	 ufE0SYj5hU4BQr7BlPo0ZelmzKr/buC+Hg2Z7uNcawlB+dQpGw+Mvup+MwoN51FB1dQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valinux.co.jp;
-	spf=pass smtp.mailfrom=valinux.co.jp;
-	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=FSik57z3;
-	arc=fail smtp.remote-ip=52.101.229.82
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11020082.outbound.protection.outlook.com [52.101.229.82])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793372977;
+	b=Py25CX8Crtau5YDqahcq55rQyXe4FBIOVGsMkweO5E/j7GRO35gqBpydlRCc3+vSDBJs
+	 od7DOQIm+GbmxquJ/1lK02uOqGdeDfJMuzbq4Z1Bs1FCaiCWcSthuWkukNig+pC1eW6N1
+	 kiswqnnP2BuP3SfXmZx8ohn09Ez5V/k/MdJ7UIKELn1FKbs+S/pkOL/f/9S9ZNi92Y1Tj
+	 ogwzAkXX5F54f0rPz1kiwSkJIc5HTDND4ev+TdwDyMZWTbRgF1mL8AjFW47MQwNVRVhAB
+	 nFZdnBa5/nQMtLCofGr1OsGxIiRY9acwFptLfsB1aPuWtbkp/SucPfbqAgkPssZAP/Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793372977;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/UiY3oEhmm09gQt6+h2fxxhgxNmhqW0iOqLXwE+OSHg=;
+	b=Tv4zLURCSvrtasU/4EzlewqpG/vTFijLJ+SIXbmqLsxbwTjTOrKfgwnS6hwLAjA3GbeI
+	 kg/CQhXe1tPgt20XJ6sAyUyoPLrxb2b+W/eKFNSXjDh37cHcd+Le7y0qKvqtvQ1szza0S
+	 53/POHmTeN1dEvrD38fHZW8lNpeGt9RCosDpKpg41V+Kmgk3siDUXtBWDnUTvN4l783vG
+	 /dc7ykhZe4ERPI0QVNob+f+0RGS5zw/kkM2jK5nWnuJGZ5S45Fx3Ix8y3HoErvnUuLvtz
+	 Xw4j1Y4923NOGrkUPXcBBaCC8KF5G3mCXhXqhg11D8BNOJiCkpWkB3rnQzxUANkVeKQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tb2LDwF6;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F013160A2610;
-	Fri, 30 Oct 2026 15:07:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F013160A2610
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2153E606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:09:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2153E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=FSik57z3
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TFOuOTSt1/bWks1p2MYJXye6hz4+WRwJGVzhqGVa2nL3nEnketrtfskInyh2YCRyKW7dvGstUKabCioF1wY/5XQFdux0s0h3UCcL/wcaK8xShM+5F3kkPIKyzX4t6ZUaOI/aYU8IoxHDVktDULxeA/By0RgB4Hmu4HmN1bQskDwZFO/bUuTo4uVAMWlFBj45O4swnSSnfqv/1C22rOUMT16xhiTRyFCnqsrMy9Mz4Mscqwn0oLMfoJn9qKNSrLsgatXZoNFBVZHPdarxxUifOpYrJ4oNtJGtUAT8C891w0SN8X4QZJ2pvho2FnAa5XWD68XpCHXeCuaROA4sW9BBRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=btP6hc5X4IN0Mlz529k7fsd+NkP5QZ9brXQS+dJWWPc=;
- b=R+svXUvDW6mkbuTpk77Gz8LG83yCn2QQ/bCVGHhH1DmD/4qLCTKIrebDDtRH0eDrrCURw/mxR9Bla9bUyvqViyMz/LVsWXjBxkNrQTV14BcvzCT8DldNRCMzVrfo9PAyPb2CTljh5kb284mCwcZ6MLfYYQiweGqQXlPBznLhiAW90WoJ3Y/tqPrWEFWVnMWyLIdXHH+hYM9PuPZ2Emj4RTsfLF5PLzDipxoRfPAaJwIeFlQJuKlwOpoqwBp9cQ7s4wXE5f/Uy32juikPMg+h4m0Ya8f/PBjnSTAb4TSut+5XH56wlsY+id4K91tIMl6FyfJ+/HXOAQzNZ7MI3Z3dYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=btP6hc5X4IN0Mlz529k7fsd+NkP5QZ9brXQS+dJWWPc=;
- b=FSik57z3LmBY51d7pkVquIZKEUlAT9KfejOcXayLPir7Ppx0U5GNTVpsqwQsrLEFS+GZgvQcaM/kfSGk3Q0AYXGJqU31UvJGzjvFSE9X2xwu/AIuIMr+BXUNCLEmx0WhYYVw9kAxujXUASB1wFtE79K7cV5vlJ7WVXYYSkdeQ0U=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by OS3P286MB2389.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:150::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 15:07:55 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 15:07:55 +0000
-From: Koichiro Den <den@valinux.co.jp>
-To: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>
-Cc: Gustavo Pimentel <Gustavo.Pimentel@synopsys.com>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	Cai Huoqing <cai.huoqing@linux.dev>,
-	Niklas Cassel <cassel@kernel.org>,
-	Devendra K Verma <devverma@amd.com>,
-	dmaengine@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tb2LDwF6
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15dd124bbe7so1405240c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:09:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793372976; x=1793977776; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/UiY3oEhmm09gQt6+h2fxxhgxNmhqW0iOqLXwE+OSHg=;
+        b=Tb2LDwF6QUG4wUPNNkVaCf3jkiBdaJWdaWwyr1N2SXwxtA5sPmqZsAJ/v50IlLxvCq
+         JWM8o7X2R7zg9NMlYizn9jNRrirVo4QNZIGb+CoZQ7QaaoJaLEbBL7DAhd9knr2mdqzx
+         XQ0SmetzkF4SmCXXpbP/dOCNLuk350woXJEYYQBkc9L2UzEH9UZ7GHXkEwyxDSd8QohO
+         iGiGIyRXgkvdX1PHaQsaQqhlEa+XjFCl8LLkIG1g6HKlbHszfOjwoNtM2P+rXsmZp+2N
+         qz6OwAyDzOdClP+YBr7zmXE55+dYK3c/tMVeZOc1cmMXL3EzTB00d0X4+aiUZO0j7Z6B
+         UqGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793372976; x=1793977776;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/UiY3oEhmm09gQt6+h2fxxhgxNmhqW0iOqLXwE+OSHg=;
+        b=vYHAwaA0sQGRvPFOpUPEaHdpeil9eOdBcRw/2TMa5sfJUs6fQgjQPYc2YhJV7o9Y57
+         a/eGwl6oBASfF/qL7Eeyksv4d7+/+IUTaD7eKppahNfZB8BTGucuplbuNQjx+3G88r6Z
+         2nqD2pyhUsuUnSH0mdeEXkDpg/4B1r7xUoxbTmqtN90u7R2CCtkfeCXC3bcAOEynIDuu
+         WuAr8qx+DYCVPoTvOWITTDNV2suRB7SsUBSIs1PgFsuPqazRe4C2QJkV4ibhqrHYnhIU
+         1hoPS3EixPcyzbvIwZvPXd8AEeyfXqF+SjresM7tVf9eq3kj8rkkPNdrbsmTnWD1i+QL
+         4HRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwg16Qk9YOjs2W2Hz4DmRhhS8d7QGf57toVZY7aD2ekI3ytck1Cy2nQolCYCqChWfmWRW+EcN/RYDVHESk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJn8wLvlTHsEyE4c6nAfS5f7tP5IkJZVAK3WNwLg9znWQotTbao
+	PporkXSVT//TYIEtdr3x6MmCpoBC9VW1fupiPJEGrq3fLJZ7XjwtN4MS
+X-Gm-Gg: AYBFou0tJok+jQ8zYOl+g6UcqAJW8Dzad3s+D1YkrNRGyMbJX765Lsmk/rubw/djx5j
+	TO+dKBWMm2wYLAXdqpR2BDWRq+XYDCT55uH7a43ru+xepAIzzUHE6wT8yDSkf8hqPfPdKENkxRx
+	kXHPV25Y8EZaHICeqkJiHqnv7I80KhS6G+l9zuOTYDfzRO1gpEXmyzm9hNbwcD7vJEU/r97ahtJ
+	5QRx4mbkq5Khwp7v1cUSC0UpouYVnHELZgm3HLk6ff8kzoaWHreBn9KMtBSbi/m9ntP6KtLDgCT
+	UZ++zotb0p9rGnrry/UoNG3kQJvR8OtKdIO/bXiszK3Yphh9/KNpmHsdkF6P7cFgPtfzuS5vs+K
+	usdjJb9jDkxYpPA1/xzJhtgTLuXgKvruLLYJsL8a8p2UFpmhthI+xtuuiCdbAZH8PgYh0ZDzFec
+	BW//jVXSftnUeG1FeDLfkT877KEZFwwIRGxDIYHFZFgKKQ7ZRP4mjsfQRQjOZiA2lgGjeDRWkeD
+	x1b7wAWYOEOerD0DLpB4jnhhI9/qaxv6YI7ja62YqFicQsDlV6BF4d/GdMPvUjpOYuPeOvGsebN
+	gn4Yujy/9dGwmqMvh7HtrjX9V2ZIgGx1P3nSNJ20OPEcm7nnLBOD+XZKgx00qx7qPlwBeEs0dYj
+	mWpzFFtMaH5jjhaFUAPUL+cgskIIJu5fMFNJx6xyaFJUlw6kmlzr8S6nXycUy37/dBw6xNV3lzl
+	l/eJ7d6TSXMWME3dA=
+X-Received: by 2002:a05:701b:42c2:10b0:185:1640:5536 with SMTP id a92af1059eb24-1ac5ab52fa9mr3803741c88.19.1793372976047;
+        Fri, 30 Oct 2026 08:09:36 -0700 (PDT)
+Received: from brev-9gdpyq8lp.ap-south-1.compute.internal (ec2-3-110-210-194.ap-south-1.compute.amazonaws.com. [3.110.210.194])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42aa8999sm9193386eec.29.2026.10.30.08.09.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 08:09:34 -0700 (PDT)
+From: Samarth Narang <samarth.colleges@gmail.com>
+To: Han Xu <han.xu@nxp.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Richard Weinberger <richard@nod.at>,
+	imx@lists.linux.dev,
+	linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org
-Subject: [PATCH v6 4/5] dmaengine: dw-edma: Dynamically append requests while running
-Date: Sat, 31 Oct 2026 00:07:41 +0900
-Message-ID: <20261030150742.2586776-5-den@valinux.co.jp>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261030150742.2586776-1-den@valinux.co.jp>
-References: <20261030150742.2586776-1-den@valinux.co.jp>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TY4P301CA0007.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:26f::6) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+	Samarth Narang <samarth.colleges@gmail.com>
+Subject: [PATCH v2] mtd: rawnand: gpmi: terminate the DMA chain on completion timeout
+Date: Fri, 30 Oct 2026 15:09:29 +0000
+Message-Id: <20261030150929.2944717-1-samarth.colleges@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,191 +101,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OS3P286MB2389:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0a528b4d-0259-4c23-9dbe-08df369792ef
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|376014|7416014|1800799024|366016|5023799004|56012099006|261009223027099003|261026140227099003|261026135527099003|261026121527099003|261028144727099003|261021123027099003|261021121427099003|261022105027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	laainbP3E1bQjNoRNPmmnrGi7rl0nUrSdvj3473MTEaDV7IvRq2d6oMWebFYRC8AHnaMZBNDTR3CiCibUKC+Q0Sl13zbh9KUwpsNiWUO1a640Fa4dpdzsfMHpDchXbNyPK6UQxGXDMIT2Ncr1wF120N65qNyaB+OjCYIcDN8bBZd+Fzsrk8oUtwBDWO+tLEGkKA66EpcCz7Op9zSMSBZ7d7I95WCjz8yP4Dcuj9CXTx0xgalrzWEJWXbb8HkY9pTiW0UKviA3K6kif3SWyZSbMjr56S45y/z8DNTC7k1eM2V2mhGcYyzXwnGg0WiDfgh4PWzUjzuS89g/8Zk3mfO03CmU8u/89GQX5O5sGmPToOsMWIvf0fy9cy/VmOSjMg5Nem21p7SgqeGZjFcLvwSuXqkeGz5+SreDjx3W5LP0PnwWpixg7icGkhUpsyqA+P9/HijnDmL6OOhSGqLWKT/ixJcRwNLzacgdfwgFJO8nXg3MxCEGDPTcUkMkYHacRdOMANPZ+Skirj/Y9q2zFd6q/7znYuH7JZGwD02IjITMz7c34M97+n+16k83GVSFcjV0chv9IiqUvDiCI1KufWFiNbqr5FHhLiL7nXVfv4aWvOPtSlJgkE9cr3kp0vRCm/C
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(1800799024)(366016)(5023799004)(56012099006)(261009223027099003)(261026140227099003)(261026135527099003)(261026121527099003)(261028144727099003)(261021123027099003)(261021121427099003)(261022105027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?34+tbw2KceEJT2//jNp4rsX4RD2HySo6oAm6ZS3Xo1dbG8VI0iVshdTwZqig?=
- =?us-ascii?Q?6J4enQrKVgPkeaSIg5+AiJ6MU0Vv6y8i8+Ir/nHUBvJWPctBpjoI/41lQyE9?=
- =?us-ascii?Q?kVao4sMxWcyb4+ckpctxpoIjgdT0POCPHMw7ZJC9oDhUPt77u7jrh7WVWPEb?=
- =?us-ascii?Q?AG3EewrNIcRqc70Vmn4vw/y/vFPSgv0g/f8WMDNKaEWjlCeo5xXchAK/5ZV3?=
- =?us-ascii?Q?qX3FhYY3QbBBK/vuA4ZnvSDpkIlsWYRHqlp8EDF9m1BnNoCr2Ex0RmiWya3w?=
- =?us-ascii?Q?74FkfSniNDRpzRCVlB7+n7DuQMBxCr7S1kDCKxdgR996hWDOueXG1QbPBPLN?=
- =?us-ascii?Q?WtVmwDS60PcZ3thaz0h0L3f/ZZ8+O/jowMpyj4AV9Nnhpcp5Bv9Wp8DT3dYJ?=
- =?us-ascii?Q?m82wNwybbdJP2LAfWmzK+wqtO/x75Zma9QKYjbtEbF4crhLBxxS77aMPomBm?=
- =?us-ascii?Q?9JMVQ9vmLtfvG4AIt7cgxzS+IeZRPx1o0ymEmJPfiCfMCgvyaYDeV+eCAM0j?=
- =?us-ascii?Q?Hxq0gbg+vuKqq+BaHuhTUauA7K6qmtHVIZRtJv1uRj/RrWgfZ7FoCrRSpTgN?=
- =?us-ascii?Q?tbMZlgvrvjaJCPkBzK/RPKHjIiHaQew290nAxYXFJAM0azwbgm3nSg7jVoeB?=
- =?us-ascii?Q?UGzrdryoD21Xxb+BMetrWpeb5vQXT+Q+kiIbJsFf12RZeBZXL4Jf1+pSKKDd?=
- =?us-ascii?Q?ZyirwaU8e+Slz8vIUwomdCALrZGx+wSva3CnXBxlPhKs1Nm9IhVYH9CKmHO6?=
- =?us-ascii?Q?qlHyHd2e4GoDUzdXR3XOIWUDDh51Ybu/ozrfidCSh6RhmKEqb24NEJfOdUmn?=
- =?us-ascii?Q?7yYnabyTMueU238P31OK/rupQeyuG5BMGHP/ai5amv5HhDuGxezQPl+yE5ub?=
- =?us-ascii?Q?9eOclsiviSkj5VlRVzpazd7ZBehyA7/1wDs+u63blO8/0DZiZfvbOBjpvdn0?=
- =?us-ascii?Q?vLH02+FdBZX0NIX6VVCxbw4SqDi6Bj144ONUi8Jj8MgGQMDI6UZwt4qLNc0W?=
- =?us-ascii?Q?8KGEYr7vafwDN2Un04nb7aVpDn7rSqicCmHcCjySd3P1nrVwcgSZkhDYXRHn?=
- =?us-ascii?Q?UGa2TpfCLQ1kArpu78LpByvqReDKdh3Hi+vXIBWbLAEbMZYZ37Sb88IS107/?=
- =?us-ascii?Q?RZ8esyxPuABUMTTBynbCAEHnjdI6iZ27lW2/pyZnfhgiJShkTFHAd7JiiBgo?=
- =?us-ascii?Q?KheoTUUB4F4lW6pWyyYpnVHDuTToMo5bKyJ2W1+lOpmtfHuQ/d8aEBQ+tBLg?=
- =?us-ascii?Q?FcYlvT7JlQa+U8eQwv8OdwUHIfFp3/sVoyKCLwm3XI1p/DApuLJWgbmPTv3u?=
- =?us-ascii?Q?adrjicJg/g0Gdk7S3FkzOXpE8FzcYHAnmjqD9Gx0BwB2qj1bQyvUJOeNDb3W?=
- =?us-ascii?Q?McvBAGouDtvOsQSBSIlkSbleJxrbsGW8xqo97bTUwwvuuc3KpG2IOEosIHxb?=
- =?us-ascii?Q?7WGbtZUpEHdJgQ+CsvBGatZepfbvfRaiiQUN5DZHINglBGA3yd+V6SRFHEMR?=
- =?us-ascii?Q?KDdl9ydbBLzEnTMU600i2L5V/m+QjShJra618GuGf3KnD7paIlKTK5mNDNmV?=
- =?us-ascii?Q?igyIkeYFn2Yf2EOJzR2KiXBYflx92tN2SBsZ7stSHZG5k0bLD3TiYJ1lhMtZ?=
- =?us-ascii?Q?oIGIomFyxAAhstnJxOkDRb86DNScOvmfnOR4qoHyDhQcvq8gomU4oP4fEzmG?=
- =?us-ascii?Q?M5KXcgjhQl3DGte/I52pEAJLQotQQNuuNxnnkCHDJltuBgGBgtODJTqaXKos?=
- =?us-ascii?Q?NNc99q5X2liibR7nJ2Ij+VzmYIvQ6TnP5rlR0xrdVVkJOAbTrSZa?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a528b4d-0259-4c23-9dbe-08df369792ef
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 15:07:54.4153
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VGV7tLAslVPaclQWFmqWhr3TmOVVD5k61acGPfqqRxFOK08u2ggJPC5qUeaYPY3NuwmflC8+TlAt3Adk90a3Rg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3P286MB2389
+Content-Transfer-Encoding: 8bit
 
-From: Frank Li <Frank.Li@nxp.com>
+When DMA completion times out in gpmi_nfc_exec_op(), the driver unmaps
+the operation's buffers and returns -ETIMEDOUT without stopping the APBH
+DMA channel. Since mxs-dma leaves the channel in DMA_IN_PROGRESS, the
+pending descriptor chain may resume after the timeout, while a
+subsequent operation can append new descriptors to the stale chain and
+cause the old DATA_IN transfer to execute again against an unmapped
+buffer.
 
-Allow issue_pending() to fill free LL entries while the channel is busy,
-then check progress and restart it if it has stopped. Publish requests
-in descriptor order.
+This can result in DMA writes to memory that has already been released,
+including buffers freed after ONFI parameter page detection in
+nand_onfi_detect().
 
-Multiple descriptors can now have entries in the LL ring. When resetting
-the ring after an abort, mark the other descriptors with pending entries
-as aborted too, so they cannot be replayed.
+Terminate the channel with dmaengine_terminate_sync() before unmapping
+so that outstanding transfers are stopped and subsequent operations
+begin with a fresh descriptor chain.
 
-On resume, keep an LL channel BUSY while entries remain published,
-even if dw_edma_start_transfer() publishes nothing new.
-
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
-Co-developed-by: Koichiro Den <den@valinux.co.jp>
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Fixes: ef347c0cfd61 ("mtd: rawnand: gpmi: Implement exec_op")
+Assisted-by: LLM
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
 ---
-Reworked v5 patches 18 and 20:
-https://lore.kernel.org/r/20260812155721.2807506-19-den@valinux.co.jp/
-https://lore.kernel.org/r/20260812155721.2807506-21-den@valinux.co.jp/
+Changes in v2:
+- Drop the code comment
 
- drivers/dma/dw-edma/dw-edma-core.c | 67 +++++++++++++++++++++++-------
- 1 file changed, 51 insertions(+), 16 deletions(-)
+v1: https://lore.kernel.org/all/20261030143945.2923554-1-samarth.colleges@gmail.com/
 
-diff --git a/drivers/dma/dw-edma/dw-edma-core.c b/drivers/dma/dw-edma/dw-edma-core.c
-index 74613c95ae11..3e23d177a579 100644
---- a/drivers/dma/dw-edma/dw-edma-core.c
-+++ b/drivers/dma/dw-edma/dw-edma-core.c
-@@ -102,8 +102,24 @@ static void dw_hdma_set_callback_result(struct virt_dma_desc *vd,
- 
- static void dw_edma_core_reset_ll(struct dw_edma_chan *chan)
- {
-+	struct virt_dma_desc *vd, *tmp;
- 	u32 i;
- 
-+	/*
-+	 * We cannot tell which pending entries completed before the reset.
-+	 * Abort their descriptors to avoid repeating a transfer.
-+	 */
-+	list_for_each_entry_safe(vd, tmp, &chan->vc.desc_issued, node) {
-+		struct dw_edma_desc *desc = vd2dw_edma_desc(vd);
-+
-+		if (desc->start_burst == desc->done_burst)
-+			continue;
-+
-+		dw_hdma_set_callback_result(vd, DMA_TRANS_ABORTED);
-+		list_del(&vd->node);
-+		vchan_cookie_complete(vd);
-+	}
-+
- 	chan->ll_head = 0;
- 	chan->ll_done = 0;
- 	/* Drop stale CB bits before reusing the circular LL ring. */
-@@ -259,21 +275,34 @@ static int dw_edma_start_transfer(struct dw_edma_chan *chan)
- {
- 	struct dw_edma_desc *desc;
- 	struct virt_dma_desc *vd;
-+	int ret = 0;
- 
--	vd = vchan_next_desc(&chan->vc);
--	if (!vd)
--		return 0;
-+	if (chan->non_ll) {
-+		vd = vchan_next_desc(&chan->vc);
-+		if (!vd)
-+			return 0;
- 
--	desc = vd2dw_edma_desc(vd);
--	if (!desc)
--		return 0;
-+		dw_edma_core_start(vd2dw_edma_desc(vd));
-+		return 1;
-+	}
- 
--	if (!chan->non_ll && !chan->ll_valid)
--		dw_edma_core_reset_ll(chan);
-+	list_for_each_entry(vd, &chan->vc.desc_issued, node) {
-+		if (!dw_edma_core_get_free_num(chan))
-+			break;
- 
--	dw_edma_core_start(desc);
-+		desc = vd2dw_edma_desc(vd);
-+		/* Fully published descriptors may still be in flight. */
-+		if (desc->start_burst == desc->nburst)
-+			continue;
- 
--	return 1;
-+		if (!chan->ll_valid)
-+			dw_edma_core_reset_ll(chan);
-+
-+		dw_edma_core_start(desc);
-+		ret = 1;
-+	}
-+
-+	return ret;
- }
- 
- static void dw_edma_terminate_vdesc(struct virt_dma_desc *vd)
-@@ -535,7 +564,8 @@ static int dw_edma_device_resume(struct dma_chan *dchan)
- 		err = -EPERM;
- 	} else {
- 		chan->status = EDMA_ST_BUSY;
--		if (!dw_edma_start_transfer(chan))
-+		if (!dw_edma_start_transfer(chan) &&
-+		    (chan->non_ll || !dw_edma_ll_pending(chan)))
- 			chan->status = EDMA_ST_IDLE;
- 		dw_edma_core_ch_maybe_doorbell(chan);
+This issue was identified by a research static analyzer for DMA
+lifecycle ordering and has not been validated on hardware.
+Compile-tested only.
+
+ drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c |    1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
+index 527165ccc..a8106de2c 100644
+--- a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
++++ b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
+@@ -2659,6 +2659,7 @@ static int gpmi_nfc_exec_op(struct nand_chip *chip,
+ 	if (!to) {
+ 		dev_err(this->dev, "DMA timeout, last DMA\n");
+ 		gpmi_dump_info(this);
++		dmaengine_terminate_sync(get_dma_chan(this));
+ 		ret = -ETIMEDOUT;
+ 		goto unmap;
  	}
-@@ -580,11 +610,16 @@ static void dw_edma_device_issue_pending(struct dma_chan *dchan)
- 
- 	spin_lock_irqsave(&chan->vc.lock, flags);
- 	if (chan->configured && vchan_issue_pending(&chan->vc) &&
--	    chan->request == EDMA_REQ_NONE &&
--	    chan->status == EDMA_ST_IDLE) {
--		chan->status = EDMA_ST_BUSY;
--		dw_edma_start_transfer(chan);
--		dw_edma_core_ch_maybe_doorbell(chan);
-+	    chan->request == EDMA_REQ_NONE) {
-+		if (chan->status == EDMA_ST_IDLE) {
-+			chan->status = EDMA_ST_BUSY;
-+			dw_edma_start_transfer(chan);
-+			dw_edma_core_ch_maybe_doorbell(chan);
-+		} else if (!chan->non_ll &&
-+			   chan->status == EDMA_ST_BUSY) {
-+			dw_edma_start_transfer(chan);
-+			dw_edma_ll_advance(chan, false);
-+		}
- 	}
- 	spin_unlock_irqrestore(&chan->vc.lock, flags);
- }
--- 
-2.54.0
 
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
