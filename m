@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793338838;
-	b=aL7jsMq4WDXggy9yTLiuKfotuABeUfZ3e2cYokoTrjDa5ekdgci2S06lAPfAeosJnOIK
-	 Pr4KTBCrk7Hkwm4oaNmdFq8FrQgdCzDx4M4G9x9I4xb7CxINeKCGSr4GyXudGvi6USHZk
-	 tSoFNiNtMZEKJ1xANWNnzijHkdSOTzn9+MbdotdvSQ43nbdykSN1SsJVu6Lstlvuk2V5C
-	 OdP2bAn+XeeNtANBZRbWkpYoGjnJIT55CrNU0LPAbYYYR1siFDj3zvDva7UtjytTKJe25
-	 sTXup4zFTwDW5Nr2GjbKaEc2okkvUWW6y5GOsbm7u6ayal0QkxN1pMCZeztVsed7+kQ==
+	t=1793338964;
+	b=UJLFxywMbQdv2NHwA79pD5yGkVPWO+4MXPKYUXOE7XKXDyGfuxj5R9svpx5jfmttCiXx
+	 dNzsII9Sa5eq0ZIpep5N7UrRebfWCtUDwYAU9Cqq92OMZE+SoI68A8v1gM3FUMi9AtIk0
+	 iAsdBPlSheMS85jfXyoxSDkQFY3D3PBacaKNANlJb7iW9G3ccy2ZaZVkq/ni0MvJZL4j0
+	 u+od999TB3PMMt6CWfqYVX0PA0pmAN4KRwhN8eu7JrQFrI3xBwYhJSnCK6ETY1gHcNHS+
+	 1ZHikHbTQBeW/Rsjndi/reMcuTwSUl60E3aP7A3HK9uxjv05DOjUeI/Zn+kXAxHnCWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793338838;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793338964;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=CdWUt+AQIcUlWqOchiPx3xLQXUT8mVi20ovrVe6TqxY=;
-	b=Xs8gJwtm0B/ca8OKmtuR7UKIfCHi9YEy3jJiDt6JMt4YlZfjArc1TyEh3Zswuuzvo9uB
-	 QvJkdLIBuwtbIo2wqSPnHKTjcLafSeW9sMsXzKbxGZ9j6WHxsiPoe4ZmHn4kAvgGCrR1Z
-	 HeelJzlzr937oQrbySLHsl/yQVu922QfDqfzxubAiIaTs/q1yY+SUqzEEzVTJ+fv6yH+f
-	 pi4RTZPGRZqQfdrBRZMgYodiuASbKMiK1nQMmXuklBwsbqOXz/CtrfXmc09Vl/wLxottK
-	 ViBHxrcdepCwJtOcYjsN44cp6OWW51LEgr3cmdeMlaFGBp0MgzSAEHmq7Ike5uwCsDw==
+	bh=12tXOxCPsbo39hlb1mF4iGYiaxkf5vgxLfHL6faGPYw=;
+	b=iLUiBvkCMyxbw9hi7llmUXHS3Gv7tN940weTSqGGRMaYylbhroy4aOidcgSgizi1MiYG
+	 cAkOT8QQyLLix/3BpAvP72Mh1O4vZ9EAhfZMOvNgsWN6frFAuk8IHWBZO7rSpD7nQ95EP
+	 smeHAGnp2rvdaPQI30Q5ldbqIXY0KuCTnnHnbgLcYr/brZhkYRWsv0TVu/TfJUebof16H
+	 QzYh9ECLqQgw94BI/drnrx5GriF9IXQ7yMyFjH1u8s+PWcr/Sy1A/NMvBtfxfB41bvbCJ
+	 VPqFqO1GhACTVErI56ghqPXEwP4MJrV31E6981Ie20QheaZSYR8POEl9xeOBt4OXCbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=izesOQcJ;
-	arc=none smtp.remote-ip=95.215.58.125
-Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vMkfXhwf;
+	arc=none smtp.remote-ip=74.125.229.6
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA2C606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:40:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AA2C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95931606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:42:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95931606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=izesOQcJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Fp9j4vIf/d5KUh3gOQVHtCSAX3O/PbmV7P4bWJC36bU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793338835; v=1; x=1793943635;
- b=izesOQcJM5E9h+R5MSvYiurMQRyYhpA5Yw54y4gXe71PcPWxt+pobP7pmWLbuSv7crpyjZvb
- gmsfZBdiWOgHcTLDhs5pdI1aaNzbPDFsT59DzTsd3CZMwfx5nkT5vnJd9Gz8v/gwKfrANhixSro
- +nxd1ZVhT70aqZwW51TjTAgo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 04770debc8262b1a;
-	Fri, 30 Oct 2026 05:40:23 +0000
-X-Mizu-Trace-ID: 04770debc8262b1a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b36ab4a7-b692-49e8-92b5-1dc4d76dee00@linux.dev>
-Date: Fri, 30 Oct 2026 13:40:14 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vMkfXhwf
+Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-33e48934fa8so118622eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:42:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793338963; x=1793943763; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=12tXOxCPsbo39hlb1mF4iGYiaxkf5vgxLfHL6faGPYw=;
+        b=vMkfXhwfjyi4TT9vUKlVmpL5S1he8tN0Eb3OBr3LB+59kf0jd0sHTvjS0daU3xZirX
+         38JOrj1dHn2bYAzvy8ok2PFdB5+NB6Gy9s1WZgqEHfOMmmsvx1qYK1DacHnPe4mFeudl
+         +y7nq4O3NBjrzP0YL8fu0bEBEc8bLiM49cB4UGLS8jsYY+o01DjgY0zLBDRpT0ox6mmC
+         16Q7N+X3FZzbKYJZbaYtdiewA9le8ZqXWwIQEB7o4FroqnRw/9Uz5hX9IWoPPOmkUqmK
+         zEVD9+qKrHpzxdYsgyoXSXmXzCoXaXzCZDh5h9gvlHEYQ57w5UESvPOqCLx6xMIQ3kPG
+         FZVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793338963; x=1793943763;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=12tXOxCPsbo39hlb1mF4iGYiaxkf5vgxLfHL6faGPYw=;
+        b=fmCtmBjmoeae8ZOgGso5Rla6TI7s84d4YeAwlUVasjLAZL73Lm8UJtj4ORHQt44XYS
+         X9+4BTjEtXxcDymvyfOGUSZI0n687ZPjYmn2KEY2yAw5auNc+3RzIEkvm8G7TzWkcW4y
+         l3K+hHtWuocz0eBiJR42iAA1XQQxx28Zh437JRfbJm3BEQ8vyqYMhOzFAMHgqUFRyxE7
+         eZmkC83RF2mw9nSKHZVnDjMOn9SKMape/9FTKbUe0TjJUU8Cu1PxjdPKXyIZjkk70H4a
+         dVF7TsixyV0+8w6o0VLQ/ggFo7zlTarPiz0XW2qVmjigIEsCHFpRZMtb2z83pmO9cRsR
+         DBTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBykw5oBJv5fetp60BIzzKtuSrVnk2FNT3+EhxJdUzc43ZCy8Uz/7aNUi1S5X2+dGINRNRr96hGyF2CNzu8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsJ/ib5VPujkJrSjPOxjVLi3+ptv2Xs7NrKSGiyvM37ijqkQlw
+	D0doDl4qxeH5IAvARwFB4GWp6FSitB1isGqT4XiBBlogMjWS4R+cA7yu
+X-Gm-Gg: AYBFou2RsYcVbbwmsVN+fSid8YWoSo7Y+lvMqjKcPmWK+Cwa13vYQ+s4NWVw8Wia4eC
+	TY70ZPbhpqv3zZ7OH/08Z8QGTnN20IvG8dgsHLLiMpZtdFpmnSyVLiaEbu/GEeWLGfa5eTCk0X2
+	lijn18DV9rAhyL1/hp4ZcduBHdKrRG3VMICHiQbO8D0/sso990YFBFCb7wZUy9eOMZPtGA2BeDu
+	u6sn0wubUyLuRstocmJo0XcmunD1icsGfwknAjjTmas9D0OYVla4yLiMwANoIrydmSof1OpWXhF
+	Ipc/9e8eYYS0oYlOuSpZnRwlqDRod3AZsPR1pArElqFwaVR2BLsFah/oFS6GbwkykuqYa+ojt0O
+	L21qc6Za6ntLx59Nzsp8oNZO+maWc0iaLxwDEZFMnK/G+qIBOjWHQbsTK7LzvD4YyxFHFvsnCjZ
+	nO4KM3SdwlDIWt3IvbrfgX+0jS7FA3HKUaxWGEe4o/rzJYaxd7HdscZABOsq0Gbml32tgtJlBex
+	HzUfTpLcPO3cnKxICG98aOjyqXvhZdROdTPmgHjmzSLxtO5lHsgqSI6oE/ZX0SHYPDPMc++z7u4
+	1bGuapB6E4FtgK2lQlJkhL7ov7XQ78MuQ64InBGp4BdQefO7RRm7NOkC
+X-Received: by 2002:a05:7301:82a:b0:351:dbc:b663 with SMTP id 5a478bee46e88-36a4244f9f6mr2418639eec.31.1793338962362;
+        Thu, 29 Oct 2026 22:42:42 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm4380426eec.26.2026.10.29.22.42.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 22:42:41 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: tglx@kernel.org,
+	jstultz@google.com
+Cc: sboyd@kernel.org,
+	mlichvar@redhat.com,
+	akpm@linux-foundation.org,
+	oleg@redhat.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH v2 0/2] tsacct: keep task begin times stable across suspend
+Date: Fri, 30 Oct 2026 05:42:25 +0000
+Message-ID: <20261030054227.35453-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,78 +100,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, Shakeel Butt <shakeel.butt@linux.dev>,
- roman.gushchin@linux.dev, muchun.song@linux.dev, cgroups@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [RFC PATCH 0/3] mm, memcg: isolate deprecated v1 state from
- struct mem_cgroup
-To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@suse.com>
-References: <20260916125737.1095414-1-cui.tao@linux.dev>
- <aqxMk6yaiFHeeAAg@linux.dev> <aq0HNe5s3zvOnM_I@tiehlicka>
- <aq1lqJdVZ1stTKCn@cmpxchg.org>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <aq1lqJdVZ1stTKCn@cmpxchg.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Johannes, Shakeel, Michal,
+Keep taskstats begin times stable across suspend without changing the
+MONOTONIC elapsed-time fields.
 
-在 2026/9/19 00:24, Johannes Weiner 写道:
-> On Fri, Sep 18, 2026 at 11:41:09AM +0200, Michal Hocko wrote:
->> On Thu 17-09-26 13:26:40, Shakeel Butt wrote:
->>> On Wed, Sep 16, 2026 at 08:57:34PM +0800, Tao Cui wrote:
->>>> From: Tao Cui <cuitao@kylinos.cn>
->>>>
->>>> The legacy cgroup v1 memory controller has already been moved out of
->>>> the shared implementation at the file level (mm/memcontrol-v1.c) and at
->>>> the Kconfig level (CONFIG_MEMCG_V1, default n since 6.11).  Its
->>>> per-cgroup state, however, still sits as individual members inside
->>>> struct mem_cgroup, guarded by #ifdefs.
->>>>
->>>> This series isolates the deprecated implementation from the shared hot
->>>> structure: all v1-only members are grouped into a dedicated
->>>> struct mem_cgroup_v1, and every access goes through memcg->v1.X.
->>>>
->>>> With this in place the v1 implementation is self-contained: its
->>>> interface in mm/memcontrol-v1.c, its state in struct mem_cgroup_v1, and
->>>> its eventual removal becomes a localized deletion of this struct
->>>> together with mm/memcontrol-v1.c, instead of unwinding
->>>> ifdef-scattered members across the shared header.
->>>
->>> Sorry I don't see any benefit of this code churn. The code is already behind
->>> config. What exactly this code churn is giving us?
->>
->> The only arguable upside is that this would make it ever so slightly
->> easier to track v1 specific stuff (once that s@v1@memcg1@ or similar).
-> 
-> I had the same thought. It's kiiind of nice to see which members are
-> completely specific to memcg1.
-> 
->> I am not convinced this is sufficient to justify the churn either.
-> 
-> IMO it helps that it's mostly in memcontrol-v1.c where the chances of
-> interfering with other work are pretty slim.
-> 
-> The patch 1 + patch 2 split is a bit bothersome: indenting everything
-> into a union, only to then move it out in the next patch.
-> 
-> Tao, if you folded these two patches to make it one clean extraction
-> and changed over the sites at the same time, I would probably lean
-> supportive on this.
+Patch 1 makes getboottime64() sample its offsets under tk_core.seq.
+Patch 2 uses that helper and the task's BOOTTIME start timestamp, and
+clamps negative begin times to zero. Keep the helper prerequisite when
+backporting the taskstats change.
 
-Sorry for the late reply.
+Changes in v2, addressing Andrew Morton's review:
+- Add the getboottime64() sampling prerequisite as patch 1/2.
+- Lower-clamp ac_btime64 without imposing a 32-bit upper limit.
+- Add Cc: stable to both patches.
+- Rebase onto mainline d89e1d186ec9.
 
-Thanks for the feedback.  Looking back, I think Johannes' point about
-the patch split is fair.  I split the first two patches to keep the
-initial step semantically neutral, but it also made the series look
-like churn for the sake of churn.
+Validation used GCC 13.3.0 with W=1. ARM64 and native 32-bit SMP x86 QEMU
+guests pass all 36 checks, including the original 24. The 32-bit helper
+stress reproduced inconsistent timestamps before the fix and none after.
+Suspend time was injected through the real timekeeping hook.
 
-I'll fold the first two patches into a single extraction in the next
-revision.  That should present the change more directly and hopefully
-make it easier to judge whether the resulting boundary is worthwhile.
+v1: https://lore.kernel.org/r/20261026005506.2253-1-dennylin0707@gmail.com
 
-Thanks,
-Tao
+Hungyu Lin (2):
+  timekeeping: Read getboottime64() offsets under the sequence counter
+  tsacct: keep task begin times stable across suspend
 
+ kernel/time/timekeeping.c |  8 +++++++-
+ kernel/tsacct.c           | 10 ++++++----
+ 2 files changed, 13 insertions(+), 5 deletions(-)
+
+
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+-- 
+2.43.0
 
