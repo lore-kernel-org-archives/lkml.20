@@ -1,60 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793395603;
-	b=CmuxLWWd8eSaIxBls5HYzUMbeK6W9mLGwz6EnPqn3sH5b0PsrKXCxKREP+I5NpSpfexH
-	 Ubd6r60zoSs7+2RhAKlxybi9Ux3/L1jVCzXbYc9xuzVGm8doXusUjQpQCQy+T/POvY539
-	 kdKPmUxHrdytQUqK2W4sd/erlI3GxVLb/6shhktvh0qbE05MTI13dQ+r3jaxN9md4YNwh
-	 QFsMCMfjWad8fzKKiozGIXGyp/O+/WXV4Ew3An3ZjM/+g1yjvoUL5s8GqClCo0fzi4fV+
-	 ZBRtAXD8FikIQ5e0fOv01mR5PyZ/hUFI3U/UzTNGODkYKuZqMEq0/YTjgCKqmBBesxA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395603;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TTUFtw/nxnpkCPxNIfivX8Mm378KuN5hPomxuuElLrA=;
-	b=vrg0osLa/cobana9GEt+MjSc1zw2uno1KlkDKt0bBtYn56bO8n9naNVqjyUjQBdQLktU
-	 24KwlLxcnzi9xAROBvSrNzYwUWFGNE6yHd/fUnBGg0POBbgaO6nXK2af3284XrikKQS0y
-	 WM0hSOmrRJiGtkiT0/hmiYTAwHFRd7mgyhfQsvnZJc8ezX7SFDSRyd8mgRVYV4jHXsSXx
-	 rekq8pl+C5hkrfHPCIj2vm/FrkqObgROebl+/jia9598xSWFCmwO4RE0FPVI6i1Wv5Fjo
-	 zizNMTn+yi8QkyGbA4zHw3hQ2MlhF1o/iu02M5uatErG4Be/TUgPwHgwptyrgMmCxrw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=F96wWoY7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793395644;
+	b=uqCOsTJJoZ2YYkipJi+XkS/WtuP7h3BdAoCvMmu4xNTeTv7DjqJCL7VJD7c1bIO2NZRK
+	 0mVNxbrjKrWIEFqC8FrIeNB9aXuWhCLMw4z5cN6yKs0tjvkcH4IUd0zzW3VBSEOxyb/NE
+	 4V8S5F/NaQT2+1lEAkRPjlARXjcSl9FD1/d6cQlprGQuzlPl1yk01iNmW5lzlfkM5AX4a
+	 0eS8oi+kh3AfKDZCNOJtSVGeIvq5x7+LdoXg9rO19qKiid8iDV26aEDG/J9VxKyAMmUwt
+	 UVRjHCEwoUuDnZSstl62OyS863zO/0vT3kaSeKkGKZqwPXMBCrFIskKor8PszBCL4qg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793395644;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=7Ob7KYJItudywiOa9GHKXXoVLHL0NZzME1xZdaLq2EI=;
+	b=JVnmsJHWZOnRei3tBcvbJDx/JibUJt+8CamE8MfYd31JJeMMXDJ9kNXDv8h9MQX2p3Bm
+	 MmoCJcadLHOJ3/wSIs9YTvkR1/cQ2NGabcB5fDyK9ZpywqwRV1zpJvHbc6ga6qz+89pbi
+	 /rDwhNANO54IHzMNVi8G0uzE/sYalbzv5msU7qNFWHnA2xqa43n2fi95sV9egEH1aCEWV
+	 rCCQBLK98+Xu1VeiUZW8hi4agOzbPdNcxGLGk5L9YiHoUQlRBJJ/XTPYFeE7CA+0nm6ab
+	 PpStBWAl7xhWtUJ4NfhKPN0kutEcEGwOQoG7Svm1SsGPi7gzkDa2uKetYZlste0iimw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kc0d3K0U;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E6C606A31C;
-	Fri, 30 Oct 2026 21:26:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9E6C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02D8606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:27:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A02D8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=F96wWoY7
-ARC-Seal: i=1; a=rsa-sha256; t=1793395575; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=N9ZN0xQoJT4kRJpHM0cCQEH5MsHPrdLK7zkOQFVP97l+Avg8KMNwzuD4beVPWq5459BcFYE5Izr/cOMbZcMmXjfiH/Fos22Z7rpVo1bQ2xd9L/jyND09sNVsXERmYl5wmq4j/neaeAir2VukSHOJOiV54wwYQ03IHyOwUnp0Ke8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1793395575; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=TTUFtw/nxnpkCPxNIfivX8Mm378KuN5hPomxuuElLrA=; 
-	b=Rc0zeFhdzPCFnyIiRmQ8S6Up4ZIJGzhKeaxnX8cStr3HusYMOyQR9Nov+TI1fqZWvO68ib5k5aVRUPaD5ft32yq//5rKDrvuBGVuAtCisQND8lGtUl3Bg+v4Tshl8OXNkJ5xEn/Xpr6XmEL3+6ro6fyKY3VVwOlxh0cLlDQB1kc=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=F96wWoY7WmkhF0VgiHoa5TMK25awEIFO8KvWBL32+E0EMIO8AAFe7IgN4o6fL7R9DsJsq+VFVHMEFGYX14HaEtOdSwIaZFeHQa+dPttk6q2l/GUlGXdmFtKlzLSEH9/Bg/EjKO0YKkp/QK3GEI6Xrps6e2sMa+FXpeJDUcpDweE=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=TTUFtw/nxnpkCPxNIfivX8Mm378KuN5hPomxuuElLrA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1793395574526558.2694898430047;
-	Fri, 30 Oct 2026 22:26:14 +0100 (CET)
-From: Igor Velkov <iav@iav.lv>
-To: Enrique Hernández Bello <ehbello@gmail.com>, Shawn Lin <shawn.lin@rock-chips.com>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, bhelgaas@google.com, robh@kernel.org, heiko@sntech.de, linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-Subject: Re: [PATCH RFC 0/2] PCI: rockchip-host: Retry training and hot-reset a JMB585 on RK3399
-Date: Fri, 30 Oct 2026 23:30:00 +0200
-Message-ID: <20261030-rockchip-pcie-s2idle-a53-1@iav.lv>
-In-Reply-To: <20261028173117.3457220-1-ehbello@gmail.com>
-References: <20261024-rockchip-pcie-resume-v1-0-58e54a5cf5f1@iav.lv> <4316c1da-f7ff-4fa5-a330-512800474e45@rock-chips.com> <20261026-rockchip-pcie-shawn-reply-1@iav.lv> <ff204558-dc22-4d38-b0dc-2c727f983f9f@rock-chips.com> <20261028173117.3457220-1-ehbello@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kc0d3K0U
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a03834d8ffso1440440b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:27:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793395643; x=1794000443; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7Ob7KYJItudywiOa9GHKXXoVLHL0NZzME1xZdaLq2EI=;
+        b=kc0d3K0UPTQ8DRPZG2fjRZTYPhaAP1Kydbh4D8TaLgJbPZjE33Pld89hghWGtVXtay
+         FiFB6b542LOTRVwNN6UW2hoy+iBuyTfzg5+ahNY7K5MyL7GafW2cqXqE2zvqrutAKI8G
+         fsw8PVsRFXdMVtcHYJkUczWI/aCqBCo9rki/YNOkZnMO26M8sAKM7mk3DgFT9PqdkClo
+         PZwkvZttnNM/uYXS7ps9PIvNoRjGnyyCJl+YpWxPkuG0qcSuDtTShE113+/V2wra18SN
+         11MLqcxAmL1NmT6pFGb6MuCdVuCBlw9TNcNIXmFqC6jg2uFiTtctT4Z7Vc5/j6+s1+uw
+         F94A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793395643; x=1794000443;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7Ob7KYJItudywiOa9GHKXXoVLHL0NZzME1xZdaLq2EI=;
+        b=pQFOaw2h4HS6P26IArVJlLnssZvYnNTN7OVsXeY9jB7qT+ypjXlKdYYQvZFc7+dwZ3
+         JUExoMZeX08ldAkM+PUwPaPnqTC+AvS/+UYKMutc2OIVEiHq2W8GAr28V0ISgyK8WAur
+         qeNlhtK4076oYg6dWeRXEvhU5zxjJi+OwbTv7RWJHJzEEJoyLEPjh66cVXqNs4u8OceD
+         FeeoSOzPTptO/Hc2oyFwPeNAhv39p1Sxj9VggEL2qY/5OVn8lNRBMRaWr7P7lugG477h
+         G9jPhGNAsBWx9g5tAUGPyqMCPmdjc08DSGi8wjLj1UjDR8yKj8z+epHkA4hXmveh1jmz
+         9C7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwDsgT1xaCkHno5JQOnYSqKfmM8FcjviOxKHGYkSDrOUUB5T4ysbGTW+T2KMtyfRwaz1cD+1qFF87WBaXk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKe8nzEFx0NWXP3IuhNovffkY825D81npz/ZmXVAPzaQ61G8v2B
+	YeOtPcWXgVm7X2zgzvEETcWoxj5HNg/0zKeLWqj+eVtZocRoUFFIg7D2ltN67ZIy5uaXxrLc1Y4
+	CvDhs9w==
+X-Received: from pfiu22.prod.google.com ([2002:a05:6a00:1256:b0:88f:2ad7:b21c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:17a5:b0:89a:19ae:10e9
+ with SMTP id d2e1a72fcca58-8a9bf336b49mr2945778b3a.38.1793395642680; Fri, 30
+ Oct 2026 14:27:22 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Fri, 30 Oct 2026 14:27:14 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,18 +76,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261030212721.2606393-1-seanjc@google.com>
+Subject: [PATCH v3 0/7] KVM: x86: More EFER.LMA vs. CR4.PAE fixes
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 28 Oct 2026 17:31:17 +0000, Enrique Hernández Bello wrote:
-> pin enumeration to an A53 and see whether your aborts all become synchronous.
+Revert a change I made years ago to allow userspace to stuff EFER before
+configuring guest CPUID, as configuring CPUID and feature MSRs before anything
+else is now a hard requirement (though I suspect I was just a bit overzealous
+at the time).  The biggest problem with that change, other than creating what
+should be impossible state, is that it also bypassed this check:
 
-Helios64, v7.3 with Shawn's hook registered before pci_host_probe(), no
-other PCIe patches, a 1 s startup delay on the PCIe power regulator (DT
-overlay), s2idle for 30 s:
-- all CPUs: 2 aborts in 40 cycles, on CPU0 and CPU1;
-- maxcpus=4 (A53 only): 2 aborts in 40 cycles, on CPU1 and CPU0.
-All four are synchronous (ESR 0x96000210) in rockchip_pcie_rd_conf(),
-from pci_power_up() in pci_pm_resume_noirq(). The hook caught no SError
-in 80 cycles, and no abort landed on an A72.
+	if (is_paging(vcpu) &&
+	    (vcpu->arch.efer & EFER_LME) != (efer & EFER_LME))
+		return 1;
+
+which was kinda sorta intentional?  I assume the idea was that userspace could
+stuff CR0 vs. EFER in any order.  Except that in doing so, userspace could get
+impossible state in CR0+CR4+EFER (in the aggregate, not in any one individual
+register).  KVM doesn't advertise MSR_EFER as an MSR that needs to be
+saved/restored, and AFAICT no VMM manually does that, they all just use
+KVM_{G,S}ET_SREGS{,2} (which is what we want).
+
+So, hit the "I'm feeling lucky!" button and simply revert the misguided
+commit.
+
+Patch 2 plugs a hole where userspace can get at the "wants_to_run" logic in
+svm_set_efer() via KVM_SYNC_X86_SREGS, which is "fine" for now, but would let
+a misbehaving userspace trigger the KVM_BUG_ON() added in patch 3.
+
+Patch 3 is more hardening.  Rather than pend a triple fault, which is flawed
+because (a) KVM still yanks the vCPU out of L2 without going through a normal
+nested VM-Exit and (b) there's a window where KVM can do stuff, e.g. init the
+MMU, before the triple fault request is handled, immediately synthesize a #GP.
+The only reason I didn't go with a #GP the first time around is that I didn't
+want to bleed EFER_SVME information into the common set_efer(), KVM effectively
+doesn't allow kvm_x86_call(set_efer)() to inject faults, and the vendor version
+is used for many flows, whereas set_efer() is strictly used for WRMSR emulation.
+
+Patch 4 is also more hardening, to try and detect+prevent EFER.LMA from going
+stale.
+
+Finally, update the EFER selftest to match the new #GP behavior.
+
+v3:
+ - /s/LME/LMA in MMU role bits. [Sashiko]
+ - Restore an unintentionally deleted vcpu_sregs_get(). [Sashiko]
+ - Massage the KVM_SYNC_X86_SREGS changelog. [Yosry]
+
+v2:
+ - Disallowing clearing SVME via KVM_SYNC_X86_SREGS if L2 is active. [Sashiko]
+
+v1: https://lore.kernel.org/all/20261022223052.646891-1-seanjc@google.com
+
+Sean Christopherson (7):
+  Revert "KVM: x86: Skip EFER vs. guest CPUID checks for host-initiated
+    writes"
+  KVM: x86: Treat EFER.LMA, not EFER.LMA, as an EFER MMU role bit
+  KVM: x86: Reject clearing EFER.SVME via KVM_SYNC_X86_SREGS if L2 is
+    active
+  KVM: nSVM: Synthesize #GP instead of SHUTDOWN if L2 attempts to clear
+    EFER.SVME
+  KVM: x86: Recompute EFER.LMA instead of inheriting the current value
+    on EFER writes
+  KVM: selftests: Update nSVM EFER test to expect #GP when clearing SVME
+    in L2
+  KVM: selftests: Expect failure when trying to set EFER that violates
+    vCPU model
+
+ arch/x86/kvm/mmu.h                            |  2 +-
+ arch/x86/kvm/msrs.c                           | 53 ++++++-----
+ arch/x86/kvm/regs.c                           |  4 +
+ arch/x86/kvm/svm/svm.c                        | 15 +--
+ .../selftests/kvm/x86/svm_nested_efer_test.c  | 94 ++++++++++---------
+ 5 files changed, 93 insertions(+), 75 deletions(-)
+
+
+base-commit: 7e60162b16f9da0d2fa83da5c1723b6853a0ac1d
+-- 
+2.56.0.385.gac671c819a-goog
+
