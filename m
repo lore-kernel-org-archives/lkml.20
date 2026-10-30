@@ -1,98 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.136
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793368374;
-	b=UJ7TZdKeAImnASx6qRPqRJXkk0EGEIq0iTxCa6B4c6xv0VvsuKJ+EuCfB2V6yMwyOhGz
-	 J3t6c37rUYKQQiaYPoA9ENfdzWA8u+KO5mTvo45rHXheyWY2rrZSgzPZ7T/Q4Vgupg2O2
-	 0DYnyTGZp3MTo9zU277dE8PXpgPrtP3/P3cjGR8V5LSXek7TiluApeRFXVP3BHHTlhorY
-	 2yjjdfxHgkhNTpTN/z3bbqoKQVnVaXUQ9qkEeglGciyZyjQy7RodWcqNEzBBwg7GCPbGf
-	 1Ubt1899rGoOhOnGZAMsJT4uehe+/sjl1jHASIgO3ciTl03gkLfQxMv/X40Nzn6yp+A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793368374;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793368446;
+	b=U8uCOELRLfa/e0cZXEpbqQK0WPL6EZ31GGxD2SW210v7MOduQl4bVDtmnffZKsiacuL8
+	 Sv7jEBdissSzqJC5ZXbe397J+a+t+Dh64XdS2A5aDXtmZXgz15HPpHRKzhkgT4OkyClJC
+	 Fo3MBc2YCHDUwEh9tZVXZVQJC+W9BaLL32nI1KEHmTjvSstZM2qN3NX5lirWNPlheqP4r
+	 gVlg9CJo3I/2FjQIEUE7+q7VjBLh87WjnMBDHZQQ3VETsRNUnO34BLVWeNPKt3uZUjMK6
+	 BGBGOIUJLr+OpVvjp3vRU8lKvphz9PRElHmVu5X1Oxrmw0lERktc8gSdpydbKGLTHNg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793368446;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:CC:Subject:User-Agent:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZjCkrPgZkmpcI6klO5ZNTUrNouiYanWFs0XqwffC5jg=;
-	b=HW10D4wRoFfyqtAbFP+gRDKtDvKW/LGjU/IUyUML9yTxuG0VsHOchYVilyY4/3ZYLvqM
-	 rfWiQg4m7DTU38N04rNqmD4Rj2Nl+pVeCrt7PuaXCpGDoTSaHq2fo+80mqewHH02JuN1G
-	 8sjNtTP+GvzKULVRLMeok+qu6vg+vEqRYfJdYYsRVXR5PbJAniIzcHYJyYWwPvtGF2Imf
-	 X52VU/Ocw+9ZVDmjZyp4ZlCGVnuQ4A43ek/a9Y3FEDGS7UsGJmkQ9PFYnB70Zucbvy1xC
-	 rm13YR2Mg2fOyoooZ062cO+5pAjDIqRoeracxNA/eJUdKnctDdp2vg1XC8MRMlSxrJw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vPsIqfqY;
-	arc=none smtp.remote-ip=74.125.227.136
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=BAuLNHPNJqqoWJmSv1jiLnRdkmUVQGOL2ovNhcmC/YY=;
+	b=gQecaJD7HlQlj8+/kBcvlncFmvBkUYs5iaEk6xWljN1Fl126S+fr+2wlBe2fawMDbZQ5
+	 /5pML9ji3KpaDmPpajV2IdtqbqwtyNeCWTZLUMp+7uQeUQQ9+Y9OjkVPXScDnODaMniEP
+	 HD5MsUrgHBgH511bqKQXz9brmtjsGvcsOq8ZibqymgjUmFnbfjDraCzcozokVCT09n0QZ
+	 DFu46iQO5IyYhOZ6e5LpNhJY4XuPYBxqDyHtlrvaqMhi5QNHTUfUmzhfLTXnzphd6q+cP
+	 MurvUyV4NKa3qyxQZniqVMNp2UIq1ahWaUGGS9s9HegCRW7DOn/Vw6KbJj7S2IgSzww==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=uber.com;
+	spf=fail smtp.mailfrom=uber.com;
+	dkim=pass header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b="oo/gDQ1H";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.42
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B88B606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:52:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B88B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203E4606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:54:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 203E4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vPsIqfqY
-Received: by mail-pj2-f8.google.com with SMTP id d9443c01a7336-2e609985789so2551355ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:52:54 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=oo/gDQ1H
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-679334baa1fso742827d50.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:54:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793368445; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QMdw5n8A4WPd7MdgYgUcW8qP1Q8rIsAfevlYvvlRmBSTXByFza4oBCDKwZDR3CksfK
+         JjskjOmt+G46WAJrXBNSqp4Vn7u7kX+30iti1MrASgbPT7lTbbWWqJA1Jc1ZRB9BB1U6
+         EoBojk2/Zp9Snoz3BMcjnKzjsOGCKMKvjjWbP87hkwEN6ooD/JVJ21BEtAt4x0wEqQFM
+         JVw3myGzu3O/+gUjkXhFOqjvG3hphLSvAdiqReax7Y2qZK2U1trgjEs/ZKFmNJNKiaMP
+         dG8wbgBkGc8J4ZBEo4l8pbu/EJXZ65mFnwV2JRX0wJwfw88Z86AVkgInTjXI3BdQY9gT
+         d2pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=BAuLNHPNJqqoWJmSv1jiLnRdkmUVQGOL2ovNhcmC/YY=;
+        fh=yY3ZpxoGBuGHF/FZq19Zu5OllsCpdm8/rQXPbUS7BWY=;
+        b=NUEh5PM77IB71X9X8y9DB7TganKVA9J13ud2Nd8WR5gJmZAUPpq1lhAyTTbJrogdcr
+         hlP/bZFIER9tiksyg1AOBa/O1Fic98zZVFjjS/hrAJQcJngeu2eMs5tK57NdBGniGsE5
+         TwugfLi+UQH9LSUHURhCh3l6ICacLGuGpF6XJ3Qq4hGLrq/AqIMIZjAjwuZfihDWXwlw
+         mQYGHODswESWcx5A4as4kvRfuAuMxcDHa/2wLnEvCi1LkptIxBcRTcesDKTRqrrdMPAx
+         wDa5Ng4JmkSb7oCOaHnoNyxU+GW+yknGdvSHQ9De2Qe8l/7Gi2aTXWDrqLvDsYwjLjCw
+         osIw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793368374; x=1793973174; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ZjCkrPgZkmpcI6klO5ZNTUrNouiYanWFs0XqwffC5jg=;
-        b=vPsIqfqYMcWRJ4rbWkXml6kSp2q11qbyeDun1W7E6bhUpVVVssc9gIr9xqylNJ/yds
-         FWrMGwOPW20Hnb2keBi9D4LHy1y8Ka8Hd/JAhescfVeSzRRioEzAz7VmN18KBsf/A5Du
-         Y2xcki/wmNFKv5/lOd0J8L1JVUIaunqBtRq33IHQz9jRrNzXTRMw/8ctl9TVQMmb7mzI
-         qvaSgwhIV4C8ZPbYRzlx32VqBhzOwiTVlpIaqSNcR0zPAcYs4jqTaeZcYde5ndYsmG6s
-         syInukzz4SRS/yZUlrIo6TwgU/DyiEBgeM6sJFb4ZSHCx4eGUAmreqR8XGA0sHvYf8E8
-         YT2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793368374; x=1793973174;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=uber.com; s=google; t=1793368445; x=1793973245; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZjCkrPgZkmpcI6klO5ZNTUrNouiYanWFs0XqwffC5jg=;
-        b=KuhXcrC01oC4RDxlbVdGzZZfp466ZykgYU89MsVPXU4r0CmWQw08veDx8rwQ7x3ozY
-         deX3kmO8xatbtoyEmVoAAXu7C5ORZD1tJ3oLlzjM8mLPT5x94dR1aPwYVE3NSlndOJX4
-         Pv2nXJY3ZTwu0uWisAWJZVLtJNyVBlZRPe2DH50uJwl/OLFWsyZiVuTG48ZZ7OAt7/y3
-         JWHEQZgQ5PVJ9PZkrk6U+AyumF0qvE9luCN++8uOEAAZd7LZt8751LUCtnSuWXD5RX9e
-         +GYLvgsTjmtRhFQ9LVflnFOyrty5TnTMEkbCaDvir4EXlafVHUwMdbAOFewASz1wiwjF
-         VIbA==
-X-Forwarded-Encrypted: i=1; AKwUvBz2s7AiInnHi6dNDCqi6J415OrcGPeKYaYDHw/GwY7Dctg9rMnkfyOSWnjRrscshILiKqIp4IIDdMYmnpA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8LM5QUXfWQg9cQ6OvJpyhlEZeadHUbA2/7qD5rEMAMY/XPtSq
-	gSLA4PNk3tlJ8ehqjw2raUMobs8GIrFmiXm/BL0zUtw87JeNiO/84eqx
-X-Gm-Gg: AYBFou10isMWa4PhUGZj5nTgqi/1buYgugxwmPf6ZR8jNnk5XGz4c5hSJm+LXs1oYyJ
-	eJATL+BwMc8UBb6LNpiLpauLUXKD5scFpKFZV3WcABtKa5NliwkHgXgjSHOt0h7Yfj6Q0ReSfHh
-	+Dyq9ci/UXSvWoUkcfIZ3azxTpJ3PDROPQkV19g2gzxnlK1XUsC28LTeVb66R9q3lCxif/amTfe
-	8FGcACj0adn8WD0WPRMGoh9h+nd+J6nYARB/VTM2DqPacL7+T4XZ75Jms0Qc8xoSZT8hX4G6XAt
-	sVt50np52v+uFboSK+C9dCToFNvB5oE9KwpbaTyZSujj00/8Y72vaBL8o6n8UyYK9j7ayLVbcc0
-	67CWoUXcNK+FBp/MA2DAAiKpEpr8Lia+gC6tDIufIbprysGIQgVdPP7NNWb7Y1wFOTVw2yYYQrz
-	8+LNF87Rb55mFR0PBAEH0VFvsYdkzRL5OV4S8srTAaF47WXYP5eamkwPPOYVo2Fa32+oNdGalWa
-	+Vf9gubeLa40iQF37UoFm4I0fylqXXliz2650ArbOo/CTvAWw5MOPJHNl8sAWmXWhouKjxgpoqq
-	11EKMqEEMVPd6s1fCAoLk3bMcyMAFXZ2n3cZJJw=
-X-Received: by 2002:a17:902:ffcf:b0:2e9:a782:bb82 with SMTP id d9443c01a7336-2eb364e93afmr22499015ad.54.1793368373608;
-        Fri, 30 Oct 2026 06:52:53 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb38e9633fsm7600865ad.0.2026.10.30.06.52.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 06:52:53 -0700 (PDT)
-Date: Fri, 30 Oct 2026 21:52:48 +0800
-From: Coia Prant <coiaprant@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-CC: Jakub Kicinski <kuba@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_net_v2=5D_net=3A_pcs=3A_xpcs=3A_ma?=
- =?US-ASCII?Q?ke_supported=5Finterfaces_authoritative?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20fb8d2d-a20e-472b-8f32-3fe2fec9a425@lunn.ch>
-References: <20261029102728.3189359-2-coiaprant@gmail.com> <20fb8d2d-a20e-472b-8f32-3fe2fec9a425@lunn.ch>
-Message-ID: <A049E9C1-CE52-4B04-8BD4-44962D008F6D@gmail.com>
+        bh=BAuLNHPNJqqoWJmSv1jiLnRdkmUVQGOL2ovNhcmC/YY=;
+        b=oo/gDQ1HmcwaZyjfpA2G9VFwx996PJQ2JK8EgT+15BB9Yu1b3YwRk98RYORY3hrVq2
+         7tTk7woQsPGj3s3kHexvcBU5TjbBuB+Ut6T9Q/8eU4l+rGY6B0Qy1lOnkr8s4dsu2b/A
+         aHkWmBZFNMqUm2kmaLZiIM7uS9A4o/zRNzfz4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793368445; x=1793973245;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=BAuLNHPNJqqoWJmSv1jiLnRdkmUVQGOL2ovNhcmC/YY=;
+        b=Yh5ecxi/u7/fNw2W62EYu2xTasAXDDCqO3MHHkdgt2OflV0jVwmM9kObkesOwAQHHW
+         pc7hpL7opAZtHHRpl/II8cUlqGDnpsOOWQklOEuktWMdIMNORuNhKlQFBmbMVj2cbNEv
+         oEV31j+KQCDU7kwu1BSaIPfy7fkQLNC+ydpyRn7eZpSJzK8ZpBmTSWJ9mCYO1t26U+TE
+         b9DEsQcJgaMEdm99FHZZTibL+oIu3TV5ERyRCNx66QpIuIcrVD6jZpGjcnXIzAdLSznX
+         5SApphLX6PaHEH5r6UyrayeK9Cy1J72mz17Qc6yRAk7YGBevx+QWdaUBWjwqRcOtBAM3
+         NP5w==
+X-Forwarded-Encrypted: i=1; AKwUvByKcdNeETE3klA6GFg684b7aveRfxpbymRcAkivipBh55dmRQloA60uzSPqjOilsSnNi+rK1t+5x3Rt/ao=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDqPAYZ2U2Tp2t/GmzinTYRIMSIChq0xcHU5PJu+7nMLLbLx9B
+	xqC539sOnYZr6SSWOUX96RKVbOED/k1aidfkdjLqBWyPgJDgVe3tZMz+QiyRjtXZrG8qvM9hgTb
+	ey0DoL028LyX81e21ofTMcP0XPBArhmb6oK0taL9Vmw==
+X-Gm-Gg: AYBFou2OOogtfKKLFOiTd5m5HHwLxewk9XSXF3GA0KMH1FLbWwz+hp73bLdup/WVRI6
+	zYMMcEs1ulnycpzgIrGBpOGDTU2bVtKooUvJpSLqQrAm5S4INLDhsCN0gIecWzC1Rl8alGHvhej
+	C1TvlthJiBi8DGbWdkZzz+BX9M40eUXn80UY13URdwSXNv31awmfR09WC+DCyeM0R151qFwmYmm
+	EFnkb+TSfm0bWLUl1IlfrEAnCSaN8WYoSHFoHHqQVtnNZQwEVaSvPfhvhbwJ+9VHn7FbYnbziD5
+	qA+TK05GTa7J3CphNN2DADhCIwnKXndOpvN7H1c5mJu6wDkHxsU3od8n/z3B+JfZsk0JfBgJayh
+	D6rCg/8OIHhl6K5qJusK60D/4OBEZpAHOFOcmDyRQlJmvNZHYyzbY0dC/QqdDfUdmDV5u5A==
+X-Received: by 2002:a05:690e:803:10b0:679:94b3:a257 with SMTP id
+ 956f58d0204a3-67ba5072b56mr832427d50.115.1793368444841; Fri, 30 Oct 2026
+ 06:54:04 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,72 +100,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <20260928075237.3055101-1-irogers@google.com> <20261027231513.816148-1-irogers@google.com>
+ <20261027231513.816148-16-irogers@google.com>
+In-Reply-To: <20261027231513.816148-16-irogers@google.com>
+From: Alireza Haghdoost <haghdoost@uber.com>
+Date: Fri, 30 Oct 2026 06:53:49 -0700
+X-Gm-Features: AclHuK9qEUQ8arGpnCaqKbufakBcpdC2RW03pQw1oOPGVk-0ZrZp_NmRX624f18
+Message-ID: <CA+w=M=TDksQKaU4R+og8eTS=17NWSsACaoBnpv3rM6tWiZ37Fg@mail.gmail.com>
+Subject: Re: [PATCH v2 15/18] perf symbol: Add memory shrinking for symbols,
+ DSOs, and machines
+To: Ian Rogers <irogers@google.com>
+Cc: acme@kernel.org, namhyung@kernel.org, adrian.hunter@intel.com, 
+	james.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On October 29, 2026 9:20:56 PM GMT+08:00, Andrew Lunn <andrew@lunn=2Ech> wr=
-ote:
->On Thu, Oct 29, 2026 at 06:27:29PM +0800, Coia Prant wrote:
->> pcs=2Esupported_interfaces is the mask of interfaces a given xpcs
->> instance actually supports=2E The compat table describes what the
->> Synopsys IP can do in general, but a specific integration may support
->> a different subset: the RK3568 XPCS supports 1000BASE-X, SGMII and
->> QSGMII in hardware, but does not implement the C73 10G or 2500BASE-X
->> modes that the Synopsys compat table advertises=2E
->>=20
->> The Rockchip glue currently advertises only SGMII, since that is what
->> the RK3568 MAC side supports today=2E 1000BASE-X and QSGMII can be adde=
-d
->> later when the MAC side gains support=2E
->>=20
->> Without narrowing the mask, stmmac_phylink_setup() merges the PCS
->> supported_interfaces into the MAC mask with phy_interface_or(), so the
->> XPCS would contribute 1000BASE-X, 2500BASE-X, USXGMII and the 10G/25G
->> modes to the combined set=2E The MAC side forces the phy modes and
->> phylink start passes the mode explicitly, so this does not currently
->> make phylink switch to an unsupported mode, but the combined mask still
->> advertises interfaces the SoC cannot use=2E
->
->I don't know this code too well, but something does not feel right
->here=2E It might be due to the way stmmac does PCS with phylink, which
->is often considered broken=2E
->
->What i would expect to happen is that each piece of hardware indicates
->what it can do, and then phylink finds the common modes=2E
->
->So maybe stmmac_phylink_setup() is wrong when it ORs them together?
->
->Maybe look at other MAC drivers using pcs and phylink=2E
->
->      Andrew
+On Tue, Oct 27, 2026 at 4:15 PM Ian Rogers <irogers@google.com> wrote:
+> + if (was_shrunk) {
+> + if (ret > 0) {
+> + symbols__merge_retained(dso__symbols(dso), retained, retained_cnt);
+> + } else {
+> + dso__set_adjust_symbols(dso, saved_adjust_symbols);
+> + symbols__restore_retained(dso__symbols(dso), retained,
+> + retained_cnt, retained_allocated);
+> + if (retained_cnt > 0)
+> + ret = retained_cnt;
+> + }
+> + dso__set_symbols_shrunk(dso, false);
+> + dso__set_loaded(dso);
 
-Hi Andrew,
+Could the failed-reload path leave the DSO in a state where a later
+lookup can retry, rather than clearing symbols_shrunk and marking it
+loaded?
 
-Thanks for the review=2E The comment is too terse, let me clarify the
-scope of this patch=2E
+If the file is gone or no longer matches when the reload runs, this
+restores only the retained symbols and still marks the DSO loaded and
+not shrunk. The evicted symbols never come back and nothing retries.
+For a DSO without a build-id whose file was replaced, the reload would
+also merge the new file's symbols with the old retained ones.
 
-The RK3568 XPCS supports 1000BASE-X, SGMII and QSGMII in hardware, but
-the Rockchip glue advertises only SGMII for now because that is what
-the RK3568 MAC side supports today=2E 1000BASE-X and QSGMII can be added
-later when the MAC side gains support=2E
+Could the reload also build a local struct symbols and swap it in
+under the write lock, instead of exposing the table while it is being
+rebuilt?
 
-On the stmmac side: I agree the phy_interface_or() in
-stmmac_phylink_setup() is not the usual intersect model, and it is one
-of the reasons stmmac's PCS glue is often considered fragile=2E But the
-DWMAC binding requires phy-mode globally (snps,dwmac=2Eyaml), so the
-dwmac-rk glue gets a fixed mode from DT and phylink start passes that
-mode explicitly=2E The OR-merged mask therefore does not currently make
-phylink switch to a mode the SoC cannot use=2E
+dso__load() currently detaches the retained symbols for the whole
+reload and merges them back at the end. map__find_symbol() waits for
+the dso lock, but a direct dso__find_symbol() from another thread can
+miss the retained symbols or get the fresh copy meanwhile. In a test
+with one lookup thread and one shrink plus map__load() thread, 115,691
+lookups missed a retained symbol, and most of the 13.2M lookups
+returned the fresh copy instead of the retained object. That breaks
+the pointer identity annotations rely on. Swapping a completed table
+under the write lock would close that window.
 
-I've only been touching this area for the last few months, so I'm
-guessing it may have been intentional=2E You might want to ask Russell
-King, who designed the original logic, for the rationale=2E
+Smaller things:
 
-This patch only touches the PCS side=2E It makes supported_interfaces
-authoritative on the PCS instance, so xpcs_find_compat() does not
-configure an interface the glue has marked as unsupported=2E Reworking
-stmmac's OR-merge into a proper intersect model is a separate, larger
-topic, and I'd rather not mix it into this fix=2E
+- symbols__merge_retained() is O(R^2) in retained symbols because of
+the already_retained scan. Both arrays are sorted, so a linear merge
+works.
 
-Coia
+- symbols__fixup_duplicate() no longer returns early for
+allow_aliases, and dso__load() now runs a second dedupe after PLT
+synthesis on every load, not only after a shrink.
+
+- choose_best_symbol() now prefers refcount > 1, so which alias wins
+depends on references other threads hold at that moment.
+
+- If shrink removes a newly populated cache entry, dso_cache_io()
+returns -EAGAIN. cached_io() does not retry, so this transient race
+becomes a hard DSO read failure.
+
+Thanks,
+Alireza
