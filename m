@@ -1,59 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793361815;
-	b=y9i4Xyysw+Q/782qiB9aug9Hfj7rWLuaO6GNJoLYsHXBfPLWCJIUthadQ8dDEjD4u6ov
-	 txruNTlDFHuSKrNzjCR9K8KMIMzWWskx8C735t3I6ykxP98m75/ivfoF4zNOe3zgp2qeD
-	 fOFKD96Z+joeGoI5kXZ5gyd253kc/yULiTmsGyxsu+HuavTkylTOHZotxLQaHhmtj+/V1
-	 EzJJgpjE4zauXwCxezGbwYid+ukSh2Aoa6dMnxrYFDnv0tzEOJIvUBpN+eXfzIGFpObKR
-	 zte75yLAbgAJJWRXek5lwXeQ/NSwJhKi18Lw/BIJknzVV8rLXBaymNgRSX6so1ie1SA==
+	t=1793361833;
+	b=zjo3qDLCVQx2TYNZASPE0CPAdHe2Eo7bMqK1pWVOHwbtRdaZEZqCNLZli2Pl7evtVEEP
+	 YxvQEuJUfh3C56a7MPHLh54UJPBnf2MC0ZY0X03+yNVUpphCyikySlnVuZx6iDFXXqgGB
+	 bUJ3tD3koWOXwYfafUA8n2niJySWoiaRYkJkDZDhQOOFcg27eFpg3lXaG0S4KSu8sXHxp
+	 KJctKizoN5YrxQp+BIkGDpyftK4115yTZLfe4OFHrahQL5e9KcnBvegcc3157W7HGZf8h
+	 36Uo4/OpG5Iuvx1ukBp6gQj5XYLbRcaULtvlRlArSCGEE+b1e2YmfyINJZ+c8dZMAcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793361815;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793361833;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=C2rZnyIbpP89ye6bG3lNVVpR9E9Mquq/SRfP5Fdrzig=;
-	b=xI9EV/Z8/H3V8Y23SP2iNvhfLkq50yBwIhW085MPqoxohKYoN1j72rlCidxtntyEjNKa
-	 /mDkDHhJpvk+cN+vlttkRWaA1NM15lIvq5HvcFtba+dbZVSXLgH05mR2BZC8TUU09PpXi
-	 0l+QVzoI+sfltynHZq+ImO1ckd1feDweGwQnwFEkG/VPeo5j+tLpUaYhbymx040GciCwB
-	 N25ExsBJH4Z49Wc6UQ3qP5ln33pbewICamlN//LvO1/4zzKE4ruz2I0/Jt3pnmmghr6uS
-	 30uMdOExlkAv0aElJA3pVbjleWwaKpw1iaetuWDeK3rxfXMMRkV98n7bcZf9I94sMgw==
+	bh=qAPz+q05J224FADG5AGvB6vTxv/qL4tcXrC9H9Sjahg=;
+	b=Mnpyphi0sCTPTG6ghgYudLmkucVhxLUU0dAPovIOvZuLk7WOGj9wF0BnU4Ldl1WpKu9o
+	 QjHSbOC3gBMXxdwB5v23fDdvlhxcdPBsmjQqQ7uGMUINtAVmrO6HCJMyaD2D1JwqI491M
+	 zyqvxtpME4UjsEeIeoMbmGQbUV7dqmsaZ2pcyPtXKPMrslnJxbGkm51UFeFOGzlH+zJCZ
+	 VP7baIu/42BgmEFTfP4RUL5m+fOenNLa4KOnPnA6kDuvmRWcCndSAABNLZA4GSzKnb5M/
+	 aRkBxlYMiAAKFpg8RnO1ukmggxGStax2QOL6WqrPOhwzw5VLejXYnzSOXzhLHrQwJ9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZoa9hHz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+wSqpex;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B3A606A31A;
-	Fri, 30 Oct 2026 12:03:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF299606A31E;
+	Fri, 30 Oct 2026 12:03:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZoa9hHz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 151AF1F00A1A;
-	Fri, 30 Oct 2026 12:03:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+wSqpex
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A4BC1F0093A;
+	Fri, 30 Oct 2026 12:03:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793361814;
-	bh=C2rZnyIbpP89ye6bG3lNVVpR9E9Mquq/SRfP5Fdrzig=;
+	s=k20260515; t=1793361832;
+	bh=qAPz+q05J224FADG5AGvB6vTxv/qL4tcXrC9H9Sjahg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GZoa9hHzPrOnevW6nL66UFfYPR1bLjl/Gfh/ByEq9wZG4JLMlRqe5GnOZgMMEUEV6
-	 W1t9xyphqrFdCQYwAmTUVv9RVvqRZEj/zrZ5Lx53Pk7O8/VXPoRh8ayBKktFqNZjoy
-	 qNkJESDbPI2FJdxyBabtcv9YkR6rhYRfTkbFxV6OXEMsTaJGXiSt7viFo8A4nE0I78
-	 sLObvsJS7/wq77PxHoToLRpedX4wsxSHfCP441qmRdeAdEtunwv7ylwgOHKFLoMscJ
-	 mKYZIK5hSb8LMqIQvkmIUODAR0smixNBAXB8+7h3eMy+0YTTTmNoVjQOoCU9252Ylp
-	 Fa++KEnxgQ/Dg==
-Date: Fri, 30 Oct 2026 13:03:31 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Andre Przywara <andre.przywara@arm.com>, Xu Rao <raoxu@uniontech.com>, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: phy: document Allwinner A733 USB-2.0 PHY
-Message-ID: <20261030-adaptable-vagabond-skylark-bacc90@quoll>
-References: <20261029172325.3425046-1-vinicius.eduardo.pedrosa@gmail.com>
- <20261029172325.3425046-2-vinicius.eduardo.pedrosa@gmail.com>
+	b=X+wSqpexr2WBrOmsc/ciaqLCuSTHbRwzwV5/UogvJFEABK9V1tMvRXzq5GZ1ymkAH
+	 VMVvqaiqlBfZoA1/BHmgJnpfmjXtKak6144qshL8u96+G5LFWcAOhTqfPJ0pVqn6dn
+	 1l6/TBGsPnd7Yq4Ns36BpdIeIRC98z1wG7wvbQvW3iHlPZ0w6mlKYAtn16VmJcp5FV
+	 DBOqNOOLB+4A6xRfxImMleZ6U0+w0GOOwt/9jEzsGdsHlGcciakCIlqL2uIrBMVvUv
+	 l1Ynw/toqblBmjKGF0Enfvl1/D417O8V+EhELAD0u1pp4nZ/6/nwDuY0LPYIlhhrH3
+	 XAIyrXTT8zDXQ==
+Date: Fri, 30 Oct 2026 12:03:46 +0000
+From: Will Deacon <will@kernel.org>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: linux-kernel@vger.kernel.org, Hauke Mehrtens <hauke@hauke-m.de>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Besar Wicaksono <bwicaksono@nvidia.com>,
+	Ilkka Koskinen <ilkka@os.amperecomputing.com>,
+	"moderated list:BROADCOM BCM5301X ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+	"open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+	"open list:ARM PMU PROFILING AND DEBUGGING" <linux-perf-users@vger.kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v2 0/3] Support for BCM5301X AXI trace PMUs
+Message-ID: <auSHoj46Os6gSEUH@willie-the-truck>
+References: <20261027175124.3518239-1-florian.fainelli@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,26 +69,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261029172325.3425046-2-vinicius.eduardo.pedrosa@gmail.com>
+In-Reply-To: <20261027175124.3518239-1-florian.fainelli@broadcom.com>
 
-On Thu, Oct 29, 2026 at 02:23:24PM -0300, Vinicius Pedrosa wrote:
-> The USB 2.0 PHY in the Allwinner A733 works with the D1 settings of
-> the sun4i-usb driver. Add its compatible with the D1 fallback, as was
-> done for the A523.
-> 
-> It gets its own compatible because the driver has to clear SIDDQ
-> before releasing the PHY reset on this SoC.
+Hi Florian,
 
-Each device gets own compatible.
+On Tue, Oct 27, 2026 at 10:51:21AM -0700, Florian Fainelli wrote:
+> This patch series adds support for the BCM5301x PMUs which are AXI trace
+> engines present in the chip.
 
-Above suggests they might not be compatible, which feels confusing with
-first paragraph. I don't get why you are making two separate statements
-about the same - first paragraph says A, second says B.
+Do these replace/interact/support the series from Ian at:
 
-Just one paragrap and explain whether they are compatible or not.
+https://lore.kernel.org/r/20261002175738.3242646-1-irogers@google.com
 
-Best regards,
-Krzysztof
+?
 
+Will
