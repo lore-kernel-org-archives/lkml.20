@@ -1,103 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793372425;
-	b=M9xoHL736PtZCgqzTFRe7RE/9CGB17nCdu1cO28phWGKx7WifRsX3NG3YMZUKNC19wKP
-	 QbG+wry6FYqxIqLLHIYcz04iEaTy7dv4Na6ak+dA1KlOgOmKq0Uqdp4CB9532XhC0Qo6U
-	 7d7a2ba98q4G6CrJDfdhEjSLLXRRHVLsvHp0wNY2F5Nm1Lnl8FmP56IaK+gkzn7/h5gV7
-	 vqrbG1Wz7NaRodVqBAQ852F/azV8IERxR5Sv3a2IuxCDHiE/o6HBCfYTyCvUurL9z9ovZ
-	 wtAcLReBGlAdTva0M4bzEu5H0xiIxnFfkX04dDIhZQ1d4GSGMXTHd+8VBl2rw8Dm3Sw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793372425;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=npS28P+fvLY20tUV3o1nEvQCy6NkNpAAWU2SCrvYgUc=;
-	b=E+uRdpt1Dh6N5HXUhAIym7C1mzGX672TmfL1FwPknNbHUusinJU3hlkg41I8ca3XrNbG
-	 Nv1wNF7ofJWy5JrRpRkbV5iMjrBpOeIw3+1zjnll/Ol+DR3H3U2Nf/Mpg24xievuht9UC
-	 S6a9UeKpaMlqf4GvxujNvGWV5iPJC7hDjEVXTUm+tHvY4x2u4zxNjtH2ZknmrEtD57pz1
-	 TkKzum9/teR86G4AnMF2TvT5HwqOkI+f4vFbYTBFkk8JW83jmkBz65IcKxP+tTxvu6+kS
-	 0efGxxdazLwG3vcdqLrqbi1qiwbZE7b8uLRbhs+m5yzCAqjLLsHzlHCyoEiepXEnwvA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=UgUICrA8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.52
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013052.outbound.protection.outlook.com [52.101.72.52])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793372512;
+	b=oa/LOgLj9lfjhJtDtBt9V8J5p8kd3vH4urJK6G/BL9bx5aI1+MJ5UxGfuzXyEogXC+iy
+	 vZwS56zNp5cEcaSHD0rtxcchVN2tignn2ck52GghpMokMDLHFZ3lfNWVUDDg0cXg2mpkH
+	 2yhRSjgW/GGP7Tl/z/+o2CUsKXVhBt4g6/zBudqbFNbzaQJvYVZ8YHnGEdeE0ksWP+9Tu
+	 a8FHjabZmSL+UZqzr/N1JFvcrdhX5pZf1Kjfb3/xG579A15WV1UeWPHOtPVbR74V98mBC
+	 wPxvqPy6EnOXv/G5hDJZCT5G3T5OLIf7XKoLgFKKZFg+dx6LrzoeRtcDhupandn+fcg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793372512;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=zvMKaggc2Lg4TlSTyuVt5aoYkz5Cqs6SHZzh5dkmyPE=;
+	b=dFLlBLEt+NAbnoCeBYL/Pn86Uj+8Wk1LIT92CpBCOX3Nzvj5PLriXHLg/tVHGwEB/fmo
+	 4oyK/hOlDPpMY5qee7VW4rqizy/ucgyK6+FMZj5yjiRRxB4Kub7zwtFR5P9ewmcaUmcdj
+	 B9sDxJjy5KxOatu0P/v6v0GvtmE+nFn6z51EeCSNu/l6HVQcV0hDDNOifeg1yOAJE4K5o
+	 DmAcayH9aDaPwc1+uYRj9bTZz5iHupAYQa1+bopiMwuNXjNror10FP1z0GDndowmpqiTB
+	 lns3zaQvQh/15gA8T89Wi3xCUDrl7x3fQAiENdNiL1UMrNk0X9uZAWmmaDVfB6nsfcw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YRKLO11e;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C49E606A31C;
-	Fri, 30 Oct 2026 15:00:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C49E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6175606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:01:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=UgUICrA8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WP2HrsYSAjED01B7og7Cv38MggT+yWF6ZhHi6myLNrcWnJtJsxWb9/gB2MDHmI5NvoLx0Ef3UGcqjDUZQaoTdv6SwcmD6UgwTycNnBzfWdkh0iKddwXLbCU2xmS9f2/hibegYuCI4JFcmiq7FJw2XS5XFrosQAt/6rHgW/HHpr7WDaE4362IM/szywfOCXPokiVstqawCyFnTuEZr/2is4jNZUSeIy2PDwEBtRwJR+t2zJdRGcv41hJPZYDcl1gkFMRWSDeVy9BesrOF/WO8hv9+u0OUEhMWeb0DqwNTTPWmY9xxv7FvyP0AIxk51powQIhB5Bb1hkR03qa07nTOag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=npS28P+fvLY20tUV3o1nEvQCy6NkNpAAWU2SCrvYgUc=;
- b=Pk859K/ZnYa9zo82o8mvopTvi4bPse3dMUP/9WxEhOyLThlEck3srcFN+6hsuvPn/sXUn9CKLwIUc7vN6cLB32cKUozy98ZpBOZigmAk4TQjiFgjH4h4l8uTTf6cSevs0I59oosy5ljHUdKbHz2sNPOyXNC3RxLVn1t/y+6J35SAjitJADORP/6Fkfpb1Ju4k158Pp3PK7hNnhAOYRW5A/ngZN3O5vp6R83+nYR2zJqh+KYzE37y400lYGt8z4dKcOgW3IJWXSZ+BdLi0PcnnjXWy84qlgRLGu47pRABs5g6wU+kYEMMfrvUEgK3rmQPAWrrNsOs1CR7pScd3w7dRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=npS28P+fvLY20tUV3o1nEvQCy6NkNpAAWU2SCrvYgUc=;
- b=UgUICrA8KEqpjot1Tl5ZDf7P4vTXK17HdjG3C49cn9o254L3P9nts5aV8WGtzY658IdJvBh3A3CKXUdjvhxxy4Kp62RVWl7VgOobsj/gv5DlLjGX5lcX/QCwpGsLlCCctEX6/CC++fl6TqCX9fQ37UxOpIHu+72GjQxQtfoDTCQogkU25Dfmn2GaBEC0+Jy+w25n9dULoNW3rDspixRoCx43IQAX4+/zFBrO1QgDf7X104VijlgWk4vLQuixxgA+3wLpPYi30tC1xx5x6JvL3facOhK1Fc0CB+gEYwaG6lHiGjGD6SjA1vMPCQv3EpeuP2APnycJyjPxyeB8KqkUgA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21) by VI2PR04MB10224.eurprd04.prod.outlook.com
- (2603:10a6:800:228::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 15:00:22 +0000
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 15:00:22 +0000
-Date: Fri, 30 Oct 2026 10:00:11 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Viresh Kumar <vireshk@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	dmaengine@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, stable@vger.kernel.org,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v4 1/7] dmaengine: dw: Fix XFER bit set, but channel not
- idle error
-Message-ID: <auSw-1IlLYgG2T2E@SMW015318>
-References: <20261029-submit-dw-dma-synchronize-v1-v4-0-fea447d9f285@gmail.com>
- <20261029-submit-dw-dma-synchronize-v1-v4-1-fea447d9f285@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-submit-dw-dma-synchronize-v1-v4-1-fea447d9f285@gmail.com>
-X-ClientProxiedBy: PH7PR13CA0007.namprd13.prod.outlook.com
- (2603:10b6:510:174::17) To AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YRKLO11e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 785551F000C1;
+	Fri, 30 Oct 2026 15:01:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793372511;
+	bh=zvMKaggc2Lg4TlSTyuVt5aoYkz5Cqs6SHZzh5dkmyPE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YRKLO11eXHnZeR5OkDxEu88dI5Q+qWAgLP5RHq014svpS1wLjKbQjM4pWXFqB9Oos
+	 U7ou0gh0jpwNFsi4Fy4rqgy4NYgnOFzvSHMx+ychbRtn6+vbMRKO93NGsh/eTqZaIX
+	 Y2/GnP9g8O5CE2o9XRgcoxbt3gUlHQGaDEPL34intWg/RzhLQVQc9t4O8b6ihFIJW6
+	 53+t+2HbNDqu3NUsaOabj+QuA7zT2FiJkm9jE/ccd7i1xvsh4u19IOcaa61k8HLRWo
+	 7s75/eNZOGn7dAh8CGChc0qKlnOZ1ugWb2cfHbY2rhacAteitkWkkZuZyyyurPNGyc
+	 e9iGliKIKc36g==
+Message-ID: <98f17ea0-4db1-412f-ac32-aa37f1a0aa8d@kernel.org>
+Date: Fri, 30 Oct 2026 16:01:48 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,103 +51,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|VI2PR04MB10224:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec07c5e1-bfe2-4c61-dd83-08df36968548
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|7416014|376014|1800799024|366016|18002099003|22082099003|10067099003|56012099006|11063799006|4143699003|261026140227099003|261028144727099003|261022105027099003|261026121527099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info:
-	qjlsOWd8o40BD7H9d8GgSAUzKOuTLKteVL/33PSFQEDVl5Aj4fpGz/bRtVnUlFOdYtWrLUNWK0T3Xh3UQWQCLxGQ+nw/imxnFw32SJwvKzXy4TQPHgIGM73YY+vl1jObegoHKSIRCbgXIgiMtwRoTxdZnzlQzXWS+IDEIYGLVMSrC2insmMy00g8EKEQ+1fCZ32T54TYtHy9ucmXUeXfCZEB8ZUIxplqkICeg+pHK2DfEKNlwjOsI6bYXX1SAVlezxFFBighj+q9DS/P+Z/obDIOdqaS8k4YDGa49dqOa1hhqtpS50uxiQLBvQThQGgZW+5RH7lcbEcp8FOO+YZD1XQ2dL5JwL7Gcki6Wgt5DHoobSN/z5iGD6IpiIinQiyc1y5KLTV0M6FyjGEJI10ImNu4XOKy+th+IbiNPyKrDqk+SL2s50fUhMi4v1H7ERgqMWr5KM7WGc0DrL5SiPJqQ5pH3xRoIAzTPWUMMg/4BUW5WAnDuL9+kUKHlDerSfg9WvKEkVXoyZenE1gPcQQoMAQ2TIugPuRuWXjrTxYMFBhztvrjZ6odt1H6TyGZYcIrX+IXOqXA51rojIGJNSI5Unov+pX3hA9pz6MuwvQm1fCUg/qCXv6Glr4KSfDUKZezIEmhGZrJdZMxhgeDtjSd9OhpQq3X7yhdp++d+zFe8zc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(376014)(1800799024)(366016)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006)(4143699003)(261026140227099003)(261028144727099003)(261022105027099003)(261026121527099003)(261022075727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?WNCzGPAUXssW8RLjkpbBQd+IuP++v9b1PcsKOCSrcGP1LJEi2foQHDN0EcH7?=
- =?us-ascii?Q?7YG0hTNetTZSsabMaz91fuvAf4EFHCskt6DaQf09Jb8jct/e3xe1HMyvwNnw?=
- =?us-ascii?Q?6fA3gpMQsU9Bv1FG1RX1IOEvnfJlkyLnkCMSnC0IRd8c7U0fnbGmysfpMSw2?=
- =?us-ascii?Q?681o6eeTXpUWp7nE9pykrYiuhr6P2BDDajKAbn23qkjCOWUCLvmnxW7jQ/Bw?=
- =?us-ascii?Q?1fgYnOf2T9YnMRi47EhGoR42LPQw3gBjM2wMS5zu2QVtjFSQYWzrTLUPS6WP?=
- =?us-ascii?Q?XKwi8vNuuFM/AparrrcOZ8Qsm7DBweygbuWOc8Pwi++5gdGBaNZmVXmCXBgY?=
- =?us-ascii?Q?ltdEnRdftaXJWVqZ4DeDysMkGQD2E2DlJZd2Wkm0g1rrgWcuWwtcNRavWvpj?=
- =?us-ascii?Q?QbbYF9YpMTF3sHQLOubOj6WeUeI5r773VcHJ8h8+F4NxM8SOitfn3OMSRT55?=
- =?us-ascii?Q?AvSgns00RKBmA5EiJ1s7SlnmtKUoCfwHr8MLE3k/a+Brb92neWB/nikhpmWt?=
- =?us-ascii?Q?gnSwEcU++SzIIqbTVMdOAoz8Uc0qcuw2SjpF6c8hV13zxmtQQx0/2857MKcF?=
- =?us-ascii?Q?V1NgLMDG97ZULwImX7R7Fq8kYjnTsRxsI0tzR3Imty/ooR+dkIVQ2Kkhjxn5?=
- =?us-ascii?Q?TUwVrP9PYsNsUL+r0zliq0RiUzTyNUhMa9lln6Glz7xFt0PI+1IyyqrfQJy7?=
- =?us-ascii?Q?qjqgJJyglRpHjTrn2w2QBkaWqHKglwQs/yEe43v0IVfBz3+Z0+1aSAo4LGvO?=
- =?us-ascii?Q?u4H5fFGs1UpVeb2NIhmHm/wcqBk1AuwsoDy/q4WftKEf6FaxnkMZ+4jUwkJD?=
- =?us-ascii?Q?mpBrztXQk4zS1MlHVQq/3G7VWn8ifbr6+Zh/mL2C8M5cG7aGkLDDAQlaUqAc?=
- =?us-ascii?Q?lZsvthRhsEJbJhiAWiYcD02/wOptHpvjsViEJ8zUVt+jq00GCcNPi3pps4TE?=
- =?us-ascii?Q?zeJeaCM23CBNI+aIuL1m3WmaUPAvPoDgR+QZYkhY5pQD+feZGu/e0MNXM+Q7?=
- =?us-ascii?Q?x4VzKDTyXy6uXg8EFoPygEhoRMSbkRNKEDcOENn6ucP2Y1wMqtaawwTOIGlg?=
- =?us-ascii?Q?3MwYwcz+qYU/hzABFUEZyaU9L/1ocdOrop7ZhpFTM6x6RbUjLaLH9d6+fuj9?=
- =?us-ascii?Q?Rwya/pPZZFBS2peOuYNYaCLHF5kjm7FoaF+wnlXmpqsOj1M+fNPTm1YLEwVC?=
- =?us-ascii?Q?+x7YxsWlVkQ2/7XxIbO9l2HVT7RP3F4iwpfuVHy4nuwbf3Xw9uIhkcYDwV/e?=
- =?us-ascii?Q?JzJxiMK0Gs/pmVUmIdb54fLORjOjqIeJST2/+3X2q1ZGXFOss/rHXxkNVipJ?=
- =?us-ascii?Q?eM+yyippxa3FvvobO6BC3obXa2ntst3P5dzNdtWUpZcMyEID2tJLM8YcP4Qg?=
- =?us-ascii?Q?IYgmWOyciFSp3EkQrdVwDwhbUX34VoynoEn3i4ms0ZEVZ7bItLTJt6ZptGei?=
- =?us-ascii?Q?thnUwDZ3JA40u2JJLf6oLlsDar0y1+v7Zzzrhm7sT3ikZE/pr2biKut5y3vV?=
- =?us-ascii?Q?VYzadpfEZ7RZfKJaw/dgotbCdSgHkg1AcuJEEh1CAamSPpcXjhVDTFQadI6G?=
- =?us-ascii?Q?ZauRoSkfWo4QM5Mg0DsPXZRbtvxDq04TAJkK6wgC+CFAbuyLTs6ai5kNQioz?=
- =?us-ascii?Q?h1815xn/1t5MoovTl3lWNTId5ZJtctlSouNqx6C2DLEeGCtHkucK/oaeMgie?=
- =?us-ascii?Q?pz6NSmXKIK23bC3DgDdlJYrGg2ugMcCfeaE5/35LYDCtdtiQFJ6YHv34ZW97?=
- =?us-ascii?Q?eh44ook+rs7UZ4k1bEBVgV3XC5F8t7p25Q8Zm1W2CT0B+GZw3d9Q?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec07c5e1-bfe2-4c61-dd83-08df36968548
-X-MS-Exchange-CrossTenant-AuthSource: AMBPR04MB12445.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 15:00:22.0975
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4Tf8ANvRy2Dj9EwdCoOBubP7tSUQxjdO7XyhqF+ek6gmqTyy56rtMEgtiYfXnhD3GUhf+4gWE9qUE8aJ9hSnaw4vxMhFlkcpjgItpx80ijjr8Y9/4RtCdK62PMFLrhNZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10224
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] memory: fsl_ifc: Clear global controller pointer on
+ probe failure and remove
+To: Reid Downing <skibletz@gmail.com>
+Cc: linux-kernel@vger.kernel.org
+References: <987c08da-646d-4d34-82f4-da8c3afaed59@kernel.org>
+ <20261030145135.915500-1-skibletz@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20261030145135.915500-1-skibletz@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 29, 2026 at 04:29:35PM -0600, James Hilliard wrote:
-> From: Serge Semin <fancer.lancer@gmail.com>
->
-> If a client driver gets to use the DW DMAC engine device tougher
-> than usual, with occasional DMA-transfers termination and restart, then
-> the next error can be randomly spotted in the system log:
->
-> > dma dma0chan0: BUG: XFER bit set, but channel not idle!
->
-> For instance that happens in case of the 8250 UART port driver handling
-> the looped back high-speed traffic (in my case > 1.5Mbaud) by means of the
-> DMA-engine interface.
->
-> The error happens due to the two-staged nature of the DW DMAC IRQs
-> handling procedure and due to the critical section break in the meantime.
-> In particular in case if the DMA-transfer is terminated and restarted:
-> 1. after the IRQ-handler submitted the tasklet but before the tasklet
->    started handling the DMA-descriptors in dwc_scan_descriptors();
-> 2. after the XFER completion flag was detected in the
->    dwc_scan_descriptors() method, but before the dwc_complete_all() method
->    is called
-> the error denoted above is printed due to the overlap of the last transfer
-> completion and the new transfer execution stages.
->
-> Clear the channel interrupt status when stopping it, and keep the XFER
-> check, descriptor detachment and queued-transfer restart in one locked
-> section. An empty active list needs no completion processing.
->
-> When the locked XFER recheck finds no event, only update residue. A stale
-> tasklet snapshot may belong to a terminated transfer, and a zero residue
-> only means the source has been read, not that destination writes have
-> finished. Requiring RAW.XFER also prevents the fallback scan from freeing
-> a descriptor still linked on active_list.
->
-> Fixes: 69cea5a00d31 ("dmaengine/dw_dmac: Replace spin_lock* with irqsave variants and enable submission from callback")
-> Fixes: 3bfb1d20b547 ("dmaengine: Driver for the Synopsys DesignWare DMA controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
-> [james: require a locked XFER event and handle an empty active list]
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+On 30/10/2026 15:51, Reid Downing wrote:
+> Hi Krzysztof,
+> 
+> I completely understand. I wasn't able to test the patch, so please feel free to disregard my submission and proceed with your fix.
 
-Please follow b4 order. your signed-off should be last one.
+Well, you can still build it - just setup proper cross compile.
 
-Frank
+Best regards,
+Krzysztof
