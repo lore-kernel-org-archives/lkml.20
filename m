@@ -1,96 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793351710;
-	b=yvEqwRf3jEfV2bAT9sk3cqOLDjGvqWktl9RL5ijEWe6Kh+hp8gkZzksXZR2UbCRDdu7V
-	 /qOQCzWFn49BtGjELqs1IZZwDGXd6sHYz8rT5486MTAYSjxIf0g8SUadqEfkzAwPgsIOz
-	 V2fPHRxt2p4X7v/noRK6FCSDAARqMz3R28b9jvv58KqVcr0fxyhOPFzaK/5dTqQKILQQz
-	 0kWIrSkYjxY8gLnSyzTisi5EzAKTSQgmrTdu4y3ZSRgebuToFg0RSURqLPom0V+BfaMCb
-	 f7NUbBD30M6Ae3npnmRt8npG7l7MfPq7z61cjIpK95rdPTtnECr0qy8ZYb4fH8wSb2w==
+	t=1793351735;
+	b=dQlzpA1ZERLkQbaFDWFCL+2LUcHLbdqf5gb+dX14g93KXgipdOq3omE4clcRVxsMI/nP
+	 RDazAvzAMCAvwI4xpnUW29YvDcjLF3vjyM+5TlJv4sHHke0qlIY+c35SuMLWz3WBuDMzc
+	 vMnwcsbTlEuVpxPfxUoCYzVZrd9ZHIqc2E97TfEEQ6tEnMw81X5zzPfW3Z+HPqvMGVE9G
+	 n3jwO1Vr9p8qDZBwFqXlTJpwgxkGVQxQyVZCcjPntBlXMXHLAfpBYhz48zaSWV8HdEycq
+	 Bqzg40gctPH4PN1NhZ4bAZntLYC1w1BWpYmEq8yS0ETOWIwFsi1x9MQb6uxi0PFvNcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793351710;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793351735;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=19OoVAzMw0AgVIO1bk9fIbdG8XAGpIkzVZjZ1XRF4Zs=;
-	b=owHDZa2btgKqIiwdDc8B5wDgGndIREgSEYA5oWZWv2IMn0LoDApmqVrt04zEl4vDonWH
-	 otU3cCqY+7pvOuiHdTj7gW6EMSobhemQYEgSPMr8O7vMTGCV4ogBvUGJTFucNikjbsZ63
-	 NU1f2fN/onmobzv2Nj9YQPw/2z4IzYbfiGzTmZ9K08ooGPqY+eij61gBQtcoaZ/+lXeya
-	 NT+LNxxPbDTwC2I6ZEBCQPpQ+OBwUAHHK4ERDYDnjATTltd9RlzoVQ13dkBK9B49naAdL
-	 vVkFsHJ+bkgFWvZn6h3pgFS0mnbrVC0X3X/MCO2BlEQ9iM6U9CPmPjk5mHsG5eQUZjA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=b0Pwj0msTdPhzaKN21Jqub3HQ2ivQUi/T4qOGcLK2DU=;
+	b=SMDzPVVovj4JAPdXQGBui6uPWkiYRNxF296B/Zg9rfwmEorSfy/uZLwzJ9WI7gYIYQvh
+	 7qrjyYMw0s7EdZC9MWCtTK02V3tkTrNYQf8POhSwSz5Q9KrYDOW2E/xnD1WlJIpZ3Kjsb
+	 y1ehKwjRBj0UU/FEvDL0YSXNZJDauxtIBEEqoKFO/SzE/lUMhXpZ9tyQjmo7f1AGdo1QA
+	 CH5jqBKznFnoqZ6clX2eosMII/EQyjGIrY78nCbAsheIg5N/S4g7qYe53U+zCI7cKLsQP
+	 87vbgJfusEdJFnjf6RP4H4JmfCe9dxKz6BHbYh3tY1PWSSAK63VEXaCwoAI0MzSzk5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Ta9GbNcx;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=X5PeiCq0;
+	arc=none smtp.remote-ip=209.85.219.44
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C309606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:15:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C309606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8570E606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:15:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8570E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Ta9GbNcx
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a7992e2f7dso4198825e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:15:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=X5PeiCq0
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-917a707f37eso6179226d6.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:15:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793351708; x=1793956508; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=19OoVAzMw0AgVIO1bk9fIbdG8XAGpIkzVZjZ1XRF4Zs=;
-        b=Ta9GbNcx5EFZKyrMDesXpSfPPthd7lvTShebqNnK2GzdLOEnoB9UlSWIUBhGUbEjBC
-         RqnUt4GnNmq71/r7AS0+UASXJ1kv3snxFu6QfhSdCmqZrfuwoDHCdFb6zGSyI2kpmfON
-         +IRF9Ls2hqqXnE/3+R02ROjwuiN2Kq3q+0bCVkblTn/zIL6hTn6fMCYKUvoFm9kjL8cL
-         sZiLwOHfY2XfwtBKCazbD4etwSpGCGe8de+S4gG6taAzX7oFRPa8tqhF0ou/GjsRPza+
-         FE5Vz0xgxWdipcs1+/afD6rkNwXGYa0SIldvLNVwWaTuslOnn1wyicPHODj9DFKOhFSO
-         BK1g==
+        d=cs.unc.edu; s=google; t=1793351733; x=1793956533; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b0Pwj0msTdPhzaKN21Jqub3HQ2ivQUi/T4qOGcLK2DU=;
+        b=X5PeiCq08Px6Q2+gm0+cSznJRnrCGOpR++9gKoLmSM+tL29IdcDig5qzwmoLEFmm+k
+         GHMcu/VFbaEG/rYJH0pGVGQvbwzwiT/nQPiknHJn1jf5nC7LNZ1NPocpsqU0hhpi0ybL
+         CkzP8QK0gNMfTq1qbtMZxK+J5TOlfWhKnfOvBMQY4s4vog57988wktVIXB1AX0KdcGNe
+         yXlQ2/ldDHjYIfvXZQJWRxhxu332Szpu1Ka+LnWyE+2psHPUPkWdYJQ0p3xLhyQQZc8r
+         RFJZas+sgvLKWzXdYOplUUkS+pXqtDYV6mRupSXrkWZrVzsnxDWD9uVDz5Tk6scB8JHy
+         P8vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793351708; x=1793956508;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=19OoVAzMw0AgVIO1bk9fIbdG8XAGpIkzVZjZ1XRF4Zs=;
-        b=MXfyAJNvGbXao1b6C8lVPwpVFc0YhypShX4WzsZxasUwWubiiEoED8LULogdkwNq+R
-         tjd9qKOr8i0ZJOBYe7dIG1RBAvMyPXAt7l4ePnDR/epVYMizc15j+AL8pjOshz29YNDo
-         UsXuBgX0kQxE5u0IA2UIs2QxxAzmRCRQayAwTswpy2agYoaaRjtqp9yywhEGzFsdFNbp
-         OFBQPeMnAov9+/y111V2YeHKNVKhfKtm1qaX/2Lw+gro1/s3ZQ0a1Jto0Uyg4MF7D3zF
-         MFYAfsSPgtsQsaZhXJpHFEvuGwVPF+IS9mR/Wul2Sj+FmihumJaeA00l+3zmzlJAN3mK
-         /B5A==
-X-Forwarded-Encrypted: i=1; AKwUvBy4xocJIHRdRq5nQpE9wQ7ZF3T0l7J0RR43Ujg77RTVaKvJ1pLSdXxtxJ8TaPeArqQ/Ise7jKjDFomXRtM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItpCHUxUvbLTr6BowF8/4Uav8e4PCBXW2Tqgg3+SfilDtzULzQ
-	nCzzWnJ3x/0p1d89It98qQfqIc9gRKlnE0sfnXxAq+Via1+9BGWIoxVyJo6R0NTFcRjTHLLbNYE
-	hzQliHtI=
-X-Gm-Gg: AYBFou3l/VrcCHlFnObCzEYNpQ0evPmWonFT+uD4o0kh/PCC9X6eMab0ylvA5p9bHy+
-	eiPoY0hpJbzxPodYMjp/ehyfuh2rSziQlNqbzgbW/5/wvFbmu4CTQf6Hu5L66ELNEH6nF42Zsh7
-	9z7nLmgWNngWy5RF7rnp7oVeszAQJvu3YLlRl6z9rcE4myU/5Hx1IBe/P8YEsOELMGTySTXnsdB
-	r14ydz7eHxaInNrXcmzQhlg+n0Ph/eVsxnOiAus1I0KZFFFO6e7/Ob8MlVY9EsWbYbVaUpEvBX/
-	T40UVHZGicilosT45cg2DKqWfIlYjbbAC/FemFnmhcg1g1q/JZzsp38YsSxXLum/mpAgC+z+VsU
-	YVbeMn3h8+QqeKUmzVwhwUsyp/RkjnXFI3Cn7M1yzoP1HbCEhEPLFYVhQBjbcIHWjsRxKWWmlL/
-	ILJK7G4ZESOwGGym2LoXn3BLHdWOoS6AjMcpJOdScB+egy65KdQffXoDhby4Ldy2o+Atl+y1Y24
-	qbb6UfXE/UfGlFBiK/ISdp0CvpkAWkee5oIXT9BdKsd1iFZiwF7SS1wWxW4fSYwGpbEwh5IjId6
-	rrbG/mycawiQzLcz2zRzN/JOgKZNY+o=
-X-Received: by 2002:a05:600c:4f8b:b0:4a3:5d64:df91 with SMTP id 5b1f17b1804b1-4ac17ffaf95mr34072735e9.18.1793351707675;
-        Fri, 30 Oct 2026 02:15:07 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf396dfdbsm48931045e9.1.2026.10.30.02.15.06
+        d=1e100.net; s=20260707; t=1793351733; x=1793956533;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b0Pwj0msTdPhzaKN21Jqub3HQ2ivQUi/T4qOGcLK2DU=;
+        b=uDYyxtX0o/YLVPmUYEjOih8ODqRNVGqK8Kw9OjdcJRzo2ERqb0WMDDjr3GTiJ71vXT
+         m1USDPFO16bM/Ly71L92i6GVXYk0kkq1A+UiXEKXZpXLaUaJrw0L+1TH++lSUfB0zeVy
+         JwgJ+T4/P98KvYNXHIwV9ty9DLykr6mStfHGSh2TPR5BJBIi/DHvF6KprTulZyNCuROK
+         yMnnubHbfoePodspNoNsvuwE541L8SY5Y4UIgzXVGaYxg8cSUhhoD1DIFCZvSotNlNdA
+         n7OV7GEjYR0OL+kp3TK4n5goceO5JJH+uqKLgmgLFBtouXPoEINPJllrltZHhcnjf22g
+         XRxg==
+X-Forwarded-Encrypted: i=1; AKwUvBwcS9aoZ4EbW0zUumzwERIjupaVuKCerzhVOs5d31Lejnw+PN/gCkrr6KPE4983gMUe8QdrM1Rcb9fyrB8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/eJluXuutoGb2n3Ej3r7CeW8F3BtKnczrFcMAwvr4wBM5e7D7
+	8RsFyUdnDLqw/xXSS4Rq1Ri9ZiKg05voBpe5RsRUCFZS0lUwFWWY77/9lH8YkrPkPQ==
+X-Gm-Gg: AYBFou1SuuwSqsRMUavgHu/6/DAbfUCjANlYe9w6UxsEU8G4icp2jWTz28hx5DvR5sP
+	LIzIu8dyCXOezff5e+kKKZ5SXHyHtH8QCWhE6y1GW+Za95WsMb+8cFCZX18ildpUtUFjBwoBLxR
+	rvNkotdnLWCFfaowug2DpqWV7UfOP0TvQ+9FldycA4oWaGFpRbB30tfwOVJbgZGH0mZlzSDvdXg
+	oVA8UDNJ7t5p4YdvjA2oPckIS2ZHWqrAn87ay7TgJgH/WFKGFVkruhwFFKaIetFCMPfKong011H
+	OtEAhPtBoewC5GC0AidlOWCGmS9WekHjuf/nmCreudTGAkz3ar32ZTD5ZMOPpXTvdgQAycQoLjm
+	Hc2cc8vwBk7xAhXhOuYgh6cH7ePXd6EKUFVQ1CGPHGDUGDZGqMPtpnYGPQA8dzh/z+r0EkvDk+e
+	1LOzPU6cP+M9FUfKJSIczk5Nm+vFGGfgMMlBr1LpcB5cnAFhmk/75Xnuj+n3ReGspi0oeRAV/md
+	RzmLSp6+bd0Csf1ITgJ22Di9mTJOfwePXKiBpRgNK5ipKYaWezi2wvNJqpFXfIYnUu0EXx0yofZ
+	vgV2SQ2p/zStUEZW8YvmF/JbQXxy/T4lPKbpQdROIN1I3WeQ5VLl
+X-Received: by 2002:ad4:5cab:0:b0:919:5a24:d77c with SMTP id 6a1803df08f44-91ca4b2a557mr24211986d6.31.1793351733042;
+        Fri, 30 Oct 2026 02:15:33 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7f4767asm10428406d6.21.2026.10.30.02.15.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 02:15:07 -0700 (PDT)
-Date: Fri, 30 Oct 2026 10:15:04 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: Harry Hsu <x90613@gmail.com>
-Cc: jpoimboe@kernel.org, mbenes@suse.cz, joe.lawrence@redhat.com,
-	jikos@kernel.org, live-patching@vger.kernel.org, shuah@kernel.org,
-	song@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/5] livepatch: Fail object initialization on
- duplicate patched function
-Message-ID: <auRgGK3aQyv7tF9J@pathway.suse.cz>
-References: <att7GJXA7hK7Ic64@pathway.suse.cz>
- <20261028164649.337479-1-x90613@gmail.com>
+        Fri, 30 Oct 2026 02:15:30 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: viro@zeniv.linux.org.uk,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] f2fs: don't fail namespace operations on dirsync checkpoint errors
+Date: Fri, 30 Oct 2026 05:15:24 -0400
+Message-ID: <20261030091524.292463-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,62 +97,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028164649.337479-1-x90613@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu 2026-10-29 00:46:49, Harry Hsu wrote:
-> On Fri 2026-10-23, Petr Mladek wrote:
-> > I wonder how to move forward with this patchset. There seems to be
-> > three unresolved problems:
-> >
-> >   1. How to handle aliased functions when replacing two livepatches
-> >      with aliased symbols, aka two NOPs on the same stack [1].
-> >
-> >      My take: I would fix this later on top of scoped atomic replace.
-> >               The aliased symbols should conflict.
-> >   2. Fix the low-level __write_relocate_add() to clean its own
-> >      mess on failure.
-> >
-> >      My take: I would fix this a follow up patch.
-> >
-> >   3. Better describe the purpose of klp_write_object_relocs_limited().
-> >      Or clean its own mess a better way (code duplication)?
-> >
-> >      My take:  This requires v5.
-> 
-> For 1, I have a proposal to create only one NOP in the first place,
-> as in your solution 1 from the earlier mail.
-> 
-> 
-> Recap: The problem
-> -----------
-> 
-> Take two livepatches that are already loaded:
->   A patches __do_sys_fork
->   B patches __x64_sys_fork        (same address as __do_sys_fork)
-> 
-> and an atomic replace livepatch C that patches neither of them.
-> klp_add_nops() finds the functions by name and sympos only, so C
-> inherits two NOPs. Both resolve to the same address and end up on
-> the same ops->func_stack: [A, B, nop1, nop2]. When the transition
-> is reverted, the stack goes from nop2 to nop1 instead of back to B.
-> 
-> 
-> Proposal
-> --------
-> 
-> klp_add_nops() runs from klp_init_patch() before klp_init_object(),
-> so the new NOPs have no address yet. But func->old_func of the old
-> livepatches is already resolved when their object is loaded.
+Commit dafb84f092a6 ("f2fs: fix to propagate error from f2fs_sync_fs()")
+made create, link, unlink, symlink, mkdir, mknod and rename return the
+result of the checkpoint for a dirsync directory. That checkpoint runs
+after the directory has changed, but the VFS takes an error to mean that
+nothing happened and skips d_move(), d_delete() and S_DEAD. The dcache no
+longer matches the directory.
 
-Hmm, this is not good. It would be better to have an universal
-solution which would work even when the livepatched object (module)
-gets loaded later.
+For example, on a filesystem mounted with -o dirsync whose device was then
+set read-only with BLKROSET, rename() fails with EROFS while readdir lists
+only the new name and stat() only finds the old one. After a failed
+rmdir(), stat() still finds the directory with no links, and a create
+inside it fails with EROFS but leaves the file there. Once the device is
+writable again, these "failed" changes reach the disk. A write error during
+the checkpoint causes the same mismatch with EIO.
 
-A solution might be to detect this in klp_init_object_loaded()
-and free the duplicated NOP there. I am not 100% sure that this
-would work but it might be worth investigating.
+As commit 24c1a47f1ed2 ("f2fs: don't leave the hashed inode while it's
+unlinked") notes for symlink, the final flush or checkpoint is not a reason
+to roll back the operation. Ignore its result again in these paths. Errors
+from before the directory changes are still returned, syncfs() still
+reports the checkpoint failure, and the remount change from the same commit
+is kept.
 
-Best Regards,
-Petr
+Fixes: dafb84f092a6 ("f2fs: fix to propagate error from f2fs_sync_fs()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+With this patch a dirsync operation can return 0 although its checkpoint
+failed, as before v7.3. In the write error test below the change is not on
+disk after a remount, so the EIO was accurate about durability, but the VFS
+cannot represent "changed but not durable". The filesystem has stopped by
+then: later creates get EIO and syncfs() reports it.
+
+Tested on x86-64 KVM with KASAN, f2fs dev 83f32c773255 with and without
+this patch:
+- 14 namespace operations (all eight callbacks plus rmdir, overwrite,
+  cross-directory rename and whiteout) with -o sync, -o dirsync and
+  FS_DIRSYNC_FL on a read-only device: EROFS and stat/readdir disagree
+  before, success and they agree after. Remounted contents match on both.
+  No change without dirsync or on a writable device.
+- dm error target under -o sync, nine operations: EIO and the same mismatch
+  before, 0 and no mismatch after.
+- ENOTEMPTY, EEXIST, ENOENT and injected ENOSPC are still returned, with
+  the namespace intact.
+- fsck.f2fs --dry-run exits 0 on all images.
+
+xfstests were not run; without a failing checkpoint the only difference is
+ignoring a zero return.
+
+ fs/f2fs/namei.c | 46 ++++++++++++++--------------------------------
+ 1 file changed, 14 insertions(+), 32 deletions(-)
+
+diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
+index ce5d536d892b..9b127b38b6c6 100644
+--- a/fs/f2fs/namei.c
++++ b/fs/f2fs/namei.c
+@@ -402,11 +402,8 @@ static int f2fs_create(const struct mnt_idmap *idmap, struct inode *dir,
+ 
+ 	d_instantiate_new(dentry, inode);
+ 
+-	if (IS_DIRSYNC(dir)) {
+-		err = f2fs_sync_fs(sbi->sb, 1);
+-		if (err)
+-			return err;
+-	}
++	if (IS_DIRSYNC(dir))
++		f2fs_sync_fs(sbi->sb, 1);
+ 
+ 	f2fs_balance_fs(sbi, true);
+ 	return 0;
+@@ -458,11 +455,8 @@ static int f2fs_link(struct dentry *old_dentry, struct inode *dir,
+ 
+ 	d_instantiate(dentry, inode);
+ 
+-	if (IS_DIRSYNC(dir)) {
+-		err = f2fs_sync_fs(sbi->sb, 1);
+-		if (err)
+-			return err;
+-	}
++	if (IS_DIRSYNC(dir))
++		f2fs_sync_fs(sbi->sb, 1);
+ 	return 0;
+ out:
+ 	clear_inode_flag(inode, FI_INC_LINK);
+@@ -642,7 +636,7 @@ static int f2fs_unlink(struct inode *dir, struct dentry *dentry)
+ 		d_invalidate(dentry);
+ 
+ 	if (IS_DIRSYNC(dir))
+-		err = f2fs_sync_fs(F2FS_I_SB(dir)->sb, 1);
++		f2fs_sync_fs(F2FS_I_SB(dir)->sb, 1);
+ out:
+ 	trace_f2fs_unlink_exit(d_inode(dentry), err);
+ 	return err;
+@@ -730,7 +724,7 @@ static int f2fs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
+ 	ret = filemap_write_and_wait_range(inode->i_mapping, 0,
+ 					   disk_link.len - 1);
+ 	if (!ret && IS_DIRSYNC(dir))
+-		err = f2fs_sync_fs(sbi->sb, 1);
++		f2fs_sync_fs(sbi->sb, 1);
+ 
+ 	f2fs_balance_fs(sbi, true);
+ out:
+@@ -787,11 +781,8 @@ static struct dentry *f2fs_mkdir(const struct mnt_idmap *idmap, struct inode *di
+ 
+ 	d_instantiate_new(dentry, inode);
+ 
+-	if (IS_DIRSYNC(dir)) {
+-		err = f2fs_sync_fs(sbi->sb, 1);
+-		if (err)
+-			return ERR_PTR(err);
+-	}
++	if (IS_DIRSYNC(dir))
++		f2fs_sync_fs(sbi->sb, 1);
+ 
+ 	f2fs_balance_fs(sbi, true);
+ 	return NULL;
+@@ -845,11 +836,8 @@ static int f2fs_mknod(const struct mnt_idmap *idmap, struct inode *dir,
+ 
+ 	d_instantiate_new(dentry, inode);
+ 
+-	if (IS_DIRSYNC(dir)) {
+-		err = f2fs_sync_fs(sbi->sb, 1);
+-		if (err)
+-			return err;
+-	}
++	if (IS_DIRSYNC(dir))
++		f2fs_sync_fs(sbi->sb, 1);
+ 
+ 	f2fs_balance_fs(sbi, true);
+ 	return 0;
+@@ -1149,11 +1137,8 @@ static int f2fs_rename(const struct mnt_idmap *idmap, struct inode *old_dir,
+ 
+ 	f2fs_unlock_op(sbi, &lc);
+ 
+-	if (IS_DIRSYNC(old_dir) || IS_DIRSYNC(new_dir)) {
+-		err = f2fs_sync_fs(sbi->sb, 1);
+-		if (err)
+-			return err;
+-	}
++	if (IS_DIRSYNC(old_dir) || IS_DIRSYNC(new_dir))
++		f2fs_sync_fs(sbi->sb, 1);
+ 
+ 	f2fs_update_time(sbi, REQ_TIME);
+ 	return 0;
+@@ -1321,11 +1306,8 @@ static int f2fs_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 
+ 	f2fs_unlock_op(sbi, &lc);
+ 
+-	if (IS_DIRSYNC(old_dir) || IS_DIRSYNC(new_dir)) {
+-		err = f2fs_sync_fs(sbi->sb, 1);
+-		if (err)
+-			return err;
+-	}
++	if (IS_DIRSYNC(old_dir) || IS_DIRSYNC(new_dir))
++		f2fs_sync_fs(sbi->sb, 1);
+ 
+ 	f2fs_update_time(sbi, REQ_TIME);
+ 	return 0;
+
+base-commit: 83f32c773255720a661aa45d83e36278135f23f5
+-- 
+2.53.0
+
