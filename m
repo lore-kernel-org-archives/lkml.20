@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793352053;
-	b=hHparZcevMyQ5flEz6cjMeU+vPc00daRg3f5tw3FTE/y+5kMbFJE/atEZU43iGXspFSG
-	 96jhyKys5HFgN/oFeqawkmnjsLFEzk6v4acRXP+WaWIGgqWrkP+4tdzVEU/yCntiH1e1H
-	 LC8CboIxZUciUAhdytSN+oF5D76zanNaovS/5NvJ2QXk92oJe/qoBJV/GfgDc7ArUfeLD
-	 IzK5MQnU6ZuFpdHkvnM84yZV2OwzoPLzpDgEC6fzMu9SX5B1RKrp5/esXO2pz0n/cLYCV
-	 Th0DZE/Na9qp7OwOE+DuLQeWgbKyUwORdVmIQmQckuuOZYpMyf0S2mrunN3Rvb7w9uA==
+	t=1793352108;
+	b=xMwOyyljQ9SXIimLTUdo7AS1tOn+UGdhssEkld3FH2BgvkM5oCtvzArlkZxTGLenaYlM
+	 H6/70EPZa8KbHz50iHWb7MRg+knyGd5N+zcngN2gGcl45VdZCRDnGyaGsGZxHFzIvXqxH
+	 2uzcyWVo20OcqMJIlTFIBxkWUSG5vGrc+9P0syHzvirF0qPomzCMZmpUbkf1RqgJVimCp
+	 imRLvwGMYbu1i1YEOZEB/EdHJ9RUV0n4WmehENeRq1Y+8VyEkbnyhthyibqAMO0yid+UB
+	 uI8wDTFs2KKzzEojSeAxgSA/+n+sneIlJ9UwUwC+TiXRqJgFhLJuzBmmVu9udvi5caQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352053;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=DwWDiQU31GhAJkKLOok0q5GmDT5UejWxDA7k4JTVj4M=;
-	b=gNfc3W4bsb8KkjdYtrVZNrnXAcAC7rybJuFmanO0JiYs8n6P2iMX3UoZtMGB6e8uO6KH
-	 B83iJcFvdvi+PJGOk/FnGph8AauX5osf3orGgC9XWZEDplSYIBOTaU1fja8oa1FHlwt9E
-	 1qQsJJx5bXivFWYLqgpshQRj5qVE9EoTl1dlggapD2Y/1yoFXVGFUI1I9eKu1oYBH0tG8
-	 i0piia2RFLU8tPwh8Ys/E+hVoQysrj0SshAmmyRL2w+yAiTGXW4BgOretYPWFM38FU2pO
-	 MlcocKtunvY32Kl22xK3Ja0QfIuHalv4cmla5PNEyWLEnplPd5XXmoLc2fAIsHqPMMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352108;
+	h=DMARC-Filter:DKIM-Signature:X-Mailer:Content-Type:References:
+	 X-Original-From:Date:Message-Id:Mime-Version:Received:In-Reply-To:
+	 Content-Transfer-Encoding:From:Subject:X-Lms-Return-Path:To:Cc;
+	bh=lDH6CZonHxdY1g1ae5yoOdLp2lZlZBIVpWVUaxg2sgg=;
+	b=CC3jq3bKIylJ6EznHCz5nTW5gxgtAQxT6KCOp/fzdXbUaVYlb91Z0OjdUjssaCy1dVar
+	 UO2bNJdG+WDeuPWzA8f7mmu3aZNyOLxtDxowW4bU6D2GsBpFmbyr1iRuyqU0almEUPc8b
+	 HIeJecSLetQOzpEp5dyPxIxGiEE9LvROxscQ2lmQkyxOdmlwYz69mHoiUS/1sEDlEDxe7
+	 0UqDfuBjTaVD9o6ghh0NGOBPlcdzejrg40CIityMB8sF7KiwP74QlKReCt5iXYkexDZn7
+	 PrEtwPfguXZQ2QMRhvWpmsEUk72YnoM8BCKfiTruEMzmNPzy1zaUcV4e7+hKHzpc8IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d87jxZYs;
-	arc=none smtp.remote-ip=95.215.58.13
-Received: from mta1.migadu.com (out-13.mta1.migadu.com [95.215.58.13])
+	dmarc=none header.from=fnnas.com;
+	spf=pass smtp.mailfrom=fnnas.com;
+	dkim=pass header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=3I4EWibn;
+	arc=none smtp.remote-ip=209.127.231.39
+Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76D5606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:20:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D76D5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44B2606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:21:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A44B2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fnnas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fnnas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d87jxZYs
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DwWDiQU31GhAJkKLOok0q5GmDT5UejWxDA7k4JTVj4M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793352050; v=1; x=1793956850;
- b=d87jxZYsXzSYCQ/xHD6fPWdvBbmfDED2jZYdIP/wz0YMDb65qjez3nTkqQ2OiGGUSbvTbfQM
- 4fRPwHh32lyypRcBqLI618nMxfYTKzklpEZuKUGzwqzhkdwzTqJOKu5v5/QYZXXVsjgPD8Ix4e3
- f6sg9vfDv/TQg6Cbx/x5kjZ0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 222f0c8429a65a02;
-	Fri, 30 Oct 2026 09:20:38 +0000
-X-Mizu-Trace-ID: 222f0c8429a65a02
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=3I4EWibn
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fnnas-com.20200927.dkim.feishu.cn; t=1793352101;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=lDH6CZonHxdY1g1ae5yoOdLp2lZlZBIVpWVUaxg2sgg=;
+ b=3I4EWibnsDdyssBoESwria4Bhkgal1tNmdbWs65gdtJDBrHP2RUbxtvhFple4e6dW8BsTM
+ YUKLgrWLg2K6xV0L7F9hhKYdQndA2Qe9HUFnaCJn6zkKIj/v42flWFchpNlrRHfivVYeJF
+ MwKq2oVYnIjmx3NVe7547wIlTQ3yY2M71egHh6dE4uh1jfX8T3rLg+RY0TkUNxd2SDwDso
+ DBAYKgSdFq5TB0G/kLQnpezQrVOwyMfp5aiBmJSamaEYwXspc+AXhfbI4AcutBsXSZEZ16
+ 89lq41dhnn2oqFeYOqQB5kIa1FT2meOhAoKclra4dk75VUTbNM0NzgGMB5rX9A==
+X-Mailer: git-send-email 2.56.0
+Content-Type: text/plain; charset=UTF-8
+References: <20261030092129.1671254-1-chencheng@fnnas.com>
+X-Original-From: chencheng@fnnas.com
+Date: Fri, 30 Oct 2026 17:21:28 +0800
+Message-Id: <20261030092129.1671254-2-chencheng@fnnas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,110 +57,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 06/15] mm/hugetlb: fix mremap() racing with page migration
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261028-fixes_hugetlb-v1-6-a0a033db180f@kernel.org>
-Date: Fri, 30 Oct 2026 17:20:12 +0800
-Cc: Oscar Salvador <osalvador@suse.de>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Mel Gorman <mgorman@suse.de>,
- Andy Whitcroft <apw@canonical.com>,
- Miaohe Lin <linmiaohe@huawei.com>,
- Michal Hocko <mhocko@suse.com>,
- Rik van Riel <riel@surriel.com>,
- Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dave Airlie <airlied@redhat.com>,
- Jason Gunthorpe <jgg@ziepe.ca>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Peter Xu <peterx@redhat.com>,
- Breno Leitao <leitao@debian.org>,
- Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Arnd Bergmann <arnd@arndb.de>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- Gerd Hoffmann <kraxel@redhat.com>,
- linux-doc@vger.kernel.org,
- linux-arch@vger.kernel.org,
- linux-s390@vger.kernel.org,
- stable@kernel.org,
- Chris Mason <mason@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <9FFF0EF2-A99A-4448-9CA3-50E1733D6232@linux.dev>
-References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
- <20261028-fixes_hugetlb-v1-6-a0a033db180f@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+Mime-Version: 1.0
+Received: from fedora ([183.34.162.132]) by smtp.feishu.cn with ESMTPS; Fri, 30 Oct 2026 17:21:38 +0800
+In-Reply-To: <20261030092129.1671254-1-chencheng@fnnas.com>
+Content-Transfer-Encoding: 7bit
+From: "Chen Cheng" <chencheng@fnnas.com>
+Subject: [PATCH 1/2] dm snapshot: split discards on chunk boundaries
+X-Lms-Return-Path: <lba+26ae461a3+5fc9b5+vger.kernel.org+chencheng@fnnas.com>
+To: <dm-devel@lists.linux.dev>, <linux-kernel@vger.kernel.org>, 
+	<agk@redhat.com>, <snitzer@kernel.org>, <mpatocka@redhat.com>, 
+	<bmarzins@redhat.com>
+Cc: <stable@vger.kernel.org>, <yukuai@fygo.io>, <chencheng@fnnas.com>
 
+From: Chen Cheng <chencheng@fnnas.com>
 
+dm-snapshot did not set ti->max_discard_granularity when it allows
+discards, so a discard could reach the target unaligned, or spanning
+several chunks.  Set the flag, so dm splits discards on chunk
+boundaries.
 
-> On Oct 29, 2026, at 04:13, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> Migration of anon hugetlb folios walks the anon_vma, so the file's
-> i_mmap_rwsem does not serialize it against move_hugetlb_page_tables().
->=20
-> There are various issues with that. Most importantly, move_huge_pte()
-> releases both page table locks before the TLB is flushed. Migration =
-can
-> then find the destination entry and finish migration, reusing the old
-> folio while the TLB still has entries cached.
->=20
-> Hold the anon_vma write lock across the move and the final TLB flush.
-> This also prevents concurrent rmap walks from missing entries moved
-> during rollback.
->=20
-> When we must allocate a destination page table, flush the TLB before
-> dropping the anon_vma lock, then reacquire it after allocation.
->=20
-> Dropping the lock only works around lockdep: hugetlb folios are not
-> reclaimed or migrated by allocation compaction, but their anon_vmas
-> share the lock class used by ordinary anonymous memory. Having a
-> separate lock class for hugetlb's anon_vma (like already done for
-> i_mmap_rwsem via hugetlbfs_i_mmap_rwsem_key) requires more thought.
->=20
-> There is a concern that this can block page migration of anonymous
-> folios quite a while ... which is not really different to what happens
-> to page-cache folios today. If ever a problem, we can temporarily
-> release the lock.
->=20
-> So let's keep it simple for now.
+Fixes: 2e6023850e17 ("dm snapshot: add optional discard support features")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chen Cheng <chencheng@fnnas.com>
+---
+ drivers/md/dm-snap.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Make sense.
-
->=20
-> It is a shame that hugetlb has to implement everything core-mm =
-implements
-> in a different way that just screams for problems.
-
-Yeah, nightmare in MM.
-
->=20
-> Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage =
-backed vma")
-> Cc: stable@kernel.org
-> Reported-by: Chris Mason <mason@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-
-Acked-by: Muchun Song <muchun.song@linux.dev>
-
-Thanks.
-
+diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
+index 31676ee05514..e49427bdbeef 100644
+--- a/drivers/md/dm-snap.c
++++ b/drivers/md/dm-snap.c
+@@ -1356,12 +1356,14 @@ static int snapshot_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 
+ 	spin_lock_init(&s->tracked_chunk_lock);
+ 
+ 	ti->private = s;
+ 	ti->num_flush_bios = num_flush_bios;
+-	if (s->discard_zeroes_cow)
++	if (s->discard_zeroes_cow) {
+ 		ti->num_discard_bios = (s->discard_passdown_origin ? 2 : 1);
++		ti->max_discard_granularity = true;
++	}
+ 	ti->per_io_data_size = sizeof(struct dm_snap_tracked_chunk);
+ 
+ 	/* Add snapshot to the list of snapshots for this origin */
+ 	/* Exceptions aren't triggered till snapshot_resume() is called */
+ 	r = register_snapshot(s);
+-- 
+2.56.0
