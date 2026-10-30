@@ -1,61 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793331084;
-	b=oHP8uqZXQqkOYJFActsQF4i6HmcfPhcwGnNxC7WW7yRwP+nLRqMh4ZbeQSPObJGUgr7f
-	 pU+rnGXTJqSrOPX5lOm2jVaNFJAof+ulneihXFsZO2YhkU7U5rlprIFJLpkJ/mUYqfQsu
-	 tcUq1+jKtHVEuhAxIjKJkRzCuSWCoIJlUVXjkfIjV1PP/atAtw5sQ97Y8Q6GObH/TdJ4R
-	 hDcc/P83eNOaQS8sZEYbujX3y/Jd25GyzqK+XFmsRWFFBZdXQz+sfIX7Xmx0721YAA9nX
-	 N321Wa6yEoVs7oXVlnmDxizN12SkuamvEERxLQx3BUHjXu5vID/HNJlO1dylPIilY9A==
+	t=1793331146;
+	b=dSH60DCtLCJAQG4n5bsST76XulkeK2B9N9+qi1Az71+asskr1l8JvbiNUXAoCcqo+rrM
+	 oQ9SHKtKxl2hHHO8gVvsa+VJBHQ9+8IHEWxz9N3LJikEMvnc8RY9kaQT8YvJ9L4N/z4Ez
+	 K2bv6tPjDq50HY+EyqMyyXZImlcW3Vouhnz/gsaRWQu4dDq8y/xl2vXj7yTERySpUJQ+a
+	 EF87jKUEnDOq6O/fwPmTivLKr2gZ9r6kb0xPLZKYu5TrkQN2x15q4LFUnEFNJRImo4bMC
+	 z4xmZGPAnqAR5NkACVYdVxiWpvsatO7cqfD5qC5krMnaVS76qkop+hZvQT3e9ldToxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793331084;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=8ktqWfSef3AXz7FND5pOxckiQELIeSzD/uEmAhKFSN4=;
-	b=WWWXhRN51Jcz1CFz0sBUL0R1AKNkumikq03q2Krbs7csA6GKDp3OFghfgIKp5+XJZ4Vm
-	 /1KK3habk/dDO7wtuhdvYJPgxk7MGCzvuWaVZjIfMVypAO89IwMdHWAY6W4vBUR5csVo2
-	 T6LcQFyV7TKWbpaO9Ye7atqwoZbJq8SfecD3U00P5KYCfWMxDqcIy3ny8isukb2AlwDc+
-	 SPfFfpACeKDOt3CJbLW2vhWyNZGkkwnQkts5FqILYsqJbMXNwv8TDF3Wu0blARM4VgFHw
-	 RCGj80NyIaMdfpKMw4NFVMW0mpK3RKGfolIvgdlteXKvWwkcZEElftYLInS0fFw2r3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793331146;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=xPP2Iq+jG/OXOp1muTW4wEvJS9Nxy1yt91NNhV76NRc=;
+	b=Jy4bnKzd0B/DESk4XxWAr0/PbOd0975+2t/mZDHs+hll/V2J3duVkoJlE92bnfmtbAGT
+	 QmNWHWIjB7QV6c47NwEdRMtOTA4J029aBeOLk/7M8lzz97CGyt8HpLGXgK0ap/Uhcya5o
+	 4f1KI74hFfm3wP1HuM+knWDgwDhxtjAr6j/j+OlpPYsa81YwzjLOlpcBEbTINiohHbC4I
+	 UDTOysdaojGK9TuH15m59OSpUjIDWFe0gR0YAcEtXD/MH764wYRCWs9E6bKIzk5tcXEeF
+	 0lP6XIg1x/CsjpF4wWhWSOVRw+t7cQL5XXt6Tv7/9HXxWGBsWfBn88z2XlRPCHCBv/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=qP4XW4f2;
-	arc=none smtp.remote-ip=117.135.210.8
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hY7WxPts;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4DB606A31A;
-	Fri, 30 Oct 2026 03:31:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C4DB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B518606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:32:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B518606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=qP4XW4f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=8k
-	tqWfSef3AXz7FND5pOxckiQELIeSzD/uEmAhKFSN4=; b=qP4XW4f28Uio8qY3Q4
-	sZfIiClVGpIuaQKGgHQH/8jZFEgSNsfk8jQNPBb2kEhpReEQ+gs4wZ5NJFGen/3h
-	xuerkNRat0t1ghnobMXMOMyqJngV1+dXv4xXl+Wb8GTWG5dQt/a6i0ibLv0Osi2p
-	M01oBLhgBlrnYxIZFbXM3/vvI=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCkvCgDn7+djD+Rq5VDKBg--.22802S2;
-	Fri, 30 Oct 2026 11:30:44 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: jiri@resnulli.us,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>
-Subject: [PATCH net 0/2] devlink: do not dereference a missing param item or shared buffer
-Date: Fri, 30 Oct 2026 11:30:39 +0800
-Message-Id: <20261030033041.3679526-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hY7WxPts
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-156cbe59524so210120c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:32:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793331145; x=1793935945; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xPP2Iq+jG/OXOp1muTW4wEvJS9Nxy1yt91NNhV76NRc=;
+        b=hY7WxPtsWjkTqkdfESwA+2iZqA2DIbhW2bMUHDGRQcQrxl104W+MLpIWNI8Iqaca2c
+         qudjtjfNRzj9z43m2QXk1oawndAx6xZ1J+Khsf/PpCfynqpKT5I2XacIqiyIl0P/EfSG
+         pITmubLtXFOxycCGUP0tyh9c1nFVPKE8jvL9l0SMfD599Wxq5TafvsVb8EnNvMrIe3ae
+         Q1ccW1Dpq5gRAIAp8HqXvO7FLnlg48LFjFSxowOMjNa9nu3CnwU2mlNNQjH1HXX35tQd
+         gmhUg49Ht+rTCJfEzJTrN2Y0KKZ79NCeRsHBkkf0ra/GZ9Asdmmno6dcl/pTDqxeNz6X
+         MEoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793331145; x=1793935945;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xPP2Iq+jG/OXOp1muTW4wEvJS9Nxy1yt91NNhV76NRc=;
+        b=hHkqzxKFQQ2mPFS6xMOMv1eabanD6VfYjspco2/lhbJDMY8eduItb2NNJaImrbijdY
+         xmkl7MQPcLj71s5PRQ/VJ05d8F1x+tFA98MNfd68XUkMPX1SbFzgTxA8wNbHo7vyI6Z2
+         TmPY9UZzET7pwcx+7KRw2kjzp9aTGOZJOOc5AA87wos4iC8A1SJFAoa3ysEu++Lk8p2I
+         Mh9NIA4fc6/Zx+tBw8VzXC1g7MIDmkXHw/L8e05EwugaZq/Hi34HqQ00yUT8yKd0OHXz
+         GioQ5SZtUtwbE8jhIqusXspGEsI4B6M7q0BdUmGG7u0wCO0fH3uydpfkKB0SjfupOZ6P
+         tDOg==
+X-Forwarded-Encrypted: i=1; AKwUvBy4AL9Ft8ue2fUbRFKGAl6CHAwu0f+d4lqakhyHrnOjDhWqMS+biak8ZtrWzwDxFKRFIWF2HsXRAqdO3us=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeawdupVf1v7coK3B1uo/pDx0zGQgBDsiu0madX0MxRV5t5zUK
+	daBpMe3MJF8SpQii540/Y47dNZVekeGAo9VRL5TV3V9MZrOK+x14BqTF
+X-Gm-Gg: AYBFou1NBXH7rHBXlSH4G/DFnIsR3aa+ykoId0xX1Z0AdRvCkfOVUqilFgO9fkf1Lk5
+	99C5juge8yyeMTZJWawnxYpG0ie8/kSjhiG2ZN6S8rkCEnTyvmeskUtDlZFpu0f3Ll88+W6la3q
+	IaisaeWhp+aXaU59OyzF3L4EAQPysUkMdnqOn5DU8vuPTZauaDJjPvQu4JTpcSb//QE60gYlRMX
+	YE0hwRhAuC3XZzxVmwisQw8MolsjdHytwG93ssYGQx3n+8wQ9TH8gbdKm4jFpkBczypvpC2szwK
+	XA545MD+zvklmRJcDet5NJyjCmXjdKzT6qWZWZ2kcto4YCOp0Mq3kLxOXPhN3xWXmKCzQvat++i
+	XYNgWHy7PkgXHoonNSXAByTWhCLRitcOpgHB0TsHgjc/gOkz2lvYelS7UbL5uAQNR0QnYOjTQUl
+	vWfNHBk4pMcYOQWewFD3TVtdmJwJLukB0fNoMmMGgoLT9pEg9Cc4PXajoe9GYFRW79XoXH96fox
+	1EYTz/oEXGIilcDLdDoIZaQq/8yqjOEAVKlcvPbbMA7wyR8HEYqAnXeZg5Uqg/9C5A7H0SAo3Jd
+	D55XnzZ9g9HgwIXZn6YyenJEA+tMJQHtw/4bHvgewX8U/gCEnA==
+X-Received: by 2002:a05:7022:121a:b0:1a9:cad6:5b58 with SMTP id a92af1059eb24-1ac5ffe5b8fmr1322800c88.39.1793331145164;
+        Thu, 29 Oct 2026 20:32:25 -0700 (PDT)
+Received: from kernel ([103.219.206.15])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1b0a628bsm2767972c88.22.2026.10.29.20.32.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 20:32:24 -0700 (PDT)
+Date: Fri, 30 Oct 2026 09:02:19 +0530
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: David Laight <david.laight.linux@gmail.com>, ardb@kernel.org,
+	Jason@zx2c4.com, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] lib/crypto: aes: use memzero_explicit() instead of
+ memset()
+Message-ID: <auQPw4dFFZM6XPV4@kernel>
+References: <20261028142636.5888-1-raizudeen.kerneldev@gmail.com>
+ <20261028155134.GA4041913@google.com>
+ <20261028205633.7625d789@pumpkin>
+ <20261029173119.GE1862@quark>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,51 +101,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCkvCgDn7+djD+Rq5VDKBg--.22802S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7AF18Gr1fZFyUWFyxuFyUJrb_yoW8Ww1rpF
-	WYgFn8tr1DtFWvvr4kZF4xZFyj93WxG34FkFyrtw1Fvan8C3s2qF4Utw4avF4Yy393Ww1j
-	qw13Zan8uFyDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UlD7-UUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlASwh2rkD2QmmwAA3-
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029173119.GE1862@quark>
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+On Thu, Oct 29, 2026 at 10:31:19AM -0700, Eric Biggers wrote:
+> On Wed, Oct 28, 2026 at 08:56:33PM +0000, David Laight wrote:
+> > On Wed, 28 Oct 2026 15:51:34 +0000
+> > Eric Biggers <ebiggers@kernel.org> wrote:
+> > 
+> > > On Wed, Oct 28, 2026 at 07:56:36PM +0530, Mohamad Raizudeen wrote:
+> > > > aes_gcm_decrypt() and aes_ccm_decrypt() use plain memset() to wipe the
+> > > > output buffer when authentication fails. But the compiler can optimize
+> > > > that wipe away, so use memzero_explicit() instead of memset().
+> > > > 
+> > > > This matches every other sensitive wipes in this file, which already
+> > > > uses memzero_explicit() for keystream blocks, tmp buffers, ctx
+> > > > teardowns.
+> > > > 
+> > > > Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+> > > > ---
+> > > >  lib/crypto/aes.c | 4 ++--
+> > > >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > > > 
+> > > > diff --git a/lib/crypto/aes.c b/lib/crypto/aes.c
+> > > > index e1c191551736..7814ef525239 100644
+> > > > --- a/lib/crypto/aes.c
+> > > > +++ b/lib/crypto/aes.c
+> > > > @@ -1733,7 +1733,7 @@ int aes_gcm_decrypt(u8 *dst, const u8 *src, size_t data_len, const u8 *authtag,
+> > > >  		 * Clear the inauthentic decrypted data so that callers won't
+> > > >  		 * receive it even if they fail to correctly handle errors.
+> > > >  		 */
+> > > > -		memset(dst, 0, data_len);
+> > > > +		memzero_explicit(dst, data_len);  
+> > > 
+> > > This isn't for "zeroization" (making the data unavailable in ramdumps),
+> > > though.  It's just so the caller doesn't accidentally use the
+> > > inauthentic data, as the comment right above it states.
+> > 
+> > It is also a parameter so has to be zeroed anyway.
+> > memzero_explicit() is used to clear on-stack buffers.
+> 
+> Well, that assumes link-time optimization is not done.  The kernel
+> supports being built with link-time optimization.
+> 
+> I guess the motivation for this patch would be:
+> 
+>     (1) Shut up LLMs that think the use of memset() is inconsistent
+> 
+>     (2) Maybe the caller really does want "zeroization" for the dst
+>         buffer, even on failure -- and this guarantees it for them, even
+>         if LTO is enabled, without having to do it themselves.  (Though
+>         on success, they'll have to do it anyway.)
+> 
+> So I'm tempted to apply this patch anyway.
+> 
+> But the zeroization stuff is getting kind of annoying at this point,
+> when it's unreliable anyway (it's not like we zero out the registers,
+> which can then be spilled to the stack and/or written to the task_struct
+> on context switch) and can even be counterproductive (by forcing data to
+> be written to memory so that memset() can run on it, instead of kept
+> entirely in registers).  And Sashiko likes to flag them as Critical
+> issues, which is not at all accurate.
+> 
+> - Eric
 
-Two devlink helpers look an object up by id or index, warn when the
-lookup fails, and then pass the NULL result to code that dereferences
-it. A driver mistake (a param_id that was never registered, an sb_index
-that was never registered or is unregistered twice) therefore costs an
-oops instead of a warning.
 
-  1/2 param: devl_param_value_changed() hands the missing param item to
-      devlink_param_notify() -> devlink_nl_param_fill(), whose first
-      statement dereferences param_item->param.
+You are right, the confusion was caused by my commit message. I said the
+compiler would optimize that wipe away without mentioneing LTO, which is
+the key qualifier. That only holds under LTO, which I should have called
+out. Yes the comment above the memset() makes clear this is defensive,
+not zeroization in the rampdump sense. Without LTO th caller is opaque
+so the store survives it, but with LTO the compiler can potentially
+eldie it... memzero_explicit() prevents that.
 
-  2/2 sb: devl_sb_unregister() runs list_del() on the missing shared
-      buffer; list is the first member of struct devlink_sb, so it
-      reads and writes through address 0.
-
-In both cases every other user of the same lookup already returns right
-after the warning, so the fixes just align the remaining callers; there
-is no change of behavior beyond avoiding the dereference. The param side
-follows the example Jiri set for devlink_param_unregister():
-
-Link: https://lore.kernel.org/all/20230126075838.1643665-5-jiri@resnulli.us/
-
-Both Fixes: tags point at the commits that introduced the unguarded
-WARN_ON pattern; the current devl_() functions are pure renames of those
-originals. No in-tree caller triggers either path today (the audit is
-part of a defensive hardening pass), so both are aimed at stopping
-out-of-tree drivers from turning a driver bug into an oops.
-
-Linkui Xiao (2):
-  devlink: param: do not dereference a missing param item
-  devlink: sb: do not dereference a missing shared buffer
-
- net/devlink/param.c | 3 ++-
- net/devlink/sb.c    | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
-
--- 
-2.25.1
-
+Should I send a v2 with just the commit message updated with LTO?
