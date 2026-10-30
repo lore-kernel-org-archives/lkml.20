@@ -1,99 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.53
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793346785;
-	b=aKFvkqxWQ8tb8HgcU8OwcYU+PAoc+RRTXcH8dxqXbb2XoeY3ZaBT4TU5pb8oeHQHXdb0
-	 uhKjaBaoqtIrq3Lyhcmh60jfopoeypLlQaKZVF7WARXD2+ckhmAy+dvbu23bvZub9zN5Q
-	 s40sPiG62keAtDqXVwoGXiuVspkgqOomC42zkGjPPC/+BUHXBYIIHCE5I7OYQ6X2Z4229
-	 LaaFhC2bgu6YeAwkLQyKjzga9Js1ou/ALyD97C9FlHoFO8ei7oKs2PvoboQGD2rpfPPlU
-	 adqtnaAsf9x5a0PR2ZZoBUeslow89HgvAdJJtjuvfaqG74ftwSKMPhkZbe82/WTCWrA==
+	t=1793346832;
+	b=Lv16Ol9fznAglSuHBdShuRlmHb4hZmcYdq5azZQ6hmj+NX2Ot+V8wys64d1Qi8fU6AXy
+	 fhNc5BGaTp1aNBUTPmuDvxeAgcOiptT/8ie6ncQhyJ2heIKX4S+tf5VgeILUR2KnlqFNX
+	 xjptCTbgQJgdvLfl9PubLY7v57cPovQ0sdJijuMKG/523yRZhLBMFjvjgp2rkap+h03LW
+	 IdKwrGjXmAaBTDfHPV0C/y9qy9u6hYLnWpfTDQYL1LasvAXL7W6OELPyNUlpdP0N9b7jk
+	 x7yREmwej7Jf0AUJ390ItlW2snrXQOQbMtYbxYpQhQwkFJh6pZzWT9E4Y46BpJTvzKg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793346785;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GDMHTFGoPyfogpRLgc4NILo4wByRz7Ldn2+4rE/lcfE=;
-	b=k5ydocPlnr04+rtHMrtCM+A07id0fZ3qp4KJ2DZwrz/BcsrU7V/OOj39IOMb16tKez3j
-	 v6nZwQO18Dr0VawwNLAPW4eKqCjoF/qGEn2gUupbacxjuKoxqfmbmlfTbqNk2I8HR3deL
-	 zDpC0f/cmwixJXnDvNozdtx/mKY0S1jMf4AjJGEc3YTweV8xfXbAoqKJRp85rVFqMPTRs
-	 OjXcMwqlcWZhPsb45D1qg9iCaIGHDDopT0fiIezkAzFzQIt1Xb1ysSnT/d6UrqHebZnio
-	 47lLYjxwlxiMmUYmnRF5HAhiISehyYNBFC4uyS1YfSRahtWcyyo1kKx6qreN9DM219Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793346832;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=NcUKI/JdjawBplQszTuPDd/jbVzlRqz2Iq7B2hO8QVk=;
+	b=NYAZlLCVL6NHuci3qVAsf3tbm+l88JQYpXi/FH+7NlVc7m8yeHM7GIF4PLKCy6NcLgy9
+	 ThCvsWheAN4xiAqCCsdyuGrgq8es+6kEaaFhAbERcHbLyqAhYJ7UVkMoOxuYcO5i9F1c7
+	 EZ2g1SvR8byjX4ngZBwm6s86z4sP8Sy4xKpR5frROLZQGn7M1zjhQQ0D+cX+j/dgGm9Xo
+	 3stMUK8QVfGn/EtRERQNtwNJuO9820u6YnnkIckkhqAOBkHEp9ByxfOPZyobjB1lIHtVQ
+	 Dv023p3AzGZ4elBVGYXQczDuOxaTPyo9b08nyc77d8WCrT42F2fr7uC1P2lTmVTu33A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nt+3bu2s;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.53
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013053.outbound.protection.outlook.com [40.107.201.53])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="py4x1+/4";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JVl6KrXV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5701606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:53:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5701606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1D3606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:53:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF1D3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nt+3bu2s
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KkheLTuxAmzCk5VmSw5jWxyjMx3+/6B//8Hp3mjhTN+L7G4LEKIJ1X4hmBTM3O/gN2n1WL2UD4FT1i0xUyTtloMNB7tf8/iSTWp6GvA9CxKz5ro1mghRgz8Oi3qhw6xzk8+gEnk0S8hjbMIZhBX7alY6oeCLQ9i40z3Twbp0e9W1iSht2KjZ4PvyN6GrVMJxprNpyF8kyvuXyON2jOoqsqdf5covkDjbrmXbqheIQsMjFyTY08mCGHxumcwhmTHIdFxqa5KQ7BRiK5lj72L7OoYmNv9hkTxuoVLCxMEkKISoFkKs+sfs72JpHFqFGnmV+xXb9ZabX0ZNmRE43j4XXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GDMHTFGoPyfogpRLgc4NILo4wByRz7Ldn2+4rE/lcfE=;
- b=oyp8YrOeAKtAanZpMiZYvQ7t9EXzAZmPCPkD7E1lLekzD1dhfc2iu/A9DcWO6Kf75kqq7L4YCfumVTSKATkcb5VCmRMIVEZz3/IABeSwZM1M5qoJ2ZmjaFLWD9jRX6Ie2xPOplueZqMDwAoxV4RpIJ1l+8wAhaU4spj90Mys6h/tYen8wH7wKbYRkNFA9hNak3aQ9asxDKqUHPwDZHAA5cDzdFAVN5IAE//eOTBxysQGPaHsL9oG0DYf4q6xUcdIjC/cjUtcZNghn7zIajGfvrQLEMPFEM3yHklmaLH16slIEc8SSDZ8TAG32iQZltXA4BVNYu8bS/Gsza1e00DLjQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GDMHTFGoPyfogpRLgc4NILo4wByRz7Ldn2+4rE/lcfE=;
- b=nt+3bu2swGVAjRuf7AAtZWMCu5anBq4GBvUpj6DxK2vzHrRXXB2YzTiKJNDPUKDot4dyEFp4vYBXtblI8OnJC2yuvKsfQJfSj+qnrK0ip9ByPIvYDogzb4i2cEcnXUTr/7WqdaostUZ0a32mObx879W6NIa+F+riccSw89AxmE8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY1PR12MB9697.namprd12.prod.outlook.com (2603:10b6:930:107::6)
- by LV3PR12MB9186.namprd12.prod.outlook.com (2603:10b6:408:197::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 07:53:01 +0000
-Received: from CY1PR12MB9697.namprd12.prod.outlook.com
- ([fe80::3a41:55a0:8203:596d]) by CY1PR12MB9697.namprd12.prod.outlook.com
- ([fe80::3a41:55a0:8203:596d%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 07:53:01 +0000
-Message-ID: <7625fa23-5f4b-4658-b17a-fe4e58103e7c@amd.com>
-Date: Fri, 30 Oct 2026 13:22:50 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/2] kexec: do not place the next kernel in a
- fixed-address CMA area
-To: Pratyush Yadav <pratyush@kernel.org>, Mike Rapoport <rppt@kernel.org>
-Cc: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
- akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, surenb@google.com, mhocko@suse.com,
- baoquan.he@linux.dev, pasha.tatashin@soleen.com, graf@amazon.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kexec@lists.infradead.org
-References: <20261014145731.3431527-1-radhey.shyam.pandey@amd.com>
- <20261014145731.3431527-2-radhey.shyam.pandey@amd.com>
- <2vxzh5i5orbv.fsf@kernel.org> <auL3UW2InVqYU6Fs@kernel.org>
- <2vxzzevwmz2v.fsf@kernel.org>
-Content-Language: en-US
-From: "Pandey, Radhey Shyam" <radheys@amd.com>
-In-Reply-To: <2vxzzevwmz2v.fsf@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PNYP287CA0113.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:2b3::13) To CY1PR12MB9697.namprd12.prod.outlook.com
- (2603:10b6:930:107::6)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=py4x1+/4;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JVl6KrXV
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U5F0m71266534
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:53:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	NcUKI/JdjawBplQszTuPDd/jbVzlRqz2Iq7B2hO8QVk=; b=py4x1+/4bTBZWV7S
+	8fqBCgCHynF3TCgZR/SWB8ArinjwETcLeI/FMzApeCfFfGuqRBnUKyZMYjGrIJZw
+	P1bR07HB/A3297P7wS18YN/ILMJNrCo3kmED+EnwnlZIQ82Pdv8UHNoUBsFxd1d3
+	WsDJh47s/j8Ou4S/Nj7YJWy9A6ldEG6/8AycHKPUrQhVWC71xH7coetgsm+FgtUG
+	ucLwNvgxbisLr3lz4m0mhGfgSOgc6e9PPR6M+gbcDr4s7SjkKbaBNC20BXsfuWuH
+	jKE32Igte+JmllKwstcZQPCwpB6yXzEsHY6IRcN11uqGwQ6BRU/K2oVq9Fu6wGyu
+	LfPoBQ==
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6p1wm5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:53:50 +0000 (GMT)
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-679aa1bb496so731983d50.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:53:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793346830; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PfJny30ETXKniKiRhyKzRhieWJatLij1jNddn9BZkPTXNyZ/Fdph99Vn+BtRZnysc/
+         UL0iBuJadOCuAacnpGkfHLQ22CZVL/5aWRDpkJ5ekENTPPlQKOOl4Hs4C46daoPP+m4c
+         vFWpHPcrePLPw9dS3iW4ofJ35IJBSQEQaeLdU80gaUsor4knl3Q+s+SZYze2kJVLL2X6
+         Q9vI7Kbs5VoDdDNZfm/KxC9LdR1Wo9hoMu11p7Tof0c+pJ2T3Fsc+zGAK6rILynjJDVY
+         +Vsb5y/nZxZdIhoohprGs/w6NGcJP7VcFRR8AAXgv8umGQEjWTz6x5n9Fo7ql5cztStE
+         uyJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NcUKI/JdjawBplQszTuPDd/jbVzlRqz2Iq7B2hO8QVk=;
+        fh=U59N+OBj9ceQpfyve/Ns/dEu9KgOHsYZayxx3ZRm2fo=;
+        b=bXO8I/ENoAlBIoaPYvw/qDXM3cMHz6CVO7fz68TWol63DF4mtWYG8EQIsZZpDy8arU
+         dZp9bB4+ZK1XK2SBWFU+hegTZHMK4AP6GTz2ZcSXnLygbDOHrNo6rCknrocgHvCfVdYG
+         KnAScEbLKSQFvFQfN21o3dlkIFif8NKlqh4CC9VyOnKe7icns5Tk/J4Ef0khbGf58C4Z
+         h6P4MPV1vxbmZ6eJAgELmcrb75sKeuiZ83/ayaJDvAbK6rlbpowAFdA5StsqwkitEgu1
+         WnLQFooTjc+/1/VdEBra1QnVJsCVSemugyrGH+bsTFSa7uVxyQYYt7JaQuRJzMFNcmx3
+         45IQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793346830; x=1793951630; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NcUKI/JdjawBplQszTuPDd/jbVzlRqz2Iq7B2hO8QVk=;
+        b=JVl6KrXVVHVd4TTaSllKW6dR8Rjo6FyGNBLSeBj4p4OeucxAP0ogEY0Q4ui+URy3Vu
+         7CfHTu/LdNJq7FPpVs48FVRtHz4xyxOfFhdBs5gYJP6WXSK5VQ80mq1qm31MG5reXnfn
+         fobcruM9SaM/JftYXXPayQw6/l2Wuehw8S70ufqhjt7ThAv7wb9IdXixORTHapxQ8Vcu
+         p3rXsJ7BLcd67dUeKEOWl7FDbqW5Qsl7a+Je1i4iwv5Gs9qRjV028yjQjI7NT2eBzlxp
+         tgx6S0aGcQWP/StHgtQKqbPbCEqXmfci6/cSQHjidR9OgRQBuSQmI5464P0FKYQtnL73
+         E9Dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793346830; x=1793951630;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NcUKI/JdjawBplQszTuPDd/jbVzlRqz2Iq7B2hO8QVk=;
+        b=q2ATWDW+xAvQivH/WjY+IBiQkqlUNmZN7laOD9UFglu8CmTfNk1/uLBrK4QfdXK82v
+         yrXPR1UTuuDNHACWNSkGQOiIPinXaIU5gq5dJz5AGVjYoqVS7MY+pbofmiqAYAhXJuP4
+         Qu6VS/OtSF8wgVp5sn77Ltn9ONkPRxVN4xMrh+LPaaPniJbCv5sk1rU5zvgdwxLfjOLr
+         oOZz9KVXyIOSVoD/JLQbxkVPC+enH6vP18tQmulBI/3xZMoR+Y7tKLekJRL6rTNx7NNJ
+         YYDo6KtKOx0cAG1U9zDiMFNO6ksOmkheXLWwWb/buVTRBVudqiRrNgs8DF30YkO2+9fe
+         KGsQ==
+X-Forwarded-Encrypted: i=1; AKwUvByOcnffXb/DMw2XWwOxOcFlQtuNX+n2hautwMn2g94sjej795t6ljTzOzhN1Wo4NZ+9Ydx7mYhzsBm0rtI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhk133MZHJlH7NNAq4IYCMhkTohAAPdm++XBaeRSmLf69zvAaM
+	wFN/RzMd7sUX7LJF2gMLQrUlMaSrACCpN5hZkwbKNq0+Gdfz1H2/WR2TrjNgAqIYo6YEpYWdHQp
+	PvxFL2kXSsa3YA0uu77yGwkevgAQ6nohaJYHxe8cnyAK23nHu755WWb+hjBkSkE24iANg2R/KGI
+	/OGgwXERuEmFc+bbSem2za8RyG2sfRIZm3giARPajx736NU8bYZqQ/
+X-Gm-Gg: AYBFou0/SoBlxd6WYn9+sQgeNUEreJgQ4OJMRsXFZlUEKNRMpVWp4nIe5LsTHXyOiuZ
+	WxK/4ZBTNWWusRetVzFdHHzQRA+7zQJ0FVN+8b8oytWzSojqfSDP7q4/paDbJiHu7XscKo/qg6P
+	HwzyHSVY59wxXncWpPN5lMtGDu9nApOoxb81NUlmX1FH4ctkhpznszsyfsGQ==
+X-Received: by 2002:a05:690e:1487:b0:677:c8f9:73d3 with SMTP id 956f58d0204a3-67ba50a89a0mr1180175d50.75.1793346830057;
+        Fri, 30 Oct 2026 00:53:50 -0700 (PDT)
+X-Received: by 2002:a05:690e:1487:b0:677:c8f9:73d3 with SMTP id
+ 956f58d0204a3-67ba50a89a0mr1180150d50.75.1793346829417; Fri, 30 Oct 2026
+ 00:53:49 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,260 +127,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY1PR12MB9697:EE_|LV3PR12MB9186:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0bf9e457-a104-446e-8bcc-08df365ad20b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|6133799003|18002099003|22082099003|56012099006|11063799006|4143699003|261026140227099003|261026121527099003|261028144727099003|10067099003|261021121427099003|261022115727099003|261022075727099003|261022105027099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	ncIkpwE30ujzOaK4NFwvXq1TNTZHZ83zhCCEoYcxlIAk9oK/CSjUhSIeVF9f2Np0zrFFMc7vq3nf0/THepf0FuMOdn1UZNZrT+fh5wU2EygJScRzVvLVuzQNarBYXxpGv9hlShKbaX3odsG7M8mfw+K+md0JD7+VKmeJkth7z3kZP9vG0lKs54YowTraB/URiwVll5vjvJOVVM5OtlGPYDzddNv+RXzT0XWGKx29kJh+HFknGs1iIp/QLJN6JvoJEjRG3LA1xhMxfEKgbc5tDJW0A5LskTzEpezrWUwwqSolyuUyD8X4akItpmEeysOFTyMgwilcQUfGwQ0ufQYkrfqclAjVTGIyl96IGTlTLUVBGBaGmij9A+AyvVDBd1sdwFICS9EYJb6WCpodTSrNYGE4G+Gpz6v3LitJRgU3qJQOtf4ytvt8D6vyCwrm2kVgpN5Bm4ItO5TuW10Bq/mWvpDhc3z+DjFAV47czOxlk1Vgzl/lCv8bVZFOj7pNi7eKO218bUdamHygVzcxVIvGKZfQqiHavA5EKRKyVTaiqWXhmaitgmop3KHKRn/tc33WeOQjL2DuvPIk9BpPdLzgCxQWpYP5HcyS1L5EBSQ4SaiHppn3iACRg2w9RBRBywxtjg/JODaLRCsJ0qlKLjMi3oFghxI1ygpN3FmLXpLHQuU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY1PR12MB9697.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(261026140227099003)(261026121527099003)(261028144727099003)(10067099003)(261021121427099003)(261022115727099003)(261022075727099003)(261022105027099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R2ZCaGxKRUJuMTZTQ3dYTVUxUk5xUzFEWEc5cUwwRWwxcGsyaG1PTk1weVdv?=
- =?utf-8?B?TUNFeEpJL2liS0hXeGd4RUZlVnM3SjFNMjRpcjFkM1VOUXJwOGxCZ2RvTlgz?=
- =?utf-8?B?NW9BTDBZM25ueWFqSDFwTFNHRXhSU1RJZDhNSjhZWTBQNEhlTUpLNUEySVBl?=
- =?utf-8?B?dFNPaThiRDI1ZmVBZzVBVHluL0tUSGNGSlNrRS96cVE3N2t3cFVPVWNNOUF2?=
- =?utf-8?B?YmwwTW9HVVl2VkkvTU9hVXBlMG9KalZnK3VJcUovODNrdUdQNnBOTkRiTDRL?=
- =?utf-8?B?cFFiL3BFUW01SE02dTJ0cEtJdjJ0M01pYU53L0FtWUIydHN5UXhQaWI4UTls?=
- =?utf-8?B?eUlncE03Q241NmlWbmhRTHY3MjEyeXVuUEJ6R2p6R0lpZzU1OEhaN0VGdTV2?=
- =?utf-8?B?cXd0YURmVERBcVdiVGU0Z0NiM3dxVUpjWTUzbE9RS01rQnpza3JZTjVOSk1a?=
- =?utf-8?B?cEN1WEJqVHBjWWFBd0g0MVFQK3pFU1dwWGc2a3JEQ3d5ZVUzM1E0bmp5VlBl?=
- =?utf-8?B?OVhnZ2Y3SjZLekRneGlubmxSM3JqdE1pSERQdHFqdWdCN2hpd3RvbVBkcVZM?=
- =?utf-8?B?dGl5SEdmYWxFVHRSMi9xeThJMzhKY2oxbXZOZ0lBaStzRVJKY2RMNE56L25l?=
- =?utf-8?B?VVcvRVVPS3hRTkdXaGNGd0VBbXgyR1JwQ0FmQzVxS2pIVkYzZlJlSU14MHN5?=
- =?utf-8?B?OGdqR2VPKzFGRy9ZWWpVaFFkTnBmakVQQ2YxVzJlN3NXOG04azNsUCtxZEJD?=
- =?utf-8?B?NEI5QTVBMDJQQzk4NkYzUUZkWHhxVFRlS1lYUkNRajdaWURKclZCQ0RGUW9C?=
- =?utf-8?B?TU5jWXpyYnF3RlpsSUVGRGw4YitpaVZkQjYvQTJmQk1ta1h3L3BaTkRSdW1k?=
- =?utf-8?B?Ui83WENVV3lRWTUzMWZ0cDNnYXhtenc5MHlBUW9DNW5VK0NiUERZRy9DWllD?=
- =?utf-8?B?cEdIM1BuSzdIYkVMOTFHRktrYUJrM2VUU3E2US9rdHAvTlNHYnU2RWhWNndV?=
- =?utf-8?B?S3V2RkNSQlBldExjNmdaTUpER2FxSW90UkZwVC9WT2VUWFI3emJSZmFxcmdY?=
- =?utf-8?B?VlQ0ZFRsQzRNYVdQUzVZSENzQlpPQTVJS2d2OTRrMCtDODVwVGk4by9HRHdP?=
- =?utf-8?B?Y2cvZk1BY1d2akhRY0pnN00vLzM5Y3lUWkNEdnM4QS80UCtIT2dKMWRpdHV3?=
- =?utf-8?B?N1I0RHZRVFUvc0ViUUtWZ09TeFI3WWluL0djNXE2VHpNek1XUVdESWxDaHlu?=
- =?utf-8?B?ZFVsTmxnMFUrcU11dzM1T2h0YlIyOE1vVHZKY3VuamxjTUZuczZreVM2OFFV?=
- =?utf-8?B?cldiUTE0NjB6SDVpbnZtN0QvK21qc001Y2RBQkN0NjQ5NlF2ejNRS0hJZGN5?=
- =?utf-8?B?QnZNNGtjNW0yUFdwQnNNcW9ZV3ZRYVJ3b0dCWU5yWXlyYndUUEFGejNTcmNC?=
- =?utf-8?B?ZlZzekVkemxRZy9CTmdsMk8zenZpcU9YT0NBZkhJRDhXVFFyenVJSE0wNkpp?=
- =?utf-8?B?VmF0SFZxT3hQNjNuMUtTVXp6OUwyOGV0Z2g2Z25HQVhRV25XNnI1QlJuNTBy?=
- =?utf-8?B?QllHNDAzNEpHTStCdWNROTltaHRnM0RQZnJNd3oyUUdGOHVuWjdkRXVtMFhx?=
- =?utf-8?B?MlpzeVIybW1yajVUQ1NrNUJxY295Ly9uYVlSdE5tSVRhalh1c3NhRGk4VzU5?=
- =?utf-8?B?M010VlVHYklDMmloVWpZTys3bERnZzluWStnN0tWSXUyNXozY2NDMlN3TWlH?=
- =?utf-8?B?UkNyQ3F0N1RGa2lNSkF4bW5DUW12SS9hT2YyMHBkR3U0WVY3VTBHbVMzQm90?=
- =?utf-8?B?UGpBSEFPU3VMQ2F0bFNGaTNqNDJJL1YyMHhYZGxucUhYY1RjTnlxbUxLNG5K?=
- =?utf-8?B?eHc2d3NxTVdXcmlnS0o2bDRpYnE0QXRHdFVQOE1wY1VMSUVmRS9XZWppUnRu?=
- =?utf-8?B?RXZjaUd6eGdKU0pWRlF4eWNmTmxnemU3Z0dsaWNYV3ZIbXNUdUFWTXVLaVhx?=
- =?utf-8?B?aU1RdXJGS1lsK0JPT09wdHRoQ1lFR2tEZTVaUzdPODRJZldvUnNwb0U5NVUx?=
- =?utf-8?B?cTZodTVxVHJrZVYveFczYzE5OXczMGxiU0ZpODRQL2JaM3lsQU4rcTBMR2Fq?=
- =?utf-8?B?WUVHbXIrSlVIRG10RlE2ajBEY0cxRXVYUEYvZGJZbTRaT3BsUXMyRFZ0QklR?=
- =?utf-8?B?WFpZZTBMcWI5M01xNTNxdDZvbDBrdG9lenVOeFpMdFhnM2VRK2NUS2tWUWNN?=
- =?utf-8?B?U2Y3ZGNSOGhVc3RpQzhydmMyM2pHelVOZXlER0dNK1dISkluZXJ5eFZBZ3pq?=
- =?utf-8?Q?swPjXtQVXvmXG88dO/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0bf9e457-a104-446e-8bcc-08df365ad20b
-X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9697.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 07:53:01.0143
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rJUDt9BrrLzpH8B73Fds6dIAjWt/Izzi7YVJcbrCvmlmc4Md5iVY3dqQVYrzxCyg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9186
+References: <20261029-aquantia-support-5gbaser-v3-1-f1f9346553d0@oss.qualcomm.com>
+ <b87d66ca-dbd3-412a-9ebc-055f8e6f9a6f@lunn.ch>
+In-Reply-To: <b87d66ca-dbd3-412a-9ebc-055f8e6f9a6f@lunn.ch>
+From: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 15:53:37 +0800
+X-Gm-Features: AclHuK8Ikwa6ly_OXK4n2rwx6KaDD_xdAJZgr6Thjfs7_nY4U9Sd1s932qFQXNo
+Message-ID: <CAPTcHHTmGGC22ng9z7Ct8XjXjEDDukYBc8hDv3ku6t6O_Cnn_A@mail.gmail.com>
+Subject: Re: [PATCH net-next v3] net: phy: aquantia: Add support for 5GbaseR
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAzMSBTYWx0ZWRfX5Ue8gO6m8GfK
+ 5DkurMRSZgZXwUIUr8gvDZAS2iO7wVIeXvopzXvLsZ1pnQMfnTItsM53j83j+tO+rYW2Z+WI2Sv
+ I0e8pK/MF+zqvrIy3AjhQmGxv/Cm5OP5cpZ7+nP88ZogFIiJAQ3ZgxDQ7C2snccpbQIFtsIeWDA
+ DbbQdv4i8ELnJBfojM3t2393kEao+6QBNs+0njw/Qa6KduLPgzPEHqiWxk9vnHVLkknDpJc2lOu
+ 0JbwRknJ71Tky+sojK34LBuFPtEzSnDP5ZNLOmdOUSzZA76jk7QwceXj8gxX0tqHwaFRWNO2SLg
+ a2MWDKYLwJEfkX4JckGjvqkUuLI7pyOwgLj8PpjLJDxUfAC+GnsqGtSIwQQV8VrC1Z4D6wwbYUF
+ RbWaUzJCxqmuOji+GH8P4uaYZsBc5NiwhtKYCNiBR8I4QrUrxw9N2nKd+baRECETkk5e7mIs1zK
+ mm7+IEKfz7IH24tmlIA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAzMSBTYWx0ZWRfX+9aA2YokDjL3
+ 9MCxo2xEJLoES61lsXgH9apeUUoZ7J7ylAKbh5c9je9Ruez1JxbLmzt8FB72AxQKjQpGZGPrgdr
+ 6obOmgkEObeAUk5u0P8Pd14l3cJn2Kk=
+X-Proofpoint-ORIG-GUID: FLtK2kQKPjUpxQggRuJSs4JDy0kUFT-L
+X-Proofpoint-GUID: FLtK2kQKPjUpxQggRuJSs4JDy0kUFT-L
+X-Authority-Analysis: v=2.4 cv=TL3Q2Fla c=1 sm=1 tr=0 ts=6ae44d0e cx=c_pps
+ a=S/uc88zpIJVNbziUnJ6G4Q==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=sxNmbdBMPtiPP6CAsAIA:9 a=QEXdDO2ut3YA:10
+ a=nd2WpGr1bMy9NW-iytEl:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1015
+ adultscore=0 bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300031
 
-On 10/29/2026 6:41 PM, Pratyush Yadav wrote:
-> On Thu, Oct 29 2026, Mike Rapoport wrote:
-> 
->> On Wed, Oct 28, 2026 at 03:03:16PM +0100, Pratyush Yadav wrote:
->>> On Wed, Oct 14 2026, Radhey Shyam Pandey wrote:
->>>
->>>> kexec_alloc_contig() picks the destination of the next kernel out of the
->>>> default CMA area, and the next kernel then runs from there in place
->>>> instead of being copied out. That is only safe if the area will not exist
->>>> at the same address in the kernel being loaded.
->>>>
->>>> For an area whose base came from the device tree, it will. The loaded
->>>> kernel parses the same description, declares the range it is executing
->>>> from as a shared-dma-pool, and cma_activate_area() releases the pages
->>>> holding its own image to the page allocator.
->>>>
->>>> Distinguish the two cases. An area placed by cma_declare_contiguous_nid()
->>>> without a fixed base lands wherever this kernel found room, and the next
->>>> kernel repeats that search against its own memblock state, so it cannot
->>>> collide. Record the difference as CMA_FIXED_BASE and refuse to use such
->>>> an area for the payload, which leaves kexec_locate_mem_hole() to fall
->>>> back to the memblock hole search as it did before CMA placement existed.
->>>>
->>>> This is what makes the KEXEC_FILE_NO_CMA flag unnecessary on platforms
->>>> that describe their CMA pools in the device tree.
->>>>
->>>> Tested on a AMD Versal AI Edge Series Gen 2 VEK385 Evaluation Kit whose
->>>> device tree declares three CMA pools, the first of which is
->>>> linux,cma-default:
->>>>
->>>>    cma_reserved@800000000     4 GiB at 0x800000000    (default)
->>>>    cma_reserved@50000000000   6 GiB at 0x50000000000
->>>>    cma_reserved@60000000000   4 GiB at 0x60000000000
->>>>
->>>> All three have a fixed base, so kexec_alloc_contig() declines the default
->>>> area and kexec_locate_mem_hole() falls through to the memblock search,
->>>> which places the Image segment at 0x9c00000 size 0x1de0000. The kernel
->>>> that boots from it reports its image as [0x09c00000-0x0b9e0000] and
->>>> 14680064K cma-reserved, i.e. all three pools still present and none of
->>>> them overlapping the running kernel.
->>>>
->>>> Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
->>>> Assisted-by: Claude:claude-opus-5
->>>> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
->>>> ---
->>>>   include/linux/cma.h | 10 ++++++++++
->>>>   kernel/kexec_file.c | 12 ++++++++++++
->>>>   mm/cma.c            | 16 ++++++++++++++++
->>>>   mm/cma.h            |  2 ++
->>>>   4 files changed, 40 insertions(+)
->>>>
->>>> diff --git a/include/linux/cma.h b/include/linux/cma.h
->>>> index 8555d38a97b1..2fe66377e5d3 100644
->>>> --- a/include/linux/cma.h
->>>> +++ b/include/linux/cma.h
->>>> @@ -61,4 +61,14 @@ extern int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
->>>>   extern bool cma_intersects(struct cma *cma, unsigned long start, unsigned long end);
->>>>   
->>>>   extern void cma_reserve_pages_on_error(struct cma *cma);
->>>> +
->>>> +#ifdef CONFIG_CMA
->>>> +bool cma_has_fixed_base(const struct cma *cma);
->>>> +#else
->>>> +static inline bool cma_has_fixed_base(const struct cma *cma)
->>>> +{
->>>> +	return false;
->>>> +}
->>>> +#endif
->>>> +
->>>>   #endif
->>>> diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
->>>> index b668ce8d68ee..10e770bcee0b 100644
->>>> --- a/kernel/kexec_file.c
->>>> +++ b/kernel/kexec_file.c
->>>> @@ -28,6 +28,7 @@
->>>>   #include <linux/vmalloc.h>
->>>>   #include <linux/dma-map-ops.h>
->>>>   #include <linux/kexec_handover.h>
->>>> +#include <linux/cma.h>
->>>>   #include "kexec_internal.h"
->>>>   
->>>>   #ifdef CONFIG_KEXEC_SIG
->>>> @@ -691,6 +692,7 @@ static int kexec_walk_resources(struct kexec_buf *kbuf,
->>>>   static int kexec_alloc_contig(struct kexec_buf *kbuf)
->>>>   {
->>>>   	size_t nr_pages = kbuf->memsz >> PAGE_SHIFT;
->>>> +	struct cma *cma;
->>>>   	unsigned long mem;
->>>>   	struct page *p;
->>>>   
->>>> @@ -702,6 +704,16 @@ static int kexec_alloc_contig(struct kexec_buf *kbuf)
->>>>   	if (kbuf->image->type == KEXEC_TYPE_CRASH)
->>>>   		return -EPERM;
->>>>   
->>>> +	/*
->>>> +	 * The next kernel runs from here rather than being copied out, so it
->>>> +	 * would declare this area again from the same description and release
->>>> +	 * the pages holding its own image to the page allocator. Only an area
->>>> +	 * this kernel placed itself is safe to use.
->>>> +	 */
->>>> +	cma = dev_get_cma_area(NULL);
->>>> +	if (!cma || cma_has_fixed_base(cma))
->>>> +		return -EOPNOTSUPP;
->>>> +
->>>>   	p = dma_alloc_from_contiguous(NULL, nr_pages, get_order(kbuf->buf_align), true);
->>>>   	if (!p)
->>>>   		return -ENOMEM;
->>>> diff --git a/mm/cma.c b/mm/cma.c
->>>> index a10ea37a261d..1f4d3d48a3bb 100644
->>>> --- a/mm/cma.c
->>>> +++ b/mm/cma.c
->>>> @@ -55,6 +55,19 @@ const char *cma_get_name(const struct cma *cma)
->>>>   }
->>>>   EXPORT_SYMBOL_GPL(cma_get_name);
->>>>   
->>>> +/**
->>>> + * cma_has_fixed_base() - was the area placed at an address it did not choose?
->>>> + * @cma: Contiguous memory region
->>>> + *
->>>> + * Such an area is described outside the kernel, typically by a device tree
->>>> + * reserved-memory node, and so lands at the same address in every kernel
->>>> + * booted with that description.
->>>> + */
->>>> +bool cma_has_fixed_base(const struct cma *cma)
->>>> +{
->>>> +	return test_bit(CMA_FIXED_BASE, &cma->flags);
->>>> +}
->>>> +
->>>>   static unsigned long cma_bitmap_aligned_mask(const struct cma *cma,
->>>>   					     unsigned int align_order)
->>>>   {
->>>> @@ -304,6 +317,7 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
->>>>   	cma->ranges[0].count = cma->count;
->>>>   	cma->nranges = 1;
->>>>   	cma->nid = NUMA_NO_NODE;
->>>> +	set_bit(CMA_FIXED_BASE, &cma->flags);
->>>>   
->>>>   	*res_cma = cma;
->>>>   
->>>> @@ -517,6 +531,8 @@ static int __init __cma_declare_contiguous_nid(phys_addr_t *basep,
->>>>   	}
->>>>   
->>>>   	(*res_cma)->nid = nid;
->>>> +	if (!fixed)
->>>> +		clear_bit(CMA_FIXED_BASE, &(*res_cma)->flags);
->>>
->>> Nit: This reads a bit odd. cma_init_reserved_mem() sets the fixed base
->>> and then you clear it later. Wouldn't it be better to just pass the
->>> fixed boolean to cma_init_reserved_mem()?
->>
->> Actually, we shouldn't expose cma_init_reserved_mem() at all.
->>
->> The current callers of cma_init_reserved_mem() should be switched to
->> cma_declare_contiguous_nid() that does sanity checks before calling
->> cma_init_reserved_mem().
-> 
+On Thu, Oct 29, 2026 at 9:28=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> > @@ -786,7 +790,8 @@ static int aqr_gen1_config_init(struct phy_device *=
+phydev)
+> >           phydev->interface !=3D PHY_INTERFACE_MODE_10GKR &&
+> >           phydev->interface !=3D PHY_INTERFACE_MODE_10GBASER &&
+> >           phydev->interface !=3D PHY_INTERFACE_MODE_XAUI &&
+> > -         phydev->interface !=3D PHY_INTERFACE_MODE_RXAUI)
+> > +         phydev->interface !=3D PHY_INTERFACE_MODE_RXAUI &&
+> > +         phydev->interface !=3D PHY_INTERFACE_MODE_5GBASER)
+>
+> This is sorted based on speed. So 5GBASER goes earlier in the list.
+Will fix in v4 =E2=80=94 kept the interface modes sorted by speed.
+>
+> >  {
+> >       if (iface =3D=3D PHY_INTERFACE_MODE_10GBASER ||
+> > -         iface =3D=3D PHY_INTERFACE_MODE_2500BASEX)
+> > +         iface =3D=3D PHY_INTERFACE_MODE_2500BASEX ||
+> > +         iface =3D=3D PHY_INTERFACE_MODE_5GBASER)
+> >               return RATE_MATCH_PAUSE;
+>
+> Please keep this in order, 10, 5, 2.5.
+>
+>     Andrew
+>
+> ---
+> pw-bot: cr
+Will fix in v4 =E2=80=94 kept the rate matching conditions sorted by speed.
 
-Thanks Pratyush and Mike for the review.
-
-The switch from cma_init_reserved_mem() to cma_declare_contiguous_nid() 
-looks like a broader CMA refactoring and requires additional changes to 
-work correctly. See below for details.
-
-cma_init_reserved_mem() is the entry point for memory the caller
-already reserved, while cma_declare_contiguous_nid() is for memory
-CMA reserves itself, makes the split read as intentional.
-
-Run second time on memory stage one already claimed, and
-cma_fixed_reserve()'s guard exists specifically to reject a fixed
-base that is already reserved, so it returns -EBUSY.
-
-fdt_scan_reserved_mem()  → __reserved_mem_reserve_reg()
-→ early_init_dt_reserve_memory() → memblock_reserve(base, size)
-
-The CMA initfn runs in a second, separate walk much later:
-fdt_scan_reserved_mem_late() → fdt_init_reserved_mem_node()
-→ __reserved_mem_init_node() → rmem_cma_setup().
-
-Mike: If the redundant caller-side check is a concern, I can address it 
-with a separate patch in this series. v2 would then look as follows:
-
-mm/cma: drop the duplicate alignment check in rmem_cma_setup()
-of: reserved_mem: keep the reservation when node_init returns -EBUSY
-mm/cma: reject CMA areas that overlap the kernel image
-kexec: do not place the next kernel in a fixed-address CMA area
-
-However if you still think CMA refactor is necessary, please
-advise on how should we approach to fix cma_declare_contiguous_nid() for 
-already reserved segments.
-
-Thanks,
-Radhey
-
+Regards,
+Hongmei Xu
