@@ -1,96 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793388821;
-	b=PDgoSe+Jm2jOv5DQwhwTIiswY+ODb/2B4kauPLEnEECgiZZqLNaUtPmb0nd/VvN1OoHq
-	 BuDbcdVJWQrK+8xp4APKERZgjzuYFk854S/K/AjACZXO81ZIYEDCy9xPVUxlUu4b1GGW2
-	 oyOrcMgZfHrXkAkxA3yE0YIXFxJCAlKUQbQKkXI48kVi0Lb9bX7AZT3Wqncy91QOjh/3i
-	 Bju3szmtF0y4n5AlbHRjyspEFrqOsSVkzRQPMrBVp4tjjvfJuDAetLdXfsHKKKeqJosgJ
-	 zLZ2Y8dte06lfzEzpjLknXztPvtAoQCsHoNaO3Xf0+vQchGkQDKjJL4PtHKs9UPCE6A==
+	t=1793388899;
+	b=WYzJEzHt5m/He/Cm9yXkN/lZtDsnI9cPBmzQWiEwfkMoVXyXhSWemxpsAX+gBOH8KbAy
+	 cAIIfX/iLk+D9YyGYQABsoLfTS/MpGPTVbNIezXitzL8LgskNAzHFlz67TEqwuLV8zpLw
+	 bjjGfYYgpIjDGCrwaaWhlOWpmFbF13V5NqtpB+35EgHovdz4RzJMam/y2UXv0487HyUX7
+	 /fDjqFTxFWtTZFf1EHh4YaP0uijgORA3kr5zjiSOOZA0nlcEW3FtcqHrhaZoPM3/VCQ1q
+	 cD38fQho0k5P7QJkgBxsg722jyXA+YWR+n2Yk6qfv4hkSIj9NP3ol44aWOFDnjmpymg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793388821;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ghEJXKWzTP9aAwVoN6uwmlIFk1sC5DaCEYh0pbHfkpc=;
-	b=1tlGsg5SvirCyFJly02cAbLAcKoBGW2K369Ama1lg4D+6CWY67IPCCAMWvDfD7IDggvS
-	 Pfl65TLNgmFIBO/+QTSBoiX6G4h4XqignsYugIO8pbGmtoNaVyc8doGYK6tHCtJtIWGyR
-	 ItHs5w1NZoR1CZzg7+DBdI9HcAPuOYhedeFvdqglEJyxBDhgVNZUQB8KHNrntBrIXJelU
-	 Tvetz54w9XOfo/qGPHEwahvJkZ7hfUSQE8cGOSKv+0qvdIoHtIrJziDjDAgARrBVZR5Gc
-	 eEheltRJbOiO1f4qszULVN7hYnYcnqGi27tuSD8EgPc0mYmsMbty6QpE4ygYlmvWZfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793388899;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=crQRzA1NZRP9Kane1rHo0PkkqJUfG1/DLCkh3lApae8=;
+	b=haQXuwOVly6SAtyVvw68J3OlMd6VYnz9FSmbMOLJo5M3r+2ItmiNJwXbQCGI8cQJEc38
+	 vGtJiAmgoOBOKpcAPbgbF0jPC8Yt2MMYk5FMaj0igPgKRqDd2TImhwD1qvFcMp3q98Hzn
+	 iH3HCZDU/VVMPoPNyO8wpdC86yICJ5lCDI+Fw1O5aJ+ZDlAAN1foIVCfLE0dWrlzQofQq
+	 V7+BLyfSD9eu3R2dFATnGfYYf8LwOVjAsrK/J41r0WleK8bbuUXVHsdXxlCJZx3PpU94w
+	 pEu2T03bIHSgy9lzeViYuQnd6fSOZvv5ZekXPGMEzdSh98E5uF401ubcrHDi42Be2VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RkwtfUx7;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lv64Q36d;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627ED606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:33:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 627ED606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F65C606A31C;
+	Fri, 30 Oct 2026 19:34:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RkwtfUx7
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3535a54bed9so1702843eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:33:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793388820; x=1793993620; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ghEJXKWzTP9aAwVoN6uwmlIFk1sC5DaCEYh0pbHfkpc=;
-        b=RkwtfUx7lPVh7f38yMfRd6JOWqiCMDkZ5Xot+u+6Klx88GkeGrwkq91B8R7XpX+qiX
-         21UGMcfOdlke22CDJeRYW/X7Fp4Wb+VEDiWlCmOneb44AZzua1ObGxWvWNXgCQPgFC7S
-         7hg7tdDMUUTkgAT6EQBKDMqbzaxiDxGGfd5vOQRAGayPzI8VtRT+8J4sRJs1J9AuWCxE
-         wBBynXzLcdtf5itaQtUW0pqtLVynIFS04hZecX0WwpHAEJjBg0qtyfLduNACeBCvY/0O
-         FPOqJDawtNJAQQiH/peypU5vIe8wTV9y5AlZZjOxPg5aFRdOXDbOfDZyLoP2kKgr+VGH
-         c1Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793388820; x=1793993620;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ghEJXKWzTP9aAwVoN6uwmlIFk1sC5DaCEYh0pbHfkpc=;
-        b=KPSPFSV2sygFRv8kP+Vh8YBZr1e5Q2ZuXDRh6wJwREYr++2dnWEFUdOYbGRUf61cN6
-         NIzmk85lX9G1l1DOk/i/IVvgxp0nXMdIFrKkcB5NNWaGV6rys/qDWq36dc4k9OsAloBM
-         Qt//Fy1AsLLudGaoc0+d0GxB97bppa4Yy2nF75j+Eh8Phk/vnD9TlM3nq0SREVeGVkZ7
-         al1xu40gwIo7aAuIeLRemCJOzoZxCaNXGiTvCNa0bQq89NAu+6D1/zdrLOhMFxORc1EK
-         a4h1A70n5fQIOMo1ySDLldDJp7cfftVD3WK1gQJt4kze5DA9F7PWiL4uT9ylQvkOuG5L
-         XNbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw3a/eibJaRc+bU/Itw65Ko6NXSTax+h+BI3y1ilCP+/sMeuV/1cqebf1pE3ECdXZf+q+XlOLX9waBNv1g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLFQggUmg4F3kIAKPuCcNWgw1Sy9GJ5APTlzd751uFlXM07Kjbc
-	QOWaTQYm4aSI6mdzd0RWMfr3Pq++eaLbsQRfLNQrokb7+QNW0DTo1Lcb
-X-Gm-Gg: AYBFou15bDJfoOdqHz/1r5PaejJgXsQQJ4lbK7HeqXtBXhHl8Oy3cJ1AcTR4ECycEA3
-	o8P/PAMv40d6cdHOyVUEoMJe7OEwQdxCEO74ugvJomaIXJAJ1WtNWlOS2UrkOMjf2u6izfLUOft
-	3rXzAOva9AWqURMOFTILftXHavCCEZAUvGThy0p3ihbfzzHJS8UVVg3oGFKduzhDY9EzWNdHexM
-	Ab0VD3fsnONjgDR72XnqGkJgCJShqJCK29dTyF2MDJm0ET51slUNMgbcL4zYdwt+faFycEtLfrh
-	6O990lde22ngS7/TV1CAsnTGR/8Ox3p78PJdtqtx3GpCQbTM7gWiB8rdJbgt90IL8KB+5BKtely
-	5AVdZNsY/XZQ+tnVMVRRkljHZGW2FhXr1bRAkNQiwO06MPvVqrsRUI7Tim4EOX0SSOS7vvtmmFX
-	Ny+9PvOyvrQrlELOyCfUcOucQ6Sky6WR3BniWqscqwWbVJI9YVUv+UdHNfeJapo6Qhquy64E9HN
-	XtKWvWhW8DSEKoV6zFn+ihFDCjy5EkxvZdmsImT7yEkpiOfYjyB3UoElPx5z+9tAIH8mnvj3Gkb
-	pGby0FAONV8AfmacZCLgdHU2SfEgRpG3Cbl7bwSfYcshc9Q0uhshquDteRHtsNzLgzlSuLE=
-X-Received: by 2002:a05:7301:6198:b0:36a:1e9e:ae61 with SMTP id 5a478bee46e88-36a42602aa1mr4298875eec.38.1793388820302;
-        Fri, 30 Oct 2026 12:33:40 -0700 (PDT)
-Received: from X.tail7c3ebe.ts.net ([103.190.40.7])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6f7f9sm10796405eec.25.2026.10.30.12.33.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 12:33:39 -0700 (PDT)
-From: Avishek Chaulagain <chaulagainavishek14@gmail.com>
-To: hansg@kernel.org,
-	mchehab@kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	andy@kernel.org,
-	gregkh@linuxfoundation.org,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Avishek Chaulagain <chaulagainavishek14@gmail.com>
-Subject: [PATCH] media: atomisp: Remove redundant return statements
-Date: Fri, 30 Oct 2026 19:33:04 +0000
-Message-ID: <20261030193322.13777-1-chaulagainavishek14@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lv64Q36d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77D141F000C1;
+	Fri, 30 Oct 2026 19:34:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793388898;
+	bh=crQRzA1NZRP9Kane1rHo0PkkqJUfG1/DLCkh3lApae8=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=lv64Q36dqcfNzh9rv+WZ16OOePlRH6JNyTyhtKgdajymrh/a6wJkIxQKelCoEpCG8
+	 K2NBflVPluGAlDJJ2swH25jXWDWOP4L7LAOUbjA4jnzZ1jgPCXu6Bi1wbxYPh+OUuf
+	 4pdLu7cVa2M2/0ls6FV6C5o60me2UUMxN301lcahnwnMTBVPQAJMMAOmjiiiJwmTfC
+	 PmTui3Qtkx0jEoxWBXLWf9P5eo7HivRwmVMwcf6RKv4eby6q9gfjGE8nmL/zr5bJnP
+	 JilI3c50W9J2qggRmcNVnNGPmIRpiMohfOiB76OcU2CRIJIowq2wFrUPDRyy0icpHB
+	 VRXI88NVcfgsg==
+Content-Type: multipart/mixed; boundary="===============1483456430051234551=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,38 +49,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <09475f69602098aa106af66960f75de688d53ca24efdf8dcdc6f91c0d2a59c6e@mail.kernel.org>
+In-Reply-To: <20261030-ftrace_in_test_progs-v1-1-aa50c5dd1ccc@bootlin.com>
+References: <20261030-ftrace_in_test_progs-v1-1-aa50c5dd1ccc@bootlin.com>
+Subject: Re: [PATCH bpf-next 1/2] selftests/bpf: add helpers to manipulate ftrace
+From: bot+bpf-ci@kernel.org
+To: alexis.lothore@bootlin.com,andrii@kernel.org,eddyz87@gmail.com,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,shuah@kernel.org
+Cc: ebpf@linuxfoundation.org,bastien.curutchet@bootlin.com,thomas.petazzoni@bootlin.com,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,linux-kselftest@vger.kernel.org,alexis.lothore@bootlin.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri, 30 Oct 2026 19:34:58 +0000 (UTC)
 
-A return statement at the end of a void function is redundant; control
-returns to the caller once the closing brace is reached. Remove the two
-such 'return;' statements in hmm_bo_release() and hmm_bo_vunmap(), as
-reported by checkpatch.pl.
+--===============1483456430051234551==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Avishek Chaulagain <chaulagainavishek14@gmail.com>
+> selftests/bpf: add helpers to manipulate ftrace
+
+TL;DR: Restoring ftrace filters in trace_helpers.c may abort on a saved line
+over 126 bytes (128-byte buffer), leaving the filter empty, so all functions
+get traced and global ftrace state isn't restored.
+
+> diff --git a/tools/testing/selftests/bpf/trace_helpers.c b/tools/testing/selftests/bpf/trace_helpers.c
+> index 6d7a4b8c4ab8..1f26a057a810 100644
+> --- a/tools/testing/selftests/bpf/trace_helpers.c
+> +++ b/tools/testing/selftests/bpf/trace_helpers.c
+
+[ ... ]
+
+> +#define CHUNK_SIZE	128
+
+[ ... ]
+
+> +static const char *tracefs_next_line(const char *content, char *buf, size_t size,
+> +				     int *err)
+> +{
+> +	const char *end;
+> +	size_t len;
+> +
+> +	*err = 0;
+> +	while (*content) {
+> +		end = strchrnul(content, '\n');
+> +		len = end - content;
+> +		content = *end ? end + 1 : end;
+> +
+> +		if (!len || end[-len] == '#')
+> +			continue;
+> +
+> +		if (len + 2 > size) {
+> +			*err = -ENAMETOOLONG;
+> +			return NULL;
+> +		}
+> +		memcpy(buf, end - len, len);
+> +		buf[len++] = '\n';
+> +		buf[len] = '\0';
+> +		return content;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +static int tracefs_restore_file(const struct tracefs_ctl_entry *entry)
+> +{
+> +	char buf[CHUNK_SIZE];
+> +	const char *content = entry->old;
+> +	int err = 0;
+> +
+> +	if (!content)
+> +		return 0;
+> +
+> +	if (entry->kind == TRACEFS_CTL_FILTER) {
+> +		err = tracefs_write_file(entry->path, "");
+> +		if (err)
+> +			return err;
+> +	}
+> +
+> +	while ((content = tracefs_next_line(content, buf, sizeof(buf), &err))) {
+> +		err = tracefs_write_file(entry->path, buf);
+> +		if (err)
+> +			return err;
+> +	}
+> +
+> +	return err;
+> +}
+
+Can a saved line longer than 126 bytes abort the restore here?
+
+tracefs_restore_file() splits the saved content into a buffer sized by the
+read chunk constant:
+
+	char buf[CHUNK_SIZE];     /* CHUNK_SIZE is 128 */
+
+and tracefs_next_line() fails the whole restore with -ENAMETOOLONG when
+len + 2 > size.  The kernel can print much longer entries than that.
+print_rec() emits the full symbol (KSYM_NAME_LEN is 512) plus the
+" [module]" suffix, so mangled Rust symbols or long C names with a module
+suffix can exceed 126 bytes.
+
+For TRACEFS_CTL_FILTER entries the file has already been emptied by
+tracefs_write_file(entry->path, "") before the long line is reached:
+
+	if (entry->kind == TRACEFS_CTL_FILTER) {
+		err = tracefs_write_file(entry->path, "");
+		...
+	}
+	while ((content = tracefs_next_line(content, buf, sizeof(buf), &err))) {
+
+so the restore stops part-way, every entry after the long line is lost, and
+if none were restored yet the filter is left empty.  For set_ftrace_filter
+an empty filter means all functions are traced, which is the opposite of
+the original restriction, and the global ftrace state is not restored.
+
+Should the line buffer be sized to the actual line length (or should the
+content be written straight from the saved string) instead of being tied to
+CHUNK_SIZE?
+
+
 ---
- drivers/staging/media/atomisp/pci/hmm/hmm_bo.c | 2 --
- 1 file changed, 2 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c b/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
-index 0a8f401a1..4ceb8cb41 100644
---- a/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
-+++ b/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
-@@ -483,7 +483,6 @@ void hmm_bo_release(struct hmm_buffer_object *bo)
- 	__bo_insert_to_free_rbtree(&bdev->free_rbtree, bo);
- 
- 	mutex_unlock(&bdev->rbtree_mutex);
--	return;
- }
- 
- void hmm_bo_device_exit(struct hmm_bo_device *bdev)
-@@ -957,7 +956,6 @@ void hmm_bo_vunmap(struct hmm_buffer_object *bo)
- 	}
- 
- 	mutex_unlock(&bo->mutex);
--	return;
- }
- 
- void hmm_bo_ref(struct hmm_buffer_object *bo)
--- 
-2.43.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/41113297251
+--===============1483456430051234551==--
