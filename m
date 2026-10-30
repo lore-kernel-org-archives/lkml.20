@@ -1,111 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793363948;
-	b=nzFT/8mGjUhK06tvXJL844C3ZBE07JJE5B0f6ai49Mf3l6VZ4Y309IiNmtg/hgmtORs9
-	 YRK8y80cFrEgcMQhHYg3Fi2vFbWV6dRF0ftbWj+sKG95XX+g0IhAN0PzPBlG3sPSVNwoP
-	 QXTiFc3pu+SNFtKIu5Qfvjgv8QDoq/LayQIZvLYFfrMXtTApJSrCmIXXJq8TLCz8cyQ5i
-	 aAiYBxLd4LPm/u5xnP2JsRMlbGEOq3XMdvvHCuOBK+cQKxeeOEPwI1CDPscmKlWbM23Gc
-	 oRnLJSye8zYpxj0yTlFNHq48DGDFjTVpMQx6+IoTD0ZL5/VgwV0L/8d8krIymEemsvA==
+	t=1793363998;
+	b=5MqYIN9HIUEB4S2fTxJi40tH60x/+K79Kkx46yXxnR3lFKoDw2pH/DjwsJjsGUXDyxAc
+	 jHYuPXx1Gq5X9gIjDKFf80LOxNnoEfCBttMLVr8SLRao0XqZxXuzgRbmL0HTwVtiKbdkC
+	 ULQICeX9UBVfsrhIQzOzgoeTChvitAvKrfbgnmrEaTKtBzYXV3c++PonWyf/Ugyoshjhv
+	 trimkG78QHrB22wgRcm6elvHQbf1v3wmH0UdCNnamW38lh0dkgNP9sgc1mPm90alBXab8
+	 RRi4rl+tj4mbZwu9W9qkTapdHSK3BsZvnS3++plVKiXrzwY3BHydzOM/37iP5KnWysQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793363948;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=uI4r/lNnWWRwm5efiSfVrEkVa0m10ZlmU3jditRFSTw=;
-	b=Pz/RlgxWBTIBt7W1AMoppNfo62lOVkn3FzCtmBoTiEgZ5ShyS6ixIn3o/6fod0KXTmyq
-	 QFkclMVXus7qeiERGtgMiFKLYhLN4bo64kB9Tp0eJ2Er5WUIcMK67GOwYVyp6ve5gJfFv
-	 jgawzwdmR7jpy+xGOxxdArVem4IY9zkiFyuQi0auXIGEP65RnUlnVY4C13bgmwdSdwMBO
-	 2CHwCiDdP2SKaBkAFvIdrZQEnVvlcQv6/2NpHK4yyf7GtOra0KO+fAjRu1Cqi7fWdoLnj
-	 9psZTQQ5ou6rKBqCxqhppUEIQi2agz14T1S+CnVCPekGn1r0K6sFGBGZw8eYxGctdiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793363998;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Ed13n90ye5Czp3pxuz2kTfn9JK5IM878W6MtBdLVE2U=;
+	b=GvZeLLFc03OibF44rC25J0SBjTdHXdKH8gvYQkPe75gX8KfkCmggSr1tcTNh1pgZIfN6
+	 im4nmXUbaqvMrmIk13SdgR+vTE2q7lQdVwSKSPX1WbRQogjN/XoMJd46rh46m4FWitMXB
+	 Sc68xRDUCLMQcDH9cGStCTRlKOPM18ys0PCmsqG7n8QiIRXSYjY5tBUEghFIeGCvh8i50
+	 oriKRSVMNE+J9o98Twl7ZZX5CmsEhp6buIOkyaFrasGTQ9tnKcUM1WN8naidjLw7fqJHB
+	 TQpcZobOP/APiglvk6NsCGAxe05NIlishrvSG6zPQzLQ2xv68+qvS1w/dDcuFWKli2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mC0J45hG;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=elNaCSBA;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JTfFdqh8;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1812A606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:39:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1812A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9CA606A33A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:39:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B9CA606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mC0J45hG;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=elNaCSBA
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UBGWR93679082
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:39:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	uI4r/lNnWWRwm5efiSfVrEkVa0m10ZlmU3jditRFSTw=; b=mC0J45hG10XRaLaO
-	EcAVtMoij+nwFFtZV/OXNULSfZwT+TLTfm1ZUnSMBel980CA84cNPUitVVTUoMe5
-	ZNLuUSo+l4mwTPEbdL9abC0T/Oz639N6flK/jYkfO910xfilHW1GHuOS4/35p8gC
-	UmG8CeFxi8XPjzgU4R6Z6i9s9Fb7G6Bb9fHkGVe6ZSa45roSBGhLvlJcPivCjmRg
-	V/bajZF9rGd/+FTVehXE3sBgY7ihmjEE+0/N2I6m5ozYfHXKmTbUi2GC5XehbnTC
-	BBsMgeuQijD6/H+Xaxp7KPKcj/n+KxmvRZgGbq1S1PskCU9Xv18WI0WUny9xkbZi
-	5knCDA==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qk22p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:39:06 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5eaabe26601so42476e0c.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:39:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JTfFdqh8
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so4804815e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:39:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793363946; x=1793968746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uI4r/lNnWWRwm5efiSfVrEkVa0m10ZlmU3jditRFSTw=;
-        b=elNaCSBAnTAYmnBl3a+fpOVZVy2wTI05+w4A2Eh/OHg+xlSNmCzH29s1d/l60Tbw80
-         smz8loLL4ugQwK6WMA59VAlXGZu78zwhDbBr9ehMmuvqImyCQCkhtGBPISYaoPkdswFw
-         i6tuEdEplXrW9MdowcH9ddxMpbybBNRBI+bmktRsOnbzrkQwgusOfNjFm0wI1SXY4Xrz
-         P/8cCIjJjsTazDAaD3xuJxrpZlqSNpIKE4aqzT85D1rTOjU08lHBqsMgzm31M8p6xl8E
-         ZnnpFWVF77LOjCDeiQuKRyzVk9uN7L4xGrHwV6E2+oKZRKgNddyX7DiMWDTeMMk/uBkY
-         CFyg==
+        d=gmail.com; s=20260707; t=1793363997; x=1793968797; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ed13n90ye5Czp3pxuz2kTfn9JK5IM878W6MtBdLVE2U=;
+        b=JTfFdqh8j9+fKMxKHItTl2oqC4vxgdOAEHzXs0OazO/r1yFB59l7h0fLFfPqMPAanA
+         jYDmylhiHlXm9FkDQWRtFAB3CSRFuq5Vx6Xh0oCEge/Rc6bUI1C5gHSBBfuVScKblTLE
+         EKyntDiNuuzrmioqTrutj84ytMNpJXEN4Wk19CTY73fEf2I9LWyeLywIK9d/h0jpnHgm
+         0u7/c8S4qbdaXryeJqacM7aeXz6rGs2ZZff1PFUrbY/ZcVp8cRDL/1yxcyNjwUgeBQto
+         73dofAhf/FIabkPaZwOyFeupMJ22iROyZ5CVAhvjAHXTd0L6BWTO6j8Iy3Zz9s39lMWf
+         SvHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793363946; x=1793968746;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uI4r/lNnWWRwm5efiSfVrEkVa0m10ZlmU3jditRFSTw=;
-        b=o63djq4wid0RA0QrKwXFXf7FsTQGtDfwyP3e/ma0hkp1BL41yq4NowDbt96VxcgaLl
-         JrZs1TnXpqLWliDnBvWvvNsxoNk2GAv+8SbunqnxEWMqfP+lszzR2gKYqTyBCGHr0d2A
-         cLD8GeuqLqOf7Jy7L3E3Fvv9XNzckIwX5uDc0fAJM2dEdTak8NSel8+fowciPVqCO+VW
-         Glp2Kk22RnhrKnqgkANMy2kF134mOu0jbOKdN0Qlqp3uh81kKQbVKaT/fj0cycTzIGuW
-         J39QJZqErtQ9IDaL6/I86H8RiiBdkret5/kTYN0p3u98k1FSWwYrJlgwdnvR4fnM754t
-         gK3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxpL3zmeasOvL0lFMMDTP3WxwPF0yDs0k28GRpNMOFFILbrdTQSGpiU1kanCTsNX8bDQYiZ7dBP82U/5NI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK5JK8Hr+hSMyQWpW34hq5erLquNz9oYsvmaDzCEIvQc1q2KHlS
-	E8uijBzfUVYrjbI3W3wEcqdSGdPH/4uC06NBf4GS11cRljw1XbHF3kTIGvduvAa7V2XYBn/Xa+8
-	1zMGDaACM7WSfwS2DK/JZ3EU41q9JuBukdghP2v3HX4K2S++MlHZrdtdhVpkKPkSaw8c=
-X-Gm-Gg: AYBFou0hf3rV3Liajl5WxgMaMAn4Br3W7iB7U7QGRBmC2RRhoAgWgff7dzzq5KRcdrw
-	qdfVcsoHXtY49mg4/KiXH/I0QOxNynBJqwGhdZDMRCQZgPUYPP7AA8cFP6Yx9fu5udC3ROoTXOH
-	c8El5WtmK6TWCiReTOohFnSYCsXEcOkQbWiM4tTuUIp9LJgaviccnZntPqIdMChSSoECFKa/Hzg
-	iZYSVfLVuMvldw0gxh9oiuXtj29jRZ8wjjmuw5apbfZ0N17DYNv1fKmjIZLpX+kLvpQRoQXuQmp
-	zl6dA+sML5eeHgUqKXS0VV04TXVqujjr8ZzkPYTRgynNEkRoxkbPVCUDKgbgB2tiU05czedeSO2
-	TdkjBC5HnuHCxT0oByo+Ebu/bQM7rMVDX2XNeMTdYFTX5V4TuSx3M/VqNpGrGVCT9Jpaq5fc=
-X-Received: by 2002:a05:6122:2b01:b0:5cf:ad27:3a67 with SMTP id 71dfb90a1353d-5ec6897ccbamr998357e0c.5.1793363946172;
-        Fri, 30 Oct 2026 05:39:06 -0700 (PDT)
-X-Received: by 2002:a05:6122:2b01:b0:5cf:ad27:3a67 with SMTP id 71dfb90a1353d-5ec6897ccbamr998229e0c.5.1793363945761;
-        Fri, 30 Oct 2026 05:39:05 -0700 (PDT)
-Received: from [10.169.205.110] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabf26b72sm60608366b.83.2026.10.30.05.39.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 05:39:04 -0700 (PDT)
-Message-ID: <aa2f2311-d913-4b90-802c-e414764be169@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 13:39:03 +0100
+        d=1e100.net; s=20260707; t=1793363997; x=1793968797;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ed13n90ye5Czp3pxuz2kTfn9JK5IM878W6MtBdLVE2U=;
+        b=azT1g6188DZC91enAorcsMzFZDcaZwjHXoS7k6hiwwt3uEVJcX1pR656yoj2glXnzW
+         BPZ9mAlpV15jZEkrWWd8I5R8O91tCaapwN2PPhNOPkx88NpX8PVLSzztHSM0K/GogbG+
+         fSTHbeTiAu03bw3PSKNtAiuusq1mP+QijuDUS2N9d283ksbRexPDFLzIDbsMlKfykv8i
+         W0FRvodDlQp7Bv5+LTTxeClXLs+D2VgwWVL6Zpu/wT+PnMe7Qs6mzUmFS7Q0ZFJUggtL
+         55bVmS8AuuVTVn1+gODFpULz3EcKkzNkFMNgMHUhchhMQAROVfR+BoEQIQolB1Bb1ah1
+         N/Pw==
+X-Forwarded-Encrypted: i=1; AKwUvBxVAZglS0pE9Rlo3mR087j2/AVkQLcjs2ep2fCEhftFu5CHn1MOCKnUPcWymtXLHQSiXZpIndFW6qvWoSc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ20lXhtK8g0tqWFRrz38ONmjYLNLSsIM2ywJU+ap1mmTlVP6KA
+	S6FGMbnftK4+rZgBOEE7/199sHuGxOh49Aj/WaQnb8ae3kWIen5A3oQ7
+X-Gm-Gg: AYBFou0zYthgcmD73TfhmQssawDbp43leL0VymFGZWMdz0/UhOueVUKdlNZtWyjCPpc
+	vGsUpzzWYJVCpsqlBxeVZBwivMzG1ioVJDeF1ykVM8r8aPP9uJXJR50u5ZVFvW5W9NVAbsEAhos
+	qoxNTwh5pPQVaK3cFzJOO7pDuVP8ChzUKDaHRhwvN19dWa53/1/tGo6wFsrw/Im+j88zR8bjTGM
+	PWQ09Q3B2d80LrXw4C1AsbiuR4dwW/EgSPJyDXF/z2Meuizscednshpubx0Q6HAUIOqtRBVYrEM
+	rL1x/NJFys7qUwnS1JezTBTzSIOsiGwEWqe4l6BjlyEsu/psmuHAd+uKMMRTiRAQlmKZs+dFcAt
+	SyhhaXdTfwb6p43COS+WyVjyCURBeoc2wxCqTA5jYzClqWPJRbyPE9bpuwDryWVAz8vfH0BUXF1
+	lX/yv5GLvw85TdN0GD4oknWDbQWSqWBnfUQvce43z0lGLeyOjqMvu04/guaowpn2Ceyp/ml5VeK
+	agjkDIY3E+lT9hHiuo4EX3uPhFHNJ9tkqyDjL9btzVzJI8x+RkuoA7jWxqoAZw020ozBa6O8Z+1
+	IRLaZrYtCUZPrbf3Yd4y4iB0gqoIhEXf0qPcQ6YykUe9bOyAaltgmXPKPBY54fTQWJi3WmRsow+
+	VDzXzyXoS+lZ3tJWa8sk=
+X-Received: by 2002:adf:e307:0:b0:48d:bafc:a409 with SMTP id ffacd0b85a97d-48e6e4fde69mr4213621f8f.26.1793363996784;
+        Fri, 30 Oct 2026 05:39:56 -0700 (PDT)
+Received: from meven-thinkpad.home (2a01cb088745e00090de407b41070a01.ipv6.abo.wanadoo.fr. [2a01:cb08:8745:e000:90de:407b:4107:a01])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78a4csm3088971f8f.23.2026.10.30.05.39.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 05:39:56 -0700 (PDT)
+From: "=?UTF-8?q?M=C3=A9ven=20Car?=" <meven29@gmail.com>
+X-Google-Original-From: =?UTF-8?q?M=C3=A9ven=20Car?= <meven@kde.org>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	io-uring@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 3/3] io_uring: set times inline when the filesystem cannot sleep
+Date: Fri, 30 Oct 2026 13:39:45 +0100
+Message-ID: <20261030123945.1704118-4-meven@kde.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261030123945.1704118-1-meven@kde.org>
+References: <20261030123945.1704118-1-meven@kde.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,57 +109,277 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] soc: qcom: pd-mapper: Add support for the Qualcomm
- Shikra SoC
-To: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261030-shikra_pd-v2-1-09bd0394629b@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261030-shikra_pd-v2-1-09bd0394629b@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1MCBTYWx0ZWRfX4YiXFd/ts3CA
- ywov2M5dPr4NUFJ5I+OeXM7esx5FA9pitY0d/zY5kHqRLjzXghZZwo7+0r2zSNmdukXAWh+G/oe
- u/ote9suCNE/clWXtfr6EbqFbjtw3RiE6kmhMu/Q+4tQYk+QGeYYHPuQPcJuKCZ1V8VPfoNLAzS
- fb+nmIidJPwV6vbuPZpxR/Z3DwU4xWSyBWV+y/wvjCCkJy2Nll8qXzyqwp1V2F3pRUdF8TGMQ9g
- DKNmymUk5IAonMxtSVkCQY8zGgg/cwfSNrylEF4LljxSTpZ3V15h3Ii70igNIGSxYcknVw71LAi
- sKiZsbdb7fUZzfcEBSjCgSNEIgqpneLBcL4APBNQrmxZPdYmYvVt9dCA73ZEynet63teH3gPzuC
- Nrl9hx+6vfEZsPS1zGRSZR4XrQGY8UDkK0pXhu2EqDYiyaKL1tZdTEUY+mMmchUbue9mvvEXnuZ
- Erb6j6HW/re5V9kV6gw==
-X-Proofpoint-ORIG-GUID: dlkIeqU3dYsoK-LbF2Tl4X9IBp7S7msG
-X-Authority-Analysis: v=2.4 cv=IeoSymqa c=1 sm=1 tr=0 ts=6ae48fea cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=7yfVbiq-ooDmJZbsBGkA:9 a=QEXdDO2ut3YA:10
- a=tNoRWFLymzeba-QzToBc:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1MCBTYWx0ZWRfX5GT8IxBXq3pN
- S9LXU10ZZPLCt93uFbSQ5Aexwmle9GTxrwKf1mV2lzcJk1t+sdmR+jxKDMlZdzydIUciHsXsx9T
- u8W8mpUL7zdwso3/MIsplcr/6aNcK8Y=
-X-Proofpoint-GUID: dlkIeqU3dYsoK-LbF2Tl4X9IBp7S7msG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
- bulkscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300050
+Content-Transfer-Encoding: 8bit
 
-On 10/30/26 1:33 PM, Anurag Pateriya wrote:
-> Add support for the Qualcomm Shikra SoC to the protection domain mapper.
-> 
-> All Shikra SoC variants (CQM, CQS, IQS) share the same protection
-> domain requirements: cdsp_root_pd, mpss_root_pd, mpss_wlan_pd.
-> 
-> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-> ---
+IORING_OP_UTIMENSAT always went to io-wq. On tmpfs the setattr only
+changes the inode in memory, so the handoff to a worker cost more than
+the work: 2000 files took 7 ms with utimensat(2) and 20 ms through the
+ring.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Try the request inline first. The lookup uses LOOKUP_CACHED, and the
+freeze protection and the inode lock are only tried, the former with
+the new mnt_want_write_trylock(). A filesystem whose ->setattr() never
+sleeps for a change of times alone says so with
+FS_SETATTR_TIMES_NOWAIT, which tmpfs sets. Any other filesystem, an
+uncached path, a contended lock or a delegation returns -EAGAIN, and
+io_uring sends the request to io-wq as before.
 
-Konrad
+Signed-off-by: Méven Car <meven@kde.org>
+---
+ fs/internal.h      |  3 ++-
+ fs/namespace.c     | 20 +++++++++++++++++++
+ fs/utimes.c        | 48 +++++++++++++++++++++++++++++++++++++---------
+ include/linux/fs.h |  1 +
+ io_uring/fs.c      | 26 +++++++++++++++----------
+ mm/shmem.c         |  3 ++-
+ 6 files changed, 80 insertions(+), 21 deletions(-)
+
+diff --git a/fs/internal.h b/fs/internal.h
+index 985b2bc5895e..e991b63bb714 100644
+--- a/fs/internal.h
++++ b/fs/internal.h
+@@ -64,7 +64,7 @@ int filename_symlinkat(struct filename *from, int newdfd, struct filename *to);
+ int filename_linkat(int olddfd, struct filename *old, int newdfd,
+ 			struct filename *new, int flags);
+ int filename_utimensat(int dfd, struct filename *name,
+-		       struct timespec64 *times, int flags);
++		       struct timespec64 *times, int flags, bool nowait);
+ int vfs_tmpfile(struct mnt_idmap *idmap,
+ 		const struct path *parentpath,
+ 		struct file *file, umode_t mode);
+@@ -86,6 +86,7 @@ extern int sb_prepare_remount_readonly(struct super_block *);
+ extern void __init mnt_init(void);
+ 
+ int mnt_get_write_access_file(struct file *file);
++int mnt_want_write_trylock(struct vfsmount *m);
+ void mnt_put_write_access_file(struct file *file);
+ 
+ extern void dissolve_on_fput(struct vfsmount *);
+diff --git a/fs/namespace.c b/fs/namespace.c
+index ae5dc64f8b45..f4aadd4e1958 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -499,6 +499,26 @@ int mnt_want_write(struct vfsmount *m)
+ }
+ EXPORT_SYMBOL_GPL(mnt_want_write);
+ 
++/**
++ * mnt_want_write_trylock - get write access to a mount without waiting
++ * @m: the mount on which to take a write
++ *
++ * Like mnt_want_write(), but returns -EAGAIN instead of waiting when the
++ * filesystem is frozen.  When the write operation is finished,
++ * mnt_drop_write() must be called.
++ */
++int mnt_want_write_trylock(struct vfsmount *m)
++{
++	int ret;
++
++	if (!sb_start_write_trylock(m->mnt_sb))
++		return -EAGAIN;
++	ret = mnt_get_write_access(m);
++	if (ret)
++		sb_end_write(m->mnt_sb);
++	return ret;
++}
++
+ /**
+  * mnt_get_write_access_file - get write access to a file's mount
+  * @file: the file who's mount on which to take a write
+diff --git a/fs/utimes.c b/fs/utimes.c
+index 8072f05ac8dc..f70ad9003fa9 100644
+--- a/fs/utimes.c
++++ b/fs/utimes.c
+@@ -18,7 +18,9 @@ static bool nsec_valid(long nsec)
+ 	return nsec >= 0 && nsec <= 999999999;
+ }
+ 
+-int vfs_utimes(const struct path *path, struct timespec64 *times)
++/* With @nowait, returns -EAGAIN instead of sleeping */
++static int __vfs_utimes(const struct path *path, struct timespec64 *times,
++			bool nowait)
+ {
+ 	int error;
+ 	struct iattr newattrs;
+@@ -34,9 +36,17 @@ int vfs_utimes(const struct path *path, struct timespec64 *times)
+ 			times = NULL;
+ 	}
+ 
+-	error = mnt_want_write(path->mnt);
+-	if (error)
+-		goto out;
++	if (nowait) {
++		if (!(inode->i_sb->s_type->fs_flags & FS_SETATTR_TIMES_NOWAIT))
++			return -EAGAIN;
++		error = mnt_want_write_trylock(path->mnt);
++		if (error)
++			goto out;
++	} else {
++		error = mnt_want_write(path->mnt);
++		if (error)
++			goto out;
++	}
+ 
+ 	newattrs.ia_valid = ATTR_CTIME | ATTR_MTIME | ATTR_ATIME;
+ 	if (times) {
+@@ -63,24 +73,40 @@ int vfs_utimes(const struct path *path, struct timespec64 *times)
+ 		newattrs.ia_valid |= ATTR_TOUCH;
+ 	}
+ retry_deleg:
+-	inode_lock(inode);
++	if (!nowait) {
++		inode_lock(inode);
++	} else if (!inode_trylock(inode)) {
++		error = -EAGAIN;
++		goto drop;
++	}
+ 	error = notify_change(mnt_idmap(path->mnt), path->dentry, &newattrs,
+ 			      &delegated_inode);
+ 	inode_unlock(inode);
+ 	if (is_delegated(&delegated_inode)) {
++		if (nowait) {
++			iput(delegated_inode.di_inode);
++			delegated_inode.di_inode = NULL;
++			error = -EAGAIN;
++			goto drop;
++		}
+ 		error = break_deleg_wait(&delegated_inode);
+ 		if (!error)
+ 			goto retry_deleg;
+ 	}
+-
++drop:
+ 	mnt_drop_write(path->mnt);
+ out:
+ 	return error;
+ }
++
++int vfs_utimes(const struct path *path, struct timespec64 *times)
++{
++	return __vfs_utimes(path, times, false);
++}
+ EXPORT_SYMBOL_GPL(vfs_utimes);
+ 
+ int filename_utimensat(int dfd, struct filename *name,
+-		       struct timespec64 *times, int flags)
++		       struct timespec64 *times, int flags, bool nowait)
+ {
+ 	struct path path;
+ 	int lookup_flags = 0, error;
+@@ -90,13 +116,17 @@ int filename_utimensat(int dfd, struct filename *name,
+ 
+ 	if (!(flags & AT_SYMLINK_NOFOLLOW))
+ 		lookup_flags |= LOOKUP_FOLLOW;
++	if (nowait)
++		lookup_flags |= LOOKUP_CACHED;
+ 
+ retry:
+ 	error = filename_lookup(dfd, name, lookup_flags, &path, NULL);
+ 	if (error)
+ 		return error;
+-	error = vfs_utimes(&path, times);
++	error = __vfs_utimes(&path, times, nowait);
+ 	path_put(&path);
++	if (nowait && error == -ESTALE)
++		return -EAGAIN;
+ 	if (retry_estale(error, lookup_flags)) {
+ 		lookup_flags |= LOOKUP_REVAL;
+ 		goto retry;
+@@ -108,7 +138,7 @@ static int do_utimes_path(int dfd, const char __user *filename,
+ 		struct timespec64 *times, int flags)
+ {
+ 	CLASS(filename_uflags, name)(filename, flags);
+-	return filename_utimensat(dfd, name, times, flags);
++	return filename_utimensat(dfd, name, times, flags, false);
+ }
+ 
+ static int do_utimes_fd(int fd, struct timespec64 *times, int flags)
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index f9d1e05e8ae6..d1800fba15d8 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -2296,6 +2296,7 @@ struct file_system_type {
+ #define FS_POWER_FREEZE		256	/* Always freeze on suspend/hibernate */
+ #define FS_USERNS_MOUNT_RESTRICTED 512	/* Restrict mount in userns if not already visible */
+ #define FS_USERNS_DELEGATABLE	1024	/* Can be mounted inside userns from outside */
++#define FS_SETATTR_TIMES_NOWAIT	2048	/* ->setattr() of times alone never sleeps */
+ #define FS_RENAME_DOES_D_MOVE	32768	/* FS will handle d_move() during rename() internally. */
+ 	int (*init_fs_context)(struct fs_context *);
+ 	const struct fs_parameter_spec *parameters;
+diff --git a/io_uring/fs.c b/io_uring/fs.c
+index 85e0a1cb6b47..79f6f39ce267 100644
+--- a/io_uring/fs.c
++++ b/io_uring/fs.c
+@@ -356,38 +356,44 @@ int io_utimensat_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+ 		if (ut->dfd == AT_FDCWD)
+ 			return -EFAULT;
+ 		ut->flags |= IO_UTIMENSAT_NO_PATH;
+-		goto out;
++		return 0;
+ 	}
+ 	err = delayed_getname_uflags(&ut->filename, fname, ut->flags);
+ 	if (unlikely(err))
+ 		return err;
+ 	req->flags |= REQ_F_NEED_CLEANUP;
+-out:
+-	req->flags |= REQ_F_FORCE_ASYNC;
+ 	return 0;
+ }
+ 
+-static int __io_utimensat(struct io_utimensat *ut, struct filename *name)
++static int __io_utimensat(struct io_utimensat *ut, struct filename *name,
++			  bool force_nonblock)
+ {
+ 	int flags = ut->flags & (AT_SYMLINK_NOFOLLOW | AT_EMPTY_PATH);
+ 
+-	return filename_utimensat(ut->dfd, name, ut->times, flags);
++	return filename_utimensat(ut->dfd, name, ut->times, flags,
++				  force_nonblock);
+ }
+ 
+ int io_utimensat(struct io_kiocb *req, unsigned int issue_flags)
+ {
+ 	struct io_utimensat *ut = io_kiocb_to_cmd(req, struct io_utimensat);
++	bool force_nonblock = issue_flags & IO_URING_F_NONBLOCK;
+ 	int ret = 0;
+ 
+-	WARN_ON_ONCE((issue_flags & IO_URING_F_NONBLOCK) &&
+-		     !(ut->flags & IO_UTIMENSAT_NOOP));
+-
+ 	if (ut->flags & IO_UTIMENSAT_NO_PATH) {
+ 		CLASS(filename_kernel, name)("");
+-		ret = __io_utimensat(ut, name);
++		ret = __io_utimensat(ut, name, force_nonblock);
++		if (ret == -EAGAIN && force_nonblock)
++			return -EAGAIN;
+ 	} else if (!(ut->flags & IO_UTIMENSAT_NOOP)) {
+ 		CLASS(filename_complete_delayed, name)(&ut->filename);
+-		ret = __io_utimensat(ut, name);
++		ret = __io_utimensat(ut, name, force_nonblock);
++		if (ret == -EAGAIN && force_nonblock) {
++			ret = putname_to_delayed(&ut->filename,
++						 no_free_ptr(name));
++			if (likely(!ret))
++				return -EAGAIN;
++		}
+ 	}
+ 
+ 	req->flags &= ~REQ_F_NEED_CLEANUP;
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 897fa2b61346..405b39fc5d0e 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -5310,7 +5310,8 @@ static struct file_system_type shmem_fs_type = {
+ 	.parameters	= shmem_fs_parameters,
+ #endif
+ 	.kill_sb	= kill_anon_super,
+-	.fs_flags	= FS_USERNS_MOUNT | FS_ALLOW_IDMAP | FS_MGTIME,
++	.fs_flags	= FS_USERNS_MOUNT | FS_ALLOW_IDMAP | FS_MGTIME |
++			  FS_SETATTR_TIMES_NOWAIT,
+ };
+ 
+ #if defined(CONFIG_SYSFS) && defined(CONFIG_TMPFS)
+-- 
+2.56.0
+
