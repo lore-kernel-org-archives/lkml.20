@@ -1,63 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.77.101.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793351881;
-	b=SROL41Np74gKQLNLvfp5/YOCpWIDrjs8V7iGZ75osCO9y6yHjMy4xfBRTqabpP5bA2Ew
-	 xfeOa617GhMevBolJqzkBiqfAfeIq09ES7aRsUtW16l/mPVlh/ts1chgP4PpDR3pN4u5M
-	 J9cOZFQ9Lb1cwPga1Ozja2THjlpaHcBXxTQg0P7967Ika/IprjO8i+VvkyPr9FEh79uPI
-	 EQvy1IiqYhhyYn7wfDjBbQQfx5+yMhzJw67BI8nlWZXtWUQSvHJc4+GxJzVvBqYaHtjTb
-	 U4fTOD5c5JLwQ2FoP5pmrdaXCy8CUH5mqaDHJ4l6T09NzM2337tklkcvgOgjSMos8oQ==
+	t=1793351876;
+	b=HH0qz74Qtzstm4dfFcu7hXn2x0inamza5NQekrV2iDAcEgguSr4Ck28FWhbPCuhEMfPd
+	 OAjMUOqJPi5EjGSF/xx5Ry39pUZLz1mq+OhQeFzSq4FHkCcd2/PrJYUgfO0XhEeidhr47
+	 By6+PDbmtyvQPnnxxaEqMBqto1qCQ68TafTqtWWfHufptHJf30GOBKzdJKE15xGWEeO+L
+	 sbWxO/wBZGXPg8GzowyGTbJUfVygmNDdSvCEYLwzgEUz40oqnPjcjvOmUTI1wcgtELATz
+	 F1BvF8lTvIKJ8P8ql9w66ry4v6lb+JGt2nOJlTZiNLtvYAY8x30gaN+MvRXkmRCtgPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793351881;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:In-Reply-To:
-	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=HmQXP6gzBGluuaBJcSrqbODuk2l6xoC3Nu7Ij2eiUxc=;
-	b=IDK3ww8nFYR3ilH0KWdWgoyrGSK44S/k3xTww9BfKQGFPdKpiG87kfAS8B2s4M/MZ0XF
-	 n0ihdN2qk5Co2Wzannnkh0KPlbkFdECAZe32Txw87GcdM3gnUAlKNmSu/etyJFaBJzaaI
-	 wsGfsez82ugJwUO47HlHvaXgNaZiaFG5PMjL/mJ9t5ewTagBRdrlsuCkiieH5FyOl6P4S
-	 GE2yYFmQaM1EuaKZzneydvfiOzhpAPdOR2j3RJkpisDntXMVb5VmpUZv7vDRwGHJcDHFA
-	 0wNXmv6YvpR5Wo/QWklbafvWDDxJGOSHcpus7jbmD2KOzaJh7h9fph0KYtYRLM164Iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793351876;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-WP-MailID:X-WP-AV:X-WP-SPAM;
+	bh=3S2IdpDO85JMPoOoqxv8aNu5TabINF8tpl22mIJyXDQ=;
+	b=Mz0J8V0hg6m77hJ7Gxgqfdki2qgjTXchjB5psWTjeWDnnppzY2PQhX+eEf8B9plcrp7d
+	 aeGp/jwYdwYYMFKsNDmCtfBwYolUSCs+Jxd5Skts53Js6viApTidERc3+Fr/s16OyMXw0
+	 j6yQVZAlWIeJQgFr0E765ZlPZx7HQPfjxMH1IgzuDT9hgfwcj75HEIUrNGDNDI+uws8GU
+	 CNak8ubz8xdAJ/gU4MyuZV2P23xPYs9A1K/VHDXVRBviyF+mEWHLorlO5OFhyOTT+pFf9
+	 snS9KPz1O5Ha+ZM8NI/osFgx0jaPAJjD8PX47BJMHeMh/RInOZtuDvqkLTpZrCU5ccA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=iQV88Kd5;
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dmarc=pass header.from=wp.pl;
+	spf=pass smtp.mailfrom=wp.pl;
+	dkim=pass header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=lflLrKli;
+	arc=none smtp.remote-ip=212.77.101.10
+Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3E3B2606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:18:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E3B2606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15B0606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:17:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D15B0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=iQV88Kd5
-Received: by dvalin.narfation.org (Postfix) id 2E2BC1FF7B;
-	Fri, 30 Oct 2026 09:17:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1793351879;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HmQXP6gzBGluuaBJcSrqbODuk2l6xoC3Nu7Ij2eiUxc=;
-	b=iQV88Kd5x3Gh8mrDdTDvRVUuGFJ9F9Fs+InmShzfW4YwDZXvL0dMII87kkv43vDBSEVvtr
-	S+uV0iMUO69AOnvS4Bsu5LD9cijeGI2i5r0nvW7XUhdWyzEFY6C7cG2knWdSiWbJeavNmb
-	xIfCzWhZ4jQv9qU1nPR2XJd3GB/pcws=
-From: Sven Eckelmann <sven@narfation.org>
-To: b.a.t.m.a.n@lists.open-mesh.org, Kyle Zeng <kylebot@openai.com>
-Cc: Marek Lindner <marek.lindner@mailbox.org>, 
- Simon Wunderlich <sw@simonwunderlich.de>, 
- Antonio Quartulli <antonio@mandelbit.com>, linux-kernel@vger.kernel.org, 
- outbounddisclosures@openai.com
-In-Reply-To: <20261030042146.73797-1-kylebot@openai.com>
-References: <20261030042146.73797-1-kylebot@openai.com>
-Subject: Re: [PATCH] batman-adv: mcast: validate tracker padding before
- forwarding
-Message-Id: <179335159629.2015734.12351778845482914326.b4-ty@b4>
-Date: Fri, 30 Oct 2026 10:13:16 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=lflLrKli
+Received: (wp-smtpd smtp.wp.pl 42632 invoked from network); 30 Oct 2026 10:17:46 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
+          t=1793351866; bh=3S2IdpDO85JMPoOoqxv8aNu5TabINF8tpl22mIJyXDQ=;
+          h=From:To:Cc:Subject;
+          b=lflLrKliuOP6RnqC/CAFPgGN678YPldzYVIPjK1Ok0X2YQnOzMLYzLmcskTacDLNz
+           J6lo+3DgvPg7zskjE88nuHcL1pjYBLMwBt9jnwxTA2fgT7Cn1lgXM1DjpqlU2KkrRz
+           8LyCbOFM+u/elt9nA7QMrxmOpbl7wkX7jMp8inNhjNdqmP2WGqajfob/UcN/s/c9Z+
+           IK0rD1W6/WApHmMrQnVG3urToC5lbhgnGrVaITMdXcylrzLa9Uq50WIeojjveEtocZ
+           XeFsdBi2ilqESj8UKOL4ehwOhJ+gnYJLwcimXETfCkxwitSwKrjlW36TCDrX3WlDj/
+           9aFRjaskKRedA==
+Received: from localhost (77-236-11-144.static.play.pl [77.236.11.144])
+          (envelope-sender <stf_xl@wp.pl>)
+          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+          for <hjf3108@gmail.com>; 30 Oct 2026 10:17:46 +0100
+Date: Fri, 30 Oct 2026 10:17:43 +0100
+From: Stanislaw Gruszka <stf_xl@wp.pl>
+To: Ho Jie Feng <hjf3108@gmail.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH wireless-next 6/8] wifi: rt2800: set the mac80211
+ fast-xmit and aggregation flags
+Message-ID: <20261030091743.GB27096@wp.pl>
+References: <20261029134752.1299130-1-hjf3108@gmail.com>
+ <20261029134752.1299130-7-hjf3108@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,41 +65,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=992; i=sven@narfation.org;
- h=from:subject:message-id; bh=VCz6BsN4NIu5OO60GpB6VBIoiCYJ/C2oF5GKMYuBNQI=;
- b=owGbwMvMwCXmy1+ufVnk62nG02pJDFlPEo6I1PX9LEisLgnznlssHbojUHVPTAhr/rT+i7JWa
- z/5NP3vKGVhEONikBVTZNlzJf/8Zva38p+nfTwKM4eVCWQIAxenAExk2y+GfwbMxe+3xp7wMLFy
- UX1w5P2idqa+q/1B656G7tCOLvh4/iTDf/fNrG/y7/9Jz0x4ud+hKrTj34S78xueaZ7pdencw9M
- qyQ0A
-X-Developer-Key: i=sven@narfation.org; a=openpgp;
- fpr=522D7163831C73A635D12FE5EC371482956781AF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029134752.1299130-7-hjf3108@gmail.com>
+X-WP-MailID: 20180c3f55c8943a67058771b48cccfa
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 0000001 [0VIx]                               
 
+On Thu, Oct 29, 2026 at 09:47:47PM +0800, Ho Jie Feng wrote:
+> Enable AMSDU TX/RX support for this driver, which can increase
+> throughput.
+> 
+> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+> ---
+>  drivers/net/wireless/ralink/rt2x00/rt2800lib.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
+> index 032cd6ac345f0..8b4458a74d33d 100644
+> --- a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
+> +++ b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
+> @@ -11861,6 +11861,9 @@ static int rt2800_probe_hw_mode(struct rt2x00_dev *rt2x00dev)
+>  	ieee80211_hw_set(rt2x00dev->hw, SIGNAL_DBM);
+>  	ieee80211_hw_set(rt2x00dev->hw, SUPPORTS_PS);
+>  	ieee80211_hw_set(rt2x00dev->hw, TX_STATUS_NO_AMPDU_LEN);
+> +	ieee80211_hw_set(rt2x00dev->hw, SUPPORT_FAST_XMIT);
 
-On Thu, 29 Oct 2026 21:21:46 -0700, Kyle Zeng wrote:
-> batman-adv: mcast: validate tracker padding before forwarding
+IFICT this flag will not take the effect since we have SUPPORTS_PS.
+Also for WAP3 (802.11w) we fallback to software encryption - 
+that will prevent fast xmit as well. To truly enable
+fast xmit, I think we would need add hardware encryption support for 
+WPA3 and also compromise by remove Power Save support (which is disabled by
+default, so that's possibly fine).
 
-Applied, thanks!
+Regards
+Stanislaw
 
-[1/1] batman-adv: mcast: validate tracker padding before forwarding
-      https://git.open-mesh.org/batadv/c/ea01fff30f63
-
-Just two minor nitpicks:
-
-Please add 'batadv' to the subject prefix '[PATCH batadv]' to make it more
-clear what tree is the target. In this case, it was clear because this (single)
-patch series only went to the linux-kernel and the b.a.t.m.a.n mailing list.
-And no one picks patches from the former.
-
-The other one: d89e1d186ec9271bf78e62771779e9fc03bf0fc3 is here the base
-commit. But it is not even in our tree. Please try to use a recent version of
-the target tree to make sure that it applies cleanly and that you are actually
-testing against the correct source code. The other patch which came in today
-had for example conflicts. Yours luckily not.
-
-Best regards,
--- 
-Sven Eckelmann <sven@narfation.org>
-
+> +	ieee80211_hw_set(rt2x00dev->hw, TX_AMSDU);
+> +	ieee80211_hw_set(rt2x00dev->hw, SUPPORTS_AMSDU_IN_AMPDU);
+>  
+>  	/*
+>  	 * Don't set IEEE80211_HW_HOST_BROADCAST_PS_BUFFERING for USB devices
+> -- 
+> 2.53.0
+> 
