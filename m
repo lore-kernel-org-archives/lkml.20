@@ -1,61 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793386478;
-	b=0pPCoPXnJG56FSe3VqMkWmhTJPJs10Y9axiFDLeu19D783fW9TjgQAgwa1Q73uv0Dc1B
-	 TRg8qw9l6v2v2AiRAQcT/qBGoM+mJK4AmxOs4dRb/p5xK3631leRH0WGBwD8jDnK4IrQG
-	 4vMKJuwjQbhkNbjfCdyw1E0hwBQP0cgEVvPWis4k5rm02jRXow0qnhg56+Sx1fjxLIKSS
-	 kVOb6N+L3sgeAhvDT1HFIF8mwCAMXXxrLjGmee+RDQrOnph2M44Q3yxOV6xjkSitVuejW
-	 lNjJ9G1MJ0SIKn4zg8xGOAGiSVGnNEQuADTRdblOZ5nqVkaAABsK5My7Vuj2/X7tmhA==
+	t=1793386595;
+	b=eT+rpaZrhVryyYs0Wl9DHQcRK7lwvYjBRBvIl9yJPZ5O/C8SgY31WdMTsZfrr5kdOXws
+	 GAUjBGAUkCukEsZG42jtbFMJ2C3QhWx7E/d2moFZ7UkxvJVD7Qmb/f2J5mdwyt7Ms3IeI
+	 3kpCsWxnv71Kxl518Tmsk3hTjV4oux7ZLq7NSBXJyb/yyKwdMQsu6d9xwe9FO/oA1gsb7
+	 Z1Dr4uFQxEUf6LNU34oNWkOoa69tbJsVBo3do0YSA6VuAqgDRGHjEUg2txfpPsW6FLS4h
+	 5Me22qqCOhYu6fu6FK8HAu/vBalczdU65dsFZPkibAmgHv9o6XDu8G5qmOUikixviwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793386478;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=Brr2h/G8F5sm++eAkQE0x5CfsLRj1KRFkWsNsX6gqL4=;
-	b=JlSNIG1evO4dqjDMzptwpjrIgBq+TJirc610nF/b0JK4+ohZMsqBU+swBjeu8mTRDfLC
-	 v5PUj8mNfSkiKF0v7kt+hI4vt2ZS/5Wl5Q8ezJoi6vWHkeHWa2J+CKVo1jPQYHjCYNvRT
-	 4D26gqB+0jZIF2yGfsp0joazY5UCI/mzW64yetFCfXaeTR4E4gXfJ5mMVOnnAvX7CicFL
-	 QoQ9Yvx8GK2oRJXNdzl2M5F+vHX78fb/PVdunIgENszm0WkvhGG5B+UaTUtQiGeLQ1ITc
-	 n1JwhMsf2/N3S0NJrzW1A2ldI8hgRCHjpOVEkf/DbQqtbDGg57UGPI4W2LdeAH9nDuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793386595;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=qwJWwP3g6tAfkz/cEaB4qEA59hJRgAI++mvseIiCl4E=;
+	b=El1ucSSm3OTVBpE3cQ8QKxbvCgVbVTxgPAhg3PM4KLi6c0CvT/8a/NOUW/onhu1D1mR6
+	 S+7rdiAt9mOyx88srYFyeIcQSiedu2KWWcvd59/MGL/0czksM6KskSn5a3R3KgnNTZ5LT
+	 isak6tys4IthwUZl0BS214dh4BFkYUDwTYS1TY4b1JWDDduA8VOQZQDwdu1HuFt5q/glJ
+	 glU21kaKafNGvRrAVA9aDQ7uizMC9qoArt+ciucbY8T9Xx+rhBxFUZQdG5znu5szTsuzs
+	 KNrAF1uLrFlK4Ip7iDa6sQaJYCH+KM3ezHheBbLncpJpHeKaFMKFv8ls9hN7sqIPu5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=DbuIQ72q;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=E4LRcNlf;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD95606A31A;
-	Fri, 30 Oct 2026 18:54:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAD95606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD900606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:56:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD900606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=DbuIQ72q
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=Brr2h/G8F5sm++eAkQE0x5CfsLRj1KRFkWsNsX6gqL4=; b=DbuIQ72qIeNFwJ6zGY+YCqzgId
-	pZr+fUdvq2MaFQHXsS6SbE8eaXlbw89CsEJz7eAkGcWLBLmIfNWfuDNLXRGWhTlRL5MVZAKl3qmYn
-	lmwsfKMx5iT0xcc3KpFtWOyUoCQKsgmaSRh/sXRXkTBwrJMUrxAn1oD3aUfGXX4dO0QhyDBNcsFEW
-	ahtxF9PiZxVxEMh9/G/X56ywg1tzpvBekjhYbM2uoF2kk85ZmBvkQGEsjhednGw+j1q9zfb2/4IEE
-	vqVoZvr8/1bElk7XzW1n6pT1mJrArgI3Ss3kQekCxYygL02olfBH5fd6rJCtNeMDROmX2DtYYaZLc
-	h+hqFRyA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
-Cc: linux-amarula@amarulasolutions.com, michael@amarulasolutions.com,
- dario.binacchi@amarulasolutions.com,
- Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
-Subject: Re: [PATCH v2 3/3] arm64: dts: rockchip: Add Axelera Embedded 111c
-Date: Fri, 30 Oct 2026 19:54:32 +0100
-Message-ID: <10806856.0AQdONaE2F@phil>
-In-Reply-To: <20261020113717.189082-4-patrick.barsanti@amarulasolutions.com>
-References:
- <20261020113717.189082-1-patrick.barsanti@amarulasolutions.com>
- <20261020113717.189082-4-patrick.barsanti@amarulasolutions.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=E4LRcNlf
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so168665566b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:56:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1793386592; x=1793991392; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qwJWwP3g6tAfkz/cEaB4qEA59hJRgAI++mvseIiCl4E=;
+        b=E4LRcNlfE2+52z5vPu+T7/wb58o9xN5u1++Y0JDwp6OvubvCx6kkoQJlczlFlzKTc6
+         PD7PWjfd0zRkiI//43+AP4JUbAGNTt7jzs1EeMNhUqJLG6pf4Mb2aXVYf6rjyTSWFBVB
+         q5YcX+fUbUqZ42yC6ius9Mw6FyfYb5N72BPYM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793386592; x=1793991392;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qwJWwP3g6tAfkz/cEaB4qEA59hJRgAI++mvseIiCl4E=;
+        b=XprnaCyPohsgEXR6RI5b/fvAt/1ZbEJk0Zhew3OXSJBad4gGe2OjYCEq2s7p8eKpaG
+         +lzuHBgpj5skBRcVyw/vxzoJg4wwhPrLTzwMvRZF2ZPJllc863wCXq3vzwf7cJZgqY9B
+         KNkHO2xdw+JVgYmmUd3fPq3TeEOi5S5nRRDC+xDpfOBl2xtvL1C2Hcp+wz4rS0Lw6Ugq
+         FxbIgezZCXpw0sitLX3yySQuFmAhQAxpakLsWBPPN/rrmAa1mkWQOJkzXSf3a28pC7ED
+         WX2cUZDuU3Jp/wiXipleFXlLleBA9YxznGH036Q80jFdWc4GwWD3G1YAFBG/gKRl1ywz
+         5/bg==
+X-Forwarded-Encrypted: i=1; AKwUvByHmL5ijxVcapI++vcODBks08SrFDAajL913Ia8ukU7e+nzr94Mg1Ss4Tk66oR1ynfwX41dbT0NrtzmoVM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLI4ZKk1An1WamIbaI5IZqjQMj09PF4SHp44PYlFP9F901Jggbz
+	UXgXOsnFcsz3M0Sqe8klShD02DVrp3/N05dYokfJb/ntSLpFH41/C2/EaShcAE9BE2LXwihCfBp
+	MNty8Rk5+fQ==
+X-Gm-Gg: AYBFou0le5KSlTqAZ6khj2JWW0+N6VhBQEFUWHomEUfEuV39OPCItfeaGOdFp8alrzF
+	j9ONqBsfGoU0Wvh1DZE9HWGxWsvoTP0fhnBtvaVV0uhXOJli6/IH2sjwtS60N4FmI+uhAseXvY2
+	qYlSiJG3L7TmqFPLXmIxF5wZX4pf9RGWlezgNBUrWPNIJ5A2IR8j9XEvKKzLHRzws5lljP3NjDD
+	1tM+9cZeR5DheLm+ay6Hqx1rJGwtUx0sDcxuLMnH3Ri7YnX8OIZp+BloiYcTyh/hrRbFo8EwsQr
+	qj6bODEBuCYAS2R9q54TJXc8kt91hN1QfnxJiimRV4g/cECGbcs7vdWXvxZFmfAokCUZHJ8O89I
+	Veyi08RfuzZ/2jwFhD4bnk86ot4Z8XIwPuZG7boYm3IWRg6N9b8Yv3CbjZb3S00loWaRG6ZjCtg
+	x3QDjGGacpA4+vuVvvuaBsIGMFFEQ+r7OK6NnxvL5i+F48K1LU9t63QFCa2osqH/Y3PADproWqK
+	kza2eA9HefpAJ5yt8NhiT4YOfCPdMks0Ub+i39UwRNWLgjm5bDqFQ8ut633D//92L54GLlaXh3U
+	oN2pd0fTzOq/pyidcxpFPlSmxkglOM+DRLvY7V39KOVOfU5+TEj9G98S3vxcdeNWdNekET9jjQs
+	0gfM=
+X-Received: by 2002:a17:906:99cd:b0:c46:50c6:f737 with SMTP id a640c23a62f3a-c4ca7a8459cmr296339166b.31.1793386591967;
+        Fri, 30 Oct 2026 11:56:31 -0700 (PDT)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com. [209.85.218.42])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabc174d0sm102435366b.4.2026.10.30.11.56.31
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 11:56:31 -0700 (PDT)
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so168663766b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:56:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBybn8gMOHYVrNQqthjbLVbgFaW1QSMYdLe+lNukD+E48WwKwHsq6noSr/ULgm8oS4X8SMxUdkzizLAnjEk=@vger.kernel.org
+X-Received: by 2002:a17:907:868a:b0:c2e:2baa:a642 with SMTP id
+ a640c23a62f3a-c4ca7a820acmr296788566b.30.1793386591702; Fri, 30 Oct 2026
+ 11:56:31 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,73 +94,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+References: <20261029-syscall-table-dispatch-v1-1-bca9dbb886de@debian.org>
+ <20261029104938.GC1813469@noisy.programming.kicks-ass.net> <auM6mSXz-BVIjYBc@gmail.com>
+In-Reply-To: <auM6mSXz-BVIjYBc@gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 30 Oct 2026 08:56:12 -1000
+X-Gmail-Original-Message-ID: <CAHk-=wjg-mre6diNHCTYUtc=X26462GGxgJMw8cE20Wh1-5qBQ@mail.gmail.com>
+X-Gm-Features: AclHuK_EBJ3wPAnKsa-UdINhCLjKmdtp9kbTuYP5pivJG48qq7NWVv3lpi6gafk
+Message-ID: <CAHk-=wjg-mre6diNHCTYUtc=X26462GGxgJMw8cE20Wh1-5qBQ@mail.gmail.com>
+Subject: Re: [PATCH RFC] x86/syscall: Dispatch via sys_call_table when Spectre
+ v2 and BHI are off
+To: Breno Leitao <leitao@debian.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
 
-Am Dienstag, 20. Oktober 2026, 13:37:17 Mitteleurop=C3=A4ische Normalzeit s=
-chrieb Patrick Barsanti:
-> Add minimal device tree for the Axelera Embedded 111c
-> (rk3588-embedded-111c).
->=20
-> It offers efficient AI compute for multi-stream computer vision and
-> GenAI applications in a compact design. It features a quad-core
-> Axelera AI Metis AIPU and an RK3588 SoC processor.
->=20
-> This basic version of the dts supports:
-> - Console
-> - eMMC
-> - HDMI
-> - 4x USB-A
-> - 2x Gigabit Ethernet
-> - RTC
-> - Enumeration of on-board Axelera Metis AIPU
->=20
-> Link: https://axelera.ai/axelera-products/embedded/111c
-> Signed-off-by: Michael Trimarchi <michael@amarulasolutions.com>
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> Signed-off-by: Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+On Thu, 29 Oct 2026 at 02:30, Breno Leitao <leitao@debian.org> wrote:
+>
+> With "x86_64/entry: Unconditionally use -fno-jump-table", x64_sys_call()
+> becomes a compare tree on every x86_64 build, so system call dispatch is
+> the same whether the mitigations are disabled at boot or at build time,
+> which is basically my end goal.
 
-that Signed-off chain is not correct.
+You're basically saying "with that patch, both cases do equally badly
+whether disabled at boot or build time".
 
-As it stands, the first signed-off would indicate Michael as the author.
+That's not a good end goal. You want both cases to do equally *well*.
 
-If all 3 of you worked on this, this needs Co-developed-by tags, though
-3 people for one devicetree?
+I do wonder if we could do computed jumps. It would be lovely if we
+could basically do something like
 
+      # syscall number in %rax
+      leaq table(%rax,%rax,4),%rax
+      jmp *%rax
+table:
+     jmp syscall0
+     jmp syscall1
+     jmp syscall2
+    ....
 
+and avoid any indirect memory lookup or indirect branches (outside of
+the one computed one). And no extra call/ret frame.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-embedded-111c.dts b/arch=
-/arm64/boot/dts/rockchip/rk3588-embedded-111c.dts
-> new file mode 100644
-> index 000000000000..a964b46e5c12
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-embedded-111c.dts
+It's possible that the branch prediction hardware hates those kinds of
+very dense jmp patterns, though. I don't know.
 
-please name this rk3588-axelera-embedded-111c.dts
+We could have a single static jump that picks between this one and the
+"conditional branch tree" version, as in your patch at the beginning
+of the thread.
 
-The name is otherwise way too generic.
-
-
-> +			vdd_log_s0: dcdc-reg3 {
-> +				regulator-always-on;
-> +				regulator-boot-on;
-> +				regulator-min-microvolt =3D <675000>;
-> +				regulator-max-microvolt =3D <800000>;
-> +				regulator-name =3D "vdd_log_s0";
-> +				regulator-ramp-delay =3D <12500>;
-> +
-> +				regulator-state-mem {
-> +					regulator-off-in-suspend;
-> +					regulator-suspend-microvolt =3D <750000>;
-
-regulator-suspend-microvolt is deprecated, so should not be used in
-new devicetrees. Same for all other occurences.
-
-
-rest looks ok :-)
-
-
-Thanks
-Heiko
-
-
+             Linus
