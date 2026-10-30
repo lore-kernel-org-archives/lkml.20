@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793395294;
-	b=HOLc3aRy97NlXM1jme6as2q7ksHHE15CWSwEJlFM6YwCJi6E+c9xzhVf8pvZpmsqx1nT
-	 X61qstVUaj0ZJ5Z82lMhQOSLXShVkvLik+vUwrOjH033/ISooL2LqUpP7D3afZCf3W9eh
-	 kpPXW8joXLF8TKIXLCzybvZxatA9Dr0xLeIgPHfhQTf8dO8Lsb32gJax887lPq/XNFBHd
-	 gfCLJccsy5e90C2WezkOVECkc5LKQceTypVkLPlgp5eogmjZr7LOp+4uRkiMVTGuhjbzt
-	 8pBsnmcPCXF6bHrUrWfMkwZe/C5kjg2R5OVePC8unV+sDktZlHsp8vbKILkTsejRGZg==
+	t=1793395295;
+	b=DKDXMNYFvkwR5HmrI8odhWWIZLPhkkxqE1p23Miso6p4gIAef+g2DGXEOzJtD98QCbQn
+	 tQGc6zY1XO5MKK/6BGL4CEEzhQdSvnVstqv58/JukhInPVoa0WtDU1LO1hbAKF7qlOrEp
+	 hs3u4iMuGBPp9GWDbDqwjRX8OERXKHhQhyAI0DDNBxaWSRBk26JjHFK8oFbT98+sFtEl2
+	 x1Tc26HcsB/C7mSL/PjKz+Nu/EwseW2dcz7gTFbtad0SjOQEpmQUu+omVP8FilJYCt/0Y
+	 I+yfFirKWotkMi0O9c+EG8iXZcz4lJ0dmhveiE4eIvRZVRjocKU3K9fI0Al4SLxm0RQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395294;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793395295;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
 	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
 	 To:Cc:Content-Type;
-	bh=ThXh/PpZVawaCwOY2TL0ZJCsO7ZffHOqKGZR+ZoMMAE=;
-	b=qRZgGNtU37dKuJUL10aZQwLCqqOtnIJHOrNjAJSr1CpSg8rtp6VxmDjhFokXyaMsShe6
-	 H52/iCe+vcGrgtFpQ7zW9x4tXHZ1tOKVQuTa+QsHZpGWcAlBJSdRYUWKGxbki85wdh6r/
-	 E1ktilSQ6Z8h7/3g9ypQSRVgaHweUNa0HDWdXvVWj135P6VNrHhV2mzVcUP18ZOZidg3y
-	 rfXrdoApr9jkmSkebwDZHiVHDj6wu5zdeX+EHVXdmbvaYqIkkC5zyDbXCqyaMgWFjV3nc
-	 g/dA0IWeCv3MJjkyF/Us//BLeXz2pF8HwEaWnP0nHmIA0v1JZtf2B0AjjRKqRF+8TWQ==
+	bh=zWm75tGn/A4widimTFSWHM28mEbNlDa0wqwtIGGfQ94=;
+	b=4ItqwhwQFqs2nFMBPoAUqVMYizunwmZh7ElXVjF+Ryk78ovwcOL21jfv5gZ2H5cWv/2Y
+	 C082GHyOFEf5mi3SMcY1NW4vprN27OMapjfSU3uAbLdOsqUozRZUuQLsfJeQBFnvQzVfl
+	 pTUVLZJItagGuZUcnkz3mAcDAxZ0dsxd+oj/kQA2YPhTq8WwEzbAbgxi8BMWQXHwAcK/M
+	 wRizSWFF42xfyAhpkp/hT0vYjhag2D9BJrlT2/4F8tbBvRaEVIv4VO2KE8wimneYTvtpi
+	 ap+3hFPDDLGcfDeOk8dD1Q57hBRzoUQ926lr60CS/zzcPhlbp+8SXPg+GAZ+Mk15c3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RkmU8gSO;
-	arc=none smtp.remote-ip=209.85.214.197
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CMU4HIji;
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C98F606CE71
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:21:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C98F606CE71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3200E606D94D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:21:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3200E606D94D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RkmU8gSO
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2eb362d1f5eso12109005ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:21:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CMU4HIji
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a0522cdaf3so923874b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:21:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793395293; x=1794000093; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793395294; x=1794000094; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=ThXh/PpZVawaCwOY2TL0ZJCsO7ZffHOqKGZR+ZoMMAE=;
-        b=RkmU8gSO0fKC8a0ylR/zmMRN0+f1wOiV0ZSK9VQM48njxcic4M/Me1oWDqfYvvbBHT
-         kuO/BM3dAYhHqXPA5SOULgl7mb1qfhuRSbD9wkzqa918qY/KPFSeb9mA0fLrYQPYP7dl
-         x1Vb0NCuzNtN2PgI02VTN3G6YLlSKbgHpvi5/vdDxLJ5AZKZ9nCuvAsOrvVsdNGAUsst
-         KY7SagjkwMgxtazTZJvFM1kmjZ+WgXzgYaZ1yVN3HQPTfPRuHgriB8GrezRdMx4wmA+y
-         Q9/M09AEIiEktcNS1QfXI3bh9URB4XP1wKWofO2hrK0pu6mgTV/lfR7bUM0cozNtI8iM
-         OmVg==
+        bh=zWm75tGn/A4widimTFSWHM28mEbNlDa0wqwtIGGfQ94=;
+        b=CMU4HIjidKHhY/+Nf7aYpreXxPQm6KvPM8zCMHiSpEc2KL8tgZgFjGh/XXQfrBC6ow
+         QI91Kh+cH4VuRGsEET8CdmRypxbiAbLf3qEyq5aAvuL4X5gDGoo3nD1tgOXyQ3/ZydSO
+         P/o+fWapVWlfSKBORm4WQ0c1xZycQ+RGiLTMLyxhMYFpc8p8Gfs8goqCBEd9TzvnRsMf
+         2F9v2G+xB7N9UqVbY5GtibhhcdSQWaDQYK9vN+k8ZrUEnY1Hpr2f3pAIN82+bJ+F9osJ
+         bxvDXHpMS6mEnxKvgm4qXde8+LLQFVTwptIQqRYsmdnLoQZ8BegaH1hBMUY+Xcnzq0b6
+         X8yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793395293; x=1794000093;
+        d=1e100.net; s=20260707; t=1793395294; x=1794000094;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ThXh/PpZVawaCwOY2TL0ZJCsO7ZffHOqKGZR+ZoMMAE=;
-        b=TGslpxjD3akIr/SXwonBWBDZvFej9i2HzAsgE64hL1BaKRjoKDPrWCSPhqlx04XiGI
-         HH8epeOL8mL0imaCWtnnKd5yUD8XVTgPhjlkz7NkWErDAdu2agwUpp2cjx14ngg85z2s
-         1BFkUztspRijE0Kxe3g5aTWzQcBzB0Iq30anHIifFBdjD+7TeVgM8jdATcunw1NbyAfL
-         FWvCBg7B5UylM6LWMBlsQz8VbnusBaD3QeivwI8FT8V/yCrr72ojU3nw1mDRWXtpE1la
-         Gh6uDxUQrBxJQjwWw2p2u9loy/k2RzEHmB6p+WDse/E7OFYu4h/VXzmkjbmoOgAAr+AD
-         S5ag==
-X-Forwarded-Encrypted: i=1; AKwUvBxk8ZvxGy+TZOArJyKqhG2QXAsaUYLK2sEEZVBVjzh3PzAPaqtPcbOafrmOeR83fxCfFKiMLnCB8qosdgc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJulwJO18bIkI/MX13AfQfYEEcQTs0inrxf1zaUBrZ+mgbeS5pk
-	WBrVud5sAH3GtxQ3TLp3AHhxyKOO0N9tqJOY20JZE8luS2UVXszoBgkhyxdHCUWXbSu/CdQLiHE
-	F3AnoYA==
-X-Received: from pjbir4.prod.google.com ([2002:a17:90b:4684:b0:3a8:74c5:5a5c])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2741:b0:3a0:e4ce:31fd
- with SMTP id 98e67ed59e1d1-3ae896f8304mr3027164a91.10.1793395293218; Fri, 30
- Oct 2026 14:21:33 -0700 (PDT)
+        bh=zWm75tGn/A4widimTFSWHM28mEbNlDa0wqwtIGGfQ94=;
+        b=ckQPnnJmYtMccwyw2NuiVZCA+b5nZaWgFIY7cH/xN5JWWOOajFWWMENUOfK7TvDT5E
+         fyhaOUjDVcxPaeATvR6gBfK3eLv+Kpb1PQu0ZdFmLY7RrRkYXXW+y+moEiDEKHj/Kmau
+         sYuzBpZigElBkY7jZq3pjAIfOPBoEc2b3OMI8AIYMeHlM+Vp5hr/3S02/7if4+vcIdqS
+         hl2S4gObWtQhEwzXbu1GSmziVmTkgZG6xNGtgdx6xGjm4hBnnUaCPUcE86CHtwPqhLol
+         BsOb04pkDn0sRaLew9bPMY7It5Z6VOKKi5Hut7MKM9pbYCrbbCyu29PPOO2TEs332iOL
+         PJhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxDnW07r9cZIAo+n5V6+94XoSZ2UV1egUBJ9ihEEPHRbDIFEv0fQw3XtBdq0jz7YamMx41bKa+7n8ZtY/8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgSDbR4F8gsVhP0ypqRA2PwZbL7P23RzEcbK0lp4/hcHbl7xXD
+	HTl2b19YGvNgT27UzeXCOfW1lgqG7VowsJhF1hQ+3pbQ2nk4m2qL48axAIQH6Yqht8bFIY7FIeV
+	g6ZiYnQ==
+X-Received: from pgkz28.prod.google.com ([2002:a63:a5c:0:b0:cda:c74c:ca8])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3b49:b0:3e1:e757:205e
+ with SMTP id adf61e73a8af0-3e9290077e1mr2778969637.42.1793395294419; Fri, 30
+ Oct 2026 14:21:34 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Fri, 30 Oct 2026 14:21:04 -0700
+Date: Fri, 30 Oct 2026 14:21:05 -0700
 In-Reply-To: <20261030212112.2598640-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,9 +82,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261030212112.2598640-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261030212112.2598640-17-seanjc@google.com>
-Subject: [PATCH v4 16/23] KVM: VMX: Explicility free vmcs01, not the current
- VMCS, in vCPU free paths
+Message-ID: <20261030212112.2598640-18-seanjc@google.com>
+Subject: [PATCH v4 17/23] KVM: nVMX: Don't explicitly VMCLEAR+free() vmcs01's
+ shadow VMCS when freeing vCPU
 From: Sean Christopherson <seanjc@google.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, Sean Christopherson <seanjc@google.com>, 
 	Paolo Bonzini <pbonzini@redhat.com>
@@ -93,43 +93,144 @@ Cc: Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger
 	James Houghton <jthoughton@google.com>, Chris Mason <mason@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Explicitly free vmcs01 instead of the currently loaded VMCS when freeing a
-vCPU, as relying on loaded_vmcs to point at vmcb01 is unnecessarily risky
-and confusing.  E.g. during vCPU creation, the error path relies on setting
-loaded_vmcs and obfuscates that it should be impossible for vmcb02 to be
-allocated, let alone active.  Similarly, if KVM were buggy and left vmcb02
-as the current vCPU when freeing a vCPU, operating on loaded_vmcs would hit
-a use-after-free *and* leak vmcs01.
+Explicitly VMCLEAR and free() vmcs01's shadow VMCS only when doing VMXOFF
+or forcing the vCPU out of L2, not when freeing the vCPU.  Instead, free
+the shadow VMCS as part of free_loaded_vmcs(), i.e. when freeing vmcs01 via
+vmx_vcpu_free().  This will allow leaving vmcs02 as the loaded/current VMCS
+when freeing a vCPU, i.e. will allow dropping the vmx_switch_vmcs() call as
+well as the vcpu_{load,put}() calls, all of which do far too much work when
+freeing a vCPU.  E.g. "just" switching to vmcs01 means potentially doing an
+extra VCLEAR shootdown, potentially multiple VMPTRLDs (to first load vmcs02
+and then vmcs01) and VMWRITEs, and so on and so forth.
 
-Because KVM isn't buggy, no functional change intended.
+Note, shadow VMCSes are rather odd.  They're only ever used when nested
+virtualization is live, but a shadow VMCS is provided to L1, not L2, and
+more importantly is made "active" (in VMX parlance) when vmcs01 is run (the
+shadow VMCS is referenced by a pointer in vmcs01).  Because KVM dynamically
+allocates and frees nested state, shadow VMCSes are loosely coupled to the
+VMXON/VMXOFF lifecycle, but in practice are more concretely tied to vmcs01,
+e.g. a shadow VMCS needs to be VMCLEAR'd if and only if its associated
+vmcs01 was launched.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/vmx/vmx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/x86/kvm/vmx/nested.c | 54 ++++++++++++++++++++++++---------------
+ arch/x86/kvm/vmx/vmx.c    |  5 +++-
+ 2 files changed, 37 insertions(+), 22 deletions(-)
 
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 49c4529901c5..1b30ad7731ee 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -330,17 +330,9 @@ static void nested_put_vmcs12_pages(struct kvm_vcpu *vcpu)
+ 	vmx->nested.pi_desc = NULL;
+ }
+ 
+-/*
+- * Free whatever needs to be freed from vmx->nested when L1 goes down, or
+- * just stops using VMX.
+- */
+ static void free_nested(struct kvm_vcpu *vcpu)
+ {
+ 	struct vcpu_vmx *vmx = to_vmx(vcpu);
+-	struct vmcs *shadow_vmcs;
+-
+-	if (WARN_ON_ONCE(vmx->loaded_vmcs != &vmx->vmcs01))
+-		vmx_switch_vmcs(vcpu, &vmx->vmcs01);
+ 
+ 	if (!vmx->nested.vmxon && !vmx->nested.smm.vmxon)
+ 		return;
+@@ -353,6 +345,36 @@ static void free_nested(struct kvm_vcpu *vcpu)
+ 	free_vpid(vmx->nested.vpid02);
+ 	vmx->nested.posted_intr_nv = -1;
+ 	vmx->nested.current_vmptr = INVALID_GPA;
++
++	kfree(vmx->nested.cached_vmcs12);
++	vmx->nested.cached_vmcs12 = NULL;
++	kfree(vmx->nested.cached_shadow_vmcs12);
++	vmx->nested.cached_shadow_vmcs12 = NULL;
++
++	nested_put_vmcs12_pages(vcpu);
++
++	kvm_mmu_free_roots(vcpu->kvm, &vcpu->arch.guest_mmu, KVM_MMU_ROOTS_ALL);
++
++	nested_release_evmcs(vcpu);
++
++	free_loaded_vmcs(&vmx->nested.vmcs02);
++}
++
++/*
++ * Free whatever needs to be freed from vmx->nested when L1 goes down, or
++ * just stops using VMX.
++ */
++static void nested_vmx_do_vmxoff(struct kvm_vcpu *vcpu)
++{
++	struct vcpu_vmx *vmx = to_vmx(vcpu);
++	struct vmcs *shadow_vmcs;
++
++	if (WARN_ON_ONCE(vmx->loaded_vmcs != &vmx->vmcs01))
++		vmx_switch_vmcs(vcpu, &vmx->vmcs01);
++
++	if (!vmx->nested.vmxon && !vmx->nested.smm.vmxon)
++		return;
++
+ 	if (enable_shadow_vmcs) {
+ 		vmx_disable_shadow_vmcs(vmx);
+ 
+@@ -365,18 +387,8 @@ static void free_nested(struct kvm_vcpu *vcpu)
+ 		vmx->vmcs01.shadow_vmcs = NULL;
+ 		free_vmcs(shadow_vmcs);
+ 	}
+-	kfree(vmx->nested.cached_vmcs12);
+-	vmx->nested.cached_vmcs12 = NULL;
+-	kfree(vmx->nested.cached_shadow_vmcs12);
+-	vmx->nested.cached_shadow_vmcs12 = NULL;
+ 
+-	nested_put_vmcs12_pages(vcpu);
+-
+-	kvm_mmu_free_roots(vcpu->kvm, &vcpu->arch.guest_mmu, KVM_MMU_ROOTS_ALL);
+-
+-	nested_release_evmcs(vcpu);
+-
+-	free_loaded_vmcs(&vmx->nested.vmcs02);
++	free_nested(vcpu);
+ }
+ 
+ /*
+@@ -5606,7 +5618,7 @@ static int handle_vmxoff(struct kvm_vcpu *vcpu)
+ 	if (!nested_vmx_check_permission(vcpu))
+ 		return 1;
+ 
+-	free_nested(vcpu);
++	nested_vmx_do_vmxoff(vcpu);
+ 
+ 	if (kvm_apic_has_pending_init_or_sipi(vcpu))
+ 		kvm_make_request(KVM_REQ_EVENT, vcpu);
+@@ -6898,7 +6910,7 @@ void vmx_leave_nested(struct kvm_vcpu *vcpu)
+ 		vcpu->arch.nested_run_pending = 0;
+ 		nested_vmx_vmexit(vcpu, -1, 0, 0);
+ 	}
+-	free_nested(vcpu);
++	nested_vmx_do_vmxoff(vcpu);
+ }
+ 
+ int nested_vmx_check_restored_vmcs12(struct kvm_vcpu *vcpu)
 diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index d433cd846ac4..2ef1f634e7ec 100644
+index 2ef1f634e7ec..292001bbcbff 100644
 --- a/arch/x86/kvm/vmx/vmx.c
 +++ b/arch/x86/kvm/vmx/vmx.c
-@@ -7515,7 +7515,7 @@ void vmx_vcpu_free(struct kvm_vcpu *vcpu)
- 		vmx_destroy_pml_buffer(vcpu);
- 	free_vpid(vmx->vpid);
- 	nested_vmx_free_vcpu(vcpu);
--	free_loaded_vmcs(vmx->loaded_vmcs);
-+	free_loaded_vmcs(&vmx->vmcs01);
- 	free_page((unsigned long)vmx->ve_info);
+@@ -3089,7 +3089,10 @@ void free_loaded_vmcs(struct loaded_vmcs *loaded_vmcs)
+ 	loaded_vmcs->vmcs = NULL;
+ 	if (loaded_vmcs->msr_bitmap)
+ 		free_page((unsigned long)loaded_vmcs->msr_bitmap);
+-	WARN_ON(loaded_vmcs->shadow_vmcs != NULL);
++	if (loaded_vmcs->shadow_vmcs) {
++		free_vmcs(loaded_vmcs->shadow_vmcs);
++		loaded_vmcs->shadow_vmcs = NULL;
++	}
+ }
  
- 	if (vmx_can_use_ipiv(vcpu))
-@@ -7614,7 +7614,7 @@ int vmx_vcpu_create(struct kvm_vcpu *vcpu)
- 	return 0;
- 
- free_vmcs:
--	free_loaded_vmcs(vmx->loaded_vmcs);
-+	free_loaded_vmcs(&vmx->vmcs01);
- free_pml:
- 	vmx_destroy_pml_buffer(vcpu);
- free_vpid:
+ int alloc_loaded_vmcs(struct loaded_vmcs *loaded_vmcs)
 -- 
 2.56.0.385.gac671c819a-goog
 
