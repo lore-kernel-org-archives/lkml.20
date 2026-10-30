@@ -1,89 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.95.119
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793365650;
-	b=WiJRd2jumA1X2FKjnErK1eXXftKew4JYSULaQWAS2zMirifoXM2AyFFzNmbpj8FRdntP
-	 0y+3GLpeMHc4RsfhuyvSxN0gPQelKhOqgQECHx6tH3/np0+wDcE0yB+/l76lfTXNEeEsK
-	 2O0ON1lKVL2m4bxdhFHSnPZnDlgx/K+KhzJjtnQuQ2aYt5C1xKkE7KmBymr+ZgoyAcj96
-	 1wU+cN7UjrOEERQxNjpYiSjyBLefYXGmnAlUNVZ33UDha+kojDgPT75BTFrEQV+BEx1mw
-	 +MFgwNY1Kh+ZKfgXKalKvBg0NFBvcMU9p38IjQwkc7F3MT64cl4w5IKiu4S0gZJNG5g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=p+nxBf1TTTuizlGskIOcpnB1Br2tRhPpIb01FcBEp2euFMvtVUgehD5bWpwYNks3gnst
+	 VLZwHG4t9ifhVqibWcQR5Q6w0M6GxEsau3t5FN9E+MFHgqNC8XgOkCUVJPfH24tkkXWFj
+	 SPNZA0+t/LPYBEDFHcgqZx7czmsBpIFnCzvayXe9wr3BHtKXyuWyI0WFPRvlzZLsy5ern
+	 /WuHKaaCGRE6P1706R4Q3nIeoko4ycAezXG7xV1ht/HHSKTL7EHP0MNkbrtMvPsxc+UWF
+	 fVToOnJ+Jy+CtjUTFcC5YWrjdS09dUgHDI07CG8d4PZaKXQbct9Fb9dcYNtzGsLKy5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793365650;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=XTQlfaK3oIc6b0XDvgs4waOTEc4H3CLoa8crwq384nc=;
-	b=ajMuJwHCPF4vaQ2vEOvFseJmqUoXX0DupSSuH5tbj/U0gPzSHkudegxkin2bQB61zbQh
-	 asERuoF2uNvDK3FNlWtSoI1GtbVLAzzSl60pTtG/VylaQIc1lY9gTmTNTsTLOQVwyJkBL
-	 v+GWf2Yfm2Apz4N7FiKQZuU3FsVuLrvXWO0VXzUEuDBiL4LTHdH5CQwgqE48hHvP1jACf
-	 AyWN7Al4NNqdNKxRrmXxRxZCI1BuKLwh3cApqJ4htAaA/0e5pS17Ah1/aVXptVuv6eb+K
-	 WXXfTMeJJ093V3FlSdRiTctar86iyXj6sMvQGnACuGEsjvjUGMvD+gDqnfps6Sqh2Dg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=atomlin.com;
-	spf=pass smtp.mailfrom=atomlin.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.95.119
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021119.outbound.protection.outlook.com [52.101.95.119])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=dgy35YKL0QXBV1sZCL+Uc2tsoFMI5Glg4M8+gsdeA5I=;
+	b=4KyEpmno+m5w2ME3SQwVuG02WLPN3Ce5TPTb7kkrLbprED8uzTWuvw7jR6BbUuUfNncS
+	 v/g5/Ca5It7Hnl/SwLatto3RTAC5SgGrgzZaI8TpcZA2+3o2ey/09QHM2h23BIOQyU3XN
+	 vOPyr4Vy0nDS4+ndgA6alQqv8o8OsdGPhotAc4HQI7eync7kc9x4APWWNCE392iJfQfMf
+	 rH0mSgnmspJwdiAxk06EO52JzhKrcnDHPm/qjkus1do/DHD6ICc01wHCuL/EYW1otVm46
+	 MvEoTAoKUdDQPfr57L3HcJc3sbnF4Mvm+sF8B0kvlyhP8gSTVY2Uta7cllgSQR7jFQw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=lcW4F7Iu;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23256606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3AA606A31C
 	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:07:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23256606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eM0JDYpfG5G7rrw/tpzQbQns0tMDpQR0syArjaJIicNBnKNrgm7ae8EE9J9ttLKYWKP1IwuR5hZl990bIihvGuR0xqcMKou1R33U/uhrRfHmfyTVhlwxYaH4bIHRBW1CWFVjsHxCGkri81hpj4OmVgRkX+P0iupT+2qC13EWqA/qMHG4yhIBRiNCSbJsux5YBufCyuXc3g1P8Qpaymq7uI70Qj9k/EY6oMb/B285prAqc5pcN5v0NpWUgQRmPiU4SaM/pyUC+9RrXJvQAc7tyEcHmJkh14Uu/JS0L2N831TA8Sgx9pDFUXvInZI0YGrviRSimxXWhosdd8kJWT7vRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=XTQlfaK3oIc6b0XDvgs4waOTEc4H3CLoa8crwq384nc=;
- b=xLAC/Ul68FdnGnkpPJCklp1ERRsZZCM3JNcL9vD2CSXrY/Jp2TrdkpZkknOlDiX7CuKhMwWowMbIdstKZE2ciA181K75G7Z+SagKHaUeMIC4PHSVegctIX4meNPICP6zCwcCe8FPyoKxe2lBuG4zEBXHHJfmIN1Q6flNHJeZyxHtHiRMoSqK1Fgh8CMsHgeK25f9NvCcITNrxCAvfVO54zEuCr0JjSAm54TkNSo5ZMWasgrVrQsHtlpHp/JSlJCFUZ1DMsaDxmVMcmwyIPAz+SRUCZfAZGbAbxpdUjvL+k5+9buo9trw5MYHZzUtAn9SxzINnWExHOgyJWXdz/cXHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO0P123MB7337.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:365::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 13:07:26 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 13:07:25 +0000
-Date: Fri, 30 Oct 2026 09:07:21 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org, paulmck@kernel.org, dietmar.eggemann@arm.com, 
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	zhanxusheng1024@gmail.com, neelx@suse.com, chjohnst@mail.com, mproche@mail.com, 
-	sean@ashe.io, steve@abita.co, rishil1999@outlook.com, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 tip/sched/core 6/6] sched/debug: Introduce per-CPU
- debugfs files
-Message-ID: <tryed57muxq3zunokd32jvdtf6jp7rq6orsftalrc4ozzdqgzp@wby5u5gcl647>
-References: <20261030013817.753804-1-atomlin@atomlin.com>
- <20261030013817.753804-7-atomlin@atomlin.com>
- <5ba8f652-6f82-4384-9343-1ff093880c39@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <5ba8f652-6f82-4384-9343-1ff093880c39@amd.com>
-X-ClientProxiedBy: MN0PR02CA0017.namprd02.prod.outlook.com
- (2603:10b6:208:530::35) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA3AA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=lcW4F7Iu
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-14fc585291cso573563c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:07:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793365649; x=1793970449; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dgy35YKL0QXBV1sZCL+Uc2tsoFMI5Glg4M8+gsdeA5I=;
+        b=lcW4F7IuLgid/qDqelQO9UUp/XCACLUQcJCGVwPi7t17Byni9TB1h+98XRSOTg9bot
+         Z4eRGYv1qldKgQTYxII/O8S3GD1Conth/N67FP6FxsPa+cmHAQVWbhNmptQKjdOkt3Ys
+         lwoGC0HthhgCDpj9iSpeLnoXsLdf+bYAbQNqEwxM6lRMBe6WarAeaigUUPTNxUhXeZ0+
+         NLRs7P4nxUHYe9m7dXirkMM57gTqfafhUn9g2aVX/lJlMmhVlh83T2n+cceDDEaDvIlG
+         53BRrJZnr7i1BSJ25LG627FKqqWSAY3dGlIVEgFzq/u4wH2VocfE7qGD3YjwFp3omoUD
+         ewbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793365649; x=1793970449;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dgy35YKL0QXBV1sZCL+Uc2tsoFMI5Glg4M8+gsdeA5I=;
+        b=h5FIa6RZflWNMgIwPk+QsEDRF5Jd9DANElNITQCuQlvmrRfZ11oj9OrNabBCu92fts
+         Wckoyygi547W8LfDwq5XJllqEu5xfub5tkN6biTsBnfyVYRdM7ImF8PrUxhEcn7dFzlo
+         qb5O0ogydO2IfmFD+mA9GIYpBpE8cdzYeLX+qQShCL10g1Vsd4uvNlIQANlDnf6eEixF
+         NLlBQbJZ0Azn8cFF0jnb/ojFhC7jDUwPZ4Sgcq17yD/FRdwNOolAN4HXsOeA0xkluEUg
+         XcIbwmQohJJSCg0tYju/eOi+cHA/5r2qVEnP4wCocYJmM2NLuNu11mO2lljTUlcsAjKy
+         rbgQ==
+X-Gm-Message-State: AFq9FYLl4JTD82txzUZ84MN8C3JDF/ForGJryyKU3A+M9kIJWRoB0iez
+	9rECM7855uNI/e14RZ658Hd3nHtHeVgwXVaMxaZtTak8YFLH22/fYAmXrThP7wA1NWY=
+X-Gm-Gg: AYBFou2uPq69zw3Zi53ivKHQtzpg5kn+OrO0sUnTZ/UcswXOqrK60SU9fbBEP3cj5Vv
+	kVuoPI4MlldOaNotWqkptAncbtzWTJRdiZpE+LdJ0V5NodFY7TtjF/6qEPBhEMoV3VfM3aCXG2n
+	AS8/07NRf3dAASV/CMlv9BqCfXAcsHuIZdUU+Xnke9+mvkLehVfFKu5zKC6j7Bo1gVhQwVP/x4W
+	m/odOrdMEdgjhscPGoMItIf7FOjo0m2/qrXtqGnvyD4+wjEdnxzrMVy9nN8rNkr5VbiM/HavaEZ
+	sYxMYQ0NU4avOC0eOSEqnUCYxWAGPM5b92cM9ieB+vanYvUHz3BFoItnuLr7N+68zGZya3njW4Q
+	gWxULuiNUhmsTLjunUlDICthA+//J6XUTMT0Zb8EEcFw0l9fsmwGohJDOAqf6XH5k/Ow3wrOKDc
+	ofzzT9rrMXxR8l1Efac9tk8CitofVRAuz7fV/v0QXdAF0W3xLFWT7sUtZlxLR6V1G3fTcAna4Cg
+	EtgV+ytug0zWdFjC8Nu05PxkxmSw4UCfI6D+Y2NTC/kWWEQM5lHsHxn9UHJQnuIlzhN+PbQHuuW
+	zRY1FXlLEODjQwBZPpX5reWJp4xdcRQ8ejUaFZyAJpST0ZdgwsU/Of+wSSkzDnp4Op+6Rq/hhcg
+	tMOxBr+7ZMTy5
+X-Received: by 2002:a05:7022:1706:b0:1ac:7044:2bad with SMTP id a92af1059eb24-1ac70442d69mr2633208c88.36.1793365648427;
+        Fri, 30 Oct 2026 06:07:28 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a5fb97sm8929732eec.23.2026.10.30.06.07.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 06:07:26 -0700 (PDT)
+Message-ID: <61bb0fc9-d629-4987-ad18-c5eb46074dbf@kernel.dk>
+Date: Fri, 30 Oct 2026 07:07:25 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,94 +91,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO0P123MB7337:EE_
-X-MS-Office365-Filtering-Correlation-Id: 265cba3a-bfe6-457b-a309-08df3686be2f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|18002099003|22082099003|10067099003|4143699003|56012099006|261021121427099003|261021135927099003|261022105027099003|261026140227099003|261028144727099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	PfFbUtpiSXz/mUtT1SCv98bdcOOTj7QtsXzAc/vPNoYFWsfxyUK0z/5dQFbBQTcIPzvaVUi0KFI0HbDyRMXbLk1d1OuLq4Kcjs/AsLOAQOUEHwAdQ6vo1PTu1x+pl5qhjYNt+EJERvaZGB9Nc7WGhv0162UoBndVtGoG7ywgLfGWVD9C3SnesCWXKiK1XOBsfSwWEAZlUq/FpdAxgsSmELwRqlM5jpV7R4sbUNTN7ofehJIGRrxrbljoAr9yZ7X0KUhU7H14MNu2Jy+MewpYJa7E/IQryua3zxA3LxR8BVXVPzFzgOOy2f4R4Rs3xuYlMD4Z9YM/s4G287CotGp7F/YfXp6fS1dOWOr/He/dRDjQug0MMwdwzndsOitGNJYqPuxGVaH7I2qt3Hv4x86jGKOAi2EiRfjHAGChtND1bpPWkWp1g/nFLBjDv6aBShQw01ZK+urNMfTPO1o2JImzHwGJ2O+U6IYmSFSYREjBJ7cydUBa51oRHXG7RRBfaggX9b7q+1A7rycEOxMBXGGUW3ZKwG+McDxhhYhr5ntM/dHQVtFOp3XS3BgqdaON1PlBdXIcRsw8dp2ZucFBZRNNvmFgyh/6fz0R7ty9wE23P9e+kaP/F9434n5/UIlzmvKhamGBEkDcgn/WbZG8jgEw4V69WonbhvrmTUZzI6cdwhw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(18002099003)(22082099003)(10067099003)(4143699003)(56012099006)(261021121427099003)(261021135927099003)(261022105027099003)(261026140227099003)(261028144727099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Rlh5bGhMYUV2d3l0M2pJaytxNVhwYi9zSWhsQ0MzdzdQTlZDbnZ4L1FmcWpq?=
- =?utf-8?B?aXE5a0J5UWxnSkpKZlp6ZWVReEtHcTJEckhEVHdvcTJmRDgrTkh6VmZsa3FG?=
- =?utf-8?B?bWZCSVdKY3RudlVHdDMwQlBySWhiczF5QWJESEQvRjNJZU1oaWMzZkxwUXVV?=
- =?utf-8?B?L3Zia0lHSFdCWHpZdWV0a2RzekVzQ0d5Q2ZjQzh4L2NZaGVFeTZiM1VIZ2JD?=
- =?utf-8?B?MXpVb2JxU2dMQ29qdEdPSVVNMkVBdDBwS2NPc1kxeXp5MW9NdjB6YmpkSys5?=
- =?utf-8?B?Um9lTnl2RDRBRzB6bi9wVmIwS0VPbE1Bckx6YlFrcitxbXhrTS9tNFpabW5D?=
- =?utf-8?B?NDRkd3lBSWw4SjJQMDlydytPUU1vQ0ZXQVZzWk91eExWVzdDb0svNGxmQllK?=
- =?utf-8?B?WjlpSDllTzhWZDlPc2phVUk3SUk2ZWJHbm5raWN1bUErVEVjUGw5RFVpZU8w?=
- =?utf-8?B?RmlGUmh1ZytmKytadWdzVEFBTDdiTVlMb2pLc0U0WWhiNFpxYXgyMjRENENW?=
- =?utf-8?B?M2dZRGdJVlJ0QXo4aXBFL0JnckR4NHFlbSswSnc2MW5WWS8vZzY3WU1xTzcx?=
- =?utf-8?B?emx5T2ErUi9XOE5iSjA2TVd1OHp0MS9BWHhOTzJ0cDNBYklDdnlHRW1NRjU2?=
- =?utf-8?B?MjA0RE9LQVUvU3lnaDVCVHRTMTdpeVJxOVRXYlcweXB3UXdjVmtVU1o5YUFL?=
- =?utf-8?B?K3FzUzByNmNIbVl1ZTFKV0VhSStNK0JHblJOVmQraVlqRDhzWTcrUXMyU2cr?=
- =?utf-8?B?Nmc1ZWxCLzMrc0NrZHNtVkJwaWRwMEovR0hCZlhvNkkreGo2K0txQmRJZzBG?=
- =?utf-8?B?NlZVcmoxTjRMaCtBQ3NZZnpYVHVLbFMrNDRZRXJsVld2M0tNU1pHUjNNYlRz?=
- =?utf-8?B?V2VxckRwNkdPWjNLbkNpbUNURzVhVW9FVlFsVHN4UW9hK2VUaWNDRHJoQmJm?=
- =?utf-8?B?SXFRVi9qOFcxZURXdVpuYzl1Qk1TTUwzc2kvdVFJYVRGb01aYnZXWE1PNWtP?=
- =?utf-8?B?Ui9Ebkp4Ym9tQ3NTL29hWWRtTERTT2lFNkVXYXdyNU1FY0FlbHJUbGF1aFNt?=
- =?utf-8?B?MXFXdmpTdFQrOTFpMHRtZ2YyZTdVcy8vaEJGRTduUExySXpoRm1palp5Zlls?=
- =?utf-8?B?RTRGbngxS25TVnZUQmdhWWpCSGkwVDN3cnJGNDJQVkdnWm92L1BvZlVLaDZh?=
- =?utf-8?B?b2J5SHRReWtvakdQeFNadmhwdkJoSkQ2bGdWd2tVSEJQT1hlMEtDSjNmZXlH?=
- =?utf-8?B?TWFaaTJXWHRWR3V5aHNCQkp2anRVekc3REJFRmxoQXRUWG1oeHh0YWswMDFS?=
- =?utf-8?B?TE55citZTTEvL1l5NFJ5clVKRVZkQW1tL0s4TDVnMnR5R0VtNVpIT1dJdkdp?=
- =?utf-8?B?WXNKMVpKLzNIRzc1WVI4Y1pUVUtGUWxKblVTaU1KbmkveHNOOFBFNEVRcWph?=
- =?utf-8?B?N0lBcU0xMjBXbDdqMmpUTUZSaSt6REZ6d0JBTUVEaEFRdUNoNTlzV08rMGRl?=
- =?utf-8?B?Kyt4VGVhb2s0SWdBakVRN1l6TjdvL3c4dnByeVRvWm1tZkpheWxkejNrM0dL?=
- =?utf-8?B?cmlaR3pPeFc3ak9Md3lNQms4YWpKUXJITnVLL2FCQTExZXozZkwxYm5UZzR4?=
- =?utf-8?B?OFhjbE5xbEs4MGZpemxGUGRxTVorWS9tZVJFL3QyWW82VmZvK3VITy9PRVVq?=
- =?utf-8?B?TEo2aXBFRXdYanphRjhYRjAzbGxkVGE3bFNQcHJvSDJic09sSHJLSHlmNm9M?=
- =?utf-8?B?dWhJMkltVjRaT3Mzc0hvTTVvd0tsVk1odThhK3k1amlOaTFJdDhGT1pjdjdK?=
- =?utf-8?B?YnQ1VnVXTXR1dTU2T0JOZUVBUDhrbVRiMXNlUWlhQWd5TU9teE5CTjY5L0dW?=
- =?utf-8?B?dGQxNjBZRFZzSzZOOEw1ajQ1bjVaUmRTTDRzekJRcUxhMHdubmhmWGpjNXJM?=
- =?utf-8?B?d1d3Rnc0empmZEZnbWsrVE5CNDQ0ZlliOVdiWExIN3Q0dnh2S0k1a0hQOWQr?=
- =?utf-8?B?NDhjQ1c3dUczdER3YTFueHpFY2hHVGRQcHp5dlgzd3RGZGlTanRGODlOcmlF?=
- =?utf-8?B?WDZaSzVCRVlvSzJzWm1HYVdiaWZYcmYxeUxQYmJMbFV1NG9UcENvZ3dQV21C?=
- =?utf-8?B?L1N5NGZwMFhmK2FmcUYrb2ZNdWZJZjAvWkdQQ1R5VmhieXBTVWNUV0liTjVE?=
- =?utf-8?B?Yzk5cVVsSFFLazNiRnF5WmhOeVMvLzI4Tlh5czF4UlZvQk5UeUZMQlkxTHpv?=
- =?utf-8?B?Y1EyOUJZU0d6NlhPSEl4czhORFFoQnZYM3dZbUpVbXdPQm5rV3BDMTNMelI1?=
- =?utf-8?B?ZzFOeHpVTWt6SW5PU0dSWGFUZVpYdGJaWFJ3M0VtVjNhVlhrUC9Ldz09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 265cba3a-bfe6-457b-a309-08df3686be2f
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 13:07:25.7018
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BJ5PXfPH6Ph6tXMZ4gzuxp11FmOxBSbywpvcmJPEktJ3sT/f1ZXfk3bN96HMYvdcR1HkGKJSKoSYcwodpbzb2A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB7337
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] io_uring/io-wq: save worker type before dropping its
+ reference
+To: Kyle Zeng <kylebot@openai.com>, io-uring@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, outbounddisclosures@openai.com
+References: <20261030042101.73491-1-kylebot@openai.com>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20261030042101.73491-1-kylebot@openai.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 30, 2026 at 11:35:03AM +0530, K Prateek Nayak wrote:
-> Hello Aaron,
+On 10/29/26 10:21 PM, Kyle Zeng wrote:
+> io_wq_cancel_tw_create() inspects cb->func after calling
+> io_worker_cancel_cb(). For an existing worker, that call can drop the
+> last worker reference and wake io_worker_exit(). If the canceling task
+> is preempted, the worker can be unlinked and freed by kfree_rcu() before
+> the callback function is inspected. KASAN reports a slab-use-after-free
+> read in this path.
 > 
-> On 10/30/2026 7:08 AM, Aaron Tomlin wrote:
-> > +static __init void debugfs_cpu_init(void)
-> > +{
-> > +	struct dentry *d_cpu_dir;
-> > +	unsigned long cpu;
-> > +	char buf[16];
-> > +
-> > +	d_cpu_dir = debugfs_create_dir("cpu", debugfs_sched);
+> Save whether the callback belongs to an unpublished continuation worker
+> while its reference is still held, then use the saved result for the
+> conditional free. This preserves the existing accounting and frees only
+> the worker allocated for the canceled continuation.
 
-Hi Prateek,
+This is already posted and queued up:
 
-Thank you for your feedback.
+https://lore.kernel.org/io-uring/20261028164732.1264069-10-axboe@kernel.dk/T/#u
 
-> Missing an error handling here in case this fails?
-
-Not checking the return value of debugfs_create_dir() is not only common,
-it is the intentional and canonical design across the Linux kernel.
-
-This matches the existing pattern in sched_init_debug().
-
-
-Kind regards,
 -- 
-Aaron Tomlin
+Jens Axboe
+
