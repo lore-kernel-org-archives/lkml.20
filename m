@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793338000;
-	b=BqThiBodNIvLzTYaDU027XqPpeixNffSwopCBzxDFLVvnFy/wUBpMXudIaIjHPVEL8z3
-	 iK32taK0CO8a6s8dzSyjKW8Hh5gISY5uiNDOIqpbJYIKQNr9K2TDjf/0ra/MxBSyzWW40
-	 i4gegiG4Rd6JYqyZXAkNdgwfebPKPbTJDa2NQDIyTw9Fu4whOsJnMu8F57UI4mvOpYxtP
-	 Ed044uTPxjSKJ0A1eYfkdVHdhwkXH0NWqIhGypKmkOgTmBlJ9CPD986qaJLtmbTnYmgt6
-	 WKTdY/H5fC99tu3Dj0bT12UsQm78rmHT9OoAzFHmhEYtdn+yUUyjqO+ZQzKmLqBSQjw==
+	t=1793338016;
+	b=HLCyiXcNoXJmD9ZWF/y18ftMlOBEiSEh+B2s4UvKOp4n+HvNkhfe0Oig2JrW3mHsrJY+
+	 QR3720LjUxXjLA8w3dgH1+eOx9VUKdvmw42YZeDuz2y1Z+mxyh/Ba85qCCqesbIlMdbiR
+	 XvpRLneThcEhmNRkhwWvST9g74sM9LZD8wR3SI60uXRVL+4M65J+Yie7VQJYSD7+51mL7
+	 mXKoKic4dINOnbe12MpS+rZfRw2LpIIN/0fFW3fvmHmv4dkILg47l9l7OY08knDf4PSxF
+	 411tFQ0HF7t47M3lJppQ8iqFDZEcix6YyHyPf4baJvbxLgNQP60vM+qmrbNqWLZsI5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793338000;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793338016;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=tOERZEIQ6bWpFjXc/IYsfYbCQo0wq413M2Hd4FsT6W0=;
-	b=YqsAgag9KXkDsSFQfMLVgoQarlzjbT0fcqfg86H22Vbr/GTSjWNXgbv0JZCh/1MdhUTE
-	 kuDD7eTRAMB6MpWvNIhwpkGqANHbl0HYdfNeAfLpfLTFTwfc4f1rq9Eb/mEGV4YQhQj7r
-	 NsOqJG2gOgzlQBRPpRkF8VPKcv1c1CbH8o7StWlgG5N83nmsB40I7kor57pO8Td1d6kEZ
-	 yPJb78NIXSw/Q9V+9faiG38IKm30AA46eeOh1nHeIVZDeQDzFVbdfwP45PassZcpz2VTV
-	 3lbkHi9jLF+blXi3FpGLi38Cn4tP0m8LB7d1bzMjEOzx35rsFxU9ySyOkr1oWljWrQw==
+	bh=xyRi7XDKpXV1gU6ovNhxbTiviMkA7YCbmNrm8NAAe74=;
+	b=mCFSsOPbdyhWgRey4pSeKVEYahrH765HolQpKv3qkC6N3BNXI8ZnGhUbhkZOWUsWibWX
+	 plwHpM3G91wlZASAgbv7VAJNtTG/bJWsuweorgIZB1y01W8Pva1eBoLbziGpJlehFLY7B
+	 Q0PxBBT1jUbOKxJ8jH8qhHCK2IPCwEu12WArHlfWE16qScceNyVL+ah2Zi7ITlsJr+Y+q
+	 bcpzQl5AIe15Z2A0J0jYYgD6EDwCx2OdQcMu0HCoFVXKwdVT0vFd8TdcqK0GHUpZQAoTA
+	 GEqoQjA/g4k+gbBbV0HypJRCcQnfvX8nnHigz0CUohJ87Ry+Pt8CLO3ANrvA36c/wow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KX5QEHG1;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d+bxHsU+;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6736606A32C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:26:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6736606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415EF606A33A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:26:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 415EF606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KX5QEHG1
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ac7842c17dso173731a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:26:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d+bxHsU+
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cd62c570b5dso147950a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:26:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793337999; x=1793942799; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793338015; x=1793942815; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tOERZEIQ6bWpFjXc/IYsfYbCQo0wq413M2Hd4FsT6W0=;
-        b=KX5QEHG1Dp7kPb9yx6aJaUcw4AhAv6i81M1bW9IA44xDcJiH2eIq+jqdtL2CSKqIOL
-         N2Tegl6j+6yb3agLimvdwV6wC+VmNzELBJOmzi9ilOLpZby9Zk5yATBRD9hnItpzdl75
-         98uSHo3buGPuXJ0FEqTLeRMNaeJYlwKuoWpQRFmwuZ+EYh//a70pO4jOQYZ4c7BRPXo3
-         qjdfjvxQHJjZz2PbfKQ7edMA9bSjhcceFkvpBXEzVxw8hxxg1KDtzTSGF28DjiuAhcD/
-         hPP+YVvRarWMJeGqTy2BpC9muFqE6vXNP/XjQ0hUDl3l8T2a2gW1y7SV4eGl4WkNzkDx
-         ZqEQ==
+        bh=xyRi7XDKpXV1gU6ovNhxbTiviMkA7YCbmNrm8NAAe74=;
+        b=d+bxHsU+DaLE5VVrgkliIB4ayMjVY+RpWtD7z/NIoM/o+TsvaUBRzUMgZhUdq6kRwd
+         voWJcAcY6FoodTYsDMBAZk0oXXP7IIO+khO1dOARJu5PDmPa1szbHzpnswezgnnhcvaf
+         reH7UMuhhcK0GTyQz5Dofti5nIYrEZyGYvMlbWQ/IN6NNANQJHbJ+fP3ygHyUueGzjVb
+         QJPdLI9TQOIFxnjVCW2Xrd3wmj3UqDld/eS2yZEbjGDDQdZYl3RsLtLECskewmzhjywd
+         xepQTfqij0cXM8dmK9OHZ0/TkSfQok8VT2viqG2iwEJmavJHzbdfuHPojpmkc1qDNaAk
+         dCcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793337999; x=1793942799;
+        d=1e100.net; s=20260707; t=1793338015; x=1793942815;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tOERZEIQ6bWpFjXc/IYsfYbCQo0wq413M2Hd4FsT6W0=;
-        b=cDQBWv+ClYkKcVmthfx887UPWrODPmA97PUzkIOx5fgCTZF90E6v/AtoI31qQaR9oD
-         h6RbQbzNyA21RacFyjPPqCdmnuB8XibDFP6xNMqvwkH88BfEAIMkmnBFCThC/HILlgUT
-         xJ9mnnp4GPaDp2DVdjWw/juCbcbKumwrEvAgVWQftGAhUsoNltQK1xVK/xz0eNH99itp
-         QENvNWVfxeggaip63lFpj67DY4Q3eckznPZq8zERcPAd8nRdJgLdO5uqLC5kZnR8gDQ2
-         JC+2UZr32hOa49/AM12nIgTskzOoO01YHaQ8KrC88sA8T0l2lxOvrAsx3g8NTGe/HUkq
-         wwnA==
-X-Forwarded-Encrypted: i=1; AKwUvBx87EinLmRCRtiupECqitZQdVDQB3z6EKkZhvVoO8DO1sDIGQ/3FMHnqZXGO/7ZIReVCNrfXfTTpwetPOM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmnAOCSneKIztU5XwIqQOyMISDPX/IWYGQCqA6TshPcv4c3YVf
-	GaaBO/HMl3NnL70oZltINkZiRZTAN5jAHBd+wuzNaqr4BygjEWaZBhlgwsDGJA==
-X-Gm-Gg: AYBFou3JJake8gRUx1yUiRNSalReZAoClwxDqmb7tgvm6zY91RI2WGisEh91FSfLiQi
-	M2v2bzTJYvqooqJcQpvwd+I0is0+u6EvJlRdMFGcClqTdOlkIU3vdQCR41YNaDrriWbBoWq+n9o
-	bQ7U4q3fAyhY+VUnt8tSc4Bs/qNEJP+oJCxbLnYCUJ1wxkW80abjdjxhmcQ7EeE/AiO2eBbB5mL
-	P6KR+ib0v1NmwpEIgI47fVlmSgVemRkJkg4/Ds0FOk1gJ8sXugx/OYVLp2CQGoy2KClJXzZXBOL
-	WfidN1FtaTgQuufk6diLtKMc2CPzybarnW9XpMr8lRyrdQ7/7m2ixJZNn3DuV0214fDqMg2N52T
-	e/vttHKthvPqcRDnT/26MNdpod1YRxNCcX74tQY3jAckljQBfhvZRAp2/y4k6HqkXz14tIUrhCu
-	SOouj1uLV08D4sbCJxI3F0qQqjb37Ji5kDIX6tQaSGpUDGSL+fq+a/BLbW175Cd3WOC5pJcVF/X
-	w0SzzbiFo2Sz4vXwxxHf3DlwPpSL2tQ1Df0XfQrJRGVKmcTll35LLfk/HTL68VtRpiUgR+IVWek
-	Yh9c7H/rNllQoK3ICrCTBnNcnwKA/wxWeTgzWfOdAwMNwIuHWXWa+qjfjTTjylnjXWDa4MEk4H1
-	GNo0stlpYlms0AvTYwrROFsqWgDTBhkxWhPREYaeUpatQfUg=
-X-Received: by 2002:a17:90b:1a88:b0:3ae:3f20:7056 with SMTP id 98e67ed59e1d1-3ae89746c9cmr1077089a91.31.1793337999008;
-        Thu, 29 Oct 2026 22:26:39 -0700 (PDT)
+        bh=xyRi7XDKpXV1gU6ovNhxbTiviMkA7YCbmNrm8NAAe74=;
+        b=CMTEIsu+D/JZvrOJBguEwjSDHhz6gZi5jlrDY2tLZRHcFMxVPpo5r576+qcZstwbhm
+         cxbMJL12blbcFWPXmY6yVE70gAidQdtZR2/6ss7ubcm2PV6mh8jU+PJTVRHLq4sGs4bl
+         8Ruk2waJvDSnjP73V+xIQ3e/qLn6ij4FN42GfOfZb+ltz4HTnuzZAHYJoPB9Y90leT13
+         i8JbZtUOcUctwfFgOEhVqRvTFiGcvsRWVxutPvPNw22tyo/71hwf7dZIn+3YoQyBUJNS
+         GhYr2afLwM44povndZJh94wLDBiile7UnEZRTrCErCjYADWSUk4nR5a99MvZ8xlVtwXY
+         Qk7g==
+X-Forwarded-Encrypted: i=1; AKwUvByHdF/cT2NausEGT6m9+psEFmnaVxP8n/OnZxMb6kzW7RHb4TyvKeAsfiwAo/7TerrESUg7hhLeMDynSxs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhdWYGBXhLHFj8k3ayNXP6gC15tToBFMhjw4sv7iewfvdpYvLZ
+	fdi2of4eBEmMBvpOOT8geEWSHGP367HLlOqUK6iNbgkei74DU6dVRwHW
+X-Gm-Gg: AYBFou2VzmEaKTKHmSgt32EQrltK72GX1ezlRyPFimGdYB4LoeJpS8mU+gHQrETL47j
+	75RjoJ4jZXAaVxZ4Mye/qZgqzKtP6ytrMOhqYGIuVvpjSbXPHiOtEd0T91iuagN8m1uwf5X1ks+
+	ORcYkqtIUYPFLWbDUFFltlcR8PCkBuV42zafzaRhhPopP92ZlWdhiMp688XOS6hR6UMMk7/dkII
+	WbRazZZkMwxkRT1tDkOli8D7egkuEmg8A/MKDMmoSBz2ZQb1m2/WDEL59Bcj3RFXUgvA/0J0BXj
+	9TkkZigW5Bl31FUU3cHD2LXZO1RKcHX1LWuZJ7JTuLtfUP3DI30uUjmFv1oc1oEgedwUK0y4h0F
+	mufMv+nvpXhicWCB00sZ2/yij9HiJ/ms6pqPQm5mm8lVoyDcT49H/fL5xPpEzIziAg3gTohS7VC
+	Z+/pBd6RVhC9wrZd6o8Y5xcasgiIkoD2W2D6dTYMqONF+mvknaEp73yv8UiNkOUN2qooHBAR4ld
+	wew8XVUSj/MLEvzqFE1UoBLndrDsdYo8DSFkoKei3Qaq8wAyfUH/LKHmkojWQjZ4RLOxLi4YsgA
+	vQlone8diCq1mDSJBXJhkmSPj3EvplAfRQN4sywioIqQx1Keo1LmjRiFUh/BuoZ/hRes8UKa5KS
+	h7R19vpa0Zptibt4GWzu0tjFwpIqwUQW9HHPUXjoj7zbslB4=
+X-Received: by 2002:a17:90b:57cb:b0:3ac:b2e6:317d with SMTP id 98e67ed59e1d1-3ae89776ad0mr997346a91.35.1793338015580;
+        Thu, 29 Oct 2026 22:26:55 -0700 (PDT)
 Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845429e6sm2421027a91.6.2026.10.29.22.26.35
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845429e6sm2421027a91.6.2026.10.29.22.26.52
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 22:26:38 -0700 (PDT)
+        Thu, 29 Oct 2026 22:26:55 -0700 (PDT)
 From: Joonho Lee <mynameisjune111@gmail.com>
 To: linux-sound@vger.kernel.org
 Cc: tiwai@suse.de,
@@ -92,9 +92,9 @@ Cc: tiwai@suse.de,
 	rdunlap@infradead.org,
 	linux-doc@vger.kernel.org,
 	Joonho Lee <mynameisjune111@gmail.com>
-Subject: [PATCH v10 01/14] ALSA: virtio: Propagate PCM send failures through ACK
-Date: Fri, 30 Oct 2026 14:26:16 +0900
-Message-ID: <20261030052629.27742-2-mynameisjune111@gmail.com>
+Subject: [PATCH v10 06/14] ALSA: virtio: wait through signals for PCM teardown
+Date: Fri, 30 Oct 2026 14:26:21 +0900
+Message-ID: <20261030052629.27742-7-mynameisjune111@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261030052629.27742-1-mynameisjune111@gmail.com>
 References: <20261030052629.27742-1-mynameisjune111@gmail.com>
@@ -109,159 +109,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-virtsnd_pcm_msg_send() can fail while queueing a transfer. Restore the
-failed message's length and notify the device about earlier messages
-queued by the same call, so they do not remain stranded.
+A signal can end the interruptible wait while a STOP or RELEASE request is
+still pending. A later teardown may then submit another RELEASE before the
+first request completes.
 
-Propagate that failure through the indirect PCM transfer callback instead
-of discarding it. Commit the updated indirect state only after successful
-submission and stop further transfers when a send fails. Return an XRUN
-error to ALSA so the stream can recover.
+Keep both waits non-interruptible and use the existing message timeout.
+Other control requests remain interruptible. Device reset still cancels the
+pending request and wakes the waiter.
 
-Keep the polling feature path unchanged.
-
-Fixes: fe981e67568c ("ALSA: virtio: use ack callback")
 Assisted-by: LLM
 Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
 
 ---
-diff --git a/sound/virtio/virtio_pcm_msg.c b/sound/virtio/virtio_pcm_msg.c
---- a/sound/virtio/virtio_pcm_msg.c
-+++ b/sound/virtio/virtio_pcm_msg.c
-@@ -260,6 +260,18 @@
- 				dev_err(&vdev->dev,
- 					"SID %u: failed to send I/O message\n",
- 					vss->sid);
-+				msg->length -= n;
-+
-+				/*
-+				 * Do not leave earlier messages queued without notifying
-+				 * the device when a later message could not be added.
-+				 */
-+				if (msg_count != vss->msg_count &&
-+				    !(vss->features &
-+				      (1U << VIRTIO_SND_PCM_F_MSG_POLLING)) &&
-+				    virtqueue_kick_prepare(vqueue))
-+					virtqueue_notify(vqueue);
-+
- 				return rc;
- 			}
- 
-diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
---- a/sound/virtio/virtio_pcm_ops.c
-+++ b/sound/virtio/virtio_pcm_ops.c
-@@ -466,36 +466,100 @@
- 		vss->hw_ptr);
- }
- 
-+struct virtsnd_pcm_transfer {
-+	struct snd_pcm_indirect indirect;
-+	int error;
-+};
-+
- static void virtsnd_pcm_trans_copy(struct snd_pcm_substream *substream,
- 				   struct snd_pcm_indirect *rec, size_t bytes)
- {
- 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
--
--	virtsnd_pcm_msg_send(vss, rec->sw_data, bytes);
-+	struct virtsnd_pcm_transfer *transfer =
-+		container_of(rec, struct virtsnd_pcm_transfer, indirect);
-+
-+	if (transfer->error)
-+		return;
-+
-+	transfer->error = virtsnd_pcm_msg_send(vss, rec->sw_data, bytes);
-+}
-+
-+/* Caller holds vss->lock. */
-+static void virtsnd_pcm_transfer_failed(struct virtio_pcm_substream *vss)
-+{
-+	vss->xfer_enabled = false;
-+	vss->stopped = true;
-+	vss->substream->runtime->stop_operating = true;
- }
- 
- static int virtsnd_pcm_pb_ack(struct snd_pcm_substream *substream)
- {
- 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
- 	struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
--
--	guard(spinlock_irqsave)(&queue->lock);
--	guard(spinlock)(&vss->lock);
--
--	return snd_pcm_indirect_playback_transfer(substream, &vss->pcm_indirect,
--						  virtsnd_pcm_trans_copy);
-+	struct virtsnd_pcm_transfer transfer = {};
-+	int rc;
-+
-+	scoped_guard(spinlock_irqsave, &queue->lock) {
-+		guard(spinlock)(&vss->lock);
-+		transfer.indirect = vss->pcm_indirect;
-+		if (vss->stopped) {
-+			rc = -EPIPE;
-+		} else {
-+			rc = snd_pcm_indirect_playback_transfer(substream,
-+								&transfer.indirect,
-+								virtsnd_pcm_trans_copy);
+diff --git a/sound/virtio/virtio_ctl_msg.c b/sound/virtio/virtio_ctl_msg.c
+--- a/sound/virtio/virtio_ctl_msg.c
++++ b/sound/virtio/virtio_ctl_msg.c
+@@ -314,7 +314,20 @@
+ 		 */
+ 		virtsnd_ctl_msg_unref(msg);
+ 	} else if (!nowait) {
+-		rc = wait_for_completion_interruptible_timeout(&msg->notify, js);
++		/*
++		 * Teardown must observe completion even with a pending signal.
++		 * Otherwise a subsequent open can retry RELEASE while the device
++		 * is still processing the previous teardown request.
++		 */
++		switch (le32_to_cpu(request->code)) {
++		case VIRTIO_SND_R_PCM_STOP:
++		case VIRTIO_SND_R_PCM_RELEASE:
++			rc = wait_for_completion_timeout(&msg->notify, js);
++			break;
++		default:
++			rc = wait_for_completion_interruptible_timeout(&msg->notify, js);
++			break;
 +		}
-+		if (!rc)
-+			rc = transfer.error;
-+		if (rc)
-+			virtsnd_pcm_transfer_failed(vss);
-+		else
-+			vss->pcm_indirect = transfer.indirect;
-+	}
-+	if (rc) {
-+		dev_err(&vss->snd->vdev->dev,
-+			"SID %u: playback ACK transfer failed: %d\n",
-+			vss->sid, rc);
-+		/* ALSA treats -EPIPE as an XRUN in ACK and pointer paths. */
-+		return -EPIPE;
-+	}
-+
-+	return 0;
- }
- 
- static int virtsnd_pcm_cp_ack(struct snd_pcm_substream *substream)
- {
- 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
- 	struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
--
--	guard(spinlock_irqsave)(&queue->lock);
--	guard(spinlock)(&vss->lock);
--
--	return snd_pcm_indirect_capture_transfer(substream, &vss->pcm_indirect,
--						 virtsnd_pcm_trans_copy);
-+	struct virtsnd_pcm_transfer transfer = {};
-+	int rc;
-+
-+	scoped_guard(spinlock_irqsave, &queue->lock) {
-+		guard(spinlock)(&vss->lock);
-+		transfer.indirect = vss->pcm_indirect;
-+		if (vss->stopped) {
-+			rc = -EPIPE;
-+		} else {
-+			rc = snd_pcm_indirect_capture_transfer(substream,
-+							       &transfer.indirect,
-+							       virtsnd_pcm_trans_copy);
-+		}
-+		if (!rc)
-+			rc = transfer.error;
-+		if (rc)
-+			virtsnd_pcm_transfer_failed(vss);
-+		else
-+			vss->pcm_indirect = transfer.indirect;
-+	}
-+	if (rc) {
-+		dev_err(&vss->snd->vdev->dev,
-+			"SID %u: capture ACK transfer failed: %d\n",
-+			vss->sid, rc);
-+		/* ALSA treats -EPIPE as an XRUN in ACK and pointer paths. */
-+		return -EPIPE;
-+	}
-+
-+	return 0;
- }
- 
- /* PCM substream operators map. */
+ 		if (!rc) {
+ 			dev_err(&vdev->dev,
+ 				"control message (0x%08x) timeout\n",
+diff --git a/sound/virtio/virtio_ctl_msg.h b/sound/virtio/virtio_ctl_msg.h
+--- a/sound/virtio/virtio_ctl_msg.h
++++ b/sound/virtio/virtio_ctl_msg.h
+@@ -47,6 +47,9 @@
+  * The msg_timeout_ms module parameter defines the message completion timeout.
+  * If the message is not completed within this time, the function will return an
+  * error.
++ * PCM STOP and RELEASE wait through pending signals within this timeout.
++ * Other requests remain interruptible. Device reset cancels and wakes either
++ * kind of waiter.
+  *
+  * Context: Any context that permits to sleep.
+  * Return: 0 on success, -errno on failure.
