@@ -1,89 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793382256;
-	b=ZmK9muYaO7M7FseN62sVBjBO2ODDlUujUHxd3AZFk8I6ZzVr1pTRtxrEovPpZNQQrMBo
-	 4tPdV/ufZuqNFNUvQsZIYYoRR9Qgkd8yzHmOmVDUYeB5e0VJrpeCCRpelr79ZeqE7woJa
-	 6+a5RIg/j1WTGv7cDUXnc+K2AJEmLuZzM5lJV2p7a5YjDH5GXn6L7+ivQkTvI5JTo2QrL
-	 a39rEI+QdRf0vGuKsqOATvxp1d8JGAdXg6Zf4Rfj+rF5hN35euAVad6Ke5J0sKMGCgX0k
-	 stecKj2DRnsJeEsHfF75yr/qLPAZTKUwd69B2qzu1JrPhOgRBDs1sUhSjLM4d9OmqKw==
+	t=1793382283;
+	b=yqb25UhKuEJKtieKFge7vDbBO6gNvoYIgN+Vf5jQyuA6jSfDEv8MoYuzuJM2x01onntX
+	 xJamjQB8sgaFZ4AK1CpeK1HZgchNJOyKyWAB5KSu5bGsKuIdwnnpsdCDeUAFZZdvRw/OO
+	 FG4yPAiekDVLbBKdwb9eK2ej0/TAeSk1eeqQcW2FNaYhf3lTZBr8QHh/r8ngedtNDTvr7
+	 HkbA0hy2fedW+byoF1sCS94Dm/fEJtsaevYpbxmD3e+//BAlf7biRhX8KYQWJSY9zm8eO
+	 ZDZJ0WhE99Vvq8ZrEVVgK4kQxBjN3LtIlTkSLFhrZZuRZAwpU2o/+sf25DQKCh0M39g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793382256;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=usSQk3gmkVPvTdjKUU6vUCEb73RASrZuENLTQo/CskA=;
-	b=EaayBxo6X67HuJEgYdcQQ4B0gx4kroKiMPMRr2fvoLlgtF6kYs5DHW0QVKgMO2dSSkIT
-	 t1/V5369CAGufs43ZrrmpbFRmPBSaYA+KoPr0LxGRQLSCXyyE9e8Ds548/E5HB0eqSdbn
-	 gqHM6lEdANgOzrKCAuneDwWbr5ynciGouBs005SvIbz7hbEUswx8ZpP0H5OLwFm89eAzv
-	 V5J76FqhuQ++zdwt1upSAOmb2TiNaXrU+Cow4B0NEv7qX2VtX8a87Sb9VixcJd2XEGn6S
-	 HFpXp34bSa6gtvY4aSGlhRz+biFs7qEgJDFDh9pRi6LzPrBtv7YQm0WFw4MHJmEx+NA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793382283;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=uyz/moT4XWk2hg7FT4YB9Yk/YINtl//XwejBwFZqG4E=;
+	b=K6FMFjBzIJ3md4T3+jD0iQ3GVgW8JqbsmAs3+vKrAPvnYx2WGZOWpDEEgBeoyRxGHnz3
+	 6TKCpmhAIIFC3ht97o5KoinL8DIIcB8OBcwMGUE28wSW6n0X5MK/wXjZbFSKgdxfBJZWV
+	 eRHqBc1eqeFmPAPIknfTh9bj2sDu3Z2zTfpw2zdqtvHPAyY2X11Oc0yM1th/6tlyccMYL
+	 XJu97o7e34vz7CdQw3zISm+OwOQmBalfF1ZWB0dUXciYczbHfYPgfK6Ky4MsXxwoLSMRb
+	 iSC/caJUbWQynQ5rE0kLLkXhX2bi+8JFqYNELPU4/+DvjurszPrGVbU3satYQjP+36A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=U9kWFnfC;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nOVqdeeF;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C50606A31A;
-	Fri, 30 Oct 2026 17:44:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8C50606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5E1606A327;
+	Fri, 30 Oct 2026 17:44:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA5E1606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=U9kWFnfC
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=usSQk3gmkVPvTdjKUU6vUCEb73RASrZuENLTQo/CskA=; b=U9kWFnfC3oQMbgDNWHcOQJ/NJT
-	HfgLlU43wb+0bVziHK6qseWoW1WMNY9f8Yajz9bGzugJq2zGqk+5Zl/V7gMxjMMyR2ibJg2DM/cKq
-	mFzfarqU1oKC/MKLL6HJdfJrlr9ls7aCcDDFy74PBnwrJJomtlNsDXUz13oWND07rvw4PsnCH04QP
-	aYc/Td6PEoaEgs9zzYMyNlzWqaiAeywaleFvaOvv0NUvxO68TRI9g5PexamYMQFGhtIA9nmouBK2A
-	hlhLO7I37xAuZou/gPdDekGMLTi100S6UetXWliTUUnG1AXLWeo3vVV6iXXbak+pKHorNBooaP+i1
-	QmeOqqOg==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Dominique Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Yakir Yang <kuankuan.y@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- Conor Dooley <conor@kernel.org>, William Qiu <william.qiu@starfivetech.com>,
- Xingyu Wu <xingyu.wu@starfivetech.com>, Sandy Huang <hjc@rock-chips.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Maud Spierings <maud_spierings@murena.io>,
- Graham Markall <hello@big-grey.co.uk>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Joshua Peisach <jpeisach@ubuntu.com>,
- Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>
-Subject:
- Re: [PATCH v6 02/18] drm/bridge: inno-hdmi: Don't dereference a NULL
- drm_device on hotplug
-Date: Fri, 30 Oct 2026 18:43:47 +0100
-Message-ID: <1844578.vCJZsxu672@phil>
-In-Reply-To: <20261029-jh7110-clean-send-v6-2-759594e43acf@samsung.com>
-References:
- <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
- <CGME20261029075355eucas1p190ad652b6408201a2e04bc53c2717783@eucas1p1.samsung.com>
- <20261029-jh7110-clean-send-v6-2-759594e43acf@samsung.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nOVqdeeF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793382281; x=1824918281;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=7VTKQF8YjTNjE0dGQhTtouqOFNuMnHUVbZ0R3zxvUp8=;
+  b=nOVqdeeFJgeOIzWO2TmaUgnt5B7wvXC1BwAajb7QX+VfCGHQBpIgez5M
+   9O2TNlOEJkf/iBiheRnPEI9m2/ZjvonCbknaedtrBrCqgqn9hpIqTcFZk
+   gu5Ih6kPd6Txo28s3qbsPaHAI6ZzQgiUe69hLgxG4RMLBQD9NnEES4aPf
+   +T3c61f+nh3Rq3nqhYApICYI5LPwdmXsSDVR3xp2CeOHdYarBOkmHFTV7
+   359dy3GsaYZuIR5GV70OZg50P+UvRaHzOUfJedwO7Z9DLhzzLTIKE8eyR
+   RkT3bpD8wHM4deoQ9xMdrHM1MoN68qwyfDz4klzPZvYFWJ3jXQc7dmhfm
+   w==;
+X-CSE-ConnectionGUID: sTikJxK0QgebyNyhzSeF7Q==
+X-CSE-MsgGUID: S+wMicyfQXO/FYYyyrtzXA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2168751"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2168751"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:44:40 -0700
+X-CSE-ConnectionGUID: 9BReUaZYTiely0xeakXeAA==
+X-CSE-MsgGUID: MTULlDgyR3qmJkmyy7unuQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5514963"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.85]) ([10.125.109.85])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:44:39 -0700
+Message-ID: <8afa233c-13c3-478e-89d2-1d3f87ec7c08@intel.com>
+Date: Fri, 30 Oct 2026 10:44:36 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,68 +72,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cxl/edac: Mask DPA flags in the event record cache key
+To: Jongwon Lee <ai@linux.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Jonathan Cameron <jic23@kernel.org>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>
+Cc: Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
+ Richard Cheng <icheng@nvidia.com>, Shiju Jose <shiju.jose@huawei.com>,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261030072721.31970-1-ai@linux.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20261030072721.31970-1-ai@linux.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Am Donnerstag, 29. Oktober 2026, 08:53:36 Mitteleurop=C3=A4ische Normalzeit=
- schrieb Michal Wilczynski:
-> inno_hdmi_irq() passes hdmi->bridge.dev to drm_helper_hpd_irq_event(),
-> which dereferences it in its first statement:
->=20
-> 	if (!dev->mode_config.poll_enabled)
->=20
-> bridge.dev is assigned only by drm_bridge_attach(), but inno_hdmi_bind()
-> unmutes the hotplug interrupt in inno_hdmi_init_hw() and installs the
-> handler well before it attaches the bridge:
->=20
-> 	inno_hdmi_init_hw(hdmi);		/* unmutes hotplug */
-> 	devm_request_threaded_irq(...);		/* handler goes live */
-> 	...
-> 	hdmi->bridge.ddc =3D inno_hdmi_i2c_adapter(hdmi);
-> 	devm_drm_bridge_add(dev, &hdmi->bridge);
-> 	drm_bridge_attach(...);			/* bridge.dev set here */
->=20
-> The bridge is allocated by devm_drm_bridge_alloc(), which kzalloc()s it,
-> so bridge.dev is NULL for all of that window, and a hotplug event
-> arriving in it enters drm_helper_hpd_irq_event(NULL).
->=20
-> Before the conversion to a bridge the ordering was safe:
-> inno_hdmi_register() called drmm_connector_hdmi_init(), which set
-> connector.dev, before the interrupt was requested.
->=20
-> Drop hotplug events that arrive before the bridge is attached.
->=20
-> Fixes: 969325a2597e ("drm/rockchip: inno-hdmi: Convert to drm bridge")
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+
+
+On 10/30/26 12:27 AM, Jongwon Lee wrote:
+> The low bits of the DPA in a General Media or DRAM event record are
+> flags: bit 0 is VOLATILE and bit 1 is NOT_REPAIRABLE. The trace events
+> report the DPA with CXL_DPA_MASK applied, but cxl_store_rec_gen_media()
+> and cxl_store_rec_dram() use the raw value as the xarray key.
+> 
+> User space reads the DPA from the trace event and writes it to the
+> mem_repair dpa attribute. If the record had any flag set, xa_load()
+> misses it and the repair fails with -EINVAL. The raw key also lets a
+> repair go through for a record the device marked NOT_REPAIRABLE, if the
+> DPA is written with bit 1 set.
+> 
+> Key the records by the masked DPA and skip records marked
+> NOT_REPAIRABLE.
+> 
+> Co-developed with Claude Code.
+
+You can drop this now. Or just put it under ---
+
+> 
+> Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
+> Signed-off-by: Jongwon Lee <ai@linux.com>
+
+Is this a real email address? Please use your actual email. 
+
 > ---
->  drivers/gpu/drm/bridge/inno-hdmi.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/=
-inno-hdmi.c
-> index d7c33b92e2ddf4ced84d17304463f44be52270b8..d29832249b942dec84fb9d07a=
-0b21ee751fc0486 100644
-> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-> @@ -929,7 +929,13 @@ static irqreturn_t inno_hdmi_irq(int irq, void *dev_=
-id)
->  {
->  	struct inno_hdmi *hdmi =3D dev_id;
-> =20
-> -	drm_helper_hpd_irq_event(hdmi->bridge.dev);
-> +	/*
-> +	 * The interrupt is requested before the bridge is attached, and
-> +	 * bridge.dev is only set by drm_bridge_attach(). Drop hotplug events
-> +	 * that arrive before then rather than dereference a NULL drm_device.
-> +	 */
-> +	if (hdmi->bridge.dev)
-> +		drm_helper_hpd_irq_event(hdmi->bridge.dev);
-
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
-
-Most other callers of drm_helper_hpd_irq_event() also do exactly this.
-
-
-Heiko
-
+> 
+> Notes:
+>     Tested on QEMU master (b574eaf) with a CXL type 3 device, region
+>     committed, KASAN and PROVE_LOCKING on. DRAM events injected with
+>     cxl-inject-dram-event at 0x1001, 0x2000 and 0x3002, then a repair
+>     requested through mem_repair0..4. Same result for all five:
+>     
+>       DPA written   before    after
+>       0x1000        -EINVAL   ok
+>       0x1001        ok        -EINVAL
+>       0x2000        ok        ok
+>       0x3000        -EINVAL   -EINVAL
+>       0x3002        ok        -EINVAL
+>       0x5000        -EINVAL   -EINVAL
+>     
+>     No KASAN, lockdep or WARN output. Only DRAM events were injected; the
+>     General Media path has the same change but was not exercised. Not
+>     tested on real CXL hardware.
+> 
+>  drivers/cxl/core/edac.c | 25 +++++++++++++++++++------
+>  1 file changed, 19 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
+> index 34b81e8dfb..b3dfc33ca6 100644
+> --- a/drivers/cxl/core/edac.c
+> +++ b/drivers/cxl/core/edac.c
+> @@ -918,6 +918,21 @@ struct cxl_mem_repair_attrbs {
+>  	enum cxl_mem_repair_type repair_type;
+>  };
+>  
+> +/*
+> + * The low bits of the event record DPA are flags (VOLATILE, NOT_REPAIRABLE).
+> + * Records are looked up by the DPA user space writes back, which comes from
+> + * the trace event and has the flags masked off, so key them the same way.
+> + */
+> +static unsigned long cxl_rec_key(const struct cxl_event_media_hdr *hdr)
+> +{
+> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_MASK;
+> +}
+> +
+> +static bool cxl_rec_not_repairable(const struct cxl_event_media_hdr *hdr)
+> +{
+> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_NOT_REPAIRABLE;
+> +}
+> +
+>  static struct cxl_event_gen_media *
+>  cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
+>  		       struct cxl_mem_repair_attrbs *attrbs)
+> @@ -929,7 +944,7 @@ cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
+>  		return NULL;
+>  
+>  	rec = xa_load(&array_rec->rec_gen_media, attrbs->dpa);
+> -	if (!rec)
+> +	if (!rec || cxl_rec_not_repairable(&rec->media_hdr))
+>  		return NULL;
+>  
+>  	if (attrbs->repair_type == CXL_PPR)
+> @@ -950,7 +965,7 @@ cxl_find_rec_dram(struct cxl_memdev *cxlmd,
+>  		return NULL;
+>  
+>  	rec = xa_load(&array_rec->rec_dram, attrbs->dpa);
+> -	if (!rec)
+> +	if (!rec || cxl_rec_not_repairable(&rec->media_hdr))
+>  		return NULL;
+>  
+>  	validity_flags = get_unaligned_le16(rec->media_hdr.validity_flags);
+> @@ -1105,8 +1120,7 @@ int cxl_store_rec_gen_media(struct cxl_memdev *cxlmd, union cxl_event *evt)
+>  		return -ENOMEM;
+>  
+>  	old_rec = xa_store(&array_rec->rec_gen_media,
+> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
+> -			   GFP_KERNEL);
+> +			   cxl_rec_key(&rec->media_hdr), rec, GFP_KERNEL);
+>  	if (xa_is_err(old_rec)) {
+>  		kfree(rec);
+>  		return xa_err(old_rec);
+> @@ -1135,8 +1149,7 @@ int cxl_store_rec_dram(struct cxl_memdev *cxlmd, union cxl_event *evt)
+>  		return -ENOMEM;
+>  
+>  	old_rec = xa_store(&array_rec->rec_dram,
+> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
+> -			   GFP_KERNEL);
+> +			   cxl_rec_key(&rec->media_hdr), rec, GFP_KERNEL);
+>  	if (xa_is_err(old_rec)) {
+>  		kfree(rec);
+>  		return xa_err(old_rec);
 
