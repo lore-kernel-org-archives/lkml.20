@@ -1,104 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793359710;
-	b=O4JWEytlvCE9SuIc72hlINYsic0LFbq/Ijj28Sg0y7oDtjFvJfY5apxIfJxDMWB1J6AB
-	 IXu8S93NE+Az0VSRFabYWgD1z1LjBXd0MkmryyMHn2NmWmvkEUGZLHgbJb5sGrksKHzTC
-	 eukuEkDE5b1jbCc7OKM3qGbuBouMJWJa7i0d6AiIlSmkW/fWp93BiRhDpK6E2uafkfSFJ
-	 jRnprPTSEajp8wd9RSYeYY2bNNA1bGGex5hFN7tWyKUV+u9NLFwCCtOMSRjHglaj0zv7K
-	 CaSFCt9ltQ6JX/wvqvJ3Iw0opj2Jn1/stB9AHX0s+ojVkVwVFJ68dYl6G3jZDt1WVEA==
+	t=1793359722;
+	b=shVdD8Fc6j21oelnUXtizGvQqyBNbyVAOv+y0HrsfmLmSrh4XTXyeR19EcPa5oh6xJqu
+	 etcZS3Yyqz//Whv7mSydNs4ERbsXaFtWG01/rbzBxcwL1APCLaeEABQixKU2r6X5Dxqej
+	 1IxU9Rawqu+/GYOx5MZGikKKc+GrgFiumnIFILbgAQfWhqT0ja7AC/qy1WiU138fDOYdQ
+	 bRwIjnyCjh7s8v8ixr2ncAJsPf+ALR8DXwHVBOIHjOUVE+zgajV582Jondm4CO++/PHFp
+	 xJIGUSi5GlPc8dhw7bMrTxzcFihcI4BRcu0K1lZarx7r36LAt8qeR6IVnbEtoTIg+Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793359710;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=lMjuRXSTMpW2V62hMx3llGDBVgXdTtcOA3x1U5gYAK4=;
-	b=UU/UoRecG7IBIHdSKEa0ik4ujSHZG5o+GO2wq7BeK/fHtZRkjvy3daJVX6xiwOWxAXST
-	 RqlSGWZ8HHt6KHYaikDjQyWUdSISOTVphyQ2AwBF3wpjhcd1cfOxBrJnY5kwFq7zx1SMT
-	 qTr58jdK4T3Tj9tjSXvbWYcSQnAG0YgRJ9dmYqSdK+zTMk3GzXOJZMEqIhUnpN1lRBHlh
-	 mlSnaL70xFRgJ1IiqAaP1NAJjD+Ytcg+ytC72TtNFFmDUUSiEuGxCZEYTeNjYV9YL6L9a
-	 TLy6u48Zbph3YnU8DV3NKQbJFjzilU1PPFqvkeV6pwb8VpCwVQy42eH0lM31YCdpPfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793359722;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=o5pSov9qQ3R3Gs/VaKDTpPd98IRHfcO+aIpkIWdXwI0=;
+	b=5fYZmaU2WoEjryEiVORV7gk1P2S4P10UtKxJE7XFQQp/yXH3FGOrZc7GWNZAwC6W5OX5
+	 5OwU1ip7/ngwk2v0tkLW4zB0RQY9zzHpGNnOuQnaFlVLSTXLMCsD8p7TPDKoJy31oGAMI
+	 j90x54twbzsJhmnJt1/sm1hdlptUfXrvcb9KJO3qUoDKUZMdCg+l/+q0Xf4pC1Zfhp1ZY
+	 Kdny5UWOfJ+z7uiNX0l3LOM+4FxYFmNmR0FCAQGHfQu7wiOR/Njv2tdiAhiMpW6Xtr7Yk
+	 nD5vhveGS7C6wkXiWlLWrZx3UsPjUkEgqp8smBH+7D2xT3xKAQIt4si/97BODDTWQDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=layalina.io;
-	spf=pass smtp.mailfrom=layalina.io;
-	dkim=pass header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NMNtkeiJ;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oe5X6j1n;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34ED606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:28:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A34ED606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=layalina.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=layalina.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878CC606A31D;
+	Fri, 30 Oct 2026 11:28:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NMNtkeiJ
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso6622415e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:28:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=layalina-io.20260707.gappssmtp.com; s=20260707; t=1793359708; x=1793964508; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lMjuRXSTMpW2V62hMx3llGDBVgXdTtcOA3x1U5gYAK4=;
-        b=NMNtkeiJUG+Rwn4MaN0WVlaKzU8G9baYv9qXcpyTCNKQeIHF0G53ws51QdtkFRCkPN
-         YWq2FmGSiyhl4bUtOiRUSKtKu57j/+ZAlX2Oawx7/NeT+711onyJZQzWl7x9fCBYOCZh
-         p5L0nV0MdniPURcTgFBpNWNv8oJ47Jv3FSlYl64yqRTQouqvBeTjKNFLnml3M1kPMcup
-         eJIMT2026DY+tkpSfJDDkNHswlyv4jGDeHtxhUfEurPMLmuvAm7el6QS2qdF7Lr9xe9I
-         5a1ZL6Hk1EjfKaeWnkhVGpm2o7Bkak8dB1x7oBi1tkk2upqHde5+b1BxILTM6XhCNyKR
-         oTWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793359708; x=1793964508;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lMjuRXSTMpW2V62hMx3llGDBVgXdTtcOA3x1U5gYAK4=;
-        b=U+JZZME6WVu3BMyYDCquL9J4yF3wBoONqXRhsjAaoeV9eLkHHFL6P3Jy+PNlV6ynwA
-         hjlAZV+gpqMrJ/EcFT7fsMfYmYk8AYGp3okw9ByozpQnnrM3Tf4t6NlvBem6/+ff24+e
-         1j/an8davUpb9BFj7nSlJ+OaqKtIgtl6O9hyKeCvixZyEI7e/mtXC3aU90dUK4CLSo7X
-         4hS1AhEFsQrifpU8N1kpdcHjeVze4637uv9nZoOytBm0j/ynBt3knjlTQQ1rTaNhxZGX
-         Keyx39D+mfOGLAh6FweGTFK3go0e2kSCfneIEAcxn7oUNENnobBcgGkRfDTBBoxvm+YH
-         3Zog==
-X-Forwarded-Encrypted: i=1; AKwUvBzI4mxFkhLzEIOiosn9X8RfkTy/pAl7HNYz5pYSc28rHXTIaOmbxNFKK5KhY6c1XQ1VGRMODovrQOeeRnM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkK4ZJEE5TvnaRBdRSxQO6MDXQbu4r+EJFT8NcoJvmc/eOI4a3
-	AoM69fxrIE+pOVwEqpwDfqzwVqo+oV0A8EQGERwOxH1CHd3pF9Zk7ArMmYlB++J+HMDO0VymRfi
-	YDvBBjUA=
-X-Gm-Gg: AYBFou2g5nEyntw56hgMUX1sRv9nBaMqMFkuyZfFuUgjOM7ssBcN0QJZgO3r5NOrxHU
-	V7WjNTiUyjcriA0sn7+gManHT2W1LWhSRZf8YeOO/hOgqiqRpg00CS4TDMZ0wi3hQAOFWOjxCFc
-	sFoFAVnBDO5ubUi46w/hspCTWUx/0GnVfeg5lMVhnJzPwkPz5uLYCypc86+uluxVgcUfqTvDb5o
-	NMseaCM6HJwgh7Ddkoh9gtKv0dr+DvgxX4N8jThjjgo3F3PuZFKqEAuDh8sd/SuRLRl1oeth9Bq
-	XxWo7ACu4XecQ6g1zavcR/bd7/CnqxMQI90ReAWZJ9KKhp2G69OeLm5144PW0ZHvZM6YQQKHrlF
-	GyAoyKqwcOBeY0UcXrnvNG/VJeVcRGFptWdW1TD7cBQ8qfVib04aXBoiOVH3zpaSV0nhFuSq4Bk
-	ph3hXD7bxIfEktbs4/yQBnSveB9lQinjiZiWa5RTLptHmA/kPmC7O7L+2JkULbM0lrnGjYAkSdL
-	GVJ4CvpNR9GRvEgkuirg4ERcJzsL23IzN+TC8h51227SaxdFuIW9NcNvCQi8WxCCxyCJTLa58Y7
-	co0QNgHm9Vmq3NJrrdjKjf5VV5+bNcp2UGOpPaQwRSldP029kjZbjs2HCukSEGDUlWTbanA/C/F
-	Govs=
-X-Received: by 2002:a05:600c:8116:b0:4a1:ddaa:571e with SMTP id 5b1f17b1804b1-4ac182dc29cmr37677955e9.15.1793359707695;
-        Fri, 30 Oct 2026 04:28:27 -0700 (PDT)
-Received: from airbuntu (host86-128-182-179.range86-128.btcentralplus.com. [86.128.182.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b286a0sm44991995e9.4.2026.10.30.04.28.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 04:28:26 -0700 (PDT)
-Date: Fri, 30 Oct 2026 11:28:25 +0000
-From: Qais Yousef <qyousef@layalina.io>
-To: Christian Loehle <christian.loehle@arm.com>
-Cc: Ingo Molnar <mingo@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org,
-	Wei Wang <wvw@google.com>
-Subject: Re: [PATCH v4 1/2] sched/uclamp: Fix race condition leading to
- imbalanced uclamp_rq
-Message-ID: <20261030112825.z7k57twgua27p2vu@airbuntu>
-References: <20261029131354.11030-1-qyousef@layalina.io>
- <20261029131354.11030-2-qyousef@layalina.io>
- <c4740152-e873-4409-b3a8-16c5a49548dd@arm.com>
- <d944d543-1756-43d8-aa08-bcbbf6df712f@layalina.io>
- <75772ae5-d297-4894-971a-683f92fb87a4@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oe5X6j1n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1EAC1F000C1;
+	Fri, 30 Oct 2026 11:28:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793359722;
+	bh=o5pSov9qQ3R3Gs/VaKDTpPd98IRHfcO+aIpkIWdXwI0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Oe5X6j1nAcrOU8FRyKpWbru0RPEb4C8PJDeuCM77Z5bO90WqSbeeQmNFpkLR6dBdA
+	 KBK/LHXCWZskB0i7kNTwCXgE7QwGxlxTkjWcmLCTbjagkiDgjqswNE1jOnjG/zeflU
+	 /xDco2ppIYbs8nZLkSHOlFYJHsG7cNnH90HpmWw/A/rW3hGsNwIKCH78GSUvmT999A
+	 PSWuD6bsDxkbNlWz8OmIS9/FV9H5MUEN7tYKWAHRvDdHoVx5NqqBtmFQMPSihljPC3
+	 U4Yo4a+BLH03Op2VGW0sWsaw45dUQ+29hty98zdR0X296ebAaAUSQ4t5xFV5smn5k1
+	 9cczqiO+R7V5w==
+Date: Fri, 30 Oct 2026 11:28:35 +0000
+From: Lee Jones <lee@kernel.org>
+To: Andreas Kemnade <andreas@kemnade.info>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Kai Svahn <kai.svahn@nokia.com>, syed khasim <x0khasim@ti.com>,
+	Peter Ujfalusi <peter.ujfalusi@ti.com>,
+	Samuel Ortiz <sameo@linux.intel.com>, linux-omap@vger.kernel.org,
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 13/27] mfd: twl-core: Clear twl_priv pointer on
+ teardown and probe failure
+Message-ID: <20261030112835.GD3774906@google.com>
+References: <20261027093306.2812695-1-lee@kernel.org>
+ <20261027093306.2812695-14-lee@kernel.org>
+ <20261028165003.60d0c033@kemnade.info>
+ <20261030104806.GC3774906@google.com>
+ <20261030115241.642c5971@kemnade.info>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,91 +67,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <75772ae5-d297-4894-971a-683f92fb87a4@arm.com>
+In-Reply-To: <20261030115241.642c5971@kemnade.info>
 
-On 10/30/26 10:50, Christian Loehle wrote:
-> On 10/29/26 23:43, Qais Yousef wrote:
-> > On 10/29/26 15:58, Christian Loehle wrote:
-> > 
-> >>> diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
-> >>> index 76f3c84ca6846..84301fc49e699 100644
-> >>> --- a/kernel/sched/idle.c
-> >>> +++ b/kernel/sched/idle.c
-> >>> @@ -502,6 +502,25 @@ static void set_next_task_idle(struct rq *rq, struct task_struct *next, enum snt
-> >>>        * lost_idle_time of clock_pelt
-> >>>        */
-> >>>       update_idle_rq_clock_pelt(rq);
-> >>> +
-> >>> +    /*
-> >>> +     * Due to a race condition when enabling sched_uclamp_used static key,
-> >>> +     * we can end up with imbalance where uclamp_rq_inc_id() has happened
-> >>> +     * on a CPU without uclamp_rq_dec_id() on another CPU that hasn't seen
-> >>> +     * the static key flipped. The race condition is unlikely, but ensure
-> >>> +     * the uclamp_rq() state is set properly on each entry to idle.
-> >>> +     *
-> >>> +     * The reset will cause the uclamp_max from uclamp_idle_value() to be
-> >>> +     * lost. Since we are imbalanced, hard to know what is right. So just
-> >>> +     * cleanup. This should be a transient error state once we recover
-> >>> +     * everything should work as expected.
-> >>> +     *
-> >>> +     * We need to be careful of some paths that can force idle with tasks
-> >>> +     * are still queued.
-> >>> +     */
-> >>> +    if (uclamp_is_used() &&
-> >>> +        !rq->nr_running && unlikely(!uclamp_rq_is_idle(rq)))
-> >>
-> >> just checking nr_running isn't enough as CFS bandwidth throttling (a fun one
-> >> recently!) will decrement it through dequeue_task_fair() without calling
-> >> uclamp_rq_dec(), i.e. it's clamps must remain valid AFAICS.
-> > 
-> > I think this and the rt group throttling are false positives. Do they actually force idle or just under contention dequeue the task temporarily to allow other queued tasks to run?
+On Fri, 30 Oct 2026, Andreas Kemnade wrote:
+
+> On Fri, 30 Oct 2026 10:48:06 +0000
+> Lee Jones <lee@kernel.org> wrote:
 > 
-> It forces idle, I can reproduce active=1 and bucket->tasks=0 and the WARN_ON_ONCE triggers:
+> > On Wed, 28 Oct 2026, Andreas Kemnade wrote:
+> > 
+> > > On Tue, 27 Oct 2026 09:30:42 +0000
+> > > Lee Jones <lee@kernel.org> wrote:
+> > >   
+> > > > twl_probe() allocates the file-scope twl_priv state with devm_kzalloc()
+> > > > and checks for a non-NULL twl_priv at entry to reject multiple device
+> > > > instances.  However, twl_remove() and the early error paths in
+> > > > twl_probe() never reset twl_priv to NULL, a failure when adding MFD
+> > > > child devices bypasses twl_remove() by jumping to free instead of fail,
+> > > > and twl_remove() tears down the IRQ domain and dummy I2C clients before
+> > > > child devices are unregistered.  After devres frees the underlying
+> > > > memory on probe failure or unbind, twl_priv remains a dangling pointer,
+> > > > causing subsequent exported API calls to dereference freed memory and
+> > > > blocking future probe attempts with -EBUSY.
+> > > > 
+> > > > Unregister DT-populated and MFD child devices at the start of
+> > > > twl_remove(), ensure mfd_add_devices() failures unwind via fail, and
+> > > > reset twl_priv to NULL in twl_remove() and on probe error exit.
+> > > > 
+> > > > Fixes: 80a97ccd33be ("mfd: twl-core: Collect global variables behind one private structure (global)")
+> > > > Closes: https://sashiko.dev/#/bug/linux-73e82f84-94de-4d08-82a4-f22d42a1dedf
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Lee Jones <lee@kernel.org>  
+> > > 
+> > > Hmm, couldn't we use devm_add_action_or_reset() for resetting the
+> > > twl_priv pointer? Feels more clean for me.  
+> > 
+> > Nice!  Thanks for the suggestion.
+> > 
+> > To keep this fix minimal for Stable backporting (and avoid resending a
+> > 27-patch series), I'll take this one as-is and send a follow-up patch
+> > converting twl_priv to use devm_add_action_or_reset().
+> > 
 > 
-> [  329.665099] WARNING: kernel/sched/core.c:1845 at uclamp_rq_dec_id+0x10c/0x1dc, CPU#5: systemd-journal/281
-> [  329.679279] Modules linked in:
-> [  329.682333] CPU: 5 UID: 0 PID: 281 Comm: systemd-journal Tainted: G S                   7.3.0-uclamp-cfs-repro-20261030 #2 PREEMPT_RT 
-> [  329.694411] Tainted: [S]=CPU_OUT_OF_SPEC
-> [  329.698323] Hardware name: Radxa Computer (Shenzhen) Co., Ltd. Radxa Orion O6/Radxa Orion O6, BIOS 1.1.0-1 2025-12-25T02:55:53+00:00
-> [  329.710222] pstate: 834000c9 (Nzcv daIF +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-> [  329.717174] pc : uclamp_rq_dec_id+0x10c/0x1dc
-> [  329.721524] lr : uclamp_rq_dec_id+0x98/0x1dc
-> [  329.725786] sp : ffff800081bb3a80
-> [  329.729089] x29: ffff800081bb3a90 x28: 0000000000000001 x27: ffffb54253580c40
-> [  329.736219] x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000000
-> [  329.743348] x23: 0000000000000000 x22: ffff000085462380 x21: ffff0001fb6e2c40
-> [  329.750478] x20: 0000000000000000 x19: 0000000000000000 x18: 0000000000000000
-> [  329.757606] x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
-> [  329.764736] x14: 0000000000000000 x13: 0000000000000001 x12: 0000000000000000
-> [  329.771865] x11: 0000000000000000 x10: 006c616e72756f6a x9 : 0000000000000000
-> [  329.778993] x8 : 006c616e72756f6a x7 : ffff000085462380 x6 : 0000000000000001
-> [  329.786122] x5 : 00000000000000e1 x4 : ffff4abfa8162000 x3 : ffff0001fb6e2c40
-> [  329.793251] x2 : 000000000000000c x1 : 0000000000000000 x0 : 0000000000000000
-> [  329.800380] Call trace:
-> [  329.802816]  uclamp_rq_dec_id+0x10c/0x1dc (P)
-> [  329.807168]  dequeue_task+0x54/0x134
-> [  329.810737]  __schedule+0x6b0/0x1018
-> [  329.814307]  schedule+0x34/0xd4
-> [  329.817440]  schedule_hrtimeout_range_clock+0x108/0x11c
-> [  329.822657]  schedule_hrtimeout_range+0x14/0x20
-> [  329.827179]  do_epoll_wait+0x47c/0x594
-> [  329.830922]  do_compat_epoll_pwait.part.0+0x14/0xb4
-> [  329.835792]  __arm64_sys_epoll_pwait+0x74/0x114
-> [  329.840314]  invoke_syscall+0x54/0x108
-> [  329.844055]  el0_svc_common.constprop.0+0xc0/0xe0
-> [  329.848750]  do_el0_svc+0x1c/0x28
-> [  329.852055]  el0_svc+0x38/0x250
-> [  329.855189]  el0t_64_sync_handler+0xa0/0xe4
-> [  329.859363]  el0t_64_sync+0x17c/0x180
-> [  329.863018] ---[ end trace 0000000000000000 ]---
+> I think the whole patch can be simplified a lot then, 
+> 
+> devm_mfd_add_devices can stay.
 
-Okay, thanks for checking.
+twl_remove() runs before devres teardown and destroys the IRQ domain,
+unregisters the dummy I2C clients and clears twl_priv->ready.
 
-Peter/Vincent, what do you think? It seems we have a schrodenger task that is
-both enqueued and dequeued simultaneously in these throttling paths. Shouldn't
-this be fixed? If yes, any thoughts on the right approach? Should we throttle
-if there are no other tasks on the rq too? I didn't realize the semantics are
-that strong for enforcing the quota.
+So the MFD child devices still need to be unregistered at the start of
+twl_remove() (alongside of_platform_depopulate()) before the parent
+transport is torn down beneath them, at least until the rest of
+twl_remove() is also converted to devm_*().
+
+-- 
+Lee Jones
