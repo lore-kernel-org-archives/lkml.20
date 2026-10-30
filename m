@@ -1,88 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793334065;
-	b=Tgk0ClL5dsbIjPNlDTCbx6hvEd4lc40IIofCoXgt0EDJMcaot7D3Q361jDmjs1kf349k
-	 ndysClksbJfIS6VYt9C51Zw8dRB5uQ8uNeeQhOMDTHsv/WMycQQfYMzdnEBTVWgLs1v/e
-	 l1hcrO09H5VkI9H37AZulV4HN7UI/CrFTzFKg5XDNql/pYpsEeRQ1NSBvs+wucX3ghtZe
-	 KsMRRYSPbXdmMjwGSXFyWfFmQqntnNJIq/qZhnrk/tEgwpaVIGAKrVC0BvT9q6ASz6xiv
-	 hMzNTyWjWuJtrDCDnLbIY9xbeJ4Bs7Nu7sqGl9vUiex2Do+lMvZYBjdpRi+8ZWaikfQ==
+	t=1793334073;
+	b=mEJuhZiETaa8MHjPAW0INRqba4qQGBx/+25BOQfJYfVmzvE383J3OzCUmT5dYXOIzz/j
+	 j1xFtH4q7CdjqQFgHI/Lm12GSj3UawfqL2xQOF5aYwQQEPuFC/kf9aE8LkhYiH1DaAPSm
+	 VbA0SsISrQoVZ9Bt8wrAEc4RYlQB54rJLTn0n+wRgJNoFyb2900jGUyRJoHRETFNlaT6w
+	 JsVOO4QKlb6DCEFTdnEGd8JLwScTTUIHVIdDxCA41y3oTL0axWsLMBEXT0r5S+GzY8UDF
+	 cdv+CnBkIX9FwrjfgZiVw5gOY0MLrdNUwVeg5kMzspQNV27zYbK40pvOp3yRrAzjWJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793334065;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793334073;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=qZ0HEHSSnJ62DFFfvad+4V9OpH4w50W8/K1tySVDK+A=;
-	b=tMSQYppoBnbfCeHnoWwgNFG3hklSgdFmbTOtQ4EEKJD/i+qLIF3BNw4g1fO5TIUJkQ7t
-	 NF13JRN1lNoBbvreEzWROuVkrWG5Wem7O4/En/fF4aWJgrhx4nusj/dPJigsYrz7K6aqP
-	 Hs4IwXECTM//Hfi+U/GS7S8Vj/H7NAAbC/PEPxgAGO9NHBdcRqCb/Phf5GFFBmRkW06v0
-	 wX+TEaNv+b2RNccqGkHxEAT2ugvh2lkv8EBz1p3CYI6MFjCm/rwSYw4XWwtYMat+POPi0
-	 b0E0HibTTXRkRJt/RhldZuMlTrvLqUJLPryaoW3bniN7MjnTuwPe94QVVGUCOVVGHxA==
+	bh=NZFxhxetntJ4eJV30GVWChY5vhsarJj0j6bepxHT7hE=;
+	b=4Swel16+qBsfZcZn4d4KrdmHByXPAnKV5YbPpdoyxC7GzV8nwZdD+xCMMG/az2vTdGY4
+	 LyG19BvVs9emX5luKGlcOX1BxLhsL9+w2LPFAj6F+CBCcZ39jG4mQg8Ra7ltAawqNmlPP
+	 7b11Eowi89hIw/4e14PzaCouIbBmgEOmViFr5VAzmmpUpX/UZ8VpgF7t5MqrkGH1Zg6M/
+	 0uVfOwErInTN64fFeZmoEi5VINce+DfAflSRlSICZWKZQ4ecb4gYE6ZkqnNkxgLemh57d
+	 iZCdgXL9OCY32uiiTguKbnhc6Ho7b26v0w359K9KMgTfkjSyJJvDMpEpu7FwXeY/DYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=openai.com;
 	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=XjS0H6aE;
-	arc=none smtp.remote-ip=209.85.160.42
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
+	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=Cib7M9RO;
+	arc=none smtp.remote-ip=209.85.161.45
+Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D5A606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:21:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8D5A606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D80D606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:21:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D80D606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=XjS0H6aE
-Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-4a6f2825dd6so59834fac.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:21:04 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=Cib7M9RO
+Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-704597ef1d8so97211eaf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:21:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1793334063; x=1793938863; darn=vger.kernel.org;
+        d=openai.com; s=google; t=1793334072; x=1793938872; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qZ0HEHSSnJ62DFFfvad+4V9OpH4w50W8/K1tySVDK+A=;
-        b=XjS0H6aEzIPpb1+pzOo2LNNGgqlyIQfmi4OlZjOB3OcgfWKXur/unvW7LyUML86H6j
-         1mhl2PktMNSsruuGNYX2X+NPkELNx/nGdB29yXQqWNIMOi3x0TJPi3L2XNi0zOGInzTj
-         fWQ4A+/KyQ3EjrKT88OJW3LVp2NHKU9meeH+U=
+        bh=NZFxhxetntJ4eJV30GVWChY5vhsarJj0j6bepxHT7hE=;
+        b=Cib7M9ROjjLXZ3Um+4q0PaXIHuP48lDm8G9SQnQIStFIb7n0L7DduWd5JL7qHKgguB
+         LwvOyZ0U9h4+3/gcSqnTmJ6uEGbU/HDoMG0tC2dlYBTxljc41dljju0e0MSR4dH9coFT
+         FRY0+RTE1CC2znYpjXqKuxpSgTvZ3hi8iacGc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793334063; x=1793938863;
+        d=1e100.net; s=20260707; t=1793334072; x=1793938872;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qZ0HEHSSnJ62DFFfvad+4V9OpH4w50W8/K1tySVDK+A=;
-        b=deZ7yHsT9nBundpon2QkUjFPJSXC7aTcs4upZ1p8ZalNtQLvBkyxWPiOqhH99apjbS
-         KkoKrypiem7jV6lo4c4au84IcGA6sXLiARH0XhA9Q3qMMM5ITw3Mz9VKa3LyCywPm/71
-         Hvea+ZOw96h5Z2U3bujD35ZK8YMzxerK7qyuiMqaOvQ7c6VhpSACUZzcON3es5VIOKCb
-         QQh3DGP4Y2PErf/ekZS6IYrl8kAeawbhvf3O17KR5Zb6yuozbEd8M71HSEyvzAW/1CN7
-         Jgqskql5MlJvXlUWOVKuq++/c8DM6nOf6+AyVC0W6tI/PCJzVDuNBa+d+heb7ZKZ/sKs
-         ernQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwAghW2KXxBFYoA3aks9OYEWj4hDDo9P7ygptq5pHg7To0IjhY78gfxqwk/k4Atory/kDxdL3ksDkVRdBM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5LF78txmup+sQwREsnX0x0XULNpvJrgJxS7yHrfpbE5mvli14
-	Rn2UjfE2o9Z8XoOuc3P0juR8rrqSiw+elsERAGyMcWNG//BAwtgCrnhujCrrugFyX7g=
-X-Gm-Gg: AYBFou3V0CR3YQpaeXcecr4CQEWRxBlkyfLLHAx3b4xvkvLEfv+rVyZ2qAELZXxUVqe
-	PnYfATAlawuF8Vld8Da/MJaYuvVyXDshwzjZeZ85uSEe11wr22pu9CHeO69UlrLlpstuH7x5Jcy
-	bdtrpGokmT7BbUUXTZOaRtx1uL3oogL2pvtT8UTIiMQVNcB1eYU8WjqWwlvWO6+cKrKW75w7Vie
-	7JG6PZHfBrDEN2kVQNooXwdXHzAB/biRAL7edT58Njz7IC0RlGJBRMy358Gq1kCTNofVG5Q4fg4
-	7EBNEtGAaqgNnAlC+SKCNnFW3DHBnRW8HPFRQ7fcoQL8IbOPEfvubL/RpndUkt7d0NFf6GJgXs+
-	PMbkr8Qzk24Dsv1UFoYKB55IFk38AMNH81M1gADsP6RU3YL1pejqPVq003QMGtvvFwVtLx50Nbl
-	z7UA89ml5STY4oqHSEkWPQEqKbjx5QQvCBKerMeW3o7d0d8hb3jfGC/UO1JkZfOPyfiUEG/tMG1
-	VZkk+6Hx1VdW7hoYckUsH4T5eKO+Bh2umYzSJXHtZgQj55CptBN4Kh8vtx/MO6A1qJ6NRccfNvt
-	ceekiMUz6JaWGfOg4jEtcXOPa+BrA6GIUQx8Q69Yn1ia5Moogk5qQYIOpz8kpWPHiv7h87JniKb
-	UKYAH2lYDOJMn/GylxRZXd1VwX7WM+w==
-X-Received: by 2002:a05:6870:16f6:b0:46a:c217:c56d with SMTP id 586e51a60fabf-4a9072f137dmr728856fac.2.1793334063494;
-        Thu, 29 Oct 2026 21:21:03 -0700 (PDT)
+        bh=NZFxhxetntJ4eJV30GVWChY5vhsarJj0j6bepxHT7hE=;
+        b=VYfXSWH1n435S9/7JshEZwCYwVDknJTtDzsUd9D/CZ8WyBbQzcNO1pWRRF/XL595qk
+         rtsBogTzubAn9MjdlPJ7ZDe1Duld9qXTXtfea3uwTaBe0uX+UkXeD1iKwyAk3v8caODD
+         VvnYH1Ng3reHoBg8VJQ+7Pdpyc8bHM1Jyhrc7vnNxC3G0HWx/duuY3flANNsgrikfnrD
+         OL3LXZjSNv88ALFirxL6DzwVviufB8dj4+fOOQQgpAzyGSc/xpoQQInnG0K8YNruGKwl
+         EWJH41tECXWEHSSJz3gZhMCcOiPRM37utvdvBzkWNqYbgCXKWaH67xpkmEsdyPA5f7kf
+         eUEw==
+X-Forwarded-Encrypted: i=1; AKwUvBzVGCftS2PN89gRx/Db+8dNfNtVD22jLoNJh0iRGdUrsaZ7Noz1R9JOY/mgQBD3LK2DB5EzRQUwqi2MZmE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGhw20WSjmWrprQn1PHjldpR0QLmWZVu3tMRgnsGOkF/vHT826
+	Wne118Qtlo+FW3uCuiEZbLkOg8ZHbQbSdS6HFNM6mzthtg5urN6D1uezYeODxW99CgU=
+X-Gm-Gg: AYBFou39CEr9YYAl+dmcMAvMeLkn271zBeHJaAzEZria1v+nkozVmi01XbEVqeU8OOY
+	e0fpcpi1G9p7XS6tc5kVaVXUJUYSGT0HnjiWxpjC3UFY4cnq5ekvFN8BXYKHlS9HvbdJqEvJ8qP
+	AF8eLle83tVcK0Q8bywbnRe+qNxXILKmYcipRXnbD2FtBrNVPDy8zsFjQo1asKjkQJG2PddQzVh
+	9eBIhpHGBpc4ImfULw8CZkQpoGQrdZwwtN7meqDHFNMJpGQOXHYti28tFRS5mhj1chLN3cTWnvC
+	8wXCAbQTIYROkAJ6OzmteZMALPFxd6bIBPxiIHIjnaic2Ulr/+ujmY+FzBvToRSIqJYZ+zSVjV0
+	33XB1YNu0a9zRjTNfBE+xlmM/j1dBruLKUP4GGteBcv81AxM2jlP6CwK0feTrVZFSbo5tFqqCqp
+	ElgdXnCXVkIDaZmT/J48IraLi8AMF9d3JpjP+Q9Mjm2dBtJCUJut4f7Ao/OBH6ptJxY5hv/qidM
+	VbxEVpWLChDedN8IlWZa8ILxXdS41VReBmFQAwoqdFnMqLJdKr5X7nSmNV9UuhdMb877yS8U2/R
+	xjkoAPec3tQEFMGXJU+pkDJfBZpPYa+z+5vEtSCBkTVXihTWxyLBgrxFipCf5w6A3pWr6shs/RC
+	Mao9L9VYGsIQ7+KlEuH7lEkTCEhxQXw==
+X-Received: by 2002:a05:6820:7093:20b0:708:d862:7b6f with SMTP id 006d021491bc7-714f24ea1a3mr577516eaf.6.1793334072102;
+        Thu, 29 Oct 2026 21:21:12 -0700 (PDT)
 Received: from com-75606.corp.openai.org ([199.47.143.5])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a90ae4e9absm830912fac.4.2026.10.29.21.21.02
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a90af650a1sm768615fac.15.2026.10.29.21.21.11
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 21:21:03 -0700 (PDT)
+        Thu, 29 Oct 2026 21:21:11 -0700 (PDT)
 From: Kyle Zeng <kylebot@openai.com>
-To: io-uring@vger.kernel.org
-Cc: Jens Axboe <axboe@kernel.dk>,
+To: rds-devel@oss.oracle.com
+Cc: Allison Henderson <achender@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	outbounddisclosures@openai.com
-Subject: [PATCH] io_uring/io-wq: save worker type before dropping its reference
-Date: Thu, 29 Oct 2026 21:21:01 -0700
-Message-ID: <20261030042101.73491-1-kylebot@openai.com>
+Subject: [PATCH] net/rds: Do not unpin a page after a failed atomic pin
+Date: Thu, 29 Oct 2026 21:21:10 -0700
+Message-ID: <20261030042110.73571-1-kylebot@openai.com>
 X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -95,51 +97,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-io_wq_cancel_tw_create() inspects cb->func after calling
-io_worker_cancel_cb(). For an existing worker, that call can drop the
-last worker reference and wake io_worker_exit(). If the canceling task
-is preempted, the worker can be unlinked and freed by kfree_rcu() before
-the callback function is inspected. KASAN reports a slab-use-after-free
-read in this path.
+rds_cmsg_atomic() assumes that a non-NULL output from rds_pin_pages()
+represents a pin that it owns. However, pin_user_pages_fast() can roll
+back a fast-GUP pin after racing fork() and then fail in the slow path,
+for example after a concurrent mprotect(PROT_NONE). The output slot can
+still contain the already-unpinned page.
 
-Save whether the callback belongs to an unpublished continuation worker
-while its reference is still held, then use the saved result for the
-conditional free. This preserves the existing accounting and frees only
-the worker allocated for the canceled continuation.
+The common error path calls unpin_user_page() on that stale pointer.
+This can consume another subsystem's pin and allow the page to be
+freed while it is still in use.
 
-Fixes: e6db6f9398da ("io_uring/io-wq: only free worker if it was allocated for creation")
-Cc: stable@vger.kernel.org
+Clear page when rds_pin_pages() does not return one. The error path
+continues to release the page on errors after a successful pin, and
+successful requests retain their existing ownership and behavior. All
+four RDS atomic ancillary operations share this path.
+
 Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
 I have a reproducer for this issue and can share via DM
 
- io_uring/io-wq.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ net/rds/rdma.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index e93cfa82b850..b6c857544421 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -1428,14 +1428,16 @@ static void io_wq_cancel_tw_create(struct io_wq *wq)
- 
- 	while ((cb = task_work_cancel_match(wq->task, io_task_work_match, wq)) != NULL) {
- 		struct io_worker *worker;
-+		bool free_worker;
- 
- 		worker = container_of(cb, struct io_worker, create_work);
--		io_worker_cancel_cb(worker);
- 		/*
- 		 * Only the worker continuation helper has worker allocated and
--		 * hence needs freeing.
-+		 * hence needs freeing. Save this before dropping its reference.
- 		 */
--		if (cb->func == create_worker_cont)
-+		free_worker = cb->func == create_worker_cont;
-+		io_worker_cancel_cb(worker);
-+		if (free_worker)
- 			kfree(worker);
+diff --git a/net/rds/rdma.c b/net/rds/rdma.c
+index 078090d292fa..71b57abb96c4 100644
+--- a/net/rds/rdma.c
++++ b/net/rds/rdma.c
+@@ -957,8 +957,11 @@ int rds_cmsg_atomic(struct rds_sock *rs, struct rds_message *rm,
  	}
- }
+ 
+ 	ret = rds_pin_pages(args->local_addr, 1, &page, 1);
+-	if (ret != 1)
++	if (ret != 1) {
++		/* A failed pin can leave a stale page pointer. */
++		page = NULL;
+ 		goto err;
++	}
+ 	ret = 0;
+ 
+ 	sg_set_page(rm->atomic.op_sg, page, 8, offset_in_page(args->local_addr));
 
 base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
 -- 
