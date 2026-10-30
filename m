@@ -1,54 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793398659;
-	b=tgRuDkTbUf3GgfeMZy0d8lGxfhUQWPzg+Wd0WUb8+OJvjwKqMp2Lent9ytB70G8Yj5R5
-	 tHxXBWOT37G3YAdi7zDPhPNfD7ggmEe8tKJhK1TScH6af+B0Hgt/dpH5Xf6YQiniB6tOw
-	 sSIdGQi5U11WgwWFHJO7xSaDDSFKojVPuB5ocxnkm2gTn5U49cVkiHJOi8vujIOCdT8xw
-	 X7i7HNe+8aj7zNSDWDVK8bgiryn5K6dzp5B/sKpwiH3buwJVPDYnczoua/wRIb0Ng1VlQ
-	 +9lA9qFj6NPdd2ylCLPsD/ueD+M4tS8aK1HyVdf9WulzBfeILncq9gCnOd9j81BtDeQ==
+	t=1793398723;
+	b=wuYzeR3ROUojVNM1ramQEUUgmp8qLMnMwsaCmJ4j+WsCt8caHNxhXhIfxZWROMHxTvBW
+	 KGI5oeJ23NIXYD1/K8lXY1sxmgWNHqtFx+C0x55ZeHIFt9yfeHF0j6IvoYjvZham7E0We
+	 Zjzcuz+Gqri87TOYVyDYGhRlgxAvUr5CfvkkWDUdRZ7/80xiC4jPiO5szlZR2IOtAGn+i
+	 oZ0xzO6EwkCoMrp6r2nEdWfbh9qZV9V2qwZGuiVd0ASfmFzZ5dhNYFGqYXvKTx0jzrU+v
+	 CprQEyh5Ld09q4W6un95OvnmBFUuZsIBMG6b4GRuZiLmdfR2ajYeBuFYh2hqIvtLDIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793398659;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=m05FenXBP+WQQ6GgUTDGNRz83URBparHcrH3G6JAzTA=;
-	b=g3LOS2jzG37zHY7LarKpCB2MnEOTrcaJnuVWiWZyg+cl9aM3cCRSAk1mAIumDQr3WPuf
-	 x2h59AbkwRO9e1zuyeC09ieAcnbIzHAXSlj6d+e02rOztBpixwubdNxn2dYJZFWHv6cou
-	 O/D5HpM/KU48h2dcGcyX9pSPo/BNxS14rL6vWg/UrJOfxFpLdPX38S1iam7hKyNtnnIYf
-	 kzNHeJK7xKe+P+7ehRIRuGAwmh6HO8MQ4R2mULtovc/b9wE/BOmyiPENBFr2w/OI16z+3
-	 olQzblN/VMV+SmaERht75ojpLopmAZZ+Yao0VqiSIr5s5g4Kp7GZSFYelp57iNC6c6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793398723;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=No0gQCPPnO85fYaY6Bc/3wJ1AALHc6MXIGM8lc1qTt0=;
+	b=M603Wd0uZa9aOVW5y0++Jf+mwDDSm7uck4wQZhQM14z1Ayl1QFom3II/YdbPeaXeS3Oc
+	 nrfojH83dRplwe6cQVYGZ9mIo+fPnOPSpq24RY9zceH2aT5eyS38tra4dBuI2lmwCnyhS
+	 OUImCfSOTr2nSG3vmLKO+9LQmT5Rgh0dGDF4MpR2y3v48j5CIs+phK+DQgFrbqla0RY4H
+	 hj91ObQ8mIM4V67wGQATqhtiahvNJGojqKoYAqqn1UuRK3N7GzDap8gnXeua5RKcFKc3d
+	 lLsMfjp05v23QIk5SDj2KTTYc1QWhsDENkB6BkxahzpgYjBmgDsdNVzkk92u6V2e+TQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e5w5pgxY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAED6606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:17:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAED6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4db3db8687fso1904147b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:17:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793398658; x=1794003458;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=m05FenXBP+WQQ6GgUTDGNRz83URBparHcrH3G6JAzTA=;
-        b=2xOJ+9SmEc4xqaZ+kpwnlaw7Gdsb/HIj3/FgtF2H5T8ZfXj+mUE91FkFoT9y+IS3Pm
-         vPMnmfOEPNNzphxSXRjOhMFAA+6SRY0Rxo/sKshuSZHyvK5ApO9hfeTmtYDfmZx1lDmt
-         X2msNXWU0usGEVgVd+ublqp2cAJuy01RbwIOdETxoziEIYaYed6EAUearZm2zuje//yW
-         f6DhLBdRx8O2Xv2gM/ukgfrFY0m02K88xz+ol5XJ69w2G2Q/RdY36qtRoip9z4c/YNr6
-         MOGl1hNktFt5gF67vE2hCb8hnW+nUbrNtsT8qSEgiLZkqkGWHm5WTMOINAb1iOVELrro
-         e5Nw==
-X-Forwarded-Encrypted: i=1; AKwUvBycLgC1ZrskGyLDAlWU46MGaimpxw/nkKh8JhVyZUSZmqaE6g8S/FsHSRnQnwUYiVRLpRD5UGRtXeJsnoc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIakvyoy2vfBxMdzKw+vWaUfWJZv/Q9yc6xsRUVDCc2x77J255w
-	4O0EI/PlixLSXSAVqtTm7QtxUGTgt5MxaY27aTLTHlXFibqznKwxDhfcaj4ItVEwvdFRxtFH39S
-	6+fDU89Jtpa7pry/asL0sbTa0FmO5uu+rFUB6wVcVI6J4xLZtjJg8n81btfo=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54198606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:18:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e5w5pgxY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9681F000C1;
+	Fri, 30 Oct 2026 22:18:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793398723;
+	bh=No0gQCPPnO85fYaY6Bc/3wJ1AALHc6MXIGM8lc1qTt0=;
+	h=From:To:Cc:Subject:Date;
+	b=e5w5pgxYyaQq4cLAsho1uwID1c+WPP0dlQeVFoH4UDStWgFuaWQmaOFnU4HRXjk1r
+	 cSF49b2hjoBy/y9C7xX9a1gliq33TY5TA+j6XYK8bnrqOLsNW9rINX3hBoBdqVuwp/
+	 t5IGeV3Pg09+baHREamLnGJigraOQVFU9UHFikVuQVRRw8DDJX6y3LMimObwQMlUQK
+	 25Bb0J0I9tYP4Vy9C6zsoVDjx7B9TsNHff6XHTc2AjpGcnemeWUPyLwT6PqULH015T
+	 Lw6pHbcr3zgoHIsKwKU0AmN133EI8tHEPxDtfeoXrVb19mcJlrwto4Tum+5N/BCDzX
+	 LlyFb8kKG6ACw==
+From: Tejun Heo <tj@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCH sched/urgent] sched/deadline: Fix stale rq->dl_server after a server pick returns RETRY_TASK
+Date: Fri, 30 Oct 2026 12:18:42 -1000
+Message-ID: <20261030221842.4071610-1-tj@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,202 +65,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:11cb:b0:55b:f88d:6ebb with SMTP id
- 5614622812f47-5640df0a2eemr2606386b6e.54.1793398657957; Fri, 30 Oct 2026
- 15:17:37 -0700 (PDT)
-Date: Fri, 30 Oct 2026 15:17:37 -0700
-In-Reply-To: <20261029203428.3057054-1-rjethwani@purestorage.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae51781.7b61dd49.26a2c3.0000.GAE@google.com>
-Subject: [syzbot ci] Re: kcm: reject attaching sockets with a ULP, and TLS on
- KCM sockets
-From: syzbot ci <syzbot+cicf6bc5bea2cc3d74@syzkaller.appspotmail.com>
-To: davem@davemloft.net, edumazet@kernel.org, hare@suse.de, horms@kernel.org, 
-	jiayuan.chen@linux.dev, kuba@kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, pabeni@redhat.com, rjethwani@purestorage.com, 
-	sagi@grimberg.me, stable@vger.kernel.org
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot ci has tested the following series
+__pick_task_dl() records the server in rq->dl_server whenever the server's
+pick returns non-NULL, RETRY_TASK included. __pick_next_task() clears
+rq->dl_server at its top, but a RETRY_TASK restarts the pick below that
+clear. put_prev_set_next_task() then hands the stale server to whatever the
+restarted pick takes.
 
-[v4] kcm: reject attaching sockets with a ULP, and TLS on KCM sockets
-https://lore.kernel.org/all/20261029203428.3057054-1-rjethwani@purestorage.com
-* [PATCH net v4] kcm: reject attaching sockets with a ULP, and TLS on KCM sockets
+Since b3a2dfa8b42e ("sched/fair: Add newidle balance to pick_task_fair()"),
+fair_server_pick_task() returns RETRY_TASK when the newidle balance released
+the rq lock and a higher class task was enqueued meanwhile.
 
-and found the following issue:
-KASAN: slab-out-of-bounds Write in kcm_ioctl
+That task, an RT task for example, then carries the fair server in
+p->dl_server until it is next put. The RV deadline monitors see the fair
+server switch in with it, and core scheduling, if enabled meanwhile, treats
+the task as deadline priority.
 
-Full report is available here:
-https://ci.syzbot.org/series/8bb553bd-8792-4a67-b142-8c396f2f2594
+Don't record the server when its pick returns RETRY_TASK. The restarted pick
+records whichever server it goes through, if any.
 
-***
+Verified with a synthetic reproducer.
 
-KASAN: slab-out-of-bounds Write in kcm_ioctl
-
-tree:      net
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/netdev/net.git
-base:      5838f10563d58afca6711edb5e4eda968ca181d9
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/371e9558-3281-4ec8-8935-9d7fa1e94ef9/config
-syz repro: https://ci.syzbot.org/findings/b6f85fa5-eb30-4533-93b3-5c754fac4e45/syz_repro
-
-==================================================================
-BUG: KASAN: slab-out-of-bounds in kcm_attach net/kcm/kcmsock.c:1324 [inline]
-BUG: KASAN: slab-out-of-bounds in kcm_attach_ioctl net/kcm/kcmsock.c:1376 [inline]
-BUG: KASAN: slab-out-of-bounds in kcm_ioctl+0xced/0x1140 net/kcm/kcmsock.c:1583
-Write of size 8 at addr ffff888113f70810 by task syz.1.18/5902
-
-CPU: 0 UID: 0 PID: 5902 Comm: syz.1.18 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- kcm_attach net/kcm/kcmsock.c:1324 [inline]
- kcm_attach_ioctl net/kcm/kcmsock.c:1376 [inline]
- kcm_ioctl+0xced/0x1140 net/kcm/kcmsock.c:1583
- sock_do_ioctl+0x101/0x320 net/socket.c:1328
- sock_ioctl+0x57a/0x7e0 net/socket.c:1449
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f96df39f559
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f96e01fe028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f96df625fa0 RCX: 00007f96df39f559
-RDX: 0000200000003880 RSI: 00000000000089e0 RDI: 0000000000000004
-RBP: 00007f96df436b20 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f96df626038 R14: 00007f96df625fa0 R15: 00007ffc97de2138
- </TASK>
-
-Allocated by task 5902:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- unpoison_slab_object mm/kasan/common.c:351 [inline]
- __kasan_slab_alloc+0x6c/0x80 mm/kasan/common.c:377
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4720 [inline]
- slab_alloc_node mm/slub.c:5033 [inline]
- kmem_cache_alloc_noprof+0x2b4/0x600 mm/slub.c:5047
- sk_prot_alloc+0x57/0x210 net/core/sock.c:2275
- sk_alloc+0x3a/0x390 net/core/sock.c:2337
- inet6_create+0x81a/0x1270 net/ipv6/af_inet6.c:178
- __sock_create+0x4b5/0xac0 net/socket.c:1679
- sock_create net/socket.c:1737 [inline]
- __sys_socket_create net/socket.c:1774 [inline]
- __sys_socket+0xd6/0x1b0 net/socket.c:1821
- __do_sys_socket net/socket.c:1835 [inline]
- __se_sys_socket net/socket.c:1833 [inline]
- __x64_sys_socket+0x7a/0x90 net/socket.c:1833
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff888113f70000
- which belongs to the cache RAWv6 of size 1984
-The buggy address is located 80 bytes to the right of
- allocated 1984-byte region [ffff888113f70000, ffff888113f707c0)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff888113f73300 pfn:0x113f70
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-memcg:ffff888113f77f81
-flags: 0x17ff00000000240(workingset|head|node=0|zone=2|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 017ff00000000240 ffff888167e03500 ffffea000442be10 ffff888104ae4948
-raw: ffff888113f73300 00000002000f0006 00000000f5000000 ffff888113f77f81
-head: 017ff00000000240 ffff888167e03500 ffffea000442be10 ffff888104ae4948
-head: ffff888113f73300 00000002000f0006 00000000f5000000 ffff888113f77f81
-head: 017ff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5785, tgid 5785 (syz-executor), ts 69263183053
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1856
- prep_new_page mm/page_alloc.c:1864 [inline]
- get_page_from_freelist+0x220f/0x2280 mm/page_alloc.c:3935
- __alloc_frozen_pages_noprof+0x1fe/0x410 mm/page_alloc.c:5444
- alloc_slab_page mm/slub.c:3384 [inline]
- allocate_slab+0x7d/0x5e0 mm/slub.c:3499
- new_slab mm/slub.c:3550 [inline]
- refill_objects+0x2d5/0x350 mm/slub.c:7539
- refill_sheaf mm/slub.c:2917 [inline]
- __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4811
- alloc_from_pcs mm/slub.c:4887 [inline]
- slab_alloc_node mm/slub.c:5021 [inline]
- kmem_cache_alloc_noprof+0x394/0x600 mm/slub.c:5047
- sk_prot_alloc+0x57/0x210 net/core/sock.c:2275
- sk_alloc+0x3a/0x390 net/core/sock.c:2337
- inet6_create+0x81a/0x1270 net/ipv6/af_inet6.c:178
- __sock_create+0x4b5/0xac0 net/socket.c:1679
- inet_ctl_sock_create+0xa2/0x220 net/ipv4/af_inet.c:1640
- tcpv6_net_init+0x34/0xb0 net/ipv6/tcp_ipv6.c:2348
- ops_init+0x35d/0x5d0 net/core/net_namespace.c:137
- setup_net+0x118/0x350 net/core/net_namespace.c:443
- copy_net_ns+0x536/0x770 net/core/net_namespace.c:582
-page last free pid 5803 tgid 5803 ts 69160417533 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1403 [inline]
- __free_frozen_pages+0xc97/0xd90 mm/page_alloc.c:2954
- __slab_free+0x269/0x2c0 mm/slub.c:5926
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:361
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4720 [inline]
- slab_alloc_node mm/slub.c:5033 [inline]
- kmem_cache_alloc_noprof+0x2b4/0x600 mm/slub.c:5047
- ptlock_alloc mm/memory.c:7769 [inline]
- ptlock_init include/linux/mm.h:4039 [inline]
- pmd_ptlock_init include/linux/mm.h:4151 [inline]
- pagetable_pmd_ctor include/linux/mm.h:4179 [inline]
- pmd_alloc_one_noprof include/asm-generic/pgalloc.h:146 [inline]
- __pmd_alloc+0xc1/0x5c0 mm/memory.c:7029
- pmd_alloc include/linux/mm.h:3865 [inline]
- __handle_mm_fault mm/memory.c:6725 [inline]
- handle_mm_fault+0xe9d/0x3750 mm/memory.c:6943
- do_user_addr_fault+0x7f6/0x1480 arch/x86/mm/fault.c:1394
- handle_page_fault arch/x86/mm/fault.c:1483 [inline]
- exc_page_fault+0x6a/0xc0 arch/x86/mm/fault.c:1536
- asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:595
-
-Memory state around the buggy address:
- ffff888113f70700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
- ffff888113f70780: 00 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc
->ffff888113f70800: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-                         ^
- ffff888113f70880: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
- ffff888113f70900: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-==================================================================
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
+Fixes: b3a2dfa8b42e ("sched/fair: Add newidle balance to pick_task_fair()")
+Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+ kernel/sched/deadline.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index c0ebdcde5fe5..cc9c7cb7dc42 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -2836,6 +2836,13 @@ static struct task_struct *__pick_task_dl(struct rq *rq, struct rq_flags *rf)
+ 			dl_server_stop(dl_se);
+ 			goto again;
+ 		}
++		/*
++		 * RETRY_TASK restarts the pick. Don't record @dl_se, or
++		 * put_prev_set_next_task() hands it to whatever the restarted
++		 * pick takes.
++		 */
++		if (p == RETRY_TASK)
++			return p;
+ 		rq->dl_server = dl_se;
+ 	} else {
+ 		p = dl_task_of(dl_se);
+-- 
+2.56.0
 
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
