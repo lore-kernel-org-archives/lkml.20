@@ -1,76 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793397047;
-	b=J3hd33m0czTVOmNDRD9yK2UUpksSKkLTjuaJl5BIjYopPgC0hKjDCmdSXDpGIURNLt9t
-	 n8wR4mUSzjNPODeWSNZ6QBe5vutNR6ruzWTZTT2lHrZKwoQm0vtZZ6NOEfAmsI/bnAQmQ
-	 CuLNrinOU9E755I5z5eNvuNs7FZ+JQloF6OdAaofsj/cFIj0amfsHom0UJ2YhjgZxXxQy
-	 pXHPTUnlIFi3MJP4b6iuBuQyACFlobLNbuBCfWi4IBeikyg13WVvikvqgRsWaPlCfEFkr
-	 JRXzrhlwa0f9BCUUP4yTlSsC9YiIkCFAUSB0r+o9KXqFFcH8jCkS6EzAI4aERMcfbkw==
+	t=1793397106;
+	b=gMV0B62sp498ffIheJ1qAhQBxw51bV9fFZHl+vs/FJHOi0g7lfXxHTA/45W7h84yOGYk
+	 ayabhObaOPYtfdcC7FT4J9w8jA/u6J8NWLAa2ZOn0DPJKMOh4oBXaWcYTQKoscrElEQvd
+	 DAIc7I4RsJfKsx8ayhmpkqmuJVMTcO1Mz0zHyVhD0kZRSSP6j7HqB87Hom0EPjv/cM1gH
+	 OzLwORyAgKfAV9l+jmh0/iklHqXZ5jIuYv3zg2+rli77OqHA96sAFn93RVoUg5Mizyj2d
+	 +XPYwvxOjyqgcnNVctmxU3CnR6ORyUSHvuukvxSB6pGxeoCwz0fojRwpE+oyCh7iUhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793397047;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=OVcS62BaI3sjhixYFhPqAdLP8a3jioqhovkbocOoVJ8=;
-	b=D9chEUXV/HmgFXjiKlJN+dP+YWmdKTn5F5MKBpruwXrj0EmCTUyjEwnR+ZJd0wzjT5t9
-	 bGJUfqK6kGF5OahkabppYQGxIxqNz81YMsTAK1uUnJB9g0pxbGZ/htgGT2KJiPUvRW2C/
-	 g1211PSiu7rbjgZJ1rX6yc1D4OwThLxMHdOw8QqPuPmrjCYf+N77BSms55FzvwqUBVbp9
-	 YqSspdCNNdsgkzQoXTYNg0nbuqNoI8ibr9QRSnT+kM67gXD/AAm4IvvxCwVZfpraba4o/
-	 LMM8EcorxIjHs9dlDKxMhsWw6ZUyCAlHBEc3fs+Rm1rDyAirV0uZO80Z827uw4AiAlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793397106;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=nowaq5krQmYyET3/kT0HLFoDfuX9S6TMbuwqRBo7zJM=;
+	b=Em/lvWJHsaLtbE+r5yEfeBP4/mBLgfJLHgsNriaciGcrWRA9QlQAHUzvmDgwhcOtttp7
+	 84wAXfIOif74ivlW2W+ihGs7Tlq0jIxMm6Yf7s/a+VmnvJti9DytyqQgZCoZKUvxJOZ16
+	 wCeWk7RD00h/5vNOZTrqFbfEqctQU7sC5YTBsxSi0TdP2tXx05g6PL/kemVJ7Kt2MbxI1
+	 JM6oOQT6zmvgYIEJHoD2TqNyjqikkcS0tEKhu9XzINv5EemS885/j3rZev6vQGVXKID4m
+	 1mG9fM/tTdaXwuRdcwx28Wr+L21zwZAG1TUPY0/rpBwl0DajCv3WPJQB2OKUGx5g0XA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OfKnWU8s;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=aCTajLHP;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBF8606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:50:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FBF8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98CA606A31C;
+	Fri, 30 Oct 2026 21:51:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C98CA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OfKnWU8s
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793397046; x=1824933046;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=w0qW73nQ9x5qUSCd7VLYRdM3VlclXZny98CZJXS2y4I=;
-  b=OfKnWU8sF38aSmlIL6wFTczh1rLumG77f9wt4Wfluymv6kvgwLpS0xqh
-   ZG0/B6icUbwi20hKcL9lBV57ckRWaD0fwRwkNAdVLiRdWqPmi99SZ3H17
-   9cKCOcVTaF88BB6bQguXVTMvBxZ0S2WlWs5lZum1O7K5j8AocZ6+c8CDG
-   UZ/eSabssB88GNlIjutRKUULkPKxwYw8gPiThcKpqnSoKjwu9ubJxHX5r
-   MV+lJHISBzB7dhEmCSaFsia+AWY/1BdZVv2OfnEIxmOWP/g37c5LX48GJ
-   K6ArXXvuvyFsuVnaR6k2p+y/zEBTeoag7JTiLt6LZhqH5kaKGapnL8nKw
-   w==;
-X-CSE-ConnectionGUID: b+7KsPTDSlO8YIOb9RDXbA==
-X-CSE-MsgGUID: gsFEXb+5TjqoRBM6onQhnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2263519"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2263519"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 14:50:46 -0700
-X-CSE-ConnectionGUID: 1JzG/cpPRpaUsfid781jTA==
-X-CSE-MsgGUID: UgFVYaNMTFycr7ZsFZX+Hg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5544051"
-Received: from guptapa-desk.jf.intel.com (HELO desk) ([10.165.239.46])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 14:50:46 -0700
-Date: Fri, 30 Oct 2026 14:50:38 -0700
-From: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
-To: Sohil Mehta <sohil.mehta@intel.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, 
-	Borislav Petkov <bp@alien8.de>, x86@kernel.org, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, "H . Peter Anvin" <hpa@zytor.com>, 
-	Dave Hansen <dave.hansen@intel.com>, Tony Luck <tony.luck@intel.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] x86/bugs: Replace RFDS model checks with VFM ones
-Message-ID: <hk4lfzdilnx3km43tiglbpweyva4bfz3s5onaplwxjjj2vjxfd@bbjczdgxezqf>
-References: <20261030195214.1284995-1-sohil.mehta@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=aCTajLHP
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8B01D4B0;
+	Fri, 30 Oct 2026 22:49:28 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793396968;
+	bh=YfYRQdKxBnVAUwjO81ld0nM62cSdG3LQxtwd8SV6nK4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aCTajLHPVXes4Pwnb7DjKOtGZYX1w3Hp06r5sjl0219fRsNg9xlnPnpr90LDvrRCm
+	 bLagfybbHkHT5FrAcPA7spWbLsowJqkZ7Gj736JPd9psOnIGIqMCg+vz/7sBbhcmKm
+	 hHhCVuKdOyrEFb/9j5gz7hyGPyI48l1Rz92lr6fM=
+Date: Fri, 30 Oct 2026 23:51:41 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-media@vger.kernel.org,
+	Phong Hoang <phong.hoang.wz@renesas.com>,
+	Paul Elder <paul.elder@ideasonboard.com>
+Subject: Re: [PATCH v3 12/15] media: vsp1: Fix setting control register by
+ display list
+Message-ID: <20261030215141.GE3178046@killaraus.ideasonboard.com>
+References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
+ <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-12-e052903a3832@ideasonboard.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,35 +76,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261030195214.1284995-1-sohil.mehta@intel.com>
+In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-12-e052903a3832@ideasonboard.com>
 
-On Fri, Oct 30, 2026 at 12:52:14PM -0700, Sohil Mehta wrote:
-> The RFDS vulnerability check uses raw model numbers to identify Alder
-> Lake and Raptor Lake. Most Intel-specific code has already moved away
-> from x86_model checks, but this one got added recently.
+On Thu, Oct 15, 2026 at 04:51:52PM +0900, Paul Elder wrote:
+> From: Phong Hoang <phong.hoang.wz@renesas.com>
 > 
-> Replace the x86_model checks with VFM ones to make them more readable.
+> According to R-Car Hardware User's Manual, VSP HW does not
+> support to download register settings for the control registers
+> by display list, so set those registers by APB interface instead.
 > 
-> Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
+> This limitation is especially enforced within the VDK.
+> 
+> Signed-off-by: Phong Hoang <phong.hoang.wz@renesas.com>
+> Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
+> Signed-off-by: Paul Elder <paul.elder@ideasonboard.com>
 > ---
->  arch/x86/kernel/cpu/common.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/media/platform/renesas/vsp1/vsp1_wpf.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
 > 
-> diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
-> index c7352827f491..8d7bd8bb7b18 100644
-> --- a/arch/x86/kernel/cpu/common.c
-> +++ b/arch/x86/kernel/cpu/common.c
-> @@ -1392,8 +1392,8 @@ static bool __init vulnerable_to_rfds(u64 x86_arch_cap_msr)
->  	 * both Core and Atom CPUs. Mark unaffected when Atom CPUs are not
->  	 * present.
->  	 */
-> -	if ((boot_cpu_data.x86_model == 0x97 ||
-> -	     boot_cpu_data.x86_model == 0xB7) &&
-> +	if ((boot_cpu_data.x86_vfm == INTEL_ALDERLAKE ||
-> +	     boot_cpu_data.x86_vfm == INTEL_RAPTORLAKE) &&
+> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_wpf.c b/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
+> index 821887815eb2e38d3a51791161de8cd3c135ef3c..4a5ad8e4903e99d5a522af2239889d7899f629cd 100644
+> --- a/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
+> +++ b/drivers/media/platform/renesas/vsp1/vsp1_wpf.c
+> @@ -332,9 +332,8 @@ static void wpf_configure_stream(struct vsp1_entity *entity,
+>  	vsp1_wpf_write(wpf, dlb, VI6_WPF_SRCRPF, srcrpf);
+>  
+>  	/* Enable interrupts. */
+> -	vsp1_dl_body_write(dlb, VI6_WPF_IRQ_STA(index), 0);
+> -	vsp1_dl_body_write(dlb, VI6_WPF_IRQ_ENB(index),
+> -			   VI6_WPF_IRQ_ENB_DFEE);
+> +	vsp1_write(vsp1, VI6_WPF_IRQ_STA(index), 0);
+> +	vsp1_write(vsp1, VI6_WPF_IRQ_ENB(index), VI6_WPF_IRQ_ENB_DFEE);
 
-I missed that when adding the patch. Thanks for fixing.
+Unfortunately I think this will cause a problem. For the V4L2 and DRM
+clients, all should be fine. The configure_stream operation is called
+after starting streaming, which calls vsp1_device_get() to
+runtime-resume the device. For the ISP client, however, I think this
+function can be called from the .buf_queue() handler before the start
+streaming operation, as vb2 enqueues buffer in the driver before calling
+.start_streaming() on the queue. We would then try to write the register
+while the device is suspended, which won't lead to any good outcome.
 
-Reviewed-by: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
+>  
+>  	if (pipe->iif)
+>  		return;
+
+-- 
+Regards,
+
+Laurent Pinchart
