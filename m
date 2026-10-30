@@ -1,77 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793341185;
-	b=GfAGOJ1G76Ffcneaw9XvKJMF2QDfAkOTHdZxBHJBXRjDINKcwe8Wx4iGIuPMGSzyM7k4
-	 6a0fLM5HtVx8W7lQSOOk7ro1zgCQWStg1e8n5FeDkCgJZSnxZeeZyBj/H/jNpLBukmY/M
-	 MTtnOpRY95Ol8ug55cp6FL5KHlrI4qopdwhX03oJPzAyk0OPr9R9nlWw/P69vtZdGqK8u
-	 7CNJPkflKIsqhc/Ug8so1FfFhYR7E5LU0Lew+nptYfDkWDkgvW9u/k2YA81MWhe3L2Zze
-	 DdACzcrffxn570T7Rp/jXCrs5MYZqRgOHT+vJ3ppUEBtEPrGeoxT1pStXbegLLW3meA==
+	t=1793341268;
+	b=BBdjguT/utdi1gM+5B8GCRvFd4hxB8seZbUH2xxOAHuW4AxXB+fVOiNX88Zm6vsAGWHB
+	 M2YuvB/ig6TcpijS4i/yeMrxZr/o6P6Q+9gDJIQWkcda6HR/ObeESLutDJRriMDY/chrO
+	 2JfZQXe9H9UeC7xHOFhqQVtJ17NxYxhsDunFqdU4O1JNAHi3a5FEnihVzOS1JBjEXBtLG
+	 DcsBLzyEBGkOiqiGu5OZ1+S8R0skpeKIfeqeHHHgI+TJ9TduiqtkApOC62HE3WawkIn6m
+	 JitLxHVmE1ygX0Bxb2BGYw+RpLc5tmLTNhHm1oNbaAcLyaMYaUXKot3nnWnMHo23+pA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793341185;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 User-Agent:MIME-Version:Content-Type;
-	bh=8q5Oim3Cfb1HXvi7YFN/J1UPBN525964yhc/4HlA0go=;
-	b=U7yVN1TLmjjGGMQNyj+K66osRELAy6+7cow8KtyY9wYYCPid0+rJ+Vg7Ye0l/DeQZ3qn
-	 bXIbh642qxJ7VTU31lI9iwXNPlJREKEdToAj6O2CAtFJkxCnNTVlDtFtpm2HqreEZPXSQ
-	 kvyAHjBYzXin+dxj8RdpZHmUx5+4qJB7rRtnvcW96l2JR+ukixDdX7tJuI1hUwUmxrUOS
-	 ySvZYXSmMVW0l2xfQi7yHK3d4nUzrGhgr0hbFKyL9FvrhyepH/i2QRzmZA56ceIwpp9Jf
-	 o/BGrS/gCpgWte5X+Adn81SBj33X+goLKb4Qf3cZ0/4cb8Lw4DjpWaNFj6AfddIwl4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793341268;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=2jPH5IEEnZfHp4FyLuqzT4LyHDZSoEvCM0gwfPSo7F8=;
+	b=CUFEUqKLNbq1Y11tREJx84JusGuHCtaGQVlxXzKFV7Lwd1JA+7nwM8/STfMPJNU2gnFz
+	 8CeDfkBHb0TYHtfJ69VvQBN+W+vhaN3kvtBbNTXYrRmJvfulTMc+pjqA543ONzhoG20dI
+	 aUMNjuC6IWnCHbNjf1kiWEueW6orl1VVEDPbx/OfMtllOJiZ/tt/6HL6khunJBIxpgIEY
+	 wmTAaEe0C1Yd5gn92wQlueIFuj203y95o5WgItDHbAB5hlpc2gPREj7k2TWHsR8ri/Lgi
+	 xNe1zS9/rmyI1Rd2RR91vl0yQp65stZfP9EUtHP6vSumdyDgEMydBHD/OjbKMvtFpdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.parknet.co.jp;
-	spf=pass smtp.mailfrom=parknet.co.jp;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=njHC6mU3;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=pfnyQsyU;
-	arc=none smtp.remote-ip=210.171.160.6
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hJwbNfE4;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aIlVJi9O;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84572606A321;
-	Fri, 30 Oct 2026 06:19:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84572606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C99C4606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:21:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C99C4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=njHC6mU3;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=pfnyQsyU
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 9A50626F7664;
-	Fri, 30 Oct 2026 15:19:42 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1793341182;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8q5Oim3Cfb1HXvi7YFN/J1UPBN525964yhc/4HlA0go=;
-	b=njHC6mU3ydi+BifKeggDiNYstuj0eYtFLi8cYySiVp2dXFPdTWeRt8fNZMrh/E7kKAssqn
-	IdpcrkGZNKmAQ8gZ60zz8+iU7glqgbJT5M074W+FLAfoTk3D0VH8VuHCGQEySfvFxdOVez
-	xaMau31hGS27gr4n/y4x4ijf3I3NTVq46snnkG6ArL/oCX+ZPkHBsWgAQ669nIQ+BoLXzO
-	x7DY4WMJ3Biu82Yq1ZFb2gQTjfyXkZ+k6dEX3yVSv2jtg04nJ/rszfTpZfiIUfsLGPo3qN
-	sYiNe3Iyg44GsO3pWjg9QzKQ9euqWQVrrCWggUeTmEVl/2yzqVrD0QAajkspCQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1793341182;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8q5Oim3Cfb1HXvi7YFN/J1UPBN525964yhc/4HlA0go=;
-	b=pfnyQsyUvfrP7XO2F8GoHWiQmkcWOd7PDHP5fgU6zydq4V6lF7tc4GWjhj9YQsmJsfEiU9
-	xlgInMo6tSNKSCAg==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 24280E00144;
-	Fri, 30 Oct 2026 15:19:42 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id 0AD2322001FE; Fri, 30 Oct 2026 15:19:42 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: akpm@linux-foundation.org,  brauner@kernel.org,
-  linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] fat: fix parent link count when replacing a sibling
- directory
-In-Reply-To: <20261030060011.70237-1-dennylin0707@gmail.com>
-References: <20261030060011.70237-1-dennylin0707@gmail.com>
-Date: Fri, 30 Oct 2026 15:19:42 +0900
-Message-ID: <87ecd7soap.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hJwbNfE4;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aIlVJi9O
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U5FJxb2287190
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:21:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=2jPH5IEEnZfHp4FyLuqzT4
+	LyHDZSoEvCM0gwfPSo7F8=; b=hJwbNfE4B0B72oAOUG6oyM61n++VLVW3g0Qp4A
+	efHXAzMBrqyzJb9Ob/thuaxdVqZTvDGp/inImzHf+PBAubupkCjLz9JrELnF6xT8
+	0CvlMEsl+rMrvUhz7TTvzvUBst8fSEGQtKokv2kiGgeuE/79JyjR/+2ptBx2xaZO
+	PNedvc3YVuC9nTbbPY3RquQ7oMhMmKBWO7uSq4Vx4T0+wyv6r0/ekAUxSxa9Q4ig
+	+0kgr9kIrYtRC4oO/hS7wiUkdgcSdQU9dOpQIOHdqHYnm6vtFCKWUIze8WZpY5jz
+	BX32Nyy/G7QbYEzPIfVmLsl5zp4pHs+Y2tlgZIYuOVpGg78w==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qhh3t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:21:06 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd65285537aso172868a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:21:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793341266; x=1793946066; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2jPH5IEEnZfHp4FyLuqzT4LyHDZSoEvCM0gwfPSo7F8=;
+        b=aIlVJi9Ogx/gJj5pD55YMdS+WjT+Upq4Na6mSZkA9EHCGBc+knRlZ18eAohNWeESYn
+         EsiqDSGi82c3q1axbiLqC3OXjFwX8oKAzrRqMDjARAwpRx1nooQciXq3D0JEJGgOPQzv
+         FNmKv5qhkWmfdbWF7yAWTv9QUgL3MYt1eNYOlMcM50ag31QBUp0pSgz/slSKzT4Q2+yI
+         YsmuQxhyOqgGGCqrpIerGtyThkqCwC1H2VPwQ8qthsbngVSo/alj2sZC/Wvzo+6geB48
+         fySr+8fdc7biQdLj6N2GJDyotc6kpJpic/nlwiDMw9KJbl4ud6y1Gdj9IqNkhEnNZ9XL
+         XVcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793341266; x=1793946066;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2jPH5IEEnZfHp4FyLuqzT4LyHDZSoEvCM0gwfPSo7F8=;
+        b=FPqKEPy95PeZVhdfwO8CCXiNu2o8JunSEny5AAP8SPKytgJMfC62e3+r53RDRV7Lud
+         Ml15FM/Q+e0fts/cVB8byBdqY2z6rWQUa9ySTmMkZLB64H42pgTxU6CGRmay7wl3oXMV
+         0D7qS7W2qhku2qC9RIBhmWNnk4s/hxB+BPNiDMdqpox0goygvWvwR8B3HULSPkC62UIv
+         0PsZ0ItdHpBAKm+gXUXLteA+6fBQPX4+dw4qlCwOXyB580w2ZHVfg0wfqPtT0nbXM0UQ
+         i6zk+AnAhYutDQkvE0WOQePtPQnrwSAvsm8jfnxbBQ23pUsmg1XFdgC9UyBTckjXHfk8
+         8apg==
+X-Forwarded-Encrypted: i=1; AKwUvBwQmoQJ6Hzu8pAJDpucqWdy6UEQBoBc0N8v9roJ+GXfdpklwI/5EfsuvWHnTKYEqpV0ceiZ8wSPqaQjdGE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYK3Db5/mU7NQIu3c16qu41IjsSKeCOx2WeT12QaXdK6lXrSCn
+	BallmUrFMXjeHsbAHUFSZ6aHXndDjS5Tw1rppFcSxVVV6eKGRfdXXXYFXv5nH0yH+BubIUQdc1J
+	KiT85lHnhtUCGID5Q/ajNtOGbQorMxNp+iLqa+d5lVlp2atjTw0jwJgahv9nqqXmH9hg=
+X-Gm-Gg: AYBFou2mXjLr08qFemHibycRvhHl58idJi/47E7tfjFVyq8vQxoBQInHtbkDNLnhUDB
+	L52f3z9nWtcS24zbq1PDLWbSKc6Xqb2JvEewEb5ewVvHvJxXS83WApi4xfoO8F+RPUtOPbLUM8g
+	A2HiUWo6U0le0tIWCpZoS4fWA0RQ/gWVBBfh05AHF08+UziZM/2Y7qOolYfFFjtJPT/LK3/tOBg
+	Ux/kAhI8+Z5O94oXeln0tB89kenu2TOPWf+ZEOMY0HGnS6mM9UdWXiFq9WK3eX26sbWX46ZIJ0A
+	IqpL/ut5INyD78cBKHEKSO9u3Rs+qlWsWDrG81v78kgP1PQI8ruOW7KHlFC/Kpj6vkauJel4n/w
+	D3Ke86Kpi/jsr2KfiXfS6xm2fX9qAV8uT03BdFkXPIIhB3i7DvUXaOtIhwwHkwEHdWI8=
+X-Received: by 2002:a05:6a21:6190:b0:3e8:b7fd:626c with SMTP id adf61e73a8af0-3e928df4b08mr1373561637.20.1793341266230;
+        Thu, 29 Oct 2026 23:21:06 -0700 (PDT)
+X-Received: by 2002:a05:6a21:6190:b0:3e8:b7fd:626c with SMTP id adf61e73a8af0-3e928df4b08mr1373539637.20.1793341265757;
+        Thu, 29 Oct 2026 23:21:05 -0700 (PDT)
+Received: from [10.213.109.130] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a9ef08b936sm351163b3a.13.2026.10.29.23.21.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 23:21:05 -0700 (PDT)
+From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Subject: [PATCH v3 0/7] mfd: qcom-pm8008: Add support for PM8010 over I2C
+Date: Fri, 30 Oct 2026 11:50:48 +0530
+Message-Id: <20261030-pm8010_i2c_support-v3-0-995ed1ec7a72@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,143 +114,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEA35GoC/22NXw+CIBRHv0rjORxc/IM99T1acwqYtBQDZTXnd
+ w9s9eTL3c72u+csyCmrlUOnw4Ks8tppMwRgxwMSXT3cFNYyMAICOSlphseeE0oqDaJy8zgaO2F
+ GckiBsgIEQ+FxtKrVr016uX7Zzc1diSma4qLTbjL2vVU9jbtfgO8FPMUES8WYLHhby1KejXPJc
+ 64fwvR9Eg6KHQ9/EyU03TVBMDWszCQ0rM1zvmNa1/UDu3uswhcBAAA=
+X-Change-ID: 20260915-pm8010_i2c_support-3062421372c3
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Guru Das Srinagesh <linux@gurudas.dev>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, mfd@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        Oleg Keri <okerixx@gmail.com>, Burke Cates <burke.cates@gmail.com>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793341260; l=3226;
+ i=jishnu.prakash@oss.qualcomm.com; s=20251014; h=from:subject:message-id;
+ bh=3NpmJ00rnG8DyBULcr5JZZHRbARR1VK7xLOxGL+7IFA=;
+ b=/vJGQOS5qpLtuieD0HdMKPT5yZCZYaakmgVb/mxMetHXtqSQInFlAwSct2xAEuf++Cl+6XLKP
+ Sikm8WVVrv3B5IynI3PwMLOI/0dI2fR+vsdoAno4MVqoAFyk46bQP4B
+X-Developer-Key: i=jishnu.prakash@oss.qualcomm.com; a=ed25519;
+ pk=g89pXdLVwRjdTeQ+uX1QzvBO346E3hQAc1N7fcTXgmk=
+X-Proofpoint-GUID: mx45neIcls3Il7SB29LVjZZ1Q87te0fb
+X-Authority-Analysis: v=2.4 cv=KLzPn1Fo c=1 sm=1 tr=0 ts=6ae43753 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=jA20YhC1vE42qShcUG8A:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAyNSBTYWx0ZWRfX0kBKdVgckG2f
+ XkmqAl5Pvx1HORBZ5ugkfJotZ1P1OnRa+oDmcZKcIAafRdk+rWyqaCdNHFTK+AUSVQfW7DrlGaF
+ Wg/9nULZsb9ERiyPQjjAo1KWLcaH986GObkQQ6B4spi1tNd9jOnT3KDjT/WWFqU1U9sqCj5metW
+ 09eIAkIb/HnoinFr7s8k8XuP0Q7HvPCmudfGrFmrKuehaLF1UihQOoNzKEIKOPwknlDdKmQolCf
+ ff243pOhmXpdWHozsD7oi2tUmMa49kHJdVIiJRjgJl30/dTN2Oq3t9hdfL9kx16tysWP9/9H9ag
+ K+6/LWqfIbpUCANqVCUm05kH/C3gdXUW5DTTwSjtyhUxtr7L9rkxIV1sVrUribfbBs5SQqvuecu
+ L+gYFAzzl+oXy7tYIAXu/IDNjUrO/3M3tduPgUbi6WqVeMh5MHFASluhX3BHoaHDqgISh28lgnL
+ 5/mphcOMwG1DGCYC9hQ==
+X-Proofpoint-ORIG-GUID: mx45neIcls3Il7SB29LVjZZ1Q87te0fb
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAyNSBTYWx0ZWRfXyKRt3aQim3RF
+ BM0CGn6vVCmxVx/GBGeK/DnzkyXVugBSRAYvC52xhxTYtP0wYs4jxkKM6Af2my89xnc0wKpqiCh
+ 87dzYpuavfLzxVoyVjTvxOn4oRKj5PQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 spamscore=0 malwarescore=0 impostorscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300025
 
-Hungyu Lin <dennylin0707@gmail.com> writes:
+PM8010 is the next generation PMIC following PM8008 and has similar
+functionality, providing 7 LDOs that power camera sensors and associated
+hardware, with some differences from PM8008 LDOs. The series also adds
+support for skipping interrupt configurations which is needed to support
+SoCs where the PMIC's interrupt pin is grounded, such as Glymur.
 
-> vfat_rename() and do_msdos_rename() adjust parent link counts only when
-> updating the dotdot entry for a move between different parents. Replacing
-> an existing empty directory in the same parent also removes a
-> subdirectory, but leaves the parent's link count unchanged.
->
-> For example, renaming one of two sibling directories over the other
-> leaves the parent with four links instead of three. stat and ls report
-> the stale count, and find -links 3 does not match the parent.
->
-> Drop the parent's link count for this case after the source entry has
-> been removed successfully. Leave cross-parent renames, regular files
-> and the existing error paths unchanged.
->
-> Share the parent link count check with rmdir through fat_dir_drop_nlink().
-> Only decrement counts of at least three and report a filesystem error
-> otherwise, rather than reducing a corrupted directory's count below two.
-> Export the helper for the VFAT and MSDOS modules.
->
-> Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Patch 1 adds the new compatible string for PM8010 over I2C
 
-Looks good. Thank you!
+Patch 2 adds PM8010 LDO support
 
-> ---
-> Changes in v3:
-> - Move the parent link count check into fat_dir_drop_nlink() in the FAT
->   module and export it with EXPORT_SYMBOL_GPL(), as requested by
->   OGAWA Hirofumi.
-> - Use the helper in all four places: the VFAT and MSDOS rmdir paths and
->   the two sibling-directory replacement paths.
-> - Retain Hirofumi's Acked-by from v1.
->
-> Changes in v2:
-> - Check the parent link count before decrementing it and report low
->   counts with fat_fs_error(), matching rmdir(), as noted by Sashiko.
->
-> v1: https://lore.kernel.org/r/20261028211626.26103-1-dennylin0707@gmail.com
->
->  fs/fat/dir.c         | 10 ++++++++++
->  fs/fat/fat.h         |  1 +
->  fs/fat/namei_msdos.c |  9 +++------
->  fs/fat/namei_vfat.c  |  9 +++------
->  4 files changed, 17 insertions(+), 12 deletions(-)
->
-> diff --git a/fs/fat/dir.c b/fs/fat/dir.c
-> index 35bdb62944a2..0cebcaf82426 100644
-> --- a/fs/fat/dir.c
-> +++ b/fs/fat/dir.c
-> @@ -963,6 +963,16 @@ int fat_dir_empty(struct inode *dir)
->  }
->  EXPORT_SYMBOL_GPL(fat_dir_empty);
->  
-> +void fat_dir_drop_nlink(struct inode *dir)
-> +{
-> +	if (dir->i_nlink >= 3)
-> +		drop_nlink(dir);
-> +	else
-> +		fat_fs_error(dir->i_sb, "parent dir link count too low (%u)",
-> +			     dir->i_nlink);
-> +}
-> +EXPORT_SYMBOL_GPL(fat_dir_drop_nlink);
-> +
->  /*
->   * fat_subdirs counts the number of sub-directories of dir. It can be run
->   * on directories being created.
-> diff --git a/fs/fat/fat.h b/fs/fat/fat.h
-> index 76978a268410..a8a3ca4f465b 100644
-> --- a/fs/fat/fat.h
-> +++ b/fs/fat/fat.h
-> @@ -332,6 +332,7 @@ extern const struct file_operations fat_dir_operations;
->  extern int fat_search_long(struct inode *inode, const unsigned char *name,
->  			   int name_len, struct fat_slot_info *sinfo);
->  extern int fat_dir_empty(struct inode *dir);
-> +void fat_dir_drop_nlink(struct inode *dir);
->  extern int fat_subdirs(struct inode *dir);
->  extern int fat_scan(struct inode *dir, const unsigned char *name,
->  		    struct fat_slot_info *sinfo);
-> diff --git a/fs/fat/namei_msdos.c b/fs/fat/namei_msdos.c
-> index c7500c2859e0..5a43d042eb01 100644
-> --- a/fs/fat/namei_msdos.c
-> +++ b/fs/fat/namei_msdos.c
-> @@ -333,12 +333,7 @@ static int msdos_rmdir(struct inode *dir, struct dentry *dentry)
->  	err = fat_remove_entries(dir, &sinfo);	/* and releases bh */
->  	if (err)
->  		goto out;
-> -	if (dir->i_nlink >= 3)
-> -		drop_nlink(dir);
-> -	else {
-> -		fat_fs_error(sb, "parent dir link count too low (%u)",
-> -			dir->i_nlink);
-> -	}
-> +	fat_dir_drop_nlink(dir);
->  
->  	clear_nlink(inode);
->  	fat_detach(inode);
-> @@ -565,6 +560,8 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
->  		(void)sync_inode_metadata(old_dir, 1);
->  
->  	if (new_inode) {
-> +		if (is_dir && old_dir == new_dir)
-> +			fat_dir_drop_nlink(old_dir);
->  		drop_nlink(new_inode);
->  		if (is_dir)
->  			drop_nlink(new_inode);
-> diff --git a/fs/fat/namei_vfat.c b/fs/fat/namei_vfat.c
-> index ff7652bf0410..791f2d7b8509 100644
-> --- a/fs/fat/namei_vfat.c
-> +++ b/fs/fat/namei_vfat.c
-> @@ -809,12 +809,7 @@ static int vfat_rmdir(struct inode *dir, struct dentry *dentry)
->  	err = fat_remove_entries(dir, &sinfo);	/* and releases bh */
->  	if (err)
->  		goto out;
-> -	if (dir->i_nlink >= 3)
-> -		drop_nlink(dir);
-> -	else {
-> -		fat_fs_error(sb, "parent dir link count too low (%u)",
-> -			dir->i_nlink);
-> -	}
-> +	fat_dir_drop_nlink(dir);
->  
->  	clear_nlink(inode);
->  	fat_truncate_time(inode, NULL, FAT_UPDATE_ATIME | FAT_UPDATE_CMTIME);
-> @@ -1011,6 +1006,8 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
->  	vfat_update_dir_metadata(old_dir, &ts);
->  
->  	if (new_inode) {
-> +		if (is_dir && old_dir == new_dir)
-> +			fat_dir_drop_nlink(old_dir);
->  		drop_nlink(new_inode);
->  		if (is_dir)
->  			drop_nlink(new_inode);
->
-> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+Patch 3 adds mode voting support for PM8010, which is not supported on PM8008
 
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Patch 4 drops GPIO support from the MFD driver, as the GPIOs have fixed
+functions and don't need SW configurations
+
+Patch 5 adds PM8010 support in the MFD driver
+
+Patch 6 updates documentation to make interrupt configuration optional
+
+Patch 7 updates the MFD driver to tolerate a missing interrupt
+
+Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+---
+Changes in v3:
+- Updated commit message of mode support patch and added regulator ops in match
+  data as suggested by Guru.
+- Updated pm8010_regulator_get_mode() to read LDO_MODE_CTL1_REG instead of
+  LDO_STATUS1_REG as suggested by Sashiko.
+- Added NULL check for of_device_get_match_data() as suggested by Sashiko and
+  updated TYPE_PM8008 from 0 to 1 to avoid confusion with this function
+  returning 0.
+- Link to v2: https://patch.msgid.link/20261014-pm8010_i2c_support-v2-0-b395d2b3f668@oss.qualcomm.com
+
+Changes in v2:
+- Simplified of_device_is_compatible() call in mode support patch as
+  suggested by sashiko.
+- Added a change to drop GPIO support in MFD driver as suggested by Konrad.
+- Replaced match_data parsing in probe in PM8010 MFD support patch with enum
+  identifier and switch() statement as suggested by Lee.
+- Moved interrupt configuration from probe into separate function in missing
+  interrupt support patch as suggested by Lee.
+- Added MFD cells for no-IRQ variants of PM8008/PM8010 and updated probe to
+  use them in missing interrupt support patch as suggested by sashiko.
+- Collected Rob's Acked-by tags on binding changes and Oleg's Tested-by tags
+  on regulator driver changes (not on MFD changes since some significant
+  changes are made in them now).
+- Link to v1: https://patch.msgid.link/20260918-pm8010_i2c_support-v1-0-de33d78fad9d@oss.qualcomm.com
+
+---
+Dhruvin Rajpura (1):
+      regulator: pm8008: Add mode voting support for PM8010
+
+Jishnu Prakash (1):
+      mfd: qcom-pm8008: Drop GPIO support
+
+Konrad Dybcio (5):
+      dt-bindings: mfd: pm8008: Add qcom,pm8010-i2c compatible
+      regulator: pm8008: Add PM8010 support
+      mfd: qcom-pm8008: Add PM8010 support
+      dt-bindings: mfd: pm8008: Make interrupts optional
+      mfd: qcom-pm8008: Tolerate missing interrupt
+
+ .../devicetree/bindings/mfd/qcom,pm8008.yaml       |  10 +-
+ drivers/mfd/qcom-pm8008.c                          | 172 ++++++++++++++-----
+ drivers/regulator/qcom-pm8008-regulator.c          | 183 ++++++++++++++++++---
+ 3 files changed, 295 insertions(+), 70 deletions(-)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20260915-pm8010_i2c_support-3062421372c3
+
+Best regards,
+--  
+Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+
