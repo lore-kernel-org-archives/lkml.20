@@ -1,59 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793398405;
-	b=Q+4AFdvrlyEeZsPSr6UHHq9Kdb8wNYhh7+BOGNjJbFvim8RWi6U359+Y3euQwrzJIGWN
-	 rWjrs5eBWuofvY59caGiOuV4xOuPlLyk99W9vlSwkA1skHtxLuff32f9W/pVMBoTwMdOc
-	 Y7q5HkC13hhg3DjR8zCjbajsedZCCzlGCBjLpTdI0yTpXdeKS7JjuxBunDTMNptpJWlUQ
-	 xe7DcFsxhw38gez+SbIQ/Fb/JUAGEKYwl/GXPIsgMilWqXo5ZLN6kRqeu0NAlJIH9ZTWB
-	 UOJl7DsuCSW/TflAStD5JU/eBzQ3n3vYmSWOvkYRTJ/vknZXvPX+gt4SKZ5BAIzK5mw==
+	t=1793398444;
+	b=vXwbQvXny1/pL4oUkZnreaSwZ21+nTerrbGQJ3OH8C/W9pNADyLMWpn96FjZjbSQfj7R
+	 vq17n+IaPPrAfffh6SLowjd28bcNm22XjlxUP4BTDocDSAjfhCiyQbHOJyCYLj7hhNSEu
+	 brxj6Zm0RV278+oDzkNArEH1Znk04d6ENzhIiwIRssZr78VY2/YXCJizbR6RmwhECwmfP
+	 44CN1ONzn2M3FrEUC4I+cLzc5XV0MfrofHo0geBM92bt+XyPTK/pwn/zTNr/m/JCn+giA
+	 xhWHItXvDgA29r+Dk4Pxg66Wt8Sf4h/9q5L356WQu9gkNdwehsCMovoSKCMF+XFrDlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793398405;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Ad9G+QJKWBbiVuK5/YoploQz2oiKmEWZuVEvN3yaNqw=;
-	b=hNOZxLgOFgbHhu3b4fVvlfJuo+Q7XENAY/TKtdQBuat+tdh1NlH5J8rymytDowOggJ6V
-	 0u/lJdHRRUlzpbJtTavzu43V4dk1Bg6Iq9Aay8xNDZ6w08KSnDGzPMxsPYvOgUVd1wtmn
-	 7o8pWhGFLiNkvzhR5UnPbpeOBcdmyyCqBB3Pomu4e/FfQSnkFU6MxJ+c/GfO257OWrbf3
-	 okVBZAPH1SNKa08HV+bpeV/g/oR0RQaqqro6/asGh/mOp3xY4r40hbvueBMWgNo5SLXYm
-	 tTlz+LeBSnWxZBCCIX/hCFiic6NXZ92ISeaGNwA0kxVlhPI8Od5e149WpX3H/f1mCew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793398444;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=v96p8NzzJuOeaoy5WFJozQBW1mtjfbl/LCeCCkWteFs=;
+	b=gCc78tThhalIftTLInW4hRbgVxYZT2T/VW+rujgDHY2ePvWIytW6A9Tiyir1M+scCnaK
+	 CLN7qKJ8qS0yrKYfJ11pOpL8lTBodpwz54m/eXQxnoWwpbXAGcAyFzv1S4YlbOjaLzJwH
+	 2gNKiD2Kb6Y5PxfChLul34GCeIKjY3LY3ClqJvOhjRzSU50IuRBTOMWSMkeqDm4T5SF3A
+	 Ll2yYP85Fye7CwCzcDeeQWNGwumbJm1vAyFU2gxaJj8d0ytqN86Z4eGDfMIgQnyZHs8F0
+	 LRqv9byWrKHoe9aCtB9K8e+BM4kgqzJohTkpQY8SLmwYk17qeTKNtOQ07CYmLzEyqIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G7ObQvDf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CyowhQHe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77A1606A31A;
-	Fri, 30 Oct 2026 22:13:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE97606A31A;
+	Fri, 30 Oct 2026 22:14:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G7ObQvDf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B4501F00A02;
-	Fri, 30 Oct 2026 22:13:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CyowhQHe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CDEC1F000C1;
+	Fri, 30 Oct 2026 22:14:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793398404;
-	bh=Ad9G+QJKWBbiVuK5/YoploQz2oiKmEWZuVEvN3yaNqw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G7ObQvDfVzQMhL9YU3BBDjDOOiDuO5NdUysaQvuK8wMrnjXG9HCwCj4Aq8P+3LhCv
-	 Lfj9ol/XzrhECCeeJDlrMfPvdLs99VU5hIynwGeqJ0fqUUcei+MlogrsyRVV+Zpstd
-	 mrF6/Z8KRz04ryc4QfLIdnU9XjZ2C7ze57sXl5h+2R9KPIolmWKywEXajvIgTL3TXg
-	 gZ6VI6fFuK3cGqO5g8aQnRPOGXb7z2Y2jKbHHcyufb3fWewhk3WoiEA+vhOKk6PNr6
-	 gT2IfgZBM0rpdV82D27h8YhrCrjJDNwToEd/T3VexyuO7N49HwZMkzIk2gJ6lQHHXj
-	 csZYBM8+MPCSA==
-Date: Fri, 30 Oct 2026 22:13:22 +0000
-From: Yosry Ahmed <yosry@kernel.org>
-To: Jim Mattson <jmattson@google.com>
-Cc: Zide Chen <zide.chen@intel.com>, 
-	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>, 
-	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>, 
-	Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>, 
-	Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-Subject: Re: [PATCH v2 11/16] KVM: x86/pmu: Emulate the GLOBAL_STATUS_SET and
- GLOBAL_INUSE MSRs
-Message-ID: <auUQgRVFASkWtkoK@google.com>
-References: <20260827223755.143247-1-zide.chen@intel.com>
- <20260827223755.143247-12-zide.chen@intel.com>
- <CALMp9eRvQ+iQdw_dWPLqZCrO7zpLut+O27pb-EPNa33hkegaBw@mail.gmail.com>
+	s=k20260515; t=1793398443;
+	bh=v96p8NzzJuOeaoy5WFJozQBW1mtjfbl/LCeCCkWteFs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CyowhQHe5fz4QAIGy6UHWgpltzIXUiXysdD2zazgsYDuqVolAp8VEcVMJNz1JVKba
+	 G3UhLW+RCtqEVyWmzcpxKNJwBgwccXe2sihbaeDYMA7MjdbidCftV/5OoZc76BSbyb
+	 y2iRRlafgM01L2L8TsLcZ56b49Qnl0dGDvVzz+KIcD2TPd5kTknhkyKP75XIgelBs6
+	 Fp9fcLeWhbVYWlosxpMyDGz97/a4U+3Hhw0XpDpqnAGg8jqm0JaHA8hAYuvjezZHq6
+	 FF3Mq19qpYc7s91TQiVW+hQiNY4LNp8eRD91TALZiTojpOSKiyxuWG2YDqR8yAkJYi
+	 BEPTYBmwV53nw==
+From: Sasha Levin <sashal@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	David Hildenbrand <david@kernel.org>,
+	Jisheng Zhang <jszhang@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	linux-riscv@lists.infradead.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-next@vger.kernel.org
+Subject: [PATCH linux-next] riscv/mm: fix up the mm-fixes merge of free_pmd_table()
+Date: Fri, 30 Oct 2026 18:14:01 -0400
+Message-ID: <20261030221401.155797-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <as0D2sHzh_UnNF5L@sirena.org.uk>
+References: <as0D2sHzh_UnNF5L@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,76 +69,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALMp9eRvQ+iQdw_dWPLqZCrO7zpLut+O27pb-EPNa33hkegaBw@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-> > @@ -865,6 +867,7 @@ int kvm_pmu_get_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
-> >         case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_CLR:
-> >         case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET:
-> >         case MSR_CORE_PERF_GLOBAL_OVF_CTRL:
-> > +       case MSR_CORE_PERF_GLOBAL_STATUS_SET:
-> >                 msr_info->data = 0;
-> >                 break;
-> >         default:
-> > @@ -931,6 +934,12 @@ int kvm_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
-> >                 if (!msr_info->host_initiated)
-> >                         pmu->global_status &= ~data;
-> >                 break;
-> > +       case MSR_CORE_PERF_GLOBAL_STATUS_SET:
-> > +               if (data & pmu->global_status_rsvd)
-> > +                       return 1;
-> > +               if (!msr_info->host_initiated)
-> > +                       pmu->global_status |= data;
-> > +               break;
-> 
-> According to Intel SDM Vol. 4, Table 2-2 ("IA-32 Architectural MSRs"),
-> IA32_PERF_GLOBAL_STATUS.CondChgd[bit 63] cannot be set by writing to
-> IA32_PERF_GLOBAL_STATUS_SET, because IA32_PERF_GLOBAL_STATUS_SET[bit 63] is
-> reserved.  In other words, it is not possible to save/restore
-> IA32_PERF_GLOBAL_STATUS when bit 63 is set.
-> 
-> Because bit 63 is clear in pmu->global_status_rsvd:
-> 
-> 1. An intercepted guest WRMSR(MSR_CORE_PERF_GLOBAL_STATUS_SET, BIT_ULL(63))
->    succeeds instead of injecting #GP(0) and sets bit 63 in
->    pmu->global_status.
-> 2. When bit 63 is set in pmu->global_status (whether it was set by
->    kvm_pmu_set_msr() or by intel_mediated_pmu_put()), the next
->    intel_mediated_pmu_load() will try to write an illegal value to
->    MSR_CORE_PERF_GLOBAL_STATUS_SET. I don't think we get a #GP, because
->    every wrmsr is "safe" these days, but the write will be ignored.
+The mm-fixes merge reuses an older resolution of the conflict in
+remove_pud_mapping() and keeps the free_pmd_table() call that passes
+is_vmemmap. Commit f998a21c2ba5 ("riscv/mm: fix hotplug page-table
+destructor handling") in mm-fixes removed that argument, so a riscv
+build with CONFIG_MEMORY_HOTPLUG fails:
 
-On SPR, it does produce a #GP that gets ignored (and logged) and the bit
-is not set.  Interestingly, on CLX, the write goes through and the bit
-is set. Didn't check other CPUs.
+  arch/riscv/mm/init.c:1657:35: error: too many arguments to function call, expected 2, have 3
 
-> OTOH, what about PerfMon v4 bits 58 (GLOBAL_STATUS_LBRS_FROZEN), 59
-> (GLOBAL_STATUS_COUNTERS_FROZEN), and 61 (GLOBAL_STATUS_OVF_UNCORE)?  Per
-> Intel SDM Vol. 4, Table 2-2, those bits are valid in
-> IA32_PERF_GLOBAL_STATUS, IA32_PERF_GLOBAL_STATUS_RESET, and
-> IA32_PERF_GLOBAL_STATUS_SET when CPUID.0AH:EAX[7:0] > 3.
-> 
-> When those MSRs are passed through in mediated mode, the guest can set bits
-> 58, 59, or 61 in hardware via IA32_PERF_GLOBAL_STATUS_SET. Leaving those
-> bits set in pmu->global_status_rsvd for pmu->version >= 4 will break
-> KVM_SET_MSRS(MSR_CORE_PERF_GLOBAL_STATUS) as well as any intercepted guest
-> writes to GLOBAL_OVF_CTRL / GLOBAL_STATUS_SET.
-> 
-> As I pointed out in patch 04/16, we can't pass through the PMU global
-> controls unless their reserved bits match hardware.
+Drop the argument to match the mm-fixes version of the call.
 
-I think there are two other relevant (but pre-existing) problems here:
+Fixes: f383866da287 ("Merge branch 'for-next-fixes' of https://git.kernel.org/pub/scm/linux/kernel/git/mm/linux.git")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+Mark, this applies on top of next-20261030 and is meant to be folded into
+the mm-fixes merge resolution. Next/merge.log says it was resolved using
+a previous resolution, I think the one from the risc-v/mm conflict on
+2026-10-12, which had the same problem (next-20261012 has it too).
 
-1. GLOBAL_STATUS_TRACE_TOPAPMI_BIT can leak from the host into the
-guest. If a host PT PMI arrives while the guest context is loaded, bit
-55 will be set for the guest, and the guest won't be able to clear it if
-OVF_CTRL is intercepted (it will #GP as it is reserved for the guest).
-Similarly, the value can't be restored through KVM_SET_MSRS.
+Build tested with clang: riscv defconfig plus MEMORY_HOTPLUG and
+MEMORY_HOTREMOVE, W=1 build of arch/riscv/mm/ (also mm/memory_hotplug.o and
+mm/sparse-vmemmap.o), and plain defconfig.
 
-(I think the PMI may also be lost as LVTPC points at the mediated vPMU
-vector)
+ arch/riscv/mm/init.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-2. On AMD, bit 58 and 59 have a similar problem. HW accepts those bits
-but they are reserved for the guest, so the guest can set them if
-GLOBAL_STATUS_SET is passed through, but userspace cannot restore them.
+diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
+index 2400537a01215..e822fce0af4b0 100644
+--- a/arch/riscv/mm/init.c
++++ b/arch/riscv/mm/init.c
+@@ -1654,7 +1654,7 @@ static void __meminit remove_pud_mapping(pud_t *pud_base, unsigned long addr, un
+ 		remove_pmd_mapping(pmd_base, addr, next, is_vmemmap, altmap);
+ 
+ 		if (pgtable_l4_enabled())
+-			free_pmd_table(pmd_base, pudp, is_vmemmap);
++			free_pmd_table(pmd_base, pudp);
+ 	}
+ }
+ 
+
+base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+-- 
+2.53.0
+
