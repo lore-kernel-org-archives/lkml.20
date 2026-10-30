@@ -1,56 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362677;
-	b=QUlnpip/odxYGNPBdzvG4DMKnjtDD7VpVXY+wdPQFhd4HSpg0b/xiJKCEuz936Ro+h7m
-	 kkRB/ck/77o9WXlAEOnWGEXNFlse80LFRe7zoOgRxPPER/rdkQVrWvus6cPY2yIQOwkq4
-	 zxIbnPkXns4nn81cjkVArQyHxU2HeJJ1+4QwRlvZwoQ3gILKmJYtxc1ul3pCv4MSATfry
-	 ON9tYJCA5r0TAFmfAy5xvE6bthjglA/A2iAxR1LVnsGxO5xW1YX28Q88tQ5jQlzXgJcz9
-	 bZGcZ5yU84jMZd61BfvBdfWQU3QvfYVlFpdEFCzrXH55easF05GcrleLJ/kagnxNjiw==
+	t=1793362725;
+	b=t9GGvr8BADbE8fgDwde3sjp52eNODXCrG0qnYfXdsVZh1ZT1i7gorUvuK2qVU991CNhI
+	 VebG0uZdzIRKNuw1X1qPrY2cs4+6QiLK5VRbBxysyXvstp4wmY01Iye33liG0EwuQ9BIp
+	 W0217rBQEK/oLBOsax7RTz3iZDprobuhq5XobmCnjuBhTR7O6A/F1I3qY3rAgOW6ivNni
+	 VEnEUb/K1PyXd1xHjixH9PiiZJbQP9jBznlUEmlz9SUpLZcaX0j16PDeB0H0GpXJmkJYi
+	 eKw+WKJ9gKeViGDwGh50zBAT4qDcMKrak82CFTjRAdYKW35Ge4RStNglJUf7Q2HUYag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362677;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=gpcEkWZksGGfj9XjEwCf+DBg2I4p4de0sWgxlYdGmn8=;
-	b=h1qlRHy0Y1TGaPRGrrJ9fD7iCjJgSOQFOFIlVVQuyJacD0B8UgBu/Xxi4/8xm0i6A1OV
-	 4B7ZY6WH1QWd0Qg+4mLt8zDSeBSjMKhWJQzcV7RCodM24rs7s13TbZx/8qkC9eJsTo+kx
-	 6oRc1c/tIl9qWAO9QAPqS69XnWI3RUKxQc89FdFTOGG7tLBkrmlrKmfd6gWo9rLbVsmrC
-	 bdsmTQkIwCMf7w6TcKT/+qrl2sEB+lZ8G+LaEKldBI9Sgs/kkx3ZXvUrYiy9UMrIbMnZH
-	 nn6NpskiDaQSRnEPh/ZO17EDqhF9Fs0Ryix/9KojZDtyWXjkoc7yU2bHCP5zCElChHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362725;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=XF7Kruz+VERXXGFD6bAbGW0IgqysTyfQGfE+6WQ3Rdc=;
+	b=VGbE2jTZ1tbBAfxlGJjySUdsG5GkgLe2Bzuq0JeJyV+tCoPurcKtPrvt5fO/gqKm2klS
+	 VPYVGFNLpfwZ8k+GUWZ6kOYUsOy998/u6lSjhB/rXQPJzZ7RnFk9avWmyA2mNM6p8hJ63
+	 44HCLyD4gkT6akzMBK9PTlEPm63A8YLOSPE+s/LUUQvZnFBj66rgKij1a3NWttsOlSLu0
+	 SXrNf9KEXQ5DvPldbDq0cyxG3uUeC7eP9YZfG6ZPgYIuk2C//tp313UztwKBb1Zhek848
+	 YzPr2tkzIOY9JV1pyT5FLlP30I8RGv0UCnqdqVJ/npj0x1n6ZJvTZZGl3N9qg+ztYgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mr5Tufi3;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B3A606A323;
-	Fri, 30 Oct 2026 12:17:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0B3A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=o7DNZa5W;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9ACA2606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:18:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ACA2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mr5Tufi3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=gp
-	cEkWZksGGfj9XjEwCf+DBg2I4p4de0sWgxlYdGmn8=; b=mr5Tufi3GMgVAuq27S
-	jWAfb4B3uAh5SStm6bix00bOes6SQKzovR2BwsVqzk6bbINbA3UO/xfFpKjWyK0k
-	VVS6pMQKshrfheRowcoQbxJ09yqHkX5NXy5HJ4nanqtXVhOlu1yu/pYGCu4aaLfT
-	evsQmpTGifQsUMNtWwlQrVut8=
-Received: from pan-u.. (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgDXXQ_kiuRqoPk9Cw--.24194S2;
-	Fri, 30 Oct 2026 20:17:40 +0800 (CST)
-From: RenPanpan <rppxj178543@163.com>
-To: alsa-devel@alsa-project.org
-Cc: tiwai@suse.de,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [DISCUSSION] ALSA: usb-audio: Card naming for composite devices
-Date: Fri, 30 Oct 2026 20:17:39 +0800
-Message-ID: <20261030121740.250336-1-rppxj178543@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=o7DNZa5W
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 73AE51682;
+	Fri, 30 Oct 2026 05:18:40 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C6F853F673;
+	Fri, 30 Oct 2026 05:18:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793362723; bh=mr1vCM3m++CO0IeLTY678K5+pJpgcJelaLHGSOLgJ9M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=o7DNZa5W8dfrCyTf2ZgrNZIvuu8obc5U5C1jkwLAnbAvVgeKwB8JmCLIDeB/wtVNE
+	 CNqiM/jmsJVuclsTTf2gAYx24q09ZI0hj4JN1PIB0ts8iJsrdOXHnBgBJZrWjn/v+s
+	 J9U4iDL/WTblD9WdYZHTd2inWTTqaOO/8BSS6do0=
+Date: Fri, 30 Oct 2026 12:18:39 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Will Deacon <will@kernel.org>
+Cc: Usama Anjum <usama.anjum@arm.com>, Linu Cherian <linu.cherian@arm.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Kevin Brodsky <kevin.brodsky@arm.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Yang Shi <yang@os.amperecomputing.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Huang Ying <ying.huang@linux.alibaba.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	maz@kernel.org
+Subject: Re: [PATCH v2] arm64: tlbflush: Don't broadcast if mm was only
+ active on local cpu
+Message-ID: <auSLH65dv2nEctXd@arm.com>
+References: <20260523134710.3827956-1-linu.cherian@arm.com>
+ <b6f0d10a-d098-43cc-b923-0245af5f51f0@arm.com>
+ <auR9iDfUxqz3ExP8@willie-the-truck>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,83 +69,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgDXXQ_kiuRqoPk9Cw--.24194S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWrWxCFy3Xr48tr43try8uFg_yoW5Wr1rpF
-	9xKa9Fyrs8Gw1xGw1kXw4fGr9xtrZ3A3WUGryDWr18Ka98ur1jya47trZYqa48C3s5uFy2
-	yrWjqry0kws8AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j8AwxUUUUU=
-X-CM-SenderInfo: huss5yirxykkqt6rljoofrz/xtbC6gSvrmrkiuRZuQAA3v
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auR9iDfUxqz3ExP8@willie-the-truck>
 
-Hello,
+On Fri, Oct 30, 2026 at 11:20:40AM +0000, Will Deacon wrote:
+> On Wed, Oct 28, 2026 at 02:47:19PM +0000, Usama Anjum wrote:
+> > On 23/05/2026 2:47 pm, Linu Cherian wrote:
+> > > From: Ryan Roberts <ryan.roberts@arm.com>
+> > > 
+> > > There are 3 variants of tlb flush that invalidate user mappings:
+> > > flush_tlb_mm(), flush_tlb_page() and __flush_tlb_range(). All of these
+> > > would previously unconditionally broadcast their tlbis to all cpus in
+> > > the inner shareable domain.
+> > > 
+> > > But this is a waste of effort if we can prove that the mm for which we
+> > > are flushing the mappings has only ever been active on the local cpu. In
+> > > that case, it is safe to avoid the broadcast and simply invalidate the
+> > > current cpu.
+> > > 
+> > > So let's track in mm_context_t::active_cpu either the mm has never been
+> > > active on any cpu, has been active on more than 1 cpu, or has been
+> > > active on precisely 1 cpu - and in that case, which one. We update this
+> > > when switching context, being careful to ensure that it gets updated
+> > > *before* installing the mm's pgtables. On the reader side, we ensure we
+> > > read *after* the previous write(s) to the pgtable(s) that necessitated
+> > > the tlb flush have completed. This guarrantees that if a cpu that is
+> > > doing a tlb flush sees it's own id in active_cpu, then the old pgtable
+> > > entry cannot have been seen by any other cpu and we can flush only the
+> > > local cpu.
+> > > 
+> > > Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
+> > > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> > > Tested-by: Huang Ying <ying.huang@linux.alibaba.com>
+> > > [linu.cherian@arm.com: Adapted for v7.1 flush tlb API changes]
+> > > Signed-off-by: Linu Cherian <linu.cherian@arm.com>
+> > > ---
+> > > Changelog from RFC v1:
+> > > - Adapted for v7.1 flush tlb API changes
+> > >   No changes in core logic
+> > > - Collected Rb and Tb tags
+> > > - lat_mmap benchmark showed dsb(ishst) performs better than dsb(ish),
+> > >   hence retained dsb(ishst) in flush_tlb_user_pre	
+> > > 
+> > > 
+> > > Testing with 7.1-rc4 :
+> > > +-----------------------+---------------------------------------------------+-------------+
+> > > | Benchmark             | Result Class                                      |  Improvement|  
+> > > +=======================+===================================================+=============+
+> > > | perf/syscall          | fork (ops/sec)                                    |   (I) 3.25% |
+> > > +-----------------------+---------------------------------------------------+-------------+
+> > > | pts/memtier-benchmark | Protocol: Redis Clients: 100 Ratio: 1:5 (Ops/sec) |   (I) 2.70% |
+> > > | 			| Protocol: Redis Clients: 100 Ratio: 5:1 (Ops/sec) |   (I) 2.13% |
+> > > +-----------------------+---------------------------------------------------+-------------+
+> > 
+> > I tested this patch using a synthetic Firecracker benchmark on a 192-CPU
+> > arm64 host, with Linux v7.3 on both the host and guests. Each worker
+> > repeatedly creates a fresh 1-vCPU microVM, boots Ubuntu, verifies an echo
+> > response over the serial console, and shuts the guest down, waiting for
+> > Firecracker to exit before starting the next VM. Each guest has 256 MiB of
+> > RAM, with two VM slots per workload CPU.
+> > 
+> > With 4 KiB guests, the unpatched workload stops scaling between 64 and 96
+> > CPUs: throughput falls from approximately 68 to 65 completed lifecycles/s
+> > despite the additional CPUs.
+> > 
+> > Applying the patch to the guest substantially improves throughput at higher
+> > concurrency. At 128 workload CPUs, I measured:
+> > 
+> >   Guest pages  Unpatched  Guest patched only  Host patched only
+> >   -----------  ---------  ------------------  -----------------
+> >   4 KiB        73.83/s    108.55/s (+47.0%)    74.09/s (+0.4%)
+> >   64 KiB       86.46/s    105.04/s (+21.5%)    90.15/s (+4.3%)
+> > 
+> > The host uses 4 KiB pages throughout. The host-only difference with 4 KiB
+> > guests is small enough that I would regard it as essentially unchanged.
+> 
+> Sorry, but I haven't understood the setup here. If each guest ("microVM")
+> only has 1 vCPU, then why does this patch have any effect in the "guest
+> patched only" case?
 
-I'd like to discuss an issue with USB audio card naming for composite
-devices and propose a possible improvement.
+I wonder whether it's the repeat TLBI workaround just doing more DVM
+traffic. Turned off when no broadcast is needed.
 
-Problem
--------
+> Additionally, the non-broadcast TLB invalidation will
+> be upgraded to broadcast by the hypervisor.
 
-For USB composite devices containing both non-audio and UAC audio
-functions, the ALSA card shortname is derived from the device-level
-iProduct string, which describes the entire device rather than the
-audio function.
+I have a hack that makes things even faster (opportunistic
+HCR_EL2.FB=0). I may post it once I understand the implications
+properly.
 
-For example, the CVT Touch Device (1ff7:0f33) is a composite device
-with HID touch interfaces and UAC audio interfaces. Its iProduct is
-"Touch Device", which is the name for the whole device. The UAC
-OUTPUT_TERMINAL descriptor defines the audio function name as
-"MAXHUB Speaker" via the iTerminal string descriptor (index 14).
-
-Currently, the ALSA card name shows "Touch Device", which does not
-identify the audio function. The UAC mixer code already reads
-iTerminal for mixer control names (e.g. "MAXHUB Mic" from the
-Microphone INPUT_TERMINAL's iTerminal=17), but the card naming
-function (usb_audio_make_shortname) does not use iTerminal.
-
-Proposed approach
------------------
-
-When the USB device is composite (i.e. it has non-audio interfaces),
-prefer the Speaker OUTPUT_TERMINAL's iTerminal string as the card
-shortname, instead of the device-level iProduct. If iTerminal is not
-set (zero) or not readable via usb_string(), fall back to iProduct
-(existing behavior).
-
-Non-composite (dedicated audio) devices are not affected and continue
-to use iProduct.
-
-The composite device detection checks whether any interface has a
-non-Audio class. The iTerminal reading uses the existing
-snd_usb_find_csint_desc() helper to parse OUTPUT_TERMINAL descriptors
-in the Audio Control interface's extra data. The iTerminal field is
-the last byte of the descriptor, common to both UAC1 (bLength=9) and
-UAC2 (bLength=12).
-
-As an immediate fix, I have also prepared a quirk entry for 1ff7:0f33
-to override the card shortname to "MAXHUB Speaker" directly.
-
-Questions for the community
-----------------------------
-
-1. Is this approach reasonable for composite devices, or should it
-   remain a per-device quirk?
-
-2. Are there concerns about changing card names for existing composite
-   USB audio devices that have iTerminal set? For example, UCM profile
-   matching or PulseAudio device identification.
-
-3. Would it be preferable to also check the IAD's iFunction field
-   before falling back to iTerminal, or is iTerminal sufficient?
-
-4. Are there known composite USB audio devices where the iTerminal
-   string might be empty or contain unexpected content?
-
-I have tested the quirk approach on a MT81C device (Kylin V10-SP1)
-and it works correctly. The iTerminal approach compiles but has not
-been tested on multiple devices yet.
-
-Any feedback would be appreciated.
-
-Best regards,
-RenPanpan
-
+-- 
+Catalin
