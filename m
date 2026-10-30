@@ -1,55 +1,86 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793377593;
-	b=LYzYlGzObRSZUVDYak7K0ncv2lPOJnibBnoOnADx/sz9zBoEBmojr248kwphbE0UbAY9
-	 /P5I3Bwg9v3aZ47EDbuKcjjRbVpmURGFKJ1AzTK9yM2VH1L65/l+I9730P/Jz9w7cEUJN
-	 v+zrf7I4v2duI+/Et/2zs3ce59gRI9HUOcW3aPcnR2LiOvs0LelgyX4XKWTF90aUf+ykE
-	 YXPgn9J98cYa2UwRUSz447hgXYz7kNSgdmEGcH/o7aLTp/IY4dn9KF0Tero79UEKAMRMH
-	 isAewYEAFM/0gw7r5dgXA0DQR4jE+AemW43towoN8zSrhJfo9I0oa4TD9JMUj+Lm/MQ==
+	t=1793377603;
+	b=2tiXHO7MveBu3gMa09R3UbRZpL+tvpAN9zfTmFnTBbcouhVurMMgbkXZbQxNzGs4pUPs
+	 3hkcKY3CYCN98LVfsNLjUvtcArHgz+oNqrIw+ueg8aNn8uBafBLigfSvUGipcC7n2OPD7
+	 8wfw6gZKuRODsWprF7vAd/4wcfTCaVIt+iv3d5/cxW2IcJGGPnH1LjJw6i5GhJGby724I
+	 R4XUBoqEvBLC9d4Bc7oROt6NLmdTnW1fOofnO7HkjTltRxqALuu68KOYcsvu3MHvPRDdF
+	 TNnDrmUMvsvPcrwk8nOQgxwqM2xV4aQEnV1GJfbWZu/fUjrugTRb4qi/zhH+b8rndCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793377593;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=hS+rLYQpPQo7cr5nb9uqxFHEAlKH7SAJLbqNhPkjfzw=;
-	b=YPARurMwi1i6ha5SgKewJ5Ng29bdSffMgG5SnIXLGq0cpe879qMGpTY8VF9UJkyaitmy
-	 nUOtxSDetOnaD+N3J6DwlaeTfJ3U3WaYC3UT4aoPrNknNgwv29TLjRqkVH5/cq1gLWGWQ
-	 tRS4W1hLbxxqylaZ0UjlRWYP5Zxyi8zF2QPtFHSQkSfFuvSBM+uIL476OFf8IGdSaIvcI
-	 l7z69bkcH70Wc0XsERTd0n8CiiCIRF13EUd9uc8vJQohb4AHYc6XSpACVNWv3F2XXjfzP
-	 KFBH+V7Ej5bYjfCsohioWhN/sRRmEhjYrpQxtcearLP6cu9k8AVpe+Pde7Bdmn1/Zjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793377603;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=vewquYtyWMTTPew/3rciXZBlW6QyJvk7tE2jn/GyFDA=;
+	b=rDGX0QP6G+myVTrApWz5PPKeeAYGWmeB87cb4xQi0swRlamk2UIZXw2yfN7lLLdvM3B2
+	 ZA9bepMMxfSDHkqzMju0PNf8cSLq/qLMMFb3CrinOwYdlT0O8OncLh3Ay3AuMFP5a7qQt
+	 qHggEz+/qpdYMTjyoLZoFyudeSUEDmwlpPmOkMDy8TZDdzhX884lEsFFQKpgOQ1MEeM5s
+	 rUKbMge6dq3VRu1pycDYKKfs+60xxKBnzuVeOkYzQI9FAKuiIwYQBV7ltyQ09Ju9jaBgn
+	 69DU7P7ccyYNqcskjxi00Br6Ftdf2ZGMxCwApCI6ZWAmWqoS2VfEfhnKLXJmCfdFLnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F8S2wxzS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MpBV13Aa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54405606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:26:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D67606A31A;
+	Fri, 30 Oct 2026 16:26:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F8S2wxzS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5B1F1F00A02
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:26:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MpBV13Aa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E835A1F0093A;
+	Fri, 30 Oct 2026 16:26:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793377591;
-	bh=hS+rLYQpPQo7cr5nb9uqxFHEAlKH7SAJLbqNhPkjfzw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=F8S2wxzSfpI3XS2R50duy7R8ZC8VDYBCBAhG/KUx2IWeK22Zw27Uih84z/0NlmflS
-	 bi9ab1LST9xG6zQhoV/FRVlNYtRRAPbu/kFGJYMocthUqmw/ICnFE9d1Bl31QVxuE1
-	 Zy2M1QGoMMJGW9cTJcx/I4oiQrrYEO0zZ3H2WQ++9rfi4w2CHxDSpvOvIBHb5Ecgym
-	 Fk92f9Sx9ACIKe/9ePSxsAJ3ix+zDhaTWelzVFu5bzj4loDJtB7rHaBFEbCl32LYgV
-	 6zFA+N3ojDI3vvpMAfbod5G1PEYkshD6dCFn/Ts2ZojDeMVn8WOQ/H+xx8cXgsi7Vz
-	 8EWzfB+yaQHyw==
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso34639166b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:26:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByKtWfSqaQLN24750NM/ibUluF8j9kyDDiRA+PFFAb/BcX2YxQtGJesIiVDFQOA4JbHRw+AYAtkbZKWnLU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIEOsGoLm0T1iNIMsT2VzsE3d3SpUr29KkMbIr4n4TfJaBHMMs2
-	lmAH6hPJDOW8qpfcz50kH5MyM7dZiVIB5UAd5GTWrWDkEl2f4auKY4dU/EmcrsYtYaiTRNp3BeI
-	ir6zQZJJXcJ2/vBL8Ow6U8R4G77bIKQ==
-X-Received: by 2002:a17:906:f595:b0:c43:ae92:9a9 with SMTP id
- a640c23a62f3a-c4ca7aa3e0emr267070366b.33.1793377590568; Fri, 30 Oct 2026
- 09:26:30 -0700 (PDT)
+	s=k20260515; t=1793377603;
+	bh=vewquYtyWMTTPew/3rciXZBlW6QyJvk7tE2jn/GyFDA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MpBV13AanCKDXCGEU+PtepdXmUlfOazM+NDpDUNtZ1if38mgqbsOc8bg19CAqA8YF
+	 C1arMJXKa+5EK2293+KnKeo1cVclGK8iqTR+G+rRYYPwfhB1kBPkRRVeDap25OoH+V
+	 iv9HB7LKU9Ci1GSmqNgJ9TICAVYropjR9EumVcBDfOYzw9CFRAZnFgciJRvwlbPbj5
+	 +wVyP49cQpdVsP8WnCcQQKZvsX8AR7nXYPhRH04Z1LWWTymDkJMUUeuYTRZZFZYHNi
+	 ysCjuVt6czEgMOnCf2b+VVqYYvouYEEuomVLPs+ppsTHm3BPMGqVb09jyF3PMVT2Dq
+	 +Ke+tBceINj8w==
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 0B6BE198003A;
+	Fri, 30 Oct 2026 12:26:37 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-07.internal (MEProxy); Fri, 30 Oct 2026 12:26:40 -0400
+X-ME-Sender: <xms:PcXkarepDZcwkXPaDvw1l9meX1ix8cBNcbSba9-rds1sl6XeloMfDQ>
+    <xme:PcXkaiYAI_vT59BqHq0ZygNMM5okQJjYKU_DN9AduU74co3ByTkWXIHszmuEWklPW
+    pgBXsdumm_lvCkL06kjKhQ-_xXGCB8jRqzrMoP2wm0GjyteJBdcuMs->
+X-ME-Received: <xmr:PcXkak8ezFsZAfxW4l0Mvcm4LtO1fFfXqEJiulOIBKEWLfmrRvW-8zTaQBY>
+X-ME-Proxy-Cause: dmFkZTGEAIFWzBJh0zWLN17+nisZqat9HnPlshouus3rVlwm90kalixREFWaFGYcU/tF0W
+    3UdkUB5dz3jJ/7gphqEuNFHpf+z8VsmOxTezlK75l5ORKrVKFBa2NEgRwbYKxcTq7uyZQA
+    W2W98B6jmDIrAQO8QKfXxueVgpiWnggcI/BJ/18E5DEgyYQ/qfuiqqVvOgCo9BjplJFuNF
+    Cq2lBkk/rOOp1wPHM5RPg+KN1AdKgUA5k0+FVNS57TFgOuKqthusIzIHYb5h9oR56n2lPD
+    m3bIIIT/Oa4M4xQorz7MW066A5A3Ilw7G7kLTJS6cCINZEIS17roHp+ddyILdojq+VTTHE
+    2MY3XR+A2l7OBM2ub01U6gbuYDHwIWf+Swtm5zC7sOi3harXi4z0yCXZWSoHi3RAKslPon
+    otpxzqyqAYRWWojiWcoT7qUs6tH5gim5jFMxHgdLDNVKCh5KbnwHxj24tVQmrM/pPr+8RU
+    Lse0RbqcqIjr9tKNAVnOGXNH8X5IFxsk3dnHXP064AXskGHK77xRqxNkH/D/NDqgQHTFjU
+    4Cn1v8+ReLH7NyMTA+RnhfJZnIw+IahQV8Cs5go/vouHMcd46srIpH0UsKCBuYR6U+VhFT
+    5X4IrG3Jg78xgttGn+AtH7t6hdR4nEakdA4xO0VeCYxleQm716CLywLEHQrQ
+X-ME-Proxy: <xmx:PcXkamVlQ2jGwIgyyw7CUrFTE9b22yNeHLvUZX0SYWvWKneZMieQJA>
+    <xmx:PcXkatdRTC1wqqXKq8XEshFHyfBdgKMD7rGUhJu0dEwBET2-mSU3FQ>
+    <xmx:PcXkarXiQS1P0vfF0vaQ6CaF_zxTEGGxOu_yo6_3rmhGSuJ5WdPWJQ>
+    <xmx:PcXkakWDbmZZj9fKf7Gmq_vbad2xvqM_FADgEPUBMqoLcDaV9qZ0Cw>
+    <xmx:PcXkarMhj1T7gDsxJAxPahlNVUaY2kwoc8YFK8_raX-_IUOofkJZ5i26>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 30 Oct 2026 12:26:36 -0400 (EDT)
+Date: Fri, 30 Oct 2026 16:26:35 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Challvy Tee <challvy.tee@gmail.com>, x86@kernel.org, 
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	regressions@lists.linux.dev, stable@vger.kernel.org, dave.hansen@linux.intel.com, 
+	rick.p.edgecombe@intel.com, vishal.l.verma@intel.com, kai.huang@intel.com, seanjc@google.com
+Subject: Re: [PATCH v3] x86/virt/tdx: Skip TDH.SYS.DISABLE if the TDX module
+ is not initialized
+Message-ID: <auTExTAMoaKKjBrb@thinkstation>
+References: <auM3KKutfutAqgWG@thinkstation>
+ <20261030154851.907726-1-challvy.tee@gmail.com>
+ <939b4cc7-5c7f-429d-a9be-830aa1c53ac5@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,63 +90,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029224843.1155201-1-dakr@kernel.org>
-In-Reply-To: <20261029224843.1155201-1-dakr@kernel.org>
-From: Rob Herring <robh@kernel.org>
-Date: Fri, 30 Oct 2026 11:26:19 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqLVJ2S4bhE-kSLM3Q5VzWStuTVZk7sP7RD5mP1B0ydR4Q@mail.gmail.com>
-X-Gm-Features: AclHuK-nQBbKy4gKK43XfqZDxGiS_yeHOcBQ7MwShw_wdc0eH6EgYHj_NsV3Rwk
-Message-ID: <CAL_JsqLVJ2S4bhE-kSLM3Q5VzWStuTVZk7sP7RD5mP1B0ydR4Q@mail.gmail.com>
-Subject: Re: [PATCH] of: unittest: Require BUG_ON_DATA_CORRUPTION to be disabled
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: saravanak@kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <939b4cc7-5c7f-429d-a9be-830aa1c53ac5@intel.com>
 
-On Thu, Oct 29, 2026 at 5:48=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
-wrote:
->
-> With CONFIG_OF_UNITTEST=3Dy and CONFIG_BUG_ON_DATA_CORRUPTION=3Dy, the
-> machine no longer boots after commit 5b5224220747 ("refcount: Use
-> CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors").
->
-> of_unittest_lifecycle() deliberately calls of_node_put() after the
-> node's reference count has reached zero. The test expects a warning and
-> continues to check that a subsequent put does not produce another
-> warning. With BUG_ON_DATA_CORRUPTION enabled, refcount underflow now
-> triggers BUG() instead. This panics the kernel during boot:
->
->         kernel BUG at lib/refcount.c:37!
->         Oops: invalid opcode: 0000 [#1] SMP NOPTI
->         CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Tainted: G                 N=
-  7.3.0+ #14 PREEMPT(full)
->         RIP: 0010:refcount_warn_saturate+0x89/0x90
->         Call Trace:
->          of_unittest_lifecycle+0x158/0x310
->          of_unittest+0x105/0x130
->          do_one_initcall+0x127/0x350
->          do_initcall_level+0x7c/0xe0
->          do_initcalls+0x59/0xa0
->          kernel_init_freeable+0x118/0x1a0
->          kernel_init+0x1f/0x140
->         Kernel panic - not syncing: Attempted to kill init! exitcode=3D0x=
-0000000b
->
-> Make OF_UNITTEST depend on !BUG_ON_DATA_CORRUPTION and explain the
-> restriction in its help text.
->
-> Fixes: 5b5224220747 ("refcount: Use CONFIG_BUG_ON_DATA_CORRUPTION for UAF=
--related errors")
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
-> Alternatively, we could also just remove the refcount underflow tests. It=
- seems
-> they are not really testing anything OF specific, but rather test the ref=
-count
-> implementation.
+On Fri, Oct 30, 2026 at 09:13:12AM -0700, Dave Hansen wrote:
+> On 10/30/26 08:48, Challvy Tee wrote:
+> > --- a/arch/x86/virt/vmx/tdx/tdx.c
+> > +++ b/arch/x86/virt/vmx/tdx/tdx.c
+> > @@ -2321,6 +2321,9 @@ void tdx_sys_disable(void)
+> >  	struct tdx_module_args args = {};
+> >  	u64 ret;
+> >  
+> > +	if (!tdx_module_state.initialized)
+> > +		return;
+> 
+> NAK from me on this.
+> 
+> If SEAMCALL is fatal then we need stronger barriers on the generic paths
+> to SEAMCALLs themselves, not one-off patches of the sites.
 
-I'm fine with that. I think we should keep just the first part with
-of_node_release() error check.
+I don't think the generic path is the right place for it. For every
+other caller, reaching a SEAMCALL on a non-TDX system means something
+went wrong higher up, and we want to see it. A check there that quietly
+returns an error hides that. Making it WARN would catch it, but then the
+crash path would still need its own check before the call.
 
-Rob
+So gate the call on X86_FEATURE_TDX_HOST_PLATFORM, the same way
+paddr_is_tdx_private() does.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
