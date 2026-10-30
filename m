@@ -1,97 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793372824;
-	b=RtxJ6OSpipsoCPxq1FgoXV9kdq8O1MjYdzCcDxEwPhq0ruyiuub+rjhA2ohXOq1m+mFY
-	 Kni/uD82gWdxfiN9Tf+nlU0lVt3Ekn3XtfZz0bzoeObq56cO1ZL5RCFKTe84s+cPjvtfK
-	 13ShiYo5lHkwMJdXuGIsyUVGqWuhrEtyA/UeRxUZ48I8HyacH0SIh/QC7EY6B556H4dx0
-	 TVAlidpjev8ASUe4TqDH7gqJYIhS+k+JURnw8TnmsI2K669TfoL/79haiZ0XzPQRGUtpd
-	 1mVSJt2G4DrGIMSU2oQ2vQ9dyL+E2HVf53ZGCNKrV0ryjA+HLDAJRLgNP2LoWUqefOA==
+	t=1793372843;
+	b=0Qo7xvYXIK59w3bUJhJGpkvUk+KDfbvZ4nOgPPwBJtvZdRSgWknMd5v9+n0MqV7UQiyv
+	 GvufQ4YsM/TNGLL428Z6YUOLj+K/5IOS1uw3h0wT637g+/ENUY4JByY828jK5gxsD5nJW
+	 +BYo10FlV7WoOQ0h3He2yYH8R1eYWewhqxLqZ5qKrpmch28RoONUPZbqexTlo54SjChaV
+	 kHSIvXd2U1zT1IWJWBu7sh47LAOcBntLLoAhVf4WdndtnyxP6/2TVy4ZFZNS8ECaPy84O
+	 DaT5bIirbSdc2s48NCm0b7qo/e3jm8JM2eTgyXQCNVUAq7RPTOX3Z65cr0Wig3dEKNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793372824;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793372843;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=czilngxYr4DCa8qp6+h+f369XEDq6BL7zSm3xrFlL/g=;
-	b=PkzWYHg1P6NexWsxjaX3xMKKUmxNDW1YKHMGb3sTQJSV7vfIGTBM7WroPqxSHwXgvc6S
-	 gmvjfZZ10+/Dt97tsllojzftaPX+Ymzi8FBunRg4Wj7IitNIG/AfqcmL+MBRhhYoR9m+N
-	 5hl4elNa3iCAhlrvRCuhgSO/T9BvXCVisjj2flG64jjw4QDXQ2eXj6T/E1/nJEpmk/4NS
-	 oEuHU/1SyyoTj+zsBzAa1eFKppeW9nQPq5NzSdiJ7BCfk0zow3mfc3ODp+qVsnG/7SHF7
-	 RjF8L4e3J8UMIkqEkC9PWFK5DFpqbi+4uww4NHhWEJD5fUqu00XL/cpME/03EzB/Nng==
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=YNL5gTzoS0SNcKXI362OG6Cyagd0/f8y/Be+hIpJbPg=;
+	b=xn0iFvpBMsd5EwGFp2eyKgtMmgY75/n3BLlEVL5sS3WB2HAc1/eIYbwVt+rrX2guQrhH
+	 pjEpIjtnL82LLDq3iALVn/e2DuoHK/5qP2AW2IeYsh9BCzT5fr3cQvmjUrlTA+vGrX50+
+	 A1XlC09ojsj1+Q4BfaEVpk0MY2tvKjm44ywpnpGe5N4X4YIyKOYvphwqsxeJnKdftcHNF
+	 WAEtYCydmLYNQ4U2fPNICmfYsejBVa0n0VBQbjfQEdwHI69yPCjHsr89VVfR+btXDK3au
+	 EUJ2bL9d8tOCiafQ74RpfuudHdFQ1qftYIJ+0u/Buf1Bt4VoQuJPxGrVchs2nmowfAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ttEBhIGg;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uWnnIDaF;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8811D606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:07:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8811D606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E642606A32A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:07:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E642606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ttEBhIGg
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-15dd124bbe7so1399606c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:07:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uWnnIDaF
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so8639355e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:07:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793372823; x=1793977623; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=czilngxYr4DCa8qp6+h+f369XEDq6BL7zSm3xrFlL/g=;
-        b=ttEBhIGgwoNvjx79/PnN3j6bkh0veJHsN0NCUiD1G6OGelKk+m8zlOzI8KgifA5hf0
-         HAmP1raP5o7zE0mKZ/OnOyWImdgTnu26FK5NBppRfUFQzp0vK2Gn7zATfGc/KL5xKZv/
-         fLpCnZxFFeVX6UmfimRD1W0d/hTWFkhMuha16q2ZIi1ilRfkVWLTzqdCvCw+EoO5P8tt
-         PHXFZx1lTmKvIiQU3xRv6bOg7htydx0D0EVG81JgSmiZjxyFzBFf/kqjw7xRGLIjGit9
-         Y+zLHChz4ZEfIUbdU5aIELn8eQq5ufzsiOo9ZIDvT55GNR8YBd+1jOqQAvmgn8KW9hm2
-         PYFQ==
+        d=gmail.com; s=20260707; t=1793372841; x=1793977641; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YNL5gTzoS0SNcKXI362OG6Cyagd0/f8y/Be+hIpJbPg=;
+        b=uWnnIDaFZDr4pqzEYcHVHDAqr85/92Q2My9fXNCJD+rkJgIdgpI1tq1Nsu/ad8rMv1
+         +RWezfm2jh3eMuFkIfsmUhO1gyAqms4M0rNFpMVk2SIZgx66VY2GDIayj0MDbNPZoCQj
+         P0CxcqVstEmDxE8O16N5QIJkpPdcPsFJ/MGp6i3sqw15OksJS9Ox2+geN8KZJuvA53ed
+         NhD+8PloOM+6WV43JiFyt+cdUB8pC1HWVKszqyu7EQ+Dw+hClQ9Jtnh8sho7HITeY2Mv
+         GPTARz0x64NBro0lE7klgoIWeExmR78Ni5nKXKZLufumNznEsjPgq9U1YNuLr5BhMcDv
+         gHbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793372823; x=1793977623;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=czilngxYr4DCa8qp6+h+f369XEDq6BL7zSm3xrFlL/g=;
-        b=DXdNDQcC3CghplKhZ5VZECUOxLrLJPe17jlYFiIx3yO5NP2hkFFj8BcslVCOMaDdnZ
-         ksPSih0JocuIKQ5x/kPtueCl4YZDQCNfHvrsGMuNoBAJZroxDfqoMsitAS5Q2hqOrzTv
-         afH8Hs3841XtW+uo+GtmnXp/uEspkITZkCiJxzT/6HIuaz6AjKu0LEZbf6fyOeztYvHQ
-         a0vkn2IZeVKaSuuWNadQdYhPHVcQej/5qhdQfBsZnhzutnoTDAhsr3bc16knfhuSmrdZ
-         mCUdw7I8bOr2vG0cpsV2rD1cBoe9+LdMnBwBcxrWE0DYeqqKPceyyP3JUieM6krrjKvU
-         /xpg==
-X-Forwarded-Encrypted: i=1; AKwUvBzQf7rIxONli7J5kQOyA2guXmmGe+ahXGjDzslZETaYFvM6N9hPRB/duL2JrqxfdG+IzlJQmyZOnmbRHUs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMN52YgHvOYSAZ+o5Yg+ITcKV7MjUGziMwX6B+QYRpBTr/OdM5
-	uX4vtZoNne63kQVEeBGCVwPhd4vqff52e6v8gZFlWq8leCERkFgcI/3jNzGvxx0C/D3Xug==
-X-Gm-Gg: AYBFou3H1342pQMnMvkCunVT8XoMON6ni5s68svWkZCzEgqGsQcIuDJ15K5RzcwLsZU
-	qFqFBxjxWl8yNEeswT1Fl+PeOBoBvN7nwahRcuB4n/516Gj35egsekRCjAPW/FQ3VaOyeoREq6U
-	nmLMWQwMafjgDqGGFU6+cxQrrXiEvDnyVBjpF9QzKuMGD7htWiH63PViygGuYdHPz5cCJbeUuyR
-	4TyJf5Mx7VPSKsozr/bm4MWt+SwH0QANpP0lkTswky7yTLC8SEgpjvzLQmefxWXTFcDncD1ysOm
-	zB6NqnnfHCArqw1fw8Dn9gtmpsu3OFjcHTYcyy+ihJOKyXqI9rRUSk+Hl4ilAymin93VSTEof2S
-	smtzwDqYZ6XB++oZPjqua9l4iaPGV2h/mUdgPdAeSqkoNlh1HnAl+l5d7e2geGioo04NEOA763U
-	CnwoGc7uoQaP5Twv7S528g3PmQP2ClZi1otrY1GxVuwddZlGYXzFZv1OOmqYVl65z2kfMD/C6D6
-	wIi6xt/lRoGcw1uOm4b+gUFAwP/PvzFZBU1isRFDDYy0ijWXVmlD2R/Nb4Gpg0GxSj3Q+c0RKTz
-	yKz7SowZX9M6t833r8O3B6mYuaVCjLAPgnqXN/jaCGew8GXBPhhr0dwZhJX9DRmyr0mBw44YDJJ
-	i3zLmbb9OyyAtWGZL2S9ZjiIq0w0FdUD5dWEFOfgEc1YdhCdtqwNWMHKfJ2ZDVAfMIkmDhQFESx
-	w3k/w0WZkAz2wHsGaa07B6GBICANghYTpDQ1c=
-X-Received: by 2002:a05:7022:1113:b0:1ac:9da7:e86e with SMTP id a92af1059eb24-1ac9dc67128mr2995647c88.30.1793372822378;
-        Fri, 30 Oct 2026 08:07:02 -0700 (PDT)
-Received: from brev-9gdpyq8lp.ap-south-1.compute.internal (ec2-3-110-210-194.ap-south-1.compute.amazonaws.com. [3.110.210.194])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1b38ac58sm7475171c88.23.2026.10.30.08.06.50
+        d=1e100.net; s=20260707; t=1793372841; x=1793977641;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YNL5gTzoS0SNcKXI362OG6Cyagd0/f8y/Be+hIpJbPg=;
+        b=g7xI5sKyBKbmH7+gMeg7/IlnYVOq5mLh1wI4DF2ZQHdCf1gUCTIx62CIkyJd+pQALB
+         v9YMfJ/5U/OuOTdOiBniIWf9aYaEvxXQv7A7MJ71DvlypyPEwVCyhPgkDLc7AEfz+AUw
+         EaBW6g+sCs6VI16T8IqElOzyyaZ6Ai+6482CNOq33h4tQFz/bf6n6C4ncl//35H0XAN8
+         y2gCIYeM8pUB2G045ohLnXujFaPpd/rkclzbUJRZyq2K7WuWbcWcMahRmHQ3f8e/REX3
+         Mr2FMkZ3Esjpeb4/VMR453sdZNZDftlSUur2/WvHHpBvy0jSAGFE15Yl7kV1gcrWWEfH
+         yD6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy+vXCfSMaLNF9aHKdKk7VouFnFmOHVvcAXKydRVn9EXD26F/JJMQpfgyiAqGGGhAt/JlaNWsPHRu54TGo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ29krNZ5e2ZGIu93Jiq7AmYxMWQh56cBfG6BPgy6kIa20tqqxT
+	kaRDyM35zgGtcAdrq9DnKXf+Aogk81H8O8gX0sQ9RdqfoW8uUAjn3kgS
+X-Gm-Gg: AYBFou3M7AOFuB5mRe3P5gvuSCmDl9fayw9mdU6Y4nhh8dzCIyhwIN+kmjBZ14g3oi0
+	TYsHPIanrQw8Y0q9A9Est6Us1UCLaN3r6NiXaB3BcRmwK5dqp+O+fC36y5KANZL+6R+XeclibPb
+	gt1AWST8jjqlrEJhJuE7viwdK1fLsmnIMpfpeW9b9Q9N4rAcPjM19BLjuaAtvegiHx19lhePhP3
+	EOEk/pS1uJxf/JMNxeDCoPkcp9tax1rCdpHZH/WYyDjBnIax13GSUO5RGFgGh8iFtwOA7u1igyn
+	EXnm+HkeMTT1ZbC7IURpZd7SpFw9QOMvWIbR6viLbqY2JoHvCa2trr3aZf1ADRxuZgYzYq/E96c
+	U3pL84V8hLffWlrdJ16kY7Hc7je3xKv2Al+VA+02wH7Bgvye0xX9EWt17f/Y2+BdcMDeg+FOuO0
+	EJOibt5GGPh4Yr7I3Ma2jYvK1JHgOjWYo/1FAg8DeM4z127QpGQ6+fuUNNVgOAlMmxbhR+DZQfE
+	vBQqMwiCCZBePlsRTzwzL8oaoTiW5OdOzpuA7LVi09Srr/1CgnZtvP4d33BUqp3YRIwIoiw4Pzc
+	I84rFB89Xq6ObgT9zciImtk8ztY9SDcYqOuN5s1Y8qxLj5/U0Jc420okkQ+omu8qoQ==
+X-Received: by 2002:a05:600c:4e8c:b0:4a1:dade:f049 with SMTP id 5b1f17b1804b1-4ac1793ff26mr57275105e9.15.1793372840727;
+        Fri, 30 Oct 2026 08:07:20 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf67aab10sm64599465e9.9.2026.10.30.08.07.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 08:06:52 -0700 (PDT)
-From: Samarth Narang <samarth.colleges@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Manivannan Sadhasivam <mani@kernel.org>
-Cc: Richard Weinberger <richard@nod.at>,
-	linux-mtd@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Samarth Narang <samarth.colleges@gmail.com>
-Subject: [RFC PATCH] mtd: nand: qpic_common: terminate DMA channels on transfer timeout
-Date: Fri, 30 Oct 2026 15:06:46 +0000
-Message-Id: <20261030150646.2942368-1-samarth.colleges@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Fri, 30 Oct 2026 08:07:18 -0700 (PDT)
+Date: Fri, 30 Oct 2026 15:07:17 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Petr Mladek <pmladek@suse.com>
+Cc: jim.cromie@gmail.com, Jason Baron <jbaron@akamai.com>, Shuah Khan
+ <shuah@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Arnd Bergmann
+ <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu
+ <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen
+ <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, Jonathan
+ Corbet <corbet@net.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Pavel
+ Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Steven Rostedt <rostedt@goodmis.org>, John Ogness
+ <john.ogness@linutronix.de>, Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Thomas =?UTF-8?B?V2Vpw59zY2h1aA==?= <linux@weissschuh.net>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org,
+ linux-modules@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, Philipp Hahn
+ <phahn-oss@avm.de>
+Subject: Re: [PATCH v12 33/40] dyndbg: Ignore additional arguments from
+ pr_fmt
+Message-ID: <20261030150717.094d8a35@pumpkin>
+In-Reply-To: <auNes2b11NqUey3C@pathway>
+References: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
+	<20261012-dd-cmap-part2-clean-v12-33-3c8cc5725def@gmail.com>
+	<as4W9hToBqAvbzJ-@pathway.suse.cz>
+	<20261027132253.5f3a461d@pumpkin>
+	<auNes2b11NqUey3C@pathway>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,63 +122,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-When DMA completion times out in qcom_submit_descs(), the driver unmaps
-the descriptors' scatterlists without stopping the BAM DMA channels.
-Since the issued descriptors may still be active, the RX and TX channels
-can continue accessing the caller's buffer after it has been unmapped
-and returned to the NAND core. The ADM path has a similar issue when
-dma_sync_wait() times out.
+On Thu, 29 Oct 2026 15:56:51 +0100
+Petr Mladek <pmladek@suse.com> wrote:
 
-Terminate the affected channels with dmaengine_terminate_sync() before
-unmapping, ensuring that outstanding DMA transfers are stopped before
-their mappings are released. On BAM, termination resets the pipe and
-discards pending descriptors.
+> On Tue 2026-10-27 13:22:53, David Laight wrote:
+> > On Tue, 13 Oct 2026 13:33:10 +0200
+> > Petr Mladek <pmladek@suse.com> wrote:
+> >  =20
+> > > On Mon 2026-10-12 20:37:04, Jim Cromie via B4 Relay wrote: =20
+> > > > From: Philipp Hahn <phahn-oss@avm.de>
+> > > >=20
+> > > > pr_fmt can be used to add a common prefix to any output from a modu=
+le:
+> > > > 	#define pr_fmt(fmt) KBUILD_MODNAME ".%s " fmt, __func__
+> > > >=20
+> > > > But adding additional arguments breaks dynamic debug:   =20
+> > > > > error: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" passed 4 argumen=
+ts, but takes just 3
+> > > > > |         pr_debug_ratelimited("%s", "Hello world!");
+> > > > > |                                                  ^
+> > > > > note: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" defined here
+> > > > > | #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)      =
+ \
+> > > > > |
+> > > > > error: =E2=80=98DEFINE_DYNAMIC_DEBUG_METADATA_CLS=E2=80=99 undecl=
+ared (first use in this function)
+> > > > > |         DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_=
+DFLT, fmt)
+> > > > > |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   =20
+> > >=20
+> > > I wonder what this error about undeclared macro means.
+> > >  =20
+> > > > > note: in expansion of macro =E2=80=98DEFINE_DYNAMIC_DEBUG_METADAT=
+A=E2=80=99
+> > > > > |         DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));=
+         \
+> > > > > |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> > > > > note: in expansion of macro =E2=80=98pr_debug_ratelimited=E2=80=99
+> > > > > |         pr_debug_ratelimited("%s", "Hello world!");
+> > > > > |         ^~~~~~~~~~~~~~~~~~~~   =20
+> > > >=20
+> > > > Add an additional ', ...' to DEFINE_DYNAMIC_DEBUG_METADATA_CLS to s=
+lurp
+> > > > any additional argument, which `pr_fmt` might add.
+> > > >=20
+> > > > --- a/include/linux/dynamic_debug.h
+> > > > +++ b/include/linux/dynamic_debug.h
+> > > > @@ -351,7 +351,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descri=
+ptor,
+> > > >  		dump_stack();					\
+> > > >  }
+> > > > =20
+> > > > -#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)	\
+> > > > +#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt, ...)	\
+> > > >  	static struct _ddebug  __aligned(8)			\
+> > > >  	__section("__dyndbg_descs") name =3D {			\
+> > > >  		.modname =3D KBUILD_MODNAME,			\
+> > > > diff --git a/include/linux/printk.h b/include/linux/printk.h
+> > > > index f594c1266bfd..5d701952e739 100644
+> > > > --- a/include/linux/printk.h
+> > > > +++ b/include/linux/printk.h
+> > > > @@ -742,7 +742,7 @@ do {									\
+> > > >  	static DEFINE_RATELIMIT_STATE(_rs,				\
+> > > >  				      DEFAULT_RATELIMIT_INTERVAL,	\
+> > > >  				      DEFAULT_RATELIMIT_BURST);		\
+> > > > -	DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));		\
+> > > > +	DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, fmt);		\   =20
+> > >=20
+> > > IMHO, this changes the existing behavior. The prefix added by
+> > > pr_fmt() will no longer be stored in DEFINE_DYNAMIC_DEBUG_METADATA().
+> > > Is this intentional, please?
+> > >=20
+> > > Anyway, if we do not longer pass pr_fmt(fmt) then we should not
+> > > need to add "..." into DEFINE_DYNAMIC_DEBUG_METADATA_CLS().
+> > >=20
+> > > By other words, we newly pass just the format "fmt" without the param=
+etes.
+> > > The 4th parameter was added by pr_fmt().
+> > >=20
+> > >=20
+> > > IMHO, the right solution is to keep pr_fmt(fmt) here and extend both
+> > > BEFINE_DYNAMIC_DEBUG_METADATA() and
+> > > DEFINE_DYNAMIC_DEBUG_METADATA_CLS()
+> > > to accept var args. I would expect something like:
+> > >=20
+> > > #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt, ...)	\
+> > > ...
+> > >=20
+> > > #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt, ...)		\
+> > > 	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt, ##=
+__VA_ARGS__)
+> > >=20
+> > >=20
+> > > or maybe, we could "eat" the extra parameters in
+> > > DEFINE_DYNAMIC_DEBUG_METADATA. It would mean to keep
+> > > DEFINE_DYNAMIC_DEBUG_METADATA_CLS() as is and just add the "..." into
+> > > DEFINE_DYNAMIC_DEBUG_METADATA(), aka
+> > >=20
+> > > #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt, ...)		\
+> > > 	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt)
+> > >=20
+> > >=20
+> > > Or do I miss something, please? =20
+> >=20
+> > Don't think that will work.
+> > Won't you end up with ".%s" fmt as the string without the extra argumen=
+t.
+> > So you need to keep the expansion of pr_fmt() together until is is fina=
+lly
+> > substituted into a printf-like call.
+> > It is possible to enclose it in () so it is passed as one parameter and
+> > remove them on the final expansion. =20
+>=20
+> My understanding was that the format is stored in the metadata as is.
+> I mean that the string is not formatted in this code path. So that
+> the parameter values are or can be ignored. We just need to make
+> the compiler happy.
+>=20
+> But I might miss something.
 
-Fixes: 381dd24539a8 ("mtd: nand: qcom: add BAM DMA descriptor handling")
-Fixes: c76b78d8ec05 ("mtd: nand: Qualcomm NAND controller driver")
-Assisted-by: LLM
-Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
----
-Questions for the maintainers: BAM pipe resets may raise a fatal error
-if the attached engine remains active, so it is unclear whether the NAND
-controller must first be stopped or reset. The success path also assumes
-that completion of the final command descriptor implies completion of
-the RX data descriptor, which may require confirmation of the hardware
-ordering guarantees.
+If it is formatted in any code path you need any argument added by pr_fmt()
+otherwise the values printed wont match the format.
+Indeed, in some cases, the format has to be formatted in the same code path
+(or at least scanned for anything passed by reference) to avoid accessing
+stale data.
 
-This issue was identified by a research static analyzer for DMA
-lifecycle ordering and has not been validated on hardware. The patch has
-only been compile-tested on arm64 with W=1.
+I've definitely used:
+#define pt_fmt(fmt) "driver serial %s:" fmt, foo->serial
+which relies on all call sites having a local variable foo of the correct
+type. There may be some in the main kernel tree.
 
- drivers/mtd/nand/qpic_common.c |   11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+Maybe I'm missing something.
 
-diff --git a/drivers/mtd/nand/qpic_common.c b/drivers/mtd/nand/qpic_common.c
-index 4f3e4dd76..250154a08 100644
---- a/drivers/mtd/nand/qpic_common.c
-+++ b/drivers/mtd/nand/qpic_common.c
-@@ -592,11 +592,18 @@ int qcom_submit_descs(struct qcom_nand_controller *nandc)
- 		dma_async_issue_pending(nandc->cmd_chan);
- 
- 		if (!wait_for_completion_timeout(&bam_txn->txn_done,
--						 QPIC_NAND_COMPLETION_TIMEOUT))
-+						 QPIC_NAND_COMPLETION_TIMEOUT)) {
-+			/* Retire every issued pipe before unmapping its buffers. */
-+			dmaengine_terminate_sync(nandc->tx_chan);
-+			dmaengine_terminate_sync(nandc->rx_chan);
-+			dmaengine_terminate_sync(nandc->cmd_chan);
- 			ret = -ETIMEDOUT;
-+		}
- 	} else {
--		if (dma_sync_wait(nandc->chan, cookie) != DMA_COMPLETE)
-+		if (dma_sync_wait(nandc->chan, cookie) != DMA_COMPLETE) {
-+			dmaengine_terminate_sync(nandc->chan);
- 			ret = -ETIMEDOUT;
-+		}
- 	}
- 
- err_unmap_free_desc:
+David
 
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+>=20
+> Best Regards,
+> Petr
+>=20
+
