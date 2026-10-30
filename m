@@ -1,53 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793373205;
-	b=I8tnDg9VN9oqgQnvPGbjNumVyzinGmovdtEgveLqyKfpbCpJJ83lC3jB9zA1c9SDBSqM
-	 WHsMgOKrMyd2CQHAUQ01ZYq+u6dpcfhzY1IdogyZiZWhCmffavssK7Kw8euxJs67gYXQa
-	 Myn6AmBDDYqBbCjC1xDQ9lMi27tJuTz3/89mgzcZfiY3vGAi1sSD++s05qTkveLzzz7qb
-	 s9+vuREJ2yw3RH5xCa/8NgCCYEAx6PpFmxSq4+o6iXnTARQJe387Lsowbjcva0y17111s
-	 Jrp628o9HyGU1omdRa+QDCTfEdIOxaV1KdwFjDdQruHrGJDTuCsQSIgJXFiC7ttFMbA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793373205;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=amrurVyFz2qCQ2dJYaGk9kdX43uV5l+FEryyxcl8RBk=;
-	b=S6noJEYpY3/OB4rQFWdMFVEY+1BG5JSOd4ZE1hql56V7SVCm7v6krPyUxYORF1NOH9Bb
-	 38tRfOcmWKIouLkxuajyM/uABknai9Pm3yqnttn0hKDtfKFuBVRr866D/hmWs8BHKTyNh
-	 6U6tV9mFvhiHDOerlywh7lNhgJtMHvaJmD5VGeuRO/8FQNKTO/0uay9Ksa7nBlS0ginjy
-	 LsLRzW+8g9s9iaksk1BG06Gq6ofy3e6SSgcxGlfgVyqc4Ba0ENTquEOOmJHPgodpn6K7b
-	 4iwsZ7lX8+VJhPmUrXEMcNC625oJpyC6YqCCmwIuubuvK0h9+24TbZhyHJKo9LYUbNg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cb8IPV1h;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BC6D1606A339;
-	Fri, 30 Oct 2026 15:13:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC6D1606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cb8IPV1h
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C285B1682;
-	Fri, 30 Oct 2026 08:13:20 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A6B273F59E;
-	Fri, 30 Oct 2026 08:13:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793373203; bh=qeA/v2pMKzG/IbdRRS3JspucVQmdahAGmUNM4jKeLyo=;
-	h=From:Subject:Date:To:Cc:From;
-	b=cb8IPV1hgg9U3uyK91HR0vfS3u9SbLLTxRTeXO6YRV+Xr9yvlXNbSRlRMdM4QIY/Z
-	 adkxP/5HqcOrQF3/nk87kHAcKbA0jmUqLbj9aJDOe7RrUkHYgtbsPu/7oM6hyP9716
-	 Q3/x0cso9/Kn5yMXlcmTXHpCzHJ3/leIlc+mdgk0=
-From: Leo Yan <leo.yan@arm.com>
-Subject: [PATCH v3 00/14] perf cs-etm: Fix bogus branch samples on
- exceptions
-Date: Fri, 30 Oct 2026 15:13:07 +0000
-Message-Id: <20261030-perf_cs_etm_fix_non_taken-v3-0-7629b52ab047@arm.com>
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.120
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793373213;
+	b=ZPzWlQSfw69Be0aAnmTFuVlzMvx9X7oC/b/fKSMvUPRPY+Kdr2myHAUzGLfGgdxByX+Z
+	 ql+euaC4jdXAVilaRRobvuQ/f+GvIPfAx3gwPUDyRQ/Qx7173r6PKl+huQQJj3A0gR6Kz
+	 i4D5g1OPPWsNNDwasEkexwkb1TQjlpjLEOJniEH/8BoJSD6uAVzSxO5GFBds5Wsl62Ua6
+	 QEHQ7ocgvr/XWRHNNISCLpTU1brm7lDbnv99FNRNWi91SJg5C1UvroM24nuZ0vVllBQw2
+	 29HUOv3ht8Z/LX9+od0zCdc7xlZLGewON32kzS6vLImJnBd2gNWH7/JXjHGF3YOhRIw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793373213;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=mkpD0wIrDWEIDW62EulZFq8uH60gx2K0ZOG9dMVyDoA=;
+	b=H0MpenwYt70BSwVnuuEKjl8MrpYLinpQtB3cU5pf15rPaq4qqLuFwkJfLESvVkUy3C4r
+	 rdn0ylfmTZxDz6+K+n7dfwp1TRt+YweQA9dVtuw61fT6OI0aB7gI9VW1Z96y4UAolJZdg
+	 jPeTHoCm3yWCQ00yy2UgsA0PKZUaG+PV0eZuJOGPTpdrU/bBVt8dSW3Jj42wBkTMqi3lM
+	 Adx41ChkTu/VXnW01fqDRxMt++J66OLGr5jpk4cNDO/BkCX3tGJ2HiVlY7j0MmAZuRqY+
+	 Wyh+SR1jWT3pwELH8UTWGrHngAPe2OVGtSiOL/cGkuhSXz1Q8kRlaxWlRNhIassTcUQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=atomlin.com;
+	spf=pass smtp.mailfrom=atomlin.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.120
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022120.outbound.protection.outlook.com [52.101.96.120])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2EEB60A2600
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:13:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2EEB60A2600
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VPi5SoeeAuc5dCRj4CkJ0Wkd8BTdKNYzVcAEiKl8qiQAsSigc+bDubcKkR5j7qduiGXExUrEpc+2MpLnkUpimv1O2wI083JN+273LOi1DctbbrD2xDL6RF/lj+dXUy6O0tCe4GtAz1QBnmIuHhgfpvnZI9rHRpbH626QU3Jv1gfgTH3agdZz8hVga4Yz9QO2eK3rCcg5ORYyO8V+Af03OI06Q3cmjwtxdiSVnXUAACfvAqGyUtR4wDQEUMlYHlLS83xUkZ3yYM7ARfB6383D6v3KsGLY3LUf7/KWEiF58wmtgkOzTKhTZMcXaSvZrGd+/3DzNNhsB6cLf+72e0x5fA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=mkpD0wIrDWEIDW62EulZFq8uH60gx2K0ZOG9dMVyDoA=;
+ b=SElcu9VW3dvBZcLodaEvQAKvxkThOWMZ2fg9V7glr0jUNKzDRC7KsoJx7nontlrJfI31mCRF262TRj7kZk5iGw2bcTTNhWvtQRp6jVrqLMUJFSfzjgYpDdV+QLiXyAy6azs6Vxo8SevznCz6UIykyiMDFIhvBGtOVBBNUwMM/9F/zwN4t7FoJy5RcFXrYQC8YGhjfbsjheJkyvUXJz3aheYvX4LJverTNk6/Dk1lxNmzPc+PhsJ1sMqwhG2L3oQFHO/yEsxz0wlQYnDjG6Q/P2Cd2pjccFCb+1tnWR9MNtZQS9WB7woelmOuy8aX7B3OH92jSju9kmQhx0SFCGnKsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LO6P123MB6488.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:2b0::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 15:13:30 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 15:13:30 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: paulmck@kernel.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	zhanxusheng1024@gmail.com,
+	neelx@suse.com,
+	atomlin@atomlin.com,
+	chjohnst@mail.com,
+	mproche@mail.com,
+	sean@ashe.io,
+	steve@abita.co,
+	rishil1999@outlook.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v11 tip/sched/core 5/6] sched/fair: Use list_for_each_entry_rcu() in print_cfs_stats()
+Date: Fri, 30 Oct 2026 11:13:06 -0400
+Message-ID: <20261030151307.768523-6-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261030151307.768523-1-atomlin@atomlin.com>
+References: <20261030151307.768523-1-atomlin@atomlin.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MN2PR22CA0016.namprd22.prod.outlook.com
+ (2603:10b6:208:238::21) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,144 +104,307 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAO05GoC/43NQQ6DIBAF0KsY1qUBFKhd9R5NQxCHShrBgCFtj
- HcvunHXdPkn/79ZUILoIKFrtaAI2SUXfAn1qUJm0P4J2PUlI0aYIJLWeIJolUkK5lFZ91Y+eDX
- rF3jMu6aXVta2oYDKfopQCrt9f5Q8uDSH+NlfZbpd/1EzxQQ3XNBStEa09qbjeDZhRJuZ2eG07
- KfDiiN0dzFEat5wfjjrun4B4iqZDAgBAAA=
-X-Change-ID: 20260713-perf_cs_etm_fix_non_taken-5b4d7f73f41e
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Mike Leach <mike.leach@arm.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, Suyash Mahar <smahar@meta.com>, 
- Amir Ayupov <aaupov@fb.com>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, coresight@lists.linaro.org, 
- linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Leo Yan <leo.yan@arm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793373201; l=5599;
- i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=qeA/v2pMKzG/IbdRRS3JspucVQmdahAGmUNM4jKeLyo=;
- b=oJjOMo4x7HvO/AK9R91zwmP2939QV8ql9fGB8T+x6kAZ49lUuasj1fonVXH3gI0nInUZu9AY2
- 27LfBgkJYQ8AfGxYMxP1twDAZk0hsMNAiWkfA5E4WdZJLEQck4BeaPB
-X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
- pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO6P123MB6488:EE_
+X-MS-Office365-Filtering-Correlation-Id: faaba41b-67f8-473d-bf33-08df36985b6c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|261028144727099003|261021121427099003|261021123027099003|261022105027099003|261022075727099003|261009223027099003|261026121527099003|261026140227099003|10067099003|3023799007|6133799003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	QB+vvQltwoyTnfSACMg1e6KZTtNJaxDJrlpESx7VyEaEVslY8zKFPkn7DtfKOyhVfhgrpZ1jodYTqosXPpx7u+kEeLTW4RQgXJJa6NmrBZ8JUF92JrgqXr4flk7U7lzx2D6ZzRxkF6926+KvrLD17iE2WDZWOB6/sb8Hx/mb400ZFWsfwDQZTDuf/Qfj2shtw5yTgQIpd2CWIz2VefvhnBZOexMRz3wTXXKhnu71vayxqkyGNK1cBni7JVIT5XeotydBCADUkDIFZCBoTTraiwGmbmzsN7R2tlKPLrbZnu6v7wjtVQOCGo/XFYBJ385kC09DqUT5bSjI8UWoiUqjJwJCLbdbxdydtiNueJbZtZJWMHFk2Ol+Qsid9w2QNxTyvsFz2ps+ufdAIt3xzwV67R30TtPOxywBiGLSJ1/eZTRau8YcuNCcGwwwEuOO0f4uwZHFrn+OLZ6a05I5m19dLiMRnTcMIVB9I1XlgLtS+752ETMxX5N7UFaUIgJ3Qw7jLb3Q2AUSGkGj9d15A5Itz30UW6EbhelfPahFO10HV7DWfoXZJxll6/IS/kgF2iSWEsEI6aUuLx19l131u438e0Mf5zYhElXguPnug7Px1PAmJm0HR4wOGsAiE9XEcF0Vr+iHTqRR8YxWyYZ9xW9JNPTvaJm0G+zG4Uv65di4rXc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(261028144727099003)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026121527099003)(261026140227099003)(10067099003)(3023799007)(6133799003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?jTy/mwdFnYfFTCCUW8YfNDCTxDau1eihOL+sZceJbnMrnsY3HprKGr5gyS5q?=
+ =?us-ascii?Q?bVLz/8a2qUQFcVRSO4XoF7WiRfSrv5BJvtNXBv//7M7Kg2Evmy4Oja6fcdma?=
+ =?us-ascii?Q?jnW0Kj36+QZei6hKRRoaf+EhwU/J75DClTclLWPOU5hjlBdR671Z1LPhQPcR?=
+ =?us-ascii?Q?q6XIPm2kkTlbtcqXSKQHoRqog8uz+Y0eEcaYUwac0t0o9yjgnIhcF0eQdFx7?=
+ =?us-ascii?Q?HDyXh4MHVazd98Sl03BEyUahl2IlAIQtwSN6Wvp9X6zqDD5ZlXtAQl5Q7/b+?=
+ =?us-ascii?Q?R4rh2d5S4f99YtwuJxCR1tBrU8/maQX2CN8HlSzsU8CXS3MS3et6T8ocIfDd?=
+ =?us-ascii?Q?Fvzw1s9y4OuQnVn6a4QxCApRnLs13SU6C8xPt91a7eNLan0PbA6t2s+NgO7f?=
+ =?us-ascii?Q?+SGNaHoy90XdnfG4ytEzIYo692O3WsR0hKd7OaHioeveoiW/RYNOkIsLZ6WA?=
+ =?us-ascii?Q?AvTduikYLbdEImxriNlw1E2lp/hngEGKf40xxeeap1jGnwJIaBRVL7Lj2WAb?=
+ =?us-ascii?Q?oiKAX7LWz4CDMObmE4C1XblXr0RD+Mq53DiP92Sf/kCpbJ5azjmYbovKtA3I?=
+ =?us-ascii?Q?5Vs4KKzxk2jOfNvqYPPUvIpPgUamfBxhx8le1GEOKcy+RJdYafX8FV+Zs7jB?=
+ =?us-ascii?Q?lT3a4pX+i+jJRE8TjC5ZbU6zpBorH7S13AU3fn3Yy/zSn9ursVo1dOaInxV/?=
+ =?us-ascii?Q?DPIQkbWBWYJ8KeoqF9v7tNrHgxo2LaVKHibzR2jF4+WX7lBa8pEEB68EnkCZ?=
+ =?us-ascii?Q?SZzWmmx1kvqg36NeD3qClIkTdcXvA63wDTpxSM85jOC3VDww34r2eVGIedIR?=
+ =?us-ascii?Q?WTcSKBWCQpa/A1y8WOUhd6073qGMKeeMEZm3U1RO93UxjOZZBXzJI77nIxyk?=
+ =?us-ascii?Q?hNEWjepwHsXsUqxRtIC62VF9otzzQwVwY1BN3wjW4SWuxwGm39ynLg9S4l16?=
+ =?us-ascii?Q?BUVIQOKTSmudBa8Yl1ZGkbk1gyX+VOxgcDuPe+VLTPs4ziJYNE8aMxTEP0LN?=
+ =?us-ascii?Q?ouecGD6Fopr4pFP7+q3u/2Je5tvSOQ0cjlWk7cP5GPlmIhvVsl7OqXnX2sMR?=
+ =?us-ascii?Q?31jgocEms1WTXU7+sTar9dL9t6G3BNAPQqOf2xWDniB/voB1eV4Eps6wZf0F?=
+ =?us-ascii?Q?+APbXE+OdZ9nMO2leDHaMr8Qf9/6+LHeqY3Glrgf930gjK27xrOUgqAzP5VZ?=
+ =?us-ascii?Q?DiEFLSYpLmGoNQEZmUk0Xv60ishuVCTnOV4IGBpgpgNEjywSYgJGGOLVrFMq?=
+ =?us-ascii?Q?2T49sisE4P37RWAYR+ygZLKnmhrdRxxKihu0Zb4yK3Ols+EXz4khtrdhYF1l?=
+ =?us-ascii?Q?LDjXt/B1mOEVkhJDWpgJBdrpmUndxVLPBwaThHZPGA9Pr72CMo92c2/dvESf?=
+ =?us-ascii?Q?Iny/O34qYdZOBSMY8NYXAFzjXqHvdAFe4T5aexwg90ex+braJlp8HiAQMlH/?=
+ =?us-ascii?Q?2jNHzPa8IYFUZcx3Us2bhuy+114dQNfvhtXwOtVPIFlrYJnXEy5QjLNY9uKv?=
+ =?us-ascii?Q?juCyiO7NHZZDEuVFtD/E5XJvr45bFyoRHZg7z3MijziPHFDi5mPHJsSTK9RZ?=
+ =?us-ascii?Q?fJdWD9gTTFDsFjPJpJD6lneclWn5bcvmg2XnckhxWqzE2YdbBffdkNyozFPe?=
+ =?us-ascii?Q?XSmI8XXKTYGyoXW+d1jqfgk1s8UlwvMg6B5JJZMWxM+EM8jgjhvCfiFrZzjW?=
+ =?us-ascii?Q?5V6f/gDC1sprACRi3gu40eQ/SjYl99DC63qTQlKdxLCfrDmkvxaSKOY/m3gB?=
+ =?us-ascii?Q?RlzjRuRvhA=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: faaba41b-67f8-473d-bf33-08df36985b6c
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 15:13:30.7891
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Z1VGalb548M729lzskVAXi7anPTPph3DpQbzt2ClQX40DTEMbdtfNxw3/WEX1pCqMDFQVLcWaY7YdU0fidp/Xg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P123MB6488
 
-CoreSight currently models exception entry by changing the preceding
-instruction range into a taken branch. This can give an IRQ the source
-PC of an instruction that already retired and overwrite a real branch
-immediately before the exception.
+In print_cfs_stats(), rq->leaf_cfs_rq_list is traversed locklessly under
+RCU using for_each_leaf_cfs_rq_safe(), which expands to
+list_for_each_entry_safe(). Although rq->leaf_cfs_rq_list is modified
+using list_add_rcu(), list_for_each_entry_safe() is a non-RCU iteration
+macro that dereferences pointer links without READ_ONCE() and pre-fetches
+the next pointer without memory ordering guarantees.
 
-For an untaken B.LS followed by an IRQ, perf script currently reports:
+Without READ_ONCE(), the compiler is free to re-fetch pointers or reorder
+instructions. As a result, a lockless reader can observe a newly inserted
+cfs_rq's pointer before its internal fields are fully visible, leading to
+reading uninitialised data or dereferencing invalid pointers.
 
-  hw int  4000f8 => ffff800080010c80  b.ls #0x400118
-  ...
-  iret    ffff800080012284 => 4000fc  eret
+Furthermore, in the core scheduler, cfs_rq structures are embedded in
+struct task_group and are enqueued/dequeued dynamically on each CPU's
+leaf_cfs_rq_list during task wakeups and throttling. Because this occurs
+in atomic fast paths under rq->lock, deferring list deletion with an RCU
+grace period or allocating dynamic proxy nodes is not feasible. While the
+underlying task_group/cfs_rq memory backing each node is safely reclaimed
+via call_rcu() (i.e., sched_free_group_rcu()), immediate node
+re-insertion can modify cfs_rq->next while print_cfs_stats() is
+executing locklessly. Under continuous list churn, lockless readers
+could experience backward jumps, resulting in unbounded list traversal
+inside the RCU read-side critical section and triggering an RCU CPU
+stall warning.
 
-The hardware trace supplies 0x4000fc as the preferred return address.
-For an IRQ, this is the architectural resume PC (Arm ARM, R_VBQMV).
-B.LS has retired, and the saved PC identifies the boundary before the
-following MOV. Using this PC as the IRQ source reflects the
-architectural state at exception entry:
+Address this by:
+    1.  Introducing for_each_leaf_cfs_rq_rcu(), which expands to
+        list_for_each_entry_rcu(). This enforces READ_ONCE() and proper
+        data-dependency ordering on all architectures during list
+        traversal
 
-  hw int  4000fc => ffff800080010c80  movz x2, #0x1796
-  ...
-  iret    ffff800080012284 => 4000fc  eret
+    2.  Using guard(rcu)() to ensure the backing task_group/cfs_rq
+        memory remains valid throughout traversal
 
-The IRQ sample represents the transfer from this architectural execution
-position to the handler. The series synthesizes exception entries from
-exception packets, preserving the preceding branch and its outcome.
+    3.  Capping the lockless list traversal with a per-CPU
+        circuit-breaker ceiling. This represents a generous upper bound
+        for active leaf cfs_rqs on an individual core while guaranteeing
+        loop termination and preventing RCU stalls under list churn
 
-The supporting changes:
+    4.  Emitting an explicit truncation notice if the ceiling is ever
+        reached, ensuring transparency in debugfs
 
-- Let decoders supply sample.ret_addr so later instruction fetching cannot
-  change thread-stack return addresses. Apply this to Intel PT
-  asynchronous samples as well.
-- Prepare packet ISA and instruction-size handling and share sample
-  synthesis helpers. Mark untaken branches and break history when
-  instruction memory is unavailable.
-- Add a thread-stack regression test and four AArch64 CoreSight tests.
-  IRQs and page faults must resume at the entry PC; SVC and emulated MRS
-  must resume four bytes later.
-
-Based on the AI search and test on my x86 machine, this matches perf's
-Intel PT handling of IRQs. Intel PT records the next instruction's IP in
-the FUP packet, and Perf uses that IP as the interrupt sample's source.
-
-This series is verified on Orion6 board with "perf test coresight".
-
-Signed-off-by: Leo Yan <leo.yan@arm.com>
+Fixes: 039ae8bcf7a5 ("sched/fair: Fix O(nr_cgroups) in the load balancing path")
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 ---
-Changes in v3:
-- Introduced the pref_ret_addr/end_addr union (James).
-- Clarified zero-size A32/A64 exception handling and why T32 retains
-  per-address instruction decoding (James).
-- Retreed missing exception pairs for up to three recordings,
-  then fail instead of skipping (James).
-- Shorten the IRQ workload (James).
-- Fix FIFO argument quoting and remove redundant ShellCheck source
-  directives (James).
-- Checked instruction length before copying bytes into sample->insn
-  (Sashiko).
-- Retried MRS checks when instruction page faults may match the opcode
-  filter (Sashiko).
-- Rebased onto the updated perf tree and collect review tags.
-- Link to v2: https://lore.kernel.org/r/20260923-perf_cs_etm_fix_non_taken-v2-0-6ab8c07a5455@arm.com
+ kernel/sched/debug.c | 39 +++------------------------------
+ kernel/sched/fair.c  | 33 ++++++++++++++++++++++++----
+ kernel/sched/sched.h | 51 ++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 83 insertions(+), 40 deletions(-)
 
-Changes in v2:
-
-- Rework the fix around exception packets to preserve both exception
-  entries and preceding branches.
-- Add explicit return addresses and the Intel PT asynchronous-branch fix.
-- Split out packet/synthesis preparation, record not-taken branches and
-  handle unreadable instruction memory.
-- Add thread-stack regression coverage and four CoreSight tests.
-- Link to v1: https://lore.kernel.org/r/20260713-perf_cs_etm_fix_non_taken-v1-0-4561607fc69f@arm.com
-
----
-Leo Yan (14):
-      perf sample: Allow decoders to supply branch return addresses
-      perf intel-pt: Preserve return addresses for asynchronous branches
-      perf cs-etm: Break branch history when instruction memory is unavailable
-      perf cs-etm: Centralize packet ISA initialization
-      perf cs-etm: Use the recorded instruction size for A32 and A64
-      perf cs-etm: Mark branches that were not taken
-      perf cs-etm: Factor out final instruction sample synthesis
-      perf cs-etm: Centralize branch sample synthesis checks
-      perf cs-etm: Classify exception calls using the exception packet
-      perf cs-etm: Synthesize exception entries separately from branches
-      perf tests: Check CoreSight IRQ entry and exit
-      perf tests: Check CoreSight syscall entry and exit
-      perf tests: Check CoreSight abort entry and exit
-      perf tests: Check CoreSight emulated instruction entry and exit
-
- tools/perf/tests/Build                             |   1 +
- tools/perf/tests/builtin-test.c                    |   3 +
- .../perf/tests/shell/coresight/abort_entry_exit.sh |  32 +++
- tools/perf/tests/shell/coresight/irq_entry_exit.sh |  36 +++
- .../tests/shell/coresight/syscall_entry_exit.sh    |  32 +++
- .../perf/tests/shell/coresight/trap_entry_exit.sh  |  39 ++++
- tools/perf/tests/shell/lib/coresight_exception.sh  | 164 ++++++++++++++
- tools/perf/tests/tests.h                           |   3 +
- tools/perf/tests/thread-stack.c                    | 106 +++++++++
- tools/perf/tests/workloads/Build                   |   4 +
- tools/perf/tests/workloads/branch_not_taken_loop.c |  33 +++
- tools/perf/tests/workloads/page_fault_loop.c       |  37 ++++
- tools/perf/util/cs-etm-decoder/cs-etm-decoder.c    | 106 ++++++---
- tools/perf/util/cs-etm.c                           | 246 +++++++++++----------
- tools/perf/util/cs-etm.h                           |   6 +-
- tools/perf/util/intel-pt.c                         |   7 +
- tools/perf/util/sample.c                           |   1 +
- tools/perf/util/sample.h                           |   5 +
- tools/perf/util/thread-stack.c                     |   5 +-
- 19 files changed, 714 insertions(+), 152 deletions(-)
----
-base-commit: 4626d370ae89b8af4d46a45372b269f926ec662d
-change-id: 20260713-perf_cs_etm_fix_non_taken-5b4d7f73f41e
-
-Best regards,
+diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
+index a22d64647bbf..b29159513e2a 100644
+--- a/kernel/sched/debug.c
++++ b/kernel/sched/debug.c
+@@ -11,17 +11,6 @@
+ #include <linux/log2.h>
+ #include "sched.h"
+ 
+-/*
+- * This allows printing both to /sys/kernel/debug/sched/debug and
+- * to the console
+- */
+-#define SEQ_printf(m, x...)			\
+- do {						\
+-	if (m)					\
+-		seq_printf(m, x);		\
+-	else					\
+-		pr_cont(x);			\
+- } while (0)
+ 
+ /*
+  * Ease the printing of nsec fields:
+@@ -927,38 +916,16 @@ static void print_cfs_group_stats(struct seq_file *m, int cpu, struct task_group
+ #endif /* CONFIG_FAIR_GROUP_SCHED */
+ 
+ #ifdef CONFIG_CGROUP_SCHED
+-static DEFINE_SPINLOCK(sched_debug_lock);
+-static char group_path[PATH_MAX];
++DEFINE_SPINLOCK(sched_debug_lock);
++char sched_debug_group_path[PATH_MAX];
+ 
+-static void task_group_path(struct task_group *tg, char *path, int plen)
++void task_group_path(struct task_group *tg, char *path, int plen)
+ {
+ 	if (autogroup_path(tg, path, plen))
+ 		return;
+ 
+ 	cgroup_path(tg->css.cgroup, path, plen);
+ }
+-
+-/*
+- * Only 1 SEQ_printf_task_group_path() caller can use the full length
+- * group_path[] for cgroup path. Other simultaneous callers will have
+- * to use a shorter stack buffer. A "..." suffix is appended at the end
+- * of the stack buffer so that it will show up in case the output length
+- * matches the given buffer size to indicate possible path name truncation.
+- */
+-#define SEQ_printf_task_group_path(m, tg, fmt...)			\
+-{									\
+-	if (spin_trylock(&sched_debug_lock)) {				\
+-		task_group_path(tg, group_path, sizeof(group_path));	\
+-		SEQ_printf(m, fmt, group_path);				\
+-		spin_unlock(&sched_debug_lock);				\
+-	} else {							\
+-		char buf[128];						\
+-		char *bufend = buf + sizeof(buf) - 3;			\
+-		task_group_path(tg, buf, bufend - buf);			\
+-		strcpy(bufend - 1, "...");				\
+-		SEQ_printf(m, fmt, buf);				\
+-	}								\
+-}
+ #endif
+ 
+ static void
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 201864ef8c61..860a04ab060c 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -419,6 +419,10 @@ static inline void assert_list_leaf_cfs_rq(struct rq *rq)
+ 	list_for_each_entry_safe(cfs_rq, pos, &rq->leaf_cfs_rq_list,	\
+ 				 leaf_cfs_rq_list)
+ 
++#define for_each_leaf_cfs_rq_rcu(rq, cfs_rq)				\
++	list_for_each_entry_rcu(cfs_rq, &(rq)->leaf_cfs_rq_list,	\
++				leaf_cfs_rq_list)
++
+ /* Do the two (enqueued) entities belong to the same group ? */
+ static inline struct cfs_rq *
+ is_same_group(struct sched_entity *se, struct sched_entity *pse)
+@@ -472,6 +476,9 @@ static inline void assert_list_leaf_cfs_rq(struct rq *rq)
+ #define for_each_leaf_cfs_rq_safe(rq, cfs_rq, pos)	\
+ 		for (cfs_rq = &rq->cfs, pos = NULL; cfs_rq; cfs_rq = pos)
+ 
++#define for_each_leaf_cfs_rq_rcu(rq, cfs_rq)	\
++		for (cfs_rq = &rq->cfs; cfs_rq; cfs_rq = NULL)
++
+ static inline struct sched_entity *parent_entity(struct sched_entity *se)
+ {
+ 	return NULL;
+@@ -15897,14 +15904,32 @@ DEFINE_SCHED_CLASS(fair) = {
+ #endif
+ };
+ 
++#define SCHED_DEBUG_MAX_ITER 4096
++#define SCHED_DEBUG_TRUNCATED_MSG \
++	"stats truncated at " __stringify(SCHED_DEBUG_MAX_ITER) " iterations\n"
++
+ void print_cfs_stats(struct seq_file *m, int cpu)
+ {
+-	struct cfs_rq *cfs_rq, *pos;
++	struct cfs_rq *cfs_rq;
++	int max_iter = SCHED_DEBUG_MAX_ITER;
+ 
+-	rcu_read_lock();
+-	for_each_leaf_cfs_rq_safe(cpu_rq(cpu), cfs_rq, pos)
++	guard(rcu)();
++	for_each_leaf_cfs_rq_rcu(cpu_rq(cpu), cfs_rq) {
++		if (--max_iter < 0) {
++			SEQ_printf(m, "\n");
++			if (IS_ENABLED(CONFIG_FAIR_GROUP_SCHED)) {
++				SEQ_printf_task_group_path(m, cfs_rq_tg(cfs_rq),
++							   "cfs_rq[%d]:%s ... "
++							   SCHED_DEBUG_TRUNCATED_MSG,
++							   cpu);
++			} else {
++				SEQ_printf(m, "cfs_rq[%d]: "
++					   SCHED_DEBUG_TRUNCATED_MSG, cpu);
++			}
++			break;
++		}
+ 		print_cfs_rq(m, cpu, cfs_rq);
+-	rcu_read_unlock();
++	}
+ }
+ 
+ #ifdef CONFIG_NUMA_BALANCING
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 6607963efa30..93c1f4399a23 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -777,6 +777,18 @@ struct cfs_rq {
+ #endif /* CONFIG_FAIR_GROUP_SCHED */
+ };
+ 
++#ifdef CONFIG_FAIR_GROUP_SCHED
++static inline struct task_group *cfs_rq_tg(struct cfs_rq *cfs_rq)
++{
++	return cfs_rq->tg;
++}
++#else
++static inline struct task_group *cfs_rq_tg(struct cfs_rq *cfs_rq)
++{
++	return NULL;
++}
++#endif
++
+ #ifdef CONFIG_SCHED_CLASS_EXT
+ /* scx_rq->flags, protected by the rq lock */
+ enum scx_rq_flags {
+@@ -3485,6 +3497,45 @@ extern struct sched_entity *__pick_root_entity(struct cfs_rq *cfs_rq);
+ extern struct sched_entity *__pick_first_entity(struct cfs_rq *cfs_rq);
+ extern struct sched_entity *__pick_last_entity(struct cfs_rq *cfs_rq);
+ 
++/*
++ * This allows printing both to /sys/kernel/debug/sched/debug and
++ * to the console
++ */
++#define SEQ_printf(m, x...)			\
++do {						\
++	if (m)					\
++		seq_printf(m, x);		\
++	else					\
++		pr_cont(x);			\
++} while (0)
++
++#ifdef CONFIG_CGROUP_SCHED
++extern spinlock_t sched_debug_lock;
++extern char sched_debug_group_path[PATH_MAX];
++extern void task_group_path(struct task_group *tg, char *path, int plen);
++
++#define SEQ_printf_task_group_path(m, tg, fmt...)			\
++{									\
++	if (spin_trylock(&sched_debug_lock)) {				\
++		task_group_path(tg, sched_debug_group_path, sizeof(sched_debug_group_path)); \
++		SEQ_printf(m, fmt, sched_debug_group_path);		\
++		spin_unlock(&sched_debug_lock);				\
++	} else {							\
++		char buf[128];						\
++		char *bufend = buf + sizeof(buf) - 3;			\
++		task_group_path(tg, buf, bufend - buf);			\
++		strscpy(bufend - 1, "...", sizeof("..."));		\
++		SEQ_printf(m, fmt, buf);				\
++	}								\
++}
++#else
++static inline void
++SEQ_printf_task_group_path(struct seq_file *m, struct task_group *tg,
++			   const char *fmt, ...)
++{
++}
++#endif
++
+ extern bool sched_debug_verbose;
+ 
+ extern void print_cfs_stats(struct seq_file *m, int cpu);
 -- 
-Leo Yan <leo.yan@arm.com>
+2.55.0
 
