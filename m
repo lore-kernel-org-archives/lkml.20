@@ -1,82 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348612;
-	b=OgqIXkcyPG+X+LWvnUwQ3XeP8LKYtgv7ATJRl3d3IkYEayz/RzigJyM7meDskrRB+srN
-	 wBdoLvVikGZFvAHJ3p9ohKT92cnvrNdHRF2n3r2kSOMGyLWfK4oDr2a5cC8NPwf2+ae/X
-	 MRDqjLS1zjcPqEWR7zd1vafsp5paDfaBJs4dFefxFrP1WVFhbWpSYwLpvskV+yQhJ3hBx
-	 xU/hFz17FtIdnUdGpPju0mYvD+BhGKlzVARZevF/a1XNT2NdAJKqzMHXjhNQrmp2Q3WiN
-	 OeoizxXZbRayi7Veo+IiVzq3qCYH5aXCvT9MQm3LqWIvLyJOcrBeqjMFVubHRcnSpzQ==
+	t=1793348620;
+	b=rGIkFrIyCpANacochaBJLIAhHbXqjLyYir+kiT1yMbdTqNAHC9ZZ3BP1Xxa5BtBw7S4Y
+	 b1cy3dTYYwYMHVB7mrI2+DE6UQCkC2BL0bkkborSLqctrdaABTlWdaPbSavyvAwvt1Mtm
+	 TVRE2wt/BnMSrZtCgNg8pzjAPwmC9i4le1T5SGEuNw4Dp3n8DAT7Hfj+3TcASNP9aB4ee
+	 LbPOlnEJQ6T/e3oEYev+OTVSA02M/p1xwEl+QQpVS4ZnczQ9fFxWJol1DTsHBvc2I7KGA
+	 UCCp13HN/1jhhkA4TJ9tPUXj1Hhm9SvZMtJeJATiAgLnAb313AVDiTP1lqxXPS8g9Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348612;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348620;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=twpZcGMX1zP2ESKIoukSbNlyKJlNlpD1PLJh3BmJrA4=;
-	b=dK27b3hICSA7Us8G8wZUP3XQl9p9keWqmaWnhAREJEebUP0so2TWzZS4WuPqL9HVBQgZ
-	 WGyICFg1N42nrZfcE/Lt5AQQEkd3LAdbAzDiV7LOClVCGSpq4jtrOgir+r+zABFB0GdqF
-	 7jp4NUWZ2Y8qeqzBbpgXAUW8PkwzulYOFT7tcIsdo8cnSciPINyqJivqzasr98iLxW9+h
-	 g7CelGIaXgb/aOIgNBX4tcL76sonOEQogEDsq2brrQcFI54GWI/9PgQMVDRCrrO2QxyTh
-	 iZk9jdOyDneOalo/jd+dBjaYDF6IssYgp2NXxkDqFCGeiaQSTExGzg5l5YSl4FdcY9w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=zKfMVQP8od4iZpgtVKrymgT3rG+VRxSX7EBWgqm4V80=;
+	b=MRdUb8dI2NG2T0ODsZLhsjXjV/nBnmosEH50ta+73CY7InGbq/uuZ91aVifcTV/Hx9Wp
+	 m5jhOsSxa933zeo7YuOZ6kEaSaXE+z1etVTJpcysYl/G+xbjF9atoNY28pD/8hxUGDYpd
+	 yAFGN25cdr1T92JWCqV5pI30ee4pSI98EHgnolHRPBlThjFOmz/IeLUYcaA0HXWlakqUo
+	 hjMqK1yoakuaMGkMETD6/nOI1BdfJ1fmRe0+09uNod85nBHnVb28xhcWpsRw7YbDFelzF
+	 yMnGZtH1BiUqPSkVmN6lERxwFr320Ev4wCjiOjWoKVv2bwOTiSJYvckzSnKYaO7zGcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jvdpfnp2;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="L/1GsL6A";
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E31606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:23:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66E31606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31964606A325
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:23:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31964606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jvdpfnp2
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-353804b591eso731101eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:23:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L/1GsL6A
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso643416eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:23:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793348611; x=1793953411; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=twpZcGMX1zP2ESKIoukSbNlyKJlNlpD1PLJh3BmJrA4=;
-        b=Jvdpfnp2rAepggoglivU8Jj0dXbrYENF5bizpKkTx2fylTJnf5OhFzBCorBiqjdLqQ
-         QQ/AXI/YLOKk9lPR998N9OXo8EFXYumRO3sc+VUST1ZLAXAE5JIMkTa/A9QHWN22fPEx
-         lkljwWYLW1KhIwzYdPi+AT2+RVqzhABJU4sJOy6ZvEmCl5pl9b2BzRQy8nZ5Q13VEF1C
-         F5ZPbt0A9z4TnJ/Or9S1KHgydaorfYFAgoJ9fx5A9ESODWkTa0it8p2TL879IzqhZCw2
-         j//RvctB8Hwo9QXQeNGc3YAaK29+Gl5uItnQhjLV4aun+9hL7AdEoJDuZbpRWvcwZqYD
-         nhUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793348611; x=1793953411;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793348619; x=1793953419; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=twpZcGMX1zP2ESKIoukSbNlyKJlNlpD1PLJh3BmJrA4=;
-        b=aANkdT7ESPMHrqvAuUmW+SSmawJ9QlT6Lf7oxan4i+QxKQsGozYUnovyVM8saV9HAg
-         SnJpEkY81JSA4UCy4NkgTzttfGLeEminA5FqyTEHUbtFJEtC/0aFGdAOc3szsqGJbLKL
-         uGgJvoA7TOGU/MQ7/t8S1QLmn/pN6XhfIgTT8tc4Nl+tvdadz5MZYjQ4SiIxvzinXw2a
-         FXfD6HVSLydYNxT3OjucGZedLVKt6FPcmAEMutISdpaz8zIVJN8QuSuY0Am+X5oBwlaW
-         8Nx9oBi+wTNAdmhautDBszIeJhuDmLEiAP6gHWjmsUFPapMG5px1DmHqk7tGSfPiDm1x
-         43QQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy80KZH66Cloizqv2G+3Nd7pvMPZkGhINplf7/prdnZ2s/TOyHyC8cSNon07h2MzWUfxT6eeCiof0kSSqU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBuqYiTkKYrz55uTLLNuYyrF/krh7GlkSbUFLn/L/QZGHl6frv
-	YaJ15tJleFBNRHiP0ZEjUiLbVoNXwgrgc9cOP+J2oIuV5VmRr5ZXv7I4
-X-Gm-Gg: AYBFou36DjIpG7+4aUe3rnbjCb3cFn6CT+u0KpNtkFKq2GJB3+IfzYoa0NwCRWZsERE
-	Nzn5wodgHQGEQ/kmfO8UHZ358lBI+CDKECuOZgVQ4JAzmhVAMMC09WsKImJAzywdkftnKGAg6+v
-	V4az4mbX9ZQi4MXIEqSwDPPRY0qvqmnGQb6XS6DI5M101beTvZc2kOFCnOEWytn24AgTTo7DYLI
-	kQQGo9EV4qoebLs1X23E2qSCHPLy9JvgP0RA3RCH2Wne3snPzwnCPhtDfaBML0GqZn5AxnGno6f
-	80igg6TY83N8z59F8zFTw1zJ9BowsbU59cPXykn40gTNzJ0AtB4DcK8b1le9HWWlhsteu8sxDTP
-	Mk1EtgSSJZhUkSFLK+dKsIWydGqpZ2qbUj1Fpb5bbN1zMnEZdVo5NpEvRW2e6QDerzIIY9dyueL
-	DzP/CttIY78FfYdHuIt0Ob/qDQ2AhegXpNZfD+0NI5YtQnlU4t2hPVbWRDRr/RlyRx9UREubxsa
-	n5ga1varxpqQIU/Q2ZgueAqmj8gZ6iygmI7QDGxw4of+UCffJhBZxOostgn8Y9BCMqOBZ8dTdNC
-	vYHQNupq3LSqjQo7SHQjJS/9BnLKtccwwc2J+dJ1sJMSQzBuoo2ozc6rMMc8J8cidg==
-X-Received: by 2002:a05:7301:3a95:b0:36a:12c4:8bdd with SMTP id 5a478bee46e88-36a42389979mr3233844eec.21.1793348611213;
-        Fri, 30 Oct 2026 01:23:31 -0700 (PDT)
+        bh=zKfMVQP8od4iZpgtVKrymgT3rG+VRxSX7EBWgqm4V80=;
+        b=L/1GsL6AlrMsRx+CVkeNq4CT6jAWM2QzQbsEeFBy2FlY6IZLlFeuQzVwKhsGa54ijB
+         R0Dgk60OVk/eFruyRAZqC74HJYdLoQwJd/BusD9ktSxb20C8+NMxui3NafEGL2fkGLFt
+         zrStcNzrcyD4X80NgGkDL0IgGSZGi87M+oXiHJzMK2wJQmRvQ2aDNZz7/DR3SvICc2Fi
+         rcyGTcjcVk4GuM+BrpE9XkiyC2EdWYMbcZQg4C/wtgFambKwIkzbyNir/sa16kvMLmB1
+         /rG1JmuBfyPJ3dBWdVsVW0dU+njlKxfI+FOlmQKc7iC+CBRYiKTW7tVLRSQNQwHOOvp5
+         lOGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793348619; x=1793953419;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zKfMVQP8od4iZpgtVKrymgT3rG+VRxSX7EBWgqm4V80=;
+        b=CXisanoZVVdnhtzl9/8pMxJD8x/bFAJ546cDVBYrSqAW0nLnQEq4pqcJoirjVP5gh/
+         Vkr10GE4hYnRSz4OYC1BkZnoN79V4v/p5uhK6YWC9/VgSyjZAstwmoJqGvodho+QHWSE
+         ydXd4JvktYwwz1hetlq/ZcxcqgQ/h1Oo37rJFzq7uV4KpXNoJfm1AbyJ+Q2Tgbz7RA54
+         3jxbK1PK5c869CXlYdvEGQx2D/A1+h3GgJncI2uW7iM2xel9BxOt+nq773iSwObFVSDV
+         pL0eIr13wGnU+g5KbEzOJvbFPbL4by24UJvFUKNIIb7+KDpba9a3/co6FfpkjyfHmn3A
+         XC4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzXlIF50EvQ+nsLUAPJRTm48vgSwBNlMujhD0AimD7FymcMBK1pdxNY/lBu52d1dT2VrheIXzN4D2h/ZvY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJtiqFQxPyoR3H3Tnz97ExhBVH1OS5/scaXnFg6MoHDSgskd33
+	47vrIVD8agaYHlKAxkhr52QfG+RjUa/p/OEkRXycZeZglV8w0+dlvsu/
+X-Gm-Gg: AYBFou2RAKYhUaoIPFkfwOZ4OO46wGRYJkUwVYrVGZv9oLKzpHeJJ6QFuJUZv220b8b
+	6rASLlRyNMWk6MI2RcC0qsJQ3jgwVJHkYqzugVEuoVJqcYbXR6jtpyGyDx1S4sPsxBfsUO3C6PH
+	Xs1Aik4c2Ty/XfP16TbHJrKPmjiXe2PDCZbeY7TcEXSA5A3deGHKyYSYTTyCuRzMvYNJzpM9Skv
+	Msu4Ee34xBxKrtz3vf3XcuOo+of+w0PyXOt9syLDURp/UmBdYNT3BLRirtogyWt4hWXH3uun6/b
+	tuMZYGGbloV6Qz7JCiH2nLTUtvnz3Kao8OCot9i4vWIbLr3lguJtKoPlZAiABjWPv9TiPWaJNkQ
+	k8k+Q0y+iDjNHV7ZIEstcUoig6++lk1LbzfhorhjTB4zLlnZtk7v0eByMmtXyl3OG9qUiYVbbcn
+	uKM7ivnZ0v+IW6YKHVCHFsVfUv7X0UCFFnxZ+/cdT91RG2StVqI4kXBLjaQDnbJsLzepteIj33M
+	1+pRlowc2Sla8qA9weqFyIt/zWYRSTahqEB7M78DpkrbFQ0NkQiC2ZLaSfxhQjhzHxeVYPORmrb
+	FekmLN1Wj9MosEd/NMP/GHoP2JsznjYmPZYtLIt0EidVCrsLjDeDOzADJrH+UYru8jcGvDxcOXq
+	T1XVo0IAwyE0=
+X-Received: by 2002:a05:693c:400f:b0:369:f72d:1010 with SMTP id 5a478bee46e88-36a423af96fmr2930709eec.18.1793348619040;
+        Fri, 30 Oct 2026 01:23:39 -0700 (PDT)
 Received: from chitransh.. ([106.221.205.232])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm5999986eec.26.2026.10.30.01.23.25
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm5999986eec.26.2026.10.30.01.23.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 01:23:30 -0700 (PDT)
+        Fri, 30 Oct 2026 01:23:38 -0700 (PDT)
 From: chitranshmandhaniya@gmail.com
 To: hansg@kernel.org,
 	ilpo.jarvinen@linux.intel.com
@@ -87,10 +89,12 @@ Cc: platform-driver-x86@vger.kernel.org,
 	david.e.box@linux.intel.com,
 	irenic.rajneesh@gmail.com,
 	qipeng.zha@intel.com
-Subject: [PATCH 0/8] platform/x86: intel: switch remaining mutex_init() to devm_mutex_init()
-Date: Fri, 30 Oct 2026 13:52:54 +0530
-Message-ID: <20261030082303.284271-1-chitranshmandhaniya@gmail.com>
+Subject: [PATCH 1/8] platform/x86: isst_if_mmio: switch to devm_mutex_init()
+Date: Fri, 30 Oct 2026 13:52:55 +0530
+Message-ID: <20261030082303.284271-2-chitranshmandhaniya@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261030082303.284271-1-chitranshmandhaniya@gmail.com>
+References: <20261030082303.284271-1-chitranshmandhaniya@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,35 +108,55 @@ Content-Transfer-Encoding: 8bit
 
 From: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
 
-Convert the remaining mutex_init() calls under drivers/platform/x86/intel/
-to devm_mutex_init() so the mutex lifecycle is managed by devres.  This
-removes the need for manual mutex_destroy() calls and fixes several
-drivers that were missing mutex_destroy() on the teardown path entirely.
+Replace mutex_init() with devm_mutex_init() so the mutex lifecycle is
+managed by devres.  This removes the need for manual mutex_destroy()
+calls in both the error path and the remove callback.
 
-Each patch converts one driver and is independent of the others.
+Since the only action on cdev_register failure was mutex_destroy(),
+simplify the tail of the probe function to return the registration
+result directly.
 
-Build-tested on x86_64 with all eight drivers compiled in.
+Signed-off-by: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
+---
+ .../platform/x86/intel/speed_select_if/isst_if_mmio.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-Chitransh Mandhaniya (8):
-  platform/x86: isst_if_mmio: switch to devm_mutex_init()
-  platform/x86: isst_if_mbox_pci: switch to devm_mutex_init()
-  platform/x86: pmt_crashlog: switch to devm_mutex_init()
-  platform/x86: crystal_cove_charger: switch to devm_mutex_init()
-  platform/x86: telemetry/pltdrv: switch to devm_mutex_init()
-  platform/x86: ishtp_eclite: switch to devm_mutex_init()
-  platform/x86: punit_ipc: switch to devm_mutex_init()
-  platform/x86: sdsi: switch to devm_mutex_init()
-
- drivers/platform/x86/intel/crystal_cove_charger.c    |  4 +++-
- drivers/platform/x86/intel/ishtp_eclite.c            |  4 +++-
- drivers/platform/x86/intel/pmt/crashlog.c            |  6 ++++--
- drivers/platform/x86/intel/punit_ipc.c               |  4 +++-
- drivers/platform/x86/intel/sdsi.c                    |  4 +++-
- .../x86/intel/speed_select_if/isst_if_mbox_pci.c     | 12 ++++--------
- .../x86/intel/speed_select_if/isst_if_mmio.c         | 11 ++++-------
- drivers/platform/x86/intel/telemetry/pltdrv.c        |  8 ++++++--
- 8 files changed, 30 insertions(+), 23 deletions(-)
-
+diff --git a/drivers/platform/x86/intel/speed_select_if/isst_if_mmio.c b/drivers/platform/x86/intel/speed_select_if/isst_if_mmio.c
+index 950ede5eab76..0a3fdf6b8bca 100644
+--- a/drivers/platform/x86/intel/speed_select_if/isst_if_mmio.c
++++ b/drivers/platform/x86/intel/speed_select_if/isst_if_mmio.c
+@@ -124,7 +124,9 @@ static int isst_if_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	if (IS_ERR(punit_dev->punit_mmio))
+ 		return PTR_ERR(punit_dev->punit_mmio);
+ 
+-	mutex_init(&punit_dev->mutex);
++	ret = devm_mutex_init(&pdev->dev, &punit_dev->mutex);
++	if (ret)
++		return ret;
+ 	pci_set_drvdata(pdev, punit_dev);
+ 
+ 	memset(&cb, 0, sizeof(cb));
+@@ -132,11 +134,7 @@ static int isst_if_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	cb.offset = offsetof(struct isst_if_io_regs, io_reg);
+ 	cb.cmd_callback = isst_if_mmio_rd_wr;
+ 	cb.owner = THIS_MODULE;
+-	ret = isst_if_cdev_register(ISST_IF_DEV_MMIO, &cb);
+-	if (ret)
+-		mutex_destroy(&punit_dev->mutex);
+-
+-	return ret;
++	return isst_if_cdev_register(ISST_IF_DEV_MMIO, &cb);
+ }
+ 
+ static void isst_if_remove(struct pci_dev *pdev)
+@@ -145,7 +143,6 @@ static void isst_if_remove(struct pci_dev *pdev)
+ 
+ 	punit_dev = pci_get_drvdata(pdev);
+ 	isst_if_cdev_unregister(ISST_IF_DEV_MMIO);
+-	mutex_destroy(&punit_dev->mutex);
+ }
+ 
+ static int __maybe_unused isst_if_suspend(struct device *device)
 -- 
 2.43.0
 
