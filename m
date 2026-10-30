@@ -1,78 +1,81 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.47.207.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793336651;
-	b=gPKo9EZmeUcoqsL3B/UohtIoyAO659pfZFpdkdgNUmu+y2c+usRoQMcf2pj0/gnH/9KP
-	 v7TbZwSLPQ42SMzO4zhcreNqf0ERPPXOsd6TNBQD/uXHICaKFAoM0x2V0qNl0CMNmbTA8
-	 AW/DZ5g0Kv8d0r+PlXaG7rKtQZuLwUUQGlwKSVRh8ZTuJDX0VlIyvFZnJzXDQrmELcLhk
-	 Ogb3GkwhdTbiPVm3sl6Ao/fT9IuFQKkb1cDAjxv/PyLKe19uCOvnCAv+6md1iiX7Z3zXi
-	 3ngF0fiq+FJ5s6wFaiO4bQGg3CD+9PVaLO0Tbr4aGDxAdqeehFwZjYgOu4KlcnitVTQ==
+	t=1793336654;
+	b=GmBSlfFv8jLIaZgNIUvUdF1E+XfndOW8N09a5cPjtaWZ5p3k3Cag/YexAoHkiwBucVcV
+	 AqATgwk/EJ5sIh2W7JD1GCOzXba8PxJZwvjtM+RUpVCj5eEGeEUY9J4++LyHTWxGirGwV
+	 wV6bz/BMcteF+TIixOoyMIjuq8HO1Xaal4/ajbNYSdQaGnu7F0UOJXSfohD+HrvXM1sFQ
+	 JrPQinN4fIUMgHClSzbQIFfHYurRsaV1qOFN3UdN7lKT9gpkRh3IkR8uAgJTIEDGd4NyF
+	 0f2y99SMjmqiZW5STxWy4fkRPYD1Y5FCzvQI/NwHCOCiF2itPYGcjdxDv4zP89IS1Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793336651;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793336654;
 	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Received:Received:From:To:
-	 Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Smtpcorp-Track:Feedback-ID:
+	 Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:X-Smtpcorp-Track:Feedback-ID:
 	 X-Report-Abuse;
-	bh=ucAfK/MzpfbMb0wqURA3fUx84Y9iewje5yWIPDbnD6Q=;
-	b=C/eY27Gt73owKFjHC5lr6Shbhw/Zh1HWKm/TIb/7Tq07mRGeeN9CPGxLWMB0WnTGIYCK
-	 GS11TSJhAOu1jmx+saCPUd/+5kBs70QvcneWMMf9OhI7MdFHITiECIWcMwhgWuCHgVkG+
-	 5MA7jKqyoSe9z4Q2Q73fhyND2paEoDWJzGK/XoRmTt/bWfUGL45sajydfp9flYpzzp+tL
-	 K3wdIWFeBqZypZjUoBSRsRAO8d+nS4sHdjQHEQXk0UxiPODudxDXRyY53mvI/iMrWJ0uT
-	 x7v8iflAA8rDnXpcTuyIrn7KgK8temopdzhG9gnIrhepdhjpdNVcb6glrbxy3YsjHRA==
+	bh=9MW3clqg5v18pZwU63c4oEVpjzsyxRxNLjxrPy28qGc=;
+	b=WNnq2p+hhztg9pp4k40E3ymTkVZri5V6PneShScnG+YKAOuzodt0WqHKwvCDfX0vHUEh
+	 cSKEmNafGEvP4JzGS0qi48CZ2R2SMx9GInX/wkj/lulBHu5bQ3bbAPYn2EM+Mk251XuZy
+	 FbRxAGhnzxEnUGU7MEuB/CfdBkVeydAYScjQpGciofIeakBHLSmIgW1SFO1hpUyjEPW6q
+	 zBqhxC58dytI6DWJLXncgAHPgZZ1X9ESDvBRp+KD8fmJslF6tGVv3TBHw4niRD+8Ixg2T
+	 FtReEpjBcw2xshLOqThP3cZVi7VE1Ghjlb2vcEPGeoTlr88mCDpbGBTbfA7UKj7+Adw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=shangen.org;
 	spf=pass smtp.mailfrom=em879706.shangen.org;
-	dkim=fail reason="unknown key version" header.d=smtpservice.net header.i=@smtpservice.net header.a=rsa-sha256 header.s=miusa0.a1-4.dyn header.b="xjcm/sYk";
-	dkim=pass header.d=shangen.org header.i=@shangen.org header.a=rsa-sha256 header.s=s879706 header.b=ApzlU5Ya;
+	dkim=fail reason="unknown key version" header.d=smtpservice.net header.i=@smtpservice.net header.a=rsa-sha256 header.s=miusa0.a1-4.dyn header.b=N+Q+5iL+;
+	dkim=pass header.d=shangen.org header.i=@shangen.org header.a=rsa-sha256 header.s=s879706 header.b=T+vrfl6g;
 	arc=none smtp.remote-ip=103.47.207.181
 Received: from a2i949.smtp2go.com (a2i949.smtp2go.com [103.47.207.181])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2D2606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:04:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F2D2606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C942606A326
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:04:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C942606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=shangen.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em879706.shangen.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="unknown key version" header.d=smtpservice.net header.i=@smtpservice.net header.a=rsa-sha256 header.s=miusa0.a1-4.dyn header.b=xjcm/sYk;
-	dkim=pass (2048-bit key, unprotected) header.d=shangen.org header.i=@shangen.org header.a=rsa-sha256 header.s=s879706 header.b=ApzlU5Ya
+	dkim=fail reason="unknown key version" header.d=smtpservice.net header.i=@smtpservice.net header.a=rsa-sha256 header.s=miusa0.a1-4.dyn header.b=N+Q+5iL+;
+	dkim=pass (2048-bit key, unprotected) header.d=shangen.org header.i=@shangen.org header.a=rsa-sha256 header.s=s879706 header.b=T+vrfl6g
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=smtpservice.net; s=miusa0.a1-4.dyn; x=1793337550; h=Feedback-ID:
+	d=smtpservice.net; s=miusa0.a1-4.dyn; x=1793337554; h=Feedback-ID:
 	X-Smtpcorp-Track:Message-ID:Date:Subject:To:From:Reply-To:Sender:
 	List-Unsubscribe:List-Unsubscribe-Post;
-	bh=ucAfK/MzpfbMb0wqURA3fUx84Y9iewje5yWIPDbnD6Q=; b=xjcm/sYk/2vvodiHbN5N6c4uyD
-	0eUSIATURKkp+a+4hgy4s0f8wl96C/6IHsSQzTaut8oHZ4Juv8wHBkRJ2rZbYRPXXceQEB284wTnf
-	9G4m6TRQSqtWy5uckzAfpnzfkxYQOh3/vzLjHttJWPNhZ0LC1URTEag84BuPK9gpdRli2L2ZyImdm
-	Xmd2IpXz7E/wFdpSCgoHtSWl32Rbe0Ixzr6obRh2kpZ9PlY7GS+5DuwpXGYsESkxBvYKhnxgc88Qf
-	uQggedUn7xMRPfXzhGX2iP+eyCoGdDjgOT5ThieYDgD6My1RCrEiw8FTFxevNeq64uwj409kxCg2x
-	sOAQ1/JA==;
+	bh=9MW3clqg5v18pZwU63c4oEVpjzsyxRxNLjxrPy28qGc=; b=N+Q+5iL+izCuRfnrbkJuSKsUEP
+	oI77NQZHjruQegwNkG2aIoDhNaHMKbI+T/pnCYSmFT+3S2hkq6jiPG7nabZdjlGjrUj0zVkXB8/A7
+	GNTZB9LtKyhu32tXJKQdje4tjvVtFPr1a8yrkPqfOfABgX3hyd/vTTVs4wsafqfUwhtfcd2UAg5mY
+	Qy+vrlUwCmcvtq+AIa0ZLG7OxFO+L0i2F98AUNbvy8gGCq1ZIfNwcBusSaxy03sRiY25nhA65f8sN
+	UQRJIt2vlQy5Fegkt4mO25t7wr1UpQlBoTm4aTHaATjEYV+XRKNN0mCBPrGczEQTrI6tBn2ZuEPIj
+	MHkRdNVA==;
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shangen.org;
- i=@shangen.org; q=dns/txt; s=s879706; t=1793336650; h=from : subject :
+ i=@shangen.org; q=dns/txt; s=s879706; t=1793336654; h=from : subject :
  to : message-id : date;
- bh=ucAfK/MzpfbMb0wqURA3fUx84Y9iewje5yWIPDbnD6Q=;
- b=ApzlU5Yad4etv5nJFJTWjZmTr72Lsd2dJDDMXpCkA5BO8wgmS65JR6vUOLy8G0X+w67A+
- qp+hE3udVJYP/DY6JpppjXy0J1U+/GeGdmwebRDN8+R+6kMryzY+1X1avBqrs583+/glZ5y
- T6jLrd0RO4YxZ2dZL2iwhWL+7kLmM8Zw83cqv2+aJAIA/HPEhPXFXWuju0xpXdi+TPBG8Op
- uVPCwymDt1WY9xrEniS5HAli57HRPElcbwSZChNUUn/JwWEwB+YWiEgNTEOYqwWVXC7rmki
- J1Lu3O4USy/pHLFFcaoVcgYJ7P8H/leVg3rs82U/gIQJkbTBv/c+NeOcN17A==
+ bh=9MW3clqg5v18pZwU63c4oEVpjzsyxRxNLjxrPy28qGc=;
+ b=T+vrfl6g1RV48opUH5B4La7f31dAVtET10PFA2lGk464/kFS21dqt5EUmQZF3D5yTB6fq
+ atLIkhjtfcVP2di2kmL+vK5DlbHlGqncTjc+VKi7Y/GsrHM/ZAgPrlxLHDb9NsnQMHnTZeO
+ hpwwLaVs3cZaWNaLBANit70WKe0AOpcW8915aETXi7LYgC/+24JwqRUHFRRFy00zbAT5p8m
+ U/ZVtbvMPwO1puGfPUMfhjdYC9409I8FaCjDdvJA+pDLLtj1yjDfRfjWAJ2XWfKFLhw8bR5
+ z0jBY1HyRs3T4FuBX5XLuFhfa25YqhzSHwc6eVZKYOLn7jtmk+Bc0X5RJ/IQ==
 Received: from [10.143.42.182] (helo=SmtpCorp) by smtpcorp.com with esmtpsa
  (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
  (Exim 4.94.2-S2G) (envelope-from <sim@shangen.org>)
- id 1xMemM-gL4Q4W-PH; Fri, 30 Oct 2026 05:03:50 +0000
+ id 1xMemR-gL4QGD-Bv; Fri, 30 Oct 2026 05:03:55 +0000
 Received: from [10.195.244.224] (helo=sse-laptop.lan)
  by smtpcorp.com with esmtpsa
  (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256:X25519)
  (Exim 4.100.1) (envelope-from <sim@shangen.org>)
- id 1xMemM-FnQW0hPtGB2-hQdi; Fri, 30 Oct 2026 05:03:50 +0000
+ id 1xMemQ-FnQW0hPtGB2-jeMa; Fri, 30 Oct 2026 05:03:55 +0000
 From: Shang En Sim <sim@shangen.org>
 To: Jens Axboe <axboe@kernel.dk>,
 	io-uring@vger.kernel.org
 Cc: Shang En Sim <sim@shangen.org>, Peter Zijlstra <peterz@infradead.org>,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] io_uring/cancel: cancel all poll matches in one pass
-Date: Fri, 30 Oct 2026 00:03:15 -0500
-Message-ID: <20261030050319.1448530-1-sim@shangen.org>
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH 1/2] io_uring/cancel: count all requests that a CANCEL_ALL
+ cancels
+Date: Fri, 30 Oct 2026 00:03:16 -0500
+Message-ID: <20261030050319.1448530-2-sim@shangen.org>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261030050319.1448530-1-sim@shangen.org>
+References: <20261030050319.1448530-1-sim@shangen.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,77 +86,40 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Smtpcorp-Track: Wnn_ZY9vE0l1.FzHeJsAMn2oN._9zGvQeHUdq
-Feedback-ID: 879706m:879706aL5FzMA:879706sIuh6qtCNs
+X-Smtpcorp-Track: qNORzD_XjFdV.9ptFRcSJ5GI8.JjhqPgJ6ImB
+Feedback-ID: 879706m:879706aL5FzMA:879706s3PvtaaPe7
 X-Report-Abuse: Please forward a copy of this message, including all headers,
  to <abuse-report@smtp2go.com>
 
-IORING_OP_ASYNC_CANCEL with IORING_ASYNC_CANCEL_ALL cancels poll
-requests one at a time, and every lookup starts over at the beginning
-of the poll hash. Cancelled requests stay hashed until their task work
-runs, so each lookup also walks past the ones already cancelled. One
-cancel that matches K of N pending polls costs about K*N/2 visits in a
-single io_uring_enter(), with uring_lock held.
+With IORING_ASYNC_CANCEL_ALL, __io_async_cancel() counts one for each
+io_try_cancel() call that cancels something. io_futex_cancel() and
+io_waitid_cancel() cancel every match in one call and return how many,
+so four futex waits cancelled with CANCEL_ALL give a result of 1.
 
-Patch 2 makes poll cancel all its matches in one pass, as futex and
-waitid already do through io_cancel_remove(). Patch 1 is a prerequisite
-and a fix on its own: __io_async_cancel() counts each io_try_cancel()
-call as one, so CANCEL_ALL on futex or waitid requests reports 1 no
-matter how many it cancelled. Patch 2 needs it to keep the poll count
-right.
+Add the number that they return.
 
-Reproducer, 80000 polls on one eventfd and a single CANCEL_FD|ALL:
+Cc: stable@vger.kernel.org
+Fixes: 194bb58c6090 ("io_uring: add support for futex wake and wait")
+Fixes: f31ecf671ddc ("io_uring: add IORING_OP_WAITID support")
+Signed-off-by: Shang En Sim <sim@shangen.org>
+---
+ io_uring/cancel.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-  #include <liburing.h>
-  #include <poll.h>
-  #include <sys/eventfd.h>
-
-  int main(void)
-  {
-  	struct io_uring ring;
-  	int fd = eventfd(0, 0), i;
-
-  	io_uring_queue_init(4096, &ring, 0);
-  	for (i = 0; i < 80000; i++) {
-  		struct io_uring_sqe *sqe = io_uring_get_sqe(&ring);
-
-  		if (!sqe) {
-  			io_uring_submit(&ring);
-  			sqe = io_uring_get_sqe(&ring);
-  		}
-  		io_uring_prep_poll_add(sqe, fd, POLLIN);
-  	}
-  	io_uring_prep_cancel_fd(io_uring_get_sqe(&ring), fd,
-  				IORING_ASYNC_CANCEL_ALL);
-  	io_uring_submit(&ring);
-  	return 0;
-  }
-
-In a 4 vCPU KVM guest, "time ./repro" takes 17.06s of system time on
-next-20261029 (lazy preemption) and 0.02s with these patches. On
-v6.18.59 with voluntary preemption it takes 36.24s, and the soft lockup
-watchdog fires during the cancel.
-
-Testing, on next-20261029 and v6.18.59: liburing's cancel tests
-(poll-cancel-all, poll-cancel, poll-cancel-ton, cancel-fd-userdata,
-io-cancel, sync-cancel, cancel-race, futex, waitid), plus three new
-tests that I'll send to liburing separately: a futex CANCEL_ALL count
-(fails before patch 1), and poll CANCEL_ALL by user_data alone and with
-1000 polls on one fd. All pass, except waitid's pidfd test on
-v6.18.59, which fails with and without these patches. Not tested:
-lockdep, KASAN, and SQPOLL or DEFER_TASKRUN rings for the new cases.
-
-
-Shang En Sim (2):
-  io_uring/cancel: count all requests that a CANCEL_ALL cancels
-  io_uring/poll: cancel all matching requests in one pass
-
- io_uring/cancel.c |  3 ++-
- io_uring/poll.c   | 39 +++++++++++++++++++++++++++++++++++++--
- 2 files changed, 39 insertions(+), 3 deletions(-)
-
-
-base-commit: 70866cfa169d5ee149364267289e71d50f9a7ae9
+diff --git a/io_uring/cancel.c b/io_uring/cancel.c
+index 79b5c133319b..50a65fbc6ff0 100644
+--- a/io_uring/cancel.c
++++ b/io_uring/cancel.c
+@@ -198,7 +198,8 @@ static int __io_async_cancel(struct io_cancel_data *cd,
+ 			break;
+ 		if (!all)
+ 			return ret;
+-		nr++;
++		/* futex and waitid return how many they cancelled */
++		nr += max(ret, 1);
+ 	} while (1);
+ 
+ 	/* slow path, try all io-wq's */
 -- 
 2.56.0
 
