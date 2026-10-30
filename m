@@ -1,68 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793322367;
-	b=KDb2h6CA0Nx3BiiWpY4AYjkYgp1FwMsUGXI94uTiEsnWTSrI53kLBKNaVLYpI8zPKERQ
-	 t4YLR0lf82lm+OL9x/4sKUNBgeZ6qGJMKHWZT4TpPD2MV1MGjPvlNrcfLl93HBzYVQe9R
-	 +kus3hwgwxr3uLAiYO08CKSKh/xV3jzk507H5NhaEQXYc4I7nNgPOoX9fColcTYVce8Ek
-	 iVxGRPHOM2tCYiP4HqNjddWYYh0hcSWoA6hVA9C6ghtH8uxQXXkCTk1BB7KhRBXqmgkSg
-	 o34sOzyoZOi1WfEj+c26lf37emDTOiKZlTuYKgmZKD92CD6KqAbiHQOb05Yj84bxpBw==
+	t=1793322387;
+	b=hfoNa4l9Ctj1AuVp6pB4XUzOdCgFxueTOxfyFwYBq9yuFu5eOmbBYLal4yvjjU3rj7Wj
+	 B2Nf+3C/y7C8/urUtytoZ5jnXS+BkxqX18JRs5BO2Jydpf06+8Xus6k9siEo4gWdo5ZPZ
+	 J8CvvAQt1HG62FlONRpPGcdkxkTMEasCpPrN23o2G/ojktYBr1kE+NFnGbmZM0xpkfQ7I
+	 2VN6zs4mF69GKkFpZ8zoF+Mb6FJ5vVlCPOYQDfC8ari0E/AzfTbyWT2igmpIxjt5eWpRT
+	 sVUs8f1FKYT0Brm2+ps/j9aJWzNeTsD+9fFMd1zKlwRIOM+YjkvyPAzuoQcj9tyF+kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793322367;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=WjLLvZsvJSmOAXslKS2VzMGjNZ8oozHSunMfy2WQMho=;
-	b=Z82DZWs+QF4i2GVeeE5CsG/oO++iHCt91Q35+H50Umkgb69Osyl8x9zpHL9aOWv4xQaU
-	 pumkv/1y9Ie5Hx50JXgSdKbxgKX1BGq3c9HkwPVr6A6HC0+TCs1kNcYUtfALfO2FntkDR
-	 bIkBnB4mT/YtXhman0spYeBmaiVNkOzO5w6+l6NP6Wx+zeidVR1E5vVsxdDx8Bqd+WsPA
-	 DkohPdx/GtLdzwEi69SBAN5UXetGq34qiJhzLQIeOi5YY1gKSM6X9gEMdHsmdnCneNdJH
-	 Fj9XpkErtC51uDjp9d4JhSFwhDScWNjBY9DYf5xo1o+08/uGPnlKdgevi/snn6/E9sA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793322387;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=JzgFJMOLFYwvePlKh+I1EU5zI0SF2rYepqzNiEMGBak=;
+	b=hG/vaMs1xsp/35N2aUxxjnHsvL3OgCHU9JqL72YKjFipQpmrcWV26PXBsM2djD0LLu9j
+	 YM6b9Qyf/X822HkZ72SBc6pNL6RqukfE6967w5DKWtI6CmX8kJ29TzrB/Ynt4o9oO3jpm
+	 DidEvyAQ2UsmnVm/sCUpf3wNIsR86ONRvDWyHdgz72bbt5zdW+BrTq5GmD2MNyu8PRbwR
+	 JwmJHxVnyMMr7NOe90uYtUGqP5z3NmYJvHscW/DBRekBqwwN2w9p7cEnrrO5ijmYMgd8h
+	 yXwof3rEb+3kkG8C3SySabXdhzBZveOOwEMG93Dxt+IjPowR/FA05x71z3oFSf5XJPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="i6fcjN/m";
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bh+gNGsN;
+	arc=none smtp.remote-ip=95.215.58.23
+Received: from mta1.migadu.com (out-23.mta1.migadu.com [95.215.58.23])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC92B606A321;
-	Fri, 30 Oct 2026 01:06:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC92B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26011606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:06:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26011606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=i6fcjN/m
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793322367; x=1824858367;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=TsVZXIJYeSiAkgf1waONsW2VWPzUS6CUknNpUA3kUxo=;
-  b=i6fcjN/mGHxDRE0GJxymHM8DRQp2RNBRhKlFQuTk0Z5z1G10ZuKF76Ir
-   B891NsgXbNF9qVMBiMpdB2phHu+JOFI+kdl1W6HYsYBHPtQENaCI+uENK
-   eNkwB0b5eZkUa/QbDgzfUlUQ24b2DjfOfi81beqaXfkyDaNiG0MeJXZmD
-   Xwk9hafvCGyT5TY/QDCwDAZByWWT1ooAN+d6k/NzkXbtMUuKe3uwOjpMd
-   /RwQHuSTPRgo61Au8zv6JBB8JUPXindEEPw1AkR9F2x34OaOk8ST2SdRc
-   qUBN/iHx4yEFr/zS3xceSyt37pXJPQ/qNzEhcocVbJJA5cuecvGM48b06
-   g==;
-X-CSE-ConnectionGUID: 0FS55+/qS9GNxF4dQo9ijg==
-X-CSE-MsgGUID: ZX5+loSYTDGszjZeGUpc1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="1959288"
-X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
-   d="scan'208";a="1959288"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 18:06:06 -0700
-X-CSE-ConnectionGUID: jS8f0Es1Q++CCTFH2k3MvQ==
-X-CSE-MsgGUID: urQzugNAT/yIaoAkD4Uu0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
-   d="scan'208";a="5421084"
-Received: from unknown (HELO [10.238.2.61]) ([10.238.2.61])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 18:06:01 -0700
-Message-ID: <e7bb28e7-cf1a-44b3-9ce9-3e6ab228d34f@linux.intel.com>
-Date: Fri, 30 Oct 2026 09:05:59 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bh+gNGsN
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yTADy1/D7Gqq4qD3lyh7cKLqinNvU24JT1mwLdBDAKg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793322384; v=1; x=1793927184;
+ b=bh+gNGsN9m954p2h69Wnh64hxtjv47C2klg8ffzZfp38+nttBCUMP4ijrw9J1LVmiabnGZAV
+ WhMSbWhJSRLuu0khtxqaBg0miHmIrQuETpXdbCxld3ipmkxzehjaOlJiDrr7r0KRhFM/+PpbUzB
+ DprvSrL92AhCAVmB002tH3sE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2b9a7a775910b620;
+	Fri, 30 Oct 2026 01:06:23 +0000
+X-Mizu-Trace-ID: 2b9a7a775910b620
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2dd076bf-cd4a-4d07-a5b2-a0529a61281d@linux.dev>
+Date: Fri, 30 Oct 2026 09:06:15 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,97 +59,148 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [Patch v5 10/18] perf/x86/intel: Allow LBR read helpers to
- operate on explicit stacks
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo
- <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>,
- Sandipan Das <sandipan.das@amd.com>, Andrii Nakryiko <andrii@kernel.org>,
- Song Liu <song@kernel.org>, Ravi Bangoria <ravi.bangoria@amd.com>,
- Ananth Narayan <ananth.narayan@amd.com>, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, bpf@vger.kernel.org,
- Dapeng Mi <dapeng1.mi@intel.com>, Zide Chen <zide.chen@intel.com>,
- Falcon Thomas <thomas.falcon@intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
- <20261029043914.1395147-11-dapeng1.mi@linux.intel.com>
- <20261029103857.GL1779021@noisy.programming.kicks-ass.net>
+Subject: Re: [PATCH v3 5/9] docs/zh_CN: update magic-number to match upstream
+To: Dongliang Mu <dzm91@hust.edu.cn>, Alex Shi <alexs@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Weijie Yuan <wy@wyuan.org>,
+ Chen-Yu Yeh <chenyou910331@gmail.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261029124429.294868-1-dzm91@hust.edu.cn>
+ <20261029124429.294868-6-dzm91@hust.edu.cn>
 Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20261029103857.GL1779021@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Yanteng Si <si.yanteng@linux.dev>
+In-Reply-To: <20261029124429.294868-6-dzm91@hust.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-On 10/29/2026 6:38 PM, Peter Zijlstra wrote:
-> On Thu, Oct 29, 2026 at 12:39:06PM +0800, Dapeng Mi wrote:
->> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
->> index ee724b28d90c..63f0504f9d2a 100644
->> --- a/arch/x86/events/intel/lbr.c
->> +++ b/arch/x86/events/intel/lbr.c
->> @@ -105,7 +105,10 @@
->>  
->>  #define ARCH_LBR_CTL_MASK			0x7f000e
->>  
->> -static void intel_pmu_lbr_filter(struct cpu_hw_events *cpuc);
->> +static void intel_pmu_lbr_filter(struct cpu_hw_events *cpuc,
->> +				 struct perf_branch_stack *lbr_stack,
->> +				 struct perf_branch_entry *lbr_entries,
->> +				 u64 *lbr_counters);
->>  
->>  static __always_inline bool is_lbr_call_stack_bit_set(u64 config)
->>  {
->> @@ -741,10 +744,12 @@ void intel_pmu_lbr_disable_all(void)
->>  	}
->>  }
->>  
->> -void intel_pmu_lbr_read_32(struct cpu_hw_events *cpuc)
->> +void intel_pmu_lbr_read_32(struct cpu_hw_events *cpuc,
->> +			   struct perf_branch_stack *lbr_stack,
->> +			   struct perf_branch_entry *lbr_entries)
->>  {
->>  	unsigned long mask = x86_pmu.lbr_nr - 1;
->> -	struct perf_branch_entry *br = cpuc->lbr_entries;
->> +	struct perf_branch_entry *br = lbr_entries;
->>  	u64 tos = intel_pmu_lbr_tos();
->>  	int i;
->>  
->> @@ -775,11 +780,13 @@ void intel_pmu_lbr_read_32(struct cpu_hw_events *cpuc)
->>   * is the same as the linear address, allowing us to merge the LIP and EIP
->>   * LBR formats.
->>   */
->> -void intel_pmu_lbr_read_64(struct cpu_hw_events *cpuc)
->> +void intel_pmu_lbr_read_64(struct cpu_hw_events *cpuc,
->> +			   struct perf_branch_stack *lbr_stack,
->> +			   struct perf_branch_entry *lbr_entries)
->>  {
->>  	bool need_info = false, call_stack = false;
->>  	unsigned long mask = x86_pmu.lbr_nr - 1;
->> -	struct perf_branch_entry *br = cpuc->lbr_entries;
->> +	struct perf_branch_entry *br = lbr_entries;
->>  	u64 tos = intel_pmu_lbr_tos();
->>  	int i;
->>  	int out = 0;
-> This makes no sense; why do you keep passing lbr_entries around when we
-> have lbr_stack.entries[] ?
-
-Yeah, that's actually what I did at the beginning. But sashiko raised the
-warning below. :(
-
-"
-
-Does this trigger a CONFIG_UBSAN_BOUNDS panic when intel_pmu_store_lbr()
-is inlined?
-The lbr_stack pointer points to a struct
-perf_branch_stack embedded directly in struct cpu_hw_events. Because it
-is an embedded value-type struct, the compiler considers its size to be
-fixed (16 bytes), treating the trailing flexible array member entries[]
-as having 0 elements.
-Accessing lbr_stack->entries[i] where i >= 0 can trigger strict array
-bounds violations under -fstrict-flex-arrays=3 and CONFIG_UBSAN_BOUNDS.
-
-"
-
-
+在 2026/10/29 20:44, Dongliang Mu 写道:
+> Update the Chinese magic-number guide to match its English source.
+> Move it from process to staging and update the staging index.
+>
+> Synchronize the translation with upstream revision dd8d4bc28ad7.
+>
+> Signed-off-by: Dongliang Mu <dzm91@hust.edu.cn>
+Reviewed-by: Yanteng Si <si.yanteng@linux.dev>
+> ---
+>   .../translations/zh_CN/staging/index.rst      |  6 ++--
+>   .../{process => staging}/magic-number.rst     | 33 +++++++++----------
+>   2 files changed, 17 insertions(+), 22 deletions(-)
+>   rename Documentation/translations/zh_CN/{process => staging}/magic-number.rst (58%)
+>
+> diff --git a/Documentation/translations/zh_CN/staging/index.rst b/Documentation/translations/zh_CN/staging/index.rst
+> index 6d68fabce175..896734ade5eb 100644
+> --- a/Documentation/translations/zh_CN/staging/index.rst
+> +++ b/Documentation/translations/zh_CN/staging/index.rst
+> @@ -1,8 +1,6 @@
+>   .. SPDX-License-Identifier: GPL-2.0
+>   .. include:: ../disclaimer-zh_CN.rst
+>   
+> -:Original: Documentation/staging/index.rst
+> -
+>   :翻译:
+>   
+>    李睿 Rui Li <me@lirui.org>
+> @@ -13,14 +11,14 @@
+>   .. toctree::
+>      :maxdepth: 2
+>   
+> +   magic-number
+>      speculation
+>      xz
+>   
+> -TODOList:
+> +Todolist:
+>   
+>   * crc32
+>   * lzo
+>   * remoteproc
+>   * rpmsg
+>   * static-keys
+> -* tee
+> diff --git a/Documentation/translations/zh_CN/process/magic-number.rst b/Documentation/translations/zh_CN/staging/magic-number.rst
+> similarity index 58%
+> rename from Documentation/translations/zh_CN/process/magic-number.rst
+> rename to Documentation/translations/zh_CN/staging/magic-number.rst
+> index 05ee75cf4346..e8fdf9a7fbdd 100644
+> --- a/Documentation/translations/zh_CN/process/magic-number.rst
+> +++ b/Documentation/translations/zh_CN/staging/magic-number.rst
+> @@ -1,7 +1,5 @@
+>   .. include:: ../disclaimer-zh_CN.rst
+>   
+> -:Original: Documentation/staging/magic-number.rst
+> -
+>   :翻译:
+>   
+>    贾威威 Jia Wei Wei <harryxiyou@gmail.com>
+> @@ -13,13 +11,13 @@
+>   Linux 魔术数
+>   ============
+>   
+> -这个文件是有关当前使用的魔术值注册表。当你给一个结构体添加了一个魔术值，你也
+> -应该把这个魔术值添加到这个文件，因为我们最好把用于各种结构体的魔术值统一起来。
+> +本文档登记当前使用的魔术数。给结构体添加魔术数时，也应将其登记在这里，
+> +因为不同结构体使用的魔术数最好互不相同。
+>   
+> -使用魔术值来保护内核数据结构是一个 **非常好的主意** 。这就允许你在运行时检
+> -查一个结构体(a)是否已经被攻击，或者(b)你已经给一个例程传递了一个错误的结构
+> -体。最后一种情况特别地有用---特别是当你通过一个空指针指向结构体的时候。例如，
+> -tty源码经常通过特定驱动使用这种方法用来反复地排列特定方面的结构体。
+> +用魔术数保护内核数据结构是一个 **非常好的主意**。这样可以在运行时检查：
+> +（a）结构体是否被意外覆盖，或（b）是否向函数传入了错误的结构体。后一种情况
+> +尤其常见于通过 ``void *`` 指针传递结构体指针时。例如，tty 代码经常这样
+> +在驱动专用结构体和线路规程专用结构体之间传递指针。
+>   
+>   使用魔术值的方法是在结构体的开头声明它们，如下::
+>   
+> @@ -28,30 +26,29 @@ tty源码经常通过特定驱动使用这种方法用来反复地排列特定
+>           	...
+>           };
+>   
+> -当你以后给内核添加增强功能的时候，请遵守这条规则！这样就会节省数不清的调试
+> -时间，特别是一些古怪的情况，例如，数组超出范围并且覆盖写了超出部分。利用这
+> -个规则，这些情况可以被快速地，安全地检测到这些案例。
+> +今后扩展内核时，请遵循这一做法！它能节省大量调试时间，尤其是在数组越界并
+> +覆盖后续结构体等难以排查的情况下。使用魔术数可以快速、安全地发现这些问题。
+>   
+>   变更日志::
+>   
+>   					Theodore Ts'o
+>   					31 Mar 94
+>   
+> -  给当前的Linux 2.1.55添加魔术表。
+> +  此魔术数表已更新至 Linux 2.1.55。
+>   
+>   					Michael Chastain
+>   					<mailto:mec@shout.net>
+>   					22 Sep 1997
+>   
+> -  现在应该最新的Linux 2.1.112.因为在特性冻结期间，不能在2.2.x前改变任
+> -  何东西。这些条目被数域所排序。
+> +  此表现在应已更新至 Linux 2.1.112。由于目前处于功能冻结期，在 2.2.x
+> +  发布前不太可能再发生变化。条目按数值字段排序。
+>   
+>   					Krzysztof G.Baranowski
+>   					<mailto: kgb@knm.org.pl>
+>   					29 Jul 1998
+>   
+> -  更新魔术表到Linux 2.5.45。刚好越过特性冻结，但是有可能还会有一些新的魔
+> -  术值在2.6.x之前融入到内核中。
+> +  将魔术数表更新至 Linux 2.5.45。虽然刚进入功能冻结期，2.6.x 发布前
+> +  仍可能有新的魔术数进入内核。
+>   
+>   					Petr Baudis
+>   					<pasky@ucw.cz>
+> @@ -66,10 +63,10 @@ tty源码经常通过特定驱动使用这种方法用来反复地排列特定
+>   ===================== ================ ======================== ==========================================
+>   魔术数名              数字             结构                     文件
+>   ===================== ================ ======================== ==========================================
+> -PG_MAGIC              'P'              pg_{read,write}_hdr      ``include/linux/pg.h``
+> +PG_MAGIC              'P'              pg_{read,write}_hdr      ``include/uapi/linux/pg.h``
+>   APM_BIOS_MAGIC        0x4101           apm_user                 ``arch/x86/kernel/apm_32.c``
+>   FASYNC_MAGIC          0x4601           fasync_struct            ``include/linux/fs.h``
+> -SLIP_MAGIC            0x5302           slip                     ``drivers/net/slip.h``
+> +SLIP_MAGIC            0x5302           slip                     ``drivers/net/slip/slip.h``
+>   KV_MAGIC              0x5f4b565f       kernel_vars_s            ``arch/mips/include/asm/sn/klkernvars.h``
+>   CODA_MAGIC            0xC0DAC0DA       coda_file_info           ``fs/coda/coda_fs_i.h``
+>   CCB_MAGIC             0xf2691ad2       ccb                      ``drivers/scsi/ncr53c8xx.c``
