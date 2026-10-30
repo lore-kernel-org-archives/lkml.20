@@ -1,64 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793383217;
-	b=Nr9AoYvBSru/fwph8ly8t/nJvXqkv7xaqGs5AbXFSqNR8flXQBLXS0BEuDILzrgGNkgY
-	 fnSme5TPnZn+wuLBhvPfsMyF1cfKJCxEhG5Va7s1PBU1TeFvTbFpSRvmGz/qGnwQkp1Lz
-	 ZNAlSPbPVWMWTuQKkgclaX09ZEHxe31G9qph3Le2+w3ohDSydltYteLFrQxO0Dhyz2FFe
-	 m6jC9tj3NGXzXEipeDJXtVrh/VR1MAvgcBvmr+EyJrFpyXNUckQO91kyHgK19KkqLauY7
-	 y5xhLEp0k2ytJObDbgX5kTvNukdk6N1sr1uZ6V3dJNogI2l3e9OR7Zy1fW6+WTH0GZA==
+	t=1793383232;
+	b=E/ZUjA5sED5TDELcQEmPciNJlbP+jTVSp3eMwQmWRkDnMc0tTeJvhIivgTvh7FMh91mP
+	 RgnLhl6kzzmRk0lGRIg5QAESoWcgoPDXEPpu0SDMeTQMT8STLopn3z8CB3WJn4l+GIeB+
+	 1gsgh8GTM7rf8M6kXPtIj92J47vuK6ESr1t6Lb67Nr5WJhVORoTTPwfHVf+0cvuGY/4XE
+	 0ASy42U+Gub9aQHTZ3ydurHn9f94NOwK7irSS95PJonL40lxtqNtTOTjUuoODvIa3/Unj
+	 usXcTANumq4qNUonPGxX5uHovi0GwvZ27w6Mt4H4ogaEpVfdirq4b9pTW2WlLBhN+ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793383217;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793383232;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=yChfyjPOTiyLF+PWJt2DeFwEOCTz0znOq55Xo9tjt2w=;
-	b=bHgBlAJC9z8xhzJlwOkb+ltVeB8fKU4PUDe9FU0Vl8O+EKUFg+3CK0d0JLOFiYgIri0Q
-	 tspxh1tZQfs+SDilnev7EtTSXx16JGCGrVrY6dtbLJWBPwHWVK0p6dpgXeKjgA4Gcu/y7
-	 gNtmjT2nWxAKcujwqBnHOjPrqftCTTKfjYHUhgcNNbcISGeiuvGdVzSb9sjdwgvjdA4U2
-	 Ate0cd7UcY3Y/oKODhhJcNya2jDBEVCiArheAAo/jDCQzbaq14hTJu2j0/qi4z3i68Z0e
-	 fkkhRpJnZhpAJgSYF9Ay2nPmLAVshvr9GF/OeFAxi0xAQ0Z8xWlvRfn7sehmrdSO7zw==
+	bh=arldDgIN+DCbRWttC/pNZKTNCd0fMgl+I3NlSIduriw=;
+	b=nWyT/sig3UuwYK9HLcJC7vY+oui8DWPAw4JZaCdiv9RDe3HVMgdq6cugzndvghmveImO
+	 85aU8RW6YzUApujiNR9YLj9YVdvIakqqM3XaOnb4F2FqBn14IcpgmB40GJ0gtK21vbC4w
+	 MTpaOyWwuVxWa86L2ma4MP+lMaH7BgK7h7K+yNfa4r/mLPUEvlx01WiczsMy+FVZDB+QY
+	 LHNafgAJOIuXfaGLBFD29bfNsQbl48NmYm6aRlddTKDbEwCa9aMz0yeebk0okQftapxL9
+	 d68lXWaikBsWCGJMF/4bupvfGnsHTzpJ1hikDGrxGOa4Y09SIcEeX5CiWT/4yuSxXAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aXyWglpY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jJhpEMme;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBFC606A33E;
-	Fri, 30 Oct 2026 18:00:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2353606A33C;
+	Fri, 30 Oct 2026 18:00:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aXyWglpY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 199321F000C1;
-	Fri, 30 Oct 2026 18:00:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jJhpEMme
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF0441F00A1C;
+	Fri, 30 Oct 2026 18:00:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793383217;
-	bh=yChfyjPOTiyLF+PWJt2DeFwEOCTz0znOq55Xo9tjt2w=;
+	s=k20260515; t=1793383231;
+	bh=arldDgIN+DCbRWttC/pNZKTNCd0fMgl+I3NlSIduriw=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=aXyWglpY3r1D7cVdKI3EjLjnqyyc8Pm9gDFXpCiQ5In7sORCa68V16nQDQYGEwO2s
-	 0Hys3FrZg7v7KoZE0SpRSwgSmXfQlRJ5o4zDbTyxBGr8HJgW5yQiZuhzUEBJHD8TaC
-	 sryoVzADXwo+8ZGESrmkSQWCrIpKDhMAbTDf02M/G1lZtZt7+vye0OurqccWplgPC+
-	 VMoZxttt0MF8xUEFoDMr9mK1MTBTU3BpXP96O08ux+r1qw7ePZFjYIGle5RfQW9OHI
-	 FCtFUcZMbpphUj7VaeCZwnCkdamDR7HxVOn+r3xzt0IjS/Xp8cPcgKJiR+aeaaQz6H
-	 8FIvrQYpoNv+Q==
+	b=jJhpEMmeqXC0RcZsXl7WFapgrUzaX9VYlBMmNTjFqSrtS738L6LLpmt+ewFzcgoF7
+	 XZzgp54Pipn0MHA17YnDEQmYNYN0vQEKIOzePveG2XPy0h9UgnKcqSu+QZgHloqFQ+
+	 2DNj/T/HcDHQX+WfQMcCVE/drS5eRUMg6B3f+Ckr3Xszp0ij/xHqpYJ2fte3n18f7t
+	 lOTi8vJyrpYt1Pe4gzbzts0BPtWk7sZh5OVJFPGyD9jaMSUy8Slad+qoNqe9Nj5Pql
+	 R9yeNFLIrfAQV0RwBTrOWxFR4rZjhd/TTFiyhlMM7L3YT/dJX/PHKU87ElwZI57Q/W
+	 gLZ8beaGSe6qg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 111A03800471;
-	Fri, 30 Oct 2026 18:00:17 +0000 (UTC)
-Subject: Re: [GIT PULL] SCSI final updates for the 7.3+ merge window
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id C3D7C3800471;
+	Fri, 30 Oct 2026 18:00:31 +0000 (UTC)
+Subject: Re: [GIT PULL] more fbdev fixes and updates for v7.4-rc1
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <e7a21a9f0a604f3d3303e4f18c3dbc2e0b8ed263.camel@HansenPartnership.com>
-References: <e7a21a9f0a604f3d3303e4f18c3dbc2e0b8ed263.camel@HansenPartnership.com>
-X-PR-Tracked-List-Id: <linux-scsi.vger.kernel.org>
-X-PR-Tracked-Message-Id: <e7a21a9f0a604f3d3303e4f18c3dbc2e0b8ed263.camel@HansenPartnership.com>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi.git/ tags/scsi-misc
-X-PR-Tracked-Commit-Id: 3650bb41391b51d9dcf87b0480ecafeb1526252f
+In-Reply-To: <auPJLXQdFRtkoOCu@carbonx1>
+References: <auPJLXQdFRtkoOCu@carbonx1>
+X-PR-Tracked-List-Id: Direct Rendering Infrastructure - Development
+ <dri-devel.lists.freedesktop.org>
+X-PR-Tracked-Message-Id: <auPJLXQdFRtkoOCu@carbonx1>
+X-PR-Tracked-Remote: http://git.kernel.org/pub/scm/linux/kernel/git/deller/linux-fbdev.git tags/fbdev-for-7.4-rc1-2
+X-PR-Tracked-Commit-Id: 01d1204582f16e8b7bfce29648e5cf77a585d962
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: bd5c762ac0519a8c62141751c893cd25a1ad8940
-Message-Id: <179338321592.1671436.14063101719479307975.pr-tracker-bot@kernel.org>
-Date: Fri, 30 Oct 2026 18:00:15 +0000
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Linus Torvalds <torvalds@linux-foundation.org>, linux-scsi <linux-scsi@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>
+X-PR-Merge-Commit-Id: 67f1f9b38c15b54d257a1efc544873b53905737f
+Message-Id: <179338323067.1671436.4542824899544592054.pr-tracker-bot@kernel.org>
+Date: Fri, 30 Oct 2026 18:00:30 +0000
+To: Helge Deller <deller@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +69,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Fri, 30 Oct 2026 10:54:28 -0400:
+The pull request you sent on Thu, 29 Oct 2026 23:31:09 +0100:
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi.git/ tags/scsi-misc
+> http://git.kernel.org/pub/scm/linux/kernel/git/deller/linux-fbdev.git tags/fbdev-for-7.4-rc1-2
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/bd5c762ac0519a8c62141751c893cd25a1ad8940
+https://git.kernel.org/torvalds/c/67f1f9b38c15b54d257a1efc544873b53905737f
 
 Thank you!
 
