@@ -1,71 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=93.241.95.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793393680;
-	b=nZ1Iq3BCxhShFjMrc+laVMOssEqZlWXp0rmcz/weqlfsGJv2srEfPDuwQ1SLhKUmXlUP
-	 EiOa9BqPB7KIBA8/3fDU+V8ZtQMraCWwo7wcFVbgKHAqfW/+OcLCkX89WePJw5SIPHaRU
-	 YIH5vz6rrcS7zVDCM/c3DNWv/xEKboCnwPFmrYpjFIFrOU8A4cT4i8N8N8I2tKIxDkNdb
-	 Fkom2LkTIf+H9hb4G5bpy2tyTcyRdnMhbcMn3ErWg3Lexio4x/YH2AH+Az/sLZMwLBQTN
-	 KIaB242p7c06CHR666aovVhBLfFPbRkXmnMYf14h5FzOW/tq8BBNheZYqI3e67Ci01A==
+	t=1793393687;
+	b=GKrBQtTGrYSNZG06sMdLaznA7qRIzc84d4umYJFT7UoOt04ob+PY4Vpt5h4cY2VQcFlR
+	 H/PVnWLtAZmdhJIWRYPjk4I2l98+s6XBBqmXelKBd21fVCiUff8xV4RGSxXnbF13H4Qv8
+	 aAMGkrKwlHGjaSFzn8lCpZnbBtM1fWCL5tbBA2gTjam4F/aRjqNXoGpyeTgzdLpCFNlG9
+	 itvhQDig/KwW4f2hEjRODm6eOUuJ5m/bY4/nOcMDvTTmVN45XZ2fdujEYhx9zqvtuubjb
+	 MUIvYAV0Ncd46iTw/W2Cmq1pkNYRmWiD/f2WF7gDYKr+DSVhgRpOFCcoa5M1WzCIOrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793393680;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0hWhsFqL4o7a+PlWoQKkkYolvzPkWBNQ122cMEPY64o=;
-	b=snZNmAHqgfsiddi0I6q+6fgD0OzktDifEmt2Qz5r/J+AekO3c/jccT2NHr3sEe5yb43B
-	 2kc4F4zgymIKcJ1Wpf5XeFQ2/hvsMplkpkOTJcwFdUh/wq8tRT3iV8wJxb+M2e10z6s8p
-	 +1jnRyvurq7Y6kevH/tHwqfXLVHMSjK2FIPDXLGPgLjnsTtvM/4/schUxtuYqSevZdIop
-	 jc6wvU6vDvGpnio7TdvLwviogSvyoA0henxt6dVj5CIa0LJGSwff4qvgcj5Q6jXH1zMEX
-	 m2C0epR39me/aiZKtgGn9NDRJ3eiFBTV6Z7Fe2gKjhcoAuZt9wHo5BlGc4ZLvvVMd4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793393687;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=iygEBjuLTEpiry3mQ1K1xWS/WUk91BUJpXuhslscvwI=;
+	b=uw4guLJwFW6F+/qtw2WpTaBzXmmq9kTj6GWx4I0djHRuTCEFDH+G/7Y4iKaFjyYSVXIV
+	 YfzS8gQq/TIm0ISKMLrBwAFMybXSlAreGQ1LKBN6z6C4WTdohIYB/LDeEcGLaX/6W6BgU
+	 om5DmahMiMWbhARW89OpCpcisgguM8wLq62FrZbQm9xnAfBFtWI4dp0D074Re24r6+Fec
+	 0Oa9mOlwQV1Tng/j+6hnJeYQmW1Dg1FVUVMQbPdkO6H23VgY0g4S7dKXCM2bZcvBpprP0
+	 sIgNy61bKryOGBHX7nupilBPDMLviHDItGlp39Uqbc5jYZpDXxTkNQlT7eEPmt9VmQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Q0vS3LDe;
-	arc=none smtp.remote-ip=91.218.175.69
-Received: from mta0.migadu.com (out-69.mta0.migadu.com [91.218.175.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=firestrike.de;
+	spf=pass smtp.mailfrom=firestrike.de;
+	dkim=pass header.d=firestrike.de header.i=@firestrike.de header.a=rsa-sha256 header.s=dkim header.b=mv1tE7g9;
+	arc=none smtp.remote-ip=93.241.95.223
+Received: from mx.firestrike.de (mx.firestrike.de [93.241.95.223])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351CD606A324
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:54:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 351CD606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB8A3606A325;
+	Fri, 30 Oct 2026 20:54:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB8A3606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=firestrike.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=firestrike.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Q0vS3LDe
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JhFjjTfFHwS2ETw6CvldSvQqCSIDUPmk8rGckT9Z2J0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793393677; v=1; x=1793998477;
- b=Q0vS3LDemhwAC/nakTJrIhZPQlKSALkwEH+DUCftDKTKOX4nMPm89tRkynmybIJc/zTMWBho
- k489W2wRGzfPUSoYmUvYA1CVZYh6SZSEVQHPZmIPwICTzXDokWMtjJ6xsMmr9rdRj6yBjLR9J6M
- 1sH+sn6ug7Lg+3ZbAOVKwGEo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id de517227bb2ad7eb;
-	Fri, 30 Oct 2026 20:54:37 +0000
-X-Mizu-Trace-ID: de517227bb2ad7eb
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Meta kernel team <kernel-team@meta.com>,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key, unprotected) header.d=firestrike.de header.i=@firestrike.de header.a=rsa-sha256 header.s=dkim header.b=mv1tE7g9
+Received: from pmg.cloud.firestrike.de (localhost [127.0.0.1])
+	by pmg.cloud.firestrike.de (Proxmox) with ESMTP id 18DFF160F92;
+	Fri, 30 Oct 2026 20:54:37 +0000 (UTC)
+Received: from mail.firestrike.de (unknown [192.168.28.175])
+	by pmg.cloud.firestrike.de (Proxmox) with ESMTPS id 00E24160E71;
+	Fri, 30 Oct 2026 20:54:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A7562123F89;
+	Fri, 30 Oct 2026 21:54:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=firestrike.de;
+	s=dkim; t=1793393676; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=iygEBjuLTEpiry3mQ1K1xWS/WUk91BUJpXuhslscvwI=;
+	b=mv1tE7g9/6PyeDhlZm3FZrUEXFqqwPQ2PNIf9JxEPlMsux8aW/4/vd4+dXvr/DEqQOcMjv
+	kU9vVfujYkRceWdmtC9DhpjIIpXMJVYI40QqgIWtbH1oUTUnN/Xwi3br8/DlE1xo1tYq2+
+	AbkJcF1S9AUf2aNG4zxEF2YCLdMp5inKIxEsLsKAwUPfKneJC9HLvbGr/ab7/lsdXsSets
+	WUBC9utfiwNIdd4+/IFryKMuwJmyAPwOUHchJnMQt+tdFGZAcWWHB7lLaktgLkFjXVi77z
+	xt6vGhc6MwMy0ngPck8mNMxIXRY5fzBKwOssRPbIWrqbpxnc6/gOgL+u5Tx7jQ==
+From: Tim Heyne <tim.heyne@firestrike.de>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Michal Hocko <mhocko@suse.com>
-Subject: [PATCH v2 2/5] memcg: force charges from reclaim before trying the limits
-Date: Fri, 30 Oct 2026 13:54:13 -0700
-Message-ID: <20261030205418.341214-3-shakeel.butt@linux.dev>
+	Tim Heyne <tim.heyne@firestrike.de>
+Subject: [PATCH] media: i2c: ov8865: Allow fine-grained analogue gain steps
+Date: Fri, 30 Oct 2026 21:52:29 +0100
+Message-ID: <20261030205229.9309-1-tim.heyne@firestrike.de>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261030205418.341214-1-shakeel.butt@linux.dev>
-References: <20261030205418.341214-1-shakeel.butt@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,102 +69,51 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Reclaim can charge memory, for example when zswap stores a page.
-try_charge_memcg() forces these PF_MEMALLOC charges, but only after
-they fail at a limit. A charge that fits still has memory.high
-enforced. That can make a task in direct reclaim do more reclaim and
-sleep longer later, and kswapd records overage that it never handles.
+The analogue gain register (0x3508/0x3509) has seven fractional bits,
+128 being 1x, as already noted in commit 3fdd94e2bfa3 ("media: i2c: Fix
+max gain in ov8865"). The V4L2_CID_ANALOGUE_GAIN control is however
+registered with a step of 128, which only allows whole multiples of 1x.
 
-It is also a problem for the next patches, which make kernel threads
-queue high_work. The worker charges memory from its own reclaim, so it
-can queue itself again. With those patches but not this one, the worker
-queued itself in 118 of 284 runs in a VM test with incompressible zswap
-data.
+The control framework rounds every value to the step. libcamera's AGC
+raises the gain in small increments, each of which is rounded back down
+to 1x, so the gain never leaves 1x and dim scenes stay dark although the
+exposure is already at its maximum.
 
-Check PF_MEMALLOC before trying the limits. Reclaim charges then skip
-memory.high, as they can already go over memory.max. Drop the
-PF_MEMALLOC check in memcg_enforce_high(), which no longer sees them.
+Use a step of 1 so that the full precision of the register is available.
 
-Other effects:
-- As before, the check reads current, so it also catches interrupts on
-  a PF_MEMALLOC task such as kswapd. Softirqs set PF_MEMALLOC
-  themselves for swap over network, so the check can't be limited to
-  task context.
-- These charges no longer charge a batch or refill the per-cpu stock.
-- MEMCG_MAX still goes to the first cgroup that the charge puts over
-  its limit. On cgroup v1, memory.failcnt no longer counts them.
-- high_work can still run again and again when there is nothing left
-  to reclaim. This only stops reclaim from queuing more reclaim.
+Tested on a Microsoft Surface Pro 7 (rear camera) with an out-of-tree
+copy of this driver carrying the same change, as the IPU4P ISP of that
+device is not supported by mainline: libcamera's software ISP AGC now
+ramps the gain up to 16x, and raw captures at 8x, 8.6x, 10x, 12x and 16x
+show the expected monotonic increase in brightness. The mainline driver
+itself was only compile-tested.
 
-Suggested-by: Michal Hocko <mhocko@suse.com>
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+The problem was found and this fix written with the help of an AI
+coding assistant (Claude); the submitter reviewed the change and ran
+the tests described above.
+
+Fixes: 11c0d8fdccc5 ("media: i2c: Add support for the OV8865 image sensor")
+Signed-off-by: Tim Heyne <tim.heyne@firestrike.de>
 ---
- mm/memcontrol.c | 29 +++++++++++++++++------------
- 1 file changed, 17 insertions(+), 12 deletions(-)
+ drivers/media/i2c/ov8865.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 0e484f7f823a..af95a4574a0f 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -2762,7 +2762,6 @@ static void memcg_enforce_high(struct mem_cgroup *memcg, unsigned int nr_pages,
- 	 * when it rechecks the overage and simply bail out.
- 	 */
- 	if (current->memcg_nr_pages_over_high > MEMCG_CHARGE_BATCH &&
--	    !(current->flags & PF_MEMALLOC) &&
- 	    gfpflags_allow_blocking(gfp_mask))
- 		__mem_cgroup_handle_over_high(gfp_mask);
- }
-@@ -2787,6 +2786,21 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	if (consume_stock(memcg, nr_pages))
- 		return ret;
+diff --git a/drivers/media/i2c/ov8865.c b/drivers/media/i2c/ov8865.c
+index 5a59cca8e..75fcc4c9b 100644
+--- a/drivers/media/i2c/ov8865.c
++++ b/drivers/media/i2c/ov8865.c
+@@ -2528,7 +2528,7 @@ static int ov8865_ctrls_init(struct ov8865_sensor *sensor)
  
-+	/*
-+	 * Reclaim may need memory to free memory. Let it go over the
-+	 * limits for a while rather than fail or OOM kill. Doing this
-+	 * before trying the limits also skips memory.high, so the
-+	 * high_work worker can't queue itself from its own reclaim.
-+	 */
-+	if (unlikely(current->flags & PF_MEMALLOC)) {
-+		/* Find the cgroup this charge puts over its limit, if any. */
-+		for (mem_over_limit = memcg; mem_over_limit;
-+		     mem_over_limit = parent_mem_cgroup(mem_over_limit))
-+			if (mem_cgroup_margin(mem_over_limit) < nr_pages)
-+				break;
-+		goto force;
-+	}
-+
- 	if (!allow_spinning)
- 		/* Avoid the refill and flush of the older stock */
- 		batch = nr_pages;
-@@ -2809,15 +2823,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 		goto retry;
- 	}
+ 	/* Gain */
  
--	/*
--	 * Prevent unbounded recursion when reclaim operations need to
--	 * allocate memory. This might exceed the limits temporarily,
--	 * but we prefer facilitating memory reclaim and getting back
--	 * under the limit over triggering OOM kills in these cases.
--	 */
--	if (unlikely(current->flags & PF_MEMALLOC))
--		goto force;
--
- 	if (unlikely(task_in_memcg_oom(current)))
- 		goto nomem;
+-	v4l2_ctrl_new_std(handler, ops, V4L2_CID_ANALOGUE_GAIN, 128, 2048, 128,
++	v4l2_ctrl_new_std(handler, ops, V4L2_CID_ANALOGUE_GAIN, 128, 2048, 1,
+ 			  128);
  
-@@ -2913,9 +2918,9 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- out:
- 	/*
- 	 * Don't forget to raise a MEMCG_MAX event for forced or rejected
--	 * requests.
-+	 * requests. mem_over_limit is NULL if a PF_MEMALLOC charge fits.
- 	 */
--	if (!raised_max_event)
-+	if (!raised_max_event && mem_over_limit)
- 		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
- 
- 	return ret;
+ 	/* White Balance */
 -- 
-2.53.0-Meta
+2.53.0
+
 
