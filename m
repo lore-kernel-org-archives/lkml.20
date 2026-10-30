@@ -1,106 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793395981;
-	b=AKmmQlqcmE1SrAbnc55jxcjzCiVZP/ID2TYe/hmU2Teq0Mwg4u7SEJH4FgUnfd4SOiFQ
-	 5bhoZSDEJhuPeDtoBoLSwGB4BqaO4uJBfhrx2mY3rpFv0h/pjVXFx5M5lhwksZlLL8kTQ
-	 1X3cXj6r3EhNHirz50i8DZqKoINooz5gAxKB7DWgLIavva6Phpl/F0auhAywrPkMMkvfb
-	 lrH1J1pRqylIWDYAAQhvJ1ZyIGiyWV6aNgAEh3Zn7uaYN0UXuYNlB+S9iqO2FonwpiEgz
-	 eygwPqxMXgh4vrSSCjy4Cnh+nMxpa9Q4wzZ7pXNZx40tskdbJRqpVMo8+JQOed74mGw==
+	b=HXKq/mnMRIb1EpQbJCJDOeWgd1Vmex43Xpeyt6gIYwAOYjZhkkwxU1R23Fz0rWAcPvcz
+	 wkqnVE29vmdoJMf/4Fi5o+UsasFLDQsfxKxtqJOioUZ8YvXGPlrZ8q/mgCs0o5vVC+Xvs
+	 p3t01B/84fZA/7/m3wSktqtusygtycV0sdK5ywIZ4AtHq/QucoicPJPu4xkJVyKgRuPZn
+	 HUodVAmrzpEo6E0ioOsZ+ssnPPJqZxWkiMufJzX7Z8Sv2RBwkGzP3QRmdSVRqkic9lv1v
+	 8I+Gm2083SdFAwJw3LhQlVxXGAVIdYxXHEi6e6j+58kmmy6L7B0ZWOQQPEhxCizj19A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793395981;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=IQvi+0f2Rse41JO3L7I3q1SbrfSk2n59JOoQHfBvPYY=;
-	b=wq/PFGD11zBPBC4Za4IYWtlXHH2trHc1e4/sLVAJ0/Iu54IQ1q7v79Py892GphY7xIqI
-	 3mGcJLafnXuzaOqkVUI7ICrU6undLu3of5/dGlb3VYASCOduIG2mx/B8M4fnF2JVTCGSc
-	 EixpXTGOahd+9bF0lHUFwnFknGO9JoKMo3CGotK1CxTFmsGGhOcS9P4SpAiBNZc+8U7k6
-	 7rdM2vhb5DHRsCXhodXbhUTdZdyUcGsH4InyXrIzgq7iIj/D8zvFiwUdqB7gV+QVuURxQ
-	 SmEcRZ5wonw/bT+VOiiI+gDy/p3zMZB2F4rMwavcViZU7M3wVMTPfUTjOQkOZPbouLw==
+	bh=lKfSr9ShDgz6eFnCZ0r6QMxMYlKS96GB2Cpk0qX7FGs=;
+	b=jMrB6YbAiTODvgicww9duuSK/+Re79UdY+ozKoBqP3kAh0wQugJZlVXjqeNXJifb3mPs
+	 7JoQMPrraKnCSVi47ElAY3oMvnZNwcNwrWfWUzZz9fSyeh03VHTyfZbGuc6T69DboD1Tz
+	 euNrCiGlMwW635jM7uEg5OujcRYrpGGor7FhJaum8vjlf6gXhnPXN57Hf1mnrjaAmILZ2
+	 v8E8KWbKmoZNQv2QKc9nP9HFSXPe1FEqFJ3iwPtrLPgpsCXNAj0IuV838fiOgprcIxyOf
+	 tKlK1GDO5sVxrLyR3w2Ia39ON2fbSpyeNWBBiB+F8DUfMzNbiHfdtyWtLcijz0XRg4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IxC4vahc;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TuQ4aVre;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hwPoeJUM;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gxxgaaSD;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F522606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:32:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F522606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D280A606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:33:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D280A606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IxC4vahc;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TuQ4aVre
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69ULBL7k800842
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:32:59 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hwPoeJUM;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gxxgaaSD
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69ULAVnC1222873
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:33:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=IQvi+0f2Rse
-	41JO3L7I3q1SbrfSk2n59JOoQHfBvPYY=; b=IxC4vahcMc1L4AZO7S3CcxoXxW6
-	w03rEhRkHQDVMCIWd8IjeDnGhXzbKxisVIAYHxt24jJrcKfjIrXcDiIYdopBWaWW
-	GEGjEQP2dE2hxmv58aqRtTLvzBeQ/vi5IADI/qlYDiMo4MwEMGXlgamqwplC3NHs
-	AsDbsm9E+SOxvoE1mM3z55PPL831DSLxvJHrhhg22Xe63muxVXn7pnwLvJYDs6x/
-	oz3fHcNyEoY3dEu203E/J6Bjr4db11DhNB3nEeddTZ2YS8YgHA5I/jRbCYFtmJ32
-	2t0+O2uzjUjpBskfJxX4B8+kd/bWOIW4hphcSi9Zfc0DGkgr3Iz0TVL8hRA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn2x10538-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=lKfSr9ShDgz
+	6eFnCZ0r6QMxMYlKS96GB2Cpk0qX7FGs=; b=hwPoeJUMib669wrGmDMfFDP3il2
+	TJNBWSmJoBvUDsSADtQ7IQBCgoP/FrBpWbLgj4cWqNwGRS7yn+H+AGdp28T+2qGb
+	ZYFogluIZ0h/bxcbXXj1e+dXSc766HwOncLQVAX2aXi2wrcKJs36VC5A4zrqEzat
+	Si+m6Oh+zXg74xb/2rs+sw5Ul0nuvA0dhfhyKpXGmooy6lEi8GNOG14/iAKXLGAE
+	rTKmd8Ss6HYx5eKY8ncqtFYNl3yabGhvw2qIN79LgNSxUFZ5oO3BHtaqJeu55MNo
+	4AmUVzz1R+vEMl90Fr6oeUINJEnOvp2LWfN9GOrtsuO9zGTwzfRpuZFzdYw==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn2x0825n-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:32:59 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ae19907a31so1180918a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:32:59 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:33:00 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd67466211bso610094a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:33:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793395978; x=1794000778; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793395979; x=1794000779; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IQvi+0f2Rse41JO3L7I3q1SbrfSk2n59JOoQHfBvPYY=;
-        b=TuQ4aVrePKgexyXf6rRKfng8OEXK0TYscIiyx5YMVDnU9Ix1RSB+p94Y003IBgoGSt
-         efvxAJgqXvOil/i4DvE7omwvARdJ8DkHcNXeNjsZIdYRpHCi+G/h89ZqSnWJexY4XVi5
-         Wk9bxjxv4fMycWbU0ToTXB4FP95wL7vPscc9ikr8SS0CG56JgOiBm34Kc2E9MrFt4TZv
-         sL9n/7/2WbU550Yp8m+5OKAWYt5Bok3nmKv9HWYw9dqfSioTDf8X/tEoMJdNyZynyrS9
-         ZyYLfjYw0SGkECSf1SD1jbSWzQWtc4GvmFqxh4miU6Q/yPa8XPY4gZnFNUkeZN5WxaT7
-         sztw==
+        bh=lKfSr9ShDgz6eFnCZ0r6QMxMYlKS96GB2Cpk0qX7FGs=;
+        b=gxxgaaSDNi09RmAjBz5wQctKIDuuwBW88E3gBdmgbhSu+EfFbXlnS/Ja+GKlClfqrw
+         K7uNM7/XJlW84aNL0t0ndDNiVMbkRFPf6KCVvLfI5EpaqATj7KjkSBMrnNz+76wGrYIQ
+         glsGiqZilUlCHaWjSyByudmeVJNq/wuUckVzGROZqG22E9Dti1IQmfSPJ6VhCami67k8
+         woVkVxlmEyr6FoboCkU69stTX8a3PjFfM0Xg5mOprGUmE9WcHonHsdZjUq3LdSZPrjJ5
+         B44+TC4Xz1lZldj++Ocv5UfqEkjxTF+BWWTcl9sOfjZd6crZxfBZMkzxiOsdVOnGF/kx
+         NcJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793395978; x=1794000778;
+        d=1e100.net; s=20260707; t=1793395979; x=1794000779;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IQvi+0f2Rse41JO3L7I3q1SbrfSk2n59JOoQHfBvPYY=;
-        b=FrBEWXFXW3rV1EwLPZcwJAjy7+ibBnsQty62+eTEQx2GC4KyAEEC7ErMvvMIQHqKqI
-         1ZRgpuTO0/rApKcu5PQxLlH8EtxhcOadNmA/OVEI0jmlUpSWPFJh0R9253dbeNMO51tj
-         9rEG28cD116AQsHkPuv3BAeA8sQqxydstui6JzK9+HngUZzoIVniXC6N57mOVHMU+SWT
-         3mdZabjHIm1dKt4XoillUVOogtKLEsIj4h+vw/Lr0LYP6LRf7XykAijMlqbLlbKNsOc/
-         OK5fBKe3vSbFgu+MypEhmJMpt3eOo3Jr++LnJaPLvJ9kf37jaZQLgH979SNxTo5m87lE
-         5gcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxXr8g8KeJAdH9gBm97eUTvj7RysWVPSZ+T3VX2pgi5PkpL6n1Ue1TOMdJSVlm8Ji0oZz4/S6KD3sLSkeA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/pm0HT11XoxyjfQV4xzV6m3Pvoll7tLWNdDLlmq6VWXsK7g3F
-	E6c2MOGJuUw6bT4+wbfMfkolYHkiDtQoS8V7bf7tP/aYXFms9mYBi0zxXgPY+UbZElZMw44Cdqj
-	9NbymP7dqJycXMlBBXWUCJ5/TXnQJF7T1XwddYjcPAJXZnRf9zkPWhmpQwBJKw3PWHwU=
-X-Gm-Gg: AYBFou32u2ArF3FnXBFs7qfvxa93KyunHWYpnrCHFFONBdJf8kLpw6Qz5qdAUWdBvku
-	HnCVVc4MEZ50iOW/m+/NavknTV/3uBPKUWAY2E8SWHAqIgDZNn1fyeYZcUJg5GCD0LckmGwqUgn
-	e+aLORWBQONO8STA5tHa6g5b+NCv0a4k+yxKJsn37hslarmyxti1/OXmDYoSWRBfV+j/iqKqbn1
-	9CZKmvckirnd+dIUukd8+iinTzMzzFtS+Ww8DFifWYeTp1gd0KFf7LktdtjUDRxelCEBFaYvpmC
-	x9doOmI17KjfnM4j/MrT5nHB51EVkGvx4aXmNYW792kGFXJJ3qXUkuQCHvAaFAoSq83CZktT6MA
-	6fM9zDaq5CAre/v4csMK8q2l4RpEayAk2BztZmFlnkIAPRERyiIf6m9KOggx5KriPystWxo6DTW
-	3Qr1fPcqK0ObJY9rqkVCx4eA8=
-X-Received: by 2002:a17:90a:ea0c:b0:3ae:8983:4ef8 with SMTP id 98e67ed59e1d1-3ae89834f45mr1556489a91.9.1793395978127;
+        bh=lKfSr9ShDgz6eFnCZ0r6QMxMYlKS96GB2Cpk0qX7FGs=;
+        b=F3FYKNecQFsF/13hBWua2fr/9kmLVXXIQ8+FRc5WAN3N7ZkSW69L3zlOTXYaMQbEGe
+         uk4OYBvNAM49XmBBx1MoD40DYVi+AkVw0fbM5zYYac/Y02Y9o9SO58tNNyX6ijnxtOlk
+         a2AZa58jwPDMi8wDX+Xl/IQ9161fXatHLmPFVeXz4QGnZ3uRZsmY/LJ+T35x/PchPOGR
+         qpmSxKZmKLk7ifyfjUlARPjACaPsYjxep+g9Hvvg9uJzDHLMfq43clTVuZIjRk0+b9TJ
+         He5u+vfMior9LZSRJUcTIUuSjG+sAudD4Ld80pnipuJrGOGI0EnhyIHqpplOi8rTdRum
+         7k/g==
+X-Forwarded-Encrypted: i=1; AKwUvBxtvyQtUbhnE3TyKXCCdvcOsMxAfTTr+FpfNS2AfC89zOyRxEp9tyY7bxjMClitCzqY53MgprAm9VVGKik=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+YXIQB+dxFO4D1D92XPHn61WM7qgvnEpLnR972TEMkWOyiIdE
+	SMUYBLIvXmcOaV5vC+4ef9NmXLUmP68K+7PhaM10uwSC6YYjcLDlFbzuHrtcENKBEI96TMEd1Dv
+	sTRv+SpIj39bMyjhkMoVMWv6GaXhMeowaLWrZWmihkgmTIMHDM4vdA5msiv/hpnCzMvg=
+X-Gm-Gg: AYBFou3uKVRGlvB8Les6P250luNpBuQXK8sKdU4EkQG5y2cRbr9ogUOw7J+k182efEq
+	8a8TdQimoPBsHaTnlhb2T66MhZDzpMDL2sn4KbEFCUJu8u71FyUekIbDb7ua6eyYnZk33SbcqvF
+	23ty2LzcxrcWVcjvCN18g5vtTNryU18PKbC4qBiJKW3Ltv7uX4V/1xVHZefjNm+xzoRAEAOjmNf
+	7KdPaFFCwP0Hw1opqyCU3HDbOzHfpnN0CoVR0YjxwAOp7wRwhYWvlSuvc7mga7W5jSKUWWRqEPt
+	YHU0aQt+4FCJ1K1Q9VvMOf+ch3nn0WddstAxMKoB+YMeDOPZUQ0X+FuoZell3AbrgZLqM45Kmg3
+	SXU6K+fybZMc2hOX/unqMdCbVEybbw15xFqzgVMH1iXKd+jDnArCpFTi4gi5EYOvovCHxVYZf46
+	Hg1SO1tpPMqh8rm/8HwxkQuw==
+X-Received: by 2002:a17:90b:3c08:b0:3ab:17b6:9a93 with SMTP id 98e67ed59e1d1-3ae897a64b7mr3002398a91.52.1793395979328;
+        Fri, 30 Oct 2026 14:32:59 -0700 (PDT)
+X-Received: by 2002:a17:90b:3c08:b0:3ab:17b6:9a93 with SMTP id 98e67ed59e1d1-3ae897a64b7mr3002384a91.52.1793395978870;
         Fri, 30 Oct 2026 14:32:58 -0700 (PDT)
-X-Received: by 2002:a17:90a:ea0c:b0:3ae:8983:4ef8 with SMTP id 98e67ed59e1d1-3ae89834f45mr1556460a91.9.1793395977628;
-        Fri, 30 Oct 2026 14:32:57 -0700 (PDT)
 Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net. [67.168.198.145])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845df666sm5339033a91.14.2026.10.30.14.32.57
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae8454327esm5313204a91.4.2026.10.30.14.32.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 14:32:57 -0700 (PDT)
+        Fri, 30 Oct 2026 14:32:58 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -113,9 +113,9 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
         Marijn Suijten <marijn.suijten@somainline.org>,
         David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
         linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v4 1/6] drm/msm: Cleanup if pages_to_sg() fails
-Date: Fri, 30 Oct 2026 14:32:43 -0700
-Message-ID: <20261030213251.55365-2-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v4 2/6] drm/msm/gem: dma_map/unmap_sgtable()
+Date: Fri, 30 Oct 2026 14:32:44 -0700
+Message-ID: <20261030213251.55365-3-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261030213251.55365-1-robin.clark@oss.qualcomm.com>
 References: <20261030213251.55365-1-robin.clark@oss.qualcomm.com>
@@ -129,121 +129,154 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4NSBTYWx0ZWRfX6jpxpRKoKXRY
- cv0AtHht0rRH+04BM6x5w4GlBnJoOwzSrf/LKnBmWen1kty+hXv4tXx3pgrwzk4cVbwGWYSJFBM
- k9FOT3WyNPQgGahSJaWs4SpuqLWt8KfAgnIDx3LE1f01xrEuUB1mV7CKVuJcKxSfVoaR0aZJK8b
- ummvAjuEbOqvgpngzBYfusI68ZizicyRMYOH8sQ/02mEnEJQj+O4S9ACRP58gLx8sCBpcaRTDvE
- Gyhe4t3VxoMEUCp6cgOecf9d3lKmpEHqk97xcTkazcBtt6DvMhe7U/nww5OtZhNK8zzXzAssluh
- BVUUi1YyzzX/Jy5NLqjchLX/Cx80O6+XFzm9Rar7qCgC30hjFkVaXD7C8ci7Jek+5IwoO2QSx8j
- PO+a+pUxdVtzJ0KvOuvHrbn6tnQ9Uw==
-X-Authority-Analysis: v=2.4 cv=CLG/zhrD c=1 sm=1 tr=0 ts=6ae50d0b cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4NSBTYWx0ZWRfX2U3M5R2Jocoe
+ kXELTBI9wvTSPV/zqG3yrlMQ+nGN2wTcVpROa36bcTTLhxhGdJc5vfGdm4gxyOBwThBTIq1p9yB
+ w20H+IicteKnDMm/UwbLP77yP0I1/6A=
+X-Authority-Analysis: v=2.4 cv=d4xgWhjE c=1 sm=1 tr=0 ts=6ae50d0c cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=aq7xQ8hs3DLR8BDoFBQA:9 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4NSBTYWx0ZWRfX3KjT51rN3ImS
- WRdW3yHE34R5Y07UweTQ362FftR236mTsG1/G3kfU3ECU8SEesXqxLN9r6gJvIkKgHhGTDm4aTv
- KU7tCi51O0YYnUcPKLotdRo/1FHXo9E=
-X-Proofpoint-GUID: 5T51mTKvAxB4cYeITSUQb3ljdFB8ivHi
-X-Proofpoint-ORIG-GUID: 5T51mTKvAxB4cYeITSUQb3ljdFB8ivHi
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=urFl2zf4nAXEHr-h338A:9 a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4NSBTYWx0ZWRfX8dasJGmjxGq6
+ mN4tukmdnWxIRgaEAXmLfYsrlXY/ZfT+iLjt1qq1mqHhz8qHnWA+Ep9vnMJ/jB66aYONNBcgnY7
+ mQfCuRqq9C5FcxTlB3ZhOm7/yKEysxd8++JG/BQThrXSTKcNlN9SdlZAlJeG5Imq7uGxyTQDLWD
+ 7GCLAa69l3tjd1LNCMvkrfPulHrozTDMvqYXYWGFUmDakOkZ4WAvLjF8SKFIBlABdfWOoS8uT6Y
+ 1GeQGUQ6bfqBhckKLGiSPpwrEEfenBK/7ucqfIQb9HWdUZ59+EK+DDgSg2o6rlEseuaR7VCac8o
+ I1WEOhQqGS1dugA9bnhVbz2RY5yza+vZUZnLm67ehefS/m7eJ4OMy1wDMbqwPbQuNAph+8OOfON
+ Jj8XTeY7Vy3jIy8KuCX2pajEZdWZ2ujpflPljX1D8emnv5+iG8JIGv9xkXy90IYXxb0YofRNo4M
+ JQeleSs3ioPwpYLnE/Q==
+X-Proofpoint-ORIG-GUID: VQ1H8Ol3F0c1na2i0BiJwClGGt4OwuNb
+X-Proofpoint-GUID: VQ1H8Ol3F0c1na2i0BiJwClGGt4OwuNb
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-30_06,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 suspectscore=0 phishscore=0 adultscore=0
- lowpriorityscore=0 spamscore=0 classifier=typeunknown authscore=0 authtc=
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2610300000 definitions=main-2610300085
+ bulkscore=0 priorityscore=1501 impostorscore=0 spamscore=0 suspectscore=0
+ malwarescore=0 clxscore=1015 phishscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610300085
 
-We never really handled this.  But in practice mapping to smmu would
-have failed without an sgt, which would have been pretty obvious.
+This should functionally be a no-op for us, since we are managing our
+SMMU directly (dma_map_ops is NULL), but it populates the dma_len/
+dma_address's so that we can use them for setting up pgtable mappings.
+
+This inlines sync_for_device() and sync_for_cpu() into their only
+callers to avoid doubling up on the dma-mapping calls.
 
 Tested-by: Jianfeng Liu <liujianfeng1994@gmail.com> # x1e78100 (Acer SFA14-11), v7.3-rc5 + this series, CONFIG_DMABUF_DEBUG=y
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/msm_gem.c | 41 ++++++++++++++++++++---------------
- 1 file changed, 23 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/msm/msm_gem.c | 65 +++++++++++++++--------------------
+ 1 file changed, 28 insertions(+), 37 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 130ae27ee00b..181b9ad32672 100644
+index 181b9ad32672..bcdb57866cf6 100644
 --- a/drivers/gpu/drm/msm/msm_gem.c
 +++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -190,6 +190,7 @@ static void update_lru(struct drm_gem_object *obj)
- static struct page **get_pages(struct drm_gem_object *obj)
+@@ -116,34 +116,6 @@ void msm_gem_vma_put(struct drm_gem_object *obj)
+ #endif
+ }
+ 
+-/*
+- * Cache sync.. this is a bit over-complicated, to fit dma-mapping
+- * API.  Really GPU cache is out of scope here (handled on cmdstream)
+- * and all we need to do is invalidate newly allocated pages before
+- * mapping to CPU as uncached/writecombine.
+- *
+- * On top of this, we have the added headache, that depending on
+- * display generation, the display's iommu may be wired up to either
+- * the toplevel drm device (mdss), or to the mdp sub-node, meaning
+- * that here we either have dma-direct or iommu ops.
+- *
+- * Let this be a cautionary tail of abstraction gone wrong.
+- */
+-
+-static void sync_for_device(struct msm_gem_object *msm_obj)
+-{
+-	struct device *dev = msm_obj->base.dev->dev;
+-
+-	dma_map_sgtable(dev, msm_obj->sgt, DMA_BIDIRECTIONAL, 0);
+-}
+-
+-static void sync_for_cpu(struct msm_gem_object *msm_obj)
+-{
+-	struct device *dev = msm_obj->base.dev->dev;
+-
+-	dma_unmap_sgtable(dev, msm_obj->sgt, DMA_BIDIRECTIONAL, 0);
+-}
+-
+ static void update_lru_active(struct drm_gem_object *obj)
  {
- 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
-+	int ret = 0;
+ 	struct msm_drm_private *priv = obj->dev->dev_private;
+@@ -201,6 +173,7 @@ static struct page **get_pages(struct drm_gem_object *obj)
+ 		struct drm_device *dev = obj->dev;
+ 		struct page **p;
+ 		size_t npages = obj->size >> PAGE_SHIFT;
++		unsigned map_attrs = DMA_ATTR_SKIP_CPU_SYNC;
  
- 	msm_gem_assert_locked(obj);
+ 		p = drm_gem_get_pages(obj);
  
-@@ -209,19 +210,17 @@ static struct page **get_pages(struct drm_gem_object *obj)
- 			return p;
+@@ -219,13 +192,20 @@ static struct page **get_pages(struct drm_gem_object *obj)
+ 			goto error;
  		}
  
 -		update_device_mem(dev->dev_private, obj->size);
 -
- 		msm_obj->pages = p;
- 
- 		msm_obj->sgt = drm_prime_pages_to_sg(obj->dev, p, npages);
- 		if (IS_ERR(msm_obj->sgt)) {
--			void *ptr = ERR_CAST(msm_obj->sgt);
--
- 			DRM_DEV_ERROR(dev->dev, "failed to allocate sgt\n");
--			msm_obj->sgt = NULL;
--			return ptr;
-+			ret = PTR_ERR(msm_obj->sgt);
+-		/* For non-cached buffers, ensure the new pages are clean
+-		 * because display controller, GPU, etc. are not coherent:
+-		 */
++		/* For non-cached buffers, ensure the new pages are clean. */
+ 		if (msm_obj->flags & MSM_BO_WC)
+-			sync_for_device(msm_obj);
++			map_attrs = 0;
++
++		ret = dma_map_sgtable(drm_dev_dma_dev(obj->dev),
++				      msm_obj->sgt,
++				      DMA_BIDIRECTIONAL,
++				      map_attrs);
++		if (ret) {
++			DRM_DEV_ERROR(dev->dev, "could not map sgtable: %d\n", ret);
 +			goto error;
- 		}
- 
++		}
++
 +		update_device_mem(dev->dev_private, obj->size);
-+
- 		/* For non-cached buffers, ensure the new pages are clean
- 		 * because display controller, GPU, etc. are not coherent:
- 		 */
-@@ -232,6 +231,14 @@ static struct page **get_pages(struct drm_gem_object *obj)
+ 
+ 		update_lru(obj);
  	}
- 
+@@ -233,6 +213,11 @@ static struct page **get_pages(struct drm_gem_object *obj)
  	return msm_obj->pages;
-+
-+error:
-+	msm_obj->sgt = NULL;
-+
-+	drm_gem_put_pages(obj, msm_obj->pages, false, false);
-+	msm_obj->pages = NULL;
-+
-+	return ERR_PTR(ret);
- }
  
- static void put_pages(struct drm_gem_object *obj)
-@@ -246,18 +253,16 @@ static void put_pages(struct drm_gem_object *obj)
- 		drm_gpuvm_bo_gem_evict(obj, true);
- 
- 	if (msm_obj->pages) {
--		if (msm_obj->sgt) {
--			/* For non-cached buffers, ensure the new
--			 * pages are clean because display controller,
--			 * GPU, etc. are not coherent:
--			 */
--			if (msm_obj->flags & MSM_BO_WC)
--				sync_for_cpu(msm_obj);
--
--			sg_free_table(msm_obj->sgt);
--			kfree(msm_obj->sgt);
--			msm_obj->sgt = NULL;
--		}
-+		/* For non-cached buffers, ensure the new
-+		 * pages are clean because display controller,
-+		 * GPU, etc. are not coherent:
-+		 */
-+		if (msm_obj->flags & MSM_BO_WC)
-+			sync_for_cpu(msm_obj);
-+
+ error:
++	if (!IS_ERR(msm_obj->sgt)) {
 +		sg_free_table(msm_obj->sgt);
 +		kfree(msm_obj->sgt);
 +		msm_obj->sgt = NULL;
++	}
+ 	msm_obj->sgt = NULL;
  
- 		update_device_mem(obj->dev->dev_private, -obj->size);
+ 	drm_gem_put_pages(obj, msm_obj->pages, false, false);
+@@ -253,12 +238,18 @@ static void put_pages(struct drm_gem_object *obj)
+ 		drm_gpuvm_bo_gem_evict(obj, true);
  
+ 	if (msm_obj->pages) {
++		unsigned unmap_attrs = DMA_ATTR_SKIP_CPU_SYNC;
++
+ 		/* For non-cached buffers, ensure the new
+-		 * pages are clean because display controller,
+-		 * GPU, etc. are not coherent:
++		 * pages are clean:
+ 		 */
+ 		if (msm_obj->flags & MSM_BO_WC)
+-			sync_for_cpu(msm_obj);
++			unmap_attrs = 0;
++
++		dma_unmap_sgtable(drm_dev_dma_dev(obj->dev),
++				  msm_obj->sgt,
++				  DMA_BIDIRECTIONAL,
++				  unmap_attrs);
+ 
+ 		sg_free_table(msm_obj->sgt);
+ 		kfree(msm_obj->sgt);
 -- 
 2.56.0
 
