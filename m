@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793367745;
-	b=B6lVkgqpMVp56Pbos8F0ZPaQUJYGuHglHdMnAssnmKOemyYm3VYXsrrMINeoZ5JP4yih
-	 DB/0b+DVGdZE7Gyg1mwOLhE1uSFh0VhTqQTEWZL5pzAamma//X4XflYBGVFnPTkCgtubh
-	 GKVVQUHk+LVKqwu1Tf5Q3T7FF9ZUO0VluK+KeKma8bP5dl2rCjA/IQrphl6eJJBKJ8gZ8
-	 Wn4zFa4jAM9NyNwLSGFpUV/caJ2jic0nHlbwRcDShG1JtEJw2u3dyRuBKU7TRayGcrUXv
-	 rP0TCXaVMpX+ky6SihKGM1Qwe7I9iNc2iFwi+uoBstk0SSrxlYC/nZqoulPeSX3NW1g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793367745;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=QajgQ3m8sW51c5RcS/pooZjG7k7Q7MFc2VdADBywgSI=;
-	b=IbX6NAZ2zKEpkYDXKDbdyCosCg0Wf5JLzonUfmHdN7ypfCPrrZR7WzqZjql7ZbhDVpIG
-	 LmNYjyNswGzNdynQ3g4Bnff2R9sNuKc1jfmNW2vUhSRV3+Ilb4S/gf+BlfLebPO3Ed6HN
-	 BYJYpCz7NjEfE7g0KFOQzfOY8+B0ODRQB06GRxVdGdv/LvxVzLaVmq5ZKCZdJQwnlnrcS
-	 2IUZts56SrFBqzAMZoS7haicBdBSUXslHEJVC312G+6u9D4UfXylTGUP9bOE6behn2kOm
-	 MmgfC84XAOGpDhxhazdkhTHaSWo5MTRk8KAMxbszBro677Ju585ENrqJzOjiBmU0rQA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=F0yaP9uR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.50
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011050.outbound.protection.outlook.com [52.101.70.50])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793367775;
+	b=rSSCxqG9OsCevPZ3wRw94raJS4DD8zBeLP4o95dslS9Ro0yFNwIsWLAIrWQsgVJlBHB/
+	 s6JTSQMFuNVlWe92tMMmzTNBNpJbN45DznDoczeQvEsWfSVw1Doiad7j2xaacpNVGaNB5
+	 WN0+8SJNND7iraV7pTUudOLhQZtFykud0DuOJNhsr3fjV27L8X1sSHQTw3QTMmB3ZkOlG
+	 ruNwhULzCwmcfT0DV19p1341t1w+7oDbAm/EgzpeeFB5oxW6hXwP7fiKXFNd6iS+QNLSH
+	 nbXdOm8jvzc6HH2rUs/XIbOKMFaA09nUrSCxGWvkHXz++NqKSykoeDZZwVGIoiU9OVg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793367775;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=69PaK2GDhFAEWGlSb6meYzT+lKafyCgwdL+hSzCGmnA=;
+	b=GDIxZHKFoQ0uoaRX5qF10STcEiTrAWIPAbLCP7kQ/xPickzsR0L1Kg1ZPUJ+76IyrRIr
+	 Nh8fTjE/mG/9+Zwgpdm6Tbq/laBCL/6HgEl5g7j4TamDQ3DthfpYBkEjuh0IJPKMrWbH+
+	 L0bGdY8P9NPpgukh2JrVqBzTMWWpObPs0LjHMkE3nAANkYMixksrri6sIIVw0qZha0Ju6
+	 n26PpRs6252H9kgMP9M5no05tQhkK0oJhB/7GZm0X4CBSyi9IChk9Mz+Gkp9AvxlgWwLw
+	 iWIadf3uSbDiAx3TiNjXmY7I2y9Y4Oq7E/1EheWWI2h6wwm9cnLnyKflWuzkZYNzl2g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MNFv1+fc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28931606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:42:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28931606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45AD5606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:42:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=F0yaP9uR
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wcCo+NTnWgGFGndYPNaK3OUFJss1lu7d64A/ezurWiyld6SIxyaVnP1WwZLs8UPT6fiQVUF84U9nJ0ciuETKHEu/8WG0Kb4L//IMLCw9RbVWTRQqNR1kX9+LPi3oX1sl6A2K4PufZVPZaDNUbDR6t6bZgOjXVLN4hce9iq+i/okTQ7I6WmCyCqyYapgoNmX2UO/5xoi7s1pHRO+qkEWadNfytlUlGWHR6jdV9KlC06tMDdEWD8mEqXGatu9zyu40Dc04I9WIKRtr853moQM/QrX0xAJp+NEAIlE6sIJEGhV2EfZxtXamEVYOcKDVf2nfHfDXxxTzcEvZgrfej3fZkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QajgQ3m8sW51c5RcS/pooZjG7k7Q7MFc2VdADBywgSI=;
- b=E+qbjOXdaiVQ3v/Ik8DGNMBQqFssyJLuXXnX2dmmbzKNxNMeWDrKIKz3WqFNpD4YqQe3+MCa1RMpzFzH8WzG7Wb0Tx4/iRWthbUO4I0NM1SeHI3Y5qwqAsgtitmI2lEOpuL21h6CM4Q2ecPFw0J1b3UASjbAAFgE70dAS9ulh8UGOwyNI/41kFqGo05ib/JRGsIjo51NEhToGeyWeWxn5oKwOIFmD4RbcDy4TmcqsZ+GSeOPD04Ba+aE2FforG1SXDsKO5FQWThnd6mE9MVRUlHgMEClOP1aO87v5CAEGaecgTbcsGj5Pxgal5QaZmpbaPILsnpcsPv+21L8EDB3Gw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QajgQ3m8sW51c5RcS/pooZjG7k7Q7MFc2VdADBywgSI=;
- b=F0yaP9uRmfsPdTe3ZhXvSuRcVVLWh9SoPmzvb+czb6tnap8umPXde1MURAKt4V8bmnJ3emeVcHzyTOrFL0lW6f/0/w6OQTYkSIu2CD6w+XsNbbR8B6uP1lit4+NkTPaCUUSQzZi4lr6g6eMkOqSRXhn/ESlM/nmAWCkcOM3IvUPjv/eGOzIFsdIcvGqLjJMob9DVuOVnRAtRuTcrGCHufr3uf9jyHXArdWsNvqTobMEjUfinzKRSc0aBEuJqeYRrdehzHUej8aboW8R6XhtxFSWPSrm7LSqeiP6iwpgyuGNQ/iLU3v4G1Gqms8alKUPL63YA16QjuDkdop4JomNbew==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by AM7PR04MB6870.eurprd04.prod.outlook.com
- (2603:10a6:20b:107::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Fri, 30 Oct
- 2026 13:42:19 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 13:42:18 +0000
-Date: Fri, 30 Oct 2026 15:42:14 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: laixiangwu <laixiangwu@cmss.chinamobile.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Lucas Stach <l.stach@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	dri-devel@lists.freedesktop.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] drm/imx/dcss: Fix clock leak on blkctl init failure
-Message-ID: <auSeCkGy5qPQDEcL@vm>
-References: <20261030083342.1531-1-laixiangwu@cmss.chinamobile.com>
- <20261030111304.2205-1-laixiangwu@cmss.chinamobile.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030111304.2205-1-laixiangwu@cmss.chinamobile.com>
-X-ClientProxiedBy: AS4P191CA0054.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:20b:657::12) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MNFv1+fc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32C421F000C1;
+	Fri, 30 Oct 2026 13:42:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793367774;
+	bh=69PaK2GDhFAEWGlSb6meYzT+lKafyCgwdL+hSzCGmnA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MNFv1+fctK3t4SBo6+onmKHPTHA/OyS8sVWH3lCZr6+1qxzBi5FkMQOa8Lt8QfQEo
+	 cJgW2vzLkLZNWONBtv5p2AjwIacI0jOG/itLfS4/1YzBSBEagEy9kSanhoKw5sR+Xr
+	 w2f+tKfE57CA2RqmPlupaQSO1mUUwharocqrrN2J0/hIAmWRh5QefEmrBLN5x+CspA
+	 ZMhMfoFNA+CHrWduFEjLRXe3Iuy15Fs/q5jXwsdpEmqzQOrp+4/eyKWH2Ijt6kXkh9
+	 Ay/+RTar/1xcXNCnsqwSTbBnAiDAu51jakK+FRoQvb9ahbxGkbWzPEonxaUyakaYQg
+	 UvteOnqDNRh+A==
+Message-ID: <172b2180-a15e-4b7c-98a2-ee62090057d3@kernel.org>
+Date: Fri, 30 Oct 2026 14:42:50 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,89 +51,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|AM7PR04MB6870:EE_
-X-MS-Office365-Filtering-Correlation-Id: a33183cf-fb80-4b3d-0edc-08df368b9da3
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|19092799006|1800799024|7416014|376014|261022105027099003|261022075727099003|56012099006|10067099003|18002099003|22082099003|4143699003|11063799006|261028144727099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	EcD9CjkoEmVFXHIAEsblRfESkREEEgTz7XzT/XY84Apd/qrBvlJ9CgVaUZNiL7x76OjRfYPHUK+INNlL7RFpDuE6RNnHJ69n+tPTVCcGnQXV7qKUofBUtlooKcfjWj44DnaVbdPWeWfyAvwaibexy1E+lYLSm/DuUbkRxpewmWe4tW9Nvx+eKnaY5ugTvpnDdXY2BZbtFysU2y0FUC3Ej62kaluvic4IShuwTI7ttVYl+rbZ207SmdSn+SNIqNYHWf/xch2vZKoVipCF0bPUQ1Dm3V2wslTgaOrcrSjfZlgJE4t9c5J/WM9srkFBJGo4myUBqOd/8jyZhICLfmWnOnWCHisDbdqpVcetLg8FF9aqMFOtkIv2/MDiZf2BhFssEXZHP8uRmL4FG5KQ5knvIPpEoUkDyEtcHJOxkoVAffbjNjZZRuEo6QMbfp6HaG6Aw//OdGBsWEEDzmRI2xwEshca2+xV/KfFPwJ2vb40zjAg5W0OL60vWdh+DfT99L1D22WblNDjcW58lzOAG327PVbkU3dtTwebciF3bg+zlC+jwXXsz3QnDjU8VFzsFYjYAv3BYZoG7x1M4ONZnc5+T/A37pE1MKE929izPb+H/zMxM/DiijNea3AFq/BfjF8FzOWh+oIScRLyUA96AgratFBs+BIm/uJRW2gMmkQPu48=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(19092799006)(1800799024)(7416014)(376014)(261022105027099003)(261022075727099003)(56012099006)(10067099003)(18002099003)(22082099003)(4143699003)(11063799006)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?28u0W85JNRGZdAsVfh1qBlpOkcZjHBD633nvurfsKPX1+tjqaFF2SlezGZLC?=
- =?us-ascii?Q?+qHxWSj5IpmJS5V0n6D0oyLxzFweCekt9xmkEYMatwkw4Tw/vQeu+OGsunPG?=
- =?us-ascii?Q?9PRvidpe0IUa63HAC784+iLZAjIrCqdulIDKJia7Ksw2riKEaztR+iuJFCCo?=
- =?us-ascii?Q?pRQvvIJwNJ64ypodI3b1p47gNq/reIyhvELFnCgY35Iu1eAb2QmjEHIuCp2+?=
- =?us-ascii?Q?lDrSYy9awbQxBrs0J1QqvmFyD/vgHUJfPZTm1t7cA3rTGsHt4ejHUBqSUFXE?=
- =?us-ascii?Q?hvnA256gWXXdRWCP/ClvVni+EOfprwVwcblHjxRDprDpS4Du4+NMgTrct8YU?=
- =?us-ascii?Q?CoEsIeSe2XAha4MyL/SE0ITinYqsXe9Q15s4hmj03YeynXSBL32pxVK5Xeu0?=
- =?us-ascii?Q?LTI5O+veNRmY0Ur/AdhyhJ5Jx3k1orNtmpgpn0GpSRC38ZKZiuWzrJ/XG+IR?=
- =?us-ascii?Q?iMbDsoZ0xmaJnUezwPUtkOaC4CrGcA03LTMdvuzLVabxUqVJ6NpKCAjCTlqj?=
- =?us-ascii?Q?DuGA+2/M77GCR0KQxnqcr25R7mgUqiykzO83XCQsJLHA99iYczCmnzYmRpQT?=
- =?us-ascii?Q?NyLMO4qS6qsIgyhGeoSxL0HD9EuY+N1/sohAxXh6dHvpnyP9GQCeCm/j4E+1?=
- =?us-ascii?Q?Hnb4KKkHiDwe2JKGmyntBTfUW73uPhVfeCRH9ybNWBnj+933a62fumeEImzl?=
- =?us-ascii?Q?rqDtlj+QsAwOdNRAXTf18yyqtfNyPkWHGDDT5krA4hh1o4aF9ROfkRMOVjeV?=
- =?us-ascii?Q?VZZ8FZe852z7K+0f9Cc/C+00ctt2CgHFYtUdHmEkTlHaZf9is4qTySyl5NW/?=
- =?us-ascii?Q?VfVwR+HGGIUXdhARHqC+UmC0p8ML+GDWB4UC7HEi9zvjVT6hm3E+x5wO2+Iy?=
- =?us-ascii?Q?yWqjFL4nNQKv8ZtWngHCQC6K0dnJbMJzQ7XYGLyt3swk5uYBFqvKoCBLTJHn?=
- =?us-ascii?Q?3Mhb9rqWRyGvFbaiHarjGkUSbfNoUqhds/ZgyaS5aL2Hq93ymxclIA0Ug9nw?=
- =?us-ascii?Q?juPZlz4KjYX5+vYQ7n51CDbMm1B7U1FayaxOLER/IluqUxmmGUFztG1Zgp+L?=
- =?us-ascii?Q?c9E5ssgP4O/k4YZbGnmq74yR/Jc0ROLShJXWSXE8nV5CtLJ8hfwG8i8JRr8A?=
- =?us-ascii?Q?ez+8rs77aQXFCzCVTebIgiKRo9RM8flhiJlHNJXpXMiszxy5Kk2HA+bm8+HX?=
- =?us-ascii?Q?ZgNC3pt1mrB4Z1XZl8lT4cyoosXIJsAFHDUFYFDSkH+jdjfI9OCWSj/9Wp91?=
- =?us-ascii?Q?wQZL8iLHuYVadz0tbvDzUca2XSVSlBVZcELeP9K12PmojZgIia09qKapLzo7?=
- =?us-ascii?Q?2YP81zHwi51+BOEeCNPJxuvfHJ6KfzIqTqpVyy+/F2DXNUNMGUQJ657oxV5T?=
- =?us-ascii?Q?vfHdCDS4+2Cy7XPkK9NPVi1fdU3HBccgAgAZLFi9yKLdh+PUGLgDEJlM9sEC?=
- =?us-ascii?Q?tG0wz+iG/KN40EonXqdS1bX+kAXrb8VPx/kOZOQcIHK6+m3C2RLFt8UUzIY5?=
- =?us-ascii?Q?m5iVia6y7bchD3U5OMjFLthtKCScvgi0QlxL7Fe5iOgOZqBlZUk/3S7jUgqV?=
- =?us-ascii?Q?414xOKbbmy+vuiyRAmRGK3d2vRs1KOiMz6vsscsgqOu7xPTHqYuqvFZIQAjo?=
- =?us-ascii?Q?1qOlHbUemJulqqbQT3qeGSLXQnWAHetOCl9tFovDG83p6t+oTu+QPaa1H5QP?=
- =?us-ascii?Q?8EESn5vEKBZnI+z10/HPh+NytuYH/UOHLILq5WhDn7+oaU7Si6mHCTY38orT?=
- =?us-ascii?Q?/9ZnNkNFOA=3D=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a33183cf-fb80-4b3d-0edc-08df368b9da3
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 13:42:18.4885
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OwyEQT9H7CMqmHcnLHCjzJ2VFYVpMqetXsa0UpHo7hXhuI/ggMaYxp0S2DTbKvv9yvKASmOwZIS3MS9gQNyGWw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6870
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/9] w1: don't hold list_mutex while a slave is torn down
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org,
+ stable <stable@kernel.org>
+References: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
+ <20261027-llm-char-misc-w1-v1-7-d2e6bfafb6a4@linuxfoundation.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261027-llm-char-misc-w1-v1-7-d2e6bfafb6a4@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 30, 2026 at 07:13:03PM +0800, laixiangwu wrote:
-> dcss_submodules_init() enables the DCSS clocks before initializing the
-> submodules, but if the first submodule (blkctl) fails to initialize the
-> function returns directly, without disabling the clocks again. All the
-> later error paths already jump to err_clocks, which calls
-> dcss_clocks_disable().
+On 27/10/2026 17:04, Greg Kroah-Hartman wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
 > 
-> Since the clocks are only devm-managed for their reference (devm_clk_get),
-> a blkctl init failure leaves all five DCSS clocks prepared and enabled.
+> When the last reference to a slave is dropped, w1_unref_slave() holds
+> list_mutex of the master until the slave has been freed.  In between it
+> calls the ->remove_slave() callback of the family driver and
+> device_unregister().  Both wait for others: for the sysfs callbacks
+> which are running, and in the case of w1_therm also for the file
+> therm_bulk_read of the master and for everybody who is talking to the
+> sensor.  None of those can therefore take list_mutex, although the
+> callbacks of therm_bulk_read walk the list which it protects.
 > 
-> Jump to err_clocks so the clocks are disabled like on the other error
-> paths.
+> The mutex is only needed to make the decrement of the reference count and
+> the removal from the list one step for w1_search_slave() and
+> w1_slave_search_device(), which look the slave up in the list and, in the
+> first case, take a reference.  Once the slave is off the list, nobody can
+> find it any more.  Drop the mutex at that point.
 > 
-> Also rename the error labels of dcss_submodules_init() to the more
-> common err_<x> style, which describes what is cleaned up from each
-> label on, and update the gotos accordingly.
+> The callers which hold the mutex of the master, which serialises
+> attaching and detaching, are not affected.  The one which does not is
+> w1_process_cb(), when it drops the last reference to a slave which has
+> been detached while a netlink command for it was queued.  Somebody who
+> attaches a slave with the same ID through sysfs or netlink at that very
+> moment used to wait until the old device was gone.  Now the registration
+> of the new device may fail because the name is still in use.
 > 
-> Fixes: 9021c317b770 ("drm/imx: Add initial support for DCSS on iMX8MQ")
-> Suggested-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+> This is a preparation for "w1: w1_therm: lock the list of slaves for the
+> bulk read".
+> 
+> Cc: stable <stable@kernel.org>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-Thanks, but the fix is yours. I merely suggested some cosmetic changes. :)
 
-> Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-
--- 
-Thanks,
-Laurentiu
+Best regards,
+Krzysztof
