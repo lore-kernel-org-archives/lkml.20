@@ -1,47 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348047;
-	b=uiLV4WQHOtMTSD+EUyE77A+PdE+FXnCZM7SiHXpPacj0nlSyCG5sgGCIeY6s0HLsZltO
-	 4f+zE0tSd9uKyGw52rsySZ3BNtJnXijSYcZgIyiSFXGWaMQITdLIa8rlGfxv242JPo6kR
-	 d8VIiDedo/aREt3MBAP5kB3iMx9o971RMlIZdWvBUlEYYtudwy1/WBfUlrykKEY45RZEJ
-	 BbhzvYnhdSHR862FW+160f3zevlBKiJOn0zb/8+WVg5gSzyNRm+N6Ehxoqms1fzR1BUH6
-	 wbsBncDQwL1RSIpqVamiGi7CnT9Os3Ovkok2VXGBV4gK29cQDkWqwIsExCD8WGbad0A==
+	t=1793348063;
+	b=ceebsZHJmX798zsPR5Sg6XOXio91/xrl7sieyWnCN2kOJbVuMCXnoLdIZy4uEyFT8DTQ
+	 Lsr31irJG6H3sZ63WyzcLVo+6hA0E/mHnJa7pK0FLHJSyl4+LqGqsaMqvH7jJy3kuRQUV
+	 AQHAfvA1QTZZRHKmV28XlwVbHxs9L0TC9OHWUQP2sN1m6pAexh/bgo4v2TYs6rJhNwHzR
+	 Zh/ANofovKqfb+3QHls9NAqBH3MtLZFP2MTIjarmCeiKDKSOJIJ6qQdkL2AIBSMRLc0kr
+	 Mdr8Fj7uRzzWaVrWVTsHHY6x24zpNtW6AWiM5p4LiUTZT/3ZceCPCA6qmXpVZYII8lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348047;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=83lpTHAOStC4Fz4D2F4n9nvrIB/aBBtacoTLgrkrYPQ=;
-	b=1L+RtwSzXrY2xnCvYJFiO3d64tOAb8p38hcFMsJhOJa7V4YKTGnF8okih2x/aj1+jbd4
-	 qJurEcjXLJyL3XloBry2ljYHFhzwLF/SgKyCKeXKdsnv6Pt//UnUpK52s6sAuxqxLNyp5
-	 vXFQZfBBvWV1k8CxQUNWb07E/Uh3fuhO+uWPOy6mgqaHstvoPro5lXIjue1ZwLMer0sPx
-	 YSYEDx9X83AxPE7O7RSDz+iq35cYGoqNBjgnbWmW+SlZlvzzgYVQz3uw05NjoaOvtKfE9
-	 XZexNt51/V3faKWc2nEPpfE/FZtws9kd2wmX6oYC+KKjsiN5qWimLEXl4qsxP48Tj6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348063;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=gu3WDc59a1hi8TKSBxLBKANAAP4yeqf1lNEU+Yxmkyw=;
+	b=leK7tKQwLK5OHjPesOQTuJ6IsTmTZ3SCqtmKsjF6PUXCGZz9rrYQGrsOa6RHQN4WlgoX
+	 H3abDrKGPTMYEOgYhUc5e1JdHqmTcHnuYvlSMY+wIkJtCknt0EUIKAWoG/cpw5aU1Wu/2
+	 PcvaYxDupQCdUTdv1Vi/GdzayMslHX2scLUM/zIxtpUouC+EWi5rYC8RwB9bPq3pjPNU6
+	 lgcQGbU7wU1ex7wD2QpXaR0JJOk61qc4lQV6Sy/4m5Rs0Ou4JNSfRnEjFpHsx5Ca++T87
+	 hxJgdcT7pcb1KsuL63JQekS5J393awl/3eGfV+SIEaitmbsT9VuLP5DV6aiaCILWoZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b4M3b61y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Z9K9CO0V;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A9B606A329
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:14:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51A1606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:14:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B51A1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b4M3b61y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BE431F00A02;
-	Fri, 30 Oct 2026 08:14:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793348046;
-	bh=83lpTHAOStC4Fz4D2F4n9nvrIB/aBBtacoTLgrkrYPQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=b4M3b61yn8kuT+/81mBfBNSjzhWXqo2UNu2/fKNxcknKEgf5D7TiXTrzwZjt1DnRC
-	 eiKEIytmWbG43d5fLiycC2RVfZMbu6CCpW2K8/CulOww1LhCiEG6mNPJ5+gSho5kAF
-	 eCgaej/IuJa2OXcbZ4eVupgjp9XVbCx6pW7rLqrHA5XsCkqrquE7ib7S8itwZoz2iR
-	 X02EaXwbveKrjQ5haRinqGybd8n7eUGucodlUZ1vGjkNJQdmeL1PRDoLa22E1j7Oik
-	 NmsCKyLZmobQfw4qcWt5B/g3Q3jr+iBxbTNN7aaHlTjnRqzkRXEvILCTxspl+tCPfF
-	 YH7Iim8dzVV3A==
-Message-ID: <c1845af2-cd2f-41db-9407-ed2d1f073a27@kernel.org>
-Date: Fri, 30 Oct 2026 09:14:02 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Z9K9CO0V
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261030081419euoutp01e63490605c1cddf847a2d3903f1c1dc3~jQI8N4uaI2282122821euoutp01Y
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:14:19 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261030081419euoutp01e63490605c1cddf847a2d3903f1c1dc3~jQI8N4uaI2282122821euoutp01Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793348059;
+	bh=gu3WDc59a1hi8TKSBxLBKANAAP4yeqf1lNEU+Yxmkyw=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=Z9K9CO0Va/v7gZBgkS0DUY899rLqH3dtIsFOjM6OQ9gzQe+cvMNoulHJgn2oEg4LW
+	 rz682PJQ+q2eWwNLfDMJJxukW5yecxRwOmUqAU8nrAe3vFwV5FnUn3IFSlj72mojio
+	 2pIWdilYm0wFcyGSv3nGjmk3kWDd1u/2Eq4IdRzA=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261030081419eucas1p2b83bf1763b5f45fa83a381440d9ca260~jQI7-hnsc0143101431eucas1p2t;
+	Fri, 30 Oct 2026 08:14:19 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261030081418eusmtip2609af88f01ad0a91d0eabb01a9b136a8~jQI7PJIYA0992309923eusmtip2W;
+	Fri, 30 Oct 2026 08:14:18 +0000 (GMT)
+Message-ID: <7fa2730a-87e7-47f3-a053-a9fc43fca787@samsung.com>
+Date: Fri, 30 Oct 2026 09:14:18 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,75 +64,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/9] w1: a bunch of llm-found fixes
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org,
- stable <stable@kernel.org>
-References: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] swiotlb: fix out-of-bounds read in
+ swiotlb_release_slots()
+To: Michael Kelley <mhklinux@outlook.com>, Giorgi Kobakhia
+	<gkobakhi@asu.edu>
+Cc: "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Xiang Mei
+	<xmei5@asu.edu>, "stable@vger.kernel.org" <stable@vger.kernel.org>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <MN2PR02MB6863E09805FBA39C6779D209D46E2@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261030081419eucas1p2b83bf1763b5f45fa83a381440d9ca260
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261029173949eucas1p125e51931c2e65b18cd68a6d46cc4cf29
+X-EPHeader: CA
+X-CMS-RootMailID: 20261029173949eucas1p125e51931c2e65b18cd68a6d46cc4cf29
+References: <20261026032007.1957949-1-gkobakhi@asu.edu>
+	<CGME20261029173949eucas1p125e51931c2e65b18cd68a6d46cc4cf29@eucas1p1.samsung.com>
+	<MN2PR02MB6863E09805FBA39C6779D209D46E2@MN2PR02MB6863.namprd02.prod.outlook.com>
 
-On 27/10/2026 17:04, Greg Kroah-Hartman wrote:
-> Here's a series of some small llm-found fixes that have been sent to me
-> recently.  Most of them are just minor bugfixes and locking cleanups,
-> but they are good to have from what I can tell.
-> 
-> Submitting them here to get a solid Sashiko run.  If they seem sane, and
-> you want me to take these directly through my char-misc tree I can do
-> that now, or I can gladly wait for you to resend them if you wish to do
-> that instead.
+On 29.10.2026 18:39, Michael Kelley wrote:
+> From: Giorgi Kobakhia <gkobakhi@asu.edu> Sent: Sunday, October 25, 2026 8:20 PM
+>> When buffer is freed, swiotlb_release_slots() tries to merge it with the
+>> following free space by reading the list value of the next slot.
+>>
+>>     if (index + nslots < ALIGN(index + 1, IO_TLB_SEGSIZE))
+>>         count = mem->slots[index + nslots].list;
+>>     else
+>>         count = 0;
+>>
+>> If index is in the last segment of the pool and the pool size is not
+>> multiple of IO_TLB_SEGSIZE, index + nslots becomes equal to mem->nslabs
+>> leading to out of bound read.
+>>
+>>  BUG: KASAN: slab-out-of-bounds in swiotlb_release_slots
+>>  Read of size 2
+>>
+>>  Call trace:
+>>   swiotlb_release_slots (kernel/dma/swiotlb.c:1653)
+>>   __swiotlb_tbl_unmap_single (kernel/dma/swiotlb.c:1734)
+>>   dma_unmap_phys (./include/linux/swiotlb.h:262 kernel/dma/direct.h:102
+>>                     kernel/dma/mapping.c:218)
+>>   dma_unmap_page_attrs (kernel/dma/mapping.c:236)
+>>
+>> The commit 0b84e4f8b793 ("swiotlb: Add restricted DMA pool
+>> initialization") makes it possible to initialize a pool with an
+>> arbitrary size. Before it nslabs was multiple of IO_TLB_SEGSIZE and no
+>> OOB occurred.
+>>
+>> Add overflow check.
+> I can see that this is a legitimate problem. But I'm not sure this is the right
+> solution.
+>
+> All other paths for creating a swiotlb pool ensure that nslabs is a multiple
+> of IO_TLB_SEGSIZE. The better solution may be for rmem_swiotlb_device_init()
+> to round-up nslabs to be a multiple of IO_TLB_SEGSIZE. My concern is
+> that there may be other places in the swiotlb code where there is an
+> implicit assumption that there are no partial segments at the end of
+> a pool. It would take some effort for me to re-immerse myself in the
+> swiotlb code to see if that's true, and I haven't done that. But my
+> guess is that there's a good chance of such an assumption.
+>
+> What are the implications of potentially allocating slightly more memory
+> for a restricted pool than is specified? It wouldn't be much additional
+> memory since the segment size is 256 KiB.
+Frankly speaking it would much easier to round the pool size down to match
+the multiple of IO_TLB_SEGSIZE, waste some memory and issue a warning.
+It is not that trivial to allocate "slightly more memory" if the size of
+the restricted pool is statically specified in device tree.
 
-Problem is that it seems Sashiko skipped them:
-https://sashiko.dev/#/patchset/20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4%40linuxfoundation.org
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
-Status is "Skipped" everywhere.
-
-Best regards,
-Krzysztof
