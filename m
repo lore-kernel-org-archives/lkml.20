@@ -1,23 +1,23 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793339087;
-	b=SqZ13VqN9gRZ1Yzwd6+w1W4BrS0K2QhDSou9OrKEef6FoTNk7B0b+zjt+7iDpC0/Egw/
-	 BQIIqcoFlghz6iQkryAeeD6HJV9tACROiZ9jjN8am/F66EM+gTnvaJUbMZcTeWt3XD3kI
-	 ki4RDgEEo9+mwmb9qYfJg/Ioux/rKAdlUa+rY2Aics77AxAy1dnJOtnE9T0QUXC/xtWsz
-	 6Bww3TxwoWEzk0s2oL40DE7J6f+O3Ct8x6f/KXl1gxZWDk7lylIasUnBeaO3W/7BzlzJW
-	 yLVFMQ9uJnbBQpPht97XAriBQCIkBKMc68roBpxBeyTmv5OuihLKusJRtSdLYN5GScg==
+	t=1793339088;
+	b=NwqZopA2eSHrAorKboN/2sVoJ7fMVASlFonlnjZ0XsQhtQAjRHw+0NZNFpHHSJX/SssR
+	 8lk//iFxuuhnp/ktdenzMRQEyGyVKhiFxDRcyWPtX5v4DF+d70rh2ovf/wjiOBDkNz/LU
+	 +RpqQTZe0vRpQ4EmO7/EwfxEmHKQ7VzK7LNtgTBi2CvKTNhDseQn1RocZhixINo39aOWa
+	 7xwzU1ld1ccS1oxbafSIOp86sch4pBDSNfjlfMQ37KuzseBmE+aq/nwXLAUsF1YO835WZ
+	 hCwTM2S0Jx5qIaLjHCd3jxtacwlsFgOEXaZjPg2JQkLxzD7D8HyQfNJ3IkTPSys3/OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793339087;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793339088;
 	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
 	 X-CM-SenderInfo;
-	bh=FvUkk2Ujds5I3iIwUe4mprHxpSX7dzZ9WgqP3B9rzxw=;
-	b=LWZlaUg7e17c0DbSCQA3s1lJchyeXLqQ6wT9VCNUwrGhhbl5bGyNhjoPKDGqxiDTSX6p
-	 zhBZ8OWwP3pL+RFk0aW+0JdX/Rr5D7K9jGQ4yDKXRnuEcv5itnD10UVfQ0qvBcFJ3sDeL
-	 fv9ntPVVArQn0Cd1YP3IbG/D1FScu30tISJ4Qo/mbfGeMr6AbKdBHoncP0wlSyp675QLs
-	 ew6MNyyFVGV7SYx4aYE0kDOA+nyTOlr90PSQqm7PfFchdIIKW55PZFJYto2alOuy/YAyH
-	 8iHgpW+MJ1jqvTTkBHkodrSGcCr8ndZMmKO3YrDMviyY+7Swwux24gx+qyaV61mKCuA==
+	bh=tDKGqmiBVLJpzdIws/ZQNznjBJouadAkG3/umP3KG5A=;
+	b=Gc5SyfqWbXF/iJlHpcH/nZznhqJnZMYLy0C/X4dXMZvWHETb41ygqaDroEsXgLoiYOFF
+	 bRIAeVcPuX59TTDKfq7Jkr848h1gbfqNs5OBSxVeSwmNLoqJ4MoCA5b1Po1xHckJIrzhw
+	 5zim0T2xUSXt/PfuVCiaCuCi4zFRYurTCcI+oXCv8X+JyedDABbzfEiabRRzKB8kOf2F2
+	 BGScRBcGxBLANyvvGc/Aq8qWiOsvPxwr6RqRh1R2hzn6mFjTUvLa8ySeDYGi4X95R8JiR
+	 AZaitBbb1OxauR/NB3ZppP882AXb+t8iuCUd7EUj4JePuHsllvK+r+6xdidlCqE7skg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -26,18 +26,18 @@ Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C8F606A31E;
-	Fri, 30 Oct 2026 05:44:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33C8F606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4327606A31A;
+	Fri, 30 Oct 2026 05:44:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4327606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
-	by APP-01 (Coremail) with SMTP id qwCowABnO++1LuRqL2kEDA--.17661S4;
-	Fri, 30 Oct 2026 13:44:25 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowABnO++1LuRqL2kEDA--.17661S6;
+	Fri, 30 Oct 2026 13:44:26 +0800 (CST)
 From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Date: Fri, 30 Oct 2026 13:44:13 +0800
-Subject: [PATCH 2/4] dt-bindings: ili9881c: add compatible string for
- Mingjun MJ070BI30IA2
+Date: Fri, 30 Oct 2026 13:44:15 +0800
+Subject: [PATCH 4/4] drm/panel: ilitek-ili9881c: do a soft reset in
+ unprepare callback
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,7 +49,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-mj070bi30ia2-v1-2-a0f65b65c290@iscas.ac.cn>
+Message-Id: <20261030-mj070bi30ia2-v1-4-a0f65b65c290@iscas.ac.cn>
 References: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
 In-Reply-To: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -63,48 +63,58 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, Icenowy Zheng <uwu@icenowy.me>, 
  Han Gao <gaohan@iscas.ac.cn>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
 X-Mailer: b4 0.15.0
-X-CM-TRANSID:qwCowABnO++1LuRqL2kEDA--.17661S4
-X-Coremail-Antispam: 1UD129KBjvdXoW7Jr15tr43Aw4DXF4DGF15urg_yoWDWrg_Wa
-	93AF1qvrn5A3WSgwn0yF4kGr4rZ3yxCr4Duwn8tFnY934IkrWDKFyvyw1rAryUurW3uF1f
-	ur4fG34DGwsrujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbk8FF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUXwA2048vs2IY02
-	0Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xv
-	wVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84
-	ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I2
-	62IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcV
-	AFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG
-	0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI
-	1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
-	Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17
-	CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0
-	I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I
-	8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73
-	UjIFyTuYvjfUOdgAUUUUU
+X-CM-TRANSID:qwCowABnO++1LuRqL2kEDA--.17661S6
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFWkCFy7ZF48Ar1kGry3Arb_yoW8Jw47pr
+	W7uFy3AFyrtF1ayFWUC3Z2va47ua13KFW0kF98Ka9xuw4UZr40kwnxtFWDWF1DJr4fAF4a
+	vFnrJ3W5XF98ArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
+	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
+	z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
+	4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
+	3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
+	IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
+	M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
+	kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
+	bVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67
+	AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI
+	42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCw
+	CI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnI
+	WIevJa73UjIFyTuYvjfUOyIUUUUUU
 X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Mingjun MJ070BI30IA2 is the LCD panel used by Sipeed Lichee Console 4A,
-and its initialization sequence seems to match ILI9881C controller.
+In case of neither reset pin nor switchable power supply is available,
+the LCD module could be DC polarized (which is harmful) when the MIPI
+DSI host is shut down.
 
-Add its compatible string to the ILI9881C binding.
+It seems that do a soft reset for the LCD controller could stop the LCD
+controller from biasing the liquid crystal, thus preventing the harm.
+
+Add a soft reset after putting the LCD controller into sleep mode.
+
+Tested on a Sipeed Lichee Console 4A, which has no LCD reset pin, and
+the LCD supply is an always-on one.
 
 Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 ---
- Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml
-index 42e35986fbf60..0139e35d85c4b 100644
---- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml
-@@ -20,6 +20,7 @@ properties:
-           - bananapi,lhr050h41
-           - bestar,bsd1218-a101kl68
-           - feixin,k101-im2byl02
-+          - mingjun,mj070bi30ia2
-           - raspberrypi,dsi-5inch
-           - raspberrypi,dsi-7inch
-           - startek,kd050hdfia020
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+index 83148c40e25ca..8b874c6f7d37c 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+@@ -2493,6 +2493,10 @@ static int ili9881c_unprepare(struct drm_panel *panel)
+ 
+ 	mipi_dsi_dcs_set_display_off_multi(&mctx);
+ 	mipi_dsi_dcs_enter_sleep_mode_multi(&mctx);
++	mipi_dsi_msleep(&mctx, 120);
++	mipi_dsi_dcs_soft_reset_multi(&mctx);
++	mipi_dsi_msleep(&mctx, 5);
++
+ 	regulator_disable(ctx->power);
+ 	if (ctx->iovcc)
+ 		regulator_disable(ctx->iovcc);
 
 -- 
 2.56.0
