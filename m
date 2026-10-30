@@ -1,97 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.64
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793337719;
-	b=Wes0HCuA5gxARaIK63rjlVVz8BvmyneojYW/A6Ve925aP/YM+E9rPHjOoszTHYaxCVqj
-	 dJYZ1DgClN4Br4EHIMmdTvlZXemwXdeDRbauwcQNC7g8FtPbAkITkaLI85M9i/tmToKvz
-	 e6wulF/bBfOIfieK3X191oGP50Y7t+yR/Fhkboo/ixW236KpTtJ0UFhbwu4GS7xAXeL8W
-	 ZSuZ42O2VmuNHeH4GQMytqJnoZZDSJlZ/tXh/ouEOe8Ga/vgG0KRcEuzBHuKOE4e6trLs
-	 8kqxNRRCCeTtcmZlMrw9fZn8NETXKBHgwvz2Clow8n18UQtxJ5nXezZfTlZ/1/lZboA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793337719;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
-	 To:Cc:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Wrry8BPo7/5R04zv+N4Qzosxb2SQPoLFbyekWBUyLOc=;
-	b=1ftFJGYZjAMw1VwY1aWBY+CG+ATYOmfM75wBHPoJgsB1Eklh9arhOGJ5aMxtRb9ID3Zb
-	 QMKVAtYD7c9gOGXV88InI8JBh5agCLVCQtSZp5FabkeDZxwGfVnujqfOhzlC9ce3+aU3a
-	 tzM8KzDgcDNab06sBJFXYFxXlMJN/4tlaib2t94tC3Nd6kvm933p4F0Nlh9dlXxFHqFwb
-	 42pcI6+hB75mcW0s99roy3tuMdowKYrdIJVg30R1nJORhpahpZkVxMP/JSuQEZ2DD1/iT
-	 RtaTSeexpINNm6kYdpoo7BdLZD14q7MqQQDzhrD/RE/ivZwQzZfzoHNClGF9GpQPJCQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QMEyCp9c;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.64
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011064.outbound.protection.outlook.com [40.107.208.64])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793337902;
+	b=wZN6Mycicfk4WABqYM4PA/WuhXbkUGwcD0Y65Gk6DsT846BTtGM60UKH49ETqyZ0Nt1n
+	 FHfSM8LKkxWNhPnCGSyga8l/Vu0CeoF93x7r0xf5RL9rxCT+QW5ua6XFVI58hOzK9S3zY
+	 x19N4RXXA/heJZ9AQw/+Aj0zc/4AjXJ/5LL/oO1Bwgk6Wk41dKvvQqWCI7pMdfeVffFkg
+	 Avjs3rbMFprkOiRG6N2gZy2eOYNuGfODFC7+t2FkWWLGjS/v/wtRVXnrgOmvlhTCHMrRx
+	 rzlTwqdU9SOKyHtaCi8IE2hdz71KwMuUbKMz+wUzLISZMd1rVGokCy0JShbOgnOQPJA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793337902;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=Y+jNvUqT/H5n1juAuB0AfjpcPWdhEJ9R+qy87YmFy1s=;
+	b=wH7rtQvVWdnqNsO0hk3sAWMV0RAaPH4wkgYOKDvTKtlgU0+civPuPlksC8iNEKmNbPkS
+	 oddrl8XL2PgQ5tWmyXuLibOCSTDDSTh9KOkXOY6PwUrvBXuI7YrlVVohMpeT6/JIWehgk
+	 7nZdU+7IF6mygL41kWGZqDBxl1aVM1i+MAnjRv0kS6TqdH8I3DGLJoXaoiY/7ydAcWe+R
+	 4HzndcOmYNuyltNg/QeMKQ32f1mWqJqNTNNNe6WFue/3JeXMvXskrx0p+nWEYUXle3mVA
+	 8aWiWX8XVXv3CQAAWjWoztz22iOSISODmrUqXraacNNnrYHvYaDc+8mXW0d3jKNolgg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=cA5IfQna;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334BE606A31A;
-	Fri, 30 Oct 2026 05:21:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 334BE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6996606A31C;
+	Fri, 30 Oct 2026 05:25:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6996606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QMEyCp9c
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OW7ffjPfYrLyG0cPszGqgQ4aUH32Rmqe1SMwr2Ig9BLVZ3rQKPztdEjyFCNLH5+KZf832egAVkNwnZsxJQ6FPPLqnz+EHuI5CSijGTfhOlnbpslSTWzcFsKCEBReB4TQiC4AbNeuD2hHbWu2pC169fLJg/KmupSSkoPawxC1B0eZRrf54x0cNomEDtsVrVWxJeQiFkBSiIM1Et6bs0R2wAF37KBuQNaYfgJ2mkbtn1UGED1Me6rOIG2uZiGRF5co0Z4F8PJFAW5y8OeBUgZJrRCAatwrZpzSyT0gJFJQVV/khVwZjfwT2aN6x4a1ii+KLo8aPrb78E/cfxkpXN15dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wrry8BPo7/5R04zv+N4Qzosxb2SQPoLFbyekWBUyLOc=;
- b=XAWNjdYUvKcvMphZ3S0G9P1VP8g1frE8fu8lzmU/M9yZOc/6bVHGEdUi80W7t9opHJfy1i/2K8e2sB02D9xcSg80kOolFMgSyTupgrjx50SOAjvgGWpykuT/BMSTmi+QoHYoPMf0+2dQCjadLvEWCkgIbfps4OyDxW/8n9BV94MJvBCePXvdcaxA5QB7ID062aCAnXA+/1bIaO3pWaHtdcpobw6QUMTRS3SHFDTO1+qDSXwiC+qXO9nHDXlnwdoCl4wbhwq4OvbPyhUX9VZsNXTstpqbF/VsC0J5J4SqaL51+Xn7t+pND1qTgmDXUARFiBrGHBVzl2VuJJJ2MrLWMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wrry8BPo7/5R04zv+N4Qzosxb2SQPoLFbyekWBUyLOc=;
- b=QMEyCp9cgU8HaqkYrRP+/U4iCokgJY14jh0yXo1ueM2u9n78FsfERBVUsoeaZt22ZQy0M2ewq/CR11Olr6QecWyMhx7rZtWWbKIdy90mELFOdCwJgLNa3Inm2edBCs/b52fme8k3CBDH7hl1DZT3B4ac8VECjC+Zl/ggfbHLhqKjXwx4/H7MCeQwjryFnarWfjvI9Nw+8e3dstfO8eJKorfERFaB/e5t2TeIU7g2oUEemb5VUWROloSnmXmylXCqjXKQH1W6ToGhqi/WOC0KGXco9HIiiq2cvlVpi261sKs/9O5AgO0JCdRCCjJ/CFzKU2TtqQSPPbkN2FOV3P0slA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CH0PR12MB8488.namprd12.prod.outlook.com (2603:10b6:610:18d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 05:21:55 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 05:21:55 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 30 Oct 2026 14:21:52 +0900
-Message-Id: <DMHX5VRNFYLQ.11FZIS5422ZS6@nvidia.com>
-Subject: Re: [PATCH] gpu: nova-core: gsp: cmdq: do not sleep in wait_for_msg
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-References: <20261030-cmdq_wait_msg_timeout-v1-1-a1e628d2732c@nvidia.com>
- <DMHW4DNFAF18.1N88RMWYD4TRY@nvidia.com>
-In-Reply-To: <DMHW4DNFAF18.1N88RMWYD4TRY@nvidia.com>
-X-ClientProxiedBy: TYWPR01CA0029.jpnprd01.prod.outlook.com
- (2603:1096:400:aa::16) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=cA5IfQna
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1793337898;
+	bh=Y+jNvUqT/H5n1juAuB0AfjpcPWdhEJ9R+qy87YmFy1s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cA5IfQnaqG8AHxZocXLmBNkBVvvq2foXhRI6YPr6j1gjrGULpzez3ZxMMwHDy6wXN
+	 k07OnmDJ+UhNnxOgRG3fCabfyXPoK9D4GDRe/L2pYMEm6wR7Uz4t9lmxTN1NhVLejs
+	 pPc+BpV+hqvhtfOU4DMTHzlADqKAiJPrOxpdhQooYCSRJb/1D6Gi10OXxAjobzQ0pa
+	 vUMD8Siu4sM118UdvzXbhIwZqWZbTe6BnqNYBTiSHw6z8fyElER0UGs+lr44hSBgyA
+	 bB+Mb+lfUEJK+O8yRXbMRHDAvl7aoUdJUJ1MkaXrtFwVytAsS0KcdYdHOw5c8i1zlo
+	 Ir9zNUjhhiJVg==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jG8gG6D26z4vyt; Fri, 30 Oct 2026 16:24:58 +1100 (AEDT)
+Date: Fri, 30 Oct 2026 16:24:52 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 10/74] tests: Add basic metadata tests
+Message-ID: <auQqI8WEOVeDRZM_@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+ <20260826094950.1088288-11-herve.codina@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,139 +73,266 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CH0PR12MB8488:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97bf2a75-e118-48c2-25dd-08df3645b684
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|10070799003|376014|23010399003|10067099003|4143699003|11063799006|3023799007|261028144727099003|261009223027099003|261022075727099003|261022105027099003|261022115727099003|261021121427099003|261021123027099003|261021135927099003|56012099006|261026140227099003|261026121527099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	XdXkj+A8rlPdkewiHZXSKr6jqDiD6T1ZZAZZ8eH1+Cevy4rS6JfSmwI5enWAljChsc2fBPkrKzjVmolZKhS+FMXdIAe6n5vjfk3jn4/wUfInZyHrNmU/wtNLCQrnUKBf1Sh/ZJdVNgy92KOwJ23NlPwaX032w4bUoEAsCJl+aR/5Vuma5uzbs/e9T43On+YljCPY9wOs2Tlgh+fhdyUCGaVbNisodz/R998DV65URAbugdYbBfdFPmW2P2b38mj6xgZrl31hmdgW5OpASs0hfO36dWHZ7ep/Cqp6VlwmGv9HsV22DDzxfrwoQD/WAoRgLuZlYMiIlkFLjphZcEcAI9RibrdFkjfETyPlkZuR/jABc5xlBUivTq8R+4gQALzjsPwylN/1ERsIzbW+F/z5/wsTVjzhKccha4ZUvoD1JGLb0t6hqRcZJheJKKMl81gqfwPqrSmnlYzYJ6Ujhs5l3uN78mE1wFe19HX3f1tbHTRQLOyC9Cr1rCTyJ4z2cgEgSCZjrjZYKzv4MC+psNafl/om+jGVTpSInHv4Qt5RLdkOHJIJi0GYubKBT+KNwgOb81lsTfO86jBqrXDrBGE6emtcJYAtMsYsp0XOdVciBbEIxLzMHsEWztMLSy0EksibhUD0bVpIe5mlAaYwONJYlnBIT0VbU/QpM3M/6LkS4sQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(10070799003)(376014)(23010399003)(10067099003)(4143699003)(11063799006)(3023799007)(261028144727099003)(261009223027099003)(261022075727099003)(261022105027099003)(261022115727099003)(261021121427099003)(261021123027099003)(261021135927099003)(56012099006)(261026140227099003)(261026121527099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RWNhV3NuL3AyYjR2ZzBTZ2dDK2ZNaDdaZFpONHBQa1dMQi9FZVRLempiK09G?=
- =?utf-8?B?Wlo5K2l3dGV4TFFWTjlBT2J4ZThiT09ObUprZ2ptOHlRQldPNzRkeUpDU3JC?=
- =?utf-8?B?ZHpVa2FzWm5OY3JnWDJMV054VzFLeTJrY2xlcXF2ay9DTERLOThkNk0yRmFU?=
- =?utf-8?B?WTZVL2VrdlFLcjk3MXZYdml3OTNjVk1ZZG91SXZyblF6dEtCNnVKdlJoZVBK?=
- =?utf-8?B?dmF3bHZIOEIzOW04TTdvSnNrVWs3NDRQaTk3Tk5SVGd0cnRTZ1lqb1l3Qkxv?=
- =?utf-8?B?aStMcUhTMDhBMXJLNkQ0ZlorTWovOWRhVW1wQUpldEhteEUxZVJoSnpUQnhQ?=
- =?utf-8?B?cmJ3MjN4YXJrYmY1M2VuQ21Fc3lvdWtmK3N0blNVRGV0VElPMFNXVHFLcUVZ?=
- =?utf-8?B?M1lUNnFnNnJXRHhINTB6bmo0SGVkRkxtcnVkRGwvUlVJL29xL0tuR3pub1JL?=
- =?utf-8?B?Ym5CUjU1SzF6UFJnOXBHZDlGWkRudElhbEl4enZTekZjMGs1SlhmSkdRV3RQ?=
- =?utf-8?B?RmdBSm12dncxb1JRcS9UWUxtVWZKaXhDUlFKc0JRcEtzUHExVDFwWW1MZTJu?=
- =?utf-8?B?MnZBangybjVMTExWUTNRZjBrSHI2ZGhnRjhkR0RNbUpqSUhobExsRGN0Vmhs?=
- =?utf-8?B?Mm0rS0hzWEg5ODJOdEdQRkUwSUdseVVNY0g5NnhxT3EzTTBVdVorVGJsMmts?=
- =?utf-8?B?eG05Tnl4a240RDlNejQ3cXN2OU9ZVUU0TDF0enBlYUkxUVVyQVRVQndBMk9l?=
- =?utf-8?B?WFlkT0lZRkdMSDcrMWJYa3hQa0NNUC9rbHEydlFaeGJSdk94aG9rM29RZVBy?=
- =?utf-8?B?TTlwTjNvSjc1b05vd2xFRmFvd0V1aDBFMW5xZDZiWEphUzZaVUNFSFNyakVM?=
- =?utf-8?B?b2lvQk8rdUk1Y0lpRk8yR3dJMEpMNGx4ejd1ZG9keUw5eGdtakppcVZwQlZM?=
- =?utf-8?B?WDBlNTVsd3RjM1FnMnc5QjVpbm5XQStmWFNXZDlrTmIyNi9JOFh4YTBzY1g3?=
- =?utf-8?B?UnZyeCtiREdVSENTdnpqbnd4SXA1NnZ4QUVZemVldkkrZGRTK1FmazhkVWhI?=
- =?utf-8?B?aTNYR0RwdzVPTjRUcld3Rmo2UVlVeHZYRExQQW1qb0ErZlRLdHRWT25tQTQ1?=
- =?utf-8?B?YzlHbUpzZCtxUHRybkZRZnNiejVsMTZhRUVOd2IrYWtCZkdONTFrMUp5cEh0?=
- =?utf-8?B?TVBHQ0ZYZ0JFOUJCM2VINnVHUmdpZ0hWazQvLy9ORzVaN1NWVnNibmdUL1ly?=
- =?utf-8?B?SVl6VDVNd1FiRndDLzE4aERucFdtaWJHcThHb3c1UlRMUWdwSXdWbis2TkJ2?=
- =?utf-8?B?SDUzbWwyWjBjc3VuN09GQm5zQUlaVEc4Z3ZlS2ZMWmkwOVE5Yk5nWTlJUXFh?=
- =?utf-8?B?MWFPN1BUbTFzV25FdXlTQ3BQTHh1NW5qaW93ZHJXM2pNRWNCSG1QQnhHVG5a?=
- =?utf-8?B?a2UzSUYvU0ZKcTdxNVREK2MyTC95ZFhIUGIwSENmUDdCME1NL005OXlPZldW?=
- =?utf-8?B?WW1DOW4vaGJuZllHYzU4TDNQUDdMR1hYK0xBQ2xheTZwK0N1ZmFSUm1oVExH?=
- =?utf-8?B?c21kUk9jdWhDb1BpSU9ZaFdOK292SUdNRFFpRnJaSC82WWUrUGhqeElHbnRq?=
- =?utf-8?B?eDJSVzkxcHZCNmNBNWFpREZNN25wZGJCOHUxQjQ0ODVPMXpBTlo5TkhvZlND?=
- =?utf-8?B?THM1dDNFbHlGc20vd05mQ3prTlI0ejJBeUhxNHAvSnQ1Z3NMUWdUdmZML0kx?=
- =?utf-8?B?UzdIRjc1eGNFQW9aTUVaazQ0eVE0Qm9UK1lqTlFrWDg2amlCMWVxRm1yTzlI?=
- =?utf-8?B?c09WK1UzaUNkTGhnaHI3b09pdW1sR1AvcHFNMzVRaURmK1Z5TUxzTmlDR3Zu?=
- =?utf-8?B?V3E0TVlCejR4QlppSjQxQ2FvZ3pyZ0QwSmhaaURPMVlXVElvVWVtbFRKT29P?=
- =?utf-8?B?azBRd3ZNUjUzZjVoY05VUU1HcytuSDJ5WE8vSUdqa0hXNWxXelBkTkpZQXBC?=
- =?utf-8?B?VFUwdEkyc1hUdGhLMmxMZVlPdGd0Z2JBVWRCcTh3S3ZyQWN3Q21oRDVpY3Az?=
- =?utf-8?B?QjNXdHd5RkV6bXhzOWc5YXRwb0p4cnpUQnhhdnlKWnNZaEc5TUo2dGpxV29j?=
- =?utf-8?B?SUY5WWdnMEFGdUljd05jQVZSOWdSNmxhSEVyMW94djV6dWFOK0tlRWoxWXhw?=
- =?utf-8?B?KzRIVnBtbzFrMUVqUHdhM2NEMEU5blEzdnhqWUhaRTlCdTc3L2FSY0ZUR3RJ?=
- =?utf-8?B?U1MzRTE0RzFDNHBod2JoL1pBQ2FhTWFGRGlEQytUZmpOdG82WGVlMkxIVzc1?=
- =?utf-8?B?Q2ZLMitsSHZ3SHVlbzR6L0ZZOXBaTXZxUndVcWpMTGs0aitwYmt3UDhyR2pN?=
- =?utf-8?Q?tn5/FZXADzNjiHbi96jnKmW2WSzyl1ziaOnu8Zs5vrfHG?=
-X-MS-Exchange-AntiSpam-MessageData-1: 0Ebn6Xja3bNU2g==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97bf2a75-e118-48c2-25dd-08df3645b684
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 05:21:55.5237
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V39b1qrJR+d0Ltjw1001y8T8EunG0vY3cG4uUhG6SKBK69NXYQs80Rh+sDy5SFT5MHJ+MlSPySBtFwhlmrF5sg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8488
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7bwo/JPeR6GxdaXs"
+Content-Disposition: inline
+In-Reply-To: <20260826094950.1088288-11-herve.codina@bootlin.com>
 
-On Fri Oct 30, 2026 at 1:32 PM JST, Eliot Courtney wrote:
-> On Fri Oct 30, 2026 at 12:21 PM JST, Alexandre Courbot wrote:
->> If a message is not immediately available on the queue, `wait_for_msg`
->> sleeps for 1 millisecond before checking again. This is 3 orders of
->> magnitude more than Nouveau (which sleeps for 1 microsecond) or OpenRM
->> (which does not sleep at all and busy-polls) and is way too much, as GSP
->> commands are expected to be processed much faster than that.
->>
->> Set the sleep time to `Delta::ZERO` to mirror OpenRM's behavior. This
->> makes the CPU busy-loop with a call to `cpu_relax` at each iteration,
->> keeping latency to a minimum.
->>
->> Slightly higher values like 2us were also considered, but with such low
->> values `fsleep` also busy-waits, and would thus only add latency for no
->> benefit.
->>
->> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->> ---
->>  drivers/gpu/nova-core/gsp/cmdq.rs | 7 +++----
->>  1 file changed, 3 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/g=
-sp/cmdq.rs
->> index e6d9a97130ea..d8c00df012bf 100644
->> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
->> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
->> @@ -590,9 +590,8 @@ fn send_command_element<E: CommandElement>(&mut self=
-, command: E) -> Result {
->>      fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
->>          // Wait for a message to arrive from the GSP.
->>          let (slice_1, slice_2) =3D if timeout =3D=3D Delta::ZERO {
->> -            // If `timeout =3D=3D Delta::ZERO`, check the message queue=
- once as `read_poll_timeout` can
->> -            // potentially sleep if the clock hasn't moved forward whil=
-e the condition was being
->> -            // checked.
->> +            // If `timeout =3D=3D Delta::ZERO`, check the message queue=
- exactly once instead of calling
->> +            // `read_poll_timeout`, which would keep polling until the =
-clock moves forward.
->>              let slices =3D self.gsp_mem.driver_read_area();
->>              if !slices.0.is_empty() {
->>                  Ok(slices)
->> @@ -603,7 +602,7 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<Gsp=
-Message<'_>> {
->>              read_poll_timeout(
->>                  || Ok(self.gsp_mem.driver_read_area()),
->>                  |driver_area| !driver_area.0.is_empty(),
->> -                Delta::from_millis(1),
->> +                Delta::ZERO,
->>                  timeout,
->>              )
->>          }
->>
->> ---
->> base-commit: 9b840ed71d34ff545e3ada8be2ad5daaae542b50
->> change-id: 20261030-cmdq_wait_msg_timeout-26df11234d10
->>
->> Best regards,
->> -- =20
->> Alexandre Courbot <acourbot@nvidia.com>
->
-> Previously we had a discussion about Delta::ZERO waits [1] and Danilo
-> had some concerns about creating unnecessary contention by reading
-> coherent memory extremely often. Also, AFAICT `fsleep`'s busy wait is a
-> bit nicer than just spinning. WDYT? I think switching this to
-> Delta::from_micros(1) is probably better.
+--7bwo/JPeR6GxdaXs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Anything works for me as long as we reduce the spinning-induced latency
-to something reasonable. I'll resping with `from_micros(1)`.
+On Wed, Aug 26, 2026 at 11:48:39AM +0200, Herve Codina wrote:
+> This first test is related to local phandle references used in
+> properties (FDT_PROPDATA_PHANDLE dtb tag).
+>=20
+> The test pattern used is
+>   - Generate a dts (xxx.dts.dts) from an input dts
+>   - Check this generated dts against expected contents
+>   - Generate a dtb (xxx.dtb) from the same input dts
+>   - Check this generated dtb against expected contents
+>   - Generate a dts (xxx.dtb.dts) from the generated dtb
+>   - Check this generated dts against expected contents
+>   - Generate a dtb (xxx.dtb.dts.dtb) from the generated dts
+>   - Check this generated dtb, expect the same contents as for xxx.dtb
+>=20
+> Even if only one meta-data feature is currently tested in this tests
+> introduction, use a loop in order to ease future addition consisting in
+> adding new input dts as soon as new meta-data feature are supported.
+>=20
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+
+As noted elsewhere, I'd prefer to see new helper tools for comparing
+metadata in binary rather than using text comparisons.
+
+> ---
+>  tests/meson.build                             |  1 +
+>  ...data_propdata_phandle_local.dtb.dts.expect | 23 ++++++++++++++++
+>  ...metadata_propdata_phandle_local.dtb.expect | 20 ++++++++++++++
+>  tests/metadata_propdata_phandle_local.dts     | 27 +++++++++++++++++++
+>  ...data_propdata_phandle_local.dts.dts.expect | 23 ++++++++++++++++
+>  tests/run_tests.sh                            | 25 ++++++++++++++++-
+>  6 files changed, 118 insertions(+), 1 deletion(-)
+>  create mode 100644 tests/metadata_propdata_phandle_local.dtb.dts.expect
+>  create mode 100644 tests/metadata_propdata_phandle_local.dtb.expect
+>  create mode 100644 tests/metadata_propdata_phandle_local.dts
+>  create mode 100644 tests/metadata_propdata_phandle_local.dts.dts.expect
+>=20
+> diff --git a/tests/meson.build b/tests/meson.build
+> index fcc73982..ec24f0af 100644
+> --- a/tests/meson.build
+> +++ b/tests/meson.build
+> @@ -143,6 +143,7 @@ run_test_types =3D [
+>    'fdtput',
+>    'fdtdump',
+>    'fdtoverlay',
+> +  'metadata',
+>  ]
+>  run_test_deps =3D [
+>    dtc_tools, treegen_dtb, tests_exe,
+> diff --git a/tests/metadata_propdata_phandle_local.dtb.dts.expect b/tests=
+/metadata_propdata_phandle_local.dtb.dts.expect
+> new file mode 100644
+> index 00000000..076c17ae
+> --- /dev/null
+> +++ b/tests/metadata_propdata_phandle_local.dtb.dts.expect
+> @@ -0,0 +1,23 @@
+> +/dts-v1/;
+> +
+> +/ {
+> +
+> +	node-a {
+> +
+> +		subnode-a {
+> +			phandle =3D <0x01>;
+> +		};
+> +	};
+> +
+> +	node-b {
+> +		phandle =3D <0x02>;
+> +	};
+> +
+> +	node-c {
+> +	};
+> +
+> +	node-d {
+> +		ref-subnode-a =3D <&{/node-a/subnode-a}>;
+> +		ref-node-b =3D <0x123 0x456 &{/node-b} 0x789>;
+> +	};
+> +};
+> diff --git a/tests/metadata_propdata_phandle_local.dtb.expect b/tests/met=
+adata_propdata_phandle_local.dtb.expect
+> new file mode 100644
+> index 00000000..c923d2e2
+> --- /dev/null
+> +++ b/tests/metadata_propdata_phandle_local.dtb.expect
+> @@ -0,0 +1,20 @@
+> +/dts-v1/;
+> +
+> +/ {
+> +    node-a {
+> +        subnode-a {
+> +            phandle =3D <0x00000001>;
+> +        };
+> +    };
+> +    node-b {
+> +        phandle =3D <0x00000002>;
+> +    };
+> +    node-c {
+> +    };
+> +    node-d {
+> +        ref-subnode-a =3D <0x00000001>;
+> +        // [FDT_PROPDATA_PHANDLE] ref-subnode-a[0]
+> +        ref-node-b =3D <0x00000123 0x00000456 0x00000002 0x00000789>;
+> +        // [FDT_PROPDATA_PHANDLE] ref-node-b[8]
+> +    };
+> +};
+> diff --git a/tests/metadata_propdata_phandle_local.dts b/tests/metadata_p=
+ropdata_phandle_local.dts
+> new file mode 100644
+> index 00000000..f04d24f9
+> --- /dev/null
+> +++ b/tests/metadata_propdata_phandle_local.dts
+> @@ -0,0 +1,27 @@
+> +// SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
+> +/*
+> + * Copyright (C) 2026 Bootlin
+> + */
+> +
+> +/dts-v1/;
+> +
+> +/ {
+> +	node-a {
+> +		subnode_a: subnode-a {
+> +		};
+> +	};
+> +
+> +	node_b: node-b {
+> +	};
+> +
+> +	node-c {
+> +	};
+> +
+> +	node_d: node-d {
+> +		ref-subnode-a =3D <&subnode_a>;
+> +	};
+> +};
+> +
+> +&node_d {
+> +	ref-node-b =3D <0x123 0x456 &node_b 0x789>;
+> +};
+> diff --git a/tests/metadata_propdata_phandle_local.dts.dts.expect b/tests=
+/metadata_propdata_phandle_local.dts.dts.expect
+> new file mode 100644
+> index 00000000..b72b545f
+> --- /dev/null
+> +++ b/tests/metadata_propdata_phandle_local.dts.dts.expect
+> @@ -0,0 +1,23 @@
+> +/dts-v1/;
+> +
+> +/ {
+> +
+> +	node-a {
+> +
+> +		subnode_a: subnode-a {
+> +			phandle =3D <0x01>;
+> +		};
+> +	};
+> +
+> +	node_b: node-b {
+> +		phandle =3D <0x02>;
+> +	};
+> +
+> +	node-c {
+> +	};
+> +
+> +	node_d: node-d {
+> +		ref-subnode-a =3D <&subnode_a>;
+> +		ref-node-b =3D <0x123 0x456 &node_b 0x789>;
+> +	};
+> +};
+> diff --git a/tests/run_tests.sh b/tests/run_tests.sh
+> index 42b74e05..8c27b463 100755
+> --- a/tests/run_tests.sh
+> +++ b/tests/run_tests.sh
+> @@ -1239,6 +1239,26 @@ fdtoverlay_tests() {
+>      run_wrap_test test "$bd" =3D "$pd"
+>  }
+> =20
+> +metadata_tests() {
+> +	for dt in metadata_propdata_phandle_local; do
+> +		run_dtc_test -I dts -O dts -o $dt.dts.dts "$SRCDIR/$dt.dts"
+> +		base_run_test check_diff $dt.dts.dts "$SRCDIR/$dt.dts.dts.expect"
+> +		run_dtc_test -I dts -O dtb -o $dt.dtb "$SRCDIR/$dt.dts"
+> +		base_run_test wrap_fdtdump $dt.dtb $dt.dtb.out
+> +		# Remove unneeded comments
+> +		sed -i '/^\/\/ /d' $dt.dtb.out
+> +		base_run_test check_diff $dt.dtb.out "$SRCDIR/$dt.dtb.expect"
+> +		run_test check_full $dt.dtb
+> +		run_dtc_test -I dtb -O dts -o $dt.dtb.dts $dt.dtb
+> +		base_run_test check_diff $dt.dtb.dts "$SRCDIR/$dt.dtb.dts.expect"
+> +		run_dtc_test -I dts -O dtb -o $dt.dtb.dts.dtb $dt.dtb.dts
+> +		base_run_test wrap_fdtdump $dt.dtb.dts.dtb $dt.dtb.dts.dtb.out
+> +		# Remove unneeded comments
+> +		sed -i '/^\/\/ /d' $dt.dtb.dts.dtb.out
+> +		base_run_test check_diff $dt.dtb.dts.dtb.out "$SRCDIR/$dt.dtb.expect"
+> +	done
+> +}
+> +
+>  pylibfdt_tests () {
+>      run_dtc_test -I dts -O dtb -o test_props.dtb "$SRCDIR/test_props.dts"
+>      TMP=3D/tmp/tests.stderr.$$
+> @@ -1278,7 +1298,7 @@ while getopts "vt:me" ARG ; do
+>  done
+> =20
+>  if [ -z "$TESTSETS" ]; then
+> -    TESTSETS=3D"libfdt utilfdt dtc dtbs_equal fdtget fdtput fdtdump fdto=
+verlay"
+> +    TESTSETS=3D"libfdt utilfdt dtc dtbs_equal fdtget fdtput fdtdump fdto=
+verlay metadata"
+> =20
+>      # Test pylibfdt if the libfdt Python module is available.
+>      if ! $no_python; then
+> @@ -1318,6 +1338,9 @@ for set in $TESTSETS; do
+>          "fdtoverlay")
+>  	    fdtoverlay_tests
+>  	    ;;
+> +	"metadata")
+> +	    metadata_tests
+> +	    ;;
+>      esac
+>  done
+> =20
+> --=20
+> 2.55.0
+>=20
+>=20
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--7bwo/JPeR6GxdaXs
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrkKiQACgkQzQJF27ox
+2Gcv3Q/+LwiBBBz2Q6L4KxjSDMG97cMm6jhuzh1ov3hMltcubnVz68wkVNw8nVr0
+Im/FeU9ARNtZkCCz5o9Nj49n+iHH6/lz9KMvselXaK2Vc9PEOv6wqh4VD7dXx8yU
+L1E/BUqG1WdLMbt0gce1myRnVSEBQSTlqE9m7hBxT4f1mja25yZ9VDwTnNN9OoRw
+NjEqZepwT79di0Ww14Hf12m3tTwxsxZ89IjfINW229LdnXKt2sSNYNGyyOwt/N9V
+eXUDSMD0e2uOgnzdUGSfVZyUEdnHqUkjx1AFJFtnZblRgWB3OavTQEcMMEhaSX9A
+CTFWSkCaNnOUEDa21Pd8OLUTtO4+/7b+JtLv1bLaAUauVTzZGzwXiCrYBaLry2GH
+oIk/YQKinLxVGY9fez3OC1bJkqNL1VgzheYKCyMbWD9BAGHpb3Z+sz4co/sgy4xs
+IdGM9Wj61mCzgYvHu5O/7HvxurwJsWuDDAunsNBrCrVw7rLiCGCTMwb0bCNx1yaJ
+Vq33XqFvBuAB9Y8/AXer+fg8omHrgGGrexfsPQB3ZD6jrx3zbxwxi1ooditGtTQg
+KWmu0ys0IYhBh1gNl4iUyDr+jfDOjJji5GhfV2W/19FP7KbtU2CS7+ksKmWxEiCT
+AqbekJIo8dxvo1RP7t+v8F9SkT/d5s4V5q/6a646DcjfE+Oq5Sg=
+=+fVR
+-----END PGP SIGNATURE-----
+
+--7bwo/JPeR6GxdaXs--
