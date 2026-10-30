@@ -1,117 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793369919;
-	b=VeNzbM+n0civYR6+P7TdsK6GCbopi48qz7H8PKy2uHSMMtgV5fDnUuggTHgmWBiTEeMe
-	 6QHC/c/F5XP1oq5leaDcgXRRfbtx1J51SOcA4JoHAZEcKs0CHIgxlsMgYcAef9PzTFNw4
-	 JX4aX0QIwXGhNsyUu7XhDlEPfwS7INwNMOdiI+BOm0bL5uxrmrkbtU7DvSOhPKvUEfaHS
-	 KwzLgY9XlWYaYPGBbNfqpG0GO/TQ5HD9OxtRv3rzuK38j5niOsCE19o5+vLYFUJHZkvXD
-	 e2vN4YUwI/uLtrcWmc559aLkki5TIkHVeP7AA+SLUkBYk/0zJZchh5QO4tGB5NK/Abg==
+	t=1793369976;
+	b=HNBPL+lQAL+eTMfsiIhnQWOODXmEfdZzEK8rNFyhM7ovNL4CIUUzbirV5bFntD8D2Ol9
+	 96T7lhf18WkqttXphuLQpnZM5xPDDCNkGBWETq6HyuaW0Pa+FAZW1Ht51mNcBYoy59xVX
+	 nMnW7i5RHQYRlbPjYQv8RP8NyHzE+wim/7QaKqpYaYTu1hjI0zwMc6Ur/G+Nkg/G9Fdz/
+	 Vh8SzkUmy9kRHQTBQ/l/h4KssoF57jLZ2t2LN4wf/5r96yqhuRQhoSelbAiaXw+4V517S
+	 +tWXRAwogqdt2TvZ8J/+fbkHoW130Ohj7f47sE1Wvg1CBBFQWupD2TNEh+oU/wmMeEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793369919;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0Ql7QE+ZG2n4x9bMClMMzyIrGK2QJZdx5EMFJUT94Io=;
-	b=mqSf5Pa1Qg256WaUvmFd2vdv/ipxyOWXSkBYzrEi/SDQ2HB2O2N5VTRb/q+Yb9JBNgI3
-	 tdHxapHdRH9Pf8TC9UfC9EBbzXA24bARkzzpZeILeyn9idu0b9L2DJmBRohZ0g0BEqxsG
-	 gE3H36E05O4YHyP7G6Ej13U20tHtB/sGAWlQ4brUilmG+HZtJ9lB/2qyDkmew+zInJKW2
-	 Hsmi+Yio4n/njSYLs6VT5kmQX3SxeMjSkYYdz5yfhzMz9OZUYhphp0gkpzz1Ogw1msh5h
-	 Z7k5DTIxvftyI8K3JXyWxpxsq1T5tZpNg+yrY5HtDD4omkHWGSf6ccCImi9Vv3IA5qQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793369976;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
+	bh=bA1fHQBlzW2f3EluTeJ2sASuPAQq8eJKTH0MCDp2mJI=;
+	b=YImoWKybA7kB8/1o/JTqtgFFCfSVLBpFRhpmFL4rwvqFlWxdB0qJArwrwhZ1KhOcl3m5
+	 UHrpiTyTWEhfd+KhvHx0UWI16EcI0bBXSpxvbPPdgzsZN92coflYYJ/UlQ9RBlUv8wgHo
+	 ieyK3OAExbOxt1i40gFyQHccgZ9Alz5EIvfLv/g4JaPCb40eJ4kDwOZPgrVlISgK87KJX
+	 hcuwj4L2pxl/GkIwB2bRsXaD1QRoHSOrBrJ9HN6fQQAOZo2WOsH36Wt6xULwlh8MfTDgG
+	 YhpuFSXbkqoFbFAYDteR/28dpEFEk68C9dgIAfS4lIia3HES7drp4nxBkOvLYvMRIPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BWhfWLrS;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jSIR7xJx;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Esi1kjmC;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D006606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:18:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D006606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CEF606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:19:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40CEF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BWhfWLrS;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jSIR7xJx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793369917;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0Ql7QE+ZG2n4x9bMClMMzyIrGK2QJZdx5EMFJUT94Io=;
-	b=BWhfWLrSeJLZmxGw3mNnjEjbRhwxgkW27jDPH9uMILAHUWC080Jx4oxPJmbsYo7ple7XNr
-	YTMQCJWvnfW2m3ZO+4I6DJxX/uv2oD8IZDF7ruu8L0sGlkq5IbEMVkA5ejkEm1j9IPnTIc
-	ALRmPkfg1RGfnWSaollXArhjEOEP5yg=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-351-5cOPoolSP1SLPc_B7jVbIQ-1; Fri, 30 Oct 2026 10:18:35 -0400
-X-MC-Unique: 5cOPoolSP1SLPc_B7jVbIQ-1
-X-Mimecast-MFC-AGG-ID: 5cOPoolSP1SLPc_B7jVbIQ_1793369914
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48b02d63407so637389f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:18:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Esi1kjmC
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1925248eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:19:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793369914; x=1793974714; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0Ql7QE+ZG2n4x9bMClMMzyIrGK2QJZdx5EMFJUT94Io=;
-        b=jSIR7xJxZioxCjZ/aBGv3XMOWRSeqLm93tOxK4uNmGv9N+J13uqsTj4HUjsP1ZLtbP
-         qfUo/fmAxcShDCjIIDgt6YeY2qMitp7DsMbPEJRg1aC8Z0edFAML5lkQzBHZKngUIrRO
-         iRs/DaEqiaZwasu+da8IMrN1smwlRxXtMkMfTB/OPOfNm4V5w6p5hB9ajmMBZpBPyiW2
-         bUZpVyn/qjUcGQkZS92QQtjtlAYk9DKm9Y9DYJnSjpklai+XnWhymo9cMgIj9tSyRtIB
-         WjG5C1gtPOFmAC3jy6WwuFrkSy8LIV+zD07QRAB2i9XJGXeJu+3Hr0bC6d2bQeCAyuWU
-         8eGQ==
+        d=gmail.com; s=20260707; t=1793369974; x=1793974774; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=bA1fHQBlzW2f3EluTeJ2sASuPAQq8eJKTH0MCDp2mJI=;
+        b=Esi1kjmCu/mPRLNW6Cph+bFN0jarTDCCCrwoQ2TSZDwxIXb2wtL6LXW4OPt/ipy3t0
+         /I2GAN+Bf3sPY0A2kspEkj/14Qc6h7BDjO4TvvKFPnXS80vbdfNlq0YcrffLZwXt3g8b
+         toSERLnJ7zIqd9r8fNei1Jxy7U4LiXPRmfgqGFVd3C5wkH4Sugzvh4iPL+fS8qtcLsYl
+         hIwWcdAvIXxVuSiQCNyvRGSseiNtUQNY1wQYB/vYC9cEEASCo5auPpCTsFsyrMVa8xlx
+         R9YFYiIUne+OZP1PbyvBbJjt+sZhTT8L+9jwnBfTb01pm52RfnzoYV+vE4ZKepsLJ7ep
+         Zszg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793369914; x=1793974714;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793369974; x=1793974774;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0Ql7QE+ZG2n4x9bMClMMzyIrGK2QJZdx5EMFJUT94Io=;
-        b=u+nNSDE0vlfVUJF5uDMmJ65+AUXMLgq7HQI0AZGdhSeuAeouTRaXD3DvHUMHJ4gCRO
-         N6XjcalW+HNr1zN+wVfQekpjWqBwzA8fPbg/tfH+38o898usCWgP1pTYjVgyFulXw72d
-         zBGGDI7kmJPlxyoS2lvTs+2IQ7+XrSYdRxr+NBk6K4ZqIWlpHkvFEi2/lHwCo1TWOBsm
-         o0wMlG2U+boWHOhuTI4eoMws+SoeAyB1llZyNs4rdPFKWiYIrl/eOTZtrIKI/oJ4BDXZ
-         jcBnt3bYAkV0NgQD0lWeYYcQXSzfQq5totXEemVqAW+y3hJ9STS0588p19wMGOecO+FI
-         VEZA==
-X-Forwarded-Encrypted: i=1; AKwUvByn5tFBi1uZE7mfJ9wBoRcFbrr9Y4L7g8iAraotz7Q44QZWMSI/YFeXwq5xzttRpUeeZuXhvw6Y6tUAI2E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqXuHodwB3c9McstmQ/JyQ8+reyuGIyOKTN/TLns8Txn5TJWK2
-	0FgG0PN3uqXtWW0gh4mVcMWMTuhNI9CDKW62p5/oF3zUaMh9qc4PxSZIW72CTssHJetx/qhNXiT
-	781Z4Jp+jMB1pNgXM2suCtPpCfJctig49BNRmg76IpN/teDEX/LN6pFUDNOOs97blPQ==
-X-Gm-Gg: AYBFou2w5MY7+tJRcoLKcSZtM0ivam4OIau1L/K4cAoWh+CUs6ieaDaac/dNsVs1TtJ
-	J1JhQm32o7w0h0K3CLQ5zGC/P4D4W3XGdAqy7wVWqVBYi3/NapReEps5r2epk0WIVyjXhao0dfw
-	WJjIpogPIpVAL5Q2BkW6kZBv14SpLtw2hXZl4yqgjo6t0lxrxE1jRe+OrDSYJ9ed+jOtJ/Ituyh
-	KQS+pMkvs/HFVVobIZbLs+VrtiVdW32kGmDK4/ORVemgftIse0sa1XDVChevbRBqpXG9c8uK4BA
-	FqVrErlKMNll5IJ+OUQiQYOR0xdfYusMiKQyVvqPbh+wp6p0TXN9UV2qqO2sD/Xd1hcDjVBOi7C
-	484Ajz0FWu7fJcJx3pR4j8ulGKq87h9sxSe9D2hN1GvGhsPfsGhnAovZ+98YMOkoDZUCD2W0G80
-	srEg2qoY7Xf3oRuiU=
-X-Received: by 2002:a05:6000:4a07:b0:48e:68d5:81a6 with SMTP id ffacd0b85a97d-48e6e4f53fbmr6819352f8f.34.1793369914387;
-        Fri, 30 Oct 2026 07:18:34 -0700 (PDT)
-X-Received: by 2002:a05:6000:4a07:b0:48e:68d5:81a6 with SMTP id ffacd0b85a97d-48e6e4f53fbmr6819274f8f.34.1793369913924;
-        Fri, 30 Oct 2026 07:18:33 -0700 (PDT)
-Received: from sgarzare-redhat (ip190-139-192-82.pool-bba.aruba.it. [82.192.139.190])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b9eaeesm3565782f8f.49.2026.10.30.07.18.32
+        bh=bA1fHQBlzW2f3EluTeJ2sASuPAQq8eJKTH0MCDp2mJI=;
+        b=yX5SNsOKeuTye7k1gYX9ZDxyBr3w5lx/90Hp/A61ZsIJTrBF4SYWe7antYoXV7aTqs
+         ENXHUjeKgMfgicmGgsb6xIT72D/Dqeaf9m7iHxPASzvWVSOsDqznqbuyHe1y6HeIqNaY
+         nKDSzlhMOUQvJfQ4XDdVLUTp+LTSHTMrhd7BTxMJ8W+3rhZec/Ixqm6bHVMBy5AL8G26
+         fT/7ioxsn/kFwJIpyLOAURGac4hHSgFIYQ7kdM3NzBsJSp3rx5biZ6iBZBx4bf/pM+h5
+         7Dvu/toZQty/GKnOx35MwNbDTVVt03WM2eEtGC6IgH4cd+oBWPSDoEHjWFHMWcx+R7gx
+         J3Lw==
+X-Forwarded-Encrypted: i=1; AKwUvBzI9MF6HUj09w/TVgDKw3X3mwWjZ7v/Ie1KNCfUnAn5O+d/jRzRUqSqhLK61lmbiocvz9kYFSwjjQz30Wo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqYHsh98sTRN7gC49HroBjVs+Nf/niCE9vNxZj5zitH0NUHfO7
+	OUwA0Wg9OSl36t8qKQV8Xker2iCxhyZ2WG2Djdw3ISX5NLzV+dqoT5f/fCVtTg==
+X-Gm-Gg: AYBFou2wrgIVu2tqiWYRJCWg0oUqSoInagyybwuUFg4FZ0u720Q5KRTYrQCeJnj9HXd
+	RLmW3bIrWB10up/n/S5R4RirpIL9kLQorXzqy18/6O6JtNMkGkAURNI17wMMOgHepxsTRtJWWBQ
+	8ZQQBhGa5MHvRwiniPxt9lOpp3EMPa87vF9mGsaWR/DuiR4b2PbHEiVNYD6tlJb1r9qg6VSepyd
+	5Uq1efK1oJiH52rnAVAocLYi8MV5ulp18r+vxzgP4LYk69zB1wmaNo3z0Ati6g7nDnqGeKiHsYN
+	uK6HdBEzkxE5f2dEhwSwUnsBNU8TkptTWqxeWptW6VG7Ponf3Sf2R+eVsefDfe6s8UdPu2cHKCw
+	8nbjHZwzkIrUtkT8dV8em7lTRt0pzdF2lfWBt8YZwDldKtdqXR3O8v4rFxZJYUQHpW8o9S7qGYc
+	X4grn0W/b+bEJBcRf4OVq+cr0hGPPIB+bFpVthq5efTwcR/Lxy5YD5TUdMSS9xr+QdJiezZj5ta
+	Ow2Csc5Za5iBbZh2wWmWcFN3eCZq5Tc/bwA2NjqY/zlnAQQskrZN3UsJcPzeh2dXfKcwKspXpUh
+	HY6O6uxLER8LvHBKplD4TJsT+QI=
+X-Received: by 2002:a05:7301:2511:b0:36a:1872:4b35 with SMTP id 5a478bee46e88-36a42203e6fmr3338125eec.2.1793369974284;
+        Fri, 30 Oct 2026 07:19:34 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a426681aesm10406146eec.1.2026.10.30.07.19.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 07:18:33 -0700 (PDT)
-Date: Fri, 30 Oct 2026 15:18:10 +0100
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: jrmmhm.kernel@eldare.de
-Cc: Bobby Eshleman <bobbyeshleman@meta.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v3 1/2] vsock/bpf: release sock lock while waiting
- for data in recvmsg
-Message-ID: <auSkQOU6qmj0NPEt@sgarzare-redhat>
-References: <20261028-kbh3-1-022-fix-v2-v3-0-bc0752b2d3db@eldare.de>
- <20261028-kbh3-1-022-fix-v2-v3-1-bc0752b2d3db@eldare.de>
+        Fri, 30 Oct 2026 07:19:30 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Narayana Murty N <nnmlinux@linux.ibm.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org
+Cc: Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, Shrikanth Hegde <sshegde@linux.ibm.com>, Alexey Kardashevskiy <aik@ozlabs.ru>, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/1] KVM: PPC: Book3S: Protect TCE IOMMU table walks with RCU
+In-Reply-To: <20261015120137.28843-1-nnmlinux@linux.ibm.com>
+Date: Fri, 30 Oct 2026 19:32:20 +0530
+Message-ID: <5wyjwakz.ritesh.list@gmail.com>
+References: <20261015120137.28843-1-nnmlinux@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,222 +92,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261028-kbh3-1-022-fix-v2-v3-1-bc0752b2d3db@eldare.de>
 
-On Wed, Oct 28, 2026 at 06:55:40PM +0100, Jerome Mohm via B4 Relay wrote:
->From: Jerome Mohm <jrmmhm.kernel@eldare.de>
->
->vsock_bpf_recvmsg() takes lock_sock(sk) and holds it across the receive
->loop, including vsock_msg_wait_data(), which sleeps in wait_woken()
->without dropping the lock. When data arrives, the transport's delivery
->context (the vsock-loopback worker, or the virtio/vhost rx path) calls
->virtio_transport_recv_pkt() -> lock_sock() on the same socket and blocks.
->That context is the only one that would queue the skb and wake the
->reader, so neither side makes progress: a blocking recv() hangs until a
->signal arrives or SO_RCVTIMEO expires, and meanwhile the shared delivery
->worker is stalled, so all vsock rx on that transport stops. The
->hung-task watchdog reports the worker:
->
->  INFO: task kworker/1:3:107 blocked for more than 5 seconds.
->  task:kworker/1:3 state:D Workqueue: vsock-loopback vsock_loopback_work
->  Call Trace:
->   __schedule
->   schedule
->   __lock_sock
->   lock_sock_nested
->   virtio_transport_recv_pkt
->   vsock_loopback_work
->
->vsock_bpf.c is based on net/unix/unix_bpf.c, whose unix_msg_wait_data()
->drops u->iolock around wait_woken(); tcp_bpf and the native
->vsock_connectible_wait_data() also drop the lock across the wait.
->
->Releasing the lock alone is not enough. With the lock dropped, the
->reader is also woken by events that bring no data, for example a credit
->update via sk_write_space(); vsock_msg_wait_data() did not loop, so a
->blocking recv() then returned -EAGAIN early. It also checked only for a
->local RCV_SHUTDOWN, so a peer shutdown or a reset was not noticed. A
->looping wait must stop on everything the native receive path stops on:
->without the shutdown checks a peer shutdown, and without the state
->check a reset whose error was already read with SO_ERROR, would sleep
->until the timeout.
->
->Make vsock_msg_wait_data() loop and release the socket lock around each
->wait. It returns 1 when data is ready, -sk_err on a socket error, 0 on
->RCV_SHUTDOWN or a peer SEND_SHUTDOWN (as vsock_connectible_wait_data()
->does), -EAGAIN on timeout and sock_intr_errno() on a pending signal. It
->also stops once the socket is no longer TCP_ESTABLISHED, with 0 if
->SOCK_DONE is set and -ENOTCONN otherwise, mirroring the state check in
->__vsock_connectible_recvmsg(): a transport reset
->(virtio_vsock_reset_sock()) sets only TCP_CLOSE and sk_err, and
->getsockopt(SO_ERROR) clears sk_err, so without the state check the loop
->would wait out the whole timeout on a dead connection. Data already in
->the psock ingress queue is still returned first. vsock_bpf_recvmsg()
->returns a negative result as the error and 0 as end of file.
->
->Two userspace-visible results are worth noting: a pending signal now
->returns sock_intr_errno() where the old code returned -EAGAIN, and after
->a virtio transport reset recv() returns -ECONNRESET until
->getsockopt(SO_ERROR) has read the error, where the native path returns
->-ENOTCONN.
->
->The deadlock was found with the help of an LLM coding assistant
->(Anthropic's Claude); Sashiko AI reviews of two earlier sockmap patches
->had already noted it as a pre-existing issue. The early -EAGAIN on a
->dataless wakeup, the missed peer shutdown and the wait on a reset
->connection were reported by the netdev Sashiko AI review of earlier
->versions of this patch. Each reproducer is a C program run as root in
->the guest: it adds one end of a vsock stream connection to a BPF sockmap
->(CAP_BPF and CAP_NET_ADMIN) and drives a blocking recv(); the reset case
->connects to a peer on the host and unbinds the guest's virtio-vsock
->device, the others use vsock-loopback. No kernel change or error
->injection is needed. The reproducers are available on request.
->
->Testing: built a KASAN + lockdep kernel on net and ran reproducers on a
->private VM, before and after this patch. Before: a blocking recv() on a
->sockmap socket deadlocks the vsock-loopback worker (hung-task). After:
->it returns the data; a dataless credit-update wakeup does not end the
->wait; a peer SEND_SHUTDOWN returns 0; and after a reset of a virtio
->connection (unbinding the guest's virtio-vsock device) and
->getsockopt(SO_ERROR), recv() returns -ENOTCONN at once like a socket
->outside the sockmap, where before this patch it waited for SO_RCVTIMEO.
->No KASAN, lockdep or hung-task report. With both patches of this series
->applied, the three single-VM tests of
->tools/testing/selftests/vsock/vmtest.sh (vm_server_host_client,
->vm_client_host_server, vm_loopback; 44 vsock_test cases each) pass, as
->on net; on both kernels the host-side runs skip the SO_INQ cases (SO_INQ
->not supported by the host kernel). The ns_* tests of vmtest.sh were not
->run (they need root on the host). The BPF test_progs sockmap_basic,
->sockmap_listen and sockmap_redir tests pass (767 of 767 subtests, among
->them the three vsock subtests of sockmap_basic and the 240 AF_VSOCK
->cases of sockmap_redir).
 
-Ditto about commit message, please put more effort on writing something 
-readable by a human.
+Hi Narayana,
 
+Narayana Murty N <nnmlinux@linux.ibm.com> writes:
+
+> Commit cad32d9d42e8 ("KVM: PPC: Book3s: Retire H_PUT_TCE/etc real mode
+> handlers") moved the TCE hcalls from real mode to preemptible virtual
+> mode.
 >
->Fixes: 634f1a7110b4 ("vsock: support sockmap")
->Cc: stable@vger.kernel.org
->Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
->---
-> net/vmw_vsock/vsock_bpf.c | 62 ++++++++++++++++++++++++++++++++++++-----------
-> 1 file changed, 48 insertions(+), 14 deletions(-)
+> The stt->iommu_tables list is RCU managed. Entries are added with
+> list_add_rcu(), removed with list_del_rcu(), and released after an RCU
+> grace period with call_rcu().
 >
->diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
->index 9049d2648646..5120911b8143 100644
->--- a/net/vmw_vsock/vsock_bpf.c
->+++ b/net/vmw_vsock/vsock_bpf.c
->@@ -34,24 +34,55 @@ static bool vsock_has_data(struct sock *sk, struct sk_psock *psock)
-> 	return vsock_sk_has_data(sk, psock);
-> }
+> However, kvmppc_h_put_tce(), kvmppc_h_put_tce_indirect(), and
+> kvmppc_h_stuff_tce() traverse iommu_tables using
+> list_for_each_entry_lockless() without an RCU read-side critical
+> section.
 >
->-static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
->+/* Returns 1 if data is ready, 0 on EOF/shutdown, or a negative error. */
->+static int vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
-> {
->-	bool ret;
->+	struct vsock_sock *vsk = vsock_sk(sk);
->+	int ret;
+> A concurrent IOMMU table detach can therefore remove an entry while a
+> TCE hcall is traversing or using it, without the traversal preventing
+> the entry from being reclaimed.
 >
-> 	DEFINE_WAIT_FUNC(wait, woken_wake_function);
+> Use list_for_each_entry_rcu() under rcu_read_lock() for these walks so
+> that an entry removed concurrently is not reclaimed until the reader
+> has completed.
 >
->-	if (sk->sk_shutdown & RCV_SHUTDOWN)
->-		return true;
->-
->-	if (!timeo)
->-		return false;
->-
-> 	add_wait_queue(sk_sleep(sk), &wait);
-> 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
->-	ret = vsock_has_data(sk, psock);
->-	if (!ret) {
->-		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
->-		ret = vsock_has_data(sk, psock);
->+	while (1) {
->+		if (vsock_has_data(sk, psock)) {
->+			ret = 1;
->+			break;
->+		}
->+
->+		if (sk->sk_err) {
->+			ret = -sk->sk_err;
+> Fixes: cad32d9d42e8 ("KVM: PPC: Book3s: Retire H_PUT_TCE/etc real mode handlers")
 
-Why?
+I am not sure if this is the right fix. On doing git blame, I see the
+following patch introduced this:
 
->+			break;
->+		}
->+
->+		if ((sk->sk_shutdown & RCV_SHUTDOWN) ||
->+		    (vsk->peer_shutdown & SEND_SHUTDOWN)) {
->+			ret = 0;
->+			break;
->+		}
->+
->+		/* virtio_vsock_reset_sock() sets no shutdown bits, and
->+		 * SO_ERROR clears sk_err: check the state the way
->+		 * __vsock_connectible_recvmsg() does.
->+		 */
->+		if (sk->sk_state != TCP_ESTABLISHED) {
->+			ret = sock_flag(sk, SOCK_DONE) ? 0 : -ENOTCONN;
->+			break;
->+		}
+121f80ba ("KVM: PPC: VFIO: Add in-kernel acceleration for VFIO") - Alexey Kardashevskiy
 
-I'm thinking if we should split this in multiple patches.
 
->+
->+		if (!timeo) {
->+			ret = -EAGAIN;
->+			break;
->+		}
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+> ---
+>  arch/powerpc/kvm/book3s_64_vio.c | 18 ++++++++++++++----
+>  1 file changed, 14 insertions(+), 4 deletions(-)
 
-Is the move of this check changing some user visible error?
 
-I mean before this patch it was one of the first checks, is this okay?
+Sashiko pointed out few more bugs around this path:
 
->+
->+		release_sock(sk);
->+		timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
->+		lock_sock(sk);
->+
->+		if (signal_pending(current)) {
->+			ret = sock_intr_errno(timeo);
->+			break;
->+		}
+Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+- [High] kvm: ppc: UAF of spapr_tce_table due to missing rcu_read_lock()
+- [High] kvmppc_clear_tce: pinned memory leak on partial IOMMU map failure
 
-Why? Should be a separate patch?
+So, even though these looks to be pre-existing bugs - do you think we
+can address them in a single patch series itself? This will reduce your
+testing/validation as well?
+Also since we are anyway fixing RCU specific bugs in patch-1, so I think
+we can also fix rcu handling for stt as well?
 
-> 	}
-> 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
-> 	remove_wait_queue(sk_sleep(sk), &wait);
->@@ -101,11 +132,14 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
-> 	copied = sk_msg_recvmsg(sk, psock, msg, len, flags);
-> 	while (copied == 0) {
-> 		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
->+		int data = vsock_msg_wait_data(sk, psock, timeo);
->
->-		if (!vsock_msg_wait_data(sk, psock, timeo)) {
->-			copied = -EAGAIN;
->+		if (data < 0) {
+Do you mind working on v2 and addressing Sashiko review comments please?
 
-Why not data <= 0  and void the other if?
+-ritesh
 
-Thanks,
-Stefano
-
->+			copied = data;
-> 			break;
-> 		}
->+		if (!data)
->+			break;
->
-> 		if (sk_psock_queue_empty(psock)) {
-> 			release_sock(sk);
->
->-- 
->2.56.0
->
->
 
