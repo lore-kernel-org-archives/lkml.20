@@ -1,47 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793334665;
-	b=D5eq8gDjH+SW9jk+xq+e4ZytlS8RwxOeCfgCKX/yDigLg60HRccTd/3LcVswSZbGrXYI
-	 XLyLsd4blZdJ2rzirNvthjyHX0iIMSSXXkRaWRPyjlP1d55TaW/rMTbv7Byp0xMty9d/C
-	 ulhqgaXd089ytf00oCTjEFKMdZsjIrxYoMXmMV3tp3zUllf2tMCrZgUP+l0CqkVL05v2g
-	 AJu1xvY6/KTGrnQFLoDxsUmANwkyhW2A2WKyNnwfip5W9XmxDRNszdzWUfD5LUjqSnnmR
-	 kKNU7+UrOjrCrFvKGkkdUMnWAqGirwl7nwT27WG8QAKRLYqnRPQrumfzdP7sfLybjHw==
+	t=1793334675;
+	b=K92YnL1Q3R1smylZ5KuNOfYaoYXOR/dR0kMplyQJ/hGqLkfCn11jeUzb6Sv4/oXtDy3s
+	 T6nuXNosvxbVQ1D9/CklGiKiDo+mvVqKBGiH1HuL4mL2G12zgKWZlP0GQ9vOckIeUQHp6
+	 /VAoWuacct43gxyuBh3O8vYFlES0p++aVSuTJyPGWRrFqDTmXMsvwu4mIyjRq6MlFOCTc
+	 NZFsKCdjvi2Ryaq69ZpSDSlN6B59Y5nxHC8ziTdTHZpk1Hfj8FOhIG+52LXiuX4UY2zWI
+	 UKNbQBXE6SxiRFB5J4T/4JahPDHVcpa/E/SOijtBKpApg+BLAUehRQ3XEl88zJXDjig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793334665;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4IW+eTP3qlFhNM2ajwGDdQt1qVWs4834B+J6XwQpvms=;
-	b=YmNiUGD69AWzxXLTbto90qtZ2CkwCmi12ghvp6Dw+xqrbS/Vw8gzjuDCNLpu/PNzIoBv
-	 91dK+SWQ7KDtUufdKHUFqizlXUgwDUKjly2nwftrmS0S0ekfpU6N1K9LGVy+3xyXmLE8r
-	 D78LFBLaBAGhHcnLgkIgkxWh9xbLsXn1/4oRWUqBne5HXuinxfELxhW9R+Caujq0svUW7
-	 b/9OtfIdDxKegb7UVY3gAkKrsQer9m72YbaM+ZQIHmVrYHH50f0UvNHRnsSoUTqESCQRN
-	 U6Nu7CS/wWnDAMNjQo9cq5wG3oR/V7omzVLp5pLThrcwHwfDmDPfrN/VTOYSdbAHsFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793334675;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 User-Agent:MIME-Version:Content-Type;
+	bh=AyLCv3t0FodhJlTxvoBzkqHZ7t7IZvHquYdriLHYDEM=;
+	b=XeJ/rPQGFYNiyfKHiuOPf2ekVra3Yy8SU21ltRH0yiGhy8LO6S8To/Yzq4mHu/Gjhm48
+	 wDXZdfctiwncTMpWx2Gxv1dGdAsZMUBZE/l2mXVJcnsRoImpIEy4ZDNUq/oQkH96LM10d
+	 lefLHuHVZok8IThGaiUrZTVMMTunapprqTgLeQk4qVVL3CNO49yc4xEoMOGgE9rEXQ2kj
+	 L7jvJDnnN2j7fzqWrcdsn/P4MWA6/7BwnCmxw/fDNTfOHYAUsSJihD50e1HDHZNu8gSoy
+	 v1eOqZNumz5ATfLVE+9Dp1whSHmfOhFD4YxR9jlc6s3D7QX19jZvjt2UR2aQIZQHEug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHRLmm8t;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=mail.parknet.co.jp;
+	spf=pass smtp.mailfrom=parknet.co.jp;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=Fzp0oJMR;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=+dJucND6;
+	arc=none smtp.remote-ip=210.171.160.6
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8820A606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:31:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538F2606A31A;
+	Fri, 30 Oct 2026 04:31:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 538F2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHRLmm8t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527CF1F000C1;
-	Fri, 30 Oct 2026 04:31:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793334665;
-	bh=4IW+eTP3qlFhNM2ajwGDdQt1qVWs4834B+J6XwQpvms=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=eHRLmm8tqPMW//AXrXY5DTpcZ5X24nfz4hCUds6P/c4j0RQZSnVRTVw/sf4fShl+6
-	 b9hpNb9g7UsPsHg9J4lb7Ao8lsPz6euSZXaL1UeX2DOltH4WsvPPPEjFmaIdYdUbFO
-	 UCRgmBFii4mMPj5L6bpqbyMQp7Sd7FkA8Cl1NkKvFtb5RhMz+aKgGh0+kL33odmvnS
-	 Ey89o2M7yVxNAkN8jHq68pLWwt1D3GsvnZ6lmc3Qmp6vUBV8VsT0EdzvoHrFEodEFL
-	 QOW8FAWO8gzANXL+Z/HW5uszLtcf3oNJTGRTTl+e/AlOP9+ErGgXEEUHp+3fJDxuHx
-	 Lg5Jiozr0TIjw==
-Message-ID: <8264bbea-10f9-448b-b88b-529c34ea2f9c@kernel.org>
-Date: Fri, 30 Oct 2026 12:31:02 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=Fzp0oJMR;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=+dJucND6
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id 59EB726F7699;
+	Fri, 30 Oct 2026 13:31:12 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1793334672;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AyLCv3t0FodhJlTxvoBzkqHZ7t7IZvHquYdriLHYDEM=;
+	b=Fzp0oJMRtNX9VTfxDFBAdwzHAoncr1gHE7EMnUeTb5Ln3DJp07a0TrygFxGdKOCaHySknq
+	2Q4moxGStazgbLC4FdZvhAKpV736Ii1KF8SjsfmRsJE88bIpR8T+hdaSWpaHTeWKdi00x+
+	+8PyGnJxDMApcQRMPAN+3QxxFYDParaL7gXHgq2u/TITeC2584jqs+ZX1vG1G+Dxiag5G1
+	TU75++Z0wLhMN58tBRQkvmexEMQkVXxvytbKcNsu6YopKtZ2IrK/Pc8uYlgTXPdZVnbpnt
+	O/DuzSR2s0XwYIy+PeGHcsfQFz+YkF8zC8aXjCTnZsDRwYp9/EjH6YdwsGBgVg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1793334672;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AyLCv3t0FodhJlTxvoBzkqHZ7t7IZvHquYdriLHYDEM=;
+	b=+dJucND6owifUdGe1ntpj5HGiK2b82PG0SmwCaWMwRkmy+cO16Fhca2+3zL6BU7l6eE0jo
+	+JBxz3eqnXBPT6Dw==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 9A80EE000B0;
+	Fri, 30 Oct 2026 13:31:11 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id 92C7322001E2; Fri, 30 Oct 2026 13:31:11 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: akpm@linux-foundation.org,  brauner@kernel.org,
+  linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] fat: fix parent link count when replacing a sibling
+ directory
+In-Reply-To: <20261029202352.59890-1-dennylin0707@gmail.com>
+References: <20261029202352.59890-1-dennylin0707@gmail.com>
+Date: Fri, 30 Oct 2026 13:31:11 +0900
+Message-ID: <87y0bfstbk.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,123 +81,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, stable@kernel.org
-Subject: Re: [f2fs-dev] [PATCH] f2fs: do f2fs_zero_post_eof_page for all the
- time
-To: Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20261028050615.259268-1-jaegeuk@kernel.org>
- <c87b011c-08fa-4e65-8b22-a6bf5a2efd5a@kernel.org>
- <auIUOuuiz3rbwSuZ@google.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <auIUOuuiz3rbwSuZ@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 10/28/26 23:26, Jaegeuk Kim wrote:
-> On 10/28, Chao Yu via Linux-f2fs-devel wrote:
->> On 10/28/26 13:06, Jaegeuk Kim via Linux-f2fs-devel wrote:
->>> This fixes xfstests/generic/794, since the issue is not related to the
->>> posix=strict mode only.
->>
->> Jaegeuk,
->>
->> Actually, I fixed this only in fsync_mode=strict because I don't see such
->> scenario (described in original patch) in Android:
->>
->>      Steps of generic/794:
->>      1. write 4096 bytes to file w/ 0x5a
->>      2. use fiemap to get PBA of first block in file
->>      3. truncate file to 4080
->>      4. umount; write 4096 bytes to file w/ 0x5a directly via PBA; mount
+Hungyu Lin <dennylin0707@gmail.com> writes:
 
-I don't remember there is any case writing via PBA across EOF in Android, let
-me know if I missed something.
+> vfat_rename() and do_msdos_rename() adjust parent link counts only when
+> updating the dotdot entry for a move between different parents. Replacing
+> an existing empty directory in the same parent also removes a
+> subdirectory, but leaves the parent's link count unchanged.
+>
+> For example, renaming one of two sibling directories over the other
+> leaves the parent with four links instead of three. stat and ls report
+> the stale count, and find -links 3 does not match the parent.
+>
+> Drop the parent's link count for this case after the source entry has
+> been removed successfully. Leave cross-parent renames, regular files
+> and the existing error paths unchanged.
+>
+> As in rmdir, check that the parent's link count is at least three before
+> decrementing it. Report a filesystem error if corrupted directory entries
+> have left the count too low, rather than reducing it below two.
+>
+> Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> ---
+> Changes in v2:
+> - Check the parent link count before decrementing it and report low
+>   counts with fat_fs_error(), matching rmdir(), as noted by Sashiko.
+> - Retain Hirofumi's Acked-by from v1.
+>
+> v1: https://lore.kernel.org/r/20261028211626.26103-1-dennylin0707@gmail.com
+> Review: https://sashiko.dev/#/patchset/20261028211626.26103-1-dennylin0707@gmail.com
+>  fs/fat/namei_msdos.c | 8 ++++++++
+>  fs/fat/namei_vfat.c  | 8 ++++++++
+>  2 files changed, 16 insertions(+)
+>
+> diff --git a/fs/fat/namei_msdos.c b/fs/fat/namei_msdos.c
+> index c7500c2859e0..97289c9d9261 100644
+> --- a/fs/fat/namei_msdos.c
+> +++ b/fs/fat/namei_msdos.c
+> @@ -565,6 +565,14 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
+>  		(void)sync_inode_metadata(old_dir, 1);
+>  
+>  	if (new_inode) {
+> +		if (is_dir && old_dir == new_dir) {
+> +			if (old_dir->i_nlink >= 3)
+> +				drop_nlink(old_dir);
+> +			else
+> +				fat_fs_error(old_dir->i_sb,
+> +					     "parent dir link count too low (%u)",
+> +					     old_dir->i_nlink);
+> +		}
+>  		drop_nlink(new_inode);
+>  		if (is_dir)
+>  			drop_nlink(new_inode);
+> diff --git a/fs/fat/namei_vfat.c b/fs/fat/namei_vfat.c
+> index ff7652bf0410..c4d5628c05fa 100644
+> --- a/fs/fat/namei_vfat.c
+> +++ b/fs/fat/namei_vfat.c
+> @@ -1011,6 +1011,14 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
+>  	vfat_update_dir_metadata(old_dir, &ts);
+>  
+>  	if (new_inode) {
+> +		if (is_dir && old_dir == new_dir) {
+> +			if (old_dir->i_nlink >= 3)
+> +				drop_nlink(old_dir);
+> +			else
+> +				fat_fs_error(old_dir->i_sb,
+> +					     "parent dir link count too low (%u)",
+> +					     old_dir->i_nlink);
+> +		}
+>  		drop_nlink(new_inode);
+>  		if (is_dir)
+>  			drop_nlink(new_inode);
 
-Ah, it seems a common issue, I can reproduce reading stale data w/ below testcase
-which didn't write via PBA:
+Thanks. Hm, how about move those same code to fat module
 
-1. pwrite -S 0x5a 0 4096; fsync; sync
-2. truncate 4080
-3. Checkpoint without writing back data, then power cut. Two ways to cut power:
-  - sysrq-b: f2fs_io checkpoint then echo b > /proc/sysrq-trigger, a real VM reset.
-  - shutdown: f2fs_io shutdown 1, which checkpoints and drops dirty data.
-4. After recovery, grow the file with truncate 8192, falloc 4096 4096, or pwrite @4096, then f2fs_io checkpoint, umount and mount.
-5. Read [4080,4096).
+	fat_dir_drop_nlink()
+        EXPORT_SYMBOL_GPL(fat_dir_drop_nlink)
 
-Reviewed-by: Chao Yu <chao@kernel.org>
-
-Thanks,
-
->>      5. extend filesize via
->>         a) append 4096 from offset 4096, or
->>         b) truncate 8192, or
->>         c) fallocate 4096 from offset 4096
->>      6. verify the gap is zeroed in memory [4080,4096)
->>      7. sync range 4096 from offset 4096; shutdown -f (flush meta before shutdown)
->>      8. umount; mount; verify [4080,4096) is zeroed or not.
-> 
-> I saw your comment and I think we should not connect posix=strict to who's
-> using that. It was supposed to handle the myth of the recovery on rename().
-> This sequence looks general which seems we should guarantee.
-> 
->>
->> Maybe we should only enable fsync_mode=strict for 794 to let it pass?
->>
->> Thanks,
->>
->>>
->>> Cc: stable@kernel.org
->>> Fixes: 5eced87b7d19 ("f2fs: fix to zero post-EOF data when extending file size")
->>> Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
->>> ---
->>>   fs/f2fs/file.c | 14 ++------------
->>>   1 file changed, 2 insertions(+), 12 deletions(-)
->>>
->>> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
->>> index 8b4a7a9d7dbe..823df06ae0f2 100644
->>> --- a/fs/f2fs/file.c
->>> +++ b/fs/f2fs/file.c
->>> @@ -74,15 +74,10 @@ static int f2fs_zero_post_eof_page(struct inode *inode,
->>>   					loff_t new_size, bool lock, bool writeback)
->>>   {
->>>   	loff_t old_size = i_size_read(inode);
->>> -	bool strict =
->>> -		F2FS_OPTION(F2FS_I_SB(inode)).fsync_mode == FSYNC_MODE_STRICT;
->>>   
->>>   	if (old_size >= new_size)
->>>   		return 0;
->>>   
->>> -	if (!strict && mapping_empty(inode->i_mapping))
->>> -		return 0;
->>> -
->>>   	if (lock)
->>>   		filemap_invalidate_lock(inode->i_mapping);
->>>   	/* zero or drop pages only in range of [old_size, new_size] */
->>> @@ -90,14 +85,9 @@ static int f2fs_zero_post_eof_page(struct inode *inode,
->>>   	if (lock)
->>>   		filemap_invalidate_unlock(inode->i_mapping);
->>>   
->>> -	if (!writeback || !strict)
->>> +	if (!writeback)
->>>   		return 0;
->>> -	/*
->>> -	 * In fsync_mode=strict, when we expand an unaligned EOF size, we
->>> -	 * should zero post EOF data and writeback the data immediately,
->>> -	 * so that it can avoid exposing stale data after metadata flush
->>> -	 * and POR.
->>> -	 */
->>> +
->>>   	return do_zero_post_eof_page(inode, new_size);
->>>   }
->>>   
->>
->>
->>
->> _______________________________________________
->> Linux-f2fs-devel mailing list
->> Linux-f2fs-devel@lists.sourceforge.net
->> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
-
+as such function for 3 places?
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
