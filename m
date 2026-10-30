@@ -1,88 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793361128;
-	b=BJJyD0WwWvB65uI1bEsPxHHCu7gBWX02PZeJWmGy3l+fxRmXQsjbxOiP86G32Uy3Iid5
-	 AkgKAvDFhLxhSNNNBKysFUgLOdtqj4lW5WHvvi4huslMPdMLOsgcIXcJYp3UmnCl44BmN
-	 wzo0x0LZSMSzSG5ki7r/UsJsoVzPXu2KG09obLJeDycuXkNzsieVM76RHdIdTgeP9LnPW
-	 cQ167IJ6nBXXHvY88JMjpHB1XT/k8tLRpYBH3BMpdmKYcvloP5t6fKk3bXd1bEaj2+6fH
-	 4tO4yma74ojfuEiZjZxlsIelfGqAmT+Q+Y6ayjclnkvUwla1uJtojD++fzQ3YcwPtUQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793361128;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=bg8z49bq7mHJrjEaBS03cZdttt/0WynaCaNHuuBDWWU=;
-	b=tyEryORn2PAYFttlWQ/1jjzX+aVN/rpAk+Wgb07PW8KvocYbn7+tlhA4yZCn3qwUZiab
-	 Cku83UfQoMefFCQymwajKhTqy+CkCI3VRDl8QV+30+EbqXhGCmMnRFDgMXMlyZwWnRyYX
-	 V/rwHaB9CnX9d7iiixhNot0fitEfLPoYg3PxgG6vmh19W5s0an4eFrdz9q/6/0RwASWuc
-	 EXQ5OqbqxpbRpHUW+cYfFM91YQcziGx+qRrKP154rIgF3D9F8+zn2IVFZd5cFtvt7Ye5B
-	 iTcPIcH9792FujJyJwGVC4uS5TrsH88PNIJOzigPOV6W/HPH0fzXGtCVJa1bkNz0eAg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LiUYlrvM;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.118
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793361121;
+	b=d2CT23c33Ewbrrj2gNC6S0G7pxPaAXsJ8zKeIqtE0UFf16xg49h4MdPCRcaydRBp/EXR
+	 vaddd6jgIdpzFLqqUNrviTMfi8o5kvoMjgajNVZXd+ukp9uS7Ribe1t/vm0QHYMyqNjWK
+	 y4Oed6M5jgNMRas8+ysgkT6Dcj6H29i1lbUH9PO08AiL1zCa3KkDTAaoPRBKX/jmkSVwW
+	 8+6mDyhBSKo4rzOuICEmHBTbwxukWBLImKGf48nSBHLR09dDH/EsyZMFCZc6NSVGdabru
+	 Dl5Dat1nAtxaxVAPnBowr+SWOQTfOjSC34XCVZhAReCBvqslOX0wkGe83gQXCPCTO0A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793361121;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=q8rIqYblFeV99dG9PhVoW2Snw3SxhMyVdgIeh/eqj20=;
+	b=nzDvE3kjTGomgGLNj+b50xVY7iyLbyJvQD0QjdqWIyTE7QH68EhKyik+SxYaPqyPXnY0
+	 asyHF9uSF8FBopKIYowAmGEAT5+mMfhFtJiiPLQcSvWorXg5WGZ0dU2YGhrzyKniquPaH
+	 S09pTVXriO8TPjGd5in6K3wqXg5qSQ7iUjsqib9eYfwelbaN4XP/r7xK4n100Drhh8+xf
+	 ztY3gOmKRywbbW0rirQKfguizxZYwghQG4w3v9YuQSt/j8Bmu1Exp4QzEMN4GIl2WNcIh
+	 GPjIlBUlzn7+L9IEHS+68nZr9p34BBMiWNmtpwLGkLUpfz4qbVKkts5EKd3VLzbNqQQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=pKP4IGB8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.118
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022118.outbound.protection.outlook.com [52.101.126.118])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC97606A329
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:52:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DC97606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9D0606A321;
+	Fri, 30 Oct 2026 11:52:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C9D0606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LiUYlrvM
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-170135e43c7so866079c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:52:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793361127; x=1793965927; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bg8z49bq7mHJrjEaBS03cZdttt/0WynaCaNHuuBDWWU=;
-        b=LiUYlrvM1Y1n/OcMST6U7xSYZLiv2K+LjKtZaBuRrJwt36VvtyMPBn+GMzFzZdXXLm
-         uEIs+z2frshfDKs/T2lCfoCwNVFy+s/XUXDoSqee1zaV+5TkvZHo4jHHuXrN8jMHNQVV
-         GbSrKiIxhUybUPa2fH7gYk00qpQyQMu8EGVetPuYsCvuc7QvghkyeLWps7rOvxKR/MdX
-         S1FXS3cqIjlX4SvGWlJXDUkx4kHYcTb6fToaKdchXHDmPI6rm5uNYke3kMd3fTS33q/8
-         7TWbefjZ8PmFjgNiwO2YfTVmVOoHvy7efDYt6qjonfgi+vsTqKVkYYguvR0+fuZXHZXr
-         fJmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793361127; x=1793965927;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bg8z49bq7mHJrjEaBS03cZdttt/0WynaCaNHuuBDWWU=;
-        b=oUYOCSB1O4mngyNXevcvO+eXp2a9+o13/kwTcAxqClx5c8RQQDVMCQ8z1L79CE4UnC
-         3rYfkExpt4RFsgAeL25B20lHPHysKd7vdbD1CleZhGVjwKFzHjVNvLD44vEBXg05yu+m
-         Wlb0eEjQ83u8Oj7Vj5uEtxgkQ/cyNQ6C06HUIOCQCuIm7zInCoUdz0HLnqF05u0G6Dzy
-         ULRiueulk+fMbtWO+zZbC0FToeX35xVbI1fVFyXQj2BprmYCQ7DeRAJ5R4pdabLbC5FK
-         e4S9C0Jkxe9liG3GJlcbvWZKGQAdg9BHPtRGTMu7JVIIzktezcrrjASNYrnjTECkywVn
-         yxsg==
-X-Forwarded-Encrypted: i=1; AKwUvBztKKMNUZI8QVOhvJuxfvaDa5/uMmR4inhE3oQ5Adz0MLGQz/+CCnYbIqWUQPLN+uNALBjLo4HpSigB7Ao=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1qIXC67neVIeWm+NhGaB7Shmi4ZzKNe/sgEJ0P/aR/s0+Jney
-	rTxeX1WjUAJ6nVzw3tS3I+EmYeOwQwZs3BU8vwgwQDtMYFmHEBrQ96/CDo1gfaGb
-X-Gm-Gg: AYBFou2HdVEY6MhoiKKreCJDJuyhTlESQq3BVOFBj+I5U7qCWoPqc8McRkCHCj/HO37
-	wYCM8lzTCUOO1+xa6S7qdsty7Bz9Y001u/aEGNhEN0MWwRyzChqHO77FISrE8+wZANGxYWdrAiw
-	koXqWyeTaai5+UGR9hueLBP/xn7DwfD4XiVNIDhHmav0BvWaL/aYLKtKtfIjQSlA3s4HBr8sR5L
-	aRPl1PovYaYRE4A4HMyYEsyYZBbSctAkYcTS+zbretFEpnIARtMZhp3cMROH5yxsuvweu7ANaT7
-	kSNbnUlSuCcjODTVFYPcFI2Tp1AxgMKhVrrLMUJH2akSpZXNqj433WSuMsKrNlT/irq0xOVdaYF
-	rK80Ce86LAW8DmOSk9ew1b7jOSd+eFAOYH3bvERu8erkhsOX4LxE8aT3HiOgsSrn+DGnZ3n12aN
-	nhmUGlN8yP1IWVeDVtjEgwj/HtCWkNDZt3UZ7UiGM7SGOXqlcaViNJgNoAbtAZzyJ72JhtdC7Gn
-	rw01fGc/C+WZvhSlkvTSO6Bgs8haNPIABbz3K5B2kSCIY5JaI5/h3aRMhuvMnA0Ms7KhApf7ybM
-	fCMG+gpFw3gbbbYYNNmkjTud
-X-Received: by 2002:a05:7022:160b:b0:196:e254:db24 with SMTP id a92af1059eb24-1ac5c64cf5amr3818603c88.21.1793361127129;
-        Fri, 30 Oct 2026 04:52:07 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1abcd6f1sm6437304c88.20.2026.10.30.04.52.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 04:52:06 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Fri, 30 Oct 2026 07:51:47 -0400
-Subject: [PATCH bpf-next v2 02/22] bpf: Remap the verifier state through
- the patch list
+	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=pKP4IGB8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tqOLAhsfjnK+dKl5XJqkHEjd92xcfbtlI4lF9GnangWN40O6bEySPdIFrqRkCM5RwKVwMMXBSp/ozFrKry6Y9NzWkJzg3Y0HM5Q9mzi8JWTCLA6QEG3t9E3dqF6da8lETY39CioDo60iK5G+LGsdlneryfacZiHo8pElxaOCiVObvi+ekloMwP/S7y2f/Hj1MlGZB0uzhXf8KuYm9h/OARzjLb1B7pdJ7uNbhAHiNFwNbpXmNB2oskk6jpuCEjAH5oIDpSwIX1xkdSH2LzXLXO8Ng+ZHhv/5uEpoHOJhInwtznqPi0PIFXuojl1+6Os6qAiNB0yQ74pEOv/De9cdhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q8rIqYblFeV99dG9PhVoW2Snw3SxhMyVdgIeh/eqj20=;
+ b=IDTy+WJHeLy72Xm5i0mBJOvKciZsZYxLQe7m9ZhToakuH0A1nxnCckyeoCFrqdCQA+NtlIuhsfo8lZ0RTY/CffgMJOfpKrzgxfF7mAM4IzaT6t9iothC+cdNB6H6EVjIVe5uHpovt2qcCEvPTWptDsV9AqzA+pusm0gwZD2pR0SLw7Fg1R1Z1OniahrFktNPqJY+BZ447oS7rT5owyCvFiPmJxJcZ4T/Hw450mL44zK/wmy2uYgh3Ek547dqAncXGa8VgGPsZNF8Yf9P5KIcYsVMMsU17QAcXywXU6UQE2GLBftrqr42HCk5v5iHOrJ0Zo+wUL8eny1qCstaAmWVPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q8rIqYblFeV99dG9PhVoW2Snw3SxhMyVdgIeh/eqj20=;
+ b=pKP4IGB8VcbNu0TaQqg2NQ53RXdMiyYxkrTRmwRvPYJ+9e7bOc/LFUhd2fTpj2eLOvALUmwh+c8nTvdN91VfLjYGUonczAQKEtuCt3T+isjEJB7vyE18Rgqqd13Ql0NmGGjjNIe+u6mu5UHrqHJy/1m5pjBQNHLLJJKOqenRVdQbbqdNEaCUj8KcpFxVnd0hw6FlNTJkJtS7zx1/ehDjcSO+tPG95kkHtMmcKsWHRg7pms1o/tzozAjUuL+KSRrw1ecLQSZH+BJFx6KrIzPafi3uAY1Iy9+VhJsAf7Ohs58XbiLyy3zM+UrvBLOTnQTcNdk7BGLkjA6Ksh5BgmYJjQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
+ by SI3PR03MB10031.apcprd03.prod.outlook.com (2603:1096:4:2a5::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 11:51:58 +0000
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 11:51:58 +0000
+Message-ID: <d9086d80-229d-45bc-8681-24b9d98b4aa4@amlogic.com>
+Date: Fri, 30 Oct 2026 19:51:56 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 4/6] decoder: Add V4L2 stateless H.264 decoder driver
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
+ <20261022-b4-s4-vdec-upstream-v12-4-616240978792@amlogic.com>
+ <e7b3c2b2-8d0e-46cc-b245-a22f6aa7e69f@kernel.org>
+From: Zhentao Guo <zhentao.guo@amlogic.com>
+In-Reply-To: <e7b3c2b2-8d0e-46cc-b245-a22f6aa7e69f@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI3PR01CA0012.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:296::11) To KL1PR03MB5521.apcprd03.prod.outlook.com
+ (2603:1096:820:51::12)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,288 +105,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-bpf-verifier-patch-batch-v2-2-55cd43439f7c@gmail.com>
-References: <20261030-bpf-verifier-patch-batch-v2-0-55cd43439f7c@gmail.com>
-In-Reply-To: <20261030-bpf-verifier-patch-batch-v2-0-55cd43439f7c@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|SI3PR03MB10031:EE_
+X-MS-Office365-Filtering-Correlation-Id: b23517d5-9619-415d-48da-08df367c3382
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|921020|11063799006|4143699003|56012099006|261009223027099003|261026121527099003|261028144727099003|261026140227099003|261021121427099003|261022105027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	fDia0P+k2YUOiMQDqr2ao4pzQVuqf7669OAATfZqwvRN5U7rKoipsJm8s8QUB+0GFnRcoNmHgAGldXrwIayeIFRVsnQQk1SjC0ywIDDjLqNBZ9MTa0odLjoHdGpdiJ1e/v9gttJSms59qfokMp7XNYmRv/RlEmV8bHgQSTIg7GyyI9jJ/h7b2gB8wibiRp9zdKu4d5WF0fNNGd9pJfGT+ST7NJlY7Q31/4kOOPIRE4XH+hcQmsiD6uI3ePf/S1cmc+znDXW0ZgdlslSjBziWT2g/mVvmx1wDQ1DSAwwvAfIZyq2Rh41R4Jy4G2XYQ7piYstGYyKYUFOIUuBMCo0tfnpapWs+DqNq7ys41sZt7I2O01Nv6bKUDQIWBi8nv+Xzr8f9W61OCuRetBHKr51ONZt4HycB3wGcHV3mtdMoQaBMn0NkqZnMl1yz5LGXhh085ZLlUZ0Ki3NgbCpu4dDMD3LMG4L3i87yPzb97edRxX3KM3n8DItX8H2ePUV29clHoDgsOE1YdAoXXvuI2iZR4tX/+EcZ2scSmW0OkpD97v5i9I+ZMFvxQyQCXYERZX1QfzXmJX68j+aKQMTd7XRJAT4PdXo538R8+wLJu2P03KWtunpJmFIVxwy/3G0Vcl05QVewUxRSKRKwRf85KUcl0RlwGh+dIBpb6rQcaqMffbw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(921020)(11063799006)(4143699003)(56012099006)(261009223027099003)(261026121527099003)(261028144727099003)(261026140227099003)(261021121427099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MENoRXBNNkphZTFlZlA3VmRNbkVBOHhSamIyb1U1eWZqYUZ3ZGoxYzdKSE5p?=
+ =?utf-8?B?a3JxWExhTzFhL0xvTmV5cHpvZkErSXFKWnhyL3RWOTg0bmgwTHJ6aEJ1MFpN?=
+ =?utf-8?B?bjltM2I1Z3p3emhxdGNLT3BWZXMrY20vVHNaYzE1RzdWM2F2TmFQeXhIcnRJ?=
+ =?utf-8?B?d0VsanRuZzRVTXZLOUp4L1VNM3lwd09PY0poTVR6UlRDY2MzR3N2b0FJVWw4?=
+ =?utf-8?B?N25IQ2lhUm9JMU9qSHNwdHdhSFVnZ016YXg1M3d0QXVNaGtXL3hGRFhMT2FF?=
+ =?utf-8?B?eThta2JhLy9RQ2dzVUJZZGdoNjFPNG5LeUZ3bS9Bcng4N2R6V0ZBZ3B0T01K?=
+ =?utf-8?B?V2RnUTF4WXBXL1RmT0lrVnpUNEplU3F1MGIrVnBWVE1NN1ZnYlovUjVQMExB?=
+ =?utf-8?B?UGp2R28zR3RsMnI1NUFEWGNRVVhpNTY5ZWlmOCttTU5jTUpVSFVKMHNDSjdi?=
+ =?utf-8?B?eGEvQlNxVWEySS9KazhZYnV4L2lSU044aDlDbEIyUmFiN2xzUzJJVzhkU0Fh?=
+ =?utf-8?B?Y3FGWC9yQk4zS21JVEgyNWJ1bEwrbWJuYUFHcHRTQ1FmcWZLQUZpRGxQRTNS?=
+ =?utf-8?B?RmloeGJ0TjZValI5b2hZTUFoc3ZPM0FkeWwweXBUbTM4T2hDamkvaDFyREEy?=
+ =?utf-8?B?YnA1Z3BmWXJicGRrMVpwRlpCVVNnaThEMW92cUN1aXkxK3daQVFMUHZWN0I4?=
+ =?utf-8?B?UW9WT1JMK2F6dWxhcXVmandUMHlqVzNncG92UUtmZ1I4ai8raVE4QW5HK2or?=
+ =?utf-8?B?cFNRQlZWNFBPOG1HMFNJbWdjSWJuNHRQMVUzc2Q1QWVHeENYdjZMR0xrakh4?=
+ =?utf-8?B?SU9yMFM0U211ZEM1R1MxUE5IdjIyalppcU9tNVFpVTJXb005OXFRU21YTGNO?=
+ =?utf-8?B?cGdBeVQ1TGxtQ0I1SHlPNi85NWhmVnVFaXpLM1FIRHZiZm5JRHg4V2k0OTJr?=
+ =?utf-8?B?MzRUQytJbW03RkZIUU5aQmFKYS9JMyswdFY5dGt1Y1V2RzgwWTlMZWUxTFd6?=
+ =?utf-8?B?VmRGUGZ1SzYxUjIwY21wVVNsVTRwUUNObHBVRXRiZHhKd3FBakdMUUcxcGtU?=
+ =?utf-8?B?Qng0cWplczkyVENaOEZIZDRsZ1gyLy8ydGVqZEpqWHhyd3ZoZzVFYUhETWJm?=
+ =?utf-8?B?d0tFS1B2bU5OUkZpdkNNTklUd2dpYzlBTDRnaGtFU1gwNFBPWjVETllWaEw4?=
+ =?utf-8?B?bmdkaWlsdGhMSXJSQnExY1NEdW55MlB6ejd4dlp5VnkwR25UWUdhQ0IvajMw?=
+ =?utf-8?B?aEdXQlY5L1l4YjFVdWJBc3Z3Sk11SW1EVWxLV1d0V3I0WERCUkFlc0JkaTJI?=
+ =?utf-8?B?QXNUWlcwYkJaMlQwMURwRldpSmx3VEIzUmNFK2lOUVlqcHhXWTlRWVhKQlFx?=
+ =?utf-8?B?R3hHOTh2K2xPaFJzMDBud1d4N2hveThRYVlLS0F3TmRvSHZMNnRKZ1Ivb0h0?=
+ =?utf-8?B?eTZYbHAyektpcm9oNGRkNTljMlIyRUErQ2lmK1pXNEZNSk42NlY3cmkwNUlY?=
+ =?utf-8?B?UzY1ZXJIUkJOdGJNUG9mRlNKb201cmVxTWh4UjRkU2FCZ1hhd1d2OTBMcU1D?=
+ =?utf-8?B?YnlvNW5xZ1Y1ZUhRQS91TW16b2kvQXlBRjFxWkR1S3FTeVc3cjNLUnozVkpT?=
+ =?utf-8?B?M2pFVnN2N1RqQWRaSWh3bjZyRlhGc3pkZmNDTVVkNVBpdFFIalg3MjQ3dFE5?=
+ =?utf-8?B?Y0lzajI3ejB4a0Y1YzFwNzcvWTY2RzAvNjRDRWl5bXgzRElyeHJJR2dHS3Zn?=
+ =?utf-8?B?SmhCS04yY2I2MXlJWkNtTURKWUp2UWVId3p1Q2M4OG5qWDYyNkFBZ3FvVysy?=
+ =?utf-8?B?QjlpcWg3cUpCMmFycUw3QkUwZXF0NlB6enlLQ1ovMXA0V2liVlVuMUcyNDRX?=
+ =?utf-8?B?SEw3dCtrSEVoRTFjNzMzdDVXR1hiblFaNjBmalRoU01ZS0wwQXZrUWVDUmI3?=
+ =?utf-8?B?b3h4VmVuZkIxc0hXaXZkd1lTUjVqeGZtelUrSzhhT0N3TFRxaVBXSWpXdTRZ?=
+ =?utf-8?B?UHdoQU55SFQvOXJ0UkJxbjdQbStteFpyQmtjelAwQm1BVCtWS2FMVUtuYkV5?=
+ =?utf-8?B?MFJmK1BBd21JZFhHMSsxdEJMMDJWVlpYYUFvZTVjY21Xc0FnYXprdnRDcWtR?=
+ =?utf-8?B?cE9acnFFMGIzNTkrdWhrS2FyWCs3UFMwR0RadTJ0NTE2VVN0cklWaHdscEYv?=
+ =?utf-8?B?b0pSdkVGRDA1VmRjTDdpSjlvdEE3UitURm5Qd2hlb2Z6Mk5YK3JyTkZwcFIw?=
+ =?utf-8?B?Z0tYQjFVZ3VYMmwxNVRBbE5tZE5CQ0Q2bFBYT2VEZmR0a01KWG45R0dGbG9r?=
+ =?utf-8?B?QlJVZFZnaXJLa2EwdzdYK1ZCdHhWY3ZCcXJ1b2hoL1lVVm5lcFFydz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b23517d5-9619-415d-48da-08df367c3382
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 11:51:57.9313
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3t0cNg67Qyztk1sPMOLNGK/pdhrMs/UbWj0jKbqHrnYa6z4+RJkH+xXB0IKKFC00XaHka9UGKEicqegCGDuPRA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI3PR03MB10031
 
-Besides the program, the verifier keeps aux data for every instruction
-and tables that name instructions: subprog starts, function pointers
-and instruction arrays. bpf_patch_insn_data() fixes all of them up
-with each patch.
+Hi Krzysztof,
 
-The image that the patch list builds leaves them behind, so verifier
-passes can't queue their patches on it yet.
+> On 22/10/2026 07:27, Zhentao Guo via B4 Relay wrote:
+>> From: Zhentao Guo <zhentao.guo@amlogic.com>
+>>
+>> Add initial support for V4L2 stateless video decoder
+>> driver on Amlogic S4(S805X2) platform. In phase 1,
+>> it supports 8bit H.264 bitstreams decoding. Currently
+>> only progressive streams are supported.
+> Please wrap commit message according to Linux coding style / submission
+> process (neither too early nor over the limit):
+> https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
+>
+> You already received this comment, no?
+Thanks for pointing out again, I'll check carefully here as well as in 
+other places.
+>> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+> Anyway, several issues were reported here in separate threading.
+>
+> Best regards,
+> Krzysztof
 
-Add bpf_patch_list_add() and bpf_patch_list_commit(), which keep the
-list in the verifier env. Install the new image on commit and move the
-aux data, the subprog starts, the function pointers and the instruction
-arrays along with it, filling in the aux data of patched instructions
-the way adjust_insn_aux_data() does. Allocate everything before
-installing the image, so that a failure leaves the program and the env
-as they were.
+Best regards,
 
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
----
- include/linux/bpf.h          |   1 +
- include/linux/bpf_verifier.h |   5 ++
- kernel/bpf/bpf_insn_array.c  |  18 ++++++
- kernel/bpf/fixups.c          | 151 +++++++++++++++++++++++++++++++++++++++++++
- kernel/bpf/verifier.c        |   1 +
- 5 files changed, 176 insertions(+)
-
-diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index 580f89c450b55..9bb5e0c823627 100644
---- a/include/linux/bpf.h
-+++ b/include/linux/bpf.h
-@@ -4378,6 +4378,7 @@ int bpf_insn_array_ready(struct bpf_map *map);
- void bpf_insn_array_release(struct bpf_map *map);
- void bpf_insn_array_adjust(struct bpf_map *map, u32 first, u32 len);
- void bpf_insn_array_adjust_after_remove(struct bpf_map *map, u32 off, u32 len);
-+void bpf_insn_array_remap(struct bpf_map *map, const u32 *new_off, u32 cnt, s32 grow);
- 
- #ifdef CONFIG_BPF_SYSCALL
- void bpf_prog_update_insn_ptrs(struct bpf_prog *prog, u32 *offsets, void *image);
-diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
-index a56a996b3d953..49a6e443de75d 100644
---- a/include/linux/bpf_verifier.h
-+++ b/include/linux/bpf_verifier.h
-@@ -1154,6 +1154,7 @@ struct bpf_verifier_env {
- 	bool signature;
- 	u32 insn_aux_data_len;
- 	struct bpf_insn_aux_data *insn_aux_data; /* array of per-insn state */
-+	struct bpf_patch_list patch_list;
- 	const struct bpf_line_info *prev_linfo;
- 	struct bpf_verifier_log log;
- 	struct bpf_diag *diag;
-@@ -2061,6 +2062,10 @@ int bpf_jit_subprogs(struct bpf_verifier_env *env);
- int bpf_fixup_call_args(struct bpf_verifier_env *env);
- int bpf_do_misc_fixups(struct bpf_verifier_env *env);
- int bpf_insn_def32(struct bpf_prog *prog, struct bpf_insn *insn);
-+struct bpf_insn *bpf_patch_list_add(struct bpf_verifier_env *env, u32 off,
-+				    const struct bpf_insn *patch, u32 len);
-+int bpf_patch_list_commit(struct bpf_verifier_env *env);
-+void bpf_patch_list_free(struct bpf_verifier_env *env);
- 
- int bpf_flip_opcode(u32 opcode);
- u8 bpf_rev_opcode(u8 opcode);
-diff --git a/kernel/bpf/bpf_insn_array.c b/kernel/bpf/bpf_insn_array.c
-index 92bbb71576ae3..dbfcf1eddb91e 100644
---- a/kernel/bpf/bpf_insn_array.c
-+++ b/kernel/bpf/bpf_insn_array.c
-@@ -253,6 +253,24 @@ void bpf_insn_array_adjust(struct bpf_map *map, u32 first, u32 len)
- 	}
- }
- 
-+/*
-+ * Move each offset to new_off[offset], new_off[] covers [0, cnt]. Offsets
-+ * past the end of the old program only move by 'grow'.
-+ */
-+void bpf_insn_array_remap(struct bpf_map *map, const u32 *new_off, u32 cnt, s32 grow)
-+{
-+	struct bpf_insn_array *insn_array = cast_insn_array(map);
-+	u32 off;
-+	int i;
-+
-+	for (i = 0; i < map->max_entries; i++) {
-+		off = insn_array->values[i].xlated_off;
-+		if (off == INSN_DELETED)
-+			continue;
-+		insn_array->values[i].xlated_off = off <= cnt ? new_off[off] : off + grow;
-+	}
-+}
-+
- void bpf_insn_array_adjust_after_remove(struct bpf_map *map, u32 off, u32 len)
- {
- 	struct bpf_insn_array *insn_array = cast_insn_array(map);
-diff --git a/kernel/bpf/fixups.c b/kernel/bpf/fixups.c
-index f062ef7dd943d..0697f66b1ffc1 100644
---- a/kernel/bpf/fixups.c
-+++ b/kernel/bpf/fixups.c
-@@ -380,6 +380,157 @@ struct bpf_prog *bpf_patch_insn_data(struct bpf_verifier_env *env, u32 off,
- 	return __bpf_patch_insn_data(env, off, patch, len, BPF_PATCH_KEEP_TARGET);
- }
- 
-+/*
-+ * Queue the replacement of insn 'off' by 'patch[0..len)' until
-+ * bpf_patch_list_commit(), see __bpf_patch_list_add().
-+ */
-+struct bpf_insn *bpf_patch_list_add(struct bpf_verifier_env *env, u32 off,
-+				    const struct bpf_insn *patch, u32 len)
-+{
-+	struct bpf_patch_list *pl = &env->patch_list;
-+
-+	if (bpf_rewrite_must_abort())
-+		return ERR_PTR(-EINTR);
-+
-+	if (verifier_bug_if(!len || off >= env->prog->len ||
-+			    (pl->cnt && off <= pl->patches[pl->cnt - 1].off),
-+			    env, "insn %u patched out of order", off))
-+		return ERR_PTR(-EFAULT);
-+
-+	return __bpf_patch_list_add(pl, env->prog, off, patch, len);
-+}
-+
-+void bpf_patch_list_free(struct bpf_verifier_env *env)
-+{
-+	bpf_patch_list_release(&env->patch_list);
-+}
-+
-+/*
-+ * Fill the aux data of the 'p->len' insns at 'slot' from the aux data 'old'
-+ * of the insn they replace, the same way as adjust_insn_aux_data() does.
-+ */
-+static void patch_list_adj_aux(struct bpf_prog *prog, struct bpf_insn_patch *p,
-+			       struct bpf_insn *patch,
-+			       const struct bpf_insn_aux_data *old,
-+			       struct bpf_insn_aux_data *slot)
-+{
-+	struct bpf_insn_aux_data *last = slot + p->len - 1;
-+	struct bpf_insn *orig = &p->orig;
-+	u32 i;
-+
-+	*last = *old;
-+	last->zext_dst = bpf_insn_def32(prog, &patch[p->len - 1]) >= 0;
-+	memset(slot, 0, sizeof(*slot) * (p->len - 1));
-+
-+	for (i = 0; i < p->len - 1; i++) {
-+		slot[i].seen = last->seen;
-+		slot[i].zext_dst = bpf_insn_def32(prog, &patch[i]) >= 0;
-+		if (!memcmp(&patch[i], orig, sizeof(*orig))) {
-+			slot[i].non_stack_access = last->non_stack_access;
-+			last->non_stack_access = false;
-+		} else if (bpf_is_mem_insn(&patch[i])) {
-+			slot[i].non_stack_access = true;
-+		}
-+	}
-+
-+	if (bpf_is_mem_insn(&patch[p->len - 1]) &&
-+	    memcmp(&patch[p->len - 1], orig, sizeof(*orig)))
-+		last->non_stack_access = true;
-+
-+	/* indirect jumps to the replaced insn land on the first new one */
-+	if (last->indirect_target) {
-+		slot[0].indirect_target = 1;
-+		last->indirect_target = 0;
-+	}
-+}
-+
-+/*
-+ * Apply all queued patches in one go. Everything that names an insn of the
-+ * old image follows it to the new one, a patched insn is named by the first
-+ * insn of its patch, like with bpf_patch_insn_data().
-+ */
-+int bpf_patch_list_commit(struct bpf_verifier_env *env)
-+{
-+	struct bpf_patch_list *pl = &env->patch_list;
-+	struct bpf_insn_aux_data *data = NULL;
-+	struct bpf_prog *prog = env->prog;
-+	struct bpf_patch_image img = {};
-+	u32 i, k, end;
-+	struct bpf_insn_patch *p;
-+	int err = 0;
-+
-+	if (!pl->cnt)
-+		goto out;
-+
-+	/* Leave the program untouched until nothing can fail anymore. */
-+	err = bpf_patch_list_build(pl, prog, &img);
-+	if (err == -ERANGE) {
-+		verbose(env, "insn %d cannot be patched due to 16-bit range\n",
-+			env->insn_aux_data[img.bad].orig_idx);
-+		goto out;
-+	}
-+	if (verifier_bug_if(err == -EFAULT, env, "insn %u jumps out of the program",
-+			    img.bad))
-+		goto out;
-+	if (err)
-+		goto out;
-+
-+	err = -ENOMEM;
-+	data = __vmalloc(array_size(img.new_cnt, sizeof(*data)),
-+			 GFP_KERNEL_ACCOUNT | __GFP_ZERO);
-+	if (!data)
-+		goto out;
-+
-+	prog = bpf_prog_realloc(prog, bpf_prog_size(img.new_cnt), GFP_USER);
-+	if (!prog)
-+		goto out;
-+	env->prog = prog;
-+
-+	bpf_patch_image_install(prog, &img);
-+
-+	for (i = 0, k = 0; i < img.cnt; i = end) {
-+		if (k < pl->cnt && pl->patches[k].off == i) {
-+			p = &pl->patches[k++];
-+			patch_list_adj_aux(prog, p, &pl->insns[p->start],
-+					   &env->insn_aux_data[i],
-+					   &data[img.new_off[i]]);
-+			end = i + 1;
-+			continue;
-+		}
-+		end = k < pl->cnt ? pl->patches[k].off : img.cnt;
-+		memcpy(data + img.new_off[i], env->insn_aux_data + i,
-+		       sizeof(*data) * (end - i));
-+	}
-+	vfree(env->insn_aux_data);
-+	env->insn_aux_data = data;
-+	env->insn_aux_data_len = img.new_cnt;
-+	data = NULL;
-+
-+	for (i = 0; i < env->func_ptr_cnt; i++) {
-+		struct bpf_func_ptr *fp = &env->func_ptrs[i];
-+
-+		if (fp->xlated_off == BPF_FUNC_PTR_DELETED)
-+			continue;
-+		fp->xlated_off = bpf_patch_image_remap(&img, img.new_off, fp->xlated_off);
-+	}
-+
-+	/* NOTE: fake 'exit' subprog should be updated as well. */
-+	for (i = 0; i <= env->subprog_cnt; i++)
-+		env->subprog_info[i].start =
-+			bpf_patch_image_remap(&img, img.new_off, env->subprog_info[i].start);
-+
-+	for (i = 0; i < env->insn_array_map_cnt; i++)
-+		bpf_insn_array_remap(env->insn_array_maps[i], img.new_off,
-+				     img.cnt, img.grow);
-+
-+	err = 0;
-+out:
-+	vfree(data);
-+	bpf_patch_image_free(&img);
-+	bpf_patch_list_release(pl);
-+	return err;
-+}
-+
- /*
-  * insn was moved down by delta insns inside its own patch. Operands relative
-  * to the pc that point in front of the old position did not move with it.
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 5601d20562186..b6b120bf5433c 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -24158,6 +24158,7 @@ int bpf_check(struct bpf_prog **prog, union bpf_attr *attr, bpfptr_t uattr,
- 	if (env->insn_aux_data)
- 		bpf_clear_insn_aux_data(env, 0, env->insn_aux_data_len);
- 	vfree(env->insn_aux_data);
-+	bpf_patch_list_free(env);
- 	kvfree(env->fd_array);
- 	bpf_free_scev(env);
- 	bpf_stack_liveness_free(env);
-
--- 
-2.43.0
+Zhentao
 
