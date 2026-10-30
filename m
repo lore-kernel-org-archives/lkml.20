@@ -1,102 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793372580;
-	b=beNHvrX+WJyMELdVaZjCPH+JH2bn9p3EbS8RDyMa9QxvTC0RSmpk6nxqMAQTH2FO0YQJ
-	 VtmnXXO7YIizyMsnQkBpZnndERGHMrORZNHldNuvsCRHIja+HZXY7+xg40bkRAcx+Zju/
-	 JobyjUpIbW9JvCMOp/tBRkz8q9gzEPlETLGeo5ZhzdKXY1+vLCJ12NDoyRHTgdd82W0iy
-	 R4nC8s6Ch9Ths4e9tqGpO1FECGfpTgmSMNW+TrIqYeASFovqRGpRzXd4+2iv9u0wrg3BI
-	 EQXB4Q1bfqYjuhHAp/kTkozaqYp5jJczh0jC83nn7oJ4sHZMtMKsJ/c3/5fXeRfW0fw==
+	t=1793372616;
+	b=MJpZbZ/2K4Q+UpMmH9k5zsMt5vhi2SXIQzYcOtoa+imGcLM9IFyIhqacOkmOoDpVAVZO
+	 svskXiChsA8+G3mMVSmua0a7Evv48LByik2qW3kV8TIFUzngbsP//slGxQxs8gLYmrwvi
+	 j7jHb1+Z29lwK7WHXHPamqd2vuPQsG5nho4K5pyrYEZLeFze3wm3ao4gemrGtEGN7YevX
+	 dm+DRORzlY0tYudg6iPEOVqMl+pcY82sKqIYjiol82fd9Gyblzu7sQ4PoAhuPsLEKS16C
+	 yfs2Gw3b4KfzNl/ojZ5uzBezi4/1Rt127ofsCxM3JiM61izTsyIofGVjhVo/7UeJRQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793372580;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=LD3FTctKH+htDtI40/USwM/+YwDf042Qy6l0BgbuGzY=;
-	b=JsKr/WMTSXxFHx6ImcLKeJWGWyELF1er4b3L5ytdTw9aTtRAS7fetJM5WO/gSLkSAvQ7
-	 Ligk/ofn1HVe+G6i+40cSGsTpkgnNN5SrY7cEc6xjxL1GEA6FixtNo7qzwjAxevgwPSSx
-	 wPbpGscmo1AOs8s5idrUl+qTAkJHhkZhtaGQPhHbcgZSidhIbfokAPKprt3RVpt468YG5
-	 kiVZZo83o9h8CWN822ze7TvuhKFMcS90KCkfsAMralqhaXHzQq1fzpFvbH2lwTC99l1Cf
-	 xjcosYoVSZbGcHPSjJISacSlGv/bJf6p/g2civv8ZIo2+4HM1hjRAWjsldpAPb3yczA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793372616;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=QTCztadVnPDLO5Q1P4xWQoGulGldSFR4k9f3YLfcXVw=;
+	b=PZY3KZzdDIIK22eMVQsHLQiwFR3ggUpAtrDDXpG02Y1hDtc1iKTohHyM1wF8MyGWN0RP
+	 Xz3BE1pcIf8hhtWR3K3ly59g2+4UsOITKR3rgARa4dkuFOGqQl8+9kaBsxEo6+6T1U/3h
+	 2XxDRNNGnyTgl6cMzUvFeLsNTIfMiUALbMx9KQB22Ev1GEE8pStvg8be7r2ATancv70Sw
+	 3HJo/j/Y5YUtshCM7LRnu4tkS/ls0Y4UWFPGl1pyQqj6TkdVfF7T5wJO2INPDhu599frP
+	 BfTohN1TxzSxj901g+N+lzHjMsg+q3vi7MKBwWUrWtcrsWT/L2BWzyU2cQ7eHa/hI8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=wwfcN5xh;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ebU/nDzE";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB89606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:02:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDB89606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758DC606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:03:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=wwfcN5xh
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so6262745e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:02:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1793372577; x=1793977377; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LD3FTctKH+htDtI40/USwM/+YwDf042Qy6l0BgbuGzY=;
-        b=wwfcN5xhJxmJIEs/AzLSOKGoZTkD6+8NGP2qYbyNFhJ3ZePhPC12lXgsmIHSzpBzcO
-         71d0fBrr1/B0EVWRwTU4JSXXvJ/Wr1eHyWOr6vbvgmdkDIWvglRqf4i9q++G0XE3NJ8i
-         S2xNR+q8cf0+NqHemf9xQpAofRPyggoeqvaCmnZTKQtViK6XnkkmWIqV5NXQQ7TxzVF2
-         ZZ0TVZcs3kkfzqhYZ3v4MGg348nCq3l3bT/bwopwha2MLL2cYn1f5N9xcPZtRK96BFm0
-         9J6dNo27JRTdybTsDSGt55KhTK18zZR2Ab+2mEsVjSiKfFzKHINGh8jYyPI2Ol1FvCLG
-         s7kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793372577; x=1793977377;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LD3FTctKH+htDtI40/USwM/+YwDf042Qy6l0BgbuGzY=;
-        b=pOWJEru7Nkh/oTltfWsoXDpZnzkMbEu/JODzUklwuusc/0z5sSyctf8FdWb8ksm4v0
-         zJfVJmnpLqMqoDkrD0Casr2/FJ4+MxOlN9SKnVA9+pHLOoQNQf3ff3vdDxYzhGR18TDl
-         813S4Ti9emNif1sNwc99T3dGYwxHJS6+Oun2rrNiB9sB3jV/K3ARY3JUmtEybwKW1BCC
-         6KMccGWEv34VgL71YqVnCcI5nnryPVyYP/dbggT2c2XKf7ojjCFn0xubKW7IiYwBWJ2l
-         tTeuv1b9DIOIHoTfmMo8IAAewy50nM4mEErjhC8BOdVuSuK3lDrWjqrmRLFG3NQNhnXj
-         A5zA==
-X-Forwarded-Encrypted: i=1; AKwUvBygBwkVlmfZznaJMh9sGyAA9SlR9mc+aQW82fXLkvlcq8F8TnFIOpU8OheNmvKkEVjpeEIHn2q9cjIz4qw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmqj9q1fq5PZK9E1Pi3gc0DbUP/G7D3CLLsfwDPKlPjVQMlXGA
-	FhjJO0Lrxcq1Yt1Fv2j1MD4tFULZpeM9YqhXMR2a4HWga/St/JRvUDx2rRhU8Cd4f/w=
-X-Gm-Gg: AYBFou0YAVaSF18ELI/Ntqw/GBz9/XCltxzCKf8+oQp7gs72luwO9W9yIkx3SOfZ7Q6
-	CAASF7Ad99ILkhn/huECkpsftFSr4wfAwUeOI9Rl7QPSyQk6LggTxm8wcX8tB/GAHqjRkjtVXV+
-	UvGgPCSujTTBl8B2WEp+aQjFFHitsueKkx+ZX80YkIM9Rxuiv3sa4pTfwHJrESq1l32cNvhN25Z
-	Diw9k0KsJb7K6laHzXu1gAbZ9BADja6JDc0OYTYV8Yx5IqOORvPv7QHU4LaYb5OZlaExAEClPld
-	F/qcmuL/XQjNggOqAssEwZrmcnDKMDOijJzk8cusZ4a6Lbq0NDH+Qq+hQF/TeQYHGM6nrNWdkGc
-	m3mK6VHczOtXBSfKgXa8ukLskLGi/Wa8BQT3+WsQLKI4agKdeHlACYbccRTTXVzVF1XyeaXMit6
-	BLIFbsMqlvITVjy0XiSHG6qaqP2WjwgzCJkF2vMUwyJt0Ladn5tAQlYtSus6U71etmBQTUCuKQV
-	pyMx2I9k4Hf+9X0ZcHrwjQQJPSu4YHwW9jyv+gxtR6ijbs1+3XMrV52nqzRSOns2/VrEnxkv5wR
-	sT6VsgwhjTZ+GLRyg5S2CMKv9vPvtH1w8m97y16i
-X-Received: by 2002:a05:600c:a00d:b0:4a5:e6fd:65e5 with SMTP id 5b1f17b1804b1-4ac19705d57mr55863395e9.31.1793372577101;
-        Fri, 30 Oct 2026 08:02:57 -0700 (PDT)
-Received: from localhost ([140.209.217.212])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b81c74sm3623785f8f.36.2026.10.30.08.02.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 08:02:56 -0700 (PDT)
-Date: Fri, 30 Oct 2026 16:02:52 +0100
-From: Jiri Pirko <jiri@resnulli.us>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 14/20] attestation: Add the base family specification
- and generated files
-Message-ID: <auSxhgC30bubNJpI@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-15-jiri@resnulli.us>
- <179302367452.58760.3782556786585774917.b4-review@b4>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebU/nDzE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861AB1F000C1;
+	Fri, 30 Oct 2026 15:03:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793372616;
+	bh=QTCztadVnPDLO5Q1P4xWQoGulGldSFR4k9f3YLfcXVw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=ebU/nDzE1SfgcTju05a4ztkbC7ThUCGRO7bvAZ3rYh+MXukKBz/FK2WbqLKCXT/JZ
+	 ktiblM99x2ArKJ23EjtryOs6huBw06v0PxwH//NWrlfN7LKwbqa9zMOU1adQBS9LJi
+	 0NIFtvhs1NDd0KpUzCg9DrjozHDnPqQjD63d6N0K8XsUxNnE6hF6PR1b7ou6uyMEjV
+	 nhcuEA3mkDOgau6U5Bb7b9+Q9FWmr5Vg4kcF1CLLR/uhdN/Xq3C2G41em+b6v41fsh
+	 lI/MK+icLkmhHcJFFs7Ya2pfcw32080FeMt19eM8dght6RUJR0i336+xWlK9ODycLZ
+	 AHXLaCeaRVbLg==
+From: Christian Brauner <brauner@kernel.org>
+To: Alexey Gladkov <legion@kernel.org>, 
+ "Eric W. Biederman" <ebiederm@xmission.com>, 
+ Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Serge Hallyn <serge@hallyn.com>, Kees Cook <kees@kernel.org>, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261024015513.830312-1-nickolai@csail.mit.edu>
+References: <20261024015513.830312-1-nickolai@csail.mit.edu>
+Subject: Re: [PATCH v1] ucount: read the parent ucounts before dropping the
+ rlimit count
+Message-Id: <20261030-erbringen-bauordnung-hausrat-f5d26d8f2e70@brauner>
+Date: Fri, 30 Oct 2026 16:03:32 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,31 +62,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179302367452.58760.3782556786585774917.b4-review@b4>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-ce4c1
 
-Mon, Oct 26, 2026 at 03:07:54PM +0100, jgg@nvidia.com wrote:
+On Fri, 23 Oct 2026 21:55:13 -0400, Nickolai Zeldovich wrote:
+> do_dec_rlimit_put_ucounts() drops its share of iter->rlimit[type] and
+> only then loads iter->ns->ucounts. If the decrement leaves the count
+> non-zero, a concurrent caller can take it to zero and put the last
+> reference, which frees the ucounts and possibly its user namespace with
+> kfree_rcu(). An exiting task frees its pending signals without siglock
+> or any RCU read-side section, so when it is preempted between the
+> decrement and the load for a grace period it reads freed memory and
+> then decrements a counter through the pointer it found there.
+> 
+> [...]
 
-[..]
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
->> +++ b/Documentation/ctlv/abi/ctlv-attestation.yaml
->> @@ -0,0 +1,184 @@
->> +# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
->> +%YAML 1.2
->> +---
->> +# Checked-in ABI snapshot of the ctlv-attestation family, written by
->> +# "make -C tools/ctlv abi-update".
->> +#
->> +# The checker compares this family's declarations and inherited stub fills
->> +# against this file. Updating it is how a UAPI change gets reviewed; an update
->> +# that removes or renumbers anything, narrows a bound, or makes a placement
->> +# required is an ABI break, whatever this file says afterwards.
->
->Have the generator emit a line showing the original yaml file this was
->generated from?
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-Okay.
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-[..]
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/1] ucount: read the parent ucounts before dropping the rlimit count
+      https://git.kernel.org/vfs/vfs/c/38bf603d1ea5
+
