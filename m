@@ -1,55 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.244.123.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348774;
-	b=unfbsJEhGhxBNjXaiUsK073tBCjH5pZcIGTKnjv4PHaCsgYJ0xizROuEPpWir9nnd86G
-	 x9ooWfwvmb+1c2OEeqKoJE7WdrKvYALot5bOeatJEttvNX/9DJf6s3ESC30iY7yPz4S4U
-	 k4kf7SgbZ4cqpQbgu/0Gt52YMfHwltY2W3bc6wVb5tKqF/cH2gZldvBsB1Zf6P7jv/gwm
-	 LL+dOudfv8qimuEJGEZYTDvh5J+ySBzYotAJAbSMEjkZ+2nvzpn8t60dhJ6zEIJ99A9RM
-	 EKEweynQs9tfYxIf2LtljI0xLNIj/UVhFYi9saoHV4P9psccWhMgY10fETlZPVksM3A==
+	t=1793348759;
+	b=4b5kqAr8pylxSwOVUudF4gBRLLkGGUGH2totpUd8UWRSKeD784dRE+LwcAKy6UMkMp8m
+	 TGYjsRM51Mlx89l3orHsYedSfT6TgT/m1CnPs0nuHsnNasUuX8RYqIMeRGZTwbdNB41Jy
+	 g5fJ0j4fEeZ5za55PWm8vuC6fWFRStKqkCzPpXZG93doN+1U7XasB21K5+MtJuKnHOS8K
+	 mX3oxxNQqlHC2eaFZSHnlB+Hw9cjQOt9MbtuKkPpY/6yoAoVgj5yTV207kKAPOvRtLiHK
+	 4toKnlnb0viAmRPn+Wd5pYUFFGUzVkgmIwJYerA41FUd0R6fABmv/UIa37OA2si3DHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348774;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=aNXERptz7qTR+6t+3Qsay7S44BkYXF3Cv2liAKg/moM=;
-	b=VJBGEDrosb+ABKEqERxCZuvRafwt6weKQWeIX1yhDHsPj+EuijWoVRaWvljkokfY5gHd
-	 I50a3L5GF/9g0zxTg0TQFF1SNSKii3kQevRvzYYhw0iy0T+oLElz9E6c/RZ0VJeY/iQCO
-	 E/e9SWtGQVHzBGcGitQPryjB5cAdSObU+lAD4yEazXjRbvfHNKuuJ/SBYI4fFyauEpapD
-	 KXm9k8TRzGMvnGlEN92sZhmmwOJH2Yp55mc56jLm4eMLCTp4fmJlpgKAi+44LcBCly2lA
-	 CWOE6E6th4remPj9uKokIB/jk/O1QSKtDK5koOy0iPJGPSManr3tI5B8ac5zHA9Ustg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348759;
+	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-MTK;
+	bh=1LeFAfMU9NZYycu0fcvlcNgS70+2S/48cLLq8mOuriM=;
+	b=gNYOKcDH0xc06KkM/hHv5YQ9YlioM4ild/TOp4aw/5WBKAY9QHVWFNQVGigtZzsCGyAB
+	 t/G9XhbGTPlRIkTaMh4RmidlBouKTP/wC+ifJyCeH41i96tGLdZp6RfOdhnwOrvC7aLh7
+	 ntkoZ9xl+jPrAOBSjBJRB1//4mfrDz1HUoSPRXCSTZgYUjO0ZSBqUkoFbQboEG1JuHetb
+	 juhLqiQ5nzBrQF+/m26x8lBoBYF7BZ9gTxKBGMoQ6uw3ikMaUEoaW8sPRgrNAX/A7hWN+
+	 ipu2y+IyfpYf7aT2Sx++pvWLCAWr6l90WtIN0XO1RTVVsUS3LmOG0Hzql/jTrWlIIMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R6WFI+eF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mediatek.com;
+	spf=pass smtp.mailfrom=mediatek.com;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=f2SPwYlI;
+	arc=none smtp.remote-ip=60.244.123.138
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEF3606A335
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:26:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF7E5606A325;
+	Fri, 30 Oct 2026 08:25:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF7E5606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R6WFI+eF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1AA61F00A17
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:26:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793348761;
-	bh=aNXERptz7qTR+6t+3Qsay7S44BkYXF3Cv2liAKg/moM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=R6WFI+eFjQuCiLtMF6m/X2DqXL6K4cKlYw4jkM7/JLuUY/34IjcRjDW8EgXKUQ93J
-	 uFuP28d5QeKUEUQdT6vKfnFvzsGlX1yzxPg6CxiWQnr1iU/98P9xax32llM7ynUKpA
-	 8aYs8wgSetg/+j5O825YHGXA4zUlsxQ0ls3YDP+pC3/Pn8DTFr6W77+qZ9JlPk69av
-	 pDoc9RFM7f+APMqLN81e+ApLEO43BsKuhClMMmGq4JmavkH1uR3e7mu9hgJv+5UXNS
-	 oAVSp33TyZly90uP1yf0+mwf95+6BKNVjxIhuYKkfVqaf2JEEEpszW39DmJ4V+F3fg
-	 LejLFjVHZ7v2Q==
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-55e0090c580so124773b6e.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:26:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwJBEFI8cKOzoDAkSCvjFJvOVkEwE57WQFt8cR7Vt0ThNyeMNaBSqLi80aqM1G+9duopvqeOCzQrgY0fT4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRzyEqsXkSoRI9lN2I5S7lDFH//6t/4YMJ+AXuG1QQgJ+m/32S
-	YqwNzTcA+DMapDu0SbNB2ISN4bKJgeEhtEP9lV/+UoYeYkdCOtZLNPqx0LUewZ14rEDhILEorWA
-	sT24TE0fX9HB9MK+hozxZ/0OnPL3v7I8=
-X-Received: by 2002:a05:6808:1303:b0:4f8:65de:7293 with SMTP id
- 5614622812f47-5640dce8ea9mr1292336b6e.15.1793348761127; Fri, 30 Oct 2026
- 01:26:01 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=f2SPwYlI
+X-UUID: 85656318d43b11f1b1788b6acf885367-20261030
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=1LeFAfMU9NZYycu0fcvlcNgS70+2S/48cLLq8mOuriM=;
+	b=f2SPwYlIZ0fTcslgABBizYaqJDY42mTwU+3TP2GxoY+a4UZthl9KPcj5Z0pY9iWtzxU8ixVWg8wygJSARjEbLIZL6bjS2+TJyvYU8e2V7J+BRdV+Mlj5casnK3+sydc0grFmLNwCZaBn+ePiiJhTFD1SD4f9o8FfCw7EJ1HNp64=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.21,REQID:5fbc0e4c-8775-4527-a70e-2a7021e50c11,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:b0318ac,CLOUDID:58df246a-d611-4807-b4ca-f57cab7f3164,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
+	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 85656318d43b11f1b1788b6acf885367-20261030
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by mailgw01.mediatek.com
+	(envelope-from <chunfeng.yun@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 890868289; Fri, 30 Oct 2026 16:25:53 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Fri, 30 Oct 2026 16:25:51 +0800
+Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
+ mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Fri, 30 Oct 2026 16:25:51 +0800
+From: Chunfeng Yun <chunfeng.yun@mediatek.com>
+To: Mika Westerberg <westeri@kernel.org>
+CC: Andreas Noever <andreas.noever@gmail.com>, Yehezkel Bernat
+	<YehezkelShB@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, <linux-kernel@vger.kernel.org>,
+	<linux-usb@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>, Chunfeng Yun
+	<chunfeng.yun@mediatek.com>
+Subject: [PATCH 1/4] thunderbolt: add platform nhi driver
+Date: Fri, 30 Oct 2026 16:25:36 +0800
+Message-ID: <20261030082539.1208733-2-chunfeng.yun@mediatek.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261030082539.1208733-1-chunfeng.yun@mediatek.com>
+References: <20261030082539.1208733-1-chunfeng.yun@mediatek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,182 +87,325 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <6ae4102e.9c6421ad.36baac.0005.GAE@google.com>
-In-Reply-To: <6ae4102e.9c6421ad.36baac.0005.GAE@google.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Fri, 30 Oct 2026 09:25:49 +0100
-X-Gmail-Original-Message-ID: <CAL4WiipBVMi_fiSQVUAFxqcPVc5jR2BswOwA2iNmGFYE_sbyRg@mail.gmail.com>
-X-Gm-Features: AclHuK_c5K2Xa_OvjKUPQHstmR8REIAhrM_26qFbqmZZXQiExz0QuCddT3LTrwQ
-Message-ID: <CAL4WiipBVMi_fiSQVUAFxqcPVc5jR2BswOwA2iNmGFYE_sbyRg@mail.gmail.com>
-Subject: Re: [syzbot] [net?] memory leak in build_skb
-To: syzbot <syzbot+a3f21220cbbb6e14ee2e@syzkaller.appspotmail.com>, 
-	Steffen Klassert <steffen.klassert@secunet.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, jasowangio@gmail.com, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	pabeni@redhat.com, syzkaller-bugs@googlegroups.com, 
-	willemdebruijn.kernel@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-Le ven. 30 oct. 2026 =C3=A0 04:34, syzbot
-<syzbot+a3f21220cbbb6e14ee2e@syzkaller.appspotmail.com> a =C3=A9crit :
->
-> Hello,
->
-> syzbot found the following issue on:
->
-> HEAD commit:    65ba8f34ec88 Merge tag 'xtensa-20261027' of https://githu=
-b..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=3D1592353e58000=
-0
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=3Dfbf447a1375a1=
-948
-> dashboard link: https://syzkaller.appspot.com/bug?extid=3Da3f21220cbbb6e1=
-4ee2e
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for D=
-ebian) 2.44
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D142ee469580=
-000
->
-> Downloadable assets:
-> disk image: https://storage.googleapis.com/syzbot-assets/b4e738ce5f2b/dis=
-k-65ba8f34.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/1de9d1ecbbb6/vmlinu=
-x-65ba8f34.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/8a3d79b65181/b=
-zImage-65ba8f34.xz
->
-> AI-generated root cause summary:
-> In IPsec IP-TFS (XFRM_MODE_IPTFS) processing, when inner packets (includi=
-ng the
-> reused outer skb) are parsed and added to a temporary local 'sublist' dur=
-ing
-> __input_process_payload(), any error encountering invalid header data or
-> truncated payload jumps to 'done:'. At 'done:', packets on 'sublist' are =
-neither
-> delivered nor freed, and the reused outer skb is neither placed in 'defer=
-' nor
-> freed by kfree_skb(), permanently leaking the sk_buff and its attached se=
-c_path
-> extension.
->
-> full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=3Da3f2122=
-0cbbb6e14ee2e
->
-> IMPORTANT: if you fix the issue, please add the following tag to the comm=
-it:
-> Reported-by: syzbot+a3f21220cbbb6e14ee2e@syzkaller.appspotmail.com
->
-> 2026/10/28 09:56:01 executed programs: 5
-> BUG: memory leak
-> unreferenced object 0xffff888104c73c00 (size 240):
->   comm "syz.0.17", pid 5970, jiffies 4294947974
->   hex dump (first 32 bytes):
->     90 38 1f 02 00 c9 ff ff 90 38 1f 02 00 c9 ff ff  .8.......8......
->     00 00 6a 24 81 88 ff ff 00 00 00 00 00 00 00 00  ..j$............
->   backtrace (crc 84fdfeb5):
->     kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
->     slab_post_alloc_hook mm/slub.c:4733 [inline]
->     slab_alloc_node mm/slub.c:5033 [inline]
->     kmem_cache_alloc_noprof+0x35b/0x3e0 mm/slub.c:5047
->     __build_skb net/core/skbuff.c:495 [inline]
->     build_skb+0x25/0x120 net/core/skbuff.c:511
->     __tun_build_skb drivers/net/tun.c:1631 [inline]
->     tun_build_skb+0x489/0x770 drivers/net/tun.c:1726
->     tun_get_user+0xd2e/0x2040 drivers/net/tun.c:1860
->     tun_chr_write_iter+0x71/0x120 drivers/net/tun.c:2100
->     new_sync_write fs/read_write.c:595 [inline]
->     vfs_write+0x3ae/0x720 fs/read_write.c:687
->     ksys_write+0xa5/0x170 fs/read_write.c:739
->     do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->     do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
->     entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
-> BUG: memory leak
-> unreferenced object 0xffff888104d139c0 (size 192):
->   comm "syz.0.17", pid 5970, jiffies 4294947974
->   hex dump (first 32 bytes):
->     01 00 00 00 00 02 00 00 00 00 0b 00 00 00 00 00  ................
->     80 9f 7b 24 81 88 ff ff 00 00 00 00 00 00 00 00  ..{$............
->   backtrace (crc 420634a7):
->     kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
->     slab_post_alloc_hook mm/slub.c:4733 [inline]
->     slab_alloc_node mm/slub.c:5033 [inline]
->     kmem_cache_alloc_noprof+0x35b/0x3e0 mm/slub.c:5047
->     __skb_ext_alloc+0x1a/0x50 net/core/skbuff.c:7246
->     skb_ext_add+0x1a6/0x280 net/core/skbuff.c:7350
->     secpath_set+0x7c/0xc0 net/xfrm/xfrm_input.c:127
->     xfrm_input+0x381/0x28a0 net/xfrm/xfrm_input.c:571
->     vti_input+0xf4/0x160 net/ipv4/ip_vti.c:69
->     xfrm4_esp_rcv+0x46/0xb0 net/ipv4/xfrm4_protocol.c:104
->     ip_protocol_deliver_rcu+0x259/0x260 net/ipv4/ip_input.c:207
->     ip_local_deliver_finish+0x115/0x1e0 net/ipv4/ip_input.c:241
->     NF_HOOK include/linux/netfilter.h:325 [inline]
->     NF_HOOK include/linux/netfilter.h:319 [inline]
->     ip_local_deliver+0x97/0x140 net/ipv4/ip_input.c:262
->     dst_input include/net/dst.h:481 [inline]
->     ip_rcv_finish net/ipv4/ip_input.c:492 [inline]
->     NF_HOOK include/linux/netfilter.h:325 [inline]
->     NF_HOOK include/linux/netfilter.h:319 [inline]
->     ip_rcv+0x212/0x230 net/ipv4/ip_input.c:612
->     __netif_receive_skb_one_core+0xce/0x100 net/core/dev.c:6405
->     __netif_receive_skb+0x1d/0x80 net/core/dev.c:6518
->     netif_receive_skb_internal net/core/dev.c:6604 [inline]
->     netif_receive_skb+0x49/0x200 net/core/dev.c:6663
->     tun_rx_batched drivers/net/tun.c:1575 [inline]
->     tun_get_user+0x1ccc/0x2040 drivers/net/tun.c:2053
->     tun_chr_write_iter+0x71/0x120 drivers/net/tun.c:2100
->
-> connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
->
->
-> ---
-> This report is generated by a bot. It may contain errors.
-> See https://goo.gl/tpsmEJ for more information about syzbot.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
->
-> syzbot will keep track of this issue. See:
-> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
->
-> If the report is already addressed, let syzbot know by replying with:
-> #syz fix: exact-commit-title
->
-> If you want syzbot to run the reproducer, reply with:
-> #syz test: git://repo/address.git branch-or-commit-hash
-> If you attach or paste a git patch, syzbot will apply it before testing.
->
-> If you want to overwrite report's subsystems, reply with:
-> #syz set subsystems: new-subsystem
-> (See the list of subsystem names on the web dashboard)
->
-> If the report is a duplicate of another one, reply with:
-> #syz dup: exact-subject-of-another-report
->
-> If you want to undo deduplication, reply with:
-> #syz undup
+Add a new file plat.c to register platform NHI driver for MediaTek
+mt8901/mt8992 SoCs.
 
-#syz test
+Signed-off-by: Chunfeng Yun <chunfeng.yun@mediatek.com>
+---
+ drivers/thunderbolt/Makefile |   2 +-
+ drivers/thunderbolt/domain.c |  10 ++-
+ drivers/thunderbolt/nhi.c    |   2 +
+ drivers/thunderbolt/nhi.h    |   1 -
+ drivers/thunderbolt/pci.c    |  26 +-----
+ drivers/thunderbolt/plat.c   | 155 +++++++++++++++++++++++++++++++++++
+ drivers/thunderbolt/tb.h     |   2 -
+ include/linux/thunderbolt.h  |   1 +
+ 8 files changed, 169 insertions(+), 30 deletions(-)
+ create mode 100644 drivers/thunderbolt/plat.c
 
-diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
-index 103cf7c5dbfb..0313a43aa8a9 100644
---- a/net/xfrm/xfrm_iptfs.c
-+++ b/net/xfrm/xfrm_iptfs.c
-@@ -1182,6 +1182,7 @@ static bool __input_process_payload(struct
-xfrm_state *x, u32 data,
-                /* this should not happen from the above code */
-                XFRM_INC_STATS(net, LINUX_MIB_XFRMINIPTFSERROR);
-
-+done:
-        if (first_skb && first_iplen && !defer && !first_skb_partial) {
-                /* first_skb is queued b/c !defer and not partial */
-                if (pskb_trim(first_skb, first_iplen)) {
-@@ -1198,7 +1199,7 @@ static bool __input_process_payload(struct
-xfrm_state *x, u32 data,
-                if (xfrm_input(skb, 0, 0, -2))
-                        kfree_skb(skb);
-        }
--done:
+diff --git a/drivers/thunderbolt/Makefile b/drivers/thunderbolt/Makefile
+index beb054c3126b..9c941682f3d6 100644
+--- a/drivers/thunderbolt/Makefile
++++ b/drivers/thunderbolt/Makefile
+@@ -3,7 +3,7 @@ ccflags-y := -I$(src)
+ obj-${CONFIG_USB4} := thunderbolt.o
+ thunderbolt-objs := nhi.o ctl.o tb.o switch.o cap.o pci.o path.o tunnel.o eeprom.o
+ thunderbolt-objs += domain.o dma_port.o icm.o property.o xdomain.o lc.o tmu.o usb4.o
+-thunderbolt-objs += usb4_port.o nvm.o retimer.o quirks.o clx.o
++thunderbolt-objs += usb4_port.o nvm.o retimer.o quirks.o clx.o plat.o
+ 
+ thunderbolt-${CONFIG_ACPI} += acpi.o
+ thunderbolt-$(CONFIG_DEBUG_FS) += debugfs.o
+diff --git a/drivers/thunderbolt/domain.c b/drivers/thunderbolt/domain.c
+index 24611f05b3cd..bec7e6ebc4a8 100644
+--- a/drivers/thunderbolt/domain.c
++++ b/drivers/thunderbolt/domain.c
+@@ -881,7 +881,7 @@ int tb_domain_unregister_unplugged_xdomains(struct tb *tb)
+ 	return ctx.n;
+ }
+ 
+-int tb_domain_init(void)
++static int __init tb_domain_init(void)
+ {
+ 	int ret;
+ 
+@@ -907,7 +907,7 @@ int tb_domain_init(void)
+ 	return ret;
+ }
+ 
+-void tb_domain_exit(void)
++static void __exit tb_domain_exit(void)
+ {
+ 	bus_unregister(&tb_bus_type);
+ 	ida_destroy(&tb_domain_ida);
+@@ -917,3 +917,9 @@ void tb_domain_exit(void)
+ 	tb_debugfs_exit();
+ 	tb_configfs_exit();
+ }
 +
-        skb =3D skbseq->root_skb;
-        skb_abort_seq_read(skbseq);
++subsys_initcall(tb_domain_init);
++module_exit(tb_domain_exit);
++
++MODULE_DESCRIPTION("Thunderbolt/USB4 domain driver");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
+index e99a3fcc4a29..c0f9f1855e8f 100644
+--- a/drivers/thunderbolt/nhi.c
++++ b/drivers/thunderbolt/nhi.c
+@@ -1379,8 +1379,10 @@ int nhi_probe(struct tb_nhi *nhi)
+ 	device_wakeup_enable(dev);
+ 
+ 	pm_runtime_allow(dev);
++	device_enable_async_suspend(dev);
+ 	pm_runtime_set_autosuspend_delay(dev, TB_AUTOSUSPEND_DELAY);
+ 	pm_runtime_use_autosuspend(dev);
++	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+diff --git a/drivers/thunderbolt/nhi.h b/drivers/thunderbolt/nhi.h
+index 88af9ab9fde7..37c11de167ad 100644
+--- a/drivers/thunderbolt/nhi.h
++++ b/drivers/thunderbolt/nhi.h
+@@ -29,7 +29,6 @@ enum nhi_mailbox_cmd {
+ 
+ int nhi_mailbox_cmd(struct tb_nhi *nhi, enum nhi_mailbox_cmd cmd, u32 data);
+ enum nhi_fw_mode nhi_mailbox_mode(struct tb_nhi *nhi);
+-void nhi_enable_int_throttling(struct tb_nhi *nhi);
+ void nhi_disable_interrupts(struct tb_nhi *nhi);
+ void nhi_interrupt_work(struct work_struct *work);
+ irqreturn_t nhi_msi(int irq, void *data);
+diff --git a/drivers/thunderbolt/pci.c b/drivers/thunderbolt/pci.c
+index 4408229d8ac7..91d236300703 100644
+--- a/drivers/thunderbolt/pci.c
++++ b/drivers/thunderbolt/pci.c
+@@ -715,7 +715,7 @@ static struct pci_device_id nhi_ids[] = {
+ };
+ 
+ MODULE_DEVICE_TABLE(pci, nhi_ids);
+-MODULE_DESCRIPTION("Thunderbolt/USB4 core driver");
++MODULE_DESCRIPTION("Thunderbolt/USB4 PCI host interface driver");
+ MODULE_LICENSE("GPL");
+ 
+ static struct pci_driver nhi_driver = {
+@@ -727,26 +727,4 @@ static struct pci_driver nhi_driver = {
+ 	.driver.pm = &nhi_pm_ops,
+ };
+ 
+-static int __init nhi_init(void)
+-{
+-	int ret;
+-
+-	ret = tb_domain_init();
+-	if (ret)
+-		return ret;
+-
+-	ret = pci_register_driver(&nhi_driver);
+-	if (ret)
+-		tb_domain_exit();
+-
+-	return ret;
+-}
+-
+-static void __exit nhi_unload(void)
+-{
+-	pci_unregister_driver(&nhi_driver);
+-	tb_domain_exit();
+-}
+-
+-rootfs_initcall(nhi_init);
+-module_exit(nhi_unload);
++module_pci_driver(nhi_driver);
+diff --git a/drivers/thunderbolt/plat.c b/drivers/thunderbolt/plat.c
+new file mode 100644
+index 000000000000..85a00cd391d4
+--- /dev/null
++++ b/drivers/thunderbolt/plat.c
+@@ -0,0 +1,155 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Thunderbolt driver - NHI driver (Platform bus specific implementation)
++ *
++ * Author: Chunfeng Yun <chunfeng.yun@mediatek.com>
++ */
++
++#include <linux/acpi.h>
++#include <linux/interrupt.h>
++#include <linux/errno.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/slab.h>
++
++#include "nhi.h"
++#include "tb.h"
++
++static int nhi_plat_init(struct tb_nhi *nhi)
++{
++	/*
++	 * avoid device link fail for pcie tunnel
++	 */
++	pm_runtime_set_active(nhi->dev);
++	pm_runtime_get_noresume(nhi->dev);
++	devm_pm_runtime_enable(nhi->dev);
++
++	return 0;
++}
++
++static irqreturn_t nhi_plat_isr(int irq, void *data)
++{
++	struct tb_nhi *nhi = data;
++	schedule_work(&nhi->interrupt_work);
++	return IRQ_HANDLED;
++}
++
++static int nhi_plat_init_irq(struct tb_nhi *nhi)
++{
++	int ret;
++
++	INIT_WORK(&nhi->interrupt_work, nhi_interrupt_work);
++
++	ret = devm_request_irq(nhi->dev, nhi->irq, nhi_plat_isr, IRQF_NO_SUSPEND,
++			       dev_name(nhi->dev), nhi);
++	if (ret)
++		return dev_err_probe(nhi->dev, ret, "request irq failed\n");
++
++	return 0;
++}
++
++static void nhi_plat_exit(struct tb_nhi *nhi)
++{
++	devm_free_irq(nhi->dev, nhi->irq, nhi);
++	flush_work(&nhi->interrupt_work);
++
++	pm_runtime_put_noidle(nhi->dev);
++	pm_runtime_disable(nhi->dev);
++	pm_runtime_set_suspended(nhi->dev);
++}
++
++static const struct tb_nhi_ops nhi_plat_default_ops = {
++	.init = nhi_plat_init,
++	.shutdown = nhi_plat_exit,
++	.init_interrupts = nhi_plat_init_irq,
++};
++
++static int nhi_plat_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct tb_nhi *nhi;
++
++	nhi = devm_kzalloc(dev, sizeof(*nhi), GFP_KERNEL);
++	if (!nhi)
++		return -ENOMEM;
++
++	nhi->dev = dev;
++	nhi->ops = &nhi_plat_default_ops;
++
++	nhi->iobase = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(nhi->iobase))
++		return PTR_ERR(nhi->iobase);
++
++	nhi->irq = platform_get_irq(pdev, 0);
++	if (nhi->irq < 0)
++		return dev_err_probe(dev, nhi->irq, "get irq failed\n");
++
++	return nhi_probe(nhi);
++}
++
++static void nhi_plat_do_remove(struct platform_device *pdev, bool reset)
++{
++	struct device *dev = &pdev->dev;
++	struct tb *tb = platform_get_drvdata(pdev);
++	struct tb_nhi *nhi = tb->nhi;
++
++	/*
++	 * On system shutdown/reboot force a host router reset so the
++	 * CM asserts DPR on connected tbt3 devices before the router tree
++	 * is removed (see tb_stop()).
++	 */
++	if (reset)
++		nhi->host_reset = true;
++
++	pm_runtime_get_sync(dev);
++	pm_runtime_dont_use_autosuspend(dev);
++
++	tb_domain_remove(tb);
++	wait_for_completion(&nhi->domain_released);
++	nhi_shutdown(nhi);
++}
++
++static void nhi_plat_remove(struct platform_device *pdev)
++{
++	nhi_plat_do_remove(pdev, false);
++}
++
++static void nhi_plat_shutdown(struct platform_device *pdev)
++{
++	nhi_plat_do_remove(pdev, true);
++}
++
++
++#ifdef CONFIG_OF
++static const struct of_device_id nhi_plat_of_match[] = {
++	{ .compatible = "thunderbolt-platform" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, nhi_plat_of_match);
++#endif
++
++#ifdef CONFIG_ACPI
++static const struct acpi_device_id nhi_plat_acpi_match[] = {
++	{ "ACPI0015", 0 },
++	{ }
++};
++MODULE_DEVICE_TABLE(acpi, nhi_plat_acpi_match);
++#endif
++
++static struct platform_driver nhi_plat_driver = {
++	.probe = nhi_plat_probe,
++	.remove = nhi_plat_remove,
++	.shutdown = nhi_plat_shutdown,
++	.driver = {
++		.name = "thunderbolt",
++		.of_match_table = of_match_ptr(nhi_plat_of_match),
++		.acpi_match_table = ACPI_PTR(nhi_plat_acpi_match),
++		.pm = &nhi_pm_ops,
++	},
++};
++
++module_platform_driver(nhi_plat_driver);
++MODULE_ALIAS("platform:thunderbolt");
++MODULE_DESCRIPTION("Thunderbolt/USB4 platform host interface driver");
++MODULE_LICENSE("GPL v2");
+diff --git a/drivers/thunderbolt/tb.h b/drivers/thunderbolt/tb.h
+index e86845762e22..6dfdc47e05d2 100644
+--- a/drivers/thunderbolt/tb.h
++++ b/drivers/thunderbolt/tb.h
+@@ -768,8 +768,6 @@ extern const struct device_type tb_retimer_type;
+ extern const struct device_type tb_switch_type;
+ extern const struct device_type usb4_port_device_type;
+ 
+-int tb_domain_init(void);
+-void tb_domain_exit(void);
+ int tb_xdomain_init(void);
+ void tb_xdomain_exit(void);
+ 
+diff --git a/include/linux/thunderbolt.h b/include/linux/thunderbolt.h
+index 57502da29080..212c8fea6571 100644
+--- a/include/linux/thunderbolt.h
++++ b/include/linux/thunderbolt.h
+@@ -532,6 +532,7 @@ struct tb_nhi {
+ 	u32 *interrupt_mask;
+ 	bool going_away;
+ 	bool iommu_dma_protection;
++	int irq;
+ 	struct work_struct interrupt_work;
+ 	u32 hop_count;
+ 	unsigned long quirks;
+-- 
+2.43.0
+
