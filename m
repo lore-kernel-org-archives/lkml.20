@@ -1,48 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793360870;
-	b=VupOX8ltJICBamcKKdm9QLPo1F+ASks6QqhIEpkFzDI8Ug+Q5YWF2dz+LSUnlirZAfD2
-	 lrulXqeVRigIpvZOh/hO36eVJlLKbOKsUzln6e161/N8cfVXSmBpxFyjACuBRxn79LVDw
-	 ARuX3YNDUjBmOnMiOOtF8HMvSukeUC6d/PaDZT2MCytFjtqXGl/sg4wOu9YmneCYW2U3j
-	 WM2hc+vr3sQOqWfL3OMogNPiPlQ4qGOvL87Vs8y8KrhSLd3KKSYZJ9f3fVxYsAV3evUcu
-	 srwhPZPRJPpMDn1is8N4zwjENd1HX49VDW3UfRm7HmR8B1zIrPkqpheB6b0LYiSgmpg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793360870;
-	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
-	 To:Cc:Subject:X-Priority:X-Mailer:X-CM-CTRLMSGS:Content-Type:
-	 MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=6VUi2opMTStPbB4YCMM40i93SZT5LSQM5Gwxt2tL9Cs=;
-	b=Cc/pNQV7clzCizBB46jgOvxjsCtrmnJe9vqgwQmst67Nc1cyxX6AotEWf07kx3a2TBwC
-	 uFVwdpHyNcFjNURE8ZVVIT+VA9nXXzsjwOjj1iJD1t6LHYfkQ7QhivSb/QMhSCca6F4er
-	 EAQO74WLkWUhPh1eqE6dIXYIBNLgN9GCXQ3YYcx9kjel5XvmnFS4MRkJweqqlVPlse7O+
-	 vSs+cYFAEGQTj+2LNOWSJAgv7Dj9YUUJRBztMzUYyCM4sTp7o1Hjvthxw0jvggRbqsx2H
-	 CQJAm5H8gGl1x8W5W9pUUcO78/kIOn9mMHtX0UAC4yPPEQYo3EyHZO4yMoSqGiFH1sw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C8400606A329;
-	Fri, 30 Oct 2026 11:47:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8400606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from xuhx$hust.edu.cn ( [10.12.190.107] ) by ajax-webmail-app2
- (Coremail) ; Fri, 30 Oct 2026 19:47:46 +0800 (GMT+08:00)
-Date: Fri, 30 Oct 2026 19:47:46 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
-To: akpm@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: lib/genalloc: gen_pool_destroy() frees chunks with no RCU  grace
- period while every library reader is an RCU reader
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
- 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
-X-CM-CTRLMSGS: =?B?vm1qkTiH6nJ5xwDR7hwMki1N8jM=
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_367984_1446829336.1793360866674"
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.65
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793360875;
+	b=13tPtKYWB48gS/zB3o4jkoYWabWSUEgMcgcxx+Iea4sFwnRyUc1Y/OUW/wMLZ1ET0hjz
+	 UXmdNYGRDbVNGL0dvRjtaxPXPhJPoN2EdGWMDAOi8In16RuurA2RQ63d7Q1dtOCYA5QZu
+	 7XGTxSLwCKl9xPfcHL06hfZK+rkVceIZVvn2Hdx2Id8ufxDdR6DRK/uLkbwvB6v1BFWEY
+	 Pv8TJmkUQT44x8gFeBXY2RfByt3t+DoZajJshLJgcQl4LzU7CAJp8cpQpUDdliXeoPF4c
+	 sOz0r77tfnJAwK6Y77pEfTEJleB72gis0LTlNpym0FR+zZ/Hd5c+9OPA+YAFSu+idvQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793360875;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=UmH65B6EO530OcWorUFAwiJaTkRj4JGJci1sXxK7Yxk=;
+	b=LQSEt9jwraB/ub0Bqs59fp6ZPkZ/RLFt8g5pum7kJYXJeIjzJ+9gx3wB+Wd8CSgaUv5K
+	 Y3vyFge4Xq2eNjSTdup6Hi0ey5kAuoezIjcdbazd7DbdKUGxX1H35BfaUtiqqg9YcKGep
+	 0rj4bywDhzHYO7p3nmr9L6LPU2OBhBmmHPULNX1tyt2K6Gni+gtyRdbvqS7udgv21CZMM
+	 Hh1nnt2r75SYs+8Cw4zBDQjsFK/nY9/rgasvwIc3FvKpg/EwXMWhx6VgatQ+tAK9TSpMN
+	 YgPW1C5trb4pZk6cgbcRhOOi/YZejONxjUTPGQA3kbqnu8++sXwjH0ktG8hAiFxl0Ig==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Q5sOLasJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.65
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011065.outbound.protection.outlook.com [52.101.62.65])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3218606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:47:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3218606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Q5sOLasJ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KIICaf/NFuTwy3BRxzeVY46W2rQiPCuEeaNU1f1Ub9uG11GQHcRkhkQhuQUmcHuolKJdJ2Y61ecn3t5ivYPGC5SLrQWHSqxB24qOnqaWW8CfxcgE7l92YXa8X5sh40nj+3/6Nu0lhdT0sXhV4lnJzjPOLoKgb26+bdyURKlMrkPLYPo3JUsDAofmegnCLd6Xsqr1cDl3uTUOeUdJtNQJI3jCGoiKLt5cZZ15UV2muTY4DdI2jU0Y5rUaoYDj+91pio6p/o1rc/UbmZtpKSbWZ1cBt20zGsEDHzfTOuxL3wq/ab7APP4tX003u2iiyjRskWK+QnCQzHBA8QVMkg+dtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UmH65B6EO530OcWorUFAwiJaTkRj4JGJci1sXxK7Yxk=;
+ b=E+RpKx+L2t/OrUgdVMedONysmmlX+pb35sWzFJi9IOFl69+Y9ZO8/uc7Tebfk9D2odRODq9SyHnCthiTTeQMaotrkVolEdK7faLmjG3zWh1poAiNRLHxvWELXN/ceKTdTtody1HnNGSkceLWIedGbKkaP0siKhJqfoRRfYo0/g+ou4J20RrXNwZ05JU7HPrazx7uk6XWynBMLHb1sxk7qWRPIOmRfo+IsPwk8QjAYlgtq+5Pcksr9w9I/sHk67nzXSSuhMiNTsB8cWYTVclKsBMhA7egutFLmiSoKOpXRo2O90OXHa9iIu+nomMbs3oCZvG7wjIPIxXtCrrA3KaG/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UmH65B6EO530OcWorUFAwiJaTkRj4JGJci1sXxK7Yxk=;
+ b=Q5sOLasJCgPvEH42EXKYHg7+znF2GPP26kUzl4oss6dBvZ/sQpnqxzWpAyyOhfVE0rPQSyH4A9rlcMRQ0lEZrkNgPhReGGLtGT4W4ILiWpe5c6oMpDNMbkWAFI590f4nsBRN7/yCemUN/zlNB++N5PGDx8diLrRZxfmHLtyLccA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5354.namprd12.prod.outlook.com (2603:10b6:408:103::22)
+ by MW4PR12MB7015.namprd12.prod.outlook.com (2603:10b6:303:218::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 11:47:43 +0000
+Received: from BN9PR12MB5354.namprd12.prod.outlook.com
+ ([fe80::7ae3:c4f2:733a:50bd]) by BN9PR12MB5354.namprd12.prod.outlook.com
+ ([fe80::7ae3:c4f2:733a:50bd%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 11:47:40 +0000
+Message-ID: <8154f817-b401-41b1-9800-dcd639fb03f6@amd.com>
+Date: Fri, 30 Oct 2026 17:17:34 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] misc: amd-sbi: Fix use-after-free on driver unbind
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, arnd@arndb.de,
+ naveenkrishna.chatradhi@amd.com, Anand.Umarji@amd.com,
+ Prathima L K <Prathima.Lk@amd.com>
+References: <20261026113910.1003008-1-Akshay.Gupta@amd.com>
+ <2026102651-prideful-finance-b60a@gregkh>
+ <dae36cea-b00a-4b3c-aa79-d82bfbb67f3e@amd.com>
+ <2026102842-jam-demanding-7ba3@gregkh>
+Content-Language: en-US
+From: "Gupta, Akshay" <Akshay.Gupta@amd.com>
+In-Reply-To: <2026102842-jam-demanding-7ba3@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0180.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1a9::6) To BN9PR12MB5354.namprd12.prod.outlook.com
+ (2603:10b6:408:103::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,205 +100,264 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <4aae234b.1ae67.1a18ca32d72.Coremail.xuhx@hust.edu.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:IQEQrMCWvXbig+RqRItmAA--.5867W
-X-CM-SenderInfo: bgsqjkayqyjmo6kx23oohg3hdfq/1tbiAgIQB2rjce18VgACsq
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkKw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5354:EE_|MW4PR12MB7015:EE_
+X-MS-Office365-Filtering-Correlation-Id: 327d5d6b-41c5-4f37-68f7-08df367b99e9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|4143699003|11063799006|56012099006|261009223027099003|261026121527099003|261028144727099003|261026140227099003|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261022113327099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	BemtsfT4GglQ24I7RnI++xK4AErCStHchTYx0HCZHX2XmuciQ90j6Hq/5J3aEVlHlrooG/CNc5vXLD4wznfcy/iJXY4/Sy/h8SCOm153ikEChk0775IcJQCU5pt1zbJCE9SoyEK2l/83hhc4B+c26FnO+06Lh3CizbKIJ0jQMES/jAc1loN/jM8sbs6VA2WYPtBZ6Ry5HuLk8szGJHLPIeQnW9yMc0I/RSUEOMoYq+6dQ2AHv0RCmRDmRnrSYRd5HVzo7L59NzStUnNoVlMpRWPnGiLa2aRKEMbmmNfcpDSnFCkWdjq3hoNkG/BuibKhPxsab+nadoJHdbjFNciYCot69gFMGTcZO2k3LSzFSoaQ7ad26SGUQ37FakZZqzdm1Klluv1UwwZN8jENGN+goRnUAwA/poD3GYoWcgqO/ghGoF2EV8R+X2HhzJdBHvYvCdIPKYfF5/tUB1FtkWz4E4VJzlskfRU9r8bwf4dhX8hBucNR9rgxC0WMSrziUMBIQAdRu6r0awGdOsM8zJTnwaHYOZA1cexSFBYip+Xxk2+s2ogk1A5WNl/Uw7atvA8l/GXjT9v+NLOPdmgGDqUrtKtNwSwO0DStW/czd9TWFUvMVkqcUIa4xA5JfV30tlV+mVErEEWXdBfekGI+vndoDkAIdIvx91lgkLQZB+w6H9o=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5354.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(4143699003)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261028144727099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261022113327099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TG9WRGUxcWIyZzVZTmRLdnUvQ1M1U3YyVjhvZW1zcXFSMVV2dWtVdnVvYWpR?=
+ =?utf-8?B?Nmg5UmkxL1NMTUN3YlZaQ3k4V2lmaVh4NXFseG9xN25uOFdwaWRIK293UFFn?=
+ =?utf-8?B?SnpKTU42VkhocmVyU2wwd1FVVG0vRFBVSWRzUC84VTNpNFlGbEpjM1FXdHdK?=
+ =?utf-8?B?YWxESitEZGRoYXFLSnc0b24rMTdPbTd5NDlFRVlSL0hQeWRYbDlNTUdGazAw?=
+ =?utf-8?B?bkxRbGpycU1va2FXZ0RncjNudEM5bkxKby9LZjlxYkQ2ZEJ0bW8xa0g4c21C?=
+ =?utf-8?B?QjE0ZUI1MElxY3dHNXBmaEwydzlZNm1mb2dNbWU5TXdFN3ZpYzB5MkFDelRl?=
+ =?utf-8?B?SDJTeWxBNkVLcmtOTVZVWFk1M3ZjUGQ5b3lGQURDTnI2ZHR4cUlCb2c5TXVa?=
+ =?utf-8?B?OUVYQ3dXSkE0Y2dvbXpDc0UrbU8vMk9ZQ1NJSlI0QngxVmdvOUNXY3REMjc0?=
+ =?utf-8?B?eUJDT2JJbkZYcDlQbHNaWmJVZ21ReldXQmF2Y3JEM0w3MjdlQUZDZllQQytu?=
+ =?utf-8?B?M2pMTDNwWTJoRUdFamJyZnMyamxMQndrRE43OHdQNnlsQmdwT0trSVBpeVda?=
+ =?utf-8?B?VW95TUJ0N2l6RXVkU0FYSG5UbFBHMmJxOE1KMUFGVUlGYWxYSVdOMUpoRjFs?=
+ =?utf-8?B?U3ZtekRRRnFTM2VQWU5PSU8xaTY5TUVKcW5yR3dCN0hobGVnb3lTN2VzUVZU?=
+ =?utf-8?B?S0tLV3QxVkoyLytYNHZNVnZrK2JNQzBmbTllcmZUeUZ3OHVRMUhIU3hXdGcz?=
+ =?utf-8?B?SVVZODc1VGtFK1RSak1adHZFU25Bdk0rUXc0TzdtMVhIMll4YWduU1FsRUVx?=
+ =?utf-8?B?VzllS2ptZnZGbkZvZ2N0R1o1czFoQ2FXRzdlMDFqdE42bUxCbUt5ZElnczk1?=
+ =?utf-8?B?aVhKREhsZStmdERmaDRqWktCS1J4bEJQZmhDUU52cTdlM1lvT1hzNUhCbnpV?=
+ =?utf-8?B?RzNoSWNRYXhnZUFKZ2FQYkNkSDNsUnhDekJZNDMxOURRK214WmZhUzJENnFF?=
+ =?utf-8?B?TDd2V3hZSUtUK08rZ3lQQzgwNjgwd2pvNk9VaWg0eUt4clRaTkl4bmNwK0Jm?=
+ =?utf-8?B?RXdWYmhOWUFSQjhFVHFYNm1COFFvdDRTUU1wcWdoT1dCZDdnWk1EdUZsVzda?=
+ =?utf-8?B?d2YrRktIVW1Ndyt4MkFpblo4UzMvZ0hYMjVOTVNyV3dQeDZJUnRIMGNsZmFs?=
+ =?utf-8?B?L1BONlBPU0xha052cGYzb053YThLY2UzaFIzZTNjdXFHSmJpby9lUVlCeVJj?=
+ =?utf-8?B?T1FYSGhiVnNybjg1SGQzYUJtSkNMQ0YySXB3aEE5ZXAxNlliNWwrVHVycDVV?=
+ =?utf-8?B?OUhRTDBNT0V3alJaY2kzSWhHcUNrQnludjJpRnloeWRIYTM0Z05tWUNZblJR?=
+ =?utf-8?B?U1VFYXZ6M3ZNcDhza1hYTzBqeE1IUkNjaEo0VDJ4djhEZzZjY1JhanAvcmpX?=
+ =?utf-8?B?cjlra1NlZmRpTzJ2Ky80dU0vZ2kyeFVnMTNHTnBSTWo0TW5yWDcyWGdMdEkz?=
+ =?utf-8?B?TnlzanpiUnoxeVZ4ZFZDYXYzUFYzRHFnbFUrcDBUKzkzWmtsZE1rQnh5NHNX?=
+ =?utf-8?B?SFpJbWdwZnZmYVVtdlUzNTZ4UWNMN01pSkpTUlZYdXphaUxMZVgzYVdPSkJS?=
+ =?utf-8?B?Zlhlb1hmbmpDNWJRSGVtSTZIRDAyYWxuSHdVWE9TWmZmSW13bVdYSGxqVm9m?=
+ =?utf-8?B?TW93Nzdlbk8zSUcyeXM2ZjkzUm4zcURpL1FaVTZIemcyL01RTi9SL2o5M2Q2?=
+ =?utf-8?B?cWFaNkdKVFpyaXhteTJvUVZzSlk1VXBoNktMdnFzUGNKZHdtc1Q4YVFxditV?=
+ =?utf-8?B?TllCczVVRURFcFhwOTlTS1MxSGhKdG9VQmk2RXVqc09BOGpOZnM0cFdwK2Na?=
+ =?utf-8?B?RE5GcU5OYUxRUGxlN2d1V0had0dLTXRuSk4zRDc2RFVER3hWa0UvT2wzVWpz?=
+ =?utf-8?B?OE5PbE5JUWdMQzVrcG1aYmV6TE5SWEYrbmxFYnFlVCtzUThnVGhNWUVnZlh4?=
+ =?utf-8?B?dUlHVW9tWDZaZ213OEoramU2M0FlTjNTRVBLdS9rbGExSkZ3T0N6VjF6Zkxw?=
+ =?utf-8?B?Q29wSURUeDNhSU5wUUNhaWFIRndRSlplNi81eDd5MFl4WDB1YUgvTGdObHE4?=
+ =?utf-8?B?cXpqMUVyUTBlRHRMYllROUNPSVFPckQyOHFxNlhlYlY4eEJqMS9vMm82a3l6?=
+ =?utf-8?B?eHZNOGhTTmpwTGxkWXhXQ2JGaVhBK05HazcxYjR3VnUxcTA3cFh6YzJkOHRK?=
+ =?utf-8?B?eENRMUZ5YTh2R25rUzR1am5XY0RKeGowdkZaeEtFOWtNZ3Nxdm9tWXFDL2Jr?=
+ =?utf-8?Q?raO0OPlkTFC/vZc62V?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 327d5d6b-41c5-4f37-68f7-08df367b99e9
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5354.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 11:47:40.2474
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FyIfjZRNAw0IcBTrgtY9kc3E77F3ABW56NQMd68KTNEdFaHxAMduxhIWzBoL/g+yRtibGmHyLheiWhGUvmbDUw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7015
 
-------=_Part_367984_1446829336.1793360866674
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
 
-VGhlIGdlbl9wb29sIHB1Ymxpc2hpbmcgcHJvdG9jb2wgaXMgYXN5bW1ldHJpYzogY2h1bmtzIGFy
-ZSBwdWJsaXNoZWQKd2l0aCBsaXN0X2FkZF9yY3UoKSBhbmQgZXZlcnkgcmVhZGVyIGluIHRoZSBs
-aWJyYXJ5IHRyYXZlcnNlcyB1bmRlcgpyY3VfcmVhZF9sb2NrKCkgLS0gYnV0IGdlbl9wb29sX2Rl
-c3Ryb3koKSB3YWxrcyB0aGUgY2h1bmsgbGlzdCB3aXRoCmxpc3RfZm9yX2VhY2hfc2FmZSwgbGlz
-dF9kZWwncyBlYWNoIGNodW5rIGFuZCB2ZnJlZXMgaXQgaW1tZWRpYXRlbHksCndpdGggbm8gc3lu
-Y2hyb25pemVfcmN1KCkgYW55d2hlcmU7IGl0cyBvbmx5IGRvY3VtZW50ZWQgcHJlY29uZGl0aW9u
-CmlzICJubyBvdXRzdGFuZGluZyBhbGxvY2F0aW9ucyIuICBBbnkgY2FsbGVyIHRoYXQgaW52b2tl
-cwpnZW5fcG9vbF9kZXN0cm95KCkgd2hpbGUgYSByZWFkZXIgaXMgaW5zaWRlIGl0cyBSQ1UgY3Jp
-dGljYWwgc2VjdGlvbgp0dXJucyB0aGF0IHJlYWRlcidzIHN1YnNlcXVlbnQgY2h1bmstPnN0YXJ0
-X2FkZHIvZW5kX2FkZHIvcGh5c19hZGRyCmFjY2Vzc2VzIGludG8gdXNlLWFmdGVyLWZyZWUgb2Yg
-dmZyZWUnZCBtZW1vcnkgLS0gYW5kIHRoZSBSQ1UgdXNhZ2Ugb24KdGhlIHJlYWRlciBzaWRlIGFj
-dGl2ZWx5IGNyZWF0ZXMgdGhlIGlsbHVzaW9uIHRoYXQgY29uY3VycmVudCByZWFkcwphcmUgc2Fm
-ZSwgc28gY2FsbGVycyBoYXZlIG5vIHNpZ25hbCB0aGF0IHRoZXkgbXVzdCBxdWllc2NlLiAgSQpj
-b25maXJtZWQgdGhlIG1lY2hhbmlzbSBvbiBhIHByaXN0aW5lIExpbnV4IDcuMyBLQVNBTiBrZXJu
-ZWwgYm90aApkZXRlcm1pbmlzdGljYWxseSAoYSByZWFkZXIgcGFya2VkIGluc2lkZSBnZW5fcG9v
-bF92aXJ0X3RvX3BoeXMncyBSQ1UKY3JpdGljYWwgc2VjdGlvbiB3aGlsZSBkZXN0cm95IHJ1bnM6
-IHNsYWItdXNlLWFmdGVyLWZyZWUgaW4KZ2VuX3Bvb2xfdmlydF90b19waHlzKzB4MjEsIHBsdXMg
-YSBzZWNvbmQtb3JkZXIgd2lsZC1tZW1vcnktYWNjZXNzCndoZW4gdGhlIGZyZWVkIG1lbW9yeSBn
-b3QgcmV1c2VkKSBhbmQgbmF0dXJhbGx5LCB3aXRoIG5vCmluc3RydW1lbnRhdGlvbiBhdCBhbGwg
-KGZvdXIgcmVhZGVyIGt0aHJlYWRzIGFnYWluc3QgYQpkZXN0cm95L3JlYnVpbGQgYnVpbGRlciBs
-b29wOiAxNyByZXBvcnRzIG9mIHRoZSBzYW1lIHNoYXBlIGluIDIwCnNlY29uZHMpLiAgSSBhbHNv
-IGF1ZGl0ZWQgdGhlIGluLXRyZWUgVVNCIGhvc3QgY2FsbGVycyBvZiB0aGUKZGV2bV9nZW5fcG9v
-bF9jcmVhdGUgcGF0aCAob2hjaS1zbTUwMSwgb2hjaS1zYTExMTEgdmlhCnVzYl9oY2Rfc2V0dXBf
-bG9jYWxfbWVtKSBhbmQgdGhleSBhcmUgc2FmZSB0b2RheSBiZWNhdXNlIHRoZSBkZXZyZXMKcmVs
-ZWFzZSBoYXBwZW5zIGFmdGVyIHVzYl9yZW1vdmVfaGNkKCkgaGFzIGZ1bGx5IHF1aWVzY2VkIHRo
-ZSBIQ0QgLS0Kc28gdGhpcyBpcyBhbiBBUEkgY29udHJhY3QgZ2FwIHdhaXRpbmcgZm9yIGEgZnV0
-dXJlIGNhbGxlciwgbm90IGEKbGl2ZSBpbi10cmVlIGJ1Zzsgc3RpbGwsIHRoZSBmaXggaXMgb25l
-IGNhbGwgYW5kIG1ha2VzIHRoZSBjb250cmFjdAptYXRjaCB3aGF0IHRoZSBsaWJyYXJ5J3Mgb3du
-IHJlYWRlciBzaWRlIGFkdmVydGlzZXMuCgpUaGUgZGV0YWlsZWQgZGVzY3JpcHRpb246CgoqIFRo
-ZSBhc3ltbWV0cnkgKExpbnV4IDcuMywgbGliL2dlbmFsbG9jLmMpCiAgLSBQdWJsaXNoOiBnZW5f
-cG9vbF9hZGRfb3duZXIoKSAtPiBsaXN0X2FkZF9yY3UoJmNodW5rLT5uZXh0X2NodW5rLAogICAg
-JnBvb2wtPmNodW5rcykgKDoyMDItMjA0KS4KICAtIFJlYWQ6IGV2ZXJ5IGxpYnJhcnkgZW50cnkg
-cG9pbnQgaG9sZHMgcmN1X3JlYWRfbG9jaygpIHdoaWxlCiAgICB3YWxraW5nIHRoZSBjaHVuayBs
-aXN0ICg6MjIyLTIyMywgOjI5Ni0yOTcsIDo1MDItNTAzLCA6NTM3LTUzOCwKICAgIDo1NjAtNTYx
-LCA6NTg1LTU4NiwgOjYwNC02MDUsIC4uLikuCiAgLSBEZXN0cm95OiBnZW5fcG9vbF9kZXN0cm95
-KCkgKDoyNDItMjYyKTogbGlzdF9mb3JfZWFjaF9zYWZlLAogICAgbGlzdF9kZWwoJmNodW5rLT5u
-ZXh0X2NodW5rKSwgdmZyZWUoY2h1bmspIC0tIG5vIGdyYWNlIHBlcmlvZDsKICAgIHRoZSBjb21t
-ZW50IHJlcXVpcmVzIG9ubHkgIm5vIG91dHN0YW5kaW5nIGFsbG9jYXRpb25zIgogICAgKDoyMzkt
-MjQwKS4KICBBbiBSQ1UtcHVibGlzaCArIFJDVS1yZWFkIEFQSSB3aG9zZSBkZXN0cnVjdG9yIHNr
-aXBzIHRoZSBSQ1UKICB3YWl0aW5nIHNpZGUgaXMgaGFsZiBhIHByb3RvY29sOiB0aGUgYnVyZGVu
-IGlzIHNpbGVudGx5IHNoaWZ0ZWQgdG8KICBjYWxsZXJzIHdobyB3ZXJlIGdpdmVuIGV2ZXJ5IGlu
-ZGljYXRpb24gKGJ5IHRoZSByZWFkZXIgc2lkZSkgdGhhdAogIGNvbmN1cnJlbnQgYWNjZXNzIGlz
-IGhhbmRsZWQuICBDb250cmFzdCBkbWFfcG9vbF9kZXN0cm95KCksIHdoaWNoCiAgYXQgbGVhc3Qg
-ZG9jdW1lbnRzIGl0cyBxdWllc2NlbmNlIGFzc3VtcHRpb24uCgoqIEV2aWRlbmNlIChwcmlzdGlu
-ZSA3LjMgS0FTQU47IGluc3RydW1lbnQgYXR0YWNoZWQpCiAgZ2VucmFjZS5jIGhhcyB0d28gbW9k
-ZXM6CiAgLSBDb250cm9sbGVkOiBhIGt0aHJlYWQgY2FsbHMgZ2VuX3Bvb2xfdmlydF90b19waHlz
-KCkgYW5kIGlzCiAgICBwYXJrZWQgKGtwcm9iZSkgSU5TSURFIHRoZSBSQ1UgY3JpdGljYWwgcmVn
-aW9uLCB0aGVuIGFub3RoZXIKICAgIHRocmVhZCBkZXN0cm95cyBhbmQgcmVidWlsZHMgdGhlIHBv
-b2w6CiAgICAgIEJVRzogS0FTQU46IHNsYWItdXNlLWFmdGVyLWZyZWUgaW4gZ2VuX3Bvb2xfdmly
-dF90b19waHlzKzB4MjEKICAgICAgUmVhZCBvZiBzaXplIDggLi4uIGJ5IHRhc2sgZ2VucmQKICAg
-ICAgQWxsb2NhdGVkIGJ5OiBnZW5fcG9vbF9jcmVhdGUKICAgICAgRnJlZWQgYnk6IGtmcmVlIDwt
-IChkZXN0cm95IHBhdGgpCiAgICBmb2xsb3dlZCBieSBhIHdpbGQtbWVtb3J5LWFjY2VzcyAocmV1
-c2VkLWdhcmJhZ2UgZGVyZWZlcmVuY2UpIGluCiAgICB0aGUgc2FtZSByZWFkZXIgLS0gc2hvd2lu
-ZyB3aGF0IGEgcHJvZHVjdGlvbiBzcGxhdCB3b3VsZCBsb29rCiAgICBsaWtlIGFmdGVyIHNsYWIg
-cmV1c2UuCiAgLSBOYXR1cmFsIChubyBrcHJvYmUpOiBmb3VyIHJlYWRlciBrdGhyZWFkcyBsb29w
-IG9uCiAgICBnZW5fcG9vbF92aXJ0X3RvX3BoeXMoKS9nZW5fcG9vbF9hbGxvYygpIHdoaWxlIGEg
-YnVpbGRlciB0aHJlYWQKICAgIGRlc3Ryb3lzIGFuZCByZWNyZWF0ZXMgcG9vbHMgLS0gMTcgaWRl
-bnRpY2FsCiAgICBzbGFiLXVzZS1hZnRlci1mcmVlIHJlcG9ydHMgd2l0aGluIDIwIHMuCiAgVGhl
-IHBvb2wvY2h1bmsgb2JqZWN0cyBhcmUgdGhlIGxpYnJhcnkncyBvd247IG5vdGhpbmcgYWJvdXQg
-dGhlCiAgdGVzdCBmYWJyaWNhdGVzIGtlcm5lbCBzdGF0ZS4KCiogSW4tdHJlZSBleHBvc3VyZSB0
-b2RheSAoYXVkaXRlZCwgZm9yIGhvbmVzdHkpCiAgVGhlIGRldm1fZ2VuX3Bvb2xfY3JlYXRlKCkg
-dXNlcnMgaW4gVVNCIGhvc3QgbGFuZAogICh1c2JfaGNkX3NldHVwX2xvY2FsX21lbSgpLCBjYWxs
-ZWQgb25seSBieSBvaGNpLXNtNTAxIGFuZAogIG9oY2ktc2ExMTExKSByZWxlYXNlIHRoZSBwb29s
-IGZyb20gZGV2cmVzIGFmdGVyIHRoZSBkcml2ZXIncwogIC5yZW1vdmUgcmV0dXJuZWQsIGJ5IHdo
-aWNoIHRpbWUgdXNiX3JlbW92ZV9oY2QoKSBoYXMgZGlzY29ubmVjdGVkCiAgdGhlIHJvb3QgaHVi
-LCBmcmVlZCB0aGUgSVJRIGFuZCBydW4gLnN0b3AgLS0gbm8gcmVhZGVyIGNhbiBiZQogIGluc2lk
-ZSB0aGUgbGlicmFyeS4gIEkgZGlkIG5vdCBhdWRpdCB0aGUgcmVtYWluaW5nIGdlbmFsbG9jIHVz
-ZXJzCiAgb3V0c2lkZSBVU0I7IHRoZSBnYXAgaXMgcmVwb3J0ZWQgYXQgdGhlIEFQSSBsZXZlbC4K
-CgpSZWdhcmRzLApIYW54aWFuZyBYdQp4dWh4QGh1c3QuZWR1LmNuCgoK
-------=_Part_367984_1446829336.1793360866674
-Content-Type: text/plain; name=genrace.c
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="genrace.c"
+On 10/28/2026 5:56 PM, Greg KH wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+>
+>
+> On Wed, Oct 28, 2026 at 05:49:32PM +0530, Gupta, Akshay wrote:
+>> On 10/26/2026 5:44 PM, Greg KH wrote:
+>>> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+>>>
+>>>
+>>> On Mon, Oct 26, 2026 at 05:09:10PM +0530, Akshay Gupta wrote:
+>>>> From: Prathima L K <Prathima.Lk@amd.com>
+>>>>
+>>>> sbrmi_data was allocated with devm_kzalloc() and freed at unbind while
+>>>> an open /dev/sbrmi-* fd could still reference it, leading to a
+>>>> use-after-free on ioctl after removal.
+>>>>
+>>>> Refcount sbrmi_data with a kref: take a reference in open(), drop it in
+>>>> release(), and free the structure only when the last fd closes. Mark the
+>>>> device 'detached' under lock when the misc device is deregistered so all
+>>>> ioctl/xfer paths return -ENODEV. Move misc deregistration to a devm
+>>>> action and drop the now-unneeded i2c/i3c ".remove" callbacks.
+>>>>
+>>>> Fixes: 35ac2034db72bbbc73609aab5f05ff6e0d38fdd0 ("misc: amd-sbi: Add support for AMD_SBI IOCTL")
+>>> The documentation shows how to properly format this line, please fix it
+>>> up, and don't put a blank line between it and these:
+>> Hi Greg,
+>>
+>> Thank you for the feedback.
+>>
+>> Will update the commit message in proper format.
+>>
+>>>> Reviewed-by: Akshay Gupta <Akshay.Gupta@amd.com>
+>>>> Signed-off-by: Akshay Gupta <Akshay.Gupta@amd.com>
+>>> signed-off-by implies review.
+>>>
+>>>> Signed-off-by: Prathima L K <Prathima.Lk@amd.com>
+>>> Wait, this is out of order, yours should be below this, right?
+>>>
+>> I will drop my Reviewed-by, and fix the order
+>>>> ---
+>>>>    drivers/misc/amd-sbi/rmi-core.c | 54 +++++++++++++++++++++++++++++++++
+>>>>    drivers/misc/amd-sbi/rmi-core.h |  6 ++++
+>>>>    drivers/misc/amd-sbi/rmi-i2c.c  | 54 +++++++++++++++++++--------------
+>>>>    3 files changed, 91 insertions(+), 23 deletions(-)
+>>>>
+>>>> diff --git a/drivers/misc/amd-sbi/rmi-core.c b/drivers/misc/amd-sbi/rmi-core.c
+>>>> index 95c9109101b5..e77f114c16c6 100644
+>>>> --- a/drivers/misc/amd-sbi/rmi-core.c
+>>>> +++ b/drivers/misc/amd-sbi/rmi-core.c
+>>>> @@ -13,6 +13,7 @@
+>>>>    #include <linux/module.h>
+>>>>    #include <linux/mutex.h>
+>>>>    #include <linux/regmap.h>
+>>>> +#include <linux/slab.h>
+>>>>    #include "rmi-core.h"
+>>>>
+>>>>    /* Mask for Status Register bit[1] */
+>>>> @@ -193,6 +194,10 @@ static int rmi_cpuid_read(struct sbrmi_data *data,
+>>>>         u16 thread;
+>>>>
+>>>>         mutex_lock(&data->lock);
+>>>> +     if (data->detached) {
+>>>> +             ret = -ENODEV;
+>>>> +             goto exit_unlock;
+>>> Why isn't a guard being used here instead?  Then you can do a simple
+>>> "return -ENODEV", right?
+>> The existing code in rmi-core.c take data->lock with mutex_lock() and
+>> release through mutex_unlock()
+>> The new code added as part of this fix patch, follows this so patch stays a
+>> lifetime fix.
+>> I can submit separate patch converting the mutex_lock/mutex_unlock() to
+>> guard(mutex) after the fix patch is merged.
+>> Let me know your opinion if you suggest to submit the guard_mutex() patch
+>> before the fix patch.
+>>
+>>>> +static int sbrmi_open(struct inode *inode, struct file *fp)
+>>>> +{
+>>>> +     struct sbrmi_data *data;
+>>>> +
+>>>> +     data = container_of(fp->private_data, struct sbrmi_data, sbrmi_misc_dev);
+>>>> +
+>>>> +     mutex_lock(&data->lock);
+>>> Again, please use a guard.
+>> same as above.
+>>>> +     if (data->detached) {
+>>>> +             mutex_unlock(&data->lock);
+>>>> +             return -ENODEV;
+>>>> +     }
+>>>> +     mutex_unlock(&data->lock);
+>>>> +
+>>>> +     kref_get(&data->kref);
+>>> Are you attempting to use a kref without a lock?  That way lies madness
+>>> and is sure to be wrong.
+>>>
+>>> Are you attempting to keep the data "alive" somehow?  Are you sure this
+>>> is correct?
+>> Yes, the kref is there to keep sbrmi_data alive. kref_get() in open() does
+>> not race with the final put. misc_open() calls ->open() while holding
+>> misc_mtx, and misc_deregister() takes that same mutex. The probe reference
+>> is dropped by a devm action that runs only after
+>> misc_deregister() has returned, so the object cannot reach zero while open()
+>> runs.
+>> kref_get() and kref_put() are atomic. I will add a comment at the kref_get()
+>> saying this.
+>>>> +
+>>>> +     return 0;
+>>>> +}
+>>>> +
+>>>> +static int sbrmi_release(struct inode *inode, struct file *fp)
+>>>> +{
+>>>> +     struct sbrmi_data *data;
+>>>> +
+>>>> +     data = container_of(fp->private_data, struct sbrmi_data, sbrmi_misc_dev);
+>>>> +     kref_put(&data->kref, sbrmi_data_release);
+>>> If open is the only thing that can get the reference to the kref, and
+>>> this is the thing that drops it, why is the kref needed at all?
+>> open () is not the only holder, kref_init() is the reference owned by the
+>> driver binding and a devm action drops it on unbind. each open() takes
+>> another reference and drops it in release().
+>> sbrmi_data is freed only when both are gone, which is what closes the window
+>> where devm frees the structure while an ioctl is still using it.
+> That's not good, this should be attached to the file descriptor.  Don't
+> go allocating things at bind as you will mess with the lifetime rules
+> here very quickly, and it gets very messy.  Rely on the rules that the
+> vfs layer gives us and it will be much much simpler.
+>
+>>>
+>>>> +     return 0;
+>>>> +}
+>>>> +
+>>>>    static long sbrmi_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
+>>>>    {
+>>>>         void __user *argp = (void __user *)arg;
+>>>> @@ -570,6 +622,8 @@ static long sbrmi_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
+>>>>
+>>>>    static const struct file_operations sbrmi_fops = {
+>>>>         .owner          = THIS_MODULE,
+>>>> +     .open           = sbrmi_open,
+>>>> +     .release        = sbrmi_release,
+>>>>         .unlocked_ioctl = sbrmi_ioctl,
+>>>>         .compat_ioctl   = compat_ptr_ioctl,
+>>>>    };
+>>>> diff --git a/drivers/misc/amd-sbi/rmi-core.h b/drivers/misc/amd-sbi/rmi-core.h
+>>>> index 975ae858e9fd..ae084beb6c03 100644
+>>>> --- a/drivers/misc/amd-sbi/rmi-core.h
+>>>> +++ b/drivers/misc/amd-sbi/rmi-core.h
+>>>> @@ -9,6 +9,7 @@
+>>>>    #include <linux/miscdevice.h>
+>>>>    #include <linux/mutex.h>
+>>>>    #include <linux/i2c.h>
+>>>> +#include <linux/kref.h>
+>>>>    #include <linux/platform_device.h>
+>>>>    #include <linux/regmap.h>
+>>>>    #include <uapi/misc/amd-apml.h>
+>>>> @@ -56,9 +57,13 @@ struct sbrmi_data {
+>>>>         struct regmap *regmap;
+>>>>         /* Mutex locking */
+>>>>         struct mutex lock;
+>>>> +     /* Reference count; keeps @sbrmi_data alive while misc fds are open */
+>>>> +     struct kref kref;
+>>>>         u32 pwr_limit_max;
+>>>>         u8 dev_static_addr;
+>>>>         u8 rev;
+>>>> +     /* Set on driver unbind; open/ioctl return -ENODEV afterward */
+>>>> +     bool detached;
+>>> How can open/ioctl even run if the driver is unloaded?  You aren't using
+>>> the cdev api properly I think...
+>> This fix addresses driver unbind, including unbind through sysfs; it is not
+>> limited to module unload. misc_deregister() removes the miscdevice from the
+>> misc-device list and destroys its device node. Although it prevents new
+>> opens, it does not retain a reference to the driver-private sbrmi_data for
+>> files that are already open. Such files retain sbrmi_fops and private_data,
+>> so a later ioctl can still enter the driver.
+> unbind through sysfs is for developers and if things break, you get to
+> keep the pieces when it happens (see the discussions on lkml about the
+> recent taint flag added when this happens.)
+>
+> So it's rare, but still, let's make this simpler by just moving the
+> resource management to open/release instead of probe/remove.
+>
+> thanks,
+>
+> greg k-h
 
-Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAKLyoKICogZ2VucmFjZS5jIC0gQVBJ
-LTEgKGdlbl9wb29sX2Rlc3Ryb3koKSBsYWNrcyBhbiBSQ1UgZ3JhY2UgcGVyaW9kKSBkcml2ZXIu
-CiAqCiAqIEF1ZGl0IGNhc2U6IGRyaXZlcnMvdXNiL2hvc3QgbWFudWFsIHJldmlldyAyMDI2LTEw
-LTI5LCBBUEktMS4KICoKICogICBnZW5fcG9vbF9hZGRfb3duZXIoKTogIGxpc3RfYWRkX3JjdSgm
-Y2h1bmstPm5leHRfY2h1bmssICZwb29sLT5jaHVua3MpCiAqICAgcmVhZGVyczogICAgICAgICAg
-ICAgICByY3VfcmVhZF9sb2NrKCk7IGxpc3RfZm9yX2VhY2hfZW50cnlfcmN1KC4uLikKICogICBn
-ZW5fcG9vbF9kZXN0cm95KCk6ICAgIGxpc3RfZGVsKCZjaHVuay0+bmV4dF9jaHVuayk7IHZmcmVl
-KGNodW5rKQogKiAgICAgICAgICAgICAgICAgICAgICAgICAgW05PIHN5bmNocm9uaXplX3JjdSgp
-IGFueXdoZXJlXQogKgogKiBBIGRlc3Ryb3kgdGhhdCBvdmVybGFwcyBhbnkgaW4tZmxpZ2h0IFJD
-VSByZWFkZXIgaXMgYSB1c2UtYWZ0ZXItZnJlZSBvbgogKiB0aGUgdmZyZWUoKWQgY2h1bmsuIFRo
-ZSBVU0IgaG9zdCBjYWxsZXJzIChvaGNpLXNtNTAxL3NhMTExMSB2aWEgZGV2bSkgYXJlCiAqIHNl
-cmlhbGl6ZWQgYnkgdGVhcmRvd24gb3JkZXIsIHNvIHRoaXMgdmVyaWZpZXMgdGhlIEFQSS1sZXZl
-bCBtZWNoYW5pc20KICogaXRzZWxmIHdpdGggYSBtaW5pbWFsIGluLXRyZWUtQVBJLW9ubHkgcmVw
-cm9kdWNlcjoKICoKICogICBjdGwgbW9kZTogYSBrcHJvYmUgc3RhbGxzIG9uZSByZWFkZXIgaW5z
-aWRlIGdlbl9wb29sX3ZpcnRfdG9fcGh5cygpCiAqICAgICAgICAgICAgIChpLmUuIGluc2lkZSBp
-dHMgUkNVIGNyaXRpY2FsIHNlY3Rpb24pOyBtYWluIHRocmVhZCBkZXN0cm95cwogKiAgICAgICAg
-ICAgICB0aGUgcG9vbDsgdGhlIHN0YWxsIGV4cGlyZXMgYW5kIHRoZSB0cmF2ZXJzYWwgY29udGlu
-dWVzIG9uCiAqICAgICAgICAgICAgIHRoZSBmcmVlZCBjaHVuayAtPiBkZXRlcm1pbmlzdGljIEtB
-U0FOIHZtYWxsb2MtVUFGLgogKiAgIG5hdCBtb2RlOiByZWFkZXIgdGhyZWFkcyBsb29wIHJjdV9y
-ZWFkX2xvY2srbG9va3VwIHdoaWxlIGEgYnVpbGRlcgogKiAgICAgICAgICAgICB0aHJlYWQgZGVz
-dHJveXMvcmVidWlsZHMgdGhlIHBvb2wsIG5vIGluc3RydW1lbnRhdGlvbi4KICovCiNkZWZpbmUg
-cHJfZm10KGZtdCkgIkdFTlJBQ0U6ICIgZm10CgojaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+CiNp
-bmNsdWRlIDxsaW51eC9pbml0Lmg+CiNpbmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KI2luY2x1ZGUg
-PGxpbnV4L2twcm9iZXMuaD4KI2luY2x1ZGUgPGxpbnV4L2t0aHJlYWQuaD4KI2luY2x1ZGUgPGxp
-bnV4L2RlbGF5Lmg+CiNpbmNsdWRlIDxsaW51eC9zbGFiLmg+CiNpbmNsdWRlIDxsaW51eC9nZW5h
-bGxvYy5oPgojaW5jbHVkZSA8bGludXgvdm1hbGxvYy5oPgojaW5jbHVkZSA8bGludXgvbW0uaD4K
-I2luY2x1ZGUgPGxpbnV4L2F0b21pYy5oPgojaW5jbHVkZSA8bGludXgvY29tcGxldGlvbi5oPgoK
-c3RhdGljIGNoYXIgKm1vZGUgPSAiY3RsIjsKbW9kdWxlX3BhcmFtKG1vZGUsIGNoYXJwLCAwNjAw
-KTsKTU9EVUxFX1BBUk1fREVTQyhtb2RlLCAiY3RsPWNvbnRyb2xsZWQga3Byb2JlIHN0YWxsLCBu
-YXQ9bmF0dXJhbCBoYW1tZXIiKTsKCnN0YXRpYyBpbnQgc3RhbGxfdXMgPSAzMDAwMDA7Cm1vZHVs
-ZV9wYXJhbShzdGFsbF91cywgaW50LCAwNjAwKTsKCnN0YXRpYyBpbnQgbmF0X3NlY3MgPSAyMDsK
-bW9kdWxlX3BhcmFtKG5hdF9zZWNzLCBpbnQsIDA2MDApOwoKc3RhdGljIGludCBuYXRfcmVhZGVy
-cyA9IDQ7Cm1vZHVsZV9wYXJhbShuYXRfcmVhZGVycywgaW50LCAwNjAwKTsKCiNkZWZpbmUgUE9P
-TF9PUkRFUiA0CiNkZWZpbmUgQ0hVTktfUEFHRVMgNApzdGF0aWMgc3RydWN0IGdlbl9wb29sICpn
-X3Bvb2w7CnN0YXRpYyB2b2lkICpnX3ZhOwpzdGF0aWMgcGh5c19hZGRyX3QgZ19wYTsKc3RhdGlj
-IHNpemVfdCBnX3NpemUgPSBDSFVOS19QQUdFUyAqIFBBR0VfU0laRTsKCnN0YXRpYyBhdG9taWNf
-dCBzdGFsbF9oaXRzID0gQVRPTUlDX0lOSVQoMCk7CnN0YXRpYyBhdG9taWNfdCBzdGFsbF9zZWVu
-ID0gQVRPTUlDX0lOSVQoMCk7CnN0YXRpYyBhdG9taWNfdCB1YWZfcmVhZHMgPSBBVE9NSUNfSU5J
-VCgwKTsKCi8qIC0tLS0gY29udHJvbGxlZC1tb2RlIGtwcm9iZTogc3RhbGwgYSByZWFkZXIgbWlk
-LVJDVS1jcml0aWNhbC1zZWN0aW9uIC0tLS0gKi8Kc3RhdGljIGludCB2dHBfcHJlKHN0cnVjdCBr
-cHJvYmUgKnAsIHN0cnVjdCBwdF9yZWdzICpyZWdzKQp7CglpbnQgaDsKCgloID0gYXRvbWljX2lu
-Y19yZXR1cm4oJnN0YWxsX2hpdHMpOwoJaWYgKGggIT0gMSkKCQlyZXR1cm4gMDsKCWF0b21pY19z
-ZXQoJnN0YWxsX3NlZW4sIDEpOwoJcHJfd2Fybigic3RhbGxpbmcgcmVhZGVyIGluc2lkZSBnZW5f
-cG9vbF92aXJ0X3RvX3BoeXMgKFJDVSBzZWN0aW9uKSBmb3IgJWQgdXNcbiIsCgkJc3RhbGxfdXMp
-OwoJewoJCXU2NCB0YXJnZXQgPSBrdGltZV9nZXRfbW9ub19mYXN0X25zKCkgKyAodTY0KXN0YWxs
-X3VzICogMTAwMDsKCgkJd2hpbGUgKGt0aW1lX2dldF9tb25vX2Zhc3RfbnMoKSA8IHRhcmdldCkK
-CQkJY3B1X3JlbGF4KCk7Cgl9CglhdG9taWNfc2V0KCZzdGFsbF9zZWVuLCAyKTsKCXJldHVybiAw
-Owp9CgpzdGF0aWMgc3RydWN0IGtwcm9iZSBrcF92dHAgPSB7Cgkuc3ltYm9sX25hbWUgPSAiZ2Vu
-X3Bvb2xfdmlydF90b19waHlzIiwKCS5wcmVfaGFuZGxlciA9IHZ0cF9wcmUsCn07CgpzdGF0aWMg
-c3RydWN0IGNvbXBsZXRpb24gcmVhZGVyX2RvbmU7CnN0YXRpYyBzdHJ1Y3QgdGFza19zdHJ1Y3Qg
-KnJlYWRlcl90aDsKCnN0YXRpYyBpbnQgcmVhZGVyX29uY2Uodm9pZCAqdW51c2VkKQp7Cgl1bnNp
-Z25lZCBsb25nIGEgPSAodW5zaWduZWQgbG9uZylnX3ZhICsgNjQ7CglpbnQgaTsKCglyY3VfcmVh
-ZF9sb2NrKCk7Cglmb3IgKGkgPSAwOyBpIDwgNjQgJiYgIWt0aHJlYWRfc2hvdWxkX3N0b3AoKTsg
-aSsrKSB7CgkJcGh5c19hZGRyX3QgcGEgPSBnZW5fcG9vbF92aXJ0X3RvX3BoeXMoZ19wb29sLCBh
-ICsgaSAqIDE2KTsKCgkJKHZvaWQpcGE7CgkJaWYgKGkgPT0gOCkKCQkJcHJfaW5mbygicmVhZGVy
-OiBtaWQtbG9vcCAodGhpcyBsb29rdXAgbWF5IGJlIHRoZSBzdGFsbGVkIG9uZSlcbiIpOwoJfQoJ
-YXRvbWljX2luYygmdWFmX3JlYWRzKTsJLyogc3Vydml2ZWQ7IHJlYWRzIG1heSBoYXZlIGJlZW4g
-b24gZnJlZWQgbWVtICovCglyY3VfcmVhZF91bmxvY2soKTsKCWNvbXBsZXRlKCZyZWFkZXJfZG9u
-ZSk7CglyZXR1cm4gMDsKfQoKc3RhdGljIGludCBwb29sX2J1aWxkKHZvaWQpCnsKCWdfcG9vbCA9
-IGdlbl9wb29sX2NyZWF0ZShQT09MX09SREVSLCAtMSk7CglpZiAoIWdfcG9vbCkKCQlyZXR1cm4g
-LUVOT01FTTsKCWdfdmEgPSB2bWFsbG9jKGdfc2l6ZSk7CglpZiAoIWdfdmEpIHsKCQlnZW5fcG9v
-bF9kZXN0cm95KGdfcG9vbCk7CgkJcmV0dXJuIC1FTk9NRU07Cgl9CgkvKiBwaHlzIGFkZHJlc3Mg
-aXMgYm9va2tlZXBpbmcgb25seSBmb3IgdGhpcyB0ZXN0OyBhbnkgdmFsdWUgd29ya3MgKi8KCWdf
-cGEgPSAweDIwMDAwMDAwMFVMTDsKCXJldHVybiBnZW5fcG9vbF9hZGRfdmlydChnX3Bvb2wsICh1
-bnNpZ25lZCBsb25nKWdfdmEsIGdfcGEsIGdfc2l6ZSwgLTEpOwp9CgpzdGF0aWMgdm9pZCBwb29s
-X3RlYXJkb3duKHZvaWQpCnsKCWdlbl9wb29sX2Rlc3Ryb3koZ19wb29sKTsKCWlmIChnX3ZhKQoJ
-CXZmcmVlKGdfdmEpOwoJZ192YSA9IE5VTEw7Cn0KCnN0YXRpYyBpbnQgbmF0X3JlYWRlcih2b2lk
-ICp1bnVzZWQpCnsKCXVuc2lnbmVkIGxvbmcgYTsKCgl3aGlsZSAoIWt0aHJlYWRfc2hvdWxkX3N0
-b3AoKSkgewoJCWEgPSAodW5zaWduZWQgbG9uZylnX3ZhICsgNjQ7CgkJcmN1X3JlYWRfbG9jaygp
-OwoJCS8qIGxvb3AgdG8gc3RyZXRjaCB0aGUgUkNVIGNyaXRpY2FsIHNlY3Rpb24gKi8KCQlmb3Ig
-KGludCBpID0gMDsgaSA8IDMyOyBpKyspCgkJCSh2b2lkKWdlbl9wb29sX3ZpcnRfdG9fcGh5cyhn
-X3Bvb2wsIGEgKyBpICogMTYpOwoJCXJjdV9yZWFkX3VubG9jaygpOwoJfQoJcmV0dXJuIDA7Cn0K
-CnN0YXRpYyBpbnQgbmF0X2J1aWxkZXIodm9pZCAqdW51c2VkKQp7CglpbnQgY3ljbGVzID0gMDsK
-Cgl3aGlsZSAoIWt0aHJlYWRfc2hvdWxkX3N0b3AoKSkgewoJCW1zbGVlcCgyMCk7CgkJaWYgKCFn
-X3Bvb2wpCgkJCWNvbnRpbnVlOwoJCWdlbl9wb29sX2Rlc3Ryb3koZ19wb29sKTsJLyogdmZyZWUg
-Y2h1bmtzLCBubyBncmFjZSBwZXJpb2QgKi8KCQlnX3Bvb2wgPSBnZW5fcG9vbF9jcmVhdGUoUE9P
-TF9PUkRFUiwgLTEpOwoJCWlmICghZ19wb29sKQoJCQlicmVhazsKCQlpZiAoZ2VuX3Bvb2xfYWRk
-X3ZpcnQoZ19wb29sLCAodW5zaWduZWQgbG9uZylnX3ZhLCBnX3BhLAoJCQkJICAgICAgZ19zaXpl
-LCAtMSkpIHsKCQkJZ2VuX3Bvb2xfZGVzdHJveShnX3Bvb2wpOwoJCQlnX3Bvb2wgPSBOVUxMOwoJ
-CQlicmVhazsKCQl9CgkJY3ljbGVzKys7Cgl9Cglwcl9pbmZvKCJuYXQgYnVpbGRlciBjeWNsZXM9
-JWRcbiIsIGN5Y2xlcyk7CglyZXR1cm4gMDsKfQoKc3RhdGljIGludCBfX2luaXQgZ2VucmFjZV9p
-bml0KHZvaWQpCnsKCWludCByZXQ7CgoJcmV0ID0gcG9vbF9idWlsZCgpOwoJaWYgKHJldCkgewoJ
-CXByX2VycigicG9vbCBidWlsZCBmYWlsZWQgJWRcbiIsIHJldCk7CgkJcmV0dXJuIHJldDsKCX0K
-CXByX2luZm8oInBvb2w9JXB4IHZhPSVweCBwYT0lcGEgc2l6ZT0lenVcbiIsCgkJZ19wb29sLCBn
-X3ZhLCAmZ19wYSwgZ19zaXplKTsKCglpZiAoIXN0cmNtcChtb2RlLCAiY3RsIikpIHsKCQlyZXQg
-PSByZWdpc3Rlcl9rcHJvYmUoJmtwX3Z0cCk7CgkJaWYgKHJldCkgewoJCQlwcl9lcnIoInJlZ2lz
-dGVyX2twcm9iZShnZW5fcG9vbF92aXJ0X3RvX3BoeXMpIGZhaWxlZCAlZFxuIiwKCQkJICAgICAg
-IHJldCk7CgkJCXBvb2xfdGVhcmRvd24oKTsKCQkJcmV0dXJuIHJldDsKCQl9CgkJaW5pdF9jb21w
-bGV0aW9uKCZyZWFkZXJfZG9uZSk7CgkJLyogcGluIHRoZSByZWFkZXIgYXdheSBmcm9tIENQVTA6
-IHRoZSBtYWluIHRocmVhZCBidXN5LXdhaXRzICovCgkJcmVhZGVyX3RoID0ga3RocmVhZF9jcmVh
-dGUocmVhZGVyX29uY2UsIE5VTEwsICJnZW5yZCIpOwoJCWlmIChJU19FUlIocmVhZGVyX3RoKSkg
-ewoJCQl1bnJlZ2lzdGVyX2twcm9iZSgma3BfdnRwKTsKCQkJcG9vbF90ZWFyZG93bigpOwoJCQly
-ZXR1cm4gUFRSX0VSUihyZWFkZXJfdGgpOwoJCX0KCQlrdGhyZWFkX2JpbmQocmVhZGVyX3RoLCAx
-KTsKCQl3YWtlX3VwX3Byb2Nlc3MocmVhZGVyX3RoKTsKCQkvKiB3YWl0IHVudGlsIHRoZSByZWFk
-ZXIgaXMgcGFya2VkIGluc2lkZSB0aGUgc3RhbGwgKi8KCQl3aGlsZSAoYXRvbWljX3JlYWQoJnN0
-YWxsX3NlZW4pICE9IDEpCgkJCWNwdV9yZWxheCgpOwoJCXByX3dhcm4oInJlYWRlciBzdGFsbGVk
-OyBkZXN0cm95aW5nIHBvb2wgTk9XIChubyBncmFjZSBwZXJpb2QgZXhwZWN0ZWQpXG4iKTsKCQln
-ZW5fcG9vbF9kZXN0cm95KGdfcG9vbCk7CS8qIGNodW5rcyB2ZnJlZSdkIHVuZGVyIHRoZSByZWFk
-ZXIgKi8KCQlnX3Bvb2wgPSBOVUxMOwoJCS8qIHJlYWRlciByZXN1bWVzIG9uIGZyZWVkIGNodW5r
-cyBoZXJlICovCgkJd2FpdF9mb3JfY29tcGxldGlvbigmcmVhZGVyX2RvbmUpOwoJCWt0aHJlYWRf
-c3RvcChyZWFkZXJfdGgpOwoJCXVucmVnaXN0ZXJfa3Byb2JlKCZrcF92dHApOwoJCXByX2luZm8o
-ImN0bCBkb25lOyB3YXRjaCBmb3IgS0FTQU4gdm1hbGxvYy11c2UtYWZ0ZXItZnJlZSBhYm92ZVxu
-Iik7CgkJaWYgKGdfdmEpCgkJCXZmcmVlKGdfdmEpOwoJfSBlbHNlIHsKCQlzdHJ1Y3QgdGFza19z
-dHJ1Y3QgKmI7CgkJc3RydWN0IHRhc2tfc3RydWN0ICpyWzhdOwoJCWludCBpOwoKCQlmb3IgKGkg
-PSAwOyBpIDwgbmF0X3JlYWRlcnMgJiYgaSA8IDg7IGkrKykKCQkJcltpXSA9IGt0aHJlYWRfcnVu
-KG5hdF9yZWFkZXIsIE5VTEwsICJnZW5yZCVkIiwgaSk7CgkJYiA9IGt0aHJlYWRfcnVuKG5hdF9i
-dWlsZGVyLCBOVUxMLCAiZ2VuYmQiKTsKCQltc2xlZXAobmF0X3NlY3MgKiAxMDAwKTsKCQlmb3Ig
-KGkgPSAwOyBpIDwgbmF0X3JlYWRlcnMgJiYgaSA8IDg7IGkrKykKCQkJa3RocmVhZF9zdG9wKHJb
-aV0pOwoJCWt0aHJlYWRfc3RvcChiKTsKCQlwcl9pbmZvKCJuYXQgZG9uZVxuIik7CgkJcG9vbF90
-ZWFyZG93bigpOwoJfQoJcmV0dXJuIDA7Cn0KCnN0YXRpYyB2b2lkIF9fZXhpdCBnZW5yYWNlX2V4
-aXQodm9pZCkKewoJcHJfaW5mbygicmVtb3ZlZFxuIik7Cn0KCm1vZHVsZV9pbml0KGdlbnJhY2Vf
-aW5pdCk7Cm1vZHVsZV9leGl0KGdlbnJhY2VfZXhpdCk7Ck1PRFVMRV9MSUNFTlNFKCJHUEwiKTsK
-TU9EVUxFX0RFU0NSSVBUSU9OKCJBUEktMSBnZW5fcG9vbF9kZXN0cm95IFJDVS1ncmFjZS1wZXJp
-b2QgZ2FwIHJlcHJvZHVjZXIiKTsK
-------=_Part_367984_1446829336.1793360866674--
+
+Hi Greg,
+
+Thanks for the review. I will drop the probe-owned kref.
+v2 will move misc to cdev API so the open file holds the reference.
+sbrmi_data will be freed from the device release callback when the last 
+file is released,
+rather than from remove.
+
+thanks,
+Akshay
 
