@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.34
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.53
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793344503;
-	b=X7fkAIlEHo12CztmbyB1MqG8d3SKqvgQy7/Yd5Xo3yqDUSpayWwwXAIx86IWroXcCcVL
-	 Z+i1MzbAZeXHKE2KWxt8n+YAVjqWUrQmcd6zDAAbI26j7VjC37RY08eCa0J21Fsjm9XDm
-	 gv82r66kSmH8C9We+z9jgSq1yQqJBhYWuX20w4rRA8NzZHcA7XZzvmPsAjpWZNcS03nTZ
-	 zUp37ciVsb+9gLBnvfn1UO4Pc3VH33H8nT1mtF2WCIYFNtk50PMi8L4zc8248Hp4q2h4i
-	 eGNIiFmk4jEq41AE1PF9l1UAGxroC1BzT+ZzuuUp8TmPrvzKJvZJu7TsgVIsuTlrarQ==
+	t=1793344607;
+	b=FKbR1e/gGuxnX1BVehF6mkAnnPWyBmanIqmjYhYx4HTjWekApnKO0nP0oPZrNIoy8tq6
+	 oO8f2bDscz56sj5Hs1hoxh00slGJbTo1tz1NxCdMDYsUb+j3ZP4TEWfjEbsIfJWyRQLUa
+	 Di2vJ7WF/oZA2kDorTMr4w+cROFC65r76KKkq4L9gkNyTm9tHzeZtnifuM8juDhUx6bo3
+	 xwCI5uasLAt5eaKTNdD8HhzhkNDh2QaFDXgOHRE1lu68RZccEPJJqFLiseOFEa6mLdhO1
+	 QFJkNHW0ukt+4jnXbTegi0g00p5el9nu9DVThC07MEG008U3jQRQksLq6eUExkAGTYw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793344503;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793344607;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:Content-Transfer-Encoding:Content-Type:
 	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
@@ -24,71 +24,69 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=fLJ9rR+Jp/5hiT7ofEWr4evs8VkonwcXYPc5Nj0qHCE=;
-	b=VaG9YUEW0YwEvDDrrL5m+6Sq+dk5VJ/Vp2qBeu/3xX8ZQdnkKLC4a5H0PgG5puopIdmF
-	 YSqg8DaamVgGlU8Ba3kQKc+chNHQm06/riYXjBrDeE4NszdW1Hka/Q580TFxCYisINnZ6
-	 aqsiIFUGvs6ZI5rJss672w4tWp9V6dGecP5ejS82XLmREzY3gvYJBoIWkfC/XO9jWb+WR
-	 93DmbqMYb35Ofjmrmf4cE57r+t6/Dbu5dh1I4N+n3jPhJ+xhcHtdS4WHDKd8ZSMBOX7wa
-	 evSXwHzGqnqKjqESXyA5F3psN3IUFTP4ek43jVo0EZP8iJv562MEmsn3XwMSLPVTjmg==
+	bh=qllX23EwL4USFTxcfYX+ETH+yNN1UWQWmPryXyD+HBU=;
+	b=ZJdVVoHG8yVHmvogC0tyAT1aw9f5V+HmhJXiYfWFxu3KzHHrK9uVwpzOiLzzAI5Z24oi
+	 PkSabMnRHDTZIRkSCeOZK8kFd+t42OJRGfIGCBOv+qt21wzTURiuZdZ37YJbc6uV9MnUA
+	 mg0F5R/aLkLG1WNgbQz5xVAkssccQiYVHVVvgK4lq4GB7ArmMaAjPkj5C+qwRdF82YwsS
+	 XK7NW/4Swaq4uOqcqo0Rllgf6KQSsmQ4JAfdil1/UfCw4YatsPLeV/fk1Mdjcbiw6uUR1
+	 FlcfUITBe+VKVGRIs9SbQLSl6iBIvvdCGcoCyKku5fFzBr418aNMrijRLVHk0CWfm8Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.nxp.com;
 	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=OEhShsEZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.34
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010034.outbound.protection.outlook.com [52.101.84.34])
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="n/fxO5jW";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.53
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013053.outbound.protection.outlook.com [40.107.159.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819BD606A31C;
-	Fri, 30 Oct 2026 07:15:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 819BD606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25FC7606A31A;
+	Fri, 30 Oct 2026 07:16:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25FC7606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=OEhShsEZ
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=n/fxO5jW
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XS0+ZETRwd5mAkZDYtTUlWKMAtm6zTGJgs1jP3TBejg69oFnggmDkEqHSgmatvlR4OyuWR+5TnVvnSHR6Z9N+TOCBCB7BJebOVUgG4fCna4c0mKy5oFA0OjoSwI34PdMPQ2bBwch4ED9JecygEk/85Ex/8WmI1D52LUIeWqh3bPKglsNenpmtCzP6sVqNSLuiqSBQ1TUDnKgIU4D5lO3wBPVvip++Jo3Egot4WolNlPK8jLiHvFDuPdTGPqe+JI+Y0LRvCBriNJPiTo6z1d4HxYhyj+OFnOTPX/gR8uFngK5p4gooRonUAVJYGfKZiPubhYlfqwT/SIjdSSTJ4tSuw==
+ b=XsMbRs59GNF2d7/dlPPWrE9+cx6p2czb7kPnzGoiD/Xzz8ciF0W8kSXn6W8AglbeDxxOhCoYRUQeNFdI9qgaqJIvIj/p4UtiF0u0D/8e5391rRYJNu+/FQzU3A8/B+e9lezUupu9yU+SoO+TUPuYsAtP4A4RstgY8SqO1NZkTSylwd8Qg3tI01xXXsM9OkODTEIZgMMwVrthWnZsFXVm49G1FadXS/Oga5kVYLz0pEbIKW8d3PRrHzVO1oaKY14Hbvr1suQcMczbKM9VdttoNWgMsqeAGcWDzQW0a/WVCGZ59eaIfogI+w125YVpmueYb4KR5X4Cf2Tkmfuw8xbEgg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fLJ9rR+Jp/5hiT7ofEWr4evs8VkonwcXYPc5Nj0qHCE=;
- b=ndCxxunKtu/Fw7adxEpGIS/8Hzu72xyNoy4aR4CxY1a/9ZItCwSJeK+UtKPjmTHo2OpMb1jmHMUG29nt1hvb9YqTc50/71DhEJn5Ya8bzN1UNsZf3I4Zj9hEQhh2WXWq8FjT9ZgyhdfNuYU+JTKAtd+GhESCbNhiiORpi9VVZxFl4/pe+kHVnZM+/SCLVeIQV1UymHHr9wlW5ny0ZtO4ZCLEWNMdUTTy3Z6Lx9Oz2Hhah72lgnRM9IXOvNStBIfLG7Nrkq8qOjXlSvJpVaA5ipaM0lJM7fhNXHk1pNozGCKzmFbMbUwfmACGeQkacoucRPuLflA71xG0qPyo39a9GQ==
+ bh=qllX23EwL4USFTxcfYX+ETH+yNN1UWQWmPryXyD+HBU=;
+ b=smND5cN340IByTOH5yK1xGdOg5HzNUnPUv64xnYPKGy2VxmZabuNlmTveygMO0e5Xf83vucnXiGwtTQWeCkudXQK4ShOKU7yaOsLExobIaVZM2cW8OAvvaiHFZQYcsibjsa2u1GIY7Fu6OgONcApRu0I4LpSE9+xOM1MrGvJSXfQd92z83YlTbRqYfyE6gRmyqgNNKPV51FmzFRsn4OmWX0wwsIJZkEOVJXtNXk6C4MS2C/y9BN1Y0RpbUxNTTJKzwX1oepC16x1D8DD5a0py9F+cO0FEi8KSgNcvqwa5Mcddvz46BPkG3qVjH2tiUR4pKmRMO/amqYht30BLdeJqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fLJ9rR+Jp/5hiT7ofEWr4evs8VkonwcXYPc5Nj0qHCE=;
- b=OEhShsEZfD9b02btuUPq9wdW2vJIiZjuaa6VePadC/yVr+Fo2Qg5zPHZcaITj3G2IhIWAOpIl7JoTjqpTja8accoPlmeuXPJXBiuW47+bA5kHL5oGZPeX5AJBOojaeUbsZ6NSM4TpxXdoEtIcZ9UF59ru4u4DZ1gW7Rmf6FmSOjfc9ms8X6ayKficnWlGzDKt4DWjE6BLKoqD0AG0tgGO6EWJv7ZnXVTHJFHkDyDRLc4txEFcPXg3vLQjONP3KCzxiSsolfDQigkqPCvk9jqYeWsL+/2ZF3MmZyy1czKkuc6m1Brza3kJaJ2+7zvR7Kjlnnjd8Y3NVNKUKv/dLQlaQ==
+ bh=qllX23EwL4USFTxcfYX+ETH+yNN1UWQWmPryXyD+HBU=;
+ b=n/fxO5jWAHverMMQASZkN+M8MHbpYIp132hPEfuSGWLnLbBHrHX3mXZKmjxjpf4eF3FkR9JQMeZstfoLtufUkdyc+buiItFpTf31DQeEYAXT4iNLWimg6YV2FWAfMkQ8phyBa7oqPkhBzfymPezO86X0FNRcq7kuFKRnl8zhg7f45MzXFYhp6vHvXfMx0N5hTzSa+igwUn9pOrTU2h2aPT2GP3kkPOnc4hfa3JDUbjIDPgKDmOT8wJhXOZFMpGQSWATwpQw08gBe4B5LfQSBdmOwP/y8/37oelTs24pIcNGW+mqMEwtoifcbw71R+c4Hc3Vf6P1g0/9gHu1ppVnoaw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
  by GV1PR04MB10822.eurprd04.prod.outlook.com (2603:10a6:150:205::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 07:14:57 +0000
+ 2026 07:16:44 +0000
 Received: from PAXPR04MB9422.eurprd04.prod.outlook.com
  ([fe80::54e:28bf:aa85:d25d]) by PAXPR04MB9422.eurprd04.prod.outlook.com
  ([fe80::54e:28bf:aa85:d25d%3]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 07:14:56 +0000
+ 07:16:44 +0000
 From: Xu Yang <xu.yang_2@oss.nxp.com>
 To: peter.chen@kernel.org,
 	gregkh@linuxfoundation.org
 Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	imx@lists.linux.dev,
-	jun.li@nxp.com,
-	guptarud@gmail.com,
-	regressions@leemhuis.info
-Subject: [PATCH v2] usb: chipidea: otg: fix fsm deadlock and B-device gadget registration
-Date: Fri, 30 Oct 2026 15:19:21 +0800
-Message-Id: <20261030071921.276377-1-xu.yang_2@oss.nxp.com>
+	jun.li@nxp.com
+Subject: [PATCH] usb: chipidea: otg: avoid workqueue resource leak if otg fsm init fail
+Date: Fri, 30 Oct 2026 15:21:30 +0800
+Message-Id: <20261030072130.276679-1-xu.yang_2@oss.nxp.com>
 X-Mailer: git-send-email 2.34.1
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SI1PR02CA0017.apcprd02.prod.outlook.com
- (2603:1096:4:1f4::10) To PAXPR04MB9422.eurprd04.prod.outlook.com
+X-ClientProxiedBy: SI2PR01CA0021.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:192::19) To PAXPR04MB9422.eurprd04.prod.outlook.com
  (2603:10a6:102:2b4::21)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -101,150 +99,102 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|GV1PR04MB10822:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d42530a-c2e2-4f5e-0c3a-08df36558067
+X-MS-Office365-Filtering-Correlation-Id: c80218de-bb6f-4779-e1e3-08df3655c06a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|19092799006|5023799004|56012099006|11063799006|261009223027099003|261022105027099003|261022075727099003|261028144727099003|261021121427099003|261026140227099003|261026121527099003|261021123027099003|10067099003|18002099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|19092799006|56012099006|11063799006|261009223027099003|261022105027099003|261028144727099003|261021121427099003|261026140227099003|261021123027099003|10067099003|18002099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	DxbNO4K6MNp2WZwIi4OX+1Yzuvxkhs4pDvFKlaNusos6bfcbjmCHBcaz7LRZ8YAa2okYeiiBhfjiBC7hpUEiwPDPrvbczKNLpXfwNIdRNy+l3uh3pGqn2ftnQVtJa9XQ2yimYhtBblX4efic7NOvZN0P+c5e8KcaYrYoEYIJkfymdZQfeCbhtMHSFyoP3/qzyfh+NA9JP/V5gDRm4aWFNpUt2j0maXNgaJxOhuUmhzRDo1SteRI09lc9UnhXCRQkMMGrpbYh7OXgIMLokT0SSlWNa3t2QAdVfGEfalqKxckbzyDuMXUcD32ZHa9K7J0z1jc9BpUUcWppdfZ+QrvghpFHNoLldFhm2QaurNfOIjLk8k7vtOZciRKHguZmtNDWvjXknLFDaL19IiWingMBVYlZNDePrjfTfyyHfFnd7QYMK/xILQpOffVHeKCRGEkKWXKaAtw+izJhFjwcALEBjgwjwCqND6bJ+i1eL8dekAM5Q4Xy89STyfyikDbLJCWDuDYjHcHYHOK7xZSf27Dq1Vn/1h91yYwVz5F5T2pmysXj1sb6ccJP8Djjw5mvAx/wgBql3Nw4acsR+/dICxqjTV9mmSaAQ5V/ecJtGXT+/S2oX1p7HGBwosUTugRouQYE
+	S3rf/JT7RlOGU4NVeRi3rmfCRoeJF8PAQCI8R3CTotOcw6/U+ZcmRwS3puZ9qyTJXANhAdCv4ftfCvLrYvYUy9kjHT1LNmiBm5+DVMSoLmO6dvd+2K6rdBgWmFapfj2V5qDO40JbrEPmCjIG9XEKf3GJ2fZqbiAvuWjH6GhZ/vpVPxK8xiHyf8VAViJQB6jIss01hHmlSDCowZkDh52K0TMkWe5jMWVGKz64ZVV+3OAEQP9W8dcuDOmhdry/jFBIlvgt/gho2SDbOKGNetT8QXXgEr7Qw7guvTg0uU0dmQ8e/UJCxzGoKKIGTsy6XIletr4/KWoQo6bzjoQe+XSeUSuthZ1ut2+vZGRVpqwa94pA+jPBA8i+fLdy8mwEL9OooiYXm0nLvvSS4jImhciX4/H9J0I8msbJPFnDt0hWl6KvyRZbQpAlrP4K7LatdQ4TefxcWeu6pMblN7k9107QrFGFIPe80gd4pNblvcO1mYlVMt1eToRXes9xJPsOYbEGYU1XXUkBm92eeuYJMvHKZuhTym4WjNpZ8zUEH1nvo1vHyPIoi4AWTULPFSNuOW+8whN1hZpRenOZ/oF2lt1Dh1oAznNKkhLYQlqkxJSEbIMoRzmImybScK1K4wRiUAx68EongieZx5cdLIyV+yfAnAPuR74h74QEBC76c6fOpSw=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(19092799006)(5023799004)(56012099006)(11063799006)(261009223027099003)(261022105027099003)(261022075727099003)(261028144727099003)(261021121427099003)(261026140227099003)(261026121527099003)(261021123027099003)(10067099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(19092799006)(56012099006)(11063799006)(261009223027099003)(261022105027099003)(261028144727099003)(261021121427099003)(261026140227099003)(261021123027099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?shSn7Zz67jOz7L9pg3r3Kq4LfzL2lGtuifPEhkfKOSM1fDUlFCiIkJWnDMWq?=
- =?us-ascii?Q?hI+C5swHmXsvXXvJFpRsHQewtu2w4gKDgsJk5tQ1+/uDkT2pmKcUE+NDRukw?=
- =?us-ascii?Q?p9/OyDYCGg5P9Mgf+tP1QqSAs+t9uc4c7mZussxZNVxcWiWSDeBN63gCheZ8?=
- =?us-ascii?Q?dU3kxOUFFEzo+MKRb4itmtCUorWgvEY9lcEvVHhym7+VAWy1M2gVNn0WbPx0?=
- =?us-ascii?Q?V3fevO3iNRYK4Q9W+JslhQz2Vsl1Qa9nFqoBuQ9RYI/FDza2pl/XKIwLY9De?=
- =?us-ascii?Q?ljSP4xq8CMPT9sGznYoUYdqY+teasNDHgrQdkUQWyQltYYRj1JYE5WDKcZVW?=
- =?us-ascii?Q?UxLJklLvcwNzpIiK9e7mDx3iGKxH/ACOb8vovFMqZ6KBwZVcXKrzO2i/b7El?=
- =?us-ascii?Q?aXZbGVvbNns7zVOVXRjbW+MfPBj7siBjevCDGg3ceVM/IQvHyUew2UhElTlk?=
- =?us-ascii?Q?T37cYrYsMrRagvibPPos1EYLHYRxca12LLl7BaxMwgKPIsvckioMyH9V4pCM?=
- =?us-ascii?Q?By8TwqzZ3R+7Ha6oKh0XU5hFVdWFgva0WCmUiIFgRuH6GJEO6e/6LXMH+uIG?=
- =?us-ascii?Q?lbSZD5ogkF7tCL4Gke2JNHb4981zuQtY4D9UnXpt9GB0yiZcxLtNZV8GyTR7?=
- =?us-ascii?Q?Xm9i+hqaECoOg9dnOp3KNW+3tbITOzxmJMuVDqpzG1c9nG0mwjlpZI2z+EXm?=
- =?us-ascii?Q?zCaLAdJ82tC4gc19k6e8mx21h2JibjyahjOAjg1xfRV4wnTfkUpy2pPCej5v?=
- =?us-ascii?Q?L7c/kkWyocn2vwF7SYMPqayg8FNzKP14bbAhJZJUJq8qUDMBsR5Fv6Iu06yL?=
- =?us-ascii?Q?p1U64vq8r6edWU4DyklwifL3PDOHHlOATHiSiXun8N6dGFQ33t15+AFIFQLz?=
- =?us-ascii?Q?h/JFsM23FRtN7G+i8dZs4OnevYbhjUuKeeXSA7m1kUMq8DzOdXqWhE0lluHE?=
- =?us-ascii?Q?3V/cvOOkYoUYQwTu1pYOlzZakJuybgYSjz9jxyPm3Mw916FH9XQwdENSuJul?=
- =?us-ascii?Q?SyEASkK794H6HxIT5Y5l5Y3Fj2lrtpC2beHPxhlfKLem8uYNeimDqYMv1JPK?=
- =?us-ascii?Q?iuB29u8zabp150wJvMQ8OKfZ2cgNQ6Sbp7ziiVoxTHAn97WUfk6g1bxdpwXw?=
- =?us-ascii?Q?q8hYre3vkkwmg/6xTKjRAbDTdb1fr65R1XKVQ1eOD2IEVCQ9YTqk789yVvm6?=
- =?us-ascii?Q?g/Bpyh+RQDAubl0bfAw+a44kTlUSTMEVWJwBtiaBCmQdc2HNzjXNnOPdfHHe?=
- =?us-ascii?Q?soQr69CDtZRhWFxkTjsLMBNaY4QWdefQUGHkeU3FS4o5pE0FaF9VZoMXPLe6?=
- =?us-ascii?Q?FByuKgGDjzovNDMb4wl6U/ND4qhpOvuf9w+94D6OyVwFg+GacM/ZXHRRrltu?=
- =?us-ascii?Q?bsDQZuksKB8rbnlHAohsvxYVXIiObZnTJyKQOeQXthDMT0EAs3CxDvLelBZn?=
- =?us-ascii?Q?ZPjm/20iQZGYDTiTMoPWKxAe1f2qChVTHYFR6hvvoPGr2M5qUU5/z4ovz2Wp?=
- =?us-ascii?Q?mv9uANKNxth3XnwF8VOYYs1MydjVjGiUXdzsAjk+7Ca1LLMYgdvf8j8duaB5?=
- =?us-ascii?Q?Q9Ce9FAMkIvdrKUHRsRzdk5jPidtOTCpD3Jr9FITPba7tQqRNMMWMVsQsPoR?=
- =?us-ascii?Q?wlA4OlsIBGwHNJRsq7XYPkHoMjnGdt0IYzl71fUBJPfnN9vD+OOC4rudhx/k?=
- =?us-ascii?Q?4v3gOJQajmH316bPYPYWz1hYmehIABxo50wnu44aVaIVGpdBz8Ubhhu6YxYz?=
- =?us-ascii?Q?52i3CaPIGjiPArjfoL+5f7TM6PVDP72Sl8HaT5BKpErTlyY6XAmZ?=
+	=?us-ascii?Q?ihFTRaDgcr7Hj5u3dytJFaNeBaI35lqnxGqPduNRY/+qL+henhwI7chiQaBi?=
+ =?us-ascii?Q?zv3WKUUgNHuQoET5QOkEv80egxn3Co7t7+HkrBDMR2bKDGdLQUbKAY7iKTG+?=
+ =?us-ascii?Q?Vs814+FVhhjHrZF1GqZstaf7t3p+Izf+LTfSW3C1kTALtRR2MFrpGOLP05tb?=
+ =?us-ascii?Q?Zb30icpCpODAQjPQbLvCwVcxiFivLpniLGPkBkkx06HWj2kE5FkgxVqrw5mv?=
+ =?us-ascii?Q?3QNSNqoV0W1IprCKKZDKbz3Ix/GK7QO1oitxN6qncRvB6Xiy3uKZ3djm5TX9?=
+ =?us-ascii?Q?zCU3+riYa4J/TInqSGf4jXPu182mjvdbhPC8OXfvOBx6Jm9hKrsL3g5uazji?=
+ =?us-ascii?Q?ybZktOjpdrtaEwdIMyhN4umiqqhhRI9uqLSh4b3cnUjvZsG8dQoIPoLvtFdP?=
+ =?us-ascii?Q?0z1AoF/i9OKWhRsofG8+U6GyLyLktkFwNNEtbLFUZaj7HB+ffRixnB+uLwft?=
+ =?us-ascii?Q?7BIIgSFmaonC1zRKak/zfHkSfSlz7WK8aZeeWkml+v3qSHmujDSusDvy1oQm?=
+ =?us-ascii?Q?RKnR45i5K2cykE/ga7ShAEV0+3s4xbem/YoxRsEQpShaWnwlIihutlxPG07K?=
+ =?us-ascii?Q?kO00U0BlVbj5jqk1Aor3TLSKFJsTHIJfhGwBdA3AQLcjbPvefWdMeUkOrgJL?=
+ =?us-ascii?Q?oL2a+ZDap0qn4+YH16TKES9gD27SbfezGv9Li0fhbeORiROLyY2Uq+A/aXFG?=
+ =?us-ascii?Q?WDrk/StITWKgXoRJidEK6o++ogjmGV8BnF5FOd0q/2clMGZyKJM3xD9gRa61?=
+ =?us-ascii?Q?EZ2dOxQAHqHv0kQ1H0QoP4KyCS3BpnN2q8c+cZTVOUw2I0WKCnCfDrpmg68y?=
+ =?us-ascii?Q?ASzcPOdwaPmCejnUDE7HfRU/TR90wwcRV0uTN1ga35R1nF5In1dRX95WV1aP?=
+ =?us-ascii?Q?XLGs+EWLZNWsHfaNNiAWQZ9KSoIu4ayHiGOpEXB5CVQ+rS7NVAA7DplxTmkD?=
+ =?us-ascii?Q?w8jtmNLyrHMIyf0QC+zg+IfbFefROU8ztg6kvD4rmMccUgxfSPL08h9EvnF0?=
+ =?us-ascii?Q?QmdumFrTg/yMNLcGsCiCw5BezLOCwkeH3Bt90u0lvZL7FG+zPgQmlrpwOZnu?=
+ =?us-ascii?Q?wzfAAcRSdOT9MkyQMLO9ChPfLvYOVA2TP/Redu7lvL3n+vSo34PyMlSQtQVt?=
+ =?us-ascii?Q?6ri5TBmO6OY7RRxQtZI3RBH6tcWuqYaddg/0jic6G/gwYctmYn6ADFKGu0tk?=
+ =?us-ascii?Q?4jSGtm0dw3vbi8fuSwooSvYTCO76yI33uL49zvy/9tOVyp5F58EUD7mfhQv1?=
+ =?us-ascii?Q?7bFDRegAMjR7EvTDRZ/RqMJ3USYtjZFw8HPDyDrJ0SVIVW1coTZDquXybNpm?=
+ =?us-ascii?Q?GMQZaEzWOGC95IF9HaGKkq5lQi07FMzek6KhGk/ihMXzvi8HQ59GDsS8j3V5?=
+ =?us-ascii?Q?fK1rOlQYiXauc1Cb2pI4rN8dvF6s2H64QAdkc+9pFQnPl7+wqD9dugPtIFlO?=
+ =?us-ascii?Q?2M7sZrbEPw9VtqQi2RZ3jTYOWwOwkS69xBVS0G4xENLd/0Eik3ZRWJ9/j5Qj?=
+ =?us-ascii?Q?nGn1D7PvCrVbbbJE8vp4ddZ3HKnElHskyZ7GrCkDqAO0t45D2Ib3DPmG5pL4?=
+ =?us-ascii?Q?OUtwIsqwxmPurcPG0gQolZZi59tSOhyJToHCOQttFT+WX59Hvl05oY+8+I9r?=
+ =?us-ascii?Q?pJIXD3/mkFv9wN66bmxX+73O8ehpOjOIMVVQgkEWWKMOWbsW6h4pMASAzoMk?=
+ =?us-ascii?Q?yciUA1PjK9wt4yslzn6j3t3bdsH5Pawx5YHAshr7WJw+vXdKF0NaTRcnBdUF?=
+ =?us-ascii?Q?Sd98LEgNmhjwXDAF6KG1txxYUAkv0DEiS5P4D0Pb+qHqfpf0YSO/?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d42530a-c2e2-4f5e-0c3a-08df36558067
+X-MS-Exchange-CrossTenant-Network-Message-Id: c80218de-bb6f-4779-e1e3-08df3655c06a
 X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9422.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 07:14:56.7365
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 07:16:44.0942
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RYRn/0042e5f/s63HZ/jtIH04vWzgfhqVM7VLdMhA6p3QZQ9EE3tYcXKtFljcncDICJZ6b/TNFpowl5yIfzAFkIkmeti8Hb8XkrwqLuY5M5TGgp6eqr5a22DsHrKhWm/
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6o1LHJnfQeBlh+MooKbb/AqFmj4CfIO7qkX4YggPcvqohr5Znj3CsfwnxoOhowqG6HFrbc0CuIB5G+PxD+G9LfxlRsUnTuOQptBY2+W4O5RT9dKplinWsKcMMujqvyZQ
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10822
 
 From: Xu Yang <xu.yang_2@nxp.com>
 
-Commit dd0c03d68522 ("usb: chipidea: udc: support dynamic gadget
-add/remove") introduced two regressions on the OTG FSM path:
+If ci_hdrc_otg_fsm_init() fail, error propagates to ci_hdrc_probe(), which
+jumps to the deinit_gadget label, bypassing the deinit_otg label where the
+ci_otg_wq workqueue would normally be destroyed. Finally it cause resource
+leak on previous created workqueue.
 
-1. Self-deadlock on gadget->host role switch.
-
-   otg_statemachine() holds fsm.lock while calling otg_set_state()
-   -> otg_set_protocol() -> ci_otg_start_host(fsm, 1), which calls
-   ci_role_stop() to tear down the gadget role. Since rdrv->stop is
-   now udc_stop() (previously the lightweight udc_id_switch_for_host()),
-   this reaches:
-
-     ci_role_stop(ci)
-       -> udc_stop(ci)
-         -> usb_del_gadget_udc()
-           -> gadget_unbind_driver()
-             -> usb_gadget_udc_stop_locked()
-               -> ci_udc_stop()
-                 -> ci_udc_stop_for_otg_fsm()
-                   -> mutex_lock(&ci->fsm.lock)  <- deadlock
-
-   The same thread that already holds fsm.lock tries to acquire it
-   again. Use mutex_trylock() in ci_udc_stop_for_otg_fsm() instead:
-   when the lock is held by this thread, otg_statemachine() is
-   already driving the exact same transition and will leave the FSM
-   state consistent on its own (otg_set_protocol()/otg_set_state()
-   overwrite whatever ci_udc_stop_for_otg_fsm() would set), so it is
-   safe to skip the redundant correction rather than deadlock on it.
-
-2. B-device gadget UDC never registered in FSM mode.
-
-   Before dd0c03d68522, ci_hdrc_gadget_init() unconditionally called
-   udc_start(), which registers the gadget via usb_add_gadget_udc().
-   That commit moved udc_start()/udc_stop() to rdrv->start/stop and
-   removed the call from ci_hdrc_gadget_init(), relying on
-   ci_role_start() to invoke rdrv->start when a role becomes active.
-
-   However, ci_hdrc_otg_fsm_init() does not go through
-   ci_role_start() for the B-device (id=1) case, so the gadget is
-   never registered in FSM mode, and no gadget driver can ever bind
-   to start the state machine. Call ci_role_start(ci, CI_ROLE_GADGET)
-   there to register the gadget, same as the non-FSM mode path does.
-
-Reported-by: Rudraksha Gupta <guptarud@gmail.com>
-Closes: https://lore.kernel.org/linux-usb/8e659c4f-723b-4241-9c2b-8ea42c6c3600@gmail.com
-Tested-by: Rudraksha Gupta <guptarud@gmail.com>
-Fixes: dd0c03d68522 ("usb: chipidea: udc: support dynamic gadget add/remove")
-Assisted-by: Claude:claude-sonnet-5
+Fixes: 57677be5ef83 ("usb: chipidea: usb OTG fsm initialization.")
+Cc: stable@vger.kernel.org
 Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
-
 ---
-Changes in v2:
- - do sysfs_remove_group() if starting role fail reported by sashiko
- - add Reported-by and Tested-by tag
----
- drivers/usb/chipidea/otg_fsm.c | 6 ++++++
- drivers/usb/chipidea/udc.c     | 3 ++-
- 2 files changed, 8 insertions(+), 1 deletion(-)
+ drivers/usb/chipidea/otg.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/usb/chipidea/otg_fsm.c b/drivers/usb/chipidea/otg_fsm.c
-index 642729893cc2..6d6baea69b68 100644
---- a/drivers/usb/chipidea/otg_fsm.c
-+++ b/drivers/usb/chipidea/otg_fsm.c
-@@ -840,6 +840,12 @@ int ci_hdrc_otg_fsm_init(struct ci_hdrc *ci)
- 			hw_read_otgsc(ci, OTGSC_BSV) ? 1 : 0;
- 		/* Enable BSV irq */
- 		hw_write_otgsc(ci, OTGSC_BSVIE, OTGSC_BSVIE);
+diff --git a/drivers/usb/chipidea/otg.c b/drivers/usb/chipidea/otg.c
+index 5eb3b32c2e87..89a6a37815f0 100644
+--- a/drivers/usb/chipidea/otg.c
++++ b/drivers/usb/chipidea/otg.c
+@@ -246,6 +246,8 @@ static void ci_otg_work(struct work_struct *work)
+  */
+ int ci_hdrc_otg_init(struct ci_hdrc *ci)
+ {
++	int ret;
 +
-+		retval = ci_role_start(ci, CI_ROLE_GADGET);
-+		if (retval < 0) {
-+			sysfs_remove_group(&ci->dev->kobj, &inputs_attr_group);
-+			return retval;
-+		}
+ 	INIT_WORK(&ci->work, ci_otg_work);
+ 	ci->wq = create_freezable_workqueue("ci_otg");
+ 	if (!ci->wq) {
+@@ -253,8 +255,13 @@ int ci_hdrc_otg_init(struct ci_hdrc *ci)
+ 		return -ENODEV;
  	}
  
- 	return 0;
-diff --git a/drivers/usb/chipidea/udc.c b/drivers/usb/chipidea/udc.c
-index c29b2d0dcc7c..1e0d295f5431 100644
---- a/drivers/usb/chipidea/udc.c
-+++ b/drivers/usb/chipidea/udc.c
-@@ -2167,7 +2167,8 @@ static void ci_udc_stop_for_otg_fsm(struct ci_hdrc *ci)
- 	if (!ci_otg_is_fsm_mode(ci))
- 		return;
+-	if (ci_otg_is_fsm_mode(ci))
+-		return ci_hdrc_otg_fsm_init(ci);
++	if (ci_otg_is_fsm_mode(ci)) {
++		ret = ci_hdrc_otg_fsm_init(ci);
++		if (ret < 0) {
++			destroy_workqueue(ci->wq);
++			return ret;
++		}
++	}
  
--	mutex_lock(&ci->fsm.lock);
-+	if (!mutex_trylock(&ci->fsm.lock))
-+		return;
- 	if (ci->fsm.otg->state == OTG_STATE_A_PERIPHERAL) {
- 		ci->fsm.a_bidl_adis_tmout = 1;
- 		ci_hdrc_otg_fsm_start(ci);
+ 	return 0;
+ }
 -- 
 2.34.1
 
