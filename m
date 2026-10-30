@@ -1,59 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362156;
-	b=5Acg93MThZ54FozVx+zGlvTU3u5viDq+NoCld/1xo3UswbfKKJWH4q8A/7y1f2u5otSx
-	 MzTUYsbQNAJOD2zQH1Ql1ezd+KhVWOpXARqGjuVfCFJltlLb8wocbbPqBJLoX0tTuLmZk
-	 3RxcQaEzn3CYc/H1UoeUFQMNrZuFgzuqOBWvQWrVQYgoA9VNhD/6lTuS3n0NRCSBLhE0n
-	 pCVnpQa2kSQvHu23Tyrod1a6YquDkr9QnW292OxzQ3EQVILv1nYHe9myLU8vY6wM6aNIr
-	 YH1w7Eb93bu7OixJW6FiDWXE71SOXKNeLVD+gDx/EboE/6iGqOz/f96LsoS6b2JZz4Q==
+	t=1793362188;
+	b=lRRoWAfVip8c/E3bC888iSpRqf3fbrzsbTP21pQeokO8n199xBv0qi75rfdAlsYl8HrT
+	 mM4RiG8aCECzqfYOckw74qOA/XJWf8jz3fMD2JuSqom8mcTAMZg8UbPzvmlyCqMUrFUZX
+	 OWXhDvA7fsxg8wJCCGmRVgTjjVmPhZRrq+jr/WpivE/XR3R2y1CsPg8EcmHgobB/OXL2A
+	 oKhWBkeEAAczz9aHZ3EYDq6QmkkXfCt6UJL4X53Vk5zIuNa8kdzwD5HtjJBDma3XHqFVd
+	 Ruaw0p+6RyTiqzZhY7JrQgpniu7zktqeMGIep0gciUpZoqCDbCcLN68OULXJc2gQLbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362156;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=e/ifG3aJlgeryqjmhfgJsERZbxd/WJ6aLHD7syJgljY=;
-	b=dKbmSY9rqdbt1qJZ/jFm8HYCTd9xntd4LV3zhy3EL5CdlQwh+yztFqop3FsG+mJD/S/l
-	 V70NbezGm6sx+ckyPCPWw22jFrJNUE4LC/3f5fHRU2pmxEFCU/rj40AqgxsCoJ6uDwfTi
-	 I3/JilqnLXmT05Xe16alSwLPI1TGYT8IWFsEjb6NTE+9P40wOP6q/K0mtFEeRSKLAG/Uw
-	 yu5AQzlaNDOxJHIuzMwgmT26R1LwlndBJyftvWdOJwvOgCxo0i9ckUqnOCTrJxh7OMZMW
-	 oe4YOl6D15cVv47q3bhBYVUB5iDacCkm+emUSLv/X3IJrz+DDHOtfAsPhQp6i1Xy17Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362188;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Infomaniak-Routing;
+	bh=CHiOHhGM8wF8lZDketcUzQJ4hUyzLdW+kg23E8g6Q8Y=;
+	b=OMnLh4a//wmc3AV07OLGywPVSaNcE2wy3GtTNwCaCC2V641LSDMikufzAFqw1VGzhI03
+	 576h6GUK7am/7fbevGt2Lsi4eTlo0eT+58mwmqypUaBUCpxoEY8sOj0DrnE7pwfDpucNt
+	 F8Exrg5mi+PEMKdL1p52FJbMy64PHzAma2Xe571nGgs9SU1LEjTJJ0m8P75RVE4zo8yxb
+	 Rfx/jca4hqWS8lfwc3t1fopa2SdHetTVlYRBP2a2KSqZFvhS8I5aZrFJvIifCNTvtrm+4
+	 i0PvcUX4HQuunPRRNjhwnyPheBcgdPnowteVcVz46Zy2HVtpWE8fyhmxzMwTMmhZ1Rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCXqM3MR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=digikod.net;
+	spf=pass smtp.mailfrom=digikod.net;
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=hK77lSuE;
+	arc=none smtp.remote-ip=45.157.188.12
+Received: from smtp-bc0c.mail.infomaniak.ch (smtp-bc0c.mail.infomaniak.ch [45.157.188.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F769606A31D;
-	Fri, 30 Oct 2026 12:09:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C204606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:09:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C204606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCXqM3MR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CECF1F00A16;
-	Fri, 30 Oct 2026 12:09:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793362156;
-	bh=e/ifG3aJlgeryqjmhfgJsERZbxd/WJ6aLHD7syJgljY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LCXqM3MR/ZIt2paBuHsNpEyJ2YAbBtXoJVoSL2kmhSkpHerihlzO5jP7kg3NpyZNI
-	 9dFoxwwuDSGS8TI8OKIgW1Ko2OuX93Eb04SdiMzbYIfLxMK5DeSx9iA4cK4Uzx7I0k
-	 R6I2nkE33bjHOZKR0egB5nVDqt0OFelbKFn6DVW418lvJI4B6VsYJ3Na4CejKYfoYp
-	 E7LqHQ/Iyj+5nUH1e0c+/Q7iowpmUNhcJqV+7MmbttR3E+rq/duRTVUbXAhMgg9W6U
-	 DKds7xr0/3kRf0H42LAryDxgFNcZPOLsTLA6x2IAWCsP2LcMdgQu2SY9ZKRQsehhvk
-	 kzCfCDk5DUKJA==
-Date: Fri, 30 Oct 2026 13:09:13 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, Icenowy Zheng <uwu@icenowy.me>, Han Gao <gaohan@iscas.ac.cn>
-Subject: Re: [PATCH 2/4] dt-bindings: ili9881c: add compatible string for
- Mingjun MJ070BI30IA2
-Message-ID: <20261030-arrogant-nano-raccoon-b67b70@quoll>
-References: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
- <20261030-mj070bi30ia2-v1-2-a0f65b65c290@iscas.ac.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=hK77lSuE
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jGKfB3Ns3z2hD0;
+	Fri, 30 Oct 2026 13:09:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1793362178;
+	bh=CHiOHhGM8wF8lZDketcUzQJ4hUyzLdW+kg23E8g6Q8Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hK77lSuE5wzFwhCRobE9qXWskjQ3zxNRilzRvFrQtPauZ2z/+6poqRZVQebnFDiJ/
+	 1wzkAGB0/h2FUJeLSQC2e4E48yWXjrgs+Cy+sAJZc51JcSXjfYYSs/oDCVT/jY0PwE
+	 UhjntZlEcLXvsUm91zESPOyaZLrU9HbrzVtBdLNo=
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jGKf62QN9zdbQ;
+	Fri, 30 Oct 2026 13:09:34 +0100 (CET)
+Date: Fri, 30 Oct 2026 13:09:29 +0100
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: Farid Zakaria <farid.m.zakaria@gmail.com>
+Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, 
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	John Ericson <mail@johnericson.me>, linux-security-module@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/3] landlock: Add access rights on created files
+Message-ID: <20261030.ohkopheePh2a@digikod.net>
+References: <20261024-landlock-created-rights-v1-0-77c8db3f6bd2@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,21 +67,156 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261030-mj070bi30ia2-v1-2-a0f65b65c290@iscas.ac.cn>
+In-Reply-To: <20261024-landlock-created-rights-v1-0-77c8db3f6bd2@gmail.com>
+X-Infomaniak-Routing: alpha
 
-On Fri, Oct 30, 2026 at 01:44:13PM +0800, Icenowy Zheng wrote:
-> Mingjun MJ070BI30IA2 is the LCD panel used by Sipeed Lichee Console 4A,
-> and its initialization sequence seems to match ILI9881C controller.
+Hi Farid,
+
+Thanks for this RFC.  The Nix build sandbox is definitely a valid use
+case for Landlock.
+
+I didn't have time to do a full review of your patches yet, but I'll do
+that next week.  In the meantime, I have a few questions:
+
+
+On Sat, Oct 24, 2026 at 01:39:16PM -0700, Farid Zakaria wrote:
+> This is a proposal for an idea to add support for landlock to work
+> better with build systems such as Nix where they want to apply
+> restrictions but the paths may not yet exist.
 > 
-> Add its compatible string to the ILI9881C binding.
+> TL;DR;
+> ========
 > 
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> Landlock rules attach to inodes that exist when a ruleset is built.
+> That makes a directory shared between trusted and sandboxed tasks hard
+> to confine: the sandbox may create entries there with
+> LANDLOCK_ACCESS_FS_MAKE_*, but no rule can name those entries ahead of
+> time, and granting read access on the directory to cover them exposes
+> every other entry as well. This series adds a rule flag that grants
+> access rights on the entries a domain creates in a directory, instead
+> of on the directory.
+> 
+> Motivation
+> ==========
+> 
+> The motivating user is the Nix build sandbox. Every Nix build runs in
+> its own sandbox, and a build may only read its declared inputs in
+> /nix/store and must be able to write and read back the outputs it
+> creates there. Nix enforces this with a private mount namespace: it
+> creates an empty store directory and bind-mounts each input path into
+> it, one mount per input. Nix has paid this per-input cost since the
+> sandbox was introduced [1].
+> 
+> The cost is paid per build and grows with the size of the input
+> closure. Nix is moving towards much finer-grained builds (many small
+> derivations instead of a few large ones), so the number of sandboxes
+> grows while each build's own work shrinks, and the sandbox setup is
+> becoming the bottleneck. A typical build has hundreds of inputs; large
+> ones have thousands.
+> 
+> A microbenchmark sets up and tears down a Nix-like sandbox (user,
+> mount, PID, IPC, UTS and network namespaces, pivot_root into a chroot,
+> removing the chroot afterwards). It compares one bind mount per input
+> with a single bind mount of the whole store plus one Landlock rule per
+> input. Median latency per sandbox, one sandbox at a time, Linux 7.1,
+> ext4, 16 cores:
+> 
+>   inputs   bind mount per input   one bind mount + Landlock   speedup
+>       10         3.2 ms                    2.3 ms               1.4x
+>      100        11.6 ms                    2.8 ms               4.1x
+>     1000        79.3 ms                    6.4 ms              12.4x
+>     5000       400.1 ms                   24.4 ms              16.4x
+
+Did you do this benchmark with this series?  Do you have the related
+code to easily reproduce it?
+
+> 
+> With Landlock, an input costs an O_PATH open and a landlock_add_rule()
+> call: there is a single mount, and no mountpoint directory to create
+> before the build and remove after it (removing the 1000 empty
+> mountpoints alone took 17 ms).
+> 
+> The single bind mount is only sound if the store listing and the
+> undeclared store paths stay unreadable while the build can still use
+> its outputs. Without this series, covering the outputs requires a rule
+> on /nix/store itself, which makes every store path readable again.
+> 
+> [1] https://github.com/NixOS/nix/issues/179
+
+I'm wondering if the Nix build sandbox can create the store dir per
+build before the actual build.  Isn't already the case with the bind
+mount?
+
+> 
+> Series
+> ======
+> 
+> Patch 1 lets an LSM observe inode creation through the
+> inode_init_security hook when no LSM provides an xattr. Patch 2 adds
+> the LANDLOCK_ADD_RULE_CREATED flag for path-beneath rules and bumps the
+> ABI to 13. Patch 3 adds selftests.
+> 
+> Testing
+> =======
+> 
+> The series applies to the Landlock next branch (3e271a27c46f) and was
+> tested on Linux 7.3 with that branch applied.
+> 
+> Without patch 2, the five new tests and the ABI version check fail.
+> 
+> Open questions
+> ==============
+> 
+> - A created inode stays pinned until the layer's hierarchy is freed, so a
+>   sandbox that creates many entries in such a directory keeps them all in
+>   memory. Should this be bounded?
+
+Only the sandbox creator should pay for the related kernel memory
+allocations, and this should be at creation time.
+
+Another property that would be nice is that if a sandboxed process can
+create a file, the related policy should also make it possible to delete
+this file.  Is that the case with the current approach?  We need to
+think not only about the lifetime of the sandbox, but about consecutive
+creations of such sandboxes by/for the same program.
+
+> 
+> - Creation is detected in inode_init_security, so on filesystems that do
+>   not call security_inode_init_security() created entries get no rights.
+>   Is there a better hook?
+> 
+> - Through overlayfs, created entries get no rights either, because the
+>   upper inode is created with the mounter's credentials. Should overlayfs
+>   be handled, e.g. via security_dentry_create_files_as()?
+> 
+> - A file renamed or linked in keeps only the rights it had at its source.
+>   Should it get none instead?
+> 
 > ---
->  Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml | 1 +
->  1 file changed, 1 insertion(+)
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
-
+> Farid Zakaria (3):
+>       lsm: Call inode_init_security hooks without xattrs
+>       landlock: Add access rights on created files
+>       selftests/landlock: Test LANDLOCK_ADD_RULE_CREATED
+> 
+>  Documentation/userspace-api/landlock.rst     |  42 +++++
+>  include/uapi/linux/landlock.h                |  18 +++
+>  security/landlock/domain.c                   | 182 ++++++++++++++++++++-
+>  security/landlock/domain.h                   |  28 ++++
+>  security/landlock/fs.c                       | 176 +++++++++++++++++++--
+>  security/landlock/object.h                   |   6 +
+>  security/landlock/ruleset.c                  |   6 +
+>  security/landlock/ruleset.h                  |  14 ++
+>  security/landlock/syscalls.c                 |  20 ++-
+>  security/security.c                          |   9 +-
+>  tools/testing/selftests/landlock/base_test.c |   2 +-
+>  tools/testing/selftests/landlock/fs_test.c   | 227 +++++++++++++++++++++++++++
+>  12 files changed, 703 insertions(+), 27 deletions(-)
+> ---
+> base-commit: 3e271a27c46fd591d1011c7de5a644a41e2010f1
+> change-id: 20261024-landlock-created-rights-9340b00a8c4d
+> 
+> Best regards,
+> --  
+> Farid Zakaria <farid.m.zakaria@gmail.com>
+> 
+> 
