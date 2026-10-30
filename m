@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793347439;
-	b=wb8FhCj11yxK0tsKVRGJB+sWPabecRAQghLsSAyFdJbN1McEkEUb3Z+ZHwhVCpnKJTQy
-	 EjiTuJILbR86wRKCmDUpXZ3BJYPAjnJFYIb83VxeUFTymnwO1iraGQc9MZI5QQwR68Xhc
-	 z2m9U6fJ7UrtNYZZ6VyTnQe4CYC0pc2qD+OK0WnsNplY8GozxXfvcHW+RHUkUbiv8t6VR
-	 92yuNnqxuVTKq0p2ZLkFict8HBOAqhnjOpooc+w5dzkfD2g7bvVZTG9zlISUPyNi9llOP
-	 K8j4pR3GpDcSzLSdQz1oi3AOAVgGlNAFIeHfioRwtstjXnhRCfBbXSVn9OLQTNGGaqA==
+	t=1793347443;
+	b=N7wWfkaMBqoUdO2yTaBT7uFgKh9inauHnACjYGbq0qaHgK1URcSlSD4kDMf5EKn0G9mT
+	 3unwp/bopV7kiQiQ/AjhFgDDESNaX8RpAul1ZQ+cx3/45orH58e7bwluUszPL33BXShgI
+	 oxk9w7LdMTJCKEpTt4lvBipVJTOCKFwOuLcKa6TuLi9qIm0iG4b5D9+/bxF0qXAlu5bLB
+	 zrVrVL7Ir5LroaZ9/do9fo/d1COTWFfq3Y4/19E5wN0dLF0aA8ewrgXU8CHaJ8fguHKZe
+	 QFlvXEH1MjhZQFrVecZn7fzETm3iGSs/1DbHqCULRk+NdyIV5v1l05QlD1otLZyUx5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793347439;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793347443;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=dZNJDvIaGRH6cLfzhNMYE6D8QKHsbCCKVjQ0ML4vgu4=;
-	b=BvSkXoIa4hp5J0YpsKvaoGmnlHqRVoopBvFWGS9L4IsDL+KKf8Vj8pmEyqhwsU2t+cf4
-	 ICeEqha/iwlGPV1Ly4tN9ARcUegT/7dSAPp6bBeZAOqemnAYN2hnPpBrwPxyILoS7t4+V
-	 ztB6ITOCiXTXDXvanEnmIyyIKgHpUwGdYW7ivsMiBbR7zEXAks3aSDJKCOxF8P3KTqAJP
-	 Cm3AvxcnvQlDzysMnZBBrLDGqwCTBZaiyylnfKSaEb93ECLo+m2poTzrtSEW8nOylYSIM
-	 ozumREB3rsEmb1fTY5QK5BD531AJFObeufwMD8+2Mrsukyx1MFWWBb885KEgmxYrmlQ==
+	bh=LFgGmpp8gd7H3GyjBY3/eSFS06JgJbzV8ZW5JhjT65U=;
+	b=X1XGWJLRBX/exmkuvg9Di+ikzmOLwqhKQ7UUwQAJ2zQ15Mz1Euh0To3sFC1SaiY77cxc
+	 br4B9rwlPyO+4LiB7gQ2tkWwOJEjUecvZ2YNtmg1PmzXffsnV4/bDDN/2ats0oXLLu56A
+	 V8puGSnVI7VOEWZjDcgQouofFTegA5SrQKj8IdI9f75EFSZFcvwFgguM9aJ588md7wOWW
+	 zDAwymTHUFbZwIcGTrrx6NPSQXZ6FRAKtC/+Etk8gilQmLaRevdMFFHnvpOKTz4+e/zDh
+	 KJMABNLl0p8ChTIQVdu3/sBC9tTO2IQfinlqSo++2OWiUZ/zx+4w/Dxo/sy4JL45hEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="g5/FLv82";
-	arc=none smtp.remote-ip=209.85.216.54
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eTKjskP1;
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CED9606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:03:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CED9606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA389606A32A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:04:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA389606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g5/FLv82
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso991641a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:03:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eTKjskP1
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so230052a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:04:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793347439; x=1793952239; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793347442; x=1793952242; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dZNJDvIaGRH6cLfzhNMYE6D8QKHsbCCKVjQ0ML4vgu4=;
-        b=g5/FLv82L71PHUKmY79dd5DAtvshpRKL/jrE2PwHlbLeoV0JJ0hg8GLC6vLCuC4XyS
-         wcHmcp6zYJY19w7bEke7UkHXHMbLD6pITbDn7hzkVSMMzUmmj50ht2BkzwJGmC813eEl
-         XWzzUkS+SbiyXXq2k3VDU1vRIE5HduQfVLUDmvNT6Hlx78tPO93soLGwsnLxrGVo1QCF
-         ilwD/ngIpk8L9/QlRboiqVizEvxsYTPv+XLaHaHYgBHcjo7kGUjhqU/q8g9EjQtP5Xi9
-         LL/9vUdMDdwFtGLHZH4bj1qi9a2dEhL0+GUeTb8aH8dzmZFL2oUx6zqud/9QKKVi1l2P
-         FPUw==
+        bh=LFgGmpp8gd7H3GyjBY3/eSFS06JgJbzV8ZW5JhjT65U=;
+        b=eTKjskP1yKldmIxYqTo6SF1jY2vCuO/r9e89RVH1m1uwu2hK18wGnRB/+OuocCSqs+
+         pSyfQKj9kte4Rf8uzbMRVjZ/58AJLfrk3Be/0a3XbmTlnzYUp6dDEDo1eBMyNP8kSGlS
+         r7jJMB7mZdPXr0IL+RDqVzCf7Kne7hBFfBI8kza7RwWIQcx2fSVQBLnWoZsXX6jn9F0w
+         J/wxmZKMHlPZehKUTM2C07mvdoVITffvLX1lOq9HaXAizxZxF1VLdpmXbu/Xr3DCZJjO
+         hJ13BMmzNRLzVVc5lTetPPwQ5H2NIcz12N4nDRMUqK7QNlymAZYbpqqLuYeoEQTVnaNB
+         juEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793347439; x=1793952239;
+        d=1e100.net; s=20260707; t=1793347442; x=1793952242;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dZNJDvIaGRH6cLfzhNMYE6D8QKHsbCCKVjQ0ML4vgu4=;
-        b=eR/axOawOKFP9sM10IjhSV+hh4iZM/23kWjPondVSUCsjQQWoV6E+agz2cR3aAR+Oh
-         uJ3Pmeiks2r0K2oz6S9tCxQyWhAAciWflbxgn4LmLJoEwdbiQrdR3y4q7o07hFkRkT40
-         PAg4OpmMkda3qhwQx0G08DQFJBKuyxWejWMTRAQD3n2HT7tiEy3K0KGByLfYPJvbZnib
-         a0tQzEE+Xk0jDsdp1p+K8P+LuJbCrkFJc5qY//Io9dbYcWsJXI9golVmvgWPRz6+GB/c
-         u4vy/XdxVX6lqu7JFg0a8It8gGScC7ktZ/PVWCCgDgm2bLL0vBMPyWDe7OSe0qZhtmgM
-         ssIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxfSdMAnJYyN8d+I1mPjKVGZz0AVJkWz170Qw9EAYaSttmYC51kr6zKtx5XtNxcC7FfA8VGVqnCoP456k4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJZefYhMVqkwm0YWMgJ31+AJr2Xhn6OCfdL+678ylUzmhDfHDzU
-	0pa6fIPQCjfZNBVp3AC4bgSj0XAOz59aRoTe+MuOxfQpF+NAGKpBN4MD
-X-Gm-Gg: AYBFou3wiWrSR830JocgzdCvnFNhoJwYUhYaMoMhDoSs4K+wwb06ZTQvaJnvcOOJBo7
-	Tl34qN4zQzuM320+UTfbLcGGjMxj5IhrvvJTC1LeKJnHzakfEXkgXQ4kLo90AZ8g5ouqqA5Ul1T
-	/5gJTI1Li0k+DIEliVctn9A0bdqnC1IENogUPH/ZQWXSEWLNAKeksX3NwxCy7HTyLkFqMnQ8BEr
-	7pfpWeYex6Fahbli2kEve7UyC2An52Tnnzj73s44n3wRS86vYQf9rQ2panehH0YVa2Nvp++C+UK
-	/TuWkgzKUY0qQDh7VOUhk7qz2xh7VGsiWbfkdKb+Vo/brAns7RqRv5HKS4li+q3EARIX7OLsHFq
-	6Ao/pkdChQEracW3JcR80WZ0cZgI1dDx70c+Tq7hfBzmKG1wATZkVyaniiiH3iDABW1LWJpgNNI
-	gUU983SCOytASfqwPA/L6TW4h+Ir/bQiojdX8x9CPjsVMNwx7buSVAwOMzrgIIWxxJdkTBWH5vf
-	TKuQlJpHIdbQN9VUDeSytLaQ8cS+BEYTsdCL7mpq6UnBMXAWpcoy3wD2/eCOE/NjA6GyZH8mArP
-	/c4K7NuTNXzjLniRpDNyq/RT
-X-Received: by 2002:a17:90b:1c0f:b0:3ac:a6a5:5757 with SMTP id 98e67ed59e1d1-3ae896d7df6mr812597a91.11.1793347438867;
-        Fri, 30 Oct 2026 01:03:58 -0700 (PDT)
+        bh=LFgGmpp8gd7H3GyjBY3/eSFS06JgJbzV8ZW5JhjT65U=;
+        b=wi9J7fAbwdrSkH2U38JYSuonm05VaMP3htaVFjP7NfE/DUHgyotxlgM09EccnHm51/
+         hXyd106sZ1SQjHmitkg2SUv2saR8EPmlilamINlglZiPFf0hh6Kz2R0N+HxPvYSYWtlN
+         W+U8tRjmjQt+CnJkXJIMXeHEn+q+EY3AXO9CgjZGYjpxNgIzMSlmpAphqNKgHrJ6FqcV
+         ERttbxTvwyvGAS2MngNipLRzJLFpW9/yOnTQq5zLpuQKLy+UV60rp0Rdt7Bqx7UUtmss
+         APdLAIJx2zI2Frq1iSNqB6KfbE76BnPAqbp5hpVzP9qnlMApBw9qtHNG+oeTe14CMsmP
+         MJ6A==
+X-Forwarded-Encrypted: i=1; AKwUvByRhrrRfDyqvR9SuZusT0MF6fXapGI3eF4QCjHSw07DbrlyI2IwQwDtEfh++oI634Vj5Mkdo7ewuFg2lyA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdP98m84aeAQ9K6n32EJ8KzfRyMJ09kO/1tlR0e4jKvIj+aIuE
+	OGOPphWNuqPwP2aTN9CHAxPOGF4q+vzfa354Gz5wyCfTMWRIjn/6fv7Y
+X-Gm-Gg: AYBFou1U7dfNJX8orjRoK+y3zRqGZJmg8WYsSZEw5NOGLcoeSMb/boU8RKPtf/5Nkns
+	oaO/V+biU6WVKcUba7E9X6PiW768pgm5CLUseB107x5TVcwIIT23cNh7zhjVkQwVrSiQMbSEujQ
+	pVNWsPxIBujne9QUof8sBa43PkhZCjNDec2ExBXvOU/saSYmSiOSGShIwC2buVV3Tb9hTMb1ybF
+	NM/E7dpBI6LBEKDeOO7ilOVB7NdZkWLNxZqVUdtiF2HyP3leLlAjzbMwsG4RILslDZhZ1qodkIu
+	K1e4Lsu0uHdijENNvGEvqTEeo/Q9XCAtEzcbIwZxcw+pS0GT9Yj25Z/L9wLmd7W3ZNsl0BIut+Z
+	raoGuT1NOCSdfRCi2zdKqJA75Xr2anXoNyUAyTbYhYPNQf04Eau7NuEv8TdlCKvRDAF+GRS49O7
+	jgNzaM/q0kvmPvBqqN8FzzQFGekK1KYrIdhzogSdPytaN+IQx7xTBiZZFI1NfWOLnrP6tqZWz+x
+	E0APKuX8Ppy15EqW5n6pnwgt2KhCAuAIxYHnC90Z93CA9F4mbpJkEE95UgONJ7sRQblwHt1K6TJ
+	d2TmAYXKY0auszO5RNdTgniM
+X-Received: by 2002:a17:90b:574e:b0:3aa:ff61:9504 with SMTP id 98e67ed59e1d1-3ae897c94f6mr1099490a91.20.1793347442212;
+        Fri, 30 Oct 2026 01:04:02 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae84577911sm3073035a91.7.2026.10.30.01.03.55
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae84577911sm3073035a91.7.2026.10.30.01.03.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 01:03:58 -0700 (PDT)
+        Fri, 30 Oct 2026 01:04:01 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
 To: perex@perex.cz,
 	tiwai@suse.com
@@ -87,9 +87,9 @@ Cc: linux-sound@vger.kernel.org,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH v3 2/5] ALSA: core: Add the card file while looking up a minor
-Date: Fri, 30 Oct 2026 16:03:40 +0800
-Message-Id: <pm-pmb-a4703edca61d34aa679b-v11-d9186d19e8afb48972af-2@gmail.com>
+Subject: [PATCH v3 3/5] ALSA: pcm: Add the file to the card while looking up the minor
+Date: Fri, 30 Oct 2026 16:03:41 +0800
+Message-Id: <pm-pmb-a4703edca61d34aa679b-v11-d9186d19e8afb48972af-3@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <pm-pmb-a4703edca61d34aa679b-v11-d9186d19e8afb48972af-0@gmail.com>
 References: <pm-pmb-a4703edca61d34aa679b-v11-d9186d19e8afb48972af-0@gmail.com>
@@ -104,255 +104,137 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An open looks up its device with snd_lookup_minor_data(), which takes a
-card reference, and adds its file to the card with snd_card_file_add()
-only afterwards. The card reference does not keep alive a device that
-its driver frees while the card stays registered, as the HD-audio codec
-remove does with its PCMs. A remove that waits for the files of the card
-can miss an open between the lookup and snd_card_file_add().
+Use snd_lookup_minor_data_file() and snd_lookup_oss_minor_data_file() in
+the native and OSS PCM opens, so that the file is on the card before the
+PCM minor can be unregistered. The opens then no longer need the extra
+card reference from the lookup.
 
-Add snd_lookup_minor_data_file() and snd_lookup_oss_minor_data_file(),
-which add the file to the card while the minor lock is still held, and
-record the device data of the minor with the file. After the minor has
-been unregistered, an open either has its file on the card already or
-does not find the device.
-
-Add snd_card_file_sync() to wait until the files opened for a device are
-gone, and wake its waiters in snd_card_file_remove(). Waiting for the
-files of one device instead of all files of the card matters, because
-the card files include the control device, which a sound server keeps
-open for as long as it runs.
+Without that reference, a failed open also no longer reads pcm->card
+after it has removed its file, which would race with a remove that waits
+for the files before freeing the PCM.
 
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
- include/sound/core.h   |  7 +++++
- sound/core/init.c      | 61 +++++++++++++++++++++++++++++++++++++-----
- sound/core/sound.c     | 34 +++++++++++++++++++++++
- sound/core/sound_oss.c | 21 +++++++++++++++
- 4 files changed, 117 insertions(+), 6 deletions(-)
+ sound/core/oss/pcm_oss.c | 19 ++++++-------------
+ sound/core/pcm_native.c  | 37 +++++++++++++++----------------------
+ 2 files changed, 21 insertions(+), 35 deletions(-)
 
-diff --git a/include/sound/core.h b/include/sound/core.h
-index d6584967fd49..4cecf04204f4 100644
---- a/include/sound/core.h
-+++ b/include/sound/core.h
-@@ -271,12 +271,16 @@ int snd_register_device(int type, struct snd_card *card, int dev,
- 			void *private_data, struct device *device);
- int snd_unregister_device(struct device *dev);
- void *snd_lookup_minor_data(unsigned int minor, int type);
-+void *snd_lookup_minor_data_file(unsigned int minor, int type,
-+				 struct file *file);
+diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
+index e8df27d09b97..2d99df900f76 100644
+--- a/sound/core/oss/pcm_oss.c
++++ b/sound/core/oss/pcm_oss.c
+@@ -2497,15 +2497,12 @@ static int snd_pcm_oss_open(struct inode *inode, struct file *file)
  
- #ifdef CONFIG_SND_OSSEMUL
- int snd_register_oss_device(int type, struct snd_card *card, int dev,
- 			    const struct file_operations *f_ops, void *private_data);
- int snd_unregister_oss_device(int type, struct snd_card *card, int dev);
- void *snd_lookup_oss_minor_data(unsigned int minor, int type);
-+void *snd_lookup_oss_minor_data_file(unsigned int minor, int type,
-+				     struct file *file);
- #endif
+ 	nonseekable_open(inode, file);
  
- int snd_minor_info_init(void);
-@@ -323,7 +327,10 @@ int snd_card_add_dev_attr(struct snd_card *card,
- 			  const struct attribute_group *group);
- int snd_component_add(struct snd_card *card, const char *component);
- int snd_card_file_add(struct snd_card *card, struct file *file);
-+int snd_card_file_add_data(struct snd_card *card, struct file *file,
-+			   const void *data);
- int snd_card_file_remove(struct snd_card *card, struct file *file);
-+void snd_card_file_sync(struct snd_card *card, const void *data);
+-	pcm = snd_lookup_oss_minor_data(iminor(inode),
+-					SNDRV_OSS_DEVICE_TYPE_PCM);
+-	if (pcm == NULL) {
+-		err = -ENODEV;
+-		goto __error1;
+-	}
+-	err = snd_card_file_add(pcm->card, file);
+-	if (err < 0)
+-		goto __error1;
++	pcm = snd_lookup_oss_minor_data_file(iminor(inode),
++					     SNDRV_OSS_DEVICE_TYPE_PCM, file);
++	if (IS_ERR(pcm))
++		return PTR_ERR(pcm);
++	if (!pcm)
++		return -ENODEV;
+ 	if (!try_module_get(pcm->card->module)) {
+ 		err = -ENODEV;
+ 		goto __error2;
+@@ -2558,16 +2555,12 @@ static int snd_pcm_oss_open(struct inode *inode, struct file *file)
+ 	mutex_unlock(&pcm->open_mutex);
+ 	if (err < 0)
+ 		goto __error;
+-	snd_card_unref(pcm->card);
+ 	return err;
  
- struct snd_card *snd_card_ref(int card);
+       __error:
+      	module_put(pcm->card->module);
+       __error2:
+       	snd_card_file_remove(pcm->card, file);
+-      __error1:
+-	if (pcm)
+-		snd_card_unref(pcm->card);
+ 	return err;
+ }
  
-diff --git a/sound/core/init.c b/sound/core/init.c
-index d518cb838777..ee660dc4098b 100644
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -24,6 +24,7 @@
- /* monitor files for graceful shutdown (hotplug) */
- struct snd_monitor_file {
- 	struct file *file;
-+	const void *data;	/* device data from the minor lookup, or NULL */
- 	const struct file_operations *disconnected_f_op;
- 	struct list_head shutdown_list;	/* still need to shutdown */
- 	struct list_head list;	/* link of monitor files */
-@@ -1075,17 +1076,18 @@ int snd_component_add(struct snd_card *card, const char *component)
- EXPORT_SYMBOL(snd_component_add);
- 
- /**
-- *  snd_card_file_add - add the file to the file list of the card
-+ *  snd_card_file_add_data - add the file of a device to the file list
-  *  @card: soundcard structure
-  *  @file: file pointer
-+ *  @data: the device data the file is opened for
-  *
-- *  This function adds the file to the file linked-list of the card.
-- *  This linked-list is used to keep tracking the connection state,
-- *  and to avoid the release of busy resources by hotplug.
-+ *  Like snd_card_file_add(), but also records @data for
-+ *  snd_card_file_sync().
-  *
-  *  Return: zero or a negative error code.
-  */
--int snd_card_file_add(struct snd_card *card, struct file *file)
-+int snd_card_file_add_data(struct snd_card *card, struct file *file,
-+			   const void *data)
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 35152fae74ca..89bfe1f358ee 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -2938,45 +2938,39 @@ static int snd_pcm_open_file(struct file *file,
+ static int snd_pcm_playback_open(struct inode *inode, struct file *file)
  {
- 	struct snd_monitor_file *mfile;
+ 	struct snd_pcm *pcm;
+-	int err;
  
-@@ -1093,6 +1095,7 @@ int snd_card_file_add(struct snd_card *card, struct file *file)
- 	if (mfile == NULL)
- 		return -ENOMEM;
- 	mfile->file = file;
-+	mfile->data = data;
- 	mfile->disconnected_f_op = NULL;
- 	INIT_LIST_HEAD(&mfile->shutdown_list);
- 	guard(spinlock)(&card->files_lock);
-@@ -1104,6 +1107,22 @@ int snd_card_file_add(struct snd_card *card, struct file *file)
- 	get_device(&card->card_dev);
- 	return 0;
+ 	nonseekable_open(inode, file);
+ 
+-	pcm = snd_lookup_minor_data(iminor(inode),
+-				    SNDRV_DEVICE_TYPE_PCM_PLAYBACK);
+-	err = snd_pcm_open(file, pcm, SNDRV_PCM_STREAM_PLAYBACK);
+-	if (pcm)
+-		snd_card_unref(pcm->card);
+-	return err;
++	pcm = snd_lookup_minor_data_file(iminor(inode),
++					 SNDRV_DEVICE_TYPE_PCM_PLAYBACK, file);
++	if (IS_ERR(pcm))
++		return PTR_ERR(pcm);
++	if (!pcm)
++		return -ENODEV;
++	return snd_pcm_open(file, pcm, SNDRV_PCM_STREAM_PLAYBACK);
  }
-+
-+/**
-+ *  snd_card_file_add - add the file to the file list of the card
-+ *  @card: soundcard structure
-+ *  @file: file pointer
-+ *
-+ *  This function adds the file to the file linked-list of the card.
-+ *  This linked-list is used to keep tracking the connection state,
-+ *  and to avoid the release of busy resources by hotplug.
-+ *
-+ *  Return: zero or a negative error code.
-+ */
-+int snd_card_file_add(struct snd_card *card, struct file *file)
-+{
-+	return snd_card_file_add_data(card, file, NULL);
-+}
- EXPORT_SYMBOL(snd_card_file_add);
  
- /**
-@@ -1135,7 +1154,7 @@ int snd_card_file_remove(struct snd_card *card, struct file *file)
- 				break;
- 			}
- 		}
--		if (list_empty(&card->files_list))
-+		if (list_empty(&card->files_list) || (found && found->data))
- 			wake_up_all(&card->remove_sleep);
- 	}
- 	if (!found) {
-@@ -1148,6 +1167,36 @@ int snd_card_file_remove(struct snd_card *card, struct file *file)
- }
- EXPORT_SYMBOL(snd_card_file_remove);
- 
-+static bool snd_card_has_data_file(struct snd_card *card, const void *data)
-+{
-+	struct snd_monitor_file *mfile;
-+
-+	list_for_each_entry(mfile, &card->files_list, list) {
-+		if (mfile->data == data)
-+			return true;
-+	}
-+	return false;
-+}
-+
-+/**
-+ *  snd_card_file_sync - wait until the files opened for a device are closed
-+ *  @card: soundcard structure
-+ *  @data: the device data registered for the minors of the device
-+ *
-+ *  Waits until every file added for @data by snd_lookup_minor_data_file()
-+ *  or snd_lookup_oss_minor_data_file() has been removed from @card.  The
-+ *  minors of the device must already be unregistered, so that no new file
-+ *  can be added for it.
-+ */
-+void snd_card_file_sync(struct snd_card *card, const void *data)
-+{
-+	guard(spinlock_irq)(&card->files_lock);
-+	wait_event_lock_irq(card->remove_sleep,
-+			    !snd_card_has_data_file(card, data),
-+			    card->files_lock);
-+}
-+EXPORT_SYMBOL_GPL(snd_card_file_sync);
-+
- #ifdef CONFIG_PM
- /**
-  * snd_power_ref_and_wait - wait until the card gets powered up
-diff --git a/sound/core/sound.c b/sound/core/sound.c
-index 24f40763a20c..94334cbc02b5 100644
---- a/sound/core/sound.c
-+++ b/sound/core/sound.c
-@@ -115,6 +115,40 @@ void *snd_lookup_minor_data(unsigned int minor, int type)
- }
- EXPORT_SYMBOL(snd_lookup_minor_data);
- 
-+/**
-+ * snd_lookup_minor_data_file - get user data of a device and add the file
-+ * @minor: the minor number
-+ * @type: device type (SNDRV_DEVICE_TYPE_XXX)
-+ * @file: the file being opened
-+ *
-+ * Like snd_lookup_minor_data(), but instead of taking a reference to the
-+ * card, adds @file to the file list of the card while the minor is still
-+ * registered, and records the user data for snd_card_file_sync().  The
-+ * caller must call snd_card_file_remove() when it is done with the file.
-+ *
-+ * Return: The user data pointer if the specified device is found, %NULL if
-+ * it is not found, or an error pointer if the file cannot be added.
-+ */
-+void *snd_lookup_minor_data_file(unsigned int minor, int type,
-+				 struct file *file)
-+{
-+	struct snd_minor *mreg;
-+	int err;
-+
-+	if (minor >= ARRAY_SIZE(snd_minors))
-+		return NULL;
-+	guard(mutex)(&sound_mutex);
-+	mreg = snd_minors[minor];
-+	if (!mreg || mreg->type != type || !mreg->private_data ||
-+	    !mreg->card_ptr)
-+		return NULL;
-+	err = snd_card_file_add_data(mreg->card_ptr, file, mreg->private_data);
-+	if (err < 0)
-+		return ERR_PTR(err);
-+	return mreg->private_data;
-+}
-+EXPORT_SYMBOL(snd_lookup_minor_data_file);
-+
- #ifdef CONFIG_MODULES
- static struct snd_minor *autoload_device(unsigned int minor)
+ static int snd_pcm_capture_open(struct inode *inode, struct file *file)
  {
-diff --git a/sound/core/sound_oss.c b/sound/core/sound_oss.c
-index 7eb49f2cada5..2f0bc481a46d 100644
---- a/sound/core/sound_oss.c
-+++ b/sound/core/sound_oss.c
-@@ -41,6 +41,27 @@ void *snd_lookup_oss_minor_data(unsigned int minor, int type)
- }
- EXPORT_SYMBOL(snd_lookup_oss_minor_data);
+ 	struct snd_pcm *pcm;
+-	int err;
  
-+/* Like snd_lookup_minor_data_file(), for OSS minors */
-+void *snd_lookup_oss_minor_data_file(unsigned int minor, int type,
-+				     struct file *file)
-+{
-+	struct snd_minor *mreg;
-+	int err;
-+
-+	if (minor >= ARRAY_SIZE(snd_oss_minors))
-+		return NULL;
-+	guard(mutex)(&sound_oss_mutex);
-+	mreg = snd_oss_minors[minor];
-+	if (!mreg || mreg->type != type || !mreg->private_data ||
-+	    !mreg->card_ptr)
-+		return NULL;
-+	err = snd_card_file_add_data(mreg->card_ptr, file, mreg->private_data);
-+	if (err < 0)
-+		return ERR_PTR(err);
-+	return mreg->private_data;
-+}
-+EXPORT_SYMBOL(snd_lookup_oss_minor_data_file);
-+
- static int snd_oss_kernel_minor(int type, struct snd_card *card, int dev)
+ 	nonseekable_open(inode, file);
+ 
+-	pcm = snd_lookup_minor_data(iminor(inode),
+-				    SNDRV_DEVICE_TYPE_PCM_CAPTURE);
+-	err = snd_pcm_open(file, pcm, SNDRV_PCM_STREAM_CAPTURE);
+-	if (pcm)
+-		snd_card_unref(pcm->card);
+-	return err;
++	pcm = snd_lookup_minor_data_file(iminor(inode),
++					 SNDRV_DEVICE_TYPE_PCM_CAPTURE, file);
++	if (IS_ERR(pcm))
++		return PTR_ERR(pcm);
++	if (!pcm)
++		return -ENODEV;
++	return snd_pcm_open(file, pcm, SNDRV_PCM_STREAM_CAPTURE);
+ }
+ 
++/* called with the file added to the card by snd_lookup_minor_data_file() */
+ static int snd_pcm_open(struct file *file, struct snd_pcm *pcm, int stream)
  {
- 	int minor;
+ 	int err;
+ 	wait_queue_entry_t wait;
+ 
+-	if (pcm == NULL) {
+-		err = -ENODEV;
+-		goto __error1;
+-	}
+-	err = snd_card_file_add(pcm->card, file);
+-	if (err < 0)
+-		goto __error1;
+ 	if (!try_module_get(pcm->card->module)) {
+ 		err = -ENODEV;
+ 		goto __error2;
+@@ -3018,7 +3012,6 @@ static int snd_pcm_open(struct file *file, struct snd_pcm *pcm, int stream)
+ 	module_put(pcm->card->module);
+       __error2:
+       	snd_card_file_remove(pcm->card, file);
+-      __error1:
+       	return err;
+ }
+ 
 -- 
 2.43.0
 
