@@ -1,94 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793392450;
-	b=0avanePOpLJkJqUmHisXZJeIUjv2s6w6KbyG8kHlnOK1iIKj2NqmQFIXemojj4yapFLV
-	 pC3qxKFlAiCF9Hwnj4Gyf2JFq3r1Xru6lRCkIsuTk+x+AgRvlsARSWKcikZiTirorL94e
-	 /qC0V+DhyR4Z6pORrilkoRjZ3ep/RP1eccvHN82e4Q6VqdcjqELabxVRl72ihU4u4didd
-	 W+MrSM9OEBMNW9Cm/KI7yGYLd/4qLg+v0/vH4R1gi8w1pEmn92iSCKWBRmN2pekPfbW4r
-	 T6SyWWEwBghWfxnUJK6OxYNz1J9FKIp1oaEOMnJniA8ulYgrVyEvNjEwQG8TelD/6Rw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793392450;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4Nw8NpVUaIYw76IIZWbK2cq2xyPR6mLCTZOaoZttbUk=;
-	b=YXAoNcREIJVzhWWihq0kLgDnUoD4+KWeaMNJB2uqV4MVcZnBSuzLWcVrIOG/1kl3H5iI
-	 2ix0UYUb6BppsdJ93gHeWe+8PPhj0vz3QaVXD6S00kbxwA24hetIuR2M95h6QUpDw3Ajr
-	 xUOgUAnlKtLTC0+cPh8R8AUeyKLvdSVRrpTgFjT+A45oPPscDN1gy/9MEghvntXmRa7Sj
-	 DUNfdgT7jqpxbwPr7ZuULphUJg9AySzeMqqg4mig1HtYWM9Ji0ObdeE3W0PgLjB18cOIU
-	 033p8/zeENNSB8ZOQ3az8rZ0p+NqpkFO/txLoeYcUVvbzUHRSXR+FEwCnZRNyisjQLQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Prlh1tqx;
-	arc=none smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793392453;
+	b=LPwa85vBmQtFGPy50Xu0Ey3lpKY/7qUj7GipCEb0RTZNz1thEVH7+B6tDoXlsaiuw2zD
+	 yAdJHRYd1L1W1N7119cfGxX8kvqYvpyRtnIGSNaJg8KjLzbnioG2f5A5NG8tMJZaUcZoT
+	 Jwvavte+KZ+CDxIrH3nTbEluUyMc8FnMB6+2bfBNkmhYhz7tM9QIYjkJv+EOBDmYMoghf
+	 ElJe0VJkpP4JYf29yCK3Rkhv/szYlLBpVzISwu+m4Xpe517w/BV5uufYBkT+k/0KVdpMc
+	 5Y8R+MVoefye+mChLgGu9E6/jZi3J+ubi/Any12JBfX4bykjelvVIsZ7g9EVlKSLHKQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793392453;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=soIhMh1dJ9HVRlujdDktbU1BG+4MBhLl+PUVrnyOGB0=;
+	b=WJcrUSUUo7lnu29xbjT9UIHIwOMYMwXa0jZG1Dmd7hPIQwAt2YnobPkmNEu7NVJ+w8E6
+	 Bg5TC4JCQuO7ydi5fWnI7X4H+VTM/63bJiuEf64lwMnGHpRiwr4bWbJR4Y0+aHnfWyLv2
+	 04G1grsQ45TrbZZqO6J44Ix0rUhypPJNHTpfFarWikHYmYLoaokVqwtCg3c+dg1PebRRy
+	 +s3zH0Kkh9INKo5zZ8xgXVP3ODjxAKv/hT8evtPIAX+0qSujAYZpyEk6sEZ8bzpMBvdvV
+	 7F9E8w+BbpVcPLSNsPX+bNe+ldIIvQF2Gc2QcJEO+otiZbrEtKny2dMuvwXYsKU96Pw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EmIcvfgw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57450606A332;
+	Fri, 30 Oct 2026 20:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EmIcvfgw
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793392452;
+	b=NFzbHwRF//zl2Xyj1HSwPKvAuFp8RKnz6GgaRrghHcha0ISS3eTiQWl+5gowbVXz+YLv
+	 DPyTBZadBHOyFU59m+8u5KaDkuUk1DUPtqZ6O2v7Z3Uu4lvwFtZdxikH0wZf+a/8dWcj8
+	 HOT10ULRdLIPO+ttBt3XxD2oQDGRL8FfX4GxT+S4pECGwPqHaM99ZRSsEci52UHMkjDQL
+	 Lri4oHhGxcxnKB0R9radglTXySug4rxINeeLHPe6SNo3iCsXnGdcCShnyWAv5oDg1Hxfk
+	 8lpsj4iyXJW55m5Lz/ibbjMB4q370TFgUFd/RWfNM0l4uj8GCpy236EPL2kaX01RkIA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793392452;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=soIhMh1dJ9HVRlujdDktbU1BG+4MBhLl+PUVrnyOGB0=;
+	b=Omy9BHE1zrFC6arZhYGHOA+mP+AVMEePu/pPUtgNaXns/B6cVcikWyDeULt3KIxAnm6E
+	 TZVteDysp9O2FJdBV0v17lw2B/GIAMML/Oew/f5hC0gFF9ivAk+AbokwmWwjiEmL8igRj
+	 qH3XjAthMAbOWhNlhr19FhxDPnyB9NJCFvWuShsya3gmSEhmU0LO0C+rCGgsnHyT8Y2LQ
+	 Km07/9aJICQc2scrPE3oExyaq+W6qmpBQsanLAna0fe/pb3tHUhShNw8B1//+McGdl3NM
+	 k617gUSazI54wsCJwt4+Jo6q10LQUG0oRnZLNkKn/nsKqBjXo0KcShahNzTNatNB/dQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB46A606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:34:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB46A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Prlh1tqx
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so1804465a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:34:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793392448; x=1793997248; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4Nw8NpVUaIYw76IIZWbK2cq2xyPR6mLCTZOaoZttbUk=;
-        b=Prlh1tqxN9NJEwFl/0WgLNFvOFVvswkxrWT8RIGJ69ZJy7IxcKRgJ/ZyR4vrmHOGxe
-         8YtPysq/hXarIAkD9sGQXkDnrRV17hIse5z4nRGTRRtXgIRSxPLvP4HWIdPVZvN7GF2O
-         5ZpPAVFy1e/x+LIfy92lf8VvlnkSjbavHIghgGIfbYSs+ib0w0hdu80SyqB15GKU31yr
-         PadK7dRY9nS8DYY99YYef6ty7FLA0HSoNDZ0elKk9urf6QcPVBzFqx3X0njW6d3HGUTR
-         UQPy+Fg7DKLfyDBs0WBXrOZv6zQe2vpUdmjRWf3eai9fZfTZEbOI312DeLREB1XraNqm
-         oZGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793392448; x=1793997248;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4Nw8NpVUaIYw76IIZWbK2cq2xyPR6mLCTZOaoZttbUk=;
-        b=iIVbwx32cJf/5RLFQaYmREOL7IXuNQAm6oHAoqJr0oOI+L3OxKuKifUNyhJ3N9TAI9
-         vZTGuQWcm1SD/XzTguEpjyEzpmT3Y3mg49ODTI7MTk+5hyKst31bf2lx+kJ1mxnqUqxm
-         WsN8M3H4zh3mtQPaxoEmVjBfDi0XBeQrQVsfV1QNJ3yXGkIOmI8S8yz9i6DkSKobHqd5
-         m3Xpa4rT+jfrIJjdsFaGNRydwC2zKtorbyA4IWLd9DxksOPDTIK96caX2Y5sGE/gbuoT
-         T3B0nHuFRN53rixmUCIqIytfImcau78E1uReeY3abld8sI2FdUarFRuXDLEocezbWRdr
-         Gtgw==
-X-Forwarded-Encrypted: i=1; AKwUvBxPemDKcQUl8F4LqKYvavbnIyuQZtfD/JPL0r0/iuj+HrBlIcb/yOuw1hUEKUUul1OvNx7AqiYvDKAGONE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxNm+k9cawJNnDRbLcXqIy9V7ifjRCJi0opR2/TY7zYJk/jcOE
-	AZkFxuD1rCiGvtfoVnK1TStTaM7/D6pqTCL0f7psH0aZ8MFQWWXWIXA=
-X-Gm-Gg: AYBFou2cPSCho0QYJXBSTxITqxVpPuGNZWDe+4LPS+PX9J5DE3VdLvinv2j4oq1m3ui
-	0sQbS8p57eWMpc8fzw43CmHgEO5FNIz+T6IgtNvkhQw/hyypzgUnn97b04RRgYO43vNWS87nUwh
-	iAbglExS8kMu8W2dxBDl8dF/vc8akxUUw6EoUHUm8+yhTdsK6JuAXHiW0xP2ytDIKhL0jsqTPl0
-	jWbsiCPPU79pO6OFovGATINB26ZGPSgiDl6NoSt1EZEn3bprVQsv04l3x1LmupxNTkVRGfEb3Fk
-	Zq70BCBBSinYpxKyaHnelYltr81KItmiP53/fxxdDa3BE9R/tGZRa+c4Ik1FnsWZTsboWyHhc9F
-	RLRnd7tnHPJ0aueTaJsrnSC4mV601XPdhZ1AnELwZvGwPPMahkAeoq3UA7wnxuygt9XdgI/B+9h
-	p56xO0NCgVI1qYFG7GKV8aDD/EQKa57lOKz++IFP0JuzPm4oAYtiwdMnSC3V1xBx8IbrKswOHM5
-	32wIaIdIltW3M+V/CTmzOuR9xduwUdSmk9huxl6+l7wi/PRXgj2nvOAbcJEcAxrv1KpAJL9cx66
-	im9VVNDIaYa+FHM2GTo=
-X-Received: by 2002:a05:6402:74b:b0:6a5:fbc6:cad1 with SMTP id 4fb4d7f45d1cf-6b4d4687f4dmr1772470a12.7.1793392447949;
-        Fri, 30 Oct 2026 13:34:07 -0700 (PDT)
-Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec9eebb0sm309091a12.8.2026.10.30.13.34.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 13:34:07 -0700 (PDT)
-From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Vitaliy Sochnev <sochnev.v.74@gmail.com>,
-	Mikhail Zhilkin <csharper2005@gmail.com>
-Subject: [PATCH] mtd: spinand: confirm ready state on SkyHigh S35ML chips
-Date: Fri, 30 Oct 2026 22:33:42 +0200
-Message-ID: <20261030203342.91172-1-sochnev.v.74@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 4455E1F00A17;
+	Fri, 30 Oct 2026 20:34:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793392452;
+	bh=soIhMh1dJ9HVRlujdDktbU1BG+4MBhLl+PUVrnyOGB0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=EmIcvfgwXeHxHmykw8dAguK01MfyJSqWqDPAllGKxY6xTE7hTfmFcHPYpJ4Xel/fk
+	 VR9UHe4X+Ryp14f2LJYvJWOnPlgMffFICwocBeHlohvaLPj8o2GDAD+sDsGGiiL2Ln
+	 qo1u+8TCoi0o3abJm9lBNQx6KC8tAqeMtkfZ1c56Jc70q/dIctlr9OA6Ts5kbnxIps
+	 5nLHCx7wJvdUfRPxljGB0AGBpP+MBuBMnEHGgXDteLEX76X5cZWIuF7P5TZCNMSOXK
+	 ZZhGSJGTYV4qruC9fhMZrFhbnTL5WHUZzOQXrmeT0Lmi/E9iyLnfXGR2LDmrQpdZdc
+	 93QJw1PRqMrog==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A59D04425E;
+	Fri, 30 Oct 2026 20:34:11 +0000 (UTC)
+From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
+Date: Fri, 30 Oct 2026 20:33:56 +0000
+Subject: [PATCH v3 1/5] dt-bindings: soc: samsung: exynos-sysreg: Add
+ compatibles for Exynos5515
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,237 +83,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261030-for-next-lucky7-v3-1-81e02272ce69@member.fsf.org>
+References: <20261030-for-next-lucky7-v3-0-81e02272ce69@member.fsf.org>
+In-Reply-To: <20261030-for-next-lucky7-v3-0-81e02272ce69@member.fsf.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aiden Isik <aidenisik@member.fsf.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1491;
+ i=aidenisik@member.fsf.org; h=from:subject:message-id;
+ bh=QtI7rR1JE5JZ0IsGeNkyOHtQG1QoQSmhMzQKfhBONkY=;
+ b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq5P9BRwnhwKnh1lcLA8zegpISzuoxVtpp5hFSk
+ J2zaklXBzqJAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCauT/QRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+sUcw/+KAI+HUyt1z+19ZMIG5gRCEjE44sucKH
+ KNHTSOx64D+bNnnirR/IWS6DGiL4OCtHgBLgaaYoTu2rcjjPkARscI3n1BFNH3qknQNcNVLPagG
+ JEdMikMNvIjTYc0+RKLMTV4hOAKGxNdk5ycDH5P/d0aWZNi4LZzS9DeC/ID+KJg5TyYWBhZv1hM
+ mzi+Jq65JmDFFAcZ0hKi+hS7gJHMgzP9ewAwwRQor464RYTR66m/eGMbXCSKNJc+HgY+ErFpXH/
+ lTk3aD6t4CdFYYN+SxUKbtbJqZydCMmEZVWBAoFn7VfD7loooEx6BknS65WU0cT1HeeD8J/J//e
+ bRgPFtQm0bQgKesqdoccbIxtlW+Kl9w0tuR1tXn/BxCpL6dZ+QH9gGbK0eSMxx/1atIHAQAPL14
+ HheUfUJM5JsInrfZyVBtGqDXlF1IPkJv+Y6912ZctsOSkCejwHcJ72MSe+Wc7nO5kZivxgc02Et
+ 86RTXf9QUjRMUWwQQ3cb9QXpxVGsiOJ9nLE9cvXU0CgGaAhGhTdseWBH78WC9vVhk6MUbHTm2va
+ S289sjykEYRGVGW6Qxkcle8PBMO6/LulZ6ijDXmCpedKRWsfu7JPYBhDD4N/1EMvqpVAEN/WNEf
+ iD+X7Wg83J2zPnp5nq5rKGNiCrr4sTqk6Qo6OQaCioJNT+st9uk0=
+X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
+ fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
+X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
+ auth_id=956
+X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
+Reply-To: aidenisik@member.fsf.org
+Content-Transfer-Encoding: 7bit
 
-On a Nokia XG-040G-MD with a SkyHigh 256 MiB SPI-NAND, UBI reports
-fixable bit-flips during rootfs mount without this workaround:
+From: Aiden Isik <aidenisik@member.fsf.org>
 
-  ubi0: fixable bit-flip detected at PEB 1979
-  ubi0: schedule PEB 1979 for scrubbing
-  ubi0: scrubbed PEB 1979 (LEB 5:53), data moved to PEB 645
+Add Exynos5515 compatibles for the following sysreg controllers:
+- top
+- peri
+- fsys
 
-Other reboots also report fixable bit-flips. A tester reports that after
-applying the workaround, sysupgrade, multiple reboots and an active
-workload produced no such warnings. Long-term operation is unverified.
-
-spinand_wait() accepts a single non-busy status sample. On these chips,
-the ready bit can briefly clear before the device is actually ready,
-allowing a premature cache read or a new program/erase command. The
-fallback status read for controllers with poll_status offload does not
-provide a second ready confirmation in the usual case.
-
-Mark the affected SkyHigh parts with a quirk and require a second ready
-status sample after spinand_wait() for those parts. If the chip becomes
-busy again, repeat the wait while the outer timeout has not elapsed.
-Each inner wait has its own timeout, so the quirk can wait up to roughly
-twice as long. Leave other SPI-NAND parts unchanged.
-
-Suggested-by: Mikhail Zhilkin <csharper2005@gmail.com>
-Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
 ---
-Notes for reviewers:
+ .../devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml       | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-The two ready samples are taken in separate SPI transactions, without an
-explicit delay. The duration of the premature-ready interval has not been
-measured. If both samples fall within that interval, the wait can still
-return too early. Would a measured, explicit delay be preferable here?
+diff --git a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+index fcdb9ffd2644..9e698d065820 100644
+--- a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
++++ b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+@@ -29,6 +29,9 @@ properties:
+               - samsung,exynos3-sysreg
+               - samsung,exynos4-sysreg
+               - samsung,exynos5-sysreg
++              - samsung,exynos5515-fsys-sysreg
++              - samsung,exynos5515-peri-sysreg
++              - samsung,exynos5515-top-sysreg
+               - samsung,exynos7870-cam0-sysreg
+               - samsung,exynos7870-disp-sysreg
+               - samsung,exynos8895-fsys0-sysreg
+@@ -100,6 +103,8 @@ allOf:
+               - google,gs101-misc-sysreg
+               - google,gs101-peric0-sysreg
+               - google,gs101-peric1-sysreg
++              - samsung,exynos5515-fsys-sysreg
++              - samsung,exynos5515-peri-sysreg
+               - samsung,exynos850-cmgp-sysreg
+               - samsung,exynos850-peri-sysreg
+               - samsung,exynos850-sysreg
 
-The on-device result comes from a Nokia XG-040G-MD with a 256 MiB SkyHigh
-chip running OpenWrt with this workaround. The linux-next port has only
-been compile-tested; the other S35ML entries flagged by this patch have
-not been tested on hardware with this workaround.
+-- 
+2.54.0
 
- drivers/mtd/nand/spi/core.c    | 85 +++++++++++++++++++++++++++-------
- drivers/mtd/nand/spi/skyhigh.c | 12 +++--
- include/linux/mtd/spinand.h    |  1 +
- 3 files changed, 76 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-index 133776ba53da0..b051ff1d6be5c 100644
---- a/drivers/mtd/nand/spi/core.c
-+++ b/drivers/mtd/nand/spi/core.c
-@@ -710,6 +710,53 @@ int spinand_wait(struct spinand_device *spinand, unsigned long initial_delay_us,
- 	return status & STATUS_BUSY ? -ETIMEDOUT : 0;
- }
- 
-+/**
-+ * spinand_wait_ready_confirmed() - Wait for the device to be ready
-+ * @spinand: the spinand device
-+ * @initial_delay_us: delay in us before starting to poll
-+ * @poll_delay_us: time to sleep between reads in us
-+ * @s: the pointer to variable to store the value of REG_STATUS
-+ *
-+ * Same as spinand_wait(), except for devices flagged with
-+ * SPINAND_PREMATURE_READY_QUIRK, whose ready bit can flip back to busy
-+ * shortly after first reporting ready. For those, a ready result from
-+ * spinand_wait() is only trusted once a follow-up status read still shows
-+ * the device ready, and spinand_wait() is called again otherwise. Each
-+ * spinand_wait() gets its own SPINAND_WAITRDY_TIMEOUT_MS budget and no
-+ * new one is started once that span has elapsed, so such a device can
-+ * spend up to roughly twice that time here.
-+ *
-+ * Return: 0 on success, a negative error code otherwise.
-+ */
-+static int spinand_wait_ready_confirmed(struct spinand_device *spinand,
-+					unsigned long initial_delay_us,
-+					unsigned long poll_delay_us, u8 *s)
-+{
-+	unsigned long timeo;
-+	u8 status;
-+	int ret;
-+
-+	if (!(spinand->flags & SPINAND_PREMATURE_READY_QUIRK))
-+		return spinand_wait(spinand, initial_delay_us, poll_delay_us, s);
-+
-+	timeo = jiffies + msecs_to_jiffies(SPINAND_WAITRDY_TIMEOUT_MS);
-+	do {
-+		ret = spinand_wait(spinand, initial_delay_us, poll_delay_us,
-+				   &status);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = spinand_read_status(spinand, &status);
-+		if (ret)
-+			return ret;
-+	} while ((status & STATUS_BUSY) && time_before(jiffies, timeo));
-+
-+	if (s)
-+		*s = status;
-+
-+	return status & STATUS_BUSY ? -ETIMEDOUT : 0;
-+}
-+
- static int spinand_read_id_op(struct spinand_device *spinand, u8 naddr,
- 			      u8 ndummy, u8 *buf)
- {
-@@ -733,10 +780,10 @@ static int spinand_reset_op(struct spinand_device *spinand)
- 	if (ret)
- 		return ret;
- 
--	return spinand_wait(spinand,
--			    SPINAND_RESET_INITIAL_DELAY_US,
--			    SPINAND_RESET_POLL_DELAY_US,
--			    NULL);
-+	return spinand_wait_ready_confirmed(spinand,
-+					    SPINAND_RESET_INITIAL_DELAY_US,
-+					    SPINAND_RESET_POLL_DELAY_US,
-+					    NULL);
- }
- 
- static int spinand_lock_block(struct spinand_device *spinand, u8 lock)
-@@ -767,10 +814,10 @@ int spinand_read_page(struct spinand_device *spinand,
- 	if (ret)
- 		return ret;
- 
--	ret = spinand_wait(spinand,
--			   SPINAND_READ_INITIAL_DELAY_US,
--			   SPINAND_READ_POLL_DELAY_US,
--			   &status);
-+	ret = spinand_wait_ready_confirmed(spinand,
-+					   SPINAND_READ_INITIAL_DELAY_US,
-+					   SPINAND_READ_POLL_DELAY_US,
-+					   &status);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -814,10 +861,10 @@ int spinand_write_page(struct spinand_device *spinand,
- 	if (ret)
- 		return ret;
- 
--	ret = spinand_wait(spinand,
--			   SPINAND_WRITE_INITIAL_DELAY_US,
--			   SPINAND_WRITE_POLL_DELAY_US,
--			   &status);
-+	ret = spinand_wait_ready_confirmed(spinand,
-+					   SPINAND_WRITE_INITIAL_DELAY_US,
-+					   SPINAND_WRITE_POLL_DELAY_US,
-+					   &status);
- 	if (ret)
- 		return ret;
- 
-@@ -939,8 +986,10 @@ static int spinand_mtd_continuous_page_read(struct mtd_info *mtd, loff_t from,
- 		if (ret)
- 			goto end_cont_read;
- 
--		ret = spinand_wait(spinand, SPINAND_READ_INITIAL_DELAY_US,
--				   SPINAND_READ_POLL_DELAY_US, NULL);
-+		ret = spinand_wait_ready_confirmed(spinand,
-+						   SPINAND_READ_INITIAL_DELAY_US,
-+						   SPINAND_READ_POLL_DELAY_US,
-+						   NULL);
- 		if (ret < 0)
- 			goto end_cont_read;
- 
-@@ -1196,10 +1245,10 @@ static int spinand_erase(struct nand_device *nand, const struct nand_pos *pos)
- 	if (ret)
- 		return ret;
- 
--	ret = spinand_wait(spinand,
--			   SPINAND_ERASE_INITIAL_DELAY_US,
--			   SPINAND_ERASE_POLL_DELAY_US,
--			   &status);
-+	ret = spinand_wait_ready_confirmed(spinand,
-+					   SPINAND_ERASE_INITIAL_DELAY_US,
-+					   SPINAND_ERASE_POLL_DELAY_US,
-+					   &status);
- 
- 	if (!ret && (status & STATUS_ERASE_FAILED))
- 		ret = -EIO;
-diff --git a/drivers/mtd/nand/spi/skyhigh.c b/drivers/mtd/nand/spi/skyhigh.c
-index bf9ce163e6a7b..19f2380b0427a 100644
---- a/drivers/mtd/nand/spi/skyhigh.c
-+++ b/drivers/mtd/nand/spi/skyhigh.c
-@@ -88,7 +88,8 @@ static const struct spinand_info skyhigh_spinand_table[] = {
- 		     SPINAND_INFO_OP_VARIANTS(&read_cache_variants,
- 					      &write_cache_variants,
- 					      &update_cache_variants),
--		     SPINAND_NO_RAW_ACCESS,
-+		     SPINAND_NO_RAW_ACCESS |
-+		     SPINAND_PREMATURE_READY_QUIRK,
- 		     SPINAND_ECCINFO(&skyhigh_spinand_ooblayout,
- 				     skyhigh_spinand_ecc_get_status)),
- 	SPINAND_INFO("S35ML01G300",
-@@ -98,7 +99,8 @@ static const struct spinand_info skyhigh_spinand_table[] = {
- 		     SPINAND_INFO_OP_VARIANTS(&read_cache_variants,
- 					      &write_cache_variants,
- 					      &update_cache_variants),
--		     SPINAND_NO_RAW_ACCESS,
-+		     SPINAND_NO_RAW_ACCESS |
-+		     SPINAND_PREMATURE_READY_QUIRK,
- 		     SPINAND_ECCINFO(&skyhigh_spinand_ooblayout,
- 				     skyhigh_spinand_ecc_get_status)),
- 	SPINAND_INFO("S35ML02G300",
-@@ -108,7 +110,8 @@ static const struct spinand_info skyhigh_spinand_table[] = {
- 		     SPINAND_INFO_OP_VARIANTS(&read_cache_variants,
- 					      &write_cache_variants,
- 					      &update_cache_variants),
--		     SPINAND_NO_RAW_ACCESS,
-+		     SPINAND_NO_RAW_ACCESS |
-+		     SPINAND_PREMATURE_READY_QUIRK,
- 		     SPINAND_ECCINFO(&skyhigh_spinand_ooblayout,
- 				     skyhigh_spinand_ecc_get_status)),
- 	SPINAND_INFO("S35ML04G300",
-@@ -118,7 +121,8 @@ static const struct spinand_info skyhigh_spinand_table[] = {
- 		     SPINAND_INFO_OP_VARIANTS(&read_cache_variants,
- 					      &write_cache_variants,
- 					      &update_cache_variants),
--		     SPINAND_NO_RAW_ACCESS,
-+		     SPINAND_NO_RAW_ACCESS |
-+		     SPINAND_PREMATURE_READY_QUIRK,
- 		     SPINAND_ECCINFO(&skyhigh_spinand_ooblayout,
- 				     skyhigh_spinand_ecc_get_status)),
- };
-diff --git a/include/linux/mtd/spinand.h b/include/linux/mtd/spinand.h
-index d7c99fcfb85ef..0767964275cf2 100644
---- a/include/linux/mtd/spinand.h
-+++ b/include/linux/mtd/spinand.h
-@@ -492,6 +492,7 @@ struct spinand_ecc_info {
- #define SPINAND_HAS_READ_PLANE_SELECT_BIT		BIT(3)
- #define SPINAND_NO_RAW_ACCESS				BIT(4)
- #define SPINAND_ODTR_PACKED_PAGE_READ			BIT(5)
-+#define SPINAND_PREMATURE_READY_QUIRK			BIT(6)
- 
- /**
-  * struct spinand_ondie_ecc_conf - private SPI-NAND on-die ECC engine structure
-
-base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
