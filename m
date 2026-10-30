@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793342683;
-	b=b/X5B76lh6Ika4XMgwP7bcu3xZagbzn/yOMnm7TGYFUWEYhhSDuk4s5mIyazsWL1W7LY
-	 j6z5BhmRuFBexkm3EqxJFV6zabb5Q798XWHNUOIMrkcx9Fcp+tYRw9K5/K5yugK9Ul4eO
-	 00aOIfYd268rVb/IOMm4uSW3xZlGb9X1v1WTwqiTatCoddLt/2Y4oT0do7bdqn/IjKFH2
-	 u+qw1NQy5f4c5TmxKQK3mvY4HjHFr6RQ3V3YyULKTzECz8se4irD9RJbESwsxy5Kq/Q2f
-	 i5d5GRJxenIgDWZcV80idTyFbuPeIwMvTdQcGp3TvTsm4tY1sHGM7JHoI/pwB/qZWvg==
+	t=1793342806;
+	b=PB07I3Rp7PJj4C5X1UWbdiN3z/8FiDSLH14u38l8f/8yKJ8AvPL503ZoBSfrJ3nyAfbI
+	 hsETaE4Yrlicu5IylD7AbtNaFuLNkrT04BkkkLFsH5XBQ/iwyPSxMoz4wu8oXPIXMCGp/
+	 Uhcq2ri0IQrHrRUF9cILEljkAprjkMSnuWNTxNZvwhwp+dBYel0qhx52CNHLJvUMaGuMR
+	 2bY57TA6feEu/jfU+obN1eNa3dqCjhd1INm/Neovtdt+/KZOfFebMlx751E9fa7FN3K5M
+	 f4qR6OkGVEtPYqzoEQnWN/6ZARLyjzuZyv8zj5w2q0q8IxCQxdds9KG9xYYJ9fMJJgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793342683;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KVgic764o0iBpmXvPU3DCQnb57odNSKZ7p6xGDlXMlc=;
-	b=D3B/t+2/HMA+5Jh3YK0T4RzKaHG+kZwvGo2pGaio5BSQ9iZiTCd0Iv3GxNaJp0i9E7EI
-	 aVNenUP2b4qzKZ7HdxLK+qgqdGp/6/cvyn0eO0kW5w3x0GeZc2oy32lqnXeStIIg+vIUu
-	 NUAZRzZlXanleWFDSZ6xF1O5acJx4801RtBTtfl7jsjeAGpBq6LjqVk2h4r71NT3VKs9S
-	 tUnDnvsQxtxJwjP+GG5RFfkyqpl/Dmnm94sw4LrQRhHGtG0gighh60Q0lVMOQPqzWI/hX
-	 OKYc59twuLOPM62z7I5HWd8XpfPi9sLPnPW5KGWDcs7Uhfn9AN1cqOtVpekxzCxqctA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793342806;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=Id8QGQONeVdgPpx5xV+Lr+vBDN9+KhzWpQXCGhMj0Vs=;
+	b=kCYLvAn3svBSX8ojWE/n2YlHx8eda/jTrcC81LUxV2t9+eRUwU3KmP37eyzaAaLQgHAl
+	 h8H0lSnaJqwQ5x9Qhq2mmDAs1oGk47IglIdiEBgUPTzDG7GWYvF6L0DZZPLBD/9kEif0Z
+	 Q2cLbVY0hSE6zriwqA75gE9ElanJzyBIrONNQWCS54UKGvYFsV+VnHGoTFcPjZXjH4ail
+	 X3e+1pqApE5TOnsThFxMheQgD7Y6NUzI6dsm/SnE0WRWXkavL/XuiwwoY9p1WKeTFl88U
+	 MyuuhQg7OjB2tdWfPAHqeUbaOmAdDVLkQ4HhAzrLMYTufT+ofpizJ6yI5SqWEOlpj4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aipXEA6J;
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=gTyrKRnm;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94F8606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:44:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B94F8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D128E606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:46:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D128E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aipXEA6J
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a052aff9e9so246890b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:44:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793342682; x=1793947482; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KVgic764o0iBpmXvPU3DCQnb57odNSKZ7p6xGDlXMlc=;
-        b=aipXEA6JAApVHjDKmzVEGRXy9PdB/5s0w6omxzgzDN/CSCHQUtbciRfLoVEAx966Oh
-         AGl2/2al8EFD0reNSEMGxdw6mwROiysRLy//jh9f1b1djY5j7BF3QqGyiOpY7eXKWkIx
-         ShlJ+kxMLJgvviBWicaEvoVrZCLlYKCcIFGjih2xMgJlCtJUZUDg1yxZJMpfkQtW1f6w
-         gzJxqesAoL59H8sfOv9o3jqnGOX6/Htk3Cm8zqCKTsIn9U0jBLdAh8db8IYaJTs/Raix
-         hOZq3/zaMADwO+km6d2iDg5XAWmH9fhFTavj5mmRR8mbUNOQz1eHUI6dEprlw4Top0RH
-         7Paw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793342682; x=1793947482;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KVgic764o0iBpmXvPU3DCQnb57odNSKZ7p6xGDlXMlc=;
-        b=GjxPodzVUIxToCNm3ojSZwXv0sxhO6x5Wje+pjKNw45kHMy00gCaOq1pveEucvDGAf
-         Um8W2guaS1vU0qXYliIx9RkCy17Cl3icKTKBa100CLl1A6UxkRFcrFRYQIgn4BAQ2epH
-         NFGxg3SrJRNFZGVj59de8OHvyS4lUsT+K1ATkfaOU3LFGGkIfeeGXM3qnlqHs4v8KYvW
-         al7sZ7RrWzPX8MCEvvEwkGqZyp8OuThO5RSNmjMobo5ET1W5xE2Q5846Y/VhAw92e8Ts
-         n+G5oozFPB5/FPRoONTF8lvLJSc1qHQaCbxklV0wE8nOFTCnMM0iHJetQfaoodHkKui5
-         OO/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzMtLnjklZBRiegENsbY0D8mS56NsQxDK8FK/Q1TrJDz2UeHWjoXWank+am4tMJti/WkJD/uSuRNY0rvCU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLyhPmeP4ik0y1g+kRYqaOtMVhK754aK8kxbQv7OUYjmCq7t/FA
-	L2yW2gKj08RpevItzLLqWv0K4oOTpq7Mn1Q/f8MbGMtk5n74IW6gnQ1+
-X-Gm-Gg: AYBFou1dUuubHtqL3NiVm5kuzNAMxGzZ6/XiNDs7fxLMbkamn96uASnKzKjhpu9CDxy
-	fpCjujzqrq9XpV+MyW6PvKHR2QKxUA9ByW1y+pAhffrCZoPhWk1kWQqdUv1HCiDkWCvlKt2RxuB
-	+JFWvgFbQMGXq3uDC0LidwMsuiJX6vaI39Kt3Fy070i0Z1ql++uCEUHnXGFDJ/5l/ApGQO8GrgC
-	nnfff0Ua1fKyfmsotd7ZyKU3VU8r2ya23jZJZhiHRRYMakdV/2nJ7LlZd7RBnGDwyiRaJjX4Sxw
-	8woqxcwVfaBS+No6CkIXvUQjkZhRRcS0TUuWP7aAhe2zEsFAt+VfV98XBIsPs7nVHKVbNNA19d+
-	YcSkJ1EgEXhb8NVtK7xKH83OKBo4QzDPVgz5x4IFfthEb/dIvxpZ66HocepSIrATRXAIBIqwcGP
-	drhXhdA8TwMXTjHFt1wVUyXV1jfsXXsvKErMD5YnKjq557W8VmRNdyURepiRyqFl87JvLqLnmlt
-	cjD4Mb3Y/i+GUDY5nOdl8TVQ7cjdVBmwIpmjX51ewl0BVf+HibDD5mabjY1i3JmXcy2Y0IcT2gG
-	xzD6aV89+BuRaW8/2mCJsRUm5jKWOKWE315sWZ+RPA==
-X-Received: by 2002:a05:6a00:4612:b0:857:726d:2e96 with SMTP id d2e1a72fcca58-8a9bd1faff2mr1359294b3a.19.1793342682057;
-        Thu, 29 Oct 2026 23:44:42 -0700 (PDT)
-Received: from localhost.localdomain ([147.136.157.1])
-        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-8a9ef56b38dsm363397b3a.31.2026.10.29.23.44.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 23:44:41 -0700 (PDT)
-From: phind.uet@gmail.com
-To: Stefano Garzarella <sgarzare@redhat.com>,
-	Bobby Eshleman <bobbyeshleman@meta.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	George Zhang <georgezhang@vmware.com>,
-	Andy King <acking@vmware.com>,
-	Dmitry Torokhov <dtor@vmware.com>
-Cc: Nguyen Dinh Phi <phind.uet@gmail.com>,
-	virtualization@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] vsock: reject negative tv_usec in SO_VM_SOCKETS_CONNECT_TIMEOUT
-Date: Fri, 30 Oct 2026 14:43:50 +0800
-Message-ID: <20261030064428.73930-1-phind.uet@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=gTyrKRnm
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U5EOhF865528;
+	Fri, 30 Oct 2026 06:46:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Id8QGQ
+	ONeVdgPpx5xV+Lr+vBDN9+KhzWpQXCGhMj0Vs=; b=gTyrKRnmpTiLND7XEfHqOo
+	TyTRYgZkDeKdKW7lXz7o/p0qDHu5pM67VvggXUAAJrj2abE/yxHM2++l5jqR5Zjo
+	jYI9wt4g6YUBQDKPUJXbFSiJD/bYnIhjoSS42d5t2tPiKsFYgfhqQLgTmimUgQ/M
+	admhuQY6/I1iH1ak1paNmhbrMyuVl2PPS49K257r+3dMnHs3ques1xCS+x/3SAxV
+	NYMcdVhjRjqQ+WQBnkTG5TWXATqyUoHizXTnvct4Kl5JiAVhCSMXnZKJAbt+w3qa
+	R0ZEsjrCvP7MUTD6vd/GRU8BoYu74nr1TJVmzJPCfMhiR+dcUFi4eA8oU6+HhDyA
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hmeaysea6-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 30 Oct 2026 06:46:27 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69U5YuEt070120;
+	Fri, 30 Oct 2026 06:46:26 GMT
+Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hk55pja9y-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 30 Oct 2026 06:46:26 +0000 (GMT)
+Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com [10.39.53.228])
+	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69U6kPfY64881096
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 30 Oct 2026 06:46:25 GMT
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4DB2058059;
+	Fri, 30 Oct 2026 06:46:25 +0000 (GMT)
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4A48658066;
+	Fri, 30 Oct 2026 06:46:24 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
+	by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 30 Oct 2026 06:46:24 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,36 +83,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Fri, 30 Oct 2026 12:16:23 +0530
+From: pavrampu <pavrampu@linux.ibm.com>
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>,
+        Madhavan
+ Srinivasan <maddy@linux.ibm.com>,
+        Venkat Rao Bagalkote
+ <venkat88@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+        David Hildenbrand <david@kernel.org>,
+        Muchun
+ Song <muchun.song@linux.dev>, Zi Yan <ziy@nvidia.com>,
+        Baolin Wang
+ <baolin.wang@linux.alibaba.com>
+Subject: Re: [PATCHv2] mm/huge_memory: set the mmu_gather page size in
+ zap_huge_pud()
+In-Reply-To: <8b853e5f9f16145859407b28af654b0f79e12642.1793318297.git.ritesh.list@gmail.com>
+References: <8b853e5f9f16145859407b28af654b0f79e12642.1793318297.git.ritesh.list@gmail.com>
+Message-ID: <7628b0e9814084298ae09abad0b5ac6f@linux.ibm.com>
+X-Sender: pavrampu@linux.ibm.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: gGY-rwakIoXDooIUogKTtF0LgTnN6YSW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAyNiBTYWx0ZWRfX+v3beX+bO7UL
+ mShVCHmwjlOQIjARv+1JbU3Q8Y1xvq0pMQT05BUwMWkXdzdlJKXsCY/AOhpKmPFObyv0M6c1ses
+ 0oVfTAzc2+iz0u++74zLyDwkr2SKLb7D7MaTQtbXsgbGeDCJ5/7CfbacZu3gn+JUNfWddwTP4fg
+ PMw5VXqfuBg8NZJB/7xq5CTSz+oTUY4jP3o5UCiCoZVSX6NIc/efmWWApyMV0zRSK9dN/553MXE
+ 9vsHKG9ukEeV37Byi6GpmQgzxy3Ta7PZCYokQlkbUomoPKeVwc4pLl+48Ya5usoqvVdj4g40s0w
+ mhuxmBo1fnwqD5Sz3oXUT9F90sFd5xGMmznYwWrX0X1dRNSKFhq5A6JZouiBqUSGFiiutFb2oLH
+ ljWjOZjti+EkPQqITh2hmqnTBWK7hXcPLD4aJEdUsKayn5IHYg85CCxpq7PvHiJZ6effWCo0xmz
+ tGz2bimsFA+/vBpsv7w==
+X-Authority-Analysis: v=2.4 cv=Ms3HeGae c=1 sm=1 tr=0 ts=6ae43d43 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=968KyxNXAAAA:8 a=VnNF1IyMAAAA:8 a=T-xRWpmrxNWT4oxTfLkA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAyNiBTYWx0ZWRfXxTRjLDtP7dbK
+ BzDxsU5s4ReIcrhMajyytxMyJd4MMBJUQfrS2urnaeXd4zDxCZ6BDzFTcjsaLlwUpP16WtN05iw
+ HG5FsK3w2dhcX4LOwYLqoDC5endnV/Q=
+X-Proofpoint-ORIG-GUID: nuh1h1ZEP6xnxA7x_sHTi-kj9tjJC_4t
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ spamscore=0 adultscore=0 clxscore=1011 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300026
 
-From: Nguyen Dinh Phi <phind.uet@gmail.com>
+On 2026-10-30 05:37, Ritesh Harjani (IBM) wrote:
+> Unmapping a device-dax mapping with 1G alignment on powerpc radix 
+> kernel
+> built with CONFIG_DEBUG_VM triggers this warning on every munmap:
+> 
+>     WARNING: mm/mmu_gather.c:176 at 
+> __tlb_remove_folio_pages_size+0x38/0x230
+>     NIP [c00000000063d508] __tlb_remove_folio_pages_size+0x38/0x230
+>     LR [c0000000006fb688] zap_huge_pud+0x1b8/0x2d0
+>     Call Trace:
+>      zap_huge_pud+0x170/0x2d0 (unreliable)
+>      __zap_vma_range+0x1604/0x1e20
+>      unmap_vmas+0xa0/0x1f0
+>      unmap_region+0xb0/0x130
+>      vms_complete_munmap_vmas+0x120/0x310
+>      do_vmi_align_munmap+0x1ec/0x240
+>      __vm_munmap+0x148/0x220
+>      sys_munmap+0x28/0x40
+> 
+> To trigger this - it is enough to mmap() /dev/dax0.0, touch the first
+> byte so that the whole 1G is mapped by a single PUD and then munmap()
+> it.
+> 
+> PowerPC needs MMU_GATHER_PAGE_SIZE in which mmu_gather needs to record
+> the page size for which tlb flush is needed. zap_huge_pmd(),
+> zap_pte_range(), change_huge_pud() etc all do this already. However,
+> since commit:
+>   dbe54153296d ("mm/huge_memory: add vmf_insert_folio_pud()")
+> 
+> a device-dax PUD maps a real folio and zap_huge_pud() now hands it to
+> tlb_remove_page_size(tlb, page, HPAGE_PUD_SIZE). At that point
+> tlb->page_size is still whatever the previous user left behind, which 
+> is
+> 0 for the fresh gather set up by munmap() and so the check fires.
+> 
+> Fix this in the same way like how other similar paths do.
+> 
+> Fixes: dbe54153296d0 ("mm/huge_memory: add vmf_insert_folio_pud()")
+> Reported-by: Pavithra <pavrampu@linux.ibm.com>
+> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> ---
+> [v1]->v2:
+> =========
+> - Split the 2 part patch series. Patch-1 is now superseded by a 
+> different patch
+>   from Muchun which he already posted [2].
+> - No difference in this patch from v1.
+> 
+> [v1]:
+> https://lore.kernel.org/all/97f85592bb78a273be8519e6897e7f9b9bd31469.1793070429.git.ritesh.list@gmail.com/
+> [2]:
+> https://lore.kernel.org/all/20261029063601.1961415-1-songmuchun@bytedance.com/
+> 
+>  mm/huge_memory.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index bd44d58e8684..7e589a2fb02d 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -3040,6 +3040,8 @@ int zap_huge_pud(struct mmu_gather *tlb, struct
+> vm_area_struct *vma,
+>  	spinlock_t *ptl;
+>  	pud_t orig_pud;
+> 
+> +	tlb_change_page_size(tlb, HPAGE_PUD_SIZE);
+> +
+>  	ptl = __pud_trans_huge_lock(pud, vma);
+>  	if (!ptl)
+>  		return 0;
+> --
+> 2.39.5
 
-The timeval validation checks tv_usec < USEC_PER_SEC but not
-tv_usec >= 0, so a negative tv_usec makes the timeout computation
-wrap into a bogus value, later tripping "schedule_timeout: wrong
-timeout value" instead of being rejected.
+Tested on Power10 (ppc64le), kernel v7.3
 
-Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
-
-Signed-off-by: Nguyen Dinh Phi <phind.uet@gmail.com>
----
- net/vmw_vsock/af_vsock.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-index d0508887a2fb..1d7d53542724 100644
---- a/net/vmw_vsock/af_vsock.c
-+++ b/net/vmw_vsock/af_vsock.c
-@@ -2156,7 +2156,8 @@ static int vsock_connectible_setsockopt(struct socket *sock,
- 					     optname == SO_VM_SOCKETS_CONNECT_TIMEOUT_OLD);
- 		if (err)
- 			break;
--		if (tv.tv_sec >= 0 && tv.tv_usec < USEC_PER_SEC &&
-+		if (tv.tv_sec >= 0 && tv.tv_usec >= 0 &&
-+		    tv.tv_usec < USEC_PER_SEC &&
- 		    tv.tv_sec < (MAX_SCHEDULE_TIMEOUT / HZ - 1)) {
- 			vsk->connect_timeout = tv.tv_sec * HZ +
- 				DIV_ROUND_UP((unsigned long)tv.tv_usec, (USEC_PER_SEC / HZ));
--- 
-2.43.0
-
+Tested-by: Pavithra Prakash <pavrampu@linux.ibm.com>
