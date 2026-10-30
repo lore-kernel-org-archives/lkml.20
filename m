@@ -1,96 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793379312;
-	b=2W3wh0qkkWa/bFyBQDF/+hGu1MgcMG+BxsbbfTHHww8uUTmSQIgPbmjgqtAHY8pKgWkz
-	 z+htfz9Kf9sVbWZaJDCFH1M8d5SWgv4hBbzlobZJbpD9pGDNVzoXjSx6cZOlBez9Eo4aN
-	 T7C9bXzDlx06UuEkLwYiHhERqBuwAD0IBB4gzmB87je6F39IbzIDgl/AQB/W4zDd0CfL+
-	 6xaBXNTl6/UQVfrAoYRa6tpv7w0mRIdtJxzpzxtWPOpb8O5qHdySPqVDO7HpL5pP+Yjsn
-	 p3JeRnh3VfWs4vFF0kBo1Is+yoJY3eDUlwbTgPjC+DL3148gNmHHKwUxaKwTU8rlpCQ==
+	t=1793379329;
+	b=t5toew6dGYfEyQk2KplMosv2LOYFfWvhHJkea2Z8saRuuW+QanfnEkcClj3izPONjAaL
+	 lwlnHUBkOjhHD6pift7LboPx08cg3aCeIzj/ssxrYV8m8x1oqldhkJxwiAja+fA+4osvh
+	 U/v03wkfZoaIKgl266Q0j7WU2OYahJUOrXFns+VD7Dv90UqkvKawVPBmfMopPjaaZ030h
+	 562xS0nCiiRBawZ34NpPZibaO+fHNwTVC0ZSDDvpXaopOaqOh2umR7cKymFQ2Wtgbn/u6
+	 ItpqJ7POeS1wo3pvIepy8EJkA6E1/9d/uQIwIXace5xUXijX0rF4nLZJgw9ixHkYuKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793379312;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GctUwbYvSK3roB7Vn59UFzSO9QPBJxnr3dgZFkrkbz0=;
-	b=oL2K8fBOH+RQbEx2026WACSSZ5alzxut0WiYi2eoRYElP9IG/yZl/DJe9v6owycyFgby
-	 M1Vw/XAQPzUQ4R0z5nyPMh/5qyT72qpMOcxCZKvLkE/lDawOY9DcNyJCoExKX6ZORffjl
-	 cj/oP5oFqkwp0Lnr8JXfF47T3pt1QAaen9w8WMjh/ndJWLDTrcXEl4l5NEq64eJpTdhxn
-	 dp7Q9FgUmQMzPlnQjFswHp3x4qoPf3J/C7kOXnySoiItnPch0K6CwCS5UItJLuiNEoje4
-	 7crHfN3z9Ulw9KwY9Hus015/TzjoZVvyf2YJh5MYEe58IsIHkMNjXJGK7f76TX47GlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793379329;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=BgnmbS0qtZzofNOhBfAuY9e9ZGW0X9MHEKQwmV+gFd4=;
+	b=A0vgNxB9RfYa7fs6i+cHaHZbQIW7i7maLxQQ3CvkCDGRkTw+9dPlZN+GmMvWa6yUowfh
+	 bUZTUXe48zRo9zmXKiCaDCGkAuz17z4qKTHnQiAebFakClPExZzM7U/rkiJ1S+p8iEMyA
+	 4tEfyz6/q0XWgwN+7d6ym9LMBUoF5rzUMtvgNLwL+fOnFd9VcwCQZZbZiyDjwtjzeCq4p
+	 ZxVgl0jYXRJrcA6eDC7j9Sz3EVn37V2EEaFmP1QUuz5qLDGLutp1PZD/+kHEx/hy6E+l/
+	 AqF7HtRb5VavWbzX54yrou5y1e8DAbZ2l+hHOwKAbUzIvihxpYXKI06nI43NUrWIm1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aIK1O+sA;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jO6GAPtF;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82DDB60A2620
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:55:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82DDB60A2620
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1BF606A32D;
+	Fri, 30 Oct 2026 16:55:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA1BF606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aIK1O+sA
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so574386b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:55:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793379312; x=1793984112; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GctUwbYvSK3roB7Vn59UFzSO9QPBJxnr3dgZFkrkbz0=;
-        b=aIK1O+sAVUXAbQJ39O4mLW7XWKjeuGi69KLNSqe7baImJ641MkuB5xHEj4vC2xQ3RM
-         CvkIF0XU3kPDe+1UrmUZEVjvV/vKFn16F1awRkok93DTriChkXpHosIe+fS+1DpHmPEq
-         Ij3l3NffXixugYs1KPAYf+h10uE/Kr1YulcKhVy69X3pV7KweOpsQdBBEouG51MQCzIv
-         e2Uv0VdIN01ktblRX2xMic4Aqo2hWKRJNKnt4M7d20YW1zxUcYEmsQSBOBwkMIH9Q6+d
-         T/2YCthH2KyLvgfQ6iBQnYjEZyym6z7K/7aHZWJ/Kdj9c3l4+OsH6ikBGs0vQYFK4Pki
-         l5aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793379312; x=1793984112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GctUwbYvSK3roB7Vn59UFzSO9QPBJxnr3dgZFkrkbz0=;
-        b=ZM2nXQ8VeBywNjJzX8WSkpCSl1BEJ5uxpGTb3SE5JlnjETPmMGoUmG+pmxWnE60ahv
-         5B4clzUCRrLSNvp7B760il+528wBSiZapAQTYWZ59So3ryHxmfNapK2Df1x3P6YJVoXO
-         x7oWXlTz0yLb9oQetZBOeJwDSo/k0dUd7Mj5o8UWBuqBVxIfqBysn3jX0gY3ZN3fHHcf
-         H6UuKzqRkrP4raaO6jxMKEN/5GWLSgwwFM3kISP7Jim/WkogWXNFDV3WWwYsHZFmwSVj
-         6kkyQSbU6BKuJRaX1KlkolfsAWo3YdiT4gOASC0Utio0tDL+UclpHOyw2W/ubG7X6/yP
-         569Q==
-X-Forwarded-Encrypted: i=1; AKwUvByBHNn1rfyJBNzM/98WaH9OpLFXkW7uRe9JPQfc2H1hE96dnykmYwAidPJwd3nzUUPBje+Kq+gstE1rBOE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBgXUXlFKJUr+XVHXpUNs+NzLTRP5daUm7qCgScMf5AXp5ho2C
-	Hocn798OYvbBH2yitYSOLYuoa+LuiGZUxuuVzKl0MWiWXKvkwkEm7Undc0rNqQCd
-X-Gm-Gg: AYBFou2G8EOjkzktd5kcWNvDV/9cW2FBDNi7AvMuskLYPZ0jmkhOET+Xe1UZEbAo77I
-	1b/YewM8I40/9rd1DrCmo+ISN/dmZe1S63mFf++bqM87Qbkkvabkiu8FBi42XSBICMHz7eYWvSS
-	KovrZVvqDrECrmmOT5xKqx+n89OJPUMweJjFwWooL9+IAIKIGvTlL1a1dxVM0PF0VipPwx3zuXd
-	/3cMJF1Aeg6WXafa8rPPp7Md2QiHaCz2Q21LVvkp5gX2LnOsxQyot5NjHL6i4IT3zaTn8OswGxu
-	zulxrm6mDKS1L82BIn/PqAwrVv1UEzpwBxttM4pjTNT0fDnctl7fxpmvdzv6LlyZnAprIs3ng4c
-	JVsYn/9KlupOiQ4Te0O9JBweKKDMx4GHjVrfMgqesmeIwY/lojAJj78Ybid5MeYS8gheQacvaG3
-	qTtmML/Go9qf2a+lLbXhaafEbUYF7FcN1G7niP45jzAUSfIDaazo0ipSAdA9w1vTli/QeeA6dW+
-	5q4unmcBT2pmEgxDRtbpxwYkvu8+UqzdtBqbVo/rRAMsSn31FdXXqo/7maz+abx7zbTusWBy/Jd
-	h4z6X+elNBgLFoEDBPkmx/JufRgtmjPCZHpU0fdm/q+XkIs4fWid/Ov2y3HVg431j52yzdkTHol
-	UtKc/XA==
-X-Received: by 2002:a05:6a00:2906:b0:886:5eb6:dea4 with SMTP id d2e1a72fcca58-8a8317dd93amr4216703b3a.17.1793379311688;
-        Fri, 30 Oct 2026 09:55:11 -0700 (PDT)
-Received: from hostname.tail4fb79.ts.net ([2401:7400:c804:b668:65cc:625f:9c43:1e88])
-        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-8aad963d6acsm272873b3a.18.2026.10.30.09.55.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 09:55:11 -0700 (PDT)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org,
-	Ho Jie Feng <hjf3108@gmail.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	neo_jou <neo_jou@realtek.com>,
-	Hans Ulli Kroll <linux@ulli-kroll.de>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH rtw-next v3] wifi: rtw88: usb: don't report the aggregation buffer as a frame
-Date: Sat, 31 Oct 2026 00:54:50 +0800
-Message-ID: <20261030165451.365591-1-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jO6GAPtF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793379328; x=1824915328;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=SfRf/e5D4fJBitFkWiH24F7RsXJMv4g9Vd/EK7VDuik=;
+  b=jO6GAPtF6FNpocEfxd8Lq4qLOJbfbRtJMCRO8oUyrNF+jkpiScdnp7f6
+   YpEs+d3S5A46Kih0ZWi1keZA5Efh3CdrRh1olbSX+FBxD0MlOodjJ4mA6
+   XR3IcIRxhn5scJA+5zrPgxZMD3loWHaMHj6hKQf5/ui8qbNC4iK4xAykx
+   DvH8SveAflGGQZ0xZXyI4J2hVHqbp5fe1QlBNHAP3l6N8AZS/e1P9rBD9
+   22l6+YzgPO7tpJv64Ipys5AqsEnB2EpITYinvBSSI7EgYEQISlrVeaF75
+   wsxSty53T1Z69TgEBeQsjHrVDzA01NEHZB70XgIEElZii2pCGjSnudESY
+   w==;
+X-CSE-ConnectionGUID: DFCrRd16RwmlXzueluhcXw==
+X-CSE-MsgGUID: vIgRv54bTNujQ8GelJcK4Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2241148"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2241148"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 09:55:27 -0700
+X-CSE-ConnectionGUID: rhDb9+csTMmsZXY9RNR4aA==
+X-CSE-MsgGUID: CmQR+n7gRuSQVAfNnNQelw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5487915"
+Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.109.99]) ([10.125.109.99])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 09:55:27 -0700
+Message-ID: <7efb942eb0f4fb81528e1a97e7f73996a95988ee.camel@linux.intel.com>
+Subject: Re: [PATCH] mm/hugetlb_vmemmap: Fix usemap overrun on nodes with
+ multiple ranges
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Muchun Song <muchun.song@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador	
+ <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, Frank van der
+ Linden	 <fvdl@google.com>, Mike Rapoport <rppt@kernel.org>,
+ linux-mm@kvack.org, 	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Mohini Narkhede	 <mohini.narkhede@intel.com>, Pooja Jain
+ <pooja.jain@intel.com>, Doug Nelson	 <doug.nelson@intel.com>
+Date: Fri, 30 Oct 2026 09:55:26 -0700
+In-Reply-To: <0611C182-4A76-4751-A04B-0849EC31DAD3@linux.dev>
+References: <20261029212137.3141875-1-tim.c.chen@linux.intel.com>
+	 <0611C182-4A76-4751-A04B-0849EC31DAD3@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,75 +88,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When rtw_usb_tx_agg_skb() has more than one frame queued, it copies them
-into a new buffer. That buffer was also handed to mac80211, as one
-additional TX completion.
+On Fri, 2026-10-30 at 13:32 +0800, Muchun Song wrote:
+>=20
+> > On Oct 30, 2026, at 05:21, Tim Chen <tim.c.chen@linux.intel.com> wrote:
+> >=20
+> > sparse_init_nid() allocates one usemap slot (struct mem_section_usage)
+> > per present section in [pnum_begin, pnum_end), and
+> > sparse_init_early_section() hands them out in order, with a BUG_ON() wh=
+en
+> > they run out. hugetlb_vmemmap_init_early(nid) however initializes the
+> > sections of every bootmem gigantic page on the node, including pages
+> > outside the range being initialized. If a node's memory is split into
+> > more than one range, sparse_init() calls sparse_init_nid() once per ran=
+ge,
+> > and this takes more slots than were allocated. The same happens if a
+> > gigantic page straddles a node boundary.
+> >=20
+> > For example, with this SRAT layout every node has a small range below 4=
+G
+> > and a large range above 4G:
+> >=20
+> >  Node 0 PXM 0 [mem 0x00000000-0x2fffffff]          768 MB  (low)
+> >  Node 0 PXM 0 [mem 0x100000000-0x80cfffffff]               (high)
+> >  Node 1 PXM 1 [mem 0x30000000-0x5fffffff]          768 MB  (low)
+> >  ...
+> >=20
+> > In 128 MB memory sections (x86_64 SECTION_SIZE_BITS =3D 27), node 0's l=
+ow
+> > range is sections 0x00-0x05 (6 present sections) and its high range is
+> > sections 0x20-0x1019. The low ranges of the other nodes are 4 or 6
+> > sections, all smaller than the 8 sections of a 1G page.
+> >=20
+> > Node 0's first range has 6 sections, so 6 slots. With "hugepagesz=3D1G
+> > hugepages=3D400", hugetlb_vmemmap_init_early(0) then initializes node 0=
+'s
+> > 1G page at 0x67c0000000 (sections 0xcf8-0xcff, in its high range), and
+> > the 7th section hits the BUG_ON() (seen on v7.2.6):
+> >=20
+> >  kernel BUG at mm/sparse.c:268!
+> >  RIP: 0010:sparse_init_early_section+0x9f/0xb0
+> >  RAX: 0000000000200000 RBX: 0000000000000cfe RCX: 0000000000000020
+> >  RDX: 0000000000000cfe RSI: ffd7e1d09fc00000 RDI: ff252cb28ffb3f50
+> >  R10: ff252cb28ffb3d40 R13: 0000000000000d00
+> >  Call Trace:
+> >   hugetlb_vmemmap_init_early+0xe1/0x140
+> >   sparse_init_nid+0x56/0x370
+> >   sparse_init+0x192/0x2b0
+> >   free_area_init+0x7f/0x690
+> >   start_kernel+0x64/0x540
+> >=20
+> > Here RDX is the section number, and R10/RDI are 6 slots apart: the star=
+t
+> > of the usemap buffer and its current position, which is the end.
+>=20
+> A detailed analysis.
+>=20
+> >=20
+> > Pass the section range to hugetlb_vmemmap_init_early() and only pre-HVO=
+ a
+> > page whose sections are all present and within it. Ranges are disjoint,
+> > so each page is handled once, in its own range.
+> >=20
+> > Skipped pages are not marked HUGE_BOOTMEM_HVO. Their sections get a
+> > regular memmap from sparse_init_nid(), and the pages are optimized late=
+r
+> > by hugetlb_vmemmap_optimize_bootmem_folios().
+>=20
+> Thanks for fixing this.
+>=20
+> However, the master branch has already switched to section-based vmemmap
+> optimization, it has been already fixed. So this fix should target the
+> stable kernels (6.18, 7.2 and 7.3).
+>=20
+> The change LGTM. So:
+>=20
+> Reviewed-by: Muchun Song <muchun.song@linux.dev>
 
-Report TX status only for the original frames, and free the aggregate
-buffer without passing it to mac80211.
+Thanks for the review.  Indeed the master tree has the section rework,
+so this bug is fixed for current master.  It just needs to be
+applied to stable 6.18, 7.2 and 7.3.
 
-Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
-Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
----
-Changes in v3:
-- Change to dev_consume_skb_any from a suggestion by Luka Gejak
-Changes in v2:
-- Remove unused drv_frame members in structs
+Tim
 
- drivers/net/wireless/realtek/rtw88/usb.c | 9 +++++++++
- drivers/net/wireless/realtek/rtw88/usb.h | 1 +
- 2 files changed, 10 insertions(+)
-
-diff --git a/drivers/net/wireless/realtek/rtw88/usb.c b/drivers/net/wireless/realtek/rtw88/usb.c
-index 715a2ce342d92..10f6d3bea0dfd 100644
---- a/drivers/net/wireless/realtek/rtw88/usb.c
-+++ b/drivers/net/wireless/realtek/rtw88/usb.c
-@@ -342,6 +342,11 @@ static void rtw_usb_write_port_tx_complete(struct urb *urb)
- 
- 		skb_pull(skb, rtwdev->chip->tx_pkt_desc_sz);
- 
-+		if (tx_data->drv_frame) {
-+			dev_consume_skb_any(skb);
-+			continue;
-+		}
-+
- 		/* enqueue to wait for tx report */
- 		if (info->flags & IEEE80211_TX_CTL_REQ_TX_STATUS) {
- 			rtw_tx_report_enqueue(rtwdev, skb, tx_data->sn);
-@@ -431,6 +436,9 @@ static bool rtw_usb_tx_agg_skb(struct rtw_usb *rtwusb, struct sk_buff_head *list
- 		goto queue;
- 	}
- 
-+	/* report TX status only for the original frames */
-+	rtw_usb_get_tx_data(skb_head)->drv_frame = true;
-+
- 	while (skb_iter) {
- 		unsigned long flags;
- 
-@@ -655,6 +663,7 @@ static int rtw_usb_tx_write(struct rtw_dev *rtwdev,
- 	rtw_tx_fill_txdesc_checksum(rtwdev, pkt_info, skb->data);
- 	tx_data = rtw_usb_get_tx_data(skb);
- 	tx_data->sn = pkt_info->sn;
-+	tx_data->drv_frame = false;
- 
- 	skb_queue_tail(&rtwusb->tx_queue[ep], skb);
- 
-diff --git a/drivers/net/wireless/realtek/rtw88/usb.h b/drivers/net/wireless/realtek/rtw88/usb.h
-index 94ff21dd08463..e861e9a66ab22 100644
---- a/drivers/net/wireless/realtek/rtw88/usb.h
-+++ b/drivers/net/wireless/realtek/rtw88/usb.h
-@@ -59,6 +59,7 @@ struct rx_usb_ctrl_block {
- 
- struct rtw_usb_tx_data {
- 	u8 sn;
-+	bool drv_frame;
- };
- 
- struct rtw_usb {
-
-base-commit: 9b0be45d4d52fd223994e151f169743a97abd290
--- 
-2.55.0
-
+>=20
+> Thanks.
