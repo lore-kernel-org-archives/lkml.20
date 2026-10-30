@@ -1,45 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793370024;
-	b=frVUUCXWwr3FeDf6rWRsp45Ib0tDM/L3+yRleqbqVG4zxNzFtEjACRH6skj6HC0l1/0l
-	 EAchzbXSR7GclTuDKGiA6YAvLUYUDcFEahppmLHHTRJLXtieOLMGebD2GQIIo4lqeGDkH
-	 pBMPcABylqQbPEP0ufamSUl+bxUjLo+9dSNPixe/PsGc+354SDGDgB28MekRvdbgP+yZH
-	 PJlIfIRQr1HCg9vCJKTnRD4he4tps0kvr7//mIu4X5ngmS/98kWi2Qx46k9INP45fdwAQ
-	 3CARfyGc8Hw3iozurvcYrmCYRPa7ukw2boyuU4biWl5p4Ec4dBEYx4XbW8evvMGEjCg==
+	b=EP+ER6HZIjnwMKVueRbCXX4oyNd84pahalq9sTa++yOqgAFdX0lOMBWK5YZY8zLhjknb
+	 mCoO0xEPRF+9a47p8XZrIHXwaBt9BAylLGXTwna4skcpvtvxXkh5jek6pg9d7ULA28faF
+	 hTENhnjHXGTNlG+JHCgOGP/3qLadaYB3TCRd4XQZZFm5UU/DNmaGzmVVPWGj+3VgbjaJJ
+	 RhBLYReL6BqlO0HMDNwMs5AW3SzJpj8Zk2fiEy7wTb/0yG2aZmU15sJp7HY6DxI3ifaye
+	 v0+u3aIyzpk9rO2O2ZEmRD1CC41pA/i2IMBNES9tGG/RnKsEJBA1TKX/6bBNb76qSAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793370024;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Gz8tufo0m0wCulzcu/zCog+PiMQz+E7r7KmJRLFYN0k=;
-	b=sgtM448n9b/wBTkk+U60yxiir4MXnlbxa4sjlAEsOuj+ZOiArlz9BgkSMOuZArIEqXCy
-	 EBQ+uf/9MO81cijqHlyHnfPQKC8ZAKWRpKCDQssD8JfLua6EBcTstyt9204bntI8iJkiv
-	 cF8JugLpkrJiLsVBluQaIqjo+K4FG+HxKGr+0D1PEOMCZH3GzCR28YmbseBZSvtpNceUF
-	 gw1330oTzeeTf1gZKxuxdwunvO7pQob4KNlP1YVkgsbTnab6bAhK3VzWqVG4D4mFj3Kl0
-	 EN0iyeydfk8HLpQX9367/XhNLnxKN6TlGQgE/fEYWxJTq05784OuNL3EDXUmyA+saJA==
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=TCEc+WjRhkdmQjjamO+cLAGLl/RfL/nh4jRiRyo8tzQ=;
+	b=X10gswiqp5Ag9lSObq2ne0Qe6BqMdlDDr2FmPdVcWd0/B9ZWFmMnHRN57mV7o1AUXyj4
+	 +56ZcEc0lINJs+72m+njParj5l9CjtNSlCOoEaOErK2b+RKyqA/H0z0N7nKcqGyzMHWwj
+	 JN1LcdQvRH/4BIv7TtzLq17LnwgumrdwTzJDu5gFvPHiZEW1YPssaNW3YJKgvAUD8Piz7
+	 bvkGoRQMyjCn+ETPf35NmaVwE4CN0dx8Oe4EHZ8A4E+omdW40Cvl14yYkxHKS73A4wtKD
+	 UixMWX2wM3L+xQ6XyszWzPmdBrC99rJWo5Ihli7yXJeR/3vvK49jx+/ZKNLRkI5HxWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VKcRmLii;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZBe5U9X;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 57CBC606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57BFF606A31A;
 	Fri, 30 Oct 2026 14:20:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VKcRmLii
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7F44C1F0093A;
-	Fri, 30 Oct 2026 14:20:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZBe5U9X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 828B21F000C1;
+	Fri, 30 Oct 2026 14:20:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793370024;
-	bh=Gz8tufo0m0wCulzcu/zCog+PiMQz+E7r7KmJRLFYN0k=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=VKcRmLiinGZk1rDYI30Cd7gr58jw5KY9OdMpYcEaX7iGvoWRWz77o7i7RjKqfDEnz
-	 PVjQMTYzAG/ZswC9q7LV2AZehWjqg5U+X74OuG4ghf8KzjkR0jaWpIh6O0T1mKRasl
-	 JIQDbCBftxoDLrn595kLzlNd05ocT0njCEJ6g5MkmHIrVsAngOCbc+iMVXx5McRhEm
-	 RpcpdgHEwrCqJ3TPN8jt1whmrJ4mFIm+5A3VXljLpf/cHOIfgtjNq1049dEijOcWB+
-	 E3AhNQ4BAbhOfyx2s3ohOlJhvlaevyBLJJ2W76kHiB7mm+lRQwgANf0IjB/FlRKpvN
-	 crrdo+GwzxKOg==
+	s=k20260515; t=1793370023;
+	bh=TCEc+WjRhkdmQjjamO+cLAGLl/RfL/nh4jRiRyo8tzQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=XZBe5U9XQfsP6G59LqMNpT+MnLwMjguj28mYxVQKcPQrFH2aLPL47iUk0vf+5/4zj
+	 iWG1h8nX4EX3LbStmQs1s8ug5RHe++SZi3K/ifO2wETJUjYXayFIm2MPrWRIij6pdk
+	 ovycjPTMwLlvtSqKll/2FJkJhZj34PMTNRYVknUYG67JUPgIbkM18JtwpIRDphaylV
+	 7s0qpVoYaEMfT8ajYy2XmlyRXfxSrGq69xgwULsYYOR9GkVgzwZTBnGvHkxbp6fvdT
+	 26W6XuIc9U6NxbnYjIavqJsKuyZNX9uVvuPhklY8Zq6u4GctyBc5buSRKW+qC10Zlj
+	 iFyA3Gdh8C6pw==
+Message-ID: <757731f0-d26b-4f87-a6e1-327a063caaf0@kernel.org>
+Date: Fri, 30 Oct 2026 15:20:19 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,98 +51,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] memory: tegra: Shut down Tegra210 EMC timers before
+ teardown
+To: Myeonghun Pak <mhun512@gmail.com>, thierry.reding@kernel.org,
+ jonathanh@nvidia.com
+Cc: linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+ ae878000@gmail.com
+References: <20261015002852.2159841-1-mhun512@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261015002852.2159841-1-mhun512@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 2/2] kbuild: Support directory targets for building
- DTBs
-From: Nicolas Schier <nsc@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Saravana Kannan <saravanak@kernel.org>, David Heidelberg <david@ixit.cz>, 
- Arnd Bergmann <arnd@arndb.de>, linux-kbuild@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261023-dtb-dirs-v3-v5-2-dfe13d47aa64@kernel.org>
-References: <20261023-dtb-dirs-v3-v5-0-dfe13d47aa64@kernel.org>
- <20261023-dtb-dirs-v3-v5-2-dfe13d47aa64@kernel.org>
-Date: Fri, 30 Oct 2026 15:16:48 +0100
-Message-Id: <179336980813.3139600.12365744632390730361.b4-review@b4>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2025; i=nsc@kernel.org;
- s=20250924; h=from:subject:message-id;
- bh=xjoqRoFBUlJo0LxZQBS7KJFWVkqGKDnz+QZfxjGxBic=;
- b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBq5KbTXElPAg1iNDSd8mx2dOh46umDBQfUYOF9d
- XwzwqbSlrSJAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCauSm0wAKCRAHUgpwFiYS
- aX9lEADyP0y324BnGj0w37NJTRd5zotHQwsbDz+f7cpsOePQpXuPO8gtRgguPBB1kPGguwiLidR
- gutaGPK7lFhHrHgk8jkoLo6wBRsZSAs7Z4ReLHKv5bs62Zu1D3ZXGfkDIqXdnWXtzRA3Bq+bSUc
- kp5ENeVReaX5FPFIiquN5d+pGQEDJ+n0efvwWFS3/ro8Bih6lhGoD6S0TZhCAT763UUadxyUjJJ
- NjB4Y+onSQIyMqlXlsncHepeA/fijrcycITUCN/S87yf2FO4vhyBBQ4yqQ8jkiXIqKWEoeJ4ngv
- buhEWzEGzYTlU4qkj+SpiJ4FiVQM2xG1Ay50bEaAdbE9brEiJahDuF9k+HDiMd0+eVEwaPh6YoT
- DGE5f22H9wbjIRmAHymOaOaAe675Vvq+u4bVhPmq5fPMwp0xDX6x3NtXPatZL3ydXpgRTcZc3j5
- EyamjcBntP3X10xy5Zq4xSuDy5hLdUCY73aKXlUb8TKlcfwfhYAAoxVCr3lfXIjJqCyoZTnLUsO
- XlAitU35AZHuyJcocR6/UI011zZWDC0v506llQBS5sGuV7m+URgVo3+xLuR3vsMO1hZePm7xQrz
- MeDB5jo+vtt1+j4xSeWtoRc/vphPSh4QRXRGgURB0w/V9LEKD3jc/EAqYuCcf1aPDlzv3QJxeHz
- glYF5Zbad+yyGVg==
-X-Developer-Key: i=nsc@kernel.org; a=openpgp;
- fpr=18ED52DBE34F860EE9FBC82B7D97093255A0CE7F
 
-> It is useful to be able to build all the DTBs for a vendor. One can list
-> all the .dts files in a directory and convert those to %.dtb targets,
-> but that doesn't work for base+overlay DTB targets.
+On 15/10/2026 02:28, Myeonghun Pak wrote:
+> The training and refresh timers can outlive the EMC state on removal
+> or probe failure after clock attachment, causing use-after-free.
 > 
-> The 'dtbs' and 'dtbs_check' targets can use the directory rule targets
-> as well which avoids different make paths for building DTBs.
+> Shut down both timers before detaching the clock provider and releasing
+> the timing tables to wait for callbacks and prevent rearming. Initialize
+> them before clock attachment, since set_rate() can start training.
 > 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
-[...]
-> ---
->  Makefile                          | 12 +++++++++---
->  drivers/of/unittest-data/Makefile |  5 +++++
->  scripts/Makefile.build            |  7 +++++++
->  scripts/Makefile.dtbs             |  2 ++
->  4 files changed, 23 insertions(+), 3 deletions(-)
->
+> This issue was identified during our ongoing research while reviewing
+> kernel code.
 
-[...]
-> diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-> index 4349108e75e1..22fbd5199091 100644
-> --- a/scripts/Makefile.build
-> +++ b/scripts/Makefile.build
-> @@ -38,6 +38,13 @@ include $(srctree)/scripts/Makefile.compiler
->  include $(kbuild-file)
->  include $(srctree)/scripts/Makefile.lib
->  
-> +# Make DT directory targets reachable for architectures with a DTS tree.
-> +ifeq ($(obj),arch/$(SRCARCH))
-> +ifdef need-dtbslist
-> +subdir-y += boot/dts
-> +endif
-> +endif
-> +
->  # flags that take effect in current and sub directories
->  KBUILD_AFLAGS += $(subdir-asflags-y)
->  KBUILD_CFLAGS += $(subdir-ccflags-y)
-> diff --git a/scripts/Makefile.dtbs b/scripts/Makefile.dtbs
-> index c4e466390284..c7ec2a2a308e 100644
-> --- a/scripts/Makefile.dtbs
-> +++ b/scripts/Makefile.dtbs
-> @@ -23,7 +23,9 @@ dtb-y           := $(addprefix $(obj)/, $(dtb-y))
->  multi-dtb-y     := $(addprefix $(obj)/, $(multi-dtb-y))
->  real-dtb-y      := $(addprefix $(obj)/, $(real-dtb-y))
->  
-> +ifdef need-dtbslist
->  always-y        += $(dtb-y)
-> +endif
+Really? Or you just took Sashiko's report?
+https://sashiko.dev/#/bug/linux-47538f77-fb50-4a06-b49b-92dbee8b538b
 
-Looks good to me, thanks!
+Running LLM is not an ongoing research.
 
-Reviewed-by: Nicolas Schier <nsc@kernel.org>
+Applied.
 
-To prevent too many ifdef/endif lines, we could use substution variable
-references in scripts/Makefile.{build,dtbs}, e.g.:
-
-always-$(need-dtbslist:1=y) += $(dtb-y)
-
--- 
-Nicolas
-
+Best regards,
+Krzysztof
