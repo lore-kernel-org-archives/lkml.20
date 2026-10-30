@@ -1,54 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793350144;
-	b=jwfPhIlwrf457/XUI1jsfqJUmDkK+5BLfKmRy/TrzOIb0gDx+N7O4w98TgTUBKTByD0Y
-	 11PFKZ92Gm8sXS0GIr13Y4f59w/+6GO737YIwZXEmmEYIJ+draqZKBT8V0t4HiJZKy9W8
-	 a3YbtRkWckjtbGTSP8YGA3nmqG0JV5KtSVMLHISVQEf3hDLkreVRWhxFLrR0cxJzy9mN2
-	 QxDO2nCpsqmqmmRXl/tSmvP3EC89CbGe0y728pb+WynoNy2RPCMSkFZK3ntizqUOvdGhg
-	 ASriEaeNYa4H12EbBXbxODMFLkzNLwmk6fA8efCuF5dfPYCK3S1n4b1BbMGOUzgznoA==
+	t=1793350138;
+	b=x7+7OAnpx0uRTXinVUpAd+jiAhukYrGCP5XYEijRIAVc8PYb67+CFazA+ZVyBXw1fVgh
+	 2povMCXvfaBvw7h+plOHrG+igFlHc1hS4uWUjXtGby4ZGgv84YFJGyF5o91SsS8mRQxMc
+	 /ZhP1W2o5RmGqnk+S2iTM+j/cIHtCVIQmh4IadEN5DxuxqpR9iSktSF3DSTUrX0SHk80H
+	 HS0XnY4coWlRfJYLg249wWg3TWbJvB+v5I+ceQoy8iTBKtDqcaH2GFu53XUs0smMrYLY0
+	 G6HcsxN8elOWYyfn1C3zNnF/w7iOfFBjCYfyVNw6D9LtZPAsHNyP+C/orVf+LiqRJ+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793350144;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=uFqBBEwOWl98ug1TqMQYwIz6t+F2tyQFk0IyQsWt9qA=;
-	b=rvbfjPepSx8Fp4xg4snqnwMuo1+/LJ2e2MGmQiNfXnmEQ8hiummsGG0SRmH9QGuXF+uI
-	 8KsLw6pQ3GMm6c5zs8ZDNV9ATzWOays8U1MK9aVNnCQeisL5Rkh7j/Aty9gLaEc3qDUzv
-	 chT2yD3c74rEUpI1rpqkfu+GGiMOX3m0rb9iXzbQLWn0fYV+g0+3i9O+AGphzOPn6vYqp
-	 zH2glroOFKQ0VCOQioQgGiKD+hxEtwkT87W+zCfFBl4VOfXo0pE8YUJKD4ZV6DTtISFAF
-	 r2siiLJWwXcUwXbi92CvQmbIgNMYdZgfYeLHAYE9mS6toDyVYWS6B8LX+KLN+54YWzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793350138;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=beajLhwN9CSsow59nJHWmE9Zgynru7ufzr34F18gXYA=;
+	b=gbA294pwHL8i8dBsiQ++x1peISRk8kyDAApJ6LP9VZr4XBdHri3IZJv80IFf3YxK24w+
+	 kOCgjv6nuR261yRueJ9XGK4Nq7raAQw1MKQgjfoe3h5fFKJWoTKHTbHZ5V5bBhce9a1PH
+	 LDZdXnEhvUOADqQm3Jv01OnFqMCqREHp6fmUS8KvagJsEftbGTKradYtN0c3TsH35fTk9
+	 wxIWVh6h7GVktkGBBDN3jDtaV3e65H00cE6z743etu4+qOfyoQ89Ge6TLGnLyG1Z4gGlR
+	 s+wC4aUaWWa+b4GqBdXQljIrdj7FKwgbjBiLytv52ZmSTLLuNScdw2jSeMIWk2VWeFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XouvUJkv;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A431606A326
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:49:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A431606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b28deb7ee3so609431b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:49:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793350143; x=1793954943;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=uFqBBEwOWl98ug1TqMQYwIz6t+F2tyQFk0IyQsWt9qA=;
-        b=BhEEBcfo7GuJ641GUP9jlP+u1O2lQ+cXdW19cq3mPEm8gpTOHMM1TVrMFNgpsZ4Egc
-         vzi/HJx5/k/z69N71bROyNiGTiFT13qWTY4qNv8dVdjW0N0XROsLV8KUAZa4L4HKPAVx
-         FCdjexTRMfUKSh3sVFCtdjDfT0DR8wkysskfjNvk/BBumzPQz+UbHoPdaFniVeqxD+Er
-         W5AzsIVRLldUrf6sh6tK43HTo68+DoIYq1deewAuxASn3m5YDicL0kFq+LEiMH75IbuH
-         oCO66YvK0efKdaevmOGWb6MbobXZO4Fq+IHbVVGDFYMXGlivW8aOrjfqpgir7+WvQcHO
-         rGbw==
-X-Forwarded-Encrypted: i=1; AKwUvByQZwS3FkfXc1J6dzuaMTE/bdBCvFMOCdEyxB8ZGVoN8t2nlzu/pIBh3jObxzl7s+zVnu4t7zBENg+NG78=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBNVV8du2Wg+OVT2wMxldLWBDnhyOEEQj7RwFGPmE0w9T9MzgY
-	bvNsspEObU2gN/yUlNKbFHDlEeMMwFTmFfCmq3tSsU7VL0Q+SxEkYqxgK7jVJUBkrpulDHoq5Ik
-	KOkJnBSulqqY76qq+GvoQk5I4fgLF9NfymhNKiSMy6GtSDs0lKGdn+74xAfU=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47830606A31F;
+	Fri, 30 Oct 2026 08:48:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47830606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XouvUJkv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793350138; x=1824886138;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Pp2u62TqO8sxtCU4vUBVQ9y/ebXI4VwDVRUtwi24cCE=;
+  b=XouvUJkvhSCfdyu/qvCOxNxR1innkubVQ3HduIUq/9dIiuInPK89PXLC
+   iRWwX5t23STFOsuzkZO/Ie0ZnBCLxbf+bhAMc5I5cjX8pFbECLaBWlaIt
+   CO1kz+UFIdWciDPZBmtHn6hM9e19fpsxzBVvO3VMo9JTiTpIWAt/J4Wxb
+   5/TKBe6+ih9hnPGYIUG8sathPKhFZ3T7pXfXWq8vkmwHqGprvGTQH5SPt
+   xOGrH4NSWiyQp3o3PrszYO1b6JJCdk898JInSStp3yG1k0qlDmU+UdkuH
+   Us5V3EEsR1EvXYv5ovmlaLJstFPKWbl6/mhfPiJqEswWca/EOVhR483ho
+   Q==;
+X-CSE-ConnectionGUID: asPwSAm6TM6adc4xwqNbDw==
+X-CSE-MsgGUID: JetgwPCYShiQeixQukR6KA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2123150"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2123150"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 01:48:58 -0700
+X-CSE-ConnectionGUID: /NkdBB7hTVKoteKXAmZV+g==
+X-CSE-MsgGUID: viDSKn0rS4+qJWHrqsN2bA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5265516"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa008.jf.intel.com with ESMTP; 30 Oct 2026 01:48:55 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 2DA6199; Fri, 30 Oct 2026 09:48:54 +0100 (CET)
+Date: Fri, 30 Oct 2026 09:48:54 +0100
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>
+Cc: Mika Westerberg <westeri@kernel.org>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 2/4] thunderbolt: add support optional dedicated wakeup
+ irq
+Message-ID: <20261030084854.GQ158991@black.igk.intel.com>
+References: <20261030082539.1208733-1-chunfeng.yun@mediatek.com>
+ <20261030082539.1208733-3-chunfeng.yun@mediatek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,37 +89,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4487:b0:490:315d:e0d5 with SMTP id
- 5614622812f47-5640dcb6f71mr1007391b6e.16.1793350143466; Fri, 30 Oct 2026
- 01:49:03 -0700 (PDT)
-Date: Fri, 30 Oct 2026 01:49:03 -0700
-In-Reply-To: <CAL4WiipBVMi_fiSQVUAFxqcPVc5jR2BswOwA2iNmGFYE_sbyRg@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae459ff.f57e0135.1770dd.0078.GAE@google.com>
-Subject: Re: [syzbot] [net?] memory leak in build_skb
-From: syzbot <syzbot+a3f21220cbbb6e14ee2e@syzkaller.appspotmail.com>
-To: andrew@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
-	jasowangio@gmail.com, kuba@kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, pabeni@redhat.com, steffen.klassert@secunet.com, 
-	syzkaller-bugs@googlegroups.com, willemdebruijn.kernel@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261030082539.1208733-3-chunfeng.yun@mediatek.com>
 
-Hello,
+On Fri, Oct 30, 2026 at 04:25:37PM +0800, Chunfeng Yun wrote:
+> There is a dedicated wakeup irq on nvidia n1/n2 SoCs.
 
-syzbot tried to test the proposed patch but the build/boot failed:
+Okay but why it is needed? Can you add this to the commit message?
 
-failed to apply patch:
-error: corrupt patch at line 6
+And why you did not add it already in the first commit that added the
+platform driver there anyway?
 
-
-
-Tested on:
-
-commit:         d89e1d18 Merge tag 'fscrypt-for-linus' of git://git.ke..
-git tree:       upstream
-kernel config:  https://syzkaller.appspot.com/x/.config?x=fbf447a1375a1948
-dashboard link: https://syzkaller.appspot.com/bug?extid=a3f21220cbbb6e14ee2e
-compiler:       
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=124fcef1580000
-
+> 
+> Signed-off-by: Chunfeng Yun <chunfeng.yun@mediatek.com>
+> ---
+>  drivers/thunderbolt/plat.c  | 16 ++++++++++++++++
+>  include/linux/thunderbolt.h |  1 +
+>  2 files changed, 17 insertions(+)
+> 
+> diff --git a/drivers/thunderbolt/plat.c b/drivers/thunderbolt/plat.c
+> index 85a00cd391d4..8d83b484d942 100644
+> --- a/drivers/thunderbolt/plat.c
+> +++ b/drivers/thunderbolt/plat.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/of.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_runtime.h>
+> +#include <linux/pm_wakeirq.h>
+>  #include <linux/slab.h>
+>  
+>  #include "nhi.h"
+> @@ -46,6 +47,15 @@ static int nhi_plat_init_irq(struct tb_nhi *nhi)
+>  	if (ret)
+>  		return dev_err_probe(nhi->dev, ret, "request irq failed\n");
+>  
+> +	if (nhi->wake_irq) {
+> +		ret = dev_pm_set_dedicated_wake_irq(nhi->dev, nhi->wake_irq);
+> +		if (ret) {
+> +			dev_err_probe(nhi->dev, ret, "set wake irq %d failed\n", nhi->wake_irq);
+> +			return ret;
+> +		}
+> +		dev_info(nhi->dev, "wake irq %d\n", nhi->wake_irq);
+> +	}
+> +
+>  	return 0;
+>  }
+>  
+> @@ -53,6 +63,7 @@ static void nhi_plat_exit(struct tb_nhi *nhi)
+>  {
+>  	devm_free_irq(nhi->dev, nhi->irq, nhi);
+>  	flush_work(&nhi->interrupt_work);
+> +	dev_pm_clear_wake_irq(nhi->dev);
+>  
+>  	pm_runtime_put_noidle(nhi->dev);
+>  	pm_runtime_disable(nhi->dev);
+> @@ -85,6 +96,11 @@ static int nhi_plat_probe(struct platform_device *pdev)
+>  	if (nhi->irq < 0)
+>  		return dev_err_probe(dev, nhi->irq, "get irq failed\n");
+>  
+> +	/* ignore error */
+> +	nhi->wake_irq = platform_get_irq_optional(pdev, 1);
+> +	if (nhi->wake_irq < 0)
+> +		nhi->wake_irq = 0;
+> +
+>  	return nhi_probe(nhi);
+>  }
+>  
+> diff --git a/include/linux/thunderbolt.h b/include/linux/thunderbolt.h
+> index 212c8fea6571..06b90d452ee2 100644
+> --- a/include/linux/thunderbolt.h
+> +++ b/include/linux/thunderbolt.h
+> @@ -533,6 +533,7 @@ struct tb_nhi {
+>  	bool going_away;
+>  	bool iommu_dma_protection;
+>  	int irq;
+> +	int wake_irq;
+>  	struct work_struct interrupt_work;
+>  	u32 hop_count;
+>  	unsigned long quirks;
+> -- 
+> 2.43.0
