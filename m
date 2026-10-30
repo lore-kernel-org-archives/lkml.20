@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793392454;
-	b=LEqQE6iH9dX0cHVpV5377TCUZrwWbgdQyqf30F52JMrTsES395ygeZV3bd0gZDO8aT26
-	 BN3AFyrKlsZQNY3OuX8dW9WQHuYoR5D/tYwoNpnahLXGQZci9ySBJPOfyyZ5tpe6KDHrI
-	 Fz7QzLxmymquHg7vniGR6g1dSI27/aThBMccten4mtg7zCae2MAr3WJMLzPWxm4jevFEk
-	 CkE5Za4OvhVo6yIoDy1GpIl5teVEVOXXCqJyYGnAhD8+NVymn0jkHJhb8uOXi5HGDCqdj
-	 zIg1MfK8yBRFKoxEveTVkQS3fqodQ2Zl4q7P3axr01apEnpaFgBVrg2hanuTgMd3ahA==
+	t=1793392453;
+	b=njqHv1HQFR/KAizLVJ+Bbu8bmeP7OkC9sYV8AY66D0EqgntgCt89NDgFE7K4DLqZSWdd
+	 w7C0+EpYk3Ihsi4oNYjYijwsxzcMC4yEpgX6yZpwW/9wtWeihsUBOa6rWDbBC11zCyOoo
+	 ik86AiwlxruGG0CrW6/S0x4xxxGN2KxZp6iPs5HtK/IuDnAoYe1yL/gAPj5+XsfaeCqoL
+	 RWtIR2GwRfGDTNfu0ww6+DAWvDtEFIH4dAUG24rMdxf1bpWDyHnAOr401OCkA+XXdto0R
+	 Zc1Zu/J7JaJAPZcUGtfZP4hgXWe31KgtZ3Ygu6lrLlaDmyO44/uTxGNKD8PnYkS96dA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793392454;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793392453;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Q5W519Vms+cuLU3D3kQ7KbxaNAU0DCKwcBmgsNRSPF4=;
-	b=XrfH7m6RqF4U1g46mAFQkSI2ImTiftwZqGhwbRrJrZkWMFGDWC4DccfTvWmGDlwGS6Cw
-	 b2ocuU1pwxR3GbJOOTG4QYIO71rlygXMYQlKPG88Zf6XZez7GtssQkLfOLTEWfIJzCgyS
-	 LV3AjQRQYoYbLWAU0/kQ5YxXhYEvVjuQX4KNDzPOxfeBAsvOlPsqqLdoT4sdp6lIf19tf
-	 1fXDSaTvSyl4igxca3wjd33LHtIdvzxkVv5i6SOnFIH66EDIU5QVqbb12UbZ79jeKDt5m
-	 QU3CjRCcjYkP/aRD567HYITdfGEMQ6MT7fw1p8I152dA0pk7Z08NNrNMn6+F/ZBQmJg==
+	bh=VSr45EekwXT7Gn8RorAXchQ8TsB4e3wg2k48aCXq1sA=;
+	b=nHrV8uXUIj5aZxoEyN4d+oXzn6dzVVUPVmtoaHFI17edLEVaA8hh1xuDInQ/7cqlIK1f
+	 tigCoMqP6kFQgYgZFVr5TQtjYXV5GoWql57JB/vldWVbW3sH0JyLvu2VGuqZYbarv5CRW
+	 JNiHlP5ltX/RS3DrB3ID/0UrDclsywE6/zoTcr7oVglj68zajwCijDZY0lkAtWBWnjp/e
+	 d8Hq+sOWz8c8l5f6g4zKFFR/yBBTa+WV1PkrwzSy5AodZZpntw5zTo8uHZnVL2BzG4BwI
+	 PFnyvlRLWA6dtgJLEqr4BP5ch+IzPwPWvY7Oryxr68QWm199XwT5ThhlgqViZVB7IYg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xmz1SEUL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BdVxPylt;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F88960A260C;
-	Fri, 30 Oct 2026 20:34:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6E5606A31A;
+	Fri, 30 Oct 2026 20:34:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xmz1SEUL
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BdVxPylt
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793392454;
-	b=0EfzcWNPA9I7mn4NKuY0XAtq0MI2OzxyCzHjHciKGGKiGdWvAFQ+y4394UB977Am0jxp
-	 rjpmEVXcmbLmyoD1qwfgP4YN2KiKYE+jxbbaRvi5iV+EP5vhXtwYLRStgURgLgECkXrlc
-	 ZTvkAlwe9iVcQkWYk9dZ8hHmSJxjd9aED3EPYVAEeGefx6ef/vw8bHDiKSfwPzgVlF3MB
-	 qtExJwyn9ZcRNmSLMNxfhCX8AUCEKfl7BbYaQamRIZldK0QyF2GkDeBulaZxky/vwv/q2
-	 RxS+y5FSIffHE9sahq6m0DGNERjVq7Z6Mt4mOhQ7hAT5BPrJw4vzGorjFXY4R/MIDWA==
+	t=1793392453;
+	b=GVaSaOr0nT7xk7aPDmQCLCMNiVO0aH47kqT57HLI5ob2oiw0pamoaVUCOrkOp11AgFWr
+	 kgsjmM90P35tgpALydetPFWYG0LlcjdWD5yIRkZo0CElH6We7luvpWYvvywmMqzY60+4V
+	 cJe/8T4wbxMqDbXcsbqNipjBPzmpRgSqgV87xUECmx/a8NAHw946GKS6LBAw9Lx3SZE+C
+	 i6pwXeSxx960MWAAm2IpS3v0cJ5bLShlZ9Aqduj7SH3DaRYHGCgwIDrLx0Izxko7SEOEA
+	 9H+edNzP+0kggNlv7ZiwKYpReNIe0sxfCe8i+oZmJPseiTv5UY0y1tgr23PKS1or/sw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793392454;
+	c=relaxed/relaxed; t=1793392453;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Q5W519Vms+cuLU3D3kQ7KbxaNAU0DCKwcBmgsNRSPF4=;
-	b=WToorKZWRINJgQ3VvL6zo/LNr6HSuYdLqIGVtcfgtJIiJkRqjprWkdhfEHAkeKL63vzX
-	 2tFa84l+VeDk1+OtF3GdvjdyPbq3pjwIEo61ZcxFubG4B3kf664HA/jUBNPFNj2QPZiWN
-	 WcUmW3Dgx++3JXKAkrSDC7PRwG2RhfnGjOOd/DGzWjs5644MLwFEqLseEEWb7G+j+yCdf
-	 eabCPlvCjYT5In33mSsxBNV7klTtQ7txN2xEEi7GP4bzblTIazXF08b6lHZJkrsKDi2KN
-	 9HLsgtYqiQPVs5sSnZen4WdtoZTSV36IneyHY4yeU0X4e3ueHsggvoy6Cjo0pVQ1/mA==
+	bh=VSr45EekwXT7Gn8RorAXchQ8TsB4e3wg2k48aCXq1sA=;
+	b=MghrYpLwiRAzOyW0gye3Mv4RsblDIMQziCw4JZ8QRS4cvMxAsJZKda8Zka3QcLpqCwjv
+	 n+36gwOCFuAH+FvM2VLbVymrBdAp8duhpxRjXSmz7wuiJk1gX7F3NY+dB93rHLYYwRn4E
+	 U142UaopRwRnlff43ikXIZH57okEWemrh2eypxGqCqcRKk/oxFu6WCXIuSh7+hEPm0458
+	 6ayIwhmEIst0f1WBqVL+0Aq/557h4VeoJtHF0Elaatb9xhsYlygjeAm9cxMPY+hYR6jK8
+	 P6kQNIQiCbqhCn7jiKyQwKhIvQsLKK13T+HhBL1cM6FVOFYjtRYK/ohRLHk4Kmgn7fw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 667BF1F0093A;
-	Fri, 30 Oct 2026 20:34:13 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 454991F00A02;
+	Fri, 30 Oct 2026 20:34:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793392453;
-	bh=Q5W519Vms+cuLU3D3kQ7KbxaNAU0DCKwcBmgsNRSPF4=;
+	bh=VSr45EekwXT7Gn8RorAXchQ8TsB4e3wg2k48aCXq1sA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Xmz1SEUL0GLzkOxXEvsmE8F2Z+iWO5ah1qdPUMkWAmVN3Cwb9ALT1AhQygTNuBiy6
-	 4zyyby8NOA2yd1UW45vVtO7wf2j7WniutC9WoqJgGENrBmF01kW6Hsle/FqFJ0oy5T
-	 iq1VQxR0kVXJ5dQE+UsZ4/DEdWYVbdzfXoD2hafn6ngvZcLMp6WV9FQxiYy3czWOYn
-	 TqK8qFJNySSKTD++JvsrIbdms5KdaQRuy+CVamsXglZBl7NSWeQJiZ0we2o7dV9grx
-	 a5731JqNQI/FDBR9qUkbE1SWGstYtaYHYBkzbxbiOqbmHKqz8RvRC8u4pT0zHpGiNk
-	 vHx2Cp2+eIf2A==
+	b=BdVxPylt3UyLK4YSMW9XMYqaTq64XNwhPcI529DPbeuAF2qswBmejXqC49q9L6a3b
+	 c2UWx7S4fGZ3ynnb+Saa/MI7eFOdiLBjQs2CQzhyUs1cBYC7NZWTovMpz8Nl5b2gXK
+	 bnVKmzG34OrJIAL9w3szwlAMbciOsJpzPRO/d2CbhfqVw3nxeBb6C8/rprIPdEuoF8
+	 xERBFIm+iPIzmpp1xXHQGVypUJA3/vRueYXwFAWJ//HSM1zPkW7ixuFgTdOjU7PVUS
+	 TAwuRfBhTEpk54CELT9uI+S/P0HaO8lOGdnBB/l6zOBG4vTrFNEK0e9xTek/3NQ1fw
+	 5WloBR5tphWzw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D429E4428F;
+	by lkml.kernel.org (Postfix) with ESMTP id BC81B44287;
 	Fri, 30 Oct 2026 20:34:11 +0000 (UTC)
 From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
-Date: Fri, 30 Oct 2026 20:34:00 +0000
-Subject: [PATCH v3 5/5] arm64: dts: exynos: Add initial support for Samsung
- Galaxy Watch FE
+Date: Fri, 30 Oct 2026 20:33:58 +0000
+Subject: [PATCH v3 3/5] dt-bindings: arm: samsung: Add lucky7 board binding
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-for-next-lucky7-v3-5-81e02272ce69@member.fsf.org>
+Message-Id: <20261030-for-next-lucky7-v3-3-81e02272ce69@member.fsf.org>
 References: <20261030-for-next-lucky7-v3-0-81e02272ce69@member.fsf.org>
 In-Reply-To: <20261030-for-next-lucky7-v3-0-81e02272ce69@member.fsf.org>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -95,21 +94,21 @@ Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Aiden Isik <aidenisik@member.fsf.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5339;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1084;
  i=aidenisik@member.fsf.org; h=from:subject:message-id;
- bh=RZpVw2mu/ob2NzUXW6J8a3tGsl4GrNevFe9W5otRNb4=;
- b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq5P9ChsscrqApkPczjms2pUkwA83dp7hHAfLbk
- D65HjHjKySJAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCauT/QhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+shKBAAjrPzwYxy5y53+frhlEo1PDBYKpl0a4E
- oq13m9Qs/1h/YMtU9m+cnE6r0+DFYy2L8ejQJYFSBFnUgBAb7AmO/7GiOyAozHyL+M7na8yamCS
- v8QMQdtWeen+OTQ97ikl8Yhzo1TarWlL3v43yov2aOEudJQNUHmKb+IJxw4Tibzr9ay/+3FlLtF
- NYB49BCl07mc3rQFMaFkA6AjHqUltglHXbGNmeg8lGie8RbFKjSZzUOQSFVspuWnRsh3rqW/DxP
- NgQ4IhEm7kqtJs/QZMBHN+8czOmrMiiRnVt1bVClQw2KUsTT6qDsrJToWBZ1v9z6gts6DgzPYIn
- Q/409joSjD0g+IZfZUIJDHqJEwJYF0ZBEDXW/vmonEXJJJfh1xzBmQIaorNAlNTv58Mz18kxI0D
- 2E6j7ivf7/kPxKp5zkbFklfHodNgZZ1uzy65grhtDgzIpO2l7i1jQgH/Tw1dTUmTn1KT2smtiWF
- ygHvrs3WU3dkHIbGVq/dI3zOy2yWUGa5/EhfGqW9Gd5efXTFBSe3FOnGhtE4tvWg2DYaetALgNN
- QhVDYILuDeRPxw9G8zEnDuOi7ekDsagzeEemXWg7HMPCJYftXb9hRgqySgvyRQrC62thfuPfYWR
- RP8RGQaPPPIIpOzkQFWmy6v6WDfrGFECvP1nCDuS/PN7VEWScd7g=
+ bh=7JvUn6Gsqc0cxhWub/oalXTSGokInna58PtxHScXffE=;
+ b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq5P9BHMKBNh4IQyDh63QQ1k4O5B7iuUyB1RWst
+ LQX8wp+4zqJAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCauT/QRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+t2URAAyZpdL0VPHA7tNOV/jR4IN13ZZjCE5rk
+ U+2fOx7l6sFhM+bm/CXkpLAdlxnq8DYJBBMY+c9v4RDYvRAWfNwSdhBnj1vhiP82NEDomFkwN1U
+ 1QrAQ0FCSps9MWrONQ9aLkVkvA8KmXqXLQI+kzdmHtA/KQUHB/JgKPYEwdw33Tr3CIy90MPrGmD
+ 3K2cDQ3cVdtAXUtUIEUH3ZQwD2kPxtV298RhVAdpbId+CLw1fYETEdHz+/3WVLZQtcbjgfwH9P7
+ QJvmZ5mEMmAzwGUXBstlTWT/Ma+n6A3wDiXEEUvQ0LwCzMDqg7GxrDdSkWjiyWQwYFZTQc/Y5WG
+ GJYkI2XAdnxItD8uX0PAaFvJZi/D6R6vs6CLr0m6NG8QE0Cpb5hKjizpH3oquemGwOfPmNdch8i
+ 1pVV2nCidNIZppWMmYSucV48h7VmdGBfKdtzZNlwFZfh+O5TNoAMh+N7t6qo/ctF6QDhJNYkhv/
+ o7e4J9s9sgFZi2LEujp/Ibr8CdeefOtzJPam5pr2UDo0WAJutthUbiiAC78VoiIVWOzZcIlVJJ8
+ Kq0PRTrAVnlO4jDuqL3EW4szSyo7fwo8Z+MFBk7ijS6E8FTknoWkrHSbwXIi8CVi9dClc5oVxDW
+ Y7n6uAqG74JaOAafywKRTbnVVo3O3Ocscc137xcAFTJPerl7C3mI=
 X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
  fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
 X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
@@ -120,253 +119,31 @@ Content-Transfer-Encoding: 7bit
 
 From: Aiden Isik <aidenisik@member.fsf.org>
 
-The Samsung Galaxy Watch FE (SM-R861/SM-R866), codenamed lucky7, is a
-smartwatch developed by Samsung and released in 2024. It has 1.5GiB RAM,
-16GiB of eMMC storage, an Exynos5515 (W920) SoC, and a 396x396 display.
-
-Support for the following is added by this device tree:
-- Bootloader framebuffer
-- Memory
+Add device tree binding for the Samsung Galaxy Watch FE (SM-R861/SM-R866)
+board, based on the Exynos5515 SoC.
 
 Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
 ---
- arch/arm64/boot/dts/exynos/Makefile              |   1 +
- arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts | 215 +++++++++++++++++++++++
- 2 files changed, 216 insertions(+)
+ Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/exynos/Makefile b/arch/arm64/boot/dts/exynos/Makefile
-index 7534b773d28f..3ff3c643fc5c 100644
---- a/arch/arm64/boot/dts/exynos/Makefile
-+++ b/arch/arm64/boot/dts/exynos/Makefile
-@@ -6,6 +6,7 @@ dtb-$(CONFIG_ARCH_EXYNOS) += \
- 	exynos2200-g0s.dtb		\
- 	exynos5433-tm2.dtb		\
- 	exynos5433-tm2e.dtb		\
-+	exynos5515-lucky7.dtb		\
- 	exynos7-espresso.dtb		\
- 	exynos7870-a2corelte.dtb	\
- 	exynos7870-j5y17lte.dtb		\
-diff --git a/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts b/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts
-new file mode 100644
-index 000000000000..0193a5d99f5c
---- /dev/null
-+++ b/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts
-@@ -0,0 +1,215 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Samsung Galaxy Watch FE (lucky7/SM-R861/SM-R866) device tree source
-+ *
-+ * Copyright (c) 2026 Aiden Isik <aidenisik+git@member.fsf.org>
-+ */
+diff --git a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
+index db19a686f490..c80fac4fad7a 100644
+--- a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
++++ b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
+@@ -157,6 +157,12 @@ properties:
+           - const: samsung,exynos5420
+           - const: samsung,exynos5
+ 
++      - description: Exynos5515 based boards
++        items:
++          - enum:
++              - samsung,lucky7                  # Samsung Galaxy Watch FE (SM-R861/SM-R866)
++          - const: samsung,exynos5515
 +
-+/dts-v1/;
-+#include "exynos5515.dtsi"
-+
-+/ {
-+	compatible = "samsung,lucky7", "samsung,exynos5515";
-+	chassis-type = "watch";
-+	model = "Samsung Galaxy Watch FE (SM-R861/SM-R866)";
-+
-+	chosen {
-+		ranges;
-+		#address-cells = <2>;
-+		#size-cells = <1>;
-+
-+		framebuffer@9e0cf000 {
-+			compatible = "simple-framebuffer";
-+			reg = <0x0 0x9e0cf000 (396 * 396 * 4)>;
-+			format = "a8r8g8b8";
-+			height = <396>;
-+			stride = <(396 * 4)>;
-+			width = <396>;
-+		};
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x0 0x80000000 0x3ea00000>,
-+		      <0x0 0xc0000000 0x20000000>;
-+	};
-+
-+	reserved-memory {
-+		ranges;
-+		#address-cells = <2>;
-+		#size-cells = <1>;
-+
-+		/*
-+		 * Some of these misc-rmem regions belong to memory-mapped
-+		 * devices, and will be assigned to drivers as support
-+		 * is added.
-+		 *
-+		 * Other regions belong to the TrustZone firmware and should
-+		 * never be touched.
-+		 */
-+		misc-rmem@87000000 {
-+			reg = <0x0 0x87000000 0x200000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@87fff000 {
-+			reg = <0x0 0x87fff000 0x1000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@8a000000 {
-+			reg = <0x0 0x8a000000 0x31000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@8d800000 {
-+			reg = <0x0 0x8d800000 0x180000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@8ffff000 {
-+			reg = <0x0 0x8ffff000 0x33000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@90100000 {
-+			reg = <0x0 0x90100000 0x200000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@98a00000 {
-+			reg = <0x0 0x98a00000 0x600000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@9a000000 {
-+			reg = <0x0 0x9a000000 0xc00000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@9b000000 {
-+			reg = <0x0 0x9b000000 0x400000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@9bd00000 {
-+			reg = <0x0 0x9bd00000 0x208000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@9c000000 {
-+			reg = <0x0 0x9c000000 0x20000>;
-+			no-map;
-+		};
-+
-+		framebuffer@9e0cf000 {
-+			/*
-+			 * Reserve up to the end of the final page of the
-+			 * framebuffer region, to prevent memory aliasing.
-+			 *
-+			 * size: align((396 * 396 * 4), 0x1000)
-+			 */
-+			reg = <0x0 0x9e0cf000 0x9a000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@a0000000 {
-+			reg = <0x0 0xa0000000 0x10000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@a0010000 {
-+			reg = <0x0 0xa0010000 0x400000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@a0510000 {
-+			reg = <0x0 0xa0510000 0x1000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@a0900000 {
-+			reg = <0x0 0xa0900000 0x2000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@a0902000 {
-+			reg = <0x0 0xa0902000 0x1000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@a0910000 {
-+			reg = <0x0 0xa0910000 0x3c000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@b0000000 {
-+			reg = <0x0 0xb0000000 0x200000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@b1000000 {
-+			reg = <0x0 0xb1000000 0x200000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@bbfff000 {
-+			reg = <0x0 0xbbfff000 0x1000000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@bcfff000 {
-+			reg = <0x0 0xbcfff000 0x1000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@bd430000 {
-+			reg = <0x0 0xbd430000 0x1250000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@d0000000 {
-+			reg = <0x0 0xd0000000 0x5d00000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@dc444000 {
-+			reg = <0x0 0xdc444000 0x2bbc000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@df005000 {
-+			reg = <0x0 0xdf005000 0x1000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@df008000 {
-+			reg = <0x0 0xdf008000 0x1000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@df009000 {
-+			reg = <0x0 0xdf009000 0x12000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@df01b000 {
-+			reg = <0x0 0xdf01b000 0x21000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@df03c000 {
-+			reg = <0x0 0xdf03c000 0x1000>;
-+			no-map;
-+		};
-+
-+		misc-rmem@df03d000 {
-+			reg = <0x0 0xdf03d000 0xfc3000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&oscclk {
-+	clock-frequency = <26000000>;
-+};
+       - description: Google Peach Pit Boards (Rev 6+)
+         items:
+           - const: google,pit-rev16
 
 -- 
 2.54.0
