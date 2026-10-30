@@ -1,97 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793375349;
-	b=GCK17/TOsJVCbUkd0p5eai4CvYpZeL2kxVJCv28KdWcbJI5RUHPbdt+6z61TO/Xf/7bC
-	 iPXNpVoE6wry1XVpKI0E5GbsUyRpzEmijmeN8emLzRan2DFQYtQkIok28zKm/pZgGgHHx
-	 sCFADmMCL0SZlfA6Wp9vVSwKEXfuEQsjZG27kG2C/eVGVbPIuUfSmsrzwwbnuyS/xzcuq
-	 o5wsIcWwzzYUhhdna60vpwnrCag+4wD8Ulqg2h5G+EzUtgWYKqxy7mGwUFiJqBHWTNf2k
-	 zqCH8s0dM5kCbbCjDwqZCJtRtQGcUE42/QKebgkXgykiSSHAVZ3k6J0xHj0V2yYZygQ==
+	t=1793375386;
+	b=ypjqwi3wjI6cFvB15xYb4+uWWwk/C3MZFXUT48hGDqUFKy7ng5P5BrQEJUX9XzH3JKDV
+	 1U+H9YaH4vdgCmWYvdcHpUYYrEfjR3T0q3SfivzHYv9qMZB6++ekfaHgJ8LTSHqivV9Vn
+	 6ODhlwAQq+rMKG5BJE10k5jqoVF5J5Bv8XPzf++gigxDvJCPnxVg2rSJaPXT16Tjb7US1
+	 bqbB6Uz7MSm0dQclBNVAFf9T/quuPO1dkXp4skaG6nfUlUfroT1s7FwnoqXCPKDXpnkuK
+	 8hM8iOahCIRcy9DhJCNaCu/9tDroj/JSMF4nNZrReYIoYKBJn8UeeYtOJX4XV0J2MvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793375349;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=XeWdEKJNRx847la4OpQ8xK5JYD/W25iZBdkd3AUui+w=;
-	b=1j7T828iXcxozhNMwroRLM2vz0rAsX5ntMhKZnZ3N3TwTbZtWn0pCKwboJBCX1onI0Im
-	 vfl8CX7Jc5/8ctbE90gX/Vr1oi1/cVRApeIqhz4qk4yYPstP2iN8L9l630aoWSTk4xi0h
-	 KPULjQPcrqxfNT9s9DDWoFMqrvmZr2XUohgwwr9oXtI/aZYMBLWYzmTYuRyVoTsFlT+6K
-	 Pxp4WioSTWUZn3DQECTHfkVait3IIKyF+f3z2Ijb8tX9QdY49+RQayl9v7LS24jWaLJwd
-	 qpS1CwIyiDbz+fGWkRDueiRP1ots3knspe9JmahCKGfg5i1HJ7tAHkdDI34QQcjz6Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793375386;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=LIVKGcC9fdG6pCYULEkiHx7DK7D3D6+pfOjhXnMVntw=;
+	b=GAR9CsIkZnBSvjtCpRVi5ZCG8Web5T6sVGQg4aLE6EJ4bQL0W4qZ9XlF1T5J4XEOE5Mm
+	 xzEuXi7K4aeICVAg7wEvpfGqEyRrZrRWIkBwFS1ZWj9pbHSGt2lcvlf6ndNBkbwM4PuZE
+	 Bc1NnBJMT9BHVoKxDzIJgfej8jQz4G+NW9KJZM1FEsLzXj5MmwJpHs4ovENHlqgBOFHb5
+	 Reto4CKkKYgjMNajdqw/ypECS+v8RJoS6tZsLXb4DYksvedMM81WlA5dE95Wc9oIWJgUT
+	 3AznJUQqC2nd811Fed4dJCtcaM5EUix7wRWLlnbG0oMGA0PGhC0Cu6OsUGiiOZVuKeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HjsQIk0I;
-	arc=none smtp.remote-ip=74.125.228.6
-Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Kc4ynsYY;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F77A606A329
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:49:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F77A606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8DA606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:49:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C8DA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HjsQIk0I
-Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cd8cb23d52eso421120a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:49:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793375348; x=1793980148; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XeWdEKJNRx847la4OpQ8xK5JYD/W25iZBdkd3AUui+w=;
-        b=HjsQIk0ITG7q8guMBxqFHFsECZy30VQbxjEJ2NmMCXdkdDWLTQHQ24VH+fluq1N6JE
-         z+kjKcHuearmgOe2xOLYx+LA0iWAcQDxJ3kCfaER8N79zPEGsHUTBHlQ5d9C9W9sbVAS
-         7ctHtlZIi0SUwufe0C/QpNZwiRCmO7lpuHdlQBwXXarUCCeNXI21U9th+pFyKz2luU/8
-         Q8G+wr/FFAdicTFOx8PAbBKHUwprCMXPywThqzPIHxaK08tTqgEVYhFhslkWcjGnho5D
-         7qf6v+xFg4OOHscQYVzoqba0ms9/afxXu5NVaVUuFnBFlftBB/t5d/dI0NEqSLiV3Lmm
-         byvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793375348; x=1793980148;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XeWdEKJNRx847la4OpQ8xK5JYD/W25iZBdkd3AUui+w=;
-        b=Xbd71vSA1B+6lDqZ4bNgG9qZxrxtVljZ09NZ+k0A31pJ3HjZgvNlUHEitbRJUb9zvt
-         FKQ+gu4iL6lOMFjlWtZQ5C9oxNZmguc6iMmHESJh9D01f+Pk6ftZvICmqfs1fjcUoTn3
-         PTpeBbcvpdkyPHy0efRMtCACotO6/5XvmyGJ2grp3qosMFUHZgcjNI1KcYGJ84imvyrl
-         qZu6B+GV3wQ+FOef3QWmJcE9r7sUJs7mZaG8WXOHbgcm1jFbHNeGEEfZfbJKhKta7tTf
-         rGAvDLcjIZTLPYv3pFWMXfNZZ07BmbPPinWErVvy2iJRkbRol0M8s7tJI3LKjUoVexMn
-         QEGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz04OfS1974wjPqjBpcBPsZdtdjgVz4qGdOKelF74RKc/5TamBbY0ze6v9iNh3lkHJ1yGVInP9Drjq0AAs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZze5c/lVvWK3f44KfUb9s47EcIiOryqY9i79fKVgcx+MhoiDi
-	jQsFu7AENLwNsiU8wNOGlkqPnVKZAHHiIJv2qt2oa07TPdpB8wHkFOUy
-X-Gm-Gg: AYBFou3t1mHDsyeX5eRqpoBh8aACJtviAJQGy+Xb1Wxe9GJc812K+1f01TOse+lHkvN
-	DH/++TlqMVIokzL/GGrfoFhgBlnEjCcE40XqQJcIqpYj/SLovWntCb3niIw79b0nzHhlxwBdpL3
-	N9oUM6DzX/iHSRDUywhA/zli/PAJS7krNCeT+8e+l6br7EhsCU8WsvRJ7oc9BdXqYNjzAQVpYTY
-	LFceNxdL4p8gkCeXxf0tL66neo/JuboQgxjU9ECtZhJJ6KBeK0/IIIsef9luy6J6vyeYMwvnxeL
-	nuHys7L66BRFAg135yEpU9JPLTzX5QYfqI67mpKy+xcyJDWsIUBc4rxqSN05PlriR7Aj+DzUjmP
-	MRRNCa0JrKw79y+iZFZqQmDLpo3s1WVMXYcqZTBWDZJzncpe7/JxD63wOafM0c7hbWnb9g/LLS1
-	OXm08nviZu6S5ZUWCTauzKxJb7k7wUXUUFzR5NFsCxpJx2UXr4Pn0ODU/eU2qdsZzzEy7lw/P4X
-	a98WK5vuH7fUh1dgJxFSvwt1LuyIeo/QfYjf6tcK0/s2q3CcZY400b5piSKP9TvXypcuyy0zZdu
-	HPWvIYqxA2N4h7cz3Ku2MHk=
-X-Received: by 2002:a05:6a00:3a19:b0:880:fe7b:bc56 with SMTP id d2e1a72fcca58-8a9bf90d0b5mr2497234b3a.50.1793375347794;
-        Fri, 30 Oct 2026 08:49:07 -0700 (PDT)
-Received: from localhost ([2a03:2880:9ff:70::])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad9d0259fsm181732b3a.21.2026.10.30.08.49.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 08:49:07 -0700 (PDT)
-Date: Fri, 30 Oct 2026 08:48:55 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Bryan Cochrane <bcochrane@google.com>
-Cc: Michael Chan <michael.chan@broadcom.com>, 
-	Pavan Chebbi <pavan.chebbi@broadcom.com>, netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Joe Damato <joe@dama.to>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] bnxt_en: Take RTNL before netif_close() when
- aborting FW reset
-Message-ID: <auS8YWtAoDROqY_k@devvm16445.scu0.facebook.com>
-References: <20261029032832.1511180-1-bcochrane@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Kc4ynsYY
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=LIVKGcC9fdG6pCYULEkiHx7DK7D3D6+pfOjhXnMVntw=; b=Kc4ynsYYAz//E8Oda0lVcL6Kql
+	Sbef0hqDsCa7Rog0Q39FPi+6+4HlipOEer8QoZwmNwGq6W3EI8Sz7RT2RfuCLJQz8rTAqektoDNUo
+	4S+Nzgiklwpq9Sis4gQEQ3w+TIfWnOyCVmxYHCH4ewa26NjjfUL3ej7DUU4Vh+0TgpWHHEsna6+aG
+	e2YmDbhiQupO0jK3qMF9zgvs6on/5yiPAPlxtv+4aPuOEVumMo7hEIHnMXiKpCvImCyEiz1If901i
+	pSL1bakWzLonb5gLVaJYsakEK3pV2NT07PKNMr/3Fgszi1QtWh5RKIgCvIoMlE4bwRpdt6osGo5Fp
+	lb5nOjAQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xMorN-00000007e08-1ckO;
+	Fri, 30 Oct 2026 15:49:41 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 41684300578; Fri, 30 Oct 2026 16:49:40 +0100 (CET)
+Date: Fri, 30 Oct 2026 16:49:40 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	linux-kernel@vger.kernel.org, Tejun Heo <tj@kernel.org>
+Subject: Re: [PATCH] sched/autogroup: Fix task_group UAF during thread
+ creation
+Message-ID: <20261030154940.GW2668564@noisy.programming.kicks-ass.net>
+References: <20261023013631.881730-1-4ncienth@gmail.com>
+ <20261026115707.GF2668200@noisy.programming.kicks-ass.net>
+ <20261030034540.2074077-1-4ncienth@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,66 +71,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261029032832.1511180-1-bcochrane@google.com>
+In-Reply-To: <20261030034540.2074077-1-4ncienth@gmail.com>
 
-On 10/28, Bryan Cochrane wrote:
-> netif_close() must be called with RTNL held in addition to the netdev
-> instance lock: __dev_close_many() asserts it, and the NETDEV_GOING_DOWN
-> and NETDEV_DOWN notifier chains it runs rely on it for serialization.
+On Fri, Oct 30, 2026 at 12:45:34PM +0900, Daehyeon Ko wrote:
+> On Mon, Oct 26, 2026 at 12:57:07PM +0100, Peter Zijlstra wrote:
+> > I'm not sure this works; afaict this will result in a NULL deref
+> > instead.
 > 
-> Commit 004b5008016a ("eth: bnxt: remove most dependencies on RTNL")
-> replaced rtnl_lock() with netdev_lock() in bnxt_fw_reset_task() and
-> bnxt_fw_reset(). That is sufficient for the paths that only tear the
-> NIC down internally with __bnxt_close_nic(), but the abort paths close
-> the netdev via bnxt_fw_reset_abort() -> netif_close(), and the error
-> path in bnxt_fw_reset() calls netif_close() directly. Those now run
-> without RTNL and trigger a WARN_ONCE() cascade when a firmware reset is
-> aborted:
+> Thanks for taking a look.
 > 
->   RTNL: assertion failed at net/core/dev.c (1740)
->   WARNING: net/core/dev.c:1740 at __dev_close_many+0x1be/0x1f0
->   Workqueue: bnxt_pf_wq bnxt_fw_reset_task [bnxt_en]
->   Call Trace:
->    netif_close_many+0xb5/0x190
->    netif_close+0xa2/0xd0
->    bnxt_fw_reset_task.cold+0x8d/0x213 [bnxt_en]
->    process_one_work+0x19d/0x3a0
->    worker_thread+0x1af/0x320
->    kthread+0xe3/0x120
+> The NULL previous cfs_rq should be handled by the existing set_task_rq()
+> contract. __sched_fork() initializes p->se.cfs_rq to NULL, and the normal
+> sched_cgroup_fork() path reaches set_task_rq() through __set_task_cpu().
+> set_task_rq_fair() returns when prev is NULL, before
+> cfs_rq_last_update_time(prev), and set_task_rq() then installs the new
+> cfs_rq, parent, and depth.
 > 
-> followed by the same assertion from call_netdevice_notifiers_info(),
-> fib_rules_event(), inetdev_event(), rtnl_fill_ifinfo(),
-> devlink_compat_phys_port_name_get() and ip_mc_down().
+> > Can't we make ksys_setsid() more complicated instead? Have it create the
+> > autogroup in advance, move under the tasklist_lock and destroy on
+> > failure or something?
 > 
-> This was observed on a machine in real use with a BCM57504 (4 PFs,
-> FW 236.1.153.0) running v7.1.6: the firmware crashed, announced a
-> "Fatal firmware reset event" and then failed to come back within the
-> advertised max wait, so bnxt_fw_reset_task() aborted the reset on all
-> ports:
+> I don't think moving the autogroup move under tasklist_lock alone closes
+> the window, because sched_cgroup_fork() runs before copy_process() takes
+> tasklist_lock:
 > 
->   bnxt_en 0000:c1:00.1 eno16905np1: Firmware reset aborted
->   bnxt_en 0000:c1:00.1 eno16905np1: fw_health_status 0x448100
+>   clone(CLONE_THREAD)              setsid()
+>   -------------------              --------
+>   sched_cgroup_fork() -> old tg
+>                                     create new autogroup
+>                                     lock(tasklist_lock)
+>                                     move listed threads; child is absent
+>                                     unlock(tasklist_lock)
+>                                     drop old autogroup reference
+>   lock(tasklist_lock)
+>   publish child with old tg
 > 
-> Take RTNL (before the netdev instance lock, matching the OPENING state
-> which already uses rtnl_trylock()) in the fw_reset_abort path of
-> bnxt_fw_reset_task() and route the POLL_VF abort through that same
-> path. In bnxt_fw_reset() go back to bnxt_rtnl_lock_sp() so that its
-> netif_close() error path is covered as well; bnxt_reset() and
-> bnxt_rx_ring_reset() already take RTNL from bnxt_sp_task() the same
-> way.
+> The ordering trace hit this pre-publication sequence seven times. The
+> final revalidation is intended to cover precisely this interval.
 > 
-> The bug was found by inspecting the kernel log of the affected machine
-> and the driver source; the fix was prepared with the help of an AI
-> coding assistant (Gemini based) and reviewed by the submitter. It is
-> build tested (allmodconfig with W=1, plus the same change on top of
-> v7.1.6 built as a module for the affected BCM57504 host). The aborted
-> reset path itself only runs when the firmware fails to return from a
-> reset, which could not be reproduced on demand.
-> 
-> Fixes: 004b5008016a ("eth: bnxt: remove most dependencies on RTNL")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Bryan Cochrane <bcochrane@google.com>
+> Am I missing another ordering which excludes this interleaving?
 
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+No, I think you're right. Also, its a mess :/
+
+We have far too many sched hooks here:
+
+
+free_signal_struct:
+  sched_autogroup_exit();
+
+__put_task_struct:
+  sched_core_free();
+
+copy_mm:
+  sched_cache_fork();
+
+copy_signal:
+  sched_autogroup_fork();
+
+
+
+copy_process:
+ ret = sched_fork()
+   scx_pre_fork()
+     LOCK scx_fork_rwsem
+
+ cgroup_can_fork()
+   LOCK cgroup_threadgroup_rwsem
+
+ ret = sched_cgroup_fork();
+   sched_class::task_fork()
+   return scx_fork() // requires scx_fork_rwsem;
+                     // also requires p->sched_task_group to be correct;
+		     // scx ignores auto-group
+
+ LOCK tasklist_lock
+
+ sched_core_fork() // requires tasklist_lock
+
+ LOCK siglock
+
++ sched_autogroup_fork_finish();
+
+ UNLOCK siglock
+ UNLOCK tasklist_lock
+
+ cgroup_post_fork()
+   UNLOCK cgroup_threadgroup_rwsem
+
+ sched_post_fork()
+   scx_post_fork()
+     UNLOCK scx_fork_rwsem
+
+
+
+Now, AUTOGROUP depends on CGROUP, so we can make autogroup_move_group()
+also use cgroup_threadgroup_rwsem, such that the autogroup and cgroup
+logic stays the same?
+
+I'd hate for this to get more complicated than it already is.
+
+I mean, yes we can move sched_core_fork() into the siglock region, but
+duplicating most of sched_cgroup_fork() in there just to fix an
+autogroup thingy seems weird and inconsistent.
