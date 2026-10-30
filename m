@@ -1,96 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793397566;
-	b=gC66jAMW6HYlwGUF9QoLPVzwqhyfIZFTuA5DwtjgQ6e1SKvDIeOwHrLCKU5dxH6/7TL5
-	 m58k42Dsoklx/PsDmwR+bD+Ez6uEe1NLbUCpgRu3yvDMKaL9e6J8yzcYXHO3D3oUXzbqX
-	 GERjv+6OB30V8GVCnr+ZqgggNm6RSz3JF5fLrYDjShu0R6oHplhA/w+0oXjsaNBPkdDuS
-	 YwGJb5BOQPKFLT6SFcu/rYprfilVXSNLgJjP+RJ9pgIEmKdJItxo2KyD98phbrSzeiPZ0
-	 tp5QI/qiPCDgpfJ1omDX1HpGVKADx3UBDyHhQWcu+7F9JIisaUZ3rMrOTk0tu82fEnw==
+	t=1793397579;
+	b=qCIWW0eBDwijRaX1y6y9rZbMz8K3aNt096Oh2Y08XZuo5tP53PSgjjruuLRAPjieNoAq
+	 63SvZI5g1T127b8f5yO6MPhgj4HGZRL8yjAPCKa1Ay31PxtB+aIjXFNyzr3YbU3vhibo6
+	 smKuKiaHicrO3QIeo1Pla396U0kIKiCF4xO3HYDOsiJoWoqCqB4uy1smTKqvHK2Smux+E
+	 Eo+3VkejA9qL+mw4KXEN8qzmPsOqLMqVacGeXuwgN9QJCWlku6WU0untfkR8WBgDJW1c3
+	 WU1y523rka5LZF3jmqERS+XZB+sk20FggW1AzXvaQ5pZLTC8/PQrUZLLHR19A1Md7MQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793397566;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793397579;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=UYIWoFisBkbrng3LjjKl6CMStSYrercs1Yl20n+415c=;
-	b=U3fwI6o1Z7xI0AXMSWm0avmuevumD8tUHw31IHpZbIQlsCi8bUc1I7HjRdoBTi9jQJt2
-	 ILjiTc27b2n1pNhlnusKvITlihJzBDBsa0N5oM3xi+6GYoOGj8f8C90X5ewIct/kKkPyt
-	 UhtlpdFGY2+/jbHold/aDld0w8xaaHe5p7oN1K+O7Y1flAbvEvtTQfuNzZyhYI+qVcqKE
-	 2F9Xufu2vfKoK29nImhW+n6JqFC79+Tl30deq4EW1uWuXFuBraKj8gw/mnB61ptLDtdF2
-	 ben7rsm+5A+oRspvyyCSxx2Zm9nB1TXiKvShRoAPTR/rfcdwhjtRXPgBC9iVmJrxmEg==
+	bh=LaJ11rRvNM7F5mpfLmNq4MiUzrRFshUKgjdjahPHWq4=;
+	b=bD5bJtzEC0M5xdc3g5LSOM4u1KzB4b746EPfDSvDquIIdOjmLLvP0NY6Vf+6CKcef11a
+	 kieSJznm1h0wZrK3BwsPthCuqbaEGXsLh1LY2JQTD3x7cq6e09fnHvrfQgqeAZR9nwqiW
+	 kvSN/+xe/GQtkAXNlZpyzQpNo26UsD9nEV5FkKssa+n0ULYLBG0VWTiiJGN/cHUTAU4bv
+	 7zhAwkcA4UZFB9savlJSR4V2Usr7dEB6KAilXoX5oRSuC5AFw3WisDzs4FtS/Z5flfVrt
+	 pb8eAGLXou3WEKGOq8RpA+ra0cugFqkZbdO3pz5t6uDboAbLAP3oPXaCwLniDquuCWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L295eTdS;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bVGU+BPq;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC85606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:59:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADC85606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79190606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:59:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79190606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L295eTdS
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so12452445e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:59:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bVGU+BPq
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so12565905e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:59:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793397564; x=1794002364; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793397577; x=1794002377; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UYIWoFisBkbrng3LjjKl6CMStSYrercs1Yl20n+415c=;
-        b=L295eTdSoN7ErpWdwDYHwSLcNa07vb0WiKNjdwJCIHe/eU8RUDRsAHr0GD/Jrou3CU
-         2h2SNxiFU5VF35r/1Muk0rKMnA0bda/XcEV68gFo87iRe+xbR4BNRByBT7CAqVlRpAh+
-         5NCX4w6KxZTImwB9FrSmLepyYCJWDBdJ60cSoiazfN65FjR12fA91kWBt6RYuxHsLN5N
-         qub+EyLFUFu+5kJW30KX9mLrsPVBuEhHkPQEO8+zZtjgjLdpisWPY9PNfVFIwJqWgToB
-         kIFSzGQt3PMVY5QiU7xabtYi0OI7+x70gRL5alleyE8VFueTJ0O26iVU4z3w9a/+7ldw
-         iTTw==
+        bh=LaJ11rRvNM7F5mpfLmNq4MiUzrRFshUKgjdjahPHWq4=;
+        b=bVGU+BPqpqRoun2/Z+snr9OGRlOyab2c0bnbATOkzoOgLgkCnDqq0ZpmnYkWzsWdMt
+         MdzbJxJA2agsIRYQTVVDST3BqvoGsWbTxnIM6M2opdA+kKbWqmrTfOb5c/lTV4IZKgrs
+         X8kHySX07NX8/HqGnEECfIgAB/QwmIO38xtgqcN+ajFSPWfgX0q29vYeSMsVntZs4gGb
+         1JJWcVqjFoJ0OScRx0aOt3lFhs3RgMUOEGVqQf1XcJgbX0MFkeMOUh6mN/YKQuW4qjZI
+         YmIGbp6FC/SQDU6zvIxcPwx+p0PzPM2sBkESXSNuWD9PUJS84Jr5yEJZhIsTBm9+VKXx
+         wzZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793397564; x=1794002364;
+        d=1e100.net; s=20260707; t=1793397577; x=1794002377;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UYIWoFisBkbrng3LjjKl6CMStSYrercs1Yl20n+415c=;
-        b=NVqhQNVLzjhiVoqiaBeopM35vj87lkhY9FEvMeOnQBezbPDwL2SzQfUYCUTnB7NBCa
-         QjDVLkzc0a37JnTikf7fpQY55FfFQfg6MptVRcGlD5kWK05+rLkNbaSXQQJN2yHWcdAU
-         JLWZy0mC5Ga6hcbF/RXhbWBOYaYqQhXZhNe3J65Znjd+EO4b/XK8OiobDABSgy1kEZHp
-         LGpnrXxuoOYwW7FfRhypTS4326qZ7NGHdp1XZf9EkQDo3ksXOuG+WlTw+8kfUgEwiJDk
-         Uw/mw85tuGiJwr6MNHS33oE1FhZJftLpXP0jN26Rno2cIuQeGBMIHm4MnWQMWYzwpyTQ
-         32FQ==
-X-Forwarded-Encrypted: i=1; AKwUvByrCkDGf3uf55YUlaJ6aMtYPmQebxmxmN0+3trlJDsjFwnvagQnfasTbkl+O8ndBfksE/qxUTLNHPMLGNE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9WgM/6c3Mjky8LLfdFhuhD6+T/Z23KXtWjmYOJiCur5wdN+Cw
-	DaeTVq8y1GnmistBXCzgNdXRyiFfiKSOt9G7o3GHIB+gHHsKmXm38tU9
-X-Gm-Gg: AYBFou2vIeY9VimA2Dr1DkbMKVdOtdiYyz+awLpaK56usEhDXiWH/vYuNhQjSUOsemw
-	ZUZ4eTEkdkeWuLFzFES8z9rYXbfkQQM0DJTCFbNx7ce+AiMZ2yLTUMtWj25gfZbgM29lfVxDsm1
-	0kdSKqjfiGWhwu0NO16AjnxKaqzoK7fRKIdoA3UgpNFnEOY7Cu4AQlseiOPd4X27Bx7l5vimDZq
-	qkJ4v2aUM4F2ZA2ah6c5KXld9FN5ah+W8hpYYxqDYkaZnpynjLQSrscOtCFKL4Ok4iLnqsl/QoW
-	J0xV0ca7QISIkanXwNMSUdzzjVIalexP4JXbey/zeHKVOPcUC1+5gv53IYQ+skb3TrQa3qpM+aS
-	F2/Pk4fAV1h3HewJ41s+/W5oXpSbi0NIEd3BW0G1D2o0PaSPvwgrgkmK2IRIJOXBF4m5gmAFBVZ
-	91jVejrA1UuVOLItqPh6b21uaRyekK8s0PMAGg0+I8p58m5U1Rw7QBUQNU3x2K2KUj5rR9nQliW
-	ADS8Q7x4VMy423xg0Uw53MTmAUB3wd/SNi62wuSWY7MLFgbInKeQRjTg5JU4UBX3A5H7YDCoO9m
-	jgF1VPcL+DFPyZvpRePds9+zp6CZsy1hKLiOTmSy4bOt2w==
-X-Received: by 2002:a05:600c:8119:b0:4a1:cef3:fb3a with SMTP id 5b1f17b1804b1-4ac17a36a28mr69980545e9.9.1793397563837;
-        Fri, 30 Oct 2026 14:59:23 -0700 (PDT)
-Received: from linux-virtualbox ([176.123.20.239])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80306sm5776764f8f.33.2026.10.30.14.59.20
+        bh=LaJ11rRvNM7F5mpfLmNq4MiUzrRFshUKgjdjahPHWq4=;
+        b=JHJCywhsFCxhfLHG2KRJ4xqBssHcCzVt5A4+gHbpnW5Kf86wVZa+ofGwcC1cn3VW1q
+         qu5SITOa+iRB8P1Fd2hWucHkniPQydJGm+gRs8h0BOVHKB+l639f6gNiKZLyd8e+ztxN
+         fT5ccNYP4lhutlwcFGfjRPZec4iI0d/XN75Ucn9zVOxUZyUP4dsncEVfFKKc/reqTK6c
+         IqX5qu9JCxcsKGTftkHRsC6ZLivZCuET4KEXLyYE6UcXO/Ew83AFIEBjYDXqyNfgIXC8
+         KViyJibvUrUqH4mlcaHBcwG7xjg6n87NL4XGI/MtcEof2eMo/w1YdjO6/IoTP9Y5hd4y
+         fs4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzDCgxskLVsnLCfBhmftaLwiOyaZfLUoCxFsJp3R27aIhNYR9fkmCRQ631bnqtsM92CapXwNGlmHSZRXwA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6pMxMVmnwuNez3hP0+LG/xXdOIlkQzrxzKUT6qhQ2xmPxhyxr
+	ED3gsXIDlLd4V+xiwEEe3K7dAwBtG7HrJ0KqIchSGhTqLxrYDs7SSerN5+/Rh30Z5NnnCQ==
+X-Gm-Gg: AYBFou1ps/NxOMIxr7gbFDfnZjawn1wlFflgNmVmRt+7bsNVEtInE4hac/QGHv+gfDe
+	HaVmnJMkfB77nkhpKIjVLr99v1g/XMofaVuu+rfmlu2z4U+ayGZBPDk195U4MzgactOYoVdBN82
+	77GSBeHNqMnXRlbQjNc1+24iy5p0deOck6ndtEBBs0XMDNEuLlU90VbrMoa3hPNkAMNjILor6Sm
+	C3WaaY1hsqieUXEPMnQKHfH7d/jGfR+ay0zPIh0Hr30Q48J+cH3K1IpWbgR8nqOOQNYlGLOVcfW
+	m6EtV89Pw3XDppG3xAGxgVENvZ6a6aLW/x2oUOEPL1jZFNr76DiA5LE4ZvLKJAcKLbnr8c8WEZl
+	KW6Fav7q3swV44d004gvd2AQcrGD+XavnBb5rtNVTpzv6eiBecbx2Z0J3XkQ2UevFhzqyVQ4Tf9
+	aWv+Z8Sb9CX9/dAf8P6h8hdDX8BRnbsgPBN0PdWnWx2oowPe+nf5wuxkv2brR45QN1UEtF4cFzc
+	6r1b8ceiika/43GI70UzvlPlBhB7pjor5QlZOTUC8fz9OGhIKNHsB1quGIZr7pYQHdE0BHgTDfD
+	3tdZiT70+4r1vJKR9xuLEihSZ0xfp49PBlVEJ9D4GFsl
+X-Received: by 2002:a05:600c:a012:b0:4a2:150f:1609 with SMTP id 5b1f17b1804b1-4ac17b2cdffmr76561575e9.8.1793397576641;
+        Fri, 30 Oct 2026 14:59:36 -0700 (PDT)
+Received: from linux-virtualbox ([176.123.18.39])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f04785sm163840985e9.4.2026.10.30.14.59.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 14:59:23 -0700 (PDT)
+        Fri, 30 Oct 2026 14:59:36 -0700 (PDT)
 From: Salah Ahmed <haddad2inc@gmail.com>
-To: Christian Marangi <ansuelsmth@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	linux-leds@vger.kernel.org
+Cc: Griffin Kroah-Hartman <griffin@kroah.com>,
+	Peng Fan <peng.fan@nxp.com>,
+	Rosen Penev <rosenp@gmail.com>,
+	Rong Zhang <i@rong.moe>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: dsa: qca8k: expose cached per-port MIB counters via get_stats64
-Date: Sat, 31 Oct 2026 00:58:31 +0300
-Message-ID: <20261030215831.17997-1-haddad2inc@gmail.com>
+Subject: [PATCH] leds: trigger-netdev: add byte-rate threshold mode
+Date: Sat, 31 Oct 2026 00:59:24 +0300
+Message-ID: <20261030215924.18060-1-haddad2inc@gmail.com>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -103,266 +101,600 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DSA user port netdev statistics count only CPU-seen traffic, so bridge
-offloaded forwarding is invisible to /sys/class/net/<port>/statistics, to
-rtnetlink IFLA_STATS and to every kernel consumer of them, including the
-netdev LED trigger. The switch MIB counters see every frame crossing the
-port, but reading them costs a register transaction per counter on a bus
-that is either MDIO or MDIO-over-Ethernet, while consumers such as the LED
-trigger call dev_get_stats() several times per second.
+The tx/rx modes blink once per observed change of the packet counters,
+which misses traffic forwarded in hardware (DSA bridge offload) and
+flickers on background broadcast noise. Add a rate_threshold attribute
+(KiB/s): when non-zero the trigger drives the LED from the interface byte
+rate instead, blinking on a 50..150 ms ladder above the threshold and
+resting in the baseline state (solid on link, dark without carrier) below
+it.
 
-Use the pattern that is already established for switch drivers: ar9331 in
-this same directory caches a rtnl_link_stats64 behind a spinlock, refreshes
-it from a delayed work and serves it from .get_stats64, and ksz does the
-same. Poll RxGoodByte/TxByte per user port and serve the cached values.
+The rate is measured over the interval between two observed counter
+changes, not over a fixed window. Drivers that refresh their counters in
+bursts - a cached switch MIB polled every few seconds, for instance -
+would otherwise dump a whole accumulation period into the first fixed
+window that follows the refresh: the reported rate is then several times
+the real one, followed by zero until the next refresh, which turns the LED
+into a stutter instead of a steady blink. Measuring between changes makes
+the trigger independent of the driver's refresh interval, and the last
+measured rate is kept until the counter has been silent for twice the
+interval it was measured over (capped at 10 s) so that the blink lasts as
+long as the traffic does.
 
-The poll is adaptive rather than fixed. A consumer that derives a rate
-from these counters only sees the wire when the cache moves, so a fixed
-period sets the latency of every rate-based consumer to that period.
-Refresh four times a second while the counters move and once a second
-while they are idle: an idle switch stays cheap, and a busy one is
-reported within a quarter of a second. The work also runs once as soon as
-it is armed, so the first consumer after a link comes up does not read
-zeros for a whole period.
+The blink is re-armed only when the ladder step changes: led_blink_set()
+restarts the software blink timer and truncates the phase in progress, so
+re-arming it on every evaluation shows up as an irregular cadence.
 
-The work is scheduled with schedule_delayed_work(), i.e. on system_wq like
-ar9331 does, and not on system_power_efficient_wq. With
-CONFIG_WQ_POWER_EFFICIENT_DEFAULT the power-efficient workqueue arms
-deferrable timers, which do not wake an idle CPU; on a single-core switch
-SoC that is mostly idle this deferred a nominal 3 s poll by several more
-seconds, and consumers saw the wire that late.
+Rate mode is independent of the link/tx/rx mode bits on purpose, so that
+ports whose packet counters are blind to offloaded flows still show
+activity. It yields to hw_control, and writing 0 restores the link state
+even for an LED with no tx/rx bit set, because the packet path only touches
+the LED when the activity counter changes.
 
-DSA serves a user port either from the driver's .get_stats64 or from
-dev_get_tstats64(), never from both, so the cache has to be layered on top
-of the software counters: start from dev_get_tstats64() and override only
-the byte counters with the wire values. Otherwise installing .get_stats64
-would drop rx_packets/tx_packets to zero and break every consumer that
-looks at packets, including the netdev LED trigger in tx/rx mode. The MIB
-counts every frame crossing the port including the CPU-bound ones, so the
-wire byte counters are a superset of the software ones and replacing them
-loses nothing.
+Byte counters can legitimately go backwards when a driver resets them, and
+an unsigned subtraction would then report an enormous rate, so a decreasing
+counter re-anchors the measurement instead. div_u64() keeps 32-bit
+architectures linking without __udivdi3/__aeabi_uldivmod.
 
-Each 64-bit counter is read with a single regmap_bulk_read() so that no
-other register access can land between the low and the high half of the
-same counter.
+Bursty transfers can straddle a ladder boundary on every evaluation,
+and cutting the blink off the instant the counter goes quiet makes a
+pausing transfer look like the LED died. The measured rate is therefore
+smoothed the way field-accepted userspace activity daemons do it -
+immediate attack at or above the threshold, a slow rise and a quick
+release below it - and when the counter goes silent the blink fades out
+quadratically from the last peak over 20 s, with the ladder step only
+ever slowing during the fade.
 
-The cache fields sit at the top of struct qca8k_priv to stay clear of
-target-specific patches that extend its tail, such as the ipq40xx IPQ4019
-built-in switch support. The poll work is armed at the end of
-qca8k_setup(): a failing setup never reaches the remove callback, so
-arming it earlier would leave the delayed work running after the driver is
-gone.
+set_baseline_state() runs after every netdev notifier event and after
+every mode or device_name write, and both callers cancel the work first.
+It sets a solid brightness and cancels the work first, so with a rate
+threshold set it also owns the rate-mode bookkeeping: clear the armed
+ladder step, stop a software blink that is still armed (while it runs, a
+solid brightness set here only lands in blink_brightness), and reschedule
+the work. Rescheduling is what keeps rate mode alive on a link-only LED
+across carrier changes and honest on tx/rx LEDs under load: without it the
+work computes the same ladder step as before, skips the re-arm while the
+brightness has just been reset to solid, and a below-threshold sample
+after a cleared rate_last_ms leaves an old blink running.
 
-The poll work is armed at the end of qca8k_setup() and stopped from a new
-.teardown op. DSA calls .teardown both on the dsa_switch_setup() error
-paths that follow a successful ops->setup() - the tag protocol setup and
-the user MDIO bus allocation and registration - and from
-dsa_unregister_switch(), so the work cannot outlive the driver data it
-reads. Stopping it in qca8k_sw_remove() alone misses the probe error
-path: dsa_register_switch() fails, probe fails, devm frees priv and the
-armed work then runs on freed memory.
+The state a rate-mode blink rests in is the trigger's baseline state, not
+a second policy: netdev_baseline_on() answers "is this LED on at rest?"
+from the same link, speed and duplex mode bits the baseline uses, and
+netdev_set_resting() applies the same level, blink_brightness. Both
+set_baseline_state() and the post-blink path call it, so the two cannot
+drift apart: a mode without a link bit rests dark, and a multi-level LED
+rests at its blinking level rather than at LED_ON (1), which would read
+nearly dark. On a single-level LED (max_brightness = 1) the two values
+coincide, so nothing differs there.
 
 Signed-off-by: Salah Ahmed <haddad2inc@gmail.com>
 ---
- drivers/net/dsa/qca/qca8k-8xxx.c   |  17 +++++
- drivers/net/dsa/qca/qca8k-common.c | 110 +++++++++++++++++++++++++++++
- drivers/net/dsa/qca/qca8k.h        |  15 ++++
- 3 files changed, 142 insertions(+)
+ drivers/leds/trigger/ledtrig-netdev.c | 417 +++++++++++++++++++++-----
+ 1 file changed, 349 insertions(+), 68 deletions(-)
 
-diff --git a/drivers/net/dsa/qca/qca8k-8xxx.c b/drivers/net/dsa/qca/qca8k-8xxx.c
-index 07227ae8bc..08f3ef00e6 100644
---- a/drivers/net/dsa/qca/qca8k-8xxx.c
-+++ b/drivers/net/dsa/qca/qca8k-8xxx.c
-@@ -2020,6 +2020,14 @@ qca8k_setup(struct dsa_switch *ds)
- 	/* Set max number of LAGs supported */
- 	ds->num_lag_ids = QCA8K_NUM_LAGS;
+diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
+index 5b01324845..941cb13cdf 100644
+--- a/drivers/leds/trigger/ledtrig-netdev.c
++++ b/drivers/leds/trigger/ledtrig-netdev.c
+@@ -20,6 +20,7 @@
+ #include <linux/leds.h>
+ #include <linux/linkmode.h>
+ #include <linux/list.h>
++#include <linux/math64.h>
+ #include <linux/module.h>
+ #include <linux/netdevice.h>
+ #include <linux/mutex.h>
+@@ -31,6 +32,21 @@
  
-+	/* Arm the MIB poll work only after every failure path in this
-+	 * function is behind us. DSA calls .teardown both on the
-+	 * dsa_switch_setup() error paths that follow a successful
-+	 * ops->setup() and from dsa_unregister_switch(), so the work is
-+	 * always stopped again.
+ #define NETDEV_LED_DEFAULT_INTERVAL	50
+ 
++/* Rate mode: a measured rate is kept for two counter refresh intervals before
++ * it counts as stale, capped so that a dead link cannot blink for long.
++ * NETDEV_RATE_MAX_ELAPSED_MS keeps the u32 divisor of div_u64() in range.
++ */
++#define NETDEV_RATE_STALE_MULT		2
++#define NETDEV_RATE_STALE_MAX		(10 * HZ)
++#define NETDEV_RATE_MAX_ELAPSED_MS	1000000
++
++/* Afterglow: when the counter goes quiet the blink does not cut off at once;
++ * the last measured peak fades out quadratically over this window, mirroring
++ * the decay shape of the userspace activity daemons this mode replaces in the
++ * field, so a transfer that pauses briefly does not look like the LED died.
++ */
++#define NETDEV_RATE_AFTERGLOW		(20 * HZ)
++
+ /*
+  * Configurable sysfs attributes:
+  *
+@@ -42,6 +58,14 @@
+  * rx -  LED blinks on receive data
+  * tx_err -  LED blinks on transmit error
+  * rx_err -  LED blinks on receive error
++ * rate_threshold - KiB/s; when non-zero the trigger blinks according to
++ *         the interface byte rate (ladder 50..150 ms) instead of per-packet,
++ *         resting in the baseline (link) state below the threshold.
++ *         Byte-rate mode sees traffic that packet counters miss once the
++ *         driver reports wire bytes in its stats (e.g. cached switch MIB on
++ *         DSA ports). The rate is measured between two counter updates
++ *         rather than over a fixed window, so counters that are refreshed
++ *         in bursts report their true average rate.
+  *
+  * Note: If the user selects a mode that is not supported by hw, default
+  * behavior is to fall back to software control of the LED. However not every
+@@ -68,6 +92,23 @@ struct led_netdev_data {
+ 	atomic_t interval;
+ 	unsigned int last_activity;
+ 
++	/* Rate mode state: rate_bytes/rate_jiffies anchor the last observed
++	 * counter change, rate_interval is the time that produced it,
++	 * rate_kbps the rate measured over that interval, and rate_last_ms the
++	 * blink period currently armed (0 = solid). rate_threshold_kbps is the
++	 * threshold in KiB/s, 0 = rate mode disabled.
 +	 */
-+	qca8k_mib_poll_start(priv);
++	u64 rate_bytes;
++	unsigned long rate_jiffies;
++	unsigned long rate_interval;
++	unsigned long rate_kbps;
++	unsigned long rate_last_ms;
++	unsigned long rate_threshold_kbps;
++	unsigned long rate_smooth;
++	unsigned long rate_peak;
++	unsigned long rate_ag;
++	bool rate_valid;
 +
- 	return 0;
- }
+ 	unsigned long mode;
+ 	int link_speed;
+ 	__ETHTOOL_DECLARE_LINK_MODE_MASK(supported_link_modes);
+@@ -79,6 +120,80 @@ struct led_netdev_data {
  
-@@ -2030,11 +2038,20 @@ static const struct phylink_mac_ops qca8k_phylink_mac_ops = {
- 	.mac_link_up	= qca8k_phylink_mac_link_up,
- };
+ static const struct attribute_group netdev_trig_link_speed_attrs_group;
  
-+static void qca8k_teardown(struct dsa_switch *ds)
++/*
++ * The resting (non-blinking) state of a netdev LED. The link and duplex
++ * mode bits decide whether it is lit at all, and the level it is lit at is
++ * blink_brightness rather than LED_ON, so that a multi-level LED is not
++ * dimmed to its lowest step and a tx/rx-only LED is not left solid once the
++ * traffic stops. Both the baseline path and the rate-mode path that returns
++ * the LED to rest after a blink use this, so they cannot drift apart.
++ */
++static bool netdev_baseline_on(struct led_netdev_data *trigger_data)
 +{
-+	struct qca8k_priv *priv = ds->priv;
++	if (test_bit(TRIGGER_NETDEV_LINK, &trigger_data->mode))
++		return true;
 +
-+	qca8k_mib_poll_stop(priv);
++	if (test_bit(TRIGGER_NETDEV_LINK_10, &trigger_data->mode) &&
++	    trigger_data->link_speed == SPEED_10)
++		return true;
++
++	if (test_bit(TRIGGER_NETDEV_LINK_100, &trigger_data->mode) &&
++	    trigger_data->link_speed == SPEED_100)
++		return true;
++
++	if (test_bit(TRIGGER_NETDEV_LINK_1000, &trigger_data->mode) &&
++	    trigger_data->link_speed == SPEED_1000)
++		return true;
++
++	if (test_bit(TRIGGER_NETDEV_LINK_2500, &trigger_data->mode) &&
++	    trigger_data->link_speed == SPEED_2500)
++		return true;
++
++	if (test_bit(TRIGGER_NETDEV_LINK_5000, &trigger_data->mode) &&
++	    trigger_data->link_speed == SPEED_5000)
++		return true;
++
++	if (test_bit(TRIGGER_NETDEV_LINK_10000, &trigger_data->mode) &&
++	    trigger_data->link_speed == SPEED_10000)
++		return true;
++
++	if (test_bit(TRIGGER_NETDEV_LINK_25000, &trigger_data->mode) &&
++	    trigger_data->link_speed == SPEED_25000)
++		return true;
++
++	if (test_bit(TRIGGER_NETDEV_LINK_40000, &trigger_data->mode) &&
++	    trigger_data->link_speed == SPEED_40000)
++		return true;
++
++	if (test_bit(TRIGGER_NETDEV_LINK_50000, &trigger_data->mode) &&
++	    trigger_data->link_speed == SPEED_50000)
++		return true;
++
++	if (test_bit(TRIGGER_NETDEV_LINK_100000, &trigger_data->mode) &&
++	    trigger_data->link_speed == SPEED_100000)
++		return true;
++
++	if (test_bit(TRIGGER_NETDEV_HALF_DUPLEX, &trigger_data->mode) &&
++	    trigger_data->duplex == DUPLEX_HALF)
++		return true;
++
++	if (test_bit(TRIGGER_NETDEV_FULL_DUPLEX, &trigger_data->mode) &&
++	    trigger_data->duplex == DUPLEX_FULL)
++		return true;
++
++	return false;
 +}
 +
- static const struct dsa_switch_ops qca8k_switch_ops = {
- 	.get_tag_protocol	= qca8k_get_tag_protocol,
- 	.setup			= qca8k_setup,
-+	.teardown		= qca8k_teardown,
- 	.get_strings		= qca8k_get_strings,
- 	.get_ethtool_stats	= qca8k_get_ethtool_stats,
-+	.get_stats64		= qca8k_get_stats64,
- 	.get_sset_count		= qca8k_get_sset_count,
- 	.set_ageing_time	= qca8k_set_ageing_time,
- 	.support_eee		= dsa_supports_eee,
-diff --git a/drivers/net/dsa/qca/qca8k-common.c b/drivers/net/dsa/qca/qca8k-common.c
-index ab978cc836..7c446f507f 100644
---- a/drivers/net/dsa/qca/qca8k-common.c
-+++ b/drivers/net/dsa/qca/qca8k-common.c
-@@ -520,6 +520,116 @@ void qca8k_get_ethtool_stats(struct dsa_switch *ds, int port,
++static void netdev_set_resting(struct led_netdev_data *trigger_data)
++{
++	struct led_classdev *led_cdev = trigger_data->led_cdev;
++
++	if (trigger_data->carrier_link_up && netdev_baseline_on(trigger_data))
++		led_set_brightness(led_cdev, led_cdev->blink_brightness);
++	else
++		led_set_brightness(led_cdev, LED_OFF);
++}
++
+ static void set_baseline_state(struct led_netdev_data *trigger_data)
+ {
+ 	int current_brightness;
+@@ -91,85 +206,54 @@ static void set_baseline_state(struct led_netdev_data *trigger_data)
+ 		return;
+ 	}
+ 
++	/* While a rate-mode software blink is still armed, the solid
++	 * brightness below only lands in blink_brightness (LED_BLINK_SW),
++	 * and the work re-arms the blink only on a ladder step change: with
++	 * rate_last_ms cleared, a below-threshold sample computes the same
++	 * zero step and the old blink keeps running. Stop it here; the work
++	 * re-arms it from the measured rate, as rate_threshold_store() does.
++	 */
++	if (trigger_data->rate_threshold_kbps)
++		led_stop_software_blink(led_cdev);
++
+ 	current_brightness = led_cdev->brightness;
+ 	if (current_brightness)
+ 		led_cdev->blink_brightness = current_brightness;
+ 	if (!led_cdev->blink_brightness)
+ 		led_cdev->blink_brightness = led_cdev->max_brightness;
+ 
+-	if (!trigger_data->carrier_link_up) {
+-		led_set_brightness(led_cdev, LED_OFF);
+-	} else {
+-		bool blink_on = false;
++	netdev_set_resting(trigger_data);
+ 
+-		if (test_bit(TRIGGER_NETDEV_LINK, &trigger_data->mode))
+-			blink_on = true;
+-
+-		if (test_bit(TRIGGER_NETDEV_LINK_10, &trigger_data->mode) &&
+-		    trigger_data->link_speed == SPEED_10)
+-			blink_on = true;
+-
+-		if (test_bit(TRIGGER_NETDEV_LINK_100, &trigger_data->mode) &&
+-		    trigger_data->link_speed == SPEED_100)
+-			blink_on = true;
+-
+-		if (test_bit(TRIGGER_NETDEV_LINK_1000, &trigger_data->mode) &&
+-		    trigger_data->link_speed == SPEED_1000)
+-			blink_on = true;
+-
+-		if (test_bit(TRIGGER_NETDEV_LINK_2500, &trigger_data->mode) &&
+-		    trigger_data->link_speed == SPEED_2500)
+-			blink_on = true;
+-
+-		if (test_bit(TRIGGER_NETDEV_LINK_5000, &trigger_data->mode) &&
+-		    trigger_data->link_speed == SPEED_5000)
+-			blink_on = true;
+-
+-		if (test_bit(TRIGGER_NETDEV_LINK_10000, &trigger_data->mode) &&
+-		    trigger_data->link_speed == SPEED_10000)
+-			blink_on = true;
+-
+-		if (test_bit(TRIGGER_NETDEV_LINK_25000, &trigger_data->mode) &&
+-		    trigger_data->link_speed == SPEED_25000)
+-			blink_on = true;
+-
+-		if (test_bit(TRIGGER_NETDEV_LINK_40000, &trigger_data->mode) &&
+-		    trigger_data->link_speed == SPEED_40000)
+-			blink_on = true;
+-
+-		if (test_bit(TRIGGER_NETDEV_LINK_50000, &trigger_data->mode) &&
+-		    trigger_data->link_speed == SPEED_50000)
+-			blink_on = true;
+-
+-		if (test_bit(TRIGGER_NETDEV_LINK_100000, &trigger_data->mode) &&
+-		    trigger_data->link_speed == SPEED_100000)
+-			blink_on = true;
+-
+-		if (test_bit(TRIGGER_NETDEV_HALF_DUPLEX, &trigger_data->mode) &&
+-		    trigger_data->duplex == DUPLEX_HALF)
+-			blink_on = true;
+-
+-		if (test_bit(TRIGGER_NETDEV_FULL_DUPLEX, &trigger_data->mode) &&
+-		    trigger_data->duplex == DUPLEX_FULL)
+-			blink_on = true;
+-
+-		if (blink_on)
+-			led_set_brightness(led_cdev,
+-					   led_cdev->blink_brightness);
+-		else
+-			led_set_brightness(led_cdev, LED_OFF);
+-
+-		/* If we are looking for RX/TX start periodically
+-		 * checking stats
++	/* If we are looking for RX/TX (or a rate threshold is set) start
++	 * periodically checking stats
++	 */
++	if (trigger_data->carrier_link_up &&
++	    (test_bit(TRIGGER_NETDEV_TX, &trigger_data->mode) ||
++	     test_bit(TRIGGER_NETDEV_RX, &trigger_data->mode) ||
++	     test_bit(TRIGGER_NETDEV_TX_ERR, &trigger_data->mode) ||
++	     test_bit(TRIGGER_NETDEV_RX_ERR, &trigger_data->mode) ||
++	     trigger_data->rate_threshold_kbps)) {
++		/* Rate mode re-arms the blink only when the ladder step
++		 * changes, and the brightness has just been set to a solid
++		 * state, so forget the step that was armed before this.
+ 		 */
+-		if (test_bit(TRIGGER_NETDEV_TX, &trigger_data->mode) ||
+-		    test_bit(TRIGGER_NETDEV_RX, &trigger_data->mode) ||
+-		    test_bit(TRIGGER_NETDEV_TX_ERR, &trigger_data->mode) ||
+-		    test_bit(TRIGGER_NETDEV_RX_ERR, &trigger_data->mode))
+-			schedule_delayed_work(&trigger_data->work, 0);
++		trigger_data->rate_last_ms = 0;
++		schedule_delayed_work(&trigger_data->work, 0);
  	}
  }
  
-+/* Two cadences, picked per round by the work itself: while the wire counters
-+ * move the cache is refreshed four times a second so that a rate consumer
-+ * sees the traffic almost immediately, and once a second while they are
-+ * idle, which keeps the MDIO cost of an idle switch low.
-+ *
-+ * schedule_delayed_work() (system_wq) is used deliberately instead of a
-+ * power-efficient workqueue: with CONFIG_WQ_POWER_EFFICIENT_DEFAULT the
-+ * latter arms deferrable timers that do not wake an idle CPU, which on a
-+ * single-core switch SoC delayed a 3 s poll by several more seconds and
-+ * made consumers see the wire late. ar9331 schedules its equivalent MIB
-+ * work the same way.
++/* Drop the measured rate whenever the counter source changes, so that the
++ * next sample re-anchors instead of subtracting counters of two interfaces.
 + */
-+#define QCA8K_MIB_POLL_IDLE	HZ
-+#define QCA8K_MIB_POLL_ACTIVE	(HZ / 4)
-+
-+/* RxGoodByte / TxByte offsets in the per-port MIB block, both 64-bit wide */
-+#define QCA8K_MIB_RXGOODBYTE	0x3c
-+#define QCA8K_MIB_TXBYTE	0x84
-+
-+/* Read one 64-bit MIB counter in a single regmap transaction, so that no
-+ * other register access can land between the low and the high half.
-+ */
-+static int qca8k_mib_read_wire(struct qca8k_priv *priv, int port, u32 off,
-+			       u64 *val)
++static void netdev_trig_rate_reset(struct led_netdev_data *trigger_data)
 +{
-+	u32 raw[2];
++	trigger_data->rate_valid = false;
++	trigger_data->rate_kbps = 0;
++	trigger_data->rate_smooth = 0;
++	trigger_data->rate_peak = 0;
++	trigger_data->rate_ag = 0;
++}
++
+ static bool supports_hw_control(struct led_classdev *led_cdev)
+ {
+ 	if (!led_cdev->hw_control_get || !led_cdev->hw_control_set ||
+@@ -311,6 +395,7 @@ static int set_device_name(struct led_netdev_data *trigger_data,
+ 		get_device_state(trigger_data);
+ 
+ 	trigger_data->last_activity = 0;
++	netdev_trig_rate_reset(trigger_data);
+ 
+ 	/* Skip if we're called from netdev_trig_activate() and hw_control is true */
+ 	if (!trigger_data->hw_control || led_get_trigger_data(trigger_data->led_cdev))
+@@ -509,7 +594,51 @@ static ssize_t interval_store(struct device *dev,
+ 	return size;
+ }
+ 
++static ssize_t rate_threshold_show(struct device *dev,
++				   struct device_attribute *attr, char *buf)
++{
++	struct led_netdev_data *trigger_data = led_trigger_get_drvdata(dev);
++
++	return sprintf(buf, "%lu\n", trigger_data->rate_threshold_kbps);
++}
++
++static ssize_t rate_threshold_store(struct device *dev,
++				    struct device_attribute *attr, const char *buf,
++				    size_t size)
++{
++	struct led_netdev_data *trigger_data = led_trigger_get_drvdata(dev);
++	unsigned long value;
 +	int ret;
 +
-+	ret = regmap_bulk_read(priv->regmap, QCA8K_PORT_MIB_COUNTER(port) + off,
-+			       raw, ARRAY_SIZE(raw));
++	if (trigger_data->hw_control)
++		return -EINVAL;
++
++	ret = kstrtoul(buf, 0, &value);
 +	if (ret)
 +		return ret;
 +
-+	*val = raw[0] | ((u64)raw[1] << 32);
++	cancel_delayed_work_sync(&trigger_data->work);
 +
-+	return 0;
++	trigger_data->rate_threshold_kbps = value;
++	trigger_data->rate_last_ms = 0;
++	netdev_trig_rate_reset(trigger_data);
++
++	/* Leaving rate mode has to undo the blink it armed: while a software
++	 * blink is running led_set_brightness() only changes the blink
++	 * brightness, and the packet mode below touches the LED only when the
++	 * activity counter changes, so a link-only LED would keep blinking.
++	 */
++	led_stop_software_blink(trigger_data->led_cdev);
++	set_baseline_state(trigger_data);	/* resets timer */
++
++	if (value)
++		schedule_delayed_work(&trigger_data->work, 0);
++
++	return size;
 +}
 +
-+static void qca8k_mib_poll_work_fn(struct work_struct *work)
-+{
-+	struct qca8k_priv *priv = container_of(work, struct qca8k_priv,
-+					       mib_poll_work.work);
-+	struct dsa_switch *ds = priv->ds;
-+	bool busy = false;
-+	u64 rx, tx;
-+	int port;
+ static DEVICE_ATTR_RW(interval);
++static DEVICE_ATTR_RW(rate_threshold);
+ 
+ static ssize_t offloaded_show(struct device *dev,
+ 			      struct device_attribute *attr, char *buf)
+@@ -593,6 +722,7 @@ static struct attribute *netdev_trig_attrs[] = {
+ 	&dev_attr_rx_err.attr,
+ 	&dev_attr_tx_err.attr,
+ 	&dev_attr_interval.attr,
++	&dev_attr_rate_threshold.attr,
+ 	&dev_attr_offloaded.attr,
+ 	NULL
+ };
+@@ -639,12 +769,14 @@ static int netdev_trig_notify(struct notifier_block *nb,
+ 		dev_put(trigger_data->net_dev);
+ 		dev_hold(dev);
+ 		trigger_data->net_dev = dev;
++		netdev_trig_rate_reset(trigger_data);
+ 		if (evt == NETDEV_CHANGENAME)
+ 			get_device_state(trigger_data);
+ 		break;
+ 	case NETDEV_UNREGISTER:
+ 		dev_put(trigger_data->net_dev);
+ 		trigger_data->net_dev = NULL;
++		netdev_trig_rate_reset(trigger_data);
+ 		break;
+ 	case NETDEV_UP:
+ 		trigger_data->hw_control = can_hw_control(trigger_data);
+@@ -674,6 +806,8 @@ static void netdev_trig_work(struct work_struct *work)
+ 	unsigned int new_activity;
+ 	struct rtnl_link_stats64 temp;
+ 	unsigned long interval;
++	unsigned long now, ms, elapsed, stale;
++	u64 bytes;
+ 	int invert;
+ 
+ 	/* If we dont have a device, insure we are off */
+@@ -682,6 +816,153 @@ static void netdev_trig_work(struct work_struct *work)
+ 		return;
+ 	}
+ 
++	/* Rate mode: blink on a ladder driven by the interface byte rate instead
++	 * of per packet. Independent of the packet-mode bits so that interfaces
++	 * whose packet counters are blind to hardware-forwarded traffic still
++	 * show activity, and so that a sub-threshold link rests in its baseline
++	 * state (solid with a link bit, dark without one).
++	 *
++	 * The rate is measured over the interval between two observed counter
++	 * changes, not over a fixed window. Counters that are refreshed in
++	 * bursts - a cached switch MIB polled every few seconds, for instance -
++	 * dump their whole accumulation into the first fixed window that follows
++	 * the refresh, which reports a rate several times too high and then
++	 * zero until the next refresh. Measuring between changes makes the
++	 * trigger independent of how often the driver refreshes its counters,
++	 * and keeps the blink running for as long as the traffic does.
++	 */
++	if (trigger_data->rate_threshold_kbps && !trigger_data->hw_control) {
++		dev_stats = dev_get_stats(trigger_data->net_dev, &temp);
++		bytes = dev_stats->rx_bytes + dev_stats->tx_bytes;
++		now = jiffies;
 +
-+	for (port = 0; port < QCA8K_NUM_PORTS; port++) {
-+		if (!dsa_is_user_port(ds, port))
-+			continue;
-+		if (qca8k_mib_read_wire(priv, port, QCA8K_MIB_RXGOODBYTE, &rx))
-+			continue;
-+		if (qca8k_mib_read_wire(priv, port, QCA8K_MIB_TXBYTE, &tx))
-+			continue;
++		if (!trigger_data->rate_valid) {
++			trigger_data->rate_bytes = bytes;
++			trigger_data->rate_jiffies = now;
++			trigger_data->rate_interval = HZ;
++			trigger_data->rate_valid = true;
++		} else if (bytes != trigger_data->rate_bytes) {
++			if (bytes > trigger_data->rate_bytes) {
++				trigger_data->rate_interval =
++					now - trigger_data->rate_jiffies;
++				elapsed = jiffies_to_msecs(trigger_data->rate_interval);
++				if (elapsed > NETDEV_RATE_MAX_ELAPSED_MS)
++					elapsed = NETDEV_RATE_MAX_ELAPSED_MS;
++				trigger_data->rate_kbps =
++					div_u64((bytes - trigger_data->rate_bytes) * 1000,
++						elapsed * 1024);
++			} else {
++				/* Counters went backwards (reset or wrapped):
++				 * re-anchor instead of reporting a huge rate.
++				 */
++				trigger_data->rate_kbps = 0;
++			}
++			trigger_data->rate_bytes = bytes;
++			trigger_data->rate_jiffies = now;
++		} else {
++			/* No change: keep the last measured rate for as long as
++			 * the counter keeps being refreshed, then fall back to
++			 * the link state.
++			 */
++			stale = trigger_data->rate_interval * NETDEV_RATE_STALE_MULT;
++			if (stale > NETDEV_RATE_STALE_MAX)
++				stale = NETDEV_RATE_STALE_MAX;
++			if (time_after(now, trigger_data->rate_jiffies + stale))
++				trigger_data->rate_kbps = 0;
++		}
 +
-+		spin_lock_bh(&priv->stats_lock);
-+		if (priv->port_stats[port].rx_bytes != rx ||
-+		    priv->port_stats[port].tx_bytes != tx)
-+			busy = true;
-+		priv->port_stats[port].rx_bytes = rx;
-+		priv->port_stats[port].tx_bytes = tx;
-+		spin_unlock_bh(&priv->stats_lock);
++		/* Smoothing ported from the userspace daemon this replaces: attack
++		 * immediately at or above the threshold so the first evaluation of
++		 * a transfer already blinks, rise slowly and release quickly below
++		 * it so the ladder step does not chatter when a bursty rate
++		 * straddles a boundary.
++		 */
++		if (trigger_data->rate_kbps >= trigger_data->rate_threshold_kbps)
++			trigger_data->rate_smooth = trigger_data->rate_kbps;
++		else if (trigger_data->rate_kbps < trigger_data->rate_smooth)
++			trigger_data->rate_smooth = (trigger_data->rate_smooth +
++				3 * trigger_data->rate_kbps) / 4;
++		else
++			trigger_data->rate_smooth = (3 * trigger_data->rate_smooth +
++				trigger_data->rate_kbps) / 4;
++
++		if (trigger_data->rate_smooth >= trigger_data->rate_threshold_kbps) {
++			if (trigger_data->rate_smooth > trigger_data->rate_peak)
++				trigger_data->rate_peak = trigger_data->rate_smooth;
++			trigger_data->rate_ag = 0;
++		}
++
++		ms = 0;
++		if (trigger_data->carrier_link_up) {
++			unsigned long rate = trigger_data->rate_smooth;
++
++			/* Quadratic afterglow from the last peak: the synthetic rate
++			 * decays as peak * remaining^2 / window^2 over
++			 * NETDEV_RATE_AFTERGLOW, then the LED returns to the link
++			 * state. div_u64() keeps 32-bit builds linking.
++			 */
++			if (rate < trigger_data->rate_threshold_kbps &&
++			    trigger_data->rate_peak >= trigger_data->rate_threshold_kbps &&
++			    trigger_data->rate_ag < NETDEV_RATE_AFTERGLOW) {
++				unsigned long rem;
++
++				trigger_data->rate_ag += HZ / 2;
++				rem = NETDEV_RATE_AFTERGLOW - trigger_data->rate_ag;
++				rate = div_u64((u64)trigger_data->rate_peak * rem * rem,
++					       NETDEV_RATE_AFTERGLOW *
++							NETDEV_RATE_AFTERGLOW);
++			}
++
++			if (rate >= trigger_data->rate_threshold_kbps) {
++				if (rate >= 4096)
++					ms = 50;
++				else if (rate >= 1024)
++					ms = 60;
++				else if (rate >= 256)
++					ms = 80;
++				else if (rate >= 32)
++					ms = 100;
++				else
++					ms = 150;
++			}
++
++			/* During the fade the step only ever gets longer: re-arming
++			 * a faster blink mid-decay looks like stutter.
++			 */
++			if (ms && trigger_data->rate_ag &&
++			    ms < trigger_data->rate_last_ms)
++				ms = trigger_data->rate_last_ms;
++		}
++
++		if (!ms) {
++			trigger_data->rate_peak = 0;
++			trigger_data->rate_ag = 0;
++		}
++
++		/* Re-arm only when the blink period actually changes: every
++		 * led_blink_set() restarts the software blink and truncates the
++		 * phase in progress, which shows up as an irregular cadence.
++		 */
++		if (ms != trigger_data->rate_last_ms) {
++			led_stop_software_blink(trigger_data->led_cdev);
++			if (ms) {
++				unsigned long delay_on = ms, delay_off = ms;
++
++				led_blink_set(trigger_data->led_cdev, &delay_on,
++					      &delay_off);
++			} else {
++				/* Resting state == the baseline state: same mode bits,
++				 * same brightness level (see netdev_set_resting()).
++				 */
++				netdev_set_resting(trigger_data);
++			}
++			trigger_data->rate_last_ms = ms;
++		}
++
++		schedule_delayed_work(&trigger_data->work, HZ / 2);
++		return;
 +	}
 +
-+	schedule_delayed_work(&priv->mib_poll_work,
-+			      busy ? QCA8K_MIB_POLL_ACTIVE : QCA8K_MIB_POLL_IDLE);
-+}
-+
-+/* Serve the wire counters on top of the software ones. May be called in
-+ * atomic context, so only the cache is touched here. The MIB sees every
-+ * frame crossing the port, including bridge-offloaded traffic that never
-+ * reaches the CPU, so DSA user ports finally report the truth on the wire
-+ * to every standard kernel consumer, without ethtool or userspace helpers.
-+ *
-+ * DSA calls either .get_stats64 or dev_get_tstats64(), never both, so the
-+ * packet and error counters collected by the DSA xmit/receive paths have to
-+ * be picked up here as well or they would be lost.
-+ */
-+void qca8k_get_stats64(struct dsa_switch *ds, int port,
-+		       struct rtnl_link_stats64 *s)
-+{
-+	struct qca8k_priv *priv = ds->priv;
-+	struct rtnl_link_stats64 wire;
-+
-+	dev_get_tstats64(dsa_to_port(ds, port)->user, s);
-+
-+	spin_lock_bh(&priv->stats_lock);
-+	wire = priv->port_stats[port];
-+	spin_unlock_bh(&priv->stats_lock);
-+
-+	s->rx_bytes = wire.rx_bytes;
-+	s->tx_bytes = wire.tx_bytes;
-+}
-+
-+void qca8k_mib_poll_start(struct qca8k_priv *priv)
-+{
-+	spin_lock_init(&priv->stats_lock);
-+	INIT_DELAYED_WORK(&priv->mib_poll_work, qca8k_mib_poll_work_fn);
-+
-+	/* Read once right away: without it the first consumer after a link
-+	 * comes up sees zeros for a whole poll period.
-+	 */
-+	schedule_delayed_work(&priv->mib_poll_work, 0);
-+}
-+
-+void qca8k_mib_poll_stop(struct qca8k_priv *priv)
-+{
-+	cancel_delayed_work_sync(&priv->mib_poll_work);
-+}
-+
- int qca8k_get_sset_count(struct dsa_switch *ds, int port, int sset)
- {
- 	struct qca8k_priv *priv = ds->priv;
-diff --git a/drivers/net/dsa/qca/qca8k.h b/drivers/net/dsa/qca/qca8k.h
-index 9563388930..edab7e1218 100644
---- a/drivers/net/dsa/qca/qca8k.h
-+++ b/drivers/net/dsa/qca/qca8k.h
-@@ -443,6 +443,15 @@ struct qca8k_led {
- };
- 
- struct qca8k_priv {
-+	/* Cached per-port wire statistics from the switch MIB, refreshed by
-+	 * mib_poll_work so that .get_stats64 (atomic context) never sleeps.
-+	 * Placed at the top of the struct to stay clear of target-specific
-+	 * patches that extend its tail (e.g. ipq40xx IPQ4019 support).
-+	 */
-+	struct rtnl_link_stats64 port_stats[QCA8K_NUM_PORTS];
-+	spinlock_t stats_lock; /* guards port_stats[] */
-+	struct delayed_work mib_poll_work;
-+
- 	u8 switch_id;
- 	u8 switch_revision;
- 	u8 mirror_rx;
-@@ -513,6 +522,12 @@ int qca8k_rmw(struct qca8k_priv *priv, u32 reg, u32 mask, u32 write_val);
- /* Common ops function */
- void qca8k_fdb_flush(struct qca8k_priv *priv);
- 
-+/* Cached MIB statistics served from atomic context */
-+void qca8k_get_stats64(struct dsa_switch *ds, int port,
-+		       struct rtnl_link_stats64 *s);
-+void qca8k_mib_poll_start(struct qca8k_priv *priv);
-+void qca8k_mib_poll_stop(struct qca8k_priv *priv);
-+
- /* Common ethtool stats function */
- void qca8k_get_strings(struct dsa_switch *ds, int port, u32 stringset, uint8_t *data);
- void qca8k_get_ethtool_stats(struct dsa_switch *ds, int port,
+ 	/* If we are not looking for RX/TX then return  */
+ 	if (!test_bit(TRIGGER_NETDEV_TX, &trigger_data->mode) &&
+ 	    !test_bit(TRIGGER_NETDEV_RX, &trigger_data->mode) &&
 -- 
 2.53.0
 
