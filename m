@@ -1,47 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793367683;
-	b=2kdQbVhKLxKfZZqgisufu0yAWzcz/PEHMyD+h7amdJfr85HRx273uG+nGFizZOv2gtu0
-	 Nk1GQO+Al/SwywkjEmmTrs3SlT//T8bFKGEb7E94DwGX2ihZX7irTIXSiWofbR/PgRXRF
-	 ZXUUMJVlIFvknuKuaLTCcMpWz9B3X0ysRAeBLOCWWfk78ZfXlyQGU9elrb7BhNQDoE9X/
-	 UykTCtRc9dhCEViCbWw8LF/Lxj24DAlXvsU0je+G/uA9rVXeAW/jq2nUml205DGh9CJqo
-	 zLXXDriReeGtqMua/zUUijSuP3fw0E2MzqGUhpz78JNkHegbBpP2Nu0/T6DeGwS0TmA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793367683;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=OnmTI2TmNztdeWp6xVf8mln9QukGvhxUcITWVh2aeg0=;
-	b=ChQ3egGANhutY6EJeKnY5YHzWyg7HknJsJfZpzwnjzMVZbTG/L/NsNiNrBAT6iEOAuHk
-	 WVWNEi/CsU4afFCGVvk2eXnJmpdy8pOg5+VkF8LhRYa1ac5/jiHHzCTsLpYy2LCBsckH0
-	 FHZgEKoRDGnp90ZqYtaSeKPRhMjPJVOfuts4Aam+YhkBzLCb5Dui65n8eEYSHoSGMQUXN
-	 0lAF+SzXgyJwCksNqCAbTKx1WKzw7Czz+N/uqwPUF/1Hv+Q1c7I41kKAhJZzX2y78rYrk
-	 qLhLixyuKUCBg5+qooAqC4gXCAwYBd3O7UikphK+XsDDXCUBY6BjMWP9kb9FpUsVQ7A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="NNV0IcN/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.166
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793367703;
+	b=J2sGNrCKl7IEq12xbtzvOm2sVkomUDIphI61JdiZiXQcJwso2mDnwcpYCD9NKXXa0UQV
+	 L2u09Ym2/c8vTyhDdZaRJKZoFECEmNDB6jhvIFO1li880LeiF2mPhRNRU3EspikIQRgwR
+	 4FaV6YNsjP3wV5IwkG7thEfzdsXLx98Ta+LhicJ/snQVqUSLixW5sAt6aVcCDtIpBHuk4
+	 of8rOavtkAIsMUNaP5210m3dYlKL330MGqlqu7ABDIvtMHVRyJNSZ7PAAxJYrup8YTXR+
+	 Mio8+SMo+vzSrBAoWO+gdQlA5XS3cwDnAvXv3BRypbl1lB2yIMk8sGu5/ze+n5NtXSw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793367703;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=eoFocFLZvVXbjfcmuUeSDY1L+9vu4B3vE+nKBC2kn5U=;
+	b=uBgQEWje8ELArzwYnKDQ4i2D3Q42u2dcQJruvqEvsHvk+WB8UE5+64Y8jDZ5PmT8VHDv
+	 tvwm8i7MHuxPw7I9e/xY05b4Atp3TUS2rEuMDAmzd/IsrWS34+F0tdbrTE3iGwdr4ICXg
+	 thP6X1B04nNHvBY/sWuxcVw3ail4gEHx+nPPdcDRf+iuirePoBmJBIz0tJDzDTnKg4axv
+	 5mMalQlAnHv12pvnp4QjBqYuV0/voFFyJ/RdnZmbVxhZ5RhkRZNmHD/L7ZEw9yyHS62px
+	 RmpsSwcxAsqwkB1iWx+aFTvPQ0JvAXAZ4BZkj17mkr82YhCEzPnUKB8jPGlnG5nz2GA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=iokpp.de;
+	spf=none smtp.mailfrom=iokpp.de;
+	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=o7awYZnN;
+	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=UjBo7i28;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.166
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.166])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D2F1606A324
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:41:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985BF606A31D;
+	Fri, 30 Oct 2026 13:41:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 985BF606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NNV0IcN/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C1651F000C1;
-	Fri, 30 Oct 2026 13:41:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793367682;
-	bh=OnmTI2TmNztdeWp6xVf8mln9QukGvhxUcITWVh2aeg0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NNV0IcN/T1x4uk/6xUMmczMHDMjA10KxECC7FCade0M2t2SjGRrLc7DundGou1KTp
-	 uqskAND9/s3Vjvwdv9mxrcO2csTqh1TaELZoj6uHGxq+63vd6xlNNb0TXVrmYO/aIZ
-	 G350lBfPsDCXTmijg56uuZY1+LaoQ1IioK1UUFu0YxIj4vLugbnG9rBedZMYqLexNp
-	 FATQVAryPGVUez09RMlqDxdZu1xvTfGjHxQ8M1u3NsKrfej8mGgNHQbIz5vBSOoNKj
-	 4eH0VuJtfp13xDZq9pzOYMCTNXBfAAwqBLHUV8Ah82zS2UyNLqT9R/t99RdY0u9q1B
-	 hjUIrCJJZf7ow==
-Message-ID: <43ac2e84-56fe-4a52-b445-0be8ccb0d573@kernel.org>
-Date: Fri, 30 Oct 2026 14:41:17 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=o7awYZnN;
+	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=UjBo7i28
+ARC-Seal: i=1; a=rsa-sha256; t=1793367670; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=DVOMDQUK4jA02A6LX4M7KnttCg1+TxIU6G/YnkbzQzQaz5wJDzG2bWqjsDoGiU/G9l
+    Ied32jS/F+wpXvhvCd1eNYXRh/yPEU24hMBXC4SeIfWXDUA8SuFlfk5xbIL9pDSzcgbQ
+    5R2rLlgPHCrqxesMzkafltEqXS61tmenZmzIuul0GL+zyNVRyznG+ZhVU/c13qL1EUrF
+    G1meQ7KSzIVHn5s/cuCGZYyB7U45y+xTgfTigCTSsKK7VSWgYCg994lCE/RzhGT8TPFd
+    9Oe6xq6klq013VJtv2tfvGVJrx+G5NPdVefRj440WSZF+detP9Gog4aeWsjzwEvH8a9f
+    9S0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793367670;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=eoFocFLZvVXbjfcmuUeSDY1L+9vu4B3vE+nKBC2kn5U=;
+    b=r3qd/vIMOpVJg8RGeXhBxmPKNtU0iPm0AVa4FRP5Qgmqke9zTde0iTPtzPR1BmVEl/
+    JNR53N+cxXmzLRktwn3EbTdDWPxEr2qj96n43DOslpVJjprlyD3cdJj2/sBQrBXB/Zsa
+    zYVk6424GLMoL/h0r2KICrf+AIgCfg53lq9Snr88ba5p/C9nVdUyaAHCvU0vRG3ckdkN
+    9n+132vddRwTTocJM3O+eymT00c51s1KCJZvRLtdb83VjRiGMzCJsjvpOZ0HkoJa+RMe
+    DMy8c9gh7SNIsiJ0KsI6XPQTkzXY07ngKGlyQdhhk6C48ZoM3ko+ZS4RkE7wyw65bMmn
+    mX8Q==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793367670;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=eoFocFLZvVXbjfcmuUeSDY1L+9vu4B3vE+nKBC2kn5U=;
+    b=o7awYZnNYwU0BahCQi9Z19d2YUI2sJvPsB8M2aXpB4F8xj6k3HYtD5cMJSezB4eOfC
+    oIAfhxHaqb/7ZBEF8eg3Qtoh2n/9BbK/KH4mXuRvQM4oW9YkwaRMY7Tw15ItWepVgtvV
+    ZW2uWemINK2x96mh3p3Gf28F2852rYuO1wU2IrbGHP1VTC9ytaUTXa8W4bAa6LebuP5K
+    yPnvo/ljPCgnVj8X0+HeZlP6pRj8H/u73+hqFG4T3NpS3MgMlg83iGqgeST9mSTATA/Y
+    RzSX17EsnL0IMajSEa00HTihRbOmMf6MN9KovIrW0dxGl03WsDj78yQY6TOBwzIfbAi4
+    LZtQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793367670;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=eoFocFLZvVXbjfcmuUeSDY1L+9vu4B3vE+nKBC2kn5U=;
+    b=UjBo7i285Hs7RYht1Uzts0xeZF+trdps3HsFONunY6bWo9PIu7vy1jzUjy0OIpLEl0
+    ASt2k34A21sHhN4WT3DA==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZuk"
+Received: from [10.176.237.223]
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id z831ad29UDf9UlU
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Fri, 30 Oct 2026 14:41:09 +0100 (CET)
+Message-ID: <101b87d76029565d274ae96d66c8a343cab910d3.camel@iokpp.de>
+Subject: Re: [PATCH v3] ufs: mcq: fix dev cmd abort path and add OCS poll
+ after sq cleanup
+From: Bean Huo <beanhuo@iokpp.de>
+To: Kiwoong Kim <kwmad.kim@samsung.com>, linux-scsi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, alim.akhtar@samsung.com, avri.altman@wdc.com,
+  jejb@linux.ibm.com, martin.petersen@oracle.com, bvanassche@acm.org, 
+ kwangwon.min@samsung.com, hy50.seo@samsung.com, cpgs@samsung.com, 
+ h10.kim@samsung.com
+Cc: stable@vger.kernel.org, stanleyjhu@google.com
+Date: Fri, 30 Oct 2026 14:41:08 +0100
+In-Reply-To: <20261030111045.982094-1-kwmad.kim@samsung.com>
+References: 
+	<CGME20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053@epcas2p2.samsung.com>
+	 <20261030111045.982094-1-kwmad.kim@samsung.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,90 +110,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/9] w1: netlink: drop the slave after the bus is unlocked
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org,
- stable <stable@kernel.org>
-References: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
- <20261027-llm-char-misc-w1-v1-6-d2e6bfafb6a4@linuxfoundation.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261027-llm-char-misc-w1-v1-6-d2e6bfafb6a4@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 27/10/2026 17:04, Greg Kroah-Hartman wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> w1_process_cb() executes the commands of a netlink message with bus_mutex
-> held, and drops the reference to the slave which the message was
-> addressed to before it unlocks the mutex.  If the slave has been detached
-> in the meantime, this is the last reference, and w1_unref_slave() tears
-> the slave down on the spot.  That waits
-> 
-> - in device_unregister(), for the sysfs callbacks of the slave which are
->   running, and
-> 
-> - in w1_therm_remove_slave(), for the readers which have taken a
->   reference to the family data,
-> 
-> and both kinds take bus_mutex to talk to the slave.  Whoever is waiting
-> for the mutex at that moment is never going to finish, and neither is the
-> thread of the bus master.
-> 
-> Unlock the bus first.  The reference keeps the slave, and with it the
-> master, alive until then.
-> 
-> Fixes: d3a8a9dbb903 ("w1: hold bus_mutex in netlink and search")
-> Cc: stable <stable@kernel.org>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Hi Kiwoong,=C2=A0
 
-Best regards,
-Krzysztof
+I think this should be two patches, each needs different fix tag:
+=20
+On Fri, 2026-10-30 at 20:10 +0900, Kiwoong Kim wrote:
+> In MCQ mode, ufshcd_mcq_abort() falls through to ufshcd_try_to_abort_task=
+()
+> for all timed-out commands. However, device management commands (query, N=
+OP)
+> use reserved requests and are not SCSI I/O commands. The ABORT TASK task
+> management function is designed for SCSI I/O UPIUs and is not applicable =
+to
+> device management UPIUs.
+
+This is true only since 08b12cda6c44 ("scsi: ufs: core: Switch to
+scsi_get_internal_cmd()"), v6.19. Before that, a timed-out query went throu=
+gh
+ufshcd_wait_for_dev_cmd() -> ufshcd_clear_cmd() and never reached
+ufshcd_try_to_abort_task(). you need to add fix tag for it.
+
+>=20
+> Fix this by checking ufshcd_is_scsi_cmd() in ufshcd_try_to_abort_task(). =
+When
+> the request is a reserved (device management) command, skip the TM path a=
+nd
+> call ufshcd_clear_cmd() directly instead.
+
+
+> Additionally, extend ufshcd_mcq_sq_cleanup() to poll the OCS field in the
+> UTRD of a device management command after a successful SQ_CUS poll. UFSHC=
+I
+> does not specify the order between the OCS update and the SQ_CUS update, =
+so
+> OCS may still be stale when cleanup returns. Without this poll, a late
+> response to a timed-out query can arrive while a retry is already in flig=
+ht,
+> leaving the host with two query contexts and raising IS.UTPES.
+>=20
+> The poll is limited to device management commands because
+> ufshcd_compl_one_cqe() copies the OCS from the CQE into the UTRD only for
+> them. For SCSI commands, the OCS in the UTRD stays
+> OCS_INVALID_COMMAND_STATUS, so polling it would always time out.
+>=20
+> The poll waits until OCS is no longer OCS_INVALID_COMMAND_STATUS or
+> MCQ_POLL_US elapses. -ETIMEDOUT is returned only if OCS is still
+> OCS_INVALID_COMMAND_STATUS after the poll. Any other value, such as
+> OCS_ABORTED reported by the host controller for the cleaned-up request,
+> means the cleanup has completed.
+>=20
+> --
+
+I didn't understand why here there is "--", this shoudl be "---"?
+
+> Here is the timeline of an actual case for this that happened with kernel
+> 6.18.
+
+
+> 1. The host sent a query but the device didn't respond with it for a long
+> time.
+>=20
+> [ 7384.156142] [4:=C2=A0 kworker/u40:5:10671] exynos-ufs 38300000.ufs:
+> ufshcd_mcq_sq_cleanup, hwq 0: cleanup return code (RTC) 0
+> [ 7384.156154] [4:=C2=A0 kworker/u40:5:10671] exynos-ufs 38300000.ufs:
+> ufshcd_query_flag: Sending flag query for idn 14 failed, err =3D -11
+>=20
+> 2. So after the query was timed out, the driver did SQ cleanup.
+> Then the host updated CQ update and raised IS.CQES,
+> Unfortunately, complete() was called the driver's ISR afterward.
+>=20
+> 3. The driver started to retried the query. In the meantime, it set OCS t=
+o
+> 0xF.
+> Then the driver didn't wait for completion due to the previous complete()
+> call,
+> and just checked OCS.
+
+
+this is another patch, and OCS poll patch needs a fixes tag too, for the MC=
+Q
+abort support.=20
+
+
+>=20
+> [ 7384.156163] [4:=C2=A0 kworker/u40:5:10671] exynos-ufs 38300000.ufs:
+> ufshcd_query_flag: Sending flag query for idn 14 failed, err =3D 15
+>=20
+> 5. The driver retried the query again, but the device didn't return anyth=
+ing,
+> so the query was also timed-out.
+>=20
+> [ 7385.660108] [3:=C2=A0 kworker/u40:5:10671] exynos-ufs 38300000.ufs:
+> ufshcd_query_flag: Sending flag query for idn 14 failed, err =3D -11
+>=20
+> 6. A few seconds later, the device returned the response of the 1st query=
+,
+> but since the host was holding two query contexts and couldn't handle it,
+> it raised IS.UTPES.
+>=20
+> Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
+>=20
+>=20
+
+Kind regards,=20
+Bean
