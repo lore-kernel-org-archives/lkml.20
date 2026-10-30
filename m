@@ -1,68 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793329649;
-	b=hUQw0XbXAN55uKp4+crrnw2tkW8U1S643yKPVC/tFh0hC6CbavKO6OjpJarfl7npvYfT
-	 pAmHcbdT0pPg0duy+zuGGgkoobOoXxVxVvuOUvZPI3qrOBF+0yX3oJFAkYc59JZYTorGb
-	 gipTbX5cyzCJsh5Y526swyj1oM7zeu0Wi6g3DsmDIoMV1oE6SPjM4S/M+8uitrDCNlgpU
-	 eUByuIT23Rw1bVjNmWj4u9WjsTqvtpu8UURqq9a+FlggpgmP8hdoZ2z2Hk6IPBdlgumI6
-	 C6HEZ21yuFMtjNKs82zZFa4fryRhHx9vpuBqszqo/yE7QpivzxeZwlXqFijb1ZXZZpQ==
+	t=1793329765;
+	b=COUucYEgd6GJKfu5KR/YJS7S0WHihUe92uxTY4Ygi0wHCXCNNBGYSYoA5KlGKa7HOra+
+	 pIcgx/m14418jBWBgvg7E7dBzErM+QXm/8dKCVW/nB0jnYpnH/GEUDTJI2iU4wJ4ObD7i
+	 7cQJMY14QoE7DWajSN2wxutmKwnfyUhW8F/F+O1IEJfuB55QyzskPTqi3ksEcPfWxYpSH
+	 toKVTJZxcc052GBn2E4gbEYEiBHOopIvwgd3dKhOjDty3N8L4NgnxT34G/IeL+bnLU/Sv
+	 PAoyjyFh7N3GEmIiKZ7vkEFcFVk9TqAjJail+k+4uCOeDOvZ5qd6tmTcNYmnjPkKwEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793329649;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=aHgpdCEoD5lWUeN6+WJA5Jj9bBqBJTPp6GiL3jJIPFM=;
-	b=xnyeA0gReQAVS5x6ZnIZqczBmfeB5/v1UXTrnGILDrqITBJFTBSe+F+DrAnXrSEnCH9W
-	 81667qVnzL3KL6HObvteLqgQPau8EW21PK9uCvNhsjDSppiDPWGAjeXnfmnyrUWWIb5AF
-	 GTaM1VV43ftlOm/iUOwEPs1L5enRTaWrlT2Ttu/ZzmQ7hFAJMuUOQ5M7HRyCIAEdGpEnH
-	 tOMab1lTyFh9sG3y4+vl1YzHWKR+pFH8HG3rqNmHNzCETcrPyagRPaY0jiKtDgsLIIY7U
-	 /xi25CrZtFoTP6D+C1aIDEtPd2p6NAHH+PRX/wytllAYEOIKfWjyW53i2wR5Jd4XCmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793329765;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=xIzYGlh3dkjKXMrOC6R+W2N3dmc9mwEuwgXjXrJHlpg=;
+	b=i33ljEEDLbpV/cKavXJfsqVtsRrZWEs92n2NI2Bzt38Et3z+Oy5BDaGufc3nMq8I1Aar
+	 I2duEHCgMJAm/pt1K5dmCYqjWtdl9XPZJZlPUa3PCzYU0LsoG2+xDSzpgKy1BNFEw0HHZ
+	 iOdFjLJi3CiNQX9L22EhhzYEVDpm0p1mXLPtf/o2JIQ+h0ko2juHOF7J4RYlJVa1CjhFp
+	 Q0+gmbfQf1GlUTK5NJjlumFWyBc1NclBt5mxzEWUcqY+r/ZcNbCNvv6FbaqierfjF3wes
+	 WuZU975MTtukr+FyfyeBXCv2HPWbzSS9Lk4Eg/49NLiqLe/i7VxSoX3tnfSWMbeh6kQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ihYm97t3;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B90606A31C;
-	Fri, 30 Oct 2026 03:07:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65B90606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ihYm97t3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793329648; x=1824865648;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=O/zzEIHYeFxsYEQca3VGErkJGqkPr5bCwH/rsaqactw=;
-  b=ihYm97t3a28CsECZdxHKRbZ78yldgfhKlvtJuTy98/HhzNe1+lL/GHNg
-   z2ERSVxR9ss8xYEsfCUvbMFO5ZbhU+jdHFQ/c6Sj6asKpT5F10F4F3S4c
-   vN1a1xqbhJBJj6fYF5IDFOQMsSN3UQpRPnfAO41sHMOBl4JoAiPDBja+K
-   9gn9esvxkk6U+Rb2LV0gJjDXJU9sWr3FFr/i0x5mw7EvKsvYjOSxHklUZ
-   KSKDLrlz+HT/GQPhMNKeL4vrkL0KH6h4YSKMubN9zJXmA4KughoFO5JLz
-   HvtKnx6+GVJH6WGinIAI3c77dN/wzO7uxeMQMh8VSOnEk1ZCWFt0MuRGQ
-   Q==;
-X-CSE-ConnectionGUID: LrlwW726QsC4k9rs9uMoUQ==
-X-CSE-MsgGUID: AKU4fHEYR/u9oI0CvHpcWQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2110465"
-X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
-   d="scan'208";a="2110465"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 20:07:28 -0700
-X-CSE-ConnectionGUID: dRudyGz6TzmyUXOiJlCqUw==
-X-CSE-MsgGUID: bu7g0lICRlKoS+ecWB/B8g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
-   d="scan'208";a="5403253"
-Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 20:07:24 -0700
-Message-ID: <14cf71cd-35cd-45b1-a0fe-94d4a76e9e06@linux.intel.com>
-Date: Fri, 30 Oct 2026 11:07:20 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E8DB606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:09:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E8DB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-54d6281f6dbso284651b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:09:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793329763; x=1793934563;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xIzYGlh3dkjKXMrOC6R+W2N3dmc9mwEuwgXjXrJHlpg=;
+        b=YOGtLsJXqfeBjPzh8gVxKD2QdwlXNZsp6h3rDOslrX9SamLRtdojIkU4QZHXDAPkqX
+         /fZ5hgJ/2CFiB4nm68GOLHzNJVywLopTrpol3f+n+Jevh+yMEzbyf82B56O0CuJgBPKb
+         CpmHtNxbEW0Hf01mJ8jtNu6x/A+XuUd8hkqDkzMdiRojsbQ7xgGZnIO8oXE13Dix9GJ1
+         /xiEhiRBrZaja6pwdz2wEnVI+oQWHxHJEZwjIR5epfjZOrFEh5UdByWEi0QH6YTQrcff
+         PN5c1PDdwsSYVb6jP4k7x5dB6BnFfLhyQmdakiAChP+d+4P5q8Vf9Dn7Ji7jNlFNlfhc
+         62Ow==
+X-Gm-Message-State: AFq9FYJD/EZgTy+Bn1OxVzCh+nbyJ37uTSgXtSL0o046EmG83jdDmeNT
+	D2MQyYXmkc4DpMplpvCkDUSU2EkZzZej3v5L85um9ecgTf0OiUkOxj0BEJse0gz9nqHTkeDwzv3
+	N1UH60q43pq7w+zbzOdAv63k33hvo50gt0Q4lbK7QWjoHevR6GySYH38164A=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,53 +57,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, Robin Murphy <robin.murphy@arm.com>,
- Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
- Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- Pratyush Yadav <pratyush@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- David Matlack <dmatlack@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
- Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
- John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v6 03/18] iommupt: Implement preserve/unpreserve/restore
- callbacks
-To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- David Woodhouse <dwmw2@infradead.org>
-References: <20261025021930.674647-1-skhawaja@google.com>
- <20261025021930.674647-4-skhawaja@google.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <20261025021930.674647-4-skhawaja@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:11c7:b0:4c4:d8a0:2773 with SMTP id
+ 5614622812f47-5640dcbfefemr837528b6e.32.1793329763740; Thu, 29 Oct 2026
+ 20:09:23 -0700 (PDT)
+Date: Thu, 29 Oct 2026 20:09:23 -0700
+In-Reply-To: <6a8cdbd6.dbb3a75c.7844.0013.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae40a63.b7bd089a.283bc.0001.GAE@google.com>
+Subject: Forwarded: test the patch
+From: syzbot <syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
-> Add iommupt ops for presevation, unpresevation and restoration of iommu
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-... preservation, unpreservation ...
+***
 
-> page tables for liveupdate. Use the existing page walker to preserve the
-> ioptdesc of the top_table and the lower tables.
-> 
-> Preserve top_level, VASZ and FEAT Sign Extended to restore the domain in
-> the next kernel. On restore, the domain has only the preserved features
-> enabled and all the other features are zeroed. This is ok since the
-> restored domain is made immutable and can only be freed. A kunit test is
-> added to verify that the IOMMU domain free can be done with trimmed
-> features.
-> 
-> Signed-off-by: Samiullah Khawaja<skhawaja@google.com>
-> ---
->   drivers/iommu/generic_pt/iommu_pt.h       | 155 ++++++++++++++++++++++
->   drivers/iommu/generic_pt/kunit_iommu_pt.h |  30 +++++
->   include/linux/generic_pt/iommu.h          |  30 +++++
->   3 files changed, 215 insertions(+)
+Subject: test the patch
+Author: gowtham398gs@gmail.com
 
-This patch looks good to me,
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+master
 
-Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
+diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
+index f0646fb24371..1cfe983167de 100644
+--- a/drivers/md/raid1.c
++++ b/drivers/md/raid1.c
+@@ -48,6 +48,13 @@ static void allow_barrier(struct r1conf *conf,
+sector_t sector_nr);
+ static void lower_barrier(struct r1conf *conf, sector_t sector_nr);
+ static void raid1_free(struct mddev *mddev, void *priv);
+
++/*
++ * Version 1.x md metadata keeps a 256-byte header and then 2 bytes per
++ * device in a 4096-byte block, so no array described by it can have more
++ * devices than this. Arrays created through the ioctl alone have no
++ * on-disk limit, so apply the same cap to them.
++ */
++#define RAID1_MAX_DISKS ((4096 - 256) / 2)
+ #define RAID_1_10_NAME "raid1"
+ #include "raid1-10.c"
+
+@@ -3051,6 +3058,11 @@ static struct r1conf *setup_conf(struct mddev *mddev)
+  size_t r1bio_size;
+  int err = -ENOMEM;
+
++ /* raid_disks comes from user space and sizes the allocations below */
++
++ if (mddev->raid_disks <= 0 || mddev->raid_disks > RAID1_MAX_DISKS)
++ return ERR_PTR(-EINVAL);
++
+  conf = kzalloc_obj(struct r1conf);
+  if (!conf)
+  goto abort;
