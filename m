@@ -1,90 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793382711;
-	b=cEFEKGPbmA0rnwQgOGWOeGs1k1fVcse88iqmlpDVI0ACybRduKFXqiaN9L2F+1irswCg
-	 tUPBFLcKQPiuGCY2Zg1gdI0qHnX7gISVPcNkZBs7EyxkJrGgMx5ROgvkdRM1WT/wItpkb
-	 ZwVyzo1279MRUnX9pmY7dh0K0TkyxIeuQq1t6EziHjto8v9jarwa44I8vO/bFTvK4gdUE
-	 83KGBx1QJRf/BgAxy0XgIczZmug/yegQLV94qhz7SWT5DEoJU6yqBZN4PTz2TQFPQ0CCt
-	 XW+tHaLUNygdcce5KglZbhXnsMwv5uGavjODwvCgLyFaS0x8UsGV4/ta9NGCULv4Otg==
+	t=1793382725;
+	b=oVMTfMRl8Qa7h74MCAwWXjmnN9/LrmL069rW/0fhwp2FvdTYqFfAdN3WmCQRN4XCoHsi
+	 7s/CYMEx2fiNMVmZwGUi3i/q9HCv9xSRzQfZn4rjVAAYQEZRjZQvPIJ3leS+T4/yjhAWS
+	 QeTGooVLErrZUt2St0BsCe5FFf8KztIbBLwN/tJmaPd1TF8sMZlL2T/4mGgRfKK3TRZu5
+	 q1dUmAd6+Xd2ZVsfevF3epkoU6Wzk+SezHOLHIfCW2pqESv32rJH07FJSiU/PPJXcsiUe
+	 qF+9fG0DGhCglmK9qWNJeG9ejf57CGEm1snH+/UgXPuQ/q09Pi4ipif64vm/sFrWxTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793382711;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ayqwgRHACXH+SFqhaDzomPKX9uSy7Y6hyx5tLAf6IwQ=;
-	b=Kkoc2Diw6MdXV2y+acSV3QPlI0dyaZeRRIIygnPISYVpBxrEntIfBF824sBYb+oLO7Mp
-	 61i7BqCI1bVKwNYZgVuzpbXg9rUFkB5VOWY/TVNL3Ov8z1OghMbsvCWk+37DSni5c60qR
-	 I4L9/kGt8l9av4JCq1Raa9mgWsVHg2rcYNcSq+iz3rb1oVXqgLLvXF5Qll45anDujbInK
-	 ZWcCWFp7N+8Ect3jmG4xoExFMLMqLMsjfYpEV0SAw1ANOJYwXicZb8KdloHv681S2fr/m
-	 D1nJrX4tSEGKOYJZ4mf6pDASuZ/evoUZhU0E/bFeBhCzC5lCjf+dYMSoTnzTqxwKlaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793382725;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=A8Qg/pMJM7YKXFTAJR9+7x3FSNCuA32iDB+ph1tKvW8=;
+	b=lZ4sKe5NLsolPZlDTVL3L/Y+DyISXLjG6Pf6NY1Z3od5il6E4B0kas9Y2IY1zYWmDtaX
+	 fiJQF8oLv4hBHN4rPrbFe488uQnvAnJsCDHcDLltdWaMbQqlZ4G85GmOOTKDdI8DRCOXL
+	 G2BVrg56832p4VYRTOnFVxykUAkdlxvy6Em28DQJ+UOPmJwLlQua6oEqzTyF8iYic9Zeu
+	 Mlgsngg0cMDHvkj8FoPPybCkJqrHCegvEQ4AVSi8phP6wJGO1i72jGaUZond89IE0KT6S
+	 WDcQuEWAcxlWAeT5uM8hTF5jhX2wzdqBQlhu7j/21hwHSIkgjQBrfFyjEKxe2GQFp5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOJuBrbP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gMjz0H0R;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24936606A320;
-	Fri, 30 Oct 2026 17:51:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6570606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:52:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6570606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOJuBrbP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 631561F000C1;
-	Fri, 30 Oct 2026 17:51:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793382710;
-	bh=ayqwgRHACXH+SFqhaDzomPKX9uSy7Y6hyx5tLAf6IwQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DOJuBrbPJsL9PyQJ0j++GXkM0ur22mU6Tw74m4mz1qxIJy+ctz5iw7JWPSE8lSji1
-	 UX3aHxiFM0K77MP1897A9nyjFl7GXZEOwpoVGPezRXaRNTZrOWH9dAxeAQNlT3WpNE
-	 hlkubG4PeAqrToOEK7ehcs6dE8KVomyy1GbIKeeA+R5w8SM4avEeOx5hE4Xgr46nGY
-	 0eDqMME8/hgABVMRmkYFKx7uT8Z05+mUu6mhd7GFzg4j8quP21VDoeB7k3ax2jka/S
-	 LMyr3x4445njHS9AlXkvGLc5qLQfDnEpMp049ML8fcNaKUwdBJiVnZx55MKy2JC2Bq
-	 GUGGeSUYFXagA==
-Date: Fri, 30 Oct 2026 12:51:47 -0500
-From: Rob Herring <robh@kernel.org>
-To: Cunhao Lu <1579567540@qq.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Elaine Zhang <zhangqing@rock-chips.com>, Lee Jones <lee@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Jisheng Zhang <jszhang@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	David Wu <david.wu@rock-chips.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Jaehoon Chung <jh80.chung@samsung.com>,
-	Shawn Lin <shawn.lin@rock-chips.com>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev, linux-gpio@vger.kernel.org,
-	netdev@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-mmc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-	linux-phy@lists.infradead.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH 04/27] dt-bindings: mfd: syscon: Add RK3572 QoS register
- compatible
-Message-ID: <20261030175147.GA1015085-robh@kernel.org>
-References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
- <20261022-add-board-ok3572-c-v1-4-0b0fd85a31ee@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gMjz0H0R
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-18cdcfc05ffso1344022c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:52:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793382724; x=1793987524; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=A8Qg/pMJM7YKXFTAJR9+7x3FSNCuA32iDB+ph1tKvW8=;
+        b=gMjz0H0RIRMM5QvfYV6/Ej/bAPyVkgOILxvt/3iq5/cdQX451SCDHLnj1fHGFPpYAM
+         dmZ4eBmqBDNGjDyFZUsXvh2CvpSNAGgLe2Lt139SOzXkkESnWDqGg+7vSfc7VuQ+eX7V
+         eWonTrVPqd3bddDTnhH3AWkzZpehVy8BjrlRsuEctZ2MgnAIgVPWZwx8e8qqdGLNgqdn
+         U4zBHnmv2I56iUPzrbjdAcvJ9zfHJ9J+ZWAWqj6LxKnefglO7ogDxh6zYVfVgBXWWDEf
+         wxEQasae2fsoJ0FIVlkQkxrWmnNLXtQFCvEmO2iGbOB3W09FWMg67h3y4+ybI8ErnGcO
+         O1jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793382724; x=1793987524;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=A8Qg/pMJM7YKXFTAJR9+7x3FSNCuA32iDB+ph1tKvW8=;
+        b=G1S/oTh5i2F0s1Aix8qL1LR8stkSEsMmmSS/i+TM7D7g1xX+yrM8+jYqvCgNysR/87
+         RzzKnq8p+IXLccI8bZD72MM+3h+ql8b0Wxc6Y96NnPeSRtkYHy7enGGrA1lSZ7z2W2DK
+         BebyeRZMpF0biR0hWG1AQANbWPgdzNRh7CWwKHVG3TPJDwyUapXYYgQKjowJeIK0wbRP
+         j9SLRBUaVjz2CqybhgzGerNRwdNNjUJrVf4QbTqIxpdZPTL1kOmbALWmXvbAklUQbsAv
+         85meDsQEGW0iblJTwZWaNtTcArRNNyOOjmmz/m7JwB2NoWKfXmKiyj+TPOBwJVIGBjEu
+         IiOg==
+X-Forwarded-Encrypted: i=1; AKwUvBzGOPlMyUu9Wrm/uUXKoAB0keRimZl9qtbQK5Yhusd26Bh9eZqH1AOLpctsU4cggBTn/GY12DEpDUZY6zg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuprfb8pQHOgZOOWEokuVGWERa4S3OmojuBj1Fyb1u9Z1uc2cl
+	7LIzeeEBovNuzNooniPauCFTKKHkaK+uTp8XWYJwOheul0ZMdw3FOggr
+X-Gm-Gg: AYBFou1dDtZ7qOaIobmyK2SeQz8BTMyioazv88NhQl92BCglQqaUGhaYrzGrk15N95z
+	/H3UG0D8Pgm7QnApmbvZWeQ0wWLin+KiE49y2cInIU2mQp66jtHuwpOQ7GvY5j70kotZY2mP8a0
+	hNkTyThpva2jIUo07qS+bDI2+eJlz5icHC4+64c2vdpdDoznTruyal9CM4qoDKOg5RMGaMD+J9E
+	pzS+YQIk/0Ba/SaumxGhSRxXRys4JBjDQW+55wYIcwSrLfZPO+opub8FsWylkv8RW3+vG4DT0N7
+	ntMc4UvlWh7FkLM8GrZ3yk/ApUi+Ospf3hjbWnhLvYuc3Yo/hlmIfhy3UXugMcgr5vO2BouLZyS
+	M0YiQ93ikmxSOS93Cdp0TUrfOXaRZKtN544dXk7CYuHQdsdU2NJrLSDdfB336/pOgVF/he5TlYi
+	7za+BuIBoeN4GQXkMr6eq2f9T5Ltqh1JfjfOUNuwJ2EG5gxTtEt4eLh26vP8JQp4AigpPER6qnA
+	19LRDf8Q9zhzK3ngPiBuuzrRnqDPMSFl07lamI+gQeNpJOj4hCfmr+k9fI2uopVz9vfn9VHfa26
+	AwYmswCGpyQC82LNCc/SXzxZ2fzHvXOhcccIKbjvpsp6XMAMM3odPxM4j2Rjiq15eyDF6Vxe79D
+	mMrXnk7q4z7Q=
+X-Received: by 2002:a05:7022:eb45:20b0:184:992:c9ef with SMTP id a92af1059eb24-1ac5de547a4mr3991157c88.36.1793382723587;
+        Fri, 30 Oct 2026 10:52:03 -0700 (PDT)
+Received: from ?IPv6:2a03:83e0:115c:1:5d10:1794:f0d8:db5b? ([2620:10d:c090:500::4:1201])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac13ef1a16sm7637612c88.1.2026.10.30.10.52.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 10:52:03 -0700 (PDT)
+Message-ID: <bec189f3ba6ff18c2a09f3cbc19bb73e4d3277cf.camel@gmail.com>
+Subject: Re: [PATCH bpf-next v3 06/12] bpf: Track low-32 scalar equality
+ across sign-extending movs
+From: Eduard Zingerman <eddyz87@gmail.com>
+To: Vineet Gupta <vineet.gupta@linux.dev>, ast@kernel.org,
+ daniel@iogearbox.net, 	andrii@kernel.org, memxor@gmail.com
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
+	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
+	john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Date: Fri, 30 Oct 2026 10:52:00 -0700
+In-Reply-To: <20261020161907.2115379-7-vineet.gupta@linux.dev>
+References: <20261020161907.2115379-1-vineet.gupta@linux.dev>
+	 <20261020161907.2115379-7-vineet.gupta@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,16 +106,210 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022-add-board-ok3572-c-v1-4-0b0fd85a31ee@qq.com>
 
-On Thu, Oct 22, 2026 at 12:11:01AM +0800, Cunhao Lu wrote:
-> Add rockchip,rk3572-qos to the syscon compatible list.
-> 
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
-> ---
->  Documentation/devicetree/bindings/mfd/syscon.yaml | 1 +
->  1 file changed, 1 insertion(+)
+On Tue, 2026-10-20 at 09:19 -0700, Vineet Gupta wrote:
+> A 32-bit sign extension shares the source's low 32 bits too, filling the
+> high half from bit 31:
+>
+>   r6 =3D ...              /* full 64-bit unknown */
+>   r7 =3D (s32)r6          /* 32-bit sign-extending mov */
+>   if w6 =3D=3D -1 goto ...  /* taken: r6's low 32 bits are all ones */
+>   ...                   /* r7 is -1, not deduced today */
+>
+> No constant k makes dst =3D=3D (u32)(src + k) a sign extension, so this
+> needs a third kind, BPF_REG_LINK_SEXT, driven by sext_32_to_64() where
+> the zero-extending arm uses zext_32_to_64(). The enum already had room,
+> so bpf_reg_state stays 80 bytes.
+>
+> Both work from the base's 32-bit range, which is what a 32-bit compare
+> narrows; coerce_reg_to_size_sx() cannot serve, as it reads smin/smax,
+> which straddle after such a compare. tnum_sext() is the counterpart to
+> tnum_cast(), keeping the known low bits where a tnum_range() over the new
+> bounds would not.
+>
+> sext_32_to_64() resets the register's base/step line; the comment there
+> gives the arithmetic. Note it resets unconditionally, where
+> coerce_reg_to_size_sx() and coerce_subreg_to_size_sx() return early when
+> the extension is a provable no-op and keep the line. That costs a little
+> precision in the same case here, which is not worth an extra branch on a
+> path that has just rebuilt the value from the base.
+>
+> Unlike the zero-extending arm, the source's delta comes along. Both
+> base + d and (u32)(base + d) have low half (base + d), so dst is
+> (s32)(base + d) whichever the source was:
+>
+> 	w7 =3D w6;	/* BPF_REG_LINK_ZEXT, delta 0 */
+> 	w7 +=3D 5;	/* BPF_REG_LINK_ZEXT, delta 5 */
+> 	r8 =3D (s32)r7;	/* BPF_REG_LINK_SEXT, delta 5 */
+>
+> keeps r8 tied to r6. sext_mov_inherits_delta pins it; without the
+> inheritance the program is rejected. A self-mov can form a link here too,
+> which is how a sign-extended int return lands.
+>
+> sync_linked_regs() needs no separate sext path: the differencing arm
+> already copies the base and adds the delta difference, and which extensio=
+n
+> follows is just the member's kind. Where the base does fit 32 bits the
+> reverse direction runs for both narrow kinds with the *zero* extension --
+> the base is then below 2^32 and equal to the member's low half, whichever
+> way the member filled its own high half.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+The above paragraph is very hard to parse.
+sync_linked_regs() does call sext_32_to_64().
+Please re-read whatever comments and messages the machine generates.
+For whatever reason the bias is towards a wall of text and complex
+sentences. I do read those and it hurts. Asking my machine rewrite
+your machine's text, such that I can understand it is very time consuming.
+
+...
+
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index ce7016446936..dffcaa2e1392 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -3763,7 +3763,7 @@ static void assign_scalar_id_before_mov(struct bpf_=
+verifier_env *env,
+>  	 * rY->id has special linked register already.
+>  	 * Cleared it, since multiple rX +=3D const are not supported.
+>  	 */
+> -	if (src_reg->link_kind)
+> +	if (src_reg->link_kind && src_reg->link_kind !=3D BPF_REG_LINK_SEXT)
+
+Why is this rule relaxed only for SEXT?
+Can it be relaxed for ZEXT/FULL as well?
+
+>  		bpf_clear_scalar_id(src_reg);
+>  	/*
+>  	 * Ensure that src_reg has a valid ID that will be copied to
+> @@ -6057,6 +6057,25 @@ static void zext_32_to_64(struct bpf_reg_state *re=
+g)
+>  	reg_set_urange64(reg, reg_u32_min(reg), reg_u32_max(reg));
+>  }
+>
+> +/*
+> + * The sign-extending counterpart. Signed bounds carry over directly bec=
+ause
+> + * sign extension is monotonic over the signed 32-bit range.
+> + */
+> +static void sext_32_to_64(struct bpf_reg_state *reg)
+> +{
+> +	/*
+> +	 * See comment at reg_step_check_unsigned(). Sign extension subtracts
+> +	 * 2^32 from every value with bit 31 set, which preserves a residue
+> +	 * mod step only when step divides 2^32, so the line cannot be kept.
+> +	 * The zero-extending twin calls reg_step_check_unsigned(reg, 32) for
+> +	 * the same reason; the unsigned form does not apply here because the
+> +	 * result is not the low 32 bits but the low 32 bits moved.
+> +	 */
+> +	reg_step_reset(reg);
+> +	reg->var_off =3D tnum_sext(reg->var_off, 4);
+> +	reg_set_srange64(reg, reg_s32_min(reg), reg_s32_max(reg));
+> +}
+> +
+
+Please use coerce_reg_to_size_sx(). You can improve it by doing:
+
+  reg->var_off =3D tnum_sext(reg->var_off, 4);
+  reg_set_srange64(reg, reg_s32_min(reg), reg_s32_max(reg));
+
+>  /* truncate register to smaller size (in bytes)
+>   * must be called with size < BPF_REG_SIZE
+>   */
+> @@ -17544,12 +17563,29 @@ static int check_alu_op(struct bpf_verifier_env=
+ *env, struct bpf_insn *insn)
+>  						return -EACCES;
+>  					} else if (src_reg->type =3D=3D SCALAR_VALUE) {
+>  						bool no_sext;
+> +						/*
+> +						 * A 32-bit sign extension keeps the low 32
+> +						 * bits, so dst shares them with whatever src
+> +						 * shares them with. Both base + d and
+> +						 * (u32)(base + d) have low half (base + d), so
+> +						 * dst is (s32)(base + d) either way: inherit
+> +						 * src's id and delta and record
+> +						 * BPF_REG_LINK_SEXT.
+> +						 */
+> +						bool subreg_link =3D
+> +							(insn->off >> 3) =3D=3D 4 &&
+                                                        ^^^^^^^^^^^^^^^^^^^=
+^^
+                                    please make this a bool variable is_sex=
+t32
+
+> +							(src_reg !=3D dst_reg || src_reg->id);
+>
+>  						no_sext =3D reg_umax(src_reg) < (1ULL << (insn->off - 1));
+>  						if (no_sext)
+>  							assign_scalar_id_before_mov(env, src_reg);
+> +						else if (subreg_link && !src_reg->id &&
+> +							 !tnum_is_const(src_reg->var_off))
+> +							src_reg->id =3D ++env->id_gen;
+
+I don't like how this code sidesteps assign_scalar_id_before_mov().
+
+>  						*dst_reg =3D *src_reg;
+> -						if (!no_sext)
+> +						if (!no_sext && subreg_link && src_reg->id)
+> +							dst_reg->link_kind =3D BPF_REG_LINK_SEXT;
+> +						else if (!no_sext)
+>  							bpf_clear_scalar_id(dst_reg);
+>  						coerce_reg_to_size_sx(dst_reg, insn->off >> 3);
+>  					} else {
+> @@ -18485,17 +18521,29 @@ static void sync_linked_regs(struct bpf_verifie=
+r_env *env, struct bpf_verifier_s
+>  		if (reg->id !=3D known_reg->id)
+>  			continue;
+>  		/*
+> -		 * A zero-extending link, spelled BPF_REG_LINK_ZEXT: the
+> -		 * relation reg =3D=3D (u32)(base + delta) does not invert once the
+> -		 * base is wider than 32 bits, so the reverse direction is
+> -		 * skipped.
+> +		 * The reverse direction does not work for a narrow known_reg:
+> +		 * it knows only its low 32 bits, which say nothing about a
+> +		 * wider reg's high half. Neither (u32)(base + delta) nor
+> +		 * (s32)(base + delta) inverts once the base is wider than 32
+> +		 * bits.
+
+Why is this "reverse direction"? what's "inverts"?
+
+>  		 */
+> -		if (known_reg->link_kind =3D=3D BPF_REG_LINK_ZEXT &&
+> +		if ((known_reg->link_kind =3D=3D BPF_REG_LINK_ZEXT ||
+> +		     known_reg->link_kind =3D=3D BPF_REG_LINK_SEXT) &&
+> +		    reg->link_kind !=3D BPF_REG_LINK_ZEXT &&
+> +		    reg->link_kind !=3D BPF_REG_LINK_SEXT &&
+
+On a second thought, it appears it would make sense to collapse FULL
+and NONE into the same category. E.g. the above condition would become
+known_reg->link_kind !=3D FULL && reg->link_kind =3D=3D FULL,
+much clearer.
+
+>  		    get_reg_width(reg) > 32)
+>  			continue;
+>  		/*
+> -		 * Skip mixed 32/64-bit links: the delta relationship doesn't
+> -		 * hold across different ALU widths.
+> +		 * Skip a pair of differing kinds. Where BPF_REG_LINK_FULL meets
+> +		 * a 32-bit kind the delta relationship genuinely does not hold:
+> +		 * the deltas were added at different ALU widths.
+> +		 * BPF_REG_LINK_ZEXT against BPF_REG_LINK_SEXT is not that case
+> +		 * -- both are base + delta in the low 32 bits, so narrowing one
+> +		 * really does narrow the other -- but that deduction is
+> +		 * declined on purpose. It makes an int loop counter a fresh
+> +		 * constant on every iteration, so no two iterations prune
+> +		 * against each other and the program runs to the instruction
+> +		 * limit. See sext_no_sync_from_zext_sibling.
+>  		 */
+>  		if (reg->link_kind && known_reg->link_kind &&
+>  		    reg->link_kind !=3D known_reg->link_kind)
+
+Does this check skips propagation in the following case?
+
+  w7 =3D w6              ; r6=3D{NONE,0}, r7=3D{ZEXT,0}
+  r6 +=3D 1              ; r6=3D{FULL,1}
+  if w6 !=3D 5 goto ...
+
+known_reg is r6 in this case, so:
+ZEXT && FULL && ZEXT !=3D FULL -> true, continue is hit.
+
+...
