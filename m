@@ -1,104 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793383788;
-	b=Mw2wVVr5qqSVwI2GLSRcM9gM2E9Zn+YuQsGvAMinCRWMhnvFJf7m4Z9q6uz9fCCkfE2/
-	 L5yu9o6z/p9C8ACwpWb4GOvLQwIMq7QEi/j59c7tHkeky4a8H4A9t6UEgjmjS4AVNGHPp
-	 qIk5wNZJGqZ08fx+/DfxJHrnMJyj91eUiQFJXDtVc1W6AzV8JGtOiY7L8WXmr7ay/C1mP
-	 hli0m4bi2WLsLgQqv8w//L1Iu2W+ug7juZ2DA3LWS2k0H2I40Mw4/+Da6KKoBRiYeI8t8
-	 L9AZp66dlNBdxrcxdd3AMG0SII98q/CTgoC1Ewz0e5VJCQrfxibbXqsTjB4xY1FqmQw==
+	t=1793383871;
+	b=si0/wa3HwFrCO5V73wpos9cCHacwtjYGbRmODZCDhnj/qnudcvXcmVZSKL/ZgOhhkMxD
+	 w88njR2ltUEEXhOfmIInp/h+aNc2Xl0FZ2+orfugORUf9R3haXQAJLbTA0p4IWaa734il
+	 840f0YVzoA1zMO6Y6c1Ugq9TSPUcD1+gglIm52bnLd+qcD0K2YBWSFdUcv4Rw2Pf+hm3i
+	 kNrpfPoJhcaV1Uk8LU4xJ8DI+QNbIKSFgz7Y5JlIQkmRHjyDPHHaOyn8z+a7HMnMmBEAJ
+	 gJ9X0vKdjlHVm08lLEKmAImRM2MaMG+T5y4ETKYL9dorWoTol3Htxqs0ZYJjA+VyVTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793383788;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=vqkl7ANx1lNN2+P4c0UcTgWL5h2sI3titmgKVx7tV7s=;
-	b=w9T59kYQNzG5denLdCX7xEoc/v0GwMWFT/mmR6g1ZMZ8ZX2UdwgcHxGNWRvVdydSczEs
-	 GJ8ix5vcXmx/g/L7KVEQLQ1eWwAORcnkNAKnd06BrMlq/qtm26n8vImzN/dBpzjQt+hs6
-	 HcXDfKQrPrhNI8ELYJlnkIRGtmHvlGaDvHe8Mc01UW4tYRfH2ryTHsNh/nAJur1yHwQLs
-	 CKYy7RWceFPbXAT3x93epr+IU8iLGdior3wVt6iWbGVWeJiS8ApPuheagVsYBQgoTbegN
-	 QvE0bFROV9HaNVIS9zzplp3IVhbvyj0NTWKP6gcBNLqcvLT2/aU2ShwwCQlSpqdX38A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793383871;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=ENwKWbPNvS8Z4Ya5TukwYEHVlcVz+1SrF/4rTtdeRYE=;
+	b=1DtsA/Mux+xMH4ENYSsQ/owaG4g2d3a69FhItPirhk56nhFbhR8f13HGDsP1h6livaHh
+	 EqlaUsBazQ19/2n3WHJCfWLK4JERfQ3xJXU5oIQOFhI5Blw5UVsQVc/S2UTo4/+J6aDzX
+	 qdkqgAme2miYnw6erd3e4dM5zZg8HtAn2mm6bz4qyL+Ui2x0eiCreNenkUZGKzYO3EdWk
+	 +A7SonCxv5RdkcdTsn9uFQWtjuLu0PuWvhyQ7/9mOvRx6YnBTFjFq1F9zbgq8F4dbbE5W
+	 UGXb91LhL62Ml8xdLAwC6ym5siYFURM23e/M/8xzX/akYemMRXDaQgIf9K8WqSP9bUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZB0sNyCS;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=fWmFVWwf;
+	arc=none smtp.remote-ip=209.85.215.228
+Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com [209.85.215.228])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514CE606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:09:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 514CE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D3B606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:11:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7D3B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZB0sNyCS
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1a2af4c8d00so14785c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:09:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793383787; x=1793988587; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vqkl7ANx1lNN2+P4c0UcTgWL5h2sI3titmgKVx7tV7s=;
-        b=ZB0sNyCSxhJsCJ673miFRQ4KDpfbxclGphz5djJP4RL5Lx443eRSDPw0ID9EKWCHuO
-         Qf2LKh12HngOoVSEs6BvBen+vQEhQZlUiAUdjImZRv5UqHmFtWRrWA2EP7haOyliIgeB
-         me7SIIKcfJ4+RiPYVIS0THhNkaWsHFmGdbwgaHGB4LJOrxcaJRNxp1cxXL4ke1PXKVjg
-         0LIKjDrbrVXiVLnoAKYUklWR8grEUgWdxuA+GVxzaw7prut48sJ75YvEfYpj+hvLm+eC
-         /XzxcNCsznvRXFm0DkyX8OoN4WvkrukVUCI2anoWFyo227jaHkm8CHYaRCd8QLz9ZFsk
-         S+KQ==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=fWmFVWwf
+Received: by mail-pg1-f228.google.com with SMTP id 41be03b00d2f7-cd5cd8d89a7so457081a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:11:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793383787; x=1793988587;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vqkl7ANx1lNN2+P4c0UcTgWL5h2sI3titmgKVx7tV7s=;
-        b=LZ1xhS+PNwc4YUBD34lOYIX0DsZOtAEhKFeXwHgH/ZRXC3nmf+2CKBx6ecuUKo+2MA
-         yHeQTOJ0EDV3G2P3M4bKjEurHSdsO8hukuVdtl9PR/7ykhx956/7X+Lw5HyaXgbDU8jn
-         mun2xYbj6WfPmWwJVRc5tHTjxktAigB7s+G3ElpF/vfzRm8LKn0NFos6qYP/BhSEwDvz
-         7ROs4pddavMCoqJfkkwqKHoxAASjbhNveTPTPiePScycLFDlTcUH3QnuvhwNAzLt8RxN
-         JufyCqwfQrchFYThBzDoSMnCThaoSAd59pgGNAAitT6iAqwgT4u41XciejLjGAvcZAZc
-         ABYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz1cCOHyF6VySSV+SX2QuMlbW6YT20gWUB9WnQYYlq8ywxQB1Loq3JdSB9j+VrrZAv9MVaTUF8QYMY+GuI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJC1Asrw0kc63YtsTBZVZp3/Dj4WGkzeFsTZWvAePaniMHJdWF
-	1QOsen/Z1JSEilyHtzwfnCKHUfBZI3aAkr2B1nQngwnE5IYHjKIKIgcz
-X-Gm-Gg: AYBFou265A/HIdKpaybymOVW2bMany5Q3gbQzocJzC0sTLiQLnM0QwYMHP32yxa6WRW
-	0Va7IGvgkxUsIfC3HnDdAEWubrUN02VztOSl4jRylShmQR0jLarbFgWpHzsMsKaCWYFJa+H2g/9
-	YSHXC7uYUERVxKg7BWTcKLsW4Bl7w+a9tKdQr0UGCbMxzM2A1IyG5q7zdg0O8+tt0bUK6/Lhj2M
-	R6qBfgO7MnmHz5IaJ80GKziRumUx8wrgHUkDCj9khNz0onFsfaWiDYp7OMpy2ozLAQRCrEouLOG
-	xnG5+gC6ggCeXUyKJ4pJlhGH6gzoN8+82ySU+PsMdmedxyianiRGglVYC7atVGwU7GK01Kwl015
-	DAUNfrf38wFqSvViehgiIPl64dnJuDKCb9csuNatPtqZVc7/6bZJMpfVYPIEmAuRL5XVhZ6L+1z
-	c8sNazZwDfAG2KUCkIwE/I7FK6eM1Z6OfEgrDMyMw/dhj9o1e/OLpmIfq/GGMmfqAVmenbDJl56
-	w8+cSAkngP8Px/RGscF5WynRC8aMpArYyb/x7Ojq9yB9G7Yg5ObJdVN9pVNuOxQSfH/9y9x8Y+R
-	K7M7yo+KBvuQnknSTSp9G0JsF1+hDRvI7lN6QXWBcryXNgcUYpA6xFo6bWvJrp1ZDJrLdrk=
-X-Received: by 2002:a05:701b:42d1:10b0:188:9ae5:162e with SMTP id a92af1059eb24-1ac5cdf9ae0mr4451889c88.40.1793383787373;
-        Fri, 30 Oct 2026 11:09:47 -0700 (PDT)
-Received: from localhost.localdomain ([103.170.55.71])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458fa3sm9695510c88.4.2026.10.30.11.09.42
+        d=1e100.net; s=20260707; t=1793383870; x=1793988670;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ENwKWbPNvS8Z4Ya5TukwYEHVlcVz+1SrF/4rTtdeRYE=;
+        b=vZe708a9ls4B7KNllx+igDb1nSzeE5srFRlOGMFb+GHCJX05y3rcrkTbvHjaHDSs6a
+         QXcsp1b2xGpWrGCJjEZEOoe7fIN8TelcEYVZ8QjGAuOv6+mE20Mh6hzeyzj13/txEKDw
+         /TI7ac8vJG70vKCqjkpaC3RMh/THnX9PpHI0gvwwz/0GhW8LxctNZn+6qERj+zobYNC9
+         oStsFvEe3bQXc1anHiOlAvH61t8K+yk9YE5AjKMS3E2LT2Q9J7T2bGcYwzjfhrgTDXKS
+         xD//K7NWbETFaE/HN0fzAiE9uK/rN9j3O9wCT/vm/DTRiFHPMwrB8aSi/JBe124OCZJj
+         dUjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwmtEL5HYVpt3IlvCSoc6MZ4zajTVo1f10e2gkMTRg9JyZn8v5u8CDMpvyMmksE5lQWxYiNgvR1BbBTChQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLmpHYoYslkxTlY4IIJN6jLotbMUz30ltXeqwctDtXkfi8Eo2V6
+	s2DUf5UQF3qKaBz35QlLcmngAWk7ihks39acn6fDuO0F308Msspxxp1H1udTdEkmXUir/XM7cxw
+	F8Z1h7tWWOnsIWXSKOlSvKtk5bkAN0e5CGd/u7mu5RRAN3XcFqaPOuf/KiFeV9E/7NM5UeJsvtn
+	5Toq+SzKGs+97xMqhcDH71TN/PkRcacFiX/XfVNsVjtDJKhJmcfUvu08Rkm2XZwI2ALvhHS76xc
+	rJD5ex9cipSk0Gy
+X-Gm-Gg: AYBFou0MdSJPdl+ZOcBdxy0MrXdrLw/eYU2Sg2W+g9tsVJvGKNC3Z1CUZzRJqMCsgOR
+	eG4Hzp7ynDlXjMcLx4Yip4M99JVpEazLr5nYBNRgOqMAdNr/sQF+KCAXS8zyNkHHklLtWcgQgw+
+	+l45OpZLf//gm0xeMfZRJEP0gx4fXgyp7yZXqGrtzBQxFuW642XRAjAeWvlfjNlf289I86p4vKQ
+	neLGCJAN+F5Q6IMr6sL5iIPx1pK/GTr2VAHNbnqkA2/dTT8bfumSki+XmZqhiQ9VvuHHpSkN+PZ
+	BVR/egl0lYGCY2LKZ9awNjDAyWXwBXibTCyu9ca8fFZyriwoR2z0lytbWQNY5tQYa1CxlvUijZk
+	vixe4MVMT3TxmbBFaTUdJnZ3bA340rZvYIcQKm4O/H9x/dxEEw3GzHe/fcKA5kRUjojR8DBML1a
+	w8Wd+ZrsJUGGXpKv9kqOy4ECbayXY3Sf+3
+X-Received: by 2002:a17:90a:e7c7:b0:3ac:a203:e092 with SMTP id 98e67ed59e1d1-3ae8953618amr2487270a91.1.1793383870091;
+        Fri, 30 Oct 2026 11:11:10 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae6e84adc9sm4385867a91.5.2026.10.30.11.11.09
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 30 Oct 2026 11:11:10 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1a71dd190b0so3291493c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:11:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793383868; x=1793988668; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ENwKWbPNvS8Z4Ya5TukwYEHVlcVz+1SrF/4rTtdeRYE=;
+        b=fWmFVWwfFFznQYOWpN98DL8jaN+4yzy9BpHYt06HW++iHPcsdOMN7h99SlCM5Tov5q
+         wvd9z0zdGvUgSMAE/5OTpS+QXqcC+SN70wPv6KVpKZu80HXyXl4qnVP/OdOYnQW/MdHM
+         oSozGo3aZB/TRLOjorv23M+UzDI1JSUhRE0g4=
+X-Forwarded-Encrypted: i=1; AKwUvBztHDWvZvZ4ah4xss8ng3xYF0FW5coCHcEY7pe+E8bpPep97OrICbRkU5EMt87CbvrAQ6saf2nNKF3y640=@vger.kernel.org
+X-Received: by 2002:a05:701b:4784:b0:165:4b88:abc2 with SMTP id a92af1059eb24-1ac5b5ee632mr5419026c88.26.1793383866879;
+        Fri, 30 Oct 2026 11:11:06 -0700 (PDT)
+X-Received: by 2002:a05:701b:4784:b0:165:4b88:abc2 with SMTP id a92af1059eb24-1ac5b5ee632mr5418989c88.26.1793383866189;
+        Fri, 30 Oct 2026 11:11:06 -0700 (PDT)
+Received: from mail.broadcom.net ([192.19.144.250])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac193b8179sm9974062c88.11.2026.10.30.11.11.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 11:09:46 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: sreekuttan2156239@gmail.com
-Cc: alim.akhtar@samsung.com,
-	bhelgaas@google.com,
-	jingoohan1@gmail.com,
-	krzk@kernel.org,
-	kwilczynski@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+        Fri, 30 Oct 2026 11:11:05 -0700 (PDT)
+From: Kamal Dasu <kamal.dasu@broadcom.com>
+To: linux-mmc@vger.kernel.org,
+	Ulf Hansson <ulfh@kernel.org>
+Cc: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
 	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org,
-	lpieralisi@kernel.org,
-	mani@kernel.org,
-	peter.griffin@linaro.org,
-	robh@kernel.org
-Subject: [PATCH v6] PCI: exynos: Handle PCIe PHY initialization errors
-Date: Fri, 30 Oct 2026 18:09:01 +0000
-Message-ID: <20261030180902.2589-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261029131006.2744-1-sreekuttan2156239@gmail.com>
-References: <20261029131006.2744-1-sreekuttan2156239@gmail.com>
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Shawn Lin <shawn.lin@linux.dev>
+Subject: [PATCH v11 0/6] mmc: core: Keep the card powered across suspend when firmware needs it live
+Date: Fri, 30 Oct 2026 14:10:27 -0400
+Message-Id: <20261030181034.3811225-1-kamal.dasu@broadcom.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,234 +121,70 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Check the return values of "phy_init()" and "phy_power_on()" to
-avoid continuing PCIe host initialization when PHY setup fails.
+Background: on brcmstb boards with a Kioxia 016G01 eMMC, firmware accesses the
+card directly during resume from Suspend-to-DRAM, before the kernel's own
+resume path runs, in order to load boot code using hard wired logic that is not
+field updatable. The card needs to stay powered and responsive for that access
+to succeed, and since it is never power-cycled, it also needs to be reset
+before the kernel reuses it after resume.
 
-Track the PHY initialization and power state to ensure cleanup is
-performed only when appropriate, avoiding double calls to
-"phy_exit()" on probe failure.
+Ulf's v10 posted patches 3-6 and I'm resending the whole series, as requested.
 
-Also check the return value of "exynos_pcie_host_init()" during
-resume and abort the resume sequence if PHY initialization fails.
+v10: https://lore.kernel.org/linux-mmc/20261027144051.249211-1-ulf.hansson@oss.qualcomm.com/
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
-v6:
- - Prevent state/reference count desynchronization in exynos_pcie_phy_exit()
- by ensuring both phy_power_off() and phy_exit() attempt cleanup even if one
- fails
- - Assert core reset on post-init probe failures in fail_probe if PHY/host
- initialization was reached
-v5:
- - Avoid PM core state desynchronization in exynos_pcie_suspend_noirq()
- by logging teardown errors and returning 0 instead of aborting suspend
- on teardown failure
-v4:
- - Fix invalid return in void exynos_pcie_remove() and ensure regulator cleanup
- - Add core reset deassertion on error in exynos_pcie_suspend_noirq()
- - Prevent regulator leaks in exynos_pcie_resume_noirq() error recovery path
-v3:
- - Address review feedback on PHY and regulator state tracking
- - Avoid powering down the controller when link detection fails
-v2:
- - Track PHY initialization and power state to prevent duplicate cleanup
- - Handle host initialization failures during resume
+Changes in v11:
+	- Rebased on the mmc tree's next branch.
+	- Patch 1, 2: Resent by the author to complete the Signed-off-by
+	chain, with the DT list and maintainers on Cc.
+	- Patch 3-6: Added my Signed-off-by as the submitter.
+	- Patch 4: Keep the comment about suspend methods being serialized, by
+	moving it into mmc_set_host_pm_flags() (Shawn Lin).
+	- Patch 5: Also split the cache flush out of _mmc_hw_reset() into a new
+	mmc_hw_reset_recovery(), used for the ->hw_reset() bus op, and renamed the
+	patch to "Move and split reset functions for eMMC" (Ulf). The flush is
+	redundant when resetting at system resume, and failed with a timeout,
+	printing "mmc1: cache flush error -110" on every resume.
+	- Patch 5: Dropped Shawn's Reviewed-by as the patch changed.
+	- Patch 6: Claim the host around the card reset in mmc_resume(), as it
+	sends commands. Without it, WARN_ON(!host->claimed) triggers for every
+	command sent during the reset.
+	- Patch 6: Warn while parsing the DT properties when
+	reset-card-at-resume is set without keep-power-in-suspend (Ulf).
+	- Patch 6: Dropped Shawn's Reviewed-by as the patch changed.
 
- drivers/pci/controller/dwc/pci-exynos.c | 115 +++++++++++++++++++++---
- 1 file changed, 104 insertions(+), 11 deletions(-)
+Tested on a brcmstb board with the Kioxia 016G01 eMMC, using "pml -d"
+(S3 suspend/resume):
 
-diff --git a/drivers/pci/controller/dwc/pci-exynos.c b/drivers/pci/controller/dwc/pci-exynos.c
-index e3c05ade381b..0085c3ed0c2f 100644
---- a/drivers/pci/controller/dwc/pci-exynos.c
-+++ b/drivers/pci/controller/dwc/pci-exynos.c
-@@ -11,6 +11,7 @@
- 
- #include <linux/clk.h>
- #include <linux/delay.h>
-+#include <linux/device.h>
- #include <linux/interrupt.h>
- #include <linux/kernel.h>
- #include <linux/init.h>
-@@ -55,8 +56,35 @@ struct exynos_pcie {
- 	struct clk_bulk_data		*clks;
- 	struct phy			*phy;
- 	struct regulator_bulk_data	supplies[2];
-+	bool phy_initialized;
-+	bool phy_powered;
-+	bool supplies_enabled;
- };
- 
-+static int exynos_pcie_phy_exit(struct exynos_pcie *ep)
-+{
-+	int ret = 0;
-+	int err;
-+
-+	if (ep->phy_powered) {
-+		err = phy_power_off(ep->phy);
-+		if (err)
-+			ret = err;
-+		else
-+			ep->phy_powered = false;
-+	}
-+
-+	if (ep->phy_initialized) {
-+		err = phy_exit(ep->phy);
-+		if (err)
-+			ret = err;
-+		else
-+			ep->phy_initialized = false;
-+	}
-+
-+	return ret;
-+}
-+
- static void exynos_pcie_writel(void __iomem *base, u32 val, u32 reg)
- {
- 	writel(val, base + reg);
-@@ -225,13 +253,23 @@ static int exynos_pcie_host_init(struct dw_pcie_rp *pp)
- {
- 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
- 	struct exynos_pcie *ep = to_exynos_pcie(pci);
-+	int ret;
- 
- 	pp->bridge->ops = &exynos_pci_ops;
- 
- 	exynos_pcie_assert_core_reset(ep);
- 
--	phy_init(ep->phy);
--	phy_power_on(ep->phy);
-+	ret = phy_init(ep->phy);
-+	if (ret)
-+		return ret;
-+
-+	ep->phy_initialized = true;
-+
-+	ret = phy_power_on(ep->phy);
-+	if (ret)
-+		return ret;
-+
-+	ep->phy_powered = true;
- 
- 	exynos_pcie_deassert_core_reset(ep);
- 	exynos_pcie_enable_irq_pulse(ep);
-@@ -314,6 +352,7 @@ static int exynos_pcie_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	ep->supplies_enabled = true;
- 	platform_set_drvdata(pdev, ep);
- 
- 	ret = exynos_add_pcie_port(ep, pdev);
-@@ -323,8 +362,22 @@ static int exynos_pcie_probe(struct platform_device *pdev)
- 	return 0;
- 
- fail_probe:
--	phy_exit(ep->phy);
--	regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+	if (ep->phy_initialized || ep->phy_powered)
-+		exynos_pcie_assert_core_reset(ep);
-+
-+	if (exynos_pcie_phy_exit(ep))
-+		dev_err(&pdev->dev, "failed to exit PCIe PHY\n");
-+
-+	if (ep->supplies_enabled) {
-+		int err;
-+
-+		err = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+		if (err)
-+			dev_err(&pdev->dev, "failed to disable regulators: %d\n", err);
-+		else
-+			ep->supplies_enabled = false;
-+
-+	}
- 
- 	return ret;
- }
-@@ -332,22 +385,42 @@ static int exynos_pcie_probe(struct platform_device *pdev)
- static void exynos_pcie_remove(struct platform_device *pdev)
- {
- 	struct exynos_pcie *ep = platform_get_drvdata(pdev);
-+	int ret;
- 
- 	dw_pcie_host_deinit(&ep->pci.pp);
- 	exynos_pcie_assert_core_reset(ep);
--	phy_power_off(ep->phy);
--	phy_exit(ep->phy);
--	regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+
-+	ret = exynos_pcie_phy_exit(ep);
-+	if (ret)
-+		dev_err(&pdev->dev, "failed to exit PCIe PHY: %d\n", ret);
-+
-+	if (ep->supplies_enabled) {
-+		ret = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+		if (ret)
-+			dev_err(&pdev->dev, "failed to disable regulators: %d\n", ret);
-+		else
-+			ep->supplies_enabled = false;
-+	}
- }
- 
- static int exynos_pcie_suspend_noirq(struct device *dev)
- {
- 	struct exynos_pcie *ep = dev_get_drvdata(dev);
-+	int ret;
- 
- 	exynos_pcie_assert_core_reset(ep);
--	phy_power_off(ep->phy);
--	phy_exit(ep->phy);
--	regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+
-+	ret = exynos_pcie_phy_exit(ep);
-+	if (ret)
-+		dev_err(dev, "failed to exit PCIe PHY during suspend: %d\n", ret);
-+
-+	if (ep->supplies_enabled) {
-+		ret = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+		if (ret)
-+			dev_err(dev, "failed to disable regulators during suspend: %d\n", ret);
-+		else
-+			ep->supplies_enabled = false;
-+	}
- 
- 	return 0;
- }
-@@ -358,13 +431,33 @@ static int exynos_pcie_resume_noirq(struct device *dev)
- 	struct dw_pcie *pci = &ep->pci;
- 	struct dw_pcie_rp *pp = &pci->pp;
- 	int ret;
-+	int err;
- 
- 	ret = regulator_bulk_enable(ARRAY_SIZE(ep->supplies), ep->supplies);
- 	if (ret)
- 		return ret;
- 
-+	ep->supplies_enabled = true;
-+
- 	/* exynos_pcie_host_init controls ep->phy */
--	exynos_pcie_host_init(pp);
-+	ret = exynos_pcie_host_init(pp);
-+	if (ret) {
-+		err = exynos_pcie_phy_exit(ep);
-+		if (err)
-+			dev_err(dev, "failed to exit PCIe PHY during resume error: %d\n", err);
-+
-+		if (ep->supplies_enabled) {
-+			err = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+			if (err)
-+				dev_err(dev, "failed to disable regulators: %d\n", err);
-+			else
-+				ep->supplies_enabled = false;
-+		}
-+
-+		return ret;
-+
-+	}
-+
- 	dw_pcie_setup_rc(pp);
- 	exynos_pcie_start_link(pci);
- 	return dw_pcie_wait_for_link(pci);
+  keep-power-in-suspend  reset-card-at-resume  Result
+  ---------------------  --------------------  ----------------------------
+  no                     no                    Enters suspend, board resets
+                                               at resume
+  yes                    no                    Enters suspend, board resets
+                                               at resume
+  no                     yes                   Suspend aborts, -EINVAL
+  yes                    yes                   S3 suspend/resume works
+
+Kamal Dasu (2):
+  dt-bindings: mmc: Extend keep-power-in-suspend beyond SDIO
+  dt-bindings: mmc: Add reset-card-at-resume property
+
+Ulf Hansson (4):
+  mmc: core: Add option to keep an eMMC powered on at system suspend
+  mmc: core: Split sdio_set_host_pm_flags()
+  mmc: core: Move and split reset functions for eMMC
+  mmc: core: Add support for resetting an eMMC at system resume
+
+ .../bindings/mmc/mmc-controller-common.yaml   |  10 +-
+ drivers/mmc/core/core.c                       |  10 ++
+ drivers/mmc/core/core.h                       |   1 +
+ drivers/mmc/core/host.c                       |  13 +++
+ drivers/mmc/core/mmc.c                        | 105 ++++++++++++------
+ drivers/mmc/core/sdio_io.c                    |   7 +-
+ include/linux/mmc/host.h                      |   1 +
+ 7 files changed, 105 insertions(+), 42 deletions(-)
+
 -- 
-2.55.0
+2.34.1
 
