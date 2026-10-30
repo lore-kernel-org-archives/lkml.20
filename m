@@ -1,84 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793394494;
-	b=mIqM3NC/CnvwXbnWxAK62zaHpDnQ/MnyZ/sRZFet2qyYme2y8kF2yqu7FAVtzQZc1dif
-	 jhH0qfUzg2SV9gHmUSfXtl+VnuSOO3WE5p7XfqzfULUhewRf4MMZkjRxugDraPZSCntKK
-	 nZOLpRgnzepVv4eBuoVi1OB0Dc8hwYKrLmfSLbNoVlQsiQDKABhfmPnyVJU1XC4hlyDaG
-	 Jg7FdtZIhNoYe4TC7FG/Uc58VGCtyJWKiAojZ9QK6MbY7fk0sYbq7qyGNKyxb9kWlQCAs
-	 3PiURpXPfmqCxo6mltdLm6HmITvbXnz9NGJopcOYaEsK1Y96z4Alx0tjvpUb4C+CqmQ==
+	t=1793394539;
+	b=EviKSBWqA2Ovzg+xd0nIgwOUi5iyOpOZYrV7dy+UQxZ+gWbw3E/s2mekxEMpTkb7f79B
+	 82CquCh/JDrx2Fil7d/5Ik1c64wHKbZ+7G3Ma64bJGzwpC2+wuzWSdPl35TuvTLbZ/59R
+	 fKi4WOZe8mL6xGPTi5ZWdBSjzSEEDf9n1Vf+6dGxtLn3lJQNq4Ihyd+o8N/gxtQNZgJFH
+	 NKRdVwefACkIlqqFSKx07Kk2+NPzz7Z2lr5QNtWUbZhX5BF4OD/ICiDSJUsQTnANLweE3
+	 XMpBkPBuEyaaAY2Qb5yibFMTFw9XU8H64hsXv6F0CA8uxLotl2vMaTP9TFSddKVef+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793394494;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=VuNZ7cfgkn64XZBhopOwYjZ4PrGgE6PweZ/cwTmJkNg=;
-	b=wRBgk43zjLRmO2k1jAvoBJ5o3N/rZBeNCT6Dp9BAC55He8ZqtkIccAA/c0hzHah1GgNl
-	 RgG2u+22eA4NNOCtrvnHpYfhxLWrnFL4w7HslTnLwIYiiBKReioHsYoMmcoydIgY67b9E
-	 zPMUe7ua9jIy3A19YJXtyaEd/BJvOut/P+BACuZidUSEKo1TsxC+dCpmKi4n3dXSwlGiX
-	 hH06QMy4/LqcNrb1kBzrVe1Q+h/fqwhYLDhbmzy4YTpAVucLmBVxpeZUCd3y5wPXDbifo
-	 Gz2yoXhR40jg0G3HCkt6yCLCF1KMrFL0cRA7YZGNNo5xjXv994NPjcrlpZ+IBeNRplQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793394539;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:CC:Subject:User-Agent:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=W3z0mwrPXjDyh25V3etJIycxf0MnLGdgmbdL34z00rw=;
+	b=iXuNAISo3K0g02IzRXRW8u4MD2gJJYozVhABjx7euNzeWrcztguux+Q+wtaev6LPCoiK
+	 xZq00ovelAYBgK3oeSxg0286McRHfY1zr+yXrbVziSFK3Ol3RdZxmCrsRUhQ0RbNBtfgw
+	 TIq/LxWSd/tFHEHlrB9kKnOzNHQUPT22fOfvDektko/wIOIAlcGyZMs0BwOYOQ/9JUkuN
+	 C5illjLeldsp26/sxS1ims2/TEGIoODVY9p39TifqAny7ikt1wX93F2ERxdnnF0Qr7Elx
+	 120Bs4NG5Yp4zWjWE1nPfKY4oWMbzX8yRZd2uJ0MgWbwvrtqx+TvXxLjlu8tbxe2vOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RXsOEBWq;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ARvR3frD;
+	arc=none smtp.remote-ip=74.125.229.6
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D519E606A31A;
-	Fri, 30 Oct 2026 21:08:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D519E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02336606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:08:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02336606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RXsOEBWq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793394494; x=1824930494;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=JfsC+5Gm92RBF81R+5io695VP7oyD4ZIWHKa/oplgeQ=;
-  b=RXsOEBWqtH0wSk6r/F8o5mk7xHOYCATJ2aYjOJNCQXj1txN6uFvYxMwW
-   y7FdihzISS6FmoIM+vvIls01dr7PI5w/BhXvdvBmXm48XD2KDUel21Ghr
-   5UVf/ZEW+lEzEZ66OESylEs3xbyTpKbIWtYmmIkef8wK9J2wrF+l0upTL
-   lDWFAq3MPY6Mg+bBZVEZfoVtFHJP9Da/lOIppyYZJTXT1xJvpYmPFqL4+
-   wG1tNFAd2qrSvw2qb22RJ6TeYzhLxHUdKfJd8urEggoNiWhu+f04Gel65
-   pmghYYMYJ84Q10tz2GepeGI7SPDuKnIZIPFgM/mVoTQW4PpIR3YqJjO39
-   g==;
-X-CSE-ConnectionGUID: fKJjf2tdR86fvmP1Rttciw==
-X-CSE-MsgGUID: 509sOWieSsOhch9ugQ1eQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2170685"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2170685"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 14:08:13 -0700
-X-CSE-ConnectionGUID: j6W+B9UvRdWl0vyRtc/1ZA==
-X-CSE-MsgGUID: dnK4t5d2T0+au4hpgrffAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5622615"
-Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.109.99]) ([10.125.109.99])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 14:08:13 -0700
-Message-ID: <6f2aac82469fe90c8902e6e018b6259e3503fee7.camel@linux.intel.com>
-Subject: Re: [PATCH] mm/hugetlb_vmemmap: Fix usemap overrun on nodes with
- multiple ranges
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton
-	 <akpm@linux-foundation.org>, Muchun Song <muchun.song@linux.dev>, Oscar
- Salvador <osalvador@suse.de>
-Cc: Frank van der Linden <fvdl@google.com>, Mike Rapoport <rppt@kernel.org>,
- 	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Mohini Narkhede <mohini.narkhede@intel.com>, Pooja Jain
- <pooja.jain@intel.com>, Doug Nelson <doug.nelson@intel.com>
-Date: Fri, 30 Oct 2026 14:08:12 -0700
-In-Reply-To: <6086c386-3903-476f-ba55-bd6c21072f72@kernel.org>
-References: <20261029212137.3141875-1-tim.c.chen@linux.intel.com>
-	 <6086c386-3903-476f-ba55-bd6c21072f72@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ARvR3frD
+Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-35adc681e1aso1807231eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:08:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793394538; x=1793999338; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=W3z0mwrPXjDyh25V3etJIycxf0MnLGdgmbdL34z00rw=;
+        b=ARvR3frDK0R4K6cAO5B8wDyq8X94HuE0ijyDCTBl+0vnuWsxrMgeBfjZQOH40GCd8P
+         XMUGNH72QVl7VzRm4d159ZK+9Y4zWky99vTix6/8d8gu8teZfmnsSQxNuJkasul9FFc+
+         87xn17BTS/WYte7O2aDqISPtt/VkX4ZepKF7zMjdNiVBOcLHv32Wffe5fIn/YryiT1wa
+         cwuZTSb/hXPkVwYrhnk/yGH6lfWYNhPuEctGC5URmPD2OYbutPoq5mBGf6pprPxjad62
+         sSDXOL61k+dqkucwR+KabTTLA3yntiWvUbny8JNclQRV3y+DT3aAhPgRybpp5ZIysD/o
+         dcAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793394538; x=1793999338;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W3z0mwrPXjDyh25V3etJIycxf0MnLGdgmbdL34z00rw=;
+        b=fn7LLrmWnz1xpmpPhBZb/VN5kDvhI/H4ZISWPXbcc7uHIce1A+fyn0TrtmZKxpgu4J
+         q0jDFe3PDczsudMIF9ANZn3PtL7jsn1JV5TNcHFRpyVy7fXtWJSNCeJOQn24Ek2gc6CX
+         lYQVFsdCMgRC1LSighTYF2VHIlJA54n+KQkMw7QhY5hT7z16Xr0CDnwIYqZcKshWrswQ
+         ekoGGFyL/9bObuT0LWCqQwvyWWh0gptBTWbRyc6yGrl3kkOIcs/D+8BRazaHd0Jgga3L
+         DCsLYHvx+bhdPDDW/aujINelzkKYiD6Mj77UiDZ8rTG+vUD8uFyCMR5T6UWcZ6glAvV8
+         1TyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxRIe91QJisnFgC1eW+BH/x9OIRl/rnKbofcXDSAF2FCCrPeHIaS+t2jpdA1v7iGDdETM2z4Dz+sDMacao=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKM2Pml+/qJyso02SyNH9PB25LEv5a4bjbpg5nDT+vbUCHJRW4D
+	/looL6pJnQBkptO8i1IXSjYDwewzeRJmtZD6SBF3Q6yW0c1YQTuIuUed
+X-Gm-Gg: AYBFou33tLuJ964XXONHz9U64qNVqlKec2fnfAHRtIS4CNqS6JCu3Bw0me5/CEGk+ay
+	pcIV3l9Y8OMNU0AfJ81+2qbccsJlJajxtHO9Sur2RPI0GXX/bN71e6byep+O5a2F7Kc9eNlvpH7
+	omjZ0Ebi67am6b6rJG/W+lpn7jN1f37RVfVm6O7hOAsnYc3ypkAb6WWOS85RlqUuFfUcahQqkn7
+	08CFec0OidpZNhBMCDfpFqgQtbRYH2EgULleqQEcyclq7H4d2AYjfARLyzwxrypXltjynq3GejS
+	0GW70NP0WcOUCsYZPDluw1IyeY4hRIssO2OO5mpDlB79DkFDI0QZk+ALX0NukI4noLVn50MUm8m
+	NeA8GrTJTwzmBxgwaIvjf5kJ0SY/S3Fzx8IhsH7/QcCYIizY+T65myyu28V3FhCMhnEHgJDuhes
+	NIfHtGWYa3XIumhtNWXA4CbwQLMFys8wGBfAIxmJWx+Mv5RtIAWSM0HTxk0PAZdRg/iAgcWas6e
+	z4zD53o9ohcdEhBL54lHPoZe8paty28XuHQKeHdK60tN/djDwsKO3MV65vg3ffaXHQkVV0XY97u
+	L6Re34UfUu5hMzL6sjGImMqDFs/tEhtpFhHZyWGqtO/mDgv8MiKM0zr85eo7
+X-Received: by 2002:a05:701b:42d1:10b0:188:9ae5:162e with SMTP id a92af1059eb24-1ac5cdf9ae0mr5066603c88.40.1793394538003;
+        Fri, 30 Oct 2026 14:08:58 -0700 (PDT)
+Received: from ehlo.thunderbird.net ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac0e738445sm9657089c88.0.2026.10.30.14.08.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 14:08:57 -0700 (PDT)
+Date: Sat, 31 Oct 2026 05:08:50 +0800
+From: Coia Prant <coiaprant@gmail.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Jakub Kicinski <kuba@kernel.org>
+CC: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: pcs: xpcs-rk: limit advertised interfaces
+User-Agent: K-9 Mail for Android
+In-Reply-To: <c5fc86f9-3c43-4aee-8d88-92e8f88c6d5d@bootlin.com>
+References: <20261029094916.3127193-2-coiaprant@gmail.com> <c5fc86f9-3c43-4aee-8d88-92e8f88c6d5d@bootlin.com>
+Message-ID: <1B8D463D-1295-4BF0-972D-859C342E49F5@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,108 +102,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2026-10-30 at 09:58 +0100, David Hildenbrand (Arm) wrote:
-> On 10/29/26 22:21, Tim Chen wrote:
-> > sparse_init_nid() allocates one usemap slot (struct mem_section_usage)
-> > per present section in [pnum_begin, pnum_end), and
-> > sparse_init_early_section() hands them out in order, with a BUG_ON() wh=
-en
-> > they run out. hugetlb_vmemmap_init_early(nid) however initializes the
-> > sections of every bootmem gigantic page on the node, including pages
-> > outside the range being initialized. If a node's memory is split into
-> > more than one range, sparse_init() calls sparse_init_nid() once per ran=
-ge,
-> > and this takes more slots than were allocated. The same happens if a
-> > gigantic page straddles a node boundary.
-> >=20
-> > For example, with this SRAT layout every node has a small range below 4=
-G
-> > and a large range above 4G:
-> >=20
-> >   Node 0 PXM 0 [mem 0x00000000-0x2fffffff]          768 MB  (low)
-> >   Node 0 PXM 0 [mem 0x100000000-0x80cfffffff]               (high)
-> >   Node 1 PXM 1 [mem 0x30000000-0x5fffffff]          768 MB  (low)
-> >   ...
-> >=20
-> > In 128 MB memory sections (x86_64 SECTION_SIZE_BITS =3D 27), node 0's l=
-ow
-> > range is sections 0x00-0x05 (6 present sections) and its high range is
-> > sections 0x20-0x1019. The low ranges of the other nodes are 4 or 6
-> > sections, all smaller than the 8 sections of a 1G page.
-> >=20
-> > Node 0's first range has 6 sections, so 6 slots. With "hugepagesz=3D1G
-> > hugepages=3D400", hugetlb_vmemmap_init_early(0) then initializes node 0=
-'s
-> > 1G page at 0x67c0000000 (sections 0xcf8-0xcff, in its high range), and
-> > the 7th section hits the BUG_ON() (seen on v7.2.6):
-> >=20
-> >   kernel BUG at mm/sparse.c:268!
-> >   RIP: 0010:sparse_init_early_section+0x9f/0xb0
-> >   RAX: 0000000000200000 RBX: 0000000000000cfe RCX: 0000000000000020
-> >   RDX: 0000000000000cfe RSI: ffd7e1d09fc00000 RDI: ff252cb28ffb3f50
-> >   R10: ff252cb28ffb3d40 R13: 0000000000000d00
-> >   Call Trace:
-> >    hugetlb_vmemmap_init_early+0xe1/0x140
-> >    sparse_init_nid+0x56/0x370
-> >    sparse_init+0x192/0x2b0
-> >    free_area_init+0x7f/0x690
-> >    start_kernel+0x64/0x540
-> >=20
-> > Here RDX is the section number, and R10/RDI are 6 slots apart: the star=
-t
-> > of the usemap buffer and its current position, which is the end.
-> >=20
-> > Pass the section range to hugetlb_vmemmap_init_early() and only pre-HVO=
- a
-> > page whose sections are all present and within it. Ranges are disjoint,
-> > so each page is handled once, in its own range.
-> >=20
-> > Skipped pages are not marked HUGE_BOOTMEM_HVO. Their sections get a
-> > regular memmap from sparse_init_nid(), and the pages are optimized late=
-r
-> > by hugetlb_vmemmap_optimize_bootmem_folios().
-> >=20
-> > Fixes: b1222550fbf7 ("mm/hugetlb: do pre-HVO for bootmem allocated page=
-s")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Mohini Narkhede <mohini.narkhede@intel.com>
-> > Tested-by: Pooja Jain <pooja.jain@intel.com>
-> > Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
-> > ---
-> >  include/linux/mmzone.h |  9 ++++++---
-> >  mm/hugetlb_vmemmap.c   | 38 ++++++++++++++++++++++++++++++++++----
-> >  mm/hugetlb_vmemmap.h   |  7 +++++--
-> >  mm/sparse-vmemmap.c    | 16 +++++++++-------
-> >  mm/sparse.c            |  2 +-
-> >  5 files changed, 55 insertions(+), 17 deletions(-)
-> >=20
-> > diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-> > index 94f9c3ff54160..da17dae8b057b 100644
-> > --- a/include/linux/mmzone.h
-> > +++ b/include/linux/mmzone.h
-> > @@ -2167,13 +2167,16 @@ static inline int preinited_vmemmap_section(con=
-st struct mem_section *section)
-> >  		(section->section_mem_map & SECTION_IS_VMEMMAP_PREINIT));
-> >  }
-> > =20
-> > -void sparse_vmemmap_init_nid_early(int nid);
-> > +void sparse_vmemmap_init_nid_early(int nid, unsigned long pnum_begin,
-> > +				   unsigned long pnum_end);
-> >  #else
-> >  static inline int preinited_vmemmap_section(const struct mem_section *=
-section)
-> >  {
-> >  	return 0;
-> >  }
-> > -static inline void sparse_vmemmap_init_nid_early(int nid)
-> > +static inline void sparse_vmemmap_init_nid_early(int nid,
-> > +						 unsigned long pnum_begin,
-> > +						 unsigned long pnum_end)
->=20
-> Two tab indent please in all cases here that you are touching, thanks.
->=20
+On October 31, 2026 4:44:22 AM GMT+08:00, Maxime Chevallier <maxime=2Echeva=
+llier@bootlin=2Ecom> wrote:
+>Hi Coia,
+>
+>On 10/29/26 10:49, Coia Prant wrote:
+>> The RK3568 XPCS supports 1000BASE-X, SGMII and QSGMII, but the RK3568
+>> GMAC only implements SGMII, so only SGMII is advertised in
+>> supported_interfaces=2E
+>>=20
+>> The generic xpcs core fills the mask from the compat table, which
+>> includes 1000BASE-X, QSGMII and the higher-speed modes=2E Clearing it a=
+nd
+>> setting only SGMII keeps phylink from validating interfaces that are
+>> not usable here=2E
+>>=20
+>> 1000BASE-X and QSGMII can be enabled later when a board actually wires
+>> them up=2E
+>
+>So the PCS supports them, but not the MAC ? The correct fix for that is
+>likely in the MAC then=2E
+>
+>There's nothing board-specific when it comes to supporting 1000BaseX if y=
+ou
+>already support SGMII, 2500BaseX may work (it's 1000BaseX but 2=2E5x fast=
+er)=2E
+>
+>Ii may just be that these modes aren't implemented in the MAC, so we shou=
+ld
+>keep them enabled at the PCS level=2E
+>
+>Maxime
+>
 
-Thanks David. Sent out a v2 patch with this format update.
+Hi Maxime,
 
-Tim
+You're right that for modes the PCS does implement, the limit belongs
+on the MAC side=2E The complication is that the compat table describes
+the whole Synopsys IP set, while a given XPCS instance only implements
+a subset of it=2E That is a historical design issue in pcs-xpcs: the
+table mixes C73, C37, 2500BASE-X and 10GBASE-X entries, but different
+integrations implement different subsets=2E
+
+On RK3568 the XPCS instance is wired up for the C37 SGMII path only=2E
+1000BASE-X is part of the same C37 core, but I don't have a PHY to test
+it against=2E QSGMII is not implemented in this core=2E 2500BASE-X and
+10GBASE-X are separate modes the shared table carries, and neither is
+implemented on this SoC=2E C73 is not wired up either=2E
+
+Trimming the mask is not limiting the PCS, it is cutting the shared
+table down to what this instance actually implements=2E A
+platform-specific glue is the right place to do that=2E
+
+For 2500BASE-X there is also a physical conflict: it runs at 3=2E125
+Gbps on the SerDes while SGMII runs at 1=2E25 Gbps, so the same lane
+cannot do both=2E
+
+So the mask does two things: it trims the entries this instance does
+not implement, and it leaves out 1000BASE-X because it is untested
+today=2E If you'd prefer I keep 1000BASE-X in the mask and only trim the
+unimplemented entries, I can do that=2E
+
+The xpcs_find_compat() part is the more general fix: it makes the mask
+authoritative so the core does not configure an interface the glue has
+marked unsupported=2E
+
+I agree the stmmac OR-merge is the architectural issue, but I'd rather
+not mix that into this fix=2E The compat table mixing is a separate
+discussion too, but I'm happy to follow up on it if you think it is
+worth pursuing=2E
+
+This reply is to the v1 thread; v2 with the folded xpcs_find_compat()
+change is already on the list, please have a look there=2E
+
+Coia
