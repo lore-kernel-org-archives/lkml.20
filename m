@@ -1,76 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793353514;
-	b=gQhOr09LDHvoXRy6x6WOFVcLhpG6AOqhLZaYS8eR6hL8zRnT5Ht3yk10u1PCmY4wLCea
-	 G6j/5h2NBaHm4FZpow/RJSYWtAJTK+eJdMtJeNjucHZ+8w352I+4kNKa+uNM3+pWMsRRh
-	 TgyGpN35GoMQLJxi5OnWFBi05KoFWE8jm7l7Ho4kcf5Z60BM07F1OYMjp7+1c+zrDNzlB
-	 ZmcQR+F+EXDe3SR/zB4kuyNo59SHwEcUi4jbEPquG+PusQaUUj0Mn/CbEgCZyufYVGxNR
-	 IEwst/Kf3oqwNDBQf+hEqHCSrMlPO01nVUBjuJ3lVlXQamzMKpSwVMnb9K8KREruyWA==
+	t=1793353516;
+	b=vJBELtrwQ0eXGLgagobi6C7Kr8iwzLye2dao9XL9rfBhumiEFnIn9oJ/CtRknmvWrrUV
+	 f4aRHVHeM2Q6Fzx0+50Y0EMoyRdFIIP7Tcms5PYxc28Kuy2y+fbbveiyKQkjhGDfi76oW
+	 b8zRd/1W5kZshklLdtHUrL3g5U4WBOqVZjPvTD++3wM60b/4rUgxvbLTQbNffjKgT+MTd
+	 ydywLgGVv4JNLnzAhyRqTBvVMY60PfhuOsMx3smiMJX71avbzRYiaqlH7umbUpiVC/llg
+	 5GGeev3aiW98HqPA0a1KNy4AFWcFUOkgOJM2/bMCC1jsoSWDKEgizvyW3+oQYnVIdJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793353514;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=q8Bp4lvQqYUsZT0k0dArzQOZC6e3m0dIfgAJwvcDsr4=;
-	b=0xPzkNjlkGhn6lHJzYaNO+mcJ287YBvOJcqZZjE6EfiL5JPQZVevmrRUtPD4eVlAvzhD
-	 Ole6o6kyissvDno0gyOQ5Xfhq2lQxuvC4CIhWRCyIcJC6+CtSc0gDDX6auc50Ax/GT+6x
-	 BY4rBEIvlkUQ77gDuJiasqiivmXknhhdIO327F4RCA6B0XRMqMOItkT60qBUCTekyKy8e
-	 XRxN//7AAisgyM60ns82XKdtmIBiLKJKG4lna02tMakHo8rBP1V1WzYdK2PRwXLKUCD8k
-	 RNpE3B8F7s7jYm3C3aVz09T6Jnb3u40Xa1c23S+kSxfS8ESFHftqCM2dsOFlDbCN+uA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793353516;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=+at7dZGwSvVu/7pH3+e+iC9k0A30G52g4dzyOrLdjBc=;
+	b=iJnWPsNDLT0DmF4z0UxYfg+9R7i0DX5YSvELtb57kY9+k6HEdpXdhcsHFtSjGEse/pdR
+	 yiKJ7YNqqcMDl9zpMd9hnHapc0W1f3jDt2Np4M9pnf+nkU7qTUwxJ+F+Ec9VHTTtsIErq
+	 ugmJJC8U79qpJeEpDWbIykxpZ8kkOxqLr/ZXlsj06OG0XKpZeXrXmkQsDmkocFCWyOckC
+	 MVvy5d/I7w3BdJTdaT1dmvdSx4r6JIrXDc1hOEr255T+uaUBh3VKNaQIUYzoZfz+crIU/
+	 PtFfyj9969WMhvlPQQpFaYxd7KhFhvDd1Jd1suFbpC+MEyAp6C4jo39QUD0UTXHxZgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.210.48
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=KakueTtm;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21A86606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:45:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21A86606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-85a6c747dc9so1124682a34.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:45:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793353513; x=1793958313;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=q8Bp4lvQqYUsZT0k0dArzQOZC6e3m0dIfgAJwvcDsr4=;
-        b=MXn8BcKkrJDb462EVHE0u91FyEsAygjGoRcPjtxH5kmdhAfSf01FT5NBGCD4tvJ3qQ
-         RVVseBnyYvq3kvPzXAVvkJCsDzG3sVhwvW5x36ejFbv00vEE8dmUl5JtvrKKrDRl8wHZ
-         6kPSgT4dzEkzv3PmnMQQwSlcqLa1fmV26FK8AlJ+Dsb2BRqRDTFVKYDRah5KiP6+Ux23
-         oOFpXp/s/kPNbUig9UWsRo8s0hJMC4BwnbRZhevkYq3SbPVv6r4UuyS9ynNdl1ZVKkF4
-         /FynAJ7nurXXXWDniS/1NHojOW4GmUTM0VHkQA8KrO8Irgx4kCDdEgPzPKHg9wLtGHHT
-         9fZA==
-X-Forwarded-Encrypted: i=1; AKwUvBwjQTBAqsimv1fjgq+as97GkcjFcxBnJCBozZtJhfELJ3ul/QCDuJfC3TfkVsDLVFkieAtIunV0/Ixtc44=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL45LzQPKA4lSA0RT5SmHRVWA412i5FoHP9d6OfJvVC2yfJe9SA
-	JQ5YOAFRbqrQMGbv2I33Rz2xRwbU05cKL6Jn1sEGNYVj++c3ZiQPsirCnw/JKQjI
-X-Gm-Gg: AYBFou29YDZPTc0adMRnCXmw+moebiEjHW40Urfh2gTaV9Tw1mlydDWyGzPzAi2hhvK
-	Z0w1B/KgP75ptVshBre+ZXRiXUJ2bBIoSrHwzAmyFZeV4NvPOd7I/IKuisFvZI3kk5CPSR7n0eU
-	NZ6qi33oufFxegupq5NtNe24hhu5PBM9uInXv0TiVsVUG0wO4C4Y35GFBM4mYiRs50QTp8+UnqG
-	+hUW7lrabWORhZNqozxXV8zuzMgNhIg3D66E9jpoAHQlq1adh1KEc6A19FRUDCV+hC2RgOGxmjs
-	9W4cg6E/OvWqRjp+xsFPX91d6Pfzyk6pI4liyAUDtC4d7OtDxL6eelpFCxEu/CZNv/gIWuUV07w
-	l7O1kv3vH6AwM3u1pGBRj2UhXKBEUhHkTNug4zGX7ul9lyL3QXffwdO1BzUJMHSx6b7DcZqHVBI
-	Jt5Wp4Uyu8CbnQQ1fgc1ghyTNl11glHBCn2Xmv35yIi42ubjDsm+qCs5Mp34SGohewwhZeMYzCa
-	pzdON9/mumFEHSBdFz+cD2PrqEPrf8Ug45cNVlqVm+rXxL+jIpWilA79RkEQYdFuPHQwyVot7RJ
-	uMK8y+0vYzrGQ1g6l0OjP6mWq9P7gY9B92y27H7AOi0mTTHpC2psibNfs4N7KnljTCZUnig=
-X-Received: by 2002:a05:6820:7094:20b0:6f4:fb85:5e42 with SMTP id 006d021491bc7-714f29ad113mr554710eaf.21.1793353512863;
-        Fri, 30 Oct 2026 02:45:12 -0700 (PDT)
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com. [209.85.167.181])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-714f2a84854sm1529689eaf.2.2026.10.30.02.45.12
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 02:45:12 -0700 (PDT)
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4b28d9537bcso381033b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:45:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwRtlGIaH3y54woOqxl347oPHkruslH5oXMwU3W8jSIh2egihaHZjovS5TEs9gOQwEl5SUo/hlVaup5hMk=@vger.kernel.org
-X-Received: by 2002:a05:6102:605a:b0:7ca:8f2d:5c29 with SMTP id
- ada2fe7eead31-7d0542ccab3mr1591386137.27.1793353163338; Fri, 30 Oct 2026
- 02:39:23 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B7F606A31C;
+	Fri, 30 Oct 2026 09:45:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83B7F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=KakueTtm
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id BB4781A1398;
+	Fri, 30 Oct 2026 09:45:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 80902603C2;
+	Fri, 30 Oct 2026 09:45:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8A1DD10328D09;
+	Fri, 30 Oct 2026 10:45:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793353511; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=+at7dZGwSvVu/7pH3+e+iC9k0A30G52g4dzyOrLdjBc=;
+	b=KakueTtmpKnc0gGtghPxjB49nubrJ6XBiNYam2pWHCZjYxJfRbCIXhWKJZ1V2YP2Kze+Vd
+	jqHOc7bT3gkJsajsa+0fpgL7ZbUYoJljuJVLoNG7WXE79CPkglquXiC/j1J23SnovW6uw+
+	XbEoekTVBSNP2OrPTHTvnuzgkaAhp46UX86u9vR1M/drKBX8OCfGwxWaiF1dfrF0pDmoE1
+	5s5f7X3Tuq6jZwPtW9Nt70g8TrBhoyM10I/y4yYn4N+H41IcB30NM8xCPkPr8JgFtXryXb
+	YsMacOQMfcv83V5yeoEFHiRiWfPKO+cIGIx9AxIWyMWpIjJ+QGVJO0RC3bYiRw==
+Message-ID: <fefab524-d29b-4d34-a638-6ad56674b2ed@bootlin.com>
+Date: Fri, 30 Oct 2026 10:45:05 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,53 +62,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030083800.599152-1-songmuchun@bytedance.com> <20261030083800.599152-2-songmuchun@bytedance.com>
-In-Reply-To: <20261030083800.599152-2-songmuchun@bytedance.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 30 Oct 2026 10:39:10 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdVjr+-4GA=jBNpL3nig6QfQ0Fm8ob+c-OkLADPUJSaNqw@mail.gmail.com>
-X-Gm-Features: AclHuK-5feC2ixWlfC3xXKJ1XowEcUrdLUZ-UGAaez_2WzCy_48TVc-7hVrg-7U
-Message-ID: <CAMuHMdVjr+-4GA=jBNpL3nig6QfQ0Fm8ob+c-OkLADPUJSaNqw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] mm: remove pagetable_dtor_free()
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Oscar Salvador <osalvador@suse.de>, Alistair Popple <apopple@nvidia.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
-	Rich Felker <dalias@libc.org>, John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
-	"David S . Miller" <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org, 
-	sparclinux@vger.kernel.org, linux-arch@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Muchun Song <muchun.song@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-
-On Fri, 30 Oct 2026 at 09:38, Muchun Song <songmuchun@bytedance.com> wrote:
-> pagetable_free() now runs pagetable_dtor() for pages that have gone
-> through a page-table constructor, so pagetable_dtor_free() no longer
-> provides distinct behavior.
->
-> Use pagetable_free() directly at the remaining call sites and remove
-> the redundant helper. This keeps the decision to run the destructor in
-> the common free path.
->
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
->  arch/m68k/include/asm/mcf_pgalloc.h |  4 ++--
->  arch/m68k/mm/motorola.c             |  2 +-
-
-Acked-by: Geert Uytterhoeven <geert@linux-m68k.org> # m68k
-
-Gr{oetje,eeting}s,
-
-                        Geert
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH net] net: phy: don't require RTNL to detach a PHY from an
+ unregistered netdev
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+583f42a41879bb60de32@syzkaller.appspotmail.com
+References: <20261029142423.93573-1-ngocthang2710.1999@gmail.com>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261029142423.93573-1-ngocthang2710.1999@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+On 10/29/26 15:24, Nguyen Ngoc Thang wrote:
+> phy_detach_internal() reads dev->hwprov with rtnl_dereference(), but
+> MAC drivers commonly attach and detach PHYs while their net_device is
+> not registered, without holding RTNL. Before register_netdev(), a failed
+> phylink_connect_phy() or phy_attach_direct() unwinds through
+> phy_detach_internal(). After unregister_netdev(), a driver's remove path
+> may call phy_disconnect(). Both trip lockdep:
+> 
+>    WARNING: suspicious RCU usage
+>    drivers/net/phy/phy_device.c:1831 suspicious rcu_dereference_protected() usage!
+>     phy_detach_internal+0x6a5/0x830 drivers/net/phy/phy_device.c:1831
+>     phylink_connect_phy+0x22e/0x2b0 drivers/net/phy/phylink.c:2452
+>     ax88772_bind+0xbb1/0x1520 drivers/net/usb/asix_devices.c:925
+>     usbnet_probe+0xbb3/0x27e0 drivers/net/usb/usbnet.c:1812
+> 
+> syzbot hits this with an emulated asix device. phy_eee_rx_clock_stop()
+> fails on a USB MDIO error, so phylink_bringup_phy() fails and the PHY is
+> detached from inside usbnet_probe(), before the netdev is registered.
+> 
+> hwprov is only set through ethtool, under RTNL, on a registered device.
+> reg_state also changes only under RTNL. So if the device is not
+> registered, no one else can reach hwprov, and RTNL is not needed. Tell
+> lockdep that. A detach from a registered device without RTNL still
+> warns.
+
+Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
+
+Thank you!
+-- 
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
+
