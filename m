@@ -1,93 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793403897;
-	b=4nbpzyXUAXFSyDHKeoaOgI5c2hgjzMHH78EObb9tokTzZqS2RKTjjEEQwsx0BO2ZHzfo
-	 0lm0zNGDUiq9IYiLBWZzBW6qUTvzQmcd3qNA6CQwxrTu0v0x4+kZ1ewtcty66jK61W4tp
-	 +i4NNK5M9a/4sjmEgn2wKoEmGNyWmHa7OxG5tSR3dn1mIO9KGvQnqD6viwpfW/+15OslB
-	 qjG3D9uqnpQBZ61uToK6oKfw2zx22KXRY5aDpWMe/bKmdXTS0sZSQHKr1K9EMOx3KxGex
-	 vAUQxAIg9UwLdKYOQg4Ciq+j45FLUfnzbjlixg6XF56eDpxKxDqwTKHHaXvOOm6RMpw==
+	t=1793404095;
+	b=HvxNRqE1qlph2nrtzUqlrVtnxlr8v7uzgCD5tXc3Vncjw45S+Sx5mXaSks67sBnYxOiP
+	 IOIp5tAGiHkUrSPAjVW0GoK1eT2BzTuMobuX9UcNZod8STWsANwtvHSJt1vPDxfVjRR4a
+	 zBtrxMYIhGmrZs6kME6sWpoj920TxvnwmCedkfYwxk9B3wH2IGoIcziWDEUQv1GigesXW
+	 uU8cdOHVxsVUOTTu+o5zLAhuO16NhnG7RDU99yJToo7pAxtPyeg8nQcy29giiz8DStow9
+	 tHibvB2X7lmAXaMBUdiWaYGOcS5AsQhtlZABHwTtXB2xSwzwa42fnq7qUrKLXZWiGyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793403897;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ENPGEJQjHDmi0YXc71Juxw0DF5443i7C7rtlAkvii2U=;
-	b=jvN8+Cth4NOnLVLr6zBYyM4WbYIbj7UMf4pBIZD7zpQCl8bYGm8Z9wHH9uF6YydOhLHA
-	 c5sltqDi58xUogCYc6DtFX2RFP+mmRzX43NLSOkcFQV90r4x2L6Z7l2GFcyId2BZPQyDP
-	 5z78aeCc01EK6SXhygM7gBgSNEGePVVytvBR2CtXtSoxVRKs0Qo9eUSCVkXcoFt/fldSd
-	 M9kqxvXyZbrTp2w8wXWQQw/OhG7xupY9mSKG078Gi+0yYW9ZSdTvwscgR9CuU7u1lk1rV
-	 kcYFMPvoj1/bvj7fYmCinm/Yr05VzdUj30r5XHiGpwsg8v02YTqsgZjXI2mawMoR97A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793404095;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=uQmPF2jG9yjZyMk4TrcEAAEQoxSKIkZQK8ZYddN89K0=;
+	b=XmPfaAzJc/Tdth1urf/g1xTgm+SJo6CXOZJzG2qIpvytakPIJQD16g0kv4yH0YRS+doO
+	 VSAOO68B4gJsBbqLPOkzpkKiMHvJN86k7qcVP2SYwuIXwqdNZno2wZ48MBZj+4s7cFkqT
+	 AG+vSt4hEgob6HVYMyE+xELTCfIZhUP4BlEDoTwmm6X0u+cqEhvNxd8gGOBtn9entPw1p
+	 0+6+c7nlubJ7mqr5GpqL1CUyNhRWkrvC+k5myfv/7BmgI1ENz8lC244uNWo9ZYxXTrPdP
+	 sQxGZl7cgH2IXhDOifMS8EDeU3uPhwSSHF3w4BDrDECFLj17+MYsO2gCOQWX7A46YYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=everpuredata.com;
-	spf=pass smtp.mailfrom=everpuredata.com;
-	arc=none smtp.remote-ip=209.85.208.100
-Received: from mail-ed1-f100.google.com (mail-ed1-f100.google.com [209.85.208.100])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MT2/EA0e";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648CE606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:44:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 648CE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
-Received: by mail-ed1-f100.google.com with SMTP id 4fb4d7f45d1cf-6b1aa4d71e7so1220945a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:44:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1793403894; x=1794008694; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ENPGEJQjHDmi0YXc71Juxw0DF5443i7C7rtlAkvii2U=;
-        b=ydriti7zC8uEtFrWzYDb1hmakiggIIPqyZubmQU3J5TGQfdMUBxqMCjS/7PGld049C
-         PIJXQpd3EPFL36vZE6F2udfB1t05qSE+ovPBVmYlQrlHpSQ55Lsqa2MCmzqNPh/a80Ac
-         BUiLE/kV6gr51kv4AuSQjItwP9IN+vcPj179bJjj0dKzPCU1B8GWZzM54JSsGvH/qm4l
-         SodEgcZXYiC8TKZzUXknTkCF1YSVmFMZwymRrfo0CdcigMJnCjHY0Qdl20GhmviAsod1
-         zr2WcqnCg9SM59uBUwjf/vujnxqU80D/Df9JZ3iYmi2S1rHJDtiKjxhgvKxkn7zkXpA7
-         Fo7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793403894; x=1794008694;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ENPGEJQjHDmi0YXc71Juxw0DF5443i7C7rtlAkvii2U=;
-        b=SG3fl0Gx2ApznD7i0odQWwzw02ZgjD+4n68WclE+Jutx4IJDHJmtksFXPIDUypJ30n
-         LNshOqNucjDj4M6J05rHmz/Phgl5turLr6EKCQameNAupS+bRuv8lh83Wm7K9zWrEhTP
-         2v/UeULhGlxTeFhPTy1o5Kr2hejrInNkqCxGp3x8Ln9ntlO0Dd0uzmCq1Aq+A5qdkrRg
-         EtuPrBmPrTe/8XgGuziAaMP2OKWLBdVt/27D7CyDuRRODrOk+GJT3YhVw8rDO+sKoeQT
-         IubQL26a/SyKP6P2LI4Vdlcl81YaKPBXweVP25bWx74IkgYFvwBRYtwkR9ADPABjeG7u
-         tPww==
-X-Forwarded-Encrypted: i=1; AKwUvBzxqt7onhtyP+fAosMNMVKX+PI4obC/hVG1DbxjTU9YYvVV8rspAlQED9S78BBjSzrFbrnesk+6IojxmeE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKolUGG7c8d3tEYjKxy1JN7yn7eqWyc3ktl339SaYrts6vQqtMj
-	8Tt9GSR6mUMnjBFLwWTmAGJoPlt3W1S10F2wzmuI2tpg+dYBlMJ8z9FX57lnTn0+9mRafNTDDHq
-	TXhY4Z1rRuFOoUQ29ifk51qwFj1HI7dioTDr5
-X-Gm-Gg: AYBFou3efEpmW1qyFdppxmE0czBpIdTYgazMMp6WKoDnLk5gXen3lZxgHf5lOPM2XBI
-	n1CWPFQKJfGTxeGXf8NwuOwF63bXJZ63qIdkMbgyoDVv3R44l9UU83GA4ajerABYohMfoinmdmz
-	x/hxP+hFybmHx6fIod+qy6++TyLt7BPhS//gra9k8wPjdkBeU8xDe9k8qTTWvSwsF0HgAxzEAks
-	+yJLIWAQ4RQhwtgWoeusVtsqY/7LxTtmdo1Ap0VtfOON9A0Yk1+dG0+Xk9akW1yxwnU6oDuNhqI
-	qb/rD3ToHNnpqRmaeKQgcQ7Zb3U0CamDRUswms5gLsldo1ondFpoVbVDvvdpE4KlvfzWdZRtFJ0
-	CtnsSueL15jZoO5RBkis4RVX/xNtM4VMaMkmRRPQ=
-X-Received: by 2002:aa7:c70b:0:b0:6aa:f14f:5571 with SMTP id 4fb4d7f45d1cf-6b4d5ee0692mr2076001a12.45.1793403893737;
-        Fri, 30 Oct 2026 16:44:53 -0700 (PDT)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
-        by smtp-relay.gmail.com with ESMTPS id 4fb4d7f45d1cf-6b4ec9f672esm196010a12.14.2026.10.30.16.44.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 16:44:53 -0700 (PDT)
-X-Relaying-Domain: everpuredata.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 403993404F8;
-	Fri, 30 Oct 2026 16:44:22 -0700 (PDT)
-From: Tim Menninger <tmenninger@everpuredata.com>
-To: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: linux-nfs@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C664606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:48:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MT2/EA0e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85F9F1F00A02;
+	Fri, 30 Oct 2026 23:48:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793404094;
+	bh=uQmPF2jG9yjZyMk4TrcEAAEQoxSKIkZQK8ZYddN89K0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MT2/EA0ezaYproGDll3KiLAyVEWSPZoKHiRXDywJ4aHQIzyhxwRWbhglWb3e7dKsz
+	 AEnmNyNX8Rcma59EV7eOcdo43hJV3UWyyp1EEpZA8V53cZzC8ibmhrWsCHhd3ntURg
+	 c5P/CKQqJKTkQLSHunG90TVVjWY3k050fH/bObXqsHH1hydv3QVr/OgYQi355iFOiF
+	 JtArXodjjPIzQ3o0JyTSceeGaK8Vpf4oWVTDg9aqSczBRMGkGDD9LAfK/1mBWdRTX0
+	 vIoNdT2am2JTHVTTgrC8yNDOYEoiKRQXV4BL7VJTm0trkxBMccLX/hXZvuwU8ol1v3
+	 PE2FPFd1CIhgg==
+From: SJ Park <sj@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Byungchul Park <byungchul@sk.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Chris Li <chrisl@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>,
+	Dave Chinner <david@fromorbit.com>,
+	David Rientjes <rientjes@google.com>,
+	Dennis Zhou <dennis@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Gregory Price <gourry@gourry.net>,
+	Hao Li <hao.li@linux.dev>,
+	Harry Yoo <harry@kernel.org>,
+	Hugh Dickins <hughd@google.com>,
+	Jann Horn <jannh@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Nick Piggin <npiggin@gmail.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Peter Xu <peterx@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Rik van Riel <riel@surriel.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Tejun Heo <tj@kernel.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Xu Xin <xu.xin@linux.dev>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jon Curley <jcurley@everpuredata.com>,
-	Eric Badger <ebadger@everpuredata.com>
-Subject: [PATCH] NFSv4: Prevent indefinite waits for out-of-order OPEN stateids
-Date: Fri, 30 Oct 2026 23:44:22 +0000
-Message-ID: <20261030234422.2367263-1-tmenninger@everpuredata.com>
-X-Mailer: git-send-email 2.53.0
+	linux-mm@kvack.org
+Subject: Re: [PATCH 0/7] MAINTAINERS: MM updates
+Date: Fri, 30 Oct 2026 16:48:05 -0700
+Message-ID: <20261030234805.86833-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,61 +119,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When processing an out-of-order OPEN stateid on an NFSv4.1 or later
-mount, nfs_set_open_stateid_locked() waits for stateid updates to be
-processed in order. A five-second timeout is intended to prevent
-indefinite waits when preceding updates never arrive.
+On Fri, 30 Oct 2026 22:34:24 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-However, each iteration calls schedule_timeout() with a fresh
-five-second timeout. An update to the shared open state can wake the
-caller without satisfying its ordering check. The remaining timeout
-is then discarded, and the next iteration starts another full wait.
+> Hi,
+> 
+> several MM updates:
+> 
+> Make Zi Yan a THP maintainer (thanks for all your hard work over
+> the years and thanks for taking on this responsibility), and perform some
+> MM MAINTAINERS cleanups.
 
-Under sustained concurrent OPEN/CLOSE activity on the same open state,
-repeated wakeups can prevent the timeout from ever expiring. Some
-tasks can remain stuck in update_open_stateid() while others continue
-making progress.
+Congrats and thank you for stepping up, Zi!
 
-Compute a single deadline on entry and pass only the remaining time
-to schedule_timeout(). Once the deadline expires, take the existing
-timeout path rather than starting another wait. This prevents
-wakeups from extending the wait indefinitely.
+> 
+> Then, start the next step of the transition from Andrew's MM tree to
+> separate component trees that all get integrated into the mm-next
+> integration tree.
+> 
+> Start routing shmem through mm/core.git, adding me as a maintainer
+> primarily to pick patches.
+> 
+> Then, target the following components for the mm/core.git tree that I
+> (co)maintain:
+> 
+>      - MEMORY MANAGEMENT - BALLOON
+>      - MEMORY MANAGEMENT - CORE
+>      - MEMORY MANAGEMENT - GUP (GET USER PAGES)
+>      - MEMORY MANAGEMENT - KSM (Kernel Samepage Merging)
+>      - MEMORY MANAGEMENT - MEMORY HOT(UN)PLUG
+>      - MEMORY MANAGEMENT - MIGRATION
+>      - MEMORY MANAGEMENT - NUMA PLACEMENT
+>      - MEMORY MANAGEMENT - RMAP (REVERSE MAPPING)
+>      - MEMORY MANAGEMENT - THP (TRANSPARENT HUGE PAGE)
+> 
+> More details in the last patch.
+> 
+> In the upcoming cycles we'll then route more of the other MM components
+> through different trees.
+> 
+> Let's see how this goes, in particular with the continuous stream of
+> fixes. But getting these in in a controlled way has highest priority
+> right now wither way.
 
-Observed on Linux 6.8.0 and reproduced on 7.3.0 with 96 concurrent
-O_RDWR|O_TRUNC open/close loops on one NFSv4.1/TCP file (nconnect=16).
-Ten workers made no progress for over 300 seconds while others ran.
-With the fix, all workers resumed after transient stalls.
+All makes sense to me.  Thank you for this great work, David.
 
-Fixes: c9399f21c215 ("NFSv4: Fix OPEN / CLOSE race")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
----
- fs/nfs/nfs4proc.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index e1018b03c1cbd..f2cb8e788c017 100644
---- a/fs/nfs/nfs4proc.c
-+++ b/fs/nfs/nfs4proc.c
-@@ -1722,6 +1722,8 @@ static void nfs_set_open_stateid_locked(struct nfs4_state *state,
- {
- 	DEFINE_WAIT(wait);
- 	int status = 0;
-+	unsigned long deadline = jiffies + 5 * HZ;
-+	signed long remaining;
- 	for (;;) {
- 
- 		if (nfs_stateid_is_sequential(state, stateid))
-@@ -1756,7 +1758,8 @@ static void nfs_set_open_stateid_locked(struct nfs4_state *state,
- 
- 		if (!fatal_signal_pending(current) &&
- 		    !nfs_current_task_exiting()) {
--			if (schedule_timeout(5*HZ) == 0)
-+			remaining = (long)(deadline - jiffies);
-+			if (remaining <= 0 || schedule_timeout(remaining) == 0)
- 				status = -EAGAIN;
- 			else
- 				status = 0;
--- 
-2.53.0
+For the entire series,
 
+Acked-by: SJ Park <sj@kernel.org>
+
+
+Thanks,
+SJ
+
+[...]
