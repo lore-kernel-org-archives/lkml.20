@@ -1,107 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.27
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793344388;
-	b=fpBUtT3srgxQESN9Uh5M1aNgWdcJMSQkHdmODP/afm+hUAt/L6wHDw6hnU9Q8HngT52a
-	 ow2NzHRDeBdefW+W4fNCgVW7zg1TjrSqrnV8Ou6ASmCLdeyep6R4ev6wJM2vjA82r9rY9
-	 dB/XZJkVClM8AD16V6oG0nvBEtonYIDhyYvtj/QzBRy5of7aNxKqPQ2Z2vT2uimRbc7OH
-	 nlngNudKYUfKgP267aK/saJkX4FWMgeCqffSiFdrYoLiHKj8YWKs9XJ+qq/8mpqUQche6
-	 cilnKRL107/1IbmivDcGQyrtZDlpApc85Y1+xoCKi7vT/eo6ZQ0pvxIMFfp9qX7MAMw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793344388;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=oCHHMFAmAlaJ3t5C9Gb7yAIlxtTnfTWSvkFbXzdkqVI=;
-	b=i4o2ofF4ybXMz+NWuDh05y66HFE3U6I8jLCiJN+CneKhydWSA+kmlG4gM0LnxzvMWKo8
-	 ae6kwki4YPrgnJxPPZCBSQJ32wXG1j9UPT6M16rULF7qDw4ltkz9A/fyorym+Kt0kW7hH
-	 Z/w3G4WzGDjnfCbjP+4mKHGECv6PpsXlsc3o1BEfwMHAXBF5LBEKu2ad1nL4IUoTGwcgm
-	 +8JnBec4JTmag52Y5sUIStCe4s4lwDN1jgQiWwjqOgHDnN4M2YDsdQVpDz0MmfijEXY6D
-	 ZooTQXMYLxhxnjfviEWxE5y9PjtD+EFZ3yxET4+utyqS/0cxhWkY/YQ/rOR5JZky1+g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=FJNyrrwr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.27
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010027.outbound.protection.outlook.com [52.101.69.27])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793344423;
+	b=M5ZC1U9LVlUITCEA8ehBoVUQumOPik9a60UOQAFnYEIptrZh5WH00kM4555ajbAZtar5
+	 Rim57D7y1bV/iXne0AsgKUiw7S4JNOiO6HsN7QBT+ygMa7KMpq6+jp3ItZ/ccfWJhva+v
+	 n9+FcIBLhU6dgKre/d4lOswRrpfwL5xg8g6m9C07Tm676Sf6tp/3Y0M/xKUr/b8veG2sB
+	 D53t81C1xfyUKOIgbZy6IEv/DA713gTBHj3eP7PNY1hQOOraTxyFRACyBJjMlpwTRfnxd
+	 UdO7Baf/GQaIQXeuTxdghs3IRRdploAsO2dkUJ+2yqdXLn2tefPwriMjYCxmi7hGAEA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793344423;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nXilgdS7CLOmcdrjW/kYGIwI3BWhhi5w7jGBtQxBRhY=;
+	b=yDP9/NNyPnQpkr/HAXfI0d+GmljlAXD5xBTn3CzQzeTQzNQ3eZu28bn/Hqm/J6ZqPDVf
+	 Or8pVYBJKpdXDTkziyWTqHMlQ/sIVwKHqBGbJ/YnNPArOEunZNTrhMPutkY5fNcM3EV/u
+	 Kj6/QDOwU0pGPQH5hF/74g5CUAr4ZANokMaH6mY/6z3YlNv2LazLb+2/lAtusl9uK2fsI
+	 jlVS47TwVXZgrYPZtbhSFEZxQdpAAJKTSjlBJ8NQff7KVLojhNrb+D2gRAlGwFP7FuSJP
+	 QhBANuvriwV8Oy8F7pfic18afzQHFFyCzN3bVHEMMX00OTCZibEtlGbcsyZX5cLi/HQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SogZPJn4;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0700D606A31A;
-	Fri, 30 Oct 2026 07:13:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0700D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E6F606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:13:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98E6F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=FJNyrrwr
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SSsA4XHHF+vUXS8Jya3sKn+f6ITEk7sdkOgrHjsEUiARt9YrqgotUisOj7Bl4janR9sYoR9Q3/WFcZ0fpqSf0xQuUtVXKYRwSNhGwszSiopTysoQo00iISdvYEoNn6BHPk28ruhcKfc8DBw+SFlK1AV8Mye1BE0jWd9PIN2+jUvSwMiFQw7xVnHnYfvQv40URbF/pL+KIekhCAjL7Ao3TmmBJopvtAHpBhNfuYd1eFIpo8REGwS7oesCBCQFfsGF5rQc96lNMrxsLwsqovwJ02hxKu0TTVdPCUioJLWtFf55diuNj7hjmnG10GIFqanw7QwNvQ2fCN6RpKiuT+o55A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oCHHMFAmAlaJ3t5C9Gb7yAIlxtTnfTWSvkFbXzdkqVI=;
- b=RY2OAZdtlkxxohjzmH0Qs16hnQgE8i/oP9QCETErJbh0vQC3usFBrl47sdHMeW5/osXMcuVAjrCYWzTR84qtYO7wGnuvzqeB8TkHyznV5+KVPRXq1XkeBWjnkbBr0bD7dXVCvbgGiMdyWtWmjaxhPWtLiA+mcQtEZNnaYBA5SFBJlyyjnVm4qXdIv4irGDiETX4PQeS3iLfngPoSBxB5RhTILahjSdPyKg9zi6mR30Cj809n38oeSXdhW5lHGNUbRucRki+mxGsXdinentr9LTqOTiAKof1cJnBUYviq6rl+2BEJjKEeR9XKtmTyeZ4adV4sxsKQNTkAX0yvwuA/Zw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oCHHMFAmAlaJ3t5C9Gb7yAIlxtTnfTWSvkFbXzdkqVI=;
- b=FJNyrrwrmZXsv6TvvofMywjcntZPYo8vAAuM97GhWz3bSpFi5jx0jKSuRqZdBRA/UlaUNp2cfv9Zs7lajd9qAmxdBvK2A1Vuu5rQPVflFfLjKixPP0cHg+zErsPRLYMr6UIX1ny/rx/EI9jXv77GZKdPMyOApBB39lhMRfVoR5N/aqP0xu73Tbusv2fLmWbswJNV2NTzWK1GefUJO/ZyDVijwnB5fvsJsi2A8REUZKgYuy8VxWKXM5wICiyvRCh42fveX2fSXIAJYluW7/rFuSEhfUGbOCodvEVlWO/XVqApJ6/pgtZRirShLXh33uk6DciiPkqjVkAOxJottc/WTQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
- by BR2PR04MB667331.eurprd04.prod.outlook.com (2603:10a6:2c8:7::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 07:13:04 +0000
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 07:13:04 +0000
-Date: Fri, 30 Oct 2026 15:14:41 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v7 08/15] drm/imx: dc: Add DPR channel support
-Message-ID: <auRD4QEBys3Smc3l@raspi>
-References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
- <20261026-imx8-dc-prefetch-v7-8-a0b50cc4fc65@nxp.com>
- <auIOl-0XRtRrhLcw@vm>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auIOl-0XRtRrhLcw@vm>
-X-ClientProxiedBy: SI3PR03CA0005.apcprd03.prod.outlook.com
- (2603:1096:4:297::10) To MI9PR04MB350878.eurprd04.prod.outlook.com
- (2603:10a6:290:c0::7)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SogZPJn4
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso165817f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:13:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793344421; x=1793949221; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nXilgdS7CLOmcdrjW/kYGIwI3BWhhi5w7jGBtQxBRhY=;
+        b=SogZPJn4pjuqS0ad4WFyDqQkm3xx/fne8DbFcoLgwQSV1WFC2uUaMFtCDLp5u6QJuT
+         G7r2asDFVbqo72YzbXORE9y5DJwoUTh6u97N8gIQ/vFEE3MYFyoe4X6J+hfiUut8JL5m
+         W9WbHHQgMl/RHvedeCqP4EnBoTMzVR6K/darLWm92cmv8EnxkzC1zkH1bCBrJcP+VJB4
+         BZuLU1n9epXKgHrEf8prRZpyv3GNi5Qu22hr0sfBQ0/rgakdiwTJK+u2y+FysfRILl4n
+         nUay8W3lcRFWmZz46G2oHhOELPzlRLMgOrxucQ3uZsHcq9WKk85DEdUQKQaU/w8QaKo7
+         t6Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793344421; x=1793949221;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nXilgdS7CLOmcdrjW/kYGIwI3BWhhi5w7jGBtQxBRhY=;
+        b=EsCqUjXl0GFtFpZ8GZrVRhUv8exnSKE7gNl9mLy6fC5CodZmAlhwew1W5xm7xlz9BO
+         BpWIa5Sa4gFQfW4aX8XZw54aTNHOaSAu5R2zCWOKYwRU4S3W2FfkhuEuQ7KNkw5jvga7
+         MtImYlGBgJShk8uniO9PxjudE8J3zKdMA+SNDbjVK7l8/4AhQSAXavrhyccB1kG4gVJK
+         /MfUDGEdoy5MDBRja+Eu5+vhtNCHu3QUL0Cgof/r/b7Mm/097tcWKYPELE74tMxx85ly
+         G561QWUwPewm5G4wT6HAgbMxJjUvYFBiXlqNc8lwNInTSwXbYgWev13DY0iFRAbIwJss
+         apIw==
+X-Forwarded-Encrypted: i=1; AKwUvByuRP0N7KMdb3cdPQKnZ5DwdM5KO3YCBNGfaI4IZoT09ZOXZW0UzYWKqNoE6d03XvUIK/jX/GMSdT9JKzU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDW+a3A4PoHQkIh6zCTX7E+WB2i8v8L0uIzx33BFG1TC4KeVc6
+	INVoJA0eyKu9BxFPzm5HcmNgJkbkOzV6Fck2kL5CA1hTTUsc1oBgg4FZ
+X-Gm-Gg: AYBFou0Qajq1y6mBYDzKQv8ARI8F9DEsS/P5+VRpSRQ6yLqOqEE5tAELLiYsmZG6rId
+	/Zmkv/ejrmsGH1ZuajCKWU0qMNLe6E1SxBakbkFML15vR6MG3oaYWg/4vvr/JOyCR5sIdlnzRTq
+	DYSuelyZ3rC8+ArOxspy2quNiPdvmqDkXnY2L/CAERksgRadieIqMHO/bCNHjBfrN5zSqmEeaEq
+	ucfSEueCc3V8fOBFGUK4KQMTK5CQBTEv2TD1DNMhd5vPs1QPO483nc4KoFRTmkDgRogFpIWu72U
+	zRirZXQaH8UVuVVuRpmkzDKTjWtA0vPn7h+0WQwbfZvs8grBX3tOAeHu5trvS+gpLqMO/33k3fU
+	m7p0JhPn6pTDgEscIrXGl2DNKrPSWPalFkAGw1RRhlV+elxPz7X0bbt+xfozVY0tkkFEeM5NJVx
+	Ld5pLCA9vBBbO39+qm3dz4/QD5A4b0Yitf9Yd6YIgRgu5DqLkpqSv2B14zFI43aLtgTBE/Qe7/d
+	mcAp0M86Q01fjwhB+f5bSk2VhZK5prHfy9bzQINPxfNKVvF+g+2UV/tRytQEaTL4mCQ+5VJR4ZX
+	m/SeWww6tbR+dr/5iPY4HJcoXOzS++pNg+z0q3CbNTGARLV6AyGMfKujr5xJGk9zFkZLRonxMo8
+	JG1MKIXOYjjwCZC9ETwrspThY3A9HpjevaA==
+X-Received: by 2002:a05:6000:430d:b0:48e:25d7:d276 with SMTP id ffacd0b85a97d-48e6e2c3527mr3261224f8f.2.1793344420640;
+        Fri, 30 Oct 2026 00:13:40 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (93-34-92-187.ip49.fastwebnet.it. [93.34.92.187])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e71b78c10sm1489936f8f.25.2026.10.30.00.13.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 00:13:40 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Stefan Roese <sr@denx.de>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>
+Subject: [PATCH v4] i2c: mt7621: rework cmd/wait OPs to support atomic afer variant
+Date: Fri, 30 Oct 2026 08:13:23 +0100
+Message-ID: <20261030071325.2678-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,115 +101,208 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|BR2PR04MB667331:EE_
-X-MS-Office365-Filtering-Correlation-Id: f7ca89ec-42ba-43ae-b65d-08df36553d82
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|1800799024|366016|10067099003|18002099003|22082099003|56012099006|11063799006|5023799004|4143699003|261026140227099003|261026121527099003|261028144727099003|261022075727099003|261022105027099003|261021121427099003|261021123027099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	cgX4mr8s/ZFjrh3rJCkYdGR5xdN/1Xx2KZDs1qal5Be+74/3vV+dNbRhmpaZlBo0ZrckRxxmjwbgx9ion+QQNfLe2O2lteUPgRpNRG/xcQVkcRxiRwrzenPLNmh2qGTew+R6BDAmWq4d8Kz3c2aPiSeUtIgAI7YWVUcwmCw4hmDO3K4CbtmwNG9hyR5Ycg6zuZPUflMcI2SU4dGRD5SJYC7apX+mKSsNCYn8hSKcMhuPkVPf8druQENIeg6RKqWiuOWQ5R5L1y2m/Xago1AtKTQS3W9WNXs86Z6t1W/0wtIrROQayajO87kgv2Lli0xPwmCKG/vHyabiR4zDSfccEg2Nh5IqNimAC/RZO1b2EOsvnaTy0/PEuvsTUl6W4uoYOxqqvOwuHc5dUdA/pjCeyvl3EwBAblujh709gZLqpJimLTIisGrPniOADG2eV+jX+sU0hJM6K7x2+Ha/Jatug+KBQZmxsPIvrHXNGi4NANNgHVokyhV9QQZ2xxqspACyx3/arF6uu9dh/ypos7NshlFtanBdzDx+Z1xD+HpQ5bQvljPxAZ7J/dwyero6ArgkS0Gp6yU1ABKfH+RfXQblQh0OEFvUwADD85xQ0Bd0T1A3Huyc9e7reQcGh1AkBBnvyxwU1CcpXq7ZTEYtkt0niPWIZGX4C82cc3Tp66yRHMc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(1800799024)(366016)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(5023799004)(4143699003)(261026140227099003)(261026121527099003)(261028144727099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?dR3a8hIsb3Ebd562/q0pBNA3TGmQeqIdwyaAqW6LjuctgbniNc1Qyz3pM4nt?=
- =?us-ascii?Q?KWH6zaMpGYjjMx4vLL5aHYmQqcSEh1zKEiFjwZVe9h1dnQYKlISHxw/GNsDa?=
- =?us-ascii?Q?tob3JQaFIrJlVrhfpN9iQ8ENg3NGUje083VY/n+Z+Bjkq3zb0pGGtU6YFxGk?=
- =?us-ascii?Q?/bmze4W8xEwAltqe80mHsoCq5BkNkQTv0vZm8178gpPc4QGzhMDAS38uHix+?=
- =?us-ascii?Q?D3uRjZIi/+tIgnaeHFx+sbWlAX15O34EuafBPeZm1pKYUDqTOmROcwZUssxT?=
- =?us-ascii?Q?/Trfnq3+YSEhTiGXyTAsCDaHPCLowtZgOW9CR1JhXboiBI9n6XVVYT877QGq?=
- =?us-ascii?Q?tmZ43d8BlykQK8/SGZtMpAYBQstk6sLmKOKB/RGD0uQr2IAFVlxRlTjBexwF?=
- =?us-ascii?Q?4U6crBGuos53KRan+TfIIbEZtQNEDawyetYgQB4S9Q62KSGqwQQGXR3jxDYW?=
- =?us-ascii?Q?92PVermrUhpBdRYzMwcU8AGs6SN9ILG7xEHLa+Z3p9uKnkltwVmS02oD0Htl?=
- =?us-ascii?Q?GEeZFgV5Z1xoUZZa5PZr6paIne8i8dvl5eOYH+R+VKQqJD124+gYE/bgpiDD?=
- =?us-ascii?Q?rZB0g8LmyFmJ+31FuY0dkEAOTmOn1aM6FZKPmBEpTmWVv+LqEWNrd5wRWxDZ?=
- =?us-ascii?Q?6H8JWhCMtRcW20Q9Ojp3KL8tQokmK/vjuOjX77vHneR0ylnpIOTNsUO29NWD?=
- =?us-ascii?Q?iQ3F6XfzqhMds8zqa3IulZaN5kZz3/UIzYSm5dlVIKlu5E6hEM35hEUlZH+5?=
- =?us-ascii?Q?MilWGydToAsPJALXsO6C9D1r63MIGpMeDeWBiuBaWpy2cptKtKc17QUYfeHb?=
- =?us-ascii?Q?RpAsDeRFarxMlNAnDIoFdcorp6gO07+8p0oeZFjB3oZMIzUFSE8GcwwRec73?=
- =?us-ascii?Q?shJSkcR4gNCCmx/GNaBn4ewxqLfpNDVgdL9IcwgYLT4ATcNWUiIQ9ChFD7wD?=
- =?us-ascii?Q?BHfz4v+h/ZQ/IFR9GZ/CVgQmkPVbsjTpdq9uGLcRgAkn/r1gW0T4a/+8LPPP?=
- =?us-ascii?Q?Z+lzBtopv6ZF4c76YTe29n21jb1xgS/2ls2lTGpQzRflfK7g6syXXoZkpI1j?=
- =?us-ascii?Q?OqwXbxIw+dfE4AITlYMeGAYvd3Nd8hQE0x/5deoNQTRnRwRSoXDiMiTcxaT7?=
- =?us-ascii?Q?SfJq1tkfODRjvN9buIrsDp2Z0tKEmfvRvz7V6YCK/qzpn6jBqdTt/bwVivZH?=
- =?us-ascii?Q?V3EZ4XquPAT7/vT9H8ob0X7+3Fu7t6grCEvw4iAoP5SQxlbHu+UR9rRioW+C?=
- =?us-ascii?Q?uKdSAP+/FCXhXLXmFrr5d+GeABR+srTExHry/ScMl+YX1TcygbcANLa+jjqc?=
- =?us-ascii?Q?/wTrZrgiBDxrx5oJnNpRGYOnjioGS1aO7vtjs/i8ICEkIn31vs+iNY+JPzNN?=
- =?us-ascii?Q?MenGDmThOnXAqe+ECrY44OjFRzra8I+hK5LWh2NMMxScan/22meXYwJoLJOc?=
- =?us-ascii?Q?vINYj54n8aThHn9APY8jMqU3Hv6cTPpVrO46z6H2AhxEJlCRxRVbyZD2ZVkt?=
- =?us-ascii?Q?ighqxLOcocbJ+hOhmqyeR4BFcDSyPjSVa6Mo25ZGyMo7tQ039Bxey+HxXbmw?=
- =?us-ascii?Q?iCl1jZTU9iFwzDnAByIR05p1Tu/l9thNjHJl+/bbyzWLdV0XZDtH0r0jq1yJ?=
- =?us-ascii?Q?5/aA0tDv6oUoJ7OL8xCcAX/gphoFkKvFXEUqoJooRXHOardWIORh+PIrN0eP?=
- =?us-ascii?Q?6cOnpl0zeJE3kfkKEjvFMgC8sol4kElg8zzLcDl5Y2O1VmSMMh6ZJlq0uUju?=
- =?us-ascii?Q?Q5lD08yDIA=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f7ca89ec-42ba-43ae-b65d-08df36553d82
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 07:13:04.2546
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hrXj0dDTOMqk2dfr++c61tgN9rhGLobQhRqMr+2Z/Xd7iu+3MmeenijATTMyUTx2Pi1LaQpO9iov8TYCytUwrA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR2PR04MB667331
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 11:31:45AM +0200, Laurentiu Palcu wrote:
-> On Mon, Oct 26, 2026 at 06:05:13PM +0800, Liu Ying wrote:
+It was reported the need for atomic operation on some Airoha SoC that
+makes use of I2C bus. Rework the cmd/wait OPs to suppor the xfer_atomic
+variant. To support this it's needed to do the readl poll in
+atomic context and special handling for device_reset.
 
-[...]
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
 
-> > diff --git a/drivers/gpu/drm/imx/dc/dc-dprc.c b/drivers/gpu/drm/imx/dc/dc-dprc.c
-> > new file mode 100644
-> > index 000000000000..a8ddcd117a52
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/imx/dc/dc-dprc.c
-> > @@ -0,0 +1,522 @@
-> > +// SPDX-License-Identifier: GPL-2.0+
-> > +/*
-> > + * Copyright 2025 NXP
-> > + */
-> > +
-> > +#include <linux/bitfield.h>
-> > +#include <linux/bits.h>
-> > +#include <linux/cleanup.h>
-> > +#include <linux/clk.h>
-> > +#include <linux/delay.h>
-> > +#include <linux/device.h>
-> > +#include <linux/firmware/imx/svc/misc.h>
-> > +#include <linux/interrupt.h>
-> > +#include <linux/list.h>
-> > +#include <linux/module.h>
-> 
-> You can remove the include above. You're not using anything from module.h
-> AFAIS.
+Changes v4:
+- Split to dedicated patch
+- Reduce timeout to 250ms
+- Disable device_reset in atomic context
 
-Done.
+Changes v3..v2:
+- No related changes
 
-> 
-> [...]
-> 
-> > +
-> > +bool dc_dprc_rtram_width_supported(struct dc_dprc *dprc, unsigned int width)
-> 
-> You could probably get rid of dprc as well. You're not using it.
+ drivers/i2c/busses/i2c-mt7621.c | 75 ++++++++++++++++++++++-----------
+ 1 file changed, 51 insertions(+), 24 deletions(-)
 
-dc_plane_check_dprc() in patch 15 uses it, so it cannot be removed.
-
-[...]
-
-> > +	ret = of_property_read_u32(np, "fsl,sc-resource", &dprc->sc_resource);
-> > +	if (ret) {
-> > +		dev_err(dev, "failed to get SC resource %d\n", ret);
-> > +		return ret;
-> 
-> You could probably use 'return dev_err_probe()', to be consistent with the
-> other places where you used the same.
-
-Will do.  Also, will use dev_err_probe() in case devm_request_irq() fails.
-
+diff --git a/drivers/i2c/busses/i2c-mt7621.c b/drivers/i2c/busses/i2c-mt7621.c
+index 9ea5e3f9a763..0283191ac518 100644
+--- a/drivers/i2c/busses/i2c-mt7621.c
++++ b/drivers/i2c/busses/i2c-mt7621.c
+@@ -67,27 +67,38 @@ struct mtk_i2c {
+ 	struct clk *clk;
+ };
+ 
+-static int mtk_i2c_wait_idle(struct mtk_i2c *i2c)
++static int mtk_i2c_wait_idle(struct mtk_i2c *i2c, bool atomic)
+ {
+ 	int ret;
+ 	u32 val;
+ 
+-	ret = readl_relaxed_poll_timeout(i2c->base + REG_SM0CTL1_REG,
+-					 val, !(val & SM0CTL1_TRI),
+-					 10, TIMEOUT_MS * 1000);
++	if (atomic)
++		ret = readl_relaxed_poll_timeout_atomic(i2c->base + REG_SM0CTL1_REG,
++							val, !(val & SM0CTL1_TRI),
++							10, TIMEOUT_MS * 250);
++	else
++		ret = readl_relaxed_poll_timeout(i2c->base + REG_SM0CTL1_REG,
++						 val, !(val & SM0CTL1_TRI),
++						 10, TIMEOUT_MS * 1000);
+ 	if (ret)
+ 		dev_dbg(i2c->dev, "idle err(%d)\n", ret);
+ 
+ 	return ret;
+ }
+ 
+-static void mtk_i2c_reset(struct mtk_i2c *i2c)
++static void mtk_i2c_reset(struct mtk_i2c *i2c, bool atomic)
+ {
+ 	int ret;
+ 
+-	ret = device_reset(i2c->adap.dev.parent);
+-	if (ret)
+-		dev_err(i2c->dev, "I2C reset failed!\n");
++	/*
++	 * Skip device_reset in atomic context as it depends on the
++	 * reset-controller correctly handling atomic operations.
++	 */
++	if (!atomic) {
++		ret = device_reset(i2c->adap.dev.parent);
++		if (ret)
++			dev_err(i2c->dev, "I2C reset failed!\n");
++	}
+ 
+ 	/*
+ 	 * Don't set SM0CTL0_ODRAIN as its bit meaning is inverted. To
+@@ -117,27 +128,28 @@ static int mtk_i2c_check_ack(struct mtk_i2c *i2c, u32 expected)
+ 	return ((ack & ack_expected) == ack_expected) ? 0 : -ENXIO;
+ }
+ 
+-static int mtk_i2c_start(struct mtk_i2c *i2c)
++static int mtk_i2c_start(struct mtk_i2c *i2c, bool atomic)
+ {
+ 	iowrite32(SM0CTL1_START | SM0CTL1_TRI, i2c->base + REG_SM0CTL1_REG);
+-	return mtk_i2c_wait_idle(i2c);
++	return mtk_i2c_wait_idle(i2c, atomic);
+ }
+ 
+-static int mtk_i2c_stop(struct mtk_i2c *i2c)
++static int mtk_i2c_stop(struct mtk_i2c *i2c, bool atomic)
+ {
+ 	iowrite32(SM0CTL1_STOP | SM0CTL1_TRI, i2c->base + REG_SM0CTL1_REG);
+-	return mtk_i2c_wait_idle(i2c);
++	return mtk_i2c_wait_idle(i2c, atomic);
+ }
+ 
+-static int mtk_i2c_cmd(struct mtk_i2c *i2c, u32 cmd, int page_len)
++static int mtk_i2c_cmd(struct mtk_i2c *i2c, u32 cmd, int page_len,
++		       bool atomic)
+ {
+ 	iowrite32(cmd | SM0CTL1_TRI | SM0CTL1_PGLEN(page_len),
+ 		  i2c->base + REG_SM0CTL1_REG);
+-	return mtk_i2c_wait_idle(i2c);
++	return mtk_i2c_wait_idle(i2c, atomic);
+ }
+ 
+-static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+-			int num)
++static int mtk_i2c_xfer_common(struct i2c_adapter *adap, struct i2c_msg *msgs,
++			       int num, bool atomic)
+ {
+ 	struct mtk_i2c *i2c;
+ 	struct i2c_msg *pmsg;
+@@ -151,12 +163,12 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+ 		pmsg = &msgs[i];
+ 
+ 		/* wait hardware idle */
+-		ret = mtk_i2c_wait_idle(i2c);
++		ret = mtk_i2c_wait_idle(i2c, atomic);
+ 		if (ret)
+ 			goto err_timeout;
+ 
+ 		/* start sequence */
+-		ret = mtk_i2c_start(i2c);
++		ret = mtk_i2c_start(i2c, atomic);
+ 		if (ret)
+ 			goto err_timeout;
+ 
+@@ -172,7 +184,8 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+ 			len = 1;
+ 		}
+ 		iowrite32(addr, i2c->base + REG_SM0D0_REG);
+-		ret = mtk_i2c_cmd(i2c, SM0CTL1_WRITE, len);
++		ret = mtk_i2c_cmd(i2c, SM0CTL1_WRITE, len,
++				  atomic);
+ 		if (ret)
+ 			goto err_timeout;
+ 
+@@ -200,7 +213,7 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+ 				cmd = SM0CTL1_WRITE;
+ 			}
+ 
+-			ret = mtk_i2c_cmd(i2c, cmd, page_len);
++			ret = mtk_i2c_cmd(i2c, cmd, page_len, atomic);
+ 			if (ret)
+ 				goto err_timeout;
+ 
+@@ -221,7 +234,7 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+ 		}
+ 	}
+ 
+-	ret = mtk_i2c_stop(i2c);
++	ret = mtk_i2c_stop(i2c, atomic);
+ 	if (ret)
+ 		goto err_timeout;
+ 
+@@ -229,17 +242,30 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+ 	return i;
+ 
+ err_ack:
+-	ret = mtk_i2c_stop(i2c);
++	ret = mtk_i2c_stop(i2c, atomic);
+ 	if (ret)
+ 		goto err_timeout;
+ 	return -ENXIO;
+ 
+ err_timeout:
+ 	mtk_i2c_dump_reg(i2c);
+-	mtk_i2c_reset(i2c);
++	mtk_i2c_reset(i2c, atomic);
++
+ 	return ret;
+ }
+ 
++static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
++			int num)
++{
++	return mtk_i2c_xfer_common(adap, msgs, num, false);
++}
++
++static int mtk_i2c_xfer_atomic(struct i2c_adapter *adap,
++			       struct i2c_msg *msgs, int num)
++{
++	return mtk_i2c_xfer_common(adap, msgs, num, true);
++}
++
+ static u32 mtk_i2c_func(struct i2c_adapter *a)
+ {
+ 	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL | I2C_FUNC_PROTOCOL_MANGLING;
+@@ -247,6 +273,7 @@ static u32 mtk_i2c_func(struct i2c_adapter *a)
+ 
+ static const struct i2c_algorithm mtk_i2c_algo = {
+ 	.xfer = mtk_i2c_xfer,
++	.xfer_atomic = mtk_i2c_xfer_atomic,
+ 	.functionality = mtk_i2c_func,
+ };
+ 
+@@ -265,7 +292,7 @@ static void mtk_i2c_init(struct mtk_i2c *i2c)
+ 	if (i2c->clk_div > SM0CTL0_CLK_DIV_MAX)
+ 		i2c->clk_div = SM0CTL0_CLK_DIV_MAX;
+ 
+-	mtk_i2c_reset(i2c);
++	mtk_i2c_reset(i2c, false);
+ }
+ 
+ static int mtk_i2c_probe(struct platform_device *pdev)
 -- 
-Regards,
-Liu Ying
+2.55.0
+
