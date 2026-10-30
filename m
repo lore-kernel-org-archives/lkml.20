@@ -1,49 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793352007;
-	b=oV9YIyDXctRvW+bCxsqMX4d+zaNEv1tmeC/wZBLTXsXm+MFGVNuLYP6V6J9r8kV3AWah
-	 W43v4xp+Vdz9BiMvhHl+1HFP5qW/L2QzsOrIYlu+JZaV1pptsNZfS8s7sx0cVzaUQW9yu
-	 x0GBKTU6MoV1q8UmA528AGiR4xRKcsOedxQdQZ+Kt8jJ1LvvtKuBRNoRgimn1WASfZMnR
-	 d4aPhL0nj+YyVYTcSF8mprZpCfx6O6l3HUamP/1fY/6TNXqExUSPTOLyros2JtqmwZQ+O
-	 7RqdnSuqXPBqqOIC/YeIHJkU6XmiQorlwZAZW3bLCyI49uLP0Rbzu/8tiKjPpwQKM8w==
+	t=1793352008;
+	b=tRFxfGUKfBtwDU+5CaIaEKgnva3253oI5UFQs0TjvWP5BJF6FQC9K0t5Hbj1ciGtgi35
+	 q0dOTFgA+aieKSRV9wu3TtwWiMTmLZtsVvB6c0MSnUTj/jUaeXXKE8OLPsoh/qtVFlfG9
+	 U2fa+Qo6Iu8nyyd47mzqkC7rTxj2ukcsJfWtYWq7ZzsUcRaCCrEeBN3CIMtK/zfnfoAcA
+	 lCy21yV1lPqJCXom7Ev2bXYx7Fr4iBxqXfhzs1kwrEP3aEGodxCP3b7XrZ0EvFWspHpvV
+	 1q2bIreL34kN9sLkkalZ9skEldOS7ZGd4jA5XyO5c1YJjaLhUScpA0dlaEE25MxQvFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352007;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=wMjH5QFfbXjou1hlcW2es2kuGLk3Uu/YVisNAb4ULls=;
-	b=HHj7SnDBJtv7rSzOVksq/RXze3UgoxQ9b/PLRykH0K153RMoWGK4h4Cw2KD3x2ShAkMg
-	 0FB73YUQNuLZVmgn1gCfOTNzNAqsEZfmlOh5BaFffm6g5GMaLYO0N8IDVfTNLXnVXx4SK
-	 /VcZxb9WbHL3eYN0yHscPSt61On0q3zFH/ztdtuUW5jAboOnHS3J3tjUSHzhure3m1l9Q
-	 ecr2+4kviNoEYBCniH0cF6Q4pYtYtZRcHV7vOkT76sKFHSOu/rJzGsSFRrfCV13/LHELw
-	 on5+6/y400CNgy35Q5+ubE7vwXdpPso/ZNMo18d4Gh84pqwr60+8mK02vvQLo14tv/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352008;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer;
+	bh=uyCrS3trZJ5YkE9uiv746PMfpKl6S+0MjX103j94QEY=;
+	b=GL+GMOQhUAurHEIc1cdxCfkemtwaxp6bNoX8mqIi+f3amldiL4stWGIz/nQZHKFDGggk
+	 EkC++I0U+q23YklNChH8ex79QwNVSnLjDR0ipdMrbvpD1C2OvzPmSWZQGXoE0hO4Il7r+
+	 Ml7OslWM7oAu6UwIDy/eb4pl6w/lZGLk0/omllnQz/d3ex97zbs/7GgqjfIhpZXYpvYdi
+	 9EpVsEr1Y1I0sG0BjLqq/a8o7yYNKvwzUwkzrO/cx4w5/QcsWxUoTEmgrLL1QY6NR1h5m
+	 OXESzATqLSh4uti+GrwxxvD5GeReWXm6UYxfvIz7NYUN2lRbAEDaTJEVjwUs8iC2heA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kM2bE12P;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZiovnmKr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1439606A31D;
-	Fri, 30 Oct 2026 09:20:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF9F606A329;
+	Fri, 30 Oct 2026 09:20:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kM2bE12P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48DCF1F000C1;
-	Fri, 30 Oct 2026 09:20:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZiovnmKr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 650CA1F00A02;
+	Fri, 30 Oct 2026 09:20:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793352006;
-	bh=wMjH5QFfbXjou1hlcW2es2kuGLk3Uu/YVisNAb4ULls=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=kM2bE12PJtFlNjin4JIptVk0qKzFENz2goHlmx1tOlx8SkT11h5y4WWPFe0kvZ2zl
-	 ke7U4Z3ZBiDdI0VU5rd+Aq1mRiK2fSTTp1GUTKnhvHd6GdHIn8yGf/unFxJ++eowgE
-	 9VYbtXaQQbFTTnTl5uCtWKKKY+dlGGgjSL2HWszPsGHAeTemyDwP0f1KbPodtVWR/7
-	 KCpaB83dRjnNXZU9/b6mRG+K1qzq01gfDvIJGYusRLpZ7e/K3mMeLfDR+hB2s4E48i
-	 bOXOUTVqvR4LP1ryYaQxzb8NnLkLtsqB45L2BtWEBe+z76yyHGGVrxAP/nIJQW0dcl
-	 RYx9uiFmv1Gng==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 4017138007EC;
-	Fri, 30 Oct 2026 09:20:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1793352008;
+	bh=uyCrS3trZJ5YkE9uiv746PMfpKl6S+0MjX103j94QEY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ZiovnmKrsbRP2VmxkyKnd/smnpW9g2XeHW0OgwBRw81hFTmlrAmSSvb3ln6dSEnpS
+	 ELLxvhCk2YPWZNnGj1a2svlnm2Na5/RJ4FOkfREQuyZ9aNduDaW4TwX4bbf+HFDNvO
+	 ZOW3cwjUdvtUc0MBnsN2cT+qrQ1MNpIwWR3+JWrcj0gXh2ZJxhXcFodPEAbFHB7QxH
+	 vL5+HmXsf1mA2ITlitEbSNIr5z0W/a1kRfCOwKoMcla/Q5jot2XcbOaq0qvs6pxPJ3
+	 8WimzQ7l1rfc5b8a6lGS5lMdHJT3JFOW+bs53Ca2UPZtIQ/R8n/v/3EtJUJ0JpQrNo
+	 k/2vTfw6psolw==
+Date: Fri, 30 Oct 2026 10:19:27 +0100
+From: Daniel Gomez <da.gomez@kernel.org>
+To: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, Björn Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Onur Özkan <work@onurozkan.dev>, Andrew Morton <akpm@linux-foundation.org>, Julia Lawall <Julia.Lawall@inria.fr>, Corinn Tiffany <corinn.tiffany@inria.fr>, Liam R. Howlett <liam@infradead.org>, Philipp Stanner <pstanner@redhat.com>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, Samsung GOST <gost.dev@samsung.com>, Daniel Gomez <da.gomez@kernel.org>
+Subject: Re: [GIT PULL] Rust XArray for v7.4
+Message-ID: <20261030101626.0-da.gomez@kernel.org>
+In-Reply-To: <20261012115028.73246-1-da.gomez@kernel.org>
+References: <20261012115028.73246-1-da.gomez@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,44 +56,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] net: jme: keep RX MAC clock enabled for WoL
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179335200508.949794.12076819632653160478.git-patchwork-notify@kernel.org>
-Date: Fri, 30 Oct 2026 09:20:05 +0000
-References: <20261024-jme-wol-v2-submit-v2-1-7a89ef6fb4c9@gmail.com>
-In-Reply-To: <20261024-jme-wol-v2-submit-v2-1-7a89ef6fb4c9@gmail.com>
-To: Franck Baur <franck.baur.67@gmail.com>
-Cc: cooldavid@cooldavid.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset=utf-8
+X-Mailer: lorebird
 
-Hello:
+On 2026-10-12T13:50:26+02:00, Daniel Gomez <da.gomez@kernel.org> wrote:
+> Hi Matthew,
+>
+> I'm sending the Rust XArray for the current v7.4 cycle, although it is
+> probably too late for it. Just let me know if you need me to resend it
+> later, rebased or under a different tag.
 
-This patch was applied to netdev/net.git (main)
-by Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>:
+This missed the v7.4 merge window, so please drop it.
 
-On Sat, 24 Oct 2026 14:40:44 +0200 you wrote:
-> From: Franck Baur <franck.baur.67@gmail.com>
-> 
-> On the JMicron JMC250 revision 03, the MAC reset performed during
-> suspend leaves GPREG1_RXCLKOFF set. Although the driver enables Magic
-> Packet detection, the gated RX MAC clock prevents wake-up from ACPI S3.
-> 
-> Keep the RX MAC clock enabled while WoL is armed. Restore the gated
-> clock state immediately after disabling WoL during resume, preserving
-> the RX engine initialization ordering.
-> 
-> [...]
+I'll send a new one for v7.5 based on rc2. I'm also asking Mark Brown
+to add rxarray-next to linux-next. Let me know if you'd prefer something
+else.
 
-Here is the summary with links:
-  - [net,v2] net: jme: keep RX MAC clock enabled for WoL
-    https://git.kernel.org/netdev/net/c/ed9179fc7228
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Could you confirm by v7.4-rc5 that you can take it?
 
