@@ -1,51 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.244
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793346152;
-	b=psqfHd3WnyJXNz/Ue0Qre2sOC4Bz3ZCCXb7E6CQFtDGrlXY/RDxdzyNp8RrUSnOCNDg/
-	 oY6KUwovz3y+M8+8K1WWLVyvxe4KHdM20LofZKCAzTMc1au8EajjTEN9LlDMe4oAfpFmV
-	 +MKPSgUKO/vMmgYHSG6cfp9ksqBLdmR3ov6CevB963lFKCwR7sIScESiiD7lqK489gh5l
-	 vInviwXSu1eiISxi6imVEP0HSgNdPJlP9D7xZ6Q3br/Ei03FgfHgfsb8eZ03CYEB2mu30
-	 /5aH7UGb8Ok77jM7KnMlNMs8EWxotxKfODjsw0mE7VmE7D512NVlbMZM/zTVkleDcnA==
+	t=1793346196;
+	b=OLIi/Qio2KM026Avi0kvfQwXoddgFcVtNIwVGYndjEcYT2Im/o7ya6WHnzvYMvTGXfdN
+	 s8kBsq2YTSTRylpEQTZzD0n4y68SYqFjl7wkpHqCy4nq19VBWEtlmEd78JQJiYTKCm8c1
+	 bgJODChyfveG7gm9jc+APfUIUvsc/6jL7JADgpLOeekobLLB77OCkvaeFdjyT9Q9Pg6gu
+	 nZ71LPp6g5gcsax+dJW53zOIMVAVVXZ40nWI9YQ8kboUh0CNadZrm50c/Pka51+ntl3Bm
+	 J3Ih2juV/7DY1ljxwuspqU4h+WEQqT/REkqb6sby10Q9+s0Q8oXLIYDcUI8PUkqRyLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793346152;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=fUNT6Z1TW9+Yykt2ppxCjIsQei9YUsYiPRRoByOMs8k=;
-	b=ARmJvqkuXXIk7QsMX6MVzRhARI5rjZaCVDQamFYgQCY6MQhb+1IB2r7uQ2A3OK6jVeww
-	 sEAmIFgALUwcqv9lZBpz2aaxErenXzwHrSl8ehXfvVl/XkXEYx5ksQRohYd58cIjOE2KW
-	 yK9Rg/DWGnjU5TSqnftL3d30tQ9uRiuaaItc+ok4XvXe4zhMCJkJoCmpbYZOZQULPJ7eS
-	 MqhOhNj7NBwIhhd/L3KLVnIcz6vDCqTw93lHgCx578Lx1GeyH5uf16ODM8KzUmCdqCdTC
-	 6Yawe7KpVxDmpxkxCs2HODKbkVh1DMIdhkmP/1xZT4Lpw0fqcWx+kbNsOSOCHNbtTog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793346196;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=Ic/DznHWY6qYKyiKcZAzEYcjT1Csqaqbv7FtlV+91D8=;
+	b=IW4Ex60G2l65uzIy1myydk3WTkeaoqiNGy/tGcbrYt9UIBynClovvRuJNIsgXt0xyLkL
+	 PzS0RGkMth9QNgSPeBBItzRBjPOwDmoysGiCR7+JnIwdBuPDtrbjMJtbeqlF/BuiUaouB
+	 xGROvumhr0kPY0jq8mZCb7N6Pnj/BaFB+BQ/ktE+DPuefcMnRYeYIG+Bw/hqkEv7PXXCy
+	 MC7kk/rUrItzZAV50ZeOT+kT3UmB8JLhuat+HtMXgTKO+eyuABIINc34iSOEeQS5LucKo
+	 7cwFV2GXXNCL+m5PlV1nKa4A1jjDrKWrym7+mQ2AhsLGDCBqQ/Eh4sSngfqd+9FJpPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ONJCViQE;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UAZJq5bQ;
+	arc=none smtp.remote-ip=91.218.175.244
+Received: from mta0.migadu.com (out-244.mta0.migadu.com [91.218.175.244])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F233606A31D;
-	Fri, 30 Oct 2026 07:42:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F233606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B8A606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:43:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62B8A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ONJCViQE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=fUNT6Z1TW9+Yykt2ppxCjIsQei9YUsYiPRRoByOMs8k=;
-	b=ONJCViQEP+ktxKZBEokm3N/f0jcpWkJWHxJoxnfhBfHceBFmatFSv1QM1V2k3g
-	gZjbJgPTTqqvNZPl3lvlgIRSmRAexeSC8xloZQkT04U3+kHtcBGAofEQ0bAsvun6
-	rRMzeDSSMiszSLzk+FP35BZWgKLm+Jr3Z0dTfhkw+g0mI=
-From: Chunfa Zhang <zcf1810@163.com>
-To: linux-spi@vger.kernel.org
-Cc: Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
-Subject:
- [PATCH v2] spi: fix zero-length scatterlist entries for vmalloc buffers
-Date: Fri, 30 Oct 2026 15:42:19 +0800
-Message-ID: <179334613930.227576.16591083055909656623@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UAZJq5bQ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ic/DznHWY6qYKyiKcZAzEYcjT1Csqaqbv7FtlV+91D8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793346190; v=1; x=1793950990;
+ b=UAZJq5bQIWQcWogRotT3m9Fcp2toczLF3zLK4Jw6KpBT/l1dNgIOXYqpJUKrOZJ0jql8q064
+ IhNxFrTt0b/ds2xGUWvJtEd3Hr0f2xabJ6DEz5RzuPkEhnMPjGKQGrL+rahlIFHyhr7VdZEZ2/q
+ p24RlmK8mhysuh09UnGXijLE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c261683fd1f00c76;
+	Fri, 30 Oct 2026 07:43:10 +0000
+X-Mizu-Trace-ID: c261683fd1f00c76
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so5995e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:43:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzuh/+zQcJcEKFhSDKahxsFiw2oTrUwe5QlyyvOoQq2Yiq7eCTMdDz8LY7TRo7GK0EIhWNYOaLnxYskJ2I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBCX+Qtt/FBYp2UcmYfeOAzr3beed3h38gNs4dYQBRcTwbRCBc
+	LyBGjA4Tgp8qD4zBhuEWXjbNl+salLCdb0QaU7ZHGh/UabyzWPJpgwpYzDOyMAPWC9BBbJiX+IT
+	yxfB7prGm6pFSlI7rj7nsbsVKxnrBiQ71k9Fnn5zD
+X-Received: by 2002:a05:6512:39ce:b0:5bf:dcd7:86d9 with SMTP id
+ 2adb3069b0e04-5bfdcd78993mr28332e87.16.1793346189429; Fri, 30 Oct 2026
+ 00:43:09 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,94 +66,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:PCgvCgCHjnpbSuRqxLCLCg--.37347S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWw43ury8KF4UWF4UXF1rtFb_yoW5uF1DpF
-	WfKFWjvrsxGFyxAr4xAa1DZFyfAas3XrWjg34rK3sY9w45J3sFqFyjg3yagFy5JFs7ur4Y
-	kwsFgws5Ca1DZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jbHUDUUUUU=
-X-CM-SenderInfo: p2fiimirq6il2tof0z/xtbC-Rx9HWrkSlyEPQAA3g
+References: <20261025075138.2919734-1-fuad.tabba@linux.dev>
+ <20261025075138.2919734-2-fuad.tabba@linux.dev> <auO3Kiykovvs279e@arm.com>
+In-Reply-To: <auO3Kiykovvs279e@arm.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 30 Oct 2026 07:42:33 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTzvCAStFp4TOBJZ2dEi9GT_S0CW0i7HzB4Q_+qLbv5Uew@mail.gmail.com>
+X-Gm-Features: AclHuK-iAV_pLdWc4hp6CdmUshGwwfxe2S4f_ErlrqMD7iHGLjhkPDfxfT1tlNg
+Message-ID: <CA+EHjTzvCAStFp4TOBJZ2dEi9GT_S0CW0i7HzB4Q_+qLbv5Uew@mail.gmail.com>
+Subject: Re: [PATCH v2 1/5] arm64: Add override for ID_AA64ISAR1_EL1.LS64
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Will Deacon <will@kernel.org>, 
+	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Yicong Yang <yangyicong@hisilicon.com>, 
+	Zhou Wang <wangzhou1@hisilicon.com>, Arnd Bergmann <arnd@arndb.de>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-spi_map_buf_attrs() sizes the sg table with
+Hi Catalin,
 
-	DIV_ROUND_UP(len + offset_in_page(buf), desc_len)
+On Thu, 29 Oct 2026 21:14:18 +0000, Catalin Marinas
+<catalin.marinas@arm.com> wrote:
+[...]
+> However, does this need a plain cc stable? I assume you want it to go in
+> with patch 3 but that one only goes as far as 7.0. Same cc stable in
+> patch 2 which you may want to limit (or add both as dependencies to the
+> cc stable in patch 3 when committing).
 
-but fills the entries with
+No, it doesn't. Patches 1, 2 and 5 are only there for patches 3 and 4,
+so none of them need to go further back than 7.0.
 
-	min(desc_len, min(len, PAGE_SIZE - offset_in_page(buf)))
+Marc, Oliver, could the tag on all five patches become "Cc:
+stable@vger.kernel.org # 7.0.x" when you apply them? I'll respin if
+that's easier.
 
-Those two expressions only agree when a page boundary coincides with a
-chunk boundary.  On 64K pages with a controller whose max_seg_size is
-smaller than PAGE_SIZE, a buffer that is not page aligned produces a
-table that is one or more entries too large, and the trailing entries are
-filled with length 0.
-
-dma_map_sgtable() maps every entry up to sgt->orig_nents, so such an
-entry reaches dma_direct_map_sg() -> dma_direct_map_page(size = 0).
-dma_capable() computes end = addr + size - 1, i.e. addr - 1 for a zero
-sized mapping, which is false for any buffer above the device DMA mask,
-and swiotlb_map() then calls swiotlb_tbl_map_single(size = 0) ->
-swiotlb_do_find_slots(), where
-
-	BUG_ON(!nslots);
-
-fires because nr_slots(0) is 0.  On 4K pages desc_len always equals
-PAGE_SIZE and the page boundary absorbs the offset, which is why this has
-only been observed after switching to 64K pages.
-
-Fix the entry count to match the way the loop consumes the buffer.
-
-Signed-off-by: Chunfa Zhang <zcf1810@163.com>
----
-Changes in v2:
-- Drop the zero-length early return.  A zero-length transfer has to fail
-  with -EINVAL from sg_alloc_table() so that spi_map_buf_attrs() returns
-  an error to the caller; returning 0 there would report a successful
-  mapping that does not exist and would break the KUnit error-path
-  coverage that relies on the zero length transfer failing.
-
-The sg table sizing change is unchanged from v1.  It was validated against
-the fill loop with 20000 random combinations of (len, offset_in_page,
-PAGE_SIZE in {4K,16K,64K}, max_seg_size): no zero-length entries are
-produced and the segment lengths always sum to len.  Not boot-tested on
-hardware; the reporter hits the BUG on a 6.1.158 arm64 board with 64K
-pages.
-
- drivers/spi/spi.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index 40cda00..1b87fb2 100644
---- a/drivers/spi/spi.c
-+++ b/drivers/spi/spi.c
-@@ -1349,8 +1349,24 @@ static int spi_map_buf_attrs(struct spi_controller *ctlr, struct device *dev,
- 	int i, ret;
- 
- 	if (vmalloced_buf || kmap_buf) {
--		desc_len = min_t(unsigned long, max_seg_size, PAGE_SIZE);
--		sgs = DIV_ROUND_UP(len + offset_in_page(buf), desc_len);
-+		size_t off = offset_in_page(buf);
-+		size_t first = min_t(size_t, len, PAGE_SIZE - off);
-+		size_t rest;
-+
-+		desc_len = min_t(size_t, max_seg_size, PAGE_SIZE);
-+		/*
-+		 * The buffer is first split at page boundaries, then every
-+		 * piece is split into desc_len chunks.  Sizing the table with
-+		 * DIV_ROUND_UP(len + off, desc_len) does not model that and
-+		 * leaves zero-length entries whenever a page boundary does
-+		 * not coincide with a chunk boundary (which trips
-+		 * BUG_ON(!nslots) in swiotlb on 64K pages).
-+		 */
-+		sgs = DIV_ROUND_UP(first, desc_len);
-+		rest = len - first;
-+		sgs += (rest / PAGE_SIZE) * DIV_ROUND_UP(PAGE_SIZE, desc_len);
-+		if (rest % PAGE_SIZE)
-+			sgs += DIV_ROUND_UP(rest % PAGE_SIZE, desc_len);
- 	} else if (virt_addr_valid(buf)) {
- 		desc_len = min_t(size_t, max_seg_size, ctlr->max_dma_len);
- 		sgs = DIV_ROUND_UP(len, desc_len);
--- 
-2.25.1
-
+Thanks!
+/fuad
