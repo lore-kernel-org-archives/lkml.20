@@ -1,96 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.42
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.4
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793366843;
-	b=aQoesOueny12spNXguxVTbFEvRTRi6LsNNiSrVY8y7Giatha3v5uWn7vv3MSnOMgjxId
-	 UiPGBpNSiSyt7MlKRpw3m1988xMgHKdcfNogz3J16y+2MaSG9nOpx02pIXuqsuGDQw/06
-	 Aua/zVVD47syEoRaOCcsSFi3sBhTB61UjBCyrkXdVzhGSsitYIOEkJ8ZsqTqmdLiGpaK0
-	 fWdt+2OCc292P8pdSoqR1satNpwTybPzhb7wOrrS63temv5ZKtDNFAbnPaqpmSeUqUEuo
-	 C41qf9SAsqapfOpt1jB1CHKkdjBRs6SYcymILKPirTPqGsx3CnVmKzEMu3vZa+sUQqg==
+	t=1793366908;
+	b=BaBobUh+C06lUdqhQGrccvrd5Ypp86B5x6W9vGpcff7GRsa7iYiy0yrlVfgdhen60EUe
+	 E9bvmbOu0bzozlD3Njw5I+uaapvWITKwfYJ+GwJmQmyZoDsTG0uP6ZPQJl3SI1RM4yeSO
+	 /JjdRCc3wFW1/QokQx4cPq04kamWee8St/1mQk+TIK32+zaYz62/l/eaqqqtC0LUzQPW4
+	 o4Y3m9r2tWMu2y4BCvQ/aIwaMvUZ9um81KYG9aGlmXU5NREda9Igiii+8mwJjFnI71LmT
+	 XnFzlApxux31kVSlolqqN120oqOtGBSQ+Uz86zAMH7bVE7hE4jV6cqdwVb8bmKreEqg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793366843;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=GrU8j6+xqAC4pU3BEEl6Hoz9aLelwf3and71b4BEia8=;
-	b=Jjw770qqs+f5yLLNH853djTRnuHkeOZpwfuopgvfivGfTXapLUrIdmwhC0elR+Hta01V
-	 j5zlDnuYAZ24uejDEWIPud1x3nHrMzN6z7LZCHBrW2VD+r6o0dvlAetuJUrAAldSYbtw1
-	 D0lht2JVH1U9+e5yivdlqxWk9EImUPSdXCFxF7izMLCJgp2WLfcT1VFW4b8ek7V/tn6tt
-	 e31hy+guaNqrA+3eMvU/QDxS4fSRx5h9Bv0o2t2hrE21kf/xGoHzB6toq+KmqonB8lOxr
-	 IpWzUkcvw1ad4FeXKtEaj/DK+7x3QgJdPMpBAH3qW75rKuYhFbOte0aT7Xr5YZLDPfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793366908;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=zH5g64fjOLMbJ38z0p2aYus+q+wNYUqewdU9R66a5Aw=;
+	b=fLq1YNHrMWIy4yOteSpXRcOw8p1a1boNFnp/UY21dLSL3OHJrtTOrD2HQ30cmKeA7OJQ
+	 1IQig2wSxLt6fw5gs2BkSJI4ZUD1XdGa1T74NW0HIYo/jjj99twOPHFwi+Tpl4t7+SjAh
+	 dxWxAGy9+dowki7lToAE696oS/0rxsWb3M7kFpXWMevK4JbzWm5yqu5S+JmdOZHB1e53f
+	 u1zcb/la+b1R0NUYwU1P5q2WAujakwzZGt9En8WFem6UiyFx8zc23Y+kniGFLHxB837Gr
+	 G2G6eLheJ60FqjJRHmDwCMVAawFMX/kZ/uKR/G3pnHm35CJyCUvBFuto3fTT1ucUS8A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uber.com;
-	spf=fail smtp.mailfrom=uber.com;
-	dkim=pass header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=mfLwJIw1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.42
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nTk4iojr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.4
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010004.outbound.protection.outlook.com [52.101.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E083606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:27:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E083606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD21606A31C;
+	Fri, 30 Oct 2026 13:28:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBD21606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=mfLwJIw1
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-675617e81f9so599330d50.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:27:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793366842; cv=none;
-        d=google.com; s=arc-20260327;
-        b=W8K3J2HB5VlFwMESIBF+YbjXnZnY5WppxmY40i40nZTrPXy4PId93KQPYPCve+IwvW
-         okuFNhPpBw0UvDpU/MAkwq54o8oXi2pg5MixC6sMphe43upTAj22ql3rSKLm7m9GWPh1
-         CZ9WGwZUq9S8PtUgCS5w9yhdPpFXMgnsw5Sbq1FIYFonfptkUxFHA8fXrW9hX4l13Ax7
-         x5niVch3yFZ+cVz41dMBn7ZIUqFqNRSRVwgmxzlKZSZvlO+B/nFtHzGdGlFjNDaNc0Kc
-         HpPiKcta0m1v+zngI9U+wUzhwN00lSKaD/Es/NByOxzc55XE1yiasbRqQ/JuiN4IpQEf
-         Vybg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=GrU8j6+xqAC4pU3BEEl6Hoz9aLelwf3and71b4BEia8=;
-        fh=8sEAOQoKFdwFJcMKuHXsG8TkbYCFY0cNT+trweEdmFA=;
-        b=gR+AeqWaUYBJYubsTh0kperSjJqS6dZC9ju3h+IagduZthei9KABhAPllQpW+K9arj
-         F9eDiB2BZJyxP2PMmDVmvqNYJAyRE41TEpX0OmrF37PWnDkJq2N2BLCLCtuaPmuI8H3S
-         o6EJtKrwLnskverGtE87fzTfEReamzfpeiBVSOSFpNWzGb27nTo4tDz/C07KFOPdB+TE
-         +oINIFjHinJIpfY5F4Jsz1OTxVmDPzZI8U4kVWRlm/9PXGQhtJ4CAW8++YkXjJejNoEe
-         tzC0W/sI3iRyM3qyG+ApAxr8YLA1cYzxZWndkFtmGVohUhNFYZcp+and19hvX2FN/bQH
-         0+6w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uber.com; s=google; t=1793366842; x=1793971642; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GrU8j6+xqAC4pU3BEEl6Hoz9aLelwf3and71b4BEia8=;
-        b=mfLwJIw1WpoVDb7Qm/CEWyb7MKOANOTDSwnFWF4HyHAM6OB/TrZbwsHLsEwln9qScx
-         /cqdI0uqOP1QP8Ce91i/MoOMZZOYPmGWBnckYr/STHq1plF6JKbUn/EyPZIDN3LTC8Mn
-         Hj2a7Q1UxcuoGCyMRMXx2H1LHbhKB1rC/RmzY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793366842; x=1793971642;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GrU8j6+xqAC4pU3BEEl6Hoz9aLelwf3and71b4BEia8=;
-        b=TfHt+wp1HTZKtl6UYC5kDwfi75QefE+9zdlUUoWy/5xB4ITLYoV16d8/9uoIBOzoIZ
-         nBXvK40KWanyjYk6IlvR45nukI7kzeV1C/BPuLCpfrNHcFqMzmAQcJwmwF6MhGnZQKJu
-         9e2KftZUVYWdgoWlMBY1GQlbkHjfONmjTCfi0BmRvHr35jCP7w67AkA4yRvQoc2spNJ1
-         uVohZtOiQK6kg3wknm2KytEuVO4+/OEx9i4pWo0/sLLDwiikJyYeQR0e5wGbJcklFKN3
-         No7gPSvgQSBMc9DknYYBIpaPXj6gBYucStUZ+PoehyBwXiffpSW++WWGc92yNQtLccFv
-         uAog==
-X-Forwarded-Encrypted: i=1; AKwUvByfoO3SWLPkgMiNOfXF8OnKAbJG6n+woBUF5SY5D1MfUNKxwQKZw2aX293sm0Iwx178Ncx+KMV97P83J5Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFHBrkVg2Qa3pQNmaMZ2CltqeFy7TLsehty+zPuz559UmJNgZd
-	mJqtFycy6yE6ojoVyiwqs3dLwzGfPmi1fKhJmLM5wUp4g4+kYRCqpeWCW1569WE5OAuO4M47XGE
-	Jl+OY8tyTx76W28y+ju95OeTQyUhWeFJMeT3iK0c30A==
-X-Gm-Gg: AYBFou2dsST0hJimYitoYNEk9HkDHuaunrkzcuLjAWgHrTqRc2pBTY7MdkhTHWYRtqo
-	TyThhNMCfUe4soYK2upaeUXHi1xVBw6dmpDLvbgUpfAxNF8DKOtjNgnbv5o6V5MPovxlGgu7/Xv
-	ZXKCvzW4ouVDZZRtbuk2fLOidrO4hoR180NWwnAZ5Dt99s/MYMS9uv7keScW0brLahYHCw5xVH/
-	DGf1t6KFqvbXycl9SLf2d1uzaLrJ6X68qajSgh0cq4d7kd5jgndXOBoeDU9TpdAB9qy/pAKIBgP
-	LXATioEC1ZRYOhpJBq+bTkkMMe60TRd2PdJDLoajxiMeI88dcDvEdjNQur3tq1bfX7W/PoZBtUB
-	NJd/+o6gGrzFt1rWMApOqdRy+QOkoQUZo53qZ1Mzo9TxDZoSTfLogdY6mwM0e4eIjwWdD4w==
-X-Received: by 2002:a05:690e:190c:b0:679:b274:89a8 with SMTP id
- 956f58d0204a3-67ba4e96537mr1905585d50.27.1793366841600; Fri, 30 Oct 2026
- 06:27:21 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nTk4iojr
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TH5QPEOZhXCUNbFAiicouXjVhT62QQLp/WkaQy79ajvsQcrxlkY3UHkJOEtp/Z+09XV1o7myhd07lgBfTmErUBBJ/WQ9Z6TMJ6e6nrSqA2LiKKI50dHl7gmH6td1/5M4I1tUW2PXbNIw5actY3povNfGHNmMOPKb03vPqZ1LYyHrok33ll/P1UANhDvng5TnLvHQkS++K5XKxpKv9M6WGZvQyUIm9vfV2PndQUUcSuUOoKdAJokHAsLZDrGtfjp3bgKaM5N4bXq+UuQCie7KbrXP068oLnr03DaPYj4hSVWIEtgMW8GlOuTpKRVesefMubobcQMXd0yvZWAMh1PIzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zH5g64fjOLMbJ38z0p2aYus+q+wNYUqewdU9R66a5Aw=;
+ b=mQP2SAiSrBq79aby7Q59WJ9nH7SWX0Sg/pkENaqZtZ7r9fZSeqN3xeBDGrxdcWj+lxmmA45NjMLRWNMksINBMlMMIknNDmOqD5zlYS9gk//CXTjsmLsuVZguCvqiq4VVyv7Rni3/bDDK5r25Lzjkr+Ls4IgmvBO3nm2Hmzzn/f7XrYdOQ3UP9x8KN/MQ2XYXE9cvAAf9Qu+rDr8MOjS6qE5vGlxFbwxt6D9D6xzJ9K9X0dJBj+CILcuTtN1fczfpbfyYKEJ5y+syu8+bCajpTuurJBuWLxqRlN7MAY9bp3RvMk0s3bO5sunZVsEhrILZPquaaqEKG+dMGZhX9Lwtmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zH5g64fjOLMbJ38z0p2aYus+q+wNYUqewdU9R66a5Aw=;
+ b=nTk4iojrUbdFp3G+nREy7f5/AEI7zAlVvzU2vmKjHmIVRSd9M/j0Ym0oIBfY6gZX9jNVsC/e7TweGgsd01rH3n9Vh5Ae0tBDIi9E3T3leFECbt6b8i+aXM/2UTFcaLbr1W28oaLN6qlMAMddJD0pzQXWY4AzxcE8ddUb1DwGO+E=
+Received: from MW4PR03CA0086.namprd03.prod.outlook.com (2603:10b6:303:b6::31)
+ by DS7PR12MB5886.namprd12.prod.outlook.com (2603:10b6:8:79::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.10; Fri, 30 Oct 2026 13:28:24 +0000
+Received: from SJ5PEPF000001F1.namprd05.prod.outlook.com
+ (2603:10b6:303:b6:cafe::57) by MW4PR03CA0086.outlook.office365.com
+ (2603:10b6:303:b6::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.9 via Frontend Transport; Fri, 30
+ Oct 2026 13:28:24 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001F1.mail.protection.outlook.com (10.167.242.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Fri, 30 Oct 2026 13:28:24 +0000
+Received: from localhost.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 30 Oct
+ 2026 08:28:21 -0500
+From: Baorui.Liu <baorliu@amd.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+CC: Len Brown <lenb@kernel.org>, Robert Moore <robert.moore@intel.com>,
+	<linux-acpi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<acpica-devel@lists.linuxfoundation.org>, kernel test robot <lkp@intel.com>,
+	"Baorui . Liu" <baorliu@amd.com>
+Subject: Re: [PATCH v5] ACPI: button: Report wakeup key only for power button wakeups
+Date: Fri, 30 Oct 2026 21:27:40 +0800
+Message-ID: <20261030132740.459-1-baorliu@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <CAJZ5v0h_136ACZzxQ=MdvRx_7iYRu3L3z1tY01ONfkSz5JEXzw@mail.gmail.com>
+References: <20261012060847.486-1-baorliu@amd.com> <CAJZ5v0h_136ACZzxQ=MdvRx_7iYRu3L3z1tY01ONfkSz5JEXzw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,55 +107,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260928075237.3055101-1-irogers@google.com> <20261027231513.816148-1-irogers@google.com>
- <20261027231513.816148-10-irogers@google.com>
-In-Reply-To: <20261027231513.816148-10-irogers@google.com>
-From: Alireza Haghdoost <haghdoost@uber.com>
-Date: Fri, 30 Oct 2026 06:27:04 -0700
-X-Gm-Features: AclHuK9AYFKStnkTEp2YfN7bivnd5v_IjGJ3saQ2MjsqZIP8Gnf-VOrvu0UpqnM
-Message-ID: <CA+w=M=Ruwq+GceFWMb6ig7mtqtxyRogS_UYbC0Kn3jS_oM6oqg@mail.gmail.com>
-Subject: Re: [PATCH v2 09/18] perf symbol: Optimize symbol sorting with
- natural-run merge sort and binary insertion
-To: Ian Rogers <irogers@google.com>
-Cc: acme@kernel.org, namhyung@kernel.org, adrian.hunter@intel.com, 
-	james.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F1:EE_|DS7PR12MB5886:EE_
+X-MS-Office365-Filtering-Correlation-Id: e969f6ea-575e-4c51-54a1-08df3689ac7a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|376014|1800799024|261028144727099003|261022105027099003|261022075727099003|261009223027099003|261026121527099003|261026140227099003|10067099003|4143699003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	XxTu+hKj/E87htWG2tpAsF11qoI7jDzrurSYhJ3XRcdoV/F2T6bH3hBoyFPqkPF9euBeZIwH+bSQQFjTI42EupGmXCiJ4CkIKZFW9BcVP7ps9N/qDy1neR/3NGwFzMN4jgkrN2fsww0wJ3bcZtVYaEQY3T/hAPhwRkNkiXkTflUq8fJc4564Mg3Z8wk+9QRCe1m0/SO0sZ+ZX6oLnV1D5mfZXOEJ4hgylCvm06t5ZvDGUx5XJYQE9bUs3JcFp41nbDeQltiAHXvEkNIvkKU2K4G1+Ue5V4jCAM9wnpxPrLhhUIZteDHe1HS78tz3dW3o3duxlzZtAXG3lnIqlHpG71Yft794ZXuchjMRnklxK7fvNlC9nNnDNXT3vA5A+oFr161KWLvHc6nGr74Qn6aMJDOZGnc6CUj0C5t1UFVlkoTq1F12F6PivastEIPDqCcpTOJ4lrnZhXYbx9J8V3DUxvueUmj1GIdccpSOrQV9wO64+WyOpISFjPcbuOzfdTCRXUZ3J0ttE04d4mwa6iPm8nejVnw0bhs8F7VYztLC6Xu/LjJXzefGHX9zr23yW4Uz41DMKpIsRR2lwZ8sD+BjHntaenGg9hpnmw97vfHjzQtWJbhuJ72pYPoN7eyQE+hEhgdW2IkWCqEaJMTX96kmrUiy10BlwzEPv96cmP39CJCw3c+EHRDt3HvL9XEpCcy0Nx0gU/YzwlsDjys6EEdiUw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(1800799024)(261028144727099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026121527099003)(261026140227099003)(10067099003)(4143699003)(11063799006)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ZlRMSZRgO3Wwuvi3dyZIrbmycTaIg+ePPhXuZRpbRlQmRVKp7Eav+yQKMvFGdauGCVKZnJ+g7E7h/OQL2whw77Ao317W6WiM7BH5+IbUXQWSRX7dKGtKw28XMD7EVdg/2g3PpAsrVX+O5WVmHiyOmUltzJzkLTKUMPG864h3X578oCEVdbLbzjX4NaTi0B6xPDJJf0RPZNh2dhq9AHlyEGk0J/ycnfKj83jmpg11iQDEPAlMAyYyuzAUbuKC/qPEqC0xqkPL3yKkA0EBWYfU3nr6M8iEIocl2sA/qGTdET9Q12EY/9PVG5k6JoCNWTlVyQyzrwVZ/06P57rVdSo0WU1xR4xpf9klU/XhhnmtLVd3JPkSMVYbf+ilp+Pqkt+YHdJH+cAH3/5ad2g+YpLoOmKbqPsy4j17er2rajUHLHdWVJ453BcKedHf1dqrqxmQ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 13:28:24.0728
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e969f6ea-575e-4c51-54a1-08df3689ac7a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001F1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5886
 
-On Tue, Oct 27, 2026 at 4:15 PM Ian Rogers <irogers@google.com> wrote:
-> + for (unsigned int k = i - 1; k > 0; k--) {
-> + struct symbol *same = symbols->symbols[k - 1];
->
-> + if (symbol__start(same) != symbol__start(prev) ||
-> + symbol__end(same) != symbol__start(same))
-> + break;
-> + symbol__set_end(same, symbol__end(prev));
-> + }
+Hi Rafael,
 
-This changes which kallsyms alias survives. Every kallsyms symbol
-starts with zero size. Before, only the last alias at an address got
-an end, so symbols__fixup_duplicate() always kept that one. With this
-loop every alias gets the same end, and choose_best_symbol() falls
-through to its underscore and name-length rules. On x86_64, perf
-record -e cpu-clock -g of a getuid/getpid loop, before and after:
+Thank you for pointing me at the Sashiko review. I went through the four
+findings and agree with all of them. I have prepared a v6 on current
+linux-pm/linux-next that addresses them as follows.
 
-0.20% [k] __x64_sys_getuid
-0.20% [k] __ia32_sys_getuid
+1) High: sleep-in-atomic in acpi_suspend_enter()
+I agree. acpi_button_power_wakeup_pending() reached
+acpi_get_first_physical_node(), which takes a mutex, while
+acpi_suspend_enter() runs with IRQs disabled.
 
-2.87% [k] __memset
-2.87% [k] memset
+In v6, that early path no longer calls into the button driver. It only
+sets plain flags in sleep.c: the existing pwr_btn_event_pending for
+acpi_pm_finish()'s pm_wakeup_event(), plus pwr_btn_wakeup_pending for
+KEY_WAKEUP. The button driver consumes the latter from resume via
+acpi_sleep_pwr_btn_wakeup_pending().
 
-This host has 79 kernel text addresses with more than one name. The
-losing alias is deleted, so looking up __x64_sys_getuid by name fails
-too. If the change is intended, it needs its own patch and a test with
-alias groups. Otherwise, keeping the old "last alias wins" result would
-avoid it.
+2) Medium: IS_REACHABLE stub drops KEY_WAKEUP when CONFIG_ACPI_BUTTON=m
+I agree this was a real functional hole. The v5 IS_REACHABLE() stub fixed
+the LKP link error, but with a modular button driver the built-in call
+site became a no-op after clearing the fixed power-button status bit.
 
-Separately, __symbols__insert_sorted() shifts the tail with memmove(),
-so n out-of-order inserts cost O(n^2). In a benchmark of this code,
-300k random inserts took 3.4 s, where the rb-tree was O(log n) per
-insert. db-export with many unique unresolved addresses would hit
-that.
+Keeping the flag in built-in sleep.c and exporting a consumer for
+button.ko fixes both the link issue and the modular KEY_WAKEUP loss. The
+IS_REACHABLE stub is removed. The sleep.c flag uses WRITE_ONCE/READ_ONCE.
+
+3) Medium: missing compiler barrier between the two stores in suspend
+I agree. v6 uses WRITE_ONCE()/barrier()/READ_ONCE() around
+wakeup_pending and suspended in acpi_button_suspend(). The same store
+ordering is used when clearing them in resume: suspended is cleared
+before wakeup_pending, with a barrier() between the two WRITE_ONCE()s.
+
+4) Medium: race between clearing suspended and a late ACPI notify
+I agree. v6 calls acpi_os_wait_events_complete() first so queued notifies
+still observe suspended == true. It then samples the pending state and
+reports KEY_WAKEUP before clearing suspended, so a notify that arrives
+after sampling cannot set wakeup_pending only to have it dropped with
+neither KEY_WAKEUP nor KEY_POWER. After KEY_WAKEUP, suspended is cleared
+before wakeup_pending (with barrier()) so a new SCI takes the normal
+KEY_POWER path.
+
+I will send v6 shortly unless you prefer a different approach on any of
+these points.
 
 Thanks,
-Alireza
+Baorui
