@@ -1,58 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356212;
-	b=hqvw6dOXGPyT1a4BdhqAvb6s7EviBdNK+r8pmjRVfPbIzEl3ZaEJVnmaMX3q2zhkY/3j
-	 pX9cGQRJ399fSGZEGXaeOlvKGS3LvOvVAk7xPF5P6XbXc5Cv98Zma2yi49hYrJHUWhbQa
-	 eQNqQ5oUZO6+c0/5n/PFChm4sQW12XdnxbTGNQXir6BTEnL7ORjQCR8EgCmerQlbxDWiB
-	 9MDwGpZQ9YGO0I+0csh0RxuIDianwJbKW35i/yT+k+prjpqFLp13G6fJlYofbHTvw5tKg
-	 Qr5Q2KhlRheRtkCZy/wCfIbAmoBcsTCQ70vNS0T0FgAvU7IIXggj/NOFNY+nzwIR6qg==
+	t=1793356250;
+	b=XO7nuUlSXd9VwEvOc2jlJ9vymn/ZzQfDnurKGuaDcseqeiPo4QaRxTY1XO4vYXnt3qqW
+	 /8f8J8Kz+RiNAVSEUw3IaY43o3F3eSi+1PqvhhrE3FBrRHwUJH2/KbvJ0ax1f5vkRoBSx
+	 ul1ggWlV9Oykf5SemY2bIcdvrlt+pBImIQArF65R/411GmQ87cRBUdmTw0z0eFL2Rwyvv
+	 BfzJW7joYstvaW9oCtwF4Nskf+aGV/nqZivs2fOzNNzS8kSnaowE2vqDQvpgDzmBTeNmb
+	 zqFMpRR5eYlyN3U+0kc78B6HBMdMXH75LGrrX6SHgviF/OBBz47FZGdRxzSfYpxFLOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356212;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=3fqnYaEbIgdfSP54xBXP5ElKx2MmI5fRYIIKmYlYSIo=;
-	b=phXo9kMG9e6L04BAad+7B1VI+0d2IOr1GlSniqCCbd3t7Z3u8vHHC9wg/jW809wPGix3
-	 g8VTcDj4ycYThKCjVglt1QV4BUBTQktBnYmwAv5czWj0bhYSr0c8IaCJvDdwV7isayLoa
-	 qjVmYQ8T/u7DCxJPxeRIk/59EoaRZJXqUO2KQvqOlmeh+zhfD9bjnd+AbPRA2cu2Ga5QI
-	 yXqMdzNuO95MVGLb7EfBNdxuq6dnZmyc+JU5S1FGKD9yD1P1i6RcplmnrI4VqZaGMIBMh
-	 q4j5N4JNOpx2PKP/kug9Q7eQmwlN6Jp0GSxCSNsnDg62MdmT1O7KQmVnK3YbJZTOgcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356250;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=DMSB0S9yiCeOUcAaz9FS5qB4n2z+ffGpdh/P4EfWTmw=;
+	b=wSZQct43XS6MCQ9s5ytgTe+zwfqeLCJ9LJLnA+3RdVwN+JjMunPP/Wsk9NtQ+OljKFiO
+	 JTjGIdhZDIlzOzPErkQOvfnFN2NQA1imnma2FbBXAQtA/r3huVDwRVrO9gER0CHtegQ6z
+	 QSYTbXsYUIHeDMcmFdc674ihnD9u1oIQI2oFByzj6pZghRpyIVqI8M81WD1fQSIcDBECN
+	 tDoQWfwuSXmX+TXZzkDN7nazb+1vVOk7ECoHmNol61AvTuB/CvuoECR6B1E+BsiR0dc/h
+	 +xmteLaI7s4wjCtA92H+n4sjFnfP8xKdbqu6vLKLVxUSwqRL4wU+1R9WF4N3eOHKNdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e2QV4jF3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=ufc40rJ5;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C232606A330;
-	Fri, 30 Oct 2026 10:30:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84E0606A320;
+	Fri, 30 Oct 2026 10:30:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D84E0606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e2QV4jF3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40B661F0093A;
-	Fri, 30 Oct 2026 10:30:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793356212;
-	bh=3fqnYaEbIgdfSP54xBXP5ElKx2MmI5fRYIIKmYlYSIo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e2QV4jF3barcO0lZS1tbyQ1khPVcnTcl2rLOCfpGPGJ1R1sAniZooDlhazq1Cfcda
-	 Yzrfik5CNQ0ORuxCjfSjB3qJKW1Qq846YjHKgVk/0bIOzJAZYUWoPG5hi0gRMcT9tJ
-	 rADcsutQlje6H/VwFY3AOZmOGjN/oXpnLU5ea4tBWvPLQ8O5pqilhnNieuc+13HfCl
-	 wGkL3bIVqVq1RO5tKWfLIhXbBrGmo7a8UaKIxGeLADcXkglNPbf0UqThg2kMJfWipK
-	 55Qx+vM465ZI2pXzoISldQEGIhAylVWyFYKLuPFE894UGLXTHCCL6rRlD7Ur2Nkn/u
-	 ikr3HEgZFqiOA==
-Date: Fri, 30 Oct 2026 11:29:53 +0100
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Franz Schnyder <fra.schnyder@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, vincent.guittot@linaro.org, zhangsenchuan@eswincomputing.com, 
-	Shawn Lin <shawn.lin@rock-chips.com>, Richard Zhu <hongxing.zhu@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v4 0/6] PCI: dwc: Rework the error handling of
- dw_pcie_wait_for_link() API
-Message-ID: <wbjfuucq3na6ld6l64cbvs4ee7kthyqrxxln73bgr53r6b6uyt@wv5lwgb3hawd>
-References: <20260107-pci-dwc-suspend-rework-v4-0-9b5f3c72df0a@oss.qualcomm.com>
- <wsrntkojtitvhprw7q5sabqcvih24mpfwiwiq5e4fg6d2tkixs@6q2vtdfo4shr>
+	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=ufc40rJ5
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=DMSB0S9yiCeOUcAaz9FS5qB4n2z+ffGpdh/P4EfWTmw=; t=1793356249; x=1794565849; 
+	b=ufc40rJ59KzrE6MGxdgtIWMQLD0JCNxLpA5hSvpj4AofP/Y9nIHq0f8zeFK6KmFkQVqbZqnT6Pt
+	ClxDxikvfkbpYerIL3ii3MPF8gneEDYOuXiEgqmIH7FALWm3ncAM0MFhkLA0B5aUfMtmmybJb29Af
+	jC7Nc/WJHBIBmwJTu3YcFK2Z3YtP4gm/nZiiyIPVyUgRfco24988/s3Lcr8liTiOYH/393LZr1mdA
+	Kpk45XVA5ja9s1j4nwBOCVNo268SaC9WOR3hfrse5hdxYEGZGdTzEkDFdzVEbhPozfVuOR3Mvp1RM
+	8bYGZ/AXNQHnXQug02d33qTZJgmbvczhvdnA==;
+Date: Fri, 30 Oct 2026 11:30:32 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Ettore Chimenti <ettore.chimenti@linaro.org>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
+ <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren
+ <tony@atomide.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Christopher
+ Obbard <chris.obbard@oss.qualcomm.com>, Andrew Goodbody
+ <andrew.goodbody@linaro.org>, Paul Walmsley <paul@pwsan.com>, Russell King
+ <linux@armlinux.org.uk>, Rouven Czerwinski <rouven.czerwinski@linaro.org>,
+ linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 4/9] ARM: dts: omap: dm816x: refactor and align MMC
+ node
+Message-ID: <20261030113032.51b92b19@kemnade.info>
+In-Reply-To: <20261028-patch-ektor5-dm8168-dts-v2-4-4544429251e2@linaro.org>
+References: <20261028-patch-ektor5-dm8168-dts-v2-0-4544429251e2@linaro.org>
+	<20261028-patch-ektor5-dm8168-dts-v2-4-4544429251e2@linaro.org>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,87 +70,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <wsrntkojtitvhprw7q5sabqcvih24mpfwiwiq5e4fg6d2tkixs@6q2vtdfo4shr>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 13, 2026 at 11:15:28AM +0200, Franz Schnyder wrote:
-> On Wed, Jan 07, 2026 at 01:41:53PM +0530, Manivannan Sadhasivam via B4 Relay wrote:
-> > Hi,
-> > 
-> > This series reworks the dw_pcie_wait_for_link() API to allow the callers to
-> > detect the absence of the device on the bus and skip the failure.
-> > 
-> > Compared to v2, I've reworked the patch 2 to improve the API further and
-> > dropped the patch 1 that got applied (hence changed the subject). I've also
-> > modified the error code based on the feedback in v2 to return -ENODEV if device
-> > is not detected on the bus and -ETIMEDOUT otherwise. This allows the callers to
-> > skip the failure if device is not detected and handle error for other failure.
-> > 
-> > Testing
-> > =======
-> > 
-> > Tested this series on Rb3Gen2 board without powering on the PCIe switch. Now the
-> > dw_pcie_wait_for_link() API prints:
-> > 
-> > 	qcom-pcie 1c08000.pcie: Device not found
-> > 
-> > Instead of the previous log:
-> > 
-> > 	qcom-pcie 1c08000.pcie: Phy link never came up
-> > 
-> > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> > ---
-> > Changes in v4:
-> > - Skipped returning failure during resume as well if no device is found
-> > - Link to v3: https://lore.kernel.org/r/20251230-pci-dwc-suspend-rework-v3-0-40cd485714f5@oss.qualcomm.com
-> > 
-> > Changes in v3:
-> > - Dropped patch 1 that got appplied
-> > - Reworked the error handling of dw_pcie_wait_for_link() API further
-> > - Link to v2: https://lore.kernel.org/r/20251218-pci-dwc-suspend-rework-v2-0-5a7778c6094a@oss.qualcomm.com
-> > 
-> > Changes in v2:
-> > - Changed the logic to check for Detect.Quiet/Active states
-> > - Collected tags and rebased on top of v6.19-rc1
-> > - Link to v1: https://lore.kernel.org/r/20251119-pci-dwc-suspend-rework-v1-0-aad104828562@oss.qualcomm.com
-> > 
-> > ---
-> > Manivannan Sadhasivam (6):
-> >       PCI: dwc: Return -ENODEV from dw_pcie_wait_for_link() if device is not found
-> >       PCI: dwc: Rename and move ltssm_status_string() to pcie-designware.c
-> >       PCI: dwc: Rework the error print of dw_pcie_wait_for_link()
-> >       PCI: dwc: Only skip the dw_pcie_wait_for_link() failure if it returns -ENODEV
-> >       PCI: host-common: Add an API to check for any device under the Root Ports
-> >       PCI: dwc: Skip failure during dw_pcie_resume_noirq() if no device is available
-> > 
-> >  .../pci/controller/dwc/pcie-designware-debugfs.c   | 54 +---------------
-> >  drivers/pci/controller/dwc/pcie-designware-host.c  | 23 +++++--
-> >  drivers/pci/controller/dwc/pcie-designware.c       | 75 +++++++++++++++++++++-
-> >  drivers/pci/controller/dwc/pcie-designware.h       |  2 +
-> >  drivers/pci/controller/pci-host-common.c           | 21 ++++++
-> >  drivers/pci/controller/pci-host-common.h           |  2 +
-> >  6 files changed, 115 insertions(+), 62 deletions(-)
-> > ---
-> > base-commit: 68ac85fb42cfeb081cf029acdd8aace55ed375a2
-> > change-id: 20251119-pci-dwc-suspend-rework-8b0515a38679
-> > 
-> > Best regards,
-> > -- 
-> > Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> > 
+On Wed, 28 Oct 2026 17:06:05 +0100
+Ettore Chimenti <ettore.chimenti@linaro.org> wrote:
+
+> From: Andrew Goodbody <andrew.goodbody@linaro.org>
 > 
-> Hi Mani,
+> Update the MMC node in the TI Sitara DM816x device tree to align with
+> the structure used in other similar SoCs. The changes include
+> refactoring the node to better describe the target module and its
+> sub-nodes.
 > 
-> Is there any reason patches 5 and 6 were never applied?
+> Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
+> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+> ---
+>  arch/arm/boot/dts/ti/omap/dm816x.dtsi | 33 +++++++++++++++++++++++++++------
+>  1 file changed, 27 insertions(+), 6 deletions(-)
 > 
+> diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> index fc124f9ecfa1..e3d49651b44e 100644
+> --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> @@ -423,13 +423,34 @@ &edma 20 0 &edma 21 0
+>  				    "tx2", "rx2", "tx3", "rx3";
+>  		};
+>  
+> -		mmc1: mmc@48060000 {
+> -			compatible = "ti,omap4-hsmmc";
+> -			reg = <0x48060000 0x11000>;
+> +		mmc1_target: target-module@48060000 {
+> +			compatible = "ti,sysc-omap2", "ti,sysc";
+>  			ti,hwmods = "mmc1";
 
-Bjorn had concerns about patch 6 as it didn't handle the case where a device can
-get attached during suspend. So I dropped patches 5 and 6. Too bad that I didn't
-mention this reasoning in LKML, sorry about that.
+do we still need this?
 
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+Regards,
+Andreas
