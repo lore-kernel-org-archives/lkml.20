@@ -1,76 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357808;
-	b=EOlu0/Jbia/aG4uyzZl66flImRx8YgEc7Tn+anICWh6f5eMxUH0evQhCzyX1TMagGUXG
-	 ES92XtYYwH2YLfItl88lgUtjXSVKGSzJiFG0hRVZnwk2eXP/aWWV3TdgpHiRShl/ySihY
-	 w9IqtFjij8xyBmxJ3rn7v6jbO9PsqoeEoCMDOO+Um5gI3uRjSIx9dJZhCPcGrPhMqBFm1
-	 a8NAO1ndOyi8daVlZfgNugflPGbyHAxOsIwkdES4GHrq1h8JgQUp4s3BCfDM6c5ot1lV8
-	 dA4CGBF22jhTwjnuyl//U0NMzoqzCEQj8uv12zAUOq1VjQsac0DnYHBMd4rHNBOu7xQ==
+	t=1793357805;
+	b=3m2ZUok1l4bXG1kkcCcC1pi6tDnTTFSuSww2G03qCLq6+dn8s8YOua92LZFVbtCJLeEh
+	 Pr/XJwN0v1A56Y/kUokQTOhUileuKxz/X7mC3uApdZZHJD6R621mtFQstVFu2h9wrhtDV
+	 0W2desbFi8M6Hv7aMV31OCc++a97lwZopiq5qnNK9S/QoKgtjITvGhkG96cVDXBcjDATF
+	 ib+5A9l/e8YOwCU++pLt8VzQy7M0GTOC1ajLRRn6nGIepr80DYkyDJADaMUcyMvtnCLOt
+	 SnmNw4kqq2RiRtf4buop0ucnjbV4587ciuJkiA4EhyFN0OWlyqWRgmTPo/DS2tCZOVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357808;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=zZxX8pTnMO9FXNUIpz1udUKFf4OKo2nsyK1cnYF7t/M=;
-	b=Tytdals111sox9TLKw5FbBLst5kzBJ2lrhvIosTsZdhbNuZEHh3HLR3rsBNgyTZ4E+CJ
-	 M/WOJLMh4vKKi/HLMuEscGizQnh4IvXcBnhIfRvk/Y+OKu8BPZyv3ffySN/dkRkVo2SXA
-	 ue+y3oBXgoLnmiXcG09+J7Am/FGb49qTIDJeF6w2NTgAH3rrPYHj+KSyR71Gfwz0vxPKD
-	 qR0D/5CfRHsIpUlu76pSSaWwiUS+qWDz8sYe0eJB+s9Rgkvzhmc8YaMyhvKQPMoj4z8lq
-	 lvGeqLuoZwXQu/AefOAd/dhAPVz2RXnmE5sTNWMr9V63Qgg8d6FfVJnkH1on6CoNwWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357805;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=NTukFeVWe3gPBUSKesHzqoAHfR6mFj65R6Awtdh2s/w=;
+	b=FG8MRX1dkaKTRjuCiBnsAMJozrRWAHmeB9eDzPc6ZT5Si/RzHdpSHw/FElKKrsYhMfmf
+	 WlMxTyPWlhZ9fFyM6nexddy1rkHnD506jCZ9sPxFshzQil2WcuAd9Ppuu9srwJGJwOJ9O
+	 8k+iKJq2mY6HFLFz6MfYy/joUTENVHsThgHKF9WuR6O/lTAxO2IVTdxj7Js0+x6F7IleJ
+	 0gNxzbn8RAhGLbtPVfkUm6J/UVm/xpkuVDI98gD0mN4WxsYmKLsaioa1iybFVS1K9W1yr
+	 yOB1bMqvVxa4SjtS8KoIKg1lQJqgqVoe9W1OKV+IR6Grt1YG/YPt+sNcAY2e7bas4Wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.172
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOlfwdnY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3EF606AC10
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:56:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A3EF606AC10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5ead32bc7d8so547902e0c.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:56:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793357807; x=1793962607;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zZxX8pTnMO9FXNUIpz1udUKFf4OKo2nsyK1cnYF7t/M=;
-        b=fQVqqB411gpJZuxEJF7l8LRMld/ioEwJ0iqeRdBh04zQjkeG1rxKjAGAxkfLv5fMI3
-         9qadUVQIVYC3iDb0OXWwZJsA+iai2FEnJrqdK9zlOkZPmZSTsu85ECx5LMOm+WXfEreh
-         gZDH4xpl3byULyVz9+4Lw3vzckmuJLNdsENlXEZmJCZ5zJx5Ek4pSdjbNTRKXh97B9uC
-         3fF+vsrr8T2OFKLdYVnBvJZrb4ynqzYmejpjZFhclthsfX6qR3qfBDQia5tdbHZlYmFk
-         T0I3wNEzNGL1y4r9todEQaR4Btvyd7Lw3L5GTZEyIVVbkCHJs37cYLsnLxFImGhh4Odg
-         4h4Q==
-X-Forwarded-Encrypted: i=1; AKwUvByAK89b9GubzPDTg1tvXYmwfuS9cxvxEXQFrflp+3hbTEsm307UJyB5a3yoQX00hfTzpOY8h0m/ukfyo2g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIG/Csg/g5mjDZ7xPZiNoqsOATO2REyR14VRuO1AyAS27GSJFaO
-	gt0LxT7MjB44pt5ig2ISjrZMqilwXFnAHwvr/faW3F6Jx3UXTmfsOZyiXHNd/rdM
-X-Gm-Gg: AYBFou3Iq7PVQN0McX8rGN+17ds+6+U9Dh5RDpWUKr0Zpjp8VWomdAu9IUZMtvY+5mg
-	6cylrmi4W1EpeNz0oUyZ68v7/kR0+2f4HBJ/R+gXc4Oc2WwHXWLB/sYbE0dNLNS+NJYUgbqoqnO
-	ei+g9ME07ytIdG1HSVXlP/9wfB3ooBvGUp27a0a1jFnDimbDzTXLN811c1qZOAwwYSN3DKhHjnn
-	LBt1e49gjt5B3whZg+wMuFSICSpRxWnT3ePfEVg7UZ+GF1y9GusT68sTNGED8Lud4bDW+2kZy0k
-	tCuDV3Y/vC/SUuYDFlfO1W3nMBoKPRYPZG9wKvTpKyZLicvpopw4pUPJkzHF/XtHHWCQ/CQS3Ur
-	VwgUdq2ivVSyRyNyZKHBzck5VB0wDmynBpfkamC5qPPJFthIymz6yfM+U78PM5CMEU1oKV1MnIk
-	PkK4f60efwdT7p0rCr0vZW6zofBQi5uM+tvMNRW13wFJMA4YG187qJZdOfl0IGRezyLdOXEa6tD
-	ThB66X9tlufveIrVwLW7PcG4dC+A9LNHB3P+rY4x9uisleWTXwmJGkbYrAiRk5L7RF0OpsC6Cqw
-	oxINtyEOvU1Spc7Qe8nkXwtWoXTAjmV/nqt1J7rlSEV/Jb+OFsl3A4PJo7jhw3EJ7/Y=
-X-Received: by 2002:a05:6122:4892:b0:5c9:a7af:8178 with SMTP id 71dfb90a1353d-5ec6851cd6cmr934765e0c.2.1793357807371;
-        Fri, 30 Oct 2026 03:56:47 -0700 (PDT)
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com. [209.85.217.48])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69bf54casm1971043e0c.9.2026.10.30.03.56.47
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 03:56:47 -0700 (PDT)
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7c3b75caad1so406076137.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:56:47 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwnW4n9qAzuABEQeeNMS/bu3cyyK+GiNgIO91JyaWceXZTPvsSl6xMxtL5nbLSUmdbCzx57ah/Fn4ZgD8s=@vger.kernel.org
-X-Received: by 2002:a05:6102:2906:b0:7d0:57e3:d480 with SMTP id
- ada2fe7eead31-7d072bc7545mr969116137.11.1793357806982; Fri, 30 Oct 2026
- 03:56:46 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E5F606AC11;
+	Fri, 30 Oct 2026 10:56:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOlfwdnY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D371A1F000C1;
+	Fri, 30 Oct 2026 10:56:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793357804;
+	bh=NTukFeVWe3gPBUSKesHzqoAHfR6mFj65R6Awtdh2s/w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SOlfwdnYYz8WckYxuFfVvlTCtKkE1wFzHuUSnNEqKqynJXSaxyMQuNdFL2BUrd0Qc
+	 HY6PNBB8f9aEhNp0lYPVnggIo/3OSA6sA3iRp60HqTowDu0mQ37e3C8LGsdaC+r/+J
+	 yObsPI+ODTHYEr3b3h6hRg0e4FzvaUA52j4P8X0z9mqXQ1iXXFQesDChQUzSmQeshE
+	 p+lxkrC8CiogH9EpNAubYfcCc8JFGzxmSAeYWzTJnP/x+/9NnLFq+8XHKiZhyXgsjq
+	 HhZP2U4hl0ej2dWX7QO4kgIVWX+Q/xXQwkEsNzcUgJpy0KbxGa27mVkimISz5ZqZke
+	 kRTbIeireisYw==
+Date: Fri, 30 Oct 2026 11:56:41 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Romain TISSERAND <romain.tisserand@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Oder Chiou <oder_chiou@realtek.com>, 
+	Animesh Agarwal <animeshagarwal28@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: realtek,rt5631: Add the optional
+ MCLK
+Message-ID: <20261030-industrious-unicorn-of-pride-a4b188@quoll>
+References: <20261025145354.3476371-1-romain.tisserand@gmail.com>
+ <20261025145354.3476371-2-romain.tisserand@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,66 +61,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022051021.322705-1-artem122novak@gmail.com>
-In-Reply-To: <20261022051021.322705-1-artem122novak@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 30 Oct 2026 11:56:35 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXjtb6JeQzQEGtOUZDBTdkbrqn74prgXjs834oM6VH-MA@mail.gmail.com>
-X-Gm-Features: AclHuK-raKkavqAnXA5yb8ziHt_cunR7fYe8AA3WmHlqSjTPKtCXGrUItohDcxw
-Message-ID: <CAMuHMdXjtb6JeQzQEGtOUZDBTdkbrqn74prgXjs834oM6VH-MA@mail.gmail.com>
-Subject: Re: [PATCH] sh: sh7305: add TMU0 module clock gate
-To: Artem Novak <artem122novak@gmail.com>
-Cc: glaubitz@physik.fu-berlin.de, dalias@libc.org, linux-sh@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261025145354.3476371-2-romain.tisserand@gmail.com>
 
-Hi Artem,
+On Sun, Oct 25, 2026 at 03:53:53PM +0100, Romain TISSERAND wrote:
+> The RT5631 runs from a master clock on its MCLK pin. On boards where that
+> clock comes from a SoC clock output, the codec node needs to name it so
+> the driver can keep it running while the codec is in use.
+> 
+> Document an optional "mclk" clock, as the realtek,rt5616 binding does.
+> 
+> Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
+> ---
+>  .../devicetree/bindings/sound/realtek,rt5631.yaml         | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 
-On Thu, 22 Oct 2026 at 07:10, Artem Novak <artem122novak@gmail.com> wrote:
-> Register the SH7305 TMU0 module-stop clock using MSTPCR0 bit 15.
->
-> Provide the fck clock lookup for the sh-tmu.0 platform device.
->
-> Signed-off-by: Artem Novak <artem122novak@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Thanks for your patch!
+Best regards,
+Krzysztof
 
-> --- a/arch/sh/kernel/cpu/clock-cpg.c
-> +++ b/arch/sh/kernel/cpu/clock-cpg.c
-
-This file is only compiled if CONFIG_SH_CLK_CPG_LEGACY=y.
-Probably you should not use it for new SoC support.
-E.g. the similar sh7724 has:
-arch/sh/kernel/cpu/sh4a/clock-sh7724.c: CLKDEV_ICK_ID("fck",
-"sh-tmu.0", &mstp_clks[HWBLK_TMU0]),
-
-> @@ -58,7 +72,15 @@ int __init __deprecated cpg_clk_init(void)
->         clkdev_add_table(lookups, ARRAY_SIZE(lookups));
->
->         clk_add_alias("fck", "sh-tmu-sh3.0", "peripheral_clk", NULL);
-> +#ifdef CONFIG_CPU_SUBTYPE_SH7305
-> +       if (!ret) {
-> +               ret = sh_clk_mstp_register(&sh7305_tmu0_clk, 1);
-> +               if (!ret)
-> +                       clkdev_add(&sh7305_tmu0_lookup);
-> +       }
-> +#else
->         clk_add_alias("fck", "sh-tmu.0", "peripheral_clk", NULL);
-> +#endif
-
-... and thus there is no need to sprinkle #ifdefs in this file.
-
->         clk_add_alias("fck", "sh-tmu.1", "peripheral_clk", NULL);
->         clk_add_alias("fck", "sh-tmu.2", "peripheral_clk", NULL);
->         clk_add_alias("fck", "sh-mtu2", "peripheral_clk", NULL);
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
