@@ -1,68 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356767;
-	b=OJtBP+sE1dHPo6y5FJn4Jn5nisM1eVeg5ARzYT6CE9YPZIZo3y5UBuQH52nw4yiN50CP
-	 vN2k5/U1iM2UPo8VEwNW4Aw17HEklqY6ZdBBq+KXLS9DdIvTmqLIbAY6p/GtH99pvkyU6
-	 QUCJ5FpPUlv6FbWVR3QZrGZm1fAJVAHP52ECg+96qbn/PsKpjTRp9zYs1z31kXOykYEBW
-	 OQJMQLPcbsU9MXH5M7g/NtscFIP2YC3Q014puJ41ZAjivT93Dkf9zxjYB8W//nhKaZxuj
-	 W65yRzdiNt06QUzsp57xxpFxdBe3K688Uj+EdqvglhCnacIcAl9KdRcKtj1VVTQkB5g==
+	t=1793356768;
+	b=Hh5c/JuGmyzN9kihYpVFQiC//G0ARtd94Qc0C0kbD9ui6co0Pqvf6aKKgK8WeIvwBvzq
+	 dDHv0s7BLwn2daMOD6qFiaZ4uOM9U49KkkbIBoF5O0GOmMNgKXLx0DkS9xycq4t7QVk5g
+	 chi7j+4oglCuXLkNllCV3zCpp/0k/aBR+LdsVB9P+zO7mXov7v8wZFEZ5BhpjtgY/ZdpB
+	 CP4ehwlabRphh9eBDSkV8t7yI+svsGiWhRK+Sdu+4AFKNvU/JRYZnwHXTj6Si7ZBWF3oE
+	 LWQWGdeGprLR7vZHrvlt3ufSArwrZT0tqY4shW7uM56VSUd5p1LepTL3HmahKJnPkwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356767;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=wjG7FKcF6DVIebf85CftR2JZDuCPKvbO2fDSgQ7TNGI=;
-	b=u5Sgo8OdYMTXUOoKHMQBdEiP55pIx3I0AOkc45iTKul/DSOXyePKKzhxcY/KxMQnUDcu
-	 xSXfRR0itCVdUDPfECpqJ9PRarbomKVhUapm0V0hInvR8B3PpaYEVy1WxXZ8dWBvqYSh/
-	 GaQN90bH5PQY6HfgNI5DzzCtPTCSXkWrhdRm/lbzFX+z5T/dvKywydN9S0gCB7Ko/dWt9
-	 G0E/R+gGqKA8rI9Fm8JrpeoC/WONp2Jlq2R0+MQY41Vt+58SFrVSL0iH3TMGk4vOORidA
-	 6QIht5Zg4zzhXClQR/yhOE9R1DzPVo9QvctIbVh0vPirQw0CmQASDWPbijvQqZqMI6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356768;
+	h=DMARC-Filter:Received:Received:Date:From:Cc:Subject:References:
+	 X-Priority:X-Has-Attach:X-Mailer:Mime-Version:Message-ID:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=qOtVBURnDilyxFWXOG1CCLW2lEhEOn6TnvzakyEZlZI=;
+	b=vB0RnD/c/K1akd2DelPhjNB7FVvyUl0cVUMW4tsPXoZnXtFQSk5+BvPmrZFiIjSJcTf/
+	 zm5nbLOagV6JsSvr0Y7RLWWwQvVCgMbAOvUCyMr9UIF8FcVJK0PZgN8dM/pLmqVUJKAW9
+	 Oz/2LO1Kgj2SNxS/vASXEHnG1jff2aOZdWlbLH7rEMPnr4lTUSBoqwHsSCep+dFxpDo60
+	 RZlfa+3KWs7jCLUbfrpmjG4Lcqj9QvktkIb8LLfTSBCN6+FP3pwCNOPbSxt9DbQpBQyG5
+	 /wuJQ2IPN+P2yx/rhUn18RvTcRcRi6zzw2X8uUFtrEip0pTPjKLpx52Qju+MSaJZ+Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=DIufyy0l;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35980606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:39:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35980606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=DIufyy0l
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=wjG7FKcF6DVIebf85CftR2JZDuCPKvbO2fDSgQ7TNGI=; b=DIufyy0lzL8N/D2Ao3OItTiaPS
-	V0K6YxP1xJoaB77n1JhmRoPsB1Kc2vYGedOva0IfMWHZi99+G61H62/k6vHlKTLQFwCo5rXq3pAqM
-	WLCByLdpcnzVBBBwMvYO5g97yBSGeFuR66ONDfOSIewuGopbASMBKZdZduLEJihKObnuC+tH7W35q
-	SM6J06ypFu9JUTBWjePKetOimLJ8/KuSdtKYQQO5nc5hfnBPa1AhVMn0CnWrjl34n2QFTD4GbtTkL
-	VW0ji38tfFLkv6tW9n2WYMU+JfBYT3KgCKMjjoMyFwjDDl1X3KRVu1yVVUvbkXhLRcvgHh3D1jowS
-	5cSX1PzQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xMk10-00000000EY8-1mrn;
-	Fri, 30 Oct 2026 10:39:18 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id CF2873002D9; Fri, 30 Oct 2026 11:39:16 +0100 (CET)
-Date: Fri, 30 Oct 2026 11:39:16 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Qing Wang <wangqing7171@gmail.com>
-Cc: bsegall@google.com, davichazbh@gmail.com, dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org, mgorman@suse.de, mingo@redhat.com,
-	rostedt@goodmis.org, tim.c.chen@linux.intel.com,
-	vincent.guittot@linaro.org, vschneid@redhat.com,
-	yu.c.chen@intel.com
-Subject: Re: [PATCH v4] sched/fair: Replace random newidle_balance with
- Bresenham accumulator
-Message-ID: <20261030103916.GV2668564@noisy.programming.kicks-ass.net>
-References: <20261030095630.GJ2668200@noisy.programming.kicks-ass.net>
- <20261030102226.2501158-1-wangqing7171@gmail.com>
+	dmarc=none header.from=phytium.com.cn;
+	spf=pass smtp.mailfrom=phytium.com.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 11565606A31D;
+	Fri, 30 Oct 2026 10:39:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11565606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytium.com.cn
+Received: from prodtpl.icoremail.net (unknown [10.12.1.20])
+	by hzbj-icmmx-7 (Coremail) with UTF8SMTP id AQAAfwAXyJzZc+Rq3FAHBQ--.3894S2;
+	Fri, 30 Oct 2026 18:39:21 +0800 (CST)
+Received: from Foxmail (unknown [218.76.62.144])
+	by mail (Coremail) with SMTP id AQAAf8DwwXPZc+Rq6nPzAA--.17080S2;
+	Fri, 30 Oct 2026 18:39:21 +0800 (CST)
+Date: Fri, 30 Oct 2026 18:39:20 +0800
+From: "xiongyining1480@phytium.com.cn" <xiongyining1480@phytium.com.cn>
+Cc: linux-pm <linux-pm@vger.kernel.org>, 
+	linux-kselftest <linux-kselftest@vger.kernel.org>, 
+	linux-kernel <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?5Zue5aSNOiBSZTogW1BBVENIIHYyXSBzZWxmdGVzdHM6IGNwdWZyZXE6IHN0b3AgQ1BVIGhvdHBsdWcgbG9vcCBhZnRlciBjcHVmcmVxIHVwZGF0ZSB0ZXN0?=
+References: <20261028100241.189085-1-xiongyining1480@phytium.com.cn>, 
+	<b228d3c3-ac4b-43df-8829-edb9c459860d@oss.qualcomm.com>
+X-Priority: 3
+X-Has-Attach: no
+X-Mailer: Foxmail 7.2.25.563[cn]
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,40 +53,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261030102226.2501158-1-wangqing7171@gmail.com>
+Mime-Version: 1.0
+Message-ID: <202610301839207103055@phytium.com.cn>
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: base64
+X-CM-TRANSID:AQAAf8DwwXPZc+Rq6nPzAA--.17080S2
+X-CM-SenderInfo: x0lr0wp1lqx0bjrumio6sk53xlxphulrpou0/1tbiAQAECmrjns4IMwAKsn
+Authentication-Results: hzbj-icmmx-7; spf=neutral smtp.mail=xiongyinin
+	g1480@phytium.com.cn;
+X-Coremail-Antispam: 1Uk129KBjvJXoWxWw13GrWkXF4UCw4UurWxWFg_yoW5Gry7pr
+	W3Ja1xtrWqkFW8Zw1DK3WfXrWxAF4kZF4UGrs5Kr1rA3s8Aa4fJr1fKry8XF93Aryfur4Y
+	vwsYvas8Ga4UGrDanT9S1TB71UUUUb7qnTZGkaVYY2UrUUUUj1kv1TuYvTs0mT0YCTnIWj
+	DUYxn0WfASr-VFAU7a7-sFnT9fnUUIcSsGvfJ3UbIYCTnIWIevJa73UjIFyTuYvj4RJUUU
+	UUUUU
 
-On Fri, Oct 30, 2026 at 06:22:26PM +0800, Qing Wang wrote:
-> On Fri, 30 Oct 2026 at 17:56, Peter Zijlstra <peterz@infradead.org> wrote:
-> > Funnily enough, treating this as an independent variable and using a
-> > random number works and 'fixes' the slope change problems.
-> 
-> Hi Peter,
-> 
-> I explained this in the v3 thread: on a slope change, carrying
-> newidle_window_pos over from the previous window only shifts the
-> first allowed balance in the new-slope window (512 calls) earlier or
-> later; subsequent balances are still uniformly spaced. So the
-> initial value can be anything — it doesn't matter.
+SGksIAoKVGhhbmsgeW91IGZvciB0aGUgcmV2aWV3IGFuZCB0aGUgdGVzdCBzY3JpcHQuCgo+IFRo
+ZSBjaGFuZ2Vsb2cgc3RpbGwgZGVzY3JpYmVzIHRoZSB2MSBzdG9wLWZpbGUgYXBwcm9hY2g7IHBs
+ZWFzZQo+IHVwZGF0ZSBpdC4KClJpZ2h0LCB0aGFua3MgZm9yIGNhdGNoaW5nIHRoYXQuIEnigJls
+bCB1cGRhdGUgdGhlIGNoYW5nZWxvZyB0byBkZXNjcmliZSB0aGUgCmN1cnJlbnQgYXBwcm9hY2gu
+Cgo+IFRoZSBiYWNrZ3JvdW5kIGhvdHBsdWcgbG9vcCBpcyBub3cgc3RhcnRlZCBiZWZvcmUgc3dp
+dGNoaW5nIHRvIG9uZGVtYW5kCj4gYW5kIGJlZm9yZSByZWFkaW5nIHNjYWxpbmdfYXZhaWxhYmxl
+X2ZyZXF1ZW5jaWVzIC8gc2NhbGluZ19taW5fZnJlcS4gSWYKPiB0aGUgQ1BVIGhhcHBlbnMgdG8g
+YmUgb2ZmbGluZSBhdCB0aGF0IHBvaW50IChzdWNoIGFzIHNpbmdsZS1DUFUgcG9saWN5KSwKPiB0
+aG9zZSBhY2Nlc3NlcyByZXR1cm4gLUVCVVNZOiB0aGUgZ292ZXJub3Igc3dpdGNoIGlzIGxvc3Qs
+IGZyZXFzIGlzCj4gZW1wdHkgc28gdGhlIHVwZGF0ZSBsb29wIGRvZXMgbm90aGluZyB3aGlsZSB0
+aGUgdGVzdCBzdGlsbCBwYXNzZXMsIGFuZAo+IG9sZGZyZXEgaXMgZW1wdHkgc28gc2NhbGluZ19t
+aW5fZnJlcSBpcyBub3QgcmVzdG9yZWQuIFBsZWFzZSBzdGFydCB0aGUKPiBob3RwbHVnIHN1YnNo
+ZWxsIG9ubHkgYWZ0ZXIgdGhhdCBzZXR1cCBpcyBkb25lLgoKQWdyZWVkLiBTdGFydGluZyBpdCBi
+ZWZvcmUgZ292ZXJub3Igc3dpdGNoaW5nIGFuZCBzeXNmcyBmcmVxdWVuY3kgcmVhZHMgY2FuIApo
+aXQgLUVCVVNZIGlmIHRoZSB0YXJnZXQgQ1BVIGlzICBvZmZsaW5lLiBJIHdpbGwgbGF1bmNoIHRo
+ZSBob3RwbHVnIGNoaWxkIG9ubHkgCmFmdGVyIHRob3NlIHNldHVwIHN0ZXBzIGZpbmlzaC4KCj4g
+QmFzaCBydW5zIHRoZSBFWElUIHRyYXAgb24gU0lHSU5ULCBTSUdURVJNLCBhbmQgU0lHSFVQLCBz
+byBJIGRvbid0IHRoaW5rCj4gYWRkaXRpb25hbCB0cmFwcyBhcmUgbmVjZXNzYXJ5LiBUaGlzIGlz
+c3VlIG9jY3VycyB3aXRoIERhc2gsIGJ1dCBub3QKPiB3aXRoIEJhc2guCgpUaGFua3MgZm9yIHRo
+ZSBjb21wYXJpc29uIHNjcmlwdCBhbmQgdGhlIHRlc3QgcmVzdWx0cyDigJQgdGhhdCdzIHZlcnkg
+aGVscGZ1bC4KSSBhZ3JlZSB0aGF0IEJhc2ggcnVucyB0aGUgRVhJVCB0cmFwIG9uIFNJR0lOVCwg
+U0lHVEVSTSwgYW5kIFNJR0hVUC4gIEkgdGVzdGVkIApib3RoIHRoZSBzdWJzaGVsbCBjYXNlIGFu
+ZCB0aGUgbWFpbi1zaGVsbCBjYXNlOgoKV2hlbiB0aGUgc2lnbmFsIGlzIHNlbnQgdG8gdGhlIGRv
+X3Rlc3Qgc3Vic2hlbGwsIHRoZSBFWElUIHRyYXAgcnVucyBhbmQgY2xlYW51cCAKY29tcGxldGVz
+LgoKV2hlbiB0aGlzIHNpZ25hbCBpcyBzZW50IHRvIHRoZSBtYWluIHNoZWxsLCB0aGUgc3Vic2hl
+bGwgZG9lcyBub3QgcmVjZWl2ZSBpdCwga2VlcHMgCnJ1bm5pbmcsICBhbmQgcGVyZm9ybXMgY2xl
+YW51cCB3aGVuIGl0IGV4aXRzIG5hdHVyYWxseS4KCkNsZWFudXAgd29ya3MgY29ycmVjdGx5IGlu
+IGJvdGggY2FzZXMuCgpTYW1wbGUgc2ltdWxhdGlvbiBzY3JpcHQ6CgojIS9iaW4vYmFzaAoKCmRv
+X3Rlc3QoKSB7CiAgICB0cmFwICdlY2hvICJFWElUIHRyYXAgcmFuIicgRVhJVAogICAgbG9jYWwg
+c2lnPSIkMSIKICAgIGxvY2FsIHRhcmdldD0iJDIiCgoKICAgIGNhc2UgIiR0YXJnZXQiIGluCiAg
+ICAgICAgMSkKICAgICAgICAgICAgZWNobyAiLS0tLSBzZW5kICRzaWcgdG8gZG9fdGVzdCBwaWQg
+LS0tLSIKICAgICAgICAgICAga2lsbCAtIiRzaWciICIkQkFTSFBJRCIKICAgICAgICAgICAgOzsK
+ICAgICAgICAyKQogICAgICAgICAgICBlY2hvICItLS0tIHNlbmQgJHNpZyB0byBtYWluIHBpZCAt
+LS0tIgogICAgICAgICAgICBraWxsIC0iJHNpZyIgJCQKICAgICAgICAgICAgOzsKICAgIGVzYWMK
+CiAgICBlY2hvICJkb190ZXN0IGZpbmlzaGVkIgoKfQoKIApleHBvcnQgLWYgZG9fdGVzdAoKZWNo
+byAiLS0tLS0tLS0tc3ViIHNoZWxsLS0tLS0tLS0tLS0iCmZvciBzaWcgaW4gSU5UIFRFUk0gSFVQ
+OyBkbwogICAgICAgIGJhc2ggLWMgImRvX3Rlc3QgJyRzaWcnIDEgfCB0ZWUgdGVzdC5sb2ciCmRv
+bmUKIAplY2hvICItLS0tLS0tLS1tYWluIHNoZWxsLS0tLS0tLS0tLS0iCmZvciBzaWcgaW4gSU5U
+IFRFUk0gSFVQOyBkbwogICAgICAgIGJhc2ggLWMgImRvX3Rlc3QgJyRzaWcnIDIgfCB0ZWUgdGVz
+dC5sb2ciIDI+L2Rldi9udWxsCmRvbmUKIApvdXRwdXQ6Ci0tLS0tLS0tLXN1YiBzaGVsbC0tLS0t
+LS0tLS0tCi0tLS0gc2VuZCBJTlQgdG8gZG9fdGVzdCBwaWQgLS0tLQpFWElUIHRyYXAgcmFuCi0t
+LS0gc2VuZCBURVJNIHRvIGRvX3Rlc3QgcGlkIC0tLS0KRVhJVCB0cmFwIHJhbgotLS0tIHNlbmQg
+SFVQIHRvIGRvX3Rlc3QgcGlkIC0tLS0KRVhJVCB0cmFwIHJhbgotLS0tLS0tLS1tYWluIHNoZWxs
+LS0tLS0tLS0tLS0KLS0tLSBzZW5kIElOVCB0byBtYWluIHBpZCAtLS0tCmRvX3Rlc3QgZmluaXNo
+ZWQKRVhJVCB0cmFwIHJhbgpUZXJtaW5hdGVkCi0tLS0gc2VuZCBURVJNIHRvIG1haW4gcGlkIC0t
+LS0KZG9fdGVzdCBmaW5pc2hlZApFWElUIHRyYXAgcmFuCi0tLS0gc2VuZCBIVVAgdG8gbWFpbiBw
+aWQgLS0tLQpkb190ZXN0IGZpbmlzaGVkCkVYSVQgdHJhcCByYW4KIAoKVGhhbmtzIGFnYWluIGZv
+ciB5b3VyIHVzZWZ1bCB0ZXN0LgpCZXN0IHJlZ2FyZHMsCllpbmluZyBYaW9uZw==
 
-It does matter; you're rounding down. If you discard two fractions that
-sum up to more than a whole, you've lost a call.
-
-Let '/' be the integer division; then (3/2 + 3/2) = 2, but (3+3)/2 = 3.
-
-IOW integer division (flooring) does not distribute.
-
-The result here is less newidle calls than should have happened.
-
-You cannot argue they are equal, you can argue the difference is
-irrelevant. But so far you seem unable to see this distinction :-(
-
-Also, the uniformity isn't a feature per se, another thing I called out
-earlier. One reason why uniform distribution can be detrimental is if
-two CPUs end up in a synchronized pattern, then you increase contention.
-
-Now, again, there's plenty arguments to be had why that isn't a likely
-issue in this case, but you cannot blindly state that uniform is better.
