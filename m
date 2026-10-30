@@ -1,82 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793346255;
-	b=M86kJ/Kt/lDQJRPoy6QS6BcjFQrkqPlCnjpSK0HGzSGwJ2f8zRdzuFxjkhjYRVAD7vkB
-	 /BLrzfJPEIFjBTOXulyEIvw9bq16g0enTqs4KD2/5o5uOHb6TxzLyXKoY4u+hGxSCkAuB
-	 AGBnnKyGVdIyUbpCQlSgqgpwyOkosjhlelpGhq3TLyPKrDQb0oklMa+DCbP0qxSm4/EKU
-	 2c99/VxPFRwh/aSjlIqgZCULL802lKRtSkloU6tGpxXhJRggoVmLVg2sSz4xjWYLA3BG4
-	 Pjarkj46lIsHc713O31Xuzr1DCZi0scEXPpsyXSYXcl2vGdYf5SjPh/emxnXIjquTIQ==
+	t=1793346260;
+	b=v11Bu+z1tK84BIxgeVYb9FKlJb4f/Uk+oHQD7cIzfySwCsJU1mJPNe3L6VWiXtMqXptN
+	 XzZ6riJ36Lnv20p1GXDaSAL3A3hUnUwuzat0krJrhhUYQ83vD4Wcc31bObGT9lXA8xTfU
+	 BlSj+4b09QEeyF1CR5NDZRrEZrVNbka/K3EHPZmOYtSsC1O9vetFQND0nFRvMaFWD5R6Q
+	 NurgG43s84Lc0ehMjm73+0ZPgmYACWcgBRKP5yqTpZznSxHXcNmHn5Jd2eaOqYzoqpi5r
+	 jGR+V/Jsx/KmWyKPKLM5EgOjOUVOoiTYtghw7yqAkaEYcmf4AzTaRz0+upZR0R6I7Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793346255;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793346260;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=03qqmHBSW9MXdmI5eo6TZGADNcBJXPTGl20o2AD8AeM=;
-	b=xFe5/rXIEgHk2v72Mmi1zZenOmP9VWb5LbDuPz/3T/G5KqtntqqZIYBTpVNODnNoEXni
-	 rInFLAUBOr1NXrmRAgyTNZyV7RKGLVVkBREznW2g4Hq//0/rkHNBoSKZi5MscNjsz8GWs
-	 vRF1z3hzqScIpBKGHqA4z+tsoS/YBBBBLg1CLkkbQ7EqsQgCx0MQBA+s7BWIg4zrhq9vi
-	 3ei06wXBA9wtwvY5mm2gwkNZ5AwjANvC+0NQuqMCdSkU+AxKSbZmA8jl/eSiB6bTOZ5Sn
-	 lYgKbbK2oq5GXzCn0rvtyv/bftTI7abIH84pLwb5gWEdLrFIR0QxvowDmKoufRc4x2Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=swEU0gDnT+Ur08Y/4gcNOqhZccm16g7AYsEas7N5VRQ=;
+	b=PH5E+cnRtDGr7eljv8Pequ5KLcEepyxIMTDUmWLbelSOCITBMa4H8bjWzWMEsuu0FEXa
+	 9nMDRUDkrgHrKdvWd22enpMr17eAxNWLtEj6BGVyB1GZS1SYFYzkY4WYfKDVC2C1+2zLZ
+	 Lfn/u5/eusZfhRQjSYz0D1txp+BIVvZ46yCqudm04a/3/FDAG7dv6SGdWNkVbdLNU/bDz
+	 jS8Z1IRBmPx4/5GewOg16oS6JvFZGN3oSZxpaUpLBRQlcxpajiJp7eBP1qvu3JPspNsPh
+	 m6TsPwNeHx7pH3CuiiUwFhNvBUDws7Cxg1+XEjF1bCV6OHDJLkHlSsgWjgULhLRhgeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="I73D/JIW";
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wX8paL5q;
 	arc=none smtp.remote-ip=74.125.82.42
 Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E388606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:44:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E388606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79917606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:44:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79917606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I73D/JIW
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-15ea896ddc8so664452c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:44:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wX8paL5q
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-188406bb948so367347c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:44:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793346254; x=1793951054; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=03qqmHBSW9MXdmI5eo6TZGADNcBJXPTGl20o2AD8AeM=;
-        b=I73D/JIWeqqMaqnpN2TqvAc4FFoDTlDFdOPfAPRDSQxNojz3M7bdr7pnhe5X7NYMbq
-         bgSVBsbpvIMeIV8limp9+keuy7ZIbF9dJQP2PlZ/mtC6c/Qwdp1uZlPXLkLbi06hbTXT
-         8ag++qRuiTYIomfEhGtRsOVPQCZsX8jbBnLFXb9yZObTG59HlrGrVs/l7VjKmVj32g2+
-         u4OffBLWxV3sLKaX13zTsa3UboHXE0mDwbVlngXoZXYPclNSwo/+EFoFKvb5+GHRSeKn
-         fBf0d4TKrihlLG6qNaU4HOw4TN22FkICTjebC0IPL7fQSB/PQyZ4jlP27JUdL3jH4EuI
-         Rrxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793346254; x=1793951054;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793346260; x=1793951060; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=03qqmHBSW9MXdmI5eo6TZGADNcBJXPTGl20o2AD8AeM=;
-        b=0R5pKMozZcOy8FOeNJdYa2QvPJ2kO+ICZCY5Kx9pI2gGy8NVcIhVL04RsU6VD67wRC
-         678AO5fTS9LBNOvMg2B3wXon8VNJ3nwHfG888ZNrOqsU5OO2AoMKvqFzPYIP3QEfeWbf
-         6tTVmhHjAq58hCwgjl50T8tj/2iiKIO8Xb8VbJ2hXf+NIunQ1+nWTbbYIEDHu+Z9gdxj
-         lW3QjWjinS2qM9kFfTp8QhZjxL4tLMXF71VMU1q9iCFn9zzLaRCo/xQ35vqDdl7K0Fud
-         F9UoxsSqX2n2cFQq0vgjwpHUDj92TVzU5g89fPE8FunjuJrWwCXTbKeNhm31c+V32wa0
-         dsEw==
-X-Forwarded-Encrypted: i=1; AKwUvBy2213NxDeOtZ4iwHEGFij8n7zVyQ8+/gXcjp983YKKbSdOz0UBQLpxRiZEJV9tcKYBIFsZWl4F1jM9Vgo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2dq0MHrIbeDDKnASAUUlK2ea31JEKWWvoMVuTTTXkc515NqpK
-	IS4Fwd/Bi0buXi1N1W7bbpq2Ce/RVnVJauWU2sc8akXS7w0os8/5qvjt
-X-Gm-Gg: AYBFou0xpMBnLhWRbVqW/xDtQfHTjdm2uIEp5ZTHh2Ct3t3jXFkOmXfH6FXSC7zmGBx
-	la7dGvvGpJ1mWq8pgZxtX9xfzfcgWCTQDKCPiIqLHOWSwanPYW27AL4OSWEINo8Dw52L4XdcRNP
-	3OAd9CT5f/wuejy/g/xKFdd7HRfp6zyifosUcwODVzD+89VAaVzSrEKQJONobws1rg62uo6Kiaw
-	qCcUN2cSbf1OW/V4lqpoCULDsJHKpSu+Aet1FYFsBu/e9KOJjZYwlrnGa3AafJHbIxDK2S+ilzD
-	N58K0A/EyN07puI336iljY+xy+z3ZfVDddq2QBr/sfDSF3Dc9f9wmx5rp2NuCOqlTMBgm5jSEYc
-	JTaifxUHj8Bm/aJtpumEs2DaB7YPcDdWIbRLqFwAqcOUUDbGyf91R/6yq2zZPRFYXIh+i0aZIiJ
-	6xsVZZ9e6mIHEdYDKdKYXmlGVQgrtZDjsl5580p6x7nv6d76FYWpcNV6hiY1NDpnp8yRIkxzmcw
-	/tujiOFWxdULM0Nl3IbtEMbGXuubkxLh30naSZhVZQi+kK8pEvTH0yIdrVPIP6ooBxyA6END0JI
-	AO/YSxWVpsbPMsNbVpEWGLOXDQuNHsLDzjyw01r0JGUYVHoUWc6Scy4=
-X-Received: by 2002:a05:701b:4241:20b0:143:2968:564c with SMTP id a92af1059eb24-1ac5b9cb040mr2258198c88.26.1793346253483;
-        Fri, 30 Oct 2026 00:44:13 -0700 (PDT)
+        bh=swEU0gDnT+Ur08Y/4gcNOqhZccm16g7AYsEas7N5VRQ=;
+        b=wX8paL5qsDtcZsMgSgtZu/jOrHyINzw0qkafMwUUmyCKUP+cPCQ4QfoXL86d1EgC/J
+         vrzscfNIIQQmsTpvtNi5putEQE64KNqjVHVR24bmfCR5IHqBbNc2O3KY/wajJsj47gTS
+         eEelyAd1XBePozajS58A8fF5wVnwcLI3gIqhFgWdFyKQjuE2EfkO3QhNJeQBRJbjHSDi
+         llooS3PoM7dSrbJerzmjnNuBNBQmx5BNdSrHxVzao/urNix0sPT8tzQnAZAso40RJXnJ
+         7CY24bSy3DNsj8I9VxC2okaOrzxo3NVrwDd96BFgPyaxHRE6J5tgyigpCStizvxa9EA2
+         sCaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793346260; x=1793951060;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=swEU0gDnT+Ur08Y/4gcNOqhZccm16g7AYsEas7N5VRQ=;
+        b=IjfO+pVMo18r41kzBB8qaAsTHHKyHs+MYLS+kk0ls4pG0j+BvuoBuLdfga/I1sklTL
+         Q+472ay7e7AQW0iGboJOWPF4Muxo5x7ADGtIcTUy6UcMfHi/l5SNW1QraSAc3Ub/fn2y
+         YA+TWGDvptn5rK8XOauTKzT0M5wpujidq/YEfrp64fGyqRtrjbp+AIXMSrBb8r8DpEi+
+         XjFLtACTzKVY5mjFKe08fg2NpaxC45xDVwWw21kcUYgkOeGZW8NMTyIKKOBb2BYmyZJD
+         vHXWVKmeNCatBAgKS68f6+5yBmVayXC4/CfRR3Qp38yQnylRAM/HK0vulAaWXlVditOY
+         ezCw==
+X-Forwarded-Encrypted: i=1; AKwUvBwbFDuLhGD0aaN1cHcklMxyDYcUCO+OQ4wMS3HMVYYTnRAYLFwX3tEYCESyFpA66ZKLBNiiu9y+dw41a0o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7D01Qg4g2V4LUUYTp7T/wlWnaQ9bVFN1v+oUnFSmAbOCnrzDN
+	z4E5tQ+fKQagekt4cboOIhRBYmPdisBtCWY2LnrkTu3xVfZznHzvfWxo
+X-Gm-Gg: AYBFou3PgsGvZiEe9lX2LhQ74xbnZMJ3TgU77PMPBNOIFJ+4dDMXWaoa8eUEeeg06HY
+	DKA0DHWFvsfw1dJVXJC/bJSls55RK8prjdacOY4gGq0fJTL4+NsJ0YPLgpqraw5X8Uu2Dc/AxR2
+	23lFDH6KNoBPy9SH/iHEJIvNiDzZq6Kp/wl8myeMhsnc5rtMJFai+IvnbP5QAq0jmVCZBi2kXlZ
+	ZrEcqbdfzrPwFNUG+jEt6llyUtt7C8cQczrU+BYDl/hl57iFe+XU50MFbgxLL3TdHZ3qxZgb91c
+	f3aOvUfz2kSedmGfNyhQXaD2RW1FVnZgJ0SpfXgI3hb3hzv0/q/uedf7RMLXXo9u07E40CBp2MF
+	Fagy0pTJxQ6b+aiRNdvQnUbnwyWlaKcZrNXi6+1tjIhxIVU66yCD6SeMNE50K4m/a3vID7OWuCA
+	Z7ehIHu6YhnDlEDpvC9xYDE8v3pdCpgWITFKeaWS7AqDZ+I//Ja1jNADg6SNtH2WAWYMqElBGtD
+	X/dCUkDEKVhojpJubqR1cCvuW+XcGgrAK5o9EAOHyDuiEQJa4vscDvgT1l4+Xie6gVKUCDxVtgF
+	MbW3IjSevC/sDYbvSXwJEQ575AwJNtDz5VvAO1zdA8Yn0N2qBzBv2w==
+X-Received: by 2002:a05:7022:b0c8:b0:1ab:6b10:461 with SMTP id a92af1059eb24-1ac5e3231demr1805763c88.45.1793346259452;
+        Fri, 30 Oct 2026 00:44:19 -0700 (PDT)
 Received: from 192.168.1.130 ([2402:a00:163:2ce9:fd6e:e797:613b:a5eb])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c27cdsm7466562c88.10.2026.10.30.00.44.09
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c27cdsm7466562c88.10.2026.10.30.00.44.15
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 30 Oct 2026 00:44:12 -0700 (PDT)
+        Fri, 30 Oct 2026 00:44:18 -0700 (PDT)
 From: Ajit Singh <blfizzyy@gmail.com>
 To: andersson@kernel.org
 Cc: konradybcio@kernel.org,
@@ -87,10 +88,12 @@ Cc: konradybcio@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ajit Singh <blfizzyy@gmail.com>
-Subject: [PATCH v2 0/2] arm64: dts: qcom: Add Vicharak Axon Pro
-Date: Fri, 30 Oct 2026 13:14:02 +0530
-Message-ID: <20261030074404.33517-1-blfizzyy@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: arm: qcom: Add Vicharak Axon Pro
+Date: Fri, 30 Oct 2026 13:14:03 +0530
+Message-ID: <20261030074404.33517-2-blfizzyy@gmail.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261030074404.33517-1-blfizzyy@gmail.com>
+References: <20261030074404.33517-1-blfizzyy@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,31 +105,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add initial devicetree support for the Vicharak Axon Pro SBC, based on
+Add the compatible string for the Vicharak Axon Pro SBC based on
 the Qualcomm QCS9075 platform.
 
-The board description includes the debug UART, UFS, USB 2.0 host with
-an onboard hub, PCIe1 (NVMe), GPIO LEDs, GPU and DSPs.
+Signed-off-by: Ajit Singh <blfizzyy@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes in v2:
-- Use the "lemans" subject prefix and name the SoC as QCS9075.
-- Drop the PMIC gpio-line-names, which did not match this board.
-- Drop Ethernet and audio to keep this to initial support. They will be
-  sent separately.
-- Link to v1: https://lore.kernel.org/linux-arm-msm/20261029133654.6585-1-blfizzyy@gmail.com/
-
-Ajit Singh (2):
-  dt-bindings: arm: qcom: Add Vicharak Axon Pro
-  arm64: dts: qcom: lemans: Add Vicharak Axon Pro
-
- .../devicetree/bindings/arm/qcom.yaml         |   1 +
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- .../dts/qcom/lemans-vicharak-axon-pro.dts     | 514 ++++++++++++++++++
- 3 files changed, 516 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/lemans-vicharak-axon-pro.dts
-
-
-base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index ff8a35df7862..02c0ebc3668e 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -472,6 +472,7 @@ properties:
+               - qcom,lemans-evk
+               - qcom,qcs9100-ride
+               - qcom,qcs9100-ride-r3
++              - vicharak,axon-pro
+           - const: qcom,qcs9100
+           - const: qcom,sa8775p
+ 
 -- 
 2.50.1 (Apple Git-155)
 
