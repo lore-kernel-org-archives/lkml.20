@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793395289;
-	b=Otq7nzPJ8o6pUTpzfzwYjtWgfu5ZuJsJ396A0Qv37x2rYxLyPjEil6foEMOKKtHd0KxD
-	 Mna01yUhdMYab+k5fEJ/RHoueybhpcfK3ihiUH3PGdKdIEG3ZhB6vMCz3mIQESdpasIxv
-	 LNvL4S84wpPOQW04K6FOpL3DCPizE49XOndyWn/UNkjIdkeTHDOt1bP/zrtp2X3c27F7k
-	 +gqYZiJ16zlh3id2/t5EDW1DAzaoqOrHjmRlaDwmzCrYw3Wv0kW8rL9RakMss/NNPiFgT
-	 SG4c/u3Zvsf6/ftzBUTnjo8r+E8xCgDSoKav+8+ck0UNnihmKJV0pzLCFdzy8dnJTYQ==
+	t=1793395299;
+	b=4t2p/2rE2s1BuZnjKPbG3JcH91XkehA8YN44mG4N7A85LrvuwVVJ9g4GsplKi/J4N5OI
+	 ZARfxgMNdYoSWIpCg540EtA9Q1waoQRLcpHt2lDOVbIdO+MKyDX3PIpdRElCkIFkTSmbo
+	 I/BpoZfhp0US2UUOpxUHEXpDAW5OrH6v/scsVoBfjFWDdSb9L+lKSU1fn1hfC+ogKIxDN
+	 WqFr89Wu5aTETAsTOsI6RnLNxcCiIDDw+GwNj+YSRXj7B8HyE59HwFCY9HpyjlbF9qmmb
+	 fba9c/KbUdTIsa6r4zfYKYG9SoezkpN9Zi16Wh6TkMLnJnNQd7J/lVqZstQCUqQ/xQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395289;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793395299;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
 	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
 	 To:Cc:Content-Type;
-	bh=RcX2YZRJWHg2bC94YnzCHmgguqsUuMXALdhLJOO1CSU=;
-	b=2as9Sak8gXRh2Mot0h8JbjAAfhqA1nqzYRmhnC2FLueNMCiw+AO6/o32opclzki9AkMh
-	 8LtqNRO6VYWVqUArFQZY4DOefNMKC+6rQEw7VUGFA9VJJna/PG9Nen+O38MgcoMCekVMT
-	 wtDeDJLY9j/unCRANRJFnm30x2NxJwq/htPyw8z5CUbB2pAjWAJMSrK8B9NB2c5XemqpF
-	 fub2drqwvrZ/EsGUDNP5OVatvAHsRdDC33SEO8ljrqqURTuhYgJPIXBuTrTrWuZFm5Q8J
-	 5JcydD3euys+V8SEcAsBbmj3qSZGDn1932FxWBGg8vOlI5Xmjqcf4PLbCPe9RvOU8WA==
+	bh=8PE43LpzTPSR1zzdd4igy9DBsWKBaooNuQb+N+z+Bpc=;
+	b=psku+5YArzPl4SJfg/w01H6TF6bkRxIiiY9QpD+thzDfv43OZkMXTuCpVGx55wUJEx+o
+	 gCcSjdKvGbZOAccAqvcYvhynRtnzPiKjdQf3Ub3dD1nildcVYAQZL+ii4RqBrgNchT0yv
+	 YxuUTL6BtcdzE2U0p/OZHOjQbIfuuFCzKJBwmrrfa/xVgn/l1h0/T1rTy6BRP2rXb4yt6
+	 9O7zX+ZInI33o1Mk3ssvUaAYA/VXF7+m41h3JfIYz/2T7BYd3pzX3JaEZcqznDBMuV9tW
+	 N2ocU9FRZ9jr9K2TM2oQ9qGxsoPYG9o0lhECvefvpbot9TosKpa3VxxAi2ol6hNlRYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=o3SqJh5H;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="RQxehEg/";
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DF1606C319
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:21:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1DF1606C319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC0A606F745
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:21:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECC0A606F745
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=o3SqJh5H
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e954d87b48so18522085ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:21:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RQxehEg/
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a06bc723b1so1242744b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:21:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793395288; x=1794000088; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793395298; x=1794000098; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=RcX2YZRJWHg2bC94YnzCHmgguqsUuMXALdhLJOO1CSU=;
-        b=o3SqJh5Hj0Oct0vOoPUFXVsVMU3yye10P9R91YGVOyvMkxcAzuSMT4IK8Ui+bOYkL5
-         MoLjf5r01aYWMjShUBCeFCECcxaSGb8xAjCaEVomZVeEVcdHla0zZVF/AMLPJRHb9ONt
-         SS2s6iIAznd/vthvXVGTVXKidB1ek5aUSvqEUF0K2jBcxjSXeeknzYCOB2wTHXBOkYje
-         +ouxxhGXK8HUaqEbBWQkDMdOuwuxOIV0Oo4WYhBU/r82BhIzCpamhYCeINS26Sl01Ncv
-         L1yjKv0JrmZfaK0JPkkh7bnxU9wA9Y/LyRBEcxyeTdEV//gyRBrwPpHXtSP1pN4gzyJH
-         q0dg==
+        bh=8PE43LpzTPSR1zzdd4igy9DBsWKBaooNuQb+N+z+Bpc=;
+        b=RQxehEg/XWHFP9rTtr8cvtxUqkFzjkIGzaRovCJx1pqUuFcKs7CglKM65s7IcJJ4RL
+         +9YtSRlU+MW+gr0G+GKRY1hae1zm2SMso8HidOJJZTbenUe1A6ZVAi1lXQE/9lB5Wi6J
+         4Ot0xwnF9jx8A70DbF2QIsHNzX157MtO8jy2i1kX/2/0G4m/hfKioRWFSksizWrjdsAW
+         RYFVQWtVeN12H/1fISegz09wQo1i2tIXWNJEai2wDrmV0YjWrGVI3oTGq817QJu9BRry
+         X5MclJt5uBIhh9Q7IbUsFgV8W8bwNGkC68f35nz9upOHz5Q5ofC2quHMSoNTUvYxCG7G
+         J1lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793395288; x=1794000088;
+        d=1e100.net; s=20260707; t=1793395298; x=1794000098;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=RcX2YZRJWHg2bC94YnzCHmgguqsUuMXALdhLJOO1CSU=;
-        b=cm50bpLSkrsOhnEKSfVCbBczjcOptrgG2nC7pHx2SSbGPwFbuYDDlEkFAT06cL6JXO
-         j6JecY6+SdFLDCIJ8a4/tTotaqkYLeEpm/jfq48hCqlfuymUcjjtPco5tlAI+I/8wEsr
-         RiMv7aRW0/g3HAJtBW9ZE7X7GCIR5mKGGvEZUXPKvmeRGo0wvSe1DB3Nl1eRuWTrtJdI
-         BfOAMNi58N/HyDAXcGAJ1xgPjq6ZIjPS6upWIzTJfQp53qkpEiiY9KKWKZOiCrngv6Pw
-         nnDuU9iOCSTqqtk9UVp2DprJzHugIPQZOneJBEX6BPjMNzS4tj0h34OPRM00ChjixTG+
-         3x8g==
-X-Forwarded-Encrypted: i=1; AKwUvBwCD01D8jkywPYjELsAN4kts3VrVfZhaiTYu7VPTk9NGlkjSpY49YySBZDP/uV1mM4BzstVMEHdVqZBWNU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLP2ewP+8F+Qe1cn5lJKkU7IxVFpQwQ1Ja1XUa+9o8YuisrAEkf
-	BedkgwL8kUAZao2YdpTSwUJ/5XMbb5yymp/iakrCxuOVJzCE/W57x/LaiZHY6z9Nrqkb9g+4I4E
-	IcaRPnA==
-X-Received: from plbkn5.prod.google.com ([2002:a17:903:785:b0:2e9:6e08:e249])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1a30:b0:2e3:598:75b8
- with SMTP id d9443c01a7336-2eb364b0dc1mr36320905ad.27.1793395288251; Fri, 30
- Oct 2026 14:21:28 -0700 (PDT)
+        bh=8PE43LpzTPSR1zzdd4igy9DBsWKBaooNuQb+N+z+Bpc=;
+        b=ZH+vZ4qYeBNYkbbxwt4hJzrc9UyNtNM7k+T7kbQckS35iWv00WWlfrJuzW9xYl8UyP
+         jGWO4TLK819lRQfDXRjWjghcugWZFlsG4BJxgaxiNlXdraKWYkmR85Oh7dior7cnl1H+
+         LAHR6FxQj9aF01I22ZMKXA5qSbu0nNQwKT6PauzkYWGvoK7K4CJqTG4+4IG+Wnx+azrK
+         K9FQpkL1ex9NoJC4VopezYi4Nefp2QpZCVCWljkX7qAHqmNIDZwga7VejzSKaxxX8Miu
+         JpMiiHfY3fsnpVyOAOwlvsFV/qTZaqcrfOYXFTmvpuBOVfQdxKfE/K25PBJ9w8wrfRSv
+         +Nkg==
+X-Forwarded-Encrypted: i=1; AKwUvBy4W7xwsYdlIWv8cD7An6lmYyGO2EGGgRXZ8u4kjDKYKkJvopg4IwD7nqfyQEgIIHtHH0ZK2PkNm0OkmUo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGhuEcBkuw2h/Je6+H5qagB7vw9oBDZ3UU8htGqEL0DCi+R5rE
+	Ks/CPMj7b8081B9mWBf+gKUzhjei74vHGkUWR0mimus+gwYE06Klg4NTuaxMWbKhfcSb4uJQs1p
+	ZfE1eJw==
+X-Received: from pfbjw38.prod.google.com ([2002:a05:6a00:92a6:b0:8a0:afff:6594])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:600d:b0:892:e080:4ed8
+ with SMTP id d2e1a72fcca58-8a9bd7dc8bfmr2989556b3a.47.1793395298189; Fri, 30
+ Oct 2026 14:21:38 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Fri, 30 Oct 2026 14:21:00 -0700
+Date: Fri, 30 Oct 2026 14:21:08 -0700
 In-Reply-To: <20261030212112.2598640-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,9 +82,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261030212112.2598640-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261030212112.2598640-13-seanjc@google.com>
-Subject: [PATCH v4 12/23] KVM: Destroy memslots immediately after
- mmu_notifiers are unregistered
+Message-ID: <20261030212112.2598640-21-seanjc@google.com>
+Subject: [PATCH v4 20/23] KVM: VMX: Explicitly remove dying vCPUs from the PI
+ wakeup list
 From: Sean Christopherson <seanjc@google.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, Sean Christopherson <seanjc@google.com>, 
 	Paolo Bonzini <pbonzini@redhat.com>
@@ -93,102 +93,166 @@ Cc: Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger
 	James Houghton <jthoughton@google.com>, Chris Mason <mason@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Instally dummy, empty memslots immediately after unregistering KVM's
-mmu_notifier during VM destruction to harden against accessing memory from
-the wrong address space when tearing down a VM.  Because kvm_destroy_vm()
-often runs when the associated VM's file is being released, current->mm is
-often no longer kvm->mm, i.e. using the memslots to access userspace memory
-is inherently broken/dangerous.
+Explicitly remove dying vCPUs that were blocking when the VM was released
+from the Posted Interrupts wakeup list instead of very, very subtly relying
+on the vcpu_load() in nested_vmx_free_vcpu() to take the vCPU off said list.
+In addition to helping avoid future regressions, e.g. if an enterprising
+developer were to optimize nested_vmx_free_vcpu() by bailing early if
+"nested" is completely disabled, this will allow dropping the load+put pair
+from nested_vmx_free_vcpu().
 
-While KVM's APIs to read/write guest memory explicitly reject accesses if
-current->mm != kvm->mm, taking away the memslots adds another layer of
-defense and helps guard against rogue accesses that don't go through KVM's
-standard API, or that do GUP+kmap().
+Provide a dedicated API to remove a vCPU from the wakeup list, i.e. don't
+_completely_ abuse vt_vcpu_pi_load(), but do reuse the core logic for
+updating the PID control word.  Using a CMPXCHG8B _should_ be unnecessary
+as IRQ routing has already been torn down, i.e. no IRTEs should be pointing
+at updating the PID, and there are obviously no other references to the VM
+or vCPU, and so concurrently modifications of the PID should be impossible.
+For the same reasons, updating the destination should also be unnecessary,
+as nothing should ever send an IRQ.  However, relying on those assumptions
+begs for WARNs to ensure they hold, along with fallback code to avoid the
+worst case scenario, at which point trying to take advantage of the fact
+that the PID is unreachable would be *more* complex than what is now
+__vt_vcpu_pi_load(), not to mention KVM would have two paths to maintain.
 
-Note, simply hoisting memslot destruction above kvm_arch_destroy_vm()
-without installing dummy slots is not a viable alternative.  Doing so would
-require auditing all the paths of kvm_arch_destroy_vm(), which is nearly
-infeasible, and missing even one case would result in a NULL pointer
-dereference and/or use-after-free, neither of which is a substantially
-better outcome than the status quo.
-
+Reviewed-by: James Houghton <jthoughton@google.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- virt/kvm/kvm_main.c | 45 +++++++++++++++++++++++++++++++--------------
- 1 file changed, 31 insertions(+), 14 deletions(-)
+ arch/x86/kvm/vmx/posted_intr.c | 68 +++++++++++++++++++++-------------
+ arch/x86/kvm/vmx/posted_intr.h |  1 +
+ arch/x86/kvm/vmx/vmx.c         |  2 +
+ 3 files changed, 45 insertions(+), 26 deletions(-)
 
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index fa548b12228f..2eda12a52bf4 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -963,23 +963,42 @@ static void kvm_free_memslot(struct kvm *kvm, struct kvm_memory_slot *slot)
- 	kfree(slot);
+diff --git a/arch/x86/kvm/vmx/posted_intr.c b/arch/x86/kvm/vmx/posted_intr.c
+index 2644add54b76..4406e344ae6a 100644
+--- a/arch/x86/kvm/vmx/posted_intr.c
++++ b/arch/x86/kvm/vmx/posted_intr.c
+@@ -56,35 +56,13 @@ static int pi_try_set_control(struct pi_desc *pi_desc, u64 *pold, u64 new)
+ 	return 0;
  }
  
--static void kvm_free_memslots(struct kvm *kvm, struct kvm_memslots *slots)
-+static const struct kvm_memslots kvm_empty_memslots = {
-+	.generation = -1ull,
-+	.hva_tree = RB_ROOT_CACHED,
-+	.gfn_tree = RB_ROOT,
-+	.id_hash[0 ... (ARRAY_SIZE(kvm_empty_memslots.id_hash) - 1)] = HLIST_HEAD_INIT,
-+	.node_idx = 0,
-+};
-+
-+static void kvm_destroy_memslots(struct kvm *kvm)
+-void vt_vcpu_pi_load(struct kvm_vcpu *vcpu, int cpu)
++static void __vt_vcpu_pi_load(struct kvm_vcpu *vcpu, int cpu)
  {
- 	struct hlist_node *idnode;
- 	struct kvm_memory_slot *memslot;
--	int bkt;
-+	int bkt, i;
-+
-+	/*
-+	 * Install empty memslots to guard against memslot lookups while the VM
-+	 * is being destroyed.  Consuming memslots at this stage is a KVM bug,
-+	 * but "gracefully do nothing" is a much better outcome than "crash the
-+	 * host" or "corrupt random memory" when there inevitably is a bug.
-+	 */
-+	mutex_lock(&kvm->slots_lock);
-+	for (i = 0; i < kvm_arch_nr_memslot_as_ids(kvm); i++)
-+		rcu_assign_pointer(kvm->memslots[i], &kvm_empty_memslots);
-+
-+	synchronize_srcu_expedited(&kvm->srcu);
-+	mutex_unlock(&kvm->slots_lock);
+ 	struct pi_desc *pi_desc = vcpu_to_pi_desc(vcpu);
+-	struct vcpu_vt *vt = to_vt(vcpu);
+ 	struct pi_desc old, new;
+-	unsigned long flags;
+ 	unsigned int dest;
  
- 	/*
- 	 * The same memslot objects live in both active and inactive sets,
--	 * arbitrarily free using index '1' so the second invocation of this
--	 * function isn't operating over a structure with dangling pointers
--	 * (even though this function isn't actually touching them).
-+	 * arbitrarily free using index '1'.
- 	 */
--	if (!slots->node_idx)
+-	/*
+-	 * To simplify hot-plug and dynamic toggling of APICv, keep PI.NDST and
+-	 * PI.SN up-to-date even if there is no assigned device or if APICv is
+-	 * deactivated due to a dynamic inhibit bit, e.g. for Hyper-V's SyncIC.
+-	 */
+-	if (!enable_apicv || !lapic_in_kernel(vcpu))
 -		return;
 -
--	hash_for_each_safe(slots->id_hash, bkt, idnode, memslot, id_node[1])
--		kvm_free_memslot(kvm, memslot);
-+	for (i = 0; i < kvm_arch_nr_memslot_as_ids(kvm); i++) {
-+		hash_for_each_safe(kvm->__memslots[i][1].id_hash, bkt, idnode,
-+				   memslot, id_node[1])
-+			kvm_free_memslot(kvm, memslot);
+-	/*
+-	 * If the vCPU wasn't on the wakeup list and wasn't migrated, then the
+-	 * full update can be skipped as neither the vector nor the destination
+-	 * needs to be changed.  Clear SN even if there is no assigned device,
+-	 * again for simplicity.
+-	 */
+-	if (pi_desc->nv != POSTED_INTR_WAKEUP_VECTOR && vcpu->cpu == cpu) {
+-		if (pi_test_and_clear_sn(pi_desc))
+-			goto after_clear_sn;
+-		return;
+-	}
+-
+-	local_irq_save(flags);
++	guard(irqsave)();
+ 
+ 	/*
+ 	 * If the vCPU was waiting for wakeup, remove the vCPU from the wakeup
+@@ -103,7 +81,7 @@ void vt_vcpu_pi_load(struct kvm_vcpu *vcpu, int cpu)
+ 		 */
+ 		raw_spin_lock(spinlock);
+ 		spin_acquire(&spinlock->dep_map, PI_LOCK_SCHED_OUT, 0, _RET_IP_);
+-		list_del(&vt->pi_wakeup_list);
++		list_del(&to_vt(vcpu)->pi_wakeup_list);
+ 		spin_release(&spinlock->dep_map, _RET_IP_);
+ 		raw_spin_unlock(spinlock);
+ 	}
+@@ -129,8 +107,33 @@ void vt_vcpu_pi_load(struct kvm_vcpu *vcpu, int cpu)
+ 		 */
+ 		new.nv = POSTED_INTR_VECTOR;
+ 	} while (pi_try_set_control(pi_desc, &old.control, new.control));
++}
+ 
+-	local_irq_restore(flags);
++void vt_vcpu_pi_load(struct kvm_vcpu *vcpu, int cpu)
++{
++	struct pi_desc *pi_desc = vcpu_to_pi_desc(vcpu);
++
++	/*
++	 * To simplify hot-plug and dynamic toggling of APICv, keep PI.NDST and
++	 * PI.SN up-to-date even if there is no assigned device or if APICv is
++	 * deactivated due to a dynamic inhibit bit, e.g. for Hyper-V's SyncIC.
++	 */
++	if (!enable_apicv || !lapic_in_kernel(vcpu))
++		return;
++
++	/*
++	 * If the vCPU wasn't on the wakeup list and wasn't migrated, then the
++	 * full update can be skipped as neither the vector nor the destination
++	 * needs to be changed.  Clear SN even if there is no assigned device,
++	 * again for simplicity.
++	 */
++	if (pi_desc->nv != POSTED_INTR_WAKEUP_VECTOR && vcpu->cpu == cpu) {
++		if (pi_test_and_clear_sn(pi_desc))
++			goto after_clear_sn;
++		return;
 +	}
++
++	__vt_vcpu_pi_load(vcpu, cpu);
+ 
+ after_clear_sn:
+ 
+@@ -146,6 +149,19 @@ void vt_vcpu_pi_load(struct kvm_vcpu *vcpu, int cpu)
+ 		pi_set_on(pi_desc);
  }
  
- static umode_t kvm_stats_debugfs_mode(const struct kvm_stats_desc *desc)
-@@ -1310,12 +1329,10 @@ static void kvm_destroy_vm(struct kvm *kvm)
- 		kvm->mn_active_invalidate_count = 0;
- 	else
- 		WARN_ON(kvm->mmu_invalidate_in_progress);
-+	kvm_destroy_memslots(kvm);
++void vt_vcpu_pi_remove_from_wakeup_list(struct kvm_vcpu *vcpu)
++{
++	kvm_lockdep_assert_vcpu_is_unreachable(vcpu);
 +
- 	kvm_arch_destroy_vm(kvm);
- 	kvm_destroy_devices(kvm);
--	for (i = 0; i < kvm_arch_nr_memslot_as_ids(kvm); i++) {
--		kvm_free_memslots(kvm, &kvm->__memslots[i][0]);
--		kvm_free_memslots(kvm, &kvm->__memslots[i][1]);
--	}
- 	cleanup_srcu_struct(&kvm->irq_srcu);
- 	srcu_barrier(&kvm->srcu);
- 	cleanup_srcu_struct(&kvm->srcu);
++	if (!enable_apicv || !lapic_in_kernel(vcpu) ||
++	    vcpu_to_pi_desc(vcpu)->nv != POSTED_INTR_WAKEUP_VECTOR)
++		return;
++
++	__vt_vcpu_pi_load(vcpu, get_cpu());
++
++	put_cpu();
++}
++
+ static bool vt_can_use_vtd_pi(struct kvm *kvm)
+ {
+ 	/*
+diff --git a/arch/x86/kvm/vmx/posted_intr.h b/arch/x86/kvm/vmx/posted_intr.h
+index c5860ea828ae..1d9ccbc2bb6f 100644
+--- a/arch/x86/kvm/vmx/posted_intr.h
++++ b/arch/x86/kvm/vmx/posted_intr.h
+@@ -10,6 +10,7 @@
+ 
+ void vt_vcpu_pi_load(struct kvm_vcpu *vcpu, int cpu);
+ void vt_vcpu_pi_put(struct kvm_vcpu *vcpu);
++void vt_vcpu_pi_remove_from_wakeup_list(struct kvm_vcpu *vcpu);
+ void pi_wakeup_handler(void);
+ void __init pi_init_cpu(int cpu);
+ void pi_apicv_pre_state_restore(struct kvm_vcpu *vcpu);
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index 292001bbcbff..1f9e43c5b4c4 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -7514,6 +7514,8 @@ void vmx_vcpu_free(struct kvm_vcpu *vcpu)
+ {
+ 	struct vcpu_vmx *vmx = to_vmx(vcpu);
+ 
++	vt_vcpu_pi_remove_from_wakeup_list(vcpu);
++
+ 	if (enable_pml)
+ 		vmx_destroy_pml_buffer(vcpu);
+ 	free_vpid(vmx->vpid);
 -- 
 2.56.0.385.gac671c819a-goog
 
