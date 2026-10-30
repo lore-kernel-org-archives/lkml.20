@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793395968;
-	b=tzS9rt19V4YBOfHDTImy+WdZLKKknPhW02/4IrBpkSQekj7NdDzFGhCt5xeYffjT1iUc
-	 8HysZpG4xI7dDLXPGPHZOIZkomXCvSZqy5ZAVlhe7qqfAzfowavCd9A8RyzWfnobWrDWk
-	 b/X9YjGwI1zSMVF9Q68GUxUsyJtSMTtFOYoTFw6LP5fyHxgRFm9it0igNgryTSxDvrclh
-	 D4O7Dj2TjkTssffvnaEgf4a5BdNcGDLx/cbQAq/v+z0b2D3FDmFs3ZeSdNHW8VflxPD4y
-	 PbRMnSSYgcNY6cLztoG4mkGlIm4zBPvFjm2ieZIaJBGGh33Cje4cH2VJRptmU9w3FSw==
+	t=1793395969;
+	b=DKxwBediTGG9aik3pNWZgsI0LCp+nalJNZZHuZZOglsGwe0K3WbcyZ4mHvFCQz48LgIu
+	 RnrTMNjx2ydLdMAcO/QK81B+hs47AJ2nrpyDIMQ+R+scJJVJTKdQ/zP3AO9fOSRttmK6j
+	 9fx1+DwV8gvvgrj6XSZ41CaggbagcUcvPS0vK5AtLFam0YeHt5CvEJp0pS7V5eN8ROXui
+	 UKZU1luUiQd5k2oSugDSTMj7wthCTvoyILTfM78RpCj5J7DXXLqEqBXFCsRJtsw6JMLHk
+	 VBtUpnmwJn/SOazOEnL8jckNwb37MNiAZUvNbUd8TqMgiq9jBpe/ZUTOwoVaD07scLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395968;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793395969;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=b8ezmLcQFCSyrEAPrvhRD05fblaMPYsKIhBxCdtaPEA=;
-	b=l2n7V6uw5fsV5RzT0VXEr1Ey+CLEE1QdQWVsRm0eEizs0Y4WoPJmFuSlQu76kcLAnsAj
-	 WyP3KxJrKORhLG95xx/BGffweByLNxtYgN68Ow4Jj0Dq0Pk8EZFP02VivhnCVUbWT4qwK
-	 obVeDTS+PXpzAWay9j9Fkcs6R7tHVZFO7xDqLAjWXtV/DbMks2kMYopfkgDUly5g9PDk3
-	 0lB7aXvcOz+RbiZhfXIbo0Xyc6dYrENwvAHLK+LwgSe5n3bp7oOGl2Eq22DCUGy0jRzTY
-	 4Yh0KpNUhgwUXlQUz0p+JSz5iLNQJepT8IT97nMUEsS+CP3gn0vFaHRRw52D4EpmLjA==
+	bh=uob3BhIRyzjXuGomSt8dP0MqP8bCTPEwp7jEZ+lxeqU=;
+	b=pJOnPPmxgBS48NsvNhpz/unbCYgYZuY+RPkkKLuZhqOLvudp2+n19Oi2AqXA5MuCywk9
+	 vRWPerMxN02I6ndVefLcGZKtbMNT04PUC6OQKZg71/B50S3YKIMMirR9EkfYXDMMqAW0y
+	 Lo0LcX/8RV3Y/PxtgwFN1SPPpqt23+DLRtyMyCmhlwu4J3P7b0zVFki9tX6b2YujOY7yN
+	 EhL4ja3R2FFna5xzCQC8WjT7hwtGtxhiSpWWxjQgfiV1bUlbVLsO0QE9pNaa35p5JSgYx
+	 pUnI8AHuOV4+5JiUPwGoIekgL3uDOZaiGNUVufrjPwkyRqb70IAtcDPCbWx0k7VYg8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gIi9higG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PXW6AgZ1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B020F606A31A;
-	Fri, 30 Oct 2026 21:32:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E609606A31C;
+	Fri, 30 Oct 2026 21:32:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gIi9higG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8347C1F0093A;
-	Fri, 30 Oct 2026 21:32:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PXW6AgZ1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72B6E1F00A02;
+	Fri, 30 Oct 2026 21:32:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793395967;
-	bh=b8ezmLcQFCSyrEAPrvhRD05fblaMPYsKIhBxCdtaPEA=;
+	s=k20260515; t=1793395969;
+	bh=uob3BhIRyzjXuGomSt8dP0MqP8bCTPEwp7jEZ+lxeqU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gIi9higGn7Obc28FcZBnNZllRcPWZ+aWoeXoecHBWMHeNesFWG8DjcD6F3z0THdEO
-	 FigLKJa6E5h8i+o3Kta+Z/AnVCywyKMavwGo5MKakjsPvh3zS60fMbIoZYj4d24v3j
-	 N6A9ejPLB6H88HQmRmMEOq2fxVC2a0HlDHEDCzHCqCLF2LgfVv+V2fHbqPkOhXZsoi
-	 zetQ28J3Jy82IUs6wuBjI7xjHbgzGUxTmevqQJmSE8p3vzs4FN3ODCeCIubSPqlGEY
-	 40dAt+W/P2gcmvr0A3naekMFmiVIclr7MEMCp6cvO5jvswSuuo34gQ5cqBJnYZrFoL
-	 Is29O03SDxj9A==
-Subject: Re: [PATCH net] ppp: remove SC_MUST_COMP
+	b=PXW6AgZ1/ZOx1vRACNXmKr4OcwCPg3Ec1TJrfRspdjpGLEJyh+Q5rB9STXS2zLTj0
+	 C2eHjmORjVOWydGbDqUhvCyXFll3l2ROs1PqrJ4d0l82rTQcOp/J8dlpgs5AfvN4Ce
+	 muvL8GhrSzan4qBMUntlkawZIzicSbLNckS95YNDsij3Ig+G3OogVe5KYSh6gK2mVU
+	 Hm0TgUCMmXlRSL9KfyyfOoCw8barRxNvdPojg+A6GLXzBtIEeaQtvNAD7Ucc/jYq6n
+	 rXYc342qoow7bDxRjG/1J4eGN46VQ4WvFDpmZePwLFV+anEhm7xDTOUuiwWQUa5F+1
+	 /i99VhpT4YmdQ==
+Subject: Re: [PATCH net] net: lan966x: save the RX state after quiescing the
+ NAPI in a reload
 From: netdev-bot+sashiko@kernel.org
-To: qingfang.deng@linux.dev
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, leitao@debian.org, norbert@doyensec.com,
- hataegu0826@gmail.com, paulus@ozlabs.org, Brice.Goglin@ens-lyon.org,
- akpm@osdl.org, Matt_Domsch@dell.com, linux-ppp@vger.kernel.org,
+To: daniel.machon@microchip.com
+Cc: horatiu.vultur@microchip.com, UNGLinuxDriver@microchip.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, devnexen@gmail.com,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Fri, 30 Oct 2026 21:32:46 +0000
-Message-ID: <179339596607.3131.10030375792154782283@kernel.org>
-In-Reply-To: <20261029074935.40509-1-qingfang.deng@linux.dev>
-References: <20261029074935.40509-1-qingfang.deng@linux.dev>
-X-sashiko-severity: Medium
+Date: Fri, 30 Oct 2026 21:32:48 +0000
+Message-ID: <179339596805.3131.15722665365949001732@kernel.org>
+In-Reply-To:
+ <20261029-lan966x-fdma-reload-quiesce-v1-1-daaeda5ca3aa@microchip.com>
+References:
+ <20261029-lan966x-fdma-reload-quiesce-v1-1-daaeda5ca3aa@microchip.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -68,7 +70,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+Critical: 0 · High: 1 (4) · Medium: 0 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -76,149 +78,232 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The patch deletes the exported `#define SC_MUST_COMP
-  0x00400000` from include/uapi/linux/ppp-ioctl.h.
+- [High] The patch does not fully fix the restore path, even though the
+  commit message says it does.
 
 Pre-existing issues:
-- [Medium] With SC_COMP_RUN set and SC_CCP_UP clear, a successfully
-  compressed DEFLATE/BSD packet (len > 0) falls into the error branch of…
+- [High] This problem wasn't introduced by this patch, but
+  lan966x_fdma_rx_alloc()…
+- [High] This problem wasn't introduced by this patch, but
+  lan966x_fdma_reload() swaps lan966x->rx.page_pool and destroys the old…
+- [High] This problem wasn't introduced by this patch, but it produces
+  the same outcome the commit message describes: a page the stack still…
+- [High] This problem wasn't introduced by this patch, but
+  lan966x_fdma_reload() runs lan966x_fdma_rx_start() and…
 
 --
 
-ppp: remove SC_MUST_COMP
+net: lan966x: save the RX state after quiescing the NAPI in a reload
 
-This patch removes SC_MUST_COMP from the UAPI header, SC_MASK and
-SC_FLAG_BITS. SC_MUST_COMP has the same value as SC_DC_ERROR, so a
-read-modify-write through PPPIOCGFLAGS/PPPIOCSFLAGS can latch it by
-accident. The transmit and receive drop checks for the flag in
-ppp_generic.c are removed as well.
+This patch moves napi_synchronize(), napi_disable() and
+lan966x_fdma_stop_netdev() in lan966x_fdma_reload() so they run before
+the copies of rx->page[] and the RX FDMA state are taken. A NAPI poll
+can then no longer advance the ring after the snapshot. The old_pages
+buffer is still allocated first, so an allocation failure returns
+before anything needs to be undone.
 
-> diff --git a/drivers/net/ppp/ppp_generic.c b/drivers/net/ppp/ppp_generic.c
-> index 29847dc4bb454..f7b59060450fe 100644
-> --- a/drivers/net/ppp/ppp_generic.c
-> +++ b/drivers/net/ppp/ppp_generic.c
+> diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+> index 21668bbcc9063..2dbc25c098fec 100644
+> --- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+> +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+> @@ -819,21 +819,21 @@ static int lan966x_fdma_reload(struct lan966x *lan966x, int new_mtu)
+>  	int page_order, max_mtu;
+>  	int err, i, j;
+>  
+> -	old_pages = kmemdup(lan966x->rx.page, sizeof(lan966x->rx.page),
+> -			   GFP_KERNEL);
+> +	old_pages = kmalloc_objs(*lan966x->rx.page, FDMA_DCB_MAX);
+>  	if (!old_pages)
+>  		return -ENOMEM;
+>  
+> +	napi_synchronize(&lan966x->napi);
+> +	napi_disable(&lan966x->napi);
+> +	lan966x_fdma_stop_netdev(lan966x);
 
-[ ... ]
+[Severity: High]
+This is a pre-existing issue, but both the success path and the restore
+path of lan966x_fdma_reload() restart things in this order:
 
-> @@ -1863,13 +1862,6 @@ ppp_prepare_tx_skb(struct ppp *ppp, struct sk_buff **pskb)
->  	/* try to do packet compression */
->  	if ((ppp->xstate & SC_COMP_RUN) && ppp->xc_state &&
->  	    proto != PPP_LCP && proto != PPP_CCP) {
-> -		if (!(ppp->flags & SC_CCP_UP) && (ppp->flags & SC_MUST_COMP)) {
-> -			if (net_ratelimit())
-> -				netdev_err(dev,
-> -					   "ppp: compression required but "
-> -					   "down - pkt dropped.\n");
-> -			goto drop;
-> -		}
->  		new_skb = pad_compress_skb(ppp, skb);
->  		if (!new_skb)
->  			goto drop;
+	lan966x_fdma_rx_start(&lan966x->rx);
+	[ ... ]
+	lan966x_fdma_wakeup_netdev(lan966x);
+	napi_enable(&lan966x->napi);
 
-[Severity: Medium]
-This is a pre-existing issue and wasn't introduced by this patch. While
-looking at this path: can pad_compress_skb() drop packets that were
-compressed successfully?
+An FDMA DB interrupt can fire while NAPI is still disabled. Examples are
+a TX completion after netif_wake_queue() on another CPU, or ndo_xdp_xmit
+traffic, which ignores queue state. In that case lan966x_fdma_irq_handler()
+does:
 
-drivers/net/ppp/ppp_generic.c:pad_compress_skb() {
-    ...
-	if (len > 0 && (ppp->flags & SC_CCP_UP)) {
-		...
-	} else if (len == 0) {
-		...
-	} else {
-		...
-		consume_skb(new_skb);
-		new_skb = NULL;
+		lan_wr(0, lan966x, FDMA_INTR_DB_ENA);
+		lan_wr(db, lan966x, FDMA_INTR_DB);
+
+		napi_schedule(&lan966x->napi);
+
+The napi_schedule() does nothing, because napi_disable() holds
+NAPI_STATE_SCHED. napi_enable() does not schedule a poll either.
+FDMA_INTR_DB_ENA is only re-armed by the poll, by rx_start, or by the
+first TX activation.
+
+Could this leave all DB interrupts masked, with RX and TX completion
+dead on every port until the next reload?
+
+There is also a narrower window between napi_disable() and rx_start().
+The read-modify-write in rx_start only sets the RX channel bit, so a TX
+bit cleared by the handler stays cleared until an RX poll writes 0xff.
+
+lan966x_fdma_pci_reload() documents this hazard and calls napi_enable()
+first:
+
+	/* Order matters: napi_enable() must precede the wakes, or a TX that
+	 * completes first clears FDMA_INTR_DB_ENA with nothing scheduled to
+	 * restore it, leaving RX dead until the next reload.
+	 */
+
+Should the platform reload use the same ordering?
+
+> +
+>  	/* Store these for later to free them */
+> +	memcpy(old_pages, lan966x->rx.page, sizeof(lan966x->rx.page));
+
+[Severity: High]
+This isn't a bug introduced by this patch, but a refill failure in
+lan966x_fdma_napi_poll() seems to lead to the outcome the commit message
+describes, a page the stack still owns being returned to the old pool:
+
+allocate_new:
+	while (dcb_reload != fdma->dcb_index) {
+		[ ... ]
+		fdma_dcb_add(fdma, old_dcb, FDMA_DCB_INFO_DATAL(fdma->db_size),
+			     FDMA_DCB_STATUS_INTR);
+		[ ... ]
 	}
-    ...
-}
 
-Say SC_COMP_RUN is set but SC_CCP_UP is still clear. A DEFLATE or BSD
-compressor that returns len > 0 then lands in the else branch. The
-packet is dropped just as if the compressor had rejected it.
+The return value of fdma_dcb_add() is ignored. If
+page_pool_dev_alloc_pages() fails, lan966x_fdma_rx_dataptr_cb() returns
+-ENOMEM without updating rx->page[old_dcb][0]. The slot still points at
+the page that was already passed to the stack, placed in the TX ring,
+redirected, or recycled.
 
-That state looks reachable. ppp_ccp_peek() handles an outbound
-CCP_CONFACK only while SC_CCP_OPEN is set and SC_CCP_UP is clear, and
-that is where it sets SC_COMP_RUN:
+The DCB is not relinked either. Software eventually stops at that DCB,
+so the stale pointer stays in place.
 
-	case CCP_CONFACK:
-		if ((ppp->flags & (SC_CCP_OPEN | SC_CCP_UP)) != SC_CCP_OPEN)
-			break;
-		...
-			if (ppp->xcomp->comp_init(ppp->xc_state, dp, len,
-						  ppp->file.index, 0,
-						  READ_ONCE(ppp->debug)))
-				ppp->xstate |= SC_COMP_RUN;
+The next reload copies that pointer into old_pages here and calls
+page_pool_put_full_page() on it before page_pool_destroy(). Can this
+cause a use-after-free or double free when the skb or xdp_frame owner
+later frees the page? lan966x_fdma_rx_free_pages() at teardown seems to
+have the same exposure.
 
-pppd sets SC_CCP_UP only once CCP reaches Opened.
+>  	memcpy(&fdma_rx_old, &lan966x->rx.fdma, sizeof(struct fdma));
 
-When the drop happens, z_compress() has already updated its history and
-advanced its sequence number:
+[Severity: High]
+The commit message says:
 
-	put_unaligned_be16(state->seqno, wptr);
-	...
-	++state->seqno;
+  "...and the restore path puts back a stale DCB index and last DCB
+  pointer."
 
-After SC_CCP_UP is set, would the next compressed frame carry a sequence
-number ahead of what the peer's z_decompress() expects?
+With the snapshot now taken after napi_disable(), the restore path puts
+back the current dcb_index (say k) and last_dcb (DCB k-1). Does the
+hardware agree with that position? The restore path does:
 
-	if (seq != (state->seqno & 0xffff)) {
-		...
-		return DECOMP_ERROR;
-	}
+restore:
+	[ ... ]
+	memcpy(&lan966x->rx.fdma, &fdma_rx_old, sizeof(struct fdma));
+	[ ... ]
+	lan966x_fdma_llp_configure(lan966x, lan966x->rx.fdma.dma,
+				   lan966x->rx.fdma.channel_id);
 
-If so, data sent in that window is lost, and recovery needs a CCP
-Reset-Request/Reset-Ack cycle. The else branch dates from b3f9b92a6ec1,
-and this patch leaves it unchanged.
+	lan966x_fdma_rx_start(&lan966x->rx);
 
-[ ... ]
+The LLP points at the ring base (DCB 0), and the channel is reactivated
+without rebuilding the DCB chain.
 
-> diff --git a/include/uapi/linux/ppp-ioctl.h b/include/uapi/linux/ppp-ioctl.h
-> index 1cc5ce0ae062e..672f7ac11a0b8 100644
-> --- a/include/uapi/linux/ppp-ioctl.h
-> +++ b/include/uapi/linux/ppp-ioctl.h
-> @@ -39,8 +39,7 @@
->  #define SC_LOG_RAWIN	0x00080000	/* log all chars received */
->  #define SC_LOG_FLUSH	0x00100000	/* log all chars flushed */
->  #define	SC_SYNC		0x00200000	/* synchronous serial mode */
-> -#define	SC_MUST_COMP    0x00400000	/* no uncompressed packets may be sent or received */
+After traffic, each NAPI refill through fdma_dcb_add()->__fdma_dcb_add()
+appends the consumed DCB after last_dcb with an INVALID nextptr. The
+chain is then k -> ... -> n-1 -> 0 -> ... -> k-1 (INVALID).
 
-[Severity: Medium]
-Does the fix need the define to be removed from the UAPI header?
+Starting at DCB 0, the hardware would fill DCBs 0..k-1 and stop at k-1.
+lan966x_fdma_napi_poll() only checks fdma_has_frames() on DCB k. If
+lan966x_fdma_rx_alloc() fails while k != 0, wouldn't RX stop on all
+ports until the next successful reload?
 
-PPPIOCSFLAGS already masks the user value with the kernel-internal
-SC_FLAG_BITS:
+On its restore path, lan966x_fdma_pci_reload() calls
+lan966x_fdma_pci_reset_mem(). That runs fdma_dcbs_init() to reset the
+indices and rebuild the chain before the LLP is programmed.
 
-drivers/net/ppp/ppp_generic.c:ppp_ioctl() {
-    ...
-		ppp->flags = val & SC_FLAG_BITS;
-    ...
-}
+Does the platform restore path need to re-initialise the old ring in a
+similar way, or program the LLP to fdma.dma + dcb_index *
+sizeof(struct fdma_dcb)?
 
-Removing the bit from SC_FLAG_BITS (and SC_MASK), together with the two
-checks, looks like enough to stop SC_DC_ERROR from being stored as a
-config flag.
+>  	page_pool = lan966x->rx.page_pool;
 
-Deleting the define is a separate change at the source level. Userspace
-that includes <linux/ppp-ioctl.h>, directly or through <linux/if_ppp.h>,
-and refers to SC_MUST_COMP would no longer build.
+[Severity: High]
+This is a pre-existing issue, but is it safe to destroy this page_pool
+while XDP_TX pages from it can still be queued in the TX ring?
 
-The commit message calls the flag unused, but the evidence is that one
-pppd integration from 2005 never landed upstream. That does not rule out
-out-of-tree pppd MPPE forks or other daemons that use the name.
+lan966x_fdma_xmit_xdpf() stores the RX page in the TX ring:
 
-With the Fixes: tag pointing at a 2005 commit, this header change will
-likely be backported to the stable kernel-headers as well.
+		next_dcb_buf->data.page = page;
 
-Would it work to keep the define, with a comment that the kernel ignores
-it and that it aliases SC_DC_ERROR, while still dropping it from
-SC_FLAG_BITS and SC_MASK and removing the checks?
+These buffers are only reclaimed from NAPI, by
+lan966x_fdma_tx_clear_buf(). That function recycles into whichever pool
+is current:
 
-> -#define	SC_MASK		0x0f600fff	/* bits that user can change */
-> +#define	SC_MASK		0x0f200fff	/* bits that user can change */
+			else
+				page_pool_recycle_direct(rx->page_pool,
+							 dcb_buf->data.page);
 
-[ ... ]
+The TX channel is not drained during the reload. After napi_enable(),
+these old-pool pages would be recycled into the new pool, and
+__page_pool_put_page() does not check page->pp against the pool
+argument.
+
+Would the old pool's inflight count then never reach zero, so the
+deferred page_pool_destroy() never completes? The new pool's inflight
+accounting would also go negative.
+
+When the MTU grows (page_order 0 -> 2), the new pool would DMA sync and
+later unmap an order-0 page using its larger max_len and order. On
+non-coherent systems, could that invalidate cache lines past the end of
+the page, or let the device DMA past it? After XDP detach the dma_dir
+would also mismatch (DMA_BIDIRECTIONAL vs DMA_FROM_DEVICE).
+
+>  	page_order = lan966x->rx.page_order;
+>  	max_mtu = lan966x->rx.max_mtu;
+>  
+> -	napi_synchronize(&lan966x->napi);
+> -	napi_disable(&lan966x->napi);
+> -	lan966x_fdma_stop_netdev(lan966x);
+> -
+>  	lan966x_fdma_rx_disable(&lan966x->rx);
+>  	lan966x->rx.page_order = round_up(new_mtu, PAGE_SIZE) / PAGE_SIZE - 1;
+>  	lan966x->rx.max_mtu = new_mtu;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but lan966x_fdma_rx_alloc(),
+called right after this, drops the return value of fdma_dcbs_init():
+
+	fdma_dcbs_init(fdma, FDMA_DCB_INFO_DATAL(fdma->db_size),
+		       FDMA_DCB_STATUS_INTR);
+
+	lan966x_fdma_llp_configure(lan966x, fdma->dma, fdma->channel_id);
+
+	return 0;
+
+Suppose page_pool_dev_alloc_pages() fails at DCB k. This can happen
+because it uses GFP_ATOMIC, with order > 0 for a jumbo MTU.
+lan966x_fdma_rx_dataptr_cb() then returns -ENOMEM before writing
+rx->page[k][0], and fdma_dcbs_init() stops there.
+
+lan966x_fdma_reload() still takes the success path. It puts every
+old_pages[i][j] back to the old pool and calls page_pool_destroy().
+rx.page[k..n_dcbs-1] are never cleared, so they still point at those
+old pages.
+
+Could a later lan966x_fdma_rx_free_pages() on deinit, or the memcpy()
+into old_pages on the next reload, put those freed pages again?
+
+The new ring would also end at DCB k-1, so RX would stall once
+dcb_index reaches k.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029074935.40509-1-qingfang.deng%40linux.dev
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029-lan966x-fdma-reload-quiesce-v1-1-daaeda5ca3aa%40microchip.com
