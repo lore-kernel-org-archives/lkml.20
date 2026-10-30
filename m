@@ -1,77 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793353019;
-	b=3+bQawAFaGRYZbUW6wMrH4Q+mdAAz73yjZ/p6pDcRt9GYsgpYHKnZ6Qwd3xrgO2h4sG4
-	 3cOO+XLPQ/7TShxyjKUk5ZVsOcfEt1J8EZSYTc6H1HJ+eqcKC1hCiwdPFBwqQ5UQJCu6j
-	 25m4ziSJhCJszp5Chqvl6gyTeoHpvW8jg7oW+3K8FUD1t9EWg+iwsa5Uv6/Gu2BrFkWkJ
-	 8S3gj43pJNmNlYCdeqKdDXHe8l9cmXSOgslcjgi9TUj9EsVXVfTFR6F+uKPQzAYgxmTFJ
-	 VDggmbtL0BDG4yQe5ifZba5XpjJmVEjhccudftS8XGIg5KtSFFEn5OGDSMA1aAbWt3A==
+	t=1793353032;
+	b=bTkr4qhVI5/eD65F2OO9aJp5BSGN4SSaBpYrjvJkVbthpSjekT32oo0jzMCmewPw6WOd
+	 6ZMCmC/0pFJhPYjKBm9V6tYt3wb/29ZQfp2Y8p2dA5yMJf32BSsKXS1CsTRqIwQE/Kh8m
+	 eyvcqj8ukL88G/hpYg4kRSxUCXe0PbraedtzONfC+1OlNtvzpXX0R/iqLf0g6a2W+adjM
+	 OcO+4ENuxXVfNcxi5dEUIixqOr994Ap6c5fEZL363sNEFPZ18lSzdgrS0yJOVwTBNX1WM
+	 dI1a3jygRmexqQJ5UcS03tp93vr8PimRZ7kR498eMJPZMBezQU4y6jyNQwzlGL1kokw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793353019;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
-	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=lRezFi2aEYM5pYBhR9QtMA9MM0OoaYfh5KLn9jOB7hk=;
-	b=ppz2iCE6bXuwBM6RRXiTRP1+vRL8PR9qKLmeg7yF0ACD9BMz+0xIW8qjPI2iPT1Z/dGx
-	 /CdrO+GAERjnlg0bch/QeFs1dEB/Rk9MoGyb5v2ZN3hSBR7rUxEqT7Xvnbw6MkNI20qJM
-	 HezEQUqyXtJve7X0h0lqaeUDqbuMWo2V/wNAa31b3jQvbAdw/GiHIjyJfdOhc9ZHfSHOc
-	 tkK5seKi1uBSBaNz89p4DpvxKSoHKqRCHg0/kph237I7y19SJf0nTNIbO5RYoqkzkfg10
-	 20Jf9RE6q2l0RkHHkQigvRPlvu0ZkDPbNFO9EQ0LJdzZp9oIIgDWDLO5GfDOpN3LiZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793353032;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
+	 Content-Type;
+	bh=0RQGPUhUFnNp1pdDf0SgfW7WMoujuQuqryRXMPOJJxQ=;
+	b=4KcoGYOw8L1+TOZSuD3P2tTT2GOYujzHS4S6HwISzr6sDAobEAnmG6hQOXnQGLSx7Qe7
+	 yAa6lvbAf6hzXhXMxdV76GiNQFkLgrtRCCASzr67cyVzODHG7rWNoPk3Yqma0qbPYUcN2
+	 vRc76+8DNOprC0WSxqfA2sCTjygyKAQRGN9jW0UprtwN/071/PsP2E8QsRaru1sAb3nl2
+	 viiEUZnlKvdsHEKceH9PSVRn/P7GR1oa3VZgwGQPAb5r7Kz/y3Vzsgb5pjqQLTHPwLBz5
+	 PZXgm3+sPS6Oq1VKOSP8x5Ykvy9e/0EMuFiEpRPcDtwyxMDFgf8ehfDjqR9w62qFApg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=DPuRfTgc;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GNfVTdg9;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9785606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:36:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9785606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2BA606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:37:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D2BA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=DPuRfTgc
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261030093655epoutp04cd2194b6f3e0906170e6906b6a0475ec~jRRDoEgeU1859218592epoutp04S
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:36:55 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261030093655epoutp04cd2194b6f3e0906170e6906b6a0475ec~jRRDoEgeU1859218592epoutp04S
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793353015;
-	bh=lRezFi2aEYM5pYBhR9QtMA9MM0OoaYfh5KLn9jOB7hk=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=DPuRfTgcoK0rSHIuqviT8PmBt8riCIydZmdpB8keBJRkGMZ31xzSH7f6K1rN6ndLR
-	 fp0SAIPJnnn8Nj5VDFG2y1GyI2XvIbpJQRWpaEja2WOWKJIwSYL3XilSeGqvIFTITp
-	 zVtl8cOfkp+m8c8em2VDxC0pxnGekXbgdL6+B7hk=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
-	20261030093654epcas2p4309772af20fcf1fe55022e80892c6834~jRRCouh4Z2118421184epcas2p4w;
-	Fri, 30 Oct 2026 09:36:54 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.206]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4jGGFy12FKz3hhT8; Fri, 30 Oct
-	2026 09:36:54 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
-	20261030093653epcas2p329f2bb351b051a118edad4211b4b3470~jRRB2HGzA0937409374epcas2p33;
-	Fri, 30 Oct 2026 09:36:53 +0000 (GMT)
-Received: from apsw.samsungds.net (unknown [12.80.211.160]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261030093653epsmtip1a1b610c9add5241128c785d63eabe859~jRRBvEDKL3236332363epsmtip1c;
-	Fri, 30 Oct 2026 09:36:53 +0000 (GMT)
-From: Kiwoong Kim <kwmad.kim@samsung.com>
-To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	alim.akhtar@samsung.com, avri.altman@wdc.com, jejb@linux.ibm.com,
-	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com,
-	hy50.seo@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
-Cc: stable@vger.kernel.org, stanleyjhu@google.com, Kiwoong Kim
-	<kwmad.kim@samsung.com>
-Subject: [PATCH v2] ufs: mcq: fix dev cmd abort path and add OCS poll after
- sq cleanup
-Date: Fri, 30 Oct 2026 18:36:45 +0900
-Message-ID: <20261030093645.790159-1-kwmad.kim@samsung.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GNfVTdg9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793353032; x=1824889032;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=M0gjpgQ7DfAt9+x9TjiGjfUPwKgR0H11MEhsD4OYLog=;
+  b=GNfVTdg9lk3xqsXyJQBGx38laUPhJ3IzWq+4wcZyqICqYH4yPz9sO52/
+   Oo3XtiVZR73W6lFXSFRlc2Zi1zuKhyh8YGvVfPwgH2XxUPZxr7mf98UXn
+   ZLwP4VFU0nHhCvKM3Zbl+pwLt2qfOqYu3t5oWVOr+hxRk+WctP9mhGANB
+   vbTV5eUVNqYp2zgWqZxLu14JEUVJA/PtbBD6imNkX8BPvGetpjw1GR+7p
+   ZMVJqgWnXzTqamo4OlkcYhTWdqG+bKfjrOCOYjCQ5driOEqIRpoFa9/DP
+   aVnCMvtVpcPNq0M4CLZwml0ckDNcrBo/4HV072pi43GZ3YS7gpLwCgV42
+   A==;
+X-CSE-ConnectionGUID: 7ePx3R8gQ2C1WaVvB1C6nA==
+X-CSE-MsgGUID: DxemD94BQO2X/CtDxgBWPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2137500"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2137500"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 02:37:11 -0700
+X-CSE-ConnectionGUID: caHEzjaiQGmk8cjV3USHxA==
+X-CSE-MsgGUID: DbIZ2r2ZT1qd7L0lyLLw6w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5415071"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.13])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 02:37:07 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Theo Andersen Carton <andersen.theo@gmail.com>, rodrigo.vivi@intel.com
+Cc: joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
+ airlied@gmail.com, simona@ffwll.ch, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Theo Andersen Carton
+ <andersen.theo@gmail.com>
+Subject: Re: [PATCH v3] drm/i915/ddi: add DDI A force 4 lanes quirk for
+ Apple MacBookPro11,5
+In-Reply-To: <20260917185235.23792-1-andersen.theo@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260917185235.23792-1-andersen.theo@gmail.com>
+Date: Fri, 30 Oct 2026 11:37:05 +0200
+Message-ID: <d34dd7cca55a21f7d62c9eff872dcf5c3e9f2297@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,150 +85,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261030093653epcas2p329f2bb351b051a118edad4211b4b3470
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261030093653epcas2p329f2bb351b051a118edad4211b4b3470
-References: <CGME20261030093653epcas2p329f2bb351b051a118edad4211b4b3470@epcas2p3.samsung.com>
+Content-Type: text/plain
 
-In MCQ mode, ufshcd_mcq_abort() falls through to ufshcd_try_to_abort_task()
-for all timed-out commands. However, device management commands (query, NOP)
-use reserved requests and are not SCSI I/O commands. The ABORT TASK task
-management function is designed for SCSI I/O UPIUs and is not applicable to
-device management UPIUs.
+On Thu, 17 Sep 2026, Theo Andersen Carton <andersen.theo@gmail.com> wrote:
+> On dual-GPU Retina MacBooks the internal panel is muxed to the discrete
+> GPU at boot, so Apple's firmware never lights up eDP on the Intel side.
+> As a result it never sets DDI_A_4_LANES, and intel_ddi_max_lanes() reads
+> back a source maximum of two lanes for port A.
+>
+> intel_dp_max_common_lane_count() then takes min3(source_max = 2,
+> sink_max = 4, ...) = 2, giving 2 x 2.7 Gbps x 8/10 = 4.32 Gbps of link
+> bandwidth. The panel's native 2880x1800@60 8bpc mode needs 8.1 Gbps, so
+> every mode is rejected with MODE_CLOCK_HIGH and the connector comes up
+> with no usable modes at all -- the panel stays dark whenever i915 is
+> made to drive it, which looks like a hardware limitation but is not.
+>
+> The lanes are physically there. Reading the panel's DPCD from the AMD
+> side, where amdgpu drives it correctly, reports MAX_LANE_COUNT = 0x84,
+> i.e. 4 lanes, and amdgpu's own link_settings shows it running the panel
+> at 4 lanes / HBR. macOS likewise drives this panel from the iGPU at its
+> native resolution, so all four lanes are routed through the gmux to
+> DDI A. Only the register bit is unset.
+>
+> intel_ddi_a_force_4_lanes() already exists for exactly this situation --
+> its neighbouring comment notes that "Some BIOS might fail to set this
+> bit on port A if eDP wasn't lit up at boot" -- but it only covers
+> Broxton and Geminilake. Extend it with a DMI quirk so affected Macs get
+> the correct lane count too.
+>
+> The DMI match is deliberately narrow. Other dual-GPU models in the same
+> family are very likely affected identically, but they are untested, so
+> widen the match only as reports come in.
+>
+> Tested on a MacBookPro11,5 (Haswell Crystal Well, Iris Pro 5200 +
+> Radeon R9 M370X): with the quirk, DDI A comes up as 4 lanes, link
+> training passes at link rate 270000 / lane count 4, and i915 drives the
+> internal panel at its native 2880x1800.
+>
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17087
+> Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
 
-Fix this by checking ufshcd_is_scsi_cmd() in ufshcd_try_to_abort_task(). When
-the request is a reserved (device management) command, skip the TM path and
-call ufshcd_clear_cmd() directly instead.
+Sorry, this fell through the cracks. It looks good to me, but I kicked
+the CI to run. We don't actually have Macs in CI, but it's more to
+ensure we're not regressing anything.
 
-Additionally, extend ufshcd_mcq_sq_cleanup() to poll the OCS field in the
-UTRD of a device management command after a successful SQ_CUS poll. UFSHCI
-does not specify the order between the OCS update and the SQ_CUS update, so
-OCS may still be stale when cleanup returns. Without this poll, a late
-response to a timed-out query can arrive while a retry is already in flight,
-leaving the host with two query contexts and raising IS.UTPES.
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Cc: stable@vger.kernel.org
 
-The poll is limited to device management commands because
-ufshcd_compl_one_cqe() copies the OCS from the CQE into the UTRD only for
-them. For SCSI commands, the OCS in the UTRD stays
-OCS_INVALID_COMMAND_STATUS, so polling it would always time out.
+> ---
+> Numbering note: neither earlier posting was labelled, so to match the
+> numbering already used on the list this is v3. v1 [1] was pasted into a
+> mail client by hand, which hard-wrapped the diff and detabbed it, leaving
+> it unapplicable. v2 [2] was the same patch resent with git send-email,
+> unlabelled.
+>
+> v3:
+> - No functional change since v2.
+> - Commit message: the machine is Haswell (Crystal Well), not Broadwell as
+>   v1/v2 claimed. The DMI match was always by model, so no code change.
+> - Added Closes: tag for the bug report, which carries the failing-case
+>   logs, the VBT dump and the EDID.
+>
+> [1] https://lore.kernel.org/r/CANFnrspHiK7ii28XPdLkOMyhSZcJ9xz6CT-kNX+oiiF+8N-2Fg@mail.gmail.com
+> [2] https://lore.kernel.org/lkml/20260912091805.531666-1-andersen.theo@gmail.com/
+>  drivers/gpu/drm/i915/display/intel_ddi.c    |  7 +++++
+>  drivers/gpu/drm/i915/display/intel_quirks.c | 34 +++++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+>  3 files changed, 42 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+> index 02a53c9848e1..f746287830b3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -4976,6 +4976,13 @@ static bool intel_ddi_a_force_4_lanes(struct intel_digital_port *dig_port)
+>  	if (display->platform.geminilake || display->platform.broxton)
+>  		return true;
+>  
+> +	/*
+> +	 * Machines whose firmware leaves eDP dark on the Intel side never set
+> +	 * the bit, so trust the quirk rather than the register.
+> +	 */
+> +	if (intel_has_quirk(display, QUIRK_DDI_A_FORCE_4_LANES))
+> +		return true;
+> +
+>  	return false;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+> index 33245f44c0d5..feb28956a013 100644
+> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
+> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+> @@ -100,6 +100,20 @@ static void quirk_disable_psr2(struct intel_display *display)
+>  	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
+>  }
+>  
+> +/*
+> + * Dual-GPU Macs boot with the internal panel muxed to the discrete GPU, so
+> + * the firmware never lights up eDP on the Intel side and consequently never
+> + * sets DDI_A_4_LANES -- even though all four lanes are wired through the gmux
+> + * to DDI A. Without the bit, port A is capped at two lanes, which is not
+> + * enough bandwidth for the panel's native mode, leaving the connector with no
+> + * usable modes at all.
+> + */
+> +static void quirk_ddi_a_force_4_lanes(struct intel_display *display)
+> +{
+> +	intel_set_quirk(display, QUIRK_DDI_A_FORCE_4_LANES);
+> +	drm_info(display->drm, "Applying DDI A force 4 lanes quirk\n");
+> +}
+> +
+>  struct intel_quirk {
+>  	int device;
+>  	int subsystem_vendor;
+> @@ -142,6 +156,13 @@ static int intel_dmi_no_pps_backlight(const struct dmi_system_id *id)
+>  	return 1;
+>  }
+>  
+> +static int intel_dmi_ddi_a_force_4_lanes(const struct dmi_system_id *id)
+> +{
+> +	DRM_INFO("DDI A is 4 lanes despite firmware on %s\n", id->ident);
+> +
+> +	return 1;
+> +}
+> +
+>  static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+>  	{
+>  		.dmi_id_list = &(const struct dmi_system_id[]) {
+> @@ -188,6 +209,19 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+>  		},
+>  		.hook = quirk_no_pps_backlight_power_hook,
+>  	},
+> +	{
+> +		.dmi_id_list = &(const struct dmi_system_id[]) {
+> +			{
+> +				.callback = intel_dmi_ddi_a_force_4_lanes,
+> +				.ident = "Apple MacBookPro11,5",
+> +				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
+> +					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro11,5"),
+> +				},
+> +			},
+> +			{ }
+> +		},
+> +		.hook = quirk_ddi_a_force_4_lanes,
+> +	},
+>  };
+>  
+>  static struct intel_quirk intel_quirks[] = {
+> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+> index 970a4fe52faf..d2b8e9183c62 100644
+> --- a/drivers/gpu/drm/i915/display/intel_quirks.h
+> +++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+> @@ -23,6 +23,7 @@ enum intel_quirk_id {
+>  	QUIRK_EDP_LIMIT_RATE_HBR2,
+>  	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+>  	QUIRK_DISABLE_PSR2,
+> +	QUIRK_DDI_A_FORCE_4_LANES,
+>  };
+>  
+>  void intel_init_quirks(struct intel_display *display);
+>
+> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
 
-The poll waits until OCS is no longer OCS_INVALID_COMMAND_STATUS or
-MCQ_POLL_US elapses. -ETIMEDOUT is returned only if OCS is still
-OCS_INVALID_COMMAND_STATUS after the poll. Any other value, such as
-OCS_ABORTED reported by the host controller for the cleaned-up request,
-means the cleanup has completed.
-
---
-Here is the timeline of an actual case for this that happened with kernel 6.18.
-1. The host sent a query but the device didn't respond with it for a long time.
-
-[ 7384.156142] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_mcq_sq_cleanup, hwq 0: cleanup return code (RTC) 0
-[ 7384.156154] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
-
-2. So after the query was timed out, the driver did SQ cleanup.
-Then the host updated CQ update and raised IS.CQES,
-Unfortunately, complete() was called the driver's ISR afterward.
-
-3. The driver started to retried the query. In the meantime, it set OCS to 0xF.
-Then the driver didn't wait for completion due to the previous complete() call,
-and just checked OCS.
-
-[ 7384.156163] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = 15
-
-5. The driver retried the query again, but the device didn't return anything,
-so the query was also timed-out.
-
-[ 7385.660108] [3:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
-
-6. A few seconds later, the device returned the response of the 1st query,
-but since the host was holding two query contexts and couldn't handle it,
-it raised IS.UTPES.
-
-Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
-
----
-Changes since v1:
-- Limit the OCS poll in ufshcd_mcq_sq_cleanup() to device management
-  commands. ufshcd_compl_one_cqe() copies the OCS from the CQE into the
-  UTRD only for them, so for SCSI commands the poll always ran for
-  MCQ_POLL_US and then failed with -ETIMEDOUT (Sashiko).
-- Return -ETIMEDOUT only if OCS is still OCS_INVALID_COMMAND_STATUS
-  after the poll. OCS_ABORTED, which the host controller reports for
-  the cleaned-up request, is no longer treated as a cleanup failure
-  (Sashiko).
-- Update the commit message to match.
-
-Link: https://lore.kernel.org/linux-scsi/20261030083311.602909-1-kwmad.kim@samsung.com/
----
- drivers/ufs/core/ufs-mcq.c | 25 +++++++++++++++++++++++++
- drivers/ufs/core/ufshcd.c  |  4 ++++
- 2 files changed, 29 insertions(+)
-
-diff --git a/drivers/ufs/core/ufs-mcq.c b/drivers/ufs/core/ufs-mcq.c
-index 8106d55f4041..4f42b502d159 100644
---- a/drivers/ufs/core/ufs-mcq.c
-+++ b/drivers/ufs/core/ufs-mcq.c
-@@ -609,6 +609,31 @@ int ufshcd_mcq_sq_cleanup(struct ufs_hba *hba, int task_tag)
- 			 __func__, id,
- 			 FIELD_GET(SQ_ICU_ERR_CODE_MASK, readl(reg)));
- 
-+	/*
-+	 * For device management commands, there is no order guaranteed between
-+	 * OCS update and CUS update, which is why we need to wait here. SCSI
-+	 * commands are excluded because the OCS in their UTRD is not updated
-+	 * from the CQE.
-+	 */
-+	if (!err && blk_mq_is_reserved_rq(rq)) {
-+		enum utp_ocs ocs;
-+		ktime_t start = ktime_get();
-+
-+		do {
-+			unsigned long flags;
-+
-+			spin_lock_irqsave(&hwq->cq_lock, flags);
-+			ocs = READ_ONCE(lrbp->utr_descriptor_ptr->header.ocs);
-+			spin_unlock_irqrestore(&hwq->cq_lock, flags);
-+			if (ocs != OCS_INVALID_COMMAND_STATUS)
-+				break;
-+			usleep_range(20, 50);
-+		} while (ktime_us_delta(ktime_get(), start) < MCQ_POLL_US);
-+
-+		if (ocs == OCS_INVALID_COMMAND_STATUS)
-+			err = -ETIMEDOUT;
-+	}
-+
- 	if (ufshcd_mcq_sq_start(hba, hwq))
- 		err = -ETIMEDOUT;
- 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index bcc2512bf34b..7fc80926eeec 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -8046,6 +8046,9 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
- 
- 	lrbp = scsi_cmd_priv(cmd);
- 
-+	if (!ufshcd_is_scsi_cmd(cmd))
-+		goto clear_cmd;
-+
- 	for (poll_cnt = 100; poll_cnt; poll_cnt--) {
- 		err = ufshcd_issue_tm_cmd(hba, lrbp->lun, tag, UFS_QUERY_TASK,
- 					  &resp);
-@@ -8091,6 +8094,7 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
- 		return err;
- 	}
- 
-+clear_cmd:
- 	err = ufshcd_clear_cmd(hba, tag);
- 	if (err)
- 		dev_err(hba->dev, "%s: Failed clearing cmd at tag %d, err %d\n",
 -- 
-2.43.0
-
+Jani Nikula, Intel
