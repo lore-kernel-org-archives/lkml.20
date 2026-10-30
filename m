@@ -1,96 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793328017;
-	b=v5HCgygsbCq+IP2Ab8/o7C0nX1LxerKLj6b0ecFI9uEFVrH3S7+9SSlDFL33nFJqJ/vh
-	 NdpDF1QxBGdRtAEvJB+OUejUMF7ZvKVvj9Dm8TFLQ+sQohoSISh0eJuUQ8f0Ij8FjU07I
-	 LtrDcDgndw2+s81rkBBbK5SV0gNyKhr8j2GezuR8Lm5FWWHhz1UOhzfD74toD5/pI9eSd
-	 oqAYb4W7YKr7Sl8Zle46sEHTFb7PlWJSYr7pUI4CkCpJZTLXj6NgY1tyTNb5NLY4EuBgp
-	 k0utcuLmQj1+UDfIsX8SdcHfi9J9NqEbh8UkgrfiyVJFdHWk9uLFIvvAM0YK9MiGpXA==
+	t=1793328049;
+	b=472299Geccc5zmObAGbRF9cjrZ9czxBWkOiptFgYKlBXXPb4KPxKySip/0aZeJ6Uxf+A
+	 SGs+74DViXppE7FwDmEeZxYr4nA9cB1VSfXyKoIIeBBddFPDuhjY8B1qU96yrnrZaSRhx
+	 Q1UI+NT9/ntD8ZL02rmJO1VKq66qJTAlQvYdky7RmAF7To9UEeq9Ptyj4psv8Dm+1Kl64
+	 fY1i2ISVc7a/nt/W6k5bEGD5PU+nHjpGS80IgRIF3UJLc/LMVHdZQDkbz+Imu1UhSK/qy
+	 f9RKRY5d4LR7OZbNxlS5aM8FMiEhGZbz6Ero2lRDtFhbns1y36AL9DOTPjKT9Jzsjug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793328017;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=+ELhbW/6uxFSOtLiXrpEjFCc5Al5bqntgfPHZO1Nwwg=;
-	b=neWcaEm3c6rj/7g4jHsiOx4UyC7zp57CjrP3//8NJO2Px7iaqHk2axpzE3cZL2VePT6G
-	 JnIfemFpQVJj6qkSMi714Sb5coHHKuq8WtGhtUApivhwQcfD0f7xxr6KvMAxFhnZ/Vecg
-	 B21zDl8zyJISHpFPXG6y/Wx/X+XOJLFeEcxWRL1TMp3Mo3akJZmRXnz7HTKQHi3vECN6P
-	 cHyLAbWnNvUR8m+cyULpqdaAz/OA1mJQV0KdzkXLW11SgRWBfHs2xz9p7D1l883iblsss
-	 4ZQ0CC5WvVoqSQTiYAp38MYadZbo3Ft6ziCUoTwD2ie8hDZ6V1A4oTwc258KoiKga9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793328049;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=VaghlxoTkY6+PDm7BEV7DT23eF5DgKXQ6aJ5vhgJ1Yc=;
+	b=4jneUFdwn7jclS2JolBpmR6GfaAQNRoFoJjkNTgc4LBCtlnzwk7hC3/MIc/3aODxMi+Q
+	 iME/Uxz6fQkUmDcdY+wpflKimYZ38oqc+u9/88SbhfDFUwMFTGX1ot6MJxuUkW2AQMcB4
+	 zprsriMrmPqo2Vwn5lbA6mjfsKIX27hcupXV5a1o/e/ajidiwO/qF6TXxpadepzD+TyQ1
+	 MqaTr/wJO8xdkDnflmAAvlZziarTTb+xStsZb4jYp+xyft8BUr+VFtjUCNa/qN+PaOJ35
+	 FSEaAQz/xnymu937ThBqDcra4IcwdnGFaERm3y2TU5fbFiiltIGN7Z9P7RFkbVexVMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vAisCruQ;
-	arc=none smtp.remote-ip=209.85.221.175
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=pIoYSvEV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC3A606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:40:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FC3A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897B7606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:40:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vAisCruQ
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5c9e7731b34so257081e0c.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:40:17 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=pIoYSvEV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD72C1F000C1;
+	Fri, 30 Oct 2026 02:40:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793328016; x=1793932816; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+ELhbW/6uxFSOtLiXrpEjFCc5Al5bqntgfPHZO1Nwwg=;
-        b=vAisCruQ8cBFET8/dNwfmyX4n77Anbj6EdSlbqajFzCnS4ibrEtl1nvb9B4yOA8Pgb
-         y6qBY5tyTutbrINbP9qrKQnGBuoysT5emmza9W8WrZRuTbWGaEuNoEq1LfXZe+zl2omN
-         oz1xP+KvELhetEI+CFCf/RSa2SHk35YqiIwHoWJF4HMVzh/fBjcwc4hBs8KoDLld8Efv
-         kEh7pG9RvwS2tst/SqVyjwRq92JVGJQqGzfJ3aGUDY32N+hkW9LEqdupYbtyT67gc5fo
-         Z2JWMIkV9aK90ZiO7ouT4iWD1AnLaIMzsaeGPoqLzug9mHJkSWq3xjliW0k+OO44zekS
-         EGdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793328016; x=1793932816;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+ELhbW/6uxFSOtLiXrpEjFCc5Al5bqntgfPHZO1Nwwg=;
-        b=gfTsBrn+Al+kSSMoUvjogyv/vNLp5ZB39dwbYmP4epPCWWauFSOBipIOjGHRUW4/PU
-         HfBJ6OfqeBYuZIrnQLpJX/xueA2ap3T4g3+lef/oi4Zdh9f0+KACis9fEjAUCeIh1rIO
-         l4OAov5AyLtG2KSM/yNt50MqbiMcQh5yFSMYIdPLPBzFp086ubaeG3PDQfU87Essfujj
-         ecaAFlCI9b7APQwTFZ9O73vRHzDPWFa7xznd2SOjbL+9KHUA1i4u41OBT/xeSYExi30z
-         Ui5aLNAGxW2as/K/dRDGWvNWL1K6Uao4RWshnSWZS+i2OgwuOFAlQh7NMBiu1m17GMcv
-         Si1g==
-X-Forwarded-Encrypted: i=1; AKwUvBzGgc+NNSt4Nb/7qYkh3WY2cmU7tOUEhO3AMTvxIsD3pFXZy6/RY10DKIjiAfVZhgbqF3o/XkkJMdEZZzc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBTZDbY8zsrFW1fbPLQmv3l0TNrX2tzxUlzjZzVZFy82VeJBdt
-	HvVEKCADThKFCE1UvfeObSHff69vsc0JqGv4ce148ehMsv9GHiD+2GyO
-X-Gm-Gg: AYBFou3Kx0fa8IIVLk+Kfg7RFCMiXCmUH7XOHgboE1szCEWx5505iSmdVZZmKnw9M6Q
-	nH+9G1GXUosbjNBsLzOobyHGfA7CLkrywefZT/9k4HS+gY/9iZnBjFRNuEBPwUiH0HqC9PnYCrn
-	5/tjHTYVfZUa4/NtO46UdpeTNYNSCF/rHAv8ZBFIMfEPFUp5JBOPIqgz5LPl6bu6FaIU8vwPobU
-	894bGyQAz9CafxqAfAHD+K+fsnKcm+rdeIkJAeAAZXE9tIjT8CbMf6ff2/GwtpnWgdL9xsny0OG
-	9UkG/Rx9x+VbvTAk7/aBs7v7kMqTuqmolhvK01uneXJWUOOGnbL3pW8iQvc3EhIcaWMxwKnrn/c
-	JMgQEukxaNgAqR9lSXTE1LKbIZfmXZObXy5PjF6yLnwsiyHLFnkPODQhbN+cenoIg3Z99RJnPaV
-	Zs3x2dAUupDZXwULenOrXwjxey5WNhqBU2CzdWmM81iPOBZ5s8TVus6hOUYvwa/rTkXQllF8UYY
-	8nGRhvoUU548sTAG5XYDo7aEXuadXD+ny+HakWiHmyOyVLQprvL8WfXVcHTA/6GmW8QHRscM9VK
-	IT98zYk8UKZRrXXS26AbHleQ7vVNceeeZ5cIHkEK7Fzs4XchQzswjB96mqo0ogjoLAidRVtt6gH
-	2ZvIRPlH6IGhjjmgzOhv8/775AqAf
-X-Received: by 2002:a05:6122:ec5:b0:5ea:dc36:245b with SMTP id 71dfb90a1353d-5ec6896de21mr562647e0c.18.1793328016018;
-        Thu, 29 Oct 2026 19:40:16 -0700 (PDT)
-Received: from macbook-pro-de-joas.local ([2804:7f0:b101:c5e8:ccdf:2b09:f69e:4902])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69c5d183sm963735e0c.13.2026.10.29.19.40.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 19:40:15 -0700 (PDT)
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-To: David Heidelberg <david@ixit.cz>, Krzysztof Kozlowski <krzk@kernel.org>
-Cc: David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, oe-linux-nfc@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH net] nfc: s3fwrn5: validate the firmware image size against
- the firmware file
-Date: Thu, 29 Oct 2026 23:40:02 -0300
-Message-ID: <179332800288.52644.4206885352837613064@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	d=linux-foundation.org; s=korg; t=1793328049;
+	bh=VaghlxoTkY6+PDm7BEV7DT23eF5DgKXQ6aJ5vhgJ1Yc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=pIoYSvEVIeOMDbQ4GehnLZvj7LFdvId11l7/cvBaxDFHOF9uXwxpzYqZ8gZbCFmAe
+	 CiqdK53NTq9EHRe2o5AdD+W9XyXYSPfFM/7eJQE4FJHC0vm0UF05cP2LDYnviodZ7+
+	 yPCv9v/jzHz6mALlrO2/R2m4QUdrLu5PFKY7K5BM=
+Date: Thu, 29 Oct 2026 19:40:48 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "M. Grove" <mgrove@airmail.cc>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, Matthew Wilcox
+ <willy@infradead.org>, Jan Kara <jack@suse.cz>
+Subject: Re: [PATCH] mm/filemap: queue non-exclusive folio waiters ahead of
+ exclusive
+Message-Id: <20261029194048.5faf664d805bff08d3001e29@linux-foundation.org>
+In-Reply-To: <179296822701.680532.8543194155713536453@airmail.cc>
+References: <179296822701.680532.8543194155713536453@airmail.cc>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,103 +56,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-s3fwrn5_fw_download() hashes and flashes sector_size * image_sectors
-bytes starting at fw->image.  sector_size comes from the GET_BOOTINFO
-response of the controller's bootloader and image_sectors and the image
-offset come from the firmware file, and none of them is checked against
-the size of the file.  s3fwrn5_fw_update_sector() also always sends
-16 * 256 bytes from the start of each sector.
+(cc filemap.c maintainers)
 
-The controller decides whether the update runs at all: it reports the
-version that s3fwrn5_fw_check_version() compares against in
-CORE_INIT_RSP.  So on every device up, as long as the firmware file is
-installed, a controller that reports a
-large sector_size makes sha1() and the update loop read far past the
-end of the firmware buffer, and one that reports a small sector_size
-gets up to 4 KiB past the end of the image sent to it in
-UPDATE_SECTOR data packets.
+On Sun, 25 Oct 2026 22:43:47 -0000 "M. Grove" <mgrove@airmail.cc> wrote:
 
-Check that everything that is hashed and sent lies within the image,
-reject a zero sector_size, reject an image offset past the end of the
-file, and make sure the GET_BOOTINFO response is long enough before
-copying the 10 bytes of boot information out of it.
+> A folio waiter queued behind an exclusive folio_lock() waiter on the same
+> folio is skipped by folio_wake_bit()'s nr_exclusive=1 walk: a shared/DROP
+> sleeper (folio_put_wait_locked from do_read_cache_folio) never receives
+> WQ_FLAG_WOKEN even though its wake ran.  Readers then hang D-state in
+> folio_wait_bit_common while fresh reads of the same page answer instantly,
+> and the sleeper wakes only with each later lock/unlock of that address, one
+> page at a time.
+> 
+> Same symptom as syzbot's "INFO: task hung in read_cache_folio (6)"
+> (extid 9db0864859224b833108).
 
-Fixes: c04c674fadeb ("nfc: s3fwrn5: Add driver for Samsung S3FWRN5 NFC Chip")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
----
-Tested on arm64 QEMU with KASAN, with a test-only module that registers
-s3fwrn5 through s3fwrn5_probe() on a virtual phy and a userspace
-emulator for the NCI and bootloader protocols.  With a 4156 byte
-firmware file (one 4096 byte sector) and the controller reporting an
-older version:
-- sector_size 0xffff: oops in sha1_ce_transform() from
-  s3fwrn5_fw_download() without the patch, update refused with it;
-- sector_size 16, 2 sectors: KASAN vmalloc-out-of-bounds in
-  s3fwrn5_fw_prep_msg() while building an UPDATE_SECTOR data packet
-  without the patch, update refused with it;
-- sector_size 4096: the update runs the same with and without it.
-Not tested on hardware.
+https://syzkaller.appspot.com/bug?extid=9db0864859224b833108
 
- drivers/nfc/s3fwrn5/firmware.c | 24 ++++++++++++++++++++++--
- 1 file changed, 22 insertions(+), 2 deletions(-)
+So are you saying that this patch will fix that sysbot report?
 
-diff --git a/drivers/nfc/s3fwrn5/firmware.c b/drivers/nfc/s3fwrn5/firmware.c
-index 9145deec7..159afb8de 100644
---- a/drivers/nfc/s3fwrn5/firmware.c
-+++ b/drivers/nfc/s3fwrn5/firmware.c
-@@ -93,7 +93,8 @@ static int s3fwrn5_fw_get_bootinfo(struct s3fwrn5_fw_info *fw_info,
- 		return ret;
- 
- 	hdr = (struct s3fwrn5_fw_header *) rsp->data;
--	if (hdr->code != S3FWRN5_FW_RET_SUCCESS) {
-+	if (hdr->code != S3FWRN5_FW_RET_SUCCESS ||
-+	    rsp->len < S3FWRN5_FW_HDR_SIZE + 10) {
- 		ret = -EINVAL;
- 		goto out;
- 	}
-@@ -307,6 +308,10 @@ int s3fwrn5_fw_request_firmware(struct s3fwrn5_fw_info *fw_info)
- 	memcpy(&fw->sig_size, fw->fw->data + 0x18, 4);
- 
- 	memcpy(&image_off, fw->fw->data + 0x1C, 4);
-+	if (image_off > fw->fw->size) {
-+		release_firmware(fw->fw);
-+		return -EINVAL;
-+	}
- 	fw->image = fw->fw->data + image_off;
- 	memcpy(&fw->image_sectors, fw->fw->data + 0x20, 4);
- 
-@@ -409,11 +414,26 @@ int s3fwrn5_fw_download(struct s3fwrn5_fw_info *fw_info)
- {
- 	struct device *dev = &fw_info->ndev->nfc_dev->dev;
- 	struct s3fwrn5_fw_image *fw = &fw_info->fw;
-+	size_t image_avail = fw->fw->data + fw->fw->size -
-+			     (const u8 *)fw->image;
-+	u64 total = (u64)fw_info->sector_size * fw->image_sectors;
- 	u8 hash_data[SHA1_DIGEST_SIZE];
- 	u32 image_size, off;
- 	int ret;
- 
--	image_size = fw_info->sector_size * fw->image_sectors;
-+	/* sector_size comes from the bootloader and image_sectors from the
-+	 * firmware file.  The whole image is hashed, and
-+	 * s3fwrn5_fw_update_sector() sends 16 * 256 bytes from the start of
-+	 * each sector, so all of that must lie within the firmware image.
-+	 */
-+	if (!fw_info->sector_size || total > image_avail ||
-+	    (fw->image_sectors &&
-+	     total - fw_info->sector_size + 16 * 256 > image_avail)) {
-+		dev_err(dev, "Invalid firmware image size\n");
-+		return -EINVAL;
-+	}
-+
-+	image_size = total;
- 
- 	/* Compute SHA of firmware data */
- 	sha1(fw->image, image_size, hash_data);
--- 
-2.43.0
+If so, a Reported-by: and its Closes: would be helpful.
 
+Some description of *why* that sysbot hang occurred would also be
+helpful.
+
+You can do an emailed reply "#sys test" to the sysbot report.  Than
+paste in the patch and it'll rerun the test for you, if it has a
+reproducer.
+
+Plese reconcile this with
+https://lists.openwall.net/linux-kernel/2026/10/26/2932?utm_source=chatgpt.com
+
+Did Josef already fix this?
+
+> The change only reorders the enqueue side: non-exclusive waiters use wait.h's
+> default head-side insert, exclusive folio_lock waiters keep the tail, so
+> wake-one fairness for lockers is unchanged.  Built on mm-stable
+> 183895979c44; mm/filemap.o also builds on v7.2.6.
+> 
+> Queue-walk instrument (read-only, counts non-exclusive entries left
+> unvisited when folio_wake_bit() returns): 363 skipped waiters per 10-minute
+> run before the change, 1 after the folio_wait_bit_common site, 0 after the
+> softleaf_entry_wait_on_locked site as well.  Reproducer shape: threads pread
+> a file while others block in folio_lock on the same pages (hole punch,
+> truncate or mmap faults) under reclaim churn.  Harness, traces or configs on
+> request.
+
+Sorry, this is all quite unclear (to me, at least).  What is the actual
+bug, how is it triggered and observed, etc.  
+
+> Signed-off-by: M. Grove <mgrove@airmail.cc>
+> ---
+>  mm/filemap.c | 16 +++++++++++++---
+>  1 file changed, 13 insertions(+), 3 deletions(-)
+> 
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index b74bc1e5015c..35869d19d17a 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -1293,8 +1293,18 @@ static inline int folio_wait_bit_common(struct folio *folio, int bit_nr,
+>  	 */
+>  	spin_lock_irq(&q->lock);
+>  	folio_set_waiters(folio);
+> -	if (!folio_trylock_flag(folio, bit_nr, wait))
+> -		__add_wait_queue_entry_tail(q, wait);
+> +	if (!folio_trylock_flag(folio, bit_nr, wait)) {
+> +		/*
+> +		 * A non-exclusive (shared/DROP) waiter must queue ahead of
+> +		 * exclusive folio_lock waiters: the nr_exclusive=1 wake walk
+> +		 * stops at the first exclusive match, so a non-exclusive
+> +		 * waiter behind one is never visited and never woken.
+> +		 */
+> +		if (behavior == EXCLUSIVE)
+> +			__add_wait_queue_entry_tail(q, wait);
+> +		else
+> +			__add_wait_queue(q, wait);
+> +	}
+>  	spin_unlock_irq(&q->lock);
+>  
+>  	/*
+> @@ -1428,7 +1438,7 @@ void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+>  	spin_lock_irq(&q->lock);
+>  	folio_set_waiters(folio);
+>  	if (!folio_trylock_flag(folio, PG_locked, wait))
+> -		__add_wait_queue_entry_tail(q, wait);
+> +		__add_wait_queue(q, wait);
+>  	spin_unlock_irq(&q->lock);
+>  
+>  	/*
+> -- 
+> 2.56.0
