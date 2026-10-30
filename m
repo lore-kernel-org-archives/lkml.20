@@ -1,72 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362644;
-	b=eumLnVE2/K2whfXEODP1cyaWvwrw4bcUvG8m8EAcCu/DAfmkwabV0HJF952T7Dd6rJyZ
-	 VxaGx9vWPb9ymOYxpyFkqeeIZyaIxDkuIiNggwKsw9lop6mmpufqcZSSIEaVKE4YO7QFE
-	 8W/pqMusbVSqASq5nM62KigmeA31Qt6r259gB3C4b8jdtYjTM2yb/7z9SzBvl3M6QPTCn
-	 2bQjcd4DNuN/y5lCobzt3iM6nDkEIOK81Upf6lPVc74bme4JBZP1PY6uhYL81eAnjQs6A
-	 LFuTEnA8GKbNOCO8k8obqJaoqCQCFMojFsEdbWGEaa6/PLozWQx990r9omEUNV6gnFw==
+	t=1793362668;
+	b=OdY6wJKP0jjDjSGQlLhLEXgH2+hQ+DDLX3EY6clIB2ZhW2n5uxUJzJRSrXW2xLdafFxw
+	 hz84ygFHIHb+MkKKxj4HHJTI6zl47Rmy6eppnTdFysjhkR5LMbptR7zDyNbaWktiz0DPj
+	 IzHKTMKbQTkQaH6Ns/jdfwAygNjF3hxvJ/8bZmoqxN05Z2RnBd/mEodmZe8lgMAzOupp8
+	 EN36bZkJFLHP6uD3ojlOl0PstWypY3YnFgZuD0yee2KlaErjj3bloerdc+Nt+pcfzbj5e
+	 12buH9fFDgXefXozgq1qhAjNbaFESWNZtgUxBts7yY2S8CHbhm3l+EdGufGw+30cTfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362644;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=HpxrkdHX+pHoxS8QiLrmBd8NFzaZIUXGXtbQN2oLq54=;
-	b=pyEtYfABsfssHRLup1K2ju5dOtbPj6RWgFpSDrttKkcq3WnhENOPeNljXkoZIQVCeNIN
-	 zOAqKL84QFi6KauodBGK95KQsyOf3m8Sa8/ORPJ/n/YFL8b+0ViwU7k6qVS6RSH3lx7q1
-	 nygpQGzki4QI91p3A1KjfTLVQNCiVB7WhSYOmcl5pJ44T0seA9GB9cDTzFKbhjUEKPOYw
-	 tEy3KiAehRXBsBUSPzIR2FoVrc4baehTvrKK80DEGssxi0cF73HBxTn9KYg6SWpCSc8DY
-	 Hwjm5k6xYavn9hm0hxgw1OD22GN/9Gghm8/C4+pmws2BuhWF99l1I8toWzVUr3eu1sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362668;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=UK6y1rvEetP4GeIpkkcT7eGv8kcGn/z16mpoP5T1g04=;
+	b=V3y2oCBYHCdbsuZ91grUPLAMMqpLn+yFEW9it0tFdidM6DKZthNnihMp/oqHu7g/Y2qd
+	 vlqFqgb/p0aOSeczIo2hldv4e2ukfcDuQY53yadiIdInZ796FwbCRswKHu2YwOndCjOXC
+	 AEm4qQLepe4GIejUIoGnv8o+CFcOJnU93QaLEB4YLi2qpbtq2YiB0UvWtrcXV79Mvd5gP
+	 pV75towuTgRHW60aAp8+6D5/A5JZuifIyfPu9E1IYSgU01emxBD+ZILr8xiQJDtvsj5f7
+	 howpF6O0eiUnDnAEcrKKIDW1BGOpKoAnPpKJnYRcIH56KNGxEDtC3Y538YwS0XUVUzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SExPc0px;
-	arc=none smtp.remote-ip=209.85.216.69
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XraIJ6OR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC22606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:17:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CC22606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9EA606A31A;
+	Fri, 30 Oct 2026 12:17:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SExPc0px
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ae73921fd1so610376a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:17:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793362643; x=1793967443; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HpxrkdHX+pHoxS8QiLrmBd8NFzaZIUXGXtbQN2oLq54=;
-        b=SExPc0pxrHXKP0ZT829eqVWuNQOocfBLkPZpMCKVd5V7/jh8ldGjq6kZKGN3llEO8U
-         KI1tKluJpotNwYx8pg3rada5ovdVeCRnwGKjv8CZbF+EMKk85F+KUhJU/2qbBCbOWsWM
-         HfW49msLnrkSYfzpk2V2UAGSP6l2MMS7RRbpEuX8yuPDEmGZC3feOna6ATBrJWGFzQEE
-         WOjdzr7fiwTKjns+noJTb8tTC3EO1Py2DQyYzRbG1qL4DOABf/vQwDNEzxtjOn3sZkxy
-         RnSdRQoFEwu/05DVWGfUpUz521yZhaRlCal1i/KildTgIkdbKA71zVeAqi48PXPsLKQu
-         xZ4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793362643; x=1793967443;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HpxrkdHX+pHoxS8QiLrmBd8NFzaZIUXGXtbQN2oLq54=;
-        b=mkyWvXLMG+/YfVsQ2z0aMikpc4V0l2IXJBtyIat6BFJduK55NIgHgUA0LMqtjXWg3c
-         xbkr6FAe4qyMc0f5DP2bGgs4KeJiMoUe4jMKfJtRH9Z+MK7U/O3f0BoTn1O7n+2nhM4q
-         SKknF8L2fdFzJPNMUh8+rrUiaL5CrIX+pJbevhuDmZckKt4ZUnLvLcMu8H5DyC/+MJ6D
-         xzRMf8+epryFYJNRupimNFR+QVc71kuXHT5dejAtKqOGfj+vUJPwoc7I2Zy3WOppXjcN
-         wDcfbqAmlDGZrp4w+QY4RRjk0lTW3zesfjQlosUybcoNLV5yM0k6cB92MaTW0kzu2TzM
-         5OuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz4L1X4NyWPI53Gs/RBEu5yT8agDjGB5nES+GzEa2LL8SV1rvopTY5Esii/Aqod6s5XnLz4cZGUiBSuFUM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL0kEKgwGbhpoakxhuPDRorELLln71q+5JwQR8ezzbbulI/Yj5m
-	W78DG6bGerwBnvgs/T0ifhLn/POymFSJhELSgYIoiXhbLm0k/5igMOjnElmb3UkknodsWAc+ckJ
-	4SniOXNb89L/SwJcgPTre7Q==
-X-Received: from pgby23-n1.prod.google.com ([2002:a05:6a02:6517:10b0:cc7:4919:5ed9])
- (user=jenhaochen job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:5106:b0:3ab:e588:c295 with SMTP id 98e67ed59e1d1-3ae8983c798mr1659513a91.42.1793362643165;
- Fri, 30 Oct 2026 05:17:23 -0700 (PDT)
-Date: Fri, 30 Oct 2026 12:17:00 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XraIJ6OR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C16C1F000C1;
+	Fri, 30 Oct 2026 12:17:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793362667;
+	bh=UK6y1rvEetP4GeIpkkcT7eGv8kcGn/z16mpoP5T1g04=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XraIJ6ORxhn6aOLNJ1PzJuMnPc8UhPpMsnkW3aeRyNbbmlBmryRlydRPYjJrKOaFt
+	 ipXhvkqGlCIx70HIow2DVaPIS7NFY2OQStQHqM442z5SEWSw7Xo1dk2h6a459dkIbJ
+	 bYUGabJzgA1cZ+1OEJ/jj39U64gFxztd/BwD5UBJBFTvJ7Shjkqalaq8m86o213aVx
+	 FR/Bp6BZrrvCUmH1cPR8jaLgirSMeIChIcj2t6x3wtFZ94Z82KA8tVNbiu6VX3COEn
+	 qPPvNlfZ9s9Fqs1RTDisWAW7/uWEAKFYhCIfp0XOkgQ8o8zKyZ9ndP2YO/n++l3fp+
+	 V7vRAuFTLdaTA==
+Date: Fri, 30 Oct 2026 12:17:41 +0000
+From: Lee Jones <lee@kernel.org>
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Mastan Katragadda <Mastan.Katragadda@amd.com>,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mario Limonciello <Mario.Limonciello@amd.com>,
+	Syed Saba Kareem <syed.sabakareem@amd.com>,
+	"Prasad, Prasad" <venkataprasad.potturu@amd.com>,
+	"Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
+	"N, Poojitha" <Poojitha.N@amd.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 16/21] soundwire: amd: Initialise and cancel IRQ work
+ around manager lifetime
+Message-ID: <20261030121741.GI3774906@google.com>
+References: <20261030104840.3361217-1-lee@kernel.org>
+ <20261030104840.3361217-17-lee@kernel.org>
+ <43cae78b-8a9f-4528-982c-85c0049b1414@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,76 +67,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261030121700.260975-1-jenhaochen@google.com>
-Subject: [PATCH] mm/zsmalloc: inline obj_malloc() and obj_free()
-From: Jenhao Chen <jenhaochen@google.com>
-To: Minchan Kim <minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	minchan@google.com, liumartin@google.com, benwei@google.com, 
-	Jenhao Chen <jenhaochen@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <43cae78b-8a9f-4528-982c-85c0049b1414@amd.com>
 
-In zs_malloc(), the fast path (if (likely(zspage))) allocates from an
-existing zspage via obj_malloc(), while the slow path allocates a new
-zspage via alloc_zspage().
+On Fri, 30 Oct 2026, Mukunda,Vijendar wrote:
 
-Because obj_malloc() has three call sites across zs_malloc() and
-migrate_zspage(), Clang at -O2 leaves obj_malloc() out-of-line, adding a
-function call on every fast-path allocation. Conversely, because the
-362-instruction slow-path alloc_zspage() is static with a single caller,
-single-caller inlining under CONFIG_AUTOFDO_CLANG (e.g. with
-CONFIG_ZSMALLOC=m) inlines alloc_zspage() into zs_malloc(), growing it
-from 254 to 691 instructions.
+> 
+> 
+> On 10/30/26 16:16, Lee Jones wrote:
+> > [You don't often get email from lee@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> > 
+> > amd_sdw_manager_probe() publishes amd_manager via dev_set_drvdata()
+> > before initialising amd_sdw_irq_thread and amd_sdw_work, allowing an
+> > early interrupt to schedule uninitialised work.  During removal,
+> > amd_sdw_manager_remove() only cancels amd_sdw_work without first
+> > cancelling amd_sdw_irq_thread, allowing deferred IRQ work to re-queue
+> > amd_sdw_work or dereference amd_manager after it is freed.
+> > 
+> > Initialise both work items before calling dev_set_drvdata() in
+> > amd_sdw_manager_probe(), and cancel amd_sdw_irq_thread before
+> > amd_sdw_work in amd_sdw_manager_remove().
+> > 
+> > Fixes: 65f93e4096a0 ("soundwire: amd: add SoundWire manager interrupt handling")
+> > Closes: https://sashiko.dev/#/bug/linux-9890e8dc-4b7d-44d3-bfb0-171dc421e28c
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Lee Jones <lee@kernel.org>
+> > ---
+> >   drivers/soundwire/amd_manager.c | 3 ++-
+> >   1 file changed, 2 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+> > index 98b09d81f3b8..2e1038ea0f36 100644
+> > --- a/drivers/soundwire/amd_manager.c
+> > +++ b/drivers/soundwire/amd_manager.c
+> > @@ -1185,9 +1185,9 @@ static int amd_sdw_manager_probe(struct platform_device *pdev)
+> >                  sdw_bus_master_delete(&amd_manager->bus);
+> >                  return ret;
+> >          }
+> > -       dev_set_drvdata(dev, amd_manager);
+> >          INIT_WORK(&amd_manager->amd_sdw_irq_thread, amd_sdw_irq_thread);
+> >          INIT_WORK(&amd_manager->amd_sdw_work, amd_sdw_update_slave_status_work);
+> > +       dev_set_drvdata(dev, amd_manager);
+> The probe-side ordering issue is valid — an interrupt arriving after
+> dev_set_drvdata() but before INIT_WORK() could schedule work on an
+> uninitialised work_struct.
+> 
+> The remove-side fix is already posted as part of our v3 patch series:
+> 
+> https://lore.kernel.org/alsa-devel/20261013085111.2009061-6-Vijendar.Mukunda@amd.com/T/#m60177687bb84758efdd6f5f09eba8ad32f0e4631
+> 
+> The probe-side fix will be included in our upcoming v4 patch series,
+> which contains major driver restructuring and customer-critical bug
+> fixes. Merging this patch independently would conflict with v4 and
+> complicate the review process.
+> 
+> Could you please drop this patch? Both issues will be covered by our
+> v3/v4 series.
 
-Mark obj_malloc() and obj_free() __always_inline and mark alloc_zspage()
-noinline to keep the fast path inline and the slow-path page allocation
-out-of-line.
+Yes, no problem.
 
-Signed-off-by: Jenhao Chen <jenhaochen@google.com>
----
- mm/zsmalloc.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
-
-diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
-index 6258a4f5e9fce..5d3443f14a48f 100644
---- a/mm/zsmalloc.c
-+++ b/mm/zsmalloc.c
-@@ -960,9 +960,9 @@ static void create_page_chain(struct size_class *class, struct zspage *zspage,
- /*
-  * Allocate a zspage for the given size class
-  */
--static struct zspage *alloc_zspage(struct zs_pool *pool,
--				   struct size_class *class,
--				   gfp_t gfp, const int nid)
-+static noinline struct zspage *alloc_zspage(struct zs_pool *pool,
-+					    struct size_class *class,
-+					    gfp_t gfp, const int nid)
- {
- 	int i;
- 	struct zpdesc *zpdescs[ZS_MAX_PAGES_PER_ZSPAGE];
-@@ -1209,8 +1209,9 @@ size_t zs_huge_class_size(struct zs_pool *pool)
- }
- EXPORT_SYMBOL_GPL(zs_huge_class_size);
- 
--static unsigned long obj_malloc(struct zs_pool *pool,
--				struct zspage *zspage, unsigned long handle)
-+static __always_inline unsigned long obj_malloc(struct zs_pool *pool,
-+						struct zspage *zspage,
-+						unsigned long handle)
- {
- 	int i, nr_zpdesc, offset;
- 	unsigned long obj;
-@@ -1321,7 +1322,7 @@ unsigned long zs_malloc(struct zs_pool *pool, size_t size, gfp_t gfp,
- }
- EXPORT_SYMBOL_GPL(zs_malloc);
- 
--static void obj_free(int class_size, unsigned long obj)
-+static __always_inline void obj_free(int class_size, unsigned long obj)
- {
- 	struct link_free *link;
- 	struct zspage *zspage;
 -- 
-2.56.0.317.g454f8302e1-goog
+Lee Jones
