@@ -1,70 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793384760;
-	b=Pud9SyWRZcKNPlgE8wgAqBg/cXUD9IW2QPszlLRhj3g25CI/2VVIJoTDVR3Q1QwAzIKL
-	 6nss4duNoJhaCZcjiXTK1mEXidZJLnCkcJt+smjVUADP07B1hXm/FarfMYl3IMdQ0brWn
-	 SVlj5j0NDMhtX4jicBvUgtjCrVJctboxJ81rEo3L53R8VNd45HBbqHrEWNHuVgVeA3WtD
-	 WiuOaE8MIkEH82DrgfG781aJh5EUKEhEjpejeChjDdJ8aDnrlztIL9EZ7kDpLNoGWkczQ
-	 aWQJQZd7CPwQnbxYEgRnp2lz+lyfbW2+KduaAnttmYWxxLtAYEieVheLwHZ9OoR9YyA==
+	t=1793384881;
+	b=xLUImMUcOqakFfAKJ/g6hKcj76+CbFXvGNG0sh6uCUv7IU/Q1+M7HDlw3r8MD5qR/21w
+	 G6dGGEaTUjFFP2NxUl5rZ/uBmSsgLSg/LV95z44hLJwa+szaOudLVc4U6KfQkrFZ1Hsa1
+	 SgVvs4B4w+GVO8EHsEXQpukP7z1WYXJDR8MscK2ZMvwlpKadYXA3nptojntNE/XPoggGw
+	 YKGuU1PKSZsh1DhkGBeDUPUfIMhwWHVwhgM2jrDLypmObLjMPdKC/ixlFmx8LJzZuBO6K
+	 hl4fEf1/OkHy+xHllk+yLfr/Tdo9NlN1RBDrTDs/Q5bPsCoTpS38grzOr00BGM0ZKeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793384760;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=jNyQUjUQJUIyMMQ0wfpgXGfUPfMmddjjb+UShX+g7BI=;
-	b=flZx1ie7fXpW+EqCje0+AuM+tjLvJYXebpvrj6plCsuC3DaEar2NVk7+9D3Z56YbcfXX
-	 1T7Pn8vpccsTUHhlvvQA9qQQuGi1+2nyotGhzilB8x+sayfJW1XzaTIC1TMIDE1vSbX4b
-	 s0tX6G7iQBZapeULzlwGFLOYZpqaAjROlBEovmMrSjmgn0q/52dvhXR7m/A0Rawp41340
-	 xCGmT1yVK8hXTchFVMMkYAPYHGKRezZ/4wjZnhPWJyLZgSLOlDwJEqori15aUwDfTX7jH
-	 ToGEp1y3y4VJExjiwnVDuPYh5DT1fJiUC9LbiworqarHDp+/Khur4HovMvFV7LA1JaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793384881;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=yXZ3QNZbPs7glkJ4yH5pl4fnldsOoVguypIOmbZ2coQ=;
+	b=oxbmu4Qq1cpGH3zdBIhHKSikZv7dqryKGMApKqdcaAeKfh2UhIQAS/OBmHK8sQc+EQuG
+	 P5G3V+4JemoV3cGOwFA/wy/qS3k2cg5uklWtXOO/uAyqFZYyNi8d0SgCC1dYoFWkwC00W
+	 nN4Nh0GuRRZsfTa75xZVhlH9fCpIN8cgwZrbfVYLOdEmRX9/lN3O2JVNXyoZ4h+dbDst8
+	 BvgZnnAmOokff2wn5WYvgGv9L0hrVpvMQbQUerMTDDwHxozz9VM3keuChA2AOnhmzYlNP
+	 wKOPD89rWczEARx9Bj2qD2Qr9rWxu5R2fzJfjZzfBlCLe98RbWXXf3MJmue7CODZ7aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ofi0ncZG;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b7H+9f06;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F29606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:25:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7F29606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF1B606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:28:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DF1B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ofi0ncZG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793384758;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=jNyQUjUQJUIyMMQ0wfpgXGfUPfMmddjjb+UShX+g7BI=;
-	b=Ofi0ncZGWKae0BmQVNQbiYj3ggJ80cxFnOMIVTu3oIkpyOKy5DCS4uqQbMWLUMMRDoYAti
-	w0Ao4dSW5IEpWRXqjqwE83l6sg/rgD5lyG8Um9976/pX+HzNqU3WxGiFK1trARpu3EH9ZR
-	wkiIpCn7bkotmA3S7On10IcuqBZCeno=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-687-85Lc-lXeMXGCnQI4NdiFNA-1; Fri,
- 30 Oct 2026 14:25:56 -0400
-X-MC-Unique: 85Lc-lXeMXGCnQI4NdiFNA-1
-X-Mimecast-MFC-AGG-ID: 85Lc-lXeMXGCnQI4NdiFNA_1793384755
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EE4091955F30;
-	Fri, 30 Oct 2026 18:25:54 +0000 (UTC)
-Received: from pbonzini-thinkpadx1carbon6th.rmtit.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D25D31800347;
-	Fri, 30 Oct 2026 18:25:53 +0000 (UTC)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Subject: [GIT PULL] Second batch of KVM changes for Linux 7.4 merge window
-Date: Fri, 30 Oct 2026 19:25:52 +0100
-Message-ID: <20261030182552.1269009-1-pbonzini@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b7H+9f06
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso723876a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:28:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793384879; x=1793989679; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=yXZ3QNZbPs7glkJ4yH5pl4fnldsOoVguypIOmbZ2coQ=;
+        b=b7H+9f06pwRUzYSGWS60atfV/e2WB+6N0etMptiWqMNLfpMVRFYE6xz7+tLnOlMJ8m
+         l4SIv9aREVkp9842Fr1v5LoazVZcq8MgefUZbqskNwwGqnYVQwPLb5cgXDdLqh3lVJmz
+         yeD/vwqZl9NDQ8dVdkwY4Jc4AE/13giiNIZKdQQSdtDMzMEE1MTZy2RPGU7BUM41kGQq
+         zA9eR5lCiYp99ytaJePKv/0xmGTXy8yWZKLg3CFozTDmRiy5HXQb3+AnPLpPebPS72A/
+         NkIMJMgAvgZJamlhMaxVr8jlLQpMD1vYxfwJLnxVRMgrfas8J05N4GhpDhWvaVtrFslC
+         yR2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793384879; x=1793989679;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yXZ3QNZbPs7glkJ4yH5pl4fnldsOoVguypIOmbZ2coQ=;
+        b=DzigSYfTzN0SxZGTBxWcYp64xMDb06cl++qVBUpX9nhi0b9ZSGMp2NSpWPHHmVDjgx
+         8ue/kd3W07pYASblTe6pDmWZVfRHFCNGS6gTXEBLeyl0MzuzC/SsUgEfg+JQmYWRgpdw
+         d0mYPb9cgN99kb85fbzWylXizcF2Y4E7Csg0+Pm0Rcop8qUUhyJRP7yw5wX5753iEFm0
+         lGpw8ADCqeQx5ArsXLTK+aaMPcCAclektFcW7zPaqcFkkurkcWedb3SofGOfHexNss6q
+         3+rUBC5oE13FDwFi4gG6HtUOCzEVg9DCs8z8tbrZ5R3I8WNt5Nf7rq7eASPkYkBi7l4H
+         xUmg==
+X-Forwarded-Encrypted: i=1; AKwUvBzbC4gJm1pml39AI87jEUZaRkow5Uhx8/h18D925eS5i5BVUl8Cb9hlZc/DuV2X24QJoOSUGeyWsPQ5/M8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJrZ1UvNoolDXsbFyGaQHVkQga/TevORtGY2yzod2ndFrt44zcP
+	BiJpib5+qiwgamlMwRI2DSJ71iSKJozDgM4YgSB1209YyTWrKF05ocN1
+X-Gm-Gg: AYBFou1hMEWkNij7GdZAESGl8TBFvgCR7cSHL+VWkRtDOFb5TMTqeEqOrn2TO2BJusU
+	DQG6s10yH7feGtJP65HWOB55h67mUti1DMmBQRKZLs+LqC9sCTXHatMi2ZJubf4uX1kS5zK4pnr
+	wHvfdDj1q4Q4MWhfcvYxcHGOUbw/hSKMgYFHcqPBSO3VRKQBjG68DdHXAEQQm9RN3HOnFPCv1oW
+	Q7zLy60BHwnZ03C9E7i4US+22FiUUKaohwahyucBrRaxFB328Sqt2g6mwPaNht9BYslaYcVio8N
+	lqBp/ecaZ2FRMmOzajtirDz6EZ7AgQjxJneqdgwyzB4CL9H4a+7BAawn7oX5Ru1qCshN2ki+WZD
+	yuajKtM9NVPY4Pmy2lol9kyNU7eDqdp7RhUsd1WfpHEKfQC2ZVDVIKc0mG3f1R6wyWAXLkIB7Lc
+	vvqWfahQpj4ZRLuj9T9kdFkklXw2UgLtd67/41J3FrWtYVRCuzt/9kxsha9FpeADqvckELMK8qE
+	ABPH/MY0V3rnnxs/X2xSPyJu+5+MLwOqXsJSzSl6K/Cwz4oQd5LpnTxYq/57DtlG/6LedMBUFnk
+	vOR8lQ4aOzhqCaOD3bOeI2S44nIJOBQL5pIg+t03I3DZa2e7y13ITZis7d5VuByqAoP1hGfPQqa
+	5xYwmp/FzUAw=
+X-Received: by 2002:a17:90b:5485:b0:3ab:be66:ddb6 with SMTP id 98e67ed59e1d1-3ae897763fdmr2169146a91.20.1793384879377;
+        Fri, 30 Oct 2026 11:27:59 -0700 (PDT)
+Received: from ?IPv6:2a03:83e0:115c:1:5d10:1794:f0d8:db5b? ([2620:10d:c090:500::4:1201])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845984absm5186356a91.10.2026.10.30.11.27.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 11:27:59 -0700 (PDT)
+Message-ID: <34b76ef03fb2b7385de32647f21441c6ff267c6a.camel@gmail.com>
+Subject: Re: [PATCH bpf-next v3 09/12] bpf: Track low-32 scalar equality
+ across narrowing stack fills
+From: Eduard Zingerman <eddyz87@gmail.com>
+To: Vineet Gupta <vineet.gupta@linux.dev>, ast@kernel.org,
+ daniel@iogearbox.net, 	andrii@kernel.org, memxor@gmail.com
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
+	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
+	john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Date: Fri, 30 Oct 2026 11:27:56 -0700
+In-Reply-To: <20261020161907.2115379-10-vineet.gupta@linux.dev>
+References: <20261020161907.2115379-1-vineet.gupta@linux.dev>
+	 <20261020161907.2115379-10-vineet.gupta@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,230 +106,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Linus,
+On Tue, 2026-10-20 at 09:19 -0700, Vineet Gupta wrote:
+> A 32-bit fill from a wider spilled scalar has the same shape as a 32-bit
+> mov from a wider source, and the relation was dropped rather than
+> recorded:
+>=20
+>   r6 =3D ...                  /* full 64-bit unknown */
+>   *(u64 *)(r10 - 8) =3D r6;   /* slot linked to r6 */
+>   r2 =3D *(u32 *)(r10 - 8);   /* narrowing fill */
+>   if w6 !=3D 0 goto ...       /* not taken: r6's low 32 bits are 0 */
+>   if r2 =3D=3D 0 goto ...       /* not deduced today */
+>=20
+> Record a low-32 link as the mov arm does. Stack slots are already
+> first-class members of an ->id set, so sync_linked_regs() and the
+> reconstruction helpers apply unchanged. A fill narrower than 32 bits has
+> no expressible relation and still drops it.
+>=20
+> Which extension rebuilds the high half depends on the load, so
+> check_stack_read() takes is_ldsx and sets BPF_REG_LINK_SEXT where that
+> is known. check_mem_access() then keeps a sign-extending link across a
+> 4-byte sign-extending load only: BPF_REG_LINK_SEXT means (s32)(base +
+> delta) specifically, so an 8- or 16-bit ldsx is a relation the kind
+> cannot express, the same way the ALU arm's subreg_link is gated on
+> (insn->off >> 3) =3D=3D 4.
+>=20
+> Costs. A bisect lands one clang regression here -- big_alloc2 2956 -> 309=
+5
+> insns, 157 -> 165 states -- but it is not this patch alone: it takes both
+> this and the preceding reverse-direction patch, and neither moves
+> big_alloc2 by itself. The external corpus does move for this patch alone,
+> no verdict changes, six programs verifying in more instructions:
+>=20
+>   +1812    2470 ->  4282  test_file_open    bpfjailer-lib-tests open
+>   +1765   59556 -> 61321  twfw_connect4     tupperware-agent twfw_sock
+>   +1765   59556 -> 61321  twfw_sendmsg4     same object
+>    +752    5874 ->  6626  layered_enqueue   scx_layered 1.0.11.1
+>    +252    2512 ->  2764  bpfj_exec_execve  exec_enforce
+>    +252    2512 ->  2764  bpfj_exec_execveat  same object
+>=20
+> +6598 over 25.2M, or +0.026%, and +218 states. The shape is the familiar
+> one: a more precise recorded state has a smaller equivalence class and
+> prunes against fewer predecessors.
+>=20
+> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+> ---
 
-The following changes since commit 164405e8e9a0378c7e1aff2254625a6553a291f1:
+Please de-claude the comments.
 
-  KVM: always make in-place conversion a compile-time constant when possible (2026-10-21 03:28:21 -0400)
+...
 
-are available in the Git repository at:
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
 
-  https://git.kernel.org/pub/scm/virt/kvm/kvm.git tags/for-linus
+...
 
-for you to fetch changes up to 1689c80fca308978ea1c9f03d15a500f4e44e2e1:
+> @@ -4258,22 +4259,52 @@ static int check_stack_read_fixed_off(struct bpf_=
+verifier_env *env,
+> =20
+>  			if (size <=3D spill_size &&
+>  			    bpf_stack_narrow_access_ok(off, size, spill_size)) {
+> +				bool narrowing =3D get_reg_width(reg) > size * BITS_PER_BYTE;
+> +				/*
+> +				 * A narrowing fill keeps only the slot's low 32 bits,
+> +				 * so record a low-32 link rather than dropping the
+> +				 * relation, as a 32-bit mov from a wide source does.
+> +				 * Which link kind depends on how the load fills the high
+> +				 * half, hence is_ldsx.
+> +				 */
+> +				bool subreg_link =3D narrowing && size =3D=3D 4;
+> +
+>  				if (dst_regno < 0)
+>  					return 0;
+> =20
+> -				if (env->bpf_capable && size =3D=3D 4 && spill_size =3D=3D 4 &&
+> -				    get_reg_width(reg) <=3D 32)
+> +				if (env->bpf_capable && size =3D=3D 4 &&
+> +				    (subreg_link || (spill_size =3D=3D 4 && !narrowing)))
 
-  Merge tag 'kvmarm-fixes-7.4-1' of git://git.kernel.org/pub/scm/linux/kernel/git/kvmarm/kvmarm into HEAD (2026-10-28 19:01:07 +0100)
+This check can be simplified to 'env->bpf_capable && size =3D=3D 4'.
 
-----------------------------------------------------------------
-Arm:
+>  					/* Ensure stack slot has an ID to build a relation
+>  					 * with the destination register on fill.
+>  					 */
+>  					assign_scalar_id_before_mov(env, reg);
 
-- Fix a couple of embarrassing merge mistakes in kvmarm-7.4
+...
 
-- Cleanup the HCR_EL2 bit fields to exclusively use the generated
-  definitions, fixings a nasty regression introduced in 6.16, where
-  barriers were not upgraded from NSH to ISH anymore
+> @@ -7392,13 +7423,20 @@ static int check_mem_access(struct bpf_verifier_e=
+nv *env, int insn_idx, struct b
+>  			 * Sign-extension can change the register value relative
+>  			 * to a scalar it is linked with by id (e.g. a zero-
+>  			 * extending fill of the same spilled stack slot), thus
+> -			 * drop the shared id in that case.
+> +			 * drop the shared id in that case. Only a 4-byte
+> +			 * BPF_REG_LINK_SEXT link survives: it says the high
+> +			 * half is this very sign-extension. BPF_REG_LINK_ZEXT
+> +			 * says the opposite and would be a lie about the value
+> +			 * just produced, and an 8- or 16-bit sign extension is
+> +			 * a relation BPF_REG_LINK_SEXT cannot express at all --
+> +			 * it means (s32)(base + delta) specifically.
+>  			 */
+>  			bool no_sext =3D reg_umax(&regs[value_regno]) <
+>  					(1ULL << (size * BITS_PER_BYTE - 1));
+> =20
+>  			coerce_reg_to_size_sx(&regs[value_regno], size);
+> -			if (!no_sext)
+> +			if (!no_sext &&
+> +			    !(size =3D=3D 4 && regs[value_regno].link_kind =3D=3D BPF_REG_LIN=
+K_SEXT))
 
-- Fix publication of state when a vcpu is forced out of the guest
+Please make this:
 
-- Let vcpu pausing nest correctly
+  bool sext =3D reg_umax(&regs[value_regno]) >=3D (1ULL << (size * BITS_PER=
+_BYTE - 1));
+  bool sext32_link =3D ...;
 
-- Sanitise ID_AA64MMFR3_EL1.S1P[IO]E to follow the rules of the architecture
+  if (sext && !sext32_link)
+    bpf_clear_scalar_id(&regs[value_regno]);
 
-- Don't warn on SMCCC filter reserved range allocation failure
+=3D> no giant comment necessary.
 
-- Prevent GICv5 and TLBI hypercalls to be used from the host when pKVM
-  is active
-
-- Enforce that only GICv3 guests are supported for pKVM
-
-- Don't try to access GICv5 EL2 sysregs from EL1
-
-- Compute architectrally correct values for ID_AA64MMFR3_EL1.S1P[IO]E
-  by checking the feature dependencies
-
-- Require matching VGIC and ITS model
-
-- Cleanup TRACE_REMOTE dependencies
-
-- Fix random comments
-
-Arm selftests:
-
-- selftests: Skip unwritable ID fields in the failed-run test
-
-- Move pkvm_selftests() after all CPUs have initialized EL2
-
-RISC-V:
-
-- Allow Zicclsm, Ziccamoa, Ziccif, Za64rs for KVM guest
-
-- Implement KVM_PRE_FAULT_MEMORY ioctl()
-
-- Replace imsic switch-case macros with range checks
-
-RISC-V fixes:
-
-- Avoid redundant interrupt check for pending timers
-
-- Reject vCPU creation after AIA initialization
-
-- Fix build with vector support disabled
-
-- Fix IPI delivery for out-of-order vcpu_id
-
-- Use a raw lock for IMSIC wakeup state
-
-- Reject vCPU creation after AIA initialization
-
-RISC-V selftests:
-
-- Lazy V-extension enablement for KVM selftests
-
-- Show sepc/scause/stval CSRs in KVM selftests vcpu dump
-
-----------------------------------------------------------------
-Andrew Jones (2):
-      RISC-V: KVM: Reject vCPU creation after AIA initialization
-      RISC-V: KVM: Use a raw lock for IMSIC wakeup state
-
-Fuad Tabba (10):
-      KVM: arm64: vgic-its: Don't map an LPI from more than one event
-      KVM: arm64: vgic-its: Remove the pending state of a discarded LPI
-      KVM: arm64: Don't WARN on SMCCC filter reserved range allocation failure
-      KVM: arm64: Reject the GICv5 CPU interface hypercalls under pKVM
-      KVM: arm64: Return on kvm_gmem_get_pfn() failure in gmem_abort()
-      KVM: arm64: Reject the stage-2 flush hypercalls under pKVM
-      KVM: arm64: Validate the host-provided vgic model in pKVM
-      KVM: arm64: vgic: Do not access the GICv5 CPU interface from EL1
-      KVM: arm64: Fix stale VGICv3 comments in the nVHE world switch
-      KVM: arm64: Set HCR_EL2.BSU to Inner Shareable for guests
-
-Heinrich Schuchardt (2):
-      RISC-V: KVM: Allow Zicclsm, Ziccamoa, Ziccif, Za64rs in guest
-      KVM: riscv: selftest: add Zicclsm, Ziccamoa, Ziccif, Za64rs
-
-Jinyu Tang (4):
-      KVM: riscv: Avoid redundant interrupt check for pending timers
-      KVM: riscv: Implement KVM_PRE_FAULT_MEMORY
-      KVM: selftests: Add RISC-V Sv57 page table indexing
-      KVM: selftests: Enable pre_fault_memory_test for RISC-V
-
-Marc Zyngier (12):
-      KVM: arm64: nv: Move L2->L1 switch on interrupt early
-      KVM: arm64: Move OUTSIDE_GUEST_MODE publication past context being saved
-      KVM: arm64: Move IN_GUEST_MODE ahead of state being loaded
-      KVM: arm64: Turn vcpu->arch.pause into a counter
-      KVM: arm64: vgic: Stop the target vcpu when disabling LPIs
-      KVM: arm64: vgic-its: Stop the VM when handling MOVALL
-      KVM: arm64: Convert HCR_xyz to HCR_EL2_xyz
-      KVM: arm64: Get rid of compatibility HCR_EL2 aliases
-      KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E
-      Merge branch kvm-arm64/hcr-cleanup into kvmarm-master/fixes
-      Merge branch kvm-arm64/cross-vcpu-sync into kvmarm-master/fixes
-      Merge branch kvm-arm64/misc-fixes-7.4-1 into kvmarm-master/fixes
-
-Matthias Goergens (1):
-      MAINTAINERS: name the kvm-riscv/linux riscv_kvm_next branch
-
-Oliver Upton (1):
-      KVM: arm64: Add helpers to halt a vCPU
-
-Paolo Bonzini (2):
-      Merge tag 'kvm-riscv-7.4-1' of https://github.com/kvm-riscv/linux into HEAD
-      Merge tag 'kvmarm-fixes-7.4-1' of git://git.kernel.org/pub/scm/linux/kernel/git/kvmarm/kvmarm into HEAD
-
-Sascha Bischoff (3):
-      KVM: arm64: gic-v5: Drop unused addr variable
-      KVM: arm64: vgic: Require matching VGIC and ITS models
-      KVM: selftests: Reject GICv3 ITS with a GICv5 VGIC
-
-Sasha Levin (2):
-      KVM: arm64: Take a protected vCPU's TWI and TWE only at vCPU load
-      KVM: arm64: selftests: Skip unwritable ID fields in the failed-run test
-
-Stefan Butz (1):
-      RISC-V: KVM: Don't write MMIO load result to x0
-
-Vincent Donnefort (2):
-      KVM: arm64: Move pkvm_selftests() after all CPUs have initialized EL2
-      tracing/remotes: Fix TRACE_REMOTE build when TRACING=n
-
-Xiaofeng Yuan (2):
-      RISC-V: KVM: Fix IPI delivery for out-of-order vcpu_id
-      RISC-V: KVM: Replace imsic switch-case macros with range checks
-
-Yong-Xuan Wang (1):
-      KVM: riscv: selftests: Dump sepc/scause/stval on vcpu_arch_dump()
-
-Zhanpeng Zhang (1):
-      RISC-V: KVM: Fix build with vector support disabled
-
-jinrui (1):
-      KVM: selftests: riscv: Add lazy V extension enablement for guests
-
- MAINTAINERS                                        |   2 +-
- arch/arm64/include/asm/el2_setup.h                 |   4 +-
- arch/arm64/include/asm/hardirq.h                   |   6 +-
- arch/arm64/include/asm/kvm_arm.h                   |  79 +----------
- arch/arm64/include/asm/kvm_asm.h                   |  22 +--
- arch/arm64/include/asm/kvm_emulate.h               |  18 +--
- arch/arm64/include/asm/kvm_host.h                  |  10 +-
- arch/arm64/include/asm/kvm_mte.h                   |   4 +-
- arch/arm64/include/asm/kvm_pkvm.h                  |   1 -
- arch/arm64/include/asm/kvm_ptrauth.h               |   4 +-
- arch/arm64/kernel/head.S                           |   4 +-
- arch/arm64/kvm/Kconfig                             |   2 +-
- arch/arm64/kvm/arm.c                               | 100 ++++++++------
- arch/arm64/kvm/at.c                                |  18 +--
- arch/arm64/kvm/config.c                            |  78 +++++++++++
- arch/arm64/kvm/emulate-nested.c                    | 116 ++++++++--------
- arch/arm64/kvm/guest.c                             |   2 +-
- arch/arm64/kvm/handle_exit.c                       |   2 +-
- arch/arm64/kvm/hyp/include/hyp/switch.h            |  14 +-
- arch/arm64/kvm/hyp/include/nvhe/pkvm.h             |  13 +-
- arch/arm64/kvm/hyp/nvhe/host.S                     |   2 +-
- arch/arm64/kvm/hyp/nvhe/hyp-init.S                 |   2 +-
- arch/arm64/kvm/hyp/nvhe/hyp-main.c                 |  15 ++-
- arch/arm64/kvm/hyp/nvhe/mem_protect.c              |   6 +-
- arch/arm64/kvm/hyp/nvhe/pkvm.c                     |  41 +++---
- arch/arm64/kvm/hyp/nvhe/switch.c                   |   4 +-
- arch/arm64/kvm/hyp/vgic-v3-sr.c                    |   4 +-
- arch/arm64/kvm/hyp/vhe/switch.c                    |  12 +-
- arch/arm64/kvm/hyp/vhe/tlb.c                       |   2 +-
- arch/arm64/kvm/hypercalls.c                        |   4 +-
- arch/arm64/kvm/inject_fault.c                      |   6 +-
- arch/arm64/kvm/mmu.c                               |   9 +-
- arch/arm64/kvm/nested.c                            |  16 ++-
- arch/arm64/kvm/pkvm.c                              |   4 +-
- arch/arm64/kvm/sys_regs.c                          |  26 ++--
- arch/arm64/kvm/vgic/vgic-init.c                    |  17 +++
- arch/arm64/kvm/vgic/vgic-irs-v5.c                  |   3 +-
- arch/arm64/kvm/vgic/vgic-its.c                     |  85 ++++++++++--
- arch/arm64/kvm/vgic/vgic-mmio-v3.c                 |  15 ++-
- arch/arm64/kvm/vgic/vgic-v3-nested.c               |   4 +-
- arch/arm64/kvm/vgic/vgic.c                         |  15 +--
- arch/riscv/include/asm/kvm_vcpu_vector.h           |   6 +-
- arch/riscv/include/uapi/asm/kvm.h                  |   4 +
- arch/riscv/kvm/Kconfig                             |   1 +
- arch/riscv/kvm/aia_imsic.c                         | 149 +++++----------------
- arch/riscv/kvm/gstage.c                            |   6 +-
- arch/riscv/kvm/isa.c                               |   8 ++
- arch/riscv/kvm/mmu.c                               |  47 +++++++
- arch/riscv/kvm/vcpu.c                              |   3 +
- arch/riscv/kvm/vcpu_insn.c                         |   2 +-
- arch/riscv/kvm/vcpu_sbi_replace.c                  |  12 +-
- arch/riscv/kvm/vcpu_timer.c                        |   6 +-
- arch/riscv/kvm/vm.c                                |   1 +
- include/kvm/arm_vgic.h                             |   6 +-
- kernel/trace/Kconfig                               |   1 +
- tools/testing/selftests/kvm/Makefile.kvm           |   1 +
- tools/testing/selftests/kvm/arm64/set_id_regs.c    |  13 +-
- tools/testing/selftests/kvm/arm64/vgic_v5.c        |  32 +++++
- .../selftests/kvm/include/riscv/processor.h        |  19 +++
- tools/testing/selftests/kvm/lib/riscv/processor.c  | 109 +++++++++++++--
- tools/testing/selftests/kvm/riscv/get-reg-list.c   |  16 +++
- 61 files changed, 768 insertions(+), 465 deletions(-)
-
+>  				bpf_clear_scalar_id(&regs[value_regno]);
+>  		}
+>  	}
