@@ -1,105 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793383097;
-	b=ra71tXnhc0nejzhmQeYFbTHiC2qqEqa5wX/Z4jxOcPlCovs1F2b4FsELK9HDiw1ui6yv
-	 iuKxlKlRNaSn/yFCFkRgX2IOgkp/4kPx1a4AKJwScEdNRh52OBuYxkJRNZc0ryDAZb4Uw
-	 /HAAfJ7KDdhgpaXl+hUXSQ5Q4+bfiAF1Qw+fYfyXI8GDfDhtVXqoEjQqG4FrsnjnlVQ02
-	 TAZ9wak8PuNWTQvRv5h+2SQgvW0dM0evnPjJ4FT5PdhrlM/4hpVgJIUbgxepm42JXr5FG
-	 93Hf9b2KyMTFSQgXTG80Jz0agc63gkNLTdQPkISO2nP0S3qLHxLo7Yo1iKbt7LKotKg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793383097;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=aTzRns4P41LTvEjZitBtZ35u3x5iyyKI3BwYPIuLk0Y=;
-	b=UsyguqIdF52rE3evHPmj3HacPLHI/Hw4gDgGwXnCP+N3u5B08DFhIGfpMC4UX1dFQAC8
-	 pzCMmKKOY6J3AQEJtxTKSWwK+oEe3AceLPiNGRE+RAiis0BnUdLItG8xqF4/zDtff4Cwc
-	 9txbCBYd20lyyxAMqB4RXsXxzr89KK2Q4pn8bC/+O46UwtYRJD/UXvOEhw4+uxRF4e9zO
-	 1Y0N4zDJdrhW1DFNyjhw72yjYyVjY8R9RG8UygpaQ/HF2lOgqPDnrkMAEVvuF+0tin8dx
-	 y1xemCEEqx2at1IL9VOias5lyE0hKSar+Z0JFE+feIjm+g7/e44vba2gmGFfEHapZKA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OH6REcCW;
-	arc=none smtp.remote-ip=209.85.217.46
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793383166;
+	b=ZrDgiZUZi37YJZ2i/MFddFMU7zuOua0n1DYSnMmzYbs2NxQa/jYlM4/AsFUuHvW0T8AQ
+	 tOoRQCaHrYi61pXGvkXzMaK+6D2Ry9KGX+UUoeGup564PfWUUpCm1uOGva72XWwM5Nb22
+	 Pt07h0p9Dq93twskenjijBnwpKzMFRND8Vmf3iqm5QBXsWgvQCc5qLypkpX1sLVXBZfwy
+	 n3dD9usVVomxogE4U48Uu0EqJ2VSsPkfc0KjrH20DTbTqKbohM6VDuUe6N8Pkyy60PSGl
+	 /32CDhWKe7wzNzcUj0Zqj4F0wlhOeaiynrmetz8OojVRVI9uIfihwhiwb7k8TegqxIw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793383166;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=iZmi5tpFXwhfOkG0YQ8UjtPGEyGwEuV1Gr1U1fVTNWo=;
+	b=WD6GbJ3bCijpH1/D+XwpYec9eliRvfA4vqyWTNNFcpJIoe8cTB4yzWhf8ptg4j8h3JZM
+	 p3H+7aKwudTRSkePJMdVfUr0ZYqzSPI1jZBPdXx9BYmwm13aj+8xkIVdAyKH26ZWEnM5v
+	 xKZg3sVvwGmxkU3+1sSmwRU/8FCxSDKi+NYIRG8gkNz3uL5JjkvrVkqdeIM53MaI9j7Wz
+	 72dIeBgMQkewdrH0i2Y8maQwIaZLY3nS65cb4PR/8bRR33GxgLzcbWH7W5JoABeHwUiER
+	 Qz20WrG1t8uqO4kLrGVx8r/J+YHB+qrsb3Ziye79YzR1J/dfcnjw1kosKCcRU+bYL/A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5JayW4uB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.54
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010054.outbound.protection.outlook.com [52.101.56.54])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3137606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:58:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3137606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBDD606A338
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:59:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BBDD606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OH6REcCW
-Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-78fb1fb9508so1786224137.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:58:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793383096; x=1793987896; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=aTzRns4P41LTvEjZitBtZ35u3x5iyyKI3BwYPIuLk0Y=;
-        b=OH6REcCWtn8nG/b0uztoyUtP7F0ry1Puw5O7NoS4qy2UmbvdtK8W7ZCkAIPQskbBQ2
-         4b0LCW2YEN9QqyRpfuwgwsbRMnjGOr3UteVEZpp1V9uzo82PLbHMfFr43OT4BGlk7OTV
-         HZVPPlolJu3NG1SCenT7OaQ2mvaPTVAo4BpQPg/6MkMKDy8pwZNxGkB7vZ0es4BEJw/D
-         b5rj5AphjNxt/AAcAtwx2nz2XSJ376aThZv/cCzjLvw3JVdx5YZ7vlQxwAPB9D0O6N2u
-         xU8MXus+rt1YKuHV6A7YBNwASV3R9mlFCpX+ovEDHw4lJGoHz1XlzYmzZ54GS9puxqKT
-         /Tbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793383096; x=1793987896;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aTzRns4P41LTvEjZitBtZ35u3x5iyyKI3BwYPIuLk0Y=;
-        b=RWMHgYidmfDo/PpmydWCxk6gpNeY+5hPsbV1AxU38ojKxfb0GmQteddn2SCNu/d1sd
-         Cv2W+lAo/A4hSDCEexUbDruTwiK6bltmo72zqdI3ofFxl6DXxlNHgY+qgpYeSpqw1GHZ
-         9WkWB+l8jXVQejhbqSC3ebaL1ZpHNXYAS7XH3mNBYI5diz8H4EtBSehEH0KwaeemWCqj
-         0UnP+h+YcYRV6vPJMpK0pxuPq52gWvqp2veYs7GKJctPM3XI7H+uMvQDo8fCNx+2+OuZ
-         xfiAzg5ZrZXcPgS+SR2l8rsxQht38CJms8oWgj5Rh4ofPvLNha5yPegQyRI8hjhLPVE5
-         BebQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxmbri5kfwqQSQhQy9aTfj7Qz5jNhJzsdNkwiw55oZovIdySRy+jjrbsvrbl5mPoBb+D+LUKbqETp+by5c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6XVxW1+9/n3jz1oVWaZebSB6YTCrdEKfJwvBuL6wT8fSG5fgY
-	p6jixOKbz6YZj/bPtDix9ZwViXrsCIkUq3CHAKMCs/WUizt4yyDOE5yN7v8S+g==
-X-Gm-Gg: AYBFou0uULAUZYMkEPmI3Iy/yAc96FDRfG3BIoyQY3c0cOZ3rNK0dQ6AQCmFYR9jgUP
-	omR57XmMAOXwchsXpEMw3otNDlftaqrqvIE5X/B7sdCBY9Z7EbnBhWuj0I/Z3r6NaDnZmZSNBF0
-	b7ZfYPHe30DGKT7zZtjSRz44qzFaUYyW1UX3UMJjkZLkd8l6V4VPBCJkfsTHKzz07cRrXTmObIk
-	MOCFlORmVzzO0yv37KLA6JyU7ET4WE1bNsB7wg9H70sMmxWt7qbJOrPB6MziekkUuYW5F2IVAc+
-	a8ncM4z9ygCxgytP1FDt9C+bLo700XuJe/nJ153/+G4G6OqXs3fOrpBmzk514aFuA7O6CECDJiE
-	sCK139rHbwPmcU0ea4Mxeifyzny0DAKzg0zI9M5r8g+aqO1T1STrPmCXtI50mVjgdJLV/gIU7u2
-	xtlGAyyH/790nkgZsSuhCsq4cra5zJD/0FPbRi+V3cRWTFTQc+3ceFzdOJIIUg9d5KQLtljgCKf
-	sTmzSRlyDMo1/KIXKo2Vrqj5OW4BcVZ2Od9JCwO7E89vA0bv1Rxemkscz7x9g2ehgGBBNTvIuIh
-	v5WI0/qCLiYlHDBh78MnsweKbkxM4bk0fzsggaVUgNKAZ6UiQNUaq0LqRRdiQeSuxWFqcRgOyWj
-	MRrVIBwQfHRMqQFXeg92xwiMPRCmao6CYqaAHLzW+XfQKUL5Hn3J1C5ubkP56/2WgEWIB
-X-Received: by 2002:a05:6102:50a5:b0:7bb:64cc:1362 with SMTP id ada2fe7eead31-7d072c2b96amr883485137.6.1793383095802;
-        Fri, 30 Oct 2026 10:58:15 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d0770b28e0sm3198299137.0.2026.10.30.10.58.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 10:58:15 -0700 (PDT)
-Date: Fri, 30 Oct 2026 13:58:15 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Xia Yan <yanxia@cmss.chinamobile.com>, 
- netdev@vger.kernel.org
-Cc: dsahern@kernel.org, 
- idosch@nvidia.com, 
- davem@davemloft.net, 
- edumazet@kernel.org, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- willemdebruijn.kernel@gmail.com, 
- linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- yana06070@163.com
-Message-ID: <willemdebruijn.kernel.6ba984cf38a@gmail.com>
-In-Reply-To: <20261030141435.779302-1-yanxia@cmss.chinamobile.com>
-References: <20261030141435.779302-1-yanxia@cmss.chinamobile.com>
-Subject: Re: [PATCH net] ipv6: fix cached route reuse for SO_MARK control
- messages
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5JayW4uB
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L5yeOGDdkYtpQuoynm+lpD1YX/9kA+EX8v8kWz8Ifi0bsiFTiK2P2gxMvqtt/QhZq48uD9zR0i6iRzONH0uzsLhHQj1Sfc+oy+ah36BXVImkoS3uXa8psp89ReurKqil5SipOTmdltC8Hcz+RLbHK6XGStfN9D0tsXxDWb+6LBbkqqglp6pxfai1zYJb+FTJRsv7YfjhqrtyF3ctK9T2D9jvkBp61c4IiTIREbS41QFDWSfSwZSO6ggRvI83lbGv4iPkrbtoLy6gKyygsITimGz1QGH89E0zOq3a4nH2o9utLtZiTg3OvIust6SvzTbasp6nK0VsvnyUdkEqcofJ/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iZmi5tpFXwhfOkG0YQ8UjtPGEyGwEuV1Gr1U1fVTNWo=;
+ b=HSAneYf7Rn8iNgYJC1dVjJdlLBQv63nYXCUGkdoQRGpGlDeT59ub89RgZ6n3yEg1Ta2ipvgFQrRbLHpAemt8NooUdiRUD7CEBBhUGAdKXsDrDiSZYCMKPbSTaNrzX725s3sae8SOYLAWKhJ3AyuUjUVx4GXYDZkqWOSWW4Vk1Oo1VRRJPUMRBM77PC5bBd+lxlbTS0sXxT19dUvm/vrC9oWJyCVXj3Nu/hRS3W3AcHX9pp2K1Ahf8srmhInmHaEP6D2ABQwmyjPCCRBKCyRXdU15Rq3Qs0mwsPlCQwmfAFIbEcAWfX3tKyh8cUBCqS8F1uqQXzLpL0VsZLdhWrf/RQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iZmi5tpFXwhfOkG0YQ8UjtPGEyGwEuV1Gr1U1fVTNWo=;
+ b=5JayW4uBJMPn//bPg+2mEhWt6DLOJOKpnLt4m6azxaYIPSoY9kNOjz3lmI3hcm8781D2n1kCO/YCu7odDZ2T8t0pn6lQcMuQyQvrgrIaMnSWG1yKB4MIYJRNLAqMf1YiuOV3PWF+Glxut3BZNIoC/etqIBQcl5ey183d8aoliPk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY1PR12MB9697.namprd12.prod.outlook.com (2603:10b6:930:107::6)
+ by LV2PR12MB5918.namprd12.prod.outlook.com (2603:10b6:408:174::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 17:59:20 +0000
+Received: from CY1PR12MB9697.namprd12.prod.outlook.com
+ ([fe80::3a41:55a0:8203:596d]) by CY1PR12MB9697.namprd12.prod.outlook.com
+ ([fe80::3a41:55a0:8203:596d%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 17:59:19 +0000
+Message-ID: <9463783e-5425-4ba8-9155-033c21d7f516@amd.com>
+Date: Fri, 30 Oct 2026 23:29:11 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/2] kexec: do not place the next kernel in a
+ fixed-address CMA area
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Pratyush Yadav <pratyush@kernel.org>,
+ Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, surenb@google.com, mhocko@suse.com,
+ baoquan.he@linux.dev, pasha.tatashin@soleen.com, graf@amazon.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, kexec@lists.infradead.org
+References: <20261014145731.3431527-1-radhey.shyam.pandey@amd.com>
+ <20261014145731.3431527-2-radhey.shyam.pandey@amd.com>
+ <2vxzh5i5orbv.fsf@kernel.org> <auL3UW2InVqYU6Fs@kernel.org>
+ <2vxzzevwmz2v.fsf@kernel.org> <7625fa23-5f4b-4658-b17a-fe4e58103e7c@amd.com>
+ <auSHrdDdFrWRsuzM@kernel.org>
+Content-Language: en-US
+From: "Pandey, Radhey Shyam" <radheys@amd.com>
+In-Reply-To: <auSHrdDdFrWRsuzM@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN4PR01CA0014.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:26e::10) To CY1PR12MB9697.namprd12.prod.outlook.com
+ (2603:10b6:930:107::6)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,81 +105,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY1PR12MB9697:EE_|LV2PR12MB5918:EE_
+X-MS-Office365-Filtering-Correlation-Id: dd6bd916-7b3c-4ed7-baf3-08df36af8571
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|11063799006|4143699003|56012099006|261028144727099003|261022105027099003|261026140227099003|261026121527099003|261021121427099003|10067099003|261022075727099003|261009223027099003|261022115727099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	F3UmCoUIEt9wXI1Wsq5GLcygBuZuykUdwDdVql3k/91lgNdXJB045FU2sV4wGbIMm/1kA3oXgs9w5e5AlcKLBEZ7RO0i2Z/p3odMPmuIHBD9aY0Slx5X1hzMYt/SW9oonAhYwKSZ2Vw6LKhvsibpi70w8gsMp36vUmLA5hqV5K5BXuYFp46uBmDDmjmJCZ4XXkf0sr0VdZXT73zWVJxcKxW1QGtjDTUC3MdSco0f7Lr1HHoHU3fQTtrjS5bEfA3zMKpWuwJDRzXxj4Umn8NPhNEmYc33OTUHcxbzUdSRzsBgJrnnHtg+m3xYPP65JbRPHudWlqhfQdFN7ife1HVgxyvBHSINmHGmc+8wZ+4p7I+TcVEp3Nm5t9+q+moR2kgOi2bcXx/ECy4WQKP9isoOzj4h7SJ4rK2nK58p7jOWEk+HNw9wES+57IrmffAd2K6mkIavdDoB2u7t62u0L+drdmd1DWDFi6eXtRFS8nhTXODIpNISaDKJNDjggauhtg4Pd0iInvLEwChk87wHTgFW3QQJV+qT2zAQFRIsO93/hkViMGomDdcW3txBsxle+FoI3H5P3eC792cliKswjyfsk5TLVxY8H46eUS9e/VEyfL5oKSIZ2IahfJAW4PPeX8tmHkoMEBqGGMEUfssY/mwSPZpGf/Rt5LikMWbzyHkii6Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY1PR12MB9697.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(11063799006)(4143699003)(56012099006)(261028144727099003)(261022105027099003)(261026140227099003)(261026121527099003)(261021121427099003)(10067099003)(261022075727099003)(261009223027099003)(261022115727099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cDhCQnl3ZTBvNGlPVVFMNzUrdGhxbFYxWm9va2tFajkzYmtnMjBKK1NXN1Nn?=
+ =?utf-8?B?K1FrMkdqamxIK1R5RUd2Y2p2M2M0KzFDY1dzcTdrWW1KQXY0ZXM4V0VuQlFJ?=
+ =?utf-8?B?Nys1SEJsZkoyMzVET3c3RVVrVzd3NE9WdS9IaGo1Y2ZobmVNeWJlZUZMcHRN?=
+ =?utf-8?B?OFVma1greDByRno3YXZ4WGRKM1RFZE9UN2lBZVJpb1RUR21pOTJGT1dVOUN0?=
+ =?utf-8?B?czcrZ2dTRlJkRkRidVRRdHAzdWxjTjdmd0VjUnNCWVBFOElCWEV5dDVIY0JG?=
+ =?utf-8?B?OG5kdXFObjJMWHc4S25FajFrVEpsazI1d2JtQlRZcXB0OE4xQWw1Si9oQjIv?=
+ =?utf-8?B?RHpJYmh4OUJxSzVHb2grdW1uMHMxN1UwUjNWTkJLL1E4WXFnMDk4U1JXaVRn?=
+ =?utf-8?B?QmduUHA0UmR3UEoxc000TDlBUGZSbEdlL29obnNkOElrZHpwRjMvSUNXcExs?=
+ =?utf-8?B?bzA3MGIwQ0V3RllUbzc4NXpGT2I4Vm81YWlONmpkM1BtLzdiRmZ0Y3Y4Y1Zz?=
+ =?utf-8?B?cVl3WXZqaHpNMkdSSVFRNFVpbW1LZHg0OTQyRUgrTkFqQnJIUXJadzUzREZS?=
+ =?utf-8?B?QlpxZXROL1lvbjZPNFpGc2xUTks2YU9RVGJKMUJydWFrK2hrYlVMTVk1V0px?=
+ =?utf-8?B?N1FwMlhGZ0lZVkVtcUgyb0RtT2FwV1E1ajA1SFdBdXoyT3YxVGtSOE5wMnJl?=
+ =?utf-8?B?WFV1Ty9SeGNCYXZuSkpOQ0p1ZDcxRTBIZnpVejBqTDVjcTdQUUFla1c3dzFz?=
+ =?utf-8?B?NmN0Sy92UmwvK1N5S0kxY3AvUlM2TVpOb1hVVzJzdUlrQlc2VWh3TGtwMmxz?=
+ =?utf-8?B?THBhRlBjTEdTbE84T0xQUGV0MjN0ZGZ5VTJFc09yQzlSTTA1MjlzeFNHV0l2?=
+ =?utf-8?B?L2llZ3NwdGhUMkZybDQ5R01EWEpXVnkyV3MzQlpqa3ZMa1VvejlEM095SkFZ?=
+ =?utf-8?B?Z3Vxd25BUXZqMmxBZm00VnRsYVJkdnUxUmZTdWhRUk92Z2ErUDY2Y3p3NktQ?=
+ =?utf-8?B?V3pBczJES0ZGQStaWlBCd0gyYldNRkpDcjRLQUFmVnZQSVBIUkpoZVZzZ3hy?=
+ =?utf-8?B?TUNvRnkxbnU3eGdhMzQ2MG1RcW55aXM5QnRPckJJMzQvTnZwQUdBRVZMdU9l?=
+ =?utf-8?B?OTI4LzBseG1LeEV2b0xQOGFBdDNBaUtVa1dTUWZyNnQ2VjFOcFlZcHI4S2tY?=
+ =?utf-8?B?Z1ZhaUsyOTBUWDRBR3ZXc0VDUUlSalZlcmtRQy8wUmVDZWxvakZ6VWk3VVFQ?=
+ =?utf-8?B?c2FmTUJBcjFoajVyTGszMk5ybjRGcTQxUDBIWVdxRUc4TG1maTV4eDU1RGtu?=
+ =?utf-8?B?YmRPZlJZZlFsek1mV3lZdU1wQ05VaGt3elpab0E2VnRzZWZxZi9NdDdXTXhi?=
+ =?utf-8?B?ZjduSm5pL2IxZHYvV2tjbXl1SlJQdzdlNTZlYXdoSTR6dWVEbU5GMCsxQXRw?=
+ =?utf-8?B?dldIbjZjN3ZnQnVFejlxZ1MvMEpXNnM4a1NBNTlBSlhHRk16UFR4ZlFENkFD?=
+ =?utf-8?B?UWk1bGJhUGRGYmZCREorV3Y5VjU0ZUtORW1ONlBJY24xeTlteHdNUjB4dVNv?=
+ =?utf-8?B?UHNobGZ4a3cwOTR1QnZjMW5MNXVBYUlRekpxeENaWGhjeUdHQVdDZ0g2M05n?=
+ =?utf-8?B?cllDMUVDU3B2ZmNIL3ArdUp2dnVucFBybUloS3ZCOVNFNUVEVEV0U3ZMWDZo?=
+ =?utf-8?B?MUJFdTNEUVNlVU5GY3NrYTRFaTQvcnpFN21vbklPT0E4SVozYXBNaXhpZnFN?=
+ =?utf-8?B?cS9OdWl2b1dZU04yRS9qUHBoVWVYWXpvcllNNiswdE9RVjBQZjN5RytINmpt?=
+ =?utf-8?B?R2R3ejlLTzBIeVRqVVIxYlV2TGt5YzBSa1I4eDZtVlp2QW9iMHozd2FtSk4w?=
+ =?utf-8?B?SUJLVVVURlJvZDNrWHNZN2FvTDZIMnhuQTY2WWxpQVVBYTZoVkVqRkgwZ3k1?=
+ =?utf-8?B?RGVEdVp3eVVmZGQ3di9GYlFiK3NWTys2LzM2RUNnYnhjYWlzb2ZqbCtiUlA4?=
+ =?utf-8?B?djhRVWdQRjF1eFJKZUVkQjlMTmsxS2lXdytOdlZycy9EbGNFcDZaamYzb2Zo?=
+ =?utf-8?B?RlFKeTlTWTM5dFo3ajFZUlMrQko1T3ZqNGMyZzFTS2NEdWFzcGF5SFl4NWZk?=
+ =?utf-8?B?NUdYdDAxelNIbmVCT0lQZC9IRnhwSFJlbXpwOWlEMVN0NW1TK1VuOFhDMStn?=
+ =?utf-8?B?bmp5dlcycHBCZkpwa0ZaQXhLd3JwYzJYQ1c5ZkRYRDA4MkdEL0pSOHd4a080?=
+ =?utf-8?B?VFJqaXpIOEhYRDJDN2haVjFjTkcvcXY3NURMQU5FZU4rTjMxMHlKY2JKYnVZ?=
+ =?utf-8?Q?pku3Gg8MeUlQYSLf+r?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd6bd916-7b3c-4ed7-baf3-08df36af8571
+X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9697.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 17:59:19.8463
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: y/Fa/RgVHtk4ZUYmLOK6d9NsecHaD9JRKrd71RD0vEIOKR06x3Dhr9AdqhJA+Rax
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5918
 
-Xia Yan wrote:
-> A connected IPv6 UDP socket can reuse its cached route when a SO_MARK
-> control message supplies a different mark. The packet then takes the
-> route selected for the socket mark instead of the per-message mark.
+On 10/30/2026 5:33 PM, Mike Rapoport wrote:
+> On Fri, Oct 30, 2026 at 01:22:50PM +0530, Pandey, Radhey Shyam wrote:
+>> On 10/29/2026 6:41 PM, Pratyush Yadav wrote:
+>>> On Thu, Oct 29 2026, Mike Rapoport wrote:
+>>>> On Wed, Oct 28, 2026 at 03:03:16PM +0100, Pratyush Yadav wrote:
+>>>>> On Wed, Oct 14 2026, Radhey Shyam Pandey wrote:
+>>>>>> @@ -304,6 +317,7 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
+>>>>>>    	cma->ranges[0].count = cma->count;
+>>>>>>    	cma->nranges = 1;
+>>>>>>    	cma->nid = NUMA_NO_NODE;
+>>>>>> +	set_bit(CMA_FIXED_BASE, &cma->flags);
+>>>>>>    	*res_cma = cma;
+>>>>>> @@ -517,6 +531,8 @@ static int __init __cma_declare_contiguous_nid(phys_addr_t *basep,
+>>>>>>    	}
+>>>>>>    	(*res_cma)->nid = nid;
+>>>>>> +	if (!fixed)
+>>>>>> +		clear_bit(CMA_FIXED_BASE, &(*res_cma)->flags);
+>>>>>
+>>>>> Nit: This reads a bit odd. cma_init_reserved_mem() sets the fixed base
+>>>>> and then you clear it later. Wouldn't it be better to just pass the
+>>>>> fixed boolean to cma_init_reserved_mem()?
+>>>>
+>>>> Actually, we shouldn't expose cma_init_reserved_mem() at all.
+>>>>
+>>>> The current callers of cma_init_reserved_mem() should be switched to
+>>>> cma_declare_contiguous_nid() that does sanity checks before calling
+>>>> cma_init_reserved_mem().
+>>
+>> Thanks Pratyush and Mike for the review.
+>>
+>> The switch from cma_init_reserved_mem() to cma_declare_contiguous_nid()
+>> looks like a broader CMA refactoring and requires additional changes to work
+>> correctly.
 > 
-> udpv6_sendmsg() sets flowi6_mark from the control message and clears
-> connected. However, ip6_sk_dst_lookup_flow() still tries the cached dst;
-> connected only controls whether a newly looked-up route is stored.
-> ip6_sk_dst_check() checks the addresses and output interface, but not
-> the mark.
+> Hmm, you are right.
 > 
-> Commit 42dcfd850e51 ("udp6: allow SO_MARK ctrl msg to affect routing")
-> fixed the mark used for fresh route lookups; connected sockets still
-> reuse the route cached before the control message.
-> 
-> Reject the cached dst when flowi6_mark differs from sk_mark so that
-> the packet goes through a new route lookup with the requested mark.
-> 
-> Found during code review of IPv6 UDP route caching. Reproduced in UML
-> with a connected socket and a fwmark rule pointing to a prohibit route:
-> marked sends succeeded before the fix and return EACCES after it.
-> A two-interface test also confirms that marked sends use the selected
-> interface and subsequent sends without a control message still use the
-> socket mark. cmsg_so_mark.sh passes before and after.
-> 
-> Fixes: c6af0c227a22 ("ip: support SO_MARK cmsg")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+> How about we invert the flag meaning?
+> Than cma_declare_contiguous_* will set it where appropriate and we won't
+> have the weirdness Pratyush pointed out.
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
+That's a good point. I will invert the flag meaning - something like.
 
-> ---
-> 
-> Tested on net 5838f10563d58afca6711edb5e4eda968ca181d9. The relevant
-> send and route-cache code is unchanged at the base commit.
-> 
-> Full x86_64 W=1 builds completed before and after with no new
-> diagnostics, using configurations based on allmodconfig and
-> allyesconfig. WERROR was disabled for both; allyesconfig also had
-> KASAN disabled. Both used LD_ORPHAN_WARN_LEVEL="warn" and
-> DRM_WERROR=n.
-> 
->  net/ipv6/ip6_output.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
-> index 25fe0ba98b1a6..843bb95e635b9 100644
-> --- a/net/ipv6/ip6_output.c
-> +++ b/net/ipv6/ip6_output.c
-> @@ -1125,6 +1125,7 @@ static struct dst_entry *ip6_sk_dst_check(struct sock *sk,
->  	    ip6_rt_check(&rt->rt6i_src, &fl6->saddr,
->  			 np->saddr_cache ? &np->saddr : NULL) ||
->  #endif
-> +	    fl6->flowi6_mark != READ_ONCE(sk->sk_mark) ||
+__cma_declare_contiguous_nid()
 
-Asides, not expectation that you fix the following:
+<snip>
++       if (!fixed)
++               set_bit(CMA_DYNAMIC_BASE, &(*res_cma)->flags);
 
-The same is probably also true for flowlabel and dscp.
 
-Not net material, but ideally ipv4 and ipv6 would do the exact same
-thing.
+So the v2 series would look like:
+mm/cma: drop the duplicate alignment check in rmem_cma_setup()
+of: reserved_mem: keep the reservation when node_init returns -EBUSY
+mm/cma: reject CMA areas that overlap the kernel image
+kexec: do not place the next kernel in a fixed-address CMA area
 
->  	   (fl6->flowi6_oif && fl6->flowi6_oif != dst_dev(dst)->ifindex)) {
->  		dst_release(dst);
->  		dst = NULL;
 > 
-> base-commit: d8a4f4c59da52b7c31ae337243b8473a19a3f819
-> -- 
-> 2.39.0.windows.2
-> 
-> 
-> 
+> And Radhey, please, make your LLM to spill more concise and to the point
+> text and teach it to trim emails ;-)
 
+Noted. Will take care of it in next version.
+
+Thanks,
+Radhey
 
