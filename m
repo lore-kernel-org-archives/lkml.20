@@ -1,101 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793358168;
-	b=a9wLE28WXCfLtAzPt4Qa2fficHMCpWCTiWs8ZR22q1vTu6xmMnT4lRMEUB2WlKJgRz6h
-	 IY4baQSBVMEbNRb/BcnSlHKrAeNV31Qoekat1gNRWi1CuqSvmwprbPLqu0sep/a477+Zs
-	 SveCEinM6svMRDDodZqzBrQmbc4NsErkZEZEQ1aOJjYjrdw/BIuofgUlCKHUuqDZfAgcS
-	 wtUJHwlB5FGb0cYjJvwFFrmoKcGmqTSPDDkgWThylL4DCixf88CPWVpbo8ZLmGrFlxoVS
-	 eAHnR0JJ3rXjdgmwsMOU8ynO+GH3qt75rg2jH6UwjcL3oWbfGDE4Ddm5Po9vwaScCQA==
+	t=1793358193;
+	b=wz96PExh78nisTpRzKD2WpO/TJcFIkQ3ib/WgIpkfBX4h11Og6U3JUt5ZPWIumsnjzU6
+	 gNTsRmYN7btXv1keXAo40oJj0OvPQi2OGHE44sUePNJ8jW4NVseHLZ0RwtoKfTeaW7VvI
+	 VaMskBeiPvcHqz2VMuc31M+bnaDkMUM/WbzKOWB6QowILByFRA7eSPaNfVtylP+PkvNKC
+	 4Ta29R64+8s2OjaIAys2JU44TQGuPOcu5+Eb9Axv7/756ck1xlAtUCAo7Bo1f1hJGF8YX
+	 ZzoLVoHflq9o5MkypDx6DYKiLm7kV4BaSyB2GWSudwL0SKvSjOO2qDf+QaQxQcr7sQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793358168;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=H9TixdvCYfAxhdujwN74ql2Wvj86XbJl7rH8qpd1rDs=;
-	b=FlOcCINOM3OL+BpUBdvaljTueRl4hJL5k2cq6BMeujK7/1+0uyMvsojEoSExWVKZTJnS
-	 tDpuVr9emkfwFjVxmqnJrr+/U/Xh8gB8l198lmiJzGQNUYuOiS8+Zf415IaiRvp6FnPsa
-	 iVn8oTxRs3c/P1S9YoW/4g4ujVXqaQ6eSNOOZOMkkJCMCT1U2p7nx7EH5X+LkZnKA3P6j
-	 g+2ZCJyiXTIg2ba6GgMMsLaAR2r8utQ0lwZSFegO1FIMq7V+Z5uBJTMPxfaSSDLkkXp0s
-	 p0u5Zw1lSgdUoAt+dUYYCeU+yoaFlEp7GtjIyufcakPLpfPnRPyEjjEV5pxtEOKR52g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793358193;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=wDQuzTNsYUZzEpQWnQWinTtqM7hksZLWKmLoPE6GgXA=;
+	b=YngRQJxKQvEGqLWgJjxxw6KMGyo/3bJvAtWn5srVHSiIVMLMWbs74V+PJMeOWRKO27iZ
+	 EOD8i7D4INwjoZEoa1194owQAvvvQCbJB3Gx9Txk3ktJoJqt1aZ7nEbs4cxM9yCXK6ztQ
+	 1WN/Y97wFHzTM8t66Fd2SLp5erjocbHfDBYCMNv4A/6Is804dwfoPh597D5PoACGLTJZS
+	 2DXivkHmsP2RRuZYqCqMTADzGOkBbwWtks6BCAOwoIOmiKiBwlBZ9NvcZ2zAIWB+wRyTB
+	 2T9Ffo8gtXhv/i7ek6ohsIebM1IXwbGUTS9pildlkdsa0aapfIvXn9EILqp+0VQRN2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=JE4+caH8;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QZWR9GNs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F72606A335;
-	Fri, 30 Oct 2026 11:02:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26F72606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F1C606A322;
+	Fri, 30 Oct 2026 11:03:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=JE4+caH8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1793358162;
-	bh=jUFlfZP4fmlVy7cT7aawURCBbnI/ZDRP3SAo3SZoNDc=;
-	h=From:To:Cc:Subject:Date:From;
-	b=JE4+caH8RmJhWsRV8AgvtaobgG8GjmvBHbGh4RknMFvSUjEXHuSsdDoAJN0ZEuorP
-	 Zq7coXNLdaGgHE3hRkyqLdmU/dHDRo2jIbXwheiMyDXgClt3br7j0U5mgQ0Yq95wpM
-	 qitKd0PNdxPXmMKNHvGCiRyEWV0yHug5bELWOcVG/KJjNLTqJAAQhQM/iJXxBH2qRD
-	 NIzjaSR1tArrLcuVC5/U9oHlLBQaE/EJu5uGg1oe0PiMmAHbZHthDBDAyZiFCok5CO
-	 hy5FAetUlGlnpcxdyPZObnH58upp3Z2ikVOHoCz/TvTSyG5gRg3MHFyv2ZcbxJ877r
-	 ELO2wqhQwQYJw==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id B347424E8A;
-	Fri, 30 Oct 2026 14:02:42 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Fri, 30 Oct 2026 14:02:25 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.26.228])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jGJ6z1V40z1V2r;
-	Fri, 30 Oct 2026 14:00:59 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Luxiao Xu <rakukuip@gmail.com>,
-	Ren Wei <enjou1224z@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	bpf@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Vega <vega@nebusec.ai>,
-	Eric Dumazet <edumazet@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>
-Subject: [PATCH 5.10/5.15] bpf: Check sk_state before sk_protocol in bpf_tcp_*_syncookie
-Date: Fri, 30 Oct 2026 13:59:48 +0300
-Message-ID: <20261030105949.1538-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QZWR9GNs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7416C1F000C1;
+	Fri, 30 Oct 2026 11:03:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793358192;
+	bh=wDQuzTNsYUZzEpQWnQWinTtqM7hksZLWKmLoPE6GgXA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QZWR9GNsgdpcLneWTs9OlHSLEsz/DrJR4GkZgwkEVbttaH7DOI84lYRIu8ys7Ta54
+	 R7nchdqGyelgdGCT0BWSqCDG82bnW4e9rbWssIrdfTd+GaTLsoUhhiq0l82wTfw6t+
+	 oylKGRpeSy44cRpikn+ycR5xZtgnEvD3faBcYH70YRAWLA3iX8pz+GoBocD2tHaPVZ
+	 WTMGUBnJexw5Tdsjge8DkgFlT4BwJ2Iinqtt3Rjdx1GYgspmz14w1a9aN5HT4KnNc3
+	 S/wZ+rQ0gRe5YzLxs0nQoL9xunbKoJysmpDFB5ifkjYKYbjV96CNWMvKMrpj/jSUmr
+	 vQkpvC1kJHJqQ==
+Date: Fri, 30 Oct 2026 11:03:07 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Parshuram Thombare <pthombar@cadence.com>,
+	devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jisheng Zhang <jszhang@kernel.org>, Fei Xie <fei.xie@horizon.auto>
+Subject: Re: [PATCH 3/3] spi: cadence-xspi: add ACMD mode support
+Message-ID: <e9d40994-ef33-4f0c-9319-4efaef3d8711@sirena.org.uk>
+References: <20261029-xspi-cadence-add-acmd-v1-0-53cd44690e04@analog.com>
+ <20261029-xspi-cadence-add-acmd-v1-3-53cd44690e04@analog.com>
+ <179329269255.62540.11497211982924609522.b4-review@b4>
+ <auRqTXctbxuuEfLL@nsa>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,70 +64,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/30 10:30:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;lore.kernel.org:7.1.1;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207136 [Oct 30 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/30 08:35:00 #28764057
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/10/30 10:30:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="S42XyFcaP7pE33Vp"
+Content-Disposition: inline
+In-Reply-To: <auRqTXctbxuuEfLL@nsa>
+X-Cookie: Orders subject to approval.
 
-From: Luxiao Xu <rakukuip@gmail.com>
 
-commit 31a420a822ff92e2090bd5d65efe8e34e2d6d9b8 upstream.
+--S42XyFcaP7pE33Vp
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-bpf_tcp_gen_syncookie and bpf_tcp_check_syncookie accept a socket pointer
-'sk' with argument type ARG_PTR_TO_BTF_ID_SOCK_COMMON. However, they access
-sk->sk_protocol without validating whether 'sk' represents a full socket.
+On Fri, Oct 30, 2026 at 10:16:00AM +0000, Nuno S=E1 wrote:
+> On Thu, Oct 29, 2026 at 04:51:32PM +0000, Mark Brown wrote:
 
-Fix this issue by checking sk->sk_state != TCP_LISTEN before inspecting
-sk->sk_protocol in both bpf_tcp_gen_syncookie and bpf_tcp_check_syncookie.
-Since mini-sockets are never in the TCP_LISTEN state, the condition
-short-circuits and prevents dereferencing fullsock-specific fields.
+> > We need some suspend/resume handling to invalidate the configuration
+> > when the IP power goes so we set everything up again.  I'm not seeing
+> > anything here.
 
-Fixes: 399040847084 ("bpf: add helper to check for a valid SYN cookie")
-Fixes: 70d66244317e ("bpf: add bpf_tcp_gen_syncookie helper")
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Luxiao Xu <rakukuip@gmail.com>
-Signed-off-by: Ren Wei <enjou1224z@gmail.com>
-Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://lore.kernel.org/bpf/6218aa3534d0d2d3f448fde70a8dc2769d7a8201.1785823138.git.rakukuip@gmail.com
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-80738
+> Yeah, I did saw sashiko complain (and my local LLM also raised it
+> actually) but I do wonder how can that happen? So we need to assume that
+> in suspend we might lose power (maybe because it's regulator powers down)
+> and need to do redo all the important initialization bits?
 
- net/core/filter.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Yes, might not even be regulators - some SoCs have good internal power
+domains and can gate parts of themselves very effectively.
 
-diff --git a/net/core/filter.c b/net/core/filter.c
-index b885b8b..b8b8dd3 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -6626,5 +6626,5 @@ BPF_CALL_5(bpf_tcp_check_syncookie, struct sock *, sk, void *, iph, u32, iph_len
- 
- 	/* sk_listener() allows TCP_NEW_SYN_RECV, which makes no sense here. */
--	if (sk->sk_protocol != IPPROTO_TCP || sk->sk_state != TCP_LISTEN)
-+	if (sk->sk_state != TCP_LISTEN || sk->sk_protocol != IPPROTO_TCP)
- 		return -EINVAL;
- 
-@@ -6701,5 +6701,5 @@ BPF_CALL_5(bpf_tcp_gen_syncookie, struct sock *, sk, void *, iph, u32, iph_len,
- 		return -EINVAL;
- 
--	if (sk->sk_protocol != IPPROTO_TCP || sk->sk_state != TCP_LISTEN)
-+	if (sk->sk_state != TCP_LISTEN || sk->sk_protocol != IPPROTO_TCP)
- 		return -EINVAL;
- 
--- 
-2.51.1
+> > > +	if (cdns_xspi_acmd_can_read(cdns_xspi, op))
+> > > +		return 0;
 
+> > That function has a minimum size but not a maximum size...
+
+> > > +
+> > >  	op->data.nbytes =3D clamp_val(op->data.nbytes, 0, cdns_xspi->sdmasi=
+ze);
+
+> > ...which we have here?
+
+> For ACMD, in theory we can just configure UINT32_MAX on the register so
+> not sure if it makes sense to clamp to that?
+
+No, if that really is the limit it's fine.
+
+> Conor is pushing against the new bindings and that it should be inferred
+> from the compatible. I tested this on [1] which is not an upstream
+> platform so I wonder if it's ok to add support for the complete
+> integration even if the SoC is not upstream?
+
+So long as it's an actual SoC that exists rather than some random FPGA
+configuration or whatever upstreaming just the SPI driver is totally
+fine, that's one less piece that needs doing whenever the rest of it is
+handled.
+
+--S42XyFcaP7pE33Vp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrkeWsACgkQJNaLcl1U
+h9Czfgf+Li/xY8VjuiiB8Dx7ZneRguXNxB/JDppfe45MNl7hx6ypdj6W+jfgiKpq
+JsvwB5jBD0X656FnXNVge11UzQsAjdHsLFepyUsJcyee9BZUl0dnXwFSw6glk8xr
+oh/XT4PXEwiSgF+KHzHKBXVQ++VC5ldTE1XmlI08QZ7toH44VE8ZmZQvWMKk8P5t
+N5T93zaff6s3mHyoa5moDkpwMw9tNHanWsAPqi26mzBeeq0WdnMUOZW2HjdNwSkk
+V76U4E0250upi/o56kNt7xnQ3tpEpwpf/ZOqhN4+7SNmbhnSuLuQb7PFxyhAFRbk
+58sP+EQKrF+LEjd3lveVrlW5pI+/ig==
+=J29Y
+-----END PGP SIGNATURE-----
+
+--S42XyFcaP7pE33Vp--
