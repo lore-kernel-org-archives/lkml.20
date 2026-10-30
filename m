@@ -1,97 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793331146;
-	b=dSH60DCtLCJAQG4n5bsST76XulkeK2B9N9+qi1Az71+asskr1l8JvbiNUXAoCcqo+rrM
-	 oQ9SHKtKxl2hHHO8gVvsa+VJBHQ9+8IHEWxz9N3LJikEMvnc8RY9kaQT8YvJ9L4N/z4Ez
-	 K2bv6tPjDq50HY+EyqMyyXZImlcW3Vouhnz/gsaRWQu4dDq8y/xl2vXj7yTERySpUJQ+a
-	 EF87jKUEnDOq6O/fwPmTivLKr2gZ9r6kb0xPLZKYu5TrkQN2x15q4LFUnEFNJRImo4bMC
-	 z4xmZGPAnqAR5NkACVYdVxiWpvsatO7cqfD5qC5krMnaVS76qkop+hZvQT3e9ldToxQ==
+	t=1793331198;
+	b=2oJZJWzYCP5EAWaz4wEKXDBlWUYEHENU0mg9B8cKJswXlG+KeEKqspsJTul68rvaN6Ka
+	 BCAEDlXBaruviWOkEawOJCafCNueXWGcKS8Azy4mcS0i6O3aMiRleuFSZQxXyCynGCAh9
+	 pzABz31Y7ZsHFrfyT/bDOboRlo9e9ZI3yY9Cfwscd+GrvmNtFtUz2yH1vH1O334b68YOn
+	 mMjjl63SgUSErBVTSmiGKElTUIoNczd8V3AYHFEok4nGyCQNxzWVokIS/c6LHZUGRrgpa
+	 PY6ENAZgYK5sNS/2cb9OGPq/mnsNkJUTnkPVIbNKEgjAkq1hnsjli+nlEVUKnho+yeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793331146;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793331198;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=xPP2Iq+jG/OXOp1muTW4wEvJS9Nxy1yt91NNhV76NRc=;
-	b=Jy4bnKzd0B/DESk4XxWAr0/PbOd0975+2t/mZDHs+hll/V2J3duVkoJlE92bnfmtbAGT
-	 QmNWHWIjB7QV6c47NwEdRMtOTA4J029aBeOLk/7M8lzz97CGyt8HpLGXgK0ap/Uhcya5o
-	 4f1KI74hFfm3wP1HuM+knWDgwDhxtjAr6j/j+OlpPYsa81YwzjLOlpcBEbTINiohHbC4I
-	 UDTOysdaojGK9TuH15m59OSpUjIDWFe0gR0YAcEtXD/MH764wYRCWs9E6bKIzk5tcXEeF
-	 0lP6XIg1x/CsjpF4wWhWSOVRw+t7cQL5XXt6Tv7/9HXxWGBsWfBn88z2XlRPCHCBv/Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=c1EF8TuhBh0bP0+JMlUsrkZ4srW7BPLAHvin7dAYTws=;
+	b=k/Dr5hQpBCh20W0y4FFNr4sQciCobuWScnmD57jng++sJyYd9DBb7ju/L22IZoUdUVYX
+	 CjiPU/bskRlluZWukIstOmscZAz1ii+hOsLu84QNO5rg2gbaVbek4DjXNWUIgrue5Dxc/
+	 p582Jx4M+aoppaC18dDYaYBbZ7gZSjLLFk2xqrrdGxz+jHWf5ZdlS+Md7yJPSUY4RqYMJ
+	 r19lTYc7UO7c4piQR9VWgvRWCcrkxbUKbjlonaMVhwlsmLv7PJB5GvEHv3y251CvjXoiv
+	 N4IiSWWVIYwtdOTFCAg2o+Lqcj7p7DpePA6R8BC9KprCgS/hjorUtqAu9trVpw6ZZIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hY7WxPts;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AO6t4VdM;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B518606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:32:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B518606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7438D606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:33:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7438D606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hY7WxPts
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-156cbe59524so210120c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:32:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AO6t4VdM
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so202556a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:33:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793331145; x=1793935945; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xPP2Iq+jG/OXOp1muTW4wEvJS9Nxy1yt91NNhV76NRc=;
-        b=hY7WxPtsWjkTqkdfESwA+2iZqA2DIbhW2bMUHDGRQcQrxl104W+MLpIWNI8Iqaca2c
-         qudjtjfNRzj9z43m2QXk1oawndAx6xZ1J+Khsf/PpCfynqpKT5I2XacIqiyIl0P/EfSG
-         pITmubLtXFOxycCGUP0tyh9c1nFVPKE8jvL9l0SMfD599Wxq5TafvsVb8EnNvMrIe3ae
-         Q1ccW1Dpq5gRAIAp8HqXvO7FLnlg48LFjFSxowOMjNa9nu3CnwU2mlNNQjH1HXX35tQd
-         gmhUg49Ht+rTCJfEzJTrN2Y0KKZ79NCeRsHBkkf0ra/GZ9Asdmmno6dcl/pTDqxeNz6X
-         MEoA==
+        d=gmail.com; s=20260707; t=1793331198; x=1793935998; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c1EF8TuhBh0bP0+JMlUsrkZ4srW7BPLAHvin7dAYTws=;
+        b=AO6t4VdMJzdHRO8xbmcDL8U2gznu11et7yRIZnJzTkzMgZyRKT9b4eWhL7Y6kkgmZh
+         K1ZaiVx8HIpuLfHi6KutG/ECRkGOcrSRLfVm1ITWPD0hOlsazLIzMnwxqyeSWoU000Gf
+         yfCFkvN+ExIfR65JgHFixRd6kUUEuCbfrVPwLlMLmvTbS68W18LKF/CQf1XiM01r4TiB
+         y0dvS0AmlIpRWj9K9TeIP535yAWEIv7lcfEUPqbGILmNxA3075PN47Ci8hlLy9vRxoOk
+         5LAn+1J3x9w1AgxftoaFDDVcOevVSEsNSj/vexlfz9cX58lJ70TvtUCjKUaZCT8WMDuq
+         Vurg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793331145; x=1793935945;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xPP2Iq+jG/OXOp1muTW4wEvJS9Nxy1yt91NNhV76NRc=;
-        b=hHkqzxKFQQ2mPFS6xMOMv1eabanD6VfYjspco2/lhbJDMY8eduItb2NNJaImrbijdY
-         xmkl7MQPcLj71s5PRQ/VJ05d8F1x+tFA98MNfd68XUkMPX1SbFzgTxA8wNbHo7vyI6Z2
-         TmPY9UZzET7pwcx+7KRw2kjzp9aTGOZJOOc5AA87wos4iC8A1SJFAoa3ysEu++Lk8p2I
-         Mh9NIA4fc6/Zx+tBw8VzXC1g7MIDmkXHw/L8e05EwugaZq/Hi34HqQ00yUT8yKd0OHXz
-         GioQ5SZtUtwbE8jhIqusXspGEsI4B6M7q0BdUmGG7u0wCO0fH3uydpfkKB0SjfupOZ6P
-         tDOg==
-X-Forwarded-Encrypted: i=1; AKwUvBy4AL9Ft8ue2fUbRFKGAl6CHAwu0f+d4lqakhyHrnOjDhWqMS+biak8ZtrWzwDxFKRFIWF2HsXRAqdO3us=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKeawdupVf1v7coK3B1uo/pDx0zGQgBDsiu0madX0MxRV5t5zUK
-	daBpMe3MJF8SpQii540/Y47dNZVekeGAo9VRL5TV3V9MZrOK+x14BqTF
-X-Gm-Gg: AYBFou1NBXH7rHBXlSH4G/DFnIsR3aa+ykoId0xX1Z0AdRvCkfOVUqilFgO9fkf1Lk5
-	99C5juge8yyeMTZJWawnxYpG0ie8/kSjhiG2ZN6S8rkCEnTyvmeskUtDlZFpu0f3Ll88+W6la3q
-	IaisaeWhp+aXaU59OyzF3L4EAQPysUkMdnqOn5DU8vuPTZauaDJjPvQu4JTpcSb//QE60gYlRMX
-	YE0hwRhAuC3XZzxVmwisQw8MolsjdHytwG93ssYGQx3n+8wQ9TH8gbdKm4jFpkBczypvpC2szwK
-	XA545MD+zvklmRJcDet5NJyjCmXjdKzT6qWZWZ2kcto4YCOp0Mq3kLxOXPhN3xWXmKCzQvat++i
-	XYNgWHy7PkgXHoonNSXAByTWhCLRitcOpgHB0TsHgjc/gOkz2lvYelS7UbL5uAQNR0QnYOjTQUl
-	vWfNHBk4pMcYOQWewFD3TVtdmJwJLukB0fNoMmMGgoLT9pEg9Cc4PXajoe9GYFRW79XoXH96fox
-	1EYTz/oEXGIilcDLdDoIZaQq/8yqjOEAVKlcvPbbMA7wyR8HEYqAnXeZg5Uqg/9C5A7H0SAo3Jd
-	D55XnzZ9g9HgwIXZn6YyenJEA+tMJQHtw/4bHvgewX8U/gCEnA==
-X-Received: by 2002:a05:7022:121a:b0:1a9:cad6:5b58 with SMTP id a92af1059eb24-1ac5ffe5b8fmr1322800c88.39.1793331145164;
-        Thu, 29 Oct 2026 20:32:25 -0700 (PDT)
-Received: from kernel ([103.219.206.15])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1b0a628bsm2767972c88.22.2026.10.29.20.32.22
+        d=1e100.net; s=20260707; t=1793331198; x=1793935998;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c1EF8TuhBh0bP0+JMlUsrkZ4srW7BPLAHvin7dAYTws=;
+        b=ss4D318MK7dCVqTJUp+iHESYm+ujV2mJe2zEaqGaSN3LhzCPN2ypkKDO2M+hL/SRmJ
+         QseapzAv4gXUCqiwnXBjn7cO5DbUVUpqgFdEdSyq26R3kGwEShrIiwHaC6ypynUaQm4q
+         olSk/0pSzP3Uu/pOtmCXEQ78nCUD6UddPwXiSkwiVFHcVbm04UcMn2yGT00E3LCd5aYT
+         PWB3Or2+FiCB8d5TJ+xyeq1pLUBYBmXErol5RKPdXxM79xd+esEEmFklaPIDtqsgzqUp
+         xf2QR4fjdESSbxYmVh/+PNZcURAl3TbpHzrWsbHK1rCMBQtwsJqT4LwFYpckRNpHXI3z
+         IDig==
+X-Forwarded-Encrypted: i=1; AKwUvBzfKBHOtd4U+3tySMU1pCUBtkvz7w52rZ5zcwFWl8Odq0qdMvzXPiudzib2u4oatTUeEW39ZWWydjLQkPc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+bfqvG9+hIdIZRrbH8YaTd1F1JePwjQxgz1Uiuv7EQNE7KDPp
+	gnoWP4TxbA0pjLirnySlgLZLOv+fF64Uqj6y6QMRXrptMLytX4SJCiyibXqpg8t3u6o=
+X-Gm-Gg: AYBFou1JTIfH7m9EVu1bhZ4Lzs/hmlBucYp4yTVabgfHfzRQvXZuzyzu9aA/z2yHl25
+	aTPxF0li61aU6hBJNhzE6xq8e4exHSa2+0wME3N7Cr+sbz9Xq8QeF7yJ3+Mx+kMBrNlFWqk18wP
+	JdszvWrRAwQpA6Tjufe8NFyp95JEHmfl0R2R4wNeXnUaSL+iGhgxXaf/mAwwEd+QdX6TOxGRFWS
+	9fH49NhoFbSuTAuyPrmBckQSVzESVOsmouj89IRKWY/9Ee9OJ1vfIdRd7v5jqgQ1WGpWgP5mqNQ
+	hjk3WC7kV9VeNHuCDgl9tN67gaRJC8M0M4sh6a73HR9TGHko29I6nSTCGPOzIjeW3cOuLfimJH5
+	7h24lajR1zA22CQRbVKPMaPZKFvOL1KE/f47oSIep8sgKnxnJy4Yq3MhpAKZqn8JM6clHtiAzyn
+	g4wewd36wYc705+qg43Co8eSR2SkJo8TxoOPprZ7tGofEQyDyCZQXbdWYAlaPCU873u8fUR2Fkb
+	/4iQkP2GnXuLnmRESboYwC6eE+HrjuUQ2piecQMtyOAIPeBcgN+os9jJodQVQwnJsWgskas9EJh
+	FA7BhgLVsf9wBO5jS6GKJrb4c2120NpppiwA4KSbcxPktJo=
+X-Received: by 2002:a17:90b:1188:b0:3ad:b7d1:8631 with SMTP id 98e67ed59e1d1-3ae897eb75bmr583318a91.17.1793331197821;
+        Thu, 29 Oct 2026 20:33:17 -0700 (PDT)
+Received: from kdev.. ([187.15.154.74])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845aa27esm1970602a91.11.2026.10.29.20.33.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 20:32:24 -0700 (PDT)
-Date: Fri, 30 Oct 2026 09:02:19 +0530
-From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Laight <david.laight.linux@gmail.com>, ardb@kernel.org,
-	Jason@zx2c4.com, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] lib/crypto: aes: use memzero_explicit() instead of
- memset()
-Message-ID: <auQPw4dFFZM6XPV4@kernel>
-References: <20261028142636.5888-1-raizudeen.kerneldev@gmail.com>
- <20261028155134.GA4041913@google.com>
- <20261028205633.7625d789@pumpkin>
- <20261029173119.GE1862@quark>
+        Thu, 29 Oct 2026 20:33:17 -0700 (PDT)
+From: Babanpreet Singh <bbnpreetsingh@gmail.com>
+To: Paul Moore <paul@paul-moore.com>
+Cc: Serge Hallyn <sergeh@kernel.org>,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Babanpreet Singh <bbnpreetsingh@gmail.com>,
+	syzbot+ee58b040032d8bed63d9@syzkaller.appspotmail.com,
+	syzbot+557fdc985d6ac3831e14@syzkaller.appspotmail.com
+Subject: [PATCH] cred: mark the copy in prepare_creds() as a data race
+Date: Fri, 30 Oct 2026 03:33:08 +0000
+Message-ID: <20261030033308.7-1-bbnpreetsingh@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,78 +98,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029173119.GE1862@quark>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 10:31:19AM -0700, Eric Biggers wrote:
-> On Wed, Oct 28, 2026 at 08:56:33PM +0000, David Laight wrote:
-> > On Wed, 28 Oct 2026 15:51:34 +0000
-> > Eric Biggers <ebiggers@kernel.org> wrote:
-> > 
-> > > On Wed, Oct 28, 2026 at 07:56:36PM +0530, Mohamad Raizudeen wrote:
-> > > > aes_gcm_decrypt() and aes_ccm_decrypt() use plain memset() to wipe the
-> > > > output buffer when authentication fails. But the compiler can optimize
-> > > > that wipe away, so use memzero_explicit() instead of memset().
-> > > > 
-> > > > This matches every other sensitive wipes in this file, which already
-> > > > uses memzero_explicit() for keystream blocks, tmp buffers, ctx
-> > > > teardowns.
-> > > > 
-> > > > Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-> > > > ---
-> > > >  lib/crypto/aes.c | 4 ++--
-> > > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > > > 
-> > > > diff --git a/lib/crypto/aes.c b/lib/crypto/aes.c
-> > > > index e1c191551736..7814ef525239 100644
-> > > > --- a/lib/crypto/aes.c
-> > > > +++ b/lib/crypto/aes.c
-> > > > @@ -1733,7 +1733,7 @@ int aes_gcm_decrypt(u8 *dst, const u8 *src, size_t data_len, const u8 *authtag,
-> > > >  		 * Clear the inauthentic decrypted data so that callers won't
-> > > >  		 * receive it even if they fail to correctly handle errors.
-> > > >  		 */
-> > > > -		memset(dst, 0, data_len);
-> > > > +		memzero_explicit(dst, data_len);  
-> > > 
-> > > This isn't for "zeroization" (making the data unavailable in ramdumps),
-> > > though.  It's just so the caller doesn't accidentally use the
-> > > inauthentic data, as the comment right above it states.
-> > 
-> > It is also a parameter so has to be zeroed anyway.
-> > memzero_explicit() is used to clear on-stack buffers.
-> 
-> Well, that assumes link-time optimization is not done.  The kernel
-> supports being built with link-time optimization.
-> 
-> I guess the motivation for this patch would be:
-> 
->     (1) Shut up LLMs that think the use of memset() is inconsistent
-> 
->     (2) Maybe the caller really does want "zeroization" for the dst
->         buffer, even on failure -- and this guarantees it for them, even
->         if LTO is enabled, without having to do it themselves.  (Though
->         on success, they'll have to do it anyway.)
-> 
-> So I'm tempted to apply this patch anyway.
-> 
-> But the zeroization stuff is getting kind of annoying at this point,
-> when it's unreliable anyway (it's not like we zero out the registers,
-> which can then be spilled to the stack and/or written to the task_struct
-> on context switch) and can even be counterproductive (by forcing data to
-> be written to memory so that memset() can run on it, instead of kept
-> entirely in registers).  And Sashiko likes to flag them as Critical
-> issues, which is not at all accurate.
-> 
-> - Eric
+prepare_creds() copies the old cred while other tasks may be changing
+its refcount. Mark as data race.
 
+Reported-by: syzbot+ee58b040032d8bed63d9@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ee58b040032d8bed63d9
+Reported-by: syzbot+557fdc985d6ac3831e14@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=557fdc985d6ac3831e14
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Babanpreet Singh <bbnpreetsingh@gmail.com>
+---
+Compile tested with gcc and clang; the KCSAN instrumentation of
+kernel/cred.o was checked before and after.
+ kernel/cred.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-You are right, the confusion was caused by my commit message. I said the
-compiler would optimize that wipe away without mentioneing LTO, which is
-the key qualifier. That only holds under LTO, which I should have called
-out. Yes the comment above the memset() makes clear this is defensive,
-not zeroization in the rampdump sense. Without LTO th caller is opaque
-so the store survives it, but with LTO the compiler can potentially
-eldie it... memzero_explicit() prevents that.
+diff --git a/kernel/cred.c b/kernel/cred.c
+index d01df40a9a386..d212db445c138 100644
+--- a/kernel/cred.c
++++ b/kernel/cred.c
+@@ -189,7 +189,7 @@ struct cred *prepare_creds(void)
+ 	kdebug("prepare_creds() alloc %p", new);
+ 
+ 	old = task->cred;
+-	memcpy(new, old, sizeof(struct cred));
++	data_race(memcpy(new, old, sizeof(struct cred)));
+ 
+ 	new->non_rcu = 0;
+ 	atomic_long_set(&new->usage, 1);
 
-Should I send a v2 with just the commit message updated with LTO?
+base-commit: 881f19c2ffbc73f351b257e09c71e6059939b770
+-- 
+2.43.0
+
