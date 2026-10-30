@@ -1,53 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793331935;
-	b=wwTxzMkzOXr+Ir5UVKATep4aLYRk8YuJVDUgOUNJvd1DTViZL5jaM31wYWK15yznADQ4
-	 15+jBUP2It/FwLs60aV5tA7QC0jg5Tz06Pc9Z/swyTY1XOwJIgLXTQBh9he5oKegrvSdm
-	 aI0v4OHVxrRf0ALQamQ/m0dtJ0JWN0IjZoZDrh1f8uGFK5/bcmVjcKpkAiRqujJ8vWL0s
-	 3Jm1OypdclBOgZzeJc32X1aWa5a/j15ZZSGOf8ygmSPVEGgrqNGltJRFsjzBzD4w32xTG
-	 aDHijDIWzU8Kvg1jxS2drRunMA+pRFAKZp9iZeBjOM1BEquQuzaSFo+0ChSchK6kx2g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=YYn6E+e2afI/dyalNoOCJarkqqOQvHgK6fiU3HnONPRV+YINgJh7Ee6dAEIFO/pUT+x8
+	 HrcJ5NqYKi+O3l9VQ7r9qo2C5/2hJUh9qh9EbriPn4qcMwjhszZMvAMeV/IgAQHlxu3EO
+	 kog3xAlWvyrFtdKx4QpgmcdPUaYrDZr0tfPY5Y3E7lTi9WrnQuj5v+6qGR2cxuYZDsPYD
+	 jYN2JLK4EvsIwS6T3ZKXlEg4V43LuuaLakBbBnEAARuQauomqmzlNkg232D46Yy7aUCfa
+	 wFuzNOfxbpbhsUG7XcFUu7xskJCNMXUWS6onCysk4uX18Exau8X9Vcc7xOevtTLNl6w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793331935;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=q48tFhWZcL9isQVRoWO98yZxtDQcZ7rYdK/d2CExFAQ=;
-	b=P4VfhrW5Dg+fjV567wgKPtKIHdyILZPbBGnf9G1uycdiOE3QhJe6XHpqjMIGeV43GQ6P
-	 3q31N44iaa6HA8G6jda0ZChYTlYKP1zeMBaOdZGUDL/auUbCzGaBHRHw5m/VimgPLQq9n
-	 v5s8ft3qCF15CYGeeHH5QohGvcFO53yCJ6yblN3DOyp7nehsvx84RhdQ8GfqTv/IQsDoO
-	 1mGw/9T6hlsoP87Z2us4ouyDDBD9NRTfWe3pUemGpVNFCoomTSo9eKY12uCFWGL+Lpilm
-	 Ty8+kD4nV5qns9GrwPxe1PUNefHSikCQqiVPjLIL3eRBkFR0RHOkCj0Ig1RbvomIHdw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=IikUAO8lSmNSAkvhUkTrh9Ju9HI1G1d2+VF79RdPZh4=;
+	b=LmJIoX5qDDrge23YzY03s69gt20+Uof3Q8IeVuqeh7eafvLFc5o2uiP5j7DiuaeHgwcE
+	 9+ZvGUDuKlLZR8eLRoWNafcqa7j0+T8vezEsDuPhfQSwdzKh3mub/pBpTOpCsvDMD6Opx
+	 LoIoTqn5dRXFZ5j9YoWaN2ATpxVNSoxq5egQfBlE61ZTnpEDcAuhloGy1EZcE9Vca8BOS
+	 zcOCB8DnTfLOn9w1rb9I2L/CBUHozZchNbG+UtxrQI7+dJjyk4WFuAicTg8dnXzkMA76S
+	 PSVHB5d7t19R9tZIvlRZ7GnvoFBK/zDyAh31WIaDTPj0KIKfJcRv8IuiwNNE+DhhWGQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=h9yowQd5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.52
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010052.outbound.protection.outlook.com [52.101.61.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B6C606A320;
-	Fri, 30 Oct 2026 03:45:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51B6C606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jG6SR6BwXz58fdZ;
-	Fri, 30 Oct 2026 11:45:27 +0800 (CST)
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl1.zte.com.cn with SMTP id 69U3jMuK041522;
-	Fri, 30 Oct 2026 11:45:22 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 30 Oct 2026 11:45:23 +0800 (CST)
-X-Zmail-TransId: 2afa6ae412d30cc-acdc7
-X-Mailer: Zmail v1.0
-Message-ID: <202610301145238169CxodJv5_0n5vd-Vbd4XA@zte.com.cn>
-Date: Fri, 30 Oct 2026 11:45:23 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648AC606A322;
+	Fri, 30 Oct 2026 03:45:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 648AC606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=h9yowQd5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wZC6iE4zn/trnSrz8oDKWUMrNxhkpYVnkJ2IYYclzNUV4WGUUeGzgRF2dP8aXW25RjmhWtjFtIW9aGudSKBgXeNDjoyyElD2937hbe5MQOjkClD/J+NJxfCL0UuxeRd6u82h6u+yJXduVAiclaA0Yx8VdgJEK0jaM2vpYxmjjBMfr61HGXu1p2djc6QduVWpszE49QdMRK33KACl9XssrMrubIRVs9meM1WpgHP3tlXOZllQ8cCMUFFEMlahQaRG40pD78R0Mj2JPkOvaGshGkfq0RjC88n+m9PFbq3EnnUuxzTkEt5spViNGEcUg7K9Js50k0TMFNvjFHiodNfDTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IikUAO8lSmNSAkvhUkTrh9Ju9HI1G1d2+VF79RdPZh4=;
+ b=ghiRmtpVejJsLUwmoFJiAXlZ09lxRlL6DLlyKlxYDeBqbeopcGZIzwEIg4yYHZVAkpjrT0V3XSw32SSwZB8jLkpOO6BnvTfLytvkUykVYNOFTLZOXO5EJQSiUAIHI5fIPN18mPMDGYcVoTWcnTKEhQ9s7UAD6eV8WsXcd7YOdpZYg27uz0irOoy4RQZR04b+SG+xxrJQkwFiZ0w4knWeiDiy+z1kfHMd7RavGiZDA+4U7AwNAdtMujrv5ybbQX2pz7H9DwUbSX6oGCZ0d7qWrrQ7slclJBBN7v8eSAxru0uLheHCMiWmzrQE42xfa3emhriNQ0FdOoAL+WOzYXT+Dg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=bytedance.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IikUAO8lSmNSAkvhUkTrh9Ju9HI1G1d2+VF79RdPZh4=;
+ b=h9yowQd5RFO57r3Y1TK82DNALJkPb+BXstHYz/RhhD97ccO9ktaLFOMukJ3kcAKFRlG53my2TQS9Q/AzC0t8HrIRTCxMZ1c7rUqgOncPk+dH0pU+qKed5aysZeXOWxyjzkwbMh1GlZkaaMhrTwIDgBsEiWkVUfouTvjOEpXFURY=
+Received: from BY5PR04CA0027.namprd04.prod.outlook.com (2603:10b6:a03:1d0::37)
+ by BL4PR12MB9507.namprd12.prod.outlook.com (2603:10b6:208:58d::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 03:45:05 +0000
+Received: from SJ1PEPF0000231A.namprd03.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::30) by BY5PR04CA0027.outlook.office365.com
+ (2603:10b6:a03:1d0::37) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.8 via Frontend Transport; Fri, 30
+ Oct 2026 03:45:04 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF0000231A.mail.protection.outlook.com (10.167.242.231) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Fri, 30 Oct 2026 03:45:04 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 29 Oct
+ 2026 22:45:03 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 29 Oct
+ 2026 22:45:03 -0500
+Received: from [10.136.40.60] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Thu, 29 Oct 2026 22:44:58 -0500
+Message-ID: <c9cf96bf-f3b1-47da-b22a-9600b5fb01be@amd.com>
+Date: Fri, 30 Oct 2026 09:14:57 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,138 +104,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
-Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSB1YmlmczogZml4IGF1dGggbm9kZSBzcGFjZSBhbmQgcGFkZGluZyBpbiBqb3VybmFsIGJ1ZmZlcnM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 69U3jMuK041522
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Fri, 30 Oct 2026 11:45:27 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE412D7.002/4jG6SR6BwXz58fdZ
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] sched/numa: make free-space tiering promotion
+ bypass configurable
+To: Li Zhe <lizhe.67@bytedance.com>, <akpm@linux-foundation.org>,
+	<bsegall@google.com>, <david@kernel.org>, <dietmar.eggemann@arm.com>,
+	<gourry@gourry.net>, <joshua.hahnjy@gmail.com>, <juri.lelli@redhat.com>,
+	<kprateek.nayak@amd.com>, <ljs@kernel.org>, <mgorman@suse.de>,
+	<mingo@redhat.com>, <peterz@infradead.org>, <rostedt@goodmis.org>,
+	<vincent.guittot@linaro.org>, <vschneid@redhat.com>, <ziy@nvidia.com>
+CC: <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>
+References: <20261028041253.74839-1-lizhe.67@bytedance.com>
+ <20261028041253.74839-2-lizhe.67@bytedance.com>
+ <0676993f-c04c-4e4e-9f8d-1650c8fd6d6e@amd.com>
+ <010b2b6c-8f1b-4c3b-913f-cc2e8b957759@bytedance.com>
+ <a6bcd771-fcf7-4fe4-8c21-5e65bd579de7@amd.com>
+ <1bab234e-8914-4694-b0aa-f265fa49c6d3@bytedance.com>
+Content-Language: en-US
+From: Bharata B Rao <bharata@amd.com>
+In-Reply-To: <1bab234e-8914-4694-b0aa-f265fa49c6d3@bytedance.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231A:EE_|BL4PR12MB9507:EE_
+X-MS-Office365-Filtering-Correlation-Id: 306498a5-3563-4331-8617-08df36382ee0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|36860700016|82310400026|921020|4143699003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261021123027099003|261021121427099003|261022105027099003|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	GdzPgUNKan1dEr+SsMKZvP4L1DAy+brnTdNfyIuXAzv2lMsnjFqInjDQJosTKH7E8dvxaunECqK9AxIJgSbDv7Z60qt296RRYwqBnVh6wsWPLH1sOQqkfR8HjscysamM30mrnXo7gQeRZMctj7XEaHOVk0vqYyY57o3mIuqaF8hHEb7vBpsuqexM4KiYuzLUTXS6H7MFbTskI3kZuOYocHp34r1Fs6HXZw20LpSsEInitFKbqytXFnRghbsVA+wPw0vFO8a7hg0Y0M0EEWoPj0fTFjNAneVcO/M4QWFun+OaXaAC9zqx/9iJo20Lb8hPgXWCjv4hCj86Zy2GPJe1JNTemIobz+VlpnWyKdKUfaF5Li1TGOGLPx2vgzDkOWxJnXE71v9PaWII3hS0zcMOKYcTgNYXSH0eIhOTHdslfiGiS5sn4Ral68w2FRvQZFmnfYujJ8jfGFlPB7w+svXn4uNAXxA0h8OQSG81D16xejYRGEweOKGBxZa3AdEFfi+i2WctkLJ1CMcrt+QKY/WDgtxPXeSeJD7HKJ/OeQNrGYaDGfsGXKR4aknAkUy5oBwwrjeQmmXK+FDwhWCGBxFGFrMWwRJbnG1JjasGIYEuuJyKeNqhLKu3DpCmkLVr2KiiYojGd46FVtaf7oluZDLxn1pbaUsZ74d14vFmREfCjzK0HNHEG3BJtRv496uK6kI0Z4PRleFsD//87zA7uA0yGeC9YCcxanGVnEO0ejOlIZiHzcEJDiqdhZmgky3AtVFo
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(36860700016)(82310400026)(921020)(4143699003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261021123027099003)(261021121427099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	iZjg/17YPA5A84SHf7aDRDN2/YVjvn04u2f6PkmtGTyO0QntStciLuNEd/VDlCSVcA4smx2FBh9UabTTYNYYxHsMMzymUOtjaJNp5MFuhpa/FVBgCPPNe3GWdFdFaFjdUYjfw8UdttKZts0kB9nwlpJwksqQNK8jc2wP5SbDrbC6c2BmcnBUDUXv7yegTFvPgHbTjirY1naK3lhR9FRYv4NmOmPQrmtKdKDitRYcA/p6LZV2J06jTT+5vHtPhCqxianwAfXD6mHQx49EldupyQHvNFNYlBsCE6ofhfjZlUeE6JGWJCP7ARLZrpUAizLEBR3nEh+fCo+flfzL4l8Zjuqy9VIWk8aLVLvllTjYYZO+68cYKZh4KbJkOZhshBtqWPS3SwUjyJOl2tvRKqBSAkS8v97kUcRo5F8lczUw/NVpYvw/+MmTs2TPUbYE7eb1
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 03:45:04.1161
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 306498a5-3563-4331-8617-08df36382ee0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF0000231A.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9507
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On 29-Oct-26 5:03 PM, Li Zhe wrote:
+> Yes, the case I am trying to cover is closer to the non-overcommitted
+> case.  We do have deployments where memory is intentionally placed across
+> DRAM and CXL memory, instead of relying only on natural spillover from a
+> full top tier.
+> 
+> For example, the orchestration layer may want a cgroup to use a planned
+> DRAM/CXL ratio, so that DRAM capacity remains available for later
+> placement decisions or other workloads.
+> 
+> In such setups, the top tier can still have free space, but we may not
+> want short cold accesses to refill it simply because the free-space
+> bypass is available.  The intent of this patch is to let those
+> deployments keep using the existing hotness and rate-limit checks even
+> when there is top-tier headroom.
 
-write_head() appends an authentication node to the node group when
-authentication is enabled and writes
-ALIGN(node_len, 8) + ubifs_auth_node_sz(c) bytes from the buffer.
-ubifs_jnl_write_data() allocates its buffer for that, but when the
-allocation fails it falls back to c->write_reserve_buf.  That buffer is
-sized for a data node only (COMPRESSED_DATA_NODE_BUF_SZ plus the cipher
-block, 4144/4160 bytes), while an incompressible 4 KiB block needs
-4144/4160 bytes plus the auth node (24 + the HMAC length, 56 bytes with
-sha256).  ubifs_hash_nodes() then writes the auth node past the end of
-the reserve buffer, and write_head() reads it back from there.
+Thanks for this information about the deployment model. This is a useful
+conclusion to reach.
 
-The same write path also leaks uninitialized heap data.
-ubifs_jnl_write_data(), ubifs_jnl_write_inode() and
-ubifs_jnl_truncate() build their node groups in kmalloc()ed buffers, and
-when the last node length is not a multiple of 8 the padding up to the
-next auth node is written to the flash.  That padding is covered neither
-by the node CRC nor by the rolling hash.
-
-Size the reserve buffer for the largest possible auth node (the mount
-path allocates it before authentication is initialized, so it cannot use
-ubifs_auth_node_sz()) and zero the padding after the last node of each
-group before it is written.  The padding is not part of any node, so
-ch.len and the CRCs stay unchanged.
-
-Fixes: 6a98bc4614de ("ubifs: Add authentication nodes to journal")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
-index 40a95a2fad50..38fb59225f27 100644
---- a/fs/ubifs/journal.c
-+++ b/fs/ubifs/journal.c
-@@ -840,6 +840,24 @@ int ubifs_jnl_update(struct ubifs_info *c, const struct inode *dir,
- 	return err;
- }
-
-+/**
-+ * ubifs_zero_node_pad - zero the padding after the last node of a group
-+ * @c: UBIFS file-system description object
-+ * @node: last node of the group
-+ * @len: length of the node
-+ *
-+ * When authentication is enabled the auth node is placed at the next
-+ * 8-byte aligned offset, so the bytes between the end of the last node
-+ * and that offset are written to the media.  They are covered neither
-+ * by the node CRC nor by the rolling hash, so clear them instead of
-+ * writing stale heap contents.
-+ */
-+static void ubifs_zero_node_pad(const struct ubifs_info *c, void *node, int len)
-+{
-+	if (ubifs_authenticated(c))
-+		memset((char *)node + len, 0, ALIGN(len, 8) - len);
-+}
-+
- /**
-  * ubifs_jnl_write_data - write a data node to the journal.
-  * @c: UBIFS file-system description object
-@@ -925,6 +943,7 @@ int ubifs_jnl_write_data(struct ubifs_info *c, const struct inode *inode,
- 	if (err)
- 		goto out_free;
-
-+	ubifs_zero_node_pad(c, data, dlen);
- 	ubifs_prepare_node(c, data, dlen, 0);
- 	err = write_head(c, DATAHD, data, write_len, &lnum, &offs, 0);
- 	if (err)
-@@ -1062,6 +1081,7 @@ int ubifs_jnl_write_inode(struct ubifs_info *c, const struct inode *inode)
- 	}
-
- 	pack_inode(c, ino, inode, 1);
-+	ubifs_zero_node_pad(c, ino, ilen);
- 	err = ubifs_node_calc_hash(c, ino, hash);
- 	if (err)
- 		goto out_release;
-@@ -1781,6 +1801,7 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
- 	ubifs_prep_grp_node(c, trun, UBIFS_TRUN_NODE_SZ, dlen ? 0 : 1);
- 	if (dlen) {
- 		ubifs_prep_grp_node(c, dn, dlen, 1);
-+		ubifs_zero_node_pad(c, dn, dlen);
- 		err = ubifs_node_calc_hash(c, dn, hash_dn);
- 		if (err)
- 			goto out_release;
-diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
-index 38972786817e..538907aba8a0 100644
---- a/fs/ubifs/super.c
-+++ b/fs/ubifs/super.c
-@@ -1263,8 +1263,16 @@ static int mount_ubifs(struct ubifs_info *c)
- 		bu_init(c);
-
- 	if (!c->ro_mount) {
--		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
--					       UBIFS_CIPHER_BLOCK_SIZE,
-+		/*
-+		 * The reserve buffer is also used as a fallback for data
-+		 * nodes which are followed by an authentication node, so
-+		 * reserve room for the largest possible one.  Authentication
-+		 * is initialized only later, hence the maximum sizes.
-+		 */
-+		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
-+					       UBIFS_CIPHER_BLOCK_SIZE +
-+					       UBIFS_AUTH_NODE_SZ +
-+					       UBIFS_MAX_HMAC_LEN,
- 					       GFP_KERNEL);
- 		if (!c->write_reserve_buf)
- 			goto out_free;
-@@ -1723,8 +1731,10 @@ static int ubifs_remount_rw(struct ubifs_info *c)
- 		goto out;
- 	}
-
--	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
--				       UBIFS_CIPHER_BLOCK_SIZE, GFP_KERNEL);
-+	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
-+				       UBIFS_CIPHER_BLOCK_SIZE +
-+				       UBIFS_AUTH_NODE_SZ +
-+				       UBIFS_MAX_HMAC_LEN, GFP_KERNEL);
- 	if (!c->write_reserve_buf) {
- 		err = -ENOMEM;
- 		goto out;
+Regards,
+Bharata.
