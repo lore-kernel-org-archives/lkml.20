@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.15
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793346543;
-	b=Y4G9VaY1BHSdfnVmKECa85FmYd1EcfvcPp+2WlBho9D6Gl0d28ZQ0xlzqq5G9Pe9EDvc
-	 1Ta3D3vLr5x/6ceRPxRdD3b2xfPayC/nIRbG+AzfGQnl7ipuAwfMyIKZ9iZNZtO22GIJY
-	 2/LPg/XvDLKSlRKkPdMqXYaMXq+hg3LdDRhq6BoeXyRx+7CJCDeN3XHyEgpVGg8fp4DZs
-	 nEFrrWw4m3tMvz621SgdxY8g5nCAfSdot3aGz9wouqxhCAIpWHkgKb6eXfBjbDfa8NbnG
-	 ToZ78SrxI7/Axd+f9hKsS/oKjKsD96j4TshccFLfyI9cdlIkpe9BymTL7nU8ZevMU/w==
+	t=1793346652;
+	b=cfeHPM1XCX+vgkuIfDh0HQWFRjDuNFKdcSGl3RXSp6bw0SevxvGsBrA53voyrxV8Zumt
+	 hMDXe/NUbNALi1i9xFKx/E+iFrPwQjhCw1dRM5l/K2dmmRd3QcUCOojdM/MtNz30VDbuC
+	 C0fSaNvvvkX89BDukZiwZT24exTUcJIhxQ7aw69RuJBmHpDvX0Q7/x0inEtcDNc+1/JhY
+	 eaHD4TybFMc9eEU+CjqQcdrkp095MLvncCwp4WRXpUGcKAyqBQkZq+K1rpRF8DTG6+rk+
+	 j5GLCHcQJPTssqnI6PkUUUJ0OG0sKjC4LhxeW2YGd8QPfA5XWf+aIihAMuDuJc+8Fow==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793346543;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:From:
-	 MIME-Version:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=2HDMqE3IkP7tC+ZYqwwcSMAYlXpSFqYA9LjD5kYCX/o=;
-	b=BtSyfwKM3qOu0Tyenpj2mxNaKREtRucDKx13VhzrXDDtKMg6bgedKpdSShfmYfc6TTUw
-	 /a9PbWCHGXzZMZXF9vP4pHSfbvoKhTa1+OzBM9Gg4Le/rWTSS/srPAZyrFHU3uoYVZnFz
-	 aDDdAbenKS6fNJol9zuApynPnMx8UEVJfE6S240TUSCDja9xwwpQ+BZHZRwE/WAVAkpcz
-	 7lNVxv1Ytc4CjsSi9d7UASVmtummRSwu79IqZIWMDfFW/S1wZMEk4AkN6UctSpI3lloYq
-	 qSameE5SzlGXHMuhReB3xPGTOTOJYkLWCVPABH/Uduo6c4WP7EzuW2lIu35XumG/OFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793346652;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=cmruTk+Waw3ny+TF7JdiUBX9+gHzjUfnrYO+u3bdflU=;
+	b=OkQwzSjAcRl9e8Ng7kUj2BcjdTYuzo8d+dRPnQuYlgNJaSG/yNNdOHIkDBIqkFe/Vbvn
+	 OU27Ubvn3jBL8UwZA+kk8xtPaRhNK9NhvDnQDfvCjnwNIaxQJaQ0viaZzFLO24IzW7Uqy
+	 NueLiMsy2ZByy/PeImrHZXPZG8h6QzvNOLZPJ8A9yPlfgrCNGU9iybiZBXgBgk2rta4By
+	 vIuN3mypkokMXpE5kqGvb9w9s61IeQJZrHJaeWJ70E3OaPVyS4LS4/l2B1mXyPTWb5Tjf
+	 JVs99x9viA2ZKtsje5a+9k5ZgrQAw+RYBUT+U1Hcts2gEp1wswctPFxAcPLGE6/FSkg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bLOdZ8tn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=altera.com;
+	spf=pass smtp.mailfrom=altera.com;
+	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=w9JKOOjV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.15
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010015.outbound.protection.outlook.com [52.101.46.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6051606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:49:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6051606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A048606A31C;
+	Fri, 30 Oct 2026 07:50:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A048606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bLOdZ8tn
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1f31c63ebso2492242a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:49:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793346541; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZsV6jGYg0yzEn0BZhtSVcupGhNVJQUPaScQSipLhLXLeDDKn9sbHZmx+QGAOlOBRJu
-         wgA/crvANEeGv69obheyznrbcm4ZKPEt5qBKwdEzP+xzsv+mjIyWv9vGjnCe7vIfUBEQ
-         vkyHJ5wjAwi2ZhCTbZhVDKGvg7Vo4A9jMV8FMpuDE1/3hDCvKLjSL7aStl0NXxMVH0ft
-         cj7NI24dank0Po60XlPW9yxsYjIaoZ4Qe0EoKI7XugP13GUWE/xUESoW7HC1DdU0utTQ
-         Hl79nHUE6e8v948D3ks61+P2GSfbVPLSNxHtgZUhk+BM5wms/YigxN1K0zorEm6m1l+r
-         vX0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=2HDMqE3IkP7tC+ZYqwwcSMAYlXpSFqYA9LjD5kYCX/o=;
-        fh=gO9/vS+3gtnAcQ7P0i/NbH5QoUDJg7HAuIIbh6SrKgY=;
-        b=enetN+JE8F4xkAKE1ECLfMvoQj9Yo+SAAUn9YRjWcrVc8eJ9C2Jw3u30dzOCj8Op5X
-         P7UpXjyYWfskUT1xAbV4VXvUhr205tEFmps6Gqp6Z4Ch8Q3/oLykwHq2khLYjqHA+UXZ
-         I9feztFOnxOyrfOC1WDdqyokoywSItOg6OwuimpO0ZXlfcAcATMXUy6jZcvSGp40oE8o
-         zFPgzMMGODuutybRNGqz8RUSIaroEk8Q+qyuIECFGxPQC9y2Tl53HvT2NQcpNX4c607X
-         wt7eaU155UOt8jqPH+ijCw2RyrMig4EOiwbWgyOAf3pz40pJzM4/OotR1zWX97jxx6AT
-         RPmw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793346541; x=1793951341; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2HDMqE3IkP7tC+ZYqwwcSMAYlXpSFqYA9LjD5kYCX/o=;
-        b=bLOdZ8tn8+riGdf7TptBZ9UcNU140zD4L6eFFDvVYeCMFJsiZhFcyqFB9yOOixQN4u
-         Qmil5RVe+ygls5Es27kqGXV+vHeg1Fcj7OH8TNb/EGGuTZXKiGYPovDVep6bUd3OKnQt
-         bt4oRc3Aj7wMTeyLyJz5VqXyHjfmt5hl+lzYomVrN/Pf95iHPHwLKDlxjsxOtuLXkfCo
-         O3yffA9QaBoq/I5KYBd32Af2/0jhp+yOBestAYOQp0K4N+7zI2rdrEmZFC9UJa3Tvddj
-         baE08oM552yLvFgXIqLO19nwIzMYPmSMSQmBZU8/EGu4Gw5wVmg0xJHZYn9RqQLPs/Xa
-         iXLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793346541; x=1793951341;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2HDMqE3IkP7tC+ZYqwwcSMAYlXpSFqYA9LjD5kYCX/o=;
-        b=v2OPrMBeYSQZP4tj9sGD0CuzzrK0di6c2Yh/WtZlcNsdzWW2dOFN8Eo/D9mseUdyIc
-         9eL4X1XPa++o22+J2vHLB7ZzEYT4IxSCikvLkg7m0RAll/J8Rl/NN/TRl7952masR0Zo
-         GRsrtGaWa5A/VBPTyYS+PUqGmtvbxftjPrIdsuixeoG3Mn9Tl3alDmGN6K0IZNrGlrlp
-         w5px45JczzK8ZmbGkOKSYChqcFyD/ucLxP2KJMeMjK7oTPZ1IgGMZgsyC+yFcDy/TiMI
-         YDLU+BkCCndz6+X73teJvxq3Th+HLTQvJJoMeoFLCHK6yTBplgb3JCsAhmuf7R8426jW
-         BGCw==
-X-Gm-Message-State: AFq9FYJpZBETWsooyWPJBiE033pLqwWSwnOC4/PD8rLGmFjzENGNukPM
-	nA0FEZwp5mAeEHvzDNhbebW6wYK70/3pcN1EXOMTP6f5+esJuK16eqpe9O1HFavk7lLRJCrbKl5
-	sVVuHl+tTFh+SRcTQFjVDGD20eYP0e3dZGw==
-X-Gm-Gg: AYBFou06m+wE2HxmCwk72Ru9BlBR000Pa0a5cHNKd8FY55Xk/hsrux2Dw30JFXJVrVj
-	HEhUCMwzlMvf1xxSOZErFOypb6s5+agtKMrv8LBPBYBFPekd+yfA18oA5P2ruhoYwEshGoAtP1N
-	nBGrswM20YswsYHed4xFIVie1ICLZozDQIVqceQjUQ0aWNrFDFFkExiT9L2XqTM5Zbv5K6c+Rab
-	6uKfZ+HOrH3MJKTQKIKU4EcWI4gpdoWXDfv75SsaqCQLrdV1OhaUR4zc4DQM/LivI2pFktfHx5p
-	9rtjWqQ/JkyjJGUH6hnzFFL+HPqj/bbBstMECIutMcjAQ5xxE94r/hKMdDec+fYjieCy/x0u/oy
-	pwAFZMFf1OHVGXCnmGWeQZnfX/VaxhFrTrMs=
-X-Received: by 2002:a05:6402:a6c1:20b0:6b4:1eed:b9f2 with SMTP id
- 4fb4d7f45d1cf-6b4d5255a99mr589133a12.10.1793346540786; Fri, 30 Oct 2026
- 00:49:00 -0700 (PDT)
-Received: from 511566560828 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 30 Oct 2026 00:48:59 -0700
-Received: from 511566560828 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 30 Oct 2026 00:48:59 -0700
-From: Ivan <ivan.vin.ctf@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=w9JKOOjV
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iwJNaFPjYnofVcRrAgLWNT56C3CLE8Z6ExBYQvu9PG0uY6mkFM6eGWdnwakh6N2Dkfid0PcDazA0eQ3JAUXSpQ8PqosK1CUVWZFBfw8qgHFPCA2xKaC1MG4JiXnsBh5Y4mlK7i4H9zTfqTjByqo6obv35NRoUFpraggJNFrzEpXSVyNBUV1BsbCDP57j6Zw7sXJEjZu6wIp/iGzI+UZIKmd7fB9uTbmHnhyMw1uUcPEN9tShSld3lAtXQq9Hn/l6i8n1odWmaHWVnBRalf79dSVfNMhDbt0PQVnAwYmj+doigNBjS5UmGuoqivW1/HB9Qv8zwS5RYtaraHlUVdjfhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cmruTk+Waw3ny+TF7JdiUBX9+gHzjUfnrYO+u3bdflU=;
+ b=yLR147ilZSvQWNsN0zTvwpsPMJw5imUBtRg3PHSNuLWr8VrZtRTTdqcPoMM66JzaqhvPWe2+FQK6mOI86pYJpADJ+R9yZqah7Y3r935mEqQ6ucpHrXblE3+0xp8ieLPkZtw4eKEz8BxU7g3mwpfv3iT9qEThK/Eh6/qGuSx61F/qJUS7fBNgygsg0+ZijwjPjxPpfSORusQSg2fYjg5hgUR0P1/RBOjYG5tn9VIr1gLps4TD9kW4ZBBrhYatDbFfMVGY/dkS1y0MCxBo5VGOG1Iq3lhxo/RhU68S5aqjxVlluU+ozBW3Vn1qRKdiY9cSArxSxdK3uOqU4OcSFSEcHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cmruTk+Waw3ny+TF7JdiUBX9+gHzjUfnrYO+u3bdflU=;
+ b=w9JKOOjVPuoE34t5c2GSnw0WZoB5srPRVJVyRXLtlI6uebtbhK+21gzFRyX95YDHsTvBW02Uw22RwVF3eYsyLzKBJXkvsvXWWkpbTaodngNa9yVtTi6lWZZQD/WxaXTBmt92llU/plL9mVe8OS6LOs8+Lqy3LgWsECej4IX4OM9aEs8ryB8enO3KbAnH3k9T0dYeXIdK2VKs9F9fTnKR3I5jGbOxgRhJPn4PLRwYS4HEQbiUz/bjbEQS5HHeT0WYEHXRR7esui3hA1vuPEyczBu6UHinitf+MnNx5i6PrZgre1ef8GtiENT0VTneUsXMm5pZ3BmO+EN41jUML3f8nA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from CO1PR03MB5937.namprd03.prod.outlook.com (2603:10b6:303:6e::18)
+ by SA1PR03MB6337.namprd03.prod.outlook.com (2603:10b6:806:1b4::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 07:50:48 +0000
+Received: from CO1PR03MB5937.namprd03.prod.outlook.com
+ ([fe80::f970:684e:8c80:91c3]) by CO1PR03MB5937.namprd03.prod.outlook.com
+ ([fe80::f970:684e:8c80:91c3%4]) with mapi id 15.21.0546.016; Fri, 30 Oct 2026
+ 07:50:48 +0000
+Message-ID: <28350860-199c-41af-a1df-54face030045@altera.com>
+Date: Fri, 30 Oct 2026 15:50:41 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] mmc: sdhci-cadence: add PHY settle after tuning
+ for SD6HC
+To: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <cover.1791459448.git.tze.yee.ng@altera.com>
+ <073f81c6e6dcc931d6e12c358b48679b2855a72a.1791459448.git.tze.yee.ng@altera.com>
+ <dab17adc-1691-463f-bb85-7d1276fbf28f@altera.com>
+ <2723bf11-8477-4f52-a95c-4ede190ecbd5@altera.com>
+ <f22270ec-a44b-4836-a0a1-5c7c3b10ce5f@altera.com>
+Content-Language: en-US
+From: "NG, TZE YEE" <tze.yee.ng@altera.com>
+In-Reply-To: <f22270ec-a44b-4836-a0a1-5c7c3b10ce5f@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0389.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a1::34) To CO1PR03MB5937.namprd03.prod.outlook.com
+ (2603:10b6:303:6e::18)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,59 +105,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Fri, 30 Oct 2026 00:48:59 -0700
-X-Gm-Features: AclHuK_jVZcZaq6JrQd0aw1ZD31ds5O2IbWeljEgDNBM6-ouNIGoqDlrZFXfOl8
-Message-ID: <CA+hZKY+yk6mG54gqbT1Vup0RytMX=PvpqyOU3zietsXtjbPhFQ@mail.gmail.com>
-Subject: Re: tty: vt: three wedge paths on 5.15 (paste_selection spin,
- vcs_open hang, do_update_region spin) - family report + backport request
-To: linux-kernel@vger.kernel.org
-Cc: jirislaby@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR03MB5937:EE_|SA1PR03MB6337:EE_
+X-MS-Office365-Filtering-Correlation-Id: e968a56c-117b-43de-7a1f-08df365a8312
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|55112099003|22082099003|18002099003|56012099006|4143699003|11063799006|261026140227099003|261028144727099003|10067099003|261022105027099003|261021123027099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	5vRCjQ14wQvR04UBbb6CHQOVYEXwjCZXftplfgEZz4FQ2GBYo6E4iSu/IxUx/RhecHBuGHC35ejkneHAuFBJu1u0DM+ZZVuwBDtAAeAN2Fc+zCA3/9ZYjwXqOPVde8Qr3+F82XzB7zelgs8uZwaqK7xQWiIqAefklsQ914TGxW9r1q93QV1UhNIxYAt8dFxRO6lh4Ic9M4rOqto8kenKaLsKkYe4xi2J87C5znzvlR2KAizyLe9cBHX6qIwkBb4CHXYOxHMY6vvS/l6XnLnlXPZZf7CRviDKQrTQhFfvSPXoanvpKgHqs94OEt/658pFmZpNHzktFHsNoo03MXDdOoxh7qL+V7DUHbLQN51bB3AwfNP7ZSQjFMLBS0+NUJg4QJMQ/6wU76CDHcgg1ZkfYvHExklgSg85k3753qhOQY3jefgx+dFQSRLoLnjQF8oeqhGszzXCg9okxxpjaNfhjz1Fcqc7SFlWbExPwf1swHkR9bvWTSkdw/T4cpkNbAghOZheRQX40cs+n5U9HbNlzfMR+1J3Bx9Z/YfTPvE+WyopXlwcGDfIJQqvMDWiVmiK7wg3j9FLPME81HEjQKGVGzdUAsbj4IfVd0dQU9pgo2+iEvJdhR3O7YF1VN7+pEa8h9gWaXImI+WwLBeadlBGTsz7tkY6uJxR+TBw9nvmci8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR03MB5937.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(55112099003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(261026140227099003)(261028144727099003)(10067099003)(261022105027099003)(261021123027099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TWN0c2RPKzEvVFloUjE2QXk1SlovVkxPd085N1BESWgyL1YyM2ZGbHIzOVdS?=
+ =?utf-8?B?bGVUTXVVUlRkK1JrUk5ydmZiSjhVYkkwdzNGNWlFUHUzc0RsWjF5NEJ5NUJU?=
+ =?utf-8?B?cUxUTTFMa2xRWVdKUFdNTFBxRkErY3lMUWN5V1d3bXFJcGEyVTMxZHNTVVgy?=
+ =?utf-8?B?OG9RdEZqQTZ0M0YzVVkvVW5xaGZxdUtDdW84dWFsc1lzeG43bU95YmtsZmoy?=
+ =?utf-8?B?Y1NJMFJBTkZaK0taWGxCUk5FdGF3cCtrMUJuNDlIdHRMRHBkeVFGMmh5SVpP?=
+ =?utf-8?B?RTZvVUlKYzJNcDhCM29vbExVbTRIVk14bVFVS1lOeFN1d3F0QWh1TkNpM1lq?=
+ =?utf-8?B?MytOTE16bCt0dGhFVlhxODVsZlgzalRDc2czcFN2Slc0MXVneHNuMVhVNytk?=
+ =?utf-8?B?TXgzT0wwL2dnZHRPOWtjRCtnSnJ0MDd5NVMxT3psVThTekJuanJQd2pGMnVN?=
+ =?utf-8?B?bUZ3T3NSekxaZ2tKSUtwdWZuMDlCdHVlY2JkOHZMa0dhUHV0V1ZnMzlUeEJy?=
+ =?utf-8?B?cEhORVdZczh6VjkyWXgvblhZQjlMenhWRVBmK1QwWjJkRlN1N3hXMXlNYy9m?=
+ =?utf-8?B?Vk1ucGtmRGdoczRzSkRPVlVQRXpnMG5mbXRQWDVkT2g3ZWZCeE5XRTJOOFMx?=
+ =?utf-8?B?YmFEekRwVkRCbjVyUEZORklzWUtKaVRHbFZmRWhhdCtYSjYxenNhbThqUDY2?=
+ =?utf-8?B?TU01enFMMDZtUHFaQisrUXZvNTQzN3lsUGh6aUxRTllIOGZYVHhwU3YvUER4?=
+ =?utf-8?B?bTcvU0svVHB1Y2ZvektGSEVCcHc3bjVsSWNzZll1dnF3eTRidkM5bGNYZStj?=
+ =?utf-8?B?MGlDTStjWENha2E3MUVOV1V5MTNMdkRTQW9FekthOHBVMkhCOVZ0VW1QdnRo?=
+ =?utf-8?B?dCtoQjRhWm81bFJVNkRRTkxRbnNOc3B1L1J1K3ovT0Jiai95SXhzUk1mVGhJ?=
+ =?utf-8?B?d1JpRnNuR1hocHVubjlTT0NYM2tFZGlWVmxLRk1lQzZscDJTYmkxSHV0SDU1?=
+ =?utf-8?B?MElIL3Q3akJzN0E3aWV0TTY4RENjUE5RTXpPMlY3Y2kzVzlYMFhla1BaZ3NF?=
+ =?utf-8?B?TmxmMWZHSi94Smtxa3d6SFJhUmRzM2hxVnQ1NXNIdmRZK1JDUEZ3bnI2R3Zj?=
+ =?utf-8?B?Rm1yQTc3Y2owWXZUOUhmS3hlTTBidmI3VU5leHlteHFRenBBRVdFaVlXb3Za?=
+ =?utf-8?B?bkI4MnVGT3FXOXBGUVhZM2ZaTFBJdkJrazdERXJUSFE0dE14d0tKaXYrK3pI?=
+ =?utf-8?B?UDczbjkrSkJIekZ0WlRrR05HQldZd2VIRmJHdFBJODBualh1MER5RCtvS2Ny?=
+ =?utf-8?B?MC8zejE4S0JDRXlXcG40RTUxRVVXcXo5cksvQjZkOVllQmluMVk2aU1ZMTFo?=
+ =?utf-8?B?V3NSRnVmdGZzak1pNmNMU2FBN0VtTlBCVXpXNVhMOEFCQ2ZDOEJWSkNwMWhD?=
+ =?utf-8?B?OEQ0RlpmWTM2Z3RyUWUra2NuRUdqcGd1NlhIQ1JyOEVPa3FicmRNeHVibzZ6?=
+ =?utf-8?B?ZGh4bHpLdW9GRklxSWZRSGZ6OFIzTjhRS3JaaHd4bnBvZnJTRFZUaTZBL2p1?=
+ =?utf-8?B?SVo0RFhMN2xVTzkwN20zL1ZyZjlKaVNvQUw4Qzl6N014WnFSRjJpOVhFQWdi?=
+ =?utf-8?B?RTdGZi9lenBrUXA1NG9DTzdQaVpXeUpLVVlMcTJFVG1iMWpiNTlHZ0loYXkr?=
+ =?utf-8?B?TEthaUZzWDRIVlU4OG5TZk0xWVB1SHJnb05IRjBESVNDOE1GbW1QcnZZek5p?=
+ =?utf-8?B?MGVVZk91dkk4SlI5UW5ZV2tkYnJocXFwcGhzT0NYQkhGV1hLSW5WTnFYZVpP?=
+ =?utf-8?B?Z05qY1pubU84THVJQm1DSml3T25TVnhhZi9NdXBKTllSYzFkVzQ5ckh6dTVV?=
+ =?utf-8?B?TUJyNDY2VlFwMmhDUWROZDFOcVVBbFNMNmpNeEZFaVdXNmQ2blR0d2pHVmho?=
+ =?utf-8?B?TjVwTElrRUJ5QlgrejBHeGUveUdQRDhuT3ZhM0NaZHU2dU9yb0pXRnFXYktY?=
+ =?utf-8?B?ckJ0ZW1KYjlMWGJQS283UVdWZHYwaEZreWNnSEpWSjlkdm5hTGNVanQ3dUFw?=
+ =?utf-8?B?NHNzT1AvSk5MRGNwU05pTE5zZUNtQ1NWU3V2RWszVnI0VGg4cGpxcU0vOVpV?=
+ =?utf-8?B?RnB1cUZYRDBWdmliMEZuOVhzaGxlSE5xQ1d4alpodE5YMzZmRDNqeSthQ0lR?=
+ =?utf-8?B?WjJPMVovV3pXaWFtMW1LbXpNT2g2SDh4aUhISmNoTEtHOFRYbThCaFpKNkdW?=
+ =?utf-8?B?cTBUZEZEbXdWZ2FYdUZGOXJTb3B4eFBtRkdTL2ZqVHU0OVhGTEF0UWJFVlU0?=
+ =?utf-8?B?akZPS0xGNGl6bWNKRG1kL1NBU0duVUVtSnkwd245dFkzekJJU1ROUT09?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e968a56c-117b-43de-7a1f-08df365a8312
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR03MB5937.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 07:50:48.6067
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uE3lK6ELHgawbhCgaJQfetYSreKV2GBwlzI4Q80/E+sixfIH7PAAOkUQVsfIUGTo3Fo3ZNGdMnASFKv4zmCeyw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB6337
 
-Hi,
 
-My 26 October report to this list does not appear to have reached the
-public archives (most likely held by moderation), and my 29 October
-resend was silently rejected because my mail was wrapped with an HTML
-part -- apologies for the noise. Resending as plain text. One new data
-point since the original: a fourth wedge path was observed in the
-meantime -- INFO: task hung in tty_mode_ioctl with agetty as the
-blocked victim -- same cascading pattern as (2).
 
---- original report ---
+On 30/10/2026 3:04 pm, Kathpalia, Tanmay wrote:
+> 
+> On 30-10-2026 10:55, NG, TZE YEE wrote:
+>> Hi Tanmay,
+>>
+>> Thanks for the detailed walk-through against the spec, it matches what
+>> I see on the hardware.
+>>
+>>
+> 
+> Hi Tze,
+> 
+> Thanks for testing this, and I'm glad the abort approach worked on your
+> board. The HS400 and SDR104 results, and the ftrace showing CMD12 after
+> the failing CMD21, are exactly the confirmation I was looking for.
+> 
+> I had already written this change while going through the tuning path,
+> and I was planning to send it over the weekend once the remaining
+> checks were done. Since you may already be folding the same fix into
+> v3, how would you like to proceed? I'm happy to send the patch, or
+> if you would rather carry it yourself, please add a Suggested-by tag.
+> 
+> Regards,
+> Tanmay
 
-Hi,
+Hi Tanmay,
 
-Three related reproducers on 5.15.216 (KASAN) covering the vt/console
-family - one already has a fix upstream (not backported), two look
-unreported. Together they make a 3-trigger-path family report:
+I'd like to carry it in my series. Patch 1 there currently adds the 
+unconditional PHY settle, so I'll replace that patch with the 
+abort-on-command-error change and credit you with:
 
-1) soft lockup in tty_ioctl: tioclinux(TIOCL_PASTESEL) -> paste_selection()
-   (drivers/tty/vt/selection.c:374). The throttled-tty loop does a bare
-   schedule() without timeout; spurious wakeups spin it -> CPU soft lockup.
-   The 2024 "[PATCH v2] tty: vt: selection: fix soft lockup in
-   paste_selection()" series addresses exactly this and is NOT in
-   5.15.216 -> backport request.
+   Suggested-by: Tanmay Kathpalia tanmay.kathpalia@altera.com
 
-2) task hung in vcs_open (drivers/tty/vt/vc_screen.c:763): takes
-   console_lock() and blocks in down() forever if the console semaphore is
-   held by a wedged console path -> victims pile up (cascading hang,
-   /dev/vcs* readers, printk, VT switch all freeze).
+It'll go in as patch 1 of v3. Once I've confirmed the ps-vs-count 
+question on cdns,ddr-read-dqs-delay with Krzysztof, I'll send out v3.
 
-3) NEW: soft lockup in do_update_region (drivers/tty/vt/vt.c:664):
-   writev() of binary blobs to /dev/tty1 (embedded VT sequences leave the
-   VC in a bad state) -> insert_char -> do_update_region loops, CPU stuck
-   22s+. Independent site: neither paste_selection nor console_lock.
-   C reproducer available (syzkaller-generated + minimized).
-
-Mechanistic link: one wedged paste_selection/console_lock holder freezes
-every console consumer; the do_update_region spin is a third, independent
-way to wedge the same console. On shared hosting any tenant with a tty can
-trigger these -> cross-tenant DoS.
-
-Patches/repros available on request.
-
-Thanks,
-Ivan Vinichuk
-
-Reported-by: Ivan Vinichuk <ivan.vin.ctf@gmail.com>
+Thanks again,
+Tze Yee
