@@ -1,47 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793372156;
-	b=Hc4JZ/wNx7+gRtUrmPP4GPlS1gid4VDVf4pIg6fKPdDSWKH322YLxJEkYYt0V2DNtc1J
-	 aiPZRqbgcgH+ad3+F9UErMIdq2SAQ3mgknttb0770WAZDoedYvSwLg781CVWYomKgb6hN
-	 s6SFEIM5W28b3z55hSif9BzC2yQsoEkmNY0ip0B/pTRRVyoEgxaQU8k9MnW5ywnpu+96U
-	 Klqk54ThqRw8vtH6bu/f7F4XpjK4gg+BWv5tRbnAQwKum0+0PUwkpBDO4+nzOKg8L7Ngx
-	 TPArqTcUi7Aqpbl349HGARHvZM7gcl9ypYdbd0l/UCs55W8E4EoAdzv2kMyatlTpYEw==
+	t=1793372207;
+	b=seIyCfe4a3MXej8tuC5SB3y5jOvaX+Z6xcjzzQf6/Bz4nZ2ftAHA7WHUIzrpKrv//NmZ
+	 OAPNGGFxKbULhvCNUf9zfZrV0On0sRMzoO95UwKlEsbVTnY4BsfB0Qb0WXx2fFbJ+HTDT
+	 ge0TEPKxoaz8o9OryKTNo497IuDsh/am1fQ0sqYke8rxW2X/hwNAGQr6urMEre8N+MDpc
+	 aQLDoCvzdE1YgDi+udKyYKn3XJ8EIUUyACJ0Je1jdgAvn0p93Ya8t6aRzzxELe0jjRHKh
+	 wxFEIleG0rYe0gAqzh/oVCi1JI59krAsY4K3zyOOLY9HmnUB8ZBwCovFj6/sdYAWOQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793372156;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=UPDjS3wz2FnEuT+HHl36XN/pNdhynLSDtb+o3kgPntE=;
-	b=y+5UzHJjMR6UHbDu3VYBF3UBhbX2otxF99ywegvKYp34L+jkxQ7jOxTlDzbg4do3Xw0E
-	 oykdt+Ib3oFBFmgXyH4vaKKfEd35t6uobd/ooQPmv7PgAEe24EAVkzSypJ4L2xbeTPgxm
-	 w+61QHas6PlKy4KG39CIGP9N3oOye4KR3YSzT9XsHK6RegxxkD5D9z8/t3DVIFQCY3Urf
-	 cFZXhcSjjM8UtTyNODA3QtuTdI14mlJkYyiAYGRDM6DZYoLB2NBVldR3ETlsz9eXlCpKe
-	 DUTLMXg3ZZOKaxTi1rQV5yhzTZp0hwdHuSqxsarQQUAtsyfA3fiXhJSIikUJhyCBVUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793372207;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=+YF+v1dNguT0ji48f97fFUgP//UB342uvDZm32hXdz4=;
+	b=c4RRntDQ2cCn9caOSq7bJhwsWFGpLdMjLr52HUe2YGg8BvXFaCL6h9AyHFff4WuVp5xf
+	 CT8Yqnawm27iZP8rGfxDWavgwpjREXND88KLnQOK2o4X1jVpS6+5bP5yVwKELMRkR0G3C
+	 aoMY6pFAtFlDuN0D1vGj9t3+jZaiso3yOOy3awaPb0A4yHp36XXpTld9R5ydFZBIbH+HG
+	 5i2naWOLiCUJRDAPqL28PXAtTevKcZr5MdCET6kNIvyGJ4W5Tl//2WwGO/tfK+Szn5KrN
+	 AtCjq324XTJfWO0jeBKhvT1tAPxQvfZLB0PNUx+pCk06ySQ1WegmhwainXspGS7iRmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OEDO1U0A;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mY/Zaw59";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FCE606A31A;
-	Fri, 30 Oct 2026 14:55:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED47606A31A;
+	Fri, 30 Oct 2026 14:56:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OEDO1U0A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52A541F000C1;
-	Fri, 30 Oct 2026 14:55:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mY/Zaw59
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69AE71F000C1;
+	Fri, 30 Oct 2026 14:56:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793372155;
-	bh=UPDjS3wz2FnEuT+HHl36XN/pNdhynLSDtb+o3kgPntE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OEDO1U0A9019x18y1u9ZJ2cuYYEETpk74W//i7K8221GcVf2WSzoUg1t8nIOE4w4i
-	 x6vTbaac+4XzUTlgecLH8JjgDdRhpVry/XWyabbeXOwKh7l1GMffT/bWaNHZsY4xT2
-	 25nrsrEVMMEjlZ+DgEDboae2tDZvS1edWH9Tnb5NUg279jXWVYJWBjKNFlW8f7yFP5
-	 k+r6tiJAZVzid1VKKI1b/QxqjVWLu4O+KdQV5vppDpw+6j6D6KNJMEHAe523zY3Rds
-	 O+uoWMoPPkWdyBGyvkIB6bdyvmf6kIYQgOaznzxb40nPnwffHXKjSWQ2EXJAXuNKCU
-	 4hRZgu+kQ1sZw==
-Message-ID: <320e0bd0-fc6b-4b71-9024-55a6af558fa3@kernel.org>
-Date: Fri, 30 Oct 2026 09:55:52 -0500
+	s=k20260515; t=1793372206;
+	bh=+YF+v1dNguT0ji48f97fFUgP//UB342uvDZm32hXdz4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=mY/Zaw59ABpCATRKfpNaVWpWjx+PYvx0uoFKpoRf7tuGJqg9V8mNjQzssL0Y7Aslr
+	 /7MsKJmiSxhlESmHp9NhXyokp+17Kj3s3yrTqIHdCiW5fl9mu4tWJJzybcdysO85PH
+	 u5KruxsyqXc6ictftQwlcIJK5N4YnSrsV7lW4NcqPZllS9xg+Uy0kxR4MW/5P88XlS
+	 /aiu44/7cPIr5SWJwsza4bgN3KIMfGicR5/gOYP4u8Dki0Ks7Hndqb7NvaKGShRDiD
+	 Y0Ciu2OqIJzqifHoKBh5/6UeJ7/APHO74TMZ/wuIPijLkDypXBDN9IkzyrxatrCMEJ
+	 PAZN3mp+OZp/Q==
+From: Christian Brauner <brauner@kernel.org>
+To: viro@zeniv.linux.org.uk, Daehyeon Ko <4ncienth@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org, jack@suse.cz, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261018051708.2422394-1-4ncienth@gmail.com>
+References: <20261018051708.2422394-1-4ncienth@gmail.com>
+Subject: Re: [PATCH] splice: avoid stale f_pos writeback on error
+Message-Id: <20261030-bosheit-einmieten-abkoppeln-f815d1179ab7@brauner>
+Date: Fri, 30 Oct 2026 15:56:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,42 +58,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: handle broken dGPU hotplug GPE on ASUS
- ROG Strix G513QY
-Content-Language: en-US
-To: Mike Lothian <mike@fireburn.co.uk>, "Rafael J. Wysocki"
- <rafael@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261030075743.356835-1-mike@fireburn.co.uk>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20261030075743.356835-1-mike@fireburn.co.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-ce4c1
 
-On 10/30/26 02:57, Mike Lothian wrote:
-> On Thu, 29 Oct 2026, Mario Limonciello wrote:
->> Can you please get an acpidump and put it on a kernel bugzilla or drm
->> bug?  This generally feels like an ACPI interpreter issue to me.
+On Sun, 18 Oct 2026 14:17:08 +0900, Daehyeon Ko wrote:
+> do_splice() snapshots an implicit file position before calling the splice
+> helper. Since splice does not take f_pos_lock, another operation on the
+> same open file description can update f_pos while the helper is blocked.
+> If the helper then fails, the unconditional writeback restores the stale
+> snapshot.
 > 
-> Done: https://gitlab.freedesktop.org/drm/amd/-/work_items/6061
+> For a directory without ->splice_read, a file-to-pipe splice fails with
+> -EINVAL. A concurrent directory mutation and getdents() call can advance
+> f_pos and refresh the filesystem's revalidation cookie before that failure
+> restores only the old position. The next ext2 readdir can then trust an
+> offset inside a directory entry and copy data from the adjacent page to
+> userspace.
 > 
-> It has the errors and the tables from /sys/firmware/acpi/tables, minus my
-> local override SSDT.  I haven't got acpidump or iasl installed so it's the
-> raw files in a tarball rather than a real acpidump, I can redo it if you
-> want the proper format
-> 
-> On the interpreter question: _L05 is only Notify (\_SB.PCI0.GPP0.VGA,
-> 0x81), and \_SB.PCI0.GPP0.VGA doesn't exist on this board, the dGPU is
-> under GPP0.SWUS.SWDS.VGA_.  I don't know what the interpreter is meant to
-> do with a Notify to a path that doesn't resolve, which is why I put the
-> question in the bug.  Rafael, if there's a better place for it I'll move it
-> 
-> Mike
+> [...]
 
-I posted another approach for patch 2/2 to the bug where it's a quirk 
-outside of amdgpu (since this looks like a BIOS bug).
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-I guess test that and then we can see where a quirk would best live.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/1] splice: avoid stale f_pos writeback on error
+      https://git.kernel.org/vfs/vfs/c/79b496ebe382
+
