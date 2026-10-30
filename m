@@ -1,65 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793357569;
-	b=14EGUlwBX6zeeMz0M6YcJoQltn06VykjelMM5KMQ7cZUHIfPAp4lByT5ImNXG+HWpP+c
-	 w89uMCsCINq7aZ0JOcgYDl5g5YwUMgiu3JFIrJ6XsTZNrUCpm77cdThsilKVPtWlYW8ca
-	 gDG7ng6sTAxeynHt/h3i5g1Ms4ZIMOG7FOXXeD4E4X/NqzqEy4Tzs13/lQ55i8losWkF7
-	 EbFtPdJm8400yOqY0m/oXczUDx0Gu5ocQ+h+csauE5mXRV6BKk14uuaBf0k7zrG0fC5vV
-	 2dIVFNbLaJaNsVEseBqdyJW6+2vRvzNNg92FaHw+apz62+nP38TC7BOz5GXp761hVyg==
+	b=cqNP0wNXie5Pfd4JWDgUcMf49nvZtFPAppfxSJN5+3qQs5oEYn7/OZyv0Lral8Qed3He
+	 29Rt0u/uzYxemtCB7ZtR5ZjessTS/9Don5jyPlm1LJYO3ukOAicILOrlQUbZVGJihmtln
+	 9PxxxtErKZ1n3AHtrasZvkdPj0OcnyqLewcb6MDuII0Ep9nvZFSlR/jJN+VUqCGA70Oll
+	 ppCR6nK+0gna2BhSz7o00q7iNX0y7eeCrBlsnQ0WBHGDmgFn4R8RIizhdHLTaNeteFxnO
+	 uPHsiixliM6Of8oBejsja/3QVkOkec3elvvd8tVGZ1K/dU0DbT46XPv2TzXmRmq5KDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793357569;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=19UWKhVy2zuhB24lqtjvX1ge71thkeEw7AhozvsBUs8=;
-	b=nF8Mh65oBKWwBn3I0D6eHaBZL9b04hmMIp9aNUJifg64KbiUlG/GOZDsd7ZoHRLSin9r
-	 VDdh4AnoAiljVOPTx7chppAvJsAyHbU0nmpcxEA/Ci865mGLM+kqKTa6Z6oCU1GWjNHHG
-	 1/Bo71bgiSGyf6Qm31k98734yobxqfmyQvforVomtrNQtdecF/+6VpivIRRiPDskxHmBw
-	 vHGyTOIfAOxFmfFfIxlOsXczxt+tpBOgtD+x79l4wPFVrDgiRRaNXqPUXd4+WPGV0ExjY
-	 WQjWuTv+G0Bjh+iKIH3AkjFco6D5OZuMn7sSx82gxCe3sdiGZuFqnuwt8uQKSI54O0A==
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=VWWIKenWYGAvFi1WPCrXVd8dBP5bg662+zHZf9OO99A=;
+	b=bHjm3BeIYPfnq3PNS8ckr5VjdY+tAGXnEyypW6A7fKVfjb88Ywe0a5gBc8W9oAYrEuao
+	 r570k0URDky7xuIr+oZwZVEkHD11QQVI6xhcgsOXM32eJYc2zxXygZWjwKK4fcZyCredJ
+	 diqqSA6v/X3dgTfZYUcup+/lFSugmHVA4nEtIcwcBgO2bgNYBtPdJHtDcSmQCAfnCPkng
+	 mvd3Xtap7RRfLlh3AUNe+1kIFTXRvgwuzgRrVbZfrAV1sQOakA+Es4kkff9I8XhbC9iV7
+	 KOZFJ3KewxxhvDXJmxONhXOQRIa1HCeAt02z1hYjIPHmbsih4h1rGgNHYFUHKIgRKZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=IePDJiDI;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TDJDFZD6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4CA606EDAA;
-	Fri, 30 Oct 2026 10:52:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD4CA606EDAA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BAB9606B973;
+	Fri, 30 Oct 2026 10:52:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=IePDJiDI
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=19UWKhVy2zuhB24lqtjvX1ge71thkeEw7AhozvsBUs8=; t=1793357568; x=1794567168; 
-	b=IePDJiDIcCyLaRjFdCY0PhjQH7Uydk4e2pKPvH78Jxb89zrO/AefFe+fvC1CyrCKBVIxIfGtsF0
-	Ygv+5iuNWmbyAixgYEfbC34c8PXPpSpSiMCfdRAvetj6nvU2JS8M5pFUEeybMi1A2MZoa6V/kpQnW
-	mqxzECt2oMmLiFaVzK1sYtAryGU6Rr2qmRTpXaBQF1Bi0SllhrLKgayAHAKFJeCy5OBY3O0CBnL4d
-	P+W67LK+V2Bz9Jpfead63ILnl6apInBcTeF8qGahxj27PE5NVK8Kp81vonE4yX+LUR3p2lNbSy8ub
-	yRmpxkt397+ZL+LSiG4e2216xQmEhDA2dfzA==;
-Date: Fri, 30 Oct 2026 11:52:41 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Lee Jones <lee@kernel.org>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
- <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren
- <tony@atomide.com>, Kai Svahn <kai.svahn@nokia.com>, syed khasim
- <x0khasim@ti.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>, Samuel Ortiz
- <sameo@linux.intel.com>, linux-omap@vger.kernel.org, mfd@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 13/27] mfd: twl-core: Clear twl_priv pointer on
- teardown and probe failure
-Message-ID: <20261030115241.642c5971@kemnade.info>
-In-Reply-To: <20261030104806.GC3774906@google.com>
-References: <20261027093306.2812695-1-lee@kernel.org>
-	<20261027093306.2812695-14-lee@kernel.org>
-	<20261028165003.60d0c033@kemnade.info>
-	<20261030104806.GC3774906@google.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TDJDFZD6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28DF61F00A02;
+	Fri, 30 Oct 2026 10:52:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793357569;
+	bh=VWWIKenWYGAvFi1WPCrXVd8dBP5bg662+zHZf9OO99A=;
+	h=From:Subject:Date:To:Cc;
+	b=TDJDFZD6fUIoHeoy4y+TlzMzz8/kIdhYIS5yHqL1cih++U2j0vJYwGlNR8xSWH0aC
+	 4zGq4U1E/56V+G6IPhL+aK4B+28ePkqGrheN2jivlpIHZNGmUU4U98Le8KzwAR0sJa
+	 Z5aK29K2EPA0ER7H/vRoEU2Ar2iUpOEXJZema6W05bMwV2JCH5R3w/1x5PpfMiN4NE
+	 k+cvcHxbFNflUAF5UQUkV1I0HLMI1F+msSaiLDU0cRudHB5FCyOPWR4J+VUH7b7Jgx
+	 xp0JYJ02KXy6vK/bcSs0hTU3IUVwWUij/xi+Oy7VJ6BHiCgDOrRCDhIdV237X7KV+I
+	 GvXtcQlHNY2+A==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Subject: [PATCH v2 0/3] Commonize Glymur regulator settings for fixed rails
+Date: Fri, 30 Oct 2026 11:52:32 +0100
+Message-Id: <20261030-topic-sip_cob-v2-0-159e29e97c82@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,50 +53,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ6CMBBEf4Xs2ZJSBIkn/8MQ05ZF1gjFLjQaw
+ r9b8OxlkpfMvFmA0RMynJMFPAZickMEdUjAdnq4o6AmMiipykyqSkxuJCuYxpt1RpRF0+a5KrB
+ RFcTN6LGl9+671j/m2TzQTptka3TEk/Of/TBkW++fO2RCikpqU57kUVudXxxz+pr107q+T2NAv
+ a7rF9FRsPDDAAAA
+X-Change-ID: 20261028-topic-sip_cob-65df3325ed28
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>, 
+ Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793357562; l=2739;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=/mq2+qwGS+4I+uenrleeNKcBCJBnJ5xIMJRRsK8gdGM=;
+ b=RJCbe3pEt3Nn7k7gBvqLb+V2JjCkkeFONnpZIQlaxgFJ57ibBQtRvsGpSnAnadiVHZASGFikS
+ nGAfx6Lag02DKsopkVv2VpMYd+j06TdYWklcNPNXwQVqXWd8mj9tMRL
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-On Fri, 30 Oct 2026 10:48:06 +0000
-Lee Jones <lee@kernel.org> wrote:
+Certain rails are predefined and will ALWAYS have to be the same for a
+given PMIC configuration (due to electrical and other requirements).
+Factor these out to remove a layer of pain when creating DTs and let
+one have a better way to reason about the settings across the platform.
 
-> On Wed, 28 Oct 2026, Andreas Kemnade wrote:
-> 
-> > On Tue, 27 Oct 2026 09:30:42 +0000
-> > Lee Jones <lee@kernel.org> wrote:
-> >   
-> > > twl_probe() allocates the file-scope twl_priv state with devm_kzalloc()
-> > > and checks for a non-NULL twl_priv at entry to reject multiple device
-> > > instances.  However, twl_remove() and the early error paths in
-> > > twl_probe() never reset twl_priv to NULL, a failure when adding MFD
-> > > child devices bypasses twl_remove() by jumping to free instead of fail,
-> > > and twl_remove() tears down the IRQ domain and dummy I2C clients before
-> > > child devices are unregistered.  After devres frees the underlying
-> > > memory on probe failure or unbind, twl_priv remains a dangling pointer,
-> > > causing subsequent exported API calls to dereference freed memory and
-> > > blocking future probe attempts with -EBUSY.
-> > > 
-> > > Unregister DT-populated and MFD child devices at the start of
-> > > twl_remove(), ensure mfd_add_devices() failures unwind via fail, and
-> > > reset twl_priv to NULL in twl_remove() and on probe error exit.
-> > > 
-> > > Fixes: 80a97ccd33be ("mfd: twl-core: Collect global variables behind one private structure (global)")
-> > > Closes: https://sashiko.dev/#/bug/linux-73e82f84-94de-4d08-82a4-f22d42a1dedf
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Lee Jones <lee@kernel.org>  
-> > 
-> > Hmm, couldn't we use devm_add_action_or_reset() for resetting the
-> > twl_priv pointer? Feels more clean for me.  
-> 
-> Nice!  Thanks for the suggestion.
-> 
-> To keep this fix minimal for Stable backporting (and avoid resending a
-> 27-patch series), I'll take this one as-is and send a follow-up patch
-> converting twl_priv to use devm_add_action_or_reset().
-> 
+Glymur-SiP will be the next target after/if this is accepted
 
-I think the whole patch can be simplified a lot then, 
+Depends on the (reviewed and awaiting merge) Mahua QCB series:
+https://lore.kernel.org/all/20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com/
 
-devm_mfd_add_devices can stay.
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Changes in v2:
+- Fix regulator ranges, boot test on glymur-crd-cob now
+- Streamline Mahua setup (all Mahuas are CoB)
+- Fix leftovers (Sashiko)
+- Remove L4F0 from all Glymur/Mahua DTs
+- Rebase on the Mahua QCB patchset
+- Drop reviews from p1/p2 due to an invasive rebase
+- Link to v1: https://patch.msgid.link/20261028-topic-sip_cob-v1-0-80ab6704aca3@oss.qualcomm.com
 
-Regards,
-Andreas
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
+Cc: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+
+---
+Konrad Dybcio (3):
+      arm64: dts: qcom: Unify Glymur/Mahua regulator handles
+      arm64: dts: qcom: Consolidate Glymur CoB power grid
+      arm64: dts: qcom: glymur: Drop L4F0
+
+ .../dts/qcom/glymur-asus-zenbook-a14-ux3407na.dts  | 236 +-----------
+ .../dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts  | 232 ++++++------
+ arch/arm64/boot/dts/qcom/glymur-cob.dtsi           | 311 ++++++++++++++++
+ arch/arm64/boot/dts/qcom/glymur-crd.dts            |  30 +-
+ arch/arm64/boot/dts/qcom/glymur-crd.dtsi           | 395 +++++---------------
+ .../boot/dts/qcom/glymur-hp-elitebook-x-g2q.dts    | 225 +----------
+ .../boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts    | 328 +++-------------
+ arch/arm64/boot/dts/qcom/glymur-qcb.dts            |  22 +-
+ arch/arm64/boot/dts/qcom/glymur-qcb.dtsi           | 305 +++------------
+ arch/arm64/boot/dts/qcom/mahua-crd.dts             |  27 +-
+ .../qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts   | 412 ++++-----------------
+ arch/arm64/boot/dts/qcom/mahua-qcb.dts             |  34 +-
+ arch/arm64/boot/dts/qcom/mahua.dtsi                |  29 +-
+ 13 files changed, 745 insertions(+), 1841 deletions(-)
+---
+base-commit: d2f52f33c6c98b2c9c9b763de84c5e0875bcbce3
+change-id: 20261028-topic-sip_cob-65df3325ed28
+
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
