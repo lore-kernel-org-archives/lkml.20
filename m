@@ -1,47 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793368595;
-	b=vKv6mT849HLUvdNDbTCk3EYDSFlLlgkcwmiSA202vt3s9fpGUqvY+37+oG2o+JXN7aIE
-	 FMKv/JVEg7unzALKv5moYVRajVS8yM133Ifwrhyv/lSON5s9hOczXBfdbU6UQvu7Ws90W
-	 QKwzf/pEKu1LtTeH3EZPlKGwlDfbg+QSo1WuQtMZicPOpV47aHX81n6Fcmvs7BuKY45+q
-	 NEnc4ThUQt6Vh6/l5YHQZfvHNGhrGq9ZNn2bgVy978H07OO8yG/Gi100WhGblhx7y8gz9
-	 42Lj4qf9CnPhZZEjyhogebVztEeDM96hTpOlloetwWwsFDV/cGcke567KVNLgOlbwkg==
+	t=1793368631;
+	b=xGabxSJvP3RFHWPv7jR4y6eyP59WeyPp4kYA3f4Jo6RbFjweujOKN/KlbryaY8jdw2Bt
+	 /gBPRIZIT/qbNc/KV+Eg9XwDrRrRzAVMe6cFb3Y9wCSCF6kLx1ltxkeld8ZWcNoB8u1V5
+	 AQAXxhKoNuHJbYYDNDq2oKNLLXPAnBrBO1zutAIxchC47TlR/bZSWtWyiQARXow2RSgFa
+	 QelaZCGURzh27DjjJilym5Mswxyknc4lHZKX1kCnGxESKYOc3PwNu903GXk69ovDILdcM
+	 KWWYz348iu1SBncskK/mgnayVzHT7WZn7/gus8I1AjazqRxS7Bd8SlfBx64lbuZV03A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793368595;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=+4xayl0zhoKUGLUcIAZBgb+XDnknglYr9Ww1i+AOLlg=;
-	b=EmVmT/Hvm4fdJpL+tEi0NcAdOkIDtv18UaUu28wFmhwQ/Kx2Ze5hs9GcRgbuwvi/GzT8
-	 IRMb8Q9qECTc0RmKUQlw4mXClddcBRIiIyRNh7hWxQIKEdFTAsdrRBl4r9SYNTmwx3pqB
-	 FaXaRPw1A/vfxtcQhBYQoBmIIjHQpKQ6eSNNx3sZ9A1C63msifNDsvPl03LUyYmDxDObj
-	 Ib/OJY6yDaTShkVLp8Jj0bHiaTNyBoBTtglDt+m4EoAtMwwhfxtusQmOTFXZMtShUnmvP
-	 riql7IyfR6Kn0+DimwzmehdRR+2YpFh+88OMKegz8Qe4YnaOAvOD+A7Vx7HereYjdhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793368631;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
+	bh=GNIOi3l2fXouiVMkzU5S0Fr0utCMy6QmwVq2E0otj7I=;
+	b=BAs4pruSurutvpfeDRBbmz/N4oFsARggkPeEJL8N9vG4knhsWks0SlQ0xkn/cezNyhIc
+	 FpQxUwXBo1h7QdygWVe0LYejj0khJjssbjkyHTcVxkX6jXtLi77cL4n6QaJ+CiBUp1d28
+	 V29nsvfinwf1jYzKjuzJQj6Y0DJlKT0twb9sVgVSrCCahHJGG37zcWlU28H65vQ0ZeP9/
+	 efLcnh0vk7nmNvBU1Gyz1iJZHeS8UY5EbFdC1U1tQfjd46aTh90IAiXRR6rewKQ9XXvKj
+	 2NUyq+107XSsQCW6tATHnnNQHYUYeZeibQFQDYU/kx84KXDnxsrSOJB0dxyf7nm5DyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJOmvQHc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ouxQTXuG;
+	arc=none smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B36606A31C;
-	Fri, 30 Oct 2026 13:56:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65139606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:57:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65139606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJOmvQHc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 597EF1F000C1;
-	Fri, 30 Oct 2026 13:56:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793368594;
-	bh=+4xayl0zhoKUGLUcIAZBgb+XDnknglYr9Ww1i+AOLlg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eJOmvQHcjB7zpPhIJ3UzwdFfmrnbSMX4LaMrIDquHmWpAzYg7g+C8JwuWw7tK7WFf
-	 AMcY4k0u1iDL5VAjQGcRsJ1boK+k0Jr7R0tXyHpn7dTo0Eg6w/qLuEVtTYXNtuft4o
-	 Vvs1mCqYLz+Pr58xAOEHkjmZlQa10XeA2U4b1BbJzNVeM9NjV6T8/JTujz6QiEn/l7
-	 WK+BihgSYkr78cWarYVQ2ZY1l6q4esEYFZ03anhegX9c2qr2XPviJdpkF2mfTK1yNM
-	 xPNHMXqGbG1Ggvn+nrf8m/mcG8K9YL/qReXKVDLqxfrPoCkvj3BQVvMuF8Va4z35KT
-	 G31+NCrBjDIGw==
-Message-ID: <a0c9c290-4a5e-4d72-b030-cc49d0828e80@kernel.org>
-Date: Fri, 30 Oct 2026 14:56:26 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ouxQTXuG
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ea7987517aso5512925ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:57:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793368631; x=1793973431; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=GNIOi3l2fXouiVMkzU5S0Fr0utCMy6QmwVq2E0otj7I=;
+        b=ouxQTXuGY0sUIyzArMYPWSLzsXzGVK8/GwzTMGcquJB53F0z+mtYa0vwvFzX0mKKJs
+         i9ovdt2l6t/blE1Ru8wzBGANzZ9/sLcVu0/ows9x2wlcFiq57bgyp+WTw6E6AJX2EBZi
+         YCzj2GjuC2xsnthiGOJO7aWt3jhVWeHUuQx2Kou2E77dkaam0d1Qse/rrRr/gk8ua1yW
+         5gPjLDAhsCaT7BEhY/MT8ntk1Xlr8z4Kirg0mu9p5A9qICrUq1oyAS5N3o27acU3s1v0
+         tsrN1vzsNR+PMGud1ia+XH3+rfzbwzkJdTgI3oOVOubg8Mizsn7qYpFgAEdU0F7VsvJR
+         74ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793368631; x=1793973431;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GNIOi3l2fXouiVMkzU5S0Fr0utCMy6QmwVq2E0otj7I=;
+        b=ChAho78rnnc8h0SitCH2lu13pflAmHgFhja1T2loMyk+RCz2hzkZCW4OTlOmu53GZK
+         KNTR5hhM9qcJT+kandCe5RYcuFEPzDnKjBK5c2dcDGle8M5fpVlv0XxgMh1RNd9J4Blo
+         f47F6LsQCkBTKalIWgsKUwK/MuNkpH3yMWyfsHEnAYuoIMVtNvOhLKNsyoVLNGfvc6rk
+         dVinsfAT5ji/B31HYBYC3pAFDGrN8UG5LQm/lL5eyQBFOerErDSYGys5dwxtqPfnPCsm
+         zEB13rdE689wBmpuD+huEJaX+dUL9U0uL7hNDhwJDGvUSBEenUdfzpjS6DOdw50jalyX
+         ehEA==
+X-Forwarded-Encrypted: i=1; AKwUvBwEkaWRhDENzRe14GzG7vEIG/8n3E4anCdYrKq19WV2jrD2HOC6n1fuPQRNfrRIhqluYRzFM6mnMtAC5GE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6s7JDUQqXuoAEB9Z+8ix2VmAmOSOSLuxhYKcCKVp2okpdeG7y
+	CNlv6aWAkHQwq6uVD80xXkIMCT+n0CMn7NUORGeQwiRgtR1Y4VNBFSrO
+X-Gm-Gg: AYBFou2Ro79U9plhCoF0tLj7czut77GEAE7cj4cCYLXApFSPtZq1WQERwTZeI4zQESH
+	y2gdWEs2zMlmXj79FxeJpuDOhN741x5dqXzyUUV7Egg+Iww0doye13qXhB9051MWhSkqfcbpWvP
+	Lqx/tyJ7D/8yqj5N6yO8InAY0ATbfLAyosYaRF7+sa94/j9PGeWHgVLyvHZ4jiSprUW0osHPAto
+	HYEedgIxay/ce1yp5ZAS+U1CHYlweNxGQMqz1Tb6llr9ekuWpH9xnD0W+LdEpnlh3oquJ2k7zte
+	LoO7ffYyrOOqjKBgZyQfwAp5U4ThhcTdZKy845giocniE6QB9lsOZPpWwpRthfOR8i2H6lqtKAu
+	UVpC2UaOHGk7yIY6nd5hLqOwrC7Mjdy3cpEOC8rp3bD4xL3mDNmjCI7iPMnrGAUNbRezd2bXhg8
+	5MP0GMrAxqRdbLV+xLiV1RsWpBKsAight0ffrIL7WanQv9QJi8azzcYQBWtfyg9bxFYl/Gfyave
+	ek0d/l4iSXCMgBs0W4jT6F9GSjSOKa82gUPPpQM6htZWw5WS9kJzyhVtLtAX9t0Wwmbxir2q78u
+	Pc5VNZwnLbNSKt40piMs+PT7Ex4=
+X-Received: by 2002:a17:902:c94d:b0:2e9:6645:e9a6 with SMTP id d9443c01a7336-2eb365363f7mr26307325ad.59.1793368630732;
+        Fri, 30 Oct 2026 06:57:10 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3924c858sm7688305ad.35.2026.10.30.06.57.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 06:57:10 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Gautam Menghani <gautam@linux.ibm.com>, maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au, chleroy@kernel.org, sshegde@linux.ibm.com, amachhiw@linux.ibm.com
+Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 3/4] KVM: PPC: Book3S HV: XICS: Avoid NULL ptr deref in kvmppc_xive_cleanup_vcpu()
+In-Reply-To: <20261012082922.218799-4-gautam@linux.ibm.com>
+Date: Fri, 30 Oct 2026 19:26:01 +0530
+Message-ID: <8q3fwavi.ritesh.list@gmail.com>
+References: <20261012082922.218799-1-gautam@linux.ibm.com> <20261012082922.218799-4-gautam@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,85 +92,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] dts: imx95-phyflex-libra-rdk: Add dts for
- phyFLEX-i.MX 95 Libra RDK
-To: Benjamin Hahn <B.Hahn@phytec.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Yannic Moog <y.moog@phytec.de>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- upstream@lists.phytec.de
-References: <20261030-wip-bhahn-imx95_upstreaming-v1-0-1c1cebb5be99@phytec.de>
- <20261030-wip-bhahn-imx95_upstreaming-v1-2-1c1cebb5be99@phytec.de>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261030-wip-bhahn-imx95_upstreaming-v1-2-1c1cebb5be99@phytec.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 30/10/2026 14:32, Benjamin Hahn wrote:
-> The Libra RDK and i.MX95 FPSC SoM have been updated with new hardware
-> revisions 1618.2 and 1620.3. With these new hardware revisions they also
-> got renamed slightly, as they have been integrated in the phyFLEX
-> series. The baseboard is now named phyFLEX Libra RDK and the SoM is now
-> named phyFLEX-i.MX 95 FPSC Gamma.
-> 
-> Signed-off-by: Benjamin Hahn <B.Hahn@phytec.de>
+Gautam Menghani <gautam@linux.ibm.com> writes:
+
+> In kvmppc_xive_connect_vcpu() if there is a failure before
+> xc->vp_ipi_data is setup, it can result in a NULL pointer dereference in
+> kvmppc_xive_cleanup_vcpu() when accessing the MMIO page in
+> xive_vm_esb_load(). Fix this by adding a check before masking
+> the VP IPI before accessing the MMIO pages.
+>
+> Fixes: 5af50993850a ("KVM: PPC: Book3S HV: Native usage of the XIVE interrupt controller")
+> Cc: stable@vger.kernel.org # 4.12+
+> Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
 > ---
+> v3:
+> 1. Add some more info to the patch description.
+>
+> v2:
+> 1. New patch - Introduced to fix the scenario where NULL ptr deref is
+> possible. (Sashiko)
+>
 
-Please use subject prefixes matching the subsystem. You can get them for
-example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
-your patch is touching. For bindings, the preferred subjects are
-explained here:
-https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
+Make sense. However, the order of patch-2 and patch-3 should be
+reversed. Otherwise LGTM.
 
-Best regards,
-Krzysztof
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
