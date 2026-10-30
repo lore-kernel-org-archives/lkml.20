@@ -1,45 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793365252;
-	b=JTUIPREJArz3Sd1+Lo9DzQwwYY/oW5legydWWCWR/Cv+mqmUWy7mHK/MweXddG1ZlMjx
-	 ebCHdTPsgNf78VZKm+SRUMf9DiO+8KtxRXQK6+Zr7QvL59B8AeX65D1ZEbJIXwN2Z8YT7
-	 fVJdcI/0XqrmTCXslCRX2naitGi9B5KY4b6IKD1myQJj/3bt4tMpAPsU+8byqzy28Il6R
-	 UQVHGL57/CY8hjasBuu4tscFsJiF3LD/VLJfqeEPy5k1mQ6OkaVgu/kQnwU7WR80yu4PK
-	 llvplKshqwkOQCh9NYPYlv9gWMRaCWLPV74XMq4d1QxcwfTd0I3YlPLImeKOLqZ6pOA==
+	b=AVxStFMoqT6EUN9vrT4YZVZzIEMmTxC/czugu3O55JZCS9kzbXJnrF3Uj+qS620NXsXq
+	 lFbvdQtjtUS/g6tXKtsTDtnpu/d7Vn4pnPbqxd6PnsVx39R95iQoWUqhBcA/2nCyPoYO7
+	 YbLZsFY6LAV5SLDFISf/g6EdNFkfldp9RbTyo9Vn9RL7hNa9rRMT2eM7595PsjWUNkV27
+	 JA93m+XZfS8xQ5D7HqBdr0LgR5oG+diS9ywea6/ju+wpeFrw4gzcBMDbvt0q6ckA9hRSR
+	 LltGoEIHhfW37x+tIl3rObDt1Q2pyrurwAOQfqz16NBaEU233V74352FoQoSaqdBoWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793365252;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HwW40vo2o/uGDLbu7g1/rFGvFLAyIo2hkK9JwAuJaX4=;
-	b=4iX/WxB9qcWo1mVJMSPH+srov67VjK1uzjU/2IcjD6AeigW+b0V50rCAWXWrBhcGKhE8
-	 oggTcSGxtc0P2RiVjGhC/R93eUuYHbCWFQF3vRjdwO9/Wi1JadDko815A2SwJEI3W96Lb
-	 mZR2QJZOpHft+TZPXqDVoHWfuZBzcOnS3Eh73d7lIVGfSmsZj2rWZt9QB2fj7xMmvb+oU
-	 +K79DKFhTx+s0gQDeisAhqr9Cx6x9goSqzieencbFAY6UvvGjW5kLROB8r7Kg0i5YNQ3Y
-	 grCTD+HLQN6CEDCJRRUaKn/tvw7WG80h65EDCjG09NA+oqc0QNyEcz/eGJ8aQZPslaw==
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=FdQI/LAyKYbv+9FCjDCDMznPudCLTAfsdLXbDWfNWWI=;
+	b=mGNm/X5LWgfB2mw2MQsdwkjmjT4h4kmDiql088CYrGJWl+v9vuv75Yyjid4du3tslC9F
+	 3geDN0QCXNA3wY7Yg9MUFG572U4N2nU4sqCtiC3yh3QU3+S2FotqebdHU4mwRu2138TLW
+	 u0MB7YEJZ6x/S6bpN/RiVE0qsKbf1fSnFtNIyBOtHi7wRvjs//+MOhiT1WcUOZpWAUQck
+	 OYPch6ao0Oh8DAqhnPwMHBxl2wQ1BhtXZmeHxNTo8uv9q/OPeMDSMjp26rEFfHRoZlv9M
+	 HJTPRUOtbblqI4eUvZ2Vu84Y+iebluM3ByIAtn7EcIDc9A+YTyej6Hn2gLDEsUuuE+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.microsoft.com;
 	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=coCrfkOF;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=BtXh44zZ;
 	arc=none smtp.remote-ip=13.77.154.182
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA3DA606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA506606A321;
 	Fri, 30 Oct 2026 13:00:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA3DA606A31C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA506606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=coCrfkOF
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=BtXh44zZ
 Received: by linux.microsoft.com (Postfix, from userid 1186)
-	id 98EBC20B716A; Fri, 30 Oct 2026 06:00:38 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 98EBC20B716A
+	id 657D120B7166; Fri, 30 Oct 2026 06:00:38 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 657D120B7166
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
 	s=default; t=1793365238;
-	bh=HwW40vo2o/uGDLbu7g1/rFGvFLAyIo2hkK9JwAuJaX4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=coCrfkOFYSgmzzBW+ogmIRIzKBsyG/4EMWAZKhtDq+u/Fkv6XuQTzMvzHEmTETl4M
-	 RrHMIONg8sAWfxO5diQlcG+YQpyGdyQMYcm47If56MXyrdfZ916SV6fmSZhFzQrxei
-	 Oa0IbOvQqnunoRPo1yFlS0q/XzJ6zkDGRd+QBJmc=
+	bh=FdQI/LAyKYbv+9FCjDCDMznPudCLTAfsdLXbDWfNWWI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=BtXh44zZdO0mkuPy/0323D/VJ8j03p2F55DmNE5JlD7ct3+5NDuExWxMO9X+IcpfP
+	 JzV+J0T4l2Qj/vLmBPqoRg3XHAlE+iuk/J1ok1T5kBYjD1x7Vk1JiNDLBz5CFc/xzz
+	 sKYNpsF6pn3DyWxboMKFX8y5YbrQRcyCdw/VIpPY=
 From: Konstantin Taranov <kotaranov@linux.microsoft.com>
 To: kotaranov@microsoft.com,
 	snsanghvi@microsoft.com,
@@ -48,12 +47,10 @@ To: kotaranov@microsoft.com,
 	leon@kernel.org
 Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH rdma-next v6 04/10] RDMA/mana_ib: Maintain kernel RC QP state
-Date: Fri, 30 Oct 2026 06:00:32 -0700
-Message-ID: <20261030130038.4040789-5-kotaranov@linux.microsoft.com>
+Subject: [PATCH rdma-next v6 00/10] RDMA/mana_ib: Add kernel RC and fast registration support
+Date: Fri, 30 Oct 2026 06:00:28 -0700
+Message-ID: <20261030130038.4040789-1-kotaranov@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261030130038.4040789-1-kotaranov@linux.microsoft.com>
-References: <20261030130038.4040789-1-kotaranov@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,106 +64,75 @@ Content-Transfer-Encoding: 8bit
 
 From: Konstantin Taranov <kotaranov@microsoft.com>
 
-Update mana_ib_modify_qp_state() to support RC QPs. Initialize the
-packet, message, and frame counters for use by work requests.
+Add kernel RC QPs and fast-registration MRs to the MANA RDMA driver
+for kernel consumers such as NVMe/RDMA and NFS/RDMA.
 
-Arm the requester receive queue at the initial PSN so that a CQE is
-generated when the specified PSN is acknowledged, indicating send
-completions.
+Implement QP creation and state management, work request posting,
+completion processing, error handling, and queue draining. Kernel RC
+QPs require extended-WQE and power-of-two-SQ hardware support.
 
-Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
----
+Tested with krping, NVMe/RDMA, and NFS/RDMA, including RC send and
+receive error recovery with krping and NVMe/RDMA.
+
+v6:
+- Patch 08: Notify software flushes after posting to error-listed QPs.
+  Add reporting pending software flush for IB_CQ_REPORT_MISSED_EVENTS.
+- Patch 09: Check fenced WQEs on error cqes to prevent flushing completed WQEs.
+  Add mana_ib_cq_clean on QP reset to discard stale CQEs. QID 0 is an invalid
+  value for RNIC and safe dor discarding. Add error_pending flag to prevent
+  a deffered ERR request to error reset QPs.
+
+v5:
+- Patch 01: Reject max_num_sg above MANA_MAX_FMR_PAGES.
+- Patch 02: Validate kernel QP queue sizes and SGE limits to prevent
+  overflows. Ensure that queue size cannnot be 0.
+- Patch 06: Preserve fence flags on unsignaled WQEs. Check message
+  length and read sges before posting a wqe.
+- Patch 08: Remove the unused QP state field.
+
+v4:
+- Patch 01: Use an explicit 64-byte FMR MST alignment
+- Patch 02: Validate that the RNIC firmware reports at least two send
+  SGEs and subtract the reserved SGE only for RNIC-based mana_ib.
+- Patch 07: Add missing wqe_size to shadow wqe for SEND/Write, and
+  return a missed-event hint for cached CQEs when CQ is armed
+
+v3:
+- Patch 07: Mask arm_psn to 24 bits before ringing the doorbell.
+- Patch 08: Exclude userspace QPs from kernel software-state handling
+  and CQ error-list insertion, and unlink UC QPs during destruction.
+
 v2:
-- Preserve IB_QPT_UC handling in mana_ib_modify_qp().
+- Patch 03: Validate fixed-WQE capacity for the header, OOB and SGEs.
+- Patch 04: Preserve UC QP modification support.
+- Patch 08: Skip software CQ notifications for direct-polling CQs.
+- Patch 09: Flush that ERR work during QP teardown.
+- Patch 10: Limit drain callbacks to RC QPs and avoid completion
+  callbacks for direct-polling CQs.
 
- drivers/infiniband/hw/mana/mana_ib.h |  5 +++++
- drivers/infiniband/hw/mana/qp.c      | 22 ++++++++++++++++++++--
- include/net/mana/gdma.h              |  2 ++
- 3 files changed, 27 insertions(+), 2 deletions(-)
+Konstantin Taranov (10):
+  RDMA/mana_ib: Allocate and map fast-registration MRs
+  RDMA/mana: Create and destroy kernel RC QPs
+  net/mana: Extend GDMA encoding for new RDMA WQEs
+  RDMA/mana_ib: Maintain kernel RC QP state
+  RDMA/mana_ib: Post receive WRs on kernel RC QPs
+  RDMA/mana_ib: Post send and memory-management WRs on RC QPs
+  RDMA/mana_ib: Poll RC completions using PSN and FSN progress
+  RDMA/mana_ib: Flush and notify CQs when kernel QPs enter ERR
+  RDMA/mana_ib: Handle error CQEs for RC QPs
+  RDMA/mana_ib: Drain kernel receive and send queues
 
-diff --git a/drivers/infiniband/hw/mana/mana_ib.h b/drivers/infiniband/hw/mana/mana_ib.h
-index 6f5df64e838a..1094429af801 100644
---- a/drivers/infiniband/hw/mana/mana_ib.h
-+++ b/drivers/infiniband/hw/mana/mana_ib.h
-@@ -265,7 +265,12 @@ struct mana_ib_qp {
- 	/* The port on the IB device, starting with 1 */
- 	u32 port;
- 	u32 sq_psn;
-+	u32 sq_ssn;
-+	u32 sq_fsn;
-+	u16 sq_rsn;
-+	bool pending_mmq_fence;
- 	bool sq_sig_all;
-+	enum ib_mtu mtu;
- 
- 	/* Serializes receive WR posting. */
- 	spinlock_t rq_lock;
-diff --git a/drivers/infiniband/hw/mana/qp.c b/drivers/infiniband/hw/mana/qp.c
-index 387586c45aa0..5d6f45b9f53d 100644
---- a/drivers/infiniband/hw/mana/qp.c
-+++ b/drivers/infiniband/hw/mana/qp.c
-@@ -779,8 +779,10 @@ static void mana_remove_qp_from_cqs(struct mana_ib_qp *qp, bool reset)
- 	spin_lock_irqsave(&send_cq->cq_lock, flags);
- 	list_del_init(&qp->send_err_node);
- 	/* Keep shadow reset serialized with hardware polling and SW flushing. */
--	if (reset)
-+	if (reset) {
- 		reset_shadow_queue(&qp->shadow_sq);
-+		reset_shadow_queue(&qp->shadow_mmq);
-+	}
- 	spin_unlock_irqrestore(&send_cq->cq_lock, flags);
- 
- 	spin_lock_irqsave(&recv_cq->cq_lock, flags);
-@@ -1071,11 +1073,16 @@ static int mana_ib_gd_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
- static void mana_ib_modify_qp_state(struct ib_qp *ibqp, struct ib_qp_attr *attr,
- 				    int attr_mask, struct ib_udata *udata)
- {
-+	struct mana_ib_dev *mdev = container_of(ibqp->device, struct mana_ib_dev, ib_dev);
- 	struct mana_ib_qp *qp = container_of(ibqp, struct mana_ib_qp, ibqp);
-+	struct gdma_queue *rq;
- 
- 	if (udata)
- 		return;
- 
-+	if (attr_mask & IB_QP_PATH_MTU)
-+		qp->mtu = attr->path_mtu;
-+
- 	if (attr_mask & IB_QP_STATE) {
- 		switch (attr->qp_state) {
- 		case IB_QPS_RESET:
-@@ -1086,8 +1093,19 @@ static void mana_ib_modify_qp_state(struct ib_qp *ibqp, struct ib_qp_attr *attr,
- 		}
- 	}
- 
--	if (attr_mask & IB_QP_SQ_PSN)
-+	if (attr_mask & IB_QP_SQ_PSN) {
-+		qp->sq_ssn = 1;
-+		qp->sq_rsn = 1;
-+		qp->sq_fsn = 1;
- 		qp->sq_psn = attr->sq_psn;
-+		qp->pending_mmq_fence = false;
-+
-+		if (qp->ibqp.qp_type == IB_QPT_RC) {
-+			rq = qp->rc_qp.queues[MANA_RC_RECV_QUEUE_REQUESTER].kmem;
-+			mana_gd_wq_ring_doorbell_ext(mdev_to_gc(mdev), rq, attr->sq_psn,
-+						     SET_ARM_BIT, MANA_PSN_CLIENT_OFFSET);
-+		}
-+	}
- }
- 
- int mana_ib_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
-diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
-index 508da28591ae..fd0ec8fc44d5 100644
---- a/include/net/mana/gdma.h
-+++ b/include/net/mana/gdma.h
-@@ -605,6 +605,8 @@ struct gdma_cqe {
- 
- #define GDMA_EQE_OWNER_BITS 3
- 
-+#define MANA_PSN_CLIENT_OFFSET 0x8
-+
- union gdma_eqe_info {
- 	u32 as_uint32;
- 
+ drivers/infiniband/hw/mana/cq.c                 | 354 +++++++++++++++++--
+ drivers/infiniband/hw/mana/device.c             |   4 +
+ drivers/infiniband/hw/mana/main.c               |  15 +-
+ drivers/infiniband/hw/mana/mana_ib.h            | 137 +++++++-
+ drivers/infiniband/hw/mana/mr.c                 |  87 ++++-
+ drivers/infiniband/hw/mana/qp.c                 | 427 +++++++++++++++++++++--
+ drivers/infiniband/hw/mana/shadow_queue.h       |  22 ++
+ drivers/infiniband/hw/mana/wr.c                 | 433 +++++++++++++++++++++++-
+ drivers/net/ethernet/microsoft/mana/gdma_main.c |  55 ++-
+ include/net/mana/gdma.h                         |  38 ++-
+ 10 files changed, 1506 insertions(+), 66 deletions(-)
+
 -- 
 2.43.0
