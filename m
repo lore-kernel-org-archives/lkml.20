@@ -1,69 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793394750;
-	b=guYrVkWZMEGoIrj2heoP9x/0XMo/RjbO+eu77oll6kWUOkutIGVisTbIEM763K/W6B+O
-	 lBoThC7ieoaiyuFTJDN1mKV1al0lTJAs0SQk/vwkE19x+kaXBONTvH/GSGuiaVpw5d+bj
-	 vJWzXsr9AXElrKKonft35tqirl5MR9C21r/CxWDx6XykPAsBqbook/ObtP1EDA3SK3Xnk
-	 GiREjm22VQ8Z/no7Hce3u950yrvxmIwFj6P0xMUZuiT63dLw549tALvo8yTwfNTKNp7z0
-	 cXZT4Zg0mnZNja7sfvNcMkkACMZvMJRW7u9LrPnUZH6iL/i19fswMkZAU83uQQ+N2Og==
+	t=1793394841;
+	b=ZDYmWjLO/CSGH4gh59Kuk4KfIQZBOvqHzN36XhlVMxWiRJM9BmkeWOvqSyUG6fHo+N4K
+	 aNkJ5EX7+g4sT+59iSF+VO7c7EcZMlQVXvUJTkqYKZYmmuJQfEsbpuiHVHRCws+AqEPyB
+	 YxPvnw9tvVCodqdeJBWZoZwwoGW27c5Y4coCZc19NzuMGLa3oaRPfGtyr6/LqXHorwLma
+	 lgiHyyDhkChSLmw4/yAmPBMFeFObMn2GVcleonZRYJigzMfsFJkWWg+ccB2HMzPiNoDl9
+	 V0XSlxgu5JqSdOjFovdxTSSuNCmdBWtPCivRHIyL7uhRRezJl4q9Lo+Dr+QBl0XfOKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793394750;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=IEONd4jOnVyWQkHj1MJzqvWpoLIH0hBXrfM3VziQ+qI=;
-	b=JG18oeuyDmB4Mip1pcrJVm3hq3awonTqudCAr9GicMVJUEvN5DcCcePERq3aEKODJJeO
-	 jjkjrdB02/pdqETt7205b+pkVzv0pvpJIIDHqybBxadATmRU8I0U1LwfaITufCEnV/59G
-	 QrpucDulpWuYpru8WRltHRGLBhKJcsLXAqnlt8yJtmV6e2WcJjCV4M0WcSjc7YqZO2mht
-	 G8APyp3Dsdi6JZqU6u60l62rXX8Uy3cfm1JIDpTfmbz0vN2cTNYzAxefWkHJRYdifmmwu
-	 Wld4xN/8zqxEfQBpXp98K8VjRIVfGKxQr8/GjW17soJnxwmZ5gM3uLRkC8zTT/bNUMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793394841;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=KTlWlfuITNwuhIa6PJcKp+S8YcpVXepl99NGmnhvqqU=;
+	b=F1BQvY1H3bYejb7YaR/ha4uP0XVI/GNcf/eyFMZdQfNJN1zkOH5jeas94y+LXBCpQ2IF
+	 pR0SerwIzs5Na4H/N77fwfeTEYTUQWGJp7I9ZuOk3DDPNXudKwOAv8pFfhL03UhqaJjBM
+	 yeTZB+OYHP7m5JLVzM0DPBYKTbuxectPPn6buoZUpDvfrP7sRUvoTsqobyqBPISfGLD3j
+	 N4WBTGSPArhu+H55g1wvN1oe9iQFc0yqNYWUJTQHuLw3E+ygewUIwiGlG4Z5vpibN7BPB
+	 PJVdVLE1zwNsqoNW1iJcP6+5k1u/ri3PazZyVbMyMuDGajiM1HluYVyEsH3evXhn2YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=kGW4GTWR;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=IiqPCQlE;
+	arc=none smtp.remote-ip=209.85.216.99
+Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BB2606A31A;
-	Fri, 30 Oct 2026 21:12:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83BB2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1C2606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:14:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D1C2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=kGW4GTWR
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5F9934B0;
-	Fri, 30 Oct 2026 22:10:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793394612;
-	bh=4ZcjkwBtXwpWd5YLcsKxjAoYlftpO+e2haPr8crGBDY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kGW4GTWRX2wvyUs92Hm7D+e4Tmn49DaB8rEiCWEcvqpEQpE0bEDtJ4DU6aI38BGd3
-	 5FIowGc4/rt0hw2S12LMGXi2zmZYHe+Ixd9Y7KqKi25i2OHSYWfzjkl/p+BQ0a8tKu
-	 D3QARqLMcbePtpSInZsbQzaq3bUHKuVgToZVyrRc=
-Date: Fri, 30 Oct 2026 23:12:25 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH DNI v3 04/15] arm64: renesas: r8a78000: Add FCPV[BI] nodes
-Message-ID: <20261030211225.GA3144851@killaraus.ideasonboard.com>
-References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
- <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-4-e052903a3832@ideasonboard.com>
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=IiqPCQlE
+Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so992567a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:14:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793394840; x=1793999640;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KTlWlfuITNwuhIa6PJcKp+S8YcpVXepl99NGmnhvqqU=;
+        b=STfe0jjcXVsu56BHTLD0YPM0pTILW/gSqZXrl6R3+5XC1lYeLytOXzTkzYvfCLURCa
+         SPcs9xNb7sxqRAQiQRNPDq7xf6ZIx/qGqH4sjggWVBX3lnyetzGrSQE323ahXdWFUT1F
+         PqhsyNuHYB1q9PbkHPRcYfQFd8BAGEcQU7vsaq4rjPrfG+Py3x+snnyQRKXGaz/tbkmY
+         KjeCkK1UZzGTXZW47z65FoCjaDMt+7nV/PptbCV+Dyc48X6Ai719uXAk+3xA9ccfezZr
+         NqaSOPilCl990eLkdQSGT9L9PzMPK5iEcQ9zuQrHvZs1KNB4iwATZ4G7Eygsif2JeP23
+         uJ+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw1bgVdfbKzbcIE8A5xr+tjjlNhaaGChcp5M/IpTkc/T135YJALAMG+KCjJcBMMVSvIxIOJBoLqZltMU6M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKRqUYy0ftQNsbVADmAQoB9B3QRrFlzor3Vr4H64HdNItotIpw
+	/WmDfQ5rHceCaNW0LlF7f4VbCphRGsAx780lw6kEeB0J5U7N7a7LVGv3AsadIGHst7SCSUmFLtu
+	Cr+pituATcu00WnaSXPtIhp57Q24yRyth0Xe239knkD0lgLMDCj2/MwYtEjTOkelJv1lnAjX00v
+	wRrRRnv9zZ2eBfUxUAOZHHMXpd4sO47p8TST0Gc4gm36zpYawX+GxgWWZmuPtfaYeuQlowfA0JH
+	ly63ZYtdeYySGGoTorPYEwI
+X-Gm-Gg: AYBFou3povjsnU0tvHwMPzcbNT+D5i9+6+bbvP6Q8w9Dl/Y6XBZ8HNqXON2JraNBNiE
+	vQPOzbVt9vyWeA5YU/8XItQG2rzSPu+cdgTQ56HCRbbbWNaLBa3hQyyP9rZg8QL4AauytgjB1de
+	YjPibFNUOsGHfnK1N3fEDsxCOhsfHhZ4gvPrAOWi0h9FrU23//39WY0F/cTSYzPRkiExeXN9ZDq
+	GJgy3a7adGSFrQuEtIMZbtM8ibpEVaSKDfu7/FiuduOIRNMETr3J2gF3Dq60YUOj81me/jRPW+n
+	ES1T4GsL+d4L3QWsIfXw8XesamQWIkgFskRQCJQyPq7q2fmXOgUq4ZPOVuQb+1cUg80dIrW4m76
+	FdX3nhT4gku9ZPu1H8nIH7c3GRj5TLG3JfIl7EBovnFl494rNB2PkUIihbl+65D649ZD4ZQ8ZdB
+	XTkT8wrrgmUUZ+gJKiif/5iMspZxbk7eKh90RI3OB8
+X-Received: by 2002:a17:90b:4c44:b0:3ac:403d:6232 with SMTP id 98e67ed59e1d1-3ae897e0829mr2857240a91.55.1793394839676;
+        Fri, 30 Oct 2026 14:13:59 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae6e874b16sm4780648a91.6.2026.10.30.14.13.58
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 30 Oct 2026 14:13:59 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-341eff9e381so2631659eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:13:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793394837; x=1793999637; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KTlWlfuITNwuhIa6PJcKp+S8YcpVXepl99NGmnhvqqU=;
+        b=IiqPCQlELKIg7/8ok4QEkbADHd7RAii6VtHEfzEkGtGi7K4bQkKoeW9kLnUmMO+OEF
+         dlskpvJ55ZCkCKnKPAOcXhct/wbisGsz3btz6GlNPbipO/gGt4PvbwrzmlWIrfmZqQjV
+         +3wpCQ3IvD34OnZ13pnTSo3fdls1YHTvpCU3U=
+X-Forwarded-Encrypted: i=1; AKwUvBzKJ2LsXejiC0DhViGqcQmrWnqqc1HoaNLkQI/X7ChDVwaT3MZoNbsiJfAy+H85npoTvZ8kRcJfrav5efM=@vger.kernel.org
+X-Received: by 2002:a05:693c:42d9:b0:369:f18f:3492 with SMTP id 5a478bee46e88-36a423fbc3amr5370403eec.35.1793394837014;
+        Fri, 30 Oct 2026 14:13:57 -0700 (PDT)
+X-Received: by 2002:a05:693c:42d9:b0:369:f18f:3492 with SMTP id 5a478bee46e88-36a423fbc3amr5370352eec.35.1793394836208;
+        Fri, 30 Oct 2026 14:13:56 -0700 (PDT)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42669128sm10574595eec.3.2026.10.30.14.13.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 14:13:55 -0700 (PDT)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: netde@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonas Gorski <jonas.gorski@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Vivien Didelot <vivien.didelot@gmail.com>,
+	netdev@vger.kernel.org (open list:BROADCOM B53/SF2 ETHERNET SWITCH DRIVER),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net v3 0/8] net: dsa: b53: Preliminary fixes
+Date: Fri, 30 Oct 2026 14:13:42 -0700
+Message-ID: <20261030211350.287566-1-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,200 +117,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-4-e052903a3832@ideasonboard.com>
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hi Paul,
+This patch series contains fixes to issues reported by Sashiko on the
+b53 PCS bug fixes being submitted, and then some more that came from
+code review and testing.
 
-Thank you for the patch.
+Except for issue #2, all of the other issues did trigger in testing and
+needed to be corrected.
 
-On Thu, Oct 15, 2026 at 04:51:44PM +0900, Paul Elder wrote:
-> Add DT nodes for the FCPVB and FCPVI IP cores in the R-Car X5H SoC.
-> 
-> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Changes in v3:
 
-I need to reconsider this...
+- patch 2: added Daniel's R-b tag
+- patch 3: mention in the commit message that deleting an absent entry
+  now returns -ENOENT, including when the lookup runs out of space
+- patch 4: document that the patch also fixes the clear of the capture
+  port field in b53_mirror_del()
+- patch 6: reference count the mirror source bits per port and
+  direction, ignoring deletions without a matching reference
+- patch 7: new, harden mirror register programming:
+  - reset the mirror capture and source control registers at setup for
+    b53 and bcm_sf2, since not all switches are reset
+  - check and propagate all mirror register read/write errors, only
+    taking a source reference once hardware programming succeeded
+  - use the source masks rather than MIRROR_EN to decide whether the
+    destination is occupied, and write the destination before the source
+- log failures in b53_mirror_del() since it cannot return an error
+- patch 8: new, fix the mirror capture port encoding on BCM5325 and
+  BCM5365, which use an 11-bit bitmap (CPU port at bit 8) instead of a
+  port ID, and translate the CPU port in the ingress/egress source
+  masks as well (verified against the BCM5325E, BCM5325M and BCM5365P
+  datasheets)
 
-> Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> ---
->  arch/arm64/boot/dts/renesas/r8a78000.dtsi | 72 +++++++++++++++++++++++++++++++
->  1 file changed, 72 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> index 9a07753b221541ed49a975e0c95f2f5d1fdc6ac2..2f8886f8b6545026397fd83969882f8c62afa9d3 100644
-> --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> @@ -1000,6 +1000,78 @@ mdlc_aon: system-controller@c1338000 {
->  			bootph-all;
->  		};
->  
-> +		fcpvi0: fcp@c5030000 {
-> +			compatible = "renesas,fcpv";
-> +			reg = <0 0xc5030000 0 0x1000>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+Changes in v2:
 
-... as this may not be the correct clock.
+- collected Jonas' R-b tags
+- corrected logic in patch #3 to propagate -ENOENT, memset after the
+  debug print, translate -ENOSPC to -ENOENT when deleting
 
-The user manual lists the following SGD clocks for the media-related IP
-cores:
+Florian Fainelli (8):
+  net: dsa: b53: initialize the jumbo frame size register offset
+  net: dsa: b53: fix the SRAB grant timeout check
+  net: dsa: b53: clear stale state when creating an ARL entry
+  net: dsa: b53: reject conflicting mirror destinations
+  net: dsa: b53: use the correct override register 2 Gbps bit
+  net: dsa: b53: reference count shared mirror source bits
+  net: dsa: b53: harden mirror register programming
+  net: dsa: b53: fix mirror port encoding on BCM5325 and BCM5365
 
-- CSI[0123]:		SGD1_VIO_CSI[0123]φ, SGD2_VIO_CSI[0123]φ,
-			SGD4_VIO_CSI[0123]φ, SGD16_VIO_CSI[0123]φ
-
-- VIN[012]:		SGD1_VIO_CSI0φ, SGD4_VIO_CSI0φ
-- VIN[345]:		SGD1_VIO_CSI1φ, SGD4_VIO_CSI1φ
-- VIN[678]:		SGD1_VIO_CSI2φ, SGD4_VIO_CSI2φ
-- VIN{9,10,11}:		SGD1_VIO_CSI3φ, SGD4_VIO_CSI3φ
-
-- ISP CS[0123]:		SGD1_VIO_CSI[0123]φ, SGD2_VIO_CSI[0123]φ
-- ISP Core[0123]:	SGD1_VIO_ISP[0123]φ, SGD2_VIO_ISP[0123]φ
-
-- FCPV[BI][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
-- FCPVD[ab][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
-- FCPVX[0123]:		SGD1_VIO_ISP[0123]φ, SGD4_VIO_ISP[0123]φ
-
-- VSP[BI][0-9]:		SGD1_VIO_DP_OTHERφ, SGD4_VIO_DP_OTHERφ
-- VSPD[ab][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
-- VSPX[0123]:		SGD1_VIO_ISP[0123]φ, SGD4_VIO_ISP[0123]φ
-
-- VCON[0123]:		SGD1_VIO_DP_OTHER0φ, SGD4_VIO_DP_OTHER0φ
-- VCON[4567]:		SGD1_VIO_DP_OTHER1φ, SGD4_VIO_DP_OTHER2φ
-- VCON[89]:		SGD1_VIO_DP_OTHER2φ, SGD4_VIO_DP_OTHER2φ
-
-- DPTX[012]:		SGD2_VIO_DP_TXφ, SGD16_VIO_DP_TXφ
-
-Those IP cores are connected in four types of pipelines:
-
-- FCPV[BI] -> VSP[BI]
-- FCPVD -> VSPD -> VCON -> DPTX
-- FCPVX -> VSPX -> ISP Core
-- CSI -> VIN -> ISP CS
-
-It would be quite logical for all IP cores in the same pipeline to use
-the same clock. This would be
-
-- FCPV[BI] -> VSP[BI]:			SGD*_VIO_DP_OTHERφ
-- FCPVD -> VSPD -> VCON -> DPTX:	SGD*_VIO_DP_TXφ
-- FCPVX -> VSPX -> ISP Core:		SGD*_VIO_ISP[0123]φ
-- CSI -> VIN -> ISP CS:			SGD*_VIO_CSI[0123]φ
-
-This mostly matches the clocks listed in the user manual, except for
-
-- FCPV[BI] that is listed as using SGD*_VIO_DP_TXφ
-- VCON that is listed as using SGD*_VIO_DP_OTHER[012]φ
-
-Now, note how in the clock diagram document the VIO "ISP" and "CSI"
-hierarchies both show 4 groups of SGD clocks (respectively named
-SGD*_VIO_ISP0 and SGD*_VIO_CSI0 in the first group), the VIO "DP"
-hierarchies show 3 groups of SGD clocks (named SGD*_VIO_DP0 in the first
-group) and the VIO "DP_OTHER" hierarchy shows a single group of SGD
-clocks (named SGD*_VIO_DP_OTHER).
-
-This makes me believe that, wherever the user manual lists
-SGD*_VIO_DP_TXφ, it actually means SGD*_VIO_DP[012]φ. Similarly, where
-the user manual lists SGD*_VIO_DP_OTHER[012]φ for VCON, I believe it
-should be SGD*_VIO_DP[012]φ, both because there is a single
-SGD*_VIO_DP_OTHERφ, and because the rest of the VCON pipelines (FCPVD,
-VSPD and DPTX) all use SGD*_VIO_DP[012]φ.
-
-For full consistency, I also suppose that the FCPV[BI][0-9] instances
-match the corresponding VSP[BI][0-9] and use the SGD*_VIO_DP_OTHERφ
-clocks, not the listed SGD*_VIO_DP_TXφ clocks.
-
-This being said, in practice this probably makes no difference, as all
-those clocks derive from the same SGD1_VIO_MAIN clock and none of them
-are programmable or gateable.
-
-If the above explanation makes sense to you (and to Geert), we can ask
-Renesas to check if the issue I suspect are errors in the documentation.
-
-Finally, while neither the FCP nor the VSP chapters indicate what the
-SGD1 and SGD4 clocks are used for, the VCON chapter lists SGD1 as the
-"VSPD I/F clock" and SGD4 as the "APB I/F clock", and the ISPCS chapter
-lists SGD1 as the "Processing clock of ISP CS" and SGD2 as the "APB I/F
-clock". The APB clocks are used for register access, while the "I/F
-clock" or "processing clocks" are used for the data flow. If the FCP
-driver (or the VSP driver) had a need to know any clock frequency, it
-would be the data clock. I would therefore use SGD1 instead of SGD4 here
-(same for the VSP).
-
-> +			power-domains = <&mdlc_vio 0x07 0x107>;
-> +			resets = <&mdlc_vio 0x107>;
-> +		};
-> +
-> +		fcpvi1: fcp@c5031000 {
-> +			compatible = "renesas,fcpv";
-> +			reg = <0 0xc5031000 0 0x1000>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
-> +			power-domains = <&mdlc_vio 0x07 0x108>;
-> +			resets = <&mdlc_vio 0x108>;
-> +		};
-> +
-> +		fcpvi2: fcp@c5032000 {
-> +			compatible = "renesas,fcpv";
-> +			reg = <0 0xc5032000 0 0x1000>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
-> +			power-domains = <&mdlc_vio 0x07 0x109>;
-> +			resets = <&mdlc_vio 0x109>;
-> +		};
-> +
-> +		fcpvi3: fcp@c5033000 {
-> +			compatible = "renesas,fcpv";
-> +			reg = <0 0xc5033000 0 0x1000>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
-> +			power-domains = <&mdlc_vio 0x07 0x10a>;
-> +			resets = <&mdlc_vio 0x10a>;
-> +		};
-> +
-> +		fcpvb0: fcp@c5038000 {
-> +			compatible = "renesas,fcpv";
-> +			reg = <0 0xc5038000 0 0x1000>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
-> +			power-domains = <&mdlc_vio 0x07 0x102>;
-> +			resets = <&mdlc_vio 0x102>;
-> +		};
-> +
-> +		fcpvb1: fcp@c5039000 {
-> +			compatible = "renesas,fcpv";
-> +			reg = <0 0xc5039000 0 0x1000>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
-> +			power-domains = <&mdlc_vio 0x07 0x103>;
-> +			resets = <&mdlc_vio 0x103>;
-> +		};
-> +
-> +		fcpvb2: fcp@c503a000 {
-> +			compatible = "renesas,fcpv";
-> +			reg = <0 0xc503a000 0 0x1000>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
-> +			power-domains = <&mdlc_vio 0x07 0x104>;
-> +			resets = <&mdlc_vio 0x104>;
-> +		};
-> +
-> +		fcpvb3: fcp@c503b000 {
-> +			compatible = "renesas,fcpv";
-> +			reg = <0 0xc503b000 0 0x1000>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
-> +			power-domains = <&mdlc_vio 0x07 0x105>;
-> +			resets = <&mdlc_vio 0x105>;
-> +		};
-> +
-> +		fcpvb4: fcp@c503c000 {
-> +			compatible = "renesas,fcpv";
-> +			reg = <0 0xc503c000 0 0x1000>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
-> +			power-domains = <&mdlc_vio 0x07 0x106>;
-> +			resets = <&mdlc_vio 0x106>;
-> +		};
-> +
->  		mdlc_cmnn: system-controller@ca410000 {
->  			compatible = "renesas,r8a78000-mdlc";
->  			reg = <0 0xca410000 0 0x1000>;
+ drivers/net/dsa/b53/b53_common.c | 183 ++++++++++++++++++++++++-------
+ drivers/net/dsa/b53/b53_priv.h   |   3 +
+ drivers/net/dsa/b53/b53_regs.h   |   1 +
+ drivers/net/dsa/b53/b53_srab.c   |   2 +-
+ drivers/net/dsa/bcm_sf2.c        |   5 +
+ 5 files changed, 152 insertions(+), 42 deletions(-)
 
 -- 
-Regards,
+2.53.0
 
-Laurent Pinchart
