@@ -1,51 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793334495;
-	b=wLQO4mm2ya6qxi/Twk4g2acCpAcU9NFu6gtwna6KC0R4Qai+NDWOknHmmoF0n5k5jREq
-	 qZ9CssE7bn4kZS1SoZehuS66A4g0GCqBt1DWzu/158a38hoE1LZU4ySAwHhAsucvVHDd1
-	 eUf7wZwkcoZUsNXBH4ZRglJe/B9M13GR6wOEMl4ePMhy9BG0a/8dnlRrM8flXN7qS3ymA
-	 712SdHMvpZ9Meyrg0o5CHC43AeJP+v2BjS9+yIsQG79GQxDZq1M5yairqCu0afeIu8R5q
-	 G+HkUnUIuNKsxViCzT0zDVDRM8sTyGMKnnjOrK0fG/cCA7sk4ytpktRj8hS3CQ/CNAw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=QXZ6k8vyMSWJy5sRx9TEPe3XJIN6+GtdwYIt9DcU2eLBuMWx9LMXrCclvCYDlrXL8HvI
+	 UHhvTmai6BFQr7c5rFD1k3h4kZWCDPQdiA5eqzeitTsCyPPmsYu8jJ4l2F4hbDQxVbop/
+	 eQMWRqhPOuBjBNhA5Rzoq7kLdHMXEC61YZJJimfYL9BFNuYeiaUy5sWxpAOOP82QKlOr2
+	 0M3Bcvma1VxoM8/xMJ9J/Kwp6Ct7Q44YRyiQDYcktbN7JqXuCaUeeGTpkyJYlDqnEq6yd
+	 Kqn6ICs9gMu3DQvMQfOpEg5WnFvwXKAO9OO2DNCA0LQk3kUuOpDoRXkOhzk6eZNXJjg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793334495;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=Wj/dMWvg+CDNhErFyJLe4n2dTXyZswYCo05dqZCmf7Y=;
-	b=ZZyjO435X5a/M6iHJ4KJtr+Mv1nZcjkI5MVg448E3ZFxOK6/83CbVpXRGhbtROHg5lzM
-	 vXl142KixUDikjsBn5ICqxxSWYqQEND4uBg0AYd9j5Y/5DGfq7MyYRiE4uMi1zw1+vC1K
-	 dc64PpO/K9g3UdlqsGyPm8ZQA0w7X+jgqjoiW8eurxXi30t602R43KtGXjkNF0dhbn3xp
-	 pUGNlX3oOGEmg5q7OldPMv3NB+Od3P8aEFM4bDgHqgKscXthBghRM6GxHtKgAf6/yKspK
-	 eDOjKsAKjUDg3Wz2wJTLi+/OGEWHAJD+lDiEGIuc7XApvOdPKHmb4lVaCN/jvKZYQiA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 36E7C606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:28:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36E7C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.69.17])
-	by gateway (Coremail) with SMTP id _____8AxYdHVHORqmbgaAA--.12657S3;
-	Fri, 30 Oct 2026 12:28:05 +0800 (CST)
-Received: from kernelserver (unknown [223.64.69.17])
-	by front1 (Coremail) with SMTP id qMiowJAx3c7RHORq114xAA--.37149S2;
-	Fri, 30 Oct 2026 12:28:03 +0800 (CST)
-From: Huacai Chen <chenhuacai@loongson.cn>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	Huacai Chen <chenhuacai@kernel.org>
-Cc: loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Guo Ren <guoren@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Huacai Chen <chenhuacai@loongson.cn>
-Subject: [GIT PULL] LoongArch changes for v7.4
-Date: Fri, 30 Oct 2026 12:27:53 +0800
-Message-ID: <20261030042753.2101956-1-chenhuacai@loongson.cn>
-X-Mailer: git-send-email 2.52.0
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=dfMdAttIlTAY1SwyoPDDYvTzd2E+tXZlYdfQAQrs+6s=;
+	b=pOP97XBP43Gekc4scuAxmGysUscmwSqtfptZbOaFCCjgWcyq6Yi+3ik0nmFmVIjKoqyl
+	 M2Ay3T/5pOHEdSrM8RVAjAgK4jCy64FcAZp6rWYAqnuJbMhaGvzT+fmHcguzyTHKmHISC
+	 /kO/QukkXRNZ3t1jYMAdMps7eKWmBrLc3qLfHXGdC98mZ+whBq5wTQqoeO1AP6UU/F19P
+	 x+eDVy78UaFOs4if/XIJc2PNS4BwbWPkvj/mZ02E7d78TGB5MXGk3VGb327Et8M911ITq
+	 j0WOyZtAGgxklkHSM+IYp6+cJKG6a1GtiZ5TLCxlWtcn33ukf7df9CUFj6iRIseDBEg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TeIehF1V;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E459606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:28:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E459606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TeIehF1V
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e6eb21a8fso82157f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:28:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793334493; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TKDxFIQLAKF/RzY0ZXWxTZLejuRYpWVrfmZ2vIfD9SoTTZ20XxH9jHcpMbgIQ/qSbw
+         6C6lrvsiPKq1vuqRbvhiTgWjQB01DQqdhsWfAza56eA0+dDuJfAJiZIB6Y1TJIl/4+cc
+         1Yg8n3XO/ZLGiDO14GpCxyiLZFMo5L995OP3Oae/GTzX1AXCG1cfbWcgrnyu7UTJPG/O
+         2yrRBS9l151aeG6XcPPLwCRwvCxpwdhJAdaP+Twmskq45Fc4YMitjMNcigLIGFstU49+
+         Kp73ytZTcmf23l8qgpvH4X2XKAcKBj5KAx95okbfXZcS3OBs6ZB/TdbpsT0Q/OZuUwej
+         Lhdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dfMdAttIlTAY1SwyoPDDYvTzd2E+tXZlYdfQAQrs+6s=;
+        fh=pSO/eN0bi9gkK8ifNI90L3Tnmi79R5dZdmrq/V9+Lkc=;
+        b=X3VXO70he66YKxBZsazQI5OzaxG0AJATvwsMxXHrd2Z/nC2GqT2eQMqmRLZOs8Xxf3
+         HhnH/OBeEvORCfJsR/KSpxY7gKB2shfPuDKMeVyEaLK1HazM5n1VAkCAg+h3A4F2CiC/
+         +zJwkiBW5IlVO5HAeZdhXGVMnnPNTgi4O0AFr5ytfMDDxzx1tU0SSrBy3c7OOImnPZO6
+         zY3dlSYwtiextpJSgANeHikwEvxdExE08bI1V/SIkSIY2pHoBq5gfcn3VWmPKAYQ1tSw
+         VudearaStfpk31/nhH4tgIVLOt3whh39TFUQOOnjdmRoZQbCphvGZkK/RCHP4XC9L0ma
+         hk/A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793334493; x=1793939293; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dfMdAttIlTAY1SwyoPDDYvTzd2E+tXZlYdfQAQrs+6s=;
+        b=TeIehF1VsvlgBpGlN+mC7gq4a8kLGDRcAjbUpaoxiRdPzOO/1HKjnDuUKVHhyTi4o+
+         CkyGKW2ZEpH7y9WAjkpNfKLTtu++Pcntnho9T07GUaHn8Hid11kqGfYRfbyptbKq5DRk
+         ojYs9z0JlxsZqazGo51KFCvME6Rpl7NssxD/rG+LGLH0i9si5OUKcjya13x+SMjTCjpl
+         PsKYgwVyHyzC3UDpkBPJmfUP3D1vmEddQwwdtwMWM9Szpzgo1nM0QTThzk8tY8WEg566
+         7saLFlbnjljIrlKhyjugtUNOXS3YNMX6xYUIFpKaUhnr8wchwNJvRn65yBUzM5FC4eQ2
+         S/tA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793334493; x=1793939293;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dfMdAttIlTAY1SwyoPDDYvTzd2E+tXZlYdfQAQrs+6s=;
+        b=EdCMo5NqyZ+6pJrEJWfHycrSlA8bQSgV5Qk48vvDFH3o0UMkDxcB/CIQEVeXYsoYSh
+         re3twTkDVu9isHQfF9Yg8v1SENqMf3pJMo9tZ/V3fPAPc1ehi6gM0ETvxDN/N5A38/ow
+         7ij+CDyU7Li2gNDiMvM3tap0K3uTVLR9kfej+UxZfLY3m5UZMx1qiEsKtn0LJVchoTNZ
+         dEZX7kNaM0AMsbJNnTqkViHmCiHwuKeNX6k2r5Np6OJNNpy1c/h4LaXXEoo6IeKJB3YG
+         gSqly4ciXO2u72JpKuwQMPg+FK2KjD8U/GDa7JlXsUGiRET/475l1A+LvaO4lsHwdm1G
+         Ex0w==
+X-Forwarded-Encrypted: i=1; AKwUvBzObMu3vOWdOaKg4D96Qi8DuHWKd/XdltdGBm2kPqBRju4aXT78kojPozEjYZyKDd+G9MD2X33f9bwjDYs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLyGB9w4kFERoZJNvmvKDNRJr8OkhG4uGQHYP4Rh9JNWHH/TTTp
+	A5k4ua2XAS9fpN6LCw0jWvcl+IKyo5KlqP6jWQAKzQPX0K5XtAKrb6/PmBIpa9NAX/ly8jLTdj1
+	JlEJhW38hoEOlZ2cbU0hNBWzb1Hq+ji8=
+X-Gm-Gg: AYBFou20O61swG3uibn06gs4Cj9dyNIA9iuTFz7GmYtkL/ev1uE7DrnTVemxT3DC0ow
+	9yX/Azf17m5IGtCRwZCJxX/M8OA5+KcNDyx4HHCUbOgLtSFp7DaBVBHcIjPqU5YpOy36B2pMPeC
+	Vw6+cs2gLZXvfmuNDmBwNuuQJ0KV8UChwAPeVk4zf5xKC89vASr/3SUqU1EvH1yJEmwEJfNBiGm
+	HmYjCGb+Z21wLzWP9Iz/iZ1h9CEhWicCAb8PQlWbi3bK/vHFkbAl+vTkUuaHO+aSVPPozlY/rzj
+	oZA8TzHIBFMuvO4sLLCHUurADZ3/Rr7Qt+EsrK/3qvO2tog6sT177p8GOf0p+a3SQVfZMBlBHtz
+	bfjperv0RCniTTvOoJ9KTw4Z54FX58PU5DtBMOwUW9EQCt8oju/HlIqv3Zs1GwEaCkTo=
+X-Received: by 2002:a5d:4d82:0:b0:48b:a21:87f7 with SMTP id
+ ffacd0b85a97d-48e6e4f4ff5mr2056508f8f.44.1793334492948; Thu, 29 Oct 2026
+ 21:28:12 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,143 +104,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAx3c7RHORq114xAA--.37149S2
-X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxCFWkAF1DKF1DuF13AFy3WrX_yoW7Gr47pF
-	W3urn3GF4UGrZxAw1Dt34Uur98tF1xCryaga4ak348CFnF9r1UZr1kXF97XF98A3y5Jry0
-	qrn5Gw1jgF1UJacCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU90b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
-	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y
-	6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64
-	vIr41l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_
-	Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1V
-	AY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAI
-	cVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42
-	IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVj
-	vjDU0xZFpf9x07jepB-UUUUU=
+References: <20261029192223.462367-1-paskripkin@gmail.com>
+In-Reply-To: <20261029192223.462367-1-paskripkin@gmail.com>
+From: Eric Anderson <ejona86@gmail.com>
+Date: Thu, 29 Oct 2026 21:28:01 -0700
+X-Gm-Features: AclHuK8-YtfLQIYf0AJZzk4X-qP015MAb8rXgpTOmu_8xsR17rFa_b31yQUvJ34
+Message-ID: <CAFyMnzbvDVvDuNfYgD26ThSyWDqt5u0TLHxF+Tp4=h8fkyepug@mail.gmail.com>
+Subject: Re: [PATCH] mfd/rk8xx: fix sleep during RCU read side critical section
+To: Pavel Skripkin <paskripkin@gmail.com>
+Cc: lee@kernel.org, mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The following changes since commit c03c1a14507dfaf8b856c2608f9ac216021fc222:
+On Thu, Oct 29, 2026 at 12:22=E2=80=AFPM Pavel Skripkin <paskripkin@gmail.c=
+om> wrote:
+> SPI does not support atomic transfers, so it's dangerous to call from
+> atomic notif chains, since it can cause stall during reboot on
+> orangepi5 (see trace below).
 
-  Linux 7.3 (2026-10-18 13:14:58 -1000)
+For my curiosity, is the hang during reboot/shutdown random or consistent?
 
-are available in the Git repository at:
+You are explicitly mentioning reboot, although the stack trace is for
+shutdown. I'd have expected reboot to have always been broken for you.
+In my change I noticed that reboot and shutdown didn't agree on
+whether to use _PREPARE, and my change adjusted shutdown to agree with
+reboot. Since you apparently need the opposite, prior to my change I'd
+assume shutdown was working but reboot broken.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongson.git tags/loongarch-7.4
+> I don't have rk3288 board to test. However, I strongly suspect that
+> patch does not affect your case.
 
-for you to fetch changes up to 6f8d12bb1a1231dbba579932772701880745a21d:
-
-  soc: loongson: loongson2_guts: Use of_root instead of own reference (2026-10-28 15:09:27 +0800)
-
-----------------------------------------------------------------
-LoongArch changes for v7.4
-
-1, Add LoongArch-specific ACPI initialization;
-2, Set NX compat flag in PE/COFF efi header;
-3, Use pa_to_nid()/nid_to_addrbase() rather than hard-code;
-4, Detect and expose LAMCAS/DIV32 feature existence;
-5, Fix and improve perf hardware breakpoints;
-6, Fix and improve BPF JIT (trampoline and 32-bit operations);
-7, Add arch_crash_save_vmcoreinfo() support;
-8, Some bug fixes and other small changes.
-
-----------------------------------------------------------------
-Bibo Mao (3):
-      ACPI: LoongArch: Add acpi_arch_[late]_init()
-      ACPI: LoongArch: Add support for acpi_iommu_configure_id()
-      MAINTAINERS: Add entry for drivers/acpi/loongarch
-
-Binbin Zhou (1):
-      soc: loongson: loongson2_guts: Use of_root instead of own reference
-
-Heinrich Schuchardt (1):
-      LoongArch: Set NX compat flag in PE/COFF efi header
-
-Huacai Chen (5):
-      Merge tag 'acpi-7.4-rc1' into loongarch-next
-      LoongArch: Call cpu_final_simd() with pure_initcall()
-      LoongArch: Don't init & online empty nodes
-      LoongArch: Use pa_to_nid()/nid_to_addrbase() rather than hard-code
-      soc: loongson: loongson2_pm: Fix build warnings for 32BIT
-
-Krzysztof Kozlowski (1):
-      LoongArch: dts: loongson-2k0500: Drop unsupported bus_id in DWMAC
-
-Kumar Kartikeya Dwivedi (1):
-      LoongArch: BPF: Fix stack arguments for indirect trampolines
-
-Peng Fan (1):
-      LoongArch: Use assign_bit() API where applicable
-
-Rong Bao (1):
-      LoongArch: Detect and expose LAMCAS feature existence
-
-Tiezhu Yang (10):
-      LoongArch: Detect and expose DIV32 feature existence
-      LoongArch: Remove arch-specific __smp_mb__{before,after}_atomic()
-      LoongArch: Remove redundant call in update_bp_registers()
-      LoongArch: Fix bitmask corruption in update_bp_registers()
-      LoongArch: Fix architectural naming typo for CSR_FWPS_SKIP
-      LoongArch: Only send SIGTRAP signal if necessary in do_watch()
-      LoongArch: Fix perf hardware breakpoint failure via installation
-      LoongArch: Fix one-shot limitation for perf hardware breakpoints
-      LoongArch: BPF: Clean up and decouple is32 parameter from move_imm()
-      LoongArch: BPF: Optimize 32-bit operations using native instructions
-
-Yangyang Lian (1):
-      LoongArch: Add arch_crash_save_vmcoreinfo() support
-
- Documentation/admin-guide/kdump/vmcoreinfo.rst  |  36 +++
- MAINTAINERS                                     |   9 +
- arch/loongarch/Kconfig                          |   1 +
- arch/loongarch/boot/dts/loongson-2k0500-ref.dts |   2 -
- arch/loongarch/include/asm/barrier.h            |   3 -
- arch/loongarch/include/asm/cpu-features.h       |   2 +
- arch/loongarch/include/asm/cpu.h                |  66 ++--
- arch/loongarch/include/asm/hw_breakpoint.h      |   8 +-
- arch/loongarch/include/asm/inst.h               |   6 +
- arch/loongarch/include/asm/loongarch.h          |   7 +-
- arch/loongarch/include/asm/numa.h               |   2 +-
- arch/loongarch/include/asm/processor.h          |   1 +
- arch/loongarch/include/asm/switch_to.h          |   2 +-
- arch/loongarch/include/uapi/asm/hwcap.h         |   2 +
- arch/loongarch/kernel/Makefile                  |   1 +
- arch/loongarch/kernel/cpu-probe.c               |  10 +-
- arch/loongarch/kernel/efi-header.S              |   2 +-
- arch/loongarch/kernel/env.c                     |   5 +-
- arch/loongarch/kernel/hw_breakpoint.c           |  66 +++-
- arch/loongarch/kernel/irq.c                     |   3 +-
- arch/loongarch/kernel/numa.c                    |   8 +-
- arch/loongarch/kernel/proc.c                    |   4 +
- arch/loongarch/kernel/traps.c                   |  13 +-
- arch/loongarch/kernel/vmcore_info.c             |  22 ++
- arch/loongarch/net/bpf_jit.c                    | 391 +++++++++++++-----------
- arch/loongarch/net/bpf_jit.h                    |  25 +-
- arch/loongarch/pci/pci.c                        |   3 +-
- drivers/acpi/Kconfig                            |   4 +
- drivers/acpi/Makefile                           |   2 +-
- drivers/acpi/bus.c                              |   2 +
- drivers/acpi/loongarch/Kconfig                  |   7 +
- drivers/acpi/loongarch/Makefile                 |   3 +
- drivers/acpi/loongarch/init.c                   |  16 +
- drivers/acpi/loongarch/init.h                   |   5 +
- drivers/acpi/loongarch/iovt.c                   | 258 ++++++++++++++++
- drivers/acpi/scan.c                             |   3 +
- drivers/soc/loongson/loongson2_guts.c           |   9 +-
- drivers/soc/loongson/loongson2_pm.c             |   2 +-
- include/linux/acpi.h                            |   1 +
- include/linux/acpi_iovt.h                       |  13 +
- 40 files changed, 753 insertions(+), 272 deletions(-)
- create mode 100644 arch/loongarch/kernel/vmcore_info.c
- create mode 100644 drivers/acpi/loongarch/Kconfig
- create mode 100644 drivers/acpi/loongarch/Makefile
- create mode 100644 drivers/acpi/loongarch/init.c
- create mode 100644 drivers/acpi/loongarch/init.h
- create mode 100644 drivers/acpi/loongarch/iovt.c
- create mode 100644 include/linux/acpi_iovt.h
-
+I'll test it this weekend. I suspect it would work fine on Veyron/rk3288.
