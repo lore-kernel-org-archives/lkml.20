@@ -1,73 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793383009;
-	b=vjERWWnHWWAAUvkRyu0u94/P5Uf2EnzZIgew/xAcc1OzMYY78ewvJLZhZp8tWKp8foFb
-	 vKEcnEoiz/BXKqemsgssM6sUS92bE/5734Qwc1d5d3XGTZQhZYaXVygybPcevpC+hNu+X
-	 S8Sv5ytBLE35oPjzXb/T/GHvfRaadEHExaAsPFIYp46UpIybl2qPpxlhOBshk8+CrI3+N
-	 rzSK2FsVIJ5LLEPt76FBm6+iWcMccEpu3buRutali3y3qna7Yf8TkQE6cW86YKFJhgvMb
-	 8AjFM4UF08VOY+On7QjhxSUcz9ynbjA7zqRyj2h9/sSflbAiOyq2vjQ+OtmZ/EViTQg==
+	t=1793383021;
+	b=spYrFEmhnfOFvcemYCmk1MLYTrer8kWBwlO1wyf7rDrLoXgyCzAcEGO160rkmFQzrIhL
+	 Fjl+RtOhFbT9YWdynXBfrUsqTRRwoi8DStvT4byhyBKnf2+rq0ortIOozFwgKF3HlShXD
+	 WGQ1M21Q9m5jb/mzB4ozidUu/1ddOFAFrFE4DaxGxEj/S35ZjuBLU1NBX38u5PRGveWHD
+	 Hb9xn0SkNclXYfQ3GTw4WqEgmnuMWIWv7jic5PAnjPQnCieanMkg72GClb3WHfouTFoK2
+	 qpngH5I5EyVqGZrQT3+6Hxo3CdvaYiqdbm03iYkfY2vVoLBWeJJMhMRPZw4VY1KMW6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793383009;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=Op8zYICo7i9fAwJ8jq9C2vD08V0xXkb4Jiz2z/hRrBg=;
-	b=TBY5NljiWfDwSKZTvjxZxpsav/Buu/iuJcfkN2VMAqn03oOIQd0IHxdIKmP9LbmWG9Jk
-	 /S4mP45bqoe14xOJPQ+pAgcR0i7SYao3fzQrNCcRVYIy9hmDEqo3o9WZY7DHdUbr1pVum
-	 LBaoxMmagkbzAJ6UfwvQcrkCQKivsEtmAnxqxp89K4n1p452uTJY2TWNcWTwHTSMfiYwk
-	 dHoQAiBqyUYgFiZjmEkwGVNmwCyZfr491ZsztH7B6V9Tjht5u9PGmAlzVSimgj0weqE+K
-	 G0nYCGpQ6l6tJZzD3LcClDH08vYREQ9xheJGZ3Odkyu6hR8Ik1S+5hcKlz7vTlOFN7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793383021;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=uDy0pyy8VarHwZfBJ/PxvbJXYlygH1k7PMC/5T92TUQ=;
+	b=jjG6acLdg9qlA+4vptJUJJPzK9meCjQ8gLP24ykQJZosJIDs22XRu+W+BBFha27zb7wK
+	 S12yNOU6o5qlT5KAi6XJMWc7R03tWsix2FdH6PldpPhCn9DKgBDaHsi4EuvNGJakBn2gY
+	 mi5KyLWbRMBeGBixjY+Hz2VI5jqwKDhr4cTSRVqPu1+gm2POfW9PdMaIQ+D+GaO3gOrLa
+	 s6VD/LD1GG5jSygJpk02h5M4OhhqR/kjSkWQGIfm4l2WpSlE+Bgw0DJS3FsVsLZu7Eqt0
+	 udxQ2llDP2AhcH0kzjGUoDMNjNnM9pRSphl+DeH2jiKvDT9prcGyYAjnkaWAhYXTLzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=G6PWqMxi;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=rCWS2cqZ;
+	arc=none smtp.remote-ip=44.202.169.37
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FEDA606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:56:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FEDA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3C4606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:57:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A3C4606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=G6PWqMxi
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Op8zYICo7i9fAwJ8jq9C2vD08V0xXkb4Jiz2z/hRrBg=; b=G6PWqMxi4jsmH5Jmt1koB2PRbH
-	CJmtvp/QsyZp1Py4Fw1bQDLMWX8L1Q4+Q58qIZhmMKFMe97ImY+4spFsxYAKLEkH0CvdbYkDkyAXr
-	CBmON8dtGncsFFNuPfVvJ0yHLFcyK3IIgsuSXmH/UtoXzr9kz8GTps9roS4js82RklYy/m6WWHjQz
-	xz7F4o52wiRW3F4Ruqw0B3qYhqM1nzG+JQ4w6girSz8qAzm5ipxypxarXFhVHVfHYMeZS9PHB4iX/
-	qM9/ToHoRZk2oIkwC4rUjYX+nXck2OIzju5RCn5KEcANoNyGIJ6N/tu1rOlPE4FJwhU79h8tqOnqL
-	TGKjKqTQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xMqqG-003zno-26;
-	Fri, 30 Oct 2026 17:56:41 +0000
-Date: Fri, 30 Oct 2026 10:56:35 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Petr Mladek <pmladek@suse.com>
-Cc: John Ogness <john.ogness@linutronix.de>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Rio <rioo.tsukatsukii@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v1] panic: Flush unsafe consoles before panic reboot
-Message-ID: <auTaBZlNbpm3jgvb@gmail.com>
-References: <20260915100140.3631650-1-ryan.roberts@arm.com>
- <aqqU3I7d9lMAjSvy@pathway.suse.cz>
- <87bj8kkfwk.fsf@jogness.linutronix.de>
- <auHNz09oyGFJPTKg@gmail.com>
- <8733tphow9.fsf@jogness.linutronix.de>
- <auI40MZlSYO0oAAS@gmail.com>
- <87a4nwyiaw.fsf@jogness.linutronix.de>
- <auMmQjcy1A6E0eUm@gmail.com>
- <874ie4y5mw.fsf@jogness.linutronix.de>
- <auNaD8LELWok3LOF@pathway>
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=rCWS2cqZ
+Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
+	by cmsmtp with ESMTPS
+	id MeijxnmcvJFmFMqqZxpwcG; Fri, 30 Oct 2026 17:56:59 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id MqqYxdR6Le0duMqqYxGhlv; Fri, 30 Oct 2026 17:56:58 +0000
+X-Authority-Analysis: v=2.4 cv=KINaDEFo c=1 sm=1 tr=0 ts=6ae4da6b
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10
+ a=3Qouvag4AIL0u_44hBsA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=uDy0pyy8VarHwZfBJ/PxvbJXYlygH1k7PMC/5T92TUQ=; b=rCWS2cqZzHmq
+	FMA/lM16fZZgOstmH0P9FLFNgtdUjcbgn+Hzx6IK0eypveARIh32FcidsydH9p+C5ckxX6/esFpO7
+	mysi3tJg8ocR20qjAlTmEGI3rIWfH9VLlWZASkqeb/HeHZD1+EF6QYTtW8Mn7bh7YAj45xAqBh7XZ
+	cRIcwmYlX1PenaJrYOBuQha7T/G+0kSQyy61wBvuNqb+ooIxbORteCbSTU5fUAaMmwjJo/ftMAkMO
+	p5Q1+HPvWUv11etdD6jor6lVaqQoXAV14rH26Uh6ZkM8uHay+kjiYv1iK+6ie9W338ZeZa+58MJxF
+	RioPAYyZ/s2LFb9f19K85A==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:44134)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xMqqX-00000002x3N-3ig6;
+	Fri, 30 Oct 2026 23:26:57 +0530
+Message-ID: <a1a0582a-271e-44b8-a1ff-2e657e20b33a@roeck-us.net>
+Date: Fri, 30 Oct 2026 10:56:56 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,195 +75,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auNaD8LELWok3LOF@pathway>
-X-Debian-User: leitao
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] hwmon: (asus_rog_ryujin) Fix pump control source
+ on the Ryujin III
+To: Zac Lanzon <lanzonza@gmail.com>, linux-hwmon@vger.kernel.org
+Cc: Aleksa Savic <savicaleksa83@gmail.com>,
+ Edward Blair <edward.blair@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <cover.1790512964.git.lanzonza@gmail.com>
+ <7ca8fe6cd6b4125813613bd4187ff6cdda72e4b6.1790512964.git.lanzonza@gmail.com>
+ <CAPusjWrmKH4wHK6LY7NFi1=+rzDY0uq5N4dgKC4FuUh_=xGhLg@mail.gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <CAPusjWrmKH4wHK6LY7NFi1=+rzDY0uq5N4dgKC4FuUh_=xGhLg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xMqqX-00000002x3N-3ig6
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:44134
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 3
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfAusws2G3IhqIEc4eeZeWhTa1eI3+mWelGwS5/hNWKNI3NTCZT4aFgiyBDbu7DJ+tBQZItrzovHu/P4yAMVLU8fW7Jly9rIeIWTmiefMDU7PyeYufy9+
+ 4pqcUH6bvV+V1UBOPcE2q7VvUrong6LTm0F4pUbnlKPkuPEvCcvSq6j5SpbGUxKlY6RhyGUUB2Z6615CK9Ry1gbFkWk11N4psWAWW6iQz4jwynMVotxO8ROz
 
-On Thu, Oct 29, 2026 at 03:37:03PM +0100, Petr Mladek wrote:
-> Another question is where to call it. I guess the it should be called
-> in two code paths:
+On 10/30/26 10:38, Zac Lanzon wrote:
+> Hi Guenter,
 > 
->    + __crash_kexec() likely after stopping other CPUs
+> Gentle ping on v2 of this series. Patch 1 fixes the pump control
+> source on the Ryujin III and is Cc'd to stable. Patch 2 adds
+> pwm1_enable.
 > 
->     + console_flush_on_panic() after flushing safe nbcon consoles
-> 	the safe way
+> I can rebase onto hwmon-next and resend if that helps.
+> 
+The patches are queued, and I'll push them into my published hwmon-next
+branch after the commit window closes. The first one should actually
+already be visible in the hwmon branch since it is a bug fix.
 
-What about something like:
+I did send a note, but I am having trouble with gmail; it often refuses
+to accept my e-mails, claiming that I am a Spammer. Since I am working
+for Google, I guess they must know ;-).
 
+Guenter
 
-commit de57403441b601af01d92bc03bf0625338d39c80
-Author: Breno Leitao <leitao@debian.org>
-Date:   Fri Oct 30 10:08:01 2026 -0700
-
-    panic: flush unsafe consoles before reboot and kdump
-    
-    netconsole registers with CON_NBCON_ATOMIC_UNSAFE since commit
-    7eab73b18630 ("netconsole: convert to NBCON console infrastructure"), so
-    its write_atomic() only runs from nbcon_atomic_flush_unsafe(). vpanic()
-    calls that right before its final busy loop, after emergency_restart()
-    and after __crash_kexec().
-    
-    A panic that reboots (panic_timeout != 0) or boots a crash kernel
-    therefore never reaches the netconsole target. Neither does an oops that
-    goes to kdump through crash_kexec(), which skips vpanic() entirely.
-    Before the conversion, netconsole was a legacy console, flushed by
-    console_flush_on_panic() ahead of the reboot.
-    
-    Add nbcon_atomic_unsafe_only_flush(), which flushes only the
-    CON_NBCON_ATOMIC_UNSAFE consoles and allows unsafe takeovers on them.
-    Call it on the panic CPU once the other CPUs are stopped, leaving the
-    consoles with a safe write_atomic() alone.
-    
-    In vpanic() it runs after the safe flush, when
-    panic_other_cpus_shutdown() has stopped the other CPUs. In
-    __crash_kexec() it runs after crash_smp_send_stop() and before
-    machine_crash_shutdown(), the order panic() already uses with
-    crash_kexec_post_notifiers.
-    
-    The call does not go into console_flush_on_panic(), because kgdb_panic()
-    calls that before the other CPUs are stopped. It does not go after
-    machine_crash_shutdown() either: on TDX guests tdx_kexec_finish() zaps
-    the shared PTEs there, and netconsole on a virtio NIC would touch that
-    memory.
-    
-    A write_atomic() that hangs now keeps the machine from rebooting or from
-    reaching the crash kernel.
-    
-    Fixes: 187de7c212e5 ("printk: nbcon: Allow unsafe write_atomic() for panic")
-    Reported-by: Ryan Roberts <ryan.roberts@arm.com>
-    Closes: https://lore.kernel.org/all/20260915100140.3631650-1-ryan.roberts@arm.com/
-    Suggested-by: John Ogness <john.ogness@linutronix.de>
-    Suggested-by: Petr Mladek <pmladek@suse.com>
-    Cc: stable@vger.kernel.org
-    Signed-off-by: Breno Leitao <leitao@debian.org>
-
-diff --git a/include/linux/console.h b/include/linux/console.h
-index cb8be9ea4a767b..ebfa259633761a 100644
---- a/include/linux/console.h
-+++ b/include/linux/console.h
-@@ -183,7 +183,8 @@ static inline void con_debug_leave(void) { }
-  * @CON_NBCON:		Console can operate outside of the legacy style console_lock
-  *			constraints.
-  * @CON_NBCON_ATOMIC_UNSAFE: The write_atomic() callback is not safe and is
-- *			therefore only used by nbcon_atomic_flush_unsafe().
-+ *			therefore only used by nbcon_atomic_flush_unsafe() and
-+ *			nbcon_atomic_unsafe_only_flush().
-  */
- enum cons_flags {
- 	CON_PRINTBUFFER		= BIT(0),
-diff --git a/include/linux/printk.h b/include/linux/printk.h
-index f594c1266bfd41..95da3904c0d30e 100644
---- a/include/linux/printk.h
-+++ b/include/linux/printk.h
-@@ -208,6 +208,7 @@ void printk_legacy_allow_panic_sync(void);
- extern bool nbcon_device_try_acquire(struct console *con);
- extern void nbcon_device_release(struct console *con);
- void nbcon_atomic_flush_unsafe(void);
-+void nbcon_atomic_unsafe_only_flush(void);
- bool pr_flush(int timeout_ms, bool reset_on_progress);
- #else
- static inline __printf(1, 0)
-@@ -322,6 +323,10 @@ static inline void nbcon_atomic_flush_unsafe(void)
- {
- }
- 
-+static inline void nbcon_atomic_unsafe_only_flush(void)
-+{
-+}
-+
- static inline bool pr_flush(int timeout_ms, bool reset_on_progress)
- {
- 	return true;
-diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-index d0bd2d0cf8990b..d00a8ce5cb618c 100644
---- a/kernel/crash_core.c
-+++ b/kernel/crash_core.c
-@@ -140,6 +140,13 @@ void __noclone __crash_kexec(struct pt_regs *regs)
- 
- 			crash_setup_regs(&fixed_regs, regs);
- 			crash_save_vmcoreinfo();
-+			/*
-+			 * Flush the unsafe consoles with the other CPUs
-+			 * stopped, before machine_crash_shutdown() tears
-+			 * down what they may need.
-+			 */
-+			crash_smp_send_stop();
-+			nbcon_atomic_unsafe_only_flush();
- 			machine_crash_shutdown(&fixed_regs);
- 			crash_cma_clear_pending_dma();
- 			machine_kexec(kexec_crash_image);
-diff --git a/kernel/panic.c b/kernel/panic.c
-index 91e48d33b7dbbd..e14b1b60828130 100644
---- a/kernel/panic.c
-+++ b/kernel/panic.c
-@@ -723,6 +723,9 @@ void vpanic(const char *fmt, va_list args)
- 		panic_console_replay)
- 		console_flush_on_panic(CONSOLE_REPLAY_ALL);
- 
-+	/* The other CPUs are stopped, flush the unsafe consoles too.
-h /tmp/puf_post.sh kerneltest001.31.atn1 6791 atn1a &); (sh
-/tmp/puf_post.sh kerneltest005.19.atn2 6792 atn2a &)
-/
-+	nbcon_atomic_unsafe_only_flush();
-+
- 	if (!panic_blink)
- 		panic_blink = no_blink;
- 
-diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
-index 5f8afaca886650..a43143eca1a015 100644
---- a/kernel/printk/nbcon.c
-+++ b/kernel/printk/nbcon.c
-@@ -1653,8 +1653,9 @@ static void nbcon_atomic_flush_pending_con(struct console *con, u64 stop_seq)
-  * __nbcon_atomic_flush_pending - Flush all nbcon consoles using their
-  *					write_atomic() callback
-  * @stop_seq:			Flush up until this record
-+ * @unsafe_only:		Flush only the CON_NBCON_ATOMIC_UNSAFE consoles
-  */
--static void __nbcon_atomic_flush_pending(u64 stop_seq)
-+static void __nbcon_atomic_flush_pending(u64 stop_seq, bool unsafe_only)
- {
- 	struct console *con;
- 	int cookie;
-@@ -1666,6 +1667,9 @@ static void __nbcon_atomic_flush_pending(u64 stop_seq)
- 		if (!(flags & CON_NBCON))
- 			continue;
- 
-+		if (unsafe_only && !(flags & CON_NBCON_ATOMIC_UNSAFE))
-+			continue;
-+
- 		if (!console_is_usable(con, flags, true))
- 			continue;
- 
-@@ -1688,7 +1692,7 @@ static void __nbcon_atomic_flush_pending(u64 stop_seq)
-  */
- void nbcon_atomic_flush_pending(void)
- {
--	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb));
-+	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb), false);
- }
- 
- /**
-@@ -1701,7 +1705,21 @@ void nbcon_atomic_flush_pending(void)
- void nbcon_atomic_flush_unsafe(void)
- {
- 	panic_nbcon_allow_unsafe_takeover = true;
--	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb));
-+	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb), false);
-+	panic_nbcon_allow_unsafe_takeover = false;
-+}
-+
-+/**
-+ * nbcon_atomic_unsafe_only_flush - Flush only the CON_NBCON_ATOMIC_UNSAFE
-+ *	consoles, allowing unsafe hostile takeovers
-+ *
-+ * Like nbcon_atomic_flush_unsafe(), but consoles with a safe write_atomic()
-+ * are left alone. Meant for the panic CPU once the other CPUs are stopped.
-+ */
-+void nbcon_atomic_unsafe_only_flush(void)
-+{
-+	panic_nbcon_allow_unsafe_takeover = true;
-+	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb), true);
- 	panic_nbcon_allow_unsafe_takeover = false;
- }
- 
