@@ -1,90 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793326174;
-	b=Jn49QT1JOb0JAURru49k0yIPnx6YrpO0XeJIPQ8rRDgg//NBKEW1eixm7QfbWN5DO66r
-	 fPDsXHCQndCUr0LbAy/Nm2k1X0MPskc0wUdHQhsTb3Xak5+CsDeR3/qRguI67EPV9HiGf
-	 xam+MJRkkAvy2Hr8m31/awa5k+gzJTd6U2FypPzkmxYVVYXJBFPy+qyaueJVhFlolxWas
-	 NW2195QWpNcDturQYftRrG32z5spTdLPMIxhIuIIKOqrJPzyiQP/XU5GKVHeeL6E5oZZ6
-	 ESrdtgheIBZW7hgWlrGTbtDL9wlE5KwyVJ/Ixpk0Tu7Yd0GVpHEZkGaKkD1nJG9f2Uw==
+	t=1793326183;
+	b=RO6QR1Zy0fPnJOJpz5LoptAj/40LxzyXJv47uQKtEXpMvKNd+4kZlaDWvq+nLWMtS8RR
+	 qlCfqs4nfxKu7ciO74+37/bJbLUEUeHTYbkVrAeNRf0fLF37L4ZZMh3khZcbQw+XF1A6G
+	 W6QcsjHcf02WIYpPZc5UadqzaDAxEQ5NRZHI/2J67qAg/MtK34BijoRq9jj1tOI2jaeuU
+	 c0MBkRZ+jpERKMbtg4QG8HIcxMynx/xr6Vit4pninAjjDidx8YNsr3wN9F9F7yiy6a/SI
+	 lvbb/W/P4NmLXT0guuh+P00uICHKjA5h9hRrljdIEsIiAdkjOLdEg37cz+VlCNDcrrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793326174;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793326183;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
 	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3f8Alqi33WDsSDA97+17FwHsG2CjFesCRiSUJANPSrA=;
-	b=ZMJYPV4umakEe+wb81NiTWiEt/D2Bl8hmu6wqmnBNRjs6RxgrmzQbCJonbFI/Cpy9ikQ
-	 nRBF/S0vL/52rr4aT0rITMg+ZQ6z+QrJBx4ZqhXN/AjoDopiJVToy14hotBgbfddLUs0C
-	 TISuSnei+eS/c1HPiJnLjOorSgTT691j4oPlDMNLuRzeWfhOemQCZ3reda7pO/0C77H6n
-	 ZVKAkm8gtnStUtOLcflI0+1Bj592Bd3R6/llU+QdqJghcVe3LUklqqlDUBUvlguCpqOGY
-	 VnZe0AnOjzEaJhJSQ/F/z1c6A1rInswNnSvH4DVf9Ka7bzu+A2mhjdzW4fRVd1kGc3g==
+	bh=htqQfiZcaU1Q+OYy2llukQ4wA43h7/tzpMdfqQO7wGY=;
+	b=fgqYx9feDK+VHT6ZIndldfnsS4gNVvPU48q2Ds8kryZaCSz4pzO4OsmrQSjmEdRQnZlv
+	 KGmpMw33nzAiPhCshGAY8aB9cg2jfgyzZIfWAjS9U0snaIJlB+G2neAtaNSHfQCqIP5Tg
+	 /FoQpr2Rs7ZFWGD2RgIDRiMo3ihVUL3hf7F5tPICMt9fdZhd2l9pk7hNj62JvUCCMGPGm
+	 UUQDN96by/C4bIhB4plSAFZm1Dak/Rj7RPGlW+dnGSvrRhJnZ1REqdOTYvLxh0U2iBa81
+	 TT8804zPZ8JBxWMJLN/zbEKMFSwKwsJKoeynox2NAdP5SxZUbZpBSaY7GGFzmDnCeMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="aInasCI/";
-	arc=none smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=hA06RBTj;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F43606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:09:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93F43606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BFA3606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:09:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BFA3606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aInasCI/
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6ae14eecc64so240774a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:09:33 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=hA06RBTj
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4322d310e7so25701866b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:09:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793326172; x=1793930972; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1793326181; x=1793930981; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3f8Alqi33WDsSDA97+17FwHsG2CjFesCRiSUJANPSrA=;
-        b=aInasCI/p5WI8GihGhrfb2duGO6S8cuFDXr77uIMZeQGwtuxIE+vOIjGEU1NpufX0u
-         cHZlCkg0McClEZhNrwmMUVIFc5WwKjUd975ePqWINW/3oKtlmIvr21vddIU3625onmUN
-         wqAonPfx4ahhnQkDm0pyhqop11zrHsZ1e2hic=
+        bh=htqQfiZcaU1Q+OYy2llukQ4wA43h7/tzpMdfqQO7wGY=;
+        b=hA06RBTjIt4DdpnO8Qyi+/HC61sPFHjb/efW2jJMwNBNpD2faxA0sP3bzRlcf9gbTr
+         wIF4lACFPvN7l8OBUr/94cqvBg9D0LTYcGbP1O/iAIA3skU2q53vdhs0Em+lmdFKkbMl
+         MgXUm4Kn8gGN+ihEia8jYj9CeFiCPQQtETvmM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793326172; x=1793930972;
+        d=1e100.net; s=20260707; t=1793326181; x=1793930981;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3f8Alqi33WDsSDA97+17FwHsG2CjFesCRiSUJANPSrA=;
-        b=DXpHbWoaSvGum1Y7G8CtRwof00hayN9JrKiBqfb0NdWaL9j+syBhkQrb3knd5T7Mqz
-         BSFIiKb4fkztyYuyy/eQli3Q1aX7jNJpgs6HbMWb4RIkllj6tCRM9LTwPomfnZL35+7M
-         rVqDat5LXsuGK5UhDTOmVDdV5QL+7GP25lWI/LykcaVNsDbyIhRjV9L6MnPU6Y0idZsI
-         sOe9tBlcCRhU6blTANylc3tI/DWJw+gL46qI2xWzhHdixrJ0JKbMq3cqA54XimsmBG29
-         8iBLF33CQrRe3Rvbhpbz0+8Af6HFicBNCDgf5jETnhvMslhPpS3iNXu4PBc8XczFRjlx
-         InDg==
-X-Forwarded-Encrypted: i=1; AKwUvBxrLTlehx48UF48PG8zqrVbrwe8hQJpiHjclAWG+wsY01cd1u+RlEFjl07R0f/Bn2veuzZRiC7u5GmtvFk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJP2sYaWaIC2Kt8jJdS0olX5wDHC0ClHs7pHLBVnwuOZ5UA6iSr
-	6Vwa2MnP88Ks7c+xasIBcgPJHGGDLczYp7/g2oK0jMtJ7CeCKpCxgSejFmENCOTlDsaQOHuKvYG
-	QPje9AA2A
-X-Gm-Gg: AYBFou19k7n4Klkyc30aLJTAClmvdZ2FMonkD5IAR80BvTrfhi/lzFR13qIpFREhZz6
-	ryDaKbfurVxi5pyl8LAdwxhZMMTnzSHuq+raVKOE+o6ksboCHKBN4rxMXTpnkyxtaH8qEmccdfC
-	Qaeoe3itWc8QryZSotm/GNfjEOmMaNYph5aHnY2wipitjAt/EdmKZX3Z6BBA2cq90TohdRlpa9+
-	AOC3vlfG8o0B2icbcFzG2ilWKZ5yVGC+HFgev4+veVUm89idQqB8yiEk1YdvS9rA8Tmanzb2Vs/
-	J1TpWEF+uhcqIROhivePxWFfAoBFH6bkJJCZ5N+CucR9doveKgqxnrgw0xjUvA1lFC8DyDIt17J
-	noQmSiUHUl0Nd/iGile8FuvIv/8DgAa72s9SiSbdDhWnRovlbczdu1zVtFaAyZ1gq8NpN0lklNx
-	NPwiuFte8g128/s5b9uzSvdnCXlBosDCKFlR/xpmkf1txs6NT5N9kLo62Y8Bp3JchJThePcF9V9
-	8IGD3Z3tXpQMxXNSoWUek5nnbCIHUt4HnI11qj53LLt4wvPLHEdIQwvyCg9Km6ExecEqKg6gBax
-	eyRzi2wkXF/afMTdFtiw0qq2fVxfN78WZXMu110hZu64Ui2X7Ohw8p1+nL5Z97ObVag31A==
-X-Received: by 2002:a05:6402:1ed6:b0:6b4:d7fb:affd with SMTP id 4fb4d7f45d1cf-6b4d7fbb590mr230707a12.12.1793326171918;
-        Thu, 29 Oct 2026 19:09:31 -0700 (PDT)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com. [209.85.128.41])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4d7b1f836sm169748a12.29.2026.10.29.19.09.30
+        bh=htqQfiZcaU1Q+OYy2llukQ4wA43h7/tzpMdfqQO7wGY=;
+        b=dC572l1Wd5TML785eVfGOpkIX+kuwWWsUVLpCR1k4RByCRsCAwE3L44OgD6Kwm+5Vv
+         n2z/aB0H7FHTeGLrdn49kGAeqkgyFCpMgkkSLMoaSf6r8dEz0VcYKNfy6x/NGzzWYCFT
+         cXBYAiZovfKASawEyNP4n4jFCjTVUOZRmf7flUFdKktZ59LJUW8jx6zk5PQ0P8s2Su3h
+         yn+HbrM5o96aws/7rGuueHSlnXwgcav0wQU6uIfNZAouOugRaJJEKMkyMA9N5qhQGgSG
+         UH5UM0UV3eFa7NinkCqFvd5zUMtHxyq9X7f/N+fWrXqYF0Ta29Zte1EnDRx2Bj/75oAo
+         Jlqw==
+X-Forwarded-Encrypted: i=1; AKwUvByO5kNFr0Mw+fPoCIyZFvUqznDTAcDkpIe7JZ3x4/R9/bsdG/xIyRYaN5TlcgN+3Yk59HEIEPVivaEMeaU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuJApDtHdc7hQ29xiwpqaQ/OLvfDybh4sN/Xdtdohd7S78xIc4
+	f6YLotLn7thxEgE1QxMByOyzAUW7i2BbPQF65f9FXYnqBaVTJch2Q39/hA4POYh0DwvIctlw7pY
+	wyX/ThzOA
+X-Gm-Gg: AYBFou3q+pH4UIi3ax/CNExDOMzHjQgREuSPngQje5ar0lNdJ9XodTx/jf/NGQ0G+Un
+	VrKOGln5B4JkD7g8OHBE1ZhcagYO7oQJOTAD8g/J+Y4XK8+5eysNOCeN6yF42Yd+wJBYgrJrBvj
+	ywpN7zr4qUCyvKvyp7NSKynV1N8JhJS6UjS/atvIHv1Qz4Jhmco9P6QA6b0RVyhjfSE1F1F9CfB
+	vz4TjTdCtoJLrfvVFYAruR/IzGkltgKaZuNvTY0U8av/ikU2lGhwnE6W6V/sskAnH+sO+iN7WJz
+	XBmfHFLnXf8l7UogrmzUnX4Dv4SLgD/any9t2jw70WhI4Fy7FKqymhbWheKYI10CbPvKit9v98n
+	kVD9zr154y/meWoCoUiVAPPzXgSu+jt+Ni8XTe3X3fMroL78x4uq8lHuv/q1/+lSeYNBgfOBrQL
+	zqD7q0NPGdTb5L2c1BtKBPEU/4hs3JZQm7NqRHv+PSOc2ZBcmGFR0E2PExC2jhx4CpsHP+XbF8y
+	xH5H1HNOSDZ4PJb/SfnsFVqRt0xKhVCO1ERYIVkjdt06C4HBr0ACT1gWUGsZs0FQCUFbuoF6KXZ
+	TmoDW9kzijrTaVfQ84/y5GuuJab3ZXgPvo/ohdAylI2C2LgvdgcVT+8UEWqTzjaFS+tU2uIiMAD
+	p9U2wd0maV1kd3Q==
+X-Received: by 2002:a17:907:969e:b0:c41:8e21:4d5a with SMTP id a640c23a62f3a-c4ca793c08emr69940866b.5.1793326180926;
+        Thu, 29 Oct 2026 19:09:40 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com. [209.85.128.42])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabcfd260sm8778266b.22.2026.10.29.19.09.39
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 19:09:31 -0700 (PDT)
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso1424655e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:09:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzadbv4k6Xq03qWy2GIIzHwute5qtHA3v1GzKFjpZmFr7tfmjj1psOCd3FF7MH382R7fQx4H9eb1xCNckM=@vger.kernel.org
-X-Received: by 2002:a05:600c:811a:b0:4a8:c6a0:c08f with SMTP id
- 5b1f17b1804b1-4ac18f529cdmr13893965e9.35.1793326169533; Thu, 29 Oct 2026
- 19:09:29 -0700 (PDT)
+        Thu, 29 Oct 2026 19:09:40 -0700 (PDT)
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so1374755e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:09:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxs1xIcxG0hGY4TnWr1knJpPDo1lybwGjGlWOAF+H7UwG7AlOl1AWDToSP0LhMBjJpnTWOdv7zB12UM4Ao=@vger.kernel.org
+X-Received: by 2002:a05:600c:8712:b0:4a2:8c5:5f2 with SMTP id
+ 5b1f17b1804b1-4ac17a36a1bmr14702615e9.5.1793326178596; Thu, 29 Oct 2026
+ 19:09:38 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,20 +95,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261012-mipi-multi-series-v1-0-6a29add1ec92@gmail.com> <20261012-mipi-multi-series-v1-1-6a29add1ec92@gmail.com>
-In-Reply-To: <20261012-mipi-multi-series-v1-1-6a29add1ec92@gmail.com>
+References: <20261012-mipi-multi-series-v1-0-6a29add1ec92@gmail.com> <20261012-mipi-multi-series-v1-2-6a29add1ec92@gmail.com>
+In-Reply-To: <20261012-mipi-multi-series-v1-2-6a29add1ec92@gmail.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 29 Oct 2026 19:09:17 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=UT-8tXiJ6pCDb5rNqYtjjt8O9BXSnq5_2KdcexypdGfg@mail.gmail.com>
-X-Gm-Features: AclHuK9Lk8qycxKtqnsrnc0uyYp-YXlQDmL0zIXeSRUqf8YmcBt7uHhJBX5-eAg
-Message-ID: <CAD=FV=UT-8tXiJ6pCDb5rNqYtjjt8O9BXSnq5_2KdcexypdGfg@mail.gmail.com>
-Subject: Re: [PATCH 1/4] drm/panel: leadtek-ltk500hd1829: Use mipi_dsi_*_multi()
+Date: Thu, 29 Oct 2026 19:09:25 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UOShh08K6vZHQY_=FqmSQi=MO74GeQPaZNDetSVbKA6Q@mail.gmail.com>
+X-Gm-Features: AclHuK_f9g75ti8K7qR2fIE1JkUyYgkj_TogS1MHsA8138cyXjvt6-AI5zGu4lQ
+Message-ID: <CAD=FV=UOShh08K6vZHQY_=FqmSQi=MO74GeQPaZNDetSVbKA6Q@mail.gmail.com>
+Subject: Re: [PATCH 2/4] drm/panel: kingdisplay-kd097d04: Use
+ mipi_dsi_*_multi(); fix minor bugs
 To: Akash Sukhavasi <akash.sukhavasi@gmail.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
 	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	Heiko Stuebner <heiko@sntech.de>
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -116,58 +117,41 @@ Hi,
 On Mon, Oct 12, 2026 at 9:35=E2=80=AFPM Akash Sukhavasi
 <akash.sukhavasi@gmail.com> wrote:
 >
-> @@ -535,27 +533,17 @@ static int ltk500hd1829_prepare(struct drm_panel *p=
-anel)
->         /* tRT: >=3D 5ms */
->         usleep_range(5000, 6000);
+> The mipi_dsi_dcs_*() and mipi_dsi_generic_write() functions used by
+> this driver are deprecated in favour of their _multi() counterparts,
+> as noted in Documentation/gpu/todo.rst. The _multi() variants record
+> the first error in a context structure and skip subsequent calls once
+> an error is set, removing the need to check the return value after
+> each command. They also log failures internally, making the per-call
+> dev_err() calls redundant.
 >
-> -       for (i =3D 0; i < ctx->panel_desc->num_init; i++) {
-> -               ret =3D mipi_dsi_generic_write(dsi, &ctx->panel_desc->ini=
-t[i],
-> +       for (i =3D 0; i < ctx->panel_desc->num_init; i++)
-> +               mipi_dsi_generic_write_multi(&dsi_ctx, &ctx->panel_desc->=
-init[i],
->                                              sizeof(struct ltk500hd1829_c=
-md));
-> -               if (ret < 0) {
-> -                       dev_err(panel->dev, "failed to write init cmds: %=
-d\n", ret);
-> -                       goto disable_iovcc;
-> -               }
-> -       }
-> -
-> -       ret =3D mipi_dsi_dcs_exit_sleep_mode(dsi);
-> -       if (ret < 0) {
-> -               dev_err(panel->dev, "failed to exit sleep mode: %d\n", re=
-t);
-> -               goto disable_iovcc;
-> -       }
+> Convert prepare(), disable(), and unprepare() to use the _multi()
+> equivalents.
 >
-> +       mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
->         /* 120ms to exit sleep mode */
-> -       msleep(120);
-> +       mipi_dsi_msleep(&dsi_ctx, 120);
-> +       mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> In prepare(), use mipi_dsi_msleep() and mipi_dsi_usleep_range() instead
+> of plain msleep()/usleep_range() for delays between DSI commands, so
+> they are skipped on prior error since the function will clean up via the
+> existing poweroff label anyway.
 >
-> -       ret =3D mipi_dsi_dcs_set_display_on(dsi);
-> -       if (ret < 0) {
-> -               dev_err(panel->dev, "failed to set display on: %d\n", ret=
-);
-> +       if (dsi_ctx.accum_err) {
-> +               ret =3D dsi_ctx.accum_err;
->                 goto disable_iovcc;
-
-nit: In the whole series, I probably would have removed the whole
-"disable_iovcc" label and then changed the above to:
-
-if (!dsi_ctx.accum_err)
-  return 0;
-
-That being said, it's a matter of style and what you have here is also fine=
-.
-
-The patch looks good to me.
+> In unprepare(), keep plain msleep() since the hardware delay must execute
+> regardless of any prior DSI error. This also fixes a bug where a failure
+> in enter_sleep_mode would return early, skipping the T15 delay, GPIO
+> deassertion, and regulator disable, leaving the panel stuck in a
+> prepared state. Because drm_panel_unprepare() does not clear
+> panel->prepared when the callback returns an error, drm_panel_prepare()
+> would return early on the next call, leaving the panel unable to be
+> re-initialised.
+>
+> For the same reason, stop returning the regulator_disable() error from
+> unprepare(). Returning it would leave the panel in the same stuck state.
+>
+> Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+> ---
+> Compile tested only, no hardware available. checkpatch and a W=3D1
+> build are clean.
+> ---
+>  drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c | 53 ++++++++--------=
+------
+>  1 file changed, 18 insertions(+), 35 deletions(-)
 
 Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
-Everything being equal, I'd land it in ~1 week or so.
