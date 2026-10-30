@@ -1,137 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793380199;
-	b=T6LZA/PJTDpW6j2ahWNZ1GtjHNXCMIOhPxjQUq+NIq9ulmQysR4GVE6u1S472YjPWo5A
-	 txXrYNS6nTZwutTkEdD134mj6zDbaBAtMmFi/D1C4JFATusaI0WpXvHiNxpr2mR1w3JdV
-	 X77WPhQ7240rTBTnycGQxChsBb7DHQ/qJ2ILy+U9TxjvLZCVZsa4Ukw8hG8sBrgRPca0Q
-	 gYGLia/Di7rLKNmFmiOWaS+gCv7VQTOZmywHCN1HsznalqYsjD/pdoUxIyvzgh/eU+kWr
-	 +tpw292wl1UNu9PlESigmXqbWOpeIbBPn2ypCuZ/l6mapFLjKD8j+8BosfmwgKZcWvw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793380199;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:From:Subject:To:
-	 References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=H/57nvo8MTnqlDnt44LPogGYFeVmELDFWIZIKo68k0s=;
-	b=1Wl717VFgvA1vEuUn2cFjWExhT0JImBG/AKxnn39tHNKZxlNr6s6P1YJ8ZCTxmWkCS4c
-	 mBSPy8CwVipMMstkwdNYtGbobHorhL4QXoI87Nom9+r19RACQh7PGj1xd5Sinw1x07j4B
-	 BW+RGPhYpG/xEtbYvEs6JDQXYMM+jKcrDNyzOmU6Zl1WrueSMy19dg1ZvjPGfb+SlDHBC
-	 J+JHyg0W4SHgv9yUJTeEbTZqdD8KRF1677k7REZhYQ3JHs22rugij/wtFwwqCiG18L9CT
-	 P5GlY/wzoTuEXKi5YDDupptgrm/GJ+ZiCCZlEJ4CvE25H8KK/X/erWxPVf3ClFltNPg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YpuK7GhD;
-	arc=fail smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793380231;
+	b=LP0ftKm8HnGJyTQGoZBm026yYZDKeK4t1tsVUajshXCQrj30oVBSkPncaDCp7RDmcd4t
+	 7os1IRCPfNfu1y6wzDfveKm6LpGFeafU/OIOF6MAAv1JDjReXzFkRNyFdVG2Qfu2VxCz2
+	 MA45c1ZVDHGyybHs6Vhs35nbUyZLxhesAcq+rVAEBBsXiHudttLwxjIaO1a/wafJL2PcO
+	 6pyXMM19q1cs33Hfx08x2opbS3sGuLJkTvC1hWZVjv8zbDjzuqalW5IFwPo5xBcKYCY/Q
+	 ttwNnHjujkiDthz5Oco1ijc8jz3Fxlj8Sr4uLC2U4SCKhsM8Dtn+EMNuWQSdh67FdjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793380231;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=NqysJ98XcrozyZLY/2WYGT3NbR4IsTCmWWqG8pG6dWU=;
+	b=I1PYrpCab1DjVuq485o4v6fMZu5PMdkOCVidm83uWa+Pui7rSBYfjFSeLQKpps/auZBT
+	 tvDDFlLt9CAx+2Ld3NvKDiujr2UQl9JSTsIik1xEcL1WHs9Hs+BWKn0ThcJUuLyim1rvb
+	 7foJJ01j7nZgW4DCGfxKYEGdPPsomfkpuBIVkAj+V1flpywKyXN0rXIVr3LEiHzMbMf/n
+	 EfPBJeuF7UkfvdduUiwq+7PdyBOIaLwoURzPSZimCbXY0I/6TJmMmbK/UD7zawNir6h6e
+	 hmB4EZSbLag0FvYJM8cDthUulIh0idGNB3DDRmSH9aYsLAAr/iHtlxHzTOjRSR7cuDA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KKc15qTT;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HZMQGyAP;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACB4606A31C;
-	Fri, 30 Oct 2026 17:09:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DACB4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8178C606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:10:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8178C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YpuK7GhD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793380199; x=1824916199;
-  h=message-id:date:from:subject:to:references:in-reply-to:
-   content-transfer-encoding:mime-version;
-  bh=/1Qs/kKk9jvMWJJy3gY8MF2maNgpjeAgnndTg32EjHc=;
-  b=YpuK7GhD3PBLBOb6hKJ80VP8HFy7Bh4oJR5HXYbG2HJ/qqb2ResSwsaH
-   vXyqdjJURVe6fjS4MdlPA8o3RQyK7InWEYR63yD0Gb3tGbaCoeEqW8UIc
-   jX0lSuezxfHdoXDDA5Gjd4xOy3f82h4fzIjxlPBHSg4CiVrxlcjJI4IsY
-   b10CSrpsI7+igyvEtWsHJWR7j//sOLIJ6NzHq4rvQl3me+de9SSvSQULY
-   4x6IUe+mB8yAWo5ub3P/VgaO5CCfL8mWYspqf8AKeHuKpHH9AYYO3Bpju
-   4bNh3+QqObMqtMTKBO9NUuMNvAQtvKCHo46vbB0+IcuU8QSGpK/B50Cs/
-   A==;
-X-CSE-ConnectionGUID: ghhWl0zsR62HFAOlc2juEg==
-X-CSE-MsgGUID: pOtIRFnMQkWTqT/vhh4pdQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2144119"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2144119"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:09:57 -0700
-X-CSE-ConnectionGUID: fmr70KBSQcOravwcHcpvsg==
-X-CSE-MsgGUID: mrroDinkS6KjchgrJ/FqqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5372957"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:09:57 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 30 Oct 2026 10:09:56 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Fri, 30 Oct 2026 10:09:56 -0700
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.15) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 30 Oct 2026 10:09:54 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NJJlrvVGKEhKgohnknTFkXI7mYdjYxl9Ji+hCS7equzr5gOna336bK/ef8ieQHj+++U1UhIJ3uixgxEZT1G76t364vxERniiqDVvBYANRHaZ9X+S9Lh2PT2qVGbDtnjBawIej9Rq8WBoNegycEsLxCbCN/U/YoSzqCVBqS7E5qCCgUjeVNhWkSnOqzR+NOz15gNLRllDSxXHymqkY0kwtaHcodDCpDy5HrMDYWr8NrV2m0Z3cbyJCQmq3ugmPsuDE5Bb5IanNty9s0xBlXqZ0wbeO4Q2a8gC9PNct75ge2v/favnmAzwtEvMm6vjylBXTqRqaUVV3JKIlAsTwmBaIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H/57nvo8MTnqlDnt44LPogGYFeVmELDFWIZIKo68k0s=;
- b=xm5BhGbeIy3GwA78Do+P9/mS2/NXKTH35zpBAWGsxClAPrF82K5w2HhSrPjZ1A23cmvkSwqR70upR/civEOAZ/F7n0VPFVKSKEw6NusfofUQRa3HfkGKRMlbLJrGVP5mso9Lbw0BmF1ujaAUzrAbSZi4BgmYODSd9d96kl3GyYDHnmCQfX7oy6OW+z6OFkXnC/mj0vEZ0HXHlLnsRkxVgr4S/hBRBSic8vhnk4MLBwaGqJQJwi41KdWntw3gDt92xDn9yxYVAIwrV/fNBw6hHgf9YfqJbA6b5mK1vNupxFsqhyK7pGxi/x9dfQ87Xur0NSiOcLGmMlMqEsDY+WimsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
- by PH0PR11MB4917.namprd11.prod.outlook.com (2603:10b6:510:32::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 17:09:52 +0000
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc%6]) with mapi id 15.21.0546.016; Fri, 30 Oct 2026
- 17:09:52 +0000
-Message-ID: <d4a54429-7d45-4936-b5b3-06d8fa8545ee@intel.com>
-Date: Fri, 30 Oct 2026 10:09:48 -0700
-User-Agent: Mozilla Thunderbird
-From: Reinette Chatre <reinette.chatre@intel.com>
-Subject: Re: [RFC PATCH v2 00/19] resctrl: Generalize monitor events across
- resources
-To: Jinjie Ruan <ruanjinjie@huawei.com>, <james.morse@arm.com>,
-	<ben.horgan@arm.com>, <fenghuay@nvidia.com>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <mark.rutland@arm.com>, <corbet@lwn.net>,
-	<skhan@linuxfoundation.org>, <rdunlap@infradead.org>, <tony.luck@intel.com>,
-	<Dave.Martin@arm.com>, <babu.moger@amd.com>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <tan.shaopeng@jp.fujitsu.com>, <jic23@kernel.org>,
-	<zengheng4@huawei.com>, <gshan@redhat.com>, <x86@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>
-References: <20261029123611.1108424-1-ruanjinjie@huawei.com>
-Content-Language: en-US
-In-Reply-To: <20261029123611.1108424-1-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0096.namprd03.prod.outlook.com
- (2603:10b6:303:b7::11) To SJ2PR11MB8370.namprd11.prod.outlook.com
- (2603:10b6:a03:540::20)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KKc15qTT;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HZMQGyAP
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UES6k41954133
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:10:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	NqysJ98XcrozyZLY/2WYGT3NbR4IsTCmWWqG8pG6dWU=; b=KKc15qTTp7wvMKJS
+	/KFhsGFj29Adakf/hPTUfl+XR6VmdIi8WGyziJE63xP+8BCLQWFWclcmWMXv2aju
+	Zo9gXE5HKw0+9cvS+XLfLicLcDLxgYUuSyKts1PppkP3Wwfhlb/0bZP7fEYn5liG
+	0EhWv4rzHB1UCegYw/uzvmD3i8IeXG3F6kWFGaGNtmDRgZmFiSy8J+Ko1e5wkxys
+	5aP8IJ4dkp0/H+PI7xltNDxCb6C/BNW6WXrImN/PvuGKHsWFley0q/NMCiq+kFt+
+	YwvIZ9ZV1F4yjHx5hgKjK2S02sVMtobqa8xIINeJMVQhzPVY1wRO4POjcBklvokr
+	33Zh9A==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6pm5f9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:10:30 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-341eff9e381so2193786eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:10:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793380230; x=1793985030; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NqysJ98XcrozyZLY/2WYGT3NbR4IsTCmWWqG8pG6dWU=;
+        b=HZMQGyAPrnjmlT2QVmzj5nL6s6r5sdBppS8DFUerk/FQiHYU8O40vGxK6jga20SthI
+         T01z9TIJnronunqC/HpuWBEeZtx8kFv4BzbueAgfY8lPR1Qvdum0c81yfSvuFCNrlR25
+         +GBOR3XtVqeGCtALyXKysHjJXm3MScyujP+tZmo9XMtwt+Cz/Z7bnBL0bQOvnILlRTkU
+         h/2wGzEGEBKJMCyY2C6gmL3sM6nwgS98UHwQm26djhzkZZxKlSClxgs76BmsSoZSjap9
+         grzSPR55Sg4n0yjBmSfAe4tw/yvgU3Or5fhJv40NAljVFsqqIu3rTK8htcX3d+4W8ooR
+         0hnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793380230; x=1793985030;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NqysJ98XcrozyZLY/2WYGT3NbR4IsTCmWWqG8pG6dWU=;
+        b=vh3UPp3WlJhuQuRFgRLQlsh+FYYCewkD/g8rUC5Rxd/9lmETp5KsPwldZM1MIkuBsc
+         YpNtQWucFqh//Fomky2fX4/tGuDIPWce5aXIy8VrvyrfH8nLVMTcKf3stC72i8TNdgP3
+         D6oWZw7NkgxMcfd4pI3tpOhtnvZjUtda3YLS1i2BxeMOgDFI8IRiaFvwnN0J65qvzRc8
+         +dQnXP8ECATNgPJAkmaUNHXx7hpKNGTyps/aEFwXVbRNnJxSvU1X0dNyVU9ZSiABtHam
+         9usD3i8+3sDn/8r4dVghemNUGOTye6cNewG2/JaLAljTlWLcd96T7luxqGAt0t6S4gqs
+         bmSg==
+X-Forwarded-Encrypted: i=1; AKwUvBzm3428siJD+YAhltFftZN9c26wOniKoRRy7hub3PouSxm+rEP+K1cZHlMCzrZAxP6Xdjyq3Xt1WmvTGvA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI4TI6wNFCDHeOIwfPOJSHeXF5bUm25faw+G7l2xSOqsFfWOfWe
+	Oe5tRoWS+w6A/W+v/8Cw6IWENkzipdmjraCaRw7umxNgElyLlrpvgw+38m1OODLQN48rfSZfJXy
+	YLhySSG4PPD2CstCBelrrK3OLwvN1U5azML7a5+aDKHpleMrXgZLqjrTjPLogPK3cS+0=
+X-Gm-Gg: AYBFou3v9V1mdcFCEkFm10ZE/WGUUgQ9b9DF6O7r95LnmDQNPJCWJjT+o+OQgqSDzKd
+	WnY8+dWN5EBjoK0WmZXDcxld21L/rCDuNPIeKTEg0v0QqEE8Yav+YtFFhCYNDK5bNBpmNcIpVT9
+	LCOCKKP9NNuZcT2KcHs0Dbd+MrUrmsf1ClzwbzTWxWDD7uLkDOtZiclKtfIupQ49wcvlymIIzGM
+	WqFFHSd87j81vRA4ayUn9PvotMkWDt4fiU4Y4OHcWvXIRx3Lc+9YIF2eWSxSGAA+kBok5qU0sWj
+	J/JcubXc4mHIot4fRploVW69sCgnRatSkHJC0JzF2+5IiEJz3Y3FaxAZ9AA5jx0KdJnmJYLkbCu
+	G6fIvjKPFIE3YOtzrusbNTr6v4xs2Dord6NskKLzDsUN8vnV+Hv/H87HnyAcZiEEWzEn2bZ2KTg
+	==
+X-Received: by 2002:a05:701b:4509:20b0:1a3:9936:d11e with SMTP id a92af1059eb24-1ac5e6007a2mr3643708c88.41.1793380229607;
+        Fri, 30 Oct 2026 10:10:29 -0700 (PDT)
+X-Received: by 2002:a05:701b:4509:20b0:1a3:9936:d11e with SMTP id a92af1059eb24-1ac5e6007a2mr3643671c88.41.1793380229048;
+        Fri, 30 Oct 2026 10:10:29 -0700 (PDT)
+Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac194b5437sm9481168c88.13.2026.10.30.10.10.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 10:10:28 -0700 (PDT)
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 22:39:29 +0530
+Subject: [PATCH v2 8/8] drm/msm: Consolidate msm_gpu_probe into
+ msm_drv_probe
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -141,116 +117,240 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|PH0PR11MB4917:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f8d6aa7-29d3-4d8b-cd1e-08df36a89cae
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|921020|11063799006|56012099006|261009223027099003|261026121527099003|261021121427099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: GYNoFA/IbKHcp8+Ea3TBssBSH5c3mw13hjiqMUvvaXOY/TR2Uvn/nRW5XwHmifeFXW9BvuQq3CZlmqyjgHVgVyKESHgY+4bkHFmA7fwilQWZhc94XGaWgeRw6MsZRX4u33hdzOeSZNRAiiGvHDe6NBIDqGxRzXj6s8v8FEW0IwOr7MXiP0dzROiauJkgRMCtbSBMvLcy9JIA7oXeYpccw20NnMZem/yaKpE+LzaHztCVegRTRb16X/Fj8e9hdWVAm+xIVYU2MsAMz4jQhHKFMW72RTXiBMXxKUGzBv6GN8dYqBE14Tc8DUxiNc+Ga5mdT2QHgvkzKr2u79WMMJmnnLDAE7oEjxZttf4Wypj7nHvjs5F4W6L5/EhNcXTTm+ol1t8766GXKqQDEMVUldodVW2A+7W8I6IPFChVOpSGzY9bJsxQdgGnw2edQiVcyf7YBmHha7hgyI2PluR8puMPtu8MFSNQp45og2rZ0Nfl7U/1+uO+bfpSe5aSE0tRTPqQWsjxTUjW71I/gDy+Iq3BYuUog/0Jn06qSMaIPS9zHmFJvZfknGedKUDlZ9W9CwbirhPH3ebNAJo5nZB4PqQIXa+uo3Di1qdWxX34s7zeN4RKvaeLnkErgIEg/MpK1mgWqHPOX+H6xsJqNgjHlmyoVzIEorytFhy5vy5aA9V56AVdyDOS8OmJFpk6paJEIhSs3ZQF7RrdYZpNT6PMpR3f6w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(921020)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261021121427099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VDdGd0ZQaThtdk5Ddmg0ZXk1RFFqYlpKclBGdThLYmhFVGJSR0hTeEVLc2dB?=
- =?utf-8?B?NG5oRFFCSi93OXFTZGpSYjVibXBBU0hpeXNpV2JpNWFndkFpb29iQ2ROTkJQ?=
- =?utf-8?B?ZzdiSWVhb1BrSnZsSzkvTGJnUVdzQXJRMkJvTVRFWUxXdVRLUEx6NE9kKzJC?=
- =?utf-8?B?N3doOG9KeWlwT01uazRjWkIrL0ZuOVV0aVNmNWJ1ZTZmVjI5STZ1MVc0Mjc2?=
- =?utf-8?B?cDVuOTlDU0lKSmZDNWx0K3lNTzJaUEtZazJmWkJ0OUE4QjZlZjRvWWRMVVhY?=
- =?utf-8?B?VHZYSUtVTlJHZWtxc2RDdE4rMlN2NXJmRnl6ajhnOUpuVnFXY3NheW5nTGJo?=
- =?utf-8?B?RGNvWGNETldIM0UzRWhPSjdQTnllWWtoenhmK001N0ROVTNiaEUxMlo2UTFE?=
- =?utf-8?B?QTFqOEpiVUF2SjhOSE9pa08yVGU1cWVRTEpLSXYxSy9ybnFFMlN3ejVKck9E?=
- =?utf-8?B?MGlUQWEvcDdETXhHYWd0VjlBMVZlck9SSmhnb0FOY0Qxa0EzUEI0QVZaaFd5?=
- =?utf-8?B?Y2ZxRVFEa1lRUVpMTWZISmJwc3oxb3J2NFQwQWFKaW40OVQ2VU52K3BIUGdw?=
- =?utf-8?B?R0VkV2JYdU81aWdpSFdFeFd3VDlxSDNYTXBuSDA4VnR3TzExcWJYdTd2am1a?=
- =?utf-8?B?QzRQN1FOVUNkNkpqbWhwTnU3M3J4d294bzBDN0NCVktKYm8zaDlLaS9wU0dY?=
- =?utf-8?B?TW43VW5VV2taWVVUeVVWUGZzLzk0NTcxQlNuSytsclZMMjM3V1JETFhHTlV0?=
- =?utf-8?B?bmw5ai9QZGNMUG85RlRnMEltT1cvMnNiaXErZEVyN1p1VUZva2p2Qk1uWVJW?=
- =?utf-8?B?NnZadGxyR3hRVi9BR2h3MklVZkZOODFLenJ1Mis5MDVjUkJoNXljVENtWXAy?=
- =?utf-8?B?WERMcHBmZi96SGNaYWl4bXRidGNSSUQwN09HTlBhVTU5bTgzbER3MHNvVnox?=
- =?utf-8?B?eG95ZWZvTVpHU0ZrSTc2YkxVN25KMlcrTnI1Q2NHR1p0bkRQRU9PNzRYNE9B?=
- =?utf-8?B?aERmZldYTllMa1FDQTNFaGM3dnRpUXVjUXBUUlhFUmRqMERLNlhNSmFFZFdN?=
- =?utf-8?B?VFl2WHFvZngrRTJQalJXSUIvbkQ0bktuQVkrY1lPUUxsQXB5MzJZY25VWHoy?=
- =?utf-8?B?dldGQW50SlRNMm9SaWw0U2JaWWxHaVlCZ3VoM2hrSFZaNmdvdEt1OUUzVGs0?=
- =?utf-8?B?WG5JclA4VGwxajJ0MDBlZ09HK1FiOWVBT0JFdUtkZlBUWUFtK0UwKzZ0a1pK?=
- =?utf-8?B?WnhzWjdKOFAwcnJUNkpOSlJ5dlBCMjRDYllrbnVKZ0MxalBTOGlmcGk1eXNs?=
- =?utf-8?B?ZHhSdTNBdm9CZzlhUkdGMmtIdWZuajRDWDlIWGZGc2ZqRkN6NkVZZ1I4T2N6?=
- =?utf-8?B?TzNNckVTRnJNb3ZQS0tQZUhDNXp3QStmYVJqK3lxWldrR3pLNXlmQTFxUWZm?=
- =?utf-8?B?d1JoUVluSE5FR1pLRmkxanhGM2ZiUnNvV09EUy9oVXdZVEw1b2NFdndGRldw?=
- =?utf-8?B?NGk5dEhHZGlzUm02Qm8wSzQ2WHBZUlJKWVBwWncxNjUyc3BjdHE2QmdRMnpF?=
- =?utf-8?B?S0VXdlE2eDMyT09ETlM1TTBPQnUyVThJZ3BYWXlEMk53bHhWUUk1elgyZWpn?=
- =?utf-8?B?SUNTSWFFclNYa2ZseTA4MDBENi81YnE5MHgvVE1neGpaNzc0Q2N1eUZVd3k4?=
- =?utf-8?B?SW1VZzNHdENrZXZ1K3hKckRlSXZzczA0d1pzTFRJSXhZdlkvL0VHSEFqQWZo?=
- =?utf-8?B?QjJKdDlOY2tvWlJXMmpWZ3FOV21ST040UHlHM2NYV3hCZjdyZ2hQQVpmbm94?=
- =?utf-8?B?ektKd3ZLRGRYWW9UYXpyeC9BZFY0QnZzcTBRNnc2K0RTWnJWU3dYZDRGWlJE?=
- =?utf-8?B?VEhmZkJYQU1oOERkb3dCOG1EcHJVN1pBUS92eGRqSURVYVNNL1ptQ0x4S1R1?=
- =?utf-8?B?NTFhUHBsNEdBVnMwVVhQdy9JNFYrWm5MbHVKcHNTR0F3ZnNVdUtqcnpsY2Z3?=
- =?utf-8?B?RE9sWVFyNU9Ba3Vvek52dWJmSTMyUGRqK0VDaXlWdDBmN2RDR2NUdEZVTi9U?=
- =?utf-8?B?bms1NUVzSnR1cG5OU2F2KzZMemJuS1dSeStPTndja3JuWlJQWTRSays1ZjhR?=
- =?utf-8?B?b0Z4SldIcjFhaHMrdGpudFdPOElya0taZTVLcHlMcjQrUGI4L0JLSUVpMHp5?=
- =?utf-8?B?U2pDc245d1hadVhBd2lhNWk5N202Z3VabVMwM2dKb2VaNXg5amwzcUR3TlNX?=
- =?utf-8?B?S1V5QzA4SjFyR3BpSWlTcmVYdWt0UzlJQ3BvKzR1ZjlJT1FqNGI5QmpsaEp4?=
- =?utf-8?B?eDYxUzJqUVlmQVBmS3EzT0p1aXU0M1NrZGx0cjJIcktPVnNGU0tjZjMzV1l5?=
- =?utf-8?Q?uF557SPw8m4rTFBc=3D?=
-X-Exchange-RoutingPolicyChecked: CP4f9tUpS8xkOWRoPrnQRx4JnCdzA8RCpm59EqlAr5No5sn2x5nP4BMBqXi4ww134/sUYwoeIeBa3sI4jtljmIxMdyF2pjk2Cm5TSAmDqKwdWN0ZV8cZzenNgv1nyEmMlCVb6Y5IBBaryvVUKPxd7uIagXZYHAz/tN+JIoHv57/WfHEUma9H1I+HNRkLF4eulBcFQ2d3+/hi55sLbLszp/hfnLLlCm96ZIFtkGR1XKrdBYeaoUYsBYh+0cNrP6mYEV547Y83KSjKhssi7UgBHbeDWbLKT5ztnzhUrwbP/tdUDTXFj7USDobS1hsfyyWUIm/BX5FzOuv6r9HDO7NNHQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f8d6aa7-29d3-4d8b-cd1e-08df36a89cae
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 17:09:52.2032
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: u4wSXCnFrqSUtu8bx3wvOAkdZkeoGwAZmGqusCo8JiMHf/UIg14cgmlJUkiEmJ/AjcusIofOsM5qWOpAiL+GLnDEmArf1qMhPvMbRHZD8nI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB4917
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-gmu-sync-state-fix-v2-8-89d3082d97af@oss.qualcomm.com>
+References: <20261030-gmu-sync-state-fix-v2-0-89d3082d97af@oss.qualcomm.com>
+In-Reply-To: <20261030-gmu-sync-state-fix-v2-0-89d3082d97af@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Ulf Hansson <ulfh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        Akisaira <akisaira@outlook.com>,
+        Vladyslav Tymoshchuk <tvlad744@gmail.com>,
+        Val Packett <val@packett.cool>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Haitao Xu <haitao.xu@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793380169; l=6057;
+ i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
+ bh=sONlzsPT29UAeBqmPTtdX60UvCZl7+AmXROlA7B8TK0=;
+ b=Wan5DlUHIgj5ZMjZoOWy7AETlH0P+Dg0NF03vz5Gx7628wEF7YAS58IASRYgG9b0Oj0QC9OW1
+ 3rbCl83bwGPBFRMRamrvC8W+EJN9jzuEwC+myfjEnILg2WQFy5igWNF
+X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA2OCBTYWx0ZWRfX2mX2694VaAL+
+ iuwxPEyadE6oFnvFk+Fiw0YwBeBqvmoWU8AeATYrkyNlwoc953d+K3V5Kevek/wN7ohkmLghqlL
+ iCNaQqIB90ap/CFguBq6pjpulx2Hk3h1FKBZJ1aDIyPHa/ZWwHeNAm+/B1isKM+6T7nU40cNvuT
+ 78aukK5roUiUf9m4Q+0gMRBwV+D8olsvgCPAeRlRQkmq3tGSk2Bix1hQfkY89LZHvIwyi1so/3a
+ mZhS9/1oKfTDSY4bsPONerh7ErrhMwEj0le8ofCJ0XmlVqEp2Xp7e3WX6VYUg1NhCHLHRRk4ib2
+ 6pT23MI+KLy2bCcTKSXwSrGI8hC6Pwif2J+boFiB+Ry1L7/FGpzp4iz/Y4EP9Zz1hE6sNDd8AG5
+ VHfI8xK0+C09mReXwQaMf6rOogtPEnReyZnDsBuDnueVCM0/6dAoe6eH7M3dxVq7S3ZIGSEbEs+
+ lvzxi69l+l8Y8me/axQ==
+X-Proofpoint-ORIG-GUID: JE0dRfMidh90yRjt2N2y_cAJlLRol0jk
+X-Proofpoint-GUID: JE0dRfMidh90yRjt2N2y_cAJlLRol0jk
+X-Authority-Analysis: v=2.4 cv=AJ83otAg c=1 sm=1 tr=0 ts=6ae4cf86 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=2p9jR3MHfXHM8ZZsoHgA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA2OCBTYWx0ZWRfXzAPquc07LBpl
+ jy2ZD933IsZpd+eUnwYQX6FPinmaQTPMdYhJbcyb0ufO2wJCtOTOBNN76J7B7ek4zdT/wwozLDW
+ VIRUm4+ZE96xqlMUy/kMfLdYUdz+lhU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 bulkscore=0 phishscore=0 malwarescore=0
+ lowpriorityscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300068
 
-Hi Jinjie,
+From: Haitao Xu <haitao.xu@oss.qualcomm.com>
 
-On 10/29/26 5:35 AM, Jinjie Ruan wrote:
-> Resctrl only knows about monitoring at the L3 scope. MPAM monitors are
-> attached to a resource in an MSC, and firmware says which cache level that
-> resource is. The driver already finds L2 monitors, but resctrl has
-> nowhere to show them.
-> 
-> This is not MPAM specific. RISC-V can also place monitors at several
-> points in the system.
-> 
+msm_gpu_probe() duplicates the setup already done by msm_drv_probe():
+allocating msm_drm_private, setting the DMA mask, scanning for GPU
+components, and registering a component master.
 
-One key to this is in the first sentence of this cover letter: "Resctrl only knows
-about monitoring at the L3 *scope*.".
+Reduce msm_gpu_probe() to delegate to msm_drv_probe(dev, NULL, NULL) and
+drop the now-unused msm_gpu_drm_{bind,unbind,ops} helpers. Extend
+msm_drm_bind() to select msm_gpu_driver when kms_init is NULL, and relax
+the add_gpu_components() guard in msm_drv_probe() to always run for
+GPU-only callers.
 
-When it comes to exposing monitoring data to user space resctrl has been using "L3"
-interchangeable as resource and scope. 
+Signed-off-by: Haitao Xu <haitao.xu@oss.qualcomm.com>
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  2 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c |  3 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  3 +-
+ drivers/gpu/drm/msm/msm_drv.c            | 61 +++++++++-----------------------
+ drivers/gpu/drm/msm/msm_drv.h            |  1 +
+ 5 files changed, 22 insertions(+), 48 deletions(-)
 
-The existing resctrl user interface already establishes that the "L3" in
-"L3_MON" and the per monitor group "mon_data/mon_L3_xx" refers to the L3 *scope*,
-not the L3 resource. More specifically, consider the existing user interface:
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index c044d3c9737a..4e5ba85317f6 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1423,7 +1423,7 @@ static int dpu_dev_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	return msm_drv_probe(&pdev->dev, dpu_kms_init, &dpu_kms->base);
++	return msm_drv_probe(&pdev->dev, NULL, dpu_kms_init, &dpu_kms->base);
+ }
+ 
+ static void dpu_dev_remove(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+index c299fef1a400..ad08a040982f 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+@@ -553,7 +553,8 @@ static int mdp4_probe(struct platform_device *pdev)
+ 	if (IS_ERR(mdp4_kms->lut_clk))
+ 		return dev_err_probe(dev, PTR_ERR(mdp4_kms->lut_clk), "failed to get lut_clk\n");
+ 
+-	return msm_drv_probe(&pdev->dev, mdp4_kms_init, &mdp4_kms->base.base);
++	return msm_drv_probe(&pdev->dev, NULL, mdp4_kms_init,
++			     &mdp4_kms->base.base);
+ }
+ 
+ static void mdp4_remove(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index 40b4415c0fba..067e23fb9649 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -858,7 +858,8 @@ static int mdp5_dev_probe(struct platform_device *pdev)
+ 
+ 	mdp5_kms->base.base.irq = irq;
+ 
+-	return msm_drv_probe(&pdev->dev, mdp5_kms_init, &mdp5_kms->base.base);
++	return msm_drv_probe(&pdev->dev, NULL, mdp5_kms_init,
++			     &mdp5_kms->base.base);
+ }
+ 
+ static void mdp5_dev_remove(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index c3b6a5f8f54e..9eb5d182eaed 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -1129,10 +1129,17 @@ static int add_gpu_components(struct device *dev,
+ 
+ static int msm_drm_bind(struct device *dev)
+ {
+-	return msm_drm_init(dev,
+-			    msm_separate_gpu_kms_components() ?
+-				    &msm_kms_driver :
+-				    &msm_driver);
++	struct msm_drm_private *priv = msm_drm_get_priv(dev);
++	const struct drm_driver *drv;
++
++	if (!priv->kms_init)
++		drv = &msm_gpu_driver;
++	else if (msm_separate_gpu_kms_components())
++		drv = &msm_kms_driver;
++	else
++		drv = &msm_driver;
++
++	return msm_drm_init(dev, drv);
+ }
+ 
+ static void msm_drm_unbind(struct device *dev)
+@@ -1146,6 +1153,7 @@ const struct component_master_ops msm_drm_ops = {
+ };
+ 
+ int msm_drv_probe(struct device *master_dev,
++	struct device_node *gpu_np,
+ 	int (*kms_init)(struct drm_device *dev),
+ 	struct msm_kms *kms)
+ {
+@@ -1169,8 +1177,8 @@ int msm_drv_probe(struct device *master_dev,
+ 			return ret;
+ 	}
+ 
+-	if (!msm_separate_gpu_kms_components()) {
+-		ret = add_gpu_components(master_dev, NULL, &match);
++	if (!kms_init || !msm_separate_gpu_kms_components()) {
++		ret = add_gpu_components(master_dev, gpu_np, &match);
+ 		if (ret)
+ 			return ret;
+ 	}
+@@ -1189,51 +1197,14 @@ int msm_drv_probe(struct device *master_dev,
+ 	return 0;
+ }
+ 
+-static int msm_gpu_drm_bind(struct device *dev)
+-{
+-	return msm_drm_init(dev, &msm_gpu_driver);
+-}
+-
+-static void msm_gpu_drm_unbind(struct device *dev)
+-{
+-	msm_drm_uninit(dev);
+-}
+-
+-static const struct component_master_ops msm_gpu_drm_ops = {
+-	.bind = msm_gpu_drm_bind,
+-	.unbind = msm_gpu_drm_unbind,
+-};
+-
+ int msm_gpu_probe(struct platform_device *pdev)
+ {
+-	struct msm_drm_private *priv;
+-	struct component_match *match = NULL;
+-	int ret;
+-
+-	priv = devres_alloc(msm_drm_priv_release, sizeof(*priv), GFP_KERNEL);
+-	if (!priv)
+-		return -ENOMEM;
+-
+-	devres_add(&pdev->dev, priv);
+-
+-	/* on all devices that I am aware of, iommu's which can map
+-	 * any address the cpu can see are used:
+-	 */
+-	ret = dma_set_mask_and_coherent(&pdev->dev, ~0);
+-	if (ret)
+-		return ret;
+-
+-	ret = add_gpu_components(&pdev->dev, pdev->dev.of_node, &match);
+-	if (ret)
+-		return ret;
+-
+-	return component_master_add_with_match(&pdev->dev, &msm_gpu_drm_ops,
+-					       match);
++	return msm_drv_probe(&pdev->dev, pdev->dev.of_node, NULL, NULL);
+ }
+ 
+ void msm_gpu_remove(struct platform_device *pdev)
+ {
+-	component_master_del(&pdev->dev, &msm_gpu_drm_ops);
++	component_master_del(&pdev->dev, &msm_drm_ops);
+ }
+ 
+ static int __init msm_drm_register(void)
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index e70fd617f1e0..b65702ac0140 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -532,6 +532,7 @@ void msm_kms_pm_complete(struct device *dev);
+ int msm_gpu_probe(struct platform_device *pdev);
+ void msm_gpu_remove(struct platform_device *pdev);
+ int msm_drv_probe(struct device *dev,
++	struct device_node *gpu_np,
+ 	int (*kms_init)(struct drm_device *dev),
+ 	struct msm_kms *kms);
+ void msm_kms_shutdown(struct platform_device *pdev);
 
-# find mon_data/
-mon_data/
-mon_data/mon_L3_00
-mon_data/mon_L3_00/mbm_local_bytes <=== monitoring data associated with MB resource at L3 scope
-mon_data/mon_L3_00/mbm_total_bytes <=== monitoring data associated with MB resource at L3 scope
-mon_data/mon_L3_00/llc_occupancy   <=== monitoring data associated with L3 resource at L3 scope
+-- 
+2.55.0
 
-Associating the monitor events with the L3 resource was an implementation choice
-that was convenient at the time. Since L2 can similarly be used interchangeably for resource
-and scope associating the L2 scope monitoring with the L2 resource may similarly be convenient
-when considering how to support L2 monitors as is done in this series.
-
-Even so, I do not believe that associating monitoring with the resource will be
-able to cleanly support all MPAM monitoring capability. Specifically the upcoming CPU-less
-memory bandwidth monitoring.
-
-As I see the plan at this time: CPU-less memory bandwidth allocation will be
-backed by a new MB_NODE resource. For these systems the expectation is that their
-monitoring data will be exposed to user space via NODE scope and will appear to user space as:
-
-mon_data/
-mon_data/mon_NODE_00
-mon_data/mon_NODE_00/mbm_total_bytes <=== monitoring data associated with MB resource at NODE scope
-
-The cover-letter is titled "Generalize monitor events across resources". As I see it such
-generalization does not prepare resctrl for all MPAM monitoring capabilities. Could this
-work do so?
-
-Reinette
