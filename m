@@ -1,63 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793399851;
-	b=dsR1J0vA0+gVCqT0bWq0Qwy/yBOJkowU4R+LL2evjzLqsScVYKNU6GK8AKDJ2QgDlOwp
-	 vGswXGj/6XMTsmV2aU0dc2epAbwdKgE9FwbwDzTwVmwwuueJI51VOb26zdyLURNaZG+5A
-	 m40bLpUJjd4vSKhcf4pGIQ03IWwabycmCCl3ADdKsJ1EuAxy2KdxtE4pGYMZnqdS+hZ2I
-	 ODNlJe3l1eCRM/JJvR5Brks1c5g2eNW5xnRSLUm1eh02KtwpWf9Tn5WtRozN8XyGWUm6l
-	 CQArWLLqJh4QvAqpaQUQ/ISxxfimlna3BS0UGdJ4M1+s+oGwqxSFqFgUscEuasnP/CA==
+	t=1793399844;
+	b=fRGvmc8py9Hfd3DIGmYFkgtrw2gv0yOk8YifwiAmyW18ENbAwMwuOKGFGk5G+hy6blSJ
+	 opvH6heXjmfYP0UI3GzokfyQ7yOJZHyJ8KqipDPOzVobF4r8tGiIYErvCA9351FePJWPC
+	 j5jzDynRZ6p0Hn2YRA70aaom2FC17SdzZWMAPzhHKCMuRbnjeonAzOtevKQ9UO0v1cZ1K
+	 5UQpcU4LsKOb0EHAGZJijji73/3e9BGt5a53SB7BK0mLyZwLb2yVxFRiGRItpKzPCA2LJ
+	 0EaD8lmCltVvWC+VgDUjr7XKUV0mwQ2wV7b9NSL1QtsPZ/kGfg1FNUrOY1Eb83xbEmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793399851;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=+sqLCTFb2rZvl++UOEeIoI/M0lZyfTBxYwkFXS/6vDs=;
-	b=mx58IxCpK3CSSeF7CumtEmIslTgom9enuScdvGxwvQp2YkhmNmKbB/RgITvxIjQ2SHiw
-	 0mLLikQkZXTRkyNOyqyIi6oBhrJ4GOOJOc5a0by2cNQzR/L6ZAg4IAS/RV3UrPjrL/7LY
-	 v5DYIE0jWyS2ErIdeR03OR/DZOFQMBCdwGgGLnQgrF8ZkPo97O9FtXYEdV7kkokGsLGeg
-	 flBahlh2FArdX+8Rd8QwcKpryzriZJWm+UZk9VXwKcsZsgXatfIOevdLuZiA+iCjefCtt
-	 W1OsUVrVosOlynobxoY+rbZuqUerstSK4ZA3Gh+7pTO0aRAdd8jFeqzs47w8l6jd/hA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793399844;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=bn9sP7pOkBKUuF5Aq7GK16TVx6Ldega12jAxTTo8a7Q=;
+	b=BiOwg9ShfliBWXOOLX1s7d1AB9JmfyMqvYFv1DtCycB3ijRPVz6vky5AdR4GmI0H/t5v
+	 xjhDcWCjJr+zfMZypsu+uRjx24nMb1mV7MYkOz7Uq4H5noirdTwx6B73YTZxcocZ3wpys
+	 AQR4Sxhmyv+hzoZYqadNS5aTI3Q80MFL0ge8tUFWF0uELfWRyufe+0mTTWNFKQ0K88YD1
+	 zFyLkJ2Pm0umbpGrQN0VWf79rbMqdoifXiP7+Ps+AMmqXocBagqVymxWQZ1zjOn21bKyL
+	 bT6AtPOW6JLhp4beyhMMfMlGUBHvXjZKVzlBreS+8yZNrGP8U1PDZJTk5EWmVUzKt5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fHZT9LvL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Pifx0fcG;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CA5606A322;
-	Fri, 30 Oct 2026 22:37:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7319860A380F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:37:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7319860A380F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fHZT9LvL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B0E1F00A22;
-	Fri, 30 Oct 2026 22:37:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793399839;
-	bh=+sqLCTFb2rZvl++UOEeIoI/M0lZyfTBxYwkFXS/6vDs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fHZT9LvL2Ae6st1P9jn81ucQEICDvtnmRt/2l4JXMuH0bySwmaU9k3OPvbHUhQ1DG
-	 5G3DNWwOZq2dZZwOjqQSFvqKFYzfGsJGCyn9xqXq7q6HPTYXz9MpQbkY1H7HwwdwJ6
-	 Z5UEFjwdAobIJxbFpeI5kwiiw5IIo8zcTjitGxcyTyyBxwGntnAIABmoRkhBiChqVZ
-	 suF8BLBEcoNUmHhZc7NQVOYrrKbc4af22CpqLmJh/i+OEDzgp0ScGN1l09NSK6ms+U
-	 hSbZzSVJtlU8rRxfeb7DHwFzle9GVC/03tu2okHm/BWgu73EaoJ6ni6xSJ8KgpIcJT
-	 QINRj+N5JCOuA==
-Subject: Re: [PATCH net] net: sparx5/lan969x: release the in-flight slot of a
- stale TX skb
-From: netdev-bot+sashiko@kernel.org
-To: daniel.machon@microchip.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, Steen.Hegelund@microchip.com,
- UNGLinuxDriver@microchip.com, richardcochran@gmail.com,
- horatiu.vultur@microchip.com, netdev@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 30 Oct 2026 22:37:18 +0000
-Message-ID: <179339983815.3131.4933059375204484548@kernel.org>
-In-Reply-To:
- <20261029-sparx5-ptp-stale-tx-slot-v1-1-ec15f391bbb7@microchip.com>
-References:
- <20261029-sparx5-ptp-stale-tx-slot-v1-1-ec15f391bbb7@microchip.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Pifx0fcG
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48dfaa3fa12so1378847f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:37:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793399843; x=1794004643; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bn9sP7pOkBKUuF5Aq7GK16TVx6Ldega12jAxTTo8a7Q=;
+        b=Pifx0fcGwSiAi84R/0GyOiDP/sPeKP90ZZvgVbVXOHsH2qGKD3XFyMbA174DfwERc9
+         mG7RpOYhEBdiVa5MQwQ2Fme1LYeS+0lcFcOUFqtQpDpOYCbA7vCLiaioq+aSMxVYgozA
+         rzPrC/wQHbzD+V5Cp4+6VP4QjFzLgAMclAXOYTOfc6wxUVIP1UfPLNDGVVgkv1Ubg97j
+         KAnY2zewv1DCOTO6++QBv/5OWrFzyqKCWx/mzTjVjMBZ3iwvYKTUtg6Kn1BYIcn+OxYg
+         9ewL3rsL+yLP/jmv2l3u23dQMWIrylSv2IiLB4ZboKEB340ga9xp7o/cgDHDPTkxy5mK
+         CDbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793399843; x=1794004643;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bn9sP7pOkBKUuF5Aq7GK16TVx6Ldega12jAxTTo8a7Q=;
+        b=LHWn3qn+/BAcYwi2V1oiEFWQQw5p9s3p9FxVuJsYk9rwj8mh42GzSdt1F97l/uX/G+
+         6loC38qZ+GUv+Zc7CZvCroYRNXRMzMVw5u9dCdTmfcSzptgCzx481oCcaXffIbj0W4mR
+         w+Jz3Hm3gO16w8ZTMYlmWptS0pdLk/KLbknhry83U8vLW9+mhLmilQn7sFlaOjR2xKcj
+         T1IdCo2HwsHhpxGsu9IkgyrHWSHfGdjlCa9u259ZuGYZeVO3EolxyipQNPW0KKzWufjd
+         Clz7HSkHObvIG/rokrTZ3G1VZrMY0/niQ+zfDYNT309ISMkHIhgiUj9HlB4i3vaIlJqc
+         a0Cg==
+X-Forwarded-Encrypted: i=1; AKwUvBwtZs0K8FM5pOvaSPJWNsLvMC/OXDNcaop2bGAEEijM578+qOnIhRrThOL7GxCTq+YskOZhfs9lpMvd3wg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRfKcaR6IIhvBBoCy9E1Ku4X7lQMmMuVnXrMJF1pA3pDmiiXhn
+	PwHaxxDkv6NMTmRSQcxWIjMOkrzU4jRQWZQBuHEN7TeBBu0knWR4Gg2+C+b2lCwtazA=
+X-Gm-Gg: AYBFou2Wb1CjRkNR9UG5if/DdRA54Igbx6AKuAWCao0eoT7EsaPzP3HVM3eYc2y76mf
+	93SDgRahnamY1dFnmtAIKysMVg9bSCbuk2bjIWV6tG4zwVQ34lvuJ9J6Ol/yPtTcJkcDcg1sx/I
+	6C2aPm1/6jOAyOR9/UPVHrsIZOzc9afGrbxLZsow2Z0m/oL9ij2HROwkUy/GnRj/F/uBkfWgvOH
+	0wtovUAtqImqNwN9Dmbtisxo8c2oCOUFzjYz9i8Dgcmp0H6G53YRM7F1/uPCKKXxfm97s9vYcoP
+	SgmVQ/KLwE02B/oYI48MBc4M9+Ii5UBPmPegbPVXWqBGdrGyvsGWaa0ge9P3D+vJGaP7Z7xO7kZ
+	RUNmjDmneadcmN2ZcDp/QFT5MUuxdUq/Jawbb1bew0ab/YeUlz4HHfy0HeRwJCDK9hBk3eBUnXH
+	Ls816cOwF7hz744GO/ATNTOLoEJYiv0t3PTgLo+pKzq9kT93EZJWG3N6ITFyJFEvobaW8BQYe8L
+	RsT4fHG81VwtuP2Ub9ZjOvV+CEscPtf95Qb3Dvow6GsJNAv3pAgTITrEm9BY/H/Txyp/ilMrzV+
+	tjUlGWaQmHJx69/PjU2Uzto383wf
+X-Received: by 2002:a05:6000:1146:b0:48e:d40:a87c with SMTP id ffacd0b85a97d-48e64bba760mr13304359f8f.16.1793399842774;
+        Fri, 30 Oct 2026 15:37:22 -0700 (PDT)
+Received: from m2.. ([37.142.145.227])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e71b959c1sm5457300f8f.45.2026.10.30.15.37.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 15:37:22 -0700 (PDT)
+From: Michael Zaidman <michael.zaidman@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>,
+	Germain Hebert <germain.hebert@ca.abb.com>,
+	Christina Quast <contact@christina-quast.de>,
+	Rio Liu <rio@r26.me>,
+	Bruno Giacomazzi <brunoceg1@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Zaidman <michael.zaidman@gmail.com>
+Subject: [PATCH v2 12/15] HID: ft260: i2c: abort in-flight transfers with STOP before reset
+Date: Sat, 31 Oct 2026 00:36:34 +0200
+Message-ID: <20261030223637.86907-13-michael.zaidman@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261030223637.86907-1-michael.zaidman@gmail.com>
+References: <20261030223637.86907-1-michael.zaidman@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,266 +111,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+A transfer that ends without STOP leaves the FT260 I2C controller
+with BUS_BUSY set. I2C reset (AN_394 section 4.4.15) restarts the
+master but, with the driver still bound, status stays 0x60
+(CTRL_IDLE | BUS_BUSY) even when SCL and SDA are pulled up. The
+next START then fails with 0x72 (arbitration lost + error) and
+further resets do not recover; only a USB replug did.
 
-Critical: 0 (1) · High: 0 (2) · Medium: 1 (1) · Low: 0 (1)
+Add ft260_i2c_abort(): a STOP-only write (flag 0x04, zero payload)
+then FT260_SET_I2C_RESET. Use it wherever the host tears down an
+open transaction:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+  - read wait timeout
+  - read status check failure after the HID report arrived
+  - write status poll failure after the report was sent
+  - SMBus block read with an invalid count (count phase has no STOP)
 
-- [Medium] This patch adds a second ptp_skbs decrement path that is not
-  coordinated with sparx5_ptp_txtstamp_release().
+Leave ft260_i2c_reset() alone for HID output failure (the request
+may never have reached the controller), sysfs i2c_reset, and probe.
 
-Pre-existing issues:
-- [Critical] Double free and use-after-free of two-step PTP skbs that go
-  through the drop path of sparx5_port_xmit_impl().
-- [High] Use-after-free in lan969x_fdma_tx_clear_buf()
-  (lan969x/lan969x_fdma.c:70-77) for two-step PTP skbs.
-- [High] sparx5_ptp_txtstamp_request() adds the skb to port->tx_skbs with
-  skb_queue_tail() (sparx5_ptp.c:255), which takes and releases…
-- [Medium] Stale skbs, and their global ptp_skbs slots, are aged only
-  when the same port issues another two-step request.
-- [Low] The 10 ms SPARX5_PTP_TIMEOUT used by
-  sparx5_ptp_txtstamp_old_release() treats a frame held in an egress…
+Tested on a UMFT260EV1A with a 24LC512 at 0x51. Five 1 ms read
+timeouts each followed by STOP+reset left bus_status 0x20; raising
+the timeout to 25 ms on the same loaded module then read 16 bytes
+successfully.
 
---
+This matters more with the 25/75 ms completion timeout from
+"HID: ft260: i2c: reduce driver module loading time", which makes
+read timeouts more likely than mainline's 5000 ms wait.
 
-net: sparx5/lan969x: release the in-flight slot of a stale TX skb
+Signed-off-by: Michael Zaidman <michael.zaidman@gmail.com>
+---
+ drivers/hid/hid-ft260.c | 43 ++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 36 insertions(+), 7 deletions(-)
 
-This patch makes sparx5_ptp_txtstamp_old_release() return how many stale
-two step TX skbs it freed. sparx5_ptp_txtstamp_request() then subtracts
-that number from sparx5->ptp_skbs under ptp_ts_id_lock. Without this, an
-skb whose timestamp never arrived kept one of the SPARX5_MAX_PTP_ID
-in-flight slots forever.
-
-> diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c b/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c
-> index 2826e48af1033..9f61692b243b7 100644
-> --- a/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c
-> +++ b/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c
-
-[ ... ]
-
-> @@ -217,8 +218,11 @@ static void sparx5_ptp_txtstamp_old_release(struct sparx5_port *port)
->  
->  		__skb_unlink(skb, &port->tx_skbs);
->  		dev_kfree_skb_any(skb);
-> +		purged++;
->  	}
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but can this walk free a two
-step skb a second time?
-
-In sparx5_port_xmit_impl(), sparx5_ptp_txtstamp_request() has already
-queued the skb on port->tx_skbs and incremented ptp_skbs. If the backend
-then fails with anything other than -EBUSY, the drop label only frees the
-skb:
-
-drivers/net/ethernet/microchip/sparx5/sparx5_packet.c:sparx5_port_xmit_impl() {
-    ...
-	if (ret == -EBUSY)
-		goto busy;
-	if (ret < 0)
-		goto drop;
-    ...
-drop:
-	stats->tx_dropped++;
-	sparx5->tx.dropped++;
-	dev_kfree_skb_any(skb);
-	return NETDEV_TX_OK;
-busy:
-	if (skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP &&
-	    SPARX5_SKB_CB(skb)->rew_op == IFH_REW_OP_TWO_STEP_PTP)
-		sparx5_ptp_txtstamp_release(port, skb);
-	return NETDEV_TX_BUSY;
-}
-
-Only the busy path calls sparx5_ptp_txtstamp_release(). On the drop path
-the freed skb stays linked on port->tx_skbs.
-
-On sparx5, sparx5_fdma_xmit() returns -EINVAL when the TX ring is full:
-
-	if (!fdma_db_is_done(fdma_db_get(fdma, fdma->dcb_index, 0)))
-		return -EINVAL;
-
-On lan969x, lan969x_fdma_xmit() can return -ENOMEM from
-pskb_expand_head(GFP_ATOMIC) or on dma_mapping_error().
-
-The next two step xmit on that port, at least SPARX5_PTP_TIMEOUT later,
-would reach sparx5_ptp_txtstamp_old_release(). It would read
-SPARX5_SKB_CB(skb)->jiffies and skb->next from freed memory, call
-__skb_unlink() on it, and call dev_kfree_skb_any() on it again. The PTP
-IRQ handlers also walk this list and read cb->ts_id of the freed skb.
-
-With this patch the double-freed entry is also counted in purged, so its
-slot gets reclaimed through the double free.
-
-Should the drop path call sparx5_ptp_txtstamp_release() for two step skbs,
-as the busy path does?
-
-[Severity: High]
-This is a pre-existing issue, but on lan969x, can the FDMA TX ring still
-reference the skb freed here?
-
-lan969x_fdma_xmit() stores the two step skb in the ring with
-db_buf->skb = skb and db_buf->ptp = true, and the PTP code is responsible
-for freeing it. This function and lan969x_ptp_irq_handler() both free the
-skb without clearing db->skb or checking whether the DCB has completed.
-
-lan969x_fdma_tx_clear_buf() then dereferences db->skb before it checks
-db->ptp:
-
-drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c:lan969x_fdma_tx_clear_buf() {
-    ...
-		db->dev->stats.tx_bytes += db->skb->len;
-		db->dev->stats.tx_packets++;
-		sparx5->tx.packets++;
-
-		dma_unmap_single(sparx5->dev,
-				 db->dma_addr,
-				 db->skb->len,
-				 DMA_TO_DEVICE);
-
-		if (!db->ptp)
-			napi_consume_skb(db->skb, weight);
-    ...
-}
-
-The PTP IRQ is a separate threaded IRQ with no ordering against NAPI. A
-delayed NAPI poll could therefore read skb->len from freed memory.
-
-If old_release frees an skb whose DCB has not completed yet, for example
-because the FDMA stalled for more than 10 ms, wouldn't the device still
-DMA-read the freed buffer?
-
-[Severity: Low]
-This is a pre-existing issue, but is a fixed 10 ms SPARX5_PTP_TIMEOUT long
-enough here?
-
-A frame held in an egress queue for more than 10 ms, for example behind a
-closed TAS gate or by pause frames, would be freed here as lost. When it
-later egresses, sparx5_ptp_irq_handler() and lan969x_ptp_irq_handler()
-find no matching skb and hit:
-
-		if (WARN_ON(!skb_match))
-			continue;
-
-The continue skips the ptp_skbs decrement, so the counter itself stays
-consistent with port->tx_skbs.
-
-[ ... ]
-
-> @@ -236,9 +241,10 @@ int sparx5_ptp_txtstamp_request(struct sparx5_port *port,
->  	if (rew_op != IFH_REW_OP_TWO_STEP_PTP)
->  		return 0;
->  
-> -	sparx5_ptp_txtstamp_old_release(port);
-> +	purged = sparx5_ptp_txtstamp_old_release(port);
-
-[Severity: Medium]
-This is a pre-existing issue, and the commit message already mentions it.
-Stale skbs, and their global ptp_skbs slots, are only aged when the same
-port sends another two step frame.
-
-sparx5_ptp_hwtstamp_set() with HWTSTAMP_TX_OFF does not purge
-port->tx_skbs, and neither does port stop. Only sparx5_ptp_deinit() does.
-A port that stops sending two step frames, because the link went down or
-TX timestamping was turned off, keeps any lost skbs that had not expired
-at its last request.
-
-If these leftovers add up to SPARX5_MAX_PTP_ID across ports, two step
-xmit on every other port gets -EBUSY. sparx5_port_xmit_impl() turns that
-into NETDEV_TX_BUSY.
-
-Could port->tx_skbs also be purged from a path that does not depend on the
-port's own traffic, such as HWTSTAMP_TX_OFF or port stop?
-
->  
->  	spin_lock_irqsave(&sparx5->ptp_ts_id_lock, flags);
-> +	sparx5->ptp_skbs -= purged;
-
-[Severity: Medium]
-Can this decrement race with sparx5_ptp_txtstamp_release() and count the
-same skb down twice?
-
-Each port netdev has SPX5_PRIOS TX queues and there is no
-ndo_select_queue, so two CPUs can run sparx5_port_xmit_impl() for the same
-port at the same time. sparx5_ptp_txtstamp_old_release() unlinks while
-holding only tx_skbs.lock. The busy path decrements without checking
-whether the skb is still on the list:
-
-drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c:sparx5_ptp_txtstamp_release() {
-    ...
-	spin_lock_irqsave(&sparx5->ptp_ts_id_lock, flags);
-	port->ts_id--;
-	sparx5->ptp_skbs--;
-	skb_unlink(skb, &port->tx_skbs);
-	spin_unlock_irqrestore(&sparx5->ptp_ts_id_lock, flags);
-}
-
-A possible sequence:
-
-CPU0
-sparx5_ptp_txtstamp_request()
-    skb_queue_tail(&port->tx_skbs, X)
-    sparx5->ptp_skbs++
-spin_lock(&sparx5->tx_lock)   /* waits */
-
-CPU1
-sparx5_ptp_txtstamp_request()
-    sparx5_ptp_txtstamp_old_release()
-        /* X looks older than SPARX5_PTP_TIMEOUT */
-        __skb_unlink(X); dev_kfree_skb_any(X); purged++
-    sparx5->ptp_skbs -= purged
-
-CPU0
-ops->fdma_xmit() or sparx5_inject() returns -EBUSY
-sparx5_ptp_txtstamp_release(port, X)
-    sparx5->ptp_skbs--
-
-At HZ=100, SPARX5_PTP_TIMEOUT is one jiffy, so crossing a single tick is
-enough for X to look expired.
-
-Before this patch the purge path did not decrement, so X was counted down
-only once. ptp_skbs is a u16 and the limit check only tests for equality.
-
-If the counter wraps to 65535, does the SPARX5_MAX_PTP_ID limit stop
-working, so that ts_id values can be reused while they are still
-outstanding?
-
-The same window already lets CPU0 keep using X after CPU1 has freed it.
-That part predates this patch; the double decrement is new.
-
->  	if (sparx5->ptp_skbs == SPARX5_MAX_PTP_ID) {
->  		spin_unlock_irqrestore(&sparx5->ptp_ts_id_lock, flags);
->  		return -EBUSY;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but a little further down in
-sparx5_ptp_txtstamp_request() the skb is added to port->tx_skbs before its
-cb fields are written:
-
-	skb_queue_tail(&port->tx_skbs, skb);
-	SPARX5_SKB_CB(skb)->ts_id = port->ts_id;
-	SPARX5_SKB_CB(skb)->jiffies = jiffies;
-
-skb_queue_tail() takes and releases tx_skbs.lock, and the cb writes happen
-under ptp_ts_id_lock only. sparx5_ptp_txtstamp_old_release() and both PTP
-IRQ handlers walk the list holding only tx_skbs.lock.
-
-With several TX queues per port, another CPU could run old_release on the
-same port and read X's cb->jiffies before it is set. That field still
-holds leftover bytes from earlier layers such as the qdisc. If the value
-looks expired, would old_release free X while CPU0 is still filling in the
-cb and passing X to the injector or FDMA? The IRQ handlers could also
-match a stale cb->ts_id the same way.
-
-Would writing ts_id and jiffies before skb_queue_tail() close this?
-
+diff --git a/drivers/hid/hid-ft260.c b/drivers/hid/hid-ft260.c
+index 923ce6ee9dcf..50f68790c04d 100644
+--- a/drivers/hid/hid-ft260.c
++++ b/drivers/hid/hid-ft260.c
+@@ -549,6 +549,33 @@ static int ft260_i2c_reset(struct hid_device *hdev)
+ 	return ret;
+ }
+ 
++static int ft260_hid_output_report(struct hid_device *hdev, u8 *data,
++				   size_t len);
++
++/*
++ * STOP with no START and no payload. Used by ft260_i2c_abort() when
++ * tearing down an in-flight transfer: I2C reset alone can leave
++ * BUS_BUSY set even when SCL/SDA are idle, and the next START then
++ * fails with arbitration lost.
++ */
++static int ft260_i2c_stop(struct hid_device *hdev, u8 addr)
++{
++	u8 buf[4] = {
++		FT260_I2C_REPORT_MIN,
++		addr,
++		FT260_FLAG_STOP,
++		0,
++	};
++
++	return ft260_hid_output_report(hdev, buf, sizeof(buf));
++}
++
++static int ft260_i2c_abort(struct hid_device *hdev, u8 addr)
++{
++	ft260_i2c_stop(hdev, addr);
++	return ft260_i2c_reset(hdev);
++}
++
+ static int ft260_xfer_status(struct ft260_device *dev, u8 bus_busy)
+ {
+ 	struct hid_device *hdev = dev->hdev;
+@@ -618,7 +645,8 @@ static int ft260_hid_output_report(struct hid_device *hdev, u8 *data,
+ }
+ 
+ static int ft260_hid_output_report_check_status(struct ft260_device *dev,
+-						u8 *data, int len, u8 bus_busy)
++						u8 *data, int len, u8 addr,
++						u8 bus_busy)
+ {
+ 	int ret, usec, try = 100;
+ 	struct hid_device *hdev = dev->hdev;
+@@ -647,7 +675,7 @@ static int ft260_hid_output_report_check_status(struct ft260_device *dev,
+ 	if (ret == 0)
+ 		return 0;
+ 
+-	ft260_i2c_reset(hdev);
++	ft260_i2c_abort(hdev, addr);
+ 	return -EIO;
+ }
+ 
+@@ -686,7 +714,8 @@ static int ft260_i2c_write(struct ft260_device *dev, u8 addr, u8 *data,
+ 			  rep->flag, data[0]);
+ 
+ 		ret = ft260_hid_output_report_check_status(dev, (u8 *)rep,
+-							   wr_len + 4, bus_busy);
++							   wr_len + 4, addr,
++							   bus_busy);
+ 		if (ret < 0) {
+ 			ft260_dbg("failed with %d\n", ret);
+ 			return ret;
+@@ -727,7 +756,7 @@ static int ft260_smbus_write(struct ft260_device *dev, u8 addr, u8 cmd,
+ 	ft260_dbg("rep %#02x addr %#02x cmd %#02x datlen %d replen %d\n",
+ 		  rep->report, addr, cmd, rep->length, len);
+ 
+-	ret = ft260_hid_output_report_check_status(dev, (u8 *)rep, len,
++	ret = ft260_hid_output_report_check_status(dev, (u8 *)rep, len, addr,
+ 						   (flag & FT260_FLAG_STOP) ?
+ 						   FT260_I2C_STATUS_BUS_BUSY : 0);
+ 	if (ret < 0)
+@@ -795,7 +824,7 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
+ 		timeout_jiffies = msecs_to_jiffies(timeout);
+ 		if (!wait_for_completion_timeout(&dev->wait, timeout_jiffies)) {
+ 			ret = -ETIMEDOUT;
+-			ft260_i2c_reset(hdev);
++			ft260_i2c_abort(hdev, addr);
+ 			goto ft260_i2c_read_exit;
+ 		}
+ 
+@@ -809,7 +838,7 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
+ 		ret = ft260_xfer_status(dev, bus_busy);
+ 		if (ret < 0) {
+ 			ret = -EIO;
+-			ft260_i2c_reset(hdev);
++			ft260_i2c_abort(hdev, addr);
+ 			goto ft260_i2c_read_exit;
+ 		}
+ 
+@@ -993,7 +1022,7 @@ static int ft260_smbus_xfer(struct i2c_adapter *adapter, u16 addr, u16 flags,
+ 				hid_warn(hdev,
+ 					 "smbus block read: invalid count %u from slave 0x%02x\n",
+ 					 count, addr);
+-				ft260_i2c_reset(hdev);
++				ft260_i2c_abort(hdev, addr);
+ 				ret = -EPROTO;
+ 				goto smbus_exit;
+ 			}
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029-sparx5-ptp-stale-tx-slot-v1-1-ec15f391bbb7%40microchip.com
+2.43.0
+
