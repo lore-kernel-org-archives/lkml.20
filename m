@@ -1,96 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793368446;
-	b=U8uCOELRLfa/e0cZXEpbqQK0WPL6EZ31GGxD2SW210v7MOduQl4bVDtmnffZKsiacuL8
-	 Sv7jEBdissSzqJC5ZXbe397J+a+t+Dh64XdS2A5aDXtmZXgz15HPpHRKzhkgT4OkyClJC
-	 Fo3MBc2YCHDUwEh9tZVXZVQJC+W9BaLL32nI1KEHmTjvSstZM2qN3NX5lirWNPlheqP4r
-	 gVlg9CJo3I/2FjQIEUE7+q7VjBLh87WjnMBDHZQQ3VETsRNUnO34BLVWeNPKt3uZUjMK6
-	 BGBGOIUJLr+OpVvjp3vRU8lKvphz9PRElHmVu5X1Oxrmw0lERktc8gSdpydbKGLTHNg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793368446;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793368504;
+	b=b+RmL9CjWu46wfhQSxVZDNQupIDyC6LQ1pTf5eLULQJZJ3BSTUnqFK2N9BftAxoSF5qK
+	 Hvhb4rHTLrWNtgdir4lWevvE6rwN/02L2mW/rfV0YgapHZAYkPZCb6+4IkMxBQzXJrpIH
+	 77HoGc6R8i3ztWWCoSn1v/BW5xs/OEZbxd79pk92MwABDU53WhXu671FImPmcnjsiAIhb
+	 LS8BaOWn5MUDDwJSmqaIhvswTA8w9ovl7+w9TyvfGoaNrJn454CI/1nHARLt7oWC/K8vI
+	 29+kwnXkMpNFZIAiTFX15Z+ziWVa0YT6hJgjU9xuAWk9G74YY5bJEKdM/+xK0ASGM4Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793368504;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=BAuLNHPNJqqoWJmSv1jiLnRdkmUVQGOL2ovNhcmC/YY=;
-	b=gQecaJD7HlQlj8+/kBcvlncFmvBkUYs5iaEk6xWljN1Fl126S+fr+2wlBe2fawMDbZQ5
-	 /5pML9ji3KpaDmPpajV2IdtqbqwtyNeCWTZLUMp+7uQeUQQ9+Y9OjkVPXScDnODaMniEP
-	 HD5MsUrgHBgH511bqKQXz9brmtjsGvcsOq8ZibqymgjUmFnbfjDraCzcozokVCT09n0QZ
-	 DFu46iQO5IyYhOZ6e5LpNhJY4XuPYBxqDyHtlrvaqMhi5QNHTUfUmzhfLTXnzphd6q+cP
-	 MurvUyV4NKa3qyxQZniqVMNp2UIq1ahWaUGGS9s9HegCRW7DOn/Vw6KbJj7S2IgSzww==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uber.com;
-	spf=fail smtp.mailfrom=uber.com;
-	dkim=pass header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b="oo/gDQ1H";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.42
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=NZCDYcK+JY9VUF/cNFEZgHG1OlXA2AsSHrrLvrSXcGw=;
+	b=BPNMkJA8N4K7GibrpdQVdEj3CL9Np+YFw7qKIY2ibO8iaRX3zofT+uL4I2kMlFhivIlQ
+	 PxJ9LGA+K0Vz5UR54q9z964BbDRfGY7RbOQ0DpX0FQyvCkps7qkW+3EgjkBtYSqzNJNHK
+	 zatsHu1+sURMsZbJJJvl/up++OH8X0B+lpbfP/ErWV5CfoEnrH3PSjKdkXZ5iR74LEHU3
+	 JUsJw2sI8OaCZY8IkwlOv+NAfAGkSh5RatuxCtLryYXsu/KzM5+ZUrMHSSN/YOT5Vb3+I
+	 8H88tSP2XyX4I18BnqN3xf4kLAIXEe7+PZqmEZ3kqJlz5clzF1ixCDVEEgQ6ynsEhLQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gpew9uGa;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203E4606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:54:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 203E4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28FF606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:55:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E28FF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=oo/gDQ1H
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-679334baa1fso742827d50.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:54:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793368445; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QMdw5n8A4WPd7MdgYgUcW8qP1Q8rIsAfevlYvvlRmBSTXByFza4oBCDKwZDR3CksfK
-         JjskjOmt+G46WAJrXBNSqp4Vn7u7kX+30iti1MrASgbPT7lTbbWWqJA1Jc1ZRB9BB1U6
-         EoBojk2/Zp9Snoz3BMcjnKzjsOGCKMKvjjWbP87hkwEN6ooD/JVJ21BEtAt4x0wEqQFM
-         JVw3myGzu3O/+gUjkXhFOqjvG3hphLSvAdiqReax7Y2qZK2U1trgjEs/ZKFmNJNKiaMP
-         dG8wbgBkGc8J4ZBEo4l8pbu/EJXZ65mFnwV2JRX0wJwfw88Z86AVkgInTjXI3BdQY9gT
-         d2pw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=BAuLNHPNJqqoWJmSv1jiLnRdkmUVQGOL2ovNhcmC/YY=;
-        fh=yY3ZpxoGBuGHF/FZq19Zu5OllsCpdm8/rQXPbUS7BWY=;
-        b=NUEh5PM77IB71X9X8y9DB7TganKVA9J13ud2Nd8WR5gJmZAUPpq1lhAyTTbJrogdcr
-         hlP/bZFIER9tiksyg1AOBa/O1Fic98zZVFjjS/hrAJQcJngeu2eMs5tK57NdBGniGsE5
-         TwugfLi+UQH9LSUHURhCh3l6ICacLGuGpF6XJ3Qq4hGLrq/AqIMIZjAjwuZfihDWXwlw
-         mQYGHODswESWcx5A4as4kvRfuAuMxcDHa/2wLnEvCi1LkptIxBcRTcesDKTRqrrdMPAx
-         wDa5Ng4JmkSb7oCOaHnoNyxU+GW+yknGdvSHQ9De2Qe8l/7Gi2aTXWDrqLvDsYwjLjCw
-         osIw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gpew9uGa
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so1161090eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:55:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uber.com; s=google; t=1793368445; x=1793973245; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BAuLNHPNJqqoWJmSv1jiLnRdkmUVQGOL2ovNhcmC/YY=;
-        b=oo/gDQ1HmcwaZyjfpA2G9VFwx996PJQ2JK8EgT+15BB9Yu1b3YwRk98RYORY3hrVq2
-         7tTk7woQsPGj3s3kHexvcBU5TjbBuB+Ut6T9Q/8eU4l+rGY6B0Qy1lOnkr8s4dsu2b/A
-         aHkWmBZFNMqUm2kmaLZiIM7uS9A4o/zRNzfz4=
+        d=gmail.com; s=20260707; t=1793368502; x=1793973302; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NZCDYcK+JY9VUF/cNFEZgHG1OlXA2AsSHrrLvrSXcGw=;
+        b=Gpew9uGaUaAO9WYj5i8Jx6XaBcRG2K0y1smsGi9tJAA6a55iqJHuc2hiXg03kC3jT0
+         ejbcaVE0Oj98ZxtJtRvT1x3+h3RxJrkjDQ5SRrt4VcD9/OCLVrsG90RnFbDMZEK7kg1b
+         bfBmPJsgQwlrCxMjy+q1q1D1VoFimE1pjh5E4o9R3cMWs4G4D+ktZsXZ2lYKkrZ9WISK
+         x6NNTck5fiwZpsqcRM4QnbjnyMxFTMrDmL91sAoXGHYw1y/EEzly4A9xbYj/CVnJuirg
+         8G+Yoj2HLFo8EAk1wS8mkfcbJe7RRR/NYS2EQ16Od1pgiGYJBKHBFHauX3FJmpB24bD0
+         +VIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793368445; x=1793973245;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=BAuLNHPNJqqoWJmSv1jiLnRdkmUVQGOL2ovNhcmC/YY=;
-        b=Yh5ecxi/u7/fNw2W62EYu2xTasAXDDCqO3MHHkdgt2OflV0jVwmM9kObkesOwAQHHW
-         pc7hpL7opAZtHHRpl/II8cUlqGDnpsOOWQklOEuktWMdIMNORuNhKlQFBmbMVj2cbNEv
-         oEV31j+KQCDU7kwu1BSaIPfy7fkQLNC+ydpyRn7eZpSJzK8ZpBmTSWJ9mCYO1t26U+TE
-         b9DEsQcJgaMEdm99FHZZTibL+oIu3TV5ERyRCNx66QpIuIcrVD6jZpGjcnXIzAdLSznX
-         5SApphLX6PaHEH5r6UyrayeK9Cy1J72mz17Qc6yRAk7YGBevx+QWdaUBWjwqRcOtBAM3
-         NP5w==
-X-Forwarded-Encrypted: i=1; AKwUvByKcdNeETE3klA6GFg684b7aveRfxpbymRcAkivipBh55dmRQloA60uzSPqjOilsSnNi+rK1t+5x3Rt/ao=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDqPAYZ2U2Tp2t/GmzinTYRIMSIChq0xcHU5PJu+7nMLLbLx9B
-	xqC539sOnYZr6SSWOUX96RKVbOED/k1aidfkdjLqBWyPgJDgVe3tZMz+QiyRjtXZrG8qvM9hgTb
-	ey0DoL028LyX81e21ofTMcP0XPBArhmb6oK0taL9Vmw==
-X-Gm-Gg: AYBFou2OOogtfKKLFOiTd5m5HHwLxewk9XSXF3GA0KMH1FLbWwz+hp73bLdup/WVRI6
-	zYMMcEs1ulnycpzgIrGBpOGDTU2bVtKooUvJpSLqQrAm5S4INLDhsCN0gIecWzC1Rl8alGHvhej
-	C1TvlthJiBi8DGbWdkZzz+BX9M40eUXn80UY13URdwSXNv31awmfR09WC+DCyeM0R151qFwmYmm
-	EFnkb+TSfm0bWLUl1IlfrEAnCSaN8WYoSHFoHHqQVtnNZQwEVaSvPfhvhbwJ+9VHn7FbYnbziD5
-	qA+TK05GTa7J3CphNN2DADhCIwnKXndOpvN7H1c5mJu6wDkHxsU3od8n/z3B+JfZsk0JfBgJayh
-	D6rCg/8OIHhl6K5qJusK60D/4OBEZpAHOFOcmDyRQlJmvNZHYyzbY0dC/QqdDfUdmDV5u5A==
-X-Received: by 2002:a05:690e:803:10b0:679:94b3:a257 with SMTP id
- 956f58d0204a3-67ba5072b56mr832427d50.115.1793368444841; Fri, 30 Oct 2026
- 06:54:04 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793368502; x=1793973302;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NZCDYcK+JY9VUF/cNFEZgHG1OlXA2AsSHrrLvrSXcGw=;
+        b=u5tBHPOVF3U1RpRUyXbRvC7iolwMY7mNR+xqvrKCsEx4jIhJz+JA5bdY0+oM34P6wH
+         MTM3mjuE5vVuB0kijZBnNCkIBMZ1+in4hvKwc+MACnVtJM+ah1n0ccFKy5VOf1EeZlij
+         XYs7ULHowY0GEq+Z0DQKiqfa97iyupZCm71sVnRjFs8vNW2KrvWaxzxN8KLBn2kkvIBm
+         gSXXoxUrV3/73hZQt32iGRJwYtyN/HolYRck6I9Y9h2586Awi5VanJ1umv9UmBoHzkWi
+         u7NB5DfQHGt1v1zYzpTMCTdPSQND+1L2Vy9KZCjqiWud5J2MaTDEikq88seIwowFyf7X
+         GWUw==
+X-Forwarded-Encrypted: i=1; AKwUvBwNo3VmCeyeNk7albtoSJHpG+jbft/T1hHvhsALvrnND3UXX78Y0+ezv6kI1W4vN4GZgKcNI7tMz65sHRk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIa5UEtvbN7+/ZyQIxoT6Y5xT5Cr2lpCGFus50L03RLiqsswRMT
+	thR04V/I9nqLCIaOwIaCO6AOQssBfFFe+nZN1N4x3XZ9dntro/oUl/Qp
+X-Gm-Gg: AYBFou0e/OEhqGcksYO/0qoeTVRe1C1sOgFdzKxLVJbY/GJap0tUj3yd3Duap0IBg7F
+	JW92zFIy79bA/3FIqO8TNiJDiiPd5/Q1er1a4qoJO26Sm4RCbbwelLh7m1AFgIUOTRUp4EDg9tR
+	bcGo0QPtW7pPAV1dmzt03XcoieD+Ui9OImR3bUav142lAloNwpvO9/8tOOrvvEFx+7AkZsQhmsC
+	kLl4i/4uRYLY0mv86lZL9jOKGjWQQfaYaTTzMU6HSVs10Ya6gdHrDk0NNGf2WphuUcPZqL50Ph6
+	Y0KX5vZXmO7L7LD4wB/KmaVwVMCMGgfOCGSvo46QqXuzDrOQnx1ssJSZ5AKLeg2AUzRqoEkEFwG
+	8Kk9n3yX2oCyZn1/JyZ9l+UKqKgSOHjBVXbr/HUQoCeia0Hvl6H5lyWgB4e1ZfBIU0vNgTQo70E
+	OsdpNL2FMthe/GXz5MjFspJZVE+gGI70THzfP7yTLb2+rIMKPgcrbhuL2hUk0ATHR1S9UwdHIEi
+	7mRW4lDFybvoVNyaBRfgs+TFbVaZWYWL8PPE6flrGfHYE+fHzzc6LyieQncBQs5oyjS05CkyMLg
+	M7Nkceo1pMvuQzljCf+jrzd7Em+QuFx8f+SOZbIXIAYKz0z11xby
+X-Received: by 2002:a05:693c:41d2:20b0:369:f961:ccf8 with SMTP id 5a478bee46e88-36a423a9233mr3691448eec.19.1793368501692;
+        Fri, 30 Oct 2026 06:55:01 -0700 (PDT)
+Received: from chitransh.. ([2401:4900:94f3:523c:1f6:344a:9ff1:daf7])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a504c6sm8371902eec.21.2026.10.30.06.54.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 06:55:01 -0700 (PDT)
+From: surirajat@gmail.com
+To: hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	markpearson@lenovo.com,
+	hdegoede@redhat.com,
+	rajat.suri@dell.com
+Subject: [PATCH] platform/x86: lenovo: convert mutex_init() users to devm_mutex_init()
+Date: Fri, 30 Oct 2026 19:24:35 +0530
+Message-ID: <20261030135435.308058-1-surirajat@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,75 +99,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260928075237.3055101-1-irogers@google.com> <20261027231513.816148-1-irogers@google.com>
- <20261027231513.816148-16-irogers@google.com>
-In-Reply-To: <20261027231513.816148-16-irogers@google.com>
-From: Alireza Haghdoost <haghdoost@uber.com>
-Date: Fri, 30 Oct 2026 06:53:49 -0700
-X-Gm-Features: AclHuK9qEUQ8arGpnCaqKbufakBcpdC2RW03pQw1oOPGVk-0ZrZp_NmRX624f18
-Message-ID: <CA+w=M=TDksQKaU4R+og8eTS=17NWSsACaoBnpv3rM6tWiZ37Fg@mail.gmail.com>
-Subject: Re: [PATCH v2 15/18] perf symbol: Add memory shrinking for symbols,
- DSOs, and machines
-To: Ian Rogers <irogers@google.com>
-Cc: acme@kernel.org, namhyung@kernel.org, adrian.hunter@intel.com, 
-	james.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 4:15 PM Ian Rogers <irogers@google.com> wrote:
-> + if (was_shrunk) {
-> + if (ret > 0) {
-> + symbols__merge_retained(dso__symbols(dso), retained, retained_cnt);
-> + } else {
-> + dso__set_adjust_symbols(dso, saved_adjust_symbols);
-> + symbols__restore_retained(dso__symbols(dso), retained,
-> + retained_cnt, retained_allocated);
-> + if (retained_cnt > 0)
-> + ret = retained_cnt;
-> + }
-> + dso__set_symbols_shrunk(dso, false);
-> + dso__set_loaded(dso);
+From: Rajat Suri <rajat.suri@dell.com>
 
-Could the failed-reload path leave the DSO in a state where a later
-lookup can retry, rather than clearing symbols_shrunk and marking it
-loaded?
+Convert the mutex_init() calls under drivers/platform/x86/lenovo/
+to devm_mutex_init() so that the mutex lifecycle is managed by devres.
 
-If the file is gone or no longer matches when the reload runs, this
-restores only the retained symbols and still marks the DSO loaded and
-not shrunk. The evicted symbols never come back and nothing retries.
-For a DSO without a build-id whose file was replaced, the reload would
-also merge the new file's symbols with the old retained ones.
+This removes the need for manual mutex_destroy() calls in wmi-camera and
+ideapad-laptop, and fixes thinkpad_acpi, which never destroyed the
+hotkey, brightness, volume and fan mutexes on its teardown path.
 
-Could the reload also build a local struct symbols and swap it in
-under the write lock, instead of exposing the table while it is being
-rebuilt?
+Details per driver:
 
-dso__load() currently detaches the retained symbols for the whole
-reload and merges them back at the end. map__find_symbol() waits for
-the dso lock, but a direct dso__find_symbol() from another thread can
-miss the retained symbols or get the fresh copy meanwhile. In a test
-with one lookup thread and one shrink plus map__load() thread, 115,691
-lookups missed a retained symbol, and most of the 13.2M lookups
-returned the fresh copy instead of the retained object. That breaks
-the pointer identity annotations rely on. Swapping a completed table
-under the write lock would close that window.
+ - wmi-camera: bind notify_lock to the WMI device and drop the
+   mutex_destroy() from remove().
 
-Smaller things:
+ - ideapad-laptop: allocate the DYTC private data with devm_kzalloc() and
+   bind its mutex to the platform device. Calling mutex_destroy() on a
+   manually freed object is not possible with devres, so the kfree() and
+   ideapad_dytc_profile_exit() helper are removed as well. The memory now
+   outlives the platform profile registration, which is also devm managed
+   and therefore released in reverse order.
 
-- symbols__merge_retained() is O(R^2) in retained symbols because of
-the already_retained scan. Both arrays are sorted, so a linear merge
-works.
+ - thinkpad_acpi: bind the hotkey, hotkey thread data, brightness, volume
+   and fan mutexes to tpacpi_pdev, which is registered before any
+   subdriver init runs, and propagate a possible failure from
+   devm_mutex_init().
 
-- symbols__fixup_duplicate() no longer returns early for
-allow_aliases, and dso__load() now runs a second dedupe after PLT
-synthesis on every load, not only after a shrink.
+No functional change intended.
 
-- choose_best_symbol() now prefers refcount > 1, so which alias wins
-depends on references other threads hold at that moment.
+Signed-off-by: Rajat Suri <rajat.suri@dell.com>
+---
+ drivers/platform/x86/lenovo/ideapad-laptop.c | 23 ++++----------------
+ drivers/platform/x86/lenovo/thinkpad_acpi.c  | 21 +++++++++++++-----
+ drivers/platform/x86/lenovo/wmi-camera.c     |  6 +----
+ 3 files changed, 21 insertions(+), 29 deletions(-)
 
-- If shrink removes a newly populated cache entry, dso_cache_io()
-returns -EAGAIN. cached_io() does not retry, so this transient race
-becomes a hard DSO read failure.
+diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
+index fcb5ed7035f5..ee8e00bdaf6b 100644
+--- a/drivers/platform/x86/lenovo/ideapad-laptop.c
++++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
+@@ -1172,11 +1172,13 @@ static int ideapad_dytc_profile_init(struct ideapad_private *priv)
+ 		return -ENODEV;
+ 	}
+ 
+-	priv->dytc = kzalloc_obj(*priv->dytc);
++	priv->dytc = devm_kzalloc(&priv->platform_device->dev, sizeof(*priv->dytc), GFP_KERNEL);
+ 	if (!priv->dytc)
+ 		return -ENOMEM;
+ 
+-	mutex_init(&priv->dytc->mutex);
++	err = devm_mutex_init(&priv->platform_device->dev, &priv->dytc->mutex);
++	if (err)
++		goto pp_reg_failed;
+ 
+ 	priv->dytc->priv = priv;
+ 
+@@ -1195,24 +1197,11 @@ static int ideapad_dytc_profile_init(struct ideapad_private *priv)
+ 	return 0;
+ 
+ pp_reg_failed:
+-	mutex_destroy(&priv->dytc->mutex);
+-	kfree(priv->dytc);
+ 	priv->dytc = NULL;
+ 
+ 	return err;
+ }
+ 
+-static void ideapad_dytc_profile_exit(struct ideapad_private *priv)
+-{
+-	if (!priv->dytc)
+-		return;
+-
+-	mutex_destroy(&priv->dytc->mutex);
+-	kfree(priv->dytc);
+-
+-	priv->dytc = NULL;
+-}
+-
+ /*
+  * Rfkill
+  */
+@@ -2487,8 +2476,6 @@ static int ideapad_acpi_add(struct platform_device *pdev)
+ 	ideapad_backlight_exit(priv);
+ 
+ backlight_failed:
+-	ideapad_dytc_profile_exit(priv);
+-
+ 	for (i = 0; i < IDEAPAD_RFKILL_DEV_NUM; i++)
+ 		ideapad_unregister_rfkill(priv, i);
+ 
+@@ -2516,8 +2503,6 @@ static void ideapad_acpi_remove(struct platform_device *pdev)
+ 				   ideapad_acpi_notify);
+ 
+ 	ideapad_backlight_exit(priv);
+-	ideapad_dytc_profile_exit(priv);
+-
+ 	for (i = 0; i < IDEAPAD_RFKILL_DEV_NUM; i++)
+ 		ideapad_unregister_rfkill(priv, i);
+ 
+diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+index 4f81855ad721..8c7d6f281ae3 100644
+--- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
++++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+@@ -3381,10 +3381,14 @@ static int __init hotkey_init(struct ibm_init_struct *iibm)
+ 	       tpacpi_inputdev->close != NULL);
+ 
+ 	TPACPI_ACPIHANDLE_INIT(hkey);
+-	mutex_init(&hotkey_mutex);
++	res = devm_mutex_init(&tpacpi_pdev->dev, &hotkey_mutex);
++	if (res)
++		return res;
+ 
+ #ifdef CONFIG_THINKPAD_ACPI_HOTKEY_POLL
+-	mutex_init(&hotkey_thread_data_mutex);
++	res = devm_mutex_init(&tpacpi_pdev->dev, &hotkey_thread_data_mutex);
++	if (res)
++		return res;
+ #endif
+ 
+ 	/* hotkey not supported on 570 */
+@@ -6834,7 +6838,9 @@ static int __init brightness_init(struct ibm_init_struct *iibm)
+ 
+ 	vdbg_printk(TPACPI_DBG_INIT, "initializing brightness subdriver\n");
+ 
+-	mutex_init(&brightness_mutex);
++	b = devm_mutex_init(&tpacpi_pdev->dev, &brightness_mutex);
++	if (b)
++		return b;
+ 
+ 	quirks = tpacpi_check_quirks(brightness_quirk_table,
+ 				ARRAY_SIZE(brightness_quirk_table));
+@@ -7575,7 +7581,9 @@ static int __init volume_init(struct ibm_init_struct *iibm)
+ 
+ 	vdbg_printk(TPACPI_DBG_INIT, "initializing volume subdriver\n");
+ 
+-	mutex_init(&volume_mutex);
++	rc = devm_mutex_init(&tpacpi_pdev->dev, &volume_mutex);
++	if (rc)
++		return rc;
+ 
+ 	/*
+ 	 * Check for module parameter bogosity, note that we
+@@ -8913,11 +8921,14 @@ static const struct tpacpi_quirk fan_quirk_table[] __initconst = {
+ static int __init fan_init(struct ibm_init_struct *iibm)
+ {
+ 	unsigned long quirks;
++	int rc;
+ 
+ 	vdbg_printk(TPACPI_DBG_INIT | TPACPI_DBG_FAN,
+ 			"initializing fan subdriver\n");
+ 
+-	mutex_init(&fan_mutex);
++	rc = devm_mutex_init(&tpacpi_pdev->dev, &fan_mutex);
++	if (rc)
++		return rc;
+ 	fan_status_access_mode = TPACPI_FAN_NONE;
+ 	fan_control_access_mode = TPACPI_FAN_WR_NONE;
+ 	fan_control_commands = 0;
+diff --git a/drivers/platform/x86/lenovo/wmi-camera.c b/drivers/platform/x86/lenovo/wmi-camera.c
+index 89ecbce60bf4..de4596686d2a 100644
+--- a/drivers/platform/x86/lenovo/wmi-camera.c
++++ b/drivers/platform/x86/lenovo/wmi-camera.c
+@@ -107,9 +107,7 @@ static int lenovo_wmi_probe(struct wmi_device *wdev, const void *context)
+ 
+ 	dev_set_drvdata(&wdev->dev, priv);
+ 
+-	mutex_init(&priv->notify_lock);
+-
+-	return 0;
++	return devm_mutex_init(&wdev->dev, &priv->notify_lock);
+ }
+ 
+ static void lenovo_wmi_remove(struct wmi_device *wdev)
+@@ -118,8 +116,6 @@ static void lenovo_wmi_remove(struct wmi_device *wdev)
+ 
+ 	if (priv->idev)
+ 		input_unregister_device(priv->idev);
+-
+-	mutex_destroy(&priv->notify_lock);
+ }
+ 
+ static const struct wmi_device_id lenovo_wmi_id_table[] = {
+-- 
+2.43.0
 
-Thanks,
-Alireza
