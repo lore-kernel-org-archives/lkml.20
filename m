@@ -1,101 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793382450;
-	b=J5iIsvoWVmntWbeAaKP0EGepOGJTfppG7CME3gYwYEVGT7gCvMfJ9fK71WkXE8b57zw3
-	 440fQVqMFYzesxiKmuxjkbfVPRvJfFyagbV4EUoPjpCZWt2tgKjH19hjM6MFL5wLoMd7m
-	 nO0Lo20IWbzbSPMOOP0CBkjF84o36D4wgZWv6F80fCQl5IPQK9aWZuaPu8azQ+a6Y/bG6
-	 rYxnM6zY3gsvIMtXNT6oEPtpn6mY9BWzvZHYE7WK1I3QLqpKj/AV7e+CXC13dzz7FX4M6
-	 Jghv7cZHdSacRHQzpyz3P+Eydwtb2YuvpkI5xVwOcd/x+P8YPK5LKspoO8dASGuYdmQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793382450;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793382501;
+	b=CjYMW4/t+c6fEFonAEiEu1GmWwxRj8a7BcMYWqmHWgGXjnriLIa5s7ezmbaTLnOHmnuk
+	 r3Wh51x3WLBv+kum84sq4UBtnqxq7JSdqUtBG/KnQkYjOTBfDHjAgwv/4zSm6Kyt9Rnm3
+	 nCP0Zk00p8t0AkrfdBUev3qm3uGGXzHV+H+zIprwRou0i/hXgRRNhHHDSE2/ujBaXATTT
+	 4Fogko0wBzxfZOAI6bogqab+FtjQX3vXsPnVUmxHthPoj15canJFHzf8iaBcl97cRVbqG
+	 DYdI0R2UStE1PQed643KQOkHRpBcEBa26qgKpXtNGIr8t2J4RykfOt9cC2XUbThOaZg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793382501;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=sIhxZYiznvT7xWI+IfdwWWUWBk2bBwQUSMlQVrH0t28=;
-	b=y5zwASUBSz6CKdNDHX9uvM9LPQgbiK+euwfQaohMMpbvcRUi2QHJBErxqV2rGhZTPk/q
-	 wxFgHZsYIV7VnuWvIE9hg8NvnodOcvQfQiiA8ByI7yGGpxCQbm8aPWcfJ765wzRWT275F
-	 /iINvyWJGd1TnAeim8/ezgWlRT9996FN/KZhU6d5DUbw7YGgGbkkdYOi1/Nb2UvnTAiwr
-	 8CTHLu97cOmwK+59Lr5x/kWvJcJTF+LfmRAlEDRtSYPUl2/VDOxrN/fp3pekwRt34VErL
-	 INV/f/M8jGPiF7vmyOUpeZW69p2FPuubQDRYdl4BCud/i3PSJ7Hd8HYbC7YewBx2giA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XiJOZf2q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=0FM1eyvAUwK+fLhgDxNFYZgoPZUDzKxnOOEbqswS2Es=;
+	b=wJnatuM+CLJHlyXzK58rqalEOKXTOyVRem9EGELB/E2nIHww5uro7t+u5A7yxoedOhs/
+	 jsKL9crJHGo1GWUvJkrw5HRX3gO8PLRMetvIi42VBd1Q1wCok6RphifUdiNFZXitsCE4K
+	 gNYMyjfyG0D5CSKk8DGl2Fn8l+BWnnl6OeeZLYHbnhidN1Gf12UDWph9P5jRKu25ebWH9
+	 6K3FjDDxypn+aHo8FypMocFmYdX6zOsHf+uG6bw2cC4ky9pPRNQstL0IkHgrkJDcKjLY5
+	 kFsWE5nRC7k9hXMGsFgthEYZvxLg5YCZohfQ3i2ClUoApzDgjYgR8GZJr5T6ob1neHg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xhYnTDgb;
+	arc=none smtp.remote-ip=209.85.215.171
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BADB606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:47:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BADB606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520AD606A322
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:48:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 520AD606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XiJOZf2q
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-886e61fa30fso430442b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:47:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793382450; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XABj1bRoZ2QfaHTKZZbWXBPXNkMW2dehJf3/c8B1JIFVkIy3iSBz0mH0W5UBz9Om22
-         rkxHmjLBjBriS8AoT/qX2X4rPcwCsI+lqobuCJZr9iqSddla3p+6RjZZgJqCpPFFnufj
-         mIx42+NCGHPvxO2WUCFDVfItpxLrq6L+fwO3UZaYGbFRE9Qb6C84Cj26tYWvuslak30R
-         YDvPenDefSoMso6gl1U1wlQw+MGUHkkGRh9Zu+TmXR4e+lvz2fTMtfDdxZXuVQDhrWhP
-         LvPD7aynKSorHmUOFyidBzNgoL+gnNPQFMwZSkqRwmksC8KjdoImuNHhw6dtr7SCZ1Zo
-         7t6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sIhxZYiznvT7xWI+IfdwWWUWBk2bBwQUSMlQVrH0t28=;
-        fh=CEq3yyDlPiaU2qMH2oCoASs6V/BGoBgDaswr98EDgL4=;
-        b=ZWbjR92JRQ8hVyezwkyy88Q3TRGf6tFfWKjolgSV0zUJ1Lg4pVwVpyNRYtNYnp6cSb
-         4OBPcRFvvTD5gYs94VwQ0z0dpwkoeGCbZ3gzoV8w25mjK1jmg6GCnBUvoIZ2/bahx6QM
-         HJghUpeiQlwssiHSls+F1p3KSS1IubbRQf92T2QhkCfkMJFtLdDB2kSQOPwsLueEVqUx
-         5AYSi6L5OYAOPxu95j1QMeYPVQp8Oa2QVEo1oswEgwNK150S4njUPuiR4WNpIPBuYk+9
-         wieOPwvrOhMnzmrnkvnccvQZ8WriMJ+YQH62BCEoAh0YbzyHjnrF6URgMAyt8reyFB6Y
-         t9FQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xhYnTDgb
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso389842a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:48:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793382450; x=1793987250; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=linaro.org; s=google; t=1793382500; x=1793987300; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=sIhxZYiznvT7xWI+IfdwWWUWBk2bBwQUSMlQVrH0t28=;
-        b=XiJOZf2qGnVvMOKzdKKgRpWoyWi7lo7RmWu0V8WqgQ1k3lzoL0/Dv5fQACqCRG6kM1
-         PDsgKhCrs4wpWVvAYSFUP4vK7JaU/AJH9EGqZzKU82dbSRjoTp4O90spiuLfMo+YIHHM
-         HaSLbVBL77GBIbulXUBDdFNIUrME8XK6DSOB1WKKJD3EZtLWKCPWxXTl7lZ+/+6tyYv5
-         lVX69+D53vs8zH6azIL0M12NDNgxtlMKZXOtIaFgeKUewfILzXlkRBiV9y65ySTvgRak
-         QVcOFQipiM98Snkj9OKCPpgX0q7tQgblxQkMG73TN6DbZaMN/diAXX0h4MtTjo7hF/xT
-         DP5g==
+        bh=0FM1eyvAUwK+fLhgDxNFYZgoPZUDzKxnOOEbqswS2Es=;
+        b=xhYnTDgbjHVEDgLd9FeTne28vMcHSOYTrn9emqGQjUbi7VmzKD7Bc3veKg4GaTkhxb
+         VH578t4aonLwErix+BvTS4CePJD6pz1x4JpizuSozYDRPGHMY0WqL1rzG8hAX10QfxoN
+         slsC8eOO9A/HGY2jOtEnWgnLRLCZwUgb2HBm0U+r8guFc8VpvPzV63mSwxXhL43SN56h
+         3ui3PTG8AFMemE4L+RblJZsAzaC3w3GogKUBai0JMDElGxOzKQUSD8Kov3jjZWi4UaZy
+         sYq4U0AiE/9jbJ03K47UF/vDxwyTtcxD5RNl9IwwYWTBENpeyJzrZfmu2M43YFicc9Gb
+         0Riw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793382450; x=1793987250;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793382500; x=1793987300;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sIhxZYiznvT7xWI+IfdwWWUWBk2bBwQUSMlQVrH0t28=;
-        b=mYTrx24Vy1lF9T7SOiwG2rP59nsrEQD/DhWU6mSRdSGl2ijW3+K7jCCkAcZTwQLotZ
-         eoWg89kvmzKJy/jWhRwd4Rz3RTYn7alxFljlhqsUTF+Ad3pVAAMJID+say0FiSmFHjT4
-         NPYPmO0NONAxm/VdcF769R808QgFu7xJj0hv8s4cd8oyPipWBw2U52ay9POszoxAMqgO
-         Q/tHKAH+ErpNSnYwRManhsFOK/aEXX80fYQAeURHTEsVFxdyKf4pcweVAKHPSjJxt1Cu
-         QoDeezkk/rbS+H4Vz5Kxy78DumjNkCnjXTd9efnXo/br13QRuA1YjCaKNoeo7rC45e4E
-         qu2A==
-X-Forwarded-Encrypted: i=1; AKwUvBzaJ1RU1oquK8/JHEbL74kcCIS92bXdfhYvYgdaC85GpCvO49E/iJ0UyQfXSPqyZzMYcZqItwc8yAkwbiw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIVvMDDbJSWRcauiJ9qSyQG0/extASbah/5kv8fFYvvsgDyrc6L
-	/GInM6QUo56Nr+ZyfyZNB7xo+SRzw1VGZxp4vqj82hhZQl0M0ACec7qeSq0qvpaqJq6VU+HJyId
-	3kg9o19vNYdl1Q/PGkQBtoejp5+xajb4=
-X-Gm-Gg: AYBFou34ab3dYRUWsA4MBVhz8AXEEf6Qk01B8TorjWNZvOdgX4tfEAmuDUsj8rTsheD
-	M438dzSxjXTo5pmIDlWzCWpfBaonQAUrO0j3vU3yycXDooQIUiznDadFkwHMJ7wBpR7LRgmipPf
-	BEDXziqYXpUtCsZLXt7v86rXndCzOZmCoU3yBgOwJD06GLH4qRHSAJBRalvXFFM63EqcUAmew9n
-	d856kWKd/2tngSl16+/8Yt83s1ipzFVfgqOPDcPvQ3w6X8T63VQBd4Dq0DHfBjtyZZDaRzOTTtB
-	GcfBZFrdcz7XzfKFhzX4NAMuDAuSxmNO2VIax7g3oRP9KQRwB3Cdm2rTRBYS62LStZ8iIdBt41r
-	I0bPRKXjYSr440OWF+k12dtULuI16mLFXqrUOvkcMHN0Bfbt2pVAeXmHfnPhY8IlJpjmtFIMZ+Q
-	wRwcSt0t9l3l30kgW7mx5y7qNabEpyR5W4G2n9
-X-Received: by 2002:a05:6a21:3b45:b0:3e2:325f:576b with SMTP id
- adf61e73a8af0-3e928a71e94mr2185777637.65.1793382449721; Fri, 30 Oct 2026
- 10:47:29 -0700 (PDT)
+        bh=0FM1eyvAUwK+fLhgDxNFYZgoPZUDzKxnOOEbqswS2Es=;
+        b=DbEt1Y7SLICWD2u3B4ALtjwbPXXUd4TFaOc8qbDD3WTP6K6JOnbi1N0n8Bf1fLmEQR
+         j+KJi1G1vT8CMB8oVBI6k7xwXXvRsP0x6sxf23YYOYqkFSc5UlgE2QQ2HEyS6tx7wm0T
+         4CEgpvNaBGeSECiuVcSkOl/mfPk8beMGANWvCqIQQ+/hnYc8aoaYvvUWa+4f68/PWFt+
+         cJLibL9lgmkgYpPHtU47GLPTLq8/hkv+U7ShLC8iR7ABGS1UL7AsnNAA7OoWCLjL+crx
+         MCzHGKFJ6vp8OFCkA10Fgp8lsWA/Nq3rrFmiTq7G+wfyklrL86ri9Xv5PC3Z88CM3iPr
+         Fa3g==
+X-Forwarded-Encrypted: i=1; AKwUvBxTYKfl7BzqNxIgOXQPdweFVwQeJAVQPHdqgVmZtQXcl6+owu4hw9M9EDxrdGhcSgzyxAjEBirdPpK50CE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPb7iLdWIaXs/9aBsLPskHxEVmLF6s3wUA+ipckSUmhfd7NtRR
+	N0cmRhofCYpom07qOhR6hKcqnXJt6er0INl44zN1qrAjmC2sVntwI419F9paKR20SKU=
+X-Gm-Gg: AYBFou1zpV7MmpdkptmvNrOhFMoHFXvaW6oT2oHEiUh7KXPLglbrREiEHdu2EI41Ep5
+	HskqV4WxI7jTy6UheGxYI2av+9MPMST1GBalrcJLEYmOlDiSAog+nJQfdwV53Cv57bgaIusZOuO
+	ng5iLbNNESYFH1slbSesfQ8tObeTbK5I1t57FGiBB37SkDqH9zjO9PDEfUKs+LpkqYVOoqHhaO1
+	dlo7hj1vDfwcHa7892DlNDNWnPtPjsMQdygDwOCHpqDfo+Qv/AWNfwAJjvnJfZouFJ/cT7p+Zdm
+	dfROqEGAcgBPygmKOcRQdK2wOycBdTCS5NrwUz9wtTqjCTABg0Whwy/F0RuRYiyFici+YyNz+bG
+	dYQsjv3CwVXdTrwE8R4iOSKkfeFqckyDykVFXP8UTe9k0AJxvwdSPsvQd1AZ5GlkRvq40ZNUR9y
+	x2wO3Mzh9RKuOP9Nv2VotvgpOvBg8WTDNLXog3FkhZEypO7XjmI3kPvLR33zbkZlgcREnD27uMr
+	28ZCTsiowOPEaMegXew4Jjxmg9hhDUsmG/Hjy0PX0eFkHLd/CIAezjH8dL4SqaasGPyEF1Smw4n
+	r/sFGbBrKU4KIs9ng8JumXyI/4S0sRg=
+X-Received: by 2002:a05:6a21:a247:b0:3c3:7a0a:18a6 with SMTP id adf61e73a8af0-3e928ca2358mr2811333637.18.1793382499460;
+        Fri, 30 Oct 2026 10:48:19 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:1341:f404:be4:486c])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aada9ab752sm297668b3a.45.2026.10.30.10.48.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 10:48:18 -0700 (PDT)
+Date: Fri, 30 Oct 2026 11:48:16 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Yu Zhang <yuz08559@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] rpmsg: char: take ept_lock in the
+ SET_INCOMING_FLOWCONTROL ioctl
+Message-ID: <auTYYGFsSqPalG_y@p14s>
+References: <20261026100306.68019-1-yuz08559@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,78 +98,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027082405.1297-1-shengshilingmu97@gmail.com>
-In-Reply-To: <20261027082405.1297-1-shengshilingmu97@gmail.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Fri, 30 Oct 2026 13:47:18 -0400
-X-Gm-Features: AclHuK_iwRZMverILPQ6aqdRr0bJylTP3g7Evr_UNs3S8h82CvZ8DH_nxsbSAhw
-Message-ID: <CADvbK_eGiwO13sCNqpqHeiTLkQgTU_6Dt+Q+EVZ-CQ6WvRB9mg@mail.gmail.com>
-Subject: Re: [PATCH net] sctp: account for chunk padding in sctp_init_cause()
-To: Masafumi Suzuki <shengshilingmu97@gmail.com>
-Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026100306.68019-1-yuz08559@gmail.com>
 
-On Tue, Oct 27, 2026 at 4:32=E2=80=AFAM Masafumi Suzuki
-<shengshilingmu97@gmail.com> wrote:
->
-> sctp_init_cause() accepts a chunk when skb_tailroom() can hold the
-> cause header and the payload. sctp_addto_chunk() then writes 0-3
-> bytes of padding before that header so the chunk stays 4-byte
-> aligned. The check does not include the padding, and the following
-> skb_put() calls skb_over_panic() from softirq.
->
-> Count the padding sctp_addto_chunk() is about to write. The cause
-> length on the wire stays the header plus the payload.
->
-> Fixes: 8914f4bace3f ("sctp: add sctp_make_op_error_limited and reuse inne=
-r functions")
+Hi,
+
+On Mon, Oct 26, 2026 at 08:03:06PM +1000, Yu Zhang wrote:
+> rpmsg_eptdev_ioctl() handles RPMSG_SET_INCOMING_FLOWCONTROL by calling
+> rpmsg_set_flow_control(eptdev->ept, ...) without holding eptdev->ept_lock
+> and without checking eptdev->ept for NULL. rpmsg_set_flow_control()
+> dereferences ept->ops, so this is the only eptdev->ept user that does not
+> honour the ept_lock discipline.
+> 
+> eptdev->ept is torn down under ept_lock: rpmsg_chrdev_eptdev_destroy()
+> (reached via RPMSG_DESTROY_EPT_IOCTL on a second fd, or when the rpmsg
+> device is removed) and rpmsg_eptdev_release() both do
+> 
+> 	mutex_lock(&eptdev->ept_lock);
+> 	rpmsg_destroy_ept(eptdev->ept);
+> 	eptdev->ept = NULL;
+> 	mutex_unlock(&eptdev->ept_lock);
+> 
+> and rpmsg_destroy_ept() drops the endpoint's last reference and frees it.
+> A SET_INCOMING_FLOWCONTROL ioctl running concurrently can therefore read
+> eptdev->ept just as it is freed and dereference ept->ops -> use-after-free
+> (or a NULL dereference once ept has been cleared).
+> 
+> The other eptdev->ept users get this right: rpmsg_eptdev_write_iter() and
+> rpmsg_eptdev_poll() take ept_lock and re-check eptdev->ept before use. Do
+> the same in the ioctl. Lock only this case: RPMSG_DESTROY_EPT_IOCTL calls
+> rpmsg_chrdev_eptdev_destroy(), which takes ept_lock itself, so the switch
+> as a whole must not hold it.
+
+Please get rid of the above paragraph.
+
+> 
+> Fixes: 5550201c0fe2 ("rpmsg: char: Add RPMSG GET/SET FLOWCONTROL IOCTL support")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Masafumi Suzuki <shengshilingmu97@gmail.com>
+> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
 > ---
->  net/sctp/sm_make_chunk.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
-> index 84a4c97d0f75..8933caadcdb6 100644
-> --- a/net/sctp/sm_make_chunk.c
-> +++ b/net/sctp/sm_make_chunk.c
-> @@ -133,20 +133,27 @@ static const struct sctp_paramhdr prsctp_param =3D =
-{
->   * cause codes will be embedded inside an abort chunk.
->   */
->  int sctp_init_cause(struct sctp_chunk *chunk, __be16 cause_code,
->                     size_t paylen)
->  {
->         struct sctp_errhdr err;
-> +       int chunklen, padlen;
->         __u16 len;
->
->         /* Cause code constants are now defined in network order.  */
->         err.cause =3D cause_code;
->         len =3D sizeof(err) + paylen;
->         err.length =3D htons(len);
->
-> -       if (skb_tailroom(chunk->skb) < len)
-> +       /* sctp_addto_chunk() pads the chunk up to a 4-byte boundary befo=
-re
-> +        * appending the cause, so account for that padding here as well.
-> +        */
-> +       chunklen =3D ntohs(chunk->chunk_hdr->length);
-> +       padlen =3D SCTP_PAD4(chunklen) - chunklen;
-> +
-> +       if (skb_tailroom(chunk->skb) < padlen + len)
->                 return -ENOSPC;
->
->         chunk->subh.err_hdr =3D sctp_addto_chunk(chunk, sizeof(err), &err=
-);
->
->         return 0;
->  }
-> --
-> 2.47.0
+>  drivers/rpmsg/rpmsg_char.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+> index 550fda2..49c0784 100644
+> --- a/drivers/rpmsg/rpmsg_char.c
+> +++ b/drivers/rpmsg/rpmsg_char.c
+> @@ -343,7 +343,15 @@ static long rpmsg_eptdev_ioctl(struct file *fp, unsigned int cmd,
+>  			break;
+>  		}
+>  		set = !!arg;
+> -		ret = rpmsg_set_flow_control(eptdev->ept, set, eptdev->chinfo.dst);
+> +		ret = mutex_lock_interruptible(&eptdev->ept_lock);
+> +		if (ret)
+> +			break;
+> +		if (eptdev->ept)
+> +			ret = rpmsg_set_flow_control(eptdev->ept, set,
+> +						     eptdev->chinfo.dst);
+> +		else
+> +			ret = -EPIPE;
+> +		mutex_unlock(&eptdev->ept_lock);
 
-Acked-by: Xin Long <lucien.xin@gmail.com>
+
+                ret = mutex_lock_interruptible(&eptdev->ept_lock);
+		if (ret)
+ 			break;
+
+                if (!eptdev->ept) {
+                        ret = -EPIEP;
+                        break;
+                }
+		ret = rpmsg_set_flow_control(eptdev->ept, set,
+                                             eptdev->chinfo.dst);
+		mutex_unlock(&eptdev->ept_lock);
+
+
+Thanks,
+Mathieu
+
+>  		break;
+>  	case RPMSG_DESTROY_EPT_IOCTL:
+>  		/* Don't allow to destroy a default endpoint. */
+> -- 
+> 2.43.0
+> 
