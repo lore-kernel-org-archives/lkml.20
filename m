@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.143.35
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.147.86
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793394047;
-	b=dFILclUzWT3T+qP9XIh4jMOk9+aw9kqjZmeBTIsg1xZomOWosTn+ikh/XWwVKAqdtGlf
-	 t6n5HD/uNmAa+lwv5wsBcxkePDZYuIlQTBb5QO5olWKTaGXtSiUDDplhdcwMdSZHpTqYj
-	 tQIX0VlcVw+rE2PO78cMWpI24Txft8ALJqWRAnKNNeTgjRIboVwzI0OLloLMHgS2+ZYTX
-	 DdT75rOLhyvNB6zziG5TDyJ882DDwZLwRnBPEzFHmWvUlg89AP453wGP8xS4e6GVSsCEE
-	 KNSM14kCySPfZF3QlHKxeqMF9JyTEjT2WF/DsNL0FSjxT6CfYrNNbhJjii1KwkucLYA==
+	t=1793394078;
+	b=yWJPSKklYIeHRi6izcqX0wIKziuG3AhzSpV1BlfYgl3OaJH9dBG5R2ZpnbSP3DT5z3z/
+	 A3eOfa8U+dchW57OBh6nwJ4lRv5ssKoFYdXND0ZZdpmEf/F9qw1rBQIlmpqTvasaCH1x+
+	 8p2DChRx7EmrdlNyzKdbWtZziDPAE3lVi8+NhLAyvmzU1g7hs+hd5qiboclz96y2QL/U3
+	 ufbEYDq6aJ/GjqP13DnLies88c44uQH0jjYmlJ6EIzwD2SkQcyOu7tmhqmF1pFzb4Wcyc
+	 gDvIIJK+z8qwmJ3Vazj8CZMovlRZ5zzP5IRUJRRxm93fyb2I3Hkv8R9MT1jsqPHNXRA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793394047;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793394078;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
 	 Received:Received:Received:Received:From:Date:Subject:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:CC:
@@ -25,92 +25,92 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
 	 X-HPE-SCL:X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=fsBQPk4vTz6eo6R/4j52WHRIb0tf3+PzvQpLM2wfcLs=;
-	b=i6rojK1TfU9+kfX1X2l5Zn7ARXsp26S6900lPlPuUA9y3AngtWfiFFBylQcU+lxexW9T
-	 jmL3EIBJP6F+CkGJKS6RA2TySmmiK45yx7pk0kO6g8N/iogg8SjchzbUQjbqY305qin51
-	 bQJtc33SZOB1CzQPJigrSiMbqpY3JeBkiPeynwlNEXu3pxkpxLYBkZWTBsPd+Qr/0kOLR
-	 CxRRb3OKsw1LVxSbVihbNrF32OZRrMseUgZk2PnaSpWElq+tlt+Uetk2PQK90V7sG/lt8
-	 8CemnZgtXLHIZHWpqva1REDHqMLD35xq6v5iDdZ5FlvmesfrgSLKXBZ0UBnWp/kgTbg==
+	bh=xBRr2GZhxBHnHKtvtOttTc98zguohuoucwX/W+aKf9M=;
+	b=ZGVKzrCNFft3ZcXbrVTIMbEik/RoFhzi+uhH0nZt7+AZQmteSiWvDGpgofo7Ov0IjTrX
+	 UDMQv30Z5jZIGOJ39mflu+W3FWDUYfouJNVXppUmywNedTg85uf2VcXYYbuZ4+UZR5sMA
+	 tyeiLjwoqiuUc5d5eT90/rGCluE0DqAJhVxXn1vs/C+Ek1yXLEdFIK8yVVXIscOLcDnsg
+	 RS5v3U0ATqYvLT8PcosnC2bbqSZr2yaHIcV9aFPCzOw1u/H+Q3g61HilSdyT16qGv/zXh
+	 Bn2w4FvLZ8ZjES6dIcIz1c5QlrpOoJSEbdiLmzrC0AnhsM06DJ+ozPZ8NIXCPkBCAlQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=hpe.com;
 	spf=pass smtp.mailfrom=hpe.com;
-	dkim=pass header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b="Ay+s+EG/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.143.35
-Received: from mx0b-002e3701.pphosted.com (mx0b-002e3701.pphosted.com [148.163.143.35])
+	dkim=pass header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b="B/AWfhbE";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.147.86
+Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com [148.163.147.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0C8606A31D;
-	Fri, 30 Oct 2026 21:00:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D0C8606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB16606A31F;
+	Fri, 30 Oct 2026 21:01:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CB16606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hpe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=Ay+s+EG/
-Received: from pps.filterd (m0134425.ppops.net [127.0.0.1])
-	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UKPY3E956908;
-	Fri, 30 Oct 2026 21:00:11 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=B/AWfhbE
+Received: from pps.filterd (m0134421.ppops.net [127.0.0.1])
+	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UHxgqr1536656;
+	Fri, 30 Oct 2026 21:00:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps0720; bh=fs
-	BQPk4vTz6eo6R/4j52WHRIb0tf3+PzvQpLM2wfcLs=; b=Ay+s+EG/ll8YjlElvw
-	0eeB4vuyl+n29hawess8mVyPGO7HYMhpHk+3wnT8uFSJJeuKQKqO4utCPLwsMdy/
-	uPNTu91B82T3gNbe7rqqCR8McIWPG3bbTGgy3EZCyePkspQMPHst86ByxO33EvnG
-	BeYdPkNxDKVk4MToAD/38SoNNItLSutG01qDIPNY4NDM+vYIIxAuIHwlNS8TPmhJ
-	Y8BnqJG96BPYstB6BgmudH1luSTizKGVUt/dv+D78zVIzSnf0Qise3qLsHO24NDk
-	B/epnhj4zJ7/slUS0JsfhJYys30D/9bEbs/nyfs8StQycJ6WYUk6ZJvJI+dNaKWV
-	qmRw==
-Received: from p1lg14881.it.hpe.com (p1lg14881.it.hpe.com [16.230.97.202])
-	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4hn28b09p7-1
+	:message-id:mime-version:references:subject:to; s=pps0720; bh=xB
+	Rr2GZhxBHnHKtvtOttTc98zguohuoucwX/W+aKf9M=; b=B/AWfhbEKKZatNnPXc
+	sUOWR3AvAb8Xpy7V4ee82Xrz3TLILJCX0D5P+kn1U1eK7kqau45vREzRzhv5WJMP
+	d09sk+SJgvc2dUg1FAAS3FPg0WCP52owQydTr4NAp/Xt6NAh4vjYAlK8gWQhZrGM
+	C2R3dhOLAhQVy6BrXyI0dGGm+1KSO7rONGBEuV6TleQGzJfG9burmzG2hwLpRRAz
+	YHIrdlzfrcymdUR7VO5ZQSDiQTjNJHS7ngOXnr1aTyPKU6TbT/G8eGDqQgS7oYop
+	rQor8rbvurTB6xK/PHwAuSGZcsc2DJuJc9Ow82xm+V5EM+gRQ9B11stwAWSH3+8s
+	ZfBw==
+Received: from p1lg14878.it.hpe.com (p1lg14878.it.hpe.com [16.230.97.204])
+	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4hmwj9v533-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 21:00:10 +0000 (GMT)
-Received: from p1wg14924.americas.hpqcorp.net (unknown [10.119.18.113])
+	Fri, 30 Oct 2026 21:00:49 +0000 (GMT)
+Received: from p1wg14923.americas.hpqcorp.net (unknown [10.119.18.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by p1lg14881.it.hpe.com (Postfix) with ESMTPS id 9443C8047A0;
-	Fri, 30 Oct 2026 21:00:09 +0000 (UTC)
+	by p1lg14878.it.hpe.com (Postfix) with ESMTPS id 39C00D2A5;
+	Fri, 30 Oct 2026 21:00:49 +0000 (UTC)
 Received: from p1wg14926.americas.hpqcorp.net (10.119.18.115) by
- p1wg14924.americas.hpqcorp.net (10.119.18.113) with Microsoft SMTP Server
+ p1wg14923.americas.hpqcorp.net (10.119.18.111) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Fri, 30 Oct 2026 09:00:08 -1200
+ 15.2.2562.43; Fri, 30 Oct 2026 09:00:48 -1200
 Received: from P1WG14918.americas.hpqcorp.net (16.230.19.121) by
  p1wg14926.americas.hpqcorp.net (10.119.18.115) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Fri, 30 Oct 2026 09:00:08 -1200
-Received: from BL0PR07CU001.outbound.protection.outlook.com (192.58.206.35) by
+ 15.2.2562.43 via Frontend Transport; Fri, 30 Oct 2026 09:00:48 -1200
+Received: from CO1PR08CU001.outbound.protection.outlook.com (192.58.206.35) by
  edge.it.hpe.com (16.230.19.121) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 30 Oct
- 2026 21:00:08 +0000
+ 2026 21:00:48 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QzhIF0j7H06D3ZYMCqXAuMIQ9ESjnJ9pflTUaXgaxPmlFNj9fIKLRXROhGEM6xiCk1zqjwtrjX6tYHhoTjQc4W4wW1z20npunXZg+gfaO4O0wcqfwLCLV6Y6vE4ojOD/tKeH+yPjKPCNM0NmNyMVKAU/sSTODoo3T5ebfZ7egyfHMLsxRWtLydkaQAiwOzx+9nmNemv1kxa6S6uLCiJrghNCdTFWWdQv0U9jD15mMgFMLrc/INkXm4Of/0ZY/KmKzESvT/U1428ZF6dc8+i9+qCCLR2LOHtCHx7748QCh7iFAdGQLnRETeQnGqQS1Ox1BAxkFBfMcw4iDoIlJLNMyA==
+ b=XL9amNYoCubrSMOq35w1/CBf9UiF75XDTyPwX5sJPTJKDE6zXfVDPARAzUPGXKu881NoCkXWz2VcZgljBaYU5oU99fR+rAldGU+VCE/IeFVlnkz4RirgNcSC0kNaTtnGH2H+yZgxnU2D4SNyg2Wfa2Z5OCm4j7QuVFZs+mymH3zzMzr6GbMuX8srZuf3XJsqA/xjND7c9QPPBym2OiWu4nPe0CBwAWJaQTepv79/XMdLJVoXD6R9ao0EKfuIF5IIx4HCnJ+LHwI3VCqbCv+Gqu516GSuBZlPAHweveRylolJe2x5W2koOqRvieWByRZBZUC7pqr0tX+cWZ29aa0pcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fsBQPk4vTz6eo6R/4j52WHRIb0tf3+PzvQpLM2wfcLs=;
- b=lqobkmbcpflyiPgBgGLqlrNg1M9NAWFjssbm7F4p/UU87tWjqlEENPYAF8eGDoZgqn8kNvahpjvKCGHahO/kET08olo8Spq+/TbcqLb87dbv7CU3Hl2SvY0ZrFCRYEjGdudyp5Ej2dtvQfcxFSDkfb7gps2g2sqjnqu1VTOWvK8GFwBso/qsO35SKwFu0UWJ22xCFtgejcqF3FyNIBRZFMqkaFt4jj/RGJvjwgyUGY6X2kyUfN9o9JYKwCErIO0WKf2DP5Vb9O13dvWY4D20BbYYQZtA7NSGMlLV7vz+Nsq65PmMy0BOosIY1BCKw/1gLdkLd+FLTJ3xAMjtQJlUGg==
+ bh=xBRr2GZhxBHnHKtvtOttTc98zguohuoucwX/W+aKf9M=;
+ b=ZBKHP2pviB4TLzZCTBF16stiJ1U03gSsgFzDI5/CXjKd27CxHIZkyxxA4gUTz/5HVF+7sZ0Wx6Ef/mi0mV7mVyG4XOcGPiNhcORxngr2LBCBST7naQoPxbcI+VNSyAvbIp7H59erd2CGzhmwhgXEypapHwF+QngSOHnepLB9odY6naJZZHNoR6X0Qdym4L4CZ15KQdx/wNQrStOdYXJOF6dtyVCS9bxniAijHJeTEwFyfF0xDPuDYcmC5upg6ugMxZZyqsC21pAI/xX5s6QFT3fgQKXSU+xK7qmQ4F4A8wUm95RA9BtKKMgHBjzGYodLOgf565zWXz3+38aV6wkRgg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=hpe.com; dmarc=pass action=none header.from=hpe.com; dkim=pass
  header.d=hpe.com; arc=none
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=hpe.com;
 Received: from DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:8:225::20)
- by LV3PR84MB3767.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:408:1d3::11) with
+ by IA4PR84MB951192.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:207:144::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 21:00:00 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 21:00:41 +0000
 Received: from DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
  ([fe80::d136:e75e:53c5:73d8]) by DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
  ([fe80::d136:e75e:53c5:73d8%6]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 21:00:00 +0000
+ 21:00:41 +0000
 From: Doug Ledford <doug.ledford@hpe.com>
-Date: Fri, 30 Oct 2026 13:59:00 -0700
-Subject: [PATCH 04/23] net: hpe: sbl: add the SerDes layer
+Date: Fri, 30 Oct 2026 13:59:09 -0700
+Subject: [PATCH 13/23] net: hpe: sl: add media and cable handling
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-cxi-netdev-submission-v1-4-8c2c391cc283@hpe.com>
+Message-Id: <20261030-cxi-netdev-submission-v1-13-8c2c391cc283@hpe.com>
 References: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
 In-Reply-To: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
 To: Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
@@ -133,8 +133,8 @@ CC: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
         "Mamila
  Santosh" <santosh-kumar.mamila@hpe.com>
 X-Mailer: b4 0.16.0
-X-ClientProxiedBy: DSSP221CA0006.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:8:3d5::17) To DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
+X-ClientProxiedBy: CH0PR03CA0018.namprd03.prod.outlook.com
+ (2603:10b6:610:b0::23) To DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
  (2603:10b6:8:225::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -146,5562 +146,4101 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR84MB3970:EE_|LV3PR84MB3767:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47d917d7-b163-4138-bfd4-08df36c8c2c4
+X-MS-TrafficTypeDiagnostic: DM4PR84MB3970:EE_|IA4PR84MB951192:EE_
+X-MS-Office365-Filtering-Correlation-Id: 702d3196-c3d5-4b91-b486-08df36c8db29
 X-LD-Processed: 105b2061-b669-4b31-92ac-24d304d195dc,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|261022075727099003|261026135527099003|261022113327099003|261022115727099003|261022105027099003|261021133027099003|261028144727099003|261021123027099003|261021135927099003|261021130227099003|261021121427099003|261009223027099003|261026121527099003|261026130827099003|261026140227099003|10067099003|56012099006|5023799004|6133799003|3023799007|18002099003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info: myh0EhBL1vuUwqZyPT9TZmHCdAx2CEDTMSwFMK+kQ/RkngVrdI/GTgE4TX79D4SrPZ6cL9QoZcrOlAuhApjun63JxYeTauhMHh/eUw9GNuyHbkyjKSR2BK7pcimPcDWxte171BLaAihutTR3StBg+H+9tSr2B6NXSVE3hIR3BRi9dsN/HWqVZWOXhgkx+hWmmvz8kdRko8FhBj3pIMYSequxTyikHzxk8ZRPeBj1F9my3RtYqspEdMi9v0YxxAGxS+6XuV4JZ8bxp+Mg4l2Rj4vW3uU1n94RgIEp0hbIbGbHCpbGnOOZegQuqE2A/Lrxx6wwBsARv4wB0bUr8jgxoslhNVoKe5BvIkJpVCDKhbef4a1PxOSjO7gCKgr8+zgD5Lc/w6qGzy37XDjG98z2Rug0BMq5cbS0yHtJs2Jk6lRGqs6jdi1LlU/UAs/9MrkoZ6dc9o5O6WJzus8rLgodJePyad9L7Yja+E4Wopaqk1EVy7J68Sd9zbkd762q0V5PBvqMmum1/1XNRTqi2Cirq77Lbyx0zhny0D96A0+fX1BSiGD1dqHIYhLo1vNyRF9+y6TSQak1J4QSVy6ImJlWoVx7AfeLSmJbzcWKjcagZb5ULdi/+ZwOTieVdanUUvG0PYipFyl2OhqP+lpQ5Ie257eYldu0CnkDFAqGhnYIiflNDAVot1N4MbUZN8rdwGPZtt2Mlgu+Y1NQnX5yOZ+Vww==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(261022075727099003)(261026135527099003)(261022113327099003)(261022115727099003)(261022105027099003)(261021133027099003)(261028144727099003)(261021123027099003)(261021135927099003)(261021130227099003)(261021121427099003)(261009223027099003)(261026121527099003)(261026130827099003)(261026140227099003)(10067099003)(56012099006)(5023799004)(6133799003)(3023799007)(18002099003)(22082099003)(921020);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|6133799003|18002099003|22082099003|921020|56012099006|5023799004|261021121427099003|261026130827099003|261028144727099003|261026121527099003|261026135527099003|10067099003|261026140227099003|261021133027099003|261022115727099003|261022075727099003|261021130227099003|261022113327099003|261022105027099003|261021123027099003|261021135927099003|261009223027099003|261009221227099003|260925022911599003|260925021311599003|260925021911599003;
+X-Microsoft-Antispam-Message-Info: uP6inkd2Tq7xhCESv6z1TozBDSo1kFfqzG/Hf/MH2B3zn80g5jQHn/NE0zu0MuJtJiXFo1hUNE+O5wLyJ8XtYpdSUfp7kTQ+yxIjvJMjXY2x1q36nB5HMxCbjpj/kCtnQ0NaHQAxqDgRQ6VPf04sQ9PgjnXwUrU7N3IQrcw1BIC9cuMeDrsNqEWL5vxf8l9WEDNJiCy9l4+L2WBZ/WaRFgJKaEDEJPUq7IW9+l4PtzOpjlJD5WKjFLvMY/7p5sifQXwGz8hAfcPK7gaGqyDZYA0bwC6zsTJ3jo7krrb5hFi7K+5AvVkT/cnnOc+Eh8oaeNLTlI7sUajaCmK1QwDFcPJMYL2nbHQSt1jKwOMrRb+GSpsArBNAd5QHGiqT0OJuJZ2s1zxFVbJ+Zs9+0b9+KkE5y+raIp/WUnVgA8gafmWHDzZd5/YZvUhnVF34N4miNFwqdL0uLm58CyirPqN9yfnrmL96Ysa41yyulq2tMPeFuybYhKVzdTHEaNfMs084d8Fu/QSA4Wvj8CfuWHHHRXXMhp0RSgKfpR1uAL1rCsXKKonHK1McZCKBH9x1yJvkT+wvCGVmj1QtAZPQljOcuS91ZStfVJgW2XMQw9W9X8LXv/AvxDk6CXdEKl2ztMe4PXp3O+J6pLKP2Jky6KUi3trW61gEq9wSb/cnwvG4yqLBDqFFCPgJquwY45kHB+xamwCIcV3UDFsC6gA8aNzBUw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(921020)(56012099006)(5023799004)(261021121427099003)(261026130827099003)(261028144727099003)(261026121527099003)(261026135527099003)(10067099003)(261026140227099003)(261021133027099003)(261022115727099003)(261022075727099003)(261021130227099003)(261022113327099003)(261022105027099003)(261021123027099003)(261021135927099003)(261009223027099003)(261009221227099003)(260925022911599003)(260925021311599003)(260925021911599003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RHczbU1zMXp4L1p2LzR0Nmx1VHEvdnBFZGVVNVFPd1pabkNlRzdnMll6eUZE?=
- =?utf-8?B?endBb2w4Q3RaM28zZXVpZDAwTEdrZHNIK2ZuYkZlS1J2WlZrc21mZVFaV0RN?=
- =?utf-8?B?RWtjSzUwdGg2M3JMUzRReDZReUtvcHB6bWE1cWdxejdKcG1JWmxGOE1aRzJR?=
- =?utf-8?B?YTArR2FTM1RUdlltUDlXMVJwUmhQSlV6bjN1aDhQOXRjdkJkdUMwTG9tWGZi?=
- =?utf-8?B?MnByS0JEamdnV0ZJdU8wQ1VIT0JLN0dKN1Z5Q2RkR2g2cjg3Mko2R2lqUXBl?=
- =?utf-8?B?Y1lYV3h5UVdGNEhxazh2TWpwdmEydzRnNjRvZmJUNWFqenV0aXZZRlI5QTJU?=
- =?utf-8?B?R2xNazFvQnpNa0JudXE2UFBTR0ZWay9wcktlaHVQRWx6WnlnUXdpYTlKTldH?=
- =?utf-8?B?NmVLb3NTbXRHT1o2alZBdXpCLy9kOFdxR3RyQnVQTXhQaUxkd2ZPWUVBL0tz?=
- =?utf-8?B?ZjJZQks1R2FlZ1ZMR3FIR3JNQm55TUQ3ZGJTblNxQkhOYkVWczM0Z1dWWkls?=
- =?utf-8?B?N0ZLVzY4OFZGYmJTNmsxZDJhc2lEMTVFa3VMTUNRd3ZPd1FJRGtZOVdmUDI3?=
- =?utf-8?B?R2hqYXJITHFObXlYejFUTWo3N0pCUzNKQU82NUhvMUJmbGpXdFZ6VlNNR0JN?=
- =?utf-8?B?YlRWcDUwaDZLSDZOU2xIVlhpM1ZwWjZCK1R1SUZOQmNlcVA3OEtBc3E0THNl?=
- =?utf-8?B?NytvdEowOEZSMEpCN2hlYmVzUUhEWXptcWZ2bUlPUGZ3M3BpRWxWaXBqNXhl?=
- =?utf-8?B?ZHMrR3BqOHF0WVBFdy9oZW04Qmhtdmg2Tk95aVJmUi9pQ2JRSnBNOWlIVWRu?=
- =?utf-8?B?TzFQL0t1T3prNXIrRCsyQlJGRzl1TW1UcUM0WEdHWmJ5cysyV1VZdFpyWlJ3?=
- =?utf-8?B?NHhJSlBpUWdjbHZyeTdKK1orejFEQXlHdUtycEVzSHV0ZGcwS2VHNDUrRDFL?=
- =?utf-8?B?aXkyL3VIVFNpcjhFaVdMZEplRnpzMDlISS82Q243L3RTbndFd3NId3BiQWcz?=
- =?utf-8?B?c1ZzUzRieG1TVnBRejNmZE1LMW1WbG9ONjAvSnVqa1pYNTk5UjVQZ25rZFV3?=
- =?utf-8?B?Zk5kWnRDTEZETTgyeUNBcHJHRldRcE9va29kdlBwSmJzeHIzbWhSZTZqR0Zk?=
- =?utf-8?B?WE9rUGRXaEoxSkxvUmx1UmdNSHdmenVOVmkzWjl5NGN1K29TY1Y2VlNpU2x5?=
- =?utf-8?B?RWRRdjRPRkxndGRadEE5WmVGZCtqUnFWTStXVmVROG53Mm1uOUVXNmZaZ2Vz?=
- =?utf-8?B?QkVSUGh1encxU0plb0dvNmxDdmIxbmk2VmFHaFlBcVc1Rk45WStUNEFtYmJE?=
- =?utf-8?B?VkNSa1A4WVc1SXdrRjVGTlNIMS9UTEJkbTNGNDNnL1dtTms4aFcrRElaRVBt?=
- =?utf-8?B?eStsTXd6SURrV0R4cFlBZGFxT0lEdmx4REpaalZIZ05xUGwvb2pPRVFXQVpp?=
- =?utf-8?B?NWp3UGk5VEdIRVltdlkzM3RaTWk5N01IVWZSQ0JqVy9IeDE1N1FVNHZ0QTBS?=
- =?utf-8?B?WTZ3dkRLVkd2NCsyS2Urc3QwczNEQy9MbTh3d1N2KzBXa3ZBMG1LcFlnTkVU?=
- =?utf-8?B?eU5hQ3g0QjZZWnVYeVMxVk44ZVJqQ09jSk9nMmN3VEJWQmZLbEtKSzI1YnB2?=
- =?utf-8?B?WE9RREFuczI3b1ZaK1RhWkJpeldEOU1YeVVUN24zWlpYVDZ5RWhWWE9hQzNq?=
- =?utf-8?B?Wm9EL2ZyYXdVYzh6dDA5T2tzN0dPR3VWUmJ5QUhDNm5tenZKcnp6dVV2bnht?=
- =?utf-8?B?c2tWdlM0ay8zKzFaZnVWbHEwWW84d2N6T01RaDNUODlkYThYMStMc2pJQkFU?=
- =?utf-8?B?OHZrdXN3SXpyYWQ5dWd4eTdadkxzZ1Q4VmgwSEFaQy90QURIZEEweWlwc0tX?=
- =?utf-8?B?MitkMkJ1TVI2bmlDalRPUlRHTWdRSlVuTnRFWmJISUovMGNIQTVpSDVkdHZV?=
- =?utf-8?B?ZTR1QlQrNG9HOWVlUEI4TWdHNWJBazFhYW0vbXp1K0ZIZ016bWdIc28yaG03?=
- =?utf-8?B?bzFWOXo1WXUxOE14ZW9Mc0lxRk95REhJUVBwamVWZkFtNm1XS2JDdGk2MTlE?=
- =?utf-8?B?Qk9wVDhHMnhUdE9mMUxJVlF4NHFXWFVGSlFYUHZDajQ0SXpIdXhmU1hFNVY4?=
- =?utf-8?B?bG9BSnZ1SHVuSnI4UGlBaTIwSjBzYlFtUGRkM0lVbjFtUHVnUFFIdTdXVVpz?=
- =?utf-8?B?Uis0b2p5QmpycG9LTXRxMzI0aVAzUU9vd1BQR3hyOWY0dDFkdmI0MkpSSFJy?=
- =?utf-8?B?WWp1TUdVaEg1ZkJPRW1Fa3Rjb3B1WlBXaUZwWWcxbkhiK0xxRFlRaGwvQ3Vw?=
- =?utf-8?B?SHFGUUllNk5EUEFrNjhWTEFpemVuckZWOXNYNS9OeFRhSVVEZ1ZyQT09?=
-X-Exchange-RoutingPolicyChecked: EGNz6LnvMxO7hPNqwrcQb8GfSdutmvlg7VD490tbWiSkGy7T2NZjHij8pqWSuxi/fMV8vtatMCPuuU2YI6hesUYRbv/SR4OMByxwNnSat1Hxfe7Q2BC9AlHKzCG6Dgh1spyQDTtZJrz9asnOAviKgwwi2nVXeS+M3l3QL+Utl1TxOCmEMb8BJN4PGl/7sqDy96o+ZzzRW7oB69C9qR8v7Xnc7VqofsSYHho9FqD8d1ilj+VJJ2XqA4FcgeFNn0V4YxcRrNalZaZU66Pm2BuIn1W3y2biZak6W8fE46tJNHUusJV0Snjm1I2HmNE0GCWQsIcNTesKkBhI+2ZL3HLSCw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47d917d7-b163-4138-bfd4-08df36c8c2c4
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UTZBbDZEdUl3OVFhTktDb1VjcDh4TWxCVnJ0QTJ2Zi9yRFBGb2hVdVJxb2JZ?=
+ =?utf-8?B?OWVSb3FiUmo3eG01SzFZYS9OZmVjTG01NmxsNmZ4eXFOY1lHQzZZL2trMjdr?=
+ =?utf-8?B?NHZMSUxZbmJrN2E3TWxPWkZENUhnTzlXS25uVlVEc2xyLzdjbWJiem5mUkU1?=
+ =?utf-8?B?OXp0ck4zT0ZCZUEzeXpwTjhLRzlMUTl1K2krQmlUZTJ6V3Jab253T3NHS2lR?=
+ =?utf-8?B?UGU5OEpXZmFsSDVzSThiYy9NOVl0enowTWx3MWdYMC9GaWEybVlsait4Um9T?=
+ =?utf-8?B?WUFSZDJPV0JYL2pML2FNTVdFQm5BdlJ0Rm9MSlNZQWM1NnpxdWl3M0MvQWw3?=
+ =?utf-8?B?L3BoRW5KOWlQL2cyaXJRTDM3SlBjblB6SmgyNjBRakJXRFpFK0ZiaW9hN0oy?=
+ =?utf-8?B?RjBzUER6ZVVNOXJ0Q1RhODFnSnJGU2ZhYkIwOUVwc3p3cTRhNForZGxvYmoy?=
+ =?utf-8?B?UHNtb1RybmZGcHU2T3FmOVpmbVJZSXhQRUkvT2M5Tk8wTTlKZUxJWTJzUEsr?=
+ =?utf-8?B?RUFCTEhSdGhZV1ZMbXV2alpHdC8yYVFxclRkS3g2cDMybXNscWtmWVltTGl3?=
+ =?utf-8?B?ZW5xSEFLQ254by9YNllvTVVtV3dmSkN0VjI5Z3dGRDd6dlhyT0VFdEpZZ0tq?=
+ =?utf-8?B?V2RXV21DRG5sVDJZdDV1YzEyckdjYXY2TTQzVEtGMXZSWHFGa1cya1BjM29H?=
+ =?utf-8?B?RnFjZDUvVUhvVzlhbTNHTXhQcmR3RXZkZkdJRldsQ3BFY1k3NWovYVd5Wll0?=
+ =?utf-8?B?MHZTdDE0NWo3blRUMkYrcklmSGNSNzcrVmRyMmZWdXc3NmI2bmg3VVZaUEtW?=
+ =?utf-8?B?QmxoaGNhRkkwM1lZWFQ2Wlh6bjM3akxhVTJFd0pMNTN4amN5VnVmUldZdE9j?=
+ =?utf-8?B?T2JBOVJFWmdPdmdjcGxqaXNLUjFPdk14QUQ1SmxQSCtnREhQd1JMSlpFV042?=
+ =?utf-8?B?UXhoTmpidUNCaW9mVkVNalBWd1NGOFFrUEhLZUdCMnNLUkdCcmdRQnhMa1RY?=
+ =?utf-8?B?akxrWkhzbk9DTTJjdENtcGhDN014RFFOSUtXK2FYMWd0c2VObzZadHB5aDlK?=
+ =?utf-8?B?UWd0ZFcxM3RRTVJ3VTNFdGU0OUh2cGxrS3JQS3kwaC9vY0c4UVJqUnBsbXdF?=
+ =?utf-8?B?MFhGR3BjeUV1SzJTZmwydk94aElCaTRDOTA1VzlzNlVLNmsyTCsrYzJKYktE?=
+ =?utf-8?B?VU5zWGdXMkF0eE1YRHE4NmYxQmo5S0IrY0xWQWpyUzk5OXJnZ3FIaFZoNjJP?=
+ =?utf-8?B?M0tRNUpnQnRDOUN2empheDViTmhTKzArbEZld2hKZnlINmN5TDRRMDFSWjgw?=
+ =?utf-8?B?MnZlN2dQNWVub3FXQnVXQzBCcS92TW1NTHNWcDQ5T2tySE1sd0Q4elJuYVZ1?=
+ =?utf-8?B?dWRxSDcrTmRZQ0FtUkpYTmNJaVFFT0p1eVU4YUE0aFV0RzVwUjZ0a0c2alpi?=
+ =?utf-8?B?b3UxS0xoazhNblZWQnNCa1BYZFVTRDB5enZzNXNuMEJWcWpENTZTUXBwNUlO?=
+ =?utf-8?B?bmYyRC9Ia0JGSW1pVVBsOWgxSWRPZ3NnVlZDU0M2Z3V6RjZDdlVHcTNQaW4y?=
+ =?utf-8?B?bFpSWWNqTEo3bWYrZTFuc2VuckVPeVJUUTRrZWk5bi9ub2VZOTZEclppYm1I?=
+ =?utf-8?B?QjI3NUo2UGkyOTlMdHVLSC9jNXRpR0dxUTlEdlFOM3ZiZkJIcGJwajF3bnRz?=
+ =?utf-8?B?cmxBTVNXeUxJaU9tQk9HMVJ3SUloZ21mQ1VqeGFiNFlJNWc0N0paYTlpdkwz?=
+ =?utf-8?B?alhmRWoxVEJqcWdWNHdKTTFkNjVjUEZjVVMxZU5pdVlGOC9jbXRBQ1RYKzlq?=
+ =?utf-8?B?dVJTQmxhSTMxdzVaT1hlR1oxTEdQVUN4ZGZWMUZUdm1sbnB5OCszc25HUDVl?=
+ =?utf-8?B?ODBVSzQzSHRMNmZFQjcrZEJBRmZ6V1JnZkdFUnRTeWd3Wno0dlhVMFdNZkI0?=
+ =?utf-8?B?ZHJ1THI1ZDhyR0VrQzFFY2dYT3FBTzl5bzkyNndQWjZ6cG1aOWQ5cjl5am55?=
+ =?utf-8?B?RE42QmtNbmN6SnJaSHYzNjNQZWJ2dzVTK24zeENmWFpXbjVMN3Y4T1BTVU1p?=
+ =?utf-8?B?WGVxa0tzQ051bjBOSTc0Y1FvT1lVNGdrblE5aURWUjNDblZzL0QyZ1VIenAw?=
+ =?utf-8?B?eEVOdkhVQ2JXaERxSVIzMmdqdVJRSGRqdjVCcWs5d2xwRWUxYTBqR2h2VEZm?=
+ =?utf-8?B?ZEFBYksyYmtMN2s3ZWJHclI0TjJFblFtVll4aTNUWlpQQ0t6UHE0VXNob3Vl?=
+ =?utf-8?B?cFJpZmxhR0JBNER4TXhGS2xsL0dDdkJwK3VlZE9iaVk5c3BSS0E1eWdDOE1T?=
+ =?utf-8?B?emkrcFRGdW9sQTJVSjdUWktCMDJkVXBCSzJHenpoYmZEWVVPcWx1UT09?=
+X-Exchange-RoutingPolicyChecked: QwlY47EZjY0PSqwBEjEVzCbPenMyNVcU+K1SusfhpVsolBbw34B/Xx/Vo1NNeAZonWkWPSBxHgio7HOLoT6UqR50HX+kqVQ/zdkF6HwGuEkDxSZWf3u1ZWnTunmpxWv0CPXZFB4W95Z2YTFc899+6doDvqD9H2ivubVLvYnaxXnJpKl1q0/ctJCBGTOGwBKirhKNDnhSWYVqOa9vOlRMrWA3bGQJozS8US7xGLgj+MmPIi/I3g0u4uIqEN2UkAm10uSuSNtY8yBOWrDUDaBHZJLow/X/HW+NAQWYli/t9vuoYzzV3NcUfN57FvZt1IAdf53XpYq9Y+CtEUbjIkYsNQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 702d3196-c3d5-4b91-b486-08df36c8db29
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 21:00:00.7381
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 21:00:41.7255
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 105b2061-b669-4b31-92ac-24d304d195dc
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qgbAg5my2wHGL98PWTbtd6oALM1ggKaJ8YqylrBqij1Ssjzma3WWr1dyYu4cp/vhny4+t1h6RKCjTkMMK1xxVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR84MB3767
+X-MS-Exchange-CrossTenant-UserPrincipalName: SIYAHGcszLFaUizNIB8mezZZyxixJW5C3B7p6I+ucNZak5SyBNXt5v/sKQTbJRwWYelO3yHKBhxqrKqJgv8Now==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR84MB951192
 X-OriginatorOrg: hpe.com
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4MyBTYWx0ZWRfX6ShRL4KDw3xx
- PuXupTuTVmoHVcezSGSKIdyBPoh+LwDeOhVdEC5MXGJ3VrkxM8x/IsYB13Fgmxg6dAPk2oEApA+
- kTVfLzyhYOoC9HnPFwKkmRPagXR4k2hxFwNBxl3KO+Cb3w50sIbVqCj0MYH+pgqbDMh//Ht7Nu9
- aqAoHpSvoMcUNWn5CjLBiNwFw4OzBw3AkdDyxkUDfYYFdQNj2xx9JA7bFTVokI45N1pV3e0fhOK
- kHvcIdcQq5d9LtO2X1DdH/OmpO0XwDIaYXYwE3t5GCH7M8qnoNu4YMaXOnMmNWUZQmGdH4B4eAo
- 9iMUtRB4/1vPc5i+EXN1cjthlLjlLcyxMmiZJDQYhLN1uakTuLG/F/9k+KPYCGyYl8HqU68CJc3
- r9KAPUEOvIJUfHAY/MCY7iHeMJInhSU44VCRN9HQ52rZ/0Xcroon/OGW+HmOnhfklbpClXMYh9n
- s+VlFwxb7GA+CrlOgfA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4MyBTYWx0ZWRfX1EMimP7HMUdg
- JD+2ceWMVgdeza2Ldym0zSEMdykIU0YUzCjU37Rigb5NO9SEiEDw7Do0QTlf3Go63N6xc9RshCP
- SfWz1BtJJOSbTiZ49RG9YudhTyEJ+mQ=
-X-Proofpoint-ORIG-GUID: yG6fLZG8c87NwtHXoYx49ygFV66IMb8k
-X-Authority-Analysis: v=2.4 cv=P8+vFSAu c=1 sm=1 tr=0 ts=6ae5055b cx=c_pps
- a=FAnPgvRYq/vnBSvlTDCQOQ==:117 a=FAnPgvRYq/vnBSvlTDCQOQ==:17
+X-Proofpoint-ORIG-GUID: dU9eXnkX_n6fc1FXjlOriZAz8Xa_Or92
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4MyBTYWx0ZWRfX4JhYphrXFI8C
+ TSE1eR4iyUYIrgwAMVyskf1NIaBcp6TH5JROOR9xNqk384sc95U8SzNK4S/3Ag/QtpKdsd+xotR
+ pTy7QndgNUucYSNxr2cceRf1mCVqe/k=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4MyBTYWx0ZWRfX4eCksjnDj8Hl
+ adGHbovmdexlyuTven9bxpFxBQnAIvhgCzFIog8erIvbrRKvtRucji7bkWb0pLpoiDxrdOMNX73
+ nr8MQHFASHydAaSwpbyKoz60LWLg4YB0xrQXTsaSyRD0rmUEIqoz5NqPpeJOuJyTQH/mI8y2CpX
+ IljzfIpVEsaRxroknN180+qL/WB8dbRCEMFPm/VK/9oUTGFEjvSb52KXtMScRalf8+vGnRDhnEv
+ l3wBUFbxvLXVeS+Xys9ybAtzabmBiFkHkbKGRaKUAEa58Zl2FvdnzAT0hjuNtfLXDEymzqm+mAi
+ nEj/jBaLDJDuw0LgoZ5EIRnvvRKYs2uAOGyP6RXyLrLcCSVPuJRA8EtYc0getOGtHZiyL0yBwbd
+ GmDsQWWJTG388/qSIYuDS+9NKzpaS3yo4jNMD9j6VoHAt74y6QBxCp/7A5lKZ7RmRxLxq5jw+jW
+ fNv/fd5pLF8jid46FhQ==
+X-Authority-Analysis: v=2.4 cv=bKGDs/+Z c=1 sm=1 tr=0 ts=6ae50581 cx=c_pps
+ a=UObrlqRbTUrrdMEdGJ+KZA==:117 a=UObrlqRbTUrrdMEdGJ+KZA==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
  a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=gQcMVamqm3wCPoSYhaRC:22
- a=ZSrvDirOKP4VPF05hnFf:22 a=MvuuwTCpAAAA:8 a=iTzTgzf_AAAA:8
- a=wzg1yKxi0KSakgm5DiMA:9 a=EObSGzcHVnEKk7FG:21 a=QEXdDO2ut3YA:10
- a=JL7qxNyGISI99KadRA9B:22
-X-Proofpoint-GUID: yG6fLZG8c87NwtHXoYx49ygFV66IMb8k
+ a=ay80y3fxfMS_JZZz1qJy:22 a=MvuuwTCpAAAA:8 a=oPDcsV5zAAAA:8
+ a=LCAnrB7BMdWhVdc1Wu8A:9 a=UO5Xvd6sF9_3KjH3:21 a=QEXdDO2ut3YA:10
+ a=nha20LbOgcfWf79Gid5B:22
+X-Proofpoint-GUID: dU9eXnkX_n6fc1FXjlOriZAz8Xa_Or92
 X-HPE-SCL: -1
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-30_06,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 spamscore=0 adultscore=0 clxscore=1015 phishscore=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0 malwarescore=0
+ clxscore=1015 impostorscore=0 adultscore=0 suspectscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300083
 
-Add the SerDes layer: per-lane configuration, the autogenerated lane
-map, and the function-pointer table that lets the PML layer drive the
-SerDes without knowing which SerDes core is present.
-
-sbl_serdes_map_autogen.h is generated from the hardware lane
-description and is kept in generated form, so style checkers will flag
-it for line length and macro layout.
+Add cable and media handling: EEPROM parsing, the cable database,
+per-jack data, and the emulated jack used when no real media is
+present.
 
 checkpatch --strict (100 columns) still reports the following in this
 patch. They need coordination with the internal repositories this code
 is maintained in and will be fixed in V2:
-- WARNING: LONG_LINE (45), BLOCK_COMMENT_STYLE (36), ALLOC_WITH_SIZEOF
-  (2), ENOTSUPP (1), LONG_LINE_COMMENT (1), LONG_LINE_STRING (1),
-  TYPO_SPELLING (1)
-- CHECK: UNNECESSARY_PARENTHESES (37), BRACES (13), ALLOC_SIZEOF_STRUCT
-  (2), PARENTHESIS_ALIGNMENT (2), COMPARISON_TO_NULL (1), LINE_SPACING
-  (1)
+- WARNING: LONG_LINE (164), LONG_LINE_STRING (21), LONG_LINE_COMMENT
+  (2), BRACES (1)
+- CHECK: UNNECESSARY_PARENTHESES (27), ALLOC_SIZEOF_STRUCT (3), BRACES
+  (2), COMPARISON_TO_NULL (1)
 
 Co-developed-by: Mamila Santosh <santosh-kumar.mamila@hpe.com>
 Signed-off-by: Mamila Santosh <santosh-kumar.mamila@hpe.com>
 Signed-off-by: Doug Ledford <doug.ledford@hpe.com>
 ---
- drivers/net/ethernet/hpe/sbl/sbl_serdes.c    | 1117 +++++++
- drivers/net/ethernet/hpe/sbl/sbl_serdes_fn.c | 4310 ++++++++++++++++++++++++++
- 2 files changed, 5427 insertions(+)
+ .../ethernet/hpe/sl/media/base/sl_media_eeprom.c   |  611 +++++++++++
+ .../hpe/sl/media/data/nic/sl_media_data_jack.c     |  496 +++++++++
+ .../hpe/sl/media/data/nic/sl_media_data_jack_emu.c |   38 +
+ .../hpe/sl/media/data/nic/sl_media_data_ldev.c     |   30 +
+ .../hpe/sl/media/data/sl_media_data_cable_db_ops.c |  111 ++
+ .../hpe/sl/media/data/sl_media_data_jack.c         |  344 +++++++
+ .../hpe/sl/media/data/sl_media_data_ldev.c         |  115 +++
+ .../hpe/sl/media/data/sl_media_data_lgrp.c         |  127 +++
+ .../hpe/sl/media/data/sl_media_data_lgrp_trace.c   |   31 +
+ .../net/ethernet/hpe/sl/media/nic/sl_media_io.c    |   63 ++
+ .../net/ethernet/hpe/sl/media/nic/sl_media_jack.c  |  315 ++++++
+ .../net/ethernet/hpe/sl/media/nic/sl_media_ldev.c  |   13 +
+ drivers/net/ethernet/hpe/sl/media/sl_media_jack.c  | 1067 ++++++++++++++++++++
+ drivers/net/ethernet/hpe/sl/media/sl_media_ldev.c  |   22 +
+ drivers/net/ethernet/hpe/sl/media/sl_media_lgrp.c  |  498 +++++++++
+ 15 files changed, 3881 insertions(+)
 
-diff --git a/drivers/net/ethernet/hpe/sbl/sbl_serdes.c b/drivers/net/ethernet/hpe/sbl/sbl_serdes.c
+diff --git a/drivers/net/ethernet/hpe/sl/media/base/sl_media_eeprom.c b/drivers/net/ethernet/hpe/sl/media/base/sl_media_eeprom.c
 new file mode 100644
-index 000000000000..4db5bb1a0bb9
+index 000000000000..80113ec4860d
 --- /dev/null
-+++ b/drivers/net/ethernet/hpe/sbl/sbl_serdes.c
-@@ -0,0 +1,1117 @@
++++ b/drivers/net/ethernet/hpe/sl/media/base/sl_media_eeprom.c
+@@ -0,0 +1,611 @@
 +// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2023-2026 Hewlett Packard Enterprise Development LP */
 +
-+/* Copyright 2019-2022, 2024-2025 Hewlett Packard Enterprise Development LP */
-+
-+#include <linux/kernel.h>
-+#include <linux/device.h>
 +#include <linux/slab.h>
-+#include <linux/delay.h>
++#include <linux/errno.h>
++#include <linux/string.h>
 +
-+#include <linux/hpe/sbl/sbl.h>
-+#include <linux/hpe/sbl/sbl_kconfig.h>
++#include <linux/hpe/sl/sl_media.h>
 +
-+#include "sbl_constants.h"
-+#include "sbl_serdes.h"
-+#include "sbl_config_list.h"
-+#include "sbl_serdes_map.h"
-+#include "sbl_serdes_fn.h"
-+#include "sbl_internal.h"
++#include "sl_media_eeprom.h"
++#include "sl_media_lgrp.h"
++#include "sl_media_jack.h"
++#include "base/sl_media_log.h"
++#include "data/sl_media_data_cable_db.h"
 +
-+static atomic_t sbl_next_serdes_config_tag = ATOMIC_INIT(-1);
++#define LOG_NAME SL_MEDIA_EEPROM_LOG_NAME
 +
-+static int sbl_serdes_stop_internal(struct sbl_inst *sbl, int port_num)
++static void sl_media_eeprom_appsel_info_store(struct sl_media_jack *media_jack, u8 host_interface,
++					      unsigned long *speeds_map, u8 appsel_num, u8 lane_count)
 +{
-+	struct sbl_link *link = sbl->link + port_num;
-+	int err = 0;
-+	int serdes;
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: SerDes stop", port_num);
-+
-+	err = sbl_port_stop_pcal(sbl, port_num);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "p%d: SerDes stop: port_pcal_stop failed [%d]",
-+			    port_num, err);
-+		goto out;
-+	}
-+
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		err = sbl_set_tx_rx_enable(sbl, port_num, serdes,
-+					   false, false, false);
-+		if (err) {
-+			sbl_dev_err(sbl->dev,
-+				    "p%d: SerDes stop: disable failed [%d]",
-+				port_num, err);
-+			goto out;
-+		}
-+	}
-+
-+	err = sbl_spico_reset(sbl, port_num);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "p%d: SerDes stop: spico_reset failed [%d]",
-+			    port_num, err);
-+		goto out;
-+	}
-+
-+out:
-+	if (err) {
-+		link->sstate = SBL_SERDES_STATUS_ERROR;
-+		/* Try and recover from errors with FW reload */
-+		link->reload_serdes_fw = true;
-+	} else {
-+		sbl_dev_dbg(sbl->dev, "p%d: SerDes stop: done", port_num);
-+		link->sstate = SBL_SERDES_STATUS_DOWN;
-+	}
-+	link->serr = err;
-+
-+	return err;
-+}
-+
-+/* This delay is to give time for the optical transceivers to lock */
-+static int sbl_serdes_optical_lock_delay(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	unsigned long last_jiffy;
-+	int err = 0;
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: optical lock delay", port_num);
-+
-+	if (link->blattr.config_target != SBL_BASE_LINK_CONFIG_AOC) {
-+		sbl_dev_err(sbl->dev, "p%d: optical lock delay - config not optical", port_num);
-+		return -EINVAL;
-+	}
-+
-+	link->optical_delay_active = true;
-+	last_jiffy = jiffies + msecs_to_jiffies(link->blattr.aoc.optical_lock_delay);
-+	while (time_is_after_jiffies(last_jiffy)) {
-+		if (sbl_base_link_start_cancelled(sbl, port_num)) {
-+			err = -ECANCELED;
-+			goto out;
-+		}
-+		if (sbl_start_timeout(sbl, port_num)) {
-+			err = -ETIMEDOUT;
-+			goto out;
-+		}
-+		msleep(link->blattr.aoc.optical_lock_interval);
-+	}
-+out:
-+	link->optical_delay_active = false;
-+	return err;
-+}
-+
-+/**
-+ * sbl_serdes_load() - SerDes initial load function
-+ * @sbl: pointer containing target config and state
-+ * @port_num: target port number
-+ * @force: reset and flash even if current fw is at the correct
-+ *        rev and build number
-+ *
-+ *  When power cycle or controller boots, This function
-+ *  Applies the SBus speedup and flashes all SBM/SerDes firmware images
-+ *
-+ * Return: 0 on success or negative errno on failure
-+ */
-+int sbl_serdes_load(struct sbl_inst *sbl, int port_num, bool force)
-+{
-+	int err;
-+
-+	if (!sbl->is_hw)
-+		return 0;
-+
-+	if (port_num == SBL_ALL_PORTS) {
-+		err = sbl_apply_sbus_divider(sbl, SBL_SBUS_DIVIDER_DFLT);
-+		if (err) {
-+			sbl_dev_err(sbl->dev, "p%d: SBus speedup failed [%d]", port_num, err);
-+			return err;
-+		}
-+	}
-+
-+	/* retrieve, flash and release SBM firmware */
-+	if (port_num == SBL_ALL_PORTS) {
-+		err = sbl_sbm_firmware_flash(sbl);
-+		if (err) {
-+			sbl_dev_err(sbl->dev, "p%d: failed to flash SBM fw [%d]", port_num, err);
-+			return err;
-+		}
-+	}
-+
-+	/* retrieve and flash SerDes firmware */
-+	err = sbl_serdes_firmware_flash(sbl, port_num, force);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "p%d: failed to flash SerDes fw [%d]",
-+			    port_num, err);
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(sbl_serdes_load);
-+
-+/* link partner detection
-+ *
-+ * This function will attempt a serdes minitune. This fast tune will only
-+ * succeed if the lp is sending AM using the same mode as we are using.
-+ *
-+ */
-+int sbl_serdes_lp_detect(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link;
-+	int err;
-+	int tmp_err;
-+
-+	err = sbl_validate_instance(sbl);
-+	if (err)
-+		return err;
-+
-+	err = sbl_validate_port_num(sbl, port_num);
-+	if (err)
-+		return err;
-+
-+	link = sbl->link + port_num;
-+
-+	/* in loopback mode the link partner (ourself) is always present! */
-+	if (link->loopback_mode == SBL_LOOPBACK_MODE_LOCAL)
-+		return 0;
-+
-+	if (link->sstate != SBL_SERDES_STATUS_DOWN) {
-+		sbl_dev_err(sbl->dev, "p%d: serdes_lpd wrong state to start (%s)",
-+			    port_num, sbl_serdes_state_str(link->sstate));
-+		/* leave state unchanged */
-+		return -EUCLEAN;
-+	}
-+
-+	link->sstate = SBL_SERDES_STATUS_LPD_MT;
-+	link->serr = 0;
-+
-+	for (link->lpd_try_count = 0; true; ++link->lpd_try_count) {
-+		err = sbl_serdes_minitune_setup(sbl, port_num);
-+		if (err) {
-+			sbl_dev_err(sbl->dev, "p%d: serdes_lpd setup failed [%d]",
-+				    port_num, err);
-+			goto out_err;
-+		}
-+
-+		/* If the other end is there then we should block for no more
-+		 * than 5s
-+		 */
-+		err = sbl_serdes_minitune_block(sbl, port_num);
-+		switch (err) {
-+		case 0:
-+			sbl_dev_dbg(sbl->dev, "p%d: serdes_lpd done", port_num);
-+			link->lp_detected = true;
-+			goto out_done;
-+
-+		case -ETIMEDOUT:
-+			sbl_dev_warn(sbl->dev, "p%d: serdes_lpd timed out", port_num);
-+			/* Occasionally serdes minitune will fail even though the link
-+			 * partner is actually there!
-+			 * Sometimes we can recover by resetting the serdes PLLs and/or
-+			 * reloading the serdes firmware
-+			 */
-+			if (!sbl_debug_option(sbl, port_num, SBL_DEBUG_INHIBIT_SPLL_RESET)) {
-+				tmp_err = sbl_reset_serdes_plls(sbl, port_num);
-+				if (tmp_err) {
-+					/* if this fails nothing we can do */
-+					sbl_dev_err(sbl->dev, "p%d: serdes_lpd pll reset failed [%d]",
-+						    port_num, tmp_err);
-+					/* TODO maybe force fw reload here? */
-+				}
-+			}
-+
-+			if (link->blattr.options & SBL_OPT_RELOAD_FW_ON_TIMEOUT)
-+				link->reload_serdes_fw = true;
-+
-+			goto out_done;
-+
-+		case -ECANCELED:
-+			sbl_dev_dbg(sbl->dev, "p%d: serdes_lpd cancelled", port_num);
-+			goto out_done;
-+
-+		case -ETIME:
-+			sbl_dev_dbg(sbl->dev, "p%d: serdes_lpd nothing detected", port_num);
-+			/* just try again */
++	switch (host_interface) {
++	case SL_MEDIA_SS1_HOST_INTERFACE_50GAUI_1_C2M:
++	case SL_MEDIA_SS1_HOST_INTERFACE_50GBASE_CR:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_CD_50G;
++		break;
++	case SL_MEDIA_SS1_HOST_INTERFACE_100GAUI_2_C2M:
++	case SL_MEDIA_SS1_HOST_INTERFACE_100GBASE_CR2:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_CD_100G;
++		break;
++	case SL_MEDIA_SS2_HOST_INTERFACE_100GBASE_CR1:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_BJ_100G;
++		fallthrough;
++	case SL_MEDIA_SS2_HOST_INTERFACE_100GAUI_1_L_C2M:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_CK_100G;
++		break;
++	case SL_MEDIA_SS1_HOST_INTERFACE_200GBASE_CR4:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_BS_200G;
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_BJ_100G;
++		break;
++	case SL_MEDIA_SS1_HOST_INTERFACE_200GAUI_4_C2M:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_BS_200G;
++		media_jack->appsel_num_200_gaui = appsel_num;
++		media_jack->lane_count_200_gaui = lane_count;
++		media_jack->host_interface_200_gaui = host_interface;
++		break;
++	case SL_MEDIA_SS2_HOST_INTERFACE_200GBASE_CR2:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_BJ_100G;
++		fallthrough;
++	case SL_MEDIA_SS2_HOST_INTERFACE_200GAUI_2_S_C2M:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_CK_200G;
++		break;
++	case SL_MEDIA_SS2_HOST_INTERFACE_400GBASE_CR4:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_BJ_100G;
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_CK_400G;
++		break;
++	case SL_MEDIA_SS2_HOST_INTERFACE_400GAUI_4_S_C2M:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_CK_400G;
++		if (media_jack->appsel_num_400_gaui) /* we prefer 4_l_c2m over 4_s_c2m for default ck400G speed */
 +			break;
-+
-+		default:
-+			sbl_dev_err(sbl->dev, "p%d: serdes_lpd block failed [%d]", port_num, err);
-+			goto out_err;
++		media_jack->appsel_num_400_gaui = appsel_num;
++		media_jack->lane_count_400_gaui = lane_count;
++		media_jack->host_interface_400_gaui = host_interface;
++		break;
++	case SL_MEDIA_SS1_HOST_INTERFACE_400GAUI_4_L_C2M:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_CK_400G;
++		media_jack->appsel_num_400_gaui = appsel_num;
++		media_jack->lane_count_400_gaui = lane_count;
++		media_jack->host_interface_400_gaui = host_interface;
++		fallthrough;
++	case SL_MEDIA_SS1_HOST_INTERFACE_400GBASE_CR8:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_BS_200G;
++		fallthrough;
++	case SL_MEDIA_SS1_HOST_INTERFACE_CAUI_4_C2M:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_BJ_100G;
++		break;
++	case SL_MEDIA_SS2_HOST_INTERFACE_800GBASE_CR8:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_BJ_100G;
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_CK_400G;
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_CK_800G;
++		break;
++	case SL_MEDIA_SS2_HOST_INTERFACE_800GAUI_8_S_C2M:
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_CK_400G;
++		*speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_CK_800G;
++		if (!media_jack->host_interface_400_gaui) {
++			media_jack->appsel_num_400_gaui = appsel_num;
++			media_jack->host_interface_400_gaui = host_interface;
 +		}
-+	};
-+
-+out_done:
-+	link->sstate = SBL_SERDES_STATUS_DOWN;
-+	link->serr = 0;
-+	return err;
-+
-+out_err:
-+	/* serdes is broken and requires reset */
-+	link->sstate = SBL_SERDES_STATUS_ERROR;
-+	link->serr = err;
-+	return err;
++		break;
++	default:
++		sl_media_log_dbg(media_jack, LOG_NAME,
++				 "invalid host interface (0x%x)", host_interface);
++	}
 +}
 +
-+int sbl_serdes_start(struct sbl_inst *sbl, int port_num)
++#define APPSEL_PAGE0_START_OFFSET 86
++#define APPSEL_PAGE1_START_OFFSET 223
++#define APPSEL_STRIDE             4
++#define APPSEL_END                0xFF
++#define APPSEL_LAST_PAGE0         114
++#define APPSEL_LAST_PAGE1         247
++#define APPSEL_LANE_COUNT_OFFSET  2
++static int sl_media_eeprom_appsel_info_get(struct sl_media_jack *media_jack, unsigned long *speeds_map)
 +{
-+	struct sbl_link *link;
-+	int err;
-+	int tmp_err;
-+
-+	err = sbl_validate_instance(sbl);
-+	if (err)
-+		return err;
-+
-+	err = sbl_validate_port_num(sbl, port_num);
-+	if (err)
-+		return err;
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: SerDes start", port_num);
-+
-+	link = sbl->link + port_num;
-+
-+	if (link->sstate != SBL_SERDES_STATUS_DOWN) {
-+		sbl_dev_err(sbl->dev, "p%d: SerDes start: wrong state (%s)",
-+			    port_num, sbl_serdes_state_str(link->sstate));
-+		/* leave state unchanged */
-+		return -EUCLEAN;
-+	}
-+
-+	/* configure serdes */
-+	err = sbl_serdes_config(sbl, port_num, false);
-+	if (err) {
-+		sbl_dev_err(sbl->dev,
-+			    "p%d: SerDes start: serdes_config failed [%d]",
-+			    port_num, err);
-+		if (err == -EBADE)
-+			link->reload_serdes_fw = true;
-+		goto out;
-+	}
-+
-+	/* wait a while before starting to tune to let the optics lock if present
-+	 * (in local loopback mode however there are never any optics to wait for)
-+	 */
-+	if (link->blattr.loopback_mode != SBL_LOOPBACK_MODE_LOCAL) {
-+		if (link->mattr.media == SBL_LINK_MEDIA_OPTICAL) {
-+			err = sbl_serdes_optical_lock_delay(sbl, port_num);
-+			if (err)
-+				goto out;
-+		}
-+	}
-+
-+	/* make sure we have time left for at lease 2 tuning cycles */
-+	sbl_start_timeout_ensure_remaining(sbl, port_num,
-+					   2 * (link->blattr.dfe_timeout +
-+						 link->blattr.dfe_pre_delay));
-+
-+	/* tune serdes */
-+	link->sstate = SBL_SERDES_STATUS_TUNING;
-+
-+	err = sbl_serdes_tuning(sbl, port_num);
-+	if (err) {
-+		switch (err) {
-+		case -ECANCELED:
-+			sbl_dev_dbg(sbl->dev, "p%d: SerDes start: tuning cancelled", port_num);
-+			break;
-+		case -ETIMEDOUT:
-+			sbl_dev_dbg(sbl->dev, "p%d: SerDes start: tuning timed out", port_num);
-+			/* occasionally tuning can fail even thought the lp is good
-+			 * resetting the serdes rx plls or reloading the serdes fw can
-+			 * sometimes fix this
-+			 */
-+			if (!sbl_debug_option(sbl, port_num, SBL_DEBUG_INHIBIT_SPLL_RESET)) {
-+				tmp_err = sbl_reset_serdes_plls(sbl, port_num);
-+				if (tmp_err) {
-+					/* if this fails nothing we can do */
-+					sbl_dev_err(sbl->dev, "p%d: SerDes start: reset_serdes_plls failed [%d]",
-+						    port_num, tmp_err);
-+					/* TODO maybe force fw reload here? */
-+				}
-+			}
-+
-+			if (link->blattr.options & SBL_OPT_RELOAD_FW_ON_TIMEOUT)
-+				link->reload_serdes_fw = true;
-+			break;
-+		default:
-+			sbl_dev_err(sbl->dev,
-+				    "p%d: SerDes start: serdes_tuning failed [%d]",
-+				    port_num, err);
-+			break;
-+		}
-+	}
-+
-+out:
-+	/* update status */
-+	if (err) {
-+		link->sstate = SBL_SERDES_STATUS_ERROR;
-+		link->serr = err;
-+	} else {
-+		sbl_dev_dbg(sbl->dev, "p%d: SerDes start: done", port_num);
-+		link->sstate = SBL_SERDES_STATUS_RUNNING;
-+		link->serr = 0;
-+	}
-+
-+	return err;
-+}
-+
-+int sbl_serdes_stop(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link;
-+	int err;
-+
-+	err = sbl_validate_instance(sbl);
-+	if (err)
-+		return err;
-+
-+	err = sbl_validate_port_num(sbl, port_num);
-+	if (err)
-+		return err;
-+
-+	link = sbl->link + port_num;
-+
-+	if (!(link->sstate & (SBL_SERDES_STATUS_RUNNING | SBL_SERDES_STATUS_AUTONEG))) {
-+		sbl_dev_err(sbl->dev, "p%d: SerDes stop: wrong state (%s)",
-+			    port_num, sbl_serdes_state_str(link->sstate));
-+		/* leave state unchanged */
-+		return -EUCLEAN;
-+	}
-+
-+	if (sbl_debug_option(sbl, port_num, SBL_DEBUG_KEEP_SERDES_UP)) {
-+		sbl_dev_err(sbl->dev, "p%d: KEEP SERDES UP", port_num);
-+		return 0;
-+	}
-+
-+	return sbl_serdes_stop_internal(sbl, port_num);
-+}
-+
-+int sbl_serdes_reset(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link;
-+	int fail_reset_serdes = 0;
-+	int serdes;
-+	int err;
-+
-+	err = sbl_validate_instance(sbl);
-+	if (err)
-+		return err;
-+
-+	err = sbl_validate_port_num(sbl, port_num);
-+	if (err)
-+		return err;
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: SerDes reset", port_num);
-+
-+	link = sbl->link + port_num;
-+	link->sstate = SBL_SERDES_STATUS_RESETTING;
-+
-+	/* optionally clear any saved tuning params */
-+	if (link->blattr.options & SBL_OPT_RESET_CLEAR_PARAMS) {
-+		link->tuning_params.tp_state_hash0 = 0;
-+		link->tuning_params.tp_state_hash1 = 0;
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			memset(link->tuning_params.params[serdes].ctle, 0,
-+			       sizeof(u16) * NUM_CTLE_PARAMS);
-+			memset(link->tuning_params.params[serdes].ffe, 0,
-+			       sizeof(u16) * NUM_FFE_PARAMS);
-+			memset(link->tuning_params.params[serdes].dfe, 0,
-+			       sizeof(u16) * NUM_DFE_PARAMS);
-+			memset(link->tuning_params.params[serdes].rxvs, 0,
-+			       sizeof(u16) * NUM_RXVS_PARAMS);
-+			memset(link->tuning_params.params[serdes].rxvc, 0,
-+			       sizeof(u16) * NUM_RXVC_PARAMS);
-+			memset(link->tuning_params.params[serdes].rsdo, 0,
-+			       sizeof(u16) * NUM_RSDO_PARAMS);
-+			memset(link->tuning_params.params[serdes].rsdc, 0,
-+			       sizeof(u16) * NUM_RSDC_PARAMS);
-+			memset(link->tuning_params.params[serdes].rsto, 0,
-+			       sizeof(u16) * NUM_RSTO_PARAMS);
-+			memset(link->tuning_params.params[serdes].rstc, 0,
-+			       sizeof(u16) * NUM_RSTC_PARAMS);
-+			memset(link->tuning_params.params[serdes].eh, 0,
-+			       sizeof(u16) * NUM_EH_PARAMS);
-+			memset(link->tuning_params.params[serdes].gtp, 0,
-+			       sizeof(u16) * NUM_GTP_PARAMS);
-+			memset(link->tuning_params.params[serdes].dccd, 0,
-+			       sizeof(u16) * NUM_DCCD_PARAMS);
-+			memset(link->tuning_params.params[serdes].p4lv, 0,
-+			       sizeof(u16) * NUM_P4LV_PARAMS);
-+			memset(link->tuning_params.params[serdes].afec, 0,
-+			       sizeof(u16) * NUM_AFEC_PARAMS);
-+		}
-+	}
-+
-+	/* Stop continuous tune */
-+	err = sbl_port_stop_pcal(sbl, port_num);
-+	if (err)
-+		sbl_dev_warn(sbl->dev, "p%d: SerDes reset: port_stop_pcal failed [%d]",
-+			     port_num, err);
-+
-+	/* Previously sbl_spico_reset() is now changed to
-+	 * sbl_serdes_soft_reset() to avoid SBUS lockups - SSHOTPLAT-2222.
-+	 * Upon error, spico reset will reload serdes firmware.
-+	 * Note, reloading the firmware can be forced with a
-+	 * debug option.
-+	 */
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		err = sbl_serdes_soft_reset(sbl, port_num, serdes);
-+		if (err) {
-+			fail_reset_serdes = serdes;
-+			break;
-+		}
-+	}
-+	if (err)
-+		sbl_dev_err(sbl->dev, "p%ds%d: SerDes reset: serdes_soft_reset failed [%d]",
-+			    port_num, fail_reset_serdes, err);
-+	else if (sbl_debug_option(sbl, port_num, SBL_DEBUG_FORCE_RELOAD_SERDES_FW))
-+		/* Skip out_success and continue to SPICO reload */
-+		sbl_dev_info(sbl->dev, "p%d: SPICO force serdes_firmware_flash_safe", port_num);
-+	else
-+		goto out_success;
-+
-+	/* reload fw */
-+	err = sbl_serdes_firmware_flash_safe(sbl, port_num, true);
-+	if (err)
-+		sbl_dev_err(sbl->dev, "p%d: SerDes reset: serdes_firmware_flash_safe failed [%d]",
-+			    port_num, err);
-+	else
-+		goto out_success;
-+
-+	/* This is really bad!
-+	 * There is nothing we can do but say we are in error and
-+	 * be reset again
-+	 */
-+	sbl_dev_err(sbl->dev, "p%d: SerDes reset: failed [%d]", port_num, err);
-+	link->sstate = SBL_SERDES_STATUS_ERROR;
-+	link->serr = err;
-+
-+	return err;
-+
-+out_success:
-+	/* serdes should be fine */
-+	sbl_dev_dbg(sbl->dev, "p%d: SerDes reset: done", port_num);
-+	link->sstate = SBL_SERDES_STATUS_DOWN;
-+	link->serr = 0;
-+
-+	return 0;
-+}
-+
-+int sbl_an_serdes_start(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link;
-+	int err;
-+
-+	err = sbl_validate_instance(sbl);
-+	if (err)
-+		return err;
-+
-+	err = sbl_validate_port_num(sbl, port_num);
-+	if (err)
-+		return err;
-+
-+	link = sbl->link + port_num;
-+
-+	if (link->mattr.media != SBL_LINK_MEDIA_ELECTRICAL) {
-+		sbl_dev_err(sbl->dev, "p%d: SerDes AN start - media not electrical",
-+			    port_num);
-+		return -EINVAL;
-+	}
-+
-+	if (link->blattr.pec.an_mode != SBL_AN_MODE_ON &&
-+	    link->blattr.pec.an_mode != SBL_AN_MODE_FIXED) {
-+		sbl_dev_err(sbl->dev, "p%d: SerDes AN start - bad mode specified (%s)",
-+			    port_num, sbl_an_mode_str(link->blattr.pec.an_mode));
-+		return -EINVAL;
-+	}
-+
-+	if (link->sstate != SBL_SERDES_STATUS_DOWN) {
-+		sbl_dev_err(sbl->dev, "p%d: SerDes AN start - wrong state (%s)",
-+			    port_num, sbl_serdes_state_str(link->sstate));
-+		/* leave state unchanged */
-+		return -EUCLEAN;
-+	}
-+
-+	err = sbl_serdes_stop_internal(sbl, port_num);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "p%d: SerDes AN start - stop internal failed [%d]",
-+			    port_num, err);
-+		goto out_err;
-+	}
-+
-+	err = sbl_serdes_config(sbl, port_num, true);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "p%d: SerDes AN start - config failed [%d]",
-+			    port_num, err);
-+		goto out_err;
-+	}
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: SerDes AN started", port_num);
-+	link->sstate = SBL_SERDES_STATUS_AUTONEG;
-+	link->serr = 0;
-+	return 0;
-+
-+out_err:
-+	link->sstate = SBL_SERDES_STATUS_ERROR;
-+	link->serr = err;
-+	return err;
-+}
-+
-+int sbl_an_serdes_stop(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link;
-+	int err;
-+
-+	err = sbl_validate_instance(sbl);
-+	if (err)
-+		return err;
-+
-+	err = sbl_validate_port_num(sbl, port_num);
-+	if (err)
-+		return err;
-+
-+	link = sbl->link + port_num;
-+
-+	if (link->sstate != SBL_SERDES_STATUS_AUTONEG) {
-+		sbl_dev_err(sbl->dev, "p%d: SerDes in wrong state (%s) for AN stop\n",
-+			    port_num, sbl_serdes_state_str(link->sstate));
-+		/* leave state unchanged */
-+		return -EUCLEAN;
-+	}
-+
-+	err = sbl_serdes_stop_internal(sbl, port_num);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "p%d: SerDes AN stop failed [%d]\n",
-+			    port_num, err);
-+		link->sstate = SBL_SERDES_STATUS_ERROR;
-+	} else {
-+		sbl_dev_dbg(sbl->dev, "p%d: SerDes AN stopped", port_num);
-+		link->sstate = SBL_SERDES_STATUS_DOWN;
-+	}
-+	link->serr = err;
-+	return err;
-+}
-+
-+/**
-+ * sbl_serdes_get_tuning_params() - Save tuning params
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ * @tuning_params: tuning parameters used to configure a link,
-+ *                allowing the SerDes to come up without needing to DFE tune.
-+ *
-+ * Get tuning parameters which was used to configure a link
-+ *
-+ * Context: Process, May sleep. Uses mutex_lock
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+int sbl_serdes_get_tuning_params(struct sbl_inst *sbl, int port_num,
-+				 struct sbl_tuning_params *tuning_params)
-+{
-+	struct sbl_link *link;
-+	int err;
-+
-+	err = sbl_validate_instance(sbl);
-+	if (err)
-+		return err;
-+
-+	err = sbl_validate_port_num(sbl, port_num);
-+	if (err)
-+		return err;
-+
-+	link = sbl->link + port_num;
-+
-+	/* don't return invalid parameters */
-+	mutex_lock(&link->tuning_params_mtx);
-+	if (link->tuning_params.magic != SBL_TUNING_PARAM_MAGIC) {
-+		mutex_unlock(&link->tuning_params_mtx);
-+		return -ENODATA;
-+	}
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: tp get - returning hash0 0x%llx hash1 0x%llx\n",
-+		    port_num, link->tuning_params.tp_state_hash0,
-+		link->tuning_params.tp_state_hash1);
-+
-+	memcpy(tuning_params, &link->tuning_params, sizeof(struct sbl_tuning_params));
-+	mutex_unlock(&link->tuning_params_mtx);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(sbl_serdes_get_tuning_params);
-+
-+/**
-+ * sbl_serdes_set_tuning_params() - set tuning params for serdes
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ * @tuning_params: Pointer to struct sbl_tuning_params
-+ *
-+ *  Set tuning parameters used to configure a link, allowing the SerDes
-+ *  to come up.
-+ *
-+ * Context: Process, May sleep. Uses mutex_lock
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+int sbl_serdes_set_tuning_params(struct sbl_inst *sbl, int port_num,
-+				 struct sbl_tuning_params *tuning_params)
-+{
-+	struct sbl_link *link;
-+	int err;
-+
-+	err = sbl_validate_instance(sbl);
-+	if (err)
-+		return err;
-+
-+	err = sbl_validate_port_num(sbl, port_num);
-+	if (err)
-+		return err;
-+
-+	link = sbl->link + port_num;
-+
-+	if (tuning_params->magic != SBL_TUNING_PARAM_MAGIC)
-+		return -EINVAL;
-+
-+	/* only support one verion for now */
-+	if (tuning_params->version != SBL_TUNING_PARAM_VERSION)
-+		return -EINVAL;
-+
-+	mutex_lock(&link->tuning_params_mtx);
-+	memcpy(&link->tuning_params, tuning_params, sizeof(struct sbl_tuning_params));
-+	mutex_unlock(&link->tuning_params_mtx);
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: tp set - received hash0 0x%llx hash1 0x%llx\n",
-+		    port_num, link->tuning_params.tp_state_hash0,
-+		link->tuning_params.tp_state_hash1);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(sbl_serdes_set_tuning_params);
-+
-+/**
-+ * sbl_serdes_invalidate_tuning_params() - Invalidate tuning params
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ *
-+ * Clearing per port tuning parameters
-+ *
-+ * Context: Process, May sleep. Uses mutex_lock
-+ *
-+ * Return: 0 on success, negative error code on failure.
-+ */
-+int sbl_serdes_invalidate_tuning_params(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link;
-+	int err;
-+
-+	err = sbl_validate_instance(sbl);
-+	if (err)
-+		return err;
-+
-+	err = sbl_validate_port_num(sbl, port_num);
-+	if (err)
-+		return err;
-+
-+	link = sbl->link + port_num;
-+
-+	mutex_lock(&link->tuning_params_mtx);
-+	link->tuning_params.magic = 0;               /* prevent transfer to usr-space */
-+	link->tuning_params.tp_state_hash0 = 0;      /* prevent use */
-+	link->tuning_params.tp_state_hash1 = 0;      /* prevent use */
-+	mutex_unlock(&link->tuning_params_mtx);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(sbl_serdes_invalidate_tuning_params);
-+
-+/**
-+ * sbl_serdes_invalidate_all_tuning_params() - Invalidate all tuning params
-+ * @sbl: A slingshot base link device instance
-+ *
-+ * Clearing all ports tuning parameters
-+ *
-+ * Return: 0 on success
-+ */
-+int sbl_serdes_invalidate_all_tuning_params(struct sbl_inst *sbl)
-+{
-+	int i;
-+
-+	for (i = 0; i < sbl->switch_info->num_ports; ++i)
-+		sbl_serdes_invalidate_tuning_params(sbl, i);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(sbl_serdes_invalidate_all_tuning_params);
-+
-+/**
-+ * sbl_serdes_add_config() - Serdes configuration addition
-+ * @sbl: A slingshot base link device instance
-+ * @tp_state_mask0: State lookup mask
-+ * @tp_state_mask1: State lookup mask
-+ * @tp_state_match0: match values after masking
-+ * @tp_state_match1: match values after masking
-+ * @port_mask: applicable ports
-+ * @serdes_mask: applicable serdes
-+ * @vals: Configuration values
-+ * @is_default: Default configuration
-+ *
-+ * A SerDes configuration entry specifies a set of config values which
-+ * are selected to get the SerDes to tune reliably for a given setup.
-+ *
-+ * Context: Process context, Acquires lock and release serdes_config_lock <spin_lock>
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+int sbl_serdes_add_config(struct sbl_inst *sbl,
-+			  u64 tp_state_mask0, u64 tp_state_mask1,
-+		u64 tp_state_match0, u64 tp_state_match1,
-+		u64 port_mask, u8 serdes_mask, struct sbl_sc_values *vals,
-+		bool is_default)
-+{
-+	struct sbl_serdes_config *new_sc;
-+	struct sbl_serdes_config *sc;
-+	int err;
-+
-+	err = sbl_validate_instance(sbl);
-+	if (err)
-+		return err;
-+
-+	if (vals->magic != SBL_SERDES_CONFIG_MAGIC)
-+		return -EINVAL;
-+
-+	sbl_dev_dbg(sbl->dev, "serdes add config");
-+
-+	new_sc = kmalloc(sizeof(struct sbl_serdes_config), GFP_KERNEL);
-+	if (!new_sc)
-+		return -ENOMEM;
-+
-+	new_sc->tp_state_mask0  = tp_state_mask0;
-+	new_sc->tp_state_mask1  = tp_state_mask1;
-+	new_sc->tp_state_match0 = tp_state_match0;
-+	new_sc->tp_state_match1 = tp_state_match1;
-+	new_sc->port_mask       = port_mask;
-+	new_sc->serdes_mask     = serdes_mask;
-+	new_sc->is_default      = is_default;
-+	new_sc->tag             = sbl_serdes_get_config_tag();
-+	memcpy(&new_sc->vals, vals, sizeof(struct sbl_sc_values));
-+	INIT_LIST_HEAD(&new_sc->list);
-+
-+	spin_lock(&sbl->serdes_config_lock);
-+
-+	/* check new entry is unique */
-+	list_for_each_entry(sc, &sbl->serdes_config_list, list) {
-+		if (sc->port_mask == port_mask &&
-+		    sc->serdes_mask == serdes_mask &&
-+		    sc->tp_state_mask0 == tp_state_mask0 &&
-+		    sc->tp_state_mask1 == tp_state_mask1 &&
-+		    sc->tp_state_match0 == tp_state_match0 &&
-+		    sc->tp_state_match1 == tp_state_match1) {
-+			spin_unlock(&sbl->serdes_config_lock);
-+			kfree(new_sc);
-+			return -EEXIST;
-+		}
-+	}
-+
-+	/* add the new entry */
-+	list_add(&new_sc->list, &sbl->serdes_config_list);
-+	sbl_dev_dbg(sbl->dev, "added serdes config, tag %d\n", new_sc->tag);
-+	spin_unlock(&sbl->serdes_config_lock);
-+	return 0;
-+}
-+EXPORT_SYMBOL(sbl_serdes_add_config);
-+
-+/**
-+ * sbl_serdes_del_config() - Delete serdes configuration
-+ * @sbl: A slingshot base link device instance
-+ * @tp_state_mask0: State lookup mask
-+ * @tp_state_mask1: State lookup mask
-+ * @tp_state_match0: match values after masking
-+ * @tp_state_match1: match values after masking
-+ * @port_mask: applicable ports
-+ * @serdes_mask: applicable serdes
-+ *
-+ * Delete SerDes config values which are selected to get the
-+ * SerDes to tune
-+ *
-+ * Context: Process context, Acquires lock and release serdes_config_lock <spin_lock>
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+int sbl_serdes_del_config(struct sbl_inst *sbl,
-+			  u64 tp_state_mask0, u64 tp_state_mask1,
-+		u64 tp_state_match0, u64 tp_state_match1,
-+		u64 port_mask, u8  serdes_mask)
-+{
-+	struct sbl_serdes_config *sc;
-+	int err;
-+
-+	err = sbl_validate_instance(sbl);
-+	if (err)
-+		return err;
-+
-+	sbl_dev_dbg(sbl->dev, "serdes del config");
-+
-+	spin_lock(&sbl->serdes_config_lock);
-+
-+	/* find the entry and remove it */
-+	list_for_each_entry(sc, &sbl->serdes_config_list, list) {
-+		if (sc->port_mask == port_mask &&
-+		    sc->serdes_mask == serdes_mask &&
-+		    sc->tp_state_mask0 == tp_state_mask0 &&
-+		    sc->tp_state_mask1 == tp_state_mask1 &&
-+		    sc->tp_state_match0 == tp_state_match0 &&
-+		    sc->tp_state_match1 == tp_state_match1) {
-+			list_del(&sc->list);
-+			spin_unlock(&sbl->serdes_config_lock);
-+			sbl_dev_dbg(sbl->dev, "deleted serdes config, tag %d\n", sc->tag);
-+			kfree(sc);
++	u8  host_interface;
++	u8  appsel_curr;
++	u8  appsel_num;
++
++	appsel_curr = APPSEL_PAGE0_START_OFFSET;
++	appsel_num = 1;
++	while (appsel_curr <= APPSEL_LAST_PAGE0) {
++		host_interface = media_jack->eeprom_page0[appsel_curr];
++		if (host_interface == APPSEL_END)
 +			return 0;
-+		}
++		sl_media_eeprom_appsel_info_store(media_jack, host_interface, speeds_map, appsel_num,
++						  media_jack->eeprom_page0[appsel_curr + APPSEL_LANE_COUNT_OFFSET]);
++		appsel_curr += APPSEL_STRIDE;
++		appsel_num++;
 +	}
 +
-+	/* not found */
-+	spin_unlock(&sbl->serdes_config_lock);
-+	return -ENOENT;
-+}
-+EXPORT_SYMBOL(sbl_serdes_del_config);
-+
-+/**
-+ * sbl_serdes_clear_all_configs() - serdes clear all configurations
-+ * @sbl: A slingshot base link device instance
-+ * @clr_default: Clear default value
-+ *
-+ * Context: Process context, Acquires lock and release serdes_config_lock <spin_lock>
-+ *
-+ * Return: 0 on success, negative error on failure
-+ */
-+int sbl_serdes_clear_all_configs(struct sbl_inst *sbl, bool clr_default)
-+{
-+	struct sbl_serdes_config *sc;
-+	struct sbl_serdes_config *tmp_sc;
-+	int err;
-+
-+	err = sbl_validate_instance(sbl);
-+	if (err)
-+		return err;
-+
-+	sbl_dev_dbg(sbl->dev, "serdes clear all configs");
-+
-+	/* find the entries and remove them */
-+	spin_lock(&sbl->serdes_config_lock);
-+	list_for_each_entry_safe(sc, tmp_sc, &sbl->serdes_config_list, list) {
-+		/* clear if not default or we want to clear the default */
-+		if (!sc->is_default || clr_default) {
-+			list_del(&sc->list);
-+			kfree(sc);
-+		}
++	appsel_curr = APPSEL_PAGE1_START_OFFSET;
++	while (appsel_curr <= APPSEL_LAST_PAGE1) {
++		host_interface = media_jack->eeprom_page1[appsel_curr];
++		if (host_interface == APPSEL_END)
++			return 0;
++		sl_media_eeprom_appsel_info_store(media_jack, host_interface, speeds_map, appsel_num,
++						  media_jack->eeprom_page1[appsel_curr + APPSEL_LANE_COUNT_OFFSET]);
++		appsel_curr += APPSEL_STRIDE;
++		appsel_num++;
 +	}
-+	spin_unlock(&sbl->serdes_config_lock);
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL(sbl_serdes_clear_all_configs);
 +
-+/**
-+ * sbl_serdes_dump_configs() - Print all serdes configs
-+ * @sbl: A slingshot base link device instance
-+ *
-+ * Context: Process context, Acquires lock and release serdes_config_lock <spin_lock>
-+ * Return: on error
-+ */
-+void sbl_serdes_dump_configs(struct sbl_inst *sbl)
++static int sl_media_eeprom_furcation_get(struct sl_media_jack *media_jack, u32 *furcation)
 +{
-+	struct sbl_serdes_config *sc;
-+	int count = 0;
-+	int err;
++	*furcation = SL_MEDIA_FURCATION_X1;
++	return 0;
++}
 +
-+	err = sbl_validate_instance(sbl);
-+	if (err)
-+		return;
-+
-+	spin_lock(&sbl->serdes_config_lock);
-+	list_for_each_entry_reverse(sc, &sbl->serdes_config_list, list) {
-+		sbl_dev_info(sbl->dev,
-+			     "serdes config %d: dflt: %d, tag %d, mask0 0x%llx, match0 0x%llx, mask1 0x%llx, match1 0x%llx, ports 0x%llx, serdes 0x%x\n",
-+			count++, sc->is_default, sc->tag, sc->tp_state_mask0, sc->tp_state_match0, sc->tp_state_mask1, sc->tp_state_match1, sc->port_mask, sc->serdes_mask);
++#define CMIS_CONNECTOR_TYPE_OFFSET    203
++#define CMIS_CONNECTOR_POC_SR8        0x28
++#define CMIS_CONNECTOR_POC_SR4        0x0C
++#define SFF8436_CONNECTOR_TYPE_OFFSET 130
++#define SFF_CONNECTOR_AOC             0x23
++static bool sl_media_eeprom_is_type_poc(struct sl_media_jack *media_jack, u8 format)
++{
++	if (format == SL_MEDIA_MGMT_IF_CMIS) {
++		switch (media_jack->eeprom_page0[CMIS_CONNECTOR_TYPE_OFFSET]) {
++		case CMIS_CONNECTOR_POC_SR8:
++		case CMIS_CONNECTOR_POC_SR4:
++			return true;
++		default:
++			return false;
++		}
 +	}
-+	spin_unlock(&sbl->serdes_config_lock);
-+}
-+EXPORT_SYMBOL(sbl_serdes_dump_configs);
 +
-+u32 sbl_serdes_get_config_tag(void)
-+{
-+	return atomic_inc_return(&sbl_next_serdes_config_tag);
-+}
-+
-+#ifdef CONFIG_SYSFS
-+/**
-+ * sbl_serdes_sysfs_sprint() - Format all seredes status into buffer
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ * @buf: Destination buffer to write the data
-+ * @size: Size of @buf in bytes, the output is truncated to fit
-+ *
-+ * Inspects the current SERDES state and based on the value, formats
-+ * relevant status or counter information into a readable string. The
-+ * formatted output is written to the provided buffer. The output includes
-+ * flags such as ":on", ":off", or serdes-reload-counters[fw,spico,pll] values
-+ *
-+ * Context: Process context, Acquires lock and release link->lock <spin_lock>
-+ *
-+ * Return: Number of characters written, at most @size - 1
-+ */
-+int sbl_serdes_sysfs_sprint(struct sbl_inst *sbl, int port_num, char *buf, size_t size)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	int s = 0;
-+	int i;
-+	int s_fw_reload_count[4] = {0};
-+	int s_spico_reset_count[4] = {0};
-+	int s_pll_reset_count[4] = {0};
-+
-+	spin_lock(&link->lock);
-+	s += scnprintf(buf + s, size - s, "serdes: %s",
-+			sbl_serdes_state_str(link->sstate));
-+	switch (link->sstate) {
-+	case SBL_SERDES_STATUS_ERROR:
-+		s += scnprintf(buf + s, size - s, " [%d]", link->serr);
-+		break;
-+	case SBL_SERDES_STATUS_LPD_MT:
-+		s += scnprintf(buf + s, size - s, " cnt %d", link->lpd_try_count);
-+		break;
-+	case SBL_SERDES_STATUS_RUNNING:
-+		if (link->loopback_mode != SBL_LOOPBACK_MODE_OFF) {
-+			s += scnprintf(buf + s, size - s, ", loopback: %s",
-+					sbl_loopback_mode_str(link->loopback_mode));
-+		}
-+		s += scnprintf(buf + s, size - s, ", precoding: %s",
-+				(link->precoding_enabled) ? "on" : "off");
-+		if (link->dfe_tune_count == SBL_DFE_USED_SAVED_PARAMS) {
-+			s += scnprintf(buf + s, size - s, ", tune: used-saved-params");
-+		} else {
-+			s += scnprintf(buf + s, size - s,
-+				       ", tune: cnt %d, eff %s (%lld.%.3ld/%lld.%.3ld)",
-+					link->dfe_tune_count,
-+					sbl_serdes_effort_str(link->ical_effort),
-+					(long long)link->tune_time.tv_sec,
-+					link->tune_time.tv_nsec / 1000000,
-+					(long long)link->total_tune_time.tv_sec,
-+					link->total_tune_time.tv_nsec / 1000000);
-+		}
-+		break;
-+	case SBL_SERDES_STATUS_TUNING:
-+		if (link->dfe_tune_count == SBL_DFE_USED_SAVED_PARAMS) {
-+			s += scnprintf(buf + s, size - s, ", loading-saved-params");
-+		} else {
-+			s += scnprintf(buf + s, size - s, ", cnt %d, eff %s (%d/%d)",
-+					link->dfe_tune_count,
-+					sbl_serdes_effort_str(link->ical_effort),
-+					sbl_link_tune_elapsed(sbl, port_num),
-+					link->blattr.dfe_timeout);
-+		}
-+		break;
++	/* SFF */
++	switch (media_jack->eeprom_page0[SFF8436_CONNECTOR_TYPE_OFFSET]) {
++	case SFF_CONNECTOR_AOC:
++		return false;
 +	default:
-+		break;
++		return true;
 +	}
-+
-+	s += scnprintf(buf + s, size - s, ", pcal: %s",
-+			(link->pcal_running) ? "on" : "off");
-+	if (link->dfe_predelay_active)
-+		s += scnprintf(buf + s, size - s, ", pre-delay");
-+	if (link->optical_delay_active)
-+		s += scnprintf(buf + s, size - s, ", optical-delay");
-+	s += scnprintf(buf + s, size - s, ", fw_reload_skip_cnt: %d",
-+			sbl_link_counters_read(sbl, port_num, serdes_fw_reload_skip));
-+	s += scnprintf(buf + s, size - s, "\n");
-+
-+	s += scnprintf(buf + s, size - s, "serdes-reload-counters[fw,spico,pll]:");
-+	sbl_link_counters_get(sbl, port_num, s_fw_reload_count,
-+			      serdes0_fw_reload, 4);
-+	sbl_link_counters_get(sbl, port_num, s_spico_reset_count,
-+			      serdes0_spico_reset, 4);
-+	sbl_link_counters_get(sbl, port_num, s_pll_reset_count,
-+			      serdes0_pll_reset, 4);
-+	for (i = 0; i < sbl->switch_info->num_serdes; ++i) {
-+		s += scnprintf(buf + s, size - s, " s%d:[%d,%d,%d]", i, s_fw_reload_count[i],
-+					s_spico_reset_count[i], s_pll_reset_count[i]);
-+	}
-+	s += scnprintf(buf + s, size - s, "\n");
-+	spin_unlock(&link->lock);
-+
-+	return s;
 +}
-+EXPORT_SYMBOL(sbl_serdes_sysfs_sprint);
 +
-+/**
-+ * sbl_serdes_fw_sysfs_sprint() - Format SERDES firmware rev and build into buffer
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ * @buf: Destination buffer to write the data
-+ * @size: Size of @buf in bytes, the output is truncated to fit
-+ *
-+ * Get the serdes firmware version and build information for the port as a string.
-+ * Multiple serdes firmware versions and build exist per port. Format those information
-+ * into provided buffer
-+ *
-+ * Return: Number of characters written (at most @size - 1), negative error on failure
-+ */
-+int sbl_serdes_fw_sysfs_sprint(struct sbl_inst *sbl, int port_num, char *buf, size_t size)
++#define CMIS_TYPE_OFFSET    212
++#define CMIS_MEDIA_AOC      0x00
++#define CMIS_MEDIA_PEC      0x0A
++#define CMIS_MEDIA_AEC      0x0C
++#define CMIS_MEDIA_ACC      0x0F
++#define SFF8436_TYPE_OFFSET 147
++#define SFF_MEDIA_AOC       0x00
++#define SFF_MEDIA_PEC       0xA0
++#define SFF_MEDIA_AEC       0xC0
++static int sl_media_eeprom_type_get(struct sl_media_jack *media_jack, u8 format, u32 vendor, u32 *type)
 +{
-+	int serdes = 0;
-+	struct fw {
-+		uint rev;
-+		uint build;
-+	} fw[SBL_SERDES_LANES_PER_PORT];
-+	ssize_t s = 0;
++	u8 media;
 +
-+	int err = sbl_validate_instance(sbl);
-+
-+	if (err)
-+		return err;
-+
-+	err = sbl_validate_port_num(sbl, port_num);
-+	if (err)
-+		return err;
-+
-+	if (!buf || size == 0U)
-+		return -ENOMEM;
-+
-+	memset(fw, 0, sizeof(fw));
-+	for (serdes = 0; serdes < SBL_SERDES_LANES_PER_PORT; ++serdes) {
-+		struct fw *pfw = fw + serdes;
-+
-+		sbl_serdes_get_fw_vers(sbl, port_num, serdes,
-+				       &pfw->rev, &pfw->build);
-+
-+		s += scnprintf(buf + s, size - s,
-+			"0x%4.4x_%4.4x\n", pfw->rev, pfw->build);
++	if (format == SL_MEDIA_MGMT_IF_CMIS) {
++		media = media_jack->eeprom_page0[CMIS_TYPE_OFFSET];
++		switch (media) {
++		case CMIS_MEDIA_AOC:
++			if (sl_media_eeprom_is_type_poc(media_jack, format))
++				*type = SL_MEDIA_TYPE_POC;
++			else
++				*type = SL_MEDIA_TYPE_AOC;
++			break;
++		case CMIS_MEDIA_PEC:
++			*type = SL_MEDIA_TYPE_PEC;
++			break;
++		case CMIS_MEDIA_AEC:
++			*type = SL_MEDIA_TYPE_AEC;
++			break;
++		case CMIS_MEDIA_ACC:
++			/* compensate for Molex type programming issue */
++			if (vendor == SL_MEDIA_VENDOR_MOLEX)
++				*type = SL_MEDIA_TYPE_AEC;
++			else
++				*type = SL_MEDIA_TYPE_ACC;
++			break;
++		default:
++			*type = SL_MEDIA_TYPE_UNSUPPORTED;
++		}
++	} else {
++		media = media_jack->eeprom_page0[SFF8436_TYPE_OFFSET];
++		switch (media) {
++		case SFF_MEDIA_AOC:
++			if (sl_media_eeprom_is_type_poc(media_jack, format))
++				*type = SL_MEDIA_TYPE_POC;
++			else
++				*type = SL_MEDIA_TYPE_AOC;
++			break;
++		case SFF_MEDIA_PEC:
++			*type = SL_MEDIA_TYPE_PEC;
++			break;
++		case SFF_MEDIA_AEC:
++			*type = SL_MEDIA_TYPE_AEC;
++			break;
++		default:
++			*type = SL_MEDIA_TYPE_UNSUPPORTED;
++		}
 +	}
 +
-+	return s;
-+}
-+EXPORT_SYMBOL(sbl_serdes_fw_sysfs_sprint);
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "type get (media = 0x%X, type = 0x%X %s)",
++			 media, *type, sl_media_type_str(*type));
 +
-+/**
-+ * sbl_sbm_fw_sysfs_sprint() - Get sbus master firmware version
-+ * @sbl: A slingshot base link device instance
-+ * @ring: Value
-+ * @buf: Destination buffer to write the data
-+ * @size: Size of @buf in bytes, the output is truncated to fit
-+ *
-+ * Return: Number of characters written (at most @size - 1), negative error on failure
-+ */
-+int sbl_sbm_fw_sysfs_sprint(struct sbl_inst *sbl, int ring, char *buf, size_t size)
++	return 0;
++}
++
++#define CMIS_VENDOR_OFFSET      129
++#define SFF8436_VENDOR_OFFSET   148
++#define VENDOR_NAME_MAX_LEN     32
++struct vendor {
++	char name[VENDOR_NAME_MAX_LEN];
++	u32  type;
++};
++
++static const struct vendor vendor_list[] = {
++	{ .name = "TE Connectivity",
++	  .type = SL_MEDIA_VENDOR_TE },
++	{ .name = "Hisense",
++	  .type = SL_MEDIA_VENDOR_HISENSE },
++	{ .name = "FINISAR CORP",
++	  .type = SL_MEDIA_VENDOR_FINISAR },
++	{ .name = "Bizlink",
++	  .type = SL_MEDIA_VENDOR_BIZLINK },
++	{ .name = "Cloud Light",
++	  .type = SL_MEDIA_VENDOR_CLOUD_LIGHT },
++	{ .name = "Molex",
++	  .type = SL_MEDIA_VENDOR_MOLEX },
++	{ .name = "MULTILANE",
++	  .type = SL_MEDIA_VENDOR_MULTILANE },
++	{ .name = "Amphenol",
++	  .type = SL_MEDIA_VENDOR_AMPHENOL },
++};
++
++static int sl_media_eeprom_vendor_get(struct sl_media_jack *media_jack, u8 format, u32 *vendor)
 +{
-+	uint fw_rev, fw_build = 0;
++	const char *vendor_ptr;
++	int         x;
 +
-+	int err = sbl_validate_instance(sbl);
++	if (format == SL_MEDIA_MGMT_IF_CMIS)
++		vendor_ptr = &(media_jack->eeprom_page0[CMIS_VENDOR_OFFSET]);
++	else
++		vendor_ptr = &(media_jack->eeprom_page0[SFF8436_VENDOR_OFFSET]);
 +
-+	if (err)
-+		return err;
++	for (x = 0; x < ARRAY_SIZE(vendor_list); ++x) {
++		if (strnstr(vendor_ptr, vendor_list[x].name, VENDOR_NAME_MAX_LEN) == NULL)
++			continue;
++		*vendor = vendor_list[x].type;
++		sl_media_log_dbg(media_jack, LOG_NAME,
++				 "vendor get (vendor = %u %s)", *vendor, sl_media_vendor_str(*vendor));
++		return 0;
++	}
 +
-+	if (ring < 0 || ring >= sbl_get_num_sbus_rings(sbl))
-+		return -EINVAL;
++	*vendor = 0;
 +
-+	if (!buf || size == 0U)
-+		return -ENOMEM;
++	sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_EEPROM_VENDOR_UNSUPPORTED);
++	sl_media_log_err_trace(media_jack, LOG_NAME, "eeprom vendor get unsupported");
 +
-+	sbl_sbm_get_fw_vers(sbl, ring, &fw_rev, &fw_build);
-+	return scnprintf(buf, size, "0x%4.4x_%4.4x\n", fw_rev, fw_build);
++	return 0;
 +}
-+EXPORT_SYMBOL(sbl_sbm_fw_sysfs_sprint);
 +
-+#endif
-diff --git a/drivers/net/ethernet/hpe/sbl/sbl_serdes_fn.c b/drivers/net/ethernet/hpe/sbl/sbl_serdes_fn.c
++static bool is_valid_char(char c)
++{
++	return c >= 33 && c <= 126;
++}
++
++#define CMIS_VENDOR_PN_OFFSET 148
++#define SFF_VENDOR_PN_OFFSET  168
++static int sl_media_eeprom_vendor_pn_str_get(struct sl_media_jack *media_jack, u8 format, char *vendor_pn_str)
++{
++	int x;
++	int pos;
++	u8  vendor_pn_offset;
++
++	if (format == SL_MEDIA_MGMT_IF_CMIS)
++		vendor_pn_offset = CMIS_VENDOR_PN_OFFSET;
++	else
++		vendor_pn_offset = SFF_VENDOR_PN_OFFSET;
++
++	pos = 0;
++	memset(vendor_pn_str, 0, SL_MEDIA_VENDOR_PN_SIZE);
++	for (x = 0; x < SL_MEDIA_VENDOR_PN_SIZE - 1; ++x) {
++		if (is_valid_char(media_jack->eeprom_page0[vendor_pn_offset + x])) {
++			vendor_pn_str[pos] = media_jack->eeprom_page0[vendor_pn_offset + x];
++			pos++;
++		}
++	}
++
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "vendor part num get (par_num = %s)", vendor_pn_str);
++
++	return 0;
++}
++
++#define HPE_PN_OFFSET 229
++static int sl_media_eeprom_hpe_pn_get(struct sl_media_jack *media_jack, u32 *hpe_pn, char *hpe_pn_str)
++{
++	const char *pn_ptr;
++	int         i;
++	int         counter;
++
++	counter = 0;
++	for (i = 0; i < SL_MEDIA_HPE_PN_SIZE - 1; ++i) {
++		if (is_valid_char(media_jack->eeprom_page0[HPE_PN_OFFSET + i])) {
++			hpe_pn_str[counter] = media_jack->eeprom_page0[HPE_PN_OFFSET + i];
++			counter++;
++		}
++	}
++	hpe_pn_str[counter] = '\0';
++
++	pn_ptr = &(media_jack->eeprom_page0[HPE_PN_OFFSET]);
++	for (i = 0; i < SL_MEDIA_HPE_PN_SIZE - 1; ++i) {
++		if (pn_ptr[i] < 48 || pn_ptr[i] > 57) /* if the PN character is not numeric, ignore it */
++			continue;
++		*hpe_pn = *hpe_pn * 10 + (pn_ptr[i] - '0');
++	}
++
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "hpe part num get (hpe_pn = %s)", hpe_pn_str);
++
++	return 0;
++}
++
++#define CMIS_SERIAL_NUM_OFFSET 166
++#define SFF_SERIAL_NUM_OFFSET  196
++static int sl_media_eeprom_serial_num_get(struct sl_media_jack *media_jack, u8 format, char *serial_num_str)
++{
++	int i;
++	int counter;
++	u8  serial_num_offset;
++
++	if (format == SL_MEDIA_MGMT_IF_CMIS)
++		serial_num_offset = CMIS_SERIAL_NUM_OFFSET;
++	else
++		serial_num_offset = SFF_SERIAL_NUM_OFFSET;
++
++	counter = 0;
++	memset(serial_num_str, '\0', SL_MEDIA_SERIAL_NUM_SIZE);
++	for (i = 0; i < (SL_MEDIA_SERIAL_NUM_SIZE - 1); ++i) {
++		if (media_jack->eeprom_page0[serial_num_offset + i] == '-')
++			break;
++
++		if (is_valid_char(media_jack->eeprom_page0[serial_num_offset + i])) {
++			serial_num_str[counter] = media_jack->eeprom_page0[serial_num_offset + i];
++			counter++;
++		}
++	}
++
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "serial num get (serial_num = %s)", serial_num_str);
++
++	return 0;
++}
++
++#define CMIS_DATE_CODE_OFFSET 182
++#define SFF_DATE_CODE_OFFSET  212
++static int sl_media_eeprom_date_code_get(struct sl_media_jack *media_jack, u8 format, char *date_code_str)
++{
++	u8 date_code_offset;
++
++	if (format == SL_MEDIA_MGMT_IF_CMIS)
++		date_code_offset = CMIS_DATE_CODE_OFFSET;
++	else
++		date_code_offset = SFF_DATE_CODE_OFFSET;
++
++	date_code_str[0] = media_jack->eeprom_page0[date_code_offset];
++	date_code_str[1] = media_jack->eeprom_page0[date_code_offset + 1];
++	date_code_str[2] = '-';
++	date_code_str[3] = media_jack->eeprom_page0[date_code_offset + 2];
++	date_code_str[4] = media_jack->eeprom_page0[date_code_offset + 3];
++	date_code_str[5] = '-';
++	date_code_str[6] = media_jack->eeprom_page0[date_code_offset + 4];
++	date_code_str[7] = media_jack->eeprom_page0[date_code_offset + 5];
++	date_code_str[8] = '\0';
++
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "date code get (date = %s)", date_code_str);
++
++	return 0;
++}
++
++#define FIRMWARE_VERSION_OFFSET 39
++static int sl_media_eeprom_fw_ver_get(struct sl_media_jack *media_jack, u8 *fw_ver)
++{
++	fw_ver[0] = media_jack->eeprom_page0[FIRMWARE_VERSION_OFFSET];
++	fw_ver[1] = media_jack->eeprom_page0[FIRMWARE_VERSION_OFFSET + 1];
++
++	return 0;
++}
++
++#define CABLE_END_OFFSET 240
++static int sl_media_eeprom_cable_end_get(struct sl_media_jack *media_jack)
++{
++	media_jack->cable_end = media_jack->eeprom_page0[CABLE_END_OFFSET];
++
++	return 0;
++}
++
++#define CMIS_LENGTH_OFFSET    202
++#define SFF8436_LENGTH_OFFSET 146
++static int sl_media_eeprom_length_get(struct sl_media_jack *media_jack, u8 format, u32 *length)
++{
++	if (format == SL_MEDIA_MGMT_IF_CMIS) {
++		*length = (media_jack->eeprom_page0[CMIS_LENGTH_OFFSET] & 0x3F);
++		switch (media_jack->eeprom_page0[CMIS_LENGTH_OFFSET] & 0xC0) {
++		case 0:
++			*length *= 10;
++			break;
++		case 0x40:
++			*length *= 100;
++			break;
++		case 0x80:
++			*length *= 1000;
++			break;
++		case 0xC0:
++			*length *= 10000;
++			break;
++		default:
++			*length = 0;
++			break;
++		}
++	} else {
++		*length = media_jack->eeprom_page0[SFF8436_LENGTH_OFFSET] * 100;
++	}
++
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "length get (length = %ucm)", *length);
++
++	return 0;
++}
++
++#define SUPPORTED_FLAGS_ADVERTISEMENT_OFFSET 157
++static void sl_media_eeprom_supported_flags_advertised_get(struct sl_media_jack *media_jack,
++							   u8 *supported_flags_advertised)
++{
++	spin_lock(&media_jack->data_lock);
++	memcpy(supported_flags_advertised, &media_jack->eeprom_page1[SUPPORTED_FLAGS_ADVERTISEMENT_OFFSET],
++	       SL_MEDIA_SUPPORTED_FLAGS_ADVERTISED_SIZE);
++	spin_unlock(&media_jack->data_lock);
++}
++
++bool sl_media_eeprom_is_fw_version_supported(struct sl_media_jack *media_jack, struct sl_media_attr *media_attr)
++{
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "is fw version supported (type = 0x%X %s, shape = %u %s, end = %u %s, idx = %d)",
++			 media_attr->type, sl_media_type_str(media_attr->type),
++			 media_attr->shape, sl_media_shape_str(media_attr->shape),
++			 media_jack->cable_end, sl_media_cable_end_str(media_jack->cable_end),
++			 media_jack->cable_db_idx);
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "is fw version supported (fw_ver = %02X.%02X, db_fw_ver = %02X.%02X, db_split_fw_ver = %02X.%02X)",
++			 media_attr->fw_ver[0], media_attr->fw_ver[1],
++			 cable_db[media_jack->cable_db_idx].fw_ver.major,
++			 cable_db[media_jack->cable_db_idx].fw_ver.minor,
++			 cable_db[media_jack->cable_db_idx].fw_ver.split_major,
++			 cable_db[media_jack->cable_db_idx].fw_ver.split_minor);
++
++	if (media_attr->shape == SL_MEDIA_SHAPE_SPLITTER && media_jack->cable_end != SL_MEDIA_CABLE_END_DD)
++		return ((media_attr->fw_ver[0] > cable_db[media_jack->cable_db_idx].fw_ver.split_major) ||
++			((media_attr->fw_ver[0] == cable_db[media_jack->cable_db_idx].fw_ver.split_major) &&
++			(media_attr->fw_ver[1] >= cable_db[media_jack->cable_db_idx].fw_ver.split_minor)));
++
++	return ((media_attr->fw_ver[0] > cable_db[media_jack->cable_db_idx].fw_ver.major) ||
++		((media_attr->fw_ver[0] == cable_db[media_jack->cable_db_idx].fw_ver.major) &&
++		(media_attr->fw_ver[1] >= cable_db[media_jack->cable_db_idx].fw_ver.minor)));
++}
++
++int sl_media_eeprom_target_fw_ver_str_get(struct sl_media_jack *media_jack, char *target_fw_str, size_t target_fw_size)
++{
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "target fw ver get (idx = %u, type = 0x%X %s, shape = %u %s, end = %u %s, supported = %s)",
++			 media_jack->cable_db_idx,
++			 media_jack->cable_info[0].media_attr.type,
++			 sl_media_type_str(media_jack->cable_info[0].media_attr.type),
++			 media_jack->cable_info[0].media_attr.shape,
++			 sl_media_shape_str(media_jack->cable_info[0].media_attr.shape),
++			 media_jack->cable_end,
++			 sl_media_cable_end_str(media_jack->cable_end),
++			 media_jack->is_cable_unsupported ? "no" : "yes");
++
++	if (!SL_MEDIA_LGRP_MEDIA_TYPE_IS_ACTIVE(media_jack->cable_info[0].media_attr.type)) {
++		snprintf(target_fw_str, target_fw_size, "invalid-type\n");
++		return 0;
++	}
++
++	if (media_jack->is_cable_unsupported) {
++		snprintf(target_fw_str, target_fw_size, "unsupported\n");
++		return 0;
++	}
++
++	if (media_jack->is_supported_ss200_cable) {
++		snprintf(target_fw_str, target_fw_size, "ss200-cable\n");
++		return 0;
++	}
++
++	if (media_jack->cable_info[0].media_attr.shape == SL_MEDIA_SHAPE_SPLITTER &&
++	    media_jack->cable_end != SL_MEDIA_CABLE_END_DD) {
++		snprintf(target_fw_str, target_fw_size, "%02X.%02X\n",
++			 cable_db[media_jack->cable_db_idx].fw_ver.split_major,
++			 cable_db[media_jack->cable_db_idx].fw_ver.split_minor);
++		return 0;
++	}
++
++	snprintf(target_fw_str, target_fw_size, "%02X.%02X\n",
++		 cable_db[media_jack->cable_db_idx].fw_ver.major,
++		 cable_db[media_jack->cable_db_idx].fw_ver.minor);
++
++	return 0;
++}
++
++void sl_media_eeprom_parse(struct sl_media_jack *media_jack, struct sl_media_attr *media_attr)
++{
++	sl_media_log_dbg(media_jack, LOG_NAME, "parse");
++
++	/* vendor get MUST be first */
++	sl_media_eeprom_vendor_get(media_jack, media_attr->format, &(media_attr->vendor));
++	sl_media_eeprom_vendor_pn_str_get(media_jack, media_attr->format, media_attr->vendor_pn_str);
++	sl_media_eeprom_type_get(media_jack, media_attr->format, media_attr->vendor, &(media_attr->type));
++	sl_media_eeprom_hpe_pn_get(media_jack, &(media_attr->hpe_pn), media_attr->hpe_pn_str);
++	sl_media_eeprom_serial_num_get(media_jack, media_attr->format, media_attr->serial_num_str);
++	sl_media_eeprom_date_code_get(media_jack, media_attr->format, media_attr->date_code_str);
++	sl_media_eeprom_fw_ver_get(media_jack, media_attr->fw_ver);
++	sl_media_eeprom_cable_end_get(media_jack);
++	sl_media_eeprom_length_get(media_jack, media_attr->format, &(media_attr->length_cm));
++	sl_media_eeprom_appsel_info_get(media_jack, &(media_attr->speeds_map));
++	sl_media_eeprom_furcation_get(media_jack, &(media_attr->furcation));
++	sl_media_eeprom_supported_flags_advertised_get(media_jack, media_attr->supported_flags_advertised);
++
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "parse (format = %u, vendor = %u %s, vendor_pn_str = %s, fw = %02X.%02X)",
++			 media_attr->format, media_attr->vendor, sl_media_vendor_str(media_attr->vendor),
++			 media_attr->vendor_pn_str, media_attr->fw_ver[0], media_attr->fw_ver[1]);
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "parse (type = 0x%X %s, length = %ucm, speeds_map = 0x%lX)",
++			 media_attr->type, sl_media_type_str(media_attr->type), media_attr->length_cm,
++			 media_attr->speeds_map);
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "parse (hpe_pn = %u, serial_num = %s, errors = 0x%X, info = 0x%X)",
++			 media_attr->hpe_pn, media_attr->serial_num_str, media_attr->errors, media_attr->info);
++}
++
++#define IDENTIFIER_OFFSET 0
++#define REV_CMPL_OFFSET   1
++int sl_media_eeprom_format_get(struct sl_media_jack *media_jack, u8 *format)
++{
++	u8   identifier;
++	u8   revision;
++	bool is_sff8636;
++	bool is_cmis;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "format get");
++
++	identifier = media_jack->eeprom_page0[IDENTIFIER_OFFSET];
++	revision   = media_jack->eeprom_page0[REV_CMPL_OFFSET];
++
++	is_sff8636 = (identifier == 0x0D || identifier == 0x11) && (revision < 0x27);
++	is_cmis    = ((identifier == 0x18) || (identifier == 0x19) || (identifier >= 0x1E && identifier <= 0x25)) &&
++			((revision & 0xF0) >= 0x30 && (revision & 0xF0) <= 0x50);
++
++	if (is_sff8636) {
++		*format = SL_MEDIA_MGMT_IF_SFF8636;
++		sl_media_log_dbg(media_jack, LOG_NAME, "format SFF8636 (id = 0x%X, rev = 0x%X)", identifier, revision);
++		return 0;
++	}
++
++	if (is_cmis) {
++		*format = SL_MEDIA_MGMT_IF_CMIS;
++		sl_media_log_dbg(media_jack, LOG_NAME, "format CMIS (id = 0x%X, rev = 0x%X)", identifier, revision);
++		return 0;
++	}
++
++	media_jack->is_cable_format_unsupported = true;
++	sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_EEPROM_FORMAT_UNSUPPORTED);
++	sl_media_log_err_trace(media_jack, LOG_NAME, "unsupported format (id = 0x%X, rev = 0x%X)",
++			       identifier, revision);
++
++	return -EMEDIUMTYPE;
++}
++
++#define MEDIA_INTERFACE_CODE_OFFSET 87
++int sl_media_eeprom_media_interface_get(struct sl_media_jack *media_jack, u8 *media_interface)
++{
++	spin_lock(&media_jack->data_lock);
++	*media_interface = media_jack->eeprom_page0[MEDIA_INTERFACE_CODE_OFFSET];
++	spin_unlock(&media_jack->data_lock);
++
++	return 0;
++}
+diff --git a/drivers/net/ethernet/hpe/sl/media/data/nic/sl_media_data_jack.c b/drivers/net/ethernet/hpe/sl/media/data/nic/sl_media_data_jack.c
 new file mode 100644
-index 000000000000..f085d5c41da1
+index 000000000000..9d46b3f13de2
 --- /dev/null
-+++ b/drivers/net/ethernet/hpe/sbl/sbl_serdes_fn.c
-@@ -0,0 +1,4310 @@
++++ b/drivers/net/ethernet/hpe/sl/media/data/nic/sl_media_data_jack.c
+@@ -0,0 +1,496 @@
 +// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2024-2026 Hewlett Packard Enterprise Development LP */
 +
-+/* Copyright 2019-2026 Hewlett Packard Enterprise Development LP */
-+
-+#include <linux/kernel.h>
-+#include <linux/device.h>
 +#include <linux/delay.h>
-+#include <linux/slab.h>
 +
-+#include <linux/hpe/sbl/sbl.h>
-+#include <linux/hpe/sbl/sbl_kconfig.h>
-+#include <linux/hpe/sbl/sbl_test.h>
++#include "base/sl_media_log.h"
 +
-+#include <linux/hpe/sbl/sbl_pml.h>
++#include "sl_media_io.h"
++#include "sl_media_jack.h"
++#include "data/sl_media_data_jack.h"
++#include "sl_core_link.h"
 +
-+#include <uapi/ethernet/sbl_sbm_constants.h>
-+#include <uapi/ethernet/sbl_serdes_defaults.h>
++#define LOG_NAME SL_MEDIA_DATA_JACK_LOG_NAME
 +
-+#include "sbl_constants.h"
-+#include "sbl_serdes_map.h"
-+#include "sbl_serdes.h"
-+#include "sbl_sbm_serdes.h"
-+#include "sbl_serdes_fn.h"
-+#include "sbl_internal.h"
-+#include "sbl_config_list.h"
-+#include "sbl_pml_fn.h"
++enum sl_media_led_states {
++	LED_OFF          = 0,
++	LED_ON_GRN       = 1,
++	LED_SLOW_GRN     = 2,
++	LED_FAST_GRN     = 3,
++	LED_ON_YEL       = 4,
++	LED_SLOW_YEL     = 5,
++	LED_FAST_YEL     = 6,
++	LED_SLOW_GRN_YEL = 7,
++	LED_FAST_GRN_YEL = 8,
++};
 +
-+static void sbl_send_serdes_fw_corruption_alert(struct sbl_inst *sbl, int port, int serdes)
++int sl_media_data_jack_scan(u8 ldev_num)
 +{
-+	u32 alert_data;
-+	struct serdes_info *serdes_info;
++	struct sl_media_jack *media_jack;
 +
-+	serdes_info = &sbl->switch_info->ports[port].serdes[serdes];
-+	alert_data = ((serdes_info->sbus_ring & 0xffff) << 16) |
-+		(serdes_info->rx_addr & 0xffff);
++	sl_media_log_dbg(NULL, LOG_NAME, "jack scan");
 +
-+	sbl_async_alert(sbl, port,
-+			SBL_ASYNC_ALERT_SERDES_FW_CORRUPTION,
-+			(void *)(uintptr_t)alert_data, 0);
++	media_jack = sl_media_data_jack_get(ldev_num, 0);
++	media_jack->cable_info[0].ldev_num = ldev_num;
++	media_jack->cable_info[0].lgrp_num = 0; /* hardcoding 0 since only one lgrp*/
 +
-+	/* Delay to allow userspace to get a serdes state dump */
-+	msleep(SBL_SERDES_STATE_DUMP_DELAY);
++	return 0;
 +}
 +
-+static bool get_serdes_precoding(struct sbl_inst *sbl, int port_num)
++int sl_media_data_jack_fake_media_attr_set(struct sl_media_jack *media_jack,
++					   struct sl_media_lgrp_cable_info *cable_info, struct sl_media_attr *fake_media_attr)
 +{
-+	struct sbl_link *link = sbl->link + port_num;
-+
-+	if (sbl_debug_option(sbl, port_num, SBL_DEBUG_FORCE_PRECODING_ON))
-+		return true;
-+
-+	if (sbl_debug_option(sbl, port_num, SBL_DEBUG_FORCE_PRECODING_OFF))
-+		return false;
-+
-+	switch (link->blattr.precoding) {
-+	case SBL_PRECODING_ON:
-+		return true;
-+	case SBL_PRECODING_OFF:
-+		return false;
-+	case SBL_PRECODING_DEFAULT:
-+		return (link->blattr.options & SBL_OPT_FABRIC_LINK) ? true : false;
-+	default:
-+		sbl_dev_err(sbl->dev, "%d: invalid precoding (%d) - switching off",
-+			    port_num, link->blattr.precoding);
-+		/* switch off anyway */
-+		return false;
-+	}
++	return 0;
 +}
 +
-+/* Dummy function used when DEV_TRACE2 or DEV_TRACE3 are not defined */
-+void dev_ignore(struct device *dev, const char *format, ...)
++void sl_media_data_jack_fake_media_attr_clr(struct sl_media_jack *media_jack,
++					    struct sl_media_lgrp_cable_info *cable_info)
 +{
 +
 +}
 +
-+/* Creates a u64 hash key based on the currently requested serdes state */
-+/* NOTE: enums need to be bitwise values to use this hashing */
-+static u64 sbl_get_tp_hash0(struct sbl_inst *sbl, int port_num)
++#define DATA_PATH_STATE_DEACTIVATED       0x1
++#define DATA_PATH_EXPLICIT_CONTROL_ENABLE 0x00
++#define DATA_PATH_ID                      0x08
++#define DATA_PATH_LOWER_LANE_CONFIG       (DATA_PATH_EXPLICIT_CONTROL_ENABLE)
++#define DATA_PATH_LANES_DEACTIVATED       (DATA_PATH_STATE_DEACTIVATED << 4 | DATA_PATH_STATE_DEACTIVATED)
++int sl_media_data_jack_cable_downshift(struct sl_media_jack *media_jack)
 +{
-+	int media;
-+
-+	switch (sbl->link[port_num].mattr.media) {
-+	case SBL_LINK_MEDIA_ELECTRICAL:
-+		if (sbl->link[port_num].mattr.info & SBL_MEDIA_INFO_DIGITAL)
-+			media = SBL_EXT_LINK_MEDIA_ELECTRICAL_ACT;
-+		else
-+			media = SBL_EXT_LINK_MEDIA_ELECTRICAL;
-+
-+		break;
-+
-+	case SBL_LINK_MEDIA_OPTICAL:
-+		if (sbl->link[port_num].mattr.info & SBL_MEDIA_INFO_DIGITAL)
-+			media = SBL_EXT_LINK_MEDIA_OPTICAL_DIGITAL;
-+		else
-+			media = SBL_EXT_LINK_MEDIA_OPTICAL_ANALOG;
-+
-+		break;
-+
-+	default:
-+		media = SBL_EXT_LINK_MEDIA_ELECTRICAL;
-+		break;
-+	}
-+
-+	return sbl_create_tp_hash0(sbl->link[port_num].blattr.link_partner,
-+			sbl->link[port_num].loopback_mode,
-+			sbl->link[port_num].blattr.tuning_pattern,
-+			sbl->link[port_num].link_mode,
-+			media,
-+			sbl->link[port_num].mattr.vendor);
-+}
-+
-+static u64 sbl_get_tp_hash1(struct sbl_inst *sbl, int port_num)
-+{
-+	return sbl_create_tp_hash1(sbl->link[port_num].mattr.len);
-+}
-+
-+void sbl_serdes_get_fw_vers(struct sbl_inst *sbl, int port_num, int serdes,
-+			    uint *fw_rev, uint *fw_build)
-+{
-+	if (sbl_serdes_spico_int(sbl, port_num, serdes, SPICO_INT_CM4_REV_ID,
-+				 SPICO_INT_DATA_NONE, (uint16_t *)fw_rev,
-+				SPICO_INT_RETURN_RESULT)) {
-+		/* Failure expected when Spico is in reset */
-+		dev_dbg(sbl->dev, "p%ds%d: Failed to read firmware rev!", port_num, serdes);
-+		*fw_rev = 0x0;
-+	}
-+	if (sbl_serdes_spico_int(sbl, port_num, serdes, SPICO_INT_CM4_BUILD_ID,
-+				 SPICO_INT_DATA_NONE, (uint16_t *)fw_build,
-+				SPICO_INT_RETURN_RESULT)) {
-+		/* Failure expected when Spico is in reset */
-+		dev_dbg(sbl->dev, "p%ds%d: Failed to read firmware build!", port_num, serdes);
-+		*fw_build = 0x0;
-+	}
-+}
-+
-+/* Get mask of serdes used for target link mode */
-+static u8 get_serdes_tx_mask(struct sbl_inst *sbl, int port_num)
-+{
-+	int serdes;
-+	u8 serdes_mask = 0;
-+
-+	switch (sbl->link[port_num].link_mode) {
-+	case SBL_LINK_MODE_CD_50G:
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			if (sbl->switch_info->ports[port_num].serdes[serdes].tx_lane_source == 0) {
-+				serdes_mask |= 1 << serdes;
-+				break;
-+			}
-+		}
-+		break;
-+	case SBL_LINK_MODE_CD_100G:
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			if ((sbl->switch_info->ports[port_num].serdes[serdes].tx_lane_source == 0) ||
-+			    (sbl->switch_info->ports[port_num].serdes[serdes].tx_lane_source == 1)) {
-+				serdes_mask |= 1 << serdes;
-+			}
-+		}
-+		break;
-+	case SBL_LINK_MODE_BS_200G:
-+	case SBL_LINK_MODE_BJ_100G:
-+		serdes_mask = 0xf;
-+		break;
-+	default:
-+		sbl_dev_warn(sbl->dev, "%d: Unsupported link mode (%d)",
-+			     port_num, sbl->link[port_num].link_mode);
-+		serdes_mask = 0x0;
-+		break;
-+	}
-+
-+	return serdes_mask;
-+}
-+
-+/* Get mask of serdes used for target link mode */
-+static u8 get_serdes_rx_mask(struct sbl_inst *sbl, int port_num)
-+{
-+	int serdes;
-+	u8 serdes_mask = 0;
-+
-+	/* if we are looped back then rx serdes are the same as the tx ones */
-+	if (sbl->link[port_num].loopback_mode == SBL_LOOPBACK_MODE_LOCAL)
-+		return get_serdes_tx_mask(sbl, port_num);
-+
-+	/* otherwise look them up */
-+	switch (sbl->link[port_num].link_mode) {
-+	case SBL_LINK_MODE_CD_50G:
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			if (sbl->switch_info->ports[port_num].serdes[serdes].rx_lane_source == 0) {
-+				serdes_mask |= 1 << serdes;
-+				break;
-+			}
-+		}
-+		break;
-+	case SBL_LINK_MODE_CD_100G:
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			if ((sbl->switch_info->ports[port_num].serdes[serdes].rx_lane_source == 0) ||
-+			    (sbl->switch_info->ports[port_num].serdes[serdes].rx_lane_source == 1)) {
-+				serdes_mask |= 1 << serdes;
-+			}
-+		}
-+		break;
-+	case SBL_LINK_MODE_BS_200G:
-+	case SBL_LINK_MODE_BJ_100G:
-+		serdes_mask = 0xf;
-+		break;
-+	default:
-+		sbl_dev_warn(sbl->dev, "%d: Unsupported link mode (%d)",
-+			     port_num, sbl->link[port_num].link_mode);
-+		serdes_mask = 0x0;
-+		break;
-+	}
-+
-+	return serdes_mask;
-+}
-+
-+/* Utility function to skip over irrelevant serdes lanes */
-+static bool tx_serdes_required_for_link_mode(struct sbl_inst *sbl, int port_num,
-+					     int serdes)
-+{
-+	u8 serdes_mask = get_serdes_tx_mask(sbl, port_num);
-+
-+	/* Enable physical lane 0 - this has the clock for all serdes and is
-+	   always required. */
-+	if ((serdes == 0) || (serdes_mask & (1 << serdes)))
-+		return true;
-+	else
-+		return false;
-+}
-+
-+/* Utility function to skip over irrelevant serdes lanes */
-+static bool rx_serdes_required_for_link_mode(struct sbl_inst *sbl, int port_num,
-+					     int serdes)
-+{
-+	u8 serdes_mask = get_serdes_rx_mask(sbl, port_num);
-+
-+	if (serdes_mask & (1 << serdes))
-+		return true;
-+	else
-+		return false;
-+}
-+
-+/* Returns a count of the number of bits set in input val */
-+static int sbl_num_bits_set(u64 val)
-+{
-+	int bits_set = 0;
++	int rtn;
 +	int i;
 +
-+	for (i = 0; i < 64; ++i) {
-+		if (val & (1ULL << i))
-+			bits_set++;
-+	}
-+	return bits_set;
-+}
++	sl_media_log_dbg(media_jack, LOG_NAME, "data jack cable downshift");
 +
-+/* Looks up sbl_sc_val struct for the given port, serdes, and hash */
-+static int sbl_get_serdes_config_values(struct sbl_inst *sbl, int port_num,
-+					int serdes, struct sbl_sc_values *vals)
-+{
-+	u64 hash0 = sbl_get_tp_hash0(sbl, port_num);
-+	u64 hash1 = sbl_get_tp_hash1(sbl, port_num);
-+	struct sbl_serdes_config *sc;
-+	int num_ports_bits, num_serdes_bits, num_mask_bits;
-+	int least_port_bits = 64;
-+	int least_serdes_bits = 64;
-+	int most_mask_bits = 0;
-+	bool curr_best;
-+	int rc = -1;
-+
-+	spin_lock(&sbl->serdes_config_lock);
-+
-+	list_for_each_entry(sc, &sbl->serdes_config_list, list) {
-+
-+		if ((sc->port_mask & (1ULL << port_num)) &&
-+		    (sc->serdes_mask & (1ULL << serdes)) &&
-+		    /* Ensure no bits are set in hash that are not set
-+		       in tp_state_match for all bits included in the mask */
-+		    (((sc->tp_state_mask0 & hash0) &
-+		      ~(sc->tp_state_mask0 & sc->tp_state_match0)) == 0) &&
-+		    (((sc->tp_state_mask1 & hash1) &
-+		      ~(sc->tp_state_mask1 & sc->tp_state_match1)) == 0)) {
-+			/* This is A match, but there may be >1. We want to
-+			   choose the match that's most specific to this
-+			   config. To determine this, we choose a match which:
-+			   * [1] Has the least number of bits set in its
-+			   port_mask
-+			   * [2] If tie, has the least number of bits set in
-+			    its serdes_mask
-+			   * [3] If tie, has the most number bits set it its
-+			    tp_state_mask0 and tp_state_mask1.
-+			   * [4] If tie, pick the one with the lowest index */
-+			sbl_dev_dbg(sbl->dev,
-+				    "p%d: get values: hash0 0x%llx hash1 0x%llx matched 0x%llx 0x%llx, tag %d\n",
-+				port_num, hash0, hash1, sc->tp_state_match0, sc->tp_state_match1, sc->tag);
-+			curr_best = false;
-+			num_ports_bits	= sbl_num_bits_set(sc->port_mask);
-+			num_serdes_bits = sbl_num_bits_set(sc->serdes_mask);
-+			num_mask_bits	= sbl_num_bits_set(sc->tp_state_mask0);
-+			num_mask_bits  += sbl_num_bits_set(sc->tp_state_mask1);
-+			if (num_ports_bits < least_port_bits) {
-+				/* [1] */
-+				curr_best = true;
-+			} else if (num_ports_bits == least_port_bits) {
-+				if (num_serdes_bits < least_serdes_bits) {
-+					/* [2] */
-+					curr_best = true;
-+				} else if (num_serdes_bits == least_serdes_bits) {
-+					if (num_mask_bits > most_mask_bits) {
-+						/* [3] */
-+						curr_best = true;
-+					}
-+				}
-+			}
-+
-+			if (curr_best) {
-+				sbl_dev_dbg(sbl->dev, "p%d: tag %d is current best match\n", port_num, sc->tag);
-+				*vals = sc->vals;
-+				least_port_bits = num_ports_bits;
-+				least_serdes_bits = num_serdes_bits;
-+				most_mask_bits = num_mask_bits;
-+				rc = 0;
-+			}
-+		}
-+	}
-+	spin_unlock(&sbl->serdes_config_lock);
-+
-+	if (rc == 0)
-+		return 0;
-+
-+	sbl_dev_err(sbl->dev, "%d: get values: no match for hash0 0x%llx hash1 0x%llx\n",
-+		    port_num, hash0, hash1);
-+	return -ENOENT;
-+}
-+
-+/* Checks if there are valid tuning params in the sbl struct which can
-+ * be used for this serdes tune
-+ */
-+static bool sbl_is_retune(struct sbl_inst *sbl, int port_num)
-+{
-+	int serdes, i;
-+	u64 tp_state_hash0, tp_state_hash1;
-+	struct sbl_link *link = sbl->link + port_num;
-+
-+	DEV_TRACE2(sbl->dev, "p%d", port_num);
-+
-+	/* Reuse of cached tuning params are disabled until AOC sync is implemented */
-+	if (link->mattr.media == SBL_LINK_MEDIA_OPTICAL)
-+		return false;
-+
-+	/* Check tuning params are for this target configuration */
-+	tp_state_hash0 = sbl_get_tp_hash0(sbl, port_num);
-+	tp_state_hash1 = sbl_get_tp_hash1(sbl, port_num);
-+	if ((sbl->link[port_num].tuning_params.tp_state_hash0 != tp_state_hash0) ||
-+	    (sbl->link[port_num].tuning_params.tp_state_hash1 != tp_state_hash1)) {
-+		sbl_dev_dbg(sbl->dev,
-+			    "p%d: tuning param mismatch (saved: 0x%llx 0x%llx curr:0x%llx 0x%llx) - not retune\n",
-+			port_num, sbl->link[port_num].tuning_params.tp_state_hash0,
-+			sbl->link[port_num].tuning_params.tp_state_hash1, tp_state_hash0, tp_state_hash1);
-+		return false;
-+	}
-+
-+	/* Check that we actually have tuning params to apply */
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+		      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+			continue;
-+		for (i = 0; i < NUM_CTLE_PARAMS; ++i) {
-+			if (sbl->link[port_num].tuning_params.params[serdes].ctle[i]) {
-+				sbl_dev_dbg(sbl->dev, "p%d: tuning params OK - retune\n", port_num);
-+				return true;
-+			}
-+		}
-+		for (i = 0; i < NUM_FFE_PARAMS; ++i) {
-+			if (sbl->link[port_num].tuning_params.params[serdes].ffe[i]) {
-+				sbl_dev_dbg(sbl->dev, "p%d: tuning params OK - retune\n", port_num);
-+				return true;
-+			}
-+		}
-+		for (i = 0; i < NUM_DFE_PARAMS; ++i) {
-+			if (sbl->link[port_num].tuning_params.params[serdes].dfe[i]) {
-+				sbl_dev_dbg(sbl->dev, "p%d: tuning params OK - retune\n", port_num);
-+				return true;
-+			}
-+		}
-+		/* Could continue on to check vernier, etc., but if all the above are 0,
-+		    we've got other problems. */
-+	}
-+
-+	sbl_dev_warn(sbl->dev, "p%d: Saved tuning parameters but all 0-forcing retune", port_num);
-+
-+	return false;
-+}
-+
-+/* Parse the vers string into rev and build */
-+static int sbl_parse_version_string(struct sbl_inst *sbl, const char *fw_fname,
-+				    int *fw_rev, int *fw_build)
-+{
-+	char  rev_str[SBL_MAX_STR_LEN];
-+	char  build_str[SBL_MAX_STR_LEN];
-+	char  *p;
-+	int err;
-+
-+	p = strstr(fw_fname, ".");
-+	if (p == NULL) {
-+		sbl_dev_err(sbl->dev, "Bad firmware file name: %s", fw_fname);
-+		return -EINVAL;
-+	}
-+
-+	if (strlen(p) < strlen(".0x0000_0000")) {
-+		sbl_dev_err(sbl->dev, "Bad firmware file name: %s", fw_fname);
-+		return -EINVAL;
-+	}
-+
-+	memcpy(rev_str, &(p[3]), SBL_FW_REV_LEN);
-+	rev_str[SBL_FW_REV_LEN] = '\n';
-+	rev_str[SBL_FW_REV_LEN + 1] = '\0';
-+	memcpy(build_str, &(p[8]), SBL_FW_BUILD_LEN);
-+	build_str[SBL_FW_BUILD_LEN] = '\n';
-+	build_str[SBL_FW_BUILD_LEN + 1] = '\0';
-+
-+	err = kstrtou32(rev_str, 16, fw_rev);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "Failed to convert %s to an integer [%d]", rev_str, err);
-+		return err;
-+	}
-+
-+	err = kstrtou32(build_str, 16, fw_build);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "Failed to convert %s to an integer [%d]", build_str, err);
-+		return err;
-+	}
-+	return 0;
-+}
-+
-+void sbl_sbm_get_fw_vers(struct sbl_inst *sbl, int sbus_ring, uint *fw_rev, uint *fw_build)
-+{
-+	uint sbus_addr = SBUS_ADDR(sbus_ring, SBUS_BCAST_SBM_SPICO);
-+
-+	/* SBUS Critical Section */
-+	mutex_lock(&sbl->sbus_ring_mtx[sbus_ring]);
-+
-+	if (sbl_sbm_spico_int(sbl, sbus_addr, SPICO_INT_SBMS_REV_ID,
-+			      SPICO_INT_DATA_NONE, fw_rev)) {
-+		/* Failure expected when Spico is in reset */
-+		dev_dbg(sbl->dev, "sbm%d: Failed to read firmware rev from 0x%x", sbus_ring, sbus_addr);
-+		*fw_rev = 0x0;
-+	}
-+	if (sbl_sbm_spico_int(sbl, sbus_addr, SPICO_INT_SBMS_BUILD_ID,
-+			      SPICO_INT_DATA_NONE, fw_build)) {
-+		/* Failure expected when Spico is in reset */
-+		dev_dbg(sbl->dev, "sbm%d: Failed to read firmware build from 0x%x", sbus_ring, sbus_addr);
-+		*fw_build = 0x0;
-+	}
-+	mutex_unlock(&sbl->sbus_ring_mtx[sbus_ring]);
-+}
-+
-+int sbl_sbm_firmware_flash(struct sbl_inst *sbl)
-+{
-+	int err;
-+
-+	err = sbl_sbm_firmware_flash_ring(sbl, 0,
-+					  sbl->switch_info->num_sbus_rings - 1, false);
-+	if (err)
-+		/* sending port 0 in event as this event doesn't apply to any specific port */
-+		sbl_async_alert(sbl, 0, SBL_ASYNC_ALERT_SBM_FW_LOAD_FAILURE, NULL, 0);
-+
-+	return err;
-+}
-+
-+int sbl_sbm_firmware_flash_ring(struct sbl_inst *sbl, int first_ring,
-+				int last_ring, bool force)
-+{
-+	bool flash_needed, fw_requested = false;
-+	int sbus_ring;
-+	int err;
-+	int fw_rev, fw_build;
-+	const struct firmware *fw = NULL;
-+
-+	if ((last_ring < first_ring) || (first_ring < 0) ||
-+	    (last_ring > sbl->switch_info->num_sbus_rings - 1)) {
-+		sbl_dev_err(sbl->dev, "Invalid rings specified first:%d last:%d",
-+			    first_ring, last_ring);
-+		return -EINVAL;
-+	}
-+
-+	err = sbl_parse_version_string(sbl, sbl->iattr.sbm_fw_fname,
-+				       &fw_rev, &fw_build);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "Failed to parse version string %s [%d]",
-+			    sbl->iattr.sbm_fw_fname, err);
-+		return err;
-+	}
-+
-+	/* Check SBus Master firmware versions */
-+	for (sbus_ring = first_ring; sbus_ring <= last_ring; ++sbus_ring) {
-+		flash_needed = false;
-+		if (sbl_validate_sbm_fw_vers(sbl, sbus_ring, fw_rev,
-+					     fw_build)) {
-+			flash_needed = true;
-+		}
-+
-+		if (flash_needed || force) {
-+			if (!fw_requested) {
-+				err = request_firmware(&fw, sbl->iattr.sbm_fw_fname,
-+						       sbl->dev);
-+				if (err) {
-+					sbl_dev_err(sbl->dev, "firmware request failed [%d]", err);
-+					return err;
-+				}
-+				sbl_dev_dbg(sbl->dev, "loaded fw (size %zd)", fw->size);
-+				fw_requested = true;
-+			}
-+			sbl_dev_dbg(sbl->dev, "ring %d sbus_master firmware out of date! Flashing...", sbus_ring);
-+
-+			err = sbl_sbm_firm_upload(sbl, sbus_ring, fw->size, fw->data);
-+			if (err) {
-+				sbl_dev_err(sbl->dev, "Failed to upload ring %d firmware!", sbus_ring);
-+				goto out_release;
-+			} else {
-+				sbl_dev_info(sbl->dev, "Ring %d Sbus Master firmware flashed successfully.", sbus_ring);
-+			}
-+		}
-+	}
-+
-+ out_release:
-+	release_firmware(fw);
-+
-+	return err;
-+}
-+
-+static void sbl_serdes_firmware_validation(struct sbl_inst *sbl, const struct firmware *fw,
-+					   u32 sbus_addr, u32 result, u32 sbus_ring)
-+{
-+	int rc, i;
-+	u8 data;
-+	bool corruption_found = false;
-+
-+	for (i = 0; i < fw->size; ++i) {
-+		if (i % 2 == 0) {
-+			rc = sbl_sbus_wr(sbl, sbus_addr,
-+					SPICO_SBR_ADDR_IMEM, i / 2);
-+			if (rc)
-+				break;
-+			rc = sbl_sbus_rd(sbl, sbus_addr,
-+					 SPICO_SBR_ADDR_RDATA,
-+					&result);
-+			if (rc)
-+				break;
-+			data = (result & 0xff00) >> 8;
-+		} else {
-+			data = result & 0xff;
-+		}
-+		if (data != fw->data[i]) {
-+			corruption_found = true;
-+			sbl_dev_warn(sbl->dev, "0x%x: Act 0x%4.4x Exp 0x%4.4x", i, data, fw->data[i]);
-+		}
-+	}
-+	rc = sbl_sbus_wr(sbl, sbus_addr, SPICO_SBR_ADDR_CTL,
-+			 SPICO_SBR_DATA_IMEM_CNTL_DIS);
-+	if (rc)
-+		sbl_dev_err(sbl->dev, "SBM Imem rd disable failed [%d]", rc);
-+	if (corruption_found)
-+		sbl_dev_err(sbl->dev, "r%d: SBM FW corruption found", sbus_ring);
-+	else
-+		sbl_dev_info(sbl->dev, "r%d: No SBM FW corruption found", sbus_ring);
-+}
-+
-+int sbl_serdes_firmware_flash_safe(struct sbl_inst *sbl, int port_num,
-+				   bool force)
-+{
-+	int rc;
-+	u32 sbus_addr, crc_result, sbus_ring;
-+	u32 curr_fw_rev = 0, curr_fw_build = 0;
-+	u32 result;
-+	const struct firmware *fw = NULL;
-+	int fw_rev, fw_build;
-+	int serdes = 0;
-+
-+	if (!sbl->is_hw)
-+		return 0;
-+
-+	if (port_num == SBL_ALL_PORTS)
-+		return -ENOTSUPP;
-+
-+	sbus_ring = sbl->switch_info->ports[port_num].serdes[serdes].sbus_ring;
-+
-+	/* First, try the FW flash */
-+	rc = sbl_serdes_firmware_flash(sbl, port_num, force);
-+	if (rc)
-+		goto sbm_fw_reload;
-+
-+	/* Now, validate the SerDes FW - this also validates
-+	 * SPICO interrupts are working correctly.
++	/*
++	 * Deinit all lanes (DataPathDeinit @ page 0x10 byte 128)
 +	 */
-+	rc = sbl_parse_version_string(sbl, sbl->iattr.serdes_fw_fname,
-+				      &fw_rev, &fw_build);
-+	if (rc) {
-+		sbl_dev_err(sbl->dev,
-+			    "Failed to parse version string %s [%d]",
-+			sbl->iattr.sbm_fw_fname, rc);
-+		return rc;
++	rtn = sl_media_io_write8(media_jack, 0x10, 128, 0xFF);
++	if (rtn) {
++		sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_SHIFT_DOWN_JACK_IO);
++		sl_media_log_err_trace(media_jack, LOG_NAME, "data path deinit = 0xFF - write failed [%d]", rtn);
++		return rtn;
 +	}
-+	rc = sbl_validate_serdes_fw_vers(sbl, port_num, serdes, fw_rev, fw_build);
-+	if (rc)
-+		goto sbm_fw_reload;
++	msleep(500);
 +
-+	/* Finally, validate the SBM FW - this also validates
-+	 * Sbus reads/writes are working correctly.
++	/*
++	 * enable low power mode
 +	 */
-+	rc = sbl_parse_version_string(sbl, sbl->iattr.sbm_fw_fname,
-+				      &fw_rev, &fw_build);
-+	if (rc) {
-+		sbl_dev_err(sbl->dev,
-+			    "Failed to parse version string %s [%d]",
-+			sbl->iattr.sbm_fw_fname, rc);
-+		return rc;
++	rtn = sl_media_data_jack_cable_low_power_set(media_jack);
++	if (rtn) {
++		sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_SHIFT_DOWN_JACK_IO_LOW_POWER_SET);
++		sl_media_log_err_trace(media_jack, LOG_NAME, "low power mode - write failed [%d]", rtn);
++		return rtn;
 +	}
-+	rc = sbl_validate_sbm_fw_vers(sbl, sbus_ring, fw_rev, fw_build);
-+	if (rc)
-+		goto sbm_fw_reload;
++	msleep(500);
 +
-+	/* If all the above succeed, we're done unless we force SBM FW reload */
-+	if (sbl_debug_option(sbl, port_num,
-+			     SBL_DEBUG_FORCE_RELOAD_SBM_FW)) {
-+		sbl_dev_info(sbl->dev, "p%d: SBus Master FW reload forced", port_num);
-+		goto sbm_fw_reload;
-+	}
-+	return 0;
-+
-+ sbm_fw_reload:
-+	if (sbl_debug_option(sbl, port_num, SBL_DEBUG_INHIBIT_RELOAD_SBM_FW)) {
-+		sbl_dev_warn(sbl->dev, "p%d: SBus Master FW reload inhibited", port_num);
-+		return rc;
-+	}
-+
-+	/* We may trigger a sbus master FW reload from multiple ports at the
-+	 * same time. Ensure we only actually reload the firmware once per
-+	 * sbus ring
++	/*
++	 * Staged Control Set 0, Data Path Configuration bytes @ page 0x10 bytes 145-148
++	 * Config lanes 1 to 4
 +	 */
-+	sbl->reload_sbm_fw[sbus_ring] = true;
-+	mutex_lock(SBM_FW_MTX(sbl, sbus_ring));
-+	if (!sbl->reload_sbm_fw[sbus_ring]) {
-+		sbl_dev_info(sbl->dev, "r%d: Sbus master FW reload no longer needed", sbus_ring);
-+	} else {
-+
-+		if (mutex_is_locked(SBUS_RING_MTX(sbl, sbus_ring)))
-+			sbl_dev_dbg(sbl->dev,
-+				    "%s: Sbus contention detected, sbus_ring_mtx[%d] locked",
-+				    __func__, sbus_ring);
-+
-+		/* SBUS Critical Section */
-+		mutex_lock(SBUS_RING_MTX(sbl, sbus_ring));
-+
-+		/* First, dump the SBM FW info for debug */
-+		sbus_addr = SBUS_ADDR(sbus_ring, SBUS_BCAST_SBM_SPICO);
-+		/* Version info: Rev.Build */
-+		if (sbl_sbm_spico_int(sbl, sbus_addr, SPICO_INT_SBMS_REV_ID,
-+				      SPICO_INT_DATA_NONE, &curr_fw_rev)) {
-+			sbl_dev_warn(sbl->dev,
-+				     "r%d: Failed to read firmware rev from 0x%x",
-+				 sbus_ring, sbus_addr);
-+		} else {
-+			sbl_dev_info(sbl->dev, "r%d: firmware rev 0x%x", sbus_ring, curr_fw_rev);
++	for (i = 0; i < 4; ++i) {
++		rtn = sl_media_io_write8(media_jack, 0x10, 145 + i,
++					 (media_jack->appsel_num_200_gaui << 4) |
++							   DATA_PATH_LOWER_LANE_CONFIG);
++		if (rtn) {
++			sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_SHIFT_DOWN_JACK_IO);
++			sl_media_log_err_trace(media_jack, LOG_NAME,
++					       "SCS0 configuration - config lanes 1-4 - write failed [%d]", rtn);
++			return rtn;
 +		}
-+		if (sbl_sbm_spico_int(sbl, sbus_addr, SPICO_INT_SBMS_BUILD_ID,
-+				      SPICO_INT_DATA_NONE, &curr_fw_build)) {
-+			sbl_dev_warn(sbl->dev,
-+				     "r%d: Failed to read firmware build from 0x%x",
-+				 sbus_ring, sbus_addr);
-+		} else {
-+			sbl_dev_info(sbl->dev, "r%d: firmware build 0x%x",
-+				     sbus_ring, curr_fw_build);
-+		}
-+		/* CRC */
-+		rc = sbl_sbm_spico_int(sbl, sbus_addr, SPICO_INT_SBMS_DO_CRC,
-+				       SPICO_INT_DATA_NONE, &crc_result);
-+		if (rc) {
-+			sbl_dev_err(sbl->dev,
-+				    "p%d(0x%x): CRC check interrupt failed (%d)!",
-+				port_num, sbus_addr, rc);
-+		} else {
-+			if (crc_result != SPICO_RESULT_SBR_CRC_PASS) {
-+				sbl_dev_err(sbl->dev,
-+					    "p%d(0x%x): CRC check fail (result: 0x%x exp: 0x%x)!",
-+					port_num, sbus_addr, crc_result, SPICO_RESULT_SBR_CRC_PASS);
-+			} else {
-+				sbl_dev_info(sbl->dev,
-+					     "p%d(0x%x): CRC check passed",
-+					 port_num, sbus_addr);
-+			}
-+		}
-+		/* FW Status */
-+		rc = sbl_sbus_rd(sbl, sbus_addr, SPICO_INT_SBMS_FW_STS,
-+				 &result);
-+		if (rc) {
-+			sbl_dev_err(sbl->dev,
-+				    "p%d(0x%x): FW status read failed (%d)!",
-+				port_num, sbus_addr, rc);
-+		} else {
-+			sbl_dev_info(sbl->dev, "p%d(0x%x): FW status: 0x%x",
-+				     port_num, sbus_addr, result);
-+		}
-+
-+		rc = request_firmware(&fw, sbl->iattr.sbm_fw_fname, sbl->dev);
-+		if (rc != 0) {
-+			sbl_dev_err(sbl->dev, "firmware request failed [%d]", rc);
-+		} else {
-+			sbl_dev_info(sbl->dev,
-+				     "p%d(0x%x): Checking SBM FW for corruption...",
-+				 port_num, sbus_addr);
-+			rc = sbl_sbus_wr(sbl, sbus_addr, SPICO_SBR_ADDR_CTL,
-+					 SPICO_SBR_DATA_IMEM_CNTL_EN_RD);
-+			if (rc)
-+				sbl_dev_err(sbl->dev, "SBM Imem rd enable failed [%d]", rc);
-+			else
-+				sbl_serdes_firmware_validation(sbl, fw, sbus_addr, result, sbus_ring);
-+
-+			release_firmware(fw);
-+		}
-+
-+		mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+
-+		/* Now, try reloading the sbus master FW */
-+		rc = sbl_sbm_firmware_flash_ring(sbl, sbus_ring, sbus_ring, true);
-+		if (rc)
-+			sbl_dev_err(sbl->dev, "r%d: SBM FW flash failed (%d)!", sbus_ring, rc);
-+		else
-+			sbl_dev_info(sbl->dev, "r%d: SBM FW flash succeeded", sbus_ring);
-+
-+		sbl->reload_sbm_fw[sbus_ring] = false;
 +	}
-+	mutex_unlock(SBM_FW_MTX(sbl, sbus_ring));
++	msleep(100);
 +
-+	/* Finally, retry the SerDes FW reload */
-+	rc = sbl_serdes_firmware_flash(sbl, port_num, true);
-+	if (rc != 0)
-+		sbl_dev_err(sbl->dev,
-+			    "p%d: SerDes FW flash failed (%d) despite SBM reload!",
-+			port_num, rc);
-+	else
-+		sbl_dev_info(sbl->dev, "p%d: SerDes FW flash succeeded", port_num);
-+
-+	/* Regardless of the success/failure of the initial flash and recovery
-+	 * attempt, we return the status of the final serdes firmware flash,
-+	 * which is the true metric of if this function was successful.
++	/*
++	 * ApplyDPInitLane8-1
 +	 */
-+	return rc;
-+}
++	rtn = sl_media_io_write8(media_jack, 0x10, 143, 0xFF);
++	if (rtn) {
++		sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_SHIFT_DOWN_JACK_IO);
++		sl_media_log_err_trace(media_jack, LOG_NAME, "apply dpinit = 0xFF - write failed [%d]", rtn);
++		return rtn;
++	}
++	msleep(500);
 +
-+int sbl_serdes_firmware_flash(struct sbl_inst *sbl, int port_num, bool force)
-+{
-+	bool flash_needed;
-+	int serdes = 0;
-+	int sr, err = 0;
-+	int fw_rev, fw_build;
-+	int port = port_num;
-+	int first_port, last_port;
-+	const struct firmware *fw = NULL;
-+
-+	/* Lock sbm_fw_mtx to ensure we don't reload the sbus master FW
-+	 * while reloading the SerDes FW
++	/*
++	 * enable high power mode
 +	 */
-+	if (port_num == SBL_ALL_PORTS) {
-+		for (sr = 0; sr < sbl->switch_info->num_sbus_rings; ++sr)
-+			mutex_lock(SBM_FW_MTX(sbl, sr));
++	rtn = sl_media_data_jack_cable_high_power_set(media_jack);
++	if (rtn) {
++		sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_SHIFT_DOWN_JACK_IO_HIGH_POWER_SET);
++		sl_media_log_err_trace(media_jack, LOG_NAME, "high power mode - write failed [%d]", rtn);
++		return rtn;
++	}
++	msleep(8000);
++
++	/*
++	 * (Re)Init all lanes (DataPathDeinit @ page 0x10 byte 128)
++	 */
++	rtn = sl_media_io_write8(media_jack, 0x10, 128, 0x00);
++	if (rtn) {
++		sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_SHIFT_DOWN_JACK_IO);
++		sl_media_log_err_trace(media_jack, LOG_NAME, "data path deinit = 0x00 - write failed [%d]", rtn);
++		return rtn;
++	}
++
++	/*
++	 * waiting for firmware reload
++	 */
++	msleep(3000);
++
++	return 0;
++}
++
++int sl_media_data_jack_cable_hw_shift_state_get(struct sl_media_jack *media_jack)
++{
++	int rtn;
++	int i;
++	u8  downshift_lower_lane_config;
++	u8  upshift_lower_lane_config;
++	u8  read_data[4];
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "data jack cable hw shift state get");
++
++	downshift_lower_lane_config = (media_jack->appsel_num_200_gaui << 4) | DATA_PATH_LOWER_LANE_CONFIG;
++	upshift_lower_lane_config = (media_jack->appsel_num_400_gaui << 4) | DATA_PATH_LOWER_LANE_CONFIG;
++
++	for (i = 0; i < 4; ++i) {
++		rtn = sl_media_io_read8(media_jack, 0x10, 145 + i, &read_data[i]);
++		if (rtn) {
++			sl_media_log_err_trace(media_jack, LOG_NAME,
++					       "SCS0 configuration - config lanes 1-4 - read failed [%d]", rtn);
++			return SL_MEDIA_JACK_CABLE_HW_SHIFT_IO_ERROR;
++		}
++	}
++
++	if ((read_data[0] == downshift_lower_lane_config) &&
++	    (read_data[1] == downshift_lower_lane_config) &&
++	    (read_data[2] == downshift_lower_lane_config) &&
++	    (read_data[3] == downshift_lower_lane_config)) {
++		sl_media_log_dbg(media_jack, LOG_NAME, "cable is downshifted");
++		return SL_MEDIA_JACK_CABLE_HW_SHIFT_STATE_DOWNSHIFTED;
++	} else if ((read_data[0] == upshift_lower_lane_config) &&
++		   (read_data[1] == upshift_lower_lane_config) &&
++		   (read_data[2] == upshift_lower_lane_config) &&
++		   (read_data[3] == upshift_lower_lane_config)) {
++		sl_media_log_dbg(media_jack, LOG_NAME, "cable is upshifted");
++		return SL_MEDIA_JACK_CABLE_HW_SHIFT_STATE_UPSHIFTED;
++	}
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "cable is in unknown shift state");
++	return SL_MEDIA_JACK_CABLE_HW_SHIFT_STATE_UNKNOWN;
++}
++
++int sl_media_data_jack_cable_upshift(struct sl_media_jack *media_jack)
++{
++	int rtn;
++	int i;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "data jack cable upshift");
++
++	/*
++	 * Deinit all lanes (DataPathDeinit @ page 0x10 byte 128)
++	 */
++	rtn = sl_media_io_write8(media_jack, 0x10, 128, 0xFF);
++	if (rtn) {
++		sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_SHIFT_UP_JACK_IO);
++		sl_media_log_err_trace(media_jack, LOG_NAME, "data path deinit = 0xFF - write failed [%d]", rtn);
++		return rtn;
++	}
++	msleep(500);
++
++	/*
++	 * enable low power mode
++	 */
++	rtn = sl_media_data_jack_cable_low_power_set(media_jack);
++	if (rtn) {
++		sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_SHIFT_UP_JACK_IO_LOW_POWER_SET);
++		sl_media_log_err_trace(media_jack, LOG_NAME, "low power mode - write failed [%d]", rtn);
++		return rtn;
++	}
++	msleep(500);
++
++	/*
++	 * Staged Control Set 0, Data Path Configuration bytes @ page 0x10 bytes 145-148
++	 * Config lanes 1 to 4
++	 */
++	for (i = 0; i < 4; ++i) {
++		rtn = sl_media_io_write8(media_jack, 0x10, 145 + i,
++					 (media_jack->appsel_num_400_gaui << 4) | DATA_PATH_LOWER_LANE_CONFIG);
++		if (rtn) {
++			sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_SHIFT_UP_JACK_IO);
++			sl_media_log_err_trace(media_jack, LOG_NAME,
++					       "SCS0 configuration - config lanes 1-4 - write failed [%d]", rtn);
++			return rtn;
++		}
++	}
++	msleep(100);
++
++	/*
++	 * ApplyDPInitLane8-1
++	 */
++	rtn = sl_media_io_write8(media_jack, 0x10, 143, 0xFF);
++	if (rtn) {
++		sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_SHIFT_UP_JACK_IO);
++		sl_media_log_err_trace(media_jack, LOG_NAME, "apply dpinit = 0xFF - write failed [%d]", rtn);
++		return rtn;
++	}
++	msleep(500);
++
++	/*
++	 * enable high power mode
++	 */
++	rtn = sl_media_data_jack_cable_high_power_set(media_jack);
++	if (rtn) {
++		sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_SHIFT_UP_JACK_IO_HIGH_POWER_SET);
++		sl_media_log_err_trace(media_jack, LOG_NAME, "high power mode - write failed [%d]", rtn);
++		return rtn;
++	}
++	msleep(8000);
++
++	/*
++	 * (Re)Init all lanes (DataPathDeinit @ page 0x10 byte 128)
++	 */
++	rtn = sl_media_io_write8(media_jack, 0x10, 128, 0x00);
++	if (rtn) {
++		sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_SHIFT_UP_JACK_IO);
++		sl_media_log_err_trace(media_jack, LOG_NAME, "data path deinit = 0x00 - write failed [%d]", rtn);
++		return rtn;
++	}
++
++	/*
++	 * waiting for firmware reload
++	 */
++	msleep(3000);
++
++	return 0;
++}
++
++int sl_media_data_jack_cable_soft_reset(struct sl_media_jack *media_jack)
++{
++	int rtn;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "data jack cable soft reset");
++
++	rtn = sl_media_io_write8(media_jack, 0x00, 0x1a, 0x08);
++	if (rtn)
++		return rtn;
++
++	msleep(300);
++
++	rtn = sl_media_io_write8(media_jack, 0x00, 0x1a, 0x00);
++	if (rtn)
++		return rtn;
++
++	/*
++	 * waiting for firmware reload
++	 */
++	msleep(3000);
++
++	return 0;
++}
++
++#define SL_MEDIA_POWER_UP_PAGE      0x00
++#define SL_MEDIA_CMIS_POWER_UP_ADDR 0x1a
++#define SL_MEDIA_CMIS_POWER_UP_DATA 0x00
++#define SL_MEDIA_SFF_POWER_UP_ADDR  0x5D
++#define SL_MEDIA_SFF_POWER_UP_DATA  0x0D
++int sl_media_data_jack_cable_high_power_set(struct sl_media_jack *media_jack)
++{
++	int rtn;
++	u8  addr;
++	u8  data;
++
++	if (sl_media_data_jack_media_is_format_cmis(media_jack)) {
++		addr = SL_MEDIA_CMIS_POWER_UP_ADDR;
++		data = SL_MEDIA_CMIS_POWER_UP_DATA;
 +	} else {
-+		sr = sbl->switch_info->ports[port_num].serdes[0].sbus_ring;
-+		mutex_lock(SBM_FW_MTX(sbl, sr));
++		addr = SL_MEDIA_SFF_POWER_UP_ADDR;
++		data = SL_MEDIA_SFF_POWER_UP_DATA;
 +	}
 +
-+	if (!force) {
-+		err = sbl_parse_version_string(sbl, sbl->iattr.serdes_fw_fname,
-+					       &fw_rev, &fw_build);
-+		if (err) {
-+			sbl_dev_err(sbl->dev,
-+				    "Failed to parse version string %s [%d]",
-+				sbl->iattr.serdes_fw_fname, err);
-+			goto out;
-+		}
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "high power set (addr = 0x%X, data = 0x%X)", addr, data);
 +
-+		/* Check SerDes firmware versions */
-+		flash_needed = false;
-+		if (port_num == SBL_ALL_PORTS) {
-+			first_port = 0;
-+			last_port = sbl->switch_info->num_ports - 1;
-+		} else {
-+			first_port = port_num;
-+			last_port = port_num;
-+		}
-+		for (port = first_port; port <= last_port; ++port) {
-+			for (serdes = 0; serdes < sbl->switch_info->num_serdes;
-+			     ++serdes) {
-+				if (sbl_validate_serdes_fw_vers(sbl, port,
-+								serdes, fw_rev,
-+								fw_build)) {
-+					sbl_dev_info(sbl->dev, "port %d serdes: %d firmware out of date! Flash required",
-+						     port, serdes);
-+					flash_needed = true;
-+					break;
-+				}
-+			}
-+			if (flash_needed)
-+				break;
-+		}
-+	} else {
-+		flash_needed = true;
-+	}
-+
-+	if (flash_needed) {
-+		err = request_firmware(&fw, sbl->iattr.serdes_fw_fname, sbl->dev);
-+		if (err) {
-+			sbl_dev_err(sbl->dev, "firmware request failed [%d]",
-+				    err);
-+			goto out;
-+		}
-+
-+		err = sbl_serdes_firm_upload(sbl, port_num, fw->size, fw->data);
-+		if (err) {
-+			sbl_dev_err(sbl->dev, "%d: serdes firmware upload failed [%d]", port_num, err);
-+			if (port_num == SBL_ALL_PORTS)
-+				sbl_send_serdes_fw_corruption_alert(sbl, 0, 0);
-+			else
-+				sbl_send_serdes_fw_corruption_alert(sbl, port, serdes);
-+			goto out;
-+		} else {
-+			if (port_num == SBL_ALL_PORTS)
-+				sbl_dev_dbg(sbl->dev, "All SerDes firmware flashed successfully.");
-+			else
-+				sbl_dev_dbg(sbl->dev, "p%d SerDes firmware flashed successfully.", port_num);
-+		}
-+	} else {
-+		/* Serdes firmware reload skipped as the firmware validation succeeded */
-+		for (port = first_port; port <= last_port; ++port)
-+			sbl_link_counters_incr(sbl, port, serdes_fw_reload_skip);
-+	}
-+
-+ out:
-+	release_firmware(fw);
-+
-+	if (port_num == SBL_ALL_PORTS) {
-+		for (sr = 0; sr < sbl->switch_info->num_sbus_rings; ++sr)
-+			mutex_unlock(SBM_FW_MTX(sbl, sr));
-+	} else {
-+		mutex_unlock(SBM_FW_MTX(sbl, sr));
-+	}
-+	return err;
-+}
-+
-+int sbl_validate_sbm_fw_vers(struct sbl_inst *sbl, u32 sbus_ring,
-+			     int fw_rev, int fw_build)
-+{
-+	u32 curr_fw_rev = 0, curr_fw_build = 0;
-+	u32 sbus_addr = SBUS_ADDR(sbus_ring, SBUS_BCAST_SBM_SPICO);
-+
-+	DEV_TRACE2(sbl->dev,
-+		   "sbus_addr: 0x%x, desired rev: 0x%x, desired build: 0x%x",
-+		   sbus_ring, fw_rev, fw_build);
-+
-+	/* SBUS Critical Section */
-+	mutex_lock(SBUS_RING_MTX(sbl, sbus_ring));
-+
-+	if (sbl_sbm_spico_int(sbl, sbus_addr, SPICO_INT_SBMS_REV_ID,
-+			      SPICO_INT_DATA_NONE, &curr_fw_rev)) {
-+		/* Failure expected when Spico is in reset */
-+		sbl_dev_warn(sbl->dev, "r%d: Failed to read SBM firmware rev from 0x%x",
-+			     sbus_ring, sbus_addr);
-+	}
-+	if (sbl_sbm_spico_int(sbl, sbus_addr, SPICO_INT_SBMS_BUILD_ID,
-+			      SPICO_INT_DATA_NONE, &curr_fw_build)) {
-+		/* Failure expected when Spico is in reset */
-+		sbl_dev_warn(sbl->dev, "r%d: Failed to read SBM firmware build from 0x%x",
-+			     sbus_ring, sbus_addr);
-+	}
-+
-+	mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+
-+	if (((int)curr_fw_rev == fw_rev) && ((int)curr_fw_build == fw_build)) {
-+		sbl_dev_dbg(sbl->dev, "r%d: Found expected SBM rev: 0x%x_%x",
-+			    sbus_ring, curr_fw_rev, curr_fw_build);
-+		return 0;
-+	}
-+	sbl_dev_warn(sbl->dev,
-+		     "r%d: Expected rev: 0x%x_%x Current SBM rev: 0x%x_%x",
-+			sbus_ring, fw_rev, fw_build, curr_fw_rev, curr_fw_build);
-+	return -1;
-+}
-+
-+int sbl_validate_serdes_fw_crc(struct sbl_inst *sbl, int port, int serdes)
-+{
-+	u16 crc_result;
-+	int err;
-+
-+	err = sbl_serdes_spico_int(sbl, port, serdes, SPICO_INT_CM4_CRC,
-+				   SPICO_INT_DATA_NONE, &crc_result,
-+					SPICO_INT_RETURN_RESULT);
-+	if (err)
-+		return err;
-+
-+	/* CRC failure can be injected for test purposes */
-+	sbl_test_manipulate_serdes_fw_crc_result(&crc_result);
-+
-+	if (crc_result != SPICO_RESULT_SERDES_CRC_PASS) {
-+		sbl_dev_dbg(sbl->dev,
-+			    "p%ds%d: CRC check fail (result 0x%x, expected 0x%x)!",
-+			port, serdes, crc_result, SPICO_RESULT_SERDES_CRC_PASS);
-+		return -EBADE;
-+	}
-+
-+	return 0;
-+}
-+
-+int sbl_validate_serdes_fw_vers(struct sbl_inst *sbl, int port_num, int serdes,
-+				int fw_rev, int fw_build)
-+{
-+	u16 curr_fw_rev = 0, curr_fw_build = 0;
-+	int err;
-+
-+	DEV_TRACE2(sbl->dev, "p%ds%d: desired rev: 0x%x, desired build: 0x%x",
-+		   port_num, serdes, fw_rev, fw_build);
-+
-+	if (!sbl->is_hw)
-+		return 0;
-+
-+	if (sbl_serdes_spico_int(sbl, port_num, serdes, SPICO_INT_CM4_REV_ID,
-+				 SPICO_INT_DATA_NONE, &curr_fw_rev,
-+				 SPICO_INT_RETURN_RESULT)) {
-+		/* Failure expected when Spico is in reset */
-+		sbl_dev_dbg(sbl->dev, "p%ds%d: Failed to read firmware rev!",
-+			    port_num, serdes);
-+	}
-+	if (sbl_serdes_spico_int(sbl, port_num, serdes, SPICO_INT_CM4_BUILD_ID,
-+				 SPICO_INT_DATA_NONE, &curr_fw_build,
-+				 SPICO_INT_RETURN_RESULT)) {
-+		/* Failure expected when Spico is in reset */
-+		sbl_dev_dbg(sbl->dev, "p%ds%d: Failed to read firmware build!",
-+			    port_num, serdes);
-+	}
-+
-+	err = sbl_validate_serdes_fw_crc(sbl, port_num, serdes);
-+	if (err) {
-+		sbl_dev_warn(sbl->dev, "p%ds%d: Failed CRC check",
-+			     port_num, serdes);
-+		return -1;
-+	}
-+
-+	if (((int)curr_fw_rev == fw_rev) && ((int)curr_fw_build == fw_build)) {
-+		sbl_dev_dbg(sbl->dev, "p%ds%d: Found expected rev: 0x%x_%x",
-+			    port_num, serdes, curr_fw_rev, curr_fw_build);
-+		return 0;
-+	}
-+	sbl_dev_warn(sbl->dev, "p%ds%d: Expected rev: 0x%x_%x Current rev: 0x%x_%x",
-+		     port_num, serdes, fw_rev, fw_build,
-+			curr_fw_rev, curr_fw_build);
-+	return -1;
-+}
-+
-+/* does the CRC check */
-+int sbl_sbm_firm_upload(struct sbl_inst *sbl, int sbus_ring,
-+			size_t fw_size, const u8 *fw_data)
-+{
-+	u32 sbus_addr, unused, crc_result;
-+	int err;
-+
-+	if (!sbl->is_hw)
-+		return 0;
-+
-+	/* SBUS Critical Section */
-+	mutex_lock(SBUS_RING_MTX(sbl, sbus_ring));
-+
-+	sbus_addr = SBUS_ADDR(sbus_ring, SBUS_BCAST_SBM_SPICO);
-+
-+	err = sbl_sbus_op_aux(sbl, sbus_addr, SPICO_SBR_ADDR_IP_IDCODE,
-+			      SBUS_IFACE_DST_CORE | SBUS_CMD_RESET,
-+				   SPICO_SBR_DATA_NONE, &unused);
-+	if (err)
-+		goto err_out;
-+
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SBR_ADDR_CTL,
-+			  SPICO_SBR_DATA_RESET_HIGH);
-+	if (err)
-+		goto err_out;
-+
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SBR_ADDR_CTL,
-+			  SPICO_SBR_DATA_RESET_LOW);
-+	if (err)
-+		goto err_out;
-+
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SBR_ADDR_CTL,
-+			  SPICO_SBR_DATA_IMEM_CNTL_EN);
-+	if (err)
-+		goto err_out;
-+
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SBR_ADDR_IMEM,
-+			  SPICO_SBR_DATA_NONE);
-+	if (err)
-+		goto err_out;
-+
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SBR_ADDR_IMEM,
-+			  SPICO_SBR_DATA_SET_BURST_WR);
-+	if (err)
-+		goto err_out;
-+
-+	err = sbl_spico_burst_upload(sbl, sbus_addr,
-+				     SPICO_SBR_ADDR_IMEM_BURST_DATA,
-+					  fw_size, fw_data);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "Upload failed!");
-+		goto err_out;
-+	}
-+
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SBR_ADDR_IMEM,
-+			  SPICO_SBR_DATA_SET_BURST_WR | fw_size);
-+	if (err)
-+		goto err_out;
-+
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SBR_ADDR_IMEM,
-+			  SPICO_SBR_DATA_SET_BURST_WR |
-+			       (fw_size + 1));
-+	if (err)
-+		goto err_out;
-+
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SBR_ADDR_IMEM,
-+			  SPICO_SBR_DATA_SET_BURST_WR |
-+			       (fw_size + 2));
-+	if (err)
-+		goto err_out;
-+
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SBR_ADDR_IMEM,
-+			  SPICO_SBR_DATA_SET_BURST_WR |
-+			       (fw_size + 3));
-+	if (err)
-+		goto err_out;
-+
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SBR_ADDR_CTL,
-+			  SPICO_SBR_DATA_IMEM_CNTL_DIS);
-+	if (err)
-+		goto err_out;
-+
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SBR_ADDR_ECC,
-+			  SPICO_SBR_DATA_ECC_EN);
-+	if (err)
-+		goto err_out;
-+
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SBR_ADDR_CTL,
-+			  SPICO_SBR_DATA_SPICO_EN);
-+	if (err)
-+		goto err_out;
-+
-+	err = sbl_sbm_spico_int(sbl, sbus_addr, SPICO_INT_SBMS_DO_CRC,
-+				SPICO_INT_DATA_NONE, &crc_result);
-+	if (err)
-+		goto err_out;
-+
-+	if (crc_result != SPICO_RESULT_SBR_CRC_PASS) {
-+		sbl_dev_err(sbl->dev, "0x%x: CRC check fail (result 0x%x, expected 0x%x)!",
-+			    sbus_addr, crc_result, SPICO_RESULT_SBR_CRC_PASS);
-+		err = -EBADE;
-+	}
-+
-+	/* Increment sbus master fw reload counter */
-+	atomic_inc(&sbl->sbm_fw_reload_count[sbus_ring]);
-+
-+err_out:
-+	mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+	return err;
-+}
-+
-+int sbl_serdes_firm_upload(struct sbl_inst *sbl, int port_num, size_t fw_size,
-+			   const u8 *fw_data)
-+{
-+	int serdes;
-+	u32 sbus_addr;
-+	u64 core_status_value;
-+	int sbus_ring;
-+	int err = -1;
-+	int port, first_port, last_port, first_ring, last_ring;
-+	int first_serdes, last_serdes;
-+	unsigned long last_jiffy;
-+
-+	if (port_num == SBL_ALL_PORTS) {
-+		sbl_dev_dbg(sbl->dev, "Loading SerDes firmware for all ports...");
-+		first_port = 0;
-+		last_port = sbl->switch_info->num_ports - 1;
-+		first_serdes = 0; /* force to a single iteration */
-+		last_serdes = 0;
-+		first_ring = 0;
-+		last_ring = sbl->switch_info->num_sbus_rings - 1;
-+	} else {
-+		sbl_dev_dbg(sbl->dev, "p%d: Loading SerDes firmware...", port_num);
-+		first_port = port_num;
-+		last_port = port_num;
-+		first_serdes = 0;
-+		last_serdes = sbl->switch_info->num_serdes - 1;
-+		/* All serdes for a given port are always on the same ring, so
-+		   just use serdes 0 to determine the ring. */
-+		first_ring = sbl->switch_info->ports[port_num].serdes[0].sbus_ring;
-+		last_ring = sbl->switch_info->ports[port_num].serdes[0].sbus_ring;
-+	}
-+	for (port = first_port; port <= last_port; ++port) {
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			err = sbl_serdes_soft_reset(sbl, port, serdes);
-+			if (err)
-+				return err;
-+		}
-+	}
-+
-+	/* Don't allow SPICO interrupts while we are reloading firmware */
-+	for (port = first_port; port <= last_port; ++port)
-+		mutex_lock(&sbl->link[port].serdes_mtx);
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: Flashing SerDes firmware...", port_num);
-+	for (sbus_ring = first_ring; sbus_ring <= last_ring; ++sbus_ring) {
-+
-+		/* SBUS Critical Section */
-+		mutex_lock(SBUS_RING_MTX(sbl, sbus_ring));
-+
-+		for (serdes = first_serdes; serdes <= last_serdes; ++serdes) {
-+			if (port_num == SBL_ALL_PORTS)
-+				sbus_addr = SBUS_ADDR(sbus_ring, SBUS_BCAST_CM4_SERDES_SPICO);
-+			else
-+				sbus_addr = SBUS_ADDR(sbl->switch_info->ports[port_num].serdes[serdes].sbus_ring,
-+						      sbl->switch_info->ports[port_num].serdes[serdes].rx_addr);
-+
-+			err = sbl_sbus_wr(sbl, sbus_addr,
-+					  SPICO_SERDES_ADDR_RESET_EN,
-+				       SPICO_SERDES_DATA_SET_GLOBAL_RESET);
-+			if (err)
-+				break;
-+
-+			err = sbl_sbus_wr(sbl, sbus_addr,
-+					  SPICO_SERDES_ADDR_RESET_EN,
-+				       SPICO_SERDES_DATA_CLR_GLOBAL_RESET);
-+			if (err)
-+				break;
-+
-+			err = sbl_sbus_wr(sbl, sbus_addr,
-+					  SPICO_SERDES_ADDR_INTR_DIS,
-+				       SPICO_SERDES_DATA_SET_INTR_DIS);
-+			if (err)
-+				break;
-+
-+			err = sbl_sbus_wr(sbl, sbus_addr,
-+					  SPICO_SERDES_ADDR_IMEM,
-+				       SPICO_SERDES_DATA_SET_IMEM_CNTL_EN);
-+			if (err)
-+				break;
-+
-+			err = sbl_spico_burst_upload(sbl, sbus_addr,
-+						     SPICO_SERDES_ADDR_IMEM_BURST,
-+						  fw_size, fw_data);
-+			if (err) {
-+				sbl_dev_err(sbl->dev, "Upload failed!");
-+				break;
-+			}
-+
-+			err = sbl_sbus_wr(sbl, sbus_addr,
-+					  SPICO_SERDES_ADDR_IMEM,
-+				       SPICO_SERDES_DATA_CLR_IMEM_CNTL_EN);
-+			if (err)
-+				break;
-+
-+			err = sbl_sbus_wr(sbl, sbus_addr,
-+					  SPICO_SERDES_ADDR_ECC,
-+				       SPICO_SERDES_DATA_SET_ECC_EN);
-+			if (err)
-+				break;
-+
-+			err = sbl_sbus_wr(sbl, sbus_addr,
-+					  SPICO_SERDES_ADDR_ECCLOG,
-+				       SPICO_SERDES_DATA_CLR_ECC_ERR);
-+			if (err)
-+				break;
-+
-+			err = sbl_sbus_wr(sbl, sbus_addr,
-+					  SPICO_SERDES_ADDR_RESET_EN,
-+				       SPICO_SERDES_DATA_SET_SPICO_EN);
-+			if (err)
-+				break;
-+
-+			err = sbl_sbus_wr(sbl, sbus_addr,
-+					  SPICO_SERDES_ADDR_INTR_DIS,
-+				       SPICO_SERDES_DATA_SET_INTR_EN);
-+			if (err)
-+				break;
-+		}
-+
-+		mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+
-+		if (err)
-+			break;
-+	}
-+
-+	for (port = first_port; port <= last_port; ++port)
-+		mutex_unlock(&sbl->link[port].serdes_mtx);
-+
-+	/* If any errors occurred above, return now we've unlocked all mutexes. */
-+	if (err)
-+		return err;
-+
-+	/* Increment SerDes firmware reload counters */
-+	if (port_num != SBL_ALL_PORTS)
-+		for (serdes = first_serdes; serdes <= last_serdes; ++serdes)
-+			sbl_link_counters_incr(sbl, port_num, serdes0_fw_reload + serdes);
-+
-+	if (!sbl->is_hw)
-+		return 0;
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: Validating flash..", port_num);
-+	for (port = first_port; port <= last_port; ++port) {
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			sbus_addr =
-+				SBUS_ADDR(sbl->switch_info->ports[port].serdes[serdes].sbus_ring,
-+					  sbl->switch_info->ports[port].serdes[serdes].rx_addr);
-+			last_jiffy = jiffies + msecs_to_jiffies(1000 *
-+								 sbl->iattr.core_status_rd_timeout);
-+			do {
-+				core_status_value = sbl_read64(sbl, SBL_PML_BASE(port) |
-+							       SBL_PML_SERDES_CORE_STATUS_OFFSET(serdes));
-+				if (core_status_value &
-+				    SERDES_CORE_STATUS_SPICO_READY_MASK) {
-+					break;
-+				}
-+				msleep(sbl->iattr.core_status_rd_poll_interval);
-+			} while (time_is_after_jiffies(last_jiffy));
-+
-+			if (!(core_status_value & (1 << 5))) {
-+				sbl_dev_err(sbl->dev, "p%ds%d Timeout reading o_core_status (timeout:%ds)",
-+					    port_num, serdes, sbl->iattr.core_status_rd_timeout);
-+				return -ETIME;
-+			}
-+
-+			err = sbl_validate_serdes_fw_crc(sbl, port, serdes);
-+			if (err)
-+				return err;
-+
-+		}
-+	}
-+	sbl_dev_dbg(sbl->dev, "p%d: FW upload complete!", port_num);
-+
-+	return 0;
-+}
-+
-+static int sbl_get_serdes_tuning_params(struct sbl_inst *sbl, int port_num,
-+					struct sbl_tuning_params *tps)
-+{
-+	int i, serdes, err;
-+
-+	if (!tps)
-+		return -EINVAL;
-+
-+	tps->magic = SBL_TUNING_PARAM_MAGIC;
-+	tps->version = SBL_TUNING_PARAM_VERSION;
-+
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+			continue;
-+
-+		for (i = 0; i < NUM_CTLE_PARAMS; ++i) {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_CTLE_BASE | i,
-+					&tps->params[serdes].ctle[i],
-+					SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: CTLE[%d]: %d",
-+				    port_num, serdes, i,
-+					tps->params[serdes].ctle[i]);
-+		}
-+		for (i = 0; i < NUM_FFE_PARAMS; ++i) {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_FFE_BASE | i,
-+					&tps->params[serdes].ffe[i],
-+					SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: FFE[%d]: %d",
-+				    port_num, serdes, i,
-+					tps->params[serdes].ffe[i]);
-+		}
-+		for (i = 0; i < NUM_DFE_PARAMS; ++i) {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_DFE_BASE | i,
-+					&tps->params[serdes].dfe[i],
-+					SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: DFE[%d]: %d",
-+				    port_num, serdes, i,
-+					tps->params[serdes].dfe[i]);
-+		}
-+		for (i = 0; i < NUM_RXVS_PARAMS; ++i) {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_RXVS_BASE |
-+						(i + SPICO_INT_DATA_HAL_RXVS_OFFSET),
-+					&tps->params[serdes].rxvs[i],
-+					SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: RXVS[%d]: %d",
-+				    port_num, serdes, i,
-+					tps->params[serdes].rxvs[i]);
-+		}
-+		for (i = 0; i < NUM_RXVC_PARAMS; ++i) {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_RXVC_BASE | i,
-+					&tps->params[serdes].rxvc[i],
-+					SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: RXVC[%d]: %d",
-+				    port_num, serdes, i,
-+					tps->params[serdes].rxvc[i]);
-+		}
-+		for (i = 0; i < NUM_RSDO_PARAMS; ++i) {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_RSDO_BASE | i,
-+					&tps->params[serdes].rsdo[i],
-+					SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: RSDO[%d]: %d",
-+				    port_num, serdes, i,
-+					tps->params[serdes].rsdo[i]);
-+		}
-+		for (i = 0; i < NUM_RSDC_PARAMS; ++i) {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_RSDC_BASE | i,
-+					&tps->params[serdes].rsdc[i],
-+					SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: RSDC[%d]: %d",
-+				    port_num, serdes, i,
-+					tps->params[serdes].rsdc[i]);
-+		}
-+		for (i = 0; i < NUM_RSTO_PARAMS; ++i) {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_RSTO_BASE | i,
-+					&tps->params[serdes].rsto[i],
-+					SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: RSTO[%d]: %d",
-+				    port_num, serdes, i,
-+					tps->params[serdes].rsto[i]);
-+		}
-+		for (i = 0; i < NUM_RSTC_PARAMS; ++i) {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_RSTC_BASE | i,
-+					&tps->params[serdes].rstc[i],
-+					SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: RSTC[%d]: %d",
-+				    port_num, serdes, i,
-+					tps->params[serdes].rstc[i]);
-+		}
-+		for (i = 0; i < NUM_EH_PARAMS; ++i) {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_EH_BASE | i,
-+					&tps->params[serdes].eh[i],
-+					SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: EH[%d]: %d",
-+				    port_num, serdes, i,
-+					tps->params[serdes].eh[i]);
-+		}
-+		for (i = 0; i < NUM_GTP_PARAMS; ++i) {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_GTP_BASE | i,
-+					&tps->params[serdes].gtp[i],
-+					SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: GTP[%d]: %d",
-+				    port_num, serdes, i,
-+					tps->params[serdes].gtp[i]);
-+		}
-+		for (i = 0; i < NUM_DCCD_PARAMS; ++i) {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_DCCD_BASE | i,
-+					&tps->params[serdes].dccd[i],
-+					SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: DCCD[%d]: %d",
-+				    port_num, serdes, i,
-+					tps->params[serdes].dccd[i]);
-+		}
-+		for (i = 0; i < NUM_P4LV_PARAMS; ++i) {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_P4LV_BASE | i,
-+					&tps->params[serdes].p4lv[i],
-+					SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: P4LV[%d]: %d",
-+				    port_num, serdes, i,
-+					tps->params[serdes].p4lv[i]);
-+		}
-+
-+		if (sbl_validate_serdes_fw_vers(sbl, port_num, serdes,
-+						SBL_KNOWN_FW0_REV,
-+					SBL_KNOWN_FW0_BUILD)) {
-+			return -EADDRNOTAVAIL;
-+		}
-+
-+		for (i = 0; i < NUM_AFEC_PARAMS; ++i) {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_MEM_READ |
-+						(SBUS_AFE_CTRL_KNOWN_FW0_BASE + i), 0x0,
-+					&tps->params[serdes].afec[i],
-+					SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: AFEC[%d]: %d",
-+				    port_num, serdes, i,
-+					tps->params[serdes].afec[i]);
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+int sbl_check_serdes_tuning_params(struct sbl_inst *sbl, int port_num)
-+{
-+	int i, serdes, err;
-+	struct sbl_tuning_params *tps;
-+	int min, max;
-+	int num_oob_params;
-+	int max_oob_params = SBL_MAX_OOB_SERDES_PARAMS;
-+
-+	tps = kzalloc(sizeof(struct sbl_tuning_params), GFP_KERNEL);
-+	if (!tps)
-+		return -ENOMEM;
-+
-+	/* debug adjustment to number of oob tuning params allowed */
-+	if (sbl_debug_option(sbl, port_num, SBL_DEBUG_BAD_PARAM_1))
-+		max_oob_params += 1;
-+	if (sbl_debug_option(sbl, port_num, SBL_DEBUG_BAD_PARAM_2))
-+		max_oob_params += 2;
-+
-+	err = sbl_get_serdes_tuning_params(sbl, port_num, tps);
-+	if (err) {
-+		kfree(tps);
-+		return err;
-+	}
-+
-+	if (!sbl->is_hw) {
-+		kfree(tps);
-+		return 0;
-+	}
-+
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+			continue;
-+
-+		num_oob_params = 0;
-+		for (i = 0; i < NUM_CTLE_PARAMS; ++i) {
-+			switch (i) {
-+			case CTLE_HF_OFFSET:
-+				min = SBL_CTLE_HF_MIN;
-+				max = SBL_CTLE_HF_MAX;
-+				break;
-+			case CTLE_LF_OFFSET:
-+				min = SBL_CTLE_LF_MIN;
-+				max = SBL_CTLE_LF_MAX;
-+				break;
-+			case CTLE_DC_OFFSET:
-+				min = SBL_CTLE_DC_MIN;
-+				max = SBL_CTLE_DC_MAX;
-+				break;
-+			case CTLE_BW_OFFSET:
-+				min = SBL_CTLE_BW_MIN;
-+				max = SBL_CTLE_BW_MAX;
-+				break;
-+			case CTLE_GS1_OFFSET:
-+				min = SBL_CTLE_GS1_MIN;
-+				max = SBL_CTLE_GS1_MAX;
-+				break;
-+			case CTLE_GS2_OFFSET:
-+				min = SBL_CTLE_GS2_MIN;
-+				max = SBL_CTLE_GS2_MAX;
-+				break;
-+			case CTLE_SCE_OFFSET:
-+				min = SBL_CTLE_SCE_MIN;
-+				max = SBL_CTLE_SCE_MAX;
-+				break;
-+			case CTLE_HF_MIN_OFFSET:
-+				min = SBL_CTLE_HF_MIN_MIN;
-+				max = SBL_CTLE_HF_MIN_MAX;
-+				break;
-+			case CTLE_HF_MAX_OFFSET:
-+				min = SBL_CTLE_HF_MAX_MIN;
-+				max = SBL_CTLE_HF_MAX_MAX;
-+				break;
-+			case CTLE_LF_MIN_OFFSET:
-+				min = SBL_CTLE_LF_MIN_MIN;
-+				max = SBL_CTLE_LF_MIN_MAX;
-+				break;
-+			case CTLE_LF_MAX_OFFSET:
-+				min = SBL_CTLE_LF_MAX_MIN;
-+				max = SBL_CTLE_LF_MAX_MAX;
-+				break;
-+			default:
-+				continue;
-+			}
-+			if ((tps->params[serdes].ctle[i] < min) ||
-+			    (tps->params[serdes].ctle[i] > max)) {
-+				sbl_dev_warn(sbl->dev, "p%ds%d: CTLE[%d] value(%d) out of bounds(%d:%d)!",
-+					     port_num, serdes, i,
-+					 tps->params[serdes].ctle[i], min, max);
-+				num_oob_params++;
-+			} else {
-+				sbl_dev_dbg(sbl->dev, "p%ds%d: CTLE[%d] value(%d) within bounds(%d:%d)",
-+					    port_num, serdes, i,
-+					 tps->params[serdes].ctle[i], min, max);
-+			}
-+		}
-+
-+		for (i = 0; i < NUM_FFE_PARAMS; ++i) {
-+			switch (i) {
-+			case FFE_PRE2_OFFSET:
-+				min = SBL_FFE_PRE2_MIN;
-+				max = SBL_FFE_PRE2_MAX;
-+				break;
-+			case FFE_PRE1_OFFSET:
-+				min = SBL_FFE_PRE1_MIN;
-+				max = SBL_FFE_PRE1_MAX;
-+				break;
-+			case FFE_POST1_OFFSET:
-+				min = SBL_FFE_POST1_MIN;
-+				max = SBL_FFE_POST1_MAX;
-+				break;
-+			case FFE_BFLF_OFFSET:
-+				min = SBL_FFE_BFLF_MIN;
-+				max = SBL_FFE_BFLF_MAX;
-+				break;
-+			case FFE_BFHF_OFFSET:
-+				min = SBL_FFE_BFHF_MIN;
-+				max = SBL_FFE_BFHF_MAX;
-+				break;
-+			case FFE_DATARATE_OFFSET:
-+				min = SBL_FFE_DATARATE_MIN;
-+				max = SBL_FFE_DATARATE_MAX;
-+				break;
-+			case FFE_SCE_OFFSET:
-+				min = SBL_FFE_SCE_MIN;
-+				max = SBL_FFE_SCE_MAX;
-+				break;
-+			case FFE_PRE1_MIN_OFFSET:
-+				min = SBL_FFE_PRE1_MIN_MIN;
-+				max = SBL_FFE_PRE1_MIN_MAX;
-+				break;
-+			case FFE_PRE1_MAX_OFFSET:
-+				min = SBL_FFE_PRE1_MAX_MIN;
-+				max = SBL_FFE_PRE1_MAX_MAX;
-+				break;
-+			case FFE_PRE2_MIN_OFFSET:
-+				min = SBL_FFE_PRE2_MIN_MIN;
-+				max = SBL_FFE_PRE2_MIN_MAX;
-+				break;
-+			case FFE_PRE2_MAX_OFFSET:
-+				min = SBL_FFE_PRE2_MAX_MIN;
-+				max = SBL_FFE_PRE2_MAX_MAX;
-+				break;
-+			case FFE_BFLF_ICAL_OFFSET:
-+				min = SBL_FFE_BFLF_ICAL_MIN;
-+				max = SBL_FFE_BFLF_ICAL_MAX;
-+				break;
-+			case FFE_POST1_MIN_OFFSET:
-+				min = SBL_FFE_POST1_MIN_MIN;
-+				max = SBL_FFE_POST1_MIN_MAX;
-+				break;
-+			case FFE_POST1_MAX_OFFSET:
-+				min = SBL_FFE_POST1_MAX_MIN;
-+				max = SBL_FFE_POST1_MAX_MAX;
-+				break;
-+			default:
-+				continue;
-+			}
-+			if ((tps->params[serdes].ffe[i] < min) ||
-+			    (tps->params[serdes].ffe[i] > max)) {
-+				sbl_dev_warn(sbl->dev, "p%ds%d: FFE[%d] value(%d) out of bounds(%d:%d)!",
-+					     port_num, serdes, i,
-+					 tps->params[serdes].ffe[i], min, max);
-+				num_oob_params++;
-+			} else {
-+				sbl_dev_dbg(sbl->dev, "p%ds%d: FFE[%d] value(%d) within bounds(%d:%d)",
-+					    port_num, serdes, i,
-+					 tps->params[serdes].ffe[i], min, max);
-+			}
-+		}
-+		for (i = 0; i < NUM_DFE_PARAMS; ++i) {
-+			switch (i) {
-+			case DFE_GT1_OFFSET:
-+				min = SBL_DFE_GT1_MIN;
-+				max = SBL_DFE_GT1_MAX;
-+				break;
-+			case DFE_GT2_OFFSET:
-+				min = SBL_DFE_GT2_MIN;
-+				max = SBL_DFE_GT2_MAX;
-+				break;
-+			case DFE_G2_OFFSET:
-+				min = SBL_DFE_G2_MIN;
-+				max = SBL_DFE_G2_MAX;
-+				break;
-+			case DFE_G3_OFFSET:
-+				min = SBL_DFE_G3_MIN;
-+				max = SBL_DFE_G3_MAX;
-+				break;
-+			case DFE_G4_OFFSET:
-+				min = SBL_DFE_G4_MIN;
-+				max = SBL_DFE_G4_MAX;
-+				break;
-+			case DFE_G5_OFFSET:
-+				min = SBL_DFE_G5_MIN;
-+				max = SBL_DFE_G5_MAX;
-+				break;
-+			case DFE_G6_OFFSET:
-+				min = SBL_DFE_G6_MIN;
-+				max = SBL_DFE_G6_MAX;
-+				break;
-+			case DFE_G7_OFFSET:
-+				min = SBL_DFE_G7_MIN;
-+				max = SBL_DFE_G7_MAX;
-+				break;
-+			case DFE_G8_OFFSET:
-+				min = SBL_DFE_G8_MIN;
-+				max = SBL_DFE_G8_MAX;
-+				break;
-+			case DFE_G9_OFFSET:
-+				min = SBL_DFE_G9_MIN;
-+				max = SBL_DFE_G9_MAX;
-+				break;
-+			case DFE_G10_OFFSET:
-+				min = SBL_DFE_G10_MIN;
-+				max = SBL_DFE_G10_MAX;
-+				break;
-+			case DFE_G11_OFFSET:
-+				min = SBL_DFE_G11_MIN;
-+				max = SBL_DFE_G11_MAX;
-+				break;
-+			case DFE_G12_OFFSET:
-+				min = SBL_DFE_G12_MIN;
-+				max = SBL_DFE_G12_MAX;
-+				break;
-+			case DFE_G13_OFFSET:
-+				min = SBL_DFE_G13_MIN;
-+				max = SBL_DFE_G13_MAX;
-+				break;
-+			default:
-+				continue;
-+			}
-+			if ((tps->params[serdes].dfe[i] < min) ||
-+			    (tps->params[serdes].dfe[i] > max)) {
-+				sbl_dev_warn(sbl->dev, "p%ds%d: DFE[%d] value(%d) out of bounds(%d:%d)!",
-+					     port_num, serdes, i,
-+					 tps->params[serdes].dfe[i], min, max);
-+				num_oob_params++;
-+			} else {
-+				sbl_dev_dbg(sbl->dev, "p%ds%d: DFE[%d] value(%d) within bounds(%d:%d)",
-+					    port_num, serdes, i,
-+					 tps->params[serdes].dfe[i], min, max);
-+			}
-+		}
-+
-+		if (num_oob_params > max_oob_params) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Too many tuning params out of bounds(%d, max %d)!",
-+				    port_num, serdes, num_oob_params, max_oob_params);
-+			return -EDQUOT;
-+		} else if (num_oob_params > 0) {
-+			sbl_dev_info(sbl->dev, "p%ds%d: Some tuning params out of bounds(%d, max %d)",
-+				     port_num, serdes, num_oob_params, max_oob_params);
-+		}
-+	}
-+
-+	kfree(tps);
-+	return 0;
-+}
-+
-+int sbl_save_serdes_tuning_params(struct sbl_inst *sbl, int port_num)
-+{
-+	int err;
-+
-+	sbl->link[port_num].tuning_params.tp_state_hash0 =
-+		sbl_get_tp_hash0(sbl, port_num);
-+	sbl->link[port_num].tuning_params.tp_state_hash1 =
-+		sbl_get_tp_hash1(sbl, port_num);
-+	sbl_dev_dbg(sbl->dev, "Updated hash0 to 0x%llx, hash1 to 0x%llx",
-+		    sbl->link[port_num].tuning_params.tp_state_hash0,
-+		sbl->link[port_num].tuning_params.tp_state_hash1);
-+
-+	err = sbl_get_serdes_tuning_params(sbl, port_num,
-+					   &sbl->link[port_num].tuning_params);
-+
-+	return err;
-+}
-+
-+int sbl_apply_serdes_tuning_params(struct sbl_inst *sbl, int port_num,
-+				   int serdes)
-+{
-+	int i, err;
-+	u16 result;
-+
-+	sbl_dev_dbg(sbl->dev, "p%ds%d: applying saved tuning params", port_num, serdes);
-+
-+	DEV_TRACE2(sbl->dev, "CTLE params");
-+	for (i = 0; i < NUM_CTLE_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "%d ",
-+			   sbl->link[port_num].tuning_params.params[serdes].ctle[i]);
-+	}
-+	DEV_TRACE2(sbl->dev, "RXFFE params");
-+	for (i = 0; i < NUM_FFE_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "%d ",
-+			   sbl->link[port_num].tuning_params.params[serdes].ffe[i]);
-+	}
-+	DEV_TRACE2(sbl->dev, "DFE params");
-+	for (i = 0; i < NUM_DFE_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "%d ",
-+			   sbl->link[port_num].tuning_params.params[serdes].dfe[i]);
-+	}
-+	DEV_TRACE2(sbl->dev, "RXVS params");
-+	for (i = 0; i < NUM_RXVS_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "%d ",
-+			   sbl->link[port_num].tuning_params.params[serdes].rxvs[i]);
-+	}
-+	DEV_TRACE2(sbl->dev, "RXVC params");
-+	for (i = 0; i < NUM_RXVC_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "%d ",
-+			   sbl->link[port_num].tuning_params.params[serdes].rxvc[i]);
-+	}
-+	DEV_TRACE2(sbl->dev, "RSDO params");
-+	for (i = 0; i < NUM_RSDO_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "%d ",
-+			   sbl->link[port_num].tuning_params.params[serdes].rsdo[i]);
-+	}
-+	DEV_TRACE2(sbl->dev, "RSDC params");
-+	for (i = 0; i < NUM_RSDC_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "%d ",
-+			   sbl->link[port_num].tuning_params.params[serdes].rsdc[i]);
-+	}
-+	DEV_TRACE2(sbl->dev, "RSTO params");
-+	for (i = 0; i < NUM_RSTO_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "%d ",
-+			   sbl->link[port_num].tuning_params.params[serdes].rsto[i]);
-+	}
-+	DEV_TRACE2(sbl->dev, "RSTC params");
-+	for (i = 0; i < NUM_RSTC_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "%d ",
-+			   sbl->link[port_num].tuning_params.params[serdes].rstc[i]);
-+	}
-+	DEV_TRACE2(sbl->dev, "EH params");
-+	for (i = 0; i < NUM_EH_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "%d ",
-+			   sbl->link[port_num].tuning_params.params[serdes].eh[i]);
-+	}
-+	DEV_TRACE2(sbl->dev, "GTP params");
-+	for (i = 0; i < NUM_GTP_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "%d ",
-+			   sbl->link[port_num].tuning_params.params[serdes].gtp[i]);
-+	}
-+	DEV_TRACE2(sbl->dev, "DCCD params");
-+	for (i = 0; i < NUM_DCCD_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "%d ",
-+			   sbl->link[port_num].tuning_params.params[serdes].dccd[i]);
-+	}
-+	DEV_TRACE2(sbl->dev, "P4LV params");
-+	for (i = 0; i < NUM_P4LV_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "%d ",
-+			   sbl->link[port_num].tuning_params.params[serdes].p4lv[i]);
-+	}
-+	DEV_TRACE2(sbl->dev, "AFEC params");
-+	for (i = 0; i < NUM_AFEC_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "%d ",
-+			   sbl->link[port_num].tuning_params.params[serdes].afec[i]);
-+	}
-+
-+	for (i = 0; i < NUM_CTLE_PARAMS; ++i) {
-+		/* GS1/GS2 are "config values" - don't apply them from saved
-+		   "turning params", as this will override the desired config */
-+		if (((SPICO_INT_DATA_HAL_CTLE_BASE | i) ==
-+		     SPICO_INT_DATA_HAL_CTLE_GS1) ||
-+		    ((SPICO_INT_DATA_HAL_CTLE_BASE | i) ==
-+		     SPICO_INT_DATA_HAL_CTLE_GS2)) {
-+			continue;
-+		}
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_HAL_CTLE_BASE | i,
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		DEV_TRACE2(sbl->dev, "Updating CLTE param %d from 0x%x to 0x%x",
-+			   i, result, sbl->link[port_num].tuning_params.params[serdes].ctle[i]);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						sbl->link[port_num].tuning_params.params[serdes].ctle[i],
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed updating CTLE[%d] tuning param!",
-+				    port_num, serdes, i);
-+			return -EBADE;
-+		}
-+	}
-+	for (i = 0; i < NUM_FFE_PARAMS; ++i) {
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_HAL_FFE_BASE | i,
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		DEV_TRACE2(sbl->dev, "Updating FFE param %d from 0x%x to 0x%x",
-+			   i, result, sbl->link[port_num].tuning_params.params[serdes].ffe[i]);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						sbl->link[port_num].tuning_params.params[serdes].ffe[i],
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed updating FFE[%d] tuning param!",
-+				    port_num, serdes, i);
-+			return -EBADE;
-+		}
-+	}
-+	for (i = 0; i < NUM_DFE_PARAMS; ++i) {
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_HAL_DFE_BASE | i,
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		DEV_TRACE2(sbl->dev, "Updating DFE param %d from 0x%x to 0x%x",
-+			   i, result, sbl->link[port_num].tuning_params.params[serdes].dfe[i]);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						sbl->link[port_num].tuning_params.params[serdes].dfe[i],
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed updating DFE[%d] tuning param!",
-+				    port_num, serdes, i);
-+			return -EBADE;
-+		}
-+	}
-+
-+	for (i = 0; i < NUM_RXVS_PARAMS; ++i) {
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_HAL_RXVS_BASE |
-+							(i + SPICO_INT_DATA_HAL_RXVS_OFFSET),
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		DEV_TRACE2(sbl->dev, "Updating RXVS param %d from 0x%x to 0x%x",
-+			   i, result, sbl->link[port_num].tuning_params.params[serdes].rxvs[i]);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						sbl->link[port_num].tuning_params.params[serdes].rxvs[i],
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed updating RXVS[%d] tuning param!",
-+				    port_num, serdes, i);
-+			return -EBADE;
-+		}
-+	}
-+
-+	for (i = 0; i < NUM_RXVC_PARAMS; ++i) {
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_HAL_RXVC_BASE | i,
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		DEV_TRACE2(sbl->dev, "Updating RXVC param %d from 0x%x to 0x%x",
-+			   i, result, sbl->link[port_num].tuning_params.params[serdes].rxvc[i]);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						sbl->link[port_num].tuning_params.params[serdes].rxvc[i],
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed updating RXVC[%d] tuning param!",
-+				    port_num, serdes, i);
-+			return -EBADE;
-+		}
-+	}
-+
-+	for (i = 0; i < NUM_RSDO_PARAMS; ++i) {
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_HAL_RSDO_BASE | i,
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		DEV_TRACE2(sbl->dev, "Updating RSDO param %d from 0x%x to 0x%x",
-+			   i, result, sbl->link[port_num].tuning_params.params[serdes].rsdo[i]);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						sbl->link[port_num].tuning_params.params[serdes].rsdo[i],
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed updating RSDO[%d] tuning param!",
-+				    port_num, serdes, i);
-+			return -EBADE;
-+		}
-+	}
-+
-+	for (i = 0; i < NUM_RSDC_PARAMS; ++i) {
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_HAL_RSDC_BASE | i,
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		DEV_TRACE2(sbl->dev, "Updating RSDC param %d from 0x%x to 0x%x",
-+			   i, result, sbl->link[port_num].tuning_params.params[serdes].rsdc[i]);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						sbl->link[port_num].tuning_params.params[serdes].rsdc[i],
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed updating RSDC[%d] tuning param!",
-+				    port_num, serdes, i);
-+			return -EBADE;
-+		}
-+	}
-+
-+	for (i = 0; i < NUM_RSTO_PARAMS; ++i) {
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_HAL_RSTO_BASE | i,
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		DEV_TRACE2(sbl->dev, "Updating RSTO param %d from 0x%x to 0x%x",
-+			   i, result, sbl->link[port_num].tuning_params.params[serdes].rsto[i]);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						sbl->link[port_num].tuning_params.params[serdes].rsto[i],
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed updating RSTO[%d] tuning param!",
-+				    port_num, serdes, i);
-+			return -EBADE;
-+		}
-+	}
-+
-+	for (i = 0; i < NUM_RSTC_PARAMS; ++i) {
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_HAL_RSTC_BASE | i,
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		DEV_TRACE2(sbl->dev, "Updating RSTC param %d from 0x%x to 0x%x",
-+			   i, result, sbl->link[port_num].tuning_params.params[serdes].rstc[i]);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						sbl->link[port_num].tuning_params.params[serdes].rstc[i],
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed updating RSTC[%d] tuning param!",
-+				    port_num, serdes, i);
-+			return -EBADE;
-+		}
-+	}
-+
-+	for (i = 0; i < NUM_EH_PARAMS; ++i) {
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_HAL_EH_BASE | i,
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		DEV_TRACE2(sbl->dev, "Updating EH param %d from 0x%x to 0x%x",
-+			   i, result, sbl->link[port_num].tuning_params.params[serdes].eh[i]);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						sbl->link[port_num].tuning_params.params[serdes].eh[i],
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed updating EH[%d] tuning param!",
-+				    port_num, serdes, i);
-+			return -EBADE;
-+		}
-+	}
-+
-+	for (i = 0; i < NUM_GTP_PARAMS; ++i) {
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_HAL_GTP_BASE | i,
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		DEV_TRACE2(sbl->dev, "Updating GTP param %d from 0x%x to 0x%x",
-+			   i, result, sbl->link[port_num].tuning_params.params[serdes].gtp[i]);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						sbl->link[port_num].tuning_params.params[serdes].gtp[i],
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed updating GTP[%d] tuning param!",
-+				    port_num, serdes, i);
-+			return -EBADE;
-+		}
-+	}
-+
-+	for (i = 0; i < NUM_DCCD_PARAMS; ++i) {
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_HAL_DCCD_BASE | i,
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		DEV_TRACE2(sbl->dev, "Updating DCCD param %d from 0x%x to 0x%x",
-+			   i, result, sbl->link[port_num].tuning_params.params[serdes].dccd[i]);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						sbl->link[port_num].tuning_params.params[serdes].dccd[i],
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed updating DCCD[%d] tuning param!",
-+				    port_num, serdes, i);
-+			return -EBADE;
-+		}
-+	}
-+
-+	for (i = 0; i < NUM_P4LV_PARAMS; ++i) {
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_HAL_P4LV_BASE | i,
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		DEV_TRACE2(sbl->dev, "Updating P4LV param %d from 0x%x to 0x%x",
-+			   i, result, sbl->link[port_num].tuning_params.params[serdes].p4lv[i]);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						sbl->link[port_num].tuning_params.params[serdes].p4lv[i],
-+						&result, SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed updating P4LV[%d] tuning param!",
-+				    port_num, serdes, i);
-+			return -EBADE;
-+		}
-+	}
-+
-+	if (sbl_validate_serdes_fw_vers(sbl, port_num, serdes,
-+					SBL_KNOWN_FW0_REV,
-+									SBL_KNOWN_FW0_BUILD)) {
-+		return -EADDRNOTAVAIL;
-+	}
-+	for (i = 0; i < NUM_AFEC_PARAMS; ++i) {
-+		DEV_TRACE2(sbl->dev, "Updating AFEC param %d to 0x%x",
-+			   i, sbl->link[port_num].tuning_params.params[serdes].afec[i]);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_MEM_WRITE |
-+							(SBUS_AFE_CTRL_KNOWN_FW0_BASE + i),
-+						sbl->link[port_num].tuning_params.params[serdes].afec[i],
-+						&result, SPICO_INT_IGNORE_RESULT);
-+		if (err)
-+			return err;
-+	}
-+
-+	/* Apply values */
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_HAL_CALL,
-+					SPICO_INT_DATA_HAL_CTLE_APPLY, NULL,
-+					SPICO_INT_IGNORE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_HAL_CALL,
-+					SPICO_INT_DATA_HAL_FFE_APPLY, NULL,
-+					SPICO_INT_IGNORE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_HAL_CALL,
-+					SPICO_INT_DATA_HAL_DFE_APPLY, NULL,
-+					SPICO_INT_IGNORE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_HAL_CALL,
-+					SPICO_INT_DATA_HAL_RXV_APPLY, NULL,
-+					SPICO_INT_IGNORE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_HAL_CALL,
-+					SPICO_INT_DATA_HAL_DC_APPLY, NULL,
-+					SPICO_INT_IGNORE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_HAL_CALL,
-+					SPICO_INT_DATA_HAL_TC_APPLY, NULL,
-+					SPICO_INT_IGNORE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_HAL_CALL,
-+					SPICO_INT_DATA_HAL_PCAL_SETUP, NULL,
-+					SPICO_INT_IGNORE_RESULT);
-+	if (err)
-+		return err;
-+
-+	DEV_TRACE2(sbl->dev, "rc: 0");
-+
-+	return 0;
-+}
-+
-+int sbl_get_eye_heights(struct sbl_inst *sbl, int port_num, int serdes,
-+			int *eye_heights)
-+{
-+	u16 result;
-+	int err;
-+
-+	if (!eye_heights) {
-+		sbl_dev_err(sbl->dev, "Bad args");
-+		return -EINVAL;
-+	}
-+
-+	DEV_TRACE2(sbl->dev, "p%ds%d", port_num, serdes);
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_GET_RX_EQ,
-+					SPICO_INT_DATA_RXEQ_EH_THLE, &result,
-+					SPICO_INT_RETURN_RESULT);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "p%ds%d: Failed to read setting!", port_num, serdes);
-+		return err;
-+	}
-+	eye_heights[0] = result;
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_GET_RX_EQ,
-+					SPICO_INT_DATA_RXEQ_EH_THME, &result,
-+					SPICO_INT_RETURN_RESULT);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "p%ds%d: Failed to read setting!", port_num, serdes);
-+		return err;
-+	}
-+	eye_heights[1] = result;
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_GET_RX_EQ,
-+					SPICO_INT_DATA_RXEQ_EH_THUE, &result,
-+					SPICO_INT_RETURN_RESULT);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "p%ds%d: Failed to read setting!", port_num, serdes);
-+		return err;
-+	}
-+	eye_heights[2] = result;
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_GET_RX_EQ,
-+					SPICO_INT_DATA_RXEQ_EH_THLO, &result,
-+					SPICO_INT_RETURN_RESULT);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "p%ds%d: Failed to read setting!", port_num, serdes);
-+		return err;
-+	}
-+	eye_heights[3] = result;
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_GET_RX_EQ,
-+					SPICO_INT_DATA_RXEQ_EH_THMO, &result,
-+					SPICO_INT_RETURN_RESULT);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "p%ds%d: Failed to read setting!", port_num, serdes);
-+		return err;
-+	}
-+	eye_heights[4] = result;
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_GET_RX_EQ,
-+					SPICO_INT_DATA_RXEQ_EH_THUO, &result,
-+					SPICO_INT_RETURN_RESULT);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "p%ds%d: Failed to read setting!", port_num, serdes);
-+		return err;
-+	}
-+	eye_heights[5] = result;
-+
-+	DEV_TRACE2(sbl->dev, "rc: 0");
-+
-+	return 0;
-+}
-+
-+int sbl_serdes_soft_reset(struct sbl_inst *sbl, int port_num, int serdes)
-+{
-+	u32 unused;
-+	int err;
-+	u32 sbus_ring = sbl->switch_info->ports[port_num].serdes[serdes].sbus_ring;
-+	u32 sbus_addr =
-+		SBUS_ADDR(sbus_ring,
-+			  sbl->switch_info->ports[port_num].serdes[serdes].rx_addr);
-+
-+	DEV_TRACE2(sbl->dev, "p%ds%d", port_num, serdes);
-+
-+	/* Don't allow SPICO interrupts while we are resetting the SerDes */
-+	mutex_lock(&sbl->link[port_num].serdes_mtx);
-+	/* SBUS Critical Section */
-+	mutex_lock(SBUS_RING_MTX(sbl, sbus_ring));
-+
-+	/* Reset high */
-+	err = sbl_sbus_op_aux(sbl, sbus_addr, SPICO_SERDES_ADDR_IMEM,
-+			      SBUS_IFACE_DST_CORE | SBUS_CMD_RESET,
-+				   SPICO_SERDES_DATA_RESET, &unused);
-+	if (err) {
-+		mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+		mutex_unlock(&sbl->link[port_num].serdes_mtx);
-+		return err;
-+	}
-+
-+	/* Reset low */
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SERDES_ADDR_RESET_EN,
-+			  SPICO_SERDES_DATA_CLR_GLOBAL_RESET);
-+	if (err) {
-+		mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+		mutex_unlock(&sbl->link[port_num].serdes_mtx);
-+		return err;
-+	}
-+
-+	/* Enable ECC */
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SERDES_ADDR_ECC,
-+			  SPICO_SERDES_DATA_SET_ECC_EN);
-+	if (err) {
-+		mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+		mutex_unlock(&sbl->link[port_num].serdes_mtx);
-+		return err;
-+	}
-+
-+	/* Clear any ECC errors that occurred previously */
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SERDES_ADDR_ECCLOG,
-+			  SPICO_SERDES_DATA_CLR_ECC_ERR);
-+	if (err) {
-+		mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+		mutex_unlock(&sbl->link[port_num].serdes_mtx);
-+		return err;
-+	}
-+
-+	/* Enable SPICO */
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SERDES_ADDR_RESET_EN,
-+			  SPICO_SERDES_DATA_SET_SPICO_EN);
-+	if (err) {
-+		mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+		mutex_unlock(&sbl->link[port_num].serdes_mtx);
-+		return err;
-+	}
-+
-+	/* Enable interrupts */
-+	err = sbl_sbus_wr(sbl, sbus_addr, SPICO_SERDES_ADDR_INTR_DIS,
-+			  SPICO_SERDES_DATA_SET_INTR_EN);
-+	if (err) {
-+		mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+		mutex_unlock(&sbl->link[port_num].serdes_mtx);
-+		return err;
-+	}
-+
-+	mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+	mutex_unlock(&sbl->link[port_num].serdes_mtx);
-+
-+	DEV_TRACE2(sbl->dev, "rc: 0");
-+
-+	sbl->link[port_num].pcal_running = false;
-+	return 0;
-+}
-+
-+int sbl_serdes_init(struct sbl_inst *sbl, int port_num, int serdes,
-+		    int encoding, int divisor, int width)
-+{
-+	int err;
-+	bool tx_en, rx_en;
-+
-+	DEV_TRACE2(sbl->dev, "p%ds%d: encoding: %d divisor: %d width: %d",
-+		   port_num, serdes, encoding, divisor, width);
-+
-+	err = sbl_set_tx_rx_enable(sbl, port_num, serdes, false, false,
-+				   false);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_PLL_RECAL,
-+					SPICO_INT_DATA_NONE, NULL,
-+					SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_TX_PHASE_CAL,
-+					SPICO_INT_DATA_NONE, NULL,
-+					SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_TX_BAUD,
-+					(divisor & SPICO_INT_DIVIDER_MASK) |
-+					SPICO_INT_DATA_TXTX_RC_NOT_SS,
-+					NULL, SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_WIDTH_MODE,
-+					encoding | width |
-+					SPICO_INT_DATA_TXRX_FC_IGNORE, NULL,
-+					SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	/* tx/rx based on link mode, and always configuing physical lane 0 */
-+	if (tx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+		tx_en = true;
-+	else
-+		tx_en = false;
-+
-+	if (rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+		rx_en = true;
-+	else
-+		rx_en = false;
-+
-+	err = sbl_set_tx_rx_enable(sbl, port_num, serdes, tx_en, rx_en,
-+				   false);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_PCIE_SLICES,
-+					SPICO_INT_DATA_TX_OVERRIDE, NULL,
-+					SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_PCIE_SLICES,
-+					SPICO_INT_DATA_RX_EID_EN, NULL,
-+					SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	/* Reset signal_ok */
-+	sbl_serdes_mem_rmw(sbl, port_num, serdes, SERDES_MEM_ADDR_O_CORE_STATUS,
-+			   0, SERDES_CORE_STATUS_RX_SIG_OK_MASK);
-+
-+	/* Set PRBS for loopback mode - will be changed later */
-+	if (sbl->link[port_num].loopback_mode == SBL_LOOPBACK_MODE_LOCAL) {
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_PRBS_CTRL,
-+						SPICO_INT_DATA_PRBS31_AS_TXGEN, NULL,
-+						SPICO_INT_VALIDATE_RESULT);
-+		if (err)
-+			return err;
-+
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_PRBS_CTRL,
-+						SPICO_INT_DATA_PRBS31_AS_RXGEN, NULL,
-+						SPICO_INT_VALIDATE_RESULT);
-+		if (err)
-+			return err;
-+	}
-+	DEV_TRACE2(sbl->dev, "rc: 0");
-+
-+	return 0;
-+}
-+
-+int sbl_serdes_polarity_ctrl(struct sbl_inst *sbl, int port_num, int serdes,
-+			     int encoding, bool an)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	u32 datapath = 0;
-+	int err;
-+
-+	DEV_TRACE2(sbl->dev, "p%ds%d: encoding:0x%x", port_num, serdes, encoding);
-+
-+	/* Set Polarity Inversions */
-+	switch (sbl->link[port_num].loopback_mode) {
-+	case SBL_LOOPBACK_MODE_REMOTE:
-+	case SBL_LOOPBACK_MODE_OFF:
-+		if (sbl->switch_info->ports[port_num].serdes[serdes].txinv)
-+			datapath |= SPICO_INT_DATA_SET_TXINV;
-+		else
-+			datapath |= SPICO_INT_DATA_CLR_TXINV;
-+
-+		if (sbl->switch_info->ports[port_num].serdes[serdes].rxinv)
-+			datapath |= SPICO_INT_DATA_SET_RXINV;
-+		else
-+			datapath |= SPICO_INT_DATA_CLR_RXINV;
-+
-+		break;
-+	case SBL_LOOPBACK_MODE_LOCAL:
-+		datapath |= SPICO_INT_DATA_CLR_TXINV;
-+		datapath |= SPICO_INT_DATA_CLR_RXINV;
-+		break;
-+	default:
-+		sbl_dev_warn(sbl->dev, "%d: Unsupported loopback mode (%d)",
-+			     port_num, sbl->link[port_num].loopback_mode);
-+		return -EINVAL;
-+	}
-+
-+	/* Set Precode */
-+	if (encoding == SBL_ENC_PAM4) {
-+		link->precoding_enabled = get_serdes_precoding(sbl, port_num);
-+		if (link->precoding_enabled)
-+			datapath |= SPICO_INT_DATA_SET_PRECODE;
-+		else
-+			datapath |= SPICO_INT_DATA_CLR_PRECODE;
-+	} else {
-+		datapath |= SPICO_INT_DATA_CLR_PRECODE;
-+	}
-+
-+	/* Set Graycode & Swizzle */
-+	if (an || (encoding == SBL_ENC_NRZ))
-+		datapath |= SPICO_INT_DATA_CLR_GRAY_SWZ;
-+	else
-+		datapath |= SPICO_INT_DATA_SET_GRAY_SWZ;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_POLARITY_CTRL,
-+					datapath, NULL,
-+					SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	return 0;
-+}
-+
-+int sbl_set_tx_rx_enable(struct sbl_inst *sbl, int port_num, int serdes,
-+			 bool tx_en, bool rx_en, bool txo_en)
-+{
-+	u32 int_data = 0;
-+	u64 core_status_value;
-+	int tx_rdy, rx_rdy;
-+	unsigned long last_jiffy;
-+	int err;
-+
-+	DEV_TRACE2(sbl->dev, "p%ds%d: tx_en: %d rx_en: %d txo_en: %d",
-+		   port_num, serdes, tx_en, rx_en, txo_en);
-+
-+	if (!sbl->is_hw)
-+		return 0;
-+
-+	if (tx_en)
-+		int_data |= SPICO_INT_DATA_SET_TX_EN;
-+
-+	if (rx_en)
-+		int_data |= SPICO_INT_DATA_SET_RX_EN;
-+
-+	if (txo_en)
-+		int_data |= SPICO_INT_DATA_SET_TXO_EN;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_SERDES_EN,
-+					int_data, NULL,
-+					SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	/* Wait for tx_rdy and rx_rdy to be set. */
-+	last_jiffy = jiffies + msecs_to_jiffies(1000 * sbl->iattr.serdes_en_timeout);
-+	do {
-+		core_status_value = sbl_read64(sbl, SBL_PML_BASE(port_num) |
-+					       SBL_PML_SERDES_CORE_STATUS_OFFSET(serdes));
-+		tx_rdy = (core_status_value & SERDES_CORE_STATUS_TX_RDY_MASK) ? 1 : 0;
-+		rx_rdy = (core_status_value & SERDES_CORE_STATUS_RX_RDY_MASK) ? 1 : 0;
-+		if ((tx_rdy == tx_en) && (rx_rdy == rx_en))
-+			break;
-+		msleep(sbl->iattr.serdes_en_poll_interval);
-+	} while (time_is_after_jiffies(last_jiffy));
-+
-+	if ((tx_rdy != tx_en) || (rx_rdy != rx_en)) {
-+		sbl_dev_err(sbl->dev,
-+			    "p%ds%d: Timeout setting tx/rx/txo enable! tx_en:%d rx_en:%d txo_en:%d tx_rdy:%d rx_rdy:%d (timeout:%ds)",
-+			    port_num, serdes, tx_en, rx_en, txo_en, tx_rdy, rx_rdy,
-+			    sbl->iattr.serdes_en_timeout);
-+		return -ETIME;
-+	}
-+	DEV_TRACE2(sbl->dev, "rc 0");
-+
-+	return 0;
-+}
-+
-+int sbl_set_tx_eq(struct sbl_inst *sbl, int port_num, int serdes,
-+		  int atten, int pre, int post, int pre2, int pre3)
-+{
-+	int err, rc = 0;
-+
-+	DEV_TRACE2(sbl->dev,
-+		   "p%ds%d: atten: %d pre: %d post: %d pre2: %d pre3: %d",
-+		   port_num, serdes, atten, pre, post, pre2, pre3);
-+
-+	if ((atten < TXEQ_ATTEN_MIN) || (atten > TXEQ_ATTEN_MAX)) {
-+		sbl_dev_err(sbl->dev,
-+			    "Invalid value for atten(%d) Expected in the range of %d to %d",
-+			atten, TXEQ_ATTEN_MIN, TXEQ_ATTEN_MAX);
-+		return -EINVAL;
-+	}
-+	if ((pre < TXEQ_PRE1_MIN) || (pre > TXEQ_PRE1_MAX)) {
-+		sbl_dev_err(sbl->dev,
-+			    "Invalid value for pre(%d) Expected in the range of %d to %d",
-+			pre, TXEQ_PRE1_MIN, TXEQ_PRE1_MAX);
-+		return -EINVAL;
-+	}
-+	if ((post < TXEQ_POST_MIN) || (post > TXEQ_POST_MAX)) {
-+		sbl_dev_err(sbl->dev,
-+			    "Invalid value for post(%d) Expected in the range of %d to %d",
-+			post, TXEQ_POST_MIN, TXEQ_POST_MAX);
-+		return -EINVAL;
-+	}
-+	if ((pre2 < TXEQ_PRE2_MIN) || (pre2 > TXEQ_PRE2_MAX)) {
-+		sbl_dev_err(sbl->dev,
-+			    "Invalid value for pre2(%d) Expected in the range of %d to %d",
-+			pre2, TXEQ_PRE2_MIN, TXEQ_PRE2_MAX);
-+		return -EINVAL;
-+	}
-+	if ((pre3 < TXEQ_PRE3_MIN) || (pre3 > TXEQ_PRE3_MAX)) {
-+		sbl_dev_err(sbl->dev,
-+			    "Invalid value for pre3(%d) Expected in the range of %d to %d",
-+			pre3, TXEQ_PRE3_MIN, TXEQ_PRE3_MAX);
-+		return -EINVAL;
-+	}
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_TXEQ_LOAD,
-+					SPICO_INT_DATA_SET_TXEQ_ATTEN |
-+						(atten & SPICO_INT_DATA_TXEQ_DATA_MASK), NULL,
-+					SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_TXEQ_LOAD,
-+					SPICO_INT_DATA_SET_TXEQ_PRE1 |
-+						(pre & SPICO_INT_DATA_TXEQ_DATA_MASK), NULL,
-+					SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_TXEQ_LOAD,
-+					SPICO_INT_DATA_SET_TXEQ_POST |
-+						(post & SPICO_INT_DATA_TXEQ_DATA_MASK), NULL,
-+					SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_TXEQ_LOAD,
-+					SPICO_INT_DATA_SET_TXEQ_PRE2 |
-+						(pre2 & SPICO_INT_DATA_TXEQ_DATA_MASK), NULL,
-+					SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_TXEQ_LOAD,
-+					SPICO_INT_DATA_SET_TXEQ_PRE3 |
-+						(pre3 & SPICO_INT_DATA_TXEQ_DATA_MASK), NULL,
-+					SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	DEV_TRACE2(sbl->dev, "rc: %d", rc);
-+
-+	return rc;
-+}
-+
-+int sbl_set_gs(struct sbl_inst *sbl, int port_num, int serdes, int gs1, int gs2)
-+{
-+	int err;
-+	u16 result;
-+
-+	DEV_TRACE2(sbl->dev, "port: %d gs1: %d gs2: %d", port_num, gs1, gs2);
-+
-+	if ((gs1 < RXEQ_DFE_GS1_MIN) || (gs1 > RXEQ_DFE_GS1_MAX)) {
-+		sbl_dev_err(sbl->dev,
-+			    "Invalid value for gs1(%d) Expected in the range of %d to %d",
-+			gs1, RXEQ_DFE_GS1_MIN, RXEQ_DFE_GS1_MAX);
-+		return -EINVAL;
-+	}
-+	if ((gs2 < RXEQ_DFE_GS2_MIN) || (gs2 > RXEQ_DFE_GS2_MAX)) {
-+		sbl_dev_err(sbl->dev,
-+			    "Invalid value for gs2(%d) Expected in the range of %d to %d",
-+			gs2, RXEQ_DFE_GS2_MIN, RXEQ_DFE_GS2_MAX);
-+		return -EINVAL;
-+	}
-+
-+	if (!sbl->is_hw)
-+		return 0;
-+
-+	/* Write GS1 */
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_CTLE_GS1,
-+					&result,
-+					SPICO_INT_RETURN_RESULT);
-+	if (err)
-+		return err;
-+
-+	DEV_TRACE2(sbl->dev,
-+		   "p%ds%d: Updating GS1 from 0x%x to 0x%x",
-+		   port_num, serdes, result, gs1);
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_HAL_WRITE,
-+					gs1, &result,
-+					SPICO_INT_RETURN_RESULT);
-+	if (err)
-+		return err;
-+
-+	if (result != SPICO_INT_CM4_HAL_READ) {
-+		sbl_dev_err(sbl->dev,
-+			    "p%ds%d: Failed updating gs1 (0x%x)!",
-+			port_num, serdes, gs1);
-+		return -EBADE;
-+	}
-+
-+	/* Write GS2 */
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_HAL_CTLE_GS2,
-+					&result,
-+					SPICO_INT_RETURN_RESULT);
-+	if (err)
-+		return err;
-+
-+	DEV_TRACE2(sbl->dev,
-+		   "p%ds%d: Updating GS2 from 0x%x to 0x%x",
-+		   port_num, serdes, result, gs2);
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_HAL_WRITE,
-+					gs2, &result,
-+					SPICO_INT_RETURN_RESULT);
-+	if (err)
-+		return err;
-+
-+	if (result != SPICO_INT_CM4_HAL_READ) {
-+		sbl_dev_err(sbl->dev,
-+			    "p%ds%d: Failed updating gs2 (0x%x)!",
-+			port_num, serdes, gs2);
-+		return -EBADE;
-+	}
-+
-+	DEV_TRACE2(sbl->dev, "rc: 0");
-+
-+	return 0;
-+}
-+
-+int sbl_set_tx_data_sel(struct sbl_inst *sbl, int port_num, int serdes,
-+			int data_sel)
-+{
-+	int err;
-+	u16 result;
-+	int retry_cnt = 0;
-+
-+	DEV_TRACE2(sbl->dev, "p%ds%d data_sel: %d", port_num, serdes, data_sel);
-+
-+	if (!sbl->is_hw)
-+		return 0;
-+
-+	if (data_sel == SBL_DS_CORE) {
-+		do {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_PRBS_CTRL,
-+						SPICO_INT_DATA_DISABLE_TXRXGEN,
-+						&result,
-+						SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			if (result == SPICO_INT_DATA_PRBS_SUCCESS)
-+				return 0;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: attempt %d tx data sel returned %d",
-+				    port_num, serdes, retry_cnt, result);
-+			usleep_range(1000, 2000);
-+		} while (retry_cnt++ < SPICO_INT_DATA_PRBS_RETRY_LIMIT);
-+	} else { /* SBL_DS_PRBS */
-+		do {
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_PRBS_CTRL,
-+						SPICO_INT_DATA_PRBS31_AS_TXGEN,
-+						&result,
-+						SPICO_INT_RETURN_RESULT);
-+			if (err)
-+				return err;
-+
-+			if (result == SPICO_INT_DATA_PRBS_SUCCESS)
-+				return 0;
-+
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: attempt %d tx data sel returned %d",
-+				    port_num, serdes, retry_cnt, result);
-+			usleep_range(1000, 2000);
-+		} while (retry_cnt++ < SPICO_INT_DATA_PRBS_RETRY_LIMIT);
-+	}
-+
-+	sbl_dev_err(sbl->dev, "p%ds%d: Failed to set TX data select (%d)!",
-+		    port_num, serdes, data_sel);
-+	return -EBADE;
-+}
-+
-+int sbl_set_prbs_rx_mode(struct sbl_inst *sbl, int port_num, int serdes)
-+{
-+	int err;
-+	/* Avago_serdes_data_qual_t qual; */
-+
-+	DEV_TRACE2(sbl->dev, "p%ds%d", port_num, serdes);
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_DFE_CTRL,
-+					SPICO_INT_DATA_NONE, NULL,
-+					SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	err = sbl_serdes_dfe_tune_wait(sbl, port_num);
-+	if (err)
-+		return err;
-+
-+	DEV_TRACE2(sbl->dev, "rc: 0");
-+
-+	return 0;
-+}
-+
-+int sbl_apply_sbus_divider(struct sbl_inst *sbl, int divider)
-+{
-+	int sbus_ring, err;
-+	u32 sbus_addr;
-+
-+	/* Force divider to either SPEEDUP or DFLT */
-+	if (divider == SBL_SBUS_DIVIDER_SPEEDUP) {
-+		sbl_dev_dbg(sbl->dev, "Applying SBUS speedup.");
-+	} else {
-+		sbl_dev_dbg(sbl->dev, "Disabling SBUS speedup.");
-+		divider = SBL_SBUS_DIVIDER_DFLT;
-+	}
-+
-+	/* increase SBUS ring clock frequency */
-+	for (sbus_ring = 0; sbus_ring < sbl->switch_info->num_sbus_rings; ++sbus_ring) {
-+		sbus_addr = SBUS_ADDR(sbus_ring, SBUS_BCAST_SBM);
-+		DEV_TRACE2(sbl->dev, "ring: %d divider_exp: %d", sbus_ring,
-+			   divider);
-+		/* SBUS Critical Section */
-+		mutex_lock(SBUS_RING_MTX(sbl, sbus_ring));
-+		err = sbl_sbus_wr(sbl, sbus_addr, SBM_CRM_ADDR_CLK_DIV, divider);
-+		mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+		if (err)
-+			return err;
-+	}
-+
-+	/* adjust op flags */
-+	if (divider == SBL_SBUS_DIVIDER_SPEEDUP)
-+		sbl->sbus_op_flags = sbl->iattr.sbus_op_flags_fast;
-+	else /* SBL_SBUS_DIVIDER_DFLT */
-+		sbl->sbus_op_flags = sbl->iattr.sbus_op_flags_slow;
-+
-+	sbl_dev_dbg(sbl->dev, "SBus divider update complete");
-+	return 0;
-+}
-+
-+/* Note - cannot do broadcast here! */
-+int sbl_serdes_dfe_tune_start(struct sbl_inst *sbl, int port_num, int serdes,
-+			      bool is_retune)
-+{
-+	int err;
-+	u16 result;
-+	struct sbl_link *link = sbl->link + port_num;
-+
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_GET_RX_EQ,
-+					SPICO_INT_DATA_RXEQ_STS_DFE_STS,
-+					&result, SPICO_INT_RETURN_RESULT);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "p%ds%d: Failed checking status of DFE tune!",
-+			    port_num, serdes);
++	rtn = sl_media_io_write8(media_jack, SL_MEDIA_POWER_UP_PAGE, addr, data);
++	if (rtn) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "write8 failed [%d]", rtn);
 +		return -EIO;
 +	}
-+	if (result == DFE_CAL_DONE) {
-+		sbl_dev_dbg(sbl->dev, "p%ds%d: DFE done before we started",
-+			    port_num, serdes);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_SET_RX_EQ,
-+					SPICO_INT_DATA_RXEQ_STS_DFE_STS | 0x0,
-+					NULL, SPICO_INT_IGNORE_RESULT);
-+		if (err) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed to clear DFE sts!",
-+				    port_num, serdes);
-+			return err;
-+		}
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_GET_RX_EQ,
-+					SPICO_INT_DATA_RXEQ_STS_DFE_STS,
-+					&result, SPICO_INT_RETURN_RESULT);
-+		if (err) {
-+			sbl_dev_err(sbl->dev,
-+				    "p%ds%d: Failed checking status of DFE tune!",
-+				port_num, serdes);
-+			return -EIO;
-+		}
-+		if (result == DFE_CAL_DONE) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: DFE done before we started!",
-+				    port_num, serdes);
-+			return -ENOMSG;
-+		}
-+	}
 +
-+	DEV_TRACE2(sbl->dev, "p%ds%d is_retune:%d", port_num, serdes,
-+		   is_retune);
++	spin_lock(&media_jack->data_lock);
++	media_jack->is_high_powered = true;
++	spin_unlock(&media_jack->data_lock);
 +
-+	/* Set effort level */
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_HAL_READ,
-+					SPICO_INT_DATA_ICAL_EFFORT_SEL, &result,
-+					SPICO_INT_RETURN_RESULT);
-+	if (err)
-+		return err;
++	return 0;
++}
 +
-+	if (sbl_debug_option(sbl, port_num, SBL_DEBUG_FORCE_MAX_EFFORT)) {
-+		link->ical_effort = SPICO_INT_DATA_ICAL_MAX_EFFORT;
-+	} else if (sbl_debug_option(sbl, port_num, SBL_DEBUG_FORCE_MED_EFFORT)) {
-+		link->ical_effort = SPICO_INT_DATA_ICAL_MED_EFFORT;
-+	} else if (sbl_debug_option(sbl, port_num, SBL_DEBUG_FORCE_MIN_EFFORT)) {
-+		link->ical_effort = SPICO_INT_DATA_ICAL_MIN_EFFORT;
-+	} else if (link->blattr.options & SBL_OPT_DFE_ALWAYS_MAX_EFFORT) {
-+		link->ical_effort = SPICO_INT_DATA_ICAL_MAX_EFFORT;
-+	} else if (link->blattr.options & SBL_OPT_DFE_ALWAYS_MED_EFFORT) {
-+		link->ical_effort = SPICO_INT_DATA_ICAL_MED_EFFORT;
-+	} else if (link->blattr.options & SBL_OPT_DFE_ALWAYS_MIN_EFFORT) {
-+		link->ical_effort = SPICO_INT_DATA_ICAL_MIN_EFFORT;
-+	} else if (link->dfe_tune_count < 3) {
-+		/* medium effort for first few attempts */
-+		link->ical_effort = SPICO_INT_DATA_ICAL_MED_EFFORT;
++#define SL_MEDIA_POWER_DOWN_PAGE      0x00
++#define SL_MEDIA_CMIS_POWER_DOWN_ADDR 0x1a
++#define SL_MEDIA_CMIS_POWER_DOWN_DATA 0x10
++#define SL_MEDIA_SFF_POWER_DOWN_ADDR  0x5D
++#define SL_MEDIA_SFF_POWER_DOWN_DATA  0x00
++int sl_media_data_jack_cable_low_power_set(struct sl_media_jack *media_jack)
++{
++	int rtn;
++	u8  addr;
++	u8  data;
++
++	if (sl_media_data_jack_media_is_format_cmis(media_jack)) {
++		addr = SL_MEDIA_CMIS_POWER_DOWN_ADDR;
++		data = SL_MEDIA_CMIS_POWER_DOWN_DATA;
 +	} else {
-+		/* rest full effort */
-+		link->ical_effort = SPICO_INT_DATA_ICAL_MAX_EFFORT;
-+	}
-+	/* sync with sysfs */
-+	mb();
-+
-+	if (!sbl->is_hw)
-+		return 0;
-+
-+	DEV_TRACE2(sbl->dev, "p%ds%d: Updating ICAL effort from 0x%x to 0x%x",
-+		   port_num, serdes, result, link->ical_effort);
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_HAL_WRITE,
-+					link->ical_effort, &result,
-+					SPICO_INT_RETURN_RESULT);
-+	if (err)
-+		return err;
-+
-+	if (result != SPICO_INT_CM4_HAL_READ) {
-+		sbl_dev_err(sbl->dev, "p%ds%d: Failed updating ICAL effort (0x%x)!",
-+			    port_num, serdes, link->ical_effort);
-+		return -EBADE;
-+	}
-+	sbl_dev_dbg(sbl->dev, "p%ds%d: Setup ICAL effort 0x%x",
-+		    port_num, serdes, link->ical_effort);
-+
-+	/* Initiate DFE tune */
-+	err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+				   SPICO_INT_CM4_DFE_CTRL,
-+					SPICO_INT_DATA_DFE_ICAL, NULL,
-+					SPICO_INT_VALIDATE_RESULT);
-+	if (err)
-+		return err;
-+
-+	DEV_TRACE2(sbl->dev, "rc: 0");
-+	return 0;
-+}
-+
-+int sbl_serdes_dfe_tune_wait(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	u16 result;
-+	int err, serdes;
-+	u8 in_progress_mask, serdes_mask, tuned_mask = 0;
-+	unsigned long last_jiffy;
-+
-+	serdes_mask = get_serdes_rx_mask(sbl, port_num);
-+	in_progress_mask = serdes_mask;
-+
-+	DEV_TRACE2(sbl->dev, "p%d serdes_mask:0x%x", port_num, serdes_mask);
-+
-+	last_jiffy = jiffies + msecs_to_jiffies(1000 * link->blattr.dfe_timeout);
-+	do {
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			if (!rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+				continue;
-+
-+			if (!((1 << serdes) & in_progress_mask))
-+				continue;
-+
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_GET_RX_EQ,
-+							SPICO_INT_DATA_RXEQ_STS_DFE_STS,
-+							&result, SPICO_INT_RETURN_RESULT);
-+			if (err) {
-+				sbl_dev_err(sbl->dev, "p%ds%d: Failed checking status of DFE tune!",
-+					    port_num, serdes);
-+				return -EIO;
-+			}
-+			if (!sbl->is_hw)
-+				result = DFE_CAL_DONE;
-+
-+			if (result & DFE_LOS_MASK) {
-+				sbl_dev_warn(sbl->dev, "p%ds%d: Loss of signal when in DFE tune!",
-+					     port_num, serdes);
-+				return -ENOMSG;
-+			} else if (result & DFE_CAL_RUN_IN_PRGRS_MASK) {
-+				sbl_dev_dbg(sbl->dev, "p%ds%d: DFE still in progress", port_num,
-+					    serdes);
-+			} else if (result & DFE_CAL_DONE) {
-+				sbl_dev_dbg(sbl->dev, "p%ds%d: DFE done", port_num,
-+					    serdes);
-+				tuned_mask      |= (1 << serdes);
-+				in_progress_mask &= ~(1 << serdes);
-+			} else {
-+				sbl_dev_dbg(sbl->dev, "p%ds%d: DFE complete", port_num, serdes);
-+				tuned_mask      |= (1 << serdes);
-+				in_progress_mask &= ~(1 << serdes);
-+			}
-+		}
-+		if (!in_progress_mask)
-+			break;
-+
-+		msleep(link->blattr.dfe_poll_interval);
-+	} while (time_is_after_jiffies(last_jiffy) &&
-+		 !sbl_start_timeout(sbl, port_num) &&
-+		 !sbl_base_link_start_cancelled(sbl, port_num));
-+
-+	if (serdes_mask == tuned_mask)
-+		return 0;
-+
-+	if (sbl_base_link_start_cancelled(sbl, port_num))
-+		return -ECANCELED;
-+
-+	if (sbl_start_timeout(sbl, port_num)) {
-+		sbl_dev_dbg(sbl->dev, "p%d: start timeout waiting for DFE to tune to complete\n",
-+			    port_num);
-+		return -ETIMEDOUT;
++		addr = SL_MEDIA_SFF_POWER_DOWN_ADDR;
++		data = SL_MEDIA_SFF_POWER_DOWN_DATA;
 +	}
 +
-+	/* just didnt finish */
-+	sbl_dev_dbg(sbl->dev, "p%d serdes_mask:0x%x: Timeout waiting for DFE to complete (timeout:%ds)",
-+		    port_num, serdes_mask, link->blattr.dfe_timeout);
-+	return -ETIME;
-+}
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "low power set (addr = 0x%X, data = 0x%X)", addr, data);
 +
-+int sbl_port_dfe_tune_start(struct sbl_inst *sbl, int port_num, bool is_retune)
-+{
-+	int err, serdes;
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: DFE tune retune:%d", port_num, is_retune);
-+
-+	/* DFE Tune */
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+		      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+			continue;
-+		err = sbl_serdes_dfe_tune_start(sbl, port_num, serdes,
-+						is_retune);
-+		if (err) {
-+			sbl_dev_err(sbl->dev, "p%d: Failed to start DFE tune!",
-+				    port_num);
-+			return err;
-+		}
++	rtn = sl_media_io_write8(media_jack, SL_MEDIA_POWER_DOWN_PAGE, addr, data);
++	if (rtn) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "write8 failed [%d]", rtn);
++		return -EIO;
 +	}
++
++	spin_lock(&media_jack->data_lock);
++	media_jack->is_high_powered = false;
++	spin_unlock(&media_jack->data_lock);
 +
 +	return 0;
 +}
 +
-+int sbl_port_dfe_tune_wait(struct sbl_inst *sbl, int port_num)
++int sl_media_data_jack_cable_temp_get(struct sl_media_jack *media_jack, u8 *temp)
 +{
-+	int err;
++	int rtn;
++	u8  data;
 +
-+	/* DFE Tune */
-+	err = sbl_serdes_dfe_tune_wait(sbl, port_num);
-+	if (err) {
-+		switch (err) {
-+		case -ECANCELED:
-+			sbl_dev_dbg(sbl->dev, "p%d: DFE wait cancelled", port_num);
-+			break;
-+		case -ETIMEDOUT:
-+			sbl_dev_dbg(sbl->dev, "p%d: DFE wait start timeout", port_num);
-+			break;
-+		case -ETIME:
-+			sbl_dev_dbg(sbl->dev, "p%d: DFE wait timed out", port_num);
-+			break;
-+		default:
-+			sbl_dev_err(sbl->dev, "p%d: DFE wait failed [%d]", port_num, err);
-+		}
-+		return err;
++	sl_media_log_dbg(media_jack, LOG_NAME, "data jack cable temp get");
++
++	if (!sl_media_lgrp_media_type_is_active(media_jack->cable_info[0].ldev_num,
++						media_jack->cable_info[0].lgrp_num)) {
++		sl_media_log_dbg(media_jack, LOG_NAME, "not active cable");
++		return -EBADRQC;
 +	}
 +
-+	/* extra checks */
-+	if (sbl->link[port_num].loopback_mode != SBL_LOOPBACK_MODE_LOCAL) {
-+
-+		/* Eye height check (without pcal active) */
-+		err = sbl_port_check_eyes(sbl, port_num);
-+		if (err) {
-+			sbl_dev_dbg(sbl->dev, "p%d: some eyes bad", port_num);
-+			return err;
-+		}
-+		sbl_dev_dbg(sbl->dev, "p%d: all eyes good", port_num);
-+
-+		/* Validate tuning params */
-+		err = sbl_check_serdes_tuning_params(sbl, port_num);
-+		if (err) {
-+			sbl_dev_err(sbl->dev, "p%d: some tuning params bad", port_num);
-+			sbl->link[port_num].tune_param_oob_count++;
-+			return -ELNRNG;
-+		}
-+		sbl_dev_dbg(sbl->dev, "p%d: all tuning params good", port_num);
-+		sbl->link[port_num].tune_param_oob_count = 0;
-+
-+		/* Set up PCAL */
-+		/*   (This can reduce the eye heights but increase the eye widths).
-+		     Future eye height checks will be held off for a period while
-+		     the pcal process settles */
-+		if (sbl->link[port_num].blattr.options & SBL_OPT_ENABLE_PCAL) {
-+			if (sbl_debug_option(sbl, port_num, SBL_DEBUG_INHIBIT_PCAL)) {
-+				sbl_dev_warn(sbl->dev, "p%d: pcal inhibited\n", port_num);
-+			} else {
-+				err = sbl_port_start_pcal(sbl, port_num);
-+				if (err)
-+					return err;
-+			}
-+		} else {
-+			sbl_dev_dbg(sbl->dev, "p%d: PCAL is disabled!", port_num);
-+		}
++	rtn = sl_media_io_read8(media_jack, 0, 14, &data);
++	if (rtn) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "temp get read failed [%d]", rtn);
++		return -EIO;
 +	}
 +
++	*temp = data;
 +	return 0;
 +}
 +
-+void sbl_log_port_eye_heights(struct sbl_inst *sbl, int port_num)
++int sl_media_data_jack_cable_temp_warn_limit_get(struct sl_media_jack *media_jack, u8 *temp_warn_limit_c)
 +{
-+	struct sbl_link *link = sbl->link + port_num;
-+	int eye, num_eyes = 0;
-+	int eye_heights[NUM_PAM4_EYES];
-+	int serdes;
++	int rtn;
++	u8  data;
 +
-+	switch (link->link_mode) {
-+	default:
-+	case SBL_LINK_MODE_BJ_100G: /* NRZ */
-+		num_eyes = NUM_NRZ_EYES;
++	sl_media_log_dbg(media_jack, LOG_NAME, "cable temp warn limit get");
++
++	if (!sl_media_lgrp_media_type_is_active(media_jack->cable_info[0].ldev_num,
++						media_jack->cable_info[0].lgrp_num)) {
++		sl_media_log_dbg(media_jack, LOG_NAME, "not active cable");
++		return -EBADRQC;
++	}
++
++	rtn = sl_media_io_read8(media_jack, 2, 132, &data);
++	if (rtn) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "cable temp warn limit read failed [%d]", rtn);
++		return -EIO;
++	}
++
++	*temp_warn_limit_c = data;
++	return 0;
++}
++
++int sl_media_data_jack_cable_temp_down_limit_get(struct sl_media_jack *media_jack, u8 *temp_down_limit_c)
++{
++	int rtn;
++	u8  data;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "cable temp down limit get");
++
++	if (!sl_media_lgrp_media_type_is_active(media_jack->cable_info[0].ldev_num,
++						media_jack->cable_info[0].lgrp_num)) {
++		sl_media_log_dbg(media_jack, LOG_NAME, "not active cable");
++		return -EBADRQC;
++	}
++
++	rtn = sl_media_io_read8(media_jack, 2, 128, &data);
++	if (rtn) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "cable temp down limit read failed [%d]", rtn);
++		return -EIO;
++	}
++
++	*temp_down_limit_c = data;
++	return 0;
++}
++
++void sl_media_data_jack_led_set(struct sl_media_jack *media_jack)
++{
++	int                  rtn;
++	struct sl_core_link *core_link;
++	u32                  link_state;
++	u8                   state;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "led set");
++
++	core_link = sl_core_link_get_pinned(media_jack->cable_info[0].ldev_num,
++					    media_jack->cable_info[0].lgrp_num, 0);
++	if (!core_link)
++		return;
++
++	/* hardcoding 0 since only one link*/
++	rtn = sl_core_link_state_get(media_jack->cable_info[0].ldev_num,
++				     media_jack->cable_info[0].lgrp_num, 0, &link_state);
++	sl_core_link_put_pinned(core_link);
++	if (rtn) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "core link state get failed [%d]", rtn);
++		return;
++	}
++
++	rtn = sl_media_jack_state_get(media_jack, &state);
++	if (rtn)
++		sl_media_log_err_trace(media_jack, LOG_NAME, "media_jack_state_get failed [%d]", rtn);
++
++	switch (state) {
++	case SL_MEDIA_JACK_CABLE_REMOVED:
++		sl_media_io_led_set(media_jack, LED_OFF);
++		return;
++	case SL_MEDIA_JACK_CABLE_ERROR:
++		sl_media_io_led_set(media_jack, LED_FAST_YEL);
++		return;
++	}
++
++	switch (link_state) {
++	case SL_CORE_LINK_STATE_UNCONFIGURED:
++	case SL_CORE_LINK_STATE_CANCELING:
++	case SL_CORE_LINK_STATE_DOWN:
++	case SL_CORE_LINK_STATE_GOING_DOWN:
++	case SL_CORE_LINK_STATE_TIMEOUT:
++		sl_media_io_led_set(media_jack, LED_OFF);
 +		break;
-+	case SBL_LINK_MODE_CD_50G:
-+	case SBL_LINK_MODE_CD_100G:
-+	case SBL_LINK_MODE_BS_200G: /* PAM4 */
-+		num_eyes = NUM_PAM4_EYES;
++	case SL_CORE_LINK_STATE_GOING_UP:
++	case SL_CORE_LINK_STATE_AN:
++		sl_media_io_led_set(media_jack, LED_FAST_GRN);
++		break;
++	case SL_CORE_LINK_STATE_UP:
++		sl_media_io_led_set(media_jack, LED_ON_GRN);
 +		break;
 +	}
-+
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+			continue;
-+		if (sbl_get_eye_heights(sbl, port_num, serdes, eye_heights)) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed to read eye heights",
-+				    port_num, serdes);
-+			return;
-+		}
-+		for (eye = 0; eye < num_eyes; ++eye) {
-+			sbl_dev_info(sbl->dev, "p%ds%d eye[%d] height: 0x%x",
-+				     port_num, serdes, eye, eye_heights[eye]);
-+		}
-+	}
 +}
 +
-+int sbl_port_check_eyes(struct sbl_inst *sbl, int port_num)
++static inline u8 sl_media_data_jack_num_update(u8 physical_jack_num)
 +{
-+	struct sbl_link *link = sbl->link + port_num;
-+	int min_eye_height, max_eye_height;
-+	int eye, num_eyes = 0;
-+	int eye_heights[NUM_PAM4_EYES];
-+	unsigned long holdoff_end_jiffies;
-+	int serdes;
++	return physical_jack_num - 1;
++}
 +
-+	/* pcal can generate bad eyes temporarily when its starting up so
-+	   if its not settled yet ignore this test */
-+	if (link->pcal_running && link->blattr.pcal_eyecheck_holdoff) {
-+		holdoff_end_jiffies = link->pcal_start_jiffies +
-+				msecs_to_jiffies(link->blattr.pcal_eyecheck_holdoff);
-+		if (time_is_after_jiffies(holdoff_end_jiffies)) {
-+			sbl_dev_info(sbl->dev, "p%d: holding off eye checks",
-+				     port_num);
++void sl_media_data_jack_cable_temp_monitor_start(struct sl_media_ldev *media_ldev)
++{
++}
++
++void sl_media_data_jack_cable_temp_monitor_stop(struct sl_media_ldev *media_ldev)
++{
++}
+diff --git a/drivers/net/ethernet/hpe/sl/media/data/nic/sl_media_data_jack_emu.c b/drivers/net/ethernet/hpe/sl/media/data/nic/sl_media_data_jack_emu.c
+new file mode 100644
+index 000000000000..0aed275e8c5c
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/sl/media/data/nic/sl_media_data_jack_emu.c
+@@ -0,0 +1,38 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2024,2025 Hewlett Packard Enterprise Development LP */
++
++#include <linux/types.h>
++
++#include "sl_asic.h"
++
++#include "base/sl_media_log.h"
++
++#include "sl_media_lgrp.h"
++#include "sl_media_jack.h"
++#include "data/sl_media_data_jack.h"
++
++#define LOG_NAME SL_MEDIA_DATA_JACK_LOG_NAME
++
++int sl_media_data_jack_lgrp_connect(struct sl_media_lgrp *media_lgrp)
++{
++	struct sl_media_jack *media_jack;
++	u8                    i;
++
++	sl_media_log_dbg(media_lgrp, LOG_NAME, "jack lgrp connect");
++
++	media_jack = sl_media_data_jack_get(media_lgrp->media_ldev->num,
++					    media_lgrp->num >> (SL_MEDIA_LGRPS_DIVIDE_PER_PORT));
++	for (i = 0; i < SL_MEDIA_LGRPS_PER_PORT; ++i) {
++		if (media_jack->cable_info[i].lgrp_num == media_lgrp->num) {
++			media_lgrp->media_jack = media_jack;
++			media_lgrp->cable_info = &media_jack->cable_info[i];
 +			return 0;
 +		}
 +	}
 +
-+	if (!sbl->is_hw)
-+		return 0;
++	return -EFAULT;
++}
 +
-+	/* setup test criteria */
-+	switch (link->link_mode) {
-+	default:
-+	case SBL_LINK_MODE_BJ_100G: /* NRZ */
-+		num_eyes = NUM_NRZ_EYES;
-+		min_eye_height =
-+			link->blattr.nrz_min_eye_height;
-+		max_eye_height =
-+			link->blattr.nrz_max_eye_height;
-+		break;
-+	case SBL_LINK_MODE_CD_50G:
-+	case SBL_LINK_MODE_CD_100G:
-+	case SBL_LINK_MODE_BS_200G: /* PAM4 */
-+		num_eyes = NUM_PAM4_EYES;
-+		min_eye_height =
-+			link->blattr.pam4_min_eye_height;
-+		max_eye_height =
-+			link->blattr.pam4_max_eye_height;
-+		break;
++void sl_media_data_jack_unregister_event_notifier(void)
++{
++}
+diff --git a/drivers/net/ethernet/hpe/sl/media/data/nic/sl_media_data_ldev.c b/drivers/net/ethernet/hpe/sl/media/data/nic/sl_media_data_ldev.c
+new file mode 100644
+index 000000000000..a2cd33257fc5
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/sl/media/data/nic/sl_media_data_ldev.c
+@@ -0,0 +1,30 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2025 Hewlett Packard Enterprise Development LP */
++
++#include <linux/types.h>
++#include <linux/errno.h>
++
++#include "base/sl_media_log.h"
++#include "sl_media_ldev.h"
++#include "data/sl_media_data_ldev.h"
++
++#define LOG_NAME  SL_LOG_LDEV_LOG_NAME
++
++int sl_media_data_ldev_uc_ops_set(u8 ldev_num, struct sl_uc_ops *uc_ops,
++				  struct sl_uc_accessor *uc_accessor)
++{
++	struct sl_media_ldev *media_ldev;
++
++	media_ldev = sl_media_ldev_get(ldev_num);
++	if (!media_ldev) {
++		sl_media_log_err(NULL, LOG_NAME, "ldev not found (ldev_num = %u)", ldev_num);
++		return -EINVAL;
 +	}
 +
-+	/* check eye height */
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+			continue;
++	sl_media_log_dbg(media_ldev, LOG_NAME, "media_data_ldev_uc_ops_set");
 +
-+		sbl_dev_dbg(sbl->dev, "p%ds%d: checking eye height(s)", port_num, serdes);
-+		if (sbl_get_eye_heights(sbl, port_num, serdes, eye_heights)) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: Failed to read eye heights",
-+				    port_num, serdes);
++	media_ldev->uc_ops = uc_ops;
++	media_ldev->uc_accessor = uc_accessor;
++
++	return 0;
++}
+diff --git a/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_cable_db_ops.c b/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_cable_db_ops.c
+new file mode 100644
+index 000000000000..8099343084d8
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_cable_db_ops.c
+@@ -0,0 +1,111 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2024,2025 Hewlett Packard Enterprise Development LP */
++
++#include <linux/slab.h>
++#include <linux/kernel.h>
++
++#include <linux/hpe/sl/sl_media.h>
++
++#include "sl_media_jack.h"
++#include "data/sl_media_data_cable_db.h"
++#include "data/sl_media_data_cable_db_ops.h"
++#include "base/sl_media_log.h"
++
++#define LOG_NAME SL_MEDIA_CABLE_LOG_NAME
++
++#define SL_MEDIA_TYPE_SERDES 1
++
++int sl_media_data_cable_db_ops_cable_validate(struct sl_media_attr *media_attr, struct sl_media_jack *media_jack)
++{
++	int indexer;
++
++	sl_media_log_dbg(NULL, LOG_NAME, "cable validate");
++
++	/*
++	 * Check for loopback module
++	 */
++	if (media_attr->vendor == SL_MEDIA_VENDOR_MULTILANE) {
++		media_attr->hpe_pn       = 1;
++		media_attr->type         = SL_MEDIA_TYPE_PEC;
++		media_attr->length_cm    = 100;
++		media_attr->furcation    = SL_MEDIA_FURCATION_X1;
++		media_attr->max_speed    = SL_MEDIA_SPEEDS_SUPPORT_CK_400G;
++		media_attr->speeds_map   = SL_MEDIA_SPEEDS_SUPPORT_CK_400G |
++					   SL_MEDIA_SPEEDS_SUPPORT_BS_200G |
++					   SL_MEDIA_SPEEDS_SUPPORT_BJ_100G |
++					   SL_MEDIA_SPEEDS_SUPPORT_CD_50G;
++		media_jack->cable_db_idx = -1;
++		return 0;
++	}
++
++	/*
++	 * Linear search through the cable_db array
++	 */
++	for (indexer = 0; indexer < ARRAY_SIZE(cable_db); ++indexer) {
++		if (cable_db[indexer].hpe_pn == media_attr->hpe_pn &&
++		    cable_db[indexer].vendor == media_attr->vendor &&
++		    cable_db[indexer].type   == media_attr->type) {
++			media_attr->shape                    = cable_db[indexer].shape;
++			media_attr->max_speed                = cable_db[indexer].max_speed;
++			media_jack->is_supported_ss200_cable = cable_db[indexer].is_supported_ss200_cable;
++			media_jack->cable_db_idx             = indexer;
++			return 0;
++		}
++	}
++
++	return -ENOENT;
++}
++
++int sl_media_data_cable_db_ops_serdes_settings_get(struct sl_media_jack *media_jack, u32 media_type, u32 flags)
++{
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "serdes settings get (media_type = 0x%X %s, flags = 0x%X)",
++		media_type, sl_media_type_str(media_type), flags);
++
++	if (flags & SL_MEDIA_TYPE_UNSUPPORTED) {
++		sl_media_log_warn_trace(media_jack, LOG_NAME, "serdes setting get unsuppported cable");
++		if (media_type == SL_MEDIA_TYPE_AEC ||
++		    media_type == SL_MEDIA_TYPE_ACC ||
++		    media_type == SL_MEDIA_TYPE_POC ||
++		    media_type == SL_MEDIA_TYPE_AOC) {
++			media_jack->serdes_settings.pre1   = -12;
++			media_jack->serdes_settings.pre2   = 0;
++			media_jack->serdes_settings.pre3   = 0;
++			media_jack->serdes_settings.cursor = 98;
++			media_jack->serdes_settings.post1  = -4;
++			media_jack->serdes_settings.post2  = 0;
++		} else {
++			media_jack->serdes_settings.pre1   = 0;
++			media_jack->serdes_settings.pre2   = 0;
++			media_jack->serdes_settings.pre3   = 0;
++			media_jack->serdes_settings.cursor = 100;
++			media_jack->serdes_settings.post1  = 0;
++			media_jack->serdes_settings.post2  = 0;
++		}
++	} else if (flags & SL_MEDIA_TYPE_BACKPLANE) {
++		media_jack->serdes_settings.pre1   = 0;
++		media_jack->serdes_settings.pre2   = 0;
++		media_jack->serdes_settings.pre3   = 0;
++		media_jack->serdes_settings.cursor = 100;
++		media_jack->serdes_settings.post1  = 0;
++		media_jack->serdes_settings.post2  = 0;
++	} else if (flags & SL_MEDIA_TYPE_LOOPBACK) {
++		media_jack->serdes_settings.pre1   = 0;
++		media_jack->serdes_settings.pre2   = 0;
++		media_jack->serdes_settings.pre3   = 0;
++		media_jack->serdes_settings.cursor = 100;
++		media_jack->serdes_settings.post1  = 0;
++		media_jack->serdes_settings.post2  = 0;
++	} else {
++		if (media_jack->cable_db_idx < 0 || media_jack->cable_db_idx >= ARRAY_SIZE(cable_db)) {
++			sl_media_log_err_trace(media_jack, LOG_NAME,
++					       "serdes settings get invalid (idx = %d)",
++					       media_jack->cable_db_idx);
++			return -ENOENT;
++		}
++		media_jack->serdes_settings = cable_db[media_jack->cable_db_idx].serdes_settings;
++	}
++	media_jack->serdes_settings.media = SL_MEDIA_TYPE_SERDES;
++
++	return 0;
++}
+diff --git a/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_jack.c b/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_jack.c
+new file mode 100644
+index 000000000000..17631509afa2
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_jack.c
+@@ -0,0 +1,344 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2022,2023,2024,2025 Hewlett Packard Enterprise Development LP */
++
++#include <linux/slab.h>
++#include <linux/kernel.h>
++#include <linux/atomic.h>
++
++#include <linux/hpe/sl/sl_media.h>
++
++#include "base/sl_media_log.h"
++#include "sl_media_ldev.h"
++#include "sl_media_lgrp.h"
++#include "sl_media_jack.h"
++#include "data/sl_media_data_jack.h"
++#include "sl_asic.h"
++#include "sl_ctrl_lgrp_notif.h"
++#include "data/sl_media_data_lgrp.h"
++#include "sl_ctrl_lgrp.h"
++#include "sl_core_link.h"
++#include "sl_ctrl_media_counters.h"
++
++static struct sl_media_jack *media_jacks[SL_ASIC_MAX_LDEVS][SL_MEDIA_MAX_JACK_NUM];
++static DEFINE_SPINLOCK(media_jacks_lock);
++
++#define LOG_NAME SL_MEDIA_DATA_JACK_LOG_NAME
++
++void sl_media_data_jack_del(u8 ldev_num, u8 jack_num)
++{
++	struct sl_media_jack *media_jack;
++
++	media_jack = sl_media_data_jack_get(ldev_num, jack_num);
++	if (!media_jack) {
++		sl_media_log_dbg(NULL, LOG_NAME, "not found (jack_num = %u)", jack_num);
++		return;
++	}
++
++	sl_ctrl_media_cause_counters_del(media_jack);
++
++	spin_lock(&media_jacks_lock);
++	media_jacks[ldev_num][jack_num] = NULL;
++	spin_unlock(&media_jacks_lock);
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "del (jack = 0x%p)", media_jack);
++
++	kfree(media_jack);
++}
++
++int sl_media_data_jack_new(struct sl_media_ldev *media_ldev, u8 jack_num)
++{
++	struct sl_media_jack *media_jack;
++	int                   rtn;
++
++	media_jack = sl_media_data_jack_get(media_ldev->num, jack_num);
++	if (media_jack) {
++		sl_media_log_err(NULL, LOG_NAME, "jack already exists");
++		return -EEXIST;
++	}
++
++	media_jack = kzalloc(sizeof(struct sl_media_jack), GFP_KERNEL);
++	if (!media_jack)
++		return -ENOMEM;
++
++	media_jack->magic             = SL_MEDIA_JACK_MAGIC;
++	media_jack->num               = jack_num;
++	media_jack->physical_num      = 1;
++	media_jack->cable_db_idx      = -1;
++	media_jack->fault_cause       = SL_MEDIA_FAULT_CAUSE_NONE;
++
++	spin_lock_init(&media_jack->log_lock);
++
++	rtn = sl_ctrl_media_cause_counters_init(media_jack);
++	if (rtn) {
++		sl_media_log_err(media_jack, LOG_NAME, "ctrl_media_cause_counters_init failed [%d]", rtn);
++		goto out;
++	}
++
++	spin_lock_init(&(media_jack->data_lock));
++
++	media_jack->media_ldev = media_ldev;
++
++	media_jack->state                  = SL_MEDIA_JACK_CABLE_REMOVED;
++	media_jack->lane_data.cache.cached = false;
++	media_jack->lane_data.read_state   = SL_MEDIA_JACK_LANE_DATA_READ_STATE_IDLE;
++	media_jack->lane_data.read_generation = 0;
++	init_waitqueue_head(&media_jack->lane_data.read_wait);
++
++	media_jack->temperature_value_c      = -1;
++	media_jack->temperature_down_limit_c = -1;
++	media_jack->temperature_warn_limit_c = -1;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "new (jack = 0x%p)", media_jack);
++
++	spin_lock(&media_jacks_lock);
++	media_jacks[media_ldev->num][jack_num] = media_jack;
++	spin_unlock(&media_jacks_lock);
++
++	return 0;
++
++out:
++	kfree(media_jack);
++	return -ENOMEM;
++}
++
++struct sl_media_jack *sl_media_data_jack_get(u8 ldev_num, u8 jack_num)
++{
++	struct sl_media_jack *media_jack;
++
++	spin_lock(&media_jacks_lock);
++	media_jack = media_jacks[ldev_num][jack_num];
++	spin_unlock(&media_jacks_lock);
++
++	sl_media_log_dbg(NULL, LOG_NAME,
++			 "get (ldev_num = %u, jack_num = %u, jack = 0x%p)",
++			 ldev_num, jack_num, media_jack);
++
++	return media_jack;
++}
++
++void sl_media_data_cable_serdes_settings_clr(struct sl_media_jack *media_jack)
++{
++	sl_media_log_dbg(media_jack, LOG_NAME, "serdes settings clr");
++
++	memset(&(media_jack->serdes_settings), 0, sizeof(struct sl_media_serdes_settings));
++}
++
++void sl_media_data_jack_eeprom_clr(struct sl_media_jack *media_jack)
++{
++	sl_media_log_dbg(media_jack, LOG_NAME, "eeprom clr");
++
++	memset(media_jack->eeprom_page0, 0, SL_MEDIA_EEPROM_PAGE_SIZE);
++	memset(media_jack->eeprom_page1, 0, SL_MEDIA_EEPROM_PAGE_SIZE);
++}
++
++/*
++ * This state describes the cable that is currently in the jack, so it must be
++ * cleared whenever the cable changes or the next cable inherits it. Client
++ * notification registrations, fake-cable debug state and counters belong to
++ * the jack and are kept. A stash that is still live behind a fake cable is
++ * kept too.
++ */
++void sl_media_data_jack_cable_state_clr(struct sl_media_jack *media_jack)
++{
++	unsigned int i;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "cable state clr");
++
++	spin_lock(&media_jack->data_lock);
++	media_jack->is_cable_unsupported        = false;
++	media_jack->is_cable_format_unsupported = false;
++	media_jack->is_supported_ss200_cable    = false;
++	media_jack->cable_db_idx                = -1;
++
++	media_jack->is_high_powered                = false;
++	media_jack->cable_high_power_wait_time_end = 0;
++
++	media_jack->cable_shift_state       = 0;
++	media_jack->appsel_num_200_gaui     = 0;
++	media_jack->lane_count_200_gaui     = 0;
++	media_jack->host_interface_200_gaui = 0;
++	media_jack->appsel_num_400_gaui     = 0;
++	media_jack->lane_count_400_gaui     = 0;
++	media_jack->host_interface_400_gaui = 0;
++
++	memset(&media_jack->lane_data.cache, 0, sizeof(media_jack->lane_data.cache));
++
++	media_jack->temperature_prev_state   = SL_MEDIA_JACK_TEMP_STATE_COLD;
++	media_jack->temperature_state        = SL_MEDIA_JACK_TEMP_STATE_COLD;
++	media_jack->temperature_value_c      = -1;
++	media_jack->temperature_warn_limit_c = -1;
++	media_jack->temperature_down_limit_c = -1;
++
++	for (i = 0; i < ARRAY_SIZE(media_jack->cable_info); ++i) {
++		struct sl_media_lgrp_cable_info *cable_info = &media_jack->cable_info[i];
++
++		if (cable_info->real_cable_status != CABLE_MEDIA_ATTR_STASHED)
++			memset(&cable_info->stashed_media_attr, 0,
++			       sizeof(cable_info->stashed_media_attr));
++		cable_info->hot_notif_sent  = false;
++		cable_info->warm_notif_sent = false;
++		cable_info->cold_notif_sent = false;
++	}
++	spin_unlock(&media_jack->data_lock);
++}
++
++int sl_media_data_jack_media_attr_set(struct sl_media_jack *media_jack,
++				      struct sl_media_lgrp_cable_info *cable_info, struct sl_media_attr *media_attr)
++{
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "media attr set (format = %d, vendor = %d %s, type = 0x%X %s, length_cm = %d, speeds_map = 0x%lX)",
++			 media_attr->format, media_attr->vendor, sl_media_vendor_str(media_attr->vendor),
++			 media_attr->type, sl_media_type_str(media_attr->type),
++			 media_attr->length_cm, media_attr->speeds_map);
++
++	spin_lock(&media_jack->data_lock);
++
++	if (cable_info->real_cable_status == CABLE_MEDIA_ATTR_ADDED) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "media attr already set");
++		spin_unlock(&media_jack->data_lock);
++		return -EEXIST;
++	}
++
++	if (cable_info->fake_cable_status == CABLE_MEDIA_ATTR_ADDED) {
++		cable_info->stashed_media_attr = *media_attr;
++		cable_info->real_cable_status  = CABLE_MEDIA_ATTR_STASHED;
++	} else {
++		cable_info->media_attr        = *media_attr;
++		cable_info->real_cable_status = CABLE_MEDIA_ATTR_ADDED;
++	}
++
++	spin_unlock(&media_jack->data_lock);
++
++	return 0;
++}
++
++void sl_media_data_jack_media_attr_clr(struct sl_media_jack *media_jack,
++				       struct sl_media_lgrp_cable_info *cable_info)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "media attr clr");
++
++	media_lgrp = sl_media_data_lgrp_get(cable_info->ldev_num, cable_info->lgrp_num);
++	spin_lock(&media_jack->data_lock);
++	if (cable_info->real_cable_status == CABLE_MEDIA_ATTR_REMOVED) {
++		spin_unlock(&media_jack->data_lock);
++		sl_media_log_dbg(media_jack, LOG_NAME, "no media attr to clear");
++		return;
++	}
++
++	if (cable_info->real_cable_status == CABLE_MEDIA_ATTR_ADDED)
++		memset(&(cable_info->media_attr), 0, sizeof(struct sl_media_attr));
++
++	cable_info->real_cable_status = CABLE_MEDIA_ATTR_REMOVED;
++	spin_unlock(&media_jack->data_lock);
++
++	if (media_lgrp) {
++		/* Only send notification if both real and fake cables are removed */
++		if (cable_info->fake_cable_status == CABLE_MEDIA_ATTR_REMOVED)
++			sl_media_data_jack_cable_if_not_present_send(media_lgrp);
++	}
++}
++
++bool sl_media_data_jack_media_is_format_cmis(struct sl_media_jack *media_jack)
++{
++	bool is_cmis;
++
++	spin_lock(&media_jack->data_lock);
++	is_cmis = (media_jack->cable_info[0].media_attr.format == SL_MEDIA_MGMT_IF_CMIS);
++	spin_unlock(&media_jack->data_lock);
++
++	return is_cmis;
++}
++
++void sl_media_data_jack_cable_if_present_send(struct sl_media_lgrp *media_lgrp)
++{
++	int                      rtn;
++	union sl_lgrp_notif_info info;
++
++	sl_media_log_dbg(media_lgrp, LOG_NAME, "present send");
++
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	if ((media_lgrp->cable_info->real_cable_status == CABLE_MEDIA_ATTR_ADDED) ||
++	    (media_lgrp->cable_info->fake_cable_status == CABLE_MEDIA_ATTR_ADDED)) {
++		info.media_attr = media_lgrp->cable_info->media_attr;
++		rtn = sl_ctrl_lgrp_notif_enqueue(sl_ctrl_lgrp_get(media_lgrp->media_ldev->num, media_lgrp->num),
++						 SL_LGRP_NOTIF_NO_LINK, SL_LGRP_NOTIF_MEDIA_PRESENT, &info, 0);
++		if (rtn)
++			sl_media_log_warn_trace(media_lgrp, LOG_NAME,
++						"present_send ctrl_lgrp_notif_enqueue failed [%d]", rtn);
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++}
++
++void sl_media_data_jack_cable_if_not_present_send(struct sl_media_lgrp *media_lgrp)
++{
++	int rtn;
++
++	sl_media_log_dbg(media_lgrp, LOG_NAME, "not present send");
++
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	if (media_lgrp->cable_info->real_cable_status == CABLE_MEDIA_ATTR_REMOVED) {
++		rtn = sl_ctrl_lgrp_notif_enqueue(sl_ctrl_lgrp_get(media_lgrp->media_ldev->num, media_lgrp->num),
++						 SL_LGRP_NOTIF_NO_LINK, SL_LGRP_NOTIF_MEDIA_NOT_PRESENT, NULL, 0);
++		if (rtn)
++			sl_media_log_warn_trace(media_lgrp, LOG_NAME,
++						"not_present_send ctrl_lgrp_notif_enqueue failed [%d]", rtn);
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++}
++
++void sl_media_data_jack_cable_temp_state_init(struct sl_media_jack *media_jack)
++{
++	spin_lock(&media_jack->data_lock);
++	media_jack->temperature_prev_state = SL_MEDIA_JACK_TEMP_STATE_COLD;
++	media_jack->temperature_state = SL_MEDIA_JACK_TEMP_STATE_COLD;
++	spin_unlock(&media_jack->data_lock);
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "temperature state init (prev_state = %u, state = %u)",
++			 media_jack->temperature_prev_state, media_jack->temperature_state);
++}
++
++void sl_media_data_jack_cable_temp_state_set(struct sl_media_jack *media_jack, u8 temperature_state)
++{
++	spin_lock(&media_jack->data_lock);
++	media_jack->temperature_prev_state = media_jack->temperature_state;
++	media_jack->temperature_state = temperature_state;
++	spin_unlock(&media_jack->data_lock);
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "temperature state set (state = %u)", media_jack->temperature_state);
++}
++
++int sl_media_data_jack_cable_temp_state_get(struct sl_media_jack *media_jack, u8 *temperature_state)
++{
++	spin_lock(&media_jack->data_lock);
++	*temperature_state = media_jack->temperature_state;
++	spin_unlock(&media_jack->data_lock);
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "temperature state get (state = %u %s)",
++			 *temperature_state, sl_media_temp_state_str(*temperature_state));
++
++	return 0;
++}
++
++int  sl_media_data_jack_cable_temp_prev_state_get(struct sl_media_jack *media_jack, u8 *temperature_prev_state)
++{
++	spin_lock(&media_jack->data_lock);
++	*temperature_prev_state = media_jack->temperature_prev_state;
++	spin_unlock(&media_jack->data_lock);
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "temperature prev state get (state = %u %s)",
++			 *temperature_prev_state, sl_media_temp_state_str(*temperature_prev_state));
++
++	return 0;
++}
++
++void sl_media_data_jack_headshell_busy_set(struct sl_media_jack *media_jack, int value)
++{
++	atomic_set(&media_jack->is_headshell_busy, value);
++}
++
++bool sl_media_data_jack_is_headshell_busy(struct sl_media_jack *media_jack)
++{
++	return (atomic_read(&media_jack->is_headshell_busy) == SL_MEDIA_JACK_HEADSHELL_BUSY);
++}
+diff --git a/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_ldev.c b/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_ldev.c
+new file mode 100644
+index 000000000000..fddedcd46776
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_ldev.c
+@@ -0,0 +1,115 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2023,2024,2025 Hewlett Packard Enterprise Development LP */
++
++#include <linux/spinlock.h>
++#include <linux/slab.h>
++
++#include <linux/hpe/sl/sl_media.h>
++
++#include "sl_asic.h"
++#include "base/sl_media_log.h"
++#include "sl_media_ldev.h"
++#include "data/sl_media_data_ldev.h"
++#include "data/sl_media_data_lgrp.h"
++#include "data/sl_media_data_jack.h"
++
++static struct sl_media_ldev *media_ldevs[SL_ASIC_MAX_LDEVS];
++static DEFINE_SPINLOCK(media_ldevs_lock);
++
++#define LOG_NAME SL_MEDIA_DATA_LDEV_LOG_NAME
++
++int sl_media_data_ldev_new(u8 ldev_num, struct workqueue_struct *workqueue)
++{
++	struct sl_media_ldev *media_ldev;
++	int                   rtn;
++	u8                    jack_num;
++
++	media_ldev = sl_media_data_ldev_get(ldev_num);
++	if (media_ldev) {
++		sl_media_log_err(NULL, LOG_NAME, "exists (ldev = 0x%p)", media_ldev);
++		return -EBADRQC;
++	}
++
++	media_ldev = kzalloc(sizeof(struct sl_media_ldev), GFP_KERNEL);
++	if (!media_ldev)
++		return -ENOMEM;
++
++	media_ldev->magic     = SL_MEDIA_LDEV_MAGIC;
++	media_ldev->num       = ldev_num;
++	media_ldev->workqueue = workqueue;
++
++	for (jack_num = 0; jack_num < SL_MEDIA_MAX_JACK_NUM; ++jack_num) {
++		rtn = sl_media_data_jack_new(media_ldev, jack_num);
++		if (rtn) {
++			sl_media_log_err(media_ldev, LOG_NAME, "jack new failed [%d]", rtn);
++			goto out_jacks;
++		}
++	}
++
++	rtn = sl_media_data_jack_scan(ldev_num);
++	if (rtn) {
++		sl_media_log_err(media_ldev, LOG_NAME, "jack scan failed [%d]", rtn);
++		goto out_jacks;
++	}
++
++	sl_media_log_dbg(media_ldev, LOG_NAME, "new (ldev = 0x%p)", media_ldev);
++
++	spin_lock(&media_ldevs_lock);
++	media_ldevs[ldev_num] = media_ldev;
++	spin_unlock(&media_ldevs_lock);
++
++	sl_media_data_jack_cable_temp_monitor_start(media_ldev);
++
++	return 0;
++
++out_jacks:
++	while (jack_num)
++		sl_media_data_jack_del(ldev_num, --jack_num);
++	kfree(media_ldev);
++	return -EFAULT;
++}
++
++void sl_media_data_ldev_del(u8 ldev_num)
++{
++	struct sl_media_ldev *media_ldev;
++	u8                    lgrp_num;
++	u8                    jack_num;
++
++	media_ldev = sl_media_data_ldev_get(ldev_num);
++	if (!media_ldev) {
++		sl_media_log_dbg(NULL, LOG_NAME, "not found (ldev_num = %u)", ldev_num);
++		return;
++	}
++
++	sl_media_data_jack_cable_temp_monitor_stop(media_ldev);
++
++	spin_lock(&media_ldevs_lock);
++	media_ldevs[ldev_num] = NULL;
++	spin_unlock(&media_ldevs_lock);
++
++	sl_media_log_dbg(media_ldev, LOG_NAME, "del (ldev = 0x%p)", media_ldev);
++
++	for (lgrp_num = 0; lgrp_num < SL_ASIC_MAX_LGRPS; ++lgrp_num)
++		sl_media_data_lgrp_del(ldev_num, lgrp_num);
++
++	for (jack_num = 0; jack_num < SL_MEDIA_MAX_JACK_NUM; ++jack_num)
++		sl_media_data_jack_del(ldev_num, jack_num);
++
++	sl_media_data_jack_unregister_event_notifier();
++
++	kfree(media_ldev);
++}
++
++struct sl_media_ldev *sl_media_data_ldev_get(u8 ldev_num)
++{
++	struct sl_media_ldev *media_ldev;
++
++	spin_lock(&media_ldevs_lock);
++	media_ldev = media_ldevs[ldev_num];
++	spin_unlock(&media_ldevs_lock);
++
++	sl_media_log_dbg(NULL, LOG_NAME, "get (ldev_num = %u, ldev = 0x%p)",
++			 ldev_num, media_ldev);
++
++	return media_ldev;
++}
+diff --git a/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_lgrp.c b/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_lgrp.c
+new file mode 100644
+index 000000000000..27c30bdf3378
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_lgrp.c
+@@ -0,0 +1,127 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2023,2024,2025 Hewlett Packard Enterprise Development LP */
++
++#include <linux/spinlock.h>
++#include <linux/slab.h>
++
++#include <linux/hpe/sl/sl_media.h>
++
++#include "sl_media_lgrp.h"
++#include "data/sl_media_data_lgrp.h"
++#include "data/sl_media_data_ldev.h"
++#include "data/sl_media_data_jack.h"
++#include "sl_asic.h"
++#include "base/sl_media_log.h"
++
++static struct sl_media_lgrp *media_lgrps[SL_ASIC_MAX_LDEVS][SL_ASIC_MAX_LGRPS];
++static DEFINE_SPINLOCK(media_lgrps_lock);
++
++#define LOG_NAME SL_MEDIA_DATA_LGRP_LOG_NAME
++
++int sl_media_data_lgrp_new(u8 ldev_num, u8 lgrp_num)
++{
++	struct sl_media_lgrp *media_lgrp;
++	int                   rtn;
++
++	media_lgrp = sl_media_data_lgrp_get(ldev_num, lgrp_num);
++	if (media_lgrp) {
++		sl_media_log_err(NULL, LOG_NAME, "exists (lgrp = 0x%p)", media_lgrp);
++		return -EBADRQC;
++	}
++
++	media_lgrp = kzalloc(sizeof(struct sl_media_lgrp), GFP_KERNEL);
++	if (!media_lgrp)
++		return -ENOMEM;
++
++	media_lgrp->magic       = SL_MEDIA_LGRP_MAGIC;
++	media_lgrp->num         = lgrp_num;
++	media_lgrp->media_ldev  = sl_media_data_ldev_get(ldev_num);
++
++	media_lgrp->speeds_kobj_init = false;
++	spin_lock_init(&media_lgrp->log_lock);
++	spin_lock_init(&media_lgrp->data_lock);
++	snprintf(media_lgrp->connect_id, sizeof(media_lgrp->connect_id), "lgrp%02u", lgrp_num);
++
++	rtn = sl_media_data_jack_lgrp_connect(media_lgrp);
++	if (rtn) {
++		sl_media_log_err(media_lgrp, LOG_NAME, "jack lgrp connect failed [%d]", rtn);
++		kfree(media_lgrp);
++		return -EFAULT;
++	}
++
++	sl_media_log_dbg(media_lgrp, LOG_NAME, "new (lgrp = 0x%p)", media_lgrp);
++
++	spin_lock(&media_lgrps_lock);
++	media_lgrps[ldev_num][lgrp_num] = media_lgrp;
++	spin_unlock(&media_lgrps_lock);
++
++	return 0;
++}
++
++void sl_media_data_lgrp_del(u8 ldev_num, u8 lgrp_num)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	media_lgrp = sl_media_data_lgrp_get(ldev_num, lgrp_num);
++	if (!media_lgrp) {
++		sl_media_log_dbg(NULL, LOG_NAME, "not found (lgrp_num = %u)", lgrp_num);
++		return;
++	}
++
++	spin_lock(&media_lgrps_lock);
++	media_lgrps[ldev_num][lgrp_num] = NULL;
++	spin_unlock(&media_lgrps_lock);
++
++	sl_media_log_dbg(media_lgrp, LOG_NAME, "del (lgrp = 0x%p)", media_lgrp);
++
++	kfree(media_lgrp);
++}
++
++struct sl_media_lgrp *sl_media_data_lgrp_get(u8 ldev_num, u8 lgrp_num)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	spin_lock(&media_lgrps_lock);
++	media_lgrp = media_lgrps[ldev_num][lgrp_num];
++	spin_unlock(&media_lgrps_lock);
++
++	sl_media_log_dbg(NULL, LOG_NAME,
++			 "get (ldev_num = %u, lgrp_num = %u, lgrp = 0x%p)",
++			 ldev_num, lgrp_num, media_lgrp);
++
++	return media_lgrp;
++}
++
++void sl_media_data_lgrp_connect_id_set(struct sl_media_lgrp *media_lgrp, const char *connect_id)
++{
++	unsigned long irq_flags;
++
++	spin_lock_irqsave(&(media_lgrp->log_lock), irq_flags);
++	strscpy_pad(media_lgrp->connect_id, connect_id,
++		    sizeof(media_lgrp->connect_id));
++	spin_unlock_irqrestore(&(media_lgrp->log_lock), irq_flags);
++
++	sl_media_log_dbg(media_lgrp, SL_MEDIA_DATA_LGRP_LOG_NAME, "connect_id = %s", connect_id);
++}
++
++int sl_media_data_lgrp_err_trace_enable_set(struct sl_media_lgrp *media_lgrp, bool err_trace_enable)
++{
++	spin_lock(&media_lgrp->data_lock);
++	media_lgrp->err_trace_enable = err_trace_enable;
++	spin_unlock(&media_lgrp->data_lock);
++
++	sl_media_log_dbg(media_lgrp, LOG_NAME, "set (err_trace_enable = %s)", err_trace_enable ? "true" : "false");
++
++	return 0;
++}
++
++int sl_media_data_lgrp_warn_trace_enable_set(struct sl_media_lgrp *media_lgrp, bool warn_trace_enable)
++{
++	spin_lock(&media_lgrp->data_lock);
++	media_lgrp->warn_trace_enable = warn_trace_enable;
++	spin_unlock(&media_lgrp->data_lock);
++
++	sl_media_log_dbg(media_lgrp, LOG_NAME, "set (warn_trace_enable = %s)", warn_trace_enable ? "true" : "false");
++
++	return 0;
++}
+diff --git a/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_lgrp_trace.c b/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_lgrp_trace.c
+new file mode 100644
+index 000000000000..aec8a52d1cc0
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/sl/media/data/sl_media_data_lgrp_trace.c
+@@ -0,0 +1,31 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2025 Hewlett Packard Enterprise Development LP */
++
++#include <linux/types.h>
++#include <linux/spinlock.h>
++
++#include "data/sl_media_data_lgrp_trace.h"
++
++#define LOG_NAME SL_MEDIA_DATA_LGRP_LOG_NAME
++
++int sl_media_data_lgrp_is_err_trace_enabled(struct sl_media_lgrp *media_lgrp, bool *err_trace_enable)
++{
++	spin_lock(&media_lgrp->data_lock);
++	*err_trace_enable = media_lgrp->err_trace_enable;
++	spin_unlock(&media_lgrp->data_lock);
++
++	sl_media_log_dbg(media_lgrp, LOG_NAME, "get (err_trace_enable = %s)", *err_trace_enable ? "true" : "false");
++
++	return 0;
++}
++
++int sl_media_data_lgrp_is_warn_trace_enabled(struct sl_media_lgrp *media_lgrp, bool *warn_trace_enable)
++{
++	spin_lock(&media_lgrp->data_lock);
++	*warn_trace_enable = media_lgrp->warn_trace_enable;
++	spin_unlock(&media_lgrp->data_lock);
++
++	sl_media_log_dbg(media_lgrp, LOG_NAME, "get (warn_trace_enable = %s)", *warn_trace_enable ? "true" : "false");
++
++	return 0;
++}
+diff --git a/drivers/net/ethernet/hpe/sl/media/nic/sl_media_io.c b/drivers/net/ethernet/hpe/sl/media/nic/sl_media_io.c
+new file mode 100644
+index 000000000000..e031d82b104b
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/sl/media/nic/sl_media_io.c
+@@ -0,0 +1,63 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2024,2025 Hewlett Packard Enterprise Development LP */
++
++#include <linux/hpe/sl/sl_ldev.h>
++
++#include "sl_media_ldev.h"
++#include "sl_media_io.h"
++#include "sl_media_jack.h"
++#include "base/sl_media_log.h"
++
++#define LOG_NAME SL_MEDIA_IO_LOG_NAME
++
++int sl_media_io_write8(struct sl_media_jack *media_jack, u8 page, u8 offset, u8 data)
++{
++	struct sl_media_ldev *media_ldev;
++
++	media_ldev = media_jack->media_ldev;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "media_io_write8 0x%x <- 0x%x", offset, data);
++
++	return media_ldev->uc_ops->uc_write8(media_ldev->uc_accessor->uc, page, offset, data);
++}
++
++int sl_media_io_read(struct sl_media_jack *media_jack, u8 page, u8 offset, u8 *data, size_t len)
++{
++	int                   rtn_len;
++	struct sl_media_ldev *media_ldev;
++
++	media_ldev = media_jack->media_ldev;
++
++	rtn_len = media_ldev->uc_ops->uc_read(media_ldev->uc_accessor->uc, (u32)offset, (u32)page, data, len);
++	if (rtn_len < 0) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "media_io_read failed [%d]", rtn_len);
++		return rtn_len;
++	}
++
++	if (rtn_len != len) {
++		sl_media_log_err_trace(media_jack, LOG_NAME,
++				       "media_io_read length mismatch (expected = %zu, returned = %d)", len, rtn_len);
++		return -EIO;
++	}
++
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "media_io_read (page = 0x%X, offset = 0x%X, rtn_len = %d)", page, offset, rtn_len);
++
++	return 0;
++}
++
++int sl_media_io_read8(struct sl_media_jack *media_jack, u8 page, u8 offset, u8 *data)
++{
++	return sl_media_io_read(media_jack, page, offset, data, 1);
++}
++
++void sl_media_io_led_set(struct sl_media_jack *media_jack, u8 led_pattern)
++{
++	struct sl_media_ldev *media_ldev;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "media_io_led_set (pattern = %u)", led_pattern);
++
++	media_ldev = media_jack->media_ldev;
++
++	media_ldev->uc_ops->uc_led_set(media_ldev->uc_accessor->uc, led_pattern);
++}
+diff --git a/drivers/net/ethernet/hpe/sl/media/nic/sl_media_jack.c b/drivers/net/ethernet/hpe/sl/media/nic/sl_media_jack.c
+new file mode 100644
+index 000000000000..33f1a2a20ab7
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/sl/media/nic/sl_media_jack.c
+@@ -0,0 +1,315 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2024,2025 Hewlett Packard Enterprise Development LP */
++
++#include <linux/string.h>
++
++#include <linux/hpe/sl/sl_media.h>
++
++#include "sl_asic.h"
++#include "sl_sysfs.h"
++#include "sl_media_jack.h"
++#include "sl_media_lgrp.h"
++#include "data/sl_media_data_jack.h"
++#include "data/sl_media_data_lgrp.h"
++#include "data/sl_media_data_cable_db_ops.h"
++#include "base/sl_media_log.h"
++#include "base/sl_media_eeprom.h"
++
++#define LOG_NAME SL_MEDIA_JACK_LOG_NAME
++
++#define FLAT_MEM_OFFSET 2
++#define FLAT_MEM_BIT    7
++static int sl_media_data_jack_eeprom_page1_get(struct sl_media_jack *media_jack, u8 *eeprom_page1)
++{
++	sl_media_log_dbg(media_jack, LOG_NAME, "eeprom page1 get");
++
++	if ((media_jack->eeprom_page0[FLAT_MEM_OFFSET] & BIT(FLAT_MEM_BIT)) != 0) {
++		sl_media_log_dbg(media_jack, LOG_NAME, "no page1 in eeprom");
++		return 0;
++	}
++
++	memcpy(media_jack->eeprom_page1, eeprom_page1, SL_MEDIA_EEPROM_PAGE_SIZE);
++
++	return 0;
++}
++
++static int sl_media_jack_cable_attr_set(struct sl_media_jack *media_jack, u8 ldev_num, u8 lgrp_num,
++					struct sl_media_attr *media_attr)
++{
++	int rtn;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "cable attr set");
++
++	/*
++	 * only first element is valid in cable_info since single lgrp on nic
++	 */
++	media_jack->cable_info[0].ldev_num = ldev_num;
++	media_jack->cable_info[0].lgrp_num = lgrp_num;
++
++	rtn = sl_media_data_jack_media_attr_set(media_jack, &media_jack->cable_info[0], media_attr);
++	if (rtn) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "media attr set failed [%d]", rtn);
++		sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_MEDIA_ATTR_SET);
++		return rtn;
++	}
++
++	return 0;
++}
++
++static void sl_media_jack_cable_attr_errors_update(struct sl_media_jack *media_jack, u32 errors)
++{
++	sl_media_log_dbg(media_jack, LOG_NAME, "cable attr errors update");
++
++	/*
++	 * only first element is valid in cable_info since single lgrp on nic
++	 */
++	media_jack->cable_info[0].media_attr.errors |= errors;
++}
++
++static void sl_media_data_jack_cable_attr_send(struct sl_media_jack *media_jack)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "cable attr send");
++
++	/*
++	 * only first element is valid in cable_info since single lgrp on nic
++	 */
++	media_lgrp = sl_media_data_lgrp_get(media_jack->cable_info[0].ldev_num,
++					    media_jack->cable_info[0].lgrp_num);
++	if (media_lgrp)
++		sl_media_data_jack_cable_if_present_send(media_lgrp);
++}
++
++int sl_media_jack_cable_insert(u8 ldev_num, u8 lgrp_num, u8 jack_num,
++			       u8 *eeprom_page0, u8 *eeprom_page1, u32 flags)
++{
++	int                   rtn;
++	struct sl_media_attr  media_attr;
++	struct sl_media_jack *media_jack;
++
++	media_jack = sl_media_data_jack_get(ldev_num, jack_num);
++	if (!media_jack) {
++		sl_media_log_err(NULL, LOG_NAME, "media_data_jack_get failed");
++		return -EFAULT;
++	}
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "cable insert");
++
++	/* Start clean so nothing from the previous cable is inherited */
++	sl_media_data_jack_cable_state_clr(media_jack);
++
++	sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_NONE);
++
++	memset(&media_attr, 0, sizeof(struct sl_media_attr));
++
++	media_attr.magic    = SL_MEDIA_ATTR_MAGIC;
++	media_attr.ver      = SL_MEDIA_ATTR_VER;
++	media_attr.size     = sizeof(struct sl_media_attr);
++	media_attr.errors   = 0;
++	media_attr.info     = 0;
++
++	if (flags & SL_MEDIA_TYPE_BACKPLANE) {
++		media_attr.vendor        = SL_MEDIA_VENDOR_HPE;
++		media_attr.type          = SL_MEDIA_TYPE_BKP;
++		media_attr.info          = SL_MEDIA_INFO_AUTONEG;
++		media_attr.length_cm     = 25;
++		media_attr.hpe_pn        = 60821555;
++		media_attr.furcation     = SL_MEDIA_FURCATION_X1;
++		media_attr.speeds_map    = SL_MEDIA_SPEEDS_SUPPORT_CK_400G |
++					   SL_MEDIA_SPEEDS_SUPPORT_CK_200G |
++					   SL_MEDIA_SPEEDS_SUPPORT_BS_200G |
++					   SL_MEDIA_SPEEDS_SUPPORT_CK_100G |
++					   SL_MEDIA_SPEEDS_SUPPORT_CD_100G |
++					   SL_MEDIA_SPEEDS_SUPPORT_BJ_100G |
++					   SL_MEDIA_SPEEDS_SUPPORT_CD_50G;
++		media_attr.max_speed     = SL_MEDIA_SPEEDS_SUPPORT_CK_400G;
++		media_attr.jack_type     = SL_MEDIA_JACK_TYPE_BACKPLANE;
++		strscpy_pad(media_attr.serial_num_str, "AK20212120", sizeof(media_attr.serial_num_str));
++		strscpy_pad(media_attr.hpe_pn_str, "PK60821-555", sizeof(media_attr.hpe_pn_str));
++		strscpy_pad(media_attr.date_code_str, "08-19-21", sizeof(media_attr.date_code_str));
++		memset(media_attr.fw_ver, 0, sizeof(media_attr.fw_ver));
++	} else {
++		memcpy(media_jack->eeprom_page0, eeprom_page0, SL_MEDIA_EEPROM_PAGE_SIZE);
++
++		sl_media_data_jack_eeprom_page1_get(media_jack, eeprom_page1);
++
++		rtn = sl_media_eeprom_format_get(media_jack, &(media_attr.format));
++		if (rtn) {
++			sl_media_log_warn_trace(media_jack, LOG_NAME, "eeprom format unsupported");
++			memset(&media_attr, 0, sizeof(struct sl_media_attr));
++			media_attr.errors |= SL_MEDIA_ERROR_CABLE_FORMAT_UNSUPPORTED;
++			media_attr.errors |= SL_MEDIA_ERROR_TRYABLE;
++			rtn = sl_media_jack_cable_attr_set(media_jack, ldev_num, lgrp_num, &media_attr);
++			if (rtn)
++				sl_media_log_err_trace(media_jack, LOG_NAME, "cable attr set failed [%d]", rtn);
++			sl_media_data_jack_cable_attr_send(media_jack);
++			return 0;
++		}
++
++		sl_media_eeprom_parse(media_jack, &media_attr);
++
++		if (media_attr.type == SL_MEDIA_TYPE_PEC)
++			media_attr.info |= SL_MEDIA_INFO_AUTONEG;
++
++		rtn = sl_media_data_cable_db_ops_cable_validate(&media_attr, media_jack);
++		if (rtn) {
++			sl_media_log_warn_trace(media_jack, LOG_NAME,
++						"cable validate failed [%d] (vendor = %d %s, type = 0x%X %s, length_cm = %d, speeds = 0x%lX)",
++						rtn, media_attr.vendor, sl_media_vendor_str(media_attr.vendor),
++						media_attr.type, sl_media_type_str(media_attr.type),
++						media_attr.length_cm, media_attr.speeds_map);
++
++			media_jack->is_cable_unsupported = true;
++			media_attr.errors |= SL_MEDIA_ERROR_CABLE_UNSUPPORTED;
++			media_attr.errors |= SL_MEDIA_ERROR_TRYABLE;
++		}
++
++		if (SL_MEDIA_LGRP_MEDIA_TYPE_IS_ACTIVE(media_attr.type) &&
++		    !media_jack->is_cable_unsupported && !media_jack->is_supported_ss200_cable) {
++			if (!sl_media_eeprom_is_fw_version_supported(media_jack, &media_attr)) {
++				sl_media_log_warn_trace(media_jack, LOG_NAME, "eeprom fw version unsupported");
++				media_attr.errors |= SL_MEDIA_ERROR_CABLE_FW_UNSUPPORTED;
++				media_attr.errors |= SL_MEDIA_ERROR_TRYABLE;
++			}
++			/*
++			 * disallow BJ100 speed on active cables
++			 */
++			media_attr.speeds_map &= ~SL_MEDIA_SPEEDS_SUPPORT_BJ_100G;
++		}
++
++		if (media_jack->is_supported_ss200_cable) {
++			media_attr.speeds_map  = 0;
++			media_attr.speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_BS_200G;
++			media_attr.speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_CD_100G;
++			media_attr.speeds_map |= SL_MEDIA_SPEEDS_SUPPORT_CD_50G;
++			media_attr.info       |= SL_MEDIA_INFO_SUPPORTED_SS200_CABLE;
++		}
++
++		media_attr.jack_type = SL_MEDIA_JACK_TYPE_QSFP;
++		media_attr.jack_type_info.qsfp.density = SL_MEDIA_QSFP_DENSITY_SINGLE;
++	}
++
++	rtn = sl_media_jack_cable_attr_set(media_jack, ldev_num, lgrp_num, &media_attr);
++	if (rtn) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "cable attr set failed [%d]", rtn);
++		return 0;
++	}
++
++	if (media_jack->is_cable_unsupported)
++		flags |= SL_MEDIA_TYPE_UNSUPPORTED;
++	if (media_attr.vendor == SL_MEDIA_VENDOR_MULTILANE)
++		flags |= SL_MEDIA_TYPE_LOOPBACK;
++	rtn = sl_media_data_cable_db_ops_serdes_settings_get(media_jack, media_attr.type, flags);
++	if (rtn) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "serdes settings get failed [%d]", rtn);
++		sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_SERDES_SETTINGS_GET);
++		sl_media_data_jack_cable_attr_send(media_jack);
++		return 0;
++	}
++
++	if (SL_MEDIA_LGRP_MEDIA_TYPE_IS_ACTIVE(media_attr.type)) {
++		rtn = sl_media_data_jack_cable_soft_reset(media_jack);
++		if (rtn) {
++			sl_media_log_err_trace(media_jack, LOG_NAME, "cable soft reset failed [%d]", rtn);
++			sl_media_jack_state_set(media_jack, SL_MEDIA_JACK_CABLE_ERROR);
++			sl_media_jack_cable_attr_errors_update(media_jack, SL_MEDIA_ERROR_CABLE_HEADSHELL_FAULT);
++			sl_media_data_jack_cable_attr_send(media_jack);
++			return rtn;
++		}
++
++		/* must be last in the sequence because it needs time to load firmware */
++		rtn = sl_media_jack_cable_high_power_set(ldev_num, jack_num);
++		if (rtn) {
++			sl_media_log_err_trace(media_jack, LOG_NAME, "cable high power set failed [%d]", rtn);
++			sl_media_jack_state_set(media_jack, SL_MEDIA_JACK_CABLE_ERROR);
++			sl_media_jack_cable_attr_errors_update(media_jack, SL_MEDIA_ERROR_CABLE_HEADSHELL_FAULT);
++			sl_media_data_jack_cable_attr_send(media_jack);
++			return 0;
++		}
++	}
++
++	rtn = sl_sysfs_media_speeds_create(ldev_num, lgrp_num);
++	if (rtn) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "media speeds create failed [%d]", rtn);
++		sl_media_data_jack_cable_attr_send(media_jack);
++		return rtn;
++	}
++
++	if (SL_MEDIA_LGRP_MEDIA_TYPE_IS_ACTIVE(media_attr.type)) {
++		if (sl_media_data_jack_cable_hw_shift_state_get(media_jack) ==
++		    SL_MEDIA_JACK_CABLE_HW_SHIFT_STATE_DOWNSHIFTED)
++			sl_media_jack_cable_shift_state_set(media_jack, SL_MEDIA_JACK_CABLE_SHIFT_STATE_DOWNSHIFTED);
++		else if (sl_media_data_jack_cable_hw_shift_state_get(media_jack) ==
++			 SL_MEDIA_JACK_CABLE_HW_SHIFT_STATE_UPSHIFTED)
++			sl_media_jack_cable_shift_state_set(media_jack, SL_MEDIA_JACK_CABLE_SHIFT_STATE_UPSHIFTED);
++		else
++			sl_media_jack_cable_shift_state_set(media_jack, SL_MEDIA_JACK_CABLE_SHIFT_STATE_NOTSHIFTED);
++	}
++
++	sl_media_jack_state_set(media_jack, SL_MEDIA_JACK_CABLE_ONLINE);
++
++	sl_media_data_jack_cable_attr_send(media_jack);
++
++	return 0;
++}
++
++int sl_media_jack_cable_remove(u8 ldev_num, u8 lgrp_num, u8 jack_num)
++{
++	struct sl_media_jack *media_jack;
++
++	media_jack = sl_media_data_jack_get(ldev_num, jack_num);
++	if (!media_jack) {
++		sl_media_log_err(NULL, LOG_NAME, "media_data_jack_get failed");
++		return -EFAULT;
++	}
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "cable remove");
++
++	sl_sysfs_media_speeds_delete(ldev_num, lgrp_num);
++
++	/*
++	 * only first element is valid in cable_info since single lgrp on nic
++	 */
++	sl_media_data_jack_media_attr_clr(media_jack, &media_jack->cable_info[0]);
++	sl_media_data_cable_serdes_settings_clr(media_jack);
++	sl_media_data_jack_eeprom_clr(media_jack);
++	sl_media_data_jack_cable_state_clr(media_jack);
++
++	sl_media_jack_state_set(media_jack, SL_MEDIA_JACK_CABLE_REMOVED);
++	sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_NONE);
++
++	return 0;
++}
++
++int sl_media_jack_cable_temp_hw_check(struct sl_media_jack *media_jack)
++{
++	return SL_MEDIA_JACK_TEMP_STATE_COLD;
++}
++
++void sl_media_jack_cable_hot_notif_send(struct sl_media_jack *media_jack)
++{
++}
++
++void sl_media_jack_cable_warm_notif_send(struct sl_media_jack *media_jack)
++{
++}
++
++void sl_media_jack_cable_cold_notif_send(struct sl_media_jack *media_jack)
++{
++}
++
++void sl_media_jack_cable_hot_notif_sent_set(struct sl_media_jack *media_jack,
++					    struct sl_media_lgrp_cable_info *cable_info, bool value)
++{
++}
++
++void sl_media_jack_cable_warm_notif_sent_set(struct sl_media_jack *media_jack,
++					     struct sl_media_lgrp_cable_info *cable_info, bool value)
++{
++}
++
++void sl_media_jack_cable_cold_notif_sent_set(struct sl_media_jack *media_jack,
++					     struct sl_media_lgrp_cable_info *cable_info, bool value)
++{
++}
+diff --git a/drivers/net/ethernet/hpe/sl/media/nic/sl_media_ldev.c b/drivers/net/ethernet/hpe/sl/media/nic/sl_media_ldev.c
+new file mode 100644
+index 000000000000..6902223eb76a
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/sl/media/nic/sl_media_ldev.c
+@@ -0,0 +1,13 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2025 Hewlett Packard Enterprise Development LP */
++
++#include <linux/types.h>
++
++#include "sl_media_ldev.h"
++#include "data/sl_media_data_ldev.h"
++
++int sl_media_ldev_uc_ops_set(u8 ldev_num, struct sl_uc_ops *uc_ops,
++			     struct sl_uc_accessor *uc_accessor)
++{
++	return sl_media_data_ldev_uc_ops_set(ldev_num, uc_ops, uc_accessor);
++}
+diff --git a/drivers/net/ethernet/hpe/sl/media/sl_media_jack.c b/drivers/net/ethernet/hpe/sl/media/sl_media_jack.c
+new file mode 100644
+index 000000000000..14be1d19c097
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/sl/media/sl_media_jack.c
+@@ -0,0 +1,1067 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2024-2026 Hewlett Packard Enterprise Development LP */
++
++#include <linux/types.h>
++#include <linux/delay.h>
++
++#include "sl_asic.h"
++#include "sl_core_link.h"
++#include "sl_media_jack.h"
++#include "sl_media_lgrp.h"
++#include "sl_media_io.h"
++#include "data/sl_media_data_jack.h"
++#include "base/sl_media_log.h"
++
++#define LOG_NAME SL_MEDIA_JACK_LOG_NAME
++
++#define SL_MEDIA_JACK_SIGNAL_CACHE_LIFETIME_MS 1200
++#define SL_MEDIA_JACK_SIGNAL_READ_TIMEOUT_MS   (2 * SL_MEDIA_JACK_SIGNAL_CACHE_LIFETIME_MS)
++#define SL_MEDIA_JACK_MAX_NUM_LANE_DATA_READS  4
++#define SL_MEDIA_JACK_LANE_DATA_POLL_TIME_MS   (SL_MEDIA_JACK_SIGNAL_CACHE_LIFETIME_MS / \
++						SL_MEDIA_JACK_MAX_NUM_LANE_DATA_READS)
++
++#define SWAP_BYTE_NIBBLE(_x) ({                    \
++	typeof(_x) __x = (_x);                     \
++	((__x & 0x0F) << 4) | ((__x & 0xF0) >> 4); \
++})
++
++#define MEDIA_LANE_DP_STATE_GET(_lane_data, _lane_num) ({ \
++	typeof(_lane_data) __lane_data = (_lane_data);    \
++	typeof(_lane_num)  __lane_num  = (_lane_num);     \
++	(__lane_data)->dp_states[__lane_num / 2] >>       \
++		(4 * (__lane_num & 1)) & 0x0F;            \
++})
++
++#define SL_MEDIA_JACK_SIGNAL_INFO_ALLOWED(_dp_state) ({         \
++	typeof(_dp_state) __dp_state = (_dp_state);             \
++	((__dp_state) == SL_MEDIA_JACK_DP_STATE_ACTIVATED)   || \
++	((__dp_state) == SL_MEDIA_JACK_DP_STATE_TX_TURN_ON)  || \
++	((__dp_state) == SL_MEDIA_JACK_DP_STATE_TX_TURN_OFF) || \
++	((__dp_state) == SL_MEDIA_JACK_DP_STATE_INITIALIZED);   \
++})
++
++enum sl_media_cable_shift {
++	SL_MEDIA_JACK_CABLE_DOWNSHIFT,
++	SL_MEDIA_JACK_CABLE_UPSHIFT,
++};
++
++int sl_media_jack_new(struct sl_media_ldev *media_ldev, u8 jack_num)
++{
++	return sl_media_data_jack_new(media_ldev, jack_num);
++}
++
++void sl_media_jack_del(u8 ldev_num, u8 jack_num)
++{
++	sl_media_data_jack_del(ldev_num, jack_num);
++}
++
++struct sl_media_jack *sl_media_jack_get(u8 ldev_num, u8 jack_num)
++{
++	return sl_media_data_jack_get(ldev_num, jack_num);
++}
++
++void sl_media_jack_state_set(struct sl_media_jack *media_jack, u8 jack_state)
++{
++	spin_lock(&media_jack->data_lock);
++	media_jack->state = jack_state;
++	spin_unlock(&media_jack->data_lock);
++
++	sl_media_data_jack_led_set(media_jack);
++}
++
++int sl_media_jack_state_get(struct sl_media_jack *media_jack, u8 *state)
++{
++	spin_lock(&media_jack->data_lock);
++	*state = media_jack->state;
++	spin_unlock(&media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_jack_cable_end_get(struct sl_media_jack *media_jack, u8 *cable_end)
++{
++	spin_lock(&media_jack->data_lock);
++	*cable_end = media_jack->cable_end;
++	spin_unlock(&media_jack->data_lock);
++
++	return 0;
++}
++
++bool sl_media_jack_is_high_powered(struct sl_media_jack *media_jack)
++{
++	bool is_high_powered;
++
++	spin_lock(&media_jack->data_lock);
++	is_high_powered = media_jack->is_high_powered;
++	spin_unlock(&media_jack->data_lock);
++
++	return is_high_powered;
++}
++
++void sl_media_jack_cable_shift_state_set(struct sl_media_jack *media_jack, u8 state)
++{
++	spin_lock(&media_jack->data_lock);
++	media_jack->cable_shift_state = state;
++	spin_unlock(&media_jack->data_lock);
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "cable shift state set = %u", media_jack->cable_shift_state);
++}
++
++int sl_media_jack_cable_shift_state_get(struct sl_media_jack *media_jack, u8 *cable_shift_state)
++{
++	spin_lock(&media_jack->data_lock);
++	*cable_shift_state = media_jack->cable_shift_state;
++	spin_unlock(&media_jack->data_lock);
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "cable shift state get = %u", *cable_shift_state);
++
++	return 0;
++}
++
++bool sl_media_jack_is_cable_online(struct sl_media_jack *media_jack)
++{
++	u8 state;
++
++	spin_lock(&media_jack->data_lock);
++	state = media_jack->state;
++	spin_unlock(&media_jack->data_lock);
++
++	return (state == SL_MEDIA_JACK_CABLE_ONLINE);
++}
++
++bool sl_media_jack_is_cable_format_unsupported(struct sl_media_jack *media_jack)
++{
++	bool is_format_unsupported;
++
++	spin_lock(&media_jack->data_lock);
++	is_format_unsupported = media_jack->is_cable_format_unsupported;
++	spin_unlock(&media_jack->data_lock);
++
++	return is_format_unsupported;
++}
++
++int sl_media_jack_active_cable_200g_host_interface_get(struct sl_media_jack *media_jack, u8 *host_interface_200_gaui)
++{
++	spin_lock(&media_jack->data_lock);
++	*host_interface_200_gaui = media_jack->host_interface_200_gaui;
++	spin_unlock(&media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_jack_active_cable_200g_appsel_num_get(struct sl_media_jack *media_jack, u8 *appsel_num_200_gaui)
++{
++	spin_lock(&media_jack->data_lock);
++	*appsel_num_200_gaui = media_jack->appsel_num_200_gaui;
++	spin_unlock(&media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_jack_active_cable_200g_lane_count_get(struct sl_media_jack *media_jack, u8 *lane_count_200_gaui)
++{
++	spin_lock(&media_jack->data_lock);
++	*lane_count_200_gaui = media_jack->lane_count_200_gaui;
++	spin_unlock(&media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_jack_active_cable_400g_host_interface_get(struct sl_media_jack *media_jack, u8 *host_interface_400_gaui)
++{
++	spin_lock(&media_jack->data_lock);
++	*host_interface_400_gaui = media_jack->host_interface_400_gaui;
++	spin_unlock(&media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_jack_active_cable_400g_appsel_num_get(struct sl_media_jack *media_jack, u8 *appsel_num_400_gaui)
++{
++	spin_lock(&media_jack->data_lock);
++	*appsel_num_400_gaui = media_jack->appsel_num_400_gaui;
++	spin_unlock(&media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_jack_active_cable_400g_lane_count_get(struct sl_media_jack *media_jack, u8 *lane_count_400_gaui)
++{
++	spin_lock(&media_jack->data_lock);
++	*lane_count_400_gaui = media_jack->lane_count_400_gaui;
++	spin_unlock(&media_jack->data_lock);
++
++	return 0;
++}
++
++#define SL_MEDIA_HIGH_POWER_WAIT_TIME 10000
++int sl_media_jack_cable_high_power_set(u8 ldev_num, u8 jack_num)
++{
++	int                   rtn;
++	struct sl_media_jack *media_jack;
++
++	media_jack = sl_media_jack_get(ldev_num, jack_num);
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "high power set");
++
++	rtn = sl_media_data_jack_cable_high_power_set(media_jack);
++	if (rtn) {
++		sl_media_jack_fault_cause_set(media_jack, SL_MEDIA_FAULT_CAUSE_POWER_SET);
++		sl_media_log_err_trace(media_jack, LOG_NAME, "high power set failed [%d]", rtn);
++		return -EIO;
++	}
++
++	media_jack->cable_high_power_wait_time_end = jiffies +
++		msecs_to_jiffies(SL_MEDIA_HIGH_POWER_WAIT_TIME);
++
++	return 0;
++}
++
++static int sl_media_jack_cable_shift_checks(struct sl_media_lgrp *media_lgrp, u8 shift_state)
++{
++	u8 i;
++
++	sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME, "cable shift checks");
++
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	if (media_lgrp->media_jack->state != SL_MEDIA_JACK_CABLE_ONLINE) {
++		media_lgrp->media_jack->cable_shift_state = SL_MEDIA_JACK_CABLE_SHIFT_STATE_FAILED_NO_CABLE;
++		spin_unlock(&media_lgrp->media_jack->data_lock);
++		sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME, "shift check failed - no online cable");
++		return -EFAULT;
++	}
++
++	for (i = 0; i < SL_MEDIA_MAX_LGRPS_PER_JACK; ++i) {
++		if (media_lgrp->media_jack->cable_info[i].real_cable_status == CABLE_MEDIA_ATTR_STASHED) {
++			media_lgrp->media_jack->cable_shift_state = SL_MEDIA_JACK_CABLE_SHIFT_STATE_FAILED_FAKE_CABLE;
++			spin_unlock(&media_lgrp->media_jack->data_lock);
++			sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME,
++					 "shift check failed - fake cable (lgrp_num = %u)",
++					 media_lgrp->media_jack->cable_info[i].lgrp_num);
++			return -EFAULT;
++		}
++	}
++	if (!(media_lgrp->media_jack->cable_info[0].media_attr.speeds_map &
++			(SL_MEDIA_SPEEDS_SUPPORT_CK_400G | SL_MEDIA_SPEEDS_SUPPORT_BS_200G))) {
++		media_lgrp->media_jack->cable_shift_state = SL_MEDIA_JACK_CABLE_SHIFT_STATE_FAILED_NO_SUPPORT;
++		spin_unlock(&media_lgrp->media_jack->data_lock);
++		sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME,
++				 "shift check failed - no shift support in cable");
++		return -EINVAL;
++	}
++	if (shift_state == SL_MEDIA_JACK_CABLE_DOWNSHIFT) {
++		if ((media_lgrp->media_jack->host_interface_200_gaui != SL_MEDIA_SS1_HOST_INTERFACE_200GAUI_4_C2M) ||
++		    (media_lgrp->media_jack->lane_count_200_gaui != 0x44) ||
++			(media_lgrp->media_jack->host_interface_400_gaui == 0)) {
++			media_lgrp->media_jack->cable_shift_state = SL_MEDIA_JACK_CABLE_SHIFT_STATE_FAILED_CHECK;
++			spin_unlock(&media_lgrp->media_jack->data_lock);
++			sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME,
++					 "downshift check failed - invalid host interface and/or lane count");
++			return -EINVAL;
++		}
++	} else {
++		if (((media_lgrp->media_jack->host_interface_400_gaui != SL_MEDIA_SS2_HOST_INTERFACE_400GAUI_4_S_C2M) &&
++		     (media_lgrp->media_jack->host_interface_400_gaui != SL_MEDIA_SS1_HOST_INTERFACE_400GAUI_4_L_C2M)) ||
++			(media_lgrp->media_jack->lane_count_400_gaui != 0x44)) {
++			media_lgrp->media_jack->cable_shift_state = SL_MEDIA_JACK_CABLE_SHIFT_STATE_FAILED_CHECK;
++			spin_unlock(&media_lgrp->media_jack->data_lock);
++			sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME,
++					 "upshift check failed - invalid host interface and/or lane count");
++			return -EINVAL;
++		}
++	}
++
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_jack_cable_downshift(u8 ldev_num, u8 lgrp_num, u8 link_num)
++{
++	int                   rtn;
++	struct sl_media_lgrp *media_lgrp;
++	struct sl_core_link *core_link __free(sl_core_link_put) = NULL;
++	struct sl_media_attr  media_attr;
++
++	media_lgrp = sl_media_lgrp_get(ldev_num, lgrp_num);
++	core_link = sl_core_link_get(ldev_num, lgrp_num, link_num);
++	if (!core_link)
++		return -ENODEV;
++
++	sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME, "cable downshift");
++
++	if (media_lgrp->media_jack->is_cable_unsupported) {
++		sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME, "cable unsupported - shift not required");
++		return 0;
++	}
++
++	if (media_lgrp->media_jack->is_supported_ss200_cable) {
++		sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME, "ss200 cable - shift not required");
++		return 0;
++	}
++
++	if (!sl_media_lgrp_media_type_is_active(media_lgrp->media_ldev->num, media_lgrp->num)) {
++		sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME, "non-active cable - shift not required");
++		return 0;
++	}
++
++	if (sl_media_data_jack_cable_hw_shift_state_get(media_lgrp->media_jack) == SL_MEDIA_JACK_CABLE_HW_SHIFT_STATE_DOWNSHIFTED) {
++		sl_media_jack_cable_shift_state_set(media_lgrp->media_jack, SL_MEDIA_JACK_CABLE_SHIFT_STATE_DOWNSHIFTED);
++		sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME, "already downshifted");
++		return 0;
++	}
++
++	rtn = sl_media_jack_cable_shift_checks(media_lgrp, SL_MEDIA_JACK_CABLE_DOWNSHIFT);
++	if (rtn) {
++		sl_media_log_err_trace(media_lgrp->media_jack, LOG_NAME, "cable shift checks failed [%d]", rtn);
++		return 0;
++	}
++
++	if (!sl_core_link_policy_is_ignore_media_errors_set(core_link)) {
++		sl_media_lgrp_media_attr_get(ldev_num, lgrp_num, &media_attr);
++		if (media_attr.errors & SL_MEDIA_ERROR_CABLE_FW_UNSUPPORTED) {
++			sl_media_log_err_trace(media_lgrp->media_jack, LOG_NAME,
++					       "can't downshift - cable firmware unsupported");
++			return 0;
++		}
++	}
++
++	rtn = sl_media_data_jack_cable_downshift(media_lgrp->media_jack);
++	if (rtn) {
++		sl_media_jack_cable_shift_state_set(media_lgrp->media_jack,
++						    SL_MEDIA_JACK_CABLE_SHIFT_STATE_FAILED_DOWNSHIFT);
++		sl_media_log_err_trace(media_lgrp->media_jack, LOG_NAME, "data jack cable downshift failed [%d]", rtn);
++		return rtn;
++	}
++
++	sl_media_jack_cable_shift_state_set(media_lgrp->media_jack, SL_MEDIA_JACK_CABLE_SHIFT_STATE_DOWNSHIFTED);
++
++	return 0;
++}
++
++int sl_media_jack_cable_upshift(u8 ldev_num, u8 lgrp_num, u8 link_num)
++{
++	int                   rtn;
++	struct sl_media_lgrp *media_lgrp;
++	struct sl_core_link *core_link __free(sl_core_link_put) = NULL;
++	struct sl_media_attr  media_attr;
++
++	media_lgrp = sl_media_lgrp_get(ldev_num, lgrp_num);
++	core_link = sl_core_link_get(ldev_num, lgrp_num, link_num);
++	if (!core_link)
++		return -ENODEV;
++
++	sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME, "cable upshift");
++
++	if (media_lgrp->media_jack->is_cable_unsupported) {
++		sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME, "cable unsupported - shift not required");
++		return 0;
++	}
++
++	if (media_lgrp->media_jack->is_supported_ss200_cable) {
++		sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME, "ss200 cable - shift not required");
++		return 0;
++	}
++
++	if (!sl_media_lgrp_media_type_is_active(media_lgrp->media_ldev->num, media_lgrp->num)) {
++		sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME, "non-active cable - shift not required");
++		return 0;
++	}
++
++	if (sl_media_data_jack_cable_hw_shift_state_get(media_lgrp->media_jack) == SL_MEDIA_JACK_CABLE_HW_SHIFT_STATE_UPSHIFTED) {
++		sl_media_jack_cable_shift_state_set(media_lgrp->media_jack, SL_MEDIA_JACK_CABLE_SHIFT_STATE_UPSHIFTED);
++		sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME, "already upshifted");
++		return 0;
++	}
++
++	rtn = sl_media_jack_cable_shift_checks(media_lgrp, SL_MEDIA_JACK_CABLE_UPSHIFT);
++	if (rtn) {
++		sl_media_log_err_trace(media_lgrp->media_jack, LOG_NAME, "cable shift checks failed [%d]", rtn);
++		return 0;
++	}
++
++	if (!sl_core_link_policy_is_ignore_media_errors_set(core_link)) {
++		sl_media_lgrp_media_attr_get(ldev_num, lgrp_num, &media_attr);
++		if (media_attr.errors & SL_MEDIA_ERROR_CABLE_FW_UNSUPPORTED) {
++			sl_media_log_err_trace(media_lgrp->media_jack, LOG_NAME,
++					       "can't upshift - cable firmware unsupported");
++			return 0;
++		}
++	}
++
++	rtn = sl_media_data_jack_cable_upshift(media_lgrp->media_jack);
++	if (rtn) {
++		sl_media_jack_cable_shift_state_set(media_lgrp->media_jack,
++						    SL_MEDIA_JACK_CABLE_SHIFT_STATE_FAILED_UPSHIFT);
++		sl_media_log_err_trace(media_lgrp->media_jack, LOG_NAME, "data jack cable upshift failed [%d]", rtn);
++		return rtn;
++	}
++
++	sl_media_jack_cable_shift_state_set(media_lgrp->media_jack, SL_MEDIA_JACK_CABLE_SHIFT_STATE_UPSHIFTED);
++
++	return 0;
++}
++
++void sl_media_jack_fault_cause_set(struct sl_media_jack *media_jack, u32 fault_cause)
++{
++	spin_lock(&media_jack->data_lock);
++	media_jack->fault_cause = fault_cause;
++	media_jack->fault_time  = ktime_get_real_seconds();
++	spin_unlock(&media_jack->data_lock);
++
++	if (fault_cause == SL_MEDIA_FAULT_CAUSE_NONE)
++		return;
++
++	if (fault_cause == SL_MEDIA_FAULT_CAUSE_HOT)
++		sl_media_data_jack_led_set(media_jack);
++
++	sl_ctrl_media_cause_counter_inc(media_jack, fault_cause);
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "fault cause set (cause = %u %s)", fault_cause,
++			 sl_media_fault_cause_str(fault_cause));
++}
++
++int sl_media_jack_fault_cause_get(struct sl_media_jack *media_jack, u32 *fault_cause,
++				  time64_t *fault_time)
++{
++	spin_lock(&media_jack->data_lock);
++	*fault_cause = media_jack->fault_cause;
++	*fault_time  = media_jack->fault_time;
++	spin_unlock(&media_jack->data_lock);
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "cable fault cause get (cause = %u %s)", *fault_cause,
++			 sl_media_fault_cause_str(*fault_cause));
++
++	return 0;
++}
++
++const char *sl_media_fault_cause_str(u32 fault_cause)
++{
++	switch (fault_cause) {
++	case SL_MEDIA_FAULT_CAUSE_EEPROM_FORMAT_UNSUPPORTED:
++		return "eeprom-format-unsupported";
++	case SL_MEDIA_FAULT_CAUSE_EEPROM_VENDOR_UNSUPPORTED:
++		return "eeprom-vendor-unsupported";
++	case SL_MEDIA_FAULT_CAUSE_EEPROM_JACK_IO:
++		return "eeprom-jack-io";
++	case SL_MEDIA_FAULT_CAUSE_ONLINE_STATUS_GET:
++		return "online-status-get";
++	case SL_MEDIA_FAULT_CAUSE_ONLINE_TIMEDOUT:
++		return "online-timedout";
++	case SL_MEDIA_FAULT_CAUSE_ONLINE_JACK_IO:
++		return "online-jack-io";
++	case SL_MEDIA_FAULT_CAUSE_ONLINE_JACK_GET:
++		return "online-jack-get";
++	case SL_MEDIA_FAULT_CAUSE_SERDES_SETTINGS_GET:
++		return "serdes-settings-get";
++	case SL_MEDIA_FAULT_CAUSE_SCAN_STATUS_GET:
++		return "scan-status-get";
++	case SL_MEDIA_FAULT_CAUSE_SCAN_HDL_GET:
++		return "scan-hdl-get";
++	case SL_MEDIA_FAULT_CAUSE_SCAN_JACK_GET:
++		return "scan-jack-get";
++	case SL_MEDIA_FAULT_CAUSE_MEDIA_ATTR_SET:
++		return "media-attr-set";
++	case SL_MEDIA_FAULT_CAUSE_INTR_EVENT_JACK_IO:
++		return "intr-event-jack-io";
++	case SL_MEDIA_FAULT_CAUSE_POWER_SET:
++		return "power-set";
++	case SL_MEDIA_FAULT_CAUSE_SHIFT_DOWN_JACK_IO:
++		return "shift-down-jack-io";
++	case SL_MEDIA_FAULT_CAUSE_SHIFT_DOWN_JACK_IO_LOW_POWER_SET:
++		return "shift-down-jack-io-low-power-set";
++	case SL_MEDIA_FAULT_CAUSE_SHIFT_DOWN_JACK_IO_HIGH_POWER_SET:
++		return "shift-down-jack-io-high-power-set";
++	case SL_MEDIA_FAULT_CAUSE_SHIFT_UP_JACK_IO:
++		return "shift-up-jack-io";
++	case SL_MEDIA_FAULT_CAUSE_SHIFT_UP_JACK_IO_LOW_POWER_SET:
++		return "shift-up-jack-io-low-power-set";
++	case SL_MEDIA_FAULT_CAUSE_SHIFT_UP_JACK_IO_HIGH_POWER_SET:
++		return "shift-up-jack-io-high-power-set";
++	case SL_MEDIA_FAULT_CAUSE_SHIFT_STATE_JACK_IO:
++		return "shift-state-jack-io";
++	case SL_MEDIA_FAULT_CAUSE_OFFLINE:
++		return "offline";
++	case SL_MEDIA_FAULT_CAUSE_HOT:
++		return "hot";
++	case SL_MEDIA_FAULT_CAUSE_WARM:
++		return "warm";
++	default:
++		return "unknown";
++	}
++}
++
++const char *sl_media_temp_state_str(u8 temperature_state)
++{
++	switch (temperature_state) {
++	case SL_MEDIA_JACK_TEMP_STATE_COLD:
++		return "cold";
++	case SL_MEDIA_JACK_TEMP_STATE_WARM:
++		return "warm";
++	case SL_MEDIA_JACK_TEMP_STATE_HOT:
++		return "hot";
++	default:
++		return "unknown";
++	}
++}
++
++int sl_media_jack_cable_temp_state_get(struct sl_media_jack *media_jack, u8 *temperature_state)
++{
++	return sl_media_data_jack_cable_temp_state_get(media_jack, temperature_state);
++}
++
++int sl_media_jack_cable_temp_prev_state_get(struct sl_media_jack *media_jack, u8 *temperature_prev_state)
++{
++	return sl_media_data_jack_cable_temp_prev_state_get(media_jack, temperature_prev_state);
++}
++
++int sl_media_jack_cable_temp_get(u8 ldev_num, u8 lgrp_num, u8 *temp)
++{
++	struct sl_media_lgrp *group = sl_media_lgrp_get(ldev_num, lgrp_num);
++
++	if (!group || !group->media_jack)
++		return -EBADRQC;
++	return sl_media_data_jack_cable_temp_get(group->media_jack, temp);
++}
++
++int sl_media_jack_cable_temp_warn_limit_get(u8 ldev_num, u8 lgrp_num, u8 *temp_warn_limit_c)
++{
++	struct sl_media_lgrp *group = sl_media_lgrp_get(ldev_num, lgrp_num);
++
++	if (!group || !group->media_jack)
++		return -EBADRQC;
++	return sl_media_data_jack_cable_temp_warn_limit_get(group->media_jack,
++							 temp_warn_limit_c);
++}
++
++int sl_media_jack_cable_temp_down_limit_get(u8 ldev_num, u8 lgrp_num, u8 *temp_down_limit_c)
++{
++	struct sl_media_lgrp *group = sl_media_lgrp_get(ldev_num, lgrp_num);
++
++	if (!group || !group->media_jack)
++		return -EBADRQC;
++	return sl_media_data_jack_cable_temp_down_limit_get(group->media_jack,
++							 temp_down_limit_c);
++}
++
++int sl_media_jack_cable_low_power_set(struct sl_media_jack *media_jack)
++{
++	return sl_media_data_jack_cable_low_power_set(media_jack);
++}
++
++void sl_media_jack_led_set(u8 ldev_num, u8 lgrp_num)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	media_lgrp = sl_media_lgrp_get(ldev_num, lgrp_num);
++
++	sl_media_log_dbg(media_lgrp->media_jack, LOG_NAME, "led set");
++
++	sl_media_data_jack_led_set(media_lgrp->media_jack);
++}
++
++static const char *sl_media_jack_lane_dp_state_str(u8 dp_state)
++{
++	switch (dp_state) {
++	case SL_MEDIA_JACK_DP_STATE_DEACTIVATED:
++		return "dp-deactivated";
++	case SL_MEDIA_JACK_DP_STATE_INIT:
++		return "dp-init";
++	case SL_MEDIA_JACK_DP_STATE_DEINIT:
++		return "dp-deinit";
++	case SL_MEDIA_JACK_DP_STATE_ACTIVATED:
++		return "dp-activated";
++	case SL_MEDIA_JACK_DP_STATE_TX_TURN_ON:
++		return "dp-tx-turn-on";
++	case SL_MEDIA_JACK_DP_STATE_TX_TURN_OFF:
++		return "dp-tx-turn-off";
++	case SL_MEDIA_JACK_DP_STATE_INITIALIZED:
++		return "dp-initialized";
++	default:
++		return "unknown";
++	}
++}
++
++/* Swap the lanes in the lane data structure. See sl_core_lgrp_media_lane_data_swap
++ * for more details.
++ */
++static void sl_media_jack_lane_data_swap(struct sl_media_jack_lane_data *lane_data)
++{
++	u8 dp_states;
++
++	lane_data->signal.rx.los_map = SWAP_BYTE_NIBBLE(lane_data->signal.rx.los_map);
++	lane_data->signal.tx.los_map = SWAP_BYTE_NIBBLE(lane_data->signal.tx.los_map);
++	lane_data->signal.rx.lol_map = SWAP_BYTE_NIBBLE(lane_data->signal.rx.lol_map);
++	lane_data->signal.tx.lol_map = SWAP_BYTE_NIBBLE(lane_data->signal.tx.lol_map);
++	lane_data->dp_states_changed = SWAP_BYTE_NIBBLE(lane_data->dp_states_changed);
++
++	/* Swap lanes 0 & 1 for 4 & 5 and visa versa */
++	dp_states = lane_data->dp_states[2];
++	lane_data->dp_states[2] = lane_data->dp_states[0];
++	lane_data->dp_states[0] = dp_states;
++
++	/* Swap lanes 2 & 3 for 6 & 7 and visa versa */
++	dp_states = lane_data->dp_states[3];
++	lane_data->dp_states[3] = lane_data->dp_states[1];
++	lane_data->dp_states[1] = dp_states;
++}
++
++#define SL_MEDIA_JACK_DP_STATE_OFFSET    128
++#define SL_MEDIA_JACK_TX_LOS_OFFSET      136
++#define SL_MEDIA_JACK_RX_LOS_OFFSET      147
++#define SL_MEDIA_JACK_MAX_COHERENT_BYTES 8
++static int sl_media_jack_lane_data_read(u8 ldev_num, u8 lgrp_num, struct sl_media_jack_lane_data *lane_data)
++{
++	int                             rtn;
++	u8                              read_bytes[SL_MEDIA_JACK_MAX_COHERENT_BYTES];
++	bool                            swap;
++	struct sl_media_jack_lane_data  tmp_lane_data;
++	struct sl_media_jack           *media_jack;
++
++	media_jack = sl_media_lgrp_get(ldev_num, lgrp_num)->media_jack;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "media_io_read_lane_data (ldev_num = %u, lgrp_num = %u)",
++			 ldev_num, lgrp_num);
++
++	rtn = sl_media_io_read(media_jack, 0x11, SL_MEDIA_JACK_TX_LOS_OFFSET, (u8 *)&tmp_lane_data.signal.tx, 2);
++	if (rtn) {
++		sl_media_log_err(media_jack, LOG_NAME, "media_io_read_data failed [%d]", rtn);
++		return -EIO;
++	}
++
++	rtn = sl_media_io_read(media_jack, 0x11, SL_MEDIA_JACK_RX_LOS_OFFSET, (u8 *)&tmp_lane_data.signal.rx, 2);
++	if (rtn) {
++		sl_media_log_err(media_jack, LOG_NAME, "media_io_read_data failed [%d]", rtn);
++		return -EIO;
++	}
++
++	rtn = sl_media_io_read(media_jack, 0x11, SL_MEDIA_JACK_DP_STATE_OFFSET, read_bytes,
++			       SL_MEDIA_JACK_MAX_COHERENT_BYTES);
++	if (rtn) {
++		sl_media_log_err(media_jack, LOG_NAME, "media_io_read_data failed [%d]", rtn);
++		return -EIO;
++	}
++
++	memcpy(tmp_lane_data.dp_states, read_bytes, 4);
++	tmp_lane_data.dp_states_changed = read_bytes[6];
++
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "lane data read (dp_states_changed = 0x%X)", tmp_lane_data.dp_states_changed);
++
++	swap = sl_core_lgrp_media_lane_data_swap(ldev_num, lgrp_num);
++	if (swap)
++		sl_media_jack_lane_data_swap(&tmp_lane_data);
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "lane data swap = %s", swap ? "yes" : "no");
++
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "lane data read map (rx_lol = 0x%X, tx_lol = 0x%X, rx_los = 0x%X, tx_los = 0x%X)",
++			 tmp_lane_data.signal.rx.lol_map, tmp_lane_data.signal.tx.lol_map,
++			 tmp_lane_data.signal.rx.los_map, tmp_lane_data.signal.tx.los_map);
++
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "lanes dp_state (0 = %s, 1 = %s, 2 = %s, 3 = %s, 4 = %s, 5 = %s, 6 = %s, 7 = %s)",
++			 sl_media_jack_lane_dp_state_str(MEDIA_LANE_DP_STATE_GET(&tmp_lane_data, 0)),
++			 sl_media_jack_lane_dp_state_str(MEDIA_LANE_DP_STATE_GET(&tmp_lane_data, 1)),
++			 sl_media_jack_lane_dp_state_str(MEDIA_LANE_DP_STATE_GET(&tmp_lane_data, 2)),
++			 sl_media_jack_lane_dp_state_str(MEDIA_LANE_DP_STATE_GET(&tmp_lane_data, 3)),
++			 sl_media_jack_lane_dp_state_str(MEDIA_LANE_DP_STATE_GET(&tmp_lane_data, 4)),
++			 sl_media_jack_lane_dp_state_str(MEDIA_LANE_DP_STATE_GET(&tmp_lane_data, 5)),
++			 sl_media_jack_lane_dp_state_str(MEDIA_LANE_DP_STATE_GET(&tmp_lane_data, 6)),
++			 sl_media_jack_lane_dp_state_str(MEDIA_LANE_DP_STATE_GET(&tmp_lane_data, 7)));
++
++	spin_lock(&media_jack->data_lock);
++	memcpy(lane_data, &tmp_lane_data, sizeof(*lane_data));
++	spin_unlock(&media_jack->data_lock);
++
++	return 0;
++}
++
++static bool sl_media_jack_is_lane_data_valid(struct sl_media_jack *media_jack, unsigned long serdes_lane_map,
++					     struct sl_media_jack_lane_data *lane_data)
++{
++	u8 serdes_lane_num;
++	u8 lane_dp_state;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "lane data valid (serdes_lane_map = 0x%lx)", serdes_lane_map);
++
++	if (lane_data->dp_states_changed & serdes_lane_map) {
++		sl_media_log_dbg(media_jack, LOG_NAME,
++				 "lane data valid DP state changed (dp_states_changed = 0x%X, serdes_lane_map = 0x%lx)",
++				 lane_data->dp_states_changed, serdes_lane_map);
++		return false;
++	}
++
++	for_each_set_bit(serdes_lane_num, &serdes_lane_map, SL_ASIC_MAX_LANES) {
++		lane_dp_state = MEDIA_LANE_DP_STATE_GET(lane_data, serdes_lane_num);
++
++		if (!SL_MEDIA_JACK_SIGNAL_INFO_ALLOWED(lane_dp_state)) {
++			sl_media_log_dbg(media_jack, LOG_NAME,
++					 "lane data valid DP state not allowed (lane_num = %u, dp_state = %u %s)",
++					 serdes_lane_num, lane_dp_state,
++					 sl_media_jack_lane_dp_state_str(lane_dp_state));
++			return false;
++		}
++	}
++
++	return true;
++}
++
++static void sl_media_jack_lane_data_cache_set(struct sl_media_jack *media_jack,
++					      struct sl_media_jack_lane_data *lane_data)
++{
++	spin_lock(&media_jack->data_lock);
++	media_jack->lane_data.cache.data   = *lane_data;
++	media_jack->lane_data.cache.cached = true;
++	media_jack->lane_data.cache.timestamp_s = ktime_get_real_seconds();
++	spin_unlock(&media_jack->data_lock);
++}
++
++static bool sl_media_jack_lane_data_cache_get(struct sl_media_jack *media_jack,
++					      struct sl_media_jack_lane_data *lane_data)
++{
++	bool     cached;
++
++	spin_lock(&media_jack->data_lock);
++	cached     = media_jack->lane_data.cache.cached;
++	*lane_data = media_jack->lane_data.cache.data;
++	spin_unlock(&media_jack->data_lock);
++
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "lane data cache get map (rx_los = 0x%X, tx_los = 0x%X, rx_lol = 0x%X, tx_lol = 0x%X)",
++			 lane_data->signal.rx.los_map, lane_data->signal.tx.los_map,
++			 lane_data->signal.rx.lol_map, lane_data->signal.tx.lol_map);
++
++	return cached;
++}
++
++static bool sl_media_jack_signal_equal(struct sl_media_jack_signal *a, struct sl_media_jack_signal *b)
++{
++	return (a->rx.los_map == b->rx.los_map) &&
++	       (a->tx.los_map == b->tx.los_map) &&
++	       (a->rx.lol_map == b->rx.lol_map) &&
++	       (a->tx.lol_map == b->tx.lol_map);
++}
++
++static void sl_media_jack_signal_or(struct sl_media_jack_signal *a, struct sl_media_jack_signal *b)
++{
++	a->rx.los_map |= b->rx.los_map;
++	a->tx.los_map |= b->tx.los_map;
++	a->rx.lol_map |= b->rx.lol_map;
++	a->tx.lol_map |= b->tx.lol_map;
++}
++
++static int sl_media_jack_lane_data_get(u8 ldev_num, u8 lgrp_num, u8 serdes_lane_map,
++				       struct sl_media_jack_lane_data *lane_data)
++{
++	int                             rtn;
++	u8                              read_count;
++	bool                            is_stable;
++	struct sl_media_jack_lane_data  current_lane_data;
++	struct sl_media_jack_signal     prev_signal;
++	struct sl_media_jack           *media_jack;
++
++	media_jack = sl_media_lgrp_get(ldev_num, lgrp_num)->media_jack;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "lane data get (ldev_num = %u, lgrp_num = %u, serdes_lane_map = 0x%X)",
++			 ldev_num, lgrp_num, serdes_lane_map);
++
++	rtn = sl_media_jack_lane_data_read(ldev_num, lgrp_num, lane_data);
++	if (rtn) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "lane data read failed [%d]", rtn);
++		return rtn;
++	}
++
++	msleep(SL_MEDIA_JACK_LANE_DATA_POLL_TIME_MS);
++
++	read_count = 0;
++	is_stable  = false;
++
++	rtn = sl_media_jack_lane_data_read(ldev_num, lgrp_num, lane_data);
++	if (rtn) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "lane data read failed [%d]", rtn);
++		return rtn;
++	}
++
++	if (!sl_media_jack_is_lane_data_valid(media_jack, serdes_lane_map, lane_data)) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "lane data not valid");
++		return -EIO;
++	}
++
++	/* Short circuit, no new bits can be set */
++	if (lane_data->signal.rx.los_map == 0xFF &&
++	    lane_data->signal.tx.los_map == 0xFF &&
++	    lane_data->signal.rx.lol_map == 0xFF &&
++	    lane_data->signal.tx.lol_map == 0xFF) {
++		read_count++;
++		is_stable = true;
++		goto out;
++	}
++
++	prev_signal = lane_data->signal;
++
++	msleep(SL_MEDIA_JACK_LANE_DATA_POLL_TIME_MS);
++
++	for (read_count = 1; read_count < SL_MEDIA_JACK_MAX_NUM_LANE_DATA_READS; ++read_count) {
++		rtn = sl_media_jack_lane_data_read(ldev_num, lgrp_num, &current_lane_data);
++		if (rtn) {
++			sl_media_log_err_trace(media_jack, LOG_NAME, "lane data read failed [%d]", rtn);
++			return rtn;
++		}
++
++		if (!sl_media_jack_is_lane_data_valid(media_jack, serdes_lane_map, &current_lane_data)) {
++			sl_media_log_err_trace(media_jack, LOG_NAME, "lane data not valid");
 +			return -EIO;
 +		}
 +
-+		for (eye = 0; eye < num_eyes; ++eye) {
-+			sbl_dev_dbg(sbl->dev, "p%ds%d eye[%d] height: 0x%x",
-+				    port_num, serdes, eye, eye_heights[eye]);
-+			if (eye_heights[eye] < min_eye_height) {
-+				sbl_dev_dbg(sbl->dev,
-+					    "p%ds%d eye[%d] height (0x%x) less than requirement (0x%x)!",
-+					    port_num, serdes, eye, eye_heights[eye],
-+					    min_eye_height);
-+				return -ECHRNG;
-+			} else if ((sbl->link[port_num].loopback_mode !=
-+				    SBL_LOOPBACK_MODE_LOCAL) &&
-+				   (eye_heights[eye] > max_eye_height)) {
-+				sbl_dev_dbg(sbl->dev,
-+					    "p%ds%d eye[%d] height (0x%x) greater than max (0x%x)!",
-+					    port_num, serdes, eye, eye_heights[eye],
-+					    max_eye_height);
-+				return -ECHRNG;
-+			}
-+		}
-+	}
++		prev_signal = lane_data->signal;
++		sl_media_jack_signal_or(&lane_data->signal, &current_lane_data.signal);
 +
-+	return 0;
-+}
-+
-+/* Constructs maps of */
-+/* - active serdes (ones in use for this mode)
-+   - serdes not reporting electrical idle (i.e. seeing a signal)
-+   - serdes with all good eyes (i.e. data can be extracted from the signal) */
-+
-+/* Only called on Rosetta */
-+/* active map is always valid and returned
-+   other maps only valid if function succeeds otherwise zero */
-+
-+/* Electrical idle detect seems fast to respond but sometimes shows unexpected
-+   and probably wrong, electrical idle. */
-+
-+/* TODO investigate EID filtering - if its fast enough? */
-+
-+/* Eye height measurements seem to be very slow at being updated after a change to the
-+   serdes. BRCM say this is because the PLL takes a long time to unlock
-+   There is an optional delay that can be added to give the eye heights time
-+   to be updated. */
-+
-+int sbl_port_get_serdes_state_maps(struct sbl_inst *sbl, int port_num, u8 *active_map,
-+				   u8 *not_idle_map, u8 *ok_eye_map)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	int min_eye_height, max_eye_height;
-+	int eye, num_eyes = 0;
-+	u64 core_status;
-+	int eye_heights[NUM_PAM4_EYES];
-+	int err;
-+	int serdes;
-+
-+	if (!active_map || !not_idle_map || !ok_eye_map)
-+		return -EINVAL;
-+
-+	*active_map = *not_idle_map = *ok_eye_map = 0;
-+
-+	/* always build active serdes map */
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes)
-+		if (rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+			*active_map  |= (1 << serdes);
-+
-+	/* must be configured to get criteria from attributes */
-+	if (!link->blconfigured)
-+		return -EUCLEAN;
-+
-+	/* get eye test criteria */
-+	switch (link->link_mode) {
-+	case SBL_LINK_MODE_BJ_100G: /* NRZ */
-+		num_eyes = NUM_NRZ_EYES;
-+		min_eye_height = link->blattr.nrz_min_eye_height;
-+		max_eye_height = link->blattr.nrz_max_eye_height;
-+		break;
-+	case SBL_LINK_MODE_CD_50G:
-+	case SBL_LINK_MODE_CD_100G:
-+	case SBL_LINK_MODE_BS_200G: /* PAM4 */
-+		num_eyes = NUM_PAM4_EYES;
-+		min_eye_height = link->blattr.pam4_min_eye_height;
-+		max_eye_height = link->blattr.pam4_max_eye_height;
-+		break;
-+	default:
-+		sbl_dev_dbg(sbl->dev, "%d: get_serdes_state_maps, unrecognised link mode (%d)",
-+			    port_num, link->link_mode);
-+		return -ENODATA;
-+	}
-+
-+	/* check electrical idle not asserted */
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+
-+		if (!rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+			continue;
-+
-+		core_status = sbl_read64(sbl, SBL_PML_BASE(port_num) |
-+		       SBL_PML_SERDES_CORE_STATUS_OFFSET(serdes));
-+
-+		/* TODO fix to use normal address map macro */
-+		if (!(core_status & SERDES_CORE_STATUS_RX_IDLE_DETECT_MASK))
-+			*not_idle_map |= 1 << serdes;
-+	}
-+
-+	/* optionally wait a little to allow current eye heights to be available */
-+	if (sbl_debug_option(sbl, port_num, SBL_DEBUG_SERDES_MAP_DELAY))
-+		msleep(150);
-+
-+	/* check eyes */
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+
-+		/* assume good if serdes is used */
-+		if (rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+			*ok_eye_map |= (1 << serdes);
-+		else
-+			continue;
-+
-+		/* get eyes */
-+		err = sbl_get_eye_heights(sbl, port_num, serdes, eye_heights);
-+		if (err) {
-+			sbl_dev_dbg(sbl->dev, "%d: get_serdes_state_maps, get_eye_heights failed [%d]",
-+				    port_num, err);
-+			*not_idle_map = *ok_eye_map = 0;
-+			return err;
++		is_stable = sl_media_jack_signal_equal(&lane_data->signal, &prev_signal);
++		if (is_stable) {
++			++read_count;
++			break;
 +		}
 +
-+		/* All eyes must be good
-+		   drop from map if any bad eyes found */
-+		for (eye = 0; eye < num_eyes; ++eye) {
-+
-+			if (eye_heights[eye] < min_eye_height) {
-+				*ok_eye_map &= ~(1 << serdes);
-+				break;
-+			} else if ((link->loopback_mode != SBL_LOOPBACK_MODE_LOCAL) &&
-+				   (eye_heights[eye] > max_eye_height)) {
-+				*ok_eye_map &= ~(1 << serdes);
-+				break;
-+			}
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+int sbl_port_start_pcal(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	int serdes, err;
-+
-+	if (link->pcal_running)
-+		return 0;
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: starting PCAL", port_num);
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+			continue;
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_DFE_CTRL,
-+						SPICO_INT_DATA_DFE_CONT_PCAL,
-+						NULL,
-+						SPICO_INT_VALIDATE_RESULT);
-+		if (err)
-+			return err;
-+	}
-+	link->pcal_running = true;
-+	link->pcal_start_jiffies = jiffies;
-+
-+	return 0;
-+}
-+
-+int sbl_port_stop_pcal(struct sbl_inst *sbl, int port_num)
-+{
-+	int serdes, err;
-+
-+	if (!sbl->link[port_num].pcal_running)
-+		return 0;
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: stopping PCAL", port_num);
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+			continue;
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_DFE_CTRL,
-+						SPICO_INT_DATA_DFE_PAUSE_PCAL,
-+						NULL,
-+						SPICO_INT_VALIDATE_RESULT);
-+		if (err)
-+			return err;
-+	}
-+
-+	sbl->link[port_num].pcal_running = false;
-+	return 0;
-+}
-+
-+int sbl_port_dfe_tune(struct sbl_inst *sbl, int port_num, bool is_retune)
-+{
-+	int err;
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: Starting DFE %stune...", port_num,
-+		    is_retune ? "re" : "");
-+
-+	sbl_link_tune_begin(sbl, port_num);
-+
-+	err = sbl_port_dfe_tune_start(sbl, port_num, is_retune);
-+	if (err) {
-+		sbl_dev_dbg(sbl->dev, "p%d: Failed to start DFE tune!", port_num);
-+		goto out;
-+	}
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: Waiting for DFE tuning to complete...", port_num);
-+	err = sbl_port_dfe_tune_wait(sbl, port_num);
-+	if (err) {
-+		sbl_dev_dbg(sbl->dev, "p%d: DFE tune failed!", port_num);
-+		goto out;
++		msleep(SL_MEDIA_JACK_LANE_DATA_POLL_TIME_MS);
 +	}
 +
 +out:
-+	sbl_link_tune_update_total_timespec(sbl, port_num);
-+	return err;
-+}
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "lane data get (read_count = %u)", read_count);
 +
-+int sbl_serdes_minitune_setup(struct sbl_inst *sbl, int port_num)
-+{
-+	int err;
-+	u16 result;
-+	int serdes;
-+
-+	err = sbl_serdes_config(sbl, port_num, false);
-+	if (err) {
-+		sbl_dev_err(sbl->dev,
-+			    "mt: SerDes config failed for port %d with err %d",
-+			port_num, err);
-+		return err;
++	if (!is_stable) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "lane data unstable");
++		return -EIO;
 +	}
 +
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+			continue;
-+		/* Set effort level */
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_ICAL_EFFORT_SEL,
-+						&result,
-+						SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
++	sl_media_jack_lane_data_cache_set(media_jack, lane_data);
 +
-+		DEV_TRACE2(sbl->dev,
-+			   "p%ds%d: mt: Updating ICAL effort from 0x%x to 0x%x",
-+			   port_num, serdes, result,
-+			   SPICO_INT_DATA_ICAL_EFFORT_0);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						SPICO_INT_DATA_ICAL_EFFORT_0,
-+						&result,
-+						SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev,
-+				    "p%ds%d: mt: Failed updating ICAL effort (0x%x)!",
-+				port_num, serdes, SPICO_INT_DATA_ICAL_EFFORT_0);
-+			return -EBADE;
-+		}
-+		/* Enable EID based on DFE tuning */
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_EID_FILTER_SEL,
-+						&result,
-+						SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		DEV_TRACE2(sbl->dev,
-+			   "p%ds%d: mt: Updating EID Filter from 0x%x to 0x%x",
-+			   port_num, serdes, result,
-+			   SPICO_INT_DATA_EID_FILTER_DFE);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						SPICO_INT_DATA_EID_FILTER_DFE,
-+						&result,
-+						SPICO_INT_RETURN_RESULT);
-+		if (err)
-+			return err;
-+
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev,
-+				    "p%ds%d: mt: Failed updating EID Filter (0x%x)!",
-+				port_num, serdes,
-+				SPICO_INT_DATA_EID_FILTER_DFE);
-+			return -EBADE;
-+		}
-+	}
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "lane data get map (rx_los = 0x%X, tx_los = 0x%X, rx_lol = 0x%X, tx_lol = 0x%X)",
++			 lane_data->signal.rx.los_map, lane_data->signal.tx.los_map,
++			 lane_data->signal.rx.lol_map, lane_data->signal.tx.lol_map);
 +
 +	return 0;
 +}
 +
-+int sbl_serdes_minitune_block(struct sbl_inst *sbl, int port_num)
++int sl_media_jack_signal_get(u8 ldev_num, u8 lgrp_num, u8 serdes_lane_map, struct sl_media_jack_signal *media_signal)
 +{
-+	u64 core_status_value;
-+	u8 sig_ok_mask = 0;
-+	u8 tgt_serdes = 0;
-+	u16 result;
-+	int serdes;
-+	int err;
-+	u8 serdes_mask;
-+	unsigned long last_jiffy;
++	int                             rtn;
++	struct sl_media_jack_lane_data  lane_data;
++	struct sl_media_jack           *media_jack;
++	bool                            cached;
++	unsigned long                   time_left;
++	u32                             generation;
 +
-+	serdes_mask = get_serdes_rx_mask(sbl, port_num);
++	media_jack = sl_media_lgrp_get(ldev_num, lgrp_num)->media_jack;
 +
-+	/* Wait for signal OK */
-+	last_jiffy = jiffies + msecs_to_jiffies(1000 * sbl->link[port_num].blattr.lpd_timeout);
-+	do {
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			if (!rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+				continue;
-+			tgt_serdes = 1 << serdes;
++	sl_media_log_dbg(media_jack, LOG_NAME, "signal get (ldev_num = %u, lgrp_num = %u, serdes_lane_map = 0x%X)",
++			 ldev_num, lgrp_num, serdes_lane_map);
 +
-+			if (tgt_serdes & sig_ok_mask)
-+				continue;
-+
-+			core_status_value = sbl_read64(sbl,
-+						       SBL_PML_BASE(port_num) |
-+			       SBL_PML_SERDES_CORE_STATUS_OFFSET(serdes));
-+			if (((core_status_value &
-+			      SERDES_CORE_STATUS_RX_IDLE_DETECT_MASK) == 0) &&
-+			    ((core_status_value &
-+			      SERDES_CORE_STATUS_RX_SIG_OK_MASK) == 0)) {
-+				sbl_dev_dbg(sbl->dev, "p%ds%d: mt: Found EID 0 or SIG OK 0", port_num, serdes);
-+				sig_ok_mask |= 1 << serdes;
-+				continue;
-+			} else {
-+				DEV_TRACE2(sbl->dev, "p%ds%d: mt: Waiting for EID==0(%d) or SIG OK==0(%d)",
-+					   port_num, serdes,
-+						(core_status_value & SERDES_CORE_STATUS_RX_IDLE_DETECT_MASK) ? 1 : 0,
-+						(core_status_value & SERDES_CORE_STATUS_RX_SIG_OK_MASK) ? 1 : 0);
-+			}
-+		}
-+
-+		if (sig_ok_mask == serdes_mask)
-+			break;
-+		if (sbl_base_link_start_cancelled(sbl, port_num))
-+			break;
-+		if (sbl_start_timeout(sbl, port_num))
-+			break;
-+
-+		msleep(sbl->link[port_num].blattr.lpd_poll_interval);
-+	} while (time_is_after_jiffies(last_jiffy));
-+
-+	/* Disable EID filter */
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+			continue;
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_READ,
-+						SPICO_INT_DATA_EID_FILTER_SEL,
-+						&result,
-+						SPICO_INT_RETURN_RESULT);
-+		if (err) {
-+			sbl_dev_err(sbl->dev,
-+				    "p%ds%d: mt block exit@1: sbl_serdes_spico_int failed [%d]",
-+				port_num, serdes, err);
-+			return err;
-+		}
-+		DEV_TRACE2(sbl->dev,
-+			   "p%ds%d: Updating EID Filter from 0x%x to 0x%x",
-+			   port_num, serdes, result,
-+			   SPICO_INT_DATA_EID_FILTER_OFF);
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_HAL_WRITE,
-+						SPICO_INT_DATA_EID_FILTER_OFF,
-+						&result,
-+						SPICO_INT_RETURN_RESULT);
-+		if (err) {
-+			sbl_dev_err(sbl->dev,
-+				    "p%ds%d: mt block exit@2: sbl_serdes_spico_int failed [%d]",
-+				port_num, serdes, err);
-+			return err;
-+		}
-+		if (result != SPICO_INT_CM4_HAL_READ) {
-+			sbl_dev_err(sbl->dev,
-+				    "p%ds%d: mt: Failed updating EID Filter (0x%x)!",
-+				port_num, serdes,
-+				SPICO_INT_DATA_EID_FILTER_OFF);
-+			return -EBADE;
-+		}
-+	}
-+	/* Make sure all tunes are complete */
-+	err = sbl_serdes_dfe_tune_wait(sbl, port_num);
-+	if (err) {
-+		sbl_dev_dbg(sbl->dev, "%d: mt: Failed to detect with link partner!",
-+			    port_num);
++	if (!sl_media_lgrp_media_type_is_active(ldev_num, lgrp_num)) {
++		sl_media_log_warn_trace(media_jack, LOG_NAME, "cable not active");
++		return -EBADRQC;
 +	}
 +
-+	if (sbl_base_link_start_cancelled(sbl, port_num))
-+		return -ECANCELED;
-+	if (sbl_start_timeout(sbl, port_num))
-+		return -ETIMEDOUT;
-+
-+	if (sig_ok_mask != serdes_mask) {
-+		sbl_dev_dbg(sbl->dev,
-+			    "p%ds<mask>0x%x: mt: SerDes signal ok not detected (timeout:%ds)",
-+			    port_num, (serdes_mask & ~sig_ok_mask),
-+			    sbl->link[port_num].blattr.lpd_timeout);
-+		return -ETIME;
++	if (!sl_media_lgrp_is_signal_status_supported(ldev_num, lgrp_num)) {
++		sl_media_log_dbg(media_jack, LOG_NAME, "signal status unsupported");
++		return -EBADRQC;
 +	}
 +
-+	return err;
-+}
++	spin_lock(&media_jack->data_lock);
++	switch (media_jack->lane_data.read_state) {
++	case SL_MEDIA_JACK_LANE_DATA_READ_STATE_IDLE:
++		media_jack->lane_data.read_state = SL_MEDIA_JACK_LANE_DATA_READ_STATE_BUSY;
++		sl_media_log_dbg(media_jack, LOG_NAME, "reading lane data - state set to BUSY");
++		spin_unlock(&media_jack->data_lock);
 +
-+int sbl_serdes_config(struct sbl_inst *sbl, int port_num, bool allow_an)
-+{
-+	int err, encoding, divisor, width, serdes, j;
-+	struct sbl_sc_values values = {0};
-+	u16 result;
-+	u32 rx_phase_slip_cnt;
-+	u32 rx_phase_slip_reapply;
-+	bool use_default_tx_eq, use_default_gs;
-+	bool tx_en, rx_en, txo_en;
++		rtn = sl_media_jack_lane_data_get(ldev_num, lgrp_num, serdes_lane_map, &lane_data);
 +
-+	if (allow_an && (sbl->link[port_num].blattr.config_target != SBL_BASE_LINK_CONFIG_PEC)) {
-+		sbl_dev_err(sbl->dev, "%d: AN allowed but has no config", port_num);
-+		return -ENAVAIL;
-+	}
++		spin_lock(&media_jack->data_lock);
++		media_jack->lane_data.read_state    = SL_MEDIA_JACK_LANE_DATA_READ_STATE_IDLE;
++		media_jack->lane_data.last_read_rtn = rtn;
++		WRITE_ONCE(media_jack->lane_data.read_generation,
++			   media_jack->lane_data.read_generation + 1);
++		spin_unlock(&media_jack->data_lock);
 +
-+	/* Stop continuous tune */
-+	err = sbl_port_stop_pcal(sbl, port_num);
-+	if (err) {
-+		sbl_dev_warn(sbl->dev, "%d: serdes config: stop pcal failed [%d]",
-+			     port_num, err);
-+		return err;
-+	}
++		wake_up_all(&media_jack->lane_data.read_wait);
 +
-+	/* Handle requested speed */
-+	if (allow_an) {
-+		switch (sbl->link[port_num].blattr.pec.an_mode) {
-+		case SBL_AN_MODE_FIXED:
-+		case SBL_AN_MODE_ON:
-+			encoding = SBL_ENC_NRZ;
-+			divisor  = SBL_DIV_AN;
-+			width    = SBL_WID_AN;
-+			break;
-+		case SBL_AN_MODE_OFF:
-+		default:
-+			sbl_dev_warn(sbl->dev, "%d: Unsupported an mode (%d)",
-+				     port_num, sbl->link[port_num].blattr.pec.an_mode);
-+			return -EINVAL;
-+
++		if (rtn) {
++			sl_media_log_err_trace(media_jack, LOG_NAME, "lane data read failed [%d]", rtn);
++			return rtn;
 +		}
-+	} else {
-+		switch (sbl->link[port_num].link_mode) {
-+		case SBL_LINK_MODE_BJ_100G:
-+			encoding = SBL_ENC_NRZ;
-+			divisor  = SBL_DIV_25G;
-+			width    = SBL_WID_25G;
-+			break;
-+		case SBL_LINK_MODE_CD_50G:
-+		case SBL_LINK_MODE_CD_100G:
-+		case SBL_LINK_MODE_BS_200G:
-+			encoding = SBL_ENC_PAM4;
-+			divisor  = SBL_DIV_50G;
-+			width    = SBL_WID_50G;
-+			break;
-+		default:
-+			sbl_dev_warn(sbl->dev, "%d: Unsupported link mode (%d)",
-+				     port_num, sbl->link[port_num].link_mode);
-+			return -EINVAL;
-+		}
-+	}
 +
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+		      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+			continue;
-+		err = sbl_serdes_init(sbl, port_num, serdes, encoding,
-+				      divisor, width);
-+		if (err)
-+			return err;
-+	}
++		goto out;
 +
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+		      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+			continue;
-+		err = sbl_serdes_polarity_ctrl(sbl, port_num, serdes,
-+					       encoding, allow_an);
-+		if (err)
-+			return err;
-+	}
++	case SL_MEDIA_JACK_LANE_DATA_READ_STATE_BUSY:
++		generation = media_jack->lane_data.read_generation;
++		sl_media_log_dbg(media_jack, LOG_NAME, "waiting for lane data read to complete");
++		spin_unlock(&media_jack->data_lock);
 +
-+	/* Set Rx Termination */
-+	switch (sbl->link[port_num].blattr.link_partner) {
-+	case SBL_LINK_PARTNER_SWITCH:
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+			      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+				continue;
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_INT_RX_TERM,
-+						SPICO_INT_DATA_RXT_FLOAT, NULL,
-+						SPICO_INT_VALIDATE_RESULT);
-+			if (err)
-+				return err;
++		time_left = msecs_to_jiffies(SL_MEDIA_JACK_SIGNAL_READ_TIMEOUT_MS);
++		time_left = wait_event_timeout(media_jack->lane_data.read_wait,
++					       READ_ONCE(media_jack->lane_data.read_generation) !=
++					       generation, time_left);
++
++		if (time_left == 0) {
++			sl_media_log_err_trace(media_jack, LOG_NAME, "lane data read timed out");
++			return -ETIMEDOUT;
 +		}
-+		break;
-+	case SBL_LINK_PARTNER_NIC:
-+	case SBL_LINK_PARTNER_NIC_C2:
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+			      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+				continue;
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_INT_RX_TERM,
-+						SPICO_INT_DATA_RXT_AVDD, NULL,
-+						SPICO_INT_VALIDATE_RESULT);
-+			if (err)
-+				return err;
++
++		spin_lock(&media_jack->data_lock);
++		rtn = media_jack->lane_data.last_read_rtn;
++		if (rtn) {
++			sl_media_log_err_trace(media_jack, LOG_NAME, "lane data read failed [%d]", rtn);
++			spin_unlock(&media_jack->data_lock);
++			return rtn;
 +		}
-+		break;
++
++		cached    = media_jack->lane_data.cache.cached;
++		lane_data = media_jack->lane_data.cache.data;
++		spin_unlock(&media_jack->data_lock);
++
++		if (!cached) {
++			sl_media_log_err_trace(media_jack, LOG_NAME, "lane data not cached");
++			return -EIO;
++		}
++
++		goto out;
++
 +	default:
-+		sbl_dev_warn(sbl->dev, "p%d: Unsupported link partner mode (enum %d)!",
-+			     port_num, sbl->link[port_num].blattr.link_partner);
-+		return -EINVAL;
-+	}
-+
-+	/* Handle requested loopback mode */
-+	switch (sbl->link[port_num].loopback_mode) {
-+	case SBL_LOOPBACK_MODE_LOCAL:
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+			      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+				continue;
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_LOOPBACK,
-+						SPICO_INT_DATA_ILB, NULL,
-+						SPICO_INT_VALIDATE_RESULT);
-+			if (err)
-+				return err;
-+		}
-+		break;
-+	case SBL_LOOPBACK_MODE_REMOTE:
-+	case SBL_LOOPBACK_MODE_OFF:
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+			      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+				continue;
-+			err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+						   SPICO_INT_CM4_LOOPBACK,
-+						SPICO_INT_DATA_ELB, NULL,
-+						SPICO_INT_VALIDATE_RESULT);
-+			if (err)
-+				return err;
-+		}
-+		break;
-+	default:
-+		sbl_dev_warn(sbl->dev, "Unsupported loopback mode (enum %d)!",
-+			     sbl->link[port_num].loopback_mode);
-+		return -EINVAL;
-+	}
-+
-+	/* Set port config values */
-+	if (!allow_an) {
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+			      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+				continue;
-+			use_default_tx_eq = false;
-+			use_default_gs    = false;
-+			err = sbl_get_serdes_config_values(sbl, port_num,
-+							   serdes,
-+								&values);
-+			if (err) {
-+				sbl_dev_warn(sbl->dev,
-+						     "p%ds%d: Unable to read config list!",
-+						     port_num, serdes);
-+				use_default_tx_eq = true;
-+				use_default_gs    = true;
-+			}
-+			/* Apply tx eq values */
-+			if (!use_default_tx_eq) {
-+				err = sbl_set_tx_eq(sbl, port_num, serdes,
-+						    values.atten,
-+							 values.pre,
-+							 values.post,
-+							 values.pre2,
-+							 values.pre3);
-+				if (err) {
-+					sbl_dev_warn(sbl->dev,
-+						     "Bad settings for port %d! Applying defaults.",
-+						     port_num);
-+					use_default_tx_eq = true;
-+				}
-+			}
-+			if (use_default_tx_eq) {
-+				err = sbl_set_tx_eq(sbl, port_num, serdes,
-+						    SBL_DFLT_PORT_CONFIG_ATTEN,
-+						 SBL_DFLT_PORT_CONFIG_PRE,
-+						 SBL_DFLT_PORT_CONFIG_POST,
-+						 SBL_DFLT_PORT_CONFIG_PRE2,
-+						 SBL_DFLT_PORT_CONFIG_PRE3);
-+				if (err) {
-+					sbl_dev_err(sbl->dev, "Default serdes atten/pre/post settings failed!");
-+					return err;
-+				}
-+			}
-+			/* Apply gainshape values */
-+			if (!use_default_gs) {
-+				err = sbl_set_gs(sbl, port_num, serdes,
-+						 values.gs1,
-+						      values.gs2);
-+				if (err) {
-+					sbl_dev_warn(sbl->dev,
-+						     "Bad gs1/gs2 settings for port %d! Applying defaults.",
-+						     port_num);
-+					use_default_gs = true;
-+				}
-+			}
-+			if (use_default_gs) {
-+				err = sbl_set_gs(sbl, port_num, serdes,
-+						 SBL_DFLT_PORT_CONFIG_GS1,
-+					      SBL_DFLT_PORT_CONFIG_GS2);
-+				if (err) {
-+					sbl_dev_err(sbl->dev,
-+						    "Default serdes gainshape settings failed!");
-+					return err;
-+				}
-+			}
-+
-+			if (values.num_intr) {
-+				sbl_dev_dbg(sbl->dev,
-+					    "p%ds%d: Applying %d interrupts",
-+					port_num, serdes, values.num_intr);
-+			}
-+			for (j = 0; j < values.num_intr; ++j) {
-+				sbl_dev_dbg(sbl->dev,
-+					    "p%d: Applying interrupt 0x%x with data 0x%x",
-+				port_num, values.intr_val[j],
-+				values.data_val[j]);
-+				err = sbl_serdes_spico_int(sbl, port_num,
-+							   serdes, values.intr_val[j],
-+						values.data_val[j], &result,
-+						SPICO_INT_RETURN_RESULT);
-+				if (err) {
-+					sbl_dev_warn(sbl->dev,
-+						     "p%ds%d: interrupt 0x%x data 0x%x failed!",
-+						     port_num, serdes, values.intr_val[j],
-+						     values.data_val[j]);
-+				}
-+				if (result != values.intr_val[j]) {
-+					sbl_dev_dbg(sbl->dev,
-+						    "p%ds%d: interrupt:0x%x data:0x%x result:0x%x != code:0x%x. This is okay in some cases.",
-+						 port_num, serdes, values.intr_val[j], values.data_val[j], result, values.intr_val[j]);
-+				}
-+			}
-+		}
-+	}
-+	/* TODO - Set PRBS here */
-+
-+	/* Set Tx Phase Cal */
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+		      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+			continue;
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_TX_PHASE_CAL,
-+						SPICO_INT_DATA_TPCE, NULL,
-+						SPICO_INT_VALIDATE_RESULT);
-+		if (err)
-+			return err;
-+	}
-+
-+	/* Set Rx Phase Slip */
-+	if (sbl->link[port_num].loopback_mode == SBL_LOOPBACK_MODE_LOCAL)
-+		rx_phase_slip_reapply = 1;
-+	else
-+		rx_phase_slip_reapply = 0;
-+
-+	rx_phase_slip_cnt = sbl->iattr.rx_phase_slip_cnt;
-+	if (rx_phase_slip_cnt > SPICO_INT_DATA_RX_PHASE_MAX) {
-+		sbl_dev_warn(sbl->dev,
-+			     "Invalid value for rx_phase_slip_cnt (0x%x). Setting to 0x%x",
-+			 rx_phase_slip_cnt, SPICO_INT_DATA_RX_PHASE_MAX);
-+		rx_phase_slip_cnt = SPICO_INT_DATA_RX_PHASE_MAX;
-+	}
-+	sbl_dev_dbg(sbl->dev, "p%d: rx_phase_slip_cnt: 0x%x", port_num,
-+		    rx_phase_slip_cnt);
-+	sbl_dev_dbg(sbl->dev, "p%d: rx_phase_slip_reapply: 0x%x", port_num,
-+		    rx_phase_slip_reapply);
-+
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+		      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+			continue;
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_RX_PHASE_SLIP,
-+						(rx_phase_slip_reapply << SPICO_INT_DATA_RXP_APPLY_OFFSET) |
-+						(rx_phase_slip_cnt << SPICO_INT_DATA_RX_PHASE_OFFSET), NULL,
-+						SPICO_INT_VALIDATE_RESULT);
-+		if (err)
-+			return err;
-+	}
-+
-+	switch (sbl->link[port_num].loopback_mode) {
-+	case SBL_LOOPBACK_MODE_LOCAL:
-+		/* Disable TX and RX */
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			err = sbl_set_tx_rx_enable(sbl, port_num, serdes,
-+						   false, false, false);
-+			if (err)
-+				return err;
-+		}
-+		break;
-+	case SBL_LOOPBACK_MODE_REMOTE:
-+	case SBL_LOOPBACK_MODE_OFF:
-+		/* Disable TX */
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			if (rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+				rx_en = true;
-+			else
-+				rx_en = false;
-+			err = sbl_set_tx_rx_enable(sbl, port_num, serdes,
-+						   false, rx_en, false);
-+			if (err)
-+				return err;
-+		}
-+		break;
-+	default:
-+		sbl_dev_warn(sbl->dev, "Unsupported loopback mode (enum %d)!",
-+			     sbl->link[port_num].loopback_mode);
-+		return -EINVAL;
-+	}
-+
-+	msleep(20);
-+
-+	/* Enable tx on physical lane 0 - this has the clock for all serdes and
-+	   is always required. */
-+	/* rx based on link mode */
-+	if (rx_serdes_required_for_link_mode(sbl, port_num, 0))
-+		rx_en = true;
-+	else
-+		rx_en = false;
-+	/* txo based on link mode */
-+	if (get_serdes_tx_mask(sbl, port_num) & (1 << 0))
-+		txo_en = true;
-+	else
-+		txo_en = false;
-+	err = sbl_set_tx_rx_enable(sbl, port_num, 0,
-+				   true, rx_en, txo_en);
-+	if (err)
-+		return err;
-+
-+	usleep_range(1000, 2000);
-+
-+	/* Enable lane 1 2 3 as needed */
-+	for (serdes = 1; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+			rx_en = true;
-+		else
-+			rx_en = false;
-+		if (tx_serdes_required_for_link_mode(sbl, port_num, serdes)) {
-+			tx_en = true;
-+			txo_en = true;
-+		} else {
-+			tx_en = false;
-+			txo_en = false;
-+		}
-+		err = sbl_set_tx_rx_enable(sbl, port_num, serdes,
-+					   tx_en, rx_en, txo_en);
-+		if (err)
-+			return err;
-+	}
-+
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+		      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+			continue;
-+		if (sbl->link[port_num].blattr.tuning_pattern ==
-+		    SBL_TUNING_PATTERN_CORE) {
-+			err = sbl_set_tx_data_sel(sbl, port_num, serdes,
-+						  SBL_DS_CORE);
-+			if (err)
-+				return err;
-+		} else {
-+			err = sbl_set_tx_data_sel(sbl, port_num, serdes,
-+						  SBL_DS_PRBS);
-+			if (err)
-+				return err;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+int sbl_serdes_tuning(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	int err = 0;
-+	int serdes;
-+	bool is_retune;
-+	int j;
-+
-+	sbl_dev_dbg(sbl->dev, "SerDes tuning for port %d", port_num);
-+
-+	mutex_lock(&link->tuning_params_mtx);
-+	if (!(link->blattr.options & SBL_OPT_FABRIC_LINK)) {
-+		sbl_dev_dbg(sbl->dev,
-+			    "p%d: Saved tuning params disabled for edge links",
-+				port_num);
-+		is_retune = false;
-+	} else if (link->tune_param_oob_count >= SBL_MAX_TUNE_PARAM_OOB_FAILS) {
-+		sbl_dev_dbg(sbl->dev,
-+			    "p%d: Ignoring saved param load - too many params oob!",
-+				port_num);
-+		link->tune_param_oob_count = 0;
-+		is_retune = false;
-+	} else if ((link->blattr.options & SBL_OPT_USE_SAVED_PARAMS) &&
-+			(link->loopback_mode != SBL_LOOPBACK_MODE_LOCAL) &&
-+			!sbl_debug_option(sbl, port_num, SBL_DEBUG_INHIBIT_USE_SAVED_TP)) {
-+		is_retune = sbl_is_retune(sbl, port_num);
-+	} else {
-+		sbl_dev_dbg(sbl->dev,
-+			    "p%d: Usage of saved tuning params is disabled!",
-+				port_num);
-+		is_retune = false;
-+	}
-+
-+	if (is_retune) {
-+		sbl_dev_dbg(sbl->dev, "p%d: Applying saved tuning params",
-+			    port_num);
-+		for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+			if (!rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+				continue;
-+			err = sbl_apply_serdes_tuning_params(sbl, port_num, serdes);
-+			if (err) {
-+				sbl_dev_err(sbl->dev, "p%ds%d: Failed to apply saved tuning params!",
-+					    port_num, serdes);
-+				mutex_unlock(&link->tuning_params_mtx);
-+				return err;
-+			}
-+			sbl_dev_dbg(sbl->dev, "p%ds%d: saved tuning params applied", port_num, serdes);
-+		}
-+	} else {
-+		sbl_dev_dbg(sbl->dev, "p%d: No saved tuning params found", port_num);
-+	}
-+	mutex_unlock(&link->tuning_params_mtx);
-+
-+	/* If we have applied saved params then the serdes should work straight away,
-+	   we do not need to tune again. However we will start PCAL as normal.
-+	   We mark the tune count to indicate we have done this */
-+	if (is_retune) {
-+		sbl_link_tune_zero_total_timespec(sbl, port_num);
-+		link->dfe_tune_count = SBL_DFE_USED_SAVED_PARAMS;
-+		link->serr = 0;
-+
-+		if (link->blattr.options & SBL_OPT_ENABLE_PCAL) {
-+			if (sbl_debug_option(sbl, port_num, SBL_DEBUG_INHIBIT_PCAL)) {
-+				sbl_dev_warn(sbl->dev, "%d: pcal inhibited\n", port_num);
-+			} else {
-+				err = sbl_port_start_pcal(sbl, port_num);
-+				if (err)
-+					return err;
-+			}
-+		} else {
-+			sbl_dev_warn(sbl->dev, "p%d PCAL is disabled with SerDes saved params enabled!", port_num);
-+		}
-+
-+		return link->serr;
-+	}
-+
-+	/* There is already a delay after starting (configuring) the serdes to allow the
-+	   optics to lock..
-+	   This extra delay is about waiting for the link partner to start as we currently
-+	   have no way of knowing this */
-+	if (link->blattr.dfe_pre_delay) {
-+		sbl_dev_dbg(sbl->dev, "p%d: pre delay of %d seconds...", port_num,
-+			    link->blattr.dfe_pre_delay);
-+		link->dfe_predelay_active = true;
-+		for (j = 0; j < link->blattr.dfe_pre_delay; ++j) {
-+			if (sbl_base_link_start_cancelled(sbl, port_num)) {
-+				link->dfe_predelay_active = false;
-+				return -ECANCELED;
-+			}
-+			if (sbl_start_timeout(sbl, port_num)) {
-+				link->dfe_predelay_active = false;
-+				return -ETIMEDOUT;
-+			}
-+			msleep(1000);
-+		}
-+		link->dfe_predelay_active = false;
-+	}
-+
-+	/* Try to tune, keep going unless error, cancelled, timeout
-+	   or too many failed param checks.
-+	   In the latter case this is possibly because the saved tuning
-+	   params are not good and we keep tuning to a bad place. We therefore
-+	   need to fail here and reset the serdes on the next cycle to clear out
-+	   the current tuning params */
-+	sbl_dev_dbg(sbl->dev, "p%d: DFE %stune starting", port_num,
-+		    is_retune ? "re" : "");
-+
-+	sbl_link_tune_zero_total_timespec(sbl, port_num);
-+	link->dfe_tune_count = -1;
-+	while (true) {
-+		link->dfe_tune_count++;
-+		link->serr = sbl_port_dfe_tune(sbl, port_num, is_retune);
-+
-+		switch (link->serr) {
-+		case 0:
-+			sbl_dev_dbg(sbl->dev, "p%d: dfe %stune good\n", port_num,
-+				    is_retune ? "re" : "");
-+
-+			/* Setup the current tuning params for next time */
-+			if (link->blattr.options & SBL_OPT_DFE_SAVE_PARAMS) {
-+				sbl_dev_dbg(sbl->dev, "p%d: Saving tuning params...", port_num);
-+				mutex_lock(&link->tuning_params_mtx);
-+				err = sbl_save_serdes_tuning_params(sbl, port_num);
-+				if (err) {
-+					sbl_dev_warn(sbl->dev, "p%d: Failed to save tuning params [%d]",
-+						     port_num, err);
-+					/* not a fatal error */
-+				}
-+				mutex_unlock(&link->tuning_params_mtx);
-+				sbl_dev_dbg(sbl->dev, "p%d: Saved tuning params", port_num);
-+			}
-+
-+			if (sbl->link[port_num].blattr.tuning_pattern ==
-+			    SBL_TUNING_PATTERN_PRBS) {
-+				for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+					if (!rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+						continue;
-+					err = sbl_set_prbs_rx_mode(sbl, port_num, serdes);
-+					if (err)
-+						return err;
-+
-+				}
-+			}
-+			goto out;
-+
-+		case -ELNRNG:   /* tuning params out of range */
-+			if (link->tune_param_oob_count >= SBL_MAX_TUNE_PARAM_OOB_FAILS) {
-+				sbl_dev_info(sbl->dev, "%d: too many params oob fails\n", port_num);
-+				/* give up and return error
-+				   The calling framework should reset the spico to delete any
-+				   applied tuning params so we can do a full tune */
-+				goto out;
-+			}
-+			fallthrough;
-+
-+		case -ETIME:    /* tuning did not complete */
-+		case -ECHRNG:   /* eye heights bad */
-+
-+			/*  try to tune again */
-+
-+			break;
-+
-+		case -ECANCELED:
-+			sbl_dev_dbg(sbl->dev, "p%d: %stune cancelled\n", port_num,
-+				    is_retune ? "re" : "");
-+			goto out;
-+
-+		case -ETIMEDOUT:
-+			sbl_dev_dbg(sbl->dev, "p%d: %stune timed out\n", port_num,
-+				    is_retune ? "re" : "");
-+			goto out;
-+
-+		default:
-+			sbl_dev_dbg(sbl->dev, "p%d: %stune failed [%d]\n", port_num,
-+				    is_retune ? "re" : "", link->serr);
-+			goto out;
-+		}
++		sl_media_log_err(media_jack, LOG_NAME, "invalid lane data read state (%u)",
++				 media_jack->lane_data.read_state);
++		spin_unlock(&media_jack->data_lock);
++		return -EIO;
 +	}
 +
 +out:
-+	sbl_dev_dbg(sbl->dev, "p%d: SerDes tuning complete", port_num);
-+	return link->serr;
-+}
++	*media_signal = lane_data.signal;
 +
-+int sbl_spico_reset(struct sbl_inst *sbl, int port_num)
-+{
-+	int serdes;
-+	int err = 0;
-+	int pass;
-+	u32 sbus_addr;
-+	u32 sbus_ring;
-+	u32 result[SBL_SERDES_LANES_PER_PORT];
-+	unsigned long last_jiffy;
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: spico reset start", port_num);
-+
-+	sbus_ring = sbl->switch_info->ports[port_num].serdes[0].sbus_ring;
-+	if (mutex_is_locked(SBUS_RING_MTX(sbl, sbus_ring)))
-+		sbl_dev_dbg(sbl->dev, "spico_reset: Sbus contention detected, sbus_ring_mtx[%d] locked", sbus_ring);
-+
-+	/* SBUS Critical Section */
-+	mutex_lock(SBUS_RING_MTX(sbl, sbus_ring));
-+
-+	/* Issue the reset */
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+		      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+			continue;
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_PROC_RESET,
-+				SPICO_INT_DATA_PROC_RESET, NULL,
-+				SPICO_INT_IGNORE_RESULT);
-+		if (err) {
-+			mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+			sbl_dev_err(sbl->dev, "s%d: sbl_serdes_spico_int failed %d", sbus_ring, err);
-+			return err;
-+		}
-+
-+		/* Increment SPICO reset counter */
-+		sbl_link_counters_incr(sbl, port_num, serdes0_spico_reset + serdes);
-+	}
-+
-+	/* Check that each lane has been reset */
-+	last_jiffy = jiffies + msecs_to_jiffies(SPICO_PROC_RESET_RETRY_TIMEOUT_MS);
-+	pass = 0;
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+		      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+			continue;
-+		sbus_addr = SBUS_ADDR(sbl->switch_info->ports[port_num].serdes[serdes].sbus_ring,
-+				      sbl->switch_info->ports[port_num].serdes[serdes].rx_addr);
-+		do {
-+			err = sbl_sbus_rd(sbl, sbus_addr,
-+					  SBM_CRM_ADDR_PROC_STS,
-+					       &result[serdes]);
-+			if (err) {
-+				mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+				return err;
-+			}
-+
-+			if (!sbl->is_hw)
-+				result[serdes] = SPICO_STATE_PAUSE;
-+
-+			if ((result[serdes] & SPICO_STATE_MASK) == SPICO_STATE_PAUSE) {
-+				sbl_dev_dbg(sbl->dev, "p%ds%d: SPICO reset PAUSE: pass %d",
-+					    port_num, serdes, pass);
-+				break;
-+			} else if ((result[serdes] & SPICO_STATE_MASK) == SPICO_STATE_ERROR) {
-+				sbl_dev_dbg(sbl->dev, "p%ds%d: SPICO reset ERROR: pass %d",
-+					    port_num, serdes, pass);
-+				/* NOTE: I've seen the transition form ERROR -> PAUSE successfully */
-+			} else {
-+				sbl_dev_dbg(sbl->dev, "p%ds%d: SPICO reset OTHER 0x%x: pass %d",
-+					    port_num, serdes, result[serdes], pass);
-+			}
-+			pass++;
-+			/* No delay here, as we could miss the PAUSE state */
-+		} while (time_is_after_jiffies(last_jiffy));
-+
-+	}
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!(rx_serdes_required_for_link_mode(sbl, port_num, serdes) ||
-+		      tx_serdes_required_for_link_mode(sbl, port_num, serdes)))
-+			continue;
-+		if ((result[serdes] & SPICO_STATE_MASK) != SPICO_STATE_PAUSE) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: SPICO reset failed! result: 0x%x after passes: %d",
-+				    port_num, serdes, result[serdes], pass);
-+			err = -ETIME;
-+		}
-+	}
-+	if (err) {
-+		mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+		return -ETIME;
-+	}
-+
-+	sbl->link[port_num].pcal_running = false;
-+
-+	mutex_unlock(SBUS_RING_MTX(sbl, sbus_ring));
-+
-+	sbl_dev_dbg(sbl->dev, "p%d: spico reset done", port_num);
-+	return 0;
-+}
-+
-+
-+#define SPICO_INT_DATA_PLL_RESET     0xffff
-+
-+int sbl_reset_serdes_plls(struct sbl_inst *sbl, int port_num)
-+{
-+	int serdes;
-+	int err;
-+
-+	sbl_dev_info(sbl->dev, "p%d: resetting serdes PLLs", port_num);
-+
-+	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
-+		if (!rx_serdes_required_for_link_mode(sbl, port_num, serdes))
-+			continue;
-+
-+		err = sbl_serdes_spico_int(sbl, port_num, serdes,
-+					   SPICO_INT_CM4_DFE_CTRL,
-+				SPICO_INT_DATA_PLL_RESET, NULL,
-+				SPICO_INT_VALIDATE_RESULT);
-+		if (err) {
-+			sbl_dev_err(sbl->dev, "p%ds%d: serdes PLL reset failed!", port_num, serdes);
-+			return err;
-+		}
-+
-+		/* Increment PLL reset counter */
-+		sbl_link_counters_incr(sbl, port_num, serdes0_pll_reset + serdes);
-+	}
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "signal get (rx_los = 0x%X, rx_lol = 0x%X, tx_los = 0x%X, tx_lol = 0x%X)",
++			 media_signal->rx.los_map, media_signal->rx.lol_map,
++			 media_signal->tx.los_map, media_signal->tx.lol_map);
 +
 +	return 0;
 +}
 +
++int sl_media_jack_signal_cache_get(u8 ldev_num, u8 lgrp_num, u8 serdes_lane_map,
++				   struct sl_media_jack_signal *media_signal)
++{
++	struct sl_media_jack_lane_data  lane_data;
++	struct sl_media_jack           *media_jack;
++
++	media_jack = sl_media_lgrp_get(ldev_num, lgrp_num)->media_jack;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "signal cache get (ldev_num =%u, lgrp_num = %u, serdes_lane_map = 0x%X)",
++			 ldev_num, lgrp_num, serdes_lane_map);
++
++	if (!sl_media_jack_lane_data_cache_get(media_jack, &lane_data)) {
++		sl_media_log_err_trace(media_jack, LOG_NAME, "lane data not cached");
++		return -ENOENT;
++	}
++
++	*media_signal = lane_data.signal;
++
++	return 0;
++}
++
++int sl_media_jack_signal_cache_time_s_get(u8 ldev_num, u8 lgrp_num, time64_t *cache_time)
++{
++	bool                  cached;
++	struct sl_media_jack *media_jack;
++
++	media_jack = sl_media_lgrp_get(ldev_num, lgrp_num)->media_jack;
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "signal cache time get (ldev_num =%u, lgrp_num = %u)",
++			 ldev_num, lgrp_num);
++
++	spin_lock(&media_jack->data_lock);
++	cached = media_jack->lane_data.cache.cached;
++	*cache_time = media_jack->lane_data.cache.timestamp_s;
++	spin_unlock(&media_jack->data_lock);
++
++	sl_media_log_dbg(media_jack, LOG_NAME,
++			 "signal cache time get (cache_time = %lld, cached = %s)",
++			 *cache_time, cached ? "yes" : "no");
++
++	return cached ? 0 : -ENOENT;
++}
++
++int sl_media_jack_attr_error_map_str(unsigned long error_map, char *error_str, unsigned int error_str_size)
++{
++	int rtn;
++	int str_pos;
++	int which;
++
++	if (!error_str)
++		return -EINVAL;
++
++	if (error_str_size < SL_MEDIA_JACK_ATTR_ERR_STR_SIZE)
++		return -EINVAL;
++
++	if (!error_map) {
++		str_pos = snprintf(error_str, error_str_size, "none ");
++		goto out;
++	}
++
++	str_pos = 0;
++
++	for_each_set_bit(which, &error_map, sizeof(error_map) * BITS_PER_BYTE) {
++		switch (BIT(which)) {
++		case SL_MEDIA_ERROR_CABLE_UNSUPPORTED:
++			rtn = snprintf(error_str + str_pos, error_str_size - str_pos, "cable-unsupported ");
++			break;
++		case SL_MEDIA_ERROR_CABLE_FORMAT_UNSUPPORTED:
++			rtn = snprintf(error_str + str_pos, error_str_size - str_pos, "cable-format-unsupported ");
++			break;
++		case SL_MEDIA_ERROR_CABLE_FW_UNSUPPORTED:
++			rtn = snprintf(error_str + str_pos, error_str_size - str_pos, "cable-fw-unsupported ");
++			break;
++		case SL_MEDIA_ERROR_CABLE_HEADSHELL_FAULT:
++			rtn = snprintf(error_str + str_pos, error_str_size - str_pos, "cable-headshell-fault ");
++			break;
++		case SL_MEDIA_ERROR_TEMP_DOWN_LIMIT_DEFAULT:
++			rtn = snprintf(error_str + str_pos, error_str_size - str_pos, "temp-down-limit-default ");
++			break;
++		case SL_MEDIA_ERROR_TEMP_WARN_LIMIT_DEFAULT:
++			rtn = snprintf(error_str + str_pos, error_str_size - str_pos, "temp-warn-limit-default ");
++			break;
++		case SL_MEDIA_ERROR_TRYABLE:
++			rtn = snprintf(error_str + str_pos, error_str_size - str_pos, "tryable ");
++			break;
++		default:
++			rtn = snprintf(error_str + str_pos, error_str_size - str_pos, "unknown ");
++			break;
++		}
++
++		if (rtn < 0) {
++			str_pos = snprintf(error_str, error_str_size, "error ");
++			goto out;
++		}
++		if (str_pos + rtn >= error_str_size) {
++			error_str[str_pos - 2] = '.';
++			error_str[str_pos - 3] = '.';
++			error_str[str_pos - 4] = '.';
++			break;
++		}
++		str_pos += rtn;
++	}
++
++out:
++	error_str[str_pos - 1] = '\0';
++
++	return 0;
++}
++
++int sl_media_jack_attr_error_map_get(struct sl_media_jack *media_jack, u32 *error_map)
++{
++	spin_lock(&media_jack->data_lock);
++	*error_map = media_jack->cable_info->media_attr.errors;
++	spin_unlock(&media_jack->data_lock);
++
++	sl_media_log_dbg(media_jack, LOG_NAME, "attr error map get (error_map = %u)", *error_map);
++
++	return 0;
++}
+diff --git a/drivers/net/ethernet/hpe/sl/media/sl_media_ldev.c b/drivers/net/ethernet/hpe/sl/media/sl_media_ldev.c
+new file mode 100644
+index 000000000000..a78d70494b5c
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/sl/media/sl_media_ldev.c
+@@ -0,0 +1,22 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2024 Hewlett Packard Enterprise Development LP */
++
++#include <linux/types.h>
++
++#include "sl_media_ldev.h"
++#include "data/sl_media_data_ldev.h"
++
++int sl_media_ldev_new(u8 ldev_num, struct workqueue_struct *workqueue)
++{
++	return sl_media_data_ldev_new(ldev_num, workqueue);
++}
++
++void sl_media_ldev_del(u8 ldev_num)
++{
++	sl_media_data_ldev_del(ldev_num);
++}
++
++struct sl_media_ldev *sl_media_ldev_get(u8 ldev_num)
++{
++	return sl_media_data_ldev_get(ldev_num);
++}
+diff --git a/drivers/net/ethernet/hpe/sl/media/sl_media_lgrp.c b/drivers/net/ethernet/hpe/sl/media/sl_media_lgrp.c
+new file mode 100644
+index 000000000000..b15805a82270
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/sl/media/sl_media_lgrp.c
+@@ -0,0 +1,498 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2023-2026 Hewlett Packard Enterprise Development LP */
++
++#include <linux/slab.h>
++#include <linux/types.h>
++
++#include "base/sl_media_log.h"
++
++#include "sl_media_lgrp.h"
++#include "sl_media_jack.h"
++#include "data/sl_media_data_lgrp.h"
++#include "data/sl_media_data_jack.h"
++
++#define LOG_NAME SL_MEDIA_LGRP_LOG_NAME
++
++int sl_media_lgrp_new(u8 ldev_num, u8 lgrp_num)
++{
++	return sl_media_data_lgrp_new(ldev_num, lgrp_num);
++}
++
++void sl_media_lgrp_del(u8 ldev_num, u8 lgrp_num)
++{
++	sl_media_data_lgrp_del(ldev_num, lgrp_num);
++}
++
++struct sl_media_lgrp *sl_media_lgrp_get(u8 ldev_num, u8 lgrp_num)
++{
++	return sl_media_data_lgrp_get(ldev_num, lgrp_num);
++}
++
++void sl_media_lgrp_media_attr_get(u8 ldev_num, u8 lgrp_num, struct sl_media_attr *media_attr)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	memset(media_attr, 0, sizeof(struct sl_media_attr));
++
++	media_lgrp = sl_media_data_lgrp_get(ldev_num, lgrp_num);
++	if (!media_lgrp) {
++		sl_media_log_err(NULL, SL_MEDIA_LGRP_LOG_NAME, "media_data_lgrp_get failed");
++		return;
++	}
++
++	sl_media_log_dbg(media_lgrp, SL_MEDIA_LGRP_LOG_NAME, "media_attr_get");
++
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	switch (media_lgrp->cable_info->real_cable_status) {
++	case CABLE_MEDIA_ATTR_ADDED:
++		*media_attr = media_lgrp->cable_info->media_attr;
++		break;
++	case CABLE_MEDIA_ATTR_STASHED:
++		*media_attr = media_lgrp->cable_info->stashed_media_attr;
++		break;
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++}
++
++bool sl_media_lgrp_media_has_error(struct sl_media_lgrp *media_lgrp)
++{
++	struct sl_media_attr media_attr;
++
++	sl_media_lgrp_media_attr_get(media_lgrp->media_ldev->num, media_lgrp->num, &media_attr);
++
++	sl_media_log_dbg(media_lgrp, SL_MEDIA_LGRP_LOG_NAME,
++			 "media has error (media_attr.errors = 0x%X)", media_attr.errors);
++
++	return ((media_attr.errors & (SL_MEDIA_ERROR_CABLE_FORMAT_UNSUPPORTED |
++				      SL_MEDIA_ERROR_CABLE_FW_UNSUPPORTED)) != 0);
++}
++
++void sl_media_lgrp_media_serdes_settings_get(u8 ldev_num, u8 lgrp_num,
++					     struct sl_media_serdes_settings *media_serdes_settings)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	media_lgrp = sl_media_data_lgrp_get(ldev_num, lgrp_num);
++	sl_media_log_dbg(media_lgrp, SL_MEDIA_LGRP_LOG_NAME, "media serdes settings get");
++
++	*media_serdes_settings = media_lgrp->media_jack->serdes_settings;
++}
++
++bool sl_media_lgrp_media_type_is_active(u8 ldev_num, u8 lgrp_num)
++{
++	struct sl_media_attr media_attr;
++
++	sl_media_lgrp_media_attr_get(ldev_num, lgrp_num, &media_attr);
++
++	return SL_MEDIA_LGRP_MEDIA_TYPE_IS_ACTIVE(media_attr.type);
++}
++
++void sl_media_lgrp_connect_id_set(u8 ldev_num, u8 lgrp_num, const char *connect_id)
++{
++	sl_media_data_lgrp_connect_id_set(sl_media_data_lgrp_get(ldev_num, lgrp_num), connect_id);
++}
++
++void sl_media_lgrp_real_cable_if_present_send(u8 ldev_num, u8 lgrp_num)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	media_lgrp = sl_media_data_lgrp_get(ldev_num, lgrp_num);
++
++	sl_media_log_dbg(media_lgrp, SL_MEDIA_LGRP_LOG_NAME, "real cable if present send");
++
++	sl_media_data_jack_cable_if_present_send(media_lgrp);
++}
++
++void sl_media_lgrp_real_cable_if_not_present_send(u8 ldev_num, u8 lgrp_num)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	media_lgrp = sl_media_data_lgrp_get(ldev_num, lgrp_num);
++
++	sl_media_log_dbg(media_lgrp, SL_MEDIA_LGRP_LOG_NAME, "real cable if not present send");
++
++	sl_media_data_jack_cable_if_not_present_send(media_lgrp);
++}
++
++void sl_media_lgrp_cable_hot_send(u8 ldev_num, u8 lgrp_num)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	media_lgrp = sl_media_lgrp_get(ldev_num, lgrp_num);
++
++	sl_media_log_dbg(media_lgrp, SL_MEDIA_LGRP_LOG_NAME, "cable hot send");
++
++	if (sl_media_lgrp_media_type_is_active(ldev_num, lgrp_num)) {
++		sl_media_lgrp_hot_client_ready_set(ldev_num, lgrp_num, true);
++		if (sl_media_jack_cable_temp_hw_check(media_lgrp->media_jack) == SL_MEDIA_JACK_TEMP_STATE_HOT) {
++			sl_media_jack_fault_cause_set(media_lgrp->media_jack, SL_MEDIA_FAULT_CAUSE_HOT);
++			sl_media_jack_cable_hot_notif_send(media_lgrp->media_jack);
++		}
++	}
++}
++
++void sl_media_lgrp_cable_warm_send(u8 ldev_num, u8 lgrp_num)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	media_lgrp = sl_media_lgrp_get(ldev_num, lgrp_num);
++
++	sl_media_log_dbg(media_lgrp, SL_MEDIA_LGRP_LOG_NAME, "cable warm send");
++
++	if (sl_media_lgrp_media_type_is_active(ldev_num, lgrp_num)) {
++		sl_media_lgrp_warm_client_ready_set(ldev_num, lgrp_num, true);
++		if (sl_media_jack_cable_temp_hw_check(media_lgrp->media_jack) == SL_MEDIA_JACK_TEMP_STATE_WARM) {
++			sl_media_jack_cable_warm_notif_send(media_lgrp->media_jack);
++		}
++	}
++}
++
++void sl_media_lgrp_cable_cold_send(u8 ldev_num, u8 lgrp_num)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	media_lgrp = sl_media_lgrp_get(ldev_num, lgrp_num);
++
++	sl_media_log_dbg(media_lgrp, SL_MEDIA_LGRP_LOG_NAME, "cable cold send");
++
++	if (sl_media_lgrp_media_type_is_active(ldev_num, lgrp_num)) {
++		sl_media_lgrp_cold_client_ready_set(ldev_num, lgrp_num, true);
++		if (sl_media_jack_cable_temp_hw_check(media_lgrp->media_jack) == SL_MEDIA_JACK_TEMP_STATE_COLD)
++			sl_media_jack_cable_cold_notif_send(media_lgrp->media_jack);
++	}
++}
++
++void sl_media_lgrp_cable_temp_flags_clr(u8 ldev_num, u8 lgrp_num)
++{
++	u8                   i;
++	struct sl_media_lgrp *media_lgrp;
++
++	media_lgrp = sl_media_lgrp_get(ldev_num, lgrp_num);
++
++	sl_media_log_dbg(media_lgrp, SL_MEDIA_LGRP_LOG_NAME, "cable temp flags clr");
++
++	for (i = 0; i < media_lgrp->media_jack->port_count; ++i) {
++		if (sl_media_lgrp_media_type_is_active(ldev_num, lgrp_num)) {
++			sl_media_lgrp_hot_client_ready_set(ldev_num, lgrp_num, false);
++			sl_media_jack_cable_hot_notif_sent_set(media_lgrp->media_jack,
++							       &media_lgrp->media_jack->cable_info[i], false);
++			sl_media_lgrp_warm_client_ready_set(ldev_num, lgrp_num, false);
++			sl_media_jack_cable_warm_notif_sent_set(media_lgrp->media_jack,
++								&media_lgrp->media_jack->cable_info[i], false);
++			sl_media_lgrp_cold_client_ready_set(ldev_num, lgrp_num, false);
++			sl_media_jack_cable_cold_notif_sent_set(media_lgrp->media_jack,
++								&media_lgrp->media_jack->cable_info[i], false);
++		}
++	}
++}
++
++void sl_media_lgrp_hot_client_ready_set(u8 ldev_num, u8 lgrp_num, bool value)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	media_lgrp = sl_media_data_lgrp_get(ldev_num, lgrp_num);
++
++	sl_media_log_dbg(media_lgrp, SL_MEDIA_LGRP_LOG_NAME, "hot client ready set (value = %s)",
++			 value ? "true" : "false");
++
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	media_lgrp->cable_info->hot_client_ready = value;
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++}
++
++void sl_media_lgrp_warm_client_ready_set(u8 ldev_num, u8 lgrp_num, bool value)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	media_lgrp = sl_media_data_lgrp_get(ldev_num, lgrp_num);
++
++	sl_media_log_dbg(media_lgrp, SL_MEDIA_LGRP_LOG_NAME, "warm client ready set (value = %s)",
++			 value ? "true" : "false");
++
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	media_lgrp->cable_info->warm_client_ready = value;
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++}
++
++void sl_media_lgrp_cold_client_ready_set(u8 ldev_num, u8 lgrp_num, bool value)
++{
++	struct sl_media_lgrp *media_lgrp;
++
++	media_lgrp = sl_media_data_lgrp_get(ldev_num, lgrp_num);
++
++	sl_media_log_dbg(media_lgrp, SL_MEDIA_LGRP_LOG_NAME, "cold client ready set (value = %s)",
++			 value ? "true" : "false");
++
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	media_lgrp->cable_info->cold_client_ready = value;
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++}
++
++int sl_media_lgrp_vendor_get(struct sl_media_lgrp *media_lgrp, u32 *vendor)
++{
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	switch (media_lgrp->cable_info->real_cable_status) {
++	case CABLE_MEDIA_ATTR_ADDED:
++		*vendor = media_lgrp->cable_info->media_attr.vendor;
++		break;
++	case CABLE_MEDIA_ATTR_STASHED:
++		*vendor = media_lgrp->cable_info->stashed_media_attr.vendor;
++		break;
++	default:
++		*vendor = SL_MEDIA_VENDOR_UNKNOWN;
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_lgrp_vendor_pn_str_get(struct sl_media_lgrp *media_lgrp, char *vendor_pn_str)
++{
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	switch (media_lgrp->cable_info->real_cable_status) {
++	case CABLE_MEDIA_ATTR_ADDED:
++		strscpy_pad(vendor_pn_str,
++			    media_lgrp->cable_info->media_attr.vendor_pn_str, SL_MEDIA_VENDOR_PN_SIZE);
++		break;
++	case CABLE_MEDIA_ATTR_STASHED:
++		strscpy_pad(vendor_pn_str,
++			    media_lgrp->cable_info->stashed_media_attr.vendor_pn_str, SL_MEDIA_VENDOR_PN_SIZE);
++		break;
++	default:
++		memset(vendor_pn_str, '0', SL_MEDIA_VENDOR_PN_SIZE - 2);
++		vendor_pn_str[SL_MEDIA_VENDOR_PN_SIZE - 1] = '\0';
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_lgrp_type_get(struct sl_media_lgrp *media_lgrp, u32 *type)
++{
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	switch (media_lgrp->cable_info->real_cable_status) {
++	case CABLE_MEDIA_ATTR_ADDED:
++		*type = media_lgrp->cable_info->media_attr.type;
++		break;
++	case CABLE_MEDIA_ATTR_STASHED:
++		*type = media_lgrp->cable_info->stashed_media_attr.type;
++		break;
++	default:
++		*type = SL_MEDIA_TYPE_UNKNOWN;
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_lgrp_shape_get(struct sl_media_lgrp *media_lgrp, u32 *shape)
++{
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	switch (media_lgrp->cable_info->real_cable_status) {
++	case CABLE_MEDIA_ATTR_ADDED:
++		*shape = media_lgrp->cable_info->media_attr.shape;
++		break;
++	case CABLE_MEDIA_ATTR_STASHED:
++		*shape = media_lgrp->cable_info->stashed_media_attr.shape;
++		break;
++	default:
++		*shape = SL_MEDIA_SHAPE_UNKNOWN;
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_lgrp_length_get(struct sl_media_lgrp *media_lgrp, u32 *length_cm)
++{
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	switch (media_lgrp->cable_info->real_cable_status) {
++	case CABLE_MEDIA_ATTR_ADDED:
++		*length_cm = media_lgrp->cable_info->media_attr.length_cm;
++		break;
++	case CABLE_MEDIA_ATTR_STASHED:
++		*length_cm = media_lgrp->cable_info->stashed_media_attr.length_cm;
++		break;
++	default:
++		*length_cm = 0;
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_lgrp_max_speed_get(struct sl_media_lgrp *media_lgrp, u32 *max_speed)
++{
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	switch (media_lgrp->cable_info->real_cable_status) {
++	case CABLE_MEDIA_ATTR_ADDED:
++		*max_speed = media_lgrp->cable_info->media_attr.max_speed;
++		break;
++	case CABLE_MEDIA_ATTR_STASHED:
++		*max_speed = media_lgrp->cable_info->stashed_media_attr.max_speed;
++		break;
++	default:
++		*max_speed = 0;
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_lgrp_serial_num_str_get(struct sl_media_lgrp *media_lgrp, char *serial_num_str)
++{
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	switch (media_lgrp->cable_info->real_cable_status) {
++	case CABLE_MEDIA_ATTR_ADDED:
++		strscpy_pad(serial_num_str,
++			    media_lgrp->cable_info->media_attr.serial_num_str, SL_MEDIA_SERIAL_NUM_SIZE);
++		break;
++	case CABLE_MEDIA_ATTR_STASHED:
++		strscpy_pad(serial_num_str,
++			    media_lgrp->cable_info->stashed_media_attr.serial_num_str, SL_MEDIA_SERIAL_NUM_SIZE);
++		break;
++	default:
++		memset(serial_num_str, '0', (SL_MEDIA_SERIAL_NUM_SIZE - 1));
++		serial_num_str[SL_MEDIA_SERIAL_NUM_SIZE - 1] = '\0';
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_lgrp_hpe_pn_str_get(struct sl_media_lgrp *media_lgrp, char *hpe_pn_str)
++{
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	switch (media_lgrp->cable_info->real_cable_status) {
++	case CABLE_MEDIA_ATTR_ADDED:
++		strscpy_pad(hpe_pn_str,
++			    media_lgrp->cable_info->media_attr.hpe_pn_str, SL_MEDIA_HPE_PN_SIZE);
++		break;
++	case CABLE_MEDIA_ATTR_STASHED:
++		strscpy_pad(hpe_pn_str,
++			    media_lgrp->cable_info->stashed_media_attr.hpe_pn_str, SL_MEDIA_HPE_PN_SIZE);
++		break;
++	default:
++		memset(hpe_pn_str, '0', SL_MEDIA_HPE_PN_SIZE - 2);
++		hpe_pn_str[SL_MEDIA_HPE_PN_SIZE - 1] = '\0';
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_lgrp_jack_type_get(struct sl_media_lgrp *media_lgrp, u32 *jack_type)
++{
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	switch (media_lgrp->cable_info->real_cable_status) {
++	case CABLE_MEDIA_ATTR_ADDED:
++		*jack_type = media_lgrp->cable_info->media_attr.jack_type;
++		break;
++	case CABLE_MEDIA_ATTR_STASHED:
++		*jack_type = media_lgrp->cable_info->stashed_media_attr.jack_type;
++		break;
++	default:
++		*jack_type = SL_MEDIA_JACK_TYPE_UNKNOWN;
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_lgrp_jack_type_qsfp_density_get(struct sl_media_lgrp *media_lgrp, u32 *density)
++{
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	switch (media_lgrp->cable_info->real_cable_status) {
++	case CABLE_MEDIA_ATTR_ADDED:
++		*density = media_lgrp->cable_info->media_attr.jack_type_info.qsfp.density;
++		break;
++	case CABLE_MEDIA_ATTR_STASHED:
++		*density = media_lgrp->cable_info->stashed_media_attr.jack_type_info.qsfp.density;
++		break;
++	default:
++		*density = SL_MEDIA_QSFP_DENSITY_UNKNOWN;
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_lgrp_furcation_get(struct sl_media_lgrp *media_lgrp, u32 *furcation)
++{
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	switch (media_lgrp->cable_info->real_cable_status) {
++	case CABLE_MEDIA_ATTR_ADDED:
++		*furcation = media_lgrp->cable_info->media_attr.furcation;
++		break;
++	case CABLE_MEDIA_ATTR_STASHED:
++		*furcation = media_lgrp->cable_info->stashed_media_attr.furcation;
++		break;
++	default:
++		*furcation = SL_MEDIA_FURCATION_UNKNOWN;
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return 0;
++}
++
++bool sl_media_lgrp_is_cable_unsupported(struct sl_media_lgrp *media_lgrp)
++{
++	bool unsupported;
++
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	unsupported = media_lgrp->media_jack->is_cable_unsupported;
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return unsupported;
++}
++
++int sl_media_lgrp_date_code_str_get(struct sl_media_lgrp *media_lgrp, char *date_code_str)
++{
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	switch (media_lgrp->cable_info->real_cable_status) {
++	case CABLE_MEDIA_ATTR_ADDED:
++		strscpy_pad(date_code_str,
++			    media_lgrp->cable_info->media_attr.date_code_str, SL_MEDIA_DATE_CODE_SIZE);
++		break;
++	case CABLE_MEDIA_ATTR_STASHED:
++		strscpy_pad(date_code_str,
++			    media_lgrp->cable_info->stashed_media_attr.date_code_str, SL_MEDIA_DATE_CODE_SIZE);
++		break;
++	default:
++		memset(date_code_str, '0', SL_MEDIA_DATE_CODE_SIZE - 2);
++		date_code_str[SL_MEDIA_DATE_CODE_SIZE - 1] = '\0';
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return 0;
++}
++
++int sl_media_lgrp_fw_ver_str_get(struct sl_media_lgrp *media_lgrp, u8 *fw_ver)
++{
++	spin_lock(&media_lgrp->media_jack->data_lock);
++	switch (media_lgrp->cable_info->real_cable_status) {
++	case CABLE_MEDIA_ATTR_ADDED:
++		memcpy(fw_ver, media_lgrp->cable_info->media_attr.fw_ver, SL_MEDIA_FIRMWARE_VERSION_SIZE);
++		break;
++	case CABLE_MEDIA_ATTR_STASHED:
++		memcpy(fw_ver, media_lgrp->cable_info->stashed_media_attr.fw_ver, SL_MEDIA_FIRMWARE_VERSION_SIZE);
++		break;
++	default:
++		memset(fw_ver, 0, SL_MEDIA_FIRMWARE_VERSION_SIZE);
++	}
++	spin_unlock(&media_lgrp->media_jack->data_lock);
++
++	return 0;
++}
++
++bool sl_media_lgrp_is_signal_status_supported(u8 ldev_num, u8 lgrp_num)
++{
++	struct sl_media_attr media_attr;
++
++	sl_media_lgrp_media_attr_get(ldev_num, lgrp_num, &media_attr);
++
++	return (media_attr.supported_flags_advertised[0] & SL_MEDIA_ADVERTISED_FLAGS_TX_LOS) ||
++	       (media_attr.supported_flags_advertised[0] & SL_MEDIA_ADVERTISED_FLAGS_TX_LOL) ||
++	       (media_attr.supported_flags_advertised[1] & SL_MEDIA_ADVERTISED_FLAGS_RX_LOS) ||
++	       (media_attr.supported_flags_advertised[1] & SL_MEDIA_ADVERTISED_FLAGS_RX_LOL);
++}
 
 -- 
 2.56.0
