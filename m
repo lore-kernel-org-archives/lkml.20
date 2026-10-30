@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793386412;
-	b=oiGoyNpZUCxnuPl1uwoTYKxKttsGvedjb1Tr4MBamXA4SBcrxDsiBQ3n+e5jo6LfBD5J
-	 fkpHqdGOAznxPKjriIU8f1iANWtT6jF2ib9C5J2jWxfCwc8G7EDIlI3x6d9Qtj5N0RYRx
-	 y4reVOc6gQF0a5X4Yk39q+nQYchrZVyTE7OY0R3RY6vBU3BgQhfcj3vjSC+Oju0NEFcp/
-	 xyYgN3yXsQ0oa20JgNSEJSa1nTNC50JlmmfroPJmXa23u66fkYUODI0Y/IDA8hqMVboO1
-	 Xu9biXE+4khKtsx7va5xhmJVdPbN5FAhbD+UkSJ1jHw5K1ENSPOdrp+u4aV05XB4zaQ==
+	t=1793386413;
+	b=cjFsD5CvTJORGlBOdOPsc7QUszbpEKSi6rb6Q35TFYIEuDOREDtbaYiPI+rFucOpSHkl
+	 5D1ELvU6EgkV3GO58y8ePU/LyIJxHPatqPmg+iKbdDzUVBxLwaJ2E44/lQ65oOtU3g2bQ
+	 DpDKoongrY+ZDHABf9OjIyffMna7SqY5opmyiXZ5IWM0puBLtBlAjzM1z8HshWaPCuOt4
+	 mqNpIimYuus4vSBMzDMH8PFOOWXTGcg0BcIceqEQ24BottbZy87CAFddOc60SAy2F3rc1
+	 pihxCMESOxe5zXRw3GUn4pvAnAd4454S+TR+S0y8TYWZDVpD9Y2GuNxxx9ZXgnrAebA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793386412;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=uu0C0Yr+xrcRg90frO5nemP1vWNiqZgW/5nsLGnwo/E=;
-	b=Ji82hFgwTr5VMa52YheffwcepxfWkRi35r2M22si/SJG7TXoHT54sVmjsM5DFZJpGli+
-	 XNZMqOSTGLGqWjfKH5PAJOr/LIMyES3EYjnlOtrszVXp8HQCoLwsIfBodt/5XTNzq5+m1
-	 axXYBMvQrnoMcL7bLnqfgSJH0pMaXVY7MrXzolqdAxqEJ3AcYZJ2+NvTL16CVCXN+SZW1
-	 PqCPAh5CKTwimTNJbiAM80QO4HoTQAXOWw1V9L83LIWzBY/KTikBV6QTYHBEBWu2T3s51
-	 KGk0haPKVDojbeYBbVj38gxSefXGC5C8L8VWKKSeX5f5+RgWjFoR/tbf2GsAUhmcgSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793386413;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=93l3PbwxMNXva8shrLD9Yp2oURR70euJx91TNEBL23k=;
+	b=WNJpC2x0zRxKWBz6HroLLYixCAy9at+3/exVfMBGwuW6yJcEmb5akIOB/4/I6l4d+L5B
+	 VPtSwEDBqFn7bSnSrYvEQqvEL7MX5NZmLjLUP1XX0bXKlO03D+KoiE7ClDXfbM0GrtV/M
+	 D94gGvmKjHy8jOTCgJAhaMw0pse2Pym0T0z9JEZZ6KN3NP06t9bo0gLTds7gw1Do+AQzd
+	 kKK0YXHrlU41XmPinSlXjq1lRGEm1aN+o1tEKeS7KoGvfBDxSxPEoTOKz73cvJ1BR8oIG
+	 GzjbuN0TXfIeC3Hq3U8rZXqxAjApn/irtFmEzCliLdlDKzfm3xRojCegrCxOOcTSk1Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VhPGwf1E;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gYCPV4bA;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47ECD606A326;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE42606A32E;
 	Fri, 30 Oct 2026 18:53:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VhPGwf1E
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gYCPV4bA
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793386411;
-	b=X+nT009Wg8TKjeoODjKWRjmWXYKUZ5t6ghV4MKGAReLJIWDtvwke4k20SMPk52mOM/It
-	 Jp3Lv1ABdQqxgIDQwF15nGZ784KTve+y529EYSDYT/3T6giViMnrH8TjgeTf7EQYjvRzL
-	 ZbeFQ2z10ObQP5ezOMMCJ2/mweKTyRAcnnphoAJeVGAZM3g5xexUC1FuGfVZtuceU8Oq3
-	 s7os0Y/ch/aoxKETcm3TX/DV3ZzUrBs99xrCqUmV23Ls/xmEXagztdkpeipsPc6t/4yrQ
-	 pqD8aIyc6fNglMoZ6soX0Nq3tsmHckCP0Czt6wRWd2s071VSTBWZYN4OCL04iYm/NUQ==
+	t=1793386412;
+	b=WqEPLysyfi0MHdOpB2205mpstxutfPDXYU8RCw24ZYB6/FtI48R4hSQtAZOS/h6pBjjf
+	 zrXxzDzewhZ34M2+0fdjqy5uwHagAC0O1q6f2k6WSwY0CHdF4Lh3vojMSSlwK1Oh+9Ysu
+	 5lkz07GBlI5zVizw0ogyLtpcr3fbAoHpGYzAcBAh+08/UdEOdmre27rwWljL5OlK2rLbT
+	 2+jN16bbgSqk9DD2YKNgModDmhUTue01gsBFQFmD5JKbvC7j3Tsx+M0wH6TBWt2uLx3wk
+	 +wXdtlRd/vBJkqJBgO6u3UNGxVvDy89ttwDeZ1V6kKaIHO3G+7htTld5HcqGNz4/hlA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793386411;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=uu0C0Yr+xrcRg90frO5nemP1vWNiqZgW/5nsLGnwo/E=;
-	b=mjWFSqN/Ls+k7Vz6Q82NEs+BJ4wz7xALjnWFz+44Sd+vQmZalLuQQPlfs+PL2NBPMHnd
-	 gl7W7IwSPjRH4zrpGuhrFCTM2RcblOZ4OuhobmaYJJnAgXgFDZY9tkM5soMgOFt886qTd
-	 JUzj1xKsfaJveUWZTXa8M7WhsyMpm2c+Fl/CUNaimVdt8WbzyBheIdfKXcEQcXo3jdAQ2
-	 h8gqAlR6sXWIe++MrYIujysEdciZBq3QCW9tl/oyoq2rWNQpDtQddoWNg5EP+Z1XITD+d
-	 /zh0HxGKpqgzP6+hiZQUM7jiEEPQ+7AWN8HJENSFr4uG783HukZAfp25KQD11kxGB7w==
+	c=relaxed/relaxed; t=1793386412;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=93l3PbwxMNXva8shrLD9Yp2oURR70euJx91TNEBL23k=;
+	b=ccUnwuukADAHVLsgXYWg2/aX4UgJH9AgBIXkUTMW7hm/n3eER07qp2fgjatZhlAd5d7b
+	 LiASNJxAFbDXliqo9UU+FACNV2OP3nz8Y8BLjeisCqp4IK3rX5iVa27XhcqgdYsLG8gJy
+	 WQe9VO9CX5tBG3ct3H8i2ySzmoPxQoi3d1Z/3qLoYTYSaEeTVi6Dfbg+EPW2rLx+zI7Au
+	 2Ha9HvpQWcHrIPNk6iWs2hjQ3dVkhhgTY7nZLz+qG3KTXCGTr7EViYyUOJVzz/H5yw8DS
+	 fGw6v4C6VoaYah2Bj1dtwkp2X6CSSevgYDV9POCtmb4Tm0PCN/VPMAtixTez5AK4Vgw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 99FE11F000C1;
+	by smtp.kernel.org (Postfix) with ESMTPS id 9AF0A1F00A02;
 	Fri, 30 Oct 2026 18:53:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793386411;
-	bh=uu0C0Yr+xrcRg90frO5nemP1vWNiqZgW/5nsLGnwo/E=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=VhPGwf1EJNSZ1OL3qXTtLdzg0ADklL3lSnSmElUciYYPoscsWuorQyOdLQDG8Ye3M
-	 xx19zVsHCWu8nwPlQp0ZeX5kWfE5tz8k71+GqBDVlbSm8vIFrPWWqdsLc5rEN1UOmt
-	 I0FVF/Pqsqyehv+FP139Ek+gYs+3pYB5TvjivBe7go0gg3DiAXoqgP15YsJYQr477D
-	 UtS1VUpBodgkUrb0TWhHc8BohjvyPc+WzC89J3OV29joREewA5qkZ0KhM2r2gnV6Rl
-	 paliY7qWcyEyxIr6LxfMfjHIi85W23GdVbMrDnW6vwCdAbKlHxdKpAB337aq0LHrml
-	 BSOfH9yGF2wZQ==
+	s=k20260515; t=1793386412;
+	bh=93l3PbwxMNXva8shrLD9Yp2oURR70euJx91TNEBL23k=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=gYCPV4bAyR0oLuPWzbOVuc8uLLSfhmg2YfkoBw1Z2Cc/bhoMyCkFarTXoUjUW7zLh
+	 +lGhLtUA/5nd+MynjNghVx0DjO1bUickdVIokings/8+Cnw+zhTuIYmp7c2t1mflbR
+	 Zi6Ej8HkBi03j2NEemkEpgQnTpijtNhHjDq+UJzbDHWYpAUDnlXymj+U1P1JNCfEGK
+	 6ka3ZnUXGH5jhrfG5ab29NFE+AWJJiybwy6t7bmZqBfTEHchuCqxWw9g3IcqmAXtbP
+	 F+nvhrfb1yui2902rxQ3ZLbQVPpaDdgKxQh9twObCDMXGKsStvPyN9GfFhjc1jlRZE
+	 AjeLtUZzoIV4g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EF3EC44245;
-	Fri, 30 Oct 2026 18:53:29 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 20CEC4424D;
+	Fri, 30 Oct 2026 18:53:30 +0000 (UTC)
 From: Vidhu Sarwal via B4 Relay <devnull+vidhu.linux.gmail.com@kernel.org>
-Subject: [PATCH v2 0/3] iio: proximity: Add Benewake TF-Luna LiDAR driver
-Date: Sat, 31 Oct 2026 00:23:27 +0530
-Message-Id: <20261031-tf-luna-v2-0-ce403579bb8a@gmail.com>
+Date: Sat, 31 Oct 2026 00:23:30 +0530
+Subject: [PATCH v2 3/3] iio: proximity: Add Benewake TF-Luna LiDAR driver
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,92 +83,368 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2OwQ6CMBBEf4X0bLUtFsGT/2E4tGWBNdCathAN4
- d+laDy+mdmZXUgAjxDINVuIhxkDOruBOGTE9Mp2QLHZmAgmCs54RWNLh8kqCqIoJTB5YY0kW/r
- pocXX3nSvvxwm/QAT03lKaBWAaq+s6ZOE6E4RQkTbJbfHEJ1/74/MPLX8NgX7b86cMipzVZZtl
- TdanG/dqHA4GjeSel3XDyJGq4TOAAAA
-X-Change-ID: 20261019-tf-luna-e2685e0570d5
+Message-Id: <20261031-tf-luna-v2-3-ce403579bb8a@gmail.com>
+References: <20261031-tf-luna-v2-0-ce403579bb8a@gmail.com>
+In-Reply-To: <20261031-tf-luna-v2-0-ce403579bb8a@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Vidhu Sarwal <vidhu.linux@gmail.com>, 
  Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
  =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
  Andy Shevchenko <andy@kernel.org>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-iio@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ linux-iio@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793386408; l=2749;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793386408; l=10092;
  i=vidhu.linux@gmail.com; s=20260713; h=from:subject:message-id;
- bh=MucnKaMrWXm8c/wm47nu5n36To370scr33nPrqefbek=;
- b=ObaqujQPpUBcUW6EUd5dWA8bKHxeQHVfgURjGc7VftphKfVV5n0OLqavYRQ68ZEuUW/5VaDhp
- Lm+Qz32CqAbCe2/YEXU5qAO7XzZNpFfwUuv4ZELThZ4xNbvmE7iGZeg
+ bh=dRe8/rSjrRf76YJpJKIkmMgJVQEiToNTN9ONy+0ewgY=;
+ b=tUDeR/lM7RO38qWt8iHk79LjcabFiTGeQPkcx9hKWTzQo+0FTdzzlc4P+xcmQy1syMtI9LY7V
+ W+dHt9Urrb5DiaicbPZZwgYqhqS+ye6pbTfj/mcCfxmcX1UPisjwrFq
 X-Developer-Key: i=vidhu.linux@gmail.com; a=ed25519;
  pk=xDu3Cbesz76CQXwY8lteI74n3ELVIV7wCsuYAvcX1Q4=
 X-Endpoint-Received: by B4 Relay for vidhu.linux@gmail.com/20260713 with
  auth_id=869
 X-Original-From: Vidhu Sarwal <vidhu.linux@gmail.com>
 Reply-To: vidhu.linux@gmail.com
+Content-Transfer-Encoding: 7bit
 
-This series adds support for the Benewake TF-Luna, a single point ToF
- LiDAR distance sensor with a range of 0.2 m to 8 m. The
-sensor uses either UART or I2C, selected by a strap pin at power-up.
-This series covers the I2C interface only.
+From: Vidhu Sarwal <vidhu.linux@gmail.com>
 
-Patch 1 adds the vendor prefix, patch 2 adds the binding and patch 3 adds the
-driver, which reports distance using an IIO_DISTANCE channel.
+Add a driver for the Benewake TF-Luna, a single-point time-of-flight
+LiDAR distance sensor with a range of 0.2 m to 8 m, connected over I2C.
 
-The driver keeps the sensor in trigger mode and starts a measurement
-per read. The manual warns that reads in continuous mode can race with
-the sensor updating its result registers unless they are synchronised
-to the data ready output, which the driver does not use yet.
+The sensor is run in trigger mode. Each read starts one measurement and
+waits for the timestamp register to change before reading the result.
+In continuous mode a read can catch the sensor in the middle of updating
+its result registers unless it is synchronised to the data ready output,
+which this driver does not use yet.
 
-Two issues I faced with the hardware that the manual does not mention:
-- The sensor silently drops a register write that arrives right after
-  another one, so probe reads the mode back after setting it.
-- The boot time is not documented. I was able to measure 350ms after a
-  reboot before the registers read back correctly, so probe waits
-  500 ms after enabling the supply, keeping some buffer.
+When the signal strength is too low the sensor reports a dummy distance
+of 0, so such readings, as well as overexposed ones, return -ENODATA
+instead of a distance.
 
-Later on I plan to add buffered caputure using data ready interrupt and 
-runtime PM in a follow up series. 
-
-This was tested on hardware using Raspberry Pi 4 and with firmware v3.6.0
-built out of tree on the 6.18 RPi kernel both via new_device as well as a 
-DT Overlay.
-
+Datasheet: https://en.benewake.com/uploadfiles/2025/04/20250430174501874.pdf
+Signed-off-by: Vidhu Sarwal <vidhu.linux@gmail.com>
 ---
-Changes in v2:
-- dt-bindings: describe the UART interface as well per Krzysztof
-  (dropped Reviewed-by as binding has changed)
-- Use a local regmap variable in probe and tf_luna_measure() per Joshua
-  and Andy
-- Use msleep() instead of fsleep per Joshua and Andy
-- Use FourCC for signature and print it with %p4ch per Andy
-- Comment explaining why there is no regmap cache per Andy
-- Use a Datasheet: tag, drop unused includes per Andy and Joshua
-- Keep the channel array per Jonathan, as buffered support is planned
-- Link to v1: https://patch.msgid.link/20261020-tf-luna-v1-0-53a88f93db24@gmail.com
+ MAINTAINERS                     |   1 +
+ drivers/iio/proximity/Kconfig   |  11 ++
+ drivers/iio/proximity/Makefile  |   1 +
+ drivers/iio/proximity/tf-luna.c | 260 ++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 273 insertions(+)
 
----
-Vidhu Sarwal (3):
-      dt-bindings: vendor-prefixes: Add Benewake
-      dt-bindings: iio: proximity: Add Benewake TF-Luna
-      iio: proximity: Add Benewake TF-Luna LiDAR driver
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 24fa7cdf6a57..20e43a003bed 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4667,6 +4667,7 @@ M:	Vidhu Sarwal <vidhu.linux@gmail.com>
+ L:	linux-iio@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/proximity/benewake,tf-luna.yaml
++F:	drivers/iio/proximity/tf-luna.c
+ 
+ BFQ I/O SCHEDULER
+ M:	Yu Kuai <yukuai@fygo.io>
+diff --git a/drivers/iio/proximity/Kconfig b/drivers/iio/proximity/Kconfig
+index f3cec799df67..d16458ea4b0f 100644
+--- a/drivers/iio/proximity/Kconfig
++++ b/drivers/iio/proximity/Kconfig
+@@ -222,6 +222,17 @@ config SRF08
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called srf08.
+ 
++config TF_LUNA
++	tristate "Benewake TF-Luna LiDAR distance sensor"
++	depends on I2C
++	select REGMAP_I2C
++	help
++	  Say Y here to build a driver for the Benewake TF-Luna LiDAR
++	  distance sensor connected over I2C.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called tf-luna.
++
+ config VCNL3020
+ 	tristate "VCNL3020 proximity sensor"
+ 	select REGMAP_I2C
+diff --git a/drivers/iio/proximity/Makefile b/drivers/iio/proximity/Makefile
+index 8a65e42fbea0..43741115a921 100644
+--- a/drivers/iio/proximity/Makefile
++++ b/drivers/iio/proximity/Makefile
+@@ -21,6 +21,7 @@ obj-$(CONFIG_SX9324)		+= sx9324.o
+ obj-$(CONFIG_SX9360)		+= sx9360.o
+ obj-$(CONFIG_SX_COMMON) 	+= sx_common.o
+ obj-$(CONFIG_SX9500)		+= sx9500.o
++obj-$(CONFIG_TF_LUNA)		+= tf-luna.o
+ obj-$(CONFIG_VCNL3020)		+= vcnl3020.o
+ obj-$(CONFIG_VCNL36829)		+= vcnl36829.o
+ obj-$(CONFIG_VL53L0X_I2C)	+= vl53l0x-i2c.o
+diff --git a/drivers/iio/proximity/tf-luna.c b/drivers/iio/proximity/tf-luna.c
+new file mode 100644
+index 000000000000..dbb56e7414af
+--- /dev/null
++++ b/drivers/iio/proximity/tf-luna.c
+@@ -0,0 +1,260 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Benewake TF-Luna LiDAR distance sensor
++ *
++ * Copyright (C) 2026 Vidhu Sarwal <vidhu.linux@gmail.com>
++ *
++ * Datasheet: https://en.benewake.com/uploadfiles/2025/04/20250430174501874.pdf
++ *
++ * The I2C register map is in appendix III of the TF-Luna product manual
++ * (SJ-PM-TF-Luna A05). Default 7-bit I2C address is 0x10.
++ */
++
++#include <linux/array_size.h>
++#include <linux/bits.h>
++#include <linux/cleanup.h>
++#include <linux/delay.h>
++#include <linux/dev_printk.h>
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/iopoll.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
++#include <linux/time.h>
++#include <linux/types.h>
++
++#include <asm/byteorder.h>
++
++#include <linux/iio/iio.h>
++
++#define TF_LUNA_REG_DIST		0x00
++#define TF_LUNA_REG_TICK		0x06
++#define TF_LUNA_REG_VERSION		0x0A
++#define TF_LUNA_REG_MODE		0x23
++#define TF_LUNA_REG_TRIG_ONE_SHOT	0x24
++#define TF_LUNA_REG_SIGNATURE		0x3C
++
++#define TF_LUNA_MODE_TRIGGER		0x01
++#define TF_LUNA_TRIG_ONE_SHOT		0x01
++
++#define TF_LUNA_SIGN			0x4c554e41	/* "LUNA" in ASCII */
++
++/* Below this the sensor reports a dummy distance of 0 */
++#define TF_LUNA_AMP_MIN			100
++#define TF_LUNA_AMP_OVEREXPOSED		0xFFFF
++
++/* A measurement takes 10-20 ms in trigger mode */
++#define TF_LUNA_POLL_US			(2 * USEC_PER_MSEC)
++#define TF_LUNA_TIMEOUT_US		(100 * USEC_PER_MSEC)
++
++struct tf_luna_data {
++	struct regmap *regmap;
++	/* Serialises the trigger, poll and read of a single measurement */
++	struct mutex lock;
++};
++
++/*
++ * No register cache: the only configuration register written is MODE,
++ * once in probe, the other write is the one-shot trigger, and the
++ * registers read afterwards hold measurement data that keeps changing.
++ * MODE is also read back from the hardware, since the sensor can
++ * silently ignore a write that comes right after another one.
++ */
++static const struct regmap_config tf_luna_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = TF_LUNA_REG_SIGNATURE + 3,
++};
++
++static int tf_luna_read_tick(struct tf_luna_data *data, u16 *tick)
++{
++	__le16 val;
++	int ret;
++
++	ret = regmap_bulk_read(data->regmap, TF_LUNA_REG_TICK, &val, sizeof(val));
++	if (ret)
++		return ret;
++
++	*tick = le16_to_cpu(val);
++	return 0;
++}
++
++static int tf_luna_measure(struct tf_luna_data *data, int *dist)
++{
++	struct regmap *map = data->regmap;
++	__le16 buf[2];	/* distance in cm, signal strength */
++	u16 old_tick, tick, amp;
++	int ret, err;
++
++	guard(mutex)(&data->lock);
++
++	ret = tf_luna_read_tick(data, &old_tick);
++	if (ret)
++		return ret;
++
++	ret = regmap_write(map, TF_LUNA_REG_TRIG_ONE_SHOT, TF_LUNA_TRIG_ONE_SHOT);
++	if (ret)
++		return ret;
++
++	/* The tick register is a timestamp, it changes with each measurement */
++	ret = read_poll_timeout(tf_luna_read_tick, err, err || tick != old_tick,
++				TF_LUNA_POLL_US, TF_LUNA_TIMEOUT_US, true,
++				data, &tick);
++	if (ret)
++		return ret;
++	if (err)
++		return err;
++
++	ret = regmap_bulk_read(map, TF_LUNA_REG_DIST, buf, sizeof(buf));
++	if (ret)
++		return ret;
++
++	amp = le16_to_cpu(buf[1]);
++	if (amp < TF_LUNA_AMP_MIN || amp == TF_LUNA_AMP_OVEREXPOSED)
++		return -ENODATA;
++
++	*dist = le16_to_cpu(buf[0]);
++	return 0;
++}
++
++static int tf_luna_read_raw(struct iio_dev *indio_dev,
++			    struct iio_chan_spec const *chan,
++			    int *val, int *val2, long mask)
++{
++	struct tf_luna_data *data = iio_priv(indio_dev);
++	int ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		ret = tf_luna_measure(data, val);
++		if (ret)
++			return ret;
++		return IIO_VAL_INT;
++	case IIO_CHAN_INFO_SCALE:
++		/* Distance is in cm */
++		*val = 0;
++		*val2 = 10000;
++		return IIO_VAL_INT_PLUS_MICRO;
++	default:
++		return -EINVAL;
++	}
++}
++
++static const struct iio_info tf_luna_info = {
++	.read_raw = tf_luna_read_raw,
++};
++
++static const struct iio_chan_spec tf_luna_channels[] = {
++	{
++		.type = IIO_DISTANCE,
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
++				      BIT(IIO_CHAN_INFO_SCALE),
++	},
++};
++
++static int tf_luna_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct tf_luna_data *data;
++	struct iio_dev *indio_dev;
++	struct regmap *map;
++	unsigned int mode;
++	__be32 sign;
++	u32 fourcc;
++	u8 ver[3];
++	int ret;
++
++	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	data = iio_priv(indio_dev);
++
++	ret = devm_mutex_init(dev, &data->lock);
++	if (ret)
++		return ret;
++
++	map = devm_regmap_init_i2c(client, &tf_luna_regmap_config);
++	if (IS_ERR(map))
++		return dev_err_probe(dev, PTR_ERR(map), "Failed to initialize regmap\n");
++	data->regmap = map;
++
++	ret = devm_regulator_get_enable(dev, "vcc");
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to enable vcc regulator\n");
++
++	/* Boot time is not documented, about 350 ms was measured */
++	msleep(500);
++
++	ret = regmap_bulk_read(map, TF_LUNA_REG_SIGNATURE, &sign, sizeof(sign));
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to read signature\n");
++
++	fourcc = be32_to_cpu(sign);
++	if (fourcc != TF_LUNA_SIGN)
++		dev_info(dev, "Unknown signature %p4ch, continuing\n", &fourcc);
++
++	ret = regmap_bulk_read(map, TF_LUNA_REG_VERSION, ver, sizeof(ver));
++	if (ret)
++		return ret;
++
++	dev_dbg(dev, "Firmware version %u.%u.%u\n", ver[2], ver[1], ver[0]);
++
++	/*
++	 * In continuous mode a read can catch the sensor updating its result
++	 * registers unless it is synchronised to the data ready output. Use
++	 * trigger mode and start each measurement on demand instead.
++	 */
++	ret = regmap_write(map, TF_LUNA_REG_MODE, TF_LUNA_MODE_TRIGGER);
++	if (ret)
++		return ret;
++
++	/*
++	 * The sensor silently drops writes it is not ready for, so check that
++	 * the mode was set. A write takes up to 100 ms to read back.
++	 */
++	msleep(100);
++
++	ret = regmap_read(map, TF_LUNA_REG_MODE, &mode);
++	if (ret)
++		return ret;
++
++	if (mode != TF_LUNA_MODE_TRIGGER)
++		return dev_err_probe(dev, -EIO, "Failed to set trigger mode\n");
++
++	indio_dev->name = "tf-luna";
++	indio_dev->info = &tf_luna_info;
++	indio_dev->channels = tf_luna_channels;
++	indio_dev->num_channels = ARRAY_SIZE(tf_luna_channels);
++	indio_dev->modes = INDIO_DIRECT_MODE;
++
++	return devm_iio_device_register(dev, indio_dev);
++}
++
++static const struct i2c_device_id tf_luna_id[] = {
++	{ .name = "tf-luna" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, tf_luna_id);
++
++static const struct of_device_id tf_luna_of_match[] = {
++	{ .compatible = "benewake,tf-luna" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, tf_luna_of_match);
++
++static struct i2c_driver tf_luna_driver = {
++	.driver = {
++		.name = "tf-luna",
++		.of_match_table = tf_luna_of_match,
++	},
++	.probe = tf_luna_probe,
++	.id_table = tf_luna_id,
++};
++module_i2c_driver(tf_luna_driver);
++
++MODULE_AUTHOR("Vidhu Sarwal <vidhu.linux@gmail.com>");
++MODULE_DESCRIPTION("Benewake TF-Luna LiDAR distance sensor driver");
++MODULE_LICENSE("GPL");
 
- .../bindings/iio/proximity/benewake,tf-luna.yaml   |  66 ++++++
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- MAINTAINERS                                        |   7 +
- drivers/iio/proximity/Kconfig                      |  11 +
- drivers/iio/proximity/Makefile                     |   1 +
- drivers/iio/proximity/tf-luna.c                    | 260 +++++++++++++++++++++
- 6 files changed, 347 insertions(+)
----
-base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
-change-id: 20261019-tf-luna-e2685e0570d5
-
-Best regards,
---  
-Vidhu Sarwal <vidhu.linux@gmail.com>
+-- 
+2.53.0
 
 
