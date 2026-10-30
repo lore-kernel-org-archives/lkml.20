@@ -1,59 +1,179 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793347405;
-	b=Lhvrq/pYA9Vic7+JLNUeAv5jng1hE+QhzDh//+Y6OVhnaOgak0ISBsGeGagGtgN/KRL6
-	 AoJngbSH9qexCZGsby2NXHIW/y7y3d8MceUmE0XVBxnTsjYO6KzKuiXmOUH+/LHdanXCX
-	 pLl00jttrs+/IediCm6Af+XAA7gRIyaVx7sr4ue/OsvUytqeFmdcOolK0cz1hGsXWOtdC
-	 nPyYQDtH3dXkEd0AwLx6HA/cQPcKaDOokng1FwNjB3CeV1VmhKDGPGjNgBohHFTP2KSk6
-	 ElbbW+KNAF0HiLq0JuDJbAqR/8u3xpQ+o2nlejpERpoEUULo6RdFLGDzu28MZmJfd2w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793347405;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=YJJfXC5ueSmApARbmgN+bIycFhSEHL95Tjj8W+dEiUc=;
-	b=IT/lSgAoimhwh2+Bd0oFoKHY6LrYY5eNp/xl2foM1OYZwCA1WnxjiVBNRKWgLJVybFnz
-	 m4M7iH9h64wOq/Tmlaxkdu2RMvcLdDLu/JjHYUBTZzZBTg7W1yjgXO6ut1iZtKna07/do
-	 6lroBbNIbYDZhnFZZihWBTQMpgMgzCNECLxfEsINWUB9DnJ6xt21wWTlCReWfva49EzAd
-	 G2VSpBl4CjDQ9h27SI0aIExfd3TMdIQ9TwsK4U6ol/1NNR2xsytykZAuNQ+YOeOB4PnMa
-	 vXJ+fGRHsQ9hfB7sqtCrOGDDzfSJjs4T12gtXYgOKCmcvdKkRYmxhqt7UqgEBRt+kCg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItCr9aR7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793347425;
+	b=voiuCjgoiNoLp5whb/dJIufD2/3wZNgcEYdwABkRJeljBfJ+4lU0SKDQad10R9dbsQo1
+	 86n1vzS7bSgdLXn0akEs3N4c21DvpoCxX1aIXCDeMMPKOXj5zWmDkRVdm+4C0JCmp+n3q
+	 3R+c9A/OxZuucJbhDycE9/OylVjFIMoR82wjD8GRmqxl5cfINzIpWUiWz9Xeb3+4Eb4UN
+	 VJqfvhHNJWkEQ1MXvb6SfFgy8fPHXLzmaDXacuD3t8Qvo32luqRh9X8AtCxHP+2jEOkcM
+	 jBLHPG2ZUVHyBx9Nou0aejrRJy3rKcgAEuPXjN6TemlC3MlKWNewBZfDGhmmwHRRT9Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793347425;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=VIGA5ijd+kGRMUFTvXURItI/HOyLDUH7HcwBkep0b7U=;
+	b=XwTeotO6LiW7ZF3ROfZUMZKszQBPTL+o/722MEGviAcoqJ6oCnELllxaHmcG5AwvHsnq
+	 2jjGg4En815VP7VGNW0qmp/188mywE1XyYU/wKy0ZfxHA83McaHsl6CZvqAfAUJMEXdc7
+	 2ndnbMtHJ2vm38R814U3kcg0l53/fEx6SlBsqxKYCdv/sbZszPmgfmqBDZ5oiOyiS3deA
+	 N4HYEIGgyBvNLdK7ZLCoUNZa0gbT7iTvyzHHFuxYU+AZocd8JvYapu08FlZaizwxGJVJJ
+	 tZvn3Mjt3xiq3ewKp4Ukmu92QcsNfQsPZruKqlyTbSZp9pTXwmgCqSicoG1cRotknZw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cCTQWRNW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CAC606A31C;
-	Fri, 30 Oct 2026 08:03:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5826606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:03:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5826606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItCr9aR7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D6601F000C1;
-	Fri, 30 Oct 2026 08:03:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793347405;
-	bh=YJJfXC5ueSmApARbmgN+bIycFhSEHL95Tjj8W+dEiUc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ItCr9aR7/sDs54F65dtn/l5KvGDVP3wiIxh6cfhXrqtjEo9l1rBZU+tflioAtpkTV
-	 pMQsTDGgoQBK36jmz9+FI70LZmMrc/4WMZaY2KfTZ7uq0wFFHXoWIKwdPMIpyka7Ax
-	 X2XHSHOgbDSHML6Gp++PPylOVLUYQD7zmMYINEBheIdi1+TmtmqU5I6NkIFZZ4bfcW
-	 U0Ks1gfSTGsoCvatL0W0T42gs5EYXUn+Qu5RpunhqKDlgjCReF+L78ySwpkFibZNmb
-	 BGcB0TGLUOROPOd9j8XMajLhs/3AtItyKZvvo76nsHr+mvo/Y4JmW8Jt6acoyz5U4w
-	 VSg0HQfLT5/XQ==
-Subject: Re: [PATCH] net: phy: only remove owned topology entries
-From: netdev-bot+sashiko@kernel.org
-To: yaojiale02@163.com
-Cc: maxime.chevallier@bootlin.com, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, chleroy@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Fri, 30 Oct 2026 08:03:23 +0000
-Message-ID: <179334740382.3134.15496907149210495059@kernel.org>
-In-Reply-To: <20261028050312.126508-1-yaojiale02@163.com>
-References: <20261028050312.126508-1-yaojiale02@163.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cCTQWRNW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793347425; x=1824883425;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=/6TphMmJMyg8kdVepI1kcFq7Ta7sg8JCTUWaNbjJs3I=;
+  b=cCTQWRNWLO3cc/8NT14cmw0Ed+riYxyIexiTGXne+EDKLxhT7RQYP5sT
+   hqMNGE29jcwi8oKCZy4FBl7L0nZ3mz5prQcrwKKSsRknKPbDyLLuUPJYA
+   mGspiiAceGA6jb0C/HhWS46nXk7qhh4ybocKS5CCqvE28EpX9Er68HFns
+   xplhw+i5iD8b1YohUoNtiIWR9eiOJlMb2ndGbxUFLZp6egD1AAis38QfI
+   76kRKM/ZaghuO2ReF+7cYZxC7hFLH4+kPstkAYk6sVijfi/0zfLEP1Ugo
+   3gxgRqqsXa2eHoLIG2T/v9bv0sjRMNQR4tuD61UdvefcS2xZFNLCo0t0m
+   g==;
+X-CSE-ConnectionGUID: umypLTyCRPm94/nu5BWzOQ==
+X-CSE-MsgGUID: rZYQQPR9Qt6iWOcFusbi5g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="1997521"
+X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
+   d="scan'208";a="1997521"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 01:03:42 -0700
+X-CSE-ConnectionGUID: lCe6gu9ZRq+/6tNWTO35lQ==
+X-CSE-MsgGUID: pl9KzyKvQFG3XArdwg09Ew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
+   d="scan'208";a="5743570"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 01:03:42 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 30 Oct 2026 01:03:40 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 30 Oct 2026 01:03:40 -0700
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.58) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 30 Oct 2026 01:03:40 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pobc9xDR+uFV+BcAsT1bsA53eORCGpP9MgNnWpdofDKktF2gSBe/Hy3loj8zH6yYTvnIo+HwDG5QZUOALvb6wHNoR3Y8iWyZdVdTwqgyqXU/NWTGNmoiFzoE0LapN2DdhVCJK8dZ+ejTw6RaN+yJxbocrdueuKAUbPTCzR5GTpQZkzuVNnSNCpO5bdnqqLBi4BTLl46GCrNn0HQdbu5IBlPCFOW6AjCtMNiHHreCYz2xcdZQ6u+SEkVIsOZe2VyY0r628ScDuTBJlAT+wyms6nSC+zTG6KY4JBSAMiCa9bFLcjb43vFlXp6kg6wR0IpMOhL363WNUfz5XRWTDiNgLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VIGA5ijd+kGRMUFTvXURItI/HOyLDUH7HcwBkep0b7U=;
+ b=dhKPaDLpHY8I6RAxKDp4UJrXqSVVEtRXXR6olUC8NQ60URDQXDFygpM2TYWWqoj3cEWzT59gEYJW12tPuU0D4IoIAVBD1tlEmpWa4UR6MYHAcvp1+foBUKbDpTgpkUcbJUy8GZj1ipBuzSoa/IjuYLjk9c4bXkD2tWO6Upkjw6E38e00aioZwFwLfXi0BtLhEmy2VlblQIH4OikAG0Jnak8hKIE4iYi7yEa+3L4giOZQO9Gv19OtyNWg5StJjvgE5P7+I2uI7OzK5QddzoSkjCDlo4MFpV5aGedIWUuvu3jPv+qBNiCSfzlU17vJ6XYcYMw/WGctrp2gpCgJS5gNzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CO1PR11MB4835.namprd11.prod.outlook.com (2603:10b6:303:9e::22)
+ by DSVPR11MB505860.namprd11.prod.outlook.com (2603:10b6:8:3e9::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 08:03:37 +0000
+Received: from CO1PR11MB4835.namprd11.prod.outlook.com
+ ([fe80::d051:d948:c209:9225]) by CO1PR11MB4835.namprd11.prod.outlook.com
+ ([fe80::d051:d948:c209:9225%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 08:03:37 +0000
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Jason Gunthorpe <jgg@nvidia.com>, "Liu, Yi L" <yi.l.liu@intel.com>
+CC: Nicolin Chen <nicolinc@nvidia.com>, "joro@8bytes.org" <joro@8bytes.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>, Will Deacon <will@kernel.org>, "Robin
+ Murphy" <robin.murphy@arm.com>, Jean-Philippe Brucker <jpb@kernel.org>,
+	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v1 3/4] iommu: Unpublish the old attach handle before the
+ group replace callback
+Thread-Topic: [PATCH v1 3/4] iommu: Unpublish the old attach handle before the
+ group replace callback
+Thread-Index: AQHdUFzfUPpa8Rov+UOYSfzTDqgP8bcUSuRQgAA9wACAAIIKAIAA3kOg
+Date: Fri, 30 Oct 2026 08:03:37 +0000
+Message-ID: <CO1PR11MB4835BC9658F73705121173838C6D2@CO1PR11MB4835.namprd11.prod.outlook.com>
+References: <cover.1790718296.git.nicolinc@nvidia.com>
+ <73ebe081ed668c214628fffc546b9744b662afb6.1790718296.git.nicolinc@nvidia.com>
+ <CO1PR11MB4835DF015165BA9306D022178C6E2@CO1PR11MB4835.namprd11.prod.outlook.com>
+ <87fb7a3f-b6a8-4683-84e0-1b0d04dfc235@intel.com>
+ <20261029184544.GF3734323@nvidia.com>
+In-Reply-To: <20261029184544.GF3734323@nvidia.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CO1PR11MB4835:EE_|DSVPR11MB505860:EE_
+x-ms-office365-filtering-correlation-id: ba2e6e01-5b54-4236-848f-08df365c4d8f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|38070700021|11063799006|4143699003|56012099006|261009223027099003|261026121527099003|261026140227099003|261022075727099003|261021135927099003|261022105027099003|261028144727099003|10067099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: Xm1aIqbLpmBJMON2zfDYsAryFJYP1G2WtpH26SfmFl6IOqISiMD2vFhMFJv+hgz5Foq6jjjZHxTfMrMJRtHP6wbwWgyXBkLxFY73nnXAnwCAlVtBgl2xSgHUPj2sWGDae5H9Egy0SDDL7MGoSjExNdEJGkdhxzLhQUceVl94/uu1m7o1X7H6KHy6z3fK3mCEeYFMYmLPkXLkAuZXOqFGAWsKrHtYk+9C2cmA2q0TzlgykmyHq6jOp1tzTCE7ujHMPg9GJ0E0QgVVMItgpJL9QeBsuKUk2cx7sP3zlf66Pm6FuJYd+OfqAS3o+sfIgoQcjY8+wkJMImzUfszsrU5BX51AAErkVvUgm/0GXtaHDAfx/+VCKXD55bd0JWwYRqnFdB6ujc2Usk6Oy5X0xautc/gl00mgmzayIsVJ8+ObXgCCYwHnVXWeoRvHiz5tF+wyH/brTDJWdaXvR3fafunWLpwCkvVQ3nA0msM1t5cB4VNuLxUP8vEsjHdv/yHalf0h45CJpP9HjQxbzOJPwKnlZEr4Dr7/+oLmH6czoONQDPlGn/DqXSxYC0KYbJzfkk/hr0uSiuzfRryhZipn1J+JrsDGLYY2rBd/M53xD1uWQOQf36mT9QsENHfqnmdlTLlDlUMMoJgP/TLDJjZ12nLbozWXTYXzyLcw1MDWMga9AjuB3U6fv3c6+s3U/bav+qIT
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4835.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(38070700021)(11063799006)(4143699003)(56012099006)(261009223027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261021135927099003)(261022105027099003)(261028144727099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mSnG/3xm2LvX7LtwNAPIB6o7wy6UpSWDpTzlKZa2UvlArgQ5b08we3pW9ILi?=
+ =?us-ascii?Q?VNbvkaIAM4dPn351OGRbQDeHIJ+NaRJE4YBLB7QLp6zrMUSam4Mt1uwLL43K?=
+ =?us-ascii?Q?wAIfabC4VNNjCmziIAnbIXtW53nzpoSptbRnO3s7+gQUdg+mkzPElXFGEysA?=
+ =?us-ascii?Q?lvuzlDamavMOnVnhD/HhLoD83KlSBl1NK1hKrLRZgMG4WYsQzlEfJBSwkzDx?=
+ =?us-ascii?Q?P4rl4TLK+pyFwS1t0uAvd53AhpJSuQCBWjwqoFUe/g8lZG3mZqOs0fO1BRIG?=
+ =?us-ascii?Q?eDnUtdKHIwyu1Vgs80plyh1t+5XMPuJK+NhP8CZVnP4G/+LWFY1I2Z2Xybhd?=
+ =?us-ascii?Q?uw2e5na73axEDKNNHc6WYkN1KHdqHNDw+5oBuquFGem/WQNU0Cbx7CB/GkOo?=
+ =?us-ascii?Q?Tw8oV0EEc6hJx1zM68cZQ+S2H+dGjchznFFinQ96hi/fej2kGDd5jTyXdwFH?=
+ =?us-ascii?Q?JHSW4Q1mCRRLhIII5Htzdp40/OUtbyAiubj3jRr0jPnXS+0kkg0HUn3cMs+V?=
+ =?us-ascii?Q?CJtdhVT7RA5mwLpFAF811lbk78qaIhgOu6twt3d9pLY9VawSvMquPW0KWlQi?=
+ =?us-ascii?Q?lnyDiLNM2lgXivVAEoPSp/xBK2otameQnWdBn4EP/ysOl9N76TY6RMm2UHdn?=
+ =?us-ascii?Q?NU9uPZoYpggWDE3PNUKzQwcrrBsAWDlU5S+uzTG373sxFkn70XHwD3qc9Zu6?=
+ =?us-ascii?Q?K05sbOiE3xtBHyOSRWB1LeSbch+qMoRRXO+iqS0VGls+oLRrsgeBlRFror97?=
+ =?us-ascii?Q?vRvxKFPgg+o+p5FOqRYjAqy1OPMP28xb+nVDO+NjrzlCr6fCfrbZkeJz7cLn?=
+ =?us-ascii?Q?+mu0QAyAQcdmMlfQsiiDOfXdu6PpDSjFJ2ETdItr6H+oOEZYkOnq3GZWbC4S?=
+ =?us-ascii?Q?5EDenkqdkHs016MgKajHHcg5/Dqpbk9z8AM6RdJXCpghYaqrPcEm4KpQtclQ?=
+ =?us-ascii?Q?dV27S329dDkRKVPhQMHrHvea2IEtDt8TsZYnsT7vMP6FWLvwvWdnkakmeDCr?=
+ =?us-ascii?Q?kQti8yvpqCsi9J4dRgDGTx8z3URsB1W8qEpVPhHsin4SiKzxQ2Hc1+5yev/R?=
+ =?us-ascii?Q?sWqBSJwn0XddevgDZFDTzbmXZ7k0sSwVC1z6hzYz11E4Q/CSubCQcoY6ptc3?=
+ =?us-ascii?Q?JMppoxyuFgf0Qf6X/J5AWQsfYitia2vhssZkMqiAQZmSDP4gOVfWibqXuwsY?=
+ =?us-ascii?Q?KM9c5mCfvXB3zBsy8CRIy1+qSU5WynFkoo6PBXEeWRJub/uj7Pa1FjPPp5jq?=
+ =?us-ascii?Q?YvL8vAyQh/C/eJYXdw/kwZZWqdHJPHN1bJnioQHsURE7UJHA8THYFWPMufEi?=
+ =?us-ascii?Q?sb5PMYK+CwxxDS51R/8FmdYdTtA9KYfm0SiHQHgUCegWkBLyMieVGFSqnAp5?=
+ =?us-ascii?Q?+bcBx7srzQQ2AxeQ2QyMHlXiczq8L1pg01uAF9W90FzMz9AQ+l1LV+dU2GB9?=
+ =?us-ascii?Q?cuOZDEMjlbhreegEB+kGNKNZjCeBMaAXLRZBXfos/1nxF09K5qNa5RwepbbD?=
+ =?us-ascii?Q?+TUkJ5mzPjJJNyMEKeFsDCAtjJAClxP2d2V+6+Q4TXhAl4/nH52Dk41yBXS4?=
+ =?us-ascii?Q?DLQBAYuNyTS1zM37bvl6geWx9Zi3S85pS5gyoarnq0+JY7/CPcksXOc9k9cP?=
+ =?us-ascii?Q?8Twb7vz5GqOgNCpWr0FveKciLhpCUnyLFW+weixtHzEI+/YvdC5CO6xmEOty?=
+ =?us-ascii?Q?uhLxzV3PdNnaslcqKaeIizPKuHxgbvGXTOlyEhEwA9J2k9jG?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,116 +183,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: JENeMvwXQP2oC5EdWr1ZPwAH5s6XdBFLfHycSACw/lUTK0GL53CMZmEyyajjWZOJxn2B6v+1h/wUq5bzcVWR/StdugZsuvOxUkwezf96HTUooZWFCOqfj29pHShdeh7XcXTWodmfijcsGUSc7aqF/uzuNBljNe5//6B93NToHoDf1tcGXQHr0AHVlhvCDkaXpGBC5Avi7wS/7EaMbn0JukmuwqyiAUxzYbUiMvS9Fv3UZJ/M8irQgN0seLH9dZ2SDbmnTt91GCIxxZaH+BR/oN8xTOb6AJ9QBBwgRIuIdJf9oQD/7oDQ5VUCdCYhgv2JCxyZIH0a1BF9X5fF1jivIA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4835.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba2e6e01-5b54-4236-848f-08df365c4d8f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Oct 2026 08:03:37.5186
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FcUY3E1+7j3g782HGM2m+jjWr8bhiTaLmVCsyxge0nPCwJ6nvHz9fTgsicY5CqUfmK8ONb+PslRH3aDq9zG+gQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR11MB505860
+X-OriginatorOrg: intel.com
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+> From: Jason Gunthorpe <jgg@nvidia.com>
+> Sent: Friday, October 30, 2026 2:46 AM
+>=20
+> On Thu, Oct 29, 2026 at 07:00:18PM +0800, Yi Liu wrote:
+> > On 10/29/26 15:25, Tian, Kevin wrote:
+> > > > From: Nicolin Chen <nicolinc@nvidia.com>
+> > > > Sent: Wednesday, September 30, 2026 5:52 AM
+> > > >
+> > > > iommu_replace_group_handle() looks like it hides the detaching hand=
+le
+> ahead
+> > > > of the driver callback. But in fact, xa_reserve() calls xa_cmpxchg(=
+), which
+> > > > stores only when the current entry matches @old=3DNULL. For a repla=
+ce,
+> there
+> > > > must be an entry sitting there by definition (i.e. @old cannot be N=
+ULL), so
+> > > > the compare fails, XA_ZERO_ENTRY is never written, and the call dec=
+ays
+> into
+> > > > a plain read.
+> > > >
+> > > > Therefore, the old handle stays published during
+> > > > __iommu_group_set_domain()
+> > > > and only gets replaced after the call. This creates a window, durin=
+g which
+> > > > an asynchronous fault path might hit UAF:
+> > > >
+> > > >    core, holding group->mutex          fault path, no group->mutex
+> > > >    =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D          =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > >
+> > > >    xa_reserve()                    ,-- old handle stays published
+> > > >      no-op, the slot is occupied   |
+> > > >    __iommu_group_set_domain()      |
+> > > >      driver attach/detach ops      |
+> > > >          iopf_queue_flush_dev()    |
+> > > >                                    |   iommu_attach_handle_get()
+> > > >                                    |     reads old_handle
+> > > >    xa_store(new entry)             `-- window closes
+> > > >    mutex_unlock()
+> > > >    kfree(old_handle)  [caller]
+> > > >                                    UAF: old_handle->domain->iopf_ha=
+ndler()
+> > > >
+> > > > Replace the xa_reserve() with xa_store(XA_ZERO_ENTRY) to unpublish
+> the old
+> > > > handle.
+> > > >
+> > > > Fixes: 8519e689834a ("iommu: Extend domain attach group with handle
+> > > > support")
+> > > > Cc: stable@vger.kernel.org
+> > > > Assisted-by: LLM
+> > > > Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+> > >
+> > > Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> > >
+> > > btw I just realized that neither old code nor this fix can actually s=
+upport
+> > > replacement with lossless fault handling, but I don't recall whether =
+it
+> > > was the original goal (then destroyed by a following change) or inten=
+ded
+> > > to be a future enhancement...
+> >
+> > There was a related discussion[1]. With this patch, a page request in
+> > the replace window gets IOMMU_PAGE_RESP_INVALID instead of being
+> > serviced - spec only says re-issuing the same PRG won't succeed unless
+> > the mapping changes, it doesn't forbid retry. So I think this is just a
+> > more conservative instance of the failure case Jason already called OK
+> > in [1], not a new hazard.
+> >
+> > [1]
+> > https://lore.kernel.org/linux-
+> iommu/20241105151042.GC458827@nvidia.com/
+>=20
+> I called using either the old or new translation OK, using neither
+> seems suboptimal. So returning IOMMU_PAGE_RESP_INVALID doesn't sound
+> ideal..
+>=20
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The patch is titled "only remove owned topology entries", but it
-  only adds the ownership check to phy_link_topo_del_phy().
-
---
-
-net: phy: only remove owned topology entries
-
-This commit adds an ownership check to phy_link_topo_del_phy(). The PHY
-entry and its ports are now removed only when the entry at phy->phyindex
-belongs to the PHY being detached. It covers the case where
-phy_link_topo_add_phy() fails because the saved index is already in use,
-and the attach error path then runs the normal detach code.
-
-> diff --git a/drivers/net/phy/phy_link_topology.c b/drivers/net/phy/phy_link_topology.c
-> index 214ccce23cf69..175eef44cf545 100644
-> --- a/drivers/net/phy/phy_link_topology.c
-> +++ b/drivers/net/phy/phy_link_topology.c
-> @@ -185,6 +185,10 @@ void phy_link_topo_del_phy(struct net_device *dev,
->  	if (!topo)
->  		return;
->  
-> +	pdn = xa_load(&topo->phys, phy->phyindex);
-> +	if (!pdn || pdn->phy != phy)
-> +		return;
-> +
-
-[Severity: High]
-Does this cover every topology entry the detach path removes? The caller
-still removes the module port with no ownership check, right after this
-function returns:
-
-drivers/net/phy/phy_device.c:phy_detach_internal() {
-    ...
-		phy_link_topo_del_phy(dev, phydev);
-		if (phydev->mod_port)
-			phy_link_topo_del_port(dev, phydev->mod_port);
-    ...
-}
-
-phy_link_topo_del_port() erases whatever is stored at port->id:
-
-drivers/net/phy/phy_link_topology.c:phy_link_topo_del_port() {
-    ...
-	xa_erase(&topo->ports, port->id);
-}
-
-Like phyindex, port->id is kept after removal and reused when the port is
-added again. A stale id can collide in the new topology:
-
-drivers/net/phy/phy_link_topology.c:phy_link_topo_add_port() {
-    ...
-	if (port->id)
-		ret = xa_insert(&topo->ports, port->id, port, GFP_KERNEL);
-    ...
-}
-
-Suppose a PHY's mod_port got its id while the PHY was attached to netdev
-A, and the PHY is later attached to netdev B. There seem to be two ways
-phy_attach_direct() reaches its error label and then calls
-phy_detach_internal():
-
-  phy_attach_direct()
-    phy_link_topo_add_phy()    -> -EBUSY, saved phyindex is used in B
-    goto error
-      phy_detach_internal()
-        phy_link_topo_del_phy()   -> now returns early
-        phy_link_topo_del_port(dev, phydev->mod_port)
-          xa_erase(&topo->ports, port->id)
-
-In this first case, which is the scenario from the commit message,
-mod_port was never inserted into B's topology. Can the xa_erase() then
-drop some other port of B that happens to sit at the same id?
-
-  phy_attach_direct()
-    phy_link_topo_add_phy()    -> succeeds
-    phy_link_topo_add_port(dev, phydev->mod_port)
-                               -> -EBUSY, another port of B owns the id
-    goto error
-      phy_detach_internal()
-        phy_link_topo_del_port(dev, phydev->mod_port)
-          xa_erase(&topo->ports, port->id)
-
-In the second case, is the other port's entry removed the same way?
-
-In both cases an entry this PHY does not own is removed from the topology,
-which is the problem the subject line says is fixed.
-
-Would it be better to put the ownership check in phy_link_topo_del_port()
-itself? For example, erase only when xa_load() returns this port, or use
-xa_cmpxchg(&topo->ports, port->id, port, NULL, ...). That would cover
-every caller, including the ports loop in phy_link_topo_del_phy().
-
-Another option is for the attach error path to skip removing mod_port
-when it was never inserted.
-
->  	list_for_each_entry(port, &phy->ports, head)
->  		phy_link_topo_del_port(dev, port);
->
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028050312.126508-1-yaojiale02%40163.com
+This probably need a RCU so the old domain can continue to be
+referenced by in-fly faults in that window...
