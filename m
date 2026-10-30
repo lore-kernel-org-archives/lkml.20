@@ -1,104 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793381091;
-	b=mMgzwoZjhMbwOu9sP3K2Y9C2ewN6a8e93MA8V1P8mx0mXKJIsIO2yE+czKIRa/II3ayQ
-	 BjF0/s4rg+ycsSjRoQowftp7mB+YwloTafNS2XtyCvRJ17BU1n9A6v909COpukwGnU4Mm
-	 +5WTyg5CC3KvKdZeIwrs1oNwqDsQlUelq6c85XOHz8iwlnU64GVRG6Wt0PsfSoUn0TqJp
-	 6RiWPHAp5jWgsZgTIUM4KNzavlrQaj9GuPR/jKP9Hk5jZ4kIYdFZcHGQvoYzBNlvJi6BA
-	 l9NjizEN7gSpMAaDlcnJrS1mZ4RSLsr9CfC2qzMrZTedRysXoeDkNARmyAFDk9lHkIw==
+	t=1793381149;
+	b=3AV6pP3jFO1sPOw4n+46cxRZ+8xAhpF8Sd/w/mqw02ca2XZ5+fguXGzatAlNE1fPzy3I
+	 4FCdI6IQt0CdXvqF/ETRR1OnLO48YjPOa8NklO+tGPuBIiq4EnNDeK2EsX0c9mf3N6UaT
+	 YtebOjx0zpnYYzU+S5W60XiCQi2/l4q3NdAusFQcB2M3+5NysgJD6hkAAhEA3AwlW6Miz
+	 RWVsZLpJGcBAUbZ1MPVsVTb5YnXE5G+IcO7g8kMdr31CXHU4naYOhPP3VXoEHqIyznjmY
+	 Kkp7lzDlO6Nrng3VffCQw1vMylFyBhgAgYzT+S6A40HWuYMXAW8w9wBvZE4aDVR8T0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793381091;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793381149;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=hcKqjCTq0DJH38P6NIRF0JVakJV4MgJlFw7OcfaJQp0=;
-	b=17Dw43BJlvudy4Z3l+SJLOS6H4u4Fz8r/hzEmYQ0ts4xwlbuDZ/S1fMc1DfOzbU9z+fH
-	 Z1EDBblpPfCbUCL2TGaEUJh1+e/79g17zaYslK75kfeK0ZpW7ikhDX9v/xkGuRAxrlBaY
-	 88wMJSuol571bjFuL7OhQVMGmhE0USlZVdSPpL8hXh5FJyk1Q4ZanWSLgGXWHNgiXPSlU
-	 JKG/OqoU5cceITvbow5G33jsiSTF96rdKIfOS0zPjEdRicCWssx2p1WsCMPGCHyavyUD5
-	 ShdUIhb90hMxrsJsZLBq0ybnQM6dQxmmcBe0Fz6K9p/M6sO7eP/jsbF8XAeSqKnSCEw==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=bY23m8oqDMUYdoZaW6EqRfZm2SbktefieM9kXqauMu0=;
+	b=0G5jweUMFi3IJzlvYGBIchp0TqzeCfizM8DXCQkb5bOppNK/mXkWmNloKrkqllI611uS
+	 gLTbzQfLYau07HBsRXGDWrv+WSX6/U2++TgEgAvYusC7fV52gy0qec6MFYSG49G6ZDWRj
+	 nUj3GL3HY9UgPKhK2ngZdvdXhIikYUmX8UZTyB3alNm+Rm6h/7U+Jx3D59GZkpalFUyFr
+	 dNiR4bIME8vokrRkNz2GT4HyrpS7NB6p0sMcE2btVgGmXck6W/6OrNtMNJt+/RPWuxIu0
+	 N1QdMYyq9k1toS2ngERM+gvUdFEaJrRdyxtOJLn9tEBwbBm9RthktcWwP+alL/l0x8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L7VZ5hUe;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	dmarc=pass header.from=vayavyalabs.com;
+	spf=pass smtp.mailfrom=vayavyalabs.com;
+	dkim=pass header.d=vayavyalabs.com header.i=@vayavyalabs.com header.a=rsa-sha256 header.s=google header.b="VDDEhvd/";
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548F0606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:24:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 548F0606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F427606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:25:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F427606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vayavyalabs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L7VZ5hUe
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-170135e43c7so1444552c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:24:51 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.a=rsa-sha256 header.s=google header.b=VDDEhvd/
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso1696601eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:25:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793381090; x=1793985890; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hcKqjCTq0DJH38P6NIRF0JVakJV4MgJlFw7OcfaJQp0=;
-        b=L7VZ5hUeHT/COIuMC1fXHEZVV2cfpe3m+2Q+eR5JmKHaltAe4tdJZGUCfAlApu1Sg6
-         t+qNw80aX6Vh7xJ3Z11DvRyovT/uws97TIVyDpEwHVjK/9lrtmDPG5hrtWWxlExcbijG
-         5wqRvuTzLlMODE/Tu0HmwRbvK/jwhbVieCypRfswSR2D1nMJzYiewCsa1KGKua7D3xzO
-         +XsaO4lQR7e1Rm+RxiPoTbhcmt93Y3lpLsztEYuAe6nObV9LM9nZMc/68uI3qWF4D9vh
-         yrCcGb8p/ea5Bt5BD2LKsVH7YD7OC4Td/2NsZHdD26mjcT+mMc4PYhRnzdyjYc5KUVnX
-         cVPQ==
+        d=vayavyalabs.com; s=google; t=1793381148; x=1793985948; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bY23m8oqDMUYdoZaW6EqRfZm2SbktefieM9kXqauMu0=;
+        b=VDDEhvd/OMVT2NQ/bXA4lOCUDTfvdWv8l3EpL/XQ7ARxVAtvqXO69ETX1uM535cm0u
+         57GatGEjcRGU9ri2ol17wIEkPXYpcgKnmj1X2/xXV5ZA94ur4grRYrxp5tlviq7+d3Ny
+         1FET43C/FJqiTEXHjTkmwRhnaAjh49nTtWW3U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793381090; x=1793985890;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hcKqjCTq0DJH38P6NIRF0JVakJV4MgJlFw7OcfaJQp0=;
-        b=bSePw2T4pCPkiSxMlwPeeYi9wV893N5mW7YxArtdI87bqWyaB2mI5mGBbO0S3OHf4B
-         2WKE0NjMMdiCe14un59sHq3DPiJS9nxRcqa/eUNZ92lO8xxXzJ1/l4+6vGfVNqabNLmO
-         mIt5CeDhlXBjNV5Al1ur1QynmzUHXZG5vkfSZqQLyBOnEE1ovBz2A6C0i5XX1ILxbUOJ
-         Tip7biNq5zUD2qSQGtZMamLfcX/NH/bfcFIjsC/DudgRCK1zP9yo7XOSkoO1rkCievAG
-         OcbXmndjY8AEqCzWsI3y4GxatoUXpI6x8HE/bDMaJ08WwR7ZO+GNdslcMWYeQNVl2w2W
-         I5ag==
-X-Forwarded-Encrypted: i=1; AKwUvBxFihXaKksW2Nr7O4PWsoIIiFSSCEKdQtmKe+BH65CcBfHb+R5/rMjkeRisfMU/r7aKRCSKp2F4MPmfoXg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILXgfkvBiITLCvWlUvo/DZWBUeYbk+4Mi8hbQQ3NCdGdpKoqG8
-	oS4QRcomUtsWbJrey1Nvl2J4u8+b/QkCuT/adaXvEVqzuWB35RDIkP3x
-X-Gm-Gg: AYBFou2cvxXqxodV/E50QRK95hp4c1dB7JbsD3s/7pvjRW97Vph4OtJ58a9njjEoqs+
-	A9P41MEI7xlyDoUgWlx9rVeTWmg6dDdG/ccjBa8orJw+OZppADdkVGCy0uP+GtXkMTWua/P0JyL
-	pMqFNXMyz57Tqo2Im9Yya6cFonAAYXR+N8mjpMPbxazWi33iiNNdf6Dr1emTj5TrPGfGKq/iQYX
-	m/3hhy2AC8yeMqnq2SooNa8ctReudykb2tVY0hnUJQLSEuF5kXwB3AmWVCT5jRF4uw7yuVxzObE
-	GuoQPGJJlnymtFoiJXFbelDZtKxeFJRATORXDNb83sIwEfsASdCvBobKlevLmvzjTRV+6kGSVOc
-	BGxFDdWwWzo/8czAfc7Wu4h8JkqqNpahKupNWqCJXPaudGKrJw/oa32ZtQKnKGbQj8ltyCaAUYY
-	CedvgXzgtpBYDQsn7vcKoCuYMOVS8P1PRwx6bt65gN+YDT2L4AteGf0dKHK3DbRc1d/FOq6Ghi2
-	pHfZCbOdSpqq+C/1lq5eBRBkqQiJcKzDPI5XFLgu90YUBoQLsRhtLiGc8oiLyE2DcpzYPA/Q35c
-	l3xo6TpRfT2ruEuXZoYUpJenyYhnNDZPGD+gJVycdOyTsTGnhg==
-X-Received: by 2002:a05:701b:4502:10b0:18d:96e8:b913 with SMTP id a92af1059eb24-1ac5f64afcbmr3801453c88.47.1793381090306;
-        Fri, 30 Oct 2026 10:24:50 -0700 (PDT)
-Received: from localhost.localdomain ([103.170.55.71])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428c17bdsm8709248eec.6.2026.10.30.10.24.45
+        d=1e100.net; s=20260707; t=1793381148; x=1793985948;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bY23m8oqDMUYdoZaW6EqRfZm2SbktefieM9kXqauMu0=;
+        b=ppNRgVsG/mC2M6D37eMmCdizlpkACSSNW9zxUMD8nt5wX24A3CgVWSzvYb6ik7H6QH
+         IYmg6v67v7//YSUp8jheYgfu3uWeaJi+V5hfk5sxjbUg7YKHl36yuGScriPGwhNxydXU
+         6DlTIhV7aMCr8aN5w13BzcJCxS312ZLKJJKOpThqO6/8UTV3zmUvyq1edQRCNAfkJYtt
+         /hnOnsN/qeeI9w62VSy2SgWSLztV4fl6Vg6khDuYiV4CoX2Mzu5Nt1Fmoh93IuikYALE
+         5MmnO7tCfGoO9ffZY5UhWZ8kDdDiVzMFcQuqObfieazMv4uhQOqaFlk9BfqmnOcdI4YM
+         lB/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxLa0i7wOfcSHm+3O3c2W6Yeuz6OVVxxp0KH6CeIxnh7JSj3qnOruWYZuXataQvL/uhTG7mcEePIVsHtTk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJrgpljk1ROSHme+2WozMUHRf6S+YRK5e5Yx6g6UO7aRyAdg3Be
+	l0GzaNXKppGgeqGpZQyia15nUHUpLzb4MWFFZlCsE4GI3nsbMAE/uDvDqBDPqcY670Q=
+X-Gm-Gg: AYBFou26KTioevHaSA2Ys18GLaIaKW6EQqdFSd0OZmvuWh2PD9U/mlK6O5eoDjYTarb
+	LeDLaNMN/50DMTLSeT9gOHjqAGtFKoCOHDjNKZTDj6U3+qMikPptTyaIjoa5q4KbqkhD65U0LOK
+	P8b/Oq+iqvRXUQRjcOOxBMUsli5W9+nZUyO0UFH4ytjt2ItDbDrorGV+bNC6KJ66nqPY0U44tFX
+	L7kMiYI2ls3nGWD1n5t/nad4J/6ZIriqtT3o2MRl6K5rcYuogM6Jv4nHxznk45EPC/Pq07Nod0B
+	2VqqRunCqa0EnskEQ43YNbpeUJHDXXjjr6dzYujI8Rex+utgtwdyBym2BYFWS+XHtuj1rjDD15C
+	sOOSA/wd369grob5HLxzb5IW9OZ7WW0aOKpXM6EXbwdCTdNRCDyNdHG2ACF881yd4fifTABTNYB
+	qWmoYn9W6zpzARq3Qtf+47nGRZwpY10udRzWazCdN80rd6FBpKBonkGrGRnl44ZJGQ6bMOAC8u1
+	48IJVa6P25eGYfTfOECmDFQGsIfOWynNcq0/bmd9LozGrlwVsfkKNW30IBn3+TVvkwrEqSRlAqm
+	pkNSQcz6JErZDNZjqoFJ0/VVCd7Bj4LsUCtXocITAQSgKo0l273wWXWT7eNAS3uCuuRv1B5D9yk
+	rmjGBYhlTiaxU56JHfbjt7QK0uH81866LPUs73k7LDwb2E2ztWXRxZWfj3Gt+S0QsWFgp
+X-Received: by 2002:a05:7301:4b10:b0:35c:85fa:5a61 with SMTP id 5a478bee46e88-36a424940d9mr4335669eec.38.1793381148108;
+        Fri, 30 Oct 2026 10:25:48 -0700 (PDT)
+Received: from localhost.localdomain ([103.108.57.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428ecb61sm7641152eec.10.2026.10.30.10.25.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 10:24:49 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: sreekuttan2156239@gmail.com
-Cc: alim.akhtar@samsung.com,
-	bhelgaas@google.com,
-	jingoohan1@gmail.com,
-	krzk@kernel.org,
-	kwilczynski@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+        Fri, 30 Oct 2026 10:25:47 -0700 (PDT)
+From: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+To: linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org,
-	lpieralisi@kernel.org,
-	mani@kernel.org,
-	peter.griffin@linaro.org,
+	devicetree@vger.kernel.org,
+	herbert@gondor.apana.org.au,
 	robh@kernel.org
-Subject: [PATCH v5] PCI: exynos: Handle PCIe PHY initialization errors
-Date: Fri, 30 Oct 2026 17:23:50 +0000
-Message-ID: <20261030172350.2624-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261029131006.2744-1-sreekuttan2156239@gmail.com>
-References: <20261029131006.2744-1-sreekuttan2156239@gmail.com>
+Cc: krzk@kernel.org,
+	conor+dt@kernel.org,
+	ruud.derwig@gf.com,
+	rbannerm@synopsys.com,
+	manjunath.hadli@vayavyalabs.com,
+	adityak@vayavyalabs.com,
+	navami.telsang@vayavyalabs.com,
+	bhoomikak@vayavyalabs.com,
+	nazim.khan@vayavyalabs.com,
+	Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+Subject: [PATCH v27 0/4] crypto: spacc - Add SPAcc Crypto Driver
+Date: Fri, 30 Oct 2026 22:54:52 +0530
+Message-Id: <20261030172456.274744-1-pavitrakumarm@vayavyalabs.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,223 +106,196 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Check the return values of "phy_init()" and "phy_power_on()" to
-avoid continuing PCIe host initialization when PHY setup fails.
+Add the driver for SPAcc(Security Protocol Accelerator), which is a
+crypto acceleration IP from Synopsys. The SPAcc supports multiple ciphers,
+hashes and AEAD algorithms with various modes. The driver currently supports
+below
 
-Track the PHY initialization and power state to ensure cleanup is
-performed only when appropriate, avoiding double calls to
-"phy_exit()" on probe failure.
+hash:
+- cmac(sm4)
+- xcbc(sm4)
+- hmac(md5)
+- md5
+- hmac(sha1)
+- sha1
+- sha224
+- sha256
+- sha384
+- sha512
+- hmac(sha224)
+- hmac(sha256)
+- hmac(sha384)
+- hmac(sha512)
+- sha3-224
+- sha3-256
+- sha3-384
+- sha3-512
 
-Also check the return value of "exynos_pcie_host_init()" during
-resume and abort the resume sequence if PHY initialization fails.
+changelog:
+  v1->v2 changes:
+    - Added local_bh_disable() and local_bh_enable() for the below calls.
+      a. for ciphers skcipher_request_complete()
+      b. for aead aead_request_complete()
+      c. for hash ahash_request_complete()
+    - dt-bindings updates
+      a. removed snps,vspacc-priority and made it into config option
+      b. renamed snps,spacc-wdtimer to snps,spacc-internal-counter
+      c. Added description to all properties
+    - Updated corresponding dt-binding changes to code
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
-v5:
- - Avoid PM core state desynchronization in exynos_pcie_suspend_noirq()
- by logging teardown errors and returning 0 instead of aborting suspend
- on teardown failure
-v4:
- - Fix invalid return in void exynos_pcie_remove() and ensure regulator cleanup
- - Add core reset deassertion on error in exynos_pcie_suspend_noirq()
- - Prevent regulator leaks in exynos_pcie_resume_noirq() error recovery path
-v3:
- - Address review feedback on PHY and regulator state tracking
- - Avoid powering down the controller when link detection fails
-v2:
- - Track PHY initialization and power state to prevent duplicate cleanup
- - Handle host initialization failures during resume
+  v2->v3 changes:
+    - cra_init and cra_exit replaced with init_tfm and exit_tfm for hashes.
+    - removed mutex_lock/unlock for spacc_skcipher_fallback call
+    - dt-bindings updates
+     a. updated SOC related information
+     b. renamed compatible string as per SOC
+   - Updated corresponding dt-binding changes to code
 
- drivers/pci/controller/dwc/pci-exynos.c | 111 +++++++++++++++++++++---
- 1 file changed, 100 insertions(+), 11 deletions(-)
+  v3->v4 changes:
+   - removed snps,vspacc-id from the dt-bindings
+   - removed mutex_lock from ciphers
+   - replaced magic numbers with macros
+   - removed sw_fb variable from struct mode_tab and associated code from the
+     hashes
+   - polling code is replaced by wait_event_interruptible
 
-diff --git a/drivers/pci/controller/dwc/pci-exynos.c b/drivers/pci/controller/dwc/pci-exynos.c
-index e3c05ade381b..d82bdfea1f17 100644
---- a/drivers/pci/controller/dwc/pci-exynos.c
-+++ b/drivers/pci/controller/dwc/pci-exynos.c
-@@ -11,6 +11,7 @@
- 
- #include <linux/clk.h>
- #include <linux/delay.h>
-+#include <linux/device.h>
- #include <linux/interrupt.h>
- #include <linux/kernel.h>
- #include <linux/init.h>
-@@ -55,8 +56,34 @@ struct exynos_pcie {
- 	struct clk_bulk_data		*clks;
- 	struct phy			*phy;
- 	struct regulator_bulk_data	supplies[2];
-+	bool phy_initialized;
-+	bool phy_powered;
-+	bool supplies_enabled;
- };
- 
-+static int exynos_pcie_phy_exit(struct exynos_pcie *ep)
-+{
-+	int ret;
-+
-+	if (ep->phy_powered) {
-+		ret = phy_power_off(ep->phy);
-+		if (ret)
-+			return ret;
-+
-+		ep->phy_powered = false;
-+	}
-+
-+	if (ep->phy_initialized) {
-+		ret = phy_exit(ep->phy);
-+		if (ret)
-+			return ret;
-+
-+		ep->phy_initialized = false;
-+	}
-+
-+	return 0;
-+}
-+
- static void exynos_pcie_writel(void __iomem *base, u32 val, u32 reg)
- {
- 	writel(val, base + reg);
-@@ -225,13 +252,23 @@ static int exynos_pcie_host_init(struct dw_pcie_rp *pp)
- {
- 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
- 	struct exynos_pcie *ep = to_exynos_pcie(pci);
-+	int ret;
- 
- 	pp->bridge->ops = &exynos_pci_ops;
- 
- 	exynos_pcie_assert_core_reset(ep);
- 
--	phy_init(ep->phy);
--	phy_power_on(ep->phy);
-+	ret = phy_init(ep->phy);
-+	if (ret)
-+		return ret;
-+
-+	ep->phy_initialized = true;
-+
-+	ret = phy_power_on(ep->phy);
-+	if (ret)
-+		return ret;
-+
-+	ep->phy_powered = true;
- 
- 	exynos_pcie_deassert_core_reset(ep);
- 	exynos_pcie_enable_irq_pulse(ep);
-@@ -314,6 +351,7 @@ static int exynos_pcie_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	ep->supplies_enabled = true;
- 	platform_set_drvdata(pdev, ep);
- 
- 	ret = exynos_add_pcie_port(ep, pdev);
-@@ -323,8 +361,19 @@ static int exynos_pcie_probe(struct platform_device *pdev)
- 	return 0;
- 
- fail_probe:
--	phy_exit(ep->phy);
--	regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+	if (exynos_pcie_phy_exit(ep))
-+		dev_err(&pdev->dev, "failed to exit PCIe PHY\n");
-+
-+	if (ep->supplies_enabled) {
-+		int err;
-+
-+		err = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+		if (err)
-+			dev_err(&pdev->dev, "failed to disable regulators: %d\n", err);
-+		else
-+			ep->supplies_enabled = false;
-+
-+	}
- 
- 	return ret;
- }
-@@ -332,22 +381,42 @@ static int exynos_pcie_probe(struct platform_device *pdev)
- static void exynos_pcie_remove(struct platform_device *pdev)
- {
- 	struct exynos_pcie *ep = platform_get_drvdata(pdev);
-+	int ret;
- 
- 	dw_pcie_host_deinit(&ep->pci.pp);
- 	exynos_pcie_assert_core_reset(ep);
--	phy_power_off(ep->phy);
--	phy_exit(ep->phy);
--	regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+
-+	ret = exynos_pcie_phy_exit(ep);
-+	if (ret)
-+		dev_err(&pdev->dev, "failed to exit PCIe PHY: %d\n", ret);
-+
-+	if (ep->supplies_enabled) {
-+		ret = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+		if (ret)
-+			dev_err(&pdev->dev, "failed to disable regulators: %d\n", ret);
-+		else
-+			ep->supplies_enabled = false;
-+	}
- }
- 
- static int exynos_pcie_suspend_noirq(struct device *dev)
- {
- 	struct exynos_pcie *ep = dev_get_drvdata(dev);
-+	int ret;
- 
- 	exynos_pcie_assert_core_reset(ep);
--	phy_power_off(ep->phy);
--	phy_exit(ep->phy);
--	regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+
-+	ret = exynos_pcie_phy_exit(ep);
-+	if (ret)
-+		dev_err(dev, "failed to exit PCIe PHY during suspend: %d\n", ret);
-+
-+	if (ep->supplies_enabled) {
-+		ret = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+		if (ret)
-+			dev_err(dev, "failed to disable regulators during suspend: %d\n", ret);
-+		else
-+			ep->supplies_enabled = false;
-+	}
- 
- 	return 0;
- }
-@@ -358,13 +427,33 @@ static int exynos_pcie_resume_noirq(struct device *dev)
- 	struct dw_pcie *pci = &ep->pci;
- 	struct dw_pcie_rp *pp = &pci->pp;
- 	int ret;
-+	int err;
- 
- 	ret = regulator_bulk_enable(ARRAY_SIZE(ep->supplies), ep->supplies);
- 	if (ret)
- 		return ret;
- 
-+	ep->supplies_enabled = true;
-+
- 	/* exynos_pcie_host_init controls ep->phy */
--	exynos_pcie_host_init(pp);
-+	ret = exynos_pcie_host_init(pp);
-+	if (ret) {
-+		err = exynos_pcie_phy_exit(ep);
-+		if (err)
-+			dev_err(dev, "failed to exit PCIe PHY during resume error: %d\n", err);
-+
-+		if (ep->supplies_enabled) {
-+			err = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+			if (err)
-+				dev_err(dev, "failed to disable regulators: %d\n", err);
-+			else
-+				ep->supplies_enabled = false;
-+		}
-+
-+		return ret;
-+
-+	}
-+
- 	dw_pcie_setup_rc(pp);
- 	exynos_pcie_start_link(pci);
- 	return dw_pcie_wait_for_link(pci);
--- 
-2.55.0
+  v4->v5 changes:
+   - Updated to register with the crypto-engine
+   - Used semaphore to manage SPAcc device hardware context pool
+   - This patchset supports Hashes only
+   - Dropping the support for Ciphers and AEADs in this patchset
+   - Added Reviewed-by tag on the Device tree patch since it was reviewed on
+     v4 patch by Krzysztof Kozlowski and Rob Herring (Arm)
+
+  v5->v6 changes:
+   - Removed CRYPTO_DEV_SPACC_CIPHER and CRYPTO_DEV_SPACC_AEAD Kconfig options,
+     since the cipher and aead support is not part of this patchset
+   - Dropped spacc_skcipher.o and spacc_aead.o from Makefile to fix build errors
+     reported by kernel test robot
+   - Added Reported-by and Closes tags as suggested
+
+  v6->v7 changes:
+   - Fixed build error reported by Kernel test robot
+   - Added Reported-by and Closes tags as suggested
+
+  v7->v8 changes:
+   - Fixed misleading comment: Clarified that only HMAC key pre-processing
+     is done in software, while the actual HMAC operation is performed by
+     hardware
+   - Simplified do_shash() function signature by removing unused parameters
+   - Updated all do_shash() call sites to use new simplified signature
+   - Fixed commit message formatting by adding "crypto: spacc - <subject>" to
+     all patches
+   - used __free() for scope based resource management
+
+  v8->v9 changes:
+   - Updated the software fallback implementation to use HASH_FBREQ_ON_STACK
+   - Corrected dynamic allocation of statesize and reqsize in init_tfm
+   - Fixed synchronization issues in the digest request
+
+  v9->v10 changes:
+   - Fixed unused variable warning
+
+  v10->v11 changes:
+   - Removed the redundant crypto_alloc_ahash in the init_tfm function
+   - Removed the redundant crypto_free_ahash in exit_tfm function
+   - Removed the redundant crypto_ahash_setkey call in setkey function
+
+  v11->v12 changes:
+   - Removed do_shash() and switched to lib/crypto API in spacc_hash_setkey
+   - Dropped support for SM3 algorithm
+   - Improved multi-device safety by encapsulating handling within priv
+   - Added memzero_explicit() in sensitive paths
+   - Minor code cleanups and style fixes
+   - Algorithm registration cleanups
+
+  v12->v13 changes:
+   - Removed all the sleep function from setkey function
+   - Added shash implemntation for aes algorthims
+
+  v13->v14 changes:
+   -Added fixes based on the reports by Sashiko
+   -Removed the spacc_is_mode_keysize_supported call from do_one_request
+
+  v14->v15 changes:
+   -Added fixes based on the reports by Sashiko on 19/jun/2026
+   -Fixed styling in the Kconfig
+
+  v15->v16 changes:
+   -Added fixes based on the reports by Sashiko
+
+  v16->v17 changes:
+   -Added fixes based on the reports by Sashiko
+
+  v17->v18 changes:
+   -Added fixes based on the reports by Sashiko
+
+  v18->v19 changes:
+   -Added fixes based on the reports by Sashiko
+
+  v19->v20 changes:
+   -Added fixes based on the reports by Sashiko
+
+  v20->v21 changes:
+   -Added fixes based on the reports by Sashiko
+
+  v21->v22 changes:
+   -Added fixes based on the reports by Sashiko
+
+  v22->v23 changes:
+   -Added fixes based on the reports by Sashiko
+
+  v23->v24 changes:
+   -Added fixes based on the reports by Sashiko
+
+  v24->v25 changes:
+   -Added fixes based on the reports by Sashiko
+
+  v25->v26 changes:
+   -Added fixes based on the reports by Sashiko
+   -Removed the additional fallback
+   -Added the CRYPTO_AHASH_ALG_BLOCK_ONLY flag to the cra_flags
+   -Minor code cleanups and style fixes
+
+  v26->v27 changes:
+   -Added fixes based on the reports by Sashiko
+
+Pavitrakumar Managutte (4):
+  dt-bindings: crypto: Document support for SPAcc
+  crypto: spacc - Add SPAcc ahash support
+  crypto: spacc - add spacc autodetect support
+  crypto: spacc - Add SPAcc Kconfig and Makefile
+
+ .../bindings/crypto/snps,dwc-spacc.yaml       |   50 +
+ drivers/crypto/Kconfig                        |    1 +
+ drivers/crypto/Makefile                       |    1 +
+ drivers/crypto/dwc-spacc/Kconfig              |   64 +
+ drivers/crypto/dwc-spacc/Makefile             |    7 +
+ drivers/crypto/dwc-spacc/spacc_ahash.c        |  857 ++++++
+ drivers/crypto/dwc-spacc/spacc_core.c         | 2529 +++++++++++++++++
+ drivers/crypto/dwc-spacc/spacc_core.h         |  863 ++++++
+ drivers/crypto/dwc-spacc/spacc_device.c       |  324 +++
+ drivers/crypto/dwc-spacc/spacc_device.h       |  181 ++
+ drivers/crypto/dwc-spacc/spacc_hal.c          |  349 +++
+ drivers/crypto/dwc-spacc/spacc_hal.h          |  113 +
+ drivers/crypto/dwc-spacc/spacc_interrupt.c    |  360 +++
+ drivers/crypto/dwc-spacc/spacc_manager.c      |  657 +++++
+ 14 files changed, 6356 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/crypto/snps,dwc-spacc.yaml
+ create mode 100644 drivers/crypto/dwc-spacc/Kconfig
+ create mode 100644 drivers/crypto/dwc-spacc/Makefile
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_ahash.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_core.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_core.h
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_device.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_device.h
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_hal.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_hal.h
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_interrupt.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_manager.c
+
+
+base-commit: 178aff4cf425b3fc51ff09c571fa1bfbc1eb8ea4
+--
+2.25.1
 
