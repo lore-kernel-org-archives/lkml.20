@@ -1,49 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793368984;
-	b=rhx8UCW4Kc1EA++1X3oJDikRKP/+UriKgL7qtMR1Hmn5TDcsKdKk65MUlpPF424YgHsK
-	 OogXFftK0lT/DgB8BdRqdr0U+JdMIWrRUcD+hKgL3rVHNVlLPJJhVGeCnafGhZfQV2GmZ
-	 Y16w3iuZYS4TLOCnHTAUeMv/ICdjQlf0J5L/pE+TVH0ixvZgArvOwNzhRjvA2nalq8aR5
-	 BXBYmHLvLtZHhZnOhUkMMqPfpTSNQFOJfp9Dc22vNWjJ7TjTcuLwjA/4yUDCzmNGwnAVG
-	 VdV86FKg1DWMlOBkbS2l7NGbtvbcuaMKasxrA294zeMfLCdqqIr9FccFFtGJC9sBmtw==
+	t=1793369027;
+	b=REO9di5ApiuBwZY99fNRoioUVl12Y1Yq1+VH57ZFfP28CoB1yGzC/g5S6oLYVDML4g08
+	 CtuUR1BElFGsNmwKfvGFCyikcdP1Ptx2b+MoLzsJx6rG6l6GHxaxU0kl/NjxGckpNsX1v
+	 t7EDRaFTWhBCr0YWCbTqU6zuOG95r0PWymoaAC0X6893qACih+A2VDmhZ7sKfsNGOfUFi
+	 pK2EkzSMYdMkG+Q2RMPBvb0nZWyup4odL/ONLyCJhoWMpBSLubX2A9+hUd4qQv09p9BrV
+	 88K0iF7gA51h479Tp3Eyr11HNFVMh1xHuPm9r6y/xKZzngNgzkkSMFcnRnH6Hdwufxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793368984;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=TSHFV9p0o4fRFZk9gFzrl1PkSDFKqS4z3PC8jypGJsI=;
-	b=hSmlqzBD3GJTioSqZO5e8YvferhFhIxhOgngnsbjW39JV5DrfraACq0wyaQ2E5FDJCrV
-	 FtEvJShV1RlW8V2/3nOrlsL2OxrxhVxmRrUqQnRaZwNrgf8uzGWqejwA7TG6Eom9+Ug5h
-	 ddqSz7JA/47/UH5ysMfe3yuoOMIhVZNQB4jAVVzxNEKzWnV0G1SSJ5usRTduOsgSIRStp
-	 Oexf351R/AiJ+CrJlxVcO3A4Gtlsfj2bFYlE0N5MVr3GbHetMI+dulhlpTl7SHzJMb7C2
-	 CFhWdoGAiuy4Op6DcKwsuyWhFKAC2Rh5PzGCk9iqAsQNCmLwbEC8ys1j7nARIrlVD0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793369027;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RNi/YV07iESSp5HzRPxOu8kqkEJ5qhQDfYYkAe+T8VA=;
+	b=qmUDkmHBzkRWo7lvvjcCDYCFR4XU1tkkup+q7DEIosxhshBK0rDBnjv//vQlNk3tjaRU
+	 eHv/HHR9xYYAOVZCi/SCxtLhvk0CLJC6I2RoCOt9QAjK7bdXEiLdtglUoXANQX+7/wBjZ
+	 u+HxQ7v7YR0DPPUpnOQioIo6Hyv27LDRRzDztH7r1nxcEb7MJm8VqW70KKJOG5cZVx7Qo
+	 lrmNTqczO4wuyNo4z7ldgrBvRnodmwTG5aeVRfAr29ZsScKnJdc5eSqGUiyHPGpo3+TcY
+	 GRJKYFEZr+cajX86cfEwQVpkn1j5oN6zXYfIt1ti5j4BRP6o3vWEi43btmla18suw9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="g+s8b/GP";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2EA0C606A337;
-	Fri, 30 Oct 2026 14:03:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EA0C606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=jclark.com;
+	spf=pass smtp.mailfrom=jclark.com;
+	dkim=pass header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=efYy8ccY;
+	arc=none smtp.remote-ip=209.85.214.181
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E01606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:03:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72E01606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=g+s8b/GP
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 551571477;
-	Fri, 30 Oct 2026 07:02:59 -0700 (PDT)
-Received: from [10.57.13.127] (unknown [10.57.13.127])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6EEBE3F59E;
-	Fri, 30 Oct 2026 07:03:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793368982; bh=I1FUwJlvLdKX7LF1hbS3q4Ks7XyfAy+gx/3lbFUXJwg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=g+s8b/GPOmL4UjKBohYUzlRu7cb+Lv7nMWcoRTtPnk3ayEIAKWU4tKYFnH6gF245N
-	 EJ/BgpFY0HLsFd4A4fdl///R9dePyn6U/pFFFMfXCbyRCTXd7JM7FsJ3lraot/sAHb
-	 fOOws9qF1Ev9boGoj3uHhM/UuZbJh8DulbgMkOWU=
-Message-ID: <233a55d5-48f4-4e57-b816-3a59d9ab2b73@arm.com>
-Date: Fri, 30 Oct 2026 14:03:30 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=efYy8ccY
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e9995ce866so6461275ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:03:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jclark-com.20260707.gappssmtp.com; s=20260707; t=1793369027; x=1793973827; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RNi/YV07iESSp5HzRPxOu8kqkEJ5qhQDfYYkAe+T8VA=;
+        b=efYy8ccYHATE2WA0wZRSaVlN8TOl1bJEJ/pwwKfOu7DOOKWLhFAfasds2OCArHT+Id
+         84hoQgBBMImfH+kgaJN7XBxMxUbJ/yLWe3W+SogXWdXvJP6oLcEOVQCJqfDcIPqXS9gl
+         QvpoaRu0KxaKcux8E+xlqIt37lfVM0gjjntcZ0uIrOJRLUOywSYqBQo4mKh66qmIAo7D
+         Clnl2+00funikVLTNchh065sDyi9fuLOw80s+ibNFzdoLsIWKUgJj5J9m4yUEWxYNbVR
+         srKt6BY1prlXhzgsO30teQwzpNf1yJc87KqdhVRT+vaqvzhD2OhMIWEpq35Q8ohNpm+y
+         4YaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793369027; x=1793973827;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RNi/YV07iESSp5HzRPxOu8kqkEJ5qhQDfYYkAe+T8VA=;
+        b=zpS5KtZ8W/KWlRU9OWNj0iTfgTYp3Z61ORv8BIdmUhh1umuKktkMu6gtUQLsM/yMxz
+         wHZzQWA8w+S3UoL6twSYQ8t6ZagZw2hOkFkVXdnuOcN9M1BOGQuLGeJY9Mcvqr0by5jT
+         vcDTjlbkp45qrkhQO/AxIoHD3qdomROpBaAIqWs1AOGRDP6zRCMAtU3cigHepRIgSKd+
+         Ia4EohTkoet/SnA+wwPCCmtJpqnA1NVYZ0esHG19DbDKw8TwucZBTTclZlf1bzaClWXW
+         jfYNUnJX/HlNmTHtWgD2vTfPjaGkl4i7V+CMTKOCCqcajvARVbI3ey14Gg/OYJHvSk3z
+         WtNg==
+X-Forwarded-Encrypted: i=1; AKwUvBwS57dbTJ82IwZunOILMoXyWZix/sAhBK+YEvgV2xzXz57HfRSsA9WA/OflgTukC2cEgK8shj9ZHh2UnPE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSuipWaXIFg550j8n3uPGCnLavBow0IBzKKCu4RmqCD16ULbOs
+	RorattYnyWzdDmy/46pAzJ67sqiLh2c/MBveJVPwUWIrHAVwaOWKYhbamm/NDcZu6A==
+X-Gm-Gg: AYBFou2HRQ2AVaJsOrhTF4cVG6xShdfPxmdqph0EuVlU4lXtjTAEwEXRIfEEJJI2cz7
+	cmszwWIEETtE0SpB+NrK7NKbxtuZb8EpDXLqtwfz6Atm7p6H7tF683QUwCBEiUD1VCH4H+89ayD
+	nm20EueYEVNOnFqrEJsOdyh7mRLMaorcUPLlFu3I/x5cUSxV/8wupEGiYTwpFfs0mTZv2nySUY+
+	xDbO432BIVe1ffHEMq2tgDIFYRtqVSsFL2qIi4caKzyaM/IWVvnpCsw8/HHY3NjrHRIp7Wi1HUb
+	uIy7zMvBZYwTwECPO2Xs9+hkhZ7B/cGYuTNnKlGcY8CjOj8pyRrEx/jgcGtK+8fdaIvC5gRbkgc
+	v3cUIwTwnXgvqHm+gRRxaA113X9Tn9P5x3xVy4pKVx8sYU5ljHVTDUynoUs20hR7yJnYfBjOl22
+	hG6kUC+7migo16KdTtMsyaj3zag0icNCsUTD3CchBHz1sOYtMiGXdbgVv17U5Qr/KhjC8+7Lubz
+	wJGgx9mJxEIQMsRQHJHHLc9PExthSAAKk5G7iid4bWPDr4W/sDxvrCiL6O0Vslf9+OOCirTIk9u
+	IvR25stCzxe2AfCREN+TXYjUCWxVmg4uUURKkPNDS4yCJ0N5V3Fa1o+cQg8ED8/JiYBpbTWC6Y9
+	P90IDYZtbCdpMIkPd
+X-Received: by 2002:a17:90b:1b02:b0:3ad:8769:8741 with SMTP id 98e67ed59e1d1-3ae8957453dmr1915084a91.4.1793369026593;
+        Fri, 30 Oct 2026 07:03:46 -0700 (PDT)
+Received: from cantal.lan ([58.136.77.93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85f3e087sm2002137a91.1.2026.10.30.07.03.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 07:03:45 -0700 (PDT)
+From: James Clark <jjc@jclark.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Matthias Kaehlcke <mka@chromium.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Douglas Anderson <dianders@chromium.org>,
+	Ravi Chandra Sadineni <ravisadineni@chromium.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	linux-gpio@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: Re: [PATCH] usb: misc: onboard_usb_dev: don't defer the USB device probe
+Date: Fri, 30 Oct 2026 21:03:40 +0700
+Message-ID: <20261030140340.3383998-1-jjc@jclark.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <auSdA8MfolA8OhdM@hovoldconsulting.com>
+References: <20261030114705.3159093-1-jjc@jclark.com> <auSdA8MfolA8OhdM@hovoldconsulting.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,93 +106,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/6] powercap: dtpm: Remove duplicate RK3399 CPU
- hierarchy nodes
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, rafael@kernel.org
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Shuah Khan <shuah@kernel.org>,
- Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kselftest@vger.kernel.org
-References: <cover.1793288783.git.daniel.lezcano@oss.qualcomm.com>
- <141ad25a137cb50516bd92f9a13dda7ec940f6da.1793288783.git.daniel.lezcano@oss.qualcomm.com>
-Content-Language: en-US
-From: Lukasz Luba <lukasz.luba@arm.com>
-In-Reply-To: <141ad25a137cb50516bd92f9a13dda7ec940f6da.1793288783.git.daniel.lezcano@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+On Fri, 30 Oct 2026 14:34:59 +0100, Johan Hovold wrote:
+> I guess you can look into replacing generic_subclass with having the
+> onboard_usb_dev driver call usb_generic_driver_probe() itself or
+> possibly adding a pre-probe callback to usb_device_driver.
 
+Thanks for the suggestions. It looks to me like your pre-probe callback
+idea will give the cleanest fix. I will try that for v2.
 
-On 10/29/26 16:56, Daniel Lezcano wrote:
-> The DTPM CPU backend registers one powercap zone per cpufreq policy,
-> not per CPU. On RK3399, CPUs sharing the same cpufreq policy therefore
-> map to the same DTPM zone.
-> 
-> Remove the redundant CPU nodes from the RK3399 hierarchy and keep only
-> one CPU node per cpufreq policy. The backend already suppresses duplicate
-> registration through its per-CPU state, so the removed entries are
-> redundant descriptions of the same zones. Keep both CPU policy domains
-> and the GPU in the hierarchy, preparing for one created zone per generic
-> hierarchy node.
-> 
-> Also fix indentation in the Rockchip device match table.
-> 
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> ---
-> Changes in v4 (since v3):
-> - Rebase on v7.3; no code or commit-description changes.
-> 
-> Changes in v3 (since v2):
-> - Rebase on v7.3-rc7.
-> - Fix Rockchip match-table indentation here rather than in patch 1.
-> - Clarify that the existing backend suppresses duplicate registration.
-> 
->   drivers/soc/rockchip/dtpm.c | 22 +++++-----------------
->   1 file changed, 5 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/soc/rockchip/dtpm.c b/drivers/soc/rockchip/dtpm.c
-> index b36d4f752c30..e71f315fbb6b 100644
-> --- a/drivers/soc/rockchip/dtpm.c
-> +++ b/drivers/soc/rockchip/dtpm.c
-> @@ -20,30 +20,18 @@ static struct dtpm_node __initdata rk3399_hierarchy[] = {
->   	[2] = { .name = "/cpus/cpu@0",
->   		.type = DTPM_NODE_DT,
->   		.parent = &rk3399_hierarchy[1] },
-> -	[3] = { .name = "/cpus/cpu@1",
-> +	[3] = { .name = "/cpus/cpu@100",
->   		.type = DTPM_NODE_DT,
->   		.parent = &rk3399_hierarchy[1] },
-> -	[4] = { .name = "/cpus/cpu@2",
-> +	[4] = { .name = "/gpu@ff9a0000",
->   		.type = DTPM_NODE_DT,
->   		.parent = &rk3399_hierarchy[1] },
-> -	[5] = { .name = "/cpus/cpu@3",
-> -		.type = DTPM_NODE_DT,
-> -		.parent = &rk3399_hierarchy[1] },
-> -	[6] = { .name = "/cpus/cpu@100",
-> -		.type = DTPM_NODE_DT,
-> -		.parent = &rk3399_hierarchy[1] },
-> -	[7] = { .name = "/cpus/cpu@101",
-> -		.type = DTPM_NODE_DT,
-> -		.parent = &rk3399_hierarchy[1] },
-> -	[8] = { .name = "/gpu@ff9a0000",
-> -		.type = DTPM_NODE_DT,
-> -		.parent = &rk3399_hierarchy[1] },
-> -	[9] = { /* sentinel */ }
-> +	[5] = { /* sentinel */ }
->   };
->   
->   static struct of_device_id __initdata rockchip_dtpm_match_table[] = {
-> -        { .compatible = "rockchip,rk3399", .data = rk3399_hierarchy },
-> -        {},
-> +	{ .compatible = "rockchip,rk3399", .data = rk3399_hierarchy },
-> +	{},
->   };
->   
->   static int __init rockchip_dtpm_init(void)
-
-
-Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
+James
