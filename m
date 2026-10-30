@@ -1,94 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793387407;
-	b=u7KMGyw79uNAlTxekeKaotBm04n20Emn69O51/7B4PyntJRihmWb/Dnnug+H5MCTogng
-	 BzckdVm0BRYb7Xo0BXL9Nl4NrnN1NQvvxJm+AEkjaXb0vn1VJG3Gq/pA/WnSlBj94BKq0
-	 NRl8i7dNlSiyf3ZYj8c6YXgjMYfEhxIlVxAYiN4KU+LuZ8dX2ZTgPnd48dFsVfA5/R3R/
-	 qxVwhXsi66JZJhnX0XmsHFeZzpU63UWyy9bjNqowihRxRiVr+nG7zh8jmzmr2AVl1Vxn6
-	 UzRykK/RI0ioEwr7F/2Ltz/EmnwAUup9RCk7ce0stzAFfYSscHVAPbRaulmddAp4QuQ==
+	t=1793387424;
+	b=sIwxT+th/X3u3AWT7QZ3JUxggZW7wdNkhYW/anJK5XB8iAuRMjN0OSp+MgPunwVWWRD/
+	 P0tRl0iveadNrlsTIdiDVUEo2r1eWsegZqL0DaXwp6URUzBT9hegKWrEiLI13xiANuhxI
+	 SMJsf2Iaz/DxWrF0kCzzHrzhyxj6F3DQph105UMpEW7kxLxG5p1jy5hBwNW4t8PZgTMov
+	 sjSpXDRxOCd23odxZPfd5H5CAy948q4ukw33p6XaJXoCm9MSemOp83GbTcEtYC+nP4LeK
+	 ZyxNGP6IcbjRwOG36RnDzs/hZD0GzaIcctk+01exla4u9RA8xi13RJK2xtzy4DFOTLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793387407;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kD+8hVqKVLhBJLMudt/owxF4vjQZMFBH2XanHyBepaU=;
-	b=JA0BT7tXbh/K7b8h2Al+m9qgPCxUKeITUktVybyB8Wm9SFrpXF4TfiQJIfBP7mNOcZLL
-	 TX5UBKclOg3KDgsywXz6T8Z3rrKKJRf3+SmynWFaFethQn6elOpSXHW1unJO5qmUlODY9
-	 vYyOzg0lipZCAgsqSBc/+it6d2hYiERylRtijgv84S39zPxTdxOn5Xj7k+nBNfyaBNUNd
-	 IaTyk0VYyE4eqGY6Ogq0SUdQAsqke92YxD7TPILQ6bqvr11f1lbMBHeneN9zINuIcwy0d
-	 NQPg7oAklvvt4wKYiuJo5hwzMDjx2wosLz6F+Hw7z0mKxFzEnoyMP0S6djy8NkBBKuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793387424;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:To:Cc:References:Subject:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=xEvyPemN7A3JhLcQtF4gMWOt0Hrab2ZRSSkUphZVqUU=;
+	b=J4We9Sq42Sqa/MREKFaWJA4vdBvhR/z6usOiHcP8qSfEykBQYrxVdazosnYPxScQsNsR
+	 hoFRUj+BOgVzUDBFmJUBJqGi/rqSsvpeoH+iXGQKLV8Acjt2O6tTI+BzeDXcb3cl41jUJ
+	 mjvY9nJsRKE5E3ygoAGQJRNBK9c+ufy73RNDzW/BpFCPFUamrOsrKrEjaYFrKYiIf+hed
+	 NU+yxlOCTT1nPTwl5xyNJpE0yEVONxSlDyo2CYbQeN7+iDyn5nfy0CHj0tpMDROyO1Dtj
+	 HkZyy+0WMLyfncO+jChO1x+mnBOMoa/Lt8O7+rC1YpWYJas9G/8V3AB6xsBQbJnjWBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=LmKF2FYG;
-	arc=none smtp.remote-ip=209.85.160.50
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=bIGYkJCB;
+	arc=none smtp.remote-ip=212.227.15.4
+Received: from mout.web.de (mout.web.de [212.227.15.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33CF2606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:10:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33CF2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86D4606A31A;
+	Fri, 30 Oct 2026 19:10:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E86D4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=LmKF2FYG
-Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-486f013db83so372941fac.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:10:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793387406; x=1793992206; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kD+8hVqKVLhBJLMudt/owxF4vjQZMFBH2XanHyBepaU=;
-        b=LmKF2FYGpMuwc8y/AW8Eiv+v399Yl/3WEc7NB9ph9yWaNGEo3sGY1s1NqgkUcyOHzw
-         Q0kMTirWVyj1YHMgDHpqApdPokirUD+N4OvzwXSHFRZddqN7Ez1XsO5xjr18ljn+jbdj
-         X4GzrqLsuBBTgil3Y3+ewAUqyes0KSjA0voJA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793387406; x=1793992206;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kD+8hVqKVLhBJLMudt/owxF4vjQZMFBH2XanHyBepaU=;
-        b=H7fVzzf4kG8AFeWdmSSlhjhYi26BdNL9GVCv7Mkr8NfKS93SBIkh92KzqOINcfyAa3
-         +9hL7rnAYVJ50N90amvfaORdW8ItKBgHwY7Xa1itJj3hdMKobCEAB/a/dzXVxoGYpPll
-         2wciV6HjGoMlDSGAL4H7GZZ7F7tsK6TBjLhjjFgoZP46ocED7dO1lbMYzlF5YFHF9EYC
-         a4vD74RxqXl5x+6hjy8RaRQilMCIMoCIf8c6FSc485By5hZDzQANiAbxvCD3y75baf40
-         NQ+t8qtEiS7IK7msEx3KXfDQ0hLwnBPApmPViMkE6SI5FfFn4/YOpyfL3nDZ+A537EaJ
-         yn2w==
-X-Forwarded-Encrypted: i=1; AKwUvBxiLyh2vu/GEu4zgs2r0IfmNwYJroJd7jBPi8PxikyBNhTN1boijE30e6czJkTUfGUthE+G/+7b6EgvQUE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL712o8bp0vcdHiiP/biCE8Rbzsbcegs3DwNnu+7R8jWMqKztdX
-	sDwabielx0Z8ximXjVo1R/Q5/OskG/AdCAbeQJ/9Kbi7TbxAvdwAW+qyVtoyeoW/eA==
-X-Gm-Gg: AYBFou2av8UKDuiiZbvlGe6I9/8pwnMbWdwj+89r8UvW1bq9JyDbC/ZEn/tMNe52I4I
-	d1X+Gq0FG8ovJs2R6m7W/aSQU/IDXeZCFKbJj3kuxPLBOWe/oxTVAsBuE687xknoqDTdSPJmpL7
-	g4Gs5ARXHe4RxBwDZA14XupkaAOgblbZwYkAtJD7xuPoLf552x/d4NSvH/3kVtdS+SH+80nXD56
-	8GRIO/gVaKHvEx5JxBgTYi7yEw9YOz6FPa3FbuSt2w5KgQN2Iuvvzn9zzuKTjm+s9Op8gxhe4QG
-	lsyVjAGG+/FL4FywrJvNlakaWB6/NS5vwdo7Sh58FIufhf1qBV6Rr2oLamoNPyrQRvt1W6G3bT7
-	L2vc2ac3n/mFNet+3IhIr4zKcos+wOkZLy5huX2K6PGdbk5zHQBx/GwXQcEqPoGxAngEscGsZ9l
-	TRm6h9oOqe8YA+MmAkMR/V73Q+gaSfBxSKWRqAT6EOZaU1+2w7BETpn9VE2lZK8sSAU+kIaKVE1
-	CqPhlkUVe79FMOfEs5gAwiqevb3nnDfUyA/aFy7khgMWPuw2KVNVGRRoDarwrLAoRwk/8UImmaI
-	nk28a9iVzyagllf+FPqpvUXzMjo+minvKpKDseuMGltQab7h7k79tzIZK+fe+YkZneawUETpEKX
-	0P2xZCPcqvlTlHH4=
-X-Received: by 2002:a05:6871:4410:b0:4a8:9bb3:3439 with SMTP id 586e51a60fabf-4a9077edc24mr2353106fac.60.1793387406016;
-        Fri, 30 Oct 2026 12:10:06 -0700 (PDT)
-Received: from rrangel.c.googlers.com.com (194.246.27.34.bc.googleusercontent.com. [34.27.246.194])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a921353dcfsm743296fac.0.2026.10.30.12.10.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 12:10:04 -0700 (PDT)
-From: Raul E Rangel <rrangel@chromium.org>
-To: Kees Cook <kees@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	"Guilherme G . Piccoli" <gpiccoli@igalia.com>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: linux-doc@vger.kernel.org,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-kernel@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Raul E Rangel <rrangel@chromium.org>
-Subject: [PATCH] pstore/ram: Allow ramoops.ecc to override DT and platform_data
-Date: Fri, 30 Oct 2026 13:09:42 -0600
-Message-ID: <20261030190943.3472498-1-rrangel@chromium.org>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=bIGYkJCB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1793387420; x=1793992220; i=markus.elfring@web.de;
+	bh=xEvyPemN7A3JhLcQtF4gMWOt0Hrab2ZRSSkUphZVqUU=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=bIGYkJCB5PQlehZhRkKS37Xsj7Iwc4ymU28SIvTSYhFYbH8EBnjzi717k4t1p90G
+	 6fZWEiddJWGRxtvTNBcjhj4PeYm4LOLIwjNQCJNM4QFC0m5sbWxDw0mfQSIu1lyfd
+	 adfhkCFnpuOVisjRMK6AUNxg09ObiRC+QUHRt//O74Jwf/fgNbExUQz779aTMo6GU
+	 o95tybHWZZjEZe5QDcdC4/e0C0vqMLHZMJzN94v8VCV8esGG86qNWnwzDG7S2p81d
+	 tVqFWUj3EQsCMPIADfLbeeQagmLDxnOAxD89Y9K32HJyQcm6cGj59jr7YGMXJEWrC
+	 2TWYHir1ehhCjyNnRg==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MGxMN-1xJH5z37kB-00DL5H; Fri, 30
+ Oct 2026 20:10:20 +0100
+Message-ID: <3d9071c7-d98e-4697-b57a-2a955a704117@web.de>
+Date: Fri, 30 Oct 2026 20:10:16 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,134 +62,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: Felix Gu <ustc.gu@gmail.com>, linux-pci@vger.kernel.org,
+ Bartosz Golaszewski <brgl@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+References: <20261031-pwrctrl-v1-1-405af11c5662@gmail.com>
+Subject: Re: [PATCH] PCI/pwrctrl: generic: Fix leak on clock error path
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20261031-pwrctrl-v1-1-405af11c5662@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:r2Zn9M4LAeqsFJ/5Ewn9rk64fxQGccTc2ba+EALlmlEG2qkrXNh
+ aLqCugA5R79gA1FIPLuVQZB/ZK8EnRQqLqA+MNlkHvj2SITl1aYtoyRCn5dFClkVGhVSU14
+ zcX3ko/+kLkAKsogjio9UW8aFt0QbAOKCqi2QrhvdfkkYw13CFBqDUzYbqiQPQTSC1cePZ7
+ BMznW2ChxjHHkBE0agn3A==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:GxoVNHZytI8=;LoAaMeQCt8yJnqtG2WQRc9b2VXL
+ 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
+ z4wuCRSgqsNSy73LFZIm8RxxBws/xLu643PWw==
 
-When ramoops is instantiated via DeviceTree (ramoops_parse_dt()) or
-platform data (e.g. chromeos_pstore), the ramoops.ecc kernel
-command-line and module parameter is currently ignored. Depthcharge
-and firmware often create the /reserved-memory/ramoops node without
-setting the "ecc-size" property, leaving users unable to configure
-or override Reed-Solomon ECC from the kernel command line without
-modifying firmware tables or DTBs.
+> The devm release action for the slot supplies is registered after
+> devm_clk_get_optional().  If clock acquisition fails, probe returns
+> immediately, so the resources eallocated by of_regulator_bulk_get_all()
 
-Initialize ramoops_ecc to -1 to differentiate between an unspecified
-parameter and an explicit override. Snapshot ramoops_ecc_param in
-ramoops_init() before ramoops_probe() overwrites ramoops_ecc with the
-active ECC size for sysfs parameter visibility. In ramoops_probe(),
-if ramoops_ecc_param >= 0, let it override cxt->ecc_info.ecc_size
-(retaining the backwards-compatible mapping of 1 to 16 bytes, and 0
-disabling ECC). Also update Documentation/admin-guide/ramoops.rst to
-document this override and modernize the struct ramoops_platform_data
-example.
+                                allocated?
 
-Signed-off-by: Raul E Rangel <rrangel@chromium.org>
-Assisted-by: Gemini
----
-Tested on an x86_64 Alder Lake Chromebook (brya / osiris) running Linux
-6.18 with ACPI / platform_data (chromeos_pstore, default ecc_size=4):
-- Default (ramoops.ecc=4): ramoops initializes with ecc: 4, and console
-  and pmsg logs in /sys/fs/pstore/ persist across warm reboot.
-- Positive override (ramoops.ecc=16): overrides platform_data ecc_size=4,
-  initializing ramoops with ecc: 16 and updating
-  /sys/module/ramoops/parameters/ecc to 16.
-- Zero override (ramoops.ecc=0): overrides platform_data ecc_size=4,
-  disabling ECC (ecc: 0) and updating /sys/module/ramoops/parameters/ecc
-  to 0.
 
- Documentation/admin-guide/ramoops.rst |  9 +++++++--
- fs/pstore/ram.c                       | 22 ++++++++++++++++------
- 2 files changed, 23 insertions(+), 8 deletions(-)
+> is never freed.
+=E2=80=A6
+  are?
 
-diff --git a/Documentation/admin-guide/ramoops.rst b/Documentation/admin-guide/ramoops.rst
-index 2eabef31220d..2c512b718717 100644
---- a/Documentation/admin-guide/ramoops.rst
-+++ b/Documentation/admin-guide/ramoops.rst
-@@ -54,7 +54,10 @@ on restart (i.e. new dumps after the restart will overwrite old ones).
- Ramoops also supports software ECC protection of persistent memory regions.
- This might be useful when a hardware reset was used to bring the machine back
- to life (i.e. a watchdog triggered). In such cases, RAM may be somewhat
--corrupt, but usually it is restorable.
-+corrupt, but usually it is restorable. Software ECC can be configured via the
-+``ecc-size`` Device Tree property or ``.ecc_info.ecc_size`` in platform data,
-+and can be overridden via the ``ramoops.ecc`` kernel command-line / module
-+parameter (where ``0`` disables ECC).
- 
- Setting the parameters
- ----------------------
-@@ -101,7 +104,9 @@ Setting the ramoops parameters can be done in several different manners:
-         .mem_type               = <...>,
-         .record_size            = <...>,
-         .max_reason             = <...>,
--        .ecc                    = <...>,
-+        .ecc_info               = {
-+                .ecc_size       = <...>,
-+        },
-   };
- 
-   static struct platform_device ramoops_dev = {
-diff --git a/fs/pstore/ram.c b/fs/pstore/ram.c
-index 2eb0d4fa2186..3eac84701fb2 100644
---- a/fs/pstore/ram.c
-+++ b/fs/pstore/ram.c
-@@ -69,12 +69,11 @@ module_param_named(max_reason, ramoops_max_reason, int, 0400);
- MODULE_PARM_DESC(max_reason,
- 		 "maximum reason for kmsg dump (default 2: Oops and Panic) ");
- 
--static int ramoops_ecc;
-+static int ramoops_ecc = -1;
-+static int ramoops_ecc_param = -1;
- module_param_named(ecc, ramoops_ecc, int, 0400);
- MODULE_PARM_DESC(ecc,
--		"if non-zero, the option enables ECC support and specifies "
--		"ECC buffer size in bytes (1 is a special value, means 16 "
--		"bytes ECC)");
-+		"if positive, the option enables ECC support and specifies ECC buffer size in bytes (1 is a special value, means 16 bytes ECC; 0 disables ECC)");
- 
- static int ramoops_dump_oops = -1;
- module_param_named(dump_oops, ramoops_dump_oops, int, 0400);
-@@ -780,6 +779,15 @@ static int ramoops_probe(struct platform_device *pdev)
- 	cxt->pmsg_size = pdata->pmsg_size;
- 	cxt->flags = pdata->flags;
- 	cxt->ecc_info = pdata->ecc_info;
-+	/*
-+	 * If "ramoops.ecc" was explicitly specified on the kernel command line
-+	 * or module load options, let it override the Device Tree "ecc-size"
-+	 * property or platform data (with 1 mapped to 16 bytes for backwards
-+	 * compatibility, and 0 disabling ECC).
-+	 */
-+	if (ramoops_ecc_param >= 0)
-+		cxt->ecc_info.ecc_size =
-+			ramoops_ecc_param == 1 ? 16 : ramoops_ecc_param;
- 
- 	paddr = cxt->phys_addr;
- 
-@@ -864,7 +872,7 @@ static int ramoops_probe(struct platform_device *pdev)
- 	ramoops_pmsg_size = pdata->pmsg_size;
- 	ramoops_ftrace_size = pdata->ftrace_size;
- 	mem_type = pdata->mem_type;
--	ramoops_ecc = pdata->ecc_info.ecc_size;
-+	ramoops_ecc = cxt->ecc_info.ecc_size;
- 
- 	pr_info("using 0x%lx@0x%llx, ecc: %d\n",
- 		cxt->size, (unsigned long long)cxt->phys_addr,
-@@ -963,7 +971,8 @@ static void __init ramoops_register_dummy(void)
- 	 * For backwards compatibility ramoops.ecc=1 means 16 bytes ECC
- 	 * (using 1 byte for ECC isn't much of use anyway).
- 	 */
--	pdata.ecc_info.ecc_size = ramoops_ecc == 1 ? 16 : ramoops_ecc;
-+	pdata.ecc_info.ecc_size = ramoops_ecc < 0 ? 0 :
-+				  (ramoops_ecc == 1 ? 16 : ramoops_ecc);
- 
- 	dummy = platform_device_register_data(NULL, "ramoops", -1,
- 			&pdata, sizeof(pdata));
-@@ -978,6 +987,7 @@ static int __init ramoops_init(void)
- {
- 	int ret;
- 
-+	ramoops_ecc_param = ramoops_ecc;
- 	ramoops_register_dummy();
- 	ret = platform_driver_register(&ramoops_driver);
- 	if (ret != 0)
--- 
-2.56.0.317.g454f8302e1-goog
 
+Regards,
+Markus
