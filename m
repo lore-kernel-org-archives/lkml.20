@@ -1,66 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.205.69.214
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793371630;
-	b=mUiEEJfb1W6NGnsGppmZBrBtm4GAFM0dlQifWXdO0saZQVaw3AHI5YsOm1P4mpFxpHwj
-	 2NyJg8ptvYyLfH0xQeM3ONeSVgiUKER8Q5O1mJrd3+A+L76dK8AcSUNBq8jl0wcis2GoR
-	 RGmeCjMlndbZb6/BniOwNL8gA7oQt8NdqNNJg1O//k5tp9h74pS/ewDKVp9/tsyqdhK6R
-	 tkXsoHbiJcukDQJH17X2+6K0tya398Al7OCzxlWMF5d6cTsjA99NRbQm9SNXCzdFrxuPC
-	 aH2KHu2NSOf50Sq9S5SFyk+7xTQs0cY9Z7oJuXGXXcKR0woYQs9k2lHC/MivA61PnkQ==
+	t=1793371625;
+	b=bS4U2yzrz0Ud1XTobZZeXUiYPfw1R+kkmwgtiumxCB5vz3OZ4gpv6GkePQbmnL+lHjOI
+	 gnmbzjcWMeO7F5d3TaHuUYfCxt3Sbm/9/hGY5OOdnCNDAdGOGlHYAoJ3djygl6qWrxp+a
+	 ARwOEWMYlLldUxU/AuP43hC9xcdhQbByDFhYaftls1+ZSC+cm91PI5qa9l+h4q9w1Fjab
+	 4K+vbrvgIPwKDImZVZEf1iwx7NBIhkYAQTvW2q8jpthuzXUMU1gn0IDmlUjaesmJNdz4W
+	 auAF6OQoUI7EHWrPz/iclimNZDxGXge9DSKyxOlC9PZPVsUhTBVA5/MekstsT9o5VXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371630;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
-	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Feedback-ID;
-	bh=F9ZBxaI/Z47jKetNWEIW1OlS9G1OaRvxx4Do7WR7EVY=;
-	b=l64fS3qHM1m8LzFkaseEiH9ZNxmJKjSwlJdgcyekGwhQvLHrvHE60toZFzhaIfX1JJQ7
-	 T5DvUCXO+VuQHNpWV9gIeIFPDBvbjRiikwgJc0EhxqsA+ogF4YVAbErE6HTI0IxwDdRv+
-	 7+FtK8GVUECL7n9fLUOyy24OgatY3JnMsAeOda29+SnA2cCWIlgUJ0CnEbtUobdiciXZw
-	 2CeXIb61T/zHu96NNwycMHTaRDSEnO/e6vnJ7aYO/iqAD1IUPyXJKtAPhrWxSPA82rwJg
-	 hrV0OcDrk0UiLSD50Lct38iTs4p+GbLm9/fRoOPV5LdoAGEic7fgPm9eU/sAmqXKwOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793371625;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=FNz3jT4CLcKBWPI7M4VnpA4Y1xwsbgEdgjaTG5V52hA=;
+	b=B8yXT43Vi7xleAbfD29tCG9uoA3DC4QNZTMDhXNI9Q0JjRCPWRxVPuos62NP59CYwzDK
+	 z4QN1SJDoUl2jNdExMyqWjeWIB/hzBh2j9XnPpvS3qVR8kvdrBw8N4zeIAtWEyvQ2Qr6g
+	 62YewhjjOV8LcFSLjHFpKp8WVEf1seQuALJFL9GOseHkREKau6znBG18eIks3UrPTdpzL
+	 vu4qbNzzFwfnoINqNmjzk1bKs/YQI8RSoaoFS+vq91La4v/YfHL7uGkbNe9zXjCuARMnK
+	 IK0XP+Kiw4z1F9RMugMrM3sM5zVNkLwEZG2unsmabz0ovEbV0KX4soGmpr33SwC5O2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=well-founded.dev;
-	spf=pass smtp.mailfrom=well-founded.dev;
-	dkim=pass header.d=well-founded.dev header.i=@well-founded.dev header.a=rsa-sha256 header.s=s1 header.b=eoeA92vo;
-	arc=none smtp.remote-ip=185.205.69.214
-Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+PJz56i;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376CF606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:47:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 376CF606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=well-founded.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=well-founded.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5944606A327;
+	Fri, 30 Oct 2026 14:47:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=well-founded.dev header.i=@well-founded.dev header.a=rsa-sha256 header.s=s1 header.b=eoeA92vo
-Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
-	by mail.w14.tutanota.de (Postfix) with ESMTP id 85F8319F60E3F
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:47:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793371627;
-	s=s1; d=well-founded.dev;
-	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:References:Sender;
-	bh=F9ZBxaI/Z47jKetNWEIW1OlS9G1OaRvxx4Do7WR7EVY=;
-	b=eoeA92vogltrWNHgrIR++U+3YBtIicMPZW8ZfJse1BrCRnCSPQ+o5p8uPU/yYU5i
-	yuF3QkdWvHtz9uMzDvr2hLpQarand0IKz6QjsxLFqAnZzMGjVFUvd/w+/oSHqNpVNFn
-	ITuJw5jVKLilYtRDDoNqUxGsVNDONYDd8tdxPeQIe1n1Tv1I+F7t3jgnk3B7tfRRvjB
-	t17BqIWBoDqYvij7nR1MmgBlubwK+PaLK96zmX8JpOmkzKqtOia+Eqg3gcGt+fOKSN+
-	0dNc5R7rLRD3vbLnlRfoUkg47HZKMsFofpWUtOXPuuOflYlDmefA2loO8oA7mzWlONf
-	t4rxkx6VKQ==
-Date: Fri, 30 Oct 2026 15:47:07 +0100 (CET)
-From: Ramses <ramses@well-founded.dev>
-To: Netdev Bot+sashiko <netdev-bot+sashiko@kernel.org>
-Cc: Jv <jv@jvosburgh.net>, Andrew+netdev <andrew+netdev@lunn.ch>,
-	Davem <davem@davemloft.net>, Kuba <kuba@kernel.org>,
-	Pabeni <pabeni@redhat.com>, Jbohac <jbohac@suse.cz>,
-	Edumazet <edumazet@kernel.org>, Netdev <netdev@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Razor <razor@blackwall.org>, Hangbin Liu <hangbin.liu@linux.dev>
-Message-ID: <P5CGmHQ--F-9@well-founded.dev>
-In-Reply-To: <179336101737.3134.5509394527190638689@kernel.org>
-References: <20261028-bonding-last-rx-v4-0-4d8e4cd47467@well-founded.dev> <20261028-bonding-last-rx-v4-2-4d8e4cd47467@well-founded.dev> <179336101737.3134.5509394527190638689@kernel.org>
-Subject: Re: [PATCH net v4 2/2] bonding: give a slave that starts UP a
- full
- arp_missed_max window
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+PJz56i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7CD1F000C1;
+	Fri, 30 Oct 2026 14:47:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793371625;
+	bh=FNz3jT4CLcKBWPI7M4VnpA4Y1xwsbgEdgjaTG5V52hA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G+PJz56izIh6pQmZqspvYOmjdWZ3E88eDisXW8Cs2tdMSq2TSME28XvHlx3+EAw+p
+	 GP04tc4cYACm9CwH7bhLuHxZHn2ffNxHxSH/FRMwijqqN4MazvOQJHFyxXQpRl6Oah
+	 H4zOs9Vkuc6QgIdGJsKM2B2w+/H08y/Q9W8bvEUAeN2JPtospAjkkB5xvg2PgeJuWE
+	 5p3IK4uEheA63kg/GT+bZ00q6PPx7f7AgQevlBEG4UJRlaIcc7AAW0u7icGj7Duv0/
+	 wZYib7I20AW5GCS5NsFEFaA71sd28YSkwVFsgcldgEquRNnSyC0O/fiS5dC4dxpi9r
+	 NkDa6b5wDCLPw==
+Date: Fri, 30 Oct 2026 09:47:03 -0500
+From: Lucas De Marchi <demarchi@kernel.org>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Emil Velikov <emil.l.velikov@gmail.com>, Tobias Stoeckmann <tobias@stoeckmann.org>, 
+	Lucas De Marchi <lucas.de.marchi@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>, 
+	Petr Pavlu <petr.pavlu@suse.com>, Sami Tolvanen <samitolvanen@google.com>, 
+	Daniel Gomez <da.gomez@samsung.com>, Anton Moryakov <ant.v.moryakov@gmail.com>, 
+	Dawid Osuchowski <linux@osuchow.ski>, Rudi Heitbaum <rudi@heitbaum.com>, 
+	Syed Labeeq Sajid Bukhari <syedlabeeq@gmail.com>, Wentao Guan <guanwentao@uniontech.com>, 
+	Yannick Le Pennec <yannick.lepennec@live.fr>, Yuntao Wang <yuntao.wang@linux.dev>
+Subject: [ANNOUNCE] kmod 34.3
+Message-ID: <auSsJsiiuE97DA_M@rpl>
+References: <hzjr4s6bp35apkmeyqaafsbhfrnetfzsarw34o5c5fvnuppfmz@n4yy43fdkpwx>
+ <un4amoqszsfdngir4skk3rpztouptrxfxrd5riiwof4ba6gt63@hrzi233bjuyh>
+ <nbfzghf5ol2unxajqj2fumagq25leri3dtnlu47rsxyr63g2ul@g5zgumnoxpps>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,16 +64,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Feedback-ID: 0163e381fa67fa966160938ffa017803050e57578bb1735d37cd25d20463a96a9bb3a550250bbc5eaa94bfdfd8cf3defcf1aa43859ae980630826bb8230f264e7f:TurnOnPrivacy!:tutamail
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <nbfzghf5ol2unxajqj2fumagq25leri3dtnlu47rsxyr63g2ul@g5zgumnoxpps>
 
-> [Severity: High]
-> Does this fix still miss the case where the ARP monitor starts some time
-> after enslavement?
+kmod 34.3 is out:
 
-Yes. As the review notes, the old seed behaved the same way there, so
-this is not a regression. v5 narrows the commit message to a slave
-enslaved while the ARP monitor is running. Reseeding when the monitor
-starts later will be a separate follow-up, see my reply on patch 1.
+	https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-34.3.tar.xz
+	https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-34.3.tar.sign
 
+Misc bag of fixes.
+
+Shortlog is below:
+
+Anton Moryakov (1):
+       shared: util.c: fix buffer overflow in alias_normalize()
+
+Dawid Osuchowski (1):
+       testsuite: fix dirty rootfs error message
+
+Emil Velikov (5):
+       libkmod: return ENOMEM when strbuf_pushchar(s) fails
+       man/modprobe.8: use MODULE_DIRECTORY as applicable
+       scripts/sanitizer-env.sh: remove incorrect $CC quotes
+       man/modprobe.8: document --remove-holders
+       man/modprobe.8: document --show-exports
+
+Lucas De Marchi (3):
+       tools/modprobe: Fix odd --remove-holders behavior
+       ci: Fix alpine setup
+       kmod 34.3
+
+Rudi Heitbaum (1):
+       util: Use const variable type in mkdir_parents
+
+Syed Labeeq Sajid Bukhari (1):
+       libkmod: fix type confusion in kmod_module_get_sections() error path
+
+Wentao Guan (1):
+       libkmod: Fix open file which some char device
+
+Yannick Le Pennec (1):
+       tools/rmmod: fix garbled error message
+
+Yuntao Wang (1):
+       libkmod: Fix dependency count in kmod_module_parse_depline()
+
+thanks
+Lucas De Marchi
