@@ -1,54 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793330813;
-	b=yuVT3YvXWRVUQJxCWyn642X1YoAdv1nMrg4oPO9IE1EmqyZJ+XC385t3DWYMjx9cC31o
-	 QFi74/S6BJHyumB63/kXIJxRZnMCtlkJLbhjWFXfE90lDcDsrU4iQq8fCRrJ8n1gIz6sQ
-	 CGGj8p7m/yvarELr/ZqwN5UyMd45ZkWyFRcbEqplBPXIwHlsmuMKPPgC9cJmM+bWc2cj1
-	 /0msvlW2o45yd7Q3sYLgrc++i/OY9F39R2kVkJPNu4dP363P7Yzxn272CvXPAdaeoY2QL
-	 VKN2fzeGlQ/I1IfhCwFfrqbnoZUJljyrCqYulfrPGDJeXFNpzUK0iq0EJOqUgCYkblQ==
+	t=1793330824;
+	b=n1ic1aezlAPaJLLbaEHCAg7B4IA5+GIyeVL/I6ns36Qvt0qK2DeLMgJfMl/CDkvyNSdY
+	 6SA/vnGxRUHmRb2XhTE0wkk0/p6+//9wZEQObJ1ejaRgR7NlSHPQfeDtvmwfANVKs2q1a
+	 Bs3gGtq7/ahsuCOmL748y18SKu9pyI31hH5m9DD+600tHgKRLkm3X90krlffNsucoAk3j
+	 0Tjh6js8nK5Ke9pKITseo3x1k7DfY6Qv6K6OoUMhU37mLCXf0fR845FfyhwVj3ta8A91J
+	 Tboyqu3Ns5Rv9/wiY+xntO9E0Z7GOf2R4nUDP7b8dBpY8++tw7be7Mx/pn7HL2eWK5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793330813;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793330824;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=gNgrq0owYBabIu+cyKFWAz7J9oi+IwK3EkpuRpgRVL0=;
-	b=WAAnZ9d7v2vhP5zSyxw0nsbTQyfna3NG5+CiauUKSS8ZiZCaQOQ0k9XrorrsiNbMbpUo
-	 wvZeRREK04hdomOoc7+BqB9OXDly6acaYqYpl1WeodgziKqZQhVjajhtytxUXxNQ5Dm0c
-	 TODQklUVjP0z7qHZkmd14QHaHosNnmSeGQUNDsmYOP1gJWI49ry9oBP9jN+kltpVrd0d8
-	 gg33BnU7b/A18cBr94AuPtRwg75z16IxgDIYeLaU6k4jhpzdGymk7jbUVg6mvBZe0BnXC
-	 Za9VOnmi8MmbUh3rJvHJGUDvluYmIp1Ah2SG4/Wv+Q+93DgBCUPuJ+jTOq8rJuQRm2g==
+	bh=A6Ni+wahzTnZu0bMH4b4Ekm2v/4N8fmdTpJc/aI6SvU=;
+	b=ySt5AzLtFygPOGq/v1c+wbwsqnQAdugR5icLryU2hs+nBeNonHalHJgZKFD5d9yzu/pp
+	 cUEZKwzgK716HCpdjv7NnY+8vjlv1YunnDqEbmWH/qua7I2RN9BS7TPCeYCPQ9gEYhtdI
+	 ZZkxaUqE2FbKW3VfP7dfQNZK6nX40rP3EsG39TklfP26YeMAnsKaR5EoQM45cwl7lnm9l
+	 AZ/puSh4+pNBiZ9vJtXRqsBspMtvnUdZWbyaRiE9eF811IUBwk9oSSXw3iChJHQ9z4wwT
+	 9wseRCDe503ZjemG+ngGNE5VdPBKWkoNMiY8s5fGK732yiecgp03Vxfa3+x1lTzY+AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ff5he46p;
-	arc=none smtp.remote-ip=95.215.58.224
-Received: from mta1.migadu.com (out-224.mta1.migadu.com [95.215.58.224])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KvGEw43f;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98980606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:26:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98980606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAAAB606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:27:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAAAB606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ff5he46p
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=P4sVG6gAsKMk1pWV0klicmych+OKQW4cm/nQyosN14Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793330809; v=1; x=1793935609;
- b=Ff5he46pDGf+pB2O3fS0/jXrpWZXVWnKu18xIxaG0+jhTChfs8Q1kJwqq2ZcxnGf1Z9dNf2J
- BAZH4mKir2E42QKTC2lpY1wqN4GQh+fWp+/Qczt6IENBy9kGptvz9C7H7gXexbF3i1oeazubadL
- +LVQNWcgIbmO5AeYc035JYmE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3cf042a3802d9ad0;
-	Fri, 30 Oct 2026 03:26:49 +0000
-X-Mizu-Trace-ID: 3cf042a3802d9ad0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <9d592d49-ebc8-4a3d-af1d-6cb688d2065d@linux.dev>
-Date: Fri, 30 Oct 2026 11:26:40 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KvGEw43f
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1a2af4c8d00so500297c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:27:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793330823; x=1793935623; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A6Ni+wahzTnZu0bMH4b4Ekm2v/4N8fmdTpJc/aI6SvU=;
+        b=KvGEw43fMTm9qtoDGb0rrL7QTKd/Rn1IQMQRBRsblrC41UyMgYzsmvrhakA4Q35YBi
+         4eIPhIFgB4BhCbi6KeHE06dK3Ib4gMb8NQkcS5fKpIUxkHs6FJRRCizzbMfqX/me/MM4
+         r27Up1guQjtGeyvxc/gO510tkT1TgDgtf2lgVlqZ/cUWcx9oGbrUMWvYTkg0ZIh6oZMP
+         wqN8oRt+UyfdUPMaaxMAzlJX3RXgYPGmtereWKQhugP5xgDw0eDTnNuatMOFLvIVc1pk
+         Xg7OHMAjGKyyLxKbSNcqBs0v5YPXEn+VosW+7weQshEhBZgZqEO8/7qKJ+Vm/bQy8FX0
+         lc/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793330823; x=1793935623;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A6Ni+wahzTnZu0bMH4b4Ekm2v/4N8fmdTpJc/aI6SvU=;
+        b=WtHEzucKiTx2Pw7Ivj7+kCPBQwUCnp6OTlfaisBc2NftLZ/lNqbbHC2VCKnmYlpGC9
+         jFlyTyqneIvDPEQ2QjB9llQUs2AaJ6amTPv1iAHHLVs/6vr1RQL+VyBnYk4IHq1XzgRc
+         vr68qe/LdIZWjm+MF77x7GOasL4Bdb3YP2Lw/J85q05IZmTo6UlsN1qZmTsnZ2C5MADg
+         MnzgL55/V8IWpiKvxp2pRpETvTymWLGFTfUVCorAzIsQaj58jGNmkRZaVGBGX6o2Phyi
+         VLk1Db/t2yI0CDPNjSHJ4U+I5TgVeS10X67+ByF3RbdqK8AWkMELmsW0H/WlXXepXH4c
+         VMFw==
+X-Forwarded-Encrypted: i=1; AKwUvByKwdNWdnmCykA8OkRdSbJJfPNFMNLtRRfk+8zzrkeVG2eJpUHVXpq6bnie5TpGYnHuBPRpDl00gAmCwDo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXSlr8+TtRaIM83EmaXclcy0bCkDccylw89qPD8p1Sb9GJmN6u
+	Mo+Dzi2Y2f8VXgVvBHWTtb2VjoXdYvWQUSHUuDPwehkvk2HIIjvxmezz
+X-Gm-Gg: AYBFou1m0gactV56DJInGcU4RDgrpJcODudJEeqO1Cy80hwVQWpa12dlh2kW6+9n6tm
+	DgtgyvCit+YeXQ5DGVp5eakgEH3pgTm6yxAGPFHNeZu3/2IkLrUT+9YIxgZ9vN6bJm64TAEgbd8
+	32C1MWvAD/AfOyV3SOR4U1plGDmzRHt8OFDq39lyLcORHJuj9enFpzVr0lOI40mvIx3T71Bsc3B
+	Q+QxZ0nQz1K9VjtkWRr923iEG4T6OiydQSlpVTgFCmo07gYBDVulms1PEleLzSNfKM+IDd1gtms
+	NeZ3VXiHKN8CVa9USm2pWYANw+4nFYcAdPlxRuZtLtnv8JBi1NX+mWF8qks54cApbJShBQrOJbu
+	P8yFN00silt85NUg0kJF0E504nqAx8C1tZWsPSmAkH4b6aquVZztMGtMicq7bBciFEMQ+f4K+yI
+	HBRV4SiwPmylJTcOq0sxeYJcgSvGYILjkheZY8IMAPkWNCTHWH4lOegOwCDGNJFX+gSMUtIogoz
+	MCzofaLKhR2117fC9vkMijpJLKenYPRkxwsIeoNPJ34IeZ36WChFSd0WoZUOsCgnqxknQW9njCs
+	ob/Y4SY9ARwFzKh135NfVZUZzw==
+X-Received: by 2002:a05:7022:3b87:b0:196:d6e1:108b with SMTP id a92af1059eb24-1ac59fbfd13mr1403659c88.10.1793330822482;
+        Thu, 29 Oct 2026 20:27:02 -0700 (PDT)
+Received: from lion.. ([166.1.190.168])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1a13652csm3067356c88.17.2026.10.29.20.26.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 20:27:02 -0700 (PDT)
+From: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+To: Eric Dumazet <edumazet@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>
+Cc: Neal Cardwell <ncardwell@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	netdev@vger.kernel.org,
+	mptcp@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Tong Liu <lyutoon@gmail.com>,
+	Qi Tang <tpluszz77@gmail.com>
+Subject: [PATCH net] tcp: restore IPv6 af_ops on disconnect of a v4-mapped socket
+Date: Thu, 29 Oct 2026 23:23:14 -0400
+Message-Id: <20261030032314.1978575-1-zhiyuzhang999@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,100 +106,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v5 1/2] veth: keep carrier off when resizing channels
- with a down peer
-To: Xia Yan <yana06070@163.com>, netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- horms@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, pabeni@redhat.com, shuah@kernel.org,
- hangbin.liu@linux.dev, stable@vger.kernel.org
-References: <20261029024259.3700-1-yana06070@163.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20261029024259.3700-1-yana06070@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Eric Dumazet <edumazet@kernel.org>
 
-On 10/29/26 10:42 AM, Xia Yan wrote:
-> veth_set_channels() temporarily turns carrier off while reconfiguring a
-> running interface. It then turns carrier on for both ends without
-> checking whether the peer is administratively up. If only one end is up,
-> changing its channel counts therefore reports LOWER_UP even though the
-> peer remains down.
->
-> For example, after creating a pair with two RX and TX queues per end:
->
->    ip link set vca up
->    ethtool -L vca rx 1 tx 1
->
-> vca incorrectly reports LOWER_UP while vcb is still down.
->
-> Only restore carrier when the peer has IFF_UP, matching veth_open().
-> The local interface is already known to be running at this point.
->
-> Found during LLM-assisted source review and reproduced with a veth pair
-> in network namespaces, without kernel instrumentation or error injection.
-> The companion veth.sh test reproduces the two mixed up/down failures
-> before the fix and passes after it.
->
-> Fixes: 4752eeb3d891 ("veth: implement support for set_channel ethtool op")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
-> Assisted-by: LLM
-> Signed-off-by: Xia Yan <yana06070@163.com>
+A successful connect() of an IPv6 socket to a v4-mapped address switches
+icsk_af_ops, sk_backlog_rcv and af_specific to their IPv4-mapped variants.
+These are only restored if the connect() fails.
 
+After connect(AF_UNSPEC), the socket can be reused for listen() or for a
+native IPv6 connect while still using the mapped handlers. IPv6 packets
+processed from the socket backlog are then handled by tcp_v4_do_rcv().
+tcp_v4_send_reset() and tcp_v4_send_ack() interpret
+TCP_SKB_CB(skb)->header.h6 as IPv4 options, and __ip_options_echo() can
+overflow its 40-byte destination buffer.
 
+Commit 8cc3aef0cb19 ("tcp: Do not allow buggy transitions between ehash
+and lhash2.") prevents listen() after connect(AF_UNSPEC), but a native IPv6
+connect is still allowed.
 
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Add tcp_v6_disconnect() to restore the IPv6 handlers when a v4-mapped
+socket is disconnected, and use the same helper in the connect error path.
 
+MPTCP subflows override sk_prot, and two teardown paths call
+tcp_disconnect() directly. Route those calls through the protocol-specific
+disconnect operation so IPv6 MPTCP subflows receive the same restoration.
 
-Thanks, I clearly remember it has been reported somewhere...
+Tested with TCP and MPTCP by reconnecting an AF_INET6 socket from a
+v4-mapped peer to a native IPv6 peer after connect(AF_UNSPEC).
 
-> ---
-> Changes in v5:
-> - Driver code is unchanged.
-> - The companion test drops unnecessary quotes around literal up
->    and carries Hangbin's review and test tags.
->
-> v4: https://lore.kernel.org/netdev/20261024093007.12981-1-yana06070@163.com/
->
-> Changes in v4:
-> - Driver code is unchanged. Add Hangbin's Reviewed-by.
-> - The companion test drops the extra GRO on/off runs, as discussed
->    with Hangbin, and keeps up/up and both mixed up/down states.
->
-> v3: https://lore.kernel.org/netdev/20261022085842.2527-1-yana06070@163.com/
->
-> Runtime testing of v4 on 513444cc62e2, x86_64 QEMU/KVM with three vCPUs:
-> - Complete default veth.sh:
->    before: 56 checks pass, two mixed up/down carrier checks fail;
->    after: all 58 checks pass. The 55 existing checks pass on both.
-> - Script exit status: 1 before, 0 after. No checks were skipped.
-> - Both guests powered down normally.
-> - The runtime results above are from v4. The only v5 script change
->    removes quotes around a literal argument.
->
->   drivers/net/veth.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-> index 643b97dc52456df80de10068ccac9af2ada70256..4e75830061ccd3def0476b19a2f92e818464fce9 100644
-> --- a/drivers/net/veth.c
-> +++ b/drivers/net/veth.c
-> @@ -1372,9 +1372,10 @@ out:
->   		 * to identify the range we have to disable
->   		 */
->   		veth_disable_range_safe(dev, new_rx_count, old_rx_count);
-> -		netif_carrier_on(dev);
-> -		if (peer)
-> +		if (peer && (peer->flags & IFF_UP)) {
-> +			netif_carrier_on(dev);
->   			netif_carrier_on(peer);
-> +		}
->   	}
->   
->   	/* update XDP supported features */
->
-> base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
->
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Tong Liu <lyutoon@gmail.com>
+Reported-by: Qi Tang <tpluszz77@gmail.com>
+Reported-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+Closes: https://lore.kernel.org/netdev/CALf2hKvp0NPVLwr=a3+jUHtPohxbra8gox+aYAfWathJnn-J+Q@mail.gmail.com/
+Link: https://lore.kernel.org/netdev/CAL4WiiqFJpmcV4=TWRpukCq6q=-729658FwGvieNcPXe97kLvQ@mail.gmail.com/
+Link: https://lore.kernel.org/lkml/20261029054136.1174216-1-zhiyuzhang999@gmail.com/
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Co-developed-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+Signed-off-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+---
+ net/ipv6/tcp_ipv6.c  | 37 ++++++++++++++++++++++++++++---------
+ net/mptcp/protocol.c |  4 ++--
+ 2 files changed, 30 insertions(+), 11 deletions(-)
+
+diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+index e006a30360ea..a93410aab66e 100644
+--- a/net/ipv6/tcp_ipv6.c
++++ b/net/ipv6/tcp_ipv6.c
+@@ -130,6 +130,19 @@ static int tcp_v6_pre_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 	return BPF_CGROUP_RUN_PROG_INET6_CONNECT(sk, uaddr, &addr_len);
+ }
+ 
++/* Undo the v4-mapped setup done by tcp_v6_connect(). */
++static void tcp_v6_restore_af_ops(struct sock *sk)
++{
++	/* Paired with READ_ONCE() in tcp_(get|set)sockopt() */
++	WRITE_ONCE(inet_csk(sk)->icsk_af_ops, &ipv6_specific);
++	if (sk_is_mptcp(sk))
++		mptcpv6_handle_mapped(sk, false);
++	sk->sk_backlog_rcv = tcp_v6_do_rcv;
++#if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
++	tcp_sk(sk)->af_specific = &tcp_sock_ipv6_specific;
++#endif
++}
++
+ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 			  int addr_len)
+ {
+@@ -243,14 +256,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 
+ 		if (err) {
+ 			icsk->icsk_ext_hdr_len = exthdrlen;
+-			/* Paired with READ_ONCE() in tcp_(get|set)sockopt() */
+-			WRITE_ONCE(icsk->icsk_af_ops, &ipv6_specific);
+-			if (sk_is_mptcp(sk))
+-				mptcpv6_handle_mapped(sk, false);
+-			sk->sk_backlog_rcv = tcp_v6_do_rcv;
+-#if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
+-			tp->af_specific = &tcp_sock_ipv6_specific;
+-#endif
++			tcp_v6_restore_af_ops(sk);
+ 			goto failure;
+ 		}
+ 		np->saddr = sk->sk_v6_rcv_saddr;
+@@ -2093,6 +2099,19 @@ static int tcp_v6_init_sock(struct sock *sk)
+ 	return 0;
+ }
+ 
++static int tcp_v6_disconnect(struct sock *sk, int flags)
++{
++	int ret = tcp_disconnect(sk, flags);
++
++	/* A socket used for a v4-mapped connection must not keep IPv4
++	 * handlers when it is reused for listen() or a native IPv6 connect().
++	 */
++	if (sk->sk_backlog_rcv == tcp_v4_do_rcv)
++		tcp_v6_restore_af_ops(sk);
++
++	return ret;
++}
++
+ #ifdef CONFIG_PROC_FS
+ /* Proc filesystem TCPv6 sock list dumping. */
+ static void get_openreq6(struct seq_file *seq,
+@@ -2283,7 +2302,7 @@ struct proto tcpv6_prot = {
+ 	.close			= tcp_close,
+ 	.pre_connect		= tcp_v6_pre_connect,
+ 	.connect		= tcp_v6_connect,
+-	.disconnect		= tcp_disconnect,
++	.disconnect		= tcp_v6_disconnect,
+ 	.accept			= inet_csk_accept,
+ 	.ioctl			= tcp_ioctl,
+ 	.init			= tcp_v6_init_sock,
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index 7a22e9388e0e..fdfbc7de2ec0 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -2608,7 +2608,7 @@ static void __mptcp_subflow_disconnect(struct sock *ssk,
+ 		/* The MPTCP code never wait on the subflow sockets, TCP-level
+ 		 * disconnect should never fail
+ 		 */
+-		WARN_ON_ONCE(tcp_disconnect(ssk, 0));
++		WARN_ON_ONCE(ssk->sk_prot->disconnect(ssk, 0));
+ 		mptcp_subflow_ctx_reset(subflow);
+ 	} else {
+ 		tcp_shutdown(ssk, SEND_SHUTDOWN);
+@@ -3287,7 +3287,7 @@ void mptcp_subflow_shutdown(struct sock *sk, struct sock *ssk, int how)
+ 			break;
+ 		fallthrough;
+ 	case TCP_SYN_SENT:
+-		WARN_ON_ONCE(tcp_disconnect(ssk, O_NONBLOCK));
++		WARN_ON_ONCE(ssk->sk_prot->disconnect(ssk, O_NONBLOCK));
+ 		break;
+ 	default:
+ 		if (__mptcp_check_fallback(mptcp_sk(sk))) {
+
+base-commit: 5838f10563d58afca6711edb5e4eda968ca181d9
+-- 
+2.34.1
+
