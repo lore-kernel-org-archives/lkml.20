@@ -1,125 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.194
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793332548;
-	b=4he6lutgSM5HmcnJc87mNgHKeV4cCEjaqHUh7sbFGTgYygdUUkmNqEOmv2eknW7DoyxT
-	 MHesij1jsQFMnBVy5jvAOEd0rmdX4lziSuyGEmh0CEq0e7Cz/84JOJbK7HbaoxjH94hPo
-	 /D9vlnQRArg7CewLaaF5qb1sgikveunOdQyz7MPFXRPOijVlusvFkJsZA4QCKWKAyKgXs
-	 hku6q2p71uE7ckvOdk17fexu+dxrcx5JOxMoqWzwbRbgthnfSXv2WbfcdWYFdObKS0Tr9
-	 YgkrfVCJTmyvtPs00KxOq7NJTuqi8y1elpJ7P3GAMkRPKLLV0Tc25or3Z7+TCN3BccA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793332548;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ey3vPsJ2dQFhz2BxI4N3mBDHBT7ectNl9BIu9ANR89g=;
-	b=AyY18KqTa2pEoaT5DvrSLGBgQE3ybkfUuUFn+aSJZ2XrpiFfSYrkYKY6U4b+OovXj0fX
-	 jpoPT8ohJN9oHiKFgRnExtT6mRWDjMR940vGe0HEuIADLzsW8MN/BYxah1pl6kFkV85hR
-	 4wuT4goC5G4vtAzd7KZkcElQjcfNVCveCylG8DUVp/4XLCGmEEwB4fWNB+cfN4hQeNoF1
-	 t7xBqJyYFsjBQdwZOBpGTd49Vo2wPX5zPa8dK2zVM/cRvgxxiSazEIU3D4XIraOPrezl7
-	 6bu3zquhp4F5qY2RLleC0HtATDdN10MLHzSd0oU9Gj9qhWfjGD2AvLJpQEwwov6lk9w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JZqpmtFQ;
-	arc=none smtp.remote-ip=95.215.58.194
-Received: from mta1.migadu.com (out-194.mta1.migadu.com [95.215.58.194])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793332702;
+	b=xhkt5hqiDWsoXfbxmqP8Qtobh8jFltLw5TZh1t2nioakhi51iO3gkWUsGpVX5Cri9b+R
+	 pM60ssdACBPkwZp7bZv1hJmZGPMX1w0J8GTpGvAFZQms7gMytZ5xZzojrbx8FzZkMMYKl
+	 exRrbRMdP6lpehspDib4eQ8tt+BUAkRONsR+6FanzCs7Uve69BNDGNhRWnxZ0HoGtShJR
+	 +cicvoPxo6p3TphpoIr2+fSPP+B46nJEBpodUE8/o+12nbA2T/fXTQY3P9QoASh/wbiSS
+	 gm4tNPqk27/+5U+4E+GpvyMCRCcVLaSBvaArV3KeqJLm3BOFK4dKnHnwJo7WhFhTbUw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793332702;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=IZmNuI/wND30J0nkI7O6RvOq46XxnSgW4W30rCGXnNg=;
+	b=y1zt9H/ApVI5zfbl9vqPmJggFwAy63A4z9c/HEKdHwXDtaazNavK78xa3SNGO9bKuzwq
+	 Kym9qKnmP7VkTOwuFmJj7/k+zcwutNe4BE7FFPfvxxDHyGEqoOy0hLDXFwtFFXuxr4Iv6
+	 kRLpzr/X46fVqUuy3DqzqZharhIfim/4gk0ynFawxXD6/T+oD3NKT5JjmJTmr2DIGX/zg
+	 8WLTw01BJurEbCOko685Kp9tvlTJnFOtQ3eAEt9cMWFRozybnGXvpk+vSggTz4P/PBtN9
+	 ksPZ6Itgf85tBHC62Z1tFBe9cYgqphp6fWwUfQGsIYTTz+qmD2dJNr5wkLDz9Jh1rwQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sUpdStRz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.53
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9457606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:55:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9457606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 515AB606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:58:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 515AB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JZqpmtFQ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=U6aEVcyx4cbsQT0ReFIAsX7642J2D1rQ7p5hav7hVYg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793332545; v=1; x=1793937345;
- b=JZqpmtFQ7Ohd/1LNlZcCz7DJxGmfw1W0QBIwKd81WGlQ+GCSScpslPKi5z61+nW3yuNQ2DfG
- qYpgDNHPL3GYEromeJ9ePTKmdga4oQNe9eAq94ZKZxJjP2u8k8hH0quzBvtjDNrpC+rFPoXIxuw
- UlDm22KbKQ+To97lJYUZVLqY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 29251291072b5e95;
-	Fri, 30 Oct 2026 03:55:20 +0000
-X-Mizu-Trace-ID: 29251291072b5e95
-X-Migadu-Flow: FLOW_OUT
-From: xu.xin@linux.dev
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	aneesh.kumar@kernel.org,
-	apopple@nvidia.com,
-	axelrasmussen@google.com,
-	baohua@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	baoquan.he@linux.dev,
-	chengming.zhou@linux.dev,
-	chrisl@kernel.org,
-	dev.jain@arm.com,
-	gourry@gourry.net,
-	hannes@cmpxchg.org,
-	harry@kernel.org,
-	hughd@google.com,
-	jack@suse.cz,
-	jannh@google.com,
-	jgg@ziepe.ca,
-	jhubbard@nvidia.com,
-	joshua.hahnjy@gmail.com,
-	kas@kernel.org,
-	kasong@tencent.com,
-	kees@kernel.org,
-	kexec@lists.infradead.org,
-	lance.yang@linux.dev,
-	liam@infradead.org,
-	linux-arch@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	mason@kernel.org,
-	matthew.brost@intel.com,
-	mhocko@kernel.org,
-	mhocko@suse.com,
-	minchan@kernel.org,
-	muchun.song@linux.dev,
-	nico.pache@linux.dev,
-	nphamcs@gmail.com,
-	npiggin@gmail.com,
-	osalvador@suse.de,
-	pasha.tatashin@soleen.com,
-	peterx@redhat.com,
-	peterz@infradead.org,
-	pfalcato@suse.de,
-	pratyush@kernel.org,
-	qi.zheng@linux.dev,
-	rakie.kim@sk.com,
-	riel@surriel.com,
-	rppt@kernel.org,
-	ryan.roberts@arm.com,
-	shakeel.butt@linux.dev,
-	shikemeng@huaweicloud.com,
-	stable@vger.kernel.org,
-	surenb@google.com,
-	usama.arif@linux.dev,
-	vbabka@kernel.org,
-	weixugc@google.com,
-	will@kernel.org,
-	willy@infradead.org,
-	xu.xin@linux.dev,
-	ying.huang@linux.alibaba.com,
-	youngjun.park@lge.com,
-	yuanchu@google.com,
-	ziy@nvidia.com
-Subject: Re: [PATCH 39/46] mm/ksm: fix use of a freed anon_vma at swap-in
-Date: Fri, 30 Oct 2026 11:54:47 +0800
-Message-Id: <20261030035447.140856-1-xu.xin@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261027-fixes_core-v1-39-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-39-6f74bec9a5bb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sUpdStRz
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bcb4f23ddeso291024e87.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:58:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793332700; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FZsbAK0pXxjEVSlkIaWMqG+xOyX9PsWWBqV2P40CU32KPBQvHWm9NGQEP9cvUymNV6
+         l+phAiKmAOEuBYBDnKngRgIEq0WdnSoV/Cp4bxxhkPDle0PriO2+j7t9PiMurI+oXqSJ
+         LopmoG5b4Xqvnjld8DMIT+DmUTLkRIiwr53CdkW2pOadjru+U5Ry5C3mG1Hmpcth7fXa
+         LvbSfRDQ7Dlg3Ce2+D91LlQzqAuNa9eSLynJz9P76O0iKSPhagNOLV4HMBh/5q2ESpIu
+         4fky0nAWtMBoHGB5Q8zbVPCrfHsN1CtziRtVpcToIoXES8o796uJo+XEuhicplqnnRGj
+         m3ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IZmNuI/wND30J0nkI7O6RvOq46XxnSgW4W30rCGXnNg=;
+        fh=qVRwydawSf53sFVe1CacHjnoLo/khKOOXIxddDWP09o=;
+        b=q84hMVqd6BI4nvOqvNk8CL3Cef+s52jg5kwVky3ivNHkk9VVbyenOUxHDOV/BNl4YU
+         H/pNGZyVjemZ4imqUzhKc0HaFKbrQdl69sNa/Xoe9JV3pSJunxEPNI1Z4oJMwyvHUFDp
+         vctHFkcCHZiQ5zbpssQuMVobBN/dGUVKFY8Om2nD4NQnU53zD7tDNVG3SQHiIkYXd0pQ
+         FsTa+zAJ+CUWWy4JFgn7KrtLQC6p+UC13HLkMLyz0e5cw9UYSTFIxt08RITOgkZ5f62c
+         8fMi8btOkhK0eRg3oRp9INrZ72Ghk8KwA1egOzqK1B3mrhP+b4h3xKL0e1tyViNU1Nyg
+         SVXA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793332700; x=1793937500; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IZmNuI/wND30J0nkI7O6RvOq46XxnSgW4W30rCGXnNg=;
+        b=sUpdStRzH778SDNGZYJe1CEBwNtIRtYO39O6dHFQd9TZwGmLMl9XMQQDhD5mRr3mnd
+         LRCTb4d9WdJYvOH8b13wGWKoRGtT6WG3kUtGUuO2eEhio5XuhgyyAIcHSEZKDtZ/8ZiP
+         SJwdec05E3w2G00BIGQv1yRWbguaYFEvCQQNyuTtdWIaH+Kjd1Z65NBeI1R+kzAK+ZAD
+         cl/kfVFXdq1IopfR9d2GVNwH8Qa9mfI+YRqFYn/xHeHxEAG2yeFhZNkWRVRYO07GLRWW
+         fDfxplSL5x2646zj2cU3XNygzYw2ZCJpXHfySsoF0q1bHbChZPOJIUUm2DIggEZvP+cR
+         VNvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793332700; x=1793937500;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IZmNuI/wND30J0nkI7O6RvOq46XxnSgW4W30rCGXnNg=;
+        b=GNva06xjj3GySuTIwxxuGo7GfnCuRWlMWwHWj/j+k8N7KoTSpXANJIzBloVtU1N/cE
+         iP+m2XvfodrJs/JuR3x5iMvY5CPH8ytdAX9YE5dRvqO8ogt/c2J4+EZ2Uzxa2wYjMOmn
+         22aDFuQIoCjdHKA44LIn0HAqIQoVAW526owLM8DVUN5fIARSMS4wg9iBnFFAXiFuObKC
+         GAzqHGtqf6eur50+PfKD3rvA91BnrdBNAnc/MGoC4KcSwQUAMInB/Z/NIQg7bCsNIYSX
+         itiAEKS8/xjgjxTd3iDt5TEgvtKsfL8AWOhmuy1QgKlsNdfqSRhfwWeARddB2ogG0OUh
+         T+vw==
+X-Forwarded-Encrypted: i=1; AKwUvBwnJF95s5ZbDeEQJ42+hsXWeD8Rtv29MehRXTtrqBVsg0u4XQMsKtWb2OGdUowFtH3XUw9Ogvjs7zkyZqo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWNScKuMOs84rOsTS8dhvVolsQSLcHQOyKAcJLqDGKUvANqRRd
+	mhegLBgY6fURr//eA1N2KoRV9V8qNHaleF00fdoUzrP6kexZCWTqdhwrJXdRuKYOu5bWFvTM8mr
+	p6aQOtszr98dw2laYVYRgawmWlDl9VWQ=
+X-Gm-Gg: AYBFou0JZBg3CNc4AbQkZtJArU+kloe5bZz0zc+bO3Jko5xAprNKUt/rUUtF4/7p0mF
+	pp18oYZc+0tDMuODz59GbmjXxUqZoiFuSCrm3q8ppH7ky+v+/Cd5ImsQM1/3h2JO/wuYq9uxrcQ
+	QF5UbZJ759BkImdpJ0Eo79zjdTiJ9/YEyeuSESIljv3JS+c319bwHx7gny3sOLsfJc86Ej+DH3L
+	VVt9LyUMDSaR9hENiV7EgNa/VFrDPuofYtKzPcghsmMeAoAp4veSXA6xXn1F3ivm1EpWBYYN+N3
+	pn68sWLr8tWia2p5n8Df8aKPxPhnRafWIxNbsZzYV+kZFPgSDCQQsEaZcvNkqUHtdrFfwIpG5jz
+	vg7ls0g6aPKYszfn4MFuFCo2z9CMA87QZFLYSPkwyLNdRaoQSDbPW5YpENWF+FILz+r8910xhPt
+	9MytpcNhaY5FpRXeymiwxThVO+nJc/TLOCne3+UYqXKNk7HIZbnnBq
+X-Received: by 2002:a05:6512:1289:b0:5b6:95e:87ee with SMTP id
+ 2adb3069b0e04-5bfd9562acfmr282919e87.13.1793332699938; Thu, 29 Oct 2026
+ 20:58:19 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,88 +105,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=y
-Content-Transfer-Encoding: 8bit
+References: <20261028-alpha-profileme-v1-0-d44b52bf2500@gmail.com>
+ <20261028-alpha-profileme-v1-1-d44b52bf2500@gmail.com> <CA+=Fv5TsDjMcd8+ZPPAXWzw-ox5yhvYJqiCBUfj-6Jm0Lxf9aA@mail.gmail.com>
+In-Reply-To: <CA+=Fv5TsDjMcd8+ZPPAXWzw-ox5yhvYJqiCBUfj-6Jm0Lxf9aA@mail.gmail.com>
+From: Matt Turner <mattst88@gmail.com>
+Date: Thu, 29 Oct 2026 23:58:07 -0400
+X-Gm-Features: AclHuK8V7EpB7wC06FUDBXo_x3T-573CFsU0sqVCv9AcRDNtqPDSxvn5PcuIGgc
+Message-ID: <CAEdQ38G9id1CnZGzkgw8vHLKZM+bvJEDx7ze+6zpULGTwG=9JQ@mail.gmail.com>
+Subject: Re: [PATCH 1/5] alpha/perf: pass PERFMON_CMD_LOGGING_ALL to the
+ logging options call
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> A folio read from a swap slot previously shared by KSM can remain in the
-> swap cache after the process that first mapped it exits. Its anon_vma
-> can then be freed, so ksm_might_need_to_copy() must not dereference it
-> to compare roots.
-> 
-> Doing so can result in some false-positives, resulting in the reverse
-> mapping missing the new folio mapping, preventing migration and reclaim.
-> 
-> SLAB_TYPESAFE_BY_RCU allows individual anon_vma objects to be reused
-> immediately after freeing. A stale pointer can then refer to another
-> anon_vma whose root matches, even though the target VMA is not linked
-> to that anon_vma.
-> 
-> Move the anonymous rmap compatibility checks into
-> folio_anon_rmap_compatible(). Keep the page-index check and compare the
-> folio's anon_vma pointer against the VMA's own anon_vma and root first.
-> 
-> If neither matches, bite the bullet and walk the VMA's anon_vma_chain.
-> The VMA keeps these anon_vmas alive, and finding a match guarantees that
-> reverse mapping can find the new mapping.
-> 
-> Lorenzo Stoakes says in a private discussion:
-> 
->   "This isn't quite equivalent to the existing check.
-> 
->   Every anon_vma in an anon_vma_chain shares the same root, but if you
->   split a VMA then fork both of them like this:
-> 
->                   VMA A
->                /        \         <split>
->             VMA B      VMA C
->                \        /
->         root <- anon_vma 1
->                ----^ ^----        <fork>
->               /   parent  \
->         anon_vma 2   anon_vma 3
->              |            |
->            VMA D        VMA E
-> 
->   VMA's D and E both get their own new
->   anon_vma's such that:
-> 
->   VMA D: anon_vma 2 -> anon_vma 1 -> root
->   VMA E: anon_vma 3 -> anon_vma 1 -> root
-> 
->   And if you found a folio referencing anon_vma 2, the existing check:
-> 
-> 	anon_vma->root == vma->anon-vma->root
-> 
->   Would be true for VMA's B, C, D & E.
-> 
->   However after your change it'd be true for VMA D only, as it's the only
->   one with anon_vma 2 in its anon_vma_chain.
-> 
->   Whether or not that could actually happen in practice... 🙂 I don't
->   know.
-> 
->   [...] after your change it'd be true for VMA D only, as it's the only
->   one with anon_vma 2 in its anon_vma_chain. [...] I would [...] say that
->   you are making the test stricter but more correct.
-> "
-> 
-> If this affects performance when KSM was never even involved, we could
-> just track whether KSM ever merged anything and just skip these checks.
-> 
-> There isn't really a lot we can do otherwise: for mapped folios we might
-> be able to use folio_get_anon_vma(), but for unmapped folios there really
-> is no easy way to see if the anon_vma is still valid.
-> 
-> Document the (confusing) lifetime requirements of folio_anon_vma().
-> 
-> Fixes: ba6f0ff3981e ("ksm: fix ksm swapin time optimization")
-> Cc: stable@vger.kernel.org
-> Reported-by: Chris Mason <mason@kernel.org>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  mm/ksm.c  | 36 +++++++++++++++++++++++++++++++-----
->  mm/util.c | 13 +++++++++++++
->  2 files changed, 44 insertions(+), 5 deletions(-)
+On Thu, Oct 29, 2026 at 1:38=E2=80=AFPM Magnus Lindholm <linmag7@gmail.com>=
+ wrote:
+> The Alpha Architecture Reference Manual, Table E-18 (page E-24),
+> describes bit 0 as:
+>
+>   "set =3D log all processes"
+>   "clear =3D log only selected processes"
+>
+> That appears opposite to the changelog's description of zero as
+> "count all processes". Is the manual incorrect for the PALcode
+> implementation we use?
 
-Acked-by: Xu Xin <xu.xin@linux.dev>
+Yes, the manual has it backwards. I disassembled the wrperfmon handler
+in the UNIX PALcode from the ES47 firmware (V7.3) and from the latest
+ES40 firmware, and the code is the same in both. Function 3 clears
+I_CTL[SPCE] and sets it again unless bit 0 of a1 is set:
+
+    hw_mfpr  t3, I_CTL
+    mov      1, t4            # SPCE is I_CTL bit 0
+    andnot   t3, t4, t3
+    cmovlbs  a1, zero, t4
+    or       t3, t4, t3
+    hw_mtpr  t3, I_CTL
+
+The 21264 HRM calls SPCE "System Performance Counting Enable", so 0
+counts all processes. The per-process enable is PCTX[PPCE], which
+PALcode loads from the PME bit in the PCB. Linux never sets that bit,
+so if 0 meant "selected processes only" we would never have counted
+anything.
+
+I'll add a paragraph about this to the commit message in v2.
