@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362145;
-	b=xLe2h3EBuzttMUYkYAZKs1AtIyg5SkdYa4koVIgvOJoOa65RHDBZs4i4CziYxMxtTGjJ
-	 FUS4zIXkx3ve/nLDIyhw93h7Gjd6lZiKjnMptvWIlOVdokKcHT1JTJ+Cspr1+36G3qx/c
-	 6LLNu4oopF0+jcXt6xKBV99JoujH3F6Ab3uMkUJ0jvWob49DFxZuyc2w4JcRTtDO+DQYf
-	 e67b64UN+TJqSUd+ZWQBH/MPsbf3KFSatGitq/0Ja5LFdmvp3D6qtlRohYqf4PNAvr4sF
-	 ta8kOle9m2hmN7alBcaCs5cwpLNX10IvSU/ZN3GD5Cv5OiMvOg0c0qjszRdNKsN5qNA==
+	t=1793362156;
+	b=5Acg93MThZ54FozVx+zGlvTU3u5viDq+NoCld/1xo3UswbfKKJWH4q8A/7y1f2u5otSx
+	 MzTUYsbQNAJOD2zQH1Ql1ezd+KhVWOpXARqGjuVfCFJltlLb8wocbbPqBJLoX0tTuLmZk
+	 3RxcQaEzn3CYc/H1UoeUFQMNrZuFgzuqOBWvQWrVQYgoA9VNhD/6lTuS3n0NRCSBLhE0n
+	 pCVnpQa2kSQvHu23Tyrod1a6YquDkr9QnW292OxzQ3EQVILv1nYHe9myLU8vY6wM6aNIr
+	 YH1w7Eb93bu7OixJW6FiDWXE71SOXKNeLVD+gDx/EboE/6iGqOz/f96LsoS6b2JZz4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362145;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362156;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
 	bh=e/ifG3aJlgeryqjmhfgJsERZbxd/WJ6aLHD7syJgljY=;
-	b=H1kFirSMXrOAeobaEYJBYH/NAdJ+17uCm9wLJX/h1Z0glnZvQCa0tOaQhHo5iZBMf/KS
-	 2b9zqsrUgCGMicmCIHV9tOZSM1ah/SfLbf7ulm9TofGQT89wsyfO+gz09o1PBwhr/8+OT
-	 3SSx1YDxiQZ5si6dDefY7cMI0+IZ5xFw8qsidRGiKNWbj2H57D3KpzjwwF57Oz12WXWWj
-	 WEUJa7d2HdBze7XBQy5ri/pHkbj7ChFHn+vnGCk/FT7eMNN4UQXOAM3R64VO0hTniBXzU
-	 JC9f1Ae2Blt24Pnzy6epghJQjWGaOLNBRESOqfhXHOYc6o6l+0iKKO0J5qbicLDu33Q==
+	b=dKbmSY9rqdbt1qJZ/jFm8HYCTd9xntd4LV3zhy3EL5CdlQwh+yztFqop3FsG+mJD/S/l
+	 V70NbezGm6sx+ckyPCPWw22jFrJNUE4LC/3f5fHRU2pmxEFCU/rj40AqgxsCoJ6uDwfTi
+	 I3/JilqnLXmT05Xe16alSwLPI1TGYT8IWFsEjb6NTE+9P40wOP6q/K0mtFEeRSKLAG/Uw
+	 yu5AQzlaNDOxJHIuzMwgmT26R1LwlndBJyftvWdOJwvOgCxo0i9ckUqnOCTrJxh7OMZMW
+	 oe4YOl6D15cVv47q3bhBYVUB5iDacCkm+emUSLv/X3IJrz+DDHOtfAsPhQp6i1Xy17Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7UAC0b7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCXqM3MR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BF3606A31A;
-	Fri, 30 Oct 2026 12:09:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F769606A31D;
+	Fri, 30 Oct 2026 12:09:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7UAC0b7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D85031F00A1A;
-	Fri, 30 Oct 2026 12:09:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCXqM3MR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CECF1F00A16;
+	Fri, 30 Oct 2026 12:09:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793362144;
+	s=k20260515; t=1793362156;
 	bh=e/ifG3aJlgeryqjmhfgJsERZbxd/WJ6aLHD7syJgljY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D7UAC0b7L48KpLvUD05JLaAsirj5ksVOsXi1stFE13QefMe3BmP6nPxON3Mo0UZpz
-	 pYKfXI/qMaba/FVlHJKxVM3ngc4OdYRe+zwLiH8lPiHVunTd1vGZE4JslLyaSHOFtA
-	 NDq/aTJpoMbYdSoRiei+bUGfdY1WKMZvgp9QEAlDXpRKoquWm73eX1qCZiGGMBYe1T
-	 hiQ3jHLOVpXZQHD79GJAWSEroJL2kBM49kyOFkBgl5dVDdL0CYJsH97+jOAjCuwQNI
-	 43eqpb0PZO4ccY5QFPslPz5D6ietREw1MwbvaF4Fi7TzHE5XybTPEn7MNZCTmfEzo0
-	 KxRGvDecU6Gxg==
-Date: Fri, 30 Oct 2026 13:09:01 +0100
+	b=LCXqM3MR/ZIt2paBuHsNpEyJ2YAbBtXoJVoSL2kmhSkpHerihlzO5jP7kg3NpyZNI
+	 9dFoxwwuDSGS8TI8OKIgW1Ko2OuX93Eb04SdiMzbYIfLxMK5DeSx9iA4cK4Uzx7I0k
+	 R6I2nkE33bjHOZKR0egB5nVDqt0OFelbKFn6DVW418lvJI4B6VsYJ3Na4CejKYfoYp
+	 E7LqHQ/Iyj+5nUH1e0c+/Q7iowpmUNhcJqV+7MmbttR3E+rq/duRTVUbXAhMgg9W6U
+	 DKds7xr0/3kRf0H42LAryDxgFNcZPOLsTLA6x2IAWCsP2LcMdgQu2SY9ZKRQsehhvk
+	 kzCfCDk5DUKJA==
+Date: Fri, 30 Oct 2026 13:09:13 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 Cc: Rob Herring <robh@kernel.org>, 
@@ -51,7 +51,7 @@ Cc: Rob Herring <robh@kernel.org>,
 	dri-devel@lists.freedesktop.org, Icenowy Zheng <uwu@icenowy.me>, Han Gao <gaohan@iscas.ac.cn>
 Subject: Re: [PATCH 2/4] dt-bindings: ili9881c: add compatible string for
  Mingjun MJ070BI30IA2
-Message-ID: <20261030-nostalgic-eccentric-dodo-0fed47@quoll>
+Message-ID: <20261030-arrogant-nano-raccoon-b67b70@quoll>
 References: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
  <20261030-mj070bi30ia2-v1-2-a0f65b65c290@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
