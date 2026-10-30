@@ -1,89 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793320991;
-	b=NRdNNftS8slFSIv0hwuGekxF6XltC4BCLpRn4DA9yMwSFFVPzpFliqO5dbHhuQ8dmtY0
-	 Tm7kX0hQk5x3bF6VujZQ0tFvVE18RyFrhQhwmYVN8ab6jrkBLoVuD9e+6Uod7rqgLc8dA
-	 fXgnJmx9zpFgZ5n+0dhhWzH3PIkISEyxaAu6CfNNL64V3uRq79Buz+0RtOm0KNfyOKy7v
-	 ZtGwbNM1v0oMkIynzg4lNImky00nBAJBlB8Sp4zWAJABkIXfxVwqBuFybdn+qJnm9ueP6
-	 5i1OrUz6rfJXHqXnSQkHPYSbxnxD0vK6AOM9dmA6c69yXHF9jvqAgOPdSnfT3FxTwvw==
+	t=1793321140;
+	b=Xrkn7XSsXL0b7+O0h+o9RLl2qmuNphcIOZi3zzsHwMLYNOg+n/S0EahARHCq+Jis9OzZ
+	 WJPUFOW29wUlUo+r+gYYTVrLsb8v/bORcVZ1J5yLNqjINXxHMK0K2SwO5fda84ftcdlmj
+	 IhhuIKpXzP+3wdDv2t3GUpBhwaJxU1NLJKxcdAraHEQ14VTUiJfU5nuM4QHi6GPfKAzBg
+	 bho2vJiGrEp63pmsvyrtPM9nkgiDIQSOT4QzC4ufkyPeY+nE6T6jjdWHjliHXHdLAECCI
+	 t5V6e7ZUfKqQBS7oHjWpW/3rZZ8ZdVt427TuVO1APmBsucIe0fykb1toS32UZy/1cFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793320991;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
-	bh=A1dnHGd/ojY9RvLwvT0//fyZZl5qZJVT0RGCrdHRWvM=;
-	b=oTgYxCN2Yd3S3jBS8exLYfkd1nvHzY8xRufJYb2ccPtyCaxuBGUFQzaR580iHfGpM7Xr
-	 tuMa+VaKAnzJX2A59WFgEECo31nyBE9Pn4QL2uWcL7hEUXFIpJ+tCrxZIx4PgDql3g1Fn
-	 djygypgHSf/TXTrTROouau9a/kJjjprzqsVxR9IXrWYnAefYl3saXL4lDSG4ejHP4qLNh
-	 0yTs1207f6c8a+MaeOXzzp3zLIL4KzClcOGpL2l3hOSivhlG814D2NffiWZ6m3FkcT1uY
-	 AbDV+xICiuxku94iQLbxpHael3H0+/qK5ZeClE3YIekS6Woa5Y4GG7M+a+owCMGpE9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793321140;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=dqTSZz88EEh8ZELacMbZ3PLmZPsLOwVoSmrw//6jRJg=;
+	b=mIR7jnVM5ga00ASli5Gjkt8BvY3fTs7TlVKYV8DYuZx8E7LJzdTJnQFdQ5O1SmxcS8L2
+	 hmsyU7xj/hYOYjEm4KMxK9qf43RFMJ48F5HimSGK4WgJNi+0td84eGM8z2tHQCCdd/i5X
+	 yOvvKUBnqjrui3XuUnA0xJgmtFGS+D3HtOGddfZ5/JIN76tW2GNj4G6YCXloZW6oOdlu9
+	 CgwFo2xH1hQI41K2+S67zgl1pqKUlMYhlVOBzC6IZyRb5PwKv2kqIDG9a1KKUkIoUBo7m
+	 BF1Wf29wPSuh3WIOPsxiS/pWmkXsJGSzQIKfJj4ZnOtw0DFmZxltjfQH6ZuNeFUWYHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Aedb/NaB";
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=J7m3UpnX;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33FDA606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:43:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33FDA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B5D606A31A;
+	Fri, 30 Oct 2026 00:45:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51B5D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Aedb/NaB
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15ea896ddc8so248807c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:43:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793320990; x=1793925790; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=A1dnHGd/ojY9RvLwvT0//fyZZl5qZJVT0RGCrdHRWvM=;
-        b=Aedb/NaBqs5TBd2NJHwP+yg1sFNUs4wHhPLWHezguaykBdn41/TV21W73NMixslw5m
-         2Y3Cz47Gx8xmYjbMoMqw0MYfKhzWnTrJQiKn2T/zUhhIIcsQDfIUOtaiAA+mvI5DYJGA
-         k4L1LVvbEOAWq3NxH5K2OgSYOZ6oy0MvLmNLOqYOsjfZFXEWqII8qHVQtHZGhaYtuhtz
-         FU6rv3/IGHoHgP4h2Byn9Ai/oTcZXv209zimXpLsdCZ4P5eaR4w23v5pUGCzbWuQ+dRv
-         7kMRorBeHbvpoGaYGvrN9SIfGkXNVXeq8KNQ+MYUfZhV5q3cPdfDv/cHZJnxtc+7PcbZ
-         mSbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793320990; x=1793925790;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A1dnHGd/ojY9RvLwvT0//fyZZl5qZJVT0RGCrdHRWvM=;
-        b=ik/OwK4rQIkK1dUO1GRE7q+R2CLYyPl86eY1JkpTKdaunmXrcZLbAmwqC5Cve1fzYj
-         ogouUG88YIc7kvpB9mY+JnU3/npV1PdvOyeC41ZkjfcVGWEiFWz6ziP8JO4QwZaTRROW
-         zzKa9oPMIiURbt9CKmROgxirqn/cBdiwwKqrH3TizxXYReB4ErEu7X8Fh0//zJUzkuwO
-         jbGPR51r3d07vXBQEraJYcOQ3agdgCNSVYSI27VXI836hl9kPAENGmsuMI4sq08Jw8h8
-         LlCBHkiXC0e9bwIEKk/K/1Pj6zU0HlqFLEPZCbTjfsDRyYvZHKDDkcZF8bzUQ0oi3ncw
-         ffZg==
-X-Forwarded-Encrypted: i=1; AKwUvBx6aMx9HGi0ST+hWwATCFeYSXMlGM6Kq77YObPF1T97Yna7+NypxY3spKd+IRe1KHOTFXDqw/VaQXdPbJk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJe6uNLyvEQy5/Q8MvXPyl5RcbowTusTkTEC2Z6e4YK5GoTV7C
-	Db+Ep1SkogMSdd39P/qPsQynTo4bs7ZFMe595MpLFdwt6ULJimAKeFp3
-X-Gm-Gg: AYBFou0LkaVTWaQIIWBacOraArg/MNzOQ+Dbm3LRoie08hus6bu2FlePhvmuUu3l02F
-	6v+tAwgOsZfW094d7PW02vS1KDrDtUl05EKrmNCxblx9eKaNfEvSVree5EQMsy3y1go/99wyvBt
-	V3hFwmyQK/+gLLXm7lXlLIdztjgJCLit0r8lsPSEEM57YPI1RNuf4NmvVdla9pCLxSZ23ltEQGu
-	NvigIQPBMczdQ5Nb1IV8edoNJyRciXirZRJDRSe7K3mCFkG2oecYS3z0b8xqg6P4OCEN5niPpYL
-	jt1Gd9i+sLy1mXc+xnqysCbGRittNL12kLaeck1aGwFfssqMi+wrn004WIaCVbx6xl35/gdCiWF
-	Zx6wstcPQtbvmPDDI9qN4yQAFhsHerMQAAqVShHgfzhH8yj+o2EdMMh6pH6k/pMw4GB/ICq5+ib
-	e4m2AqRiLAQJB8S3bDWhyx0Ehn0sgUUN05B4Lx+36RZahUQI5q3KcFycYFiMF39s0kmHNqrew9r
-	rJYWkRVA+t2AGexnjiWdykB2C3xvLG+UHdcPDAIels9/1rA720jU8E+6CaVYTx6fEcKSi8j+8xb
-	C0AgXJm8scn0YLWugUXaT3PiAB1HA0IvDkNrGOTLlrijFNEq
-X-Received: by 2002:a05:701b:240f:b0:15e:6541:3099 with SMTP id a92af1059eb24-1ac5a0b8b3amr917862c88.7.1793320990113;
-        Thu, 29 Oct 2026 17:43:10 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458e07sm2097351c88.8.2026.10.29.17.43.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 17:43:09 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Jiale Yao <yaojiale02@163.com>, Mahesh J Salgaonkar <mahesh@linux.ibm.com>, Oliver O'Halloran <oohall@gmail.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: Re: [PATCH] powerpc/eeh: NUL-terminate force recovery input
-In-Reply-To: <20261029052948.2525048-1-yaojiale02@163.com>
-Date: Fri, 30 Oct 2026 06:11:38 +0530
-Message-ID: <ecd8vx31.ritesh.list@gmail.com>
-References: <20261029052948.2525048-1-yaojiale02@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=J7m3UpnX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793321140; x=1824857140;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=M4PqKloQ+6YTYsFOI0TadbR2AC/12M332qvttXbFns4=;
+  b=J7m3UpnX8ZFn6CC75yeYVtBr47fFztcAaRF+JXK+I//qdjEgZU9eicJ7
+   nyhBP2AQv3hxKOK7Ffrz5R5mK5Q1gSVXzrdG+QM/8V5mEjR0kMVVggCj7
+   V6D0BTicIXmm9ZgJzuKiNn2oSjksYGz5HlK4G215EzXyWXnGyO3zYsk0u
+   XHSpmVPJSTCQFzgj4qcaOh/GfBwQRVgrn3JTp/9t8vqp1SMksscXIyjg8
+   31RMSEOql9j5uY0HBNDXUkjq3LPHXBI/mieiUW4swt2NqAz+o+oC3iW2A
+   wwbkIUcRfILmH+PvyI+H4VIU63DuUDUMgwmbFt7Sgsnke4N4c4kD2jxvG
+   Q==;
+X-CSE-ConnectionGUID: 4ZQuNp+pRlKp0/cSp7Cvzg==
+X-CSE-MsgGUID: 6H+7snwmTzKP0Yn03xwtAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2071727"
+X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
+   d="scan'208";a="2071727"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 17:45:39 -0700
+X-CSE-ConnectionGUID: 2AaxHfzmRZSTr+ZYbMytHA==
+X-CSE-MsgGUID: i1jLULhJTdWRBrIo/d77LQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
+   d="scan'208";a="7077310"
+Received: from unknown (HELO [10.238.2.61]) ([10.238.2.61])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 17:45:34 -0700
+Message-ID: <3d477ba2-d2af-44a4-a615-3664b0c79c01@linux.intel.com>
+Date: Fri, 30 Oct 2026 08:45:31 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,26 +71,121 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Patch v5 01/18] perf/x86: Disable LBR if x86_pmu.lbr_nr exceeds
+ MAX_LBR_ENTRIES
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo
+ <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>,
+ Sandipan Das <sandipan.das@amd.com>, Andrii Nakryiko <andrii@kernel.org>,
+ Song Liu <song@kernel.org>, Ravi Bangoria <ravi.bangoria@amd.com>,
+ Ananth Narayan <ananth.narayan@amd.com>, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, bpf@vger.kernel.org,
+ Dapeng Mi <dapeng1.mi@intel.com>, Zide Chen <zide.chen@intel.com>,
+ Falcon Thomas <thomas.falcon@intel.com>, Xudong Hao <xudong.hao@intel.com>
+References: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
+ <20261029043914.1395147-2-dapeng1.mi@linux.intel.com>
+ <20261029093845.GI1779021@noisy.programming.kicks-ass.net>
+ <041e5185-ff2d-4423-af5d-aed6628973c5@linux.intel.com>
+ <20261029101927.GB1813469@noisy.programming.kicks-ass.net>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20261029101927.GB1813469@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Jiale Yao <yaojiale02@163.com> writes:
 
-> eeh_force_recover_write() can fill its entire stack buffer from userspace
-> and then pass the unterminated data to strncmp() and sscanf(). This can
-> make the string helpers read beyond the buffer.
+On 10/29/2026 6:19 PM, Peter Zijlstra wrote:
+> On Thu, Oct 29, 2026 at 05:56:15PM +0800, Mi, Dapeng wrote:
+>> On 10/29/2026 5:38 PM, Peter Zijlstra wrote:
+>>> On Thu, Oct 29, 2026 at 12:38:57PM +0800, Dapeng Mi wrote:
+>>>> Add a sanity check for x86_pmu.lbr_nr. If the hardware reports more LBR
+>>>> entries than MAX_LBR_ENTRIES, disable LBR to avoid out-of-bounds access
+>>>> in the cached LBR stack handling path.
+>>> Cute, can this actually happen?
+>> Currently it won't happen on real hardware since the maximum LBR stack
+>> depth what hardware supports is 32. But it's better have this sanity check
+>> assume the LBR stack depth could be extended to 64 or larger.
+>>
+>>
+>>>> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+>>>> ---
+>>>>  arch/x86/events/amd/lbr.c    | 8 +++++++-
+>>>>  arch/x86/events/intel/core.c | 7 +++++++
+>>>>  2 files changed, 14 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
+>>>> index a55646fcb846..96c5b5e56053 100644
+>>>> --- a/arch/x86/events/amd/lbr.c
+>>>> +++ b/arch/x86/events/amd/lbr.c
+>>>> @@ -433,7 +433,13 @@ __init int amd_pmu_lbr_init(void)
+>>>>  	ebx.full = cpuid_ebx(EXT_PERFMON_DEBUG_FEATURES);
+>>>>  	x86_pmu.lbr_nr = ebx.split.lbr_v2_stack_sz;
+>>>>  
+>>>> -	pr_cont("%d-deep LBR, ", x86_pmu.lbr_nr);
+>>>> +	if (x86_pmu.lbr_nr > MAX_LBR_ENTRIES) {
+>>>> +		pr_warn("LBR entries %d exceeds max %d, disable LBR.\n",
+>>>> +			x86_pmu.lbr_nr, MAX_LBR_ENTRIES);
+>>>> +		x86_pmu.lbr_nr = 0;
+>>>> +	} else {
+>>>> +		pr_cont("%d-deep LBR, ", x86_pmu.lbr_nr);
+>>>> +	}
+>>>>  
+>>>>  	return 0;
+>>>>  }
+>>>> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+>>>> index 0a34d674df59..10c694db85ea 100644
+>>>> --- a/arch/x86/events/intel/core.c
+>>>> +++ b/arch/x86/events/intel/core.c
+>>>> @@ -9023,6 +9023,13 @@ __init int intel_pmu_init(void)
+>>>>  	 */
+>>>>  	if (x86_pmu.lbr_tos && !check_msr(x86_pmu.lbr_tos, 0x3UL))
+>>>>  		x86_pmu.lbr_nr = 0;
+>>>> +
+>>>> +	if (x86_pmu.lbr_nr > MAX_LBR_ENTRIES) {
+>>>> +		pr_warn("LBR entries %d exceeds max %d, disable LBR.\n",
+>>>> +			x86_pmu.lbr_nr, MAX_LBR_ENTRIES);
+>>>> +		x86_pmu.lbr_nr = 0;
+>>>> +	}
+>>>> +
+>>>>  	for (i = 0; i < x86_pmu.lbr_nr; i++) {
+>>>>  		if (!(check_msr(x86_pmu.lbr_from + i, 0xffffUL) &&
+>>>>  		      check_msr(x86_pmu.lbr_to + i, 0xffffUL)))
+>>> Would it make sense to have but one copy of this check in
+>>> init_hw_perf_events(), after calling into the micro-arch code?
+>> Yes, that's what the previous version does, but Sashiko complains it's too
+>> late.
+>>
+>> "
+>>
+>> Does zeroing x86_pmu.lbr_nr here in init_hw_perf_events() happen too late,
+>> after intel_pmu_init() and amd_pmu_init() have already configured hardware
+>> and driver state using the unvalidated x86_pmu.lbr_nr value?
+>>
+>> "
+>>
+>> https://lore.kernel.org/all/sashiko-outbox-179814@kernel.org/
+>>
+>> It makes sense in some ways, so move the sanity check into the vendor init
+>> in this version. 
+> Urgh. But there are no events yet that early, none of that can actually
+> happen.
 >
-> Reserve the last byte and initialize the buffer so every accepted input is
-> NUL-terminated. Propagate copy errors before parsing as well.
+> If we're really worried about this, change the micro-arch init to spawn
+> in disabled state and we call x86_pmu_enable_all() at the end.
 >
-> Fixes: 954bd99435b8 ("powerpc/eeh: Add eeh_force_recover to debugfs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->  arch/powerpc/kernel/eeh.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
+> Also, this is before x86_pmu_static_call_update(), nothing really
+> 'works' yet anyway.
 
-Nice catch! Thanks for fixing it.
+Yeah, I agree. I don't think it would cause any real functionality issue by
+deferring the LBR disabling into init_hw_perf_events(). The only flaw is
+that the vendor pmu init function has already printed the LBR stack depth
+which indicates LBR works, and then init_hw_perf_events() prints LBR is
+disabled. It may cause some confusion for uses. But anyway, I don't think
+it's a big deal.
 
-LGTM, so please feel free to add:
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 
