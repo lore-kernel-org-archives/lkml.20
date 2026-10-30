@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793354681;
-	b=n5v0Z1aMMjj7lR9eVsG+im6KPt3zxldIq/J8ehFCkHavryhHL9+qGE4VucgcuQGa0OTL
-	 zHAbobC3XPSWnKV63ZizCFB7nbMOeitGjXEjcCQdO2ewsl6Oup4uEPJkae6uFL03M4TjP
-	 zGKQdg0d3qR4JvOpELu7uBvUGZ7Kv8QRgwLxS0ZHiFA5N09hj0b5byhxVyWYYm31wsx/I
-	 TVeH8RUGErKjWhSHHYtHjrXjnh6TkrlY52SXf9a6TiTE7K1vwPFpNsVioaZ0ZSTRC22LF
-	 ZJ2ckA3ERvBdEOErADw4pK7oPrjIxVdup44s3I9s3IVbI9hYJsslXD5swro0pXfprqw==
+	t=1793354677;
+	b=yxr6liC/mBHXLU974WBdkGZhwg0xiVijpre0Azw2uaPk1kCY2zvT058VnVHlBohO+Pi8
+	 LHpu74VulNtOUZETw7HCaPPuuDvhm/ipZAd71QO8lE/pcDGSLZhHAqHArJFBdJdt1Gr6G
+	 gUYNoCTZ+XKOWZyItlLw4Ft12FXC8NlGzlRfd/WG0w4oK+eLaNt6nJwJcg3hBdiX8Y3tf
+	 y0GHAaIXnN/3/ExK4Z3rjMqQ+V6Z0q0PA+LLWM4PNi8WC0l9uZydK9L2orKn64fXkfh9N
+	 ruBjhI+972VKk/+46va87y7Sq2TJLJC8e1/BylFcu2iH/yrsy0OJCzMlrjjxQpkCxYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793354681;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793354677;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=fO0AO1ezML1ZvparvLGZsxHnWBCOQ1gQ8CStf/I59JA=;
-	b=mXCVXsN6zvHLJtVxzUc1dbjaWm8ynFZgC9z+xsc1qb/Bd9OiM6CybkGy7yuai0RzDVHN
-	 Qmg0H6r0n/2fNTC67Xiksm1tjRqyxKoODxiwScxg3VmrgOeFdamnOl27hldeZRrvXkJm3
-	 CxH4fzvtMLcAOWZ1wN2wpGLu2snyHM1nlF5F/QLGzq+2TE3Qk+Uxoo8U/X2cSmO/GLKg3
-	 zEOEgSA7/xIs+7RazRej68AedAD6qapB3E39uXEeUEszTDcmXFF7Vj9+o3CGbzg5zkbb1
-	 aLQOnf6p0BSVYDom53zxBnkl/YNONF4zbMPM58Aqy2Z4APK5fvkn1XNNYMXeg13iVLw==
+	bh=aHS0E61Kph6Q/pBaWFFnfGbAScHIciE+DUMVzM9neGU=;
+	b=H75ZA3TdEcmhB6WYtonVHn7hj4glbDj2SOd7oZtKeNkOVuz5Cy3tqnVeSEt062KQeyW7
+	 ModCh4uUe4QQUsvyG+Uomw3BSqcx5P9gSFs0f6QqkENf4CdI8NPG09QVSBbh+f+6d+qLh
+	 XY1BysKaeOPeSSnDEcGe8u27f5HDe/s8xjPrKUb6HXaYlJ5yg/27lWs567wgcWU78nloM
+	 3hpF2FEvahpHgyi5qaG4XKgSOCTY3UUAwEwadF9BPUGrdaqsj2Xz4ktqzW+QmFI2VSOZA
+	 aoLMAKc9FJZldxGiUuOY3KxeA9y1vlsHad7Jjwvr4gBNl7J88WsojneG2CiwGny8DuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7yvG2V6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMatZvXN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325D9606A31C;
-	Fri, 30 Oct 2026 10:04:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7yvG2V6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FC181F00A15;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32804606A320;
 	Fri, 30 Oct 2026 10:04:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMatZvXN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A38281F000C1;
+	Fri, 30 Oct 2026 10:04:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793354680;
-	bh=fO0AO1ezML1ZvparvLGZsxHnWBCOQ1gQ8CStf/I59JA=;
+	s=k20260515; t=1793354676;
+	bh=aHS0E61Kph6Q/pBaWFFnfGbAScHIciE+DUMVzM9neGU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=m7yvG2V6a9LDM3vmUc2xqLggBPZCYSe5YZ9Sf6vOqZT4FnUEHaH/rT2r6FGVw1YS1
-	 RDlNZtbaTAX8z8/DP9XcMZd85nMS9pkqEi8KuOGKUV8jCx5gqV4fI29N7gRTkVAf6a
-	 Sw0xBjhFB8lRq8RRNA0U/H/X62nvWN+sI+WGQN7mhYm/WPoKVJzTYlR351Lfo+uptg
-	 g+NQT9Ov/X1cRINLZEKybBo/Lo7BLHK003VktMyRm0+DQKEO3bM13qPyIOM4Bev/ph
-	 FOoBQtmRiKOAuQDt/Zy80TUv8lPcwcf+U9AbwMvSulqMfk+5aolZ7k+VgRPVghyeDb
-	 xCSQVJIfB8yTw==
+	b=ZMatZvXNKfx3UtI5ikQYTnZ/i8O5oILYs7JTEIL9qApIPufs1/jrUNWv+zgKYA/R+
+	 /Pt9CYU3OrwpuhE0nEgA2bKpa3gnp1bhsQX2xbNc3P9khYd5UZIf4acOe0Gpo8fEOI
+	 zwUf4HV54StUh1dTP+A4MAr5d4xDCqbDXZn5D71+47Kt/Fce8DijhRjs8vO3yGy/BJ
+	 QUVzYcNjy87p0EZyJ5Kuqk6gwhZM87LZnDqJG2c5Ih+pzl06G0myn4gJCX+XmnzAWe
+	 Nwv+KrtJQNZttr2t5RrbPcjBPtbl9Qw06S9FNCqCB0gkFRJLxKIdtCOpgQ+adwfSsw
+	 jzVrQ9ZZAw5xA==
 From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Fri, 30 Oct 2026 11:03:58 +0100
-Subject: [PATCH 2/8] drm/msm/adreno: Register GPU debugfs only on the
- primary minor
+Date: Fri, 30 Oct 2026 11:03:57 +0100
+Subject: [PATCH 1/8] drm/msm/a6xx: Polish up the IFPC counter enable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-topic-a6xx_ifpc-v1-2-6992841a9a32@oss.qualcomm.com>
+Message-Id: <20261030-topic-a6xx_ifpc-v1-1-6992841a9a32@oss.qualcomm.com>
 References: <20261030-topic-a6xx_ifpc-v1-0-6992841a9a32@oss.qualcomm.com>
 In-Reply-To: <20261030-topic-a6xx_ifpc-v1-0-6992841a9a32@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
@@ -70,53 +69,55 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793354666; l=1617;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793354666; l=2054;
  i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=f0rysbieKC2sAalawNQh6GSoQOPxzKQ6TMGwbEHZnbM=;
- b=rfHuaJLwKeVD9NfY3XbZbksMHnwfylga4ZO9Gim/sq9YaPlay8NioaPSXpd8xWM5ZSBvN5BlI
- i7UxuBG2ayRBz3sWtmoNy1Jx+fqf7DTBwkn5WScAigZiN2AsH93gSpG
+ bh=zGQcK+J+SBHMgTyf0ctg/daR39bN/LxKk3PQqtasspk=;
+ b=Kmux5S78PVK9IInJEBGACAy52ihHBk9ZBCDspTJwQBAurc+wVaaaFPf+0V3zCZsNmJqxy3g5a
+ DhZMYtT2uZMBx16ngyx0A0rIP/0nLqJ0XpJnpylKGc9p1tHSG8lHMxm
 X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-adreno_load_gpu() calls the GPU's debugfs_init hook for both the
-primary and the render minor. Since the DRM debugfs rework both minors
-share one debugfs root, so every file the hook creates is created
-twice, and the second attempt fails with "already exists".
-
-Since the DRM debugfs rework:(commit 0b30d57acafc ("drm/debugfs: rework
-debugfs directory creation v5")) both minors share one root, and
-commit e76e7ec8f162 ("drm/debugfs: drop debugfs_init() for the render
-and accel node v2") made the core call a driver's debugfs_init only for
-the primary minor. Adreno's second call predates that: commit
-331dc0bc195b ("drm/msm: add a5xx specific debugfs") added it in 2017,
-when each minor had its own debugfs root and the render node needed its
-own copy of the files.
-
-Remove the odd call to fix 'already exists' warnings.
+Extend it to all targets with a real GMU and use a rmw instead of a
+full write to preserve other things within that register.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/adreno_device.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c             | 6 +++---
+ drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml | 1 +
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 7108d4aa59b5..8154371e04eb 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -123,10 +123,8 @@ struct msm_gpu *adreno_load_gpu(struct drm_device *dev)
- 	pm_runtime_put_autosuspend(&pdev->dev);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 92e8c8abb86d..48d3ee4d55d9 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1332,10 +1332,10 @@ static int hw_init(struct msm_gpu *gpu)
+ 	/* Turn on performance counters */
+ 	gpu_write(gpu, REG_A6XX_RBBM_PERFCTR_CNTL, 0x1);
  
- #ifdef CONFIG_DEBUG_FS
--	if (gpu->funcs->debugfs_init) {
-+	if (gpu->funcs->debugfs_init)
- 		gpu->funcs->debugfs_init(gpu, dev->primary);
--		gpu->funcs->debugfs_init(gpu, dev->render);
--	}
- #endif
+-	if (adreno_is_a7xx(adreno_gpu)) {
++	if (!adreno_has_gmu_wrapper(adreno_gpu)) {
+ 		/* Turn on the IFPC counter (countable 4 on XOCLK4) */
+-		gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_CX_GMU_POWER_COUNTER_SELECT_1,
+-			  FIELD_PREP(GENMASK(7, 0), 0x4));
++		gmu_rmw(&a6xx_gpu->gmu, REG_A6XX_GMU_CX_GMU_POWER_COUNTER_SELECT_1,
++			GENMASK(7, 0), 0x4);
+ 	}
  
- 	return gpu;
+ 	/* Select CP0 to always count cycles */
+diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml b/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
+index b3082738c99d..4f934c194f73 100644
+--- a/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
++++ b/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
+@@ -83,6 +83,7 @@ xsi:schemaLocation="https://gitlab.freedesktop.org/freedreno/ rules-fd.xsd">
+ 	<reg32 offset="0x1f84a" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_3_L"/>
+ 	<reg32 offset="0x1f84b" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_3_H"/>
+ 	<reg32 offset="0x1f84c" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_4_L"/>
++	<reg32 offset="0x1fca8" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_4_L" variants="A8XX-"/>
+ 	<reg32 offset="0x1f84d" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_4_H"/>
+ 	<reg32 offset="0x1f84e" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_5_L"/>
+ 	<reg32 offset="0x1f84f" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_5_H"/>
 
 -- 
 2.56.0
