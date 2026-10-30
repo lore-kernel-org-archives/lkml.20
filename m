@@ -1,102 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793384881;
-	b=xLUImMUcOqakFfAKJ/g6hKcj76+CbFXvGNG0sh6uCUv7IU/Q1+M7HDlw3r8MD5qR/21w
-	 G6dGGEaTUjFFP2NxUl5rZ/uBmSsgLSg/LV95z44hLJwa+szaOudLVc4U6KfQkrFZ1Hsa1
-	 SgVvs4B4w+GVO8EHsEXQpukP7z1WYXJDR8MscK2ZMvwlpKadYXA3nptojntNE/XPoggGw
-	 YKGuU1PKSZsh1DhkGBeDUPUfIMhwWHVwhgM2jrDLypmObLjMPdKC/ixlFmx8LJzZuBO6K
-	 hl4fEf1/OkHy+xHllk+yLfr/Tdo9NlN1RBDrTDs/Q5bPsCoTpS38grzOr00BGM0ZKeg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793384881;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=yXZ3QNZbPs7glkJ4yH5pl4fnldsOoVguypIOmbZ2coQ=;
-	b=oxbmu4Qq1cpGH3zdBIhHKSikZv7dqryKGMApKqdcaAeKfh2UhIQAS/OBmHK8sQc+EQuG
-	 P5G3V+4JemoV3cGOwFA/wy/qS3k2cg5uklWtXOO/uAyqFZYyNi8d0SgCC1dYoFWkwC00W
-	 nN4Nh0GuRRZsfTa75xZVhlH9fCpIN8cgwZrbfVYLOdEmRX9/lN3O2JVNXyoZ4h+dbDst8
-	 BvgZnnAmOokff2wn5WYvgGv9L0hrVpvMQbQUerMTDDwHxozz9VM3keuChA2AOnhmzYlNP
-	 wKOPD89rWczEARx9Bj2qD2Qr9rWxu5R2fzJfjZzfBlCLe98RbWXXf3MJmue7CODZ7aQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b7H+9f06;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793384901;
+	b=10A550HcI3HpL5ip2uHMWJwqhEVdLjpXKkZTpGjLTiviCc8WnadyaYTZazSJCHwgnQr6
+	 kC67TEuXHQv0N3t0mZWk5g1hmZ+tvN3DGBsHv685zpgoaCJH5VAULNtwubOQzyOkyrZok
+	 MaCBSE9BAFqGnuBP1zxv6qvgjstNR9QwUdjuBHZUFZvxsNpPPAKIu22qPIOoln+9wWU0x
+	 E2kw3PlXrtmK8LMsBRGaElNSZipepx/YSJg7A2bDD6ZRDzeV7im2zhlW18P381hvhsCVI
+	 52+FJJBAG56yxR/Ul2wBs9eMQYVW3hjxL86j3wPGLtn59OhE0/toD7mIqqTfgVKwmfw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793384901;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=wFJT4m+a0FrcqjUIwMzo95HoUdRKMTr7y0Qp0cmc1lA=;
+	b=nJlTc7ZSJt1IaB04pZHuOZD2USzOHFXQmQBAgGx21AVbkIgIS2CujKp+E09X+PWtr9yl
+	 gq6EWOWzCPOMUxtxxgU7YpMLDZ6rtQHSPg8Ny1dY0a1H+scAgS+f0yCG7zmRAUWnHd18J
+	 VM/EYMuDMh2Ih75S5ErvFOdUQhDYwwhUIILG7jfky/5VmX6ZibZqfT7gCyMtw7vnjBNlb
+	 u4k4AA7Maj+RCcGcF4UmxYTlUQfpMilgnsPUZZGsKZvMR1nJyfY3oTkfuSCoVI5Q37OGv
+	 L4VQgf1TfuHOd4Av1TzWf5+M3FpoRcLigRNy2q1Ya+k0pAS/pdoZdnlc4/uMApQkYsw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zeKuCgWe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.12
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012012.outbound.protection.outlook.com [40.107.200.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF1B606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:28:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DF1B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F3D8606A31A;
+	Fri, 30 Oct 2026 18:28:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F3D8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b7H+9f06
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso723876a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:28:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793384879; x=1793989679; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=yXZ3QNZbPs7glkJ4yH5pl4fnldsOoVguypIOmbZ2coQ=;
-        b=b7H+9f06pwRUzYSGWS60atfV/e2WB+6N0etMptiWqMNLfpMVRFYE6xz7+tLnOlMJ8m
-         l4SIv9aREVkp9842Fr1v5LoazVZcq8MgefUZbqskNwwGqnYVQwPLb5cgXDdLqh3lVJmz
-         yeD/vwqZl9NDQ8dVdkwY4Jc4AE/13giiNIZKdQQSdtDMzMEE1MTZy2RPGU7BUM41kGQq
-         zA9eR5lCiYp99ytaJePKv/0xmGTXy8yWZKLg3CFozTDmRiy5HXQb3+AnPLpPebPS72A/
-         NkIMJMgAvgZJamlhMaxVr8jlLQpMD1vYxfwJLnxVRMgrfas8J05N4GhpDhWvaVtrFslC
-         yR2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793384879; x=1793989679;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yXZ3QNZbPs7glkJ4yH5pl4fnldsOoVguypIOmbZ2coQ=;
-        b=DzigSYfTzN0SxZGTBxWcYp64xMDb06cl++qVBUpX9nhi0b9ZSGMp2NSpWPHHmVDjgx
-         8ue/kd3W07pYASblTe6pDmWZVfRHFCNGS6gTXEBLeyl0MzuzC/SsUgEfg+JQmYWRgpdw
-         d0mYPb9cgN99kb85fbzWylXizcF2Y4E7Csg0+Pm0Rcop8qUUhyJRP7yw5wX5753iEFm0
-         lGpw8ADCqeQx5ArsXLTK+aaMPcCAclektFcW7zPaqcFkkurkcWedb3SofGOfHexNss6q
-         3+rUBC5oE13FDwFi4gG6HtUOCzEVg9DCs8z8tbrZ5R3I8WNt5Nf7rq7eASPkYkBi7l4H
-         xUmg==
-X-Forwarded-Encrypted: i=1; AKwUvBzbC4gJm1pml39AI87jEUZaRkow5Uhx8/h18D925eS5i5BVUl8Cb9hlZc/DuV2X24QJoOSUGeyWsPQ5/M8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrZ1UvNoolDXsbFyGaQHVkQga/TevORtGY2yzod2ndFrt44zcP
-	BiJpib5+qiwgamlMwRI2DSJ71iSKJozDgM4YgSB1209YyTWrKF05ocN1
-X-Gm-Gg: AYBFou1hMEWkNij7GdZAESGl8TBFvgCR7cSHL+VWkRtDOFb5TMTqeEqOrn2TO2BJusU
-	DQG6s10yH7feGtJP65HWOB55h67mUti1DMmBQRKZLs+LqC9sCTXHatMi2ZJubf4uX1kS5zK4pnr
-	wHvfdDj1q4Q4MWhfcvYxcHGOUbw/hSKMgYFHcqPBSO3VRKQBjG68DdHXAEQQm9RN3HOnFPCv1oW
-	Q7zLy60BHwnZ03C9E7i4US+22FiUUKaohwahyucBrRaxFB328Sqt2g6mwPaNht9BYslaYcVio8N
-	lqBp/ecaZ2FRMmOzajtirDz6EZ7AgQjxJneqdgwyzB4CL9H4a+7BAawn7oX5Ru1qCshN2ki+WZD
-	yuajKtM9NVPY4Pmy2lol9kyNU7eDqdp7RhUsd1WfpHEKfQC2ZVDVIKc0mG3f1R6wyWAXLkIB7Lc
-	vvqWfahQpj4ZRLuj9T9kdFkklXw2UgLtd67/41J3FrWtYVRCuzt/9kxsha9FpeADqvckELMK8qE
-	ABPH/MY0V3rnnxs/X2xSPyJu+5+MLwOqXsJSzSl6K/Cwz4oQd5LpnTxYq/57DtlG/6LedMBUFnk
-	vOR8lQ4aOzhqCaOD3bOeI2S44nIJOBQL5pIg+t03I3DZa2e7y13ITZis7d5VuByqAoP1hGfPQqa
-	5xYwmp/FzUAw=
-X-Received: by 2002:a17:90b:5485:b0:3ab:be66:ddb6 with SMTP id 98e67ed59e1d1-3ae897763fdmr2169146a91.20.1793384879377;
-        Fri, 30 Oct 2026 11:27:59 -0700 (PDT)
-Received: from ?IPv6:2a03:83e0:115c:1:5d10:1794:f0d8:db5b? ([2620:10d:c090:500::4:1201])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845984absm5186356a91.10.2026.10.30.11.27.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 11:27:59 -0700 (PDT)
-Message-ID: <34b76ef03fb2b7385de32647f21441c6ff267c6a.camel@gmail.com>
-Subject: Re: [PATCH bpf-next v3 09/12] bpf: Track low-32 scalar equality
- across narrowing stack fills
-From: Eduard Zingerman <eddyz87@gmail.com>
-To: Vineet Gupta <vineet.gupta@linux.dev>, ast@kernel.org,
- daniel@iogearbox.net, 	andrii@kernel.org, memxor@gmail.com
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
-	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
-	john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Date: Fri, 30 Oct 2026 11:27:56 -0700
-In-Reply-To: <20261020161907.2115379-10-vineet.gupta@linux.dev>
-References: <20261020161907.2115379-1-vineet.gupta@linux.dev>
-	 <20261020161907.2115379-10-vineet.gupta@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zeKuCgWe
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PEr8CXVICLqC4K+8xR+KhshdCdqZ+eLtYSsqtOllNqB+hn7EYt/ZGn4CYpaB5PDN5xoD16TabwsNuzB6hSgjt7jqkldW0m359MfHEJaA91EFmMHUtuY8PK9ABIk5hH/w6czUhGImF66gw5dDdXcaUMkP333HEe9+hCFhHY9mxRNd5PzIMSBgC5WtMYl2RNzLqFA1ofuZ/UaTNzzhNJqG02gRFrBU2xlbIV90SMrDphHnUbmTMJhoDkg1W/XFOZVF/GASSGsTAp81T4+GQm9b5XVg1zB+i9Og2umvGpgRI0adEyHJfdC+/3WS70uaogYQKwl8QQHu4d/DZTyuNuT5Fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wFJT4m+a0FrcqjUIwMzo95HoUdRKMTr7y0Qp0cmc1lA=;
+ b=blVmYtRc9e0YSz644qLeCLK/zVWJVf3uysBP2jB+M0JfpiZFTl3sgPEfr4Js9nFpJgQiHsbSp/ZKgYS1auiiSdvOeUG9MibIYZq4+zdfeloOXc5Uz5XmCZNyXBMBhrAdrPLTfoKnBYIZaQstdn/wH2OKPhbgrJbkxnLnMtva4Rr3eg/PB7gS5EoQlWiU0mBJI9GEyCSNqKUa/v47K3tI/Yb5QncOuUfQBKZvIkT7HKVTxj+nVehogAIq3JlKH1hNTD9qX23Hxi8Z1dQBgm2/EPy7O1n69/ElNUznYs3VopDOVAZ1U06Wl/eSglFbiY3g4EhC59f78tcugs4P7y5TGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wFJT4m+a0FrcqjUIwMzo95HoUdRKMTr7y0Qp0cmc1lA=;
+ b=zeKuCgWeNd+2+AkNsJ92EkrryROGVyxxq06l4cGf4YkTdFD3L8Psi145UEXuZkH1xGPQd5SJKGKmrqQct9Aq3jtvhsDBRxIVN0dmPzDJct9vb7KRM91e9aCozaxS1o5m08ngAFHa4vOxORsd43QKIAJNCfN9HlH+GGzxX2zCrCc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH8PR12MB9766.namprd12.prod.outlook.com (2603:10b6:610:2b6::10)
+ by IA0PPF864563BFB.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bd7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 18:28:17 +0000
+Received: from CH8PR12MB9766.namprd12.prod.outlook.com
+ ([fe80::be0f:431f:5f27:96d9]) by CH8PR12MB9766.namprd12.prod.outlook.com
+ ([fe80::be0f:431f:5f27:96d9%5]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 18:28:17 +0000
+Message-ID: <83a62ebc-78b6-4442-a097-566b4a2704a9@amd.com>
+Date: Fri, 30 Oct 2026 13:28:14 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cxl/port: Unmask AER internal errors for VH endpoints
+To: Richard Cheng <icheng@nvidia.com>, dave@stgolabs.net, jic23@kernel.org,
+ dave.jiang@intel.com, alison.schofield@intel.com, vishal.l.verma@intel.com
+Cc: iweiny@kernel.org, ming.li@zohomail.com, linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kaihengf@nvidia.com, kobak@nvidia.com,
+ newtonl@nvidia.com, kristinc@nvidia.com
+References: <20261030095951.46080-1-icheng@nvidia.com>
+Content-Language: en-US
+From: "Bowman, Terry" <terry.bowman@amd.com>
+In-Reply-To: <20261030095951.46080-1-icheng@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA0PR11CA0206.namprd11.prod.outlook.com
+ (2603:10b6:806:1bc::31) To CH8PR12MB9766.namprd12.prod.outlook.com
+ (2603:10b6:610:2b6::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,126 +98,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR12MB9766:EE_|IA0PPF864563BFB:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4cb28ab3-2dde-4ced-5575-08df36b3912b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|10067099003|260925022911599003|260925021911599003|260925021311599003|11063799006|3023799007|6133799003|261028144727099003|261009223027099003|261022075727099003|261022105027099003|261021123027099003|261021121427099003|56012099006|261026121527099003|261026140227099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	hqG/ZP8EzLIjz5uqtidf7wcwqJJWEHuownbBFxmKRY6cTJIMSyh9/kCeUn1EdL2zHwH9rpH1HiiTycNTnA6lPVm+3AN5fpSetB029bEzWJpFSVSScA0y67PakAYoM6OHMLYzme1QIQBCbuuACNXVfqcX0DD2pqGBjH6bUoBwZIDrsN6kSpEn5IlQ4BdLh+jZmz/lj+grMqs8s6KNfTSWBY9/P9nQHo7e8P2+w57i7ZHXW3A5rQWh20IP5hgolKF6FhHqX5Z3DZRYo1awwdyivVLJWYDM1eWUZvlk9Xv5RH/jrQVIv66IFCVb/xTqH436AJFDb4SX50AGsK/8NaRKMdYRDhu37lShZ85TzYaMnrbyNMlYNR9JcAunR3j0Eg7eeqp0qBBaGtOG2NcpxDltIbheeZ4KWY94M/eIkM49bHI7OL6zIPxvDE+I9TBlGt9bTdfQixg9XlngY8ujzFRG3ApuxzpYJhVZQ5HYY6JQQckwuFq/MdCAzdIidzSV8Kh98Pac4xohX4/cBIuvnIfVX/6EL3hFQaijLEwWagCFUHA2ptGRgepz8TIfQPMljH/yBZbk/TD2GHBDoy8zR4oXtkP9kexjvWtUXmWsY6wTAiMqLakjPOG393jX14SOtSNVlcJ3WqPpRCfKPkkDywxk9KMlIxWSPfbI0IdjJyNt0WY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR12MB9766.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(10067099003)(260925022911599003)(260925021911599003)(260925021311599003)(11063799006)(3023799007)(6133799003)(261028144727099003)(261009223027099003)(261022075727099003)(261022105027099003)(261021123027099003)(261021121427099003)(56012099006)(261026121527099003)(261026140227099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?V3dVbjZjVlFHN093ay9sMFVwendhODJZbUZqcjRMRDR0d2FIYUVybFFrb2hp?=
+ =?utf-8?B?cUFCTWR5czJZVjM1dkJzOFNwcFErUnJCUDZWM3Yvd051RHpwS2FZTDFnTy9o?=
+ =?utf-8?B?WngyVUVJYlE5MVdvR1drcjA1eDV5ZnlZUW82bjAzampUbzBoR0JYWUxaWVpU?=
+ =?utf-8?B?ZE8zdld3VWJlTTY4SGIvUkl1aW9LT0NzTDNlR3pnUGtMMDl4MzJMelFTcktE?=
+ =?utf-8?B?OVV2b0IzalVtN251WHlFeFlTUWxIWWJiQ2V3ZFdFb01TbTZXT1FhRlBkQ0ZN?=
+ =?utf-8?B?VkJ3QTlDSkFISmJTdFUzRWlIWEdmaTVLM0xEeHJwa1BBMVQ3VW1OZkV3ZEF5?=
+ =?utf-8?B?YlhhVHpFemV1cnl1MmhJTnY0VWlCb2V4cGg0MDhLaWhHM21GWTB2UHJRUk1m?=
+ =?utf-8?B?ckVCL3ZjRTllbVd6QXgvOXZjT3Zwb3pyN3F6NzR6VFE2NGxTR3h1QTAxZW9V?=
+ =?utf-8?B?bkxRU253NjE0eExKcHJPQTQ2bDJrbW1UdENPRklmd0hBcXd6MUhkS1hmNnVU?=
+ =?utf-8?B?WWVVYVVpWVNaV2tpdlpzd3JVWkZVNUFXcnlVa0p2b3VPMkVDUmxwZ2x1THJY?=
+ =?utf-8?B?dkpyWENjNDZ1RkhET3pJQTR5eVBuSVFDRGd2dzB6TkdWR0NRaWhKWDZwTG4z?=
+ =?utf-8?B?cDdJbDBHZmFnQUZ4ODVVQUZJODdRekhZWGdqWDdya21YU2prNGpGRFZLK1A4?=
+ =?utf-8?B?VVpNMlppd1N0NWZRcDM2cHNVOWFxbkhZZ3dweWo2UldqanV4d01LcU5yZTQv?=
+ =?utf-8?B?STZYZTVGaWdTVUk1K0FBbjhzaUIyb3JwVExaU0kxMjFKSG9PaWQ2WTNpSDhG?=
+ =?utf-8?B?SjdFVzFVdVlnbE4rRjFpajlEakpkRUU0L1k0TDFqTnZBdWxsYVltWVVwQnNI?=
+ =?utf-8?B?REFKTGhRcXZ6VnptbThhb09Dd1V4U1ZVVmx2R2xQRXVWaTVNUEJ3UWNJN0tO?=
+ =?utf-8?B?VjhTem81bWVkQ0lUNzEydGpzRzFYWnZKS0F5OWFMTE5NMXRrWGFQYjRlVDho?=
+ =?utf-8?B?Zkt0WmRmZTlTNy9LcGNsa0RvZ05rVFFJK00xY3M0eUUvVnNaalJiUlRDVnpZ?=
+ =?utf-8?B?UWxoNDU1YXUzbWRRZlhHYlRSNkRvalZKQVpwakF0RDk0a2MzV1ZDb0NZZVc3?=
+ =?utf-8?B?ZFVOTjYvNCt3dmVXVk80aUhKalZHTDlpeDNhd3JSRm9hZENtZDh3RDErbXF4?=
+ =?utf-8?B?MURsZ1J2amtzenJqeC9DVGUyM1grbjZNenVLeVZ2ZlpXanQ2RTNESmxHMzVy?=
+ =?utf-8?B?TDZzY1A0YTBiLzZDbXpFNkUxSnVjQ0ZXeXdIelgxY0t1aVNJVEM2YTByQTJr?=
+ =?utf-8?B?T1NRQUZRL3FCNmhvTlllRVR2VWJoSjRDMUhTYVJMZlNWWkZmMk9SZ1NqdWlY?=
+ =?utf-8?B?emYwb2gyL0V0REdOdVU5T3NuM0JOdFhTQ08vWm4wTjNPNzl6eG9JS3FYWDA3?=
+ =?utf-8?B?dWl2TUwvVmF0TXprWFVmZ2lVektwSnRRR2VJVWRncHBDK1Eva1RYMEpVaDVP?=
+ =?utf-8?B?cUN3UzZzTWdkZ3dDUDErVVdKYmRuNURhbnpyMjg4V21jeW01Vm1zU3l1ZW8y?=
+ =?utf-8?B?UkxIelpESFlEMFhTeWhqWEZSdnRPeklwQ2xhRWhXemo1VDFwNXhwcDlieG9o?=
+ =?utf-8?B?TlovbTJqM0ZjdUVqY2kxVG03QjB0V1ZwT0RmYlJoZmFFVmhINUtiMWNBakZO?=
+ =?utf-8?B?cnhLZ2cyUzNWVW1LOThpaHRqRGVsR0VhOEVPZzlmNG9mK04yL2hZYWFuQ29E?=
+ =?utf-8?B?NHdBdDBpUEtQTzZ4Rnh0K05hNUNtMVV5eFI0Z0ZMQTJLRTVZYlZvaEUxTjhY?=
+ =?utf-8?B?ejkreEpMbXMvN1QyVTdEbmNJQzZTLytuMW5qa1ZSTHRGd3F3ajcvZEdmMVpq?=
+ =?utf-8?B?M0VuMUVqWXVVTm83dnFBUWlFNW1YSWZVYlMzMXdoSVgvWE1uM2JYY0wvdDdR?=
+ =?utf-8?B?WmdvY1BCKzhBOXRtdHowOExhS09IMlV5M0lRN0NOY2UvTDNYT2JTdk9JdGM4?=
+ =?utf-8?B?RnYzVmhjTXZvQlBZOUM4NDdpaVJvbU9iRCszRk5iRFVhWDVycGhtRnc4anVB?=
+ =?utf-8?B?YTRBZ3BQQzU1RUZyVlRvNTRhSkMvak05VnlUOEJLSmpCa3hrNExTVDBOZzQ4?=
+ =?utf-8?B?RFNPTS8vKzFMM0FuNXl5bHF5M3FSKy9lQUJQWWRJVXpCTkNuSU1waXpWT0tH?=
+ =?utf-8?B?T0h2V1FqdEdyYkpQM0ZpdStjN3o2bDdORjNWR2x6clhSc0F2ZXQzSnVqVUc5?=
+ =?utf-8?B?Y0J4SnEwVysyZnYzSHNDVU0rWTE0QWdsSFdWWFZHNVV6QTNiQWhhN1JJSi9l?=
+ =?utf-8?Q?2PMudktb4iwpu2Yt7a?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4cb28ab3-2dde-4ced-5575-08df36b3912b
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR12MB9766.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 18:28:17.4212
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xXOjGl5e4aPVyX5U5WxwlqH75A9gJnvfYCVRL/hsYz+2jdfvieWWmVfA0ABF/5ybCRcpl3kwzIKQHQT1uHXYQQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF864563BFB
 
-On Tue, 2026-10-20 at 09:19 -0700, Vineet Gupta wrote:
-> A 32-bit fill from a wider spilled scalar has the same shape as a 32-bit
-> mov from a wider source, and the relation was dropped rather than
-> recorded:
->=20
->   r6 =3D ...                  /* full 64-bit unknown */
->   *(u64 *)(r10 - 8) =3D r6;   /* slot linked to r6 */
->   r2 =3D *(u32 *)(r10 - 8);   /* narrowing fill */
->   if w6 !=3D 0 goto ...       /* not taken: r6's low 32 bits are 0 */
->   if r2 =3D=3D 0 goto ...       /* not deduced today */
->=20
-> Record a low-32 link as the mov arm does. Stack slots are already
-> first-class members of an ->id set, so sync_linked_regs() and the
-> reconstruction helpers apply unchanged. A fill narrower than 32 bits has
-> no expressible relation and still drops it.
->=20
-> Which extension rebuilds the high half depends on the load, so
-> check_stack_read() takes is_ldsx and sets BPF_REG_LINK_SEXT where that
-> is known. check_mem_access() then keeps a sign-extending link across a
-> 4-byte sign-extending load only: BPF_REG_LINK_SEXT means (s32)(base +
-> delta) specifically, so an 8- or 16-bit ldsx is a relation the kind
-> cannot express, the same way the ALU arm's subreg_link is gated on
-> (insn->off >> 3) =3D=3D 4.
->=20
-> Costs. A bisect lands one clang regression here -- big_alloc2 2956 -> 309=
-5
-> insns, 157 -> 165 states -- but it is not this patch alone: it takes both
-> this and the preceding reverse-direction patch, and neither moves
-> big_alloc2 by itself. The external corpus does move for this patch alone,
-> no verdict changes, six programs verifying in more instructions:
->=20
->   +1812    2470 ->  4282  test_file_open    bpfjailer-lib-tests open
->   +1765   59556 -> 61321  twfw_connect4     tupperware-agent twfw_sock
->   +1765   59556 -> 61321  twfw_sendmsg4     same object
->    +752    5874 ->  6626  layered_enqueue   scx_layered 1.0.11.1
->    +252    2512 ->  2764  bpfj_exec_execve  exec_enforce
->    +252    2512 ->  2764  bpfj_exec_execveat  same object
->=20
-> +6598 over 25.2M, or +0.026%, and +218 states. The shape is the familiar
-> one: a more precise recorded state has a smaller equivalence class and
-> prunes against fewer predecessors.
->=20
-> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+On 10/30/2026 4:59 AM, Richard Cheng wrote:
+> CXL protocol errors are reported through PCIe AER internal errors.
+> Unmasking the endpoint's CXL RAS register alone leaves the AER internal
+> errors masked, thus the notification can't reach the Root Port.
+> 
+> Unmask AER internal errors during native endpoint RAS setup for VH
+> devices. Allow cxl_port to use pci_aer_unmask_internal_errors() through
+> its module-restricted export.
+> 
+> Verified with QEMU mem-data-ecc injection: the Root Port AER interrupt
+> fires, the CXL correctable-error trace is emitted, and the endpoint's
+> CorrIntErr counter increments.
+> 
+> Signed-off-by: Richard Cheng <icheng@nvidia.com>
 > ---
-
-Please de-claude the comments.
-
-...
-
-> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-
-...
-
-> @@ -4258,22 +4259,52 @@ static int check_stack_read_fixed_off(struct bpf_=
-verifier_env *env,
-> =20
->  			if (size <=3D spill_size &&
->  			    bpf_stack_narrow_access_ok(off, size, spill_size)) {
-> +				bool narrowing =3D get_reg_width(reg) > size * BITS_PER_BYTE;
-> +				/*
-> +				 * A narrowing fill keeps only the slot's low 32 bits,
-> +				 * so record a low-32 link rather than dropping the
-> +				 * relation, as a 32-bit mov from a wide source does.
-> +				 * Which link kind depends on how the load fills the high
-> +				 * half, hence is_ldsx.
-> +				 */
-> +				bool subreg_link =3D narrowing && size =3D=3D 4;
-> +
->  				if (dst_regno < 0)
->  					return 0;
-> =20
-> -				if (env->bpf_capable && size =3D=3D 4 && spill_size =3D=3D 4 &&
-> -				    get_reg_width(reg) <=3D 32)
-> +				if (env->bpf_capable && size =3D=3D 4 &&
-> +				    (subreg_link || (spill_size =3D=3D 4 && !narrowing)))
-
-This check can be simplified to 'env->bpf_capable && size =3D=3D 4'.
-
->  					/* Ensure stack slot has an ID to build a relation
->  					 * with the destination register on fill.
->  					 */
->  					assign_scalar_id_before_mov(env, reg);
-
-...
-
-> @@ -7392,13 +7423,20 @@ static int check_mem_access(struct bpf_verifier_e=
-nv *env, int insn_idx, struct b
->  			 * Sign-extension can change the register value relative
->  			 * to a scalar it is linked with by id (e.g. a zero-
->  			 * extending fill of the same spilled stack slot), thus
-> -			 * drop the shared id in that case.
-> +			 * drop the shared id in that case. Only a 4-byte
-> +			 * BPF_REG_LINK_SEXT link survives: it says the high
-> +			 * half is this very sign-extension. BPF_REG_LINK_ZEXT
-> +			 * says the opposite and would be a lie about the value
-> +			 * just produced, and an 8- or 16-bit sign extension is
-> +			 * a relation BPF_REG_LINK_SEXT cannot express at all --
-> +			 * it means (s32)(base + delta) specifically.
->  			 */
->  			bool no_sext =3D reg_umax(&regs[value_regno]) <
->  					(1ULL << (size * BITS_PER_BYTE - 1));
-> =20
->  			coerce_reg_to_size_sx(&regs[value_regno], size);
-> -			if (!no_sext)
-> +			if (!no_sext &&
-> +			    !(size =3D=3D 4 && regs[value_regno].link_kind =3D=3D BPF_REG_LIN=
-K_SEXT))
-
-Please make this:
-
-  bool sext =3D reg_umax(&regs[value_regno]) >=3D (1ULL << (size * BITS_PER=
-_BYTE - 1));
-  bool sext32_link =3D ...;
-
-  if (sext && !sext32_link)
-    bpf_clear_scalar_id(&regs[value_regno]);
-
-=3D> no giant comment necessary.
-
->  				bpf_clear_scalar_id(&regs[value_regno]);
->  		}
+>  drivers/cxl/port.c     | 7 +++++++
+>  drivers/pci/pcie/aer.c | 3 ++-
+>  2 files changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/cxl/port.c b/drivers/cxl/port.c
+> index c48216e5078f..c94a310061b0 100644
+> --- a/drivers/cxl/port.c
+> +++ b/drivers/cxl/port.c
+> @@ -121,6 +121,13 @@ static int cxl_ras_unmask(struct cxl_port *port)
+>  			orig_val, val);
 >  	}
+>  
+> +	/*
+> +	 * RCH errors are reported by the RCEC. VH endpoints report CXL
+> +	 * protocol errors as PCIe AER internal errors.
+> +	 */
+> +	if (!is_cxl_restricted(pdev))
+> +		pci_aer_unmask_internal_errors(pdev);
+> +
+>  	return 0;
+>  }
+>  
+
+Hi Richard,
+
+The unmasking needs to cover the RCD case as well. The RCD AER is used to mask reporting. 
+The is_cxl_restricted() gate should be removed so the pci_aer_unmask_internal_errors() 
+is called for both the VH and RCD cases.
+
+I confirmed Sashiko's finding that the unmasking will never execute, thanks to this early
+return:
+        if (!dev_is_pci(port->uport_dev))    <<== Fails here
+                return 0;
+        pdev = to_pci_dev(port->uport_dev);
+
+For an endpoint port, port->uport_dev is the cxl_memdev, not a PCI device. So dev_is_pci() 
+is false and we return early. The PCI device is `port->uport_dev->parent`.
+
+Note, I used base v7.3-rc7. I couldn't find f0c48323b040.
+
+- Terry
+
+> diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
+> index db4f607f889c..94eca22422b7 100644
+> --- a/drivers/pci/pcie/aer.c
+> +++ b/drivers/pci/pcie/aer.c
+> @@ -1287,7 +1287,8 @@ void pci_aer_unmask_internal_errors(struct pci_dev *dev)
+>   * Internal errors are too device-specific to enable generally, however for CXL
+>   * their behavior is standardized for conveying CXL protocol errors.
+>   */
+> -EXPORT_SYMBOL_FOR_MODULES(pci_aer_unmask_internal_errors, "cxl_core");
+> +EXPORT_SYMBOL_FOR_MODULES(pci_aer_unmask_internal_errors,
+> +			  "cxl_core,cxl_port");
+>  
+>  #ifdef CONFIG_CXL_RAS
+>  bool is_aer_internal_error(struct aer_err_info *info)
+> 
+> base-commit: f0c48323b0402349530abc60ea908b5f5f40c395
+
