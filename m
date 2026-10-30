@@ -1,100 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793393038;
-	b=p6zWs8Q7+ZTRwjXcXsYyv1v4LxphO8g7CQ2GiOR0afiiUUohiY2Rt8egxyh7QYM0IyhU
-	 0Itakulj2TJLK0ilehvGrLuwXqqfYq8N5RyjdJLgk0aZjAxxOpC5wSEPQWACDd9vR2CPY
-	 Oe1X7y+jmuIrxaIPBooA0u7G+ap1yXLuXNRqmicixcsdie1VQ6lwSUlbzSea37PD5HCw0
-	 4Mq3MlAwJG0V5Vhefri5FocVPvuRRgGU80WX/GiOCQAKp9Isx1ArrT4RYS6etgWQiQPLP
-	 ntbV9lzWql80HJjagzhWWAiFyTRO/yGlYjHkaaIUUxHMNxHBoU0GAoNEUzi8KMZmciQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793393038;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793393054;
+	b=d3+qgOcAvX2Ze5K4ytC6e90CzEBYN1TxfEmUuH/xDQeOLR/gDQmcQqHwyfU/35WPPaFR
+	 BKLH51XdwAZw8I6LiF7swfFPM76Gbfekc4+4gtMd13f7zEkl26sbFq347P9802EtnYvhU
+	 MhaPUaJyZS3yzCLX5N8Z7hA33m67k2ftfVCuBjoex7iUQhRuR4sAixLfayTXjx1CdVR0x
+	 Hf7CVyKgZ/sCnIhprl+XbdF5vhZTjhEtDObaFwJwS0X/jgUT8+hMc+HUi5Wr0E2CbB7Ng
+	 lVCbBb7OEQZ3eieKYnCrSWuVLr+Qr188f0qc4GCQJE9F3+vWQ9NkrgCXKDYxBQXjnoA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793393054;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=PGrC9jp81hhttgbK2LxOaZQLL73ahOthq614Lwim9O4=;
-	b=SSoKfwVCcITWh9tj8rSskBSupm1Q0H8kKNJdqACQvSPcOMtMpcVUV7kDACSnLaCL7xHl
-	 m/aToVWnunTrR+DnLH47F8uSR0ZnYzkde+vf+dl4lKnoxiULSNg78LYtzDgCzF746e47x
-	 SVYH5ZsS/+03uZlm9+DAutBGOLQEy0NC/pZvRWMe4u6VhzKDMMGOtIH71lc2mM5giv56c
-	 bXO7tCILsUBv4pkcCffGn6RQ/D4BHLAztG7NdnE0B7oIpgDbJxALtUNIImfuFsN6trE4J
-	 jYgqmO7EIhzCkVa1bQvsTxqCHaNP8x9RHUHfMAIWG+/c1XdBiFqdSLV9jmULProRMwg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="miuS/TF4";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=DSlnmf5Y/dE13YqistFiwJnejRPeyo3JQxaBXnk1KRU=;
+	b=RXm9Pvs4r8/X0CyAs8E4mHlh6i3srS5lpfCYXpH8+dn4jaC8ncrjWqbne7ErYIF35le4
+	 1KhKi6Dte8Yzune8f49LVDS9GR4LH/R9s2SJRA6GK3CdcKSptI4lapB0vU9Fbn0HPpaAM
+	 GPlE19/wmXqzzmTYkDralqX9QwAG+W1pq2bvOsnq7VpmCGxCyVFrzuBB6UPRlQxpHGRQ2
+	 BD8qZvoVT4edHUjrpJ6SSEh6/nqRAw1wp+kMzsbg0Z0d5w5lHn3wKLpXj94fFW+RJnT2s
+	 Vwj8pDRr8ne1nat1oGMSxWFl9ZLjhuh68VZ6AfBSFY01gVdSJjhmxypfCy2/avbIWQQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dO0sjXln;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8412D606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:43:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8412D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F88E606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:44:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F88E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=miuS/TF4
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so688511a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:43:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793393038; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rAQZ9YXGNF1cVLUN//URoCZTZSjfLaXLkhpZC//3JZfxjALK28BP5JcpIDV372clzs
-         a93YDiwEI1oYobEufFGx8Gd1Dx94WY+sWnuV3YHVrxsJVNAGKNC+kandH93SV9wjrcxe
-         HDK0uthIDPNdUfjzzb7lu7ojmymKw4S7G/YErPBwYWTwGdqucG4oRQDWKHTJPX5Sjxll
-         6ma0DW6D2JSV9GA8TS9I04AlNGAe3VYa/KqojaWnsS2a6FrYBJzIxGxqno/uquc/0fpn
-         AYsSF1JFRUzinpINrvSDEPUgUL0BTI5UbCvkVVQyrztB1Y9/cD9LrdcTQNKIDtl/Augu
-         FUZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PGrC9jp81hhttgbK2LxOaZQLL73ahOthq614Lwim9O4=;
-        fh=2NBAwCBDeq15GqON/neAIbKDodgZzkmBuQwpvxvJSdQ=;
-        b=ftO4tBbdJ3TEwgM2+iv6OmO92phakRXjw1rRlzK3CBkkAVNPN0tjoQuN88A9TMxXOV
-         CWS3BMfh6kBv4MK58cPmvQIc8T/obrvdzjMbJdRpwIj1ucHJieFaUNC0KNS+Qb6oyiyb
-         2+MV/3mRSmtq/9USE8FYsDWkYx5u4kUkU29pmV/uRqqH1u+axGBwumUMdYvjIUKtf5xH
-         u9uyJiLK4ZJxjLklxvZCbouybUZWQVVI8R5L755JhvNP6tZ6VwG2NleK3YZgy9F+oC7o
-         G5VSFukY9jI68sxoLYmOZm9SIheRqA+VjTqPJpNBoY0EsCIadigDYI8Gxy9NVNQpIDg5
-         jSNw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dO0sjXln
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-351788121cfso5077138eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:44:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793393038; x=1793997838; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PGrC9jp81hhttgbK2LxOaZQLL73ahOthq614Lwim9O4=;
-        b=miuS/TF44qOoF132QOXvFNWRu1o0E7VzAOnjzAI+uNF60oUMS7MvSTN1o7w1wxVx9+
-         6P0aP+c1QaF1TJe7ipN3fXi8JXZR/eopWEpjmw2DBq0Cqrj9wKbxTsSrt8+jb25v99y2
-         OZKN5s479R2Wg3WZ1s0MV69MMB+FYpbC3LCKHz4hx0CIMr7zey/tiRsT3grDTBHPBu2M
-         kOa4WYIdk2TueeZDNRBhliOVwfVra+tidFTfn4AdrKSds2btiYcX8acnr7a1xOMtLZ8d
-         DAWeMJqsv9Px8tQkxnlBATSrqxOCvRpfldQDMtYscxtFYy+oLpTnqI9+b0rAXeBkag7C
-         m/bQ==
+        d=google.com; s=20260707; t=1793393053; x=1793997853; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:date:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DSlnmf5Y/dE13YqistFiwJnejRPeyo3JQxaBXnk1KRU=;
+        b=dO0sjXlnleCUcLpXi4+J7kx552VHUv3qYnTZRcKFzzAjQ4dRRR2Ba6LuU27hNlQ1JV
+         JlalXKTeXaFSrzThp8x2nmql5ZlmONx2sDiJ0EmI+ifOtl5g/5Svkp5H4Mci3//1MHA1
+         Cr/gYxCNxsmOOvRKGvD7Ktlh40fzNHZAuq4L+T4t1cn6L/q/c1iSYRN0RwTSQ7hIQCrT
+         5DonK0tJrj8qtidPs8Rtddg8VPDn4C6dNpAHhvTI0UIH4D6eed+Qq5fLFTCCf12bg+X3
+         5lP0WR8pcNUn7kEY+y8WMr2VHal9LR/fdqGLIPmknc/QkLhnZNVorwoamROB+qzMP3/0
+         v2Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793393038; x=1793997838;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793393053; x=1793997853;
+        h=content-type:cc:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PGrC9jp81hhttgbK2LxOaZQLL73ahOthq614Lwim9O4=;
-        b=mxtFdEDZqxQuBY/7e05DO5nVdCPpi4BxuDi1QpRC1RODP2Jem5H8Dp7s3V324XQADS
-         /j7cx4abVIkk1st0aeDrWRnixPJLFzoBjp+SwHZZ97TSRdPaEYmtQ0zywNoitDV+eTGC
-         df86NJhRUY3WbRoW6DXxCChxVV9QYrlHiUctK2alZ17Bw7wLeXZcKWM9iC42J8P+dvkX
-         G/qe9O1HYJLJLZZO87WA0QRcZ/9eK4KphLhcpRiMXORZjOgF4+M+ZM4VLq7JuOVhjPZX
-         Sl1wqtNfnGESdDaPg/+pC25XuRpDmPtnrXHyZFFXxaJTk/FVTSiiS87uvc9nUmIjAupQ
-         RaJg==
-X-Forwarded-Encrypted: i=1; AKwUvByxUUY+lgwZ5PwOgGGcO/UlvPMvL75KI4bTnN1gMhIQaepyEegD3xjLuP6EicrBfKn3Lprw5cQmSaXXzME=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAJsvFqn21sDQC4YOLywEPAJ1cciP6vveO/qi0l0CWRDglYEOF
-	bUtSU7JDSR0sHgRGqFvjBbHKZNWNId97K94kG0ySlN7GB+3OXVrKcAYMn+5faCDfQ3GHY2FpFx7
-	juiotQ1qDHLimtxtNIXzrDr0YHfPhLiA=
-X-Gm-Gg: AYBFou0G8aznoJugVvkOx+tNADl+HWiTZpFAuLbKrsDddSvuphEQe1m3iyJtXiQAfqy
-	lZMyAkLCX6fSwgTuFyUGcXG5PH8Jy79SWAX9mUILGXO4cLj8V4GYYyj69r0uFRuC4uPUaQhonSn
-	tNhx3PaaT7wSINhKLYPuW+fUwOUTqlmc4FWw/3M2ocKja6VekkmbBC+wisu7f0QKJzr23oSVO1w
-	nqLKuPJau1oJVWtT9CET4txgsObYUjANvpzfyh4857Gdf/NefL5ZJ/rwqTShDx8J2UV4wzASccg
-	nOyefZ3UYjyU2fsfRucQqATaEvtLQS9T9vMa4s+SU5Prw3NlOz4QYUUC+X4Lauun9+V7z4PuVyE
-	kf8tWtIEyvbbJEKaOPlGnHRJumtThALL+8grZ
-X-Received: by 2002:a17:90b:57cb:b0:3aa:fc22:8aad with SMTP id
- 98e67ed59e1d1-3ae89855ca3mr2919962a91.54.1793393037441; Fri, 30 Oct 2026
- 13:43:57 -0700 (PDT)
+        bh=DSlnmf5Y/dE13YqistFiwJnejRPeyo3JQxaBXnk1KRU=;
+        b=V0PPMZvUWqHmAckewIH073CLrw5Xg6nZCGhv/Om63kTj1glNb+wJRVmWvDZkAlcXP0
+         hF2Oip3G5+3HxxnC2UX5ppIhN3I6FCa0srLaI8tRIOLItLL53qqfeuCmZDvsOWVKE1S5
+         HGt8xDwtcX7Md17XR0Hs5hxVNvBA0ZbV5xMPYuEHlZOo6rFpm5E4mcTWT33Elp4muSx0
+         lYuHD+Oty21yPzISGY/db+NNIun3b7X6wHHFqC6cYkmvTqsdJljAvFJ/bwFINa6Tylmd
+         brVHKngXYAuA3CaDfIJOSpfmP2ni50kObv99ggUI8VzJUs+9mYGwhPYTlXY30CIUK3ty
+         o2Zw==
+X-Forwarded-Encrypted: i=1; AKwUvBxisV9FUNa5OquXVB3wW6t30+3RzenCIulukPad+cChQXBqxfk4uPNXW59x5UElMfCMDLI278ZLZudl3Mk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXyDI5I4SopXTgLeThVHbsa85i7C9AmgeJNqg6Fy+Ku5MSs0XL
+	uzARVAWTuR0hWe5tT0H/cDoXpXKhKAIrZhlWC2LyxAKoHeE6GAkq/8Y0LHV9VXBQjRgaPRdVXOE
+	vR553bnnsy3YqAvWy5h9VVmxBhSI4SA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,66 +71,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030173108.45408-1-unseentactician27062006@gmail.com>
-In-Reply-To: <20261030173108.45408-1-unseentactician27062006@gmail.com>
-From: Jason Gerecke <killertofu@gmail.com>
-Date: Fri, 30 Oct 2026 13:43:44 -0700
-X-Gm-Features: AclHuK8D04ABqzfVwMfLf9BQljlnKexWMTD06uQ9BDkzY6GyDDHNgnMWwWmzIQo
-Message-ID: <CANRwn3SF3Ywm_eLvH0H2J7960Ce0fngh0ToBJPiRnGjk_9ravw@mail.gmail.com>
-Subject: Re: [PATCH] HID: wacom: Prevent NULL dereference in wireless work
-To: Devarjya Purkayastha <unseentactician27062006@gmail.com>
-Cc: linux-input@vger.kernel.org, ping.cheng@wacom.com, jason.gerecke@wacom.com, 
-	jikos@kernel.org, bentiss@kernel.org, linux-kernel@vger.kernel.org, 
-	Indrath <indrathftw@gmail.com>
+X-Received: from dyaz18-n1.prod.google.com ([2002:a05:693c:6392:10b0:36a:15cf:f589])
+ (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:693c:88cb:20b0:343:9eb1:9940 with SMTP id 5a478bee46e88-36a423e8150mr4993140eec.26.1793393052930;
+ Fri, 30 Oct 2026 13:44:12 -0700 (PDT)
+Date: Fri, 30 Oct 2026 20:44:12 GMT
+Message-ID: <18e3697ad6321d35.3137322e32332e3235332e313736.e98e6.0000sendgmr@google.com>
+Subject: [PATCH] dma-buf: system_heap: Reject private mappings in system_heap_mmap()
+From: Chris Wiseman <chriswiseman@google.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>, "T.J. Mercier" <tjmercier@google.com>, 
+	John Stultz <jstultz@google.com>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Brian Starkey <Brian.Starkey@arm.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Philipp Stanner <phasta@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Sashiko responses notwithstanding (which the rest of the function
-would be need to be updated to implement, not *just* this patch):
+When commit 381295758792 ("dma-buf: system_heap: Rework system heap to
+use sgtables instead of pagelists") stopped using heap_helpers.c and
+added a custom system_heap_mmap(), the check rejecting private mappings
+was dropped.
 
-Reviewed-by: Jason Gerecke <jason.gerecke@wacom.com>
+Other exporters and buffer allocators reject private or copy-on-write
+mappings in their mmap handlers: cma_heap_mmap() and mmap_udmabuf()
+check that VM_SHARED or VM_MAYSHARE is set, and drm_gem_shmem_mmap()
+and ttm_bo_mmap_obj() reject vma_is_cow_mapping(vma).
 
-Jason (she/they)
+However, system_heap_mmap() omits this check and calls remap_pfn_range()
+even when userspace requests MAP_PRIVATE with PROT_WRITE. As a result,
+subsequent CPU writes to a MAP_PRIVATE mapping of a system heap buffer
+fault into do_wp_page() -> wp_page_copy(), silently allocating private
+anonymous copy-on-write pages whose writes never reach the underlying
+system heap buffer pages.
+
+Reject non-shared mappings in system_heap_mmap() with -EINVAL to match
+cma_heap_mmap() and mmap_udmabuf().
+
+Fixes: 381295758792 ("dma-buf: system_heap: Rework system heap to use sgtables instead of pagelists")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Wiseman <chriswiseman@google.com>
 ---
-Now instead of four in the eights place /
-you=E2=80=99ve got three, =E2=80=98Cause you added one  /
-(That is to say, eight) to the two,     /
-But you can=E2=80=99t take seven from three,    /
-So you look at the sixty-fours....
+ drivers/dma-buf/heaps/system_heap.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-
-On Fri, Oct 30, 2026 at 10:35=E2=80=AFAM Devarjya Purkayastha
-<unseentactician27062006@gmail.com> wrote:
->
-> wacom_wireless_work() assumes that the active USB configuration has
-> three interfaces and unconditionally accesses interface[1] and
-> interface[2].
->
-> A malformed configuration with fewer interfaces can therefore cause a
-> NULL pointer dereference in the wireless workqueue. Return early unless
-> the configuration has at least three interfaces.
->
-> Reported-by: Indrath <indrathftw@gmail.com>
-> Signed-off-by: Devarjya Purkayastha <unseentactician27062006@gmail.com>
-> ---
->  drivers/hid/wacom_sys.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
-> index 628372ab818a..dcf2811a5c48 100644
-> --- a/drivers/hid/wacom_sys.c
-> +++ b/drivers/hid/wacom_sys.c
-> @@ -2619,7 +2619,7 @@ static void wacom_wireless_work(struct work_struct =
-*work)
->
->         wacom_destroy_battery(wacom);
->
-> -       if (!usbdev)
-> +       if (!usbdev || usbdev->config->desc.bNumInterfaces < 3)
->                 return;
->
->         /* Stylus interface */
-> --
-> 2.53.0
->
->
+diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
+index 1ef1bb3acbf1..f668dc8cb54a 100644
+--- a/drivers/dma-buf/heaps/system_heap.c
++++ b/drivers/dma-buf/heaps/system_heap.c
+@@ -235,6 +235,9 @@ static int system_heap_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma)
+ 	pgprot_t prot;
+ 	int i, ret;
+ 
++	if ((vma->vm_flags & (VM_SHARED | VM_MAYSHARE)) == 0)
++		return -EINVAL;
++
+ 	prot = vma->vm_page_prot;
+ 	if (cc_shared_buffer(buffer))
+ 		prot = pgprot_decrypted(prot);
+-- 
+2.56.0.317.g454f8302e1-goog
