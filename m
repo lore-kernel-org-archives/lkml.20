@@ -1,47 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793349788;
-	b=Raq6i7xeqVvYRlBx2Duhd6FbAs63x5j2/mIs4gwRjGYWu7X7Q5L8kzU0mwXJw+Uyi9MK
-	 UmNoFvgQiQMI5Kv9kziZXjZPDQVj580lwIQl1DGry0PhCW6v/j/+Wr/vS8wVUF7Jbul7o
-	 /KTZ1zGhIKk4TyZkuwn6aDWUHjsn08TaV7EsPVRVkdsxPZjfRQfnfzHTIRqfUOJc7YAcz
-	 9Jk0gHUSc0tjzvZJ8KoYN1oCrlX7Eum74OxRPAJgkxKH45iu2amjDVlwtUPjNTeWyYrKi
-	 97WJqjP7Zln2veyip/Y9xndQltsflvdgob2HL7pnWCFB9JlrYG+cZvxjvYyRN4YVBDw==
+	t=1793349798;
+	b=lbZLjOuvpFnEjAMIeR1R2/++y8BKZdHd61CSDDtsOYCtkqu814SgJaF5K9F/Bm0peLIV
+	 vA/Bs9eLD6yI8vaq4eyeWD+JkgEa+zYlhU+tcpP9InoIzqzjeqrgwCZjJMhK2jWI45VeX
+	 xA1Rx/GM1jdrTrPCk5MqqvGZKbKxGt4exMWhZDdzpMgOt3VN1zpqx2m2miNnW2DW8gjns
+	 PvvAfz+jVrLNiDV50UXClq0KiW8Peo15pMixvIDrJDlTws/WUPW5WgxqqU0ljB6aXZvbN
+	 ib/Ha2cWVKIMSMHmzTqkQ/awHilJCzfvUw5RjNDhKsiYLHVavBlGJW4nt4d6GjJ1iVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793349788;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=mGFgE6nRqGFa9z1MspHoLsZtUrKzktRfJG0pHHmSuUk=;
-	b=nE9WTJfI8VIL6Cnkgfea7uO0Ni4I9cmNeDGkn7ZgvBlTogm6UN+WsC9AwUilVad9LVik
-	 RMM1TLDFhyEWDpOoFU42iEeqR54+JobH1F5kyOTsUlPKPdzrX0u9bcNU84DUOAI5Z/N+B
-	 Vc3m5OxUKax70Mk2cabA9206hTxC5h5WyBK8BAkng4I60i9ZCI3bHjVVu/ZHAGJpurhP2
-	 ID34lr17nRI3R7iWh4wNMMg4AUAEUKLvXdBw2oRtWgx+aQcJIq1e/0/PnyGqaWyWNwvjJ
-	 7r/FV29qFahGeWq/nEArLv46qqko0Z2qi4JJctU2OiQb9MFSVP9hW/iwIrlkOWuZu8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793349798;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=L3BzpO5N3vbUEfc5njd6xjAlReJvCRdmIg/2EyPXr58=;
+	b=hdPpkQLcF8buzpCx/LMv54Y5Dn1VWDJogJVKx0PnKKTIkL3NGQkCCunyAxy7lWIv6BwJ
+	 N6lLPBhQwVvC4VeJEo7gpVem0YW3ZTqAUa1S8kY7ughRVYZRsKxZpvEVRmr1gppj5CGFY
+	 T6ujdFxQE/uvaZPy9ArPDYJ20QYuhB2LlECSXyYz90JntnLT4RrrS6r86JMif9N48Yt9b
+	 /CNrwWevsH/F00l7VG6AfElF3iEGMHKO2ahcg8RHWNibz5O9F0KpMRtLpPFMR1zQin6J0
+	 nKN86Q5lsPsNC52d7MqtJXDKMsGmUDoa6+AzlGbNLHtr3zcqKQ+regO2+ykAFBNP27Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwBI9pTE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79453606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:43:08 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WmhH5hdN;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D1A5606A31A;
+	Fri, 30 Oct 2026 08:43:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D1A5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwBI9pTE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74FD51F000C1;
-	Fri, 30 Oct 2026 08:43:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793349788;
-	bh=mGFgE6nRqGFa9z1MspHoLsZtUrKzktRfJG0pHHmSuUk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RwBI9pTE+HxhMC+6T9Cv92LmRW/knaFrLAeOKsovVARgYaWbbF9myImW62kIQWurM
-	 WQiBZEIhqi8o+PVZzTpW5gO6S26rKhrcZyxJq8eiOiJ9cuDN7rsk4EF/uNOXP8foQK
-	 UeOmY9vFepjPy7b/9a+fntDLYYuV872WWfKfsC0p868J9CMMrDwTQXn1mhUm0jQpZI
-	 CihjthA5lfau5sCi2pl2/J/6puZw2RWGahk40n7Ac1e7uwL1CSA72jKfWICzDPRPbi
-	 yFANqXil246zuw+XEcKuORBs5j5Tjkk2V/SDvZgnglhw+EEJKg0BFvfSaiVKjrsdlz
-	 jkZ3AtMzoHMRA==
-Message-ID: <b9473eb8-55f8-4263-80d5-a7bc0f31697b@kernel.org>
-Date: Fri, 30 Oct 2026 09:43:04 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WmhH5hdN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=WmhH5hdNiSFHaUJ2gxGUXUnUPfbWv8j6bHMGq9D/9LhxEE6c0k5todTu+IVDzGljPUgPKeA9VnVn2
+	 O2HgRiU4TLKhlgbbCfAaHrvu1kq4DUsEhZOThIpltKk9BA4mj9BqByeQq0rb+MaNY7eepp1IMihvEQ
+	 N4hM5W3egITfy5pI=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66ae4589cc54-400c9;
+	Fri, 30 Oct 2026 16:43:08 +0800 (CST)
+X-RM-TRANSID:2ee66ae4589cc54-400c9
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.101])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66ae4589a409-565db;
+	Fri, 30 Oct 2026 16:43:08 +0800 (CST)
+X-RM-TRANSID:2ee66ae4589a409-565db
+From: laixiangwu <laixiangwu@cmss.chinamobile.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	laixiangwu <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH] iio: gyro: mpu3050: Fix runtime PM refcount leak in trigger enable path
+Date: Fri, 30 Oct 2026 16:43:05 +0800
+Message-ID: <20261030084305.1660-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,90 +72,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/9] w1: a bunch of llm-found fixes
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org,
- stable <stable@kernel.org>
-References: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
- <c1845af2-cd2f-41db-9407-ed2d1f073a27@kernel.org>
- <2026103048-unkind-eatery-98dc@gregkh>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <2026103048-unkind-eatery-98dc@gregkh>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 30/10/2026 09:22, Greg Kroah-Hartman wrote:
-> On Fri, Oct 30, 2026 at 09:14:02AM +0100, Krzysztof Kozlowski wrote:
->> On 27/10/2026 17:04, Greg Kroah-Hartman wrote:
->>> Here's a series of some small llm-found fixes that have been sent to me
->>> recently.  Most of them are just minor bugfixes and locking cleanups,
->>> but they are good to have from what I can tell.
->>>
->>> Submitting them here to get a solid Sashiko run.  If they seem sane, and
->>> you want me to take these directly through my char-misc tree I can do
->>> that now, or I can gladly wait for you to resend them if you wish to do
->>> that instead.
->>
->> Problem is that it seems Sashiko skipped them:
->> https://sashiko.dev/#/patchset/20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4%40linuxfoundation.org
->>
->> Status is "Skipped" everywhere.
-> 
-> Shows "Reviewed" everywhere for me for all of them with "no regression".
-> 
-> Are we seeing different outputs?
+mpu3050_drdy_trigger_set_state() calls pm_runtime_get_sync() when
+enabling the data ready trigger, but all five error returns in the
+enable path return directly without the matching
+pm_runtime_put_autosuspend(). The disable path, in contrast, drops
+the reference correctly.
 
-This I see as well, but then I opened individual patch and each one has:
+As a result, a failed trigger enable leaves the runtime PM usage
+counter incremented and the sensor can never runtime suspend. It also
+leaves hw_irq_trigger set to true, claiming the hardware IRQ is in
+use when it is not.
 
- To: None    Cc: None    Status: Skipped
-Tokens used: In: 389k · Cached: 678k · Out: 32k
+Add an error label that drops the runtime PM reference and clears
+hw_irq_trigger, and check the return value of pm_runtime_get_sync()
+like the rest of the driver does.
 
-ok, maybe that's just confusing interface and patch was reviewed.
+Fixes: 3904b28efb2c ("iio: gyro: Add driver for the MPU-3050 gyroscope")
+Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
+---
+ drivers/iio/gyro/mpu3050-core.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-Best regards,
-Krzysztof
+diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-core.c
+index 07c0f9011..9c6d5ba82 100644
+--- a/drivers/iio/gyro/mpu3050-core.c
++++ b/drivers/iio/gyro/mpu3050-core.c
+@@ -988,20 +988,24 @@ static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+ 		return 0;
+ 	} else {
+ 		/* Else we're enabling the trigger from this point */
+-		pm_runtime_get_sync(mpu3050->dev);
++		ret = pm_runtime_get_sync(mpu3050->dev);
++		if (ret < 0) {
++			pm_runtime_put_noidle(mpu3050->dev);
++			return ret;
++		}
+ 		mpu3050->hw_irq_trigger = true;
+ 
+ 		/* Disable all things in the FIFO */
+ 		ret = regmap_write(mpu3050->map, MPU3050_FIFO_EN, 0);
+ 		if (ret)
+-			return ret;
++			goto err_put_pm;
+ 
+ 		/* Reset and enable the FIFO */
+ 		ret = regmap_set_bits(mpu3050->map, MPU3050_USR_CTRL,
+ 				      MPU3050_USR_CTRL_FIFO_EN |
+ 				      MPU3050_USR_CTRL_FIFO_RST);
+ 		if (ret)
+-			return ret;
++			goto err_put_pm;
+ 
+ 		mpu3050->pending_fifo_footer = false;
+ 
+@@ -1013,12 +1017,12 @@ static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+ 				   MPU3050_FIFO_EN_GYRO_ZOUT |
+ 				   MPU3050_FIFO_EN_FOOTER);
+ 		if (ret)
+-			return ret;
++			goto err_put_pm;
+ 
+ 		/* Configure the sample engine */
+ 		ret = mpu3050_start_sampling(mpu3050);
+ 		if (ret)
+-			return ret;
++			goto err_put_pm;
+ 
+ 		/* Clear IRQ flag */
+ 		ret = regmap_read(mpu3050->map, MPU3050_INT_STATUS, &val);
+@@ -1037,10 +1041,16 @@ static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+ 
+ 		ret = regmap_write(mpu3050->map, MPU3050_INT_CFG, val);
+ 		if (ret)
+-			return ret;
++			goto err_put_pm;
+ 	}
+ 
+ 	return 0;
++
++err_put_pm:
++	pm_runtime_put_autosuspend(mpu3050->dev);
++	mpu3050->hw_irq_trigger = false;
++
++	return ret;
+ }
+ 
+ static const struct iio_trigger_ops mpu3050_trigger_ops = {
+-- 
+2.50.1.windows.1
+
+
+
