@@ -1,95 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793381505;
-	b=M0qYaU63+JfBT8LYN9AuocMlSec+liUFppgLjO7UJxV5s2N8SBUOXeuJl/Xjcgdsrhwo
-	 HD0BCogeBH7vJRSBahAvKynmylyHLsMWrxOQEQC08bvWaJNuFxuVwqi9cYXNnykoR+MaK
-	 FkqST5h/bqoqJFEChyiS4A1nU+uCzr95hSjgl01vUKJOzMOu4sFlCKQbCAZlSyP0CQkoD
-	 rP1JYMFVl2j1gnDyG2kKq3OAUkpIvWpyjftlbdSdvwNkQ4wtjVS7vURilE7sVeMkBR1lz
-	 n8MaRFGrc1GWiBaPjrbdNbQobuwqcKYgbND0wGfjvWtQmHAxtN50RCJD0VjO9yLl7oQ==
+	t=1793381506;
+	b=xbO/tGUlAVGQrxGLFDx2+Lqzw3pDkBoAcDSAvPX16DB+GR8wiQu08OWDnEYNfL4s7fNm
+	 2b1SMlPonrd49ItDniYGUwQoDqWHFwUVOpNNOcmnhQP7Y2t1+OhYeMAG0wkQPlST9Gcss
+	 ueYzMq0Tos0NeWk+TumvFulthMAFfEK42H1LeqK/s8jFsbHxLAfnBDR8v1kt3A7RQF8BB
+	 iKdUVjVm++y+mCvwAga9S418K/+2QUsb3ZU/JUibZMZnbJO3O3XSLLdEHGHJ/HYBOjmgK
+	 Q0N5zuN5ymoStFWE+kuhUMJVjeFRhWEeBUOTL+c+RgISzfRPFoJ7SlwZwGxAcD7ILHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793381505;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ubTkJ5xNAMqXDr5I2OlO8eBXHLgCkPpSg0BGTZDzc6c=;
-	b=Xcab5UFRElpUt8US3TX1gD+23ivBEnFbZrbIpmdBcnkYY0FE6E9CqXo6A7cfiKw/xpCk
-	 eqURMKlSkIA5n3RZ9AWwoIk+THDlrcWrkZekb8Y5qw9mLrrkASv239aa/T//teBsqQE72
-	 VG9sRHxjMNlLGCwt80k1HvIVA0FZYEeVy6Zc0gKK2pqF0NPyZTWaTgWyiZceSQ4Oo9F7Y
-	 zpujQ4ECOpeJOWHMlUn5FDGR+GtnXRnX1eeT5WUS+pVN7HcYeU7k7safqP7RYvuG/P5S/
-	 Oyl7D9Hg/OEwDcw/bVPBbUB6BNRu2cANrzKffV/pj3b6ePqCfD6s8hswyV3QIzWtscw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793381506;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
+	bh=SxC22dJakItZlOFIom90QXZcAjPpEWm26FjldTdawNc=;
+	b=BhaSNXAWQCimCBBGa18kMVXQOEMj9qH9vsc75ih8xFh2b0tJIuVxXp9T4rMhk8f7O3r2
+	 FabKVJruhDTwbi4xTzKkSzaO7a2lKvpjxN3G40fmV4sSGDBY3pHk2i8HCVgk/aK7g6LEq
+	 RN1DbNDbuEmdHmJTt/ufx0bqXQ3V1v63Dcf4eBBFTEFoa1AMebLpFoy/9BiPZk9hNG3J6
+	 SW5GefR8XESigxTx6q5wzBl09T4bdBWV4ycm6Ee0mMDizf3qoHMDCdxW40aijjTVLB1jp
+	 9d5nc9b4E0TU+c0Y0EU020tV03ayN7vuU2Oq1SsVGKcUUqiCC77vH0LzMKF5ktL8L+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SPC9cOpq;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=gCCEWjpz;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A54C3606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:31:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A54C3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA4F606A327;
+	Fri, 30 Oct 2026 17:31:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CA4F606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SPC9cOpq
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1931ff67a29so296617c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:31:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793381504; x=1793986304; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ubTkJ5xNAMqXDr5I2OlO8eBXHLgCkPpSg0BGTZDzc6c=;
-        b=SPC9cOpq7Lah9VzIYCwPiKKmaHbVd7dWuCkvAhK7n19QzKJHfJxtPDO03GRncp+Amg
-         l//qlsmSEm39OFAOJal8xPJmJtvBMIGFpdIMXpA9xqecukK0VbtV7GXgIl+LW0iCKiNN
-         mPJWFwzYGelfpLYX6Vb5SwPIy4Fz6rc/gDwzG4TEmVFM0ZwVVBMs/M1vFSQ7xa3nz8nU
-         qDUnY8i0Iz5eTxpzOxIRefJkEc95PiPYQknXcTDdowJPvNSrUyim10/Lur3qHT8OMNjv
-         HWZeFU/zulWZnp+Xn1pp3bLzAvmIKq+pAcwUjM6ss/l/wblMvVZ+zOEdkJZLPQ7PScc2
-         jHng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793381504; x=1793986304;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ubTkJ5xNAMqXDr5I2OlO8eBXHLgCkPpSg0BGTZDzc6c=;
-        b=seVoGyxb3l8sbcBIyl7RrhpDZptKLmTU/MRzpt302Ch/XtWmkCafuYsafM+g5KX3gM
-         BucoMLvb1ZxeoLBhCONe78wdF1gwL42A9egx0kaHJ6oXNz6FDpYUrAaZtSTWtBDDy9+Y
-         VqzlNy9KqLBV77xMQ+F9woUrHUwkGbkAQerv961YxxnuXv6Kc82FJcA9Jik/uqeKSVIm
-         m8BnWlg/dlTMh2j74p9jqsY1Btt92E0SWOQiZxNffKO09tj3RiWeewns1FBvL5DrPQOl
-         wE800WhvtFUh8z+et7dGMk2eyLA6w/ErXMTQ9AgWafFvcTRKf504GWdC0bfqD8bxt8MX
-         ks5w==
-X-Forwarded-Encrypted: i=1; AKwUvBxr+AZAGCae2pPlaHgQnvL2XX8Z2o9ZrPy4woSDxbzGgAQizJl4KOWpIEj10WdokbHvgqvkP9XtiFFzDHE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8qizjOqALu9hKHnRXYEnwBh2XDGb4ngvWdOOeSNkq4mptVmEA
-	Y8ENTb6sddrwzDm+AkWdt7C54y8mS1/l+35fheHZUBf6bbUHAO9vsabmfDneWA6MzVY=
-X-Gm-Gg: AYBFou3pPWByIai6JXH2dUVO/Dt0K1CMUNXR+lSnfcVzXBtbAaL6fRiouFf6Fotzkrq
-	SH4D0P0qWlNxwIa0LijbKDgTF99d0w+LL24d1V/ZE9GsNAvr7tYh1S3B6bOOKbuiwvleE5BQPNJ
-	H/vsLPBQ8xgkO1mV59qX+NlQ4p6VkMltWSCaUs4jTf2hBAdvv+dIy0M7ZKPXKi+BFWScXkop1tf
-	CUeNrwRRrZ5f+iY94OGFTZMiURUJjOwLViYEymjMHof7cOco00JvzkAFM5e0M/Ifdu4RmvZdeMN
-	NxRxiJA7n1u4w8iyamlMVVrZiBaX5ZYUGLoPHMl3o3+BkRoTnujTpgnRpKlJH6Cud09WQ56xnSl
-	oy73gM/xJaZKN2a+LhsZGWqm5VVFxKTH9bMm5Z+YVF+eLaEYiZgig8FLx4TN+UL5PukSsMDHlbo
-	42xxJrOuQknQWiPrs8u1Bcx8L80EVaidgOlQcsY5msfFwp/EtswMU36/uM1qQK8TqzgqY4Cdfj7
-	Tm2wx3lgBvol2ABRM2gmvaBKRORn1CMi/eoDbs5VForT4L1QbhMf56M241RgLOiI22NrniI51qq
-	HBuZjF58tTr8a9bjzQYSNDocq7yMjQTDvWCG0jVmd76/JyFw6bE=
-X-Received: by 2002:a05:701b:428a:20b0:17b:fed6:7449 with SMTP id a92af1059eb24-1ac5da7725fmr4282799c88.47.1793381503588;
-        Fri, 30 Oct 2026 10:31:43 -0700 (PDT)
-Received: from 1ndr4th.debian ([45.112.151.149])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458e07sm7844437c88.8.2026.10.30.10.31.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 10:31:42 -0700 (PDT)
-From: Devarjya Purkayastha <unseentactician27062006@gmail.com>
-To: linux-input@vger.kernel.org
-Cc: ping.cheng@wacom.com,
-	jason.gerecke@wacom.com,
-	jikos@kernel.org,
-	bentiss@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Devarjya Purkayastha <unseentactician27062006@gmail.com>,
-	Indrath <indrathftw@gmail.com>
-Subject: [PATCH] HID: wacom: Prevent NULL dereference in wireless work
-Date: Fri, 30 Oct 2026 23:01:08 +0530
-Message-ID: <20261030173108.45408-1-unseentactician27062006@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=gCCEWjpz
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 1E4031A13E2;
+	Fri, 30 Oct 2026 17:31:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D63B66076B;
+	Fri, 30 Oct 2026 17:31:44 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 29870103290E8;
+	Fri, 30 Oct 2026 18:31:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793381494; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=SxC22dJakItZlOFIom90QXZcAjPpEWm26FjldTdawNc=;
+	b=gCCEWjpzj3MAk9L0qXGCbrQbuovkvVNm5ILqcEvF+ows1WIjxv10dhLiG82NQZgY2uhhD3
+	Zm5yf0pyXWDs8qRHBJ3t5VFqS0o/WywvK10nGbtwVRG8a/lIcyqCgkuT13wPKqdE2X3uAI
+	olNFuGzbsyP1b/PnBIF2fcmTxj20qutPBSeXNQEM0X04sLzQWmNnUOsyRLfIvgKkM0Rfx7
+	3xfUNYvV3XsuNU76p8SRIHZPncmLGk1jxSPnvexghQXRsL+myb0DL5XLkOKMHIwLM4TVsF
+	jyr0eOsmSX4TUN8rmPDnofvOEej1Ko0aDjFCkcyvAPYgwEgwvTDG7kvjHodtRA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,35 +59,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 07/35] drm: rcar-du: use devm_drm_panel_bridge_add()
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Douglas Anderson <dianders@chromium.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>, 
+ Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+ Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Inki Dae <inki.dae@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Alison Wang <alison.wang@nxp.com>, 
+ Paul Kocialkowski <paulk@sys-base.io>, 
+ Yannick Fertre <yannick.fertre@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Igor Reznichenko <igor@reznichenko.net>, Michael Walle <mwalle@kernel.org>, 
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
+ Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+ Purism Kernel Team <kernel@puri.sm>, 
+ Jerry Han <hanxu5@huaqin.corp-partner.google.com>, 
+ Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>, 
+ Michael Trimarchi <michael@amarulasolutions.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Casey Connolly <casey.connolly@linaro.org>, 
+ Michael Tretter <m.tretter@pengutronix.de>, 
+ Cristian Cozzolino <cristian_ci@protonmail.com>, 
+ Junjie Cao <junjie.cao@linux.dev>, Ryan Brue <ryanbrue.dev@gmail.com>, 
+ Nickolay Goppen <setotau@mainlining.org>, 
+ Stefan Mavrodiev <stefan@olimex.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Robert Chiras <robert.chiras@nxp.com>, 
+ Alexander Koskovich <akoskovich@pm.me>, 
+ Markuss Broks <markuss.broks@gmail.com>, 
+ Artur Weber <aweber.kernel@gmail.com>, David Heidelberg <david@ixit.cz>, 
+ Dzmitry Sankouski <dsankouski@gmail.com>, 
+ Yedaya Katsman <yedaya.ka@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
+ linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
+In-Reply-To: <20261026-drm-panel-funcs-v1-7-5e3070a3478f@oss.qualcomm.com>
+References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
+ <20261026-drm-panel-funcs-v1-7-5e3070a3478f@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 18:28:25 +0100
+Message-Id: <179338130516.3009485.9105490657404993117.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-wacom_wireless_work() assumes that the active USB configuration has
-three interfaces and unconditionally accesses interface[1] and
-interface[2].
+On Mon, 26 Oct 2026 13:09:56 +0200, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> The connector type passed to devm_drm_panel_bridge_add_typed() has been
+> ignored since commit b7797081ccfe ("drm/panel: embed a drm_bridge into
+> every drm_panel"), the bridge always has the type of the panel.
 
-A malformed configuration with fewer interfaces can therefore cause a
-NULL pointer dereference in the wireless workqueue. Return early unless
-the configuration has at least three interfaces.
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Reported-by: Indrath <indrathftw@gmail.com>
-Signed-off-by: Devarjya Purkayastha <unseentactician27062006@gmail.com>
----
- drivers/hid/wacom_sys.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
-index 628372ab818a..dcf2811a5c48 100644
---- a/drivers/hid/wacom_sys.c
-+++ b/drivers/hid/wacom_sys.c
-@@ -2619,7 +2619,7 @@ static void wacom_wireless_work(struct work_struct *work)
- 
- 	wacom_destroy_battery(wacom);
- 
--	if (!usbdev)
-+	if (!usbdev || usbdev->config->desc.bNumInterfaces < 3)
- 		return;
- 
- 	/* Stylus interface */
 -- 
-2.53.0
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
