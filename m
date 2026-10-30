@@ -1,69 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793368685;
-	b=ofn8hR7mn1WizWGx3GoGuiKpQ+tdXpYyBhPbvUZPba5zDcW/viiK5O4F8p5iWcWtXm0h
-	 xFlKkXl4pUCENaeq9hYwaTeqr8ESgRVfqH44jZiHjsg25yTZuyd2DcbHC0q9WB2E1xCmJ
-	 eMdMeNl3F+9n58T3EB9Oxc7v2lTBMKgJ/lFUDGNWHUNIGmcFThmkdJIvLdnP09/mhoEwI
-	 O+6hBs9ighdISmlcPez3fsRgBK4AD0z5/Tk/50eISQlu6VzfuSXE+spmqjIN2hGlkq/hi
-	 tYZaeKq81aFe+ebQSPPPCtQL+3xwGyqhScDP1A/sl52HYzuG4rhzH5bZHEEO6mzM1AA==
+	t=1793368747;
+	b=EWeSji1HxIl238w5+Yz9j0tXP09ffOnFQ/0+xO3joQNwdUHTXwfPQ8zJav0zQUoddtk3
+	 3ke1vuSLFgr7LtYg3IHGmuSnJe1RElHdT2PEkWQ1VTdcLKbucoS6pfV2qfNpcE10fBGQo
+	 /PXTirdTZCzGmBh6W5U7uWfvDY7ThoqHusnwwM5g34WzI3sXzmobs2LC1OdBOrzTyW5Qa
+	 xkEGRbo/HzrpBNnREu3Q2CSxfA4GucaSFOeKiVeN02BIci7vqRZd4mCbxNI3YWQlYxHY4
+	 SKaeK7O4VohiIGYdq5PoSouqQ/a8pj4yFfOwtlgmk3fi5Dw4nFWYfI2TqjBaTfWXAww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793368685;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding;
-	bh=kEdtKFjfjrs6u0tdOBxpHnrmoGHrLQkf7eHyg54/lso=;
-	b=SoRIQCAo3GEzAg7xGMmrxBwy0RvbFKOp09DaimcpLVNFNpqQeQbeBO7P5FmznrbdB+Dt
-	 EdQxKnTiBRQse9VaAmtd43bex3qGTbsaQweRa238hhSlNbVuqkOCj+sPXPt6+UafsxZFJ
-	 th5vIzpXaS3ukFHACZk0HWe5uQltspnC07imAmxaYBesoWcjfeTeE7WDWk3fONzMcOyyN
-	 c58oVOTM8+zoApZI9xeirE4KP84tBCPmieM2Tqa2X3+uzylK9RoMdkDGfAo9AofPIVDls
-	 xxd5bfjlpx5dkXN898kj5fdwAX/GU7VMJhWLillWkVBTKYI8oLVxlsOj6dAOr8gVKbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793368747;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=LTlv+L2o+ahLzJI1GsFG74mV78r8zqw3baE9fGpkQVY=;
+	b=BS6nmW/DIOXTMFE90+eVKBRr43Ql5VVr2OAXkgz3Hr5hMzfi6TS0Dmam3FBBh7BI+stu
+	 5qhnhcvt89uA+KnfAUyDJk8v+0bqrVUUU+j+RYiWHByXlOE6kNZBjBLyk31lNXppVA6fH
+	 wJsIQkwzoH4U5xqH3ZpG17ZVolqNvDmeXgWrbvRlK3CHggSRXv6gjJs2ZOpf+62na2j14
+	 o0VMzSV0hBj6LsKbUSJl3mwuc9001RznCE6LNsNFbtLL6aIcfFPwAmEOqVx6FCOFcIkH4
+	 Kqi6FgjMKlrclw1aRYzcFNVFMfwmceCcBm1g//43R4ItNvnKP1cfqU6iOYFybmH9Nyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Noz+TIYd;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=04bz13Hg;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HlDwZ3KO;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FncZsuYW;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24256606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:58:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24256606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A73606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:59:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1A73606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Noz+TIYd;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=04bz13Hg
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793368682;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=kEdtKFjfjrs6u0tdOBxpHnrmoGHrLQkf7eHyg54/lso=;
-	b=Noz+TIYdPcNQAYb9WW8G24HP3zSPmZiN8Gm2cX1updNnOCXZMUlB3wmzYyb97ZQCPxudjr
-	XpBLNJ/w/Va0IXksNMN9tKF6/wVeAsAn/iLfGdyIqhpPtgwGk7VeuOsKlAE9qHLqKU6XLm
-	hkMb9nfFdTzl0lR1jMARU2i247J9wgv4FTNlEPk4jj65nnjr6cFdF8dPxlU/3/sUcbZeWD
-	H9rUFDiBtREgSE+nYp45OweF/GwyfEIsmjjynBzTivvss4HzOGG9K9Uf+u5id8qzO4VYhn
-	DhAqQapThg8+c+dwKKaXOrSYvoBKk/5EfFJZkli/cjaQH0gykkh/xVDa1zpgIQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793368682;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=kEdtKFjfjrs6u0tdOBxpHnrmoGHrLQkf7eHyg54/lso=;
-	b=04bz13Hg2tM9r7CWtofMzExkXSB5Xd+9++0W8qMI8RKuOn+NyqsrPb2agU4Opp9eW5l5gQ
-	IR6ftrisSYALSwBQ==
-To: Petr Mladek <pmladek@suse.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Derek Barbosa <debarbos@redhat.com>,
-	printk@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH printk v2] printk: Avoid multiple unregistration in unregister_console_locked()
-Date: Fri, 30 Oct 2026 15:03:55 +0106
-Message-ID: <20261030135802.663893-1-john.ogness@linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HlDwZ3KO;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FncZsuYW
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UDnh1M4057879
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:59:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	LTlv+L2o+ahLzJI1GsFG74mV78r8zqw3baE9fGpkQVY=; b=HlDwZ3KOkdTPzGNO
+	jok7HtwaaL/VhEXI9VX8+t7EhGByaWgNGAuCqjl+1NxLxFDkuFO8J21qU2p9IrMW
+	8fhX5vy2CjE7hT6y4AJ5VEKcgBNA4RDbOfBB9jblPgbxke38E1l+PQUMNKMASf1w
+	Fl42YIk72iNoDVOGX96ktdJYeE5EN2dGgDQNkYNzenOeFq/fQ6SBW5kkNJsI1Wuv
+	DibsI6lI4aL7QYdIeKqrYEIxVF8KVBnz+JpR0n0nBlUfIXBs5WdNTVWr7T7XkS3Q
+	UFFLOAkmVnPPLR4/ruKUX6OPqfC+aANWOGUI9vh32PZ1rqDPX8bHIwlOoOZFibk1
+	r2LUhA==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6quan8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:59:05 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a05c820ecbso975290b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:59:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793368744; x=1793973544; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LTlv+L2o+ahLzJI1GsFG74mV78r8zqw3baE9fGpkQVY=;
+        b=FncZsuYWmaEcChOpkMxfqC88o8kfaTx+Eng5k/s/DvDJJWPOkBLO+1J5Z7HnnV5yDH
+         Rz0dkZZN1uzmeEbVaP5cbyLwYrcQrOT3obqxpk8xYjWbkXR72bhs1ML2S6Oj9ImWl3By
+         V/JpChRYPTOjWGgDu4noF05akraS4YoaawZcWFwzCpMrcdBORw19vWoCkQBc9WqjAqRE
+         iXQw2Mdzt6U2EE3EGt1pRbtq9tmZmhFW3Rx86ccWgPldlBn4bn+4JmlCm4JhhiAbs6ft
+         K7HUN/tgMztzB6CxCUPDBFW3I583NwEBcX5k2WktHixu17KsSNJrni6J2/Ctzt3HfkSD
+         O62w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793368744; x=1793973544;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LTlv+L2o+ahLzJI1GsFG74mV78r8zqw3baE9fGpkQVY=;
+        b=RNCn+W95tLCKeWdfjx+VPYWsy6mff7gRdy9l1FhYMujWOMcq8tXoVL19tTdvF1FhPn
+         zlCwVApawI65GQgRPPc7ATe6FMLtpfCH+9YSSXAri13Vwo/1u9MvEBuLtS9fBsJoRTqu
+         wj6Z1CwJZq9uB7BJJbcSo6kPc9XMysTGCxAHvfyjD/O2Y3V4LLehDRV1l+NI8M5sDwHX
+         7M6EJDc1Z7KhgHAhjyLHP0P3VuKuTzuNBX5w18UpK4yalkC9OWfAoVSygR8rluH3861w
+         zE+MtEZCfcXcVq26q9DU05hOOmBKgk8Ync7le5Xqs3ns4mwFvhxDQCcG8JzjHDRoyEmq
+         O9Ig==
+X-Forwarded-Encrypted: i=1; AKwUvBzQz2xXVeD4eSfs1imwfmAg/Ugc/zpMxN5BrG1Lq1RCosazTPFX4Rbv2yasEKzEemqLGshdn4fB+2f2FMU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7SM7VFneyYgrHhJdQhRlibSZUOGz+QJSt2Ds2+AqV+b5W1qqX
+	6nHqa3/lIxNk9F2qak0B9csW8rVPcnlKSZMdVSJHHefKtxlq76iScF4C2rKugsJNPh5vnbNZ6q8
+	Btqv3bpeCmgKSLn59e/PjvqlzxHytqQq2eMtLk4fkX5MaFqjh+mQMGH35ADKknoKWAnQ=
+X-Gm-Gg: AYBFou1Eex5tr8gLcqzLbLTe4HeCg7kFem2Cr+x0kpfzRXy8unxjjk7XO1PM00vgEwZ
+	ZY3OVdnbjsFS6x71UcipUPwo0qEZq1fVZZZTPehfOWL7FuHsjjx3w1OIP7Ii9CBtEjVOTu/IdPK
+	DL8VA4fXUGc3/G9RUqraP8Pn/Vli7TEhXMdxu0iPkYqtd7Nvui5WWkgu+h8feWZl93FBqUsP+XK
+	UXn54MNgY7LhIH1AVEhM1NMx/IHkwLD8pSh00EC1lYdALVC2f/Wm8GMlTd3BfbiTrQ+6ZDckJZs
+	fMfP2avG6VtDc85WmNX1mfaQ7SWtLfVsPl+qVQBY5/sMnWk0vMShXYI/zj2/DpPIOMp5EqgqTAt
+	IxST21DRC/yDKvIO6z4GFLjd0xpd/9KEPMdsrDH04DzHLgptj4aau8rJz775WY6ic8XVCscCz/c
+	aT6r0=
+X-Received: by 2002:a05:6a00:1783:b0:89e:37b1:b81e with SMTP id d2e1a72fcca58-8a9bea5c399mr2307943b3a.31.1793368744417;
+        Fri, 30 Oct 2026 06:59:04 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1783:b0:89e:37b1:b81e with SMTP id d2e1a72fcca58-8a9bea5c399mr2307921b3a.31.1793368743970;
+        Fri, 30 Oct 2026 06:59:03 -0700 (PDT)
+Received: from [10.218.50.86] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad7801a53sm12882b3a.2.2026.10.30.06.59.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 06:59:03 -0700 (PDT)
+Message-ID: <53640a9c-395f-4faf-bbac-20c47013cec4@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 19:28:57 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,115 +116,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: spi: qcom,spi-geni-qcom: Document QSPI
+ support
+To: Krzysztof Kozlowski <krzk@kernel.org>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261030-qspi_dt_binding-v1-1-5249111cf870@oss.qualcomm.com>
+ <f71369ca-5963-41c7-9103-dd39a7369e38@kernel.org>
+Content-Language: en-US
+From: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+In-Reply-To: <f71369ca-5963-41c7-9103-dd39a7369e38@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: AtaJH9EJGZc3sV1V2rcj7rGYBeMoa7Ij
+X-Proofpoint-ORIG-GUID: AtaJH9EJGZc3sV1V2rcj7rGYBeMoa7Ij
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1NCBTYWx0ZWRfX+q4H8efAYb3Y
+ uTPWzs+8s+DgnJTtjxs/8MxoPnC7nDUivEj/ZM33yYr5N7/yIppyaeZvNbi5eALBxTQlwj4BiV5
+ pBS9oEijSkfIzmb+cQQAxaKGwN79VwJkH0DwHWr68pxkIj/oVty7du06tVrhZthqgA+vAtqPubM
+ iFp1YY5IVyviGvZ80R/7lqSzThbDCCfa16k21c2Wxg04oS1HQvECTQtGKc3cWdE+IjfnNpHha7D
+ EdJqH9IGi391GZMX1HjiwO9al5vWe3KkNCUJ/G8plgRKbIfdqJ9vh9Gbj5/QhukBUeSElREDUYF
+ Zf6JgDNJGDcFjiOzqUykZMvOU4nD039v98jZEGvq7/vLRX11SyU38PK8PDVIoSMciL8DfwaHun/
+ jKroB+HzKyuzwIJ7lcjW8ramyr1zEHEHhq7e0Sr9BukUdlOP19TJGJSBnQFaLiFUS19VF0Henaj
+ NxsSsDmQ9k6lUHG49+w==
+X-Authority-Analysis: v=2.4 cv=dPgzC+Zb c=1 sm=1 tr=0 ts=6ae4a2a9 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=O4LJdId_ek-TerMgtbYA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1NCBTYWx0ZWRfX09ryAZ7qrh1q
+ jtTPLthm4FdLagTtAG24A3mhIhXM7EjPmJ5ugWilTI9YVyED4LBXAUdIPqj50dpo44lvD5syeO4
+ G4fgm80eb4Oo5sfgOQhmAmlwTihuaSY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 spamscore=0 malwarescore=0 clxscore=1015
+ priorityscore=1501 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300054
 
-unregister_console_locked() is called from within
-hlist_for_each_entry_safe(console_list) loops. This would be safe if
-unregister_console_locked() only unregistered the specified console. After
-all, that is what the _safe variant is for.
 
-However, unregister_console_locked() calls printk_kthreads_check_locked(),
-which can unregister _multiple_ consoles if kthreads fail to start. This
-could lead to hlist_for_each_entry_safe() use-after-free scenarios because
-not only was the list entry removed, but possibly the following entry as
-well (the @n temporary storage of the next entry).
 
-Move the call to printk_kthreads_check_locked() outside of
-unregister_console_locked(). Add comments to both functions to clarify
-if they are safe to be used in hlist_for_each_entry_safe(console_list)
-loops.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/lkml/87ik31iz4x.fsf@jogness.linutronix.de
-Fixes: 76f258bf3f2a ("printk: nbcon: Introduce printer kthreads")
-Signed-off-by: John Ogness <john.ogness@linutronix.de>
----
-v1: https://lore.kernel.org/lkml/20261029152454.638952-1-john.ogness@linutronix.de
-
-changes since v1:
-
-- In printk_late_init(), move printk_kthreads_check_locked() outside of
-  the hlist_for_each_entry_safe(console_list) loop.
-
- kernel/printk/printk.c | 34 ++++++++++++++++++++++++++++++----
- 1 file changed, 30 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 9a205f94bfac7..5dbcf8a9909bb 100644
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -3792,6 +3792,13 @@ static struct syscore printk_syscore = {
-  * If appropriate, start nbcon kthreads and set @printk_kthreads_running.
-  * If any kthreads fail to start, those consoles are unregistered.
-  *
-+ * Called after consoles are registered or unregistered.
-+ *
-+ * This MUST NOT be called within an hlist_for_each_entry_safe(console_list)
-+ * loop because it can unregister multiple consoles if any kthreads fail to
-+ * start. That would lead to use-after-free scenarios within the
-+ * hlist_for_each_entry_safe(console_list) loop of the caller.
-+ *
-  * Must be called under console_list_lock().
-  */
- static void printk_kthreads_check_locked(void)
-@@ -4230,7 +4237,20 @@ void register_console(struct console *newcon)
- }
- EXPORT_SYMBOL(register_console);
- 
--/* Must be called under console_list_lock(). */
-+/*
-+ * Unregister the specified console.
-+ *
-+ * This can be called safely from within an
-+ * hlist_for_each_entry_safe(console_list) loop because it unregisters
-+ * _only_ the specified console.
-+ *
-+ * Afterwards the caller should call printk_kthreads_check_locked() since
-+ * unregistering a console may require printer threads to start/stop. Note
-+ * that printk_kthreads_check_locked() cannot be called safely from within
-+ * an hlist_for_each_entry_safe(console_list) loop.
-+ *
-+ * Must be called under console_list_lock().
-+ */
- static int unregister_console_locked(struct console *console)
- {
- 	bool use_device_lock = (console->flags & CON_NBCON) && console->write_atomic;
-@@ -4322,9 +4342,6 @@ static int unregister_console_locked(struct console *console)
- 	if (console->exit)
- 		res = console->exit(console);
- 
--	/* Changed console list, may require printer threads to start/stop. */
--	printk_kthreads_check_locked();
--
- 	return res;
- }
- 
-@@ -4333,7 +4350,12 @@ int unregister_console(struct console *console)
- 	int res;
- 
- 	console_list_lock();
-+
- 	res = unregister_console_locked(console);
-+
-+	/* Changed console list, may require printer threads to start/stop. */
-+	printk_kthreads_check_locked();
-+
- 	console_list_unlock();
- 	return res;
- }
-@@ -4472,6 +4494,10 @@ static int __init printk_late_init(void)
- 
- 		unregister_console_locked(con);
- 	}
-+
-+	/* Changed console list, may require printer threads to start/stop. */
-+	printk_kthreads_check_locked();
-+
- 	console_list_unlock();
- 
- 	ret = cpuhp_setup_state_nocalls(CPUHP_PRINTK_DEAD, "printk:dead", NULL,
-
-base-commit: 647ef123d19695b5d8c79e03c86fb17c558e30b7
--- 
-2.47.3
+On 10/30/2026 7:06 PM, Krzysztof Kozlowski wrote:
+> On 30/10/2026 14:30, Jyothi Kumar Seerapu wrote:
+>> Add the "qcom,geni-qspi" compatible to identify GENI Serial Engine
+>> instances configured for QSPI operation.
+>>
+>> The compatible also allows the driver to select the appropriate protocol
+>> firmware when the Serial Engine is unconfigured (GENI_SE_INVALID_PROTO),
+>> distinguishing between SPI and QSPI firmware.
+>>
+>> Signed-off-by: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+> 
+> Where is any user of this? You speak about driver, but there is no driver.
+> 
+Thanks for the review. This patch only adds the QSPI binding change. The 
+corresponding driver changes to add QSPI support will be submitted in an 
+upcoming separate patch.
+  > Best regards,
+> Krzysztof
 
