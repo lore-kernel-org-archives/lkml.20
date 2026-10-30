@@ -1,49 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.180.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793349572;
-	b=ayVQVZFoHMbrM8lNMJ7FL/Gf79mmlWXhM/a598l1C1buKwjVRIP5xLn/RzWgusQhPWiJ
-	 jBsQAWHL0K7+yhEgdxZgYYjcfl24sydOmw+c/zDKxQu+IytUr6jGIMs99s7D0Px6K+ypt
-	 WW82JJar7UI1am4MLvR7ZMBNxLw3O9HynV7Ud0FZuYVm20wQoRi6/KwCaepkdkMyAJGt8
-	 cm8UGhW3hLdQpBkwXgXKg5Yt6PuIMd0IG+XEJ3VwGfPjfG7OLWyIhtiWiIM/ZtGYgG6gO
-	 v/h1l8zeu2u/OkQF1zILJsuqYgm/NPlUtbo1tEVA0bnjpIzYCGbOyxxkF3M5V/KB+DA==
+	t=1793349629;
+	b=pxo9qE2sOVjDgg5AFxs8ZGxWQPS2SKD/dY2rGjug0IEMh5c7HhjKeIvV6G/k2WYe0VsT
+	 ykcCUwDzEWRm5FvSsqGL4hEdbBOcc3uNjB5KEdIrkv6JW6Acn2ZsJugfQmk+Zepkj4uH4
+	 xmdTh0UjXH0Zt9//GWBZJHnbQXaRuW1H7oLqQ3xRaXZCLZNXOZjmYvxYD3rCVfsNAgdD0
+	 /mLw+RKw1Sj5HonfU9l8e5EVi4pDx9dQE5eYpvxqmDg0n99/4sGMYbfwnNL45eQP6u8UQ
+	 23vj7RJQAO/o3IzPOGkES6F19hv6B1hqqYae0vH/1VQHTynZKWJh3jiHQLr/ts89Yyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793349572;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=iMvcjmVS7mcW+03h1rtRZeUeBjNjMtZ8NB9r8UDlmI8=;
-	b=GI7p4RHpPK+p74JdQZ2lq1UJlTkGTLaltQX3Puuj52QlItxoKM9iNkBUd4IArVpk+Zn5
-	 w8r3En0iCtdSDbRfztQ8ycEdLqnTTywhhLEhx7Wqi7hq4e6g0pYOwB+RMgWGIDA/znHXR
-	 HWVkvk9R1qV/c149h6cO6Yxz+IyWmrg7IroEoTnIyKuN1eAnAlIZvmrxic7SCwBZDQAur
-	 l3F5fTI2VX4ZVfU7J6TN4kxv+OHxgLiHjXcT08eCwcP5eZCh6pEAOfMrkH4x/3lgvWEqu
-	 gf7e8mSlNpeuQmHmcMjc0LEsw55O1ZlIFodNN3Wo9GQR3gYm4G3d76LsB9xkQscrRaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793349629;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
+	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-Originating-IP:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID;
+	bh=8oS54XVS99i+9N1HcwjATWp2jSqRRknqP/3EMXP6MwY=;
+	b=DEScfJcRLbfc0zYul93vT//rYKonYzoGNMPkN1nckYZ2AlJs9wPnCwSF8paw9b2qUmo4
+	 nmWqQlKzigaShENw2/XvD+00l7Dd5437fsPeTMmK/q5DyTscmzzz/KRT+RRXIu/aXm+XF
+	 b4yiJ1i248bEZ6qVTdqfKSas1yMQVjW0S27IPr7E1f7+uOZqxghzBlS0PNyq768P/1f6l
+	 GzNDlRrOg/le95AS4J1o+45UnzkKpi+thzUhaww5Cy5rQqKDSaR2AB73sa0/1RZg3NLIM
+	 u8fA9qzOGcHSwahE3HBPB7Y1fcahygdv7Zyf7GoYQ5McDsNuNPfnHlC5GwZLi8bsVQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=L5rlVAxX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=imgtec.com;
+	spf=pass smtp.mailfrom=imgtec.com;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=YVrbptK7;
+	arc=none smtp.remote-ip=185.132.180.163
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED50606A31D;
-	Fri, 30 Oct 2026 08:39:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657CD606A32F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:40:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 657CD606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=L5rlVAxX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20C031F000C1;
-	Fri, 30 Oct 2026 08:39:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793349571;
-	bh=iMvcjmVS7mcW+03h1rtRZeUeBjNjMtZ8NB9r8UDlmI8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L5rlVAxXIAL1DQCsFn4s7ChQa9iIQ6VNkvoSwK09Ly/bMxMAH72rV3SN71yTOTUFv
-	 pvmZ9DX9TEmaIETPLRoniLHtaYsFEo+TgM5zCOXsAb6eJqO5wCffUN4+KW+JO4kRvT
-	 /l1Y7Ix3bfhE0fw7MeZsze205g1sd9xcz4u57XUo=
-Date: Fri, 30 Oct 2026 09:39:29 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: bo cao <treebacker@foxmail.com>
-Cc: srini@kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] misc: fastrpc: pin invoke context at glink response
- lookup
-Message-ID: <2026103041-handrail-civic-a9fa@gregkh>
-References: <tencent_18454D1845AB2A759EA9AB3ABE52E67AE205@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=YVrbptK7
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8G6Q7557406;
+	Fri, 30 Oct 2026 08:39:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=8
+	oS54XVS99i+9N1HcwjATWp2jSqRRknqP/3EMXP6MwY=; b=YVrbptK7nofPMOzp/
+	/lyID7ilR6HLomQwPxrj1ILh1AHo0DHZYiSryyClG1JTZ6LOY6r23KqWnyDma5It
+	TBKiyS8v8gjYt6PE52YnTssdGs//f2d4/qz2R8LKY8y/C7wmG60LeWeBgPIWyfFz
+	YP40Os4Dm7Kj63506Q3m42iWHGJaCCDua4uv6fMpA8zikc6GldMq8Lx8C/NTdUBb
+	vy5zxYFxFycc8nExe42B28lQ9KXnmo5zJKYjQaQaDWrAnYQGX2GDVa1E2BBjO28T
+	8Fz0YUvPPdJQQb5zi3eNBPRvSR93CMPOcrrPAp0IRxk1nsgTvxgowkcOzLIbRr3U
+	NcYxw==
+Received: from hhmail02.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hmcee0ctp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 30 Oct 2026 08:39:49 +0000 (GMT)
+Received: from NP-A-BELLE.kl.imgtec.org (172.25.2.42) by
+ HHMAIL02.hh.imgtec.org (10.100.10.20) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 30 Oct 2026 08:39:48 +0000
+From: Alessio Belle <alessio.belle@imgtec.com>
+To: Frank Binns <frank.binns@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Donald Robson <donald.robson@imgtec.com>,
+        Sarah Walker <sarah.walker@imgtec.com>,
+        Alessio Belle
+	<Alessio.Belle@imgtec.com>,
+        Matt Coster <opensource@mtcoster.net>,
+        "Michal
+ Wilczynski" <m.wilczynski@samsung.com>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+        "kernel
+ test robot" <lkp@intel.com>,
+        Luigi Santivetti <luigi.santivetti@imgtec.com>
+In-Reply-To: <20261029-fix_imagination-v4-1-689745dd52ef@samsung.com>
+References: <20261029-fix_imagination-v4-1-689745dd52ef@samsung.com>
+Subject: Re: [PATCH v4] drm/imagination: Align rogue_fwif_hwrtdata to 64
+ bytes
+Message-ID: <179334958843.48356.5098117179149056889.b4-ty@b4>
+Date: Fri, 30 Oct 2026 08:39:48 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,52 +89,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_18454D1845AB2A759EA9AB3ABE52E67AE205@qq.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAzNCBTYWx0ZWRfX+sQBUcRN180i
+ WGXSIWhLPcXzCtkMqgXUTOViE1C8nDvF3412kI/cFMlcwxRzT6sg1csb2pCg8OrlSnzJXDcZH2o
+ 9QItOistGvI6QOVD499clYe/sNFvEaKX85IH332XYvhUwqTlzTmNzZUMcwyYJi4Htzj0loSPXVp
+ JSbAQui6BxNHXr6C9YJub3kmDe2mAhS06DwBZu8KopLyJiVp+hh7KA85u+XL5Qhmn3t0gQVHPyo
+ T4RUbgJ3WrvjgVCtDh+Bwsg5LGtgzGnmh4Qs2Pr/tTfVN1TRzDtcdXCmKbBw47d0Ptp6kklG9lp
+ psb8jV82doTX5K/y3MZzBTsYqRfk0efeiap9bZBBu32EK9aG+rtJngadaIuenggL29hP83odxvf
+ TOdAbxv5RuuzRGTaozhKCe/UcIh2qLWBgTTT6RKhOND8VRQDlErkj/R/lcbHrEfeORIWVSIgcS7
+ M8zbX6GGJ4RDuYIWW6Q==
+X-Authority-Analysis: v=2.4 cv=a9alZkSF c=1 sm=1 tr=0 ts=6ae457d5 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=_X9-3wFeGQYA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=PDPf7ECf0n-Q5fV5cTcA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: yiOVoJUd0F9FSO0JkehLh3JOK_kgIG9j
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAzNCBTYWx0ZWRfXyO6iGIsswSZN
+ 7EWmENouHqD6CzP5AsBInVLL/+FkuMq/DY9Ymy20q2HTH2JkECHJW2ktJ9YCY5uiwbALorDMlx1
+ mZXddH2JKxkpmuO6nitOaiMZntEFjlY=
+X-Proofpoint-GUID: yiOVoJUd0F9FSO0JkehLh3JOK_kgIG9j
 
-On Fri, Oct 30, 2026 at 04:19:55PM +0800, bo cao wrote:
-> fastrpc_rpmsg_callback() looks up the invoke context under cctx->lock
-> but then uses it after dropping the lock, including the ctxid read in
-> the sequence validation itself, ctx->retval, complete() and
-> schedule_work().
+On Thu, 29 Oct 2026 09:17:18 +0100, Michal Wilczynski wrote:
+> Sparse (W=1) builds fail because `SIZE_CHECK(struct rogue_fwif_hwrtdata,
+> 384)` expects 384 bytes, but the compiler generates a 336-byte
+> structure.
 > 
-> The final kref_put() happens outside the lock (in the invoking
-> thread's bail path or in the put_work worker) and
-> fastrpc_context_free() removes the context from ctx_idr only after
-> releasing its maps and DMA buffer, so a context found in the IDR may
-> already have a zero refcount with free in progress:
+> This is due to an alignment conflict: the inner member `cleanup_state`
+> requires 64-byte alignment, but the outer struct is explicitly marked
+> `__aligned(8)`.
 > 
->     callback                          freeing thread
->     --------                          --------------
->     lock; idr_find() -> ctx; unlock
->                                       (refcount already 0; free is
->                                        releasing maps and buf)
->                                       lock; idr_remove(); unlock
->                                       kfree(ctx)
->     read ctx->ctxid for the seq
->     check -- use after free
-> 
-> Take a reference on the context inside the same critical section as
-> the idr_find() lookup and run the sequence validation there too;
-> drop the reference after scheduling the worker (or when the response
-> is dropped).  kref_get_unless_zero() is required because the IDR may
-> still hold a context whose refcount has already reached zero while
-> fastrpc_context_free() is running.
-> 
-> Fixes: c68cfb718c8f ("misc: fastrpc: Add support for context Invoke method")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: bo cao <treebacker@foxmail.com>
-> ---
->  drivers/misc/fastrpc.c | 24 ++++++++++++++++--------
->  1 file changed, 16 insertions(+), 8 deletions(-)
+> [...]
 
-These two messages are not "threaded" properly, sent as 2 separate
-emails.  Is that intentional?  It breaks our tooling :(
+Applied to drm-misc-fixes, thanks!
 
-Please use something like 'git send-email' or 'b4' for sending patches
-out, that's what those tools were written for.
+[1/1] drm/imagination: Align rogue_fwif_hwrtdata to 64 bytes
+      commit: 6c6200ffebf9766fd5d9293002298ea371c261c1
 
-thanks,
+Best regards,
+-- 
+Alessio Belle <alessio.belle@imgtec.com>
 
-greg k-h
