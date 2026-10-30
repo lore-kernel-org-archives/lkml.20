@@ -1,47 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793365094;
-	b=4g0BCUl67Sz5RoqhY9S1xtegij4vK+ojom2TAns8MGFLna/uwmV6BEN3jWupbPqsgUFE
-	 6lLuvXrBMsSHQfMiF8wP2ZGrezIh2hFve++B/Yc7mr9mMjUx4I+qDKlymimVNV/BCJuxy
-	 voa7MFQabCf0z+cz/neWgz1w3QgYgcomL/hho+zpiGrsj8veiepY+VaY9MVDetiXWn/Xu
-	 2iDj7zyh5PcO9Rpo2ngH4VlXDAef3uFSUlJ2+aQGZad0UGnHPSxrcrt0fEaychJzM9SmF
-	 LOY3biiPKNi4NCAM/+5QTry4CWtFbVyjyeYwFsADEh29rqib79bIvRCsy8MG74rG4cA==
+	t=1793365100;
+	b=VDTVQx3s6ZHKisJjvqtiWSYa34IAkBXPowf2TcmlzA1cMI4xfhPdTFrPUp6wW3TDqRsR
+	 mOahNpu3wrj+k9iEdgSYoNMFfWny+T7ozIHYaGziwnLbiOL0shRKYgypURUevtUMMZdN2
+	 cqz0Y8D43VqpaXj1ErnYCSfq8xiRDQoIXi0AZb2hKQSC8cfb23xuqQZ9r/mfuYvWiIfJj
+	 mNjMu5KO1ij1kG4Ev/ciEWo8zZOk8GHwns3X0IFyLN5HU077s3dZuRkVDOCadLn7sltwN
+	 ZzeQ+ncGEIJKeeHxU2DUD/Onn1bh1/fNNnuE28Y+d3iYDAK/lfQx5ZBF/v0PJUDdTWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793365094;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PmnqftHJnun8Cz4B15SsJX0+Edfef/U4Sq7UOqC3dwQ=;
-	b=5tfbCZ+l8GwSQ5bZAMz5BRTYk/k0PJ/h2cbCHQYXqnxI4x33JqjeWT7IYhggusG0i2NQ
-	 d0rBnv221FDtMFJSSBXUnMIl+35P7cOOrrnIBJiv2ZVORdQ/oNU4Zdcb9r97GWqZ2JVNY
-	 5vB6w+oLsRkno2DFZF9RHmFpqAEXGcbZhqXnJ1B+BZmqWrII63w6m39oS6GokrBOCow/H
-	 brWpnZ5ElowZQp5QowWYQ9myHVUkctgQXRnDuci4cIoUtXPC5qWe46tzR/ftmdTgRbiPC
-	 DhXR626fnUl/ywNmeLSES6QP9doB0WHEAVw4bFaP+T/2q3uvVhUEynAuVf6T3s96OLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793365100;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=eukGeU9lyVHWvn6sPiq1fKfuFnjHqVrv7SCzRTZJATg=;
+	b=O//XNkwnEfCmSrglmc+tTtCzxX00PnhDqzRCk41zCsFWGOqL9TgXYmzVdl8Zq3TiwKh/
+	 uH7xondf5pQQ75eemU/BIAIZE1L0cWc8tq+fBPn/Hkna+ea+GQsJvQpxo4OwcbPp/buxx
+	 otrPz7wTOqm3L7MtRz5BAgBigfmwz51EI0NcwUJ+bD987HjtzLDphPF1C5fYZx+C82H5z
+	 BL5qY5WT2mFE+O7KRFTcqJObNN/p4NCmCB/aGZGMNiVZ4R9I/6qo2y34kpeAKUP3OT5AE
+	 6e7aFxYscc9Ly9L7pLjXss5MRpG/y/PJ5KDep7bBMZgWAplDA2dkrL0SZtA3qr0dqKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BDJo+bM3;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="bWCXpf/X";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46606606A32C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:58:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F92606A325;
+	Fri, 30 Oct 2026 12:58:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BDJo+bM3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 158F41F00A02;
-	Fri, 30 Oct 2026 12:58:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793365094;
-	bh=PmnqftHJnun8Cz4B15SsJX0+Edfef/U4Sq7UOqC3dwQ=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=BDJo+bM3jTsLk5K9r5T9WGXEpulE91QnNSc9EdQuG59Me5HCBKc2kGNAaEvCnrFz1
-	 KBvuxV7rmZ93MA2X1SokFu9HBu2q+V7lFNL5SOeEgw3nvYYcmeXu/o6LI5YlC5sTSt
-	 /+Li8kGxYgxJz9Y04bZYHz4Osy5Jd+/zlXXkeRWpGyQ5/mCSSIIijz7Gu/v8wGTvrK
-	 qY7b11e7kda6S1CUKK3NY8o/rWXPO6rWhCgjY4/WXiyNveO3Lb76gaKzt63P8bDONN
-	 F6pfypJpgjCcmP7hVLLUvFZCIp3sxacvvps/pcfwpnervsLf8lMUgAAcSpSC9EarUP
-	 4Gdn49RHE30Fg==
-Message-ID: <6fd5d995-776b-4e25-9ea4-e3cc018efda0@kernel.org>
-Date: Fri, 30 Oct 2026 20:58:11 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bWCXpf/X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0A81F0093A;
+	Fri, 30 Oct 2026 12:58:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793365100;
+	bh=eukGeU9lyVHWvn6sPiq1fKfuFnjHqVrv7SCzRTZJATg=;
+	h=From:To:Cc:Subject:Date;
+	b=bWCXpf/XraXSvOtQDPUcB52qxGVGVopumnCmR+Gtd3NxVnsx06FlSA31TnEtdCazo
+	 8c7QlngE7k4yvO9P5YfG3gDyZohNwVDfnx94owHrhGYXgCpcc3Gya8/HNVCBunkp9P
+	 WzS1XkqyB9lSXAAgNcghJ60lBiVvOP4dlAj4uZNw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	torvalds@linux-foundation.org,
+	stable@vger.kernel.org
+Cc: lwn@lwn.net,
+	jslaby@suse.cz,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Linux 6.18.60
+Date: Fri, 30 Oct 2026 13:58:03 +0100
+Message-ID: <2026103003-clause-bagpipe-08a2@gregkh>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,277 +57,285 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>
-Subject: Re: [PATCH v2] f2fs: reserve space to be shrunk during resize_fs
-To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
-References: <20261022165526.1539629-1-daeho43@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261022165526.1539629-1-daeho43@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Daeho, sorry for the delay.
+I'm announcing the release of the 6.18.60 kernel.
 
-On 10/23/26 00:55, Daeho Jeong wrote:
-> From: Daeho Jeong <daehojeong@google.com>
-> 
-> f2fs_resize_fs() drops gc_lock and the cp lock between the free space
-> check and freeze_super(). In that window, others can allocate the free
-> space, so the second check after freeze_super() fails with -ENOSPC.
-> This is easy to hit on a busy filesystem, e.g. at OTA install time.
-> 
-> Reserve the space to be shrunk via resize_reserved_blocks once the
-> first check passes, and deduct it in __get_available_block_count() like
-> alias_reserved_blocks. Release it on success or on error.
-> 
-> With the reservation, the second check should not fail anymore, so:
-> - allow root reserved blocks, which root may use in the meantime,
-> - recheck DISABLE_CHECKPOINT, which remount may set in the meantime,
->    since freeze_super() fails only when the fs is still dirty,
-> - keep the check only as a WARN_ON_ONCE() safety net.
-> 
-> Also exclude the alias/resize reservations when updating
-> current_reserved_blocks via sysfs, otherwise it can underflow
-> __get_available_block_count().
-> 
-> Suggested-by: Chao Yu <chao@kernel.org>
-> Signed-off-by: Daeho Jeong <daehojeong@google.com>
-> ---
-> Changes in v2:
-> - Exclude alias/resize reservations from current_reserved_blocks.
-> - Allow root reserved blocks in the second check, with WARN_ON_ONCE().
-> - Recheck DISABLE_CHECKPOINT after freeze_super().
-> ---
->   fs/f2fs/f2fs.h  | 18 +++++++++++++----
->   fs/f2fs/gc.c    | 54 ++++++++++++++++++++++++++++++++++++++-----------
->   fs/f2fs/super.c |  1 +
->   fs/f2fs/sysfs.c | 12 ++++++++++-
->   4 files changed, 68 insertions(+), 17 deletions(-)
-> 
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index 089a62c054e..6b9e1d0e71c 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -1897,6 +1897,7 @@ struct f2fs_sb_info {
->   	block_t reserved_blocks;		/* configurable reserved blocks */
->   	block_t current_reserved_blocks;	/* current reserved blocks */
->   	block_t alias_reserved_blocks;		/* reserved blocks for device alias */
-> +	block_t resize_reserved_blocks;		/* reserved blocks for resize_fs */
->   
->   	/* Additional tracking for no checkpoint mode */
->   	block_t unusable_block_count;		/* # of blocks saved by last cp */
-> @@ -2666,16 +2667,18 @@ static inline bool __allow_reserved_root(struct f2fs_sb_info *sbi,
->   	return false;
->   }
->   
-> -static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
-> -						struct inode *inode, bool cap)
-> +static inline unsigned int __get_available_block_count(
-> +					struct f2fs_sb_info *sbi,
-> +					bool allow_root)
->   {
->   	block_t avail_user_block_count;
->   
->   	avail_user_block_count = sbi->user_block_count -
->   					sbi->current_reserved_blocks -
-> -					sbi->alias_reserved_blocks;
-> +					sbi->alias_reserved_blocks -
-> +					sbi->resize_reserved_blocks;
+All users of the 6.18 kernel series must upgrade.
 
-Can you please take a look at comments from sashiko? it seems valid:
+The updated 6.18.y git tree can be found at:
+	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git linux-6.18.y
+and can be browsed at the normal kernel.org git web browser:
+	https://git.kernel.org/?p=linux/kernel/git/stable/linux-stable.git;a=summary
 
-https://sashiko.dev/#/patchset/20261022165526.1539629-1-daeho43%40gmail.com
+thanks,
 
-__get_available_block_count() can underflow here: avail in __sbi_store() doesn't
-exclude root_reserved_blocks, so once valid_user_blocks() < root_reserved_blocks,
-current_reserved_blocks can overlap with root reserved space, and the unguarded
-"avail_user_block_count -= root_reserved_blocks" wraps block_t.
+greg k-h
 
-e.g.
-user_block_count = 1000, root_reserved_blocks = 100, valid = 30,
-reserved_blocks = current_reserved_blocks = alias_reserved_blocks = 0
+------------
 
-Thread A			Thread B (root)
-- f2fs_resize_fs(shrunk_blocks = 500)
-  - 500 + 30 <= avail(false) = 900, ok
-  - resize_reserved_blocks = 500
-  - drop gc_lock/cp lock
-				- echo 500 > /sys/fs/f2fs/<dev>/reserved_blocks
-				 - 500 <= 1000 - 100, ok
-				 - avail = 1000 - 500 = 500
-				 - current_reserved_blocks =
-				   min(500, 500 - 30) = 470
+ Makefile                                                                |    2 
+ block/blk-zoned.c                                                       |   37 
+ block/blk.h                                                             |    4 
+ block/genhd.c                                                           |    2 
+ crypto/asymmetric_keys/restrict.c                                       |    8 
+ drivers/acpi/acpi_platform.c                                            |   79 +-
+ drivers/acpi/scan.c                                                     |    4 
+ drivers/acpi/tiny-power-button.c                                        |   25 
+ drivers/net/ethernet/intel/ice/ice_base.c                               |   33 
+ drivers/net/ethernet/intel/ice/ice_ethtool.c                            |    1 
+ drivers/net/ethernet/intel/ice/ice_txrx.c                               |    4 
+ drivers/net/ethernet/intel/ice/ice_xsk.c                                |    3 
+ fs/coredump.c                                                           |   16 
+ fs/tracefs/event_inode.c                                                |    6 
+ include/linux/io_uring_types.h                                          |    5 
+ include/linux/ioport.h                                                  |   20 
+ include/linux/key-type.h                                                |    1 
+ include/linux/key.h                                                     |    5 
+ include/linux/sched.h                                                   |    2 
+ include/linux/sched/signal.h                                            |   27 
+ include/net/ax25.h                                                      |    6 
+ include/net/codel_impl.h                                                |    1 
+ include/net/gso.h                                                       |    8 
+ include/net/netrom.h                                                    |   18 
+ include/net/rose.h                                                      |    5 
+ io_uring/cancel.c                                                       |   29 
+ io_uring/cancel.h                                                       |    2 
+ io_uring/fdinfo.c                                                       |   14 
+ io_uring/futex.c                                                        |   32 
+ io_uring/io-wq.c                                                        |  126 ++-
+ io_uring/io_uring.c                                                     |  231 +++++-
+ io_uring/io_uring.h                                                     |   44 +
+ io_uring/kbuf.c                                                         |    2 
+ io_uring/napi.c                                                         |    4 
+ io_uring/net.c                                                          |   26 
+ io_uring/openclose.c                                                    |   11 
+ io_uring/poll.c                                                         |   38 
+ io_uring/register.c                                                     |   20 
+ io_uring/rw.c                                                           |   18 
+ io_uring/sqpoll.c                                                       |    7 
+ io_uring/timeout.c                                                      |   91 +-
+ io_uring/uring_cmd.c                                                    |    2 
+ io_uring/waitid.c                                                       |   19 
+ io_uring/zcrx.c                                                         |    2 
+ kernel/exit.c                                                           |    5 
+ kernel/fork.c                                                           |    9 
+ kernel/pid_namespace.c                                                  |    3 
+ kernel/ptrace.c                                                         |    6 
+ kernel/resource.c                                                       |    4 
+ kernel/signal.c                                                         |    4 
+ kernel/trace/ftrace.c                                                   |    4 
+ kernel/trace/trace.c                                                    |   21 
+ kernel/trace/trace_events_filter.c                                      |    6 
+ kernel/trace/trace_events_hist.c                                        |   33 
+ kernel/trace/trace_events_synth.c                                       |   10 
+ kernel/trace/trace_synth.h                                              |    1 
+ mm/damon/core.c                                                         |   22 
+ mm/damon/sysfs.c                                                        |   19 
+ net/ax25/af_ax25.c                                                      |   81 +-
+ net/ax25/ax25_ds_in.c                                                   |    2 
+ net/ax25/ax25_in.c                                                      |   55 +
+ net/ax25/ax25_out.c                                                     |  121 ++-
+ net/ax25/ax25_std_in.c                                                  |    8 
+ net/ax25/ax25_subr.c                                                    |   44 -
+ net/bluetooth/l2cap_core.c                                              |    7 
+ net/bluetooth/l2cap_sock.c                                              |    2 
+ net/core/gso.c                                                          |    1 
+ net/ipv4/af_inet.c                                                      |    3 
+ net/ipv6/ip6_offload.c                                                  |    4 
+ net/netrom/af_netrom.c                                                  |   33 
+ net/netrom/nr_in.c                                                      |   26 
+ net/netrom/nr_route.c                                                   |  383 +++++-----
+ net/rose/af_rose.c                                                      |    5 
+ net/rose/rose_in.c                                                      |   31 
+ net/rose/rose_link.c                                                    |   42 +
+ net/rose/rose_loopback.c                                                |    2 
+ net/rose/rose_out.c                                                     |    1 
+ net/rose/rose_route.c                                                   |  119 ++-
+ security/keys/key.c                                                     |   13 
+ security/keys/keyctl.c                                                  |   15 
+ security/keys/keyring.c                                                 |  152 ++-
+ security/keys/process_keys.c                                            |    5 
+ security/keys/trusted-keys/trusted_tpm1.c                               |    4 
+ security/keys/trusted-keys/trusted_tpm2.c                               |    2 
+ tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc |   24 
+ 85 files changed, 1760 insertions(+), 612 deletions(-)
 
-Now for a non-root user:
-__get_available_block_count(sbi, false)
-   = 1000 - 470 - 0 - 500 = 30, then 30 - 100 => 0xFFFFFFBA
+Aaron Ahmed (1):
+      ftrace: Initialize modname and offset in print_rec()
 
-Thanks,
+Adrian Martinez (1):
+      KEYS: Fix key_reject_and_link() race with keyring restriction
 
->   
-> -	if (test_opt(sbi, RESERVE_ROOT) && !__allow_reserved_root(sbi, inode, cap))
-> +	if (test_opt(sbi, RESERVE_ROOT) && !allow_root)
->   		avail_user_block_count -= F2FS_OPTION(sbi).root_reserved_blocks;
->   
->   	if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
-> @@ -2688,6 +2691,13 @@ static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
->   	return avail_user_block_count;
->   }
->   
-> +static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
-> +						struct inode *inode, bool cap)
-> +{
-> +	return __get_available_block_count(sbi,
-> +				__allow_reserved_root(sbi, inode, cap));
-> +}
-> +
->   static inline void f2fs_i_blocks_write(struct inode *, block_t, bool, bool);
->   static inline int inc_valid_block_count(struct f2fs_sb_info *sbi,
->   				 struct inode *inode, blkcnt_t *count,
-> diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-> index 926e6976bc2..955224f4166 100644
-> --- a/fs/f2fs/gc.c
-> +++ b/fs/f2fs/gc.c
-> @@ -2374,6 +2374,7 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
->   	struct f2fs_lock_context glc;
->   	struct f2fs_lock_context clc;
->   	unsigned int secs;
-> +	bool reserved = false;
->   	int err = 0;
->   	__u32 rem;
->   
-> @@ -2425,10 +2426,17 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
->   	f2fs_lock_op(sbi, &lc);
->   
->   	spin_lock(&sbi->stat_lock);
-> -	if (shrunk_blocks + valid_user_blocks(sbi) +
-> -		sbi->current_reserved_blocks + sbi->unusable_block_count +
-> -		F2FS_OPTION(sbi).root_reserved_blocks > sbi->user_block_count)
-> +	if (shrunk_blocks + valid_user_blocks(sbi) >
-> +			__get_available_block_count(sbi, false)) {
->   		err = -ENOSPC;
-> +	} else {
-> +		/*
-> +		 * Reserve the space to be shrunk so that no one, including
-> +		 * root, can allocate it until the shrink is done.
-> +		 */
-> +		sbi->resize_reserved_blocks += shrunk_blocks;
-> +		reserved = true;
-> +	}
->   	spin_unlock(&sbi->stat_lock);
->   
->   	if (err)
-> @@ -2442,29 +2450,45 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
->   out_drop_write:
->   	mnt_drop_write_file(filp);
->   	if (err)
-> -		return err;
-> +		goto out_release;
->   
->   	err = freeze_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
->   	if (err)
-> -		return err;
-> +		goto out_release;
->   
->   	if (f2fs_readonly(sbi->sb)) {
->   		err = thaw_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
-> -		if (err)
-> -			return err;
-> -		return -EROFS;
-> +		if (!err)
-> +			err = -EROFS;
-> +		goto out_release;
-> +	}
-> +
-> +	/* checkpoint can be disabled by remount before freeze_super() */
-> +	if (test_opt(sbi, DISABLE_CHECKPOINT)) {
-> +		f2fs_err(sbi, "Checkpoint should be enabled.");
-> +		err = thaw_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
-> +		if (!err)
-> +			err = -EINVAL;
-> +		goto out_release;
->   	}
->   
->   	f2fs_down_write_trace(&sbi->gc_lock, &glc);
->   	f2fs_down_write_trace(&sbi->cp_global_sem, &clc);
->   
->   	spin_lock(&sbi->stat_lock);
-> -	if (shrunk_blocks + valid_user_blocks(sbi) +
-> -		sbi->current_reserved_blocks + sbi->unusable_block_count +
-> -		F2FS_OPTION(sbi).root_reserved_blocks > sbi->user_block_count)
-> +	/*
-> +	 * shrunk_blocks is already accounted in resize_reserved_blocks, so
-> +	 * this should not fail. Allow root reserved blocks here since root
-> +	 * may have used them after the first check, regardless of resize.
-> +	 */
-> +	if (WARN_ON_ONCE(valid_user_blocks(sbi) >
-> +			__get_available_block_count(sbi, true))) {
->   		err = -ENOSPC;
-> -	else
-> +	} else {
->   		sbi->user_block_count -= shrunk_blocks;
-> +		sbi->resize_reserved_blocks -= shrunk_blocks;
-> +		reserved = false;
-> +	}
->   	spin_unlock(&sbi->stat_lock);
->   	if (err)
->   		goto out_err;
-> @@ -2510,5 +2534,11 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
->   	f2fs_up_write_trace(&sbi->cp_global_sem, &clc);
->   	f2fs_up_write_trace(&sbi->gc_lock, &glc);
->   	thaw_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
-> +out_release:
-> +	if (reserved) {
-> +		spin_lock(&sbi->stat_lock);
-> +		sbi->resize_reserved_blocks -= shrunk_blocks;
-> +		spin_unlock(&sbi->stat_lock);
-> +	}
->   	return err;
->   }
-> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-> index d683240040f..28e49e8d71e 100644
-> --- a/fs/f2fs/super.c
-> +++ b/fs/f2fs/super.c
-> @@ -5345,6 +5345,7 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
->   	sbi->reserved_blocks = 0;
->   	sbi->current_reserved_blocks = 0;
->   	sbi->alias_reserved_blocks = 0;
-> +	sbi->resize_reserved_blocks = 0;
->   	limit_reserve_root(sbi);
->   	adjust_unusable_cap_perc(sbi);
->   
-> diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-> index 9749da70089..ce70d81eba3 100644
-> --- a/fs/f2fs/sysfs.c
-> +++ b/fs/f2fs/sysfs.c
-> @@ -594,6 +594,8 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
->   	}
->   #endif
->   	if (a->struct_type == RESERVED_BLOCKS) {
-> +		block_t avail, valid;
-> +
->   		spin_lock(&sbi->stat_lock);
->   		if (t > (unsigned long)(sbi->user_block_count -
->   				F2FS_OPTION(sbi).root_reserved_blocks)) {
-> @@ -601,8 +603,16 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
->   			return -EINVAL;
->   		}
->   		*ui = t;
-> +		/*
-> +		 * Exclude the space reserved for device aliasing and resize_fs,
-> +		 * otherwise the reserved blocks can overlap with them and
-> +		 * __get_available_block_count() can underflow.
-> +		 */
-> +		avail = sbi->user_block_count - sbi->alias_reserved_blocks -
-> +					sbi->resize_reserved_blocks;
-> +		valid = valid_user_blocks(sbi);
->   		sbi->current_reserved_blocks = min(sbi->reserved_blocks,
-> -				sbi->user_block_count - valid_user_blocks(sbi));
-> +				avail > valid ? avail - valid : 0);
->   		spin_unlock(&sbi->stat_lock);
->   		return count;
->   	}
+Ashutosh Desai (1):
+      ax25: fix OOB read after address header strip in ax25_rcv()
+
+Austin Schuh (1):
+      io_uring/wait: wake real-time waiters from hard interrupt context
+
+Bernard Pidoux (20):
+      rose: clear stale N(R)/N(S) before (re)transmitting a data frame
+      netrom: bound fragment reassembly in nr_queue_rx_frame()
+      ax25: check frame length in ax25_decode() and ax25_rx_iframe()
+      netrom: use a single lock for the node and neighbour lists
+      netrom: look up and update routes in one critical section
+      netrom: clear nr_neigh->ax25 under the routing lock in nr_link_failed()
+      netrom: fix nr_node leak when nr_del_node() removes the last route
+      rose: clear through routes when a neighbour is removed from the tables
+      rose: restart the link of a neighbour created over a live AX.25 connection
+      ax25: serialise the transmission of I frames on a connection
+      rose: process received frames and send with the socket locked
+      ax25: don't create two connections for the same link in ax25_send_frame()
+      ax25: read the connection's ax25_dev only once when walking ax25_list
+      ax25: wait for ax25_send_frame() before detaching the connections of a device
+      ax25: don't accept frames on a device that is going down
+      ax25: send a private copy of each I frame
+      rose: clear the circuits of a neighbour that restarts the link
+      ax25: send unacknowledged I frames again when a link is re-established
+      rose: bring up the link of the preferred route passed over by a connect request
+      ax25: don't free an incoming SABM skb left on the listener's queue
+
+Cen Zhang (4):
+      keys: Avoid the owner account dereference in named keyring lookup
+      keys: Check the authorization payload in process keyring searches
+      keys: Protect the type name while describing a key
+      keys: Protect the read method check against type removal
+
+Christian Brauner (9):
+      io-wq: order the exit bit against worker creation task work
+      coredump: hold RCU while releasing parked threads
+      signal: don't retarget shared signals in a dying thread group
+      signal: only SIGKILL and the freezers interrupt a coredumping task
+      ptrace: refuse to change the signal mask of a user worker
+      fork: release the files of a failed fork after sched_cancel_fork()
+      exit: hang up the tty before closing the files
+      signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL
+      pid_namespace: prevent TIF_NOTIFY_SIGNAL from interrupting the reaper
+
+Damien Le Moal (1):
+      block: avoid potential deadlock on zone revalidation failure
+
+David Carlier (2):
+      tracing: Hold trace_types_lock when updating modules in persistent instances
+      tracing: Hold trace_types_lock when resetting last boot data from readers
+
+Donggeun Yoo (3):
+      tracing: Save the event file instead of the compatible histogram
+      tracing: Unregister field variable histograms when the command fails
+      tracing: Fix 64-bit and signed histogram fields on 32-bit kernels
+
+Greg Kroah-Hartman (2):
+      netrom: require full NET/ROM headers in nr_route_frame()
+      Linux 6.18.60
+
+Ilpo Järvinen (1):
+      resource: Add __resource_contains_unbound() for internal contains checks
+
+Jens Axboe (6):
+      io_uring/timeout: don't put a sequence target behind the last flush
+      io_uring/timeout: don't flush with the sequence behind the last flush
+      io_uring/timeout: don't lose a cancel as io-wq arms a timeout
+      io_uring/poll: don't loop on HUP with multiple references
+      io_uring: end the drain when the drain request completes
+      io_uring: keep the drain active when a deferred drain request is started
+
+Jonas Köppeler (1):
+      net_sched: codel: fix stale state for empty flows in fq_codel
+
+Josef Bacik (37):
+      io_uring/waitid: own the request before clearing ->head
+      io_uring/cmd: don't leave list poison in ->hash_node
+      io_uring/wait: don't spin on a stuck overflow list
+      io_uring/io-wq: don't lose the signal that ends work
+      io_uring/io-wq: don't hide a link from cancellations
+      io_uring: don't flood a cancelling task with task_work
+      io_uring/io-wq: don't go to sleep on pending work
+      io_uring/io-wq: don't strand work when a worker exits
+      io_uring/io-wq: don't exit with a creation pending
+      io_uring/io-wq: let cancel find picked up hashed work
+      io_uring/poll: don't lose a cancel as io-wq arms poll
+      io_uring: don't lose a cancel as io-wq parks a request
+      io_uring/cancel: don't forget that the work was running
+      io_uring/cancel: recognize "no timeout" on 32-bit
+      io_uring/cancel: let CANCEL_ALL find parked requests
+      io_uring: wake ring pollers for local task_work
+      io_uring/wait: look at all CQ waiters on wake up
+      io_uring/poll: drop stale double poll entry on rearm
+      io_uring/futex: allocate private hash before waiting
+      io_uring: drop the CQE cache if a refill fails
+      io_uring/register: don't wrap 32b CQEs when resizing
+      io_uring/register: handle index wrap when resizing
+      io_uring/fdinfo: fix CQE dump of CQE32 rings
+      io_uring/timeout: don't skip over reached sequences
+      io_uring/timeout: keep repeat count on multishot update
+      io_uring/wait: no early -ETIME if min_wait finds work
+      io_uring/napi: make stale entries time out after 60s
+      io_uring/napi: don't busy poll past an expired timeout
+      io_uring/zcrx: fix buffer offsets in areas above 4GB
+      io_uring/kbuf: handle index wrap in last buffer check
+      io_uring/sqpoll: let the thread sleep on disabled rings
+      io_uring/openclose: keep the lock in io_pipe_fixed()
+      io_uring: don't pass restart error codes to userspace
+      io_uring/net: don't retry recv on uncommitted buffers
+      io_uring/timeout: no ABS update of multishot timeouts
+      io_uring/timeout: don't end a linked timeout with 1
+      io_uring: look up the file before queueing to io-wq
+
+Joseph Qi (1):
+      eventfs: fix SRCU read lock leak in eventfs_iterate()
+
+Juanlu Herrero (1):
+      io_uring/poll: avoid retry wakeup loss when dropping ownership
+
+Junjie Cao (1):
+      netrom: fix reference count leak in nr_rt_device_down
+
+Junyeong Lee (1):
+      io_uring/waitid: prevent cancel reference wrap
+
+Kyle Zeng (2):
+      tracing: Reject incomplete event filter expressions
+      keys: make keyring indexes independent of kernel addresses
+
+Larysa Zaremba (2):
+      ice: fix rxq info registering in mbuf packets
+      ice: change XDP RxQ frag_size from DMA write length to xdp.frame_sz
+
+Lee Jones (1):
+      tracing/histograms: Verify event_call identity when updating synth_event refcount
+
+Mashiro Chen (2):
+      net: netrom: validate source address in nr_find_socket()
+      net: ax25: fix integer overflow in ax25_rx_fragment()
+
+Pauli Virtanen (1):
+      Bluetooth: L2CAP: refuse __l2cap_chan_add if chan already has conn
+
+Rafael J. Wysocki (4):
+      ACPI: scan: Register platform devices for fixed event buttons
+      ACPI: scan: Avoid registering platform devices with resource overlaps
+      ACPI: scan: Do not combine resources that overlap completely
+      ACPI: tiny-power-button: Convert the driver to a platform one
+
+SJ Park (1):
+      mm/damon/core: error damos_commit_quota_goal() for zero target_value
+
+Srish Srinivasan (1):
+      keys/trusted_keys: return immediately after TPM unseal failure
+
+Stanislav Fort (1):
+      netrom: linearize and validate lengths in nr_rx_frame()
+
+Stefano Garzarella (1):
+      KEYS: trusted: Fix blob allocation size in tpm2_key_decode()
+
+Tamaki Yanagawa (1):
+      io_uring/net: keep recv buffer select length within MAX_RW_COUNT
+
+Weiming Shi (1):
+      asymmetric_keys: reject trust keys without IDs
+
+Zihan Xi (1):
+      net: gso: limit recursive IP-in-IP segmentation
 
