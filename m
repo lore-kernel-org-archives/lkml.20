@@ -1,67 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.38.247.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793347434;
-	b=k99LdfuRxM4DQL+W2AcwDp9VxIhbpu93Rk8CSKWQ/+R8RSdwVR6P6rJEXG2LtuuwRn4M
-	 ejayO97UQ9YbeBN0eyQzB9kXsUuCscfuQ1vVk4gdsgc7KOAIBNt59qieXlWiL46LJq1cJ
-	 F+iFzt7riK/JDSTTEuuQ0R/E2VM2fS0mFGK2hQCzoSaHHkCKhLCTDyptvv2ab/51SCIiU
-	 f8dBiTMW9qcFJ5i4gqXhayLHlXncnh5Tj1ZHKU1VCLYIgsGalnjgXxXFTcwI3AqQm7stB
-	 wCn/luCzOxFvxr4/LYOP0Qd+tX5oCxQDdDukRUbgeVJCAZVMh3yg6QLEcR/Y+5iHcBA==
+	t=1793347436;
+	b=db8LCKUzwdkKWj9Hg8nc90EoPZCcro25XSWNhJntRRs6odQqEdADKusDiEwEXy7GAtVE
+	 WFoaK3hI/ll2RSoe3al12ekkeV1mWRdmt8qsizYGzFG6ftLmGDuyv6nfMhB+FoLQAQGkh
+	 Ck9jS4Gre9CrfUHMLIzTtH2QD1Us0f/5Dr8KzKWo7hDCXm7Q4HXHNjjc5PSlusGuJ9K0e
+	 fxd+kSCxIJo1sGEy1fNe/8TEkcsfqqkdgzIYWecuFrn2V8x0HhzBdZQuonuGznppEKpHm
+	 6tJR1YWduCTRQeOhXVKvrl9VRxusooEeR+0oaoc7Fbe8txf6JK3Pv1njqR2lAadXwBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793347434;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-NC-CID;
-	bh=27glQ701BXXOZ3tvcgViKU0UyTiCkefglF1mL3SW7VI=;
-	b=gmsIwwD4sEn+lu4yMTLWLl2vZjq3y0GLveOPFABD57dvM3KM87qzB36GnDi4aoqjLBdx
-	 8YBVlNxVdmw8p5neFFX7f+bJRS4lCtmmPOxaOriC0CUGnX3UPDZMnTWZZJzKyhgXYDtmK
-	 d11uqjSqwXx6iPZ7v420Sm8jN2kwuw9kH+wElNBUAYdphz2omf0lirT1Ms+s+adumT0/P
-	 pemP3EhOVW2Xs4NEs7Yg6IIdDMLjiRMIxyfC7YTbvPfTgtFWMZYHAYWmpw/1KE4KH43PQ
-	 UM5PU6y/zIRjD1+xYnSYdCdV7R2zjwzXPEyHZt4NYpwx/1ScOBUHPkFoXhSm9s00/gA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793347436;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=7TG0hQG6Ly9ECABHSZSPu0QD0aAkIq6xqd+y9iEY5so=;
+	b=qZLbyIBl0VJlfxqr4ydclVY/EGn+fgNHDzD+yewir0BqHoLKSKMwNo9fDvpy+lRROM9P
+	 uiN8O5kgqL/k7m5+Uk6dtcoZBWk16e9cxlpLXSR72RioRfFc45xY96gW/2k6lmim/OW9c
+	 zTMQsSRt9kmCgwieu316IjfLQd7bemzwPD2Ef+NzhvS05NQD28hGScHPuhcQGzsMR79Dk
+	 f1ohYTxP5vRI1U0Bo/eig9LqLUXp+38ro9IbrOhQGqny2+xWTY9VbGbD754QXBALq4pn3
+	 idX73YkM7mK2grbkl/xBigKX1mSa7T5UXpBFLOZkfoBRUAPIX2PnjoEDSJA5xkq5mjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leemhuis.info;
-	spf=pass smtp.mailfrom=leemhuis.info;
-	arc=none smtp.remote-ip=46.38.247.119
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [46.38.247.119])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="fdTjyD/x";
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3370606A31E;
-	Fri, 30 Oct 2026 08:03:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3370606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
-Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4jGDB61h9Fz8hrJ;
-	Fri, 30 Oct 2026 09:03:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1793347406;
-	bh=LCrTFa7rbBF1FSzAjhtS8uZts2i3nZ9PKlQn0INEoNE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XTJ2BORLrV1kjCP/VO49ctAFItX2aHxSoW2w7zu4gF2k8Sx/g3QaK0GnFdHM9PxtZ
-	 TpKa8yAPaLJqkh6+073Q4juzBl+n40oCtfcCJy3lw10QPSpxLEc+kxe3K5Tul2enm3
-	 XMJbCn9LeRyH4n8R71u/Cknn2NL9tSe2Op04wXr4cFX3DuaDQFYxJQLKmgtl6wrQZg
-	 qe3H7n+FMpLi7p/LHNeq9dif+TwcEXgTFisZ4YBEgOi9YQ9mTe+gKurWXikztLs3xc
-	 LMeVp6frRb3L6H3VoOqFn2x/6PH5c7HQkFn/dlT2GmXK7RxczpDlSshp66OuX/cZcp
-	 VYTj1X9dKrvuA==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4jGD9Y752Mz50nC;
-	Fri, 30 Oct 2026 09:02:57 +0100 (CET)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jGD9X6cRVz8svZ;
-	Fri, 30 Oct 2026 09:02:56 +0100 (CET)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id B60025F98C;
-	Fri, 30 Oct 2026 09:02:49 +0100 (CET)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <8debe9f6-4ad2-4b02-83c2-3884a2394858@leemhuis.info>
-Date: Fri, 30 Oct 2026 09:02:47 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D573F606A32C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:03:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D573F606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fdTjyD/x
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-ccca948203aso135524a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:03:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793347435; x=1793952235; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7TG0hQG6Ly9ECABHSZSPu0QD0aAkIq6xqd+y9iEY5so=;
+        b=fdTjyD/xFNamCuqV8vTC6xZk3gAotWFnaubVtxLAIEhmDnH7oCUje/d//7MF4aZ3Sb
+         V9O+rejwDNxiL3qqyLbN+1/0TrYJ4TD37O+pE9mogyao31ARiob9H5Pz2WDq7/nUb2T6
+         bJAJqA6vJmu0xPVl+5KDHs1UzmiuFUEtPjhPxKc3/r3L7TOqIpGNKIDp9/MxEaBtZcUl
+         qCO+MPM5V0vCg0McSLH39ovNgpBnQ2PhMINI3HibnJIWeamFqOzHGfA81Jy6f+Y0i6/H
+         lJK/k6RieL0S6LjHsMnpHRigG/LBhMQD/I4MR1lYxd6brSWcjoGogKAP3Zek63ViRLlo
+         14yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793347435; x=1793952235;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7TG0hQG6Ly9ECABHSZSPu0QD0aAkIq6xqd+y9iEY5so=;
+        b=a9jfVV0pQ83c8Bu8115BBq9ZnkSnlELJfdrrsL4vP1KxLWcHFeZY10apvUL2vK+Eeo
+         b9qXFGz4UEw3VRfPvfa00deH2Saehe6H0zffWbVjcQ1C4abHHW8Xu/RFg9JV9W02MZBI
+         LzKWaklZ1lBwYbCcyBH2zh3E3hJs2FuehJfTRaWoY3lEgy92q9UuurKV67Krcoi9G82u
+         O2pj3gzERswnJ49UroKTTbZX2dR3rJgI5seqy5IXDJ5j2TjcKFDZK/+E2hIaO9XLAyrh
+         0NVmUP9gJ7CYn0Z5eBxUkR0x0cXd/gGwgPlWQPGGdTX+4FaqAKOOSbbRo7XT0YlUQmHt
+         rvxQ==
+X-Forwarded-Encrypted: i=1; AKwUvByTox1ik8YXvtynjE5z/kf6RMhrLPx6xQJnhUXi2CF4p99+ObhMS317NWEWWoncsLkQnN3c+TsZUCVGcWE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZ5ZPgRAtXRTFVKxnry7TpE6HuuxpN/2K8UABcqenBPKvcbkZ/
+	VIb82qsCVHQuVa7AXPcs+DK2xCEtMVouicA20S2cirAqlvKzLqqGtHO0
+X-Gm-Gg: AYBFou2wPMctHSQXm/DFvzBMig9YY4n09O55MQJ9ne+u48rljfvuiCzUbbj2FJ5QSWm
+	xtnBHF/Gh2qg1s8MwfVZlCpbfyz28Px4GWmRQgGKvT+CDg7CRJ/e4d8G+nVWuJi5Q5XfT+3htCM
+	xoBeoY/HBQryWC89gC+TqWGGVuRgvHhLEIoNxtTP8zL+oKweDAY4EoRItKDFzHwe50vLi7Ntjn4
+	Uc9RwHCmX+bR4/yBFT7IAsFaWSL/APViq8S8JCri3ExvJuj8ioNuAq6BLLHwIXrBAHIJag5tsCU
+	4mVx5pff4mLSKLDskugc0vlu9fHMmyANcrAfQDLDGB8KvwWOptSI1iMe55hvEZbuFncikhenllB
+	z2Fz+u2tXX0cbhPDVNLqumVKLw26+AfZrnLXdpCPUKWDqW/svLDcaJoHa+b3CHPc6tNeJ7NPUrz
+	b9hh3Gj681OVzmwxW5jhsSpYtPaikd+FObKl0KgFDm6GDGY2BWIyJFbTIkdWYrRoyVrB9pHVnpe
+	/40b505+7Vlg/Zq2NHpGX/9t7goKx7TJGAtaHGXTC5jjY76FVg3LgZnVqShLYb8bX1ZsCpc185i
+	ulMN+u7SyxPYw3qO5NuU2bJs
+X-Received: by 2002:a17:90b:3f84:b0:3a4:e934:e85c with SMTP id 98e67ed59e1d1-3ae897a5c4amr1209727a91.41.1793347435092;
+        Fri, 30 Oct 2026 01:03:55 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae84577911sm3073035a91.7.2026.10.30.01.03.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 01:03:54 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tiwai@suse.de,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v3 1/5] ALSA: hda: Serialize codec probe and remove on the same bus
+Date: Fri, 30 Oct 2026 16:03:39 +0800
+Message-Id: <pm-pmb-a4703edca61d34aa679b-v11-d9186d19e8afb48972af-1@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <pm-pmb-a4703edca61d34aa679b-v11-d9186d19e8afb48972af-0@gmail.com>
+References: <pm-pmb-a4703edca61d34aa679b-v11-d9186d19e8afb48972af-0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,93 +102,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] PCI: Fix Renesas uPD720201 hang after the RCB Link
- Control write
-To: Stefan Roese <stefan.roese@mailbox.org>,
- Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?H=C3=A5kon_Bugge?= <haakon.bugge@oracle.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Lukas Wunner <lukas@wunner.de>,
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
- Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-References: <20261002091029.2225203-1-stefan.roese@mailbox.org>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <20261002091029.2225203-1-stefan.roese@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <179334737019.873731.16074367389338197624@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: B60025F98C
-X-NC-CID: 3r+oDmltqckJl+CUtaSea57BPK4M0u966VhmgDQv0HRhvbJa64c=
+Content-Transfer-Encoding: 8bit
 
-On 10/2/26 11:10, Stefan Roese wrote:
-> Since commit 1a6845aaa6de ("PCI: Initialize RCB from
-> pci_configure_device()"), which went into v6.18.14 as dbe723b480e4, a
-> Renesas uPD720201 xHCI (1912:0014) behind the CPM Root Port of an AMD
-> Versal SoC hangs the system on every boot. The first access to the xHCI
-> BAR after the firmware download runs into PCIe completion timeouts.
+The probe and remove of different codecs on one HD-audio bus can run at
+the same time, for example when two codecs are bound and unbound through
+sysfs. A codec probe on a registered card calls snd_card_register(),
+which walks card->devices in snd_device_register_all(), while the remove
+of another codec frees its PCMs and deletes them from the same list.
+The list has no lock of its own.
 
-Is this regression fix still in the "to review" list of anyone, or did
-it fell through the cracks? Or was this solved meanwhile and I just
-missed it?
+Add a mutex to struct hdac_bus and hold it in hda_codec_driver_probe()
+and hda_codec_driver_remove(). The ASoC ext_ops paths are unchanged.
 
-Ciao, Thorsten
-> The chip comes out of reset with LnkCtl 0x0003 (ASPM L0s and L1
-> enabled), although the Root Port supports no ASPM. pcie_aspm_cap_init()
-> returns early for such a link and never clears these bits, which leaves
-> the link in a state that PCIe r7.0, sec 5.4.1.4, calls undefined. This
-> went unnoticed so far because the chip clears ASPM Control itself during
-> the firmware download by xhci-pci-renesas. Once the host has written
-> Link Control, even with the unchanged value, the chip no longer does
-> so. pci_configure_rcb() does exactly such a write for every endpoint.
-> 
-> Patch 1 fixes the ASPM state: on a link without common ASPM support,
-> clear ASPM Control where a device has it set, and update the saved
-> state.
-> 
-> Patch 2 is Bjorn's set-only RCB change. It also avoids the Link Control
-> write on this board, which matters with pcie_aspm=off or
-> CONFIG_PCIEASPM=n, where patch 1 never runs.
-> 
-> Testing on the Versal board, v6.18.40 (AMD linux-xlnx) with the patches
-> backported, 3 cold boots each:
-> 
-> - patch 1 alone: good, "clearing ASPM Control" for the xHCI
-> - patches 1 and 2: good
-> - patch 2 alone, pcie_aspm=off: good, the chip clears ASPM Control
->   itself again
-> - patch 1 alone, pcie_aspm=off: bad, completion timeouts
-> 
-> On pci/next the series builds without warnings (W=1, arm64 and x86_64
-> defconfig). I could not boot test it on pci/next, as this board does
-> not run a mainline kernel.
-> 
-> Changes in v2:
-> - Make the aspm.c change patch 1 and the actual fix (Bjorn)
-> - Update the saved state after clearing ASPM Control (sashiko)
-> - Reword the clearing message to "link has no common ASPM support"
-> - Cite PCIe r7.0, sec 5.4.1.4, in patch 1 (Bjorn)
-> - Replace "write RCB only when it changes" with set-only RCB, now
->   with Fixes: and stable because of the pcie_aspm=off and
->   CONFIG_PCIEASPM=n cases (Bjorn)
-> 
-> Similar reports with this chip and ASPM, possibly related:
-> - Qualcomm RB3Gen2 needs pcie_aspm=off: https://lkml.iu.edu/2603.3/02364.html
-> - RPi CM5 "HC died": https://github.com/raspberrypi/linux/issues/6849
-> 
-> v1: https://lore.kernel.org/r/20260930144650.3701516-1-stefan.roese@mailbox.org
-> 
-> #regzbot introduced: 1a6845aaa6de
-> 
-> Stefan Roese (2):
->   PCI/ASPM: Clear ASPM Control on links without common ASPM support
->   PCI: Set RCB only when the Root Port has it set
-> 
->  drivers/pci/pcie/aspm.c | 23 +++++++++++++++++++++--
->  drivers/pci/probe.c     |  7 +++----
->  2 files changed, 24 insertions(+), 6 deletions(-)
-> 
+Fixes: bcd96557bd0a ("ALSA: hda - Build PCMs and controls at codec driver probe")
+Suggested-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+ include/sound/hdaudio.h | 1 +
+ sound/hda/common/bind.c | 7 +++++++
+ sound/hda/core/bus.c    | 1 +
+ 3 files changed, 9 insertions(+)
+
+diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
+index 04fd4794bcee..066d2fef3986 100644
+--- a/include/sound/hdaudio.h
++++ b/include/sound/hdaudio.h
+@@ -367,6 +367,7 @@ struct hdac_bus {
+ 	spinlock_t reg_lock;
+ 	struct mutex cmd_mutex;
+ 	struct mutex lock;
++	struct mutex codec_bind_lock;	/* codec driver probe and remove */
+ 
+ 	/* DRM component interface */
+ 	struct drm_audio_component *audio_component;
+diff --git a/sound/hda/common/bind.c b/sound/hda/common/bind.c
+index 957feace0f58..abbb3b64ec09 100644
+--- a/sound/hda/common/bind.c
++++ b/sound/hda/common/bind.c
+@@ -104,6 +104,12 @@ static int hda_codec_driver_probe(struct device *dev)
+ 	if (WARN_ON(!codec->preset))
+ 		return -EINVAL;
+ 
++	/*
++	 * snd_card_register() below walks the device list of the card, which
++	 * the removal of another codec changes when it frees its PCMs.
++	 */
++	guard(mutex)(&codec->bus->core.codec_bind_lock);
++
+ 	err = snd_hda_codec_set_name(codec, codec->preset->name);
+ 	if (err < 0)
+ 		goto error;
+@@ -171,6 +177,7 @@ static int hda_codec_driver_remove(struct device *dev)
+ 		return codec->bus->core.ext_ops->hdev_detach(&codec->core);
+ 	}
+ 
++	guard(mutex)(&codec->bus->core.codec_bind_lock);
+ 	snd_hda_codec_disconnect_pcms(codec);
+ 	snd_hda_jack_tbl_disconnect(codec);
+ 	snd_refcount_sync(&codec->pcm_ref);
+diff --git a/sound/hda/core/bus.c b/sound/hda/core/bus.c
+index 02462bd035e7..304110c9a6a7 100644
+--- a/sound/hda/core/bus.c
++++ b/sound/hda/core/bus.c
+@@ -44,6 +44,7 @@ int snd_hdac_bus_init(struct hdac_bus *bus, struct device *dev,
+ 	spin_lock_init(&bus->reg_lock);
+ 	mutex_init(&bus->cmd_mutex);
+ 	mutex_init(&bus->lock);
++	mutex_init(&bus->codec_bind_lock);
+ 	INIT_LIST_HEAD(&bus->hlink_list);
+ 	init_waitqueue_head(&bus->rirb_wq);
+ 	bus->irq = -1;
+-- 
+2.43.0
+
 
