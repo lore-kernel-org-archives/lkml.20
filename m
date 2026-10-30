@@ -1,97 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793373486;
-	b=KXHKI1bqjffGisVscnrOtFJld92+EV5oXMm5GfInaaF4S6M01X2hmqqK9XOAj6ai11JZ
-	 LdhEIDcDGEEf1fTWxZ36DdAqpJJ8/IPi0c4aFBOsQlP9NYjBJWyiEflrMovXOYB3X9nbe
-	 OPgBOzOe1DHnyhCJ/N6jD8WcfUwKtZv6EYTnY9cTjSYz9wyApwNEh8jU08X19ENWadE3y
-	 N3Jf/vQRE+49l7bHAneECeVCyVmGE/kJ88aMzDm0fzCqXhuA6trSBVk0B8DR+Q4Pu24Iw
-	 wqaOyXXhxk+qoWi0Mb/J0PY/rRyr2nGWC/aaeMlp0BAYVKC+C0nsXRnzH3FSrHZRWsg==
+	t=1793373494;
+	b=dQyDdcapuL9s8dnlqLSXhguxzywgnuRMgSyEUVR9PmZX/IsX93OkW3ya5xlYdgw7nJ6l
+	 HOYdUgcIDRqOudBkYmbuXTfex4KuX/10Hig2W+76G2MmjAwjr9DQjgN//wOn9UxVZzho4
+	 z4kI2STBkUfycEx4/EJCQjiorLgL2TQTOv/0IlK7Tb7CFWcdRMQQCob5oxVlishtZevyI
+	 haTMv2f65dhYMgLrvMapS/kH3TIpcHQthT8DcFUqcAQ/EQ0KIHAC9/jj4cSZwZQTSkv+N
+	 FTQljRAHENWsT5Ts4N/Ldv0e3/bESuxR4r11uMg9heVGiS0FAQwlFV/0NUk3LT6YNug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793373486;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793373494;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=wg7J0kRkDkaIERBv6F6MaX7gjPWqfUPz/HBXjTx6FxM=;
-	b=SuZETkfSbA2KUip3WVnxPXuWQI50h0kLVa9HUkQg+kpL2kzlNODd8Rh9lGaJXr5Oqle7
-	 jh0cnVLuv0+X56+M5saJbPos3sgwDq7trBg8UyLyFmPMLLiyhIfZNyy4dTbCUJ1Bd4rl8
-	 F5mj/7dA/dYx/MqYtqOS0QKf8LQqpdgWQj4SDZwmZZtKnIdajlo72ASpr6GuiLPy4vk3+
-	 bA6QpNEkY6VDBrtMz2D9ht9JFfQR+yrda9CNE17KZzSY0csMeMXTstkL74bhFoLljiC4L
-	 ZVmJyn3pzWBDLEJurAFSL+Q3+Qm6Giw64gVw3UveCGxoXyABP/sEGgB/jlt1Pg0uQ2A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=inKyCOcvtNC3vT1cGkkdWGseNrtGnJ7Z96eWpiC61OA=;
+	b=Ne887PXS4WGGx5pVnXdr9Bmq+GowCXfK3GJWzte8tFaNzle/NSLouY0etmgYg57nis+P
+	 sxBFA4ibfzE5QIjNwjwKY7/Vg5tVMFwrHkrXKdrsCzapeGDxK2R2IOrgMJeMZz4eEhBaz
+	 FCOlQ6EbXcep01lC4bD6EA6ZccnfJOxFW4CbxjyJhGfxBFADvsmDRQOfZYQz/Aqu/kl7k
+	 +NZ1Fn4NMH4AgP62MyJXe8rXvKQQ6ZYwfban2DzZ7LQT3IYtj1qc+JCfI2AsVfw46hqN1
+	 sKSxx1ZUCUKqjOo/vQPDIS/k0eVvevZXjz+tk0U9jxekbXFfxXP195blam/kClwIoNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sHamjCOz;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DemTJL0U;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF9E606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:18:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAF9E606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE62606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:18:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAE62606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sHamjCOz
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso1080091f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:18:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DemTJL0U
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1a8cc11ac42so743399c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:18:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793373484; x=1793978284; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wg7J0kRkDkaIERBv6F6MaX7gjPWqfUPz/HBXjTx6FxM=;
-        b=sHamjCOzjDh002vKJu+fePfjJAE8p/n10smGIM2N/YaarHtJUEZCWTXfbo5NzAgpky
-         fwFsn1ittBM/jEOEjDALIOEPzc1Qdb2w/OiCRcoPT2Q5jPWg3t1NvbOLq0PhQa/8ScD/
-         XHWP+W7p4/AM2GLEG1vRcljxlQBbPLvil6uS3dXNTTidSWK0XXwnO6kElYcSVwvn56Tc
-         5CL0+8Q4npQG1y2nzPBdOiy7pHVLN8nUfnXI+jfnG9Kkmq+QidbDeGBI9b1pL5xBgoL3
-         DYmkvLtOU+aCQzOPrnQ1i9xZLGKLRp4mWvO+aQhIBjdTJ9ymCPVgVHkGlwY96PE6lTrR
-         PRlg==
+        d=gmail.com; s=20260707; t=1793373493; x=1793978293; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=inKyCOcvtNC3vT1cGkkdWGseNrtGnJ7Z96eWpiC61OA=;
+        b=DemTJL0UIFQ3Jev4fKVmWAptvN6wwU0fQLGaV6NLWjUFBgh8nlbnQq0VtsKvwBBQ72
+         U+MKdlEaRB3clpUIhhyEDYAwosf443/2sgkdwk/pcKCk4wk9X70FNQBvwsev3aq54u8m
+         3k6mAKo7zIcIBXAbxMXSNB3Bwjq8uj98IgjSWSkxImssaaexN3DeDQwzD0y3bckUmSB3
+         /EjZOuyWctUZ1dwDcB1MDpQ4TUlnjO1ZpKIof3tUsEJN45oTV0GrSMkN1+tt6dKq59OT
+         IdoEoEce014J55+SpqKFy1W85BfvOehWA0pPmJkrLO6zDdYyNjPs++8xbwlzlyv8hNvT
+         d8pQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793373484; x=1793978284;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wg7J0kRkDkaIERBv6F6MaX7gjPWqfUPz/HBXjTx6FxM=;
-        b=jB8B6hW5DGwhsk5rgU/jfcH7T4TfjPWkffH0sRz04szDLSYUr4HBBgHoTUokBnhWmR
-         iqTTQ1p9nHrVJaywrDsiR71HvN+o+yjZCkYYz279JTeLiHrVCvJaqZS+nzzK/1uQ0hLm
-         tuiBGKCKVHJyF44jHqqkisue8IXiDKV+KQfTVGrNAtHM4KSk5szaVYC+fGSjeNXLmvJZ
-         7qFPI49QLi3Ilpj5d5s/VliYyhIj0UMCWQKLW1vM9eeyu8cyZFj+8o5tn/zvBhC4/Gib
-         tI7xEuw49XKDjl39FyS9MxIdSiMOW7i9lOCEXRR2FvdhPNRRcT59rii+hoX1EfkCldAv
-         skeA==
-X-Forwarded-Encrypted: i=1; AKwUvBx1KN7dZtbdRRP6A2gDQgdr1GiAvIlvhjqe2cJJZAAPyAPHPXGCLAJQRWFHltA4Qh+Q4l5hmVWH+e8BR9M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjDH/7BPnFPEL8x3QPLedaDmeOI5LUidLRSoUBdzHoELuc6VLp
-	COQossOeHbihHSeSFXq4sFWWSUG8oSTy8JikpM7o3faX4Qs9aZOBC9dz
-X-Gm-Gg: AYBFou2+o8gdtWTr56lpH2hCZ1s6mvEZNwybATokQbhtf1G6TiZeyTBR2xCC3x0BH3o
-	WUFSNlMVQYLzgDqxMG+OQzSyIZwsDBPCOQB9H+SRJl1BbL9H4O06LW4fho2EvNpkQACyXYf0TTi
-	eA/jBDSbmsZRHes117pYAjr0yI7Wfg2xAYEVCw3BvM9scISYvV8a8KunIbuYRw1VcvPvLq5UWI+
-	QsHKLjnOM//65sWIMHIN+Xt+htpnjNwgG1e9h7XWBUr6dwUYPKLlhtXNf9gPzJbf96HnKgkqR/C
-	XbBLKACCfp+B77KzUfEINYxYlnCvdPPwbHstvO59jy0u0W6VWwHOLg2Jyo2MQOtLOChorBz+KUO
-	q6GQnGYzGq7ecoifKY0Lr8EqkKVs+cxiiOrtKSDUwPkD816ka5FAhRiTOwzpA34d0+46DfAAIal
-	YU/kID5qwCxJ2HS9KJ1EnGAeU5wzosYhGKjtCfT3R00p2h1ZzcCvuNSH4xI14IGP2BXJIPKe1F3
-	PbAnCIqjVlGGQgIehLjkGEAzewjvE0yEYa8P4Ygc8WzSd+kNk1XzuKO6u86HsQ8UpiCsk9+YoEN
-	xf+e71ANxXtb+vVzgbJy0aeaZMlBZTZbL1oRzgmmWL1AL5AdtmVIVCAn+XO3uYf/guBT/qY7tWb
-	c4pOtzQVQVw1RPdEE+aDhdi1dTinnfrCwjdaDeLIiBIl67BFmUgPqfCLbDynblcpqjpM=
-X-Received: by 2002:a05:6000:178f:b0:48e:4ad2:32e0 with SMTP id ffacd0b85a97d-48e64d038c9mr13914876f8f.29.1793373483805;
-        Fri, 30 Oct 2026 08:18:03 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b9a3b1sm4006308f8f.44.2026.10.30.08.18.02
+        d=1e100.net; s=20260707; t=1793373493; x=1793978293;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=inKyCOcvtNC3vT1cGkkdWGseNrtGnJ7Z96eWpiC61OA=;
+        b=1bZSoPpeIF0NiQes/A/E6oNxt2ol7evMyXahYo1gdwq87rYYzQwiPQ9EwIcG3Kp8bZ
+         7BFUoc6L4OGHea/v5fs2LdMYDws5C/m5/1epR8bERKScvOkHHJv3FT7oGUjjsSHta6V/
+         K6CBLDbNMvuSyPD6vqej7o9JtTfRiAKsHsgrB2BjFzMEAoMHWzRBT6oeRqwPlaKNg73Y
+         vzsLx4rlqpPbU8W6X9hwWFGcMok3bSnvBRviogAHfujEzot4OtKsEafn0x1ynYzmzxl8
+         GBWuB8LkC28KEBtvxalJDX4qW8clFqt/SuLzr6FDYm/bd8bOlhFajY3omaFd84118ZYT
+         pfng==
+X-Forwarded-Encrypted: i=1; AKwUvByOxgp7oG+Jc4XrjU+9pL6X8VVZZF40x4EeN98tcI3Fi818N7GeBODCJBNxsXv0S99vyonDxrka3isVdUM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJDkm7Wb92To7lUNgSOdnvof3DpgP01XtTwOzmeTje1SqUvAo9V
+	UVAV8JAONZdeuXGSEAMugappufkFLpuQzM7N0RSHK/MgUYJlH9YvPAQC
+X-Gm-Gg: AYBFou0Nmmq8II3ejc3ch8Pz+1iWffy57znk0vg9vbSiJWL+ucP6WfovjVE9AaNaDf1
+	mGHgWPn0ZWxwxmP2cgN81jb0JMawVQZA3N1W/ks1tXY9R2iN5hTNUfBuDEifstS9Sng16kGUr6P
+	bS1T4cljFzwshlX44/Mr/11+ZGgfKg/yIHji6IqOllAV/9UEwWAxYbZCK2c2Kp4+VF3UW0fZk43
+	VY8yHMVxH9N6gIS/8KVMcr6GqOc396ebWZLa5RHGy2guwbBzra/fBbwJD+tZpz4s3G7G7MomapY
+	wmt8bncJiJ1h16qjAO6k4ijm5U1ZvDvNrkmoNlXSyit6/cKjK6zir3UZ63avk+Se14mGfMXXjuf
+	QfegMAokjvG0dYfHgQMmy2yJLoXC/oBTHPp08X+Ng4JOeI1ltu3Glf3WUn/zQC882crJhYEi3B2
+	pWZHGyj+noO2Za3ctveyCcnWcRu9cu4zJMlyIYg3GQRcoi1LaK0+Xovuoyrxwo+hIbAylW2ggM+
+	/pYeLQFWw/vwqlsxtV3KPAcu3S9HbwScLqzBoX4CHT6EoYYrtAmTWsseBJ3zBj/fUC09P3zh8Ag
+	Uos+Xp8xBXzr1oD7qJqEEwLRKB+Z93hC8v3WdSc6LJqe4WVDoUpkK52G0qftnUKD9AWHPVs=
+X-Received: by 2002:a05:7022:ef07:b0:1a5:8f40:6cb4 with SMTP id a92af1059eb24-1ac5fb18dddmr4578115c88.34.1793373492682;
+        Fri, 30 Oct 2026 08:18:12 -0700 (PDT)
+Received: from localhost.localdomain ([103.170.55.71])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19c6b969sm7581645c88.14.2026.10.30.08.18.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 08:18:03 -0700 (PDT)
-Date: Fri, 30 Oct 2026 18:17:59 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: linfordWu <linfordwu@163.com>
-Cc: Vaibhav Agarwal <vaibhav.sr@gmail.com>,
-	Mark Greer <mgreer@animalcreek.com>,
-	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: greybus: fix use-after-free in dump_module
-Message-ID: <auS1J5RV7VEL7iYs@stanley.mountain>
-References: <20261030150355.1809319-1-linfordwu@163.com>
+        Fri, 30 Oct 2026 08:18:12 -0700 (PDT)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: sreekuttan2156239@gmail.com
+Cc: alim.akhtar@samsung.com,
+	bhelgaas@google.com,
+	jingoohan1@gmail.com,
+	krzk@kernel.org,
+	kwilczynski@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-samsung-soc@vger.kernel.org,
+	lpieralisi@kernel.org,
+	mani@kernel.org,
+	peter.griffin@linaro.org,
+	robh@kernel.org
+Subject: [PATCH v3] PCI: exynos: Handle PCIe PHY initialization errors
+Date: Fri, 30 Oct 2026 15:17:01 +0000
+Message-ID: <20261030151701.3100-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261029131006.2744-1-sreekuttan2156239@gmail.com>
+References: <20261029131006.2744-1-sreekuttan2156239@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,30 +108,218 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030150355.1809319-1-linfordwu@163.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 11:03:55PM +0800, linfordWu wrote:
-> gb_audio_manager_dump_module() drops modules_rwsem before dereferencing
-> the module. A concurrent gb_audio_manager_remove() can free the module
-> between the lookup and the dump.
-> 
-> Keep the read lock held while dumping the module so removal cannot free
-> it during the access.
-> 
+Check the return values of "phy_init()" and "phy_power_on()" to
+avoid continuing PCIe host initialization when PHY setup fails.
 
-The patch is correct, but it needs a Fixes tag.
+Track the PHY initialization and power state to ensure cleanup is
+performed only when appropriate, avoiding double calls to
+"phy_exit()" on probe failure.
 
-> Signed-off-by: linfordWu <linfordwu@163.com>
+Also check the return value of "exynos_pcie_host_init()" during
+resume and abort the resume sequence if PHY initialization fails.
 
-The Signed-off-by line is supposed to be a bit formal like signing a
-legal document so normally people would use capital letters.
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+v3:
+ - Address review feedback on PHY and regulator state tracking
+ - Avoid powering down the controller when link detection fails
 
-Don't resend patches until after 24 hours and follow all the other
-rules.
-https://staticthinking.wordpress.com/2022/07/27/how-to-send-a-v2-patch/
+v2:
+ - Track PHY initialization and power state to prevent duplicate cleanup
+ - Handle host initialization failures during resume
 
-regards,
-dan carpenter
+ drivers/pci/controller/dwc/pci-exynos.c | 111 +++++++++++++++++++++---
+ 1 file changed, 100 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/pci/controller/dwc/pci-exynos.c b/drivers/pci/controller/dwc/pci-exynos.c
+index e3c05ade381b..d7504b0e5d96 100644
+--- a/drivers/pci/controller/dwc/pci-exynos.c
++++ b/drivers/pci/controller/dwc/pci-exynos.c
+@@ -11,6 +11,7 @@
+ 
+ #include <linux/clk.h>
+ #include <linux/delay.h>
++#include <linux/device.h>
+ #include <linux/interrupt.h>
+ #include <linux/kernel.h>
+ #include <linux/init.h>
+@@ -55,8 +56,34 @@ struct exynos_pcie {
+ 	struct clk_bulk_data		*clks;
+ 	struct phy			*phy;
+ 	struct regulator_bulk_data	supplies[2];
++	bool phy_initialized;
++	bool phy_powered;
++	bool supplies_enabled;
+ };
+ 
++static int exynos_pcie_phy_exit(struct exynos_pcie *ep)
++{
++	int ret;
++
++	if (ep->phy_powered) {
++		ret = phy_power_off(ep->phy);
++		if (ret)
++			return ret;
++
++		ep->phy_powered = false;
++	}
++
++	if (ep->phy_initialized) {
++		ret = phy_exit(ep->phy);
++		if (ret)
++			return ret;
++
++		ep->phy_initialized = false;
++	}
++
++	return 0;
++}
++
+ static void exynos_pcie_writel(void __iomem *base, u32 val, u32 reg)
+ {
+ 	writel(val, base + reg);
+@@ -225,13 +252,23 @@ static int exynos_pcie_host_init(struct dw_pcie_rp *pp)
+ {
+ 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
+ 	struct exynos_pcie *ep = to_exynos_pcie(pci);
++	int ret;
+ 
+ 	pp->bridge->ops = &exynos_pci_ops;
+ 
+ 	exynos_pcie_assert_core_reset(ep);
+ 
+-	phy_init(ep->phy);
+-	phy_power_on(ep->phy);
++	ret = phy_init(ep->phy);
++	if (ret)
++		return ret;
++
++	ep->phy_initialized = true;
++
++	ret = phy_power_on(ep->phy);
++	if (ret)
++		return ret;
++
++	ep->phy_powered = true;
+ 
+ 	exynos_pcie_deassert_core_reset(ep);
+ 	exynos_pcie_enable_irq_pulse(ep);
+@@ -314,6 +351,7 @@ static int exynos_pcie_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
++	ep->supplies_enabled = true;
+ 	platform_set_drvdata(pdev, ep);
+ 
+ 	ret = exynos_add_pcie_port(ep, pdev);
+@@ -323,8 +361,19 @@ static int exynos_pcie_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ fail_probe:
+-	phy_exit(ep->phy);
+-	regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
++	if (exynos_pcie_phy_exit(ep))
++		dev_err(&pdev->dev, "failed to exit PCIe PHY\n");
++
++	if (ep->supplies_enabled) {
++		int err;
++
++		err = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
++		if (err)
++			dev_err(&pdev->dev, "failed to disable regulators: %d\n", err);
++		else
++			ep->supplies_enabled = false;
++
++	}
+ 
+ 	return ret;
+ }
+@@ -332,22 +381,42 @@ static int exynos_pcie_probe(struct platform_device *pdev)
+ static void exynos_pcie_remove(struct platform_device *pdev)
+ {
+ 	struct exynos_pcie *ep = platform_get_drvdata(pdev);
++	int ret;
+ 
+ 	dw_pcie_host_deinit(&ep->pci.pp);
+ 	exynos_pcie_assert_core_reset(ep);
+-	phy_power_off(ep->phy);
+-	phy_exit(ep->phy);
+-	regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
++
++	ret = exynos_pcie_phy_exit(ep);
++	if (ret)
++		return ret;
++
++	if (ep->supplies_enabled) {
++		ret = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
++		if (ret)
++			dev_err(&pdev->dev, "failed to disable regulators: %d\n", ret);
++		else
++			ep->supplies_enabled = false;
++	}
+ }
+ 
+ static int exynos_pcie_suspend_noirq(struct device *dev)
+ {
+ 	struct exynos_pcie *ep = dev_get_drvdata(dev);
++	int ret;
+ 
+ 	exynos_pcie_assert_core_reset(ep);
+-	phy_power_off(ep->phy);
+-	phy_exit(ep->phy);
+-	regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
++
++	ret = exynos_pcie_phy_exit(ep);
++	if (ret)
++		return ret;
++
++	if (ep->supplies_enabled) {
++		ret = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
++		if (ret)
++			return ret;
++
++		ep->supplies_enabled = false;
++	}
+ 
+ 	return 0;
+ }
+@@ -358,13 +427,33 @@ static int exynos_pcie_resume_noirq(struct device *dev)
+ 	struct dw_pcie *pci = &ep->pci;
+ 	struct dw_pcie_rp *pp = &pci->pp;
+ 	int ret;
++	int err;
+ 
+ 	ret = regulator_bulk_enable(ARRAY_SIZE(ep->supplies), ep->supplies);
+ 	if (ret)
+ 		return ret;
+ 
++	ep->supplies_enabled = true;
++
+ 	/* exynos_pcie_host_init controls ep->phy */
+-	exynos_pcie_host_init(pp);
++	ret = exynos_pcie_host_init(pp);
++	if (ret) {
++		err = exynos_pcie_phy_exit(ep);
++		if (err)
++			return err;
++
++		if (ep->supplies_enabled) {
++			err = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
++			if (err)
++				return err;
++
++			ep->supplies_enabled = false;
++		}
++
++		return ret;
++
++	}
++
+ 	dw_pcie_setup_rc(pp);
+ 	exynos_pcie_start_link(pci);
+ 	return dw_pcie_wait_for_link(pci);
+-- 
+2.55.0
 
