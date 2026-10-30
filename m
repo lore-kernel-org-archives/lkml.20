@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793377971;
-	b=Adbkmxy5kBG+UQC0CGUybS34B7JLxFDMU5O8ws5TIRaRoaMKJcVXKtI64hAQWy3YYhPv
-	 0C4MPsaQqKop5mrWwoKK7fjF05XvXI7cNuXrN6JqT9jhh3TyzJpDSlh1EGN8to6avT2nC
-	 MhzIXVkP+rbGa64RNLPqnpnTeVn90+hJyiHq81m416b2whbub5IUaAOHChgFFIAxP20ib
-	 J7ERFn/1lPURi/qrG4jOkd40T9Mej9EhRMwUvprg//blJ8Bd8Gcg9H9PZG3B1CD/+GtC1
-	 X3O0mCK1s9JpDSi/HiNfkKO+cRMcUpf0KHIFzQpHxFoQKTWewcO1Evs0nNeMrWNeREQ==
+	t=1793377972;
+	b=kga+XIfwnbaZ93r2/j+R1IzCV7Dh3JlBz9EK+xpE9ij8BCEj7pt922YYWLSEvLFh15Vl
+	 sFF85gGCT8NmyNTgSY7STH2Xc48sDb2jbFcV0MuLcSbGbxzdt2TqfQAlMkbCFYTqezDtZ
+	 WDL4Ehhp63I21gSLDPmZmKT75erLElvKWiM8nQHlV8UjDCxngIbbBJThBL5EPvz3pfqav
+	 nxG7wZT8AZnQrYefwrgk2s1CBX1ZDgbmfc+vQKl8VbLagKAX1EZMA01V3TS6Yw2PZIPk4
+	 IAVsuz1xzZC+yhloW4osrgxyPwadYfC0MNj2eoU+zoKzz9GESP3kVq3ssLV7CpGXTtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793377971;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793377972;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=M1SoM7Xac7RXZwO+FnicXP4wRxU5w10jY+RMIW4NnkA=;
-	b=pDMy/4AJd+VBkHNeKx//V+fwt/sFcnb4pVvzWPZFNCOvmw1AYCTxCiGLUeSBQWTcQcv0
-	 TshY1G3gfHH2wEecEsg3JqGzco0UTImko/knKi6a+L7a3xYws9fO9ghB8y8D0uFPX7QKe
-	 6tNLi6QW+N9KY9t3VLxYx9QNrmVDkaN0eMc/xPynELs5rEZkAvfs9NrnIBQXDCSBFi3Qi
-	 VzvVX2Ij0WJHbdcANhdHTDKSd8wo8wphXEVWH7kFQswHForN56g079V/BACT33+6hvZX7
-	 up5wrNY+YSkoqHsytUnh0JfoTyjGTV7C6d15YbD2aKIYV5P8Qlcr7KVriqEr/roiNGg==
+	bh=6+1tf605VEw+u+AR0YH1cCPgkt2etMqrPGwsHIMVVIo=;
+	b=n3+PocyClK4MfiGeDU7S1zBQpJ+ZTsMto4AAX5xqYWSyChs6ABcTUvSVY7xe9/gawDHP
+	 ttBey3mMkQoAGyyzqwVKRUrieJG/nPT+WA2Orl8jqq75YfXKIQwEr9HjjpyKQXT19ZXP5
+	 vpddH+Tkzuo4zc7URFK42oNyIFgjWAeFqnY0Ayyna4bWxwfI1FzyVdo85oFwjSgNpLPCd
+	 J76b50mwotF1pX/k2w1K2cIo5/KJNVRZn4MO+m8W9f9viM470dri39wGEVxId3MW790PC
+	 Nct81hRAiWjtVWxdujhIeYjzAUK9oAsoBWmm1qyqc2ZzmRsxoXlswgAKT2qjeES7GkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=UhiUxfVV;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=pZFBV8uH;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CF1606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:32:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36CF1606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7876C606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:32:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7876C606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=UhiUxfVV
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so892568f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:32:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=pZFBV8uH
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49d05d51553so5775865e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:32:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793377969; x=1793982769; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1793377970; x=1793982770; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M1SoM7Xac7RXZwO+FnicXP4wRxU5w10jY+RMIW4NnkA=;
-        b=UhiUxfVViZ5IUIzdX30bgbH7bnfmS47mtCkiS1SsXq2cwi7tAd60t4KCAbLJj0lRi3
-         2is2jDU1pcSDxlYa62ovzcyE30FMNzCiKMWOh2n48i55nCFOsqpKc7OMZXXMgaxYGErS
-         BmYy/tVGiXyCkc34ZmQHijwRYgRDsqp3mY0t/VSiB1ja9LEh8WJYZPg9AGCoEAVTq1zC
-         uYhyUdwxKyK7cFYJd8aex9efUxAGg1aGVmk+Wju5+NBPDdYrMEqPEbbPzXGsOM3CsfnL
-         uYvQg9pFRPWjZr6uWNcuLl9dndq4BLYXoJrnhOo/tkfzss6/EvQcI1FncFtRPjJj3bz/
-         VxWg==
+        bh=6+1tf605VEw+u+AR0YH1cCPgkt2etMqrPGwsHIMVVIo=;
+        b=pZFBV8uHcj4SUpQbR2LXX+avyjyp+ArIZLZHwrBJM9Uy6bJdWPRyl4SkeV+opcoX9X
+         ZiSIBhXLexpkgauaY+7UsP+BjbF9L7KLmHBnvdaRvHeuUWRZcybGd/B3Xhgs8aeby23t
+         T9OM6NyaFCi11lQ219DIPKwGyexFwDi8CASvtyTnK5lB9wsURi+jqgyAXkEH+3VUvuML
+         2L5Llv/dMA6ze44grNCY0NLXPGHYVRmNFwANWqbZRpTMNSWPFie+A0xxkC4dUqwxNWMq
+         GMlQdjhKqL5R4CWr01ibe+YBp+Zv3BJtVCGU48CAoL+C7zwiB9QER1u7r9y1BZ3+dr6Y
+         sstA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793377969; x=1793982769;
+        d=1e100.net; s=20260707; t=1793377970; x=1793982770;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=M1SoM7Xac7RXZwO+FnicXP4wRxU5w10jY+RMIW4NnkA=;
-        b=hHD+beCGGnuUSAZR9AUjTQHb1RpkcMZSt4kBD0NzRMedSR5CHmuOp5/+i26veiLfrZ
-         njqMrJBNSscxx/145yuj02LyFajRJOJqS8kfHnwse6FbucZ+olJ8Es/ntnEDo6xjb0a1
-         hpGO0AehUM5CVAmWOoSytQUlmUzOTGKFXWIgwZ5ugI7Jdw0WJ2OYahNBs1kiza+SB0G9
-         Zp8B2Ls96FzkwLlstqmSsuYSZrgvCiIrrQJjkIqhes6Y1gDaQfinvAm5jLmNMXEIKZA4
-         sqwiK91VCK9yf3hpzKolzDdb+5Lux8cxfgnvhObuSkGFuH1AM/vsBoxqlkwjbKY5n6Kh
-         P4ew==
-X-Forwarded-Encrypted: i=1; AKwUvBzdXJSv/WKlnxe9rdXAy4auJ43HTdQd4+loqJorJ+n7GjluHWsuwt6vg30iliWw1VsYLYe83MBRAluvBe4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJy9VuLGtxKgt58n8XeoRRky1VL7wIU6A32F8n8/lBP8KXH3Go0
-	RFlP8Bo++CgbvezIEs1HSnXaCEF2gETF2Ihra6eXAdyXvHWI9O1mZ4IFymNfwBwDnXI=
-X-Gm-Gg: AYBFou3Uccu4aYu2gUoQAa1HCdDm3u0GEvlQdXF3/CxDtzPa/CknDgH26F0D8r7bRu+
-	JkIb7rBh4MNqWZ5hwxmdpPXs1ogJv+cTIsD+1K8u1A0R66gyj7USxihdrI8X2vn4mPKJMsSLVRj
-	mTCUBfUqzvszlT8aCDWQi8bCdwLQ0YUJfNHzzMRzm2F/yziG6Wn6sJFC36OyaR/w7T74jxuPHKR
-	EZC2UkpuyIGCyY09eqO2gld+TfnFULAFLSQZed/NFZNvSJjm+7FMfFMpEd0WZiLgScjtdKyT9DL
-	zNbShRg4PJ025X8atPOzkOTNUMBSUQjPKNiyleGWQ+230OGwO343dwyzGeg4Wao3UDs9E9SADJU
-	by8fvSmrCt6lyLKzIrSELtC+5zbq3jqo9WzLb7/LJiJVIwDbr9IsanxyNoZlTZ7j9swLGT7QKRC
-	WqTiphlf/sDq+/lkpXSJrS2mj3t02uXFy7pOxgAymA/hdiwz7nVGW7yu1yHfg07LydwoqbGxc5X
-	zk2y0d0bzEItC447n7a1K6jZpwxOLZ+fVoUo6amFb3Ta7xnIME27bsEJLNtgIGkO134es9t423R
-	dhbU4RiMYkGt8X3xwDt13lXGQDEfmiviuORp8XsIQBe0jCKb
-X-Received: by 2002:a05:600c:46ce:b0:4a6:7d6:821f with SMTP id 5b1f17b1804b1-4ac189928e9mr64716115e9.29.1793377968735;
-        Fri, 30 Oct 2026 09:32:48 -0700 (PDT)
+        bh=6+1tf605VEw+u+AR0YH1cCPgkt2etMqrPGwsHIMVVIo=;
+        b=sd2GY1Sf+CAD/c11aFrUD7iTiqquXGDt0xPQYa0Ab9KUoa1Mh7azTduAa2DosSBwYa
+         NNsnBaGxlm4y5OW4mShhESadamPFUO7BB++pNGudPp+zfNNUOUYgQbBx/OTipvUBITjk
+         ZFI7tzI4vBbrTOelSi/5gDp8b/Uec4UEZMd7z0i1NV96MVPvR31sx3U+mnJE+79RpAKQ
+         2Uzvc5HC3mzwRWEo+W1bp9Ro6P6vEVxb/CweEwtB0+t1AHLM8plDFu5wRbjtdCrsUXVn
+         2IEPIyP4rc9i5WVqyydLblFp2paDPvy2L+uIvVGeOb3porUO4zQCnylPEyw6x+X5m9B7
+         zTHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy5Ub/pUV9RwzGV4Xggw1ZWn/m49Y4iA6p0zf+Yc3E+6CPmdZrLUfPrkra8V+/RkJXGU3ZAMcdk+A1TcCA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIv/9koKFyJ2pONXl71OQfC9/Ypcybr9RqC0PJv31M/qHx2U2i6
+	GCh8ix7sFPnB+kFMFZbl95H74zBxg8Pim7GJJhNQt4A7r7iuSPkmU6BS/Wnh1viFURo=
+X-Gm-Gg: AYBFou0ZPtmC/btVzLQpBaRSLnnpWsL9YXtiy84BANmbh26W13u9m9z44n3aIFZhxpy
+	/irhSmKI6V8r+zpywrL7HbvUn0avy17m9GC6+XI6WmIXy6dfQVSSoY+RnLPXSdrgOzfbylXTV9H
+	6AQgYeywtOcrctnFC0U/aauH/3bhOsryRTdZISSridUqHubXLht+aagFhF3qBF/pYHFZGJp+D6P
+	L1p+fxchfkJrGyc0xzF17fZvix5OkpsUXH81EkfyfZGF7ph8QUn6Kog9iCdvtAkKHFneOLQ28x+
+	GCGawkrnGiZWS2HC1n2p3+nVA1CPexlzX4GeELR6lul5HaOAZpeif2IH1gd5bHjs7KRc7HALtQB
+	4eWGmdYd5Mv517AjGPwr6oN44bbv+X5QzG1HyQoK/LlMK1ZAU7NDhT9Qhz4Yl6Y9CEspA0KWyje
+	Bf47gEDGJqzzAhLVpJqlIq7Id7/sCQJDHRJHUM+qoznwySoSFvCCUlkUq4No5FMgdbS179M59nU
+	UZRL1gUU2JAVFtMhNa3qKg80FOKqHENES0nPO9Wjuq3IlhVw74UQFUWdnGAGBKpeRQmwJtU+GYq
+	F97zN5EqzwocOu1uJhy9QIdB/hLCilq1hJyHPp7xXUn8s9gR6A==
+X-Received: by 2002:a05:600c:8b55:b0:4a2:1655:87e2 with SMTP id 5b1f17b1804b1-4ac17b2b023mr70629455e9.19.1793377969852;
+        Fri, 30 Oct 2026 09:32:49 -0700 (PDT)
 Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe7706516sm45130975e9.0.2026.10.30.09.32.48
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b959c1sm4062372f8f.45.2026.10.30.09.32.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 09:32:48 -0700 (PDT)
+        Fri, 30 Oct 2026 09:32:49 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Fri, 30 Oct 2026 17:29:53 +0100
-Subject: [PATCH 1/2] ASoC: meson: card: leave the device drvdata to the
- ASoC card
+Date: Fri, 30 Oct 2026 17:29:54 +0100
+Subject: [PATCH 2/2] ASoC: meson: card: unregister the card before freeing
+ its links
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-meson-card-register-fixup-v1-1-6474985e94f6@baylibre.com>
+Message-Id: <20261030-meson-card-register-fixup-v1-2-6474985e94f6@baylibre.com>
 References: <20261030-meson-card-register-fixup-v1-0-6474985e94f6@baylibre.com>
 In-Reply-To: <20261030-meson-card-register-fixup-v1-0-6474985e94f6@baylibre.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -107,51 +107,48 @@ Cc: linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Jerome Brunet <jbrunet@baylibre.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1398; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=0RFe1Fr3NaxVtejZemaL7j5wb6r/Qt9kPR04MlhQsks=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlPjq2bcGOyzGlzq7QHs65mvjjvKLVt7V/Jc+saPA+rS
- /KVXHh/uqOUhUGMi0FWTJGlhrta/J2k1pdZ03Vuw8xhZQIZwsDFKQAT+XKckeHfCw+1YwYd73yc
- ly6uTff6EMXxOD9pR6zZ/iXVhyIet/gwMsxx9l7/94VQvvGk7R2Kpz7UKYtXr1U+sp9nDpOxd6b
- 6CwYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1200; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=MbVgYLo6a0sH0b1W+GvzTE98oQ0+5OC6agqIsxBjCpM=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlPjq0Lkf+sf85oVkmvYbuC66yvHz5Vc3HOvrCEzd/If
+ LbFjofPO0pZGMS4GGTFFFlquKvF30lqfZk1Xec2zBxWJpAhDFycAjCRlb8Z/im2TJmvXdm04Wfk
+ zt8qz6atM45WzcxKkM82sThy2XpD8EdGhhNTdi+SP1rUmtsY1C7j1bfppaDdlW5mD7kXm0uZKkN
+ lGQA=
 X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
  fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-snd_soc_register_card() sets the device drvdata to the card, so
-meson_card_remove() gets the card, not the meson_card it expects. The
-card is not the first member of meson_card, so the links are read from
-the wrong place and remove() crashes on unbind or rmmod.
+The card is registered with devm, so it is only unregistered after
+meson_card_remove() has freed its links.
 
-Get priv from the card and drop the platform_set_drvdata() call that
-the card registration overrides.
+Register the card without devm and unregister it in remove(), before
+freeing the links.
 
-Fixes: aa9c3b7273a5 ("ASoC: meson: axg: extract sound card utils")
+Fixes: 7864a79f37b5 ("ASoC: meson: add axg sound card support")
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- sound/soc/meson/meson-card-utils.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/meson/meson-card-utils.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/meson/meson-card-utils.c b/sound/soc/meson/meson-card-utils.c
-index f2796dc84fa5..3cdc73b3fe8b 100644
+index 3cdc73b3fe8b..24332f29047a 100644
 --- a/sound/soc/meson/meson-card-utils.c
 +++ b/sound/soc/meson/meson-card-utils.c
-@@ -276,7 +276,6 @@ int meson_card_probe(struct platform_device *pdev)
- 	if (!priv)
- 		return -ENOMEM;
+@@ -309,7 +309,7 @@ int meson_card_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto out_err;
  
--	platform_set_drvdata(pdev, priv);
- 	snd_soc_card_set_drvdata(&priv->card, priv);
+-	ret = devm_snd_soc_register_card(dev, &priv->card);
++	ret = snd_soc_register_card(&priv->card);
+ 	if (ret)
+ 		goto out_err;
  
- 	priv->card.owner = THIS_MODULE;
-@@ -324,7 +323,8 @@ EXPORT_SYMBOL_GPL(meson_card_probe);
+@@ -326,6 +326,7 @@ void meson_card_remove(struct platform_device *pdev)
+ 	struct snd_soc_card *card = platform_get_drvdata(pdev);
+ 	struct meson_card *priv = snd_soc_card_get_drvdata(card);
  
- void meson_card_remove(struct platform_device *pdev)
- {
--	struct meson_card *priv = platform_get_drvdata(pdev);
-+	struct snd_soc_card *card = platform_get_drvdata(pdev);
-+	struct meson_card *priv = snd_soc_card_get_drvdata(card);
- 
++	snd_soc_unregister_card(card);
  	meson_card_clean_references(priv);
  }
+ EXPORT_SYMBOL_GPL(meson_card_remove);
 
 -- 
 2.53.0
