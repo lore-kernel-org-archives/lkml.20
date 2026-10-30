@@ -1,102 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793385665;
-	b=KocDqvXRw7UD+Oo6R79U9piti1w7+wYgb2s5HY3rSJhOhcD88Vx6t+6QqZ6rD75REQ5C
-	 O7sX3k+hzN+4uZ34QiThB3wUMCZ2VSs3Y2eUA0liN+e6Vxx9XNcFlc9VZME5ANGKSC11k
-	 K8noSkISdoZ4bRUXuc5wBac/7d/hXW3dVd/oLcyQTmbRWMYCbSHchl/fk9J9SQKHz8B0Z
-	 lkCWE+0cIdN45GLIXv9kpUlTBkSJjHojVFxlE2qB6GNmazHvzXVB8OI7GYIqkawBnDkKK
-	 yt8gTVDJu4H1InneN2SXixLTcCc6W8SdDhbhFQ2d4391uWl3ihE1p2fETF6ePcnxCYQ==
+	t=1793385664;
+	b=Jt3lqT7r5Nh1lkvi78AVRoR8fYQbqU4nmly9Hoxsy7iehofafg2ReT7LukBGVeOzxyHB
+	 zxYv9Yy0eeTP+jieabXfq+XQANx9In0Q+vSxlSYfJaSpCFMnoXj/Q1PmLBAmKJ1+9goD2
+	 nYu8RZzhjAx7davdlZp0PDskYfscRleJ+CphtUMUqYBgWLv6SyUPuqJK9iShfCRvlAeMH
+	 j5IlZFPgr3IP+2kSriaUT2kSDXC7rpj0QPtcrNS1K+I0qq5Yxuw4sWbkiiHr9NbdjQjfk
+	 6SdaGio1ELyWKPh6XyuawZshHM+jwSXdS0mMYNxMOu753uTvZPbBIOhcETJgqrzaelw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793385665;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=1stjC5MEEUdB6YnfDLgu3Q4Fyuo3+ZySytnP5vX+LhM=;
-	b=Agbwe95iM0pVhr0aG/NXyKxSlAZyd8XhTiO/71OnTSiaP861Fqoog8T1/mY8HA4a7jOk
-	 7f9sxmWV+ljiuDClE7E/N5NP9Dpxt4jCUS5UAnSRY3j5xgnJis3z1xldvFgWFBpTuh4rx
-	 pttvVIiMsaIPY6BDJG4zHXBD3nL1YK1m7CDCHjZY2jljOlAvBV+0YcOxLsq7EcKz372KB
-	 SQlKEHewdZL+fBfqLyG9mIvGdroNxTbruNfcpgpKcvgOQOB410/aeBnzJbnDhnQNsvFSr
-	 EsK2vtZC9XCQRfBdNs/o4XdT8c9nL6Nv2XDFJi6pXi5NLbTdsVFxvAEOAv+yHiW0GLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793385664;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=Ru4Nxp5wg59Jn04kqGuPVEqcSV5Cvw988WkwJ8HZ7Wg=;
+	b=iHZDHuSIuq/YL+o2dW7wI+anw49srKge64zSre5PF+u0lDUgM+zKiR/u0RmsAysmUV5V
+	 4DsDZ81PpzYpgjD9bRnRcS/dD3fuZaoae+B+HzlMfI4jnTnGsnJTVeT4/U5CNKyfI37Fh
+	 ddQZR+b/r2506WctSWi0zNJ2oSSRnzfCzvgu833h/xp22qmlE6z3DmLLPMgYS4fWlfMc1
+	 +90Llb2dQ314QZo08zfYOEtl3aBUIwlmPDHBvEFzvPCz127vaq30PUOsLGdL7hrZiEpUS
+	 eIWUJOTunS1n4Tw8CWzGfWRlJEHamyiiVGMh3b7xiaR4vYIAuFm7axIOpvEH/6NKiNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UxvFFxHb;
-	arc=none smtp.remote-ip=209.85.216.99
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CJ1cgqaC;
+	arc=none smtp.remote-ip=209.85.215.200
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F13606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A91606A31A
 	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:41:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73F13606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46A91606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UxvFFxHb
-Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3acb512a7a0so724366a91.1
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CJ1cgqaC
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd67e98f68fso1083807a12.3
         for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:41:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793385664; x=1793990464;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=1stjC5MEEUdB6YnfDLgu3Q4Fyuo3+ZySytnP5vX+LhM=;
-        b=AqXvT2T9OeIxqv7QIJ37NuiT/fOeZoQcixS018B5idADJgBD5l0qJVoYSLJ4+GL5qL
-         CSDToTuJ08ob66huYZ8gjdN79xBupWx2o/eg3dEYv//XRVIfLdNS7ARL53Lp2OLOAAr+
-         GRkQxzlrLMvs8cUDnFdm3on85HlazGrvJqU3vp7hlNsdrEPDWH+1aNFdLqF1ERKZOUrz
-         mnkMHdAVETst9c8nb9N+q+6fWRkofpIjVqh+W9wpz8tJCJGx3cSKMWL23Qs9AC4P4kZG
-         svv5zubP/tP8+OteZrOLabw34vnJE0RZ2r7Wmr8otcbi5cMKtycDr3YeH3YrHGFFrIoz
-         Fsrw==
-X-Forwarded-Encrypted: i=1; AKwUvByDzozkNHMA/K51YfX521njc3hKNtOmNT1hg6mXNhjeefipFc5Oku3c8BtKWFjp2cscjsyU/ZGWzc2S/jM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL43pDKoYY0rhZgqePKXP3RViVrmOknpWBbVqK8BGroJ2yBqXKY
-	/vFJYvMPU8FRheeujfd2nDVcnJX/P38poiwnPmn10NifA7s5s+LLwo5OvREAp3AWdi8QrCEO0uq
-	TmvbpMIdzQ/hePVwL2MavbGlbnKlrMm+f0lTXjIDhdlVgObdS+CDPp7k/dT9hGTtGgsD0CUl/nX
-	urONkgdDJV7/vxulVyCNcw9q27604lKdFT93/Pd4QBFzOjY+L7vuNZrS9/yWKNkacidHPR0Ns4W
-	06UsVDJI1mGhGTI2yypFItdXNI=
-X-Gm-Gg: AYBFou3tQZD2w8Ma6lBCZwY7pG7PaMFjH+KSrL5lXYfcPre325dBXbYekyh2oN2hpmk
-	YspWsR7VVXodPZoskDnruGXNOC8nz+vaOSe7h+wUoYNBoNtsbpCmBShpPi4qsb5XTTm1eWz0Z98
-	jDXDrXcuW4dUKZJThA8K7pu3fTGIOrgxKvwYG1ndkyjAm7QRBipcwxHo4bdubdW7WZWSEN2TjQn
-	ir8RPWzR55d8GM+H3tf+X0/AXEcvacqwtkFD6aEVbD98FcRPjY2zatRM3HfB2cG14p2DAMctZAo
-	RlgbBd8QlLZMhul2aoNeAdg1GZ+uILz8qEj9awPzGAmUPEP902tDddnOTyKDeUrrB6c75/n7DEI
-	g8zyf8HIc08Gu6VgkmZGoD/t9b9TzkbXhx6K+6aGit2kpC09fvriU6MszBK9cIWOnxwPCPDlsOD
-	F3lhgurihPqXsmSIHt0bKPn4sOfYSSkKQGZscKPS1U
-X-Received: by 2002:a17:90b:4487:b0:3ac:9d83:8861 with SMTP id 98e67ed59e1d1-3ae897ec740mr2702089a91.67.1793385663634;
-        Fri, 30 Oct 2026 11:41:03 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae8444ce5esm2448402a91.2.2026.10.30.11.41.03
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 30 Oct 2026 11:41:03 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ce7a85f04so200084785a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:41:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793385662; x=1793990462; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793385663; x=1793990463; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1stjC5MEEUdB6YnfDLgu3Q4Fyuo3+ZySytnP5vX+LhM=;
-        b=UxvFFxHbCjcY38N5V7v91Vd281Sv9EwgqC5pk4lZm5b3+YhnwoCsMIgrZzkNbLhRKN
-         eZTRmkhMwSeNz2egZjnPxLBKkaDWmIgXowBlmqnY6PI7bCS1ul/KEL/l6JsLvcwIuGrk
-         w3sKSh3Ou3qa2MKgIteM8okzEduUhBjm03Z+c=
-X-Forwarded-Encrypted: i=1; AKwUvBxD21DRWf9rrTeZtK64040eBEoXDRqWyGh6tr1uLFa7GzuIiKbWOKYuioqfCaiIOHXQRArfK1ojm2778bs=@vger.kernel.org
-X-Received: by 2002:a05:622a:1f90:b0:535:a5fb:645b with SMTP id d75a77b69052e-542b83f7705mr44267681cf.70.1793385662177;
-        Fri, 30 Oct 2026 11:41:02 -0700 (PDT)
-X-Received: by 2002:a05:622a:1f90:b0:535:a5fb:645b with SMTP id d75a77b69052e-542b83f7705mr44267321cf.70.1793385661494;
-        Fri, 30 Oct 2026 11:41:01 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54312a571fbsm19590271cf.23.2026.10.30.11.40.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 11:41:00 -0700 (PDT)
-Message-ID: <c5060273-81ab-492f-9b9d-2ac1785d3146@broadcom.com>
-Date: Fri, 30 Oct 2026 11:40:57 -0700
+        bh=Ru4Nxp5wg59Jn04kqGuPVEqcSV5Cvw988WkwJ8HZ7Wg=;
+        b=CJ1cgqaCdmVkgVvoSrpzV90w4M7aiPEyxsQZxW975c3eTbCo96gClsF/cWMXPA0Cjg
+         8hXj73iQEJ5a04jQ3GlJnrHGR1XdoyMHwB32fx7DA/4o8Nvh7bnf/IU7Mwcrcy5w5ZTL
+         ulr2a4S4ghGVbhzgRzWIHQw0iqVNNTL211N7NPeaOOtxudS3IiSk16RGCp6UCNRd+3a+
+         eh702HsaufX8wgyMLK33k+Km5UKfPtYmQdXjM32FR1nxQ0lTzOKcCOSr5kANZ3IqvfFj
+         A2PdelYDK2e8DE144SdV+ZOnYx13tscLUlAws2FBKTapr7kJsa9Ia6QKr3TuUIoPQHwV
+         hxig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793385663; x=1793990463;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ru4Nxp5wg59Jn04kqGuPVEqcSV5Cvw988WkwJ8HZ7Wg=;
+        b=PaQRN/LdsrIOCNJUC4e6L6/3F5RrWcLgJ7KzB9zvWC81XGECuDUQ/zzGWcr+ujolS6
+         +pMJSWNhzURoerU2n+6yknsU+3apI6SwXW+u5q6leLQtAKVPNdaMycqT9Zf+1o+XwvkF
+         T1AXgplGThcDUEpVni3fejWHKnvd/CHibB3Q2UUq04VIlldZ5btpAxt8wnScXw44vh0D
+         +pMGXCt6na9zOYR+7/L9vPT5ooATL6SWZ8pWimszhTl1dXQsgTDF6S8BsuSyxebatOqM
+         wVO0tbR+EVvhDTkQDVzztjmtas0lkzugVdrfMxN28hzqB2HgiYclcjkXWhqltFLuLNH4
+         NJWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzaBGA+VxxB9DOfjSqJDCKtnvUk1JhYXcERIBog0VX+x8UZ69duYPfh5szsNfhnUkgdH1nKg0U4fDBWwWI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIu5zJiFcXy1gebQcMKcO0iBYImqNlYmZgxtvLHDogNHlzXPfN5
+	C/zjvaz8BGNzIB8D9caQNHYj97fKA8PIKZP2fN+954j9WK7O3OErxUyPuuDyNPdOe8e51QfOWo+
+	NAqvIKA==
+X-Received: from plhq17.prod.google.com ([2002:a17:903:11d1:b0:2e9:64c:38da])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e74e:b0:2ea:33ae:d3e3
+ with SMTP id d9443c01a7336-2eb36520f26mr32504155ad.61.1793385663293; Fri, 30
+ Oct 2026 11:41:03 -0700 (PDT)
+Date: Fri, 30 Oct 2026 11:41:02 -0700
+In-Reply-To: <20261030032937.2813-3-ma.mandourr@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,330 +77,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 4/5] net: dsa: b53: reject conflicting mirror
- destinations
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, linux@armlinux.org.uk,
- rmk+kernel@armlinux.org.uk, linux-kernel@vger.kernel.org
-References: <20261027202230.3539646-5-florian.fainelli@broadcom.com>
- <179334873083.3134.3549069956742693590@kernel.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <179334873083.3134.3549069956742693590@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Mime-Version: 1.0
+References: <20261030032937.2813-1-ma.mandourr@gmail.com> <20261030032937.2813-3-ma.mandourr@gmail.com>
+Message-ID: <auTkvnRMn4tlcuqp@google.com>
+Subject: Re: [PATCH v2 2/2] KVM: selftests: Verify that L2's LMSW leaves
+ L1-owned CR0 bits alone
+From: Sean Christopherson <seanjc@google.com>
+To: Mahmoud Abumandour <ma.mandourr@gmail.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On 10/30/26 01:25, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential
-> issue(s) to consider.
+On Thu, Oct 29, 2026, Mahmoud Abumandour wrote:
+> Verify that an LMSW in L2 that exits to L0 only leaves an L1-owned CR0.TS
+> set, and that L2 reads an L1-owned CR0.NE from the read shadow.
 > 
-> Critical: 0 · High: 0 · Medium: 3 (1) · Low: 1
+> Assisted-by: LLM
+> Signed-off-by: Mahmoud Abumandour <ma.mandourr@gmail.com>
+> ---
+>  .../kvm/x86/nested_exceptions_test.c          | 36 +++++++++++++++++++
+>  1 file changed, 36 insertions(+)
 > 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] Only one capture-control read is checked; the other register
->    reads in the mirror helpers still ignore errors.
-> - [Medium] The new check in b53_mirror_add()
->    (drivers/net/dsa/b53/b53_common.c:2553-2558) treats MIRROR_EN and…
-> - [Medium] b53_mirror_add() ignores the results of both hardware writes
->    and always returns 0: the source-mask write `b53_write16(dev,…
-> - [Low] The commit message justifies the b53_mirror_del() hunk with
->    "Clear the capture-port field when the final source is removed so a…
-> 
-> Pre-existing issues:
-> - [Medium] b53_mirror_add() does not reject a second mirror rule for the
->    same source port and direction.
-> 
-> --
-> 
-> net: dsa: b53: reject conflicting mirror destinations
-> 
-> This commit makes b53_mirror_add() read B53_MIR_CAP_CTL before it touches
-> the source masks. If mirroring is already enabled toward a different
-> capture port, the new rule is rejected with -EOPNOTSUPP and an extack
-> message. b53_mirror_del() now clears the whole CAP_PORT_MASK field along
-> with MIRROR_EN once both source masks are empty.
-> 
->> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
->> index 0871a10d8cbc7..b8a7b380bac87 100644
->> --- a/drivers/net/dsa/b53/b53_common.c
->> +++ b/drivers/net/dsa/b53/b53_common.c
->> @@ -2543,7 +2543,19 @@ int b53_mirror_add(struct dsa_switch *ds, int port,
->>   		   struct netlink_ext_ack *extack)
->>   {
->>   	struct b53_device *dev = ds->priv;
->> -	u16 reg, loc;
->> +	u16 reg, loc, cap_ctl;
->> +	int ret;
->> +
->> +	ret = b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &cap_ctl);
->> +	if (ret)
->> +		return ret;
->> +
->> +	if ((cap_ctl & MIRROR_EN) &&
->> +	    (cap_ctl & CAP_PORT_MASK) != mirror->to_local_port) {
->> +		NL_SET_ERR_MSG_MOD(extack,
->> +				   "Only one mirroring destination is supported");
->> +		return -EOPNOTSUPP;
->> +	}
-> 
-> [Severity: Medium]
-> This check uses only MIRROR_EN and CAP_PORT_MASK in B53_MIR_CAP_CTL. Can
-> that register hold stale state that this kernel never programmed?
+> diff --git a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+> index f47432526e..e33d2e0db0 100644
+> --- a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+> +++ b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+> @@ -109,6 +109,40 @@ static void l1_svm_code(struct svm_test_data *svm)
+>  	GUEST_DONE();
+>  }
+>  
+> +static u64 l2_cr0;
+> +
+> +static void l2_lmsw_test(void)
+> +{
+> +	/* Toggle CR0.MP, which KVM intercepts and L1 doesn't. */
+> +	asm volatile("lmsw %w0" : : "r" (get_cr0() ^ X86_CR0_MP));
 
-Yes, in theory. Not all supported switches are reset during setup. I 
-will explicitly clear capture control and both source-control registers 
-during b53 and bcm_sf2 setup, checking each write.
+We should add lmsw(), and also test MOV CR0 because it's easy to do so.
 
+> +	l2_cr0 = get_cr0();
+> +	asm volatile("fnop" ::: "memory");
+> +	GUEST_FAIL("L2's FNOP didn't take #NM");
 
-> 
-> B53_MIR_CAP_CTL, B53_IG_MIR_CTL and B53_EG_MIR_CTL are only accessed in
-> b53_mirror_add() and b53_mirror_del(). Neither b53_setup()->b53_reset_switch()
-> nor the bcm_sf2 setup paths initialize them.
-> 
-> b53_switch_reset() only does a soft reset for is539x() and
-> BCM58XX/BCM583XX, plus a reset GPIO when one is wired:
-> 
->      b53_switch_reset_gpio(dev);
-> 
->      if (is539x(dev)) {
->          b53_write8(dev, B53_CTRL_PAGE, B53_SOFTRESET, 0x83);
->          ...
-> 
-> On chips like BCM53115/53125/53128, BCM5325/5365, BCM63xx or BCM5301x
-> without a reset GPIO, mirror state left by a bootloader or a previous
-> kernel survives. kexec is one example: dsa_switch_shutdown() never calls
-> port_mirror_del, so the old kernel's tc mirror rules stay in hardware.
-> 
-> If MIRROR_EN is left set, every rule to a different port fails with "Only
-> one mirroring destination is supported", even though no mirror rule is
-> installed.
-> 
-> Adding and then deleting a rule to the stale destination may not clear
-> it either. b53_mirror_del() clears only BIT(port), and it clears MIRROR_EN
-> only when both source masks are empty. Leftover source bits for other
-> ports keep MIRROR_EN set.
-> 
-> Before this patch the destination was simply overwritten. Should the
-> mirror registers be reset during setup, or should the driver track
-> installed rules in software?
-> 
-> [ ... ]
-> 
->> @@ -2554,11 +2566,10 @@ int b53_mirror_add(struct dsa_switch *ds, int port,
->>   	reg |= BIT(port);
-> 
-> [Severity: Medium]
-> This is a pre-existing issue and wasn't introduced by this patch.
-> b53_mirror_add() accepts a second rule for the same source port and
-> direction. What happens to the remaining rule when one of the duplicates
-> is deleted?
+*sigh*
 
-Agreed. This predates the patch. I will include the existing "net: dsa:
-b53: reference count shared mirror source bits" fix from my local 
-b53-fixes. This preserves support for multiple rules sharing one source 
-and destination. The destination check remains ahead of reference 
-increments, and the first reference is recorded only after both hardware 
-writes succeed.
+Again, I have no idea if you/AI even realize the careful dance that's going on
+here.  I *wanted* to say this should simply have L2 assert on the expected CR0
+value, but doing so results in false passes because trying to report the assert
+means making a ucall(), ucall_alloc() does a memset(), and the compiler likes to
+generate SIMD instructions for memset().  I.e. trying to report a failure triggers
+the #NM that L1 expects.
 
-> 
-> dsa_user_add_cls_matchall_mirred() passes every matchall mirror rule to
-> the driver without a duplicate check. Each tc prio gets its own matchall
-> tcf_proto, so two rules A and A' (port 1 ingress to port 2) can share one
-> hardware bit.
-> 
-> Deleting A clears BIT(1) in B53_IG_MIR_CTL. If no other source remains, it
-> also clears MIRROR_EN and CAP_PORT_MASK. A' is still reported as offloaded
-> but does nothing in hardware.
-> 
-> A later rule C (port 1 ingress to port 4) then passes the new check, and
-> A' traffic goes to port 4.
-> 
-> mt753x_port_mirror_add() and qca8k_port_mirror_add() reject duplicates
-> using software masks:
-> 
->      if ((ingress ? priv->mirror_rx : priv->mirror_tx) & BIT(port))
->          return -EEXIST;
-> 
-> The new check assumes MIRROR_EN reflects the live rule set. Would b53 need
-> similar tracking?
-> 
->>   	b53_write16(dev, B53_MGMT_PAGE, loc, reg);
->>   
->> -	b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &reg);
->> -	reg &= ~CAP_PORT_MASK;
->> -	reg |= mirror->to_local_port;
->> -	reg |= MIRROR_EN;
->> -	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, reg);
->> +	cap_ctl &= ~CAP_PORT_MASK;
->> +	cap_ctl |= mirror->to_local_port;
->> +	cap_ctl |= MIRROR_EN;
->> +	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, cap_ctl);
->>   
->>   	return 0;
-> 
-> [Severity: Medium]
-> Both b53_write16() results here are ignored, and 0 is always returned.
-> Can a failed write leave the hardware out of sync with what DSA has
-> recorded?
+So the code is fine, but this needs a big fat pile of comments and the changelog
+needs to explain what's going on as well.
 
-Agreed, also pre-existing. I will propagate both write errors and 
-program the capture destination before enabling the new source. This 
-avoids adding a source before a potentially failing destination write.
+> +}
+> +
+> +/*
+> + * L1 owns CR0.TS (set) and CR0.NE, both with a read shadow of 0.  L2's LMSW
+> + * must leave both alone: FNOP takes #NM and L2 reads both as 0.
+> + */
+> +static void vmx_run_l2_lmsw(void)
+> +{
+> +	u64 cr0 = vmread(GUEST_CR0);
+> +
+> +	vmwrite(CR0_GUEST_HOST_MASK, X86_CR0_TS | X86_CR0_NE);
+> +	vmwrite(CR0_READ_SHADOW, cr0 & ~(X86_CR0_TS | X86_CR0_NE));
+> +	vmwrite(GUEST_CR0, cr0 | X86_CR0_TS);
+> +	vmwrite(EXCEPTION_BITMAP, BIT(NM_VECTOR));
+> +	vmwrite(GUEST_RIP, (u64)l2_lmsw_test);
+> +	vmresume();
+> +
+> +	GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON), EXIT_REASON_EXCEPTION_NMI);
+> +	GUEST_ASSERT_EQ(vmread(VM_EXIT_INTR_INFO) & 0xff, NM_VECTOR);
+> +	GUEST_ASSERT_EQ(l2_cr0, (cr0 & ~(X86_CR0_TS | X86_CR0_NE)) ^ X86_CR0_MP);
 
-I will also base destination conflicts on the two source masks, rather
-than MIRROR_EN alone. An unsuccessful final capture-control clear then
-does not block a new destination when no sources remain; conversely,
-remaining source bits prevent changing the destination even if MIRROR_EN
-is clear.
+Just use vmx_run_l2(), most of this is copy+pasted from there anyways.
 
+> +
+> +	vmwrite(CR0_GUEST_HOST_MASK, 0);
+> +	vmwrite(GUEST_CR0, cr0);
+> +}
+> +
+>  static void vmx_run_l2(void *l2_code, int vector, u32 error_code)
+>  {
+>  	vmwrite(GUEST_RIP, (u64)l2_code);
+> @@ -149,6 +183,8 @@ static void l1_vmx_code(struct vmx_pages *vmx)
+>  	vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS_DF);
+>  	vmx_run_l2(l2_ss_injected_df_test, DF_VECTOR, DF_ERROR_CODE);
+>  
+> +	vmx_run_l2_lmsw();
+> +
+>  	vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS);
+>  	vmx_run_l2(l2_ss_injected_tf_test, FAKE_TRIPLE_FAULT_VECTOR, 0);
+>  	GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON), EXIT_REASON_TRIPLE_FAULT);
+> -- 
+> 2.25.1
 > 
-> b53_mdio_write16() can fail before the target register is written, either
-> from mdiobus_write_nested() or with -EIO from b53_mdio_op(). SPI and SRAB
-> writes can fail too.
 > 
-> Suppose the source-mask write succeeds but the B53_MIR_CAP_CTL write
-> fails. MIRROR_EN stays clear, but dsa_user_add_cls_matchall_mirred() still
-> adds the rule to mall_tc_list because 0 was returned. A later rule to
-> another destination passes the new check and redirects the leftover
-> source. That is the redirect this patch is meant to prevent.
-> 
-> The final B53_MIR_CAP_CTL write in b53_mirror_del() is also unchecked. If
-> it fails, MIRROR_EN and the old capture port stay set with no sources, and
-> the new check rejects every other destination.
-> 
-> Should these writes be checked, with the source bit rolled back if the
-> capture-control write fails?
-> 
->>   }
-> 
-> [ ... ]
-> 
->> @@ -2595,10 +2606,8 @@ void b53_mirror_del(struct dsa_switch *ds, int port,
->>   
->>   	b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &reg);
-> 
-> [Severity: Medium]
-> The commit message says the patch will "propagate a failed
-> capture-control read rather than making the decision from uninitialized
-> data". This capture-control read is still unchecked, though. Is that
-> intended?
-> 
-> The b53 backends leave *val unchanged on error. b53_mdio_read16() returns
-> before assigning it:
-> 
->      ret = b53_mdio_op(dev, page, reg, REG_MII_ADDR_READ);
->      if (ret)
->          return ret;
-> 
-> b53_spi_read16() only assigns on success.
-> 
-> reg is reused here. If this read fails, reg still holds the other
-> direction's B53_IG_MIR_CTL or B53_EG_MIR_CTL word, and that word is written
-> to B53_MIR_CAP_CTL unconditionally. The source bits land in CAP_PORT_MASK,
-> and the MIRROR_FILTER bits land in BLK_NOT_MIR/MIRROR_EN.
-> 
-> That usually clears MIRROR_EN while rules remain. A later rule to a
-> different destination then passes the new check in b53_mirror_add() and
-> silently redirects the remaining sources.
-> 
-> b53_mirror_add() has the same problem, and there reg is uninitialized:
-> 
->      b53_read16(dev, B53_MGMT_PAGE, loc, &reg);
->      reg |= BIT(port);
->      b53_write16(dev, B53_MGMT_PAGE, loc, reg);
-> 
-> If that read fails, stack garbage ORed with BIT(port) goes into the
-> source-mask register. That can mirror arbitrary ports or set
-> DIV_EN/MIRROR_FILTER. MIRROR_EN is then set and 0 is returned.
-> 
-> Later deletes only clear BIT(port). The stray bits keep MIRROR_EN set, so
-> the new check rejects every other destination.
-> 
-> The earlier reads in b53_mirror_del() that set loc_disable and
-> other_loc_disable are unchecked as well. Should all of these reads be
-> checked?
-
-Yes. The statement about propagating a failed capture-control read 
-referred to the newly added read, but the other unchecked reads are real 
-bugs. I will check all reads and writes in both helpers. Since 
-port_mirror_del returns void, deletion errors can only be logged; a bus 
-failure can still leave a source enabled, but subsequent adds will 
-respect that source's
-destination.
-
-> 
->>   	/* Both no longer have ports, let's disable mirroring */
->> -	if (loc_disable && other_loc_disable) {
->> -		reg &= ~MIRROR_EN;
->> -		reg &= ~mirror->to_local_port;
->> -	}
->> +	if (loc_disable && other_loc_disable)
->> +		reg &= ~(MIRROR_EN | CAP_PORT_MASK);
-> 
-> [Severity: Low]
-> This isn't a bug, but the commit message says:
-> 
->      Clear the capture-port field when the final source is removed so a later
->      rule can select a new destination.
-> 
-> Is this hunk needed for that? The new check in b53_mirror_add() only
-> applies when MIRROR_EN is set, and b53_mirror_add() always rewrites the
-> field:
-> 
->      cap_ctl &= ~CAP_PORT_MASK;
->      cap_ctl |= mirror->to_local_port;
-> 
-> The old reg &= ~mirror->to_local_port already cleared the field whenever
-> it held to_local_port. Could the commit message call this a cleanup
-> rather than a requirement?
-> 
-
-Agreed. Clearing CAP_PORT_MASK is cleanup of the inactive configuration;
-it is not required to allow a subsequent destination change. I will
-correct the description.
-
-pw-bot: cr
--- 
-Florian
