@@ -1,93 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793330992;
-	b=gKbw1bPcC2UUashg0boAQgbqyqRs5nkVmvLCexjP/ZZ34tliwYIKaKLJAwZnJusNLV3g
-	 bbLjxwF+tLq/co5Cw6jw4KB4wgnjmbRGg3rSymUe0dVJkgGoBpCiMkQdTkw27WDtXs61R
-	 iR5n/lghdJRRGLZ06Te+YXpST0RcBwWEuyL7y2AZ1idoioyAeTC0IURo1hSFca/Q4S+1S
-	 A2EAT9D45FPiBF1T+VsS4CfYYrk8vUm6QCcQdIozPPbdSOOY5eS6TNEKZUtOI+4jZ7IR+
-	 Q0li40Mr9FYJFz/7Asn+Lvc7qSZ6M3AOPTyJKzBrvUjUYZsyn4DDnbMZpDl7jZy5cwQ==
+	t=1793330999;
+	b=JLIZRNn2lS+P6aGxQ3Wm+wJFKUpuUlvUyWTUW6JHx5kLSBCcChlmFniVdojsVGQTvNL0
+	 VD+OpL6q2ywGkM8CdIY/+v0MrcfsyUGQN4AMRwQIak0qip5g3uPOeubO2xla2zq5FCo70
+	 JhAuveF1Uz32YFIhbYLlfB67z+fpuHrQ6/9YqmZJsAUfUGtugEPhOssk/6Z7MOjbhJcy1
+	 w738HR8B8srKKJHVXQqoNzwX60bIMH+cBJngWlC2dT46kgDhgrxZh1J65jlFdCeRhsjSP
+	 llEEdBayYiIg3krx+r9iie1L40mPaRtmAEruCzC1sWFCaCgVMzJlvus9ByGgy79ra5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793330992;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793330999;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dahY9MpT6qRl250d4uUuF1qZsWTwuAAtLrsM4UyodQY=;
-	b=NtDCe0qnrowk7X0soNp2BdzCVoSr+ygCeX6zawBKilUE0PODZ0vG22/GxA8YfJiwjt2R
-	 S60firD2Krqkvgw+QbG2DlwLUEnqBchkLX7nUmouXhRdvdTNqv9Z1XxQkc0XvuFBkdDZP
-	 SovlErn6nZ0I1J4hwa4E1Hlxeu4i1sAimJoZgqIhcPULi+TR19XpKHy7yeJB9HARTJaUT
-	 oBF4O6BhlBeKq1nL4uhr4PWyIIms/Q+35iVutxOZDyWT2WdDDI/yRz5dAj4+AOU3fLa8f
-	 qVu4P4O8OgcyXCJxRYj4wpc5m1FzKxPRDlBR+brhBMnfj7QhCCkM6Yl9T+JvtcqWSUg==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=KlleBVM3i1uLVt+wBeFSTUPaEiDOxCnK0ld617cCPMg=;
+	b=3Iwyss+RHcWsPhTb3N1+s80QD25kO/OADRpWHyqmqKEb/nJSfItEOovvAtPvneL8FO4n
+	 cH9FJcBhDOrkiCyeLGdltrYmJOV6JfQJEI1SpG0VSmkKPlzwWctG2nQinkSS1xjnp3cx7
+	 dkXaztWPFnchiTrV0wxmZVb/3wCFNuUmMQNKWG8HSgl8HCxGZQYRaHgp7GuED9SYwNfx2
+	 kURDsI2MON9HptU75DBI0ZtiUN0yjuIGI5MUv0S3FjjqvPkucd8/xa4Ezm8zW1DbOXU2K
+	 2qnszzTHRi78FPn9pkjWhbeUbwv0D9TUkiG7b/W+tiJi3w0A66WQCAVLKXy3zRbmxHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K+jOzsvZ;
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YklNh9K3;
+	arc=none smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8543D606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:29:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8543D606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8431F606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:29:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8431F606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K+jOzsvZ
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso61199b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:29:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YklNh9K3
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a06210b29fso61242b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:29:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793330992; x=1793935792; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dahY9MpT6qRl250d4uUuF1qZsWTwuAAtLrsM4UyodQY=;
-        b=K+jOzsvZ8fin3aq2OVYoARcSRIp4cKZM1dLjFNCiPZB3P8CvDLZQvCxwfrpNUPqWll
-         yPhzZGmnQBxLkEdTB6YTG1dRqgAMlV3yDUX2z7sLf4/A3lJs+fUj1Gjx0J8CzNSvjHa2
-         /HJMIm5t1VpDT0X5dNFoGZKvXdJv6rcI7N0ayVH4viwXXpjWBQYW+kTlPyNEVURI92iR
-         qYxXi6UENCEHwMJtubWtm5TrHBTzpDnKwZkjBd0P8mnHEUuIIM1qcOej6mBdk/ZKDMTT
-         UkMerMaSwC8MmF6GhlSIcnfBv7ScFFacQdfwS7jQjwTwJyGoIP0yr3deSeFJha7k1Lli
-         9xCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793330992; x=1793935792;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793330994; x=1793935794; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dahY9MpT6qRl250d4uUuF1qZsWTwuAAtLrsM4UyodQY=;
-        b=R5G16K9YTyqxIbvZaYfIFnPCH82HXEppzAFIpNst4gouMCIsIEmSNlP32qyvcpx+6t
-         52RtYQ2MmpPCRxruFAhZFcVhNdmZqEFpkcoiV7LswEwNv5ndJpvnnyxjr10is+9UmzKb
-         zl2DJWAQJ+KmR8wZ9pGGD2UXXOf+DT/VO6llvwolGmRIWf82fRNn7TQr1OKoowC/NcZ2
-         eUuHENh2/i+7MvXo9Fw/cmxoAx+wWojNsvOeBYaZ4W2Wpc5tcBaebaSI6pD9JwjC0rMu
-         GMxlWlzveWzTJrABOg4gnNr1O/dRMwBqbrNEizA0+IkwKW3AgrA+idG3NDCxcYKBpgDn
-         0Zeg==
-X-Forwarded-Encrypted: i=1; AKwUvBywBmzdNxcmKOcDq0Ch9dGO08vgoeCHjW7dSmffSnOzWBBtxSarPzZWx/5ekUjZQJN4qo+l1NvumhyfBGY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJKXJ7dA1yCF5SZlraeWXDcxRk4tHnYM4CV7JyGVvBftZ09zWk
-	4SMXsxefZnilR0xaOlN4Po9VdgRo6bAC3d21qVO9PwrkKHo+PZUTEgrGBVYhTw==
-X-Gm-Gg: AYBFou2675+ZfCsALEnzXyFtMBx6EU4yBsXOjOHBhMi1Lr6S6wSzx9F/4e/rj9Ebw4J
-	P0Z3qG0059HuIwXCGg7XfuYTyE3jDKDa7g92IsPoABeEeL/fpBfKWwO/Vpg8i8HIKbAySKgYbAo
-	hEVlYxYaCkCa+2ZubROC3Lc36+oce9/Tfe/XU1wHWq26jT7auIf6NyIfaE22kPct9vleLkqpJam
-	Bcyk9BoD10HILU/gPQsu2gJz5wnpcRIFBUEZT+8bynKj6zNhiNqPjNTxCTbRbqXsP7sAW69c4Be
-	wGjISlz7jMtzePDOuzBeKBETUew7UQvicqOebmGk/dtDas8zbVFfPd9qAi4xe0sszmPzvDG0U37
-	f1An7LO8jBf1W5fRcfTZxDqIFAjjbix4U28q/tOOgUxkUVnNiFnCAZ1+34Mz+WB6QsRZCubV4Xm
-	erbP77fxpGxJIm0wfkobyq7VEYIuU1wAHlZrAwIzlcll4N6eNtqpGByMbReoENSlqEKa5ibbPjB
-	Px90+oRUt19D3DY99EpctoS+Zl9ICYgxtFzxQNeRtHUSA0HifQFCKze+lCBgtHHHuDLdMRkyuD7
-	Bl1zf2LFLkYBGrFqVkRqW7gtjIy/aKX+ehN9lm9fKtc7lb1zizDprOdRIjP55hhPpsQ5jsP25CC
-	Wjk+OKCMELXOozbri6IOrG/7mjw8MdTtiybz5YUGPK82ZCsSqqWDPnOoUsqWvNt6t7FI9ryMg
-X-Received: by 2002:a05:6a21:39a:b0:3e2:8fdc:a6c8 with SMTP id adf61e73a8af0-3e9290fd040mr1054244637.72.1793330991760;
-        Thu, 29 Oct 2026 20:29:51 -0700 (PDT)
+        bh=KlleBVM3i1uLVt+wBeFSTUPaEiDOxCnK0ld617cCPMg=;
+        b=YklNh9K3MNu4Vqr2OGSUyszMcNshYyCz+G4TnKQ583DrOxN09+x+RB20wf41XXl7v5
+         AT+hhJGPZtMQQYR8hGbDqZzZmKnQ9YH5RWY1ez44ZBV4tLQZzugxpslI0YNEP0TUeVPA
+         6S2aytsLc0XFTZw7+9Ea7eYhjadLfrrMU9WcYVSsQM0Ixi6pcJvZF9WiHGDTb9tctyQo
+         Aj1skvWVWD0KPpFVFFCSQWGhhAN5VqO+HorNghoGkyjCG6DCEKVoaFcOAlFGk77Oi57P
+         zgL87C5KlyDPRd/ye4xHc5YWFuIs67PsCf+HVH15zlnq6NPtkgXZQya7chtOSpfi0jgO
+         k/sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793330994; x=1793935794;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KlleBVM3i1uLVt+wBeFSTUPaEiDOxCnK0ld617cCPMg=;
+        b=hQzVzGZTjrDCksl/LyZkJ8r3H5weBLbNsXluZVwPlfbEv3TKGdoFjM+FXCSzEPCM5I
+         aZ0u09PXYX9ZZsP5HPDlR5WsmkaPJNUmdCu4V8l6WGor0YRrDX+FoaC+iK6ve/zzn3Q6
+         Zcpco44LgcKyQ9+z8I1fWjbIqri/XCqeXxcJnEAzjb8ss5unBnBPcpl/jnojs7F3MclX
+         ojcdiKiyeN4rglDuwwr7+8AnyH52eh+99rGdhLAm/ePlDhM3MNRR1FeDOQaLsNnKkB0x
+         RWnVHW7iL2GOkf+5Rbf4k3CUolfLb9+LFn2lsnbLMA+egPFfCBRvgYPvn003upr0mZPr
+         GZfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxyZNvaoW6WS5oO6v9qMGWqUyNS9A0g66fGXWhrlSimUVTxikfj64FDla4jxaecad4NGTN584m079gwU8I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLruHh3eJ5m6+qYgeVNDGYSnBfU1GrI/pJx2lkk8G7pacJDMbri
+	JAGrLVYqMOxnFsw+GAdk2Q/WoMrfX1wpTNrlNb+EtK29Gcdw6SZBiNrbTDSd3w==
+X-Gm-Gg: AYBFou1/6zAcyvZCV/2qw7kXOb5zNMMKkZpbApAT/YLrQSej6GL5neY6fvfPQL6d8MN
+	iqRnbdNwf5B2tubDD+R5uWHMaPyK4L1tzrVo+ykNviocrPbKHk8NfoJymRu8+dlAZZSL506cM8/
+	L2E+YezEVV95WCFqXa8pTy3VXh300fnP8FnKMNXuYbY8jSEvre5eRQ+8IW/o+am+R67pPH4ceJ3
+	v87Dri3shZde0IO8w6TiOvuaGxzRk5R8OBdJZQCsUmVgoq5+EUfGsdSEtZZsKBgb7YMqXfHOxUF
+	36vRxms14cHR8x/PdTV7TYru621RgcWhW6SB9S5nR6H4w8k6oYVdNcn5g9dkT4OyPDaezTrpMlU
+	t7xpSEJXlKoqSxOO+KvkAWY87ztCUeZ2QsGsZErqW3AzMNBSEGKkWDmcrTxBWrXpavNqwbl2AGc
+	6gTaSCYZsQNC09yJqPbJmTRYuHhLa5if6tXGWMt5XqZuKZoyuAvQlOKjLGgsjhDwDwp37x3HRPK
+	MLU7eHfpZbEmwmJhsvJZHWyNn2FMcIRDnbSAwi7VanNEmax3Znq/S4FlgMe3xUxytRyhQXqS0W3
+	XesAAZN9UUOdJ+GawKoPEYWE75f35IINHD299yy2d+Hr7iwDfQ4PaKNZ2UxcbGzeLJ1yX/e5jtd
+	wtBremzHzJL+ygRU7d+OH9MtcdT6OfthLjEdGr2HvymL4gXQdQRJKJuE5Xf4GTtiwN0itwhsY
+X-Received: by 2002:a05:6a20:b096:b0:3e2:9dee:42cd with SMTP id adf61e73a8af0-3e928d22422mr943709637.36.1793330993793;
+        Thu, 29 Oct 2026 20:29:53 -0700 (PDT)
 Received: from localhost.localdomain (S0106e0dbd1c8af8c.vc.shawcable.net. [24.85.96.29])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb0981c5desm111713a12.27.2026.10.29.20.29.50
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb0981c5desm111713a12.27.2026.10.29.20.29.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 20:29:51 -0700 (PDT)
+        Thu, 29 Oct 2026 20:29:53 -0700 (PDT)
 From: Mahmoud Abumandour <ma.mandourr@gmail.com>
 To: Sean Christopherson <seanjc@google.com>,
 	Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Mahmoud Abumandour <ma.mandourr@gmail.com>
-Subject: [PATCH v2 0/2] KVM: nVMX: Don't let L2's LMSW modify CR0 bits owned by L1
-Date: Thu, 29 Oct 2026 20:29:35 -0700
-Message-Id: <20261030032937.2813-1-ma.mandourr@gmail.com>
+Subject: [PATCH v2 2/2] KVM: selftests: Verify that L2's LMSW leaves L1-owned
+ CR0 bits alone
+Date: Thu, 29 Oct 2026 20:29:37 -0700
+Message-Id: <20261030032937.2813-3-ma.mandourr@gmail.com>
 X-Mailer: git-send-email 2.40.1.windows.1
+In-Reply-To: <20261030032937.2813-1-ma.mandourr@gmail.com>
+References: <20261030032937.2813-1-ma.mandourr@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,26 +103,72 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-When L2's LMSW exits to L0 but not to L1, KVM emulates it with=0D
-kvm_lmsw(), which ignores vmcs12's CR0 guest/host mask, so L2 can change=0D
-CR0 bits that L1 owns.=0D
+Verify that an LMSW in L2 that exits to L0 only leaves an L1-owned CR0.TS=0D
+set, and that L2 reads an L1-owned CR0.NE from the read shadow.=0D
 =0D
-v2:=0D
- - Patch 2: order the CR0 store before FNOP and check L2's whole CR0.=0D
-=0D
-v1: https://lore.kernel.org/all/20261029235040.12013-1-ma.mandourr@gmail.co=
-m=0D
-=0D
-Mahmoud Abumandour (2):=0D
-  KVM: nVMX: Don't let L2's LMSW modify CR0 bits owned by L1=0D
-  KVM: selftests: Verify that L2's LMSW leaves L1-owned CR0 bits alone=0D
-=0D
- arch/x86/kvm/vmx/vmx.c                        | 15 ++++++++=0D
+Assisted-by: LLM=0D
+Signed-off-by: Mahmoud Abumandour <ma.mandourr@gmail.com>=0D
+---=0D
  .../kvm/x86/nested_exceptions_test.c          | 36 +++++++++++++++++++=0D
- 2 files changed, 51 insertions(+)=0D
+ 1 file changed, 36 insertions(+)=0D
 =0D
+diff --git a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c b/too=
+ls/testing/selftests/kvm/x86/nested_exceptions_test.c=0D
+index f47432526e..e33d2e0db0 100644=0D
+--- a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c=0D
++++ b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c=0D
+@@ -109,6 +109,40 @@ static void l1_svm_code(struct svm_test_data *svm)=0D
+ 	GUEST_DONE();=0D
+ }=0D
+ =0D
++static u64 l2_cr0;=0D
++=0D
++static void l2_lmsw_test(void)=0D
++{=0D
++	/* Toggle CR0.MP, which KVM intercepts and L1 doesn't. */=0D
++	asm volatile("lmsw %w0" : : "r" (get_cr0() ^ X86_CR0_MP));=0D
++	l2_cr0 =3D get_cr0();=0D
++	asm volatile("fnop" ::: "memory");=0D
++	GUEST_FAIL("L2's FNOP didn't take #NM");=0D
++}=0D
++=0D
++/*=0D
++ * L1 owns CR0.TS (set) and CR0.NE, both with a read shadow of 0.  L2's LM=
+SW=0D
++ * must leave both alone: FNOP takes #NM and L2 reads both as 0.=0D
++ */=0D
++static void vmx_run_l2_lmsw(void)=0D
++{=0D
++	u64 cr0 =3D vmread(GUEST_CR0);=0D
++=0D
++	vmwrite(CR0_GUEST_HOST_MASK, X86_CR0_TS | X86_CR0_NE);=0D
++	vmwrite(CR0_READ_SHADOW, cr0 & ~(X86_CR0_TS | X86_CR0_NE));=0D
++	vmwrite(GUEST_CR0, cr0 | X86_CR0_TS);=0D
++	vmwrite(EXCEPTION_BITMAP, BIT(NM_VECTOR));=0D
++	vmwrite(GUEST_RIP, (u64)l2_lmsw_test);=0D
++	vmresume();=0D
++=0D
++	GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON), EXIT_REASON_EXCEPTION_NMI);=0D
++	GUEST_ASSERT_EQ(vmread(VM_EXIT_INTR_INFO) & 0xff, NM_VECTOR);=0D
++	GUEST_ASSERT_EQ(l2_cr0, (cr0 & ~(X86_CR0_TS | X86_CR0_NE)) ^ X86_CR0_MP);=
 =0D
-base-commit: dea4f6380f4ec96e8f3b0aaf2343764bd0d25ef4=0D
++=0D
++	vmwrite(CR0_GUEST_HOST_MASK, 0);=0D
++	vmwrite(GUEST_CR0, cr0);=0D
++}=0D
++=0D
+ static void vmx_run_l2(void *l2_code, int vector, u32 error_code)=0D
+ {=0D
+ 	vmwrite(GUEST_RIP, (u64)l2_code);=0D
+@@ -149,6 +183,8 @@ static void l1_vmx_code(struct vmx_pages *vmx)=0D
+ 	vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS_DF);=0D
+ 	vmx_run_l2(l2_ss_injected_df_test, DF_VECTOR, DF_ERROR_CODE);=0D
+ =0D
++	vmx_run_l2_lmsw();=0D
++=0D
+ 	vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS);=0D
+ 	vmx_run_l2(l2_ss_injected_tf_test, FAKE_TRIPLE_FAULT_VECTOR, 0);=0D
+ 	GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON), EXIT_REASON_TRIPLE_FAULT);=0D
 -- =0D
 2.25.1=0D
 =0D
