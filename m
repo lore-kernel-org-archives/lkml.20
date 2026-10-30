@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793334073;
-	b=mEJuhZiETaa8MHjPAW0INRqba4qQGBx/+25BOQfJYfVmzvE383J3OzCUmT5dYXOIzz/j
-	 j1xFtH4q7CdjqQFgHI/Lm12GSj3UawfqL2xQOF5aYwQQEPuFC/kf9aE8LkhYiH1DaAPSm
-	 VbA0SsISrQoVZ9Bt8wrAEc4RYlQB54rJLTn0n+wRgJNoFyb2900jGUyRJoHRETFNlaT6w
-	 JsVOO4QKlb6DCEFTdnEGd8JLwScTTUIHVIdDxCA41y3oTL0axWsLMBEXT0r5S+GzY8UDF
-	 cdv+CnBkIX9FwrjfgZiVw5gOY0MLrdNUwVeg5kMzspQNV27zYbK40pvOp3yRrAzjWJw==
+	t=1793334093;
+	b=MS4Rc9lqLr74GzJULCnRhbZMNsTVe6vPIp2Y3hBO9QKM1TLdnN9YADvjm6Th5P5W48vL
+	 Yat5EoWUYlbkjgbDQYMnCmj/OJeD0v1g+SUZGN4DwFs6PEr5qNZmsUvhJYm5g5bI7f1YJ
+	 TmaJWmtoWFbdrNLDFf76pz34EnlAQMFs57dS/8f3+Z4f+Hp/tkTjER1PNzLhxEMIbOwri
+	 H55FPgzZ0UqjiBrK5Xk1wLilqJjaejTqKKaSHtTDLM15xVTGn+oBFO0qZYVqz2nlxgwbK
+	 f1KplXAsnYU9GXhp5AAD7GsrDwfDAmRJf07aRlAyh1ncqNQKF9GDYPDzssvmtkPNWZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793334073;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793334093;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=NZFxhxetntJ4eJV30GVWChY5vhsarJj0j6bepxHT7hE=;
-	b=4Swel16+qBsfZcZn4d4KrdmHByXPAnKV5YbPpdoyxC7GzV8nwZdD+xCMMG/az2vTdGY4
-	 LyG19BvVs9emX5luKGlcOX1BxLhsL9+w2LPFAj6F+CBCcZ39jG4mQg8Ra7ltAawqNmlPP
-	 7b11Eowi89hIw/4e14PzaCouIbBmgEOmViFr5VAzmmpUpX/UZ8VpgF7t5MqrkGH1Zg6M/
-	 0uVfOwErInTN64fFeZmoEi5VINce+DfAflSRlSICZWKZQ4ecb4gYE6ZkqnNkxgLemh57d
-	 iZCdgXL9OCY32uiiTguKbnhc6Ho7b26v0w359K9KMgTfkjSyJJvDMpEpu7FwXeY/DYQ==
+	bh=m+UvCR40zLeBZiNhlvIBvCGxKCDmbVOiWwxKAegnpmc=;
+	b=M3CTC0orT6RXb3GHKlLhDDGHC5p9qBVzEL2in1YKvRUl4FjxA2xJOTm/RpEp4fOxWZ7q
+	 D5ebJjH5Mh9nhkWjq2ejZnBLZhvXOxnSK48NZKhkXsJxwZ4ZvS+ZCx+ORSq8Etj5byNkE
+	 VtjVvQ0S/TovQlYQQzmyh7wgRKH27H+N70R4atzJlTG5vqKMZ1oxcb/lfkIT4jf95Dv1w
+	 +dTWLs29rkhHQPiZ51eqmp2K3gm6VJEkiK99CC8ZlGGGRNMNvER4vBlaYHRWZty3BPw/P
+	 4atbMmvECU4g07QEL/agHwREFfHcyr0gy8TJnqI/qBoe8Gl4IxtlBVoinBlIcVwmXqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=openai.com;
 	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=Cib7M9RO;
-	arc=none smtp.remote-ip=209.85.161.45
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
+	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=aw21dDBZ;
+	arc=none smtp.remote-ip=209.85.161.50
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D80D606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:21:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D80D606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6069606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:21:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6069606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=Cib7M9RO
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-704597ef1d8so97211eaf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:21:12 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=aw21dDBZ
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6b1afdf5196so81270eaf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:21:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1793334072; x=1793938872; darn=vger.kernel.org;
+        d=openai.com; s=google; t=1793334092; x=1793938892; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NZFxhxetntJ4eJV30GVWChY5vhsarJj0j6bepxHT7hE=;
-        b=Cib7M9ROjjLXZ3Um+4q0PaXIHuP48lDm8G9SQnQIStFIb7n0L7DduWd5JL7qHKgguB
-         LwvOyZ0U9h4+3/gcSqnTmJ6uEGbU/HDoMG0tC2dlYBTxljc41dljju0e0MSR4dH9coFT
-         FRY0+RTE1CC2znYpjXqKuxpSgTvZ3hi8iacGc=
+        bh=m+UvCR40zLeBZiNhlvIBvCGxKCDmbVOiWwxKAegnpmc=;
+        b=aw21dDBZ39a0BZ1Pwg/laBtRlVRZ9zJrcVN/8T3X44Th5/D73o9RLTgP1OBRddcEfI
+         GV26wzWBoEuuw7MH/35MaEL1fB9tx69z7D9OMTt3GHMNFayr42/D+aUMMnA/J27N9oO8
+         pE9GhNIdop9I5hAIL3PXyHU62WrcVThEkHHJo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793334072; x=1793938872;
+        d=1e100.net; s=20260707; t=1793334092; x=1793938892;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NZFxhxetntJ4eJV30GVWChY5vhsarJj0j6bepxHT7hE=;
-        b=VYfXSWH1n435S9/7JshEZwCYwVDknJTtDzsUd9D/CZ8WyBbQzcNO1pWRRF/XL595qk
-         rtsBogTzubAn9MjdlPJ7ZDe1Duld9qXTXtfea3uwTaBe0uX+UkXeD1iKwyAk3v8caODD
-         VvnYH1Ng3reHoBg8VJQ+7Pdpyc8bHM1Jyhrc7vnNxC3G0HWx/duuY3flANNsgrikfnrD
-         OL3LXZjSNv88ALFirxL6DzwVviufB8dj4+fOOQQgpAzyGSc/xpoQQInnG0K8YNruGKwl
-         EWJH41tECXWEHSSJz3gZhMCcOiPRM37utvdvBzkWNqYbgCXKWaH67xpkmEsdyPA5f7kf
-         eUEw==
-X-Forwarded-Encrypted: i=1; AKwUvBzVGCftS2PN89gRx/Db+8dNfNtVD22jLoNJh0iRGdUrsaZ7Noz1R9JOY/mgQBD3LK2DB5EzRQUwqi2MZmE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGhw20WSjmWrprQn1PHjldpR0QLmWZVu3tMRgnsGOkF/vHT826
-	Wne118Qtlo+FW3uCuiEZbLkOg8ZHbQbSdS6HFNM6mzthtg5urN6D1uezYeODxW99CgU=
-X-Gm-Gg: AYBFou39CEr9YYAl+dmcMAvMeLkn271zBeHJaAzEZria1v+nkozVmi01XbEVqeU8OOY
-	e0fpcpi1G9p7XS6tc5kVaVXUJUYSGT0HnjiWxpjC3UFY4cnq5ekvFN8BXYKHlS9HvbdJqEvJ8qP
-	AF8eLle83tVcK0Q8bywbnRe+qNxXILKmYcipRXnbD2FtBrNVPDy8zsFjQo1asKjkQJG2PddQzVh
-	9eBIhpHGBpc4ImfULw8CZkQpoGQrdZwwtN7meqDHFNMJpGQOXHYti28tFRS5mhj1chLN3cTWnvC
-	8wXCAbQTIYROkAJ6OzmteZMALPFxd6bIBPxiIHIjnaic2Ulr/+ujmY+FzBvToRSIqJYZ+zSVjV0
-	33XB1YNu0a9zRjTNfBE+xlmM/j1dBruLKUP4GGteBcv81AxM2jlP6CwK0feTrVZFSbo5tFqqCqp
-	ElgdXnCXVkIDaZmT/J48IraLi8AMF9d3JpjP+Q9Mjm2dBtJCUJut4f7Ao/OBH6ptJxY5hv/qidM
-	VbxEVpWLChDedN8IlWZa8ILxXdS41VReBmFQAwoqdFnMqLJdKr5X7nSmNV9UuhdMb877yS8U2/R
-	xjkoAPec3tQEFMGXJU+pkDJfBZpPYa+z+5vEtSCBkTVXihTWxyLBgrxFipCf5w6A3pWr6shs/RC
-	Mao9L9VYGsIQ7+KlEuH7lEkTCEhxQXw==
-X-Received: by 2002:a05:6820:7093:20b0:708:d862:7b6f with SMTP id 006d021491bc7-714f24ea1a3mr577516eaf.6.1793334072102;
-        Thu, 29 Oct 2026 21:21:12 -0700 (PDT)
+        bh=m+UvCR40zLeBZiNhlvIBvCGxKCDmbVOiWwxKAegnpmc=;
+        b=ksYQfKV7BIpU2asiVoCOgzZr/a2/3uPcABojcsTeg7OVGejSD8vl+ZmwKu+ioX+fg5
+         JnyMNsi7uEQnogtotOw4OwPop7RJxc8vau+zySCAlWq9miY/vx2L+DVWvdxR7j9OotQx
+         J7d8U1htWGfgq5w7pHJNz1Ekrev++EAXDKRkEj0DlT2AW7IlHYkgIY3gSbMzRp1AsdrG
+         DhapcJHShqJUk32BBpooHtwwOEmonQ+iBCcqOQMPt5m1DLDcJqd9N6t/+0jVpMsujln5
+         EyLDanWfmvgR2Jo9e1xFiRy/56x5E4kytB+/L/IRuCJaU/Z2vxJ4TvH8tCZjSpBQuaGu
+         ZcGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxCL2gAKeoaf4COsvrRD/wkueJLc0wv6VROQxfUL5wkQ+TzAPh/VG5ezmkG1WtyUjkw3tA7dh8YfZE0QGY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCBfcFpOEaqC1WU6QlcspNVg7Om0Y4w9ZZpfX7O0dwyDCgK0AM
+	WC2WwXNblj2eawuaIq/kXeKFTYCk2Jt8IYsXOaoyWQfk8Qxb2O+hl5LwJANsp4mlCFM=
+X-Gm-Gg: AYBFou3gAKrtT7ov1BMqzLFnWwPI6xNhSavYvrqiuRRyaCVNpHKWU8xZ3MaaVQKQ/Dw
+	NO7NF7wY6By5fpjMzd4u4yNofXbI4vKfofJscTisq8nNGxRfMsXY8AyAfxEswz2EIguvWQbrXv4
+	ugUxdJ03BsUnbfkanRF24qGQP+CMwNb0+WY7I9xnXUtzsVmcsBmMFO9tG9dnLapFgB/CfBhO31b
+	OvYsYcvLFgDUjARyZDzdaJh8agvAgsyDgLrArTUGvwGaxXeCY5oO5zpZ3REGyCENeJmONTvJrTx
+	HVCk6Z74GLEamf07rZAmFuFda/qAXeLJ6u6zkJm+DrE5EYo2wjUgr9ztGPiM6CpuR0/w0al8xgO
+	WBYLqbknetNSe/NMDEFASTsjgYUYzy2MsTKvKPHdIAhQVDN22+6fBNJj9kvqaEa9ZRZO+EW/qF6
+	Gic8MAMq5sLTlTTLrEPS3GItBAZHJUMHrZ7txKJEqRPVykfx1OUO641Bn+eVutnzBsSkvxA2i7a
+	fXJwi75p97ctM75PCahcu/Dktp6cDB6jhDiirnCZ71Zf56bH7eMdI7jnZqqhe932Wbbz4zAD0Hr
+	fJF+XVPXZcLpvpfXE+dBEzJA2D3uupzQwknYEaVrrxqRVG1BouPvRJWVyj0Em6R4/Q4YLPnkxaz
+	SKtB7zEFtm8plH+vcA/DDA/cS9nIWgQ==
+X-Received: by 2002:a05:6820:806:b0:701:e4ae:d394 with SMTP id 006d021491bc7-714f2a0774bmr778691eaf.75.1793334091650;
+        Thu, 29 Oct 2026 21:21:31 -0700 (PDT)
 Received: from com-75606.corp.openai.org ([199.47.143.5])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a90af650a1sm768615fac.15.2026.10.29.21.21.11
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a90af4c879sm807971fac.13.2026.10.29.21.21.30
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 21:21:11 -0700 (PDT)
+        Thu, 29 Oct 2026 21:21:31 -0700 (PDT)
 From: Kyle Zeng <kylebot@openai.com>
-To: rds-devel@oss.oracle.com
-Cc: Allison Henderson <achender@kernel.org>,
+To: linux-afs@lists.infradead.org
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
 	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	outbounddisclosures@openai.com
-Subject: [PATCH] net/rds: Do not unpin a page after a failed atomic pin
-Date: Thu, 29 Oct 2026 21:21:10 -0700
-Message-ID: <20261030042110.73571-1-kylebot@openai.com>
+Subject: [PATCH] rxrpc: Serialize client connection IDR updates
+Date: Thu, 29 Oct 2026 21:21:29 -0700
+Message-ID: <20261030042129.73690-1-kylebot@openai.com>
 X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -97,45 +97,142 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rds_cmsg_atomic() assumes that a non-NULL output from rds_pin_pages()
-represents a pin that it owns. However, pin_user_pages_fast() can roll
-back a fast-GUP pin after racing fork() and then fail in the slow path,
-for example after a concurrent mprotect(PROT_NONE). The output slot can
-still contain the already-unpinned page.
+The common connection destructor calls rxrpc_kill_client_conn() for
+service connections as well as client connections.  A service connection
+gets its CID from the peer and never owns an entry in local->conn_ids.
+Its destruction can therefore remove an unrelated client connection.
 
-The common error path calls unpin_user_page() on that stale pointer.
-This can consume another subsystem's pin and allow the page to be
-freed while it is still in use.
+The final reference can be dropped by the service reaper or a call
+destruction worker, outside the owning local endpoint's I/O thread.
+Client connection destruction can also run off-thread, and can remove an
+ID already released by rxrpc_unbundle_conn().  These writers can race
+idr_alloc_cyclic(), corrupting the radix tree and its RCU callbacks.  A
+second removal can also delete a new owner after an ID has been reused.
 
-Clear page when rds_pin_pages() does not return one. The error path
-continues to release the page on errors after a successful pin, and
-successful requests retain their existing ownership and behavior. All
-four RDS atomic ancillary operations share this path.
+Only run client cleanup for client connections.  Restore a per-local IDR
+writer lock and the client-ID ownership flag, clearing the flag under the
+lock when releasing the ID.  Serialize IDR destruction with the same
+lock.  This covers deferred final puts without changing connection
+expiry or the RCU lookup path.
 
+Fixes: 9d35d880e0e4 ("rxrpc: Move client call connection to the I/O thread")
 Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
 I have a reproducer for this issue and can share via DM
 
- net/rds/rdma.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ net/rxrpc/ar-internal.h  |  2 ++
+ net/rxrpc/conn_client.c  | 17 ++++++++++++++---
+ net/rxrpc/conn_object.c  |  3 ++-
+ net/rxrpc/local_object.c |  1 +
+ 4 files changed, 19 insertions(+), 4 deletions(-)
 
-diff --git a/net/rds/rdma.c b/net/rds/rdma.c
-index 078090d292fa..71b57abb96c4 100644
---- a/net/rds/rdma.c
-+++ b/net/rds/rdma.c
-@@ -957,8 +957,11 @@ int rds_cmsg_atomic(struct rds_sock *rs, struct rds_message *rm,
+diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
+index 865f05fe37ab..5e49fe0f4a6f 100644
+--- a/net/rxrpc/ar-internal.h
++++ b/net/rxrpc/ar-internal.h
+@@ -377,6 +377,7 @@ struct rxrpc_local {
+ 	bool			dead;
+ 	bool			service_closed;	/* Service socket closed */
+ 	struct idr		conn_ids;	/* List of connection IDs */
++	spinlock_t		conn_ids_lock;	/* Lock for conn_ids */
+ 	struct list_head	new_client_calls; /* Newly created client calls need connection */
+ 	spinlock_t		client_call_lock; /* Lock for ->new_client_calls */
+ 	struct sockaddr_rxrpc	srx;		/* local address */
+@@ -472,6 +473,7 @@ enum rxrpc_call_completion {
+  * Bits in the connection flags.
+  */
+ enum rxrpc_conn_flag {
++	RXRPC_CONN_HAS_IDR,		/* Has a client conn ID assigned */
+ 	RXRPC_CONN_IN_SERVICE_CONNS,	/* Conn is in peer->service_conns */
+ 	RXRPC_CONN_DONT_REUSE,		/* Don't reuse this connection */
+ 	RXRPC_CONN_PROBING_FOR_UPGRADE,	/* Probing for service upgrade */
+diff --git a/net/rxrpc/conn_client.c b/net/rxrpc/conn_client.c
+index 48519f0de185..4c2db83fceae 100644
+--- a/net/rxrpc/conn_client.c
++++ b/net/rxrpc/conn_client.c
+@@ -40,12 +40,16 @@ static void rxrpc_activate_bundle(struct rxrpc_bundle *bundle)
+ }
+ 
+ /*
+- * Release a connection ID for a client connection.
++ * Release a client connection ID exactly once.  The final reference may be
++ * dropped outside the local endpoint's I/O thread.
+  */
+ static void rxrpc_put_client_connection_id(struct rxrpc_local *local,
+ 					   struct rxrpc_connection *conn)
+ {
+-	idr_remove(&local->conn_ids, conn->proto.cid >> RXRPC_CIDSHIFT);
++	spin_lock(&local->conn_ids_lock);
++	if (test_and_clear_bit(RXRPC_CONN_HAS_IDR, &conn->flags))
++		idr_remove(&local->conn_ids, conn->proto.cid >> RXRPC_CIDSHIFT);
++	spin_unlock(&local->conn_ids_lock);
+ }
+ 
+ /*
+@@ -56,6 +60,7 @@ static void rxrpc_destroy_client_conn_ids(struct rxrpc_local *local)
+ 	struct rxrpc_connection *conn;
+ 	int id;
+ 
++	spin_lock(&local->conn_ids_lock);
+ 	if (!idr_is_empty(&local->conn_ids)) {
+ 		idr_for_each_entry(&local->conn_ids, conn, id) {
+ 			pr_err("AF_RXRPC: Leaked client conn %p {%d}\n",
+@@ -65,6 +70,7 @@ static void rxrpc_destroy_client_conn_ids(struct rxrpc_local *local)
  	}
  
- 	ret = rds_pin_pages(args->local_addr, 1, &page, 1);
--	if (ret != 1)
-+	if (ret != 1) {
-+		/* A failed pin can leave a stale page pointer. */
-+		page = NULL;
- 		goto err;
-+	}
- 	ret = 0;
+ 	idr_destroy(&local->conn_ids);
++	spin_unlock(&local->conn_ids_lock);
+ }
  
- 	sg_set_page(rm->atomic.op_sg, page, 8, offset_in_page(args->local_addr));
+ /*
+@@ -162,15 +168,20 @@ rxrpc_alloc_client_connection(struct rxrpc_bundle *bundle)
+ 	if (!conn)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	spin_lock(&local->conn_ids_lock);
+ 	id = idr_alloc_cyclic(&local->conn_ids, conn, 1, 0x40000000,
+ 			      GFP_ATOMIC | __GFP_NOWARN);
++	if (id >= 0) {
++		conn->proto.cid = id << RXRPC_CIDSHIFT;
++		set_bit(RXRPC_CONN_HAS_IDR, &conn->flags);
++	}
++	spin_unlock(&local->conn_ids_lock);
+ 	if (id < 0) {
+ 		kfree(conn);
+ 		return ERR_PTR(id);
+ 	}
+ 
+ 	refcount_set(&conn->ref, 1);
+-	conn->proto.cid		= id << RXRPC_CIDSHIFT;
+ 	conn->proto.epoch	= local->rxnet->epoch;
+ 	conn->out_clientflag	= RXRPC_CLIENT_INITIATED;
+ 	conn->bundle		= rxrpc_get_bundle(bundle, rxrpc_bundle_get_client_conn);
+diff --git a/net/rxrpc/conn_object.c b/net/rxrpc/conn_object.c
+index 0ece717db0f8..bae95cadd72b 100644
+--- a/net/rxrpc/conn_object.c
++++ b/net/rxrpc/conn_object.c
+@@ -332,7 +332,8 @@ static void rxrpc_clean_up_connection(struct work_struct *work)
+ 	rxrpc_purge_queue(&conn->rx_queue);
+ 	rxrpc_free_skb(conn->tx_response, rxrpc_skb_put_response);
+ 
+-	rxrpc_kill_client_conn(conn);
++	if (rxrpc_conn_is_client(conn))
++		rxrpc_kill_client_conn(conn);
+ 
+ 	conn->security->clear(conn);
+ 	key_put(conn->key);
+diff --git a/net/rxrpc/local_object.c b/net/rxrpc/local_object.c
+index 169f9dfdaa77..5a7acd595e11 100644
+--- a/net/rxrpc/local_object.c
++++ b/net/rxrpc/local_object.c
+@@ -140,6 +140,7 @@ static struct rxrpc_local *rxrpc_alloc_local(struct net *net,
+ 		memcpy(&local->srx, srx, sizeof(*srx));
+ 		local->srx.srx_service = 0;
+ 		idr_init(&local->conn_ids);
++		spin_lock_init(&local->conn_ids_lock);
+ 		get_random_bytes(&tmp, sizeof(tmp));
+ 		tmp &= 0x3fffffff;
+ 		if (tmp == 0)
 
 base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
 -- 
