@@ -1,56 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793379286;
-	b=4FOYiFXK4fuYtzSyWjll8GSR6/+QQPvny7z6htdd6KmYIiD84fVuwKhDx3qeBg6Jv6TV
-	 ctCyAjtK+eupClDHhZ36+rEfFokk4IQLOLktCiCgZi1rFCjB+nX9O7TOldqbQeZvugJZv
-	 y6LXAEDU3+VNaEj2sBYKeDniFim7feL2QmxVVeXaUIS2VK8cUb1ZPXXva+PqL3aj9WlW2
-	 FWlx09nwBB2L49z7p0ZO+/F9Tle3hqRgfIyD3EGbKnV4vjY+4AlTxUL2uunIVNnXCpaKY
-	 g1WXxmOd0Ja7U7mBUpdRSduf3TTPuyLCe6aviFP3amgM4ZATWnbQ09+eoPl6JlZYtGg==
+	t=1793379292;
+	b=Xs9OdW6Cxkf9qALEU/QbDE80uHEqXB3ML4ehsiz5WHiCO+hEqH8XqrdJHnGrURTugnCL
+	 4Z8lL1hI+6w5qDZlRpEgyOrgNKgvGRWqbMvzW7JQRFrUt8CE9wV+HyCHmOCKx6pl5K9St
+	 3WyGLe07btMcPBNMB8diroU96eztOdc9KWZAbJxDjz8gwJv3t/liLvUZ5fOvf9OD79n1Q
+	 I1r1hvgP9PhX8U08PXGJ1vBDtMjMhrfs638d6R9GFjs7QbqAqg6N4uxpp0HWZmmUdEhtD
+	 JzIhVfJizCI2WXs47ZxDgr7UEjIvKAbgBMchXfAB2pWc0nEXW/v+T2dZus52Dy/4WxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793379286;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793379292;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=fNE2eV0m3D6OyWPIqQmvZsbomGlIUyQZym9vjn+vL/o=;
-	b=VGC+yeE7MfMn+v1kqUWFqP2b7eyB2/Nlzde56HIJUfxeReMcWa/rL+FflLZ5GLz5Nt9c
-	 KZnM9w2S3oKhUDE2rran/lAJBgYtyCHypPeFnQoRUcHEyqgtAZDGzNIucEi1y0PYxx6gF
-	 U/5rdS9v+CuVOJ8Trs60qohF8xjt3LzAHtYnbJSaEQUd/K5xJWvMNwDvleDS2a5wmqbEb
-	 U8D0NTOqsSFaF5PYnWHJQBXNhgY6jxqRMuVlhEvl1wCt0gYImAO5UjEW6JCLaELy2r8+r
-	 aL/2iw/Tru9uY1618P1RmpsPyTk07S+LfdxfXNt2nXe/2t0JNzt6q13BMNO0rjUB4mQ==
+	bh=aGTgRmIChqUrwHEFXITL+j5gAAqi0dRCXqiqJsw3B4g=;
+	b=J/N+qUSss1mCjRmu+tpjCxszavqnlkL5ui9S9aRYovtPTUtZz313+tnGxvILbEbFH63G
+	 LlnuQj7UUpzmCvirCb0Lm1tGgrobQrNCJAW7iUKHO4UWsBXIAC5RYJ0u+FkENm2oUJklo
+	 7DMZU75H9zNZQHw5gQxImPYPvyCwTZii+ScoBvXtWgOTk+k+t1PEQAdGQ0tcR/RhyhExD
+	 kLns4RZoa4qGZVRG+Z7BbcmuLAe3fSSBDwbvVJd3Y8pXo3GPuBJ7ZOR4jjcdeV9SGYvQy
+	 NP6Gos+0ieXRn9l96Yy4wwoh4nz9/ammjwA2JM5pMARtklGAsZJWXx2Mpi3AcM1hUBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.sdu.edu.cn;
 	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=NJhLc9zU;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b="D6n4X/yL";
 	arc=none smtp.remote-ip=45.254.49.198
 Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F20606A327;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD9F606A333;
 	Fri, 30 Oct 2026 16:54:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78F20606A327
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BD9F606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=NJhLc9zU
+	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=D6n4X/yL
 Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 52f74f11d;
-	Sat, 31 Oct 2026 00:54:35 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 52f74f120;
+	Sat, 31 Oct 2026 00:54:40 +0800 (GMT+08:00)
 From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 To: Lee Jones <lee@kernel.org>
 Cc: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,
 	stable@vger.kernel.org,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	linux-omap@vger.kernel.org,
+	patches@opensource.cirrus.com,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/6] mfd: palmas: Fix potential IRQ action leaks on removal
-Date: Sat, 31 Oct 2026 00:54:26 +0800
-Message-ID: <fe4ee2ff4b3ad6675a46a169d6de6410db32b652.1793377422.git.liguangshuo@mail.sdu.edu.cn>
+Subject: [PATCH 6/6] mfd: wm8994: Fix potential use-after-free during removal
+Date: Sat, 31 Oct 2026 00:54:29 +0800
+Message-ID: <6c39348d96fd188f514e9b0f1e5cfad19af6d0ae.1793377422.git.liguangshuo@mail.sdu.edu.cn>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1793377422.mfd.git.liguangshuo@mail.sdu.edu.cn>
 References: <cover.1793377422.mfd.git.liguangshuo@mail.sdu.edu.cn>
@@ -64,25 +59,26 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa18dbc13bf03a1kunm46158e5a52a22
+X-HM-Tid: 0aa18dbc252f03a1kunm46158e5a52a34
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQ0xDVhkdTE9KGB9IGUsZTFYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCS0pMVkwYSUtITh5OGEkeQ1YeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
 	++
 DKIM-Signature: a=rsa-sha256;
-	b=NJhLc9zUAZUbMz4RbfiQSzAdSh5etaPu1SNUALwGAEHFs5rwnZDkv1J34bEZO/IXSofz23Irx8eYaLbEfxdtfKmvIT+PVhIX7D9k6szQiPJNrMwJNluGUevNAlYIfuTQEn8y2dtyS0D8h92Iiwbv8WMlcg64FyiqBLzbYY9Fms0=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=fNE2eV0m3D6OyWPIqQmvZsbomGlIUyQZym9vjn+vL/o=;
+	b=D6n4X/yL/EmYS7dx8Dq3LxuEONurnrNuQHG5kCaXUi6tyHwZGvBuaOhXl/nwhswKYLwKVqG1CTbldbs7qJzBlivn9BfUq26sjFlLNaCu01Kt/NbBv+2F1JLwOe1bg1rKswwexZG1VuQLwhclnFtAs04WIq1nmlVi3OVbGRTQWNk=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
+	bh=aGTgRmIChqUrwHEFXITL+j5gAAqi0dRCXqiqJsw3B4g=;
 	h=date:mime-version:subject:message-id:from;
 
-The remove callback deletes the IRQ chip before managed OF children
-are removed. Their later free_irq() calls cannot find the disposed IRQ
-descriptors, potentially leaking interrupt actions. Depopulate the
-children before deleting the IRQ chip and auxiliary I2C clients.
+The IRQ chip is deleted before the codec child is removed. The codec's
+IRQ cleanup can then use the freed IRQ-chip data to look up interrupt
+numbers. Remove normal children before deleting the IRQ chip, and keep
+the LDO children until their regulator consumers have been released.
+Use late removal on probe failure as well to clean up the LDO children.
 
 This issue was found by our static analysis tool under development.
 
-Fixes: 124e9deb1c40 ("mfd: palmas: Use devm_of_platform_populate()")
+Fixes: bb63f7d33d35 ("mfd: wm8994-core: Disable regulators before removing them")
 Cc: stable@vger.kernel.org
 Assisted-by: OpenAI:gpt-6-astra
 Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
@@ -91,20 +87,46 @@ Build-tested the changed object with x86_64 defconfig plus COMPILE_TEST
 and the driver dependencies (W=1).
 No runtime or fault-injection testing was performed.
 
- drivers/mfd/palmas.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/mfd/wm8994-core.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mfd/palmas.c b/drivers/mfd/palmas.c
-index 7fc886f4f80e..8a0b7b1e89d7 100644
---- a/drivers/mfd/palmas.c
-+++ b/drivers/mfd/palmas.c
-@@ -677,6 +677,9 @@ static void palmas_i2c_remove(struct i2c_client *i2c)
- 	struct palmas *palmas = i2c_get_clientdata(i2c);
- 	int i;
+diff --git a/drivers/mfd/wm8994-core.c b/drivers/mfd/wm8994-core.c
+index 094c0b3dbd97..9dbc8dbaeff2 100644
+--- a/drivers/mfd/wm8994-core.c
++++ b/drivers/mfd/wm8994-core.c
+@@ -29,11 +29,13 @@
+ static const struct mfd_cell wm8994_regulator_devs[] = {
+ 	{
+ 		.name = "wm8994-ldo",
++		.level = MFD_DEP_LEVEL_HIGH,
+ 		.id = 0,
+ 		.pm_runtime_no_callbacks = true,
+ 	},
+ 	{
+ 		.name = "wm8994-ldo",
++		.level = MFD_DEP_LEVEL_HIGH,
+ 		.id = 1,
+ 		.pm_runtime_no_callbacks = true,
+ 	},
+@@ -586,7 +588,7 @@ static int wm8994_device_init(struct wm8994 *wm8994, int irq)
+ err_regulator_free:
+ 	regulator_bulk_free(wm8994->num_supplies, wm8994->supplies);
+ err:
+-	mfd_remove_devices(wm8994->dev);
++	mfd_remove_devices_late(wm8994->dev);
+ 	return ret;
+ }
  
-+	if (i2c->dev.of_node)
-+		devm_of_platform_depopulate(&i2c->dev);
-+
- 	regmap_del_irq_chip(palmas->irq, palmas->irq_data);
+@@ -595,10 +597,11 @@ static void wm8994_device_exit(struct wm8994 *wm8994)
+ 	pm_runtime_get_sync(wm8994->dev);
+ 	pm_runtime_disable(wm8994->dev);
+ 	pm_runtime_put_noidle(wm8994->dev);
++	mfd_remove_devices(wm8994->dev);
+ 	wm8994_irq_exit(wm8994);
+ 	regulator_bulk_disable(wm8994->num_supplies, wm8994->supplies);
+ 	regulator_bulk_free(wm8994->num_supplies, wm8994->supplies);
+-	mfd_remove_devices(wm8994->dev);
++	mfd_remove_devices_late(wm8994->dev);
+ }
  
- 	for (i = 1; i < PALMAS_NUM_CLIENTS; i++) {
+ static const struct of_device_id wm8994_of_match[] = {
