@@ -1,97 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793381587;
-	b=uAlWp/T1ftdYmV3kqmjyyOt3uk7fx1VE7pz55Fr6BVsBQpD5BQRDfkEGM11HG6EB2Cna
-	 XAJCyO0YGnulfHJSMKUStDYQasrXkSmpQiCF6LxfrTIfFgx/kFjpgQP44edfFQFhNSRkx
-	 r+yXVY8DXp0AV98qaUGQuDs8RPKN7MJm/SDFIOEsEegoKGqVpPBGeLnfgPbyskXL00fiv
-	 sIEVmn3P/lBy98fVwaLRC5+orEuRkH/Se7R7ztXPZpWJY2SQQJbbMjclVux7CJ5V1JgwG
-	 zD00eWEUL1Ms7wo8r2i/ri591wzo+rGFjOYmHEbvIc30JVYv3R9LK+7/S4zVej9ldKw==
+	t=1793381609;
+	b=J8AXHJ6BockDfV36SDKzHEsrHHR4GdOJOOgja7H1Gnu2UP5ovAkNgOLdVcqUslY0vfjD
+	 Cyw6spK0R4+QmgyCq4Nba0N11dwC0f4mloudnOnX2WlpugjUhabrZz5FJIFA15ad0KNvF
+	 M1gKXAqHvbj5C2xkfk8PO7/wa2zqCy3x0ECFP+irzW8kkINke43u4BH7MXBdu1pENo0Yb
+	 UQAdgURQoc8Ffxubk9YKHnEqJLKF455UI0x4yt1XErhI/j+Lfzfjb1HKQgZXy1yp5LQS9
+	 HkP2c5gjkhP8twyjScxPs2tMvksMr8nIYhmea04UB+jJrZFny72f6P0HOvBRmktSuaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793381587;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LmO/5PcIMkJ1uNOlzQOm4Yq03gMmohmS4XStYh/BI0o=;
-	b=D5ciEhpbNlQHBtxoTjHlf6MXBXiqp6Ws7fZT5fJkYr8L7GqRlQK4q1sTz56UPq4aSYwv
-	 ex58VG4n8mjE1H/JPJvYvDHoAFFpM9/GG6hQ8EKxGVly1F3t1cDOo5C9r+Gj15XQWBFQ+
-	 gRjai69vDr1TDMxHX2Hr9b37D8uwF3kH6u27PKGgOM5Wd7x1bJ2uGXInR4AH/3PW6KWDc
-	 3urKvtTyQ6JAWy9A/KH9LIkKCQARuglfFoxq/uRamcjDHunB5+loxSDSv71104fIGyeYb
-	 zKN0w3CXwUIUyVPgAjFJ5o1R4wFNgEka1dVwUULBh+DBhRcfLGnsvk4uUN857I1I99g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793381609;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
+	bh=Wqhob1kKf6CSb1SlklMoXqrkoKUJdJ4GFmlTJDvAxz4=;
+	b=dM1a//HihY6uKpWxYqji9Oe+9xlqoPm3uxqidxR6u0z8Q+g1aL7qtue/kHbAORp0cf76
+	 3GYZidLtYA474rEbIodI82N8Jw78ehLPNU6++4f7DaKJ4jfu47csQB71cV/4hp6IT+fg2
+	 bax3PayHkbyV96S6a5fCHoeiEYXVCq1bdU36vlwqlFWXovpsnimcCksEWwQ9TcepIqjo9
+	 alYq59k8vJAU8cbizAj+R1bLq3oGBn+lb3KCI1i89LWVbEd4ijiwytd7Q/sXvhOicSOT6
+	 3dq8ZvDY+b6R/sPQfmIXUQrq794TCm60L/TYkAVKYhYwdeco4VGvaWq093E1aahN3Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=x6u.co;
-	spf=pass smtp.mailfrom=x6u.co;
-	dkim=pass header.d=x6u.co header.i=@x6u.co header.a=rsa-sha256 header.s=google header.b=OmCpwhLQ;
-	arc=none smtp.remote-ip=209.85.217.52
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tvLH3IJ+;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C086606A33A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:33:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C086606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72DE606A31A;
+	Fri, 30 Oct 2026 17:33:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A72DE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=x6u.co header.i=@x6u.co header.a=rsa-sha256 header.s=google header.b=OmCpwhLQ
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7cbbb7b90efso270656137.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:33:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=x6u.co; s=google; t=1793381586; x=1793986386; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LmO/5PcIMkJ1uNOlzQOm4Yq03gMmohmS4XStYh/BI0o=;
-        b=OmCpwhLQs8mRsBB38fbMQFHJbO5RylCWJwHdV9f0RPoa8dtDKTb7bQo+6Lc0nc8RPY
-         LfKFazuWh8hUBcCW2Xys6fZeU6hk07DsVEqpomTZcr7lrKUhgoBo82ND3pAwJ0Zgbg4U
-         n9UHjbjCh9KOm63fPh26+rbz+ddqe8DZGdNC+Vxnw1Xc3FNiMb8rJqLzzLHBzsBAo+jv
-         EcWCi35+8LevwcjkMfXatB8EfF8ObZGCjyORxzAGjqsSL4X75OKSGsVRpq1jWYJpV2os
-         U/mesixiP/ens+yV9BgTCDHeq3okp7sJIt6jrA0De0RDGwldM2+FpSp9sOR5eb9YRKe/
-         UPqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793381586; x=1793986386;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LmO/5PcIMkJ1uNOlzQOm4Yq03gMmohmS4XStYh/BI0o=;
-        b=df7Y5UrMkRSGQiGWMF3gzjQQQHuKJ7uCNPgH20wazwEvLBcfc/D7fP9TpV37AbNDz4
-         PIu+yclTrtBP6YiBeTu2QjCDQxShWXH62jwNOGJHthaZ3pY7hv2qPOrEUdKO6kuU65ur
-         mUhwZpZj68RFcF0yLnl4q+pGYrNqDQu6X4Kj71Q38mdwI3VUiwdM0o1DQCtfcRiQ0kiM
-         Ri2MQgJmcinZW865f6r7brGY89Was+VQC3a0auOSQwhOD6OqkSo3BvBRVFv26eNf/J9c
-         F6XZkf7ELKTWs8xHXx1q82rt35p/ub+UH8Ge0hieCRFZzgDFiV45ZelJEAnUDntwth0F
-         BpJw==
-X-Forwarded-Encrypted: i=1; AKwUvBz+Ou8AwfkOdcr1ROuB7pXDRiy+J/hBP2U9P80uSmcynp0KvJOzbG7cZHyftbjlujrJN6gZ5g73ast0J8A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJruVozc6gh3XR2ekC8ZcIklRjkzWcihlPWo2ee+7c/L8s1DktL
-	RICI6aaNb0y7faN+GBeQah1fAaMQQVLJ1f6QKd6OxBMi6bIDztycGRCteda2YcdDug9tHFPO7Io
-	ZvpFXPg==
-X-Gm-Gg: AYBFou2eMslLjgp0gAl5wSyJTjh4jN/P+Zu7q4kdaICsA1FKBZSjXKLhWqagaXekQVb
-	sMNmPokVy6TpYYlrQzrJLZXC7pe2baK7vNAn3CQLm1Fo2ncFiSxaO96jIJQPNQDMGrJGO3q68lc
-	wBAzLEfpj40/diO+1xEm3U8IcIZEonHJuK5+ygGyXQJ6ZVojMhYhTBS9F3M9wP0mSBbAY8Yk7B5
-	usOEgE5PusyvXXbKdqizDeyArvg5qVgobmrsseZVVUMI7pc8lwZvs0ynEj68tp8y2vccl9NZ21M
-	POXbxVMBssvUk+y41xoBVsz9n+J3Byf5m5Cu1iSWzhcz4XtoLxXExLvziURtxeksp2nC8OFYXri
-	kf5PdENoARGhjGJEm5jF1+rz/z7Io1d68JC12PU1BufD/MJQEcdvsEGd/hWjCBwJGmVSeumPUIS
-	qP2Y0gPzwGVN8jBBZWKg8BA0BRM83Ht6MUJ+VrgMIHYwELmduQB5zPWLYvGoLdKQDcNuFLlKKFs
-	/zc5vV1fuuaKgZFGXHv3LDhY0BG5U2arbEi3A4sLJXs2zRk0y7Dk8mfa1jjaSQ225uCSDoKk/qp
-	AmluDyv1qmRpiMU6OvnCSQLAkSZ4VNYK3CBKLwk+vVDIwjvq9X2sVle1FNQ8VH7ZTNmRUSEEa2m
-	DPZN9nixlIbFX3w6aUWuCPeFyicmC4tYP2m25h5FoIeM=
-X-Received: by 2002:a05:6102:4457:b0:7cc:32da:56e with SMTP id ada2fe7eead31-7d0725b9fb5mr1123902137.19.1793381586290;
-        Fri, 30 Oct 2026 10:33:06 -0700 (PDT)
-Received: from worldpeace10.c.googlers.com.com (109.243.150.34.bc.googleusercontent.com. [34.150.243.109])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d077606b7asm2816323137.8.2026.10.30.10.33.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 10:33:05 -0700 (PDT)
-From: David Hu <dhu@x6u.co>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Tatyana Nikolova <tatyana.e.nikolova@intel.com>
-Cc: Jacob Moroni <jmoroni@google.com>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Hu <xuehaohu@google.com>,
-	sashiko-bot <sashiko-bot@kernel.org>
-Subject: [PATCH rdma-next] RDMA/irdma: Free cq with a safer cq num reference
-Date: Fri, 30 Oct 2026 17:32:54 +0000
-Message-ID: <20261030173254.2000665-1-dhu@x6u.co>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tvLH3IJ+
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 2AEAEC49F70;
+	Fri, 30 Oct 2026 17:34:30 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 45D31603C2;
+	Fri, 30 Oct 2026 17:33:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 67B94103290E8;
+	Fri, 30 Oct 2026 18:32:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793381599; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Wqhob1kKf6CSb1SlklMoXqrkoKUJdJ4GFmlTJDvAxz4=;
+	b=tvLH3IJ+lAa+c1GDZJCdwzBG8lri4Ce0vDhFLbebUNhON2Fv77P9vI7IwLSfeyC6gCptFG
+	M0Zgo31a7fJtDWTkFGV6ZWpVqfWav/ZlTuTdS77qDa2ADyQzF1biqjGaJ52HYJjelpTyA8
+	78Txna1gVOn87a/EzGf517G9Wi90irQmp68QjmTBG2hi2anHJ/gar0CBLQdc8zb4eIFvVb
+	0/R2ROVUuBYLMmAT2UVIdwDj6R8J6fUMeT6w3n5ECLjA44QaGvkYoKqNIVVTf5GjtwnhF2
+	jsJ04NRKc9yG+3DNV5zsQKh8aii82ZUqWjYjVyeKGO+ceajBYz/0OpTscGm/VQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,50 +59,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 11/35] drm/rockchip: lvds: use drm_panel_bridge_add()
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Douglas Anderson <dianders@chromium.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>, 
+ Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+ Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Inki Dae <inki.dae@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Alison Wang <alison.wang@nxp.com>, 
+ Paul Kocialkowski <paulk@sys-base.io>, 
+ Yannick Fertre <yannick.fertre@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Igor Reznichenko <igor@reznichenko.net>, Michael Walle <mwalle@kernel.org>, 
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
+ Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+ Purism Kernel Team <kernel@puri.sm>, 
+ Jerry Han <hanxu5@huaqin.corp-partner.google.com>, 
+ Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>, 
+ Michael Trimarchi <michael@amarulasolutions.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Casey Connolly <casey.connolly@linaro.org>, 
+ Michael Tretter <m.tretter@pengutronix.de>, 
+ Cristian Cozzolino <cristian_ci@protonmail.com>, 
+ Junjie Cao <junjie.cao@linux.dev>, Ryan Brue <ryanbrue.dev@gmail.com>, 
+ Nickolay Goppen <setotau@mainlining.org>, 
+ Stefan Mavrodiev <stefan@olimex.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Robert Chiras <robert.chiras@nxp.com>, 
+ Alexander Koskovich <akoskovich@pm.me>, 
+ Markuss Broks <markuss.broks@gmail.com>, 
+ Artur Weber <aweber.kernel@gmail.com>, David Heidelberg <david@ixit.cz>, 
+ Dzmitry Sankouski <dsankouski@gmail.com>, 
+ Yedaya Katsman <yedaya.ka@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
+ linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
+In-Reply-To: <20261026-drm-panel-funcs-v1-11-5e3070a3478f@oss.qualcomm.com>
+References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
+ <20261026-drm-panel-funcs-v1-11-5e3070a3478f@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 18:28:25 +0100
+Message-Id: <179338130521.3009485.1014998607879976180.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: David Hu <xuehaohu@google.com>
+On Mon, 26 Oct 2026 13:10:00 +0200, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> The connector type passed to drm_panel_bridge_add_typed() has been
+> ignored since commit b7797081ccfe ("drm/panel: embed a drm_bridge into
+> every drm_panel"), the bridge always has the type of the panel.
 
-Within a iwcq, `cq_num` is allocated first, and only
-copied to an inner uk structure, `cq_uk.cq_id` at a
-later stage. Freeing cq by `cq_uk.cq_id` before the
-later stage leads to a cq id leak.
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Free `iwcq->cq_num` instead, which is allocated
-right after initial rsrc allocation.
-
-Fixes: b48c24c2d710 ("RDMA/irdma: Implement device supported verb APIs")
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20261016202909.1289496-1-dhu@x6u.co?part=4
-Signed-off-by: David Hu <xuehaohu@google.com>
----
- drivers/infiniband/hw/irdma/verbs.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/irdma/verbs.c
-index c91c55917de9..1726a0ddeac8 100644
---- a/drivers/infiniband/hw/irdma/verbs.c
-+++ b/drivers/infiniband/hw/irdma/verbs.c
-@@ -1948,8 +1948,6 @@ static void irdma_srq_free_rsrc(struct irdma_pci_f *rf, struct irdma_srq *iwsrq)
-  */
- static void irdma_cq_free_rsrc(struct irdma_pci_f *rf, struct irdma_cq *iwcq)
- {
--	struct irdma_sc_cq *cq = &iwcq->sc_cq;
--
- 	if (!iwcq->user_mode) {
- 		dma_free_coherent(rf->sc_dev.hw->device, iwcq->kmem.size,
- 				  iwcq->kmem.va, iwcq->kmem.pa);
-@@ -1975,7 +1973,7 @@ static void irdma_cq_free_rsrc(struct irdma_pci_f *rf, struct irdma_cq *iwcq)
- 		}
- 	}
- 
--	irdma_free_rsrc(rf, rf->allocated_cqs, cq->cq_uk.cq_id);
-+	irdma_free_rsrc(rf, rf->allocated_cqs, iwcq->cq_num);
- }
- 
- /**
-
-base-commit: c3e8e9451e6f1b69f685b75e0fbf14f3d0fb2539
 -- 
-2.56.0.317.g454f8302e1-goog
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
