@@ -1,112 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.150
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793364766;
-	b=hVJq4oaEBgmhKiIkMqExgxUusoKGO0g8ActjvwF/6hmKjgAhe3qYCSA+jhwHdmM2pxG/
-	 /U6wTMtrWgs9bWzMUgU2sU7iEdmYeDIA/I3yIjvdD3dz/07P1Il4FhXdMVvdaF+0lyWua
-	 1gSFdi/5X8Qi0vJ8Tx2l8Kow+AHWRM5rJZCc5eqdwqF1XQVatX4ZSXuRbKH8cBKD9JZMp
-	 zROgQTBJFRfa4Bg91EnrAOD9broe3OHt3NSl/StW5G7z23TdYBHNiba5vpjNCl5kavud7
-	 C+5LRloHhz18q0HQKQyqLSeb+oE8LLxqcJh5/SfxbO2WTOeHltvmVWO7t7UYmPZUxZQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793364766;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
-	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=7WPJfSbhJPG+aWfRswgb4X8meRNEv65VCekzNJZEgdQ=;
-	b=eUgHrOZHGE1my6/6Zn0j2djGYup+baUwWX8E+d4oyVopFnCORdU6emVLFbGS7WtZmuz+
-	 lq5nIAocrHIv+lmaRwPPLW1GdQBF/oeDd+obacCBzxY9b2+Dqnr1Ssr+BjiVuzGZqX5g8
-	 aajYwIzp7A+aEdjxcbH6jM0FzIxmF6NYEhkx0uVAu9JmArdPd4qx3apO+tmeqhesZVE59
-	 fP6y4JqxPET+ydlsldCg94ZOR46ffYaaZ0X8n8Kq7TyqS5ktU0Whpm+m4R0hknBXNuGDf
-	 +BtcmFsY98wNHdiaPGjkddCuciQSOyu4UJ9TpYDE5HBPVsyn5Ejuefm4mlyjLlpI6vg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kroah.com;
-	spf=pass smtp.mailfrom=kroah.com;
-	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=EJ6Wxhwl;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=M8Ki4xyu;
-	arc=none smtp.remote-ip=103.168.172.150
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793364785;
+	b=rEAIm4nS9gEj53jX7L/Ke7Vl038d0JlEXkoyeKdaEgZkV5yK5WHuMXHjuwd0lsrgQmEW
+	 8lCEDKFSlFHzKmps83zys6TO6n+kVlp3RebN3h7jnCuJheAZlZMC+spU9rgjj8gZ2GcBT
+	 IzPHc56LnSzV1WlQTNhm5SIK637uZ7kvXMTNqJu+3GQxcRWC/uUBOxn58J3HbZQi8ERlv
+	 saSIXSDVqXp8XDBXf9qPdUh7DAGLoVhTOkxQGfEqHdXTFKk1ev/6DjOPUaBl3lyIiq2hC
+	 1eaeq4CBCeXqzEjQfa3FoPwbdrsxLKCovWXrpUC8KuJYWyxYDgvGokTUqnNgN35IoBg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793364785;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=yDqVut/BJRXU1gELxGIxLY4RZ4C6Xa8UK9PdTi7fHdk=;
+	b=Iqa2lzaK2yPzYqkgxtNKa4F46Pejn4k3wDMS5NlReGX81EMMF+D1GIlVph2TYCk0kREL
+	 Z6OfvinxRjHJnZunml2d1ZIqVewWkFmwlE8BfSeKcFWCc7WEZ2CrTe8dGqnKDWrcHlQFw
+	 CG6z9baMqY07sOudHQNCR7j90ow5fYMxoiiKBn5X/zLtFRmAz3cqdlpmnLtkXvDtb6y36
+	 9HENKfZJX1OBgq/OV7u+7xmEWYTy72EB8JSg9LGkdyJglAYOv5rexL0vqkcf/A1HVhC4P
+	 8oL+5/1NYzhttODgruy5AkyAp/aIkge8SI02lLRllYKL+K0m2waya+5eoqMJtTdX9Ig==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tcSfZcub;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.52
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011052.outbound.protection.outlook.com [40.93.194.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AEB6606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:52:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AEB6606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96521606A31A;
+	Fri, 30 Oct 2026 12:53:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96521606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=EJ6Wxhwl;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=M8Ki4xyu
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id F2FE5EC016E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:52:39 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Fri, 30 Oct 2026 08:52:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793364759;
-	 x=1793451159; bh=7WPJfSbhJPG+aWfRswgb4X8meRNEv65VCekzNJZEgdQ=; b=
-	EJ6Wxhwlq0a8oCUw+hMwS9ZmVvwf8q3kR57wxxzqeZsKV9Jc1cK0BGhmMKf79HCD
-	pjCyai6PmW8Gj+fLWL28xLY+7M+dL/J8xPkqPMCTMRh+8IWCWhLhUmbyoWQFq42x
-	ml5vxUONHsLf1Rz2SZoa8masBPtldog7wvrHQOUzgw+bBb1gmx7v4iSr/NqD5brR
-	Ty/NRxKSrgrejvhOhooEsDyfAHA5P4OxXvyxvTGeU2O4ArVNLIG2nJBZcJih1fc3
-	JCnjYGZUS2sjJN5i992JrBO5p8I/yIXg3n5uBv8KK4c82cZ0zVtv5Ih94O6wuhGF
-	CMKvxa/E9N7laMBpfFTyUw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793364759; x=
-	1793451159; bh=7WPJfSbhJPG+aWfRswgb4X8meRNEv65VCekzNJZEgdQ=; b=M
-	8Ki4xyusLVxX3N9luedM9XVDqoDg32QluE4im29uRRddzsM5Veb8Lkt075HmF9J6
-	FBAFQuo2uUlJEol2zXb6HP9CnBy6MbUEUGi5IyFlKNZ6//BoFlzPjUdbg2M441IU
-	3FnkAoH4xceZ0skxGlJ5t1qELQP2TdxbYUdPefpjGhFZH+xlgcc4y0AZJ4UPXd/3
-	USgfie2L06OJcOKO+AU9tI3wnwW70OTrEeGWBPK6XTx37cvinUkxrNzWbnpRkLC5
-	jpN4GpX5TxxqDojRDJTmsxBhmpS+vGqizU6onHxrgTiyO6WuGY8x8awMfc8of/x0
-	a8pdTTHp8caaAQ4Fnbxwg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793364759; d=kroah.com;
-	mf=PGdyaWZmaW5Aa3JvYWguY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:H51/8FhDlCPO73O2o+TYrJpCKi345GR4HokXJP+1Pu+ev0f
-	zFSISWEd2A2EKBcW0T3zpVH8bLumVN24NvYKzPJAQ9RjtdSDyXEDUvb8LZcg8CId
-	Bs0AJkVNBLkUr0a3rUq3eE1IzWeXhzR+gtQNEd0lXtCBrswkGuaIYt9oDtBKunL7
-	fX/UkKpW/lAfNv82SO9c4iaBvYLXzldQbimo3CpV0m5ZuIvNGtxTW8TrE+zXofyH
-	26MiKNxirGsbrDgDhuCJSkF68KxWszE6Arj6uqMQoMK0jmTykKJ5lcAJnkg1HO+v
-	j/Xf1bnpaPzgOoL2hAuxF6eYW+nQzJPMnsk2W3A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:uqA22ld/nBFOKHecKlpdBcAHPxvZwg+YiJtUH6rBJfw=:mlG9k5Up7umvFv8xt7upEY+izvTaplLwCETyPuMRe6g=;
-X-ME-Sender: <xms:F5Pkan5BefxeB8eiGJ8XU4_zQKjyZNCmDaUMbM3R27I3FFFfJ00Idw>
-    <xme:F5PkakfmMWtvAuVIZQy_nVaMSjSQ1t6sRVH9le6P68IIYaUISjNWF_8lOpNmVNB0l
-    wKe4QE09W26fyoqhsDRS_vjwNgyzwotnMOId3nIyKg-xngiYW0>
-X-ME-Received: <xmr:F5PkauHgQW_C-Qrpw8RoexuEYD_9zqmonFMGC80HloLcoMNimr-wxGYpr9b5Z7dVtfo>
-X-ME-Proxy-Cause: dmFkZTFRq5EEQOwx0SGuhY7n37tMaYfEIgICyQXaX3OdgQrHiNFLH9A8Vqzo1dweSr3W+q
-    V19ZxeqkSPlM1ADokplcKpJuK3NXk0GSP5eHKHPlA0AB1im8434YIXwX0ukC70Jrecq5YO
-    CLCqe9vFAnkQkFX7rYtiXREYaysYMNgjShxClDIVcQND1GkHSBVkmMVKM4aHfxsW1uMlLQ
-    zUTz2mI8cDuYY9vlJeLA/eRaUcFojzLFkZYUxoFXWW14gYFXEbC0IdzbFVXnOtvZHopfXG
-    JJJC1mOZ4X7lrjhrBcO7Um12Fgz1M5Q1wDL0s2dMFmpfKFTI1pV49/ekHLRmZGaEdrbgn3
-    D7yJExbRjgSmBf93MnpAoG+tEc5K4zxONTUa7su/nBf5uvCA5QlEZqfvP/SiTldBQ0obZw
-    o0jCDILD7nSl2OzomjJiCgxGpDTm7m4fZF2eDaSviHuV4xgc9eME5IX0DMcwf5Przdk8uY
-    fbh/gU4Urk/EClRUammua2BCitNl1YW+K+1bGWavvtP+Acr+DXNbqCHLkz5dt4bPavyoqK
-    VfAnvS06L1eXK/biYXwkUw7Gd+pofILfJMQxnUjrBkxCI9Nqj2TVZE4i2lKSSxWWcdz/fO
-    A0OPJOZa1uJzWeJRGAgsJqrpIyht5EMtfgYPHqZuZ3MYhxnV5u3aQCYLpWIQ
-X-ME-Proxy: <xmx:F5Pkak5FNrDS4BCqxG3fefWtA9-raE-1CNuWfZmplT_Rt8gw5FhSYQ>
-    <xmx:F5PkahsemWXyTJnCTNqChU0otOyDU-scxXuEsMetGILNDS_oDr-kPA>
-    <xmx:F5Pkao9RqN2vnJZz2gjKOZoeFOBO7qXNLiN16qg3SOH1sH7GUhk84A>
-    <xmx:F5PkarlPwUFhL4uPgjUTBG81MWVr5RNfEMKPtR2vgcNto79g2sLZfg>
-    <xmx:F5Pkav6iCGFU5qKKOAMoPWpTkOX6nStqH2GuIueg-Ni6lnb4PMQeA1yo>
-Feedback-ID: i1d2843be:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 30 Oct 2026 08:52:38 -0400 (EDT)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tcSfZcub
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QLJpsXcfQatQB/s2AWy8BI0n6oqwM7ccWpKy3pshkyPTpXsoGnWPKaa23Hn7hOs6Go0V3wokUpEaOgVT2cYH8HEqaQRAlUYfMywj9XIy+f+euMw21iUoBWDuLSYw5WDD6eqyR9SY2+AXeM3SeDOUVxaaDNrW9K5sI0O7WocayAw04VXXeVL36HgXSu6hLHWinNNsm6i6ahl+cSDKPp/+YaNL+TxsD1PPJpcLT8+jZbea1ZFbEmZ1NO658cUeGDI30upZTJhosScjg1MSqmwMIrrp2Vvft35G/TSH+1WyEHzkmwrP1TGNmcAI5FsGYewJFmF2gt046gTcAeHFsGILlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yDqVut/BJRXU1gELxGIxLY4RZ4C6Xa8UK9PdTi7fHdk=;
+ b=OuSOCO7OL0PAmI0ikakhfYTr9xn+1w48tu9j3W3cn6ixnBQrZ/tJFDSyCZn7usRCBLasCZ0zx552V+TMc+UoGjF1TLjKTwUKQQuxbC8Jiigjsir22AwWoGxyF38S8oYDUDM2pV6D7B+1YV+LnZSfRuzmVqaU/H0U8d2vKy2zGvzwbsY4JBCD1NalPNCqqK/ejgpfFbHP3mqYMJnqwQNOx06F4f9wo2WOI0sVgICcADZfc3JeSYDf/eLxur78xObDkq863ALUjR1kH93XGVjfWu3QrFeluW+jqert1m1kQBHDiM4VSDWrAjFIYRwpenq1D2Uw2ySwQTvUFaxeaxlCdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yDqVut/BJRXU1gELxGIxLY4RZ4C6Xa8UK9PdTi7fHdk=;
+ b=tcSfZcubF3CIEy7FJSRLpgxsLvp96omNMTY8qsp3AXn4qCxKNPuhEb2ORol2M5rT6V6TUw62EeNv3Nre+KaxNDSqPTdvpZiKxyfaEYkMdI/x2FtDLAzUgeQvDaxeodKxGHODtvd02SB3oSAvomxDo+KOxHD2CVLEY3gn2OSaew4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY5PR12MB6252.namprd12.prod.outlook.com (2603:10b6:930:20::17)
+ by PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 12:53:01 +0000
+Received: from CY5PR12MB6252.namprd12.prod.outlook.com
+ ([fe80::ab00:d77:6014:64a2]) by CY5PR12MB6252.namprd12.prod.outlook.com
+ ([fe80::ab00:d77:6014:64a2%4]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 12:53:00 +0000
+Message-ID: <55ccb8c9-9d11-4c22-b17d-a31746ea4031@amd.com>
+Date: Fri, 30 Oct 2026 18:21:55 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 20/21] soundwire: amd: Check clock resume timeout in
+ amd_resume_runtime()
+To: Lee Jones <lee@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Mastan Katragadda <Mastan.Katragadda@amd.com>, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mario Limonciello <Mario.Limonciello@amd.com>,
+ Syed Saba Kareem <syed.sabakareem@amd.com>,
+ "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
+ "Prasad, Prasad" <venkataprasad.potturu@amd.com>,
+ "N, Poojitha" <Poojitha.N@amd.com>
+Cc: stable@vger.kernel.org
+References: <20261030104840.3361217-1-lee@kernel.org>
+ <20261030104840.3361217-21-lee@kernel.org>
+Content-Language: en-US
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <20261030104840.3361217-21-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PNYP287CA0068.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:25a::14) To CY5PR12MB6252.namprd12.prod.outlook.com
+ (2603:10b6:930:20::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,40 +105,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 2/4] backlight: aat2870: Derive brightness steps
- from max current
-From: Griffin Kroah-Hartman <griffin@kroah.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- mfd@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261027113230.47538-3-clamor95@gmail.com>
-References: <20261027113230.47538-1-clamor95@gmail.com>
- <20261027113230.47538-3-clamor95@gmail.com>
-Date: Fri, 30 Oct 2026 13:52:30 +0100
-Message-Id: <179336475066.10571.11619253467388579632.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793364758; l=370;
- i=griffin@kroah.com; s=20260910; h=from:subject:message-id;
- bh=mlG9k5Up7umvFv8xt7upEY+izvTaplLwCETyPuMRe6g=;
- b=AClAE1+sCEWzUXiKS3U3GTpx4k3p2L1m98wLOKukAJTgXXwILpWTkqwRuzTCgrdZ43c4fwi96
- bq1U74IDPH5DB8FGcQpNgqEEj9hVriBX8dANegY96N4huHaVDQho/bq
-X-Developer-Key: i=griffin@kroah.com; a=ed25519;
- pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6252:EE_|PH0PR12MB7957:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81e2cb89-ea08-4e22-0300-08df3684ba72
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|18002099003|22082099003|921020|56012099006|11063799006|261022105027099003|10067099003|261021123027099003|261021121427099003|4143699003|261009223027099003|261028144727099003|261026121527099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	UHzXWbhtXfyygfRDPAPX2knEEINi24xwdmRKS12SYDRSQgXN5rrLFLEwnrV9KxZtOstpmoiC7xbf1lNMALbVfIfkqTLk6WFX+RszrykyjFltqI2w2KTCDw9fOXolLf7UsSfnHiRl5R9xMTl+IWqrZv2qobfOhiOX8LUNFpqVMN9DU206uFQ3LZHxDsL5Rhko3Mo7SPlcKWOnl21qookMaI9vVxvkQoYXPnhVhy4IsB/UFQ4ThkNYKxbjciLCQZFWl5OKztW1pOzairsdOKT3+n8Py8bPoPG0SMRBYgydj8JUg6wQIH5IyHf9YK4MlFP3BQ0LcP7Jb7N65N36OmLK581cav8LpOdBiKqbrfwABHOP6iORp1t+6CE/SP2mJBroFOoEvYfwb6fUjRiGmxZX4o4xrnLaQiFDSY3R38uNFOXLRLl5vfHjfF75+L/XusSbptbn61rGGfQ2fIz+yUd6oISOT0R+ilndSi1wTZEKRfLuquWWgEolhiLPWtVfzmEvREU1lIbQO/ahmpkHxHqcV674m5uDagyrX+r+G980YboVK6enBCuMq7TMvsXIx1FZC2eukTPZ8x2irZhtHJAGMlQm1yfuzxoR/4D93W/TCxfTbApyeh6sBF86o/u9aEC5dQVJoqEwbLWnOvg9d0nKEA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6252.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(921020)(56012099006)(11063799006)(261022105027099003)(10067099003)(261021123027099003)(261021121427099003)(4143699003)(261009223027099003)(261028144727099003)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZWtOS1RteTh6aHljaU11Z2Z4L2pkL0k0M2Y4QWl1UEFlMFVNZmxYbHlybVNQ?=
+ =?utf-8?B?clZXc2lMM2RmcWMxN3VWT09LZkVHekpIaExJTXpKMGI3TXM2OXVIcUxTQk5G?=
+ =?utf-8?B?N3ZKWVdsK0hydU5saHBablNmNHNVRnhST1B1NjFFTXV1Mk52d1hvN2xSSTZE?=
+ =?utf-8?B?RkllWGh6MGczd3R4ay9tKzU1WDFoRnRjL0U4Vmd5Z0ErYlRoZmxXdWVNYU4z?=
+ =?utf-8?B?SU9xL2hRMHA4bmF6V0kwU0YzUjYzZ1gxTlNrV3o1VzRXRzl5V2Z1VEJYQ3k5?=
+ =?utf-8?B?eGNJc0M2eWVtWDZjV0RWajZUUjFweEkwaHNGRk4zTHV4M3RIRE53NUViQVEr?=
+ =?utf-8?B?ZUpSNnRQZjNtQ3l4Q2t6eEEybmttdmpBak1CU2c5eURZazhaSlZzNjVsYWNp?=
+ =?utf-8?B?dFdDK211bklaa2prOXJMY2ZGaVNFWENTdkFva3oxRFA5Q1hkWFVRWUpuNnZk?=
+ =?utf-8?B?ZS9rZ3pPaWF4OFFNQnE2WUdwNlNGSXNSalc3bkZsb1Jtb3JRNHdFbTNlaEZI?=
+ =?utf-8?B?c3ZkZ0QwVHZoOFBiUHplTkNwMmtkTmJrOVVQU1VieEV6MU9qNWl5ZDFJeTVm?=
+ =?utf-8?B?K096czZBVkJCb0dYVE5SQXQyd3ZmVnB2V3BhZjdpeEk0QXl6emVSWDJQK2JK?=
+ =?utf-8?B?UllGZEtTRzBXRlBLUlNyUWhPTWUwZE1IZllMQjNoRU1TYUlmVUlTbnV1S3ps?=
+ =?utf-8?B?LzhHTnNFcXk4ZXhSdUlRMVc3Si80ejh2R2t1UTkzcFkzUWc4clczdjlEbkhu?=
+ =?utf-8?B?YnNLT2hrSVhianFyUXNhUDBWWWlxM2pTZ2gzV1AzY2c1NStCd2dLNE5mcytT?=
+ =?utf-8?B?Z1ZKdlpsNytXcDB3dUdMcE94M1E5N0NaVno4SGlCNFVveW1vRFlReENYZTV5?=
+ =?utf-8?B?SHVBamlFSzVKeWhaVEY5dTkzQ0pBUnBSUUNMeWRHelJ6WWlsV1ZJVDJraU1I?=
+ =?utf-8?B?UUdTU3ZXazkxRjZ5QUloNWpHdEV0MDAvVDN2THRKWkpyZGd6U2JEejdDOExM?=
+ =?utf-8?B?TWhlckxhZWRodytXSUt4V2N1Ym1FalFtNXVNb1pOTUNNKzZhdlUzNWd3MUFK?=
+ =?utf-8?B?bnVpLzJZbzF3WFI1aDBmc25LZ3QzMEFiSTZIT29QMjBraFVrN3BJazE4YUJm?=
+ =?utf-8?B?KzJpSWpSc2JncFg2MUxhMDhyd0I2dE50Nkp3S0pzekY0aHFEa0Z3ZDJid256?=
+ =?utf-8?B?cmx4V3NvNU1BbDAvVnRwYnFWQjZCeDFxeWk2bEdPOUxRY0VxcWJLLzFPajVW?=
+ =?utf-8?B?anRKRXM5a1UrbnhXblQ4YW9OOVhENThLNU1BQkxzaUpYQXFkVDgyZE52WTRQ?=
+ =?utf-8?B?L1ZpRmlKUC9BWFpTTmhHV1RXVHlncmlHbXJFc0loN1ltaTFEY3d5MThadE9v?=
+ =?utf-8?B?Ulpzb3FoVVhZR1c3K0tRNG9VWlN3MkFyb3FqM21NSGNTamlEdjA3WVZaWFdQ?=
+ =?utf-8?B?Z2hWd2YyQlFOTmlGbmxjaVV3dEV6SnVKT3ZjS09TTzNkTzFVdG94NXhGNEhB?=
+ =?utf-8?B?bzJ0S1hRaUhrRFJZb2dyME0yZXBwNFU4bit1aUtlUnJpNHZLSkpmSTEwRjR3?=
+ =?utf-8?B?bXFScHVkS2VzeEo1N3RhQXlvZFlTTXhTT0R3amRNMm0vN05HNnYxWE1jeFNG?=
+ =?utf-8?B?dFJ2R1M0QXpCeHhhOGNlU1FZUkRUVXRoT29Rd1hHRHhnK1o1ekZQY1ZMTFVK?=
+ =?utf-8?B?Nm91dWVmTUx5UUtrckpmdDJaWUdDeVZiM2xGOWJ5MFBnL0NlTTVTdkwrOEZG?=
+ =?utf-8?B?a2plRHorUjQwTlpWNjJmb0IvUWhTaCszcWVHeXQ4c3hBWU9tOW0zTGl2aWZT?=
+ =?utf-8?B?NDNYUUt6V3BZUjhNTmlNVm0zYy9lWlZrbE9Jc2d3UjZuWC9HWUNURmZlZ0Q1?=
+ =?utf-8?B?TVlVNlN0Q05qc24vb2lyLzY3a2pMUmFNNVd3OVIrcFlnZnArcGoyMFJjNkxG?=
+ =?utf-8?B?WGZhN3BPSjlUVTlRa2FxaHNXM1ZISytMaEVNL3Z0L0hUT2lybmJrMHdiekN5?=
+ =?utf-8?B?RFZWMHovMFM4a0d6dWlvWWVVbnVQQk1lcDUyTWUrTFNiMHNZMHFyNGU3c3ZZ?=
+ =?utf-8?B?YmlTM0dOTTlEcjdmL0l6RDVHUEJTdmJlMG1WQ3h6aTNseHJBRER3NHpGWUd6?=
+ =?utf-8?B?VjBRd3ZMRE5NQmZ5Yi9pZzdxbGQ4elVCNll0YmFhZS9YNTh0SFhTcFhTNWM0?=
+ =?utf-8?B?cVF3czY5ck1TZGZIMDBDc3l4SFZVZS9TS2NKc0NlYmI0d1JlVU4ydEs2ZzUr?=
+ =?utf-8?B?RUs3SUhzdGdacC9tdENIbVVDRmpCaEh5eEdPT0JCM3ErL2ZvUHo2ajhNZGxh?=
+ =?utf-8?B?R2luL2M2b0J0SzJwelM5VjVJMVhHRW5SY1h2ck96ZS82cHVLdFE3QT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81e2cb89-ea08-4e22-0300-08df3684ba72
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6252.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 12:53:00.4691
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vRl6ks9KNozKiic5oyiGUQfH4EdweIBYl2+g4xSHJp/Fgj3JFuGGsPBVrSXdCIu/xFcyWEPCfTrCCD+0hLleFw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7957
 
-On Tue, 27 Oct 2026 13:32:28 +0200, Svyatoslav Ryhel <clamor95@gmail.com> wrote:
-> The AAT2870 allows only 32 steps of brightness, with this amount defined
-> by the maximum supported current. Remove the need for max_brightness by
-> calculating the allowed number of steps from the maximum current.
 
-Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
 
--- 
- 
+On 10/30/26 16:16, Lee Jones wrote:
+> When resuming from AMD_SDW_POWER_OFF_MODE in amd_resume_runtime(), the
+> return value of readl_poll_timeout() when polling for
+> AMD_SDW_CLK_RESUME_DONE is stored in ret but never checked, allowing
+> resume to proceed even when clock resume times out.
+>
+> Return ret if polling for AMD_SDW_CLK_RESUME_DONE fails.
+>
+> Fixes: 81ff58ff71ad ("soundwire: amd: add runtime pm ops for AMD SoundWire manager driver")
+> Closes: https://sashiko.dev/#/bug/linux-c6360b30-11b9-40a1-ab04-528462af313c
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
+>   drivers/soundwire/amd_manager.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+> index ba8e6d42c467..faff3e9eefad 100644
+> --- a/drivers/soundwire/amd_manager.c
+> +++ b/drivers/soundwire/amd_manager.c
+> @@ -1494,10 +1494,10 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
+>   			ret = readl_poll_timeout(amd_manager->mmio + ACP_SW_CLK_RESUME_CTRL, val,
+>   						 (val & AMD_SDW_CLK_RESUME_DONE), ACP_DELAY_US,
+>   						 AMD_SDW_TIMEOUT);
+> -			if (val & AMD_SDW_CLK_RESUME_DONE) {
+> -				writel(0, amd_manager->mmio + ACP_SW_CLK_RESUME_CTRL);
+> -				amd_manager->clk_stopped = false;
+> -			}
+> +			if (ret)
+> +				return ret;
+> +			writel(0, amd_manager->mmio + ACP_SW_CLK_RESUME_CTRL);
+> +			amd_manager->clk_stopped = false;
+++
+
+The bug is valid. On clock resume timeout the code falls through to
+sdw_clear_slave_status() and full bus re-init without the clock
+being active, which is incorrect.
+
+However, we have identified additional issues in this code path that
+need to be addressed together:
+
+1. writel(0, ACP_SW_CLK_RESUME_CTRL) is incorrect — this register
+    is not a plain zero-clear register. Only the Clk_Resume_Req bit
+    should be cleared using a read-modify-write on the success path.
+
+2. The same unchecked ret pattern exists in
+    amd_acp63_sdw_clock_stop_exit() and needs to be fixed together.
+
+We are planning to address all of these as part of our upcoming v4
+patch series which will be posted shortly. Could you please hold
+this patch until v4 is on-list to avoid conflicts?
+>   		}
+>   		sdw_clear_slave_status(bus, SDW_UNATTACH_REQUEST_MASTER_RESET);
+>   		ret = amd_sdw_clk_init_ctrl(amd_manager);
 
