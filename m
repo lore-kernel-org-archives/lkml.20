@@ -1,96 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793334561;
-	b=k8VPZKhK55VWPlE3cT06JPSJI99P4LlqKUpIcyshgfoy2gTgqSmfum/lqH/40XztgX+K
-	 XosVasUXvoy+2P2S+2x3ftOOJ6GRUL0ntytwB8foAZ+GLpehr12oKLKuR5W4GvC72lWcN
-	 MMgjCKgOF3UaaGjzWikme2lllPkD2LhALhH3PyrtvxTR+10lz6Mr0Lr7QYEVbc17MCi2Q
-	 8h66Vbmb6vI2sXoK0CaORuTFP78NkrdvvHkZuUA032PhrtIpn1hoWs2zz+1wWdoVWLm7e
-	 D/BpZe5adbiZKy72y/csY8REPKLJzUqIVvAf2Q9paxDgZbVcw0H+Ompwzal/kJnf7JQ==
+	t=1793334564;
+	b=nZVilbjg7LiCadeVoi2oYYKTthwplmb9EdX6xGn2denb4Fnvnhd3SPZJbk3MbBYmARgi
+	 xb72Mdno4YEbL1AkDfMnRPSSzr05vr5iAnjPhGW01U0I8C/cg4jaXUBCJDZ+VfGzrIucI
+	 6OReMfulALZRFL96ng1VCVedCE/2wrjl2V7oQTLvIVZ/+A5a5pysW4KUTIJk0qr0YOEwY
+	 tCc4gk0X6JrXZGFhQV+kaI6h/a2p6+ha4kCHQ7XqpvTk1qvIaMnZyhnxOko6Qx/yPo1AK
+	 e3qBY08Ev7hD04HnmSDaS1jBi9T2c+FabiRVwDKlvszrXQ4wkcbY2E5L77hRQnfxU7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793334561;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793334564;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=WAgjRnjnnTYEYGCit5YnSshprwmU8petoCTh8/Dj9t8=;
-	b=3nniUCQviap8Xgb2rCGSzyGHbm4cxg6OiopfuE45bC7ggqI4toEJoCvqA5okGiUe30O1
-	 woIQVujQ5wLRupJoratt5jGkPF+orKmq/iHTMttgSvBpHMhbP2iRv6kVSm/7idPM+gsIY
-	 WUyXIgTzWTdavysYiap5szD87BibDr4AAQWqWMyAImHnkunxbXInKK2ZlHHQTjkyrFEf4
-	 fLv6Mk8oX1monA2TAWGaJkyxZa9g1I/leWj9kgSqS2Joli7ZEuWjWyNxZ1dsV9Wgr60hy
-	 V1Yzkoe+oLPPgPE7eI2WgSJtKxNgwW/xX0Tj2HRMq3veaycBRp3TVTn3eEF3550FGbw==
+	bh=HpeEYAEKyyCPvuV7efERlE4nfg2Y+m/mO0FuoK2R5s8=;
+	b=jiDr4jO8h3e+CifAKbjsA9oorL3ahChpKNjw+ObQFQFAiFbPJOrisdxHocTVrrjG3RAw
+	 fyCWpgcIDUJhl2d6gwDy0ifqxvXsGpqsnQ7fFC5TLq5g322J82qG+qKkpV5NldksadxlQ
+	 8EjszxvfGDPCGxThMvxokfzzfcPbe02SFofb93ASgqh2S17Lcjp/OZ8YYou5DdNKF+6ra
+	 TMqGo6QwtiuMllvNBQI9sBwGkNo1T4evirA0nm0IigvkBJcb+bfVTbyjCBf/WaxQyYBob
+	 N2QipCIEf32NJOO8thHMEFfxIPhCR0XkWvu3b/+fC3fxwaqr91dsz6H1scPURkFTqnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=V1kHecWQ;
-	arc=none smtp.remote-ip=209.85.219.48
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WQDX+igh;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3FF2606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:29:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3FF2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D47B606A329
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:29:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D47B606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=V1kHecWQ
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91c791d5460so4134406d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:29:20 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WQDX+igh
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ae57dc1ea9so126516a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:29:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1793334560; x=1793939360; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793334564; x=1793939364; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WAgjRnjnnTYEYGCit5YnSshprwmU8petoCTh8/Dj9t8=;
-        b=V1kHecWQpbCK2IinlXdXNiWGNXKdn9T2qVdSNVWh67zBaPILWWK7YmAPnGBWrMDfQQ
-         neN3fkE1j85jaHkfDolxgieFQn6tzj1AE8B8N7JueLTE8IVyw4iuc9VbQJGl/1IEkt2D
-         TG2TFCL6ozUtc8ZZTJGMqdjZPggzfEgRVT5SbHWjPiQqqnkmuN/V6yZRwd5wwBSL2cJQ
-         eFmqVyYWQ86znE6OoFzpP75Uo3rKoYancp+CgJFBRk7DpGDthr69FzCRgnZMC+TZnyWC
-         CNcR62CXss8xvpe1r2zSApXhoO0S1tPWrNPj9SMlpNS2iPNHyKxfNOGiz/7ZNH6GF0QO
-         nmJw==
+        bh=HpeEYAEKyyCPvuV7efERlE4nfg2Y+m/mO0FuoK2R5s8=;
+        b=WQDX+ighlA0CRmz6xmrYqh8MRT1ubdl1GaZNzjDEOOMFGhf87VDm+sHKrYM6Fhmnwa
+         k1BQG2WiH3kKgXLfx0ooUDc3j7jwn/203Cx1bW1y2fQZiDeOouuBa0T/TShMksbhZjep
+         OBuwMvKb5u0tilx2XrtW5cnD1oEjPyqFGs7k3IaEyQ/UhYHDN8k44zU6IVZsZi3pLsKR
+         caAcsU4jRXkCdn7IvtSHlQi3HL4QQqDNxPfYNQkgqccWadOsmLZmTJZG9D/8fWsq8jnP
+         mXlqdaAqf7J7PTynQsv1p3QcPa8hQ1h9j2/1+r0oG7RRDjqBnpH8rF7nhRB2Uil/0stu
+         EchA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793334560; x=1793939360;
+        d=1e100.net; s=20260707; t=1793334564; x=1793939364;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WAgjRnjnnTYEYGCit5YnSshprwmU8petoCTh8/Dj9t8=;
-        b=RvuZCUvHwPGJa/xA0kS2z29+DwY12tjajCcLCUtcJcdVyZQqkFv4yH1KwLCXhKXf43
-         rAk37pRSICndIRabG/hPpRhUQUR61Dzj33Og4kWJhhYX1pFbMuTv0/lyDY/d1XL2AHa3
-         XTaT/HBShOllzo0T7GX4C8QKGJRJIDDTc90s4q/uQ7L7CbAgZ2glCy677hGIsQ4hasox
-         A46HjByiK+d6/CU9nf2hUQJ/Tu2W6/DUX1PMbHAHQZxvm3ojay3o+ibh8Q+h48ubdRcY
-         kEizRtquxHvKsccm40rQvbGkXXq7KDZFcV3MkQlG6tPQv5/NnMCQBuQY8N9wl2xFWNxS
-         lq8A==
-X-Forwarded-Encrypted: i=1; AKwUvBz282EBKyk/DZTVVoNk/4UL1ZxeVyjHSgJeQOOov4rPCaeMX/34BybcCg3Z0tYUqqcxdtBeZkUYSmWU/j8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDDUYL1bdGd4nHfmULfev1gnyFkwL6MsX4t3Xghjv0rci9+wHT
-	ydDiOzWO29pYBk0HqpNWIsM3m9wkXIkUhqsGXZnykSoHkYvG1U806p7CTGMsKhkMcA==
-X-Gm-Gg: AYBFou1pvjyXJ10Odxifjd0+4vujCqwzGhOphWuGJNMzEqf0rdrvNSGgPqHXURM3uGV
-	18zeqZlu9Sl7m0E1Kxl5ZoJxn3PbmOJgv0Y9dwHJxdEfzbJpGm07wQUkhlq9b4BoS+96v66uUTd
-	Wc9HlyrPOcUWuF0S9shF0NiGkgvsMPt66O5yeV4C6LDBmqksCglttGy4MlOlMA4JUHZNiaMeyge
-	WcFLIamsRTpMTrLku87m/G7ZvqEX7dr1jiRRV9Mj9bs5Tf57OfXuP7rZdvA4gXwKetk++4doq66
-	//f8Vyis2LFCKZzrdBCf2mweta3r13QamEv9xYtC/YeTvDB+gNZxzIXjENCQLcLP6NpIdRxl6cX
-	Pz0gLlZ2/b+UOa+8QE1BW22YtDxSuRqfiPbJCLwmA19wzRm9olcq61HtjSWWBLOWJydHrm+bqHr
-	CdchJxP96RPtWcuYrlIAm547QY/PLfkboLZPqaQ0+d2Wge4fN1nebzp7AIyY5Sou8PYI8lH0SRG
-	8aRVWu28kN4XQxDThkRBEKrLEYtZoYxArhlOYHZuFc/jcJPXMZhbZGHXqC4t7DaP8+JOd0KmdkW
-	PHM2MO/VV2IBrpItkUcUlVQQbKq3ahNFf27v21dTXORv0krIF3m0mRIqiWb5T0aeA/98RkCXDQ=
-	=
-X-Received: by 2002:a05:6214:4801:b0:917:a253:4f8f with SMTP id 6a1803df08f44-91ca4b6f554mr14970576d6.40.1793334559740;
-        Thu, 29 Oct 2026 21:29:19 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7f254a1sm5058166d6.7.2026.10.29.21.29.19
+        bh=HpeEYAEKyyCPvuV7efERlE4nfg2Y+m/mO0FuoK2R5s8=;
+        b=I5UhDDJxqhR63IHA8iP9cObnnBdXiV1J6znwEDGyeatFqBGQdo+tVnXhDCdSO5rXgj
+         sSjL1qQsYc3Vnb95rZOECbazANvSRNeU0onn5+/Xt7Gi4/lCOiR808shQA6cyiDOg9td
+         J/Tfl+TfZHWm6uXmM8lUTj95OYngqtNhPhp5Ao5mlRPgwZS4l33XE/5bS144KXpogncO
+         E8xGuEGW6KDuKN5Cldyf588uAx5O+G20JvxGJX4FBOsWGUVF+4wg49iW9Rz6JynfoDWs
+         MSvJdd0xcTv+GLO6fFWG1BJ6h+OJCimI06Be/GdCeg+D/9hxpf8IK/13NYzXb03a1jKH
+         iqyA==
+X-Forwarded-Encrypted: i=1; AKwUvBzI/UMHE11mbfWCo5JRS/lGW435rSqWmdrKVVHX6bvccddngzrLiXs+obLbsvhFbTPBQaIWhfh99VUc+VM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpIoZfmPfRk9eYue4VqxNrV6e7Zq0dHItbV17BUn0vMuhsBVeb
+	C+3LpLmixE+dkcbg0YPmxJ5lGeVue58ToUkPVO+WJEht7OZOothrPfM=
+X-Gm-Gg: AYBFou2vOyXz5h/Hl5ZXocHo9cnU/SKYdWaubljPyCsNqj/pLlzKgs5rsicCr6Ih3cC
+	xmza9BCn9ax1dScA3FAYGFAyB9UHE6YbTV4eL0AeJiJf583dl4MWPDDvUudD+a4gUyK2ypxA187
+	x1crLB2+axcKAlUZsQHhUEmF7rcpOcIRHXX4a/38smdmWK167B6DdBl1/VgSsO5O01J/lfgMxI6
+	OtgAukFwZKHYRJh853m8lkuKsKhiX3QVaLBGbsQPReY54W4FaHiVYB0Lo01GDFT8w+G60qFu6fc
+	IgLHvc4K+lGHbop14djkKK2oas5ZXVCvnJaGkwLD1R9IMrmMmilAtFtEVHCw5Fm023TzQGf/uug
+	ab1LOjOGy372rf16Z+k5STwYHe1jhbgX9LK3EYsE1spFnrZjLgoZIa5tcdttg6aiiRcQYssgX3V
+	uDHpxMF5XoLJPs7r9FBVGFMw7n+timcvc+yU7WjMFudPMmSMFVityqUtAOxYxpI+uG9EUCtKAV4
+	OTvmn7xBDMaOzBjhuEFfhEN0jUitPR8o4r40nnRC3VNL/gDphIDtzuPt3YzLWXwjm/SLtEt1rHj
+	LRCJAtLF/3rWsc6KXyStTfe6Uy+S7vM+ykGyGn8O3v+FU8OMtpAFaVxJr7xLzX7voY/a
+X-Received: by 2002:a17:90b:268a:b0:3ab:b39f:41cd with SMTP id 98e67ed59e1d1-3ae897ddd43mr857008a91.60.1793334563678;
+        Thu, 29 Oct 2026 21:29:23 -0700 (PDT)
+Received: from freddie-kane.lan ([71.212.222.246])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae8826a769sm606067a91.4.2026.10.29.21.29.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 21:29:19 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: slava@dubeyko.com
-Cc: glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] hfs: fall back to buffered I/O for direct writes past phys_size
-Date: Fri, 30 Oct 2026 00:29:02 -0400
-Message-ID: <20261030042903.4160506-2-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261030042903.4160506-1-hengyul@cs.unc.edu>
-References: <20261030042903.4160506-1-hengyul@cs.unc.edu>
+        Thu, 29 Oct 2026 21:29:23 -0700 (PDT)
+From: Burke Cates <burke.cates@gmail.com>
+To: Xilin Wu <sophon@radxa.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org,
+	dragon@radxa.com,
+	linux-amlogic@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 11/20] drm/msm/dp: Cache eDP link capabilities after successful discovery
+Date: Thu, 29 Oct 2026 21:29:00 -0700
+Message-ID: <20261030042912.2745609-1-burke.cates@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261009-msm-dp-hdr10-v2-11-1835d4966da3@radxa.com>
+References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com> <20261009-msm-dp-hdr10-v2-11-1835d4966da3@radxa.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,64 +125,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hfs_direct_IO() passes direct writes to blockdev_direct_IO(), which
-does not go through hfs_write_begin(). When such a write needs a new
-block, hfs_get_block() only adds the block size to phys_size. phys_size
-starts at i_size when the inode is read, which does not have to be
-block aligned, so after the write phys_size is smaller than i_size.
+On 09-Oct-26 11:16, Xilin Wu wrote:
+> Discover eDP capabilities from connector detect before the first
+> modeset.
 
-However, at the last close, hfs_file_truncate() sees i_size larger than
-phys_size and calls hfs_write_begin() at i_size, which zeroes the file
-from phys_size up to i_size. As of now, part of the data that a direct
-write has just written past the old end of the file is lost, and fsck
-reports no error.
+I tested this patch on its own (not the rest of the series) on an ASUS
+Zenbook A16 (UX3607OA, Snapdragon X2 Elite), on v7.3 plus out-of-tree
+Glymur platform/board patches, which include other msm DP changes.
 
-The issue can be reproduced with:
+Without it, msm chose the eDP output bpp before the panel's link caps
+had been read, so the first modeset after boot ran the 2880x1800@120
+OLED at 18 bpp until a DPMS off/on. With this patch the first modeset
+after boot comes up at 24 bpp, 4 lanes at HBR2, with no link-training
+retries, on two boots of two different builds.
 
-    truncate -s 32M hfs.img
-    mkfs.hfsplus -h hfs.img
-    mount -t hfs -o loop hfs.img /mnt
-    printf 'A%.0s' $(seq 100) > /mnt/f
-    umount /mnt
-    mount -t hfs -o loop hfs.img /mnt
-    xfs_io -d -c 'pwrite -S 0x42 512 512' /mnt/f
-    umount /mnt
-    mount -t hfs -o loop hfs.img /mnt
-    od -An -tx1 -j 512 -N 512 /mnt/f
+Tested-by: Burke Cates <burke.cates@gmail.com> # ASUS Zenbook A16 (UX3607OA)
 
-The last 412 bytes read back as zeros instead of 0x42.
+AI coding assistants helped run these tests and draft this reply; the
+results are from the hardware runs.
 
-This patch will make a direct write that ends past phys_size fall back
-to a buffered write, as fat_direct_IO() and affs_direct_IO() do.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
- fs/hfs/inode.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
-index d9abab2a1e61..d476a16f4ef9 100644
---- a/fs/hfs/inode.c
-+++ b/fs/hfs/inode.c
-@@ -139,6 +139,16 @@ static ssize_t hfs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
- 	size_t count = iov_iter_count(iter);
- 	ssize_t ret;
- 
-+	/*
-+	 * blockdev_direct_IO() does not go through ->write_begin(), so it
-+	 * neither zeroes the file from phys_size up to the write nor keeps
-+	 * phys_size in step with i_size. Return 0 for a write that ends
-+	 * past phys_size, so that it falls back to a buffered write.
-+	 */
-+	if (iov_iter_rw(iter) == WRITE &&
-+	    iocb->ki_pos + count > HFS_I(inode)->phys_size)
-+		return 0;
-+
- 	ret = blockdev_direct_IO(iocb, inode, iter, hfs_get_block);
- 
- 	/*
--- 
-2.53.0
-
+Thanks,
+Burke
