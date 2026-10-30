@@ -1,76 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793328421;
-	b=oJgLK52df0xZyJ8QC5MNpntD7IDbO/gRoYGS9k8KBQ882XRW3NMItkFoTPTOwwc12GgG
-	 4Lk7sJQk3ZqB3jlO3prYKEapFAY+Ch6lBK8AhXbN2gwZtzvdBwWvf6NduoQmnJrCDakEf
-	 Bp9K3djF0OoqIJ/wXJlspbqgecUzUQW+kdsiOKBePN26pd9nc+ws9BbHUVXiY5qphwOYI
-	 +dbHxeZR0ef/5OcY5ocsyH6+8XKT9ogXGkyj79pKBs5HFiWdt9R/y4OCLko4PAsmRjX97
-	 TqeFzRR3WO/852BRiSP0tSYL0uv2noveRX4ZGxYPViSCy8VEXhmBEvk7hPMQMhUrLYQ==
+	t=1793328592;
+	b=fTU173Yd1cq7iC+ncnJikF5hA8V1qtKixlBa0Ci05d+4PUlER8dFWiZX5/iNeFqkmN2F
+	 +CkLxC4XFvAs0Pc7oT7GawuaNPTTzCZDWgXjRL+VTeZpelu/DNbDIrWGJyA7r19UBXd0P
+	 GCTuxvqE/mYlzIyz+nzLyRV13uUhXmDOgBgZxFyByDevvi06bM39Rnuuj5SAYHMigcnng
+	 HJzjLakTkphR/CGMCoZMnDHD2yoEEgeJ4AxGeDvNWoRtGl/MlUAB6v/GrYcAgJdUGY+et
+	 x7pNY1HuBS8seJXSNeH7UIOb7ZRlOcsVwXw39QvCkQfEplkK12p0Ba/3geTnDfSZJjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793328421;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-MTK;
-	bh=NvRhXH7HKV88EBv71IIq9LzujvgT/YulSYrfZRm/5GI=;
-	b=rSlxKisy8g3WiBpA5d6LTmWBZwYZYOKrRynWfmgFqtYOPPSC2oBx6iswA+WAXjwd6fp+
-	 fvy0MrPDjmehh3cr+veQZ9ZtmV+RZ/w+ZMoto4wUBL2UB7fSNFs/wFP3+nvhZZ+Z5F6fk
-	 sztHLwnJDX4m+db9/bR5v1+e5yHNlSQ+x9K0fnAmi4//7H8ZtXOxHDXWPJgdZyyE9EIAk
-	 cUfWehCJYBuNagZk3jWakXSiJN9WwL5u14qxwp2Y+ezu/Jg51e+YZbGlbr04e/Hkg99Rz
-	 JwUkzBLwoc7Z997F1jctNWxWIrauvpVRWN/glkK8i0D/FaJNcX1BneDzhBS72GOsYYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793328592;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=CfEmxolAK8lSlcJ/IDJ4OjlHBkMazQyT8J7ibClDgoI=;
+	b=O2OJIELYxA9YonU8joqhtWSZxEXEYO4KvNeaxnbBJCom7FI35unogT6wsiWzX4spOeAK
+	 MIYSaMIYlxuXPiBJz6N5MzFFCqEXJ74pU/aRhxPKohJoeZkc13uRJLJw3QEpOmpDFwhYn
+	 RFP6uEPtImJXTsXam6Nxx3yut+K54c9kgWSjkoIZUz95czjSbmhX0VbRlKXaGqlneRV+B
+	 4PeCCRbDn7zbqnGrc3+028bd0u66xCp92RzhnHsLs2WvtPk2trEGFESxrsCTJKJjcwM04
+	 wkFp6b80RKn4Yz19FEudM461opLQPFW2et+8riUrS7mQL42qDnxjdQghWZuYeKKzl4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=airoha.com;
-	spf=pass smtp.mailfrom=airoha.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=VeanQ9xW;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="Na6KxF/1";
+	arc=none smtp.remote-ip=115.124.30.113
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82187606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:46:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82187606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airoha.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891F7606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:49:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 891F7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=VeanQ9xW
-X-UUID: 26ad4ae0d40c11f18dc8c9802ae25ab1-20261030
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=NvRhXH7HKV88EBv71IIq9LzujvgT/YulSYrfZRm/5GI=;
-	b=VeanQ9xWaNCpwsyEq+G8aF7+Z6ySo4WbXAZqjVg2mtF0NbVQFNYPw7AqiIim6h0I/i/54cIjK6ajW9M7pdhaICziJBN6cfDzKztsWj7Zv2tB0fUiVAn7OLzlylxkxtT9iYbL5etK0J10n9eEb9FqrhacYpj0+b3063hwMLZwhYo=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:790ccb93-d07d-4cbd-afbe-a3dbedd5c358,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:b0318ac,CLOUDID:39802fbb-4006-44bb-949c-6e25a7b8dad4,B
-	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
-	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
-	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 26ad4ae0d40c11f18dc8c9802ae25ab1-20261030
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw02.mediatek.com
-	(envelope-from <zhengping.zhang@airoha.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 75411125; Fri, 30 Oct 2026 10:46:47 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 30 Oct 2026 10:46:46 +0800
-Received: from mediatek.com (172.18.153.129) by mtkmbs13n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Fri, 30 Oct 2026 10:46:46 +0800
-From: Zhengping Zhang <zhengping.zhang@airoha.com>
-To: <srini@kernel.org>
-CC: <gregkh@linuxfoundation.org>, <ansuelsmth@gmail.com>,
-	<linux-kernel@vger.kernel.org>, <lei.dong@airoha.com>, Zhengping Zhang
-	<zhengping.zhang@airoha.com>
-Subject: [PATCH] nvmem: airoha-smc-efuses: Fix the SMC function ID for eFuse read
-Date: Fri, 30 Oct 2026 10:46:00 +0800
-Message-ID: <20261030024601.678699-1-zhengping.zhang@airoha.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Na6KxF/1
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793328589; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=CfEmxolAK8lSlcJ/IDJ4OjlHBkMazQyT8J7ibClDgoI=;
+	b=Na6KxF/102AdTUz136z8HdPBWN7K2OpcY6fLCIFV7ntQeUOYXMA0TxGnMETPUWWZ1x3iAbOi/k4GGPTO//4ABi1riQfMO3RwZqDZIhFtmdX4VP38tQOKcj+Lvr50235AwYqeFDd+8sCmn26NoFN/IPOcs0xSV3dIanAYu9i6rHI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XDkuzbU_1793328587;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XDkuzbU_1793328587 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 30 Oct 2026 10:49:48 +0800
+From: fangyu.yu@linux.alibaba.com
+To: gong.shuai@sanechips.com.cn
+Cc: fangyu.yu@linux.alibaba.com,
+	iommu@lists.linux.dev,
+	kvm-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: Re: [RFC PATCH v5 03/10] iommu/riscv: report iommu capabilities 
+Date: Fri, 30 Oct 2026 10:49:46 +0800
+Message-Id: <20261030024946.93889-1-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261030023104.51259-1-gong.shuai@sanechips.com.cn>
+References: <20261030023104.51259-1-gong.shuai@sanechips.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,46 +65,62 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
 
-The Airoha firmware uses SMC function ID 0x82000005 for the eFuse
-word-read service. The driver currently uses 0x82000001, which does
-not select this service and prevents eFuse read from working
-correctly.
+>Hi Fangyu,
+>
+>> From: Tomasz Jeznach <tjeznach@rivosinc.com>
+>>
+>> Report RISC-V IOMMU capabilities required by VFIO subsystem
+>> to enable PCIe device assignment.
+>>
+>> Signed-off-by: Tomasz Jeznach <tjeznach@rivosinc.com>
+>> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+>> Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
+>
+>This patch has already been merged
+>https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=3069e8f3e1e9bdf007316eadae4d1777065e7b78
+>
 
-Use the correct function ID and rename the constant to
-AIROHA_SMC_EFUSE_READ_WORD_FID to make the selected operation explicit.
+Thanks for pointing that out. I'll drop this patch in the next version.
 
-Fixes: b7846af2e6ca ("nvmem: airoha: Add support for SMC eFUSE")
+Thanks,
+Fangyu
 
-Signed-off-by: Zhengping Zhang <zhengping.zhang@airoha.com>
----
- drivers/nvmem/airoha-smc-efuses.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/nvmem/airoha-smc-efuses.c b/drivers/nvmem/airoha-smc-efuses.c
-index e56a99f4aa1f9..7988b2520ffd0 100644
---- a/drivers/nvmem/airoha-smc-efuses.c
-+++ b/drivers/nvmem/airoha-smc-efuses.c
-@@ -11,7 +11,7 @@
- #include <linux/of.h>
- #include <linux/regmap.h>
- 
--#define AIROHA_SMC_EFUSE_FID		0x82000001
-+#define AIROHA_SMC_EFUSE_READ_WORD_FID	0x82000005
- #define AIROHA_SMC_EFUSE_SUB_ID_READ	0x44414552
- 
- #define AIROHA_EFUSE_CELLS		64
-@@ -35,7 +35,7 @@ static int airoha_efuse_reg_read(void *context, unsigned int offset,
- 	struct airoha_efuse_bank_priv *priv = context;
- 	struct arm_smccc_res res;
- 
--	arm_smccc_1_1_invoke(AIROHA_SMC_EFUSE_FID,
-+	arm_smccc_1_1_invoke(AIROHA_SMC_EFUSE_READ_WORD_FID,
- 			     AIROHA_SMC_EFUSE_SUB_ID_READ,
- 			     priv->bank_index, offset, 0, 0, 0, 0, &res);
- 
--- 
-2.43.0
-
+>Thanks,
+>Shuai
+>
+>> ---
+>>  drivers/iommu/riscv/iommu.c | 11 +++++++++++
+>>  1 file changed, 11 insertions(+)
+>>
+>> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+>> index fe8e6d0f8a23..40beccedd39f 100644
+>> --- a/drivers/iommu/riscv/iommu.c
+>> +++ b/drivers/iommu/riscv/iommu.c
+>> @@ -1444,6 +1444,16 @@ static struct iommu_group *riscv_iommu_device_group(struct device *dev)
+>>  	return generic_device_group(dev);
+>>  }
+>>
+>> +static bool riscv_iommu_capable(struct device *dev, enum iommu_cap cap)
+>> +{
+>> +	switch (cap) {
+>> +	case IOMMU_CAP_CACHE_COHERENCY:
+>> +		return true;
+>> +	default:
+>> +		return false;
+>> +	}
+>> +}
+>> +
+>>  static int riscv_iommu_of_xlate(struct device *dev, const struct of_phandle_args *args)
+>>  {
+>>  	return iommu_fwspec_add_ids(dev, args->args, 1);
+>> @@ -1505,6 +1515,7 @@ static void riscv_iommu_release_device(struct device *dev)
+>>
+>>  static const struct iommu_ops riscv_iommu_ops = {
+>>  	.of_xlate = riscv_iommu_of_xlate,
+>> +	.capable = riscv_iommu_capable,
+>>  	.identity_domain = &riscv_iommu_identity_domain,
+>>  	.blocked_domain = &riscv_iommu_blocking_domain,
+>>  	.release_domain = &riscv_iommu_blocking_domain,
+>> --
+>> 2.50.1
