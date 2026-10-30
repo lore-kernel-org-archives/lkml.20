@@ -1,106 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793355757;
-	b=4mEDH4+P9pDqgcuMmjuQQ/CH35fGiWmRduLPxPOpusNTjD67AWsE0c4QP2Fi1Mk1r/d3
-	 0uGYFiixOLG7OZZv/QF8OClCuGjGJu3qyd252vgg2fnr3m7LIiEkpfk+641MoFDX9ELG3
-	 CGPpK5iskFPlOoR/LebviGmMR7RNMhDXGCB2vCZYlnot51U1ZnHtrKI1lSytbq1scCtEJ
-	 pCj2qNgqh9vQVjrC5Exb3gBmsXl5YofEyv5tqMUlQFCZsuj1ZkqYL3i19R2iW2wu7SAli
-	 fSg4OEplhxHmKBxjaBWtgMxp3lTlrb1L5OHKxDCkwBLR6zqk9z9aHwv9kOHYyDxBiNA==
+	t=1793355767;
+	b=m8WEhWmfRGHdikCElOmaDQ3YgDVVWmc3kbe/cWQeiWhC3eoXi26NOnO3Gla852QGeCJQ
+	 Xq228eH+PTrRaJmCul1TJGw47ZY1npkqOxQCZggv74SPJ9OMRrkK8Li3ZWUV+Xuyj3vf8
+	 DKtAW/5H2Gt1432WZW/tzAINYAmdjCxZdHrjxVYaEA2hf7sTrPiXsi36W8i5HeqP5Hiw3
+	 TcS6v3popdLfTdWh+l50UavvKjH7wiSrsQoTmklcvPXaX892dJJxc/dwnyUAknaS+E6h2
+	 /GdsSO0pycRFRuDkY4iGp+CyMvo7BE7yg1Sq8DAw2dkM1DpKbbsfqINS3C8U40aKDwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793355757;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gyUxqqV28AHDPJm2TnGuyjG0MyV1cy7PlWRsAeULnhc=;
-	b=G4es39vsRq5vU338Veg2z5oRudM7V+oJAWtxrGPm31Lj36f0tRuVyywS78M2T7vPeFJl
-	 Gf+0d5pdjQ+Z2vSQHDhY9GE1jmAaE4fCV3jz7A1OZTPquM264XLE9x6MrTd5OJz4Tsl2r
-	 xe2F/XhEdt8mUzy0/7iYKPPcydLZ0WZHwmTf+iLNf/IkA5OA8zVOdhGLva3bvWBZoY0vj
-	 +PXoyr2MYijewJsvpi91JSCV8s8bt8oUutOQx9qntUvprY3ni89EUihnJYmwBjvtogfdD
-	 A9R8L15vrjxlypd/jl+MKAoTjop8CB7ZERY+YkgY1ILSGqbbu/Cox32bR3zJLP8O63A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793355767;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=kpTyrdA1i+y2556zUDjgson9wJKQHizmCV0pLv7Ag1Y=;
+	b=WquXVOEt1xnWN4k+iK7elICOrtQHkw/SUH4lVRvNk4gpDde7X5G6x9ZVPr6B0AhdGeQE
+	 Bfg8z1l4cNXWFDXdOwfN8ZGPgCLS2TGIR9Jo+56yz2s/n9MzaMbZDsqw5xrVDiH7wN9Yc
+	 VbxW1qn7b9wcGtM1x9qub2LsETmiMATqAbPVdAca0Ylq9OFBKjoyNruAJdCGgenRCzw1h
+	 DEbdezkMMIhPi2FTrns71mR3V6AwX4Sjhdw87Qidp7NkOX7IuFe3wle5R3+IgMplZd67Z
+	 poTflCjrJap2gSMa1qvbmQ21z48YS41XFDMckS5ldXV/T1+BKsDyZCNdIkaC4IrcXpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zYq4nzL0;
-	arc=none smtp.remote-ip=74.125.227.131
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=A0gP2Okt;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B887B606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:22:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B887B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D32606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:22:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74D32606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zYq4nzL0
-Received: by mail-pj2-f3.google.com with SMTP id 98e67ed59e1d1-3adc0ac3566so94116a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:22:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793355756; x=1793960556; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gyUxqqV28AHDPJm2TnGuyjG0MyV1cy7PlWRsAeULnhc=;
-        b=zYq4nzL0/k76KI3Q8NYrWIMDK58WMNmyVXHk6uZFFryQo59Kep89IivA1R3zKYBlkQ
-         NaWcbJ5tFY8CwLvan7JSPlQY52ux63ljdnCcZpmhHy15zIo0jfcT92/UQE3hrIXPntWi
-         +W357g5N0GzkJOmpBfemuGEfkOg/OUUBFunnDb8OD6d2WhxLYQDSkoxJWb5UdtKUf4F5
-         ETk5/i8GUDvik/M4u2cLk16Ceow+LSPqtOouGB6OLJrgzAUBZF8j97dlLk+VpKTK5Yk0
-         l50uc3Ze3QxeOgscVwgmGvD69txMRxZLlOfXsJdgxu0bGzxaofU2dlRkXR1ekat/JvJ4
-         jsdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793355756; x=1793960556;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gyUxqqV28AHDPJm2TnGuyjG0MyV1cy7PlWRsAeULnhc=;
-        b=UOfGyw2nwtbI5hByX4u5iilnSh7bMQ4un/XtrPWQBEaKtNjHuDGwSt+yJJu6LFjklF
-         LRDndBhh0qL5DLQv/ww4s/72wVQOkf1P5RIBurc6IvhEe2Cn2aTLFHI8laIFKcp2ph5/
-         ryD45MbZ+yzy0G5uWwORec4S4PTs6/MfrRQrpUxcum5JtTCt0L+NV5ttXmjji7i76fyu
-         NJLrBzuWIlMKMH432ovhSHKuyc5Sc0oOYxDtpy8DItQEoZQ+t9YGHzmKsEmA4VQCywFp
-         BIwE+KmdwMJdFuTIMydE5javKgRrXQQDSYxX0V1GN2hAZRJDrJeBG6Xh0kw2RJj84ZeW
-         XW3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwSSc9OnZeEn87OygQEgoUbu2v2PSaD2gOqw2q5cUC96DR4ija19ZsIgeoFGIbl7FC9VmdtyIoc5OIF99g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPiBSfvZ4UbsRs18VaEjt+v9/u90nA89Mk2vy0CNWVzdzkyaKd
-	UkkXeLzHy3cxibJxgPZctjoIIh1dAlVUAWQx4mQU4LVelIZXW0zmTgYo
-X-Gm-Gg: AYBFou0qmpsjT3Gxg5jUfKQyheEKzyhpgs77myEqIGKrjZ/rMgVqfy2M4bPEi6lfGB7
-	WoEhORG/QO+jubF8owJEd2LOtAK80EtAGmTAC+BP0OcIdV6K9BxihZ52pIJENGXzNz7GZeMekW8
-	p71L+Z1xkI/NakhjVn9AsVjKn74qLZ9DVnneyPvaKl6VFMQTK0R9famaukipHH1RGwrZ+vQuxzp
-	rAj42mCcyeCKAo4MZrMQqVNaSF4tFLkspu6m2zGW8EWkfQcWXP9EDcE2hga/bSg6cJP4bI9KcIQ
-	3/3omTNezfPF3zfTsX5anw3T+cAN5mc02jatlBXSy+G+XW4ddZZcuero0kcIhI4BVxNlYTOi6rv
-	aktVEmhD8DY/xAau9ZTGI1/FTB7Hu1zYBQDPzuKE4ZHPvHPUbEUp8oesqe3S2n3Q5ZAtlEWgtSi
-	RFUfkho1DWs6OzhpQoCNMHaAqBMXnGqtsYh/mE1CQFmFDnuvmIBHHRXUw3FvjJXHvUs6s3+2cIj
-	T6ZO6d5BmWG2AMOhSofKbr4ZuNTj6k/fTJMQkoJG/AflbolP74nCl6RxXur1Xu9Yg3u+K6paR4P
-	RP5X2u8SI8+CDQbpBDDHklOE/8DWaO641i+xJS3NzVHdeYjImKjxGsFlig==
-X-Received: by 2002:a17:90b:2246:b0:3a4:b8dd:1447 with SMTP id 98e67ed59e1d1-3ae8974bf64mr1558226a91.34.1793355755865;
-        Fri, 30 Oct 2026 03:22:35 -0700 (PDT)
-Received: from lima-ubuntu.hz.ali.com ([47.246.98.219])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845ae5b9sm3567615a91.12.2026.10.30.03.22.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 03:22:35 -0700 (PDT)
-From: Qing Wang <wangqing7171@gmail.com>
-To: peterz@infradead.org
-Cc: bsegall@google.com,
-	davichazbh@gmail.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	rostedt@goodmis.org,
-	tim.c.chen@linux.intel.com,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com,
-	wangqing7171@gmail.com,
-	yu.c.chen@intel.com
-Subject: Re: [PATCH v4] sched/fair: Replace random newidle_balance with Bresenham accumulator
-Date: Fri, 30 Oct 2026 18:22:26 +0800
-Message-Id: <20261030102226.2501158-1-wangqing7171@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261030095630.GJ2668200@noisy.programming.kicks-ass.net>
-References: <20261030095630.GJ2668200@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=A0gP2Okt
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=kpTyrdA1i+y2556zUDjgson9wJKQHizmCV0pLv7Ag1Y=; b=A0gP2OktV3j0APACgbuDn/vfC2
+	R3sA4Q36DZns9JdO1IT+O/9UkkNOBE62zjXIXx0UtsF9ctWF8OPUNfvIMifVFoGTOADx349TDwvTe
+	MX+NdE5/T6osdEP7XHBhhDjyMU7vbQdcPF2ZzgjP82jvOuUAMwRDGddyf4Buf2KdKP2vvDOrtoYeP
+	eiAnQHDiYnipbpt7KT/Su4XXhRawNLJbikqhYiRcj5/LTB+9wC+XWw+RUzACeWmbBAoyP2WxkmKk+
+	6aZoSEfjFokA1E/1yUMhUH9n/wRtkCuagTsCw7gBbRnSJcYMH36v8/8WobtK4mmoREtsnY3KlJQMA
+	utG7TZsA==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: =?UTF-8?B?WWFsw6fEsW4=?= Can <ylcncn@gmail.com>
+Cc: Russell King <linux@armlinux.org.uk>,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Johan Jonker <jbx6244@gmail.com>
+Subject:
+ Re: [PATCH] ARM: rockchip: rk3066: set soc_remap before starting secondary
+ cores
+Date: Fri, 30 Oct 2026 11:22:32 +0100
+Message-ID: <1940718.QZUTf85G27@diego>
+In-Reply-To: <20261030073647.164416-1-ylcncn@gmail.com>
+References: <20261030073647.164416-1-ylcncn@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,21 +63,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Fri, 30 Oct 2026 at 17:56, Peter Zijlstra <peterz@infradead.org> wrote:
-> Funnily enough, treating this as an independent variable and using a
-> random number works and 'fixes' the slope change problems.
+Hi,
 
-Hi Peter,
+Am Freitag, 30. Oktober 2026, 08:36:47 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Yal=C3=A7=C4=B1n Can:
+> A Cortex-A9 core on the rk3066 starts at address 0 when it is powered up.
+> The SMP code copies a trampoline to the start of the internal sram and
+> relies on GRF_SOC_CON0 soc_remap (bit 12) mapping the sram at address 0.
+> The vendor loader sets that bit before starting the kernel, but a boot
+> loader started directly by the bootrom leaves it cleared. The core then
+> runs the bootrom instead, which parks it and also writes into the start of
+> the sram, so the trampoline's target word is overwritten as well, and the
+> boot logs "CPU1: failed to come online".
+>=20
+> Set soc_remap after the secondary cores have been powered down and before
+> the trampoline is copied. The rk3188 shares these smp operations; its grf
+> has a different compatible and is left alone.
+>=20
+> Tested on an RK3066a board (MK808B) with U-Boot started from the NAND ID
+> blocks by the bootrom: before, CPU1 never came online (GRF_SOC_CON0 bit 12
+> clear, sram+4 read 0x00000001 instead of the physical address of
+> secondary_startup); with this patch both cores come up at boot, three
+> offline/online cycles of cpu1 work, and the board restarts normally after
+> a reboot and after a forced panic. Booting through the vendor loader, whi=
+ch
+> already sets the bit, is unchanged. Not tested on rk3188.
+>=20
+> Fixes: a7a2b3118b41 ("ARM: rockchip: add smp bringup code")
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Yal=C3=A7=C4=B1n Can <ylcncn@gmail.com>
 
-I explained this in the v3 thread: on a slope change, carrying
-newidle_window_pos over from the previous window only shifts the
-first allowed balance in the new-slope window (512 calls) earlier or
-later; subsequent balances are still uniformly spaced. So the
-initial value can be anything — it doesn't matter.
+there is another patch from Johan pending [0], which I plan to apply after
+the merge-window, that moves all of the A9 cores over to booting via
+the SoCs bootrom and gets rid of the whole trampoline code.
 
---
-Best regards,
-Qing
+
+Heiko
+
+
+[0] https://lore.kernel.org/linux-rockchip/20261017-cpu-v3-1-25d8f4b06362@g=
+mail.com/
+
+
