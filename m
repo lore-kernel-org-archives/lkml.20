@@ -1,60 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793361019;
-	b=na4VxetyoGvA4VCnBcbhXTf7fNEJw1tCb56usxr+grVp+XLJGWVDGdy6ZFhtDzYrcewq
-	 qXATqrwFaDKzkITJFPY/2DuHLUZ2n3aqkZW9PqHL2xaM/mZr2XvKLnOKrExj5boOPhZ59
-	 ysSsUmWAXHpfIkG/FP9FE3CWbGmvh9wn/2YYB9QCoDFHOSLDEOEgywUbDdOm1r6l3Y3yZ
-	 Oz8F6QlxYM3ytUzn3s+k7dqMS2T+sOKiaRWQJBB2MEdcUt1E1nn7Lukv8qPsBiq7+vUB7
-	 2kvPIpxV3jkGUuI+sTQcsnizZEhlWVANbVs/ImVjE6wV9h1guFkuWew3zmtnAha4hJg==
+	t=1793361039;
+	b=srTTuX3Ecw9UNWeHAMEmMWQcpX1kmoxekD9MGHqCsY+yatgsWIGw2Vg2UdoUKJNqcYaw
+	 00UlQZLSOmwPlymrHPwdh6C2cNsLm2dMHMHjaAzEPo+JrNVePC7oBPgy0w+InpAev8VPB
+	 sYIgDt0bNmaw5DXa7wDQ3k8zgVuid72e6IF/4J9uJoXaj5hZNgMzW86PnOCUfoANYvEHU
+	 4xkt/67FuMUai8CfuleNYHUY0PxbWJVqNOW7j5CYq2oZS07Ilx9Wd++vE6yFgAxrCIoWf
+	 e/dZzDmvyNNnO8DxttHjEiBB3rjOadUZBO0QboOXnpVBetTkFY5QTanZAfAMy8rX2sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793361019;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=8VG0mWXUK1UFcStaiKwUURYv58tMB9hixdZ4vYpcZP0=;
-	b=RXbJU4Gn0tHdNkBtvA/uM+vtzOj0a08fBcogu8YJ/+4+e3UyvcTSfcB8IUdPCib3V15R
-	 WGxrW7kBS2hdH0vRzZASVs/jZbst+8pPv2+I5MmmRv6IKZVZV2+z5qni/6GDF8Tp5oC4V
-	 Gy2iPdU1e6GKWWVp73y/gds8xBZD/k5GWd8WiC7hH4KpREXKE2G4YPFl2SdSJBdH8XLlO
-	 Qvv2kyEXgkf/944hRNkQo0OsS/vcHEQ2bb2P4VCtC50ZIIL6gCjpC8o3aTsTg1GUIupWB
-	 hYk+WXwmxoeoWcVs3eVYpWoALJ6ljoNO5X4mhCRlImwgI6xg8vsZyJwSYAqg3uMao3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793361039;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=MXzFIbuDJ84A/5AW07Mg/XHQWGN8y0TeHvaMsntxdaA=;
+	b=zH5+XG4IxlFvFIppsCbq3jfnnaAFkA1S3ikEdgO3N2mXPORdhlnroSz5tB8mEwqTPKzK
+	 ziFR9a/49hV2I+EA71VB6ye2J603S2eq1R/xCIiBNGBKUE20qVsEMhzwEATwt3v7r8WCQ
+	 dKmAPfcQkLuzTFw59vE+ynijn/vVHfkW2Mt6vAiO5AnGyMiQAsvpbsE206ZcA7+59zMyP
+	 aHwSeuTkuaip0DLtQ9mCLYhB3DnH3RFxypziTHlegv+LGaYZ+8MC5VN4UTyKl3nhqay0i
+	 CwGLo684SJPKzNm5c6ylOVcXgJY9oJtpr+DFsvuWNOgosCszM3w4h6GjiebGbGk8wIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8bfTpnc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9C3606A322;
-	Fri, 30 Oct 2026 11:50:18 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="lU/tWOyV";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 25850606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:50:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25850606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8bfTpnc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F391F000C1;
-	Fri, 30 Oct 2026 11:50:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793361018;
-	bh=8VG0mWXUK1UFcStaiKwUURYv58tMB9hixdZ4vYpcZP0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=M8bfTpncscMhnnbbOCvAQgBJFTf//W+3TNv4mYLvtA516bhr6WvLkjFL1tx1j75wE
-	 Y+9Y2SwNaMMUy6Had8YaB7IQ+OVWEjBMZHRCun7tPhR0eg5drwuycDJ69rdhSgLpkk
-	 zr55i9DgngZBtkfm8hmGnCj8Bj6mgsNwYaDMS10bN03lCNI6rjg0+8BeWVp3SC0/aJ
-	 HxjxpjB+eipJtkSXER2Q6YRLQGK7YUlmQ8PW5YykK10Bui8KipUeVT+MhuM1autSc1
-	 lN5uLGrKfsjSkjn6ke3aDebz0kCFuGfMCZw5YLepsYswFUMaHIr+0yVkdwEHMXWIdh
-	 x05/IkAeBvXgA==
-Subject: Re: [PATCH net v4 2/2] bonding: give a slave that starts UP a full
- arp_missed_max window
-From: netdev-bot+sashiko@kernel.org
-To: ramses@well-founded.dev
-Cc: jv@jvosburgh.net, andrew+netdev@lunn.ch, davem@davemloft.net,
- kuba@kernel.org, pabeni@redhat.com, jbohac@suse.cz, edumazet@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, razor@blackwall.org,
- hangbin.liu@linux.dev
-Date: Fri, 30 Oct 2026 11:50:17 +0000
-Message-ID: <179336101737.3134.5509394527190638689@kernel.org>
-In-Reply-To: <20261028-bonding-last-rx-v4-2-4d8e4cd47467@well-founded.dev>
-References: <20261028-bonding-last-rx-v4-2-4d8e4cd47467@well-founded.dev>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lU/tWOyV
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4022C1682;
+	Fri, 30 Oct 2026 04:50:35 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 05E583F7B4;
+	Fri, 30 Oct 2026 04:50:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793361038; bh=RP5O8+TrrNiChKav5OBQ0e3c5WvNX6Y1zOlCAMRl860=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=lU/tWOyVHaLrUngFuy01LnUghNCRymm8KuQDWfUt+bNjrVmcqHWMPOLOE+tEjEf4y
+	 F1eH9vtlZ+aNfreW0na2a03e7PObmDRiHq1zOHTZbRn1xxIdQVHK3A5ve29GXFTI2w
+	 hexk5/pmFi5m0iP0md3LhC6nGY+3Qn84Ujtw+J0s=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Wei-Lin Chang <weilin.chang@arm.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Gavin Shan <gshan@redhat.com>
+Subject: Re: [PATCH v2 2/2] KVM: arm64: Remove stale remark on canonical IPA alignment
+Date: Fri, 30 Oct 2026 11:50:33 +0000
+Message-ID: <auSEiTmuLcPmG7Gs@LeoBrasDK>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261029175238.3214788-3-weilin.chang@arm.com>
+References: <20261029175238.3214788-1-weilin.chang@arm.com> <20261029175238.3214788-3-weilin.chang@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,107 +74,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Thu, Oct 29, 2026 at 05:52:38PM +0000, Wei-Lin Chang wrote:
+> Commit 3b8ce2b5132ae ("KVM: arm64: Use a variable for the canonical IPA
+> in kvm_s2_fault_map()") created a variable to store the canonical IPA,
+> instead of calculating it when needed. It moved the aligning just before
+> mark_page_dirty_in_slot() to an earlier place but did not update the
+> comment.
+> 
+> Remove the stale part of the comment.
+> 
+> Signed-off-by: Wei-Lin Chang <weilin.chang@arm.com>
+> ---
+>  arch/arm64/kvm/mmu.c | 6 +-----
+>  1 file changed, 1 insertion(+), 5 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> index c7df646af79f..695c6229a216 100644
+> --- a/arch/arm64/kvm/mmu.c
+> +++ b/arch/arm64/kvm/mmu.c
+> @@ -2232,11 +2232,7 @@ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
+>  	kvm_fault_unlock(kvm);
+>  	kfree(mapping);
+>  
+> -	/*
+> -	 * Mark the page dirty only if the fault is handled successfully,
+> -	 * making sure we adjust the canonical IPA if the mapping size has
+> -	 * been updated (via a THP upgrade, for example).
+> -	 */
+> +	/* Mark the page dirty only if the fault is handled successfully. */
+>  	if (writable && !ret)
+>  		mark_page_dirty_in_slot(kvm, s2fd->memslot,
+>  					gpa_to_gfn(canonical_ipa));
+> -- 
+> 2.43.0
+> 
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The patch only covers a slave enslaved while the ARP monitor is
-  already running.
-
---
-
-bonding: give a slave that starts UP a full arp_missed_max window
-
-This commit changes bond_enslave() so that a slave that starts UP has
-last_rx seeded from last_link_up. Before, it was seeded one arp_interval
-in the past. The goal is a full arp_missed_max window before the
-load-balance ARP monitor can report the slave down.
-
-> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-> index bfa4cb97e647c..de5b196f4a1ee 100644
-> --- a/drivers/net/bonding/bond_main.c
-> +++ b/drivers/net/bonding/bond_main.c
-> @@ -2160,9 +2160,12 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
->  	if (new_slave->link == BOND_LINK_DOWN)
->  		new_slave->last_rx = jiffies -
->  			(2 * msecs_to_jiffies(bond->params.arp_interval) + 1);
-> +	/* Give a slave that starts UP a full arp_missed_max window. Not
-> +	 * seeding it later than last_link_up keeps bond_arp_rcv() from
-> +	 * trusting ARPs on backup slaves before the active one got a reply.
-> +	 */
->  	else
-> -		new_slave->last_rx = jiffies -
-> -			(msecs_to_jiffies(bond->params.arp_interval) + 1);
-> +		new_slave->last_rx = new_slave->last_link_up;
-
-[Severity: High]
-Does this fix still miss the case where the ARP monitor starts some time
-after enslavement?
-
-The new seed is the enslave time. It goes into last_rx, every
-target_last_arp_rx[i] and, a few lines below, last_tx. If the bond is down
-when the slave is enslaved, recv_probe is NULL and arp_work is not queued.
-So last_rx is not updated by bond_rcv_validate(), and last_tx is not
-updated by bond_arp_send()/bond_ns_send().
-
-Later, bond_open() starts the monitor right away without re-seeding these
-fields:
-
-drivers/net/bonding/bond_main.c:bond_open() {
-    ...
-	if (bond->params.arp_interval) {  /* arp interval, in milliseconds. */
-		queue_delayed_work(bond->wq, &bond->arp_work, 0);
-		WRITE_ONCE(bond->recv_probe, bond_rcv_validate);
-	}
-    ...
-}
-
-bond_option_arp_interval_set() does the same thing when arp_interval is
-turned on at runtime.
-
-The first bond_loadbalance_arp_mon() run then checks the enslave-time
-values, before bond_send_validate() has sent any probe on the slave:
-
-drivers/net/bonding/bond_main.c:bond_loadbalance_arp_mon() {
-    ...
-			if (!bond_time_in_interval(bond, last_tx,
-						   bond->params.missed_max) ||
-			    !bond_time_in_interval(bond, READ_ONCE(slave->last_rx),
-						   bond->params.missed_max)) {
-
-				bond_propose_link_state(slave, BOND_LINK_DOWN);
-    ...
-				slave_info(bond->dev, slave->dev, "interface is now down\n");
-    ...
-}
-
-Take missed_max=1 and arp_interval=1000. If more than 1.5s passes between
-enslave and "ip link set bondX up", a healthy slave is marked down. Its
-link_failure_count goes up, and failover runs if it was curr_active_slave.
-The next run brings it back up.
-
-If arp_interval is enabled on a running bond whose slaves were enslaved
-long ago, every UP slave could go down at the same time for one interval.
-
-The old seed behaved the same way here. Still, the commit message says the
-slave "gets a full arp_missed_max window for its first reply". That does
-not seem to hold when monitoring starts after enslavement.
-
-Would it make sense to also re-seed last_rx, last_tx, target_last_arp_rx[]
-and last_link_up when the ARP monitor is started in bond_open() and
-bond_option_arp_interval_set()?
-
->  	for (i = 0; i < BOND_MAX_ARP_TARGETS; i++)
->  		new_slave->target_last_arp_rx[i] = new_slave->last_rx;
->
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028-bonding-last-rx-v4-0-4d8e4cd47467%40well-founded.dev
+Reviewed-by: Leonardo Bras <leo.bras@arm.com>
