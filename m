@@ -1,86 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793364555;
-	b=RiHTOYKERH69ioe2MABQw3rW0cil6ZkdoVQIwfmoZokV0llspeLlrXnS6BPoaIEfjy1W
-	 ZNS3i4zqk02jn6+1edoB1h1dKvuW1TRHGc84rQQwOs6wezAGNfB1697RSoAXtWwXS0IsP
-	 FvKvSiQqNA5aBseYeJrcevFNjTw9SgQXiRohWFIPsoVTJMKgiC5ODbmaybxU/ha0slLX4
-	 8oy1l1mZx+FOpcYXsbvpuZwBl3i/xbSQLwYsatf0kNJfok88wqzacEdx1XUiMI5w4WiL9
-	 nWHyayvBtpswJFq2DdItuXqpvT0PpLzeSKiiWQUA7C43xEVOXX1M8RBwOnovOH3fK5A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793364555;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=5NgGtSrDL6xzCswDYaRWwi+bXBJ29klM0xRwGKRqsL0=;
-	b=f20xOOXHIdMzSNFgQ/h/hyh1fviUqEuB8+1kbrmPwqvI54W/6oeJEoBr1T6thOCW3mCG
-	 k8h0WWLwLMheixLxBN2HoN5W7a64vyzxNJHVkeLMLGnlZWuR8hM51yICqbYQE0jlemZAq
-	 RIv2L8j22P7q9AoyruB1ZpzddwQSiF0h9+oZLTX9rbnjp0hCdiI1KS1yDuXTf2P+kcH8e
-	 tZl/hQTJB0fgLt+rCikOl8c9BNwZ95zr1Yhzi1ytT8yyCelmcFK7KvSBbNi8LXGTS4Gr4
-	 zLd2nQuD+HL1kKb9dMjMOhlClGltEcxLUA1LbYEpdY/oaEm54dgl6n+deTDqDP2A6Ug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GoAtWKhI;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793364617;
+	b=dMA9VceFkLNffCI1lZ7elKGSFiu0EduQyZkU/JNi2AYTYpzypnCBzp/Y/k8XlRa9vH2I
+	 zon09N0PSGaIK057m1ZyXwUfDjK0X2DkYH0DB8UPr/dsw1WO4oGXy745nmZHaf6EQokG7
+	 MZDCcTT16KwFNqxCtfuYvZ1rBTa0t0egc/cuPIJh1nnVK8dBdjM4/eUYxi0q3LFWUM3VJ
+	 G93KR8+5AjL0a8X3mTP7+2KuqLGZZ1rEAWcpkfBOaBpPrbWAfxlt6opfyWdg5fUD1HDDh
+	 ZCt3z4VDXV6NJgdSD6BIN7CGqrFn7R4xmVOdyRNIzqLP4CU3pswEzAKSKle6g0Zxv+Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793364617;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:MIME-Version:In-Reply-To:References:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=gNYOrR5qdv0o/uUnKlELAosZIQN5bxvKJl1b8/vDtfc=;
+	b=ciaKgVkMxPpYTAfy1fjcvqI+EZr4/0ZPh8BgNLhPJggSbv1nRxxQKgJ6hF4bdX3dzeEV
+	 Od888GeAlvChbFQm2Cmk01DvJEPaV7gvupRaMhjGkP8TJ4ZniHJNgkD1FUAjm607OTYyn
+	 f3tu2S78bCB5XfaCbIFtRD83U3jCAXbOHZuZyjj+x+NePpOkJwYZncclQrj27/tFh+VHT
+	 8n4BlfateOzy0bfAWd54yOb2/y2YwvBWuIHWSbkt7ArOsnxwhcx3WX70GCI6zvpKG+vTN
+	 HQNh3s2pu/nY/QdtxAqATkEcT4uFxR9SMRsAkVH17WSiFy6aOTQtFOSIMS7CYPiD41Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=TzCiSuTo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A104606A31A;
-	Fri, 30 Oct 2026 12:49:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A104606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CF5606A320
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:50:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95CF5606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GoAtWKhI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793364547;
-	bh=KlAsEMUoh8SqMK535dsRdRC/2BXgKedTejkSjok4NIg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=GoAtWKhIvjsma323nTKdjX9UTokJbCgbQ7d9/UT5FOB/SFdzkpNgXp2n2f/d2p4lk
-	 oGcgZ66mcU5aQJEhRGToUuHU16bJwxF53mH176R0q9mKFWRI2FRbyknQ3ZIlXFl/kP
-	 AIi8buKDKTPluHT5GMgrObmLB6lYfrGffyIu/KixOTt6IakJtqT7M5uHlk6XdlkMTr
-	 myL7SY6Cd6LTPIw1vDQqIREACm5cUGhhu1L3KEOzNtL3bh2gjasTEo6IfuR3AKiO5g
-	 3C3Oh8bahCDoQjDcZoG24Rigzu3QeTRzWpv5dkqTedmki6Iid9ObxkczGlFFYBfXlj
-	 t7Oj80WlqF5Pg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 884DB17E0053;
-	Fri, 30 Oct 2026 13:49:05 +0100 (CET)
-Message-ID: <76e2e993fa5a8fd054bad97505907d3c4e88e11c.camel@collabora.com>
-Subject: Re: [PATCH] media: rkvdec: Do not keep the clocks enabled from probe
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: iav@iav.lv, Detlev Casanova <detlev.casanova@collabora.com>, Ezequiel
- Garcia <ezequiel@vanguardiasur.com.ar>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Diederik de Haas	
- <diederik@cknow-tech.com>, Jonas Karlman <jonas@kwiboo.se>, Francesco
- Saverio Pavone <pavone.lawyer@gmail.com>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, 	stable@vger.kernel.org
-Date: Fri, 30 Oct 2026 08:49:03 -0400
-In-Reply-To: <20261030-rkvdec-runtime-pm-clocks-v1-1-fb2c5b629e79@iav.lv>
-References: <20261030-rkvdec-runtime-pm-clocks-v1-1-fb2c5b629e79@iav.lv>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-ruCLDIpENIOKgPK2wLA7"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=TzCiSuTo
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so1002933a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:50:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793364615; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LAqwrVMy9T89d5grq/Db9gXEHhgcToYnXF4vbb7Cws3lGrilMbo9HDuKTO1fGrPFZs
+         Q392eqHHkaF8hBIuGOA2gpipJ4jI+ksNBVkhKoS4l3r24KLQ0TXkJIghFQ8ggz8lgemw
+         7a1PpxMrVsKNcOLNUIjv/jcKx9M1CA6HUKfI2VQYkPe5R7HGOmFtmhnV4y3UF+aTdqii
+         RV++mvItvJhs0efhkxfSv1US1xGT80Ey7hzTeJODnfOlUVtCq8EgEpTpBSNjyp5Rbvf3
+         JeHL2d73RViD0hbtKFpFWTUjkrZr+lc6SYVI6xduep2g2pUZ6FgH3yPNuQXOU3n5z/8B
+         Ryng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:references:in-reply-to
+         :mime-version:dkim-signature;
+        bh=gNYOrR5qdv0o/uUnKlELAosZIQN5bxvKJl1b8/vDtfc=;
+        fh=I1RXG1m/NDFyROmnnN4Hk5nv/pLYy4/mtK2m+CjERAs=;
+        b=dk39kfKH9qZRluRP9gM+q7H5iQo1BPMBQUiRgX/yki3zW6KBGwPJjFcMQCNtsEpDGD
+         8WewWZ5c/rNlqCTww3iW5UbAdReRJMg6NmmU+/H6lYLmpcCPJCn0uZtj/+UbhLZTaTQx
+         i66TJfcroM3b+5fizlam+24Mx9LBG6KaztM1Y4tAbAz61i++BFCKey9Fd8KT9zBm3B0U
+         y1i2hoPUTgZ+RLEkLMST5hyey/PGa9lc+8r/ygKfB+JQbPhYWZ9JsLSuLeBIddC8cRzR
+         QpB2ezUvnpvBLkdfRldJcSTwAHrQG3RqUMz72NWLT+P5M4tOOtjCsJvMbCojG22iT9/V
+         4OJA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793364615; x=1793969415; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gNYOrR5qdv0o/uUnKlELAosZIQN5bxvKJl1b8/vDtfc=;
+        b=TzCiSuToJkR7BCFedxtyLeiDz71h+eYNxYR7HpKJ0TmSc/1+iX8nAVnXW13Bu5xBaV
+         pgR+LGdFa63l1pAbtG/WsZoHQKmZTw95ahfWxE1wOa2Rxsdc4cnFWbhBRZxUFHxJ74xK
+         D1Tr2CGY6l/uuFpN+YFijxZv6Vfhr+f/7Gj3I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793364615; x=1793969415;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gNYOrR5qdv0o/uUnKlELAosZIQN5bxvKJl1b8/vDtfc=;
+        b=fMGJRuKgtZro/kBE31W1saOWVucsHTSWIRleZo4bFdK4SWypWq674uuyzE7zAwLwvN
+         ttdXcKvjZ5Oxjje5dpS7s5sxniKvZQ7zdQA3pp5lzCyIyOE/AYry0TFvaQRCiaimE41A
+         PgSBF64earNWi7pboVQrJkGhOq6nAIhBtToxzSOTvXuEPRBu1xlIuKoQPvWXoE2Bagxp
+         m3kp0KkufaAvvs78D9uVD7mBsTK9Yb8GCaGxuKbKC2QFXer9iPJo2XTg0k+1gp+COqDs
+         V6/kJPPbAEyo5Ofw4aYrY2V2YQi9zNtrg71nGuCJQ7aH//QKs+sI0Lhscb0IN1hHtrVz
+         X0CQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzcDFaqn7IKpPqtc9PsYSk1Q6ZHLdGI6cYBeCRoepUAIcuHAdCfa0YQmeLWrZRQpG+2Pyw01f+4bfb/9Sk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0fPrxGyDKCkfWf/ly6jovLBTIJK0NszTN9WaEqA7+Ym68Jm/J
+	bDsSRmT9FkHi6E7FSzP6tsPMFsY1BxnBAlO7Dr+8+M2/obgwGq3jQWxUk12YdnHhoom11O9OFQZ
+	J8+/Zb1ZZsDPSBnBej1nZWgqROSn3WI3nLKteMB2a
+X-Gm-Gg: AYBFou20PrQZ4hcTOeZ6a+2qTbowNFLUnMGKcew0x4vruqSRWggwN0Zjeq0DD/V2VKX
+	xtKxj7ffVDf6bpMGzHtmIYav4YxMbVmZd1+dhKudftNrsDR0evG5podhGDRYlfEVRtHgqA9g5ut
+	JCdz6z2n1A/lBNzL+kO2fILULekSXU/vSEuX/NVN6MyJrtFy0peO4Pakmbv6Ry5WhdHHiYNC3pP
+	4d74Yyl9qS7YFd51s6Dy9MgXHkq0XA3q5A9/85F7GLStmT9lDkSJU4m58XVphDqJlH4Go5jCka9
+	5we1r0whPCnbzGLTDctW8bR5HmEqmbUwiNbuL/ocA7qCQSQvSis0+DHzWBzUwFtX2uxar7KwKtQ
+	8pY5+kqiWMh2Y3rZVj2JNWekUktJlYI3GEyRTdmovjjc/IG9p7nG1eSJoQaS8sK1tESfhSdwy
+X-Received: by 2002:a05:6402:44c8:b0:6b1:e87d:5b60 with SMTP id
+ 4fb4d7f45d1cf-6b4d4686cc2mr1282015a12.15.1793364615011; Fri, 30 Oct 2026
+ 05:50:15 -0700 (PDT)
+Received: from 415065739583 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 30 Oct 2026 07:50:13 -0500
+Received: from 415065739583 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 29 Oct 2026 01:16:35 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,106 +104,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
-
---=-ruCLDIpENIOKgPK2wLA7
+In-Reply-To: <20261028215600.1713475-2-dianders@chromium.org>
+References: <20261028215600.1713475-1-dianders@chromium.org> <20261028215600.1713475-2-dianders@chromium.org>
+From: Simon Glass <sjg@chromium.org>
+Date: Fri, 30 Oct 2026 07:50:13 -0500
+X-Gm-Features: AclHuK_ccuMwNBYpkeGQ2k0lCJMfFrklKr-EXRp2KSyxEboedXPDgWFhQQBhEOc
+Message-ID: <CAFLszTg9hB_YiBAjFKv-oKw-c3iNB+sANwqf-eZhot=JrQBupw@mail.gmail.com>
+Subject: Re: [PATCH v2 01/10] pylibfdt: Fix FdtSw.as_fdt() when buffer is
+ nearly full
+To: dianders@chromium.org
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Brian Norris <briannorris@chromium.org>, 
+	Chen-Yu Tsai <wenst@chromium.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Devicetree@vger.kernel.org, Simon Glass <sjg@chromium.org>, 
+	David Gibson <david@gibson.dropbear.id.au>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+	linux-kernel@vger.kernel.org, Julius Werner <jwerner@chromium.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Peter Griffin <peter.griffin@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Le vendredi 30 octobre 2026 =C3=A0 03:33 +0200, Igor Velkov via B4 Relay a =
-=C3=A9crit=C2=A0:
-> From: Igor Velkov <iav@iav.lv>
->=20
-> Since commit 6a846f7d72c7 ("media: rkvdec: Enable all clocks without
-> naming them") the clocks are fetched with devm_clk_bulk_get_all_enabled()=
-,
-> which keeps them enabled from probe until unbind. rkvdec_runtime_suspend(=
-)
-> disables them on top of that, so their enable count never drops to zero
-> and the clock gates stay open while the decoder is idle.
->=20
-> On RK3399 this also breaks restore from hibernation when the boot kernel
-> has not enabled these clocks, for example with rkvdec built as a module:
-> the gates are closed when the restored kernel takes over, while it still
-> counts the clocks as enabled. Powering on the vdu power domain then finds
-> the count at 1 and leaves the gates closed, and the first QoS register
-> write of the domain never returns.
->=20
-> Get the clocks without enabling them and let runtime PM enable them while
-> the decoder is in use, as before that commit.
->=20
-> Fixes: 6a846f7d72c7 ("media: rkvdec: Enable all clocks without naming the=
-m")
-> Cc: stable@vger.kernel.org # v7.0+
-> Signed-off-by: Igor Velkov <iav@iav.lv>
-> ---
-> Tested on ROCK Pi 4A (RK3399) with v7.3, rkvdec and panfrost built as
-> modules, panfrost not loaded:
-> - idle decoder: the vdu clocks have enable_count 0 (1 without the patch);
-> - hibernate, power cycle, restore: 3 of 3 (0 of 3 without the patch, the
->   restored kernel stops after bringing the secondary CPUs up);
-> - H.264 decode with GStreamer v4l2slh264dec, 300 frames of 720p High
->   profile: output identical to avdec_h264 (md5 of all frames).
-> The QoS hang was traced with debug prints in rockchip_pd_power() on a
-> 7.3-based kernel.
->=20
-> This is separate from the unbind leak in Jonas's patch that Francesco
-> posted [1]: here the extra enable comes from probe.
->=20
-> [1] https://lore.kernel.org/all/20260717154505.83935-1-pavone.lawyer@gmai=
-l.com/
-> ---
->  drivers/media/platform/rockchip/rkvdec/rkvdec.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/me=
-dia/platform/rockchip/rkvdec/rkvdec.c
-> index 061281f903f3..45c541ae3029 100644
-> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-> @@ -1788,7 +1788,7 @@ static int rkvdec_probe(struct platform_device *pde=
-v)
->  	if (ret)
->  		return ret;
-> =20
-> -	ret =3D devm_clk_bulk_get_all_enabled(&pdev->dev, &rkvdec->clocks);
-> +	ret =3D devm_clk_bulk_get_all(&pdev->dev, &rkvdec->clocks);
+On 2026-10-28T21:46:49, Douglas Anderson <dianders@chromium.org> wrote:
+> pylibfdt: Fix FdtSw.as_fdt() when buffer is nearly full
+>
+> `FdtSw.as_fdt()` calls `fdt_finish()` on a copy of `self._fdt` without
+> using `self.check_space()`. Because `fdt_finish()` appends the 4-byte
+> `FDT_END` token, `as_fdt()` raises `FdtException(FDT_ERR_NOSPACE)` if
+> fewer than 4 bytes of free space remain in `self._fdt` after the final
+> `end_node()`.
+>
+> Wrap `fdt_finish()` in a `while self.check_space(fdt_finish(fdtsw)):`
+> loop so `FdtSw.as_fdt()` automatically resizes the buffer when needed,
+> matching the rest of `FdtSw`'s methods.
+>
+> Assisted-by: Gemini:gemini-pro-prerelease
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+>
+>  pylibfdt/libfdt.i       | 3 ++-
+>  tests/pylibfdt_tests.py | 8 ++++++++
+>  2 files changed, 10 insertions(+), 1 deletion(-)
 
-With the explanation above, it seems pretty clear we have an issue. Now, th=
-e
-problem with this is that PM ops are set with:
-
-  #define pm_ptr(_ptr) PTR_IF(IS_ENABLED(CONFIG_PM), (_ptr))
-
-So if CONFIG_PM is not set, the initial resume will never occur, and first =
-mmio
-access will likely hang the CPU. We need a clean pattern to handle this, an=
-d
-perhaps review other similar drivers while at it.
-
-Nicolas
-
->  	if (ret < 0)
->  		return ret;
-> =20
->=20
-> ---
-> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> change-id: 20261030-rkvdec-runtime-pm-clocks-41adcf141271
->=20
-> Best regards,
-
---=-ruCLDIpENIOKgPK2wLA7
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauSSPwAKCRDZQZRRKWBy
-9LLJAP9JGmJUIntmEuLPCbktfBqHUFX1/7ZfGaC/KbjrAiMyawEAo53JgFggAOMr
-y8Uub/MI2Wlho7axDbJbc7ZVrOuyVw0=
-=+8na
------END PGP SIGNATURE-----
-
---=-ruCLDIpENIOKgPK2wLA7--
+Reviewed-by: Simon Glass <sjg@chromium.org>
