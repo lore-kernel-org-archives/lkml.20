@@ -1,104 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793378253;
-	b=vgvnXZNINUevvzspli8t2aET5PMudjTDz9HoBYQDyv16dOYlfIMsDXj8Rgwb0McHC/1V
-	 580U7cSXip2Q4cPMKgWeXAO2r33YAQOGqXM1sGgEOKSnTIYFW9KqG+4dK+ouWZ3LdBPAP
-	 SQctsJ5O1zTios+iRsKkgRgmgmAHCmZCZNgZxHvxGxBZZbadAfEe9Rd8gZUVT80X7lH1v
-	 jBJANjlkjqSrw0Gw7x9XBg7Go1uCaVHiJti1Aa8MbG0p8G/myj1tsLrRr7uORsNTMVQEq
-	 VdrCNwIZQQoK6ee6AUnW8MUOf9/NC7LpoVzQ+NLUAMQLFwVXGVvvTzd+/DZoNDHN5/g==
+	t=1793378262;
+	b=P5fmp1ArJ+3pabAxbZl8eV82tuKmS3mDkKp5Xgx3qcY5krVyXiK5UeQ+s/G796SoIvpt
+	 a1/y9dAPXypj8CLtk47F9HK8KyGgSxfT6/yt7sr5AzFVkS2G4Q70mmWn4sZpykxJRFwLp
+	 K4RWAURQEZg55aX/TZtCd4YZP/GESgbOb/JDSdQ/S3tlWKYZKCoHtYLFAnx0xGTpaS4iB
+	 abkknsEbqsF9Y9pTxI2oYlWiZcPgxyn46VqYpk4hWizwdDQ//wB01hmXT04og3gUliPLc
+	 dbeeBACZxJYb3abpO/x3O1eBfJh/LrhMFc1UG2zk7ajtClWJUCU1XeTG/FlYkANpjUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793378253;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=XcZ9lbstnk1GTs2qJHkiYVcgAWVuc0rERzcXapVspqI=;
-	b=ta6T2pZWkzk/QnLVM7j3Ew2dAD/D8OcYjPZoSRXf5Y5s7rUDq0E9bjBtG2v8640OVOuF
-	 xhFtsQeLIEhWRPKRhRu5SKELJopxviB4r5wftMtPqeFOPN7U+Y45nwir2BtfCqw397WXD
-	 OKnLMIAlIc74+W2wqQ8u5EyA0ke4mYpTxzgX/f/oa280LdLik4tnC6efWtWNbVv2usEYl
-	 Vr097dwIiBUEc5AERfIR58Uo9NShE15V08KTaL7MGqtrXHVAZ9qvmOZzn/zjy6Qm/3D5h
-	 7bAfJ75pb21s22T281DKMJD8OcD1vAwawAHejUFqM6/h1auoWZNFeIM2MaK3LdSIlHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793378262;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=33pgoCRtok2DxSGUPX/ZLZHekoBUewGbl3Bijyuxc90=;
+	b=lpqzk/cxg2ANjMvPAgyMVGJDYXkmsontnN7DCTqDsBDK+VDiIfwa8wbce4N71HnJGyR2
+	 5fkjalRiyCKS3FMt0/o6mZcR+6ASledq14DMNYS7H8IrnIZi9OpSEiKws923jJHB6wjr5
+	 BdebrvDQdVJ/4ausl5wEJjXilCOgd2vToh6Qmvm7auYl/nSAMNKpu38aRwbt7xVrEEuk+
+	 Pyjl4EqsPnV4cA5NKpz82WoD1/yM6JJM9qJ3QHKXoQtNFg6FEiABkkVku7MMvwqrvV8wB
+	 7TBlfsAkP/eu7JL6NutAVFvyMZiH9CkpUKuPuy9JgMAzMliwnqz1FNYvS22svEdC7HQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EDTIGh6t;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gqWWnPQZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DEEB606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:37:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DEEB606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E197606A31A;
+	Fri, 30 Oct 2026 16:37:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EDTIGh6t
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3535a54bed9so1478646eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:37:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793378253; x=1793983053; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XcZ9lbstnk1GTs2qJHkiYVcgAWVuc0rERzcXapVspqI=;
-        b=EDTIGh6t3kgeWK6ADWnUzoLCmhtmB9/PL04H+WPsDvVHeo1HknTrMTUYkoAW1mQTQT
-         p698ah5LqbJiQY1Rc8Q22G5bo5pWUaPrBs+eYXQ4Xr5MtRfzeDQqJ5+oR940dKjS1OWk
-         0iIfu1Pau7DmBW/IJVoADYLGOdzwUZOd3k2fI8P5TPiBf7xHsbrC4ag0CqphbLB8FUZQ
-         lgzuDLUttlJkp2dzun+dgTa7sbgoBnuyL+DTGkfjs0eSW4bpF6Tnj8Em97MHXxAe7LK2
-         QXMqCJem/1yEYcL5Xj5QQdGSQLj/He0fZWjp9R8U2Q2gmSb44qDhsPR+VN3WnpQo8GBy
-         QBpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793378253; x=1793983053;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XcZ9lbstnk1GTs2qJHkiYVcgAWVuc0rERzcXapVspqI=;
-        b=ur/8R+KICrpVZ2eIyddEEqOnYRK/HmaCKXLl31HxEBacy+3DS3X2lD5nCs4F17EI3g
-         1scJqXacakzi8c00QPoZ5lqNHpeMFc5zx/bFe97NuR6LHpn1E1pXXRocXxCTeFfCAzeM
-         zE6btlBpuUuDyJxM5jzu4GSooBLp0vjX2Ehuf6VPCqZCFA48zbXJyeLPlfpe0MmW6y47
-         FVXPDHWZGw42b1zgSRZkD39Eq9WDmbjG9HTLtJSfu0Jf+NiUT9SHufjp1dEagv4U43y7
-         euhZheurEhL+qtENOH8wYHwTT3DOD+5xG+qlAV9AJMkdyqwBUT/lTL7+QvjvAC/42fcw
-         SPEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx4rKOv6/OcmFOpOpzTeLsX+1uzb8jtssAJ4yJegHsZN8zfQWielrAHnMOQMT+TdF/3OB9mTECLu48G8Lo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFdGGUfoAbBZfzW813AS5w7DwuBdWQnRmk6y+2Dy90k4xGsXOV
-	BtdFIGuNKNIM29gEymevkhhxOh+X/GYmavwk4xwt0IWitkJmEywvvHro
-X-Gm-Gg: AYBFou1FCyi6T3JDrDgFtXlBZGM+hWApN0QYB81PZ0aOMvQs8nJTnGr+jfi6F39RhBt
-	pTVLuETHQLXc7d/16ScrYeWaHbM7jhZZJHdYKaykeQ8+XhnQe/ihAZCKz21rkiY5oBIIv9AEZPj
-	wiABcYEi9NJlA9NR6bIv0bzwSDBdzDYOBA+25GMTd121R43SmVduCrps8QIUrDLa0a9SAvpyCGX
-	idv02T+O0svBMu1LzcwFCKFZmAgAwcuL2tM4hErYmq8G7nP4OfJq7HVtZUZ0XZKP1B4MLaRjo07
-	fpg5wJV/vMv+C6DTYuRJFh4ACoMSY4xfcADUqUr1bsHHmlMU5lx/IlZd9jI2rrDV7Qvrl/ON8eK
-	9mMUFjzKD6TaPe/sPRwrlwx/rMg5ovWXBUW8gPlKPPbaTdah4yZ/3hmWkCIAmMxO2Qru95iqhIR
-	2CXkEwTRcC4F2yAh86goRQ/+Ey0zyL+ikkZujlvoEBIIcmEQ9yqdFOLG8ioR3d/QeG7LHDxC1mW
-	r+9xyG75RfCcmHKZk/4E8JsWk4F6vus3EwGIf7ns0wBO7wyJoEAprabj3tMUbUw14dknFo+p/Gh
-	upG08+z7lMXiRGt/0LnZH8i8Sbt1zgHXqTKO9fSOucIaBdEZQw==
-X-Received: by 2002:a05:7300:fe41:b0:34c:fb30:3e30 with SMTP id 5a478bee46e88-36a42401960mr3906559eec.7.1793378252415;
-        Fri, 30 Oct 2026 09:37:32 -0700 (PDT)
-Received: from localhost.localdomain ([103.170.55.71])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4294419dsm8458708eec.18.2026.10.30.09.37.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 09:37:31 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: sreekuttan2156239@gmail.com
-Cc: alim.akhtar@samsung.com,
-	bhelgaas@google.com,
-	jingoohan1@gmail.com,
-	krzk@kernel.org,
-	kwilczynski@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org,
-	lpieralisi@kernel.org,
-	mani@kernel.org,
-	peter.griffin@linaro.org,
-	robh@kernel.org
-Subject: [PATCH v4] PCI: exynos: Handle PCIe PHY initialization errors
-Date: Fri, 30 Oct 2026 16:36:54 +0000
-Message-ID: <20261030163654.2733-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261029131006.2744-1-sreekuttan2156239@gmail.com>
-References: <20261029131006.2744-1-sreekuttan2156239@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gqWWnPQZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BE911F0093A;
+	Fri, 30 Oct 2026 16:37:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793378261;
+	bh=33pgoCRtok2DxSGUPX/ZLZHekoBUewGbl3Bijyuxc90=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=gqWWnPQZeLYACz3DaqF5hLs9ZSNymK/LLVs1DQAlAggJbkPe4UJGp9jQVaNr9tBfx
+	 n/27tmHJijua0jDmWP9nPNzrw3g+LeGA7eQ7dDLjAZNqo3BuFDe9D/xEy+PbGQWYWz
+	 stBL+rKXdpbTcUySIC4T4oux+bAn2kmUw0sRIrTS2Fs8VltjEyOQx+QwqD4sic9Qt9
+	 4czl7FlQHGn3Bljyn7oUj9e5uI3fnig3rC12aBaJYWNJmTYQz1ly/30i+dCxrF9An7
+	 UbomUvv7PJpZ04qW/VB2choRB1cu27Lk3oA/Wfd7yC38iqeaDIcCmvba/ap3ybON7X
+	 wCExXADyS5T6g==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 6002DCE09CD; Fri, 30 Oct 2026 09:37:41 -0700 (PDT)
+Date: Fri, 30 Oct 2026 09:37:41 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Marco Elver <elver@google.com>
+Cc: Alexander Potapenko <glider@google.com>,
+	Boqun Feng <boqun.feng@gmail.com>, kasan-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+	Kees Cook <kees@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] kcsan: Reset per-task KCSAN state on fork
+Message-ID: <b32fabb0-a9ee-4a9f-acd6-3511548a7f65@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261030145655.439579-1-elver@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,227 +62,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030145655.439579-1-elver@google.com>
 
-Check the return values of "phy_init()" and "phy_power_on()" to
-avoid continuing PCIe host initialization when PHY setup fails.
+On Fri, Oct 30, 2026 at 02:56:19PM +0000, Marco Elver wrote:
+> arch_dup_task_struct() copies the parent's task_struct verbatim, which
+> includes kcsan_ctx and kcsan_stack_depth; nothing reinitializes them for
+> the child.
+> 
+> With CONFIG_KCSAN_WEAK_MEMORY this leaks a live reorder_access: an
+> access whose simulated reordering is only valid until the parent returns
+> from the frame that performed it (tracked via kcsan_stack_depth and
+> cleared by __tsan_func_exit()). The child inherits both the entry and
+> the parent's stack depth, but never returns through the parent's frames,
+> so the entry is never invalidated and is replayed on every subsequent
+> check_access() of the child.
+> 
+> The most direct way to hit this is the copy itself: __tsan_memcpy()
+> runs check_access() on the destination before copying. If that access is
+> selected for a watchpoint, set_reorder_access() records it (ptr = the
+> child's task_struct, ip in arch_dup_task_struct()) in the parent's ctx,
+> and the memcpy then copies that entry into the child. For an idle task
+> created by fork_idle(), the stale access covers thread_info.flags, which
+> other CPUs frequently access, resulting in false positive reports and:
+> 
+>   WARNING: kernel/kcsan/report.c:344 at sanitize_stack_entries+0x120/0x12c
+>   Cannot find frame for arch_dup_task_struct+0x40/0x154 in stack trace
+>   ...
+>   Call trace:
+>    sanitize_stack_entries+0x120/0x12c (P)
+>    print_report+0x84/0x488
+>    kcsan_report_known_origin+0x14c/0x1ec
+>    kcsan_setup_watchpoint+0x578/0x864
+>    __kcsan_check_access+0x1ec/0x1f8
+>    do_raw_spin_lock+0xa4/0x1c4
+>    _raw_spin_lock+0x70/0x88
+>    rcutree_report_cpu_starting+0x1ac/0x4b8
+>    secondary_start_kernel+0xe8/0x28c
+>    __secondary_switched+0xc0/0xc4
+> 
+> Reset the child's KCSAN state in dup_task_struct() after the copy,
+> alongside the existing kcov/kmsan initializers.
+> 
+> Reported-by: Paul E. McKenney <paulmck@kernel.org>
+> Link: https://lore.kernel.org/all/97f6213a-1dec-494e-96d1-abe546bce993@paulmck-laptop/
+> Fixes: 69562e4983d9 ("kcsan: Add core support for a subset of weak memory modeling")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Marco Elver <elver@google.com>
 
-Track the PHY initialization and power state to ensure cleanup is
-performed only when appropriate, avoiding double calls to
-"phy_exit()" on probe failure.
+Thank you, Marco!  I will be testing this over the weekend.
 
-Also check the return value of "exynos_pcie_host_init()" during
-resume and abort the resume sequence if PHY initialization fails.
+							Thanx, Paul
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
-v4:
- - Fix invalid return in void exynos_pcie_remove() and ensure regulator cleanup
- - Add core reset deassertion on error in exynos_pcie_suspend_noirq()
- - Prevent regulator leaks in exynos_pcie_resume_noirq() error recovery path
-v3:
- - Address review feedback on PHY and regulator state tracking
- - Avoid powering down the controller when link detection fails
-v2:
- - Track PHY initialization and power state to prevent duplicate cleanup
- - Handle host initialization failures during resume
-
- drivers/pci/controller/dwc/pci-exynos.c | 115 +++++++++++++++++++++---
- 1 file changed, 104 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/pci/controller/dwc/pci-exynos.c b/drivers/pci/controller/dwc/pci-exynos.c
-index e3c05ade381b..5b8d8f1ce8dc 100644
---- a/drivers/pci/controller/dwc/pci-exynos.c
-+++ b/drivers/pci/controller/dwc/pci-exynos.c
-@@ -11,6 +11,7 @@
- 
- #include <linux/clk.h>
- #include <linux/delay.h>
-+#include <linux/device.h>
- #include <linux/interrupt.h>
- #include <linux/kernel.h>
- #include <linux/init.h>
-@@ -55,8 +56,34 @@ struct exynos_pcie {
- 	struct clk_bulk_data		*clks;
- 	struct phy			*phy;
- 	struct regulator_bulk_data	supplies[2];
-+	bool phy_initialized;
-+	bool phy_powered;
-+	bool supplies_enabled;
- };
- 
-+static int exynos_pcie_phy_exit(struct exynos_pcie *ep)
-+{
-+	int ret;
-+
-+	if (ep->phy_powered) {
-+		ret = phy_power_off(ep->phy);
-+		if (ret)
-+			return ret;
-+
-+		ep->phy_powered = false;
-+	}
-+
-+	if (ep->phy_initialized) {
-+		ret = phy_exit(ep->phy);
-+		if (ret)
-+			return ret;
-+
-+		ep->phy_initialized = false;
-+	}
-+
-+	return 0;
-+}
-+
- static void exynos_pcie_writel(void __iomem *base, u32 val, u32 reg)
- {
- 	writel(val, base + reg);
-@@ -225,13 +252,23 @@ static int exynos_pcie_host_init(struct dw_pcie_rp *pp)
- {
- 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
- 	struct exynos_pcie *ep = to_exynos_pcie(pci);
-+	int ret;
- 
- 	pp->bridge->ops = &exynos_pci_ops;
- 
- 	exynos_pcie_assert_core_reset(ep);
- 
--	phy_init(ep->phy);
--	phy_power_on(ep->phy);
-+	ret = phy_init(ep->phy);
-+	if (ret)
-+		return ret;
-+
-+	ep->phy_initialized = true;
-+
-+	ret = phy_power_on(ep->phy);
-+	if (ret)
-+		return ret;
-+
-+	ep->phy_powered = true;
- 
- 	exynos_pcie_deassert_core_reset(ep);
- 	exynos_pcie_enable_irq_pulse(ep);
-@@ -314,6 +351,7 @@ static int exynos_pcie_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	ep->supplies_enabled = true;
- 	platform_set_drvdata(pdev, ep);
- 
- 	ret = exynos_add_pcie_port(ep, pdev);
-@@ -323,8 +361,19 @@ static int exynos_pcie_probe(struct platform_device *pdev)
- 	return 0;
- 
- fail_probe:
--	phy_exit(ep->phy);
--	regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+	if (exynos_pcie_phy_exit(ep))
-+		dev_err(&pdev->dev, "failed to exit PCIe PHY\n");
-+
-+	if (ep->supplies_enabled) {
-+		int err;
-+
-+		err = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+		if (err)
-+			dev_err(&pdev->dev, "failed to disable regulators: %d\n", err);
-+		else
-+			ep->supplies_enabled = false;
-+
-+	}
- 
- 	return ret;
- }
-@@ -332,24 +381,48 @@ static int exynos_pcie_probe(struct platform_device *pdev)
- static void exynos_pcie_remove(struct platform_device *pdev)
- {
- 	struct exynos_pcie *ep = platform_get_drvdata(pdev);
-+	int ret;
- 
- 	dw_pcie_host_deinit(&ep->pci.pp);
- 	exynos_pcie_assert_core_reset(ep);
--	phy_power_off(ep->phy);
--	phy_exit(ep->phy);
--	regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+
-+	ret = exynos_pcie_phy_exit(ep);
-+	if (ret)
-+		dev_err(&pdev->dev, "failed to exit PCIe PHY: %d\n", ret);
-+
-+	if (ep->supplies_enabled) {
-+		ret = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+		if (ret)
-+			dev_err(&pdev->dev, "failed to disable regulators: %d\n", ret);
-+		else
-+			ep->supplies_enabled = false;
-+	}
- }
- 
- static int exynos_pcie_suspend_noirq(struct device *dev)
- {
- 	struct exynos_pcie *ep = dev_get_drvdata(dev);
-+	int ret;
- 
- 	exynos_pcie_assert_core_reset(ep);
--	phy_power_off(ep->phy);
--	phy_exit(ep->phy);
--	regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+
-+	ret = exynos_pcie_phy_exit(ep);
-+	if (ret)
-+		goto err_deassert_reset;
-+
-+	if (ep->supplies_enabled) {
-+		ret = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+		if (ret)
-+			goto err_deassert_reset;
-+
-+		ep->supplies_enabled = false;
-+	}
- 
- 	return 0;
-+
-+err_deassert_reset:
-+	exynos_pcie_deassert_core_reset(ep);
-+	return ret;
- }
- 
- static int exynos_pcie_resume_noirq(struct device *dev)
-@@ -358,13 +431,33 @@ static int exynos_pcie_resume_noirq(struct device *dev)
- 	struct dw_pcie *pci = &ep->pci;
- 	struct dw_pcie_rp *pp = &pci->pp;
- 	int ret;
-+	int err;
- 
- 	ret = regulator_bulk_enable(ARRAY_SIZE(ep->supplies), ep->supplies);
- 	if (ret)
- 		return ret;
- 
-+	ep->supplies_enabled = true;
-+
- 	/* exynos_pcie_host_init controls ep->phy */
--	exynos_pcie_host_init(pp);
-+	ret = exynos_pcie_host_init(pp);
-+	if (ret) {
-+		err = exynos_pcie_phy_exit(ep);
-+		if (err)
-+			dev_err(dev, "failed to exit PCIe PHY during resume error: %d\n", err);
-+
-+		if (ep->supplies_enabled) {
-+			err = regulator_bulk_disable(ARRAY_SIZE(ep->supplies), ep->supplies);
-+			if (err)
-+				dev_err(dev, "failed to disable regulators: %d\n", err);
-+			else
-+				ep->supplies_enabled = false;
-+		}
-+
-+		return ret;
-+
-+	}
-+
- 	dw_pcie_setup_rc(pp);
- 	exynos_pcie_start_link(pci);
- 	return dw_pcie_wait_for_link(pci);
--- 
-2.55.0
-
+> ---
+>  include/linux/kcsan.h | 10 ++++++++++
+>  kernel/fork.c         |  2 ++
+>  kernel/kcsan/core.c   | 13 +++++++++++++
+>  3 files changed, 25 insertions(+)
+> 
+> diff --git a/include/linux/kcsan.h b/include/linux/kcsan.h
+> index c07c71f5ba4f..c7e9d15dd7bd 100644
+> --- a/include/linux/kcsan.h
+> +++ b/include/linux/kcsan.h
+> @@ -13,6 +13,8 @@
+>  #include <linux/kcsan-checks.h>
+>  #include <linux/types.h>
+>  
+> +struct task_struct;
+> +
+>  #ifdef CONFIG_KCSAN
+>  
+>  /*
+> @@ -66,9 +68,17 @@ struct kcsan_ctx {
+>   */
+>  void kcsan_init(void);
+>  
+> +/**
+> + * kcsan_task_init - initialize KCSAN state of a new task
+> + *
+> + * @task: task to initialize; must have been copied from its parent already.
+> + */
+> +void kcsan_task_init(struct task_struct *task);
+> +
+>  #else /* CONFIG_KCSAN */
+>  
+>  static inline void kcsan_init(void)			{ }
+> +static inline void kcsan_task_init(struct task_struct *task) { }
+>  
+>  #endif /* CONFIG_KCSAN */
+>  
+> diff --git a/kernel/fork.c b/kernel/fork.c
+> index 5ef413368912..62a096ca8dce 100644
+> --- a/kernel/fork.c
+> +++ b/kernel/fork.c
+> @@ -93,6 +93,7 @@
+>  #include <linux/compiler.h>
+>  #include <linux/sysctl.h>
+>  #include <linux/kcov.h>
+> +#include <linux/kcsan.h>
+>  #include <linux/livepatch.h>
+>  #include <linux/thread_info.h>
+>  #include <linux/kstack_erase.h>
+> @@ -986,6 +987,7 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
+>  
+>  	kcov_task_init(tsk);
+>  	kmsan_task_create(tsk);
+> +	kcsan_task_init(tsk);
+>  	kmap_local_fork(tsk);
+>  
+>  #ifdef CONFIG_FAULT_INJECTION
+> diff --git a/kernel/kcsan/core.c b/kernel/kcsan/core.c
+> index a3aa5e5b039d..26755add7cdb 100644
+> --- a/kernel/kcsan/core.c
+> +++ b/kernel/kcsan/core.c
+> @@ -828,6 +828,19 @@ void __init kcsan_init(void)
+>  	}
+>  }
+>  
+> +void kcsan_task_init(struct task_struct *task)
+> +{
+> +	/*
+> +	 * dup_task_struct() copies the parent's kcsan_ctx, including a
+> +	 * reorder_access that is still live in the parent's frame.
+> +	 */
+> +	memset(&task->kcsan_ctx, 0, sizeof(task->kcsan_ctx));
+> +	task->kcsan_ctx.scoped_accesses = (struct list_head){ LIST_POISON1, NULL };
+> +#ifdef CONFIG_KCSAN_WEAK_MEMORY
+> +	task->kcsan_stack_depth = 0;
+> +#endif
+> +}
+> +
+>  /* === Exported interface =================================================== */
+>  
+>  void kcsan_disable_current(void)
+> -- 
+> 2.56.0.317.g454f8302e1-goog
+> 
