@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793344049;
-	b=sFUYNWOfJuo0xHK9bozHGn02zo0yq6zMXDwd56j3MmtBOxULCjdMEy0XFSL/VNs4EeRV
-	 56dBtf+VCicMRu+CZA05S3W+nLIaJNqROZNM2xHWMNmJd+mJCehYyhXGmCGY7vBmMBxKs
-	 psyW21kiFdf/0jThGHFZZqsDVCIakMuLbQWohpq1j/HmE6YSW4WAgb6VuTT7z/rpPpU6P
-	 A3E63nN1hJ+BQg2gbOLUDi3ie0SfB2x2hIcRPmCP1dlXKbruzd0iWDew6AIQyUkQcEVx+
-	 B+eOZNPZxcHt+RUCruYu02qiRpGlmUanrzwfWB9/IrbBzONBAosyQnVaWImpBgbrCyg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793344049;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RGnwldQVZzVAoZ1qlLODNLMQJM0GYwGMzdcDtHz91sE=;
-	b=ZSNAdKC8O0IZbbVhy1PEwpuhucMp633Ej1IEebl8OqSNuRbTX81ujLI2pUE0ZffEyPx8
-	 iETKuGCKF+LAWkFJTX0gRbi9RJtzX2IUCkGK8GPe6trqWcAMWoNfd+G0CBYrnSDedBU3j
-	 /5ftjpvtazUwv2qXGaf5jlG9xC/jLQCL4NDsosTTZzqIZKDlmKBYP1y1KQHJHydn94OF9
-	 zKL9kVnluKgdY0E4PWrHWO/A3U7KuSSuIn4GqD3fF5azPYI9i1iwlEsibPNxZysF97GdQ
-	 Lz4Lct0RfnYg3elxWbIE6k85ax3fPs+kUhDiqdmMDHaUAjciy9pgCZUBmx8caM+xRHg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lRHdc5IO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793344093;
+	b=L95vhJSPObxidWcIa00jQahktVdGD8m5EeaFO8ayDmEztDq0LV4SG2Cs61BImx/Q30wD
+	 bEm6STAXU/YrkoLm8eimthwea/3/zbtlDnYoI1zbzwASiUKl1JwQOWj3NthOzECUhW187
+	 A3nHOXyJMjGdLLlFQEaBjF+3Qr2ihce8XH73IgsvMBlmNChORq+sKKRyWiWb5+T93eECl
+	 Nu17DhXtOXoZIQZGEWJ+hZCOfZeAEBwTFFf1Ek1/MlK4hWO+Uo2Xl2Ikec7736pg5utUG
+	 gr7QAR2Yc8s1/z/JKGLvWoCjCAFvurIfuHQ4pDm2tCyNoVbOX4d0xyShmhEplb2QbKA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793344093;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=mHQ5PY0q7ltLpy3AnqLRTF//Lss1FbxyLGYi3osAc88=;
+	b=C62gVh0QHrW+8bYweouhOs29IpK8oBohT3Iylz76AL2WviWpMgkbrrkS9Fijwab1/NmX
+	 QBPbN3wI6iHp6oVYv0KZnu9RGFwX3CRVvi1qApOwkAFEHe7dUg3UMZBoegYEqHdUr4jUj
+	 qJkbCNRaLkMoEXwjOjTave+U8qMCbukUSexahL7UkR93Hp5orEd2ve1fabLeneRTZGTwR
+	 xdqlcGT3cIhVC1u2DstoKG0tGlUja+MJkHvZokgtDEPtJeCtDAGsxWXlzOPBiY31h8Cuw
+	 6Mu/SPN+SmP9KEZ79+NOhoje5hVqpArs5EdcVsmRl3qHJEdNoj9HAPM10PAWcXqXloQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ork93d1K;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08AEC606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:07:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3916606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:08:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lRHdc5IO
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793344048;
-	b=M4gQ2HroXW7elkYwmQuddx5AFpVFnMEn5jAX5dWubCgNsqUQkUsQoTxU/B1PNitN6lZu
-	 iUpS2SnVt4VOjahAhPIuhUgPeHeeKJWmkYuJI9MIHIXS4eNz2howAB+unpyFXqbTHwzjF
-	 CEIeolyCnM21BAWiV/6xLl7e2h7PVoFBtN/CgGjzdtjk/4dU2usXN69dzPPx4nj7CZqNA
-	 xarMLRhTPzK1/S8JU/HzHuoxwUpNhFPYalQHgEwabnPLfMcufm1mdV0wAWHx+sDNaJjYf
-	 jVI7zNgV741k34BJ1LdMXzCmM1CMiHO8PiAQVx7afyEqH3M/l7Ia7bzY4JVvFbWOtVA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793344048;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RGnwldQVZzVAoZ1qlLODNLMQJM0GYwGMzdcDtHz91sE=;
-	b=0Ur2jm9nOUwIor+OnBMr9qirSeeQJYShGBehK3qgnl2x3s8/VF2kxtbEAn/ylOq64D/7
-	 emWbl10GEGzs4xo5h8OhYc7C4OJxuqHGBSB16l7mSeZRmBf0JCx43SO7tKaIwkuXP66kB
-	 6HgqemUpTMJV/J+742kQ1F+AAo9PaOhWUDl6CFC+xBSjtPMUbYsY50+/Ddxjmm0p4tP68
-	 3qP4vLhEzNM12jg/oV4WA2/rTLwfgIGJ9qNA8AFUgd6LAncGpWyPRriN/ge+9WADE/Z0M
-	 EAvuPFvtsJfbih9PLDmmS42urhG6q8whdi6adRnwR5pOeGcwDp3/uQE1nH8cfrpkJAA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 62C8C1F000C1;
-	Fri, 30 Oct 2026 07:07:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ork93d1K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 875651F000C1
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:08:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793344048;
-	bh=RGnwldQVZzVAoZ1qlLODNLMQJM0GYwGMzdcDtHz91sE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=lRHdc5IOoHZlSaVnX4+vt/7CZZs7NtdNrjx07TUZINXqfS8anZw2hK/eFp0/1IkS8
-	 fPRIQTL2bKaRPclpsrjo46tiFGLTiYZjrKGenF/haWIYTpsinJL0tPKDgEWBERTOKq
-	 xINRJHgiuCwkubqilDHvMtMldaT9ogXey9U+mHFgUTMb4pHQe5auWA1Ma5PLPY8o7b
-	 9dFuOoFmZKhfo7bTC5ME37h6n/zrTfIJ9/hq1aA+JrIKF8Cvn+V9VigOmuNHkDUBVD
-	 lE8GCfycOg0N7qLUV5vJM0/ednfihY2Vzgcg9JtIgJ0ndotNGIMji/4DoEA1HyFksC
-	 Iwx6yIrSmj1Dg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B37D8436A4;
-	Fri, 30 Oct 2026 07:07:27 +0000 (UTC)
-From: Zhuangzhuang Wang via B4 Relay <devnull+3050681779.qq.com@kernel.org>
-Date: Fri, 30 Oct 2026 07:07:27 +0000
-Subject: [PATCH] lockdep: Fix inverted "on"/"last" CPU label in
- lockdep_print_held_locks()
+	s=k20260515; t=1793344092;
+	bh=mHQ5PY0q7ltLpy3AnqLRTF//Lss1FbxyLGYi3osAc88=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ork93d1KCVTQe3TOUzBiEm2V1iEDkehNbT+JM8MCvkXcxQVRYegO+hEZFs2tWlpIq
+	 yLDUS57PMybnUVs+Qf1DjmSmv0XJ/UJ0ZJXcT+PnLZKSA8pKi3mVvC+mOdHe8NCqSv
+	 pGhASICcOraOSBySOMBwzIrvwKm4IgONSgmLKGpzeADmLbqiPfUGKzUWcLl3H18xYz
+	 MWtccIF1k47q6QWf0vnK990jXIa/dbcmXFA+GEY6A3C5i90nMIgfZg6Fl7mIR7HCyl
+	 ctdr0RpjSYUce0e8V0CsQpNllVdBi1Va1S0pFsVhJqz6BNpnH7FqYI61BOe4hL9chA
+	 1M93IE/3/Lz+g==
+Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4b28d7c729fso225587b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:08:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx5D59aCl7dJMFMjsbQFynCiWc7Falajlt47q74l7rLwtuvqWZ67DcGIDu4/WOfWRV9KLNx821AAE2KPwQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKze4lUWcDIogN+voa7dpA7QemDrghOi/43fuVQRBzdDKKgOkJd
+	5TNqiTiIf8LA1SMED6xIMjWPP/uBcGIQwrjmFGKoTCVBrIDLblK97VKWTJanzuszojRWnx4yhvg
+	OsCn2Ua+EJZLE03MACit8LXcEkfYksvo=
+X-Received: by 2002:a05:6808:1512:b0:53a:ff9f:4d84 with SMTP id
+ 5614622812f47-5640d91b306mr1132841b6e.2.1793344091902; Fri, 30 Oct 2026
+ 00:08:11 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,67 +59,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-lockdep-fix-cpu-label-v1-1-96875c74b15b@qq.com>
-X-B4-Tracking: v=1; b=H4sIAC5C5GoC/yXM0QqCQBCF4VeRuW5Ah0rsVaILdzzp6KLLrkYgv
- ntbXX5wzr9TQjQkuhU7Rbws2TJnVKeCdGjnHmxdNkkp16qUhv2iU4fAT3uzho196+C5UbhLLYD
- UZ8rfEJEHv+798Xfa3AhdvzE6jg+pTO7WeQAAAA==
-X-Change-ID: 20261029-lockdep-fix-cpu-label-9ceb572ee274
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Waiman Long <longman@redhat.com>
-Cc: linux-kernel@vger.kernel.org, Zhuangzhuang Wang <3050681779@qq.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793344047; l=1377;
- i=3050681779@qq.com; s=20261029; h=from:subject:message-id;
- bh=6Z2toOrr1MZMaiNJqhLdHt3xNCky5kA9I29By0W/ZlE=;
- b=CAy+zFL/ckUOr2YxzunyS7eycpsvoOZAMBZCb084iD2TVJxDWfxmE4fNoMkCnl0KPBRMMVG8G
- EiFFr+8dc2RCkhFgV4rL9H08ZzxBSYjgRoCWm4rsugs8BD4hKg5xkGE
-X-Developer-Key: i=3050681779@qq.com; a=ed25519;
- pk=oGgMbb1S6zGzNgE2ItK2PWjTk3iITWtu91CA5G5Czuw=
-X-Endpoint-Received: by B4 Relay for 3050681779@qq.com/20261029 with
- auth_id=1350
-X-Original-From: Zhuangzhuang Wang <3050681779@qq.com>
-Reply-To: 3050681779@qq.com
-Content-Transfer-Encoding: 7bit
+References: <20261030042212.73949-1-kylebot@openai.com>
+In-Reply-To: <20261030042212.73949-1-kylebot@openai.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Fri, 30 Oct 2026 08:08:00 +0100
+X-Gmail-Original-Message-ID: <CAL4WiipXOH=B2jbdDAprKTonTwgRe7qr1h8axzFZYThQc74D3w@mail.gmail.com>
+X-Gm-Features: AclHuK9xLrLy2m0XOZ8wr86o8hZVzkdM5MtFQpYNijpLuHL3xzSe7P-0pKW8xk4
+Message-ID: <CAL4WiipXOH=B2jbdDAprKTonTwgRe7qr1h8axzFZYThQc74D3w@mail.gmail.com>
+Subject: Re: [PATCH] net: gro: avoid parsing headers from shared fragments
+To: Kyle Zeng <kylebot@openai.com>
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org, 
+	outbounddisclosures@openai.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Zhuangzhuang Wang <3050681779@qq.com>
+Le ven. 30 oct. 2026 =C3=A0 05:22, Kyle Zeng <kylebot@openai.com> a =C3=A9c=
+rit :
+>
+> When an skb has an empty linear head, skb_gro_reset_offset() can expose
+> the first page fragment directly to GRO header parsers. For a
+> SKBFL_SHARED_FRAG skb, those bytes may still be writable through a file
+> mapping. Headers validated during receive can therefore differ from the
+> headers later copied into the linear head and used during completion.
+>
+> For example, changing an IPv6 destination-options length between the
+> short and full header fetches in ipv6_gro_pull_exthdrs() can make
+> ipv6_gro_complete() pass an out-of-bounds offset to udp6_gro_complete().
+> This is reachable with an ordinary TCP GSO skb containing spliced file
+> data, without an skb zerocopy destructor or a second GRO packet.
 
-Commit 051f5d223dfc ("lockdep: Enable the printing of held locks of
-remote running tasks and print task CPU") added the task's CPU to the
-"locks held by" line. As the comment above the printk() describes, a
-running task should be reported as "on CPU#N" and a task that is not
-running as "last CPU#N". The ternary has the two strings swapped, so
-the labels are inverted.
+"ordinary TCP GSO skb" ???
 
-Swap the strings so the output matches the comment.
+I do not see how a TCP GSO skb reaches skb_gro_reset_offset() with
+skb_headlen() =3D=3D 0 : TCP always builds its headers in skb->head.
 
-Fixes: 051f5d223dfc ("lockdep: Enable the printing of held locks of remote running tasks and print task CPU")
-Signed-off-by: Zhuangzhuang Wang <3050681779@qq.com>
----
- kernel/locking/lockdep.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+My guess is that you need a decap step first (gro_cells after a tunnel
+pulled the outer headers), so that the inner headers come from spliced
+pages and start at frags[0].
 
-diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
-index c3dc84a7c..fdae495bf 100644
---- a/kernel/locking/lockdep.c
-+++ b/kernel/locking/lockdep.c
-@@ -811,7 +811,7 @@ static void lockdep_print_held_locks(struct task_struct *p)
- 	 */
- 	printk("locks held by %s/%d: %d, %s CPU#%d%s\n",
- 		p->comm, task_pid_nr(p), depth,
--		task_is_running(p) ? "last" : "on", task_cpu(p),
-+		task_is_running(p) ? "on" : "last", task_cpu(p),
- 		depth > 0 ? ":" : "");
- 
- 	for (i = 0; i < depth; i++) {
-
----
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-change-id: 20261029-lockdep-fix-cpu-label-9ceb572ee274
-
-Best regards,
---  
-Zhuangzhuang Wang <3050681779@qq.com>
+Please describe the exact path in the changelog, and send me the
+reproducer privately.
 
 
+>
+> Keep the direct-fragment fast path disabled for skbs with externally
+> writable fragments. With an empty linear head, frag0_len remains zero,
+> so skb_gro_header_slow() pulls each required header into the linear head
+> before it is inspected. Subsequent pulls preserve the already validated
+> prefix. This covers both gro_receive_skb() and napi_gro_frags() while
+> leaving the existing linear-head and private-fragment fast paths alone.
+>
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> ---
+> I have a reproducer for this issue and can share via DM
+
+The fix itself looks fine to me, but for v2 please:
+
+- Target the net tree ([PATCH net]).
+
+- Add a Fixes: tag. This is requested for net patches.
+
+- Tell us how the bug was found (tool, LLM, manual audit...), as the
+  netdev bot asked.
+
+Thanks.
