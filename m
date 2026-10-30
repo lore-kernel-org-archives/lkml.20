@@ -1,84 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793390200;
-	b=o3bKtSRswPNT50096BsS9baBtQc4dbPsy6kigL81tZdUGeuc/bnmX6L4F76B4EKmpLIq
-	 JIMZ08xVhMXbrIab7VIM72MlSRIXDjzdTbrVzPqrKbOBaUA3gAmwbWcfpwDlK1+vMSzRa
-	 3EWZb8UnvseBBLGYDxDNKf1+YzEcKIitQA8+u8mz7NEEjcyxQPe5gXiQTr+ljDL2BD+0x
-	 4CHecVHiL+xZIQZ1H298huoLwHm5Ec2k1Bwpcl96iPsS61ZVahDEoG/64X6EbWkH7199B
-	 iaZfHE4yGLMx9XY32lOpRHi/ZOOpmQLOdjagl0RzM2BHxPyr7UKgzV7XlVmQsdo8Rsw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793390200;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=DWzHdFiapqL57vQ9QQf4q1XeBGnNvtXOlbL7A4/rAco=;
-	b=P/z3Le+OffJe4AO1jl145OngEunfTrvhmU6R5C8PbeqIdVifDFO4gSmdJ0aVs44Tveg0
-	 S8SLNPyRRgrl03c+j28GnZU8N2R1lHyiCRJ5x435LKQ9Gw34ekNVeA2UQTSWFkhXyAlqm
-	 CqACAhLcsAafzSvod5gtpI+EeQ+ybyR2v0IQymLiHqSzyJDfPVyTFAa7ol2uY0ZCg4H/t
-	 gxhCuLPAmosoanVq0dDhSeEewlhKFKGeVqt1unHDJ8TbWmymMrjN8xKSPMbtyUuIy5lG7
-	 9BWUUmUX4AYk+Py5Oc3honqXjDPlRtONTp9blMNgdpAfwCo21xci4BlFBOjOSISaK8Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=doEtbsmg;
-	arc=none smtp.remote-ip=44.202.169.37
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.199
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793390439;
+	b=ZHM3bISXcMtLtTjix+iuW+2OxkE56H3iRyHJWRMFsiFMYHK9JWk0mSFeHtJ4PlBieWX3
+	 jTO3YJb50UHSIUQH2PiiKROt3v6lf2lyJdRHkeyQ/a6/9asKjfneDxbwIHS8GTNcgtMaY
+	 CsVNF9wxi6KaXQGyak1Az4yoZENp3UVisslQAg1fHLj/tfzQ2wmT/ItfTvHDqTpXUeQBB
+	 1SwdGZ/HvP3uIt4oCeU5dgMgYEN3oSNbB8QSxKTX5Q5ssYg81zunyI+IiGlX774lsTi3Y
+	 wGstwfMZp+Q7phTKkKhqAZd9zKkz0HUxUzenh3BC3sQ+eskMDYTsEc93ls8s9HTsB8w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793390439;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=koi6Ef2+m/47DO3oWpvXEzAALU7rcqt7MfMFCA4IVN4=;
+	b=RJ6C9pPhidBZVvWv5lq0Udlrux/cn+CH/29HW3HGq99W1ERH46t1acdhjO/BgkxVVmus
+	 L9Pp/hScgHmZK+BfebwAoZOkNBYkG6xGo0ZXVJqa9oQLIIY36dH5WU3+MUdrAipweyiIR
+	 MOTRowB7IDZU3alHdt3nRL53myGnjLxZltZ/EC+wv/frdp3n4zVFEmji3Pnl69sx6nk1N
+	 rh6jdz6Cb0tkOIUJdP4/lzZoBXhJhRiCbeZfIkggDLIgS/3X5XHiAaxByeSYEHLj9yoMv
+	 wmNszrUWV7ReWaS/02vYAe+mihbOSsDq0h/+K+QRO7OOPZ7eyQ+TKve9Ii4pEl9VViQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eizHqomZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.199
+Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C245606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:56:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C245606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF82606A322
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:00:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DF82606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=doEtbsmg
-Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
-	by cmsmtp with ESMTPS
-	id MqqGxqUpYJFmFMsiNxqxS6; Fri, 30 Oct 2026 19:56:39 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id MsiNxSjJrLr2uMsiNxWfzv; Fri, 30 Oct 2026 19:56:39 +0000
-X-Authority-Analysis: v=2.4 cv=UudjN/wB c=1 sm=1 tr=0 ts=6ae4f677
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=Bq6zwJu1AAAA:8
- a=QyXUC8HyAAAA:8 a=_jlGtV7tAAAA:8 a=TmeHqywlB-wf64vNx90A:9 a=CjuIK1q_8ugA:10
- a=KQ6X2bKhxX7Fj2iT9C4S:22 a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=DWzHdFiapqL57vQ9QQf4q1XeBGnNvtXOlbL7A4/rAco=; b=doEtbsmgS12KszkRR7TRgjgMvi
-	e4hdP6WzcIw88nPHe3j+q+T2q9jbGdVy49soWf5ZMcQBLYeAT5zxBVYrrkCy4gpiTjddJjznuW+0G
-	duvX7QwtYGic1g1Fs4KtKw0NAhOSocKFKuTvXCUCqtcyLi00VHe4vk/IhMJi9TWOuq3HsTgZdGp0M
-	VmxYb2gRLA0sq6SXAL58CMmbYYM+90xRnn5gweKBgnMasv4Y/tt6xu+UXpaSCAV5glZQtogaMpV/0
-	0M9GGNoufgNpv4k5sS3J1ALa9w06bWHRE2WMiKID5fn3HXhEV/WB7jAGZZ5ZzkssRWQtuylPjv9E8
-	LLmTy/lQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:38324 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xMsiM-00000003xwz-2LGQ;
-	Sat, 31 Oct 2026 01:26:38 +0530
-Date: Fri, 30 Oct 2026 12:56:37 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Iwona Winiarska <iwona.winiarska@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>
-Subject: Re: [PATCH v4 6/6] hwmon: (peci/dimmtemp) Add support for Granite
- Rapids (GNR)
-Message-ID: <215a0b5a-9fda-4bce-bff5-b9e4bb5c3928@roeck-us.net>
-References: <20261019114502.55307-1-changhuang.liang@starfivetech.com>
- <20261019114502.55307-7-changhuang.liang@starfivetech.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eizHqomZ
+Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b39374fab5so448260b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:00:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793390437; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pbPSjCCrRawH8LCspqMqFPNRaFhjzdDdgWZBbzoa1s1SNV0iBPtthTHu1Bp5Xs9dq+
+         NjG7Xre4uauEPpdp/vzPmLPwT9bKbxHLGoaznr2Uhot+kgMaYFv4idavyyzPs1CAXHtg
+         WTigoUAlN8gyUWfF6d+q64PLSw+I6NnvyrO+3onyG19mHVzycko9sKcdbNiCgK+tyk88
+         bgPjkux3v1AiebAGAT9O9rtWfcIWpwEcijzy2Xmo75sj4jnwd3FqtkraU3xsFHE3oTwy
+         kxRlUJSzBzDfhLJxfEyy8N/pRfuD3ZlXabXxNkFdWvgv7xKY3YaQ10eklvrMYLf77JuI
+         zWZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=koi6Ef2+m/47DO3oWpvXEzAALU7rcqt7MfMFCA4IVN4=;
+        fh=ZIcu1aDm6Ja4JIQav47M0AvLezJF3YLNAGCWcR8H8HM=;
+        b=EwXRpsu2evIC+atNkJbMiYbQvYVO/iC95l1VTMx2KpR+HqII0/YgZRgWIyZd9E9PeZ
+         fnd9raDgB7vWb4cyBQo+Mw3g2IgVCr+LbHBRa1mDFDnMv5V/yyx0u1qq5jx4Fy7lYyJK
+         VlLMYqmR5X8xVVvZZOgdWtWlWkza6VzKi7wfPWxCtr8G7DG76aMn8hAd7fdUV1MbSlWB
+         JWrfMLxiVqp6tQWlW+D2EE6Z3+YtHeyRW3nSrScFQtTQD+fWHyu6aua31BtC/3lc7O3H
+         A0j0YN6pi4FhXZpQVjgaDIWPRew+FfiMFXk4M3aOTzApl3oEBI9X0TUS7foz5kqwFosO
+         YeAA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793390437; x=1793995237; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=koi6Ef2+m/47DO3oWpvXEzAALU7rcqt7MfMFCA4IVN4=;
+        b=eizHqomZcPAk+VJuKiB7sMfMyl9Cv599GUw4km9fAhGHa7nV5NmsJak0QtYqTKo/RG
+         VTvlHSn/48q5QXNf+Zv+acbIwWbTX6UO6WE9h6nb31TJpUUxXjRW1R9OjZsWfDfH2nZp
+         njOHAGvmnHb7uYC7QGiIDuSrKYsdEqIGFA7XeKo7uNonSEVpiN9qQtAf8LAUZqI822U2
+         1+Mey+LnC2IYEpitCjdjdWp7a978wialJyKWm+/R5eBD5yfAYpfx2xbyfpCSG2kGU4sW
+         mUMA7Uv4aU3wM2p3QJ52SbqUyFSZvgbdZEvNInNezZXv9BolWPsckQzn4cxVdXU8bm8G
+         I3yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793390437; x=1793995237;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=koi6Ef2+m/47DO3oWpvXEzAALU7rcqt7MfMFCA4IVN4=;
+        b=ghNFreLrnWEf/mxPskn+lCuQzyQkpypgbnaa1hO11bBMSkyivLNXIGTG+2LBqhlr63
+         1kgu7Iw7v66ao4SUsQSPRhZ+NUhvOrpxqiedf/3bOfDAULkpIAYahsNiqhYae89bGoYm
+         m0b1kp+VF+W2ebJxrLlrmCir8fPMR/9sZqHfPneQTzRAEvJUgbhxxGp/lt5hbmluzOUW
+         PrQMQ21Du6P3sOolu1xzec/yj3YS48ya+YQNNzdLVoRyLdBYOsfT38acOOlWZjiAyYXU
+         tLNLaygoqaDo9SW8DJtlIiZucsxcfqgbhfRHtabuhW4WrFeRRISp8LZTjnkNOapJ3M3k
+         GhHA==
+X-Forwarded-Encrypted: i=1; AKwUvBwJkSXyRucBWytfupgsHUujEi1KtzYCxfQQg+EywkDtH99AcpluhUcdIqEOJwjX+2duUWuV/xHzaHpp2CE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQf57XAI/Va24RIXN8buxWblKYj3LUdVu8Pn9/Zfb+zPOekTxG
+	VLS51uZlhFzkFFy5KzwjgaQ/x118Glg0B655OktTQA4jQwkwU6x80kQkbjzdLoJ99DSZT8fdh8M
+	qVdhQq/uN1rMu/XM9e6TvYpsQyU3cLoI=
+X-Gm-Gg: AYBFou0tZF6Ix59Hpwbd9556So1Sp8VfEMoYGWDDlMTCgC8EyJ+z+hlQFykR8GKRNVw
+	b/yubZoLuXRjGf9PZ2pjXPFzklnLvi3BVq3fSv7P057UDu1FFfxfCQcdLMTZqM4EhCzFRo6Mm+0
+	x62ela53huJFqSnX8AVXMUuu8Mi0VY2H79p1qIO46zdEBd38lLnPnH2n5pw6aVW0MCfqJMVy9NB
+	KaXf0wc3wmuuullPMPseWKbFNkwHQcKgtGCRCZG54tbqBZg3gO6z8VcSOfSr1RneU5IWiBL3ewm
+	qHNaDKLaZpJWwrb8MSb8Am0KpFXk3kOqjzKy86TAmuQOYTy2JaC1D2eRBdVaO1z3h5rX5Webb3w
+	9aItSgdYydoHegAP3OvYFkeMCAI37FDnbCVa/VApFAZmOv+dRsvY/BVa21SXgftgJibATGPY=
+X-Received: by 2002:a05:6808:1825:b0:4cb:f21c:a795 with SMTP id
+ 5614622812f47-5640df3f277mr2290284b6e.29.1793390436781; Fri, 30 Oct 2026
+ 13:00:36 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,122 +103,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019114502.55307-7-changhuang.liang@starfivetech.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xMsiM-00000003xwz-2LGQ
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:38324
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 99
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfENOIX4qV5iSXoczNGJCX6qRuCaJS4LgNSh+oGO+ZalcnYOGkg8zmFvq8RQHnQr4vg7hy0HbHFzdQpOS8CLKjb/3+XKpo6qzbYiaFDI4YDa+/kLBJJYR
- SC1QuOSao3Vq8bGOWErI/ZBwsFN9204Y+4wFfZR6s9QQ3daDeSkkkV2MxMxevRNenq9ehKCsfk961KlbRoFIxzmWzaHol70IWTF2AAWWWPdBdGkT7oxIFgiB
+References: <20261030090913.76944-1-dennylin0707@gmail.com> <CAEf4BzaMDRa8xD1oR587P82MYKCYR61gyjgvjKySSnnqFb27pw@mail.gmail.com>
+In-Reply-To: <CAEf4BzaMDRa8xD1oR587P82MYKCYR61gyjgvjKySSnnqFb27pw@mail.gmail.com>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Fri, 30 Oct 2026 13:00:25 -0700
+X-Gm-Features: AclHuK8Xu4GB5CxACievL5wSbOSvDys3jplk1ETr7iDyEDPp7WgT5OmNWiFCt30
+Message-ID: <CAGEkeHcq7HeecPyTSYuHWMhCyOAbF7br+UjrFfLiQmgi6kTxhw@mail.gmail.com>
+Subject: Re: [RFC PATCH bpf-next] bpftool: avoid sign extension in unsigned
+ enum JSON dumps
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Cc: qmo@kernel.org, bpf@vger.kernel.org, andrii@kernel.org, ast@kernel.org, 
+	daniel@iogearbox.net, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 19, 2026 at 04:45:02AM -0700, Changhuang Liang wrote:
-> Add support for Granite Rapids (GNR) platform in PECI DIMM temperature
-> monitoring driver.
-> 
-> The GNR platform has different DIMM topology from previous generations,
-> with 12 channel ranks (CHAN_RANK_MAX_ON_GNR) and 2 DIMM indexes per
-> channel. Define these new constants and update CHAN_RANK_MAX to use
-> the GNR value since it represents the maximum across all supported
-> platforms.
-> 
-> Since the current peci core does not support domains, accessing GNR's
-> DIMM_TEMP_MAX and DIMM_TEMP_CRIT via PECI commands will be rejected
-> and return completion code 0x90 (invalid request). To handle this, the
-> read_thresholds callback is not defined for GNR, and the visibility
-> logic is updated to skip exposing the max and crit temperature
-> attributes.
-> 
-> The minimum PECI revision required for GNR is 0x42.
-> 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> Reviewed-by: Iwona Winiarska <iwona.winiarska@intel.com>
+> please drop RFC tag and report with Quentin's ack
 
-Acked-by: Guenter Roeck <linux@roeck-us.net>
+Reposted as v2 with the RFC tag removed and Quentin's ack added.
 
-> ---
->  drivers/hwmon/peci/dimmtemp.c | 33 +++++++++++++++++++++++++++++----
->  1 file changed, 29 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/hwmon/peci/dimmtemp.c b/drivers/hwmon/peci/dimmtemp.c
-> index bd3e8715dfec..791a8e866081 100644
-> --- a/drivers/hwmon/peci/dimmtemp.c
-> +++ b/drivers/hwmon/peci/dimmtemp.c
-> @@ -34,8 +34,10 @@
->  #define DIMM_IDX_MAX_ON_SPR	2
->  #define CHAN_RANK_MAX_ON_EMR	8
->  #define DIMM_IDX_MAX_ON_EMR	2
-> +#define CHAN_RANK_MAX_ON_GNR	12
-> +#define DIMM_IDX_MAX_ON_GNR	2
->  
-> -#define CHAN_RANK_MAX		CHAN_RANK_MAX_ON_HSX
-> +#define CHAN_RANK_MAX		CHAN_RANK_MAX_ON_GNR
->  #define DIMM_IDX_MAX		DIMM_IDX_MAX_ON_HSX
->  #define DIMM_NUMS_MAX		(CHAN_RANK_MAX * DIMM_IDX_MAX)
->  
-> @@ -198,10 +200,18 @@ static umode_t dimmtemp_is_visible(const void *data, enum hwmon_sensor_types typ
->  {
->  	const struct peci_dimmtemp *priv = data;
->  
-> -	if (test_bit(channel, priv->dimm_mask))
-> -		return 0444;
-> +	if (!test_bit(channel, priv->dimm_mask))
-> +		return 0;
->  
-> -	return 0;
-> +	/*
-> +	 * Some platforms do not provide the DIMM temperature thresholds over
-> +	 * PECI - do not expose the corresponding attributes there.
-> +	 */
-> +	if ((attr == hwmon_temp_max || attr == hwmon_temp_crit) &&
-> +	    !priv->gen_info->read_thresholds)
-> +		return 0;
-> +
-> +	return 0444;
->  }
->  
->  static const struct hwmon_ops peci_dimmtemp_ops = {
-> @@ -626,6 +636,17 @@ static const struct dimm_info dimm_emr = {
->  	.read_thresholds = &read_thresholds_emr,
->  };
->  
-> +static const struct dimm_info dimm_gnr = {
-> +	.chan_rank_max	= CHAN_RANK_MAX_ON_GNR,
-> +	.dimm_idx_max	= DIMM_IDX_MAX_ON_GNR,
-> +	.min_peci_revision = 0x42,
-> +	/*
-> +	 * Reading DIMM_TEMP_MAX/DIMM_TEMP_CRIT over PECI is answered with
-> +	 * completion code 0x90 (invalid request) on Granite Rapids, so the
-> +	 * threshold attributes are not exposed on this platform.
-> +	 */
-> +};
-> +
->  static const struct auxiliary_device_id peci_dimmtemp_ids[] = {
->  	{
->  		.name = "peci_cpu.dimmtemp.hsx",
-> @@ -659,6 +680,10 @@ static const struct auxiliary_device_id peci_dimmtemp_ids[] = {
->  		.name = "peci_cpu.dimmtemp.emr",
->  		.driver_data = (kernel_ulong_t)&dimm_emr,
->  	},
-> +	{
-> +		.name = "peci_cpu.dimmtemp.gnr",
-> +		.driver_data = (kernel_ulong_t)&dimm_gnr,
-> +	},
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(auxiliary, peci_dimmtemp_ids);
+For future bpftool fixes during the merge window, would you prefer
+regular bpf-next patches or RFCs?
+
+Thanks,
+Hungyu
