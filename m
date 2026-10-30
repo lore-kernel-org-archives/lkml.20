@@ -1,94 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.22
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793372219;
-	b=T4r675ocL+JstHkDmL80kz8odCmwzx7uGZufXrkuQYmIw/dEYsiwZ0RTV4WH41W4BlvI
-	 mqil4+L3zDns6WHtc8amhe/sXEiwHDAwE7Vheio+xRl/23ZWUNC0SC79RG7iUqK4Qr4Q0
-	 62w2ANzvhXk9bop+9Fgdk0wy2rMxjjo++QInrDFwQTfabDs74UwUkgcGBg69HAIErYFl2
-	 G646OrNQxsk0uZXxigxMSa+LBByraoOPg6GXdAQCzLOnObd8fYV8NbVMXkiAdPVMpc+yP
-	 e6xD5hwjwqmUtPJGpoRGnjCkEXL6NUMnpC5rR+N5/ZM1pIx2cGkPWL7t40rm0YCHvAg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793372219;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=4GiA4AvP6nLFyzEPwyp6Cif2UUoEWQ4mZJz8ZgDL7Gs=;
-	b=Yb6W9xZ4xxxF3Q0CCGvcCS66muGM8+38SE2opsvOMi/JgTPrZaotAQ9tDA/XtXBqqn3O
-	 TtkiEn0JF1oh5+hPGw5wH0dSBQOqrwqe5llqz8/QCE+wRxgrik5Y7pybO/+Q09OW3TEAV
-	 eROnwZxmQwLiRL2V7gwfh22xd95pKPjcvKS8ozuMtEOc/nzTRof9qvn2KbEwyXg8DQ6q2
-	 e4PfvXl0mBx4X6TiqCLsAmtUxNY84hNI79ktJOc/lLP33fJ47uckst//gy5I3SVW6ZOJy
-	 vNqCTonPaV9+CZ5ngg2DPM5ORwQMpKM1GVh7GcbnKpJQAMieSEnB4Ipcs2195EJbGYQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=MoLOTZrj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.22
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013022.outbound.protection.outlook.com [40.107.159.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.69
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793372229;
+	b=EKLMmbPLxKprJSNd5Inu45Pf2kQvpIGC/Lu/8DAmi8NB/S2ozJ9ZIS1mBb1mtjy7JFhr
+	 yC7za2QzAR+8SJRHFO+Li0Lmr7wy00dUH9qnMHEYoPt8mDHmCREpkPEFgVg6beRLIgbha
+	 M1PR22tQ/UISklViU8++a/uSOYcjKJ5rOv1La3JRxsw/OGs3wzm4uSRfY3+hcN7pWttPn
+	 5Z25FFavfRPIX2MgCtydl9kDoVqxTC00ONMFYW9QUf+iNRU86O10mdoDaK4S0TGWZbgQw
+	 GrljGJCQZU+KdwebzLDSHDPZYrlQ4WzfHHmJ/bimd8PpBGApnbq43H9Gpbiv0KSIEOw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793372229;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=xxNQrZo1DdOgC5ZNVUxedcmoaN43mBZANIkpXi8hXU0=;
+	b=a1/3inU2mQB31Ryci1i+EXC7ALIPwZu32RqCIpzFw//GPIcy4ESSOvo4nhQtvapsiChX
+	 WxFNDzl8/L8hySDauPxae1Mo5cPAgCNiGMsOl+n2nVgp8t2cKt4AnVR5sBiwESMx2bvqT
+	 pmuVbwaTpzhmoytFJqTmvdyWIssY1kCcRU6oGYusgWg4zfepcj/MfnZIasX9lAdJ7Kas5
+	 A1anvs5NoJpMJ9iLZ2nY/HmAOBN6sWCBu3Xcps/S9AjXPs/WGMDQLw60p8+J5bbBeXttT
+	 MsLIeYqfC6btWS+TzIINMV1LWMmz1FNLyJKSLSVD9stPw6tgSUvUovs7AuhoRtVpQjw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--elver.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KflBchpm;
+	arc=none smtp.remote-ip=209.85.208.69
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36DE8606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:56:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36DE8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D355606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:57:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D355606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elver.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=MoLOTZrj
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WLO3kIwZIL9BI+lCRr8wHoRQIqwx+uML6zYpMiE4Mj+ZrqFv7feNjfBbt6NTB7zoxV7lR2YuO8nDvrMOkhfyWNNxWpljlXA5HVAvmCT9marKiRxX1asP0HFB/gVgHdoiuokECzcKeuGEXOZ/phDgNol44M5TDnOy6xPLOsu2EDG+e4Acf/lQx8q9jdx/TKnzHtMcSTnPEJjBbDJpmnutUSRr/dKhtABTFJsGQZg7YW2ONP7a4MFlhytrcRjkydWq3V34wXUlHehu4rep+CQ6K4/a4jwCxghT9hAFHDkUGRKChUIMmCTMgSvrX8XN+f0x3Tfjpp26bCXIF63fZVwvFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4GiA4AvP6nLFyzEPwyp6Cif2UUoEWQ4mZJz8ZgDL7Gs=;
- b=WwWZ81Nd243Mg6uiH3uF+GgO0+lLGvHxDcAbE8GqopFnYVjdv80Bj5bxqKIY3R2iwdnBq2d3PPLW0S/OF/nCEj03zybtok10KeFqVLo7U4va7Wo5IzoV/EZnO/arHtQiVhvU5anhYK8t8VHyVpOwBSjxEL9USfuTOZxAwuckLnmzCfJftcpG3Nv9hOBoi7rG+xEA+WSAzYgJ4hP7dpp64QuH68zNVT3tiYymp+D7wxzFiDVEO7tqsDdCtEWqDF7DgCiK2sQGIAdfufGX5Gb8eWzWzblv4WYJTedIxFEMRdM6ZmfEYwOx1EepaH9zQLimMNM72rplxjE0jO2JTsv6Lw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4GiA4AvP6nLFyzEPwyp6Cif2UUoEWQ4mZJz8ZgDL7Gs=;
- b=MoLOTZrjZMvf37MKoRNlKVUNG21IiX25XWKAkyXs+0DaRkoS3DvWYsu6p83aev6Gg3ZgTeo66epNSaOprt6+J5B/B+PI8lO9COsfUILZzru3gYuhfKbupdN8Sn78TWoZNwLreRoLmaYLujclvfg5ngOh2DHu3vBtffCFgYNgdg/9Q98axhYYlmPuCeOCUI+Nj7k5DmYqzamrucFdKNQyGZpATfjzIhZdapDaMzJZX4h20S4HbXK+irP+koqgHxjq5FaNmadyMxJl1T1iEaMaVzJ6eB75CkM77AjI9aZtA+d5WeiwCawl5shvEKTHZj/tUNInj7wIrPIFeXSgf0Xv1w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21) by VI2PR04MB10224.eurprd04.prod.outlook.com
- (2603:10a6:800:228::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 14:56:55 +0000
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 14:56:55 +0000
-Date: Fri, 30 Oct 2026 09:56:46 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Samarth Narang <samarth.colleges@gmail.com>
-Cc: Han Xu <han.xu@nxp.com>, Miquel Raynal <miquel.raynal@bootlin.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Richard Weinberger <richard@nod.at>, imx@lists.linux.dev,
-	linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mtd: rawnand: gpmi: terminate the DMA chain on
- completion timeout
-Message-ID: <auSwLrB2ewr2j-c2@SMW015318>
-References: <20261030143945.2923554-1-samarth.colleges@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030143945.2923554-1-samarth.colleges@gmail.com>
-X-ClientProxiedBy: DS7PR03CA0344.namprd03.prod.outlook.com
- (2603:10b6:8:55::28) To AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KflBchpm
+Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6b1c6f567caso947373a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:57:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793372227; x=1793977027; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xxNQrZo1DdOgC5ZNVUxedcmoaN43mBZANIkpXi8hXU0=;
+        b=KflBchpm/Dmv/tMP96F7V2l5HG45pDjXspLmKjjNBSTv3mR43oa21Gov9BpYELpN1K
+         qTOkPeHqHHk454WkakGTVl1gKdWwIP08IzjwzkrnLYOw8M3uXP42TByYYnIy5bT8kNmN
+         ejCYL/zqX1/wsTHmDN7y5Nt9uX0gMIPvGiWG8Vmb9bRGZsSmiLHhign9kIMPEd1zOTQz
+         3iYG+7losWqhQxQ007BI/ZSKkCsRl7SByTfngSsQ34gFe0DhWsSa9S2GULkXxYDhKBlX
+         bvZdCDqHJNPEPGX8xKYhpN9Z3VtjcLS/NMKKDCxLmqgdy6pHs422nWpvZKY1nG0OR4Gj
+         ElAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793372227; x=1793977027;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xxNQrZo1DdOgC5ZNVUxedcmoaN43mBZANIkpXi8hXU0=;
+        b=KWlBC6niv+06KsqQy/tHUq70XxEUO1crvijL2VtRjp16yhS1/31iWqOXQ6OPw6dY59
+         /IemQ+W7z8eVHgl2zaUTb7UxkYIhyeEATTJwNBautIXd1bUGKFkthcIu2Wfa6yIzSI5X
+         dt0TgUbouNVrtjHfpJRWEpYKEXdKGd9esLhq6R/S2h1SBl8Qs4XSlzTy+0hqz3Vtbppb
+         s46rK5Wo1TtWfDvsnkROEYuBzfgc3lZsYzz76pRNUifdChysvG+2qI69fcPaGHWzO6fV
+         ORQ8uir0SVBlutGjFewdhtzc5526y/E8yLySMjYdjIcsaiRGJd0A7w375dck3mQNMXbX
+         xJLA==
+X-Forwarded-Encrypted: i=1; AKwUvBxECSrwcF68vPfJ4Mz2Q2gYuCYVzxEQg+wjqls92qhH3dwDdhTtVdkvDQVi0ebWta2Xts6+WBeOqM73/YI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgaNLmHN6CjU/KymHF1ly2V0gGgOScS3EBi6FaGvmPSMDFk2DL
+	/HS3VYVrRJuvaRnaE7kdYys8x4nl4TRiN0Mpz1OwHfH7Z4JgmM4oXawQ0GDTB0ky6aJd/jFo8nx
+	PQw==
+X-Received: from edrm17.prod.google.com ([2002:aa7:d351:0:b0:6b1:ef87:b3d2])
+ (user=elver job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:c9:b0:6b4:8da3:ba27
+ with SMTP id 4fb4d7f45d1cf-6b4d562eef3mr1457324a12.31.1793372226613; Fri, 30
+ Oct 2026 07:57:06 -0700 (PDT)
+Date: Fri, 30 Oct 2026 14:56:19 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,108 +75,142 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|VI2PR04MB10224:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3dd638c4-d5d6-4f82-241a-08df36960a1a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|376014|1800799024|366016|6133799003|18002099003|22082099003|10067099003|56012099006|11063799006|261026140227099003|261021121427099003|261028144727099003|261022105027099003|261026121527099003|261022075727099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	Cwb5jiPmAcmxYBNK2Ssv9EH/+tNqjbvUNFEf4w9Uh6NcgoNA5O51SsDaMRc2WaBGA0dddD5FJvfQ+tp67rWnwPm6HFZYP9u95dyOxUFCo9RBiC3R+F6QP3DaZPJJR+TZExPEi01a0AX6F9w6OT0WHoVddCrvpikdBtr6Wji/TqScovry99LKpMbwIDflQkJwIUqCV9wTbvjb7EQ/o3VgJFznia5lsl28EX1srXwhRgmoQ+I0ywTZFmmB45qGJ0h+lNdQlzGxEZH5IUPe63T5Fa2av4DXV6WFiYgaCP24UAcxQVn20Ea/ZxPton6O1TeghSEDLtbtaUHMH6gaNHUayNtXGpHyOZyAs/IcKYx6JRiY31x2cjLIhkfql8y+Us/Koea+M+JouvsWkKE1hzh9PNVk1GPlRfwWLu2wmI7kAqttZHvvRtyd+GJyiIPFjvtaY7GJKgRgA020uTzHrnIyOfPd5RfdQaJm8taUBYWp99sJXMpL8E/eMUz/pLJqLCDsANV2VdHGcBqr4aRyYd+Wp93l2fX9mOTk7udHg5w3QCer9MZJmcg5L72TokAo1Da8/y1E8Ng1frVjnwTCvMnephGs9FZgknB30aGmwwlZhFiNaWi8nUncfqnAUz2JV3GiXs2268cIBLy8sEk03ycwfqye6nX1MD+0iZmp+Co2lww=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006)(261026140227099003)(261021121427099003)(261028144727099003)(261022105027099003)(261026121527099003)(261022075727099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?HY8PNDbOaIm5DTJTZnR0HgcZrt1j5bChzyttpFVViA9s8We6fUEXyELGyrpn?=
- =?us-ascii?Q?NTdeEi4CV2EwiIRXiZR3X3qVUg7eBXf6IIcGhdiqVAa07uyjgUTgHYAo607m?=
- =?us-ascii?Q?rtaQ+WY5Q7EplC+N7rUFCyaO3OHIm/9EYnRGlg2vPvz7qH3hP0zQ+pPjzoRT?=
- =?us-ascii?Q?fPf+vdXv9174FHhHxDjpaQC0u7vg0FK45LL2XnfSKsRjS6u7opGXN8dRWA+R?=
- =?us-ascii?Q?sbg6d6cnrID/+0pQLaqrW9tmHl0W27Hj4G5YmwXOQ91c08gMEQVBkfqZPEHv?=
- =?us-ascii?Q?4WWxKFelBy0T3NW24szueKMEfn/RRKrvD3eiIac+EmhSuMMzkjlaU0nJ7E8T?=
- =?us-ascii?Q?EfM3U8n+CPb9eQuYlPf0q+3oLAglUTokNa4hfGo0fz8T3oBPH3xJMdign9R3?=
- =?us-ascii?Q?X6JVhBADVe+YWpGnNyy7hbaLvboa1BZxvYPZRRExo7rG0GaFazMc+dtKgkom?=
- =?us-ascii?Q?FOn3gcAq7FVmKTOpC6pC5jA6kGMxBXL/fBl76z17V6hwfCEzirdxqBRbpT56?=
- =?us-ascii?Q?dKEjqV64h179ZX2HaZideqIbFHTOOH3xK/rBUk0X0M/4MICfU0TZfUCto2DQ?=
- =?us-ascii?Q?L5WK4UG1a6u2bM02ptwLDFmTqE2CA/mpIW3vXJnmi3W+64QW2Ed6Y635w8Ni?=
- =?us-ascii?Q?iqPixIoDmtUCBiDwUto/mwlDT30eVtNnGpxvhAWk5VwjbAb+Rcj++9YN8lHw?=
- =?us-ascii?Q?DV3VBM7dSSPfa8pWD7FwU4UkNwgtOoZbvYYsS7JCZHnUPZjLi6mkZa2EEbL0?=
- =?us-ascii?Q?nXVrYJZlSI/HcwGil5b3myKENVg4yj188qo+9PWhR3I76ylkiAITL/WguxYe?=
- =?us-ascii?Q?+4xb5XihwqBvPKk2AOpuRhDIOrGvKyaGUapdFUMdeucnbQluD4fLlNOlLBMI?=
- =?us-ascii?Q?8ubGkTpGNG5Gby7Hz51Rfs9OzC/L/Gy25MvdIgjZx2sti4W5vYhsYT7H+uoI?=
- =?us-ascii?Q?wUIJQMMi90nzLQgJBU9O4aOwXVuB+fAyxH+bx1peTVnSS0KHs/QXNHypvG0E?=
- =?us-ascii?Q?jAnykjuTAQAEFwVVPyYojOopDtWBUQevMfPAZwS7g8egvrCqQXzIB85b+phe?=
- =?us-ascii?Q?BYuyP14kNYy55OqDuZVWhtroy1vFs7kEySiXIObeOjhvPiZ3XBe/aPSCfAhN?=
- =?us-ascii?Q?bkLlUUzm0FEjdC4HEoYZxu8dipSRItvQmXVYMvpRZ/TUWXiMOY1+0P3MK2ol?=
- =?us-ascii?Q?3u4YZOzQ3pGiybCZ354OwFsLcFeKXq/H2CiKXLFDEjPXg/aNZ+Fb2it2AJFE?=
- =?us-ascii?Q?e4c62cWkNd/1mPBV6gXY56pP0yeX7NiWvzAnxkmz5QbKjRvmrsftR21haDnH?=
- =?us-ascii?Q?BoIh4B03D+7QYF/y0VOMhL+kxGtohmWf3+NO5TrXFNgSqKrLauc0rO0926EV?=
- =?us-ascii?Q?MljlT/8eg4bD8dr0rUTuNAuNRUD1i9fWcr001YQZXckwhYdUgiLp1rNs046C?=
- =?us-ascii?Q?iMTGEKUrLyyDxL1RC2y8QQMN1h53Z/IvwYsX+NMmErsnquviJAt6QNyOwZaY?=
- =?us-ascii?Q?rU3Wi269IB3O60yVZNVDK/CMBSW6jZ9ZDbfBBOig07TPiWxjw+Q3c9wbQviP?=
- =?us-ascii?Q?kD+7i+TOV+Obpm0F5JzWqrxzZFHYrR33HMRJT2Dj6r6Uz5dCez5Kk7NrDWse?=
- =?us-ascii?Q?egQ4ZbHV87Ew2w67K8LSU/aESNixOnhi+DS9gFgFzwP4v7wvn2/ZMiEAG6qM?=
- =?us-ascii?Q?OWxhuvEKyu9w7SlUP+qA8NN/PyMT1jeDMm+9Phq4dvgnjeFl/oTE6wFfbhwa?=
- =?us-ascii?Q?OyNdO5U2tHFiJvNSOJILYKGYICv/sR3Bjpe1pAUpZODfvoKYqtfX?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3dd638c4-d5d6-4f82-241a-08df36960a1a
-X-MS-Exchange-CrossTenant-AuthSource: AMBPR04MB12445.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 14:56:55.4181
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4+gBRPVJx06nxQQ1H4MDnEGpgfBhYuQCGqu4KtYxeNNOxdlURfVCBquogy3/KegShP7Bw0yzL7YTTF31flJZcwCkSRxbKuO5D3kpKI8acLGV7PgbLOrMT26u3Nq4YeAx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10224
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+Message-ID: <20261030145655.439579-1-elver@google.com>
+Subject: [PATCH] kcsan: Reset per-task KCSAN state on fork
+From: Marco Elver <elver@google.com>
+To: elver@google.com
+Cc: "Paul E. McKenney" <paulmck@kernel.org>, Alexander Potapenko <glider@google.com>, 
+	Boqun Feng <boqun.feng@gmail.com>, kasan-dev@googlegroups.com, 
+	linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>, 
+	Kees Cook <kees@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Oct 30, 2026 at 02:39:45PM +0000, Samarth Narang wrote:
-> [You don't often get email from samarth.colleges@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> When DMA completion times out in gpmi_nfc_exec_op(), the driver unmaps
-> the operation's buffers and returns -ETIMEDOUT without stopping the APBH
-> DMA channel. Since mxs-dma leaves the channel in DMA_IN_PROGRESS, the
-> pending descriptor chain may resume after the timeout, while a
-> subsequent operation can append new descriptors to the stale chain and
-> cause the old DATA_IN transfer to execute again against an unmapped
-> buffer.
->
-> This can result in DMA writes to memory that has already been released,
-> including buffers freed after ONFI parameter page detection in
-> nand_onfi_detect().
->
-> Terminate the channel with dmaengine_terminate_sync() before unmapping
-> so that outstanding transfers are stopped and subsequent operations
-> begin with a fresh descriptor chain.
->
-> Fixes: ef347c0cfd61 ("mtd: rawnand: gpmi: Implement exec_op")
-> Assisted-by: LLM
-> Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
-> ---
+arch_dup_task_struct() copies the parent's task_struct verbatim, which
+includes kcsan_ctx and kcsan_stack_depth; nothing reinitializes them for
+the child.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+With CONFIG_KCSAN_WEAK_MEMORY this leaks a live reorder_access: an
+access whose simulated reordering is only valid until the parent returns
+from the frame that performed it (tracked via kcsan_stack_depth and
+cleared by __tsan_func_exit()). The child inherits both the entry and
+the parent's stack depth, but never returns through the parent's frames,
+so the entry is never invalidated and is replayed on every subsequent
+check_access() of the child.
 
-> This issue was identified by a research static analyzer for DMA
-> lifecycle ordering and has not been validated on hardware.
-> Compile-tested only.
->
->  drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c |    2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
-> index 527165ccc..a8106de2c 100644
-> --- a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
-> +++ b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
-> @@ -2659,6 +2659,8 @@ static int gpmi_nfc_exec_op(struct nand_chip *chip,
->         if (!to) {
->                 dev_err(this->dev, "DMA timeout, last DMA\n");
->                 gpmi_dump_info(this);
-> +               /* Retire the APBH chain before its buffers are unmapped. */
-> +               dmaengine_terminate_sync(get_dma_chan(this));
->                 ret = -ETIMEDOUT;
->                 goto unmap;
->         }
->
-> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
->
+The most direct way to hit this is the copy itself: __tsan_memcpy()
+runs check_access() on the destination before copying. If that access is
+selected for a watchpoint, set_reorder_access() records it (ptr = the
+child's task_struct, ip in arch_dup_task_struct()) in the parent's ctx,
+and the memcpy then copies that entry into the child. For an idle task
+created by fork_idle(), the stale access covers thread_info.flags, which
+other CPUs frequently access, resulting in false positive reports and:
+
+  WARNING: kernel/kcsan/report.c:344 at sanitize_stack_entries+0x120/0x12c
+  Cannot find frame for arch_dup_task_struct+0x40/0x154 in stack trace
+  ...
+  Call trace:
+   sanitize_stack_entries+0x120/0x12c (P)
+   print_report+0x84/0x488
+   kcsan_report_known_origin+0x14c/0x1ec
+   kcsan_setup_watchpoint+0x578/0x864
+   __kcsan_check_access+0x1ec/0x1f8
+   do_raw_spin_lock+0xa4/0x1c4
+   _raw_spin_lock+0x70/0x88
+   rcutree_report_cpu_starting+0x1ac/0x4b8
+   secondary_start_kernel+0xe8/0x28c
+   __secondary_switched+0xc0/0xc4
+
+Reset the child's KCSAN state in dup_task_struct() after the copy,
+alongside the existing kcov/kmsan initializers.
+
+Reported-by: Paul E. McKenney <paulmck@kernel.org>
+Link: https://lore.kernel.org/all/97f6213a-1dec-494e-96d1-abe546bce993@paulmck-laptop/
+Fixes: 69562e4983d9 ("kcsan: Add core support for a subset of weak memory modeling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Marco Elver <elver@google.com>
+---
+ include/linux/kcsan.h | 10 ++++++++++
+ kernel/fork.c         |  2 ++
+ kernel/kcsan/core.c   | 13 +++++++++++++
+ 3 files changed, 25 insertions(+)
+
+diff --git a/include/linux/kcsan.h b/include/linux/kcsan.h
+index c07c71f5ba4f..c7e9d15dd7bd 100644
+--- a/include/linux/kcsan.h
++++ b/include/linux/kcsan.h
+@@ -13,6 +13,8 @@
+ #include <linux/kcsan-checks.h>
+ #include <linux/types.h>
+ 
++struct task_struct;
++
+ #ifdef CONFIG_KCSAN
+ 
+ /*
+@@ -66,9 +68,17 @@ struct kcsan_ctx {
+  */
+ void kcsan_init(void);
+ 
++/**
++ * kcsan_task_init - initialize KCSAN state of a new task
++ *
++ * @task: task to initialize; must have been copied from its parent already.
++ */
++void kcsan_task_init(struct task_struct *task);
++
+ #else /* CONFIG_KCSAN */
+ 
+ static inline void kcsan_init(void)			{ }
++static inline void kcsan_task_init(struct task_struct *task) { }
+ 
+ #endif /* CONFIG_KCSAN */
+ 
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 5ef413368912..62a096ca8dce 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -93,6 +93,7 @@
+ #include <linux/compiler.h>
+ #include <linux/sysctl.h>
+ #include <linux/kcov.h>
++#include <linux/kcsan.h>
+ #include <linux/livepatch.h>
+ #include <linux/thread_info.h>
+ #include <linux/kstack_erase.h>
+@@ -986,6 +987,7 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
+ 
+ 	kcov_task_init(tsk);
+ 	kmsan_task_create(tsk);
++	kcsan_task_init(tsk);
+ 	kmap_local_fork(tsk);
+ 
+ #ifdef CONFIG_FAULT_INJECTION
+diff --git a/kernel/kcsan/core.c b/kernel/kcsan/core.c
+index a3aa5e5b039d..26755add7cdb 100644
+--- a/kernel/kcsan/core.c
++++ b/kernel/kcsan/core.c
+@@ -828,6 +828,19 @@ void __init kcsan_init(void)
+ 	}
+ }
+ 
++void kcsan_task_init(struct task_struct *task)
++{
++	/*
++	 * dup_task_struct() copies the parent's kcsan_ctx, including a
++	 * reorder_access that is still live in the parent's frame.
++	 */
++	memset(&task->kcsan_ctx, 0, sizeof(task->kcsan_ctx));
++	task->kcsan_ctx.scoped_accesses = (struct list_head){ LIST_POISON1, NULL };
++#ifdef CONFIG_KCSAN_WEAK_MEMORY
++	task->kcsan_stack_depth = 0;
++#endif
++}
++
+ /* === Exported interface =================================================== */
+ 
+ void kcsan_disable_current(void)
+-- 
+2.56.0.317.g454f8302e1-goog
+
