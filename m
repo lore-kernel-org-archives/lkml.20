@@ -1,103 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793356951;
-	b=WjMv7QKHr+LIse2gN1zdZIrGP0zH80Ot9KJ3DQ7qJSteU/ID84XE1CW3pl9A4Kpz91lx
-	 7rztSTtRPuAu1MfEPqOI+4hEw1Ot1b4H1gKwNzmGq++oFLSOd8G2xawpsn6/0Ungvg6ls
-	 Kk9mBWk3Iq69nY6uBjVQQjZlC6LOZ9jM5e1fXbJJpuWB1s4qGb+PAmiZR3aaZJWpFoOMy
-	 suAvlv63f8tAVDtOetGVPsjhrOUIsfFnssNviFHcOI1TfEaUqpAvP2k0zKVxCG5Wk4gbV
-	 cQnE/Ku1ElLo6gowPq1DIxlWbJgINBI5jZRCZ3gEKfqrbRp6AH2MaXpkAeb/PynPVmg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356951;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
-	 X-Accept-Content-Type;
-	bh=exE+hHt5oQLFBWrYD1Rh+zr0AUD2QpnwnfsG4mC3MFY=;
-	b=4NjfT8uecnq69ozAOieb9qU8Njywpm8hYfzuTWd9XOVuH78ixaE5BXlOUfxM99NmLFkk
-	 UfpJ7XLtqyBaMzwvo+L5tpv6MBbzCZgc9943fix444cCLKzPju2TWlb+Xw1L1gFQXsx8E
-	 6yQ2Pi1EPqm97epFTHMq70sjzaHT03+/+FXMnWaoQ+0Sy2ISsoJmV/COPhslIAMjLwD6H
-	 i78uxglC+qSctQZWCT5H4vbYwGr+7jACUHVIW6fUUrD5zilAJKP/gNfc3qybkXXJfUBrP
-	 fYUS+AJknTaKgT+R3C7QUU/WGRUEGxy870GVbJZU8xuWoL9euBbNuaJMteUHSvagK1w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=aY9yRZIh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793357054;
+	b=ZbnUQ4wgFLt8r4jwmYvphKpSWKkdCKXgtVX3ZgFkHCiqr3RRj0w+1xqI4U/zR3QMo5gi
+	 8Ck/wOzfK4pH9MgIIjd26dcjwgpireQn03oy72k21agYm/26IVBXp2NT3ZNlhZXkL4EmD
+	 efNU7yNp9iUYVjI+qZH0vZGHGVgxTujLy7VuClcsk/Gto7AyKslkmzttnr2hNlviwBacF
+	 +ho8vS94bnt6VUvWrO50p6baR/5DUp1TuLlrZdppAcPFwbzMakWWchu9E6W4w6tEGHejw
+	 w2IrT2y9a623Q99Zm6oY/pEIEOSMWdhbv6oUa/7aUB3E/pvRA6hTOAOHMSS5txSj1vQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357054;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=cn0+TvX9BXUQVDjeMpm9KWwaLbjp+F7HHjACe6s+iQo=;
+	b=Y/c4ZbzzTV9nJ7B5ilWTz8WU4sw8blabSiEessJBvlDinLB2ziQJ+ZAwkQBOzJUh6AgU
+	 usqvUmsQAaOWq0OCE7v7fEiZhkPhH6meGcl01qQlygLWTqOgV4G8Ks/uNAbLjyChaxm8o
+	 82VoFmAd+ve+6QjXKMnnuanNT8rpzmy9X5ysjrKxB3lwA6umW5GP8g6xoRs7/nV9Ufka7
+	 6cFKsI/HiK8iWesweLIpglINGu5aX0s4HgpW1b/Oi1prvLpoZQuqUDlKtSRD8N7bIdyW9
+	 OVoNrIn2KCr5IfQEOevX7ihSexonGpz1WUsVGqFjPPtrb/maG+kd0NRWQth/Yv1lw+Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mEVaPfaq;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CRYmdM8y;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798BE606A32A;
-	Fri, 30 Oct 2026 10:42:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 798BE606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41AB606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:44:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C41AB606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=aY9yRZIh
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 409BA2007F9;
-	Fri, 30 Oct 2026 11:42:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793356947;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=exE+hHt5oQLFBWrYD1Rh+zr0AUD2QpnwnfsG4mC3MFY=;
-	b=aY9yRZIhh039IwXU2DWf1dZuEtB5T4HK4ECstmByqUYwciV67tCVO3pG3c24P4irt4onNX
-	p8o6NaIuZrm5HkxR6+3BrUJ5aTPGEbcaMNsCHO3PD8S9gl6eCCCHAuQJsf6joq4EacFPHs
-	fXg+jC0yP8RFkcx/90P+p5elCvPTrFsvSsAxuUP3hgrH9HoKX9/Wh7zOSqqQbQv2BJYOjv
-	tj/NUTjtrWmlmSwIQjdBNCyCY5Sn8+P8c3TNF6misXF0+H8KMiKGnDzTkgdT4a1uFW3S+0
-	SujX6AMro3JjTUzVpwAgZGWGUrih7SXZ4m4h/beaDzCemQf2cg6f3avxDXJIww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793356947;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=exE+hHt5oQLFBWrYD1Rh+zr0AUD2QpnwnfsG4mC3MFY=;
-	b=AVT5i78lYaHZ+hblbkNogAi5ghNTNp5X7HSwH0/ccpC2UwqSb8y5ZjwrQ1hPrCv9Uxpd9r
-	donv6rWnGF2zlECy/PGHOjHT6SAMRR54V29UgHYdlYAXRyaMpqvbEf7EGBWIyHbnOq5LQv
-	X5qy/EQMP/f/YOwKEp/FGNN3Fwn1UgYWoxF+TbQaldgeInveGaMgpSS9CYJpEGTASR9vYX
-	aTrFeLlBctqtKXlg6Tp1anIuItb+JWoZEPcm+oQ6uBY0Hvy8BSh7hUkKDvVEW7j8ftqCAp
-	2ralFJ8fG+FCBb8OE7rNnawWAlEWLLyJB8/x3XzXRWTtjwArOmhDrnXl3wt9Sw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793356947; a=rsa-sha256;
-	cv=none;
-	b=cnmwy/oYBVOkobgdVRCeb28DXdGW1R1bjoBGMpVHZhXuM7hjjp3SEXMv1Yoc9iq4mUTOJ+
-	DWPN5BpP3JircJE/NJEHageqloDkSyhbVwlsZbe/g2g0Dc4Qhq7y7oZInXG8epHr44ySxu
-	qpwX7FxMmSJBfRtuqbwyZqlr03tNf4ZM5nSpirN36k8Y59G0hbUCLvlvuuDQ6MN+qSxTmg
-	s7LkGPldFsF/MnOW2zXIhJK283pk1YXy/AZYSTOwXHHGfM6JKFNprtilvssA3mqqHV+cfY
-	dDa8gMNJa7IFZ8Ib7r5WwYg7wFEYK/dS2fYLnxdqW254KDOjqDN7NjxHN7PkmQ==
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xMk43-001rLi-0a;
-	Fri, 30 Oct 2026 11:42:27 +0100
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xMk43-0000000EobU-0Gac;
-	Fri, 30 Oct 2026 11:42:27 +0100
-Date: Fri, 30 Oct 2026 11:42:27 +0100
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Carlo Szelinsky <github@szelinsky.de>
-Cc: Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Kyle Swenson <kyle.swenson@est.tech>, Ross Cawston <ross@r-sc.ca>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, netdev-bot+sashiko@kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 07/14] net: pse-pd: do not tie a shared power
- domain to its creator's devres
-Message-ID: <auR0k1ECrKc0awIz@pengutronix.de>
-References: <20261023215416.1087206-1-github@szelinsky.de>
- <20261029104851.464294-1-github@szelinsky.de>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mEVaPfaq;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CRYmdM8y
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8FSL01663366
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:44:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=cn0+TvX9BXUQVDjeMpm9KWwaLbjp+F7HHjA
+	Ce6s+iQo=; b=mEVaPfaq0ZQ0PRhcz8til02k9WMOTx3PQoCpKYvXiJzV9mDAKdg
+	9pizcuBqmyGdSjrtQySr2ay4r+RodCmsdD4JnSJ6+M7HI8AdsigtUF9HXuQx1exN
+	n7J1obprpNHFRxdcBOspCog/JVnA/bWYz0hVvT1mXBfnoqwlDI3LOcMZ9QMGeNgL
+	eg8yeXT80ebObsw80Nxp2DQJqQDlrRMOzQoTkkvMF3IhR9Hs9w7DQLeijdDW352N
+	ABIFB8y4BUqGgqO93a7bDLy/PmBxKjqY6LVSFI/qkzIDvVJ3cSh9AegdvIyyP1ZJ
+	430XgbDInJY/D8oIkOUhCK0cJXJtJUXAj5w==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6p2kbb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:44:12 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1383723dfddso1091347c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:44:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793357051; x=1793961851; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cn0+TvX9BXUQVDjeMpm9KWwaLbjp+F7HHjACe6s+iQo=;
+        b=CRYmdM8yh+0QeMixcmSiYusRTf4pA7KMYqvaBdKNFI2bLUtRkmXoLBJIUDP0rsO7d+
+         f++7fd/Oe/cGb8bQOiIB64MjRffA1ZVCbPfZ7XRLlkwLRvYzN+kPzxiWp6tGyQwMra03
+         Uc+qrI21dDM+C7kmtnPEwgeOuEmiGgYMpgNjyHUA1WWRAmypsH8jYSjxS/ihR9Qjvt1C
+         ig+8DS/At65MO/3UWq7cdDMSLCYiTd3275qIXT/aHpmXhSH2izds1/c9zlYsYdc6Gcbf
+         UQb1kDWU5HCFpgnklKeUiV2tzZ9+1VsaLq1xtQuM3HgIkVXUciZ1NH1Hbjlppqz8WRLN
+         phIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793357051; x=1793961851;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cn0+TvX9BXUQVDjeMpm9KWwaLbjp+F7HHjACe6s+iQo=;
+        b=bJDjGtlDCu+D5zrF+8FvNPCbAcVsCOv84tng4/3EmJwELMitMDsecZ3LZmMsIbxupQ
+         vH0ngs3iJ4PCadxyk8b9n6KvvFe1c6olj4UwdRePt6XK9O49WLxfIfqP9gkwDx25EP5I
+         eQhVbZi1LbQrhZJ/sPYTJWv0/mDedGTTOS3MQZd0RmMpx1Opbyh6BoywKmdACQTGsN3v
+         /fDhDmyOp2kj54SyH8zelKrWFEcUlYE4N+LueK6gmzz3QtYZJt+jFr+LaSUj5JKhiraR
+         bVyY3t1HcceSOrEQNpGfjw3g8RWXzGPYVC85tqAnVyHvQ1EwLlBqECFaXpc35US/m4Ji
+         dUDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz7/3WFsDL6hK5ZZVvCl1CBro+LhZqCpnQ4sxprfKHN2OjYKik6QIAAney5meXGrLUZsh9bPaDj6d8r7/Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLLV3fj69UzhKJgYTbyNSAi0wJ2JEKQD13k0DPdQEvbu8GNMZgG
+	om3VrM5UwJcTM4uT+/MQXB93Y/gX0iBqZ2NdIK1VMDd87X7IhOr9ZKHjejfpZNlSDChSdh9Ycd0
+	yKFN42yHNQD2e5kzpD3oUs26/T1ms90qLt2gchbdnPDfwalNqtlwyNct2jheDgLqgHWO0SX5AN3
+	Y=
+X-Gm-Gg: AYBFou1E8p8oEZYZCyW3dJBXKEK+HEO45cMzjOqrW/GvIdYRTAMEW3Kdk4U0qUKRqI9
+	0vjiysiYgcw4capmAy8SrxF6t9XGiT3XbjhbLFxWnsX6pp5d2OiVL28ewA3jI5AoEVEToTeBwn3
+	WHmgfCo+rAmsY/6Tvb++FNDCwNv1sojxzYs2dNZCqBL6Q3WC48SOLajceM/Tq3KOneQr15QdsHm
+	33uJnLXwYpvAYs7zWTUy1R2rYTklZCOpF1VdYOEX99ILEznZ8JOGXG9ZXfrcsT7ZVT2bF9toGWO
+	GY1JJx3GCsGbmEoC0NEHNF5gcULMl7c7C7r29im51EUws+25KpfEEe4NCvD53Z+BY4rFaxiHNOE
+	chYc21XK5R7P4J+kepilrej3rAx+I0JSdwVrjNoIAm1AIbxkqmKXOuWxrykjtY6tPpToQuuOP4i
+	FW7Q==
+X-Received: by 2002:a05:7022:2606:b0:1a3:65d7:efae with SMTP id a92af1059eb24-1ac5d0da4a1mr2844798c88.21.1793357051015;
+        Fri, 30 Oct 2026 03:44:11 -0700 (PDT)
+X-Received: by 2002:a05:7022:2606:b0:1a3:65d7:efae with SMTP id a92af1059eb24-1ac5d0da4a1mr2844763c88.21.1793357050267;
+        Fri, 30 Oct 2026 03:44:10 -0700 (PDT)
+Received: from hu-taparana-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19c6b969sm6097035c88.14.2026.10.30.03.44.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 03:44:09 -0700 (PDT)
+From: Tapas Rana <tapas.rana@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org,
+        Prashanth K <prashanth.k@oss.qualcomm.com>,
+        Tapas Rana <taparana@qti.qualcomm.com>
+Subject: [PATCH] phy: qcom: qmp-combo: update offsets table for x1e80100
+Date: Fri, 30 Oct 2026 16:13:55 +0530
+Message-ID: <20261030104404.1945160-1-tapas.rana@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,46 +120,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261029104851.464294-1-github@szelinsky.de>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA0MiBTYWx0ZWRfX3snxgMMkQEoQ
+ /GVxUVK5WmQhpskE/yeG+hdirDJEb15S64EU3foaY75HX+TExOs7BrhGkuM6N6vqLHtDfUHIvEO
+ YnjI46C/77vQfP/DiseSIWUvXq3xGIXSOWz2+R4vPeXbGWfNYXnHlGm+ESkr3WjRt6Z+3UTT15O
+ emKiZZ3vvuwUYLV7LkJ52DWDzZYllLsCs7Vr/7YTLjgazhzoI/Mix1rewWm8q8dr98PkgJDayl2
+ k7RmY30OcWhhhzOd/MmUfje/la4Viq+Hn0IvA+i6GQzUUZSTonjkSbe1Qt55sJazoaBLfZFHT15
+ FxyH2vf9LPSSHJb1o2R2+8yRVYy6d4g1aunwG42BKs2D+JDkiYxzuYNFvursa4fv/mdDNqMjYP/
+ +eBygxwndQJ/qlJqrAYUngQn4i3wmMA3n5eyTGFKKXFVSUUQ5k+tjNLtKKuU78V4TH54Ikhfygc
+ 0PlsyfPKCJYNbRSH6sw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA0MiBTYWx0ZWRfX3xuiBn87u/SU
+ swrzgYrZ+abzc5CGYyfBleLznk1vbJEUS6XW7PSl5Y3qCQ6DLXiEmeWlTJXD3z9Cy1cKYigLUMM
+ 4TCvWVV1cxuLnPKM5I49HCK/7vqckqA=
+X-Proofpoint-ORIG-GUID: DJT9cdACjYY1CXgtJ33vR3D95TeJvi3w
+X-Proofpoint-GUID: DJT9cdACjYY1CXgtJ33vR3D95TeJvi3w
+X-Authority-Analysis: v=2.4 cv=TL3Q2Fla c=1 sm=1 tr=0 ts=6ae474fc cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=WK3x7LZNRzmlshLj7x4A:9 a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1011
+ adultscore=0 bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300042
 
-Hi Carlo,
+x1e80100_usb3dpphy_cfg uses qmp_v6_n4_usb3phy_regs_layout, which
+places QPHY_PCS_CLAMP_ENABLE in the PCS_AON register space. However,
+it uses qmp_combo_offsets_v5 currently, which does not define the
+usb3_pcs_aon region. As a result, qmp->pcs_aon is not mapped and
+autonomous mode falls back to pcs_misc for clamp control.
 
-On Thu, Oct 29, 2026 at 11:48:51AM +0100, Carlo Szelinsky wrote:
-> On Fri, 23 Oct 2026 23:54:15 +0200, Carlo Szelinsky wrote:
-> > One downside: Mark and Liam would then have to review the rdev->supply
-> > change inside a bigger patch. If you prefer, I can keep 12 separate
-> > for them and only merge 7 and the power domain part of 11.
-> >
-> > Is that what you meant?
+Add a dedicated USB3+DP V6 offsets table with usb3_pcs_aon included
+and use it for x1e80100_usb3dpphy_cfg so clamp control is performed
+through the correct PCS_AON register space.
 
-ack
+Signed-off-by: Tapas Rana <taparana@qti.qualcomm.com>
+---
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-> Hi Oleksij,
-> 
-> a short ping on this. The answer decides how I build v3, and I would
-> like to send it soon.
-> 
-> If I hear nothing by Monday, November 2, I will keep 12 separate and
-> merge only 7 and the power domain part of 11.
-
-ack.
-
-> Mark, Liam: if you find a moment, Oleksij's question on 12/14 about the
-> PSE core using rdev->supply is still open:
-> https://lore.kernel.org/netdev/atnK9lEinSLgx5yK@pengutronix.de/
-
-On 8, I agree with Sashiko, please move the unregistering flag from 10
-into 8:
-https://lore.kernel.org/netdev/179274321725.3134.14426162965545087203@kernel.org/
-
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+index 187f0cd11f6c..aa9dc9716574 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+@@ -2762,6 +2762,21 @@ static const struct qmp_combo_offsets qmp_combo_offsets_v10 = {
+ 	.dp_dp_phy	= 0x3c00,
+ };
+ 
++static const struct qmp_combo_offsets qmp_combo_usb43dp_offsets_v6 = {
++	.com		= 0x0000,
++	.txa		= 0x0400,
++	.rxa		= 0x0600,
++	.txb		= 0x0a00,
++	.rxb		= 0x0c00,
++	.usb3_serdes	= 0x1000,
++	.usb3_pcs_misc	= 0x1200,
++	.usb3_pcs	= 0x1400,
++	.usb3_pcs_aon	= 0x0100,
++	.usb3_pcs_usb	= 0x1700,
++	.dp_serdes	= 0x2000,
++	.dp_dp_phy	= 0x2200,
++};
++
+ static const struct qmp_combo_offsets qmp_combo_usb43dp_offsets_v8 = {
+ 	.com		= 0x0000,
+ 	.usb3_pcs_aon	= 0x0100,
+@@ -3003,7 +3018,7 @@ static const struct qmp_phy_cfg sc8280xp_usb43dpphy_cfg = {
+ };
+ 
+ static const struct qmp_phy_cfg x1e80100_usb3dpphy_cfg = {
+-	.offsets		= &qmp_combo_offsets_v5,
++	.offsets		= &qmp_combo_usb43dp_offsets_v6,
+ 
+ 	.serdes_tbl		= x1e80100_usb43dp_serdes_tbl,
+ 	.serdes_tbl_num		= ARRAY_SIZE(x1e80100_usb43dp_serdes_tbl),
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+2.43.0
+
