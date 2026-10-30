@@ -1,64 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=93.241.95.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793393687;
-	b=GKrBQtTGrYSNZG06sMdLaznA7qRIzc84d4umYJFT7UoOt04ob+PY4Vpt5h4cY2VQcFlR
-	 H/PVnWLtAZmdhJIWRYPjk4I2l98+s6XBBqmXelKBd21fVCiUff8xV4RGSxXnbF13H4Qv8
-	 aAMGkrKwlHGjaSFzn8lCpZnbBtM1fWCL5tbBA2gTjam4F/aRjqNXoGpyeTgzdLpCFNlG9
-	 itvhQDig/KwW4f2hEjRODm6eOUuJ5m/bY4/nOcMDvTTmVN45XZ2fdujEYhx9zqvtuubjb
-	 MUIvYAV0Ncd46iTw/W2Cmq1pkNYRmWiD/f2WF7gDYKr+DSVhgRpOFCcoa5M1WzCIOrQ==
+	t=1793393685;
+	b=j6Ase9Yg4iyk6D/sSKFFp7pydCMoh/evOl1l+5F/vezzQVuX26koRtFtLlCLkSLhlzB5
+	 pVbOE22HvjRe8GuRON8+zHui1PPtx/o+BGwhwZr2d5Woxng9YjlRTBWWhGZnR4S57t8Tp
+	 6gBZ4nprpepZVNeGdYnPZzO4ut9CYcx2efPTantd11sWIKlg1i8l6gKU62VS8gh3JzpWd
+	 sJw3a16PG9/mYJb+QuxZVLRPVZFeF4qSVW5/TLk74iVOuRZCQiH0uqj7LMdXOdinshju1
+	 fORQHlXsR1yCtnaPDGTxpn5FIHGDyJljDxhfIOGlsiD7Pp97UlGZ1BkoBy5tBD0sJsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793393687;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=iygEBjuLTEpiry3mQ1K1xWS/WUk91BUJpXuhslscvwI=;
-	b=uw4guLJwFW6F+/qtw2WpTaBzXmmq9kTj6GWx4I0djHRuTCEFDH+G/7Y4iKaFjyYSVXIV
-	 YfzS8gQq/TIm0ISKMLrBwAFMybXSlAreGQ1LKBN6z6C4WTdohIYB/LDeEcGLaX/6W6BgU
-	 om5DmahMiMWbhARW89OpCpcisgguM8wLq62FrZbQm9xnAfBFtWI4dp0D074Re24r6+Fec
-	 0Oa9mOlwQV1Tng/j+6hnJeYQmW1Dg1FVUVMQbPdkO6H23VgY0g4S7dKXCM2bZcvBpprP0
-	 sIgNy61bKryOGBHX7nupilBPDMLviHDItGlp39Uqbc5jYZpDXxTkNQlT7eEPmt9VmQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793393685;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=WvB6ePpKWWKwFI9dveLQEwy+mNq3q4b5hvoyCK6cGIg=;
+	b=xSAsbo5NhJQ2957KL7OinBVumBIn4r87yS8vlh6z7y+2+eXXG7X87BM9V7IdaPzDrObc
+	 Co5kk/BRS3It8BmgZGSdFladZh0NMd+lAYlwk2yOIiK5fUem28tE3TbXwShZ25tFj5j/L
+	 H7V5ysv79N1bTJGWybMYOKxSz+XS/h4SuMCcguyYqq262bbegIYKJ+S7cRLFkr5r/LpuC
+	 dmkkIkpHh/+NFmzdyGQKT3y9vFsn5AETtXFXnfo0WjUOybJJKvzQ5wDYR8YfynQsMM+Eq
+	 90rqK0MafWQi7obKKwPjMEocx9ON3UOMj58xMiXzOGjHuFgvO+yVego3LGYNgSFzOhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=firestrike.de;
-	spf=pass smtp.mailfrom=firestrike.de;
-	dkim=pass header.d=firestrike.de header.i=@firestrike.de header.a=rsa-sha256 header.s=dkim header.b=mv1tE7g9;
-	arc=none smtp.remote-ip=93.241.95.223
-Received: from mx.firestrike.de (mx.firestrike.de [93.241.95.223])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p6NdYS5x;
+	arc=none smtp.remote-ip=95.215.58.142
+Received: from mta1.migadu.com (out-142.mta1.migadu.com [95.215.58.142])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB8A3606A325;
-	Fri, 30 Oct 2026 20:54:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB8A3606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=firestrike.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=firestrike.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D00C606A322
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:54:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D00C606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=firestrike.de header.i=@firestrike.de header.a=rsa-sha256 header.s=dkim header.b=mv1tE7g9
-Received: from pmg.cloud.firestrike.de (localhost [127.0.0.1])
-	by pmg.cloud.firestrike.de (Proxmox) with ESMTP id 18DFF160F92;
-	Fri, 30 Oct 2026 20:54:37 +0000 (UTC)
-Received: from mail.firestrike.de (unknown [192.168.28.175])
-	by pmg.cloud.firestrike.de (Proxmox) with ESMTPS id 00E24160E71;
-	Fri, 30 Oct 2026 20:54:37 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A7562123F89;
-	Fri, 30 Oct 2026 21:54:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=firestrike.de;
-	s=dkim; t=1793393676; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=iygEBjuLTEpiry3mQ1K1xWS/WUk91BUJpXuhslscvwI=;
-	b=mv1tE7g9/6PyeDhlZm3FZrUEXFqqwPQ2PNIf9JxEPlMsux8aW/4/vd4+dXvr/DEqQOcMjv
-	kU9vVfujYkRceWdmtC9DhpjIIpXMJVYI40QqgIWtbH1oUTUnN/Xwi3br8/DlE1xo1tYq2+
-	AbkJcF1S9AUf2aNG4zxEF2YCLdMp5inKIxEsLsKAwUPfKneJC9HLvbGr/ab7/lsdXsSets
-	WUBC9utfiwNIdd4+/IFryKMuwJmyAPwOUHchJnMQt+tdFGZAcWWHB7lLaktgLkFjXVi77z
-	xt6vGhc6MwMy0ngPck8mNMxIXRY5fzBKwOssRPbIWrqbpxnc6/gOgL+u5Tx7jQ==
-From: Tim Heyne <tim.heyne@firestrike.de>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p6NdYS5x
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PEe7LP+ea1c/6uQpUdYkMtQm9r7KkVekkLLCHeCHzrQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793393682; v=1; x=1793998482;
+ b=p6NdYS5xu4Ofo3c7yLwGkEcBjz1wod2WxK6ICnQ+wq225o/TkjQYwGwM4h2TjCD6+B/KSu0f
+ yWOLwKsoxbx81L8sko6x36MgAhTQ6w1AYPZrZRamW56w9KZfUiGrpM0H7Or/y0iGYj0eQji7C5u
+ aoaw6OL7ZJWIs/pgs8LN/ZHk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9e68337c290a835a;
+	Fri, 30 Oct 2026 20:54:42 +0000
+X-Mizu-Trace-ID: 9e68337c290a835a
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Tejun Heo <tj@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Meta kernel team <kernel-team@meta.com>,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Tim Heyne <tim.heyne@firestrike.de>
-Subject: [PATCH] media: i2c: ov8865: Allow fine-grained analogue gain steps
-Date: Fri, 30 Oct 2026 21:52:29 +0100
-Message-ID: <20261030205229.9309-1-tim.heyne@firestrike.de>
+	Michal Hocko <mhocko@suse.com>
+Subject: [PATCH v2 3/5] memcg: use high_work for kernel threads
+Date: Fri, 30 Oct 2026 13:54:14 -0700
+Message-ID: <20261030205418.341214-4-shakeel.butt@linux.dev>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261030205418.341214-1-shakeel.butt@linux.dev>
+References: <20261030205418.341214-1-shakeel.butt@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,51 +76,69 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-The analogue gain register (0x3508/0x3509) has seven fractional bits,
-128 being 1x, as already noted in commit 3fdd94e2bfa3 ("media: i2c: Fix
-max gain in ov8865"). The V4L2_CID_ANALOGUE_GAIN control is however
-registered with a step of 128, which only allows whole multiples of 1x.
+Kernel threads never return to userspace, so deferred memory.high
+reclaim does not run. Reclaim and throttling during a charge can also
+delay work they do for other tasks.
 
-The control framework rounds every value to the step. libcamera's AGC
-raises the gain in small increments, each of which is rounded back down
-to 1x, so the gain never leaves 1x and dim scenes stay dark although the
-exposure is already at its maximum.
+Treat kernel threads like interrupts. Queue high_work for the first
+cgroup over memory.high and skip reclaim and throttling in the charging
+thread.
 
-Use a step of 1 so that the full precision of the register is available.
+User workers created by create_io_thread() and vhost_task_create() keep
+their current behavior. Vhost kernel threads use the new path, even when
+they borrow the owner's mm.
 
-Tested on a Microsoft Surface Pro 7 (rear camera) with an out-of-tree
-copy of this driver carrying the same change, as the IPU4P ISP of that
-device is not supported by mainline: libcamera's software ISP AGC now
-ramps the gain up to 16x, and raw captures at 8x, 8.6x, 10x, 12x and 16x
-show the expected monotonic increase in brightness. The mainline driver
-itself was only compile-tested.
+The worker requests a fixed batch of pages each time. A fast allocator
+can keep usage well above memory.high. Kernel threads also skip
+memory.swap.high throttling and its high-event reporting. The memory.max
+and memory.swap.max checks stay the same.
 
-The problem was found and this fix written with the help of an AI
-coding assistant (Claude); the submitter reviewed the change and ran
-the tests described above.
-
-Fixes: 11c0d8fdccc5 ("media: i2c: Add support for the OV8865 image sensor")
-Signed-off-by: Tim Heyne <tim.heyne@firestrike.de>
+Suggested-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Acked-by: Michal Hocko <mhocko@suse.com>
 ---
- drivers/media/i2c/ov8865.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/memcontrol.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/i2c/ov8865.c b/drivers/media/i2c/ov8865.c
-index 5a59cca8e..75fcc4c9b 100644
---- a/drivers/media/i2c/ov8865.c
-+++ b/drivers/media/i2c/ov8865.c
-@@ -2528,7 +2528,7 @@ static int ov8865_ctrls_init(struct ov8865_sensor *sensor)
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index af95a4574a0f..42bdaaacafb7 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -2708,6 +2708,7 @@ static void memcg_enforce_high(struct mem_cgroup *memcg, unsigned int nr_pages,
+ 			       gfp_t gfp_mask)
+ {
+ 	bool allow_spinning = gfpflags_allow_spinning(gfp_mask);
++	bool use_worker = !in_task() || (current->flags & PF_KTHREAD);
  
- 	/* Gain */
+ 	/*
+ 	 * If the hierarchy is above the normal consumption range, schedule
+@@ -2726,8 +2727,12 @@ static void memcg_enforce_high(struct mem_cgroup *memcg, unsigned int nr_pages,
+ 		swap_high = page_counter_read(&memcg->swap) >
+ 			READ_ONCE(memcg->swap.high);
  
--	v4l2_ctrl_new_std(handler, ops, V4L2_CID_ANALOGUE_GAIN, 128, 2048, 128,
-+	v4l2_ctrl_new_std(handler, ops, V4L2_CID_ANALOGUE_GAIN, 128, 2048, 1,
- 			  128);
+-		/* Don't bother a random interrupted task */
+-		if (!in_task()) {
++		/*
++		 * Don't make an unrelated interrupted task handle this charge.
++		 * Kernel threads may be working for other tasks, so let a worker
++		 * reclaim instead.
++		 */
++		if (use_worker) {
+ 			if (mem_high) {
+ 				if (allow_spinning)
+ 					schedule_work(&memcg->high_work);
+@@ -2754,6 +2759,10 @@ static void memcg_enforce_high(struct mem_cgroup *memcg, unsigned int nr_pages,
+ 		}
+ 	} while ((memcg = parent_mem_cgroup(memcg)));
  
- 	/* White Balance */
++	/* Interrupts and kernel threads stop here. */
++	if (use_worker)
++		return;
++
+ 	/*
+ 	 * Reclaim is set up above to be called from the userland
+ 	 * return path. But also attempt synchronous reclaim to avoid
 -- 
-2.53.0
-
+2.53.0-Meta
 
