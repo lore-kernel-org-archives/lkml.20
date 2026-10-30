@@ -1,59 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793378756;
-	b=Py3UwiW/Y/YP0/qOWOxHreslO8V05CyZpjAtG+GyYNzR2FY6DujUPn1OUJZTVGAFtvIT
-	 463EONoNWqWZTGjUtFEgSiL1d7F1fgfmI+18x9dMfOhqfQ/TNWPGJDWacwBUqi3OdYvQZ
-	 dTlroX9kBOBjNMDIHU4VHm7NEFfL2es1wloCFKI1jbM4IObA7b3ys5aJuq1qkDrZQCwRA
-	 E0zeVrVTBvxWgEf/kkNINs3pcFSqGU33kuwd6X2+gzrXKG0I3Jqh7Hw3zuyQK6pB9wXLW
-	 YrZE8UUBFqdmoVfBH8zhP1k1Qv7mw/jZVOMqeYsu5c09dkZZ7jrDLNF1/KXFQXyXytQ==
+	t=1793378831;
+	b=cllU3t0se/vsJjS+NQopD81Ncdgay2RjzlshvCeWgZcCkPumJgn3wsdF5TggYFzU0CrI
+	 gptZ7xNfMWsGion76pgzYeJVOD1lo2wDIet5WrL9pVeK5BesRuvfVuzfW+Zss3XUdghKh
+	 cobVlsN5DXl1hGco+CLhWYPUAENSsp/kJwMmLUdMkLPQyF/u2TTiYKoJ+bIklN1/9mczm
+	 GIMDUCtfAUtmQZ5jdvJPK3zAZov7K+wY0PeShFmAO5ScQdyJ/F38WTqOtQ/mrJrDupi+K
+	 V55JnEYNUpZqjjoidpjrQpv02CzyYad/K+c/7NZJFlakaqeNtdMxajEo4wcXEPcaluA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793378756;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=52xTTzrrbC1bMV9FtChgDxBJI5ySTBL3GYcsCBoyQKg=;
-	b=2p+vk1gtyeEpsF7t31GTZGPtbgrFMkoObByyZRPofgWL49NWOsSve0UzHyb4lcbsaH75
-	 1o/XbX5kIWDgv0xU0v2HsmD2+u6TnhZkitc7dpkyV4biCrmnkwf2hEIuCXT4ZbS4EKBIM
-	 gWGh1JeUHayYRFld4QiIvYVdYahaw0C/KRwcjAcc26I9ukaM3S/o6S8cgg+MJ3e4nB54Z
-	 dDi8h7Yxebu8ZfAiz1h3//GIFA0PahvgL6NlbO+mAHeGDYlmDMY6UYLSivFEVQt4fk9AM
-	 HgF5rPn+QZc1MLmP+5WZJhZXLizlmTdTB4S9MvTG72QmeC1HLHMdlXXNCRZSA1gaGVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793378831;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:Content-Language:Autocrypt:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=xwNGuw4Ozbcpsh9nyjMpfj+blaoYv/xAB7dUoROBvWs=;
+	b=TTY2BKIDLSLX9FpPAiDitQbi0huM07POLtuMfF4jfgVtVgwfBdv+tXmJPQrjWv18AO8C
+	 a5+LAgppGwai9U4J4hRNZI3BYU+C4AaLsa6W3BWnLqvGfZRRrB9TcBjoJWQgVQlnKmWMx
+	 dS2CgoM9rl6j8mZcp1iZ31Vu0S4SycwdrZkrmXD0tabLiGB6zV+9tGpOkxP9aOMh6mweR
+	 zkOALENok+rFkiE3hSiTzIC+fjw/bpGbUlCVh28wR2eRBDNR/3dqbv1xmC2Rjd1wenu/k
+	 fYTb44312FcSqSqcrfFsQdb4RHUzfxaN0yXbucf1u+A3LQd5yrQ6Yqn0SqACqt/uLSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVzNbutF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b="AH3l/SjB";
+	arc=none smtp.remote-ip=185.125.188.123
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21D4606A31A;
-	Fri, 30 Oct 2026 16:45:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F781606A336
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:47:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F781606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVzNbutF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F34841F0093A;
-	Fri, 30 Oct 2026 16:45:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793378755;
-	bh=52xTTzrrbC1bMV9FtChgDxBJI5ySTBL3GYcsCBoyQKg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bVzNbutFMnANPdYkbrUI56pS2HX2noR+FLh/AXMn0/doxaUOhkfZiC2RbvoooAlcx
-	 2YVSjDrUVw/J78r1HgYDY0K5/UpBEuU2t5b4/kDbqFgXwj8dTxSyUpt+Lo12i9MVAY
-	 Fqc+cPRg6Kg7V/T6SrMLvO6x7liI9IuCSkzHXfFNPYEAI8qxlCbF5y074pNpIZp/JA
-	 U0/sz+kQcX1szwPJRhKXef+kvXpqxDZ8TR+9SgpSMLhGg3Xic+iODcP0FrE1UrxDLP
-	 i9oGkPUN/FBHE9WNnov3mkNmxhbLYthi1Vj5IfXW55YBU/aWEYQ6EjIgOdY4vRbLR9
-	 BEyajOTXOkFFQ==
-Date: Fri, 30 Oct 2026 11:45:51 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Kevin Jia <kjia@nexthop.ai>
-Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH v2 2/3] dt-bindings: trivial-devices: Add TDK FS160x and
- FS1006
-Message-ID: <179337875070.546916.6057991565347100078.robh@kernel.org>
-References: <20261020-fs1603-v2-0-0986107a5cd2@nexthop.ai>
- <20261020-fs1603-v2-2-0986107a5cd2@nexthop.ai>
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=AH3l/SjB
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id A24D13FFD1
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:47:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1793378821;
+	bh=xwNGuw4Ozbcpsh9nyjMpfj+blaoYv/xAB7dUoROBvWs=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type;
+	b=AH3l/SjB7sKQdqeBr5mY+TiB3TY9gbxaxPdHkcsU85dbK/1I64Um44QuB+TgxmYkb
+	 CesNpfu/tvy7vVcdPXk2zllf1X8WmZ2B1Vz142b6eudAQqDsjZ3mh/wM9ddb/MRLST
+	 EdLJsKz2FcdX7+axP83OX6zZBTO1P2ezM4RTR6URfjeYg+AUtDm11LD0eR4w1CvPV/
+	 WhgS6yAttKbOLrZnZ3gyQIjerDZCDra08EraBcYAhS+b5NA5dYEM8fr5bhCc2PWHkU
+	 50lMX0LUG9W/73SvwcDPpHrgYRKzIDiAOBad/Luz7QGYWnIiFRJmGpWypi6mOBLkSC
+	 w1U72srG0XYaH3GWXvsgzbXhWRMSuV54f74kTWEUik+YvPZta7ijRWKJ6d6AloiN1V
+	 AKJjNIRmMSWGJV7rNTW7W+AxqaQijkwOPMV1AVb6tFWwyceOzAtWbhvJR45vKO0eGa
+	 Vl+cU3GYnGQbloCqSwTF7yiAEdlyaPHbDO0DRDqC/6Hz9lPaffpkEf8PJsfv+JQnK4
+	 Gku+0SgvZLN5ajPsMdFbWQH1BJVOBKz6z9FRIO+DksOYc5assUMUt/ZVuK9pVEn3CT
+	 bF04+slMD47GuXGKLxEoPh0rnxCBp8K7R+Gx7mgERWEY+rZK0hTAbAiuzZ2wyvnu72
+	 fbJymvkOwEWV+fenGrzL1FBk=
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-675706e468dso1465810d50.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:47:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793378820; x=1793983620;
+        h=content-transfer-encoding:content-type:organization:autocrypt
+         :content-language:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xwNGuw4Ozbcpsh9nyjMpfj+blaoYv/xAB7dUoROBvWs=;
+        b=C1IgmUwi365Km7WfovtWBQDXSRoJMByCcLuXNOMQn9tXPjJ9BdOFUyjdluB+k+aSnP
+         aPU65NtGkIzpf5bmNlJXdC+WUIYlB1PIgx/yZSyC49XTX3bi3b72lj2tQKh00Tivvmj7
+         tZMLKoFykl/4UeAvX1P1d1yaU7x6qnLu4irEqXnjXcRe8hdndqfq1zMIBaWb95zaZmTa
+         +oIfnPq8Eca1jKjBTksgxYfKGt2Oi4LSdQA+IkrOgLs69M8ew0EOlyLo0Qm0ckX8TP3U
+         rkE55ABGlqzNTbQCqb/GP4qxOpbIDd8gdd3+KbZsjOSEqczGhGjrsaqEWX7YNlxXfBkQ
+         RbYg==
+X-Gm-Message-State: AFq9FYKYIVNbQu6XOul/Vi2cAsUuaJF9wN5cgqGAt2iS8cjDh+VGd+GZ
+	kYtL7HfeZbvH2XyJ6wJDUcjNdiKNE0yptFHVbel81o0C8e8yQqtEFkJEHJCGQYX8nnQ68tRo7da
+	czXuV3fuE2bXcKmYRh+1LUn/+BXkz/fboxt0n08CxdQJMqeiGUW52ln80TgMK8b0D0Ng2budzMA
+	DAuA87ekLI1L0B3A==
+X-Gm-Gg: AYBFou2vPoP+tubPcKh5/H5szpGNjZZHH4cLS9xFQODWQ45eTpkUfEQ8Qu0ylve7yWg
+	lhJ1nLIFdWzuyEMCPAGfRSD5wPrpuqcQqcSjsnzbgHh4rvrA3wojEzRwzzNzepJvbzI8jpNP7y7
+	ZhBW3PGoH+xNN3u7z4eDkFhW2kSjbaIObUAnPXeq3MXoBnjb0sHfsM+we0zFUBpk5AIRDq1fgpj
+	VjsXe3s03GmMBGWgsRs3KBJKwyqnsizfkJBhPGDWwbwtrkYWYphQTc7a6qFbNL+/aJxJfZTRM9N
+	3scmfF/NXtHYmDl/dtKr/ifhN86mSfZBWCK9lEfXSylo+yrfG99/dLqfOWklyeLoj4uL1Te5G2F
+	hRNlRiaGplPJz6EX0vWhGfqwhtaLaorToZ1Gbr4gL6KukC1fz+no6ZjHespfHoCqvSyk0StgVkP
+	4wbjDi2NHSvULMJ1sGK30iDx0peZmwog==
+X-Received: by 2002:a05:690e:1686:b0:675:68f6:a6e2 with SMTP id 956f58d0204a3-67ba4eea269mr1465525d50.43.1793378820532;
+        Fri, 30 Oct 2026 09:47:00 -0700 (PDT)
+X-Received: by 2002:a05:690e:1686:b0:675:68f6:a6e2 with SMTP id 956f58d0204a3-67ba4eea269mr1465516d50.43.1793378820125;
+        Fri, 30 Oct 2026 09:47:00 -0700 (PDT)
+Received: from [172.21.9.52] (host-209-35-187-178.broadbandcancun.mx. [209.35.187.178])
+        by smtp.googlemail.com with ESMTPSA id 00721157ae682-8b2b71a1c70sm11698577b3.42.2026.10.30.09.46.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 09:46:59 -0700 (PDT)
+Message-ID: <ca16996b-2917-4869-8e22-e6731804e4e6@canonical.com>
+Date: Fri, 30 Oct 2026 09:46:57 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,21 +101,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-fs1603-v2-2-0986107a5cd2@nexthop.ai>
+User-Agent: Mozilla Thunderbird
+From: John Johansen <john.johansen@canonical.com>
+Subject: [GIT PULL] AppArmor bugfixes for 7.4
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: LKLM <linux-kernel@vger.kernel.org>,
+ "open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Content-Language: en-US
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hi Linus,
+
+This is the current set of outstanding bug fixes that have passed,
+merge, build, and regression testing. Integrating new tests for all
+this has been a lot of CI "fun", but it is looking good now.
 
 
-On Tue, 20 Oct 2026 16:48:15 +0000, Kevin Jia wrote:
-> Add the TDK FS1603, FS1604, FS1606 and FS1006 uPOL converters. The
-> FS1606-0600 and FS1606-2500 presets scale telemetry differently, so they
-> get their own compatibles.
-> 
-> Signed-off-by: Kevin Jia <kjia@nexthop.ai>
-> ---
->  Documentation/devicetree/bindings/trivial-devices.yaml | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
+The full break down of the fixes by issue type is in the tag message
+below. All the patches have Fixes tags except for the trivial
+kernel-doc fix.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+The big one to call out in this set is
+   4de32fd05ce9e apparmor: fix NULL ctx->peer derefs in unix socket ctx updates
+which can be trivially be used to cause an oops.
+
+I can split this up into smaller sets, and resend if you would like.
+
+thanks
+- john
+
+
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+   git://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor tags/apparmor-pr-2026-10-29
+
+for you to fetch changes up to ed35bbe7d06e6505401eff3f3c7a36bd1f167a17:
+
+   apparmor: fix uninitialized variable warning in aa_inherit_files (2026-10-29 17:02:50 -0700)
+
+----------------------------------------------------------------
+
+* Bug Fixes
+   - Leaks
+     - fix a leak on a rejected string table entry
+     - fix refcount leak in aa_get_newest_profile()
+     - fix profile leak when a policy load fails
+     - remove fs entries created by a failed policy load
+     - on failed load ensure profile files are removed before parent
+     - Fix namespace reference leak in __aa_find_or_create_ns()
+
+   - Use after free/double free
+     - fix a use-after-free in aa_lookupn_ns()
+     - avoid potential double free when remapping DFA tables
+
+   - Bounds checking by-passes
+     - fix table_size() integer overflow on 32 bit
+     - check accept index + 1 is in bounds
+
+   - Mediation fixes
+     - Fix AF_UNSPEC mediation
+       - check address length before reading AF_UNSPEC bind address
+       - mediate AF_UNSPEC socket disconnects
+     - Fix sctp connect/bind by-passess
+       - advertise that sctp is being mediated
+       - fix check SCTP bind, and connect permission checks
+       - check connect permission for SCTP
+
+     - incorrect state machine traversal
+       -  convert duplicated dfa transitions to match_char()
+
+     - locking issues
+       - don't revalidate inherited files under files->file_lock
+       - fix uninitialized variable warning in aa_inherit_files
+
+     - Bad dereferences
+       - fix NULL ctx->peer derefs in unix socket ctx updates
+
+   - unnecessary warnings
+     - remove unconfined_profile() check in inet socket mediation
+
+   - Kernel Doc
+     - Fix the return value in split_token_from_name() kernel-doc
+
+   - Misc
+     - fix query_data() output overlapping the lookup key
+     - report a label allocation failure as -ENOMEM
+
+----------------------------------------------------------------
+Binbin Deng (1):
+       apparmor: fix a use-after-free in aa_lookupn_ns()
+
+Cen Zhang (Microsoft) (1):
+       apparmor: fix query_data() output overlapping the lookup key
+
+Georgia Garcia (3):
+       apparmor: don't revalidate inherited files under files->file_lock
+       apparmor: remove fs entries created by a failed policy load
+       apparmor: fix profile leak when a policy load fails
+
+Guanglei Zhu (1):
+       apparmor: check accept index + 1 is in bounds
+
+John Johansen (6):
+       apparmor: fix refcount leak in aa_get_newest_profile()
+       apparmor: remove unconfined_profile() check in inet socket mediation
+       apparmor: fix check SCTP bind, and connect permission checks
+       apparmor: advertise that sctp is being mediated
+       apparmor: on failed load ensure profile files are removed before parent
+       apparmor: fix uninitialized variable warning in aa_inherit_files
+
+Jérémy Jean (1):
+       apparmor: check connect permission for SCTP
+
+Karl Mehltretter (1):
+       apparmor: Fix the return value in split_token_from_name() kernel-doc
+
+Li RongQing (1):
+       apparmor: avoid potential double free when remapping DFA tables
+
+Maxime Bélair (5):
+       apparmor: fix NULL ctx->peer derefs in unix socket ctx updates
+       apparmor: fix a leak on a rejected string table entry
+       apparmor: report a label allocation failure as -ENOMEM
+       apparmor: fix table_size() integer overflow on 32 bit
+       apparmor: convert duplicated dfa transitions to match_char()
+
+Michail Andreas Michalopoulos (1):
+       apparmor: check address length before reading AF_UNSPEC bind address
+
+Wentao Liang (1):
+       apparmor: Fix namespace reference leak in __aa_find_or_create_ns()
+
+shaos (1):
+       apparmor: mediate AF_UNSPEC socket disconnects
+
+  security/apparmor/af_inet.c           |  5 ++-
+  security/apparmor/af_unix.c           | 20 +++++++-----
+  security/apparmor/apparmorfs.c        | 15 +++++++--
+  security/apparmor/file.c              | 61 ++++++++++++++++++-----------------
+  security/apparmor/include/label.h     |  6 +++-
+  security/apparmor/include/match.h     | 11 ++++++-
+  security/apparmor/include/policy.h    | 20 ++++++++++++
+  security/apparmor/include/policy_ns.h | 16 +++++++++
+  security/apparmor/label.c             | 15 ++++++---
+  security/apparmor/lsm.c               | 19 +++++++++++
+  security/apparmor/match.c             | 61 ++++++++++++++---------------------
+  security/apparmor/net.c               |  4 +--
+  security/apparmor/policy.c            | 19 +++++++++++
+  security/apparmor/policy_ns.c         |  8 +++--
+  security/apparmor/policy_unpack.c     | 23 +++++++++++--
+  security/apparmor/procattr.c          |  3 +-
+  16 files changed, 212 insertions(+), 94 deletions(-)
+
+
+thanks
+- john
+
+
 
