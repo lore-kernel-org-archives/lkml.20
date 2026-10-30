@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793371671;
-	b=fFTq8MqE458zwkxFIyvGtgrpIGy4Te8nXMEV4av8R8AD2SMfDFy1VnzY/f6wWTC9SAby
-	 9pA5D0dQGBvaPcYtJxwjKIIKRHnCijWFnyKHfGp+XCHMogNctYE8FjTRiIM95jFEAzdGl
-	 NPOyi6+elVzU8jSBu7uQktG2jpzb7YHOAMEiIZAtOaQG/Se9Wo53KI9oOMCX8sGljJ3wR
-	 Gouj34EmT6jsG8SyrPOHm64T5XVEVYMaWOvQR7dyz0kTN3uqxXaJ11ttOTyzIyjJWkPcg
-	 Pmm09uTNLp5EfI6YNfKQeamU5VklKdj7/pypD51ebkh1QKIC0vTGdQDbbeCpPrhFgyA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371671;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=x5OeOnwyNDwIcs2/N4QDgJU4LzBpbmYJ/Rxk67e34f8=;
-	b=uZB5ArmoYY8R94SJ3A+qmfoTnb5jhZ+vLfkzFiSL1Pf9LLCL27mrh5LyxMd8ax3TxwEG
-	 1QGK9lutxcfoPPrMmKgo9hDzTS2dWUkkKaG7gXKg0OtDFe1N//gi/pmS2gvOa3a02HwQf
-	 7Da2cxB9ZvnkmnN9HHZXT4SpLlL6Ewwf6eHdD5aafjEaO5ZjUCMuLi+EzoIC3c1+POWOL
-	 lO2NLXm8QxPXL8O+IGUOuVe3fs3sD6VuUlEcvLW2xP/dl/b5H5U/fIR27lhoG3M1TPsVT
-	 tlvnyT5PTDGvHizE13B3Q3mzbqin54/PEkEG7ChRvbeJH4/YxG6Bnk9yRiCO3AELINg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EnWRKfLV;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.0
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793371681;
+	b=eHk90DH4WXKR8jgtrBdjKSTGYq/bo/b9tTBzgkhbjqhGGDKOCBqvGvYkIRxM6cDo5RpR
+	 YDKx1JmwyStH7GzHldguq8up4FM6TqCaA/1faeVFrgHpxCLZYEyBqoDiEbkNVXy4X3pBx
+	 4hqXJ/i9YbenIyDW7E7nJiNzrvqdcN0BWziGDLQnxCHiWOptAYwmExYPMayl/BPN3zSAz
+	 /VOd2PqgPWEzTU+/UJHTxAdiR/pwS6UQAYUofmDf5PZ6ul8rr99tBPzFqqGOxx3FfUMEB
+	 NxS0KhLh4rm8aCMIU9pRLx6pbZsvGhxkuOmJEniHQvWoY+eOY64ANOFeoEdMl7vN4fQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793371681;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=wiBt2adyNssPDVuBgui78eZ+UT/JYY2EutDA38J/UWA=;
+	b=5BITqRRJc+Ti7oDQ9EVD01rGF8d/dqRYkUySZdDLEgIvgPskCbrKwttRIRyRM1OgFqRB
+	 ykHfItwikvykEaseUVKea08aZC8pERV6w02n2SplpFYFV+qCLpHjeo1xwVHiIvD+YVsVF
+	 MrlpB5FVP/dF+OA//BTaTudPcToDUXDxTiMZmsolobBLnkL0G99WjL3fPSte7hYt2CzyJ
+	 Pcr3WkS6i0OBc7DNhCBmKMC2VtbNjVq3ThRxC2btQr0vpSKU7ef/GUXpQPjwouu6w4nx9
+	 FlpK8gUINhU2YKV7+KRDKYHU5krq3kTmcEcBuRUAXb6m1MocT/Ryew8alRWprmYPxuQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=JsUSJJ13;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.0
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010000.outbound.protection.outlook.com [52.101.69.0])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2234606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:47:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2234606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D42F1606A31A;
+	Fri, 30 Oct 2026 14:48:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D42F1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EnWRKfLV
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a78ec32fadso1035565e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:47:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793371669; x=1793976469; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x5OeOnwyNDwIcs2/N4QDgJU4LzBpbmYJ/Rxk67e34f8=;
-        b=EnWRKfLVJBYZRvuY4GDy3zyitxPEriwY1Z4MzFETQe3OpeSWCqNvgg0d8w3CRTAs30
-         7VCEO8dg5/WzLrvcEg2FvCm6ZTNgUdrvKiVRpKYsnmJy0YSwwXkoUaJc4kOK/AX3xh2a
-         N/qHkzoyYpMjnU6RztPhUIDKa0GyeP6z35Rt1bni0s2bLMpOdvLl9QEDBZvp0qS0auzv
-         oqxakjI4MXnJ+gXGur2zmHIuujrYx58BA/CDjDM+XoQN8g7kLNgyMNhSmgj2aWNfyVz/
-         efka0yU16T79cUsFkxvtDuoBxUshPIO+VbCZdS6SNOXR+tCXV1VGv146mi8AZD2+JBxG
-         F1Aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793371669; x=1793976469;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=x5OeOnwyNDwIcs2/N4QDgJU4LzBpbmYJ/Rxk67e34f8=;
-        b=ehyIfh1n07VrVcrh327YKKAQlqFyd1FbsROFiND96bU6cMfBhmN5MhPqIrPC3Gi9ev
-         83YYj+tDOoFTBt4f5peF/8BKYSQ2mGEzLt+7T8SBUXqYE/g+fIwt8y6Hwsrgy8ZKQHbY
-         0/u3DMOHE0DA1D+LCefEuc+Zn9omP+1L/dnUOega3OKRvrS1Z2mbSqxoOtcOd5JDP8cY
-         zhgSi4/2u+4R5U7O0PYxhi+EKsJB1QdsztdTE1LopOX9qtBP4xBc40tOkbUXDxt6K7Ie
-         iI+QHUyd7UBi5JiDG3RqFUjH09SzAc50ThIr+aLkm2j5uITGLsoDCuvb/oAx1dDMweMM
-         3Y8g==
-X-Forwarded-Encrypted: i=1; AKwUvBzzoykGvwXUkPtqKfZqn1XNSvzDePwUunzOEqfcU4CZwFM/tXf5FrLu0yLSmhZo4xmiZKL46Iay9bEJCz8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/uyvReUm+XdzOXhsKy4wsbD/yqXdaSuAabp8RhFBp5mnlGJex
-	3aidtmnr3IGdi8Dq9MbscAD+NaGdvaIGuiSILUDtEGy48yLvNVvT5T7a
-X-Gm-Gg: AYBFou3iHpixh7dNmqELLEsTubsJluEyHzK5gIY1gBFVYjmgKsKkEF6dn7ABxqRj170
-	P5cYXN6IBcaoakiDdoRmCRPmdMWLvC5LeNRRiun1W6haD8xYz68/x5DG2DvZbt0NVCw4Z2yjERX
-	9hNgfnse/a1ghMn5bjPv6VhtjJV6DGveW2ZYWefUHj0GFkGOeZkXnBl5fEo4PHlIZQeRmZvQdk7
-	Guuv6n17Df4k33KCUDG07Qnsuh9YF1D1r++nC5mInjFrmXjyeYwiriQz/uWmB8QWYKGM4PbrskK
-	isF3A3vrnXhL8NH/e/GZg4fMTm0c3qvBIM7TEtzvb2wm5WWrCAEbPORck+d7cpG/fvotAwIhERn
-	hkXlpZr2Ga++O+tIBgGZ4G99Cw1HVhZT5l+I1q3TWi0wRK87PbN5Pn+8YWDdpcBsBNvtva0jOh3
-	ZNbw4mBDHyHK/FlHqacqg/L9z0NLBTKzEm2pIjNHiy76QmWkP6UeB+fUYVsRTkjop29fDMa8i0P
-	oZeyF8BxjsZirimdmufFZNvctbwNX2+X11ADmqB8VzB+EbEVxH3gNq5G3xAO37nfRurkmeXYAR2
-	xnsUs02VXsvopFxJwb0h32KG5htCkvSo9nL+PZDRBbuSnl4pH2gwfOCm
-X-Received: by 2002:a05:600c:6749:b0:4a2:6ef:d1dc with SMTP id 5b1f17b1804b1-4ac167e56b4mr56707195e9.1.1793371668903;
-        Fri, 30 Oct 2026 07:47:48 -0700 (PDT)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b289f7sm65169795e9.5.2026.10.30.07.47.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 07:47:48 -0700 (PDT)
-Date: Fri, 30 Oct 2026 17:47:45 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Qing Wang <wangqing7171@gmail.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Tim Chen <tim.c.chen@linux.intel.com>, Chen Yu <yu.c.chen@intel.com>, 
-	Davi Chaves Azevedo <davichazbh@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] sched/fair: Replace random newidle_balance with
- Bresenham accumulator
-Message-ID: <auSo1jhKzD5vDNys@scheduler.schedules>
-References: <20261030091946.2498870-1-wangqing7171@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=JsUSJJ13
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RI6NHEOUYEHrPe8739huOGjovJM10S1Z6YFpQcIWzHW6Cz+7U5+h1/5bZrRUnavdrwHExPhbApOpKDimEhzF5X4taeR9S2m0VboLzZIGd3ycZHkavEZF+zClb7maKNae4Gq/C2vyabvhl991AKww+CgsK6ZDo9K5XBvcuxedAKs1kPeEZDg9sgrRbuwre1yKpugmv5H4XNCGGUeJ1unlpuFtwC+GMbVMxqX+CpT7saxsphOP+P/eBhk0NBQu/bBIGwsP12rUdEExBckVRVVL9ODuK7P0r+W1m7eg7QD4YIqn0VQ2RepsLvFnrAYxfoeHgJJGM/MlQ3I3gTXVO0DUEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wiBt2adyNssPDVuBgui78eZ+UT/JYY2EutDA38J/UWA=;
+ b=pTwhlmuGSSwSjnOKt72QqcmWXW/hS/t11t0EpdrgeK+s3gHNvZv1yILxUFFWlbVG3vuCg+E//Lfm9ctxX9W9uurEMqHMuzj+bblHCuty+YT9UkABwIe2C6RQQ/B00jESi7YSF6jyqFj2qCW+MM1q1GVKy/rfrkI8WapLZJBbJux8tVeeqT9C8mi+KwU4YhQgZant4MxygxdBIJT7TfahmB6i23WDhfCTDDdwrPZUMMTbwOmm3Njm+wP2KBpDIPASMtovnb4L+umTJ7h4WTi9vRV82QGkE5gVKRUjUHHiEKsjZdbM7k4rg2hUqu6XVf1W1rRAI9mX7r1z+SMVzBETmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=163.com smtp.mailfrom=foss.st.com; dmarc=fail
+ (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wiBt2adyNssPDVuBgui78eZ+UT/JYY2EutDA38J/UWA=;
+ b=JsUSJJ130k7WuZs5OgvJ/wbACRHmzs6711As4PkPqyYKpJu8GC1aTQtZM07qIAaivyQbHGKwdp82SEzG0Q1Tl6XxZ5kOiY+6AeOYHoL5MXrsYCPKAR/nG79cQX5L7+JgeFlAnq2A6XqFbi7Up4JpWOtKVdpUuoA+aB3/lQruM+0VBfjtKD6fVCF2RxDztOdOKxBODOOBrar0B/1gNV0ZS3vNOXU3c2/n6Yam7l6cUTN2OHaVjaG1fMLoLB5EbyJZGwcQw2dwtRrirde8mVePwDDpMPxvprTwamFLwLnWpGCTS4pH4j+qnhwuHWr8jkXYbmoujO8F2yfBYNuEWpiQxw==
+Received: from DUZPR01CA0181.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b3::22) by PR3PR10MB3897.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:102:47::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.4; Fri, 30 Oct
+ 2026 14:47:56 +0000
+Received: from DU2PEPF00028D0D.eurprd03.prod.outlook.com
+ (2603:10a6:10:4b3:cafe::a9) by DUZPR01CA0181.outlook.office365.com
+ (2603:10a6:10:4b3::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Fri, 30
+ Oct 2026 14:47:56 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ DU2PEPF00028D0D.mail.protection.outlook.com (10.167.242.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Fri, 30 Oct 2026 14:47:56 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 30 Oct
+ 2026 15:48:38 +0100
+Received: from [10.252.9.90] (10.252.9.90) by STKDAG1NODE1.st.com
+ (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 30 Oct
+ 2026 15:47:48 +0100
+Message-ID: <aebeb751-59f7-4281-983b-a7580196556f@foss.st.com>
+Date: Fri, 30 Oct 2026 15:47:44 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,71 +104,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261030091946.2498870-1-wangqing7171@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] spi: stm32-ospi: handle runtime resume failure in
+ remove
+To: Jiale Yao <yaojiale02@163.com>, Mark Brown <broonie@kernel.org>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+	<alexandre.torgue@foss.st.com>, Felix Gu <ustc.gu@gmail.com>,
+	<linux-spi@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20261019084443.1824122-1-yaojiale02@163.com>
+ <20261019084443.1824122-2-yaojiale02@163.com>
+Content-Language: en-US
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <20261019084443.1824122-2-yaojiale02@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
+ (10.75.128.132)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D0D:EE_|PR3PR10MB3897:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa250b92-fa00-47f3-8b98-08df3694c904
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|23010399003|82310400026|1800799024|18002099003|22082099003|11063799006|4143699003|56012099006|261009223027099003|261009221227099003|261026140227099003|261026121527099003|261022105027099003|261028144727099003|261021121427099003|261021123027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	gmSuaV3k2gtzg5MQLbg1GvPKonLlpDqXBYQYL9Dns8nbzG8mVUl9LtjegOdEerdJJZfChE6ELtagI3cv94kecEP8Sne1teFMxerY0/Rz4wSzQNulXDgb6Xc3G24pKUIn+9dQvy1/VyZybwSESFeAhKQaML8mp5BlXqu+DNmlBX1pF6NxY2uIqNB1ttDgJ6lc9O7Tpv8eP0pcGjL30rtRi3YVV93U4JsHOYGJ0rlsfou6mHc4YDWiDgcjzT+V132WlIqYVh8pf7Fon1WRFfEfWn3OBvmpYOiYR9Kot7sbaCTWx6BwZjXpG5rEWEZC8gW7u/8/z/36HTZJ0gJ1+tjC+tQNYhNyvi+qUi+7neqEa1T6lNPNMU6NSahSf8ruL0d9GgE06u9/aKeR08A7q745oof3w/X3WBVucyfJgp3zDl58+2KLnISxRkjCKRfFaU5UGIq4EqvH3e1w32vsC4lCCPTOBQfiavNYtK2rOVwECAlM9tJKVBjLqooWlYVk8Zu5D70jIHuFFrSRXintHYNAKQVEc51HCX44KSs4d+SWqrJ0IsT1ZbpowyL7251bwgvDudTyefjAQFYIuMtdgFquNyUiYo+JkFJMQBdUhD5M6eFCHSXVY8/rn1UH2ZDPIYazfAyKieGVqc/RBbxWHUpiiG60j+9aDoVK5GiROv2bTpZbfIqPaZEeRkevceWvdWjs8aBguPRiuTrzUmQIwSMLnw==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(23010399003)(82310400026)(1800799024)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006)(261009223027099003)(261009221227099003)(261026140227099003)(261026121527099003)(261022105027099003)(261028144727099003)(261021121427099003)(261021123027099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	6X26TIGlbsl2gzic9AIiXaGji5z+vJMYCrXaeoUCymCzYj7Ny+UHxo+3H19zT8NuR4QYzZ89HduUO/UrGXUaKL3f6CDSJkef0UMTw38XNdfmV9An7P2211myhBPBApsP/IET0AuNG49jHrjGxT7U3DtcqJxt0qak54Z2gGFReORmp+zFlqjz1h1R1PLKKa3n2iMwMJqftraQXXsPZl+P2h/LUzNZnDSt+rj7+RDU2wAJjeloa8K7pDVsVJrBdyRF4z9ht7BcdRY+zq2p5jDDdHUilpBzKSmdrw69+9ufEWmMMWgu4WN4bISTT2FOjukvyDz3oW1CvN7CEg6XFOwZtvmeL+b65vaI5RH5zF/4brRAb6Puhds0ltTn2/M5bI+PNuUmQnV2fflGQkfPZG0gUSoGnKtzX9jzhgOZ6y1qxXZr6Xs3ZatQn4LDuHzZ3krq
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 14:47:56.4264
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa250b92-fa00-47f3-8b98-08df3694c904
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU2PEPF00028D0D.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR10MB3897
 
-On Fri, Oct 30, 2026 at 05:19:46PM +0800, Qing Wang wrote:
-> The current NI_RANDOM implementation uses a random dice roll to allow
-> newidle_balance attempts according to the success rate. This can be
-> replaced with a Bresenham accumulator.
+
+
+On 10/19/26 10:44, Jiale Yao wrote:
+> stm32_ospi_remove() continues with the controller teardown when runtime
+> resume fails. The register write can then access an unavailable device,
+> and the final runtime PM put does not match an acquired reference.
 > 
-> Replace the random dice with a Bresenham accumulator. Each step does
-> the following:
->   - Accumulate (1 + newidle_ratio) into newidle_window_pos(accumulator).
->   - If the accumulator reaches 1024, allow the balance attempt and
->     subtract 1024.
+> Keep the resource cleanup, but skip the register access and matching
+> runtime PM put when the resume operation fails.
 > 
-> Why Bresenham:
-> 1. It is deterministic and reproducible. For a given ratio, the
->    balance frequency is exact and not subject to random variance,
->    which makes the behavior predictable when debugging or tracing.
-> 2. Bresenham spaces the attempts evenly; the random dice can go for
->    a long stretch without balancing or fire several times in a row,
->    especially at low ratios.
+> Fixes: 73cd1f97946a ("spi: stm32-ospi: Fix resource leak in remove() callback")
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  drivers/spi/spi-stm32-ospi.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
 > 
-> A quick simulation where the ratio jumps to a random value in
-> [0, 1023] every 512 calls (20000 windows):
-> 
->                       Bresenham      random dice
-> max per-window error  0.5 attempts   41 attempts
-> 
-> The max per-window error is the max difference between the actual
-> and expected number of attempts within a window; Bresenham's error
-> is much smaller.
-> 
-> Signed-off-by: Qing Wang <wangqing7171@gmail.com>
-Hi Qing,
+> diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
+> index fa0e8e83cb1b..1340e62ebe1b 100644
+> --- a/drivers/spi/spi-stm32-ospi.c
+> +++ b/drivers/spi/spi-stm32-ospi.c
+> @@ -986,12 +986,15 @@ static int stm32_ospi_probe(struct platform_device *pdev)
+>  static void stm32_ospi_remove(struct platform_device *pdev)
+>  {
+>  	struct stm32_ospi *ospi = platform_get_drvdata(pdev);
+> +	int ret;
+>  
+> -	pm_runtime_resume_and_get(ospi->dev);
+> +	ret = pm_runtime_resume_and_get(ospi->dev);
+>  
+>  	spi_unregister_controller(ospi->ctrl);
+> -	/* Disable ospi */
+> -	writel_relaxed(0, ospi->regs_base + OSPI_CR);
+> +	if (ret >= 0) {
+> +		/* Disable ospi */
+> +		writel_relaxed(0, ospi->regs_base + OSPI_CR);
+> +	}
+>  	mutex_destroy(&ospi->lock);
+>  
+>  	if (ospi->dma_chtx)
+> @@ -1001,7 +1004,8 @@ static void stm32_ospi_remove(struct platform_device *pdev)
+>  
+>  	reset_control_release(ospi->rstc);
+>  
+> -	pm_runtime_put_sync_suspend(ospi->dev);
+> +	if (ret >= 0)
+> +		pm_runtime_put_sync_suspend(ospi->dev);
+>  	pm_runtime_force_suspend(ospi->dev);
+>  }
+>  
+Hi Jiale
 
+Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com>
 
-Tested on Zen 3 with tbench (8 cores, 16 threads) 5 runs:
+Thanks
+Patrice
 
-C = Client, Higher is better. MB/s.
-
-One boot per kernel.
-
-
--C--+--------(BASE)---------+-------(PATCH)---------
- 1  |     311.19 (0.00 pct) |    313.42 ( 0.72 pct)
- 8  |    2097.95 (0.00 pct) |   2113.36 ( 0.73 pct)
- 16 |    3271.83 (0.00 pct) |   3229.59 (-1.29 pct)
- 32 |    3341.13 (0.00 pct) |   3286.98 (-1.62 pct)
-
-
-stddev:
--C--+-----(BASE)--+----(PATCH)--
- 1  |      0.93   |      1.07
- 8  |      8.35   |     10.24
- 16 |     15.06   |      7.56
- 32 |      2.92   |      4.04
-
-
-There's a loss at 32 Clients. Some gain at 1 clients maybe.
-
-Still, these results don’t show a performance gain for Bresenham,
-no?
-
-Thanks,
-
-Kayra :-).
