@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793357109;
-	b=36iTqtaPuJ260Zt2L1mW5bigoHi/w8yY3LwOFUZ0gdoKPvXxZQSv04xUQm9/e/BWVnYi
-	 CP9ZXBlsTaB2D7VHQ8j6WQiRFRfOp44nzenubUlOLtTMFHgeWORkYxqaXqnoDiOlCdV2l
-	 5fez/B4D1/HBsa4oIuMOOKsgMjq0EdWr61ge2QEmmIHDXAch3K8tmEuBGpfkUiLK2Fj78
-	 TKhTGJGfJTeAMC92v5eGgzOLAR6UA60YaH1kvXzjfYU2C1cWiGR+VuudoVTzdX8CImXAC
-	 MqVkf+N95co6HkyolZmUrE0VDDihFIbUXBcsjbWygiySR7Bl+K94JucFnVnEHscupqg==
+	b=P5oErzRjbvpSOyX170xq++imJtMeIr22muLHlBinyF3mQkLjWx8Vdf2YIdXGljJ47bdE
+	 YtZPY/ljXlJuqkYWIENb+dg86jhGn9KF6SFavT7JJQChRbcUXwnxIHwFU1/JbGXqB1Ewv
+	 92TguVwGkcPpEjcoR0eE+E75JPNpClIno4ITt0t4df0jH5PbMeuxgrHMRKwQEZAcyOAMz
+	 NBT7JdFtKLLrDUbNgWVZn/r7NLmgKrSdngc7wvvICxYiRzIQCLUtrDO6jasUZeofQ/Uxc
+	 4eBj9zZ+d0tZiVB/PWtfb2s+tpdQ3TXhW6BAijhLgNh5WPKC9+a0Rsjcst9L7HcTywA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793357109;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zioIP25N+/NtKNlmuSpg6KuzX2sgXyXQVeM+7LFdp24=;
-	b=lRZBeAFekV09UYTOV94pQ9oHCbbuhRnuXCuKyS2AdRWgJPBlW3fs8hclZ8CUBmENXMxB
-	 i7iY7PqNj1owiTPJR1pPzzUZp4iqAaIj0JkWlTZ25kUT5reN8godymT1EtUpy8DgZnFUs
-	 ehnmhZ+AFndmIq2a4JIKKOmoj6n7ixVNIANpL8D+AHV2bFtMuBGP02OU+TnyMuj0TIY25
-	 NGm54niDy/lsE5IQLV+pJG047Zgd3hVb3gMVGlaizsywiGMnlwMFCxcJd1nyV3dzDZq6F
-	 F6ug2qO/6h7+s0HVTisqAOdWwE6mL/M0bbctGFfRRXoFsMbiL7+6l6hTlFT2PHDp7fQ==
+	bh=PeMcAUOgzVtxioPnFgylSSIopZwrQmC6hhu7bNACXk0=;
+	b=R2UUrwcuBoFCxf9hfOs7XHvEf4AtGU37n6SyTLkAhtsxG8CalNbpzZYiHsYwNyyBzlM7
+	 QBqoXadbh7ZsOtJy3mZmzS0asQBs62huOkrBz5tc9ONIglFg0CvPyMr3yyJqSifLeUGCq
+	 NvPK2Q6HYBM99MdpONsUNfHitlWjx5HIjf39PTzL0Up1BMHuYy2jER5Xh6j2FIPhjg+if
+	 Nr0AlYDghh+YLxSUBFxQVrGo9hL7pso5ol60di2Idx+/OVx/fg18BNfcNK/H5xT1nqy/H
+	 NKC1vDRrl98NtajcRE7y3yd+ztso2fMaeqOhao2uPCj9WEAC/FeG+fOAxpoMv4lO1Ig==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X/xxVosR";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkV22DRI;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E548960A2625;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C1160A2612;
 	Fri, 30 Oct 2026 10:45:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X/xxVosR
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkV22DRI
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793357108;
-	b=rRb4hB5XfbwwdWZyVC9+HNRalRYVzzE6nFi1wBk93aLcm7s0ULPaAx/BC42DBLhSjdda
-	 34KXifGiSyi+vL9E0ZQK5PPBN614+woJn32BAOznMl5K2FdrTNULNWWylqkXadMYOve98
-	 4Q6jlIdq7LI5a/JKjcAcKIqO0HwKBYFdf1BELuu0c7CjNwdWigzZ0lrEcgm7reGOwKk7e
-	 a/CZQOlPAgMTcjZv46utHCnSSebCDzx56sa3IUg/CVFA0n0LPXP+3qnAoP4jPBOkIl9HY
-	 cj2vzGud9EnvtnWMH9dZzxAAXTkXidDzFTilllNIHMR1hHA8CvclYb3226LibUMFddw==
+	b=1B83EIyH9Xq/OZq53kNGk1P6zl1WwPRkJiIxacUFBkVIfioa8VEVe6K/GCgNiTeTCk2a
+	 PrwGpL3JI/8XaC3558HrVSWxvgmtUuIlpbSietAOVvnEYC8zfmTV5ZN/fqvFANpudmKFT
+	 1hQ9O8uk/UX+dbtK/Z10wO+povtk9Zcu+2+bObgzH6tvKGLBHEYi7GcG6tvFBmugIq+4w
+	 YpA6uNG4bSbS9d7VHpD4PFXjD+pATVYHJy7+hWUc4Bo+QUESwzxjtQXzIqlLwET/HuJH/
+	 ZHEoAKlBN90NtcPxmsDmH3U7KA+vIBnm+GDqM4D0FnJXPHwBIguoTltBNHkG6KqyJ8Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793357108;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zioIP25N+/NtKNlmuSpg6KuzX2sgXyXQVeM+7LFdp24=;
-	b=UELaFawh2DN5x5vc2wfdVgVSdPJOXZLJ+yon3KkF/298PX/iyuEfKUKqJDXIsgit5XdW
-	 buT+ZslfN1ooLBDhWjIho4y9HCM+jxKH3b/LF+8oSYSrP/JtiIjKKM6gCoJfe7hV52ZJQ
-	 6Yxh/WseXaJbiiSu8xVnKulzHzpOLjegJSDYoqvoyobYwQ6AzGqAWAoEfO4zQWEFyWb6h
-	 G3IzYDxZqSC15OuQSUmnavztiic2M+Il2NgXqI0eax5W7QnPUNoEK5sW/zegFbNIJrb44
-	 I6UoQeeHswfCChEWyd00AAA5BnIyIA/gTqv+X4/d5Z1cPnkUXLDM9yBfmxyS7Luj+WA==
+	bh=PeMcAUOgzVtxioPnFgylSSIopZwrQmC6hhu7bNACXk0=;
+	b=AZX3RzuaAydNZ6msj2W95SNQ2AGnkziMHF0KINUkxTbCJT/GYmUQnnaUfZNSQ4a2f1z6
+	 0x0ypp7tKK6f1Z4LeHYIe+46RRGVKNnuBoPw7Y7KJMA4iZOdyYPCc8degLJI8zPaC4O+S
+	 LULrnARgx1efITVejT1XGMJpm7lEbDLcKr6s/M9ZTqsWPBtnfLZWauyYx1scjpqWERage
+	 joUyGLp1MObcZdrxN4GzcTkUpjlswRrAojC2fV7hZfm7KOVbJ/Tl2Gx2bzJC87VIcMe5N
+	 YPzZ1HOMO5Gd/VlaUJiYOL0radCeBmSGJsw5e4o72U6m5CTGvjeaPp2syI8nv7YmkXQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 108A61F00A1C;
-	Fri, 30 Oct 2026 10:45:06 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 5DA481F000C1;
+	Fri, 30 Oct 2026 10:45:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793357108;
-	bh=zioIP25N+/NtKNlmuSpg6KuzX2sgXyXQVeM+7LFdp24=;
+	bh=PeMcAUOgzVtxioPnFgylSSIopZwrQmC6hhu7bNACXk0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=X/xxVosRKoKZ6yxtaGmKfpe+tK3blq8mSb2/nGqGL/51D5DT6D/QaWV5pmJmsHwCi
-	 PJ/vbKezGbJNimvAUpR9qSUC/wV7so4zZt3T5/cMLnIrbFKDOXVK34+xfgrOkrDX4l
-	 OBjr93U4/xL4g5TpD9xsIf8lUMasUXODB2cyxcU7k0NCONpDRXwB7cR8UfN67YiugZ
-	 P4/aLDx9ZunfS6NyvqFxx3jA4QZvLCYFVVroayUe8K7WqaXmK/NJAMy4oXMoOdJG9g
-	 S3CC2QKdsU5gLwi8OR6dCyhqFTmO9d9rX3Evd/RUtNxSFlVJWio/9NN+d80YLKKl7D
-	 +LJyOS+iF/VkQ==
+	b=CkV22DRIna2zctketUvH3IgrAgyTr+eP748heHltr7jx1isbftnG1g3WoLASSmAaQ
+	 g5lmIpOBgKG3ryvcbWj8cbxrYeLEfN65rXI1xlN1vQxP7qPI4FqQG0+ji8KmV7BGUv
+	 XN1GOYb2DVjnFX/7h9aNe9tDO9rk6T3vrr3+3DkXniTVY30v02nmEsztKdYgx21n91
+	 eZgRpLm+jehCCtchGMS5Y+7s8WIZOmKO/vxozKIMRl+QyEWYIdE9lTBwKGRNCweg8k
+	 2wcOgDw6pop5YraSGk9H5f+Lr+WZ1Cuz4euWIAjRo5HsN7GyLa/B1BWKNHDF9MsDPd
+	 pvuCqK65nLDFg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8507043746;
+	by lkml.kernel.org (Postfix) with ESMTP id C5C514375E;
 	Fri, 30 Oct 2026 10:45:04 +0000 (UTC)
 From: =?utf-8?q?St=C3=A9phane_Grosjean_via_B4_Relay?= <devnull+s.grosjean.peak-system.fr@kernel.org>
-Date: Fri, 30 Oct 2026 11:44:54 +0100
-Subject: [PATCH v7 05/13] can: peak_usb: replace open-coded bitmask
- operations with bitops
+Date: Fri, 30 Oct 2026 11:45:00 +0100
+Subject: [PATCH v7 11/13] can: peak_usb: don't read past the message in
+ PCAN-USB Pro decoders
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-canfd_check_channel_idx-v7-5-fc4a3faf3acf@peak-system.fr>
+Message-Id: <20261030-canfd_check_channel_idx-v7-11-fc4a3faf3acf@peak-system.fr>
 References: <20261030-canfd_check_channel_idx-v7-0-fc4a3faf3acf@peak-system.fr>
 In-Reply-To: <20261030-canfd_check_channel_idx-v7-0-fc4a3faf3acf@peak-system.fr>
 To: Marc Kleine-Budde <mkl@pengutronix.de>, 
@@ -95,11 +95,11 @@ To: Marc Kleine-Budde <mkl@pengutronix.de>,
 Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Tristan Madani <tristmd@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793357103; l=6592;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793357103; l=3340;
  i=s.grosjean@peak-system.fr; s=20261020; h=from:subject:message-id;
- bh=p42mXjmiigrEaUiTmqRJFDMyO8gSZC8CLCf1FZzVJTo=;
- b=NcEJp3WNE714zN+eOpH3yq3+lJwvBo4iue6CxVdj95jxftgSC/JjT4Rr6bJ49savneNDdZU4W
- MQPQUfZG04gC61joPLMOd2D1yaQS2HDxbv4d0PV5rs0RKMDDySaeYd0
+ bh=hez4z54jzy+0+IuvzPEHtRrty5qZlgBrFzDpTVvDVR0=;
+ b=hrVtkQawd41S6xgMAVFR22zguJ87wDUyK3dAW91At9DSd/BqIjuYTlqGg5BHy9veOgnXX9UtQ
+ 7U8247VZVyeBkvHHyieAWKEgDtKcj6qt5lIPCFnA6Qfm6RmqCOkzNZO
 X-Developer-Key: i=s.grosjean@peak-system.fr; a=ed25519;
  pk=bP7QV2zvvAKAfConZlUOGKGEcXL64SNUpVUm++Ai+/c=
 X-Endpoint-Received: by B4 Relay for s.grosjean@peak-system.fr/20261020
@@ -110,169 +110,87 @@ Content-Transfer-Encoding: 8bit
 
 From: Stéphane Grosjean <s.grosjean@peak-system.fr>
 
-The PCAN_USB_STATE_* flags of struct peak_usb_device are set, cleared
-and tested from different contexts (ndo_open/ndo_stop, USB disconnect,
-URB completion) with non-atomic open-coded bitmask operations.
+The messages received from a PCAN-USB Pro device start with a record
+count, followed by records whose size depends on their type, given by
+their first byte. Both pcan_usb_pro_decode_buf() and
+pcan_usb_pro_wait_rsp() trust this count:
 
-Turn these flags into bit numbers, make the state field an unsigned
-long and use set_bit(), clear_bit() and test_bit() instead, so that
-updating one flag can no longer overwrite a concurrent update of
-another one. The next patch relies on this to clear CONNECTED while a
-channel may be opened.
+- pcan_usb_pro_decode_buf() reads the type of the next record before
+  checking that this record starts inside the URB. When the device
+  claims more records than the URB holds, it reads the byte following
+  the URB data, which is beyond the 1024-byte RX buffer when the URB
+  fills it;
+- pcan_usb_pro_wait_rsp() doesn't check the records against the
+  received length at all. A truncated response is then accepted, and
+  pcan_usb_pro_get_can_channel_id() returns stale bytes of its own
+  request as the channel id. With the current callers, the walk only
+  stays within the command buffer because its unused tail is zeroed.
 
-dev->state is zeroed by alloc_candev(), so setting CONNECTED with
-set_bit() at creation is equivalent to the former assignment.
+Stop decoding a message at its end in both functions, and in
+pcan_usb_pro_wait_rsp() also reject a record that doesn't fit in the
+message.
 
+Found by Sashiko AI review.
+
+Fixes: d8a199355f8f ("can: usb: PEAK-System Technik PCAN-USB Pro specific part")
+Assisted-by: LLM
 Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
 ---
- drivers/net/can/usb/peak_usb/pcan_usb.c      |  4 ++--
- drivers/net/can/usb/peak_usb/pcan_usb_core.c | 10 +++++-----
- drivers/net/can/usb/peak_usb/pcan_usb_core.h |  9 ++++++---
- drivers/net/can/usb/peak_usb/pcan_usb_fd.c   |  2 +-
- drivers/net/can/usb/peak_usb/pcan_usb_pro.c  |  6 +++---
- 5 files changed, 17 insertions(+), 14 deletions(-)
+ drivers/net/can/usb/peak_usb/pcan_usb_pro.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-index b515acd36466..b9cd6cbeb912 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-@@ -158,7 +158,7 @@ static int pcan_usb_send_cmd(struct peak_usb_device *dev, u8 f, u8 n, u8 *p)
- 	int actual_length;
- 
- 	/* usb device unregistered? */
--	if (!(dev->state & PCAN_USB_STATE_CONNECTED))
-+	if (!test_bit(PCAN_USB_STATE_CONNECTED, &dev->state))
- 		return 0;
- 
- 	dev->cmd_buf[PCAN_USB_CMD_FUNC] = f;
-@@ -188,7 +188,7 @@ static int pcan_usb_wait_rsp(struct peak_usb_device *dev, u8 f, u8 n, u8 *p)
- 	int actual_length;
- 
- 	/* usb device unregistered? */
--	if (!(dev->state & PCAN_USB_STATE_CONNECTED))
-+	if (!test_bit(PCAN_USB_STATE_CONNECTED, &dev->state))
- 		return 0;
- 
- 	/* first, send command */
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_core.c b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-index 55aad01cd8ca..a1b17e1e6fea 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-@@ -263,7 +263,7 @@ static void peak_usb_read_bulk_callback(struct urb *urb)
- 	/* protect from any incoming empty msgs */
- 	if ((urb->actual_length > 0) && (dev->adapter->dev_decode_buf)) {
- 		/* handle these kinds of msgs only if _start callback called */
--		if (dev->state & PCAN_USB_STATE_STARTED) {
-+		if (test_bit(PCAN_USB_STATE_STARTED, &dev->state)) {
- 			err = dev->adapter->dev_decode_buf(dev, urb);
- 			if (err)
- 				pcan_dump_mem("received usb message",
-@@ -537,7 +537,7 @@ static int peak_usb_start(struct peak_usb_device *dev)
- 			goto err_adapter;
- 	}
- 
--	dev->state |= PCAN_USB_STATE_STARTED;
-+	set_bit(PCAN_USB_STATE_STARTED, &dev->state);
- 
- 	/* can set bus on now */
- 	if (dev->adapter->dev_set_bus) {
-@@ -631,7 +631,7 @@ static int peak_usb_ndo_stop(struct net_device *netdev)
- {
- 	struct peak_usb_device *dev = netdev_priv(netdev);
- 
--	dev->state &= ~PCAN_USB_STATE_STARTED;
-+	clear_bit(PCAN_USB_STATE_STARTED, &dev->state);
- 	netif_stop_queue(netdev);
- 
- 	close_candev(netdev);
-@@ -941,7 +941,7 @@ static int peak_usb_create_dev(const struct peak_usb_adapter *peak_usb_adapter,
- 	dev->netdev = netdev;
- 	dev->adapter = peak_usb_adapter;
- 	dev->ctrl_idx = ctrl_idx;
--	dev->state = PCAN_USB_STATE_CONNECTED;
-+	set_bit(PCAN_USB_STATE_CONNECTED, &dev->state);
- 
- 	dev->ep_msg_in = peak_usb_adapter->ep_msg_in;
- 	dev->ep_msg_out = peak_usb_adapter->ep_msg_out[ctrl_idx];
-@@ -1044,7 +1044,7 @@ static void peak_usb_disconnect(struct usb_interface *intf)
- 		char name[IFNAMSIZ];
- 
- 		dev_prev_siblings = dev->prev_siblings;
--		dev->state &= ~PCAN_USB_STATE_CONNECTED;
-+		clear_bit(PCAN_USB_STATE_CONNECTED, &dev->state);
- 		strscpy(name, netdev->name, IFNAMSIZ);
- 
- 		unregister_candev(netdev);
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_core.h b/drivers/net/can/usb/peak_usb/pcan_usb_core.h
-index 9ad7d31d2720..cb8777c3e08e 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_core.h
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_core.h
-@@ -109,15 +109,18 @@ struct peak_tx_urb_context {
- 	struct urb *urb;
- };
- 
--#define PCAN_USB_STATE_CONNECTED	0x00000001
--#define PCAN_USB_STATE_STARTED		0x00000002
-+/* bit numbers for struct peak_usb_device::state (used with set_bit()/
-+ * clear_bit()/test_bit() for atomic read-modify-write across contexts)
-+ */
-+#define PCAN_USB_STATE_CONNECTED	0
-+#define PCAN_USB_STATE_STARTED		1
- 
- /* PEAK-System USB device */
- struct peak_usb_device {
- 	struct can_priv can;
- 	const struct peak_usb_adapter *adapter;
- 	unsigned int ctrl_idx;
--	u32 state;
-+	unsigned long state;
- 
- 	struct usb_device *udev;
- 	struct net_device *netdev;
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-index 82502594a409..15d275d6a127 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-@@ -202,7 +202,7 @@ static int pcan_usb_fd_send_cmd(struct peak_usb_device *dev, void *cmd_tail)
- 	ptrdiff_t cmd_len;
- 
- 	/* usb device unregistered? */
--	if (!(dev->state & PCAN_USB_STATE_CONNECTED))
-+	if (!test_bit(PCAN_USB_STATE_CONNECTED, &dev->state))
- 		return 0;
- 
- 	/* if a packet is not filled completely by commands, the command list
 diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-index 4c3d89a160af..cbc23953ce61 100644
+index f94494e01f4a..b869a20438cf 100644
 --- a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
 +++ b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-@@ -210,7 +210,7 @@ static int pcan_usb_pro_send_cmd(struct peak_usb_device *dev,
- 	int err;
+@@ -244,9 +244,9 @@ static int pcan_usb_pro_wait_rsp(struct peak_usb_device *dev,
+ 	for (i = 0; !err && i < PCAN_USBPRO_RSP_SUBMIT_MAX; i++) {
+ 		struct pcan_usb_pro_msg rsp;
+ 		union pcan_usb_pro_rec *pr;
++		u8 *pc, *rsp_end;
+ 		u32 r, rec_cnt;
+ 		u16 rec_len;
+-		u8 *pc;
  
- 	/* usb device unregistered? */
--	if (!(dev->state & PCAN_USB_STATE_CONNECTED))
-+	if (!test_bit(PCAN_USB_STATE_CONNECTED, &dev->state))
- 		return 0;
+ 		err = usb_bulk_msg(dev->udev,
+ 			usb_rcvbulkpipe(dev->udev, PCAN_USBPRO_EP_CMDIN),
+@@ -271,13 +271,18 @@ static int pcan_usb_pro_wait_rsp(struct peak_usb_device *dev,
+ 		pc = pcan_msg_init(&rsp, pum->u.rec_buffer,
+ 			actual_length);
  
- 	err = usb_bulk_msg(dev->udev,
-@@ -234,7 +234,7 @@ static int pcan_usb_pro_wait_rsp(struct peak_usb_device *dev,
- 	int i, err = 0;
++		rsp_end = pum->u.rec_buffer + actual_length;
+ 		rec_cnt = le32_to_cpu(*rsp.u.rec_cnt);
  
- 	/* usb device unregistered? */
--	if (!(dev->state & PCAN_USB_STATE_CONNECTED))
-+	if (!test_bit(PCAN_USB_STATE_CONNECTED, &dev->state))
- 		return 0;
+ 		/* loop on records stored into message */
+ 		for (r = 0; r < rec_cnt; r++) {
++			/* rec_cnt comes from the device: stay in the message */
++			if (pc >= rsp_end)
++				break;
++
+ 			pr = (union pcan_usb_pro_rec *)pc;
+ 			rec_len = pcan_usb_pro_sizeof_rec[pr->data_type];
+-			if (!rec_len) {
++			if (!rec_len || pc + rec_len > rsp_end) {
+ 				netdev_err(dev->netdev,
+ 					   "got unprocessed record in msg\n");
+ 				pcan_dump_mem("rcvd rsp msg", pum->u.rec_buffer,
+@@ -745,8 +750,15 @@ static int pcan_usb_pro_decode_buf(struct peak_usb_device *dev, struct urb *urb)
+ 	rec_cnt = le16_to_cpu(*usb_msg.u.rec_cnt_rd);
+ 	for (; rec_cnt > 0; rec_cnt--) {
+ 		union pcan_usb_pro_rec *pr = (union pcan_usb_pro_rec *)rec_ptr;
+-		u16 sizeof_rec = pcan_usb_pro_sizeof_rec[pr->data_type];
++		u16 sizeof_rec;
++
++		/* rec_cnt comes from the device: don't read past the message */
++		if (rec_ptr >= msg_end) {
++			err = -EBADMSG;
++			break;
++		}
  
- 	req_data_type = pum->u.rec_buffer[4];
-@@ -318,7 +318,7 @@ int pcan_usb_pro_send_req(struct peak_usb_device *dev, int req_id,
- 	unsigned int p;
- 
- 	/* usb device unregistered? */
--	if (!(dev->state & PCAN_USB_STATE_CONNECTED))
-+	if (!test_bit(PCAN_USB_STATE_CONNECTED, &dev->state))
- 		return 0;
- 
- 	req_type = USB_TYPE_VENDOR | USB_RECIP_OTHER;
++		sizeof_rec = pcan_usb_pro_sizeof_rec[pr->data_type];
+ 		if (!sizeof_rec) {
+ 			netdev_err(netdev,
+ 				   "got unsupported rec in usb msg:\n");
 
 -- 
 2.53.0
