@@ -1,131 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.138.35.140
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793387976;
-	b=x5zpWGu7zDLRwGssnTOJ+nu6nSDjvkOhHAM3Gym+o+0FNn/8aZ12UafUb//+p4Zhk+rd
-	 IHQPOy4R++ULlAtnUUDF19vrOqg2CYSSRlDUMIWggTopPGJeedzY3upFflYJ0skA4JHp/
-	 7CZZH6eCxe2jC4tDCFCS5LBu3fJyJ77xe5hX7QaUvWmd2A8Crz5v4x6qvYwjbAPCgMnBK
-	 y2xBUGvE0L7FgMvjHG2TQfA1KOjoC+ZhCtJlyAb4t6dQzecy9zofzBqNcT6iPFi/OrrS0
-	 zme9vwfdfCCUst5oR8t0uDPK/wuRK+mrkpoaJEuiw4Tm69upIDsORTO69bGIvgiT+yA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793387976;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 Received:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:Received:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:STX-Internal-Secure-Mailhost:Received:From:To:Cc:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793388025;
+	b=ESwN4YW1BciCLpZ1+PsBKYfJJ6QzjBFFFJDBqgRUqJ/7m7h6fGOXuuK45CkvXCQ5av0a
+	 gJY0qEBT6sB3EEYhtSD82vUWoGVTvFYIn1kvItczXbDQoSHkjUwZXiOyMkL5TNtEuUEg+
+	 jANXhds8K7g905X7rA7o45GWznKmZCzWE9OjZ+HIG3+JeKVFekX+O1oqoWX+CSv02LT9E
+	 ws1jw5T9wfudMz8Mg30sEYK4js37iaHOZNKIJGfAnI4DrEKawI0/gM+dxQB2IjpYSTefl
+	 i57u4KMJ9psN0jlATi+XBoGKPgsRXXcfl+nDZV0T6csL/kPn8GE9farAq7l5ZCQU7CQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793388025;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:STX-Hosted-IronPort-Oubound:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=HehpalulkoLTK0sY1HL/24WpXJbf1QKekOImofgn6DU=;
-	b=W9mu4f1bDU/O6cXaPPD/l5eEZ455epynGFog5gJYUAD/8I5cHuKHINagsmAUn5C0mrfq
-	 OGpKUb7H3PzoaLZIqg9cf4Lj5fcuQYOsI2YanElRmt8haT5Xy89xtK5oPPbUjBZ4qo8rR
-	 mve6VX5I0eSJ7Cr2MDbbWDhYTT98upF5Rn47bm9zfXoRtkStntvcuPSYEczDZ/PSzdLrm
-	 XQqFolC4KclFT0wayAAAFe+/ruFCKBM7mxyJfcNsy4B2sO9jT4Ck7t7iS+9KX6gOq6Tj5
-	 xvIFa5MsiH0NmMi0KSkJGlAXeY7zV6JjpJP//Dkuou54XMGJ5vBMyPDk8RspL/O+w7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=seagate.com;
-	spf=pass smtp.mailfrom=seagate.com;
-	dkim=pass header.d=seagate.com header.i=@seagate.com header.a=rsa-sha256 header.s=stxiport header.b="pZUi/Rfi";
-	dkim=pass header.d=seagate.com header.i=@seagate.com header.a=rsa-sha256 header.s=selector1 header.b=LDBGJNqS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=139.138.35.140
-Received: from esa.hc4959-67.iphmx.com (esa.hc4959-67.iphmx.com [139.138.35.140])
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=/ShQl6WYAmClLLFczEcBV6XknRwLtOiivHGhNRMzRi8=;
+	b=EeeNJfS7rrmmLNKtd/L+RZDxbkk+24SB/Huau6JqV1Ygc2c1s7KqHYOyEAhF2G51btT8
+	 ENGP4aocsp71rDc/bvIJR/PjHaXpyVyAN/QqnaiPMSmqSYp0oJiPMKXT6rh3w1t0zTPaM
+	 5VcZD3hTlyoRe4vFgdUnYoFKXhD7g8EWkL8W1bDVprblajomiM3cyUkd98e5SvaY8CwY1
+	 KP+VbJHBXv829avx/EHKzjO0zxnG7+CEfJH3s+TjBluA11rwRkgarRgMtwFZOOmXj/7qy
+	 0xuaIatQatL2GD4cYdeC0SWyMJhLNX4UtweONLvorY7/71W6gByM9mWvgBe7TuRCuhA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RlvhKzhb;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="RcJI/Yjf";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E018F606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:19:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E018F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=seagate.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seagate.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F7D606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:20:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69F7D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=seagate.com header.i=@seagate.com header.a=rsa-sha256 header.s=stxiport header.b=pZUi/Rfi;
-	dkim=pass (1024-bit key, unprotected) header.d=seagate.com header.i=@seagate.com header.a=rsa-sha256 header.s=selector1 header.b=LDBGJNqS
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RlvhKzhb;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RcJI/Yjf
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UIhUfw941908
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:20:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=/ShQl6WYAmClLLFczEcBV6XknRwLtOiivHG
+	hNRMzRi8=; b=RlvhKzhbEf56zUtPosl2dI9UbSsdN7a8c4KbdUEHwlVuOGnDpuj
+	Rpr4UoXTo2YZNUQUEQZDBpN1IphR6XgCfxie45mT7eb4iVsU5jKlkEx/4UGkJ3kz
+	+CZvIAgFGfUfZT5D/WMby9HVqnlLapKvITGCm3iGgyM5nAO5cycQKDDpvnyM/9u5
+	88bdXuDzfpNPNLx0meOgusEVC3WAA9b2GTamzoiVRex4eJwg09gccg9+dNRDewq/
+	OO7cs6b8LeT/mXTdSEc9I/+K8C8SxnLUcZqGpHRPq5op2o1ZK44XWGji6L4xzh+8
+	pvTEJsJI2SatK3iB8CETxLU8NturAJuYb5g==
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn0s383ra-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:20:17 +0000 (GMT)
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8b0bf2140b7so19384607b3.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:20:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=seagate.com; i=@seagate.com; q=dns/txt; s=stxiport;
-  t=1793387975; x=1824923975;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=HehpalulkoLTK0sY1HL/24WpXJbf1QKekOImofgn6DU=;
-  b=pZUi/Rfi8cz3yR/71VuRMru/N7g0zAI44a1sAZvu1sjV0Dk5AG3ixmDq
-   9Ce+QLs6IKlOWgr0E7aZqr8V7YphnSbZnABumu8pjIScJ2RoOjvHSOX5m
-   HZAkXuzHQqkro0bWaM4NeNU8bHLVaUKe0mg4Wzjekb4c+KDaetjuvH2Y5
-   0=;
-X-CSE-ConnectionGUID: k3dQde0QS5iEs+AtCWSdGw==
-X-CSE-MsgGUID: sF/aoIX5SQqsD2Qvyi1JNA==
-Received: from mail-co1pr07cu00105.outbound.protection.outlook.com (HELO CO1PR07CU001.outbound.protection.outlook.com) ([40.93.10.93])
-  by ob1.hc4959-67.iphmx.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 30 Oct 2026 12:19:28 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IEJulZb+Piu9o5ii3KjuHPO65h6EYSNfuTYrTQPennA7jmEIEry0Gm+09dLrC3xFxKFWU0yJpeotrJdPm6Xw/Q7j4k6wS43BQsFawmPySqTAguN+JoS3L6VLoUaOYRXlC6DHF+T1zH3oNWXe993oHD+Rea81H1kcm0fI6+1//15nGaI8S6AA5P8aV822PlsOFrKlqpAxTQvmhz4UYGP9o5u+3zdR09GDzkO3gebcRplA/jBkoirH1Tw1BeEF8weSXgAxPxKVJWveF9MzYbseg8pjGcuSDZpEIY8NM67hbDP7iB6D6vokQPH9J9Rx9TzAPLCAMWI7rpGMRshbpJEIXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HehpalulkoLTK0sY1HL/24WpXJbf1QKekOImofgn6DU=;
- b=AazuwAS2l7xG/iZJiL86ay/tN86UbuoQilrW5hWpZl70GOHU9dZGLB1Irsp8ieN+C423d31nKCZRYSUqtnysCN9SrjR5p9vmBSEkcwAUFtTgn/kzsAnK/XlqgFKLh4zHWxeylRs2GjC8wOQyceuZNe8jMspFSNVBB8WBxTkavxsL8BKDsb5KDDn1ufiiPN7/E1d2sSosHjIinZxe9hrAUj9MuTxIAyUB6r+Q98l/ggcAeIldlVoQp1cIQRrYG3NPc6utGY/rxtfrUrxU6YCaMvD8EwtdxxhhOwKWCGk80tmqFIkAK8tCoCBd329OBVDHJnsfWbpVCsIvLjFOZyqEbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 134.204.222.52) smtp.rcpttodomain=vger.kernel.org
- smtp.mailfrom=seagate.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=seagate.com; dkim=none (message not signed);
- arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seagate.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HehpalulkoLTK0sY1HL/24WpXJbf1QKekOImofgn6DU=;
- b=LDBGJNqStftMCPj/sKXHnS5+QzMFGcpKGGQBkJ1xBc3wgJcO44qHrjsYF0uVKX+a7nHu3rvVM9iLN0sczdtNlL9nA+z2VE55jOaOja2OhDugzdKXVNMwkWMhHU1CVV1FJrd060nTqokOacafWJ7VyH/LuJdvmhJiBNeW4YOSZ2U=
-Received: from RIUP284CA0011.BRAP284.PROD.OUTLOOK.COM (2603:10d6:10:17b::17)
- by SN7PR20MB5507.namprd20.prod.outlook.com (2603:10b6:806:2ae::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 19:19:21 +0000
-Received: from BN6PEPF00000076.namprd03.prod.outlook.com
- (2603:10d6:10:17b:cafe::9b) by RIUP284CA0011.outlook.office365.com
- (2603:10d6:10:17b::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.10 via Frontend Transport; Fri,
- 30 Oct 2026 19:19:20 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 134.204.222.52) smtp.mailfrom=seagate.com; dkim=none (message not
- signed) header.d=none;dmarc=fail action=oreject header.from=seagate.com;
-Received: from lcopzesaa001.seagate.com (134.204.222.52) by
- BN6PEPF00000076.mail.protection.outlook.com (10.167.248.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Fri, 30 Oct 2026 19:19:20 +0000
-X-CSE-ConnectionGUID: 7BYP+D2jSLqA5+FeqrqOQQ==
-X-CSE-MsgGUID: vKBhWmmrQ92P952w6Tnwvg==
-Received: from lcopiesaa01a.seagate.com ([10.230.120.56])
-  by lcopzesaa001.seagate.com with ESMTP; 30 Oct 2026 12:22:01 -0700
-X-CSE-ConnectionGUID: E7pRxbH4RS2WFQkpuKIr0g==
-X-CSE-MsgGUID: WtBeoHltTEOgtW7m8lh5rA==
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2047095"
-STX-Internal-Secure-Mailhost: TRUE
-Received: from col-l721190pt001.colo.seagate.com ([10.230.88.101])
-  by lcopiesaa01a.seagate.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 12:19:20 -0700
-From: James Fantin-Hardesty <james.fantin-hardesty@seagate.com>
-To: linux-nvme@lists.infradead.org
-Cc: Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	James Fantin-Hardesty <james.fantin-hardesty@seagate.com>
-Subject: [PATCH] nvmet: fix arbitration burst field mask
-Date: Fri, 30 Oct 2026 13:18:53 -0600
-Message-ID: <20261030191853.1777683-1-james.fantin-hardesty@seagate.com>
-X-Mailer: git-send-email 2.56.0
+        d=oss.qualcomm.com; s=google; t=1793388017; x=1793992817; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/ShQl6WYAmClLLFczEcBV6XknRwLtOiivHGhNRMzRi8=;
+        b=RcJI/YjfE/1MQ8wSzQAa34lfLMILSAKsWYkQNBcIHnfXvOZKw2ubUCQVKOAUzcZg/e
+         OZi+ZFfWJPswST2aX/ojJtryAz7qmuFtuJUHfPtlbo2ISOYV/dqARPJbFzqv4NtQukmY
+         4g5DtJxoqdxMLLID9J9FOhi0oFD/N+7TwyP6JaB6P4ycQFcdvu3cAitJlVy4rvPzqLfa
+         Vdhv2gzDnLF7wByHzlWkp3Ob/lbg309z6DbGWnkB5g5vMuofQ1WQUPE4zipFDJS6kQ4w
+         2+waHe2HZnQsGzAQTYeNoygbmeeP5o8/i1Ccc5hI5cbn4zvymXiLKcl9b5QR5Z2E9vKI
+         EmrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793388017; x=1793992817;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/ShQl6WYAmClLLFczEcBV6XknRwLtOiivHGhNRMzRi8=;
+        b=mMvrUBdG5xAq6TCb2QoCyp0IdcH6us38Hy7wOZbTbSSqa47QOTdrufSIwQsWhDlfED
+         XeX79Q8L947Kv4lIWQfFlryWgBQkwH84exTCjETq/zHqOVDvWvUM4mnx4lusxUWlp3Ou
+         cRhYgEsTsMwGqPbjDkowKUeus95UasY/z8lzMSkvLESe4+UtaaQ/6G4YkkDpipP+6Bhq
+         kIZ3cORgCAWDjwavl4kg8w7ocV1RzrRcQEkbxg/430p1kz0cd8HbdfgBJ2Pupc530ZP+
+         BlvmK9TmyPXO1O1M8ahXk/j7ADqbx6L4ur/yTKOt5oTnZy1Ed1eeWdWyElHRUeX1yTRr
+         cCSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxx/qt2SQ0J/+Xn5vodRuH10UcpCrfTaqCUz35DlVno4I+lq+BbSSjlYFJYWIghEvGhmrKROfffhrZ3g+E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKUicsk1NGFifdK441JI4AH/HgmZgrurnhGJgbaah8LtIHYVIb
+	J7jGwZ3YSif5ZZbAzsvqSsxdQL0PSnGz4OOtB1gsn89YmnixBNfK3cMuZ6mhtM+NZh/DbzU8HSK
+	1LK/Vx9T7I5xkRzcCcQgyYCMgt1DxKKNHFyLB3IpezSlJjxT6S1SAZHs13Ab/C4QU2ms=
+X-Gm-Gg: AYBFou34BX2kLxsvWzIL9LkD3jHU2Z0dVeVlro+6lH8q3XBeCGP8ZbfS+3r000gbS+j
+	01C9boAw3vDgWmLcg/gE68MRiIRQBLb/2Re/vItZA9hKVdo7iTzSTEWEw+bLvOuS07Lzs92mNAK
+	vvuEKd3GbvZlXf8GvkhZcPmvmgOjX2Ey1towj/aB/uI68omCiD4EeIHCWQ2+rkj7a23DR47lA97
+	zNmLH1y1BiN0+K08VxcEvDneMbGm14L/zgJhsODtrTY4EV2Lwx8UcWof4Rf8m38UXBNSBbBczCa
+	pJetNGvDjbPdKjLnlyP6z8x7oSJK/jPca1mgkqihLksmK+0gIIg2DunCQz98QX2Kx5i2ddbn7kl
+	ITwSVkv/KJtsMXK/CHp1tKgTRklYlzjzBAEqxlSpXgh8/gkZy8QpFCJWDvsYNfuS5R906Ipju6J
+	GrsIj9TgFT5lvRB2X2CenJTKsGRTGC8Q1+RA==
+X-Received: by 2002:a05:690e:4141:b0:674:e0d2:7e12 with SMTP id 956f58d0204a3-67ba508d010mr2233311d50.109.1793388016777;
+        Fri, 30 Oct 2026 12:20:16 -0700 (PDT)
+X-Received: by 2002:a05:690e:4141:b0:674:e0d2:7e12 with SMTP id 956f58d0204a3-67ba508d010mr2233286d50.109.1793388016327;
+        Fri, 30 Oct 2026 12:20:16 -0700 (PDT)
+Received: from x2e.lan (108-208-224-205.lightspeed.gnbonc.sbcglobal.net. [108.208.224.205])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b719d2d5sm13185767b3.40.2026.10.30.12.20.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 12:20:15 -0700 (PDT)
+From: Tyler Baker <tyler.baker@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/msm/a6xx: fall back to MX when gmxc.lvl has no levels
+Date: Fri, 30 Oct 2026 15:20:14 -0400
+Message-ID: <20261030192014.694393-1-tyler.baker@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -136,72 +125,73 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN6PEPF00000076:EE_|SN7PR20MB5507:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: a60ac881-2786-4487-f6bd-08df36bab317
-STX-Hosted-IronPort-Oubound: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|376014|1800799024|10067099003|18002099003|56012099006|11063799006|261021121427099003|261021123027099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	3Ni5w4gt0xZx60xQELCHwG9tdYmPlGUXgiyUg6HX7M2P2kgp43WtPDCVmRgEsn5oTfrwB37KEqjzc56p7sNHR0ZjDxJCuuQ2MTWA5P9TZhLiOE2omaC6FZPLsYaDNttiCc57NCrhhhL2io7QvUz720p68r6vVRaS9eEZsZsqmuK71jzvB5YFhcgAatgx/RgOThBwS7LYkg3+FJRR0QIvUkjRYS6c4L7kku6fz0xjnJkz8gglZEs0WzQ/9p3g/zb+gmosxytRViFdZoOJ9jKKABvghsoX+GL8xjhILYnDGrC7IqTc+8A5oGHVw2Azw0Ov+3OGyvfqlnVHNFZ+KXzt7fQg2Bi13qia8TWdEQSEWTfBJG0ecTQF/K2BFNaydh2AdeiwhWLvo4dL/ELAYYxEpOt29d2Fbkp3++udGnaoSJ9/wPjkar1EGAlGlftgG433qNzcIyAEb6GKvWrLO2Qbz2cPUpAIFt+XcQY3zYGQ6BFf+y+oBfQzR1lOwWaTsGC509pq2Bds6EhH8Ze+fPFyS8JUreG7SyfIN5S4Ea7IDHEWhed6M7xB4mU1n6tBj5k+8XbEeFktAd0nSmEvkN5ds1xVN0ZzH8QkZcHmJg+w0ojb21cr+9nG25tOHWpSx/gD40Cwnptc2yFaKl8Xjbo2s4hQEpkuCHvcLYnDeWsRsm0tCrbcvjJtstQ4DqsBCUifF8LKMTc9Qoa4RHk5VpW0BA==
-X-Forefront-Antispam-Report:
-	CIP:134.204.222.52;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:lcopzesaa001.seagate.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(1800799024)(10067099003)(18002099003)(56012099006)(11063799006)(261021121427099003)(261021123027099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	29Hqo2psFPtzG5J/OaJCt6q4VdBqCa/ni2itnDV5778CK3631NiubxPKXJRBCDIUQgzwHiD1w2Y8kalIDGzR11iS/JBfrFd+VQWdEFPo+mWLyas3pZ3qdwUb0npLeOMyJi2l9Z8Uu+7GZZLH7bHoJPWNnffGFS78Uybjp6FM/A2NbdCFAmBFJOhWuOglTe36xoHVbGGU8YwQtjG7mOxutuPWabIwMbHaA6jqY7W6OGf+GzcrpkrQ26EYYkbsQybr25Xx9rxDMpk/6eFK2YC+QZlO9BbajCcL4oczqlc4cB1bzi6C1+7hs/R0lvajWJ8+S/Fo10wp7De3qTJP8lS8SLzJ+7cE/Wt145wugufmWwbKDuVmwvaQBKQzuAlmMlTBY4gHk54dFliglKlgieJ5W/u09wrzNjo7MCD7/0j1X4CXri4O0aucicUPcrQjR3V6
-X-Exchange-RoutingPolicyChecked:
-	ZIqRCzNw/jLcO/Swbv5AxlCLwBMznsHiZ9Y67ERAz9dOCOpVbgIVnNHDIYFQL73+mcta9GKT3+SRBVQs5KnPMBXrQzFWB63TAOScqQ+We5b9QaNuKifqaYXdCmfb0cCbu89VOH0KkS9CKFHsa/tgEhn17yTcI0qRgdtBcfPgBWtLwMLEm2RH9uIznKA28TW3JVIPgtjwiGfT4Ec+RK1rTf3PzrLU1Zkkuf8SCUwW34qJ98IaPwXpPgNyb8vYtJ9EeX8FWtlTj3KUsb5o3cZJHcM/htUn6GFz6mIAkacT6U/qwJkJqhoQ/l07cHpJA6xQYEaN8i/9W34wgQUBsJynNQ==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	QYvSVeldyYVNKnbgOFyXUju3zgMZpZaPDVTB1z4FNbZUhLCPJo5XDBorFF6ZsJ9ubt4Rd0EJQeNxAfvdPmlC2brEVhDayJLcrkkHXhaS6ty1YTPKBQpXFAxARBhAsvDybtsKAn2kAhRf0ORQ3jWAJXaTNLetk/Pqau37o9vbwgAEKoZ2kRuIfJpSzphtGjlItM8YWVNM+iSVg0SFkf2UFupx975lIWEmOjfGgobJpH8nQMJv1oNNzX32G3lB02vUkcEyrpidE+mPU349XuGmlMQNtDyrc452YjploN89lbf/yNmk7wHjQilwF4gjsw8YSm/gutJUh1KcezCZEXOAeaUiOXK37COQTpSvAy8F99ykAFQVID1DjSOU0b5B1xbXlUjMRldMBhsAoIKbpjhGYSmG+0mp++/dCP96h/BDcBPQsJi7x07g8jFcpAIH2cJXtf1pKgYuqL2bpl/qA7sHlLGKGwwrtFSsOiZ3THuAHn9w1wgacPFviVL7m2GMSHPfsMXRBE3LmHbBnNgtu/QLK8ufCpTwv4/q8X3o/ysNp9KwQFOMKLyy5vmpuqSalKJhH6GsusEZ1GnElYtcsS/91UvyHcVQJfCAum3i/YDwTsjXI+9vUr34sKx/+0Ig0fEs
-X-OriginatorOrg: seagate.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 19:19:20.4542
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a60ac881-2786-4487-f6bd-08df36bab317
-X-MS-Exchange-CrossTenant-Id: d466216a-c643-434a-9c2e-057448c17cbe
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=d466216a-c643-434a-9c2e-057448c17cbe;Ip=[134.204.222.52];Helo=[lcopzesaa001.seagate.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN6PEPF00000076.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR20MB5507
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA3NyBTYWx0ZWRfXxbBmrpA7hos5
+ oO7cfYsUDQCsrsjRooqblRJ89PFc2+euu+rsXZrkQUhRUr+VnQvilXbgZO+IvRGZHQ+zDo82SHt
+ Exi0FGH8MHuWuHim50l4BRP5KA4Vif4ncE7pcYRB6wC8cJG3a+ewE9SULrQLZKdD1u6K0LrnUFg
+ INB9CguGYLTXL0jMo2xSb1CSQ8iciDTIh10O4LBaKEX6/BZswMZwC+E2+JQonB4G2olnPQrN/SA
+ YRsghSN4BW22hPEDL+7D3LXDMedrCXSfCAX1werQ/FtIbD5JhNAkNBlEUkN2hmcyEto81qAAWt/
+ tPndUKBhNQOzSYl/UBMsxMbFhxbx06Qw3O4NkPeaumPG5o+bTnDo94ifQervY5cSttPFsd9QSd9
+ 880PplXBHzCKZ4rMy/J0qqbmhObseVElBBe6nV6cS6wlFadLHyhqWI88B49vwDtloClUGCJdNuM
+ nzNTaQUae07DJ0ML3Wg==
+X-Proofpoint-GUID: RFp1ari6YDSK1YDtBk0Dtc5WQJ9at22m
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA3NyBTYWx0ZWRfX98+5x+EDMeKl
+ SONu90p8h8IoJ3mAfT/JyUjAsQbSXE87UdOWV9eaeyc5TbcJWmSyxcSyLwNzi0Eu84skG5DAPBn
+ Zzl13tfqebLE0Cj35x9xYSmtOJtTO+E=
+X-Proofpoint-ORIG-GUID: RFp1ari6YDSK1YDtBk0Dtc5WQJ9at22m
+X-Authority-Analysis: v=2.4 cv=XMul2ghE c=1 sm=1 tr=0 ts=6ae4edf1 cx=c_pps
+ a=72HoHk1woDtn7btP4rdmlg==:117 a=PFxtTy0squD/fJwW5Be2sw==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=0bFHTkV68l4dVm3UfdEA:9 a=kA6IBgd4cpdPkAWqgNAz:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_06,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300077
 
-The Arbitration Burst (AB) field of the Arbitration feature is
-CDW11 bits 2:0 (NVMe Base Specification 2.1, Feature 01h), but
-nvmet incorrectly masks it with 0x3. Use 0x7 for both set and get.
+Eliza's command DB has a gmxc.lvl entry with an all-zero level table,
+though Eliza does not use a GMxC rail. a6xx_gmu_rpmh_votes_init() picks
+any gmxc.lvl entry as the GX secondary rail, so building the GX votes
+fails, a6xx_gmu_init() ignores the error and the GMU gets a zeroed GX
+vote table. On the A722 the first GX_BW_PERF_VOTE HFI then times out
+and the GPU stops responding. Before a6xx_gmu_rpmh_read_arc() began
+trimming trailing zero levels, every GX vote silently used level 0.
 
-Fixes: a0ed77d4c9a7 ("nvmet: Implement arbitration feature support")
-Signed-off-by: James Fantin-Hardesty <james.fantin-hardesty@seagate.com>
+Read gmxc.lvl with a6xx_gmu_rpmh_read_arc(), which rejects an entry
+without levels, so the GX votes fall back to mx.lvl.
+
+Fixes: b5269bf0e1ad ("drm/msm/a6xx: Factor out RPMh arc-vote helpers")
+Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
 ---
- drivers/nvme/target/admin-cmd.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
-index 26028be8fe4d..6cb59a4f233c 100644
---- a/drivers/nvme/target/admin-cmd.c
-+++ b/drivers/nvme/target/admin-cmd.c
-@@ -1326,7 +1326,7 @@ static u16 nvmet_set_feat_arbitration(struct nvmet_req *req)
- 		.hpw = (cdw11 >> 24) & 0xff,
- 		.mpw = (cdw11 >> 16) & 0xff,
- 		.lpw = (cdw11 >> 8) & 0xff,
--		.ab = cdw11 & 0x3,
-+		.ab = cdw11 & 0x7,
- 	};
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 662f09bec9d52..c42e0d4fb946d 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -1887,15 +1887,16 @@ static int a6xx_gmu_rpmh_votes_init(struct a6xx_gmu *gmu)
+ 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+ 	const struct a6xx_info *info = adreno_gpu->info->a6xx;
+ 	struct msm_gpu *gpu = &adreno_gpu->base;
++	size_t gmxc_lvl_count;
+ 	const char *sec_id;
+ 	const u16 *gmxc;
+ 	int ret;
  
- 	if (!ctrl->ops->set_feature) {
-@@ -1481,7 +1481,7 @@ static u16 nvmet_get_feat_arbitration(struct nvmet_req *req)
- 			 ((u32)arb.hpw << 24) |
- 			 ((u32)arb.mpw << 16) |
- 			 ((u32)arb.lpw << 8) |
--			 (arb.ab & 0x3));
-+			 (arb.ab & 0x7));
+-	gmxc = cmd_db_read_aux_data("gmxc.lvl", NULL);
++	gmxc = a6xx_gmu_rpmh_read_arc("gmxc.lvl", &gmxc_lvl_count);
+ 	if (gmxc == ERR_PTR(-EPROBE_DEFER))
+ 		return -EPROBE_DEFER;
  
- 	return NVME_SC_SUCCESS;
- }
+-	/* If GMxC is present, prefer that as secondary rail for GX votes */
++	/* If GMxC has levels, prefer it as the secondary rail for GX votes */
+ 	sec_id = IS_ERR_OR_NULL(gmxc) ? "mx.lvl" : "gmxc.lvl";
+ 
+ 	/* Build the GX votes */
 -- 
-2.56.0
+2.47.3
 
