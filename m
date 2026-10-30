@@ -1,99 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793373820;
-	b=eUzgyzjJH1MPXxZbHBr2A0hVggbZ7ocb4rHq/BNw+9yNAQgzZgHq3+SpAFzy7ixxat9V
-	 SN5UV503qY+MkjFVBPWTjEQK6U0Pi0GiD4mVjhGe0sstXK9jIa3toQdsxI2uqzUg28cKA
-	 fcKbigNUMtXlGUE9f1930Ei2jVW/0gPItWZ2Wa0+PP8plj82ldyFHwmDReYr/2yXt9SQV
-	 jzT1DYhVAX5GUdR63l/CcW7+PPK2lA5oa3S7MRnR+8F6Ho33B5BnNY8fJqRS/XcTxfufs
-	 2wjmUTqKKktR8+7SvAUJvJaSMvq8u1EV+OIFKi1o+Z8JjcLFomZQda3txcRSN0+g31w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793373820;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=py1JvQwfUzRbCD/nJuOQhN7tg0SgH0eH0Nb3TkOU/68=;
-	b=YVnbgm2oLx7dIvZx7BcwD1hAERzFCS/2G+9jesBRe3g9weUsmornb9uUZBFiQJzT0o3C
-	 YPIwAJkkcHdsMlGxRIkqCF60jtPeCuFwHoS7DCB8VDmhBQDsLJwk4aKSwyBYcRv5omlLY
-	 1ykCu5BP/ViQLyORyNHei6dgVZyka8I8auuD5kr7MfyLEJldGkQgsJ+TTVY63OagBuIY8
-	 WIsKm8UCCj9xtfeV6XaClk7SJWrveugIAqgKkjC7BDdOVx7e21gpFhJfG9YlA13P6m/Lc
-	 aPb0fcYGZsrKAthDnknKeCa4Rfc1yvjYs9yt8TwH6jpDZx7o4iBBsRMw+P8o5loU3mg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=UKhDneiU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.17
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010017.outbound.protection.outlook.com [40.93.198.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793373852;
+	b=xquVuIsf1f6EE6OhPAwEdGMJI3U9GdGvPbBSTOvwmRyZGx08ACUs7ntX7EfX+iT/40ef
+	 cXYZq7rOfkzyjMhdLVtgJZt2uakblhp/UTTb5NLupxvB20xIEPUCd3kzG9qASMrIz/pDX
+	 F9lk+DA9Bx3CLw/iLeUTfvJB7cYnptAvEf7eK5G4jnNeDm+wA6iZZXV6OnLruMejYpvPt
+	 tdXzNdjJhxapcb4IjliowguLC03WUpIQFX3knDwAR6ZP+hMp0OVMloIOlhAjjL4KtfVsd
+	 dHdz4cp1UbJUWBGreXXjKhrMTxZXm5hTLqQM4IswXb7Wh673f6c+pMx8G8ReqkuJrZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793373852;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=sOjJ/ipkNri/OvRTz9tJlBAB6d04Pi9M3rBYJKk4hmk=;
+	b=vUrRSaLaz7cUcvktTNqswjroex7wLlT/6WX4RXFti1TSvoIF+SWgskIiiLSlrenjQGat
+	 Q1k18EzGcGjkHELL78PdkdKPdZTrotHC+JQfQ7u8QAQkvKyn/DAWu5lXf+k/jSZSNHL+E
+	 mjke/RzDubZbBePPuSX1WP1VRYpLd+KsTc7eCnuJlVFBSzQmMZyTzqoEvmzBhAAi2HYxe
+	 ZNWsTm/XWd3X73W8Z+xQ3r9fzk65zuOqwnBblriK+MEosJxQoiTtVhLo10yRYLAmul+dB
+	 z2EETK+qntGzHeDZuVbEe8Py1Z8KFq5jYD7Bz9ncg22AlnCCBDMTiE4+dhOGZ+EwYCQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xigA3N4s;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 365EE606A31D;
-	Fri, 30 Oct 2026 15:23:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 365EE606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C52C606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:24:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C52C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=UKhDneiU
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DXJt5E2XXkXajVO+Iu/HYi1FSQSqyBhk+SoMbSN3iYUjlJDWpnX2QvEMZyULh3xqLzM8Un+75arZWc5MqNrjVIXae21nZdgm5PrqxkRNm9i3MyeOL3STcynCmXF1fAgdNhUkN+jOjXTnmQ9zFNtK+0fJ0AeInO/RfrR5z0q/CX08bVzcHotvbHPb/WhcZ7otiFWLxxVSiMBho/A49M1u6GOK7j+RSv4NZcV+dr7JRgZ2ZfK2vERrlBkLh21VCghzdHVIK3SB9AajeZzitFTGWflftAzlgfKJE2xexVv9e5rpD1wMrpWSBN2GOQVhLqp/qrRpGmW7iY1jQ3Mbd59uXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=py1JvQwfUzRbCD/nJuOQhN7tg0SgH0eH0Nb3TkOU/68=;
- b=F8cuczC9dzhlydjKPgKczYAvOaFz8R+9GD5a3cuVtC7/39dIWMvDtnHjHDi4TIks+ivwZ5zWc+hnQM3mkTFlZkDYCV99u+yZayB0/Zj2Taux/obNjEwrnINbQAWAHtMHKiIzWLaAKneo/N5nxTiXU4fp8RP2MmkJe4ixubMJVeGD1anfjGUSe2iwa6QOY4hqMEQrf76uPOinWS+HE8e6Vt7W7op8GrQ7d3BMn8rRAnnmEaaq3x+iQjyC667eh5lpsgWxTPBXRVttNO4osXCm1u5XIY1+whysWwvDYj98jgYEyECenuOKyv4OdqwmCJZbajcDu44nhUiy26uk2WzcAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=py1JvQwfUzRbCD/nJuOQhN7tg0SgH0eH0Nb3TkOU/68=;
- b=UKhDneiUIDFPUw8OeLRiYErWwt1DR87yrk+O1aDfQFOqAu0U6iOTcDoBdVaEuKAnaluAKvWGW1/VlkJmngy3KuzqVg5zSwT7wpZuejRuq0dtyrFQSu3yEesVXpFnuOKXgwwuBWi9BeYthNuM6Df94d5UFpIXdpTV3+VB8zpHYH4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA1PR12MB6798.namprd12.prod.outlook.com (2603:10b6:806:25a::22)
- by SJ2PR12MB8830.namprd12.prod.outlook.com (2603:10b6:a03:4d0::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Fri, 30 Oct
- 2026 15:23:37 +0000
-Received: from SA1PR12MB6798.namprd12.prod.outlook.com
- ([fe80::e317:e4a3:6ae9:8c54]) by SA1PR12MB6798.namprd12.prod.outlook.com
- ([fe80::e317:e4a3:6ae9:8c54%5]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 15:23:36 +0000
-Message-ID: <2afaebcc-ebbd-4beb-bbee-9646d56caab5@amd.com>
-Date: Fri, 30 Oct 2026 20:53:21 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] dmaengine: xilinx_dma: Fix cyclic period count
- truncation
-To: kernel@nullptr.com, Vinod Koul <vkoul@kernel.org>,
- dmaengine@vger.kernel.org
-Cc: Frank Li <Frank.Li@kernel.org>, Michal Simek <michal.simek@amd.com>,
- Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
- Alex Bereza <alex@bereza.email>,
- Folker Schwesinger <dev@folker-schwesinger.de>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261022-xilinx-dma-work-v1-0-20faea2e7a80@nullptr.com>
- <20261022-xilinx-dma-work-v1-2-20faea2e7a80@nullptr.com>
-Content-Language: en-US
-From: "Gupta, Suraj" <suraj.gupta2@amd.com>
-In-Reply-To: <20261022-xilinx-dma-work-v1-2-20faea2e7a80@nullptr.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN0PR01CA0047.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:49::11) To SA1PR12MB6798.namprd12.prod.outlook.com
- (2603:10b6:806:25a::22)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xigA3N4s
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so493638a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:24:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793373851; x=1793978651; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sOjJ/ipkNri/OvRTz9tJlBAB6d04Pi9M3rBYJKk4hmk=;
+        b=xigA3N4skr0rp+LHEQ2oA7RVDphdokxSBi22Y4rJGndk0VEoJmUtbTX/mD7Yz63qrb
+         bWxVSzDqyXtOT6kyQ8/2bJIkfbADOq822A0bAOGVCV+j4644n9QYCQVtNdwuduPkv+JP
+         zG3Y0gLGnG9jD0rSSw3RKaIHmoAHmusc/iu61r/xuwcDYOKcheN+pbMiBKXlqnEBsdwl
+         acOzKyz8DFd/RVqRIuhmkBKCFIAOxpEAZSt2Xa77e/yt9staYM82zyDV0fj9NThvPu05
+         2uTpWd0ges5BqDZL+wquwhSAlYy0OtEWP2cRREPQzPQhs8hV7LBM6vtmXH+z3awRo6Ez
+         NQtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793373851; x=1793978651;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sOjJ/ipkNri/OvRTz9tJlBAB6d04Pi9M3rBYJKk4hmk=;
+        b=qdRAqJqd272ywJeY0UbzFQqWgINIGfBD8fizJ+wr7JBkp7de0JUyOJ5pe1fOvrbhde
+         g2yxXL2rI9pkp31uLlBip0X0XEfK3G9icM6pasOF829+SJ3JCnbAxhvc/UtL4yet2eKZ
+         SL+NM25wMmRhAsQPxaC8YAP+1iz/Mnz3Ywp8zN1vzQ3QiqBb0r5ic8A25Yxjd5GWIq/U
+         Ok/bIMwd9kiyFekcj8DcSsJJYpPBq2JN4KXJVmhvc7AW45cjyNvL9T5pzFGl2ls+V98t
+         8+LhSMmTlQlLm59GRcFtqxkDnQh6kxitZEVJaMIYgtzynF+BS7PeJABlsxMnV8KJvDGm
+         lUiA==
+X-Forwarded-Encrypted: i=1; AKwUvBxPt3NB9p2REAdo2iSaL5wdE/qFy7ymjIHWDsN17k95/kqR/ViLb39g2suYbxJ5fzmZlMbFobh4RcGQRLY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIierJuURhttxNB5qVz8c+yYz5Yn5LuvrOiHZTc0cSUBhAc6ylW
+	MwZ30oofs3ak9nN3LxiNlv0MxOIoQX2RMt1vMTfwSoPO9WqGl9lbZXfP
+X-Gm-Gg: AYBFou2MmOZkaxfpPd7dMcw0undE40FWr5Y9eS28qIxbVngiwUugLepNwkFld0OdHr8
+	UJ5+VFc2wpDw0Mk2aCNSBVQxBb5giupyS2G49KmbVAlOiEz2LZcVeZx0msLJp3x2qPXxlMtbxFU
+	S0ZL8rYkzfFeh1GeKu4sb/Q5Tz6ieAjM+tMDgF5vWizOeKYL6jpCBDy2bDnroMINdjEpRR8hvgO
+	zxW3snWPl62JTHBahDOgiLTkLoAKq/WbkvcwElh4xNOI6MV3JyHEiFwmMwqvKjn2sHycg5rBvD6
+	LxkNS1cSgg2gbQZ7x71VbUICb2go6bihECf12A95iT3y2CGy8QYG2LIoYgNhnJ5TgJdKOV1DgDZ
+	yMLypmQn5VKw3s8Iu0BYtpc6qZx5zP4snuRyrdYEmUAOrpye9i4i0kTgl4da5gRCSxmg/ph5bCw
+	UHkO3aLm46iax2hMEuqmWdJrTo+qTlgVa0QlmU94yiusHu7drYCKHm+yP5SpqgeygRADQOfbfOA
+	U2vcPW6zoVn2XOWW3pRcDS7QgwaNdPT0ksBnlxKDD1vmJCsIBm2BhdeQjuyQ7c3aVFnev9iElYv
+	6tnsi3/I/6tI1WlKk1okaWJoXqsg7QBX7OkqL3enGpRbYe4=
+X-Received: by 2002:a17:90b:17d2:b0:3a8:699f:959d with SMTP id 98e67ed59e1d1-3ae89812800mr2221914a91.31.1793373850770;
+        Fri, 30 Oct 2026 08:24:10 -0700 (PDT)
+Received: from asahi.tail4da9e3.ts.net ([218.48.198.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e973ac6sm9561166a91.11.2026.10.30.08.24.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 08:24:10 -0700 (PDT)
+From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>
+Cc: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mm/secretmem: Keep locked memory accounting until inode eviction
+Date: Sat, 31 Oct 2026 00:24:06 +0900
+Message-ID: <20261030152407.113568-1-pocj8ur4in@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,126 +96,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB6798:EE_|SJ2PR12MB8830:EE_
-X-MS-Office365-Filtering-Correlation-Id: e01bf4d2-4b3c-4164-a2f2-08df3699c44e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10067099003|4143699003|11063799006|56012099006|261009223027099003|261021121427099003|261021123027099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	8ZO9VcVUgUQ0PMw4sxJNihmUuqZgc/SDaUnqhUcgKDXgOvT3lrPcwMeZ+P2AW5NCbSOUseCfdvSUXn3j5LAjGRRvjd7V2l0vPwhhZPxBHvutqSQPYOUtPMWkyY0b3V++nAopWnoytssvp3Oj4rw2zyIpFVSEVX6/hVbWBErUKNbqb0BgR1XfbEE9dBxOldge++xCcIAqej1mTzQwlYFjJo/h4WeCAdAnbtMDTY/kzlYJVLhBS2DEuWogLLX6jkjy3Sc5UMvnspqpgbBW7GYrDlyUNdmkjzjVgd4692C+0WSDio4dW+Ys5m+0f9GYhn5OsiSqa+/SiSU3B4iObbxryhKG+CuHQJCeose1z01q3wyUI98lNJQosibNpIeD19Ht0lp3FVVImLO33V5vgE+lEDnK9RyLf1bgsxEAitL7ftIEc2QoRXArVFFMK/T9i/Rguu/ph1kEt3q8bttINiQaTaDZ+sdkoelgLNM7AQimPkjqSXMJCTpu2st9oGcB5e7T0QsbWw6d91MFp5z7pYub2xOjnNijbltFVYg9TS9YNPmsM46OiJ0dTLfKtorVbVCx1iVQAU1i3GtMw71qdUZ5s281xrMu54/B8Zq6ny0s3q7Zkp9O5sVH8ziW72dGfqTErABYtERKpOOFv8CQ6+C9OWv+wxsZ7mXq2PhT4QbhM+0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB6798.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(4143699003)(11063799006)(56012099006)(261009223027099003)(261021121427099003)(261021123027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TnFwM255OFhLZ1lEendJNzk0MUNsNEhOQnFudUttYVhHVGhOVWVDK2JINTRt?=
- =?utf-8?B?dG5RR3BtQ1QrRHI5NER4WmZldU95ZGlHUy9KRXhTc0dZMlQ4NWxmbHBwMy9U?=
- =?utf-8?B?SmpoWlFoa3JZdUgwbmdMQmc2V245Q2d4S3A1M0hveEJxQzZLa2trTm9rR1hq?=
- =?utf-8?B?ZFdrRWlZK3N6dU5STmYveG9kM2V0WkVGQzY5TWp0ZkM2eGMzT3JMZWZXZFE4?=
- =?utf-8?B?SS9jRXFzclVzQXVDbm4zNENQMTIxTHlIWnZ3UWoxTFRZOVd5ck84cFdiRFRz?=
- =?utf-8?B?dkFnKzU0clBwWmhMMGxoMmNmNWszd1JybWIzQlhmaGNoY2lZRGxCTmYvODlE?=
- =?utf-8?B?aXB3UXVFdlVMY3I3TWt0cDhXRzhkWllXVEdEOEUweWw5UzA4RVlhUWpMN3B0?=
- =?utf-8?B?UjRsa2dTelUxMlgxZlRzWWppWUVwMm5VT1pESXV5eitTT3c4Sm5zdWdMZWRR?=
- =?utf-8?B?NFNJWDRnRlpweWNjQU1FeG5oS2s4SlVuWlNCT3hVeUlRWkZ0Vm4yNzNFZ0c5?=
- =?utf-8?B?TDBnSjhaUWR3VDAvc3NWS2ZGYnM1WHlYZDY1eUhER3dMRktkQmZIQ0FKelRu?=
- =?utf-8?B?UW53dWZacDNCVDkva2VHRnVLemxXUURNWXFlanp3U3JJY3hhelUzQlU3aUdD?=
- =?utf-8?B?d3ZtUGdhOWp1aVF5SHdCdVViUVNjekNQZC94U3Q0UUNFWGowdCtmbVJWMFNQ?=
- =?utf-8?B?elpYZnJnbVpLN1BvRG9DckxvSzQ1UUpWaHNqMStPOVY3eVIzYUFDUEl5T1JP?=
- =?utf-8?B?UDBQTlVEZVc3TmY3NC8vUW9uY2dRbUd3YUIxOVRuNDJZN3FEQllPTVVhWW5x?=
- =?utf-8?B?bTZuMVJ1aGs1NkJyTWEwKzFGV1RMTFpianVQYTF6NVZSS0kxeHNDZ3JMcTgw?=
- =?utf-8?B?V2IwQlQrenY2WjhDWmtyaVFFaTJkMWZVdTZIbmNiQU9nSEFqdjh1M1NpdDJq?=
- =?utf-8?B?NW9ZRTVyZkpCMzFkOHhYVUhiZVBMYzdlT05XNEV5eHV5S1l6Qk11UVhuUEFk?=
- =?utf-8?B?aWR2MEQ2K2dmcnFOUVBOUzl1RDFNdDZKQjBldUx1OFJlVmY0NEZSUU8vYTVM?=
- =?utf-8?B?N0NOaCtqeEQ0ZWhERUJyZUZ0aGRuRk55TC9NcFlDSXNlS1o2SnlmV0JtSDdh?=
- =?utf-8?B?WkRyYUcvdi93Q1VPRXFwM0VmN25rRE1QaklUMW05VStweVNuM2JwVmN0VWVH?=
- =?utf-8?B?ZHcra3Q3QkRiajdvZFZoZzMxNXhHQUVSNTB2ZjlCejNSdHFkNk44OEIvb21N?=
- =?utf-8?B?UEw5alJ5dXloU1FOTGtKYSsyMXpxMXRURTZYMWxEcWZhU05FbllmclZVRjlH?=
- =?utf-8?B?enNzVW0vcm9MeXFVbFFleGhFZlJhUENzdStoRTZxUkxkUkF6TkZuQVM3eC9F?=
- =?utf-8?B?ZUJScC85OGpvS2tPanNVcUlKV3Q1Q0o5T3hWNCtFWWRLYk4vRndzMm5qUE04?=
- =?utf-8?B?ZEtSakdrb2JITlc3Skp4RkE0SUxpTzFLQUtQRFpiWVZEM3JYdXI3cEhHaGdB?=
- =?utf-8?B?aFJHQmRkZGJEdGs4Yys5eXNvaklTZU9DQlJCNTJobHVWTXVuc0xjeG5BbUVO?=
- =?utf-8?B?NzlUZEw3NktEV2paRVZJVi9qZndsQjJsZXhIQkFDY1hNZXkwYUhQZXRnL2ty?=
- =?utf-8?B?emdMN2I4aUJDTHp4anBqV0RUR2hxeWdJWm5ZeG9WaXRvMEtvRUp4RjN0NUxP?=
- =?utf-8?B?MVVKd1ExOHk3VjFJNXcwZHB1QUNtemV0UFAyRExiZUVtT291eDBta3RXTTFS?=
- =?utf-8?B?OUJaRHhwbjg0QzVIWmpwSVUyblVWZ21tR0hpeEZpQlZXM0tjV3pUQU1tS2RW?=
- =?utf-8?B?d0phK3JrSEV1akFOWjFNZ29KK2EwUGV6TjAwRHpVb2l1bkxBNnRibE5qOWZZ?=
- =?utf-8?B?WVgvNlhiaG92VkVhU3JsZWZKMDVneFVWZmNhb2hZa2JIbGl6SmgyR3ByZmNJ?=
- =?utf-8?B?dUhpNEtrTHlBQjFUQWlWWklEbDlsclY3UVZ5eUt4N3ZETWwwRkpJVGtRK2JS?=
- =?utf-8?B?YUhmdW52WHAybnAwMUhpSkdOOFE3YWpMb3pFZFo1WTY4b0FIWVNlTE5WbklW?=
- =?utf-8?B?d0NhUHpTZjRkWmt6cnQ5aFMvNXJhM1VyRzV1Rmtpak9LaUlzaDNPVWd2V1l1?=
- =?utf-8?B?SEZSOHJ2MlJhbUhTN3hqeERiL3lPQTA1dGt3aVlNOFJhR29oM0tmMnozaXdn?=
- =?utf-8?B?L2FrREtCcjhuYW1kOUxDNDgvYnhQMHI4OTlKdHJIME1uUVBpMXBkN1BqamxQ?=
- =?utf-8?B?blIzU0tOd1Q1Ynp6aUdvTDVkY3N5RDU5MmZvSWhTSjZKSG4zdlJTUTh6S0hj?=
- =?utf-8?B?aVNGbGdKa3JadlFZMmF0Yks5SXhJYm9zdEIyVTdpYm5WSlJTaDFQUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e01bf4d2-4b3c-4164-a2f2-08df3699c44e
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB6798.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 15:23:36.2816
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2H3ZpfBU/LMoN8eVzQkJv9WJM7YF+dq4UbQC9iDiKIbpstSfEvrJe+cU8ltlS83ieCwj14buvgwRXaGd4dnyZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8830
+Content-Transfer-Encoding: 8bit
 
+A secretmem inode can outlive its original file. An O_PATH descriptor
+opened through /proc/self/fd keeps the inode and its unevictable folios
+alive after the mapping and original descriptor are closed. The file
+release path nevertheless drops the locked-memory charge, allowing the
+same user to reuse RLIMIT_MEMLOCK while those folios remain allocated.
 
+Move private-state and locked-memory accounting cleanup to inode eviction,
+after truncating the page cache. Keep secretmem_users active over the same
+lifetime so that the hibernation guard covers retained secret pages. Let
+iput() handle file-creation failures and tolerate an inode with no private
+state.
 
-On 10/23/2026 3:41 AM, Jeff C. Jensen via B4 Relay wrote:
-> From: "Jeff C. Jensen" <kernel@nullptr.com>
-> 
-> xilinx_dma_prep_dma_cyclic() stores buf_len / period_len, a size_t
-> quotient, in an unsigned int. On 64-bit builds the count can be
-> truncated: a buffer of 2^32 + 1 bytes split into 1-byte periods becomes
-> a single period, and the transfer covers one byte of the buffer the
-> client asked for.
-> 
-> Compute the quotient as a size_t and reject it if it exceeds
-> XILINX_DMA_NUM_DESCS before narrowing it. Each period needs at least one
-> hardware descriptor, so a larger count could never be prepared from the
-> pool anyway.
-> 
-> Fixes: 92d794dfb699 ("dmaengine: vdma: Add support for cyclic dma mode")
-> Assisted-by: Claude:claude-fable-5-1
-> Signed-off-by: Jeff C. Jensen <kernel@nullptr.com>
-> ---
+Fixes: 97d34aa65c29 ("mm/secretmem: properly account locked pages")
+Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
+---
+On an arm64 QEMU guest with an 8 KiB RLIMIT_MEMLOCK, an O_PATH reference
+retained two secretmem pages. The baseline dropped the charge to zero and
+allowed a further one-page fault; the patch kept both pages charged and
+rejected that fault until the last path reference closed. The Image
+was built with KASAN and lockdep. Hibernation, other architectures,
+and long-running concurrency were not tested.
 
-Reviewed-by: Suraj Gupta <suraj.gupta2@amd.com>
+ mm/secretmem.c | 31 ++++++++++++++++++-------------
+ 1 file changed, 18 insertions(+), 13 deletions(-)
 
-Thanks!
-Suraj
-
->   drivers/dma/xilinx/xilinx_dma.c | 9 +++++----
->   1 file changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/dma/xilinx/xilinx_dma.c b/drivers/dma/xilinx/xilinx_dma.c
-> index 5ccc9f9d58a3..aa714effd10d 100644
-> --- a/drivers/dma/xilinx/xilinx_dma.c
-> +++ b/drivers/dma/xilinx/xilinx_dma.c
-> @@ -2454,7 +2454,7 @@ static struct dma_async_tx_descriptor *xilinx_dma_prep_dma_cyclic(
->   	struct xilinx_dma_chan *chan = to_xilinx_chan(dchan);
->   	struct xilinx_dma_tx_descriptor *desc;
->   	struct xilinx_axidma_tx_segment *segment, *head_segment, *prev = NULL;
-> -	size_t copy, sg_used;
-> +	size_t copy, sg_used, periods;
->   	unsigned int num_periods;
->   	int i;
->   	u32 reg;
-> @@ -2462,10 +2462,11 @@ static struct dma_async_tx_descriptor *xilinx_dma_prep_dma_cyclic(
->   	if (!period_len)
->   		return NULL;
->   
-> -	num_periods = buf_len / period_len;
-> -
-> -	if (!num_periods)
-> +	/* a period takes at least one descriptor */
-> +	periods = buf_len / period_len;
-> +	if (!periods || periods > XILINX_DMA_NUM_DESCS)
->   		return NULL;
-> +	num_periods = periods;
->   
->   	if (!is_slave_direction(direction))
->   		return NULL;
-> 
+diff --git a/mm/secretmem.c b/mm/secretmem.c
+index 384f5cfc457f..fa8be360bd2a 100644
+--- a/mm/secretmem.c
++++ b/mm/secretmem.c
+@@ -185,18 +185,14 @@ static void secretmem_destroy_inode_priv(struct inode *inode)
+ {
+ 	struct secretmem_inode_state *state = inode->i_private;
+ 
++	if (!state)
++		return;
++
+ 	secretmem_unaccount_all_folios(state);
+ 	free_uid(state->user);
+ 	kfree(state);
+ 	inode->i_private = NULL;
+-}
+-
+-static int secretmem_release(struct inode *inode, struct file *file)
+-{
+ 	atomic_dec(&secretmem_users);
+-	secretmem_destroy_inode_priv(inode);
+-
+-	return 0;
+ }
+ 
+ static int secretmem_mmap_prepare(struct vm_area_desc *desc)
+@@ -216,7 +212,6 @@ bool vma_is_secretmem(struct vm_area_struct *vma)
+ }
+ 
+ static const struct file_operations secretmem_fops = {
+-	.release	= secretmem_release,
+ 	.mmap_prepare	= secretmem_mmap_prepare,
+ };
+ 
+@@ -274,6 +269,7 @@ static int secretmem_init_inode_priv(struct inode *inode)
+ 
+ 	state->user = get_uid(current_user());
+ 	inode->i_private = state;
++	atomic_inc(&secretmem_users);
+ 	return 0;
+ }
+ 
+@@ -296,7 +292,7 @@ static struct file *secretmem_file_create(unsigned long flags)
+ 				 O_RDWR | O_LARGEFILE, &secretmem_fops);
+ 	if (IS_ERR(file)) {
+ 		err = PTR_ERR(file);
+-		goto err_free_priv;
++		goto err_free_inode;
+ 	}
+ 
+ 	mapping_set_gfp_mask(inode->i_mapping, GFP_USER);
+@@ -309,11 +305,7 @@ static struct file *secretmem_file_create(unsigned long flags)
+ 	inode->i_mode |= S_IFREG;
+ 	inode->i_size = 0;
+ 
+-	atomic_inc(&secretmem_users);
+-
+ 	return file;
+-err_free_priv:
+-	secretmem_destroy_inode_priv(inode);
+ err_free_inode:
+ 	iput(inode);
+ 	return ERR_PTR(err);
+@@ -335,6 +327,18 @@ SYSCALL_DEFINE1(memfd_secret, unsigned int, flags)
+ 	return FD_ADD(flags & O_CLOEXEC, secretmem_file_create(flags));
+ }
+ 
++static void secretmem_evict_inode(struct inode *inode)
++{
++	truncate_inode_pages_final(&inode->i_data);
++	clear_inode(inode);
++	secretmem_destroy_inode_priv(inode);
++}
++
++static const struct super_operations secretmem_super_ops = {
++	.statfs		= simple_statfs,
++	.evict_inode	= secretmem_evict_inode,
++};
++
+ static int secretmem_init_fs_context(struct fs_context *fc)
+ {
+ 	struct pseudo_fs_context *ctx;
+@@ -342,6 +346,7 @@ static int secretmem_init_fs_context(struct fs_context *fc)
+ 	ctx = init_pseudo(fc, SECRETMEM_MAGIC);
+ 	if (!ctx)
+ 		return -ENOMEM;
++	ctx->ops = &secretmem_super_ops;
+ 
+ 	return 0;
+ }
+-- 
+2.55.0
 
