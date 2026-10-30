@@ -1,111 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.65.109.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793367069;
-	b=wy/gTRWKh/3sBi4i//+MzLBGBMtHBuiO+63wKLIR54rGSs02rad0Wm6ukheb/fbhsgkA
-	 ialSxE/FPMEAmmjW/Nu/e7afMo+IpRlYBcoOEAtm4X/ypNXUoJH7T6zLJgJcPH4xV80+/
-	 5c5giZ1YrRfci8i+yQTtU6Ql8W6JTPYXJ4W9tQxuBVQCYuh/EMpXbjLiYnleEq5upNi5F
-	 5INaxqTMRRtSFWGMFYerVqF+SFZhWP2G8eewD5ZVtRc1rkONLZsvvDi5bA5tNoOck2aSx
-	 oJ9j+70d43G4A5Sp2z2XrLtkQKDjGYRWfMSZtR/i5M0mouevyBI2ODmMr/vj680LUlQ==
+	t=1793367104;
+	b=AyT83XDb4Axq6K6JWF8bLkyZmbdPigithlv546hBxaJjSrNZrPny4unCUaO6paMSEEZ6
+	 WtxEXQUoJdGLuhIeNDoUrWw88Ge4SqrDCtIGMtKL2S8uWMpxXUgDBaZb+g0JwBs5OPBlI
+	 4zsde0dxKsXRTkKgpJqSWJ8E0WU/wp02Ldz497YQMySYtq08bRdYI9SBf/QYxKbGQg4iu
+	 IuODsjcxmKLcS39uNl+WDJojb4JsV3x7hI8w8mAZrNK+zuVVifnqeZzWUo671CLvTQ2Es
+	 N5B8Ub7d6Q5UL+O7DIicxoae5aw9B2cfWiqcmysKXxLc7abjEv6YACQcYsbbmtdr/5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793367069;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=UR4JTI9VQzJqFZB8kjqpLUWsRrNaJNk6gTj/t7aYhsA=;
-	b=DCbYzfX+s1TfBGQECTXr1bXccuIEJXUU4aIb0VA0+FiYvox6cektuDfI+ActACRkwpDF
-	 Zd3XXWxSYr+oFUfRAFms8YlFaiQMU+IPMK/AM4+iWA9gJ9TJ3qgVque6VFP2IgSHnOPvX
-	 Tygr3c6a4hnnHsDH7VKI96pcWtC0mpKWfgcpW7Tbr1zWIrZvMp18AUJGtN9xDP4WmkZ7s
-	 yP54d39146fg0VYuLpe0Zt8jRc7/bK3K2diTiqhhPyUhV27rKyxib+TfHGR1wZyTPRGFI
-	 w38J+vLBmkqZF0ewJJtz1FhH3+osYVcyQUTLn0G9ZkDn8m4KOZrmYaElv8ykmVTlBcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793367104;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:Jabber-ID;
+	bh=tlEiADi4+8g0idHc+u87QI/42EGWWf/uchgiFaBfvoE=;
+	b=QQw/4plT/GntTUhDujWpG8LS0tb1fOTTi13zZB0djGlsfYowFiJL0b/Qsnt+EEIiaENl
+	 kztIlhMWTv6ar0hYwGCLTA02m/1kvIUHitea22+GSQCyzthG9l4EdE2TQejJo/VzhhUho
+	 og0sPN2iqvhCBfHKpf1TePgoL8YzkkDfGtHVIVo3yynXwphdwfJ9iwgp89htdQ52RyLWk
+	 nsSIk3lcy92/ZXT6JdOF7ANpdUCKjBWFmIerBUAbfbgZCASyiWiZhFJOkK0Hf1grkKO2I
+	 PvseZk6fr5oGN3jfjnQTQxnEwGbjXLMLxwApAhn4/iXqHzlG6jzVu7X4L3L1ClBvOpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g0lSEniW;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FYztFpMd;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=none header.from=linkmauve.fr;
+	spf=pass smtp.mailfrom=linkmauve.fr;
+	arc=none smtp.remote-ip=82.65.109.163
+Received: from linkmauve.fr (linkmauve.fr [82.65.109.163])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40EA9606A32A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:31:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40EA9606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g0lSEniW;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FYztFpMd
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UBG3oF4116535
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:31:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=UR4JTI9VQzJqFZB8kjqpLU
-	WsRrNaJNk6gTj/t7aYhsA=; b=g0lSEniW6gquVXXpfOAY99DJUHOYnH1CQYc7zh
-	7ilDpSevP4ENGSyIVmlBECy21yYDFq7A9G7Qcl49gOVULsUTr+YHadkD9VoRYO+M
-	3vfc2d5QUPcH7S98ssSfvj9YmVChDGDA9Mzsp+1bifsNK2YtrpfvjnwzI1EIZZfB
-	pePZ4gquLrsuJ2iHnUDS/gf4ExMnB+l+K17XeVQuFq3HmiYRmwq0RPGlwt4WuvIA
-	HDDtPDyhLGxk0t+uJ69g9+o95/DHx76/Y2lPFbS47bysv5cedWtIPjDQgEEbZkcn
-	AJzyYwYYbBqdI5dGDOe7W5qWI5aS/LtocNHY5yLjOmquEqLw==
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6rkarx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:31:08 +0000 (GMT)
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cc89e86e4dso1051666b6e.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:31:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793367067; x=1793971867; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UR4JTI9VQzJqFZB8kjqpLUWsRrNaJNk6gTj/t7aYhsA=;
-        b=FYztFpMd8hZQdKRI6gGG0AABxaLMRCG+id5+xaVZfEYowaH0zve04S9HNDuBZHbES8
-         NkzmuG7vUlHzXydORf43kxd6JqmI9YV6oqrjpkG12NhmMsdiv7Z6wqStKJbYyOBIT/j7
-         IgeQIWRjeNyyR5zlsmNbqr2u7pTmVAWh4pNfigB7ZeTtnQbB+lRLIPSiu3xj2CA62XWp
-         bWly4hu8DHN2PplltEWTmMBjGFGF6yVz5b2ipIWJazKhh6eK0T035QGjailjea43dvfl
-         Tu99RnOVjx1xowk33o86buLuM6Buuc051wrjrnLAC2swZXqGSARAHf8glJIBFAEH7d14
-         Bh5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793367067; x=1793971867;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=UR4JTI9VQzJqFZB8kjqpLUWsRrNaJNk6gTj/t7aYhsA=;
-        b=Cr2YA7WTfdnwLMo65p3Yug9RAyyl5uGhLqtmxr/McAg7r7cWGdTVLE9e/ePpVpwM8s
-         H/XG7DF796A9lc+ysj+fx0mS/4Xk8jrdCUHLNl+7iS67WDVhsaFE3VvSimjfwOm8IBXh
-         VKDjAsc4DianwMOq/ZtGAiT7BhTbDyv0/fOvW1Owy8kBaxi0fBfni/II6UGI6wEtLsUE
-         MTn12czevyiQDpTe9t1KUUXlrnpoYeIKiwk7/Oy41r3Ra1/1r6GSzII2umVBbkkmZscE
-         LrloHxOyHh+0MW3Kq/tVRCQh1Mi/v1r/DLVKXmR03og2LZaX+SX+6YgikxtdazIMTCR9
-         IHXQ==
-X-Forwarded-Encrypted: i=1; AKwUvByjd9B7CDL1EmiQJ1qvmPKglRHw+v0RoV3c8JriVjxR7qth7ghtOgeSpwGk5neaTvt8MzlWWVqGKSxcMEQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJBRT4alRSSwiVFElsaU/rVPTYSjL8Ydn1MKLsYPPJeQm6p5/a7
-	92h+L72beUPn/th1vi52bCW4QntTFDzgq1itF/r/FBwVlU9+p3wGxe8QBMYkJ+Te2GhP0j4+9it
-	RNpc9rxGweoVV1F1mzsnCnuIaT8AL2KMKJgro9ReTN1LPh7yyW/cZo5uE9hBI0B9fLpw=
-X-Gm-Gg: AYBFou1CxQXnaKAiGoHRM/xPEJ3BloHqQ+Ax6T2n3zTcV4s41kQmbniRxUuZ5tyHAjQ
-	UcQQJdAPqq2d2FjaPPc3SSWWtf0ApfbNgNHl4FjOtyiEo4jgmeP2huA5b28tHJFk9/exqa/6tp5
-	+3BchiYHBSDJYL0yhAmicKglxxV4I2WOK/ABejob8LEbBbx+I+WkNRLnSkM5aDzNTEboYzu1rbe
-	1uK9gmhj+IlBWfp8N9UUFL/U5zOSkLvnwOosCoufIxtsjLZcOVgEbcDCrS95uT0eWIeuB1q57Tp
-	aKYJmQLGyXotD1o3zokWSutzUQpdoew75iMP0vfZ7hlyw8JqD0jtNzBwZ7+FDAFNM5OTa6/DqND
-	TfJ6AwCalPBi+1ghweXLt9zXXfbX5p0FXtvRI/zaqsN2FWD5Yhqj8nRIwTfH+7X7AmBbQffOAG0
-	nVsKBlDBkj
-X-Received: by 2002:a05:6808:2512:b0:4ea:18f:64b0 with SMTP id 5614622812f47-5640decc459mr1809526b6e.67.1793367067547;
-        Fri, 30 Oct 2026 06:31:07 -0700 (PDT)
-X-Received: by 2002:a05:6808:2512:b0:4ea:18f:64b0 with SMTP id 5614622812f47-5640decc459mr1809490b6e.67.1793367067074;
-        Fri, 30 Oct 2026 06:31:07 -0700 (PDT)
-Received: from hu-jseerapu-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fc49880sm1590884b6e.2.2026.10.30.06.31.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 06:31:05 -0700 (PDT)
-From: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 19:00:42 +0530
-Subject: [PATCH] dt-bindings: spi: qcom,spi-geni-qcom: Document QSPI
- support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCC2606A32E;
+	Fri, 30 Oct 2026 13:31:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBCC2606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linkmauve.fr
+Received: by linkmauve.fr (Postfix, from userid 1000)
+	id 91F417229E1B; Fri, 30 Oct 2026 14:31:40 +0100 (CET)
+Date: Fri, 30 Oct 2026 14:31:40 +0100
+From: Link Mauve <linkmauve@linkmauve.fr>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH RFC] drm/msm: move VM_BIND op validation to Rust
+Message-ID: <auScPBpT79XKnBph@desktop>
+References: <20261026-topic-vm_bind_rs-v1-1-6581465f2428@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,104 +68,232 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-qspi_dt_binding-v1-1-5249111cf870@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAGc5GoC/3WNQQqDMBREryJ/3YixxWhX3qOIxCTqLzXRfJUW8
- e6Ndt3NwIOZNxuQ8WgI7tEG3qxI6GwAfolA9dJ2hqEODGmSZknBMzbRiLWe6watRtuxXHLVCJk
- LkRoIq9GbFt+n8VH9mJbmadR8aI5GjzQ7/zkvV370/ttXzji7qTbLteDFVerSEcXTIl/KDUMcA
- qp937/TUFWbxwAAAA==
-X-Change-ID: 20260916-qspi_dt_binding-8a1cb7a8772e
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793367061; l=1839;
- i=jyothi.seerapu@oss.qualcomm.com; h=from:subject:message-id;
- bh=6+euTVf3GCpORG+HjlXn9bEmx+HYlFRWqNiglrEVYlw=;
- b=mva44UfZGpfgrUarHZzaC7Pu9cJNQKZyiCLNo3tQeYQENvV6cTkzLY9rBi0xaV1uq10Gvtwi6
- 9w++rqbasXbD/ZJpziP/1CkivrzIGzMDZy5LMokToF7uFxtSLiuu4b1
-X-Developer-Key: i=jyothi.seerapu@oss.qualcomm.com; a=ed25519;
- pk=9vafyYsia0OnBKWSEwhmWe3hPVQfI2T1xOs5dPaFvEo=
-X-Proofpoint-ORIG-GUID: 0KI2fPlFMNvdSnYplkZ_rPFGPtaJWhIA
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1MyBTYWx0ZWRfX+AuBUXfZqo6w
- Dil82WnUknz2zRnrBfB4gc839K49AJTRXBX40SaGewI3Xk1U0h8HN67kGinYM1Li6bmBqjkswPN
- cHsCvSroQ9U/qxTnAw0/IOEe91hLHQ0=
-X-Authority-Analysis: v=2.4 cv=PIqaavqC c=1 sm=1 tr=0 ts=6ae49c1c cx=c_pps
- a=WJcna6AvsNCxL/DJwPP1KA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=KUikZgbwDMKjgD0mul4A:9 a=QEXdDO2ut3YA:10
- a=_Y9Zt4tPzoBS9L09Snn2:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1MyBTYWx0ZWRfXwHvh7hTolKpd
- wRmUkMqCZTKsdrWljd72+ZQG7l9COqYwElJAQ4ebf2+1fbt5GRq+TBsocg3/mnWtRTkN6dWZzs4
- N3B3/N9NSBIEmicvxbljD+VywA4dIPBrmPwV+TzwLA4jiDArwYWJisNAKeVfWnZ4m1oTtNxlkXG
- /eHFArHyVDxVDrVUAN3filJDOMowkyPUy6exzwLU++nvGNTqKAGhWJUG+MH0FksBIzAJOIBts/j
- VL/lIqxfiVmMnNBVyB8bnoqici9hl08jTmeWAOoWO6Rq6VJXUuFnuSX2fTv5ajU9/ucmTEFhpzz
- kxoJYcvDUpTgOVU+wMynv9ovtpfFB/+eEVTyqgPwOo6O311Xq8ugHaSobMXgnwVwi/mjVhua89M
- 8TVMCFoqR+iJs06Kwvs6Dqd8YFfodovCVXs65vVUZsyVX/8RqrkuCgrV7814VpUH7VJHku8diYB
- HZzs7ATrHq0erCHJbXQ==
-X-Proofpoint-GUID: 0KI2fPlFMNvdSnYplkZ_rPFGPtaJWhIA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
- lowpriorityscore=0 suspectscore=0 phishscore=0 adultscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610300053
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261026-topic-vm_bind_rs-v1-1-6581465f2428@oss.qualcomm.com>
+Jabber-ID: linkmauve@linkmauve.fr
 
-Add the "qcom,geni-qspi" compatible to identify GENI Serial Engine
-instances configured for QSPI operation.
+Hi,
 
-The compatible also allows the driver to select the appropriate protocol
-firmware when the Serial Engine is unconfigured (GENI_SE_INVALID_PROTO),
-distinguishing between SPI and QSPI firmware.
+On Mon, Oct 26, 2026 at 12:40:02PM +0100, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Much of the VM handling code is a headache to read and maintain.
+> There's a soup of mixed-signedness/size types which need to be compared
+> and added and getting that wrong in C is very easy.
+> 
+> The "(range + obj_offset) > obj->size" check could wrap for a large
+> obj_offset, which let an out-of-range map be accepted and then mapped
+> as nothing. Oxidize it and use checked_add() to fix that.
+> 
+> This commit is a "get the foot in the door" type change to make sure
+> that folks building kernels for Qualcomm SoCs have their Rust setup
+> ready. It may/should be extended to the wider mm code once the
+> appropriate abstractions are finalized.
+> 
+> Worth noting, the C UERR() macro expands to dev_dbg() and the Rust
+> implementation for that currently doesn't support dynamic_debug.
+> 
+> The DRM_BRIDGE dependency is dropped because including RUST exposed
+> some spaghetti dependencies ending at DEBUGFS and it's enabled anyway.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+> (if this is rejected we may just patch the C code).
+> 
+> Notably, this will regress some ancient configurations:
+> -- arch/arm/Kconfig
+>     select HAVE_RUST if CPU_LITTLE_ENDIAN && CPU_32v7 && !KASAN
+> 
+> Smoke-tested on Glymur
+> ---
+>  drivers/gpu/drm/msm/Kconfig        |   2 +-
+>  drivers/gpu/drm/msm/Makefile       |   1 +
+>  drivers/gpu/drm/msm/msm_gem_vma.c  |  66 +++------------
+>  drivers/gpu/drm/msm/msm_vm_bind.h  |  16 ++++
+>  drivers/gpu/drm/msm/msm_vm_bind.rs | 160 +++++++++++++++++++++++++++++++++++++
+>  rust/uapi/uapi_helper.h            |   1 +
+>  6 files changed, 188 insertions(+), 58 deletions(-)
+> 
+[…]
+> diff --git a/drivers/gpu/drm/msm/msm_vm_bind.rs b/drivers/gpu/drm/msm/msm_vm_bind.rs
+> new file mode 100644
+> index 000000000000..164208e0a1b4
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/msm_vm_bind.rs
+> @@ -0,0 +1,160 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +//! VM_BIND operation validation for the MSM driver.
+> +
+> +use kernel::{
+> +    bindings,
+> +    device::Device,
+> +    error::code::EINVAL,
+> +    prelude::*,
+> +    uapi, //
+> +};
+> +
+> +/// Validates a single VM_BIND operation.
+> +///
+> +/// Returns 0 if the operation is valid. Otherwise logs the reason and returns
+> +/// `-EINVAL`.
+> +///
+> +/// `page_size` is the granularity that `iova`, `obj_offset` and `range` must be
+> +/// aligned to. It is the GPU's alignment rather than the CPU's, but no known qcom
+> +/// SMMU lacks support for the CPU's smallest page size.
+> +/// `range_valid` is the result of `drm_gpuvm_range_valid()` for this operation.
+> +/// `prr_supported` is only consulted for `MSM_VM_BIND_OP_MAP_NULL`.
+> +///
+> +/// # Safety
+> +///
+> +/// `dev` must point to a live `struct device`.
+> +#[no_mangle]
+> +pub unsafe extern "C" fn msm_vm_bind_check_op(
+> +    dev: *mut bindings::device,
+> +    op: u32,
+> +    handle: u32,
+> +    obj_offset: u64,
+> +    iova: u64,
+> +    range: u64,
+> +    flags: u32,
+> +    page_size: u64,
+> +    range_valid: bool,
+> +    prr_supported: bool,
+> +) -> c_int {
+> +    // SAFETY: The caller guarantees that `dev` is a live `struct device`.
+> +    let dev: &Device = unsafe { Device::from_raw(dev) };
+> +
+> +    match check_op(
+> +        dev,
+> +        op,
+> +        handle,
+> +        obj_offset,
+> +        iova,
+> +        range,
+> +        flags,
+> +        page_size,
+> +        range_valid,
+> +        prr_supported,
+> +    ) {
+> +        Ok(()) => 0,
+> +        Err(e) => e.to_errno(),
+> +    }
 
-Signed-off-by: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
----
----
- Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+I think we usually use kernel::error::from_result() instead of a match
+block in this situation.
 
-diff --git a/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml b/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml
-index edf399681d7a..e568b67d077e 100644
---- a/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml
-+++ b/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml
-@@ -19,6 +19,10 @@ description:
-   SPI in master mode supports up to 50MHz, up to four chip selects,
-   programmable data path from 4 bits to 32 bits and numerous protocol variants.
- 
-+  The "qcom,geni-qspi" compatible string identifies GENI serial engine
-+  instances configured for QSPI operation. QSPI supports transfers over
-+  multiple data lines for higher throughput than standard SPI.
-+
-   SPI Controller nodes must be child of GENI based Qualcomm Universal
-   Peripharal. Please refer GENI based QUP wrapper controller node bindings
-   described in Documentation/devicetree/bindings/soc/qcom/qcom,geni-se.yaml.
-@@ -29,7 +33,9 @@ allOf:
- 
- properties:
-   compatible:
--    const: qcom,geni-spi
-+    enum:
-+      - qcom,geni-spi
-+      - qcom,geni-qspi
- 
-   clocks:
-     maxItems: 1
+> +}
+> +
+> +fn check_op(
+> +    dev: &Device,
+> +    op: u32,
+> +    handle: u32,
+> +    obj_offset: u64,
+> +    iova: u64,
+> +    range: u64,
+> +    flags: u32,
+> +    page_size: u64,
+> +    range_valid: bool,
+> +    prr_supported: bool,
+> +) -> Result {
+> +    let aligned = |addr: u64| page_size.is_power_of_two() && (addr & (page_size - 1)) == 0;
+> +
+> +    if flags & !uapi::MSM_VM_BIND_OP_FLAGS != 0 {
+> +        dev_dbg!(dev, "invalid flags: {:x}\n", flags);
+> +        return Err(EINVAL);
+> +    }
+> +
+> +    if !aligned(iova) {
+> +        dev_dbg!(dev, "invalid address: {:016x}\n", iova);
+> +        return Err(EINVAL);
+> +    }
+> +
+> +    if !aligned(obj_offset) {
+> +        dev_dbg!(dev, "invalid bo_offset: {:016x}\n", obj_offset);
+> +        return Err(EINVAL);
+> +    }
+> +
+> +    if !aligned(range) {
+> +        dev_dbg!(dev, "invalid range: {:016x}\n", range);
+> +        return Err(EINVAL);
+> +    }
+> +
+> +    if !range_valid {
+> +        dev_dbg!(dev, "invalid range: {:016x}, {:016x}\n", iova, range);
+> +        return Err(EINVAL);
+> +    }
+> +
+> +    // MAP must name a handle; UNMAP and MAP_NULL must not.
+> +    match op {
+> +        uapi::MSM_VM_BIND_OP_MAP => {
+> +            if handle == 0 {
+> +                dev_dbg!(dev, "invalid handle\n");
+> +                return Err(EINVAL);
+> +            }
+> +        }
+> +        uapi::MSM_VM_BIND_OP_UNMAP | uapi::MSM_VM_BIND_OP_MAP_NULL => {
+> +            if handle != 0 {
+> +                dev_dbg!(dev, "handle must be zero\n");
+> +                return Err(EINVAL);
+> +            }
+> +        }
+> +        _ => {
+> +            dev_dbg!(dev, "invalid op: {}\n", op);
+> +            return Err(EINVAL);
+> +        }
+> +    }
+> +
+> +    if op == uapi::MSM_VM_BIND_OP_MAP_NULL && !prr_supported {
+> +        dev_dbg!(dev, "PRR not supported\n");
+> +        return Err(EINVAL);
+> +    }
+> +
+> +    Ok(())
+> +}
+> +
+> +/// Checks that `[obj_offset, obj_offset + range)` lies within an object of
+> +/// `obj_size` bytes.
+> +///
+> +/// Returns 0 if it does. Otherwise logs the reason and returns `-EINVAL`.
+> +///
+> +/// # Safety
+> +///
+> +/// `dev` must point to a live `struct device`.
+> +#[no_mangle]
+> +pub unsafe extern "C" fn msm_vm_bind_check_bo_range(
+> +    dev: *mut bindings::device,
+> +    obj_offset: u64,
+> +    range: u64,
+> +    obj_size: u64,
+> +) -> c_int {
+> +    // SAFETY: The caller guarantees that `dev` is a live `struct device`.
+> +    let dev: &Device = unsafe { Device::from_raw(dev) };
+> +
+> +    let fits = obj_offset
+> +        .checked_add(range)
+> +        .is_some_and(|end| end <= obj_size);
+> +
+> +    if fits {
+> +        return 0;
+> +    }
+> +
+> +    dev_dbg!(
+> +        dev,
+> +        "invalid range: {:016x} + {:016x} > {:016x}\n",
+> +        range,
+> +        obj_offset,
+> +        obj_size
+> +    );
+> +    EINVAL.to_errno()
 
----
-base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
-change-id: 20260916-qspi_dt_binding-8a1cb7a8772e
+Same here, the whole content of this function could be wrapped in a
+from_result().
 
-Best regards,
---  
-Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+> +}
+[…]
 
+Thanks,
+
+-- 
+Link Mauve
