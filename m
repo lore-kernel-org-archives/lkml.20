@@ -1,64 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793349938;
-	b=eFDhMSLQSOInuVmwQhyFRNCboO9T92blBWI6lQCl3oN9oUO/MGXz/touQiNASvfZkxPy
-	 sIYEheNoJGCTsEztkAIA8Sh+d6VDnNyI2F/9U6g3GTa3+6xsxerxvVl/uIS/7G4Bol7mF
-	 wWR+UBvIuOMHlCp7I2tEUtcCGuJB6ooERGlQ8Ottk+WbMxLEHYhZRynt52Q6gtpRxRnJy
-	 CQCU48HBiT+ZamHnNit6UiK+Tu7YbGFYcU6plCV6k+Vwo2bvaK56XpPAc1vyaloq0aJ1c
-	 0G689c2vqjXiBy4Ihi/4kJVVyBBWOkfus5e7k5gOv6nD8AheAkm7dGItGaMvfYATL5A==
+	t=1793349991;
+	b=3BiRNVW8XNU8yK3a9t0cdODS9pd9/ur9qrc12sVnlWU4oHKwrOspF4LO6R3D+FZRglW1
+	 sw286Tq+VNr5o9jj07vNNbe3eYR2dKifsQy9R3KsO2+9Nrvg1+b+5tYxcv4QTykjB7sAa
+	 9oLD4epH9EVuPYMG4rLjhTbQONaFek3ba6cPwDrZD6XdibczNfQ5NZX/RNplDLRi74UDA
+	 d89MU4x1YEHaT9IMqYULJQ+yQxEMwMhk3Ix/VjVyUMPuLZgRb3t+ktHhMHSEFGItARH+w
+	 hu9ZcJkcf+dV+ZPwE2PK2AnToTb4qdEMbPsHnbwQZ7eQmX2oirVlKfWW3L4sBv0PtmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793349938;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KOWLgTTNF56L+ttK/sHSbzAGSYyGQRT1y5BH1OOM+sI=;
-	b=morQDEJtyfRbnUCxXiqK0Tl8bpEuDNnK3EWd2hLNLB+sGghO/yQ/mnPlZZygLkOR6iG2
-	 1SGQKry8v4JAEqZ2XZRFiGIwI9t0oknIm+owE0TrqE/zzFWLO0bB7ypjVamGpvdqLFkmk
-	 rjUCGk1VXaAAKG6PPrV/kzmhUXaUiWzg9In60l06UqLcRHaRbivkWfUMPWapmrFhvi7vH
-	 8tG590411YajEo/auHMGSF994AULp+qIhVGLdjXPkE1D6pUloMgwC7l0SA3j7IVwDwx5l
-	 2s6s0w1zTncaKIjPol8bOhW4SlxGO+oznNHsbGh7nqihjwu4ajZ92X7CPhNwXMA4vpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793349991;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=4PuUhSHvezLBSZJFINC4++j3AbiYAFeVh5nQiEi2aiY=;
+	b=QXK6BH+FDqjBu2WiNhf+7cjqBuiYv3yVNGXVPijgYc+ifqL+MiMNT2FOwe1asrNhoJTI
+	 nSxoIa8Hohm2UYD4KXVzXB19Bby5/K3g4IEJcSKZ+PxgLtk2egsjHBfxkN6FGVtYDo8mk
+	 WWThNRENix67lFkuYKUDDzSIouoKQUKpKM0YUYuDW8uCb4K2el5FiF7610rlTD9nyAC6T
+	 oEtD+piBRuSeShip2/YBxJj5r7anVSI9KwWVKY2WTHnzZRgsPHOh0c8YDUv9E1j8OiVhq
+	 JgokTU0Vya2y4lZwNfwUbxM2RKKXclqEiKc9thqWF5CdBzx65uIkdt+ZicSEhJRo7VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=o0L1NIFX;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1561606A322
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:45:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1561606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=L4S5w7Qi;
+	arc=none smtp.remote-ip=162.62.57.137
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAAE606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:46:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAAAE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=o0L1NIFX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=o0L1NIFXpelSbCkoJUycPd5LABJVAZgjzv4wkfnezexDTMWG8pbYaAQP2qg8L5bJjDFt4flhCUnRX
-	 juaco6gaE1SkPnsIWV4QpWfJHLD7O6V1HIXhS520kmC1REbXDc24++/6z6OSslsxud7kFshVmSo43K
-	 p+maDsZ9KurtYwHo=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36ae4592d759-3f6fb;
-	Fri, 30 Oct 2026 16:45:35 +0800 (CST)
-X-RM-TRANSID:2ee36ae4592d759-3f6fb
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.101])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16ae4592d047-57447;
-	Fri, 30 Oct 2026 16:45:35 +0800 (CST)
-X-RM-TRANSID:2ee16ae4592d047-57447
-From: laixiangwu <laixiangwu@cmss.chinamobile.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	laixiangwu <laixiangwu@cmss.chinamobile.com>
-Subject: [PATCH] fs/ntfs3: Fix memory leak of ntfs_fnd on corrupted index root
-Date: Fri, 30 Oct 2026 16:45:32 +0800
-Message-ID: <20261030084532.1748-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=L4S5w7Qi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793349985; bh=4PuUhSHvezLBSZJFINC4++j3AbiYAFeVh5nQiEi2aiY=;
+	h=From:To:Cc:Subject:Date;
+	b=L4S5w7Qi2FmqMOD8kKmxAWgmKlf8cTCBypUncskB6R4EGOBtwsE6lvcE74LrkQJZC
+	 mmgaKkHc9Wz6TF5Y8CGYXVBlgXwDdEViYH8YguehTyZPioK1sPZwLzClSRHApzP8iL
+	 B7eK+pcLHleEiPZGA0dNfLIifL24qrI8wf7exxvI=
+Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:5510:213f:594e:6216])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id B969DEA3; Fri, 30 Oct 2026 16:46:22 +0800
+X-QQ-mid: xmsmtpt1793349982tvc9gdgie
+Message-ID: <tencent_E7828EAC883D49896E2EDD4FCCFE653E9909@qq.com>
+X-QQ-XMAILINFO: Nx5J06Esz7r7PMhUy8UoGmObr45+JzSl81wouu51VZczr6ixFLgDWGSHohfeK9
+	 XOxNdZsBgHpqdJXoYPrw08Jo5IjDOrcTBbKT/VTB+osBD+kFMQkIowzwd1xfOiSV/7OrnNG7xVha
+	 jI6S4hHBKZq0SnivF8SKd68OLYh4G4+037zXIhMvUtDofOaWfsQ6E8T8aCWMhA6+9y8AzXsgLGlC
+	 hl3Xd79jZ4mOXv2gjXdQ3fvVw/a3dEHKRQbBnI1/Vl9OLokoB3MiidkkfE/rLnPhc6u41rvW1Wff
+	 mEdC3krQC/ArtzcnWt5oG97Rxesq5f5piVfyU9VV1rY1e5mx4CiUt85EroYjmgXSKPF6CuTGfCNq
+	 62v/v+xrsMUiZsmffMjcdAHPC3D2Cu5wME/oP7SOXnX3/vEVZHzzGXjuI5gkzbQIW7pGw3WcsV2F
+	 CSqyrpI0ZZjnYzusuMInrorS4PpzVDgYhoPn3ZZWGwYzcjJ+DDpSEDJ5nVIIRrbUERDk7MRFZ5Nb
+	 o+BNz5JAlrVdy3ND3XdPik+VrrSCzTylxwjTvVKPyKxckx7EbMuMgwipYdS3eTEhnQFg38LFLjfX
+	 eJEfVRLNXF3EGJFOx+/7/3qKaYwr+vNIamsRqvIVk9HV7C0qU9qHTUGJsnAsbchnD5vlzlSLhNkx
+	 2tjpOEfPHBajr+Bxqn7TwM0iX3cHqnU+u5oZoIJKhWk7Lx3/12ZllUXDRe56LXLw9sjHCfh1VIKy
+	 3exeEzwQtuANFB6w2LdDV4lpNDWIQkIYxypC3ySXrUdNvOiWbAqK//6JuaVKTLvPVXOSov5f2ilD
+	 7JIoObL4ACUOCHP14P1OBSDnhWy+GBZRxfEvvkM5idKOU/kZ4oCkJCLpP4EeOaUBJW26Yr723e9V
+	 vABHlb87VLkoVgC7MdZ4/o3TgA4vd8AsgaBjOc25ciWd7XXw9CorzgUxtkNPWTyheqdEA2X4OHN8
+	 CyGAl4FnQRXUQ5cpvGRjdD1S29SzJMsJSljkx0uznkt+CsMPfJhTTjHdjMG3qfTT2zyGyUejBbPi
+	 VusrFDAgw1RDswkGYSvaBkjHX5t9nSSOSlhOGCYX/tjuH45/JWkrbDE1UZRBtJMCTxGbFFy/UmUL
+	 /fCYI4wExGT+xRx96s1n0pzYrM4A==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: Yingjie Wang <1075151112@qq.com>
+To: linux-nvme@lists.infradead.org
+Cc: hch@lst.de,
+	sagi@grimberg.me,
+	kch@nvidia.com,
+	kbusch@kernel.org,
+	axboe@kernel.dk,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] nvmet: reject keep-alive timeouts that would overflow
+Date: Fri, 30 Oct 2026 16:46:22 +0800
+X-OQ-MSGID: <20261030084622.2485816-1-1075151112@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,59 +83,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-indx_insert_entry(), indx_delete_entry() and indx_update_dup() allocate
-one or two ntfs_fnd structures with fnd_get() before validating the
-index root with get_cmp_func(). If the index root describes an unknown
-collation rule (which can be the case on a corrupted or maliciously
-crafted image), these functions return -EINVAL directly, bypassing the
-"out" labels that release the ntfs_fnd allocations.
+nvmet_set_feat_kato() and nvmet_alloc_ctrl() convert the 32-bit
+millisecond KATO from the host to seconds with DIV_ROUND_UP(kato, 1000).
+The addition in DIV_ROUND_UP() is done in 32 bits, so any KATO above
+4294966296 ms wraps around and rounds to 0 seconds. A Set Features
+command with KATO 0xffffffff then succeeds but disables the keep-alive
+timer: Get Features returns 0 and Keep Alive fails with Keep Alive
+Timeout Invalid. A Connect command with such a KATO creates a controller
+without a keep-alive timer.
 
-Since the index type and rule fields are user controlled from the
-mounted image, every operation on such an index leaks the ntfs_fnd
-memory and can be repeated to exhaust kernel memory.
+The converted value has more consumers that can overflow. Get Features
+multiplies it by 1000, and the timer paths multiply it by HZ in 32 bits
+and arm a delay that must not exceed MAX_JIFFY_OFFSET.
 
-Release the allocated fnd structures by jumping to the existing error
-labels instead of returning directly.
+Reject a KATO whose rounded value does not fit all of these. Return Keep
+Alive Timeout Invalid from both Set Features and Connect. Validate Set
+Features before stopping the current timer so a failed update leaves its
+timeout unchanged. Round in 64 bits. A KATO of 0 keeps its current
+meaning.
 
-Fixes: 82cae269cfa9 ("fs/ntfs3: Add initialization of super block")
-Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
+Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
 ---
- fs/ntfs3/index.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/nvme/target/admin-cmd.c | 7 ++++++-
+ drivers/nvme/target/core.c      | 8 +++++++-
+ drivers/nvme/target/nvmet.h     | 8 ++++++++
+ 3 files changed, 21 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ntfs3/index.c b/fs/ntfs3/index.c
-index 689712d34..9b6f410a5 100644
---- a/fs/ntfs3/index.c
-+++ b/fs/ntfs3/index.c
-@@ -2049,7 +2049,8 @@ int indx_insert_entry(struct ntfs_index *indx, struct ntfs_inode *ni,
- 	cmp = get_cmp_func(root);
- 	if (unlikely(!cmp)) {
- 		WARN_ON_ONCE(1);
--		return -EINVAL;
-+		err = -EINVAL;
-+		goto out;
- 	}
+diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+index 26028be8fe4d8..a06cff8304db0 100644
+--- a/drivers/nvme/target/admin-cmd.c
++++ b/drivers/nvme/target/admin-cmd.c
+@@ -1227,8 +1227,13 @@ u16 nvmet_set_feat_kato(struct nvmet_req *req)
+ {
+ 	u32 val32 = le32_to_cpu(req->cmd->common.cdw11);
  
- 	if (fnd_is_empty(fnd)) {
-@@ -2406,7 +2407,8 @@ int indx_delete_entry(struct ntfs_index *indx, struct ntfs_inode *ni,
- 	cmp = get_cmp_func(root);
- 	if (unlikely(!cmp)) {
- 		WARN_ON_ONCE(1);
--		return -EINVAL;
-+		err = -EINVAL;
-+		goto out;
- 	}
++	if (val32 > NVMET_MAX_KATO * MSEC_PER_SEC) {
++		req->error_loc = offsetof(struct nvme_common_command, cdw11);
++		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
++	}
++
+ 	nvmet_stop_keep_alive_timer(req->sq->ctrl);
+-	req->sq->ctrl->kato = DIV_ROUND_UP(val32, 1000);
++	req->sq->ctrl->kato = DIV_ROUND_UP_ULL(val32, MSEC_PER_SEC);
+ 	nvmet_start_keep_alive_timer(req->sq->ctrl);
  
- 	/* Locate the entry to remove. */
-@@ -2787,7 +2789,8 @@ int indx_update_dup(struct ntfs_inode *ni, struct ntfs_sb_info *sbi,
- 	cmp = get_cmp_func(root);
- 	if (unlikely(!cmp)) {
- 		WARN_ON_ONCE(1);
--		return -EINVAL;
-+		err = -EINVAL;
-+		goto out;
- 	}
+ 	nvmet_set_result(req, req->sq->ctrl->kato);
+diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+index 956f9a552e70f..9b30a9b7a0b71 100644
+--- a/drivers/nvme/target/core.c
++++ b/drivers/nvme/target/core.c
+@@ -1612,6 +1612,12 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
+ 	u8 dhchap_status;
+ 	int ret;
  
- 	/* Find entry in directory. */
++	if (kato > NVMET_MAX_KATO * MSEC_PER_SEC) {
++		args->status = NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
++		args->error_loc = offsetof(struct nvmf_connect_command, kato);
++		return NULL;
++	}
++
+ 	args->status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
+ 	subsys = nvmet_find_get_subsys(args->port, args->subsysnqn);
+ 	if (!subsys) {
+@@ -1684,7 +1690,7 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
+ 		kato = NVMET_DISC_KATO_MS;
+ 
+ 	/* keep-alive timeout in seconds */
+-	ctrl->kato = DIV_ROUND_UP(kato, 1000);
++	ctrl->kato = DIV_ROUND_UP_ULL(kato, MSEC_PER_SEC);
+ 
+ 	ctrl->err_counter = 0;
+ 	spin_lock_init(&ctrl->error_lock);
+diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
+index bd13adc72f671..9ac599d90b413 100644
+--- a/drivers/nvme/target/nvmet.h
++++ b/drivers/nvme/target/nvmet.h
+@@ -7,6 +7,7 @@
+ #define _NVMET_H
+ 
+ #include <linux/dma-mapping.h>
++#include <linux/jiffies.h>
+ #include <linux/types.h>
+ #include <linux/device.h>
+ #include <linux/kref.h>
+@@ -712,6 +713,13 @@ void nvmet_add_async_event(struct nvmet_ctrl *ctrl, u8 event_type,
+ #define NVMET_KAS		10
+ #define NVMET_DISC_KATO_MS		120000
+ 
++/*
++ * Largest keep-alive timeout in seconds that can be reported back in
++ * milliseconds and converted to jiffies without overflowing.
++ */
++#define NVMET_MAX_KATO	\
++	min3(U32_MAX / MSEC_PER_SEC, U32_MAX / HZ, MAX_JIFFY_OFFSET / HZ)
++
+ int __init nvmet_init_configfs(void);
+ void __exit nvmet_exit_configfs(void);
+ 
 
+base-commit: 89480d137bf0d943a82c64f86ae2407a15276b5e
+-- 
+2.43.0
 
