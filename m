@@ -1,41 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793342986;
-	b=yRMJgEvDA9pZ9UQaJcM8dtc1hMAPoUB5IcaKpZh6cSJXjKT1D7ndAsAjFEU+DCOu/bb3
-	 dBH25vj4+XRYVfJcbiIDiXEOuO9VamPUvs1raHtQC1+S7kS8Hr8t1VsI7ZRbtOCamL2RQ
-	 GH08CY1dL4wyDQn2gzmBEUYWmOl0L4l3F/JjjwMtsGu/7khrKije/mpcqpehfSdUWdByg
-	 vdnpqKiiPBzyYPVpZoKR+ZQ8m1Ips6QbHKKTZrVKwl5Cd6hV5eJwOavmEDu/QrEYQ0xzp
-	 sbhnBobsvVHPkS2EVBeq0/LeDRA4VQJPslfnb6tfXoxu8sh+ARZWRdx6QA30aTKE0fA==
+	t=1793342981;
+	b=wKeK6iI2iOD4pZhJ17Y+H7gIeLt5Z8kln4B6DqPonbvhTVzKa5UzHO3hiv0AODUHa284
+	 OP+XRbk245uBFVAidwA4tOvp+cZblBvINtjWHkkNe1ezlae7uTe3lsgiwyfdRy/Qxm7Ix
+	 XovP69rFkpOB+97wZHYhtRmNecTNfWbsQC9LQ4pK8RMOOMa03WX928Q14McR4nfOAPTs4
+	 btItNmXBj9PKeTOk0TmLyHAJIPPwfa3IL18MM0RLB9rRQm897RIIXjIge4rsHqaz0nWwn
+	 sMfgfOyZsHpg8MHC1177ahR80UHhBhMZPmsUEdneIO7zfGfJ1b5qSucjbtmpTlRlLDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793342986;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793342981;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=F/XPgbmsTeE5iFBKrHX05+VdT/Xx9ShJ4HYEs4+/nlQ=;
-	b=AXdGSJN4ilTkfTaTrL/okpecDzSCuMzaXl6Tt8/S8KUPWwpu2X/31wWhbk468C8BB6L0
-	 566dGqhVxwaAIGEzSX+JERUHNuytV8VCJGmzU3FEE2hBY1K/Gao7JCzYswuKAosu9aI2A
-	 7WaQzyIMxMBbJWYSYipUBoUZ8PQtxI/Yj47JNdHGfBgOFrrAB7habM73+3ZH3sEwkcE6Z
-	 AA1LQgzMzAUcWj//8YTFHncdRoRliofc5BFWsCIrXCby+tdiXT4vgxHYy4VcP2ozzaEg5
-	 c8CixhrYuDfC+Wdhz/xvX7Q482Lu2ET3N3JAXBKuFSVVEalo0fQx6Pv9FZ1IiC2BN5Q==
+	bh=9sahrKizZzwz9gGVNC8YVWNEiDeaCi+DVsOpzdhg+so=;
+	b=pgw6rtb1fyI8tEzMnbrRyh1Raajl0puhuppBACc20fUxTa9vw5wJ/aHE/TGtZoavkCmC
+	 fKkvof8aky/bE1MlGh85luN+ZjI/8GoK9p2DQaE6l/NnA3aEjVZRhfJrEjZIFtfkNVVmL
+	 Afo65wIuRb4a4QDQqqc5pbhNg8qEuVbZGptDqtDllEyAtMAAtFRVvZY06l8+FGK5kZJj3
+	 uVG3s066tNSb8zvx8VwiDeTi4lnwmLXIBtsmu5zZdWNtBcwU6xi37RpVj4bibUj8HoP0T
+	 snZsvUWv3q35zkpAuQQCWhbDb4nC/jzD/XJfLrk5+H1gYVs1OUEb5roP5Lk/1Nkl+Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=rock-chips.com;
 	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=X0BosyH7;
-	arc=none smtp.remote-ip=154.81.10.19
-Received: from mail-m1019.netease.com (mail-m1019.netease.com [154.81.10.19])
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=b86PGyyn;
+	arc=none smtp.remote-ip=154.81.10.144
+Received: from mail-m10144.netease.com (mail-m10144.netease.com [154.81.10.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A06E60A261E;
-	Fri, 30 Oct 2026 06:49:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A06E60A261E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B439606A31E;
+	Fri, 30 Oct 2026 06:49:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B439606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=X0BosyH7
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=b86PGyyn
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 52e796950;
-	Fri, 30 Oct 2026 14:49:35 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 52e796915;
+	Fri, 30 Oct 2026 14:49:27 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: Sandy Huang <hjc@rock-chips.com>,
 	Heiko Stuebner <heiko@sntech.de>,
@@ -66,9 +66,9 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
 	linux-kernel@vger.kernel.org,
 	linux-phy@lists.infradead.org,
 	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v4 5/6] drm/rockchip: analogix_dp: Add support for RK3568
-Date: Fri, 30 Oct 2026 14:49:04 +0800
-Message-Id: <20261030064905.2248999-6-damon.ding@rock-chips.com>
+Subject: [PATCH v4 1/6] dt-bindings: display: rockchip: analogix-dp: Add support for RK3568
+Date: Fri, 30 Oct 2026 14:49:00 +0800
+Message-Id: <20261030064905.2248999-2-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261030064905.2248999-1-damon.ding@rock-chips.com>
 References: <20261030064905.2248999-1-damon.ding@rock-chips.com>
@@ -82,97 +82,99 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa18b922d7e03a8kunme14bef9979434
+X-HM-Tid: 0aa18b920f4503a8kunme14bef99793df
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGU8ZQlZKQh4ZHh4YSh
-	9DQ0JWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGUJOSlYdSBhOGU9OQ0
+	pJHxpWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
 	tIVUpLSEpKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=X0BosyH7FRo3N8MGfWVfVYDuO8s/2WYA1ETw0yYv9VL3GSPuxagFOHhDJcU+wg4Amr2dbPteIBiAqpxl5WMhcU0+eDbC3Bl7rKhakYfclCTRmyImtcaJdyGmfvSfO6wM6BLApNBVWPzcfND+AHY+d+z/ZSi/X/oNFBmVzVZnnGU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=F/XPgbmsTeE5iFBKrHX05+VdT/Xx9ShJ4HYEs4+/nlQ=;
+	b=b86PGyynkEQltAc3JvkAN9NzXPO4oqeWRkwkQlEFkLjBGbQU3sjxYcHiRUDcLYpZvXjEG3k3A7zJwdhtfstX0mVHWtA/G9lxFSIGZdLqKpzF2OOAKjpnKbC819RBjkqw0YOoxC+le2BUMiZEF4U67vhzl717t/9U2JDJGwixu2A=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=9sahrKizZzwz9gGVNC8YVWNEiDeaCi+DVsOpzdhg+so=;
 	h=date:mime-version:subject:message-id:from;
 
-The RK3568 eDP controller does not require any GRF configurations,
-so make the "rockchip,grf" property optional.  Also enable the
-optional avdd-0v9 and avdd-1v8 supplies which power the eDP PHY.
+Document the "rockchip,rk3568-edp" compatible.  Like RK3576/RK3588,
+the RK3568 eDP controller has the dp/pclk/hclk clocks and dp/apb
+resets, but unlike them it does not use GRF registers, so make the
+"rockchip,grf" property conditional on the SoC.
 
-Add the "rockchip,rk3568-edp" compatible along with its chip data;
-the register base in the chip data is used to match the platform
-device memory resource.
+Also document the avdd-0v9 and avdd-1v8 supplies, which are needed by
+the RK3568 eDP controller.
 
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
 ---
 
-Changes in v2:
-- Fail the probe when the chip data requires GRF configurations while
-  the "rockchip,grf" property is missing. (Sashiko)
+Changes in v4:
+- Restrict the avdd-0v9 and avdd-1v8 supplies to the RK3568 compatible.
 ---
- .../gpu/drm/rockchip/analogix_dp-rockchip.c   | 24 ++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
+ .../rockchip/rockchip,analogix-dp.yaml        | 28 ++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index ccdd4b9ecdb8..38c78360842f 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -320,12 +320,17 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
- 	struct device *dev = dp->dev;
- 	struct device_node *np = dev->of_node;
- 	struct clk *clk;
-+	int ret;
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+index 39dafe75a680..05b582a864f4 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+@@ -15,6 +15,7 @@ properties:
+     enum:
+       - rockchip,rk3288-dp
+       - rockchip,rk3399-edp
++      - rockchip,rk3568-edp
+       - rockchip,rk3576-edp
+       - rockchip,rk3588-edp
  
--	dp->grf = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
-+	dp->grf = syscon_regmap_lookup_by_phandle_optional(np, "rockchip,grf");
- 	if (IS_ERR(dp->grf))
- 		return dev_err_probe(dev, PTR_ERR(dp->grf),
- 				     "failed to get rockchip,grf property\n");
+@@ -47,6 +48,16 @@ properties:
+       - const: dp
+       - const: apb
  
-+	if (!dp->grf && (dp->data->lcdc_sel.valid || dp->data->edp_mode.valid))
-+		return dev_err_probe(dev, -EINVAL,
-+				     "missing the required rockchip,grf property\n");
++  avdd-0v9-supply:
++    description:
++      A 0.9V supply that powers up the SoC internal circuitry. The actual
++      supply source varies between different boards.
 +
- 	dp->grfclk = devm_clk_get_optional(dev, "grf");
- 	if (IS_ERR(dp->grfclk))
- 		return dev_err_probe(dev, PTR_ERR(dp->grfclk),
-@@ -351,6 +356,14 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
- 		return dev_err_probe(dev, PTR_ERR(dp->apbrst),
- 				     "failed to get apb reset control\n");
- 
-+	ret = devm_regulator_get_enable_optional(dev, "avdd-0v9");
-+	if (ret && ret != -ENODEV)
-+		return dev_err_probe(dev, ret, "failed to enable avdd-0v9\n");
++  avdd-1v8-supply:
++    description:
++      A 1.8V supply that powers up the SoC internal circuitry. The actual
++      supply source varies between different boards.
 +
-+	ret = devm_regulator_get_enable_optional(dev, "avdd-1v8");
-+	if (ret && ret != -ENODEV)
-+		return dev_err_probe(dev, ret, "failed to enable avdd-1v8\n");
-+
- 	return 0;
- }
+   rockchip,grf:
+     $ref: /schemas/types.yaml#/definitions/phandle
+     description:
+@@ -61,11 +72,25 @@ required:
+   - clock-names
+   - resets
+   - reset-names
+-  - rockchip,grf
  
-@@ -530,6 +543,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[] = {
- 	{ /* sentinel */ }
- };
+ allOf:
+   - $ref: /schemas/display/bridge/analogix,dp.yaml#
  
-+static const struct rockchip_dp_chip_data rk3568_edp[] = {
-+	{
-+		.chip_type = RK3568_EDP,
-+		.reg = 0xfe0c0000,
-+	},
-+	{ /* sentinel */ }
-+};
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: rockchip,rk3568-edp
++    then:
++      properties:
++        rockchip,grf: false
++    else:
++      properties:
++        avdd-0v9-supply: false
++        avdd-1v8-supply: false
++      required:
++        - rockchip,grf
 +
- static const struct rockchip_dp_chip_data rk3576_edp[] = {
- 	{
- 		.chip_type = RK3576_EDP,
-@@ -555,6 +576,7 @@ static const struct rockchip_dp_chip_data rk3588_edp[] = {
- static const struct of_device_id rockchip_dp_dt_ids[] = {
- 	{.compatible = "rockchip,rk3288-dp", .data = &rk3288_dp },
- 	{.compatible = "rockchip,rk3399-edp", .data = &rk3399_edp },
-+	{.compatible = "rockchip,rk3568-edp", .data = &rk3568_edp },
- 	{.compatible = "rockchip,rk3576-edp", .data = &rk3576_edp },
- 	{.compatible = "rockchip,rk3588-edp", .data = &rk3588_edp },
- 	{}
+   - if:
+       properties:
+         compatible:
+@@ -100,6 +125,7 @@ allOf:
+         compatible:
+           contains:
+             enum:
++              - rockchip,rk3568-edp
+               - rockchip,rk3576-edp
+               - rockchip,rk3588-edp
+     then:
 -- 
 2.34.1
 
