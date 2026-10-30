@@ -1,83 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348761;
-	b=lLL0eJXikQoBZHjNoXic4Yj5dWNUuVVHwZn0r+Mu3pgjOyd/TAZZITXBTS8yKJPMmNfd
-	 /eYeQ0fAcCqOaDVgtlRExasYcmDN7kT6auNPSomti/i1hioxvkx6Gu6bdmkR/qEtKPGhY
-	 oHZU8PuILLtmwR8M3CzgPlmyuTWHLvhx2sT7QrMfu3WBj7fUDcuhUaZIStJ5lXrLEzM8X
-	 2CJ1ep+YH3jlvYp36gCY9uYL0hpLArP8B7WLAv/dS9zqqOoqIUhZ0WrqKuTl8g5hmU65t
-	 BFB9WNBApdunGW+gx1wcYp48N4zRSDvqfqZOLtjv98Ra7S9+kztfgkMLqP1viIzXgFQ==
+	t=1793348756;
+	b=L0b/f/CANApkx/xAGJyHte110lq81SMZf16TU1HTi8ZxcdObh/1w+/zHvFaDbiapc2Ix
+	 k1wIiPzCxLjkdxWGW4cEX49zVwA0C6fKBxPaSGKbuDrSs4szCjWNrKu/124YQgB8wVgI/
+	 jeA51CpZrCJfJuMhpPCrmz44vA5diuNky3umXVTqzUZyw7fBFyYGi0kV2VOa3xtc/1yxb
+	 YBGaEb4pE+5KT4PU79WEI8+juvXqknP1nwlAHUWRS+/HHNxFnweJLUN9/njWS5xqUQY8h
+	 HLhfgNUJmxtfJz4r43M+h/51fvfapP4D2CEkBDaAiIVQOi+gHJpa6lKAFI1pLBy+dbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348761;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-MTK;
-	bh=gE0ScmYrFjCj2XqU/NIHxN+a7VmHwGx/vJD1+r3XhrQ=;
-	b=ucypHmqA9H7nTeZcnssJ7zGu+RUG4IF4XG05D3Lum4T14qJgrnu/rGB+7d7JCer1E11s
-	 NTti6UGRssm6kQTampM2mo4TkATNcOO6+AEBotaQKW2+vbfhK1tsbCU9i9Du7kglOfAWB
-	 CBS+zgYa9J5cWaV0dsU2+6nCD6s2d55ciEHG5994r4UAob+x4Ujg3q0wpV1qmU/b7wbzr
-	 t7nxOH0cudQbR/9gdBJGzxSizZUABsIQyeyFdcel78VPUStfIl4Oz/rRw4jY/2C2dvR0U
-	 BtLrMF1f3P0VFWjwxG/Mkk7ITpLxkGvABi5N/TnTcqc9qHmMpqXgb7MsCdW4s6XeBPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348756;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=yyok/7kTqnmIKTiZKOdqHEMv9e2GxdKkMvuJpoDTbc4=;
+	b=J/IH217G7oLua13WUZDn3LPbPA1y1HJj8kRTOeK8V5C0ibWvTvixEym+FkiwNomjZVbx
+	 OMhcnlArImWDYBLjTXVFw0dd0Ik4SIhUuvXfVdCWCxVAsrvNqEkCNYwJzUf09atde4HS5
+	 aOX1W6LA54Kh6+Hj/SILtDeFfHOyXUeS9qn4INi5FnSjpA8K4a2z6O5WuwGpkMbBUULDx
+	 fawdAYsir7jPJsXLG9K6Yw74tCblt/yz0hL7dxFJ2tgcmK2sfv3bueRuBfnZcJl1tO2LL
+	 boTPhNyblyJfLzrrIEkxearsj+1lKp5eblmowLdbNWRhO237hFMh1xOxFCE+lYQ8OwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b="I/rotX00";
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HTzGyBTm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE35606A333;
-	Fri, 30 Oct 2026 08:26:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CE35606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284B1606A31A;
+	Fri, 30 Oct 2026 08:25:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=I/rotX00
-X-UUID: 85f05568d43b11f18dc8c9802ae25ab1-20261030
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=gE0ScmYrFjCj2XqU/NIHxN+a7VmHwGx/vJD1+r3XhrQ=;
-	b=I/rotX00GWSuUiJXTi+V0A/nAzeVoW2vVMEWP2rtmHuHM4ki0LtMEfgqCF7FKSzLn973n9gFPKZ7zq/+Yh9drc8enuxpaCwj8qZs4R5/NhLh416pTUSt2cUkrMisoDHyTJDihmnvLd19dyrZvVLzpcsHdXsUBmljP5gXisZa65Y=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:ddef2bd6-ca91-40d7-bdc3-df112c748416,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:b0318ac,CLOUDID:48805093-992d-41bc-b618-62c5d111cc67,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|136|836|865|888|898,TC:-5,Content:0|
-	15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL
-	:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 85f05568d43b11f18dc8c9802ae25ab1-20261030
-Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
-	(envelope-from <chunfeng.yun@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 571707546; Fri, 30 Oct 2026 16:25:54 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 30 Oct 2026 16:25:52 +0800
-Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 30 Oct 2026 16:25:52 +0800
-From: Chunfeng Yun <chunfeng.yun@mediatek.com>
-To: Mika Westerberg <westeri@kernel.org>
-CC: Andreas Noever <andreas.noever@gmail.com>, Yehezkel Bernat
-	<YehezkelShB@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, <linux-kernel@vger.kernel.org>,
-	<linux-usb@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>, Chunfeng Yun
-	<chunfeng.yun@mediatek.com>
-Subject: [PATCH 2/4] thunderbolt: add support optional dedicated wakeup irq
-Date: Fri, 30 Oct 2026 16:25:37 +0800
-Message-ID: <20261030082539.1208733-3-chunfeng.yun@mediatek.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261030082539.1208733-1-chunfeng.yun@mediatek.com>
-References: <20261030082539.1208733-1-chunfeng.yun@mediatek.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HTzGyBTm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7BA61F000C1;
+	Fri, 30 Oct 2026 08:25:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793348755;
+	bh=yyok/7kTqnmIKTiZKOdqHEMv9e2GxdKkMvuJpoDTbc4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HTzGyBTmW80MuUJ01VRc3CawL+cBO03XtXw0+oNf9fn26Cvgrl2tGbb0lC533FKMk
+	 E4uDS1yZ0yKu89xK6zU1GlR4ghOqoIBgTfbN7Hud5tKEiBUg8tfAvWM8dfRrydaKJA
+	 K1oMOk3fKeWxw+BDAlsjH+sgtaqdgrWfEN8gX4/KlNCn/KTWGJB5sStZjOQ7JCuEHD
+	 DX78heTEzsoK6rHr2L/OyFzrlwJ3m2xbXvd8zP7s618i/PttYuvQbKGOo92sBU1V3q
+	 T8rc+8Q/8bFVAkmug8th+C9T5YtrWAet3LxOP+n80EMiOijCn3JenihPn+sMYvAB9W
+	 +4sHsFO38Ly1Q==
+Date: Fri, 30 Oct 2026 08:25:50 +0000
+From: Simon Horman <horms@kernel.org>
+To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+Cc: netdev@vger.kernel.org, saeedm@nvidia.com, leon@kernel.org,
+	tariqt@nvidia.com, mbloch@nvidia.com, borisp@nvidia.com,
+	witu@nvidia.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Subject: Re: [PATCH net v1] net/mlx5e: kTLS, Fix missing error unwind when
+ enabling RX offload
+Message-ID: <20261030082550.GM257209@horms.kernel.org>
+References: <20261026095346.1212609-1-xuanqiang.luo@linux.dev>
+ <20261029134019.GG257209@horms.kernel.org>
+ <8a565dd0-f2a7-4d18-9df7-bcf1ed303a59@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,78 +63,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8a565dd0-f2a7-4d18-9df7-bcf1ed303a59@linux.dev>
 
-There is a dedicated wakeup irq on nvidia n1/n2 SoCs.
+On Fri, Oct 30, 2026 at 10:08:31AM +0800, Xuanqiang Luo wrote:
+> On 2026/10/29 at 21:40 Simon Horman wrote:
+> > On Mon, Oct 26, 2026 at 06:53:46PM +0900, Xuanqiang Luo wrote:
+> > > From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> > > 
+> > > Since commit abed42f9cd80 ("net/mlx5e: Conditionally create async
+> > > ICOSQ"), the async ICOSQ is only created when an XDP program is attached
+> > > or priv->ktls_rx_was_enabled is set. When TLS RX offload is enabled for
+> > > the first time, mlx5e_ktls_set_feature_rx() sets the flag and reopens
+> > > the channels so that they get the queue, but it ignores the return value
+> > > of mlx5e_safe_reopen_channels().
+> > > 
+> > > If the reopen fails, mlx5e_safe_switch_params() keeps the old channels,
+> > > which have no async ICOSQ, while NETIF_F_HW_TLS_RX is still reported as
+> > > enabled. The next offloaded RX connection then dereferences the NULL
+> > > c->async_icosq in post_rx_param_wqes(). Enabling the feature again does
+> > > not help, as the flag is already set and the reopen is skipped.
+> > > 
+> > > Propagate the error, clear the flag and destroy the accel TCP flow
+> > > tables again, so that the feature stays disabled and the next attempt
+> > > retries the reopen.
+> > > 
+> > > Fixes: abed42f9cd80 ("net/mlx5e: Conditionally create async ICOSQ")
+> > > Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> > > ---
+> > > Found by code inspection while backporting commit abed42f9cd80 to a
+> > > downstream kernel. I do not have a crypto-enabled ConnectX NIC, so the
+> > > failure has not been reproduced and the fix is only compile-tested.
+> > > 
+> > > The crash itself is the one described in the changelog of abed42f9cd80
+> > > ("async ICOSQ allocation is not triggered, causing a NULL pointer
+> > > crash"). This patch only covers the case where the reopen that should
+> > > create the queue fails. ktls.c is also the only caller that ignores the
+> > > return value of mlx5e_safe_reopen_channels(); the callers in health.c
+> > > and reporter_tx.c check it.
+> > > 
+> > >   drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c | 6 +++++-
+> > >   1 file changed, 5 insertions(+), 1 deletion(-)
+> > 
+> > I agree that a minimal approach to addressing this problem is appropriate
+> > for net.
+> > 
+> > Reviewed-by: Simon Horman <horms@kernel.org>
+> 
+> Thanks for the review!
+> 
+> > 
+> > However, I do think the logic of this function is becoming somewhat
+> > convoluted and would benefit from:
+> > 
+> > 1. Handling error paths in conditionals while leaving
+> >     the main thread of execution unconditional.
+> > 
+> > 2. Use goto for unwind.
+> > 
+> > This is approach is complicated by the function needing to
+> > handle the enable condition. But at any rate, maybe a follow-up patch do do
+> > something like this would be worthwhile?
+> > 
+> > diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
+> > index 3cc1213c2f68..0f5dcd1b822e 100644
+> > --- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
+> > +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
+> > @@ -137,19 +137,22 @@ int mlx5e_ktls_set_feature_rx(struct net_device *netdev, bool enable)
+> >   	mutex_lock(&priv->state_lock);
+> >   	if (enable) {
+> >   		err = mlx5e_accel_fs_tcp_create(priv->fs);
+> > -		if (!err && !priv->ktls_rx_was_enabled) {
+> > -			priv->ktls_rx_was_enabled = true;
+> > -			err = mlx5e_safe_reopen_channels(priv);
+> > -			if (err) {
+> > -				priv->ktls_rx_was_enabled = false;
+> > -				mlx5e_accel_fs_tcp_destroy(priv->fs);
+> > -			}
+> > +		if (err || priv->ktls_rx_was_enabled)
+> > +			goto out_unlock;
+> > +
+> > +		priv->ktls_rx_was_enabled = true;
+> > +		err = mlx5e_safe_reopen_channels(priv);
+> > +		if (err) {
+> > +			priv->ktls_rx_was_enabled = false;
+> > +			enable = false;
+> >   		}
+> > -	} else {
+> > -		mlx5e_accel_fs_tcp_destroy(priv->fs);
+> >   	}
+> > -	mutex_unlock(&priv->state_lock);
+> > +	if (!enable)
+> > +		mlx5e_accel_fs_tcp_destroy(priv->fs);
+> > +
+> > +out_unlock:
+> > +	mutex_unlock(&priv->state_lock);
+> >   	return err;
+> >   }
+> Thanks for the suggestion. Agreed, the nesting is getting hard to
+> follow. I'll send a cleanup along these lines to net-next once this
+> fix has made it there.
 
-Signed-off-by: Chunfeng Yun <chunfeng.yun@mediatek.com>
----
- drivers/thunderbolt/plat.c  | 16 ++++++++++++++++
- include/linux/thunderbolt.h |  1 +
- 2 files changed, 17 insertions(+)
+Likewise, thanks.
 
-diff --git a/drivers/thunderbolt/plat.c b/drivers/thunderbolt/plat.c
-index 85a00cd391d4..8d83b484d942 100644
---- a/drivers/thunderbolt/plat.c
-+++ b/drivers/thunderbolt/plat.c
-@@ -11,6 +11,7 @@
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-+#include <linux/pm_wakeirq.h>
- #include <linux/slab.h>
- 
- #include "nhi.h"
-@@ -46,6 +47,15 @@ static int nhi_plat_init_irq(struct tb_nhi *nhi)
- 	if (ret)
- 		return dev_err_probe(nhi->dev, ret, "request irq failed\n");
- 
-+	if (nhi->wake_irq) {
-+		ret = dev_pm_set_dedicated_wake_irq(nhi->dev, nhi->wake_irq);
-+		if (ret) {
-+			dev_err_probe(nhi->dev, ret, "set wake irq %d failed\n", nhi->wake_irq);
-+			return ret;
-+		}
-+		dev_info(nhi->dev, "wake irq %d\n", nhi->wake_irq);
-+	}
-+
- 	return 0;
- }
- 
-@@ -53,6 +63,7 @@ static void nhi_plat_exit(struct tb_nhi *nhi)
- {
- 	devm_free_irq(nhi->dev, nhi->irq, nhi);
- 	flush_work(&nhi->interrupt_work);
-+	dev_pm_clear_wake_irq(nhi->dev);
- 
- 	pm_runtime_put_noidle(nhi->dev);
- 	pm_runtime_disable(nhi->dev);
-@@ -85,6 +96,11 @@ static int nhi_plat_probe(struct platform_device *pdev)
- 	if (nhi->irq < 0)
- 		return dev_err_probe(dev, nhi->irq, "get irq failed\n");
- 
-+	/* ignore error */
-+	nhi->wake_irq = platform_get_irq_optional(pdev, 1);
-+	if (nhi->wake_irq < 0)
-+		nhi->wake_irq = 0;
-+
- 	return nhi_probe(nhi);
- }
- 
-diff --git a/include/linux/thunderbolt.h b/include/linux/thunderbolt.h
-index 212c8fea6571..06b90d452ee2 100644
---- a/include/linux/thunderbolt.h
-+++ b/include/linux/thunderbolt.h
-@@ -533,6 +533,7 @@ struct tb_nhi {
- 	bool going_away;
- 	bool iommu_dma_protection;
- 	int irq;
-+	int wake_irq;
- 	struct work_struct interrupt_work;
- 	u32 hop_count;
- 	unsigned long quirks;
--- 
-2.43.0
-
+Just to be clear, the patch I provided informally in my previous email
+is compile tested only.
