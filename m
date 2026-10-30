@@ -1,65 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362769;
-	b=WYXU6kPDTvmZ5hT8lYOjN8pmNbtu3wjC2ZU8AnDms6IVWD1TJXU3HKBCs4/RphKwcO6f
-	 lySQiXYLXo+0ihwnwBkUoyP6f4Kwig6MGufZPjtNqcYKxM/sGMCoQqdsxrcvaoUHthGTM
-	 Cd9gu5yO2tShOKET6Y2uFIts24keX4flLJrNd9H0KgAL/aiq03o+vIu23s7jUB0y3X6oB
-	 wqX5oBz9Kt+/889XEvBMsakyKAtkmFJepnNSQEzZfjhg8btoH5TonzvZxf5YnRuxpQTLc
-	 +swzHv/ZNjlCVzReHk8yeSDKEmAhc+bHFhcYrWqiYnnPfPRiYrMp/gBPACjouCmhQlw==
+	t=1793362852;
+	b=5qrszE8ELiuMih47EJFr/0sz0oOvHzKLhrX8dVxJJmNTkXzGfyu+8/e7j0txutmUc+A8
+	 YehXumz9mdUpLEh2KwiNpoE6YFDo+cJ/6pTOxm0ZJK2gbdvg7x2I7WVZLoeG+PYvqQe3o
+	 1NtmEyQMmNJw5CVF7iAk8UuBtjMYioKT7rl9wvhnmj4YiYkW1QZ5PvI1+3cPTr0Cvf7rV
+	 yL67Ei9KBUU3aRInqmmU+hjwrUCtdaKceiiUY1hK6ChJjztwWUqU02LKKJJYmfc7/yNun
+	 4rO3C9lnESyy8nho/hcM3bPBS4sTB+IwfuIdfFI8M90e1e2ZuQnrrarmRciudRzDNNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362769;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=pEOu/AQvgU0OKb5AZqRCUfaOk8gDp8NvYhcCjCvB5JU=;
-	b=KZ9NC3rWeWVxVZK756u/0h/nrPy/VgVXorNgdPTD6Hhh1CcPvm+Z+5nsMLNaS5MiEWZQ
-	 VJYnZzIioaQO4WfqXPztNmL7QyekZtj1Tqfq0lBKYmEy3nqX83Q+bTXKdJII4jRfcH9RY
-	 yF4I3+ckOje6H7YMEBCW2sJeJUHlbqfmwW0LkwUcd6HTfXM6icrlguXkABuZYTzTpxDtV
-	 I8hNK/Fg0mJ86511W9jEHpMS/g1imafaez/ej3f2evH6cPxou3M5WPICiTkIpcRGAt4fz
-	 aO1XsZwsyOh4632SOeERWjQXOsanRG78si0P9WuOEPSqu68ypcNEMHzuThOkv5brtPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362852;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Xv0rjomnreEwJ3awHfgoaSBNl+BwH7nZQZWEX3r6cz4=;
+	b=aHg6xUzB9cNYouIWH/huaRQkPp0g4cn8WzqO66btZTXuRTWYR+tQg8ZqBzRtHoM6CTm9
+	 ku7l2uOrR+SE5kxDGn7Pq5AKsW0U3tLy2qYHVsA0IFBNdkzymdpc5zXHzEaveyN9l5c1C
+	 bZJYHVIFHudwUNG0oMFsoFopksmepnv29YdErQAI8pXFEv+wzS1QdyVpKzVYam+F1cxh6
+	 qtYcl6/uB0W6XZpjo9Qf1WhyKOtXdFY4y8E21yQRwU+Fs6wRWL3QpXEwpKlzzZJo0PhTJ
+	 NBnI9pOcUhvWbK6RbGjLSmT8rKnFCYkXMvwiHv6wjEu07a3d4DAYGz6VVp4HBVXp5Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z1GRqgVU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=vK9iC1Fy;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC90606A31C;
-	Fri, 30 Oct 2026 12:19:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F840606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:20:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F840606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z1GRqgVU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EBC11F000C1;
-	Fri, 30 Oct 2026 12:19:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793362768;
-	bh=pEOu/AQvgU0OKb5AZqRCUfaOk8gDp8NvYhcCjCvB5JU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z1GRqgVU4WIj2ovDw33wHVQ50+wcmPd8/iVAG4of6NAt3Rr/AR7PDuT4d8fAQTMtU
-	 wXSiDpUBRzGwYOqpuW+G8+Owc6KG88nWoM0t0B9s2tP9+OeTyS8Peqtp9md0yYQYvP
-	 d7Q0dFsYSX/Wu1Gd0vyfD8cIc4sNL96m2fr8q7Tr6vc2TlNNvgMPQVwhPnAPZ2qgNy
-	 9GdRSJFsFof5PtAPP8aa93iHTxTmUTpJT5ygcEksnW7AFb+PSD7rnPpu9om4ZLsKKj
-	 bUNOC/W6HS4UoE600ZsgdUDzGm0y+xdV/sXbDBY2EmdQW1XOZ93Cn2O45iEB5tNixz
-	 aN1QY4oHSWwlw==
-Date: Fri, 30 Oct 2026 14:19:20 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: Ritesh Harjani <ritesh.list@gmail.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Pavithra <pavrampu@linux.ibm.com>,
-	"Aneesh Kumar K . V" <aneesh.kumar@linux.ibm.com>,
-	Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
-	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] powerpc/mm: fix uninitialized ZONE_DEVICE struct
- pages with PMDs
-Message-ID: <auSLSIwUi2xNIYua@kernel.org>
-References: <20261030115326.1005755-1-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=vK9iC1Fy
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so5995385e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:20:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1793362851; x=1793967651; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xv0rjomnreEwJ3awHfgoaSBNl+BwH7nZQZWEX3r6cz4=;
+        b=vK9iC1FyK8AU7W9Xs1PN7+oSwVPX2LTnrER9xMULro+BBAfwCw+NzzUq8fuPmFvUsr
+         KfyA5E5NRHyG0gh84nXK217JDiNYXo+VXlaJrnkFx+TTptTjsSoxP8npCSPAqaifJKFH
+         LP9MUs5hzGUGmUah3qIXvYnzzCfvMFcjojA0nE+BQYSUeY4wDD9ZzVf6PDtaU6qWlYnr
+         0cQdvZvr4Jm6V5BDO6aAjMUrAEr7QO0mt+yW5+coI0oi+loYDLtocgYF4E5rSjh1BNsh
+         cm7Pgk3MuRbWW6Cx3GX+dylge/XEjjqD9syV80ZpfAO5vFNvUVdHAwllFmp1hvSWITB+
+         BdcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793362851; x=1793967651;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xv0rjomnreEwJ3awHfgoaSBNl+BwH7nZQZWEX3r6cz4=;
+        b=iw204Rx8a+IWu13dLrQKDoSaW6tI71dYQ76akTQ259Z1gS5wR+BDIDDf82O9vUnbSH
+         ZuBwxStxvFy9NWD316RPdIORRVDoGDq6IA/o5hhgKylx+XOqtU1+brcBwxe3klSECq7W
+         4t7XZ2nlYcokLHJTZ65okY9fWOLBrZExu+oQwUiDiJgBC45AadhjDk6gN8BqhkCt1QKR
+         iiB8RcF1JEIgeSYq271bfRQ32B2jBcQddPCv+HAOnFY+iTK/0QqBaa0UdBkOo2msXHwK
+         gKFvJGHNGRe2VoBbzgtXT1InNodO4i+8jt59yrfh8C8pX08GvGpL99T0fjiAOKJ0f3O3
+         NJlg==
+X-Forwarded-Encrypted: i=1; AKwUvBwNh5hUsV09giScyvHko9a3TLtTdPt4k1sDiP9UibANqZCsN5eOKtUTC/yrmjBK9S1Qk9SN2/n0I72wWqk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKK7/++I9BO31HMnHRaFvKiN+02YuYD2fYi9A09UGiJbb0tUkYd
+	H7NmpzeHsRfiUK7ITDktHxZ1g2IKB5A2UrkKREgjGDzp6gF18+KOcJs=
+X-Gm-Gg: AYBFou2yTcwHmB8W58+HHjzyhLcWrOw8mDro0Wr5wjbVP6plI19iONMph9SG37upNXu
+	htN2bV3MrxEYpiHxNVphIRsh5mJwTuCw03WUhCE8qfUf1ciQ18GDNA25L4TE+vzZ8qXcDLoZRLS
+	q03LVLyH3iSqEvTA4hHj4kAvBd0ghgE6XllPCMvbDzVYG2/uZZg9ZNGtBH6aTzMZYl69pnFsVHg
+	XZjZDCIhKRF9RpPKxNvxF6jxt/GzUCcfA5X+bCK8xIYql9RWqbxY5g5YxjV+iGmM/E1kvBLreWX
+	TTONTqAB/7YxxzQxNQejzP2bIt6JQfYT9A7f+dzgBVafiXOsrPO1IpTmIljEuIaB3BCEpVu9l7l
+	Zw49QPhZHPRtpxHYBj5PfTcL0+jwmHmi2bplpWjLAQa7BYVrWT75RKYlEJyrCyyuiDBubaLPvpA
+	PponrN4+jbri3EiPgyH29WIHk7kQdfsEX6WDlKtZDxyUq6oyMwcjtILpor+6iiNH9qGsu+s4Vcm
+	FqlNDbWkuW0RyjPXdYZZU9gP3oyBBUoePNDf8sxS/f5kG+DdF/7oCp8/vV43AD6s2TtBqYoiIWV
+	dQrZyOsR1BSiib1+KJ3j0/Gowc4YlRhvL3ov4k0AJyle9BHHsp2KpE2w2joFz6YMz38oS0MUUbC
+	BqUw=
+X-Received: by 2002:a05:600c:8b55:b0:4a1:ddca:8b66 with SMTP id 5b1f17b1804b1-4ac19234a06mr43869145e9.31.1793362850528;
+        Fri, 30 Oct 2026 05:20:50 -0700 (PDT)
+Received: from [192.168.1.3] (p5b057761.dip0.t-ipconnect.de. [91.5.119.97])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abeb77c132sm41033045e9.1.2026.10.30.05.20.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 05:20:50 -0700 (PDT)
+Message-ID: <e24362cb-bce4-4a9f-b9f5-040aaa2823e0@googlemail.com>
+Date: Fri, 30 Oct 2026 13:20:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,95 +93,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030115326.1005755-1-songmuchun@bytedance.com>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 7.2 00/10] 7.2.15-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261030121255.257615100@linuxfoundation.org>
+Content-Language: de-DE
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261030121255.257615100@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 07:53:25PM +0800, Muchun Song wrote:
-> PowerPC radix vmemmap population can reuse an existing PMD mapping for
-> a device DAX range marked HVO-enabled. The reused mapping is ordinary:
-> its tail struct pages are not remapped to the shared tail page.
-> 
-> Leaving the section marked HVO-enabled makes memmap_init_zone_device()
-> treat the range as optimized and skip initializing real tail struct pages
-> that remain in use. This first triggers a zone mismatch warning, then
-> faults while initializing the pageblock flags:
-> 
->   WARNING: mm/mm_init.c:600 at __init_single_page+0xd0/0xf4
->   Call Trace:
->     memmap_init_zone_device+0x164/0x430
->     memremap_pages+0x43c/0x93c
->     devm_memremap_pages+0x3c/0xa4
->     dev_dax_probe+0x264/0x3d0
->     dax_bus_probe+0x140/0x1c8
-> 
->   BUG: Kernel NULL pointer dereference on read at 0x00001400
->     __set_pfnblock_flags_mask.constprop.0+0x34/0x160
->     memmap_init_zone_device+0x358/0x430
-> 
-> Without these diagnostics, the uninitialized metadata remains latent until
-> userspace accesses the device DAX range and triggers a later panic.
-> 
-> Mark the section non-HVO when reusing a PMD mapping so its state matches
-> the actual vmemmap layout and core ZONE_DEVICE code initializes all real
-> struct pages.
-> 
-> The Fixes target predates the section-based vmemmap optimization
-> infrastructure, so this patch cannot be applied directly to some older
-> kernels. Older kernels instead need to pass the vmemmap bounds to a
-> range-aware vmemmap_can_optimize() and reject optimization on PowerPC if
-> a PMD leaf overlaps the range. This reuses the existing mapping normally
-> and makes core ZONE_DEVICE code initialize all real tail entries.
-> 
-> Fixes: f2b79c0d7968 ("powerpc/book3s64/radix: add support for vmemmap optimization for radix")
-> Cc: <stable@vger.kernel.org> # see patch description, needs a different fix for <= 7.3
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> Reported-by: Pavithra <pavrampu@linux.ibm.com>
-> Closes: https://lore.kernel.org/r/97f85592bb78a273be8519e6897e7f9b9bd31469.1793070429.git.ritesh.list@gmail.com
-> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> Tested-by: Pavithra Prakash <pavrampu@linux.ibm.com>
+Am 30.10.2026 um 13:15 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 7.2.15 release.
 
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Three minutes after the release of 7.2.14? Really? That's, well... ambitious.
 
-> ---
-> v2:
-> - Rewrite the commit message.
-> - Describe the range-aware vmemmap_can_optimize() fix for older kernels
-> - Note that kernels through v7.3 require a different stable fix
->   (suggested by Ritesh Harjani)
-> - Collect Tested-by from Pavithra Prakash
-> ---
->  arch/powerpc/mm/book3s64/radix_pgtable.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/powerpc/mm/book3s64/radix_pgtable.c b/arch/powerpc/mm/book3s64/radix_pgtable.c
-> index 44868b62b14e..4f75f10ed68f 100644
-> --- a/arch/powerpc/mm/book3s64/radix_pgtable.c
-> +++ b/arch/powerpc/mm/book3s64/radix_pgtable.c
-> @@ -1261,7 +1261,16 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
->  			return -ENOMEM;
->  
->  		if (pmd_leaf(READ_ONCE(*pmd))) {
-> -			/* existing huge mapping. Skip the range */
-> +			unsigned long addr_pfn = page_to_pfn((struct page *)addr);
-> +			struct mem_section *ms = __pfn_to_section(addr_pfn);
-> +
-> +			/*
-> +			 * Existing PMD mappings can cover the edges of a valid
-> +			 * HVO populate range. They are ordinary vmemmap mappings,
-> +			 * so the current section must not be treated as HVO-backed
-> +			 * when its struct pages are initialized later.
-> +			 */
-> +			section_set_compound_order(ms, 0);
->  			next = pmd_addr_end(addr, end);
->  			continue;
->  		}
-> 
-> base-commit: d865f2677c44cb2171b833d6775cf692756fa8be
-> -- 
-> 2.54.0
-> 
+
+Beste Grüße,
+Peter Schneider
 
 -- 
-Sincerely yours,
-Mike.
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
