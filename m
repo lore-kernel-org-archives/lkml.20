@@ -1,111 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793379095;
-	b=OO21gZxcAyRzAFrtlhodNfAmTtwjCkPaHOYyk9zwtn2fkVHsyTJTqfCIIrFiwd/x2hM4
-	 9TvaiO7i5kjTq7cAsUfRj1LdfNCVJ4UbXPujGG5d10C74WN1vLgknbaT6wLhMJPfwKUX/
-	 ewGTHKIEBAGC0W6YXfSppdsjtq9SYNkCZwfDH8QAv86q/6CTtuTG1/+EXPeNB5I+9B9Ab
-	 WvbEFg3HAK+YNa6FYO4R2bC0EWwpPJXVZTcVx7brBDLt1DAIZ514A7u1tCEJ9F3ByXq45
-	 YaGzzkQ+1VYq75QFlbwwTHyBRqT31ogYkhP4qGqOtOqOAiRQ9oNdLZANfThBOADErcw==
+	t=1793379154;
+	b=gpoyQxnJJDbyj8MT7o8vctwQdnxKBqINkHC/zuQpd0Kv4oaqSGMsROxAO6IYaRM6IYYM
+	 9Spih6KT3CBBDZzPQpx3YV1ErshotA6sSpLBJWtWGxP2uZ1hmnAVr3fbBXXZl5SJY0Fh3
+	 ROkAEIzZtYhlflDeGrora0gtx4U7xy/8GhyEg524sKCaZ9QWz/fch291BfRHxbvUcX7gD
+	 riM7M7iWsuspQjKliThUiL/kwDCe352gyZeKuzij9bp0fguZkpiUnneQmDd7fuxVWNIwb
+	 E0MhVNEckDXJu3ANqcvEHQihhRQZ3zxLBEJqh/fAySI0Nv5Hsfb/uFn3YMtgQGm3q9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793379095;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=vuzzl1eLEj1tjUym763CORloz9Ci0zL+usjWHpgYO14=;
-	b=cLTxvcRSGiRlyLxwui2lMSZpu3sT/Gti6GB6dZRNpNyIlf1luiXfnW/E7IM9ZRTWnEYS
-	 gBbFfWXr0/8DHwRqlTX7ae7ExdZlO1EJs4+m+Y0y8g4GlP4zWtIJhkOegp0asCbgE7DGH
-	 OF5Iq0J7XvJiQT+wn+Ug3zY4oEMExmTI/CKlyD34azku5KVsg3QSmoCD4DTbvkDOOxFSY
-	 XKzkfXotq7jLiGVOVbTkLrhGg3E/NoBrkHwTBJszGZJ4NgF33cyWxFOPZI/p7d37cD9Gl
-	 E2uDWLZ5KUiQkLOguDii9X2UOeMDXj8QhixGoAtgvratymDC6T6gSPbKOrpklCT68gA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793379154;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=ktj+5dC08v5X6CbAXYodRMTXsnx7EjXTMl4rsHotSsw=;
+	b=g5Kx7i/sh+I6a+PPnoRavJ+1jnJXRNrNgvZd69myDRlDuYgEqFO5TlMMMIbktjPgiuxX
+	 mw01rLA49xvX0OLs7iSOsIJiXsmPa1pvVn9TfJGUgpZ6RmVdGX1dGMBIbrYoVNhqWUR82
+	 rEhdRFvnyL84EDv/uSoXngUHcoEMbBjhjvWzuJ0RlWk7lo8o0xr5+TGCipsqyUN8jNUdz
+	 iLW5QLZ+iDNfPQ+hzAAJbkCwcPxNbxB44/gXQRGF9y1rw2r+WO2Vws3KAbbqNqEa7YV25
+	 jBrTnvS2J/CkmJgHfoi1pYzrLS1iopbPBFvss7EaHQAp84qVyG7hOwUZreqJDEqvLGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=MIhgz5Y8;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=cDaeGwAE;
-	arc=none smtp.remote-ip=103.168.172.147
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8FB5606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:51:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8FB5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vsLUxmt6;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3B1D8606A31A;
+	Fri, 30 Oct 2026 16:52:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B1D8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=MIhgz5Y8;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=cDaeGwAE
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id AD984EC0584
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:51:33 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Fri, 30 Oct 2026 12:51:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793379091;
-	 x=1793465491; bh=vuzzl1eLEj1tjUym763CORloz9Ci0zL+usjWHpgYO14=; b=
-	MIhgz5Y89WQ93aQDSiWWUU5OvCQUAW5pcO6H19emOjkSmk+xV72EJTrocxivEEhy
-	ycGxUVnTraY3DDci4fUvfd410KcBQ/7iQnc+410kMaP4NUK5GrnNchi5m9vBbfVS
-	GeOajwP+s5jn3ykMkRYOFIHIquR4jhXrHPRuvYnV+oEursGajz/0NGBnsO7Mwh6g
-	nn3PbUTUQF9uZOgNK/0nTbA2lhfv+//t8rjJ6+PbGg1tTOP14NP3Ep5TtKwpZ1uL
-	t02EZ8IYs/Hnnl5lggbuMGBVRotvZkTxk/ZkxQK2nZWQLcwUr2EBtWOcvv7rATtO
-	8ym7ou5QZAjqJhdP8Zkp4A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793379091; x=
-	1793465491; bh=vuzzl1eLEj1tjUym763CORloz9Ci0zL+usjWHpgYO14=; b=c
-	DaeGwAEFtNGC3aoGZ7abh9DjaDVUfdWrfbhBBNaxQgsaPWZMoRKRpRDCpRfgXC3d
-	ZSuz0RXfWyWFe0G167r+TX0VJ4JYhdyg/KkzZ2BP1PTn/6NV/2MY0EyYpCveUqth
-	wo1rq8HyRpo9B8q2YWR9iM/DsKU4PfllFtXTc6hJQK8ktozl2Lo9BGQfYgWMJzrP
-	IDYLXW8WnzE2oGddg1MmIfHtvKdM9LBbq0qBhLwTNgsvU5dVDrcEYLmeG9heOkhc
-	vkVsWWe1Vz2UzSmaZeKgaEwAfDcO/bavDv6ly40SS5nrecfVfNlr9VFyK3nRQgLh
-	tEAiHmTTOtj2o81Id//3w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793379091; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:mQTLCaHrjZTwYocOlJ0e4ps5nN1JJHFItBGoFNLiF7a7wHB
-	fsfqyWWrYMDNPjEMWOasYJkkcfJa+USXvfdg9C8suFhq3bgfLO0K9I2GHDmcEIJe
-	7RvAuE4Zk9GwTt8Z6IhugCywTLnkQecRgsb7LMo8/RU6wWIShB58BcUyP603xFeN
-	7ZpX+uQoCxRDakiDKo2cajWkCRiXXFJJyat7LZnCgbMihNhLqPUKomrfCFs0J4XK
-	nPth8hEsEvOjyLWrbjNqIbzboz6RpnIc0Gm6mfDjPqJan0D6MZhM/oVRXNMB31XO
-	Xe5UXEmvEhADWx2uqMkDcChjflhATjH/seZt6sA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:L7VjYfoeKPGiOwVXZoqIcRH8bJvd7fOPsz5j8PnO7Og=:uehiCRY9gAxKIiiONLGFkoyXRS2S/Bd6XbXaKGDpAcs=;
-X-ME-Sender: <xms:EMvkaoJLB0xFP-VThZAsgNaDbamHSBEvoJkbRboji5v_xThn5P4vDw>
-    <xme:EMvkai_GWCBidJsrl2y8aSBTsQ4L1rT8dc_tEXSjQFAYBR13IlliyQCD4-DXg3ppl
-    X3HNVSSt47xth6dO8YIEK2nesf4Y16k7oMvyPpnbjkU0Gr1Rdaw7b0>
-X-ME-Proxy-Cause: dmFkZTGQCZzltlnZznGv4odyus1RFHavyyrNcKKZeWm7N86DXsbaCILJDt3p/BcQcHkZTI
-    Y5+miO+TECYalO+SwPyeUqTn2UEhloWnCIFA2gRayeO9eAMvAp5DtfzhFWO9HsI6j3N0D6
-    1quox2DGPVVvqjqT9PbzQbdHrvp55tzRx2zOKut/2Fikp9rwXWYdiNJqLtaLl1jcQHx0US
-    FSoid4V27q7YWRaWSbGBNp3o1Q2vyjzwI3Z6eb8+o4Hs/QFH+FmHxiqgMBcocOy4IF6SE1
-    NiHfPIbBxVyJtw/vEg8HRCiLXLL7VLVRyvAPMjw8QGtsOyfdPUZENlF+sNMs/4JdG20FtM
-    fKGuLL9Ewh5yFRRK7OfB+DO8c51QWBwkayera7Xq0L8o0YmDpA2zNyUp+kL7PC2mRA5b8Q
-    sGXEWu/9PYtkm1twSFDYbPaa7i05L1n7g+PyCa/5p2zsEVC9Aj1D2SoF2T0FfHfKev0Y3X
-    wfYDn8ZfdNClbUzo7hi8yUZIxZXpfdf6iDqiJXhUQQSBuwB344ciEptYR1gmQzQ72q33+K
-    DPvvwZNnvYg5pDf3Kvpws2Ao/6uukUmmPggDqNFv0JK9RNqQNaKAUBbpY/h+iS3hhE8IMJ
-    uyQoRXrhZ280gh5LlE/25hu2yOoJOft3aLlEIzA/z93rUWJcDwDiJsEk+PZg
-X-ME-Proxy: <xmx:EcvkaqMZeCiPpKYkLqQk05r-CN3_ANK3vEZDKEx3dqDoBPrh7Kf2gg>
-    <xmx:EcvkaqeGEKSv7MeovaE6mcunnqK9aLtDH49jXDEm6igI8tZxp2mN3A>
-    <xmx:EcvkahUcDd1hUDiswJugNN3oWsITVXjD0NFvqonx1K116RQBU6fPnQ>
-    <xmx:EcvkaqgsKAO6omU8pBYkdkxJEIGsfU4-cB01uO1uTtheOP8aSs2b1Q>
-    <xmx:E8vkahv4D3iXshfrhY8RaM_vSW_sRcs0-ct7MD2Hp8EPWMzBTn_rHB_s>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 4C32432A0097; Fri, 30 Oct 2026 12:51:28 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vsLUxmt6
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0249A1682;
+	Fri, 30 Oct 2026 09:52:29 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BE1D03F673;
+	Fri, 30 Oct 2026 09:52:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793379152; bh=7VMMf7kMCadyG94rG4Zx25wwUW0u14+sRWOtUecg2H8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=vsLUxmt6b/5m7BzFV7Hd8fIIx1EsthiLTP6rN+Ce6YaebNT/TyYfDFqazq9LqUwgB
+	 9RphgrRu+PvjSC9PSvb4hysq0nLDGl2+UBl5il7GrIuZiENqtwODfbcpLMWOpptqBa
+	 6Mh5JBUfaxOKWika3tkdWGger6AD196OTOfbuvSA=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Tian Zheng <zhengtian10@huawei.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	maz@kernel.org,
+	oupton@kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	corbet@lwn.net,
+	pbonzini@redhat.com,
+	yuzenghui@huawei.com,
+	wangzhou1@hisilicon.com,
+	yangjinqian1@huawei.com,
+	caijian11@h-partners.com,
+	liuyonglong@huawei.com,
+	tangchengchang@huawei.com,
+	yezhenyu2@huawei.com,
+	yubihong@huawei.com,
+	linuxarm@huawei.com,
+	joey.gouly@arm.com,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	fuad.tabba@linux.dev,
+	mark.rutland@arm.com,
+	seanjc@google.com,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	skhan@linuxfoundation.org
+Subject: Re: [PATCH v5 08/15] KVM: arm64: Flush the HDBSS buffer on VM exit
+Date: Fri, 30 Oct 2026 16:52:08 +0000
+Message-ID: <auTLOIafIq4cjRho@LeoBrasDK>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <5bbd0d3b-1026-43f3-bc45-245472603144@huawei.com>
+References: <20260929103655.85107-1-zhengtian10@huawei.com> <20260929103655.85107-9-zhengtian10@huawei.com> <auDpyRNpeDNzIk3W@LeoBrasDK> <5bbd0d3b-1026-43f3-bc45-245472603144@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,62 +89,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: ABTlmHOvxHY3
-Date: Fri, 30 Oct 2026 17:50:58 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "schuster.simon@siemens-energy.com" <schuster.simon@siemens-energy.com>,
- "Dinh Nguyen" <dinguyen@kernel.org>,
- "Andrew Morton" <akpm@linux-foundation.org>
-Cc: "Sasha Levin" <sashal@kernel.org>, linux-kernel@vger.kernel.org
-Message-Id: <802dd722-fab6-496c-a457-c1533ff96132@app.fastmail.com>
-In-Reply-To: 
- <20261030-nios2-remove-usage-of-libgcc-v1-0-4e341c66082e@siemens-energy.com>
-References: 
- <20261030-nios2-remove-usage-of-libgcc-v1-0-4e341c66082e@siemens-energy.com>
-Subject: Re: [PATCH 0/3] lib: Add software mul/div helpers and use them from nios2
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026, at 16:53, Simon Schuster wrote:
-> Recently, there have been linking failures on nios2 regarding libgcc
-> symbols that we reexport to modules (in particular __mulsi3 [0], and
-> __divsi3_table [1]).
->
-> In the resulting discussion, Arnd suggested [2] dropping the libgcc
-> dependency altogether, as -- while specific functions might be fine --
-> libgcc does not expect to run in a kernel-like freestanding environment.
->
-> To this end, Dinh Nguyen was kind enough to locate and extract
-> GPLv2-compliant versions of the software mul/div/mod and __gcc_bcmp
-> functions required by nios2 gcc and integrate them into the kernel.
->
-> As Arnd also suggested [3] that these might be helpful to other smaller
-> architectures (such as arc or openrisc), I've further extracted them to
-> lib/ with corresponding CONFIG_GENERIC_LIB_* options that allow
-> selectively enabling and exporting these as required.
->
-> The patch series compiles mostly^4 fine in a nios2 allyesconfig
-> without modpost errors; a quick boot test on a regular build also
-> completed successfully.
+On Fri, Oct 30, 2026 at 12:57:06PM +0800, Tian Zheng wrote:
+> 
+> 
+> On 10/28/2026 2:13 AM, Leonardo Bras wrote:
+> > On Tue, Sep 29, 2026 at 06:36:48PM +0800, Tian Zheng wrote:
+> > > From: Eillon <yezhenyu2@huawei.com>
+> > > 
+> > > HDBSS entries accumulate in the per-vCPU buffer while the guest runs,
+> > > and must be drained into the dirty bitmap or dirty ring before
+> > > userspace can observe them.
+> > > 
+> > > Drain the buffer at a single point: kvm_arch_vcpu_ioctl_run() flushes
+> > > it on every VM exit, before the exit reason is handled. Flushing
+> > > inside the run loop keeps the dirty-ring feedback timely: when a flush
+> > > pushes the ring past its soft limit, kvm_dirty_ring_push() raises
+> > > KVM_REQ_DIRTY_RING_SOFT_FULL, which check_vcpu_requests() observes at
+> > > the top of the next loop iteration, so the vCPU exits to userspace for
+> > > the harvest before re-entering the guest.
+> > > 
+> > > kvm_arch_sync_dirty_log() relies on the exit path to flush: it kicks
+> > > vCPUs out of guest mode, and the GET/CLEAR protocol tolerates
+> > > concurrent bitmap writes, so the snapshot is complete without extra
+> > > synchronization.
+> > > 
+> > > Signed-off-by: Eillon <yezhenyu2@huawei.com>
+> > > Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
+> > > ---
+> > >   arch/arm64/include/asm/kvm_dirty_bit.h | 15 +++++++++
+> > >   arch/arm64/kvm/arm.c                   | 20 ++++++++++++
+> > >   arch/arm64/kvm/dirty_bit.c             | 45 ++++++++++++++++++++++++++
+> > >   3 files changed, 80 insertions(+)
+> > > 
+> > > diff --git a/arch/arm64/include/asm/kvm_dirty_bit.h b/arch/arm64/include/asm/kvm_dirty_bit.h
+> > > index fe703f02626b..d828e6b43fe9 100644
+> > > --- a/arch/arm64/include/asm/kvm_dirty_bit.h
+> > > +++ b/arch/arm64/include/asm/kvm_dirty_bit.h
+> > > @@ -13,6 +13,9 @@
+> > >   #include <asm/sysreg.h>
+> > >   #include <linux/sizes.h>
+> > > 
+> > > +#define HDBSS_ENTRY_VALID	BIT(0)
+> > > +#define HDBSS_ENTRY_IPA	GENMASK_ULL(55, 12)
+> > > +
+> > >   #define KVM_ARM_HDBSS_DEFAULT_SIZE  PAGE_SIZE
+> > >   #define KVM_ARM_HDBSS_MAX_SIZE      SZ_2M
+> > > 
+> > > @@ -22,7 +25,19 @@ static inline u32 kvm_hdbss_buffer_size(struct kvm *kvm)
+> > >   	return kvm->arch.hdbss_buffer_size ?: KVM_ARM_HDBSS_DEFAULT_SIZE;
+> > >   }
+> > > 
+> > > +static inline bool kvm_hdbss_enabled(struct kvm *kvm)
+> > > +{
+> > > +	return kvm->arch.mmu.vtcr & VTCR_EL2_HDBSS;
+> > > +}
+> > > +
+> > > +static inline bool vcpu_hdbss_enabled(struct kvm_vcpu *vcpu)
+> > > +{
+> > > +	return vcpu->arch.hw_mmu &&
+> > > +		(vcpu->arch.hw_mmu->vtcr & VTCR_EL2_HDBSS);
+> > > +}
+> > > +
+> > 
+> > IIUC, arch.mmu is always the canonical s2_mmu, while hw_mmu can be the
+> > nested s2_mmu, if enabled.
+> > 
+> > Was that your intend here?
+> > If not, we could use only kvm* version, which can be called with vcpu->kvm.
+> > 
+> > If it was, then I would like to understand the logic here, as IIUC the
+> > buffer is accessible only for the non-nested guest, as it's
+> > allocated in a per-vcpu structure. (vcpu->arch)
+> > 
+> 
+> Hi leo,
+> 
+> Yes, that was the intent. The shadow MMU never carries VTCR_EL2.HDBSS,
+> so the flush is naturally skipped when running nested.
 
-This looks very good to me overall, thanks for working on this.
+Ah, right. If we always test the kvm one, we may enable it for the nested 
+guest, which is undesired.
 
-Just a few minor things that stood out:
+[...]
+> 
+> > 
+> > > @@ -2017,7 +2025,19 @@ long kvm_arch_vcpu_unlocked_ioctl(struct file *filp, unsigned int ioctl,
+> > > 
+> > >   void kvm_arch_sync_dirty_log(struct kvm *kvm, struct kvm_memory_slot *memslot)
+> > >   {
+> > > +	unsigned long i;
+> > > +	struct kvm_vcpu *vcpu;
+> > > 
+> > > +	if (!kvm_hdbss_enabled(kvm))
+> > > +		return;
+> > > +
 
-- I don't see a need to add the files under arch/ first and then
-  move them to lib/, just start with the added files there
+And then here you check for the L1 VM because during migration the host 
+could have dirtied memory, and you want to track that as well.
 
-- I did not expect gccbcmp.c to be needed at all, the kernel
-  should handle the string functions internally. If you do need it,
-  there is of course no harm adding it, but probably need to
-  build with -ffreestanding to prevent it from recursively
-  ending up in bcmp()
+Makes sense
 
-> One aspect I'm not fully sure of is whether adding declarations for the
-> new lib/ functions to include/linux/libgcc.h unconditionally in the last
-> patch of this series is completely clean; but it matches how other
-> "optional vendored" functions in libgcc.h seem to be handled.
+> > > +	/*
+> > > +	 * The buffer is drained on every VM exit, so kicking running
+> > > +	 * vCPUs is enough to flush them; the dirty-log GET/CLEAR
+> > > +	 * protocol tolerates bits set concurrently with the snapshot.
+> > > +	 */
+> > > +	kvm_for_each_vcpu(i, vcpu, kvm)
+> > > +		kvm_vcpu_kick(vcpu);
+> > >   }
+> > > 
+> > >   static int kvm_vm_ioctl_set_device_addr(struct kvm *kvm,
+> > > diff --git a/arch/arm64/kvm/dirty_bit.c b/arch/arm64/kvm/dirty_bit.c
+> > > index f9aeb9f34ad0..be0d12555c84 100644
+> > > --- a/arch/arm64/kvm/dirty_bit.c
+> > > +++ b/arch/arm64/kvm/dirty_bit.c
+> > > @@ -13,6 +13,7 @@
+> > >   #include <linux/kconfig.h>
+> > >   #include <linux/log2.h>
+> > >   #include <linux/mm.h>
+> > > +#include <linux/srcu.h>
+> > > 
+> > 
+> > Out of curiosity, could you please explain you reasoning on selecting srcu
+> > as locking here?
+> > 
+> > (Like, what are you protecting against, and why srcu is a good choice)
+> > 
+> 
+> kvm_vcpu_mark_page_dirty() resolves the memslot under SRCU
+> (kvm_vcpu_gfn_to_memslot), and the flush loop calls it for each entry,
+> so the whole loop needs the read lock held.
 
-That part is looks fine.
+Oh, right, it's just about getting the memslot... now I see it :)
 
-      Arnd
+Thanks!
+Leo
