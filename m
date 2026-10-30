@@ -1,126 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793325954;
-	b=d0z8c1P82P2zqbkGwahYLIn9xV4FAuWtFctT455OhVftry9s72DRPQLTmvzMYk5YwhDE
-	 q3nzT4Lay8CC36XnXxe3lDtONEvE1Sh6tKRnyqyMDe7HH3rbgxwuwVNfXHOd0r9i9YyOR
-	 RstoXogbrhVRlUW2k84yffe8b7HkHvc/oDKZhLGLJ7fqiwf5XRY60KRAu9WjQ4gumykZV
-	 UDs/uAQGJMt/COD/f/AGhv+QgXYX/B+yA4PZBHYqu9vf2ieVJTIBO2njrxJ73UeRUNjVc
-	 7K4R0GNlUKLJEvM+ux4bytHtQ8hQeHEqrnYZDqw3uvooPa71IUk+rVeHruzcl9hnjEg==
+	t=1793326120;
+	b=oDJO16jEaCq6/kcaf7lfONpdPF36vBLo4zAAMOVzpKu6vpY/NQ1R+B+SQJMpT+l0hy6G
+	 eSacfWQjQN94kJmhDqrEmd7sLorygcJojOXw43U+tcwY1RkeN8MiucfA8lxOgOlrP28i4
+	 hzlnzh37/PjnlGeovjtwkq1dAnvoOYZJ4biS3aMNU88YAU5zc1lolEo1jHTQnWyoSlyr3
+	 R1QgD9JxGmFv5lO/R1arDg7CRQIitSFHkSqMsWLbz3+rP4z+Sw2hEToiBodbY6QBifOF2
+	 wfJbbx9HtuHQdqbifJ9lj4DkXtC7/rq0bhGjcLwWokppFIRg08dJ/HJIOPa2E/moGVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793325954;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=/qptapl5AxkeeYOO6JaZVeOMFWsKEBID7YGw0sL8KDI=;
-	b=ej5XU87rl4tWaic19iM2DboqPPZAMtmSs7sjhTQ+hqray5ST9hrkgL41Z7BaU2pHUbDD
-	 Xcgx4FYwCZhZHMNCTD6nQS9jvAnCUz2R+19UNEYtauhENO190sybA0kxV7aHr4cRHSt3q
-	 b1IL+bW/V/Wo1OTrqqYBUofSgzWC2rQJD1POOtpAxjbMLSq6eKzPX0MadyaxG3Z/zLxp1
-	 PI2Yla9pNDgk/kZ2BH8cG9+K3igdL1kf7Kxjdz57FrSnkHZ878Cou4WhH5QY8nX5rgzcV
-	 gJdnMK9s5rGI+1y87Mh84YuXmQTv3Xuq9fO3TsqcqaVl0xLoqDl9BthnlvWwE1DZGAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793326120;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=jXEeJjVSvGxZ8q8EzCH69WzOU8f2eD7e2wgHvZHQF68=;
+	b=42U1SUiyQrQr2l7p2XciVGmE92CF3MElyr4ceth2eeoC5KYpRk7OsliPp6u3XETTtVg3
+	 SdtB8g8tlkiLPK0tgJXKyug5a2H7QI5o9GZ0Tbq3FLiBkI4v9Y2ppoL3q8KiSUpMcmsd0
+	 x5iEDnWcCa348JbEWbT7HPbtMvo+D9dHFATclZIKWM2jiRbapkrlPQz0Zcjn2N7vdFSbh
+	 NIE+S9HrkDo/X7hAFk+1YhOmQZMW5T0ieeo4cTXQKV6iFYd/OnfsQ+X0V1Oe3FWmcmvGh
+	 Af/ZgFOA5vyD8KY2UsD5O+iqLJO2K+C1xlED2IhzoNv9d0UABLFOh2LbH+TbRaGTTVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=MukVNb21;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=RG9NTTqB;
-	arc=none smtp.remote-ip=202.12.124.157
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ChxbJdqt;
+	arc=none smtp.remote-ip=95.215.58.116
+Received: from mta1.migadu.com (out-116.mta1.migadu.com [95.215.58.116])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCC8606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:05:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CCC8606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20375606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:08:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20375606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=MukVNb21;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=RG9NTTqB
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id E20867A0125
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:05:53 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Thu, 29 Oct 2026 22:05:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1793325953; x=
-	1793412353; bh=/qptapl5AxkeeYOO6JaZVeOMFWsKEBID7YGw0sL8KDI=; b=M
-	ukVNb21brNOFp4WNtl7iMxKkKZV9H6fapB5tY0JkSS4+vi5w1Q0rEXUaME2E+4MV
-	iEuajKa3MVVBme+h2PIOpaDPjgJxLzad0ZFxlNBy/tG2rFAvyxnqQUo2u1mYAbdk
-	9weHB75aKJ/20gUmiZENsePYi83jJKsM5LXXdo4M4e187ObUO7eSxo1U7quPTudg
-	xhC79wU9TFKzmrFCiVXNVcLcF6vjy/F93gdirYqmDgUdM8oniaUobagu4oecSK8I
-	bNOEj7tDzRsHUkPqeApvhnMIA3p0rg8pM87nEsHcA4sc073bYjE1g2upkLYsOBRR
-	GuApJt2kjslcWoSad2Mag==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1793325953; x=1793412353; bh=/
-	qptapl5AxkeeYOO6JaZVeOMFWsKEBID7YGw0sL8KDI=; b=RG9NTTqB3uF0hqX4N
-	QETUz9YJ2k7LDXSCF4Tv+z4mjoyZ/3vTufv3hcGWofJC57KYW6s9oyBim+ickFCm
-	JBAEWs5Ou7HG9B/YfIcnLkHOyM3FvqYipz1A+oCrJ6v0EofuWW/Tdn1GCabqhE8K
-	yjMpyA6URCAiRDFiSq3r8ii/Ul00Jb8tfXVXvJedVYltePthYGlTsd1D6pbmXZLg
-	bvUGCx8819AcANBUVRiJzyr0MD3x94OQxOF+jGXD+i1dwQ0ok/0KxKXMF4gAEdjM
-	vb5JNj63M01SYZvXD/vDtNVhrZ4Zk2tXaNRc1JITOIC9z5w+13cCf9280Yk6L5LI
-	1/a/g==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793325953; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:XxLo6Qe7Rww4TmeSLrCcwZBYKfsjHi42cjUZoI97FlbpfXu
-	vQE0pTkheFXZ70L2wD6SClV+eHTH3vokvGbP3ZGEdIKYf0OBf54QukaYfbekQnTa
-	oOXQ02G+Oc63nKBJiU7N1ULdLWqvGsoucEi2dU/gX4cQ6LYCVbig52yH5IUAndKP
-	I/lNWs+RXRRqnds6SfBReT6FU/hSTsnOS1bYBgYtsHmcd/Mw/TgfCmbge4+Z37jO
-	DEm5RCyPdxvy8jJ4FFCOodbbNcSnmXK1cNgMU+sjdzckoYTdbokH3tE/jBD/kJEf
-	GVp6UQZbTrmxaPOUflIXhRbsKMVgl5FYW+xpe7g==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:cy13Bct0iWxl4uk4jNEjIU77kxSxE2CLllY8tvkVYF8=:wUfm7bm3LBiMRZ0MsxQT4D4tqQ3EjZLw2SwEaBZJsy0=;
-X-ME-Sender: <xms:gPvjao_Y1cRoOc_jSzrcuJDpVmv3y5dH5IL6fKpBV9wBOxXVHrWIIA>
-    <xme:gPvjasusKXa1k99ctXBO36KnBc9B78Or9rncFp0sj99xkcgnImkQbsBDShTX7a5Zt
-    H0Tu8U3nVXKQknBIJhwHfnFnKNXm0bHU4zS7SYZV9wl7jTaLLs8ILU3sw>
-X-ME-Received: <xmr:gPvjagNF5Jh8OWnp-j-ktOFU-Im7XkEE3qnyI8BRjth1G0lSPTsdDxgAtCdutg8j>
-X-ME-Proxy-Cause: dmFkZTF1P4tGd5t1oYC66SYLCGuJ10fu8KFL2ynIhs6gl36O8PRC2EfpkKNKRWec4KpwyM
-    Mn0KqIaREB2A1uoRIYNBSSfsRS70IYLuoj+Nfk/za4dIzlxNbtLqDqzFVhXSeWzERhOHeT
-    AxXNuIz4CMi9NFxghcZSJBbL7rn5/ZrrO96LD4U7QWkSH/TOrdPVqWXZFZ0SjgjfuFKXpW
-    Ks9pFeI8PvkuemjrQEW/6NdBLWeRC+VoBHQFK+/cB1w5TqVsYqBaNCEj01DcEqKAd58e7m
-    wAhiVXoh2wCkd7pJ9xlh7NMXxbBsfdyZ50ImRnHtRE/k/1VB5f5YECaEP2pIPF+CIfN5Vz
-    ALXN05tQl2cEILeeJdwBlPjZh7GKoBR7n5YMJUP+Suu/uplE8snrZRaS4cxegEa5NmjotF
-    ySphBaifbJ6ruq+k/gKsZdoEs3LrrSR9aau0qHADq9dpEpbDrwGEd4qeYfjrOWDRnVpLrW
-    lrKY/JiyH5PAkMzmc6LCVNITCGZg2TSYv3NZjwnCIA5aZjXmVPY6/u0YHssb/5vteNf/tg
-    3UB3cnszbEyrP9XjuntFW1Demm5ZSnYOqYsOkxf+eOKcZNWOlVRwcsDGUIjHuWfDIH+zLY
-    8hI3UD5W5qyJYSxCUwTOl7Es2MYhP7A1b78auoTCm2nbZ8s6M69A4ACeblfA
-X-ME-Proxy: <xmx:gPvjapj0qZrjbsTHb6pqcbN7iU21GFXpfFbJlAkwW55AgYYN81rNpQ>
-    <xmx:gPvjaq6JW1_xOROGTJhBLGu0Qy5hHWmy-P0kOFt2gbwdnBFKC8wgiA>
-    <xmx:gPvjao2ooLW7z5tWbQVcCX9zDlPCCYAvW8pA7aTpsK4zaXu6KmiI4A>
-    <xmx:gPvjatuhUtYjWa4Q_0wRoq2uesk2VlgeSWnHaEmNZZPrXwD2YYaIKQ>
-    <xmx:gfvjakFbBeCD1ScEi--1XlWEavulMj_OtsFIBf8lApRO3EgIbrGQQaa3>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 22:05:52 -0400 (EDT)
-From: Ian Bridges <icb@fastmail.org>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] ksmbd: exclude guest and anonymous sessions from Authenticated Users ACEs
-Date: Thu, 29 Oct 2026 21:05:23 -0500
-Message-ID: <20261030020523.302085-3-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261030020523.302085-1-icb@fastmail.org>
-References: <20261030020523.302085-1-icb@fastmail.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ChxbJdqt
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fQ2I1M5NKH3HdhAaNaRV7oOmuMHnPLp6U9yM6UkMKTs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793326117; v=1; x=1793930917;
+ b=ChxbJdqtseFWpGuGcRZcrnrbobTyUOfi8UJjCHg7dd9IrYr/vO0c0lIttd2Ioe+d9PBBYlyj
+ UIhNZReqjWTzAJ4WUAUSmng/DOPlaQIQsKoc9tm/T/ztP9wVae3iV+y2By8iuyU1GmUNfvzYqz+
+ uL4hkrKV7vpbFXKap87Oxb0k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 952ee4ee204bc145;
+	Fri, 30 Oct 2026 02:08:37 +0000
+X-Mizu-Trace-ID: 952ee4ee204bc145
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8a565dd0-f2a7-4d18-9df7-bcf1ed303a59@linux.dev>
+Date: Fri, 30 Oct 2026 10:08:31 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,185 +58,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v1] net/mlx5e: kTLS, Fix missing error unwind when
+ enabling RX offload
+To: Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, saeedm@nvidia.com, leon@kernel.org,
+ tariqt@nvidia.com, mbloch@nvidia.com, borisp@nvidia.com, witu@nvidia.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, linux-rdma@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+References: <20261026095346.1212609-1-xuanqiang.luo@linux.dev>
+ <20261029134019.GG257209@horms.kernel.org>
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+In-Reply-To: <20261029134019.GG257209@horms.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-smb_check_perm_dacl() matches an Authenticated Users ACE (S-1-5-11) for
-every caller, guest and anonymous sessions included. MS-DTYP 2.4.2.4
-says users authenticated as Guest or Anonymous are not members of that
-group. As a result, on a share with guest access a client without
-credentials passes the DACL check with every right the DACL gives
-Authenticated Users. For example, it can read a file that only
-Authenticated Users may read. Access-based enumeration also lists that
-file to it.
+On 2026/10/29 at 21:40 Simon Horman wrote:
+> On Mon, Oct 26, 2026 at 06:53:46PM +0900, Xuanqiang Luo wrote:
+>> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+>>
+>> Since commit abed42f9cd80 ("net/mlx5e: Conditionally create async
+>> ICOSQ"), the async ICOSQ is only created when an XDP program is attached
+>> or priv->ktls_rx_was_enabled is set. When TLS RX offload is enabled for
+>> the first time, mlx5e_ktls_set_feature_rx() sets the flag and reopens
+>> the channels so that they get the queue, but it ignores the return value
+>> of mlx5e_safe_reopen_channels().
+>>
+>> If the reopen fails, mlx5e_safe_switch_params() keeps the old channels,
+>> which have no async ICOSQ, while NETIF_F_HW_TLS_RX is still reported as
+>> enabled. The next offloaded RX connection then dereferences the NULL
+>> c->async_icosq in post_rx_param_wqes(). Enabling the feature again does
+>> not help, as the flag is already set and the reopen is skipped.
+>>
+>> Propagate the error, clear the flag and destroy the accel TCP flow
+>> tables again, so that the feature stays disabled and the next attempt
+>> retries the reopen.
+>>
+>> Fixes: abed42f9cd80 ("net/mlx5e: Conditionally create async ICOSQ")
+>> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+>> ---
+>> Found by code inspection while backporting commit abed42f9cd80 to a
+>> downstream kernel. I do not have a crypto-enabled ConnectX NIC, so the
+>> failure has not been reproduced and the fix is only compile-tested.
+>>
+>> The crash itself is the one described in the changelog of abed42f9cd80
+>> ("async ICOSQ allocation is not triggered, causing a NULL pointer
+>> crash"). This patch only covers the case where the reopen that should
+>> create the queue fails. ktls.c is also the only caller that ignores the
+>> return value of mlx5e_safe_reopen_channels(); the callers in health.c
+>> and reporter_tx.c check it.
+>>
+>>   drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c | 6 +++++-
+>>   1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> I agree that a minimal approach to addressing this problem is appropriate
+> for net.
+> 
+> Reviewed-by: Simon Horman <horms@kernel.org>
 
-Tell smb_check_perm_dacl() whether the session authenticated. A guest or
-anonymous session then no longer matches an Authenticated Users ACE but
-still matches an Everyone ACE. An authenticated user matches both.
+Thanks for the review!
 
-Fixes: cc2f133e80eb ("ksmbd: fix maximum allowed access checks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
----
+> 
+> However, I do think the logic of this function is becoming somewhat
+> convoluted and would benefit from:
+> 
+> 1. Handling error paths in conditionals while leaving
+>     the main thread of execution unconditional.
+> 
+> 2. Use goto for unwind.
+> 
+> This is approach is complicated by the function needing to
+> handle the enable condition. But at any rate, maybe a follow-up patch do do
+> something like this would be worthwhile?
+> 
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
+> index 3cc1213c2f68..0f5dcd1b822e 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
+> @@ -137,19 +137,22 @@ int mlx5e_ktls_set_feature_rx(struct net_device *netdev, bool enable)
+>   	mutex_lock(&priv->state_lock);
+>   	if (enable) {
+>   		err = mlx5e_accel_fs_tcp_create(priv->fs);
+> -		if (!err && !priv->ktls_rx_was_enabled) {
+> -			priv->ktls_rx_was_enabled = true;
+> -			err = mlx5e_safe_reopen_channels(priv);
+> -			if (err) {
+> -				priv->ktls_rx_was_enabled = false;
+> -				mlx5e_accel_fs_tcp_destroy(priv->fs);
+> -			}
+> +		if (err || priv->ktls_rx_was_enabled)
+> +			goto out_unlock;
+> +
+> +		priv->ktls_rx_was_enabled = true;
+> +		err = mlx5e_safe_reopen_channels(priv);
+> +		if (err) {
+> +			priv->ktls_rx_was_enabled = false;
+> +			enable = false;
+>   		}
+> -	} else {
+> -		mlx5e_accel_fs_tcp_destroy(priv->fs);
+>   	}
+> -	mutex_unlock(&priv->state_lock);
+>   
+> +	if (!enable)
+> +		mlx5e_accel_fs_tcp_destroy(priv->fs);
+> +
+> +out_unlock:
+> +	mutex_unlock(&priv->state_lock);
+>   	return err;
+>   }
+>   
+Thanks for the suggestion. Agreed, the nesting is getting hard to
+follow. I'll send a cleanup along these lines to net-next once this
+fix has made it there.
 
-Notes:
-    Reachable on a share with "vfs objects = acl_xattr" and
-    "guest ok = yes", for files whose DACL grants Authenticated Users. That
-    is enough for an anonymous session. A guest session for an unknown user
-    also needs "map to guest = bad user". These settings are off by default.
-    
-    The match came with cc2f133e80eb, first released in v7.3.
-    
-    Tested on ksmbd-for-next af8c72f65507 with patch 1 applied, before and
-    after this one. Every combination of one or two allow or deny ACEs for
-    the caller, Everyone and Authenticated Users was tested, with READ_DATA,
-    WRITE_DATA, WRITE_EA, APPEND_DATA or full access as the mask (930
-    DACLs). Each DACL also ended with an allow ACE giving the owner full
-    access. The DACLs were set on a file and probed with real reads and
-    writes as an authenticated user, a guest and an anonymous session. The
-    authenticated user's results are unchanged. Every guest and anonymous
-    change agrees with MS-DTYP 2.5.3.2 and 2.4.2.4, and none moves away. A
-    guest or anonymous session no longer reads or lists a file only
-    Authenticated Users may read, and still reads and lists one Everyone may
-    read. smbtorture smb2.acls and eight related suites match the results
-    with patch 1 alone, apart from smb2.create mkdir-dup, which also fails
-    intermittently there.
-    
-    A reproducer is available on request.
-    
-    This fix was developed with LLM assistance.
-
- fs/smb/server/mgmt/user_config.h   |  5 +++++
- fs/smb/server/smb2pdu.c            | 11 ++++++++---
- fs/smb/server/smbacl.c             |  8 +++++---
- fs/smb/server/smbacl.h             |  2 +-
- fs/smb/server/tests/smbacl_kunit.c |  4 ++--
- 5 files changed, 21 insertions(+), 9 deletions(-)
-
-diff --git a/fs/smb/server/mgmt/user_config.h b/fs/smb/server/mgmt/user_config.h
-index cc460b4ff7d3..43c55357b95b 100644
---- a/fs/smb/server/mgmt/user_config.h
-+++ b/fs/smb/server/mgmt/user_config.h
-@@ -66,5 +66,10 @@ struct ksmbd_user *ksmbd_alloc_user(struct ksmbd_login_response *resp,
- 		struct ksmbd_login_response_ext *resp_ext);
- void ksmbd_free_user(struct ksmbd_user *user);
- bool ksmbd_anonymous_user(struct ksmbd_user *user);
-+
-+static inline bool ksmbd_user_authenticated(struct ksmbd_user *user)
-+{
-+	return user && !user_guest(user) && !ksmbd_anonymous_user(user);
-+}
- bool ksmbd_compare_user(struct ksmbd_user *u1, struct ksmbd_user *u2);
- #endif /* __USER_CONFIG_MANAGEMENT_H__ */
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 2e955d272f4b..8c7aba240e71 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -4330,7 +4330,8 @@ static int smb2_handle_app_instance_id(struct ksmbd_work *work,
- 	/* Authorize the referenced open even if its name changes meanwhile. */
- 	old_path = &old_fp->filp->f_path;
- 	rc = smb_check_perm_dacl(conn, old_path, &maximal_access, 0,
--				 work->sess->user->uid, false);
-+				 work->sess->user->uid,
-+				 ksmbd_user_authenticated(work->sess->user), false);
- 	if (rc) {
- 		/* Access denial prevents takeover, not the CREATE itself. */
- 		ksmbd_put_durable_fd(old_fp);
-@@ -4851,14 +4852,17 @@ int smb2_open(struct ksmbd_work *work)
- 	if (file_present && !(req->CreateOptions & FILE_DELETE_ON_CLOSE_LE)) {
- 		rc = smb_check_perm_dacl(conn, &path, &daccess,
- 					 req->DesiredAccess,
--					 sess->user->uid, false);
-+					 sess->user->uid,
-+					 ksmbd_user_authenticated(sess->user), false);
- 		if (rc)
- 			goto err_out;
- 
- 		if (maximal_access_ctxt) {
- 			maximal_access = FILE_MAXIMAL_ACCESS_LE;
- 			rc = smb_check_perm_dacl(conn, &path, &maximal_access,
--						 0, sess->user->uid, false);
-+						 0, sess->user->uid,
-+						 ksmbd_user_authenticated(sess->user),
-+						 false);
- 			if (rc)
- 				goto err_out;
- 
-@@ -6326,6 +6330,7 @@ static int process_query_dir_entries(struct smb2_query_dir_private *priv)
- 			rc = smb_check_perm_dacl(priv->work->conn, &path,
- 						 &daccess, daccess,
- 						 priv->work->sess->user->uid,
-+						 ksmbd_user_authenticated(priv->work->sess->user),
- 						 true);
- 			if (rc) {
- 				dput(dent);
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 3542ae9a605c..b83aa84815ce 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1461,7 +1461,7 @@ bool smb_inherit_flags(int flags, bool is_dir)
- 
- int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			__le32 *pdaccess, __le32 raw_daccess, int uid,
--			bool strict)
-+			bool authenticated, bool strict)
- {
- 	const struct mnt_idmap *idmap = mnt_idmap(path->mnt);
- 	struct smb_ntsd *pntsd = NULL;
-@@ -1558,7 +1558,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			    (compare_sids(&sid, &ace->sid) &&
- 			     compare_sids(&sid_unix_NFS_mode, &ace->sid) &&
- 			     compare_sids(&sid_everyone, &ace->sid) &&
--			     compare_sids(&sid_authusers, &ace->sid) &&
-+			     (!authenticated ||
-+			      compare_sids(&sid_authusers, &ace->sid)) &&
- 			     compare_sids(&sid_owner_rights, &ace->sid)))
- 				goto next_ace;
- 
-@@ -1611,7 +1612,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			break;
- 		}
- 		if (!compare_sids(&sid_everyone, &ace->sid) ||
--		    !compare_sids(&sid_authusers, &ace->sid))
-+		    (authenticated &&
-+		     !compare_sids(&sid_authusers, &ace->sid)))
- 			others_ace = ace;
- 
- 		ace = (struct smb_ace *)((char *)ace + le16_to_cpu(ace->size));
-diff --git a/fs/smb/server/smbacl.h b/fs/smb/server/smbacl.h
-index 3342cebab333..bbd35948a379 100644
---- a/fs/smb/server/smbacl.h
-+++ b/fs/smb/server/smbacl.h
-@@ -97,7 +97,7 @@ int smb_inherit_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		     unsigned int uid, unsigned int gid);
- int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			__le32 *pdaccess, __le32 raw_daccess, int uid,
--			bool strict);
-+			bool authenticated, bool strict);
- int set_info_sec(struct ksmbd_conn *conn, struct ksmbd_tree_connect *tcon,
- 		 const struct path *path, struct smb_ntsd *pntsd, int ntsd_len,
- 		 bool type_check, bool get_write, bool posix_open,
-diff --git a/fs/smb/server/tests/smbacl_kunit.c b/fs/smb/server/tests/smbacl_kunit.c
-index 33496b4d31a3..bf28439a7696 100644
---- a/fs/smb/server/tests/smbacl_kunit.c
-+++ b/fs/smb/server/tests/smbacl_kunit.c
-@@ -229,7 +229,7 @@ static void ksmbd_smb_check_perm_dacl_boundary_test(struct kunit *test)
- 		goto out;
- 
- 	rc = smb_check_perm_dacl(NULL, &file->f_path, &daccess,
--				 cpu_to_le32(FILE_READ_DATA), 0, false);
-+				 cpu_to_le32(FILE_READ_DATA), 0, true, false);
- 
- 	/*
- 	 * The post-boundary ACE (ACE #2, beyond pdacl->size) grants
-@@ -271,7 +271,7 @@ ksmbd_smb_check_perm_dacl_maximal_boundary_test(struct kunit *test)
- 		goto out;
- 
- 	rc = smb_check_perm_dacl(NULL, &file->f_path, &daccess,
--				 FILE_MAXIMAL_ACCESS_LE, 0, false);
-+				 FILE_MAXIMAL_ACCESS_LE, 0, true, false);
- 	KUNIT_EXPECT_EQ(test, 0, rc);
- 	if (rc)
- 		goto out;
--- 
-2.47.3
-
+Thanks,
+Xuanqiang
