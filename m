@@ -1,93 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793344607;
-	b=FKbR1e/gGuxnX1BVehF6mkAnnPWyBmanIqmjYhYx4HTjWekApnKO0nP0oPZrNIoy8tq6
-	 oO8f2bDscz56sj5Hs1hoxh00slGJbTo1tz1NxCdMDYsUb+j3ZP4TEWfjEbsIfJWyRQLUa
-	 Di2vJ7WF/oZA2kDorTMr4w+cROFC65r76KKkq4L9gkNyTm9tHzeZtnifuM8juDhUx6bo3
-	 xwCI5uasLAt5eaKTNdD8HhzhkNDh2QaFDXgOHRE1lu68RZccEPJJqFLiseOFEa6mLdhO1
-	 QFJkNHW0ukt+4jnXbTegi0g00p5el9nu9DVThC07MEG008U3jQRQksLq6eUExkAGTYw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793344607;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=qllX23EwL4USFTxcfYX+ETH+yNN1UWQWmPryXyD+HBU=;
-	b=ZJdVVoHG8yVHmvogC0tyAT1aw9f5V+HmhJXiYfWFxu3KzHHrK9uVwpzOiLzzAI5Z24oi
-	 PkSabMnRHDTZIRkSCeOZK8kFd+t42OJRGfIGCBOv+qt21wzTURiuZdZ37YJbc6uV9MnUA
-	 mg0F5R/aLkLG1WNgbQz5xVAkssccQiYVHVVvgK4lq4GB7ArmMaAjPkj5C+qwRdF82YwsS
-	 XK7NW/4Swaq4uOqcqo0Rllgf6KQSsmQ4JAfdil1/UfCw4YatsPLeV/fk1Mdjcbiw6uUR1
-	 FlcfUITBe+VKVGRIs9SbQLSl6iBIvvdCGcoCyKku5fFzBr418aNMrijRLVHk0CWfm8Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="n/fxO5jW";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.53
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013053.outbound.protection.outlook.com [40.107.159.53])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793344764;
+	b=JQl+o7WoteFNO1RSsIFUQtDFeFhNSuQnPwxNyBSfoUZCpbRhkTR1vgPdM0vf+BTg3WZu
+	 AvFIYh8wi2Q2gBjhe23zVA3tJxUCjS51jXgfIRg804RQuITJN29Np5m2XD7Z8rz47niab
+	 kIdFXULHhxUXwGShk2i6G7vVWX76Q6+eizBk14RVHQgx7yUExz2PRXbl6Ub3SA300Iq4u
+	 1qGB7VD3vSZoOw0K0gc7XGBG9Cn+N9CAD4BNW+g8h9KeU1M48o0lQEJOJ5T4rGgw7nhCi
+	 vwItIMuhoAhGX7bHxnzXlqHMKpDLIXoxMeDWBwIpyXBz7wZD3u22IFhxVZK5QM/flXA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793344764;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=8jO7pe/YMdj+lxc5RQolDXHt8telDzgusnrLDg6i9lY=;
+	b=DVXzS5mTouGWkqUh0agD8GDesBlM84UnP5NY7218qpnTqDkhGISQcNNv6wiRd6i+c732
+	 +Md8wQ7Koc6oYCjgzdSmqSZGmXzgCwdBEy7fGQvuYkXil9Ui82aQQiRC3DuR6mb/ZaNdc
+	 Z1Zw4yeUG6AFNci0zIDRToTR6Y4Q/O3EJVDTmV+SiMrxgqJ+EYCqFgqvR7S+pxIVNnBKy
+	 8qaDd0/MY9zy+Clw5t8ykH6B3cyRawP1URI73ZGXSYtF9p3wpxOc034TyQiwryXQlMKkh
+	 vuZ+/jZwXqEKsJ3uRU3T5ZUoPB0lvHAp3oGB3Nr7KILMg8NyeBs5aT8HsYYORbSQTcQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="UfK/VsIa";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="ZcZ3d/TF";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25FC7606A31A;
-	Fri, 30 Oct 2026 07:16:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25FC7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62BF4606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:19:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62BF4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=n/fxO5jW
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XsMbRs59GNF2d7/dlPPWrE9+cx6p2czb7kPnzGoiD/Xzz8ciF0W8kSXn6W8AglbeDxxOhCoYRUQeNFdI9qgaqJIvIj/p4UtiF0u0D/8e5391rRYJNu+/FQzU3A8/B+e9lezUupu9yU+SoO+TUPuYsAtP4A4RstgY8SqO1NZkTSylwd8Qg3tI01xXXsM9OkODTEIZgMMwVrthWnZsFXVm49G1FadXS/Oga5kVYLz0pEbIKW8d3PRrHzVO1oaKY14Hbvr1suQcMczbKM9VdttoNWgMsqeAGcWDzQW0a/WVCGZ59eaIfogI+w125YVpmueYb4KR5X4Cf2Tkmfuw8xbEgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qllX23EwL4USFTxcfYX+ETH+yNN1UWQWmPryXyD+HBU=;
- b=smND5cN340IByTOH5yK1xGdOg5HzNUnPUv64xnYPKGy2VxmZabuNlmTveygMO0e5Xf83vucnXiGwtTQWeCkudXQK4ShOKU7yaOsLExobIaVZM2cW8OAvvaiHFZQYcsibjsa2u1GIY7Fu6OgONcApRu0I4LpSE9+xOM1MrGvJSXfQd92z83YlTbRqYfyE6gRmyqgNNKPV51FmzFRsn4OmWX0wwsIJZkEOVJXtNXk6C4MS2C/y9BN1Y0RpbUxNTTJKzwX1oepC16x1D8DD5a0py9F+cO0FEi8KSgNcvqwa5Mcddvz46BPkG3qVjH2tiUR4pKmRMO/amqYht30BLdeJqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qllX23EwL4USFTxcfYX+ETH+yNN1UWQWmPryXyD+HBU=;
- b=n/fxO5jWAHverMMQASZkN+M8MHbpYIp132hPEfuSGWLnLbBHrHX3mXZKmjxjpf4eF3FkR9JQMeZstfoLtufUkdyc+buiItFpTf31DQeEYAXT4iNLWimg6YV2FWAfMkQ8phyBa7oqPkhBzfymPezO86X0FNRcq7kuFKRnl8zhg7f45MzXFYhp6vHvXfMx0N5hTzSa+igwUn9pOrTU2h2aPT2GP3kkPOnc4hfa3JDUbjIDPgKDmOT8wJhXOZFMpGQSWATwpQw08gBe4B5LfQSBdmOwP/y8/37oelTs24pIcNGW+mqMEwtoifcbw71R+c4Hc3Vf6P1g0/9gHu1ppVnoaw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
- by GV1PR04MB10822.eurprd04.prod.outlook.com (2603:10a6:150:205::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 07:16:44 +0000
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d]) by PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d%3]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 07:16:44 +0000
-From: Xu Yang <xu.yang_2@oss.nxp.com>
-To: peter.chen@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	jun.li@nxp.com
-Subject: [PATCH] usb: chipidea: otg: avoid workqueue resource leak if otg fsm init fail
-Date: Fri, 30 Oct 2026 15:21:30 +0800
-Message-Id: <20261030072130.276679-1-xu.yang_2@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR01CA0021.apcprd01.prod.exchangelabs.com
- (2603:1096:4:192::19) To PAXPR04MB9422.eurprd04.prod.outlook.com
- (2603:10a6:102:2b4::21)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UfK/VsIa;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZcZ3d/TF
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U5F9rg2913268
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:19:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=8jO7pe/YMdj+lxc5RQolDXHt8telDzgusnr
+	LDg6i9lY=; b=UfK/VsIaAj/vhGupDlmafT1mSxb5K245tb85J/5kWp28XWVdT5r
+	awZTqO+rGZYVQs8jru+jiRsCSCbrux8oSkEBnEfEUiYQssHtjrCdO9tuaflIss90
+	TTxw++q/nmSRdW7+3ItrZzIRkdi5s54kBk2iYhRRaOdzKxj2JyPnmJuXdCPZXzXK
+	W2qNu0VabHn4i97XG58/etj3mZZQrmctbD7HCR0VBachuybvl04jV5cSP/ueMfKP
+	zF14LCTRC+Z6sU6GvVYphZCJl6A48Nsv2ruTg58IYughpibW77MG6Mnh+K1k1sFd
+	1BdZWYy7ZF3NcWrD8CRKTehOB3AgcQGSRcA==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qsqn1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:19:22 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91c817b56adso9004116d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:19:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793344761; x=1793949561; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8jO7pe/YMdj+lxc5RQolDXHt8telDzgusnrLDg6i9lY=;
+        b=ZcZ3d/TFBuwdxsQ4R9TRyWJA2PnvuJINX17KOzR7H5/tCAwWnUm3eQicW5VoQ4nXSM
+         J5TCB4tQBZ+cXk71FyDgRCLy42sHOhYjHkGt08upa+xQB2//+rqJBQ7Oxsv0u3SUjdUT
+         rB/aMiiwb9Lv8yYeeHyHXIHRTPUE1pggCFDaQlx+bcWJ0uoN2QWuq3kQoyAYWeSIpM2D
+         aUJzAnM4aN+vayN4nmZ5HHbmZ6m7mCQFzgJaUXMuJJhn3Bnv+1IEijaN/gjN/d2eX9uN
+         axqmX+udV7Za7jPIP8SzkExvObM9d1L/er7x/HGXQh296ainStTFNVW/EuE6FZAIuWUF
+         Fjqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793344761; x=1793949561;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8jO7pe/YMdj+lxc5RQolDXHt8telDzgusnrLDg6i9lY=;
+        b=eFnyHbKUPfV4fGOhXMzkRdUCpYEhtgQXSuUBw7NOz6dIiaA9HfQcxyOaTRwH69GJhx
+         reFnTgEPSQpn6IH5Z51y0kVF7/fy+GuA7+K1mecaGQpTOfiA3CdXv28BM/b7o9rYSnFg
+         pqF7UTJdK2MhQJLeAxbuZeBqjMqCvaoivm12kG+AlGbZQ5rabeuu/j90NvQimMI4lNLJ
+         4PHdtlhs4sJHptDcnD2Kr3l7uM2oOUt10zURyhSAG0BPDBM/YmZkcE4pLkRmoXLOy9oI
+         JfnnKZR02dDK9vBglyBKEPh1u3T4nt3SjekaGva0RB3ZmdRL6tQZU2sbHx1AdI2Tqc6h
+         JBKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzvIzNjy/s/CZ4SbQdJ7DKfUA25eb1LUfNm8TNP4/TNZvHZLySTeztpGKw4oAoCisehRx2NxY2av+2Jazc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0lktNBFpSize+Uc4gq+xjJ7f5z+2cXSbB+ulU7C3G77m6JE/s
+	U4ypCNFrhSFmKULNML3Z3pxDEv4SFevqOvJy/NXoBfOVpjtz9EA1OMvf4NEAcANRMozNf0Tg6GN
+	N7/JXSsboXNrRQ9n2hbbjaejEajDzC7N49oSl+ctlhmax9AD5OWtbUVUCJLTgaA1oYd8=
+X-Gm-Gg: AYBFou3LzE7WceoO6wC/zTVkZj4yJTadS4anTNYTwirpntep7IDOnRHZ1pfo0iiFgXp
+	DCjEdRl72dnVtSukOntSpFgzqoYnXL8Yn7fo7BklTjUysYotisYbYUezpd+jCIo9AuZDhHfiutd
+	z6JWMF6HjllLT4r1uNDZghY9Bc7rwRh/VGaBoanjfkIo5+cmJ392Qq2m3HnpKhbQaQAi/Lw7iWo
+	ICcSMn75Ath2rnIQV+zS5UAB5A9+Dnql09u7pFSonXN+bu6BfNIojsWVK1lCRkktRHzK6KgXdkf
+	lmGMn4LGudCbtmKKihuvcDSzrmYvBZ7IYld5Pw3vRW/gMmETXP8L8WAajkd2vH1f5HjaaKFmR1G
+	Gb6A1zAavtAqSn+6NAzIC+Sj4LQbcl8qNo4Xz2tT5At9XyIEvWTbv4vXM8FsTTQ==
+X-Received: by 2002:a05:620a:4594:b0:93e:c12c:4409 with SMTP id af79cd13be357-944217cece5mr244314285a.69.1793344761031;
+        Fri, 30 Oct 2026 00:19:21 -0700 (PDT)
+X-Received: by 2002:a05:620a:4594:b0:93e:c12c:4409 with SMTP id af79cd13be357-944217cece5mr244312585a.69.1793344760474;
+        Fri, 30 Oct 2026 00:19:20 -0700 (PDT)
+Received: from quoll ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ab69b54742sm135516845e9.15.2026.10.30.00.19.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 00:19:19 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Jeff Johnson <jjohnson@kernel.org>, linux-wireless@vger.kernel.org,
+        ath10k@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH] wifi: ath10k: Drop unused qmi_elem_info arrays
+Date: Fri, 30 Oct 2026 08:19:13 +0100
+Message-ID: <20261030071912.107577-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,104 +116,1367 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|GV1PR04MB10822:EE_
-X-MS-Office365-Filtering-Correlation-Id: c80218de-bb6f-4779-e1e3-08df3655c06a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|19092799006|56012099006|11063799006|261009223027099003|261022105027099003|261028144727099003|261021121427099003|261026140227099003|261021123027099003|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	S3rf/JT7RlOGU4NVeRi3rmfCRoeJF8PAQCI8R3CTotOcw6/U+ZcmRwS3puZ9qyTJXANhAdCv4ftfCvLrYvYUy9kjHT1LNmiBm5+DVMSoLmO6dvd+2K6rdBgWmFapfj2V5qDO40JbrEPmCjIG9XEKf3GJ2fZqbiAvuWjH6GhZ/vpVPxK8xiHyf8VAViJQB6jIss01hHmlSDCowZkDh52K0TMkWe5jMWVGKz64ZVV+3OAEQP9W8dcuDOmhdry/jFBIlvgt/gho2SDbOKGNetT8QXXgEr7Qw7guvTg0uU0dmQ8e/UJCxzGoKKIGTsy6XIletr4/KWoQo6bzjoQe+XSeUSuthZ1ut2+vZGRVpqwa94pA+jPBA8i+fLdy8mwEL9OooiYXm0nLvvSS4jImhciX4/H9J0I8msbJPFnDt0hWl6KvyRZbQpAlrP4K7LatdQ4TefxcWeu6pMblN7k9107QrFGFIPe80gd4pNblvcO1mYlVMt1eToRXes9xJPsOYbEGYU1XXUkBm92eeuYJMvHKZuhTym4WjNpZ8zUEH1nvo1vHyPIoi4AWTULPFSNuOW+8whN1hZpRenOZ/oF2lt1Dh1oAznNKkhLYQlqkxJSEbIMoRzmImybScK1K4wRiUAx68EongieZx5cdLIyV+yfAnAPuR74h74QEBC76c6fOpSw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(19092799006)(56012099006)(11063799006)(261009223027099003)(261022105027099003)(261028144727099003)(261021121427099003)(261026140227099003)(261021123027099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ihFTRaDgcr7Hj5u3dytJFaNeBaI35lqnxGqPduNRY/+qL+henhwI7chiQaBi?=
- =?us-ascii?Q?zv3WKUUgNHuQoET5QOkEv80egxn3Co7t7+HkrBDMR2bKDGdLQUbKAY7iKTG+?=
- =?us-ascii?Q?Vs814+FVhhjHrZF1GqZstaf7t3p+Izf+LTfSW3C1kTALtRR2MFrpGOLP05tb?=
- =?us-ascii?Q?Zb30icpCpODAQjPQbLvCwVcxiFivLpniLGPkBkkx06HWj2kE5FkgxVqrw5mv?=
- =?us-ascii?Q?3QNSNqoV0W1IprCKKZDKbz3Ix/GK7QO1oitxN6qncRvB6Xiy3uKZ3djm5TX9?=
- =?us-ascii?Q?zCU3+riYa4J/TInqSGf4jXPu182mjvdbhPC8OXfvOBx6Jm9hKrsL3g5uazji?=
- =?us-ascii?Q?ybZktOjpdrtaEwdIMyhN4umiqqhhRI9uqLSh4b3cnUjvZsG8dQoIPoLvtFdP?=
- =?us-ascii?Q?0z1AoF/i9OKWhRsofG8+U6GyLyLktkFwNNEtbLFUZaj7HB+ffRixnB+uLwft?=
- =?us-ascii?Q?7BIIgSFmaonC1zRKak/zfHkSfSlz7WK8aZeeWkml+v3qSHmujDSusDvy1oQm?=
- =?us-ascii?Q?RKnR45i5K2cykE/ga7ShAEV0+3s4xbem/YoxRsEQpShaWnwlIihutlxPG07K?=
- =?us-ascii?Q?kO00U0BlVbj5jqk1Aor3TLSKFJsTHIJfhGwBdA3AQLcjbPvefWdMeUkOrgJL?=
- =?us-ascii?Q?oL2a+ZDap0qn4+YH16TKES9gD27SbfezGv9Li0fhbeORiROLyY2Uq+A/aXFG?=
- =?us-ascii?Q?WDrk/StITWKgXoRJidEK6o++ogjmGV8BnF5FOd0q/2clMGZyKJM3xD9gRa61?=
- =?us-ascii?Q?EZ2dOxQAHqHv0kQ1H0QoP4KyCS3BpnN2q8c+cZTVOUw2I0WKCnCfDrpmg68y?=
- =?us-ascii?Q?ASzcPOdwaPmCejnUDE7HfRU/TR90wwcRV0uTN1ga35R1nF5In1dRX95WV1aP?=
- =?us-ascii?Q?XLGs+EWLZNWsHfaNNiAWQZ9KSoIu4ayHiGOpEXB5CVQ+rS7NVAA7DplxTmkD?=
- =?us-ascii?Q?w8jtmNLyrHMIyf0QC+zg+IfbFefROU8ztg6kvD4rmMccUgxfSPL08h9EvnF0?=
- =?us-ascii?Q?QmdumFrTg/yMNLcGsCiCw5BezLOCwkeH3Bt90u0lvZL7FG+zPgQmlrpwOZnu?=
- =?us-ascii?Q?wzfAAcRSdOT9MkyQMLO9ChPfLvYOVA2TP/Redu7lvL3n+vSo34PyMlSQtQVt?=
- =?us-ascii?Q?6ri5TBmO6OY7RRxQtZI3RBH6tcWuqYaddg/0jic6G/gwYctmYn6ADFKGu0tk?=
- =?us-ascii?Q?4jSGtm0dw3vbi8fuSwooSvYTCO76yI33uL49zvy/9tOVyp5F58EUD7mfhQv1?=
- =?us-ascii?Q?7bFDRegAMjR7EvTDRZ/RqMJ3USYtjZFw8HPDyDrJ0SVIVW1coTZDquXybNpm?=
- =?us-ascii?Q?GMQZaEzWOGC95IF9HaGKkq5lQi07FMzek6KhGk/ihMXzvi8HQ59GDsS8j3V5?=
- =?us-ascii?Q?fK1rOlQYiXauc1Cb2pI4rN8dvF6s2H64QAdkc+9pFQnPl7+wqD9dugPtIFlO?=
- =?us-ascii?Q?2M7sZrbEPw9VtqQi2RZ3jTYOWwOwkS69xBVS0G4xENLd/0Eik3ZRWJ9/j5Qj?=
- =?us-ascii?Q?nGn1D7PvCrVbbbJE8vp4ddZ3HKnElHskyZ7GrCkDqAO0t45D2Ib3DPmG5pL4?=
- =?us-ascii?Q?OUtwIsqwxmPurcPG0gQolZZi59tSOhyJToHCOQttFT+WX59Hvl05oY+8+I9r?=
- =?us-ascii?Q?pJIXD3/mkFv9wN66bmxX+73O8ehpOjOIMVVQgkEWWKMOWbsW6h4pMASAzoMk?=
- =?us-ascii?Q?yciUA1PjK9wt4yslzn6j3t3bdsH5Pawx5YHAshr7WJw+vXdKF0NaTRcnBdUF?=
- =?us-ascii?Q?Sd98LEgNmhjwXDAF6KG1txxYUAkv0DEiS5P4D0Pb+qHqfpf0YSO/?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c80218de-bb6f-4779-e1e3-08df3655c06a
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9422.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 07:16:44.0942
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6o1LHJnfQeBlh+MooKbb/AqFmj4CfIO7qkX4YggPcvqohr5Znj3CsfwnxoOhowqG6HFrbc0CuIB5G+PxD+G9LfxlRsUnTuOQptBY2+W4O5RT9dKplinWsKcMMujqvyZQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10822
+X-Developer-Signature: v=1; a=openpgp-sha256; l=38737; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=OZTHnSfXrSGrfy7csl8Xp4GxV7JqWiric/MfQwyQfE8=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq5ETwjOGjFAYjG0uA39fMvfKosw4jIIQLagXve
+ VIIKOSB26GJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCauRE8AAKCRDBN2bmhouD
+ 1zUXEACHtyVKU8O6y6PGLDJ51hBSces9CZ/LS63CuPMOstfaVhCxLb8psCtxgsGUD3nQu+DyZHu
+ /fdlCKwG8yTFlUwPlZj5KOBDqG+FAw7hKhRbvyBE8eFFM++pHc+8Le6rRj471hjUBFPYatcnNQ9
+ Z5c6yXkARELsKV4svPIBIkaME047CWJNgZ7+cPROT5tpWcZ2gwj8ynv0xm0cvDYDWr2wa5S8pZ8
+ mxv1GD3ANPqCaNReEp6j/jtUqR2tZDe3SU1Dd1EkSOMAzKvtBsTik4zSbcY6t57dhmO3UJRLQGR
+ 49egb2l/TJCvK4MYflMOOTIJiCtIiEPjUKG19DEE6HuYLm4Y809d9T3+DHLS+TPNU0M2vHMy8W1
+ 41jq3n3xe/8JOWOX0pbmfGeOLF3s4uvXzfoZe475JRfn/zwyGiv8An4B1FohRTs3riN1FX7AgEw
+ x8URiAWYqlqTloAJZfYE5D+fHK7kdeEpSSZWlhoDOeh1UJkB8lCVvutWpONo61F4ih2Q5grKa6t
+ iA3FdP3Oh/7wtQpMTZY9tw1/qCRg9S7rO4frsITsZaMXbOpYTMDFq2WCjiLcqfp4ahvtlCaYEhB
+ IvXBJ5dFDUOGuqfo6xwlYlKok6NzduyqJM0RExxtVmXe390n7U8dIB7gZSiEGokp7cjmDfv2zN8 uwdPKxnzkEOaKCQ==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: n7EIfwHI-1i8V9MME4XFjQ9m2Ol1W5Cp
+X-Proofpoint-ORIG-GUID: n7EIfwHI-1i8V9MME4XFjQ9m2Ol1W5Cp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAyOCBTYWx0ZWRfXyUywtMTGuFxQ
+ rFEdkvqSm3uAEpbGAQhDEZKwYBgzcoFwnh189ZtY5hes411Ipj2N4Opv3lc3I246LfSfEaZlTXT
+ QA1jCsAmaSI71pNRclGMkY38ZNQnlr/t93SnNkopscCAyyan71IztPulLi+2FOitq475OhNxo3M
+ HpR+i0Ru0T+d7JDmiWVcSnNKy79iyjcbqJQsd/Ri/F6LSnRRRr/sSC/SKGSnv0Y1TfR2qfnQ9bn
+ TbW+eLfWEGpuPFswMQBzvwlut72FHsHQ8xMc6dJxwo12PRNNGVuwCDU8iSmuRrv84WWlDjO8tlB
+ 7YE9/W+PwqgyfduRBFr2XbXcf/gTMWN2ieOmcxNMbVCSltFukIERCah2n8/O4+WUdVm5ugyYo7R
+ D+bqdbXQRXgYIYWnlBO7CWaR/rRz/OZbuQfPZZ+TGmFI2oBYAyg8AO+rI0ana4Aq/D+I0Rzfet2
+ 2zLh7ixPMLfgpWczqMQ==
+X-Authority-Analysis: v=2.4 cv=dPgzC+Zb c=1 sm=1 tr=0 ts=6ae444fa cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=cqqb3YIOvjNEIm1MWrcA:9 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAyOCBTYWx0ZWRfX3nZVCyQqAs1u
+ i394+/rGalYCxiIDI9yrjmxilPNjpjeQgA6kIq4GMm7VQhVj/aQR3bd0zsq4TSWfJu3dEgxGsQ0
+ jLP7OiyQaPcl77OK0qy2D90y8dNXCSU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 spamscore=0 malwarescore=0 clxscore=1015
+ priorityscore=1501 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300028
 
-From: Xu Yang <xu.yang_2@nxp.com>
+'wlfw_pin_connect_result_ind_msg_v01_ei' and
+'wlfw_initiate_cal_download_ind_msg_v01_ei' are not used anywhere.
+Dropping them allows to remove bunch of other code referenced purely by
+these ararys.
 
-If ci_hdrc_otg_fsm_init() fail, error propagates to ci_hdrc_probe(), which
-jumps to the deinit_gadget label, bypassing the deinit_otg label where the
-ci_otg_wq workqueue would normally be destroyed. Finally it cause resource
-leak on previous created workqueue.
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Fixes: 57677be5ef83 ("usb: chipidea: usb OTG fsm initialization.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
 ---
- drivers/usb/chipidea/otg.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/usb/chipidea/otg.c b/drivers/usb/chipidea/otg.c
-index 5eb3b32c2e87..89a6a37815f0 100644
---- a/drivers/usb/chipidea/otg.c
-+++ b/drivers/usb/chipidea/otg.c
-@@ -246,6 +246,8 @@ static void ci_otg_work(struct work_struct *work)
-  */
- int ci_hdrc_otg_init(struct ci_hdrc *ci)
- {
-+	int ret;
-+
- 	INIT_WORK(&ci->work, ci_otg_work);
- 	ci->wq = create_freezable_workqueue("ci_otg");
- 	if (!ci->wq) {
-@@ -253,8 +255,13 @@ int ci_hdrc_otg_init(struct ci_hdrc *ci)
- 		return -ENODEV;
- 	}
+Changes in v2:
+1. Fix commit author.
+2. Drop more stuff (LKP, Jeff).
+---
+ .../net/wireless/ath/ath10k/qmi_wlfw_v01.c    | 929 ------------------
+ .../net/wireless/ath/ath10k/qmi_wlfw_v01.h    | 278 ------
+ 2 files changed, 1207 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath10k/qmi_wlfw_v01.c b/drivers/net/wireless/ath/ath10k/qmi_wlfw_v01.c
+index 279aeb2a7dbc..6aaa36b5f92b 100644
+--- a/drivers/net/wireless/ath/ath10k/qmi_wlfw_v01.c
++++ b/drivers/net/wireless/ath/ath10k/qmi_wlfw_v01.c
+@@ -154,109 +154,6 @@ static const struct qmi_elem_info wlfw_memory_region_info_s_v01_ei[] = {
+ 	{}
+ };
  
--	if (ci_otg_is_fsm_mode(ci))
--		return ci_hdrc_otg_fsm_init(ci);
-+	if (ci_otg_is_fsm_mode(ci)) {
-+		ret = ci_hdrc_otg_fsm_init(ci);
-+		if (ret < 0) {
-+			destroy_workqueue(ci->wq);
-+			return ret;
-+		}
-+	}
+-static const struct qmi_elem_info wlfw_mem_cfg_s_v01_ei[] = {
+-	{
+-		.data_type      = QMI_UNSIGNED_8_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u64),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0,
+-		.offset         = offsetof(struct wlfw_mem_cfg_s_v01,
+-					   offset),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0,
+-		.offset         = offsetof(struct wlfw_mem_cfg_s_v01,
+-					   size),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_1_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0,
+-		.offset         = offsetof(struct wlfw_mem_cfg_s_v01,
+-					   secure_flag),
+-	},
+-	{}
+-};
+-
+-static const struct qmi_elem_info wlfw_mem_seg_s_v01_ei[] = {
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0,
+-		.offset         = offsetof(struct wlfw_mem_seg_s_v01,
+-					   size),
+-	},
+-	{
+-		.data_type      = QMI_SIGNED_4_BYTE_ENUM,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(enum wlfw_mem_type_enum_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0,
+-		.offset         = offsetof(struct wlfw_mem_seg_s_v01,
+-					   type),
+-	},
+-	{
+-		.data_type      = QMI_DATA_LEN,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0,
+-		.offset         = offsetof(struct wlfw_mem_seg_s_v01,
+-					   mem_cfg_len),
+-	},
+-	{
+-		.data_type      = QMI_STRUCT,
+-		.elem_len       = QMI_WLFW_MAX_NUM_MEM_CFG_V01,
+-		.elem_size      = sizeof(struct wlfw_mem_cfg_s_v01),
+-		.array_type       = VAR_LEN_ARRAY,
+-		.tlv_type       = 0,
+-		.offset         = offsetof(struct wlfw_mem_seg_s_v01,
+-					   mem_cfg),
+-		.ei_array      = wlfw_mem_cfg_s_v01_ei,
+-	},
+-	{}
+-};
+-
+-static const struct qmi_elem_info wlfw_mem_seg_resp_s_v01_ei[] = {
+-	{
+-		.data_type      = QMI_UNSIGNED_8_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u64),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0,
+-		.offset         = offsetof(struct wlfw_mem_seg_resp_s_v01,
+-					   addr),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0,
+-		.offset         = offsetof(struct wlfw_mem_seg_resp_s_v01,
+-					   size),
+-	},
+-	{
+-		.data_type      = QMI_SIGNED_4_BYTE_ENUM,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(enum wlfw_mem_type_enum_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0,
+-		.offset         = offsetof(struct wlfw_mem_seg_resp_s_v01,
+-					   type),
+-	},
+-	{}
+-};
+-
+ static const struct qmi_elem_info wlfw_rf_chip_info_s_v01_ei[] = {
+ 	{
+ 		.data_type      = QMI_UNSIGNED_4_BYTE,
+@@ -569,64 +466,6 @@ const struct qmi_elem_info wlfw_msa_ready_ind_msg_v01_ei[] = {
+ 	{}
+ };
  
- 	return 0;
- }
+-const struct qmi_elem_info wlfw_pin_connect_result_ind_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_pin_connect_result_ind_msg_v01,
+-					   pwr_pin_result_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_pin_connect_result_ind_msg_v01,
+-					   pwr_pin_result),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x11,
+-		.offset         = offsetof(struct wlfw_pin_connect_result_ind_msg_v01,
+-					   phy_io_pin_result_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x11,
+-		.offset         = offsetof(struct wlfw_pin_connect_result_ind_msg_v01,
+-					   phy_io_pin_result),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x12,
+-		.offset         = offsetof(struct wlfw_pin_connect_result_ind_msg_v01,
+-					   rf_pin_result_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x12,
+-		.offset         = offsetof(struct wlfw_pin_connect_result_ind_msg_v01,
+-					   rf_pin_result),
+-	},
+-	{}
+-};
+-
+ const struct qmi_elem_info wlfw_wlan_mode_req_msg_v01_ei[] = {
+ 	{
+ 		.data_type      = QMI_SIGNED_4_BYTE_ENUM,
+@@ -1148,302 +987,6 @@ const struct qmi_elem_info wlfw_cal_report_resp_msg_v01_ei[] = {
+ 	{}
+ };
+ 
+-const struct qmi_elem_info wlfw_initiate_cal_download_ind_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_SIGNED_4_BYTE_ENUM,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(enum wlfw_cal_temp_id_enum_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x01,
+-		.offset         = offsetof(struct wlfw_initiate_cal_download_ind_msg_v01,
+-					   cal_id),
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_cal_download_req_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_UNSIGNED_1_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x01,
+-		.offset         = offsetof(struct wlfw_cal_download_req_msg_v01,
+-					   valid),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_cal_download_req_msg_v01,
+-					   file_id_valid),
+-	},
+-	{
+-		.data_type      = QMI_SIGNED_4_BYTE_ENUM,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(enum wlfw_cal_temp_id_enum_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_cal_download_req_msg_v01,
+-					   file_id),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x11,
+-		.offset         = offsetof(struct wlfw_cal_download_req_msg_v01,
+-					   total_size_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x11,
+-		.offset         = offsetof(struct wlfw_cal_download_req_msg_v01,
+-					   total_size),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x12,
+-		.offset         = offsetof(struct wlfw_cal_download_req_msg_v01,
+-					   seg_id_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x12,
+-		.offset         = offsetof(struct wlfw_cal_download_req_msg_v01,
+-					   seg_id),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x13,
+-		.offset         = offsetof(struct wlfw_cal_download_req_msg_v01,
+-					   data_valid),
+-	},
+-	{
+-		.data_type      = QMI_DATA_LEN,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u16),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x13,
+-		.offset         = offsetof(struct wlfw_cal_download_req_msg_v01,
+-					   data_len),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_1_BYTE,
+-		.elem_len       = QMI_WLFW_MAX_DATA_SIZE_V01,
+-		.elem_size      = sizeof(u8),
+-		.array_type       = VAR_LEN_ARRAY,
+-		.tlv_type       = 0x13,
+-		.offset         = offsetof(struct wlfw_cal_download_req_msg_v01,
+-					   data),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x14,
+-		.offset         = offsetof(struct wlfw_cal_download_req_msg_v01,
+-					   end_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_1_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x14,
+-		.offset         = offsetof(struct wlfw_cal_download_req_msg_v01,
+-					   end),
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_cal_download_resp_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_STRUCT,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(struct qmi_response_type_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_cal_download_resp_msg_v01,
+-					   resp),
+-		.ei_array      = qmi_response_type_v01_ei,
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_initiate_cal_update_ind_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_SIGNED_4_BYTE_ENUM,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(enum wlfw_cal_temp_id_enum_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x01,
+-		.offset         = offsetof(struct wlfw_initiate_cal_update_ind_msg_v01,
+-					   cal_id),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_initiate_cal_update_ind_msg_v01,
+-					   total_size),
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_cal_update_req_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_SIGNED_4_BYTE_ENUM,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(enum wlfw_cal_temp_id_enum_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x01,
+-		.offset         = offsetof(struct wlfw_cal_update_req_msg_v01,
+-					   cal_id),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_cal_update_req_msg_v01,
+-					   seg_id),
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_cal_update_resp_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_STRUCT,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(struct qmi_response_type_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_cal_update_resp_msg_v01,
+-					   resp),
+-		.ei_array      = qmi_response_type_v01_ei,
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_cal_update_resp_msg_v01,
+-					   file_id_valid),
+-	},
+-	{
+-		.data_type      = QMI_SIGNED_4_BYTE_ENUM,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(enum wlfw_cal_temp_id_enum_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_cal_update_resp_msg_v01,
+-					   file_id),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x11,
+-		.offset         = offsetof(struct wlfw_cal_update_resp_msg_v01,
+-					   total_size_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x11,
+-		.offset         = offsetof(struct wlfw_cal_update_resp_msg_v01,
+-					   total_size),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x12,
+-		.offset         = offsetof(struct wlfw_cal_update_resp_msg_v01,
+-					   seg_id_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x12,
+-		.offset         = offsetof(struct wlfw_cal_update_resp_msg_v01,
+-					   seg_id),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x13,
+-		.offset         = offsetof(struct wlfw_cal_update_resp_msg_v01,
+-					   data_valid),
+-	},
+-	{
+-		.data_type      = QMI_DATA_LEN,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u16),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x13,
+-		.offset         = offsetof(struct wlfw_cal_update_resp_msg_v01,
+-					   data_len),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_1_BYTE,
+-		.elem_len       = QMI_WLFW_MAX_DATA_SIZE_V01,
+-		.elem_size      = sizeof(u8),
+-		.array_type       = VAR_LEN_ARRAY,
+-		.tlv_type       = 0x13,
+-		.offset         = offsetof(struct wlfw_cal_update_resp_msg_v01,
+-					   data),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x14,
+-		.offset         = offsetof(struct wlfw_cal_update_resp_msg_v01,
+-					   end_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_1_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x14,
+-		.offset         = offsetof(struct wlfw_cal_update_resp_msg_v01,
+-					   end),
+-	},
+-	{}
+-};
+-
+ const struct qmi_elem_info wlfw_msa_info_req_msg_v01_ei[] = {
+ 	{
+ 		.data_type      = QMI_UNSIGNED_8_BYTE,
+@@ -1553,195 +1096,6 @@ const struct qmi_elem_info wlfw_ini_resp_msg_v01_ei[] = {
+ 	{}
+ };
+ 
+-const struct qmi_elem_info wlfw_athdiag_read_req_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x01,
+-		.offset         = offsetof(struct wlfw_athdiag_read_req_msg_v01,
+-					   offset),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_athdiag_read_req_msg_v01,
+-					   mem_type),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x03,
+-		.offset         = offsetof(struct wlfw_athdiag_read_req_msg_v01,
+-					   data_len),
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_athdiag_read_resp_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_STRUCT,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(struct qmi_response_type_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_athdiag_read_resp_msg_v01,
+-					   resp),
+-		.ei_array      = qmi_response_type_v01_ei,
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_athdiag_read_resp_msg_v01,
+-					   data_valid),
+-	},
+-	{
+-		.data_type      = QMI_DATA_LEN,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u16),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_athdiag_read_resp_msg_v01,
+-					   data_len),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_1_BYTE,
+-		.elem_len       = QMI_WLFW_MAX_ATHDIAG_DATA_SIZE_V01,
+-		.elem_size      = sizeof(u8),
+-		.array_type       = VAR_LEN_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_athdiag_read_resp_msg_v01,
+-					   data),
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_athdiag_write_req_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x01,
+-		.offset         = offsetof(struct wlfw_athdiag_write_req_msg_v01,
+-					   offset),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_athdiag_write_req_msg_v01,
+-					   mem_type),
+-	},
+-	{
+-		.data_type      = QMI_DATA_LEN,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u16),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x03,
+-		.offset         = offsetof(struct wlfw_athdiag_write_req_msg_v01,
+-					   data_len),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_1_BYTE,
+-		.elem_len       = QMI_WLFW_MAX_ATHDIAG_DATA_SIZE_V01,
+-		.elem_size      = sizeof(u8),
+-		.array_type       = VAR_LEN_ARRAY,
+-		.tlv_type       = 0x03,
+-		.offset         = offsetof(struct wlfw_athdiag_write_req_msg_v01,
+-					   data),
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_athdiag_write_resp_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_STRUCT,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(struct qmi_response_type_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_athdiag_write_resp_msg_v01,
+-					   resp),
+-		.ei_array      = qmi_response_type_v01_ei,
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_vbatt_req_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_UNSIGNED_8_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u64),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x01,
+-		.offset         = offsetof(struct wlfw_vbatt_req_msg_v01,
+-					   voltage_uv),
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_vbatt_resp_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_STRUCT,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(struct qmi_response_type_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_vbatt_resp_msg_v01,
+-					   resp),
+-		.ei_array      = qmi_response_type_v01_ei,
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_mac_addr_req_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_mac_addr_req_msg_v01,
+-					   mac_addr_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_1_BYTE,
+-		.elem_len       = QMI_WLFW_MAC_ADDR_SIZE_V01,
+-		.elem_size      = sizeof(u8),
+-		.array_type       = STATIC_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_mac_addr_req_msg_v01,
+-					   mac_addr),
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_mac_addr_resp_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_STRUCT,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(struct qmi_response_type_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_mac_addr_resp_msg_v01,
+-					   resp),
+-		.ei_array      = qmi_response_type_v01_ei,
+-	},
+-	{}
+-};
+-
+ const struct qmi_elem_info wlfw_host_cap_req_msg_v01_ei[] = {
+ 	{
+ 		.data_type      = QMI_OPT_FLAG,
+@@ -2024,286 +1378,3 @@ const struct qmi_elem_info wlfw_host_cap_resp_msg_v01_ei[] = {
+ 	},
+ 	{}
+ };
+-
+-const struct qmi_elem_info wlfw_request_mem_ind_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_DATA_LEN,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x01,
+-		.offset         = offsetof(struct wlfw_request_mem_ind_msg_v01,
+-					   mem_seg_len),
+-	},
+-	{
+-		.data_type      = QMI_STRUCT,
+-		.elem_len       = QMI_WLFW_MAX_NUM_MEM_SEG_V01,
+-		.elem_size      = sizeof(struct wlfw_mem_seg_s_v01),
+-		.array_type       = VAR_LEN_ARRAY,
+-		.tlv_type       = 0x01,
+-		.offset         = offsetof(struct wlfw_request_mem_ind_msg_v01,
+-					   mem_seg),
+-		.ei_array      = wlfw_mem_seg_s_v01_ei,
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_respond_mem_req_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_DATA_LEN,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x01,
+-		.offset         = offsetof(struct wlfw_respond_mem_req_msg_v01,
+-					   mem_seg_len),
+-	},
+-	{
+-		.data_type      = QMI_STRUCT,
+-		.elem_len       = QMI_WLFW_MAX_NUM_MEM_SEG_V01,
+-		.elem_size      = sizeof(struct wlfw_mem_seg_resp_s_v01),
+-		.array_type       = VAR_LEN_ARRAY,
+-		.tlv_type       = 0x01,
+-		.offset         = offsetof(struct wlfw_respond_mem_req_msg_v01,
+-					   mem_seg),
+-		.ei_array      = wlfw_mem_seg_resp_s_v01_ei,
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_respond_mem_resp_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_STRUCT,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(struct qmi_response_type_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_respond_mem_resp_msg_v01,
+-					   resp),
+-		.ei_array      = qmi_response_type_v01_ei,
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_mem_ready_ind_msg_v01_ei[] = {
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_fw_init_done_ind_msg_v01_ei[] = {
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_rejuvenate_ind_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_rejuvenate_ind_msg_v01,
+-					   cause_for_rejuvenation_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_1_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_rejuvenate_ind_msg_v01,
+-					   cause_for_rejuvenation),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x11,
+-		.offset         = offsetof(struct wlfw_rejuvenate_ind_msg_v01,
+-					   requesting_sub_system_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_1_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x11,
+-		.offset         = offsetof(struct wlfw_rejuvenate_ind_msg_v01,
+-					   requesting_sub_system),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x12,
+-		.offset         = offsetof(struct wlfw_rejuvenate_ind_msg_v01,
+-					   line_number_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_2_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u16),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x12,
+-		.offset         = offsetof(struct wlfw_rejuvenate_ind_msg_v01,
+-					   line_number),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x13,
+-		.offset         = offsetof(struct wlfw_rejuvenate_ind_msg_v01,
+-					   function_name_valid),
+-	},
+-	{
+-		.data_type      = QMI_STRING,
+-		.elem_len       = QMI_WLFW_FUNCTION_NAME_LEN_V01 + 1,
+-		.elem_size      = sizeof(char),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x13,
+-		.offset         = offsetof(struct wlfw_rejuvenate_ind_msg_v01,
+-					   function_name),
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_rejuvenate_ack_req_msg_v01_ei[] = {
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_rejuvenate_ack_resp_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_STRUCT,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(struct qmi_response_type_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_rejuvenate_ack_resp_msg_v01,
+-					   resp),
+-		.ei_array      = qmi_response_type_v01_ei,
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_dynamic_feature_mask_req_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_dynamic_feature_mask_req_msg_v01,
+-					   mask_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_8_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u64),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_dynamic_feature_mask_req_msg_v01,
+-					   mask),
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_dynamic_feature_mask_resp_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_STRUCT,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(struct qmi_response_type_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_dynamic_feature_mask_resp_msg_v01,
+-					   resp),
+-		.ei_array      = qmi_response_type_v01_ei,
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_dynamic_feature_mask_resp_msg_v01,
+-					   prev_mask_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_8_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u64),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x10,
+-		.offset         = offsetof(struct wlfw_dynamic_feature_mask_resp_msg_v01,
+-					   prev_mask),
+-	},
+-	{
+-		.data_type      = QMI_OPT_FLAG,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x11,
+-		.offset         = offsetof(struct wlfw_dynamic_feature_mask_resp_msg_v01,
+-					   curr_mask_valid),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_8_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u64),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x11,
+-		.offset         = offsetof(struct wlfw_dynamic_feature_mask_resp_msg_v01,
+-					   curr_mask),
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_m3_info_req_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_UNSIGNED_8_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u64),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x01,
+-		.offset         = offsetof(struct wlfw_m3_info_req_msg_v01,
+-					   addr),
+-	},
+-	{
+-		.data_type      = QMI_UNSIGNED_4_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u32),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_m3_info_req_msg_v01,
+-					   size),
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_m3_info_resp_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_STRUCT,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(struct qmi_response_type_v01),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x02,
+-		.offset         = offsetof(struct wlfw_m3_info_resp_msg_v01,
+-					   resp),
+-		.ei_array      = qmi_response_type_v01_ei,
+-	},
+-	{}
+-};
+-
+-const struct qmi_elem_info wlfw_xo_cal_ind_msg_v01_ei[] = {
+-	{
+-		.data_type      = QMI_UNSIGNED_1_BYTE,
+-		.elem_len       = 1,
+-		.elem_size      = sizeof(u8),
+-		.array_type     = NO_ARRAY,
+-		.tlv_type       = 0x01,
+-		.offset         = offsetof(struct wlfw_xo_cal_ind_msg_v01,
+-					   xo_cal_data),
+-	},
+-	{}
+-};
+diff --git a/drivers/net/wireless/ath/ath10k/qmi_wlfw_v01.h b/drivers/net/wireless/ath/ath10k/qmi_wlfw_v01.h
+index 8d4b929e8437..a1bffd89d3bd 100644
+--- a/drivers/net/wireless/ath/ath10k/qmi_wlfw_v01.h
++++ b/drivers/net/wireless/ath/ath10k/qmi_wlfw_v01.h
+@@ -61,19 +61,14 @@
+ #define QMI_WLFW_IND_REGISTER_RESP_V01 0x0020
+ 
+ #define QMI_WLFW_MAX_MEM_REG_V01 2
+-#define QMI_WLFW_MAX_NUM_MEM_SEG_V01 16
+ #define QMI_WLFW_MAX_NUM_CAL_V01 5
+ #define QMI_WLFW_MAX_DATA_SIZE_V01 6144
+-#define QMI_WLFW_FUNCTION_NAME_LEN_V01 128
+ #define QMI_WLFW_MAX_NUM_CE_V01 12
+ #define QMI_WLFW_MAX_TIMESTAMP_LEN_V01 32
+-#define QMI_WLFW_MAX_ATHDIAG_DATA_SIZE_V01 6144
+ #define QMI_WLFW_MAX_NUM_GPIO_V01 32
+ #define QMI_WLFW_MAX_BUILD_ID_LEN_V01 128
+-#define QMI_WLFW_MAX_NUM_MEM_CFG_V01 2
+ #define QMI_WLFW_MAX_STR_LEN_V01 16
+ #define QMI_WLFW_MAX_NUM_SHADOW_REG_V01 24
+-#define QMI_WLFW_MAC_ADDR_SIZE_V01 6
+ #define QMI_WLFW_MAX_SHADOW_REG_V2 36
+ #define QMI_WLFW_MAX_NUM_SVC_V01 24
+ 
+@@ -103,11 +98,6 @@ enum wlfw_pipedir_enum_v01 {
+ 	QMI_WLFW_PIPEDIR_INOUT_V01 = 3,
+ };
+ 
+-enum wlfw_mem_type_enum_v01 {
+-	QMI_WLFW_MEM_TYPE_MSA_V01 = 0,
+-	QMI_WLFW_MEM_TYPE_DDR_V01 = 1,
+-};
+-
+ #define QMI_WLFW_CE_ATTR_FLAGS_V01 ((u32)0x00)
+ #define QMI_WLFW_CE_ATTR_NO_SNOOP_V01 ((u32)0x01)
+ #define QMI_WLFW_CE_ATTR_BYTE_SWAP_DATA_V01 ((u32)0x02)
+@@ -152,25 +142,6 @@ struct wlfw_memory_region_info_s_v01 {
+ 	u8 secure_flag;
+ };
+ 
+-struct wlfw_mem_cfg_s_v01 {
+-	u64 offset;
+-	u32 size;
+-	u8 secure_flag;
+-};
+-
+-struct wlfw_mem_seg_s_v01 {
+-	u32 size;
+-	enum wlfw_mem_type_enum_v01 type;
+-	u32 mem_cfg_len;
+-	struct wlfw_mem_cfg_s_v01 mem_cfg[QMI_WLFW_MAX_NUM_MEM_CFG_V01];
+-};
+-
+-struct wlfw_mem_seg_resp_s_v01 {
+-	u64 addr;
+-	u32 size;
+-	enum wlfw_mem_type_enum_v01 type;
+-};
+-
+ struct wlfw_rf_chip_info_s_v01 {
+ 	u32 chip_id;
+ 	u32 chip_family;
+@@ -240,18 +211,6 @@ struct wlfw_msa_ready_ind_msg_v01 {
+ #define WLFW_MSA_READY_IND_MSG_V01_MAX_MSG_LEN 0
+ extern const struct qmi_elem_info wlfw_msa_ready_ind_msg_v01_ei[];
+ 
+-struct wlfw_pin_connect_result_ind_msg_v01 {
+-	u8 pwr_pin_result_valid;
+-	u32 pwr_pin_result;
+-	u8 phy_io_pin_result_valid;
+-	u32 phy_io_pin_result;
+-	u8 rf_pin_result_valid;
+-	u32 rf_pin_result;
+-};
+-
+-#define WLFW_PIN_CONNECT_RESULT_IND_MSG_V01_MAX_MSG_LEN 21
+-extern const struct qmi_elem_info wlfw_pin_connect_result_ind_msg_v01_ei[];
+-
+ struct wlfw_wlan_mode_req_msg_v01 {
+ 	enum wlfw_driver_mode_enum_v01 mode;
+ 	u8 hw_debug_valid;
+@@ -365,72 +324,6 @@ struct wlfw_cal_report_resp_msg_v01 {
+ #define WLFW_CAL_REPORT_RESP_MSG_V01_MAX_MSG_LEN 7
+ extern const struct qmi_elem_info wlfw_cal_report_resp_msg_v01_ei[];
+ 
+-struct wlfw_initiate_cal_download_ind_msg_v01 {
+-	enum wlfw_cal_temp_id_enum_v01 cal_id;
+-};
+-
+-#define WLFW_INITIATE_CAL_DOWNLOAD_IND_MSG_V01_MAX_MSG_LEN 7
+-extern const struct qmi_elem_info wlfw_initiate_cal_download_ind_msg_v01_ei[];
+-
+-struct wlfw_cal_download_req_msg_v01 {
+-	u8 valid;
+-	u8 file_id_valid;
+-	enum wlfw_cal_temp_id_enum_v01 file_id;
+-	u8 total_size_valid;
+-	u32 total_size;
+-	u8 seg_id_valid;
+-	u32 seg_id;
+-	u8 data_valid;
+-	u32 data_len;
+-	u8 data[QMI_WLFW_MAX_DATA_SIZE_V01];
+-	u8 end_valid;
+-	u8 end;
+-};
+-
+-#define WLFW_CAL_DOWNLOAD_REQ_MSG_V01_MAX_MSG_LEN 6178
+-extern const struct qmi_elem_info wlfw_cal_download_req_msg_v01_ei[];
+-
+-struct wlfw_cal_download_resp_msg_v01 {
+-	struct qmi_response_type_v01 resp;
+-};
+-
+-#define WLFW_CAL_DOWNLOAD_RESP_MSG_V01_MAX_MSG_LEN 7
+-extern const struct qmi_elem_info wlfw_cal_download_resp_msg_v01_ei[];
+-
+-struct wlfw_initiate_cal_update_ind_msg_v01 {
+-	enum wlfw_cal_temp_id_enum_v01 cal_id;
+-	u32 total_size;
+-};
+-
+-#define WLFW_INITIATE_CAL_UPDATE_IND_MSG_V01_MAX_MSG_LEN 14
+-extern const struct qmi_elem_info wlfw_initiate_cal_update_ind_msg_v01_ei[];
+-
+-struct wlfw_cal_update_req_msg_v01 {
+-	enum wlfw_cal_temp_id_enum_v01 cal_id;
+-	u32 seg_id;
+-};
+-
+-#define WLFW_CAL_UPDATE_REQ_MSG_V01_MAX_MSG_LEN 14
+-extern const struct qmi_elem_info wlfw_cal_update_req_msg_v01_ei[];
+-
+-struct wlfw_cal_update_resp_msg_v01 {
+-	struct qmi_response_type_v01 resp;
+-	u8 file_id_valid;
+-	enum wlfw_cal_temp_id_enum_v01 file_id;
+-	u8 total_size_valid;
+-	u32 total_size;
+-	u8 seg_id_valid;
+-	u32 seg_id;
+-	u8 data_valid;
+-	u32 data_len;
+-	u8 data[QMI_WLFW_MAX_DATA_SIZE_V01];
+-	u8 end_valid;
+-	u8 end;
+-};
+-
+-#define WLFW_CAL_UPDATE_RESP_MSG_V01_MAX_MSG_LEN 6181
+-extern const struct qmi_elem_info wlfw_cal_update_resp_msg_v01_ei[];
+-
+ struct wlfw_msa_info_req_msg_v01 {
+ 	u64 msa_addr;
+ 	u32 size;
+@@ -477,71 +370,6 @@ struct wlfw_ini_resp_msg_v01 {
+ #define WLFW_INI_RESP_MSG_V01_MAX_MSG_LEN 7
+ extern const struct qmi_elem_info wlfw_ini_resp_msg_v01_ei[];
+ 
+-struct wlfw_athdiag_read_req_msg_v01 {
+-	u32 offset;
+-	u32 mem_type;
+-	u32 data_len;
+-};
+-
+-#define WLFW_ATHDIAG_READ_REQ_MSG_V01_MAX_MSG_LEN 21
+-extern const struct qmi_elem_info wlfw_athdiag_read_req_msg_v01_ei[];
+-
+-struct wlfw_athdiag_read_resp_msg_v01 {
+-	struct qmi_response_type_v01 resp;
+-	u8 data_valid;
+-	u32 data_len;
+-	u8 data[QMI_WLFW_MAX_ATHDIAG_DATA_SIZE_V01];
+-};
+-
+-#define WLFW_ATHDIAG_READ_RESP_MSG_V01_MAX_MSG_LEN 6156
+-extern const struct qmi_elem_info wlfw_athdiag_read_resp_msg_v01_ei[];
+-
+-struct wlfw_athdiag_write_req_msg_v01 {
+-	u32 offset;
+-	u32 mem_type;
+-	u32 data_len;
+-	u8 data[QMI_WLFW_MAX_ATHDIAG_DATA_SIZE_V01];
+-};
+-
+-#define WLFW_ATHDIAG_WRITE_REQ_MSG_V01_MAX_MSG_LEN 6163
+-extern const struct qmi_elem_info wlfw_athdiag_write_req_msg_v01_ei[];
+-
+-struct wlfw_athdiag_write_resp_msg_v01 {
+-	struct qmi_response_type_v01 resp;
+-};
+-
+-#define WLFW_ATHDIAG_WRITE_RESP_MSG_V01_MAX_MSG_LEN 7
+-extern const struct qmi_elem_info wlfw_athdiag_write_resp_msg_v01_ei[];
+-
+-struct wlfw_vbatt_req_msg_v01 {
+-	u64 voltage_uv;
+-};
+-
+-#define WLFW_VBATT_REQ_MSG_V01_MAX_MSG_LEN 11
+-extern const struct qmi_elem_info wlfw_vbatt_req_msg_v01_ei[];
+-
+-struct wlfw_vbatt_resp_msg_v01 {
+-	struct qmi_response_type_v01 resp;
+-};
+-
+-#define WLFW_VBATT_RESP_MSG_V01_MAX_MSG_LEN 7
+-extern const struct qmi_elem_info wlfw_vbatt_resp_msg_v01_ei[];
+-
+-struct wlfw_mac_addr_req_msg_v01 {
+-	u8 mac_addr_valid;
+-	u8 mac_addr[QMI_WLFW_MAC_ADDR_SIZE_V01];
+-};
+-
+-#define WLFW_MAC_ADDR_REQ_MSG_V01_MAX_MSG_LEN 9
+-extern const struct qmi_elem_info wlfw_mac_addr_req_msg_v01_ei[];
+-
+-struct wlfw_mac_addr_resp_msg_v01 {
+-	struct qmi_response_type_v01 resp;
+-};
+-
+-#define WLFW_MAC_ADDR_RESP_MSG_V01_MAX_MSG_LEN 7
+-extern const struct qmi_elem_info wlfw_mac_addr_resp_msg_v01_ei[];
+-
+ #define QMI_WLFW_MAX_NUM_GPIO_V01 32
+ struct wlfw_host_cap_req_msg_v01 {
+ 	u8 daemon_support_valid;
+@@ -584,110 +412,4 @@ struct wlfw_host_cap_resp_msg_v01 {
+ #define WLFW_HOST_CAP_RESP_MSG_V01_MAX_MSG_LEN 7
+ extern const struct qmi_elem_info wlfw_host_cap_resp_msg_v01_ei[];
+ 
+-struct wlfw_request_mem_ind_msg_v01 {
+-	u32 mem_seg_len;
+-	struct wlfw_mem_seg_s_v01 mem_seg[QMI_WLFW_MAX_NUM_MEM_SEG_V01];
+-};
+-
+-#define WLFW_REQUEST_MEM_IND_MSG_V01_MAX_MSG_LEN 564
+-extern const struct qmi_elem_info wlfw_request_mem_ind_msg_v01_ei[];
+-
+-struct wlfw_respond_mem_req_msg_v01 {
+-	u32 mem_seg_len;
+-	struct wlfw_mem_seg_resp_s_v01 mem_seg[QMI_WLFW_MAX_NUM_MEM_SEG_V01];
+-};
+-
+-#define WLFW_RESPOND_MEM_REQ_MSG_V01_MAX_MSG_LEN 260
+-extern const struct qmi_elem_info wlfw_respond_mem_req_msg_v01_ei[];
+-
+-struct wlfw_respond_mem_resp_msg_v01 {
+-	struct qmi_response_type_v01 resp;
+-};
+-
+-#define WLFW_RESPOND_MEM_RESP_MSG_V01_MAX_MSG_LEN 7
+-extern const struct qmi_elem_info wlfw_respond_mem_resp_msg_v01_ei[];
+-
+-struct wlfw_mem_ready_ind_msg_v01 {
+-	char placeholder;
+-};
+-
+-#define WLFW_MEM_READY_IND_MSG_V01_MAX_MSG_LEN 0
+-extern const struct qmi_elem_info wlfw_mem_ready_ind_msg_v01_ei[];
+-
+-struct wlfw_fw_init_done_ind_msg_v01 {
+-	char placeholder;
+-};
+-
+-#define WLFW_FW_INIT_DONE_IND_MSG_V01_MAX_MSG_LEN 0
+-extern const struct qmi_elem_info wlfw_fw_init_done_ind_msg_v01_ei[];
+-
+-struct wlfw_rejuvenate_ind_msg_v01 {
+-	u8 cause_for_rejuvenation_valid;
+-	u8 cause_for_rejuvenation;
+-	u8 requesting_sub_system_valid;
+-	u8 requesting_sub_system;
+-	u8 line_number_valid;
+-	u16 line_number;
+-	u8 function_name_valid;
+-	char function_name[QMI_WLFW_FUNCTION_NAME_LEN_V01 + 1];
+-};
+-
+-#define WLFW_REJUVENATE_IND_MSG_V01_MAX_MSG_LEN 144
+-extern const struct qmi_elem_info wlfw_rejuvenate_ind_msg_v01_ei[];
+-
+-struct wlfw_rejuvenate_ack_req_msg_v01 {
+-	char placeholder;
+-};
+-
+-#define WLFW_REJUVENATE_ACK_REQ_MSG_V01_MAX_MSG_LEN 0
+-extern const struct qmi_elem_info wlfw_rejuvenate_ack_req_msg_v01_ei[];
+-
+-struct wlfw_rejuvenate_ack_resp_msg_v01 {
+-	struct qmi_response_type_v01 resp;
+-};
+-
+-#define WLFW_REJUVENATE_ACK_RESP_MSG_V01_MAX_MSG_LEN 7
+-extern const struct qmi_elem_info wlfw_rejuvenate_ack_resp_msg_v01_ei[];
+-
+-struct wlfw_dynamic_feature_mask_req_msg_v01 {
+-	u8 mask_valid;
+-	u64 mask;
+-};
+-
+-#define WLFW_DYNAMIC_FEATURE_MASK_REQ_MSG_V01_MAX_MSG_LEN 11
+-extern const struct qmi_elem_info wlfw_dynamic_feature_mask_req_msg_v01_ei[];
+-
+-struct wlfw_dynamic_feature_mask_resp_msg_v01 {
+-	struct qmi_response_type_v01 resp;
+-	u8 prev_mask_valid;
+-	u64 prev_mask;
+-	u8 curr_mask_valid;
+-	u64 curr_mask;
+-};
+-
+-#define WLFW_DYNAMIC_FEATURE_MASK_RESP_MSG_V01_MAX_MSG_LEN 29
+-extern const struct qmi_elem_info wlfw_dynamic_feature_mask_resp_msg_v01_ei[];
+-
+-struct wlfw_m3_info_req_msg_v01 {
+-	u64 addr;
+-	u32 size;
+-};
+-
+-#define WLFW_M3_INFO_REQ_MSG_V01_MAX_MSG_LEN 18
+-extern const struct qmi_elem_info wlfw_m3_info_req_msg_v01_ei[];
+-
+-struct wlfw_m3_info_resp_msg_v01 {
+-	struct qmi_response_type_v01 resp;
+-};
+-
+-#define WLFW_M3_INFO_RESP_MSG_V01_MAX_MSG_LEN 7
+-extern const struct qmi_elem_info wlfw_m3_info_resp_msg_v01_ei[];
+-
+-struct wlfw_xo_cal_ind_msg_v01 {
+-	u8 xo_cal_data;
+-};
+-
+-#define WLFW_XO_CAL_IND_MSG_V01_MAX_MSG_LEN 4
+-extern const struct qmi_elem_info wlfw_xo_cal_ind_msg_v01_ei[];
+-
+ #endif
 -- 
-2.34.1
+2.53.0
 
