@@ -1,95 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793334912;
-	b=yOeb4v3Sg+ayhaD7gEVaLJf4nFIyWGW/5LGRoziMFMWz89654dma2L0ZdLJR3pJH3KBs
-	 0momGhQnNOJV02e5QXKtzWWN/YfFJqfOGQkw5zMM92MB0b43KNxH7RFnfCAyH4/hoIQS3
-	 PsWszKMNnbd+mXNNxAEes+ShiTQpWZB8huV1WIoNTmBiP4ymeg1RbnFY4BvQaPdxujnsK
-	 c0Jv5m0jvkj3WEY8KO528zavEXY8hyiv8fJ4psAlTgMRwInQk3kThxgyVeHtMQw1fMWMM
-	 /pm82mCl242DCxVVc/4Xc7JNuhFhro5jjFN3aehaWl3pZMqU2Ub8bhIpIoNDzeTgy1g==
+	t=1793335088;
+	b=tEUVbLvQqYHesDFpgwijGZsGOI5/Mc6bKVXs1TrXKATF+h7VcymRCWiEb1HhQM3IPSnF
+	 LDOXbgyC1+2fDoUVkS+HnceHTPFf3D/ovu7wzJQafCbS/oeKWwNOSXd6ZZejLRpo+jaks
+	 xXK6s0KIKzAkVJcndBAHu5ympcbJ/O3q3/BOPA7AoOekowEAm+yGb5PxZ0/ZpLdwJYxaU
+	 xz6eYDRV1YDguQqevJa2YUhg8i2Jyy4wbz3N4m2TTO+1K+JD0WTdb3UbB76zLMl2pwxRv
+	 qj8gHmyw32b6FBtXQ3idral9Do4MmdUt7NdYOBQv370OKOVrqixv2tmKgYkBQhsM9xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793334912;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0PkYgmZJJfNK/8KcuDT5iJGwkOjlJWHzg/w8kW8NVzI=;
-	b=KoGQBG61vGJJDrteaihEse8r4inou3NRgHuOLI9D6KeB5uPw8rKWvmhK3bo9zT4RUI/N
-	 1mCYDf78HSyNjtdl4oRouyT9hQcJnn3TRrrbZ291rn3+skbjQBhAXBZF9yfIfTzpUKyg7
-	 ktUEtrhkIR9QGbwqrmb9Xd10GZ2rdXxSBsOw+d8V+4UDEdhp30956rWbRRzl54aQQZLoj
-	 WxO+++aa4Zk+3dfRdSj1oeUiCZrFB3x2GjXYVN6Xex+5e0c0Kd0DqxHj/22e5vCyN4mOU
-	 uEOWp85cArqOvWLZYbZa/xu5PYo4JySmwcWQUsfWp6U0tnX2bY/MDKYD71xys6luGgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793335088;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
+	bh=WwvcOsEObJ8qzzuuobsmrvvwKxGTjF3cc2+TTpbW1e0=;
+	b=xXia2cN3vuYKVkgWNl64MDPty6ldAebpE5dQSF2F6CLB6GKdqLjx5Nk0rFmmpQcfuKAS
+	 VSo28wBbHDA0uIFsWWwYXcO0z1X36ASkMnEqpav9mN41Kr43zpRAZzT+/1B5ss2y3QA+H
+	 AmTL2xGVq9yQ7zD1q5GpoeXYGB0rkVXEZqipRVZWawhFtBYNj/DDpOWTKELQRSyJnmfXA
+	 UoPvbQImCmxkgAtaS84s21KB6EeUd6ZUG8z6ngQGbBPzshIuUbwXxW1P70Gj56O32+4Ys
+	 jh755UUmjK75F5UUix8OkGUXj6BTCh4E09IJnzXvkSe5+E5sFE0YPaqzYY0Rawe34zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U8OcdVlu;
-	arc=none smtp.remote-ip=74.125.227.131
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03069606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:35:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03069606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=NJPsdvAy;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B74A0606A31C;
+	Fri, 30 Oct 2026 04:38:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B74A0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U8OcdVlu
-Received: by mail-pj2-f3.google.com with SMTP id 98e67ed59e1d1-3ada6c66964so63993a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:35:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793334911; x=1793939711; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0PkYgmZJJfNK/8KcuDT5iJGwkOjlJWHzg/w8kW8NVzI=;
-        b=U8OcdVlu9IRAgvFWuj2XLyEYqE2nZ6ehV3B3SIPC7N3rd0tyCl1W/M1tnVTOjEXr81
-         pKeTCB73BvObX1R1hSnzGfCRfhrvUIEmht4+t/PMKBZ9Wz+uLTgStuODZBa5WfAQN7RW
-         qAYMsvqCf9N+qX/eAbT0uS8O+ibX1NY2cB7ffyBEccJJPgo1lMSB5JNiUurjnMcvSr65
-         n4f+ThFcv3p3jieHsB0JWnlGIoqLNuhkn26y+tavZDD7Xx7PGy0DP+X9fjNwGjtGY0ZO
-         WOZ0VpAAg8IT1zMCazcTOZsqbp5wSFZcyk6kcKPBFctBbgq1371fBlR5oLcwbCjewghK
-         b+IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793334911; x=1793939711;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0PkYgmZJJfNK/8KcuDT5iJGwkOjlJWHzg/w8kW8NVzI=;
-        b=Q2vmHUv6xblxzAdEyXeYma25SSSo3AyOQXnV4XOoxX+KvWYpNhM3feY8PUcY1VdDI+
-         AhbAKPjoOB85O5uWLuQFVLHOjiVvSwk/gmU7PcM6Mat3GZG7sQKhKTwmG9VSa1peX5Kg
-         iTvIzG3MS4UtPOhMEJ+2pOx86zDrHGV+jeWX4xkz9AD1HGg0kT0Gxglu99r8LsM1pz0T
-         0ZuWN+Td2bqM3DZN9Lvl9CS1LsiCwQxPPupjQVre/15m/BAziFVlinmjo96pE0NlhpjZ
-         VvxJtZmU0XkmZiXJLFFTV2Q3uolRtCH8IBguZMW0f5NRZTtMLrvAY4eyGJrgS5ek+Ilt
-         llCA==
-X-Forwarded-Encrypted: i=1; AKwUvBxRdUTFT7PKAJRm5gMtM4QF4r6ECVG8wa0d/d3ePaavnoJauGn1aLA6RhjPP5ZwsGD4aPUTVO5giEiXN4Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIY0Utz9d7tA6bEp2u5fOkF/tfXlm+zH4mO4nZG+QWk2eRaDR0C
-	g8eS3o8sqhs27mxt/unaUy0t5UMuntV5CLflYC2X6zotTUL+7nVVspGi
-X-Gm-Gg: AYBFou1e1/HXVky4hqcutsCmKnRwDHIYNbN7XljSrVWrRkdd2BvMw6SiyFTRiFt9doo
-	O4b1Z5BZGNpcgxb3CEkc8p/psSHou6Bj/wrRPPzEhEaELAUp42OCF9pXzyN/25+RtyRGX/RB2RS
-	pobCVpCF5NB0kTrwPKhHxYqWSLOxEA6+qzAk8VgG0YpOwAs5m37l5/bVq0DAY14d6SNFAsNN4fD
-	2N8UcNIe+Zwj1XJGstMum6pJ2TD+bTsQl21pPcpUqbw8plIe7TK5szhDi9iiUL6jklM5js8ko9X
-	hQCInx5aDC6KjY1CiYGoIO9FqiE3TgC1TlmrV932D5LKtj1U+pkCmVx47SbnsqaQTVMPRgtMkGq
-	AJEJYx0dP8bYRPYbAGgTKDgt6R4qoYjiVGdgmiOklLFm+Jvhrqdee+4iDJqYWZJz38dUBHUeAQI
-	UdpOFMUYtbnWSrDXVgWefP/0f1PkloyNSm222VaUJSNaWXUZ5KYRS8tFg3J6h53osPjInI/2x6S
-	w2vB3+1UzuynALuirGdJFzjYlllV6TX8A2KzN5/YrODnu8crJT9f45X0sIHfW978S5mSmdF4m8U
-	sdDKEwzTI0mMVBlyjx3jH4IoZfCMcPhh5b3zBQ==
-X-Received: by 2002:a17:90a:e7cf:b0:3ac:9a54:e3ce with SMTP id 98e67ed59e1d1-3ae8986e718mr931783a91.63.1793334911260;
-        Thu, 29 Oct 2026 21:35:11 -0700 (PDT)
-Received: from amax.cluster.local ([115.233.223.43])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85f37e7esm934372a91.1.2026.10.29.21.35.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 21:35:10 -0700 (PDT)
-From: l1za0.sec@gmail.com
-To: kuba@kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haocheng Yu <l1za0.sec@gmail.com>
-Subject: [BUG] WARNING in nsim_vlan_rx_add_vid
-Date: Fri, 30 Oct 2026 12:34:47 +0800
-Message-Id: <20261030043447.3557387-1-l1za0.sec@gmail.com>
-X-Mailer: git-send-email 2.30.2
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=NJPsdvAy
+Received: from kali (unknown [4.213.232.17])
+	by linux.microsoft.com (Postfix) with ESMTPSA id B148C20B7166;
+	Thu, 29 Oct 2026 21:37:48 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B148C20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793335074;
+	bh=WwvcOsEObJ8qzzuuobsmrvvwKxGTjF3cc2+TTpbW1e0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NJPsdvAyMdl07uIfgdrypurLmehiQZeL4zrhUYZxR96TMW5UhWVD/k6TDPncHWr08
+	 HBDhGEi+B7G362mYoL0sIW0o2+nYfbIXv9oTWCTovARis9B9tYry7LlUyDoTTX9uPX
+	 WKbEfCrsL3+VJgHmXIOzVAcYs4vOqZdpgIkHgEhs=
+Date: Thu, 29 Oct 2026 23:37:54 -0500
+From: Sahil Chandna <sahilchandna@linux.microsoft.com>
+To: Ankur Arora <ankur.a.arora@oracle.com>
+Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+	bpf@vger.kernel.org, arnd@arndb.de, catalin.marinas@arm.com,
+	will@kernel.org, peterz@infradead.org, akpm@linux-foundation.org,
+	mark.rutland@arm.com, harisokn@amazon.com, cl@gentwo.org,
+	ast@kernel.org, rafael@kernel.org, daniel.lezcano@kernel.org,
+	memxor@gmail.com, zhenglifeng1@huawei.com,
+	xueshuai@linux.alibaba.com, rdunlap@infradead.org,
+	david.laight.linux@gmail.com, broonie@kernel.org,
+	boris.ostrovsky@oracle.com, ashok.bhat@arm.com
+Subject: Re: [PATCH v16 00/16] barrier: Add
+ smp_cond_load_{relaxed,acquire}_timeout()
+Message-ID: <auQfIuQdpd2i2IrX@kali>
+References: <20261016070837.440748-1-ankur.a.arora@oracle.com>
+ <auLHZnaCIajW1kxX@kali>
+ <87v76lezeq.fsf@oracle.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,59 +69,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87v76lezeq.fsf@oracle.com>
 
-From: Haocheng Yu <l1za0.sec@gmail.com>
+On Thu, Oct 29, 2026 at 12:31:09AM -0700, Ankur Arora wrote:
+>
+> Sahil Chandna <sahilchandna@linux.microsoft.com> writes:
+>
+> > On Fri, Oct 16, 2026 at 12:08:21AM -0700, Ankur Arora wrote:
+> >> Hi,
+> >>
+> >> Changes in this version address sashiko comments [17]. The major change
+> >> is the change in the exit path in __smp_cond_load_relaxed_timeout()
+> >> which allows us to simplify providing ACQUIRE semantics in
+> >> smp_cond_load_acquire_timeout():
+> >>
+> [ ... ]
+> >>
+> > Hi Ankur,
+> >
+> > I tested this patch series on an Azure Cobalt 100
+> > (neoverse-n2 on 64-vCPU Hyper-V guest (Standard_D64ps_v6),
+> > on v7.2.12 + this series + arm64 cpuidle-haltpoll enablement[1]
+> >
+> > cpuidle-haltpoll loaded with force=1, guest_halt_poll_ns=200000.
+> >
+> > Baseline: no cpuidle driver(only WFI).
+> >
+> > Workload: PostgreSQL 16.15/pgbench scale 100, client and server in
+> > the same VM over a unix socket, with single run:
+> >
+> >             with (-S)                         TPC-B-like r/w
+> > clients  base TPS  haltpoll lat avg   base TPS   haltpoll  lat avg
+> >    2       38658     +89%   52->27us     5299     +86%    378->203us
+> >    4       72987     +99%   55->28      10305     +87%    388->208
+> >   16      300895     +91%   53->28      42035     +83%    381->208
+> >   32      590987     +93%   55->28      78319     +85%    410->221
+> >   64      987749      +0%   65->65     130675      +3%    490->474
+> >
+> > Tested-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
+>
+> Thanks Sahil. That's very helpful. Btw what's the (-S) option with
+> in your first heading?
+>
+Hi Ankur,
 
-Hi,
+This is the -Select Only option running one statement per transaction,
+more info captured in [1] [2].
 
-We found a kernel warning in nsim_vlan_rx_add_vid() while fuzzing Linux
-with a modified version of syzkaller. We couldn't find a report of the 
-same issue on syzbot. We are investigating the root cause and trying to 
-develop a fix. Could you let us know whether this issue warrants a fix?
- 
+TPC_B like runs small bank transfer transaction.
+> Just to double check: was the VM  created with any special option
+> such as kvm-arm.wfe_trap_policy?
+>
+No, the host in my case is Hyper-V. The cmdline does not have any idle
+related parameters.
+console=tty1 console=ttyAMA0 earlycon=pl011,0xeffec000 panic=-1
+> --
+> ankur
+>
+Regards,
+Sahil
 
-The warning occurs on Linux 7.3.0-02415-g7be4bc52fd9e (#4,
-PREEMPT(full)) at drivers/net/netdevsim/netdev.c:569. The kernel then
-panics because panic_on_warn is set. The report also shows an existing
-SOFTLOCKUP taint; the relationship to this warning is not yet established.
-
-Relevant report excerpt:
-
-  WARNING: drivers/net/netdevsim/netdev.c:569 at
-  nsim_vlan_rx_add_vid+0xb5/0x120
-
-Relevant stack trace (inline frames included):
-
-  nsim_vlan_rx_add_vid (drivers/net/netdevsim/netdev.c:569)
-  vlan_add_rx_filter_info (net/8021q/vlan_core.c:211)
-  vlan_filter_push_vids (net/8021q/vlan_core.c:262)
-  vlan_device_event (net/8021q/vlan.c:483)
-  notifier_call_chain (kernel/notifier.c:85)
-  call_netdevice_notifiers_info (net/core/dev.c:2260)
-  __netdev_update_features (net/core/dev.c:11179)
-  ethtool_set_features (net/ethtool/ioctl.c:155)
-  dev_ethtool_locked (net/ethtool/ioctl.c:3488)
-  dev_ethtool (net/ethtool/ioctl.c:3669)
-  dev_ioctl (net/core/dev_ioctl.c:745)
-  sock_do_ioctl (net/socket.c:1339)
-  sock_ioctl (net/socket.c:1446)
-  __x64_sys_ioctl (fs/ioctl.c:583)
-
-The syzkaller reproducer opens CAN J1939 sockets and issues two
-SIOCETHTOOL ioctls with ETHTOOL_SFEATURES requests for netdevsim0.
-The warning is reached through the VLAN receive-filter update path
-when network device features are updated. The root cause has not yet
-been confirmed.
-
-Full syzkaller reproducer:
-
-# {Threaded:false Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none SandboxArg:0 Leak:false NetInjection:false NetDevices:true NetReset:false Cgroups:false BinfmtMisc:false CloseFDs:true KCSAN:false DevlinkPCI:false NicVF:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:false Swap:false UseTmpDir:false HandleSegv:false Trace:false CallComments:true LegacyOptions:{Collide:false Fault:false FaultCall:0 FaultNth:0}}
-r0 = socket$can_j1939(0x1d, 0x2, 0x7)
-ioctl$sock_SIOCETHTOOL(r0, 0x8946, &(0x7f0000000080)={'netdevsim0\x00', &(0x7f0000000040)=@ethtool_sfeatures={0x3b, 0x2, [{0x25a, 0xfffffffd}, {0xffff8000, 0x2}]}})
-socket$can_j1939(0x1d, 0x2, 0x7)
-r1 = socket$can_j1939(0x1d, 0x2, 0x7)
-ioctl$sock_SIOCETHTOOL(r1, 0x8946, &(0x7f0000000080)={'netdevsim0\x00', &(0x7f0000000040)=@ethtool_sfeatures={0x3b, 0x2, [{0x25a, 0x1}, {0xffff8000, 0xffffffff}]}})
-
-Best regards,
-Haocheng Yu
+[1] https://www.postgresql.org/docs/16/pgbench.html#PGBENCH-OPTION-SELECT-ONLY
+[2] https://www.postgresql.org/docs/16/pgbench.html#TRANSACTIONS-AND-SCRIPTS
