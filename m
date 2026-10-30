@@ -1,100 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.182
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793354585;
-	b=aDkWh7TK4aX+HSOU3mpaI+uRcjNbZPJdT5BdJwaQ5BxgXz+8IPkSjfVV6hPiiWWwso3Q
-	 vLTLxkImK86UXlXOC6DrbgZN6i0MHu813d8SfXEZGah1tMx/C3reD5wJqhEDRU7VqwzsB
-	 5o333NvhlOs3cliiGjYMRq3IWWz5zPk7F/EYXvzV2f24GRQTcoBmw65TjsdBE3bBroI+p
-	 iqK2t/Dx8qiseLe/eRhnz44r3irx7NUeQ0glkrSFVIaOWjfFidHtCEJF9ujSm1cVpmNP4
-	 kDeMFKLTG10tLvjD6lO1WCzdJZPO1az02NkzZoMKV+o/9GJUU2JXKzmehz/DbNEGnvA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793354585;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=KKIoAfpAQt+lZvobWVlWyv/tAfJh09WkhRac1CVCCVY=;
-	b=fVIpNbeOVWrnOqfuUPb2uvLFpoVQo6K355jqlS0N5XIn36Azd8+DxFahCkdQDeOz99RB
-	 77TnkB8ROrijf5vLEH2yd6kt0YDChmKGVGg+mXhLuAyJqbKIgk/yo9cKELyPwZiP4u0Vs
-	 bfHbd/bvZvHQM9o9wWwnEBnmGVfHi/u/xoHczfUHB/7E3MOJTrVXUWqQ6ZNkP6EjWa7Pc
-	 Zomj2ubxyBNtUG5sBJrFVn3EzMg+LHk10VjNJo7Bg5TawF8alsAOlPjnWGKTyeRPCIkSt
-	 JNbhvEXw0cXDR/DPqnqSjO/EBeOyN9MdhP0pWZAAED1B8k+B6s59/ko9uC99yCd/xKQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="cB8b/Y4X";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793354611;
+	b=shByYd1QfB16Za0GvK+iue6LFKExS+3ZFgB9bpTfeaaDCk8h+kh4wHWPQ3V3Hw0l/ZQo
+	 K02h2Yik5IRmBAtvAE4BSuN3g+2O7hQTK/QLDFZsBieQfsZtnnB5L/1GGv0LQo3RMBd4Z
+	 naYto/hHM+gSgOf9fcLMrzH+tXVF4Whye8n7FcQ+TfFdTMgjtRsDkiuvD1AGLCgXZAlw2
+	 khGoSFJND3sR6FOwP3iGAPPtN/YhfDSVw91TR7H7ospY2H7HjxYhYiPd/4L3STtknrsmC
+	 Knk0iSs91wom8VD+Gh7yQ1uT8WkZlzLxdDu/6HwHCFrc052oFi3M6fZVagcfmfzE0KA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793354611;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
+	 X-Spamd-Result:X-Spam-Score;
+	bh=6Rd7CdAoOvbEN+kBCXHPSQkR/i8uksa042I7q/RWLPo=;
+	b=VppLScMtqrc2ZYl7LLClU7ZWviYUiBgh4YyDk7so2oWURofkhg7E68CxU8i4f5rrWGgU
+	 2jOaG3G52dy9hygKZIheIk6GUqDlNKxFPHcm2+b+vT63QXGXYWLe4xwce7Ffp3yVtTuxI
+	 LcJ5+olLNByDGHgaRapCjT1vG2VdrzQl1UevafkMZXEaJOlaKOUl7plWSZVP8liuIYQDe
+	 xDO+UU1b/gJ0ZrqVy4iKB2vTIR9Jm7oI2Ilw+AjtxkYxfJ2H3giOuTzVHtrY2w7pK22nJ
+	 6AR/ACIwu8zdi5cIL9OKWoKNueJcmI+yBB0+tJyrEEhb+CyGU/WMscsbgmrLaN80/ig==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=apeqzSYB;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FeWyCS0N;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LpcGbO4y;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=e5yfQuAZ;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58D9606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:03:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E58D9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32BC4606A31C;
+	Fri, 30 Oct 2026 10:03:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32BC4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cB8b/Y4X
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so876064eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:03:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793354584; cv=none;
-        d=google.com; s=arc-20260327;
-        b=m7S4M4ezdwEldfvqmApGLLviqDjvinJ95KjCDtMTly1hyde1H2IWikYryzvxo01B0v
-         HiKNc+d8MPRhxQLytQsCqU6qlXsRYb0xyzBjYXbdPuGDCPulMVjVsF4hTcl99KAbGwXK
-         d6lRChFc3yvaQYFw0kT50dYoeGTZjbQ2+AVFdsQM9YM7p8uX4ftksbjfvFTx+++kTXGY
-         85PUEpTzKcvr9mtivlZ4ZL3FwWIYz60IBU0v67DfFjvyFwy2cG+L+fyN7DOT2Y2Vd1kl
-         MtWPHoWbE1eTFo8ma1XiZX9P5MHtUWW8aUfjZ1XXjts9a645ho+KJJsja6dlh9erptpz
-         F6rA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KKIoAfpAQt+lZvobWVlWyv/tAfJh09WkhRac1CVCCVY=;
-        fh=5CDbsvwoFhIn/aRLYbciYJf+5jHQiDTg4L/mpOsqJe0=;
-        b=nbSyRihjRZb1tDCopqkpzJRjzjtZtlBn3EmFd0IJosOtueqKE0CILUW9KbBq+vZlSF
-         7uAKaRLp5/b60z8QTpwyZpMkw2OHJySPzNxKEa+lL26UCEpD5rERebxhBrBtsDsTR814
-         q52hM19HNms8dG4+FZHO4IDnAwovhyRsR1oI5stV1/nlmAqCUZ4iu+eUtBjs2S8tChXf
-         yFlIwj/eraHqgdVq8C7I1vAGFy1dR9Spaq9mO+zSQAhyi08sN9Zbg51tqvAPJxGV8Lzx
-         v9YpdiqrxYsouQvisp8ZyZae5YPMHada6KKxUPOuaZ/BkkqiA4rDuZXYSVtRWSTu4VV1
-         I7nw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793354584; x=1793959384; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KKIoAfpAQt+lZvobWVlWyv/tAfJh09WkhRac1CVCCVY=;
-        b=cB8b/Y4XBoH3d2mx1sKiFkgaIGdUg99+DVWd6+3nB/DQsr2antbnO9ny4/huLEhgov
-         Rf9CehR+G8CfFq3vJ0jU8Np1ZHQq76IRStPZKG87lVuSp2aJRS3C7zyg23jT0pOmjdnI
-         m4lGlbvP4/pA/QI9+VZPsnacGVzR/MrGJckQALCnxrencrKpDaYfoK4KVRpsW4tUUNR/
-         lBCkiGaNhBRqia8LQw8w7iU/nZUVnmTu9wj2MCEdLrnmVpW9eZtWaPG4y/4lkZ9WrG8I
-         Te/8SKLCspInB6mhw+Q1vVwQ1Tkc37Ot2UaWEhI1xfCJCJB1E1wU0WYPJVnjTIMhc/K5
-         oEXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793354584; x=1793959384;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KKIoAfpAQt+lZvobWVlWyv/tAfJh09WkhRac1CVCCVY=;
-        b=an3vyjXUJ1NRhx/KIWzGEMAsOaT3LblZ+sFnkzwUp8r98Z6MpMQRLlRDiWHUDVnsUm
-         ZRzgvh7P3mf7SJFuAz5YD26DJeQYbjiJqpdTMX8iuMAxcyqMnDdM6ZQcMqLfpOGqGS+7
-         zYxVoS4qH+n/IcqcqLZDw2YgGakuzTkQDbtY/Xy/UtDFKL0/NVzmSl6jNDMGnFNsveKn
-         s15c2iyVv4mdeLg4iXAHxadxrdHXjWAgzWQ4rmt0xs/SmV19MLaFgGsCROxHLt8QjzZv
-         ilWeDFHeUENXwwon2OH6ylGv0FcLMTVbYyc2mXaskBlNaUe3a7gMgocTjXwhqTgpHCyq
-         BwRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwrYC1HBmluCtY6OlmcYuwXke8j7Rz1YUw3gCqa8nNTr8SvgkqqlIivFaFLdRMWUNHI/bqNsFRzWLIRF6A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9YsoYSV//RLBLaolmTT4uMv7EbyF0AKeJIcIMax/i9u4ISGoe
-	5faioCoH1VvG5isX45x7PzfHUBo7iHIpOiNDWcjMA3OA0HL42gV2mZgb4mdoVTSFTWn8jb9C6fu
-	4Up6ue+r/pvvtsRfM7lVVYz4juN2k+6I=
-X-Gm-Gg: AYBFou3WRMdvgJb4yyt2ozZCuLG95KybeoOL8LBpZNX68P/ECC6oSYe9ksge+1X7WF4
-	WeuTFOzwMKDcj2/b/sP9szDJJ8DRBdKr1HEn4HR6AubuqQE+45luoUWlBB6cyJfJZ0/LCUIJPY+
-	fY19ZhrmP+wg+35BajKoZj1N/8qrPnyZMPaJ9XK8a4nCwW7404LUto/Q20dgwXR9a90qiaFSmnO
-	lkrtN357/NGzEkg9qCO//bAdA+Z4Sev8FcYVUkZTwlSC6nILqUghk0lYtSrrs29KmgIjnYPB3+l
-	ZLVGMg+13dO4H+92lHxyAjvtkNiPkeKoiPtmvM5KHI/DQKPqGuNRkH5dzo8OSaUspichPeAM3pC
-	m0rhFtzIDvMU7VR3QvA54Wd7cQnQQSh5p4yyPAdCicD/anPXNGU+NX8DnSf5fNepYhALDIw==
-X-Received: by 2002:a05:7300:1897:b0:361:167c:2364 with SMTP id
- 5a478bee46e88-36a42362348mr4001559eec.8.1793354583867; Fri, 30 Oct 2026
- 03:03:03 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=apeqzSYB;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FeWyCS0N;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LpcGbO4y;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=e5yfQuAZ
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2E1431F74B;
+	Fri, 30 Oct 2026 10:03:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793354609; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6Rd7CdAoOvbEN+kBCXHPSQkR/i8uksa042I7q/RWLPo=;
+	b=apeqzSYBaZ1k61RSnG3YhlJXNkZUGUwehF36+DZ8SoeyXUtbtJUj7juUR0OqxZLY5Hbhr+
+	DbFU3mBTIPtoytTUgHJEfGENdGYHedQGjMi9D37+8O6YcrygNP62AvtcwGjoVpp7XJaQm2
+	rgToNRoyYroy1APaYF2ML5D3zh0e9jg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793354609;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6Rd7CdAoOvbEN+kBCXHPSQkR/i8uksa042I7q/RWLPo=;
+	b=FeWyCS0NsfydJ5lQO2Ze8Uly27yf3H3JMtqUN09SG5UNhwM2AKorh0Gn+Q6LGWEjP+jM6a
+	KNRKLMlwRYyhcmDg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793354608; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6Rd7CdAoOvbEN+kBCXHPSQkR/i8uksa042I7q/RWLPo=;
+	b=LpcGbO4y5/u6LbDO6RC9J3vxa9aDDbucFK4wP8d0vSvRHMzFoGszj/5Lm3s5dFy2tX+2Ql
+	2VCn/a2wKO08mGBFbsF482sQC50d1CGiw6XKEioGL9SNpY4IWqf5G0zP/+ZJrjk2OfFt+t
+	r2sfNruBgQc3Vhsrfe81xCjTWTpqZxY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793354608;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6Rd7CdAoOvbEN+kBCXHPSQkR/i8uksa042I7q/RWLPo=;
+	b=e5yfQuAZWmeMw9IGf0Zwyq/B99hYRowPveIUIgPdI9lCuFNHQgJaNXGM3weyWTPCcXbHiK
+	EgWYiPxP1EF67dBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 93E1313419;
+	Fri, 30 Oct 2026 10:03:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id n4EiGW9r5GrlAQAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Fri, 30 Oct 2026 10:03:27 +0000
+Message-ID: <53223bf8-8871-4b24-82c4-a86a26b50904@suse.de>
+Date: Fri, 30 Oct 2026 11:02:16 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,82 +106,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029152909.234584-1-clamor95@gmail.com> <20261029152909.234584-2-clamor95@gmail.com>
- <auRjGM7briuvXDEg@houat> <CAPVz0n2=sgbzBfvhGOoRFXeOzKDvs9en7QD0pHc31r5GzgCsKA@mail.gmail.com>
- <auRoaHUqMO4BRQlk@houat>
-In-Reply-To: <auRoaHUqMO4BRQlk@houat>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 30 Oct 2026 12:02:52 +0200
-X-Gm-Features: AclHuK-L_bH3_AEz9gXr-D-fUGtxDSP6rDxMoUG2ElKY1BLDMKdvYmD62gCTKCI
-Message-ID: <CAPVz0n3K74CZemDzVVymmjU_5GUGE9FsEKk555-AJfG0jek_hg@mail.gmail.com>
-Subject: Re: [PATCH v5 01/11] drm: Add MIPI DBI bus support
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH nf-next v2] netfilter: nft_flow_offload: do not offload
+ multicast
+To: Koral Ilgun <koralilgun@gmail.com>, netfilter-devel@vger.kernel.org
+Cc: pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, coreteam@netfilter.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Koral Ilgun <koral.ilgun@adtran.com>
+References: <20261029220144.2474139-1-koralilgun@gmail.com>
+Content-Language: en-US
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+In-Reply-To: <20261029220144.2474139-1-koralilgun@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FREEMAIL_TO(0.00)[gmail.com,vger.kernel.org];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[adtran.com:email,suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.29
 
-=D0=BF=D1=82, 30 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 11:5=
-1 Maxime Ripard <mripard@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Fri, Oct 30, 2026 at 11:42:12AM +0200, Svyatoslav Ryhel wrote:
-> > =D0=BF=D1=82, 30 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
-11:29 Maxime Ripard <mripard@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Thu, Oct 29, 2026 at 05:28:59PM +0200, Svyatoslav Ryhel wrote:
-> > > > From: Mikko Perttunen <mperttunen@nvidia.com>
-> > > >
-> > > > The MIPI DBI bus allows modeling DBI hosts and peripherals using th=
-e Linux
-> > > > driver model. DBI hosts are registered by their respective drivers.=
- During
-> > > > registration, DBI peripherals are created from the device tree node=
-s
-> > > > provided by the host.
-> > > >
-> > > > DBI hosts expose operations that can be used by peripheral drivers =
-to
-> > > > access associated devices.
-> > > >
-> > > > The original code was authored by Mikko Perttunen; I have aligned i=
-t with
-> > > > the existing MIPI DSI implementation.
-> > > >
-> > > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > >
-> > > The SoB situation isn't right here. The author is allegedly Mikko
-> > > Perttunen, but you don't have their SoB, and yours isn't there either=
-.
-> >
-> > This is up to Mikko to decide what to do.
->
-> Not only, no. When you're sending a patch you must add yours too.
->
+On 10/29/26 11:01 PM, Koral Ilgun wrote:
+> From: Koral Ilgun <koral.ilgun@adtran.com>
+> 
+> A flow holds one output per direction, which it resolves when it is
+> added. The outputs of a multicast route change when listeners join
+> or leave. So a multicast flow in the flowtable continues to send to
+> the output that it resolved, also after the last listener left, and
+> the counters of the multicast routing stop.
+> 
+> A ruleset can keep multicast out with a match before the flow
+> offload statement. Without one, IPv4 multicast stays out of the
+> flowtable only because the reverse route lookup in nft_flow_route()
+> refuses a multicast source address. The IPv6 route lookup has no such
+> check, so IPv6 multicast that ip6mr forwards goes into the flowtable.
+> 
+> Skip a multicast destination for both families in the flow offload
+> expression itself, so that the result no longer depends on the
+> ruleset or on the route lookup.
+> 
+> Signed-off-by: Koral Ilgun <koral.ilgun@adtran.com>
 
-> > > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
 
-My CO dev and SoB are both present. Mikko will say their word and I
-will update accordingly in v6
-
-> > > Aside from that, which MIPI-DBI type is this supposed to support, and
-> > > how do you intend to support Type C panels we already support through
-> > > SPI?
-> > >
-> >
-> > MIPI-DBI Type A and B, which have NO support right now.
->
-> Then you need to make it much clearer... everywhere :)
->
-
-Ok, noted. DBI Type C support remains as it is, it was not
-changed/touched at all.
-
-> Maxime
+Thanks!
