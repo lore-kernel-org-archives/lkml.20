@@ -1,132 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793384085;
-	b=YyKnPrxymLLFRIH/UVxh7f2uQ2sqnnZlHZenaeuwoAFxq+0W9lwO4iX/noj/BcL+1U6x
-	 Hdg3X834DEESRm/Pp7vq96rAYSmQq2PSbBET0+mfdaYdZZd+lR+5GDL1GlBH2Z9DQLoGH
-	 j1f18gpE+1EVw9XtTIg3Iy0TC54wCdgZj1RvfUnLSI2i+LUaKhLxrSgDoA1mCYXXRumm/
-	 C0+MDyWtfVuqVJZ9U3587m3LlKbQ0yAx7ZJntmAvUkshYwPrCJH7BSPuuBaF+cyZU4LiX
-	 k/uo9WnXNq6wqCwcHFL+RdG1XraKn4fwku3sEBYpH3UHYqjPPqTErHVnpkAnQFDZJUw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793384085;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=HjeEKJIF5+cfI3ZncIKalSvPIfeXSP03iU3Wuqz78AM=;
-	b=aD8Fr5BNTG/WwspZ1o9GkxqvWvJiSUYuEzF/fkX3JFTWpd34Y4K5df/LPU+5SdV7Ox5i
-	 Pss1T9r2rCUZnkKPxwwpPvueExR0+WuYHuFaz/vkpKiysmVZVJX2gsOwq0k8UPjg7XOLj
-	 ySAxXhpwiyp3APgcR2FGaEOUq6u8dEinUkuIWRNhPbjY3snsFILgJFNJMuIjGzqVUeZkh
-	 IbN7jhAi/Z0fBnxPYldg8t/7gtbyTYHMY7IEwqGacuMYWu4esrdmFwqiCqxhekgrOTfkQ
-	 zwULphjn8PA87OkgONotF9X9BuouSSeP9sGMrti85o6eJ/mNrcHloFIzTn0crH0MZ9w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ROxgootB;
-	arc=fail smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.186
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793384080;
+	b=MEmtyMTlFiNbk9/ZqxsOHCFgBrOtbnZmzudL5qivNP9QVgBt3ZNuSSk/9V7inkbIOP2P
+	 tUBtVAvYK1MTQuvZgQx/GhxDiaSbPb5FpKfoZqP7XAkdCr+dY8aon8X0mSqkHJrkdd7oe
+	 kKkWS8CLWES4jFQYtEqI/nRe9ygah+CctOC/V/SNVZTGz3CWU03RusSSxI15PbDQD+GKK
+	 ZZZ4UkAzDyqjRLHU6sTAzEcbSdqySbOiaX+GOw8qRqGduQfOyMXir29haMGY2rWUsj5hG
+	 0xwAPQzZLkt2lFUTtnxoHn6sAsSJV4TbgcNKw0hbt//qQhbKe3yCJKc32pRaMNCZkAg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793384080;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 X-B4-Tracking:X-Change-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Disposition;
+	bh=XauGCChzOkT4Lzvx2Lh+z/UKMAlrTOSpwUdfYUCdd3s=;
+	b=LPOExR3P9TI3T7s/TTTJ+2bmUYAev7aHggfL0kT5b1CRChl051W8GmTUU6TwivYRzQQg
+	 RaGu3+zoc1my4NXFG7TJR3rCvThyKHlFRKkSD+LRr08Of1g1enamE5arI6MheUtp2AzLy
+	 dEJ3Z0lnMhgObQZ9j3OozhWS1kZ8Hvk55XHmFsRKfM+orMuQqZjl0QwaY3XKpi44UIfRY
+	 AJGgpyPD7dzxcx+tYXTM/kwcaSEroMa3lmno+0ghodj7/cr46KdP91w5NTxBASUprKli/
+	 5Q5+OWyPMOEx98iC/8s+GOVRYSoJSOt0P1xCQNBNcLCkpRLFtw1B8AN51Sa+0LSJlCA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sAk9vhac;
+	arc=none smtp.remote-ip=91.218.175.186
+Received: from mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F2D606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:14:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1F2D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5EB606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:14:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC5EB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ROxgootB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793384084; x=1824920084;
-  h=message-id:date:subject:to:references:from:in-reply-to:
-   content-transfer-encoding:mime-version;
-  bh=iQ/dQyQdjCMJPzx7E6rE3xPslVy0TNEX0IrhDFdQPPA=;
-  b=ROxgootBbwquKPUkBDUjzAtMU4vVCZleG/oJmFMBwnRXSU9TiR+RhuP2
-   ZWOEsu4aw2ad+IAVXO9AwMC9aMQutYnxHW7njeSRMx/W91d+lzKTdPxkS
-   yEzjY4GtJH8KgkJp2vJVK9OQp5lMqTPEKxQx9vWEqYtQOYfmmsg1q/UL1
-   PrfeQGcwaSnMIH6HqgzYSFu5R819nLUIM85/TJc5pr62RG4QYdxQ9iZ+I
-   uSL+QMCOM5pQdAipToxwSRgMXNcgHg5tR/qqj1QmXtKn/Gwpd3Usmdujl
-   8b4xZYoGidlUjUkhktdcjn5RC7ovdzdXsvq/tpgohBWHKouoXTi1WFDYP
-   Q==;
-X-CSE-ConnectionGUID: utstPs9pTf2njJAwiflJJQ==
-X-CSE-MsgGUID: hY5fFa2tTyer75ZxY9rQNw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2259227"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2259227"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 11:14:43 -0700
-X-CSE-ConnectionGUID: NrXP/32zRCCOFjezwq6iLg==
-X-CSE-MsgGUID: AHGpRk6uQFifrprKLq+IIw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5639289"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 11:14:43 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 30 Oct 2026 11:14:42 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Fri, 30 Oct 2026 11:14:42 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.34) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 30 Oct 2026 11:14:41 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wifo/cZQ5gcDCtC3smGHJJwbBfniUJBloLRjZbcr9IOHkEJwQ4GivQ+T9Y5maTNFNGkKs0Tm4FbIwC6pbqKikHjxoKevPTw5hw4XnoYyQKKY0JsKWmb9OrVn5FwzIbJRwhiO/1UQr1/SOi2WcLe+01oM2tNozsKprtiegLuuTuYyhyAQ6x6XVTCYS/DS1+GGP9qCnymbd7dam7jolVT3VJtfdDcNZG1FaRyIWC2BF7bfPgxhsJ93SDKKTyHefUL1zLaZvyHxWyZW9/dind05Zl3INmgUNtq+i0k608WSn+xZvvACnvPmXRBCM3aqJ6E0bh6PePgwQb+9GfNFJMBgxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HjeEKJIF5+cfI3ZncIKalSvPIfeXSP03iU3Wuqz78AM=;
- b=QEsGIm9tdpOp2WdrWF86wbH/1kwqNd8EsIZPxGvLCgxVCMsZ+IFslW+7RCRa8ZcI8XIksfVMrxdPpf1G+5ZiRxqKhbdPBtHm0ts+d0OvU0qSTd8ZGXhIwAl8ofmYW1RqgWlUslmRyzUQB+a6q8OBUvNeYENZjGunqYuwV219sf/urEx+7WZfBBitpLOEpEU38sxpBuGUo7aWBAftuP9OPOZEYMtYhkWgP4vivCF8m0dPmnxkM9zYNk29drJ4UNF2svKUlrqX8uMqM0jPeby99nIdI098SwbjQJJGLjnSC67TuaOpMIk6LH6afD4xgVfmY/aq9Ch/0Fg1h+ErSLjK5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
- by PH7PR11MB6449.namprd11.prod.outlook.com (2603:10b6:510:1f7::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 18:14:39 +0000
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc%6]) with mapi id 15.21.0546.016; Fri, 30 Oct 2026
- 18:14:39 +0000
-Message-ID: <d1e2dda5-0b8a-4e4b-a626-9ff9b2a98558@intel.com>
-Date: Fri, 30 Oct 2026 11:14:36 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] fs/resctrl: Report a temporary RMID shortage per
- CLOSID
-To: Jinjie Ruan <ruanjinjie@huawei.com>, <tony.luck@intel.com>,
-	<Dave.Martin@arm.com>, <james.morse@arm.com>, <babu.moger@amd.com>,
-	<bp@alien8.de>, <tan.shaopeng@fujitsu.com>, <x86@kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20261030092144.1233551-1-ruanjinjie@huawei.com>
- <20261030092144.1233551-3-ruanjinjie@huawei.com>
-Content-Language: en-US
-From: Reinette Chatre <reinette.chatre@intel.com>
-In-Reply-To: <20261030092144.1233551-3-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0151.namprd04.prod.outlook.com
- (2603:10b6:303:85::6) To SJ2PR11MB8370.namprd11.prod.outlook.com
- (2603:10b6:a03:540::20)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sAk9vhac
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=+TY283G1borHAZaLlZTGzy3/NR1BKFVZwd1ZnwDzwwY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793384071; v=1; x=1793988871;
+ b=sAk9vhacnCG4G0BRbv+RUr2STznQC/GMNOMR1Pa7jqMuFDS603ChwiDIe2Z21sE7+l5vQO1z
+ GdB+cDbOx05Byd5LomnCRmaAncX4+m/KXDKwa9Wehsupvt9geNIo8SQCHDZFnji9CzQuo/WQ3Qk
+ e0aVKgxMFdiAmRSlVND1Wz5Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f6094ec407c97bfb;
+	Fri, 30 Oct 2026 18:14:31 +0000
+X-Mizu-Trace-ID: f6094ec407c97bfb
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 30 Oct 2026 18:14:22 +0000
+From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+To: Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Ilya Leoshkevich <iii@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	John Fastabend <john.fastabend@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>, 
+	Puranjay Mohan <puranjay@kernel.org>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
+	Maxwell Bland <mbland@motorola.com>, Will Deacon <will@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>
+Cc: bpf@vger.kernel.org, linux-s390@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, Pu Lehui <pulehui@huawei.com>, 
+	Sashiko <sashiko-bot@kernel.org>, "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Subject: [PATCH bpf v2] bpf: Fix jited line info off by the CFI preamble
+Message-ID: <20261030-b4-arm64-bpf-linfo-cfi-v2-1-4eac83435d4b@linux.dev>
+X-B4-Tracking: v=1; b=H4sIAA/c5GoC/yWM0QrCMBAEf6XsswchprX1V8SH5rzTE01LoiKU/
+ rtRH2fZmQVFsknBvlmQ5WXFplTBbxrwZUxnITtVhne+c4NvKQYa870LFGelmyWdiNVIW972w06
+ C6xlVnrOovX/hA+oVx/9YnvEq/Pgmsa4fd/SC6X8AAAA=
+X-Change-ID: 20260925-b4-arm64-bpf-linfo-cfi-f5c3897e408c
+X-Mailer: b4 0.15.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -136,107 +83,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|PH7PR11MB6449:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3473be78-5eac-4cb6-c427-08df36b1a97a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|4143699003|11063799006|56012099006|261026140227099003|261028144727099003|261021121427099003|261022105027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: y8OPFaDE1PddaHGlLkuRvJGpsolc44qgak6ESESRD+aFScfz0FFWzZ/ZfpWt71GW72wJin/gzAgMfkyYCsSl2HLv1r3XJ+IeTjUFEWaQLqPJr8hBbrOBRmahhgXYxqYH3uuyJ5/ouLD26CVsrs4srg9dX+D12PMe4qTifp4Ss7QA0OZ1/xByYkNaJLtdJ49V6YTZQBde7YTHJ00N8W/r1F3pFi99FA4AXV0wKNGQEKJihmSVM+T4+yl9/WejvmCc3Rc+TiEZKOdPhE7SiWSuOSyZuzem4Oysm3P4dUimIQmK2aublPRla6I/jXMbVFL/rDuxCRHuH7hHOnt+SsogsI6KWtiUuaBtipEv7OfVG9JhJmcUinl30HAs/fTIZnAjQIQ1Goj2Q/9dzKanq5mB6TGVg9oZYmMdN//y/7V0DgSnvGXVHtinQE4coxxS7M1rQzaVow6hmf4jm+DS0Q7cqvUBtfRxZMY5N4atdb7wTcemh56UcWxzQT3gkoh35UqZQ6kuyoQqO2etDi5F/DU2J3TSGbGFHXBIQa1ZCrYacW5Xcw2J3IT/kSWGRgQWCc8cNr22Ar3n96TmDbZapjYGfs72whR5o4smNT2f6JQOd0XrcbIAMTH2ugZaPwIROV8OGfby3GScVZnxqZhygpOqc5v+Y03bWFWbS8xNXhp2YhU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(4143699003)(11063799006)(56012099006)(261026140227099003)(261028144727099003)(261021121427099003)(261022105027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MkczMVArU2d2VmhhNGtkQVBsWmFFZncwTzBoaTB2aGZLRmEyZlNqNXh3cEFn?=
- =?utf-8?B?NzQ3M0J3VGxKOHdEVlkzbm4yeXJZTUNGZGExVzJRSlFXMjJRNjMxay81NWw1?=
- =?utf-8?B?Nm9VK2IyMkhXVkFLcEI2dENlcHdBeUNEdVdkUUkycG82YzdBMU8rNkgvMSsr?=
- =?utf-8?B?ZDFtbGF2blVMRklDT1JzdFhTdVVYT3FoZFhDZnlrQ1Y2QTNHZG5PSzZEWGdZ?=
- =?utf-8?B?ZW5ySENCQ2l3b0ZFU3o4WFYvNHdQWTdQZ0ZGR1pTWUFDbkk2and2ZmNIWkFF?=
- =?utf-8?B?YlllcUNzOVdoTW9MMlVXcVVhdkN2dW5Td1g1UFRPSzZ1WlRoTWFDdGExaFRM?=
- =?utf-8?B?YWZaeng5NU9aTEhpbk5hYThnRUpGdkhwNTdWSjY1ZFlvTmhqZlRCY2dsT3dU?=
- =?utf-8?B?cStYcDR0WkpYZTg4aGo0eVdLK094dFo4OFVtVmJZZ2cvNjVLdkNGaDd0Rld1?=
- =?utf-8?B?R1I3YkhaSk5kY1cxV01GY3B1V25xRlEyRS9vZzN2QjdoYW5odW9kWmFWSUpL?=
- =?utf-8?B?dkkrdDdBUU8wQjhzb0hQQkVuSEJjTXAzMWZjTVFOaWlCY1EyTkpHZGk0QVdM?=
- =?utf-8?B?U1N6N2hDOGR6REt3NnZFbUU2UW9XZ09CT2s0eDBBbXA1TzFiTENhczlqeVUx?=
- =?utf-8?B?YUdEbVhjcjJpR2p1OFUyZVZEUDgvNWNiNUpWMmc1d1VkZkttNExKQ2JTUGNR?=
- =?utf-8?B?ck1nWThMV1VBL2Y0MERJc0JRWTBzWHNLVURkZlFzUGJBUWZuRDMxbm9jZDRQ?=
- =?utf-8?B?NHhPYlFURlpwL0svM0xKRzRGbVZicVBYRS9GQ0thOGo4NlpRZUZucnR5d3pT?=
- =?utf-8?B?aTUzWjJVTkhXMGc2L1dNQUx6YkJURnlSVFNSVVVHVFJXSDdPc0hEaU9PZzZk?=
- =?utf-8?B?RkpsdXZORk5HUU1SSk05RmREK25UUjNKUnNiWTFaWk1LdTE4TlhKWE9VbGdH?=
- =?utf-8?B?ZUc5ekV1NFZwdUdnTXlTTEpJTXNuU0s4bHRZd3hvaUdZNVVWV3Rod3dxSzZ1?=
- =?utf-8?B?dmtIYUpHOGRKZW80NGNCK29SRHA0cDVwMmhiOGRKcWw1Qkoxa25Wc2pleE5N?=
- =?utf-8?B?M2RVNytraUx4aXBLQWJCejl3Yytod0Frak9lZWt1dTV3dEVvcnVuQy9kZ3dy?=
- =?utf-8?B?a29leUdoUkIxMFBjWmlPbUgxRk8raDIrU0pWZEt0UWhTRWliSFIvbzFFVjR3?=
- =?utf-8?B?QjFma094Ti84NVZwR053TGtNemE4eHB3N1NVSndUSFYvWnJObUZtSDhWY1Ez?=
- =?utf-8?B?cHp0VDR0TXVqbm9MdGRoaEFiMU1CNnJMVys4STkrU0pzdHhVdHZpSDZUTHdE?=
- =?utf-8?B?V25iQzh4dGxvbStmSm1sQTU0VFMxdXpoZHg1UnpITmsyUTc2SW9kTXZDbGxZ?=
- =?utf-8?B?R0VGclY2bWdSMUxiRkxRd0IwZXVWNCthRnhySjhmM3I4T0pMVzl6VlVOeEVn?=
- =?utf-8?B?QnY4OTQxUUlZT21lVGdEU0hIaW5GRVlxazBVK3BML0h1RjRnQ0tKV1R4bU1t?=
- =?utf-8?B?MnpVNmdMLzA5RTc0bi9IbDgydHh1cFZlT3BqMEs0dm1iNEp5TzUwTmEyZFlo?=
- =?utf-8?B?VWUrcExHZ3VMRkFoRERiVG9GcG8rc3RHQXo3eGQ5elQxQW9hVTFUUmhjOXRw?=
- =?utf-8?B?VEpDMFdQZ2JnajlMcjhRZmdKUVcyUVVIOEFNNk9ZWkRVR0lrNG8xOFlTNmxh?=
- =?utf-8?B?M2xnSHZ3NnAvcFJnWFJ2aHI4bGIrUDIrQTZjWDJkbVdYby9HdHNxQXFPUTVn?=
- =?utf-8?B?ZmNMd2NEWHNrc2tyMSs3dllXSWpYQlQ5dGd3bjhWRVlsSy9ZQ3BWQkJQMy9R?=
- =?utf-8?B?UGFWeHhVTGV5S0piMDllTndKQmhNbU9Db1EzZHdoSDY3U3d0cjN6ZlM1N1Rn?=
- =?utf-8?B?a0VKZ0l0TFNBZVhyNGROM0NseVFQU3JoTnMyTWM2TlZzeG1tTzVZODlpTGE5?=
- =?utf-8?B?REhKQXcrZXQyVzNYeFRZNG8ya1RjOGt5c084R2h1Y0VxZWdyOCszQzN1cElj?=
- =?utf-8?B?UHFKd0Y4L3d3aTZWWFk2eU1MWlBaWmdFekptNVh3SStLVXMyYTFtNVhlai9O?=
- =?utf-8?B?ckVsbHNIYWZrcGUydDJDRzZucGloRytoRGhGRWV3eXJFNEZxbXV5QlYrcm45?=
- =?utf-8?B?bkxXNitqUzgzREFJWDJiSC9qK2llanEyNWNlWTgrS1d3SkpEajZYMDl5MUJo?=
- =?utf-8?B?b3I5dmRIRzZBOHYzTE5ZUUhxOENON3VHZFZWY3ZCSExtOEpKYWFDMzFrU0Vl?=
- =?utf-8?B?L0dSN0hDUktsdG5rTUdVQmV2YWpLbXQvWG02Yzl5WHhzeDk1UDBENXVsZE9s?=
- =?utf-8?B?Z0lzR2tLbWMvRDdCQ0REWllKT3ZiTjJGSmlmck9lNkkvOGdQN2pUbFh6Z1Mw?=
- =?utf-8?Q?i3srp3L8JV57n8/8=3D?=
-X-Exchange-RoutingPolicyChecked: cMkz6JnKcS/SuKfKMxCegW3QBczYAssDaul9tW8601Xzd9X+JS0rPw+OnEeAkMlfnewXr84OjpzxrGq+ABIzl6opNZ4VpLQv9pdvRDIIFM62r27iGPWrAaXO0yA8GR+WZmXGvo3QLiYwJWDjYBCLfaWlG1odo38/y4HO0BpSrynAlOtPPa+6gxdkJ9nWESjB2SA4OwLXOSHia+Lnk/mkyB2i8PTdHz0xzd/5B490eRWZPWwmp2txw9hvHYjg4BumPrbqWVIlNthw9hY41UVxGFHQYX4udpwJZvKwU9o6eZzEzFWgX3XaYJE13fCK9GT+eSeSM4NrJ9POa26NGGx11g==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3473be78-5eac-4cb6-c427-08df36b1a97a
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 18:14:39.2215
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uNjydUTvB4oFxqunddKEm6m9bmjLvRJi7f23FeKlAlwTlyUSsOfXstcC4OnPqilAZn7byMRr/oIURmnhgJMyDSlt9kYKW35ro8LDwMcwz0U=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6449
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi Jinjie,
+With CONFIG_CFI=y, every jited line info entry after a function's
+first is cfi_get_offset() bytes too high on x86-64, riscv64 and arm64,
+so tools that use it show the wrong source line.
 
-On 10/30/26 2:21 AM, Jinjie Ruan wrote:
-> An RMID that is freed is held in limbo until its cache occupancy drops
-> below the threshold, after which it returns to the free list. A request
-> that fails because of limbo is thus temporary and worth retrying, which
-> resctrl reports to userspace as -EBUSY. A request that fails because
-> every RMID is in use is permanent and reported as -ENOSPC.
-> 
-> Where an RMID is only meaningful together with a CLOSID, a request can
-> only be satisfied by an RMID belonging to the requested CLOSID, so the
-> distinction has to be drawn per CLOSID. Instead it is drawn system wide.
-> -ENOSPC is reported when the free list holds no RMID for the requested
-> CLOSID, even when that CLOSID has RMIDs in limbo. -EBUSY is reported
-> when the free list is empty and another CLOSID has an RMID in limbo,
-> even when the requested CLOSID has none. Userspace is thus told to give
-> up on a shortage that may clear on its own, and to retry one that cannot
-> clear until it removes a group itself.
-> 
-> Architectures where the RMID is independent of the CLOSID always match
-> the first entry on the free list, so neither case arises there and only
-> MPAM systems are affected.
-> 
-> Draw the distinction from the number of RMIDs the requested CLOSID has
-> in limbo where the RMID depends on the CLOSID, and from the system wide
-> count otherwise. Drop the separate test for an empty free list, which
-> the search handles on its own.
-> 
-> Fixes: c4c0376eefe1 ("x86/resctrl: Allow RMID allocation to be scoped by CLOSID")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> Cc: James Morse <james.morse@arm.com>
-> Cc: Reinette Chatre <reinette.chatre@intel.com>
-> Cc: Babu Moger <babu.moger@amd.com>
-> Cc: <stable@vger.kernel.org> # 7.1.x
-> ---
+The JITs count the insn_to_jit_off[] offsets from the start of the
+image. Since the CFI commits below, prog->bpf_func starts
+cfi_get_offset() bytes into the image, and bpf_prog_fill_jited_linfo()
+adds the offsets to prog->bpf_func. s390 corrects its offsets before
+the call, the other three JITs do not.
 
-Thank you very much.
+Subtract cfi_get_offset() once in bpf_prog_fill_jited_linfo() and drop
+the s390 correction. jited_linfo[0] stays prog->bpf_func, the
+function's ksym address. Without CONFIG_CFI, cfi_get_offset() is 0 and
+nothing changes.
 
-Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
+Fixes: 4f9087f16651 ("x86/cfi,bpf: Fix BPF JIT call")
+Fixes: e63985ecd226 ("bpf, riscv64/cfi: Support kCFI + BPF on riscv64")
+Fixes: 710618c760c0 ("arm64/cfi,bpf: Support kCFI + BPF on arm64")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260904014748.C04AA1F000E9@smtp.kernel.org/
+Reported-by: Alexei Starovoitov <ast@kernel.org>
+Closes: https://lore.kernel.org/all/DLNXZ2WK7TPD.2RZBUNRS4FA4L@gmail.com/
+Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+---
+Changes in v2:
+- Fix it once in bpf_prog_fill_jited_linfo() instead of in the arm64
+  JIT, which covers x86-64 and riscv64 too, and drop the s390
+  correction loop.
+- Link to v1: https://lore.kernel.org/r/20260925-b4-arm64-bpf-linfo-cfi-v1-1-e930ab335170@linux.dev
 
-Reinette
+Stable trees that do not have commit 227b4e108adc ("s390/bpf: Add
+kCFI support") take this without the s390 hunk.
+
+Drafted with the help of an AI assistant and reviewed by the sender.
+---
+ arch/s390/net/bpf_jit_comp.c | 2 --
+ kernel/bpf/core.c            | 8 +++++---
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/arch/s390/net/bpf_jit_comp.c b/arch/s390/net/bpf_jit_comp.c
+index 56ec49894dda..83da3a00db7e 100644
+--- a/arch/s390/net/bpf_jit_comp.c
++++ b/arch/s390/net/bpf_jit_comp.c
+@@ -2428,8 +2428,6 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
+ 	fp->jited_len = jit.size - cfi_get_offset();
+ 
+ 	if (!fp->is_func || extra_pass) {
+-		for (int i = 0; i < fp->len; i++)
+-			jit.addrs[i] -= cfi_get_offset();
+ 		bpf_prog_fill_jited_linfo(fp, jit.addrs + 1);
+ free_addrs:
+ 		kvfree(jit.addrs);
+diff --git a/kernel/bpf/core.c b/kernel/bpf/core.c
+index 7cf37690d41f..b9709e3b7656 100644
+--- a/kernel/bpf/core.c
++++ b/kernel/bpf/core.c
+@@ -206,7 +206,9 @@ void bpf_prog_jit_attempt_done(struct bpf_prog *prog)
+  * here is relative to the prog itself instead of the main prog.
+  * This array has one entry for each xlated bpf insn.
+  *
+- * jited_off is the byte off to the end of the jited insn.
++ * jited_off is the byte off to the end of the jited insn, counted from
++ * the start of the jited image, which is cfi_get_offset() bytes before
++ * prog->bpf_func.
+  *
+  * Hence, with
+  * insn_start:
+@@ -220,7 +222,7 @@ void bpf_prog_jit_attempt_done(struct bpf_prog *prog)
+  *
+  * For i > linfo_idx,
+  *
+- * jited_linfo[i] = prog->bpf_func +
++ * jited_linfo[i] = prog->bpf_func - cfi_get_offset() +
+  *	insn_to_jit_off[linfo[i].insn_off - insn_start - 1]
+  */
+ void bpf_prog_fill_jited_linfo(struct bpf_prog *prog,
+@@ -248,7 +250,7 @@ void bpf_prog_fill_jited_linfo(struct bpf_prog *prog,
+ 		/* The verifier ensures that linfo[i].insn_off is
+ 		 * strictly increasing
+ 		 */
+-		jited_linfo[i] = prog->bpf_func +
++		jited_linfo[i] = prog->bpf_func - cfi_get_offset() +
+ 			insn_to_jit_off[linfo[i].insn_off - insn_start - 1];
+ }
+ 
+
+---
+base-commit: fb7bd3a2aad70a76232a7168a505386d0a1396af
+change-id: 20260925-b4-arm64-bpf-linfo-cfi-f5c3897e408c
+
+Best regards,
+--  
+Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
 
