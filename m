@@ -1,81 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793360672;
-	b=c3lChteatUb+fYCoLZ6MvutcfB0Zaa3I2zHbnXPUUi5wkXqL1pjDVp9u7wGGtnKnrrRt
-	 eCeZzPcRmAcYAHRjD0f0Kszo68sM2H2zeRfH4A1rIbxD9QqZSS4Wcukm/EuB2fO4SWZJ6
-	 SAvsrlwX4GqH/r+qAx/EHDVG3o3PdB4yOLfk2NtwV6SMfR1HEUHpok4MW93a45iiJ6zgC
-	 I2b/F7GEz7fOoG+SVpJ5l2GHoHVG2ZWmAGvBoGM4xCMf3JrJQacaaWVNTS8za9nKyH5XL
-	 8ibEet+qL/GI+18VFJxQoQraoJfGnedfbwCcuq6Af7oCeyRHgYMYzY0n9tBDes7kliQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793360672;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=u22L97/jeI13IB20ysbQZcY423yThcHnEYQlKHEzxLc=;
-	b=gS+kucei7Z6HMG27q7M5/Sl5rccD69VDEuloR30z8M2jdkfjA0STkSQkd1Eh43Otlxm2
-	 Nvi55IkfWFQtrsqwEbqP3mZREBSluMhvSoAjAyX6qfn0HGvl0C+4nAZHLP9Yrz/00d779
-	 QBPNxeaJeBJ5F2rwgsaP9jcesyp3+XyGb2eTFhknTMyWW7rtotv2/yF2AJL5f93kU8sW0
-	 Dl9AQMzk1CFqSZgtiGcO85XJ0jnhB7a/DsvMkanlw4tIuQi3GgiV+ip2h8m/sCCPbtwnY
-	 k6YAzGqPaSnX+vHUVbhdtTCGb8SZADCzxAGtPI8y/7c1zWkzXrkWkqffilswO36nRrQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=POEHrrX+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793360688;
+	b=t44Roxw8Hbv//ALCplRES9dOG7dQLPWBZGqhrOgQO7sjQ8yx7gbHf9v/9YlJk2462DcC
+	 J1Tpi/ACedkauehpJ/Om4b8lOygJcO3uzt0gos0S8OfKBuBhzOQ5CpW50uNzmEXTuM5lb
+	 a0k6ChbBR8cNmRZOdj69wqFl5v5jlvVwJ5pEJgDPiGsqRpjqvPUknz7hVL3F0Act6uXZ/
+	 ta+AHwDG/H7mI8Ks4CbgmukZpyI/zbHMRQ2XHHirZxXY3x+MgYm/7n0pRVsNX6BE1ljkF
+	 CGTQJVNmZM+5bb+BhQHTaQDPLKEZBnR8NCs5bkHTBvJibwdkNhNB0a9qp2wzHOS0VNA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793360688;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=gj1ttizdUersx8xsUhnFSQQTCr6CuiJthd1Zca2e+6c=;
+	b=HHgdtCFOvwaoDdxekjpi7S2ok54X/qHoX+sYYwXWDu6aCmsLJZTqPVJXaqE0yHKOsphS
+	 D8sfrAS/VXbquD7LE/2mxlp0m//nym62poNQD1l+MwAjcB3KaZVeedTWKanEmBKYIMfNr
+	 ugjM+lSXFCDL2pgp9RQINQVztuwOb2pDwYKtMKo2JMTxUHGUaUnSLzRiyKRq2hUHPzFp+
+	 mjO2bVGGUka9hlk8xQKQQxQiVIUBjfYa/5GeYpXmGhtkwRKeLeg7ajBxkSvvW+i0IawYN
+	 il9k22LlOBv4ifaFwlDAoJDJWA9Si1af9CwESY01xxqH8GaQVFuoi8MqVGAqyJ4DonQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=fooishbar.org;
+	spf=pass smtp.mailfrom=fooishbar.org;
+	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=GAh88GJw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.180
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84F8606A31A;
-	Fri, 30 Oct 2026 11:44:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBB3606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:44:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DBB3606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=POEHrrX+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C4AD1F0093A;
-	Fri, 30 Oct 2026 11:44:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793360671;
-	bh=u22L97/jeI13IB20ysbQZcY423yThcHnEYQlKHEzxLc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=POEHrrX+sPBo41n1mG2oZ7jZsPptJNOYuklpaJCho15lUx/hky0vAto0IGN9wUGU6
-	 ND1CBDe5rZnFil1HZM1tjiLOFUAleLd3OoRXz2gYSIc3S0vbxzEcjwCfDh4zVMpSsf
-	 EQlNPouP+PVpC+k2CwhIb/KtciGpEkUOTO8XdOVMGJFbCRhD4vWJqa17k4GdbY1Vlc
-	 +22QWJSEiJS+ic6dfb3qVSAJmBMrYs3nndjOrrxn5UsvH0+zvXfwafKrObb+dlFg75
-	 QjOl3vEY9Q5kPpMymCryWXA4Z8a6csZvMkbqWCkAqIOAa8OUIZNXAetDK6xKKo0Mfo
-	 yZ+wl5iCt+jdg==
-Date: Fri, 30 Oct 2026 12:44:28 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Rob Clark <robin.clark@oss.qualcomm.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
-	Marijn Suijten <marijn.suijten@somainline.org>, Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>, 
-	Yinbo Zhu <zhuyinbo@loongson.cn>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Kevin Hilman <khilman@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
-	Yunfei Dong <yunfei.dong@mediatek.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Ryder Lee <ryder.lee@mediatek.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Christian Marangi <ansuelsmth@gmail.com>, 
-	Eric Anholt <eric@anholt.net>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
-	Peng Fan <peng.fan@nxp.com>, Aakarsh Jain <aakarsh.jain@samsung.com>, 
-	Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	freedreno@lists.freedesktop.org, imx@lists.linux.dev, dmaengine@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org, linux-amlogic@lists.infradead.org, 
-	linux-media@vger.kernel.org, linux-pci@vger.kernel.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] dt-bindings: Fix property name typos in if/then schemas
-Message-ID: <20261030-musical-modest-butterfly-e7734f@quoll>
-References: <20261028120216.2657397-1-robh@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=GAh88GJw
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e8246b13cbso5100945ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:44:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793360687; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qET6BzT+mlvIBYy+f821Aw54j7iQg3VmhEoVZFPWLuNHrim7lmdkEar8TRHFxJ0pfl
+         fWg+1aEq3L4bIRzTc9vqA+n2suxu5vc1MgafKHfnM/schPX5uOQ6feLjTv3/BkJc1aOz
+         iqfQFRYeRaY1UjUEfb86BAuJ0ik0Gqe9cfKaOz1yct8fZyo7WlqA9Se4wh1V3IHdyT2W
+         P/v6ThgLnXzkp9wR+ZivLw76W8xAyFp0iRhQPZXAjphoZfjMkLNyyNHNiKNcHUseE4tT
+         0qwvPdsUozntxUTuBMN2HUN9YoKcj3dz/6hIy2Yi9MUNoP6QvtcdSKehgtl7MRYsGAaG
+         FdtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=gj1ttizdUersx8xsUhnFSQQTCr6CuiJthd1Zca2e+6c=;
+        fh=5eXpO5QLRoCla2UqQuOIohZ7ZOk1zBtLvqqM6mdiEY8=;
+        b=Dx0tnU5zQMOzdxokfmsQUcbrTbOLvqRI8yru+KwtpvEIFQ2OaE3G+mYmNfIJGB1JmL
+         1k3TjB48S5+uWFUDitkmUOp70dAGwk7f3VwLRdkK9zBij205sDozoZAt33YqBBwTio/h
+         HYyduU7cjmYwCyZPdgXUjxr/VlT24WjPqS5AUMYDIq2bjAec5b1nXKZGo6hcZ0/xH/bD
+         MOoEodCE+uozNA+BZqCIJewHlgiMa7DeTd2ZYddIwgW6AusE/ALBtRqqvlzubVjaLwcv
+         v+Yqi3jtEkERv87JukuBVSaxynDRRXHrweHASl3AI76IbFW0WOy/vP8PE5BF5uC9yUNV
+         rEkA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fooishbar.org; s=google; t=1793360687; x=1793965487; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gj1ttizdUersx8xsUhnFSQQTCr6CuiJthd1Zca2e+6c=;
+        b=GAh88GJwQN8NKkj9foR5zmReCQEkwgJJ6OE8L2/dYYFWjcjtaoE7T+TJKPTlRXv6em
+         I524efNvsDKUnOHNoSreO+XJ/Jho9cMqLvi2xucn7t/bmmwY5MfWd7dLzdyRxTpnreRm
+         NcXTcY/0WsUa1J4o8Z3sUR+3rswBzee/0NTQgqeSG3cbg6AGU0H8LDsx58GE34y6aNRh
+         0JhJsHewnmuF/+p+cRG4ox3fr9NrNgFjIfVoXvG7xkHakQvIt4RvCVKHndexJ2iTAcxj
+         SfEvGsT1EFxnr2Ax/KfQZDy8dpjePngDmSfq/zMLjg3tA21BpA1lWHpfsqVfwa0BlBUh
+         7C+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793360687; x=1793965487;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gj1ttizdUersx8xsUhnFSQQTCr6CuiJthd1Zca2e+6c=;
+        b=tFpJ1xu0vC5/Clr7NJ/7QMzKWQK8cR3PcE7HWCCzYiQ0yLpiv8/gNCaTToEVOwlWhG
+         bWksNkE4zFXxKDsHJfiPl93HlDyee9NdwKzDKHL+i0a2dhcjIskWIgjFr0SU+5H6N/jq
+         1eTcJFfsjESp4DPE67FxjL7IDWQJBkLR1cTD93X521i3EEKvkLUMSvCp5WkyCBQ3p7lC
+         ti55KKVhmXEpMgnTpXqeDuVgj63Gc4Qe9cVlfb1gmPgsaWAZL6LwjiaRfALjRVE37yrV
+         goU4TWW+rpiELaHQjqP8fo3xJlrHZjuNQDRkGJnCIDq7Aii8L0qOn1RUgcwScW0xe5E0
+         WLgg==
+X-Forwarded-Encrypted: i=1; AKwUvBy7UHKAqkX4+P9JBBd3MAuoICqy/nlA8ukfvBL3UUaMxQYcR0BWCCcONBbfLVHcA+YDM0k9LK67mO/JreE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKoGHLFodxqcTHltwjyGb9K26kAYcZLiaBzo5B+G3zTqPRbkgPm
+	R+RHUgey0P5tkvYPVttzzjVjuPaajTtrPma9csPz4YuLqh31imhDP4YNiiVhaoHJhvqsUzWlMLq
+	yJW0WfXrt9WJx7XINl3mKbEv5Yy55TUfC3vTZJoVL+g==
+X-Gm-Gg: AYBFou0ZlnJO2hfAzVjFJJ7BHkJjhddGEKG3m2UsIJVLbI43PStck10sZ3CYmFCMVBT
+	sZgy+6/H7bkEOu5eb0LiDVlO0Dsho/ZFSy5mlQrhrVVab3O2qgjvGGUOYOhtDbZdypFZ+SqiFTk
+	58O34AvC5+j5ReaAvFlUFZVbRq4gArbHx4yVd9FHmnwqwlfWFppmPeTKTRymi8AD6CIhgshGd3o
+	mxbzDdCYvez0hQYysplEoLFGshxukC11JHdoySOb8Ok6Kx9aUpkBOMSgfWvpbjYxOyf5oQDigfF
+	ihEO2NULAAHJzUaACLuwf90bQhLliFb3SW2m6A2L56RZs/MGw9xuYV9Klgr/d0WZkhn1ksAStxZ
+	S273KV9uqP0sWYRrEc75gGex15RJgDXT3YB03
+X-Received: by 2002:a17:903:37ce:b0:2e9:6333:fbb7 with SMTP id
+ d9443c01a7336-2eb364f49fcmr22277985ad.51.1793360687631; Fri, 30 Oct 2026
+ 04:44:47 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,27 +103,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261028120216.2657397-1-robh@kernel.org>
+References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com> <20261014-dw-hdmi-qp-yuv-v5-9-6fab0fe43a9b@collabora.com>
+In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-9-6fab0fe43a9b@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Fri, 30 Oct 2026 11:44:36 +0000
+X-Gm-Features: AclHuK-Q06xdaUmiDGoTsq9LRujvtZmp-FKJhNsOOxfBrNNarZ1Qbmr7JOv-ovk
+Message-ID: <CAPj87rPEz=Y+dZayouddZRn2ZHSVNk9BAjBqz34PJyjDRba5=Q@mail.gmail.com>
+Subject: Re: [PATCH v5 09/15] drm/rockchip: vop2: Consolidate HDMI PHY PLL
+ clock parent switch
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+	Andy Yan <andy.yan@rock-chips.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
+	Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org, 
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Igor Paunovic <royalnet026@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 28, 2026 at 07:02:12AM -0500, Rob Herring (Arm) wrote:
-> Property names within if/then schemas currently go unchecked whether
-> they have a type defined or match what's in the top-level schema. Adding
-> a check finds a number of instances of typos. The typos result in the
-> schema having no effect on constraints.
-> 
-> With this, fix the mediatek,vcodec-encoder 'clocks' count constraint
-> exposed by the name correction.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
+Hi,
 
-I just git grepped kernel sources and weirdly no one made a typo in
-"clocks" of forgetting the second letter. We became way too polite :).
+On Tue, 13 Oct 2026 at 23:51, Cristian Ciocaltea
+<cristian.ciocaltea@collabora.com> wrote:
+> +                       if (!vp->dclk_src)
+> +                               vp->dclk_src = clk_get_parent(vp->dclk);
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Why not do this at init, where we setup the rest of our clock tree?
 
-Best regards,
-Krzysztof
+The rest is:
+Reviewed-by: Daniel Stone <daniels@collabora.com>
 
+Cheers,
+Daniel
