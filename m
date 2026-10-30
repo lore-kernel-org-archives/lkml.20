@@ -1,95 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.37
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793388275;
-	b=idMTJxtvgfgGYScL61LZmI6wX1yBKDub+GjHFwJQXVMEK1CIwalAi9qZhzJpC9PUqD6s
-	 RI4+XJRjHkF06Gi1nDVQHPwLrbFcp8DbP6cf0Y5J6Jg30QrfEz/uNtsUIau2+3rAqtyvj
-	 rY67uZmDt5MSbj/6XWtt5t+YC2rZStYW6xjnzE/jf7A3XUchpo6pnl9HNryVC5R4rS58R
-	 nhf7BxxqRFdj+u1oA9iNPl1F/Od/8VtU09QuxI0amJF899nWQMFZNdoNQt8xKdZsc/6c3
-	 UMtGrX7YlREcR34mb7dGJt1I1IFsjhIbixYvIbf+3Km1zzhfWKI12514WCNK+9yzxCg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793388275;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=teCyBHNIjpyb/XHkSMRZom30VBt3+PhTmGRd1zie7II=;
-	b=dshCh5TPlMSAzGSjl+cE1z8qjQibZN11c4/mMdvCgRrKXQr7Owch8FkC2ZLkoIgTlPvL
-	 5sLU6RwPsm6GEWDjHJp6BlwnoM2jMqHnTpfKLKvAn4YZbr15hiidpUyZmnIeJhMOOMyGZ
-	 w1+SjON/xgLK3WQUEH1evF65ZIVH1g2sGwjZk4O7bqWN0toiBLQX7DAawW9Et7xLFpnQX
-	 ctEkEOr/DquWaZnIK6ReQ0Tv5T3zpLzZAsb0JZuAV8lRm3wxXyA9Y8xyYRflnufpFMaQf
-	 5I3qxGsXSvFLo9eA8bwp43EwMtulisv+rO4+0jE+VhrlAOukDKrEUBscVslixkOeIxA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="RcOgd/bP";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.37
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011037.outbound.protection.outlook.com [52.101.52.37])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793388320;
+	b=RDnQkqzxe97nueUvy9j2aTzI/FSK48s9xLqx3xKEJM8kLzb2UN9PLv4hXUxVlRxGqge8
+	 1+g4fyojBEoa9zO0MSeUl2yDm4oaNI036d7GCp1ssh1IZXgAXSGF7Zm7xm3BW3YHEgyN5
+	 0YONL/izcWJtG/7lTECvCZagrqqbbZ5MD6W+hUg+1wtGS4GXZ0vBWYPE/2xTsfVo13s3/
+	 LqMha6Uyz3wlyvg1174gNoO7auQiwfBi0/o07z0LTX4OIYba5hHB8/SXvJK9xi2vlEuPm
+	 QmW11XdLaTEtqI+MThXz9AFefVCCuKtnbcjgowh/ulLsOWIC3xZDd5pT8Sg7dlcgdQw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793388320;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Yf0r59h/rQ7dgSv/KaJ4S+8p0+oxyog5F51pLcnO+dc=;
+	b=Otc/52H2pM4FuWHzJ7fvu7Kfs+mszg40A+8CiFo0N5F8W9YTip68ZQuYqjLr8VYTr5qt
+	 cDOAZ28kHdhs0xmu2cyZNC08IM8cm1jaLQYnOn9L7C6/RzAqZF2gjSflM+n/UcUhTkEgU
+	 Rk2iSEe9qIq2d1I7XC+WJge168Zlit0wRuFkpS1W8qNSSma5Ij9MXan4lLBo8XNowIqtt
+	 qXMSKNyopyB924MpqGvekXSEkBqN6Vjwk8sZTnXMA94vsix5sU5lUkAsfsuntXvJWMRT+
+	 wOoeTEFPsVlap+XFarXREI744YOSH3lXccxIYRw+MOaJyjAzz8yW5reGyrzUpigeovw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LCTRu9VX;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70AC5606A31A;
-	Fri, 30 Oct 2026 19:24:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70AC5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854D5606A31A;
+	Fri, 30 Oct 2026 19:25:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 854D5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RcOgd/bP
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IP032WSf+zRcmVDsmFNDW7oAgmvyblfR8h+QCrFDwa06t0V4YYRSKgdXnG/ynnV49eEy5ie09b6yTLr0Ns5tC/ldndanmPMnJWKVz+Qj9NvIhzXUg42EOvN9ygtUR4CMUjLj4KB4G79e7r2pBra/R99ZcoVvQWYiDMlQIhhA2yX7HiWCcyE5erK7HkI6qaQoZYi4wG3apHldVDucuD64UsgyOpw0o+nfZhUQe0kUik1/MWrbpn3XS/SYcapqAZl06AMyEmpD2RoTAyNFnYko/2GbAPHX0T+hjp3UZsKPUNh5U/CubRrCotlAEnn6ID4JWNBRD6ySGTab/L5ZrqLw+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=teCyBHNIjpyb/XHkSMRZom30VBt3+PhTmGRd1zie7II=;
- b=FbDH8ACXWT3Hq+/sk5ZKdk0a4+jxk6plRxGDyESK6dqVtfcxveCpT8/c4JwZ1Bon3mBnBR5G8oSo6m8056JmciShfFCKz3gWci3U/b17rZES2UEPhRhXSGm66YxBFKiGofyrH6MiZiqvAXpf8BsqkOXnzXbH5Y2K/2NqRRNPiF3zHoZLJQWsOPyItX+zP8kXXJUKZqXMvB52o+uaFUI5leDcpA79y/VkoxQy0nDDgSIzPHZGA0puJnDoYo9qDajtCqoNh35Tvo/ViauHC7RDeM/phyJHSqo140zW0ce8mm1osLoCVfq2bwoQrDn+TgxHXAOHfsoiUJSZOYbpjB3Ibg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=teCyBHNIjpyb/XHkSMRZom30VBt3+PhTmGRd1zie7II=;
- b=RcOgd/bPDMoc/UOAmC6HgWVxQp+K0Yi7v5EI+UZdrQ/dteglqNhJcZsjHuqX71882Y6LCezqkoqD4cr8HVQWzhVFVY+27+EcepZDtQcGvmaB6ckkH89hGLQGxXBQd7JTbDf4fmzaO4UMvs10fKDW+DGhU6ANv7gxc8tn3Y9cfR4=
-Received: from SJ0PR05CA0076.namprd05.prod.outlook.com (2603:10b6:a03:332::21)
- by CY5PR12MB6274.namprd12.prod.outlook.com (2603:10b6:930:21::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 19:24:27 +0000
-Received: from SJ1PEPF000026C8.namprd04.prod.outlook.com
- (2603:10b6:a03:332:cafe::9) by SJ0PR05CA0076.outlook.office365.com
- (2603:10b6:a03:332::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.4 via Frontend Transport; Fri, 30
- Oct 2026 19:24:26 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000026C8.mail.protection.outlook.com (10.167.244.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Fri, 30 Oct 2026 19:24:26 +0000
-Received: from [192.168.86.104] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 30 Oct
- 2026 14:24:25 -0500
-Message-ID: <7ef537e0-536e-4e32-8366-df3cee7fc9fc@amd.com>
-Date: Fri, 30 Oct 2026 14:24:24 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LCTRu9VX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793388319; x=1824924319;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=KbVK3KH4BybtnxV7XDRH86tuErlmKMHSpbbdZGxJ4ic=;
+  b=LCTRu9VXGN824RvIKF2XXelVNCc6ytaqM+ZlQRXRfstZjdC+Am5lBKpp
+   RkRSYDDhtX1ijP0pq6OtQyRVV0wcgU1EMNLKpW3yFl61LNaJvKGFkuimn
+   BLsh8eDqsYRgM9JVorkF7RxaFQrBBD3jfWXZZ54qhSatRSCXM7xuAr32O
+   DRGi+bb5kLWW8T262sN+YeZ3dBBLMWb7x4xv9K38F1HWmYu9P/O0fWWWs
+   HCvFs5Vypa52w18YSoOvAD5a/sz2Mlsd3R5op5WhDUSRH/eAmEDMNt0BO
+   KxfvBLp478QqNGhU7JjKGTBkRJltD8gO77bWp+94qTqeMaJ9kiYv1Oy2i
+   Q==;
+X-CSE-ConnectionGUID: cRvWyh/ZSAKZZKFoysGMAw==
+X-CSE-MsgGUID: Xfz4Yu28TbyO3xkomHETcg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2037490"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2037490"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 12:25:18 -0700
+X-CSE-ConnectionGUID: JC+iRR6ETdaP/GymM482Qw==
+X-CSE-MsgGUID: 70/FtxXTRQ6dWFVPvvumhw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="7350462"
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 12:25:16 -0700
+Message-ID: <897ffd39-a64b-4f77-a688-b8490d07980a@intel.com>
+Date: Fri, 30 Oct 2026 14:25:14 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,76 +73,106 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] cxl/core: Create einj_types when EINJ becomes
- available
-To: Dave Jiang <dave.jiang@intel.com>, Yongxin Yang <yangyongxin@kylinos.cn>,
-	Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron
-	<jonathan.cameron@huawei.com>, Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>, Dan
- Williams <dan.j.williams@intel.com>
-CC: <linux-cxl@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20261029065629.333949-1-yangyongxin@kylinos.cn>
- <20261030032050.787682-1-yangyongxin@kylinos.cn>
- <89885d4d-02b0-4c4c-8568-fc3d41623d51@intel.com>
+Subject: Re: [PATCH v9 05/12] KVM: x86/pmu: Support PERF_METRICS MSR in
+ mediated vPMU
+To: Yosry Ahmed <yosry@kernel.org>, Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
+ Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org,
+ Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>,
+ Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi
+ <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+References: <20260918193937.569414-1-zide.chen@intel.com>
+ <20260918193937.569414-6-zide.chen@intel.com>
+ <20261023182743.3248481-1-jmattson@google.com>
+ <98ed42e6-8c10-40f1-affa-2333188572bb@intel.com>
+ <CAO9r8zNO6X2-LDx_3n44Uc+9ODtXoH7oLvn8i5yzAa+EUy_qxg@mail.gmail.com>
 Content-Language: en-US
-From: "Cheatham, Benjamin" <benjamin.cheatham@amd.com>
-In-Reply-To: <89885d4d-02b0-4c4c-8568-fc3d41623d51@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C8:EE_|CY5PR12MB6274:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d99a58f-1301-47e1-4db1-08df36bb69a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|7416014|23010399003|376014|1800799024|22082099003|18002099003|56012099006|4143699003|5023799004|11063799006|261026140227099003|261026121527099003|261028144727099003|10067099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	iQUBvnXKv4nczRflGQ9CiZKxaDTSVl5A7md/93Q22NcDqBZqolCIHdlxU/U5zaIjlUvfpD4sbURwIMiunHX7GV8UiOAsdFjOK+wPA28ND5I4GaWDpZ5EkvuF0XAU16I+ZbXmbbtM07W5dW2LjtzOKBUvtxKcbQCqixMz9kmR/t2zBYtBhJ0mRVPdJeWy8LUHtpV9GiIpqJ4Fa2O0eFbJI4JeT4CTSgDT9FxzLNhwyWJrrcKLtJLZ51VX+11Q2vVVQzS1tmVTgQKx0PPdPqF15PfEhFNzfZj89rM+Ec5i4kGwy02cVFqSRnEA7tFN3q6lSFtexOb1UuOZ4SjY/6UrsupE1uWHAjlSPvDCKvcpwevbK86sMJ87zu5eAYO7HMjwTrA0oeVhnGutPyx2uFIF05j8gJw9fZziEgYCTBrnwKTyrmOaqc9k3aheUZ200ziAg2FVxkKLNScsVozRWOvLV4s89qTdNqh2iwUSbxfCUJ7cBzvcaCwF186RE3L7+bT/hk8KKhcvWp0z6CBt/E3/eZ+J5AX7jS4LswJA7xgydhSqUnLmiRN7mcKmA2F9ZlbeXnMbRigG8OCMfu1nwF+kD4Bl1nyGiG3EvYhLYrgYCABzOPSYaRHsWx6moFxfApWpezjZk99GB4lBIDtJ9Yi+TcAyRLqeWtsR3KkSV7X9zPxC8krFaeZZsGGjpIRGO5HKO0b9i0ScfRi196RQYcmAxA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(56012099006)(4143699003)(5023799004)(11063799006)(261026140227099003)(261026121527099003)(261028144727099003)(10067099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	o7RBhJ8S+hBJPrSP/gH9gBYl/REYfLHoPhXJ/Rj/jBQh2ayvCmO4EDJdAWhtqPFwb6SFoisRXrHlJ9YdAS9pti2KVvIk4jm1+TF5pKqjd0Ydv0lRkZk4ATng+/R5Qsem+fwOb5dAAiRheEsQrKI1xTUPj4Zwf9MUWLlpmAwMreZFamy8yu1S83X4MFiqBsdMVAkZaImT4viU4xHR9sD0v9VuIWZqgiiI+kh1aKfvDHw5sKmd5IXzP2UhYTaPjjNHQopYCWliwB7goPG0WqxnpC1DSV5S9T0BEfpEvbLuRDsjZK3d6gmZJV+ehQUlZQo/WCVLpk8n7Wivqyp2KDm/qlUFg8FxWTZPZxHJ6dCYadv4nuL51TKdkpdqOKsQ0n7Ai9RM8ZVwqQp8AIw3MTbH+MkyI0hao0bP6JH4CslCLoZy/TVewHy2dMMPbcx/E1A6
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 19:24:26.7816
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d99a58f-1301-47e1-4db1-08df36bb69a5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000026C8.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6274
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <CAO9r8zNO6X2-LDx_3n44Uc+9ODtXoH7oLvn8i5yzAa+EUy_qxg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
->> diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
->> index cab8ce39f465..b9245261ee39 100644
->> --- a/drivers/cxl/cxl.h
->> +++ b/drivers/cxl/cxl.h
->> @@ -926,4 +926,6 @@ struct cxl_dport *devm_cxl_add_dport_by_dev(struct cxl_port *port,
->>  
->>  u16 cxl_gpf_get_dvsec(struct device *dev);
->>  
->> +void cxl_debugfs_einj_add_types(void);
->> +
->>  #endif /* __CXL_H__ */
+
+On 10/29/2026 4:28 PM, Yosry Ahmed wrote:
+> On Tue, Oct 27, 2026 at 2:31 PM Chen, Zide <zide.chen@intel.com> wrote:
+>>
+>>
+>>
+>> On 10/23/2026 1:27 PM, Jim Mattson wrote:
+>>> On Fri, Sep 18, 2026 at 12:39 PM Zide Chen <zide.chen@intel.com> wrote:
+>>>>
+>>>> +static inline bool kvm_vcpu_has_perf_metrics(struct kvm_vcpu *vcpu)
+>>>> +{
+>>>> +    return kvm_vcpu_get_perf_caps(vcpu) & PERF_CAP_PERF_METRICS;
+>>>> +}
+>>>
+>>> The SDM, volume 3, section 22.3.9.3, says:
+>>>
+>>>> IA32_PERF_GLOBAL_CTRL. EN_PERF_METRICS[48]: If this bit is set *and*
+>>>> fixed-function performance-monitoring counter 3 is enabled, built-in
+>>>> performance metrics are enabled. [emphasis mine]
+>>>
+>>> and
+>>>
+>>>> The values in MSR_PERF_METRICS are derived from fixed-function
+>>>> performance-monitoring counter 3.
+>>>
+>>> Hence, a dependency on fixed counter 3 belongs in this predicate.
+>>> Perhaps something like:
+>>>
+>>>       static inline bool kvm_pmu_has_fixed_counter(struct kvm_pmu *pmu,
+>>>                                                    unsigned int idx)
+>>>       {
+>>>               return idx < pmu->nr_arch_fixed_counters;
+>>>       }
+>>>
+>>>       static inline bool kvm_vcpu_has_perf_metrics(struct kvm_vcpu *vcpu)
+>>>       {
+>>>               return (kvm_vcpu_get_perf_caps(vcpu) & PERF_CAP_PERF_METRICS) &&
+>>>                      kvm_pmu_has_fixed_counter(vcpu_to_pmu(vcpu),
+>>>                                                INTEL_PMC_IDX_FIXED_SLOTS -
+>>>                                                INTEL_PMC_IDX_FIXED);
+>>>       }
+>>>
+>>> with intel_pmu_refresh() calling kvm_vcpu_has_perf_metrics() instead of
+>>> testing perf_capabilities directly. (nr_arch_fixed_counters has already
+>>> been computed at that point; all_valid_pmc_idx has not.)
+>>
+>> Thanks for the detailed analysis. That makes total sense.
+>>
+>> Initially I didn't gate PERF_METRICS on fixed counter 3 out of concern
+>> about policing userspace configurations. Additionally, as in the quoted
+>> SDM text above, it means PERF_METRICS can't function without fixed
+>> counter 3, but strictly speaking, the SDM doesn't prevent other
+>> operations, for example, writing the METRICS_CLEAR_EN bit.
+>>
+>> But having IA32_PERF_CAPABILITIES[15] set in the absence of FC3 is not
+>> going to happen natively, so I think it doesn't break any rules if KVM
+>> chooses to gate PERF_METRICS on FC3. And as you pointed out, it's a
+>> simple and effective way to protect KVM invariants and migration integrity.
+>>
+>> I will add the FC3 check to kvm_vcpu_has_perf_metrics().
 > 
-> Maybe drop the cxl_acpi_probe() hook? Host bridge dports, RCH included, already go through __devm_cxl_add_dport() -> cxl_debugfs_create_dport_dir() -> cxl_debugfs_einj_add_types() inside the same probe, so the hook runs at the same time and adds nothing. That also removes the export.
-> 
-> Also, the RCH all built-in case still never gets einj_types since the only RCH dport is added at subsys_initcall_sync. Should the commit log say so?
-> 
-> I do wonder if it's simpler to always create einj_types in cxl_core_init() and have einj_cxl_available_error_type_show() return -ENODEV when EINJ isn't initialized. That covers every config without the lock and the extra hooks. Any thoughts Ben?
+> If userspace sets IA32_PERF_CAPABILITIES[15] but not FC3 (for some
+> reason), I think architecturally it should still be valid to
+> read/write PERF_METRICS. KVM disallowing access to PERF_METRICS while
+> IA32_PERF_CAPABILITIES[15] is set would not be correct
+> architecturally, right?
 
-Yeah, that sounds good to me. Wish I had thought of it :)
+Right. Per SDM 22.8, MSR_PERF_METRICS is available as long as
+IA32_PERF_CAPABILITIES[15] is set, so disallowing access to it when bit
+15 is exposed seems architecturally incorrect. However, TMA metrics
+cannot be enabled or computed without FC3 (SDM 22.3.9.3).
 
-Thanks,
-Ben
+Instead of gating kvm_vcpu_has_perf_metrics() on FC3, seems it's better
+off to do some changes to fix the invariants where they belong:
+1. Untie FC3 from kvm_vcpu_has_perf_metrics() so the MSR remains accessible.
+2. In intel_pmu_refresh(), compute perf_metrics_rsvd before the PMU v1
+early return so save/restore works properly.
+3. Explicitly check for FC3 when unmasking GLOBAL_CTRL[48] (TMA enable)
+and FIXED_CTR_CTRL[14] (METRICS_CLEAR_EN), and guard pmc in RDPMC emulation.
 
-> 
-> The NULL resets in cxl_core_exit() aren't needed. Module reload gets fresh .bss.
-
+This seems satisfy the SDM while keeping migration and invariants intact.
