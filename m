@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793380074;
-	b=GwH3OyFwG5qfC9BgYjxPQNBEmFBrL1/MsOxA9DkTmIywz4m3XEM+G8VyWiL2dgGA3PQJ
-	 1gSywgcdM8ElCMtSAiDt/pl6nmu/7/ZUoO/TW4cgx48KfGWXiR6rI9t1ntIQFy5DTt49U
-	 AR4GZqMC4dpIwRgR76KqqmlhcwjSc34Zv06o/9+kZCZQGzCLl5468x9GpdvyfTwCBG5+b
-	 XOnrwy6RzTfdhCg0LQyO5AsBZUQX7Iz9kjGFW8yriBWESZT11Yu1TXTiJfFjLfQrg5eeq
-	 x59pA6vV1jB8qwOJbVCfgo46fYXQzZgrOFgCQgOVxQ3CBCnCGTBkNnHAdyOA54hzjQw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793380074;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=qob3acME+/uuwxiwUET/rYXw51dpGRAJwWeO+kYwEXg=;
-	b=vOVbDnKHGhVifEkDDDlDHXV4uNegv7Og80CKw23eyuuSOHRhH5+3O3wo8sRFWbGKUO4+
-	 c3wEJfYtmbd4P/EfJF5dVC8Y0JZUWgBEYauxLmv7wbwQdblfFBH6R2JZhDPHCqRPS2cB4
-	 4eM1e1TqNKaCXGWQi1EUf54uj7Se8RP45v3APlie+mTnWo98KAITLk9+eKYf0LSkZePxA
-	 Zpf+WYFMu8tNc2c6yFYgOY4vjve4Wwsu3kfFqJojcLPzJQDDZKFt/zjB7UGNzJRsvZavp
-	 Qy/DQUKZlE+xEGEr3gMn+lh3Jt7BVrUE71xw/YsYvaXxEC+M5YNeeIU+0XDTuSEsxMw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arista.com;
-	spf=pass smtp.mailfrom=arista.com;
-	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=VKpR58mA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793380097;
+	b=Evplfl0SXSsjufFTsn8SFrQaPiYn9TrebeKnBAbs4jFsse0OPRdwhH9LyvpwQLAVFpfY
+	 c8eAEe3I6ciiUh3wwi+bODWOVBFpzvmT3w8ztD4R+mFfjvTtdfALknTE3JSK2WYCE1skk
+	 TmOQPuSBJh0tWvfhFbhFTuhxOmIegqkBW4CwNUN3Asotf2OpfVUT3VcbxKA74iDqhqZsb
+	 s1euyDEgqb8Bc6QJ+jzHsxqm/wwEeC8QPEMV9WxjsyUAv3Zq24wjvIB1MyVXZmBCYb9Rw
+	 Mlf3jfkSL9nqBoxPyxwBV9gSMcpGALigEiRGhr1dUqbHmO2kX3HQS7qja+GTNppojXA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793380097;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=MxTNcFovyeUvNcbkqmtArfTu7j98UPGtZOH5XMgUOCs=;
+	b=GtHKtkA9OyqZSMFhOObYQdPdd356ESNW3fCyoyjEuvKRvO8Yigv+q72hYYhjn6aG1pC5
+	 DxxV1R4IlFuipewi6pfd/5Sw8HTPCAA8Khdct2MFW6iuIvXEbmbgjEALjPOkmC57ANVdR
+	 wdLVRuEeGm8u9iwSTVR4vM5AkCetoLt+Q2A8rW7OKpMMUqeOF5D0IoEXl5pLHzQO+vfch
+	 AZU9EEKlZcpqSbMNCo9Iwngk9ElnxkNmaajyDlNfwiNMbhfDGCVbUW2rTWEp4ugd3g1Kb
+	 7Ol+3ESIjv6WcpNuqxUcXhR9cJ0Wz1W1tUtjnLHSAgqQ/0NI9EUp4QyeRcHWPtu+AVw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DuwCMLGa;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDD0606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:07:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEDD0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1113606A31D;
+	Fri, 30 Oct 2026 17:08:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1113606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=VKpR58mA
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4550d8ab15so118260066b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:07:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793380072; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KE4yuHGtTlGeCphKt3O/8bYZ+thYnFQI7d43mmwGxTZ1JcYN9PanzQwFKVB8Wc/2pa
-         puYfaqVxlMGQeBKECYZcCfitSEG67iKc9lO9iHnpK0VbYlN6w4heVanXeD+BMkPo+feF
-         7Bb/cTrkeskKvdSFZ16XVq3IrJBfVMoAEUXmR+j8BPQgF/bdPxrzENy9KiOur2XsEu84
-         Q8VbLDJl7ZksY4OQskB2o4JmCAzZ+jngsPNNJWpipZ88P0XEauJrljqhTnjcrhvPzens
-         PmaRCJ6aKGTGh0Cd7ibd91uZ6XYGr8bjclOMUaQy1mqrMIFajOYeKzjHqjIOVhHYHONC
-         9uUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qob3acME+/uuwxiwUET/rYXw51dpGRAJwWeO+kYwEXg=;
-        fh=HOQu2qAJBcjw6mATxlui9xE2vYS7IcAeNx5no8lC3js=;
-        b=hF0w6b+uMrYkpMPGo9cNVvYXsW6MVG4U3y3rn9KZkDrAb+dqMR69IO07cX32AuxI71
-         0orJA/OU7doqu+TS4GknEZO855NccGj90Bqvix+dbNE4176XewUJG5rV0IgeyVEBS+4J
-         1UZy0Fn7jNbZj2T0BQqj5VkyL1uY8efIBS49qOBrm5icwo0L4VJLO12uDgQ2ZRjKVsb4
-         N8JMxQS/5j38YmJUTvMCfAErNUbk2rN0mNhUk8NhODgMgnjZRTMq4jfsZ6KLrFl+OQhs
-         ddQ28nMUXONzq9ipjSj4tHGYpzYGHXiH2gA9CS63FNtHj52ENcCSh5De5HlGIKfDIcyY
-         Le5w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1793380072; x=1793984872; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qob3acME+/uuwxiwUET/rYXw51dpGRAJwWeO+kYwEXg=;
-        b=VKpR58mApdXvWNJTEvtEi1xVLi2JLTQc671av8hr0+KgnoidMZyEH0u1IUeg+Y3EIU
-         4B/DrBBt111eScqZOtuvkmymJtUO/ejeBgMneMFisL4rbPFo/ubFrOZxJOqwQvhqW6Mr
-         HIFSP2Dn4MGi2O5/MXNrBb7Zag56z9CBNh62tGocFAN5k3cnNycFXqvCXRDwH5aPGbUx
-         zzz6xO9J5S8Wa0rj8FVFzEtfm8YGno5ebQ78UXtwRrhLo4xZ+8SKZfZyYalMtlZaHqST
-         Hj1MHF4OP1TqsuyxdbGlj1d87pnme5W+bU3J3M2BMpSkMVMA3u+36pYJQGvApnQ8lk0E
-         a5bA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793380072; x=1793984872;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qob3acME+/uuwxiwUET/rYXw51dpGRAJwWeO+kYwEXg=;
-        b=XIrJlDrMjD43IfsnwEhABAgdM+udpsEVnIgXVn373Jr9c6fYFYuZ5rb9XX5bSqPTEz
-         9dDledh8w/hmM+r1jferwz/RQKLQQ2PQbT6qsEDAqhlinO29Y9jJwZO23LdHHqgPaDEn
-         sm15iPkTchtZ9OzyKxO2IXGdqGoOoEWaXSFCs43qi9ZpbYtvnEEVEiU4+Yu0FVcT8CmR
-         +kz9Dip5zCKgQWQCfrrJyvZ8TdRyF0M9K3+djffsSobAKCNU7bMRPidYSILLCZKq8qoU
-         i0v4XcdfEMxKGXalQ+apGXlfC3VfvxrNaKN+XBSywXdznWPIvxvqMY78Ov0mcmrQyFJB
-         QUZg==
-X-Forwarded-Encrypted: i=1; AKwUvBxVz+4bIORLN455ZkvZnF8pzHx+PCwxIHXC5hjrsr2RF8YFg3sPRGQK6YxyY6hC2wYAzvuanMvgd1qqUco=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIHFgfQlZNuaiOceTZDHGgYWtGQhXBZEquLTpV8BEePkA34sJH
-	JxZNitD7wgn1pjF2UQPVa5rXDSMei3xxLYxPKNzbqEuk07GMrXMSHCfsQsQBItR+Lwcg3XGInf4
-	duZ2h/s7JzWMwV6dCatZUhFAiEEYIDYYQTgJ5TkTK
-X-Gm-Gg: AYBFou3C+lu3VGADELKVDFfbKiYs1Rd7t6kKWYYgf6W9cCGTNzXFw6lpMnzUiTU7cF8
-	wkZrz+yZ2uklvADWjGMCZhocXPEbP3nzNo6QJYNIOB901y87doz1X/S2KynpdfPwOk0Y0b1zESr
-	WTyYU8wNQg9DNjPKFa2A5FdHa17TcGEulvk9ChbC3kmAdh1QtX7ihpsefzl/e7upVouOlU16piI
-	FSvvtXzVfUtYdqmi8CXOuBkV+trE28vfIUEuw79o0g9Xfk81mrWUc89Ba6oxoKuL+O64XC+v6t8
-	5Yna7zYvKDoWnxLANL/ZlGIRSJx85kGczWY/TDt+JMbrFpI1VbQqnh94Shc4YbEo4vrs/K4hG8T
-	+qWK8DgCF5NwHgSTFsHj9oQLGOzPjqISWscNGAdK4KPjjtMny3Fo9ePeYHem8mkhQ0R4vOA==
-X-Received: by 2002:a17:907:1b1e:b0:c46:9d50:8af0 with SMTP id
- a640c23a62f3a-c4ca7ad10cbmr261267566b.36.1793380071989; Fri, 30 Oct 2026
- 10:07:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DuwCMLGa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793380097; x=1824916097;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=aUI5eh52NNsqWKRcNFvW4Cmvnj+EOLZmBgtljE5pYJA=;
+  b=DuwCMLGah0Gc/H7wWBT+hSTOleLV+rgz/4TlAdR6jqVZ5pTURcrhGVrh
+   niVaNtam273+TA3Tk007bfL9op3GnuRRdo9tjFV/ssWF5MgLUyehlOESW
+   C7lq7s6nBJdRZUy3ySOH60Vbwz8iWmMbhQTNPDZzRZ+EmN1mK/OXY3zYy
+   yTWDhasNquG/netfSujG/YU6yh/pquLoaFXyf2lBcvmetyuhrmLlV5z7B
+   ijELFQiNcQhxBLLXOWXwmH1mn6QQHS3OBxpoHhzirCJWUhzzjGpmH0k/Q
+   8eOS40l/KA3UzBLJK+HVIUJQT+hfaHN3z7Ro9ZSifs0nEwx9Kzg4KRTrz
+   A==;
+X-CSE-ConnectionGUID: NL+6DPJuQXGKXAKhp5ieeg==
+X-CSE-MsgGUID: uqDw+bccQO69435ePBQZUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2166570"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2166570"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:08:16 -0700
+X-CSE-ConnectionGUID: FS20cj/BT1m6um7dSnznlQ==
+X-CSE-MsgGUID: MkZ1mWf0R9CCr+KttFsBTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5615077"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.85]) ([10.125.109.85])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:08:14 -0700
+Message-ID: <b9539a2c-fbe3-4043-9347-b60cbc375fe1@intel.com>
+Date: Fri, 30 Oct 2026 10:08:13 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,303 +72,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027024635.366900-1-prasad@arista.com> <20261030101535.GN257209@horms.kernel.org>
-In-Reply-To: <20261030101535.GN257209@horms.kernel.org>
-From: Prasad Koya <prasad@arista.com>
-Date: Fri, 30 Oct 2026 10:07:40 -0700
-X-Gm-Features: AclHuK-iy31HWG0hImZ2B5mI-iSu54uMUj-w_Tlsie6i_umsKnZ4WLRajsinLec
-Message-ID: <CAKh1g57V4xfLiXk68SMGnUGiAbXdnyEpxUz27bONxNyOQtT4OQ@mail.gmail.com>
-Subject: Re: [PATCH net] macvlan: fix allmulti reference counting in passthru mode
-To: Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-  Thanks. Please use the following Fixes tag:
-
-  Fixes: bbeb0eadcf9f ("macvlan: Don't propagate IFF_ALLMULTI changes
-on down interfaces.")
-  Signed-off-by: Prasad Koya <prasad@arista.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cxl/port: Fix endpoint RAS error unmasking
+To: Richard Cheng <icheng@nvidia.com>, dave@stgolabs.net, jic23@kernel.org,
+ alison.schofield@intel.com, vishal.l.verma@intel.com
+Cc: iweiny@kernel.org, ming.li@zohomail.com, linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kaihengf@nvidia.com, kobak@nvidia.com,
+ newtonl@nvidia.com, kristinc@nvidia.com
+References: <20261030095923.46051-1-icheng@nvidia.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20261030095923.46051-1-icheng@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-On Fri, Oct 30, 2026 at 3:15=E2=80=AFAM Simon Horman <horms@kernel.org> wro=
-te:
->
-> On Mon, Oct 26, 2026 at 07:46:35PM -0700, Prasad Koya wrote:
-> > Enabling allmulticast on a down passthru macvlan, bringing it up,
-> > then toggling allmulticast off and on can underflow the lower device's
-> > allmulti reference count.
-> >
-> > macvlan_change_rx_flags() only propagates IFF_ALLMULTI changes while
-> > the macvlan is up. However, the passthru path in macvlan_open() skips
-> > taking an allmulti reference when IFF_ALLMULTI is already set.
-> > Clearing allmulticast after opening the device therefore decrements
-> > a reference that was never taken. With no other allmulti users, the
-> > unsigned counter wraps from zero to UINT_MAX. The next increment
-> > fails with -EOVERFLOW and reports "allmulti touches roof".
-> >
->
-> Hi Prasad,
->
-> A Fixes tag should go here.
-> (No blank line between it and your Signed-off-by line).
->
-> There is no need to repost just to address this.
-> Replying with the Fixes tag should be sufficient.
->
-> > Signed-off-by: Prasad Koya <prasad@arista.com>
-> > ---
-> > Reproducer:
-> >
-> >   #!/bin/bash
-> >   set -euo pipefail
-> >
-> >   ns=3Dallmulti-test
-> >   host=3Dam-veth0
-> >   peer=3Dam-veth1
-> >   mv=3Dam-mv0
-> >
-> >   cleanup()
-> >   {
-> >       ip netns del "$ns" 2>/dev/null || true
-> >   }
-> >   trap cleanup EXIT
-> >
-> >   ip netns add "$ns"
-> >   ip link add "$host" type veth peer name "$peer"
-> >   ip link set "$peer" netns "$ns"
-> >
-> >   ip link set "$host" up
-> >   ip -n "$ns" link set lo up
-> >   ip -n "$ns" link set "$peer" up
-> >
-> >   ip -n "$ns" link add link "$peer" name "$mv" type macvlan mode passth=
-ru
-> >
-> >   ip -n "$ns" link set dev "$mv" allmulticast on
-> >   ip -n "$ns" link set dev "$mv" up
-> >   ip -n "$ns" link set dev "$mv" allmulticast off
-> >   ip -n "$ns" link set dev "$mv" allmulticast on
-> >
-> >  drivers/net/macvlan.c | 10 ++++++++++
-> >  1 file changed, 10 insertions(+)
-> >
-> > diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
-> > index afad90b9222a..e20d587453d1 100644
-> > --- a/drivers/net/macvlan.c
-> > +++ b/drivers/net/macvlan.c
-> > @@ -643,6 +643,14 @@ static int macvlan_open(struct net_device *dev)
-> >                       if (err < 0)
-> >                               goto out;
-> >               }
-> > +             if (dev->flags & IFF_ALLMULTI) {
-> > +                     err =3D dev_set_allmulti(lowerdev, 1);
-> > +                     if (err < 0) {
-> > +                             if (!(vlan->flags & MACVLAN_FLAG_NOPROMIS=
-C))
-> > +                                     dev_set_promiscuity(lowerdev, -1)=
-;
-> > +                             goto out;
-> > +                     }
-> > +             }
-> >               goto hash_add;
-> >       }
-> >
-> > @@ -713,6 +721,8 @@ static int macvlan_stop(struct net_device *dev)
-> >       dev_mc_unsync(lowerdev, dev);
-> >
-> >       if (macvlan_passthru(vlan->port)) {
-> > +             if (dev->flags & IFF_ALLMULTI)
-> > +                     dev_set_allmulti(lowerdev, -1);
-> >               if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC))
-> >                       dev_set_promiscuity(lowerdev, -1);
-> >               goto hash_del;
-> >
-> > base-commit: 7076f684d5132e6a6145e1da2fa74771ecd052e5
-> > --
-> > 2.43.0
-> >
->
-> I'm unsure if it matters, but the order of initialisation of multicast an=
-d
-> promiscuity differs here from the non-pass-through case.
->
-> Overall I think the approach you have taken here is appropriate
-> as a minimal fix for net.
->
-> Reviewed-by: Simon Horman <horms@kernel.org>
->
->
-> But I do see that there is growing duplication of code in the
-> pass-through and non-pass-through paths. And I believe that
-> is due to the approach taken by the existing code of using
-> goto to control flow (other than for cleanup in error paths).
->
-> In the longer term I think it would be nice to address that.
-> I took a stab at that. Perhaps I'm overthinking things.
-> But, FWIIW, this is what I cam up with (compile tested only).
->
-> diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
-> index a48c9e662fe9..f2a3cf540e4e 100644
-> --- a/drivers/net/macvlan.c
-> +++ b/drivers/net/macvlan.c
-> @@ -631,24 +631,31 @@ static const struct header_ops macvlan_hard_header_=
-ops =3D {
->         .parse_protocol =3D eth_header_parse_protocol,
->  };
->
-> -static int macvlan_open(struct net_device *dev)
-> +static int macvlan_should_set_promisc(struct net_device *dev)
+
+On 10/30/26 2:59 AM, Richard Cheng wrote:
+> Commit dab7162d0ae7 ("cxl/port: Move endpoint component register
+> management to cxl_port") moved EP RAS handling from cxl_pci to cxl_port,
+> while cxl_ras_unmask() have the assumption that port->uport_dev is a PCI
+
+s/have/has/
+
+> device.
+> If the topology use cxl_memdev as uport_dev, the PCI check will fail and
+> CXL RAS masks remain set.
+
+Endpoint ports always use memdev as uport_dev right? Maybe we can say the unmask has never run.
+
+> 
+> Resolve memdev uports to their parent dev and verify the device is PCI.
+> 
+> Fixes: dab7162d0ae7 ("cxl/port: Move endpoint component register management to cxl_port")
+> Signed-off-by: Richard Cheng <icheng@nvidia.com>
+> ---
+> Reproducer is a QEMU Type-3 guest
+> 
+> 1. Ensure no CXL region is active and PCIe AER is enabled.
+> 2. Restore the emulated RAS registers to their reset masks.
+> 3. Reprobe cxl_pci and read the masks again.
+> 
+> ```
+> BDF=$(basename "$(dirname "$(readlink -f /sys/bus/cxl/devices/mem0)")")
+> BAR0=$(awk 'NR == 1 { print $1 }' /sys/bus/pci/devices/$BDF/resource)
+> UNC_MASK=$(printf '0x%x' $((BAR0 + 0x1084)))
+> COR_MASK=$(printf '0x%x' $((BAR0 + 0x1090)))
+> 
+> busybox devmem "$UNC_MASK" 32 0x1cfff
+> busybox devmem "$COR_MASK" 32 0x7f
+> 
+> echo "$BDF" > /sys/bus/pci/drivers/cxl_pci/unbind
+> echo "$BDF" > /sys/bus/pci/drivers/cxl_pci/bind
+> udevadm settle
+> 
+> busybox devmem "$UNC_MASK" 32
+> busybox devmem "$COR_MASK" 32
+> ```
+> 
+> Before the fix, the masks remain 0x1cfff and 0x7f. After the fix,
+> both masks read as zero.
+> 
+> Best regards,
+> Richard Cheng.
+> ---
+>  drivers/cxl/port.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/cxl/port.c b/drivers/cxl/port.c
+> index c12fd0b89883..c48216e5078f 100644
+> --- a/drivers/cxl/port.c
+> +++ b/drivers/cxl/port.c
+> @@ -74,15 +74,18 @@ static int cxl_switch_port_probe(struct cxl_port *port)
+>  
+>  static int cxl_ras_unmask(struct cxl_port *port)
 >  {
->         struct macvlan_dev *vlan =3D netdev_priv(dev);
-> -       struct net_device *lowerdev =3D vlan->lowerdev;
-> -       int err;
->
-> -       if (macvlan_passthru(vlan->port)) {
-> -               if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC)) {
-> -                       err =3D dev_set_promiscuity(lowerdev, 1);
-> -                       if (err < 0)
-> -                               goto out;
-> -               }
-> -               goto hash_add;
-> -       }
-> +       if (macvlan_passthru(vlan->port))
-> +               return !(vlan->flags & MACVLAN_FLAG_NOPROMISC);
-> +
-> +       return dev->flags & IFF_PROMISC;
-> +}
-> +
-> +/* Initialise acceleration or add unicast address.
-> + * Skipped for pass-through ports.
-> + */
-> +static int macvlan_init_vlan(struct net_device *dev)
-> +{
-> +       struct macvlan_dev *vlan =3D netdev_priv(dev);
-> +       struct net_device *lowerdev;
-> +
-> +       if (macvlan_passthru(vlan->port))
-> +               return 0;
->
-> -       err =3D -EADDRINUSE;
->         if (macvlan_addr_busy(vlan->port, dev->dev_addr))
-> -               goto out;
-> +               return -EADDRINUSE;
-> +
-> +       lowerdev =3D vlan->lowerdev;
->
->         /* Attempt to populate accel_priv which is used to offload the L2
->          * forwarding requests for unicast packets.
-> @@ -661,40 +668,71 @@ static int macvlan_open(struct net_device *dev)
->          * populated we must add the unicast address to the lower device.
->          */
->         if (IS_ERR_OR_NULL(vlan->accel_priv)) {
-> +               int err;
-> +
->                 vlan->accel_priv =3D NULL;
->                 err =3D dev_uc_add(lowerdev, dev->dev_addr);
->                 if (err < 0)
-> -                       goto out;
-> +                       return err;
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +/* Clean up acceleration or remove unicast address.
-> + * Skipped for pass-through ports.
-> + */
-> +static void macvlan_uninit_vlan(struct net_device *dev)
-> +{
-> +       struct macvlan_dev *vlan =3D netdev_priv(dev);
-> +       struct net_device *lowerdev;
-> +
-> +       if (macvlan_passthru(vlan->port))
-> +               return;
-> +
-> +       lowerdev =3D vlan->lowerdev;
-> +
-> +       if (vlan->accel_priv) {
-> +               lowerdev->netdev_ops->ndo_dfwd_del_station(lowerdev,
-> +                                                          vlan->accel_pr=
-iv);
-> +               vlan->accel_priv =3D NULL;
-> +       } else {
-> +               dev_uc_del(lowerdev, dev->dev_addr);
->         }
-> +}
-> +
-> +static int macvlan_open(struct net_device *dev)
-> +{
-> +       struct macvlan_dev *vlan =3D netdev_priv(dev);
-> +       struct net_device *lowerdev;
-> +       int err;
-> +
-> +       err =3D macvlan_init_vlan(dev);
-> +       if (err)
-> +               return err;
-> +
-> +       lowerdev =3D vlan->lowerdev;
->
->         if (dev->flags & IFF_ALLMULTI) {
->                 err =3D dev_set_allmulti(lowerdev, 1);
->                 if (err < 0)
-> -                       goto del_unicast;
-> +                       goto uninit;
->         }
->
-> -       if (dev->flags & IFF_PROMISC) {
-> +       if (macvlan_should_set_promisc(dev)) {
->                 err =3D dev_set_promiscuity(lowerdev, 1);
->                 if (err < 0)
->                         goto clear_multi;
->         }
->
-> -hash_add:
->         macvlan_hash_add(vlan);
->         return 0;
->
->  clear_multi:
->         if (dev->flags & IFF_ALLMULTI)
->                 dev_set_allmulti(lowerdev, -1);
-> -del_unicast:
-> -       if (vlan->accel_priv) {
-> -               lowerdev->netdev_ops->ndo_dfwd_del_station(lowerdev,
-> -                                                          vlan->accel_pr=
-iv);
-> -               vlan->accel_priv =3D NULL;
-> -       } else {
-> -               dev_uc_del(lowerdev, dev->dev_addr);
-> -       }
-> -out:
-> +uninit:
-> +       macvlan_uninit_vlan(dev);
->         return err;
->  }
->
-> @@ -712,21 +750,15 @@ static int macvlan_stop(struct net_device *dev)
->         dev_uc_unsync(lowerdev, dev);
->         dev_mc_unsync(lowerdev, dev);
->
-> -       if (macvlan_passthru(vlan->port)) {
-> -               if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC))
-> -                       dev_set_promiscuity(lowerdev, -1);
-> -               goto hash_del;
-> -       }
-> -
->         if (dev->flags & IFF_ALLMULTI)
->                 dev_set_allmulti(lowerdev, -1);
->
-> -       if (dev->flags & IFF_PROMISC)
-> +       if (macvlan_should_set_promisc(dev))
->                 dev_set_promiscuity(lowerdev, -1);
->
-> -       dev_uc_del(lowerdev, dev->dev_addr);
-> +       if (!macvlan_passthru(vlan->port))
-> +               dev_uc_del(lowerdev, dev->dev_addr);
->
-> -hash_del:
->         macvlan_hash_del(vlan, !dev->dismantle);
->         return 0;
->  }
+> +	struct device *host = port->uport_dev;
+>  	struct pci_dev *pdev;
+>  	void __iomem *addr;
+>  	u32 orig_val, val, mask;
+>  	u16 cap;
+>  	int rc;
+>  
+> -	if (!dev_is_pci(port->uport_dev))
+> +	if (is_cxl_memdev(host))
+> +		host = host->parent;
+> +	if (!host || !dev_is_pci(host))
+>  		return 0;
+> -	pdev = to_pci_dev(port->uport_dev);
+> +	pdev = to_pci_dev(host);
+
+Can we simplify this to something like:
+	struct cxl_memdev *cxlmd = to_cxl_memdev(port->uport_dev);
+	struct device *parent = cxlmd->dev.parent;
+
+	if (!dev_is_pci(parent))
+		return 0;
+	pdev = to_pci_dev(parent));
+
+Also, maybe we should rename it to cxl_endpoint_ras_unmask(struct cxl_port *endpoint) to be intentionally clear?
+
+>  
+>  	if (!port->regs.ras) {
+>  		pci_dbg(pdev, "No RAS registers.\n");
+> 
+> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+
