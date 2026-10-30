@@ -1,45 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793388899;
-	b=WYzJEzHt5m/He/Cm9yXkN/lZtDsnI9cPBmzQWiEwfkMoVXyXhSWemxpsAX+gBOH8KbAy
-	 cAIIfX/iLk+D9YyGYQABsoLfTS/MpGPTVbNIezXitzL8LgskNAzHFlz67TEqwuLV8zpLw
-	 bjjGfYYgpIjDGCrwaaWhlOWpmFbF13V5NqtpB+35EgHovdz4RzJMam/y2UXv0487HyUX7
-	 /fDjqFTxFWtTZFf1EHh4YaP0uijgORA3kr5zjiSOOZA0nlcEW3FtcqHrhaZoPM3/VCQ1q
-	 cD38fQho0k5P7QJkgBxsg722jyXA+YWR+n2Yk6qfv4hkSIj9NP3ol44aWOFDnjmpymg==
+	t=1793389004;
+	b=DL4vgoWHUTU2xXXjDn7WaUlezCQkdXJEHz/yvF+qBtIDs3mYKDbjM8vXnusZsltF/ZpX
+	 pcdwavUbu2WwFaJ71cUEroJFE4MdxF2WwdtNHRyuoR87WyPATVpfTgHU3IUmG5PEI/h8Q
+	 kNrfQJv7NQJRjocf+FUQ2YUVDVadsRKxQ22F3pDW6ZbmmBIYRxTcK7Bx6Fk3T0jTyWv10
+	 Oy9OfkHWWD+00x/fMo/HEE3hO2A3K8qeMv9m5qofpDd0wLJe9RDgRW+8O7fQNSy5MfTNp
+	 qM3+kIuqodecxIx64TshvjDEafStSyLZVuPyL6otYjaSJZv5LiolrY9+5/SWrdEtVMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793388899;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=crQRzA1NZRP9Kane1rHo0PkkqJUfG1/DLCkh3lApae8=;
-	b=haQXuwOVly6SAtyVvw68J3OlMd6VYnz9FSmbMOLJo5M3r+2ItmiNJwXbQCGI8cQJEc38
-	 vGtJiAmgoOBOKpcAPbgbF0jPC8Yt2MMYk5FMaj0igPgKRqDd2TImhwD1qvFcMp3q98Hzn
-	 iH3HCZDU/VVMPoPNyO8wpdC86yICJ5lCDI+Fw1O5aJ+ZDlAAN1foIVCfLE0dWrlzQofQq
-	 V7+BLyfSD9eu3R2dFATnGfYYf8LwOVjAsrK/J41r0WleK8bbuUXVHsdXxlCJZx3PpU94w
-	 pEu2T03bIHSgy9lzeViYuQnd6fSOZvv5ZekXPGMEzdSh98E5uF401ubcrHDi42Be2VQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793389004;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=AVaau5y8hwo+5sTMNM/it+5IuZGWaaPTl9DZXOLv2/0=;
+	b=hMOgTudJeVxq7M4LATo0YBxFxbe526iiHdk/o8EmDaC+QATUZAij4+5IeyBS3EzSD89O
+	 DATmGhfIzelz2jB5id5cwy0qtjrJsBZaVYTXHKHJLR6g4tci/nQb0ItCn88m9VnmMiQfu
+	 PlY68JB5+Xzs/kD/3a8Nhp8HmDcOCb7+AOUprhyPvcZLhwBkRygajTuaKl8fYY35XQET2
+	 cBWVnudDqllPqjQuTIjlDZT4Kwne7nWE435vPeroXWVpfFisrZyS+SHEqmykLrb4SMGr2
+	 w1mewM7aAizm6iRO3Du9/TpXPPC06U06b8PYqhsJRFtKpki9Cypr23IBTEm4YXWfyDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lv64Q36d;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--nkapron.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ODxpJ1bH;
+	arc=none smtp.remote-ip=209.85.214.200
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F65C606A31C;
-	Fri, 30 Oct 2026 19:34:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8CD606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:36:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D8CD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nkapron.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lv64Q36d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77D141F000C1;
-	Fri, 30 Oct 2026 19:34:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793388898;
-	bh=crQRzA1NZRP9Kane1rHo0PkkqJUfG1/DLCkh3lApae8=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=lv64Q36dqcfNzh9rv+WZ16OOePlRH6JNyTyhtKgdajymrh/a6wJkIxQKelCoEpCG8
-	 K2NBflVPluGAlDJJ2swH25jXWDWOP4L7LAOUbjA4jnzZ1jgPCXu6Bi1wbxYPh+OUuf
-	 4pdLu7cVa2M2/0ls6FV6C5o60me2UUMxN301lcahnwnMTBVPQAJMMAOmjiiiJwmTfC
-	 PmTui3Qtkx0jEoxWBXLWf9P5eo7HivRwmVMwcf6RKv4eby6q9gfjGE8nmL/zr5bJnP
-	 JilI3c50W9J2qggRmcNVnNGPmIRpiMohfOiB76OcU2CRIJIowq2wFrUPDRyy0icpHB
-	 VRXI88NVcfgsg==
-Content-Type: multipart/mixed; boundary="===============1483456430051234551=="
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ODxpJ1bH
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e9d52f684fso10977865ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:36:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793389002; x=1793993802; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AVaau5y8hwo+5sTMNM/it+5IuZGWaaPTl9DZXOLv2/0=;
+        b=ODxpJ1bHMzzUwe5Lx+VKgMzYWIxYluNtfud6pQLLq8DH6sEfdgAm/CqcVSIJb2SBGe
+         pLWYr1ssNy9i445gE6+cEssKgYQZY6H7yxItGsz8NXjcrgTB59OeklgrAuKE4jZHKtHF
+         g2nsrIqsS33XTW8DcL9hFwtr1kFbtG4DObJ5d1LCFnSFndyDgYJAHn1HCdw+u2dUtiCu
+         ccaG0nEDXpC8BpNxRcXp2w3yb984ghIRC2OpmRnxpj+vaB+OeB4/yx0rdhpfSw+csdyy
+         3E/JnRRM18tSubKRxhe2S0GXSe2apZqgwMiyTbtpd6Ki1PY/sJiqy4vn6as1YRSzK2q4
+         1ApQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793389002; x=1793993802;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AVaau5y8hwo+5sTMNM/it+5IuZGWaaPTl9DZXOLv2/0=;
+        b=bi7QLJ4LwQp9VhTwg0+Q+kObUDUH7786wngYTxgDNrsPmpTqxtVBWWCPUX2QHYVE7C
+         AXrdAD2c+XRHFdizMM46rEhunw7MUH8llrrjKNwMkbaS4z9geiyjyqKpnz5j11eQkOym
+         1edAsFaSvGU1ebrkNPrCM+BzTGA1dhe6IdhNe11oN65qay7+KEE+z6753GNp5oBPnSS+
+         s14Qc3ojaQBAQ733JEm4F5NHwJm4WjITfoAkv957ylapzYkxymxdceJWYjS5APJLhDbP
+         aZRUJCrsQHN4rA32iVq1jJ8rskTov5YDcXY4kdPB+VZLOLF2Q0wNcxRhRDT4sUOhXcwg
+         PKDA==
+X-Forwarded-Encrypted: i=1; AKwUvBxkZrGPbTZgpkxY0bInocRlorEkJbvWKXrt+fGN3DPEM2NxIl/Gdu5nva98bbufrKrBCzjzndYSDeJYIn8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhZqu4YVxewqdA4QOsfzDO7/vnWR/Jww3G4E0ubWGQt7qTzTSW
+	qxJyZ1SDAiPqfo6i4cd9ttmxMYkC4RIoNUKC0As6e9RxEK1Adu/I7KMbjlq9jftQMrEKNg5d1aq
+	ZTOaVKE/GWA==
+X-Received: from plcy11.prod.google.com ([2002:a17:903:10b:b0:2e5:6ae7:d701])
+ (user=nkapron job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ffcf:b0:2e9:a782:bb82
+ with SMTP id d9443c01a7336-2eb364e93afmr30322805ad.54.1793389002473; Fri, 30
+ Oct 2026 12:36:42 -0700 (PDT)
+Date: Fri, 30 Oct 2026 19:36:37 +0000
+In-Reply-To: <tencent_6FF2EBE4EF5FF4F324C8DC4AD0F39588E505@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,125 +78,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Message-Id: <09475f69602098aa106af66960f75de688d53ca24efdf8dcdc6f91c0d2a59c6e@mail.kernel.org>
-In-Reply-To: <20261030-ftrace_in_test_progs-v1-1-aa50c5dd1ccc@bootlin.com>
-References: <20261030-ftrace_in_test_progs-v1-1-aa50c5dd1ccc@bootlin.com>
-Subject: Re: [PATCH bpf-next 1/2] selftests/bpf: add helpers to manipulate ftrace
-From: bot+bpf-ci@kernel.org
-To: alexis.lothore@bootlin.com,andrii@kernel.org,eddyz87@gmail.com,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,shuah@kernel.org
-Cc: ebpf@linuxfoundation.org,bastien.curutchet@bootlin.com,thomas.petazzoni@bootlin.com,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,linux-kselftest@vger.kernel.org,alexis.lothore@bootlin.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri, 30 Oct 2026 19:34:58 +0000 (UTC)
+Mime-Version: 1.0
+References: <tencent_6FF2EBE4EF5FF4F324C8DC4AD0F39588E505@qq.com>
+X-Mailer: b4 0.17-dev
+Message-ID: <179338899796.2590875.15337207674245295434.b4-review@b4>
+Subject: Re: [PATCH] usb: gadget: configfs: NUL-terminate extended property data
+From: Neill Kapron <nkapron@google.com>
+To: Yingjie Wang <1075151112@qq.com>
+Cc: linux-usb@vger.kernel.org, Neill Kapron <nkapron@google.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Bingquan Chen <patzilla007@gmail.com>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
---===============1483456430051234551==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+> Unicode extended properties account for a UTF-16 terminator in
+> ext_prop->data_len.  The configfs store path currently allocates only the
+> input bytes, so ext_prop_data_show() copies one byte past the allocation.
+> 
+> Use kmemdup_nul() for the configfs data so the source byte implied by the
+> terminator-inclusive length is present for both the configfs readback and
+> the descriptor conversion.
+> 
+> Fixes: 7419485f197c ("usb: gadget: configfs: OS Extended Properties descriptors support")
+> 
+> Reported-by: Bingquan Chen <patzilla007@gmail.com>
+> Link: https://lore.kernel.org/all/20260421141010.5607-1-patzilla007@gmail.com/
+> Cc: stable@vger.kernel.org
+> 
+> Tested: x86-64 KASAN configfs readback through a built-in RNDIS function
+> instance.  The baseline reports a slab-out-of-bounds read in
+> ext_prop_data_show(); the patched kernel reads back the expected 0x41 0x00
+> bytes with no KASAN report.
+> 
+> Signed-off-by: Yingjie Wang <1075151112@qq.com>
+> ---
+>  drivers/usb/gadget/configfs.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
+> index 51df6d1d1487..c302e8dd25a7 100644
+> --- a/drivers/usb/gadget/configfs.c
+> +++ b/drivers/usb/gadget/configfs.c
+> @@ -1351,7 +1351,7 @@ static ssize_t ext_prop_data_store(struct config_item *item,
+>  
+>  	if (page[len - 1] == '\n' || page[len - 1] == '\0')
+>  		--len;
+> -	new_data = kmemdup(page, len, GFP_KERNEL);
+> +	new_data = kmemdup_nul(page, len, GFP_KERNEL);
 
-> selftests/bpf: add helpers to manipulate ftrace
+While this fixes one case, won't it cause ext_prop_data() show to report
+a larger size with the trailing NUL?
 
-TL;DR: Restoring ftrace filters in trace_helpers.c may abort on a saved line
-over 126 bytes (128-byte buffer), leaving the filter empty, so all functions
-get traced and global ftrace state isn't restored.
+The OOM still exists when switching types in ext_prop_type_store().
 
-> diff --git a/tools/testing/selftests/bpf/trace_helpers.c b/tools/testing/selftests/bpf/trace_helpers.c
-> index 6d7a4b8c4ab8..1f26a057a810 100644
-> --- a/tools/testing/selftests/bpf/trace_helpers.c
-> +++ b/tools/testing/selftests/bpf/trace_helpers.c
+Can we add a couple of small helpers to convert between the raw payload
+length and the wire length and use them in ext_prop_data_store/show,
+and ext_prop_type_store to standardize and sanitize the length?
 
-[ ... ]
-
-> +#define CHUNK_SIZE	128
-
-[ ... ]
-
-> +static const char *tracefs_next_line(const char *content, char *buf, size_t size,
-> +				     int *err)
-> +{
-> +	const char *end;
-> +	size_t len;
-> +
-> +	*err = 0;
-> +	while (*content) {
-> +		end = strchrnul(content, '\n');
-> +		len = end - content;
-> +		content = *end ? end + 1 : end;
-> +
-> +		if (!len || end[-len] == '#')
-> +			continue;
-> +
-> +		if (len + 2 > size) {
-> +			*err = -ENAMETOOLONG;
-> +			return NULL;
-> +		}
-> +		memcpy(buf, end - len, len);
-> +		buf[len++] = '\n';
-> +		buf[len] = '\0';
-> +		return content;
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
-> +static int tracefs_restore_file(const struct tracefs_ctl_entry *entry)
-> +{
-> +	char buf[CHUNK_SIZE];
-> +	const char *content = entry->old;
-> +	int err = 0;
-> +
-> +	if (!content)
-> +		return 0;
-> +
-> +	if (entry->kind == TRACEFS_CTL_FILTER) {
-> +		err = tracefs_write_file(entry->path, "");
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	while ((content = tracefs_next_line(content, buf, sizeof(buf), &err))) {
-> +		err = tracefs_write_file(entry->path, buf);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return err;
-> +}
-
-Can a saved line longer than 126 bytes abort the restore here?
-
-tracefs_restore_file() splits the saved content into a buffer sized by the
-read chunk constant:
-
-	char buf[CHUNK_SIZE];     /* CHUNK_SIZE is 128 */
-
-and tracefs_next_line() fails the whole restore with -ENAMETOOLONG when
-len + 2 > size.  The kernel can print much longer entries than that.
-print_rec() emits the full symbol (KSYM_NAME_LEN is 512) plus the
-" [module]" suffix, so mangled Rust symbols or long C names with a module
-suffix can exceed 126 bytes.
-
-For TRACEFS_CTL_FILTER entries the file has already been emptied by
-tracefs_write_file(entry->path, "") before the long line is reached:
-
-	if (entry->kind == TRACEFS_CTL_FILTER) {
-		err = tracefs_write_file(entry->path, "");
-		...
-	}
-	while ((content = tracefs_next_line(content, buf, sizeof(buf), &err))) {
-
-so the restore stops part-way, every entry after the long line is lost, and
-if none were restored yet the filter is left empty.  For set_ftrace_filter
-an empty filter means all functions are traced, which is the opposite of
-the original restriction, and the global ftrace state is not restored.
-
-Should the line buffer be sized to the actual line length (or should the
-content be written straight from the saved string) instead of being tied to
-CHUNK_SIZE?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/41113297251
---===============1483456430051234551==--
+-- 
+Neill Kapron <nkapron@google.com>
