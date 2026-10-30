@@ -1,94 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793402667;
-	b=LHIC8bwCC4HoLcXff9loqPLVOlSCwy597lgYUTvMirhL2Et5JomrtwnC+9HwpV5HEqqd
-	 3xjXqNkzEdXkAnFuXa2lTe0Zt9QMlnI2jxoNog1z1B5MTQGFEQHz9aTsIewrFNef53NMB
-	 74dSe93zInuifdMR4L7Arso2OQWtvAGRFTQFoLNvDgENsFqHMptiV9sM4chSdIPWV9g0H
-	 4kPRM0KZznV7HtGZThdiHYY2FGU6eZSP1IKZ78u6KqjfW7yJDiVqx/lo2dCEPc0PVmd1F
-	 SIgC6AQhNmJ3swBnkTYIu+tVL1JZF+PiZC1JobcJyk+jnu7D9bjmlcNQCajrI8W+mpA==
+	t=1793402669;
+	b=Y9eRlgyM4ncm8jB2W3brMC2njuNvWaov7OPMYJldSyuzbQ/NKPompQgKI+kGMqAsfd14
+	 7rIXMiFsTAHRDfSIbHHNfce4JrUsTSG4W6GFiKe/8lzmCZRzV28MhZcZKSzrMdgZa2vVG
+	 sr0M4gb6s4JEg3K+bCE28hJpXSQ01BxXYHYnOHlGVOwNWqqz71a//db47XrVq1+hFSaEy
+	 0qAp5zcnrefpOiKcCVaPadN45dKz4T0L+74BCPihFH98Ua9BKY1vG1XOuO/j+VlNtKDyY
+	 d3iQPfWe1D6mMBy1KIRQezBNzkK9Kx8YjqnhaIOe9gs9bx84v/OUdkdFmt5IaG5BNsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793402667;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=p8PKPotJoD0jhi3l1VncVirXzxS18uQyTptF2D+D6D8=;
-	b=GWrXFRDuEE71ecB9fehBRzJu4kiArSql8+85gSwalhmA9Rx8ofhWKD7Pv3Piq4pNXonm
-	 S3jzhfwZiFZWJlF7G62Y3mi/I5QZ4BE9OSsHth972oEczt9U0sTHjk4MNIh0ms/QGuSec
-	 AZeawREr1tIWE9bcfr4VQyDrymXkjW3LwHny93O9bnZc7IyOcW0NeqHbkffy/IYysO0VJ
-	 jPOYOyTxCKmdondo/kJyH2LxsCGeCb5+d/m/xLlGTd+JEFtTatvPw+CTT2Hd1A8jrcmhz
-	 lcc6mpmi4R9YyZRmT0joTrsMCTipZ/IsExWH87POWQAInkqlaRgDpW6mWZ5Nw59I8hA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793402669;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=iRUToUEYQ5+pLNami4cqTlxxaqWZbejTheSmhH26wrI=;
+	b=lusQi3id/r4gic88bB2ZTuoMzOC6ZVH0VnMK0nKBvnQwOdT9shL3sz0pIPqXlNaJvydI
+	 Aw32FDK2LQT2xkgz30fGihI7eWmdE8dNABOTQbn9FMG5wGZeZdTwI9zrXrfXrApYVuoeY
+	 VrLk1moQuqrjTTcwz5uXljhraMtI1JFk2HF4Sjq0RyEPX6e7FdU9aYHrZe+qCfghft8N3
+	 vE+B/XckAMOc3m4a0lvI4+2Kv4grGxkwYNqqS7Or6+eqCjPoXzbwF1gN5CvVd0lIh8LZ2
+	 2NGQiHyCjS+fFoMbaKnwsoGk+nmmPL4+q+h8czEneW3JNj6JBhMMq0Jgcy7Z122fatA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=0x0f.com;
-	spf=pass smtp.mailfrom=0x0f.com;
-	dkim=pass header.d=0x0f.com header.i=@0x0f.com header.a=rsa-sha256 header.s=google header.b=XBQKzzza;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jcB6cP58;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144EA606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:24:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 144EA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0x0f.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC59606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:24:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BC59606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=0x0f.com header.i=@0x0f.com header.a=rsa-sha256 header.s=google header.b=XBQKzzza
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-369f33df08eso2553087eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:24:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0x0f.com; s=google; t=1793402666; x=1794007466; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p8PKPotJoD0jhi3l1VncVirXzxS18uQyTptF2D+D6D8=;
-        b=XBQKzzzavt6lQhKKmHzX+ticLjHtzVUrF/R1Nw+0sQkc1vdHYAYW05ux0L5DmbU0Rf
-         XK/LZaiXPL5E5qDb941COL5axVNH1DHprJOMOcEg6sneNJy584ZgCapiro6ltzEySMgB
-         BpYig0Pwv695o+bYXK+4d2Du6wQvdizAEFGt8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793402666; x=1794007466;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p8PKPotJoD0jhi3l1VncVirXzxS18uQyTptF2D+D6D8=;
-        b=TwlI3Yo32kLc3cQVhjmQh6MDhT/lwUwyWd7hynTSNpvD+lbv3GS1j/4awAJR4z5YdW
-         i2mrop3nzDvKXktUSYNLgQAhc++T/KHbk+D5HrqZFLpbF93XPo+bY2o9kXewNKY2OXuZ
-         mJW9Kx2mLm5HORiuRyUf+333dU2cyF+6bnRcyAF90mTih6RKCB0QGzCkO/ctJpgFB7xl
-         3VrLsUQ7Mw1+X41XrOPUJjeRULGDPPwfgo6oknTxIQrYim9FYrrVyvklbfN4zumHAKkH
-         oCUS/K1Qy4R2YTj+MszSa0l7lzK8f6nNd/weFgKu/FbWzlHEsnM1QVeK8Pn3OQLSYnrl
-         RGAA==
-X-Forwarded-Encrypted: i=1; AKwUvByRkS4A3WBU8PvT/UjDSIvuPO4xaASQipoxfGhpLgOdAP8Cyr5s/oMLTZskXGPxQa3lwYVqtMtYGpqflUs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLISk4vAJwtU6NOkY8LEDW9q41aQTnzz7bFKa0jfLJwabJVfhHG
-	FoPpJFG0D1b41YfjAwCvOWOSexmEa1JEI6upzliOHk8g/aARLs9x1Y7Qu2HhkvUXaFE=
-X-Gm-Gg: AYBFou1JcQsC9CPPSaWmeK33o5gWkuYYDBdZ6oz4qZPU/HxbQ5/QtbiBa3J7ps/07sO
-	Je0cB1yo3rjSS4vh/wFvv/jlvDM9x93xaMxB88Er9q7vDtMkPcGQ0yXOiINcJ7Tn+ky3XnO92h+
-	VwdelyrMMNXCjMRp0jZnqBH/Q4XDjU0fZkJ0IE4D2pWrfMD5iEdudQWb03falJoF7nOCrIdyf9M
-	6Rr+nJrMBtpGaqZ/Lo3z27T+XWsGrp5qKMV0e9TAiLialHUnTcdm8KzPGX3K8woglyhRWmw+msP
-	I0IAGo9SOWoQOOV2aaR0jp+7jJhMg8B4hUh4ZFJElrFXRrYFMDZnTs3xUPlFA8eZfv6mYtG1rKw
-	EvTVJX2Ud5z0GddHxNrIXHrt1z4RSVUtpD1YrrIeaQQD/RXmoqtJO020Ca71cYxSjgyFXwLbaCm
-	H0YiZnl8n6n4gNf//4golb0doY6LiN+qapxpTJrk9T4g0l7BBvP6dn7NrsAu3R+GQTEW1HJjdsU
-	u3fTD7/Cb2FBHmTLQj22e7uSYvcNAAS0uALowFtXM8xl7xxUKqFdQoruGKXGHfUNxm5CV1HaOoP
-	QoYOMGCT4ziQ6L8CKh2J9hbF7Lv9Cj7NLRmnh1FClIGrACMqnkhnE/l61v42iuDFmvFwpQ0=
-X-Received: by 2002:a05:7022:f908:b0:14c:d84c:7182 with SMTP id a92af1059eb24-1ac5da75597mr4437875c88.22.1793402665906;
-        Fri, 30 Oct 2026 16:24:25 -0700 (PDT)
-Received: from shiro (p1795186-ipxg00e01sizuokaden.shizuoka.ocn.ne.jp. [153.207.151.186])
-        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1ac1854d925sm16104041c88.7.2026.10.30.16.24.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 16:24:25 -0700 (PDT)
-From: Daniel Palmer <daniel@0x0f.com>
-To: maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	bigeasy@linutronix.de
-Cc: linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Daniel Palmer <daniel@0x0f.com>
-Subject: [PATCH] powerpc/powermac: Always close the timebase-sync i2c bus
-Date: Sat, 31 Oct 2026 08:24:18 +0900
-Message-ID: <20261030232418.1145779-1-daniel@0x0f.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jcB6cP58
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793402669; x=1824938669;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=GwfwChtmUiK0DyZM4Sbz7P9UuIn3gQQ7a1p4aimiRwM=;
+  b=jcB6cP58YV8s4rLHhbI0fuqy2npaMn6+Vc7UlFJoYXUyVe/T8LK74ML+
+   teCTMPlS9d1fMrLOdrkotaDTrrlaY0j2Q4u/nKh7CP6alZW/vukw8qT0H
+   h30Tgb3r904i7244l+tkwVLSFhf8GjccvmmE4/rEdTw5i6jBR1nhah9qy
+   D/LD4y547D/YrBhjWInEF3t8NYTXp0eH7o07s0RccUDLpdMwKU708hXRj
+   61YUfPNwV75XtAYYv3n7hIKgGHVQscUmdvFx/15fGK2O2mNf/Bdgzr83x
+   73eSkEzFOvfNqcPoHCcCgu4J0dl1KDUBBEt2nWd/k7HJbuU8efj5xmche
+   w==;
+X-CSE-ConnectionGUID: NDlsHOTnQ2KvI3DnPsi6YA==
+X-CSE-MsgGUID: DwJFuJWXSWe7fxhV8S2QFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2167662"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2167662"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 16:24:28 -0700
+X-CSE-ConnectionGUID: LTd44okxRrSWPu31oSRFCw==
+X-CSE-MsgGUID: tHVvwLtnQwq545G07CYMaQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5445043"
+Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.109.99]) ([10.125.109.99])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 16:24:27 -0700
+Message-ID: <93e3e1388b3d4512818e7f1e19003e0feb4890dd.camel@linux.intel.com>
+Subject: Re: [PATCH] sched/cache: Check reduced capacity before
+ alb_break_llc()
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>, peterz@infradead.org, 
+	mingo@redhat.com
+Cc: yu.c.chen@intel.com, kayracizmeci@gmail.com, kprateek.nayak@amd.com, 
+	juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com, 	rostedt@goodmis.org, bsegall@google.com,
+ mgorman@suse.de, vschneid@redhat.com, 	linux-kernel@vger.kernel.org,
+ zhanxusheng@xiaomi.com
+Date: Fri, 30 Oct 2026 16:24:26 -0700
+In-Reply-To: <20261029023650.3404429-1-zhanxusheng1024@gmail.com>
+References: <20261029023650.3404429-1-zhanxusheng1024@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,55 +87,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-smp_core99_cpu_prepare() opens an i2c bus for "tb sync" and that is
-closed again in smp_core99_cpu_online().
+On Thu, 2026-10-29 at 10:36 +0800, Zhan Xusheng wrote:
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+>=20
+> need_active_balance() moves the only CFS task off a CPU whose capacity
+> is reduced, for example by IRQ load, to an idle CPU with more.
+> alb_break_llc() runs first and refuses to move a lone task off its
+> preferred LLC, so if no other CPU in that LLC is idle the task stays on
+> the reduced CPU. =C2=A0
+>=20
 
-If a processor module is dysfunctional, not seated correctly or
-otherwise fails to come online smp_core99_cpu_online() is not called
-and the bus stays open.
+The patch moves the task without knowing whether another CPU in
+the preferred LLC is idle.
 
-On some G5s (tested PowerMac7,3) this i2c bus also has the CPU
-temperature sensor and fan controller connected to it so not closing
-the bus stops the kernel from making sure the working CPU doesn't
-roast itself to death.
+> Like asym packing, which was moved ahead of
+> alb_break_llc() for the same reason, this is a performance case that
+> cache locality should not override.
+>=20
+> With two LLCs of two CPUs, the other CPU of the task's LLC busy and 60%
+> of the task's CPU spent in a hardirq, a CPU-bound two-thread process
+> stayed there for 20 seconds at 38% of its normal throughput.  With this
+> change it moves to the idle LLC within a second, as it does with cache
+> aware scheduling disabled.
 
-Rename smp_core99_cpu_online() to smp_core99_cpu_online_prepare_down()
-and wire it up to get called when onlining fails as well so the
-bus is closed and the working CPU stays working.
+I agree that this is an issue.  But I have a couple of reservations about
+the proposed fix.
 
-Fixes: 68e694dcef24 ("powerpc/powermac: Convert to hotplug state machine")
-Signed-off-by: Daniel Palmer <daniel@0x0f.com>
----
- arch/powerpc/platforms/powermac/smp.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+1) There could be other idle CPUs in the preferred LLC. It would be
+better for the task to move to one of them, through the idle balance
+on those CPUs (via same reduced capacity check), than to move to a non-pref=
+erred LLC now.
 
-diff --git a/arch/powerpc/platforms/powermac/smp.c b/arch/powerpc/platforms/powermac/smp.c
-index 88e92af8acf9..e310b6fbbede 100644
---- a/arch/powerpc/platforms/powermac/smp.c
-+++ b/arch/powerpc/platforms/powermac/smp.c
-@@ -865,7 +865,7 @@ static int smp_core99_cpu_prepare(unsigned int cpu)
- 	return 0;
- }
- 
--static int smp_core99_cpu_online(unsigned int cpu)
-+static int smp_core99_cpu_online_prepare_down(unsigned int cpu)
- {
- 	/* Close i2c bus if it was used for tb sync */
- 	if (pmac_tb_clock_chip_host && smp_core99_host_open) {
-@@ -893,9 +893,9 @@ static void __init smp_core99_bringup_done(void)
- #ifdef CONFIG_HOTPLUG_CPU
- 	cpuhp_setup_state_nocalls(CPUHP_POWERPC_PMAC_PREPARE,
- 				  "powerpc/pmac:prepare", smp_core99_cpu_prepare,
--				  NULL);
-+				  smp_core99_cpu_online_prepare_down);
- 	cpuhp_setup_state_nocalls(CPUHP_AP_ONLINE_DYN, "powerpc/pmac:online",
--				  smp_core99_cpu_online, NULL);
-+				  smp_core99_cpu_online_prepare_down, NULL);
- #endif
- 
- 	if (ppc_md.progress)
--- 
-2.55.0
+I think the LLC override should apply only when no idle CPU in the
+preferred LLC has enough capacity, as your change log describes.
 
+2) There could be ping pong migrations.  Cache aware scheduling could=20
+move the task back to the CPU, because with only IRQ load on it, that
+CPU is considered idle. I think this would also need to be dealt with.
+
+Could you check nr_migrations in /proc/<pid>/sched, or trace
+sched_migrate_task, over the 20 seconds on your setup
+before and after your patch?  A run with 20% to 40% irq load would also hel=
+p.
+
+Tim
+
+>=20
+> Fixes: 714059f79ff0 ("sched/cache: Handle moving single tasks to/from the=
+ir preferred LLC")
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> ---
+>  kernel/sched/fair.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index cfc982205b98..e313c6d212c6 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -13585,12 +13585,6 @@ static int need_active_balance(struct lb_env *en=
+v)
+>  	if (asym_active_balance(env))
+>  		return 1;
+> =20
+> -	if (alb_break_llc(env))
+> -		return 0;
+> -
+> -	if (imbalanced_active_balance(env))
+> -		return 1;
+> -
+>  	/*
+>  	 * The dst_cpu is idle and the src_cpu CPU has only 1 CFS task.
+>  	 * It's worth migrating the task if the src_cpu's capacity is reduced
+> @@ -13604,6 +13598,12 @@ static int need_active_balance(struct lb_env *en=
+v)
+>  			return 1;
+>  	}
+> =20
+> +	if (alb_break_llc(env))
+> +		return 0;
+> +
+> +	if (imbalanced_active_balance(env))
+> +		return 1;
+> +
+>  	if (env->migration_type =3D=3D migrate_misfit ||
+>  	    env->migration_type =3D=3D migrate_llc_task)
+>  		return 1;
+>=20
+> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
