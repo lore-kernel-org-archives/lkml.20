@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356070;
-	b=ul5b0CTXQOMpU5tr1+G752dmqppCqjxtl3VQfiChjbt77VtDxERnNv2ZnHfd2pcW3306
-	 fYz/+Zs3w7E2abwISWDwG+jPmoDLJMElGeFXP1qN0g8bflCgPqRgkT+uTQSh/r9wLnNVc
-	 9tXC1Ae7pcApIZUys+t39mdFzX5hdIwkQjYt2w59F9kMZ3ecVXiySk63xa9IolgSPk9x9
-	 qFtw1DjkIw8ebY9yDolhrD2KiPRob8HNN42IzXiyf/mdu+s7hNNB763k9pkhFrSpg1GRK
-	 2gAUt5IRHLg0mQN6DpUzVjJZRMFwLiqmxmGhMp5s7hIh8q8ZXN7IZwuAC1tYpEc/h5A==
+	t=1793356073;
+	b=OXi0Wu7v7bPyv0j/5Vg3KDTcGGZW00+is7lsW0QSLb8IsBYpmaodrslSBqEsQ2v4PZ/8
+	 Np061zxqZDtbsZ81F9l8A8xz0AUTiS0XkSShRab9Q3Hu5VTCxVNPfwRHEfQYgjctX4Cea
+	 z3ttbHpc6amuMcXoM/LuZS72293UiYnzC6BN/Xu/yLdy5vFTfutv3vH4NURTN041nnzZB
+	 JMYxO8sgZzwczYdThEuonR/tb2KeXSroz/Z7YKmFA9fTGy74jjDZa4l2uYUCLpfX3qn4u
+	 WsGu5qy8YiVbbcKXih5v+XmDkU+7C5+Imp4Yaza56+VwJ7oEdp1zgu0KeV5Bq0Gpfwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356070;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356073;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=RymG5Zs9FwMJtITbzdgvGCkoIgIBEM6um3giVlZIMck=;
-	b=wFWShO7OWqQrfEsGHwbyk+Zgezyp4bYFxBjibWsoe01UaYy1gg2Bx1jmFUmWKINAcdkM
-	 /OXTAvMfYipywQBfJvF+MbcnbcfnfYyHzBavzdzJifAz/82J9cBbV+dks2WBvZlUMqlkg
-	 N9pVObQSWVYKzlQAYUgd5n/W/8waJMMTqNU+k3kiZ3A53oX7/wpUpHnMVVkO9a+e20bOq
-	 8SLrzsqKlwAgioHSI3BLOMPLUK1EdQ4aJDEqV19HV/1PIYgrMkV7Gg1cndcTvgTN7casH
-	 0C4lilXsVAJvMAmi2g3hHi1hjE187klxNyhlglXNeb5j0836lGA3z49sQ/ZxQpJ1wGA==
+	bh=ALFcEyRPTf7cvwVXvg60ATQfpRyrOoNNv4QnFFUcE8o=;
+	b=hJYoZfBSQJFsIimaeXKm4iFFlvEW9VFRDyj6VvWSq3VEsjxUEaXBkYbLGmwCm4sd1cbI
+	 R54OqdIPN5lTKHNI4UMwVoRSipcUMgLMdGZwWQxB3BTTYALHx7dkuk++nS4ONIKn0uKjF
+	 lcO72FFvPFsBT7+Kv/r99cSVZfwyxwJJBMblPvVRv8wHu7cDNo0SE6Ea+NxidKMXKhmWz
+	 3gp2ZoHgYOPT04H+TpBzZW7Z52gS7K5sXnzHzPTbztbL6s8RXXdYAnDnnQIUFNTYYURLN
+	 8iVVVXBuuhwylPI0fr9FB5DAWTySj7rBn10/P/8kNo/tz4fTSPZvFsr8Hx5lufqXfwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bZcLkSiy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SMy0oZJk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D85F606A334
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:27:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABD5606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:27:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bZcLkSiy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112351F000C1;
-	Fri, 30 Oct 2026 10:27:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SMy0oZJk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E52A51F0093A;
+	Fri, 30 Oct 2026 10:27:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793356069;
-	bh=RymG5Zs9FwMJtITbzdgvGCkoIgIBEM6um3giVlZIMck=;
+	s=k20260515; t=1793356073;
+	bh=ALFcEyRPTf7cvwVXvg60ATQfpRyrOoNNv4QnFFUcE8o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=bZcLkSiynlmM8mmekL2+i7H1+ZOSrbnf75FBYKtErwXYHPas26GMjT+dMEaTggWx0
-	 ShLhUU0BjTuyOiAKjoe+iotdxyNGZZz3O9jD+Ggiu8nfRBKUfTTgpvpalwnSKUAkr2
-	 k3NM/Vz7hXZC+Fx00HM3jz2hxhZJq7URdDstG2Y4oEolEVFJaoZQtB/Aiuj3kntd8l
-	 uMPrWQs+Niakas3pMR3C4rXu5zrOEJ09dgdoemimSVhIGLg1dRtkCxPTOXzouBc3j1
-	 zstygkeZL0rl8KN27napRTH0HqhoVvxgqvJ7VG93zOv0VZK4gvxptNBuCfuspDC/Sq
-	 g2uB1fcF0mn8Q==
+	b=SMy0oZJkcjs3u9GJ67ePHkfBXiPrywvIq5Uyx6RmQ2T0HhgFGzzvBqZIykCjWdTEm
+	 lgxEyp/5bnafxzVq1tpbXSuR96370Sk4bkoKoR8wuqUbFMTkhk9hCwA52gSPWLgkjI
+	 scctUeG2GEo8/yWVHgbaecFducPjI7hXwZsz5NaYWyA6QnxfcWOdKIs/SplT7lP4B9
+	 FKIfjJVl6qockMjeWLkRBd1Y+ds2h5aUNynC35RVKFdh+5pY/LL2ai0sliNr11TIdL
+	 Q7Y6XzFhAPIcJrfak5ad7VnWSvGnKOhyS29ENo2UWxk04+R8KiDAUGz8A2uZyZr07L
+	 fKJkT+vnsMw6A==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 30 Oct 2026 11:27:33 +0100
-Subject: [PATCH v7 01/16] drm/amd/display: Fix planes atomic_create_state
- implementation
+Date: Fri, 30 Oct 2026 11:27:34 +0100
+Subject: [PATCH v7 02/16] drm/solomon: ssd130x: Drop the init-only
+ assumption in ssd130x_crtc_create_state()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,8 +54,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261030-drm-reset-state-flag-v7-1-4e55eaeae683@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-drm-reset-state-flag-v7-2-4e55eaeae683@kernel.org>
 References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
 In-Reply-To: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -73,57 +73,54 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Victoria Brekenfeld <victoria@system76.com>, 
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org
+ Javier Martinez Canillas <javierm@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1628; i=mripard@kernel.org;
- h=from:subject:message-id; bh=HLVzeyqKpswstRmnOeZPJueli10TkjAEfdifLM4/WJw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPCsWvWfD6/niZt29lWPjkBffXvTnOU7n88lmvBoOJn
- Hb58vWcHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiZ70Y69TuL/SI+uT1kPnQ
- FMOQ7/Fzw97fF2nSSVDnO8PSGmAkckpg/dQDrU8mdqtJG32fsuvsf8b6hNRPW75M2C0eza543Wb
- Lw3M/jS6U5sw4tzwxoqJT6++co1yBvgv8r2W5mmzOl7izU5wJAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1361; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=OxfYEuitawviViOrDlDI8bSVA28qVxksy6YOiUTMG/Q=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPCiVaJWz23/lxbkbZM77e5ANORk0Hak3X8T5V4uBUq
+ DvzrbWtYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzkz0bGhtsqGoedZuoU5wtP
+ Yy4MTr/6xlnR964U93HW3o1uB9qXcPUcYjweJZj935/v8JatMbKBjHVaU6pE0j4dtHD3reuZlLa
+ kP4a/Rsmh6+iFq9fUYuMEWGcbFt2YXHV6/uZ535Qq9hmeXAUA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-Commit 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
-converted the amdgpu planes to use atomic_create_state instead of reset.
+The ssd130x_crtc_create_state() implementation warns when the CRTC
+already has a state, assuming that atomic_create_state would only ever
+be called at initialization time to allocate the initial state.
 
-Unlike reset, atomic_create_state is meant to allocate a new default
-state without any side effect on the hardware or software state.
+However, atomic_create_state is documented to have no side effect and
+can be called at runtime, so that assumption doesn't hold and the WARN
+is a side effect in itself.
 
-However, during the conversion we forgot to remove the call to destroy
-the existing plane state if any. While this was expected from a reset
-implementation, it's not for an atomic_create_state one. Remove it.
+Let's drop the WARN, along with the comment documenting that
+assumption.
 
-Fixes: 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
+Fixes: 1345de7fe9114 ("drm/solomon: ssd130x: Convert to atomic_create_state")
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
 ---
 
-To: Harry Wentland <harry.wentland@amd.com>
-To: Leo Li <sunpeng.li@amd.com>
-To: Rodrigo Siqueira <siqueira@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-To: Christian König <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+To: Javier Martinez Canillas <javierm@redhat.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 3 ---
+ drivers/gpu/drm/solomon/ssd130x.c | 3 ---
  1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 2f88b9d65b82..779dabb7fc51 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1821,7 +1821,4 @@ STATIC_IFN_KUNIT struct drm_plane_state *amdgpu_dm_plane_drm_plane_create_state(
- 	}
+diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
+index 4901a1835f44..a6dbefb37b2c 100644
+--- a/drivers/gpu/drm/solomon/ssd130x.c
++++ b/drivers/gpu/drm/solomon/ssd130x.c
+@@ -1755,11 +1755,8 @@ static int ssd133x_crtc_atomic_check(struct drm_crtc *crtc,
+ }
  
--	if (plane->state)
--		plane->funcs->atomic_destroy_state(plane, plane->state);
+-/* Called during init to allocate the CRTC's atomic state. */
+ static struct drm_crtc_state *ssd130x_crtc_create_state(struct drm_crtc *crtc)
+ {
+ 	struct ssd130x_crtc_state *ssd130x_state;
+ 
+-	drm_WARN_ON_ONCE(crtc->dev, crtc->state);
 -
- 	__drm_atomic_helper_plane_state_init(&amdgpu_state->base, plane);
- 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	ssd130x_state = kzalloc_obj(*ssd130x_state);
+ 	if (!ssd130x_state)
 
 -- 
 2.55.0
