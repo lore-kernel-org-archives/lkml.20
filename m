@@ -1,103 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=88.99.92.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793370088;
-	b=iA6Q2W4l8SfZrmGK9yXj27iqmsQERmsRCOKPvaHPTMkgtyjIXBfTRwCsED6AK9GAEO4Z
-	 jQu07knyf6eQ0LSvnvlm+0cRA8p//6vEBdhWMs0R5YtzCEWpIqmVm97o8MWtW1O/hWN6b
-	 014eodesoxhgxHOG7YXWM1GdvmdIq3JkXOQh3XSybgsG0kyIcgkfiD5tVvt7W3p2Msb3R
-	 ykWiwYYG3FPfXU+b+LoMwbz/3TbQR7+MGpldY2qXnOTqr5s58qFt22H1MP6iIr3GtoE3V
-	 vSNWpX5NOKKOMH1tOzcPZ1A67Agx+Pk8m64DSWtpZbvF+E6wEkB2MwGiS+WbYhaJH0A==
+	t=1793370153;
+	b=Sr+uw+VRh1BJcIxtsKF7NpXG1imfacbypBIAWm4Qy10YGjS4k0yojvrRFDTQ/XvpT+n5
+	 rE0lsbTwoVFz1F8yGTRtgytnIbhKaxfu+AgXAOgFMSwqcOcWBP2ak3js0quHYQBejbCh4
+	 eGLAi+SJnj6p+lllsuE5lLQRVDSCgc49TmAEthPpyTLZprao329rIvoCz1VF/7hC+GE2d
+	 /1dS/r6ML017v0o6iWCWG28jXGj0CJ0M53OaTqEnFSf1F6utkuBxQclFEzB1rLUpF4Itn
+	 d5Lb60P9LTJNpc5wT8yHuyItHq0SCMtV3qhq1c8Z7kEdy1unXGNgeIlU6qS25sF9Vtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793370088;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=E00FdPkngk3Z4+CY6OL2kt07v6G7rAIhm8TLVIKRgo4=;
-	b=V7yJJ1+dKu/uOMlbKm1K7Fqzq9glV0UJZtwfrkvaba5VdN3X/IYAKLPTyQcSo+5Q7pAw
-	 fegwTzClYJJJBX15dleSAFYN2OlK+MOc/iPGrOFJcBBbEn8BE+HsKTPCfEOt8y49S9UPu
-	 peTzyMx9/wvtX1sMrRe1wQDnGB88b0h8SyF2QlQPxDHWzx2k7KZeNZHctpR5/nzPAlAnM
-	 eZd2xqbZxdqUiPQNi30sc7fU90JMVX0fAQGuDCfT34iGs4ii1v38La3dcoHrvfjMMXbMC
-	 5qGVyxLdTeNLy1yAHwqZSboru1ZjJPQm6gOSaIG5cBAIvhp59wEdZFl5rcfF24JHoVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793370153;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=sZSnUaH5e0KM+Xb9Aj8auTUlaUisKXJsjD6/B6ZesrE=;
+	b=dA/BJXVpFlpfJzfugUHPERMPFEw2JGrTWT76lbQHr0XR+SqHRkRVNrznpbNiixjnAiT1
+	 OXUqPXuVxeHn4yaaDbq6KU+94fvyaKVbWwsbha4ycS4fQ9oPTfjhQ9leIpNupwOe2hTQ1
+	 icNYbzuNbXtAchI5MSCZPdtbDtDXOezKaJAyu5NzbG2aUSduBOJqu+oViiAEigHalR4JL
+	 sEVmYh2xVLqr+reTErwewNibe4135E5/Ek++wiAy3RLoCkO8nHd9fn/NdYSnHpqkTdS2B
+	 C1ETOAsxQ8N9Y/gWB5hxNFR9q2ZS871U47nsOlKBUydXjJXMWI0KBk6MgfmgzxxB5Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vWLQd2fq;
-	arc=none smtp.remote-ip=209.85.221.178
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=rojer.me;
+	spf=pass smtp.mailfrom=rojer.me;
+	dkim=pass header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=HnnypLfp;
+	arc=none smtp.remote-ip=88.99.92.76
+Received: from mail1.rojer.cloud (mail1.rojer.cloud [88.99.92.76])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D6E606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:21:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7D6E606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED06606A31F;
+	Fri, 30 Oct 2026 14:22:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EED06606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rojer.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rojer.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vWLQd2fq
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5eac01ff101so308910e0c.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:21:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793370087; x=1793974887; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=E00FdPkngk3Z4+CY6OL2kt07v6G7rAIhm8TLVIKRgo4=;
-        b=vWLQd2fqqRdj0tJghjKvE8ElecP40p5bn7552qu6aqe3YMlCAVn/KQL4XPskM021cn
-         j71FtJbaxZXPll7uv0rxSoHi4SJcSwXROeJf19uEEMh55nexfnBjHGjfAM0Vsi6rz9o1
-         38hfHchtdv/iuFst+xG0kmJTr9C1DGxnfgAzZbY0w20tkZ/QCbk/RIsbK8M7wGq9B8g+
-         neOamq0Uqnu/OC4j6ymPmnn4dNT4AKNzg09qAgBJJZRnoZJk7WF5Q1iRap1KCdfJeYvt
-         29bfhb3+W9YflALjjHEfXQyiiJl3VvgXS9ZGoGLumWdybj+JGBxoVyecBJfE5c2a4NKZ
-         WAiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793370087; x=1793974887;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E00FdPkngk3Z4+CY6OL2kt07v6G7rAIhm8TLVIKRgo4=;
-        b=GcbC8e38UBC0wdQ5Uq6bEjLqNwELXOogP24xGkJK2O7NPAD0/yLG5R9w5httTJiM4r
-         xAvSU/duRKvK0lZkTLLTQ7znGj8CJTSvuz2GZLvh3E/HZeiv6EICB3+zrLDfAFidamGJ
-         bAHwZMMOxU6yJkpmMqyXi4Dt8W21JPD/GQ1QsVRHeAHDkkGcmfwKUoBdPLZaHiVYtbTV
-         B+9cD7DhQv6W7NqWkmsoNzCQm3cr7rwRkEpK5pH4lNjBb/IiRAGQJIFzq9+G+7rYUqx+
-         eZW4ZHmG0da5wGpZ7iWCyOBA7u0Dh6OJazm0/dBF7XyRcnulKQqaTm2mDmDFCX5W/Gxa
-         FqJA==
-X-Forwarded-Encrypted: i=1; AKwUvBzQShS7l27pAlrhO9D2fT1cpTJeuUA7M7Y4HaTpFZDLzEaT4GjPg/X4rdvVXbXDuJultvUBzUOsgOZ0mio=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBOKUMeEQYLlEgDnl/bNOiyKdpInw6aKn3wqSQj1KHbTv+wsV0
-	Sru3kzvfhmIqQAtQKMWSHIgEcUI0bxkAzG1VOVMHxSyCfK4WQ1KpB06w
-X-Gm-Gg: AYBFou1p96QWzTT65jezHxrjEcHf0sNvpMtbvzNkGZnFZLkBRheIOtIBEDcZmHeOlSE
-	blGVpKAcw94AYimtejw2cm+yX3tzFp43d8N1Fg1ieawH2epZMtGNS4kdJi3WCJESLb0aeMOGt5y
-	d+sP40C2ItKosxClSatpqBx7FOdirAuW0d0dEsCfFL7WvSZh0ySXYVZ5rhXnxYsq5FZlg8J26pF
-	/oc+TAwpRcrt66nb/UC+jGqxtWZsTNTtQY7Lp1fYaIN262hUfdUo4F9bbJfe9vF716TulGHFfPb
-	rs1HXSsGhb1QqoL/H3dPhv1t1FT3vsLsQfvsoCJLxqR/6/tATPmJLkl3j3dp7HfzprrCWeEA3s3
-	uGAtxZ2r0YcWAtPYmcPvW6+//+Yt3ex0XW70olow+yd4zYzWUeXznUK+ID7D5tfFoT4DAqPTnuH
-	Rd3ehTe/malR4EdeTqLADhL9Eu7AHfanhj8uBPhh3JhXwk6HAaD0T9r0H8LzGtcl6vrRBhoTHt1
-	LHJrV3HgrhRFeJpXxw64QVbA83e4PIjuBub7x5xhn7nVvLDVbIM3t4dmpzWlFkxnmtmVFc7XL8v
-	hmQmmlzxN+/Wo9BjrLA2YXOPLypnhxsB7zozBB/i7pBLPSIIAsOGsUt4Yw6ajREw2OQj5yj+FR2
-	xDWr7Omu8p9UisHO80P0BVUHAjJQ+t4bUss/42hN/c8LizAk9lERDWghcS6+C1yPtEL4s
-X-Received: by 2002:a05:6122:512:b0:5da:9b81:1aa4 with SMTP id 71dfb90a1353d-5ec6870c946mr1146359e0c.5.1793370086742;
-        Fri, 30 Oct 2026 07:21:26 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69c99e3csm2476107e0c.15.2026.10.30.07.21.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 07:21:26 -0700 (PDT)
-Date: Fri, 30 Oct 2026 10:21:25 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Ahmad AG <ahmadag1001@gmail.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: kuba@kernel.org, 
- davem@davemloft.net, 
- edumazet@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- Ahmad AG <ahmadag1001@gmail.com>
-Message-ID: <willemdebruijn.kernel.2e53c121ad9ea@gmail.com>
-In-Reply-To: <20261030100504.23498-1-ahmadag1001@gmail.com>
-References: <20261030100504.23498-1-ahmadag1001@gmail.com>
-Subject: Re: [PATCH net v2] net/packet: account user-triggered allocations to
- memcg
+	dkim=pass (2048-bit key, unprotected) header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=HnnypLfp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rojer.me; s=main;
+	t=1793370151; bh=mNjiVU53+6TZtMOsCOynN0L38lvuNgertASbbdmbt1Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=HnnypLfpoiJF2FtbJ3MCp/S4rC0B9F36NhfHEjd0RNnVhNv1fywaF4gbeQ247+rG7
+	 GRrGP97u0nB0286y434ZtX2qDO2hq8+2PFlJcjqw2XmieaI31ocxlPIq/DJlK8UDpN
+	 O4Ofz4/AqSfgYcFj8IlgJ0fav+Q5LWkMJFZvL4rkZtPMn8y2sU8nlZeMZtjYnucau1
+	 QnBIZX6gRC8abDfQhJR7ndZLpIsIOu6gjmT4r/4NXGyTbBYLAfwPCelL+W8lvdv9jf
+	 Uc/mJtI70hYyu/xJeG9rw4w8r1ItRzsyNrtkpjoOuD0CiAEXpGxdBKoR/jDSaoEVv4
+	 qfeg9tEw/qvkw==
+Received: from nbf.rojer.cloud (unknown [46.32.99.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by mail1.rojer.cloud (Postfix) with ESMTPSA id 9BFFF21654;
+	Fri, 30 Oct 2026 14:22:29 +0000 (UTC)
+From: Deomid rojer Ryabkov <rojer@rojer.me>
+To: ulfh@kernel.org
+Cc: linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	shawn.lin@rock-chips.com,
+	llj@rock-chips.com,
+	Deomid rojer Ryabkov <rojer@rojer.me>,
+	Jensen Huang <jensenhuang@friendlyarm.com>
+Subject: [PATCH v3 2/2] mmc: core: sdio: skip CMD11 if signalling is already 1.8V
+Date: Fri, 30 Oct 2026 17:22:24 +0300
+Message-ID: <20261030142224.3183407-3-rojer@rojer.me>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261030142224.3183407-1-rojer@rojer.me>
+References: <20261030142224.3183407-1-rojer@rojer.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,196 +71,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Ahmad AG wrote:
-> A packet socket allocates memory for its user that is not charged to
-> the user's memory cgroup:
-> 
-> - PACKET_RX_RING and PACKET_TX_RING: the ring blocks themselves
->   (alloc_one_pg_vec_page(), both the page allocation and the vmalloc
->   fallback), the block array (alloc_pg_vec()), the deferred-free work
->   of a TX ring, and the rx_owner_map bitmap of a TPACKET_V1/V2 RX ring.
->   The size comes from the tpacket_req passed to setsockopt() and has
->   no limit other than available memory.
-> - PACKET_FANOUT: the group created by fanout_add(), about 1 MB per
->   group with max_num_members = 65536 (a 512 KB array, rounded up to an
->   order-8 allocation) since commit 9c661b0b8544 ("net/packet: make
->   packet_fanout.arr size configurable up to 64K"), and the per-socket
->   rollover state.
-> - PACKET_ADD_MEMBERSHIP: one struct packet_mclist per distinct entry
->   (packet_mc_add()), with no limit on the number of entries.
-> - socket(): the per-CPU TX ring pending counter
->   (packet_alloc_pending()).
-> 
-> A process with CAP_NET_RAW, which an unprivileged user has in its own
-> user and network namespace, can therefore pin kernel memory far beyond
-> the memory.max of its cgroup. With memory.max set to 16M, a test
-> running as uid 1000 took 525804 KB of system memory with 64 sockets
-> each mapping an 8 MB TPACKET_V2 RX ring (1 MB blocks) while
-> memory.current grew by 892 KB; 264640 KB with 256 sockets each
-> creating a fanout group with max_num_members = 65536 (memory.current
-> +512 KB); and 46664 KB with 100 sockets holding 2000 PACKET_MR_PROMISC
-> entries each on lo (memory.current +256 KB).
-> 
-> Allocate all of these with GFP_KERNEL_ACCOUNT, as other allocations a
-> user can make on demand in the networking stack already do, for
-> example the AF_XDP rings since commit b0057c68df71 ("xsk: account
-> ring allocations to memcg"). vzalloc() takes no gfp mask, so the
-> vmalloc fallback becomes __vmalloc() with __GFP_ZERO. skbs are bounded by
-> sk_rcvbuf and sk_sndbuf and are left as they are, as is the per-packet
-> zerocopy state in tpacket_snd(), which lives only as long as its skb.
-> struct packet_sock itself comes from sk_alloc(), and the
-> netdev_hw_addr entries that PACKET_MR_MULTICAST and PACKET_MR_UNICAST
-> add through dev_mc_add() and dev_uc_add() live in net/core; neither
-> is changed here.
-> 
-> With the change each of the three tests in the 16M cgroup is stopped
-> by the cgroup's OOM killer. With a higher memory.max the rings charge
-> 525436 KB for 524832 KB of system memory used (1G), the fanout groups
-> 262656 KB for 265128 KB (1G), and the membership entries 26880 KB
-> (1G). These figures are from a KASAN kernel, which inflates the small
-> objects; without KASAN the 200000 membership entries are 20480 KB
-> charged for 26412 KB used.
-> 
-> The missing charges were found by code inspection of net/packet/ with
-> the help of an LLM and then triggered with a small test program that
-> creates the sockets, rings, groups and entries and reads
-> memory.current; the numbers above are from that program. Tested in a
-> QEMU/KVM guest on this tree (x86_64_defconfig plus kvm_guest.config,
-> KASAN, MEMCG, PACKET), running the test as uid 1000 in a cgroup v2
-> memory cgroup. tools/testing/selftests/net/psock_fanout, psock_tpacket
-> and psock_snd.sh pass before and after.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Per the SDIO Simplified Specification Version 3.00, section 3.1.2, a card
+whose signalling is already at 1.8V must report S18A = 0 in the R4
+response, and the core relies on that: it only sends CMD11
+(SD_SWITCH_VOLTAGE) when S18A is set.
 
-This predates the introduction of memcg accounting and indeed
-much of the code that is being instrumented.
+Some cards don't follow this. The Realtek RTL8822CS (as fitted on the
+FriendlyElec NanoPi R2S Plus, where the M.2 SDIO bus is wired to a fixed
+1.8V vqmmc) answers CMD5 with S18A = 1 even though the bus is already at
+1.8V. CMD11 then times out:
 
-I also don't think this is stable material.
+  dwmmc_rockchip ff5f0000.mmc: Unexpected CMD11 timeout
+  mmc_host mmc2: Timeout sending command (cmd 0x10202000 arg 0x0 status 0x90202000)
+  mmc2: new high speed SDIO card at address 0001
 
-Especially on the actual ring buffers: retroactively enabling
-this may break existing users.
+and the card ends up in 50 MHz high-speed mode instead of SDR104.
 
-Consider net-next. Else, net still needs a Fixes tag. Review how
-important each of the conversions is, keep the important ones, find
-the oldest one and use that as tag.
+The SWT6621S misreports S18A the same way; there, the failed switch
+leaves the card unable to initialise at all (error -110) instead of
+falling back to high speed.
 
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude Code
-> Signed-off-by: Ahmad AG <ahmadag1001@gmail.com>
-> ---
-> v2: cover every user-triggered allocation in net/packet in one patch, as
-> Willem suggested on v1, and resend with git send-email; the v1 mail had
-> tabs replaced and lines wrapped by the mail client. v1 changed only the
-> fanout group allocation.
-> v1: https://lore.kernel.org/netdev/CAASqGyZ-9hqZGWNJShxnrSiXDO==51SVsQW_x_mk993y1pNO8A@mail.gmail.com/
-> 
->  net/packet/af_packet.c | 22 +++++++++++++---------
->  1 file changed, 13 insertions(+), 9 deletions(-)
-> 
-> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> index 823e0911c91..06386db4c8e 100644
-> --- a/net/packet/af_packet.c
-> +++ b/net/packet/af_packet.c
-> @@ -1233,7 +1233,8 @@ static int packet_alloc_pending(struct packet_sock *po)
->  {
->  	po->rx_ring.pending_refcnt = NULL;
->  
-> -	po->tx_ring.pending_refcnt = alloc_percpu(unsigned int);
-> +	po->tx_ring.pending_refcnt = alloc_percpu_gfp(unsigned int,
-> +						      GFP_KERNEL_ACCOUNT);
->  	if (unlikely(po->tx_ring.pending_refcnt == NULL))
->  		return -ENOBUFS;
->  
-> @@ -1735,7 +1736,7 @@ static int fanout_add(struct sock *sk, struct fanout_args *args)
->  	if (type == PACKET_FANOUT_ROLLOVER ||
->  	    (type_flags & PACKET_FANOUT_FLAG_ROLLOVER)) {
->  		err = -ENOMEM;
-> -		rollover = kzalloc_obj(*rollover);
-> +		rollover = kzalloc_obj(*rollover, GFP_KERNEL_ACCOUNT);
+When vqmmc can't do 3.3V, mmc_set_initial_signal_voltage() has already
+fallen back to 1.8V by the time CMD5 is sent, so the host knows there is
+nothing to switch. Skip CMD11 in that case. ocr keeps R4_18V_PRESENT, so
+mmc_sdio_init_uhs_card() still runs and the card is tuned to SDR104:
 
-Is it worth accounting even such small ones?
+  dwmmc_rockchip ff5f0000.mmc: Successfully tuned phase to 64
+  mmc2: new ultra high speed SDR104 SDIO card at address 0001
 
->  		if (!rollover)
->  			goto out;
->  		atomic_long_set(&rollover->num, 0);
-> @@ -1778,7 +1779,8 @@ static int fanout_add(struct sock *sk, struct fanout_args *args)
->  			/* legacy PACKET_FANOUT_MAX */
->  			args->max_num_members = 256;
->  		err = -ENOMEM;
-> -		match = kvzalloc_flex(*match, arr, args->max_num_members);
-> +		match = kvzalloc_flex(*match, arr, args->max_num_members,
-> +				      GFP_KERNEL_ACCOUNT);
->  		if (!match)
->  			goto out;
->  		write_pnet(&match->net, sock_net(sk));
-> @@ -3773,7 +3775,7 @@ static int packet_mc_add(struct sock *sk, struct packet_mreq_max *mreq)
->  		goto done;
->  
->  	err = -ENOBUFS;
-> -	i = kmalloc_obj(*i);
-> +	i = kmalloc_obj(*i, GFP_KERNEL_ACCOUNT);
->  	if (i == NULL)
->  		goto done;
->  
-> @@ -4494,7 +4496,7 @@ static void packet_free_tx_ring(struct sock *sk, struct pgv *pg_vec,
->  static char *alloc_one_pg_vec_page(unsigned long order)
->  {
->  	char *buffer;
-> -	gfp_t gfp_flags = GFP_KERNEL | __GFP_COMP |
-> +	gfp_t gfp_flags = GFP_KERNEL_ACCOUNT | __GFP_COMP |
->  			  __GFP_ZERO | __GFP_NOWARN | __GFP_NORETRY;
->  
->  	buffer = (char *) __get_free_pages(gfp_flags, order);
-> @@ -4502,7 +4504,8 @@ static char *alloc_one_pg_vec_page(unsigned long order)
->  		return buffer;
->  
->  	/* __get_free_pages failed, fall back to vmalloc */
-> -	buffer = vzalloc(array_size((1 << order), PAGE_SIZE));
-> +	buffer = __vmalloc(array_size((1 << order), PAGE_SIZE),
-> +			   GFP_KERNEL_ACCOUNT | __GFP_ZERO);
+Hosts that start at 3.3V are not affected, nor are compliant cards that
+report S18A = 0 at 1.8V. A non-compliant card that does need CMD11
+before entering UHS at 1.8V would now fail UHS init; with the previous
+patch it falls back to high-speed mode and keeps working.
 
-Consider adding __GFP_NOWARN here too, similar to the pg_vecs, to avoid
-excessive warning when enabling memcg accounting.
+This relies on the fixed 1.8V supply being described as vqmmc-supply.
+vqmmc is optional: without it, the host can't tell that the bus is
+hardwired to 1.8V. Setting 3.3V then "succeeds", the core believes the
+bus is at 3.3V and CMD11 is still sent, so the patch doesn't help. Such
+boards need to describe the supply (e.g. a fixed 1.8V regulator as
+vqmmc-supply) to benefit from it.
 
->  	if (buffer)
->  		return buffer;
->  
-> @@ -4523,7 +4526,8 @@ static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order, bool tx_ring
->  	struct pgv *pg_vec;
->  	int i;
->  
-> -	vec = kzalloc_flex(*vec, pg_vec, block_nr, GFP_KERNEL | __GFP_NOWARN);
-> +	vec = kzalloc_flex(*vec, pg_vec, block_nr,
-> +			   GFP_KERNEL_ACCOUNT | __GFP_NOWARN);
->  	if (unlikely(!vec))
->  		return NULL;
->  	vec->order = order;
-> @@ -4532,7 +4536,7 @@ static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order, bool tx_ring
->  
->  	if (tx_ring) {
->  		vec->deferred = kzalloc_obj(*vec->deferred,
-> -					    GFP_KERNEL | __GFP_NOWARN);
-> +					    GFP_KERNEL_ACCOUNT | __GFP_NOWARN);
->  		if (!vec->deferred)
->  			goto out_free_pgvec;
->  		vec->deferred->vec = vec;
-> @@ -4648,7 +4652,7 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
->  		default:
->  			if (!tx_ring) {
->  				rx_owner_map = bitmap_alloc(req->tp_frame_nr,
-> -					GFP_KERNEL | __GFP_NOWARN | __GFP_ZERO);
-> +					GFP_KERNEL_ACCOUNT | __GFP_NOWARN | __GFP_ZERO);
->  				if (!rx_owner_map)
->  					goto out_free_pg_vec;
->  			}
-> 
-> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-> -- 
-> 2.43.0
-> 
+FriendlyElec's BSP for this board works around this with a card
+quirk, MMC_QUIRK_BROKEN_ROCR_S18A[1], matched on the "realtek,rtl8822cs"
+compatible, which drops the switch request whenever this chip is
+present. The misreported S18A is the card's fault, but ignoring it is
+only correct when the bus is already at 1.8V: on a board with a
+switchable vqmmc the same chip would then be run in UHS at 3.3V. A card
+quirk would need knowledge of the board's supply that it doesn't have.
+The core does know the current signal voltage, so handle it there, which
+also takes care of any other card that turns out to behave the same way.
 
+[1] https://github.com/friendlyarm/kernel-rockchip/commit/aee62cf7ae16b5ede6c6d92a8ee20e796482754e
+Cc: Jensen Huang <jensenhuang@friendlyarm.com>
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+Tested-by: Longjian Lin <llj@rock-chips.com>
+Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
+---
+ drivers/mmc/core/sdio.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/mmc/core/sdio.c b/drivers/mmc/core/sdio.c
+index b247786782f..83c785ae677 100644
+--- a/drivers/mmc/core/sdio.c
++++ b/drivers/mmc/core/sdio.c
+@@ -737,9 +737,11 @@ static int mmc_sdio_init_card(struct mmc_host *host, u32 ocr,
+ 	 * 1.8v, the card sets S18A to 0 in the R4 response. So it will
+ 	 * fails to check rocr & R4_18V_PRESENT,  but we still need to
+ 	 * try to init uhs card. sdio_read_cccr will take over this task
+-	 * to make sure which speed mode should work.
++	 * to make sure which speed mode should work. Some cards (RTL8822CS)
++	 * set S18A regardless, so don't send CMD11 if we are already at 1.8V.
+ 	 */
+-	if (rocr & ocr & R4_18V_PRESENT) {
++	if ((rocr & ocr & R4_18V_PRESENT) &&
++	    host->ios.signal_voltage != MMC_SIGNAL_VOLTAGE_180) {
+ 		err = mmc_set_uhs_voltage(host, ocr_card);
+ 		if (err == -EAGAIN) {
+ 			mmc_sdio_pre_init(host, ocr_card, card);
+-- 
+2.53.0
 
