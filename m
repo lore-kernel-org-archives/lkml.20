@@ -1,100 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793326299;
-	b=gAFVp53vQuH58utxyyn7pxWLuP0n5R/5pNQcqpIJHthJQ9XXQY1AXY4EBvlNT7DNC95H
-	 TooKESMD3/9a6hMlJezHEtz4dXlU5tl8p45+ePnb3GjXrB/pF8EDPm+7Oq2mRhx5GPYMT
-	 TRZYhlOjBOuzMABks4Vz1MenHtyNZWKCJsK9YHsWi2kdK1IXRGPoJzDg+N+4mjNeD6O5H
-	 SwLETQGbAfDHMAMWq7mQmVPLk16aQlQppuJ+OCCPw0JFItE3nfX7NrfxpEB/cWBhVP0tT
-	 m1GduOcglJGtBYvRVbgXTxbKiLzg4qtLM2CKZpMYPDiF7TbSv315YO42C+s8RqHkHEw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793326299;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793326305;
+	b=DNP84Qa7RAFi2mqKRkWwotj7A3aWS5vs6aduzGejQ65aDyBrIA1Fr+jdAt1LUATfqyx/
+	 UZj9aFrbtmeXkRbmTHtRCWsPTNe4e18549DUqCymB58dqxVd9Dn2znVv2/D2FnySEv3CR
+	 1eZhCpadwqPmNQ+LimfJ0qeNnw7M5nFVOgg9+16RlkitMXS14qtG6RQnhX22ODxrSKO/e
+	 5eeVWpxO6l4hTQsXBVP906I7rmEub4pxFChw0HFS46vjgBXnFZnQoG6JWWwKx7PKG1iv8
+	 ql9mOlw8cTnOjiU+TJdOb/aYn0mG2op1aMlI983l1jTmVnOGAnAX8+HpEufgaae4w4g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793326305;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=crA/drrVuPBte8rst5YBRjdG8mKRZAGvubjNLACa7Rk=;
-	b=mShraDWv6L/OJoPQBySBZY88UiikcijGc9DxGpMOyzVb5OE8FOzFXHQVorTPJxmQaHXo
-	 u9C2Je26BtP4BTOHqoGMIh655yg2P6kqg9SJIBi1xiIXtLMAl4GvvFwrVD+Mfcfkwzai/
-	 RjYaEJX07j1Sa4ONHQUaaCffuWjokxXO6PyCYD9rnYaCAZ5eBPBUMqqOsiTvj0t2TGlbA
-	 vkmf1ai8bufiYXUo7e0i1zN5yPdH0gUn5pzOBAnss3lwuhsnG5yOanoeI2Cm5kBiNKC16
-	 filEU9gFDE33LZO08ulHvkGuZiBhRuIJXtGmtbGHXeZEoHKEsgx9uwRXBx1ylcvn1Gg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=amacapital.net;
-	spf=pass smtp.mailfrom=amacapital.net;
-	dkim=pass header.d=amacapital-net.20260707.gappssmtp.com header.i=@amacapital-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ifTtfM4j;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.45
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=OJ+UbYof1H6RaTL5sRkRgBhaKvjzbtyBbRi1EGwIN5U=;
+	b=yxDutkDyckNxeSPBOkviwBIY8C9OV5TH88sl+KjrcvbMYFK9/iLVOOBEWdIuus5PSvcw
+	 kp4d36gYAi/28Op+NnPp+izaBZMtxt0d5UMTWQ5lt6ukD4aNx/zXROw3cRSka0o4zTxYS
+	 owqRBa4Fzj0eDmMcPundqvbu6XFd3vYwnjoR4g3fICcbFU3oZHo7agpZ+nELkldCCxDaJ
+	 33/GZGWweGa1URZOb580Nsw258jyXd+FlTijnz3tXxqaZokbhE/EqOpXdPH91UDDYFhag
+	 D/ceawzWjC/VtqxlOpc5kG/XgKTSpa1LpuE05XzIMIW1Ecl7ITWuHiS9uGal/jKZPTw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jUI3EhHC;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16783606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:11:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16783606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amacapital.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amacapital.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DEE606A320
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:11:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77DEE606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amacapital-net.20260707.gappssmtp.com header.i=@amacapital-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ifTtfM4j
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5ba328513b9so270377e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:11:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793326297; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PloAPngo6YN2dzkmvWuiskgMyIYtC1lNigTkuhv+bdJ68UdZIv+z7mcWuE+UYU6H1e
-         ZFEPRhF7hdPkn3PjlelzYA925Muc0QIxCqlwbjs8DFDjZM+TY6p+BJRuQu+slllhLf1/
-         BKVfR4cMmw9VNZhA0LG1LWRh+leofhSDUwqZ/TES8fXijMR+edc6X01HnF4FOtvg/Rop
-         LNNbG5/h7bXIyBNGPs9YiQY5ImR8bLmzzd9PUe23XbgcKwG8hP6tQt21tNKZz4EvfGxq
-         ruMwVNFKw8U6d7lijigZEEyQO/EQ4kkxhsxsMuwtSPbMsKZPdW0TtRB3Nr4VdJuGNJcx
-         V9aA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=crA/drrVuPBte8rst5YBRjdG8mKRZAGvubjNLACa7Rk=;
-        fh=1+KWmUp4lZ1Ej/kMjS2CfFQI2dIHe8cJNuCINALsv+4=;
-        b=KhIAz6eQ3LW0XcbBLGQbZDMV3Ls+G1LRtMlKUoOA3QopOQRFPrK4h2YCtKPKbPzfsj
-         B8gNsiWA5DES+t/pgYXWVHa624qy1ZMP0TWpOsRr7OyTdgrlm1uLc59h799zLLwFOXz2
-         9TmphzUBZqUS860yvX1fhYpEe1cO1aNrAbDumosKoyJx0FNj6zOX+u074WieCVCgb1Qj
-         jU6CGsafY/gGVmyHh5Gxt6U4O20S6RSv1Le3kxQkBzg/mw921JwlAUoDSzjE+TQpGGLu
-         EtjuLzwWTxNbO0F6agAoGv3R9qUFmwymyIh20Vf3VMjm1WsaTpHP3jWtMhFiPekW/W8H
-         Ebyg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jUI3EhHC
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac6794fe45so164591a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:11:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amacapital-net.20260707.gappssmtp.com; s=20260707; t=1793326297; x=1793931097; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=crA/drrVuPBte8rst5YBRjdG8mKRZAGvubjNLACa7Rk=;
-        b=ifTtfM4jG3w9YJEW8x6W2wS4hUVwPMieW6d4KnhdiWxcvOyoMnUz6w5OAESexQynsZ
-         +PQRxfX30fynZCRhTMqkltSqZzgKRM2v3NI+bObBSc9S8OCT9K7FeDQYe/UfhiLkkRuz
-         Hbiu7zum5giUOEx80nKI++xyejO7u9e3CZMdvpPOBtgGhSfy6Z+PNzpt8SvZjb5ARWBu
-         KAjN4WjfysIfu+8cIwJe1qBVvhtlL9TdwdlW92Cbij7G6+AJEtmlSnZeFx4wzUN12xvi
-         kUQM5Y5IOza7tTRuIM8omT5RMCochFZ9AH1Jf9bWAPAOrF4iTpb4h220W7KuQjq2VuJD
-         q4Og==
+        d=gmail.com; s=20260707; t=1793326305; x=1793931105; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OJ+UbYof1H6RaTL5sRkRgBhaKvjzbtyBbRi1EGwIN5U=;
+        b=jUI3EhHCyXCKfszFAgmsTKG23Yu+9vFLneaFkY9SQB6cT3aAQEoojo4uWQK79nnIow
+         8xBR8KyJqgXQc1V2nO/WH9ZfYYx1eSAQEV4yTwUf7YwDR8EPOPBKG3XZl0IphtvEI95+
+         48a5/QcdhrnB69gi2AVJ5aQYk2PGo0UfP6J3IXcGDeP+0g3ysWqzRv2wsBGNoyFF6WQl
+         lSYRhsjAHrG0gPaDs+G82aJ1MVbSmbQLnza3paK/dAQAbH6vbCWRmp83eYECBCMLLbq6
+         mxvejJVfICV7KKyHitPliWKqWtl2ozexhgJwVqA7PxxJ5ytT/9Dhglfz6bhJsLovtTS6
+         yc4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793326297; x=1793931097;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=crA/drrVuPBte8rst5YBRjdG8mKRZAGvubjNLACa7Rk=;
-        b=YkASW89kPD4Jjit1dxds9t/ojTA0OH98fltUuPX0N8gkeO+Jbwfuzravd3U9GR/0J1
-         Y3hYb2KitWeYfU0MGIdy6UKXgTL2HlwS89jE11oVcimS9CZGrYZpbrHB04Qc4UcWfmwC
-         BUAPa6rLHxZo/CtCdPOaAu1pHTOI4dJYhryeA1H9hf8962dR+doN4A5/GTS2P/bkTD+b
-         ucfkRvSIuuyr8AfNDaMMVaaA2YHLZkkRGuiI/x0dprqvr7Ss41/bb1FbR7jL5rGmXXIr
-         KGUJW2IFOCJqBfMjiK3f4dPIDNF6HrEhGqnFxXcTvcui0HSLwCKstIgXXsVrPJgrc6t+
-         nhEA==
-X-Forwarded-Encrypted: i=1; AKwUvBwe+vIKJ2IIi5DLPgxEEg5zGPd4nM9Ba/+eKQW22zVDDY8QiQzYC0atYugixKbaXhI4exJKZXUR5HFCN+w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKE+dB51q141o2nw2o5k37vDfLLyFPJoxu2QFqL+fFGjt0ARZrX
-	tl15O+spYB66yHv/IIDwO+R4H1BGC7jvOfsz/OuSBtKXojMTOLUxoMh31SfuThEEibHR0KuCQdR
-	ZNMW9lxt/2EeDv30waX09Cdo/kPzQILb8Exr9JGb8H22drPlN0DrxFA==
-X-Gm-Gg: AYBFou3UtWrOqaDipUF5uzM+FYMrTEQiKStm/vwNeGPhDU/mZv6x5yfUPmC286NDocI
-	GQORpmyu43P6OVrojmp+uZPYweshoKeybI36dSBpmzAMPJkUBvJhKFl6NaWzTkR762+fVmvP9ed
-	k1UsLYKAkLntmigYFvzRcUMXa+88PK9an1QhzmEBIWL5mpMCgUUs9YIcV+7+gwyayIRNFWbhjuR
-	9dtSgj9wuseUaY0WoDO9t2kpjjjAoflM4ea8+EZT6QTKIw6fAwO1wyh9b8T/73AzBGsTrNb0EKl
-	o+sMcGvVzkVB7RhbyrR97d+ymrhm7jv93AkpgQF2B9TqMZj6RmSl/SnAni0eXzEeKGn95nmrsc0
-	uadX8RmzVrwkiTwjRajKwFWmd9Hwt34q1kg==
-X-Received: by 2002:a05:6512:15a0:b0:5bf:b93d:a75a with SMTP id
- 2adb3069b0e04-5bfd957985dmr184617e87.12.1793326297270; Thu, 29 Oct 2026
- 19:11:37 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793326305; x=1793931105;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OJ+UbYof1H6RaTL5sRkRgBhaKvjzbtyBbRi1EGwIN5U=;
+        b=loMUYht9WTK6SAHODPArStDDosuhDUZMKoSsr0mekpbsIeu/Vav3yLRd0meRxAmLb/
+         4NTkgeBgrVNuraer3P3yjCjuopNgVxqRLAun3uKlfGEy9gpxHfgxf+NdDR84agIg8JUK
+         kymTxhBVrulFQSFLdpIexoAmS+xqQx9gTyO2kLlTRN6FhK6KOGQTOtbKz5krVvpqF1cO
+         to6JxnWtbvHxDVzGPNIVREQJdukliAwECUUN24beYQT0JnO63ytmjiDPyzkUGpzGLH/k
+         DH9TaMdyocts/XMiYPKeQWvCt4RdTed+PUbxzMrF5pu+UUAH7OuY8j39EDx1XBBoRG7S
+         8Vng==
+X-Forwarded-Encrypted: i=1; AKwUvBw4vCXGP7RhRzOVdPt3GVAy+vrUTx3+q1nAr17xdwzeA07RKJJju3qjYGUk45kdEWTiZG7eqxKUUYdGP8E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcNlAPL5cdnn0V2eNWrsKwhrU3jO7fFEe0tdw4uxWI9p476vPn
+	npwJ0r7HYJ0IvxO5BcmyB99Vdd7EpIAHPfq1oa3vY5fJV37PjU85tOgu
+X-Gm-Gg: AYBFou2LgfSpPWsE6zbF/zj/LZmjkJv9BBaxCmDgbbEzPB8evqacy0oa+hTzRuvHkpS
+	XxmgwB43X6rHzfKQrBMAqhSbGGHy2lbvpgvOc/ObrSNCaMbGs8UY3X37f/QGQox6hM/ffQlYAAb
+	YQqmQEgH8ZjjPX3UKtCiewgW9b129G949UtwLKxqWhhUJCh5qughLEjcXWMTpmHkaf9lAJHnEld
+	I+vvT/X0P5gq4Hw7hSJDIAPifmbUOhCxpid9/ohX6u7Ms3CtFFRu8CSBPIzPSZ3Zgh32/7A+5jp
+	12X0es7EDx5Q9QRW9tXrY90cFgnV4diu5hriz+u5SvhzML5sXn3BsxTQuNBdZ6421Ty4fW2Txr9
+	Z00wDnJN0GYHtBhYIwy8jQMekXHwdJiXpk7VmNeSCuaRqxAOj4NLegZ8v+kToXg3DrpVIAALaZw
+	wI+EIiEKNBDaEavF0aLgoDqGOx7BM0PrjRDU8PC/eiYTXt2h9zmdUmQUgq9rG9e1+wg9ihYAMMB
+	IjHsJyrLpoWJKyrHfep+FZWisr+tWaIvMnv0AcSIEKgBpp/fS+b0G8Ve+fEuqMC8Ix+h1aM+f9m
+	P+J/I3qO3VIsmZerrdROonf7n1sOpvnfx/97brsr
+X-Received: by 2002:a17:90b:180d:b0:3ac:a204:aa27 with SMTP id 98e67ed59e1d1-3ae8985edbfmr647922a91.66.1793326304829;
+        Thu, 29 Oct 2026 19:11:44 -0700 (PDT)
+Received: from LYF-imac ([120.235.89.197])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e98afe3sm6164303a91.12.2026.10.29.19.11.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 19:11:44 -0700 (PDT)
+From: fausten <yunfeng.li.nb@gmail.com>
+To: zack.rusin@broadcom.com
+Cc: fausten <yunfeng.li.nb@gmail.com>,
+	maaz.mombasawala@broadcom.com,
+	ian.forbes@broadcom.com,
+	tomas@slax.org,
+	dri-devel@lists.freedesktop.org,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/6] drm/vmwgfx: fix cursor validation and buffer lifetimes
+Date: Fri, 30 Oct 2026 10:10:46 +0800
+Message-ID: <20261030021115.35069-1-yunfeng.li.nb@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261027211729.646988-1-zack.rusin@broadcom.com>
+References: <20261027211729.646988-1-zack.rusin@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,237 +102,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026220546.3114241-1-skhawaja@google.com> <CALCETrXNEWQNPjtuHnTfVFOafeJ7APXq288Cq16Q5adDNYx9+A@mail.gmail.com>
- <auEksxfAi9lHFXmT@google.com> <CALCETrXDY2e8x2kdr-FQvFLs-Y7FwNozXGDvqqM6yvVA7QLV3g@mail.gmail.com>
- <auPKfqh_YjRU9Ui3@google.com> <CALCETrUEyfvaEGxMHo=c0ia3CDgSxg-YW0_=Z7T31Ou+pvicuQ@mail.gmail.com>
-In-Reply-To: <CALCETrUEyfvaEGxMHo=c0ia3CDgSxg-YW0_=Z7T31Ou+pvicuQ@mail.gmail.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Thu, 29 Oct 2026 19:11:25 -0700
-X-Gm-Features: AclHuK_Ui4UCRhuJ1nc0jCjt9G3iqxf-Duoq7MdeFTqjramIg9lV-Tjp2uHPr1Y
-Message-ID: <CALCETrVpEP=HxVqdSP_AgA=U7ignwAgjz5Vi9+Z9dZsX5DXeLw@mail.gmail.com>
-Subject: Re: [PATCH 0/2] mm/memfd: add F_SEAL_PUNCH_HOLE
-To: Samiullah Khawaja <skhawaja@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	Jeff Layton <jlayton@kernel.org>, Chuck Lever <cel@kernel.org>, 
-	Alexander Aring <alex.aring@gmail.com>, Shuah Khan <shuah@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Gerd Hoffmann <kraxel@redhat.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
-	Jeff Xu <jeffxu@google.com>, David Matlack <dmatlack@google.com>, 
-	Pasha Tatashin <tatashin@google.com>, linux-mm@kvack.org, linux-api@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 5:26=E2=80=AFPM Andy Lutomirski <luto@amacapital.ne=
-t> wrote:
->
-> On Thu, Oct 29, 2026 at 4:16=E2=80=AFPM Samiullah Khawaja <skhawaja@googl=
-e.com> wrote:
-> >
-> > For live update either approach works. If pinned pages cannot be punche=
-d
-> > or truncated, iommufd can rely on that directly and the seal is not
-> > needed. I went with an opt-in seal only to avoid changing existing
-> > behaviour. If folks are fine with blocking punch hole and truncate on
-> > pinned pages, I can send patches for that instead.
->
-> That needs opinions from other people :)
->
-> My two cents are that blocking hole punch (or making hole punch fall
-> back to writing zeros) seems entirely sensible, but I'm less confident
-> I know what to do about truncate.
->
+Hi Zack,
 
-FWIW, I think a demonstration of weird kernel behavior is clearer than
-musing based on first principles, so I had a friendly coding agent
-write the lovely code at the end of this email. It prints:
+Tested the whole series on top of 7.3.
 
-Creating and mmapping memfd and registering it
-memcpy "Hello, world!" to memfd
-MADV_REMOVE the contents
-The memfd now contains NULs!
-memcpy "memcpy was here" to the memfd
-Using io_uring to read the registered buffer
-io_uring says: Hello, world!
-WRITE_FIXED completed: 15 bytes.
+  Host:  VMware Fusion 26.0.1 on macOS 26.7.1 (x86_64)
+  Guest: Kylin Linux Advanced Server V10, 3D acceleration disabled
+         (GB-only cursor path, SVGA_REG_CURSOR_MAX_DIMENSION reads 0)
 
-IMO this is utterly disgusting.  It makes logical sense based on how
-the kernel works under the hood, but I think it makes no sense at all
-as a matter of actual observable behavior.
+Before the series every cursor update was rejected with -EINVAL;
+with it applied the cursor works normally again. No regressions
+noticed in basic desktop use.
 
-Unsurprisingly, the behavior is identical if MADV_REMOVE is replaced
-with ftruncate(0) + fallocate(size).
-
-I can't shake the feeling that the problem here isn't so much that KHO
-+ iommofd doesn't like this but that the behavior in question is
-nonsensical.
-
-My system's tmpfs does not appear to support FALLOC_FL_COLLAPSE_RANGE,
-which is probably for the best :)
-
----
-
-#define _GNU_SOURCE 1
-#include <linux/io_uring.h>
-#include <sys/mman.h>
-#include <sys/syscall.h>
-#include <sys/uio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <cerrno>
-#include <cstdint>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-
-[[noreturn]] static void Fail(const char* operation) {
-    std::perror(operation);
-    std::exit(1);
-}
-
-static void* Map(int fd, size_t size, off_t offset) {
-    void* p =3D mmap(nullptr, size, PROT_READ | PROT_WRITE, MAP_SHARED,
-fd, offset);
-    if (p =3D=3D MAP_FAILED) Fail("mmap");
-    return p;
-}
-
-// Single-threaded, one outstanding request, using the raw Linux io_uring A=
-BI.
-struct Ring {
-    int fd;
-    io_uring_params p{};
-    char* sq;
-    char* cq;
-    io_uring_sqe* sqes;
-    size_t sq_size, cq_size;
-
-    Ring() {
-        fd =3D static_cast<int>(syscall(SYS_io_uring_setup, 2, &p));
-        if (fd < 0) Fail("io_uring_setup");
-        sq_size =3D p.sq_off.array + p.sq_entries * sizeof(unsigned);
-        cq_size =3D p.cq_off.cqes + p.cq_entries * sizeof(io_uring_cqe);
-        if (p.features & IORING_FEAT_SINGLE_MMAP) {
-            if (cq_size > sq_size) sq_size =3D cq_size;
-            cq =3D sq =3D static_cast<char*>(Map(fd, sq_size, IORING_OFF_SQ=
-_RING));
-        } else {
-            sq =3D static_cast<char*>(Map(fd, sq_size, IORING_OFF_SQ_RING))=
-;
-            cq =3D static_cast<char*>(Map(fd, cq_size, IORING_OFF_CQ_RING))=
-;
-        }
-        sqes =3D static_cast<io_uring_sqe*>(Map(fd, p.sq_entries *
-sizeof(*sqes), IORING_OFF_SQES));
-    }
-
-    ~Ring() {
-        munmap(sqes, p.sq_entries * sizeof(*sqes));
-        if (cq !=3D sq) munmap(cq, cq_size);
-        munmap(sq, sq_size);
-        close(fd);
-    }
-
-    int WriteFixed(int output, const char* buffer, unsigned length,
-uint64_t offset) {
-        auto* tail =3D reinterpret_cast<unsigned*>(sq + p.sq_off.tail);
-        const unsigned next =3D *tail;
-        const unsigned slot =3D next & *reinterpret_cast<unsigned*>(sq +
-p.sq_off.ring_mask);
-        io_uring_sqe& entry =3D sqes[slot];
-        entry =3D {};
-        entry.opcode =3D IORING_OP_WRITE_FIXED;
-        entry.fd =3D output;
-        entry.off =3D offset;
-        entry.addr =3D reinterpret_cast<uintptr_t>(buffer);
-        entry.len =3D length;
-        entry.buf_index =3D 0;
-        reinterpret_cast<unsigned*>(sq + p.sq_off.array)[slot] =3D slot;
-        __atomic_store_n(tail, next + 1, __ATOMIC_RELEASE);
-        long submitted;
-        do {
-            submitted =3D syscall(SYS_io_uring_enter, fd, 1, 0, 0, nullptr,=
- 0);
-        } while (submitted < 0 && errno =3D=3D EINTR);
-        if (submitted !=3D 1) {
-            if (submitted >=3D 0) errno =3D EIO;
-            Fail("io_uring_enter submit");
-        }
-        auto* head =3D reinterpret_cast<unsigned*>(cq + p.cq_off.head);
-        auto* cq_tail =3D reinterpret_cast<unsigned*>(cq + p.cq_off.tail);
-        const unsigned current =3D *head;
-        while (__atomic_load_n(cq_tail, __ATOMIC_ACQUIRE) =3D=3D current) {
-            if (syscall(SYS_io_uring_enter, fd, 0, 1,
-IORING_ENTER_GETEVENTS, nullptr, 0) < 0
-                && errno !=3D EINTR) Fail("io_uring_enter wait");
-        }
-        auto* completions =3D reinterpret_cast<io_uring_cqe*>(cq + p.cq_off=
-.cqes);
-        const int result =3D completions[current &
-*reinterpret_cast<unsigned*>(cq + p.cq_off.ring_mask)].res;
-        __atomic_store_n(head, current + 1, __ATOMIC_RELEASE);
-        return result;
-    }
-};
-
-int main() {
-    printf("Creating and mmapping memfd and registering it\n");
-    constexpr size_t size =3D 16 * 1024;
-    const int fd =3D memfd_create("registered-buffer", MFD_CLOEXEC);
-    if (fd < 0) Fail("memfd_create");
-    if (fallocate(fd, 0, 0, size) < 0) Fail("fallocate");
-    auto* buffer =3D static_cast<char*>(Map(fd, size, 0));
-    Ring ring;
-    iovec iov{buffer, size};
-    if (syscall(SYS_io_uring_register, ring.fd,
-IORING_REGISTER_BUFFERS, &iov, 1) < 0)
-        Fail("IORING_REGISTER_BUFFERS");
-
-    printf("memcpy \"Hello, world!\" to memfd\n");
-    constexpr char hello[] =3D "Hello, world!";
-    std::memcpy(buffer, hello, sizeof(hello));
-
-    printf("MADV_REMOVE the contents\n");
-    // MADV_REMOVE operates on whole pages. Remove the entire 16 KiB mappin=
-g.
-    if (madvise(buffer, size, MADV_REMOVE) < 0) Fail("MADV_REMOVE");
-    for (size_t i =3D 0; i < size; ++i) {
-        if (buffer[i] !=3D '\0') {
-            std::fprintf(stderr, "MADV_REMOVE verification failed at
-byte %zu\n", i);
-            return 1;
-        }
-    }
-    std::fprintf(stderr, "The memfd now contains NULs!\n");
-
-    printf("memcpy \"memcpy was here\" to the memfd\n");
-    constexpr char message[] =3D "memcpy was here";
-    std::memcpy(buffer, message, sizeof(message));
-
-    printf("Using io_uring to read the registered buffer\nio_uring says: ")=
-;
-    fflush(stdout);
-    const unsigned length =3D static_cast<unsigned>(std::strlen(message));
-    int result =3D ring.WriteFixed(STDOUT_FILENO, buffer, length, UINT64_MA=
-X);
-    if (result < 0) {
-        Fail("WRITE_FIXED");
-    }
-    if (result !=3D static_cast<int>(length)) {
-        std::fprintf(stderr, "Short WRITE_FIXED: %d of %u bytes\n",
-result, length);
-        return 1;
-    }
-    std::fprintf(stderr, "\nWRITE_FIXED completed: %d bytes.\n", result);
-    if (syscall(SYS_io_uring_register, ring.fd,
-IORING_UNREGISTER_BUFFERS, nullptr, 0) < 0)
-        Fail("IORING_UNREGISTER_BUFFERS");
-    munmap(buffer, size);
-    close(fd);
-}
-
---=20
-Andy Lutomirski
-AMA Capital Management, LLC
+Tested-by: fausten <yunfeng.li.nb@gmail.com>
