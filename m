@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793332771;
-	b=vyaH/1GUb5pDWAPdi8B6Uvrv1VSbdTBu06k7zT7TcjeQl275RoQbDEhZsZw6imucCxwT
-	 O/hBcZF2Ug1r7F0rxV/5FXiOBszjFtMcxTZr1inaIpWjkKXDLCEubr+rt6L6VUL9P31U2
-	 eE0NE5Y2NkR9MV5wauTQooU5PZoc8DJZq/ABFCQ6A+GQp3mN0ECRVzR/nH0+JhYo6MVi0
-	 UR9evUP0UW3wpw1WdRYTootsGiJ05NGtWWcL7g7qRa0Geur0OAfiOlCemsndCdrCQgXKo
-	 kJxXbG/YFEV1aDh6OUdtnEK6m8pCnG6Y2XYvOB+erGirEx6utlMeKJpNZE/74uu/ZcA==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793332816;
+	b=dS8i05vj3xaqPSbxNPG+qy0YuSAItMqB1uRTNjwzkYfRqTkyKtbjDYgujIJJLV+7l9EW
+	 2kiHszi6gYX2rWemuDVN5xcDCAqU2K0ZW20eu7LUwkrcM1Dewh6EDYs+ab9XJk8rjXrSa
+	 4KrJWFfnFhqavflBF89r6fgg9Zex3NO+cAe6UeJdRoa8D3k2p2lX0ODZEKsl+e6exE4UA
+	 26zE+0/ib9Nb5zYmLAJCt/2pKKgZCuWj/3WufNQHjhZ1wjGWGsKei/M9vDpkO0NIVOET2
+	 3Dyz75O2aoPiMZBAdKEnnCQFl/oAK+vCD74+ndds+gVgotYEKAS/23f3tO0hKIPTANQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793332771;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793332816;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FOT2v3eFb29HN7FW8NdCrAqVBUnxkiOGyHwF4K+pcrc=;
-	b=WIOeoiZEZLJeGjaHTLSlH9FBFfnlLgtRZDWjJyMx7vlcGi3Ay/AnkJ5FzYrhL4e7/KIt
-	 7HogRAMFkLqTtRcTvkF42umCwTeOaKGGwOWiAzdWmIck9XKtKKQUUh/qsBsiWa6NkbGts
-	 0DPZvfK5D+ACAZbLOb8OBq03TMrkvEIzdrkVWIIHJePDrWUdWFKN3dFzlzsG7Vxsls4K6
-	 RE4bWrOKq8qLxT2A1GJ3tT+a00HVhzygTTu+HyIu0VMpa0JVrXhrCOje49QeaiSowlVDA
-	 E/Sb3vo6cYi0xup5Ca7LfPFGvJLCuuK+YXAwhZtnjSIP3OuayUpo/h963rQjOEJH4Tw==
+	bh=w+nM/vAkuCP/V6D3oVU+Bkna7/XRYF0/nbbL7krfSm4=;
+	b=pd9NmdZ+Nigs0rtji+8HepN445ji3ec8sB3bScOJe3whnP7xZVhVBi9VhdzGx1JXq75S
+	 34DfG0AEJYMtcLdzVbMmMDBhhfSsFO4n9YKAHZMskqjs6Rm/kob/we7oD0uMMGAehW6fn
+	 3bDEIVReiEpXQ1/Rz2jMgjRNtFUPe/7KuN/2gDqtjWq83MTQQwh6aNePOGdu6k1+SYqEp
+	 4qi4086ORy1wjXCwMqNExSqz95iWJff9qjBOaPbtHWlL2outYFzu4r9X55W8cMVmYfF7k
+	 1fSmrR+S53MVQcNys6mG88tKMerZXsx2LjfalnZIwC5kjQJtMqN8Hek0xcx6GTciwyQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="kOm4/A9u";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.177
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Epqzn++T;
+	arc=fail smtp.remote-ip=209.85.208.169
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B54606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:59:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0B54606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F94606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:00:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55F94606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kOm4/A9u
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ab39af88aeso3882891fa.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:59:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793332764; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Epqzn++T
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3ac65e845a8so3327401fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:00:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793332814; cv=none;
         d=google.com; s=arc-20260327;
-        b=rqf0rS3XLyZM3354EgovXio0q7OPMemnhdaN0PlMTF0ZQ89MevlyxDty2Bh3vb2eUb
-         xWKSpVjlavYCLF85HksDIY4gjTtrspPnNQgnmlk7E4YmZosbXZtmNMFn/xEfFmQbd+gM
-         Xtp77iYcHP1m5L+NzdHFXhoeY/KJAUy1E5hPv5wXD8InCG1WmRZGuV3LFFgcBsxPS2wk
-         dlcdh79wh5uEI4mhc3ASY99GXFn7rftxJStCApzmYfZ6IGTqZKNqeCw7uyMRdt3szeIa
-         tlus+41F2YhT+8U5Pa2Mces+0urC9+hD5HEreyUt/VAaXXReZnatQl85O9fo7R+yWL7c
-         c80Q==
+        b=GmUp9IgI6/h76e1UXIbDAqFhpSvhRZQWzdDTuhFj80dH1VlVsPCdjWW/ZoedeedUST
+         zieR1E4KNhFLAKlsJAkBD8ydI3oXK2cRBcYDLQExmVwDVpDk0QgGkGeZLBM2+2jVSKfI
+         6BiJ1GeivQ3YppsTPy3Oe3H+AC5l4QEVDfsPtMCA33QUwJbIdHOQIrKTsVvraIvxMMvI
+         FzKS6P4SQAoH0kfQsw88grB5o9QQIZJiCmBRMf/ri57gbtsybiEV7v5YUeSTpA7FHyu7
+         EQHrcXS2OEpBVcgGESC3Qe4M4WwOIxWIhSWtGX3Wjahu6itGzWU6M3oKLguJJjfUs84/
+         8eOg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=FOT2v3eFb29HN7FW8NdCrAqVBUnxkiOGyHwF4K+pcrc=;
-        fh=38ftbecFmlJCLW1DG+4IcRCRoHbPzHz7Eq2dYORMntw=;
-        b=gZ2VqCtKSUQCVVgYUYkDx7RCcmhGPM4Nm18x8to/PJd7vRxuLKWSzQ6U6SjKkgKGAe
-         xFfzZzgVb8oV9AwezkG8otr4NfCxu7QgjK8aJ5DM9AniRzoDMXF4/aANPTybKcaFBozf
-         I8znF9TA+3/kS6CoxUVmcpgSkZlOUySMW+/mwx6hyN6tzoTbi143Hbqu2dKX4e7SfhLm
-         bg+H92aVDi8qznd2Mg/e1A6LXuv5G0pYKifQMUEClxrDO20u3fCA/jdz5FCmEiOe5PS5
-         Et9VGb/pwZr6alUismmvC3nbzTN1wl7QtJvN1ZGwQ8C87e3TuKNBNOwFlo3HCZkdobHu
-         9Mxw==;
+        bh=w+nM/vAkuCP/V6D3oVU+Bkna7/XRYF0/nbbL7krfSm4=;
+        fh=WnboeyfxmXsPxfHIuVJHQJaOZCRLyg6qPfSybVfgqxY=;
+        b=hQwbURPtaHS5kJwkJlIfsnADzh7aBeE0uymc8DCMinboPiKGVhp4uDammd+K9OnAFb
+         AnNL2olgTbNH1+lSjuPSvJkPpBCJn0FfEIASjzfBF9TbjeLLMOmmmtwQRaeuDnoNZoia
+         93ELt5dulSbxb6zku05R39mAlJGmGBPQjCsqPw2+pPfaKq74/hczv3CIzHCXSISwuLNV
+         fxOVHiUG/Hkt5GEGiOObg3kvHMHI1ga2DmRgsA247DhhYD+5C8PihEOUXayNLrC2K0s4
+         jK6Q56+uda81mTkQsukHVNA6/sM49jTQ/DVvgLLeLbIZEfDPeIPaiUfKXQ3VsLBzUvzM
+         n+cg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793332764; x=1793937564; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793332814; x=1793937614; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=FOT2v3eFb29HN7FW8NdCrAqVBUnxkiOGyHwF4K+pcrc=;
-        b=kOm4/A9uYwuoxIElIPkqOL6pDbf17izln7xJORCwomxPzYzFRAjWGx6dz/pFDFMKvs
-         XvgdHHpsG0mYL7sSAfudM1W+DTArUE1vd9/NVrpfOrDCIcKqecx8mAsX3+6ZUbD5DD54
-         rOFOTaCkgCxwj2UgQQUjJNrqYho2ZY+KF0u/coLUSvBD/UAcsoceiJWqJWzf2sFL/lm2
-         ZpBCebJYk9z+LhJbF+A8uOr5ltcjX3SFjAZI3vBDkHeOzbRWYIHO+5WH3EMyWHfa1lDL
-         stl+QLqZGL8MlL6UPoQoMq/ZiuTkHu3dkvq+RLU3vckc+l35nZZ9dWOJsZfQAv2+Mw6v
-         Q0/Q==
+        bh=w+nM/vAkuCP/V6D3oVU+Bkna7/XRYF0/nbbL7krfSm4=;
+        b=Epqzn++T3ThHlw+p2SQJa62uo0Fu2kGBJpXoBicTYzqSdjSehXr1hZjLptWfjIiXJR
+         pJUpUbU4BuEYZm38r0Rw2O4P/EvFduucyYU6TAsyUqtAEiZNP8FI6XujHB+4HA7Gva8J
+         0ytOjdd2fQOkdFHaly+iuSq6qh7BnZ3LszMKs61zPfs1e//5PKcBH96VCAf9QKdMhSSL
+         ZU9BkOHmvzEd9p2R3kyxcQtWW7Wk+34ySlELX+gmgKH+Ug7cj+hk4nUSd9/3xI00DsW7
+         anYJqlX/RjNQdU2NrUFalbMYh2Pa+kT/+EAKIbcHfuQLyvbk4FaG7F9S04mUAUIaClta
+         MOdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793332764; x=1793937564;
+        d=1e100.net; s=20260707; t=1793332814; x=1793937614;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FOT2v3eFb29HN7FW8NdCrAqVBUnxkiOGyHwF4K+pcrc=;
-        b=haWzsZQ8U9mxdEp1KGdFQLlGX8am6lGXobAsAuMx7zrOaTT/5WCKEpwaO/F9A/SJOU
-         GK8DoXZqUcAALHlCd2cno8+fP/z/s+ROXXKfPMmkEmi+HZ+NvnFp4QjDFkD6L4obA/rB
-         wX1oBYrtgl6veaXEllDsmK4qZT/4hSlrZedXcTuQzb4ULXn6S4NQ4WB5B7kQEzaPGwMB
-         4wnb1vsnP9bajbiy9XjJHUlBH/NPraj+0OtrJhKOEc7xCGue/dVH8R0xYPR7uc0qe8Yl
-         ARRbVStveNgso6vOJ2qP9dr6kzp5f9iDanV4Vt64QPBukOLJN5ehI3QA3orp1w5q2isq
-         +K5g==
-X-Forwarded-Encrypted: i=1; AKwUvBy8ZobFpHKy3aWpNbDhYkkRRgpDlXmBZAr9S20G7X46VjI/JhwBCdY9qqNT6g2Y8j8FsQkQAOm7ZLDEvk4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJh1h8sYKco8F8hFIwKaJVnm6Di4woJjSlphC93zKptyWua3aq6
-	bZca9qmx+ZSYC+pjoRZQgtL3a3MwpV34sPZbKecs8xA02udEhr8o3OHgw6urdY9+mIndnJAsybc
-	nGxbCR5uju7L9XhoIxZOh/7h+p3TZuzk=
-X-Gm-Gg: AYBFou2DuNx0FS0G2efQLP4OGy6Yy2NIQAS3+Wo/FvbatMGYFQLVKxz+FvGkYrownd6
-	lF9Xu9H2Ods/UVPIoUtWlMtRGAEt4rtIM/JLm5XUM/6pku/XyGNqIxLV16OZdPjaMY5wACJeW5c
-	I1afHvD7Cf2Gloq69I2z9mIbaf0Bxtsq4SQTnaE8e5DgqeCggB1WodemXRAgxJDIyaU+uI/4DfA
-	BkGTQKOHVxr6bPV9ed7fM5TajSO9axrtzM2j+StsDCcBsUQdXsnsT/3dr1dCBkbVMaP/eTxDFbv
-	KYcdTQlLD2B1v/WOLgL/+frmu7L5OJlqL3mALzN3R0YwVzcv7wTsbSIkH+eYXv0mDL+Xm/w18cM
-	AIqubQPaVbtrx7c1AQby/tMoKIrzK74v/bT425+OgPcefRGTtUsu+j0CNvwo3NcEiVN4G5AcC1c
-	7fUUguNda/KFaF0hv7n824HKXRqyH86KEqZUnas9PGsLNw+XLTHKOU
-X-Received: by 2002:a05:651c:1508:b0:3ac:416c:721b with SMTP id
- 38308e7fff4ca-3acb7a98329mr1607061fa.10.1793332763639; Thu, 29 Oct 2026
- 20:59:23 -0700 (PDT)
+        bh=w+nM/vAkuCP/V6D3oVU+Bkna7/XRYF0/nbbL7krfSm4=;
+        b=A8t7XMGBYJss7TbVzNkWtSmjY3BqPw/INK9cnOS5kjlDc/1e08npDpXque88neSbff
+         DpFVinI02UNt7Q1yvnb2zRd9432oEGvsQnHO0/VTwl/1kbBXorMpdnIISxxFv9wP66Nn
+         e5XQORHKWecdfzD8ENAQ7OjjfmxqTa67d/bchq21/W0HINStJG55pDWg199xY4mxnati
+         Gl62V+ytgJN6HREQBfasrHi6zNGbp3WeGXu7PE/QgtuALEZtuM7eN6QGabKOE6eONYp9
+         Ed0GXQN+/hucpfjUAVdkQO2n6Pdb0qWpxup32NoHXJrpii2dACMZN0CxJppu8rbBvAOO
+         4rag==
+X-Forwarded-Encrypted: i=1; AKwUvBymgm6mWmkmPs5cHGYkQGe1H/uYO4qX8OnTdPbG6q6wNSyaoisihM4BZsNgoUY+fGv8KFIRVDx5OT/u81E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3xyMfqwYcvXg+/GF4AV/47Rsk7518PKitOVM98uaTXG8IKFot
+	IpQS3p98Om7lI8z9EXbP5EhovtsZn7dLSbRGrNoIHgjJUQTy/hDFjmaICOsR0bS3fyu8xnMe/r3
+	jg/P9YKbPk5aQfSX0NcpxF6DfJJxp3H4=
+X-Gm-Gg: AYBFou0+zdTnfO0TvSkTTn+RdmrCfYtEh4xaqClqGplZKL0yYiKYvqtxMsGy69nFLA1
+	iJqcxuf251u0NbpQldJCXD1P+kG570sSqNlyKbIN/TNbpR6B4YoNQIQjWjp2cuDUJKrm3SEcjHW
+	ea0Ah6vYwAh+NVtERQoVGzf3S7BW3SckecKMCVEDz0sC4mYHpzcg3/DLnUBHO/6vLWcJ1xafKXP
+	YYnCm7cwG+aKxxDZn04lz8737WcZkI+VgNe1G8Ndr4EXNVuEbHJO6gI7IfRxp+ilbThLAwAesMg
+	Sgan5cUmKKQpmCrKi6fsKAdW0FpTOa8HkvskWDet/GgWsIepxt7Arj2b/lE/GTqLeJnL44/DGGY
+	ZvyyFsd1y6cir8ggR5e6kEbXaIxNg1qWs7qIgZSeRojWznNFZ4f8HdmTtvNPW4n7thKnYnGSRzt
+	+4+dPTaPs88GViDHb86cjQnRcM3/k2mS9TkAI2vhRwaKmmxd9La0Dg
+X-Received: by 2002:a2e:bc26:0:b0:3ab:13e6:c351 with SMTP id
+ 38308e7fff4ca-3acb7966d6fmr1569531fa.2.1793332814462; Thu, 29 Oct 2026
+ 21:00:14 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,13 +106,14 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261028-alpha-profileme-v1-0-d44b52bf2500@gmail.com>
- <20261028-alpha-profileme-v1-3-d44b52bf2500@gmail.com> <CA+=Fv5QZhtB646nAvoMzbc5O+EdFOnZhXyRrv_1Q-LGWKfbrEQ@mail.gmail.com>
-In-Reply-To: <CA+=Fv5QZhtB646nAvoMzbc5O+EdFOnZhXyRrv_1Q-LGWKfbrEQ@mail.gmail.com>
+ <20261028-alpha-profileme-v1-5-d44b52bf2500@gmail.com> <CA+=Fv5S5S3o1=2LetFuLQNqjtuw0DTgxVWAYAiAVvsdUNgNEyQ@mail.gmail.com>
+In-Reply-To: <CA+=Fv5S5S3o1=2LetFuLQNqjtuw0DTgxVWAYAiAVvsdUNgNEyQ@mail.gmail.com>
 From: Matt Turner <mattst88@gmail.com>
-Date: Thu, 29 Oct 2026 23:59:11 -0400
-X-Gm-Features: AclHuK90bCzCpBH3kCewscdgnWin1k9-jXiMf8ZZ82e4TOlEtXb6Mcvjq0xGsE0
-Message-ID: <CAEdQ38H0sdgPHOi=iDrHWjzsF4GNJgVUt4GxbZ3O5YwpPc3zJw@mail.gmail.com>
-Subject: Re: [PATCH 3/5] alpha/perf: implement ProfileMe sampling
+Date: Fri, 30 Oct 2026 00:00:02 -0400
+X-Gm-Features: AclHuK_oJ3s5RUCirMOkhYNov1PNLqWTliY-wAZYDiCbHMWHZpexW4vczKNrsL0
+Message-ID: <CAEdQ38EwMT2a09rZMcJDmots55b6bcX0-ARWfb1sC7w7n3VkRg@mail.gmail.com>
+Subject: Re: [PATCH 5/5] alpha/perf: optionally randomize the ProfileMe
+ sampling interval
 To: Magnus Lindholm <linmag7@gmail.com>
 Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
 	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
@@ -124,38 +125,13 @@ Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@inf
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026 at 11:18=E2=80=AFAM Magnus Lindholm <linmag7@gmail.com=
+On Thu, Oct 29, 2026 at 11:02=E2=80=AFAM Magnus Lindholm <linmag7@gmail.com=
 > wrote:
-> > +       pm_regs =3D *regs;
->
-> On Alpha, perf_reg_value(SP) derives kernel SP from regs + 1.
-> I think passing this copy therefore reports an address past the local cop=
-y,
-> rather than past the original interrupt frame.
+> One minor corner case? This  multiplication can overflow for very
+> large  sample periods. I guess normal sampling periods are not
+> affected, is it worth using overflow-safe multiply/shift to avoid this
+> limitation?
 
-[...]
-
-> If PMPC is in userspace but the interrupt arrived in kernel mode,
-> this also makes perf_sample_regs_user() select the copied kernel
-> registers as user registers, bypassing perf_get_regs_user().
-
-[...]
-
-> Could we preserve the original frame for register/stack capture
-> and supply the profiled IP and mode separately?
-
-Right on both counts. sashiko caught the same thing, and v2 drops the
-copy. perf core takes the sample IP and mode from regs
-(perf_instruction_pointer() and perf_misc_flags()), so there is no way
-to pass them separately. Instead v2 sets the PC and mode bit in a real
-frame for the overflow call and restores them afterwards:
-
-- interrupt taken in the instruction's mode: regs
-- user instruction, interrupt taken in the kernel: task_pt_regs(current)
-- kernel instruction, interrupt taken after the return to user mode: a
-  per-CPU pt_regs holding only the PC, since the kernel state is gone.
-  It is not on the stack, so perf_reg_value() reports no SP for it, and
-  the user frame is left alone for perf_get_regs_user().
-
-So SP comes from the right frame, and a user sample gets the real user
-frame.
+Yes, it overflows once the period reaches 2^35. Unlikely, but perf
+allows it. v2 uses mul_u64_u32_shr(), and saturates the sum with
+check_add_overflow() as well.
