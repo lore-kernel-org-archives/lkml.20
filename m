@@ -1,126 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.159
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793354711;
-	b=hwWhuRRkxynLC4F1FNIxvLIOuEgDYbWp7wsTVmCT1fhyHSvZ+snqSvlVdfboJvDRkjFB
-	 u4Bu3G/cF/mUj83lptKxJOxqJE1XQhG/nZvLgssYTX7HMoL2tRgMWtpY8UyujhfxZ6Wzg
-	 yxq1gLsYMnnrPU0U4BsyFg8ajbtJp0B72cUW7/fk9lhrO1C1KVL5WoPYCdpnrWZEYapY1
-	 56h5zd3BpQFPinLOjlx+eADqflgCN+livcEtra2RqNqUubzYOOfQLO3FsAEzxFgesvv1S
-	 IEjTNgLCXqdVAHkbpFGu9IHAJ2eIRuNH8HMZ0NCqNIOdYjE9sM9DO9Y18jQ8XNTgt+A==
+	t=1793354701;
+	b=Ed2IanYqXzKj2U7Jrna4eQ43fsXFlGkoSikYKLzgY6ETVtLzv0jUE1a69AmBLt2Tyz8Q
+	 n/0KcjNN6UeljuJnaW/7vBA89bba4q7AbTobdWyXosh62ETjJ4EvZjdAoRbZvFh8fm9ME
+	 eZ9USH/LJ64e1t4ACqFKnjmPLfPXicjvxBSX5iM+ofjogQXgNYU9vCN4QJzfJo62yzTEE
+	 cJsBASV/gB4qKNuXrHWyNNLUBM86ITvNWsyelMZloOUBE3cFY+pdNkhYr5rhGflnmvrqp
+	 oPZXZTldNEkrQagg8hPslgXTpxdyzT4ctZN9Dg3nMMR3oXBM86nA16Mw/7ZlZpM3xtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793354711;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CYmf7zEV7N2JO5e7QjNKth9sPECuxuSbTlZTcxut18k=;
-	b=496tcoht6DQNDUrF8sfHP6NbLLoWxCOVb7gTZMq/jOvw6NrKiqu7NlXCvGfsyeEQp5mo
-	 C9rQrXN3vFYLZN9dmU4kMmiJ291AboKD8lOw4c3rYm2gmR7fiRyLYqGTQ++jnywy/jP2W
-	 sLMpz24R/v6sVTV8fcHqWUHNqwbZQOdR0agRAK7YTtARb1gwbfq8T3RUVfebmV1tC0Uo2
-	 6pYiooDjw1imAM70kUQEzv0CUUGPY5hElT9pjUzQtZR6wESC8zShbblCZ4c/6Ng59+RIY
-	 dpFP1qXYp0aX2POkTzeus55YSUjYp2mpeBxj/cP/mD+gCp7K5v3YnaeHcL5SsdSnwZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793354701;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=+GO32LyuJxZ4CB3rxhjZ+uTReaisqj4Jl+d/0LVNI3M=;
+	b=y3QSbxHb57x2MyI0T8aUJx8hvt9jOYMSZ0YTBHzyJAJRk1uGnyqvNl3lVOxBMxf+gfOs
+	 o9IXUj31UBdWYHnfB7giVUPhZZ9HBK9nTaswqA+JEyX4ukvj+mPJYdf/jsKJI6sv98tve
+	 3NM/k0VDe5i3MvSjFEMFcozdNxytiLtg7Tw6lj/HfLHzbeJP0AQt/Ro+aQHrf0SVEkXrl
+	 UP/xLJ3Wm9HxzxfjopIp7BRiWltG9PSMhJskAEI7nX4U+lIHGiI3ZBOvibdlNpVygPdMd
+	 DPbOm4Hfq5Ma21Luko1b8keC6wwQ66WPTSA+jJXZkGeeAMHx63q1DOEr3sVx2SrHrbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=flapping.org;
-	spf=pass smtp.mailfrom=flapping.org;
-	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=LTTrns7S;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=QxcaxBot;
-	arc=none smtp.remote-ip=103.168.172.159
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WCfuQBm/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAEE60A2606
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:05:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEAEE60A2606
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC63606A32F;
+	Fri, 30 Oct 2026 10:05:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=LTTrns7S;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=QxcaxBot
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 0C7891400181
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:05:10 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Fri, 30 Oct 2026 06:05:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793354709;
-	 x=1793441109; bh=CYmf7zEV7N2JO5e7QjNKth9sPECuxuSbTlZTcxut18k=; b=
-	LTTrns7SPkdtU3OnExJh8ofe/pEAmAjNZGD90lWxuwO4JF6dwgwbW0Tz114EHBmx
-	dwQUn1s9tIP/21OsyLnDIYHZ2/F6tFz4TFIOjqQs6g8UoqjyhHZLH/Id6GObTVI0
-	yrSJkuRusXuRkDUVXEQ9ysHDydgS8PpsQ13Lw7xlJALKNo432I2wJEMi3sld0QmQ
-	1ihDjlZM7bZLw6vFp0QvYknoTodJKnBqIdVjbpoXZqyttmiLRvf1TjVwnLAq9CzO
-	IJZnYUpGHvxHB2Ubaymwh+AcuZF+jyiONEb9N+DH79hG+KqKyNS2gMOj6PrvCpwu
-	QkrY+HquqfSW4tRdxGYeog==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793354709; x=
-	1793441109; bh=CYmf7zEV7N2JO5e7QjNKth9sPECuxuSbTlZTcxut18k=; b=Q
-	xcaxBotJveEQIpMKup3A4QP9vpRlUifEg8zao0R0iUqSZH+FWrhXsCvl3g7ecH0s
-	RKI6LCmxPPpjzxRRnCtURhsygiuxGsgL+3pCnUwbx1QHaPW7XJ7I2EqkRm5cMTzP
-	cYin9/nzVHcGTRbocs0PF3G5UaL6tBpUjnpl9+XbuWeJe+v4f2TkEcwZUnnF2psw
-	1WhfsILBuH/jSZMXMpKsN6MNCiEytumAq2i2G2W+LxkdOEcNUogDgKDzxaB8nK7S
-	PhVCx8ZX+jGa3kX+mxySM2PgKF51tDidv0FLlZ0zsPKG/AsLqlGcy5aZ0Emy0+dn
-	yEjLJ1AYDktjkF/kDovCA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=flapping.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793354709; d=flapping.org;
-	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:lXbGMBqSnWoCA3KjRi0v+RhFn1Qzhy47raPa0uCgxe78heh
-	nvaSOoPp7x4wY0Fs1Z0dFFzW9I4bGENUSR/2ZTo6vynsr1WWO9q/DqdilPJfEO8Y
-	BHQb6Vbua84EfV+dDkJ5wHaxRjNelZ7J6z7UfC6pgtXeFPhtzGGK9o1kj/hSBav8
-	zM9u81n3XDmmcXAA0Fj5vgwaA31ShydGUPOzIbGewoHfoX1zx5S7vlge+65YJeIL
-	Bd1+3LqYX6IXCilnmSNG1Ynu9DwTU+CxFlCmfrxjXq2N4bFaHHE96cFvtgv468Hj
-	9kLJCs4El5vyIDXtWwgF13m9P8eK/vWBwPHm+pA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:O+zVubfLIZG+YDdFFy25xWSpDtgbXwlawSh8FXN1sXE=:cbcMN57HhtchPL+P79PrPbn9la13DG4pgSMEvOD0+F4=;
-X-ME-Sender: <xms:1Wvkahoh3Xt12nODHNFXTlOmCWpPqXRhk-VNbBnp5eU97df0sHpzcA>
-    <xme:1Wvkarkq03wrrRcFsgWwo1-hbi-k89rYzXY4d6pDwQAjWNo9AlO3iTP2uzBTgiZpS
-    PQM-uSFi1-W4x4L0kc2bCNwyN0crKUx8LC7N7U1ahOz7s7UilFeUI8t>
-X-ME-Received: <xmr:1WvkalZwfcSGTQXTL4SsKGsUdzI8XupzxhjQc5akpcNNIvxUkct8T7MXOaU0SguBvGG1NJsEc8rBzhMdIgos6qMa>
-X-ME-Proxy-Cause: dmFkZTF3XHbGwWOzLbWHktg+P4vPkKHpnO7jkRsVw+n74zppSuF93Bwys9kdl7GCDyRcTW
-    gtTlKmdCUd6M21ElAe05m2OjkCo4/i2B6SZeq1DcJYCDFG0o64qhESJhf1AJPt/MfJk4OX
-    igGM+6D+CLS6LtruurHqOOdOsaeaZk0qIyZlp5WZBYvS95+DEabdSSk+gUd+TBsLkJ2zcb
-    SbxIFoFm3C5JWamieI9BGJ/j9n9QamNiMCbGcFxS/0qLrwuT3paqYIJDhwy9UCUe8BZo2Q
-    WAgMFTVYky66yHBQnzGOM/IzUi2mSPflAo6q4/vLjHp6G+NxaUJ4HXedhoSgGgmaiH6MBr
-    pz0Frbabu0eXzJxlYrgotW0ugMy3XXL82q6VsMOxLwf2e2+nThVgP+dRik8V+FLcFmtgbq
-    r+t/9Skl8V8Ox7SL65CAbUDhSDNNs198fDWQL3vHR+HNK+l0yzz15HCzdzyymi5jnx1j5L
-    9DqWIZ54fNY7LJ3YH2igsx0SSfSGvyrB4UQTVUpSFKnMu4Ae0Vpfy9fDvJ5X4IvmWebPgT
-    ppVl7IT1s2l7gyet7Yc50+QU38mehBpUeQ3YFgdfHAqwK8hW7+0OAsrhoNJUhRotOs1wUh
-    rOAM0ePvoplpVJDPDgs62aKrUFTYifE6M0NCNSfAOyR0mUFG8NEnRT7vGh5g
-X-ME-Proxy: <xmx:1WvkajV2gZR1ikP9r-2VTE1Bed7CIJAntSKpjg0bDbjNviS3eCWdKw>
-    <xmx:1WvkatBEHizfm52NwNNpiRR27TR4byDYOtEV_-mTUnTV5-maOQbeAQ>
-    <xmx:1WvkaqxkLO9iVMQFlqx1PD01ripjEbC46GAkKkUe_ieWUfNw174TLg>
-    <xmx:1WvkarZZSMlqKCViXdIwVhqMRuYYRyaWMhZhi1Yb-ncdVOcD1O1WHg>
-    <xmx:1Wvkamb3k7q6fSz964NokTD-7GIE3uIzL0BWt6KuxQIODgV7ByoSIhQP>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 30 Oct 2026 06:05:05 -0400 (EDT)
-Date: Fri, 30 Oct 2026 19:05:02 +0900 (JST)
-Message-Id: <20261030.190502.1711453613571853758.tomo@flapping.org>
-To: mike@fireburn.co.uk
-Cc: tomo@flapping.org, a.hindborg@kernel.org,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
- frederic@kernel.org, tglx@kernel.org, anna-maria@linutronix.de,
- jstultz@google.com, sboyd@kernel.org
-Subject: Re: [PATCH 9/9] rust: time: add ktime_get_real_seconds
-From: FUJITA Tomonori <tomo@flapping.org>
-In-Reply-To: <20261030075750.356854-1-mike@fireburn.co.uk>
-References: <87h5jzx5gj.fsf@t14s.mail-host-address-is-not-set>
-	<20261030075750.356854-1-mike@fireburn.co.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WCfuQBm/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC8161F000C1;
+	Fri, 30 Oct 2026 10:04:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793354700;
+	bh=+GO32LyuJxZ4CB3rxhjZ+uTReaisqj4Jl+d/0LVNI3M=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=WCfuQBm/ajUVh7TkOjSzGflBEonBEN6jTYRNMojCz+tgJ4cJk+OIKiPsIVLlMljW9
+	 5kpRQ3K4RC+apCP2MppOI+nDDjG9RrQ7WQHhDw/UPaibo0Ry6ujUuztNLsN9W1joOc
+	 ZRJSYduFFeLifvmriLOwJ3mOVX2gcZReSMMm83cBk4FiXqNVT1lYgVmF724KMhXoxE
+	 rZE0SZBjbkw3RTyYSlzPCydMOFIvqh11eaDVhCPfUx0s2FuZeSdgcBtIDm6Gfq8J6z
+	 8dgAVMjD+NJ3gFLwxSpZeOecu2i7U0Joxq/4qgsELCg7CW/QUYledVyd01r7/yHA/W
+	 NOkO92Z0pNVcQ==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Fri, 30 Oct 2026 11:04:02 +0100
+Subject: [PATCH 6/8] drm/msm/a6xx: Add IFPC tables for Adreno 640/680
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,20 +51,128 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-topic-a6xx_ifpc-v1-6-6992841a9a32@oss.qualcomm.com>
+References: <20261030-topic-a6xx_ifpc-v1-0-6992841a9a32@oss.qualcomm.com>
+In-Reply-To: <20261030-topic-a6xx_ifpc-v1-0-6992841a9a32@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793354666; l=3219;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=Bn21FIZgbJ0x2iqwzVvV+m0E6nI21CSgNDe8kf/dsGQ=;
+ b=tyX5LP8tzAE9ErBXE0+FGB+drPm25MZIhehecVpwV+U2oXF5vPh7oRkz9jlwJyxFTAjNFND6m
+ n0xxGUmlH51C0RHyaqeGQXR6QPBajZW/huS8QyNleNrj1Jk5W1vobmk
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-On Fri, 30 Oct 2026 07:57:50 +0000
-Mike Lothian <mike@fireburn.co.uk> wrote:
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> So it's the case you described, Tomonori: the format is fixed outside
-> the kernel, by the dock's firmware, and what the caller wants is an i64
-> of seconds since the epoch.  It never gets subtracted from anything, so a
-> seconds based Instant would only be there to be converted straight back
+Fill out the register tables to enable IFPC on these SKUs.
 
-Right, you only need an i64 of seconds since the epoch and do no
-arithmetic or comparison on it. A type is useful when it guards those
-operations, and there are none here. So the plain function is fine
-with me. If a caller that needs them shows up later, we can add a type
-then.
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 47 +++++++++++++++++++++++++++++--
+ 1 file changed, 45 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+index 5e1d91a73a4e..89829fa8f4f4 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -814,6 +814,43 @@ static const u32 a630_pwrup_reglist_regs[] = {
+ 
+ DECLARE_ADRENO_REGLIST_LIST(a630_pwrup_reglist);
+ 
++static const u32 a640_pwrup_reglist_regs[] = {
++	REG_A6XX_VSC_ADDR_MODE_CNTL,
++	REG_A6XX_GRAS_ADDR_MODE_CNTL,
++	REG_A6XX_RB_ADDR_MODE_CNTL,
++	REG_A6XX_PC_ADDR_MODE_CNTL,
++	REG_A6XX_HLSQ_ADDR_MODE_CNTL,
++	REG_A6XX_VFD_ADDR_MODE_CNTL,
++	REG_A6XX_VPC_ADDR_MODE_CNTL,
++	REG_A6XX_UCHE_ADDR_MODE_CNTL,
++	REG_A6XX_SP_ADDR_MODE_CNTL,
++	REG_A6XX_TPL1_ADDR_MODE_CNTL,
++	REG_A6XX_UCHE_WRITE_RANGE_MAX,
++	REG_A6XX_UCHE_WRITE_RANGE_MAX + 1,
++	REG_A6XX_UCHE_TRAP_BASE,
++	REG_A6XX_UCHE_TRAP_BASE + 1,
++	REG_A6XX_UCHE_WRITE_THRU_BASE,
++	REG_A6XX_UCHE_WRITE_THRU_BASE + 1,
++	REG_A6XX_UCHE_GMEM_RANGE_MIN,
++	REG_A6XX_UCHE_GMEM_RANGE_MIN + 1,
++	REG_A6XX_UCHE_GMEM_RANGE_MAX,
++	REG_A6XX_UCHE_GMEM_RANGE_MAX + 1,
++	REG_A6XX_UCHE_FILTER_CNTL,
++	REG_A6XX_UCHE_CACHE_WAYS,
++	REG_A6XX_UCHE_MODE_CNTL,
++	REG_A6XX_RB_NC_MODE_CNTL,
++	REG_A6XX_TPL1_NC_MODE_CNTL,
++	REG_A6XX_SP_NC_MODE_CNTL,
++	REG_A6XX_PC_DBG_ECO_CNTL,
++	REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE,
++	REG_A6XX_UCHE_GBIF_GX_CONFIG,
++	REG_A6XX_UCHE_CLIENT_PF,
++	REG_A6XX_RBBM_GBIF_CLIENT_QOS_CNTL,
++	REG_A6XX_RBBM_PERFCTR_CNTL,
++};
++
++DECLARE_ADRENO_REGLIST_LIST(a640_pwrup_reglist);
++
+ static const struct adreno_info a6xx_gpus[] = {
+ 	{
+ 		.chip_ids = ADRENO_CHIP_IDS(0x06010000),
+@@ -1115,7 +1152,8 @@ static const struct adreno_info a6xx_gpus[] = {
+ 		},
+ 		.gmem = SZ_1M,
+ 		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_4GB_VA,
++			  ADRENO_QUIRK_4GB_VA |
++			  ADRENO_QUIRK_IFPC,
+ 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+ 		.funcs = &a6xx_gpu_funcs,
+ 		.zapfw = "a640_zap.mdt",
+@@ -1124,6 +1162,8 @@ static const struct adreno_info a6xx_gpus[] = {
+ 			.protect = &a630_protect,
+ 			.gmu_cgc_mode = 0x00020202,
+ 			.prim_fifo_threshold = 0x00180000,
++			.ifpc_reglist = &a630_ifpc_reglist,
++			.pwrup_reglist = &a640_pwrup_reglist,
+ 		},
+ 		.speedbins = ADRENO_SPEEDBINS(
+ 			{ 0, 0 },
+@@ -1238,7 +1278,8 @@ static const struct adreno_info a6xx_gpus[] = {
+ 		},
+ 		.gmem = SZ_2M,
+ 		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_4GB_VA,
++			  ADRENO_QUIRK_4GB_VA |
++			  ADRENO_QUIRK_IFPC,
+ 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+ 		.funcs = &a6xx_gpu_funcs,
+ 		.zapfw = "a640_zap.mdt",
+@@ -1247,6 +1288,8 @@ static const struct adreno_info a6xx_gpus[] = {
+ 			.protect = &a630_protect,
+ 			.gmu_cgc_mode = 0x00020202,
+ 			.prim_fifo_threshold = 0x00200200,
++			.ifpc_reglist = &a630_ifpc_reglist,
++			.pwrup_reglist = &a640_pwrup_reglist,
+ 		},
+ 	}, {
+ 		.chip_ids = ADRENO_CHIP_IDS(0x06090000),
+
+-- 
+2.56.0
+
