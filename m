@@ -1,89 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793355888;
-	b=T98CmvlNbbVOC7DZuACeS6oH1SHV+RoViQIrLtl5HaHCn1eLBMgx1XqDjyhupHWTM8BC
-	 JvKfGTYWSB9Aeob8eJczCtsxYvPpCUVRGHyW9wvedR6Id7eRDE955/pyY/d8u+qjFFj/G
-	 jX5wpv2fjlml204VJADtQKBYoN9U3HXlMyLevtpLnoaHETKNCVO2ogDv7M47UdKhi2Ya8
-	 0HCeUXum583v307DBsx32GRrRpzEfdFk2rm5WkMI3QAdYwMY85H9HGjnl4QFs3pDTpu6m
-	 yQ8tL5XMlDFeuPvmBcLlg8A1dtNw54wvaTqjBM5/36omZo9diZ/y26pS9oaFcyzn6/g==
+	t=1793355902;
+	b=1FHoj6Oy9DGU6du+W+nzJS55S8itWmepxi92iALqyiudAQ+XhhVeOhjvWu/l0A1/2oSS
+	 NAd4MUU7yjdQHLIEBE2bgUjSzLbexapizRFXlaeByY9McqGkcV9dHUVjmx9Ob4I3addVv
+	 OUkQbqFtwO931um+lyg19XocP5CNynKadBwc6l51ab2OTxHpZZFniZq4jsMwuSSVmqAeO
+	 kygp4W5+QP+8SqE2Ap8/ZdwqC08IkWAOS48kPOyjdb8+390hm3Bu4JnjUV1uhGgNQvCs6
+	 1hyxT5uAttOc0drcOF/ij/Kg03giS8V+YIvrT9HImDj0fXkq/cTvP6m/sL6RjurazKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793355888;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793355902;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
-	bh=CwWE7UOGE7vvkgiGMpiO2wb6+EIxQ8HXhg/iR90K5xU=;
-	b=vQGOHSTPvUGAZ3K1DyJDfgOCBOP1lVgYsXBWRffv9oST5yOT2O2UNKrxgA3AC90ukTuO
-	 5mK4waa6LKAA+8+wWolJTjXooIaGzE7pj32OZgOUCx2Z3UgWAwBeTB9/iNhOzNAfvEjOm
-	 BlgrqnbBesYlSm/gmebDRN83Ow8kDNA4KRtuKrn8ApTwhOLXCl9OOKNiZJOj2mUMkadZP
-	 +4D4i5Hgz6iEwQzWhY8YKruPgbwy3e6EMBlJCsvc2j7xxBEEYLvuCqKrWNbhR1k4mKE2s
-	 o2IyYN9gftTCxv0pvHPcqshzAVUY5BsBxqut8+BxBeQ6MD5hgH6UAZIdsc/uABvNjOQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=B1hqtT8eKBTLj/QcI6rH3VmrUCTtV1HZS2iOUhxOQ1Q=;
+	b=M0GlXggB+hDPjngkv+XKamGVymrPcF1rbcHXzdHB7Bqvj0626OdOx4t88LqMrKX0DmSj
+	 KxVyMiEceN3vgHVgUIpTwineU4Fwrs0U/FR/xyMpWeNdH8FMU3Lw/ymJr0WwBqzvA4UqI
+	 rJw52dnzB5VA1yz88ZSij0anC/y+gJGxi5lwlhlUdk+e7jDagWdYHFB23ckY/HLHdYbDy
+	 95ANaUjvBLLqrv4H2XqJbESHXDCrBEOyUYE8GGE/YW/PvCUxmtdTjqiEdh4gnvbWhZk04
+	 tImpHLI7YwPXqjXS5MAG3nJnzG5Zfn3p1pMW0RElkSVUnmZG+S6ALi1GuyP2WD3LoNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WuaPdODR;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zdsBaEyO;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2D6606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:24:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A2D6606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3789606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:25:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3789606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WuaPdODR
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1a2af4c8d00so1022387c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:24:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zdsBaEyO
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so6307115e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:25:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793355887; x=1793960687; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=CwWE7UOGE7vvkgiGMpiO2wb6+EIxQ8HXhg/iR90K5xU=;
-        b=WuaPdODRsRMFiI8tCzDGLtIWj/t3kmU7toTjs7yU4HCs2ivVqxGQQvm6C7+DRbmp2c
-         mytF4JZUfqc8tWgTYXVYiq/EntpFK58ycgKy6BHzSPT/xPNddavbvn/15l7RoYj4rzJ1
-         GHcJcCJvZ/nc80BsfpqAoyfDNpOoOIgczkvsBDoVQlFvsr+bbifzjM+LbtU87kjL8cRI
-         8D5odWnPRckICnn9cHmMoPWDChpmRdV7BN+4koQaYRRf1EQg9k4pbSmDh6F1YQ3uc3/O
-         LDtoIX9o2xiZ/xLZE0g3/sl4xa5l5+9Ds3mVpMbnuJMzJTFpChsV+mTWN20OEHtNRp+a
-         o4hg==
+        d=gmail.com; s=20260707; t=1793355900; x=1793960700; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=B1hqtT8eKBTLj/QcI6rH3VmrUCTtV1HZS2iOUhxOQ1Q=;
+        b=zdsBaEyOCjb10altnH7e89JJDpKcj+5QNV20HaGnijPicGf9wengOHafV4jjC1j4cf
+         31t/BTZIcdx67nAjV15lfSKsUjv7Fp7EJMShnaHOg30NO/Gz9D0LpUqLd3skcIWXAGkT
+         FCXA2G8vVWd9LFQAxJbgpKpiLE7ErtfY51USIFBJKwBK/LZhezFSgtxJ6fx09gbz55n8
+         ayQXmvXbf8344+nX/C0meEJmjnpl86X5YnXUwVzFs6z6ZbW9tgaxikZ3VRmtTmBNyXyb
+         D0tOZfyhKKCaKrpn6P5DvnczIFnkQMcqnGn5j/ktsnuKewWHG74mcJqHp+i/HDbXF/1L
+         0XuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793355887; x=1793960687;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793355900; x=1793960700;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CwWE7UOGE7vvkgiGMpiO2wb6+EIxQ8HXhg/iR90K5xU=;
-        b=x5dG04sRWV4IEAQ9O36ikMA7cAlg3rUnrh3fDYQ0JOwc3EZzez1SEilDcjBlzNsv9I
-         wN0wXeETt6865Wug+8/wSZCbbJ5g9CbRidh1dOv/9cWlQnaRAOHn+ID7PK+HNYv5DCJa
-         2pgJjXKfb0CB6k38z1Ombh5/hAYR2FzUx+w3ch1Y6lIN3Z9cGqo+LLHF12x71B21me7U
-         n3/GNcLeMw0/38ACjUkPpnoFtX3IlOolEX7a8CiNYgOZJ1jpP7x8BVWUBMNWzR+tKCd2
-         2J0fFFhTFO7QrQWqiPkBX5UEno1anKsThziSw1vAPuva4ujUjInHMl/Y9EUR/ZgCcmz+
-         qWJw==
-X-Forwarded-Encrypted: i=1; AKwUvBxpcvPpBIB9bUOM4ckAnqKSq88BRi/JIXtXl4/vL4Ji5t+cDbBA3f6k4Ca0S5UC5vX4VMgAS856ShGKJ9w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3g775kcf3ZIknR9wTiDnFea8bkC+I5ELaGfr2WTdqmQYGSm3A
-	GDxO9hQPwK9V4oadvnUkXz7lqYk1MdwFN7J80j2l5nrtOec5m5rc26i0
-X-Gm-Gg: AYBFou2ccMNTtoeplEHkdraAFUd+wxsFGJ9j8QX+dQoJvJ6/sJeC5SS+vHfrXMU7lcF
-	p9V2+tgHQtZ/fca2rPt56p6EISg3WuEYfzHPniDCh+csedN4zLHUSmF8pzoWe9K8elW+Eo/yv3e
-	ZuDRaiQgj+tJnIoZEHGwvo1ItCo8BMAS8aLjW7rXjBWms5G47dk4s4ud/S+t6PmX83v6HVhNODJ
-	lkF8p5KA9NXckNr7foR2nuMumP7FlC9v606dG8zVcPajrwhkfhRfY1IZa4m42H1Xd3dOltcHwo7
-	yYVOthoVExMcduAWSvITzlQbtnW5Fm6km7ByTeHUFgDdyg2lDgnhxLDp5xgA22Sv9CUID5ODSJ7
-	4Q22EyTIpPfHL5kholwLRBnBIMlKwkvrCVdzLWfEEsyzKdkqQ4VYvwmLZS+NWlBSa7tZj0Gr6p5
-	E+Cj7dY+1e63Yuo6doIPHLHoUKM9LCCMNkamTNBm6Rqb9FMYjqNdQGHadxDkxJBLHnncGIbuswK
-	eZitl9taYL/Q+085AqAcPvK8SrvhoE5kqcbiMRzSkkSbkGLDj5Y001qo8nbfI4YGLj/GIhKCEYB
-	fRXiCyt/IzlafS7Tg+lTsV3qaQs=
-X-Received: by 2002:a05:7022:3b87:b0:196:d6e1:108b with SMTP id a92af1059eb24-1ac59fbfd13mr2589413c88.10.1793355886505;
-        Fri, 30 Oct 2026 03:24:46 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1b0a628bsm5805067c88.22.2026.10.30.03.24.40
+        bh=B1hqtT8eKBTLj/QcI6rH3VmrUCTtV1HZS2iOUhxOQ1Q=;
+        b=eJpaewBhuEwMEBj8vjPZP1SScfVP9bSpVulFJhGSnWE7PtwqM/8m3XhUJJHNMG9FWx
+         iyDtpsL7CL3wP7iiSa3T8a9fNIKY8mDmb78TGXVWCDhNUoqx1FJKJKJ9rKie9mKlp8H8
+         ns1M2D4t4U/teImc/VdqfQK627RJUexTpsDfyjw5WRZ/ltrhCLGdaJSNbCxoy/CpX46k
+         6k79Oy/u/HDMJVlvXpI2vBg+S0o3ywf6PPMUtEa0U4agzEqc4WxhVfFQtjG+JmJgB1s2
+         5nlnJTiJ/HLEaCGUdSK6+FzjhiNnAT/iO/2EDeH1bI71qC5WctFOPcITbZNudIasPb9F
+         dpXw==
+X-Forwarded-Encrypted: i=1; AKwUvBxz7cc7LNGalzKS6/rMLWvjcmFD2VXFbWhsl48ciMdAI6eizVwU6PufQmb3B/Tq/nwfAs1oO6jiR5XtN0M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwY9FAoHsuoWiDtsxDuXArxr3ZlSbcSWzVsii1zRMsfTbWgNFy
+	10iwGNK/FqiKLU0neRrrH+PdcnEN1EghYxpk6JXuQuwGMxqozaobze6z
+X-Gm-Gg: AYBFou2Q78bLrJIXZ2Lku4NXnyhnRMSHzYvYaEJ8PNUMvyQYR2NuCA7vOa13aHXZNyD
+	pynCKMW/lfzYuU5FvT6ImSFnI2YigGNK2768WsXfB1vN3P718pUW0X8aqFhhJvVlamlIBdGH5IM
+	KSwH/80pboy4WYirZWEf9lSLwec1i+z2+OTL0qazSyBNws/CvBDkwTY/v4yJQP+bfjyGwuEQXjj
+	esaSazNCztvlkAQKudvJrLf/ARR08w/MMNhVX+901EW3hWUmRA3eRAR5BLmhnZxk7rlHf4gRNhm
+	lQ+AmcSAlJT5PhlNo09vbmL15vbmgxDKIQfWOr1Dg1mW4b3jMYV7MFxlxH9v7ZvB5S76+rN1+pf
+	Dix3Imc1eGlULpW4VHtzjcO17GKZIqS+bq0pHfhgWMqqki5ew+abAJQ/tYsFG1XsJnJIhqn2onA
+	hVP8yvkfBzgc/WYC0isdIeo2U5bvQgO31yVl1sNA2n6rXBLkqntMK+Dy7/BNBR1kWQH87e68uYI
+	/yQmHKkHuU/uXfxOVl+KJWm+xzv4ot16acUmM9Ad1vXpnGUsEWtYLQPI+H1dNEf9g4IQAfTO4jO
+	9orRhvjTeczgP+CaoLajSGzGK8enEmaZsDlRXRNjHvJo9KGEZa4+PQ==
+X-Received: by 2002:a05:600c:848c:b0:4a3:5da2:38ae with SMTP id 5b1f17b1804b1-4ac17a3628emr38043095e9.14.1793355900196;
+        Fri, 30 Oct 2026 03:25:00 -0700 (PDT)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm66892605e9.12.2026.10.30.03.24.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 03:24:45 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Muchun Song <songmuchun@bytedance.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>, David Hildenbrand <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Pavithra <pavrampu@linux.ibm.com>, "Aneesh Kumar K . V" <aneesh.kumar@linux.ibm.com>, linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] powerpc/mm: fix uninitialized ZONE_DEVICE struct pages with PMDs
-In-Reply-To: <20FE1232-A48B-4F72-8F18-89EFF70EE0FE@linux.dev>
-Date: Fri, 30 Oct 2026 15:50:40 +0530
-Message-ID: <bj8bwkuf.ritesh.list@gmail.com>
-References: <20261029063601.1961415-1-songmuchun@bytedance.com> <h5i4wlx5.ritesh.list@gmail.com> <20FE1232-A48B-4F72-8F18-89EFF70EE0FE@linux.dev>
+        Fri, 30 Oct 2026 03:24:59 -0700 (PDT)
+From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+Cc: linux-security-module@vger.kernel.org,
+	Dwi Siswanto <me@dw1.io>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>,
+	stable@vger.kernel.org,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/3] landlock: Fix layer composition of LANDLOCK_ACCESS_FS_REFER
+Date: Fri, 30 Oct 2026 11:24:08 +0100
+Message-ID: <20261030102411.12985-2-gnoack3000@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261030102411.12985-1-gnoack3000@gmail.com>
+References: <20261030102411.12985-1-gnoack3000@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,121 +105,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Muchun Song <muchun.song@linux.dev> writes:
+In landlock_get_fs_access_mask(), only add the
+LANDLOCK_ACCESS_FS_REFER right if any filesystem access rights are
+handled at all.  This prevents us from accidentally treating
+non-filesystem layers as if they handled LANDLOCK_ACCESS_FS_REFER.
 
->> On Oct 29, 2026, at 23:45, Ritesh Harjani (IBM) <ritesh.list@gmail.com> wrote:
->> 
->> Muchun Song <songmuchun@bytedance.com> writes:
->> 
->> Thanks Muchun,
->> 
->>> PowerPC radix vmemmap population can reuse an existing PMD mapping while
->>> populating a device DAX range whose section is marked as HVO-enabled. The
->>> reused mapping is an ordinary vmemmap mapping: the redundant tail struct
->>> pages are not remapped to the shared tail page.
->>> 
->>> Leaving the section marked as HVO-enabled makes later ZONE_DEVICE
->>> initialization treat the range as optimized and initialize only the struct
->>> pages that would be backed by a real HVO mapping. The remaining tail struct
->>> pages can then be left uninitialized even though they are still used as
->>> metadata for the device DAX compound page.
->>> 
->>> This first triggers a zone mismatch warning in __init_single_page(), then
->>> faults while initializing the pageblock flags:
->>> 
->>>  WARNING: mm/mm_init.c:600 at __init_single_page+0xd0/0xf4
->>>  Call Trace:
->>>    memmap_init_zone_device+0x164/0x430
->>>    memremap_pages+0x43c/0x93c
->>>    devm_memremap_pages+0x3c/0xa4
->>>    dev_dax_probe+0x264/0x3d0
->>>    dax_bus_probe+0x140/0x1c8
->>> 
->>>  BUG: Kernel NULL pointer dereference on read at 0x00001400
->>>    __set_pfnblock_flags_mask.constprop.0+0x34/0x160
->>>    memmap_init_zone_device+0x358/0x430
->>> 
->>> On kernels without these initialization-time diagnostics, the
->>> uninitialized metadata remains latent. When userspace later maps and
->>> accesses the affected device DAX range, the kernel operates on those struct
->>> pages and panics at that point instead of during device initialization.
->>> 
->>> The Fixes target predates the section-based vmemmap optimization
->>> infrastructure, so older kernels do not have section state that can be
->>> marked non-HVO. Backports to such kernels need to handle the PMD-reuse case
->>> in powerpc radix code directly, for example by initializing the tail struct
->>> pages that core ZONE_DEVICE initialization would otherwise skip.
->>> 
->> 
->> Actually that would be totally new code right? It won't be a straight
->> forward backport, correct? ... 
->
-> Right. Because it's impossible to backport the whole section-based vmemmap
-> optimization infrastructure (48 commits).
->
->> 
->>> Mark the section as non-HVO when reusing an existing PMD mapping, so the
->>> section's HVO state matches the actual vmemmap layout and all required
->>> struct pages are initialized.
->>> 
->>> Fixes: f2b79c0d7968 ("powerpc/book3s64/radix: add support for vmemmap optimization for radix")
->>> Cc: stable@vger.kernel.org
->> 
->> ... then should we mark Cc: stable here with the above mentioned fixes
->> tag? Because this patch cannot be backported as is to older kernels -
->> for the reasons you mentioned above.
->
-> The comment following the trailer is used to guide stable maintainers to
-> backport proper prerequisite commits. It's hard to do that. So I choose to
-> mention the alternative in the commit message. But with the help of LLM,
-> I found the alternative is also not the right solution. The reason is as below.
->
-> That pmd_leaf() path only creates or reuses the vmemmap mapping. After it
-> returns, sparse_add_section() calls page_init_poison() on the whole memmap,
-> which overwrites any page state initialized there.
->
-> Therefore, older kernels must pass the PMD-leaf information to
-> memmap_init_zone_device() and let it initialize all real tail struct
-> page entries. Initializing them immediately in the PowerPC pmd_leaf()
-> branch would be too early.
->
-> Another solution is making vmemmap_can_optimize() range-aware by passing
-> the vmemmap start and end addresses.
->
-> On PowerPC, reject the optimization when any part of the range is already
-> covered by a PMD leaf. This ensures that an existing PMD mapping is reused
-> normally and that all real tail struct page entries are initialized later
-> by the core code.
->
-> Maybe it should be a separate patch for old kernels? Thoughts?
->
+landlock_get_fs_access_mask() is used when initializing the layer
+masks for doing access right checks, so this bug meant that we
+unintentionally denied "refer" (e.g., link, rename) operations in
+layered cases, where the same operation would have been accepted if
+only either one of the two layers had been enforced.  If the rulesets
+individually allow an operation, the composition of these rulesets
+should also allow it.
 
-yes, I think we can do a separate patch later for older kernels. I
-will look at your suggestions to see what can be done in that case.
+The bug only manifests as soon as one other layer handles filesystem
+access rights.  Otherwise, Landlock filesystem path walk is guarded by
+an early exit for the case that no filesystem-enforcing layer exists.
 
+Reported-by: Dwi Siswanto <me@dw1.io>
+Link: https://github.com/landlock-lsm/linux/issues/67
+Link: https://github.com/landlock-lsm/go-landlock/issues/66
+Fixes: fff69fb03dde ("landlock: Support network rules with TCP bind and connect")
+Cc: stable@vger.kernel.org
+Signed-off-by: Günther Noack <gnoack3000@gmail.com>
+---
+ security/landlock/domain.h | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
->> 
->>> Reported-by: Pavithra <pavrampu@linux.ibm.com>
->>> Closes: https://lore.kernel.org/r/97f85592bb78a273be8519e6897e7f9b9bd31469.1793070429.git.ritesh.list@gmail.com
->>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->>> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
->>> ---
->>> arch/powerpc/mm/book3s64/radix_pgtable.c | 11 ++++++++++-
->>> 1 file changed, 10 insertions(+), 1 deletion(-)
->>> 
->> 
->> I think, this patch should go via mm tree, due to all the dependencies
->> coming from there, right?
->
-> Better. I hope Andrew will pick it up once I send a v2 version with more
-> proper commit message changed.
->
-
-I think we can add an explicit comment like this then?
-
-Fixes: f2b79c0d7968 ("powerpc/book3s64/radix: add support for vmemmap optimization for radix")
-Cc: <stable@vger.kernel.org> # see patch description, needs a different fix for <= 7.3
-
--ritesh
+diff --git a/security/landlock/domain.h b/security/landlock/domain.h
+index 428c1d9890db..693e569f5387 100644
+--- a/security/landlock/domain.h
++++ b/security/landlock/domain.h
+@@ -258,9 +258,16 @@ static inline access_mask_t
+ landlock_get_fs_access_mask(const struct landlock_domain *const domain,
+ 			    const u16 layer_level)
+ {
+-	/* Handles all initially denied by default access rights. */
+-	return domain->handled_masks[layer_level].fs |
+-	       _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
++	access_mask_t handled = domain->handled_masks[layer_level].fs;
++
++	/*
++	 * Handles all initially denied by default access rights, but only for
++	 * layers handling filesystem accesses.
++	 */
++	if (handled)
++		handled |= _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
++
++	return handled;
+ }
+ 
+ static inline access_mask_t
+-- 
+2.56.0
 
