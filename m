@@ -1,102 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793325339;
-	b=wGK0ZCcxc6uYiWzj6b6LfF3+lNpyzq3MxtLkRu2AncAQ3R5VpXttUygSOXcgKhEObopt
-	 7YKimBUauYD9rXUnW2tHFRl99D2fBRUxEk6Qwd9Dw/M5E89aZou60V8GWZCT3bO1LM7Rz
-	 OURekyQckB7t/qn3ONX6iMKpMy3P1EyBZEA3SrrtdmBSfAJa5mmFWuFgi3L9CVnWLMFuS
-	 NcxNpCQHBuvixOsJ7gi/2g1M5lRxFSUJCcNdJ4W77hCKb5hb2jewjnJ+C5fBWNT1lCBkF
-	 0F3or8iO671pTqR6qGNAeBD2/vz+3Ckauwm1Zjerb75sY4Y2FLJGjwc3jxTZVCWmedw==
+	t=1793325635;
+	b=KrTXGiJB6htRkxvc7RmtVAsS1wL+BJwt24d39Un3DgP5kDckmKkA65Kuwla69L6yRNij
+	 jbrEZp9tznHc9n8uje8EcLzCvS32oiRL6M/rLhVP0gl0j7K2GnHSX2Sj6ajVdwVtJSQaA
+	 mHbLcpQ1oHUHVl/8vmaRyFbYiwzVPgPLLKYFM27Ph51YHIHcvg2ROIO+qZ2Yfhp+xyNF7
+	 SGpRdQO3F72xBmJc7zg1BSZU/TTRcr8HInAxfFNOUdCOzHoKTNGRRgJGQTgb/C1XUQ/aJ
+	 QsIc7FJKQjvp20dQSP1AGHHcHMdrxlmflbseZOhT+gED0mmLz6kuZudmWhRQkOSrNnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793325339;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Td2Xd1tYhRh3obhb+/yK2U8VEYj+IqVYRyJ5LgiIIoc=;
-	b=OfMYy6OODzAaPfXyGoP86WBSkq3Rk6KyMA6DRjiyum4+JUxFU/D8bDw+3W/yVf4vK9kJ
-	 j1sYIdsu8yO1txWxPr8SlzYlTlHU2v+gfNBdUR2LbLkj5F9ebyAB4NAJ5v2ynHXXBheJC
-	 XnYq9I54umu1AjJKsYBh/x7GTlwV1OVEt48l4to30qFMpy7DZQbRk710xSgj+H34weDN7
-	 WbjPer6ImGKENjXRcghHex+bPgIGM/rQYW1TSEsotmViEwNRvfsLrcAYC6e8QVYhOKUTL
-	 EaTI6NvTnRSn19Gh+9K5kJo8gZ6tAQ/UcocIN2RyD8OgyCudwF3WSsTShYJYxFZJzhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793325635;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=by6bcN6564jBT2tmqv/JygG7JXTnviQS6zWyMdHXScs=;
+	b=3qClA0Q2ALcKumLUA3TupVRmcQEifnvZq8ZO3qEQrFhJnKm74mxP4RPR55JKU2Vh5Ja2
+	 5LBQZABZcMMESp5QnpEL4wbiEWH7b+x7rXYxCWJCfCTmUx+OrhGMQ4qFcjeKGao6v1baz
+	 5pMBEvOGsRKe9K+uAUAtd1VVsboAlrH1lDgKTj6EHnR2V7sxFyXQYRbyuSHiT29sbm+SO
+	 e9NQckxvhQddc6zAcz4KQkvdgAFgiCxmVnDDlRM2b+i4V6EbRbzZi+lrv7XCRfwVadkR9
+	 db1/2Y0OO7iU7gDTZ+02ePtcBl/fLGmDj2b/rS48/Lx4SgO9M9rcoua0SVuce/7mYPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gimoRIzU;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNV+rAWN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A72E606A322
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:55:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A72E606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2519606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:00:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gimoRIzU
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so450367eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:55:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793325338; x=1793930138; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Td2Xd1tYhRh3obhb+/yK2U8VEYj+IqVYRyJ5LgiIIoc=;
-        b=gimoRIzUXqrXtudQIPocREKIIJ4yFyqIzbKXjFc3wftzte7ZPzk3FVopOuo8s8/vim
-         N5gOHVO8AJ3xex1Uk0NxIEFRdxyzqP8P7oInr1iSv0SSPsKTX6y3v+eab8mXkxjLeZKJ
-         WQwuuqs4GxjZkip133ZE2UdJoCHAak4YXnufs9lyiM6x7dnvfhBQTkdG6OSJzbHTtPRg
-         uUUFSEZWphWoZl6Pw4emh5E5krBoTeaxb/+py5pdstYKtYcJCjOwVvfMs3c0Rres4rYm
-         wVJqq/ZcE9O75HiZaf+xL8cqF7lXMEsi5EoGW66dMG7ot9V8kuWVDjxI5hnz0MvdS9xK
-         dRGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793325338; x=1793930138;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Td2Xd1tYhRh3obhb+/yK2U8VEYj+IqVYRyJ5LgiIIoc=;
-        b=kLdEgo0MSw6IDa9Y5mYfZIXR5LlPnXfI5B5s0Klyfn3fjkiZzbRUWKFMjfi0IhAiGZ
-         MZHh4EyikEsw0zwRTXCJZ5iYkrE4Am9211nD8LdVciKzaGJbNpdgwkRUNbzrCcN9wqZE
-         2EngpuYf6yu35f8ywT2G8ScmCxYnTJBxxB4FjKCu+4pFsaf2x7fbcgHyDfJt8SKgOJHj
-         MYc0b0RekJXos/HF0ZQGNznbeFPwnRJwJf59tHT5hZ12QbZXFxqOSAmD2l5BL0vKgR++
-         G8QtHCM4v6Yib5je+x0x8YBG4kidsOzfmgrs/oHAvDnjmZ18uT4gB9JGksJmjeH1vHTc
-         DRNg==
-X-Forwarded-Encrypted: i=1; AKwUvBwDk79ARyLRTCwJnqIyOD51J5bNpyeDY0IqtjxTI8LfpYtE2DuRmlxBRInXY4QY6VITBgP/Xi3oV3xYch4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRRiMyFjEF/yuIR/OGvd041b9CT5eMDkPJsIkvE9v+FMF7d4Vq
-	KQk498GElZeyx++YCrlKcYKX6EHN87mpzZgeFrJK4pI5tJGX/ouFdpE=
-X-Gm-Gg: AYBFou08lkQ0a3/2N+/RXRj2Ar1owexzNuf6rF+14TZjzaf0PEoF7wq2jEHeQrFjNYY
-	Fkg70JJvxROnW3m70m+u6Qwcd7vilelziU67GyQRr6MmL8fcmCxR/U5owN8VUlGVOmStOei87gK
-	x5ITCQzi9gAxp5RUfKe7BS5SrH6s3cVyV8PV1Pht5Y5jj+as8lw+PN5wbFboWaN7jXYAT2Rg3It
-	8tv7/9uJTEpOnvE7bGry1gvCYD2YvmM2mGWCsidEDMO7RQjuZnNSVOsBCVr585Tly6/di0IqSiy
-	n0rJqStHIg+VRqL4fvGTbunD+411EXyUihAED1CqSfkzE8a/PMgDxVlGUt3hTYSedcEG069ABM9
-	MgH2FKQeRvfI/zJfHfE5HwgaJN26Dcv6u8JBB+FfXherUWE9a2LOJgEUh/WhU7EpF+aidK6qP30
-	tyyM8pZbrqfEiLrOmjGuwneYnmL4NMIX5VUfFnQZh9tjE72QidcMPvTp799QCGzuJ3/K24sOmdE
-	pvTVDWiYlh5FYW343xZOZgaNkgp2TNmayFXNssRZ9/RMyySXQ113XrRK5TqdODOo4JblxSo3ziT
-	Tp2qNh7i2w00QgQEKI82efxywKLWHeGmsQ6fkl6qy3w92OEWrp7owyqG+Btt6+Yqlso=
-X-Received: by 2002:a05:693c:895b:20b0:36a:1bac:6bf4 with SMTP id 5a478bee46e88-36a42389038mr1533637eec.18.1793325337872;
-        Thu, 29 Oct 2026 18:55:37 -0700 (PDT)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.112.166])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm2730757eec.26.2026.10.29.18.55.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 18:55:37 -0700 (PDT)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: alexdeucher@gmail.com
-Cc: airlied@gmail.com,
-	alexander.deucher@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	atharvatiwarilinuxdev@gmail.com,
-	christian.koenig@amd.com,
-	dev@deq.rocks,
-	dri-devel@lists.freedesktop.org,
-	ed@aicharmers.com,
-	kenneth.feng@amd.com,
-	linux-kernel@vger.kernel.org,
-	simona@ffwll.ch
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-Date: Thu, 29 Oct 2026 21:55:29 -0400
-Message-ID: <20261030015529.1686-1-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
-References: <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNV+rAWN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51B4C1F000C1;
+	Fri, 30 Oct 2026 02:00:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793325634;
+	bh=by6bcN6564jBT2tmqv/JygG7JXTnviQS6zWyMdHXScs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iNV+rAWNhau+smI92EasZfEwTAGgXm/g98EHFsjBpmmxOMXG9et4byRsC6DlhFrif
+	 BB6f+FVzA/6HeR0Ww4lHN6jPtz20fOvPYw8KfIG341YSTyVK+jlwROGN4tnZuHJh+L
+	 ymrSwj6D6UgP2RlBefYRlYug0tle0bPDnQRHjXKQVAqrLIWmQjzVCFVgoR+HDIWsx9
+	 jZacvJ6VFSQuu0L7UIAviyQqF8wjtoYAqfjtGxj5imOZ1PtCY3/4AZtGK+blfM+0N0
+	 EzxMRDj+XJAjhJs0C8NnS3m0QN/3tQpM2S8tnlXZOuR7O0kDsqjy+oBtz4jhhwFVAQ
+	 9TYIC1AaLR6Ow==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Steve Wahl <steve.wahl@hpe.com>, Dave Hansen <dave.hansen@intel.com>, "H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, justin.ernst@hpe.com, kyle.meyer@hpe.com, dimitri.sivanich@hpe.com, russ.anderson@hpe.com, linux-kernel@vger.kernel.org, Matt Mullins <mmullins@fb.com>
+Subject: Re: [PATCH] x86: Drop KGDB support
+Date: Fri, 30 Oct 2026 11:00:29 +0900
+Message-ID: <undine-1793325629776229606-c448071ee52df6e1@undined.local>
+X-Mailer: UndineD 0.1
+In-Reply-To: <20261029103438.69284f7c@pumpkin>
+References: <20261028122124.GJ2668804@noisy.programming.kicks-ass.net> <28F95BAB-6D5B-4C70-A9F2-14B752EBF022@zytor.com> <20261028142625.GU2668564@noisy.programming.kicks-ass.net> <27a7b4b6-23da-4469-9161-2ce44e8ac2a9@intel.com> <auJT1Ld3urbqaeA0@swahl-home.5wahls.com> <20261029084606.GE1779021@noisy.programming.kicks-ass.net> <20261029103438.69284f7c@pumpkin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,22 +58,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-> @Andre Eikmeyer I think this patch should fix your system as well.
-> @Atharva Tiwari are you ok with this patch?
+On Thu, 29 Oct 2026 10:34:38 +0000, David Laight <david.laight.linux@gmail.com> wrote:
+> On Thu, 29 Oct 2026 09:46:06 +0100
+> Peter Zijlstra <peterz@infradead.org> wrote:
 > 
-> Thanks,
+> > On Wed, Oct 28, 2026 at 02:58:12PM -0500, Steve Wahl wrote:
+> > > On Wed, Oct 28, 2026 at 08:10:54AM -0700, Dave Hansen wrote:  
+> > > > On 10/28/26 07:26, Peter Zijlstra wrote:
+> > > > ...  
+> > > > > Also, when was the last time you used KGDB? I think I've tried it once,
+> > > > > some 20 years ago, and haven't bothered since -- it was *that* good 🙂  
+> > > > 
+> > > > I can't remember the last time I used it. I also grepped through all of
+> > > > my stashed-away kernel configs I've been using for the past 15 or so
+> > > > years. The only place I even see it configured in is in distro-derived
+> > > > configs. None of my trimmed down debug configs.
+> > > > 
+> > > > There seems to be approximately one clear commit that shows anyone using
+> > > > the x86 kgdb.c in the last decade:
+> > > > 
+> > > > 	commit 71ab8323cc357c68985a2d6fc6cfc22b1dbbc1c3
+> > > > 	Author: Matt Mullins <mmullins@fb.com>
+> > > > 	Date:   Fri May 31 12:47:54 2019 -0700
+> > > > 
+> > > > 	    x86/kgdb: Return 0 from kgdb_arch_set_breakpoint()
+> > > > 
+> > > > The only question for me at this point would be whether we should just
+> > > > config it out for a couple of releases rather than removing it outright.  
+> > > 
+> > > I have never used kgdb, but kdb is a different story.  I originally
+> > > reacted quite poorly to this patch, assuming from what was changed
+> > > in uv_nmi.c that both kgdb and kdb were being removed.
+> > > 
+> > > I would like to see the kdb action remain in uv_nmi.c, even when
+> > > removing kgdb.  Is there a good reason why both were removed?  
+> > 
+> > kdb is just a local wrapper around the kgdb gunk. If we kept that, we'd
+> > still have all of kgdb.
+> > 
+> > > There have been a number of times over the past few years, on large
+> > > cpu count systems that aren't easy to configure for VM usage, where
+> > > I have a problem that wedges the system or leaves it unresponsive,
+> > > and I enable kdb, reproduce the problem, enter kdb via uv_nmi, just
+> > > to dump the stack of all processors and find out what they are
+> > > doing, and check other things that I can get to with kdb.  
+> > 
+> > So this uv_nmi thing looks a lot like sysrq; you could wire up one of
+> > them things to use lib/nmi_backtrace.c to dump stacks for all CPUs, no?
 > 
-> Alex
+> Where would the output go to?
+> The kernel message buffer is too short to be useful.
+> For a smaller number of cpu something used IPI to get each cpu
+> to dump_stack() in turn might be useful as a sysreq command.
+> But I've usually resorted to cat '/proc/*/task/*/stack' (or a subset
+> thereof) to find where processes are stuck.
 
-No, as i said this is not the reason, and we've already fixed it properly
-You can see it here:
-https://github.com/t2linux/linux-t2-patches/blob/main/7003-amdgpu-add-support-for-5K.patch
-(Adds 5K support and fixes the boot issue).
+Isn't it possible to use another external monitor like capturing
+serial output to store the dump results (for logging all dumps)?
 
-And for the 16,1 issue (i assume), the only fix is
-https://lore.kernel.org/all/20261024162109.307247-1-dev@deq.rocks/
+If this is intended solely for performing an in-memory post-mortem
+analysis (without generating a crash dump) by leveraging KDB’s
+debugging information interface, it might be possible to restrict
+the functionality to just that purpose by new kconfig. (In this
+scenario, the kernel should trigger a panic at the moment of the
+interrupt to ensure no further processing occurs.)
 
-The PPTables provided uclk clock speeds is wrong, thats what causes the issue,
-initializing UCLK in post_init wont solve that.
+IIUC, the core issue here is that intrusive KGDB interrupts—such
+as breakpoints and watchpoints—disrupt the assumptions regarding
+kernel consistency while the system is running. For examining
+the state of an active, running system, tracing is a more
+appropriate approach.
+
+Thank you,
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
