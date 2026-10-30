@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793395287;
-	b=3KkBqlFbhTBTok9n4SjsRDYtLp0xNAeaaZyBhDXWWwMQHKqWcjDusXhh7Wj+xQhCMxOB
-	 TzGIc7kqEiIdFVaHkTjGbXwGTQRtX8Hc/+Pmxxx2pL04QtuQmZo/0+D6QxpWfkpz4QBZc
-	 71ykZkQc11YYNgrfSwpKvHnwpGwHp6lgb09FKshrtbfO2UWkd/29p37968xnsbrHBMyU3
-	 4MyYGfhxHRLYo5rSHEbqfw+dLQ2znE6TYKVhNWFnAc1Ap8JaSKLC+2jxcOvEkhYcG30Zy
-	 eDopZMUGygTaTzpCX3XM6ee/JxzIjSFHlg8oJX1/H8qCxHD9oACuQfCbzbDKBJvT3uw==
+	t=1793395282;
+	b=ePOROQZ5hkgpXyJylLLcSP7epCsh0casL7L8+mT73V5iK5OrTEkfXEmgmTLEh00ZhOoU
+	 HYItuPzrp0oSOea0RoOP4Gm596mL0bCAnwYLS5CbpeSkrPWiWqvM0nCP4Ib3r7jdcjN0v
+	 RRO2R7Stzu0Txtnvp6nza07kDVg2Z0QyLX6WSGvv6WrbODrGHAsYwqUBkXHpoaTO3Kk/r
+	 lJP6e4hfmvP3pf/YNDgnz3kvqk8qsHh2NcctCi31LtoQNOrjmsBMyCTOmi8+d1j/N+abr
+	 RJSBsGFmorMTF+52NIujEabsZ0T9jujQH7xw9wLi8Wk0OkhdzBwVeseXExl12uTl0qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395287;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793395282;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
 	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
 	 To:Cc:Content-Type;
-	bh=tBGgI/GpDCr73Zv/DH70VbcIjXcJZddwPYNf2j30K9E=;
-	b=lVI/lId230RD6jslSwqFB1J5G7Zf/DbkJLJJKKCkEVy/8f3mMz0t0YFt8oj/QIrhKCV1
-	 1NLEQEbI/OF5irSgo8mp0OpBuzfTEm8bK9wKUI1vQQjobvwDSa4Q0X7IawZ3u6E1vv7jV
-	 cfr913qSiWZxBDnJMOtxQvsMY7mLRnJY3/1Wwb8bZnslgbURmUH2qkznJjez7VuFqYVxP
-	 G9hlnV8Q57pfLZ//0HfVeglhxp2S9KM59WsZMBVgZqpM9v6MFqd+56wN5BHtpkSUKxoXI
-	 ZjDy6Z3YsCa1jX8Uuz8UUuc8O/vIWNCtTzD+cy5LUunCmg+Tk4l+B9RQoAasXP358og==
+	bh=pl4Fq3eHWvdeXHKYf+p4Vk2TxeQCuXbhcaSxF66rRXw=;
+	b=KpEK9bXXBbOejg9G2aayLKvgSu0pqMmUXjVHxF4HYWEbVjEgacxMa6FyneMniNXFkuNE
+	 CoYixTtopnXBqGRDNj6V1jVenC45I4fa5qPvOHI+vAORpXpf5/qWzB8P7hxnEDkfXRA5o
+	 J4S+LW5w3lt9V0dy3WYDgPJArg5lYEOMi4frQ6TGCC3vQ4DN2j64vhEPf13rDiloyBjCC
+	 TSUjsztj5fMjIN60pehR3l6V+o6qRIkUQH9dB9V5BCUO7mKaRsYelny0w8kenW7mlpHSr
+	 +1d353/R2/9PiEiCZUqbYxvM93MNCyLIHKuWxlmzr1NPwZbO4JgN/jw354nUw3cxjMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Or8lqyHp;
-	arc=none smtp.remote-ip=209.85.215.197
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iyjFKqHV;
+	arc=none smtp.remote-ip=209.85.216.71
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C3E606A98D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:21:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C3E606A98D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BEA260A5BE7
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:21:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BEA260A5BE7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Or8lqyHp
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd8b299b05fso928698a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:21:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iyjFKqHV
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ad840053c7so968961a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:21:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793395286; x=1794000086; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793395281; x=1794000081; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=tBGgI/GpDCr73Zv/DH70VbcIjXcJZddwPYNf2j30K9E=;
-        b=Or8lqyHpDTwaUmnx+jbte7Sg3LBwkN8quZglAlXwjR+32f451jJcymVlR+UWA7hrun
-         LoCDKRe2EoHTCHMWi5njwRaVl3XJZn6PqGOXaHmEymT7vsnIUvHZJHJV3accDkvg2cqh
-         VpEF3D3CQe8/mesCWW7mLWhCzDtvpXHIb7ENqME8p6hYikLb+F9VQ/S/+9Wz7CnJ+m/t
-         DbtgHbQPBm/CS/CXOmMo4P8jjTeOkG98je2Zma3x8v77AgL32V/4kVOgWtl8oUsuRmP4
-         zGFWCnsPB0XlwP39Zm4l6rMYbxJ7zssnwTJIZMnTrBHuLU5PMx96jiyv2iXglPsMlz+P
-         he/g==
+        bh=pl4Fq3eHWvdeXHKYf+p4Vk2TxeQCuXbhcaSxF66rRXw=;
+        b=iyjFKqHVOt2KVYBtQpy3gyJpi8TWA2iLTOJ8t4oP67PanytJ3Qnc9Ytix5sVBrBUnp
+         FpxKQ5hWpGRYLvFxorDzyQWh7SfXZCtV4cr20UwaSFFvPTzoXqZSDZNKqqY0HbavQ6zO
+         gVmFp/BFqe5peZNuOrnVPilrw/1RL2XkTrbDXtRkS4/zjAhsNGM36QrrCBrd9qYFoDlq
+         /PwbQVEh9tpaDxUcRtPoSo3ikW3TfV29/jvvDObZLLJVSEhJlA1ptA1HY3aZc3NNE9+m
+         GWnex4AMebrD1b9dn7B/mi9+OIBQHzuCy9MLqmhIWkOcQe+Cs8v3CW/MgdCtRablAy9I
+         eRow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793395286; x=1794000086;
+        d=1e100.net; s=20260707; t=1793395281; x=1794000081;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=tBGgI/GpDCr73Zv/DH70VbcIjXcJZddwPYNf2j30K9E=;
-        b=qnu3cDWblYIMlFrkNn0hBclGoCGiwNaaIf1CWFkNwh/ftDkb8YXBiSIM2iSuRDYuu0
-         6HTCi92UA5frBMBn1qbiYpWUjWSgPDvj04WFoEW+u+KhJ8UVC7d8BbNbzNzo+x3bQHbo
-         zt/lPJ97WY7ea4wbLIenHQVAcdi22yo6zeUuL6y/2lmGRmPQDYJG6FIzZV8fFdfZz3+6
-         mdvZ0mwWOCj9YiVbb8YcaPPg2cOymj7jqjmJrEjNzjJvzFZiu6pUuyCVQMc2iHYbD0b4
-         JI+BKP0Oq9FpgGys15WxiYn9GcjBnJ0J6gGDlbnCK0hPld3FjzDpwzHxzdvSfQfutAz2
-         BE3w==
-X-Forwarded-Encrypted: i=1; AKwUvBw0SwkEUqyxF2l7Pw43l3VtA6WYCjx14+hOLeFxIVGGz4FrCptl7S1mRz3SD5k6Cv6pd/OIBw8AEIY7BRs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLsgtj57a15CyOxz32SEG2FWrqBHdLzLPnRa4ymWTLleZndFKfq
-	eP8SBGM6BBLtuSWsGB8QckkrFWhkstYPJHmRCanrLDkRuTeh2m3SGAVPAJkKcEzjo3k+EQ4NF+L
-	E57jXCg==
-X-Received: from pglv12.prod.google.com ([2002:a63:150c:0:b0:cd8:bb6a:e38])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:1bc1:b0:3e2:1a3e:395c
- with SMTP id adf61e73a8af0-3e928a51d5dmr3526269637.59.1793395285754; Fri, 30
- Oct 2026 14:21:25 -0700 (PDT)
+        bh=pl4Fq3eHWvdeXHKYf+p4Vk2TxeQCuXbhcaSxF66rRXw=;
+        b=aJlCN28V5Pi2NOi9ILNTD6FU2LxywLs0SK6qGrs17JbStsVegORuozO0pxD6g/H4Kr
+         6ZmsRDWQMi6HTljBU94HYe0XvzaoHy1mG283EglbZSPi3+lqGVujc3tGU+1isZvmgZ0K
+         zU15axauPLRNOnNKXjvgLobgZpMb2OYIJ9XxLYTiy7pD+BwYr3XrVs2f+KhDfysuqyIL
+         fZ5tGkbmtc5C2HKbgo8sICDBVQzqKNks7mG1ZSlcNiBSrDwCq/h6munnjKMMFT39jGXu
+         27CW6F/MzVbnGwQgAB0J+sXrkoXXhB4BRxkWEBl7Wyl3FOZ8QWYk+AaWubo15gQLrtrk
+         GJog==
+X-Forwarded-Encrypted: i=1; AKwUvBxk/ZMH2SDc7XfxnTKTK5shmjxwjOO9ONO7yKIpBjTS0DFXuLtnT38MtWp35vsTa9lMQJxof8J4E6FfJyM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKnt/htrFLsR8oQdv0OyY8502sXamF5tH63qt5HwX3+AcsyS2MC
+	h3NPvx8tI/imEC27CxgC94TWsbX+8lwEPX0mLQH75PlL8vVscKuEArQdE8iNjl+KU+6qTnb3S7k
+	DnVOn9w==
+X-Received: from pjzc20.prod.google.com ([2002:a17:90a:e114:b0:3a5:f1d:43a6])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3142:b0:3ac:403d:6239
+ with SMTP id 98e67ed59e1d1-3ae897ee66dmr2448540a91.43.1793395280725; Fri, 30
+ Oct 2026 14:21:20 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Fri, 30 Oct 2026 14:20:58 -0700
+Date: Fri, 30 Oct 2026 14:20:54 -0700
 In-Reply-To: <20261030212112.2598640-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,9 +82,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261030212112.2598640-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261030212112.2598640-11-seanjc@google.com>
-Subject: [PATCH v4 10/23] KVM: x86: Map a separate VMA for each address space
- for internal memslots
+Message-ID: <20261030212112.2598640-7-seanjc@google.com>
+Subject: [PATCH v4 06/23] KVM: x86: Unmap VMAs for KVM-internal memslots when
+ the memslot is freed
 From: Sean Christopherson <seanjc@google.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, Sean Christopherson <seanjc@google.com>, 
 	Paolo Bonzini <pbonzini@redhat.com>
@@ -93,147 +93,119 @@ Cc: Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger
 	James Houghton <jthoughton@google.com>, Chris Mason <mason@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Use a separate VMA for each address space when installing internal memslots,
-i.e. mmap() a separate VMA for the SMM memslot, and delete the TODO along
-with the hack to only unmap() the SMM memslot when freeing memslots.  Use
-an explicit shmem file (as opposed to the implicit shmem file created for
-an anonymous MAP_SHARED mapping) so that both memslots' VMAs point at the
-same backing page.
+Unmap KVM-created VMAs for KVM-internal memslots when the associated
+memslot is freed instead of unmapping via x86's internal API.  This will
+allow deleting/freeing all memslots before kvm_arch_destroy_vm() without
+leaking VMAs, and in general is a net positive as it makes it far less
+likely that KVM will leak VMAs, e.g. in the unlikely scenario some other
+flow deletes KVM-internal memslots without going through
+__x86_set_memory_region().
 
-Note, using shmem_kernel_file_setup() directly is more or less equivalent
-to shmem_zero_setup(), which is used for "MAP_SHARED | MAP_ANONYMOUS"
-mappings; the only practical difference is the dentry name.
+Free the VMA only when deleting the memslot from the "last" address space,
+where "last" is the highest numbered address space.  KVM currently uses a
+single VMA for both non-SMM and SMM memslots, and deletes the memslots in
+ascending numerical order, i.e. deletes the SMM memslot last, if SMM is
+enabled.  Freeing the VMA on the non-SMM memslot would technically regress
+inhibiting the APIC access page, which is the only case where KVM deletes
+an internal memslot on a live VM, as accessing the SMM memslot after the
+VMA is removed would result in KVM_RUN failing with -EFAULT.
 
-Return the virtual address of the non-SMM memslot mapping, as that memslot
-is guaranteed to exist.
+Add a TODO to call out that unmapping only the "last" memslot is a hack,
+along with a hint/suggestion for how the hack can be removed.
 
+CC: James Houghton <jthoughton@google.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/x86.c | 62 +++++++++++++++++++++++++---------------------
- 1 file changed, 34 insertions(+), 28 deletions(-)
+ arch/x86/kvm/x86.c | 39 +++++++++++++++++----------------------
+ 1 file changed, 17 insertions(+), 22 deletions(-)
 
 diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 0b94f981a2e1..8cb58040dd81 100644
+index cb8b60da5b11..489631686ba6 100644
 --- a/arch/x86/kvm/x86.c
 +++ b/arch/x86/kvm/x86.c
-@@ -59,6 +59,7 @@
- #include <linux/irqbypass.h>
- #include <linux/sched/stat.h>
- #include <linux/sched/isolation.h>
-+#include <linux/shmem_fs.h>
- #include <linux/mem_encrypt.h>
- #include <linux/suspend.h>
- #include <linux/smp.h>
-@@ -10007,9 +10008,19 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- }
- 
- static int x86_set_internal_memslot(struct kvm *kvm, int id, int as_id,
--				    gpa_t gpa, unsigned long hva, u32 size)
-+				    gpa_t gpa, struct file *f, u32 size)
- {
- 	struct kvm_userspace_memory_region2 m;
-+	unsigned long hva;
-+	int r;
-+
-+	if (f) {
-+		hva = vm_mmap(f, 0, size, PROT_READ | PROT_WRITE, MAP_SHARED, 0);
-+		if (IS_ERR_VALUE(hva))
-+			return (long)hva;
-+	} else {
-+		hva = 0;
-+	}
- 
- 	if (!size && !id_to_memslot(__kvm_memslots(kvm, as_id), id))
- 		return 0;
-@@ -10019,7 +10030,11 @@ static int x86_set_internal_memslot(struct kvm *kvm, int id, int as_id,
- 	m.guest_phys_addr = gpa;
- 	m.userspace_addr = hva;
- 	m.memory_size = size;
--	return kvm_set_internal_memslot(kvm, &m);
-+
-+	r = kvm_set_internal_memslot(kvm, &m);
-+	if (r && f)
-+		vm_munmap(hva, size);
-+	return r;
- }
- 
- /**
-@@ -10047,7 +10062,8 @@ static int x86_set_internal_memslot(struct kvm *kvm, int id, int as_id,
+@@ -10018,7 +10018,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
+  * @size > 0 to install a new slot, while @size == 0 to uninstall a
+  * slot.  The return code can be one of the following:
+  *
+- *   HVA:           on success (uninstall will return a bogus HVA)
++ *   HVA:           on success (uninstall will return a NULL HVA)
+  *   -errno:        on error
+  *
+  * The caller should always use IS_ERR() to check the return value
+@@ -10031,10 +10031,10 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
  void __user * __x86_set_memory_region(struct kvm *kvm, int id, gpa_t gpa,
  				      u32 size)
  {
--	unsigned long hva;
-+	struct file *f __free(fput) = NULL;
-+	struct kvm_memory_slot *slot;
- 	int i, r;
+-	int i, r;
+-	unsigned long hva, old_npages;
+ 	struct kvm_memslots *slots = kvm_memslots(kvm);
+ 	struct kvm_memory_slot *slot;
++	unsigned long hva;
++	int i, r;
  
  	lockdep_assert_held(&kvm->slots_lock);
-@@ -10055,37 +10071,31 @@ void __user * __x86_set_memory_region(struct kvm *kvm, int id, gpa_t gpa,
- 	if (WARN_ON(id >= KVM_MEM_SLOTS_NUM))
- 		return ERR_PTR_USR(-EINVAL);
  
--	if (size && id_to_memslot(kvm_memslots(kvm), id))
--		return ERR_PTR_USR(-EEXIST);
--
- 	if (size) {
--		/*
--		 * MAP_SHARED to prevent internal slot pages from being moved
--		 * by fork()/COW.
--		 */
--		hva = vm_mmap(NULL, 0, size, PROT_READ | PROT_WRITE,
--			      MAP_SHARED | MAP_ANONYMOUS, 0);
--		if (IS_ERR_VALUE(hva))
--			return (void __user *)hva;
--	} else {
--		hva = 0;
-+		if (id_to_memslot(kvm_memslots(kvm), id))
-+			return ERR_PTR_USR(-EEXIST);
-+
-+		f = shmem_kernel_file_setup("kvm_memslot", size, EMPTY_VMA_FLAGS);
-+		if (IS_ERR(f))
-+			return (void __user *)f;
+@@ -10058,8 +10058,7 @@ void __user * __x86_set_memory_region(struct kvm *kvm, int id, gpa_t gpa,
+ 		if (!slot)
+ 			return NULL;
+ 
+-		old_npages = slot->npages;
+-		hva = slot->userspace_addr;
++		hva = 0;
  	}
  
  	for (i = 0; i < kvm_arch_nr_memslot_as_ids(kvm); i++) {
--		r = x86_set_internal_memslot(kvm, id, i, gpa, hva, size);
-+		r = x86_set_internal_memslot(kvm, id, i, gpa, f, size);
- 		if (!r)
- 			continue;
- 
--		if (size) {
--			for (i--; i >= 0; i--)
--				x86_set_internal_memslot(kvm, id, i, gpa, 0, 0);
-+		for (i--; i >= 0 && size; i--)
-+			x86_set_internal_memslot(kvm, id, i, gpa, NULL, 0);
- 
--			vm_munmap(hva, size);
--		}
- 		return ERR_PTR_USR(r);
+@@ -10075,9 +10074,6 @@ void __user * __x86_set_memory_region(struct kvm *kvm, int id, gpa_t gpa,
+ 			return ERR_PTR_USR(r);
  	}
  
--	return (void __user *)hva;
-+	slot = id_to_memslot(kvm_memslots(kvm), id);
-+	if (WARN_ON_ONCE(!!size != !!slot))
-+		return ERR_PTR_USR(-EIO);
-+
-+	return (void __user *)(slot ? slot->userspace_addr : 0);
+-	if (!size)
+-		vm_munmap(hva, old_npages * PAGE_SIZE);
+-
+ 	return (void __user *)hva;
  }
  EXPORT_SYMBOL_FOR_KVM_INTERNAL(__x86_set_memory_region);
+@@ -10106,20 +10102,6 @@ void kvm_arch_pre_destroy_vm(struct kvm *kvm)
  
-@@ -10158,12 +10168,8 @@ void kvm_arch_free_memslot(struct kvm *kvm, struct kvm_memory_slot *slot)
- 	 * unless the memory map has changed due to process exit or fd copying.
- 	 * Leak the mapping on failure, e.g. if the task is killed.  Worst case
- 	 * scenario, the page(s) will be reclaimed when the process exits.
--	 *
--	 * TODO: Allocate VMAs for each address space and drop the check on the
--	 *       as_id, which depends on freeing memslots from 0=>N-1.
- 	 */
--	if (current->mm == kvm->mm && slot->id >= KVM_USER_MEM_SLOTS &&
--	    slot->as_id == (kvm_arch_nr_memslot_as_ids(kvm) - 1))
-+	if (current->mm == kvm->mm && slot->id >= KVM_USER_MEM_SLOTS)
- 		vm_munmap(slot->userspace_addr, slot->npages * PAGE_SIZE);
+ void kvm_arch_destroy_vm(struct kvm *kvm)
+ {
+-	if (current->mm == kvm->mm) {
+-		/*
+-		 * Free memory regions allocated on behalf of userspace,
+-		 * unless the memory map has changed due to process exit
+-		 * or fd copying.
+-		 */
+-		mutex_lock(&kvm->slots_lock);
+-		__x86_set_memory_region(kvm, APIC_ACCESS_PAGE_PRIVATE_MEMSLOT,
+-					0, 0);
+-		__x86_set_memory_region(kvm, IDENTITY_PAGETABLE_PRIVATE_MEMSLOT,
+-					0, 0);
+-		__x86_set_memory_region(kvm, TSS_PRIVATE_MEMSLOT, 0, 0);
+-		mutex_unlock(&kvm->slots_lock);
+-	}
+ 	if (kvm->arch.created_mediated_pmu)
+ 		perf_release_mediated_pmu();
+ 	kvm_destroy_vcpus(kvm);
+@@ -10159,6 +10141,19 @@ void kvm_arch_free_memslot(struct kvm *kvm, struct kvm_memory_slot *slot)
+ 	}
+ 
+ 	kvm_page_track_free_memslot(slot);
++
++	/*
++	 * Unmap VMAs allocated on behalf of userspace for internal memslots,
++	 * unless the memory map has changed due to process exit or fd copying.
++	 * Leak the mapping on failure, e.g. if the task is killed.  Worst case
++	 * scenario, the page(s) will be reclaimed when the process exits.
++	 *
++	 * TODO: Allocate VMAs for each address space and drop the check on the
++	 *       as_id, which depends on freeing memslots from 0=>N-1.
++	 */
++	if (current->mm == kvm->mm && slot->id >= KVM_USER_MEM_SLOTS &&
++	    slot->as_id == (kvm_arch_nr_memslot_as_ids(kvm) - 1))
++		vm_munmap(slot->userspace_addr, slot->npages * PAGE_SIZE);
  }
  
+ int memslot_rmap_alloc(struct kvm_memory_slot *slot, unsigned long npages)
 -- 
 2.56.0.385.gac671c819a-goog
 
