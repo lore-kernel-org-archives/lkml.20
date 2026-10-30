@@ -1,53 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793379296;
-	b=EXYtG7Z29oLE6vy/zspnDn3uQchHSvbQ5pJlCygHpFhMBil7B0DO3qRWDP3pLm6vQDTY
-	 kHPdbjQOKN8LAXoBzVAuoRd8jBkkBIDLIOmobxUzf27ggXOxJ1fTrMQV32lQhVVWulG08
-	 YEFyYrAEyFZCNzGjDHihTrMvpRuewkaviYfGICjaVhke0OKTQPITCu+C2HLVEdHPeNKqI
-	 2KjXS6Lbp5ds+q9ACz5+56O7bC6aheHj7HNnAbi1ZctoWHDm/10F/AmPWl0qCDwAK3Pwc
-	 7/UxX8AZk0wVKeIfavkhegnhbz8WH3t3FH1NZOc9N5M8o7sLRSWy5Z9dNAOVGadPLfw==
+	t=1793379287;
+	b=lHvVS9OZoOpa8Wv0MTMOBY/Rn1CckjmBAl4JXs7uLQuovD2UAB888ttzU2J8YzmTde7q
+	 mEoVO8RR/9YNyleh9c0KYyFRZaWjkRAfBcmdUsUqYq5guTDF04TiAMr0rej6MlI3yGQp/
+	 0oyhMn40c/H6w1zhiXGZYda4qPXMum4C5f2hkzIE6D+MSr8Wi6kGSAM7xRSDxZLckesmZ
+	 WNZMOLeTG0XBpnVAoEuMtpc98KeAr1Vg6Mm8E87IKfBbFcp8Z5A9fGvGd2kbgA9poSwdX
+	 kbhXOB3upcwQadL7xm9FpQrr0hpag7HXl42csKYD1a/uIJwWg7HTz0GTnwQVrRUDBdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793379296;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793379287;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=nbV82IFwuuiTS8AA+/V+YE4I9u5uPPJ2Xt2fo3gijys=;
-	b=MG+IxfJL+k2peUB60e1cc1iyptHZFeUvrd3W8Aavjz/nvpbOwAsvT9H+RWNQn4snQ+z3
-	 jsD3Z9B6kURUO0hRE8LmsIEetg+IY+shFzkRbn1/qvcP6h1phZs0WKwRLPoziuuv6PByG
-	 nKPHJgJfOj1HAVFb6xsu+sgjb36eWKg7BgQdLwyzPK966DVsDmzkxbEJ94sgCGj+SuYtj
-	 1uW40r+9LicxUKlPSgXtIO2er4wI/ZMTiYG/E6tM00dQXECwqLwPWygE5SK6UjRvDMSiU
-	 5xIzDqeZgoLIjRTSdKaogmPLrmGHysEB1/JCsIGgIni63wbE7XwJIczJ0EFMmYAKcFA==
+	bh=Zup0ssAFr6iZK+F8bd6TsKJG5vW3IBQaP27+OPMuXxY=;
+	b=D5MMkWRCb30R78ASx3XEY0GQoMj/IiKZERZ+zfBBd7usKo4w7/5gyM3uheDqJyzQ2Yoo
+	 MRhidsXVZvwgeuYvTQl4KzVBP86ZFdrCjFG/gQui5wl17utAVoD0zpKN3bWuRFyw2TeJo
+	 32/F+ozXffEfcMEnj+yaWvYTfNuu3btp/eyWWlEmfUOBTQMWGISQS4ax8P9pcZJJwc7dW
+	 MDM1HjxNdUZ12WOU7Rk5542y+ex6WUxsmaehQ+W+hYxs0uef20c9F0J394btx6IMqQtRv
+	 FBgUexAFB67qU7GgRhBG7cSaIIu7XL9t36KmI2rQTzhSali4dqTX6Lpt0b2ax9aqGiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.sdu.edu.cn;
 	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=P254I4xT;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=ddmpdcPB;
 	arc=none smtp.remote-ip=45.254.49.197
 Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97C1606A330;
-	Fri, 30 Oct 2026 16:54:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C97C1606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC48F606A32C;
+	Fri, 30 Oct 2026 16:54:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC48F606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=P254I4xT
+	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=ddmpdcPB
 Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 52f74f122;
-	Sat, 31 Oct 2026 00:54:43 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 52f74f11f;
+	Sat, 31 Oct 2026 00:54:38 +0800 (GMT+08:00)
 From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Lee Jones <lee@kernel.org>
 Cc: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,
 	stable@vger.kernel.org,
-	linux-media@vger.kernel.org,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	mfd@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] media: siano: Fix potential use-after-free on graph failure
-Date: Sat, 31 Oct 2026 00:54:39 +0800
-Message-ID: <5c6211f11581350506d7324854af353a606388e9.1793377439.git.liguangshuo@mail.sdu.edu.cn>
+Subject: [PATCH 5/6] mfd: stmfx: Fix potential IRQ action leaks on removal
+Date: Sat, 31 Oct 2026 00:54:28 +0800
+Message-ID: <fb75e2706d7608956b5198c674fedd2f9cae7d55.1793377422.git.liguangshuo@mail.sdu.edu.cn>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1793377439.media.git.liguangshuo@mail.sdu.edu.cn>
-References: <cover.1793377439.media.git.liguangshuo@mail.sdu.edu.cn>
+In-Reply-To: <cover.1793377422.mfd.git.liguangshuo@mail.sdu.edu.cn>
+References: <cover.1793377422.mfd.git.liguangshuo@mail.sdu.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,55 +62,59 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa18dbc326303a1kunm4d3d9b7e52a3b
+X-HM-Tid: 0aa18dbc1f2f03a1kunm46158e5a52a2e
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZThoZVhlPHRpLS04dHxlMSFYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCH0JIVksfHkIeGENLSRlLTFYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
 	++
 DKIM-Signature: a=rsa-sha256;
-	b=P254I4xTcRHgKe2Z0ltHrQK86gkD+bV8QtC01b6ylVsdwGLLwFOufkRlVCIbqia8NlzERfrJ270vfAWXQXLjqITjDSXNP4xgEKyQmrkra24Rus9O1H48iYpnCnfOmzmJhLKlSoehtKguIF28XGN0O9LbOgCGW6mspLdKd1oyK60=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=nbV82IFwuuiTS8AA+/V+YE4I9u5uPPJ2Xt2fo3gijys=;
+	b=ddmpdcPBR8UZeA8kfxBKyFYBSAYtV/iJ26Hm5kvVoLbNCpUxTJs/wD4rT5fgmSc2qEcUxom4pcZGMxOx5wz7C2mHlSGtSFX8olaJmRSVEbwtK3l/6vJV5hzDvqub4mLHYhvLGIT+6X3IMV+fyMP1fJo1oLdNI8p+W/P0We9IEXY=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
+	bh=Zup0ssAFr6iZK+F8bd6TsKJG5vW3IBQaP27+OPMuXxY=;
 	h=date:mime-version:subject:message-id:from;
 
-If dvb_create_media_graph() fails, the core client remains registered
-with a context that is freed by the error path. Subsequent core device
-teardown calls smsdvb_onremove() with this stale context.
-
-Unregister the core client before freeing its context. Leave the media
-device to the transport on hotplug failure, since the USB probe error
-path also releases it.
+The remove callback disposes IRQ mappings before device-managed MFD
+children are removed. Their later free_irq() calls cannot find the IRQ
+descriptors, potentially leaking interrupt actions. Remove the children
+explicitly before tearing down the IRQ domain.
 
 This issue was found by our static analysis tool under development.
 
-Fixes: 0d3ab8410dcb ("[media] dvb core: must check dvb_create_media_graph()")
+Fixes: 06252ade9156 ("mfd: Add ST Multi-Function eXpander (STMFX) core driver")
 Cc: stable@vger.kernel.org
 Assisted-by: OpenAI:gpt-6-astra
 Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 ---
-Build-tested the changed object with x86_64 allmodconfig.
+Build-tested the changed object with x86_64 defconfig plus COMPILE_TEST
+and the driver dependencies (W=1).
 No runtime or fault-injection testing was performed.
 
- drivers/media/common/siano/smsdvb-main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/mfd/stmfx.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/common/siano/smsdvb-main.c b/drivers/media/common/siano/smsdvb-main.c
-index 415c24fbbb65..664868627bf5 100644
---- a/drivers/media/common/siano/smsdvb-main.c
-+++ b/drivers/media/common/siano/smsdvb-main.c
-@@ -1217,6 +1217,7 @@ static int smsdvb_hotplug(struct smscore_device_t *coredev,
- 	mutex_unlock(&g_smsdvb_clientslock);
+diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
+index f683fdb6ece6..82e81e084795 100644
+--- a/drivers/mfd/stmfx.c
++++ b/drivers/mfd/stmfx.c
+@@ -448,9 +448,9 @@ static int stmfx_probe(struct i2c_client *client)
+ 	if (ret)
+ 		goto err_chip_exit;
  
- 	smsdvb_debugfs_release(client);
-+	smscore_unregister_client(client->smsclient);
+-	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
+-				   stmfx_cells, ARRAY_SIZE(stmfx_cells), NULL,
+-				   0, stmfx->irq_domain);
++	ret = mfd_add_devices(dev, PLATFORM_DEVID_NONE,
++			      stmfx_cells, ARRAY_SIZE(stmfx_cells), NULL,
++			      0, stmfx->irq_domain);
+ 	if (ret)
+ 		goto err_irq_exit;
  
- client_error:
- 	dvb_unregister_frontend(&client->frontend);
-@@ -1228,7 +1229,6 @@ static int smsdvb_hotplug(struct smscore_device_t *coredev,
- 	dvb_dmx_release(&client->demux);
+@@ -466,6 +466,8 @@ static int stmfx_probe(struct i2c_client *client)
  
- dvbdmx_error:
--	smsdvb_media_device_unregister(client);
- 	dvb_unregister_adapter(&client->adapter);
+ static void stmfx_remove(struct i2c_client *client)
+ {
++	mfd_remove_devices(&client->dev);
++
+ 	stmfx_irq_exit(client);
  
- adapter_error:
+ 	stmfx_chip_exit(client);
