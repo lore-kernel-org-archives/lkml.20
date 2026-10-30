@@ -1,54 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.217
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793325339;
-	b=sy8v8hAgdR2hcNqQrox2KZqWKiDHlLjUsTN79M7NXF2jZzh4l/HtINgbcp3U9ysK6N45
-	 CjPTbKURnHWGIyANLJy8URxbjAyoQu2cSFQNk2WX7jD//XZiRfw1nfSv/C39au2/sZEsL
-	 RwhySOvgDe03T+VvvUzTZrtmaLUjzGYGRq6/gtyTVpP0ONGMPtuY2XPkBh/OtUyDqHRDI
-	 gOR9U5L4bVPEjG4DQyBG5XugDnaePyctM/Y7MUuLBtQN7rAj84nmoKL0//u0dZRnFt6c3
-	 uOT3N0t/taKlsxdsnvNFdex+RnigLJ3ZNsZjhEBGEsd1QRYJVe4FuQ7LQQJEVfRWptQ==
+	b=wGK0ZCcxc6uYiWzj6b6LfF3+lNpyzq3MxtLkRu2AncAQ3R5VpXttUygSOXcgKhEObopt
+	 7YKimBUauYD9rXUnW2tHFRl99D2fBRUxEk6Qwd9Dw/M5E89aZou60V8GWZCT3bO1LM7Rz
+	 OURekyQckB7t/qn3ONX6iMKpMy3P1EyBZEA3SrrtdmBSfAJa5mmFWuFgi3L9CVnWLMFuS
+	 NcxNpCQHBuvixOsJ7gi/2g1M5lRxFSUJCcNdJ4W77hCKb5hb2jewjnJ+C5fBWNT1lCBkF
+	 0F3or8iO671pTqR6qGNAeBD2/vz+3Ckauwm1Zjerb75sY4Y2FLJGjwc3jxTZVCWmedw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793325339;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=NW47OZGG+imSFWQTUojgxKaRsVA/dxTDAH6Z79eqPk4=;
-	b=3ShaKOdDUOSIBw9g7Zj8t0G+5dvc2iECZMYrpLirIx2HdvImWUt8+t0OROMEJ3maKDWU
-	 noRdA8PHt42fHKOqVMwIwtZLcrZxmV5KJeaOqdSpGHgCSer0n0m5zYuVa4qdVXZFciG+v
-	 jbhaCXjJB9aZr3saep7JANhTKLPWz5P+jVsjjQsbZWlwqdGB6fU3gpB8pkup1zQHEd8Vl
-	 ckfkOPLri9LXfSCKY8uS0zWIrv2bo6Bp76bKwcoPfRJ3C11fwAPwe+ZJDD47jKheh2wzY
-	 taYgQPpa19fLtOZ1jwCSQkkvnkLk4sSDQwIEWZ7IEg3p8Haa2+NXmncfz93EtyHIWAA==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Td2Xd1tYhRh3obhb+/yK2U8VEYj+IqVYRyJ5LgiIIoc=;
+	b=OfMYy6OODzAaPfXyGoP86WBSkq3Rk6KyMA6DRjiyum4+JUxFU/D8bDw+3W/yVf4vK9kJ
+	 j1sYIdsu8yO1txWxPr8SlzYlTlHU2v+gfNBdUR2LbLkj5F9ebyAB4NAJ5v2ynHXXBheJC
+	 XnYq9I54umu1AjJKsYBh/x7GTlwV1OVEt48l4to30qFMpy7DZQbRk710xSgj+H34weDN7
+	 WbjPer6ImGKENjXRcghHex+bPgIGM/rQYW1TSEsotmViEwNRvfsLrcAYC6e8QVYhOKUTL
+	 EaTI6NvTnRSn19Gh+9K5kJo8gZ6tAQ/UcocIN2RyD8OgyCudwF3WSsTShYJYxFZJzhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tJinQgl7;
-	arc=none smtp.remote-ip=95.215.58.217
-Received: from mta1.migadu.com (out-217.mta1.migadu.com [95.215.58.217])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gimoRIzU;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DB0606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:55:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56DB0606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A72E606A322
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:55:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A72E606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tJinQgl7
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yLibGXRg0x614xy7jj1umLLnLSoSQ8rxXuFtkSyAjTw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793325336; v=1; x=1793930136;
- b=tJinQgl73cr3AUsCPm6B+YtFCqmb7GEy7gRNXN1Ncvnor1T3bPpjZNMlreCZ6Im6e2wSkI1F
- twibpD/2a6cx4UBL8xznzC7Rj5gmRvDynXTyjbjomOjWdixbUPIYb78y5hd4XRCHD5ujWxUOz/x
- SG3SuSCSmmfttwXvvbeosLaM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6e53ba925bba0fe2;
-	Fri, 30 Oct 2026 01:55:29 +0000
-X-Mizu-Trace-ID: 6e53ba925bba0fe2
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <96dfb9b7-1eaf-4bb2-8136-9a2478e1a068@linux.dev>
-Date: Fri, 30 Oct 2026 09:55:17 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gimoRIzU
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so450367eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:55:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793325338; x=1793930138; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Td2Xd1tYhRh3obhb+/yK2U8VEYj+IqVYRyJ5LgiIIoc=;
+        b=gimoRIzUXqrXtudQIPocREKIIJ4yFyqIzbKXjFc3wftzte7ZPzk3FVopOuo8s8/vim
+         N5gOHVO8AJ3xex1Uk0NxIEFRdxyzqP8P7oInr1iSv0SSPsKTX6y3v+eab8mXkxjLeZKJ
+         WQwuuqs4GxjZkip133ZE2UdJoCHAak4YXnufs9lyiM6x7dnvfhBQTkdG6OSJzbHTtPRg
+         uUUFSEZWphWoZl6Pw4emh5E5krBoTeaxb/+py5pdstYKtYcJCjOwVvfMs3c0Rres4rYm
+         wVJqq/ZcE9O75HiZaf+xL8cqF7lXMEsi5EoGW66dMG7ot9V8kuWVDjxI5hnz0MvdS9xK
+         dRGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793325338; x=1793930138;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Td2Xd1tYhRh3obhb+/yK2U8VEYj+IqVYRyJ5LgiIIoc=;
+        b=kLdEgo0MSw6IDa9Y5mYfZIXR5LlPnXfI5B5s0Klyfn3fjkiZzbRUWKFMjfi0IhAiGZ
+         MZHh4EyikEsw0zwRTXCJZ5iYkrE4Am9211nD8LdVciKzaGJbNpdgwkRUNbzrCcN9wqZE
+         2EngpuYf6yu35f8ywT2G8ScmCxYnTJBxxB4FjKCu+4pFsaf2x7fbcgHyDfJt8SKgOJHj
+         MYc0b0RekJXos/HF0ZQGNznbeFPwnRJwJf59tHT5hZ12QbZXFxqOSAmD2l5BL0vKgR++
+         G8QtHCM4v6Yib5je+x0x8YBG4kidsOzfmgrs/oHAvDnjmZ18uT4gB9JGksJmjeH1vHTc
+         DRNg==
+X-Forwarded-Encrypted: i=1; AKwUvBwDk79ARyLRTCwJnqIyOD51J5bNpyeDY0IqtjxTI8LfpYtE2DuRmlxBRInXY4QY6VITBgP/Xi3oV3xYch4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLRRiMyFjEF/yuIR/OGvd041b9CT5eMDkPJsIkvE9v+FMF7d4Vq
+	KQk498GElZeyx++YCrlKcYKX6EHN87mpzZgeFrJK4pI5tJGX/ouFdpE=
+X-Gm-Gg: AYBFou08lkQ0a3/2N+/RXRj2Ar1owexzNuf6rF+14TZjzaf0PEoF7wq2jEHeQrFjNYY
+	Fkg70JJvxROnW3m70m+u6Qwcd7vilelziU67GyQRr6MmL8fcmCxR/U5owN8VUlGVOmStOei87gK
+	x5ITCQzi9gAxp5RUfKe7BS5SrH6s3cVyV8PV1Pht5Y5jj+as8lw+PN5wbFboWaN7jXYAT2Rg3It
+	8tv7/9uJTEpOnvE7bGry1gvCYD2YvmM2mGWCsidEDMO7RQjuZnNSVOsBCVr585Tly6/di0IqSiy
+	n0rJqStHIg+VRqL4fvGTbunD+411EXyUihAED1CqSfkzE8a/PMgDxVlGUt3hTYSedcEG069ABM9
+	MgH2FKQeRvfI/zJfHfE5HwgaJN26Dcv6u8JBB+FfXherUWE9a2LOJgEUh/WhU7EpF+aidK6qP30
+	tyyM8pZbrqfEiLrOmjGuwneYnmL4NMIX5VUfFnQZh9tjE72QidcMPvTp799QCGzuJ3/K24sOmdE
+	pvTVDWiYlh5FYW343xZOZgaNkgp2TNmayFXNssRZ9/RMyySXQ113XrRK5TqdODOo4JblxSo3ziT
+	Tp2qNh7i2w00QgQEKI82efxywKLWHeGmsQ6fkl6qy3w92OEWrp7owyqG+Btt6+Yqlso=
+X-Received: by 2002:a05:693c:895b:20b0:36a:1bac:6bf4 with SMTP id 5a478bee46e88-36a42389038mr1533637eec.18.1793325337872;
+        Thu, 29 Oct 2026 18:55:37 -0700 (PDT)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.112.166])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm2730757eec.26.2026.10.29.18.55.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 18:55:37 -0700 (PDT)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: alexdeucher@gmail.com
+Cc: airlied@gmail.com,
+	alexander.deucher@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	atharvatiwarilinuxdev@gmail.com,
+	christian.koenig@amd.com,
+	dev@deq.rocks,
+	dri-devel@lists.freedesktop.org,
+	ed@aicharmers.com,
+	kenneth.feng@amd.com,
+	linux-kernel@vger.kernel.org,
+	simona@ffwll.ch
+Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
+Date: Thu, 29 Oct 2026 21:55:29 -0400
+Message-ID: <20261030015529.1686-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
+References: <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,100 +106,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v5 5/6] libbpf: Add log_opts support for
- bpf_link_create
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: bpf@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Shuah Khan <shuah@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
- Hangbin Liu <liuhangbin@gmail.com>, Martin Karsten <mkarsten@uwaterloo.ca>,
- Masashi Honma <masashi.honma@gmail.com>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261026154948.99408-1-leon.hwang@linux.dev>
- <20261026154948.99408-6-leon.hwang@linux.dev>
- <CAEf4BzbW4zwL-9j8e2B6KNXVNwsfWyMSAo_RsGCqv-nu_yGhTg@mail.gmail.com>
-Content-Language: en-US
-From: Leon Hwang <leon.hwang@linux.dev>
-In-Reply-To: <CAEf4BzbW4zwL-9j8e2B6KNXVNwsfWyMSAo_RsGCqv-nu_yGhTg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 30/10/26 00:22, Andrii Nakryiko wrote:
-> On Mon, Oct 26, 2026 at 8:51 AM Leon Hwang <leon.hwang@linux.dev> wrote:
-
-[...]
-
->> @@ -960,12 +970,12 @@ int bpf_link_create(int prog_fd, int target_fd,
->>                         return libbpf_err(-EINVAL);
->>                 break;
->>         default:
->> -               if (!OPTS_ZEROED(opts, flags))
->> +               if (!OPTS_ZEROED(opts, iter_info_len))
+> @Andre Eikmeyer I think this patch should fix your system as well.
+> @Atharva Tiwari are you ok with this patch?
 > 
-> semantically cleaner would be to use log_opts here instead of
-> iter_info_len, send in a follow up?
-
-Will do.
-
+> Thanks,
 > 
->>                         return libbpf_err(-EINVAL);
->>                 break;
->>         }
->>  proceed:
->> -       fd = sys_bpf_fd(BPF_LINK_CREATE, &attr, attr_sz);
->> +       fd = __sys_bpf_fd(BPF_LINK_CREATE, &attr, attr_sz, log_opts);
->>         if (fd >= 0)
->>                 return fd;
->>         /* we'll get EINVAL if LINK_CREATE doesn't support attaching fentry
->> @@ -975,6 +985,10 @@ int bpf_link_create(int prog_fd, int target_fd,
->>         if (err != -EINVAL)
->>                 return libbpf_err(err);
->>
->> +       /* bpf_raw_tracepoint_open() does not support log_opts */
->> +       if (log_opts)
->> +               return libbpf_err(err);
->> +
->>         /* if user used features not supported by
->>          * BPF_RAW_TRACEPOINT_OPEN command, then just give up immediately
->>          */
->> diff --git a/tools/lib/bpf/bpf.h b/tools/lib/bpf/bpf.h
->> index 826d9cc9ab65..fe3b7fd8512b 100644
->> --- a/tools/lib/bpf/bpf.h
->> +++ b/tools/lib/bpf/bpf.h
->> @@ -422,7 +422,10 @@ union bpf_iter_link_info; /* defined in up-to-date linux/bpf.h */
->>  struct bpf_link_create_opts {
->>         size_t sz; /* size of this struct for forward/backward compatibility */
->>         __u32 flags;
->> -       union bpf_iter_link_info *iter_info;
->> +       union {
->> +               union bpf_iter_link_info *iter_info;
->> +               struct bpf_log_opts *log_opts;
->> +       };
->>         __u32 iter_info_len;
-> 
-> in a follow up, let's add comment next to iter_info above and
-> iter_info_len here that these are deprecated and that iter.info and
-> iter.info_len should be used instead
-> 
-Will add comment when adding log_opts support for BPF_TRACE_ITER in
-libbpf in near future.
+> Alex
 
-Thanks,
-Leon
+No, as i said this is not the reason, and we've already fixed it properly
+You can see it here:
+https://github.com/t2linux/linux-t2-patches/blob/main/7003-amdgpu-add-support-for-5K.patch
+(Adds 5K support and fixes the boot issue).
 
+And for the 16,1 issue (i assume), the only fix is
+https://lore.kernel.org/all/20261024162109.307247-1-dev@deq.rocks/
+
+The PPTables provided uclk clock speeds is wrong, thats what causes the issue,
+initializing UCLK in post_init wont solve that.
