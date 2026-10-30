@@ -1,47 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793365751;
-	b=v2soFIEhUG4zSQRjbHZZBbAfBPGnQUugOon5XuL6jtWTtHhHPhweMKgmprwlzEvkgn94
-	 e+KTaVbdatsbKehd8dGNVpSjuZi3DUTLV06VcOSs+bbq9VbbJ/5CBdhmw5o+8yGT+2gzQ
-	 43wUaL5XRFGUQYOwbtlZDNTq0J/PKHxvC75OsLw8GZz/AmWfAOv2qMUAlTmcCWc1vhCI2
-	 diRUd2AX/KYNttMMqWFiH0Erhe5Xkd0+r/3wgOKFF3GI2BI/HWxZ2V1tlE0r+gOo3ovrJ
-	 rD4kXD94nKj+I8j/0j/WO5nuilgaO2klDZzbR+2XJEgQyLMGI1itIL6u/JBvyF6lt7g==
+	t=1793365783;
+	b=up2rrI3lPjNKh7xChnnp5wMrGk3WqV11Vlhq3ZjOgg6SLsUpdW36iKxWcBJFF6h50pUO
+	 g+CWiyFn1OeosYQKs6FF94850ognAwxpuvGhiC1GZbXcU0sR7vo1W7zhUyDuxJbz5nIR0
+	 n7Zp/Vl6IvBxu30V55XboNFnAIu/4T+DYHgz9TOrH5SPln4FuhOWouPU5NPyhb4lxpcug
+	 986rK/MEidYGItAbmU+WWUZMT88VfZfgi07s7FyjKJWCm13OmD8fLtIxAADh1YjQ4Jq+f
+	 bNg38eZA8HOEw0DGPi5Q3l/yzKYHg6SZyrYEKLd4Vdc1auKMSmst9u4oTOHWIftmsig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793365751;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=HYloytuBxu4sE14pidECPuCOdVzFhqn6Nf0eRwLJzzk=;
-	b=LJen5uxvN5hE41nOi6ssKOgvrENJ+Apwwj1CcDmdblVKAXpd2fKXdAkVGy6D1YROS1Wt
-	 haHpz2BD91WdP6LKlyi0girtZq5+CuVBS5pyTYRbi/KzR/9T5VXd+4cJum9KKPXwbDP3D
-	 qiyGoyx7MYGnVpXj39OfMlchxICCfncdLlIuAP62n50zP0eLuXVFt636uJ5UPQ+aXVxRA
-	 KSsEk1RmGMOzkUrzQzbt7SPgecbJB7vWrPByZxPdZpHJMfxY8kwGZB8GOiQt2ZMFERgPO
-	 HyJpOHcsMHkvJCECFx9MufSkM746IlzFX9DMgsU3Dczpb3NPsw+OG0Is1VCgSZQwQTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793365783;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=VufzyxxDNDky0ZTk+wV90t8Sun+2IAPwwdrPG8KvB6M=;
+	b=gfxIy5zWhFJgJ0L3ZvZd+Rubeidw9pfe+9ERcUTwWGhQLjqtP65Ewabsv6zULOUHuNGd
+	 9OLEhpBTBBp73oj6Am6CccfynI93MTAmpeu+BnBLXss8aSqUA3Boxrxc6VWzr2VnhZ248
+	 36QqYf/Fcc7toIDFZtNYjV8hTyr8ZGko2HCp4Z0TfYa2CHu8aGSOOSIcXB+dHL7XU/W31
+	 URh7W8M2pMnafluVQ1ZPv1D3eXtDnyUFwYIkQXmTgHZKgiQQF9GsRwjEOXTTjrYYJZN25
+	 gLsSLphY0a1+6M8Nz6DZXiXR3eMMo1YehGvRj/vWU/c72HFtGf2R7QXZV8qfJN6sJdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OVTWGiGZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=kroah.com;
+	spf=pass smtp.mailfrom=kroah.com;
+	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=eFI8Dleh;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=U3s+78E6;
+	arc=none smtp.remote-ip=103.168.172.153
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE75606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:09:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17559606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:09:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17559606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OVTWGiGZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D3411F00A1A;
-	Fri, 30 Oct 2026 13:09:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793365751;
-	bh=HYloytuBxu4sE14pidECPuCOdVzFhqn6Nf0eRwLJzzk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OVTWGiGZ8EAd/uuahVtwVqOMOeRibqKX5kYBYjf8r4J4xvZLtE0JZ8bRzVBE4+xoC
-	 iFSGiUBT9avKrsDV5AW356xVn8o2e4VXQZNrdABxPqAsecRgCBXbRAWPshW42whwhW
-	 o7Tt1tL2NwxQbWSvVi1gWUo3F2QPtp0KU1nPXBeqsM68ZO6MSlRtCw0kVuM6V2Sy3p
-	 ZQmD1pKirFpJ+iZS2OfnkMKnYE2KLlXaWrnIL5wCqD/ltoa8ErsIUYAcLJLXnnVvsx
-	 LoR0CvQzuRTkjMhmmqEqJ6W/bXdCvOiJDPbTqk9z8lNj8c1nxMaJd1fesuOzKJmNns
-	 hOwjV1EoN44+w==
-Message-ID: <827abae1-efdb-4e8a-bcb1-233ff418529d@kernel.org>
-Date: Fri, 30 Oct 2026 14:09:06 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=eFI8Dleh;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=U3s+78E6
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 63F9E140019A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:09:42 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Fri, 30 Oct 2026 09:09:42 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793365782;
+	 x=1793452182; bh=VufzyxxDNDky0ZTk+wV90t8Sun+2IAPwwdrPG8KvB6M=; b=
+	eFI8DlehxLNn4JQk2eQScxcHA++LvXicnJAlpZCfecdo/GDfFqNWOFO+YKz0RGUS
+	SI2sGsc0OzU+HmAkt8gf7GVtHlQ5oLJ1eumrflNSNyOWvG5+fwuIkYFWsljNlJRr
+	6/BBBjcjMN2+52cE/uBN8Zqp6SElZRo9H++5JZNFO8OwyT32S09owK5NaMzPBYjh
+	dWOm2f9qmnO/lmVu0dVlfUKK8YFhv9ggVsV/zSEXPw79lVXM3W5vvrz0y/RZ90Sf
+	fNzZr2Xr5ADX7PjyAq5WO9G+qgxnYY8QL2/0xNDCMfYokwbONfDbZVgunYHVfdhV
+	dA6lNnDKkeB0nzt4z2vd/A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793365782; x=
+	1793452182; bh=VufzyxxDNDky0ZTk+wV90t8Sun+2IAPwwdrPG8KvB6M=; b=U
+	3s+78E6xzVnH/d+DxTT8mC4dkFSqB/x+aLpLWZX+7l+kbQKmzTApVT4hVtnxXyD9
+	Rw2kBPgGcJ+34l23SnRQuMRDg84vIEajL0fX4O0eE7lpY4hcv2T8oH2Fu5EWPQz6
+	7GxEYdrpEY7twu1tFS33raA7P6JzlknepybaKZDSKAN9MXufCghjA1BHYaUCg28Q
+	0dlrbtE6iK5Zml6pntOXLrRdoII4zU9m2VkTt7G1cvWZgPDVLHRT+hyZ+UL5AbXT
+	G4TdoNum/LGBKXYtKAv/bqha2JoFUyP3UJcF2r0/lV2vGu2AhYeW3VVZZT9Jjwhd
+	GsPEA47vBjoqtiTuEhrJQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793365782; d=kroah.com;
+	mf=PGdyaWZmaW5Aa3JvYWguY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:cSzRP40oeT6/PQ0LUoAwieSj1hVgR5+FrXAzYXA1rBm4NSd
+	98GPIPS+jQwoCWkPg2dkz3BgJLRoFv9Y1uqj1fnACgcbta8VPzLLV4PCTuhYYzGr
+	xKP7JvtyfUeNJAu4UHw8H5W1DFAzhdIBDFPMf6qRp/szDur9Mh5W8+OHLKGml81x
+	gK8a7wY6iw6ggmP6kFe0Zw78tgbXZGbiESC5ZMdtp1/e8uKymERwcDZHUZl7boTs
+	WTrHbqjCEb2ifgAdkvkbDuNIQdn63d04KZRrE5G/tUCDBT1D37FFhMACFkBUpDxI
+	u4OiHQt8DU+GcJI0YDVdvLKKqhJwPnGe7ACIKqg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:kSbCdK552iHhn+o0I7vynbVpg225Uz05cpbdLu/VafU=:6KVHz2zoa4xh0XSo5OIeYpPDvMH7dMzwcsIZNl+Vw8I=;
+X-ME-Sender: <xms:FZfkasdEVvI4T-JfT48sNvUxwdW0U-vh501_iwKQRywhAXe1cJ9lfA>
+    <xme:FZfkakOK_ILhkXEUcV2C8FPcF-EWnkaDtdWkGe2gKPZWkeAXNqIP-OVvJkm3pgk9a
+    uUHdPNVTKkXiuZ9UZuHEawAxGa43XE0LoUoy3XPwTC4DVhLiSpZ>
+X-ME-Received: <xmr:FZfkaoV5Q83vtsTbUSNmEKoRHPhfEn6hs6rHMxWx_QCjm1WM448wGg3sadJU1ejPMkE>
+X-ME-Proxy-Cause: dmFkZTG4vKBYpEcgvlFJ9ZA0nv/pK+py/1nRHJ8/IZkEcogj2lwgjT02ZjIGc0qsEBLM6q
+    /nFCF07RrdhWNp2TLAY4qt1cY0YLNOBTsDepaKiEMjzv4JkahRjDn5AVfzVkNOcTk8kUjy
+    C4ShJNj2pts6Ppk/U6XHi8XF4llJGg9aFGAR8beFmg/V0smf9Gd6PhvtP87st771hUdEkY
+    Pa8QSzvjLImE5aW+kYYogXOmIEvWlwbdh+AyoOrFSxAAHQSvqniCIx+xgXeAemHtGzybqC
+    XrZHRVob8tLNf5ruAxOCHsIm763UXHeBf55FlNn0LRen4J3Ohpf+or6ZuZhEUPmPXS0vmP
+    CkooH0YYbUdHrJLeAhx6eg3PFQNJxWyEaL074WTtuxCwsL7C04vNimJg73cGL7oVqaQeyy
+    QAidQVflvSPVTDx92+49/VvHTjraqnvMrhZF7bweiFYO4w7mQW1RmCbRxWXqhvrPFTCL3A
+    oiO7a04bJL48Vkc08Wm9j2XwSizO6xWIRDXcXpqip+QOWClJQYxnl0Xeqen8aF7LIjsr77
+    WoL7msUaEf0MiCGolQNx2xPOictvJ2N+5nVpYzQj6BjWI8Bm+rpCz/v/58pxMeCgjCSIhC
+    uTo81O7OnhXwHZszLPZxmSRzhMbWZqV3+lKdQVTHoYbi1f65OTcUkUaT416Q
+X-ME-Proxy: <xmx:FZfkakxM9iPUnMfnQdMxGzQY4Wn1Q4V3a9Xd_OWVjOVMRAJ_IYuWug>
+    <xmx:FZfkan-G9V-7VHLZTe7d6EHG6GQBUebTJtXQWeOuWyrs7KhCXvWyvA>
+    <xmx:FZfkah_k7PMbt47heDLbCibcpFNa4zXGhXa3UNt0kYXz5AyWxDGRGA>
+    <xmx:FZfkauU-s9YmFATGDJzczmCkosxdNQxdI2OVLHX7fe0ciVlFlqLaKw>
+    <xmx:FpfkaiyyeOD_He73yqP-1rEEazVrZIEfls9y-vFYmyB7Vngmqtt12D34>
+Feedback-ID: i1d2843be:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 30 Oct 2026 09:09:40 -0400 (EDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,95 +116,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/9] w1: ds2482: set the strong pull-up with its byte
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org,
- stable <stable@kernel.org>
-References: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
- <20261027-llm-char-misc-w1-v1-3-d2e6bfafb6a4@linuxfoundation.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261027-llm-char-misc-w1-v1-3-d2e6bfafb6a4@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 2/2] leds: is31f132xx: Add support for is31fl3206
+From: Griffin Kroah-Hartman <griffin@kroah.com>
+To: Flavio Amieiro <flavio@amieiro.net>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Griffin Kroah-Hartman <griffin@kroah.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261028-add-is31fl3206-support-v4-2-e331cee9fcb3@amieiro.net>
+References: <20261028-add-is31fl3206-support-v4-0-e331cee9fcb3@amieiro.net>
+ <20261028-add-is31fl3206-support-v4-2-e331cee9fcb3@amieiro.net>
+Date: Fri, 30 Oct 2026 14:09:34 +0100
+Message-Id: <179336577421.12256.1115507139108601652.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793365780; l=521;
+ i=griffin@kroah.com; s=20260910; h=from:subject:message-id;
+ bh=6KVHz2zoa4xh0XSo5OIeYpPDvMH7dMzwcsIZNl+Vw8I=;
+ b=6Ph6y3Rh8f3qWBglJ5W18J21C4P8RjXtKubaM8r8MD9XtsuW4W8/UnLcKH7DTJj8LYYSM5iok
+ QSTwz3FKjG6BHRE8LnmTvBPYnk15gn6IO8AlGcMSs03dNIDJxpIZBSQ
+X-Developer-Key: i=griffin@kroah.com; a=ed25519;
+ pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
 
-On 27/10/2026 17:04, Greg Kroah-Hartman wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
+On Wed, 28 Oct 2026 18:31:02 -0300, Flavio Amieiro <flavio@amieiro.net> wrote:
+> This chip has a different layout for the LED Control Register when
+> compared to the other variants. This register contains the enable bit
+> (in the highest nibble) but also the current control (in the lowest
+> nibble).
 > 
-> The eight channels of a DS2482-800 are eight independent 1-wire masters
-> for the w1 core, but share one I2C device. Each bus operation consists of
-> several I2C transfers: select the channel, send the command, poll the
-> status, set the read pointer, read the result. access_lock keeps the
-> operations of the channels apart.
+> According to the datasheet, a value of 010000 (0x10) in the register
+> enables an LED with the output current set to maximum.
 > 
-> ds2482_w1_set_pullup() polls the status, writes the configuration and
-> polls again without the lock. Polling sets the read pointer of the device
-> to the status register. In the middle of a read on another channel, after
-> that one has set the pointer to the data register, this makes the read
-> return the status instead of the data. The cached copy of the pointer in
-> pdev->read_prt can go wrong as well.
-> 
-> The lock alone is not enough. The strong pull-up is a setting of the
-> whole chip which is used up by the next byte. If an operation of another
-> channel gets in before the byte it was meant for, that channel gets the
-> pull-up, and the sensor converts without power.
-> 
-> So only note the request in ds2482_w1_set_pullup(), and write the
-> configuration in ds2482_w1_write_byte(), under the lock and after the
-> channel has been selected. The w1 core calls the former right before the
-> latter, under the bus mutex of the channel.
-> 
-> Fixes: 9c95bb6f25ff ("w1: ds2482: Added 1-Wire pull-up support to the driver")
-> Cc: stable <stable@kernel.org>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> [...]
 
+Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+-- 
+ 
 
-Best regards,
-Krzysztof
