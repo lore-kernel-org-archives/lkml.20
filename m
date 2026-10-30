@@ -1,52 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.249
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793388777;
-	b=rf7JQwxL0wgQtem5fWBDQWOYp4PrlrKJTGVOQOI1gt0oiEeelXNQjAEzv94LQiI4IsAV
-	 MzfgoAz0GsjtyoKe96TRpyk7XEw0S6l1A6dxaz8HbGr3G/hEONigCUXp74r+pDWJ7AB4A
-	 IcfPQded2vJ7JFoatb0RDNr5lc1r1eaZ/Gixwr0LnkbU9Mskq+9/RUTasgSEHTb8q5qCP
-	 9kuuGPc87bALeN+jZWPNP8OifRfPc0iUUkLCphjmIcnkAHTkPinpl1z/K+JCE/vjKC/kf
-	 bJm86jG5zMxBSo+IWuhNdiUcSy9BCIPo/80MZIGf+uEKOElndWj9ZA6yF6PuyFGOtLA==
+	t=1793388770;
+	b=1UfoxAWBr1JssuQyJZ91RTok3ovrv2ImRZ06gTMCjvi+sAYMfybccFo9fMQfvTWFRuSv
+	 78oCHDuLfJg2hEWrEKWiDaWKn3LynOtw1LqcwOaD2dIxPx9dOQemRd5KXroVowkKBOXa+
+	 GWK2qbk+rvnqn+utiyFASoE39dcBhpYShFU/5kXSGAcR0r2Ba3fLRF1uD74To7XTXSO76
+	 Igi6CpRvqVUefUJlV6wMvcrF0A34lY7NqtbJBilEeVTsKiSRmV0aB85FWTOyKgQIEia8c
+	 DHoJRai2myXB/wCJMBtYzs49Mod243i4tyoH2nVzaSYsgRMXIUMOIODplykqisT+GNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793388777;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=YS+grbdduDJikrXIuugP6G07Jny6hR3fuIP7acPZrdA=;
-	b=G6V2A4DojdPluKPYuzJhllJ7zahM3IkekD7lAQEya7B622/wWoVssyMUEukG+IXw4TyJ
-	 inud4huWBmvdJGZuBqoku9l06TqA2Q/WGFqJ/agL6ozcJqXSn2+83aQEd3eour1SN97cU
-	 CBKt7MKggAyi5yTSxvJMm1BNMjumkgz/6DPLzqp1/s016yurrJL3D2fWba/eRrCd0Get1
-	 cvgD0IypTb8g/i4h23R9PMYsO+62ZhPeVbHll03BNAwlxbfcRhX37f1+WmHAVgMN70Wm3
-	 g+0NdzcCE3cSdRAeKB1WEGZhqD+ZU/JVhNaTW2aagej/XCEqSYFlK53KK+cPSjtUjvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793388770;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Na1iYLbrn2Uy61QhH6HhZbrLCYD3ujN956/FF1v8tq4=;
+	b=unTKn7VghUNxSI6+a8oU+dfUG+buz4cVlXhimDJAIVu3fL7uskULGL0TEYWPNNhsYJb/
+	 ID3/jpukGBQ5/XVz8a6Rq0Z1UVUYZ8oa5WBPaIDvWEviFTPNQOBaAiv1qYGldx6FCoOyd
+	 MVp2xr8B7RFwKxKi83/x7BgDs/C0kgjmRIdOonoVSoOJeuzEMzIpQ6KUvDAzjvTXoU2W/
+	 ii3n6Is/eXQmrZgvSggjX1Rt+qn/UaqSbMHCAOQVsu0BWA3SQoOdd1YmnNlzqXCmeSS9j
+	 DOoMlXZ+ayl8BSVE81haAuI/QYvm/mBGnyqLhPeu/Tf3CntwMucaNBCmqEYGcTiDNUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cghhF8hM;
-	arc=none smtp.remote-ip=95.215.58.249
-Received: from mta1.migadu.com (out-249.mta1.migadu.com [95.215.58.249])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CEAVI1RR;
+	arc=none smtp.remote-ip=209.85.128.175
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257AC60A2608
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:32:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 257AC60A2608
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980BB606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:32:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 980BB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cghhF8hM
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YS+grbdduDJikrXIuugP6G07Jny6hR3fuIP7acPZrdA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793388774; v=1; x=1793993574;
- b=cghhF8hMmRjLAAk7DNKxswok4ZN3ruvaTkv0YwhfSmulghc5JBSvjfjigwDtiqOPvLfOSTjr
- Cddjnt9rhOqRrjplFUFxkuULJH1JhJmyOnliKm+ytzZDQGOzuAkT2vNLjMy4HTkdR3YxqKoKWab
- DrLOFeWJQmOwCskJEHO0LsSM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2266e724e659835c;
-	Fri, 30 Oct 2026 19:32:53 +0000
-X-Mizu-Trace-ID: 2266e724e659835c
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CEAVI1RR
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b0a28a720aso11159847b3.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:32:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793388769; x=1793993569; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Na1iYLbrn2Uy61QhH6HhZbrLCYD3ujN956/FF1v8tq4=;
+        b=CEAVI1RRRqRA9IhFbpgdZz5IRc6/MsWwGzmu4cw8+7vqs4QG+zqf8wyitGrc+XQfb/
+         Pip/CqNJXvmoy+NuFI6ZF5pvTlKx78RnizjflqHhhcfi8IUZi24t5IkWdz4cX6Uu30m5
+         cNSdvO4XUle9tnnpOuAH6S8c+79vdIR2b0FfYIaLiNto2p074SkiXzmgpg0UyNEUqHa+
+         y4hH/07MrG02iRq+tsXyWx232UfHMSdThMEpSjeCSnozHKd8tQcjLoG+Jr/cT3KMJufD
+         C2FvkW5OzNJKoTKsfUyx6YdZ4ua1Meh0k9mSnBmIBQfNN1ezR8mlnBAzeUUqoKXOQqb1
+         7RGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793388769; x=1793993569;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Na1iYLbrn2Uy61QhH6HhZbrLCYD3ujN956/FF1v8tq4=;
+        b=vC4SaTGrCwuh53VYd8MxzSaijAXTmwXahVB8vn63NsZWyK5NLupaa3CEhPwyzG6Ya3
+         kRJEduI+7qrwpIlKyQTXPgJplA9eul6oIfbdu7SyCeV+atoPSM+xz0fBa7OHo7TUDN3W
+         gtbBVkhEgBb2DZlaAParxFHj/BKeYUTdT3aoreWVIiP09BiAE5WhTr9jk+MoNaBFcrcX
+         q5uwzCYWzWCt3lSpP4gb1yRGBAEDvjtCJ3kdSC5wUp8acPhYEvzC+6t8n9l3ilADkRgi
+         Sx6gwcMQOm9vjkTdwaOgwWIASpXyEmvC1nQ2DVreKPEbdeYg0jzkpHotNYZy2Fb94Wg3
+         +Urw==
+X-Gm-Message-State: AFq9FYJ6evtJ5t7QKi/Cs1RotyYRijAOUKg4/wacrBDVTsKkVYrHpiaP
+	98v256kaZVxZ96AAy/VEMzrMt5m2eaS3myPAmo8MJQ0gCRsw9PM2+tPj
+X-Gm-Gg: AYBFou2jIE6yISmbKMW0r/sQpx/Y9f07R9ryPT4P4AQGJh/WZc4OTZJgCQs1mcm64ay
+	kxuKy2PVlEAMVNHXZW5lwuSViKYtTcZMEzaFp5c36YQBfoMgqzMRp43L7Na3WDaiIdGtkKZAh+s
+	9H/wsrLDFS9xgT4l/2CMdZmCBo1+J59Ib84iBaigifKPoKEtd1cxH8U1X8coj4A1zn1kYVsK3hb
+	DKMcSOE1blUUBvH/jd7e8Ulnhn0Jc3h1LApn0POtxwDWl/AOxNCfxgKS8wEx4ZoXJvZ5zAvJE3G
+	zUpdd8aOjiJIU+BGgUgdWqtD9XE2FSKe1yUBYKrfEHVHLWkkE4r+zO5NNN+wsv7PpCPufYEOSMF
+	noryxhDBArxxhMigCpAngEo+hDymXWNPoV+AlYLfTtl3l0k2FEF34JHN2QTkc78a3YXDcFcJ3v7
+	jTHRankOYHFyXqMsdiEbEadXaW4Oid8weEtiT05n+CthHqi0sMEOSf29q/Z2CRX6yvTkKZbN8Lv
+	eRQ7jPnHFqtF3UK9YvAQjpYksOS1hLvC0oEur1p+IvRtzA/IF4dR05XhXXRAuQ3AsTNH2jlQyg6
+	3/Szuut0ek/77R2Qaojxbb8a9HXM
+X-Received: by 2002:a05:690c:3481:b0:8b1:69b4:b56b with SMTP id 00721157ae682-8b2b65aa9b8mr20367937b3.8.1793388768500;
+        Fri, 30 Oct 2026 12:32:48 -0700 (PDT)
+Received: from gmail.com ([2a03:2880:1fff:71::])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b71240bcsm13323337b3.9.2026.10.30.12.32.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 12:32:48 -0700 (PDT)
+From: Matthew Wood <thepacketgeek@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Subject: [PATCH v3 1/2] perf symbol: Add dso__load_symsrc()
+Date: Fri, 30 Oct 2026 12:32:33 -0700
+Message-ID: <20261030193237.1440673-2-thepacketgeek@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261030193237.1440673-1-thepacketgeek@gmail.com>
+References: <20261030193237.1440673-1-thepacketgeek@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,40 +105,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Fri, 30 Oct 2026 19:32:49 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <bfef11e436435bc10bd398897adbc15518969e2d@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH rtw-next v3] wifi: rtw88: usb: don't report the
- aggregation buffer as a frame
-To: "Ho Jie Feng" <hjf3108@gmail.com>, "Ping-Ke Shih" <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, "Ho Jie Feng" <hjf3108@gmail.com>, "Kalle
- Valo" <kvalo@kernel.org>, "neo_jou" <neo_jou@realtek.com>, "Hans Ulli
- Kroll" <linux@ulli-kroll.de>, "Sascha Hauer" <s.hauer@pengutronix.de>,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261030165451.365591-1-hjf3108@gmail.com>
-References: <20261030165451.365591-1-hjf3108@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-October 30, 2026 at 5:54 PM, "Ho Jie Feng" <hjf3108@gmail.com> wrote:
+dso__load() goes through the candidate files for a DSO, such as the DSO
+itself, separate debuginfo found through .gnu_debuglink, the build-id
+cache and /usr/lib/debug, checks their build-ids, records the one with a
+symbol table in dso__symsrc_filename(), and then reads and demangles
+that symbol table.
 
->=20
->=20When rtw_usb_tx_agg_skb() has more than one frame queued, it copies t=
-hem
-> into a new buffer. That buffer was also handed to mac80211, as one
-> additional TX completion.
->=20
->=20Report TX status only for the original frames, and free the aggregate
-> buffer without passing it to mac80211.
->=20
->=20Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
-> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
-> ---
+The DWARF unwinders depend on the first part. dso__symsrc_filename() is
+how they find a separate debuginfo file, for instance to use its
+.debug_frame, and libdw's build-id cache fallback needs the build-id
+that dso__load() reads when the DSO doesn't have one yet. They get both
+today as a side effect of loading the symbols of every frame they visit.
 
-Looks good to me,
+Add dso__load_symsrc(), which does the same search, inside the DSO's
+mount namespace and honouring --symfs but stops before reading any
+symbols. A new symsrc_loaded flag records that it ran, so the search is
+done once per DSO, and the DSO's symbols stay unloaded, so dso__load()
+still loads them when they are wanted. Kernel and perf map DSOs are
+skipped, as the unwinders only handle user space ELF images.
 
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+No functional change on its own; the next patch uses it.
 
-Best regards,
-Luka Gejak
+Signed-off-by: Matthew Wood <thepacketgeek@gmail.com>
+---
+ tools/perf/util/dso.h    | 11 +++++++++++
+ tools/perf/util/symbol.c | 40 ++++++++++++++++++++++++++++++++++++----
+ tools/perf/util/symbol.h |  1 +
+ 3 files changed, 48 insertions(+), 4 deletions(-)
+
+diff --git a/tools/perf/util/dso.h b/tools/perf/util/dso.h
+index 55c4aaa53c38..fcf235186978 100644
+--- a/tools/perf/util/dso.h
++++ b/tools/perf/util/dso.h
+@@ -340,6 +340,7 @@ DECLARE_RC_STRUCT(dso) {
+ 	u8		 is_64_bit:1;
+ 	bool		 sorted_by_name;
+ 	bool		 loaded;
++	bool		 symsrc_loaded;
+ 	u8		 rel;
+ 	char		 name[];
+ };
+@@ -603,6 +604,16 @@ static inline void dso__set_loaded(struct dso *dso)
+ 	RC_CHK_ACCESS(dso)->loaded = true;
+ }
+ 
++static inline bool dso__symsrc_loaded(const struct dso *dso)
++{
++	return RC_CHK_ACCESS(dso)->symsrc_loaded;
++}
++
++static inline void dso__set_symsrc_loaded(struct dso *dso)
++{
++	RC_CHK_ACCESS(dso)->symsrc_loaded = true;
++}
++
+ static inline struct mutex *dso__lock(struct dso *dso)
+ {
+ 	return &RC_CHK_ACCESS(dso)->lock;
+diff --git a/tools/perf/util/symbol.c b/tools/perf/util/symbol.c
+index 3587ad243159..ed2f8e89b191 100644
+--- a/tools/perf/util/symbol.c
++++ b/tools/perf/util/symbol.c
+@@ -1798,7 +1798,7 @@ static int dso__find_perf_map(char *filebuf, size_t bufsz,
+ 	return rc;
+ }
+ 
+-int dso__load(struct dso *dso, struct map *map)
++static int __dso__load(struct dso *dso, struct map *map, bool symbols)
+ {
+ 	char *name;
+ 	int ret = -1;
+@@ -1828,11 +1828,17 @@ int dso__load(struct dso *dso, struct map *map)
+ 	nsinfo__mountns_enter(dso__nsinfo(dso), &nsc);
+ 
+ 	/* check again under the dso->lock */
+-	if (dso__loaded(dso)) {
++	if (dso__loaded(dso) || (!symbols && dso__symsrc_loaded(dso))) {
+ 		ret = 1;
+ 		goto out;
+ 	}
+ 
++	/* Unwinders only need ELF images, not kernel or perf map symbols. */
++	if (!symbols && (dso__kernel(dso) || perfmap)) {
++		ret = 0;
++		goto out;
++	}
++
+ 	kmod = dso__is_kmod(dso);
+ 
+ 	if (dso__kernel(dso) && !kmod) {
+@@ -1915,7 +1921,7 @@ int dso__load(struct dso *dso, struct map *map)
+ 		}
+ 
+ #ifdef HAVE_LIBBFD_SUPPORT
+-		if (is_reg)
++		if (is_reg && symbols)
+ 			bfdrc = dso__load_bfd_symbols(dso, name);
+ #endif
+ 		if (is_reg && bfdrc < 0)
+@@ -1978,6 +1984,11 @@ int dso__load(struct dso *dso, struct map *map)
+ 	if (!runtime_ss && syms_ss)
+ 		runtime_ss = syms_ss;
+ 
++	if (!symbols) {
++		ret = 0;
++		goto out_destroy;
++	}
++
+ 	if (syms_ss)
+ 		ret = dso__load_sym(dso, map, syms_ss, runtime_ss, kmod);
+ 	else
+@@ -1991,6 +2002,7 @@ int dso__load(struct dso *dso, struct map *map)
+ 			ret += nr_plt;
+ 	}
+ 
++out_destroy:
+ 	for (; ss_pos > 0; ss_pos--)
+ 		symsrc__destroy(&ss_[ss_pos - 1]);
+ out_free:
+@@ -1998,13 +2010,33 @@ int dso__load(struct dso *dso, struct map *map)
+ 	if (ret < 0 && strstr(dso__name(dso), " (deleted)") != NULL)
+ 		ret = 0;
+ out:
+-	dso__set_loaded(dso);
++	if (symbols)
++		dso__set_loaded(dso);
++	dso__set_symsrc_loaded(dso);
+ 	mutex_unlock(dso__lock(dso));
+ 	nsinfo__mountns_exit(&nsc);
+ 
+ 	return ret;
+ }
+ 
++int dso__load(struct dso *dso, struct map *map)
++{
++	return __dso__load(dso, map, /*symbols=*/true);
++}
++
++/*
++ * Discover the same debug images as symbol loading, since they may contain
++ * unwind information. Do not read symbol tables, demangle names, synthesize
++ * PLT symbols, or mark the DSO's symbols as loaded.
++ */
++int dso__load_symsrc(struct dso *dso)
++{
++	if (dso__loaded(dso) || dso__symsrc_loaded(dso))
++		return 1;
++
++	return __dso__load(dso, NULL, /*symbols=*/false);
++}
++
+ /*
+  * Always takes ownership of vmlinux when vmlinux_allocated == true, even if
+  * it returns an error.
+diff --git a/tools/perf/util/symbol.h b/tools/perf/util/symbol.h
+index d0bac824c79c..7dd7924a098d 100644
+--- a/tools/perf/util/symbol.h
++++ b/tools/perf/util/symbol.h
+@@ -196,6 +196,7 @@ struct ref_reloc_sym {
+ };
+ 
+ int dso__load(struct dso *dso, struct map *map);
++int dso__load_symsrc(struct dso *dso);
+ int dso__load_vmlinux(struct dso *dso, struct map *map,
+ 		      const char *vmlinux, bool vmlinux_allocated);
+ int dso__load_vmlinux_path(struct dso *dso, struct map *map);
+-- 
+2.53.0-Meta
+
