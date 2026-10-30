@@ -1,86 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362988;
-	b=U/NQ85agpytmN4eut3KdQdTVUWjWAvCkckxxvEqjl8XRSrrb2Qt8mvV3UWpK7OVqd6Sn
-	 kQfIi3C01CKEdrbHEiEvD+v1rQMXOHnFJr4AbXcBYbKhmAzyMdLnxOoikJSfjCb9d6Wmd
-	 vUH1xM7Sig86angWXLGaHYPS0/mL5udGvS9dbsUTRBhpnK359AnPFm6aAEWUUewuGSPee
-	 HDRaVKbVVrADhcy9bLJZDsPNEJBvmUPUTdPY7Iuy/+wSCa2vVuh+qAr4x02hWwYdDpszU
-	 pG9ADAlKKeeKe6bzoFPop0O/ZsRB9fUwSv80l6s0y+ecovbeZps9vg3pTfNssv4/biQ==
+	t=1793363011;
+	b=WUOfbUloZ1GGszWZq0hhi0GVtDkh9TDTwqo5qSJI3B3nsBhhTOlp8s8Z9lMGflew2KVb
+	 y/jcxaWpMUrgZH6Wzm3VsIcxT69PGNXV/i9IS3VsRzclcKy3Y3u3d9StMjwd/fg45CyGg
+	 J/r5u9mC9OC9yt0GGdPWq6HsZ9HcD9hvFTzFUsG1F1lA+lzyvufn+YwhLO2KI5Zp76mnf
+	 IUbm7xh/Xla8TCX+sGmSu+Tivy6k7alOtL9JHpR5Y6ABwYpP8D2DhVf4p603wC+z18v05
+	 EWsE7XCFrYCZlPoV7Uod8dNUdSqpU/L8A6ux+m2Ffzd34phrm1kyKI95505++N+Bh0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362988;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=SrsqvXlC23t2i5m9ChfHqk9o6LLSXHvLDjxr/6Kvutc=;
-	b=fUTgVeyUKvwFKsQxRnrNWSlEKds/xCwh1OSxkC8ae54I5tZbbF0hlXIO+9llSLFSHicP
-	 Mzzw1z6HUNveZoGZIO6vwnT+6cmH+lEEqcoKS8zv+LwomWpdLFgeMTVseFv9CNfrep4dE
-	 dM/yDC+EZu4lXZgB5g/XZRey1swh0bGcKghrnIqJP74E9hJLMSRpPREQFjflS/vxZNTQS
-	 8dFEUJYGDCoscjCh0mATD9hazMyTh04IQS830yP6actCgYD89sFSOv/vnfvssb+xP5sIT
-	 KQ15jqHFAr/DrluHAshpByaddyLm5nSvC91JsFE1SSrT1erdDY6UpbecqKVrTOx5pMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793363011;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=6lG9R4lJJPALXaPZSnu7JMLL8FE4c58m/VBFEDfgMwM=;
+	b=cHMt8sIacqoP6SWXH7NPIyTZ2mhhTLFRtR4eSTijjMhT/pKRL470k8A/MFDS+tEoiE2J
+	 ypVDkoLq/lkIXgoQt/jS3fKU1PthonE8joCKSk2gwwKxIM3KRRp5xjzFvPLcBNJnm1LMb
+	 XZDSruq+MRVmgHgIQ9NXaC/WsmiXHp+k1t3SbMnNH+e4C3fRvhccUUMGhJEiVy44qpJkQ
+	 Ds+msF+U/bbNmiz3jzGKxZRWcLF7GGsy0XvaMwAwvt6O2o/DP8ewdSEgr2vrH7wq9loFQ
+	 4GaRrKjoU17BNbbHA9ShdUFjQeNIKRMdDXwUiQFDkEv3rXwR15/OhkpVs5rbt0oxLIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HTsisof6;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CZXtbGi8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36824606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:23:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36824606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07709606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:23:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HTsisof6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793362987; x=1824898987;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ID9kIcML3QOIWye5853SxH/ukl9r+Nhlp63hh+Bsm5I=;
-  b=HTsisof6j8MrzbljoC6Szyj3dlDV/rH+zHtqMloV/3ifqRiQmjsMtxCf
-   xO/ZbO2bDXA3Qm0shiHYruEXGLhs6dtqkahQQoNsVyqPkVPnPyeIaORXw
-   wQfqb8z2tTXu9xhpLiHBAhLs1FWcB5QvveaVTA64AlMTFiihp1FWZVeLC
-   HEFhBGoykyLkRLBY2e20cXHsIPybpoVPnf4RZaahMxxfJTEt+xrRvp7qG
-   n+3IfmyVEjVrowhmzhQdytoiEzRT4rVhYKc2ADDlCV/ekU7siZw8EgbMw
-   eYZES5sae4W2QxUYbAlwrMeOmT6tJCiNYhKtPA6R2OlqBpZbJJtujANW1
-   Q==;
-X-CSE-ConnectionGUID: qRDuTZ/zSTS6w/LnYNMn4A==
-X-CSE-MsgGUID: B2xNTpTqSHKgsz+KyqqDew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2037394"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2037394"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 05:23:06 -0700
-X-CSE-ConnectionGUID: bP5UZm82QSG9AZNkt3Q4ow==
-X-CSE-MsgGUID: CpMiLXDgTmK3iwlFMHO/kQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5748123"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa001.fm.intel.com with ESMTP; 30 Oct 2026 05:23:04 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xMldM-00000000biW-3P3d;
-	Fri, 30 Oct 2026 12:23:00 +0000
-Date: Fri, 30 Oct 2026 20:22:10 +0800
-From: kernel test robot <lkp@intel.com>
-To: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ning Sun <ning.sun@intel.com>
-Cc: oe-kbuild-all@lists.linux.dev,
-	Michal Camacho Romero <michal.camacho.romero@intel.com>,
-	x86@kernel.org, iommu@lists.linux.dev,
-	tboot-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
-	Mateusz Mowka <mateusz.mowka@intel.com>,
-	Adam Pawlicki <adamx.pawlicki@intel.com>,
-	Pawel Randzio <pawel.randzio@intel.com>
-Subject: Re: [PATCH v7 1/2] x86/tboot: Add support for parsing DTPR table and
- disabling TPRs
-Message-ID: <202610302057.2LOBfy3p-lkp@intel.com>
-References: <8549af9ea60b73e120be377877c26d929f1ad25e.1793273244.git.michal.camacho.romero@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CZXtbGi8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE761F000C1;
+	Fri, 30 Oct 2026 12:23:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793363010;
+	bh=6lG9R4lJJPALXaPZSnu7JMLL8FE4c58m/VBFEDfgMwM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CZXtbGi8RUOcHn3Nk0VxGeJCgtXUC60eLfbKUaZmEDjndHKvUIm9tFHo++B1Ynhhb
+	 hGunlzO2jAKFUDlSnFUfb5XwF/av7rwQg4KEcCQPO6YnWIRn7RZHMWdbr9kofx+kmh
+	 tgiiF0rL4H9zR7bG59z+Ki8IXjV0Oy0ci+URtGCFyD25c8zMKDBUED82kW2MYopcfU
+	 LWIL9OPh+QmsqHR7BcB0a6up+/jUVNqtkSgTh2hrRzEjrd+NURbTbYYJTG+4eufadQ
+	 sc/XnkOgeqqJF45hHUo0142yyME3aOQcCClB0j7hE7VyZeHEDZNx9QALB6153ai9zj
+	 SyzP2RjgtLqAQ==
+Message-ID: <34280aad-a01e-4f84-ada7-c715b2958cb1@kernel.org>
+Date: Fri, 30 Oct 2026 13:23:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,153 +51,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8549af9ea60b73e120be377877c26d929f1ad25e.1793273244.git.michal.camacho.romero@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/9] w1: use the bus mutex for the "rw" file
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org,
+ stable <stable@kernel.org>
+References: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
+ <20261027-llm-char-misc-w1-v1-1-d2e6bfafb6a4@linuxfoundation.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261027-llm-char-misc-w1-v1-1-d2e6bfafb6a4@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Michal,
-
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on tip/master]
-[also build test WARNING on tip/x86/core linus/master v7.3 next-20261029]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Michal-Camacho-Romero/x86-tboot-Add-support-for-parsing-DTPR-table-and-disabling-TPRs/20261029-125726
-base:   tip/master
-patch link:    https://lore.kernel.org/r/8549af9ea60b73e120be377877c26d929f1ad25e.1793273244.git.michal.camacho.romero%40linux.intel.com
-patch subject: [PATCH v7 1/2] x86/tboot: Add support for parsing DTPR table and disabling TPRs
-config: i386-allyesconfig (https://download.01.org/0day-ci/archive/20261030/202610302057.2LOBfy3p-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261030/202610302057.2LOBfy3p-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610302057.2LOBfy3p-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   arch/x86/kernel/tboot.c: In function 'tboot_check_txt_heap_section_bounds':
->> arch/x86/kernel/tboot.c:253:13: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-     253 |         if ((u64)heap_section > heap_end || heap_end - (u64)heap_section < 8) {
-         |             ^
-   arch/x86/kernel/tboot.c:253:56: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-     253 |         if ((u64)heap_section > heap_end || heap_end - (u64)heap_section < 8) {
-         |                                                        ^
-   arch/x86/kernel/tboot.c:266:45: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-     266 |         if (*heap_section_size > heap_end - (u64)heap_section) {
-         |                                             ^
-   arch/x86/kernel/tboot.c: In function 'tboot_get_dtpr_table':
-   arch/x86/kernel/tboot.c:699:31: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-     699 |         if (heap_size == 0 || (u64)txt_heap + heap_size < (u64)txt_heap) {
-         |                               ^
-   arch/x86/kernel/tboot.c:699:59: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-     699 |         if (heap_size == 0 || (u64)txt_heap + heap_size < (u64)txt_heap) {
-         |                                                           ^
-   arch/x86/kernel/tboot.c:704:22: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-     704 |         heap_end   = (u64)txt_heap + heap_size;
-         |                      ^
-   arch/x86/kernel/tboot.c: In function 'tboot_check_tprs':
-   arch/x86/kernel/tboot.c:862:40: error: implicit declaration of function 'readq'; did you mean 'readl'? [-Wimplicit-function-declaration]
-     862 |                         tpr_base_val = readq(base);
-         |                                        ^~~~~
-         |                                        readl
-   In file included from include/asm-generic/bug.h:31,
-                    from arch/x86/include/asm/bug.h:195,
-                    from arch/x86/include/asm/alternative.h:9,
-                    from arch/x86/include/asm/atomic.h:7,
-                    from include/linux/atomic.h:7,
-                    from include/linux/rcupdate.h:25,
-                    from include/linux/init_task.h:5,
-                    from arch/x86/kernel/tboot.c:9:
->> include/linux/kern_levels.h:5:25: warning: format '%llx' expects argument of type 'long long unsigned int', but argument 5 has type 'int' [-Wformat=]
-       5 | #define KERN_SOH        "\001"          /* ASCII Start Of Header */
-         |                         ^~~~~~
-   include/linux/printk.h:483:25: note: in definition of macro 'printk_index_wrap'
-     483 |                 _p_func(_fmt, ##__VA_ARGS__);                           \
-         |                         ^~~~
-   include/linux/printk.h:584:9: note: in expansion of macro 'printk'
-     584 |         printk(KERN_INFO pr_fmt(fmt), ##__VA_ARGS__)
-         |         ^~~~~~
-   include/linux/kern_levels.h:14:25: note: in expansion of macro 'KERN_SOH'
-      14 | #define KERN_INFO       KERN_SOH "6"    /* informational */
-         |                         ^~~~~~~~
-   include/linux/printk.h:584:16: note: in expansion of macro 'KERN_INFO'
-     584 |         printk(KERN_INFO pr_fmt(fmt), ##__VA_ARGS__)
-         |                ^~~~~~~~~
-   arch/x86/kernel/tboot.c:863:25: note: in expansion of macro 'pr_info'
-     863 |                         pr_info("TPR instance %u, TPR %u:base 0x%llx, limit 0x%llx\n", i, j,
-         |                         ^~~~~~~
-   arch/x86/kernel/tboot.c: In function 'tboot_disable_tprs':
->> include/linux/kern_levels.h:5:25: warning: format '%llx' expects argument of type 'long long unsigned int', but argument 5 has type 'int' [-Wformat=]
-       5 | #define KERN_SOH        "\001"          /* ASCII Start Of Header */
-         |                         ^~~~~~
-   include/linux/printk.h:483:25: note: in definition of macro 'printk_index_wrap'
-     483 |                 _p_func(_fmt, ##__VA_ARGS__);                           \
-         |                         ^~~~
-   include/linux/printk.h:584:9: note: in expansion of macro 'printk'
-     584 |         printk(KERN_INFO pr_fmt(fmt), ##__VA_ARGS__)
-         |         ^~~~~~
-   include/linux/kern_levels.h:14:25: note: in expansion of macro 'KERN_SOH'
-      14 | #define KERN_INFO       KERN_SOH "6"    /* informational */
-         |                         ^~~~~~~~
-   include/linux/printk.h:584:16: note: in expansion of macro 'KERN_INFO'
-     584 |         printk(KERN_INFO pr_fmt(fmt), ##__VA_ARGS__)
-         |                ^~~~~~~~~
-   arch/x86/kernel/tboot.c:936:25: note: in expansion of macro 'pr_info'
-     936 |                         pr_info("TPR instance %u, TPR %u:base 0x%llx, limit 0x%llx\n", i, j,
-         |                         ^~~~~~~
-   arch/x86/kernel/tboot.c:941:33: error: implicit declaration of function 'writeq'; did you mean 'writel'? [-Wimplicit-function-declaration]
-     941 |                                 writeq(tpr_base_val | TPR_BASE_DISABLE_BIT, base);
-         |                                 ^~~~~~
-         |                                 writel
+On 27/10/2026 17:04, Greg Kroah-Hartman wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> Commit b02f8bede217 ("W1: split master mutex to avoid deadlocks.") gave
+> the bus a mutex of its own, because the lock which protects the list of
+> slaves is held while a slave is removed, which waits for the sysfs
+> callbacks of the slave, so these must not take it.  It converted all the
+> slave drivers, but not the "rw" file of the default family in w1.c,
+> which still takes the mutex of the master to talk on the bus.  That has
+> two consequences:
+> 
+> - A deadlock.  w1_process() holds the mutex of the master while it
+>   searches the bus and detaches the slaves which have gone:
+> 
+>     w1_process()                        read() of .../rw
+>       mutex_lock(&dev->mutex)             kernfs active reference
+>       w1_search_process()                 rw_read()
+>         w1_slave_detach()                   mutex_lock(&master->mutex)
+>           w1_unref_slave()                    waits
+>             device_unregister()
+>               waits for the reference
+> 
+>   The file is readable for everybody.
+> 
+> - The accesses through this file are not serialised with those of the
+>   slave drivers, which take bus_mutex, so that two transactions can get
+>   mixed up on the wire.
+> 
+> Take bus_mutex here as well.  It also excludes the search, which takes it
+> for every pass.
+> 
+> Fixes: b02f8bede217 ("W1: split master mutex to avoid deadlocks.")
+> Cc: stable <stable@kernel.org>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 
-vim +253 arch/x86/kernel/tboot.c
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-   235	
-   236	static bool tboot_check_txt_heap_section_bounds(const u64 heap_end,
-   237							void *heap_section,
-   238							u64 *heap_section_size,
-   239							const char *section_name)
-   240	{
-   241		if (!heap_section) {
-   242			pr_err("%s section is NULL\n", section_name);
-   243			return false;
-   244		}
-   245	
-   246		if (!heap_section_size) {
-   247			pr_err("%s section size pointer is NULL\n", section_name);
-   248			return false;
-   249		}
-   250	
-   251		*heap_section_size = 0;
-   252	
- > 253		if ((u64)heap_section > heap_end || heap_end - (u64)heap_section < 8) {
-   254			pr_err("%s size field exceeds heap boundary\n", section_name);
-   255			return false;
-   256		}
-   257	
-   258		/* Read the size of the current TXT Heap section */
-   259		*heap_section_size = *(u64 __force *)heap_section;
-   260	
-   261		if (*heap_section_size < 8) {
-   262			pr_err("%s size is too small\n", section_name);
-   263			return false;
-   264		}
-   265	
-   266		if (*heap_section_size > heap_end - (u64)heap_section) {
-   267			pr_err("%s exceeds heap boundary\n", section_name);
-   268			return false;
-   269		}
-   270	
-   271		return true;
-   272	}
-   273	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Best regards,
+Krzysztof
