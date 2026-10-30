@@ -1,60 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348063;
-	b=ceebsZHJmX798zsPR5Sg6XOXio91/xrl7sieyWnCN2kOJbVuMCXnoLdIZy4uEyFT8DTQ
-	 Lsr31irJG6H3sZ63WyzcLVo+6hA0E/mHnJa7pK0FLHJSyl4+LqGqsaMqvH7jJy3kuRQUV
-	 AQHAfvA1QTZZRHKmV28XlwVbHxs9L0TC9OHWUQP2sN1m6pAexh/bgo4v2TYs6rJhNwHzR
-	 Zh/ANofovKqfb+3QHls9NAqBH3MtLZFP2MTIjarmCeiKDKSOJIJ6qQdkL2AIBSMRLc0kr
-	 Mdr8Fj7uRzzWaVrWVTsHHY6x24zpNtW6AWiM5p4LiUTZT/3ZceCPCA6qmXpVZYII8lg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348063;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=gu3WDc59a1hi8TKSBxLBKANAAP4yeqf1lNEU+Yxmkyw=;
-	b=leK7tKQwLK5OHjPesOQTuJ6IsTmTZ3SCqtmKsjF6PUXCGZz9rrYQGrsOa6RHQN4WlgoX
-	 H3abDrKGPTMYEOgYhUc5e1JdHqmTcHnuYvlSMY+wIkJtCknt0EUIKAWoG/cpw5aU1Wu/2
-	 PcvaYxDupQCdUTdv1Vi/GdzayMslHX2scLUM/zIxtpUouC+EWi5rYC8RwB9bPq3pjPNU6
-	 lgcQGbU7wU1ex7wD2QpXaR0JJOk61qc4lQV6Sy/4m5Rs0Ou4JNSfRnEjFpHsx5Ca++T87
-	 hxJgdcT7pcb1KsuL63JQekS5J393awl/3eGfV+SIEaitmbsT9VuLP5DV6aiaCILWoZw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Z9K9CO0V;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.135
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793348124;
+	b=KaKBgkRzKVJ6SnpaLbQKinHuJehIviQ4hlazvTj6RBAOgd9WA5RJWxYdhX3YtA3WCqnu
+	 fnTjL7+Nb2Ris60bwVWmfehNItxr7pBZsqRTrSSzhsVtubsO+UYxrJ3WndzlXLL6rQeK2
+	 KjVJacNKqn2jUPr3qY+ozXZT006CqAJRq5FgOs8vZ+62CT9VIGiDfweINhDGd3kWqH9xV
+	 CKxZ7IJoX3/1S9d3kTt8Hpz38niFk2gFGtdYSqWDTKwrQFFLLo0KxwP2mIchy5+2C2M/h
+	 pLz799lCUgAjH71hiGg3TeuauuZUI7JyMXRE4P/YRQiEBCeizlS3Hg5g24vwttWhY4g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348124;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ure8BORdfSzZS8B1AD+zOHJsl/LI0bgNUu4AJZpvVKo=;
+	b=CZUTRWFedhng/Et9MrY16m6ZP3XD3Xobb48zvhUBIKGflZ560/RLegsOJGeXSGT6nlra
+	 aUpIgLXiagxhqQdOko88QA3lfVvkYt+CO53wxRH48wfbtI74oWZH21gByAShJLfBIaY2C
+	 qB82wR71QqcTQLIyVW6d4HwIxVJumo8JX145jJIaR1Numf9/utoIlJ22A8i77KD37Xqps
+	 AhLd6PItnAr19UGL0YCjnWSYpVi6W7LaGZPFQ7d9h17TIcCxuqRN3b9nP/12NVk7lIPL/
+	 4xuJSy0tyIrxsgGWKGMtBs2z+zRL80fEZ6L4CFwqdFpz6rZfAgBtFgNXW48azB5iXgw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=deeproute.ai;
+	spf=pass smtp.mailfrom=deeproute.ai;
+	dkim=pass header.d=deeproute.ai header.i=@deeproute.ai header.a=rsa-sha256 header.s=selector1 header.b=GN07pEkG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.135
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2135.outbound.protection.partner.outlook.cn [139.219.146.135])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51A1606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:14:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B51A1606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBF9606A31E;
+	Fri, 30 Oct 2026 08:15:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BBF9606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=deeproute.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deeproute.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Z9K9CO0V
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261030081419euoutp01e63490605c1cddf847a2d3903f1c1dc3~jQI8N4uaI2282122821euoutp01Y
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:14:19 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261030081419euoutp01e63490605c1cddf847a2d3903f1c1dc3~jQI8N4uaI2282122821euoutp01Y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793348059;
-	bh=gu3WDc59a1hi8TKSBxLBKANAAP4yeqf1lNEU+Yxmkyw=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=Z9K9CO0Va/v7gZBgkS0DUY899rLqH3dtIsFOjM6OQ9gzQe+cvMNoulHJgn2oEg4LW
-	 rz682PJQ+q2eWwNLfDMJJxukW5yecxRwOmUqAU8nrAe3vFwV5FnUn3IFSlj72mojio
-	 2pIWdilYm0wFcyGSv3nGjmk3kWDd1u/2Eq4IdRzA=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261030081419eucas1p2b83bf1763b5f45fa83a381440d9ca260~jQI7-hnsc0143101431eucas1p2t;
-	Fri, 30 Oct 2026 08:14:19 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261030081418eusmtip2609af88f01ad0a91d0eabb01a9b136a8~jQI7PJIYA0992309923eusmtip2W;
-	Fri, 30 Oct 2026 08:14:18 +0000 (GMT)
-Message-ID: <7fa2730a-87e7-47f3-a053-a9fc43fca787@samsung.com>
-Date: Fri, 30 Oct 2026 09:14:18 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=deeproute.ai header.i=@deeproute.ai header.a=rsa-sha256 header.s=selector1 header.b=GN07pEkG
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NzWFjlQUANJMg6q6zh7w0Rqp7+79E/7VToIBrRwlzRVPMBhrfqD939Q56C5ijKIsj9Gwjjx7lugdnjqGA4r9CXSWzDSHXwdYRhM903uiMSrP8YYgm6oBQiAyin4BxTNQf4CPqeSw//Zi39ppeo/cKWL7kB7CoKJx0mMa/UaX6VJ7eFfv9w+F6+Frl+nyYcJlXqzqQAvHUYyWhQNMZRtDiGld8Y9z5UyOz9CBA3g2dnLvW/B0rZLoIDHK9oF/r+82WwwVzy7tS1WbV63Xkma5/dQ69dHQH8XNtBhr695XHdYa2w7N2pr1D0hTQQLLzyHS5I096v10hzxPtPQXh2MX4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ure8BORdfSzZS8B1AD+zOHJsl/LI0bgNUu4AJZpvVKo=;
+ b=izIJ1ol74TBmg5R5tDTNbSvIcxZUJd24funIWWPOWcSf7gtp5TFVrwBBJfJ+805I/k4HRuZ51M1R9clNs9H8ShSKzOn277Gjzwj0idJI5/Fyr/WVIvpCWB7PTHTTV/YnWBg43SQJM+SzoasECEislanox/pidHNbxfWjGs6FOP3gNaOvJGjIsyzc2GV9EHwf06NHSYWkJZle5Y4nHXzxc/9KdHnWqVqKossd/L6reOZFbsNwoQcfP2S96ycfQV7E11fivDJ8FdxzTpIRfDSlyDUt/KNrmKeByKRp3BGFekX4GI7tsn1CiDIsY4nG/mBLA1RWAVK3+ISJyvqilBhNbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=deeproute.ai; dmarc=pass action=none header.from=deeproute.ai;
+ dkim=pass header.d=deeproute.ai; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=deeproute.ai;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ure8BORdfSzZS8B1AD+zOHJsl/LI0bgNUu4AJZpvVKo=;
+ b=GN07pEkGP6qmQ/qUFPj2o5DMKcjB8x1ohFHNjeRyqFdEIW2bDbrhy64ZlQRgN9Pcr1k/H951qv7X1H0JG11IcEV8XNJGj3px1++VKu0mGFW3pVFfkmhGPu0pNmIso+bugZsaeriGjhxMcBf/Wj0hSsXeyRRD+xt9L8cP2iKzSM0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=deeproute.ai;
+Received: from ZQ0PR01MB0982.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:1::5) by ZQ0PR01MB1239.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:1c::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 08:15:13 +0000
+Received: from ZQ0PR01MB0982.CHNPR01.prod.partner.outlook.cn
+ ([fe80::197a:1934:4b5b:4520]) by
+ ZQ0PR01MB0982.CHNPR01.prod.partner.outlook.cn ([fe80::197a:1934:4b5b:4520%3])
+ with mapi id 15.21.0569.008; Fri, 30 Oct 2026 08:15:13 +0000
+From: Jingxuan Xie <jingxuanxie@deeproute.ai>
+To: netdev@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	John Ogness <john.ogness@linutronix.de>,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev
+Subject: [RFC net v2 1/2] af_packet: prepare the virtio header before reserving an RX frame
+Date: Fri, 30 Oct 2026 08:14:39 +0000
+Message-ID: <20261030081440.251635-2-jingxuanxie@deeproute.ai>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261030081440.251635-1-jingxuanxie@deeproute.ai>
+References: <20261030081440.251635-1-jingxuanxie@deeproute.ai>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-ClientProxiedBy: SH0PR01CA0014.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:5::26) To ZQ0PR01MB0982.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:1::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,80 +105,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] swiotlb: fix out-of-bounds read in
- swiotlb_release_slots()
-To: Michael Kelley <mhklinux@outlook.com>, Giorgi Kobakhia
-	<gkobakhi@asu.edu>
-Cc: "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Xiang Mei
-	<xmei5@asu.edu>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <MN2PR02MB6863E09805FBA39C6779D209D46E2@MN2PR02MB6863.namprd02.prod.outlook.com>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261030081419eucas1p2b83bf1763b5f45fa83a381440d9ca260
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261029173949eucas1p125e51931c2e65b18cd68a6d46cc4cf29
-X-EPHeader: CA
-X-CMS-RootMailID: 20261029173949eucas1p125e51931c2e65b18cd68a6d46cc4cf29
-References: <20261026032007.1957949-1-gkobakhi@asu.edu>
-	<CGME20261029173949eucas1p125e51931c2e65b18cd68a6d46cc4cf29@eucas1p1.samsung.com>
-	<MN2PR02MB6863E09805FBA39C6779D209D46E2@MN2PR02MB6863.namprd02.prod.outlook.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ0PR01MB0982:EE_|ZQ0PR01MB1239:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67ffddcd-cf9a-44b9-46f6-08df365dec1e
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|52116014|23010399003|366016|376014|38350700014|56012099006|261028144727099003|261022105027099003|261026135527099003|261026140227099003|261026130827099003|261026121527099003|261021133027099003|261021123027099003|261022075727099003|10067099003|261021135927099003|261021121427099003|261009223027099003|261022113327099003|261021130227099003|261022115727099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	D0xQ12YIsTpss/gTznm4lfPlXlJxt+zRnU+u6QG3x6AoWvrKzwuccAYumd+gREuYQwuj6nLEu3HUl4IX4DDT/BhsN/7xDvAk4bc3y5+Jnlek3zE/7NCdqeQcJAHxc/igttAJ1DJzpcyecAgWrFMHWzLZeZMxS9SOHbAn4rW6ru4FgKozZACIY5xd8XZMKw/tXxJp9W/V4rMBg0/Ggmz/jFD6bS2nawHn8bXT2L2agDLBDLwbYcWnuU+j67M9leNBTz4SgYnkrTxYufpQjYr+tyrS8H0WVm6Qs4WoyXBpwfl7KG3i4HMPxe7cXXmti7wyn7VGiZAUOO0QJEcjCkCCfAZGEEwXHsGaA87djH5lr/CyG7TEb70F8ZdVkIBPh7F/Ik1Rglmww3iC1GbcG5elQx6ftAQJEf/qFjVdcAwTNqfBtFhB+qd1o02i4JVmrMMT6likAp0+ac8O89/l1XznsTwp2vE8vBlauHZbdg29yw9dRMboC8q61IQl/A+qAAS+fhPelmHAvcnHkBJg8ORs41JpsU2pEzdfiV++jruSCaoh/5Uv8leFvSudjzvbLTYP
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB0982.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(52116014)(23010399003)(366016)(376014)(38350700014)(56012099006)(261028144727099003)(261022105027099003)(261026135527099003)(261026140227099003)(261026130827099003)(261026121527099003)(261021133027099003)(261021123027099003)(261022075727099003)(10067099003)(261021135927099003)(261021121427099003)(261009223027099003)(261022113327099003)(261021130227099003)(261022115727099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?EOnokMzkaGyw1G0tci+K8xmqI9cV4sy9e3YNzvLvUfS0I3Jik6DD0dNq/IAB?=
+ =?us-ascii?Q?bBHbo4XoeedsyClTv4WNO2BiQzSUMJlHCE7b7I459gwf9p451nMQNNBzJPGh?=
+ =?us-ascii?Q?PrPKeMwKVqLb6UWTF/lONl2X6yakXjn6BV7aCcS6hUDzS7CgbDL68+nrChcv?=
+ =?us-ascii?Q?QJfN635Tj0DiFUJeuN8bjkS3belsHt7wHkv5zoCGQ5eOnImrZk7rfyJNOb9W?=
+ =?us-ascii?Q?udJLHwAUc0Dnx9WfqCzfeYNSmDg+a691+kDhqRJYlNwcxduJvu+1qQGiT1m3?=
+ =?us-ascii?Q?+YWS0fLMCNxXBC9TxTVkauCk7aOOS4Hyw8VXK42f7/gf6nsRpwwS97+WXfXZ?=
+ =?us-ascii?Q?mtl7PDME/TKyJmJYA9l+UOQ9fD+RTp87KHTU+1a39/2rqlNSzlG55tt8Cy5U?=
+ =?us-ascii?Q?ljwJvrflQvJabIwUYuCRtQFrVCL28LrBsgp52oaHKqjzFyLCnaqBI8cE8n0O?=
+ =?us-ascii?Q?CwvzEQ/tvqxvfLDjM10iT6u6coIsZ2RID6Hp++ukHQXhQSdxvEW8zxGZ9un6?=
+ =?us-ascii?Q?wPS9WRBxc3pwYcfwIF9EOv81qbA1tYz8Y/FjF7srP4nXlJU8eaOz7BaXtM5F?=
+ =?us-ascii?Q?32diHpolrvGNOTJEIx/y61HW+uR5PkvTQWXUKBUJ1+HeJvIHvzqR7sxdsRzE?=
+ =?us-ascii?Q?GmWwlxR0Fkf/AHzs1jySNJs5RJ0xjiypBWhzUZo33VHYyPhNln/iHuQQf60L?=
+ =?us-ascii?Q?u0I3AokJj5CiZWfaCzXEvDXKHJUeDUkZC/nwKg4jw/wE2/3S1FwHMpuA1wrU?=
+ =?us-ascii?Q?H6e6ume+QBoRW0Fq8nXPLc5SRt89I8TDn/saYv2YXiEl+ea/lvGbSq3txOlK?=
+ =?us-ascii?Q?fUTlM7jepFPzdIg+C6GYg9uHX7Sae+z42YbvmnxS7xRRuQLHcbHzN6j7P0XR?=
+ =?us-ascii?Q?dybWLhA8wByRUXd0mx6Vy2IgNxdQtjy3F6DzblpS6G0OO7Ei0zpsoPEijQhS?=
+ =?us-ascii?Q?x+WsayR2KCh0Syt5v5SnSa+suf2Pdop3k6VfU5k1xKYxET+Pz0/L0DyVm+lE?=
+ =?us-ascii?Q?BB2C0DDaBziRrOlcqOmIB917IKU6oRMG7CiAjepKaZUKI0kMqz8/TYP1DEzK?=
+ =?us-ascii?Q?enhF//g7+crnkkIFyMDZoakE3evxA9/EhvUuh1KB8MnPUwn9NOyvXYoBz9e2?=
+ =?us-ascii?Q?IvRXbD/5RX7rYktBQw3kqfnfCB9xXT/s+sVHG/d+ITKMNc0fSC6DzsrumJDP?=
+ =?us-ascii?Q?AwgQKemAD2T1+gADXb+G73jSVOcWAWrCBupVB/IBUeFciwHUkXAbH1wNTebi?=
+ =?us-ascii?Q?KtK6OjfHRnH0JWJC2/9Gx87FzSv8aY60b6++mYgAX3m2KctIuN3fbLouIwib?=
+ =?us-ascii?Q?8dQc9ji3XcG0g/nYrHMFdDYIsKL3UulaCncT9u6bxhsgxfEn4Xj5wDNBGYw3?=
+ =?us-ascii?Q?9155L8rbJqTc1Nh6eb7kw1lNx8FxriWYZhY9ZOCgisIpFVmuYxX58BQtMvTf?=
+ =?us-ascii?Q?wS0NERNnSZEPb1Eh08paABxdRziRkzC/ONlE19RE/PEHNnbKDES+agJ1Mfav?=
+ =?us-ascii?Q?q+P7ZKm4msLnhX6jS95nOaYc+ArC5ywkuVguw7ArJaW7jEk7oKG9FicAzt4q?=
+ =?us-ascii?Q?9jmd/cSVJJqvocsAZib984mxmsJwCB6Ft1ZMcEmlIVqZCS0EPSNHnK/CimwC?=
+ =?us-ascii?Q?AFIwOdN7CG8g+7jwBm6efSHrlrO6+QEuUKLYbEkaSUY7/1Z+Cbc51v0Uqe6m?=
+ =?us-ascii?Q?q1coU0bsWzJwyy/Y1BPI9X8F0JfOlPCTMmbwMSuz3r+6rsBRPrZsoVh+aFVs?=
+ =?us-ascii?Q?TLkyf20+eA=3D=3D?=
+X-OriginatorOrg: deeproute.ai
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67ffddcd-cf9a-44b9-46f6-08df365dec1e
+X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB0982.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 08:15:13.2099
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: df535b4a-68e6-4339-a092-afa4f2c24fcc
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LxHeuOJ9g8GxVgsipZrvwqyD9WEUFuiV8I12DluyjSJOo4BEKZypD1O34wZjcj5tu7/i9+BoA+hMFQ7u6HGPwHqxKPfjbO8xyC8t/6iOaR4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1239
 
-On 29.10.2026 18:39, Michael Kelley wrote:
-> From: Giorgi Kobakhia <gkobakhi@asu.edu> Sent: Sunday, October 25, 2026 8:20 PM
->> When buffer is freed, swiotlb_release_slots() tries to merge it with the
->> following free space by reading the list value of the next slot.
->>
->>     if (index + nslots < ALIGN(index + 1, IO_TLB_SEGSIZE))
->>         count = mem->slots[index + nslots].list;
->>     else
->>         count = 0;
->>
->> If index is in the last segment of the pool and the pool size is not
->> multiple of IO_TLB_SEGSIZE, index + nslots becomes equal to mem->nslabs
->> leading to out of bound read.
->>
->>  BUG: KASAN: slab-out-of-bounds in swiotlb_release_slots
->>  Read of size 2
->>
->>  Call trace:
->>   swiotlb_release_slots (kernel/dma/swiotlb.c:1653)
->>   __swiotlb_tbl_unmap_single (kernel/dma/swiotlb.c:1734)
->>   dma_unmap_phys (./include/linux/swiotlb.h:262 kernel/dma/direct.h:102
->>                     kernel/dma/mapping.c:218)
->>   dma_unmap_page_attrs (kernel/dma/mapping.c:236)
->>
->> The commit 0b84e4f8b793 ("swiotlb: Add restricted DMA pool
->> initialization") makes it possible to initialize a pool with an
->> arbitrary size. Before it nslabs was multiple of IO_TLB_SEGSIZE and no
->> OOB occurred.
->>
->> Add overflow check.
-> I can see that this is a legitimate problem. But I'm not sure this is the right
-> solution.
->
-> All other paths for creating a swiotlb pool ensure that nslabs is a multiple
-> of IO_TLB_SEGSIZE. The better solution may be for rmem_swiotlb_device_init()
-> to round-up nslabs to be a multiple of IO_TLB_SEGSIZE. My concern is
-> that there may be other places in the swiotlb code where there is an
-> implicit assumption that there are no partial segments at the end of
-> a pool. It would take some effort for me to re-immerse myself in the
-> swiotlb code to see if that's true, and I haven't done that. But my
-> guess is that there's a good chance of such an assumption.
->
-> What are the implications of potentially allocating slightly more memory
-> for a restricted pool than is specified? It wouldn't be much additional
-> memory since the segment size is 256 KiB.
-Frankly speaking it would much easier to round the pool size down to match
-the multiple of IO_TLB_SEGSIZE, waste some memory and issue a warning.
-It is not that trivial to allocate "slightly more memory" if the size of
-the restricted pool is statically specified in device tree.
+From: jingxuanxie <jingxuanxie@deeproute.ai>
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+An RX virtio-header conversion can fail after packet_current_rx_frame()
+has reserved space in a TPACKET_V3 block and increased its packet count.
+Releasing the copy lock on that error path does not remove the incomplete
+record from the block.
 
+Prepare the header in a local variable before reserving a frame, and copy
+it to the reserved frame only after conversion succeeds. Keep drop
+accounting, notification and copy_skb cleanup on conversion failure.
+This also keeps conversion out of the receive queue critical section.
+
+Assisted-by: LLM
+Signed-off-by: Jingxuan Xie <jingxuanxie@deeproute.ai>
+---
+ net/packet/af_packet.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
+
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 823e0911c910..7b3e1e27f777 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -2273,6 +2273,7 @@ static int tpacket_rcv(struct sk_buff *skb, struct ne=
+t_device *dev,
+ 	__u32 ts_status;
+ 	unsigned int slot_id =3D 0;
+ 	int vnet_hdr_sz =3D 0;
++	struct virtio_net_hdr vnet_hdr;
+=20
+ 	/* struct tpacket{2,3}_hdr is aligned to a multiple of TPACKET_ALIGNMENT.
+ 	 * We may add members to them until current aligned size without forcing
+@@ -2375,6 +2376,14 @@ static int tpacket_rcv(struct sk_buff *skb, struct n=
+et_device *dev,
+ 			vnet_hdr_sz =3D 0;
+ 		}
+ 	}
++	if (vnet_hdr_sz &&
++	    virtio_net_hdr_from_skb(skb, &vnet_hdr, vio_le(), true, 0)) {
++		drop_reason =3D SKB_DROP_REASON_PACKET_SOCK_ERROR;
++		atomic_inc(&po->tp_drops);
++		sk->sk_data_ready(sk);
++		sk_skb_reason_drop(sk, copy_skb, drop_reason);
++		goto drop_n_restore;
++	}
+ 	spin_lock(&sk->sk_receive_queue.lock);
+ 	h.raw =3D packet_current_rx_frame(po, skb,
+ 					TP_STATUS_KERNEL, (macoff+snaplen));
+@@ -2388,16 +2397,9 @@ static int tpacket_rcv(struct sk_buff *skb, struct n=
+et_device *dev,
+ 		__set_bit(slot_id, po->rx_ring.rx_owner_map);
+ 	}
+=20
+-	if (vnet_hdr_sz &&
+-	    virtio_net_hdr_from_skb(skb, h.raw + macoff -
+-				    sizeof(struct virtio_net_hdr),
+-				    vio_le(), true, 0)) {
+-		if (po->tp_version <=3D TPACKET_V2)
+-			__clear_bit(slot_id, po->rx_ring.rx_owner_map);
+-		else
+-			prb_clear_blk_fill_status(&po->rx_ring);
+-		goto drop_n_account;
+-	}
++	if (vnet_hdr_sz)
++		memcpy(h.raw + macoff - sizeof(vnet_hdr), &vnet_hdr,
++		       sizeof(vnet_hdr));
+=20
+ 	if (po->tp_version <=3D TPACKET_V2) {
+ 		packet_increment_rx_head(po, &po->rx_ring);
+--=20
+2.25.1
