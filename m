@@ -1,115 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793343314;
-	b=iAfjWREvRWOuAsKrOS6ZXpS/JUjdD+Q+C/fQcMZE1k+dD+MSQarQahALDfFr0Q5qkrjL
-	 SgXeK3j1607hhxt57i7KaMOzTnlMx+FRhjl/lvgEtoEDlq0lXid35kPzKcB5KkK/5I9Vk
-	 bd/66GdLWfxysOz7izRwy4duXr7nJtVI3+2e6sFKwlclYcpsJol8WlYjF+B3EFPRb2hQu
-	 /18n6exhnPwLD5xTsftZr4yAnfokfR6bekD7a39dYrQ9EQPysNMkBRXApnMPrDFCbF5EI
-	 2LEIkxQ1WyT/4kYD1q1bmNW9r35CuZv9v+EIJTzAYhqXGFmTONBY+cPsNP9ZmzmR7Og==
+	t=1793343383;
+	b=xjXP4DAQwfPZ79v6F39wMrHbHkGF864ghMVW4SC5Wx8WnlQ0R0EYXnI5xkNt34MDFlpe
+	 OAQn07bqK4LabMhfV25ylr39l7eTlWpc9VVcR3ITBn/kWQEowgJg4cG2BxLT7N6c3m4gA
+	 VJO5dRyxrkNirTTGaxXFAqDNaAUdFHQOE1zugb8pX5510XBZmJeFXWXmM/yce+cpL/gtl
+	 /CuuRsz/SthRGIHQ1qd6BiV/lK/CdkhD+J1VzpNDDerRIgfETUt3BKvXc9X7rxd1MdiDq
+	 r7o7InxpO99tRFJ0tDDCKJvdysI5Tz8iieE3JnCfZAu899xI7/eQSgnQc7gNeM8GpGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793343314;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=3SNb3XAimffZF8lhF2ZXuU29Lg77VRW3YU19zWiSJv4=;
-	b=R4HBZKLblQCfzlNeTS0071I6dG1NGSF3LEGfraZMUJCVfXBR13RdPjfkzuIsF+Q4tNAF
-	 DTKWG1s/12HQXGTONO39KQoWG920bK2L3iMH1H6nKISs/m9wie9vzbzDcKtpC3T7kwZmC
-	 u7eqsZYwPBL3ipyUBvXYFIodJrQnMn2JS9C4ndxbaIpjoCHzhj6483LG0eeQ108SMDNNU
-	 EhkEEwzusBU7qAFH4JbhrNZTlJHmABIGkxRDDXHGYst0D5ILaOosiRtvF7f8iM+cv8kuR
-	 rScyRuDUl6Bwlg7CaufXl+lP9bJdLgUyHmRkmcHtXx/RyFWaNrr+HltTtPn2JvifTjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793343383;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=EL8a4MeYH+m0ZVW8u6F5ZtSMCbhlmxJcf6tss3m07Sc=;
+	b=P3YS731sLtQU827tWcmV8D8LO5/MTO35SsZk7vqDxqKzXB9r987EBjic33mn5kwQxB95
+	 JrPPcLCNbGPSrXyCgxPVmHEEh3F0tJql5Nw0gveydg++80HKY073x2BB/Jo68kfqmq0Sr
+	 yk+CriapF/h5cmfZ15m2R5vwOxHmeiM3ce4KcOdHr94afZ8HoQP8O/3FhtFPTIJZxV/pC
+	 /kwSxRNyanLdiX9FfOM8DmkeJzHkNqDPbZtiAx0pBZiaztutsT3nV4G4E+SwZndEvEk/v
+	 UunvE1wA3bKJJw+pYTnWKhNZnNXqlODhWkk8rmu842boipwoD/FLt9gWOmB0bgvGcIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=RgNGMNoe;
-	arc=none smtp.remote-ip=209.85.128.226
-Received: from mail-yw1-f226.google.com (mail-yw1-f226.google.com [209.85.128.226])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=rAXUhPLB;
+	arc=none smtp.remote-ip=113.46.200.219
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC6E606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:55:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAC6E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5511606A320;
+	Fri, 30 Oct 2026 06:56:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5511606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=RgNGMNoe
-Received: by mail-yw1-f226.google.com with SMTP id 00721157ae682-8aea7b7ca0cso3545977b3.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:55:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793343313; x=1793948113;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3SNb3XAimffZF8lhF2ZXuU29Lg77VRW3YU19zWiSJv4=;
-        b=08VKsUWPCaJdqH4GnEhsAuG6vsvlnw6h5vqNF7302jxZkPHuJSY4DGSpLfcD4VZB1H
-         TIj3K2EXh+1uhVOQ8L0QQUyrURUBmbMGG6QZ17mKsW29lroGT9vnDBj6YOHicEbCeOMj
-         IdAiF3RdrElUlsb8WVRoL87SgVRcL3qoOuPK42k2smzg0O7e1IMkKfmUFEUYsnQs91gg
-         DZeM+z6os+MkL9aBM9Uu03NVxJM5lcnYNPbPlA6kGXQgSKl1MBHIHk3RZZRHmsLOJ7Yw
-         UYcOJjhUiM2rXB+huk2itxSu3NhTYNU+XGNnN2PmUDfWvakP5Yc365BRjqDdSP4vzYXJ
-         P2eA==
-X-Forwarded-Encrypted: i=1; AKwUvBzuA3QoXjVT9pOUrQTRN2Tyzvf1Iz7TMrI8yu7CmF3zMoQvw/PE0xEyuE2R2+MIxgbs7eNBqAgDeJ1hR1E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2QqF7ayBqF8Tb89ys4j1PSY4RIf/jzdN3oLN2RqtYr7fR9nZU
-	jncSyVc24UnUBKK41fA3M2riOyTBzcX932QJDYNc//PV5T9sNr9myJbJ5L3hhACNzHbSaZrebyw
-	gm1POicuAknqXJ3QrGIriyXRcHVPLrbHTfksJan1eHadvz9Xdk8f+T03a/o8ksKfUntl3ed2OEa
-	TjDudNjyZ2zI7TD0jhBxSikOB0MkZfJ+c4Cf6IgKUBX8igJ9PLBbWkoz8xFnxIAdI5BNoKdYmM5
-	4z2GuHHC9nwBsp8VJc=
-X-Gm-Gg: AYBFou1gH01LlsRERLhyRcJNouiJU/+9pOr6AAqi2zP42SOew+IhiWNKmLQ5qshYNQs
-	bEkcC+GuXpKgGpWmpkH835wIa/UXbDJBai/E3Lx4omtQArnJm+EhfyewQfAxBcGrZZFZ9WXpSVk
-	+Rm0uSK79IfoWREtwz3l+WxTowAXZqnAADN9NXCK1nTDFz5+T4pG2hJXac7yUCHFFVMVLdcWMfY
-	vLMSHvW8JfI8M9/WC5TbeFuQrBXrPtzNqBM9saJfjNvtfL3qPgcSi/nbGN6C5o5swSfUE2KbgYF
-	kutZVCIm9OwDxWwg2pEviw56x5VZL90C73IprpUbdZgA2HjBqBjfs8lnBBsETp30iPxHX1VVTor
-	jo6EWkdX5C4NSt9Sfb33m7eyt3Qi6aDuwBvZo2SAsvkRwOVbaIQhEaClG92hyVBOoUNb75oz5Tp
-	mSBZ0X5fLg9WqoOM+sx//8RsC5KkTMQw3h
-X-Received: by 2002:a05:690e:168f:b0:675:3dfb:41a2 with SMTP id 956f58d0204a3-67ba4c87fcfmr857953d50.1.1793343312645;
-        Thu, 29 Oct 2026 23:55:12 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-67ba753dfdcsm8936d50.32.2026.10.29.23.55.12
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 29 Oct 2026 23:55:12 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso1151116eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:55:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793343311; x=1793948111; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3SNb3XAimffZF8lhF2ZXuU29Lg77VRW3YU19zWiSJv4=;
-        b=RgNGMNoepay0fg1JzLcFcJz54PD0FzUaLTMTjAxj21tM2+jcpCgIqCK5enktdvoDDp
-         m+AzpxeLhMb+PAwen6xu/AQDoyHcR7IMaF9/WHzppG1C/QLjdeLMo0qTotEHfA2Rk79f
-         OiSBRmouc0YfTaaMaFQq1dAtCTa3aOPZH/0+A=
-X-Forwarded-Encrypted: i=1; AKwUvByVdLy6uM0VQ/To47HvHd3bJ6g3olyu7PZhhJNSzGKWooT/WHPn4JKDhckZxUaJV7RH3cuEYMdKGjiAZxI=@vger.kernel.org
-X-Received: by 2002:a05:701b:4292:10b0:1a4:c892:b132 with SMTP id a92af1059eb24-1ac5e6f53a5mr2227668c88.23.1793343311093;
-        Thu, 29 Oct 2026 23:55:11 -0700 (PDT)
-X-Received: by 2002:a05:701b:4292:10b0:1a4:c892:b132 with SMTP id a92af1059eb24-1ac5e6f53a5mr2227615c88.23.1793343310368;
-        Thu, 29 Oct 2026 23:55:10 -0700 (PDT)
-Received: from photon-dev-haas ([192.19.161.250])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c27cdsm6767430c88.10.2026.10.29.23.55.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 23:55:10 -0700 (PDT)
-From: Ajay Kaher <ajay.kaher@broadcom.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Juri Lelli <juri.lelli@redhat.com>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	vamsi-krishna.brahmajosyula@broadcom.com,
-	alexey.makhalov@broadcom.com,
-	tapas.kundu@broadcom.com,
-	yin.ding@broadcom.com
-Subject: [BUG] sched/fair: GPF in update_blocked_averages() on stale leaf cfs_rq of freed task_group (6.1.159)
-Date: Fri, 30 Oct 2026 06:22:37 +0000
-Message-ID: <20261030062237.849668-1-ajay.kaher@broadcom.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=rAXUhPLB
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=EL8a4MeYH+m0ZVW8u6F5ZtSMCbhlmxJcf6tss3m07Sc=;
+	b=rAXUhPLBPQ0CXi2c8w4ZCr4EFSuGAuHVS+iAn4Srfb9KWFhzhaI4M0VAXhBc0wCwyO5j/g+MP
+	OtQUWSzL4okdIAvHDlehEB2uoYLv0qghB3FCywmNpMHDlgaRXE4N+n0Z8NEt/c3BL4HxAKQclDx
+	FjzprqQjpriRKH0RYjZBm8E=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jGBhd4wQpz1prnJ;
+	Fri, 30 Oct 2026 14:56:17 +0800 (CST)
+Received: from kwepemk300013.china.huawei.com (unknown [7.202.194.231])
+	by mail.maildlp.com (Postfix) with ESMTPS id 3A70C202E6;
+	Fri, 30 Oct 2026 14:56:19 +0800 (CST)
+Received: from huawei.com (10.50.163.32) by kwepemk300013.china.huawei.com
+ (7.202.194.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 30 Oct
+ 2026 14:56:18 +0800
+From: Jinqian Yang <yangjinqian1@huawei.com>
+To: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<kvmarm@lists.linux.dev>, <linux-doc@vger.kernel.org>
+CC: <maz@kernel.org>, <oupton@kernel.org>, <yuzenghui@huawei.com>,
+	<wangzhou1@hisilicon.com>, <zhengtian10@huawei.com>, <linuxarm@huawei.com>,
+	<kristina.martsenko@arm.com>, <pbonzini@redhat.com>, <fuad.tabba@linux.dev>,
+	<joey.gouly@arm.com>, <seiden@linux.ibm.com>, <prime.zeng@hisilicon.com>
+Subject: [RFC 2/6] KVM: arm64: Add VTLBID sysregs and update VTLBID(n) on vCPU load
+Date: Fri, 30 Oct 2026 14:56:13 +0800
+Message-ID: <20261030065617.4090073-3-yangjinqian1@huawei.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20261030065617.4090073-1-yangjinqian1@huawei.com>
+References: <20261030065617.4090073-1-yangjinqian1@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,104 +74,379 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk300013.china.huawei.com (7.202.194.231)
 
-We hit a general protection fault in update_blocked_averages() on a
-6.1.159-based kernel (Photon OS 5.0, 6.1.159-9.ph5). It looks like a
-use-after-free: a cfs_rq of an already-freed task_group was still on
-rq->leaf_cfs_rq_list.
+kvm_tlbidomain_vcpu_load()/kvm_tlbidomain_vcpu_put() maintain the
+per-vCPU domain map and reprogram the VTLBIDn registers on vCPU
+schedule-in. On first load or migration, each vDomain's CPU set is
+recomputed and mapped to the smallest physical domain containing it,
+and KVM_REQ_RELOAD_VTLBID makes the other vCPUs reprogram their
+registers after a map change.
 
-We have no reproducer and no vmcore.
+HCRX_EL2.VTLBIDEn is only set for VMs with vTLBID enabled, so the
+host never runs with vTLBID translation active.
 
-Oops (trimmed):
+Signed-off-by: Jinqian Yang <yangjinqian1@huawei.com>
+Signed-off-by: Zhou Wang <wangzhou1@hisilicon.com>
+---
+ arch/arm64/include/asm/kvm_emulate.h |  10 +-
+ arch/arm64/include/asm/mmu.h         |   2 +
+ arch/arm64/kvm/arm.c                 | 239 +++++++++++++++++++++++++++
+ arch/arm64/mm/tlbid.c                |  32 ++++
+ 4 files changed, 280 insertions(+), 3 deletions(-)
 
-  general protection fault, probably for non-canonical address
-  0x54a403b28017e80: 0000 [#1] SMP NOPTI
-  CPU: 7 PID: 0 Comm: swapper/7 Not tainted 6.1.159-9.ph5 #1-photon
-  Hardware name: VMware, Inc. VMware Virtual Platform/440BX Desktop
-  Reference Platform, BIOS 6.00 11/12/2020
-  RIP: 0010:update_blocked_averages+0x1b9/0x770
-  Code: 48 89 de 48 89 c7 e8 ef 29 01 00 85 c0 0f 85 fc 02 00 00 48 8b
-  83 50 01 00 00 48 8b 80 c8 00 00 00 4a 8b 34 30 48 85 f6 74 31 <48>
-  83 be e0 00 00 00 00 48 8b 86 80 00 00 00 0f 85 68 03 00 00 48
-  RSP: 0018:ffffbd3346524ef8 EFLAGS: 00010006
-  RAX: ffff9e87e85c9500 RBX: ffff9e82b3d92e00 RCX: 0000000000000000
-  RDX: 0000000000000001 RSI: 054a403b28017da0 RDI: 0000000000000000
-  R13: ffff9e8110e17800 R14: 0000000000000038 R15: ffff9e82b3d92f40
-  Call Trace:
-   <IRQ>
-   run_rebalance_domains+0x4b/0x77
-   handle_softirqs+0x9b/0x250
-   __irq_exit_rcu+0x90/0xc0
-   irq_exit_rcu+0xe/0x17
-   sysvec_apic_timer_interrupt+0x7c/0xa7
-   </IRQ>
-   <TASK>
-   asm_sysvec_apic_timer_interrupt+0x1b/0x20
-   RIP: 0010:native_safe_halt+0xb/0x17
-   ...
-   do_idle+0x21b/0x290
-   cpu_startup_entry+0x2a/0x37
-   start_secondary+0x174/0x197
-   </TASK>
-  Kernel panic - not syncing: Fatal exception in interrupt
-
-Decoding the Code: bytes against __update_blocked_fair() (inlined):
-
-  call update_cfs_rq_load_avg ; test eax,eax ; jne ...
-  mov rax,[rbx+0x150]       ; cfs_rq->tg          (RBX = cfs_rq)
-  mov rax,[rax+0xc8]        ; tg->se              (RAX = ffff9e87e85c9500)
-  mov rsi,[rax+r14]         ; tg->se[cpu]         (R14 = 0x38 = cpu 7 * 8)
-  test rsi,rsi ; je ...
-  cmp qword [rsi+0xe0],0    ; se->avg.load_avg    <-- faults, RSI garbage
-
-i.e.
-
-  se = cfs_rq->tg->se[cpu];
-  if (se && !skip_blocked_update(se))
-
-The cfs_rq at ffff9e82b3d92e00 was still on CPU 7's leaf list. Its
-cfs_rq->tg and tg->se still looked like valid kernel addresses, but
-tg->se[7] contained 054a403b28017da0. That fits the tg->se array having
-been freed by free_fair_sched_group() and reused, while the cfs_rq that
-should have been unlinked by unregister_fair_sched_group() was still
-walked by for_each_leaf_cfs_rq_safe().
-
-The teardown order (sched_release_group() -> RCU ->
-unregister_fair_sched_group() -> RCU -> free_fair_sched_group()) should
-be safe, unless something re-adds the dying group's cfs_rq to the leaf
-list after unregister_fair_sched_group() has run. The comment in
-unregister_fair_sched_group() [1] says this cannot happen because only
-empty groups are destroyed, so on_list can be checked speculatively
-without risk of the cfs_rq being re-added. The actual removal is done
-under rq->lock by list_del_leaf_cfs_rq().
-
-We therefore suspect a path that calls list_add_leaf_cfs_rq() on a
-cfs_rq of a group that is already past sched_release_group().
-Candidates are enqueue_entity(), tg_unthrottle_up(),
-propagate_entity_cfs_rq() (via attach/detach on a task group change or
-task exit) and the enqueue/unthrottle loops. We could not tell which one
-from this oops.
-
-What we checked
- - fc661f2dcb7e ("sched/fair: Prevent dead task groups from regaining
-   cfs_rq's") [2] and the 6.1.y backport of 3b4035ddbfc8 ("sched/fair:
-   Fix potential memory corruption in child_cfs_rq_on_list") [3] are
-   both in 6.1.159.
- - We found no later fix in mainline (as of v7.3-rc7) or in 6.1.y for
-   leaf-list handling or task_group teardown. Mainline
-   unregister_fair_sched_group() keeps the same on_list logic, so we
-   believe mainline may still be affected. We have not reproduced it
-   on mainline.
-
-Questions
- - Is this a known issue, or has it already been resolved upstream?
- - Do you have any thoughts on what might be triggering this?
-
-- Ajay
-
-[1] unregister_fair_sched_group() in v6.1.159, kernel/sched/fair.c:
-    https://elixir.bootlin.com/linux/v6.1.159/C/ident/unregister_fair_sched_group
-[2] https://git.kernel.org/torvalds/c/fc661f2dcb7e
-[3] https://git.kernel.org/torvalds/c/3b4035ddbfc8
+diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/include/asm/kvm_emulate.h
+index 306e51fce221..75fe3f9169f8 100644
+--- a/arch/arm64/include/asm/kvm_emulate.h
++++ b/arch/arm64/include/asm/kvm_emulate.h
+@@ -735,9 +735,13 @@ static inline void vcpu_set_hcrx(struct kvm_vcpu *vcpu)
+ 			}
+ 		}
+ 
+-		if (cpus_have_final_cap(ARM64_HAS_TLBID))
+-			vcpu->arch.hcrx_el2 |= (HCRX_EL2_VTLBIDEn |
+-						HCRX_EL2_VTLBIDOSEn);
++		if (cpus_have_final_cap(ARM64_HAS_TLBID)) {
++			vcpu->arch.hcrx_el2 |= HCRX_EL2_VTLBIDOSEn;
++#ifdef CONFIG_KVM_ARM_VTLBID
++			if (vcpu->kvm->arch.tlbidomain.kvm_tlbid_enabled)
++				vcpu->arch.hcrx_el2 |= HCRX_EL2_VTLBIDEn;
++#endif
++		}
+ 
+ 	}
+ }
+diff --git a/arch/arm64/include/asm/mmu.h b/arch/arm64/include/asm/mmu.h
+index ae43a91ddabc..c68c35bfe09b 100644
+--- a/arch/arm64/include/asm/mmu.h
++++ b/arch/arm64/include/asm/mmu.h
+@@ -112,11 +112,13 @@ int init_tlbid_context(struct mm_struct *mm);
+ void destroy_tlbid_context(struct mm_struct *mm);
+ void update_tlbid_domains(struct mm_struct *mm, unsigned int cpu);
+ u16 get_tlbid_domain(struct mm_struct *mm);
++int tlbid_pick_domain(const struct cpumask *active_cpus);
+ #else
+ static inline int init_tlbid_context(struct mm_struct *mm) { return 0; }
+ static inline void destroy_tlbid_context(struct mm_struct *mm) {}
+ static inline void update_tlbid_domains(struct mm_struct *mm, unsigned int cpu) {}
+ static inline u16 get_tlbid_domain(struct mm_struct *mm) { return 0; }
++static inline int tlbid_pick_domain(const struct cpumask *active_cpus) { return 0; }
+ #endif
+ 
+ #endif	/* !__ASSEMBLER__ */
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 7292e3e0ec1c..809d33b8e5be 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -779,6 +779,240 @@ static bool kvm_vcpu_should_clear_twe(struct kvm_vcpu *vcpu)
+ 	return single_task_running();
+ }
+ 
++#ifdef CONFIG_KVM_ARM_VTLBID
++static bool is_vcpu_in_vdomain(u32 vdomain_bitmap, int vdomain_idx)
++{
++	return vdomain_bitmap & BIT(vdomain_idx);
++}
++
++static int update_domain_map(struct kvm_vcpu *vcpu, int vdomain_idx,
++			     int last_pcpu, bool clear_flag)
++{
++	struct tlbidomain *vdomain = &vcpu->kvm->arch.tlbidomain;
++	int pdomain = vdomain->domain_map[vdomain_idx];
++	cpumask_t new_cpus;
++
++	cpumask_copy(&new_cpus, vdomain->vdomain_cpumasks[vdomain_idx]);
++
++	if (unlikely(pdomain == -1)) {
++		cpumask_set_cpu(vcpu->cpu, &new_cpus);
++		goto update_mask;
++	}
++
++	if (last_pcpu != -1 && clear_flag) {
++		/* remove old_cpu, not need to do so when first load */
++		if (cpumask_test_cpu(last_pcpu, &new_cpus))
++			cpumask_clear_cpu(last_pcpu, &new_cpus);
++	}
++
++	cpumask_set_cpu(vcpu->cpu, &new_cpus);
++
++update_mask:
++	cpumask_copy(vdomain->vdomain_cpumasks[vdomain_idx], &new_cpus);
++	return tlbid_pick_domain(vdomain->vdomain_cpumasks[vdomain_idx]);
++}
++
++static void vtlbidn_clear_set_s(int idx, u64 clear, u64 set)
++{
++	switch (idx) {
++	case 0:
++		sysreg_clear_set_s(SYS_VTLBID0_EL2, clear, set);
++		break;
++	case 1:
++		sysreg_clear_set_s(SYS_VTLBID1_EL2, clear, set);
++		break;
++	case 2:
++		sysreg_clear_set_s(SYS_VTLBID2_EL2, clear, set);
++		break;
++	case 3:
++		sysreg_clear_set_s(SYS_VTLBID3_EL2, clear, set);
++		break;
++	default:
++		WARN_ON_ONCE(1);
++	}
++}
++
++static void kvm_arm_update_tlbid_map(struct tlbidomain *vdomain)
++{
++	int i, pdomain, vtlbid_idx, offset;
++	int pdomain_bits, nis = vdomain->nis;
++	int max_vdomains = vdomain->max_vdomains;
++	u64 clear, set;
++
++	if (nis >= NIS_RANGE_MIN_1_8 && nis <= NIS_RANGE_MAX_1_8)
++		pdomain_bits = VTLBID_TD_WIDTH_NIS_1_8;
++	else if (nis >= NIS_RANGE_MIN_9_16 && nis <= NIS_RANGE_MAX_9_16)
++		pdomain_bits = VTLBID_TD_WIDTH_NIS_9_16;
++	else
++		return;
++
++	for (i = 0; i < max_vdomains; i++) {
++		pdomain = vdomain->domain_map[i];
++		if (pdomain == -1) {
++			if (vdomain->domain_map[0] != -1)
++				pdomain = vdomain->domain_map[0];
++			else
++				pdomain = 0;
++		}
++
++		vtlbid_idx = i * pdomain_bits / VTLBID_EL2_WIDTH;
++		offset = i * pdomain_bits % VTLBID_EL2_WIDTH;
++
++		clear = GENMASK(offset + pdomain_bits - 1, offset);
++		set = (u64)pdomain << offset;
++
++		vtlbidn_clear_set_s(vtlbid_idx, clear, set);
++	}
++}
++
++static void kvm_vcpu_reload_tlbid(struct kvm *kvm)
++{
++	struct tlbidomain *vdomain = &kvm->arch.tlbidomain;
++
++	if (WARN_ON_ONCE(!vdomain->kvm_tlbid_enabled))
++		return;
++
++	preempt_disable();
++	spin_lock(&vdomain->tlbid_lock);
++	kvm_arm_update_tlbid_map(vdomain);
++	spin_unlock(&vdomain->tlbid_lock);
++	preempt_enable();
++}
++
++static void kvm_tlbidomain_vcpu_load(struct kvm_vcpu *vcpu)
++{
++	struct kvm *kvm = vcpu->kvm;
++	struct tlbidomain *vdomain = &kvm->arch.tlbidomain;
++	int max_vdomains = vdomain->max_vdomains;
++	DECLARE_BITMAP(clear_bits, KVM_VTLBID_MAX_VDOMAINS);
++	struct vcpu_tlbid_data *current_data, *other_data;
++	bool domain_map_changed = false;
++	int i, old_map;
++
++	/*
++	 * If we support tlbid, but user does not enable it, we can do
++	 * vdomain0 -> pdomainN as well by default.
++	 */
++	if (!vdomain->kvm_tlbid_enabled)
++		return;
++
++	current_data = xa_load(&vdomain->vcpu_data_array, vcpu->vcpu_idx);
++	if (WARN_ON_ONCE(!current_data))
++		return;
++
++	/*
++	 * Check if vCPU thread will move to another pCPU. Even when
++	 * staying on the same pCPU, another vCPU may have reprogrammed
++	 * the per-pCPU VTLBIDn registers in between, so reprogram them
++	 * before re-entering the guest.
++	 */
++	if (likely(vcpu->cpu == current_data->last_pcpu)) {
++		spin_lock(&vdomain->tlbid_lock);
++		kvm_arm_update_tlbid_map(vdomain);
++		spin_unlock(&vdomain->tlbid_lock);
++		return;
++	}
++
++	spin_lock(&vdomain->tlbid_lock);
++
++	bitmap_zero(clear_bits, max_vdomains);
++
++	/*
++	 * Remove current vCPU from its last_pcpu list and compute clear_bits
++	 * only when there was a previous pCPU. On first load (last_pcpu == -1),
++	 * no previous pCPU needs to be cleared from vdomain_cpumask.
++	 */
++	if (current_data->last_pcpu != -1) {
++		list_del_init(&current_data->pcpu_node);
++
++		/*
++		 * Iterate only vCPUs that share the same last_pcpu to compute
++		 * clear_bits. This is O(1) in the typical case since most pCPUs
++		 * host only one vCPU at a time.
++		 */
++		bitmap_fill(clear_bits, max_vdomains);
++		list_for_each_entry(other_data,
++				    &vdomain->pcpu_vcpu_list[current_data->last_pcpu],
++				    pcpu_node) {
++			unsigned long other_bits = other_data->vdomain_bitmap;
++
++			bitmap_andnot(clear_bits, clear_bits, &other_bits,
++				      max_vdomains);
++		}
++	}
++
++	if (!vdomain->guest_tlbid_enabled) {
++		old_map = vdomain->domain_map[0];
++
++		/*
++		 * If QEMU is not configured with vdomains, only vDomain0 needs
++		 * to be mapped.
++		 */
++		vdomain->domain_map[0] = update_domain_map(vcpu,
++							   0,
++							   current_data->last_pcpu,
++							   test_bit(0, clear_bits));
++		if (vdomain->domain_map[0] == old_map)
++			goto unlock;
++	} else {
++		/*
++		 * If QEMU is configured with vdomains, all vdomains need to be
++		 * mapped. For all vdomains which includes this vCPU, check if
++		 * vdomain map should be changed as well.
++		 */
++		for (i = 0; i < vdomain->num_domains; i++) {
++			if (!is_vcpu_in_vdomain(current_data->vdomain_bitmap, i))
++				continue;
++
++			old_map = vdomain->domain_map[i];
++			vdomain->domain_map[i] = update_domain_map(vcpu,
++								   i,
++								   current_data->last_pcpu,
++								   test_bit(i, clear_bits));
++
++			if (vdomain->domain_map[i] != old_map)
++				domain_map_changed = true;
++		}
++
++		if (!domain_map_changed)
++			goto unlock;
++	}
++
++	kvm_flush_remote_tlbs(kvm);
++
++	/*
++	 * Before this vcpu load, kick other vCPUs out, so maps for other vCPUs
++	 * will be updated during vCPU load.
++	 *
++	 * Add KVM_REQUEST_WAIT to make sure vCPU is out.
++	 */
++	kvm_make_all_cpus_request(kvm, KVM_REQ_RELOAD_VTLBID | KVM_REQUEST_WAIT);
++
++unlock:
++	/* update tlbid hardware map register */
++	kvm_arm_update_tlbid_map(vdomain);
++
++	current_data->last_pcpu = vcpu->cpu;
++	list_add_tail(&current_data->pcpu_node,
++		      &vdomain->pcpu_vcpu_list[vcpu->cpu]);
++
++	spin_unlock(&vdomain->tlbid_lock);
++}
++
++static void kvm_tlbidomain_vcpu_put(struct kvm_vcpu *vcpu)
++{
++	struct kvm *kvm = vcpu->kvm;
++	struct tlbidomain *vdomain = &kvm->arch.tlbidomain;
++
++	if (!vdomain->kvm_tlbid_enabled)
++		return;
++}
++#else
++static inline void kvm_vcpu_reload_tlbid(struct kvm *kvm) { }
++static inline void kvm_tlbidomain_vcpu_load(struct kvm_vcpu *vcpu) { }
++static inline void kvm_tlbidomain_vcpu_put(struct kvm_vcpu *vcpu) { }
++#endif
++
+ void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+ {
+ 	struct kvm_s2_mmu *mmu;
+@@ -828,6 +1062,7 @@ void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+ 	kvm_vgic_load(vcpu);
+ 	kvm_vcpu_load_debug(vcpu);
+ 	kvm_vcpu_load_fgt(vcpu);
++	kvm_tlbidomain_vcpu_load(vcpu);
+ 	if (has_vhe())
+ 		kvm_vcpu_load_vhe(vcpu);
+ 	kvm_arch_vcpu_load_fp(vcpu);
+@@ -879,6 +1114,7 @@ void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
+ 	kvm_timer_vcpu_put(vcpu);
+ 	kvm_vgic_put(vcpu);
+ 	kvm_vcpu_pmu_restore_host(vcpu);
++	kvm_tlbidomain_vcpu_put(vcpu);
+ 	if (vcpu_has_nv(vcpu))
+ 		kvm_vcpu_put_hw_mmu(vcpu);
+ 	kvm_arm_vmid_clear_active();
+@@ -1265,6 +1501,9 @@ static int check_vcpu_requests(struct kvm_vcpu *vcpu)
+ 		if (kvm_check_request(KVM_REQ_VGIC_PROCESS_UPDATE, vcpu))
+ 			kvm_vgic_process_async_update(vcpu);
+ 
++		if (kvm_check_request(KVM_REQ_RELOAD_VTLBID, vcpu))
++			kvm_vcpu_reload_tlbid(vcpu->kvm);
++
+ 		if (kvm_check_request(KVM_REQ_RECORD_STEAL, vcpu))
+ 			kvm_update_stolen_time(vcpu);
+ 
+diff --git a/arch/arm64/mm/tlbid.c b/arch/arm64/mm/tlbid.c
+index 2b3e41e6ac22..1bf5929a42f9 100644
+--- a/arch/arm64/mm/tlbid.c
++++ b/arch/arm64/mm/tlbid.c
+@@ -208,3 +208,35 @@ int __init arm64_tlbid_init(struct tlbi_domain *domains_in, int count)
+ 	kfree(domains);
+ 	return 0;
+ }
++
++/*
++ * tlbid_pick_domain - Select the smallest physical domain containing
++ * all CPUs in @active_cpus. Domains are sorted by size, with the
++ * smallest having the highest index. Domain 0 (broadcast) is returned
++ * if no better match exists.
++ */
++int tlbid_pick_domain(const struct cpumask *active_cpus)
++{
++	int i, cpu;
++
++	if (!system_supports_tlbid())
++		return 0;
++
++	if (cpumask_empty(active_cpus))
++		return 0;
++
++	for (i = domain_count - 1; i >= 0; i--) {
++		bool contains = true;
++
++		for_each_cpu(cpu, active_cpus) {
++			if (!test_bit(i, cpu_domains[cpu])) {
++				contains = false;
++				break;
++			}
++		}
++		if (contains)
++			return domain_ids[i];
++	}
++
++	return 0;
++}
+-- 
+2.33.0
 
