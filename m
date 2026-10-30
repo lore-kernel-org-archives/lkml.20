@@ -1,111 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793366754;
-	b=b2quPTquRWpr0tJAMuZyik7h1ZCWwadmSVP5shRFRRNr/GSEolnEfIxunndYuxLwYt1o
-	 SOfaCbWGuinwwPqXvtnQq5sI+nec6nlf1Z9VRrSqvCAF6Qzu3XNjABMefqE5cFj+szo22
-	 V6zqM2ebjZaJH2V4cplstryZGZNfno2/XCL0wXJ2J4VKmtBpsxx1iLWMSqoVoR5iQYvo/
-	 z0ma9x8orfWpMWCZIuo2dHihlfCUWOJgFNdd/cWQ6latFmxhchtf4o1tcwBg2ZJLl0CMi
-	 pTqyHbN82JMmYoiVd1cJm6m8mmXynUw2fZFTMj5j3d85DNq2xoTm885KhhnBd73QI9g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793366754;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=0yIqH8rTlsuDq51lfs3vb+Ea8wfpWG7AfZ/9AnIdEPA=;
-	b=MEB5WqPzMjImrqyFLGsH1Q6MxHHCgVYYm3dKGFwJJkf4QfLVp6jVesiXncYTuROyagp4
-	 4Rhw7s+/VQtw8TxhpUhG0ctOQ0j2b0RjkAiUpmR/6PmpdZmf2k1Yz9RS/oeVeoJ4f70FX
-	 bXRgJ5NYMH9xYeIMiFzLdq6aZSIHMoajKX35e1cXTJvnnjcDb3vjIefcvvJvuVTde/WGC
-	 B8qzfMZJBNlb2uOCb4yxP1nw7kivMrBbhBK73GDZFY8XMjQnhGGWP0YQUTh88GNtG1egh
-	 vadCVi4BwKirRXvQa+fckYypRsfVoIV0oR5niEe9WykAf8ZntAB3ofBvp5jy55spX/w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Lqb3YdlU;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YwwzEzFN;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793366765;
+	b=gKQ0lGMRzEfTJ3eFrjR84r/NfTfrVjCKdRvl+7/wNiuP98UK+1AZdn1BNlPOsxL7Cy+b
+	 SyD0TvA3T1J4nnYjsFKFRPDG7ckEIT4DEuCxjmLi/plfFvcd+Jq8nCDcr+7tkSxW/BDLb
+	 CmKJXP8deaLQH1MIbK+rx7OAdRxQQbp1senTShsbs/6ojs0doPzWuDwKgrmQgCXHBA6r3
+	 8R4AwvB98dNJ4Eqw5HJO2vLDI1cYVDc3cuPgvOtQ+vlLvmbpjzhtQRw9R9lu0l8EdnAU+
+	 /aZ5lcDXy1yggavS4Ml4b3SxyUY9N/rceIWmRbzcKZmo1TMSd01qKIoYqB1HlapPXaw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793366765;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
+	 X-Accept-Content-Type;
+	bh=AuxF/+sQ/UQdcElAHk0l9a9PKIVFoZySrr11hiSSgY0=;
+	b=HExhM61PHgv3sOjVNZ+0Kh/M0Xvau9F63PI3TsDf+j5cnZ3NQSGpx2Rp+g7o2pDerVup
+	 HREHGhJSAhZKDwNHA5E/1iJUD9H/9mhPN6er6VLUeXAEdVz+enMuWs0tA+btvmvNqBL2J
+	 d5w84VscR4jKGtnyDzbGY8eZKj9tD9aKgCgDCYUlUl7WsaoiQ+x0QQzoxvBWyUQfWc0Cr
+	 vd56uQLKerpVeDWMTHt5WcMI+PGYrnzYfvnOVkM3DyF6rzag1mGA/Zta+5GWnZoO5T4jp
+	 Y+mc1ma9rmS0ObwFD6lbBntZrM6mms20dkVZk5HQPIB/oA/CRUw79AAwHj3JlFmr+hg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="Pd8/w+3+";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086BF606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:25:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 086BF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C8E8606A31A;
+	Fri, 30 Oct 2026 13:26:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C8E8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Lqb3YdlU;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YwwzEzFN
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UBGHN01527675
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:25:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0yIqH8rTlsuDq51lfs3vb+Ea8wfpWG7AfZ/9AnIdEPA=; b=Lqb3YdlUdtJ9/KJo
-	a4yn+zoXt2PLvRgt3UPxWwqw5hDaNNs2+6xwGjoQHxn4X/mb9OdIAIICS5CKBvuG
-	W1k4xI7YO+zq6xtME1jSz07aFlJ79wQHal+uGfe2kml6ZUerMadJbMQt/AQMnp9I
-	TI6ewCumhvBat1zwqceQQgtDTPepv2Ho76qEKvJZfZxYJY18UNjEpEXMUlgjoNJq
-	L10p4dARgs2QOfA2L473WCto3Y+k1Q2j1NNekzKfr3BuGGZLqihpGc2lWeJ7t/mw
-	zQJt0eYOyXb43lxyJ0TNWmkBEm7O542o5omeC6yi3F5SmRZPh6hBYA0/SvMz2Oda
-	ib2JPQ==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6pk7cp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:25:52 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7bf97f74492so23521137.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:25:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793366752; x=1793971552; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0yIqH8rTlsuDq51lfs3vb+Ea8wfpWG7AfZ/9AnIdEPA=;
-        b=YwwzEzFNtITgk0TWZX1PY9TpexRm+lF/We4EIYN/Kkcmn9emv2xk/7McBqDXb63nzJ
-         A5bON+9M7AcP0oYJFz2i4ClMYHqN/8GTbUWIz8ajppPKu6A73bvlX+Pws7M4eiIfgPZ7
-         l9T9a755Zg0PvjTZ32uJcj6jxZgLbxbJ8qr5iWJKctrf4V3zICxHvN5DUvDPS/gc5udH
-         bglSot9GatdmTVI7Gxp7ptUSvFfRoN1nfz2NCgEXE44jVCycWwtRkpaBqnI6MdtRtqUQ
-         HMiDQ7mlbhdzJFgTjI0iNhXdJjIbZQzvlL0ArmMqBL3SyHQyA6ulCWUqconuU0OhMPDc
-         F+2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793366752; x=1793971552;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0yIqH8rTlsuDq51lfs3vb+Ea8wfpWG7AfZ/9AnIdEPA=;
-        b=xxSGWEpYGY83A39c46wd8I8/pLeXFZF36kTTwYbRObXS3MNR+FhSlOV65qXbvoE/QC
-         ctke+rQR5L4TDDhUpkjveSY0boLh75sXGfl9upyMsCO83BK6J90EkMt01oFvleNmEfOI
-         CFM06a2WKp8yFooBZ2Bd8jlMIXmVqNRvRPyTRi1basvXgTfFvXRUyomL721cVsPcT9JU
-         QvX2vyevXX4QtkRxUBbsWHmli2ny8s01NUdwNaAq9RFP+1x4E85qPECObGXQuLxwxypd
-         WouAy2E2a43h1w3ltBPrKOp7BI8rXPBl2EzTFniWsTbLktRGeTfHd0Na5ANwZ90XWtXI
-         EQ7g==
-X-Forwarded-Encrypted: i=1; AKwUvBydUuMORteh5SSM5GUbeA3FKGd6RnciAt1/J/vsGpCrPfTf36YgsC48Xss183n15fNdtUwcK3A70Lvz7pU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIksFnOx2ehqUajVTwqNsUOXZl5pGsif49mAqByVBAAdaZ0kG6i
-	0uBo/vx3KmHS9m7nGzQ5sYvAjy3i7X/gu/U0Y8J18HL/jFR/qLp6aDCoy0fnOe49yXS9yCk+j/4
-	kiitWJ2eUlHStxD3rRL1ZkSpAI/o0vqXPYi4dtiLVy+yH6UV79coO7LtFFFu0qS2Wwtw=
-X-Gm-Gg: AYBFou2a5M5X8wzalX5A4kNT3vjIz91hlasgd4SLLpSBtpRdkWJn1/AfNoWWCMJCBoO
-	Lhh9ndR1RGmQwpaGkO2WU9E3d7MjBaDBv2KboAafSjYrtv27ZJR0uOyUL+HfSXnYQUjDu7RG5E4
-	KdEozNxBCtU+Bs8uomfhDDFVeRRZnUiMxuDIIWtcRKeFtY/+gft6nxyOVfJDBVHuYrEXWYuwH2x
-	Holwl5IzCzliHMNuQzYjKFRPu8wx3BXAJxd2BPKCGXNKCOps0BYeRgFlp2OGpfUxfiRuanzsdcG
-	yCNrsM/pP4U7iGi8cO99vV4WXSCm7e3HKz5vbopnFkv+FT46be5qSO8EgOsiuObnd4Wm9+AIQIe
-	8EUFYBg8c1tQNNYKWc9O8fav1+Uvs99H4h1MBu9xXZza2ISSM204I5xlkpPFGorMQoNLg/J1c
-X-Received: by 2002:ac5:c7c6:0:b0:5ea:d67f:fd39 with SMTP id 71dfb90a1353d-5ec68998269mr1126388e0c.5.1793366750342;
-        Fri, 30 Oct 2026 06:25:50 -0700 (PDT)
-X-Received: by 2002:ac5:c7c6:0:b0:5ea:d67f:fd39 with SMTP id 71dfb90a1353d-5ec68998269mr1126352e0c.5.1793366749741;
-        Fri, 30 Oct 2026 06:25:49 -0700 (PDT)
-Received: from [192.168.226.248] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabcfdc20sm65493966b.19.2026.10.30.06.25.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 06:25:48 -0700 (PDT)
-Message-ID: <70997427-6dfd-41ba-9afe-b2c556085de0@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 14:25:47 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Pd8/w+3+
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0177F200AD7;
+	Fri, 30 Oct 2026 14:26:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793366761;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AuxF/+sQ/UQdcElAHk0l9a9PKIVFoZySrr11hiSSgY0=;
+	b=Pd8/w+3++qktJlDCj+45w8dcKN1gf65UBEJH4hTwwlixCRfLVc9X0cMzhvm56iwGU8wKnh
+	FekeJAIFVNleQ7iVawkipxia4OT8ka3FfAs7oHhOTlkX/uUgWvcicfFaQ3C8nJk9fuKMmR
+	KHdJ06Hc7vczmcfKrR9Jxnvy7G8BjOJdZDTsGT/Gli5hOe8HRmhNu4AUTPTJCDGGB4Xg/W
+	Pksy4phJBr+akdkUrGVBajKqdAwr0zXCqX3BqBm44LJ20A7hJZhndAcZZHyFSkrg/cyd1n
+	p8B0oQgoBu7aJnWTNBBCl4oA4q1+JR/yTqttec+YNz+UgCOoUySDn3naBYkp2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793366761;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AuxF/+sQ/UQdcElAHk0l9a9PKIVFoZySrr11hiSSgY0=;
+	b=LrsQYzRF0mmijGfs7U8wkqhK+f6wnFxsIFrQeVKL2YVBIfcZdIViQDtPlzBnzaveJ7hHiT
+	Sv7gVTIOzTYpgeDPyidhBzfxwBrwmUADoLcvnaXNzXh2Tg8Or1jdtv/STuWBwvP9OgSEEp
+	ojfzYdVt2mhbHtvtyx0gZBPR/5iQQNx3HVINmx+x8Jm4OUht+Xw7mt/cufVz1XdJndHwrB
+	e5hzbGLlK/eaETrYvVXxzITsU0deEIxBNh9Lq3TUcxJOSHap8k5iXlh5SsM+poMTjCrgnV
+	SQKWGNgo1PS5IBY6BP1ZTXoEBVEQi6FIGoRxHv6wNcLl33RNleUcD4LZfDgO/Q==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793366761; a=rsa-sha256;
+	cv=none;
+	b=AUoLDpzSx7dVznQ2eTsOVIFP1aitg4Uc6EbxWFwF60a9bEAsjaMr9MPErSUx/7MDJ7nW0a
+	Jbn/O+CwWWpfNevxgEv5ma36XlSzLhwOzP8KpT1eGMQ7O7cFm4+dRxQl4rQ07w3RYNHpjZ
+	2gx//odRjPl51osC07cBomL8s805znA0w+eFQ+sGl7XaAjmk0FrhGTSGLYgZDpoj+EmU5k
+	IeD0/00+H2JvYLWOTHJ7yMeIWjBtX2poLPB1sBA8yrE3AufWV5KDaYrBpKcNLNVhEXV2FW
+	UBJfYJYWI9KuF1Y6soiV1GnSJ85+0WqcGBsVs+v8+gsg2Z6vD0tXUdg1RyYRTw==
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xMmcK-001sVU-2y;
+	Fri, 30 Oct 2026 14:26:00 +0100
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xMmcK-0000000Epla-3Jyj;
+	Fri, 30 Oct 2026 14:26:00 +0100
+Date: Fri, 30 Oct 2026 14:26:00 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Kory Maincent <kory.maincent@bootlin.com>
+Cc: Carlo Szelinsky <github@szelinsky.de>, netdev-bot+sashiko@kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kyle Swenson <kyle.swenson@est.tech>, Ross Cawston <ross@r-sc.ca>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2 06/14] net: pse-pd: check the PI state under the
+ lock when setting a power limit
+Message-ID: <auSa6OHeftNNLBKE@pengutronix.de>
+References: <179274321449.3134.2737207729630977183@kernel.org>
+ <20261023215441.1087277-1-github@szelinsky.de>
+ <3b37693b-bc91-4c76-8df3-7e66743b156b@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,62 +106,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] phy: qcom: qmp-combo: update offsets table for
- x1e80100
-To: Tapas Rana <tapas.rana@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-kernel@vger.kernel.org,
-        Prashanth K <prashanth.k@oss.qualcomm.com>
-References: <20261030105515.1948430-1-tapas.rana@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261030105515.1948430-1-tapas.rana@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1MyBTYWx0ZWRfXys0WLVMXmdWv
- ulPSiJ015UKX0LHMHvGCI+OryW9vNvQb6q4+sOPAfB2pIB1p29gRJoLYfhILDt3L8RAWcP1uSj4
- Npcqf/8z4cyj/u4cZXBtA52B7Mdvs4kyfiWF2jxIe7Kcct/w5hk9/wnc7b5f/ejH4/6i3uFVCXk
- WlgEpQtMQq/6vVPHlx6f235FZyDTo2VSiy/DFbfg2t1bfDIgBD2T4nTXnqTKsH/xSvKVLJ0fgdO
- oske972PE2UdwIIr1BJoeh8O6/ugldSlxUE1MdomrGZ+AGbWv7i+JcONEN9NAsq4qepZ2hI7wHa
- FfIyID2jMuXG6vOGKWvAzf7/VjCDpxHyTTXXteBrF7t/OrVbrvos7wY8MulAMgU3OpK8oB5pTaz
- /cdrEy3iPwsG4Ib+5AFR7LL12mRoce73M4Do6ix2CKeYn/xuJ1YTV3OLczehhXo6CgdHKgGOIRf
- +VOcz0KQACiS1L1+L/Q==
-X-Proofpoint-ORIG-GUID: VZ-zzPuDln-PVu__QSaC87nhwNLUUyu2
-X-Proofpoint-GUID: VZ-zzPuDln-PVu__QSaC87nhwNLUUyu2
-X-Authority-Analysis: v=2.4 cv=AJ83otAg c=1 sm=1 tr=0 ts=6ae49ae0 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=0BQXEinDYilFB-d34WMA:9 a=QEXdDO2ut3YA:10
- a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1MyBTYWx0ZWRfX3CZdWXJqfO9+
- JMdZ7v8VKYfq7YO5xjRZMSs8CxiSpqC403UzzFvZkWR0ClAlLnUtPOquFEKBkDUz1nSQJrZJF6l
- zoZEzhYcyRFRSo/DyxuUwX3LILCunzg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 bulkscore=0 phishscore=0 malwarescore=0
- lowpriorityscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610300053
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <3b37693b-bc91-4c76-8df3-7e66743b156b@bootlin.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-On 10/30/26 11:54 AM, Tapas Rana wrote:
-> x1e80100_usb3dpphy_cfg uses qmp_v6_n4_usb3phy_regs_layout, which
-> places QPHY_PCS_CLAMP_ENABLE in the PCS_AON register space. However,
-> it uses qmp_combo_offsets_v5 currently, which does not define the
-> usb3_pcs_aon region. As a result, qmp->pcs_aon is not mapped and
-> autonomous mode falls back to pcs_misc for clamp control.
+On Fri, Oct 30, 2026 at 12:30:16PM +0100, Kory Maincent wrote:
 > 
-> Add a dedicated USB3+DP V6 offsets table with usb3_pcs_aon included
-> and use it for x1e80100_usb3dpphy_cfg so clamp control is performed
-> through the correct PCS_AON register space.
 > 
-> Signed-off-by: Tapas Rana <tapas.rana@oss.qualcomm.com>
-> ---
+> On 10/23/26 23:54, Carlo Szelinsky wrote:
+> > On Fri, 23 Oct 2026 08:13:34 +0000, netdev-bot+sashiko@kernel.org wrote:
+> > > [Severity: High]
+> > > Do admin_state_enabled and isr_pd_detected really mean the PI is powered?
+> > 
+> > Kory, a question about pending PIs. A PI can be admin enabled with a
+> > PD detected but without power: when there was not enough budget when
+> > it was enabled or when the PD was detected, or when a PI with higher
+> > priority took its budget. Such a PI passes the check in
+> > pse_pi_update_pw_budget(), so setting a power limit reserves budget
+> > for it if the limit fits. When the PI is powered later,
+> > pse_pi_allocate_pw_budget_static_prio() sets pw_allocated_mW again,
+> > and the budget reserved before is never freed.
+> > 
+> > This was the same before my patch. Should set_pw_limit skip a pending
+> > PI, for example with pse_pi_is_admin_enable_pending()? If yes, I would
+> > send that as a separate patch.
+> 
+> Sorry for the late reply.
+> No, I don't think we should skip setting power limit for a pending PI.
+> Lowering the power limit of a PI could allow this pending PI to be powered
+> again with a smaller power budget.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Ack, makes sense.
 
-Konrad
+Best Regards,
+Oleksij
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
