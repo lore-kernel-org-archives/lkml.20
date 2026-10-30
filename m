@@ -1,97 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793364737;
-	b=s1OOcIPXrzhRras+oNfmmUdPH8iZREatnkTGoVp7Ow9L81MlHbmScOMfkFrxQQ6v9YFb
-	 PMVMGzpUCM2OTVHwCofjT8ofOFDDtz27oaHbnL/PLfQe6OoxLgHxAh96NX/DVCZw5do33
-	 Ftl2DhRV/zxKS1jI+CDyjgVVLg2U3mRmCfnPsfTvEXdW1rOMHLfb6JL4p3RnKIhoK6i9d
-	 hxLsDpeUqheJr5eYIUtTLL6sc0rC2X2Q1UYnRvzTYOWwNHOZ9NTK/0ME3KFO6elOSI3zI
-	 llHlhdQQWOCaVbn5qYKIZBt3W8nGxFx1Rhkmq/ixfzNqe+vW4klp0MJwT7TAps9nW+w==
+	t=1793364766;
+	b=hVJq4oaEBgmhKiIkMqExgxUusoKGO0g8ActjvwF/6hmKjgAhe3qYCSA+jhwHdmM2pxG/
+	 /U6wTMtrWgs9bWzMUgU2sU7iEdmYeDIA/I3yIjvdD3dz/07P1Il4FhXdMVvdaF+0lyWua
+	 1gSFdi/5X8Qi0vJ8Tx2l8Kow+AHWRM5rJZCc5eqdwqF1XQVatX4ZSXuRbKH8cBKD9JZMp
+	 zROgQTBJFRfa4Bg91EnrAOD9broe3OHt3NSl/StW5G7z23TdYBHNiba5vpjNCl5kavud7
+	 C+5LRloHhz18q0HQKQyqLSeb+oE8LLxqcJh5/SfxbO2WTOeHltvmVWO7t7UYmPZUxZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793364737;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=3wEqCnXTJdlE03KrHWY7VarW5N0vNs2ZED7L58Yvpi0=;
-	b=HunlBWWfgFUsBvLaClTPmCVlZHPBJzyxsbzribVUQf9b2Uw6NBpu71yj00lOifjThY/H
-	 dSTVmzZWOnj6ttYZ/rg6kMGDOjo6Tc3eQXzrhNYknTbNE76soKcv66DT85cT72Bu7Vvtg
-	 Pg4FzZChUvNh+NVa07CV8xtF188isDUJ/lz9k6CebpQ5TaUYdd6FMg9/KxP1Q3uk+KaXR
-	 shv7MU4V05aOG9/wJ8pNKf8/To0qywShQuXya5sZXkyx6b7u9/U+TAuQqPy7xU2E5k8Vv
-	 wL6PRg/sLdFHUdWAmwS0U+NUsiF4dAvGVeIFp4NPeoPSK3aSiXlFp9odcsUTpj6yplQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793364766;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=7WPJfSbhJPG+aWfRswgb4X8meRNEv65VCekzNJZEgdQ=;
+	b=eUgHrOZHGE1my6/6Zn0j2djGYup+baUwWX8E+d4oyVopFnCORdU6emVLFbGS7WtZmuz+
+	 lq5nIAocrHIv+lmaRwPPLW1GdQBF/oeDd+obacCBzxY9b2+Dqnr1Ssr+BjiVuzGZqX5g8
+	 aajYwIzp7A+aEdjxcbH6jM0FzIxmF6NYEhkx0uVAu9JmArdPd4qx3apO+tmeqhesZVE59
+	 fP6y4JqxPET+ydlsldCg94ZOR46ffYaaZ0X8n8Kq7TyqS5ktU0Whpm+m4R0hknBXNuGDf
+	 +BtcmFsY98wNHdiaPGjkddCuciQSOyu4UJ9TpYDE5HBPVsyn5Ejuefm4mlyjLlpI6vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QxY32tUv;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=kroah.com;
+	spf=pass smtp.mailfrom=kroah.com;
+	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=EJ6Wxhwl;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=M8Ki4xyu;
+	arc=none smtp.remote-ip=103.168.172.150
+Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7819D606A333
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:52:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7819D606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AEB6606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:52:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AEB6606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QxY32tUv
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48dee593f18so567205f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:52:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793364731; x=1793969531; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3wEqCnXTJdlE03KrHWY7VarW5N0vNs2ZED7L58Yvpi0=;
-        b=QxY32tUvnWs7viGQJ0XZgaAd80fTZU3QcbZDkWyuOD+bWe3SdyAnFYsQesGkthYgBn
-         7SxBn5KJDQgNx1c51eyfCyi9oeSiVbzX/CHPkXAVj/r8aBMZk+Q8P4fcTuGeajX2EHme
-         A7D2KaATNPspXRe2ZbWsl21Ir3fQXB3XcpzrDeSAdhhf+mq1+5OO1P/CuRPCk+BG6WPI
-         eld1qqwUlsDz7+mb3UPKmnGSs8bEFaot3P/XE3+FZc1TggI8GBCMjeqI5U8adrcZtXNK
-         T4vc0E/HFlMqaO/i+SWpucA/TdpZhvrcpCU2gbrfkQsVLnIx11bETVQP29DotxvBG0Ql
-         HPmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793364731; x=1793969531;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3wEqCnXTJdlE03KrHWY7VarW5N0vNs2ZED7L58Yvpi0=;
-        b=aGxsTDZ0zD4n1XIo34UfLi2yZZGYo/EtjwezVbArNQAscZAUmLD6ojRmukKSifm7bU
-         +gxFCRVm1f5MFPVBeGZERb3AXQKhJ/m1+4Imm6b5WvvggronYLHH2FGck3olWv0A3OkO
-         ozrmQ0BC6PDirbWcvd+9ygBW+7r+zRLFSdqTjFknQzgnOw1kISq5FVPbfN8MxF/duHpe
-         sU+B517Npcq61GVeOBPq5RKQPAa7Xfm2ksVt5I2lzp6Vgfl1tm2FRF8pKDpKHd5pX4so
-         Bf5szP0NB71yFcAqXe+fNBu5RXa6LA7Vm6OsNA1RC3nSwD/3jGeBfNzf1vaDhd4rd6Y2
-         OunQ==
-X-Forwarded-Encrypted: i=1; AKwUvByE9DeJX7sI7mIewLh0N//HUs9XIm9M33Nd5XY0+hrvsIMXQQMjOYEqzUNAP9NtcgJ28maEVqm5AjA/BQ8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL/Dnf32xc1NfKRhFdbwTOTfOrnvgT9XB8cx451B5krUz1NVOys
-	LuTN3APsCsuK7AvI9BiDg4ITQb44AJj1JAFeii8C7b1vfmElWqXYXXi85EevWueV3IH5Ng==
-X-Gm-Gg: AYBFou3PN0PEEMEQ/8V/3uHJwx/WwlfzYu/c+Ew381U46y8xuCRafVQ84DhIldxSJ5Q
-	FW4+Hf3P6rDxY7gzr1CjHSItmqKTTT8Od7fqvBYqB22yI/qBUHD4oA/yf9oNgjEIpDoqksig0fR
-	0Uv5wsRKVBWXRxXReLYgbMM5JSDuhuvl8dINnaBh2AI7Kr/0w28c7HVKe8I7J3eHtW+opzPMWla
-	jwqrq1vAp3YXvv8eXjYiBTmXXH1UDlFq/qzaP9XxQyEs1OmgRf1qMx8jhL9SQgjnUT4Fq283JRI
-	6x+39JRrN/TlU3L0xHfmPBZLw9IL82VWv0dX//Vy/AU17JE4jL+RkmMUOIhGby1gwy9PpTRoJfL
-	eNFLqDTI0LCMH/gMiTONAOf9WPpk1fRhUP8HgMoijN3xpmCMWo8RY2U7f1+bOxpvht+ESicRre3
-	xN+QL4vdnJeilwfyyCA1K1xTvCe9vCk5YnoaF3aC4mApV7BIghTfNc/NQWUFyajGJbq/DfXVG2L
-	xwuxJ4+48xEm7iZYbopB0gd0JQb+AJyOc5NmsD/OdZzhm5MyBm8WowTiC4rAQgdagc6DSs20t8E
-	1T+zTA7xiJ3g55SjDWD/5RETRL1+lvB1y2ZtK3K/00cWJGLNGCPvRDzNPY4n0Yl0YC+0I7lfmnm
-	GvidQGemfnUObIzkrARw4P83KEWjXBkuD9KbxqDvFOoHunnYHU8wGu4R8M50gMia8qTcw1I/aNE
-	BR4xt3ISZHqz9J4D5Zpgz4rJqWl7JcRX9djr1zLyWu+DOaTquaPn/X1k31SPos+vMbIaKhXTHqA
-	cV7KBJs
-X-Received: by 2002:a5d:64c4:0:b0:48d:facb:5937 with SMTP id ffacd0b85a97d-48e6e2b9ed0mr5326056f8f.7.1793364730865;
-        Fri, 30 Oct 2026 05:52:10 -0700 (PDT)
-Received: from longitude (2a02-8434-fda5-4201-a479-65ed-4521-39bf.rev.sfr.net. [2a02:8434:fda5:4201:a479:65ed:4521:39bf])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b723cdsm3170047f8f.12.2026.10.30.05.52.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 05:52:10 -0700 (PDT)
-From: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
-To: mhiramat@kernel.org
-Cc: rostedt@goodmis.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/4] tools/bootconfig: Quote event filters in ftrace2bconf.sh
-Date: Fri, 30 Oct 2026 13:51:48 +0100
-Message-ID: <a60d6ff14ecfc1ea7a20444fd61c5ca47385e163.1793364709.git.edumucelli@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1793364709.git.edumucelli@gmail.com>
-References: <cover.1793364709.git.edumucelli@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=EJ6Wxhwl;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=M8Ki4xyu
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id F2FE5EC016E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:52:39 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Fri, 30 Oct 2026 08:52:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793364759;
+	 x=1793451159; bh=7WPJfSbhJPG+aWfRswgb4X8meRNEv65VCekzNJZEgdQ=; b=
+	EJ6Wxhwlq0a8oCUw+hMwS9ZmVvwf8q3kR57wxxzqeZsKV9Jc1cK0BGhmMKf79HCD
+	pjCyai6PmW8Gj+fLWL28xLY+7M+dL/J8xPkqPMCTMRh+8IWCWhLhUmbyoWQFq42x
+	ml5vxUONHsLf1Rz2SZoa8masBPtldog7wvrHQOUzgw+bBb1gmx7v4iSr/NqD5brR
+	Ty/NRxKSrgrejvhOhooEsDyfAHA5P4OxXvyxvTGeU2O4ArVNLIG2nJBZcJih1fc3
+	JCnjYGZUS2sjJN5i992JrBO5p8I/yIXg3n5uBv8KK4c82cZ0zVtv5Ih94O6wuhGF
+	CMKvxa/E9N7laMBpfFTyUw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793364759; x=
+	1793451159; bh=7WPJfSbhJPG+aWfRswgb4X8meRNEv65VCekzNJZEgdQ=; b=M
+	8Ki4xyusLVxX3N9luedM9XVDqoDg32QluE4im29uRRddzsM5Veb8Lkt075HmF9J6
+	FBAFQuo2uUlJEol2zXb6HP9CnBy6MbUEUGi5IyFlKNZ6//BoFlzPjUdbg2M441IU
+	3FnkAoH4xceZ0skxGlJ5t1qELQP2TdxbYUdPefpjGhFZH+xlgcc4y0AZJ4UPXd/3
+	USgfie2L06OJcOKO+AU9tI3wnwW70OTrEeGWBPK6XTx37cvinUkxrNzWbnpRkLC5
+	jpN4GpX5TxxqDojRDJTmsxBhmpS+vGqizU6onHxrgTiyO6WuGY8x8awMfc8of/x0
+	a8pdTTHp8caaAQ4Fnbxwg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793364759; d=kroah.com;
+	mf=PGdyaWZmaW5Aa3JvYWguY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:H51/8FhDlCPO73O2o+TYrJpCKi345GR4HokXJP+1Pu+ev0f
+	zFSISWEd2A2EKBcW0T3zpVH8bLumVN24NvYKzPJAQ9RjtdSDyXEDUvb8LZcg8CId
+	Bs0AJkVNBLkUr0a3rUq3eE1IzWeXhzR+gtQNEd0lXtCBrswkGuaIYt9oDtBKunL7
+	fX/UkKpW/lAfNv82SO9c4iaBvYLXzldQbimo3CpV0m5ZuIvNGtxTW8TrE+zXofyH
+	26MiKNxirGsbrDgDhuCJSkF68KxWszE6Arj6uqMQoMK0jmTykKJ5lcAJnkg1HO+v
+	j/Xf1bnpaPzgOoL2hAuxF6eYW+nQzJPMnsk2W3A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:uqA22ld/nBFOKHecKlpdBcAHPxvZwg+YiJtUH6rBJfw=:mlG9k5Up7umvFv8xt7upEY+izvTaplLwCETyPuMRe6g=;
+X-ME-Sender: <xms:F5Pkan5BefxeB8eiGJ8XU4_zQKjyZNCmDaUMbM3R27I3FFFfJ00Idw>
+    <xme:F5PkakfmMWtvAuVIZQy_nVaMSjSQ1t6sRVH9le6P68IIYaUISjNWF_8lOpNmVNB0l
+    wKe4QE09W26fyoqhsDRS_vjwNgyzwotnMOId3nIyKg-xngiYW0>
+X-ME-Received: <xmr:F5PkauHgQW_C-Qrpw8RoexuEYD_9zqmonFMGC80HloLcoMNimr-wxGYpr9b5Z7dVtfo>
+X-ME-Proxy-Cause: dmFkZTFRq5EEQOwx0SGuhY7n37tMaYfEIgICyQXaX3OdgQrHiNFLH9A8Vqzo1dweSr3W+q
+    V19ZxeqkSPlM1ADokplcKpJuK3NXk0GSP5eHKHPlA0AB1im8434YIXwX0ukC70Jrecq5YO
+    CLCqe9vFAnkQkFX7rYtiXREYaysYMNgjShxClDIVcQND1GkHSBVkmMVKM4aHfxsW1uMlLQ
+    zUTz2mI8cDuYY9vlJeLA/eRaUcFojzLFkZYUxoFXWW14gYFXEbC0IdzbFVXnOtvZHopfXG
+    JJJC1mOZ4X7lrjhrBcO7Um12Fgz1M5Q1wDL0s2dMFmpfKFTI1pV49/ekHLRmZGaEdrbgn3
+    D7yJExbRjgSmBf93MnpAoG+tEc5K4zxONTUa7su/nBf5uvCA5QlEZqfvP/SiTldBQ0obZw
+    o0jCDILD7nSl2OzomjJiCgxGpDTm7m4fZF2eDaSviHuV4xgc9eME5IX0DMcwf5Przdk8uY
+    fbh/gU4Urk/EClRUammua2BCitNl1YW+K+1bGWavvtP+Acr+DXNbqCHLkz5dt4bPavyoqK
+    VfAnvS06L1eXK/biYXwkUw7Gd+pofILfJMQxnUjrBkxCI9Nqj2TVZE4i2lKSSxWWcdz/fO
+    A0OPJOZa1uJzWeJRGAgsJqrpIyht5EMtfgYPHqZuZ3MYhxnV5u3aQCYLpWIQ
+X-ME-Proxy: <xmx:F5Pkak5FNrDS4BCqxG3fefWtA9-raE-1CNuWfZmplT_Rt8gw5FhSYQ>
+    <xmx:F5PkahsemWXyTJnCTNqChU0otOyDU-scxXuEsMetGILNDS_oDr-kPA>
+    <xmx:F5Pkao9RqN2vnJZz2gjKOZoeFOBO7qXNLiN16qg3SOH1sH7GUhk84A>
+    <xmx:F5PkarlPwUFhL4uPgjUTBG81MWVr5RNfEMKPtR2vgcNto79g2sLZfg>
+    <xmx:F5Pkav6iCGFU5qKKOAMoPWpTkOX6nStqH2GuIueg-Ni6lnb4PMQeA1yo>
+Feedback-ID: i1d2843be:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 30 Oct 2026 08:52:38 -0400 (EDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,52 +116,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v5 2/4] backlight: aat2870: Derive brightness steps
+ from max current
+From: Griffin Kroah-Hartman <griffin@kroah.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ mfd@lists.linux.dev, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261027113230.47538-3-clamor95@gmail.com>
+References: <20261027113230.47538-1-clamor95@gmail.com>
+ <20261027113230.47538-3-clamor95@gmail.com>
+Date: Fri, 30 Oct 2026 13:52:30 +0100
+Message-Id: <179336475066.10571.11619253467388579632.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793364758; l=370;
+ i=griffin@kroah.com; s=20260910; h=from:subject:message-id;
+ bh=mlG9k5Up7umvFv8xt7upEY+izvTaplLwCETyPuMRe6g=;
+ b=AClAE1+sCEWzUXiKS3U3GTpx4k3p2L1m98wLOKukAJTgXXwILpWTkqwRuzTCgrdZ43c4fwi96
+ bq1U74IDPH5DB8FGcQpNgqEEj9hVriBX8dANegY96N4huHaVDQho/bq
+X-Developer-Key: i=griffin@kroah.com; a=ed25519;
+ pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
 
-ftrace2bconf.sh emits event filters without enclosing bootconfig quotes.
-A filter such as prev_comm == "a,b" is therefore parsed as an array,
-while a # truncates the value and a semicolon or closing brace can make
-the exported configuration invalid.
+On Tue, 27 Oct 2026 13:32:28 +0200, Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+> The AAT2870 allows only 32 steps of brightness, with this amount defined
+> by the maximum supported current. Remove the need for max_brightness by
+> calculating the allowed number of steps from the maximum current.
 
-Quote filters containing bootconfig delimiters so that the complete
-expression remains one value. Choose the enclosing quote in the same
-way as the bootconfig utility. Leave filters without delimiters as they
-are, including expressions that contain both kinds of quote.
+Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
 
-Fixes: 2b86062a34a8 ("tools/bootconfig: Add a script to generates bootconfig from ftrace")
-Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
----
-I tested event filters containing a comma, semicolon, # and closing
-brace in a temporary tracefs instance on my Ubuntu machine, running
-kernel 7.0.0-38-generic, with recording disabled.
-
-The original export split or truncated these filters, or produced a
-config that could not be parsed. With the fix, each expression remained
-one value and was restored unchanged. A filter containing an ordinary
-space worked in both versions.
-
- tools/bootconfig/scripts/ftrace2bconf.sh | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/tools/bootconfig/scripts/ftrace2bconf.sh b/tools/bootconfig/scripts/ftrace2bconf.sh
-index b01297217cf3..8c5889d0420c 100755
---- a/tools/bootconfig/scripts/ftrace2bconf.sh
-+++ b/tools/bootconfig/scripts/ftrace2bconf.sh
-@@ -126,6 +126,14 @@ per_event_options() { # event-dir
- 	fi
- 	val=`cat $evdir/filter`
- 	if [ "$val" != "none" ]; then
-+		case "$val" in
-+		*[',;#}']*)
-+			case "$val" in
-+			*\"*) val="'$val'";;
-+			*) val="\"$val\"";;
-+			esac
-+			;;
-+		esac
- 		emit_kv $PREFIX.event.$group.$event.filter = "$val"
- 	fi
- }
 -- 
-2.53.0
+ 
 
