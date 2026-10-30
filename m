@@ -1,76 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793369037;
-	b=zAilEkWTeVABK94eld/x++WRfC5eE5tAfMMGQPJO2K0cjWVkZW7NedRSex9XDSigRfSU
-	 EiKyNlIbW6BHeBkX9BM2sTjE7TPORYn6GIfc+wdQh/vSDAMdG8MBfLruvkhPJ1Z8Z3c42
-	 NtwN1V/L5Yy2X3IBfGvwDVXicc5sJTYbw6ISJpk6yYyMWQC7P2YaxW8RvgKuDlxiJ0Cr7
-	 3uG/Zr1CyeczcvCWk4hs9JswEAVyPl4fleiyP27nrI11aBYm89WiBC4Ilt2UAf63od8f8
-	 wKG8W74KAfPLFeZUecA/HNeFnToa6UpP0AeAmpWmvCWgPHCkCyoPyj6n9OMpKGvyo1A==
+	t=1793369100;
+	b=RwLBSXQa/47P6OLoQ6zQe50mgIGvr1SqsnSkUqMu7VNBOBLz5j6raVo4ze8sD04yh4oJ
+	 VavATL2zuZjvUSoFB6vHrBfUH0QSE0Xvcj69/TA7IB0OcJPuGiolrjoH6Au13ip1JMfq3
+	 RkzUXVogce199V2YxUKEOGgiufvU3TH3qdSs5KWqeEOn0+6S6x+tmPuuwqKzkF/y/u8IQ
+	 G42LfvcIy8MDQCC7VtBHjY3w4L9qT3Fm0+BOmKJppj8gN3Jsmv4em5+PTEixhz7eLSgox
+	 G2RWZLxx0HCKT6YN5UAkhAnVy8FrDXp3DrQB3RJBF7aemT5ZY8Qf6q78R4+1bsMs8zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793369037;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=jHL1+/V1pt1FOWAIsOOBAHAwhoT4A92NFv8TlA3cGVE=;
-	b=fcQmUq3r8P4rrmypPEgobR8OKq3rAtHewj3RbiPhXYrS85j30Zm/d6OHWeTZiyj+VYAu
-	 MmeEH6CeLitUcKe0y5tfpW9/z5eBpZdyNahuwSNuhDdvpmtpCm/99U+tFAENM7Gd2MjCF
-	 0gaH/NTqGpmXOI1LbnRsHxbogzj3prmAOOmfmxac/cDReWAWnhXvcGGJI0VbQeCQf7i9M
-	 g+o5kEwY60tRPrfanzFbDlvC8tYVA0EDR3C5S7oUgQa3kU1Fpi5VD9WLMlbqL9sgIgg5Q
-	 /+AudekWuhddfMQnmjBWnRRD9Tzx5KLjIXiYazWDHKSyTUDnlZAkFCQGyimyieVxLig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793369100;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=eCbFQAnD6kO5eER8bkFilt/J6fSMOzIEmOATP+B2WGU=;
+	b=WIs+y19kPcQFJ0Xi5nbEXwJLNUCursiEdnP6hDXaanCR0KCBTtLbhYL3J7DzGhFCANm0
+	 mKrnfAlVmbspFzXGp54gnpxZeeEMO0a+R/pzF7vg3/u032ANUi1tRbeJKcKILElZ0k+mQ
+	 TsIyxHrWruDhQlxcGN/I3ZSg4nv8BOL+1BAgzvF6igShVfwPRU00K6QB5kGg0OTYPnUpb
+	 fo5Vu7jvKLsLpXTF9x+NYaTOaS9S9i4BoQUFIadm0/m5qc9fDrrw2Fu5FU68kbzxDSHv5
+	 FuTJk4Ax04Tr3CsnAUTSB4zi7X5N0NhBmM2kV1jpPwA0Gxhit+xAlfVbAvdH/wDY64w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HcHrVvr+;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="TSxDqL/I";
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9D5606A31F;
-	Fri, 30 Oct 2026 14:03:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF9D5606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B99E606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:04:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B99E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HcHrVvr+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793369037; x=1824905037;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=rTsbnyafhb2FO1JXtDpVeoHchWbqe1TG0in3JpRJm3o=;
-  b=HcHrVvr+zUTXNjjO38GITAK2/nCtJGJZWoZMrR6YodpR973bO9lYVwc5
-   /bo4qqkbQkKhSn+v1OqxZOg/mv6Dc65rTyiL+FPe9/Bf18pXv2nq/8Nk/
-   i5yz0mG6kdJP9vvNHvKi1bq/h+f3tIVQUEv2aCYdPaVug3shMYPODSYct
-   QeQUGqv7aZm9DnkNmwIqAYFuea+xAyQ2lDrWqs/+H7YYSBHGLm+mqhxwA
-   dx8/pkgsjSMkxC4cNlakxGpXuh5Rj6cI2/zA/dKLy+meOAt9ql0qC8yFd
-   7Ex/uCyXe/W3uo3X1FuWa5WTyzajlbX+nx+d1jxWT8Eyd0BEcg2cEHggw
-   Q==;
-X-CSE-ConnectionGUID: MSqgytRnQ5m3iBBZ9kcDOw==
-X-CSE-MsgGUID: sXo70oIcQBmfO67VZkoVlw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2147975"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2147975"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 07:03:56 -0700
-X-CSE-ConnectionGUID: O3gLYXWsSsqPEA6yDH+3fA==
-X-CSE-MsgGUID: nwl2LN9lT8uqJSIC+6sKHg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5335735"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.32])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 07:03:53 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 30 Oct 2026 16:03:48 +0200 (EET)
-To: surirajat@gmail.com
-cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, ibm-acpi-devel@lists.sourceforge.net, 
-    markpearson@lenovo.com, hdegoede@redhat.com, rajat.suri@dell.com
-Subject: Re: [PATCH] platform/x86: lenovo: convert mutex_init() users to
- devm_mutex_init()
-In-Reply-To: <20261030135435.308058-1-surirajat@gmail.com>
-Message-ID: <1df64b2f-dc28-963a-0fd5-a3e77ade9e27@linux.intel.com>
-References: <20261030135435.308058-1-surirajat@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TSxDqL/I
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3535a54bed9so1213469eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:04:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793369099; x=1793973899; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eCbFQAnD6kO5eER8bkFilt/J6fSMOzIEmOATP+B2WGU=;
+        b=TSxDqL/IRoDoTKjrPRS7xWIOkgn5uF/xQGjx01WAx9zIrbuE5G8ki9cOgipYvOq9PO
+         uIVJCMhU0/2COJnZb58lpW9kipOjQPuCYaY1PNaP4Zfm03N3Zdhhxup8qtYkog4zcvYd
+         KER4dU0oZfvAD+S9u78SkO96YwLKySkXlG2jJXpuMDPdrlv/ZE2vdsIZfXknThtzqIZt
+         ttLIAWBiCU7Gx/p19qXUiLzwYH/boW9eRyjvg47DaGdRYVyA1CE7dYXLh1LA7oG9q0FT
+         RH1HrzG59Ozly2ixX6bUy9MTZMxPFnKPPkfVWIKDAHo9oSuya5gC7YC4ArJMHn91gQIA
+         Bb+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793369099; x=1793973899;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eCbFQAnD6kO5eER8bkFilt/J6fSMOzIEmOATP+B2WGU=;
+        b=SHfibI95TWXirIUjGQ0KnI9lBP7rcO86ANYmOx4QUn03ZwmDbbWKNLwy6gW6D/dDt0
+         lBciBgQ7hCRWmK5oReqU3lljXsME/0mAamZhROJq/vQbSyMaXY0v+LXMl3D0zYpW5c8c
+         qdawIBZHozKA0oVz9RIOtAkTMoN5+il8gL1WrSr/mtVTWLZtwjORf01re73tLgFc/Wg6
+         AggcU9/tbaD7/HOwiw8gytYmWmCBPn9cHONeqlRJy0ztrG/izblcxLSDPYXbPlAY2rWk
+         9YbZrrXv6EOUP4iCpKSO+f1yeqiMVJSh7vWXgnMzPNl76wa0q86xvdAj9YU9vU9J4374
+         KZTw==
+X-Forwarded-Encrypted: i=1; AKwUvBz9IvetBCGJ/uYLwMOR9fkFllqW5+YB6pT5kMvDGFl0f9DMxosQaGaK2CDrlmOwNOCbAnjc8szaJkI6ucw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2AhJD5zYhXNH+tIzp8gwJ6OXVbNiI9L3H+x0TwcMGVrKzbCym
+	uH1ZCmg3Ujw8m6Yi+qO3Tya5EvmuYdhIRj9Fj1b3vNa8dNBqFa4bc7eu
+X-Gm-Gg: AYBFou0aGk71MM0RBT820OjXi3xALatHROaY/wloxTZ+m25vRc3gApdwpQjfjiKtDWB
+	xv0g5azXnRPwTJqivtfvpXJBy8doAPNb7ZvAhi95SRDvMv39PbuimdS4XXF2lfYP2acFnePjq4M
+	Qh62gUGqcv+Rnz9XT3Z3LNRm7syDjJQKJPOMT1bYlkP6DfHjCDVjqJzmbkhHAzas5elmk25cDFB
+	dGtSy9Rqlg2mg9FlKL7/InKQMmBgTMgGjCc67JYRtkGksgTqfyaEi2yVe71ozD8UNWWbM4neui1
+	UCIF0DVE1WZyjh6ld5kUrfjUm4X0zGWsH3xgKnnxiKIAmA4AhFvRt99fYgboe58zPOWiyBp7RvM
+	/ZoRYGJ/qVWaexVQW1rctJsIyDQaDgBvQAbcN6wDnC8EscJTci9G21NNr9vz8o2TUMnpI81mkb/
+	6yT5TebgD2x6HKYlrE53fNy43KgIR0E6lQ7szoU3fAZielMxut76u5YXxbQ95+KYI2SbkGWU6mu
+	6MyNy9a8MGiJ7o4hiDyqYd6IelrdaPwuz3Jqmnf30LtVIYzMe60nC6qJoJ4yAYQSnd2ocMG7iyZ
+	DJC+qWkx6vUgk6QnP3dYvWaOXHM36K516Q==
+X-Received: by 2002:a05:7301:6187:10b0:35b:cb8a:8d0e with SMTP id 5a478bee46e88-36a4242f5c3mr3801266eec.16.1793369098356;
+        Fri, 30 Oct 2026 07:04:58 -0700 (PDT)
+Received: from arm-a100.. ([140.112.28.118])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42662f23sm9529876eec.2.2026.10.30.07.04.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 07:04:57 -0700 (PDT)
+From: Tzu-Ching Yang <shingekinocore@gmail.com>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
+	linux-mips@vger.kernel.org,
+	Arnd Bergmann <arnd@arndb.de>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	linux-kernel@vger.kernel.org,
+	Gregory CLEMENT <gregory.clement@bootlin.com>,
+	=?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
+	=?UTF-8?q?Beno=C3=AEt=20Monin?= <benoit.monin@bootlin.com>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>
+Subject: [PATCH] MIPS: Make cpu_has_mips64r6 constant on 64-bit r6 kernels
+Date: Fri, 30 Oct 2026 22:04:30 +0800
+Message-Id: <20261030140430.1857741-1-shingekinocore@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,209 +102,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Fri, 30 Oct 2026, surirajat@gmail.com wrote:
+On 64-bit r6 kernels, __fls() and __ffs() never use dclz: they always
+run the C binary search, 37 and 39 instructions with GCC instead of 4
+and 6. __ffs() calls __fls(), which uses dclz only if cpu_has_mips64
+is a compile-time constant:
 
-> From: Rajat Suri <rajat.suri@dell.com>
-> 
-> Convert the mutex_init() calls under drivers/platform/x86/lenovo/
-> to devm_mutex_init() so that the mutex lifecycle is managed by devres.
-> 
-> This removes the need for manual mutex_destroy() calls in wmi-camera and
-> ideapad-laptop, and fixes thinkpad_acpi, which never destroyed the
-> hotkey, brightness, volume and fan mutexes on its teardown path.
-> 
-> Details per driver:
-> 
->  - wmi-camera: bind notify_lock to the WMI device and drop the
->    mutex_destroy() from remove().
-> 
->  - ideapad-laptop: allocate the DYTC private data with devm_kzalloc() and
->    bind its mutex to the platform device. Calling mutex_destroy() on a
->    manually freed object is not possible with devres, so the kfree() and
->    ideapad_dytc_profile_exit() helper are removed as well. The memory now
->    outlives the platform profile registration, which is also devm managed
->    and therefore released in reverse order.
+	if (BITS_PER_LONG == 64 && !__builtin_constant_p(word) &&
+	    __builtin_constant_p(cpu_has_mips64) && cpu_has_mips64) {
 
-Lets do this per driver.
+cpu_has_mips64 ORs cpu_has_mips64r1/r2/r5/r6. On r6 kernels the r1, r2
+and r5 terms fold to 0, but the r6 term tests cpu_data[0].isa_level, so
+64-bit r6 kernels have never used dclz here.
 
-Clearly you when beyond the scope of devm_mutex_init() here (the summary 
-in the shortlog on Subject). It's easier to write a focused changelog when 
-you don't try to combine many things into one.
+The r1, r2 and r6 macros were run-time tests until commit 1aeba347b3a9
+("MIPS: Hardcode cpu_has_mips* where target ISA allows") made r1 and r2
+constant in 2018; it kept for r6 the flag test that tells MIPS64r6 from
+MIPS32r6 CPUs. Commit a2ac81c6ef40 ("mips: Fix cpu_has_mips64r1/2
+activation for MIPS32 CPUs") later added cpu_has_64bits to r1 and r2,
+and left r6 alone. Every other cpu_has_mips32rN and cpu_has_mips64rN
+macro is a constant on the kernels built for its ISA (the 64-bit ones
+for cpu_has_mips64rN); only cpu_has_mips64r6 still tests the flag at run
+time on 64-bit r6 kernels.
 
-Whenever you need to start to use bullet lists like this to describe 
-variations, you almost always want to split things into multiple patches 
-instead.
+A 64-bit r6 kernel only runs on a MIPS64r6 CPU, so define
+cpu_has_mips64r6 as cpu_has_64bits && MIPS_ISA_REV >= 6, like r1/r2/r5
+without the flag test. It folds to 1 on 64-bit r6 kernels, and pre-r6
+kernels build to identical code. On 32-bit r6 kernels, cpu_has_64bits
+tests isa_level & MIPS_CPU_ISA_64BIT, and set_isa() gives r6 CPUs no
+such flag except MIPS_CPU_ISA_M64R6, so the run-time result is
+unchanged. No __isa_*_flag() helper fits: a pre-r6 kernel cannot run on
+an r6 CPU and vice versa, so the flag test adds nothing, yet a helper
+keeps it as a run-time load in r6 kernels (__isa_ge_and_flag(), the
+current form) or in pre-r6 ones (__isa_ge_or_flag()). The r1/r2/r5-like
+cpu_has_64bits && __isa_ge_or_flag(6, ...) grows 32r2el by 3352 bytes
+and 64r2el by 264 bytes with GCC 16.
 
->  - thinkpad_acpi: bind the hotkey, hotkey thread data, brightness, volume
->    and fan mutexes to tpacpi_pdev, which is registered before any
->    subdriver init runs, and propagate a possible failure from
->    devm_mutex_init().
-> 
-> No functional change intended.
+Because __fls() and __ffs() are inlined into find_*_bit(), cpumask
+iteration and ilog2(), vmlinux of the 64-bit r6 defconfigs shrinks by
+105-108 KB with GCC 16 and 124-147 KB with Clang 23
+(scripts/bloat-o-meter -t). In the 64r6el and eyeq6 builds, the other
+users of cpu_has_mips64r6 change 3 functions, by 148-248 bytes in all;
+the rest comes through these two functions. __fls(0) now returns ~0UL
+instead of 0 on 64-bit r6 kernels, as its comment says and as on 64-bit
+r2 kernels.
 
-Not true, in thinkpad_acpi case you wanted to add the missing 
-mutex_destroy() which surely is a function change.
+Signed-off-by: Tzu-Ching Yang <shingekinocore@gmail.com>
+---
+No 64-bit r6 hardware was available: every run-time test below ran on
+QEMU. A run of the ffs and bitops KUnit tests and find_bit_benchmark
+on an EyeQ or Boston board, before and after, would be welcome.
 
-> Signed-off-by: Rajat Suri <rajat.suri@dell.com>
-> ---
->  drivers/platform/x86/lenovo/ideapad-laptop.c | 23 ++++----------------
->  drivers/platform/x86/lenovo/thinkpad_acpi.c  | 21 +++++++++++++-----
->  drivers/platform/x86/lenovo/wmi-camera.c     |  6 +----
->  3 files changed, 21 insertions(+), 29 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
-> index fcb5ed7035f5..ee8e00bdaf6b 100644
-> --- a/drivers/platform/x86/lenovo/ideapad-laptop.c
-> +++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
-> @@ -1172,11 +1172,13 @@ static int ideapad_dytc_profile_init(struct ideapad_private *priv)
->  		return -ENODEV;
->  	}
->  
-> -	priv->dytc = kzalloc_obj(*priv->dytc);
-> +	priv->dytc = devm_kzalloc(&priv->platform_device->dev, sizeof(*priv->dytc), GFP_KERNEL);
->  	if (!priv->dytc)
->  		return -ENOMEM;
->  
-> -	mutex_init(&priv->dytc->mutex);
-> +	err = devm_mutex_init(&priv->platform_device->dev, &priv->dytc->mutex);
-> +	if (err)
-> +		goto pp_reg_failed;
->  
->  	priv->dytc->priv = priv;
->  
-> @@ -1195,24 +1197,11 @@ static int ideapad_dytc_profile_init(struct ideapad_private *priv)
->  	return 0;
->  
->  pp_reg_failed:
-> -	mutex_destroy(&priv->dytc->mutex);
-> -	kfree(priv->dytc);
->  	priv->dytc = NULL;
->  
->  	return err;
->  }
->  
-> -static void ideapad_dytc_profile_exit(struct ideapad_private *priv)
-> -{
-> -	if (!priv->dytc)
-> -		return;
-> -
-> -	mutex_destroy(&priv->dytc->mutex);
-> -	kfree(priv->dytc);
-> -
-> -	priv->dytc = NULL;
-> -}
-> -
->  /*
->   * Rfkill
->   */
-> @@ -2487,8 +2476,6 @@ static int ideapad_acpi_add(struct platform_device *pdev)
->  	ideapad_backlight_exit(priv);
->  
->  backlight_failed:
-> -	ideapad_dytc_profile_exit(priv);
-> -
->  	for (i = 0; i < IDEAPAD_RFKILL_DEV_NUM; i++)
->  		ideapad_unregister_rfkill(priv, i);
->  
-> @@ -2516,8 +2503,6 @@ static void ideapad_acpi_remove(struct platform_device *pdev)
->  				   ideapad_acpi_notify);
->  
->  	ideapad_backlight_exit(priv);
-> -	ideapad_dytc_profile_exit(priv);
-> -
->  	for (i = 0; i < IDEAPAD_RFKILL_DEV_NUM; i++)
->  		ideapad_unregister_rfkill(priv, i);
->  
-> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> index 4f81855ad721..8c7d6f281ae3 100644
-> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> @@ -3381,10 +3381,14 @@ static int __init hotkey_init(struct ibm_init_struct *iibm)
->  	       tpacpi_inputdev->close != NULL);
->  
->  	TPACPI_ACPIHANDLE_INIT(hkey);
-> -	mutex_init(&hotkey_mutex);
-> +	res = devm_mutex_init(&tpacpi_pdev->dev, &hotkey_mutex);
-> +	if (res)
-> +		return res;
->  
->  #ifdef CONFIG_THINKPAD_ACPI_HOTKEY_POLL
-> -	mutex_init(&hotkey_thread_data_mutex);
-> +	res = devm_mutex_init(&tpacpi_pdev->dev, &hotkey_thread_data_mutex);
-> +	if (res)
-> +		return res;
->  #endif
->  
->  	/* hotkey not supported on 570 */
-> @@ -6834,7 +6838,9 @@ static int __init brightness_init(struct ibm_init_struct *iibm)
->  
->  	vdbg_printk(TPACPI_DBG_INIT, "initializing brightness subdriver\n");
->  
-> -	mutex_init(&brightness_mutex);
-> +	b = devm_mutex_init(&tpacpi_pdev->dev, &brightness_mutex);
-> +	if (b)
+Instructions of a function that only returns __fls(x) or __ffs(x)
+(return included), compiled alone with the lib/find_bit.o command of
+64r6el, before -> after:
 
-b ?
+               __fls     __ffs
+  GCC 8-16     37 -> 4   39 -> 6
+  Clang 17-19  62 -> 4   64 -> 6
+  Clang 20     61 -> 4   63 -> 6
+  Clang 21-23  55 -> 4   57 -> 6
 
-> +		return b;
->  
->  	quirks = tpacpi_check_quirks(brightness_quirk_table,
->  				ARRAY_SIZE(brightness_quirk_table));
-> @@ -7575,7 +7581,9 @@ static int __init volume_init(struct ibm_init_struct *iibm)
->  
->  	vdbg_printk(TPACPI_DBG_INIT, "initializing volume subdriver\n");
->  
-> -	mutex_init(&volume_mutex);
-> +	rc = devm_mutex_init(&tpacpi_pdev->dev, &volume_mutex);
-> +	if (rc)
-> +		return rc;
->  
->  	/*
->  	 * Check for module parameter bogosity, note that we
-> @@ -8913,11 +8921,14 @@ static const struct tpacpi_quirk fan_quirk_table[] __initconst = {
->  static int __init fan_init(struct ibm_init_struct *iibm)
->  {
->  	unsigned long quirks;
-> +	int rc;
->  
->  	vdbg_printk(TPACPI_DBG_INIT | TPACPI_DBG_FAN,
->  			"initializing fan subdriver\n");
->  
-> -	mutex_init(&fan_mutex);
-> +	rc = devm_mutex_init(&tpacpi_pdev->dev, &fan_mutex);
-> +	if (rc)
-> +		return rc;
->  	fan_status_access_mode = TPACPI_FAN_NONE;
->  	fan_control_access_mode = TPACPI_FAN_WR_NONE;
->  	fan_control_commands = 0;
-> diff --git a/drivers/platform/x86/lenovo/wmi-camera.c b/drivers/platform/x86/lenovo/wmi-camera.c
-> index 89ecbce60bf4..de4596686d2a 100644
-> --- a/drivers/platform/x86/lenovo/wmi-camera.c
-> +++ b/drivers/platform/x86/lenovo/wmi-camera.c
-> @@ -107,9 +107,7 @@ static int lenovo_wmi_probe(struct wmi_device *wdev, const void *context)
->  
->  	dev_set_drvdata(&wdev->dev, priv);
->  
-> -	mutex_init(&priv->notify_lock);
-> -
-> -	return 0;
-> +	return devm_mutex_init(&wdev->dev, &priv->notify_lock);
->  }
->  
->  static void lenovo_wmi_remove(struct wmi_device *wdev)
-> @@ -118,8 +116,6 @@ static void lenovo_wmi_remove(struct wmi_device *wdev)
->  
->  	if (priv->idev)
->  		input_unregister_device(priv->idev);
-> -
-> -	mutex_destroy(&priv->notify_lock);
->  }
->  
->  static const struct wmi_device_id lenovo_wmi_id_table[] = {
-> 
+The new __fls() with GCC 16:
 
+	li      v0,63
+	dclz    a0,a0
+	jr      ra
+	subu    v0,v0,a0
+
+find_bit_benchmark built into 64r6el on QEMU boston (I6400 model),
+random-filled bitmap, executed instructions per iteration counted by a
+TCG plugin, before -> after:
+
+                                  GCC 16           Clang 23
+  find_next_bit                   53.1 -> 28.4     86.0 -> 34.5
+  find_next_zero_bit              55.1 -> 29.4     87.1 -> 35.5
+  find_last_bit                   54.1 -> 29.4     76.9 -> 27.4
+  find_next_and_bit               60.5 -> 34.7     90.4 -> 38.8
+  bitmap_find_next_zero_area_off  3839.7 -> 2176.4 6045.6 -> 2625.9
+
+The other three tests (find_first_bit, find_first_and_bit and
+find_nth_bit) spend their time scanning words or counting bits rather
+than in __fls(), and change by 4% or less. The helpers themselves shrink
+alike: _find_next_bit() goes from 61 to 31 instructions with GCC 16 and
+from 85 to 34 with Clang 23.
+
+bloat-o-meter -t on vmlinux of the 64r6, 64r6el, eyeq5, eyeq6 and
+eyeq6lplus defconfigs, bfe97f12a0a6 before and after with the same
+.config, kernel.org GCC 16.2.0 and Clang 23.1.3: -105340 to -108352
+bytes with GCC 16, -124340 to -146692 bytes with Clang 23. Of the 105 KB
+of 64r6el with GCC 16, inlined bit search (find_*_bit(), mostly cpumask
+iteration) accounts for 74.4 KB, log2 math (ilog2(), get_order(),
+roundup_pow_of_two()) for 21.6 KB and direct __ffs()/__fls() calls
+(lib/find_bit.c among them) for 7.0 KB, and secondary inlining for most
+of the rest. With GCC 16, 13 symbols grow and one function is added
+(1712 bytes in all): 608 bytes are the alignment gap that bloat-o-meter
+assigns to the __unlikely_text_end marker, 64 bytes are two loops that
+GCC lays out differently, and the rest are callers into which a now
+smaller callee with a bit search is inlined, or changes from GCC's
+inline growth limit and IPA-RA; the ten largest growers with Clang 23
+are callers into which a callee with a cpumask loop or a bit search is
+inlined.
+
+__isa_ge_and_flag() has no user left after this; I left it next to
+the other __isa_*() helpers, but can drop it if you prefer.
+
+Switching MIPS to the generic builtin helpers would fix this too, but
+was dropped in 2019 because the builtins become libgcc calls on pre-r1
+ISAs:
+https://lore.kernel.org/all/20191001215249.4157062-1-paul.burton@mips.com/
+
+Testing: built before and after (W=1, no new warnings) with GCC 8.1
+to 16.2 and Clang 17 to 23 for 64r6el, eyeq5, eyeq6, 32r6el and
+64r2el, and with GCC 16 and Clang 23 for 64r6, eyeq6lplus,
+malta_qemu_32r6 and a 64-bit r6 allmodconfig; Clang 17 to 20 cannot
+assemble genex.S before or after, so they were compared on objects.
+Pre-r6 kernels build to identical code (64r2el and 32r2el with every
+compiler; malta, ip27, loongson3 and cavium_octeon with GCC 16).
+64r6el on QEMU boston (I6400) and malta_qemu_32r6 on QEMU malta
+(mips32r6-generic and I6400), built with GCC 16 and Clang 23, pass
+the ffs and bitops KUnit suites and test_bitmap and print the same
+"isa" line in /proc/cpuinfo before and after.
+
+Against the mips-next branch of mips/linux.git (bfe97f12a0a6); also
+applies to next-20261029.
+
+ arch/mips/include/asm/cpu-features.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/mips/include/asm/cpu-features.h b/arch/mips/include/asm/cpu-features.h
+index 3f11e5218e6c..2842e22c69ea 100644
+--- a/arch/mips/include/asm/cpu-features.h
++++ b/arch/mips/include/asm/cpu-features.h
+@@ -317,7 +317,7 @@
+ 				 __isa_range_or_flag(5, 6, MIPS_CPU_ISA_M64R5))
+ #endif
+ #ifndef cpu_has_mips64r6
+-# define cpu_has_mips64r6	__isa_ge_and_flag(6, MIPS_CPU_ISA_M64R6)
++# define cpu_has_mips64r6	(cpu_has_64bits && MIPS_ISA_REV >= 6)
+ #endif
+ 
+ /*
+
+base-commit: bfe97f12a0a64c3682be21a02404238e3b91e945
 -- 
- i.
+2.34.1
 
