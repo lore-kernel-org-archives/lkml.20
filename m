@@ -1,93 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793345817;
-	b=dQbSpM9yrE2ekBM5+Qpske7iE33bWy1vmarC6CVUntwtHeX7tXWH+ZFCdBLnvffcJczd
-	 GB5dNvVZszE6BYLrmHZqzG8yfdAHRUGNcSR9c8Vf0vYbTgPdtKgzx/hjWbb/eLCKgASkO
-	 HwZ9Pos13vQb/KEIwNi8B1KiMMktpG6H0ADgsXTvB9+pgcLgDF+dEOJ8k6kO8Y3cZfS8F
-	 NCm9OQIfdXPpOptR/Mgkc2fNTFfPYv8FMCpdxOLLEp81ODj38iSkPShlIHVV1e4XtM1eC
-	 6N682QIFi5sdNK+vMz6wqHJpNSkvBH0aCAFHHveACdw0uKDPFve00KgCJt3Qua541Lg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793345817;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=rMrhFGMaQbGuT+vysC+EnDo30wy5e48snLTrR+oGc/Y=;
-	b=SdbI6eHOudauZDmcPNEukxy5eraMNCgoWIzju/esF7MfDNahRXk33kbxPwd7YMeeilvI
-	 gViFLH//qIadOssMfZhBp3npn0xPpVTABuSiLxk6bCTNePqrysH4XLV2NdUQrmPnC0ur2
-	 wWYCPZExNi56IV9qNzgWMATeJwsQ7uKiREBEJ1689tq/Bnptx7oRxkc9WDX6DZlUonm1u
-	 +PSo6JmMNJvadllm/EdxY/Dx+UuVzh9C8SsUJgaZ+4ir4xM+4q4f7O8BAw4OLXWUHXo5X
-	 LqjxO0lKJB7XjKavPQ6twZ6en+wCeZDs678/Vm9Efdvbq7Pbulo+Y9NuVfz63YPx+Rw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SBaeWEAV;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.134
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793345852;
+	b=Tlib0ehQLyiYmvRKFs3gBL2q2fefRKSeyyDebllIdAr6h30u6TF3zuZRwvdU8Xwb6xKg
+	 4UTRFkG8JPaTdDtXjuTrKU+7PBDQf5IMGntlO0rqE2+cpjZXwvVyuMlQm0QoKFKm8TzTN
+	 KYStpu3xtrE5Ohzi3MN//yrxHa1DskZavAbA5mJ1N4DIp/KFU/wPmh38267epLFnHTQRx
+	 h/12wuOQVohtEtW5aA4dJIrEiT7btzYYhaqGXmvVe9fyVojIV3vNVL0JYUZs5YQrr/gUh
+	 ehgx1mjkyTZFuflzVMyv605OmRH2XejYY/Eo8mVJFcTd0cB8AIqu5LPQB5k3mjQG80Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793345852;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=SA3s5MwBVhHPw9ISTjG7ED/6MQcIz2iFZTysTtlmr4c=;
+	b=Gz3QRjl7rRuYVeWKqT44+UcirQbPwn5fQP+u6JFddrvM5W7P8q9H1aK780PQs3JvdwPa
+	 PCE8XrNRAg0kkr+tN89cQbHIj3C2tBxxrimMJaPhrJrH2Kd5lm2XhBkNjcdnN01kXISJ5
+	 Bm4VZRYSrKtHo5KX9ukwBrqgjVIR2mfRXFtxdcfzqQSbSnvCfXtKMJILOZYcVTDQLMEPj
+	 TW+Gy2axyFLxFPkX+2ooAdD0pUPTRAzaUJAq40TYl4Q3utTyjbXfB1ubjIN/dfWiThIAZ
+	 lKz62T8dMUHLi6V1Yzf2ieeBumzkiKCBdAU5M8/Z81haTjNJkeaDkQhFze8Qh0mFljw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=iopsys.eu;
+	spf=pass smtp.mailfrom=genexis.eu;
+	dkim=pass header.d=iopsys.eu header.i=@iopsys.eu header.a=rsa-sha256 header.s=selector1 header.b=KsVPvnLp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.134
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023134.outbound.protection.outlook.com [52.101.83.134])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B2F606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:36:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2B2F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1B0606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:37:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E1B0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iopsys.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=genexis.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SBaeWEAV
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so2290455e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:36:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793345815; x=1793950615; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rMrhFGMaQbGuT+vysC+EnDo30wy5e48snLTrR+oGc/Y=;
-        b=SBaeWEAV1WqnHA3sFFlwCnAkHQGY7W86ZDX0toJdiEp0Q9ABgjW8dZ2iYd2RqQU+l3
-         YlzyHWUIXYj1xOhQpYuJ0Wrskk91Jpd2MnucskMKoRCt0gLPl7odPhMySRoWeE0ek083
-         3QZ3PUr+4Skt33VqeiwVNYZVbXqnCDOtOAz1mKKVIKE+Qf/+8RcHFDL0JTQlyhSf/k1r
-         5L8CD7lBi7dXgnUmf/za8K52SycqTQZvbDuJ5sV/xFYAMQOCbcH7wZ9+xtdUuAFK0Cax
-         lcSIFpieBGIK2lmzMxJ6+wowxN/B09REkfpdJNs0TM69ikkOZYD5Kfd+lkxixL3ymBM/
-         iodg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793345815; x=1793950615;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rMrhFGMaQbGuT+vysC+EnDo30wy5e48snLTrR+oGc/Y=;
-        b=VVulCxZhfZhSyaA1G20fagMF7hoWm03xT7Hd7kFCzKJMGFQNTfBDTWQSwz9YCIZB7i
-         3c2Jw0/mTotM1+l9SpN0ZkNjgtc7qqSPoNdD+R7PkAOVhaiNFkxuYjtuIBg1iZZno5Hw
-         1RddacVHYdDlADjSfdRfX6Ltl0XeplwHYdnMDzzAExacGJkMnLQONxNidTfYtI59kAKp
-         4c+D2mv9EYqbsTusOvmvNKWrRGAgSKpZc8smLSqWT6FXXxd/B9qeCy6G6ssVR/P4RAcO
-         87jUPwZX2ptATLKC7A9I8d/HHTjRMO0RH0NFHvPPs64cIgf8GlfdBpmsq0B2MRy/nlHR
-         vaBg==
-X-Forwarded-Encrypted: i=1; AKwUvBw8r2yamyeJ2vGhuXaXbBa6XZkz8TpaaRe+kGy3GWfy2YREYPUZXB8G/VXBAXJAg9r1pC+jUb7iqeV0xT8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKeONKDb+hHswSc37hev1QoA+PH9eRxaXEJPQzZkmXSKOmKkXxt
-	78dx4lumbeSrY+HJaGcH5hzJ+FLnxIeDbKeipeW8d23yQ9uToxKBy/AXYJAzAi1Q43I=
-X-Gm-Gg: AYBFou1Ejg7Bft4adIyxOAUlsW3T4EM4BiWOImiBba4brfkl5VycD3HQC8N5nSb4rWb
-	xt+NglAOZb0unC7aDV4S/q08dMyNB/P2QLhdlZAuoQLiUZWOepaBl9mWTghbrt157SK6ouRaNA5
-	XcK58Vm47FSL/oEQNjB3qEEt/qYVtAX5ggBSOIL+KvBWKCQ5eerBl5ro0ExefAUHnm0Sc9Cs4qm
-	VvxHK5ZGM/W8+bVc7eVcj+tB6a3xrlSRpgktNcPk8a5nzkitYni2OeWgffUEOAfYMo1kFcZ8mFl
-	XwMz69xUE6poUYy0+6t2tOmhnjwxuXk8+JVSyEBm8E7HOzMXM6fo371eavQrY7BhTeeGbRMppzn
-	26+ZYVN9qPsKyb9Ivu/iS1wk3yFqE4qb7kpVW4PFjh/0Rwpw6r71ndgnHXV3wHdYhKht8CJKMxO
-	bAUbgL9PjYhnWT/JxzhStNE6lOaFNsj9Lk0S7agm1yR8vyA0baRCiZVjfTy++c/HU6q/jQffy2h
-	EDgl9yiw//uKxa8S5fPV8VyzcafHMi8N7So7fm9Um3dUVrDtkywM7kQH1GzINZw2m04WBGuIzhs
-	ffYUbLTpYwVUf5XkEewojMz12a7lt0qGbIc=
-X-Received: by 2002:a05:600c:19d1:b0:4a2:677:ad8e with SMTP id 5b1f17b1804b1-4ac1970b9f7mr28877715e9.34.1793345815331;
-        Fri, 30 Oct 2026 00:36:55 -0700 (PDT)
-Received: from thinkpad.hgw.local ([159.146.110.109])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80306sm1884497f8f.33.2026.10.30.00.36.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 00:36:54 -0700 (PDT)
-From: =?UTF-8?q?Yal=C3=A7=C4=B1n=20Can?= <ylcncn@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Russell King <linux@armlinux.org.uk>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ARM: rockchip: rk3066: set soc_remap before starting secondary cores
-Date: Fri, 30 Oct 2026 10:36:47 +0300
-Message-ID: <20261030073647.164416-1-ylcncn@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=iopsys.eu header.i=@iopsys.eu header.a=rsa-sha256 header.s=selector1 header.b=KsVPvnLp
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qArhELU68HJ4J2kGquP1xUGB5yXhAQCkAz7MmxAMVp9pix2soCqokH+2YAeRMB4JEeoM/YCX1hiO2wVazYvszssYLCWww76Ya/Jot3hRd1fy7Uryfqj6cGvgzfv14+PUnf83X7uRaF/rHfvMpe82MZczyrtCH+c6y3PeUj702w5eW0t/WoV3zgDy8fKHaBvYJXE33W0jM2/OePeRjPrBoqbt3mnzQEa0M5gKXiTN2Ly/69/vM9Ofa28Bf0Oyqlz8sz8gd4tBZeII5YUADHtBlhU0V4d08qz4kRNUPph3MhyatXl0n0HTwBLI/YxbQud641wsi0IIs33J24w0W2whDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SA3s5MwBVhHPw9ISTjG7ED/6MQcIz2iFZTysTtlmr4c=;
+ b=L2frvLjMDHmw9l2sJC1lMxQowM9+sYjlP//2mfky+Qhnk1NwT/VLkEEqS0KAVxOjct7Y4Hg7wD4lN5DmceM8YEn78bf/0drik845sLt1susVfmmMPZB4135EXPlD8JiKfoMOAMgpc3O/eSa0vOLAUDKRX8bkWZhIJ4yoSDE4aXCQT9nP+i0VFHkYuHA5zalswXaqsbq9NFz3LNpBF9sfi6ZSx5Cz3aVDdkE4zYGcY4RSMsVD0W7HCTThNVRFU/27Gn7qvCFu1A0gZSWnU7bzo0pvRf9BWVkHXLJjVt/c63EJqHKJBCpaKUzhr6WgJh/8Ofg+z4SVbcz/0yrqCeeQ+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=genexis.eu; dmarc=pass action=none header.from=iopsys.eu;
+ dkim=pass header.d=iopsys.eu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iopsys.eu;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SA3s5MwBVhHPw9ISTjG7ED/6MQcIz2iFZTysTtlmr4c=;
+ b=KsVPvnLp6qK0nmSFhhvdPcaeJBzgZsWKZtGQGemcbht4VhiGiUTlVHFubRx1pj7ENyiiBbdmKqLtRKWO6vIY8fpazZkC45lKgJvIvTefOcpT4qIJ4wTaMlr7J3krQXh+L5exr+yTcJnwVB5Ya3ePsvSw1iw3y20LQi8OYQDiGUlxiIZ5A99YdVuZppL4b8g4G/WIyF9NIsAFDcUyP28+6yB7maFAXfp9cafgURmtMtR0gIeb9Yi4bNHXGTgHNMC1dVfxFl5IkspkcHH7PBOKb7tyQGV6Ulw5yGG95SC9OOmwXnt7YB0gXqI1c4+E5Js7Jx8mkcsxJB02zS4mzXyPNQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=iopsys.eu;
+Received: from DU2PR08MB10037.eurprd08.prod.outlook.com (2603:10a6:10:49a::20)
+ by DB9PR08MB7510.eurprd08.prod.outlook.com (2603:10a6:10:301::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Fri, 30 Oct
+ 2026 07:37:27 +0000
+Received: from DU2PR08MB10037.eurprd08.prod.outlook.com
+ ([fe80::3c7:6d2e:8afe:e4dc]) by DU2PR08MB10037.eurprd08.prod.outlook.com
+ ([fe80::3c7:6d2e:8afe:e4dc%3]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 07:37:27 +0000
+Message-ID: <73cc1302-d1fa-4c32-b6ed-4c44cd48ad39@iopsys.eu>
+Date: Fri, 30 Oct 2026 10:37:25 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v5 3/3] mtd: spinand: repeat reading in regular
+ mode if continuous reading fails
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Richard Weinberger <richard@nod.at>, Vignesh Raghavendra
+ <vigneshr@ti.com>, Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Martin Kurbanov <mmkurbanov@salutedevices.com>,
+ Takahiro Kuwano <Takahiro.Kuwano@infineon.com>,
+ Cheng Ming Lin <chengminglin@mxic.com.tw>, linux-mtd@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Andreas Gnau <andreas.gnau@iopsys.eu>
+References: <20250917215401.19132-1-mikhail.kshevetskiy@iopsys.eu>
+ <20250917215401.19132-4-mikhail.kshevetskiy@iopsys.eu>
+ <87mrrwebxh.fsf@bootlin.com>
+From: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Content-Language: en-US, ru-RU
+In-Reply-To: <87mrrwebxh.fsf@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: WA3PEPF0000051B.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d8::676) To DU2PR08MB10037.eurprd08.prod.outlook.com
+ (2603:10a6:10:49a::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,80 +104,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR08MB10037:EE_|DB9PR08MB7510:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe4f12ad-d5e6-47cb-ea75-08df3658a5af
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|261028144727099003|261026140227099003|261026121527099003|261021121427099003|261022075727099003|261022105027099003|10067099003|6133799003|4143699003|11063799006|5023799004|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	pTz9J9DnB9w7yVlVIVSng4VTW16TwzHrz4UK1lk+6/FXQrwwy6S8gELLUjKN2L0sdE5IzRbAFs/uk5VqXS3fY0JWIAHKi8w9IHVACLQxVqBGtWhJYgR16m23hRY/YgAmBleLs3mlq5AFp2Sy2iMhdAkUsoyfN9xYWU2riZftUqDqJ6drFknR6Oe8eTpUVyL8aMzeckgpCGfwDX+LinSpmhzFmbggeUdrMPPPYp1os4Nj9IYxStiARHfmLnvGCM6QUEv+tZaKkgtyDoiw9cAeblu840sOlhtzcbD7HkZa66JB/xHiJTaEyD+c3fDijnjNh8GZ3KSpK8iJ8nI5LV9R5Gf0u5VTcpzR+b+Z9ssuTpvO2uL1WJD36SSApwS8rVIRwczH1kfFd5pi5KFxhZ9qqcLFyg65aMcoxsGeUwU/CxX9voh6J3FDIwm8QE5P4+aLChV8xDm+VUDmbVsmicuRynGiNjYho73DdEUHfVuK1r+utwQzsnTI/WGqQOT8MW4Nm4zN6M3w15k8NyOCTUfbrlFzdC6airRy2Yo1A98Jlsb8BK3vIy1rZMoBQoTQ6/AQ1XD3qz8Jem8LU+nWr+ub5vZxrrDkXc3OntmLJWx4/+KEik127WHfmnJ3P+y1CNeB3ViLguDnQFqi2quQlrIKYoGRuKRQ7JPRddRa5spdYDs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB10037.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(261028144727099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022075727099003)(261022105027099003)(10067099003)(6133799003)(4143699003)(11063799006)(5023799004)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YVdXM3p5SUducEZMMitSZkQ4Zktva05zSk16TXNzcW5xZm9WRVJrUG1jSGJK?=
+ =?utf-8?B?WkhsYjZpS0QxbFhwNHI1bjVWdHFwclF4d1hEZDZjODdabnR4bG1NV0NoZXE0?=
+ =?utf-8?B?SHZtYThGOU9HS0RiQm8yRmk1RkdqYWpudWtOMzlMaHI4cjlVcWNOZUROZDdJ?=
+ =?utf-8?B?bHpONlNmV2JGczJBa2lYWDYwWUpycHVaY3c5YVpwNGNRMVAyYkZtbDFDends?=
+ =?utf-8?B?bGRtTU1LVmk0VmJLOGVQQWhpQm1IWjdWZDIrNlpGUVVLLzZQRmdOcGZLc0xH?=
+ =?utf-8?B?azRpM0NqbDhxWi9RdGRuaGVWS1BvUzdWd2h2cW5xNEpJeHd2YnplU1BLUXNE?=
+ =?utf-8?B?d3kzbjlraXFvTjZvZ2lZblVIU3pWaVM0K21aL2VsTER2S3VXN0ZkWXBqeUZj?=
+ =?utf-8?B?OUNCUDhrRy91eGp6eDNvK00rZDNGcEFaSU1Xd1FUN3RnSHhSWDZLMGRQdTMr?=
+ =?utf-8?B?RUhCM0JMY3Zxdm4zejQ0YmhjL2thL1FDaC9QbzZMQ1ZKb3RWNEpydisyOWRa?=
+ =?utf-8?B?bmJjWldKa043VUJkcXdUcVhCUGVZZi9IRzREWlpNeFFrMG1iRGs0bHZDNW8y?=
+ =?utf-8?B?M3VXYnpZV3orajNsWmlieC8wY3dVZXFIZzNPQVFXMXluczdsZzlGWmluR1cy?=
+ =?utf-8?B?NFBsR3BHSWcxMUN6UFJNT0FSRFdZNi84NitpcmhMQWt6aGl1cnBYREtuQzhs?=
+ =?utf-8?B?MFZ1MGxxWDBuQkJ2NUcxTTAxaUVpVWw1OEhNN0Z2SEpnUlEyYVdaRmtFNEkr?=
+ =?utf-8?B?d1oyOEMvekZRbGdudisrMmpITkNTeEs0THlybVZaS0dwTkQrMWJtU01DZWVQ?=
+ =?utf-8?B?Tmh4NnlCZnNDZWxLcWNqYTg3eTJYQmZ6TnBBc1ZwdlpjSzk2blZiOW9YSEdr?=
+ =?utf-8?B?NUFLOVZJSXhDYjBVNzF0dFNTemdDbm1GUzZJdDVWb1FhZCs5aUhXSTIzUUlE?=
+ =?utf-8?B?dnozbUpjUU9RYXBFU2lqU3RBREFkV3gwQ0JYZmd2bnZmMGJjSGpJMlFXY0Yv?=
+ =?utf-8?B?aDFoMUhIbXI5WkdhbkMwYTVoVmU4SGh5azBtRUtqcDUxQlJpZ2E2Sjd1dkFo?=
+ =?utf-8?B?WU10QWlINmhJaXdmdTlVaW9RZ1Y1cVdkNVBNTmtlbm1QTmhMT2FTUEpiOXc3?=
+ =?utf-8?B?UUtPVW52YzNQN0RqVzdnRVJhb2xmMW1vQUtJUktYUk42QkVpS1h2aUtHV2lI?=
+ =?utf-8?B?R2pjWnh6K0ZIMG9vajUvSlNyQVdkbG03Q2F2YlBxRUJUTjN2SHhaSDkyTDYv?=
+ =?utf-8?B?ZnpLMUJ4Nm41b3RMRllCcmpNeUczbnBoNzF0YjF0MXJTbWxBVW1MNHRlKzRz?=
+ =?utf-8?B?SFN5ck5mVmlqYURvQXQzRXBoWktnZVZJcWw1WHJpNUZtQmdnS3lUaUh4MUVD?=
+ =?utf-8?B?akhyWlJ0TjNlQTJ3bllySlVpUFJTeWJJeWZuZmVsOEZlS2VqNWY5VW9KQWlr?=
+ =?utf-8?B?eXZnOEhWUzhXSkUwMStXKzRwN2ZTYlNEYVFMWDVQUWJMMjRLOXNkWnFCM0xi?=
+ =?utf-8?B?emdFbEthRzhBa0Zub0hveFFrSXN3TVBZa0hDZUJNUVU4bktoMDlFU2FHMW5u?=
+ =?utf-8?B?bG50U3lvTnV0WFZxTkIxWEFWekhkb2NVWDhMQnV4d0Nxa0F2TUhROW1seTNE?=
+ =?utf-8?B?WmRlZzl1Ky9UbmZveTg0ZmRsTzVwVUhnS0k4N2NlV1FtdXJCWEN6Q1E1S3ph?=
+ =?utf-8?B?US9CVEx1c0xhTEhaSnBZSnA2Q1MwR0VpMGpmRlpYS1J6K2RkQlVJOVRoTGFx?=
+ =?utf-8?B?S0JUdEhhNVNPYXlVUlAydXlzUlRiT2duVHpGUGdOMWdnVTdwODVEZkNIU0pD?=
+ =?utf-8?B?ZUp5bkUwbm16QW5OZWhLckRmdkJxRjhiV0xURlVzOG1RbVpYYk1PSUd3R0o3?=
+ =?utf-8?B?cnlzNnN0dkN2SzdZdk56eVRWUmFZdHRUaHNwZ2Frb1ZlbzY3alFMYkhBZEh6?=
+ =?utf-8?B?bERaM3IyME0rL2g2WS9aWmJFWEhMNTJHZGxwZXhNeUFDNjBVdjB5bkZmSUlF?=
+ =?utf-8?B?djloSHBqcTNLc2s5L0dydVNNK1FLVVQrZFdGeit1bS9KbjNYaGpYZk5hd2Zh?=
+ =?utf-8?B?dTQvWGtBUEkwYUxXRWUxSnl6YkFTZWwwR3E0b0JQcDk3Vi9BZW9HZTVsTFlN?=
+ =?utf-8?B?U0pITytSVEwranVSOFRNMW43L0JCc2ozSTNIMC82VWlIVHpwcTlyRC91MXFX?=
+ =?utf-8?B?YVNmcnUxZmFDVHB5RFlLbHNDWFplc1p2SlQyOE40alhJbWI5L1BzTkVwcnpo?=
+ =?utf-8?B?citiVDErMXBGS3VyaEpRejJOc3hzVkNKVnlkbnU3dGc4ZjFGVzZZVkxUVnUx?=
+ =?utf-8?B?cmtPOHM2bmk2K3l4WGtocUg2N3pjK2hEbERzbm9JdWJNVlFPeHdrU3ppUEZO?=
+ =?utf-8?Q?z4s3EKxyiyWIWVZ8=3D?=
+X-OriginatorOrg: iopsys.eu
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe4f12ad-d5e6-47cb-ea75-08df3658a5af
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR08MB10037.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 07:37:27.6228
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8d891be1-7bce-4216-9a99-bee9de02ba58
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1iwT2yNsC0TjO53LQsLhNqqPQnr+w4mBmTm2D4K0yVyIqSp6RbVhAEAITHGxeUjkaxVp25EwSkGX2jbixQC48sALtsbe/KSCZehyEVc5xKc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7510
 
-A Cortex-A9 core on the rk3066 starts at address 0 when it is powered up.
-The SMP code copies a trampoline to the start of the internal sram and
-relies on GRF_SOC_CON0 soc_remap (bit 12) mapping the sram at address 0.
-The vendor loader sets that bit before starting the kernel, but a boot
-loader started directly by the bootrom leaves it cleared. The core then
-runs the bootrom instead, which parks it and also writes into the start of
-the sram, so the trampoline's target word is overwritten as well, and the
-boot logs "CPU1: failed to come online".
+Hi Miquel,
+I think spi-mem capability for continuous read support is the best
+solution.
 
-Set soc_remap after the secondary cores have been powered down and before
-the trampoline is copied. The rk3188 shares these smp operations; its grf
-has a different compatible and is left alone.
-
-Tested on an RK3066a board (MK808B) with U-Boot started from the NAND ID
-blocks by the bootrom: before, CPU1 never came online (GRF_SOC_CON0 bit 12
-clear, sram+4 read 0x00000001 instead of the physical address of
-secondary_startup); with this patch both cores come up at boot, three
-offline/online cycles of cpu1 work, and the board restarts normally after
-a reboot and after a forced panic. Booting through the vendor loader, which
-already sets the bit, is unchanged. Not tested on rk3188.
-
-Fixes: a7a2b3118b41 ("ARM: rockchip: add smp bringup code")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Yalçın Can <ylcncn@gmail.com>
----
- arch/arm/mach-rockchip/platsmp.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
-
-diff --git a/arch/arm/mach-rockchip/platsmp.c b/arch/arm/mach-rockchip/platsmp.c
-index f659d894b..2edd0fa46 100644
---- a/arch/arm/mach-rockchip/platsmp.c
-+++ b/arch/arm/mach-rockchip/platsmp.c
-@@ -198,6 +198,29 @@ static int __init rockchip_smp_prepare_sram(struct device_node *node)
- 	return 0;
- }
- 
-+#define RK3066_GRF_SOC_CON0	0x150
-+#define RK3066_SOC_REMAP	BIT(12)
-+
-+/*
-+ * A starting core fetches its first instruction from address 0. Only with
-+ * soc_remap set is that the on-chip sram holding the trampoline; otherwise it
-+ * is the bootrom, which parks the core and writes into the start of the sram.
-+ * The vendor loader sets the remap, other loaders (e.g. U-Boot started from
-+ * the bootrom) leave it cleared. The secondary cores are powered down here.
-+ * Only the rk3066 is handled; other socs using these smp ops are left alone.
-+ */
-+static void __init rockchip_smp_remap_sram(void)
-+{
-+	struct regmap *grf;
-+
-+	grf = syscon_regmap_lookup_by_compatible("rockchip,rk3066-grf");
-+	if (IS_ERR(grf))
-+		return;
-+
-+	regmap_write(grf, RK3066_GRF_SOC_CON0,
-+		     RK3066_SOC_REMAP | (RK3066_SOC_REMAP << 16));
-+}
-+
- static const struct regmap_config rockchip_pmu_regmap_config = {
- 	.name = "rockchip-pmu",
- 	.reg_bits = 32,
-@@ -321,6 +344,8 @@ static void __init rockchip_smp_prepare_cpus(unsigned int max_cpus)
- 		pmu_set_power_domain(0 + i, false);
- 
- 	if (read_cpuid_part() == ARM_CPU_PART_CORTEX_A9) {
-+		rockchip_smp_remap_sram();
-+
- 		if (rockchip_smp_prepare_sram(node)) {
- 			of_node_put(node);
- 			return;
--- 
-2.47.3
-
+On 10/29/26 18:58, Miquel Raynal wrote:
+> Hi Mikhail,
+>
+> On 18/09/2025 at 00:54:01 +03, Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu> wrote:
+>
+>> Continuous reading may result in multiple flash pages reading in one
+>> operation. Unfortunately, not all spinand controllers support such
+>> large reading. They will read less data. Unfortunately, the operation
+>> can't be continued.
+>>
+>> In this case:
+>>  * disable continuous reading on this (not good enough) spi controller
+>>  * repeat reading in regular mode.
+>>
+>> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+> This patch unfortunately breaks continuous reads on my boards without
+> dirmap support. The fact that they do not have dirmap support does not
+> mean they are not capable of keeping CS asserted, these are two
+> orthogonal hardware capabilities and it seems that we cannot easily
+> discover it at run time.
+>
+> I recently had a similar issue with a "powerful" controller
+> (cadence-qspi) with dirmap support. The fact that controllers will or
+> will not spuriously assert their chip select is not discoverable
+> either. As a result I created a spi-mem capability to flag this
+> impossibility, which disables continuous reads. I will send a patch to
+> revert this commit (keeping the previous ones) and another one to flag
+> the Airoha controller as not having full control over its CS.
+>
+> Thanks,
+> Miquèl
