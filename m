@@ -1,84 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793363995;
-	b=WTTUXwEit1P6mpN1lkA32hjcEUvWCW4EKagzX0D+pszc6WDYxwjwCk4egz1+xqXswPuD
-	 p40hYaa9djP8ccFtE4FGZWU6zU5DpbPwUtHhEfNwhb6vsAyIqDONOKDmePRV47tLfMhYe
-	 BaqROhYstW4c0vTbHIaE3j0fSGBv8F7O5TaDEplnmbuvIa1Br1BIZU3/Ln82T19fi1hTC
-	 RIvjZUEYNloe9zTgwXMTAa6H1tGq53rRLtMsjhRZ6LPryeHxQuGlxkztacS2XoLF+YBSC
-	 0v6vBCryRX8O4f1saUEf3WN7gZqmUah5SBJ/Zu1I4hTfYAS1fNfc38Bh0uQWwt60erw==
+	t=1793363996;
+	b=ZYeLIoG25+9TbLRI88d1WkFkJ1jMEbHULGMPZVzBMnDUl9jrWAdtPKLz1Se7XIUx37cG
+	 iBU57NpEPa9CxZXfGlcNnW26RfhEtJjCsx6Z67KVg2KUJUO84O8V8IJ8Rxvc8Tb/2deVZ
+	 1T103MpEXbb/2ADOHD9W6xFzMStG/6LjMInbh7c/u+wgqOR7NJ81C7svrFCD88u4JxQip
+	 01UI9C0hgPIxAQg/kNoon40R7GZp1hZD2O5EhHJCFvPex6wLutC7rbQbWRY/V4Jh+5mLc
+	 +TALslWu++bfs0SLXhnYvTbJKGntfQGlTplFCoLRvjbEqTGqbMHa7E2tQgdnBFN9d2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793363995;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793363996;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RUJ2gwwAbHEm4tvJt9u+cB77ZI1OokWfWjFrziXQD/Q=;
-	b=IZOiTFPtq9l6HziHe+2zuhqigJ94wIdgKM2kSdMzVnxyoKUkx2REQCERFYmnVe1M7IOl
-	 DCN/6kU6cKfslX/mUhnQuh04S9Kd77fBUTe+dsQOIRIr3ieYYtc+mtfF1XNzW+hGyl3+I
-	 yl/7Zxr4baUwn/vtoNEdh6cgkRMES9cL2WgRyIk0CaPPNQSAw7Daj8+0qA/QuWKQbeIPW
-	 CjJPjKg1+DQetBBvgEJbmsNMHYQk1fDh9kWdmZHp45wYpZgPV4d93AC6LK8Rxxsf+TZPG
-	 E3A5TOKXGPZXjxKp2EFke0O+Gj29KPIAwY01/9a7hfA0jD7wi4gvq+osH8ZnNVvuS7Q==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1KaBBNRkubak3FMTFfY4sBxEh/vBQKes4YxguyRgqq4=;
+	b=vlZWE5jwMcaXVDlWNT7tfJQDMd4BPUqhr+57iW7H4SQ8ipoRf/BBbyaive4Zv7gv4YM6
+	 aMI924zn8Av0YQUAiDhTz+uuyUDA8RBzyarWgj5SsXLuca+3fdl1sLVPk474Uw2SiEyNn
+	 ECf1xKdL/WK9L3rB5kPlHjoTA/Qd8HXK74oa0kPDu2/RRNMB4v7YFTaYuZN7E7zTCWz2m
+	 3b76dvHoNLik0rDmPNzVBKzWBKU/ZhcsQs9kEbJ8vPU+AMQa6o+/Tc4i0OmCg06GrgLXq
+	 QLnfSeDu4C+C7waVYIS7K3SPVShfDdELXF9kczD2ny/ZhxZ7WktW4dQisq6c2vFFN4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VBmUMlw3;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ja3ASSH/";
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B062606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9364B606A323
 	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:39:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B062606A321
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9364B606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VBmUMlw3
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48b042c0759so342240f8f.2
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ja3ASSH/
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so624037f8f.1
         for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:39:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20260707; t=1793363994; x=1793968794; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RUJ2gwwAbHEm4tvJt9u+cB77ZI1OokWfWjFrziXQD/Q=;
-        b=VBmUMlw3mU8MUEBbTwbpv6+rln7SBqQWw9iKzzo52IxbFQrWy26L+p43Rgjv3dhub5
-         kdSLHsfKgqh5fSOsJ0D9wVKcWlKC6VLgoBsBGzS/1hX1J97+sL9Muj6w5xH8aVY1rRpV
-         I+cwq7G9YMs34Rd8B2iXC1dPPNmNe6R/eUwM10gQYfQyNmeeJco9jZxreJb8RvdGhGYx
-         opBrYf4zguM5zf7ybrpi32vAGijEMVBHRtYNKupIWA7YVWrffvmo5k2ORHlcyaq8B4Io
-         ex9hJPVPvNRiIG338pJu8QZjLl7pYV+Ln/aiiBWrUhcljhBKIbqu5415DSajDUeZj9l9
-         C2gg==
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1KaBBNRkubak3FMTFfY4sBxEh/vBQKes4YxguyRgqq4=;
+        b=ja3ASSH/iE95Go5UBevpUcMxsL/Vg80+7lCs6UIB7u3l3kbsbyrJ6P/8k/5+IFKOvH
+         B7yn/tq8CT74wXWyPq36GasVJcMVdc00E1lLzkDx2aWtyyBtfljSRnFAgGKcqps+Hqa3
+         lLRxLtBezMavP1A+PBajIBjD4U5aARsjheb4teH5/s3DmOc1tAloAeSHpYeo1wGwIcF8
+         gtqShB7RxUgP4oRWpenW27vWc7AXu103TGk3alXPxEu2BOe/2oWQvj8vv23m9KZt1M8V
+         CTaZHWH71u08+EbG6tM7pqEIiHeK7qkaiAOY5PlNO6jNQtE2lN5YwrbdS0JVhBIdPYD1
+         tlow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793363994; x=1793968794;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RUJ2gwwAbHEm4tvJt9u+cB77ZI1OokWfWjFrziXQD/Q=;
-        b=mK86L4i1NsaZOfyE+KgY4uytcBm7+O6c2oLphQkmDQwuGWa1FRxeFAzVQFkUA/4vBT
-         qiW2FjuSkq0iLJqmeTIoQapQlo1Hr+0CCckd8BVVQWfvEdIQy45uq+mJErIRA9OWkqfD
-         UBT097N0WgYb+8QanoZt1e0Vz1C0QbeGwxXtj4+OOdsljALGeZgcTPhJhOKEliIIRS3d
-         v+fiL8cJ897LPvGsfASWyYfW13Lv+3vzh61gPKNDgA/MNgOr1kei4Wps34t16RqgU2pQ
-         1Xw+1ED+5vl3tpY4UfKOSZV08DB1qLVJTDnC2heMGe3uHm5RqBXZuXd5wjQFVtBQN8rm
-         GLXw==
-X-Forwarded-Encrypted: i=1; AKwUvBy/120n+6OceMEJwN3pg3FExCgJsdcl0x3uR4JDRWHMfkNBFcMhJzJtTa7sY9P0zxqGxREcQL8ypmVdH/Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYGadN58vDm4Xv+UAgdE8Ht6l+I+M6HfocrrFvICuy0XhweC7E
-	zKQ6NoKWTAcxRL7+hXl152QLqWW5J0AToiNXMPEZNLRZKGdkzt/b412FlBgToXbY
-X-Gm-Gg: AYBFou0ROrSoVeL5Kzz9EVkPvpliAB4I89HkupepWPOfmkDm7rO7fm72+12DEZljib+
-	2HJCfBGAxuWYCtf/1YuhnKluBgooKkT2++POxLKmQcd/v7i5ClqIPreVgeTjstXVaGA3brIs2mp
-	lCvCr+UGX9Zr9YAqgXeSKWdpGZ1DFhVxXuC5DC0A1ILTpbt3aj2Sch4bjG00LQoMHkUR7+jDKTM
-	DYfKEyf7Ps+Wi3MqxqIxQ9mYJMuhIQ5DoC07wRxE1Ygg2uo1wh4QwdmtolPHay1RSaMHo2V10va
-	3ma51rJeqLg4mfpxgiowDPYE8G4FTlCX9laMaYXQG3OqLvNqM9YyrpfzVKcbR1qZl9rAojIlJvH
-	Ku1frz7dxX4iEwakJq9xe4GWPiAfXy3T101M+yvhe5KrdHCeD9EmSo8BBp5CLVyrBCqEIrKPeWL
-	dIBqHz4BiWr9JspKpPwa092Wbea85QxquAF28bZ/Xkc/NsYXtA84BG2fjDWzD7WhNL9ZleOIyI5
-	5w5lQ35Lx4izH8R7/VD/VgT4eV+MXqJGcoZVK9dGP7W0BHRvCSrzXHJnaxeugDkebGGX8ZAWqdz
-	OzwvyuZL0a/crEiUeisbEUiqVFDMlu1yXbOz1kWv5rxoHGTToLqvUM6qIEswrPeYJz+Gs4E01Yx
-	00hkcneKd3ZnJFZvbYpmm
-X-Received: by 2002:a05:6000:24c5:b0:48e:d7c:4bc8 with SMTP id ffacd0b85a97d-48e6e2bdddbmr5939049f8f.7.1793363993170;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1KaBBNRkubak3FMTFfY4sBxEh/vBQKes4YxguyRgqq4=;
+        b=hx228e+A87jrd+jO54G1D0UbosyEwcWsijOZDqXUUzLtsMh0B2phI/R3MOkLJZ5es0
+         d2QP/GrS4dtcyAOg5DeGC+QPZG+4TvQUdL9nKuu3XyyfH+9pBK6TMhpQgg84Dtfez8lS
+         n479flGSaob7bwPrzwsG1BaA0O4SMe47hHfPc2dE4i5GzxFk6oWfajLkHNOCMO8gLNCM
+         s0Uz2yQn8lBoJaE0KBg/UWMEqvf2/B+XjckbItEXHY2g+WlYTUd6MwOWIG6RjFI11eLl
+         FCJ1CBCJx7OiaN4b9YPPqpQloS2zDEjlu3C4I+0hJbNzlP3qLV5WgQRRlMBWvYZ5lVZt
+         3Ong==
+X-Forwarded-Encrypted: i=1; AKwUvBwFCs5ioCEmPc5pp4jtnIDbmv1y/TZ90n57LQszJIGomUax15eT+ulu5gJda9ItEZ9lU3UCetHhJLippIE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuZUEO23Ccy3Q1/hoTWeg/w6Q8A5E+c5lQxVgab9w0JWZTNI4q
+	jfzTurZ+6JKJdtx9KzBrfXBcUsP0o198p6+dzvEFXn5Pr2jqlFxvg+ja
+X-Gm-Gg: AYBFou2imZ/+bKfycQW0Tw2YB13Q/W0hrLJChnzip+WNZRgZ+jFJTqjyvHh/Jq2EtgF
+	DG9LEs3+ePiHdiTODTr3BAB9QcKtv7wOk0O+y07ou5Nf/pWnpdJ0VbnIdu23zhhljpS0w8k82xw
+	1gYQZXSKyiesWV8BK7iF2kFb10OglcieV43s3KwQSY/zRwAYLc4RpK+JHI341am2yrK7bjbtfrW
+	EtFcFfTcucjc7K5xz4HfJ/x+ZV2qoKp0OGNunlsfhMhAp6A7Nmsf5JUYtk4llkla2zb2GpLNNiQ
+	t1vVwLRfY+Fi7Ut/GDCTxSA+F02mPuyyGlDRv+dfNhlcHxcPwzfE7scKyCR64/L7mL4qX45e/pT
+	buY3j0ueQ1DWh3CfkLjy0NraKCr5NN92K/1zghozPciRuoqDQ/QlP7k2RXDrz9AX6LcAA7YfkJL
+	m/T+aA7v2aGtERDyRt/ev+nCzNrnHOgr57xtPUDiXhvgERnm3jkMcY1s9xwmqd1ad//L44QgFEa
+	SaAYoGSAu85Cm73kAbuwLLISFFMdTcb3EdZSRv9A4kaV44eaqAPqpD+91cANdBifT4SRxd5593r
+	ytRKs7s6so0S9vf7o5zzwqeEbQJkieBzrN6jbLfbZrDNVRwGZe79gEAAsJvbbboMDJ0dZpjgHrs
+	BWJM0hxR5DYzMgL2HNe8=
+X-Received: by 2002:a05:6000:184d:b0:48d:fbf2:555f with SMTP id ffacd0b85a97d-48e6e518487mr4939043f8f.55.1793363993996;
         Fri, 30 Oct 2026 05:39:53 -0700 (PDT)
 Received: from meven-thinkpad.home (2a01cb088745e00090de407b41070a01.ipv6.abo.wanadoo.fr. [2a01:cb08:8745:e000:90de:407b:4107:a01])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78a4csm3088971f8f.23.2026.10.30.05.39.52
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78a4csm3088971f8f.23.2026.10.30.05.39.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 05:39:52 -0700 (PDT)
+        Fri, 30 Oct 2026 05:39:53 -0700 (PDT)
 From: "=?UTF-8?q?M=C3=A9ven=20Car?=" <meven29@gmail.com>
 X-Google-Original-From: =?UTF-8?q?M=C3=A9ven=20Car?= <meven@kde.org>
 To: Jens Axboe <axboe@kernel.dk>
@@ -92,10 +94,12 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
 	linux-fsdevel@vger.kernel.org,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 0/3] io_uring: add IORING_OP_UTIMENSAT
-Date: Fri, 30 Oct 2026 13:39:42 +0100
-Message-ID: <20261030123945.1704118-1-meven@kde.org>
+Subject: [RFC PATCH 1/3] fs: add filename_utimensat()
+Date: Fri, 30 Oct 2026 13:39:43 +0100
+Message-ID: <20261030123945.1704118-2-meven@kde.org>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261030123945.1704118-1-meven@kde.org>
+References: <20261030123945.1704118-1-meven@kde.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,71 +112,77 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A file manager or cp -p that copies many files sets the times of every
-copy after its last write. KDE's KIO does not use io_uring yet, but
-could in the future. In a KIO prototype that copies batches of small
-files through io_uring, open, create, read and write run in the ring,
-but the metadata of each copy is set outside the ring, with futimens()
-and, when needed, fchmod() and fchown(). On NFS and SMB each of these
-calls is a round trip to the server.
+Copy utilities that preserve timestamps, like cp -p or a file manager,
+set the times of every copy after its last write. To do that through
+io_uring, the request needs the utimensat() lookup on a name that was
+imported at submission time.
 
-In that prototype, setting the metadata from a pool of 16 threads
-instead of one file at a time cut the copy of 200 files of 4 KiB by 22%
-on NFS and 45% on SMB. The test copied from ext4 to an NFS 4.2 and an
-SMB mount of the same machine, over loopback with a netem delay of 2 ms
-each way. An opcode would give the same parallelism from the ring, and
-would let a copy be one linked chain per file: WRITE, UTIMENSAT, CLOSE.
+io_uring takes the path of a request when it is submitted and looks it
+up later, from a worker thread. The path ops it already has call the
+filename_*() helpers of fs/namei.c with a struct filename. utimensat(2)
+had no such helper: do_utimes_path() took the user pointer and imported
+the name itself.
 
-Patch 1 splits filename_utimensat() out of do_utimes_path(), so that
-io_uring can pass a name imported at submission time, as it does for
-mkdirat and the other path ops.
+Split the lookup and the vfs_utimes() call out of do_utimes_path() into
+filename_utimensat(), declared in fs/internal.h next to the other
+filename_*() helpers. do_utimes_path() now only imports the name.
 
-Patch 2 adds IORING_OP_UTIMENSAT with the semantics of utimensat(2).
-Like the other path ops it runs from io-wq.
+Signed-off-by: Méven Car <meven@kde.org>
+---
+ fs/internal.h |  2 ++
+ fs/utimes.c   | 12 +++++++++---
+ 2 files changed, 11 insertions(+), 3 deletions(-)
 
-Patch 3 is the RFC part. On a local filesystem the handoff to io-wq
-costs more than the setattr: in a qemu guest on v7.2.3, setting the
-times of 2000 files on tmpfs took 6-8 ms with utimensat(2) and 19-29 ms
-through the ring with patch 2 alone, 32 requests per submit. The patch
-tries the request inline with LOOKUP_CACHED and trylocks, on filesystems
-that declare FS_SETATTR_TIMES_NOWAIT, which only tmpfs sets. The ring
-then matches the syscall (6.4-6.8 ms). ext4, xfs and btrfs cannot set
-the flag, because their ->setattr() starts a journal transaction. Is a
-per-filesystem flag acceptable here, or would you rather keep patch 2
-alone?
-
-IORING_OP_FCHMOD was proposed in 2024 [1] and not merged. The same
-questions apply to fchmod and fchown, which a copy also needs, and a
-single setattr opcode could set the mode, owner and times in one
-->setattr() call. I started with the times because a copy always sets
-them.
-
-Testing: a userspace test of 28 cases (paths, AT_EMPTY_PATH on O_PATH
-fds, NULL path, UTIME_OMIT, permission and read-only errors, links, copy
-at submission, inline on tmpfs and punt on ramfs) passes in a qemu
-guest, on v7.2.3 and on for-7.4/io_uring. A liburing helper, test and
-man page will follow if the interface is acceptable.
-
-[1] https://lore.kernel.org/io-uring/e291085644e14b3eb4d1c3995098bf4e@huawei.com/
-
-Méven Car (3):
-  fs: add filename_utimensat()
-  io_uring: add support for utimensat
-  io_uring: set times inline when the filesystem cannot sleep
-
- fs/internal.h                 |   3 +
- fs/namespace.c                |  20 +++++++
- fs/utimes.c                   |  56 ++++++++++++++----
- include/linux/fs.h            |   1 +
- include/uapi/linux/io_uring.h |   2 +
- io_uring/fs.c                 | 105 ++++++++++++++++++++++++++++++++++
- io_uring/fs.h                 |   4 ++
- io_uring/opdef.c              |   8 +++
- mm/shmem.c                    |   3 +-
- 9 files changed, 191 insertions(+), 11 deletions(-)
-
-
-base-commit: ecb6817b769fd7d71af2c9f446188649020b2e53
+diff --git a/fs/internal.h b/fs/internal.h
+index c658c8a5ebd5..985b2bc5895e 100644
+--- a/fs/internal.h
++++ b/fs/internal.h
+@@ -63,6 +63,8 @@ int filename_mknodat(int dfd, struct filename *name, umode_t mode, unsigned int
+ int filename_symlinkat(struct filename *from, int newdfd, struct filename *to);
+ int filename_linkat(int olddfd, struct filename *old, int newdfd,
+ 			struct filename *new, int flags);
++int filename_utimensat(int dfd, struct filename *name,
++		       struct timespec64 *times, int flags);
+ int vfs_tmpfile(struct mnt_idmap *idmap,
+ 		const struct path *parentpath,
+ 		struct file *file, umode_t mode);
+diff --git a/fs/utimes.c b/fs/utimes.c
+index e22664e4115f..8072f05ac8dc 100644
+--- a/fs/utimes.c
++++ b/fs/utimes.c
+@@ -79,8 +79,8 @@ int vfs_utimes(const struct path *path, struct timespec64 *times)
+ }
+ EXPORT_SYMBOL_GPL(vfs_utimes);
+ 
+-static int do_utimes_path(int dfd, const char __user *filename,
+-		struct timespec64 *times, int flags)
++int filename_utimensat(int dfd, struct filename *name,
++		       struct timespec64 *times, int flags)
+ {
+ 	struct path path;
+ 	int lookup_flags = 0, error;
+@@ -91,7 +91,6 @@ static int do_utimes_path(int dfd, const char __user *filename,
+ 	if (!(flags & AT_SYMLINK_NOFOLLOW))
+ 		lookup_flags |= LOOKUP_FOLLOW;
+ 
+-	CLASS(filename_uflags, name)(filename, flags);
+ retry:
+ 	error = filename_lookup(dfd, name, lookup_flags, &path, NULL);
+ 	if (error)
+@@ -105,6 +104,13 @@ static int do_utimes_path(int dfd, const char __user *filename,
+ 	return error;
+ }
+ 
++static int do_utimes_path(int dfd, const char __user *filename,
++		struct timespec64 *times, int flags)
++{
++	CLASS(filename_uflags, name)(filename, flags);
++	return filename_utimensat(dfd, name, times, flags);
++}
++
+ static int do_utimes_fd(int fd, struct timespec64 *times, int flags)
+ {
+ 	if (flags)
 -- 
 2.56.0
 
