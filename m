@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793401828;
-	b=jjw7DPGSrhSYAdEAlLR3qD9TAqe00ILidY7cJM3vGdlUVnipRpAnpkWlslIUYh7eOsT8
-	 NoQ8DCEFnWzBsMmTj525wtoPEj3gTFhBSj1Ez1VcDdsjihCo3hkTcBNeY/0fKz0OLvakd
-	 454VuYGCVofaluOySCPlwnkq1gsmj1zPM+NUv0aRwX0QmL7dMNUZxYZH8f3adUZLo4Vy4
-	 rNZG1+LdlchT/jFCKO3/7FQ+ekN7H0NDExIdhExxNsikOmL2D2uJ0j2XPuGD61Fw7SW+S
-	 J494FdcBKmD2DfGnyzi3JZtAWU/7Y7rU1RpijMaOdFMkS/7Y8gI4wzjz0iACvHZiO0g==
+	t=1793401832;
+	b=dyHo1wjpzaivAb4ecDsjqzloGkX08rQLE7jaSY4kCIYSFzFukmfsz62PCuuTZTlZmMBM
+	 xhIWRxC58XQ4sttsLqOFjQiuZbtDU2Hb+nxUsHLPPc0rrkeKhoN2WtVq9FQXomaMZvnsl
+	 T45oTBbCzsakB8QM4QLm8lmq9o3hB/GXLT5KqLtMSdA/SqCniGu35XuIBgZ/L3uzXVqSb
+	 Qt7YlyuM4gvI6JJgCFzmvgaYeY9WwZKuNRtDsafe+bTSegcmg3dy909Y/N5qLR4OBIrPH
+	 sNYN5TYMIHcECwL8+s6mCPjA0D7EbbAYQ9dbL+RL57Wsnfngtwu9qVJh/ItfuW7X8Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793401828;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793401832;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=FOOPF4NTkfFCMW+7iFGEX6RTBjaDe8ACYAxm4ucyncE=;
-	b=wmUDc9WJs6rqHIeU7M7NZVWFkZo0p092FGleJQQkvFFs+8Zky6HSPWvzBiiUPScIX7XQ
-	 lDeB3A446VfX2GWOYJ/PCQDiyq7/lEGsI5IBRD80hlaVP2mQPCKfbWF6/gEw6GwwK2jd+
-	 LaIlarVo8HqLK/qb18NHMsk0Jzm9M6TRUYunuWZH4PQFIqoVtY9eXT6l95MJnLvVZdQV6
-	 kEGqQZCSzspK9RJh5HuAdXScxoFM4xm4ACANaNjslKlQvlARBdbk3SLkX3vbtzYd6fEvO
-	 tx7Nl63D+0i/NTRoNCVU0DJV/Tw8+7OMWkU2KlosACq7gOquuHTCxDjYQO50bdTKR2A==
+	bh=T/z4ZyG4Jm0IpSKIxE26QgcgJ4ZFld30kq1R279Lk/I=;
+	b=qxYvV682yGhKxDMFc+RqawO5G11ZBRUWMAwghUxJ6OO4enExgfp7d4TkKVV84sTfK4fL
+	 bfFM/wo06jkuR6eM05E6e2XOCSPQvgzBDwn5Xlj7dk3TGuPkfiqiAItYk5pWvTanpeiVy
+	 wvw+3GeP/xhZXTSacESvKh6NFgp8r0MbvZ8ygewGGYV3jESSlsPWaHC11stQxDBUBwW5k
+	 XqE0/wktfUjFYa4+hNwz4eudYjF0uAL+UDwlzUXxvY29j2fnRwodcrbB2LlQCNeTY1+Bj
+	 nzF1G7pJ1u/1TcJxumF9l0MWD3Cq3Dap0SYzD08xzymqqxxO+eMiEzVFMdTVTRbty8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B+BZDlR4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LFPq0KXD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3114606A31A;
-	Fri, 30 Oct 2026 23:10:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3981C606A325
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:10:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B+BZDlR4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D0E51F000C1;
-	Fri, 30 Oct 2026 23:10:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LFPq0KXD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C57D81F00A18;
+	Fri, 30 Oct 2026 23:10:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793401827;
-	bh=FOOPF4NTkfFCMW+7iFGEX6RTBjaDe8ACYAxm4ucyncE=;
+	s=k20260515; t=1793401831;
+	bh=T/z4ZyG4Jm0IpSKIxE26QgcgJ4ZFld30kq1R279Lk/I=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=B+BZDlR4dAEXwQR9yuQA5xFSN7pipAaWOCnwd31U4Uvya93YBSgqQkARr/Yc2NhXi
-	 wJLmHjSrH2wLW6kKytQldP4kGHJ7qNriQ1q+UEQce6K0MTdAvQNVq3iLsMd0H2yKS+
-	 LckOIbc5bwjeEhzrElGbedGTANoWjODUjXOzTU0eNEIqsb1HVODbF3HFFY7A4CAwX/
-	 eJ72+gMlC36z+vwDasiEN7u8Aprp8+z7j56er7F99hYvJEv/J9b+A+1AFgqIOpTMNa
-	 5d7PZwP52cD+kYcR3HOvlzB07mgmteu+ULayRjJYqTL5erwnSC7smNw/HGkne3L8Gi
-	 n/CBjrHueEpyg==
+	b=LFPq0KXDS/E1aIVTwRCDdcNEIJXLTu1iNBjPEnifbQEwbF5GAzSLKT5RI16ow7Trm
+	 MhT6LUDFbByTw0VVFmldIPRRvC9a9Pje5b/bVOGmZIK3xf1/+3wpCNFtK89N7FeE/q
+	 TfpULuNCitLyCqnVzaVGd7IvbNLBAGvVgwnGYNbe9wMt1JWWNCDdWv1j2ExoYsQKsN
+	 LJ5xEX7OQo3aHuDsIhluVAhoObLmNEAmmkkbX2vByLKlGs/GJT1RubyR7mPcF5QO3p
+	 xC+vKFSYDYhtU02LcokdX/Cw6Kboy5icp9HUSZ2U0rRZib7TPWYbK97+V0iTJL9IF9
+	 mL6nLI/d8d6Ww==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 42B893800478;
-	Fri, 30 Oct 2026 23:10:27 +0000 (UTC)
-Subject: Re: [GIT PULL] LoongArch changes for v7.4
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA3843800478;
+	Fri, 30 Oct 2026 23:10:31 +0000 (UTC)
+Subject: Re: [GIT PULL] arm64 fixes for 7.4-rc1
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261030042753.2101956-1-chenhuacai@loongson.cn>
-References: <20261030042753.2101956-1-chenhuacai@loongson.cn>
+In-Reply-To: <auTg9t-da3RFo9nx@arm.com>
+References: <auTg9t-da3RFo9nx@arm.com>
 X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261030042753.2101956-1-chenhuacai@loongson.cn>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongson.git tags/loongarch-7.4
-X-PR-Tracked-Commit-Id: 6f8d12bb1a1231dbba579932772701880745a21d
+X-PR-Tracked-Message-Id: <auTg9t-da3RFo9nx@arm.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux tags/arm64-fixes
+X-PR-Tracked-Commit-Id: f46be4da2cbb17574b5369517a9a1e1b414063b4
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 780cb2a5fd64901444878cf5a40c0f2ec54837ce
-Message-Id: <179340182662.1820250.8181252458187794729.pr-tracker-bot@kernel.org>
-Date: Fri, 30 Oct 2026 23:10:26 +0000
-To: Huacai Chen <chenhuacai@loongson.cn>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Huacai Chen <chenhuacai@kernel.org>, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, Guo Ren <guoren@kernel.org>, Xuerui Wang <kernel@xen0n.name>, Jiaxun Yang <jiaxun.yang@flygoat.com>, Huacai Chen <chenhuacai@loongson.cn>
+X-PR-Merge-Commit-Id: 6e07889d8fedf729282ed14ff202e06dbb67444b
+Message-Id: <179340183071.1820250.17892758964850630795.pr-tracker-bot@kernel.org>
+Date: Fri, 30 Oct 2026 23:10:30 +0000
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Fri, 30 Oct 2026 12:27:53 +0800:
+The pull request you sent on Fri, 30 Oct 2026 18:24:54 +0000:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongson.git tags/loongarch-7.4
+> git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux tags/arm64-fixes
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/780cb2a5fd64901444878cf5a40c0f2ec54837ce
+https://git.kernel.org/torvalds/c/6e07889d8fedf729282ed14ff202e06dbb67444b
 
 Thank you!
 
