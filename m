@@ -1,179 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793347425;
-	b=voiuCjgoiNoLp5whb/dJIufD2/3wZNgcEYdwABkRJeljBfJ+4lU0SKDQad10R9dbsQo1
-	 86n1vzS7bSgdLXn0akEs3N4c21DvpoCxX1aIXCDeMMPKOXj5zWmDkRVdm+4C0JCmp+n3q
-	 3R+c9A/OxZuucJbhDycE9/OylVjFIMoR82wjD8GRmqxl5cfINzIpWUiWz9Xeb3+4Eb4UN
-	 VJqfvhHNJWkEQ1MXvb6SfFgy8fPHXLzmaDXacuD3t8Qvo32luqRh9X8AtCxHP+2jEOkcM
-	 jBLHPG2ZUVHyBx9Nou0aejrRJy3rKcgAEuPXjN6TemlC3MlKWNewBZfDGhmmwHRRT9Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793347425;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=VIGA5ijd+kGRMUFTvXURItI/HOyLDUH7HcwBkep0b7U=;
-	b=XwTeotO6LiW7ZF3ROfZUMZKszQBPTL+o/722MEGviAcoqJ6oCnELllxaHmcG5AwvHsnq
-	 2jjGg4En815VP7VGNW0qmp/188mywE1XyYU/wKy0ZfxHA83McaHsl6CZvqAfAUJMEXdc7
-	 2ndnbMtHJ2vm38R814U3kcg0l53/fEx6SlBsqxKYCdv/sbZszPmgfmqBDZ5oiOyiS3deA
-	 N4HYEIGgyBvNLdK7ZLCoUNZa0gbT7iTvyzHHFuxYU+AZocd8JvYapu08FlZaizwxGJVJJ
-	 tZvn3Mjt3xiq3ewKp4Ukmu92QcsNfQsPZruKqlyTbSZp9pTXwmgCqSicoG1cRotknZw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cCTQWRNW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793347432;
+	b=tROs4K0TTPkQROxEoQUhmxpjpWllM4bZbeBhDu5+KvKKXG1JIReBiM9KTTc6xXfRcnzx
+	 Rkl2U6rUHv7L8WtHE7xsz0gqoM02r+ZCFOzAXX5chKhLmUCDFEr8WzfSMpmTVlbrLMqyS
+	 o5CVMI4Fhf8KIVblR4aXixivi0aw+ZOVl01hZP0CJao2rMLBOkddv24y5TeWA18Wp/wpv
+	 FWbQqULdJ+c1lphfkUv1Y4dEwZBGzLccBnDYAVGakr0ExsygH4847QqeKzhwYlD/SvHau
+	 HRxU0COx+51giaV8aeK62VHcAC+Glgk1/3N1F5SEWFJmZJSfsCFyNJ6luEcCAWFZsmg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793347432;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Q6QB/49NRyPAoCN2vd2BzB0Ebs4MdUiS/1UntiQymG4=;
+	b=zzhJAKeUC4vXCAsQsKyNsmyvSwMykYsw6nq+aantF0AcFommoLCKzUVuSZZVeAU20nUH
+	 bmxxSwGnu8yAZkwH6+Jm9dSv3x8qowUf9p78JmqxdCmTSoDpddQmG9AR2K/t+po39Pu/e
+	 1XNEYdr3r0JWaRvKsuGgU8RuVrerkR29+lp6Y4yTDejPQ4nypy5G93J5/acfqHFpMJlcb
+	 pxZK/okXc4crNlAF6EuUa7/i+Hf7MBVbxWVgSkSBuovEx4NLARlG51R5eXeWPN7uuCxic
+	 JohMob+K5vWbKyOy2RxZzliUE+ewkL2bhxeLK15qkTR0lYnUCgclAfx7JLoRvZyr+oQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KXjqaw7G;
+	arc=none smtp.remote-ip=209.85.215.175
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5826606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:03:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5826606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7C6606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:03:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE7C6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cCTQWRNW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793347425; x=1824883425;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=/6TphMmJMyg8kdVepI1kcFq7Ta7sg8JCTUWaNbjJs3I=;
-  b=cCTQWRNWLO3cc/8NT14cmw0Ed+riYxyIexiTGXne+EDKLxhT7RQYP5sT
-   hqMNGE29jcwi8oKCZy4FBl7L0nZ3mz5prQcrwKKSsRknKPbDyLLuUPJYA
-   mGspiiAceGA6jb0C/HhWS46nXk7qhh4ybocKS5CCqvE28EpX9Er68HFns
-   xplhw+i5iD8b1YohUoNtiIWR9eiOJlMb2ndGbxUFLZp6egD1AAis38QfI
-   76kRKM/ZaghuO2ReF+7cYZxC7hFLH4+kPstkAYk6sVijfi/0zfLEP1Ugo
-   3gxgRqqsXa2eHoLIG2T/v9bv0sjRMNQR4tuD61UdvefcS2xZFNLCo0t0m
-   g==;
-X-CSE-ConnectionGUID: umypLTyCRPm94/nu5BWzOQ==
-X-CSE-MsgGUID: rZYQQPR9Qt6iWOcFusbi5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="1997521"
-X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
-   d="scan'208";a="1997521"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 01:03:42 -0700
-X-CSE-ConnectionGUID: lCe6gu9ZRq+/6tNWTO35lQ==
-X-CSE-MsgGUID: pl9KzyKvQFG3XArdwg09Ew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
-   d="scan'208";a="5743570"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 01:03:42 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 30 Oct 2026 01:03:40 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Fri, 30 Oct 2026 01:03:40 -0700
-Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.58) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 30 Oct 2026 01:03:40 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pobc9xDR+uFV+BcAsT1bsA53eORCGpP9MgNnWpdofDKktF2gSBe/Hy3loj8zH6yYTvnIo+HwDG5QZUOALvb6wHNoR3Y8iWyZdVdTwqgyqXU/NWTGNmoiFzoE0LapN2DdhVCJK8dZ+ejTw6RaN+yJxbocrdueuKAUbPTCzR5GTpQZkzuVNnSNCpO5bdnqqLBi4BTLl46GCrNn0HQdbu5IBlPCFOW6AjCtMNiHHreCYz2xcdZQ6u+SEkVIsOZe2VyY0r628ScDuTBJlAT+wyms6nSC+zTG6KY4JBSAMiCa9bFLcjb43vFlXp6kg6wR0IpMOhL363WNUfz5XRWTDiNgLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VIGA5ijd+kGRMUFTvXURItI/HOyLDUH7HcwBkep0b7U=;
- b=dhKPaDLpHY8I6RAxKDp4UJrXqSVVEtRXXR6olUC8NQ60URDQXDFygpM2TYWWqoj3cEWzT59gEYJW12tPuU0D4IoIAVBD1tlEmpWa4UR6MYHAcvp1+foBUKbDpTgpkUcbJUy8GZj1ipBuzSoa/IjuYLjk9c4bXkD2tWO6Upkjw6E38e00aioZwFwLfXi0BtLhEmy2VlblQIH4OikAG0Jnak8hKIE4iYi7yEa+3L4giOZQO9Gv19OtyNWg5StJjvgE5P7+I2uI7OzK5QddzoSkjCDlo4MFpV5aGedIWUuvu3jPv+qBNiCSfzlU17vJ6XYcYMw/WGctrp2gpCgJS5gNzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from CO1PR11MB4835.namprd11.prod.outlook.com (2603:10b6:303:9e::22)
- by DSVPR11MB505860.namprd11.prod.outlook.com (2603:10b6:8:3e9::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 08:03:37 +0000
-Received: from CO1PR11MB4835.namprd11.prod.outlook.com
- ([fe80::d051:d948:c209:9225]) by CO1PR11MB4835.namprd11.prod.outlook.com
- ([fe80::d051:d948:c209:9225%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 08:03:37 +0000
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Jason Gunthorpe <jgg@nvidia.com>, "Liu, Yi L" <yi.l.liu@intel.com>
-CC: Nicolin Chen <nicolinc@nvidia.com>, "joro@8bytes.org" <joro@8bytes.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>, Will Deacon <will@kernel.org>, "Robin
- Murphy" <robin.murphy@arm.com>, Jean-Philippe Brucker <jpb@kernel.org>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v1 3/4] iommu: Unpublish the old attach handle before the
- group replace callback
-Thread-Topic: [PATCH v1 3/4] iommu: Unpublish the old attach handle before the
- group replace callback
-Thread-Index: AQHdUFzfUPpa8Rov+UOYSfzTDqgP8bcUSuRQgAA9wACAAIIKAIAA3kOg
-Date: Fri, 30 Oct 2026 08:03:37 +0000
-Message-ID: <CO1PR11MB4835BC9658F73705121173838C6D2@CO1PR11MB4835.namprd11.prod.outlook.com>
-References: <cover.1790718296.git.nicolinc@nvidia.com>
- <73ebe081ed668c214628fffc546b9744b662afb6.1790718296.git.nicolinc@nvidia.com>
- <CO1PR11MB4835DF015165BA9306D022178C6E2@CO1PR11MB4835.namprd11.prod.outlook.com>
- <87fb7a3f-b6a8-4683-84e0-1b0d04dfc235@intel.com>
- <20261029184544.GF3734323@nvidia.com>
-In-Reply-To: <20261029184544.GF3734323@nvidia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CO1PR11MB4835:EE_|DSVPR11MB505860:EE_
-x-ms-office365-filtering-correlation-id: ba2e6e01-5b54-4236-848f-08df365c4d8f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|38070700021|11063799006|4143699003|56012099006|261009223027099003|261026121527099003|261026140227099003|261022075727099003|261021135927099003|261022105027099003|261028144727099003|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: Xm1aIqbLpmBJMON2zfDYsAryFJYP1G2WtpH26SfmFl6IOqISiMD2vFhMFJv+hgz5Foq6jjjZHxTfMrMJRtHP6wbwWgyXBkLxFY73nnXAnwCAlVtBgl2xSgHUPj2sWGDae5H9Egy0SDDL7MGoSjExNdEJGkdhxzLhQUceVl94/uu1m7o1X7H6KHy6z3fK3mCEeYFMYmLPkXLkAuZXOqFGAWsKrHtYk+9C2cmA2q0TzlgykmyHq6jOp1tzTCE7ujHMPg9GJ0E0QgVVMItgpJL9QeBsuKUk2cx7sP3zlf66Pm6FuJYd+OfqAS3o+sfIgoQcjY8+wkJMImzUfszsrU5BX51AAErkVvUgm/0GXtaHDAfx/+VCKXD55bd0JWwYRqnFdB6ujc2Usk6Oy5X0xautc/gl00mgmzayIsVJ8+ObXgCCYwHnVXWeoRvHiz5tF+wyH/brTDJWdaXvR3fafunWLpwCkvVQ3nA0msM1t5cB4VNuLxUP8vEsjHdv/yHalf0h45CJpP9HjQxbzOJPwKnlZEr4Dr7/+oLmH6czoONQDPlGn/DqXSxYC0KYbJzfkk/hr0uSiuzfRryhZipn1J+JrsDGLYY2rBd/M53xD1uWQOQf36mT9QsENHfqnmdlTLlDlUMMoJgP/TLDJjZ12nLbozWXTYXzyLcw1MDWMga9AjuB3U6fv3c6+s3U/bav+qIT
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4835.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(38070700021)(11063799006)(4143699003)(56012099006)(261009223027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261021135927099003)(261022105027099003)(261028144727099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mSnG/3xm2LvX7LtwNAPIB6o7wy6UpSWDpTzlKZa2UvlArgQ5b08we3pW9ILi?=
- =?us-ascii?Q?VNbvkaIAM4dPn351OGRbQDeHIJ+NaRJE4YBLB7QLp6zrMUSam4Mt1uwLL43K?=
- =?us-ascii?Q?wAIfabC4VNNjCmziIAnbIXtW53nzpoSptbRnO3s7+gQUdg+mkzPElXFGEysA?=
- =?us-ascii?Q?lvuzlDamavMOnVnhD/HhLoD83KlSBl1NK1hKrLRZgMG4WYsQzlEfJBSwkzDx?=
- =?us-ascii?Q?P4rl4TLK+pyFwS1t0uAvd53AhpJSuQCBWjwqoFUe/g8lZG3mZqOs0fO1BRIG?=
- =?us-ascii?Q?eDnUtdKHIwyu1Vgs80plyh1t+5XMPuJK+NhP8CZVnP4G/+LWFY1I2Z2Xybhd?=
- =?us-ascii?Q?uw2e5na73axEDKNNHc6WYkN1KHdqHNDw+5oBuquFGem/WQNU0Cbx7CB/GkOo?=
- =?us-ascii?Q?Tw8oV0EEc6hJx1zM68cZQ+S2H+dGjchznFFinQ96hi/fej2kGDd5jTyXdwFH?=
- =?us-ascii?Q?JHSW4Q1mCRRLhIII5Htzdp40/OUtbyAiubj3jRr0jPnXS+0kkg0HUn3cMs+V?=
- =?us-ascii?Q?CJtdhVT7RA5mwLpFAF811lbk78qaIhgOu6twt3d9pLY9VawSvMquPW0KWlQi?=
- =?us-ascii?Q?lnyDiLNM2lgXivVAEoPSp/xBK2otameQnWdBn4EP/ysOl9N76TY6RMm2UHdn?=
- =?us-ascii?Q?NU9uPZoYpggWDE3PNUKzQwcrrBsAWDlU5S+uzTG373sxFkn70XHwD3qc9Zu6?=
- =?us-ascii?Q?K05sbOiE3xtBHyOSRWB1LeSbch+qMoRRXO+iqS0VGls+oLRrsgeBlRFror97?=
- =?us-ascii?Q?vRvxKFPgg+o+p5FOqRYjAqy1OPMP28xb+nVDO+NjrzlCr6fCfrbZkeJz7cLn?=
- =?us-ascii?Q?+mu0QAyAQcdmMlfQsiiDOfXdu6PpDSjFJ2ETdItr6H+oOEZYkOnq3GZWbC4S?=
- =?us-ascii?Q?5EDenkqdkHs016MgKajHHcg5/Dqpbk9z8AM6RdJXCpghYaqrPcEm4KpQtclQ?=
- =?us-ascii?Q?dV27S329dDkRKVPhQMHrHvea2IEtDt8TsZYnsT7vMP6FWLvwvWdnkakmeDCr?=
- =?us-ascii?Q?kQti8yvpqCsi9J4dRgDGTx8z3URsB1W8qEpVPhHsin4SiKzxQ2Hc1+5yev/R?=
- =?us-ascii?Q?sWqBSJwn0XddevgDZFDTzbmXZ7k0sSwVC1z6hzYz11E4Q/CSubCQcoY6ptc3?=
- =?us-ascii?Q?JMppoxyuFgf0Qf6X/J5AWQsfYitia2vhssZkMqiAQZmSDP4gOVfWibqXuwsY?=
- =?us-ascii?Q?KM9c5mCfvXB3zBsy8CRIy1+qSU5WynFkoo6PBXEeWRJub/uj7Pa1FjPPp5jq?=
- =?us-ascii?Q?YvL8vAyQh/C/eJYXdw/kwZZWqdHJPHN1bJnioQHsURE7UJHA8THYFWPMufEi?=
- =?us-ascii?Q?sb5PMYK+CwxxDS51R/8FmdYdTtA9KYfm0SiHQHgUCegWkBLyMieVGFSqnAp5?=
- =?us-ascii?Q?+bcBx7srzQQ2AxeQ2QyMHlXiczq8L1pg01uAF9W90FzMz9AQ+l1LV+dU2GB9?=
- =?us-ascii?Q?cuOZDEMjlbhreegEB+kGNKNZjCeBMaAXLRZBXfos/1nxF09K5qNa5RwepbbD?=
- =?us-ascii?Q?+TUkJ5mzPjJJNyMEKeFsDCAtjJAClxP2d2V+6+Q4TXhAl4/nH52Dk41yBXS4?=
- =?us-ascii?Q?DLQBAYuNyTS1zM37bvl6geWx9Zi3S85pS5gyoarnq0+JY7/CPcksXOc9k9cP?=
- =?us-ascii?Q?8Twb7vz5GqOgNCpWr0FveKciLhpCUnyLFW+weixtHzEI+/YvdC5CO6xmEOty?=
- =?us-ascii?Q?uhLxzV3PdNnaslcqKaeIizPKuHxgbvGXTOlyEhEwA9J2k9jG?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KXjqaw7G
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso156418a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:03:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793347431; x=1793952231; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q6QB/49NRyPAoCN2vd2BzB0Ebs4MdUiS/1UntiQymG4=;
+        b=KXjqaw7GiZQ1Zenb93UyM8Fd4N32AwQfBcLIv/nMxX3/AvLNLBysoLbH3Y8VMYIB3M
+         TrB1hg2jpJ9pfHbvD5wpBNe6Itb+GGs1PmDAHlmOVXLjCh0KSGHmDVPG/3SJuurzF592
+         ie2dNkHDFZzOILzA+bTAidoyJggp31NLNmZC0FuvWTMAhlHGmRCnlBKuUng2d5bGUk+d
+         x/0g3OQB1TzGUDZ2nMb33YA/IZjjKh7yPTkk1AEsXoTfnydvk5itRVX996GFh/xUWLrl
+         7I9rPinvf84UKRlvpkDyg6dSOUCPAWREixcbiYDnWXgaWr+jZgGbfVYsQ/uEARaMc4Mr
+         Hsqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793347431; x=1793952231;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q6QB/49NRyPAoCN2vd2BzB0Ebs4MdUiS/1UntiQymG4=;
+        b=X+lSX6gDqlc80rzhDE4UsnTSiuyaimQjPv4mpMmfZWLc+j/7pujwYm8Dt4i0XzmVth
+         22z930SBd12o4yGTkkN6XtPmGeM3zLlYQN447J7/QDYJKwdQ1vlkMUxZAHIEfKwoZbpd
+         E+ezh2x8+73Rzemav7nljCgtWYPikXgqn6t7t2Bsc366NxOwWjGnY/ZkBG0m0DOB5lxW
+         pj6fdRh/pZ5vjVpPLS6QH3LFKlrsPV0aMS07vzSKt4hxe/SXoz9/9YoCMHwDM6gIIR2l
+         AQBhDYw1h2p4aKgIY6/C/V4qeQfsNxYQhOp/3+dt3S6eflQkPF4IXb4MkWA5JlJsK0V4
+         AvVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwVXTJt/ePbSP6DsWyMC/zV0/+JdAhLo1aaZPYACiO6cLXNYSr8H78uWX3i0fOux0UbvkavCqee2f4ZQCI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkn5L0/HYqUYFtlaYZqghvfJuWTBHWUS0PWDWraw1JH4l536r2
+	uIyEsIECdZsEx5zkWKOeW9KrvVgS+A30xDJJJJ9UZgo1vLYXIW8wK3l6ScCgmZ/E
+X-Gm-Gg: AYBFou3pm5su9pEi2ab3I5WvuWZXH2SukLg6f3ezedQ+RtyiYS3BPN0oEhQTCgoWQNr
+	mh41ffej8gqWHuEfJuYgP1+9cNY5YX5ctYmVzukBE01plf7Danwpoy1PEgQixB3qlQUtdSjD6P/
+	rJcm3o8szCiJ/8sAO+kIuAHQsyB15SXQmDMymh+U3TkzC2AeTutOsawUfHp08WEA/KLSHVLOr5M
+	8au2aFbbzzJHrc3qVSkZL1Z1msQW2+Ddv4dGpb3JE1IEZYEnZ1ArUvQjkwNAaUQ/4qb+h+9FV9U
+	GUOBZ7hEYejx69T7FYTG0PJaNMfvf5c/JsB4ToMpkG8LoqCdEyiAKwJIbeMjWkpGCwhCl0VHKTB
+	g15XHOdlD1qIxRa6yABotCeIyNBWDZcCVKQXmHTkpODXso/UD9XrAwj/CTO077IiNNmNVeOD2jd
+	dSLdvFzrDOGrmpZgGdHZQzpWFRdEAiNv+3WaFyqN3fUUuhvsRDq/ED/SC6ces+MiZwVlwjQ2xIX
+	bikgJl0/XwG/pkIgCZpEEuo0rN+oPI98xRuXDEXE9q6208CV+gQPewCUQNrGqJM5erjIo7lPo+r
+	pqGd3nAMmcXMzKeC08oiAWqT
+X-Received: by 2002:a17:90b:3881:b0:3ad:5c64:c7a0 with SMTP id 98e67ed59e1d1-3ae89814e7dmr1181473a91.38.1793347431081;
+        Fri, 30 Oct 2026 01:03:51 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae84577911sm3073035a91.7.2026.10.30.01.03.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 01:03:50 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tiwai@suse.de,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v3 0/5] ALSA: hda: Wait for PCM files on codec teardown
+Date: Fri, 30 Oct 2026 16:03:38 +0800
+Message-Id: <pm-pmb-a4703edca61d34aa679b-v11-d9186d19e8afb48972af-0@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -183,101 +99,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: JENeMvwXQP2oC5EdWr1ZPwAH5s6XdBFLfHycSACw/lUTK0GL53CMZmEyyajjWZOJxn2B6v+1h/wUq5bzcVWR/StdugZsuvOxUkwezf96HTUooZWFCOqfj29pHShdeh7XcXTWodmfijcsGUSc7aqF/uzuNBljNe5//6B93NToHoDf1tcGXQHr0AHVlhvCDkaXpGBC5Avi7wS/7EaMbn0JukmuwqyiAUxzYbUiMvS9Fv3UZJ/M8irQgN0seLH9dZ2SDbmnTt91GCIxxZaH+BR/oN8xTOb6AJ9QBBwgRIuIdJf9oQD/7oDQ5VUCdCYhgv2JCxyZIH0a1BF9X5fF1jivIA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4835.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba2e6e01-5b54-4236-848f-08df365c4d8f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Oct 2026 08:03:37.5186
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FcUY3E1+7j3g782HGM2m+jjWr8bhiTaLmVCsyxge0nPCwJ6nvHz9fTgsicY5CqUfmK8ONb+PslRH3aDq9zG+gQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR11MB505860
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-> From: Jason Gunthorpe <jgg@nvidia.com>
-> Sent: Friday, October 30, 2026 2:46 AM
->=20
-> On Thu, Oct 29, 2026 at 07:00:18PM +0800, Yi Liu wrote:
-> > On 10/29/26 15:25, Tian, Kevin wrote:
-> > > > From: Nicolin Chen <nicolinc@nvidia.com>
-> > > > Sent: Wednesday, September 30, 2026 5:52 AM
-> > > >
-> > > > iommu_replace_group_handle() looks like it hides the detaching hand=
-le
-> ahead
-> > > > of the driver callback. But in fact, xa_reserve() calls xa_cmpxchg(=
-), which
-> > > > stores only when the current entry matches @old=3DNULL. For a repla=
-ce,
-> there
-> > > > must be an entry sitting there by definition (i.e. @old cannot be N=
-ULL), so
-> > > > the compare fails, XA_ZERO_ENTRY is never written, and the call dec=
-ays
-> into
-> > > > a plain read.
-> > > >
-> > > > Therefore, the old handle stays published during
-> > > > __iommu_group_set_domain()
-> > > > and only gets replaced after the call. This creates a window, durin=
-g which
-> > > > an asynchronous fault path might hit UAF:
-> > > >
-> > > >    core, holding group->mutex          fault path, no group->mutex
-> > > >    =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D          =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > >
-> > > >    xa_reserve()                    ,-- old handle stays published
-> > > >      no-op, the slot is occupied   |
-> > > >    __iommu_group_set_domain()      |
-> > > >      driver attach/detach ops      |
-> > > >          iopf_queue_flush_dev()    |
-> > > >                                    |   iommu_attach_handle_get()
-> > > >                                    |     reads old_handle
-> > > >    xa_store(new entry)             `-- window closes
-> > > >    mutex_unlock()
-> > > >    kfree(old_handle)  [caller]
-> > > >                                    UAF: old_handle->domain->iopf_ha=
-ndler()
-> > > >
-> > > > Replace the xa_reserve() with xa_store(XA_ZERO_ENTRY) to unpublish
-> the old
-> > > > handle.
-> > > >
-> > > > Fixes: 8519e689834a ("iommu: Extend domain attach group with handle
-> > > > support")
-> > > > Cc: stable@vger.kernel.org
-> > > > Assisted-by: LLM
-> > > > Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
-> > >
-> > > Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-> > >
-> > > btw I just realized that neither old code nor this fix can actually s=
-upport
-> > > replacement with lossless fault handling, but I don't recall whether =
-it
-> > > was the original goal (then destroyed by a following change) or inten=
-ded
-> > > to be a future enhancement...
-> >
-> > There was a related discussion[1]. With this patch, a page request in
-> > the replace window gets IOMMU_PAGE_RESP_INVALID instead of being
-> > serviced - spec only says re-issuing the same PRG won't succeed unless
-> > the mapping changes, it doesn't forbid retry. So I think this is just a
-> > more conservative instance of the failure case Jason already called OK
-> > in [1], not a new hazard.
-> >
-> > [1]
-> > https://lore.kernel.org/linux-
-> iommu/20241105151042.GC458827@nvidia.com/
->=20
-> I called using either the old or new translation OK, using neither
-> seems suboptimal. So returning IOMMU_PAGE_RESP_INVALID doesn't sound
-> ideal..
->=20
+When an HD-audio codec is unbound while the card stays registered, the
+codec remove frees its PCMs while files can still use them, and the
+probe and remove of codecs on one bus can run at the same time.
 
-This probably need a RCU so the old domain can continue to be
-referenced by in-fly faults in that window...
+Following Takashi's suggestion on v2, this version fixes both in the
+HD-audio layer: patch 1 serializes the codec probe and remove on a bus,
+and patch 5 makes the codec teardown wait until the files opened on its
+PCMs are closed.
+
+Patches 2 and 3 add the file to the card while the PCM minor is looked
+up, so that the wait does not miss an open between the lookup and
+snd_card_file_add(), and record the device a file was opened for. The
+teardown waits only for the files of its own PCMs, because the card
+files also include the control device, which a sound server keeps open
+for as long as it runs. Patch 4 makes an open fail once its PCM is
+disconnected, so that a late open does not get a working stream and
+hold off the teardown.
+
+---
+Cen Zhang (5):
+  ALSA: hda: Serialize codec probe and remove on the same bus
+  ALSA: core: Add the card file while looking up a minor
+  ALSA: pcm: Add the file to the card while looking up the minor
+  ALSA: pcm: Refuse to open a disconnected PCM
+  ALSA: hda: Wait for the files of the codec PCMs before freeing them
+
+ include/sound/core.h     |  7 +++++
+ include/sound/hdaudio.h  |  1 +
+ include/sound/pcm.h      |  1 +
+ sound/core/init.c        | 61 ++++++++++++++++++++++++++++++++++++----
+ sound/core/oss/pcm_oss.c | 19 ++++---------
+ sound/core/pcm.c         |  3 ++
+ sound/core/pcm_native.c  | 37 ++++++++++--------------
+ sound/core/sound.c       | 34 ++++++++++++++++++++++
+ sound/core/sound_oss.c   | 21 ++++++++++++++
+ sound/hda/common/bind.c  | 24 ++++++++++++++++
+ sound/hda/core/bus.c     |  1 +
+ 11 files changed, 168 insertions(+), 41 deletions(-)
+
+
+base-commit: a4311e9447bbb219044db38897f95be112f46a8a
+-- 
+2.43.0
+
+Changes in v3:
+- Fix the codec teardown in the HD-audio layer as suggested by Takashi,
+  instead of retaining the PCM in the PCM core: serialize the codec probe
+  and remove on a bus, and wait for the files opened on the codec PCMs
+  before freeing them.
+- Add the card file while looking up the PCM minor, so that the wait cannot
+  miss an open, and wait only for the files of the codec PCMs instead of all
+  files of the card.
+- Refuse to open a disconnected PCM.
+- Drop the Assisted-by tag, which has been removed from the documentation
+  and checkpatch.
+
+Link to v1: https://lore.kernel.org/r/pm-pmb-a4703edca61d34aa679b-v6-680f350d78e44f9de7a7@gmail.com
+Link to v2: https://lore.kernel.org/r/pm-pmb-a4703edca61d34aa679b-v9-c4f3df026f28aea10fd1-0@gmail.com
