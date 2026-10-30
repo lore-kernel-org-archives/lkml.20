@@ -1,59 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793340129;
-	b=3/VRQwGOuWGO418SIqCMVdCrnBg97e4kPo4KrOsn0XQNTUsVQt6BtEANW/aLjgr0oXCr
-	 iIl8gmhFIzhWTjBc7GhpmCpG3VTHLP9My6zEqtJUrE0ivE9yWvVzdpex8u4ABAk3Q07z/
-	 lNsQkiR4s2Tcpeo3ZB3+8GhVAlcJ+5RWojiIZMw1dci1n8GgW/qmwZ2rwgK+oCMOVNAlk
-	 sJldWNKlnY8BwCAEdDG5gzvvoxb32w6ZFYrFpp0vmBwdkk8yBU1CaabPq92COcjnEquh2
-	 /olgKX5UGUjOU+gxTVMKiFWXUfYRGpXY6WljQRwwpQXeCaYCWS+i6jtb/T8quTw7VVg==
+	t=1793340190;
+	b=yYgs6bRS/CpXJgolPtMM5vmOTy5n3rYQW7JhYO+EP5OmRp4HpxI+vVl/dE/5eFN0p+c3
+	 1AxqGTHBigfIN4tXsUMajzfN9qAsOOqEW4CmrJkoR0apLH9lnWA3cYDsIqxgJI1t/Ii16
+	 9cJxop5b+LGm47BvjkVkLSKX4xDyFhadnItbjljnk7Fo1KkEjj2KKxlWn3GKoPEQIUAvj
+	 jVaulFcqHpNw4/bLy0KLWY5g/H0kFPoIo+1ijZ9sYZzJzSrMZDnkF2/Iyiz1n+/ys7mgy
+	 CttAoPjJwI4Wt33EtOcvv/gGwtqifs7WcqkHgTWIjnXf6lRnW+V8rIJH73TcUZFCeVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793340129;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=GXYrVMD8tIwM2KrzF3PYSm7iqQWOWiytKfsGCC1S/Hw=;
-	b=UT1R4JbzWjdX84/6nIDiILe8tcc4rAlR99HtKX3pRZs0CBFdnkrYIHsl4rwt8IsI7Dgm
-	 MOeaNVK9LJITglAIGCUyEWsGRtkUnjppXlwsT11me9ykXfzzLgvX0ZMsG8PXSGxovHjb9
-	 tW/behBYfKPFotO38mDPPLlI+M3UToVpGjNjuthX30SME/ievTwX1DpULmLEiTBq5JDsy
-	 HK8qp1VZmMYLDPD10xie2RtP0zLCPkv0pSek6U0YT3a/2aSus5VB7533Vcxvhmb31yUxi
-	 Ak1qnt0hwtsutixAPoq8tAmK+xmYv6MiFUlSa0MDHKPBe9QJVKRiYl7SNcD8WC+NGGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793340190;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=VtcJuCZbkTR1B/dAPiQGQiUlPLtsiDv+mz9ozJRNgs8=;
+	b=dtWfzOuqyEK9rnZ0hn00vgzVrBohv9ljZ0+CaYrhn3MdjB2OP4BGeWmsFlMKm+2I/pBG
+	 jpJ+ePMUqnAkDnp7hsXJ/4acatosM5hxwXWRVp5Qd4aiY6gix2+H8sXlcVbB6Dg/IDvp7
+	 u5a3iWyK0+swg1JGD63L0kBYvM3t3sM75sW4x3jChwJimuGNo0o8kK7h+NRiNnOeqOBUL
+	 /K8RcK3OFOfVTsH0aWq8diYwfV5l6fwU2Xsgvzwi7DZrFyUKuomC3aUJUY5eJRcrZmEqo
+	 KKD2IjuG9UFdLDxt3M/1+wbVZVxQzua3gRGRWt7Ex8SiBduOs5I29y013Ib56VWicpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4BBB4606A339;
-	Fri, 30 Oct 2026 06:02:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BBB4606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:Content-Type:MIME-Version:
-	Content-Transfer-Encoding; bh=GXYrVMD8tIwM2KrzF3PYSm7iqQWOWiytKf
-	sGCC1S/Hw=; b=V2LSHhfoqknpUN0v/DskYYdxnYkkviKVlOahhHR9v+dtU8Kv9W
-	J42W8n/oymb37XpvleNTmHy2limJdaFOxP+bdlSmz3xvE6F2QWpjPPYjx46OnOyc
-	OsiPyW2u8J/g/kUeMbCh21Y+H5bPnSu+/fztdoO/hEuVVr98gbeGPi8d4=
-Received: from localhost.localdomain (unknown [223.160.172.89])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkCWmfzZMuRqvAYHAQ--.7328S2;
-	Fri, 30 Oct 2026 14:02:02 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mathias Nyman <mathias.nyman@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mathias Nyman <mathias.nyman@linux.intel.com>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH v2] usb: xhci: Fix use-after-free race in xhci_stop_device()
-Date: Fri, 30 Oct 2026 14:01:51 +0800
-Message-ID: <20261030.pref-07.7db2853141714bbe@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.45.1.windows.1
-In-Reply-To: <20261026123628.7493-1-25031212351@stu.xidian.edu.cn>
-References: <20261026123628.7493-1-25031212351@stu.xidian.edu.cn>
-Content-Type: text/plain; charset="utf-8"
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MNF3r4Rj;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C85606A31E;
+	Fri, 30 Oct 2026 06:03:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34C85606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MNF3r4Rj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793340189; x=1824876189;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=vkUod3HvNArzznyB/W3yEhAQuKbLtUYUiGRlZqqQ/h4=;
+  b=MNF3r4RjNRBz1SyeWA8WlkBvRCWOxSRriJeKM1IMzwW+ObJJAi+F02nM
+   FV+7Zjnpt+mVrEOnHvvz1zHU7qlqWkEiPhq3nLc5/0Sj1OoQlpqgeUO13
+   b++yE4KuzFG2i8oyqRNR4L5fcjRiDwd77VEDZCfLYLwrjCjjGmdNDmVOb
+   pGyyrlPPtLGVKJdVXhmzK1tqQ9Z8AuXuXr+BaUwKZ/PxdrJI9lJVC4W17
+   TRsfg2nFCH8lJlwQqFcKxr8QuItp3Ls6ocNh8OS8xcE8cpPu3u3lhNwBg
+   mam1TIOBLpfTXKGRoZ5HPCLP3ZfNdLLP3nnCaStNGI5Dt8ySu8AldiAMV
+   g==;
+X-CSE-ConnectionGUID: ER8ubMRdRduFGXH0RNHwAg==
+X-CSE-MsgGUID: T+T81dS0TCKU4bUqPi7gNg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2122892"
+X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
+   d="scan'208";a="2122892"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 23:03:08 -0700
+X-CSE-ConnectionGUID: H0sUnuwZScqJCN0L146Q2g==
+X-CSE-MsgGUID: D4iZkS9vQCuTTp4m4goS+A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
+   d="scan'208";a="5485151"
+Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 23:03:04 -0700
+Message-ID: <7e73da77-3cd2-491a-9ea2-68263f2b5d71@linux.intel.com>
+Date: Fri, 30 Oct 2026 14:03:01 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,39 +72,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkCWmfzZMuRqvAYHAQ--.7328S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYG7k0a2IF6F4UM7kC6x804xWl14x267AK
-	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
-	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1I
-	6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26r
-	4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vI
-	FxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2I
-	x0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8
-	JwACjcxG0xvY0x0EwIxGrwCY02Avz4vE14v_GF1l42xK82IYc2Ij64vIr41l4c8EcI0Ec7
-	CjxVAaw2AFwI0_JF0_Jw1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWU
-	JVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7V
-	AKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
-	AIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8JfHUUUUUU=
-	=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUCD2rjYVR+NQAAs+
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, Pranjal Shrivastava <praan@google.com>,
+ Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>,
+ Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ David Matlack <dmatlack@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Vipin Sharma
+ <vipinsh@google.com>, Ankit Soni <Ankit.Soni@amd.com>,
+ Nicolin Chen <nicolinc@nvidia.com>, John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v6 08/18] iommu: Add APIs to get iommu and device
+ preserved state
+To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ David Woodhouse <dwmw2@infradead.org>
+References: <20261025021930.674647-1-skhawaja@google.com>
+ <20261025021930.674647-9-skhawaja@google.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <20261025021930.674647-9-skhawaja@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Mathias,
+On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
+> The preserved state of the device and IOMMU needs to be fetched during
+> shutdown and boot in the next kernel. Add APIs that can be used to fetch
+> the preserved state of a device and IOMMU. The APIs will only be used
+> during shutdown and after liveupdate so no locking needed.
+> 
+> Reviewed-by: Pranjal Shrivastava <praan@google.com>
+> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+> ---
+>   drivers/iommu/liveupdate.c       | 88 ++++++++++++++++++++++++++++++++
+>   include/linux/iommu-liveupdate.h | 70 +++++++++++++++++++++++++
+>   2 files changed, 158 insertions(+)
+> 
 
-Could you please review this patch?
+[...]
 
-  [PATCH v2] usb: xhci: Fix use-after-free race in xhci_stop_device()
+> +
+> +/**
+> + * iommu_get_preserved_data() - Get preserved data for an IOMMU HW
+> + * @token: Token used to preserve this IOMMU HW
+> + * @type: IOMMU type in preserved state
+> + *
+> + * Gets the preserved state of an IOMMU HW using token and the IOMMU type.
+> + *
+> + * Return: struct iommu_hw_ser on success, NULL if no preserved state found.
+> + */
+> +struct iommu_hw_ser *iommu_get_preserved_data(u64 token, enum iommu_type_ser type)
+> +{
+> +	struct iommu_hw_ser *iommu_ser;
+> +	struct iommu_flb_obj *flb_obj;
+> +	struct kho_block_set_it it;
+> +	int ret;
+> +
+> +	ret = iommu_liveupdate_flb_get_incoming(&flb_obj);
 
-It synchronizes access to the virtual device and its USB device pointer
-with xhci->lock to avoid a disconnect race in xhci_stop_device().
+iommu_get_preserved_data() returns the incoming state, while
+iommu_preserved_state() returns the outgoing state. The naming is
+confusing.
 
-The patch is unchanged. I am copying this address for visibility.
+How about using "preserved" for the old kernel before kexec and
+"restored" for the new kernel after kexec? For example,
+iommu_get_restored_state() would be consistent with
+dev_iommu_restored_state() and iommu_domain_restored_state().
 
-Original submission:
-https://lore.kernel.org/r/20261026123628.7493-1-25031212351@stu.xidian.edu.cn
+> +	if (ret)
+> +		return NULL;
+> +
+> +	iommu_ser_set_for_each(&flb_obj->iommu_set, it, iommu_ser) {
+> +		if (iommu_ser->token == token && iommu_ser->type == type)
+> +			break;
+> +	}
+> +
+> +	liveupdate_flb_put_incoming(&iommu_flb);
+> +	return iommu_ser;
+> +}
+> +EXPORT_SYMBOL(iommu_get_preserved_data);
+
+Why are different export macros used in the same file?
+
+   EXPORT_SYMBOL(iommu_get_preserved_data);
+   EXPORT_SYMBOL_GPL(iommu_preserve_domain);
+
+Should these all be EXPORT_SYMBOL_GPL?
+
+> +
+>   /**
+>    * iommu_preserve_domain() - Preserve an IOMMU domain across live update
+>    * @domain: Domain to preserve
+> diff --git a/include/linux/iommu-liveupdate.h b/include/linux/iommu-liveupdate.h
+> index cdf8a82b7f1d..10fcdd41c7a1 100644
+> --- a/include/linux/iommu-liveupdate.h
+> +++ b/include/linux/iommu-liveupdate.h
+> @@ -13,6 +13,16 @@
+>   #include <linux/liveupdate.h>
+>   #include <linux/kho/abi/iommu.h>
+>   
+> +/**
+> + * iommu_preserved_device_iter_fn - Callback for iterating preserved devices
+> + * @ser: Pointer to serialized device state
+> + * @arg: User-defined context argument
+> + *
+> + * Return: 0 to continue iteration, or a negative error code to abort.
+> + */
+> +typedef int (*iommu_preserved_device_iter_fn)(struct iommu_device_ser *ser,
+> +					      void *arg);
+> +
+>   #ifdef CONFIG_IOMMU_LIVEUPDATE
+>   int iommu_liveupdate_register_flb(struct liveupdate_file_handler *handler);
+>   void iommu_liveupdate_unregister_flb(struct liveupdate_file_handler *handler);
+> @@ -52,6 +62,46 @@ static inline void *dev_iommu_preserved_state(struct device *dev)
+>   	return NULL;
+>   }
+>   
+> +/**
+> + * iommu_domain_restored_state() - Get restored state of an IOMMU domain
+> + * @domain: Pointer to struct iommu_domain to get restored state of.
+> + *
+> + * Return: Pointer to restored state on success, NULL on error.
+> + */
+> +static inline void *iommu_domain_restored_state(struct iommu_domain *domain)
+> +{
+> +	struct iommu_domain_ser *ser;
+> +
+> +	ser = domain->domain_ser;
+> +	if (ser && (ser->hdr.flags & IOMMU_SER_FLAG_INCOMING))
+> +		return ser;
+> +
+> +	return NULL;
+> +}
+> +
+> +/**
+> + * dev_iommu_restored_state() - Get restored state of a device
+> + * @dev: Target device
+> + *
+> + * Return: Restored state pointer or NULL.
+> + */
+> +static inline void *dev_iommu_restored_state(struct device *dev)
+> +{
+> +	struct iommu_device_ser *ser;
+> +
+> +	if (!dev->iommu)
+> +		return NULL;
+> +
+> +	ser = READ_ONCE(dev->iommu->device_ser);
+> +	if (ser && (ser->hdr.flags & IOMMU_SER_FLAG_INCOMING))
+> +		return ser;
+> +
+> +	return NULL;
+> +}
+> +
+> +int iommu_for_each_preserved_device(iommu_preserved_device_iter_fn fn,
+> +				    void *arg);
+> +struct iommu_hw_ser *iommu_get_preserved_data(u64 token, enum iommu_type_ser type);
+>   int iommu_preserve_domain(struct iommu_domain *domain, struct iommu_domain_ser **ser);
+>   void iommu_unpreserve_domain(struct iommu_domain *domain);
+>   int iommu_preserve_device(struct iommu_domain *domain,
+> @@ -88,6 +138,26 @@ static inline void *dev_iommu_preserved_state(struct device *dev)
+>   	return NULL;
+>   }
+>   
+> +static inline void *dev_iommu_restored_state(struct device *dev)
+> +{
+> +	return NULL;
+> +}
+> +
+> +static inline void *iommu_domain_restored_state(struct iommu_domain *domain)
+> +{
+> +	return NULL;
+> +}
+> +
+> +static inline int iommu_for_each_preserved_device(iommu_preserved_device_iter_fn fn, void *arg)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +
+> +static inline struct iommu_hw_ser *iommu_get_preserved_data(u64 token, enum iommu_type_ser type)
+> +{
+> +	return NULL;
+> +}
+> +
+>   static inline int iommu_preserve_domain(struct iommu_domain *domain, struct iommu_domain_ser **ser)
+>   {
+>   	return -EOPNOTSUPP;
 
 Thanks,
-YuanZhe
-
+baolu
