@@ -1,63 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793376571;
-	b=1rOH3bej01J8tN/lkGrNn2eKgG266FO6Uc+I0DOugikdBCrDMJPf5JanQ7Tq/MTWB1CV
-	 xxlljSNXmbf9bTWSalfsuY73Rhm7d4rqmunRekbP4gOYILi9IYMF2a6AHcQAVD4qT8v9e
-	 3ZDVKVdTy/4x7Fkcw1SUL7IxqPHfiyUrAl8lnIqS4abWiNttszitMDVCEWR+k+ob4O4He
-	 D3rohlJWhz9IpJoeWd7oI7KEELKOn/TGl2QKhS2bWhH/VsL7PWfHKrm+jRQPFEObFWroA
-	 FHVPgkXcO4NbqjFvX4w/0icos9xOKlAWBFEi00PQANNsfwA99USHs58ylPbDpOAKl2Q==
+	t=1793376591;
+	b=Jf97qAVRHAFF8u5GzGJe/Qn8FJzS3oP+nBxQESuh3hkLGFZnfNjkP8MmvzAhgSMbcQLc
+	 8yZou2MIVPQbff3LKlZU8QeQ3qT9p0E+ilWICj7q9UNBxVJXVqWHuF0r5MHaLskTSyvO3
+	 XK7KQQ9H2y5Q/kEu80KEzpQ4pNz2F/iEiC/Wkoz5r5/hEtbM+++uCp1YIT2gFSumwztHZ
+	 o6ex7P+M6ArDv6X5XH3gidyqj89nu235S71OoUl41yw4nba4mA9d5bdbSzk5qHuO2HxxQ
+	 ev52DaOH0/bhY9ae8mEXbLv+dhusknOhohBew+Mw1c1iR3Bt9H1CZo3Zf5P2bF3MGVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793376571;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NsZAKpp5K+7SNcsnmI41PYcI9WEG/qI47OOUF9pbDdM=;
-	b=mdKJds4sCYOVtqzOUZ4gkVflOEliwa0THe+txoM/BCcEQuIn5TI5TmC1J0NhYwxjghbJ
-	 W2rS/ABn1qox3672MzjbTg+DOKqOERNFPSTlXKSATz1HtTpw1L8hdxqKOwCujGYg/ULMk
-	 PJx9yQ7miBmG4cQw2rWKl2Pc28hIKMfpgRkpYCXvXj3vI5WDJzeljm6BG2doqOJib/ulG
-	 WFXSj9rY2DUFICnpXFs+x58y3nbjnnjBEhPYamUZeatlA7N5ZncZd6JoMdS4zWtI4st4B
-	 zPVwLYjkuQARbhnZ4apQc4SUbGf9W+hIeldwa9+yWlV92WCl70slz5mWKM7kkKA0mVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793376591;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=l7MQJpq5X4hRH088gv4skWVl01UmYhbxjHKQkDLkjWw=;
+	b=eyK2dLnb3DDhcrGUzk3SAtEaCevVAHCl2ikJhDxvFTeONTY3truoLDbrJ1BjcWAe9kcR
+	 sRz0dIDMPoZITO8h2DJwiX1CuSU0Mfa26KNFh3VzIx92eYQSn8FhBl9ipJVubcUQsFDC3
+	 REhnEk7vchsFHyDTn85qpB0iPGtz/b1i6/Jsb80G1BMozMBuB6Acxb4kO0zqvx/ojvSJG
+	 bvl3Do0Fhs2C3psTx+X/s5zbWILfXtgZ4KreRJ2sqQc3klEMFSXwyjgL6jCNmPaIg2jm8
+	 V4XTzN7n1XeU4ScSKI8+PaxbNc2zjSUMa5PaMpOQGoe1YohfaGPlbid9ayAh7hQIYOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gv7rVmtZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aAl51e+S;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EB451606A31C;
-	Fri, 30 Oct 2026 16:09:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72FA606A31D;
+	Fri, 30 Oct 2026 16:09:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B72FA606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gv7rVmtZ
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E90D31F000C1;
-	Fri, 30 Oct 2026 16:09:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793376570;
-	bh=NsZAKpp5K+7SNcsnmI41PYcI9WEG/qI47OOUF9pbDdM=;
-	h=From:To:Cc:Subject:Date;
-	b=gv7rVmtZLkHFzoXJh0Hv3Eb8vhHvpXOUS2PksRWlDgI3sjyRggiLQJ1RoxGTopMFz
-	 5KTGxgQ4w4e0Bfc3Ow7N7gRkek9geN5XZKJiRFAunHRFQaHFeCIbGyx6W0u2oNf9di
-	 UxPhPEDmctz1A2rqAoEGtYWhAwCC/X08Y+m20JRWOEfoaoERV2XWDBGsGBS2/Crv06
-	 3hWbnWcAsPaiAMpPCdZl8fzUJ3C5aUDtejCVrHeRJd7HF6Qu85RvFW+IxVCz0MlpCV
-	 DwCIJtcsUpWQjOoHjsxzRsYCK0Va7JnN2fPR+nt3WAxIe3L56+L4dxeVKz1TkPj/Vn
-	 AmDVzNJiX6W6A==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Eric Biggers <ebiggers@kernel.org>,
-	linux-integrity@vger.kernel.org,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list),
-	keyrings@vger.kernel.org (open list:KEYS/KEYRINGS)
-Subject: [PATCH v6] KEYS: key_garbage_collector(): process in chunks
-Date: Fri, 30 Oct 2026 18:09:23 +0200
-Message-ID: <20261030160924.2919363-1-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aAl51e+S
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793376590; x=1824912590;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=fQlYVdL1pbh/31Fi7mDROTG98juC6ku4Icdzr6337Lk=;
+  b=aAl51e+Sptp4ytOf9u1RduQnXNuW4ZNbkRTTlWi3UOqBTPBq+6mgU/uq
+   PLm+iNR0GnuiqNgROZRoa3UBLjQcVR56GRuPjbSj+mHyLfTNS5FKnIpDB
+   1X4jwPAUG+nd23hfvXgHIHB3SJ/7GDBmMIWJyxbJ59US40ZRIJzX9RnES
+   NfAPpbSDyHLKwuMiTDZaz13EYR6r5racoTrbrRebgNK9lRd5/E9SViYr2
+   lqha+qFQtja5mLYT+Mi/fjaedTudfZVGbmQhgwCH4KVC4eyAWoMmVLAFJ
+   l0HEN/O0ja9/WYIR0BQGw36mqgxGxeLcrZIkGD93FvH/wWobVH2LepA5P
+   A==;
+X-CSE-ConnectionGUID: hdxx9vveSHuOgR3Url4qfA==
+X-CSE-MsgGUID: /0TO/8MUQ/mh/RC44VJn/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2026996"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2026996"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 09:09:49 -0700
+X-CSE-ConnectionGUID: JUobdqyyQSufSPwejqe/BA==
+X-CSE-MsgGUID: Q9XnYa6VRI6yjQZy65vBBw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5362348"
+Received: from iherna2-mobl4.amr.corp.intel.com (HELO [10.125.109.71]) ([10.125.109.71])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 09:09:50 -0700
+Message-ID: <cae10e61-ef31-4a66-9de9-7c39663026cd@intel.com>
+Date: Fri, 30 Oct 2026 09:09:49 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,418 +73,245 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/hyperv: Account for lazy mm_cpumask maintenance
+To: Naman Jain <namjain@linux.microsoft.com>, haiyangz@microsoft.com,
+ wei.liu@kernel.org, decui@microsoft.com, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, luto@kernel.org,
+ peterz@infradead.org
+Cc: hpa@zytor.com, riel@surriel.com, mhklinux@outlook.com,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261029064234.362385-1-namjain@linux.microsoft.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20261029064234.362385-1-namjain@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-key_garbage_collector() has a design that is not resistant enough for
-workqueue lockups. The duration scales up relative to the number of items
-in the serial tree, which causes a reoccuring theme of being guilty of
-causing workqueue lockups.
+On 10/28/26 23:42, Naman Jain wrote:
+> CPUs no longer running an mm may remain in mm_cpumask(). Hyper-V treats
+> these CPUs as flush targets and bypasses the native callbacks that trim
+> the mask. A single-threaded process can therefore keep issuing
+> all-processor flushes after visiting all CPUs and returning to one CPU.
+> 
+> Share the native target predicate and filter the mask before building
+> either hypercall format or selecting HV_FLUSH_ALL_PROCESSORS. Preserve
+> lazy-TLB exclusion and unfiltered page-table-freeing flushes, and use
+> native callbacks for periodic trimming and ASID transitions.
+> 
+> When no remote targets remain, request immediate trimming through native
+> callbacks so stale memberships do not unnecessarily prevent later
+> invalidations from using the local fast path. Leave lazy CPU-mask
+> maintenance during context switches unchanged.
 
-Resolve the problem by processing in chunks:
+There's a lot of stuff in this patch not covered in the changelog. Like
+the mm_in_asid_transition() addition.
 
-1. Declare a static variable key_gc_work, which owns the garbage collection
-   in-flight state, and key_schedule_gc_work() for re-scheduling the work.
-2. Define KEY_GC_CHUNK_SIZE, set to 64 keys, as the bound for the number
-   of items scanned and destroyed.
-3. Define KEY_GC_DESTROYING to mark resume to destruction without repeating
-   the RCU grace period. Drain the graveyard before advancing key-type
-   reaping.
-4. Define KEY_GC_REAP_REQUESTED for preserving full-pass requests across
-   the continuations.
+This reads to me as being highly LLM-generated and not super readable or
+relevant.
 
-keygcbench results without the patch:
+> Fixes: 209954cbc7d0 ("x86/mm/tlb: Update mm_cpumask lazily")
 
-unused:   min=798.785 avg=4181.989 max=7565.193 var=11446068.927
-expired:  min=0.003 avg=2404.971 max=4111.065 var=3061018.501
-combined: min=0.003 avg=3115.778 max=7565.193 var=7172908.943
+We usually don't put Fixes: tags on performance improvements.
 
-keygcbench results with the patch:
+I don't want this backported.
 
-unused:   min=0.005 avg=0.125 max=79.590 var=1.088
-expired:  min=0.002 avg=0.196 max=236.207 var=8.121
-combined: min=0.002 avg=0.154 max=236.207 var=3.912
+> -	if (!hv_hypercall_pg)
+> +	/*
+> +	 * Hypercalls bypass the callbacks that trim mm_cpumask() and complete
+> +	 * ASID transitions.
+> +	 */
+> +	if (!hv_hypercall_pg || info->trim_cpumask ||
+> +	    mm_in_asid_transition(info->mm))
+>  		goto do_native;
 
-These results translate to:
+What do ASID transitions have to do with this?
 
-- 93% drop in the combined variance.
-- 2.2% increase in the total task time.
+>  	local_irq_save(flags);
+> @@ -79,6 +82,30 @@ static void hyperv_flush_tlb_multi(const struct cpumask *cpus,
+>  		goto do_native;
+>  	}
+>  
+> +	flush_cpus = this_cpu_ptr(&hyperv_tlb_flush_mask);
+> +	if (info->freed_tables) {
+> +		cpumask_copy(flush_cpus, cpus);
+> +	} else {
+> +		cpumask_clear(flush_cpus);
+> +		for_each_cpu(cpu, cpus) {
+> +			if (cpu_needs_tlb_flush(cpu, info))
+> +				__cpumask_set_cpu(cpu, flush_cpus);
+> +		}
+> +	}
 
-The value 64 for KEY_GC_CHUNK_SIZE was cherry-picked from the set {1, 2,
-..., 1024} by running the benchmark for each chunk size three times.
+This needs some heavy commenting. Or a helper. Or both.
 
-At the far left variance is 97% lower but at the same time total time
-grows by 133%, when compared to the selected chunk size. The size was
-picked based on getting a reasonable variance with a minimal throughput
-decline.
+> +	/*
+> +	 * An effectively local mm should not keep taking the remote path until
+> +	 * the next periodic trim. Let the native callbacks prune stale bits.
+> +	 */
+> +	if (cpumask_any_but(flush_cpus, smp_processor_id()) >= nr_cpu_ids) {
 
-Fixes: 0c061b5707ab ("KEYS: Correctly destroy key payloads when their keytype is removed")
-Link: https://git.kernel.org/pub/scm/linux/kernel/git/jarkko/linux-tpmdd-test.git/tree/package/keygcbench
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
-v6:
-- Removed syzkaller references, given feedback:
-  https://lore.kernel.org/keyrings/20261029234149.218-1-hdanton@sina.com/
-v5:
-- Benchmarked all the chunk sizes in {1, 2, ..., 1024} and cherry-picked
-  based on that the chunk size of 64.
-v4:
-- Added syzkaller link, as the resolution can be reasoned from the benchmark
-  results.
-v3:
-- Added new tests results made by using keygcbench.
-- Added link to keygcbench.
-v2:
-- Fixed typo in the commit message.
-- Drop the local variable gc_state.
- security/keys/gc.c       | 151 ++++++++++++++++++++++++++-------------
- security/keys/internal.h |   1 -
- security/keys/key.c      |   2 +-
- 3 files changed, 102 insertions(+), 52 deletions(-)
+Is this condition right? Doesn't ">= nr_cpu_ids" mean "no other CPUs found"?
 
-diff --git a/security/keys/gc.c b/security/keys/gc.c
-index eda445f815d4..171977e56a78 100644
---- a/security/keys/gc.c
-+++ b/security/keys/gc.c
-@@ -10,16 +10,27 @@
- #include <keys/keyring-type.h>
- #include "internal.h"
+I'm not following this.
 
--/*
-- * Delay between key revocation/expiry in seconds
-- */
--unsigned key_gc_delay = 5 * 60;
-+#define KEY_GC_CHUNK_SIZE 64
+> +		struct flush_tlb_info local_info = *info;
 
- /*
-  * Reaper for unused keys.
-  */
- static void key_garbage_collector(struct work_struct *work);
--DECLARE_WORK(key_gc_work, key_garbage_collector);
-+
-+static struct {
-+	time64_t start;			/* expiry range start */
-+	time64_t end;			/* expiry range end */
-+	struct rb_node *cursor;		/* serial tree position */
-+	u8 state;			/* state flags */
-+	struct work_struct work;	/* work item */
-+} key_gc_work = {
-+	.work = __WORK_INITIALIZER(key_gc_work.work, key_garbage_collector),
-+};
-+
-+/*
-+ * Delay between key revocation/expiry in seconds
-+ */
-+unsigned int key_gc_delay = 5 * 60;
+What's wrong with reusing 'info'?
 
- /*
-  * Reaper for links from keyrings to dead keys.
-@@ -34,6 +45,7 @@ static unsigned long key_gc_flags;
- #define KEY_GC_KEY_EXPIRED	0	/* A key expired and needs unlinking */
- #define KEY_GC_REAP_KEYTYPE	1	/* A keytype is being unregistered */
- #define KEY_GC_REAPING_KEYTYPE	2	/* Cleared when keytype reaped */
-+#define KEY_GC_REAP_REQUESTED	3	/* Another complete pass was requested */
+> +		local_info.trim_cpumask = 1;
+> +		local_irq_restore(flags);
+> +		native_flush_tlb_multi(cpus, &local_info);
+> +		return;
+> +	}
 
+Gah, so is this hacking "trim_cpumask = 1" to force should_flush_tlb()
+or something?
 
- /*
-@@ -44,6 +56,20 @@ struct key_type key_type_dead = {
- 	.name = ".dead",
- };
+Right now, we have quite clean code around info->trim_cpumask. It's
+either 0 or set from:
 
-+/*
-+ * Schedule a new GC pass or re-schedule an ongoing GC pass.
-+ */
-+static void key_schedule_gc_work(void)
-+{
-+	/*
-+	 * Order caller updates before setting KEY_GC_REAP_REQUESTED, given that
-+	 * set_bit() is unordered.
-+	 */
-+	smp_mb__before_atomic();
-+	set_bit(KEY_GC_REAP_REQUESTED, &key_gc_flags);
-+	schedule_work(&key_gc_work.work);
-+}
-+
- /*
-  * Schedule a garbage collection run.
-  * - time precision isn't particularly important
-@@ -57,7 +83,7 @@ void key_schedule_gc(time64_t gc_at)
+	info.trim_cpumask = should_trim_cpumask(mm);
 
- 	if (gc_at <= now || test_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags)) {
- 		kdebug("IMMEDIATE");
--		schedule_work(&key_gc_work);
-+		key_schedule_gc_work();
- 	} else if (gc_at < key_gc_next_run) {
- 		kdebug("DEFERRED");
- 		key_gc_next_run = gc_at;
-@@ -85,7 +111,7 @@ void key_set_expiry(struct key *key, time64_t expiry)
- void key_schedule_gc_links(void)
- {
- 	set_bit(KEY_GC_KEY_EXPIRED, &key_gc_flags);
--	schedule_work(&key_gc_work);
-+	key_schedule_gc_work();
- }
+It would be nice to keep it that way if possible.
 
- /*
-@@ -119,7 +145,7 @@ void key_gc_keytype(struct key_type *ktype)
- 	set_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags);
+Also, just looking at flush_tlb_mm_range(), there's a very familiar
+check there:
 
- 	kdebug("schedule");
--	schedule_work(&key_gc_work);
-+	key_schedule_gc_work();
+        } else if (cpumask_any_but(mm_cpumask(mm), cpu) < nr_cpu_ids) {
+                remote_flush = true;
 
- 	kdebug("sleep");
- 	wait_on_bit(&key_gc_flags, KEY_GC_REAPING_KEYTYPE,
-@@ -134,7 +160,9 @@ void key_gc_keytype(struct key_type *ktype)
-  */
- static noinline void key_gc_unused_keys(struct list_head *keys)
- {
--	while (!list_empty(keys)) {
-+	unsigned int chunk = KEY_GC_CHUNK_SIZE;
-+
-+	while (!list_empty(keys) && chunk--) {
- 		struct key *key =
- 			list_entry(keys->next, struct key, graveyard_link);
- 		short state = key->state;
-@@ -178,54 +206,64 @@ static noinline void key_gc_unused_keys(struct list_head *keys)
- static void key_garbage_collector(struct work_struct *work)
- {
- 	static LIST_HEAD(graveyard);
--	static u8 gc_state;		/* Internal persistent state */
-+	typeof(key_gc_work) *gc = &key_gc_work;
- #define KEY_GC_REAP_AGAIN	0x01	/* - Need another cycle */
- #define KEY_GC_REAPING_LINKS	0x02	/* - We need to reap links */
-+#define KEY_GC_DESTROYING	0x04	/* - We need to destroy keys */
- #define KEY_GC_REAPING_DEAD_1	0x10	/* - We need to mark dead keys */
- #define KEY_GC_REAPING_DEAD_2	0x20	/* - We need to reap dead key links */
- #define KEY_GC_REAPING_DEAD_3	0x40	/* - We need to reap dead keys */
- #define KEY_GC_FOUND_DEAD_KEY	0x80	/* - We found at least one dead key */
+which feeds:
 
--	struct rb_node *cursor;
-+	unsigned int chunk = KEY_GC_CHUNK_SIZE;
- 	struct key *key;
--	time64_t new_timer, limit, expiry;
-+	time64_t expiry;
+        if (remote_flush) {
+                info.trim_cpumask = should_trim_cpumask(mm);
+                flush_tlb_multi(mm_cpumask(mm), &info);
+                consider_global_asid(mm);
+        }
 
--	kenter("[%lx,%x]", key_gc_flags, gc_state);
-+	kenter("[%lx,%x]", key_gc_flags, gc->state);
+So what if we just added a check to should_trim_cpumask(), like:
 
--	limit = ktime_get_real_seconds();
-+	if (gc->state & KEY_GC_DESTROYING)
-+		goto destroy_keys;
-+	if (gc->cursor) {
-+		spin_lock(&key_serial_lock);
-+		goto continue_scanning;
-+	}
-+
-+	test_and_clear_bit(KEY_GC_REAP_REQUESTED, &key_gc_flags);
-+	gc->start = ktime_get_real_seconds();
+	if (cpumask_weight(mm_cpumask(mm)) > atomic_read(&mm->mm_users))
+		return true;
 
- 	/* Work out what we're going to be doing in this pass */
--	gc_state &= KEY_GC_REAPING_DEAD_1 | KEY_GC_REAPING_DEAD_2;
--	gc_state <<= 1;
-+	gc->state &= KEY_GC_REAPING_DEAD_1 | KEY_GC_REAPING_DEAD_2;
-+	gc->state <<= 1;
- 	if (test_and_clear_bit(KEY_GC_KEY_EXPIRED, &key_gc_flags))
--		gc_state |= KEY_GC_REAPING_LINKS;
-+		gc->state |= KEY_GC_REAPING_LINKS;
+Or mm_users*2, or _some_ other heuristic that will trip when
+mm_cpumask(mm) gets out of whack from ->mm_users.
 
- 	if (test_and_clear_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags))
--		gc_state |= KEY_GC_REAPING_DEAD_1;
--	kdebug("new pass %x", gc_state);
-+		gc->state |= KEY_GC_REAPING_DEAD_1;
-+	kdebug("new pass %x", gc->state);
+That's a pretty cheap check because mm_cpumask() is already hot or is
+just about to be read anyway. It might actually be useful to INVLPGB
+systems too. That still needs the info->trim_cpumask check at the top of
+hyperv_flush_tlb_multi(), btw.
 
--	new_timer = TIME64_MAX;
-+	gc->end = TIME64_MAX;
+Also, this is *kinda* changing the meaning of ->trim_cpumask. It's
+really starting to mean "send IPIs". A rename might be appropriate.
 
- 	/* As only this function is permitted to remove things from the key
- 	 * serial tree, if cursor is non-NULL then it will always point to a
- 	 * valid node in the tree - even if lock got dropped.
- 	 */
- 	spin_lock(&key_serial_lock);
--	cursor = rb_first(&key_serial_tree);
-+	gc->cursor = rb_first(&key_serial_tree);
+/*
+> diff --git a/arch/x86/include/asm/tlbflush.h b/arch/x86/include/asm/tlbflush.h
+> index 70098d448e999..e1e05cc867d5a 100644
+> --- a/arch/x86/include/asm/tlbflush.h
+> +++ b/arch/x86/include/asm/tlbflush.h
+> @@ -264,6 +264,12 @@ void flush_tlb_one_kernel(unsigned long addr);
+>  void flush_tlb_multi(const struct cpumask *cpumask,
+>  		      const struct flush_tlb_info *info);
+>  
+> +/*
+> + * Do not use for filtering when freeing page tables or during global ASID
+> + * transitions.
+> + */
+> +bool cpu_needs_tlb_flush(int cpu, const struct flush_tlb_info *info);
 
- continue_scanning:
--	while (cursor) {
--		key = rb_entry(cursor, struct key, serial_node);
--		cursor = rb_next(cursor);
-+	while (gc->cursor && chunk) {
-+		key = rb_entry(gc->cursor, struct key, serial_node);
-+		gc->cursor = rb_next(gc->cursor);
-+		chunk--;
+Please look around this header that's being patched. Are the functions
+above this commented? Please match the style.
 
- 		if (!test_bit_acquire(KEY_FLAG_USER_ALIVE, &key->flags)) {
- 			/* Clobber key->user after final put seen. */
- 			goto found_unreferenced_key;
- 		}
+Comment the definition itself, not the declaration.
 
--		if (unlikely(gc_state & KEY_GC_REAPING_DEAD_1)) {
-+		if (unlikely(gc->state & KEY_GC_REAPING_DEAD_1)) {
- 			if (key->type == key_gc_dead_keytype) {
--				gc_state |= KEY_GC_FOUND_DEAD_KEY;
-+				gc->state |= KEY_GC_FOUND_DEAD_KEY;
- 				set_bit(KEY_FLAG_DEAD, &key->flags);
- 				key->perm = 0;
- 				goto skip_dead_key;
-@@ -239,24 +277,24 @@ static void key_garbage_collector(struct work_struct *work)
- 		if (expiry != TIME64_MAX) {
- 			if (!(key->type->flags & KEY_TYPE_INSTANT_REAP))
- 				expiry += key_gc_delay;
--			if (expiry > limit && expiry < new_timer) {
-+			if (expiry > gc->start && expiry < gc->end) {
- 				kdebug("will expire %x in %lld",
--				       key_serial(key), key->expiry - limit);
--				new_timer = key->expiry;
-+				       key_serial(key), key->expiry - gc->start);
-+				gc->end = key->expiry;
- 			}
- 		}
+>  static inline bool is_dyn_asid(u16 asid)
+>  {
+>  	return asid < TLB_NR_DYN_ASIDS;
+> diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
+> index 0c4da320831cb..f2f40928d56a4 100644
+> --- a/arch/x86/mm/tlb.c
+> +++ b/arch/x86/mm/tlb.c
+> @@ -1273,10 +1273,9 @@ static void flush_tlb_func(void *info)
+>  			nr_invalidate);
+>  }
+>  
+> -static bool should_flush_tlb(int cpu, void *data)
+> +bool cpu_needs_tlb_flush(int cpu, const struct flush_tlb_info *info)
+>  {
+>  	struct mm_struct *loaded_mm = per_cpu(cpu_tlbstate.loaded_mm, cpu);
+> -	struct flush_tlb_info *info = data;
+>  
+>  	/*
+>  	 * Order the 'loaded_mm' and 'is_lazy' against their
+> @@ -1311,6 +1310,11 @@ static bool should_flush_tlb(int cpu, void *data)
+>  	return false;
+>  }
+>  
+> +static bool should_flush_tlb(int cpu, void *data)
+> +{
+> +	return cpu_needs_tlb_flush(cpu, data);
+> +}
+> +
+>  static bool should_trim_cpumask(struct mm_struct *mm)
+>  {
+>  	if (time_after(jiffies, READ_ONCE(mm->context.next_trim_cpumask))) {
 
--		if (unlikely(gc_state & KEY_GC_REAPING_DEAD_2))
-+		if (unlikely(gc->state & KEY_GC_REAPING_DEAD_2))
- 			if (key->type == key_gc_dead_keytype)
--				gc_state |= KEY_GC_FOUND_DEAD_KEY;
-+				gc->state |= KEY_GC_FOUND_DEAD_KEY;
+None of this movement is mentioned in the changelog. The naming change
+here is also really silly. Now we have
 
--		if ((gc_state & KEY_GC_REAPING_LINKS) ||
--		    unlikely(gc_state & KEY_GC_REAPING_DEAD_2)) {
-+		if ((gc->state & KEY_GC_REAPING_LINKS) ||
-+		    unlikely(gc->state & KEY_GC_REAPING_DEAD_2)) {
- 			if (key->type == &key_type_keyring)
- 				goto found_keyring;
- 		}
+	should_flush_tlb(int cpu, void *data)
+and
+	cpu_needs_tlb_flush(int cpu, const struct flush_tlb_info *info)
 
--		if (unlikely(gc_state & KEY_GC_REAPING_DEAD_3))
-+		if (unlikely(gc->state & KEY_GC_REAPING_DEAD_3))
- 			if (key->type == key_gc_dead_keytype)
- 				goto destroy_dead_key;
+which are literally the same thing, except for the type. This is
+precisely the kind of place we should keep the names _identical_. Either
+use an __ or call the "void *" version "_wrapper" or something with a
+comment:
 
-@@ -269,7 +307,11 @@ static void key_garbage_collector(struct work_struct *work)
- 	spin_unlock(&key_serial_lock);
+/* Wrap foo() with a different type for use as an IPI callback: */
 
- maybe_resched:
--	if (cursor) {
-+	if (gc->cursor) {
-+		if (!chunk) {
-+			schedule_work(&key_gc_work.work);
-+			return;
-+		}
- 		cond_resched();
- 		spin_lock(&key_serial_lock);
- 		goto continue_scanning;
-@@ -281,12 +323,12 @@ static void key_garbage_collector(struct work_struct *work)
- 	 */
- 	kdebug("pass complete");
-
--	if (new_timer != TIME64_MAX) {
--		new_timer += key_gc_delay;
--		key_schedule_gc(new_timer);
-+	if (gc->end != TIME64_MAX) {
-+		gc->end += key_gc_delay;
-+		key_schedule_gc(gc->end);
- 	}
-
--	if (unlikely(gc_state & KEY_GC_REAPING_DEAD_2) ||
-+	if (unlikely(gc->state & KEY_GC_REAPING_DEAD_2) ||
- 	    !list_empty(&graveyard)) {
- 		/* Make sure that all pending keyring payload destructions are
- 		 * fulfilled and that people aren't now looking at dead or
-@@ -297,33 +339,42 @@ static void key_garbage_collector(struct work_struct *work)
- 		synchronize_rcu();
- 	}
-
-+	gc->state |= KEY_GC_DESTROYING;
-+
-+destroy_keys:
- 	if (!list_empty(&graveyard)) {
- 		kdebug("gc keys");
- 		key_gc_unused_keys(&graveyard);
-+		if (!list_empty(&graveyard)) {
-+			schedule_work(&key_gc_work.work);
-+			return;
-+		}
- 	}
-+	gc->state &= ~KEY_GC_DESTROYING;
-
--	if (unlikely(gc_state & (KEY_GC_REAPING_DEAD_1 |
-+	if (unlikely(gc->state & (KEY_GC_REAPING_DEAD_1 |
- 				 KEY_GC_REAPING_DEAD_2))) {
--		if (!(gc_state & KEY_GC_FOUND_DEAD_KEY)) {
-+		if (!(gc->state & KEY_GC_FOUND_DEAD_KEY)) {
- 			/* No remaining dead keys: short circuit the remaining
- 			 * keytype reap cycles.
- 			 */
- 			kdebug("dead short");
--			gc_state &= ~(KEY_GC_REAPING_DEAD_1 | KEY_GC_REAPING_DEAD_2);
--			gc_state |= KEY_GC_REAPING_DEAD_3;
-+			gc->state &= ~(KEY_GC_REAPING_DEAD_1 | KEY_GC_REAPING_DEAD_2);
-+			gc->state |= KEY_GC_REAPING_DEAD_3;
- 		} else {
--			gc_state |= KEY_GC_REAP_AGAIN;
-+			gc->state |= KEY_GC_REAP_AGAIN;
- 		}
- 	}
-
--	if (unlikely(gc_state & KEY_GC_REAPING_DEAD_3)) {
-+	if (unlikely(gc->state & KEY_GC_REAPING_DEAD_3)) {
- 		kdebug("dead wake");
- 		clear_and_wake_up_bit(KEY_GC_REAPING_KEYTYPE, &key_gc_flags);
- 	}
-
--	if (gc_state & KEY_GC_REAP_AGAIN)
--		schedule_work(&key_gc_work);
--	kleave(" [end %x]", gc_state);
-+	if ((gc->state & KEY_GC_REAP_AGAIN) ||
-+	    test_bit(KEY_GC_REAP_REQUESTED, &key_gc_flags))
-+		schedule_work(&key_gc_work.work);
-+	kleave(" [end %x]", gc->state);
- 	return;
-
- 	/* We found an unreferenced key - once we've removed it from the tree,
-@@ -335,7 +386,7 @@ static void key_garbage_collector(struct work_struct *work)
- 	spin_unlock(&key_serial_lock);
-
- 	list_add_tail(&key->graveyard_link, &graveyard);
--	gc_state |= KEY_GC_REAP_AGAIN;
-+	gc->state |= KEY_GC_REAP_AGAIN;
- 	goto maybe_resched;
-
- 	/* We found a restricted keyring and need to update the restriction if
-@@ -353,7 +404,7 @@ static void key_garbage_collector(struct work_struct *work)
- 	 */
- found_keyring:
- 	spin_unlock(&key_serial_lock);
--	keyring_gc(key, limit);
-+	keyring_gc(key, gc->start);
- 	goto maybe_resched;
-
- 	/* We found a dead key that is still referenced.  Reset its type and
-diff --git a/security/keys/internal.h b/security/keys/internal.h
-index b7b622bc36a1..cca936f5015d 100644
---- a/security/keys/internal.h
-+++ b/security/keys/internal.h
-@@ -162,7 +162,6 @@ extern bool lookup_user_key_possessed(const struct key *key,
- extern long join_session_keyring(const char *name);
- extern void key_change_session_keyring(struct callback_head *twork);
-
--extern struct work_struct key_gc_work;
- extern unsigned key_gc_delay;
- extern void keyring_gc(struct key *keyring, time64_t limit);
- extern void keyring_restriction_gc(struct key *keyring,
-diff --git a/security/keys/key.c b/security/keys/key.c
-index e88548f1a704..5c2d0e3b49e6 100644
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -670,7 +670,7 @@ void key_put(struct key *key)
- 			}
- 			/* Mark key as safe for GC after key->user done. */
- 			clear_bit_unlock(KEY_FLAG_USER_ALIVE, &key->flags);
--			schedule_work(&key_gc_work);
-+			key_schedule_gc(0);
- 		}
- 	}
- }
---
-2.47.3
-
+BTW, this "patch" probably needs to be broken up into a 4-5ish patch series.
