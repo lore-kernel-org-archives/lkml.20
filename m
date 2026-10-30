@@ -1,55 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793349293;
-	b=HZqJe2s+zLWTFA4LDAB3Sx3uwVI8Y1BtBlolCuzm3KSGJ/zdkQkU9kEqELGn2Gz3mk2e
-	 tSYhVmCwJeGn5YCa3VG4kFEEw2LR88JfD1nk345NvA+Om+h0eOs1nTxqopU5TVevG9mkr
-	 4vIQHM7XKJePW+r/wTNiBtL5i4G0AXSgfHGH4r8rzovzA8rONlPrfCLKv+ZOnp+VgG8X9
-	 gLlarMLU7tzbcDyf4oAyJdlqCK8zLdvZkJvQ6rfxT36mJu5Zf3N2hpRXVy8nqQgmj+Zqi
-	 cWPxsv6JoRPMP2Pbca7DrqOu7cli75YmGTwS4SQIdZ5Kdv8dmKjRiuNOxqYFiVIKj7g==
+	t=1793349341;
+	b=CHgyzep/oFIvV6g1e758zkFZ1dGkJso+aSk697mlPcOPlyZnVWFRVXPYzEKUaHeUIYPd
+	 wpUDTbCla96HfXTt9blRgmMwGSYtkPqcwhp15yocn45bC+AdWcAP4g+e1PG5fFeFJdtj4
+	 u1jbJG1u+unpo/m4hVG5qTP6NNFb4Z9F4K381NqTGLYwT4jBFQqfeNVyF9YLNcZtPX/kW
+	 k1fLBB8ExRwHMWmbKM/ui2EGD45ymEOyaOh+TxFFLpCT3ZZAJjS3KI+g2fJF7IU63YQkI
+	 l9xYsjn0hsSLnFQFGpa6PnVA4PXfCtfbmKT/Qp2uOkpP5QRU/tQuXbaMOF7MVib05Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793349293;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=VQsxK0ypjps04yXtP7D9Vl+v3TvG2zuYW8obCp7EWXY=;
-	b=g76Bi3tCOkofwrZQrBF80vjCdYgcGAl2/oaiqul0Z0wvrqH2uHkGWoU/yWq9pboQjoEZ
-	 dcZ/RWDsPMHMY6czJyy+jJtdmjMhVuG4Wy5rpYs5TvXOkQhfn9titWXErw64lfRoW18Qo
-	 uM9Z3p2JXKV5o0c0JS8uaIISbPnGqj7MK2t6sV7LBmRwe93CIfOxt15qjFZN49oac41MA
-	 dS85wUzc1iXN7VPZw4W3vM0TXkHEwRqsDBgEqpWHMIHP1+1xvN5m2KH/mn/DVNBx7HYeJ
-	 fZN0uWdtRZijB59+FVE+IlfGq2kO2Sw1rNrgyKf5omKgz8PZDKvFBBXR4urARuOwQdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793349341;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=1JSuP/hmF6Fi8nJPp3ZX98qfwOmuW23quiYMNH551tA=;
+	b=E02/hvDsntvrJRxZ4gYdVmnzkiFImsexYCCZcCRVT83RjdCLdTjFJVJi/GuCtItk32DI
+	 Fh8W+5VhTi6yrChw8kfnqGTKLPmLPP6UrZPSjuc3SJ9fw7i3SJvpprHYeLkKTwXpq+5Fj
+	 7WfYLkDkX7nIMs+zeOciPdRq3Nja8w/n4M65t7TWXPL8/4V70HMyc5bskQmb7bDpI1o4D
+	 GzDjTMeIYo37nrJs+wK9R8e3Do/ounvUlxIeQ1DgfdmTxC/2tC7Rhj5C9o67Ccbv1t5sp
+	 b3Ho3NSlPE1paHCWFwWnoREhzX1+87Uxf0nS/JmTQOseFdysMjjtkKpQjCsiUS6I1GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZINXWUPL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TEQEPlAo;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7EF606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:34:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7CD606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:35:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A7CD606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZINXWUPL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E5F01F000C1
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:34:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793349292;
-	bh=VQsxK0ypjps04yXtP7D9Vl+v3TvG2zuYW8obCp7EWXY=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=ZINXWUPL8f7LzBGYW2E2EFIN5YqikTTIb6zwoXh3U6y5TI8TyVghqJOnoO2wsfn36
-	 moX34gngLXCKOjeWefU2mX1XvRbWDQtwavmxT0cPBm/KX1wuvozwQlohjO4uD03q1T
-	 uI2V+vypbS7nGXA4PT4H+cAxO3NZUAaMdTxdvkxOjKlmHIjFI2TnPW/0/wdwbQZW5j
-	 d7KGRB6+Vjvd/v0UuejTd3Lu3zI+3BJqDMtUXig8OO6VM/BJ2YLRVUjIc0IreFrqw5
-	 zzbeJ+8dS3RPR4aushFL2zDJmRGC1cKBllkHlI7TGpc5S9FoZ2bv+7oL9sZ6Wf/XCC
-	 93y/wQ0ypmeww==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a98fc80925so6543931fa.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:34:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBydASdnQbiNcJTAD7YKuPrtjQ92CGfWxZebHFWbTL82xSd2T6Sw5YxkKdT8Q26yv4ryFYFXOdOI8OD13N4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+yDgBYolAWoNoXI+WON4V7wKXqLJ3JFgeKne2gGJLb6dhYji7
-	rQ13Eyvij/NgdBCWOioa/PALybZOGwuSjhb2Uauxaxe2D7qLDE2tqKUn3PdsnFBrLQXZS71qQI9
-	gCxvh9wh2tbE+o5fH2+J3skqk9bf79DM=
-X-Received: by 2002:a2e:be89:0:b0:3a9:a1ed:6341 with SMTP id
- 38308e7fff4ca-3acb7ac0796mr3395761fa.11.1793349290657; Fri, 30 Oct 2026
- 01:34:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TEQEPlAo
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30bcb065bfdso1104431eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:35:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793349340; x=1793954140; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1JSuP/hmF6Fi8nJPp3ZX98qfwOmuW23quiYMNH551tA=;
+        b=TEQEPlAoekXBpR64xw57LwD2ebFmB5ASh9F10Af3Eexq/jhfRBlWp8Xjgjr+8t2hzI
+         Hci1wSvBAfJSTu61TvVMVuL0zeJbcikoNGRoLv+x1wJDGc9k4KAEC/n3xjCsfbVbBayk
+         OMeydaxNn66VWh4NcdetcFvLgkX4hbP45qror+4ZwqCnAfddETW4j2cH1XKCQQ4ptuJX
+         0S24WZHdjqIhcEfEkMlz/xwCzWurZqEZnMAYB0NB1Pn0KvTSASThh+qBWJaZl8D9Y5Mf
+         OnU8EugU29v1ictQa+McfRjXGHc33JKso4hRLLHkJ7Bqy9PF5UjpSa3V7luBGcPai4PV
+         tCmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793349340; x=1793954140;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1JSuP/hmF6Fi8nJPp3ZX98qfwOmuW23quiYMNH551tA=;
+        b=MrvuA5tnLbbba6GCdUaea6MWVr96CYGZRgsMcgW0i6OzaKw7Tf+veA84xhnS7tokos
+         soSgjLLRtGTB1EP9g9zzt2VqM3soN+iOp81HVtKVMTDqrJPGp5Tq9E35Rqb31AM86lCR
+         /MnT5miGHi5tlHWQrJaDXuj8dIJDDZf0Z+8PhRtAu+4WxQ+hA7g4yJpbRGlIi4S7v+oF
+         u1hDktsLwKCZPq118DRs85JYvjd1lKLXcB2kr2TUuaoq9L8E1JgT09DdUFMtJibwqDUw
+         2r5kkDzNPW6WtXE5qcXJW07UuCO6iKIGgkhKyoPCqlHK5B74photnV27iGujdo67vlOs
+         Mppw==
+X-Forwarded-Encrypted: i=1; AKwUvBwdlk0cMc/t/sQwWEk8RGz6sVl1uEDwyMLQX1rtGL6i+N35NJ0vWvSdxtpj8I5UZMuCYr6/772xw8p+FGc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6K7EkSUq2f3/DiifubSgQKkUSf4aWiUVpceDdWwcoy/jl22Xw
+	0JUC7ix5Dv2xT/cP1le8W3uBYh2IdT4WAq143J9OfWBth9zIXGryzT37tfqxiQqa3y0zbrIYBiD
+	+60xlgwx1wX7TcZo8+z6n++LBEg==
+X-Received: from dybnj7.prod.google.com ([2002:a05:7300:d087:b0:369:fc78:c914])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:4543:b0:353:5d0a:dba4 with SMTP id 5a478bee46e88-36a4248a4bcmr2685687eec.36.1793349339731;
+ Fri, 30 Oct 2026 01:35:39 -0700 (PDT)
+Date: Fri, 30 Oct 2026 08:35:34 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,39 +75,144 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261030071137.100954-3-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20261030071137.100954-3-krzysztof.kozlowski@oss.qualcomm.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Fri, 30 Oct 2026 16:34:37 +0800
-X-Gmail-Original-Message-ID: <CAGb2v66Ya50=++STiOLihh6VKtb00QYcv4ARAWqFQ=1FML0Ccw@mail.gmail.com>
-X-Gm-Features: AclHuK8f9aQow26btBoDKktg4w5d9q6uuVMy592vvuptaUTTeNrSAFWXrHhABVQ
-Message-ID: <CAGb2v66Ya50=++STiOLihh6VKtb00QYcv4ARAWqFQ=1FML0Ccw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] mfd: Constify mfd_cell arrays
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>, Thomas Richard <thomas.richard@bootlin.com>, 
-	Andy Shevchenko <andy@kernel.org>, Chanwoo Choi <cw00.choi@samsung.com>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Andreas Werner <andreas.werner@men.de>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Matti Vaittinen <mazziesaccount@gmail.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com, patches@opensource.cirrus.com
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261030083539.777877-1-almasrymina@google.com>
+Subject: [PATCH net v5 0/4] net: devmem: fix RX and TX binding teardown on
+ device unregistration
+From: Mina Almasry <almasrymina@google.com>
+To: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, Paolo Abeni <pabeni@redhat.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Mina Almasry <almasrymina@google.com>, 
+	Kaiyuan Zhang <kaiyuanz@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Bobby Eshleman <bobbyeshleman@meta.com>, Pavel Begunkov <asml.silence@gmail.com>, 
+	David Wei <dw@davidwei.uk>, Taehee Yoo <ap420073@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Stanislav Fomichev <sdf.kernel@gmail.com>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Nikolay Aleksandrov <razor@blackwall.org>, 
+	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>, 
+	Dragos Tatulea <dtatulea@nvidia.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 30, 2026 at 3:12=E2=80=AFPM Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> wrote:
->
-> mfd_add_devices() takes pointer to const, so 'struct mfd_cell' arrays
-> can be constified whenever driver does not modify it in the probe.
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  drivers/mfd/ac100.c                   | 2 +-
->  drivers/mfd/axp20x.c                  | 4 ++--
+Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
+add netdevsim support plus selftests covering both RX and TX device
+unregistration. These issues were found via LLM-assisted code review
+(Sashiko) and reproduced and verified with the new nl_netdev.py
+selftests on netdevsim (not tested on real hardware):
 
-Acked-by: Chen-Yu Tsai <wens@kernel.org> # ac100 & axp20x
+1. net: devmem: unmap dma_buf synchronously on queue uninstall
+   Synchronously unmap and detach binding->attachment under binding->lock
+   when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall()
+   or closed in net_devmem_unbind_dmabuf(), and unmap remaining unbound RX
+   bindings on NETDEV_UNREGISTER, preventing slab-use-after-free in
+   dma_unmap_sg_attrs() when the binding is freed after dma_dev. Factor
+   out net_devmem_lock_dev() and net_devmem_unlock_dev() to synchronize
+   netdev_nl_sock_priv_destroy() and __net_devmem_dmabuf_binding_free()
+   against NETDEV_UNREGISTER.
+
+2. net: devmem: detach TX bindings on NETDEV_UNREGISTER
+   Extend net_devmem_dev_unregister() to fully detach and unmap TX
+   bindings when binding->dev unregisters, or clear binding->vdev alone
+   when only a virtual device unregisters while binding->dev lives.
+
+3. netdevsim: support devmem RX and TX bindings
+   Enable PP_FLAG_DMA_MAP | PP_FLAG_ALLOW_UNREADABLE_NETMEM, 64-bit DMA mask
+   on nsim_bus_dev, and NETMEM_TX_DMA on netdevsim so devmem RX/TX bindings
+   can be exercised in software selftests.
+
+4. selftests: net: add devmem RX and TX netdev unregister tests
+   Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
+   to tools/testing/selftests/net/nl_netdev.py.
+
+Cc: Tariq Toukan <tariqt@nvidia.com>
+Cc: Kaifeng Wang <kaifengw@google.com>
+Cc: Dragos Tatulea <dtatulea@nvidia.com>
+Cc: Stanislav Fomichev <sdf@fomichev.me>
+
+---
+v5:
+- Rebase onto net after the net-next merge and state how the issues were
+  discovered and tested (Jakub).
+- 1/4: Inline net_devmem_dev_unregister_rx() into
+  net_devmem_dev_unregister() (Stanislav). Factor out
+  net_devmem_lock_dev() and net_devmem_unlock_dev() and clear binding->dev
+  after unmapping and re-acquiring the xarray lock so
+  __net_devmem_dmabuf_binding_free() cannot free the binding while
+  net_devmem_dev_unregister() is still accessing it, and reject RX devmem
+  net_iovs in validate_xmit_unreadable_skb() (Sashiko).
+- 2/4: Inline the TX unregistration check into net_devmem_dev_unregister()
+  (Stanislav), clear binding->vdev under the xarray lock, and lock
+  binding->dev in __net_devmem_dmabuf_binding_free() for TX bindings as
+  well (Sashiko).
+- 3/4: Configure the DMA mask and dma_parms in nsim_bus_probe() gated on
+  dma_pci_p2pdma_supported(), require PP_DMA_INDEX_BITS before setting
+  PP_FLAG_DMA_MAP, check for NULL ns->rq in nsim_pp_hold_write(), and drop
+  unreadable or net_iov skbs at the start of nsim_start_xmit() (Sashiko).
+- 4/4: Tolerate non-UTF-8 dma-buf names in debugfs bufinfo (Sashiko).
+- Link to v4: https://lore.kernel.org/netdev/20261015163915.1166043-1-almasrymina@google.com/
+
+v4:
+- 1/4: Unmap RX bindings in net_devmem_unbind_dmabuf() once their queues
+  are closed, and make netif_mp_close_rxq() report queue restart
+  failures, so the NETDEV_UNREGISTER walk only handles bindings whose
+  queue failed to restart. Drop net_devmem_lock: walk the bindings under
+  the xarray lock and take the instance lock of binding->dev in the
+  final free. (Stanislav) Record a queue in bound_rxqs before opening
+  it. (Sashiko)
+- 2/4: Detach and unmap TX bindings directly from the walk, without a
+  grace period or a second pass. (Stanislav)
+- Link to v3: https://lore.kernel.org/netdev/20261014161754.3782346-1-almasrymina@google.com/
+
+v3:
+- 1/4: Run the NETDEV_UNREGISTER walk under the netdev instance lock,
+  and skip it when the device only moves to another netns. (Sashiko)
+- 2/4: Detach all matching TX bindings, then synchronize_net() once
+  before unmapping them. (Sashiko)
+- 3/4: Only request page pool DMA mapping with CONFIG_HAS_DMA, refuse
+  pp_hold on memory provider pools, and drop unreadable skbs in the
+  software PSP checksum path. (Sashiko)
+- 4/4: Check only the test's dma-buf in debugfs, skip instead of passing
+  silently, clean up on errors, compute UDMABUF_CREATE per arch, and
+  add the needed config options. (Sashiko, Dragos)
+- Link to v2: https://lore.kernel.org/netdev/20261012174300.2338784-1-almasrymina@google.com/
+
+v2:
+- 1/4: Don't unmap when a leased queue is unleased. Keep bindings in
+  net_devmem_dmabuf_bindings until freed, hidden from TX lookups by an
+  xarray mark, and unmap unbound RX bindings on NETDEV_UNREGISTER. Update
+  the binding->lock and binding->ref comments. (Sashiko)
+- 2/4: Detach TX bindings from the same net_devmem_lock-protected walk,
+  which now also covers unbound TX bindings, and clear the LIVE mark
+  instead of erasing the ID. The walk no longer uses RCU or takes
+  binding references (Stanislav).
+- Link to v1: https://lore.kernel.org/netdev/20261010025532.839559-1-almasrymina@google.com/
+
+Mina Almasry (4):
+  net: devmem: unmap dma_buf synchronously on queue uninstall
+  net: devmem: detach TX bindings on NETDEV_UNREGISTER
+  netdevsim: support devmem RX and TX bindings
+  selftests: net: add devmem RX and TX netdev unregister tests
+
+ drivers/net/netdevsim/bus.c              |   9 ++
+ drivers/net/netdevsim/netdev.c           |  33 ++++-
+ drivers/net/netdevsim/netdevsim.h        |   1 +
+ include/net/page_pool/memory_provider.h  |   4 +-
+ net/core/dev.c                           |   4 +-
+ net/core/devmem.c                        | 181 +++++++++++++++++++----
+ net/core/devmem.h                        |  37 ++++-
+ net/core/netdev-genl.c                   |  16 +-
+ net/core/netdev_rx_queue.c               |  26 ++--
+ tools/testing/selftests/net/config       |   4 +
+ tools/testing/selftests/net/nl_netdev.py | 125 +++++++++++++++-
+ 11 files changed, 373 insertions(+), 67 deletions(-)
+
+
+base-commit: 5838f10563d58afca6711edb5e4eda968ca181d9
+-- 
+2.56.0.385.gac671c819a-goog
+
