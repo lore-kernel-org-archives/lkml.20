@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793391937;
-	b=Tiq3fce07CFxBRdRdtP7PZSTWBpu0jFjmPT/fr01oV6LDE/8cexzRt0zAxrf73HSg35g
-	 FtJubllF7889UZ6M0tUhjlq2X6nouTMDeNVwGytdWooZClz5WN7cmHDLP1M71uqZKaNsR
-	 k7zsDAkFIVbuWQxDkcVnXlIlKYumyWV7jWB65po83tCNaLGzZLvxjqBBZOf/mTNR8qDph
-	 jVJ+66MKgcSTQFJstcW0pCSn5TIATxykj4MWQ6MaWKplR/feOHo2Y/b5YLnbxwsTSugPa
-	 TOVH4i1RBs1npitfDnINtMe7Lnuk0Wx4gA+HoqdeWwCPUN2cS0MlDyWd1/2CdS82adw==
+	t=1793392034;
+	b=rT+QE0l+rnd1cRfCmYjhXgPT4YhSHFnaAyfnBNdRNZBShcU4Vv123KIhCU6nCSjXIpAd
+	 /uTLob69MhOLaTzyISgZU/6Cs3YtzQD3IkzcgpdWpStUg8+apobRlo6ZQANbIk7/oIKwU
+	 BO8fGZEcoxuArhHfWz2q/Cp58BywCqOwMwEoCBZzPxcsVGCNlis24GxvsC2Hcp7QnxTsW
+	 3lWoq+Ayj4Yadas+NsGt3DzypgmYnsc0aWdAnXYLUsK7MjPEhFYyUTzoAFDPVuFrols0g
+	 5AbP2w6y5a3U9P46ZGtn392VEO5JY/SmeiDlPGbM7CfCkaKTHQR/LMo/oOPZ9gXtwNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793391937;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793392034;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:From:Date:
 	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
 	 Content-Type;
-	bh=h+S/iwpWTJ5inQBvcILucyNzwuBfB9Qt4tcm6aWtHVM=;
-	b=leTM/CIyCHF5Mg8GyyTWoAYS8R09gTEyoyTrYFZ55/HQ4Ul4XHn+wi3h0bzXwkga0hyz
-	 QzoipixnGqPsmRCgCaG6oRSQF31gqU+GaVhohqXzmQiEyw5t1xdOLUGiesqXIGFGammwl
-	 MoIdfXjd4dpgDudPYocua5zYJyskzNVqD2IHqpQFfHxsRWxz8i+65sqnZ8mKgttbZp9mu
-	 iu+eb7lcICx66vc3suzSk4+uwmEk3QcQAVq4eaJZJjQzBQaGjWoziP/6A1ewCzoquFQau
-	 G/IJ0ukh0ptFTbDw3ylYi9TOXFXzeTrguANP8GP7fjRS7BSaXH7uEIuhiY7vkOoCqCA==
+	bh=pqXtFs5AG3LRq9IHK1NyNxo49Fa15UvJPSBSbnkjgGM=;
+	b=2J2kD9vPfXxagKmAkCmEO9Pwkl5ezRZnawgYhWGqIkowXFPXHjDRZs8d58z3xulEPWZQ
+	 w8L2nl14UstIMJq2mnx8dUBi8zeSEAn+Lj1XVsnRYl1xOi05GN+EIppNcE1pYXD+XhmgX
+	 tsZqLbhbBA9EJHFehs48r68NDPCgx2HhYz5+Xog2FxqtKj3nIINxIxH1FHaza1SjCxq5+
+	 xezrKyJT2oqumq7u+yUgQx7qmskrIsFYFDAnhGwYitzgUV1bq/k6EDiBIsISHM1e9Ofsz
+	 Mr2udUua2OWzJKeBQ0plqQ/ZX9ri1naZeeiV3PQrD3iXgojAkJTrUws/s4gotL3zy6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ixOsJxxF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nWL1UzBb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26E5606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:25:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8D1606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:27:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ixOsJxxF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C07E1F00A16
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:25:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nWL1UzBb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58A271F000C1
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:27:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793391936;
-	bh=h+S/iwpWTJ5inQBvcILucyNzwuBfB9Qt4tcm6aWtHVM=;
+	s=k20260515; t=1793392034;
+	bh=pqXtFs5AG3LRq9IHK1NyNxo49Fa15UvJPSBSbnkjgGM=;
 	h=From:Date:Subject:To:Cc;
-	b=ixOsJxxF4fgDarUBZlmlz8RmvYGp90V9e1SWyaAqC5FghdiLIozPJNWpjzSJtcIHN
-	 bMNVxlmjIhxs0T5rnYKXBgECC5neV/rOOvV0BX7/3zLvKhiJIeaw6Q2wHmDepBW1Pa
-	 feCcpjXXhiRs2nGUmF7rKCwElk0kJ0hoI52+zkS1Rm570HbIiPHFaYcGHz+lnXQD72
-	 jcGtAItAxtP/1qHnSrO3MuXAa96OfAeyRNzyoAAOgYJJn+moA2D2KiBKQyE0mhvSnx
-	 72Rpcm2NoMbOU8eKmSlbqaJb2aA2JZaUZKtOpmsDz2PSkoLgP2CTV2504QHQ/XUFac
-	 /I8Nno+Yfhthw==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5bfa65c8617so729022e87.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:25:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzLOj3s3ezRYy9Ejc2zDe4t0QfnjbdTY5ERORaNBHruOdI0BkbzYh4P0kPyK3B5hNS1FgHZlraBUOEfcQo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2ld3Ycbx3gUbw7RspyJ/lKsXDILE9usdJT4GmJGvrXYgO/dUT
-	dhQvUOLvIls7hftEH+rm8cRrHyVSP5yaOGdvk55Xhz9yaEEyNwETsAys6qfEW2Yis1Z2oYA0u8z
-	HPSFu0xNToyEVuCz6ihiAgFteZgCuoIA=
-X-Received: by 2002:a05:6512:b9a:b0:5bf:b8f1:80dd with SMTP id
- 2adb3069b0e04-5bfd9583a29mr1226796e87.54.1793391935000; Fri, 30 Oct 2026
- 13:25:35 -0700 (PDT)
+	b=nWL1UzBbxtJpdLv9+0CU0zRqqOH5mG5Kt1H15HVsF6FkknucbdKB2Z3mpRftM9AtZ
+	 RMPIzo8AHlYvwiLJjURF3FrLAn4mjeeC/Di13tpuZEPMebPuABOOMG/HvqFuLAYN4C
+	 Gdm7MVQ8pwfk2YLVTjViUmkpXMolXZRG5uxaQ7afjyYGfyvMtdZVKOsbx/8hp8Higd
+	 prziwV3Dp5cYYcCpAapeKKAb5bs7K9TGrsCKIZ1Srl50yFbx0x7PacMrAjO5qVpTm/
+	 E+5ElLp4E0/w+uneSIVwa8HbCMRzs2er1XpteuIx01C0aip2m92WzkNCcwjvf2HF2x
+	 3skClmysaT81w==
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5bcb0f245e0so1099767e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:27:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxYFHIYPRVRAMRHGItteYG1oT2rHQJNmFCj6+JFLKYCuy7PtUrsHqlMyXVl5LozyEiGvXa7mUTPDw8wbBk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5uQXzqRdpRVeyBNHFz/6NSEBXIoFDsPCwRai2xmez6pVfxM/p
+	54M7v+uTJY71rkLUyoW35nL+px0VQKJ3StvOyuAHNOEkNzeHVYOTW+4C3gmu9yFDaUK0JfDiGIU
+	jQh5FlxHkxA0grAGWos1ybVdYD9r0xy8=
+X-Received: by 2002:a05:6512:3f01:b0:5bf:9f5e:fe0d with SMTP id
+ 2adb3069b0e04-5bfd95605d9mr1305709e87.23.1793392032873; Fri, 30 Oct 2026
+ 13:27:12 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,15 +60,15 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 30 Oct 2026 21:25:22 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jSxPop-hQ+2+cDRihaUWB3ubNJEcW-p5VC--W+Xfr0YA@mail.gmail.com>
-X-Gm-Features: AclHuK_lN9lxHG82WFu8SnI0fZmqRuMJe_aC4_DNFq31H3OntBN_qfbal4jvSsY
-Message-ID: <CAJZ5v0jSxPop-hQ+2+cDRihaUWB3ubNJEcW-p5VC--W+Xfr0YA@mail.gmail.com>
-Subject: [GIT PULL] Power management fixes for 7.4-rc1
+Date: Fri, 30 Oct 2026 21:27:01 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0iNLS=-XW+LeJTa5ttDJGs6AcQdMOxaFTCxhXu78jnsjQ@mail.gmail.com>
+X-Gm-Features: AclHuK8SSOaqftR9NTiZdUwfLGjA_LieVokjUgZaaB5F0Z1De1XQKPUmop8daEM
+Message-ID: <CAJZ5v0iNLS=-XW+LeJTa5ttDJGs6AcQdMOxaFTCxhXu78jnsjQ@mail.gmail.com>
+Subject: [GIT PULL] Thermal control fixes for 7.4-rc1
 To: Linus Torvalds <torvalds@linux-foundation.org>
 Cc: Linux PM <linux-pm@vger.kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Lukasz Luba <lukasz.luba@arm.com>
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Lukasz Luba <lukasz.luba@arm.com>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
 Hi Linus,
@@ -76,73 +76,47 @@ Hi Linus,
 Please pull from the tag
 
  git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git \
- pm-7.4-rc1-2
+ thermal-7.4-rc1-2
 
-with top-most commit 018f42c9ac5fa9701fc09514ed0739ab72708331
+with top-most commit 4358090906b01806ee483229e8d7163b806bd116
 
- Merge branches 'pm-cpufreq', 'pm-cpuidle', 'pm-runtime' and 'pm-sleep'
+ Merge branch 'thermal-intel'
 
 on top of commit 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
 
  Merge tag 'driver-core-7.4-rc1' of
 git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core
 
-to receive power management fixes for 7.4-rc1.
+to receive thermal control fixes for 7.4-rc1.
 
-These address assorted issues in the power management code and update
-documentation:
+These fix three issues related to thermal control:
 
- - Fix potential out-of-bounds access in deferred reset in the cpufreq
-   statistics code (Zhongqiu Han)
+ - Fix CPU mask truncation in power limit trace event used by the power
+   allocator thermal governor (Hungyu Lin)
 
- - Cancel HWP notify work in the intel_pstate driver cleanup to prevent
-   possible use-after-free from occurring (Tristan Madani)
+ - Fix code indentation in create_s32_tzp_attr() and rearrange it to
+   use early return when applicable (Thorsten Blum)
 
- - Adjust state names and descriptions for ACPI _LPI idle states in the
-   intel_idle driver to make them follow the driver's idle state naming
-   convention (Rafael Wysocki)
-
- - Document the new pm_runtime_use_autosuspend() undo mechanism that
-   triggers automatically on driver exit (Joshua Crofts)
-
- - Do not call suspend_ops->begin()/end() for suspend-to-idle to avoid
-   driver confusion (Ovidiu Panait)
-
- - Make the energy model management code allocate the cpumask for
-   non-CPU perf domains to prevent out-of-bounds reads from occurring
-   in the EM netlink interface (Karl Mehltretter)
+ - Allow cross builds of the Intel thermal tests (Sasha Levin)
 
 Thanks!
 
 
 ---------------
 
-Joshua Crofts (1):
-      PM: runtime: clarify pm_runtime_use_autosuspend() undo mechanism
+Hungyu Lin (1):
+      thermal: Fix CPU mask truncation in power limit trace event
 
-Karl Mehltretter (1):
-      PM: EM: allocate the cpumask for every perf domain
+Sasha Levin (1):
+      selftests/thermal: allow cross builds of the Intel tests
 
-Ovidiu Panait (1):
-      PM: suspend: Do not call suspend_ops->begin()/end() for s2idle
-
-Rafael J. Wysocki (1):
-      intel_idle: Adjust state names and descriptions for _LPI states
-
-Tristan Madani (1):
-      cpufreq: intel_pstate: cancel HWP notify work in driver cleanup
-
-Zhongqiu Han (1):
-      cpufreq: stats: Fix potential out-of-bounds access in deferred reset
+Thorsten Blum (1):
+      thermal: sysfs: Fix indentation in create_s32_tzp_attr()
 
 ---------------
 
- Documentation/admin-guide/pm/intel_idle.rst | 12 +++++++-----
- Documentation/power/runtime_pm.rst          | 10 +++++-----
- drivers/cpufreq/cpufreq_stats.c             |  4 ++++
- drivers/cpufreq/intel_pstate.c              |  2 ++
- drivers/idle/intel_idle.c                   |  9 +++++++--
- include/linux/pm_runtime.h                  |  6 +++---
- kernel/power/energy_model.c                 |  4 +++-
- kernel/power/suspend.c                      | 20 ++++++++++++--------
- 8 files changed, 43 insertions(+), 24 deletions(-)
+ drivers/thermal/thermal_sysfs.c                              |  8 ++++----
+ drivers/thermal/thermal_trace.h                              |  4 ++--
+ tools/testing/selftests/thermal/intel/power_floor/Makefile   | 12 +++++-------
+ tools/testing/selftests/thermal/intel/workload_hint/Makefile | 12 +++++-------
+ 4 files changed, 16 insertions(+), 20 deletions(-)
