@@ -1,100 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793385232;
-	b=xPb7pHdKkBFjyRaaBz4H2mbmOyZGRPIh98iwQKFb0bqHoJDLFasLTo1STPCIKve/gKY5
-	 Ykd8nCExQwWvqu9yhg6bar3P5qBrO4DbZbVkmvCxEn9eqtzmxiQrY1gLQlqbvcghROrAk
-	 15KBRHL+F4d22+v4kl5GgZLQASvXIibH4k4u6KKU7GFS3coFhvJVQmzhArbo1uww9QUIO
-	 wHcQY4AT7sHn5qUH1Qp61RvaeeQ1Dcut327fTVbMIcC/nm3nDmCNpyc4khZzrDkjGSiio
-	 9QoMiLJIUi127DKn19woCGAueUfZw/YK8Z+p60iV5Cy4EzSaZpJm7JH/03XoUmHBduw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793385232;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793385252;
+	b=PgoOWv8q5fbJxebZCstNOSOBe/QZj/+cvmzSqvk76wNxQ97RpuKL9xCMfvlgPalZA0iD
+	 hxlsP/AMT+SMNsQ9+JPpS+GuaVNJ870BTeYWilJcXbXVEVN+qdzxSwWREqeWeqOdjaoNn
+	 8Htyu1Fvh2zUabN1cKC7rmop7pdxUItGK74enoeScntulh+zrTNVcHXmVG2r6WgjSJd0X
+	 io9UugE4lEq7Hf21rwDU/XY9Yr6arAPkLo6g8880GnkWKTUYEbn8A7i5L+EQDWhA5eN8A
+	 uEpf8OZ0FVWcIEOQslW+1bGj/+3PN/zOthFIqPIcUP873L5+eKTLWFUS8lflEZ2sueg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793385252;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=tcTbJO+0+S2knz+SdPsLwHK3PTtsS4Ru8HZcBW+ib7o=;
-	b=RiJBWoG6S3fqlZyupKevdgj9LNAL0rv30/VCz1k0uLZsQniSbTA8wxZkX3KyfF7WishO
-	 IeLSFCdZ9TPATcOlEGKmNij2rVBA0UWzhLMMVj4NywAJr1Q4QdaMebC3PhjuCQwKpNtRv
-	 dMb3pqgBvPD9k9cM+w6ds9C9RiuSAmvgS9REY4hf6PS4AT9x3hZjyv1ttsZ+qQkIGTNd0
-	 AmEXzZ0S5NTAl13g24kLPPPTxf7wVSIeEPY+657xpVrBkuUBslS/IgATR14KYtI3ZqF5N
-	 nkSrRR4Q8XfI+0a9PLnQTq1nxuFegDHQ62L7eKAl8AHyB5ANJbrLRh9EeYDA9lh/Kcg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=or/hcrtFhExIO4tP3jPbR5S7A2yzzhQGok/N2Gaa1/s=;
+	b=gDjQ3oToF3xKG7pxABczTUXS2x9sVDOVARtnRzZebKvTquNpqIQPGqmyKM7RHYo/7Cfr
+	 J0iaqD4JNUxRCwtOmdjAWr50D/pdFdqvI0/KTfIfRK8Qagaq/Y0SK6/xKNaGdc/vDHIuT
+	 TlS/XKs5K94rnXPqcy8+UorVDLuZ90YhelH49ann9mme9VJSnfiNVW5FsftvyWoP2+xg6
+	 FgZr7V0LUF+Sk+MFLMhISUmhYj84MxecKAlcp2FSqhmhm9+MplpuTt+RgLcyXMWNxtyE2
+	 bMf6HizuPRGn/mP4mAHv9FiAhToY1Xdwd8XYmrIvZVPfKbZFlsvb8YygdJmF/gsRLvg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YiuMvH5j;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Iks3YX2/";
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FDEB606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:33:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FDEB606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66525606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:34:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66525606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YiuMvH5j
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c45551fa84eso153699366b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:33:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793385231; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nZ8B5VlEtN/LNwvhfzKYUk+ZNS97gDY7jUT/IYhKJtV4O3GxCjELQYk9A+FACYQD5r
-         3O2NbWo0vqmKAOvqFQhkD1xZnOlGDUteDUpJXxXevmexDazU9CjRqOvlM6CozjzpTufE
-         bpHSloWMUZ3jVZa5YWk8zKTFpcvcfc6w5Qc8NHXPpHTi6GZ20cUIYypaN/fLIaebyZSL
-         UDRV0RbSmJlp/1gXmrTffP3j5TZip9z42f5V589k/cK/JenujCef+gR6B/Hyw/4Bl7Zo
-         RqRT/dv7malxjeVmdyd0W9P+BlRHVWD27YSjcUsy774nYMnZBHM4ZQBqahO160+7yni7
-         MEGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tcTbJO+0+S2knz+SdPsLwHK3PTtsS4Ru8HZcBW+ib7o=;
-        fh=o+5hL96Eh9MUnjxrFFOhRUduuOGlrnaUeCHEDBZwTag=;
-        b=l6kg0WM8gRk2kffK4wSflb5G3CcBo//5qt2YzgD79ITdNdwM8Hje7ed8mW1a1GGsyG
-         ppYlRQqoUA/uCyT2+tu43ns07/bJhsjsAUnk3CbKsvh6OT7VRWekuKcSaUq914q0L1my
-         +zV9XAFyfyGmWtBg7WUvIeq8WPLkYS055M7qfLf8QoyiUxgoNSO+nz2NLBJPthWkPMZH
-         plwcv0qFV62wNOZHZalc+fwxk+JahQKQUA9vPqVYWRLrxPub5J21ILAQBu7VuNmY8l4b
-         V3QoTctBmAGPTDa3dPYJ2X+DvAYUZA48rQ4lybcGEPViv2S5Cb5e3WF9xW7uG5WoCZB2
-         sEUg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Iks3YX2/
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so10321935e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:34:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793385231; x=1793990031; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tcTbJO+0+S2knz+SdPsLwHK3PTtsS4Ru8HZcBW+ib7o=;
-        b=YiuMvH5j0xC7G2dCtE+dqBWbjlFnD9G+5HJGKQuFt68uQ7ICAq2rQdX2qodCZ9Wt6Q
-         BjEdWejjMR1maKvxtfSAuX4GfUPvY+5DlXMdOW8aLsTZAgLZdrW1VYYYQY6df0LHdaJe
-         tAb4ZgczqkxiDv1DGWcNtvTCUPwKUaOc3Xe06vvfMvr+VV4CK5wTNpIwKn7ghtMvh3wC
-         Bd/LhVcXoGNnx1nDr2qvAYMCwT7zBgbBvW8J3mo6hUaNxUdb44Ry0aNe4ksnkRD2OeZ0
-         v44iVgk5HXDmtx/BHf+qCJTbqmo3mwsKzx1BnDROSJmQ57B0q9EGVQVGAQE4X6KADjji
-         eZig==
+        d=gmail.com; s=20260707; t=1793385251; x=1793990051; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=or/hcrtFhExIO4tP3jPbR5S7A2yzzhQGok/N2Gaa1/s=;
+        b=Iks3YX2/0EiBYpxyRq9L/+JpAh+bHfsk9Ggk4ukRqOCtNBgh/yBwrfZGim1/R3oe9q
+         3yyd+xRPlNqupipQRP14UnptNdOpAD9FrTyheW7gQYXffUddQoov7wpu4d1+LBpI8owP
+         XR+ZElHljH/+LZbhB/adYGkKbDqxYsksqBZOEVY0Tpx/KR8H27PvTfVR4xUwRNrq4LW+
+         UEpDuSMUJ1gykpC85h9FBkqWPrgq/Moz9MuDxXLr5YOTC1dQ29BsZlN9TEJ50j+Whspz
+         uuoawIk2OIL/sveoQdA0VreCFJXKatLvpWo9Uuf3pPVZ6lWTYz7jyTgKwz8OZ2O2NgNS
+         3wOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793385231; x=1793990031;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tcTbJO+0+S2knz+SdPsLwHK3PTtsS4Ru8HZcBW+ib7o=;
-        b=GjjxvHosbCHIjNhJ+drtI2UlsutZiUjIsiif/KV3GRLQbfZO1FmUKi053p/HLeOFht
-         /PI5l7vqAHQMPsk4pntcLtoPhvjjax9R5TC5AYmUSEk4ryW1c1UxbdFdJ5Sdyq7Hudw5
-         frkKjBjywluGd412LJ2jlo5ZxFXL1qWOgUnsviSyiZVjt9rvuRfjsGO/l9GTWDEoDBQ+
-         Fag2w6BpWomSw9XrGsRph8Hq94sdCQFppEWOZS1h7YHcjdTTq8s/C1RxUJrhWRiAfLUT
-         RzrEHM55ueLHO/ois1y2GiUedlqcNKWibUKkY8A+XSG36mabveGx7lIwvb1xJfFTDrO1
-         Bc5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw96pzrJmaF/LGku02FRcR4HPTZxlfoieA0q1CG1xC1o3fcGGVkDLZ7MP8jlZFBGwzI1uJgilAZgoRzFVw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPW15TECkEDpJcCEcw5HtgWcIsJyCQ+VosGWBMI0sMAFwBs8fk
-	QNsitmhUaN4JJCNMNHLOtqKbJ3EQt0arod/4pl/bf122Hou98CGk8YK6qOSdS4DYKrcqUfJm4Jk
-	ltCKH4sXnttvutA1HNFQbun8boXNNwCQ=
-X-Gm-Gg: AYBFou0tOpUr/DREiaTJaFyDBIS+g2gaPcz/TWkqzBYDA/3wWMsD1NYyYIdXPsGevzQ
-	wDcvubh35olwo/5KADKnQQcq8aoAV2L0//b6UCuO3R8ARMJZMhYzDMQoipAtC6xT6FuOhrmNMQ+
-	2HI6kKTgoa/Csg8SxEM+YKCYMAfQSYfUhu72/7mPIKCQZoafzoubC7K5GR4Bu2m7D9g7NUWqGBh
-	6DAU3phzBBsGEPHLduGQfGXFao+mXWb01Nm1wf4/ou97JtIq7EaXCCpQzuZcMxfMVG7WQbj9RoN
-	5y0PFxc7kcMQm8iDv4tlNCH2qbZFhzXQ0/gs7Afvx4vX0zie3Jusl7ZwYV0bbIGX9kelwwUHOue
-	RAprSwPtXASoF+TsAUexmjKLDER3xx4rwS+iLrT0DxQIvXX36E2GynwpC8gapH6hYIIM=
-X-Received: by 2002:a17:907:3f95:b0:c26:1648:a06b with SMTP id
- a640c23a62f3a-c4ca7a96a37mr288415166b.38.1793385230667; Fri, 30 Oct 2026
- 11:33:50 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793385251; x=1793990051;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=or/hcrtFhExIO4tP3jPbR5S7A2yzzhQGok/N2Gaa1/s=;
+        b=jjHV37LOv5+WpV5NJJ2wUAMKiKm9sWPKRz1XhSVZbo+XyQ6zTW6TAoZgAx/br+BaS0
+         jYchq0qspVRva6T5HynbZr0wecsS838xsDfpkpjCYaan+p3I5dzQQcThPLgPaAoj75Mo
+         ALZH26JgXOeTazQrdLG4vbihcSDUoHf5fiIcrpMzJmoC/akAy/JJq0gtEU0CEwW8kLsJ
+         o10OLtlPXVVTEgKmNFLtmzBZU/FGC/WGisIrSjBc1WCRs2WzkD3z7M04r+wgOrFvApiy
+         iOOPEG9Fym/rcgwZfi4J6a0HoE1lOyatQ9QdfYAI3/GzhOEZUjsJs7YuPs+wlrjUrWHz
+         Xbbw==
+X-Forwarded-Encrypted: i=1; AKwUvBzhB2bPJ48OY/iEiNZyHRegiLTWYpO+v/Hwr69p1QpbZ3eiMR87RNO2c0b6NKSn1cQw4QK+e6vQTtlkZkg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMiefSWwi204qRWVdfoJRmkzyIZ9gxG0LcHt15ROkYbw4VUiss
+	qzuehi2JvdTj9yE3xxw1iq7DF1rK81+dhGR5nyabYee0IRPMjajk998=
+X-Gm-Gg: AYBFou3L7c91btoVkSYcQU/45ALVoqe1+76bBLXUB+KF8DMN+rDvRewaJYlt+QcN672
+	LWJxjo1jxLjxXwXtLXPZWYQRzJ8jnU+aOYZSuwX1E1jxDvIOq0yQDX4iSzFU9efT7LiPBB8S7Ku
+	glRcGAOA4XernDo85rQHhUad01MDwcGfVVPmQLBxoR8/p7TLZ8Oj7MtuLzR2Zvr2pTE+RD3U+bZ
+	jQq48/2u8NJ7iajLFqW2Ro7fbdHZcreieien5OCduYZ8LGuNfzj8PuCZFQitU7aLrVA0Cq10Gcd
+	4XQYgRMibq/2DjAShuqaCHhzlcBYczNCfxxA3RrAp05c4bxfU5NZ3zQSAIdDcL8t9DXfD1q9jZ2
+	u/VdzwXwT0nZPjMYCLmmzCc/9YIk7KGbGtiCCQArXZVW4z3A6yIdFwnDzTc4OeAk8mklbwyufD/
+	VAFkr9XY0ht1vLnAkRBBXb4MBx7t37JY+L6IzplBPKurEFr2USqYFsbQDX35qQGcB9qo3+4f8hf
+	sl/haomnbKpdkCE6SZKmV3QqRAlDnjBLPtTipZIurDzvQmB3T31i42eFYWYpv4C1bC+KM0akQmn
+	oJ9SKrY/TtP9
+X-Received: by 2002:a05:600c:1c0f:b0:4a1:ac66:6059 with SMTP id 5b1f17b1804b1-4ac19233381mr69475205e9.26.1793385250702;
+        Fri, 30 Oct 2026 11:34:10 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ab61d8b9f4sm114204175e9.12.2026.10.30.11.34.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 11:34:10 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v9 0/2] RDMA/rxe: copy send WQE to kernel buffer (TOCTOU hardening)
+Date: Fri, 30 Oct 2026 18:34:07 +0000
+Message-ID: <20261030183409.195671-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,36 +99,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015085326.340074-1-liqiang01@kylinos.cn> <20261030-almosen-kaleidoskop-alpinsport-aa25b8e28d7b@brauner>
-In-Reply-To: <20261030-almosen-kaleidoskop-alpinsport-aa25b8e28d7b@brauner>
-From: Mateusz Guzik <mjguzik@gmail.com>
-Date: Fri, 30 Oct 2026 19:33:37 +0100
-X-Gm-Features: AclHuK-rLe_DQTrVjURbbB-BmxTRRZ60mDxXPOCkV58QW-hcxW62qhsY0ehUl4E
-Message-ID: <CAGudoHG+ofOUv43u8MD3NX+cDE7Dq67iqnaRH18S_XcrWbrgaw@mail.gmail.com>
-Subject: Re: [PATCH] pipe: bound new-page copies by remaining iterator bytes
-To: Christian Brauner <brauner@kernel.org>
-Cc: Li Qiang <liqiang01@kylinos.cn>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 5:31=E2=80=AFPM Christian Brauner <brauner@kernel.o=
-rg> wrote:
->
-> On Wed, Oct 15, 2026 at 04:53:26PM +0800, Li Qiang wrote:
-> > anon_pipe_write() requests PAGE_SIZE bytes even when fewer bytes
-> > remain in the source iterator. This causes copy_page_from_iter()
-> > to perform an unnecessary extra iteration after copying all data.
->
-> This is an optimization not a fix. copy_page_from_iter() already clamps
-> to the iterator count, so nothing is copied twice. What you save is one
-> kmap round trip.
+The SoftRoCE (rxe) send queue is mmap-ed into userspace, allowing
+the requester and completer to process work queue entries (WQEs)
+whose fields can change between kernel reads.
 
-I know a guy who promised he would write the patch to avoid the
-multiple SMAP trips for read and write side (it's not me).
+This series copies each WQE to a kernel-private buffer before
+processing: patch 1 for the requester, patch 2 for the completer.
+Both paths validate opcode bounds and SGE indices after copying,
+preserve DMA progress across multi-packet operations, and write
+back updated fields to the shared queue via WRITE_ONCE / smp_store_release.
 
-It is unclear if the thing will materialize, let alone for the next merge c=
-ycle.
+Changes since v8:
+  - Patch 1: fix atomic write resid check -- use WR_ATOMIC_WRITE_MASK
+    (WR-level) instead of RXE_ATOMIC_WRITE_MASK (packet-level), and
+    clamp dma.resid instead of setting mask to 0 (sashiko finding).
+  - Patch 1: invalidate completer WQE cache on retry so the
+    completer re-reads after retransmission.
+  - Patch 2: write back DMA progress after each intermediate response
+    packet so a forced cache re-read picks up current progress.
 
-I think the patch proposed here is ok enough to go in regardless, even
-if it becomes obsolete in few weeks.
+Tristan Madani (2):
+  RDMA/rxe: copy send WQE to kernel buffer before processing
+  RDMA/rxe: copy send WQE to kernel buffer in completer path
+
+ drivers/infiniband/sw/rxe/rxe_comp.c  | 76 ++++++++++++++++++++++++++-
+ drivers/infiniband/sw/rxe/rxe_qp.c    |  2 +
+ drivers/infiniband/sw/rxe/rxe_req.c   | 72 +++++++++++++++++++++++--
+ drivers/infiniband/sw/rxe/rxe_verbs.h | 12 +++++
+ 4 files changed, 155 insertions(+), 7 deletions(-)
+
+-- 
+2.47.3
+
