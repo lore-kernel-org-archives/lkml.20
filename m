@@ -1,118 +1,186 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.52
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=91.207.212.86
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793355326;
-	b=gSxFCS62Jip02uUXhA/k163YfxuDatPlZM5NMgXK5Tszaouk5P9IJmupqSAeBI/tqiA1
-	 Sp54NcXZyygzZFVTjo9T4x5tftBlMK4FT4hL2Rttm36oLFyZfKz1haz/PBXTw3oG8LhUM
-	 4XfIPyKU/B/mAbN0EdgyoqrfkGVOv2/CFiTZhGmm39hSxtH15h0Mvsyqxq/EF18P4iGHB
-	 M/YwxORBNawVTpWpN6CBN0aEjROMUfCaFv1mRlef2qbY5hzRse3jrj2hyJZ5cL3BTnxNF
-	 0L7NnSCZ6QNYtWuSJo+fzDH4S8YKNkmIlHMJr1fdjUr9Zopbv77YGoSr7EMxRwq1opg==
+	t=1793355344;
+	b=fQNyIr7B7fD/aJUv3T5kf83GjkAfm+Kf1xAj1QmrH3KY6Y8Flj88uX8WIRZAtrcljF3+
+	 8QZ0MQ4D5CcQfBJircKVsgxeH5hVoi46RF6wRyNwplcBLm4Qtv9RYAY8sXgvLLkEJZGDI
+	 8svIX6/dewUQYJZ89fWDy5YNB4wEWpCBkt6whrddp5MKk35dKljbtXF/2Onl68qKjvqY0
+	 j3uj38TIII1oud6qe0Ea/Ee5M6LvM476qqh+I0zy7/BnjPxlXJ4B8nRLAENJEF6tcY1Oy
+	 fo3RqIvd/F8FORwcr9Kv9i1EN4tAYT0WQBFKTri0tPdGXbfk31zkGVs75yY+wMHKMcQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793355326;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793355344;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-ms-publictraffictype:
+	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
+	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=bpSoJ8ERAGE+2HdLcrLZ/w9bdGlkebvz/Cx8ZnJ0+sg=;
-	b=KNK7FNvLbXsOlvXpH6a6d5249i1D59Aw1LJNhN1PXC+gKaG+BNbY8LEBtflt2qvR3ZzE
-	 IOql21/gkjh2RWXqug1rECRE25ZkFgbnKInd/1LDD3YrOh363nLWE9o9/P7pglYa+3F+X
-	 +qjoIcsDcGmE4sz9GTYisL+sFNwfH2O0R4SMTZj4RUdr0uP27SQCsL9JjmbeDpkk02w0g
-	 DFawXYHCG8XpxXD95BeyP5fRu/ISrM5cStM4E4tHUNHm9wcWa/tb22u9ITxNh3wsYzGCW
-	 xXpcx9j/sGrdt8F6Gq4ufthQjkZWhXZCei28Ca8800MFx/o4KsdC6N1a3nFkjeNaysg==
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis;
+	bh=J7HC3cqCziayCtZR/ZahH/tRiOxz4tbW8N9S5ykM2gc=;
+	b=NomR5zR6q8tOOtsvpkTf5tYxs/7paoNyzsswhcrdlkwR+DDp7RyFPZojnnOO13R6gxLE
+	 0KkdK5yx/Lc7oCfdQOKl0euXoirFdOjOe5fUYMxdOSq58jLLQbWubYKZyIiY7Ghv6XTgO
+	 e4IkqnwLPerUdgA2J1WiXD1gyhMv9wRi61iAbE4/IpHSrXymej99QNGhDiVeWBT+6Kxgh
+	 0LfBfOsBKAaw0WyPyz4+xC/WkyrtytmPguzPT7bioQjytba5pDoQVcbELphHgQdZqr+B5
+	 dGhzA1dz59kcAwphC/EynhA6Jp8b6g/lJEuie1uV3H6oQK6Ff6BCOg580nTX93Ib0pg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=FMNS+2JS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.52
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010052.outbound.protection.outlook.com [52.101.61.52])
+	dmarc=pass header.from=imgtec.com;
+	spf=pass smtp.mailfrom=imgtec.com;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b="ZqQec/DR";
+	dkim=pass header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-IMGTecCRM-onmicrosoft-com header.b=Zp8CyMeP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=91.207.212.86
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB551606A327;
-	Fri, 30 Oct 2026 10:15:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB551606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47DDD606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:15:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47DDD606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=FMNS+2JS
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=ZqQec/DR;
+	dkim=pass (1024-bit key, unprotected) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-IMGTecCRM-onmicrosoft-com header.b=Zp8CyMeP
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8GGvD1683420;
+	Fri, 30 Oct 2026 10:15:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-id:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	dk201812; bh=J7HC3cqCziayCtZR/ZahH/tRiOxz4tbW8N9S5ykM2gc=; b=ZqQ
+	ec/DR+koaGrsDKUsh3NNtivgiJiHcQ0ueCrsKojnYtvvqCU47PWbHLsV37v767gy
+	9gWk2pxAXqKQc7oNZeXWAtyFpgThZD5VOTbqqhtkP6ZGpPHAnr9e9gbXo3l2FQai
+	nNAA3U+ikZ0GcGcIUxvPnUqwQRFM5L+SdW99SHWN97RL8gzy54Ahr6bWAyieKSgZ
+	O/0uLcnjt4Tlcr2LG9EriuhMVMMAxnWxPCEUEC47NbG1amYSkxBCXAbYy6uFMjF0
+	P3ENYv8cWPG+5zYm5cP8Hi1VhkiflyGHOK8YWp7dXsA2Q/laExKkOGurhUuBatTt
+	pn6BGB1XBTodF7Zz2mw==
+Received: from cwxp265cu008.outbound.protection.outlook.com (mail-ukwestazon11020098.outbound.protection.outlook.com [52.101.195.98])
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hmcmggdjq-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 30 Oct 2026 10:15:08 +0000 (GMT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hjd7bcipzyKzyTNbDSW3hoWQVCoxsE/mXf+py9buiW7IIxWkWP3q0C5CpFoePpk6hfIV/bvKmy4yxFqX9ZxvP/1OcNVbPpgBaRGlr76Z3QNXPJWaXAbzkxRdCc/dXetY4Stz36NulG6ydgn8O4oFc6zzL83Lw1KuAh14zJxgcuNDGP/h046OALWRCAMqLqhtIgFqJ0Pp2c2Hq4y3qvT8ek4KdAbO/Nb5prIJbfXW+bw0BOWl+dECvclVJth8OIRvl13Hr48KSl+Um3owz1mZJy4NtwNOdJPcwTsqE9lv+D+lbM/d1o5VZpof/WqOb5A/Z0WExsbSOObuKuyraC5ewQ==
+ b=IHedq7iT8aB2hitU7QGb71yjLjXvIV1sSJ5i0CGC1Shsv4GtB5yhHHKne4BaXecBPA8YVOyhpIYAaRWHMu/X4flvMUYJErXk4WRgcDiiuz87K1vNq+PXZRnaB3vVrRimrrgTzeQ2kwYIcWq2iQxceUMylqTQx7euKSn/6Fr25RzXsGSZbDeNUtNrByuV5jGtBWz5otWU6R9/JeBV7ZcQZPK8qmXreVYjUlugbNAqOYAjyhW1OuiLrszumqFixPFypty4e249MbVUiQn5i2i1wSVPjAGaPNyiXLYZmjw4EiXk5Wp8BHIN4aiZwR6fzY8zuqgvL/gTAjL2FphieRcxLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bpSoJ8ERAGE+2HdLcrLZ/w9bdGlkebvz/Cx8ZnJ0+sg=;
- b=qpuyrAhJiruyh+CUV1JpiK93W2sKEFfDJtPKg+daWw5y+298NNbDi5ajm+ZZONaZcJtF9WL0IH3+mQSmM9qfFYMPAd+LJj8uUTSCcvykVfYCpQccjTzxPV2CvkRrye2d1M+Dbm9MRWXiKdoFVDjRfFKezpYEzTZ0NdNu7g2ZTvpmvjYPeUnLjpDeJDRTvcr4bR04uVU7dvnMwNIg7rXHCh1qT+A8YDWOa/tI9RTNLN5Hzn9KSHGQ27zmRwq3ZZ4V4fYCAOPVoj8EzbylA9UieAWAvcPrw5HJ9MM1v7Qj+IDd9+ApKZaBbWAWfj+NYkb4PGo4gQqfgRgAUsiPWdnBMw==
+ bh=J7HC3cqCziayCtZR/ZahH/tRiOxz4tbW8N9S5ykM2gc=;
+ b=zWZG2vOV306Xh1AUUgC/6CLfFcu8N76FO2fy8Y1Vy0d3OGIOKstJaDQ0tNfI/uwZxGEVl5O/K3QS+FJ0hclzyO3KdMiIMgX4VhjG1ZNMXN7NweuqP1sOUllaS4zI5pfnxZETZPKjt2SLWglqsFHwm43KowxiT7bdlmw0BaJVBCw2+R/bi7w/sahaWhhBenFFRCQ6Rfhwgb3weydzDzWP7Atz61Ys5hRA6XJbxbbJC3HpeGIsEG9QzimBIIJW+o1dpFWD3OvyrDtNYNHm/03CD0osHmWDFIXwDsaFSfz6v1F5yw35gdCdfF3dpnJoqZouL+hc8a6LGUWntPfWHZH+OQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
+ dkim=pass header.d=imgtec.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bpSoJ8ERAGE+2HdLcrLZ/w9bdGlkebvz/Cx8ZnJ0+sg=;
- b=FMNS+2JSpnfxs47IL5iXV79FVeRkk4f2mAREunP72TxSJw2hsJC2d73tXyeEDMekuKvFPUqDBhx0qEGnH9vfL5U9wJlGDb/DiSPzmqr4W8Zf4zViLeg0JfEsLXEku+IfNMQovz+NTRDHvJxDUGxqgnFjb+48kWKQ85ikMudWocU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW4PR12MB6681.namprd12.prod.outlook.com (2603:10b6:303:1e1::6) with
+ bh=J7HC3cqCziayCtZR/ZahH/tRiOxz4tbW8N9S5ykM2gc=;
+ b=Zp8CyMePw+G+m3h+kJZwJk1hQSbAIaxb9XssrEZgPHMn9fqxw/yvl+TJBvcdFSyhSmDkl2cwA/DDpp+Fbtu5QXw8vKNlhnVHe2XJryFh6vUJgR8omma6+VRp4/bXHh2tk6/vaRYjb7irT1pAxu/ArE/h6/JEivlpuSQteKr5yKE=
+Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ee::7)
+ by LOYP265MB1888.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:e5::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 10:15:03 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Fri, 30 Oct 2026
- 10:15:02 +0000
-Message-ID: <08705a7a-86aa-4b43-a22a-e80a572010f2@amd.com>
-Date: Fri, 30 Oct 2026 11:14:50 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/8] dma-buf: transfer memcg charges via
- DMA_BUF_IOCTL_XFER_CHARGE
-To: Albert Esteve <aesteve@redhat.com>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>, Christian Brauner
- <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>,
- Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
- cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-mm@kvack.org, linux-security-module@vger.kernel.org,
- selinux@vger.kernel.org, linux-kselftest@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, echanude@redhat.com, mripard@kernel.org
-References: <20261027-v2_20230123_tjmercier_google_com-v3-0-78d2c4cb8647@redhat.com>
- <20261027-v2_20230123_tjmercier_google_com-v3-7-78d2c4cb8647@redhat.com>
- <d76d8bfe-e955-4e90-9f5f-e3e914c0869c@amd.com>
- <auIeQU0nAnOLdKUB@aesteve-thinkpadp1gen8.rmtes.csb>
- <9ebce3f2-f7a0-46a9-bad7-39059b99423f@amd.com>
- <auNzHjhT5xezyZ4I@aesteve-thinkpadp1gen8.rmtes.csb>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 10:15:04 +0000
+Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::3ee9:8c49:ba94:4237]) by LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::3ee9:8c49:ba94:4237%7]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 10:15:04 +0000
+From: Alessio Belle <Alessio.Belle@imgtec.com>
+To: Brajesh Gupta <Brajesh.Gupta@imgtec.com>
+CC: Luigi Santivetti <Luigi.Santivetti@imgtec.com>,
+        "imagination@lists.freedesktop.org" <imagination@lists.freedesktop.org>,
+        "tzimmermann@suse.de" <tzimmermann@suse.de>,
+        "simona@ffwll.ch"
+	<simona@ffwll.ch>,
+        "dri-devel@lists.freedesktop.org"
+	<dri-devel@lists.freedesktop.org>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+        Frank Binns <Frank.Binns@imgtec.com>,
+        "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+        "mripard@kernel.org" <mripard@kernel.org>,
+        "airlied@gmail.com"
+	<airlied@gmail.com>
+Subject: Re: [PATCH v4] drm/imagination: Support for querying Firmware
+ information
+Thread-Topic: [PATCH v4] drm/imagination: Support for querying Firmware
+ information
+Thread-Index: AQHdZuWwhi3dqwDLiEWjGT3/zX1fe7cV4UKA
+Date: Fri, 30 Oct 2026 10:15:04 +0000
+Message-ID: <56099e76b3267cbcd54c419ff89ccba6dec5c741.camel@imgtec.com>
+References: <20261028-fwversion-v4-1-aca85735a2b7@imgtec.com>
+In-Reply-To: <20261028-fwversion-v4-1-aca85735a2b7@imgtec.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <auNzHjhT5xezyZ4I@aesteve-thinkpadp1gen8.rmtes.csb>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0516.namprd03.prod.outlook.com
- (2603:10b6:408:131::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=imgtec.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LO0P265MB7076:EE_|LOYP265MB1888:EE_
+x-ms-office365-filtering-correlation-id: 151cb861-355f-4d7f-e291-08df366eaa5e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|10067099003|18002099003|22082099003|56012099006|261028144727099003|261026140227099003|261021123027099003|261021121427099003|261022115727099003|261022075727099003|261022105027099003|261009223027099003|38070700021;
+x-microsoft-antispam-message-info:
+ mBnwbYpp9zVtzWNxfvwZBQ22Bn9PtEhwEgkvkkgw5SHCSdGAtklPY22P96pUAQxwglXfrqwcAIHsufng8qlsiSOyB+m3eqPG65YMTmBelZjdUF+NpWY/maExFgsz2cd3xAi5GjatMgQLXBRMdvu0zmmN8hjD4PLpq+py30tPUQT2f4tVbR1Zt4AkJOIWdI0aSGNRdTeUi0RhmllRB8iN0IUNh5Ie5GT8vPhcjK5RCk7SHXBneOhviWaFOv6vNx2hk4IzLOgg84+tToJHm3UyglUdMq67Y+NW+TOYPKrdxFrs07eTI8jkQoUvakLEISecCwjaY5t8rXL139agIpntbrw0AO4hl2bnkx68S3Hd3iN9D1UHphJzrQ/Ga1zyVYTwwHbHn+vXc8uLUSx88PasppBMIFSK00UEV2HIwZicamUIxYaq0doTaJUxGkPoZq7RNLm6JDh0jCgf8rpgY+o6qFNSfGa5e4zTllz6DWOdPXRXEZOoP9OxA+11S+d95kyztlH8Ku1H4ieghaf2KSeGjPZst0+I8CtODJpulnoqY/6epQqr6I/lkuJ4dNDIKzR+opKJutoeUmQp7H0OAzoTaOjYsA7meSRZOrnzSaDhn3Iup8nQ6/3xE0LKlmAo/lnUZ7M/WnY306Wvui/dbw0IG9lSAaqOG9WNFXa1d+yjZic=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10067099003)(18002099003)(22082099003)(56012099006)(261028144727099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022115727099003)(261022075727099003)(261022105027099003)(261009223027099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?MmE3SE16UHBmbWM4VHg5aWFTdUloRU9xT0QvdkRNaHZ5eUdwTHRJeFY1cEZv?=
+ =?utf-8?B?NEFTbEJWb2ZINk8rTDRhOVhxc2lkdFFLVVJ6ZW1qcjNuaWpscGRHYW53V1c4?=
+ =?utf-8?B?aWhSaXFIaEM4SEZibWlBb05KWGNhdTZLb0VkMlJBUFlvc0lqUTdNRjZlbW1M?=
+ =?utf-8?B?d2lPQW5tU0RtR1p2RUpRdmRWSU9wcUo3TFpiUDFKL0tIam9ULzRlWi9rSTVh?=
+ =?utf-8?B?a1pzSDM1T2RkYzRtWVVrT0VZalZndG8xZUVISzEycVVibVdmUEtpbXVIakdy?=
+ =?utf-8?B?cGROZGlnRWZEdng1QnVSZGJzd0RPcUxmb3Y0YXBzbFdMODJ1ZkREbGdhalgx?=
+ =?utf-8?B?ekdvdlN4MFVLbFBJNjdvcXJsSWlhNmhXS1VFRUNsUnZiNTc3L083WE5PSk82?=
+ =?utf-8?B?UVZFU3FlMkNmNm1wZHBNWm84bW1XS0toVFBJeFd4N1hocEZ4SXFNMWxVekhl?=
+ =?utf-8?B?b0Y2c3d4UjYyOGdFUS9pKytSZEp0U0JkWGN5ZHNCb0JaMXZMMDhDRlRmNDEw?=
+ =?utf-8?B?OU1BT1dkTDBIWHZDMXgzM3VZaUpMODUrUmNQeW9lTHRHMUlrTjAzWkRwTEZx?=
+ =?utf-8?B?NjViVU1OL1VGNWtXbWUrUHJQWldGWFRxWFFRWTdySlpCaWZQTXowTkRaRGw1?=
+ =?utf-8?B?VFpGNUhPa1g1V0w3bTAzOW9YUmF2dDd1YVYvOCtNRDAydU9WNzZPVXI5RWFl?=
+ =?utf-8?B?OVN5UlNSSmt6T0ZHT05SdTRMR2o2L0p0QU1sem94OWdCMVA2UENEUjk2blhU?=
+ =?utf-8?B?d1hteHNSeUR0eEJ2UmVlMUY3dkowNmxaczdHUkRFMjRET3J1TzBaRTBOT2Ji?=
+ =?utf-8?B?a1BSSmFYd0lyV2xxNE5ncTg1REZ4UkFlL2JyYlV5U1ZURitlOXk3enAwdTNS?=
+ =?utf-8?B?ZjFVeVBXa1FMZEE4eWRFa2JOWDBmdDJ0N3VDc3VCM285d2xGcGlnS25WOFIx?=
+ =?utf-8?B?cTV1UlI4ZC9oUFYveExldGZ2WFFlazNuWDRqWWlFbjg1T2VjSTNXSTVCV0hM?=
+ =?utf-8?B?dnRSV2xiZC9TQ21WeStEc3BSNExZcGcxdTF0WXZhS1A0ZlFyRWhCZ3V0dWw2?=
+ =?utf-8?B?NkhQWGd4THVZZjZpZDZac0k1cEkzL0crSHFxSkNRclFGamVydVlqNUQ3b1RJ?=
+ =?utf-8?B?VmR4Y09DRlZSZzFhNU9vajhoOFVDYmhEcUNGdDdJREJqWkovZHdjSVBsVmNs?=
+ =?utf-8?B?VDhKcnExY1dEc3h3czlDNW94bHN0NzZQaXprMzA4T1kxVnErQmZxTmwvQUFz?=
+ =?utf-8?B?L1dQaUpSSzAzRHhMYWt4a2RIS0RBa0xhY2FVQ3VYVHMyUU9qYnEwdkN4NUVx?=
+ =?utf-8?B?dGNvT2NnUHY0Uk9FNjBBVXA5eHNFSkFlSUZEMUU3dEZRaWdtU3lPN0tvalJk?=
+ =?utf-8?B?T0hLQUd2c2NWNDZoMzM1RkNXT3k5SythNU85TC85RER2NXZ2Qmhzd3FvQm5O?=
+ =?utf-8?B?NlZIWnFyK3cyQ2hSZXV3bGJaRitDOGJmR2RzWmE4TE40ZW43T0JieFF0ZDdm?=
+ =?utf-8?B?cFA1VkVJdEpYWDU2OVc1MnA4UWNjTko2aERUSGxuOTZzOE5kQzdVKzFMWDJ3?=
+ =?utf-8?B?WmJIc3RobENUaGV3TWg2YWxZeW1pVDBGVVVFdHVoS3RsQnIwaW1uR3FCTTNr?=
+ =?utf-8?B?cVpZdk5VaFJGbE1mMVQ5VVVrNHBSNDAydG1Xd0VadzBZYnd4K1V3T0w3UjU2?=
+ =?utf-8?B?R24xL3pWNERLR3hnanhORVlvdWpEMXRLRmprZVFLS1BTRWpCUkVWOUFxcXVz?=
+ =?utf-8?B?L1RCaHBBVTcyNEtHdDh3bGJFMWhBWDVuU0Rkb095M21meXdZQ3ZlbG9vM1FM?=
+ =?utf-8?B?dHNoc2NqbzMzTDBiMTNwM3hsckFsVWFmWU9Dc2tQNGp6ZEg5cmhoRDh0K3Ux?=
+ =?utf-8?B?TEgwK2k5QmNGZGthaVhYZzI3a29ycGtzZU9RZlU2NjdqUDVIN3dnTzd2RlJ6?=
+ =?utf-8?B?NVF6ZGk4djUyai9tbjRZNkhPem5NcWM3dFlWcjh6SGhhcENCZDRheXZYQzRu?=
+ =?utf-8?B?NVVNYmJ0dHFXMFU1OVpCbi9TSkhvTWpuZHdGL21oWTNyY1hWMVlxL08waUhz?=
+ =?utf-8?B?a1RYdGVwVmcrd2VCU1JkOGNwdFJlL1VMamd1T0NTVDBZL3ZuUFZiaGZUVFFa?=
+ =?utf-8?B?bHZraXhUTkd5WllVTVdjOE5yckFPU0F3V0IwQmp2eG5MS0k4cFU4MEJLY2l1?=
+ =?utf-8?B?RGpyY29VRk9KLy81SzExUXRvTFB1cjE3ck1HeEx6eGVld1Ixd09hdWY4d3Bz?=
+ =?utf-8?B?cDlCQzhrcTNjVEpOWE4wd0piRmxEd0Y3bkVSMWVVZThIRkFuUjlWMUFNWVJ1?=
+ =?utf-8?B?cHJEeCtSc081ME5vb1I1QTNwR1NWZzBYN2RpbVU4S01mTjIvM1hPT1dNK00r?=
+ =?utf-8?Q?rnv4QSTzr1m5vaXs=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <640F2EAE0855A14BA08CFFF72FA5F311@GBRP265.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,435 +190,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB6681:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4588d9bc-e088-473b-b563-08df366ea973
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|22082099003|18002099003|10067099003|11063799006|4143699003|56012099006|261021123027099003|261021121427099003|261022105027099003|261026121527099003|261026140227099003|261028144727099003|261009223027099003|261009221227099003;
-X-Microsoft-Antispam-Message-Info:
-	y6jeYfReWPIn11AK8DxxwrAaYxYfsyHmSuI05RtAAIFhJK/Pc/UPVbNQfjHPfjvjEkcmp5htahnN8sutRpr3NIP5eHm+gXJVuxw342kQAt84cZ2Gq+hNpT1UxerGeU7OKduvM2kydnk7FRC3tfujCcJD/Thv2QJLKFgK71eHu2wILlVlVXmA/VsHHDQN0NAZy4u0y03D1uflTk+SxPJ17pWFW+jWdkFM+0jC9LkpDyxHrL4Ryu0tYD/KpiIG1X2Ua/VLqmvIlssG+k2uXCU4B6V0XGEgnIf69ojN10nKLlOqvsgVXP9ONJe5J0AtVJ1OjjgbaMJEFAJoyJK8EKvmXc1lMuWaMRCqkRVZCXKlgVcbIVF5H6coxvkq68XiI/XRDIZRl8dgDDrEu6ex8pohm6339PV85ewjXO4OybFqOJO3t3nn6AJTnobOJudoK1mbwOdV1wMpw9vNsYqzsWx/uMUgsuNnlwmqjMTz6YhdJUEwhajvtdtSh5t6uhBnJpYfgD51x1XqB/zJWSIsGloTeE2qiYrNebbxHKaTAcZW1fXVVshXmQnNZN6po3LXf6jqBtkdDoSd/ax43WJ3TOyJihHsbe3tc80gykye6WZKkhNlJI8d2x0IYMAnSjj3El4THS/2nenWsQ3HoTV8uhW6uzzQFJ+qKWSlPd99gYfo+Kg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(22082099003)(18002099003)(10067099003)(11063799006)(4143699003)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261009223027099003)(261009221227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R0duRlQ2Qk9HbitDNzZYVjlINEFvQlZ5N2hrN1FSUDlvTnN3b0xETjJYVjRz?=
- =?utf-8?B?cXVINFJLQ1lzVUswV2pvZUFGRmJGNnBndkFtK0oyRTJ0QW9NU1V5OUxWeTN2?=
- =?utf-8?B?K3lTSHVuYXRpbzVHUTk4cTRZeXU5eUZaQ2hsYjVhd0U3Znh1ZE14U3VsMTRt?=
- =?utf-8?B?VnE2SndwdUVOWGd0QTE3RXFCcmhGZXlTYTdFODIxLzd5b3F4ZmhCb3pIbmNH?=
- =?utf-8?B?RTZDU3Btb05MMnVnaU1KYUN2aWVMOEpFR3VrZ3B6Z3JTNEtqazdJT3dRUlEr?=
- =?utf-8?B?ZVNBK1dYVklzNzRQZ3lQSjFBYjBoZEEwY08veVFnN0NzaGhsOGNBWHNhUUlL?=
- =?utf-8?B?cVYzZmxqOVg0d2NETnRLbEhFQTB6Sjc4Rm95MW9SQ05tcWxOOVAvL1l5YnhH?=
- =?utf-8?B?RDhReVFUQUc1UEZ1SFA4c0lyeWJEY0FUQTBLUUYwT3U5MXJHY25QWVZyelhi?=
- =?utf-8?B?MGE2L2NyWWVsWFl3Si9ib1ZZdEhZTU9WQzc5RGpLR0MrZ25pbDJnajBYdFZ1?=
- =?utf-8?B?WUY3SEFJL1FmQzBCcitQTGxxU3ZyNGsxcm9XbTB5Mm1yMzdCUWxQeTJldFVN?=
- =?utf-8?B?RElLeTlmTlpsMHl3bTdGTjJrcHI3bFAxT2ppMDZyVldRVnVTVGN2T2djSlBD?=
- =?utf-8?B?VmpTTTJVQy9ZdTB0L0tBb042UFVDOVFJdGFYWlpzNEdmWUNUR1czcXRIQ09r?=
- =?utf-8?B?MGdyS2JoNjUvdDBWK0hLMzIyclhkUVBYVWtlRkwyTjN3bTFkQSt6aWtBNmlJ?=
- =?utf-8?B?TWs3TmUzZEduN3VLYSsvWXBrTW04TGE0bTY1UktpZDRkUnFDUFh3akVZYUpM?=
- =?utf-8?B?ekNlbG92R1hwOGFTTzUvSWxhOG4wZDhzRGNlTjdnQldXdGJ4VWtPWTZKbkQ2?=
- =?utf-8?B?SmIrNlJFVnVjVFZhZVdJdVVHMXBSbkRWcU0yMGc3SDIvZHlPVzRrS1VNQklu?=
- =?utf-8?B?VVlZWExMWjV0Z2RyYnl1cm5rTko2YlpUR2cyL2x3dkJJR0xBM2NkVW9VSGl3?=
- =?utf-8?B?TDVCMTFXMlU3YzVibmJwTzJQaktnQ2ltSURVNVA0djQxZ1FzMTNaWUxQdTN2?=
- =?utf-8?B?YnFVMEx6YlpBVHJPR0xJYUorZEVTbTk5OC9OWU1kTWFNYjFUbFhrZkpnTFVP?=
- =?utf-8?B?aHphemt4VDlSOWZzOU5tNFNmYjczTjZpY0dDM05GY2Z4SUwwNmlCSmRHeUxr?=
- =?utf-8?B?c1NMSFIwR3NzYmJGMDB1L0xoS0t3RGJ6Y2NaWFdQc0RVM2JHcmQxRWtUN2RB?=
- =?utf-8?B?UkwvUUVqY1FmS3JJMjdQdFp4U0FuNWw0RUU4Wm9EdEhNMm5ROW5pd3JKVWdF?=
- =?utf-8?B?VlJCRksxLy94S1c3V3RCTHRqWHdJTm9NZEdpT2FOdVJjdGxGa2hNS3JNOWQ4?=
- =?utf-8?B?NGZUQzJ6ZnFnREc5djVEbzFpNXVxRFhhRUxVVEtJY0E2QkU5UjVnaXdkYlNU?=
- =?utf-8?B?OVhhOVUwWVBUeG5vayt5aklRM2QxM0hRZHV6WnlmTFlmOUU2SURuV1ZYSzVj?=
- =?utf-8?B?Y0pvYUloVXI4QVM5MW8vd2t2Sm5wNnNNQmtrTVpSaEVFZUpraGhqNG9xYmdB?=
- =?utf-8?B?Mlc1eWRMVkRNdVhqb0xNdStCWFV1cS85MzVPMjlNVXM0Rmk5amZmUEVjUlFY?=
- =?utf-8?B?RnZtV3dBS0dKNk9yZExGU2dUOS9wM09CRnpQUEdkRW81R3NvcHluTWc0ZFU3?=
- =?utf-8?B?aVpsRGExV3IrZXc5cHIwOENDNEFFUGNxNWZ4RkFWeWN0U3MyU2Y3MnZRTERW?=
- =?utf-8?B?YVNPZUNKRWlzRmVneEhvajNxcDZ2b3V5VlBablgxcjRRTExEQ0EvT2dlN3Zk?=
- =?utf-8?B?RjBqa2grRUYvc3FWUzRxa3pPaTc5SVNCeEFaeDdvbHplRkhQWmlxdnFvbzVR?=
- =?utf-8?B?aVFnTElIMFFodmkvNlNGam9mWWw3SDJQMUdpN2FMS1JwTHAzcjFFQWFGYjFo?=
- =?utf-8?B?OW8xaUx5dStWaEZJbDc0bG1OZmVNRjJMRm1UckVUeWkyaUVvbGEwYUc3WjBq?=
- =?utf-8?B?SzExUWRGUWxLZ1o4Z29nUmRJYmJGSzkzbEdmd0dBQkNpZ3A5MlJnVGxqc3lh?=
- =?utf-8?B?OCtlblpacXRJNFRLYzJhem5wV0VyaEs4T3IwT0pCaWxYSVRmZUhRTXZkNUpy?=
- =?utf-8?B?K0hIaDNqMFovSlQ1dWsvYTBkVzkvY2U4QzBrZVcxZEJodFFLRFpLTkVOa3hQ?=
- =?utf-8?B?TUFxOGFub0JyakFKWlZhUklsSkg2V0FPNVV6MmNYSXp4cjFleTFHQXI3RnZr?=
- =?utf-8?B?dXY5T0Iva2UveFUrWnpYVWNSUFpiOGlncU1BS0ZNTTFHRk5US3Q2MmlzV2dE?=
- =?utf-8?Q?pvS0X8YwQ5HfbtQm6B?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4588d9bc-e088-473b-b563-08df366ea973
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-Exchange-RoutingPolicyChecked:
+	ZEps4Ln8KG6JpAHQvB8VrPH/e850t7UpPNM8N9+pxUf7Xa2tQgScp+KOPTbaXfjc0NOlmma+YvFdoPfZOshdwt19pkfVHtNn3EEivDFhoCJdkIwViCJp7dLYCk5lktc6ghKPVSSPlkKmF701V6m0vo4SwuIFgoadB7maqT6pzjXyrWIy4JrOKwH7rZSlobXD9Ho2J+YY6HNW/7e4qU+jK4CV94YYQ/Bis9YMNj3PEJ2lPCrJSalnhh1H/2oYLSELqrPAQsnF6MBueGva7GYqsl87STpLZRRZLbFKHmB8wfwEvAFVch8ojH6BDvxTRfAQMnqbrd/+InEvQC57dbnYTw==
+X-OriginatorOrg: imgtec.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 10:15:02.8607
+X-MS-Exchange-CrossTenant-AuthSource: LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 151cb861-355f-4d7f-e291-08df366eaa5e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Oct 2026 10:15:04.1558
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uBMw7bU5ATVx9U3Q87yo4fNwgg4A39Ak4V+pBeARA/8fbuhZFCJRvf+zuMAt+ep9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6681
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: m4LZgRgWg0vOsCBvEKH6dqSslYPszKvkzmzC7JrPEVO0B9K2pGldcH3lQqhzJwZ9ju5vPJP2GS4lupZsAuOc971+pzx2ueh4fO3Z6VWT4jw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP265MB1888
+X-Proofpoint-ORIG-GUID: e4G1ibcbuxMunpbMYF5X4Yqs8Yi4QhtG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA0MCBTYWx0ZWRfX49vYMg7cehus
+ jT6wChBaQo8Y0yQ6HBQZfYWII1fXxGazrEUxdtItGSqPFB79guTWby5XU82oRsGqnM7+dPvNIPR
+ J92Ps/miUodZIW8y8k0MWSUR4yuTcHfI9L1/59uMh6WNjUmE6OrDuh+mAntxf3TGkZa6M/rHoC+
+ v//cGzoutZZQK1ETspX+6Ub5AXvKsKw+d9mjM/7Aex/FvLNHqX+D68wZHYNPL7SjAvn+9O25QkP
+ LzuQ9RWojOk1r8PgqGZPbd0mgN8gTkUup2YQN3B6wkib8EL6WW4nCqLbysqhOY0GReCpJ9004xz
+ 22TDcRed6JMtic8BYkJDkjdhJrIQuIfuqe072CC6IlsAmGyrcY6ZJnCPNEM8fctkIoFre1z2qFT
+ 9jylwjJ4mWvrXR6QG/5Q2K5GK6BXbkOLNIEDABjwkZ7L/1q7Awt7MyBirO0qsFtCrJFA37RVAfL
+ xbWEdTucP34hFtM/PqA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA0MCBTYWx0ZWRfX+UrduQpsHiJa
+ GQgPFPvt3AOvDh++t5hQcfspNyRnq+nCC/kfUcYo7UeAsoXwtqezvQA2/1MParU4OWGBRj4o2jz
+ pAZffjxU4tKyUVkIttZtZoKaYwE9kyk=
+X-Proofpoint-GUID: e4G1ibcbuxMunpbMYF5X4Yqs8Yi4QhtG
+X-Authority-Analysis: v=2.4 cv=fqpJ914f c=1 sm=1 tr=0 ts=6ae46e2c cx=c_pps
+ a=JFBGSeiqCk9HtGyQLVw0Kg==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=NgoYpvdbvlAA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22 a=e5mUnYsNAAAA:8
+ a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=bC-a23v3AAAA:8 a=QyXUC8HyAAAA:8
+ a=pGLkceISAAAA:8 a=bUS7bm5r22WPVLDEJJIA:9 a=QEXdDO2ut3YA:10
+ a=Vxmtnl_E_bksehYqCbjh:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=FO4_E8m0qiDe52t0p3_H:22
 
-On 10/29/26 17:23, Albert Esteve wrote:
-> On Thu, Oct 29, 2026 at 03:16:12PM +0100, Christian König wrote:
->> On 10/28/26 17:09, Albert Esteve wrote:
->>> On Wed, Oct 28, 2026 at 10:08:19AM +0100, Christian König wrote:
->>>> On 10/27/26 16:02, Albert Esteve wrote:
->>>>> dma-heap already supports charging a specific cgroup at allocation
->>>>> time via charge_fd in DMA_HEAP_IOCTL_ALLOC. However, dma-bufs can
->>>>> originate from any exporter (DRM, V4L2, etc.), and the allocator may
->>>>> not know the final owner at allocation time.
->>>>>
->>>>> Add DMA_BUF_IOCTL_XFER_CHARGE to transfer a dma-buf's memcg charge
->>>>> to a different cgroup after allocation. The target is identified by
->>>>> charge_fd, which may be a cgroupfd or a pidfd.
->>>>>
->>>>> The transfer charges the new cgroup before uncharging the old one,
->>>>> preserving the original charge on failure. An atomic cmpxchg on
->>>>> dmabuf->memcg prevents races with concurrent transfers.
->>>>>
->>>>> Not all dma-buf exporters back their buffers with reclaimable system
->>>>> memory. Some represent device registers, VRAM, or carved-out pools
->>>>> where size is not a meaningful memory cost. Add a memcg_account flag
->>>>> to dma_buf_export_info that exporters set when their buffers should
->>>>> participate in memcg accounting. The xfer ioctl returns -EOPNOTSUPP
->>>>> for buffers that do not set the flag. Currently only the system heap
->>>>> sets it, other exporters can opt in as needed.
->>>>>
->>>>> Usage example:
->>>>>   int cg_fd = open("/sys/fs/cgroup/clients/app1", O_RDONLY | O_DIRECTORY);
->>>>>
->>>>>   struct dma_buf_transfer_charge xfer = {
->>>>>       .charge_fd = cg_fd,
->>>>>   };
->>>>>   ioctl(dmabuf_fd, DMA_BUF_IOCTL_XFER_CHARGE, &xfer);
->>>>>   /* charge now on app1's cgroup */
->>>>>   close(cg_fd);
->>>>>
->>>>> Signed-off-by: Albert Esteve <aesteve@redhat.com>
->>>>> ---
->>>>>  drivers/dma-buf/dma-buf.c           | 43 +++++++++++++++++++++++++++++++++++++
->>>>>  drivers/dma-buf/heaps/system_heap.c |  1 +
->>>>>  include/linux/dma-buf.h             |  5 +++++
->>>>>  include/linux/memcontrol.h          |  9 ++++++++
->>>>>  include/uapi/linux/dma-buf.h        | 26 ++++++++++++++++++++++
->>>>>  mm/memcontrol.c                     | 41 +++++++++++++++++++++++++++++++++++
->>>>>  6 files changed, 125 insertions(+)
->>>>>
->>>>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
->>>>> index f31f49ebd0af..07513ecedc10 100644
->>>>> --- a/drivers/dma-buf/dma-buf.c
->>>>> +++ b/drivers/dma-buf/dma-buf.c
->>>>> @@ -540,6 +540,45 @@ static long dma_buf_import_sync_file(struct dma_buf *dmabuf,
->>>>>  }
->>>>>  #endif
->>>>>  
->>>>> +/* Transfer a dma-buf's memcg charge; see struct dma_buf_transfer_charge */
->>>>> +static long dma_buf_xfer_charge(struct dma_buf *dmabuf,
->>>>> +				const void __user *user_data)
->>>>> +{
->>>>> +	struct dma_buf_transfer_charge arg;
->>>>> +	struct mem_cgroup *memcg;
->>>>> +	int ret = 0;
->>>>> +
->>>>> +	if (copy_from_user(&arg, user_data, sizeof(arg)))
->>>>> +		return -EFAULT;
->>>>> +
->>>>> +	if (!IS_ENABLED(CONFIG_MEMCG))
->>>>> +		return 0;
->>>>> +
->>>>> +	if (arg.flags != 0)
->>>>> +		return -EINVAL;
->>>>> +
->>>>> +	if (!dmabuf->memcg_account)
->>>>> +		return -EOPNOTSUPP;
->>>>> +
->>>>> +	memcg = mem_cgroup_get_from_fd(arg.charge_fd);
->>>>> +	if (IS_ERR(memcg))
->>>>> +		return PTR_ERR(memcg);
->>>>> +
->>>>> +	if (dmabuf->memcg == memcg)
->>>>> +		goto skip_transfer;
->>>>> +
->>>>> +	if (!mem_cgroup_transfer_dmabuf_charge(dmabuf, memcg)) {
->>>>> +		ret = -ENOMEM;
->>>>> +		goto skip_transfer;
->>>>> +	}
->>>>> +
->>>>> +	return 0;
->>>>> +
->>>>> +skip_transfer:
->>>>> +	mem_cgroup_put(memcg);
->>>>> +	return ret;
->>>>> +}
->>>>> +
->>>>>  static long dma_buf_ioctl(struct file *file,
->>>>>  			  unsigned int cmd, unsigned long arg)
->>>>>  {
->>>>> @@ -590,6 +629,9 @@ static long dma_buf_ioctl(struct file *file,
->>>>>  		return dma_buf_import_sync_file(dmabuf, (const void __user *)arg);
->>>>>  #endif
->>>>>  
->>>>> +	case DMA_BUF_IOCTL_XFER_CHARGE:
->>>>> +		return dma_buf_xfer_charge(dmabuf, (const void __user *)arg);
->>>>> +
->>>>>  	default:
->>>>>  		return -ENOTTY;
->>>>>  	}
->>>>> @@ -750,6 +792,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
->>>>>  	dmabuf->size = exp_info->size;
->>>>>  	dmabuf->exp_name = exp_info->exp_name;
->>>>>  	dmabuf->owner = exp_info->owner;
->>>>> +	dmabuf->memcg_account = exp_info->memcg_account;
->>>>
->>>> The initial charging should probably be done here as well.
->>>>
->>>> This way DMA-buf heaps only needs to pass in the charge_fd and we can re-use the functionality for other DMA-buf exporters as well.
->>>
->>> The problem with doing the charge here is that it happens too late.
->>> That is the reasoning for this proposal to move all the charging logic
->>> into heap allocators before pages are allocated.
->>
->> Oh, that is a really good point we need to talk about.
->>
->> DMA-buf heaps is actually a rather simple use case, but we have way more complex things.
->>
->> For example in some use cases the backing store of a DMA-buf is only allocated on first use and only then it needs to be comitted to it's memcg or dmem.
-> 
-> Yes. The idea is focus on heaps for now. But the uAPI is actually
-> agnostic of the time when the charge happens. When we deal with
-> lazy-allocation in the future we can just call the reserve/cancel
-> helpers wherever is more appropiate. As long as the pages are not
-> allocated, exporters do not set dmabuf->memcg, and XFER does not
-> work (returns -EOPNOTSUPP).
-
-Yeah exactly that's the reason why I'm raising this topic. That approach won't work in all cases.
-
-See userspace is not aware that the kernel is delaying allocation or that the kernel is allocating the backing store asynchroniously in a background worker for example.
-
-So returning -EOPNOTSUPP when the backing store is not allocated yet and might be allocated later on is rather questionable uAPI because that is racy by design.
->>
->> I don't mind implementing it for DMA-buf heaps first, but we should have the uAPI and it's handling so solid that it also works for future use cases.
-> 
-> Agreed. I think we should cover all usecases with the current status.
-> Your feedback helped a lot in getting there!
-
-I mean we can postpone that until we finally need it, but essentially we need to be able to distinct between charging, e.g. making sure the cgroup has enough free limit, and committing, e.g. allowing the resource to be reclaimed.
-
-And then it is possible that when the memcg of a DMA-buf changes that only the charging changes, but there isn't any comitted backing store yet...
-
->>> What we could do is fill the dmabuf->memcg field when the flag is set
->>> (i.e., committing into the dmabuf in the patch semantics). But for that
->>> we'd need adding the memcg we want to charge it to into exp_info in
->>> order to support charging to cgroups other than the allocator's (for
->>> the common case would be simpler as we can just look at current).
->>> Maybe that's what you meant?
->>
->> At least for the DMA-buf heaps use case that sounds reasonable for now.
-> 
-> Thanks! Next version will have the flag removed and just use
-> dmabuf->memcg as indicator, set within dma_buf_export().
-> Also, `nr_pages` will be computed within dma_buf_export(), the
-> contract being that exporters setting exp_info.memcg assert that
-> size reflects actual system memory bytes.
-
-Thinking more about it I would also put changing dmabuf->memcg under the dmabuf->resv lock instead of doing it with cmpxchg.
-
-We don't need it currently, but the dmabuf->resv lock is used for all state changes of the DMA-buf object and this operation is not performance critical in any way possible.
-
-If there is a problem with locking order we at least get lockdep screaming at us very early and not when we want to extend the functionality in the future.
-
-Regards,
-Christian.
-
-> 
->>
->> Regards,
->> Christian.
->>
->>>
->>>>
->>>>>  	spin_lock_init(&dmabuf->name_lock);
->>>>>  	init_waitqueue_head(&dmabuf->poll);
->>>>>  	dmabuf->cb_in.poll = dmabuf->cb_out.poll = &dmabuf->poll;
->>>>> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
->>>>> index adeea8cd328b..a764167167ba 100644
->>>>> --- a/drivers/dma-buf/heaps/system_heap.c
->>>>> +++ b/drivers/dma-buf/heaps/system_heap.c
->>>>> @@ -479,6 +479,7 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
->>>>>  	exp_info.size = buffer->len;
->>>>>  	exp_info.flags = fd_flags;
->>>>>  	exp_info.priv = buffer;
->>>>> +	exp_info.memcg_account = true;
->>>>>  	dmabuf = dma_buf_export(&exp_info);
->>>>>  	if (IS_ERR(dmabuf)) {
->>>>>  		ret = PTR_ERR(dmabuf);
->>>>> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
->>>>> index 23ec0ff23fba..ac0ec88cab93 100644
->>>>> --- a/include/linux/dma-buf.h
->>>>> +++ b/include/linux/dma-buf.h
->>>>> @@ -433,6 +433,9 @@ struct dma_buf {
->>>>>  
->>>>>  	/** @memcg: the cgroup to which this buffer is currently attributed */
->>>>>  	struct mem_cgroup *memcg;
->>>>> +
->>>>> +	/** @memcg_account: account buffer memory to cgroup */
->>>>> +	bool memcg_account;
->>>>>  };
->>>>>  
->>>>>  /**
->>>>> @@ -505,6 +508,7 @@ struct dma_buf_attachment {
->>>>>   * @flags:	mode flags for the file
->>>>>   * @resv:	reservation-object, NULL to allocate default one
->>>>>   * @priv:	Attach private data of allocator to this buffer
->>>>> + * @memcg_account:	account buffer memory to cgroup
->>>>>   *
->>>>>   * This structure holds the information required to export the buffer. Used
->>>>>   * with dma_buf_export() only.
->>>>> @@ -517,6 +521,7 @@ struct dma_buf_export_info {
->>>>>  	int flags;
->>>>>  	struct dma_resv *resv;
->>>>>  	void *priv;
->>>>> +	bool memcg_account;
->>>>>  };
->>>>>  
->>>>>  /**
->>>>> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
->>>>> index 6b30baa79fa9..36fddafbef4e 100644
->>>>> --- a/include/linux/memcontrol.h
->>>>> +++ b/include/linux/memcontrol.h
->>>>> @@ -679,6 +679,9 @@ bool mem_cgroup_reserve_dmabuf(struct mem_cgroup *memcg, gfp_t gfp,
->>>>>  void mem_cgroup_commit_dmabuf(struct dma_buf *dmabuf, struct mem_cgroup *memcg,
->>>>>  			      unsigned int nr_pages);
->>>>>  
->>>>> +bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
->>>>> +				       struct mem_cgroup *new_memcg);
->>>>> +
->>>>>  void __mem_cgroup_uncharge(struct folio *folio);
->>>>>  
->>>>>  /**
->>>>> @@ -1206,6 +1209,12 @@ static inline void mem_cgroup_cancel_dmabuf(struct mem_cgroup *memcg,
->>>>>  {
->>>>>  }
->>>>>  
->>>>> +static inline bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
->>>>> +						     struct mem_cgroup *new_memcg)
->>>>> +{
->>>>> +	return true;
->>>>> +}
->>>>> +
->>>>>  static inline void mem_cgroup_uncharge(struct folio *folio)
->>>>>  {
->>>>>  }
->>>>> diff --git a/include/uapi/linux/dma-buf.h b/include/uapi/linux/dma-buf.h
->>>>> index e827c9d20c5d..ea957f4b1d38 100644
->>>>> --- a/include/uapi/linux/dma-buf.h
->>>>> +++ b/include/uapi/linux/dma-buf.h
->>>>> @@ -168,6 +168,31 @@ struct dma_buf_import_sync_file {
->>>>>  	__s32 fd;
->>>>>  };
->>>>>  
->>>>> +/**
->>>>> + * struct dma_buf_transfer_charge - Transfer a dma-buf's memcg charge
->>>>> + *
->>>>> + * Any holder of a dma-buf file descriptor can perform a
->>>>> + * DMA_BUF_IOCTL_XFER_CHARGE to attribute the buffer's memory
->>>>> + * cost to a specific cgroup, or move it from one cgroup to
->>>>> + * another.  The ioctl charges the new cgroup before uncharging
->>>>> + * the old one atomically.  On failure the original charge is
->>>>> + * preserved.  If the buffer has no existing charge, a new
->>>>> + * charge is established.
->>>>> + */
->>>>> +struct dma_buf_transfer_charge {
->>>>> +	/** @flags: Reserved, must be zero */
->>>>> +	__u32 flags; /* unused for now */
->>>>> +	/**
->>>>> +	 * @charge_fd: File descriptor identifying the target cgroup.
->>>>> +	 *
->>>>> +	 * May be either a pidfd, in which case the charge moves to the
->>>>> +	 * memory cgroup of the referenced process, or a cgroupfd obtained
->>>>> +	 * by opening a cgroup v2 directory, in which case the charge moves
->>>>> +	 * directly to that cgroup's memory controller.
->>>>> +	 */
->>>>> +	__u32 charge_fd;
->>>>> +};
->>>>> +
->>>>>  #define DMA_BUF_BASE		'b'
->>>>>  #define DMA_BUF_IOCTL_SYNC	_IOW(DMA_BUF_BASE, 0, struct dma_buf_sync)
->>>>>  
->>>>> @@ -179,5 +204,6 @@ struct dma_buf_import_sync_file {
->>>>>  #define DMA_BUF_SET_NAME_B	_IOW(DMA_BUF_BASE, 1, __u64)
->>>>>  #define DMA_BUF_IOCTL_EXPORT_SYNC_FILE	_IOWR(DMA_BUF_BASE, 2, struct dma_buf_export_sync_file)
->>>>>  #define DMA_BUF_IOCTL_IMPORT_SYNC_FILE	_IOW(DMA_BUF_BASE, 3, struct dma_buf_import_sync_file)
->>>>> +#define DMA_BUF_IOCTL_XFER_CHARGE	_IOW(DMA_BUF_BASE, 4, struct dma_buf_transfer_charge)
->>>>>  
->>>>>  #endif
->>>>> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
->>>>> index 7b841b905759..3adc84fe6668 100644
->>>>> --- a/mm/memcontrol.c
->>>>> +++ b/mm/memcontrol.c
->>>>> @@ -5786,6 +5786,47 @@ void mem_cgroup_cancel_dmabuf(struct mem_cgroup *memcg, unsigned int nr_pages)
->>>>>  		refill_stock(memcg, nr_pages);
->>>>>  }
->>>>>  
->>>>> +/**
->>>>> + * mem_cgroup_transfer_dmabuf_charge - move a dma-buf charge
->>>>> + * @dmabuf: buffer to transfer charge
->>>>> + * @new_memcg: target memcg; caller must hold a reference
->>>>> + *
->>>>> + * Transfers the charge for @dmabuf to @new_memcg and, on
->>>>> + * success, stores @new_memcg in @dmabuf->memcg.
->>>>> + * Returns %true on success, %false if the charge against @new_memcg
->>>>> + * failed or a concurrent transfer raced on @dmabuf->memcg.
->>>>> + * On failure the caller retains its reference to @new_memcg.
->>>>> + */
->>>>> +bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
->>>>> +				       struct mem_cgroup *new_memcg)
->>>>
->>>> I would make that more generic instead of dmabuf specific. E.g. something like this:
->>>>
->>>> bool mem_cgroup_transfer_charge(struct struct mem_cgroup **ptr_memcg, struct mem_cgroup *new_memcg, enum memcg_stat_item item, unsigned int nr_pages)
->>>
->>> Ah yes, I like this generalization. And the implementation remains
->>> mostly the same. Thanks!
->>>
->>>>
->>>>> +{
->>>>> +	struct mem_cgroup *old_memcg = READ_ONCE(dmabuf->memcg);
->>>>
->>>>> +	unsigned int nr_pages = PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
->>>>
->>>> This way we can also document in the DMA-buf caller that this conversation must be ok when memcg_account is true.
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>> +
->>>>> +	if (mem_cgroup_disabled())
->>>>> +		return true;
->>>>> +
->>>>> +	if (!mem_cgroup_reserve_dmabuf(new_memcg, GFP_KERNEL, nr_pages))
->>>>> +		return false;
->>>>> +
->>>>> +	mod_memcg_state(new_memcg, MEMCG_DMABUF, nr_pages);
->>>>> +
->>>>> +	if (cmpxchg(&dmabuf->memcg, old_memcg, new_memcg) != old_memcg) {
->>>>> +		mod_memcg_state(new_memcg, MEMCG_DMABUF, -nr_pages);
->>>>> +		mem_cgroup_cancel_dmabuf(new_memcg, nr_pages);
->>>>> +		return false;
->>>>> +	}
->>>>> +
->>>>> +	if (old_memcg) {
->>>>> +		/* Uncharge old cgroup */
->>>>> +		mod_memcg_state(old_memcg, MEMCG_DMABUF, -nr_pages);
->>>>> +		mem_cgroup_cancel_dmabuf(old_memcg, nr_pages);
->>>>> +		mem_cgroup_put(old_memcg);
->>>>> +	}
->>>>> +
->>>>> +	return true;
->>>>> +}
->>>>> +
->>>>>  /**
->>>>>   * mem_cgroup_uncharge_dmabuf - uncharge a dma-buf from its memcg
->>>>>   * @dmabuf: buffer to uncharge
->>>>>
->>>>
->>>
->>
-> 
-
+T24gV2VkLCAyMDI2LTEwLTI4IGF0IDE5OjM3ICswNTMwLCBCcmFqZXNoIEd1cHRhIHdyb3RlOg0K
+PiBBZGQgYSBuZXcgc3VidHlwZSBEUk1fUFZSX0RFVl9RVUVSWV9GV19JTkZPX0dFVCB1bmRlcg0K
+PiBEUk1fSU9DVExfUFZSX0RFVl9RVUVSWSB0byBxdWVyeSBGaXJtd2FyZSBpbmZvcm1hdGlvbi4g
+VGhpcyBhbGxvd3MgdGhlDQo+IHVzZXJzcGFjZSB0byBkZXRlY3QgYW55IGJ1ZyBmaXhlcyBhbmQg
+ZmVhdHVyZXMgcHJlc2VudCBpbiB0aGUgRmlybXdhcmUNCj4gYW5kIHRha2UgYXBwcm9wcmlhdGUg
+YWN0aW9uLg0KPiBDdXJyZW50bHkgaXQgc3VwcG9ydHMgcXVlcnlpbmcgbWFqb3IgYW5kIG1pbm9y
+IHZlcnNpb24gb2YgdGhlIEZpcm13YXJlLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogQnJhamVzaCBH
+dXB0YSA8YnJhamVzaC5ndXB0YUBpbWd0ZWMuY29tPg0KDQpSZXZpZXdlZC1ieTogQWxlc3NpbyBC
+ZWxsZSA8YWxlc3Npby5iZWxsZUBpbWd0ZWMuY29tPg0KDQpDcm9zcyByZWZlcmVuY2luZyB0aGUg
+TWVzYSBNUiBhdCBbMV0gdGhhdCBuZWVkcyB0aGlzIG5ldyBxdWVyeSBhbmQgYSBuZXcgSUdUDQp0
+ZXN0IGZvciBpdCBhdCBbMl0gKEkgdGVzdGVkIHNlbmRpbmcgYmFkIHBhZGRpbmcgbG9jYWxseSBv
+biB0b3Agb2YgdGhhdCBvbmUsIGJ1dA0KSSB0aGluayBpdCBzaG91bGQgYmUgcGFydCBvZiB0aGUg
+c2FtZSkuDQoNClsxXSBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvbWVzYS9tZXNhLy0v
+bWVyZ2VfcmVxdWVzdHMvNDA5NzMNClsyXSBodHRwczovL2xvcmUua2VybmVsLm9yZy9pZ3QtZGV2
+LzIwMjYxMDI5LWI0LWZ3X2luZm8tdjEtMS0wZWIzYzA5NjlhN2ZAaW1ndGVjLmNvbS8NCg0KVGhh
+bmtzLA0KQWxlc3Npbw0KDQo+IC0tLQ0KPiBDaGFuZ2VzIGluIHY0Og0KPiAtIEFkZCBkZXNjcmlw
+dGlvbiBmb3IgdGhlIG5ldyBpbnRlcmZhY2UgaW50cm9kdWNlZC4NCj4gLSBMaW5rIHRvIHYzOiBo
+dHRwczovL3BhdGNoLm1zZ2lkLmxpbmsvMjAyNjEwMjctZnd2ZXJzaW9uLXYzLTEtZjM2M2RlNTky
+MDViQGltZ3RlYy5jb20NCj4gDQo+IENoYW5nZXMgaW4gdjM6DQo+IC0gQWRkIG1pc3NlZCBjaGVj
+ayBmb3IgcGFkZGluZyBmaWVsZCBhZGRlZCBpbiB2Mi4NCj4gLSBMaW5rIHRvIHYyOiBodHRwczov
+L2xvcmUua2VybmVsLm9yZy9yLzIwMjYxMDI2LWZ3dmVyc2lvbi12Mi0xLWJiMDI1YzkzYTA0YUBp
+bWd0ZWMuY29tDQo+IA0KPiBDaGFuZ2VzIGluIHYyOg0KPiAtIEFkZCBwYWRkaW5nIGZpZWxkIHRv
+IGFsaWduIG5ldyBGVyBxdWVyeSBzdHJ1Y3QgdG8gNjQtYml0Lg0KPiAtIExpbmsgdG8gdjE6IGh0
+dHBzOi8vcGF0Y2gubXNnaWQubGluay8yMDI2MTAyNi1md3ZlcnNpb24tdjEtMS0zZWQxN2M2NWJm
+NGNAaW1ndGVjLmNvbQ0KPiANCj4gVG86IEFsZXNzaW8gQmVsbGUgPGFsZXNzaW8uYmVsbGVAaW1n
+dGVjLmNvbT4NCj4gVG86IEx1aWdpIFNhbnRpdmV0dGkgPGx1aWdpLnNhbnRpdmV0dGlAaW1ndGVj
+LmNvbT4NCj4gVG86IE1hYXJ0ZW4gTGFua2hvcnN0IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5p
+bnRlbC5jb20+DQo+IFRvOiBNYXhpbWUgUmlwYXJkIDxtcmlwYXJkQGtlcm5lbC5vcmc+DQo+IFRv
+OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4NCj4gVG86IERhdmlkIEFp
+cmxpZSA8YWlybGllZEBnbWFpbC5jb20+DQo+IFRvOiBTaW1vbmEgVmV0dGVyIDxzaW1vbmFAZmZ3
+bGwuY2g+DQo+IENjOiBpbWFnaW5hdGlvbkBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IGRy
+aS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IGxpbnV4LWtlcm5lbEB2Z2VyLmtl
+cm5lbC5vcmcNCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZyX2Rydi5j
+IHwgIDUgKysrKw0KPiAgZHJpdmVycy9ncHUvZHJtL2ltYWdpbmF0aW9uL3B2cl9kcnYuaCB8ICA0
+ICsrLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2ltYWdpbmF0aW9uL3B2cl9mdy5jICB8IDQ2ICsrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrDQo+ICBkcml2ZXJzL2dwdS9kcm0vaW1hZ2lu
+YXRpb24vcHZyX2Z3LmggIHwgIDMgKysrDQo+ICBpbmNsdWRlL3VhcGkvZHJtL3B2cl9kcm0uaCAg
+ICAgICAgICAgIHwgMjEgKysrKysrKysrKysrKysrKw0KPiAgNSBmaWxlcyBjaGFuZ2VkLCA3OCBp
+bnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2ltYWdpbmF0aW9uL3B2cl9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9pbWFnaW5hdGlv
+bi9wdnJfZHJ2LmMNCj4gaW5kZXggNWM5NjVlZjAyNzRmLi4yZDUyMmE4ZTQ2YWQgMTAwNjQ0DQo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pbWFnaW5hdGlvbi9wdnJfZHJ2LmMNCj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2ltYWdpbmF0aW9uL3B2cl9kcnYuYw0KPiBAQCAtNiw2ICs2LDcgQEANCj4g
+ICNpbmNsdWRlICJwdnJfZGV2aWNlLmgiDQo+ICAjaW5jbHVkZSAicHZyX2Rydi5oIg0KPiAgI2lu
+Y2x1ZGUgInB2cl9mcmVlX2xpc3QuaCINCj4gKyNpbmNsdWRlICJwdnJfZncuaCINCj4gICNpbmNs
+dWRlICJwdnJfZ2VtLmgiDQo+ICAjaW5jbHVkZSAicHZyX2h3cnQuaCINCj4gICNpbmNsdWRlICJw
+dnJfam9iLmgiDQo+IEBAIC02NTgsNiArNjU5LDEwIEBAIHB2cl9pb2N0bF9kZXZfcXVlcnkoc3Ry
+dWN0IGRybV9kZXZpY2UgKmRybV9kZXYsIHZvaWQgKnJhd19hcmdzLA0KPiAgCWNhc2UgRFJNX1BW
+Ul9ERVZfUVVFUllfU1RBVElDX0RBVEFfQVJFQVNfR0VUOg0KPiAgCQlyZXQgPSBwdnJfc3RhdGlj
+X2RhdGFfYXJlYXNfZ2V0KHB2cl9kZXYsIGFyZ3MpOw0KPiAgCQlicmVhazsNCj4gKw0KPiArCWNh
+c2UgRFJNX1BWUl9ERVZfUVVFUllfRldfSU5GT19HRVQ6DQo+ICsJCXJldCA9IHB2cl9md19pbmZv
+X2dldChwdnJfZGV2LCBhcmdzKTsNCj4gKwkJYnJlYWs7DQo+ICAJfQ0KPiAgDQo+ICAJZHJtX2Rl
+dl9leGl0KGlkeCk7DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24v
+cHZyX2Rydi5oIGIvZHJpdmVycy9ncHUvZHJtL2ltYWdpbmF0aW9uL3B2cl9kcnYuaA0KPiBpbmRl
+eCA3ZmExNDczMTJkZDEuLjRlMDU4YTZmZGQ1YyAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2ltYWdpbmF0aW9uL3B2cl9kcnYuaA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaW1hZ2lu
+YXRpb24vcHZyX2Rydi5oDQo+IEBAIC0xMyw5ICsxMywxMCBAQA0KPiAgLyoNCj4gICAqIERyaXZl
+ciBpbnRlcmZhY2UgdmVyc2lvbjoNCj4gICAqICAtIDEuMDogSW5pdGlhbCBpbnRlcmZhY2UNCj4g
+KyAqICAtIDEuMTogQWRkIERSTV9QVlJfREVWX1FVRVJZX0ZXX0lORk9fR0VUIHF1ZXJ5DQo+ICAg
+Ki8NCj4gICNkZWZpbmUgUFZSX0RSSVZFUl9NQUpPUiAxDQo+IC0jZGVmaW5lIFBWUl9EUklWRVJf
+TUlOT1IgMA0KPiArI2RlZmluZSBQVlJfRFJJVkVSX01JTk9SIDENCj4gICNkZWZpbmUgUFZSX0RS
+SVZFUl9QQVRDSExFVkVMIDANCj4gIA0KPiAgaW50IHB2cl9nZXRfdW9iaih1NjQgdXNyX3B0ciwg
+dTMyIHVzcl9zaXplLCB1MzIgbWluX3NpemUsIHUzMiBvYmpfc2l6ZSwgdm9pZCAqb3V0KTsNCj4g
+QEAgLTY4LDYgKzY5LDcgQEAgaW50IHB2cl9zZXRfdW9ial9hcnJheShjb25zdCBzdHJ1Y3QgZHJt
+X3B2cl9vYmpfYXJyYXkgKm91dCwgdTMyIG1pbl9zdHJpZGUsIHUzMg0KPiAgCVBWUl9VT0JKX0RF
+Q0woc3RydWN0IGRybV9wdnJfZGV2X3F1ZXJ5X2hlYXBfaW5mbywgaGVhcHMpIFwNCj4gIAlQVlJf
+VU9CSl9ERUNMKHN0cnVjdCBkcm1fcHZyX3N0YXRpY19kYXRhX2FyZWEsIG9mZnNldCkgXA0KPiAg
+CVBWUl9VT0JKX0RFQ0woc3RydWN0IGRybV9wdnJfZGV2X3F1ZXJ5X3N0YXRpY19kYXRhX2FyZWFz
+LCBzdGF0aWNfZGF0YV9hcmVhcykgXA0KPiArCVBWUl9VT0JKX0RFQ0woc3RydWN0IGRybV9wdnJf
+ZGV2X3F1ZXJ5X2Z3X2luZm8sIF9wYWRkaW5nXzQpIFwNCj4gIAkpDQo+ICANCj4gIC8qKg0KPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2ltYWdpbmF0aW9uL3B2cl9mdy5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2ltYWdpbmF0aW9uL3B2cl9mdy5jDQo+IGluZGV4IGM2Yzc3YjE1MjM0Mi4uZDAx
+NGEzNGI0ZjFmIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZy
+X2Z3LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2ltYWdpbmF0aW9uL3B2cl9mdy5jDQo+IEBA
+IC00LDYgKzQsNyBAQA0KPiAgI2luY2x1ZGUgInB2cl9jY2IuaCINCj4gICNpbmNsdWRlICJwdnJf
+ZGV2aWNlLmgiDQo+ICAjaW5jbHVkZSAicHZyX2RldmljZV9pbmZvLmgiDQo+ICsjaW5jbHVkZSAi
+cHZyX2Rydi5oIg0KPiAgI2luY2x1ZGUgInB2cl9mdy5oIg0KPiAgI2luY2x1ZGUgInB2cl9md19p
+bmZvLmgiDQo+ICAjaW5jbHVkZSAicHZyX2Z3X3N0YXJ0c3RvcC5oIg0KPiBAQCAtMTQ5NiwzICsx
+NDk3LDQ4IEBAIHB2cl9md19oYXJkX3Jlc2V0KHN0cnVjdCBwdnJfZGV2aWNlICpwdnJfZGV2KQ0K
+PiAgDQo+ICAJcmV0dXJuIDA7DQo+ICB9DQo+ICsNCj4gKy8qKg0KPiArICogcHZyX2Z3X2luZm9f
+Z2V0KCkNCj4gKyAqIEBwdnJfZGV2OiBEZXZpY2UgcG9pbnRlci4NCj4gKyAqIEBhcmdzOiBbSU5d
+IERldmljZSBxdWVyeSBhcmd1bWVudHMgY29udGFpbmluZyBhIHBvaW50ZXIgdG8gYSB1c2Vyc3Bh
+Y2UNCj4gKyAqICAgICAgICBzdHJ1Y3QgZHJtX3B2cl9kZXZfcXVlcnlfZndfaW5mby4NCj4gKyAq
+DQo+ICsgKiBJZiB0aGUgcXVlcnkgb2JqZWN0IHBvaW50ZXIgaXMgTlVMTCwgdGhlIHNpemUgZmll
+bGQgaXMgdXBkYXRlZCB3aXRoIHRoZQ0KPiArICogZXhwZWN0ZWQgc2l6ZSBvZiB0aGUgcXVlcnkg
+b2JqZWN0Lg0KPiArICoNCj4gKyAqIFJldHVybnM6DQo+ICsgKiAgKiAwIG9uIHN1Y2Nlc3MsIG9y
+IGlmIHNpemUgaXMgcmVxdWVzdGVkIHVzaW5nIGEgTlVMTCBwb2ludGVyLCBvcg0KPiArICogICog
+LSVFSU5WQUwgaWYgYXJncyBjb250YWluZWQgbm9uLXplcm8gcmVzZXJ2ZWQgZmllbGRzIG9yDQo+
+ICsgKiAgICBpZiB0aGUgaW5wdXQgb2JqZWN0IGlzIHNtYWxsZXIgdGhhbiB0aGUgbWluaW11bSBy
+ZXF1aXJlZCwgb3INCj4gKyAqICAqIC0lRUZBVUxUIGlmIGxvY2FsIG1lbW9yeSBjb3VsZCBub3Qg
+YmUgY29waWVkIHRvIHVzZXJzcGFjZS4NCj4gKyAqLw0KPiAraW50DQo+ICtwdnJfZndfaW5mb19n
+ZXQoY29uc3Qgc3RydWN0IHB2cl9kZXZpY2UgKnB2cl9kZXYsDQo+ICsJCXN0cnVjdCBkcm1fcHZy
+X2lvY3RsX2Rldl9xdWVyeV9hcmdzICphcmdzKQ0KPiArew0KPiArCXN0cnVjdCBkcm1fcHZyX2Rl
+dl9xdWVyeV9md19pbmZvIGZ3X2luZm8gPSB7MH07DQo+ICsJaW50IGVycjsNCj4gKw0KPiArCWlm
+ICghYXJncy0+cG9pbnRlcikgew0KPiArCQlhcmdzLT5zaXplID0gc2l6ZW9mKHN0cnVjdCBkcm1f
+cHZyX2Rldl9xdWVyeV9md19pbmZvKTsNCj4gKwkJcmV0dXJuIDA7DQo+ICsJfQ0KPiArDQo+ICsJ
+ZXJyID0gUFZSX1VPQkpfR0VUKGZ3X2luZm8sIGFyZ3MtPnNpemUsIGFyZ3MtPnBvaW50ZXIpOw0K
+PiArCWlmIChlcnIgPCAwKQ0KPiArCQlyZXR1cm4gZXJyOw0KPiArCWlmIChmd19pbmZvLl9wYWRk
+aW5nXzQpDQo+ICsJCXJldHVybiAtRUlOVkFMOw0KPiArDQo+ICsJZndfaW5mby5tYWpvcl92ZXJz
+aW9uID0gcHZyX2Rldi0+ZndfdmVyc2lvbi5tYWpvcjsNCj4gKwlmd19pbmZvLm1pbm9yX3ZlcnNp
+b24gPSBwdnJfZGV2LT5md192ZXJzaW9uLm1pbm9yOw0KPiArDQo+ICsJZXJyID0gUFZSX1VPQkpf
+U0VUKGFyZ3MtPnBvaW50ZXIsIGFyZ3MtPnNpemUsIGZ3X2luZm8pOw0KPiArCWlmIChlcnIgPCAw
+KQ0KPiArCQlyZXR1cm4gZXJyOw0KPiArDQo+ICsJaWYgKGFyZ3MtPnNpemUgPiBzaXplb2YoZndf
+aW5mbykpDQo+ICsJCWFyZ3MtPnNpemUgPSBzaXplb2YoZndfaW5mbyk7DQo+ICsJcmV0dXJuIDA7
+DQo+ICt9DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZyX2Z3
+LmggYi9kcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZyX2Z3LmgNCj4gaW5kZXggNGIyNTI5
+MTEzNWI2Li43ZTE4ZjNlN2Q0YmUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pbWFn
+aW5hdGlvbi9wdnJfZncuaA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZy
+X2Z3LmgNCj4gQEAgLTQ5Niw0ICs0OTYsNyBAQCBpbnQNCj4gIHB2cl9md19wcm9jZXNzX2VsZl9j
+b21tYW5kX3N0cmVhbShzdHJ1Y3QgcHZyX2RldmljZSAqcHZyX2RldiwgY29uc3QgdTggKmZ3LCB1
+OCAqZndfY29kZV9wdHIsDQo+ICAJCQkJICB1OCAqZndfZGF0YV9wdHIsIHU4ICpmd19jb3JlX2Nv
+ZGVfcHRyLCB1OCAqZndfY29yZV9kYXRhX3B0cik7DQo+ICANCj4gK2ludA0KPiArcHZyX2Z3X2lu
+Zm9fZ2V0KGNvbnN0IHN0cnVjdCBwdnJfZGV2aWNlICpwdnJfZGV2LCBzdHJ1Y3QgZHJtX3B2cl9p
+b2N0bF9kZXZfcXVlcnlfYXJncyAqYXJncyk7DQo+ICsNCj4gICNlbmRpZiAvKiBQVlJfRldfSCAq
+Lw0KPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS91YXBpL2RybS9wdnJfZHJtLmggYi9pbmNsdWRlL3Vh
+cGkvZHJtL3B2cl9kcm0uaA0KPiBpbmRleCBjY2Y2YzIxMTI0NjguLjExNzljMWU3ZDkyZCAxMDA2
+NDQNCj4gLS0tIGEvaW5jbHVkZS91YXBpL2RybS9wdnJfZHJtLmgNCj4gKysrIGIvaW5jbHVkZS91
+YXBpL2RybS9wdnJfZHJtLmgNCj4gQEAgLTQzNCw2ICs0MzQsMjEgQEAgc3RydWN0IGRybV9wdnJf
+ZGV2X3F1ZXJ5X3N0YXRpY19kYXRhX2FyZWFzIHsNCj4gIAlzdHJ1Y3QgZHJtX3B2cl9vYmpfYXJy
+YXkgc3RhdGljX2RhdGFfYXJlYXM7DQo+ICB9Ow0KPiAgDQo+ICsvKioNCj4gKyAqIHN0cnVjdCBk
+cm1fcHZyX2Rldl9xdWVyeV9md19pbmZvIC0gQ29udGFpbmVyIHVzZWQgdG8gZmV0Y2ggaW5mb3Jt
+YXRpb24NCj4gKyAqIGFib3V0IHRoZSBHUFUgRmlybXdhcmUgbGlrZSBpdHMgdmVyc2lvbi4NCj4g
+KyAqLw0KPiArc3RydWN0IGRybV9wdnJfZGV2X3F1ZXJ5X2Z3X2luZm8gew0KPiArCS8qKiBAbWFq
+b3JfdmVyc2lvbjogTWFqb3IgdmVyc2lvbiBvZiB0aGUgRmlybXdhcmUuICovDQo+ICsJX191MTYg
+bWFqb3JfdmVyc2lvbjsNCj4gKw0KPiArCS8qKiBAbWlub3JfdmVyc2lvbjogTWlub3IgdmVyc2lv
+biBvZiB0aGUgRmlybXdhcmUuICovDQo+ICsJX191MTYgbWlub3JfdmVyc2lvbjsNCj4gKw0KPiAr
+CS8qKiBAX3BhZGRpbmdfNDogUmVzZXJ2ZWQuIFRoaXMgZmllbGQgbXVzdCBiZSB6ZXJvZWQuICov
+DQo+ICsJX191MzIgX3BhZGRpbmdfNDsNCj4gK307DQo+ICsNCj4gIC8qKg0KPiAgICogZW51bSBk
+cm1fcHZyX2Rldl9xdWVyeSAtIEZvciB1c2Ugd2l0aCAmZHJtX3B2cl9pb2N0bF9kZXZfcXVlcnlf
+YXJncy50eXBlIHRvDQo+ICAgKiBpbmRpY2F0ZSB0aGUgdHlwZSBvZiB0aGUgcmVjZWl2aW5nIGNv
+bnRhaW5lci4NCj4gQEAgLTQ3Niw2ICs0OTEsMTIgQEAgZW51bSBkcm1fcHZyX2Rldl9xdWVyeSB7
+DQo+ICAJICogYSBwb2ludGVyIHRvICZzdHJ1Y3QgZHJtX3B2cl9kZXZfcXVlcnlfc3RhdGljX2Rh
+dGFfYXJlYXMuDQo+ICAJICovDQo+ICAJRFJNX1BWUl9ERVZfUVVFUllfU1RBVElDX0RBVEFfQVJF
+QVNfR0VULA0KPiArDQo+ICsJLyoqDQo+ICsJICogQERSTV9QVlJfREVWX1FVRVJZX0ZXX0lORk9f
+R0VUOiBUaGUgZGV2IHF1ZXJ5IGFyZ3MgY29udGFpbg0KPiArCSAqIGEgcG9pbnRlciB0byAmc3Ry
+dWN0IGRybV9wdnJfZGV2X3F1ZXJ5X2Z3X2luZm8uDQo+ICsJICovDQo+ICsJRFJNX1BWUl9ERVZf
+UVVFUllfRldfSU5GT19HRVQsDQo+ICB9Ow0KPiAgDQo+ICAvKioNCj4gDQo+IC0tLQ0KPiBiYXNl
+LWNvbW1pdDogYThmZTRlMTYyYmE4MjEyYjdlNTFmZGIwMjRiMzc4MDBmMzZiNDk2Yw0KPiBjaGFu
+Z2UtaWQ6IDIwMjYxMDI2LWZ3dmVyc2lvbi05NWE4MmE5MWY5ZjcNCj4gDQo+IEJlc3QgcmVnYXJk
+cywNCj4gLS0gIA0KPiBCcmFqZXNoIEd1cHRhIDxicmFqZXNoLmd1cHRhQGltZ3RlYy5jb20+DQo+
+IA0KDQo=
