@@ -1,109 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793394571;
-	b=AxXTbyzCXWY+pnNmnkleiYeS7tMmlBnQPOA6yYZ8mOVJxR2GHR4G44Ec6lS7wjB6z3se
-	 ZpQnbxTXPvE2nCwYYat40bc3Pr+2O2EzcJAqAj8Hyx+PpDHn3YJ7XhuCwQ8mIEoox6TX2
-	 5w6ov6AzdU21I3eYRMcn6Yh8aZU3Cz8Fo1pvy8baZt4v2CXh+9KWiiKuWTfgWkgRlZ98T
-	 piYK81uD1r2AlWhLZHllDqGBMzkvRWyuGDlbCyq5XyPJDqxCkfIH0LcVVMjJGSVI88sFF
-	 UkAzu6OydraqEz1XjAh0KkXkEBjL0+nip7gkrnTxaq61AlhcmRREeKz22o6oMwU8vbw==
+	t=1793394615;
+	b=Nmb9FY6rmhuo7fY+D3s7Hpy5czmW4j13CazVty+znzj2718SBGv6d/6Eqon6CZLaRIaC
+	 O7JYpu4cixUYi1qcxhckFpefj2bwf1ZUPH8eYQmtzNDoZPqvyzjt/Rp5ZOyTJ8s907DoJ
+	 HUvsXsUdI8/dF3nGCA2TZ6IQujF0PcowT1O3TcwWADSDnq78WWCS8O9IiMXYgnlXj7gpW
+	 NKQbdDdN2VYAZXJxaamZ+bdsReSzbA+jOE3Xb8R21Oajid2DLs5RAbvKttroOLtjbabtp
+	 tluc/eu+WPM2kxIFhSfqgdGGuHfiBG0vDXe1JDy+LMVrf5vNWgn8ur9Dp9IiyZgMCSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793394571;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=WyqmVzX7xZ8NzVi/5Q8p54DyZ0b9jXCdRbzCnZn/r1c=;
-	b=ZlZWKmPIcRJnhxouhgZlkz+DndVilTqy9H+hUta7EvAo9Wxij8NQmmeIrU844mmt6t/M
-	 N5e91Tz9vxzT8bxlZeEd9O0tm56I5SEwUzDSI9JKF5pa60Z1fpV3CZ/NV8ZSfhhFIGqHR
-	 LQqqQl3jsUfg76oz/TXaM+lrC0hJmJDI6z5RCT+Ir9+8gHAUMcuPtdZs0GeuSjKwGMwYh
-	 W78Fkpw6lChFYvMxgKbmHvmpAlppigx2otyS+6UeY8joz6aZAsZ9Me1AC7hED3O3+cqrO
-	 RAiDUXBr3rX6G/3ES6wxqP6XrZL0inlvL6JhcZhPeTHTo6VNvb17K0HwGFia72aEkpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793394615;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=WWFHdhsqkiSrahXyVyHuACAJn5u+mkpktpUzIjfAX54=;
+	b=Jg/6FPpaqur7r5fyjC1yfqKECsGYDOM8zx7/rN9iaTkVxGZW6aPtHRxMvTdhFFoM+DyW
+	 qOWf6BwL7tQ9qwPCn+o4ffLptW7gSASoD5VZ/s71iix+Whc+Qsr4x9Xk37Ert3azakF0D
+	 ZxkLLtfv1FP6+cAkg+ATFJT1j3gnX0JOFT+HGTV7L6Vc0zJPxkMYAMOUn1YNEc0JxpCVw
+	 y50fFi29V7HFmz7IfblucTQYpcHYrlew0i6fiL/fndsOyWajsiWbVzk95A9PQ+tsvpVYZ
+	 WeGVCd/A0zGoR+gR7gKHvJSCsgs99Y2VzFG8/aTFKBYfd/hyHDWcKKkOyA/zfe44Obw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CypdlOSS;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NGvI4Dbi;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=arista.com;
+	spf=pass smtp.mailfrom=arista.com;
+	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=B6OxYaPZ;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D139606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:09:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D139606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AC9606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:10:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76AC9606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CypdlOSS;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NGvI4Dbi
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UIhikB487188
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:09:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	WyqmVzX7xZ8NzVi/5Q8p54DyZ0b9jXCdRbzCnZn/r1c=; b=CypdlOSSajFHnoDj
-	0/CsXLC4vGq2TCnPC1nXPvvQHSQL7VAg4TfLDpcT1JVA+2ZlBOj5dSs3+AyD/HpU
-	ffuAalABjBiIwk9Vt2sxEsGuyD9363kEKlweElchT6MulJwLn44vyNKxYCuroV6F
-	GC9aJx2/zSUjUI+1RL9bkNfej/6NITLxVXvrNTPt3vKAhLhs5OQ7V622HcRN/r9w
-	KvilI34xeHRJ5V9OXq7X7AA3RsKYp5L9tGlGZZCqj+UbkfJS/OWsGkgOck1leZIj
-	YDlE716cQUB6AwWMnldKmq3AbDMxk0KjhdIaXqQOYQo1jzoLqbRf1SJM3y+JxUpc
-	V8kgHg==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn0s70dvr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:09:27 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36637676140so1678597eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:09:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=B6OxYaPZ
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso1967040eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:10:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793394567; x=1793999367; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WyqmVzX7xZ8NzVi/5Q8p54DyZ0b9jXCdRbzCnZn/r1c=;
-        b=NGvI4Dbi9B2EBfWE8wxN/w0KFPVv7KLJky7V38TOL3EzDaowLFiMK8v/alvQwJWH8u
-         f7HoQYgonxZYuUA6C1IP+rls2rghom4mGiqRGl0oimOpfryE3qmmu4LRLNNzXgiuaUrM
-         zoIgCDGNv2068wA75Q943mzRT1xKv/OmtFXUkGNtMdbpV50KXaG4aIxSoP9xe/0rxM85
-         Tume3gDMAzLetjIK/GxKo/dbwYEim8RhK9k0a6/GuWhWHtekGEzgv1RX8tTIELZwHJZ9
-         tO8VpTYsNgLswkX3Ef42Fss1bBJE91W1aEq28UFZ9HalsngB6NAZ+1KP6W30p+/0iHqN
-         vgXg==
+        d=arista.com; s=google; t=1793394612; x=1793999412; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WWFHdhsqkiSrahXyVyHuACAJn5u+mkpktpUzIjfAX54=;
+        b=B6OxYaPZEXwX6eoD+yW3EG1Z/aoR1wyJRu4TE4FSCahc+bucN39o4+UyIYNc//eoxq
+         3AcMNiHX1YdVCG0JlXDO6SHAbELtk3m16sUwzoIa5yTV6PaQBwAFokrVt/GomfMjh0CG
+         LNLxgaJ1ED8y4/JyL+Bv824IYiqAUKbMIhPn5JMFdWlmqIFEmK53cFCRoy+VS8c4hkdk
+         Rm7C4kIESvyvjdWmxZHog5JoSDxK68Vn4HYyOVYFirHvaYyR8msmZ/pK+bzJR39G+UzI
+         IgcB5o2OasU7kgri+nF56auhkUhIcbDembm5pZujnktYRC2SY7No0rYe+BaKvO2kGg0Q
+         sAyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793394567; x=1793999367;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793394612; x=1793999412;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WyqmVzX7xZ8NzVi/5Q8p54DyZ0b9jXCdRbzCnZn/r1c=;
-        b=D43+ME0r5k5NgSuZFXdNCqAjk2nZwozvvTE+sBVJLV/5fPdxqwUNjSLqkGD+aVy7CU
-         tZQTdVAPOF6z4RZHW0weZrf22s4BQ705WBTCaered5UKWLEZgWdB72Vr9Hhmuu3wMqbr
-         CebUzRI5KeuY0aE0C2gV7ENYQ6mqLheec/WG+c4JlLnVE7hLNQedzTnlY7Ly9+XrFSsd
-         ObkXyydnC2ssJ47I68BgjeluefOYz3QY3tQ3Ulph+G5q+x6DW1SsDAvo+FT+jIQNvrWm
-         mgJBZbXMaS+maOJCPeHoPnSa8PNgZEh+Qn33Zm3gvqEPrHdouyXpXWGzVAduCJOKTjlx
-         imjg==
-X-Gm-Message-State: AFq9FYLHs98TJMuW79n0vthQiCaGxpcORkHRmNZCjMyQSXO+LUwHmk5Y
-	yE2m44omHowjLwOGJujCRMphY4dU7jWCCnsU8WBaZSJuCQRaxn2VhTFwOEQ8JN4VH6P8EFh6xT7
-	rG5ABqBsQA0SPZX44Q68ue3axAOmjPHatJfNECp+jDATLtlGYfMx2F4GtI3BMWJPIDgY=
-X-Gm-Gg: AYBFou0F5XkxJlatx+Ln8Fu+0EvsEVhq01QiZkRBUy7Rrw4nfzX4vHnD2MJl33su5UD
-	JYkq/HuxDdo5mzOpdewLBVQDWMBzWx+uw94xrIRcI5AOTSMYwIzficW9n3X0hpf08l+xRoypcQ+
-	WbIXhB93foKuVerNLKNUKkVzTpl2XpWuwmN+ols18vzq6UqZlYP/xUWNvpKkuFn0n+GXfYUoYH7
-	tBYuvMHN7TydLm0aPChLFtJtNzsVT97KVZRX0kSZdYRhb2u6GJkJ4lnh7IOrlYU47vaCKtrdx0c
-	WuxTW2Eym/NMa6WB4FTFXC+2INbsq9hd/jydRG/VAx5VKiJhLx728033KyDAOZUSeTtu6NXoxs5
-	xF/Uds7rUbz1Hd94HRDbFHDF8SpEr8NHGM/B/ItbsVoSWRr3jABgARL33OnO00vswtmFpGcaF8j
-	LIu4bePCdPG6SCyzd+SVFbk8p0m/U+qTU=
-X-Received: by 2002:a05:7300:c01c:10b0:36a:50ec:db3f with SMTP id 5a478bee46e88-36a50ecdd21mr1043566eec.7.1793394566732;
-        Fri, 30 Oct 2026 14:09:26 -0700 (PDT)
-X-Received: by 2002:a05:7300:c01c:10b0:36a:50ec:db3f with SMTP id 5a478bee46e88-36a50ecdd21mr1043508eec.7.1793394565946;
-        Fri, 30 Oct 2026 14:09:25 -0700 (PDT)
-Received: from [192.168.1.20] (33.sub-75-218-193.myvzw.com. [75.218.193.33])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428ecb61sm8561611eec.10.2026.10.30.14.09.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 14:09:25 -0700 (PDT)
-Message-ID: <44bc6f1b-6f04-46ee-8578-caff30ab25e8@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 14:09:23 -0700
+        bh=WWFHdhsqkiSrahXyVyHuACAJn5u+mkpktpUzIjfAX54=;
+        b=a5IwPDxBYKbqZFS93i7sfOSP115J7HpZzzFkht4igiXoKVPhy5XIdycrfcWIryQn7S
+         vBcOjQLRktvbS13j8ZbtO8xgjgYy49AaB7ifCCIJIlkr6R8NKJz9UVl7KMPwfyghRcbu
+         15wBczJOm3NmOmw+pMr9hfzn1dULf2TEQLpBDJpz9pzEDzW61qjaHE/cY2i00kLKbAkQ
+         ABPQe2ZoWClF9Lub0U20yTZOe1bz+NuAwNU59pQQdWwn5uEYH8LDX0lop02wpM7YhJ0E
+         0/O0D+rUAKPj5otzuu8SCuZj0En6loGd7usVbBvaSGDVrZvvnrwKnWoRC4FYifpAEuTQ
+         CaHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwlNPnjOXOPuILJ/ZU0PlE2ozcMOya1qLGn04nm1r5ADojC4rXfleF26E8WGnjqfwtB5a14K5l0icZ0KjE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIT6QXuzosgCLVtw3BUfrcLZjunrMRlYD8e53B57FbEohz+5CK3
+	L1mosAMu99sM0wucvEKx8X7i+w8YYQy7Pf46GpywLCUwVHFtY1m4oB/HL61KVFhXGg==
+X-Gm-Gg: AYBFou2mtSzEW/YdP5F33bp1zizktC52p7huNudFm6kfThapStNrPMd55v5Gm8BHHiC
+	Z9FZdDYUohgu0t1b6gU9OArea92670peNYUSuqwaMUv+0INsgfiio4bRZl2JYO9g6IfJnIbZc5b
+	fMxO0sC/y+kv1Fc1Piu8/+6AVNyh/eWNMju07bgFjWsCsEcEjxTUVae+R/H/7DPOVzEkSISYQUx
+	ZPHhnrf21GDvL7S668wDJ0O09ucDpvyJWBW13K6rv4t7IAPLJ/rnYaRPbTKiG623XjmshMkNr/s
+	Z9BvcKdZ4kVJbZa/ncexVsdcT0OWNFVIXSfZW6CgVMrH8+2cfIVe6kTYMWLSLnc70QJBFRleKHk
+	HcmWZC5aoWnrNH/SjwMFwU6H+/nUuXEi+2bdXQ5+YW8yMGb3iVHqvrC/EyFhREmPJA0yrxpOzqk
+	YQXfp16zRya8UpgV09Xg+/EI9ytGgDpNN8xKJWyP9qNdzXHPVsGmkEfIUiJHBgvCgQFeYmQ+C7P
+	GD1qgRA4SwgiYiT7qLPSV6vOte7AQpReolRbEyfBbef6sJidxMZDOs6mu3+FK/UJQsFEbMo07JH
+	mLuSWjvWJtoKAoK1wgU5vbIEQiR07OpcN7410Dm/qscnFJO72y2mL0HIEs6AOVtPtNGv8FZZ9ZL
+	TnZi5uayUFk/QCvJVTo35fak=
+X-Received: by 2002:a05:701a:c907:b0:185:33ab:4d55 with SMTP id a92af1059eb24-1ac5f1810d2mr4226717c88.29.1793394600810;
+        Fri, 30 Oct 2026 14:10:00 -0700 (PDT)
+Received: from dannyhu-upstreamLinux.sjc.aristanetworks.com ([74.123.28.18])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1abcf67csm9471777c88.21.2026.10.30.14.09.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 14:10:00 -0700 (PDT)
+From: Danny Hu <dannyhu@arista.com>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Jan Kara <jack@suse.cz>,
+	Victor Kamensky <kamensky@cisco.com>,
+	Taras Kondratiuk <takondra@cisco.com>,
+	Tianxing Zhang <zhangtianxing3@huawei.com>,
+	Zheng Zengkai <zhengzengkai@huawei.com>,
+	zhoushuiqing <zhoushuiqing2@huawei.com>,
+	zhangguangzhi <zhangguangzhi3@huawei.com>,
+	Danny Hu <dannyhu@arista.com>,
+	Jason Yan <yanaijie@huawei.com>,
+	silviu.vlasceanu@huawei.com,
+	hpa@zytor.com,
+	arnd@arndb.de,
+	rob@landley.net,
+	james.w.mcmechan@gmail.com,
+	niveditas98@gmail.com,
+	pierre@arista.com,
+	julien@arista.com,
+	kbharathi@arista.com,
+	erosca@de.adit-jv.com,
+	alexandr.lobakin@intel.com,
+	jim_baxter@mentor.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-integrity@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	initramfs@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bug-cpio@gnu.org
+Subject: [PATCH v5 0/4] initramfs: add support for xattrs in the initial ram disk
+Date: Fri, 30 Oct 2026 14:09:39 -0700
+Message-ID: <20261030210944.2143778-1-dannyhu@arista.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,96 +127,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: wireless: ath12k: allow calibration
- variant for WCN7850
-To: "Rob Herring (Arm)" <robh@kernel.org>,
-        Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: linux-kernel@vger.kernel.org, ath12k@lists.infradead.org,
-        Conor Dooley <conor+dt@kernel.org>, linux-wireless@vger.kernel.org,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Andrew LaMarche <andrewjlamarche@gmail.com>,
-        devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Jeff Johnson
- <jjohnson@kernel.org>,
-        Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-References: <20260907-ath12k-calibration-variant-v2-1-1a9d6c47dade@toradex.com>
- <179337193753.3936464.10436179036151297295.robh@kernel.org>
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <179337193753.3936464.10436179036151297295.robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=cooOAF4i c=1 sm=1 tr=0 ts=6ae50787 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=AnolQpdaNwb4XK4FG+QP+g==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=m8ToADvmAAAA:8 a=3poil_INJ9H8gjXqE2EA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22 a=kCrBFHLFDAq2jDEeoMj9:22
-X-Proofpoint-ORIG-GUID: Ue7WW5Ub_wOfvJ0_0XayyJtr0xslqfnD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4NCBTYWx0ZWRfX61WJrdCc7Y2s
- 3XNK5UWQ9eN8ejYQCkPwC16nixt2hd0qYpdwZwgAYaLGzlVOmmzVVVmnj+H/wTLPwxLYQoXdeyx
- B3Z28kOYBGXFqNJR6IFJlOhBDvMGqZHJYd2BGppKMbYquNzfnn5mWZAXB82rWr+bQQBkepKR52b
- hc0PYpEa6SEmmGtfGzwI+yx3FS2UbwSCunxMHM0m3fuW35rOKJ44BF58onBRMI0C9TquSyQ4GzE
- /UGeHNWyEAopWASvbGK5qlW+Pn9Crhb6eSicOizTctHYn/UBaTJmHxTRimdizsvcEwlE2fDtxd+
- aeYXntcrEfV8jhrFeLGBE82A6C4gRo1iUHwoRb5iSdi+VtR8oWMYXrCbsj0/IcdDUD2I58crdya
- kQPsojc4CIMfwV8j2E6XP5nkFLIop0SKGSInVS4zN1652o1h1vFcDJ2JTQHyHMzrTUtJqaWWPlR
- 3/IZzqsGpGcg3iOdIiA==
-X-Proofpoint-GUID: Ue7WW5Ub_wOfvJ0_0XayyJtr0xslqfnD
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4NCBTYWx0ZWRfX0K+fKx6f8lYt
- E+OeKqdxB3Z5DHyr+qWR0mal9I+d8vGkQnm+GtMAGF+QaQmrygVXLK24W6HYZmsiexRi2ag38MY
- cuugYX/LwC1Ur24oXtz1zX01oKXtMtM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
- lowpriorityscore=0 adultscore=0 impostorscore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300084
+Content-Transfer-Encoding: 8bit
 
-On 10/30/2026 7:53 AM, Rob Herring (Arm) wrote:
-> 
-> On Mon, 07 Sep 2026 16:17:20 +0200, Ernest Van Hoecke wrote:
->> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->>
->> qcom,calibration-variant is the generic Qualcomm Wi-Fi DT property for
->> selecting board-specific calibration data when the device identity alone
->> is ambiguous.
->>
->> Commit 06cca100ad08 ("wifi: ath12k: support calibration-variant from
->> device tree") implemented support for this property in the ath12k
->> driver.
->>
->> WCN7850 can be used in systems where the PCI device ID and machine
->> compatible are identical across product variants, or across regions with
->> different regulations. For regulatory changes, the hardware description
->> does not change, but the vendor-provided calibration data can differ. In
->> that case neither the PCI identity nor the machine compatible can
->> identify the required data, so DT needs an explicit calibration variant.
->>
->> The ath10k, ath11k and ath12k WSI bindings already allow this generic
->> property for the same class of board-data selection. Allow it for
->> WCN7850 PCIe devices as well.
->>
->> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->> ---
->> Changes in v2:
->> - Rebased
->> - Updated commit message
->> - Link to v1: https://lore.kernel.org/r/20260701-ath12k-calibration-variant-v1-1-d3eddaabf026@toradex.com
->> ---
->>  Documentation/devicetree/bindings/net/wireless/qcom,ath12k.yaml | 6 ++++++
->>  1 file changed, 6 insertions(+)
->>
-> 
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> 
-> Sorry, not sure why this wasn't showing up for me. You may want to 
-> resend it in case it is not in wireless queue.
-> 
-> Rob
+This patch set aims at solving the following use case: appraise files from
+the initial ram disk. To do that, IMA checks the signature/hash from the
+security.ima xattr. Unfortunately, this use case cannot be implemented
+currently, as the CPIO format does not support xattrs.
 
-It's in my queue, will pick it up now.
+This proposal consists in including file metadata as additional files named
+METADATA!!!, for each file added to the ram disk. The CPIO parser in the
+kernel recognizes these special files from the file name, and calls the
+appropriate parser to add metadata to the previously extracted file. It has
+been proposed to use bit 17:16 of the file mode as a way to recognize files
+with metadata, but both the kernel and the cpio tool declare the file mode
+as unsigned short.
 
-/jeff
+This v5 revives Roberto Sassu's v4 series posted on May 23, 2019
+(https://lkml.org/lkml/2019/5/23/415). The github issue tracking the
+revival of this patchset is here
+(https://github.com/linux-integrity/linux/issues/11).
+This revision incorporates unpublished changes
+from other contributors that can be found in
+(https://github.com/linux-integrity/linux/tree/initramfs-xattr-v1-devel-v1)
+and adapts the implementation to newer kernel interfaces. Compared with
+v4, this revision adds an IMA deadlock fix for restoring security.ima
+xattrs during initramfs unpacking, switches to a Kconfig choice for
+metadata type selection, and updates gen_initramfs.sh to pass source
+paths to gen_init_cpio for nonregular entries, allowing their xattrs to be
+read from the correct source object that will be included in the archive.
+This revision also includes various improvements to error path cleanup,
+debug output and tool documentation.
+
+The difference from v2, v3 (https://lkml.org/lkml/2019/5/9/230,
+https://lkml.org/lkml/2019/5/17/466) is that file metadata are stored in
+separate files instead of a single file. Given that files with metadata
+must immediately follow the files metadata will be added to, image
+generators have to be modified in this version.
+
+The difference from v1 (https://lkml.org/lkml/2018/11/22/1182) is that
+all files have the same name. The file metadata are added to is always the
+previous one, and the image generator in user space will make sure that
+files are in the correct sequence.
+
+The difference with another proposal
+(https://lore.kernel.org/patchwork/cover/888071/) is that xattrs can be
+included in an image without changing the image format. Files with metadata
+will appear as regular files. It will be task of the parser in the kernel
+to process them.
+
+This patch set extends the format of data defined in patch 9/15 of the last
+proposal. It adds header version and type, so that new formats can be
+defined and arbitrary metadata types can be processed.
+
+The changes introduced by this patch set don't cause any compatibility
+issue: kernels without the metadata parser simply extract the special files
+and don't process metadata; kernels with the metadata parser don't process
+metadata if the special files are not included in the image.
+
+From the kernel space perspective, backporting this functionality to older
+kernels should be very easy. It is sufficient to add two calls to the new
+function do_process_metadata() in do_copy(), and to check the file name in
+do_name(). From the user space perspective, unlike the previous version of
+the patch set, it is required to modify the image generators in order to
+include metadata as separate files.
+
+Changelog
+
+Changes in v5 relative to v4:
+- Rebase onto vfs.all
+- Add an IMA fix to avoid a deadlock during initramfs metadata restoration
+- Use u32 metadata record lengths and reject records smaller than their
+  header
+- Improve debug output for binary xattr data
+- Cleanup metadata buffers at the end of unpack_to_rootfs() 
+- For CONFIG_INITRAMFS_FILE_METADATA, replace the metadata string prompt
+  with a none/xattr choice
+- Fix resource cleanup and format specifiers in gen_init_cpio
+- Update gen_initramfs.sh to pass source paths to gen_init_cpio.c for
+  nonregular entries (slink, dir, nod). Modify gen_init_cpio to
+  properly collect xattrs from the source object. Without this change,
+  xattrs will not get included for slink, dir and nod.
+- Add documentation of xattr option in usage() for gen_init_cpio
+
+v3:
+- include file metadata as separate files named METADATA!!!
+- add the possibility to include in the ram disk arbitrary metadata types
+
+v2:
+- replace ksys_lsetxattr() with kern_path() and vfs_setxattr()
+  (suggested by Jann Horn)
+- replace ksys_open()/ksys_read()/ksys_close() with
+  filp_open()/kernel_read()/fput()
+  (suggested by Jann Horn)
+- use path variable instead of name_buf in do_readxattrs()
+- set last byte of str to 0 in do_readxattrs()
+- call do_readxattrs() in do_name() before replacing an existing
+  .xattr-list
+- pass pathname to do_setxattrs()
+
+v1:
+- move xattr unmarshaling to CPIO parser
+
+Danny Hu (1):
+  ima: skip algorithm availability check until initramfs unpacking is
+    finished
+
+Mimi Zohar (1):
+  initramfs: add file metadata
+
+Roberto Sassu (2):
+  initramfs: read metadata from special file METADATA!!!
+  gen_init_cpio: add support for file metadata
+
+ include/linux/initramfs.h             |  19 +++
+ init/initramfs.c                      | 140 ++++++++++++++++-
+ security/integrity/ima/ima_appraise.c |  25 +++
+ usr/Kconfig                           |  19 +++
+ usr/Makefile                          |   3 +-
+ usr/gen_init_cpio.c                   | 216 ++++++++++++++++++++++----
+ usr/gen_initramfs.sh                  |  15 +-
+ 7 files changed, 401 insertions(+), 36 deletions(-)
+ create mode 100644 include/linux/initramfs.h
+
+
+base-commit: 2c3ba1f1cb416b81d617b92a24a4bcaa48d574e3
+-- 
+2.51.0
+
