@@ -1,126 +1,162 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793380571;
-	b=m1ppVbjm6dyOzxAV2zDb99/ROCFtBCTJxSxstpmyQ8KCNLMKA49VQLDKCgvW3GMiikol
-	 TYlf84BhKQuga/br1t9OQElsirpdZpblprpYsCbDSnG0yWZEJecgFZ/wcjBQ7Et0w9fjf
-	 p4rOjkN2SqB4ekGyOxp4iexI66j2lxyaNrmOq2mSsmj8NSzTTQpdYAnG8xSz2sB1gGO3A
-	 nnH0mwayo95KWmgfk80chwgdERdkhYMDAC1QHje3Lm+oQQhhrAoBAdsylWlY7QC/eQ9mp
-	 oBFbbyNZ9daC33GTl/npIteg4v9705f/FhOYaiMFA4Ft7GwlGuWfso+d/dWnNmRGgOw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793380571;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.72.66
+ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793380609;
+	b=XrllMenKN7WtGWA42ZqW8DlddxDZBcqXPrqIi4uFcWGYcXBw1aICLkg5OR2wbdnN6z97
+	 4s3wtQBOPmJponu1xjkmfMOQw68ZSTB+nf7wyeEDHPtjIEpLAyI8IgLitB0HOHeIZaUSc
+	 b5fcgmy5FZiCL7IFWEEFJzUiK0jmDNgpl42I22j9De43c0xWY9gr+Bu7vSaSG3QcJewq1
+	 s+aqvb+AYGxqvG8irc6kBQXhKsiCDIsJ7F7N+rc3br+sBEhvw7breGnIjoKo9UFEn6WDE
+	 zZdW6tAROPxoRelTiRrd74edgwlfZXmCCXRy+bY6ROmj3AhgUYElOXwOGBHlSZYrMbw==
+ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793380609;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
+	 DKIM-Signature:Authentication-Results-Original:Received:Received:
+	 Message-ID:Date:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:x-checkrecipientrouted:
+	 NoDisclaimer:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam-Untrusted:
+	 X-Microsoft-Antispam-Message-Info-Original:
+	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-EOPAttributedMessage:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ybKVbrtZEUo4ZkUVHlywlKk6LlM+bSvFqSsT60Q6nMQ=;
-	b=POGJh4yYwnf2kFLjejFJIgp7NfLeqe2jA3DauL5NO8417gUU2kCt4UQKU8CdeILf+3va
-	 4qVujsVBPtVwrmNi1lkiqkBzoaQGdm9a+/QnLYds9wHt3mXuZ0ZKqfahkNJ6WZJQheqL/
-	 BpdfVvDPob2XgL2JctQoiAeVrbuymLBjp151s453L1IxUbWRDsDlUKYIk6wcobZ1AlOAq
-	 RoZxRKA6cpMoK+pqdRIgJLcIhdsXnRh5cDteHs/0ci4yWbOb/jHi/EkeJbZ/A1xCjVq+a
-	 /UoRGxOJCFvQ7Fh8sZYqddqxAvr64DTC4x7XlrtltgLYoe7ruW7s0lRMjupMxFJU2jQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qpseBjFK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.51
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011051.outbound.protection.outlook.com [52.101.57.51])
+	bh=ulftxReYr3KHrT+I7F0fbXgqGCGzvpAVtxC4AQT6UhE=;
+	b=3I0fFRvvkT5YUg9LzzXsNv9OrTeCE+OVgW2ph+Xu55Y/cPm492rMTfOCFY+4P6L+caVf
+	 7+au8B6YCAUPSLAo7dONzFvGwgatXIV1HSduFMVOo+CJncYSUNPftgw043m/AVw2L5aG/
+	 zZjnzX/mxElwRErJ+kPTEhAL5S0NArkZMBFfSA9i/py3EdRYj7OMFMQTmfe0eNjYUvgg+
+	 ThTNmCVGtA4jliUbwzipA1IqupC4VlA4MFE8lt5jN5JDoXeTQUjPOp2mORycvDbxnmp2+
+	 C/veNOq1CYWq4qGdksczmB8WUpTN6oFN1U4hXUU9W+fkkTsXRxV2wvIRQyen+uzGrwg==
+ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=AmIGbwHC;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=AmIGbwHC;
+	arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.72.66
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013066.outbound.protection.outlook.com [52.101.72.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CCF606A31A;
-	Fri, 30 Oct 2026 17:16:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99CCF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC4C606A31C;
+	Fri, 30 Oct 2026 17:16:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFC4C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qpseBjFK
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=AmIGbwHC;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=AmIGbwHC
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=T/NMudMKW5LqNz9gQfK729TKxbOo2k2yvcljHmVkzLlw7mnOoc0Zi+ZOAeEuxvuUuOWaI6Thrk4N4XW0RWrOhLg+NdXS1JVtXfE4sCrZKMvrquq/jTW+VVO2Nixl41vRe7FLg8oUGfKKNz9ydB0fXHGPKYlxvndw+Pklq5QJrrA5nt0wcEM8Jl4TtYq3tVr64YbK00ws9YThYkhVjUTwQLRliAfuN+yToLRLIAuKrKL838wGKKLDslcOBYa9O+lpkOkd/4TbbrkBLBNTCTxFj9iAjI5wn7jC3bRj49C/XxbuWVx8VmOgW1BdddT2UWoqClm00Lj2imf7FTPoHRPnTA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ulftxReYr3KHrT+I7F0fbXgqGCGzvpAVtxC4AQT6UhE=;
+ b=TCsK1pu4Fqob7zGcVEGBBj03PCWrl3HYtFKmnmYcsaqmWjmrsuHS+TF+hbdEqjFe9bsSw+rMIMViHFHo1BT2mIq9+ajnKZqm194pVfMbG0F4lZdgvkbl1R6nQ5BOeTa2zW84ENtYLv3dLO9LvEIdFv6JdxS1QqtE6YWOQJdrEEJfaHYCZoJTkKR7FmfAmblNe3Xgko0B63tU12RfQjKqSiIbaKYML/ns5Oso50iz9DCj3tpuWiHD1GcfT0vaNowud4L0bDjIgZmhRDuzxo1mrembz30cY9ZyHthIUpEEpkgwzYySDc2p21/NHkUtKx1sWNe7jN349P1Y5eIxY1tM1w==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=oss.qualcomm.com smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ulftxReYr3KHrT+I7F0fbXgqGCGzvpAVtxC4AQT6UhE=;
+ b=AmIGbwHCXHHVfYcNtDKkZ7wnkBNYc1eB3JKtNavOaAx/lWEVDm7q3FnIqof8baO7w3A96WKok2FGJvk+y2Y3AuPxg00BVgEKVnPjZAqTRgbVF+nMcKhX0AYeifsd9Yfe1HdI3e4r4C0ZuOo+yLW2T+H2kXx4eTGT+OZEt2dLuDE=
+Received: from DU2PR04CA0086.eurprd04.prod.outlook.com (2603:10a6:10:232::31)
+ by DB9PR08MB8268.eurprd08.prod.outlook.com (2603:10a6:10:3c4::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 17:16:41 +0000
+Received: from DU2PEPF00028D05.eurprd03.prod.outlook.com
+ (2603:10a6:10:232:cafe::22) by DU2PR04CA0086.outlook.office365.com
+ (2603:10a6:10:232::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.9 via Frontend Transport; Fri, 30
+ Oct 2026 17:16:41 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DU2PEPF00028D05.mail.protection.outlook.com (10.167.242.165) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.4
+ via Frontend Transport; Fri, 30 Oct 2026 17:16:40 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dWvv4kL2pvb1+Uh/Pwjb1+OPD3Gic+0MlAP+KuvnxaIOb91VYimdOSknUfY1dm3Pxaoc+xa12jWKtXQMurMZ2ldMAMX2ViQWU+vOsNiefGxELXpXABk8oR8pdynumRgwGqj518F/kguFAsmpn0+zd6+zMz/+Kch6yAzHy+wNw3710YXQRQpS4f1d1yeMXdXFl4EhAriU2AmyN5DLRrIcKJi8S+EvC8gtdHLu1jn5bEgVADx42zaYAfYc339lZ7JouG2sGorl4Qorla/BVRV6drRbnGz4O/9WzxQf/nQtZVnpkiDeSJBKX+Sftpd1uLHDPTTQWyQAqTEVO7JmNnBm1A==
+ b=vYC8t/69vf6PIYfn4hzqe/+j2Ep7SeazFbinhHSGHFyJHOtaG0h5uPvi9GPtlSUwSmo274d7lamwASqbDTRLicTlDVte2LX5ZY/P7xiemRmoExrs+i4mG68lzye1eCNjHoFrTEcCYdIzoG1hbyDm8NWpMpbAoCb6sPrZn5JirZXt8F6Q7DOlhFV41adQxg7Il5q9ScQxKPeTBNjE6oAQmRb4ncrF0SnSVHOpcePyfT3vjpYqewUX/A5Rg3KVjxxFhPElVRjMHYs3fmjCDSo/pxYzbLIc7Soq9+HDnpXqNAJ9h3gPD1OIVdWrWMLMAZOa+gCwbg8aHfez1Or7QfBWYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ybKVbrtZEUo4ZkUVHlywlKk6LlM+bSvFqSsT60Q6nMQ=;
- b=Ee3BgvibJJ+MdLeZBMYHjqdI+hsUMaZqnPotUtJ6tVZknXaQ8AtN+1GfwUPenTKFPFDmNeneLG3/Bde+j4Gj7+K4H9DwADt24X9jzu2pFxbDsnh8MC3aoUuOSMPO+r0IUgqFagu9IOjCA2q+71FvroNAeMWexIBZsuvsQ7UiW7t07cjG5I8kV63SYRegs/DDN0sp3+Is8BMyKGisFDFcVsJTXXkm8WYmRXKQ/gZx1pAiDsovan6WUX05TZx8QTtbHjAMMY0FQM+oRURoy6BGD94kXNH4cqNAo5vqn61pyA0LpH6FEEBTRDPpeUjk7y3KfLYoShfEjbEkTxQhmwmspA==
+ bh=ulftxReYr3KHrT+I7F0fbXgqGCGzvpAVtxC4AQT6UhE=;
+ b=XWb/Q8ntMqyaNtyJRLktsxijnZShKc9j5ykFGhJpyrvhNR3psiWjxL0A/pk51YlI+PIjjqU3db/3fpTATuES9q7cKeKW5KrnS5PN0DqQ6wrxpnjfpkm+kBqLmYua8FSpMf+c04wLVm9fv439Wf9OWkDrHNR/CfKE5ycg8H5xZBM5hsvloUYQ3J76Pwc1PeNMg/Xoll+aAuZQZmBIoJko5s+z+Ihb8XaMPLwpfeg1vSve+Era16yE2+lJtTkBYXQO1IfTaralZjvJ4UcdE56gXQrNESRKkZbX/Zmhxh4tf8yx3FUaE93iebHmK+cVPu2uVmHw2MzanYKJm4x1Zpm8PQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ybKVbrtZEUo4ZkUVHlywlKk6LlM+bSvFqSsT60Q6nMQ=;
- b=qpseBjFKCY7R4uz1NE4P3dnptQjJmvu5hcRGee4842hsyRB7sP7GwH/MefNc/H9+tj8wx3Z5hfko9DsZuDiB1z0AV42llnAYBez3OSZZNHf9uQMjgHEt04lhLTJ8gbgDhMRHf7ETv0a4U44ZCfkHq+Di/B8kZ0mDO/Lh0y/R+dmDmlc1oPLnNaYOWllDFj8O6ARQLq03G3t8cXciKq4grhOV4DxPkGRMx08lCJcwGpMjm5/0Fq4ef0XXSsEN8Xyt+Tb7TJRCGRjg3xv5Kiq4+BlAfm7mf/dMIVaHrDw1ST6B089tV/LgeoEhsidDrXaAlISj1jjOVxYg35wRjmOuRQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by SA3PR12MB8047.namprd12.prod.outlook.com (2603:10b6:806:31b::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 17:15:50 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 17:15:50 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 30 Oct 2026 13:15:46 -0400
-Message-Id: <DMICCHK80H4R.3R69XK82S57AO@nvidia.com>
-Subject: Re: [PATCH v2 05/47] mm/truncate: look again if a folio left the
- mapping
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- <kexec@lists.infradead.org>, <linux-fsdevel@vger.kernel.org>,
- <linux-arch@vger.kernel.org>, <linux-cxl@vger.kernel.org>,
- <stable@vger.kernel.org>, "Josef Bacik" <josef@toxicpanda.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, "Andrew Morton"
- <akpm@linux-foundation.org>, "Johannes Weiner" <hannes@cmpxchg.org>,
- "Michal Hocko" <mhocko@kernel.org>, "Qi Zheng" <qi.zheng@linux.dev>,
- "Shakeel Butt" <shakeel.butt@linux.dev>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Barry Song"
- <baohua@kernel.org>, "Axel Rasmussen" <axelrasmussen@google.com>, "Yuanchu
- Xie" <yuanchu@google.com>, "Wei Xu" <weixugc@google.com>, "Baoquan He"
- <baoquan.he@linux.dev>, "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>, "Suren
- Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Kees
- Cook" <kees@kernel.org>, "Peter Zijlstra" <peterz@infradead.org>, "Jann
- Horn" <jannh@google.com>, "Pedro Falcato" <pfalcato@suse.de>, "Hugh
- Dickins" <hughd@google.com>, "Pasha Tatashin" <pasha.tatashin@soleen.com>,
- "Pratyush Yadav" <pratyush@kernel.org>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, "Lance Yang"
- <lance.yang@linux.dev>, "Rik van Riel" <riel@surriel.com>, "Harry Yoo"
- <harry@kernel.org>, "Alistair Popple" <apopple@nvidia.com>, "Nico Pache"
- <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain"
- <dev.jain@arm.com>, "Usama Arif" <usama.arif@linux.dev>, "Kiryl Shutsemau"
- <kas@kernel.org>, "Matthew Brost" <matthew.brost@intel.com>, "John Hubbard"
- <jhubbard@nvidia.com>, "Peter Xu" <peterx@redhat.com>, "Will Deacon"
- <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, "Nick
- Piggin" <npiggin@gmail.com>, "Oscar Salvador" <osalvador@suse.de>, "Minchan
- Kim" <minchan@kernel.org>, "Muchun Song" <muchun.song@linux.dev>, "Xu Xin"
- <xu.xin@linux.dev>, "Chengming Zhou" <chengming.zhou@linux.dev>, "Chris Li"
- <chrisl@kernel.org>, "Kemeng Shi" <shikemeng@huaweicloud.com>, "Nhat Pham"
- <nphamcs@gmail.com>, "Youngjun Park" <youngjun.park@lge.com>, "Gregory
- Price" <gourry@gourry.net>, "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Rakie
- Kim" <rakie.kim@sk.com>, "Ying Huang" <ying.huang@linux.alibaba.com>,
- "Jason Gunthorpe" <jgg@ziepe.ca>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
- <20261029-fixes_core-v2-5-a64ce7f83abb@kernel.org>
-In-Reply-To: <20261029-fixes_core-v2-5-a64ce7f83abb@kernel.org>
-X-ClientProxiedBy: YQBP288CA0048.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c01:9d::18) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+ bh=ulftxReYr3KHrT+I7F0fbXgqGCGzvpAVtxC4AQT6UhE=;
+ b=AmIGbwHCXHHVfYcNtDKkZ7wnkBNYc1eB3JKtNavOaAx/lWEVDm7q3FnIqof8baO7w3A96WKok2FGJvk+y2Y3AuPxg00BVgEKVnPjZAqTRgbVF+nMcKhX0AYeifsd9Yfe1HdI3e4r4C0ZuOo+yLW2T+H2kXx4eTGT+OZEt2dLuDE=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from BESPR08MB999898.eurprd08.prod.outlook.com
+ (2603:10a6:b10:109::23) by AS8PR08MB7369.eurprd08.prod.outlook.com
+ (2603:10a6:20b:445::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 17:16:08 +0000
+Received: from BESPR08MB999898.eurprd08.prod.outlook.com
+ ([fe80::d62a:5300:bc89:9f62]) by BESPR08MB999898.eurprd08.prod.outlook.com
+ ([fe80::d62a:5300:bc89:9f62%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 17:16:08 +0000
+Message-ID: <fdbce441-921f-4ef9-9c57-0685706cdf89@arm.com>
+Date: Fri, 30 Oct 2026 18:16:06 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/6] CPER: Add Memory Error Section 2 support
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
+ linux-kernel@vger.kernel.org, James Morse <james.morse@arm.com>,
+ Mark Brown <broonie@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Len Brown <lenb@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Shuai Xue <xueshuai@linux.alibaba.com>,
+ Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+ Pawel Chmielewski <pawel.chmielewski@intel.com>,
+ Dave Jiang <dave.jiang@intel.com>,
+ "Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+ Breno Leitao <leitao@debian.org>, Dan Williams <djbw@kernel.org>,
+ Terry Bowman <terry.bowman@amd.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Morduan Zang <zhangdandan@uniontech.com>, linux-acpi@vger.kernel.org,
+ linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev,
+ Ashok Raj <ashoraj@qti.qualcomm.com>
+References: <20261019203915.2019037-1-pierre.gondois@arm.com>
+ <20261020101048.00000186@oss.qualcomm.com>
+ <0817615d-5e96-4a3a-b39e-3e5d1b88e716@arm.com>
+ <20261023142621.00007051@oss.qualcomm.com> <20261024003917.283b890d@foz.lan>
+ <20261023170405.000060b8@oss.qualcomm.com>
+ <at0rs4parlHFGI7k@hu-ashoraj-lv.qualcomm.com>
+ <43301529-f169-493c-bc59-fa08b77e1ef3@arm.com>
+ <20261030081941.000040e7@oss.qualcomm.com>
+Content-Language: en-US
+From: Pierre Gondois <pierre.gondois@arm.com>
+In-Reply-To: <20261030081941.000040e7@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PA7P264CA0447.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:398::11) To BESPR08MB999898.eurprd08.prod.outlook.com
+ (2603:10a6:b10:109::23)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,124 +166,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SA3PR12MB8047:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79cefca3-0ccd-4580-8f49-08df36a97223
+X-MS-TrafficTypeDiagnostic:
+	BESPR08MB999898:EE_|AS8PR08MB7369:EE_|DU2PEPF00028D05:EE_|DB9PR08MB8268:EE_
+X-MS-Office365-Filtering-Correlation-Id: e35c5147-a201-4959-9e18-08df36a99069
+x-checkrecipientrouted: true
+NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|7416014|376014|10070799003|366016|23010399003|1800799024|6133799003|18002099003|22082099003|56012099006|11063799006|4143699003|5023799004|261026140227099003|261026121527099003|261028144727099003|10067099003|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ eSBLfTJMpR5y4W+O6eScFei5b05vMYdqF7Pge/ZRYkf0fHghqZckl3x609JNH7cbbSx/eF5C3MBwP899zBigsxj5C4f9+GXtRc7TIVnNe5kKcEd9vEzNN0hmKZenXjHk+wY0zZGnADaXGi8h9jYzzpid39FCqllmEPmJIffuqPRWyaXi6j3qq75cT/1boFhzyT0bA/MJyiML+gBxI1qRvYk1zmL5kGQbIOS8Z3oE6i+onWVjdleELfLf535eSIDib6OnxneXztAOOPLg6+NqDfy3SmXJ3V2ABiieu2j9kGuIbYZt1N3O3jRris6GoCVISucvZkhHMzTmi3N+W7DQuW57niLUZilFYqWn2S6i7gCxEEjAiRH6qgWsk9DHZrcPHsLX4zXf6D1C17kwrt5PyeGuM9olkbld6fBGTPZYm5X+l6fK1n9xzBUQq06Otx6ycbca5ZdBCSllM8XMdgFqVQJywjF0vjYQC0gtMKVtiJPP3+AGaMkAc6kVPgv8tP8VKTreDdJ1Eh6fStuvfQGZp7Wf+lsFpHrcPrgTrVX5Ne0vt7bZ9GX8Js8jLgs8EK5zHNCUWUNLf6L4wLPmn1lZOAFr8XOsrAlmc6EDwCgUd0Y5/dmPEOLf54i2tEXmhdaQKjPncSARXGrJsp0nQ//TmDXhLu4LNBNHKVzcwo9FJ3I=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BESPR08MB999898.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(10070799003)(366016)(23010399003)(1800799024)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(5023799004)(261026140227099003)(261026121527099003)(261028144727099003)(10067099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ ST5S8cX5YdjxPW31kmH+oj3X3Ie4GYBPSb1X5yflix+3NNYWcFT03MfM4t5lWm9YOFMfuXZfb5Fk9KjYVht4kqWsoKgEgOLeLU2FDwL46Fexu/fh8LdzEJJB86/euGOohHTSth/IkjJfVj9x4iEoAGDa6ScqJTsiVsGzUEm+ngQv1b0w4pFx+JxUOm4eS2js4+Zghp0FOCbIrKSouHmSVLPZfgLFIov8DoeUdLOl9Fa9sMsHQz5Nv4hi6fq2Eic7pQu72YrwcZo1S/7E7MkNNKLs7QEzmHvobv0YxYhyjc8GqdhJLADfxLEGCQ4xq+nwQEh86/NQbxuWLTPYSrKgYA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB7369
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DU2PEPF00028D05.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	1127707c-d5e7-4a97-cbe8-08df36a97cdf
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|921020|4143699003|56012099006|11063799006|261009223027099003|261026140227099003|261026121527099003|261022105027099003|261021123027099003|261028144727099003|261021121427099003|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|14060799003|36860700016|82310400026|35042699022|376014|7416014|23010399003|30052699003|1800799024|6133799003|10067099003|18002099003|22082099003|56012099006|5023799004|4143699003|11063799006|261028144727099003|261026121527099003|261026140227099003|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261009223027099003;
 X-Microsoft-Antispam-Message-Info:
-	hF+tC7yRsSx1Z+i32+U14mF8hMSFMJmFFAON7ZIQRb2FK3FDmXWwaGTUxtRBP+gPUIG6fKgBDqxqnlvWs2IbjnVmGxbzLL3pS66tbkS/lOw6+Hc6/wxyS6XiVnZoGxbOzQdDS4Q5GQuTIts2Fbg9C/ZhwAzKnkBHJhefhoHBb4illIUZ36pyqoFiaMiw6TFV27lUqQf0jVgSapBsG70keI0+yB//I+EQRJ3cukt3FYZz23aBdVrzwObLwllhsYGTFiZZzNrryjWFinVzfkWvMNr6wPaQUL3DF+mR2Tkx+T4CvWDTbwhn+Q6F0Jy9KDW5wS+rt8x+aaz634RjEwCgzuSfQ6NJ9Y8/BQ2DJOQFolqIRvUMa5Uf//EKv3aVXHEeYh7nzS2Kwf1LSapzVZ+Sl2reeFnxPkyXWnEPdG4j+CTfjBQYD2ckGukEOWonzaU8lPcQ6u1I7ep1W2xU9ofuMwqHz7E64TA9NfFM9kCrNfMWv8sgTpXLlzmNUCo9VlIwDubcrqnxbPYLTsyHAJOsqTM/3o5AhKYHqBGz5ZZd4tZuhDd93e7VkS8xY1z1wObipR+fC69eesYguCVDgzBxhOLFWIS1CU+o/S+/O8l9sKrQGmJ6DfeI78ohJKRfPUqs96M920NvGUIQN6MbqyMIyAE4bfILnprw2a6BOdCEZa+Od83FI87TuJOIRfwLqnnOyTQVfvu4rHd+8hONj+hrPA==
+	kZN5iWkqgaJJF5ssaHEiohPJ+5udJvQeNlZ2cZmWlIAkI2nrOqYiuvrBdG9FzE+Y2efXdQokknWIz184ryF4d7MR+VjAmDtLtAhw5sQjB5a0o6gkbHl5Pov/lnwINL+olon4MiTfNeRlKvctX7Z82PG9AiqmAsTrnCo2rkYI/2XBqqhBoIh3CR4WqxD2ryTBKGIqLWsdwm6j5HXgUcitlnWk9YGmNkVmEG68zJ8My5nCcJZgvLJlEvLenvQAtpytXDXLTmZ1579RmRUK4M54Zih3sYwHjqdW3GHd0I7lI+TNW6vJhtaMnPXs+cabUnFbEHn/EXez35waoSAIFWCTHEJ7E6xAR/rU7etRgrb/lF5A80fmO6+T+8KXSf3IPEp8mUZKRzv95mt6X0b6Vmh53N8VfKJ0AMjhRIT5I0vMH5WLWOOMRMAp8ntbvHt7bZMwwu5DDPusxuAhjbc1ZJaVaVrWxM4oxe4q4zMmJd2EQ6dlegj1oDA/1d7+EtkWRLPaeVlI2d64XbvQ+UqKrflFl6FF/XJPtfIyoWMtvQahzohgtQuYVIXnXemHS32sIh2GCMMkLbYbP26vk5HNmKcCBsSHn0dFyqcRMqCXUjpR7BOkUC11biulwanU0cmxxW5YmfQDrv+n+0GSsQdH347lvWfOmKAi2QZCllnevDJ2Qd9iJiGMEl7aFl9fBfFBSF7V7OpwQJYzfZozXHwAbgO8/Q==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(921020)(4143699003)(56012099006)(11063799006)(261009223027099003)(261026140227099003)(261026121527099003)(261022105027099003)(261021123027099003)(261028144727099003)(261021121427099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(14060799003)(36860700016)(82310400026)(35042699022)(376014)(7416014)(23010399003)(30052699003)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(5023799004)(4143699003)(11063799006)(261028144727099003)(261026121527099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261009223027099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eWFjTndzY3BuM1ZEM05EWEVZcUFzeXB4aE9PNjlYWEdzRVVjMC9YS1o3MWZl?=
- =?utf-8?B?YzZPcHJaditldVJhM04wNEpzci9ESTZ2VWx4MG14d0xxb0ovL0xwa2h2SzFM?=
- =?utf-8?B?QTIvNDRUOHI5STNIU1dVZGdWZ1NPWGpRelZCaTE4MVNENDRSczBJRFc1eXRF?=
- =?utf-8?B?anFPMkNQVmtuQmpFcTB1UjVUajhuYlFHSkpyVzZvQVpIaVk3dE01YUZ4V1ds?=
- =?utf-8?B?S0FtMGlKSFc3alRPWm9GT3VWZyt2NGxXNVc3Ykl1bVcrcXp0MERNd0RlNTNl?=
- =?utf-8?B?czlIbmpsWUpWNWdqSzMzWFZvYW1VRzhnR0I5WTJEa2J0Y2hnbnI4OFY5WElW?=
- =?utf-8?B?R00xSmU0Y3VTUm45WFRQbjh3Y3pBbUJjRFh3YUhhSk1pM05wSklMWml4Um9Z?=
- =?utf-8?B?cWdIaHhQNVplSi96aEd3bWZWOS96TFNUVkhFajhmM3o4NWZRVVRGaVFiajBQ?=
- =?utf-8?B?dGZXSFU1d2NmYW5HVitpMVBtSnNUaUJpQ0REczBIYUVRSE9rVzZxNUNPTlc4?=
- =?utf-8?B?V0lDdjV4QzJIL0hTNVA2WXhxYzN0N1h1THZQZDNZdVM0UmphdURmRlNIcWlx?=
- =?utf-8?B?VFpzbHNrdnJCWU5TaG1Jc0pKTnhXQ1JZQ1FBR2JhM1RiNkxJY1ZhUDNHNUlm?=
- =?utf-8?B?VEhFSXhuMUx6U1Q1S0RUVDAzd082dHhteUpSd29TZlJ2dlFScS9zSG1wcUs1?=
- =?utf-8?B?Q0tYNVYrK21QWFM0eit3eElic05sY3BvcUFVR0hUUHpjWVkvNnRMMHBlU05Y?=
- =?utf-8?B?Z3NwMjdGYjBrc0pTZ1U1OUZ1RXFYOVpObTBVdVl6bjJZOHhFUTVNQ1ZwaVRx?=
- =?utf-8?B?ZU4xMlZuenFMQXpyWXljNTBYendFaVJrYTF2TXdKVzVSM21GMHRVY3plZ29S?=
- =?utf-8?B?Z3dKTVJlb1FNenpjaHhWWHhxRXI1TG41UHI3amk1UmFvTUNGcTNRTkNqNzI5?=
- =?utf-8?B?aDI1aHlLZHRaTENJUmZDY2xsM0ZXaXJCRk9uQnN2djM3RWVpY0QrTDZNZi9K?=
- =?utf-8?B?NmtKaGZiYVdFRm5jcnZIRjByMnZYVVBLNU13UXQwL29jUG5FZ2NoVTkwb09y?=
- =?utf-8?B?OW1PV0loUWQrWlp4TFNjZVlveGg4WExRQmk0b1gxbEtrdHZsajdjR3VZVTBl?=
- =?utf-8?B?T1VhUGhkNjBkeFg3c1hGVlFBZ2l0d05kOWVtTk1vRFZkazBPeTVMUEFnNmFt?=
- =?utf-8?B?LzJlNUYyQ1h4L3ZaaFVwSXRtbnZHTFJPL00xd2c2ZjRFbm9UaVZIN01ubzYz?=
- =?utf-8?B?UkVhZ1hUbkRwd1g0dUFKWGZ2N1V6cFVTR0FIZ011QmROMXdUK2wwQ3MwWHk3?=
- =?utf-8?B?NmJnQnd2UURKNG5reGpyeDkvaWNHR3pKbWsvQmRJbHU1UzR5K3RzbFFRMlhB?=
- =?utf-8?B?aXl6Ukk5dHlhVi9GT2kyNHJvMHlxSXZFMGtKN2FJQXlHYkRTNEt4L2Q4emNo?=
- =?utf-8?B?TVNkOEtaRzh6TnJianRqb205UHR4aklGWFhWS1Vsc00zNDBsZVRGTmk0QmdD?=
- =?utf-8?B?ZHpPRDN4VUlOSVltb21ITUdBYUpUWHNQODM2T1RLQjNuZUFRQTFHaEl0aFd5?=
- =?utf-8?B?QkUxT0VUazZBOU1kVU1Ec3lXZmNyQ2RTMEM3WVY1dXR5QzNJbUdadWxjc2RO?=
- =?utf-8?B?blpFaXBtM2xQbk5PVmhmYmdwclRwaHZpcUYrOHJQT3ZBWm5taUhFREVkZk1T?=
- =?utf-8?B?R3BOLzFOU0FpNlBPQ1kzYXJoczlXYVQ3cXcyTUQ0aDREWUV0a3pmaE9oNkZl?=
- =?utf-8?B?ZFA5YmhNNkcwTGhUNk42OFR3aDl6UDZhVmI3K1ZsTHRBa2RKTGV0RXBQZGk0?=
- =?utf-8?B?SEJ4Zm9mWGFvVGpDUkg0ZzBVSk5jY1hTMi9MTDFpZG0xYjdEcVhJZ21KMjFM?=
- =?utf-8?B?U05hNEhQbW1uWUpVR2hXLzNhSWJWdC85UGFYTzNxNWFzL200ZVRhVXFlMjJ4?=
- =?utf-8?B?WDlFU292d2g1M24xMW9sRk1OOE9oMHBKUGxyVjlPRGFVUHgrcmtwSjRZK2Zx?=
- =?utf-8?B?VU16bEFvZk02ckZKVEo3dytLSkNBekZuQWt3RDVYMXpLRkZyclRYK2hWc21D?=
- =?utf-8?B?TzJlVzhjckZ2UmdWZjF5QTBkdG9ycXBOSWsyQ2dMQnp5aXU2cTNSemp0NlAw?=
- =?utf-8?B?cUErTk40NUt6aTNYRnNkVmRwNDNSZnRqbVYrMCtwVERVMWV3REg5WjRLY0xZ?=
- =?utf-8?B?RnFIdy9zdzRIeUdEVHF3aHlXUjhFYWZtTk5PcTBSU3N5VU5ydXFHV3ZOSkR5?=
- =?utf-8?B?SFh1VTJrQVpDeS9nSk1WUjg5SHdUa2J5TzJ3TTJkWWFyNUowQktSNGR5ZElH?=
- =?utf-8?Q?v077EA3heQG3+i51gM?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79cefca3-0ccd-4580-8f49-08df36a97223
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 17:15:50.4055
+	pZD7aFbIlkJzg3uuR8cvsmz35m/F9VOggNzhVXrHaft+FYKsngyBzJr0Uv0438qdKMg/bxtjAKVeZNv1DTziu0PQrjSWbnIqmcpFCeObo2pFCoB9bMgaEDZhkV/SLWylBXm8iBhHlaj2Yp+wYz/vhjHeqCUf3VnJqDnQBrppqZYtYJYie8xukHWJ18IBIWnT/cxigYp1wwN7c79t8MKXtHgplQY2zc4SZ/wbRtjtSBzNUf0/202errkY2NJUmxF1FVKZ7DAIt15chxBOmY4nEDCp74HB5AdqORQDKVAzst3mertBoRGqEK9bWqVZOY3I3nHp9Bb/LSfhSNX0TaUrHDLFaXJ3srXEWf+zeJEuZCBYdcVDEXM5qriInEexObnHVp5tthyLVbWX9w/dkr4HDZ+v8HDnwo1d72Itdr2CJghty1abLAfBXRK0jGd18kn0
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 17:16:40.9046
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aX4zk400flKWjrO1eitTIt2cgIoUwMZ1IWQjJxTUnQhomGQP8f/wWP+rE0gaAaFs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8047
+X-MS-Exchange-CrossTenant-Network-Message-Id: e35c5147-a201-4959-9e18-08df36a99069
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU2PEPF00028D05.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB8268
 
-On Thu Oct 29, 2026 at 4:33 PM EDT, David Hildenbrand (Arm) wrote:
-> invalidate_inode_pages2_range() skips a folio which no longer belongs to
-> the mapping by the time it has got the folio lock, on the assumption
-> that somebody else has removed it from the page cache. But the folio may
-> have been replaced, and then there is a new folio with the same data at
-> that index.
->
-> For most cases, like folio migration, that is impossible. However,
-> collapse_file() only checks the refcount of the old folios, under the
-> i_pages lock, and relies on their folio locks from there on. That works f=
-or
-> users which repeat the lookup when they find folio->mapping changed.
-> The following scenario is, however, possible:
->
->   CPU0 pwrite(O_DIRECT)               CPU1 collapse_file()
->   kiocb_invalidate_pages()
->                                       read the folio (old data), lock it
->                                       refcount check
->   the write completes                 copy to new_folio
->   kiocb_invalidate_post_direct_write()
->     find_get_entries() -> old folio
->                                       xas_store(new_folio)
->                                       folio->mapping =3D NULL
->                                       folio_unlock(folio)
->     folio_lock()
->     folio->mapping !=3D mapping
->       -> continue
->
-> In that scenario, the collapsed folio with the data from before the write
-> stays in the page cache after the write has returned.
->
-> This used to be impossible, as khugepaged only collapsed files that nobod=
-y
-> had open for writing.
->
-> Restart the lookup at that index, like shmem_undo_range() does. The same
-> problem seems to exist in truncate_inode_pages_range() as well when
-> truncate_inode_folio() fails, so handle it there as well, but slightly
-> differently: simply check once more through find_get_entries().
->
-> Fixes: 1b6444331beb ("mm/khugepaged: enable clean pagecache folio collaps=
-e for writable files")
-> Cc: stable@vger.kernel.org
-> Reported-by: Josef Bacik <josef@toxicpanda.com>
-> Reviewed-by: Rik van Riel <riel@surriel.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  mm/truncate.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
->
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+On 10/30/26 16:19, Jonathan Cameron wrote:
+> On Fri, 30 Oct 2026 12:51:47 +0100
+> Pierre Gondois <pierre.gondois@arm.com> wrote:
+>
+>> On 10/25/26 00:05, Ashok Raj wrote:
+>>> On Fri, Oct 23, 2026 at 05:04:05PM -0700, Jonathan Cameron wrote:
+>>>> On Sat, 24 Oct 2026 00:40:33 +0200
+>>>> Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
+>>>>   
+>>>>> On Fri, 23 Oct 2026 14:26:21 -0700
+>>>>> Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> wrote:
+>>>>>   
+>>>>>> On Thu, 22 Oct 2026 09:07:25 +0200
+>>>>>> Pierre Gondois <pierre.gondois@arm.com> wrote:
+>>>>>>       
+>>>>>>> On 10/20/26 19:10, Jonathan Cameron wrote:
+>>>>>>>> On Mon, 19 Oct 2026 22:38:39 +0200
+>>>>>>>> Pierre Gondois <pierre.gondois@arm.com> wrote:
+>>>>>>>>          
+>>>>>>>>> The support is mostly duplicated from Memory Error Section handling.
+>>>>>>>>> Other than differences coming from the content of  Memory Error
+>>>>>>>>> Section 1 and 2, differences in the support are:
+>>>>>>>>>
+>>>>>>>>> - v2 do not rely on a compact "struct cper_mem_err_compact" struct.
+>>>>>>>>> This structure was used to support older versions of the Memory
+>>>>>>>>> Error Section (1). This is not needed for the new structure.
+>>>>>>>>>
+>>>>>>>>> - The compact version is also used by the tracing framework.
+>>>>>>>>> To avoid relying and propagating a non-standard record format,
+>>>>>>>>> through trace event (cf. extlog_mem event) the new trace event
+>>>>>>>>> prints each field individually.
+>>>>>>>>>
+>>>>>>>>> The last patch of the serie was only build-tested due to the
+>>>>>>>>> absence of relevant hardware. apei_mce_report_mem_error() and
+>>>>>>>>> arch_apei_report_mem_error() implementations were also removed since
+>>>>>>>>> last version.
+>>>>>>>>>
+>>>>>>>>> It will also require a proper handling from the rasdaemon. Applying
+>>>>>>>>> this last patch without rasdaemon support will silent the reports of
+>>>>>>>>> Memory Error Section 2 error, cf. ras_userspace_consumers() check.
+>>>>>>>> Hi Pierre,
+>>>>>>>>
+>>>>>>>> I'd slow down a bit.  We are mid merge window and convention is normally
+>>>>>>>> one version a week or so anyway.  Better to gather up feedback from
+>>>>>>>> a number of folk and spin only one revision to cover it all.
+>>>>>>>>          
+>>>>>>> Hello Jonathan,
+>>>>>>>
+>>>>>>> Ok sure, as the v1 was reviewed quickly I thought there was a chance
+>>>>>>> of having the serie accepted quickly aswell. I ll wait a bit more.
+>>>>>>>
+>>>>>>> Thanks for the review,
+>>>>>>>
+>>>>>>> Pierre
+>>>>>>>         
+>>>>>> A general question that came up in a related thread with one of
+>>>>>> our RAS architects. How does firmware decide what to send?  As far as
+>>>>>> I can tell firwmare has no way to know whether the OS understands the CPER
+>>>>>> Memory Section 2.
+>>>>>>
+>>>>>> So options that come to mind.
+>>>>>> 1. Firmware must send a CPER with both Memory Section and Memory Section 2.
+>>>>> Please don't do this: this would require either Kernespace or userspace to
+>>>>> discard one of the reports, only if the other one is there, which can be
+>>>>> tricky. Could be done more easily at userspace, but only if some database
+>>>>> support is enabled, but, at least on rasdaemon, this is an optional module.
+>>>> Good. That confirms my view that is horrible.
+>>> Hi Jonathan,
+>>>
+>>> I agree that an _OSC capability is the right long-term solution.
+>>>
+>>> Firmware should select one native CPER format based on OS support, rather
+>>> than emit both Section 1 and Section 2 and leave deduplication to the OS
+>>> or userspace.
+>>>
+>>> For a Section 2-capable kernel, we may still avoid a second GHES notifier
+>>> chain: preserve the existing struct cper_sec_mem_err * contract and give
+>>> it a lossy Section 1 projection of a Section 2 record. The conversion must
+>>> translate validation bits and clear validity for values that cannot be
+>>> represented, rather than truncate them.
+>> I understand we might want to emit a new extlog_mem2_event and a lossy
+>> extlog_mem_event for legacy userspace, but I'm not sure to follow how
+>> you want to do it.
+>>
+>> Do you suggest that we only need one notifier (ghes_report_mem_chain)
+>> and that we should not add ghes_report_mem2_chain ? This would mean
+>> that the .notifier_call (= ghes_edac_report_mem_error) should handle
+>> both cper_sec_mem_err/cper_sec_mem_err2 struct.
+>>
+>> Another solution would be to keep the ghes_report_mem2_chain,
+>> which would be responsible of creating the lossy v1 struct and
+>> triggering the original ghes_report_mem_chain.
+>>
+>>> That preserves legacy EDAC consumers, but cannot carry all Section 2 data.
+>>> Updated userspace needs the native Section 2 payload through a
+>>> full-fidelity path, such as the existing GUID-tagged raw CPER event.
+>>>
+>>> This does mean an updated userspace listener may receive both the legacy
+>>> EDAC summary and the raw Section 2 record for the same firmware error.
+>>> They are two kernel views, not two firmware reports. We should therefore
+>>> add a shared GHES record/section ID to both events, so userspace can
+>>> correlate them reliably; address and timestamp are not sufficient.
+>>>
+>>> So _OSC solves firmware selection for old versus new kernels, while a
+>>> Section 1 projection plus the raw payload handles legacy versus updated
+>>> consumers on a new kernel.
+>>>
+>>> Thoughts?
+>> This will put more burden on the firmware, but this seems the right
+>> thing to do. I ll share the thread with the group working more closely
+>> on the architecture aswell,
+> We have will have a code first proposal for the _OSC part shortly. Just going
+> through internal review.  I'll make sure you + others here are on the +CC.
 
---=20
-Best Regards,
-Yan, Zi
+Ok thanks,
+If you can also also add Mark Brown <broonie@kernel.org>
+
 
