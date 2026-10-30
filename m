@@ -1,75 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793369604;
-	b=eLphHElhIHTo2XAo7MQyqevQDpPYLuWKjvrhiTsvMW8xweYdoMKFhitzhd/DKLziSZ2b
-	 QZx6+5ezvKIdMaYINWS45ClbHNrBDOV1fsU7ZjxcjzAqdguO8V+cBaQo9d19z0HpBYlTH
-	 8ozE9qfmmCsxdPhkPzjkKCFyniGDzd8Ry72w7O8G5FZXwtdNy1j4fL9GNN19c0DZFcQ0c
-	 6lCcthB17zj7K6Xk1+eG53pX8UyRXBEEVeF9iFxmYFez4p8Ih2OcIf0kDPwV+XtYrNN5q
-	 oIwfHgg/RdlExZiN6d/iBDjJUmH/boqRedBeTpbXib1JeQe5Qs3/Vi/Ag3xW3A8+QDw==
+	t=1793369637;
+	b=wjsZKbrth801zmj49sDKj7M/ZQevn+f5yyzzaADH19n6uGrrFuUHnBHO3PstSmH4ZTLx
+	 E0nG5NLy2a3mioVXub3AlM43pzA29W3iXoFulL0VuwDZTfqSS166X5nlFVBNej3zcNRk0
+	 4IUz7jn5PrIiyy3hABj1Mr4MATBJz46nvrRJFEI19D88vjRYFziKfVur0QkRFrVbbjrXe
+	 ErZ5hAapRIzCOSzXxNFatCAgznKe1traj1HGrsOSbaf/54MUOa3ZWJv9KKes8+o2G1miE
+	 qTNwbFAGXRWjhxYt45B7xVFUkOVL3SG1ZSg9lf+ptjcC4euF/QPvBR9aMMTmkUl7bgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793369604;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=lU+2x8scRC18VNUX+VljgMc4XkWC/zplEJuZDkOMSzQ=;
-	b=ewGZ0RAURZy++jdb86w4TksKDkKdlBjwe9Loa3keZuS4euqRpmnJF+TxZrPWmS7YSw6Y
-	 Uo0rKfNkSSh3m54JP2eHJlA3uIjvvih0Oc9Syk7xjcEF9iosxEf/eoJCBxXNxhMePTxzT
-	 rKfdvoCSTQ5BzzQXQ9VcaNKAfA+nDIcgnnhLQSZvIHZbSpFdNFxZi1zvq77aASPXzjgfq
-	 paHz7hL6CjR+8ZIIjoSm9NQHcGDyyTYEMjcSvsFfHzyd3z6o6Ys7WkEPwv7P38S5E56k8
-	 kSJJhImeTF2cE8IjB2HjcBmuDhLecKhc2GeXW+TxVRcyuEu/+n0nesPPpHVvC7+Mraw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793369637;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=8tQsj2DZrJpwTGDEw+GbhQJEYsSO/PoAIUNE/LKFKe0=;
+	b=lxqLAInj1kSdwvc5nsdlVHH/x++HXbAL4Y5RpaTExuINphr6rYV5WyX+yQbubr5YR+zo
+	 6QG9lXLvunbxOBq4/VAUih+X/rhYtYrrS7fAGGoM1dj/FYfqzSbcguLwopR002ZlR2o1p
+	 OLt3Ut/CC99W2Bfk4LA3ndX1YrTXXCjAvjQq4/UfCUPl+I5QVwvMbznJdK89Cde4oUqBB
+	 /kD5ubAxGOjJTVB3/Djjgh1z8311Z5Z19aRokUOXkymCgODgM/masO8khfFcYJoOB0Cwz
+	 Kan1wziJozfp96YJLQuhUWEBCco0T65ZM8UJRHQ0HHUS92D8rsfuVyNC8kIoVbCMKIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Nq+GJUkU;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+teH0MB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E822606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:13:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E822606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0709606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:13:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Nq+GJUkU
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=lU+2x8scRC18VNUX+VljgMc4XkWC/zplEJuZDkOMSzQ=; b=Nq+GJUkUNQPaEOp69d4M6+1EKg
-	oT4nN5Ed0sq7GCqRwPHvK2nQTmupSiQKhz4m7cQ7UVTmYJZ0ZyHj4uK7r82hCdM2NpZmUEiLqNMtU
-	4tnFuHtWDAEKRkw9kHBnyqfxkF//V8bdEphlD9xIt0ehlilZl6m85P0tTafi40MQ4fJ5AghJA3FjF
-	6dKpBJ3c0sqBPXJqc6a1yjUb0Q91ZqRgz/FhRFrkOvyBKskSujUTJVpPcIBeLOEyPX38DPQzP2Il2
-	fjIKGfCYMTt5mDbpNFNNKuewm+j2a12V+tMbKCaQeF2uRIJENfqnVk3zoVl+37WZ4SkcyqqecCo5x
-	VQrl4P0g==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xMnM7-00000000Pfg-0g6h;
-	Fri, 30 Oct 2026 14:13:19 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id D2DA2300578; Fri, 30 Oct 2026 15:13:17 +0100 (CET)
-Date: Fri, 30 Oct 2026 15:13:17 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Christian Loehle <christian.loehle@arm.com>
-Cc: Qais Yousef <qyousef@layalina.io>, Ingo Molnar <mingo@kernel.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org,
-	Wei Wang <wvw@google.com>
-Subject: Re: [PATCH v4 1/2] sched/uclamp: Fix race condition leading to
- imbalanced uclamp_rq
-Message-ID: <20261030141317.GP1779021@noisy.programming.kicks-ass.net>
-References: <20261029131354.11030-1-qyousef@layalina.io>
- <20261029131354.11030-2-qyousef@layalina.io>
- <c4740152-e873-4409-b3a8-16c5a49548dd@arm.com>
- <d944d543-1756-43d8-aa08-bcbbf6df712f@layalina.io>
- <75772ae5-d297-4894-971a-683f92fb87a4@arm.com>
- <20261030112825.z7k57twgua27p2vu@airbuntu>
- <20261030121518.GE1813469@noisy.programming.kicks-ass.net>
- <20261030124119.xulxkpo7aas3wlwa@airbuntu>
- <7b9c9ab0-7b3d-414b-b1b1-5416be256cc7@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+teH0MB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 464361F000C1;
+	Fri, 30 Oct 2026 14:13:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793369637;
+	bh=8tQsj2DZrJpwTGDEw+GbhQJEYsSO/PoAIUNE/LKFKe0=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=J+teH0MBGP4Ozg/6Nd/fclZtqK3zkm7KQLC7da0Tyw1h2FoVlYSaHTKLgk7mj9QZG
+	 AGnjp/S6/uCsFnJ+xNQLmg8CxeUynUMia+DVxQ7brD+uStsEhpu5dcad7uQJfkFB/l
+	 vWxsgMIDwnVf9/fhc898MpmM2tCFfwlupesw0nvYUHoPw2w4msIn8zIkRma5ayczhN
+	 93v2TKeRkJnCs07JATd53NaEg+LDrhJtIrboekPhaHfalcgHuVoM33nYXk4FSgdLbJ
+	 kwIF+q+udBWjyn87tGqu92vRUyWlJvsJVBlz0gF1Kk9pQ6kkbNpOxhoTa4BoAueoKy
+	 /dvL1DHdyWrTA==
+Message-ID: <b0aff6c0-eab8-49c1-a7f6-8f895a075c75@kernel.org>
+Date: Fri, 30 Oct 2026 15:13:53 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,49 +51,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7b9c9ab0-7b3d-414b-b1b1-5416be256cc7@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] memory: fsl_ifc: Clear global controller pointer on
+ probe failure and remove
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Reid Downing <skibletz@gmail.com>
+Cc: linux-kernel@vger.kernel.org
+References: <20261025170833.1316443-1-skibletz@gmail.com>
+ <987c08da-646d-4d34-82f4-da8c3afaed59@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <987c08da-646d-4d34-82f4-da8c3afaed59@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 30, 2026 at 01:21:30PM +0000, Christian Loehle wrote:
-> On 10/30/26 12:41, Qais Yousef wrote:
-> > On 10/30/26 13:15, Peter Zijlstra wrote:
-> >> On Fri, Oct 30, 2026 at 11:28:25AM +0000, Qais Yousef wrote:
-> >>
-> >>> Peter/Vincent, what do you think? It seems we have a schrodenger task that is
-> >>> both enqueued and dequeued simultaneously in these throttling paths. Shouldn't
-> >>> this be fixed? If yes, any thoughts on the right approach? Should we throttle
-> >>> if there are no other tasks on the rq too? I didn't realize the semantics are
-> >>> that strong for enforcing the quota.
-> >>
-> >> Urgh, nothing is ever straight forward is it ...
-> > 
-> > Exactly my thoughts..
-> > 
-> >>
-> >> Bah, so this is because the core does uclamp (for classes that have it
-> >> on) but then the class does the throttle without going through the core
-> >> {en,de}queue.
-> >>
-> >> Does it make sense to have throttle_Cfs_rq_work() and tg_unthrottle_up()
-> >> do uclamp_rq_{dec,inc}() respectively, along with the
-> >> {de,en}queue_task_fair() they're already doing?
-> > 
-> > Yes it does, just wanted to make sure we agree the bug is there rather than in
-> > the current patchset approach.
-> > 
-> > I remember seeing a patch to remove the uclamp_enabled bit and defer to
-> > enqueue/dequeue_task_$class to handle this instead. Maybe I can revive it if it
-> > makes more sense to go that way.
-> > 
-> > Let me find the path of least resistance and add it to the stack. Not sure we
-> > want to tag as Fixes for LTS to pick up this independent fix. Note we have rt
-> > group throttling path flagged up - which I also thought was false positive but
-> > not sure anymore - but it seems to do partial dequeue and must be fixed in that
-> > regard anyway even if it doesn't force idle.
+On 30/10/2026 15:10, Krzysztof Kozlowski wrote:
+> On 25/10/2026 18:08, Reid Downing wrote:
+>> fsl_ifc_ctrl_dev is assigned early in fsl_ifc_ctrl_probe() to a
+>> devm-allocated structure. If probe fails afterwards, or when the device
+>> is removed, that memory is freed and the registers are unmapped, but the
+>> global still points at it. fsl_ifc_find() and fsl_ifc_nand_probe() only
+>> check it for NULL, so a later call can dereference freed memory or an
+>> unmapped register region.
+>>
+>> Clear the pointer on the probe error paths and in remove, once the IRQs
+>> have been released. The global cannot be published later in probe
+>> instead, because ifc_in32()/ifc_out32() and the NAND child probed from
+>> of_platform_default_populate() depend on it.
+>>
+>> Signed-off-by: Reid Downing <skibletz@gmail.com>
+>> ---
+>> Changes in v3:
+>>  - Use my real name in Author and Signed-off-by (earlier versions had a
+>>    handle appended).
+>>  - Generate the patch with git against drivers/memory/fsl_ifc.c; the
+>>    earlier versions used a path that could not be applied. Sorry for the
+>>    noise, and for sending two unversioned copies. Those were v1 and v2,
+>>    and this v3 supersedes them.
+>>  - Change of approach: v1 and v2 delayed publishing fsl_ifc_ctrl_dev until
+>>    the end of probe, but ifc_in32()/ifc_out32() and fsl_ifc_nand_probe()
+>>    use the global during probe, so that would break the driver. v3 keeps
+>>    the early assignment and instead clears the pointer on probe failure
+>>    and in remove.
+>>  - Dropped the nand_irq guard from the earlier versions; it was unrelated
+>>    to this fix.
+>>
+>> Not compile-tested (no PowerPC build setup); the change is four
+>> assignments of NULL.
 > 
-> I can reproduce the idle path without uclamp_rq_dec through sched_rt_rq_dequeue(),
-> too, so IMO that needs fixing up as well.
+> Independently I want through Sashiko reports and tried to fix this with
+> LLM... and then remembered about your patch. Unfortunately I am not
+> taking unbuilt code, especially that build testing it is trivial.
+> 
+> 
+>>
+>>  drivers/memory/fsl_ifc.c | 4 ++++
+>>  1 file changed, 4 insertions(+)
+>>
+>> diff --git a/drivers/memory/fsl_ifc.c b/drivers/memory/fsl_ifc.c
+>> index e89e0c6cc..abacd90d6 100644
+>> --- a/drivers/memory/fsl_ifc.c
+>> +++ b/drivers/memory/fsl_ifc.c
+>> @@ -95,6 +95,8 @@ static void fsl_ifc_ctrl_remove(struct platform_device *dev)
+>>  	irq_dispose_mapping(ctrl->nand_irq);
+>>  	irq_dispose_mapping(ctrl->irq);
+>>  
+>> +	/* Children and IRQs are gone; stop lookups before unmapping. */
+>> +	fsl_ifc_ctrl_dev = NULL;
+>>  	iounmap(ctrl->gregs);
+>>  
+>>  	dev_set_drvdata(&dev->dev, NULL);
+>> @@ -218,6 +220,7 @@ static int fsl_ifc_ctrl_probe(struct platform_device *dev)
+>>  	fsl_ifc_ctrl_dev->gregs = of_iomap(dev->dev.of_node, 0);
+>>  	if (!fsl_ifc_ctrl_dev->gregs) {
+>>  		dev_err(&dev->dev, "failed to get memory region\n");
+>> +		fsl_ifc_ctrl_dev = NULL;
+> 
+> This is supposed to be goto error path.
+> 
+>>  		return -ENODEV;
+>>  	}
+>>  
+>> @@ -300,6 +303,7 @@ static int fsl_ifc_ctrl_probe(struct platform_device *dev)
+>>  	irq_dispose_mapping(fsl_ifc_ctrl_dev->irq);
+>>  err:
+>>  	iounmap(fsl_ifc_ctrl_dev->gregs);
+>> +	fsl_ifc_ctrl_dev = NULL;
+>>  	return ret;
+> 
+> Please let me know if you intend to send v4 which is going to be at
+> least built or I take what LLM produced me.
+> 
 
-Right, every class that has uclamp_enabled needs to be audited -- this
-seems to include sched_ext.
+If v4, then please credit also Sashiko:
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-47538f77-fb50-4a06-b49b-92dbee8b538b
+
+Best regards,
+Krzysztof
