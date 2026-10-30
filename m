@@ -1,64 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793350400;
-	b=iXYMV/iGBWfqD6ost62OwC+ASV8XRygw53JDvRKJSWQl32eYrZnp+T0FATmmdsOTS98Z
-	 VZO0f0WLXClSUAZiKOc1vgEtP73BVIC9uXUfu++QNhg/BkF96jp8fSbseFPn7AJj5e7qq
-	 o7GLt9baBPleg0/UcWiJcRtpfo4bVLrP7mXwhcOIYNDpC9kbDOxYrHFk38N8dwFEumeyu
-	 cITGCIIOtu0C0AH/ePTdFuoyjgKdCsOp0QErB7rfG5k41QBxbU9Se5FC9AU0RaPRAJAxj
-	 edNBwcQFesEDXC3c45APfq1UTmDLKrO9OWxLWeb8dd2ZaYUCIgajmEmE6vRrcwcVQIg==
+	t=1793350418;
+	b=P5VoG/PH+6LEKkQBsuGWiVRMufzMs0NLeGI5vYyUKeaFuNV9hGKmVff3JSHP1e3LeGZm
+	 wwh2hE4CInTKqHIbBWxiBULe/mGHL49YWYq9dy0DqkIjlGX96l4gfeQAVMgA191yKAQXN
+	 lXXtlDgxXBIsj87DD6qPKR8l06uF7gleSLLzzNkt+ho/lZ5668uIqXqCFP1fibc3Qx7Oo
+	 /kKnSoEIJpubaSI2pyC57lZNAHUWa2NFSMc1FFASewR8M58jqPAVyZb8MDvARupy5snz7
+	 VBsYJCQ3WpC4hL31PNVX5fIURKyGsgHQk6jMOA3KEm3yACEMxKOetuDfooWP3ehOViA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793350400;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793350418;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=KOWLgTTNF56L+ttK/sHSbzAGSYyGQRT1y5BH1OOM+sI=;
-	b=YWQIcBlB2irNwQWe5UajWvDKcTP/CNEhc6Bd8EnprljPFhKsUbEvMSwOQdnbVD/LpgmT
-	 lE4mjSVhqALsk9nO4uQcTb/1oJ9RaL98jCXz9+irzJx44p6Fg01wom9w9Y0JRm2sfsPsI
-	 szoQ7EetwgJGim2hv+LxsJtydMpGmaAHehFalqbNnzVW4uA6lswDro7CA1W26Yzo4JjlQ
-	 FnCkxdn4C6GyUAoOvzTN1I4GPSRY8IoNVgDwiwrxCsPAtN80qPNE4dlcoK1uSKjJSE7wT
-	 zMtj2+oXFzhiB7h1YGblpVw7D0JH8P1weqwZwJXFO5Qd0nanbvwy3mBcRfSzB1lJy8w==
+	bh=MjlHxacTWfymNUEjYqS2vyxcVfxABqmAOY5x4NMgFWA=;
+	b=LaaKSYi0GW+OjNdJ+SbTwq2XzlpBolbfhvFFIl24JjbwqSPO4DFIi7IgY4l3Va/0PRFL
+	 HmrgarMlmYPR0ykfGZf646C9GakFoe+TpbFaFMYqoNraRzlqsNYC4m/9Nfzpl1LGkPpVl
+	 sts/tZxwBXChSPTijWIZWxUzzrsIfUW+BtVwrnMu9oXcUC3hRaC/gZZBNxY6/Zy33OXc0
+	 CWanFWBDLHjKdkxj3UU2AuzcCvw/jEHj6k6ld1c/LXs8pKe8Ke2IQne12zIrRrWJFW9eA
+	 irlsLjmMuT2svnUKrHXphjO93p8/zq2VeZnvZc5A3CtaKXGcIo3xAhBwsV60FKnQ1OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=vqlrnKlc;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35F11606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:53:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35F11606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LZQglaF5;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F6B6606A326;
+	Fri, 30 Oct 2026 08:53:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F6B6606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=vqlrnKlc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=vqlrnKlcMUGQL9YtFdWW/LLvN5QB4qq2LS9Wym8oEtfgVtnN/PoyKzq0x8SFQwyuYlWpkkjRNzeqL
-	 Brx0JwB7TVYzOgeLwucIyNNHBnXNzrVdhenUYW+glc4pgU7A+ME94SwhvTAZUoq6cAMxSvnsmZ5MS3
-	 aMEQesdVllSM7/m4=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66ae45afcea1-40318;
-	Fri, 30 Oct 2026 16:53:17 +0800 (CST)
-X-RM-TRANSID:2ee66ae45afcea1-40318
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.101])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86ae45afb1d0-5759e;
-	Fri, 30 Oct 2026 16:53:17 +0800 (CST)
-X-RM-TRANSID:2ee86ae45afb1d0-5759e
-From: laixiangwu <laixiangwu@cmss.chinamobile.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	laixiangwu <laixiangwu@cmss.chinamobile.com>
-Subject: [PATCH] fs/ntfs3: Fix memory leak of ntfs_fnd on corrupted index root
-Date: Fri, 30 Oct 2026 16:53:15 +0800
-Message-ID: <20261030085315.1814-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LZQglaF5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793350416; x=1824886416;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=CEZ2wdOuODFkOO0fyvvu9cI2/azabmBxzCsHpSqWn0k=;
+  b=LZQglaF5+GIaNMIj/jokaq2r0CLS7zj+2OCJLVX7irIHJEPYp9PjT7F/
+   2WrxWzljvBvmPUnmUG276yjpbzXp8aAjv+beVhRg22+QlygFicfA+Qlnm
+   3KAY0hkdDTLGTkrZ6Hz6TV+KnduN52L5K6GMyBGf44Q4V9D0pr+JcBPGC
+   xP4VgetjUt6lXYFRR5JjrAFOFRb+Y6AJFUMV9XzgG+vFDOX5/K/qTeV88
+   VWqffXhidWrFICdm20cwWA/EmCZeyJ89oIfuMTRpRnlTYM3xby6B2Uq+J
+   3o5+expMFSlKyWj4AyuvnZ9LZDaQxUefIJvM9eWFGFpkhKrDQttqQwMiY
+   w==;
+X-CSE-ConnectionGUID: ZCv4o14jS22v48QvcXNB4g==
+X-CSE-MsgGUID: FqiLU8zyQCu1cKqt+Pje1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2122566"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2122566"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 01:53:36 -0700
+X-CSE-ConnectionGUID: sdRgKrIYT5iiGNL06L6Dgg==
+X-CSE-MsgGUID: NCZ7NjqiTKW4s3nNhY/oiA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="7199512"
+Received: from 984fee019967.jf.intel.com ([10.23.153.244])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 01:53:36 -0700
+From: Chao Gao <chao.gao@intel.com>
+To: linux-kernel@vger.kernel.org,
+	linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org
+Cc: yilun.xu@intel.com,
+	arjan.van.de.ven@intel.com,
+	Chao Gao <chao.gao@intel.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>
+Subject: [RFC PATCH v1 1/3] x86/virt/seamldr: Allocate 'struct seamldr_params' after image validation
+Date: Fri, 30 Oct 2026 01:52:58 -0700
+Message-ID: <20261030085304.3886520-2-chao.gao@intel.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20261030085304.3886520-1-chao.gao@intel.com>
+References: <20261030085304.3886520-1-chao.gao@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,59 +93,127 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-indx_insert_entry(), indx_delete_entry() and indx_update_dup() allocate
-one or two ntfs_fnd structures with fnd_get() before validating the
-index root with get_cmp_func(). If the index root describes an unknown
-collation rule (which can be the case on a corrupted or maliciously
-crafted image), these functions return -EINVAL directly, bypassing the
-"out" labels that release the ntfs_fnd allocations.
+'struct seamldr_params' is the in-memory ABI the kernel passes to P-SEAMLDR
+to update the TDX module. It has a fixed size and is allocated before the
+update image is validated.
 
-Since the index type and rule fields are user controlled from the
-mounted image, every operation on such an index leaks the ntfs_fnd
-memory and can be repeated to exhaust kernel memory.
+To support larger TDX modules, the ABI was extended to let
+'struct seamldr_params' link to extra pages. The number of extra pages
+depends on the module page count, which can be trusted only after the image
+header is validated.
 
-Release the allocated fnd structures by jumping to the existing error
-labels instead of returning directly.
+Move the allocation after the image validation in init_seamldr_params(),
+so a later change can allocate 'struct seamldr_params' and the extra
+pages as one buffer. Rename the function to build_seamldr_params() since
+it now allocates and returns a buffer rather than filling in one the
+caller provides.
 
-Fixes: 82cae269cfa9 ("fs/ntfs3: Add initialization of super block")
-Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
+No functional change intended.
+
+AI was used to review the code and workshop the logs. It suggested renaming
+init_seamldr_params() and updating the comments above it and at its call
+site.
+
+Signed-off-by: Chao Gao <chao.gao@intel.com>
 ---
- fs/ntfs3/index.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ arch/x86/virt/vmx/tdx/seamldr.c | 40 ++++++++++++++++-----------------
+ 1 file changed, 20 insertions(+), 20 deletions(-)
 
-diff --git a/fs/ntfs3/index.c b/fs/ntfs3/index.c
-index 689712d34..9b6f410a5 100644
---- a/fs/ntfs3/index.c
-+++ b/fs/ntfs3/index.c
-@@ -2049,7 +2049,8 @@ int indx_insert_entry(struct ntfs_index *indx, struct ntfs_inode *ni,
- 	cmp = get_cmp_func(root);
- 	if (unlikely(!cmp)) {
- 		WARN_ON_ONCE(1);
--		return -EINVAL;
-+		err = -EINVAL;
-+		goto out;
- 	}
+diff --git a/arch/x86/virt/vmx/tdx/seamldr.c b/arch/x86/virt/vmx/tdx/seamldr.c
+index b1137ca6150d..3513fd28536a 100644
+--- a/arch/x86/virt/vmx/tdx/seamldr.c
++++ b/arch/x86/virt/vmx/tdx/seamldr.c
+@@ -157,13 +157,14 @@ static void populate_seamldr_params(struct seamldr_params *params,
  
- 	if (fnd_is_empty(fnd)) {
-@@ -2406,7 +2407,8 @@ int indx_delete_entry(struct ntfs_index *indx, struct ntfs_inode *ni,
- 	cmp = get_cmp_func(root);
- 	if (unlikely(!cmp)) {
- 		WARN_ON_ONCE(1);
--		return -EINVAL;
-+		err = -EINVAL;
-+		goto out;
- 	}
+ /*
+  * @image points to a vmalloc()'d 'struct tdx_image'. Transform
+- * it into @params which is the P-SEAMLDR ABI format.
++ * it into a newly allocated 'struct seamldr_params', which is
++ * the P-SEAMLDR ABI format.
+  */
+-static int init_seamldr_params(struct seamldr_params *params,
+-			       const struct tdx_image *image,
+-			       u32 image_len)
++static struct seamldr_params *build_seamldr_params(const struct tdx_image *image,
++						   u32 image_len)
+ {
+ 	const struct tdx_image_header *header	= &image->header;
++	struct seamldr_params *params;
  
- 	/* Locate the entry to remove. */
-@@ -2787,7 +2789,8 @@ int indx_update_dup(struct ntfs_inode *ni, struct ntfs_sb_info *sbi,
- 	cmp = get_cmp_func(root);
- 	if (unlikely(!cmp)) {
- 		WARN_ON_ONCE(1);
--		return -EINVAL;
-+		err = -EINVAL;
-+		goto out;
- 	}
+ 	u32 sigstruct_len	= header->sigstruct_nr_pages * PAGE_SIZE;
+ 	u32 module_len		= header->module_nr_pages    * PAGE_SIZE;
+@@ -178,25 +179,29 @@ static int init_seamldr_params(struct seamldr_params *params,
  
- 	/* Find entry in directory. */
-
+ 	/* Check the calculated payload size against the image size. */
+ 	if (TDX_IMAGE_HEADER_SIZE + sigstruct_len + module_len != image_len)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	/* Reject unsupported tdx_image ABI versions. */
+ 	if (header->version != TDX_IMAGE_VERSION_2)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (header->sigstruct_nr_pages > SEAMLDR_MAX_NR_SIG_PAGES ||
+ 	    header->module_nr_pages    > SEAMLDR_MAX_NR_MODULE_PAGES)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (memcmp(header->signature, "TDX-BLOB", sizeof(header->signature)))
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	if (memchr_inv(header->reserved, 0, sizeof(header->reserved)))
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
++
++	params = kzalloc_obj(*params);
++	if (!params)
++		return ERR_PTR(-ENOMEM);
+ 
+ 	populate_seamldr_params(params, sigstruct_start, header->sigstruct_nr_pages,
+ 					module_start,    header->module_nr_pages);
+-	return 0;
++	return params;
+ }
+ 
+ /*
+@@ -321,7 +326,7 @@ int seamldr_install_module(const u8 *data, u32 data_len)
+ 	int ret;
+ 
+ 	/*
+-	 * init_seamldr_params() reads the header early.
++	 * build_seamldr_params() reads the header early.
+ 	 * Ensure there is enough data to do at least that.
+ 	 */
+ 	if (data_len < TDX_IMAGE_HEADER_SIZE)
+@@ -329,14 +334,10 @@ int seamldr_install_module(const u8 *data, u32 data_len)
+ 
+ 	image = (const struct tdx_image *)data;
+ 
+-	params = kzalloc_obj(*params);
+-	if (!params)
+-		return -ENOMEM;
+-
+-	/* Populate 'params' from 'image'. */
+-	ret = init_seamldr_params(params, image, data_len);
+-	if (ret)
+-		goto out;
++	/* Build 'params' from 'image'. */
++	params = build_seamldr_params(image, data_len);
++	if (IS_ERR(params))
++		return PTR_ERR(params);
+ 
+ 	/* Ensure a stable set of online CPUs for the update process. */
+ 	cpus_read_lock();
+@@ -345,7 +346,6 @@ int seamldr_install_module(const u8 *data, u32 data_len)
+ 				      cpu_online_mask);
+ 	cpus_read_unlock();
+ 
+-out:
+ 	kfree(params);
+ 	return ret;
+ }
+-- 
+2.52.0
 
