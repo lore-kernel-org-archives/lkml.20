@@ -1,49 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793335414;
-	b=Zx+l7cTtDAnMkohEGGXNEin4H2iK1TJjvxpIt50WoAGWJIyPdtnb1s7kFEceRRZ3w9aT
-	 D7Wbnz5e4sMw2Fnm2PgEi1w5JkqZNj85Hal1OlTPS5aYyUvdhb9/extNC8mMlViLrRXu6
-	 4Fh1z/76trdFDeiedzjW+1bDqFhDWtdZbfBsX79Zrt7pho3TpPDir4oTQenXUbpAXtuTx
-	 8Uf4qAyF0/JgHArJsG8YnPS9bITPO3l8v+L3vtl+YbZw7Zx2Ihbb9RgBLgThdOH0ysuxi
-	 vx+N2ug9r3JX5n9Gb6eudXWaJ9pMPiCkqnk8PKo5+yZpifZCZ5rPld3RyBjHJYw8c7A==
+	t=1793335475;
+	b=M+krzmjLiQmTmycgRDtwJSEn3wfyUPNbFJ3R+C5dzE4AiniUhvnJviqY7q/awH201i2l
+	 7/xApm9/pRiKNbMSzzQiCGo0SID8ravzVVYMUdWUdRCzKrfR5uwaCzRi6+3vuftU0Yu7n
+	 1YNcpN9R9I1guAjUiK3qgDC1nl32f8nyeYIhwms/HvjZ5v2UGClke8GgDVFgB7ZhwXAQZ
+	 YFnpV9DOyMZrZhRqLpZbYGymiRd3oWlOVyWXtjerkIxPnf4/nQv53YSmmwo4Q3sITJZI9
+	 0pf5Pua4/Jeqfqwj5L6yM8lY+mSSJB6UH+SzQG2d4S5mHg6CXa9CxqOa3eU7ddiHxMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793335414;
-	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
-	 To:Cc:Subject:X-Priority:X-Mailer:X-CM-CTRLMSGS:Content-Type:
-	 MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=BDMZUpc8cdOPM35ckzxMnbsgjZomwnTAHkz85NgIDGQ=;
-	b=OWgyTrjdWFRMGvG5nCYn7hhfwcS8bTDWkC6SO334SZr999XVDMYN83PeXryExJIe72w9
-	 wQbZC4lvQ3GEbTs+9lkV8PrDAx5e4EuIfgVqdh9o3wOuN+dFitfSSChGqcx2j+cBdDlPY
-	 1wJhg0N2PJcSVLE3kjQnThO2UfQQvTXj026hYvBC+PHs9YpVqtTXvpA7TPop4t62HyRfk
-	 GYODy7QLCVYgX1SWTSQEguANlyv8r04/plvQ33AvFEGRwH2EppV1ICgmDfUTz8cEz8RLD
-	 tOgXzvA1XnewdtKlCu+uHiNz8rvZHgqNCsuxA9vyBMzE4aPH/+zNz/hpaw0/gL1znoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793335475;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
+	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=GbNaL4M3tcHsdzF76BY+M5ZcMEBVt6cRuMm5Kwdf22Y=;
+	b=VGQrWe9tc1M1dxn8e9kWSw/fZaWC5hidlytO7lKBUTjbiFl+UC55/pmsXI3wqF/7ToWe
+	 1WTlfjiP+ZT38L13d5qmAMHqnZK52Xb48png2Wn0GRxyr5ctCl5AfMlcVSQA6n2EaaqZ7
+	 2Lyr4XbAQLFuqhtiunEUDJa77stsESTAJ+EJ0xv5fkxim9B041lbT6zgy8SLWpH15B29L
+	 RGCQSrFteNYWxbGeTUWG37jfJCiOjsuOLpsVbnnIA71qgI6IujWghgLNEXV7s7x4IDnFL
+	 GUn94bq4vE5UxO38NpTSgMH/5OmQkbdQnzbgTw2fcbl1RZc6prIJpu7CJiIaiFb2c0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=13.75.44.102
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CDAA2606A31A;
-	Fri, 30 Oct 2026 04:43:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDAA2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from xuhx$hust.edu.cn ( [10.12.190.107] ) by ajax-webmail-app1
- (Coremail) ; Fri, 30 Oct 2026 12:43:23 +0800 (GMT+08:00)
-Date: Fri, 30 Oct 2026 12:43:23 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
-To: perex@perex.cz, tiwai@suse.com
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: sound: core: card->devices is unlocked across the codec-side
-  targeted free and the card-side bulk free (double free / UAF; KASAN
-  confirmed on 7.3)
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
- 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
-X-CM-CTRLMSGS: =?B?on56mjiH6nJ5xwDR7hwMki1N8jM=
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_374270_394315561.1793335403782"
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=5zhKz4Of;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D98FE606A31A;
+	Fri, 30 Oct 2026 04:44:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D98FE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=5zhKz4Of
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=GbNaL4M3tcHsdzF76BY+M5ZcMEBVt6cRuMm5Kwdf22Y=;
+	b=5zhKz4OfT43LZvYaHIoNTFAf1MPjJg+7tR4HWVY8EHoVhzmOlFMVq4+yP7+FEWzYxHcJCHrDm
+	ZqgFF3exSdDyWhAWwWRT4nHtKAIgATCNdDhveHYvvrQxHtHl3gNjxgxXiRkQ8wjYwPlu+BvAaa9
+	XGz2jvH+yjQbyQwoF+EtwNk=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jG7mF3N6JzcZyh;
+	Fri, 30 Oct 2026 12:44:13 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id 9F5B740579;
+	Fri, 30 Oct 2026 12:44:30 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 30 Oct 2026 12:44:29 +0800
+Subject: Re: [PATCH] ubifs: propagate ubifs_shash_copy_state() errors
+To: <shao.mingyin@zte.com.cn>, <richard@nod.at>,
+	<linux-mtd@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20261030114406371EZw_orIqSRlCTxnz_L39Z@zte.com.cn>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <4bdb09dd-bbaf-111f-adb6-4d9970ebedcc@huawei.com>
+Date: Fri, 30 Oct 2026 12:44:28 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,173 +70,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <18ba4e54.1b567.1a18b1ea506.Coremail.xuhx@hust.edu.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:IAEQrMCW3aNrIORq9plRAQ--.15321W
-X-CM-SenderInfo: bgsqjkayqyjmo6kx23oohg3hdfq/1tbiAgMQB2rjce1GUwABsX
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkKw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+In-Reply-To: <20261030114406371EZw_orIqSRlCTxnz_L39Z@zte.com.cn>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-------=_Part_374270_394315561.1793335403782
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+在 2026/10/30 11:44, shao.mingyin@zte.com.cn 写道:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> ubifs_shash_copy_state() duplicates the rolling hash state with
+> crypto_shash_export() and crypto_shash_import().  The export buffer is
+> allocated with kmalloc(), so the function can fail with -ENOMEM, and
+> crypto_shash_import() can fail as well.
+> 
+> Five callers ignore the return value.  The target descriptor then has no
+> valid state, and the crypto_shash_final() that follows computes a digest
+> from uninitialized data.  When preparing an auth node this stores a
+> wrong HMAC on the media, so the affected journal head no longer
+> authenticates after a remount.  During replay it makes the verification
+> of a valid image fail with -EPERM, and in replay_bud() and
+> add_replay_bud() it leaves the replay hash state inconsistent with the
+> media, which corrupts the auth nodes written by later commits.
+> 
+> Check the error at all five call sites and propagate it.  In
+> add_replay_bud() the descriptor belongs to the new bud, so free it on
+> the added error path.
+> 
+> Fixes: 6a98bc4614de ("ubifs: Add authentication nodes to journal")
+> Fixes: da8ef65f9573 ("ubifs: Authenticate replayed journal")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> ---
 
-VGhlIHBlci1jYXJkIGRldmljZSBsaXN0IChjYXJkLT5kZXZpY2VzKSBoYXMgdHdvIGluZGVwZW5k
-ZW50IGZyZWUKcGF0aHMgdGhhdCBzaGFyZSBubyBsb2NrOiB0aGUgSERBIGNvZGVjIGRyaXZlcidz
-IHRhcmdldGVkIHJlbGVhc2UKKHVuYmluZGluZyB0aGUgY29kZWMgZHJpdmVyIHdhbGtzIHNuZF9o
-ZGFfY29kZWNfY2xlYW51cF9mb3JfdW5iaW5kKCkKYW5kIGZyZWVzIHRoZSBjb2RlYydzIFBDTS9K
-QUNLIHNuZF9kZXZpY2Ugbm9kZXMpIGFuZCB0aGUgY2FyZC1sZXZlbApidWxrIHJlbGVhc2UgKHNu
-ZF9jYXJkX2ZyZWUoKSAtPiBzbmRfZGV2aWNlX2ZyZWVfYWxsKCksIGVudGVyZWQgZnJvbQpQQ0kg
-cmVtb3ZlIG9yLCB3aGVuIGZpbGVzIHdlcmUgb3BlbiwgZnJvbSB0aGUgbGFzdCBmaWxlIGNsb3Nl
-KS4Kc291bmQvY29yZS9kZXZpY2UuYyBtYWludGFpbnMgdGhhdCBsaXN0IC0tIGxvb2t1cCwgdHJh
-dmVyc2FsLCB1bmxpbmssCmZyZWUgLS0gZW50aXJlbHkgd2l0aG91dCBsb2NrczsgdGhlIHR3byBw
-YXRocyBydW4gdW5kZXIgZGlmZmVyZW50CmRyaXZlci1jb3JlIGxvY2tzIChjb2RlY19kZXYtPm11
-dGV4IHZzIHBjaV9kZXYtPm11dGV4IHZzIG5vbmUpLCBzbwp0aGUgaW50ZXJsZWF2aW5ncyBhcmUg
-cmVhbCBjb25jdXJyZW5jeS4gIEkgcmVwcm9kdWNlZCBpdCBvbiBhIHZhbmlsbGEKTGludXggNy4z
-IEtBU0FOIGtlcm5lbCB3aXRoIGFuIGVtdWxhdGVkIEludGVsIEhEQSBjb250cm9sbGVyIHVzaW5n
-Cm9ubHkgcm9vdCBzeXNmcyB3cml0ZXM6IHRoZSBmaXJzdCBjb25jdXJyZW50IHJvdW5kIGFscmVh
-ZHkgcHJvZHVjZWQKc2xhYi11c2UtYWZ0ZXItZnJlZSByZXBvcnRzLCBhbmQgYSBzdXN0YWluZWQg
-aGFtbWVyIGFjY3VtdWxhdGVkCn4xOTAwIEtBU0FOIHJlcG9ydHMsIGluY2x1ZGluZyBhIHRocmVl
-LXN0YWNrIGNsb3N1cmUgb24gdGhlIEpBQ0sKb2JqZWN0cyAoYWxsb2NhdGVkIGJ5IHRoZSBjb2Rl
-YyBwcm9iZSwgZnJlZWQgYnkgdGhlIGNvZGVjLXNpZGUKdGFyZ2V0ZWQgY2xlYW51cCwgd3JpdHRl
-biBieSB0aGUgY2FyZC1zaWRlIGJ1bGsgZnJlZSkuCgpXaGVyZSB0aGUgbG9ja3MgYXJlLCBhbmQg
-d2hlcmUgdGhleSBhcmUgbm90OiB0aGUgUENNIGRpc2Nvbm5lY3QKY2FsbGJhY2tzIGRvIHRha2Ug
-dGhlIGdsb2JhbCByZWdpc3Rlcl9tdXRleCwgc28gdGhlICpkaXNjb25uZWN0KgpzdGFnZXMgb2Yg
-Ym90aCBwYXRocyBhcmUgc2VyaWFsaXplZCAtLSB0aGUgZ2FwIGlzIHRoZSAqZnJlZSogc3RhZ2UK
-YW5kIHRoZSBsaXN0IGl0c2VsZiAoX19zbmRfZGV2aWNlX2ZyZWUoKSwgbG9va19mb3JfZGV2KCks
-CnNuZF9kZXZpY2VfZnJlZV9hbGwoKSBpbiBzb3VuZC9jb3JlL2RldmljZS5jIGFyZSBhbGwgdW5s
-b2NrZWQpLiAgQQpmb3VydGgsIHdpZGVyIGZvcm0gZXh0ZW5kcyB0byBjYXJkLT5jb250cm9sczog
-d2hlbiB0aGUgY29kZWMtc2lkZSBQQ00KZnJlZSByZWFjaGVzIGZyZWVfY2htYXAoKSAtPiBzbmRf
-Y3RsX3JlbW92ZSgpIGZvciB0aGUgUENNJ3MgY2hhbm5lbAptYXAga2NvbnRyb2wsIHRoZSBjYXJk
-LXNpZGUgQ09OVFJPTCB0ZWFyZG93bgooc25kX2N0bF9kZXZfZnJlZSgpKSBtYXkgYWxyZWFkeSBo
-YXZlIGRlbGV0ZWQgYW5kIGZyZWVkIHRoYXQgc2FtZQprY29udHJvbCAtLSBjb250cm9sc19yd3Nl
-bSBzZXJpYWxpemVzIHRoZSBsaXN0IG9wZXJhdGlvbnMgYnV0IGNhbm5vdApwcm90ZWN0IHRoZSBk
-YW5nbGluZyBjaG1hcF9rY3RsIHBvaW50ZXIsIHNvIHNuZF9jdGxfcmVtb3ZlKCkKcGVyZm9ybXMg
-YSBVQUYgd3JpdGUgKGxpc3RfZGVsKSBhbmQgYSBkb3VibGUgZnJlZS4gIFRoaXMgZm9ybSBkb2Vz
-Cm5vdCBkZXBlbmQgb24gd2lubmluZyB0aGUgbmFycm93IGluc3RydWN0aW9uLWxldmVsIHdpbmRv
-d3Mgb2YgdGhlCmxpc3QgcmFjZXM6IGl0cyB3aW5kb3cgaXMgdGhlIHdob2xlIHNlY29uZCBoYWxm
-IG9mIHRoZSB0YXJnZXRlZApzbmRfcGNtX2ZyZWUoKSB2ZXJzdXMgdGhlIGNhcmQtc2lkZSBDT05U
-Uk9MLXJvdW5kIGNvbXBsZXRpb24sIGkuZS4KdGVucyBvZiBtaWNyb3NlY29uZHMsIGFuZCBJIGV4
-cGVjdCBpdCB0byBiZSB0aGUgZmlyc3QgZm9ybSBoaXQgdW5kZXIKc3VzdGFpbmVkIHByZXNzdXJl
-IG9uIHJlYWwgaGFyZHdhcmUuCgpUaGUgZGV0YWlsZWQgZGVzY3JpcHRpb246CgoqIFRoZSB0d28g
-dW5sb2NrZWQgcGF0aHMgKExpbnV4IDcuMyBsaW5lIG51bWJlcnMpCgogIFQxIChjb2RlYyBzaWRl
-KTogL3N5cy9idXMvaGRhdWRpby9kcml2ZXJzLzxjb2RlYy1kcnY+L3VuYmluZCAtPgogICAgZGV2
-aWNlX3JlbGVhc2VfZHJpdmVyKGNvZGVjX2RldikgW2NvZGVjX2Rldi0+bXV0ZXhdIC0+CiAgICBo
-ZGFfY29kZWNfZHJpdmVyX3JlbW92ZSgpIChzb3VuZC9oZGEvY29tbW9uL2JpbmQuYzoxNTItMTc0
-KSAtPgogICAgc25kX2hkYV9jb2RlY19jbGVhbnVwX2Zvcl91bmJpbmQoKSAoY29kZWMuYzo3NTgt
-NzkxKSAtPgogICAgY29kZWNfcmVsZWFzZV9wY21zKCkgLT4gc25kX2RldmljZV9mcmVlKGNhcmQs
-IHBjbSkKICAgIChjb2RlYy5jOjc0Nyk7IGFsb25nIHRoZSB3YXkgc25kX2hkYV9qYWNrX3RibF9j
-bGVhcigpIC0+CiAgICBzbmRfZGV2aWNlX2ZyZWUoY2FyZCwgamFjay0+amFjaykgKGphY2suYzox
-ODgpLgogIFQyIChjYXJkIHNpZGUsIG5vIG9wZW4gZmlsZXMpOiBQQ0kgdW5iaW5kL3JlbW92ZSAt
-PgogICAgZGV2aWNlX3JlbGVhc2VfZHJpdmVyKHBjaV9kZXYpIFtwY2lfZGV2LT5tdXRleF0gLT4g
-YXp4X3JlbW92ZSgpCiAgICAtPiBzbmRfY2FyZF9mcmVlKCkgLT4gc25kX2NhcmRfZGlzY29ubmVj
-dCgpIC0+CiAgICBzbmRfZGV2aWNlX2Rpc2Nvbm5lY3RfYWxsKCk7IHNhbWUtdGhyZWFkIHB1dF9k
-ZXZpY2UgLT4KICAgIHNuZF9jYXJkX2RvX2ZyZWUoKSAtPiBzbmRfZGV2aWNlX2ZyZWVfYWxsKCku
-CiAgVDMgKGNhcmQgc2lkZSwgZmlsZXMgd2VyZSBvcGVuKTogdGhlIGxhc3QgY2xvc2UncwogICAg
-c25kX2NhcmRfZmlsZV9yZW1vdmUoKSAtPiBwdXRfZGV2aWNlKCkgcnVucyBzbmRfY2FyZF9kb19m
-cmVlKCkKICAgIC0+IHNuZF9kZXZpY2VfZnJlZV9hbGwoKSBpbiB0aGUgY2xvc2luZyB0YXNrLgog
-IEFsbCBzbmRfZGV2aWNlIGxpc3Qgb3BlcmF0aW9ucyBpbiBzb3VuZC9jb3JlL2RldmljZS5jICg4
-Mi05MQogIGxvb2tfZm9yX2RldjsgNjktODAgX19zbmRfZGV2aWNlX2ZyZWUncyBsaXN0X2RlbDsg
-MjA4LTIxNgogIGRpc2Nvbm5lY3RfYWxsOyAyMjItMjM5IGZyZWVfYWxsKSBhcmUgdW5sb2NrZWQ7
-IFQxL1QyL1QzJ3MgbG9jawogIHNldHMgYXJlIHBhaXJ3aXNlIGRpc2pvaW50LiAgVGhlIGJlc3Qg
-d2luZG93IGlzIHRoZSAic2FtZSBjbG9zZQogIGV2ZW50LCBkdWFsIHdha2V1cCI6IHdpdGggYSBQ
-Q00gc3RyZWFtIG9wZW4sIFQxIGJsb2NrcyBpbgogIHNuZF9yZWZjb3VudF9zeW5jKCZjb2RlYy0+
-cGNtX3JlZikgYW5kIFQyIGJsb2NrcyBpbgogIHdhaXRfZm9yX2NvbXBsZXRpb24oJnJlbGVhc2Vk
-KTsgdGhlIHN0cmVhbSdzIGNsb3NlIHdha2VzIFQxCiAgKHNuZF9oZGFfY29kZWNfcGNtX3B1dCkg
-YW5kIHNpbXVsdGFuZW91c2x5IG1ha2VzIHRoZSBjbG9zZXIgaXRzZWxmCiAgcnVuIHRoZSBjYXJk
-IGJ1bGsgZnJlZSAtLSBvbmUgZXZlbnQgcmVsZWFzZXMgdHdvIHVubG9ja2VkIHBhdGhzLgoKKiBG
-YWlsdXJlIGZvcm1zCiAgMS4gZnJlZSB2cyB0cmF2ZXJzYWw6IFQxJ3MgbG9va19mb3JfZGV2KCkg
-cGlja3MgYSBub2RlLCBUMi9UMwogICAgIGZyZWVzIGl0LCBUMSdzIGxpc3RfZGVsL2Rldl9mcmVl
-L2tmcmVlIGhpdCBmcmVlZCBtZW1vcnkgKFVBRgogICAgIHdyaXRlICsgaW5kaXJlY3QgY2FsbCk7
-IHRoZSByZXZlcnNlIHRlYXJzIFQyL1QzJ3MKICAgICBsaXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmUg
-dHJhdmVyc2FsLgogIDIuIGZyZWUgdnMgZnJlZTogYm90aCBvYnRhaW4gdGhlIG5vZGUgYmVmb3Jl
-IGVpdGhlciB1bmxpbmtzIC0tCiAgICAgdHdvIHNuZF9wY21fZnJlZSgpIGV4ZWN1dGlvbnMsIGRv
-dWJsZSBrZnJlZSBvZiB0aGUgc25kX2RldmljZSwKICAgICB0aGUgc25kX3BjbSBhbmQgdGhlIGF6
-eF9wY20gcHJpdmF0ZSBkYXRhLCBwbHVzIGEgZG91YmxlCiAgICAgcHV0X2RldmljZSBvbiB0aGUg
-c3RyZWFtIGRldmljZXMgKGtyZWYgdW5kZXJmbG93KS4KICAzLiBjaG1hcCB2cyBDT05UUk9MIHRl
-YXJkb3duICh0aGUgd2lkZSBvbmUsIHNlZSBhYm92ZSk6CiAgICAgc25kX3BjbV9mcmVlKCkgLT4g
-c25kX3BjbV9mcmVlX3N0cmVhbSgpIC0+IGZyZWVfY2htYXAoKQogICAgIChwY20uYzo4MDItODEw
-LDgzNikgLT4gc25kX2N0bF9yZW1vdmUoY2FyZCwgY2htYXBfa2N0bCkgcmFjZXMKICAgICBzbmRf
-Y3RsX2Rldl9mcmVlKCkgKGNvbnRyb2wuYzoyNDU3LTI0NzcpOiB0aGUgcndzZW0gb3JkZXJzIHRo
-ZQogICAgIGxpc3Qgb3BzIGJ1dCBUMSdzIGNobWFwX2tjdGwgaXMgYSBiYXJlIHBvaW50ZXI7IGlm
-IFQyIGZyZWVkIHRoZQogICAgIGtjb250cm9sIGZpcnN0LCBUMSdzIF9fc25kX2N0bF9yZW1vdmUo
-KSBkb2VzIHJlbW92ZV9oYXNoX2VudHJpZXMKICAgICAoVUFGIHJlYWQvd3JpdGUpICsgbGlzdF9k
-ZWwgKFVBRiB3cml0ZSkgYW5kIHNuZF9jdGxfZnJlZV9vbmUKICAgICBydW5zIHByaXZhdGVfZnJl
-ZSArIGtmcmVlIGFnYWluIChkb3VibGUgZnJlZSkuCgoqIEV2aWRlbmNlICh2YW5pbGxhIDcuMyBL
-QVNBTiArIENPTkZJR19TTkRfSERBX1JFQ09ORklHL0dFTkVSSUMsCiAgUUVNVSBpbnRlbC1oZGEg
-KyBoZGEtZHVwbGV4OyByZXByb2R1Y2VyIGF0dGFjaGVkKQogIEhhbW1lciAoYXR0YWNoZWQgc25k
-LWhhbW1lci1iLnNoKTogVDEgY29kZWMtZHJpdmVyIHVuYmluZC9iaW5kCiAgbG9vcCB4IFQyIFBD
-SSB1bmJpbmQvYmluZCByb3VuZHMgeCBUMyBQQ00gb3Blbi9jbG9zZSBjaHVybiAtLSBwdXJlCiAg
-cm9vdCBzeXNmcyB3cml0ZXMsIG5vIGtlcm5lbCBtb2RpZmljYXRpb24uCiAgLSBGaXJzdCBjb25j
-dXJyZW50IHJvdW5kOiA0IHNsYWItdXNlLWFmdGVyLWZyZWUgcmVwb3J0czsgc3VzdGFpbmVkCiAg
-ICBydW46IH4xOTAwIHJlcG9ydHMuICBEb21pbmFudCBmb3JtczoKICAgICAgKiBoZGFfZnJlZV9q
-YWNrX3ByaXYrMHgyMy8rMHgzMSBzbGFiLXVzZS1hZnRlci1mcmVlICh3cml0ZSksCiAgICAgICAg
-dGhyZWUgc3RhY2tzIGNsb3NlZDoKICAgICAgICAgIHVzZTogc25kX2RldmljZV9mcmVlX2FsbCAt
-PiBzbmRfamFja19kZXZfZnJlZSAtPgogICAgICAgICAgICAgICBoZGFfZnJlZV9qYWNrX3ByaXYg
-IChjYXJkLXNpZGUgYnVsayBmcmVlKQogICAgICAgICAgZnJlZTogc25kX2hkYV9jb2RlY19jbGVh
-bnVwX2Zvcl91bmJpbmQgLT4gc25kX2FycmF5X2ZyZWUKICAgICAgICAgICAgICAgKGNvZGVjLXNp
-ZGUgdGFyZ2V0ZWQgY2xlYW51cCBvZiB0aGUgamFjayB0YWJsZSkKICAgICAgICAgIGFsbG9jOiBo
-ZGFfY29kZWNfZHJpdmVyX3Byb2JlIC0+IHNuZF9oZGFfZ2VuX2J1aWxkX2NvbnRyb2xzCiAgICAg
-ICAgICAgICAgIC0+IHNuZF9oZGFfamFja190YmxfbmV3IC0+IHNuZF9hcnJheV9uZXcgKGNvZGVj
-IHByb2JlKQogICAgICAgIC0tIGkuZS4gdGhlIGF1ZGl0ZWQgdHdvLXBhdGggaW50ZXJsZWF2aW5n
-LCBtYXRlcmlhbGl6ZWQgb24KICAgICAgICB0aGUgSkFDSyBvYmplY3RzIChqYWNrLT5qYWNrIGlz
-IGEgc25kX2RldmljZSBvbiB0aGUgc2FtZQogICAgICAgIGNhcmQtPmRldmljZXMgbGlzdCkuCiAg
-ICAgICogc25kX3BjbV9vcGVuIHNsYWItdXNlLWFmdGVyLWZyZWUgKyBzbmRfY2FyZF9maWxlX2Fk
-ZAogICAgICAgIG91dC1vZi1ib3VuZHMvTlVMTCAob3BlbnMgcmFjaW5nIHRoZSB0ZWFyZG93biku
-CiAgICAgICogc25kX2RldmljZV9yZWdpc3Rlcl9hbGwgd2lsZC1tZW1vcnktYWNjZXNzIHJlYWRp
-bmcgbGlzdAogICAgICAgIHBvaXNvbiAoZGVhZDAwMDAwMDAwMDExOCk6IHRoZSBkZWxheWVkIHBy
-b2JlIHdvcmsncwogICAgICAgIHNuZF9jYXJkX3JlZ2lzdGVyIHRyYXZlcnNhbCByYWNpbmcgdGhl
-IGNvbmN1cnJlbnQgdGVhcmRvd24gLS0KICAgICAgICB0aGUgcmVnaXN0ZXJfYWxsIHNpZGUgb2Yg
-dGhlIHNhbWUgdW5sb2NrZWQgbGlzdC4KICAgICAgKiB+MTg5MCByZXBvcnRzIG9mIHF1ZXVlZF9z
-cGluX2xvY2tfc2xvd3BhdGgKICAgICAgICBzbGFiLW91dC1vZi1ib3VuZHM6IHNwaW5uaW5nIG9u
-IGxvY2tzIGVtYmVkZGVkIGluIGZyZWVkCiAgICAgICAgbWVtb3J5ICh0aGUgY2FyZC9maWxlcyBs
-b2NrIGZhbWlseSkgLS0gdGhlIGZyZWVkLWxvY2sgc3BpbgogICAgICAgIGZhbWlseSB0aGF0IGFs
-c28gZXhwbGFpbnMgdGhlIGhhbmcgc2hhcGUgaW4gbXkgc2VwYXJhdGUKICAgICAgICByZWNvbmZp
-ZyByZXBvcnQuCiAgLSBCYXNlbGluZSAoc2VxdWVudGlhbCByZWNvbmZpZywgc2VxdWVudGlhbCBQ
-Q0kgdW5iaW5kL2JpbmQsIDQwCiAgICBjaHVybiByb3VuZHMgd2l0aG91dCBjb25jdXJyZW5jeSk6
-IHplcm8gc3BsYXRzLgoKICBIb25lc3Qgc2NvcGUgbm90ZTogdGhlIG5hdHVyYWwgaGFtbWVyIGhp
-dCB0aGUgd2lkZXN0LXdpbmRvdyBmb3JtcwogIGZpcnN0IChKQUNLIFVBRiwgZnJlZWQtbG9jayBz
-cGlucyk7IHRoZSBQQ00vY2htYXAtc3BlY2lmaWMgZm9ybXMKICAxLzIvMyBhYm92ZSB3ZXJlIHNv
-dXJjZS12ZXJpZmllZCBhbmQgYXJlIHRoZSBzYW1lIHVubG9ja2VkLWxpc3QKICByb290IGNhdXNl
-LCBidXQgd2VyZSBub3QgaW5kaXZpZHVhbGx5IGlzb2xhdGVkIGluIHRoaXMgcnVuLgoKCgpSZWdh
-cmRzLApIYW54aWFuZyBYdQp4dWh4QGh1c3QuZWR1LmNuCgoK
-------=_Part_374270_394315561.1793335403782
-Content-Type: application/x-sh; name=snd-hammer-b.sh
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="snd-hammer-b.sh"
-
-IyEvYmluL3NoCiMgQ2FzZSBCIGhhbW1lcjogY29kZWMtZHJpdmVyIHVuYmluZC9iaW5kIHggUENJ
-IHVuYmluZC9iaW5kIHggUENNIG9wZW4vY2xvc2UuCiMgUHVyZSB1c2Vyc3BhY2Ugc3lzZnMgd3Jp
-dGVzIChyb290KS4gRXhwZWN0cyBhIGxlZ2FjeSBIREEgY2FyZCBib3VuZCB0bwojIHNuZF9oZGFf
-aW50ZWwgd2l0aCBhIGhkYXVkaW8tYnVzIGNvZGVjIGRyaXZlciAoZS5nLiBzbmRfaGRhX2NvZGVj
-X2dlbmVyaWMpLgojIFJ1biBvbiBhIEtBU0FOL0RFQlVHX0xJU1Qga2VybmVsIGFuZCB3YXRjaCBk
-bWVzZy4Kc25kX3BjaV9iZGYoKQp7Cglmb3IgZCBpbiAvc3lzL2J1cy9wY2kvZHJpdmVycy9zbmRf
-aGRhX2ludGVsLyo7IGRvCgkJYj0ke2QjIyovfQoJCWNhc2UgIiRiIiBpbiBiaW5kfHVuYmluZHxt
-b2R1bGV8bmV3X2lkfHJlbW92ZV9pZCkgY29udGludWUgOzsgZXNhYwoJCWVjaG8gIiRiIjsgcmV0
-dXJuIDAKCWRvbmUKCXJldHVybiAxCn0Kc25kX3dhaXRfY2FyZCgpCnsKCWk9MAoJd2hpbGUgWyAk
-aSAtbHQgMzAwIF07IGRvCgkJbjE9JChscyAvZGV2L3NuZC8gMj4vZGV2L251bGwgfCBncmVwIC1j
-ICdeY29udHJvbEMnKQoJCW4yPSQobHMgL2Rldi9zbmQvIDI+L2Rldi9udWxsIHwgZ3JlcCAtYyAn
-XnBjbUMnKQoJCWlmIFsgIiRuMSIgLWdlIDEgXSAmJiBbICIkbjIiIC1nZSAxIF07IHRoZW4gcmV0
-dXJuIDA7IGZpCgkJaT0kKChpKzEpKTsgc2xlZXAgMC4xCglkb25lCglyZXR1cm4gMQp9ClJPVU5E
-Uz0kezE6LTQwfQpzbmRfd2FpdF9jYXJkIHx8IHsgZWNobyAiRVJSOiBubyBIREEgY2FyZCI7IGV4
-aXQgMTsgfQpCREY9JChzbmRfcGNpX2JkZikKZWNobyAiaGFtbWVyLWI6IGJkZj0kQkRGIHJvdW5k
-cz0kUk9VTkRTIgojIFQxOiBjb2RlYyBkcml2ZXIgdW5iaW5kL2JpbmQgb24gdGhlIGhkYXVkaW8g
-YnVzCigKCXdoaWxlIDo7IGRvCgkJZm91bmQ9MAoJCWZvciBkbCBpbiAvc3lzL2J1cy9oZGF1ZGlv
-L2RyaXZlcnMvKjsgZG8KCQkJWyAtZCAiJGRsIiBdIHx8IGNvbnRpbnVlCgkJCWZvciBibCBpbiAi
-JGRsIi9oZGF1ZGlvKjsgZG8KCQkJCVsgLWUgIiRibCIgXSB8fCBjb250aW51ZQoJCQkJbj0ke2Js
-IyMqL30KCQkJCWVjaG8gIiRuIiA+ICIkZGwvdW5iaW5kIiAyPi9kZXYvbnVsbAoJCQkJZWNobyAi
-JG4iID4gIiRkbC9iaW5kIiAyPi9kZXYvbnVsbAoJCQkJZm91bmQ9MTsgYnJlYWsgMgoJCQlkb25l
-CgkJZG9uZQoJCVsgIiRmb3VuZCIgPSAwIF0gJiYgc2xlZXAgMC4wMgoJZG9uZQopICYKQT0kIQoj
-IFQzOiBQQ00gb3Blbi9jbG9zZSBjaHVybiAobWFudWZhY3R1cmVzIHRoZSBjbG9zZSBkdWFsLXdh
-a2V1cCB3aW5kb3cpCigKCXdoaWxlIDo7IGRvCgkJZGlkPTAKCQlmb3IgcCBpbiAvZGV2L3NuZC9w
-Y21DKkQwcCAvZGV2L3NuZC9wY21DKkQwYzsgZG8KCQkJaWYgWyAtZSAiJHAiIF07IHRoZW4KCQkJ
-CWRkIGlmPSIkcCIgb2Y9L2Rldi9udWxsIGJzPTEgY291bnQ9MSAyPi9kZXYvbnVsbAoJCQkJZGlk
-PTEKCQkJZmkKCQlkb25lCgkJWyAiJGRpZCIgPSAwIF0gJiYgc2xlZXAgMC4wMgoJZG9uZQopICYK
-Qz0kIQojIFQyOiBQQ0kgZHJpdmVyIHVuYmluZC9iaW5kIHJvdW5kcwpqPTAKd2hpbGUgWyAkaiAt
-bHQgJFJPVU5EUyBdOyBkbwoJZWNobyAiJEJERiIgPiAvc3lzL2J1cy9wY2kvZHJpdmVycy9zbmRf
-aGRhX2ludGVsL3VuYmluZCAyPi9kZXYvbnVsbAoJZWNobyAiJEJERiIgPiAvc3lzL2J1cy9wY2kv
-ZHJpdmVycy9zbmRfaGRhX2ludGVsL2JpbmQgMj4vZGV2L251bGwKCXNsZWVwIDAuNAoJaj0kKChq
-KzEpKQpkb25lCmtpbGwgJEEgJEMgMj4vZGV2L251bGwKZWNobyAiaGFtbWVyLWIgZG9uZSIK
-------=_Part_374270_394315561.1793335403782--
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> diff --git a/fs/ubifs/auth.c b/fs/ubifs/auth.c
+> index 1f770795ee70..62dfacfb6d6b 100644
+> --- a/fs/ubifs/auth.c
+> +++ b/fs/ubifs/auth.c
+> @@ -70,7 +70,10 @@ int ubifs_prepare_auth_node(struct ubifs_info *c, void *node,
+>   		SHASH_DESC_ON_STACK(hash_desc, c->hash_tfm);
+> 
+>   		hash_desc->tfm = c->hash_tfm;
+> -		ubifs_shash_copy_state(c, inhash, hash_desc);
+> +
+> +		err = ubifs_shash_copy_state(c, inhash, hash_desc);
+> +		if (err)
+> +			return err;
+> 
+>   		err = crypto_shash_final(hash_desc, hash);
+>   		if (err)
+> diff --git a/fs/ubifs/log.c b/fs/ubifs/log.c
+> index c6edcbf35ebc..42cadf558a4f 100644
+> --- a/fs/ubifs/log.c
+> +++ b/fs/ubifs/log.c
+> @@ -412,7 +412,11 @@ int ubifs_log_start_commit(struct ubifs_info *c, int *ltail_lnum)
+>   					 UBIFS_REF_NODE_SZ);
+>   		if (err)
+>   			goto out;
+> -		ubifs_shash_copy_state(c, c->log_hash, c->jheads[i].log_hash);
+> +
+> +		err = ubifs_shash_copy_state(c, c->log_hash,
+> +					     c->jheads[i].log_hash);
+> +		if (err)
+> +			goto out;
+>   	}
+> 
+>   	ubifs_pad(c, buf + len, ALIGN(len, c->min_io_size) - len);
+> diff --git a/fs/ubifs/replay.c b/fs/ubifs/replay.c
+> index 263045e05cf1..0b82c67a2dcc 100644
+> --- a/fs/ubifs/replay.c
+> +++ b/fs/ubifs/replay.c
+> @@ -566,10 +566,14 @@ authenticate_sleb_hash(struct ubifs_info *c,
+>   		       struct shash_desc *log_hash, u8 *hash)
+>   {
+>   	SHASH_DESC_ON_STACK(hash_desc, c->hash_tfm);
+> +	int err;
+> 
+>   	hash_desc->tfm = c->hash_tfm;
+> 
+> -	ubifs_shash_copy_state(c, log_hash, hash_desc);
+> +	err = ubifs_shash_copy_state(c, log_hash, hash_desc);
+> +	if (err)
+> +		return err;
+> +
+>   	return crypto_shash_final(hash_desc, hash);
+>   }
+> 
+> @@ -694,8 +698,10 @@ static int replay_bud(struct ubifs_info *c, struct bud_entry *b)
+>   		goto out;
+>   	}
+> 
+> -	ubifs_shash_copy_state(c, b->bud->log_hash,
+> -			       c->jheads[b->bud->jhead].log_hash);
+> +	err = ubifs_shash_copy_state(c, b->bud->log_hash,
+> +				     c->jheads[b->bud->jhead].log_hash);
+> +	if (err)
+> +		goto out;
+> 
+>   	/*
+>   	 * The bud does not have to start from offset zero - the beginning of
+> @@ -915,7 +921,9 @@ static int add_replay_bud(struct ubifs_info *c, int lnum, int offs, int jhead,
+>   		goto out;
+>   	}
+> 
+> -	ubifs_shash_copy_state(c, c->log_hash, bud->log_hash);
+> +	err = ubifs_shash_copy_state(c, c->log_hash, bud->log_hash);
+> +	if (err)
+> +		goto out_free_log_hash;
+> 
+>   	ubifs_add_bud(c, bud);
+> 
+> @@ -924,6 +932,8 @@ static int add_replay_bud(struct ubifs_info *c, int lnum, int offs, int jhead,
+>   	list_add_tail(&b->list, &c->replay_buds);
+> 
+>   	return 0;
+> +out_free_log_hash:
+> +	kfree(bud->log_hash);
+>   out:
+>   	kfree(bud);
+>   	kfree(b);
+> .
+> 
 
