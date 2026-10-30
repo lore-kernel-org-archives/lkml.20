@@ -1,23 +1,23 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793339087;
-	b=3iUc7+YBtVn/QwM9D6YSbgbNIOgh54OEK81CSZRiHDDsCXHFKXO2+Oz9cVm2SgbAVbJ9
-	 glJerpFAnlRJ9Gh2kBbAY789+/zqtyj3bZ8IytuWPCPI6ujYEC72rZ02sdtQHI3naV+xV
-	 W37qtrFhtsU2wkRakutLAigwRXMMw7jNiTGc7v1bXOiwQjXhdDfHcqKKbcQmXP6xgqAR4
-	 dBnMiPQNzRm7IW6+KzOfdsCvJ/LPANSUKmueccD0b/S+Css8eBP8VVNTEE8xmkpVWNr4H
-	 j3CPtZN8Gx1DEUeQjIfkOlwu/TGY4HeD1cFQ9MR8vwFI40UgrHOtl5lfGGcuR5Vb+ng==
+	b=klTdGKw7k0UVeHQ+1deLhZxQzd+d4xH7ms1dRXjWMvxroy1nBy3WFfTgZwPwyhwfdIoy
+	 wqndnLZ+OKi0y603Se5M+Hi8WNGDXGrzMfvrC5smsBGFbrUc8NxjLlVhz7vGmCT5hrSJp
+	 GQK8n5VuVvfAGue/4M/Svggq7UVslUpiSxf9M0xTTWmr2vwklRaayXGvpAWcn6XwsPae9
+	 bi8RUIIfbFg/hmGyE80i/DdXVhOghowVUbanKnaiht1K6xAwaEb8C8eO0fjQ8D70VAD9V
+	 mPzrK4eirSzIv8CNsuX6DdZIDOUcu6gRrW6sfIhPseeiYC2hMjDI7GnPxyR3oHwhlaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793339087;
-	h=DMARC-Filter:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
 	 X-CM-SenderInfo;
-	bh=A27mgxEU0zhW+s8KVyJwNuiD/Phm/rNE+VBLDTxQHlA=;
-	b=vvsjVQBJGOgmpThWEgauNtHuwfy78CLJ6O3pF6cmHp4KrTKEZSIcTx0cFUTGWbAQIlJl
-	 FwfXVG5FWcQ0D2xE3TdonuphJclO/23zVTHdN5BU7p+lihuD35cw2u6B7TdJds8A4b9m4
-	 wA9AwfG4przQHe/0EAqhQu5ELAZYP1YxrZAFyUE0nmCA5+3ClqiMsbFeJlHEBmOYBlTB6
-	 yA+mpAEBdtGlqRTIDpfegOcpQFGNA3rcFRhnKFUIVO8l2VX4y5PJ3NeADcQcuZIM+G+c3
-	 Os2SScDW0INSzFdUpdxslb1gWKPT8sWjXtFNy5RSH6Gw9e1lxeQrakshNBWCk6kztaA==
+	bh=BmSeYzqVLhC8Wf3IJ9YplaJ83fdpGeniR0bAwWH8gss=;
+	b=TlwwOGBPJ+Em6pFPCJYRBcXY5REIEFl53T9ycQlFpHZ8D9hwbDxQDobpvAQjTc/xwor/
+	 Uryyrj6Kd7m9kECiC2mWQXeF4VczWVmDV9yaPXJqiwyvqT67wg1j9OdlOYUCxm9ilx4Qn
+	 pSaYmUW3I9DaQpH8p+e0RbBvFLZ4vrrqnVyXyuXTrPu1XhIJ5MV4UZ51zAjBBxETTCKxe
+	 I/s+bKxPOWM3sQTvTO7Yu3Z2i1kBe8LTAmq5R1cclYQWzQcqJNwVmzDLHdyFcTYmWcPsd
+	 FpfGmZfysfmZpdLUDJQj4Na95S12BdFq4Pczosxz1Qu1RuKqYpkH1jE7AX0FQ7TMsaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -26,19 +26,17 @@ Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33BAE606A31D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E75606A31F;
 	Fri, 30 Oct 2026 05:44:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33BAE606A31D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33E75606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
-	by APP-01 (Coremail) with SMTP id qwCowABnO++1LuRqL2kEDA--.17661S2;
-	Fri, 30 Oct 2026 13:44:23 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowABnO++1LuRqL2kEDA--.17661S5;
+	Fri, 30 Oct 2026 13:44:26 +0800 (CST)
 From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH 0/4] drm/panel: ili9881c: add support for Mingjun
- MJ070BI30IA2
-Date: Fri, 30 Oct 2026 13:44:11 +0800
-Message-Id: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
+Date: Fri, 30 Oct 2026 13:44:14 +0800
+Subject: [PATCH 3/4] drm/panel: ilitek-ili9881c: add Mingjun MJ070BI30IA2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,10 +48,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDUZrai4ili0NRiJn7SIRNxds
- fwW710QyDMFqJILPB0ceJkjsjQBN5i5J8FtNEiURYYKxTSiRssK2Ujh2tLK3FitO4KYrJ46Pr9
- d3fwOux3Jbe8D7vsBpuqfk3AAAAA=
-X-Change-ID: 20261030-mj070bi30ia2-cd8b24ab77fe
+Message-Id: <20261030-mj070bi30ia2-v1-3-a0f65b65c290@iscas.ac.cn>
+References: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
+In-Reply-To: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -65,52 +62,292 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, Icenowy Zheng <uwu@icenowy.me>, 
  Han Gao <gaohan@iscas.ac.cn>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
 X-Mailer: b4 0.15.0
-X-CM-TRANSID:qwCowABnO++1LuRqL2kEDA--.17661S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Gr4rWrWkCry5Ar1ftFWkZwb_yoW8JrW7pr
-	WqkFy3AFyUJr17Ca9xuF1IkFWrCF4FvF4Fyr9xGw1DZws8GF10yws3tay5XrWUCr1fZF43
-	ZF1kurn5Wa1DZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
+X-CM-TRANSID:qwCowABnO++1LuRqL2kEDA--.17661S5
+X-Coremail-Antispam: 1UD129KBjvJXoW3tw47Zr1kWFWUXF47XrW3GFg_yoWDtFWxpr
+	98Cws2k34rursxt34rWFZrJay2kayxtr4kCryDuws0qayYkr4ftay5Ja18W3Z8Za17uFs3
+	AF42g3s8WF45GaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmY14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JrWl82xGYIkIc2
+	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
+	A2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
+	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+	IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+	Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
+	xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+	JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
+	kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
+	6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42
+	IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIev
+	Ja73UjIFyTuYvjfUO_MaUUUUU
 X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Mingjun MJ070BI30IA2 is a LCD panel used by the Lichee Console 4A
-device, with a initialization sequence matching other ILI9881C
-sequences.
+Mingjun MJ070BI30IA2 is a 7" MIPI DSI LCD panel used by Lichee Console
+4A, with a initialization sequence matching the pattern of Ilitek
+ILI9881C driver chip.
 
-In addition to the normal binding + sequence panel adding part, this
-patchset contains one extra patch trying to address a hardware quirk of
-Lichee Console 4A -- the panel could never be really powered off /
-reseted in hardware (the reset pin isn't wired to the mainboard, and the
-panel is powered with a always-on regulator).
+Add it to the driver for ILI9881C-based panels.
 
 Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 ---
-Icenowy Zheng (4):
-      dt-bindings: vendor-prefixes: add Shenzhen Mingjun Optoelectronics
-      dt-bindings: ili9881c: add compatible string for Mingjun MJ070BI30IA2
-      drm/panel: ilitek-ili9881c: add Mingjun MJ070BI30IA2
-      drm/panel: ilitek-ili9881c: do a soft reset in unprepare callback
+ drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 222 ++++++++++++++++++++++++++
+ 1 file changed, 222 insertions(+)
 
- .../bindings/display/panel/ilitek,ili9881c.yaml    |   1 +
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- drivers/gpu/drm/panel/panel-ilitek-ili9881c.c      | 226 +++++++++++++++++++++
- 3 files changed, 229 insertions(+)
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261030-mj070bi30ia2-cd8b24ab77fe
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+index c3d5ab67121d9..83148c40e25ca 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+@@ -2198,6 +2198,201 @@ static const struct ili9881c_instr waveshare_7inch_a_init[] = {
+ 	ILI9881C_COMMAND_INSTR(0x36, 0x00),
+ };
+ 
++static const struct ili9881c_instr mj070bi30ia2_init[] = {
++	ILI9881C_SWITCH_PAGE_INSTR(3),
++	ILI9881C_COMMAND_INSTR(0x01, 0x00),
++	ILI9881C_COMMAND_INSTR(0x02, 0x00),
++	ILI9881C_COMMAND_INSTR(0x03, 0x73),
++	ILI9881C_COMMAND_INSTR(0x04, 0x13),
++	ILI9881C_COMMAND_INSTR(0x05, 0x00),
++	ILI9881C_COMMAND_INSTR(0x06, 0x0A),
++	ILI9881C_COMMAND_INSTR(0x07, 0x05),
++	ILI9881C_COMMAND_INSTR(0x11, 0x00),
++	ILI9881C_COMMAND_INSTR(0x09, 0x28),
++	ILI9881C_COMMAND_INSTR(0x0A, 0x00),
++	ILI9881C_COMMAND_INSTR(0x0B, 0x00),
++	ILI9881C_COMMAND_INSTR(0x0C, 0x00),
++	ILI9881C_COMMAND_INSTR(0x0D, 0x28),
++	ILI9881C_COMMAND_INSTR(0x0E, 0x00),
++	ILI9881C_COMMAND_INSTR(0x0F, 0x28),
++	ILI9881C_COMMAND_INSTR(0x10, 0x28),
++	ILI9881C_COMMAND_INSTR(0x11, 0x00),
++	ILI9881C_COMMAND_INSTR(0x12, 0x00),
++	ILI9881C_COMMAND_INSTR(0x13, 0x00),
++	ILI9881C_COMMAND_INSTR(0x14, 0x00),
++	ILI9881C_COMMAND_INSTR(0x15, 0x00),
++	ILI9881C_COMMAND_INSTR(0x16, 0x00),
++	ILI9881C_COMMAND_INSTR(0x17, 0x00),
++	ILI9881C_COMMAND_INSTR(0x18, 0x00),
++	ILI9881C_COMMAND_INSTR(0x19, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1A, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1B, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1C, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1D, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1E, 0x40),
++	ILI9881C_COMMAND_INSTR(0x1F, 0x80),
++	ILI9881C_COMMAND_INSTR(0x20, 0x06),
++	ILI9881C_COMMAND_INSTR(0x21, 0x01),
++	ILI9881C_COMMAND_INSTR(0x22, 0x00),
++	ILI9881C_COMMAND_INSTR(0x23, 0x00),
++	ILI9881C_COMMAND_INSTR(0x24, 0x00),
++	ILI9881C_COMMAND_INSTR(0x25, 0x00),
++	ILI9881C_COMMAND_INSTR(0x26, 0x00),
++	ILI9881C_COMMAND_INSTR(0x27, 0x00),
++	ILI9881C_COMMAND_INSTR(0x28, 0x33),
++	ILI9881C_COMMAND_INSTR(0x29, 0x33),
++	ILI9881C_COMMAND_INSTR(0x2A, 0x00),
++	ILI9881C_COMMAND_INSTR(0x2B, 0x00),
++	ILI9881C_COMMAND_INSTR(0x2C, 0x04),
++	ILI9881C_COMMAND_INSTR(0x2D, 0x0C),
++	ILI9881C_COMMAND_INSTR(0x2E, 0x05),
++	ILI9881C_COMMAND_INSTR(0x2F, 0x05),
++	ILI9881C_COMMAND_INSTR(0x30, 0x00),
++	ILI9881C_COMMAND_INSTR(0x31, 0x00),
++	ILI9881C_COMMAND_INSTR(0x32, 0x31),
++	ILI9881C_COMMAND_INSTR(0x33, 0x00),
++	ILI9881C_COMMAND_INSTR(0x34, 0x00),
++	ILI9881C_COMMAND_INSTR(0x35, 0x0A),
++	ILI9881C_COMMAND_INSTR(0x36, 0x00),
++	ILI9881C_COMMAND_INSTR(0x37, 0x08),
++	ILI9881C_COMMAND_INSTR(0x70, 0x00),
++	ILI9881C_COMMAND_INSTR(0x39, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3A, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3B, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3C, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3D, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3E, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3F, 0x00),
++	ILI9881C_COMMAND_INSTR(0x40, 0x00),
++	ILI9881C_COMMAND_INSTR(0x41, 0x00),
++	ILI9881C_COMMAND_INSTR(0x42, 0x00),
++	ILI9881C_COMMAND_INSTR(0x43, 0x08),
++	ILI9881C_COMMAND_INSTR(0x44, 0x00),
++	ILI9881C_COMMAND_INSTR(0xA0, 0x02),
++	ILI9881C_COMMAND_INSTR(0x51, 0x23),
++	ILI9881C_COMMAND_INSTR(0x52, 0x44),
++	ILI9881C_COMMAND_INSTR(0x53, 0x67),
++	ILI9881C_COMMAND_INSTR(0x54, 0x89),
++	ILI9881C_COMMAND_INSTR(0x55, 0xAB),
++	ILI9881C_COMMAND_INSTR(0x56, 0x01),
++	ILI9881C_COMMAND_INSTR(0x57, 0x23),
++	ILI9881C_COMMAND_INSTR(0x58, 0x45),
++	ILI9881C_COMMAND_INSTR(0x59, 0x67),
++	ILI9881C_COMMAND_INSTR(0x5A, 0x89),
++	ILI9881C_COMMAND_INSTR(0x5B, 0xAB),
++	ILI9881C_COMMAND_INSTR(0x5C, 0xCD),
++	ILI9881C_COMMAND_INSTR(0x5D, 0xEF),
++	ILI9881C_COMMAND_INSTR(0x5E, 0x11),
++	ILI9881C_COMMAND_INSTR(0x5F, 0x02),
++	ILI9881C_COMMAND_INSTR(0x60, 0x08),
++	ILI9881C_COMMAND_INSTR(0x61, 0x0E),
++	ILI9881C_COMMAND_INSTR(0x62, 0x0F),
++	ILI9881C_COMMAND_INSTR(0x63, 0x0C),
++	ILI9881C_COMMAND_INSTR(0x64, 0x0D),
++	ILI9881C_COMMAND_INSTR(0x65, 0x17),
++	ILI9881C_COMMAND_INSTR(0x66, 0x01),
++	ILI9881C_COMMAND_INSTR(0x67, 0x01),
++	ILI9881C_COMMAND_INSTR(0x68, 0x02),
++	ILI9881C_COMMAND_INSTR(0x69, 0x02),
++	ILI9881C_COMMAND_INSTR(0x6A, 0x00),
++	ILI9881C_COMMAND_INSTR(0x6B, 0x00),
++	ILI9881C_COMMAND_INSTR(0x6C, 0x02),
++	ILI9881C_COMMAND_INSTR(0x6D, 0x02),
++	ILI9881C_COMMAND_INSTR(0x6E, 0x16),
++	ILI9881C_COMMAND_INSTR(0x6F, 0x16),
++	ILI9881C_COMMAND_INSTR(0x70, 0x06),
++	ILI9881C_COMMAND_INSTR(0x71, 0x06),
++	ILI9881C_COMMAND_INSTR(0x72, 0x07),
++	ILI9881C_COMMAND_INSTR(0x73, 0x07),
++	ILI9881C_COMMAND_INSTR(0x74, 0x02),
++	ILI9881C_COMMAND_INSTR(0x75, 0x02),
++	ILI9881C_COMMAND_INSTR(0x76, 0x08),
++	ILI9881C_COMMAND_INSTR(0x77, 0x0E),
++	ILI9881C_COMMAND_INSTR(0x78, 0x0F),
++	ILI9881C_COMMAND_INSTR(0x79, 0x0C),
++	ILI9881C_COMMAND_INSTR(0x7A, 0x0D),
++	ILI9881C_COMMAND_INSTR(0x7B, 0x17),
++	ILI9881C_COMMAND_INSTR(0x7C, 0x01),
++	ILI9881C_COMMAND_INSTR(0x7D, 0x01),
++	ILI9881C_COMMAND_INSTR(0x7E, 0x02),
++	ILI9881C_COMMAND_INSTR(0x7F, 0x02),
++	ILI9881C_COMMAND_INSTR(0x80, 0x00),
++	ILI9881C_COMMAND_INSTR(0x81, 0x00),
++	ILI9881C_COMMAND_INSTR(0x82, 0x02),
++	ILI9881C_COMMAND_INSTR(0x83, 0x02),
++	ILI9881C_COMMAND_INSTR(0x84, 0x16),
++	ILI9881C_COMMAND_INSTR(0x85, 0x16),
++	ILI9881C_COMMAND_INSTR(0x86, 0x06),
++	ILI9881C_COMMAND_INSTR(0x87, 0x06),
++	ILI9881C_COMMAND_INSTR(0x88, 0x07),
++	ILI9881C_COMMAND_INSTR(0x89, 0x07),
++	ILI9881C_COMMAND_INSTR(0x8A, 0x02),
++
++	ILI9881C_SWITCH_PAGE_INSTR(4),
++	ILI9881C_COMMAND_INSTR(0x6E, 0x1A),
++	ILI9881C_COMMAND_INSTR(0x6F, 0x37),
++	ILI9881C_COMMAND_INSTR(0x3A, 0xA4),
++	ILI9881C_COMMAND_INSTR(0x8D, 0x1F),
++	ILI9881C_COMMAND_INSTR(0x87, 0xBA),
++	ILI9881C_COMMAND_INSTR(0xB2, 0xD1),
++	ILI9881C_COMMAND_INSTR(0x88, 0x0B),
++	ILI9881C_COMMAND_INSTR(0x38, 0x01),
++	ILI9881C_COMMAND_INSTR(0x39, 0x00),
++	ILI9881C_COMMAND_INSTR(0xB5, 0x02),
++	ILI9881C_COMMAND_INSTR(0x31, 0x25),
++	ILI9881C_COMMAND_INSTR(0x3B, 0x98),
++
++	ILI9881C_SWITCH_PAGE_INSTR(1),
++	ILI9881C_COMMAND_INSTR(0x22, 0x0A),
++	ILI9881C_COMMAND_INSTR(0x31, 0x00),
++	ILI9881C_COMMAND_INSTR(0xA6, 0xA6),
++	ILI9881C_COMMAND_INSTR(0x55, 0x3D),
++	ILI9881C_COMMAND_INSTR(0x50, 0x9E),
++	ILI9881C_COMMAND_INSTR(0x51, 0x99),
++	ILI9881C_COMMAND_INSTR(0x60, 0x06),
++	ILI9881C_COMMAND_INSTR(0x62, 0x20),
++	ILI9881C_COMMAND_INSTR(0xA0, 0x00),
++	ILI9881C_COMMAND_INSTR(0xA1, 0x17),
++	ILI9881C_COMMAND_INSTR(0xA2, 0x26),
++	ILI9881C_COMMAND_INSTR(0xA3, 0x13),
++	ILI9881C_COMMAND_INSTR(0xA4, 0x16),
++	ILI9881C_COMMAND_INSTR(0xA5, 0x29),
++	ILI9881C_COMMAND_INSTR(0xA6, 0x1E),
++	ILI9881C_COMMAND_INSTR(0xA7, 0x1F),
++	ILI9881C_COMMAND_INSTR(0xA8, 0x8B),
++	ILI9881C_COMMAND_INSTR(0xA9, 0x1D),
++	ILI9881C_COMMAND_INSTR(0xAA, 0x2A),
++	ILI9881C_COMMAND_INSTR(0xAB, 0x7B),
++	ILI9881C_COMMAND_INSTR(0xAC, 0x1A),
++	ILI9881C_COMMAND_INSTR(0xAD, 0x19),
++	ILI9881C_COMMAND_INSTR(0xAE, 0x4E),
++	ILI9881C_COMMAND_INSTR(0xAF, 0x24),
++	ILI9881C_COMMAND_INSTR(0xB0, 0x29),
++	ILI9881C_COMMAND_INSTR(0xB1, 0x4F),
++	ILI9881C_COMMAND_INSTR(0xB2, 0x5C),
++	ILI9881C_COMMAND_INSTR(0xB3, 0x3E),
++	ILI9881C_COMMAND_INSTR(0xC0, 0x00),
++	ILI9881C_COMMAND_INSTR(0xC1, 0x17),
++	ILI9881C_COMMAND_INSTR(0xC2, 0x26),
++	ILI9881C_COMMAND_INSTR(0xC3, 0x13),
++	ILI9881C_COMMAND_INSTR(0xC4, 0x16),
++	ILI9881C_COMMAND_INSTR(0xC5, 0x29),
++	ILI9881C_COMMAND_INSTR(0xC6, 0x1E),
++	ILI9881C_COMMAND_INSTR(0xC7, 0x1F),
++	ILI9881C_COMMAND_INSTR(0xC8, 0x8B),
++	ILI9881C_COMMAND_INSTR(0xC9, 0x1D),
++	ILI9881C_COMMAND_INSTR(0xCA, 0x2A),
++	ILI9881C_COMMAND_INSTR(0xCB, 0x7B),
++	ILI9881C_COMMAND_INSTR(0xCC, 0x1A),
++	ILI9881C_COMMAND_INSTR(0xCD, 0x19),
++	ILI9881C_COMMAND_INSTR(0xCE, 0x4E),
++	ILI9881C_COMMAND_INSTR(0xCF, 0x24),
++	ILI9881C_COMMAND_INSTR(0xD0, 0x29),
++	ILI9881C_COMMAND_INSTR(0xD1, 0x4D),
++	ILI9881C_COMMAND_INSTR(0xD2, 0x5C),
++	ILI9881C_COMMAND_INSTR(0xD3, 0x3E),
++};
++
+ static inline struct ili9881c *panel_to_ili9881c(struct drm_panel *panel)
+ {
+ 	return container_of(panel, struct ili9881c, panel);
+@@ -2493,6 +2688,23 @@ static const struct drm_display_mode waveshare_7inch_a_mode = {
+ 	.height_mm	= 154,
+ };
+ 
++static const struct drm_display_mode mj070bi30ia2_mode = {
++	.clock		= 75750,
++
++	.hdisplay	= 800,
++	.hsync_start	= 800 + 48,
++	.hsync_end	= 800 + 48 + 32,
++	.htotal		= 800 + 48 + 32 + 80,
++
++	.vdisplay	= 1280,
++	.vsync_start	= 1280 + 3,
++	.vsync_end	= 1280 + 3 + 10,
++	.vtotal		= 1280 + 3 + 10 + 24,
++
++	.width_mm	= 94,
++	.height_mm	= 150,
++};
++
+ static int ili9881c_get_modes(struct drm_panel *panel,
+ 			      struct drm_connector *connector)
+ {
+@@ -2704,6 +2916,15 @@ static const struct ili9881c_desc waveshare_7inch_a_desc = {
+ 	.lanes = 2,
+ };
+ 
++static const struct ili9881c_desc mj070bi30ia2_desc = {
++	.init = mj070bi30ia2_init,
++	.init_length = ARRAY_SIZE(mj070bi30ia2_init),
++	.mode = &mj070bi30ia2_mode,
++	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
++		      MIPI_DSI_MODE_LPM,
++	.lanes = 4,
++};
++
+ static const struct of_device_id ili9881c_of_match[] = {
+ 	{ .compatible = "bananapi,lhr050h41", .data = &lhr050h41_desc },
+ 	{ .compatible = "bestar,bsd1218-a101kl68", .data = &bsd1218_a101kl68_desc },
+@@ -2714,6 +2935,7 @@ static const struct of_device_id ili9881c_of_match[] = {
+ 	{ .compatible = "wanchanglong,w552946aba", .data = &w552946aba_desc },
+ 	{ .compatible = "waveshare,7.0-dsi-touch-a", .data = &waveshare_7inch_a_desc },
+ 	{ .compatible = "ampire,am8001280g", .data = &am8001280g_desc },
++	{ .compatible = "mingjun,mj070bi30ia2", .data = &mj070bi30ia2_desc },
+ 	{ .compatible = "raspberrypi,dsi-5inch", &rpi_5inch_desc },
+ 	{ .compatible = "raspberrypi,dsi-7inch", &rpi_7inch_desc },
+ 	{ }
 
-Best regards,
---  
-Icenowy Zheng <zhengxingda@iscas.ac.cn>
+-- 
+2.56.0
 
