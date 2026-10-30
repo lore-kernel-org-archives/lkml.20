@@ -1,55 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348997;
-	b=hrarDdahZTLsftIl2ApxDUJknJsa8/PTTehe3M1r0ViOpaE9tghx+RRsdnc21NqJbuBm
-	 7SMomUUk5g91gBY4vSuWSM3t8rzrgN7Cq9FbnSUXRmVzWDMoyhPt2fuA1oI7ivZg186xm
-	 QtCNp9AJdsr3RBZ9LAKnxZy1wFMge0Yr9sHgpdjMId294vUS65TdjC2N0q7+Z2HjNGsTo
-	 WPzfojsa8c0Pk4OHTvZdcjKw81kCTmT05Lt/hGCOwSxe1L4lm8I8MxemXcZwVHso7IIed
-	 PCdsM2qDPniaLskR8l59tAU2ERYtBIwuVBMPGwD/3KjOixc5cn1CRR8+m8NHhTwuAsw==
+	t=1793349012;
+	b=2wWVQeZw+R1CvW27JxyX4lXfj4hpHdcEjWxn6mnbXvQ6iw23VHb5zKpMY0ex0ubmE1zN
+	 +sz8Drzm5/u5YuBFvdwoPjPBrcm/PeAVeqonerDxkxqAAdSzKHX6M8xthX6t6ScF7l72w
+	 U0aHvFcC8Imjj2rh2bbhLQHjLu26Luwiw6E/6wAQ+PBCzFY0nDLBq/+7LgmujUg75u7Rz
+	 09NqqPO33mfu7oLqDseZGf5nKPGFee3qn2v1pirzCl642MLII6xGcU0/nSZ6NC73VdpEX
+	 lDz1Dq62s23qw0GlOFA1mEDPQrAefSWCiKy9p59MqvQKlsNaoTLUjTlBv+O1C8Srt6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348997;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
-	bh=E8LUU8/dAjJYoBx2cnVq2geueGnckzaBaZnZ1Jie+PA=;
-	b=LcuxBz1d05mTG8FnQTwolsgQzO+gDNr8kstE6Sb5W2fN7vFHa+zXFSAc9jogQurOz/fA
-	 3iiSBy/D5Rt76kM8wYR9ppwuiW2CeDIOiIjs2dWC/HZaMNMUU97wfxosv6koZ0A1I9jqp
-	 i6Cvyi0/9yW9WzHxZEJDUFXV7mp0RF/2qvzeePQSv4RLWw4qLPjsXefgBP5DtQOyRc7yQ
-	 BByEhZma0+UQKZWmQ8ZEFkw6ztB+a3cmow1W50uh4zSiWBqYf9f69zhzvo6LkhSlexYGl
-	 LZ/PvKZtumaMg1NGdDUothHopEem23EEAyULMAOLtLpKwvVT/b4vUheBZuWS2a/2nIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793349012;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=S6icTSJoX+H0mkq2r9K7dhGu04auJXQZtSzWsa6ywM8=;
+	b=ks10t9z3vZiaRKFx84HITOyrUabFfNDSBfje2j0tcOirfQrAc2o9BfbLsv7qUOjYqbVs
+	 JAl3AFjbZeW7ILPIusjXQ1fKSGyosOgn5bXpAqOmsAlqJ6C7VXAvSfaUre7K4kyN0beC2
+	 Pf9s2ace8n0up5JcXqModn2li2iqLFxp0fXnbXcvPJYHYBzYuJGWG6yOR37wssxBCdZLY
+	 GkX1tecqIVXmND7gj2DD9R+tJkr0zQiXc/hnx5GwlabvloUR81IRqF6YcoGyiFgTQfWeV
+	 3YJ/PfbkzUIkqINvWz0IckBSZCx4opn5HieeEAiNJyz0u7CuAlTgcoBWzi295r8sMdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=rENntMUo;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b="ky/Io1pL";
+	arc=none smtp.remote-ip=54.206.16.166
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F51606A337
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:29:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4F51606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB74606A31A;
+	Fri, 30 Oct 2026 08:30:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEB74606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=rENntMUo
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 61DB11A13BD;
-	Fri, 30 Oct 2026 08:29:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 322AB603C2;
-	Fri, 30 Oct 2026 08:29:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 51D1F103286AD;
-	Fri, 30 Oct 2026 09:29:49 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793348993; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=E8LUU8/dAjJYoBx2cnVq2geueGnckzaBaZnZ1Jie+PA=;
-	b=rENntMUoZ3qOsQAg3It22RPHGFnouqYJz7QFfqZnoS2WiqPWuISOOfjeIG9Evj5WdcWOp3
-	LxRmulCD1HUTCMNEMbPfE861LUmoF3od9bwlM5mrs46+x6RpWTAzk2lvoRp2yC8GnQi6PN
-	CQLF0GS6hFar7uSXooTpAd2hBHjzeOCSSmkC2XSqip+XcSClJku2mh4eghjMTkPRy0ESRt
-	4igCVvnurQMFLx5SWNKkiuvNfngHfSSvHT0Nc0VWdpH8cDK3WBEelbcAZWjpIUvw1IN3ZZ
-	sUMrIsIeB/9M86Jetcp/dPwuaAaW72HdWljonF+Z0dPJ80cJmNO6v8FDHCXY7g==
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=ky/Io1pL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1793348927;
+	bh=S6icTSJoX+H0mkq2r9K7dhGu04auJXQZtSzWsa6ywM8=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=ky/Io1pLlYQjG/bMGQm8P+xiYQB6o3xeqYa+xzQdV1Q/O0eFmbIEx8iOd23+3NMP8
+	 Q8MTyM6xFFyFboeU7oybSlBGzO+aNYTXw3vt9GmI+MY8ypb+d21UjnQI294yV6CXgs
+	 P+NFBVhQjCmTQh/e6qN7NuUbF+bUX8k4ORi0k3gU=
+X-QQ-mid: esmtpsz19t1793348921t836fef7b
+X-QQ-Originating-IP: 3z9nJH5sjaTFKjVPNzs2/PxgNbOo2hmbalbccp788xI=
+Received: from localhost.localdomain ( [61.183.83.60])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 30 Oct 2026 16:28:37 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 14936512090500505238
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.6 000/168] 6.6.161-rc1 review
+Date: Fri, 30 Oct 2026 16:28:35 +0800
+Message-Id: <20261030082835.297423-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
+References: <20261028165943.089486480@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,45 +87,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v10 3/9] drm/bridge: fsl-ldb: Add support for i.MX94
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Cc: Ying Liu <victor.liu@nxp.com>, Frank Li <frank.li@oss.nxp.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- linux-clk@vger.kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261006-dcif-upstreaming-v10-3-bcfb28de0aae@oss.nxp.com>
-References: <20261006-dcif-upstreaming-v10-0-bcfb28de0aae@oss.nxp.com>
- <20261006-dcif-upstreaming-v10-3-bcfb28de0aae@oss.nxp.com>
-Date: Fri, 30 Oct 2026 09:29:39 +0100
-Message-Id: <179334897995.680709.16225857559743446360.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OOYO4i1Nbl+HBmiIRd/geZimNjXs4x7eTz6yCFrazXApJ+KY4RnLqGoa
+	pfqRYN66B/09/B5hQ3dZs56IgbRVkVMeG8vNmPA8r5MnOt0KjBdhEAGy6KEFcTArjdEydGm
+	Sq/drt07yjR+N0aeWtY9fdbuPOXlzSMGvs4TQwoyo/AHlapYyd/MqsGTL8iwH1/CtPTwV/z
+	poReiA81wzIitwwAOkT9+l1Tk3X/cA+gyPShMmGvzXRoITh4NwNnwEzHANOXBC+XoFuCDal
+	bG67AcvRdn4T63hkLRhDJsudRwM3e7gOq4wGM4xVepheF/QCFhYGvuVdx788CGvjTWZXf5b
+	i/4WGRoqz6Mn4XRTxKFAUXcnmTNxgEuYIVNPrU2CJfClbQh3TzIxGLyVW7l6DzFCJDeDjaC
+	3FuXdC/fgyrMv1IA5+FET2CWgILQfKjxqb0/0ML32uj4lXMTxURilxTJL/h+NbM35TarfbZ
+	z8MlMFp20li1dq7IIhjvWMyDQSMECfVsLRpn4AG5MY3B6XKbAKdjkmHQWBFn4lmbm+jZSxm
+	hBaZcvTllkoYaTzdPt7mbgwTyUnovbT4Z+ev3K7ugWLhqrhZQtXIivKLW0XIDQKjTId5+QN
+	GHhRFYNZCDwP/0wHcqyu0Qo0mPrbkxs8i8TK0kXOZ1oSEUVlzIjnM+/dMDKovq4uVMFbk+V
+	ty6Nyp4NjrzBj3Zhpp37e51r049cYvDBPes/Wy5wEp7WkbLvySU7GjtOWbR8TZF7btqwv93
+	pPO+BQ85Sa34IUF2Jts61TWQf5iN9JUbJkgJY5qZnpu5BXQpJptoVYAFFuEYQez1+/pYcJi
+	xoHSK4FyT63nMav46ygFIdXbFSAERi1A+pMwj/UiTmdmQipdu4alhQE/LkJaAWFfnj6rDCW
+	9bcmY0cEOJTn3mJm4/+MpWKk0RcTi/0kDYDdQUQCwAPZR35zbgrG0+SEMeIcJBPnvYToSZD
+	S6VGPm07pQ7ULCNO/kjxx5h6wFDqDRjpmNwwOMh3cNdi1K+7NAg61tafwh5o685cHjaMaLF
+	t7P3r85/XAILbhwW3/koPzN2373AC9B1SLEudvLQHS8oFtZZ3KBowzl3q/NnmxdJE5LE+pr
+	SRJQvqaGkAaNADujyWGQJN8SpmryrNkXIfiXRtePm4TYw99K0ixOqHRvIinzgUYeg==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-On Tue, 06 Oct 2026 12:21:58 +0000, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com> wrote:
-> i.MX94 series LDB controller shares the same LDB and LVDS control
-> registers as i.MX8MP and i.MX93 but supports a higher maximum clock
-> frequency.
-> 
-> Add a 'max_clk_khz' member to the fsl_ldb_devdata structure in order to
-> be able to set different max frequencies for other platforms.
-> 
-> [...]
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Best Regards
+Wentao Guan
+
+Log:
+Linux version 6.6.161-rc1-arm64-desktop-hwe-gb6e2b2f6f7e1 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT Fri Oct 30 12:05:39 CST 2026
+Linux version 6.6.161-rc1-loong64-desktop-hwe-gb6e2b2f6f7e1 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT Fri Oct 30 12:26:10 CST 2026
+Linux version 6.6.161-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP Fri Oct 30 12:45:00 CST 2026
+Linux version 6.6.161-rc1-amd64-desktop-hwe-gb6e2b2f6f7e1 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Fri Oct 30 11:47:08 CST 2026
 
