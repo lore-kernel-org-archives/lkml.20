@@ -1,84 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793400331;
-	b=jtn47UpvoGVLoNYkKNBLtLLQEfaNJ7kn7p+sGZvD6SDvDp/ENtQxDoRGcGcPRnrg+lSZ
-	 /6EicnS2+okyBJN1qwoGWrv6qzCA6wbeGpyaIv2b7WIuZow3DNxAWbrq4liOlLYvYXB/J
-	 9fkgOq6mQvH3mJp9ve5C4+BQ5U+Fj3s/Vkfqvtkq1z/VlJi7eW0iXoQGjquHu7xCiOMgB
-	 69Dn0gu66x8Ucmirjarw2LiYNINExo/kmiV81adOeLXRl5MI0AEMZTjgU8sQT+i9ABaTm
-	 WwsSJ/z1DpeDqo1fxQeGJwaP3Yp2vsh26miK6jQny1OGKc2uwQmWoji3o0SzRNRgtmQ==
+	t=1793400350;
+	b=NVk/iu69ji0X6F16OG0jtQX/Au0TO0YozuvoQf7NXUj+JQstmPYGgWhplcGUTb6hJEOC
+	 0VXWGUi9G1ilIC5vWj7yo717/ZhSOD7wuQKUMxExqGu1zV0Owq6/Xxdpi/tr7DRUSAPRG
+	 HlJHiD/K5nuh1SiYOekjz0vUC82QvF/WAWldiKLRJZqGO+sZf8f1wrSgPaOKw9NJGAY1R
+	 IQKPvzfpCoUsg/YymgIcvxWue3n138+0AaYUmCUykeGhkzx/TnKtowMaLACRTThIuW19a
+	 z3KVmNP/iBBmLcuM4vO6VcB5q/uVRBmhoeXb2kwWQNDAfVmU2TEiyC5wRm1HBaNzhAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793400331;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=2yXPCghD4HtJhKnd45tIgCVhaxQCotBo+SDg/yWeoA4=;
-	b=gW0wkrb7Sersu9u7xSuUTI8D6hmu11rdrYVEYkZhOkjpYtjCFOuoKHj6THLRcrjP1YYM
-	 MLHsPVzBNX3MF2H6JSrp5+v125pPDFBo7Gj4gZY0U4IRkUmG7cn3xuNeaTAE2CALmQTKz
-	 1OLL5cwJwSIy/6+7J7hUTEXZYQaL6hfap9P9dOQ+gGLMrHcA/uSFdd4GqfPIclB9QiJtq
-	 0npDfJRYg0CNEbPI8b1XrGfS5n3MD+kdWWy9nzd0ohoAeauxipZ4Y7VOEk6IuVlNiy0s/
-	 0buStpNZ+gONANDzUqyM7rUoKE710i7LhIPhCSvz6X7r4wbD20HjHYVMYcngAWSJaZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793400350;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Content-Type:Content-Transfer-Encoding:MIME-Version:From:To:
+	 Cc:Subject:In-reply-to:References:Date:Message-id:Reply-To;
+	bh=0B8O7nu9f1oA8mtZ669QAgxW4AUmioLSCxqsLxGiP0U=;
+	b=GPOA6nuLUcygaQX2ymj1sMUyOyHzTFpHSuslDMcjILZgVwwW87j9eARQaJEAg3nmx9NG
+	 0bN6Qt/QODIozbjHu6VwZP7I+3o6QyfWixOGEE2G+F+Ppgms5WZWXhETj8t84D2CApufa
+	 aJWej6NoNFdyNJAUMQAAFCYzlR36jWEHgZY2vOvxYS1oXzWhlt0Q70vaRzo1y/y5SXPWK
+	 ooky7s0DqrgRM1DqC5COHiMPcMVTPIBE3yIWGk9so7VsK3PYnSdDUbsu5r0OSrQyq0Jhq
+	 vA+lqGTHUgK78UStua7qxn7wSojJXBmQHqoc7n6jjn9/RN3+rLF6eOJHJSIBETze5nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MOzGoj8m;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ownmail.net;
+	spf=pass smtp.mailfrom=ownmail.net;
+	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=RLnZSdWX;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=imNKQsTW;
+	arc=none smtp.remote-ip=202.12.124.152
+Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F590606A31C;
-	Fri, 30 Oct 2026 22:45:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F590606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68141606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:45:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68141606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MOzGoj8m
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793400330; x=1824936330;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=1Fn2pxKKvk3BBbz8SBlqHGp+ZY9AeRFTROeqNefvLPg=;
-  b=MOzGoj8miUebD/6eL05UVgwKBS+u6aXteDvhH7Vf/t1+Vw9PUrfy032V
-   anJj7q8SIJsB7N/ybG5EbzxoBiEwbB8j0OlVwOlNIpDTto54trsjANG5C
-   4NTCDVaoM0lIugGdA/PsI6rvnpLVUsPXWp+7GRYeIm3mwP/s+QCOhbmGf
-   J3RFSmmN6C4k0/1sgqWpKSK1OPgAthikmHYDmaEmOITi7YXshFNjrlElz
-   xyKkregeUIgPbFMBoDjKyrz5gPrXFm/ErNrnq4qLL/xRHhRVuioF3dwzk
-   EvDTnbLAxHVtZd0v2zTQhAzOPyjTvnso44JVl8eg64rHhXbSCQFwVnQrx
-   A==;
-X-CSE-ConnectionGUID: AUhXp65WRuWB1dKrJM3X5w==
-X-CSE-MsgGUID: W6f7bnOPQE273E/ocqQOwQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2049381"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2049381"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 15:45:29 -0700
-X-CSE-ConnectionGUID: VWGASS47RUWa2XwHK0yW1g==
-X-CSE-MsgGUID: mtv4XWKLRlK/Qh8b1qPScQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5936487"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.110])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 15:45:28 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id EC6D5121B75;
-	Sat, 31 Oct 2026 00:45:34 +0200 (EET)
-Date: Sat, 31 Oct 2026 00:45:34 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Valerii Sokolov <valerii.sokolov@pm.me>
-Cc: Antti Laakso <antti.laakso@linux.intel.com>,
-	Sarang Sapre <sarang.sapre@intel.com>,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>,
-	Manik Bajpai <manik.bajpai@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 08/11] media: intel/ipu6: return an error from
- ipu6_dma_map_sgtable() on failure
-Message-ID: <auUeDraiy9tu1NDg@kekkonen.localdomain>
-References: <20261023195446.22578-1-valerii.sokolov@pm.me>
- <20261023195446.22578-9-valerii.sokolov@pm.me>
+	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=RLnZSdWX;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=imNKQsTW
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id C7CBB7A015E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:45:48 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Fri, 30 Oct 2026 18:45:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
+	1793400348; x=1793486748; bh=0B8O7nu9f1oA8mtZ669QAgxW4AUmioLSCxq
+	sLxGiP0U=; b=RLnZSdWXklO+Dl2hB1PDqehMxnk3I51lzbjzPytoWS9xCjFA9fV
+	MQx3N3RqieAIr4vjBtzsQTG+aohUO+J6RzAvzJcszeIcDlXiDhx7zgm0jqPEQuID
+	Szrw0Huay946e2avB8uE4NSLfZeNNzSdSfwJoDShf3rUooJ4phG9AQUux2jD0PGA
+	epKrmomaUqCZiAwXz/UnA03f6vPcy9oKx45QiJ/QtedwHyunREFJ+xbfuo0u60Wd
+	7hfFFngjj/rvic/heSFunGpXyUhEBunmlLCwEWhna7TiDT6r9G+K6jXaYKL7VwU5
+	mSpxkG5cmI27rSuJsQelmCWUHjdKw+1u7/g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793400348; x=
+	1793486748; bh=0B8O7nu9f1oA8mtZ669QAgxW4AUmioLSCxqsLxGiP0U=; b=i
+	mNKQsTWMXZmUzulgqrFmEbjY81/LIz4JpcFmkB03Ln6T8IHtITkSQZSkL/045rO6
+	GQdgkM0ki1gnCMB2c8GlXWVGG5HpfVcLCrQA4fnVBMJzJOSjwCJaz4WNa6htCMPw
+	BjLf20xCKVEnihA+dW9eMAxsTaZXrPth6oY0CMgaQPEn2ECWLUuJwYPCB+s1in+z
+	K05PcdyFGeQvBW5PebP8ovdXo7pw33DLWZYO4ANFSORCgkb268V1Yah1W1hzX9BL
+	xkcqBQgsm9IwyE0FgXWN+/FTT/hwYAAANUlPEnXg6mOR6H6RyoWFf3ihIucDtMO0
+	OJ2kNK3kx1DrRrmjId4HA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=ownmail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793400348; d=ownmail.net;
+	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:MjQz6HVEL4pH6vPyv7XN95NNecOxrSVWrMBQQSP94pH0Buq
+	dXtIHlD3rrHjIr62a20Vbwhd8pqyp7xxgoaYUjWtsFJT3rC5PECj7ROrqu3gG9dY
+	ieCJEBlLnm8jlhNvS3wS73dGII0yfO1SKHE+DcjPbiZQn29iCq+LXVgZ5bIP+chp
+	eqA/ImZyEVakin07a0q27nf84f35kMVowxWQl+8lPMjo+949Iz/3YE8gn5zEwQhf
+	np5ySehejsnYVsG++icyvNsCGxGwYurC9NTZSLxC1Jd96bMsNllgu3BFIBWKHrgB
+	tm0CevtORysLoBczTXIvKTDZJFNSPzAeOTeu0qA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,reply-to,
+	subject,to;
+Message-Instance: m=1; h=sha256:6hS8kX8/2Y/Z02XsQ/S0GdyJ84NWRMwe7axxxaOjTNY=:ln1xf0CyP84OtQxdxCpn+k5tLttKTvxi8ap5isSNh3Q=;
+X-ME-Sender: <xms:Gx7lamfFP_mfuzxUGs31fMhFiGpsD89uYDXoIuF6aQ6VpYLsK9j4DQ>
+    <xme:Gx7lalz2KGzxldIGZbbOubnNLn4FlKwqlyWQpBEbOE3ZghM9rK5p4FjMT7Bf8_MHe
+    cLXafqcplc9g_GNWkH_rbYBwXPePQ67c5Z88K4X3PlbjM-G0w>
+X-ME-Received: <xmr:Gx7lahEV6dNd6QNAJZ3SLh9G0utdymFzsJ9N9xhMf_faIqdHSKItJWt1kop7KsJM6L4WCn_AJ4Dp1S8BTLFkrwMGo-qmjno>
+X-ME-Proxy-Cause: dmFkZTENnjV24hxZOZ2AhqWYYvaUGnTJGIvJXMAM/HCP0jMhhBPFe17oUdYSKatVeqdPzZ
+    Vpf2QikxTbrzIGvPM/XTu8ZdA0ZvVMjiSS8sTUT/UG0mF0QujI4xuz7+fDuJ5fTBeMOZk0
+    kT32b7viec1SkGY98z0PRJepQN7PQw1ZBEsLFhS7Qavt9hRt19/navlj949D1uf/jv0Mqr
+    9PwjMspBYtAkOteLu/NieyU9rupiM/H8tYIpKPslQ5IXfKTDPA6GCoTrpi1qm+RGexx32/
+    zB+YItZ4XCdwtse0c4X6q5GMd9zWnFwtaQFTSKgeDMt4jl5mAOaDGjGZjz8hYGaUgva9oT
+    J1H9fNRGhuYdB31gjto3Zjhemlf9hp3w66eNSTNeJOJ/i92vuY6qN7J2G0e3SYuccD2LaZ
+    Fg0BNSr8Tymvkq4pMiseqGVLQnzkgVnRwmlQZwSNAeZNdG2Y90LOoqxjUazSlamHSVUemY
+    A2HBRsKd1y0RVmnzGNZt4QM8s3WEk1BNBo7tIAVkP99LGGjcOnIK7QIp4pGGhI4qvILU5t
+    kpnkaJQl9/0716DR7BMF143vlmB9Xp6YaXk8plsLI7gS/f2WqPD7p9Gslq28DfNV9jKzFH
+    slzHq88UugB2KdDb2Fb/Y0XbLOJcA//KdfGkWuHfQBVhKtK4ohYPFWPpgnAQ
+X-ME-Proxy: <xmx:Gx7lak18XawSA9qLkltB3cMfg6XV692L5nRUg8HkeSaEEj7iugQFeg>
+    <xmx:Gx7lap82czRjD0aSai-Gy-5GXHxnKPQqwmd5saoxmdm5DGP6Ab_-KA>
+    <xmx:Gx7lanFnG-Y30YA5hc7OmETIL3qVu9bC8Mx4unaftyRX8J4Q8_GDsQ>
+    <xmx:Gx7lavjOxcLUTtrjQR5y1RaHo_h7J9MpDXR2MQt3K6mLIPvf5mk-jA>
+    <xmx:HB7lakzguzV6FITwoQXyGzP9IxX1OkMztxcoHOS75Tg8a4Q2Efuv6sYa>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 30 Oct 2026 18:45:43 -0400 (EDT)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,55 +118,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023195446.22578-9-valerii.sokolov@pm.me>
+From: NeilBrown <neilb@ownmail.net>
+To: "Kal Cutter Conley" <kalcutterc@nvidia.com>
+Cc: "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>,
+ "Chuck Lever" <cel@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
+ "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
+ "Tom Talpey" <tom@talpey.com>, "David S. Miller" <davem@davemloft.net>,
+ "Eric Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
+ "Kal Cutter Conley" <kalcutterc@nvidia.com>, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sunrpc: fix lost wakeups when stopping service threads
+In-reply-to: <20261030130629.103716-1-kalcutterc@nvidia.com>
+References: <20261030130629.103716-1-kalcutterc@nvidia.com>
+Date: Sat, 31 Oct 2026 09:45:39 +1100
+Message-id: <179340033904.269288.4611945330659974906@noble.neil.brown.name>
+Reply-To: NeilBrown <neil@brown.name>
 
-Hi Valerii,
-
-Thank you for the set. These are really nice fixes!
-
-On Fri, Oct 23, 2026 at 07:55:58PM +0000, Valerii Sokolov wrote:
-> ipu6_dma_map_sg() returns 0 when ipu6_mmu_map() fails, but
-> ipu6_dma_map_sgtable() only treats negative values as errors. On failure
-> it therefore sets sgt->nents to 0 and returns success, and callers such
-> as ipu6_isys_buf_init() and ipu6_map_fw_region() go on to hand the
-> hardware an address that is not mapped in the IPU MMU.
-> 
-> Return -ENOMEM when ipu6_dma_map_sg() maps no entries.
-> 
-> Fixes: daabc5c64703 ("media: ipu6: not override the dma_ops of device in driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
+On Sat, 31 Oct 2026, Kal Cutter Conley wrote:
+> Stopping NFS can leave rpc.nfsd 0 in an uninterruptible wait with
+> this stack:
+>=20
+>   svc_stop_kthreads [sunrpc]
+>   svc_set_num_threads [sunrpc]
+>   nfsd_svc [nfsd]
+>   write_threads [nfsd]
+>   nfsctl_transaction_write [nfsd]
+>=20
+> SP_NEED_VICTIM and SP_VICTIM_REMAINS remain set while all remaining
+> nfsd threads sleep in svc_recv() and none has RQ_VICTIM set.
+>=20
+> The stop request is published with unordered set_bit() operations.
+> svc_pool_wake_idle_thread() checks the idle list and task state before
+> calling wake_up_process(). If it sees an empty list or TASK_RUNNING,
+> it skips the wakeup and its memory barrier. The requester can therefore
+> miss a sleeping worker while that worker misses the stop request.
+>=20
+> Order work publication before both lockless checks, even when no
+> wakeup occurs. Pair with set_current_state() and llist_add() in
+> svc_thread_wait_for_work(), so the worker observes the pending work or
+> the requester observes the idle worker and wakes it.
+>=20
+> Fixes: 60749cbe3d8a ("sunrpc: change sp_nrthreads from atomic_t to unsigned=
+ int.")
+> Signed-off-by: Kal Cutter Conley <kalcutterc@nvidia.com>
 > ---
->  drivers/media/pci/intel/ipu6/ipu6-dma.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-dma.c b/drivers/media/pci/intel/ipu6/ipu6-dma.c
-> index a923a1e4bd..37b5c25259 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-dma.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-dma.c
-> @@ -459,8 +459,8 @@ int ipu6_dma_map_sgtable(struct ipu6_bus_device *sys, struct sg_table *sgt,
->  	int nents;
->  
->  	nents = ipu6_dma_map_sg(sys, sgt->sgl, sgt->nents, dir, attrs);
-> -	if (nents < 0)
-> -		return nents;
-> +	if (nents <= 0)
-> +		return nents < 0 ? nents : -ENOMEM;
+>  net/sunrpc/svc.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>=20
+> diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
+> index af8d87c1de83..f3cc63acc5e1 100644
+> --- a/net/sunrpc/svc.c
+> +++ b/net/sunrpc/svc.c
+> @@ -29,6 +29,8 @@
+>  #include <linux/sunrpc/clnt.h>
+>  #include <linux/sunrpc/bc_xprt.h>
+> =20
+> +#include <asm/barrier.h>
+> +
+>  #include <trace/events/sunrpc.h>
+> =20
+>  #include "fail.h"
+> @@ -693,6 +695,13 @@ void svc_pool_wake_idle_thread(struct svc_pool *pool)
+>  	struct svc_rqst	*rqstp;
+>  	struct llist_node *ln;
+> =20
+> +	/*
+> +	 * Order work publication before the idle-list and task-state checks,
+> +	 * even when wake_up_process() is skipped. Pairs with the barriers in
+> +	 * set_current_state() and llist_add() in svc_thread_wait_for_work().
+> +	 */
+> +	smp_mb();
+> +
 
-I think this has been written as-is since the thinking has been a negative
-error code is returned on error. So I'd fix this on ipu6_dma_map_sg() side
-instead.
+I don't like this.  Stand-alone barriers are, I think, harder to read
+than barriers combined with operations, like smp_load_acquire() or
+similar.  And this one seems quite detached from anything.
 
-dma_map_sg() returns 0 on error (which is probably the source of this
-discrepancy) but I don't think we need to align the error codes to that.
+If I understand correctly, the possible race is between
+svc_thread_wait_for_work which includes:
 
->  
->  	sgt->nents = nents;
->  
+		llist_add(&rqstp->rq_idle, &pool->sp_idle_threads);
+		if (likely(svc_thread_should_sleep(rqstp)))
 
--- 
-Kind regards,
+and svc_stop_kthread which includes:
 
-Sakari Ailus
+		set_bit(SP_NEED_VICTIM, &pool->sp_flags);
+		svc_pool_wake_idle_thread(pool);
+
+The first sets ->sp_idle_threads.first and then checks SP_NEED_VICTIM
+and the second sets SP_NEED_VICTIM and then checks
+->sp_idle_threads.first.
+
+So we need barriers to ensure the values are seen is the expected order.
+Have I missed anything?
+
+llist_add() always calls try_cmpxchg() which is fully ordered, so no
+extra barriers are needed there.
+
+There is no barrier between the set_bit)( and the READ_ONCE() in
+svc_pool_wake_idle_thread(), so you added one.  I agree that is correct
+and solves the problem.
+But it is only this call to svc_pool_wake_idle_thread() that needs a
+barrier, not all calls.  So I would prefer the barrier went in
+svc_stop_kthreads().   Do you have a reason for not including it there?
+
+We do need a full memory barrier - a "release" on the set_bit and an
+"acquire" on the test of ->sp_idle_threads.first
+
+I would be happy with smp_load_acquire(->sp_idle_theads_first) in
+svc_pool_wake_idle_thread().  I'm not sure it is needed though.
+
+I would like set_bit_release(SP_NEED_VICTIM) in svc_stop_kthreads()
+but we don't have that.
+We could do
+   atomic_long_fetch_or_release(BIT(SP_NEED_VICTIM), (atomic_long_t*)&pool->s=
+p_flags)
+but that is ugly.
+
+So I think the best solution is
+
+		set_bit(SP_NEED_VICTIM, &pool->sp_flags);
+		/* Order SP_NEED_VICTIM before testing sp_idle_threads,
+                 * matching svc_thread_wait_for_work() which orders
+                 * setting sp_idle_threads before testing the bit
+		 */
++               smp_mb__after_atomic();
+		svc_pool_wake_idle_thread(pool);
+
+We probably need the same in svc_wake_up() after the set_bit().
+
+Does this make the barriers easier to understand?
+
+Thoughts?
+
+Thanks,
+NeilBrown
+
+
+>  	rcu_read_lock();
+>  	ln =3D READ_ONCE(pool->sp_idle_threads.first);
+>  	if (ln) {
+>=20
+> base-commit: b803428098f6fcd584db9f0499217b80e465bb34
+> --=20
+> 2.53.0
+>=20
+>=20
+
