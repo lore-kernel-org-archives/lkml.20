@@ -1,59 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793355767;
-	b=m8WEhWmfRGHdikCElOmaDQ3YgDVVWmc3kbe/cWQeiWhC3eoXi26NOnO3Gla852QGeCJQ
-	 Xq228eH+PTrRaJmCul1TJGw47ZY1npkqOxQCZggv74SPJ9OMRrkK8Li3ZWUV+Xuyj3vf8
-	 DKtAW/5H2Gt1432WZW/tzAINYAmdjCxZdHrjxVYaEA2hf7sTrPiXsi36W8i5HeqP5Hiw3
-	 TcS6v3popdLfTdWh+l50UavvKjH7wiSrsQoTmklcvPXaX892dJJxc/dwnyUAknaS+E6h2
-	 /GdsSO0pycRFRuDkY4iGp+CyMvo7BE7yg1Sq8DAw2dkM1DpKbbsfqINS3C8U40aKDwA==
+	t=1793355785;
+	b=3/WsUvd6n48eSYPxciNfFpm8dPcBbyuoFok3hMRtsCRfRm14sf1YUUg3jueDQZrXakGV
+	 94S/f0zCkxb/LaHdd8YmO3Pu1QHpPj/+PZYdWGsrefnEgW8esU2AHjMcX5ziRE3TYLzJ3
+	 7tNKKbJPNFg+5MTSFA7qGrFSQWEs4qA7gkHLJBlmB0IaJ6K7rVRZcG8Z4lUxxFDK+RpCG
+	 CbXALfLxIbDXV38K1FqbucSamVWlC4Qtyv9NrDt+NqPpufwPbfAKN4KhPMKMbW1y3+5u9
+	 fw+AVPAc5mh3S6xSA/BEnjLzXDBiASlhA8eMvsUltI6F4QAxOWy0dNzkGrI2EQ3KgCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793355767;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=kpTyrdA1i+y2556zUDjgson9wJKQHizmCV0pLv7Ag1Y=;
-	b=WquXVOEt1xnWN4k+iK7elICOrtQHkw/SUH4lVRvNk4gpDde7X5G6x9ZVPr6B0AhdGeQE
-	 Bfg8z1l4cNXWFDXdOwfN8ZGPgCLS2TGIR9Jo+56yz2s/n9MzaMbZDsqw5xrVDiH7wN9Yc
-	 VbxW1qn7b9wcGtM1x9qub2LsETmiMATqAbPVdAca0Ylq9OFBKjoyNruAJdCGgenRCzw1h
-	 DEbdezkMMIhPi2FTrns71mR3V6AwX4Sjhdw87Qidp7NkOX7IuFe3wle5R3+IgMplZd67Z
-	 poTflCjrJap2gSMa1qvbmQ21z48YS41XFDMckS5ldXV/T1+BKsDyZCNdIkaC4IrcXpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793355785;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=MoAghpZzhMWka6buBPWIBz9Jz+B7Jbd30cQS0OP8bSY=;
+	b=M9Uz86qnj3b8dmENi4ONJo7197LeDrM3pYVvDaCovG3AZckIKqFKD7QIOzkNNCg3yXWD
+	 JZ+BwuHIVoJJXHusBwkbA5hNCIHeTLIBgd11z58Hk2q1HswAyvpg1Bf9Ps/81r3/32Zea
+	 yx02tinKtrRiTdwuXIk6N5a6Mo+GzDRByuzH9OczAIEQyi7PaVb0aW1bjcOCLfwy027FM
+	 hPNiDMctCZRin0ti+r+Addu6p0Iq2hCcN+Ep57hgNpufXA4IZf2AfaJCL5ltwHwztIstF
+	 XLDyBZ5R+pZUEAVv5qiOYh0+rccKf1/bCGOxag/he/a31K32NTS3a0QM6r/WUjQcaiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=A0gP2Okt;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=CL2Ou8qH;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D32606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:22:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74D32606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690F3606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:23:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 690F3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=A0gP2Okt
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=kpTyrdA1i+y2556zUDjgson9wJKQHizmCV0pLv7Ag1Y=; b=A0gP2OktV3j0APACgbuDn/vfC2
-	R3sA4Q36DZns9JdO1IT+O/9UkkNOBE62zjXIXx0UtsF9ctWF8OPUNfvIMifVFoGTOADx349TDwvTe
-	MX+NdE5/T6osdEP7XHBhhDjyMU7vbQdcPF2ZzgjP82jvOuUAMwRDGddyf4Buf2KdKP2vvDOrtoYeP
-	eiAnQHDiYnipbpt7KT/Su4XXhRawNLJbikqhYiRcj5/LTB+9wC+XWw+RUzACeWmbBAoyP2WxkmKk+
-	6aZoSEfjFokA1E/1yUMhUH9n/wRtkCuagTsCw7gBbRnSJcYMH36v8/8WobtK4mmoREtsnY3KlJQMA
-	utG7TZsA==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: =?UTF-8?B?WWFsw6fEsW4=?= Can <ylcncn@gmail.com>
-Cc: Russell King <linux@armlinux.org.uk>,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Johan Jonker <jbx6244@gmail.com>
-Subject:
- Re: [PATCH] ARM: rockchip: rk3066: set soc_remap before starting secondary
- cores
-Date: Fri, 30 Oct 2026 11:22:32 +0100
-Message-ID: <1940718.QZUTf85G27@diego>
-In-Reply-To: <20261030073647.164416-1-ylcncn@gmail.com>
-References: <20261030073647.164416-1-ylcncn@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=CL2Ou8qH
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id B5D114E41396;
+	Fri, 30 Oct 2026 10:23:02 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7BBF9603C2;
+	Fri, 30 Oct 2026 10:23:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D7AA9103287DA;
+	Fri, 30 Oct 2026 11:22:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793355781; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=MoAghpZzhMWka6buBPWIBz9Jz+B7Jbd30cQS0OP8bSY=;
+	b=CL2Ou8qHtleTe62SzBLW7vbfcRTy7bXMr0HJ/6B8Wso+cJjQ72BwU3zWfGXZtcUDYwRoL6
+	JGyGL1kdp5WYuhZRHsiOx+nDHt7k8ZXNQRU2ZAn4mtxUAFtRO2drnurQ7/XjafNVa+G3km
+	ykfVUmOmQ6GqOWw7N6mL4ETShxWpqRyNvDRckGSDYPRWrr19Li7+W/yjzQDHQukznxVGa3
+	Vp2uS3GDSteydhURZZkOQelGDjTKozhbSw4XmVLu/ugi8DhF4U6o9GvgjaQn40vL1TbJtA
+	5ZvKh4Pf57SJf5g1xaR6dTGa0Jg9h2lKlK2TtgqajLE4jDJUYMziIy7XexLKtg==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+	Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	thomas.petazzoni@bootlin.com,
+	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH net] net: stmmac: Clear DMA errors for multi-channel interrupts
+Date: Fri, 30 Oct 2026 11:22:49 +0100
+Message-ID: <20261030102251.208929-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,48 +80,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+The Multi-MSI interrupt handler doesn't clear the DMA error interrupts,
+and this leads to interrupt storms when one of these interrupts starts
+firing :
 
-Am Freitag, 30. Oktober 2026, 08:36:47 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Yal=C3=A7=C4=B1n Can:
-> A Cortex-A9 core on the rk3066 starts at address 0 when it is powered up.
-> The SMP code copies a trampoline to the start of the internal sram and
-> relies on GRF_SOC_CON0 soc_remap (bit 12) mapping the sram at address 0.
-> The vendor loader sets that bit before starting the kernel, but a boot
-> loader started directly by the bootrom leaves it cleared. The core then
-> runs the bootrom instead, which parks it and also writes into the start of
-> the sram, so the trampoline's target word is overwritten as well, and the
-> boot logs "CPU1: failed to come online".
->=20
-> Set soc_remap after the secondary cores have been powered down and before
-> the trampoline is copied. The rk3188 shares these smp operations; its grf
-> has a different compatible and is left alone.
->=20
-> Tested on an RK3066a board (MK808B) with U-Boot started from the NAND ID
-> blocks by the bootrom: before, CPU1 never came online (GRF_SOC_CON0 bit 12
-> clear, sram+4 read 0x00000001 instead of the physical address of
-> secondary_startup); with this patch both cores come up at boot, three
-> offline/online cycles of cpu1 work, and the board restarts normally after
-> a reboot and after a forced panic. Booting through the vendor loader, whi=
-ch
-> already sets the bit, is unchanged. Not tested on rk3188.
->=20
-> Fixes: a7a2b3118b41 ("ARM: rockchip: add smp bringup code")
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Yal=C3=A7=C4=B1n Can <ylcncn@gmail.com>
+ - The RBU (rx buff unav) which triggers under high traffic load
 
-there is another patch from Johan pending [0], which I plan to apply after
-the merge-window, that moves all of the A9 cores over to booting via
-the SoCs bootrom and gets rid of the whole trampoline code.
+   This triggers easily with iperf3 and small udp packets, and shows
+   when running the netpoll kselftest
 
+ - The RPS (rx process stop) which triggers when we stop the DMA RX.
 
-Heiko
+   This one shows when restarting the RX logic without doing a down/up
+   cycle, like when attaching an XDP program. The XSK kselftests
+   triggers it.
 
+Let's make sure we clear these interrupts for multi-MSI cases. It's
+already properly done for the single-chan interrupt, and for that
+introduce an "ERR" DMA dir, as we don't want to touch the RI/TI bits
+when handling these interrupts.
 
-[0] https://lore.kernel.org/linux-rockchip/20261017-cpu-v3-1-25d8f4b06362@g=
-mail.com/
+To avoid duplication, the DMA TX error handling is factored out in a
+dedicated helper (in the same commit to ease backporting).
 
+Both of the above storms have been found on dwmac-motorcomm (YT8601),
+and are triggered by the xdp.py, xsk_reconfig.py, xdp_features.py,
+ring_reconfig.py and netpoll_basic kernel selftests.
+
+This seems to only affect dwmac4, there's no multi-msi mode on
+dwmac1000, and on dwxgmac these interrupts are masked as of today.
+
+Fixes: 6ccf12ae111e ("net: stmmac: use interrupt mode INTM=1 for multi-MSI")
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
+ .../net/ethernet/stmicro/stmmac/dwmac4_dma.h  |  5 ++
+ .../net/ethernet/stmicro/stmmac/dwmac4_lib.c  |  2 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 46 +++++++++++++------
+ 4 files changed, 40 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+index c74bc7c9750e..a972bee66504 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/common.h
++++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+@@ -382,6 +382,7 @@ enum dma_irq_dir {
+ 	DMA_DIR_RX = 0x1,
+ 	DMA_DIR_TX = 0x2,
+ 	DMA_DIR_RXTX = 0x3,
++	DMA_DIR_ERR = 0x4,
+ };
+ 
+ enum request_irq_err {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
+index 43b036d4e95b..a7caac3c98e6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
+@@ -173,6 +173,11 @@ static inline u32 dma_chanx_base_addr(const struct dwmac4_addrs *addrs,
+ 					 DMA_CHAN_STATUS_TI | \
+ 					 DMA_CHAN_STATUS_MSK_COMMON)
+ 
++#define DMA_CHAN_STATUS_MSK_ERR		(DMA_CHAN_STATUS_AIS | \
++					 DMA_CHAN_STATUS_FBE | \
++					 DMA_CHAN_STATUS_RPS | \
++					 DMA_CHAN_STATUS_RBU)
++
+ int dwmac4_dma_reset(void __iomem *ioaddr);
+ void dwmac4_enable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 			   u32 chan, bool rx, bool tx);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+index a0249715fafa..02aa1a3dd1e2 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+@@ -150,6 +150,8 @@ int dwmac4_dma_interrupt(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 		intr_status &= DMA_CHAN_STATUS_MSK_RX;
+ 	else if (dir == DMA_DIR_TX)
+ 		intr_status &= DMA_CHAN_STATUS_MSK_TX;
++	else if (dir == DMA_DIR_ERR)
++		intr_status &= DMA_CHAN_STATUS_MSK_ERR;
+ 
+ 	/* ABNORMAL interrupts */
+ 	if (unlikely(intr_status & DMA_CHAN_STATUS_AIS)) {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 9ded31150fbe..2068b57df8d5 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3141,6 +3141,16 @@ static int stmmac_napi_check(struct stmmac_priv *priv, u32 chan, u32 dir)
+ 	return status;
+ }
+ 
++static void stmmac_dma_tx_error(struct stmmac_priv *priv, u32 chan, int status)
++{
++	if (unlikely(status & tx_hard_error_bump_tc)) {
++		/* Try to bump up the dma threshold on this failure */
++		stmmac_bump_dma_threshold(priv, chan);
++	} else if (unlikely(status == tx_hard_error)) {
++		stmmac_tx_err(priv, chan);
++	}
++}
++
+ /**
+  * stmmac_dma_interrupt - DMA ISR
+  * @priv: driver private structure
+@@ -3165,13 +3175,24 @@ static void stmmac_dma_interrupt(struct stmmac_priv *priv)
+ 		status[chan] = stmmac_napi_check(priv, chan,
+ 						 DMA_DIR_RXTX);
+ 
+-	for (chan = 0; chan < tx_channel_count; chan++) {
+-		if (unlikely(status[chan] & tx_hard_error_bump_tc)) {
+-			/* Try to bump up the dma threshold on this failure */
+-			stmmac_bump_dma_threshold(priv, chan);
+-		} else if (unlikely(status[chan] == tx_hard_error)) {
+-			stmmac_tx_err(priv, chan);
+-		}
++	for (chan = 0; chan < tx_channel_count; chan++)
++		stmmac_dma_tx_error(priv, chan, status[chan]);
++}
++
++static void stmmac_dma_err_interrupt(struct stmmac_priv *priv)
++{
++	u8 tx_channel_count = priv->plat->tx_queues_to_use;
++	u8 channels_to_check = max(priv->plat->rx_queues_to_use,
++				   tx_channel_count);
++	int status;
++	u8 chan;
++
++	for (chan = 0; chan < channels_to_check; chan++) {
++		status = stmmac_dma_interrupt_status(priv, priv->ioaddr,
++						     &priv->xstats, chan,
++						     DMA_DIR_ERR);
++		if (chan < tx_channel_count)
++			stmmac_dma_tx_error(priv, chan, status);
+ 	}
+ }
+ 
+@@ -6466,6 +6487,9 @@ static irqreturn_t stmmac_mac_interrupt(int irq, void *dev_id)
+ 	/* To handle Common interrupts */
+ 	stmmac_common_interrupt(priv);
+ 
++	if (priv->plat->core_type == DWMAC_CORE_GMAC4)
++		stmmac_dma_err_interrupt(priv);
++
+ 	return IRQ_HANDLED;
+ }
+ 
+@@ -6500,13 +6524,7 @@ static irqreturn_t stmmac_msi_intr_tx(int irq, void *data)
+ 		return IRQ_HANDLED;
+ 
+ 	status = stmmac_napi_check(priv, chan, DMA_DIR_TX);
+-
+-	if (unlikely(status & tx_hard_error_bump_tc)) {
+-		/* Try to bump up the dma threshold on this failure */
+-		stmmac_bump_dma_threshold(priv, chan);
+-	} else if (unlikely(status == tx_hard_error)) {
+-		stmmac_tx_err(priv, chan);
+-	}
++	stmmac_dma_tx_error(priv, chan, status);
+ 
+ 	return IRQ_HANDLED;
+ }
+-- 
+2.56.0
 
