@@ -1,84 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793318567;
-	b=WpBgv8c0tC8QFRdImEU3HG74eTAV2Qvs4QNJwYnlrQkjg0j+QirQMcTztiuaEfZbrYWB
-	 gX1NenLSfmFadfS2OCCTmlSTITsw8WM1AbjicX82AZxboszCGVk011OehPVCAmGmsqdmF
-	 WXB0FB/1M9SMcTbm5obIi5tpaI6RkCBpS17SqxsQLsqXL3l1pCrX5UmQusrhvoOr0OIhm
-	 Cuxa2gvEZ0ohtKvuXx6Ys3901x9IeLgTXLR9PIRpI8vTHwgKoiuSeuk2Ovuc7wFIF4VHO
-	 4mtUHYz6vT8Mtbm6iC1yU8HYshpWDahhS44Smzob7hft7db0hYN5v31RrKR4DaLCV3w==
+	t=1793318622;
+	b=gZ9/Zxq09hwpijt+TEGIiYXICtiG+z16nNYPQO+yyMc/yW3u2X/vBzIh5M/kRD+rtUU0
+	 4LvVGXEMkQ+uCp0L4bH3FCrkuki1r5vXzz7ZpiqYQBx0H8AqAG/H0RYQ4WdD0ThxswACA
+	 9PVimOSIm1Qu+ITnxQ+sxxmyD4SS5TlG3PQMpSYsFNEI2t5oN/mdL9j6teaPGYzRWLXVD
+	 ADFBcQEQJjGgiwAPt6PgI+qLFqEwAFhj7+8lZABYBYvo9rJB54cxYXRcFQOd+XiRw9sdK
+	 lJxf3sS/trRqqbpFA0JTrdGgPfTXpHy+p0Jb6/Icy8vxspWIllMk9uO0Wo9SfAIeeWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793318567;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=EekVTKvOeeC7YsplvAwGdEYQ+UvW9EdugEoPsQ9stwE=;
-	b=pG7WirRb9BETfC0/76K2BarbSvDzwCE+PRXLZcpXIwHOM0NVMDy+5tB2YFg0Hl9yXhA9
-	 LoSd6SMHeoWP+qR5rsrfOQvtUJdhguVhyAUR8k8Fl4VKWKYH9Ca01efWVEej2jOI1Diss
-	 WGtUYLIucbjUCXk/S2QE2BlcQEZNzMTWAhVfizpUfUvR3nnuQuREcjSk0OsYoThzL0Nlr
-	 6SC6Z+U9J9Ck9BxTnyVcWEcmrwltjo0eL4fpClzbzRIHt/5f6rQfi+e5WO8axyb+MurHp
-	 eG86bGYGxk1tkRzsYOZqnNyj2jCB7X/UiUXFIqVVyY/7wkMIIkKWIhIEviBL/QkI7tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793318622;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=dMHxnxAuAY51WsK68Hbq8XLJIMVe6FZH8MOvZxQQ2Qg=;
+	b=beHsHzg3aQmwZUun0uGqKwRKS3c67UIOLHCBtpj+JN93OvC57/ad/xM39L4xVlcw6HEc
+	 OKgZ0VDTy+LETMIAfBY9x7SMMmMX41/akA/6xZ8WbLNr4N58EovlZgJeenDZWJMg+OikL
+	 F1le5RU1p+0pd+CBeXXh0pChMa0uCHA8Rt7aFmDjo4asCVrMDT42B6KktsYhHRCubsiPN
+	 YwE0rnqMNxvI89ZQmrURJsp5CCCiuepjeB1l43o9dZA2vu8zyaIw3w0aO5g80nkUOSz3a
+	 rikFL6OdunkN3zGkUEMXidDvOwip51EkZdbtyn51sUH1gCIRufUeEhRCYlvW31uW2KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tFz8MHm1;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BTC0PpSS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12CC5606A31F;
-	Fri, 30 Oct 2026 00:02:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12CC5606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD180606A31C;
+	Fri, 30 Oct 2026 00:03:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tFz8MHm1
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 5F16B1A1382;
-	Fri, 30 Oct 2026 00:02:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 308106076A;
-	Fri, 30 Oct 2026 00:02:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5DE84103287DA;
-	Fri, 30 Oct 2026 01:02:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793318557; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=EekVTKvOeeC7YsplvAwGdEYQ+UvW9EdugEoPsQ9stwE=;
-	b=tFz8MHm16YurNh2mIlIObooIYNsnhPs4cj3xNZ/bT4oXGpWFRAXR1ilWe2CvEdZ5RO1PPx
-	LhyyqVDYi2l57JpiH2vwFLCfaXHw1WSFaUPT8lQhGdQl5+SwHOV2+aID9eeHE9ifID4Wnj
-	3nA3XaC4DTitcDWgnFv0F4kTYhzVHCu9tp7Rw3UhlDTsz5lsgoYVNvWjROitSNF0IQtVh/
-	nwZ8O+4cpqdUpl+WWRjg2mHAW577eyN3bJelcrmO7CGqwExB5HkygFQiZKfppR0Di1N1vs
-	3MpxzOIQoXLBxqp3BTjtANZjLfu/lzlXJEwhgbHETx9IGMFJP8tXiYr2x7DDLg==
-Date: Fri, 30 Oct 2026 01:02:28 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
-Message-ID: <20261030010228.34d9daca@bootlin.com>
-In-Reply-To: <20261021155923.55e48904@bootlin.com>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-16-herve.codina@bootlin.com>
-	<arDMhoNNXcPi81sR@gractus.seuss>
-	<20260925152157.511dc65c@bootlin.com>
-	<as3ZWBr3wRonkxXF@gractus.seuss>
-	<20261013190347.4f1d9b9d@bootlin.com>
-	<atGzdxETQZ9ovJFh@gractus.seuss>
-	<20261019151121.26d99f30@bootlin.com>
-	<atgi4rMsw5W6kKkS@gractus.seuss>
-	<20261021155923.55e48904@bootlin.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BTC0PpSS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8875C1F000C1;
+	Fri, 30 Oct 2026 00:03:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793318621;
+	bh=dMHxnxAuAY51WsK68Hbq8XLJIMVe6FZH8MOvZxQQ2Qg=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=BTC0PpSSWF5Nall0NukdFuR1nPpc7VJuccTQnJhaWlIJRuZ34gttFY6DubQZpz1z0
+	 zbJ/cXX2GxL7h8+WEbBen3Pmmptv1NwsbwmwMFYY/0c+DLZ5GwwmloeUr64SugEkae
+	 m2EUMn4KJTs9eCUdiyWViK8maoucTwlFYcSTdzhebIldYQzOrf3n3H2cezXweaM+EZ
+	 EVr3w9d1iLJFuetJIOEc3C/4Bq7FwrBsVdYd/BESgl760kso8sqa7vGyKHZC3aS+Hn
+	 HKd/BHH7F8kShZNwYEQ8+UENRh+TCHJaPyEkTznRVJQdMgH8/u559Tjy2ubFMP2Ni0
+	 F85vOe3fI1Ifg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D3FE38007D3;
+	Fri, 30 Oct 2026 00:03:41 +0000 (UTC)
+Subject: Re: [GIT PULL] ntfs3: changes for 7.4
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20261028073622.8942-1-almaz.alexandrovich@paragon-software.com>
+References: <20261028073622.8942-1-almaz.alexandrovich@paragon-software.com>
+X-PR-Tracked-List-Id: <linux-fsdevel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261028073622.8942-1-almaz.alexandrovich@paragon-software.com>
+X-PR-Tracked-Remote: https://github.com/Paragon-Software-Group/linux-ntfs3.git tags/ntfs3_for_7.4
+X-PR-Tracked-Commit-Id: ee1cb3443cff5a800948b662756f75b17ca63fe2
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 0ff8f40110872ecd3a9918e56ddd0ff1b46fb10e
+Message-Id: <179331862015.761441.4068740279355063428.pr-tracker-bot@kernel.org>
+Date: Fri, 30 Oct 2026 00:03:40 +0000
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: torvalds@linux-foundation.org, ntfs3@lists.linux.dev, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Alexandro Calo <alexandro.calo@nozominetworks.com>, Baolin Liu <liubaolin@kylinos.cn>, Dmitry Morgun <d.morgun@ispras.ru>, Hongling Zeng <zenghongling@kylinos.cn>, Hyeontae Lee <wonju345@naver.com>, Ibrahim Hashimov <security@auditcode.ai>, Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, liyouhong <liyouhong@kylinos.cn>, Matvey Kovalev <matvey.kovalev@ispras.ru>, Michael Bommarito <michael.bommarito@gmail.com>, Slawomir Stepien <sst@poczta.fm>, Vidhu Sarwal <vidhu.linux@gmail.com>, Weiming Shi <bestswngs@gmail.com>, Xiang Mei <xmei5@asu.edu>, Yi Xie <xieyi@kylinos.cn>, Yousef Alhouseen <alhouseenyousef@gmail.com>, Yuejie Shi <syjcnss@gmail.com>, Yun Zhou <yun.zhou@windriver.com>, Zhan Xusheng <zhanxusheng1024@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,85 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi David,
+The pull request you sent on Wed, 28 Oct 2026 08:36:22 +0100:
 
-I know you are busy but if you could give me your opinion on this last
-message that would be greatly appreciated.
+> https://github.com/Paragon-Software-Group/linux-ntfs3.git tags/ntfs3_for_7.4
 
-I've started to prepare the next iteration of the series adding support for
-"structured" tags and their definition need to be stable to move forward.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/0ff8f40110872ecd3a9918e56ddd0ff1b46fb10e
 
-The question to answer to complete the definition of the "structured" tag
-format is: Should SAFE_SKIP bit be re-introduced?
-
-IMHO, it should.
-
-Best regards,
-Hervé
-
-On Wed, 21 Oct 2026 15:59:23 +0200
-Herve Codina <herve.codina@bootlin.com> wrote:
-
-> Hi David,
-> 
-> On Wed, 21 Oct 2026 13:26:49 +1100
-> David Gibson <david@gibson.dropbear.id.au> wrote:
-> 
-> > 
-> > Correct.  Btw, I know I suggested "skippable tag" as a term, but given
-> > how that gets kind of misleading in the case of writes, I'm coming to
-> > prefer the orignal "structured tag" term.  
-> 
-> Ok, no problem to switch back to "structured tag". On my side also, I prefer
-> this term.
-> 
-> Now I think that the bit indicating if a structured tag can be skip or not
-> should be kept. I know the we can use "old" tag format when a tag cannot be
-> skipped but I thing that using structured tags for those tags can lead to some
-> benefit. For instance, in fdt_tag_next() we can benefit of the data size
-> encoded for structured tags for all king of structured tags (skippable and not
-> skippable) and retrieve the next tag without the need for parsing data related
-> to a tag. When tag has a string as data, without the length we have to scan the
-> string to find its end. Of course we can add the length if the tag definition
-> but this is automatically implied if we use a structured tag.
-> 
-> So for structured tag, I can propose:
-> - bit 31: 1 to identify a structured tag
-> - bit 30: SAFE_SKIP bit (1 if we can skip, O otherwise)
-> - bit 29..24: Data lendth encoding
->    0b000000: No data
->    0b000001: 1 32bit word of data
->    ...
->    0b111110: 63 x 32bit words data
->    0b111111: varlen encoding (1 32bit word added after the tag to encode the
->            data length in bytes.
-> - bit 23..0: Tag id
-> 
-> Without the SAFE_SKIP bit, all structured tags must be skippable. IMHO, we
-> could regret this limitation in the future.
-> 
-> The cost of the SAFE_SKIP bit is not a lot. When we check to see if an
-> unkwown tag can be skipped, we are going to move from
->   if (tag & 1<31)
-> to
->   if ((tag & (1<31 | 1<<30)) == (1<31 | 1<<30))
-> 
-> IHMO, this is acceptable.
-> 
-> Of course, if the SAFE_SKIP bit is re-introduced, I will also re-add the test
-> checking that unknown structured tag that cannot be skipped leads to an error.
-> 
-> Best regards,
-> Hervé
-
-
+Thank you!
 
 -- 
-Hervé Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
