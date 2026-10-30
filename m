@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793394617;
-	b=Sem0rVJVuoqhXcQP2UHyY9b4VvKZwmKDrQlJzIDJVoj+j7ixhTzD4eIUVRu3aKMVp8kb
-	 mHMMuDEd/i3vcG0YVXzlbx49704LYqg5oqEjtCclsAk5z4tneGKseYTdCRcolBqrOdpnn
-	 n1pjIn2iEijUsiKWJaAHfyx8cUnFektAMZc3nsnndmxvDOKcZQ8948ZgNvkfTA1H5erO/
-	 dxnR8OFzbBSeMRIEY6vMQ3HuHL+0DnPEHLhGAnBG8bpcZ1QNcMqI90emdsL0poGhQUIPy
-	 1p0vfLPhTN7LWoGSIi/4GDnAYNATjaVFz7jPVC6dW9//q3/AqnR1bBSV6uYS3vqxp1g==
+	t=1793394622;
+	b=TQSU+Q/8Tn3JnXfYuu0qHNz70rQBukRhQHFrxlvWxSvOWszN/KRnbEj1R8iQ7luQN22N
+	 uhqDRJR2MyIir5q2nKOMaWdeXpvrb7eVNap3MAoHY5zqtJT1lQIerlN0m98IX4emW/N4/
+	 zErqEY3tCwLmFQ8sZR0SmAEAEUCv5JXQA4joIy+4hh0337akqAt8Mr3x4gKbM14oojMy/
+	 Q4Gv9iQrEEdCWhS81Ri+GhJACBDhnUzS8hpwcRl8LFKPbdrQ8PnoiEhDkkC93MQNc3p6K
+	 42raTNXnlfr/32IKbg0ZVbp3UwLXsnvvVcquNlQVstBoHLmfRgDOrtiAlwsRPEetOHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793394617;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793394622;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=I0lofktk4aVZckRcCcRV6QntITM4Mli1YlgsaCWlDa8=;
-	b=QPUnQf0tZ4EOzYL0n/gUcwKaU1nz/1t4TYo0RYi1CpD4Ct7b9ux7rUd+yqSY2e1wdwsT
-	 stSauL5pBaeX7blnJPJj/jqT/Et0eSW2JiCYEVcVwEFAZRqF5TOEfzfgH7AYo9twBD3X/
-	 m2h1ECVGusz387WGYTHDDqLY9QqhGocIMtvwpxUq0bzBvnPxtvt6v3fwmezUFb2iGesII
-	 NIzsTcp9jmiZYv+byNEjbtPdCoqfvLj61TYaNiuaKyoUFTQzeWxznIE44+RIg4oU3Kxvy
-	 4KyxOhYKhnxR8vnzU6K6gaA8O+meeUof8DHHJpMPxQaXSh766qRx8gzRUSWn+NwhKQQ==
+	bh=b6rgIm+5PbCV1VV/h+qGVE2kN3elc6rHKJjG61+uC6E=;
+	b=imYfAcRlsfv8yViwA4gdl/2Y0BYdSDuhrtwPB6E2EvG04t8M4Y0KYVEwCpDTawA6wXMg
+	 bfhLR16pQmVR1kYwFh7bhKcnxH+RPH0viMGQ+K7G2DC8knf1a7uKwyy14xXQHu3xp6KcB
+	 wRVoeOMJwk8cibJuYTpzEgF35UJwwIkW18koknObl+vzFm3475bQxZm7a3q9Kl1Z5J/Sv
+	 jQ3yOj2hoINwJBFkcekA+MBoUtB43wp/2aewhlqdwA6E6yVWYzjxYtQxwZwMiVw5VZTIO
+	 5FpvoWivGoai2VY7VuJCbqSBVH3D0pwTHALjwWwKaErdWJbXCZEM4pr96SihTfE+i2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arista.com;
 	spf=pass smtp.mailfrom=arista.com;
-	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=kRsN7yMw;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=bfb4H3Ja;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0961160A2606
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:10:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0961160A2606
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399D260A263D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:10:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 399D260A263D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=kRsN7yMw
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1adbf62dd31so964808c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:10:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=bfb4H3Ja
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-170135e43c7so204791c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:10:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1793394616; x=1793999416; darn=vger.kernel.org;
+        d=arista.com; s=google; t=1793394620; x=1793999420; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=I0lofktk4aVZckRcCcRV6QntITM4Mli1YlgsaCWlDa8=;
-        b=kRsN7yMwZgo28qTV/TO991Yy79ioZOc1J/0OwfKZdoy2ilaKYyxsHvjf34ppy3wwRF
-         o+cs63h1F0blKJiAP5DtQWfytFi5lzxJYAA8MPOTl0MXJ93rtgjVYx8VZ0W6opwrI0RT
-         9VMxk3rMzImpbwZssM0gBkO5ukGpqtec+0RRoWnp2Ik6GpP8ZIaOL//y9zNyuwI73jQC
-         RHkSfwPQ/D2rCBBTlopvsRjY5An/2NTZWl9BNV0/6oGYh0aTO6EC8WNXUT/VezLZLEzu
-         CTPHvT7PKf4cetvsPka7QQqZLpDiLog/p1Lwt1roGDnZXvIInTq1y/Ekzo0c83+it/9V
-         v53g==
+        bh=b6rgIm+5PbCV1VV/h+qGVE2kN3elc6rHKJjG61+uC6E=;
+        b=bfb4H3Ja92X3d9BVzx0zy/DiN96n2Dee4Kykw1jdIKADVNsOMyCtGPlMdJJ58ZTfOX
+         bzu0/KRWsSCh1CPt95Vwiei/OwzvRPo7ka5TFEi8Zv07E4pdUdyoK/mMq4mUPgk1XPHp
+         qfHPqKtxBko5a8v3thC5K1lsFyydIdqP0Dv/NNec8wL7Zme/uN84ZjbTMKfpRwWquyX7
+         fq9oZy49jz8rzvomyGKezWhZkwkf752VkUC6CfZX0I9E4kRP3L78t1xJvGOc0QG0Dp65
+         FvpBh/5e8t7FyGc6xLnuCEhCmmv2KuFY7TWrJFQFgBDmn8C9Q+khLD9Xvz/ReEq/1R2U
+         KGIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793394616; x=1793999416;
+        d=1e100.net; s=20260707; t=1793394620; x=1793999420;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I0lofktk4aVZckRcCcRV6QntITM4Mli1YlgsaCWlDa8=;
-        b=r4TvWLPnkz4jwTop4FjdtTpPU5ya8B8U1wh3Wt9iUElvLhxnN70KlEqfdRIoTmWnVK
-         9mUnn6YFQ6aOghlRkuAC9Z+0VS7m7Z9kkqsimQ38jL9zPowCzhUh7eNG3LFvLfSGrm3n
-         96z2082YgdkyhkqmEK4LlgQ93wmIJWrrufHAB3YsvWoMWSqCcusFl3UQVHZL2lBQdIW3
-         4SZiz/40VhjfhN29oJGEt5ubzfmL6a3UShsv7DxUu8zFoz23UaRE8EmFk0X9ZzMciuvV
-         XMXw9/R3I0AMqbhhwEp7nFi3SwaLkvXGSCCQ/O9KHbMjk+95J+eXjRPZooeuuaarDLMN
-         7ygw==
-X-Forwarded-Encrypted: i=1; AKwUvBzaD3/GIVEDypbMHZHU0bTlu/rzGimCO7zSfll11zh/vP2LXUgPO+IvWWYsVGDgWkd8MjxQ13qbXYAUuqE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmD2ESVtnqmK1WvQe0DK6dVl0mk3p/AJyhvgANl0wg7diczBtu
-	1HJVeWpOU4SsaSY07FDB6lLx+tg8vFLUnrn4zLu6c7++DnnuOZhokXbeqrSS85ea+w==
-X-Gm-Gg: AYBFou3aj1kX6dmxGAsSjW1QjKA9qpj8a/Ka4Vn/GqCjuoLRZqM3ihNYTdsxxH3Jtrt
-	FBbrgAquWhqc3TIVIlt+rrSAE1XG/pdKzwhIQSXZ/Yq4MLKyKK2YndyTcUCLgKOwwCiVTUeQMaa
-	RlvP3J0z+KNzWsdAWols3YZ54Jn3jhMIoOLknQVEkCvKrViy6aFMLq+wSau6DbKT+Wv2rLuQBxt
-	8N+9JFplUrF5jtk2U6kJOVE68NW1WKeitR9AjiKoY4p4ulMxtuCtFbO5Nalw/zYzn0uqAw/b5MT
-	oR8oz4Nt5D7oSCVLoDPnKX4vJzFLKCFgB6Nd7WkmflR5ike86vkswiagls72ir1f1c+uwsKsRfh
-	4wcoFEPc4Oa93VmgabfOfuhOrkoSQTg8ZCrXLDjPHsHtYQE5h/tjOXH+t1MIoepeLg77lxZD3iG
-	peXogyRLtkaBq1dWqiN4sHgGUe9RXfWXeNLzo6yZVUt21TIf75t2gPLSvrnLZW98SDMK42PZNur
-	2zIBX1fR1CDVFA1aboqSw76JWyMs4umdIt5WCfMDuvqXDrUs822sNNgpqWWUfYwpryK4NiDgdNp
-	FQsnoW90UIYejkFMFH4lWu5zPJHFVA78MKvNU+Q7fqRYFF2BMJQ3TK/Xb8tNFHC7l4TD/xvA3kR
-	4k2NI9zSi37KZOik0mlCmDyA=
-X-Received: by 2002:a05:7022:ea56:10b0:176:a225:e364 with SMTP id a92af1059eb24-1ac5de547afmr4542282c88.35.1793394615874;
-        Fri, 30 Oct 2026 14:10:15 -0700 (PDT)
+        bh=b6rgIm+5PbCV1VV/h+qGVE2kN3elc6rHKJjG61+uC6E=;
+        b=Exmn5sB2J604JYdukEMwCLvf4ATUWvcvBB+Kp4pNVGtbiJN8f35YCGA2vGesbEYkJn
+         QlKrjAsyQLt/0uMRlknAbYatAyzDYo9GvX5YZIWR8oregf6o+BEPZ68nPR08N6+yzX94
+         a60WGVNdsjZ7vp9u4pZE8gCRQeJno4s2rda4wu2WDbwLcGCsptYAf/kDbtA2NuoPE9jG
+         gzPB+bK5RsX6FFzVw6x4ir47LsQgCqTCCAhCYNkksHhB9LUM2/vPKQxjgrdrTkQ6bAff
+         2TfLNgmTPd+RsQO5koGj6KN/xurcBNnU8sT7i5oGXkEU03tggIGvG5kYhJp4yJDcWwgH
+         w0Ow==
+X-Forwarded-Encrypted: i=1; AKwUvBzGzpHZQb5INn3Jfpjv+B07ENd1j33JoFhhNgVlKRGVzSKICL5FODqoqnppeWb+YZEPWc4eY7iZGeRg/7w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZe7AbSGXArYoqykh/8U6nCEKNqlyocaQ74NsZt8p6IhgdD9Dj
+	XiOkaKZe8Wg7vsXns1vf5YA7A7RSkAEjA2ZhPHPSm0tAjCxsx/Tmp/47wj0VDDPC8w==
+X-Gm-Gg: AYBFou03T6RQQfQpcZiFPQE3nLgUG+ibCqpXldterVUzzzQR3yK1Sj4jlvEIyV32uCJ
+	98nOaf+acT54W40PebxxkyjT1+XVwgYcyyYFkQoskph/pis0bTaBc7U4HbTjcd2YunY46ww3t6c
+	Gx+L5nFFkw2mzcBkzlDPrh21g1uWQF6DFuJcuizgPVtmIBSmdKP4Drl/Xxd8v3K94aoFG1Z0zKz
+	un1gOh1BIHTJWuYawPNUX9d+TTzBTzKGK9UPB0X/mONE7U6Fn378MJr88sDpnm2mWLJaKPkvX+w
+	AjyqDaneDtPSuBOB7VPSavjzG7z0QLbUZg2j5zvAMBEnz4YIE2tjUJwm142kfsGl4EEQzqGMIaP
+	g/7sNLUm9d10C+K5UsFKKHfxqWkZM5VWgckvsq1TdA8XCBxS221d2c9P4g1feUb8SHmYLzVBrAN
+	qwX1PkXX0ABIGj2lWqTPFyH5l6BcgvjzQk/qbRmr+T73+mpTn0Km4+46DVeTiZRp4ELDUOmioub
+	P4U4crLN/56/9Biukydp6DgkWtTSO1ok8yFlf5lGsBRbiXx76G7WB7uGL91vP9l+p6WXS+N3Y85
+	Z0U3O8rSQvdUoqRQ5pwHimFE3JUdv0Ixyl1JD/O6Z8HSI2zTo27uQ9dycVWi+e9JNaq0A5fZBJg
+	KFxOoVYuHW7dS4r82hvWoINU=
+X-Received: by 2002:a05:7022:b043:20b0:19c:dd9b:d09e with SMTP id a92af1059eb24-1ac5cdf9b17mr5090344c88.23.1793394619875;
+        Fri, 30 Oct 2026 14:10:19 -0700 (PDT)
 Received: from dannyhu-upstreamLinux.sjc.aristanetworks.com ([74.123.28.18])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1abcf67csm9471777c88.21.2026.10.30.14.10.14
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1abcf67csm9471777c88.21.2026.10.30.14.10.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 14:10:15 -0700 (PDT)
+        Fri, 30 Oct 2026 14:10:19 -0700 (PDT)
 From: Danny Hu <dannyhu@arista.com>
 To: Alexander Viro <viro@zeniv.linux.org.uk>,
 	Christian Brauner <brauner@kernel.org>
@@ -115,9 +115,9 @@ Cc: Mimi Zohar <zohar@linux.ibm.com>,
 	linux-api@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	bug-cpio@gnu.org
-Subject: [PATCH v5 2/4] initramfs: add file metadata
-Date: Fri, 30 Oct 2026 14:09:41 -0700
-Message-ID: <20261030210944.2143778-3-dannyhu@arista.com>
+Subject: [PATCH v5 4/4] gen_init_cpio: add support for file metadata
+Date: Fri, 30 Oct 2026 14:09:43 -0700
+Message-ID: <20261030210944.2143778-5-dannyhu@arista.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261030210944.2143778-1-dannyhu@arista.com>
 References: <20261030210944.2143778-1-dannyhu@arista.com>
@@ -132,33 +132,16 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mimi Zohar <zohar@linux.vnet.ibm.com>
+From: Roberto Sassu <roberto.sassu@huawei.com>
 
-This patch adds metadata to a file from a supplied buffer. The buffer might
-contains multiple metadata records. The format of each record is:
+This patch adds support for file metadata (only TYPE_XATTR metadata type).
+gen_init_cpio has been modified to read xattrs from files that will be
+added to the image and to include file metadata as separate files with the
+special name 'METADATA!!!'.
 
-<metadata len (ASCII, 8 chars)><version><type><metadata>
+This behavior can be selected by setting the desired file metadata type as
+value for CONFIG_INITRAMFS_FILE_METADATA.
 
-For now, only the TYPE_XATTR metadata type is supported. The specific
-format of this metadata type is:
-
-<xattr #N name>\0<xattr #N value>
-
-[kamensky: fixed restoring of xattrs for symbolic links by using
-           sys_lsetxattr() instead of sys_setxattr()]
-
-[sassu: removed state management, kept only do_setxattrs(), added support
-        for generic file metadata, replaced sys_lsetxattr() with
-        vfs_setxattr(), added check for entry_size, added check for
-        hdr->c_size, replaced strlen() with strnlen(); moved do_setxattrs()
-        before do_name()]
-
-[zhangguangzhi: fix checkpatch warning EMBEDDED_FILENAME in
-                include/linux/initramfs.h]
-
-Signed-off-by: Mimi Zohar <zohar@linux.vnet.ibm.com>
-Signed-off-by: Victor Kamensky <kamensky@cisco.com>
-Signed-off-by: Taras Kondratiuk <takondra@cisco.com>
 Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
 Signed-off-by: Tianxing Zhang <zhangtianxing3@huawei.com>
 Reviewed-by: Jason Yan <yanaijie@huawei.com>
@@ -168,169 +151,529 @@ Signed-off-by: zhangguangzhi <zhangguangzhi3@huawei.com>
 Signed-off-by: Danny Hu <dannyhu@arista.com>
 ---
 Changes in v5:
- - For debug print in do_setxattrs(), use print_hex_dump_debug() rather
-   than printing the xattr value as a string
- - Use u32 metadata record lengths and reject records smaller than their
-   header
+ - context adapt usr/Makefile, usr/gen_initramfs.sh (zhangguangzhi)
+ - del duplicate code in usr/Makefile (zhangguangzhi)
+ - fix checkpatch warning STATIC_CONST_CHAR_ARRAY in usr/gen_init_cpio.c:38
+   (zhangguangzhi)
+ - make CONFIG_INITRAMFS_FILE_METADATA a choice rather than having to
+   specify it manually
+ - document -e option and supported values in gen_init_cpio usage()
+ - Update gen_initramfs.sh to pass source paths to gen_init_cpio.c for
+   nonregular entries (slink, dir, nod). Modify gen_init_cpio to
+   properly collect xattrs from the source object. Without this change,
+   xattrs will not get included for slink, dir and nod.
+ - xattr collection now uses llistxattr() and lgetxattr() so symlink
+   xattrs come from the link itself rather than the target.
+ - use the size_t hexadecimal format specifier in write_xattrs()
+ - initialize xattr_value as NULL to prevent free of uninitialized ptr
+ - free xattr_list after checking whether xattr iteration completed
+ - clean up temporary metadata file before gen_init_cpio exits
 
- include/linux/initramfs.h | 19 +++++++++
- init/initramfs.c          | 89 ++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 107 insertions(+), 1 deletion(-)
- create mode 100644 include/linux/initramfs.h
+ usr/Kconfig          |  19 ++++
+ usr/Makefile         |   3 +-
+ usr/gen_init_cpio.c  | 216 +++++++++++++++++++++++++++++++++++++------
+ usr/gen_initramfs.sh |  15 ++-
+ 4 files changed, 219 insertions(+), 34 deletions(-)
 
-diff --git a/include/linux/initramfs.h b/include/linux/initramfs.h
-new file mode 100644
-index 000000000000..9b3839dc88a1
---- /dev/null
-+++ b/include/linux/initramfs.h
-@@ -0,0 +1,19 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Include file for file metadata in the initial ram disk.
-+ */
-+#ifndef _LINUX_INITRAMFS_H
-+#define _LINUX_INITRAMFS_H
+diff --git a/usr/Kconfig b/usr/Kconfig
+index 9279a2893ab0..135a9248bba2 100644
+--- a/usr/Kconfig
++++ b/usr/Kconfig
+@@ -227,3 +227,22 @@ config INITRAMFS_COMPRESSION_NONE
+ 	  filesystem image will be present in memory simultaneously
+ 
+ endchoice
 +
-+#define METADATA_FILENAME "METADATA!!!"
++choice
++	prompt "File metadata type"
++	default INITRAMFS_FILE_METADATA_NONE
++	help
++	  Specify the metadata types to be included in the image.
 +
-+enum metadata_types { TYPE_NONE, TYPE_XATTR, TYPE__LAST };
++	  If you are not sure, leave unchanged.
 +
-+struct metadata_hdr {
-+	char c_size[8];     /* total size including c_size field */
-+	char c_version;     /* header version */
-+	char c_type;        /* metadata type */
-+	char c_metadata[];  /* metadata */
-+} __packed;
++	config INITRAMFS_FILE_METADATA_NONE
++		bool "no xattrs (default)"
++	config INITRAMFS_FILE_METADATA_XATTR
++		bool "xattr"
++endchoice
 +
-+#endif /*LINUX_INITRAMFS_H*/
-diff --git a/init/initramfs.c b/init/initramfs.c
-index ebddde9c8f0d..36254dba7822 100644
---- a/init/initramfs.c
-+++ b/init/initramfs.c
-@@ -10,6 +10,7 @@
- #include <linux/hex.h>
- #include <linux/init.h>
- #include <linux/init_syscalls.h>
-+#include <linux/initramfs.h>
- #include <linux/kstrtox.h>
- #include <linux/memblock.h>
- #include <linux/mm.h>
-@@ -22,6 +23,7 @@
- #include <linux/types.h>
- #include <linux/umh.h>
- #include <linux/utime.h>
-+#include <linux/xattr.h>
++config INITRAMFS_FILE_METADATA
++	string
++	default "" if INITRAMFS_FILE_METADATA_NONE
++	default "xattr" if INITRAMFS_FILE_METADATA_XATTR
+diff --git a/usr/Makefile b/usr/Makefile
+index e8f42478a0b7..dc4a1f4b3da2 100644
+--- a/usr/Makefile
++++ b/usr/Makefile
+@@ -65,7 +65,8 @@ quiet_cmd_initfs = GEN     $@
+ 	$(addprefix -u , $(CONFIG_INITRAMFS_ROOT_UID)) \
+ 	$(addprefix -g , $(CONFIG_INITRAMFS_ROOT_GID)) \
+ 	$(if $(KBUILD_BUILD_TIMESTAMP), -d "$(KBUILD_BUILD_TIMESTAMP)") \
+-	$(ramfs-input)
++	$(if $(filter-out "",$(CONFIG_INITRAMFS_FILE_METADATA)), \
++	  -e $(CONFIG_INITRAMFS_FILE_METADATA)) $(ramfs-input)
  
- #include <asm/byteorder.h>
+ # We rebuild initramfs_data.cpio if:
+ # 1) Any included file is newer than initramfs_data.cpio
+diff --git a/usr/gen_init_cpio.c b/usr/gen_init_cpio.c
+index b7296edc6626..f07be54c9219 100644
+--- a/usr/gen_init_cpio.c
++++ b/usr/gen_init_cpio.c
+@@ -6,6 +6,7 @@
+ #include <stdbool.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
++#include <sys/xattr.h>
+ #include <string.h>
+ #include <unistd.h>
+ #include <time.h>
+@@ -13,6 +14,7 @@
+ #include <errno.h>
+ #include <ctype.h>
+ #include <limits.h>
++#include "../include/linux/initramfs.h"
  
-@@ -189,7 +191,7 @@ static __initdata time64_t mtime;
+ /*
+  * Original work by Jeff Garzik
+@@ -37,12 +39,126 @@ static bool do_file_mtime;
+ static bool do_csum = false;
+ static int outfd = STDOUT_FILENO;
+ static unsigned int dalign;
++static char metadata_path[] = "/tmp/cpio-metadata-XXXXXX";
++static int metadata_fd = -1;
  
- static __initdata unsigned long ino, major, minor, nlink;
- static __initdata umode_t mode;
--static __initdata unsigned long body_len, name_len;
-+static __initdata unsigned long body_len, name_len, metadata_len;
- static __initdata uid_t uid;
- static __initdata gid_t gid;
- static __initdata unsigned rdev;
-@@ -264,6 +266,7 @@ static void __init read_into(char *buf, unsigned size, enum state next)
- }
+ struct file_handler {
+ 	const char *type;
+ 	int (*handler)(const char *line);
+ };
  
- static __initdata char *header_buf, *symlink_buf, *name_buf;
-+static __initdata char *metadata_buf;
- 
- static int __init do_start(void)
- {
-@@ -365,6 +368,90 @@ static int __init maybe_link(void)
- 	return 0;
- }
- 
-+static int __init do_setxattrs(char *pathname, char *buf, size_t size)
++static enum metadata_types parse_metadata_type(char *arg)
 +{
-+	struct path path;
-+	char *xattr_name, *xattr_value;
-+	uint32_t xattr_name_size, xattr_value_size;
-+	int ret;
++	static char *metadata_type_str[TYPE__LAST] = {
++		[TYPE_NONE] = "none",
++		[TYPE_XATTR] = "xattr",
++	};
++	int i;
 +
-+	xattr_name = buf;
-+	xattr_name_size = strnlen(xattr_name, size);
-+	if (xattr_name_size == size) {
-+		error("malformed xattrs");
-+		return -EINVAL;
-+	}
++	for (i = 0; i < TYPE__LAST; i++)
++		if (!strcmp(metadata_type_str[i], arg))
++			return i;
 +
-+	xattr_value = xattr_name + xattr_name_size + 1;
-+	xattr_value_size = buf + size - xattr_value;
-+
-+	ret = kern_path(pathname, 0, &path);
-+	if (!ret) {
-+		ret = vfs_setxattr(&nop_mnt_idmap, path.dentry, xattr_name, xattr_value,
-+				   xattr_value_size, 0);
-+
-+		path_put(&path);
-+	}
-+
-+	pr_debug("%s: %s size: %u (ret: %d)\n", pathname, xattr_name,
-+		 xattr_value_size, ret);
-+	print_hex_dump_debug("xattr value: ", DUMP_PREFIX_OFFSET,
-+			     16, 1, xattr_value, xattr_value_size, false);
-+
-+	return ret;
++	return TYPE_NONE;
 +}
 +
-+static int __init __maybe_unused do_parse_metadata(char *pathname)
-+{
-+	char *buf = metadata_buf;
-+	char *bufend = metadata_buf + metadata_len;
-+	struct metadata_hdr *hdr;
-+	char str[sizeof(hdr->c_size) + 1];
-+	uint32_t entry_size;
++static int cpio_mkfile(const char *name, const char *location,
++		       unsigned int mode, uid_t uid, gid_t gid,
++		       unsigned int nlinks);
 +
-+	if (!metadata_len)
++static char *cpio_replace_env(char *new_location);
++
++static int write_xattrs(const char *path)
++{
++	struct metadata_hdr hdr = { .c_version = 1, .c_type = TYPE_XATTR };
++	char str[sizeof(hdr.c_size) + 1];
++	char *xattr_list, *list_ptr;
++	char *xattr_value = NULL;
++	ssize_t list_len, name_len, value_len, len;
++	int ret = -EINVAL;
++
++	if (metadata_fd < 0)
 +		return 0;
 +
-+	str[sizeof(hdr->c_size)] = 0;
++	if (path == metadata_path)
++		return 0;
 +
-+	while (buf < bufend) {
-+		int ret;
++	list_len = llistxattr(path, NULL, 0);
++	if (list_len <= 0)
++		return 0;
 +
-+		if (buf + sizeof(*hdr) > bufend) {
-+			error("malformed metadata");
-+			break;
-+		}
-+
-+		hdr = (struct metadata_hdr *)buf;
-+		if (hdr->c_version != 1) {
-+			pr_debug("Unsupported header version\n");
-+			break;
-+		}
-+
-+		memcpy(str, hdr->c_size, sizeof(hdr->c_size));
-+		ret = kstrtou32(str, 16, &entry_size);
-+		if (ret || buf + entry_size > bufend ||
-+		    entry_size < sizeof(*hdr)) {
-+			error("malformed xattrs");
-+			break;
-+		}
-+
-+		switch (hdr->c_type) {
-+		case TYPE_XATTR:
-+			do_setxattrs(pathname, buf + sizeof(*hdr),
-+				     entry_size - sizeof(*hdr));
-+			break;
-+		default:
-+			pr_debug("Unsupported metadata type\n");
-+			break;
-+		}
-+
-+		buf += entry_size;
++	list_ptr = xattr_list = malloc(list_len);
++	if (!list_ptr) {
++		fprintf(stderr, "out of memory\n");
++		return ret;
 +	}
 +
-+	return 0;
++	len = llistxattr(path, xattr_list, list_len);
++	if (len != list_len)
++		goto out;
++
++	if (ftruncate(metadata_fd, 0))
++		goto out;
++
++	lseek(metadata_fd, 0, SEEK_SET);
++
++	while (list_ptr < xattr_list + list_len) {
++		name_len = strlen(list_ptr);
++
++		value_len = lgetxattr(path, list_ptr, NULL, 0);
++		if (value_len < 0) {
++			fprintf(stderr, "cannot get xattrs\n");
++			break;
++		}
++
++		if (value_len) {
++			xattr_value = malloc(value_len);
++			if (!xattr_value) {
++				fprintf(stderr, "out of memory\n");
++				break;
++			}
++		} else {
++			xattr_value = NULL;
++		}
++
++		len = lgetxattr(path, list_ptr, xattr_value, value_len);
++		if (len != value_len)
++			break;
++
++		snprintf(str, sizeof(str), "%.8zx",
++			 sizeof(hdr) + name_len + 1 + value_len);
++
++		memcpy(hdr.c_size, str, sizeof(hdr.c_size));
++
++		if (write(metadata_fd, &hdr, sizeof(hdr)) != sizeof(hdr))
++			break;
++
++		if (write(metadata_fd, list_ptr, name_len + 1) != name_len + 1)
++			break;
++
++		if (write(metadata_fd, xattr_value, value_len) != value_len)
++			break;
++
++		if (fsync(metadata_fd))
++			break;
++
++		list_ptr += name_len + 1;
++		free(xattr_value);
++		xattr_value = NULL;
++	}
++
++	free(xattr_value);
++out:
++	if (list_ptr != xattr_list + list_len) {
++		free(xattr_list);
++		return ret;
++	}
++
++	free(xattr_list);
++
++	return cpio_mkfile(METADATA_FILENAME, metadata_path, S_IFREG, 0, 0, 1);
 +}
 +
- static __initdata struct file *wfile;
- static __initdata loff_t wfile_pos;
+ static int push_buf(const char *name, size_t name_len)
+ {
+ 	ssize_t len;
+@@ -119,7 +235,8 @@ static int cpio_trailer(void)
+ }
  
+ static int cpio_mkslink(const char *name, const char *target,
+-			 unsigned int mode, uid_t uid, gid_t gid)
++			const char *location, unsigned int mode,
++			uid_t uid, gid_t gid)
+ {
+ 	int len;
+ 	unsigned int namesize, targetsize = strlen(target) + 1;
+@@ -150,7 +267,8 @@ static int cpio_mkslink(const char *name, const char *target,
+ 	    push_buf(name, namesize) < 0 ||
+ 	    push_pad(padlen(offset, 4)) < 0 ||
+ 	    push_buf(target, targetsize) < 0 ||
+-	    push_pad(padlen(offset, 4)) < 0)
++	    push_pad(padlen(offset, 4)) < 0 ||
++	    write_xattrs(location) < 0)
+ 		return -1;
+ 
+ 	return 0;
+@@ -161,22 +279,29 @@ static int cpio_mkslink_line(const char *line)
+ {
+ 	char name[PATH_MAX + 1];
+ 	char target[PATH_MAX + 1];
++	char location[PATH_MAX + 1];
+ 	unsigned int mode;
+ 	int uid;
+ 	int gid;
++	int nfields;
+ 	int rc = -1;
+ 
+-	if (5 != sscanf(line, "%" str(PATH_MAX) "s %" str(PATH_MAX) "s %o %d %d", name, target, &mode, &uid, &gid)) {
+-		fprintf(stderr, "Unrecognized dir format '%s'", line);
++	nfields = sscanf(line, "%" str(PATH_MAX) "s %" str(PATH_MAX)
++			 "s %o %d %d %" str(PATH_MAX) "s",
++			 name, target, &mode, &uid, &gid, location);
++	if (nfields < 5) {
++		fprintf(stderr, "Unrecognized slink format '%s'", line);
+ 		goto fail;
+ 	}
+-	rc = cpio_mkslink(name, target, mode, uid, gid);
++	rc = cpio_mkslink(name, target,
++			  nfields == 6 ? cpio_replace_env(location) : NULL,
++			  mode, uid, gid);
+  fail:
+ 	return rc;
+ }
+ 
+-static int cpio_mkgeneric(const char *name, unsigned int mode,
+-		       uid_t uid, gid_t gid)
++static int cpio_mkgeneric(const char *name, const char *location,
++			  unsigned int mode, uid_t uid, gid_t gid)
+ {
+ 	int len;
+ 	unsigned int namesize;
+@@ -204,7 +329,8 @@ static int cpio_mkgeneric(const char *name, unsigned int mode,
+ 	offset += len;
+ 
+ 	if (len != CPIO_HDR_LEN ||
+-	    push_rest(name, namesize) < 0)
++	    push_rest(name, namesize) < 0 ||
++	    write_xattrs(location) < 0)
+ 		return -1;
+ 
+ 	return 0;
+@@ -239,18 +365,24 @@ static const struct generic_type generic_type_table[] = {
+ static int cpio_mkgeneric_line(const char *line, enum generic_types gt)
+ {
+ 	char name[PATH_MAX + 1];
++	char location[PATH_MAX + 1];
+ 	unsigned int mode;
+ 	int uid;
+ 	int gid;
++	int nfields;
+ 	int rc = -1;
+ 
+-	if (4 != sscanf(line, "%" str(PATH_MAX) "s %o %d %d", name, &mode, &uid, &gid)) {
++	nfields = sscanf(line, "%" str(PATH_MAX) "s %o %d %d %"
++			 str(PATH_MAX) "s", name, &mode, &uid, &gid, location);
++	if (nfields < 4) {
+ 		fprintf(stderr, "Unrecognized %s format '%s'",
+-			line, generic_type_table[gt].type);
++			generic_type_table[gt].type, line);
+ 		goto fail;
+ 	}
+ 	mode |= generic_type_table[gt].mode;
+-	rc = cpio_mkgeneric(name, mode, uid, gid);
++	rc = cpio_mkgeneric(name,
++			   nfields == 5 ? cpio_replace_env(location) : NULL,
++			   mode, uid, gid);
+  fail:
+ 	return rc;
+ }
+@@ -270,9 +402,9 @@ static int cpio_mksock_line(const char *line)
+ 	return cpio_mkgeneric_line(line, GT_SOCK);
+ }
+ 
+-static int cpio_mknod(const char *name, unsigned int mode,
+-		       uid_t uid, gid_t gid, char dev_type,
+-		       unsigned int maj, unsigned int min)
++static int cpio_mknod(const char *name, const char *location,
++		      unsigned int mode, uid_t uid, gid_t gid, char dev_type,
++		      unsigned int maj, unsigned int min)
+ {
+ 	int len;
+ 	unsigned int namesize;
+@@ -305,7 +437,8 @@ static int cpio_mknod(const char *name, unsigned int mode,
+ 	offset += len;
+ 
+ 	if (len != CPIO_HDR_LEN ||
+-	    push_rest(name, namesize) < 0)
++	    push_rest(name, namesize) < 0 ||
++	    write_xattrs(location) < 0)
+ 		return -1;
+ 
+ 	return 0;
+@@ -314,20 +447,26 @@ static int cpio_mknod(const char *name, unsigned int mode,
+ static int cpio_mknod_line(const char *line)
+ {
+ 	char name[PATH_MAX + 1];
++	char location[PATH_MAX + 1];
+ 	unsigned int mode;
+ 	int uid;
+ 	int gid;
+ 	char dev_type;
+ 	unsigned int maj;
+ 	unsigned int min;
++	int nfields;
+ 	int rc = -1;
+ 
+-	if (7 != sscanf(line, "%" str(PATH_MAX) "s %o %d %d %c %u %u",
+-			 name, &mode, &uid, &gid, &dev_type, &maj, &min)) {
++	nfields = sscanf(line, "%" str(PATH_MAX) "s %o %d %d %c %u %u %"
++			 str(PATH_MAX) "s", name, &mode, &uid, &gid, &dev_type,
++			 &maj, &min, location);
++	if (nfields < 7) {
+ 		fprintf(stderr, "Unrecognized nod format '%s'", line);
+ 		goto fail;
+ 	}
+-	rc = cpio_mknod(name, mode, uid, gid, dev_type, maj, min);
++	rc = cpio_mknod(name,
++			nfields == 8 ? cpio_replace_env(location) : NULL,
++			mode, uid, gid, dev_type, maj, min);
+  fail:
+ 	return rc;
+ }
+@@ -490,7 +629,7 @@ static int cpio_mkfile(const char *name, const char *location,
+ 		name += namesize;
+ 	}
+ 	ino++;
+-	rc = 0;
++	rc = write_xattrs(location);
+ 
+ error:
+ 	if (file >= 0)
+@@ -570,22 +709,24 @@ static int cpio_mkfile_line(const char *line)
+ static void usage(const char *prog)
+ {
+ 	fprintf(stderr, "Usage:\n"
+-		"\t%s [-t <timestamp>] [-c] [-o <output_file>] [-a <data_align>] <cpio_list>\n"
++		"\t%s [-t <timestamp>] [-c] [-o <output_file>] [-a <data_align>] [-e <type>] <cpio_list>\n"
+ 		"\n"
+ 		"<cpio_list> is a file containing newline separated entries that\n"
+ 		"describe the files to be included in the initramfs archive:\n"
+ 		"\n"
+ 		"# a comment\n"
+ 		"file <name> <location> <mode> <uid> <gid> [<hard links>]\n"
+-		"dir <name> <mode> <uid> <gid>\n"
+-		"nod <name> <mode> <uid> <gid> <dev_type> <maj> <min>\n"
+-		"slink <name> <target> <mode> <uid> <gid>\n"
+-		"pipe <name> <mode> <uid> <gid>\n"
+-		"sock <name> <mode> <uid> <gid>\n"
++		"dir <name> <mode> <uid> <gid> [<location>]\n"
++		"nod <name> <mode> <uid> <gid> <dev_type> <maj> <min> [<location>]\n"
++		"slink <name> <target> <mode> <uid> <gid> [<location>]\n"
++		"pipe <name> <mode> <uid> <gid> [<location>]\n"
++		"sock <name> <mode> <uid> <gid> [<location>]\n"
+ 		"\n"
+ 		"<name>       name of the file/dir/nod/etc in the archive\n"
+ 		"<location>   location of the file in the current filesystem\n"
+ 		"             expands shell variables quoted with ${}\n"
++		"             optional for nonregular entries; used to read xattrs\n"
++		"             with -e xattr. If omitted, no xattrs are included.\n"
+ 		"<target>     link target\n"
+ 		"<mode>       mode/permissions of the file\n"
+ 		"<uid>        user id (0=root)\n"
+@@ -611,7 +752,8 @@ static void usage(const char *prog)
+ 		"<output_file>: write cpio to this file instead of stdout\n"
+ 		"<data_align>: attempt to align file data by zero-padding the\n"
+ 		"filename field up to data_align. Must be a multiple of 4.\n"
+-		"Alignment is best-effort; PATH_MAX limits filename padding.\n",
++		"Alignment is best-effort; PATH_MAX limits filename padding.\n"
++		"<type>: include file metadata: none (default) or xattr.\n",
+ 		prog);
+ }
+ 
+@@ -640,7 +782,7 @@ static const struct file_handler file_handler_table[] = {
+ 	}
+ };
+ 
+-#define LINE_SIZE (2 * PATH_MAX + 50)
++#define LINE_SIZE (3 * PATH_MAX + 50)
+ 
+ int main (int argc, char *argv[])
+ {
+@@ -650,10 +792,11 @@ int main (int argc, char *argv[])
+ 	int ec = 0;
+ 	int line_nr = 0;
+ 	const char *filename;
++	enum metadata_types metadata_type = TYPE_NONE;
+ 
+ 	default_mtime = time(NULL);
+ 	while (1) {
+-		int opt = getopt(argc, argv, "t:cho:a:");
++		int opt = getopt(argc, argv, "t:e:cho:a:");
+ 		char *invalid;
+ 
+ 		if (opt == -1)
+@@ -669,6 +812,9 @@ int main (int argc, char *argv[])
+ 			}
+ 			do_file_mtime = true;
+ 			break;
++		case 'e':
++			metadata_type = parse_metadata_type(optarg);
++			break;
+ 		case 'c':
+ 			do_csum = true;
+ 			break;
+@@ -721,6 +867,13 @@ int main (int argc, char *argv[])
+ 		usage(argv[0]);
+ 		exit(1);
+ 	}
++	if (metadata_type != TYPE_NONE) {
++		metadata_fd = mkstemp(metadata_path);
++		if (metadata_fd < 0) {
++			fprintf(stderr, "cannot create temporary file\n");
++			exit(1);
++		}
++	}
+ 
+ 	while (fgets(line, LINE_SIZE, cpio_list)) {
+ 		int type_idx;
+@@ -777,5 +930,12 @@ int main (int argc, char *argv[])
+ 	if (ec == 0)
+ 		ec = cpio_trailer();
+ 
++	if (metadata_type != TYPE_NONE) {
++		close(metadata_fd);
++		if (unlink(metadata_path))
++			fprintf(stderr,
++				"warning: cannot remove temporary file %s: %s\n",
++				metadata_path, strerror(errno));
++	}
+ 	exit(ec);
+ }
+diff --git a/usr/gen_initramfs.sh b/usr/gen_initramfs.sh
+index 7eba2fddf0ef..fea88d761d62 100755
+--- a/usr/gen_initramfs.sh
++++ b/usr/gen_initramfs.sh
+@@ -14,7 +14,7 @@ set -e
+ usage() {
+ cat << EOF
+ Usage:
+-$0 [-o <file>] [-l <dep_list>] [-u <uid>] [-g <gid>] {-d | <cpio_source>} ...
++$0 [-o <file>] [-l <dep_list>] [-u <uid>] [-g <gid>] {-d | <cpio_source>} [-e <type>]...
+ 	-o <file>      Create initramfs file named <file> by using gen_init_cpio
+ 	-l <dep_list>  Create dependency list named <dep_list>
+ 	-u <uid>       User ID to map to user ID 0 (root).
+@@ -27,6 +27,7 @@ $0 [-o <file>] [-l <dep_list>] [-u <uid>] [-g <gid>] {-d | <cpio_source>} ...
+ 	<cpio_source>  File list or directory for cpio archive.
+ 		       If <cpio_source> is a .cpio file it will be used
+ 		       as direct input to initramfs.
++	-e <type>      File metadata type to include in the cpio archive.
+ 
+ All options except -o and -l may be repeated and are interpreted
+ sequentially and immediately.  -u and -g states are preserved across
+@@ -113,14 +114,14 @@ parse() {
+ 
+ 			[ -b "${location}" ] && dev="b" || dev="c"
+ 
+-			str="${ftype} ${name} ${str} ${dev} ${maj} ${min}"
++			str="${ftype} ${name} ${str} ${dev} ${maj} ${min} ${location}"
+ 			;;
+ 		"slink")
+ 			local target=`readlink "${location}"`
+-			str="${ftype} ${name} ${target} ${str}"
++			str="${ftype} ${name} ${target} ${str} ${location}"
+ 			;;
+ 		*)
+-			str="${ftype} ${name} ${str}"
++			str="${ftype} ${name} ${str} ${location}"
+ 			;;
+ 	esac
+ 
+@@ -228,6 +229,10 @@ while [ $# -gt 0 ]; do
+ 			fi
+ 			shift
+ 			;;
++		"-e")   # file metadata type
++			metadata_arg="-e $1"
++			shift
++			;;
+ 		"-h")
+ 			usage
+ 			exit 0
+@@ -247,4 +252,4 @@ done
+ 
+ # If output_file is set we will generate cpio archive
+ # we are careful to delete tmp files
+-usr/gen_init_cpio $output $timestamp $cpio_list
++usr/gen_init_cpio $output $metadata_arg $timestamp $cpio_list
 -- 
 2.51.0
 
