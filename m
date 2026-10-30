@@ -1,100 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.231
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793327595;
-	b=j8G1GJ6WMGrd4HWKcMrjbm8bg1uLD2LS5QwTpfWVhcYLVbfG4KXiKtPWBYdGtofUnDSk
-	 zMEv7CdJdk0xOd2i0t+iVgU1YWMNdipUPEkdr9L3ZPsRXH9YRIUxtSt319WLFCPmRHMRF
-	 hbTMupFrwDbcqQtlaGILfqLBchgSLs+OH+6agVz8zGhmS5XeT0sJFXATYa0ObeD1s/gAD
-	 mSrnOfdEnbHfzFBSJ69k3cQj8zNM1f1Hn1OKBflYkqv6nPmlZTkKI6MaPboh+oAiFq+XC
-	 RCDU/lHYpKCyZURWt2J52RyoIpKKLVOrd1wNJt4Re5XGVTi1Q+y+GqOJ5Nx7sQQKIAA==
+	t=1793327651;
+	b=xvwU7sXNZqXaxXzNJPRneVB7Bj4hI3x1B/BJvubteT9KlHif4Hlgf4Og8oFf6FZ5nE7W
+	 jMbUr72bftiy+cx8FFAfmdq6RrI33Fv26cudsZC3lV6RvYWUnoio9JbKHAEBStHoAJCGw
+	 mSTjN8jDmlUgHuocRSE/4vpxt/kHIcn0dDxbuCCVqfIqIO5PMqT51fyb8vG/e2c1I047R
+	 vG1GkQXX6b+qa1SlkCWz1vNK5ExvkYXDy4ehTj8V/oMymuxDtNN6i6RnwNzZLtAjQ4pCC
+	 hcifr+16O+Bj239ourWHHOmKU4jadj4Gs2RX3D7DK58NG8HzzK8P3SknR+nmboN0rZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793327595;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=0K6cB7nWKEstKbBLqxn1nNdZR7J+XsbPrVECCeNP37U=;
-	b=pujH2E7a/5kPQEH+Y43iK4doS8G3ZQ4tj7fIQFE6fmi8OEdKKTt/puyBY7OAsFrIYbdK
-	 SKu3FHGvYWoLXKz3VEclP3d1tMH1pcO1iGzTyCgPZb41TdbdzL5I+KX3++yluWd8a5Tuv
-	 RCjcF0ZP4BHAMkmbDTGdawkclcaapoZuj4sGihFIRvDCWJo7HDO4jgX26kCoUNg0Vkz3x
-	 D3csyBMbadqC6jRfXSQipnwYMAZUf/P+mO9mX03Jgfez/3qgvrbhnxGSgOd7wdfYuUgdF
-	 5ffu2Fj3g+NZSyqlY1c698fIHsBzguUHArYrQpMV5LUY4LlPW9LRGFn/CimNKaGAIow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793327651;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yI38pTAxWIJdHS1u48CX7hR1jFdneroKUtAyhW5uxuM=;
+	b=phnyKoRPtr8FiURfwIwxXdsM1IdVxG2o+2UWq3qppcFydto7da2XNBacBQBWzJSpSfwh
+	 oM4pVBh12IAhX20BUOQXWdQb5g/qVs4RZ30l9GlqAvIhx6YA3wBkLweeH4FIwePD/OUoa
+	 XterSVI5TBMncjtm3hUHJeyfNQ/Av4GusVGPRt7TArNaiztZE7RP7pfIG5PQOnMPP4ryS
+	 lctQ6SGLywjpd4mqbuQwzwjHO8Mn4gRKWvMM7DlXAC+E1gcN37bPHWqsB3x6I8nsgP3q0
+	 Ja4GCNtKo63h+k67G2WYsebW1/7A8ClL2oR8nOugQLsrHfrJJd2d0mWeVZdwzwKBJOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hhYKW89r;
-	arc=none smtp.remote-ip=74.125.227.130
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kJfXCyRe;
+	arc=none smtp.remote-ip=203.205.221.231
+Received: from out203-205-221-231.mail.qq.com (out203-205-221-231.mail.qq.com [203.205.221.231])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA33606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:33:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABA33606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90BA606A31A;
+	Fri, 30 Oct 2026 02:34:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C90BA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hhYKW89r
-Received: by mail-pj2-f2.google.com with SMTP id d9443c01a7336-2ea19bc317dso1905835ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:33:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793327594; x=1793932394; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0K6cB7nWKEstKbBLqxn1nNdZR7J+XsbPrVECCeNP37U=;
-        b=hhYKW89rmpWPjeNPAnddAC7iekEyhHyPOLk3bx5Zyi7zRxBi5YHhvlwIBH596UeZSP
-         3Eoe/gsSM3CFvkotK7eYB+amgOhQnCrbpmrpEeQimCx2EH/Xn5diQkRNhranXK1rmVaQ
-         CWC2a/cfXOn/EmXfErq/nXr6WQak7XpPfkCGEpgTEjB0dqB1KIOP4bJBeGlZ0px86Fhi
-         o3bRatvSSDymt8e6VDQY5F2jfNVsnYRPs022fiItSvBWlxw5uGmu0nwPYCq71YEoi6p7
-         KR+atXRjfG7BW2rIjWLLd1CxPm4oFwgyFcMGbAZa5F/yaW9CXh0eMHZfIHRLCj/BYr1v
-         XDrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793327594; x=1793932394;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0K6cB7nWKEstKbBLqxn1nNdZR7J+XsbPrVECCeNP37U=;
-        b=PL4RFcSvTBDF2O62v2h+1JEjwMaCgSlMR/BX8FAJuerjaX8VJL0JDIUnnijS4IUJHj
-         VOU6oz9hMm3Fix8aK66LV4+BCii3zSkxyHqtCTaoZc33tRZEHEUKz+ZpXCQ/bTxR1Y0G
-         hxe9WYK0cbuxKJ8jjrRos/E3N2oA3jfuC35e8jvoS/gqBy3cbnWW54IWHtA7+pnwhrrr
-         XTlMeR36Xr+lMaqVhcd7PsSMOhsm/aOF8SrqExw8TVB7b3MdKbC4ypBILFsZq6ZxryEJ
-         K9jUH3XVkL7U2LrFdgD7CkYaxEMbp0czIs4Uu14YZWq0ChoCtpd1f9fCU4mRrAleeO+A
-         W3Hw==
-X-Forwarded-Encrypted: i=1; AKwUvBysaQJDai9VrPTRWVuBAbNR2IFoDs+1hjMdAlqG7dtK7YFA2DHqYRbtwynkHJ8iYPobEmVbWn7VRvubc88=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfuStHfchp3MB8STVg24zcL8QemM700OeebFkKYQmkrvgT8yNH
-	5hY3F9+MCf25G0ebakxoxkLQe3OMsQJ8JS0ngEA5bimsGx6OsfdOILE6
-X-Gm-Gg: AYBFou3LVyKiNH5xWyi9Myb3aK4tYbcLf4Vevu7y2glbWkAB3gwzDsuKIaczdkP9fLW
-	DKi33U973nQSi72Shx6wn6UBfL9uwhLcl86XPkTM+vaCjCHST9esbPQZaje90PerGdCoN+PU5RO
-	5XGdobyVKEj9yu/DrUs7T4XuAfQZEQ7EhFnw6Elverh57XvCcDXDB2p5nwlq1YZq9HKcdpYOdfx
-	Yvr9GiQ7sPDY3E8uYKqbOwzbl5YiCxUY7nuoEYVC3ANeGPiNOMBCA3w1Gygj3qhmgOWMMB8FQIP
-	0WgmAbO0EX7UYM2UNCz50pAbHVZH+3TZ97L46bHBVYI3B6Z+qPS1YwupBcLOp1bwOj7iQVcxg6M
-	fMHxFzV+cy9bJR8hxZG0LC1Zj7IcPBycPUzBKGjf9H2vyOBoeeYkHSQcnLyliJ0z8Cxrc+X4OFl
-	Af1JMkcP8wKFzV9RnY/micmInfFvh8dDxnPIjeZsFikQRDWtuzSULKWV491tFEMPQxyMWkfgwkD
-	kdGRNAyA2LxQM1GwHckS7b7j4gFstgFm4oFfjf12hs1Be3Lz73XBC9zvw9zI3KRiJMP5G4PAX8Y
-	KnslfM5jjOtCeAaOKJvPbONKNPrm1293mpXOuhdv3yiO74DFE2YLTw==
-X-Received: by 2002:a05:6a20:c70e:b0:3c3:875d:c52f with SMTP id adf61e73a8af0-3e928784774mr903179637.10.1793327593925;
-        Thu, 29 Oct 2026 19:33:13 -0700 (PDT)
-Received: from localhost.localdomain ([58.247.233.220])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a9eef95f2dsm152216b3a.10.2026.10.29.19.33.07
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 19:33:13 -0700 (PDT)
-From: Rongzheng Wang <testwrzwrz@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	Magnus Karlsson <magnus.karlsson@intel.com>,
-	Jason Xing <kerneljasonxing@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	stable@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rongzheng Wang <testwrzwrz@gmail.com>
-Subject: [PATCH net v4 2/2] selftests/bpf: cover AF_XDP multi-buffer TX software checksum
-Date: Fri, 30 Oct 2026 10:32:48 +0800
-Message-Id: <20261030023248.78802-3-testwrzwrz@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261030023248.78802-1-testwrzwrz@gmail.com>
-References: <20261030023248.78802-1-testwrzwrz@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kJfXCyRe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793327642; bh=yI38pTAxWIJdHS1u48CX7hR1jFdneroKUtAyhW5uxuM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kJfXCyReReLjxEgcRDtBGz05NGmtT3sNGUINfEZTiLA4Jcs/I9qWQIPDkDYiFlqvX
+	 jN36TG5j72py8+GUziVB/ICQB182RGeXHfDVJcbaDEsBP3sW4NlyKV7r+dqax2+vLk
+	 aeK1Lk4qylPjPVMA8Ztw9CIC1O8aOO+aaDLYWoF8=
+Received: from shuai-VMware-Virtual-Platform.. ([218.206.237.125])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id 8803A8CC; Fri, 30 Oct 2026 10:34:00 +0800
+X-QQ-mid: xmsmtpt1793327640t8grxmk6j
+Message-ID: <tencent_A0D3062EB058E244877B87B4324B8DFC4406@qq.com>
+X-QQ-XMAILINFO: M1ZCvr9KyDXtaCJcnF47S6R5I3mq0IV7kiidH4/XzxN5PLrN7Fu8PsfGr+ka98
+	 ubiqSNUdCT4zCufn3DQKkOjLb7yGNZuLMh1y9ltnrfuWvgMF03A9GbDRY0GzF2969BCWySg4Iz+B
+	 hN9vAQq79uCukI6ETF0ZxT+HZ/mOm2rS8ojT/s//xwJBcIbhDvfFTtsSPvIhD3VYYYq3lmarP1F8
+	 b0ObgRdNiADEeBeHRaRr8vUMli+Kl2xypBPVDBAtD9+uuZzynN6Prz5oN2jWvhTPSJKclDDCNvK0
+	 T5kiPNKZCQ4vHW959PlUvPuWrEvLnmR5reDhWuMqaSTMxmAJbbV1/Q0dMOBr8B156RwUxhMiaxes
+	 BRHOqi88H+cR9GoDNu6MNV3zl9w7R4A4daYmD9qrhffM2EASkDUlaat70g1FWYA+6HrfxRKNOBT2
+	 aRdU3oc/NLZB9mDIrmjJSDOj8sas+cb6AKgH74yPqU1E8u3QHy1SGXEG1lWITj0pykMWikcZ10C3
+	 W/SC29o5sSlbNPDQPrBOmsSHSYHOclHvQyBVpjZnhV/UOJC1jvRKd1m7PKOs6fyPzCbmIZQmz5Ea
+	 4G9sWsnrpMddsVTJDfB4n9y7tiy5Tq288dYnHKcrvuy4560ReiJPFL+wv669Mj/cY+qQ/CCwIIWO
+	 +0BkKh5du0UoXeL/eN7lqkJyFMMZopDKThAgszEtAnPE4skFfM87FsZStIciOD+p4lPKHJCbPUoW
+	 0p3yw9rNL9dYmX0uphH0+Lg0Scxf22pLOtfMParg6+PNnx/ECiw9QsV3wGVLjngnA96AcWOFF4jl
+	 N2GCd3leWt7iH9qjomUcCHKmohOD7fMIcKg/VK1cA8H0lCG0IhAGTZPSyoYLCZEH0sLNu8PVdaIH
+	 SHoiN8hrYWDeaxLz17qN4AiLc/aDKJl2nCSsClrC/F/u5f93mcvrqItEQ/gl9eKhxHpqbqhZSUPS
+	 R0ojgaCVtfoupJvRrqwxE5urXV5QnitZZ6dkldPYJboAyjxIkxxgIOL8GqIEbt7MvaUjcQLubGw1
+	 KEPxfM64Yjv2a+tJ2Way5QjI17QMaF3DgLH0k1ixj/NuAB2B++L4DiF2cAUAU3P8USfneifbFRiU
+	 EeCVmvjnUyCty0//A=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Shuai Liu <847807867@qq.com>
+To: Mike Lothian <mike@fireburn.co.uk>
+Cc: Oliver Neukum <oneukum@suse.com>,
+	rust-for-linux@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/5] rust: usb: host-side abstractions for a bulk-endpoint driver
+Date: Fri, 30 Oct 2026 10:34:00 +0800
+X-OQ-MSGID: <20261030023400.3849731-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260826163101.4168-1-mike@fireburn.co.uk>
+References: <20260826163101.4168-1-mike@fireburn.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,282 +84,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Extend test_xdp_metadata to send the same UDP packet using every descriptor
-count from 1 through MAX_TX_DESCS (MAX_SKB_FRAGS + 1), and to run the
-existing metadata and checksum verification for each case.
+Hi Mike,
 
-Build the packet once and write it into the TX descriptors in a loop
-instead of using a flat two-descriptor layout. Keep the first descriptor
-large enough to cover the checksum offset; the remaining payload is split
-across the continuation descriptors, with the last descriptor taking the
-remaining length.
+I read through the v3 diff (patches 1 and 2 in detail). I could not
+apply the series locally because the 8-month-old base no longer matches
+current usb.rs, so this review is from the diff, not a build. Two
+findings, both around alternate settings:
 
-Reuse the existing AF_XDP setup, packet generation, completion, and receive
-helpers in xdp_metadata.c instead of adding a separate test harness.
+1. set_alternate_setting() invalidates Endpoint<K> without the type
+   system noticing
 
-Signed-off-by: Rongzheng Wang <testwrzwrz@gmail.com>
----
- .../selftests/bpf/prog_tests/xdp_metadata.c   | 147 +++++++++++-------
- 1 file changed, 92 insertions(+), 55 deletions(-)
+Endpoint<K>'s invariants say the address names an endpoint of the
+interface's *active* alternate setting, with the transfer type and
+direction of K. That proof is only valid for one altsetting: after
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c b/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c
-index 5c31054ad4a4..17da0a145666 100644
---- a/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c
-+++ b/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c
-@@ -18,12 +18,15 @@
- #define TX_NAME "veTX"
- #define RX_NAME "veRX"
- 
--#define UDP_PAYLOAD_BYTES 4
-+#define UDP_PAYLOAD_BYTES 32
-+
-+#define MAX_SKB_FRAGS 17 /* minimum CONFIG_MAX_SKB_FRAGS */
-+#define MAX_TX_DESCS (MAX_SKB_FRAGS + 1)
- 
- #define UDP_SOURCE_PORT 1234
- #define AF_XDP_CONSUMER_PORT 8080
- 
--#define UMEM_NUM 16
-+#define UMEM_NUM 64
- #define UMEM_FRAME_SIZE XSK_UMEM__DEFAULT_FRAME_SIZE
- #define UMEM_SIZE (UMEM_FRAME_SIZE * UMEM_NUM)
- #define XDP_FLAGS XDP_FLAGS_DRV_MODE
-@@ -56,13 +59,13 @@ struct xsk {
- 	struct xsk_socket *socket;
- };
- 
--static int open_xsk(int ifindex, struct xsk *xsk)
-+static int open_xsk(int ifindex, struct xsk *xsk, __u32 bind_flags)
- {
- 	int mmap_flags = MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE;
- 	const struct xsk_socket_config socket_config = {
- 		.rx_size = XSK_RING_PROD__DEFAULT_NUM_DESCS,
- 		.tx_size = XSK_RING_PROD__DEFAULT_NUM_DESCS,
--		.bind_flags = XDP_COPY,
-+		.bind_flags = bind_flags,
- 	};
- 	const struct xsk_umem_config umem_config = {
- 		.fill_size = XSK_RING_PROD__DEFAULT_NUM_DESCS,
-@@ -133,31 +136,35 @@ static void close_xsk(struct xsk *xsk)
- 	munmap(xsk->umem_area, UMEM_SIZE);
- }
- 
--static int generate_packet(struct xsk *xsk, __u16 dst_port)
-+static int generate_packet(struct xsk *xsk, __u16 dst_port, u32 num)
- {
- 	struct xsk_tx_metadata *meta;
- 	struct xdp_desc *tx_desc;
- 	struct udphdr *udph;
- 	struct ethhdr *eth;
- 	struct iphdr *iph;
-+	u16 first_len;
-+	u16 pkt_len;
-+	u8 pkt[256];
-+	u32 offset;
- 	void *data;
- 	__u32 idx;
-+	u32 addr;
- 	int ret;
-+	u32 i;
- 
--	ret = xsk_ring_prod__reserve(&xsk->tx, 1, &idx);
--	if (!ASSERT_EQ(ret, 1, "xsk_ring_prod__reserve"))
-+	pkt_len = sizeof(*eth) + sizeof(*iph) + sizeof(*udph) + UDP_PAYLOAD_BYTES;
-+	first_len = sizeof(*eth) + sizeof(*iph) + sizeof(*udph);
-+	if (!num || num > MAX_TX_DESCS ||
-+	    (num > 1 && pkt_len - first_len < num - 1))
- 		return -1;
- 
--	tx_desc = xsk_ring_prod__tx_desc(&xsk->tx, idx);
--	tx_desc->addr = idx % (UMEM_NUM / 2) * UMEM_FRAME_SIZE + sizeof(struct xsk_tx_metadata);
--	printf("%p: tx_desc[%u]->addr=%llx\n", xsk, idx, tx_desc->addr);
--	data = xsk_umem__get_data(xsk->umem_area, tx_desc->addr);
--
--	meta = data - sizeof(struct xsk_tx_metadata);
--	memset(meta, 0, sizeof(*meta));
--	meta->flags = XDP_TXMD_FLAGS_TIMESTAMP;
-+	ret = xsk_ring_prod__reserve(&xsk->tx, num, &idx);
-+	if (!ASSERT_EQ(ret, num, "xsk_ring_prod__reserve"))
-+		return -1;
- 
--	eth = data;
-+	memset(pkt, 0, sizeof(pkt));
-+	eth = (void *)pkt;
- 	iph = (void *)(eth + 1);
- 	udph = (void *)(iph + 1);
- 
-@@ -180,18 +187,43 @@ static int generate_packet(struct xsk *xsk, __u16 dst_port)
- 	udph->source = htons(UDP_SOURCE_PORT);
- 	udph->dest = htons(dst_port);
- 	udph->len = htons(sizeof(*udph) + UDP_PAYLOAD_BYTES);
-+	memset(udph + 1, 0xAA, UDP_PAYLOAD_BYTES);
- 	udph->check = ~csum_tcpudp_magic(iph->saddr, iph->daddr,
- 					 ntohs(udph->len), IPPROTO_UDP, 0);
- 
--	memset(udph + 1, 0xAA, UDP_PAYLOAD_BYTES);
--
--	meta->flags |= XDP_TXMD_FLAGS_CHECKSUM;
--	meta->request.csum_start = sizeof(*eth) + sizeof(*iph);
--	meta->request.csum_offset = offsetof(struct udphdr, check);
-+	for (i = 0, offset = 0; i < num; i++) {
-+		u32 len;
-+
-+		if (num == 1)
-+			len = pkt_len;
-+		else if (!i)
-+			len = first_len;
-+		else if (i == num - 1)
-+			len = pkt_len - offset;
-+		else
-+			len = (pkt_len - first_len) / (num - 1);
-+
-+		addr = (idx + i) % (UMEM_NUM / 2) * UMEM_FRAME_SIZE;
-+		tx_desc = xsk_ring_prod__tx_desc(&xsk->tx, idx + i);
-+		tx_desc->addr = addr + sizeof(*meta);
-+		tx_desc->len = len;
-+		tx_desc->options = i ? 0 : XDP_TX_METADATA;
-+		if (i + 1 < num)
-+			tx_desc->options |= XDP_PKT_CONTD;
-+		printf("%p: tx_desc[%u]->addr=%llx\n", xsk, idx + i, tx_desc->addr);
-+		data = xsk_umem__get_data(xsk->umem_area, tx_desc->addr);
-+		if (!i) {
-+			meta = data - sizeof(*meta);
-+			memset(meta, 0, sizeof(*meta));
-+			meta->flags = XDP_TXMD_FLAGS_TIMESTAMP | XDP_TXMD_FLAGS_CHECKSUM;
-+			meta->request.csum_start = sizeof(*eth) + sizeof(*iph);
-+			meta->request.csum_offset = offsetof(struct udphdr, check);
-+		}
-+		memcpy(data, pkt + offset, len);
-+		offset += len;
-+	}
- 
--	tx_desc->len = sizeof(*eth) + sizeof(*iph) + sizeof(*udph) + UDP_PAYLOAD_BYTES;
--	tx_desc->options |= XDP_TX_METADATA;
--	xsk_ring_prod__submit(&xsk->tx, 1);
-+	xsk_ring_prod__submit(&xsk->tx, num);
- 
- 	ret = sendto(xsk_socket__fd(xsk->socket), NULL, 0, MSG_DONTWAIT, NULL, 0);
- 	if (!ASSERT_GE(ret, 0, "sendto"))
-@@ -224,24 +256,27 @@ static int generate_packet_inet(void)
- 	return err;
- }
- 
--static void complete_tx(struct xsk *xsk)
-+static void complete_tx(struct xsk *xsk, u32 num)
- {
- 	struct xsk_tx_metadata *meta;
- 	__u64 addr;
- 	void *data;
- 	__u32 idx;
--
--	if (ASSERT_EQ(xsk_ring_cons__peek(&xsk->comp, 1, &idx), 1, "xsk_ring_cons__peek")) {
--		addr = *xsk_ring_cons__comp_addr(&xsk->comp, idx);
--
--		printf("%p: complete tx idx=%u addr=%llx\n", xsk, idx, addr);
--
--		data = xsk_umem__get_data(xsk->umem_area, addr);
--		meta = data - sizeof(struct xsk_tx_metadata);
--
--		ASSERT_NEQ(meta->completion.tx_timestamp, 0, "tx_timestamp");
--
--		xsk_ring_cons__release(&xsk->comp, 1);
-+	__u32 i;
-+
-+	if (ASSERT_EQ(xsk_ring_cons__peek(&xsk->comp, num, &idx), num,
-+		      "xsk_ring_cons__peek")) {
-+		for (i = 0; i < num; i++) {
-+			addr = *xsk_ring_cons__comp_addr(&xsk->comp, idx + i);
-+			printf("%p: complete tx idx=%u addr=%llx\n", xsk, idx + i, addr);
-+
-+			if (i == 0) {
-+				data = xsk_umem__get_data(xsk->umem_area, addr);
-+				meta = data - sizeof(*meta);
-+				ASSERT_NEQ(meta->completion.tx_timestamp, 0, "tx_timestamp");
-+			}
-+		}
-+		xsk_ring_cons__release(&xsk->comp, num);
- 	}
- }
- 
-@@ -325,7 +360,7 @@ static int verify_xsk_metadata(struct xsk *xsk, bool sent_from_af_xdp)
- 	ASSERT_EQ(meta->rx_hash_type, 0, "rx_hash_type");
- 
- 	/* checksum offload */
--	ASSERT_EQ(udph->check, htons(0x721c), "csum");
-+	ASSERT_EQ(udph->check, htons(0x1c8f), "csum");
- 
- done:
- 	xsk_ring_cons__release(&xsk->rx, 1);
-@@ -361,6 +396,7 @@ void test_xdp_metadata(void)
- 	int retries = 10;
- 	int rx_ifindex;
- 	int tx_ifindex;
-+	unsigned int i;
- 	int sock_fd;
- 	int ret;
- 
-@@ -398,7 +434,7 @@ void test_xdp_metadata(void)
- 
- 	/* Setup separate AF_XDP for RX interface. */
- 
--	ret = open_xsk(rx_ifindex, &rx_xsk);
-+	ret = open_xsk(rx_ifindex, &rx_xsk, XDP_COPY);
- 	if (!ASSERT_OK(ret, "open_xsk(RX_NAME)"))
- 		goto out;
- 
-@@ -462,27 +498,28 @@ void test_xdp_metadata(void)
- 
- 	/* Setup separate AF_XDP for TX interface nad send packet to the RX socket. */
- 	tx_ifindex = if_nametoindex(TX_NAME);
--	ret = open_xsk(tx_ifindex, &tx_xsk);
-+	ret = open_xsk(tx_ifindex, &tx_xsk, XDP_COPY | XDP_USE_SG);
- 	if (!ASSERT_OK(ret, "open_xsk(TX_NAME)"))
- 		goto out;
- 
--	if (!ASSERT_GE(generate_packet(&tx_xsk, AF_XDP_CONSUMER_PORT), 0,
--		       "generate AF_XDP_CONSUMER_PORT"))
--		goto out;
-+	for (i = 1; i <= MAX_TX_DESCS; i++) {
-+		if (!ASSERT_GE(generate_packet(&tx_xsk, AF_XDP_CONSUMER_PORT, i), 0,
-+			       "generate AF_XDP packet"))
-+			goto out;
- 
--	switch_ns_to_rx(&tok);
--	if (!ASSERT_OK_PTR(tok, "setns rx"))
--		goto out;
-+		switch_ns_to_rx(&tok);
-+		if (!ASSERT_OK_PTR(tok, "setns rx"))
-+			goto out;
- 
--	/* Verify packet sent from AF_XDP has proper metadata. */
--	if (!ASSERT_GE(verify_xsk_metadata(&rx_xsk, true), 0,
--		       "verify_xsk_metadata"))
--		goto out;
-+		if (!ASSERT_GE(verify_xsk_metadata(&rx_xsk, true), 0,
-+			       "verify xsk metadata"))
-+			goto out;
- 
--	switch_ns_to_tx(&tok);
--	if (!ASSERT_OK_PTR(tok, "setns tx"))
--		goto out;
--	complete_tx(&tx_xsk);
-+		switch_ns_to_tx(&tok);
-+		if (!ASSERT_OK_PTR(tok, "setns tx"))
-+			goto out;
-+		complete_tx(&tx_xsk, i);
-+	}
- 
- 	/* Now check metadata of packet, generated with network stack */
- 	if (!ASSERT_GE(generate_packet_inet(), 0, "generate UDP packet"))
-@@ -518,7 +555,7 @@ void test_xdp_metadata(void)
- 		goto out;
- 
- 	/* Send packet to trigger . */
--	if (!ASSERT_GE(generate_packet(&tx_xsk, AF_XDP_CONSUMER_PORT), 0,
-+	if (!ASSERT_GE(generate_packet(&tx_xsk, AF_XDP_CONSUMER_PORT, 1), 0,
- 		       "generate freplace packet"))
- 		goto out;
- 
--- 
-2.39.5 (Apple Git-154)
+    interface.set_alternate_setting(1)?
+
+every previously obtained &Endpoint<BulkOut> is still usable, but the
+same address in the new setting may name an interrupt endpoint or a
+different direction. A transfer method will then happily build a pipe
+for an endpoint that no longer matches the tag. C drivers get this
+right by re-fetching endpoints after usb_set_interface(); the Rust
+abstraction currently lets a driver keep stale proofs across the
+switch.
+
+Something that binds the proof to the setting would close it, e.g. an
+Endpoint borrowed from an Altsetting token (making it unusable after a
+switch), or a generation stamp checked at transfer time. At minimum the
+doc comment on set_alternate_setting() and on Endpoint should state
+that all previously obtained Endpoint values must be discarded across a
+call.
+
+2. set_alternate_setting() with transfers in flight is undefined
+
+usb_set_interface() tears down and reallocates the interface's
+endpoints, which unlinks and kills any URBs submitted on them. A
+persistent BulkInQueue/BulkOutQueue built in patch 2 therefore loses
+its URBs out from under the Rust slot state machine: the queue thinks
+a slot is in flight while the C core has killed the URB, and nothing
+ever wakes the waiter. The documentation of set_alternate_setting()
+does not warn about this.
+
+Either the method should require an empty window (e.g. take &mut self,
+or refuse when the window has registered URBs), or it should document
+that the driver must drain and drop its queues before switching, with
+the queue Drop doing the cancellation.
+
+Two smaller notes:
+
+- queue_reset_device(): I checked hub.c; the "may be called from any
+  context, deferred to the core workqueue" documentation matches
+  usb_queue_reset_device().
+
+- EndpointKind being sealed with BulkIn/BulkOut/InterruptIn is a nice
+  fit; control endpoint 0 going through Pipe instead of Endpoint avoids
+  pretending it takes part in the altsetting lifecycle.
+
+Best regards,
+Shuai Liu
 
