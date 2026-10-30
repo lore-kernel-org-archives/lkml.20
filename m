@@ -1,76 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793395280;
-	b=S+V23sQ5/z3i4ogP28O4shW55xNZjwuaSYq+zMGeVs2w6g8WW5rBwsqv3co+aiISlan6
-	 wOC3XLaU0aJk5rmQ7pwGEwbPdtSRUHZ7oe7uZ6xKMIT1NrGV8x7xMTyW1DCbl+dmQp47s
-	 Orx5NHSH+MQl3TyFAkkIzhw21WmLiuVfzeP+Jucabm/c8IUiWXQ7PZDgPZMz0rlvjThmO
-	 qengGBOgid4/Kz4bhYD/FDEeZc8DaCEERoTf911N9mWsOF0KLizcbrtdvrhnIaP5Re0mu
-	 UAeZx/urwZ90yb3AVItxBdNc13ZWSXyytTdQHZbvffeuL/o027XJT2E+1t80R097Qgg==
+	t=1793395275;
+	b=OXFs61LaP6hotMNtJXN3kV4yTneyJJeTmCVuMbo6yo9Xb9tUmzrbHx0eKV8r8HTpUXvj
+	 6oU23GfDDajPFV4igcgulQ+S/4JHUKRLI+ClKEvG/fhDQtcN9DZajjUFGBDaViDH/cYq7
+	 KWVkLVJGzdQg14k9WRAaxaVRHuWP8M9pUQYXI1zDxJM7KI9PK/7CKWWn8k19LbKV2ayDZ
+	 QXAxVCE+7w61mwrRc1Fy3EOBIS1SfkGcDLD4iDEMXdMMCUBhghF6J6nh2AhzM3ErulKIl
+	 /aqtRVP/iV6/3iISzKHtj8L5Epw2jgMbW+ckHIJqxgtqh3dsaQpUSZwsGXl5NGpWKmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395280;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793395275;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
-	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
-	 To:Cc:Content-Type;
-	bh=MEhWTFe6jtxX2Dal10Wapygbfs7VfCvFh36BKYtVScI=;
-	b=h/9N3DBHhHrkVPXKluUQGjanVZSMyu0kgi2yyGI/BC4eRrwqgxE9z35WCBLaMb6UauQ7
-	 JJ4OslIE/BK9lI9o87i+TkmvUVwZB758+8WqhrFzPnOOsEjXQh15S+onWK3hpSaK3uG3T
-	 Mm7czPYwK58FD8CpsMMpTo+4fuM4Fj9cBKTv2R1tcRscKRiV3t+VaIXQt3nUmEpR2oLln
-	 OcV4mMye0bMzIHLHK1azXxf5hFMlO59VDOTUtR1p3YHBHSQ2nprvQkfabmw3I5nq262uo
-	 k04Aglp4IMHKM02NqWKmJUz00ZpmnQw2Fk7LCMVhIi1FiBHEyoGene/Rq/N5cSevRaQ==
+	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=9Z3EYYcj7DPzn99/aDJihGAHrZCLthA2ifb7uE3O3Dg=;
+	b=kffnwT1Sa/nyNqqx5NLOvQYI1yPKcuKCa5J0Qy5mvrH80i1Ww4fNZnVgJtuO/A1RlzLX
+	 1EBOVo0g/GxAg6sxyelytcIOYX9FVPUCc3slgzmBWic8CrGhXxKRFHE42rsZcm7ubgvPg
+	 eZSHleqvvx0C4JECKMx3Afcv5zb36cvX7SZdi8/FFB2O5JZwpG0uvqUw3aYu9vfGZmWoY
+	 0p9RXdLUrPH9XbKWTqVlIzkBFyHakUoFOD4mt5esshBo+ZX7AwWFDGx1FEeRCFF66XqCN
+	 T8OBoXe4TWOXlKLnYvoSMci2XSZDlwTkiYHCpXWE702bIhBpjKiP5u/4/qdkGXMH6lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="L9/I4MRO";
-	arc=none smtp.remote-ip=209.85.215.200
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=I4mab3zr;
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1551260A3834
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:21:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1551260A3834
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC36606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:21:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BC36606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=L9/I4MRO
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cca35cf9f77so686969a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:21:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=I4mab3zr
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ad3fc547bfso1496606a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:21:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793395278; x=1794000078; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=MEhWTFe6jtxX2Dal10Wapygbfs7VfCvFh36BKYtVScI=;
-        b=L9/I4MROpIUaWaVHMpI4y9WQFiUA/81ULVBw6yuBd7Fyu3T7XxSq8PdTk47iMRW6Qa
-         50Pv7uuRm/3e7vtQnJvjf3OeMhCYAqhEenMyN/aKGJO+oKLWAxWud/n7n9VgZ6pk2Ylv
-         4jVO3AxuEA39T4cxKWG9fS3EYmrSP6tBA+JRC3+1UulY959Ja5AebvO5Yqu+ip3Amuk/
-         w7oJ6GUD6/ki+gpXqVpccOWf4XmKD16mVBSuNxl8YVJy/UI5PTfC75+PHiz4B7/D2DTe
-         gMhOBccFyWL/5qNnG0n8WIQUZVxqV/v19M2L9QzggSp45iqgjxHjr/tjhUKaqY78n6hK
-         IPBA==
+        d=google.com; s=20260707; t=1793395273; x=1794000073; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9Z3EYYcj7DPzn99/aDJihGAHrZCLthA2ifb7uE3O3Dg=;
+        b=I4mab3zrHcOd69wM7yzO4vi7/U4RddxMGljpEnMIIULDDtdo0fpzga+wwoc2IpLpk8
+         89sfrydWnW2BVJAdC7sjUtTv37FJuhUk9iv+MrsU1Ya0QAucSgPv+Zky+z/+EA99qoB0
+         6+mXS2O/Fm1fKbULOC6YeWEwyhptGIyGbmQDrUT6+xbQUckS25Kv80tFyss9M/FS95A4
+         5o7psAc5ozyF2YQUlp4OraxHiYxlp/dzJvClyg2I7gMNbyUHxP5rWUyNpretpWCdJAuK
+         Kzr6iKnB0tjExVW79waiOEIV/WpRlf8b61oOHsD+4CS+uBgH1FRe29ghzkB4CALeQ6YT
+         YxCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793395278; x=1794000078;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MEhWTFe6jtxX2Dal10Wapygbfs7VfCvFh36BKYtVScI=;
-        b=L1znmOcf9bNPoWDHqSxIgAmteIURbOg18mPFEicscSCKo8OzZgefglkTAlhkOeUkd7
-         avEA83lRln8/d5hY17Gtx3FkRtUxK76NAe7JYoBqnXPdEyc1Iyy9KMak1KyKVlYEDuUP
-         zVEqBduWUStOd3D0ZOZXV9uCcpY1Q7yc8fcMsC4d73ppeGB/JAqjimN/n7LZ5IDvTB+P
-         4r+BQsydiumyHhkidFM6KcdWtnSHadGeR2cCALkHYY3BLFeOixzmXGLljLrJ0md+lDiO
-         knAkOfFLyeZBG0Nhq0x3Kc3sOYUDFjzXoyB41LtxKst3lV0sW36FzzLMMbG5bVeuqJI8
-         Ow+w==
-X-Forwarded-Encrypted: i=1; AKwUvByAQ5ZhtuJPqQ1m9c7ncglR+nS+9CuhqTDRSeN3YePnwceGFc5MHDiBvdt0njDZdU7layVvD5KY9TSOmsE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzFO2Rllr+YVg+1qFbX9Uo3ERkOXnM3NT7Qqoyc3gmrPblaElD
-	FV9nXLajJSrIHf6bszzmV/2goXWC8dnQJNe/vw0O10PNCcrajdZS591+8bSsujCD5a08r3l7r2r
-	WpZw/tQ==
-X-Received: from pgbd28-n2.prod.google.com ([2002:a05:6a02:64dc:20b0:cd6:1088:b8f3])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:6e8e:b0:3e1:c08f:c41a
- with SMTP id adf61e73a8af0-3e928daac3fmr3216721637.49.1793395278183; Fri, 30
- Oct 2026 14:21:18 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793395273; x=1794000073;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9Z3EYYcj7DPzn99/aDJihGAHrZCLthA2ifb7uE3O3Dg=;
+        b=tu2yyjybgkSgngDtdwjp0rVmNMUuX4wR4ltPPCaGJ4n2jtvDqWbjjWDTV/Sqmp1i6h
+         bOYn1FFDtmmVkJkWfOpSsBChpioghuLOwGp5hxUXsmF28/OdnzxRy4kWJDijT/Ygbr+8
+         z6FX0ljD1Tif0cXH78r28rwimvrt1u6Li+udsyKZk6euzoc4O7ho5DAiY2Hlq8aoLT9q
+         Trj8DDmz0NJ2d2cgJ/BK0Tdw9Otu9VBxIhkzOyQ44yWy96XChAjl7myf45+GF24o4PBS
+         aV2ZSuOuteqZEzU9mMk3Yyq4V2bkmPF4aC+CgqQrFaHDzVkGw+UEBd+rR5mqIa7uOiyx
+         nWBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx1lyS+zwE30KZGSZ8kQHlwJglLmvtSMsQK+6l49Hz1qmqMgE7Or7WjhRsg+JolJM5w0qNm8CpiOH2s/Sk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKj7lCi1tbxniD86WDEZ7+Ct3Nd620aSyS6OrdkirP9nL5mF/Ux
+	E4+kw1IQ94gyDmErr/Qj6BKWEIq6gZ0AyZ0fJYtyqrL6ndMTJSzFxX65xQ44+pJTsMKq0Nt0t92
+	A32z59g==
+X-Received: from plgx6.prod.google.com ([2002:a17:902:ec86:b0:2eb:4a7:306e])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:57cb:b0:3a8:c0cd:57f9
+ with SMTP id 98e67ed59e1d1-3ae89744ca2mr2979645a91.25.1793395273224; Fri, 30
+ Oct 2026 14:21:13 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Fri, 30 Oct 2026 14:20:52 -0700
-In-Reply-To: <20261030212112.2598640-1-seanjc@google.com>
+Date: Fri, 30 Oct 2026 14:20:48 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,11 +77,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261030212112.2598640-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261030212112.2598640-5-seanjc@google.com>
-Subject: [PATCH v4 04/23] KVM: x86: Drop dead check on an existing memslot not
- having any pages
+Message-ID: <20261030212112.2598640-1-seanjc@google.com>
+Subject: [PATCH v4 00/23] KVM: Fix+harden against bad uaccess using dying VM
 From: Sean Christopherson <seanjc@google.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, Sean Christopherson <seanjc@google.com>, 
 	Paolo Bonzini <pbonzini@redhat.com>
@@ -93,45 +88,132 @@ Cc: Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger
 	James Houghton <jthoughton@google.com>, Chris Mason <mason@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Drop the should-be-impossible check on an existing memslot not having any
-pages.  Ever since commit 0577d1abe704 ("KVM: Terminate memslot walks via
-used_slots"), KVM returns NULL if there is no memslot.  Before that, KVM
-pre-allocated all possible memslots and relied on npages==0 to denote "no
-valid memslot".  The check on npages was deliberately left behind to aid
-debug, but that was over six years ago.
+Stupid SMM.  Patches 1-3 need to go to 7.4, everything else can and should wait.
 
-Side topic, there is no need to check for KVM_MEMSLOT_INVALID as it
-should be impossible to see an invalid slot while holding slots_lock, and
-more importantly, invalid slots preserve their original size, i.e. the
-npages check has nothing to do with to-be-deleted/moved memslots.
+Fix a class of bugs (limited to nested VMX, as far as we know) where KVM can
+corrupt an unrelated process' memory if KVM (attempts to) write to guest memory
+during VM destruction.  Because current->mm usually isn't kvm->mm when a VM is
+dying, e.g. because the associated kvm->mm process has already exited, writing
+to what KVM thinks is guest memory will corrupt the current address space if
+the associated userspace address happens to be writable in the victim.
 
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/kvm/x86.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Patch 1 is a blanket fix for the uaccess paths.  AFAIK, x86's nVMX is the only
+path in KVM that screws up, but auditing kvm_arch_destroy_vm() proved to be
+infeasible for a human (I didn't throw AI at it, yet...), and I can't think of
+any downsides to going straight to a broader fix.
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 32563a91fba9..cb8b60da5b11 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -10043,7 +10043,7 @@ void __user * __x86_set_memory_region(struct kvm *kvm, int id, gpa_t gpa,
- 
- 	slot = id_to_memslot(slots, id);
- 	if (size) {
--		if (slot && slot->npages)
-+		if (slot)
- 			return ERR_PTR_USR(-EEXIST);
- 
- 		/*
-@@ -10055,7 +10055,7 @@ void __user * __x86_set_memory_region(struct kvm *kvm, int id, gpa_t gpa,
- 		if (IS_ERR_VALUE(hva))
- 			return (void __user *)hva;
- 	} else {
--		if (!slot || !slot->npages)
-+		if (!slot)
- 			return NULL;
- 
- 		old_npages = slot->npages;
+Patch 2 fixes the underlyihng nVMX bug where KVM absuses the architectural
+nested VM-Exit flow when tearing down a vCPU, which has a truly absurd number
+of problems.
+
+Patch 3 fixes what I assume is a blatant PPC bug.  KVM PPC completely ignores
+kvm_arch_flush_shadow_all(), i.e. AFAICT, doesn't tear down its page tables
+when the owning process exits.  I don't have much confidence in the "fix", in
+part because it seems impossible that such a blatant bug could have gone
+unnoticed, but also because I went with a very naive approach of invoking
+kvm_arch_flush_shadow_memslot() for each memslot.  The changelog is pretty
+sparse, because I didn't know how to describe the issue byeond "this is
+completely broken".
+
+Patches 4-(I lost track and stopped caring) implement more agressive hardening
+to nuke the memslots before calling kvm_arch_destroy_vm(), e.g. to guard
+against writing to guest memory during kvm_arch_destroy_vm() without going
+through uaccess.  The big pain in the ass is x86's SMM, or more specifically
+x86's internal memslots colliding with SMM, where each internal memslot is
+actual *two* internal memslots.  KVM currently uses a single VMA for both,
+which means KVM can't automatically unmap the VMA when the memslot is freed
+without relying on arbitrary ordering.  And there are several other bugs in
+the related code.
+
+Setting dummy memslots feels a little hacky, but kvm_arch_flush_shadow_all()
+should have purged everything that effectively caches memslots, so it seems
+like the right approach?
+
+Patches after that add more hardening to detect KVM bugs (though the
+uaccess+memslot changes earlier in the series should render any bugs benign).
+
+The remaining patches double down on open coding nVMX's vCPU teardown by
+tearing down the vCPU "as-is", instead of forcing a switch to L1 and then
+doing teardown.  The forced switch is quite heinous, as it requires KVM to
+*load* the vCPU when it's dying due to architectural constraints for active
+VMCSes.  Not only is that gross, it was also papering over a bug (hopefully
+just the one) where KVM was relying on the vCPU load for nested VMX to take
+vCPUs off the posted interrupts wakeup list.
+
+v4:
+ - Fix the SMM+internal memslots issues. [Sashiko]
+ - Massage the vt_vcpu_pi_remove_from_wakeup_list() WARN so that it isn't
+   triggered if creating a vCPU fails. [Sashiko]
+ - Use "unsigned long" instead of "int" for kvm_is_guest_access_ok() params.
+   [James]
+ - Collect reviews. [James]
+
+v3:
+ - Give up, and open code nVMX teardown. [Sashiko, syzbot, Chris]
+ - Drop the nVMX hacks that were trying to fudge around the mass of nVMX
+   teardown issues.
+ - Free the VMA only for the non-SMM internal memslot. [Sashiko]
+ - Use @len, not hardcoded PAGE_SIZE, in kvm_is_guest_access_ok(). [Sashiko]
+ - Rip out the awful vCPU load code from nested_vmx_free_vcpu().
+ - Collect James' reviews.
+
+v2: https://lore.kernel.org/all/20261001202234.3794060-1-seanjc@google.com
+
+v1: https://lore.kernel.org/all/20260908132838.2116068-1-jmattson@google.com
+
+Sean Christopherson (23):
+  KVM: Reject user accesses to guest memory if current->mm != kvm->mm
+  KVM: nVMX: Don't force a full nested VM-Exit when destroying a vCPU
+  KVM: PPC: Flush/zap all memslots on kvm_arch_flush_shadow_all()
+  KVM: x86: Drop dead check on an existing memslot not having any pages
+  KVM: WARN and error out if memslot update encounters existing slot
+    with no pages
+  KVM: x86: Unmap VMAs for KVM-internal memslots when the memslot is
+    freed
+  KVM: x86: Delete non-SMM internal memslot if creating SMM memslot
+    fails
+  KVM: x86: Process all address spaces when deleting internal memslot
+  KVM: x86: Re-queue APICv update request if inhibiting APIC access page
+    fails
+  KVM: x86: Map a separate VMA for each address space for internal
+    memslots
+  KVM: Disallow setting memslots when the VM is being destroyed
+  KVM: Destroy memslots immediately after mmu_notifiers are unregistered
+  KVM: WARN if KVM attempts to do guest-related uaccess with "wrong"
+    process
+  KVM: WARN and reject guest-based uaccess if VM is dying
+  KVM: Pre-check uaccesses in KVM's APIs to read/write guest memory
+  KVM: VMX: Explicility free vmcs01, not the current VMCS, in vCPU free
+    paths
+  KVM: nVMX: Don't explicitly VMCLEAR+free() vmcs01's shadow VMCS when
+    freeing vCPU
+  KVM: nVMX: Cancel the nested VMX Preemption Timer's hrtimer in
+    free_nested()
+  KVM: Add lockdep-only APIs to query and assert that a vCPU is
+    unreachable
+  KVM: VMX: Explicitly remove dying vCPUs from the PI wakeup list
+  KVM: nVMX: Don't switch to vmcs01 when freeing a vCPU
+  KVM: nVMX: Don't load+put the vCPU when freeing nested state for a
+    dying vCPU
+  KVM: x86: Rename __x86_set_memory_region() =>
+    x86_set_internal_memslot()
+
+ arch/powerpc/include/asm/kvm_host.h |   1 -
+ arch/powerpc/kvm/powerpc.c          |  11 +++
+ arch/x86/kvm/lapic.c                |  42 ++++++-----
+ arch/x86/kvm/vmx/nested.c           |  69 ++++++++---------
+ arch/x86/kvm/vmx/posted_intr.c      |  68 ++++++++++-------
+ arch/x86/kvm/vmx/posted_intr.h      |   1 +
+ arch/x86/kvm/vmx/sgx.c              |   2 +-
+ arch/x86/kvm/vmx/vmx.c              |  31 ++++----
+ arch/x86/kvm/x86.c                  | 110 +++++++++++++++-------------
+ arch/x86/kvm/x86.h                  |   4 +-
+ include/linux/kvm_host.h            |  45 +++++++++++-
+ virt/kvm/kvm_main.c                 |  94 +++++++++++++++---------
+ 12 files changed, 298 insertions(+), 180 deletions(-)
+
+
+base-commit: 7e60162b16f9da0d2fa83da5c1723b6853a0ac1d
 -- 
 2.56.0.385.gac671c819a-goog
 
