@@ -1,111 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793349360;
-	b=UJNORwgfHvwqbRvO0HxVKED9cqvicyjzEW7IbPeahx+6Wr0FsZP8iQqs8QmuFIObEQ1I
-	 Uc7M3ADADwdch0UBSdH8iQ0pj2WPsPed7xw4SeWWIPOzqYBCSUklDJVeotYY68gS/wWy+
-	 7NoAdFZBPEmBxrfPPUwHWwxCRMDkrfOeGc0ivc5Gw4HgCzibGSfguxnJ3uCfL1L2vpK4u
-	 L4w64kktonSwQGQ0fs/39wa8TTB9n+JcJmqAFEyuUh40fq0yd1fooxyQMALF88Xb2jpIZ
-	 PuRe+RYy+hQ9u8f/sAXlI9RMiwgTxeim9jEYYUYPw6wXJksVp+jr2pcdY8VOlrihtKA==
+	t=1793349344;
+	b=CTodX7EekuSOWO//G2/oFW72t63nAX11Hr19A89uAk3lWwQhMhBqmt8PXQF+DHKekRG6
+	 WkGC9NugW+EsC84PAdxP2awWiBRowWmN9ff1ypsyH7UpVatAamBYWYD71On8gWzjAIMOh
+	 859XM0SjpAFB/lm2AZV25phNx/mWtUyMGAG8ad7BaEd6BzKK8lWyep2/Bd3kRkdhGf+nI
+	 zfMskX7OlS13JWsZ9k5H75QgoXOa7tMtZLubKwqpa1olrsGcbP5CAxt3CuwLU+A43dhBF
+	 PT/3TgUI55IfTL4V7KbJaXl+3AgZe8Fyy33JDwp+zlRFkERCBPfS4gb1J1pv8YH3Rxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793349360;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=6J7KmcYhp8MGRmEKR/ajQMu5IWDgP6+2nxjcEbK+xzU=;
-	b=0lj3s/6o6PIo147+x47oNqlZy59XpMIAocqU655NOHrbAyuVa/rEMdojIw/NqptIqvN6
-	 L2xtBUdktTbgDFcnYwYkdtUYQEnRNrWAyTugGtci9JIfFu682xosb9jygIP3Yqi4onHsD
-	 iS9KTyud5aRzMq47nGHxNYc5/0Yakgb7R+WvBEPb0kNadNkEfiuUtoNMBmQdCchHyUnfp
-	 NMguPAaPQAOvj9rfdORYcXOAx3ZKYGy9OLU2x5W31aD8v5p8A3w+/6m/Zl18NiVqmJOYm
-	 yQKsx5PowBi5/HkngdrkjBWsdfWnW5dgLQwF0dHyiMdWorYtZxji58+Q46WGGE8aTTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793349344;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=F0zE/6OtBk5Lv6PuQXE1z46Ii6lr5+GgEZoby1iAKkE=;
+	b=0rNCe3cGt9R1l/q+5Q1Z9hL49MctoM/3ZT1rMJb/R5FJy+ayqolvBhrIPU774HhpXYbC
+	 jJiOVUvhEjoIajyjzcF0sUlarxCO6O0oKpMlKxvGpW+Y01UMLXNNQIymtjW7nMJBI0kZT
+	 wCIAAETu4feR0tr6AIqxvI6UP0TXwVcsvv6bi4bw1q8VS83fVed5nEZoDuSBI2OL07+9W
+	 mWUGd63ss9HgdVmBpRlfNb7Qi6pTSD0ACEIUsW9/BOsZQnFuq8Iwa0F/72xQbmX+tr4Pi
+	 7CD3h2XAXZ8IXy/2Eu2Wf2G5ObbIbhPbMKC8Sk/krnBfKSySkMbu18fbYKzdV/XjrxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MH7riAKZ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P4epssvy;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=np4rAAL0;
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0728B606A330
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:35:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0728B606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558E060A2613
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:35:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 558E060A2613
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MH7riAKZ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P4epssvy
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8FlgI2736556
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:35:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6J7KmcYhp8MGRmEKR/ajQMu5IWDgP6+2nxjcEbK+xzU=; b=MH7riAKZSiGO2jEj
-	XWVxCXJWjvOyDK46m8K/q/ILwUqX9k6gFaLTogXB/2J8GB79vCfCdnesV59nhls9
-	L9MrX8TwCcYGAWDMrRXRsrgUfOwHKeWZmyRLd1Aj6JLLzVKD6r2FEMnQdiOpiCu7
-	vYTQRXh5WHeDpg0AYvMZM0PVeyb/YKAE2EFzohUHHmLqpGZpYW+xj2WNsZElYPLG
-	h/fthvX3S0HPUPOpNSdJJwT3Yyz+ULZaz61AHXj+u6HBZjnDm1ZdhhYCHQ55QoZv
-	QB3BjlYVJQo5Q6nAmiL2N9lDmngunpWR+Gl1zbaccZ2A2qdYXzyoZVSMfLX7NSC7
-	ge7BHg==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qj0xj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:35:58 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93e629c7b16so9567385a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:35:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=np4rAAL0
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-189d17eca17so440542c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:35:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793349358; x=1793954158; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793349343; x=1793954143; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6J7KmcYhp8MGRmEKR/ajQMu5IWDgP6+2nxjcEbK+xzU=;
-        b=P4epssvyyzCR9tJiEHdnrxI3QZVRIjWS1ca+ICOewbnC7lr9AyP2KWRH1GEM7I33K2
-         lsmG4Z8bIn/IDDWTLh72ZjAcn+fT0wLaIws7A+G0GSpii8fjRWvOa25Rg8lJj5bBjmce
-         wTA/bQbjTmwgQCbj72fRXtKX5TucOrZ16HYqNLIAg8JT0DppO+HbcW6mrVmzf/UCNAiV
-         yjMRXi+pGSm9sA6oFYipSXetlUPw/WnDcE37ZTjlhKgW9HBL/gf5yYiYeVH8AAs+wONf
-         Pa+huOUVpX22s8CfOhyDxqD+vcW9ARvvvNQ0pPVlr9jbozGtEaib7cSBTp3mp5FrCag/
-         YBkw==
+        bh=F0zE/6OtBk5Lv6PuQXE1z46Ii6lr5+GgEZoby1iAKkE=;
+        b=np4rAAL05BI9o4Ph9yLC+Fd6SQRxeSMagH6YvsWlM99GmbEhhF9aVt6A0bIkbuOFGf
+         SJRGj0VE4TdYstPMJXTMImXRfHviH1OOKELj4KKqztPhWph/56Ev58OqowGdYPScTxHk
+         QsuUXhazBsfZI3NDpJPYqWM0jbSPqEq36KFAto6uga2BdcQP1P7AxObO00EEAOOEk9hO
+         WzgIkr9HG0ET26pI/wnOO28Y9uEPEo2WqbkWmGuoZdrj2HReOQkVgEv7hDaSWBGJ9IAl
+         rBxhWccVFjitbg6/ghoxI11i2peC0qJM4D4LbEe9gLpeao6QV8VPH0Cc1cQ0J2zof+Bn
+         Gc5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793349358; x=1793954158;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793349343; x=1793954143;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6J7KmcYhp8MGRmEKR/ajQMu5IWDgP6+2nxjcEbK+xzU=;
-        b=saBHVNt35FV6AkC5Aw+BFoMGHmfriUJTxR9W9x73AG75j5KgqqL5DRo5ZzqAtvN5AJ
-         QBWZea3m9F750UzJQnh2X4MovL/LxwWa5AlRYaNlyDJbJFTnSu8qY+yvInILsEVRbsxS
-         6C+8Pjz/V5Qe0akLIyo90U72X6yd2fOpg+dRTcmM8qNfKbXo3gGp4IN+GCGKromTRfGW
-         VzZwk4G8nM7ookAbQbc4cnjLzsZyv7c3Yv/D4L2OMtFvXF6aegVDt3CmjQ/ZlmqLVbTJ
-         56XuC99ZzeCRODgGbgVYF/10J/lnS188VtmdGlD5kIR1cxfssxvwxLY8TrWeYLdcHW0e
-         yXOg==
-X-Forwarded-Encrypted: i=1; AKwUvBwOSm0a1RsYgcwJdGB1h2DY6TAFhX7VMzUMaiFPMfQWwZdl0teAmqDC4qDP7Nt9DqXbz/NpPt7h+I69JTM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlgSB37GyZmjwmIupW+i7M94wkeiEY1EuVl3Gc99JrR8O+k/+8
-	j7L0Drn52ewFkjX3PDfVSq7G5MwKcQjG3XsV1xQXjYsVCpnHMObXdTWRrCdog/Xk/5NpXdGdUOT
-	LAQPemIB4H3mV2ClRTWmx5vfdQvfs37zdMwXGJe2JiiGzdonzr/0pvRI0wm845mMK3Q0=
-X-Gm-Gg: AYBFou05zQFneT0kDc0dkcfwCZ07B6wZhnLPDyg+64IAUCL0PbOVJ9xCOQoG1KeAdKA
-	hBR4utYNWKUzYU8btUkvg6LHdcLEXXsKQWN47fXn+9tK0djbljUdWRdxIJpQN29nXSKNzvvyYZB
-	Qzyth4EdRCFNCWsm6gSc7uiW3mg/eZ28/BquX9CsTfzRrBsVF8fQVHvqCW8ovxahiNGQATNU3s7
-	EmVIYwd0W44PWX9GfZU29pcNHFQpLfv3+pjswrWZZ0v3D/2Je1dPu/NRtbn+VIg+TLs/vGPvdV0
-	84NUwEEw9i38E1tAwxDS0D8uz/8MzI0qvCzxRHYmxhBtJoyM08+xqWqPoZWmcAEW03nPIIipyDx
-	WbZRvKIXDVc4Sofo4v8EBkflEgVWilNTFg3gPbZIVzBSivgp7hjm8jTPqauWJjABUEWZdY1k=
-X-Received: by 2002:a05:620a:870a:20b0:944:127d:f192 with SMTP id af79cd13be357-9442179be1fmr261457685a.5.1793349358211;
-        Fri, 30 Oct 2026 01:35:58 -0700 (PDT)
-X-Received: by 2002:a05:620a:870a:20b0:944:127d:f192 with SMTP id af79cd13be357-9442179be1fmr261455385a.5.1793349357748;
-        Fri, 30 Oct 2026 01:35:57 -0700 (PDT)
-Received: from [192.168.226.64] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe0f504sm39083766b.36.2026.10.30.01.35.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 01:35:56 -0700 (PDT)
-Message-ID: <dc2c51b8-41cc-4abd-b52f-ef2072593d1e@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 09:35:55 +0100
+        bh=F0zE/6OtBk5Lv6PuQXE1z46Ii6lr5+GgEZoby1iAKkE=;
+        b=Un9nT9dTLT5Xj+RfpX9b6Cyjhh18/7yy9eQ4iCd94xa4pjl1mI3ZbHYpN4Hu95vxKc
+         85dgPYm4jy8li0XjYA+eJkt3hVjBrNfIiyfFj2o0vWe+O5utK0x0P/UibUKjnKopXAEm
+         L4YtRmNIYOKZ1eiPaGJhptXc1G97BL1+0FLMJar56ldb023s5chW2fA2cDiba6qqPj77
+         ss2FxBh0zV01JSk8SJSQaHtamhBoCbPXQr6Mqv4CxRWBdODK2T6pUMwzdS81takTcTCn
+         QLXyt3vQxMis99fs7RJj+IMCEO4WxRdhvhUKd55jdt8ARMm9LuoODCTH4949VrY5b7o/
+         Jvsg==
+X-Forwarded-Encrypted: i=1; AKwUvByVQRGYL58wyASOjpMGXJQ8AOdU4LnSHZEJHzhDJSKNtF7wq7CT0d6Nq0DBHGS4wbZnBTgXaLEuqIBy7Po=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvNjefdlXW2xwxTd2vqikS05E6anyp5wW85EQ28tzp8VOQUOEe
+	EULbItdN7xRE6vqFgNxBb3eGiCZscEQJSr7lCMvxW3FfkJjLH4/whEu1XcB5CRntBmQX5YMYa6J
+	Pu2N+oTYUmITgDvIAIHufPVNlCw==
+X-Received: from dlbec15.prod.google.com ([2002:a05:7022:d8f:b0:19f:9e93:9354])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7023:904:b0:168:3243:c907 with SMTP id a92af1059eb24-1ad85de518fmr460495c88.24.1793349343177;
+ Fri, 30 Oct 2026 01:35:43 -0700 (PDT)
+Date: Fri, 30 Oct 2026 08:35:37 +0000
+In-Reply-To: <20261030083539.777877-1-almasrymina@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,62 +78,219 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] iommu/msm: Use identity domain for GPU and display
-To: Rob Clark <robin.clark@oss.qualcomm.com>, iommu@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
-        freedreno@lists.freedesktop.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        open list <linux-kernel@vger.kernel.org>
-References: <20261029212344.346069-1-robin.clark@oss.qualcomm.com>
- <20261029212344.346069-3-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261029212344.346069-3-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: k5EXBolTWz2CKnHUdRZVa0p6LMtmrxoI
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAzNCBTYWx0ZWRfX1zBdm8XHpGmm
- 4jRhop0Q9PsMk3SSZD1i/FxAdw1zYmoObRUw71YwcJw/XQm6RxxowqAJQGEumIAIotkW+2x2xY7
- LTPzZo+9Ke5tHJYbSiPRr4aUJR3TCLI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAzNCBTYWx0ZWRfXwpDB582w1/Im
- RkB/mEj7cW7WbycwjkZMI+NtPpuoAjWDJNT1n8BFWJdLorX5GnO4yB2EN3ed8Pc4XcUK53tFP3B
- eWCRgJ/hcA2grBWrSd2sBI65Hcqa1iqkNCFBr6+t0Bt/aQizZcL7kltvBfRAQr6l72O0CRpargA
- vuAvCtZOBelDBxfTwtEsmJYK8sgrXXV0wvGj8TsKfEyOy9cONKCW5C4lDdIBcx9ZYJ0lIdcmJ8Z
- ksjOB/09Q3iIfSwk3RVZWdx6hev+xovacc7CFx0wY/l+hqkbIoA72RS5FigqthOH005ZUFoipUb
- CLs70KQ5dXpM+w2zKWFrxQetfIIa87H/YoiivH/1dY+imfyJxplTpKOCfnMxnp0/s7S4aVdnlMD
- 4ZNOumjBNkFBpOEUelt1TykdfBuaxQ/jKDjIl7WvBlDqrXiR4O6QhVEP+vuZU6SvMY79fMrn7ip
- DaAfsj8jRDkMThMTy9g==
-X-Proofpoint-ORIG-GUID: k5EXBolTWz2CKnHUdRZVa0p6LMtmrxoI
-X-Authority-Analysis: v=2.4 cv=TpVzFzXh c=1 sm=1 tr=0 ts=6ae456ee cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=nPYanoZRiyYWTCGofB4A:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501
- impostorscore=0 adultscore=0 suspectscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300034
+Mime-Version: 1.0
+References: <20261030083539.777877-1-almasrymina@google.com>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261030083539.777877-4-almasrymina@google.com>
+Subject: [PATCH net v5 3/4] netdevsim: support devmem RX and TX bindings
+From: Mina Almasry <almasrymina@google.com>
+To: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, Paolo Abeni <pabeni@redhat.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Mina Almasry <almasrymina@google.com>, 
+	Kaiyuan Zhang <kaiyuanz@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Bobby Eshleman <bobbyeshleman@meta.com>, Pavel Begunkov <asml.silence@gmail.com>, 
+	David Wei <dw@davidwei.uk>, Taehee Yoo <ap420073@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Stanislav Fomichev <sdf.kernel@gmail.com>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Nikolay Aleksandrov <razor@blackwall.org>, 
+	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>, 
+	Dragos Tatulea <dtatulea@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/29/26 10:23 PM, Rob Clark wrote:
-> Similar to commit 0e764a01015d ("iommu/arm-smmu: Allow client devices to
-> select direct mapping") for arm-smmu-qcom, match GPU and display compat
-> strings to pick identity domain time.
-> 
-> The drm/msm driver attaches it's own domain, which it manages directly,
-> so we don't want an iommu managed domain interfering.
-> 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
+Set a 64-bit DMA mask and UINT_MAX max segment size on nsim_bus_dev in
+nsim_bus_probe() when direct DMA mapping is supported, enable
+NETMEM_TX_DMA on the netdevsim net_device, and configure page_pool
+instances with PP_FLAG_ALLOW_UNREADABLE_NETMEM and queue_idx, plus
+PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV when a DMA mask and
+PP_DMA_INDEX_BITS are available, so devmem bind-rx and bind-tx netlink
+operations can be tested against netdevsim in software selftests.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+The pp_hold debugfs file allocates pages from the queue 0 page pool, so
+refuse it when that pool is absent or backed by a memory provider, and
+take the netdev instance lock there so a concurrent bind-rx cannot swap
+the pool in between. Since netdevsim forwards TX skbs in software
+without a DMA engine, drop unreadable or net_iov skbs in
+nsim_start_xmit().
 
-Konrad
+Cc: Tariq Toukan <tariqt@nvidia.com>
+Cc: Kaifeng Wang <kaifengw@google.com>
+Signed-off-by: Mina Almasry <almasrymina@google.com>
+Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+---
+v5:
+- Configure the DMA mask and dma_parms in nsim_bus_probe() gated on
+  dma_pci_p2pdma_supported(), and require PP_DMA_INDEX_BITS before
+  setting PP_FLAG_DMA_MAP so page_pool_scrub() can unmap inflight pages
+  on 32-bit builds (Sashiko).
+- Check for NULL ns->rq in nsim_pp_hold_write() and drop unreadable or
+  net_iov skbs at the start of nsim_start_xmit() (Sashiko).
+
+v3:
+- Only request page pool DMA mapping when CONFIG_HAS_DMA is set
+  (Sashiko).
+- Refuse pp_hold on a page pool backed by a memory provider, under the
+  netdev instance lock (Sashiko).
+- Drop unreadable skbs in the software PSP path when it would have to
+  checksum the payload (Sashiko).
+---
+ drivers/net/netdevsim/bus.c       |  9 +++++++++
+ drivers/net/netdevsim/netdev.c    | 33 +++++++++++++++++++++++++------
+ drivers/net/netdevsim/netdevsim.h |  1 +
+ 3 files changed, 37 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
+index b792ee10b1c1a..5f8f0c2f76939 100644
+--- a/drivers/net/netdevsim/bus.c
++++ b/drivers/net/netdevsim/bus.c
+@@ -5,6 +5,7 @@
+ 
+ #include <linux/completion.h>
+ #include <linux/device.h>
++#include <linux/dma-mapping.h>
+ #include <linux/idr.h>
+ #include <linux/kernel.h>
+ #include <linux/list.h>
+@@ -416,6 +417,14 @@ static int nsim_bus_probe(struct device *dev)
+ {
+ 	struct nsim_bus_dev *nsim_bus_dev = to_nsim_bus_dev(dev);
+ 
++	if (dma_pci_p2pdma_supported(dev) &&
++	    !dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(64))) {
++		dev->dma_parms = &nsim_bus_dev->dma_parms;
++		dma_set_max_seg_size(dev, UINT_MAX);
++	} else {
++		dev->dma_mask = NULL;
++	}
++
+ 	return nsim_drv_probe(nsim_bus_dev);
+ }
+ 
+diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
+index eebc02ccc4a92..0372a9bd63bbb 100644
+--- a/drivers/net/netdevsim/netdev.c
++++ b/drivers/net/netdevsim/netdev.c
+@@ -133,6 +133,10 @@ static netdev_tx_t nsim_start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	int dr;
+ 
+ 	rcu_read_lock();
++	if (!skb_frags_readable(skb) ||
++	    (skb_shinfo(skb)->nr_frags &&
++	     skb_frag_is_net_iov(&skb_shinfo(skb)->frags[0])))
++		goto out_drop_any;
+ 	if (!nsim_ipsec_tx(ns, skb))
+ 		goto out_drop_any;
+ 
+@@ -422,19 +426,27 @@ static int nsim_poll(struct napi_struct *napi, int budget)
+ 	return done;
+ }
+ 
+-static int nsim_create_page_pool(struct page_pool **p, struct napi_struct *napi)
++static int nsim_create_page_pool(struct net_device *dev, struct page_pool **p,
++				 struct napi_struct *napi, int idx)
+ {
++	struct netdevsim *ns = netdev_priv(dev);
+ 	struct page_pool_params params = {
+ 		.order = 0,
+ 		.pool_size = NSIM_RING_SIZE,
++		.flags = PP_FLAG_ALLOW_UNREADABLE_NETMEM,
++		.max_len = PAGE_SIZE,
+ 		.nid = NUMA_NO_NODE,
+-		.dev = &napi->dev->dev,
++		.dev = &ns->nsim_bus_dev->dev,
+ 		.napi = napi,
+ 		.dma_dir = DMA_BIDIRECTIONAL,
+-		.netdev = napi->dev,
++		.netdev = dev,
++		.queue_idx = idx,
+ 	};
+ 	struct page_pool *pool;
+ 
++	if (ns->nsim_bus_dev->dev.dma_mask && PP_DMA_INDEX_BITS)
++		params.flags |= PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV;
++
+ 	pool = page_pool_create(&params);
+ 	if (IS_ERR(pool))
+ 		return PTR_ERR(pool);
+@@ -458,7 +470,7 @@ static int nsim_init_napi(struct netdevsim *ns)
+ 	for (i = 0; i < dev->num_rx_queues; i++) {
+ 		rq = ns->rq[i];
+ 
+-		err = nsim_create_page_pool(&rq->page_pool, &rq->napi);
++		err = nsim_create_page_pool(dev, &rq->page_pool, &rq->napi, i);
+ 		if (err)
+ 			goto err_pp_destroy;
+ 	}
+@@ -770,14 +782,16 @@ nsim_queue_mem_alloc(struct net_device *dev,
+ 	if (ns->rq_reset_mode == 1) {
+ 		if (!netif_running(ns->netdev))
+ 			return -ENETDOWN;
+-		return nsim_create_page_pool(&qmem->pp, &ns->rq[idx]->napi);
++		return nsim_create_page_pool(dev, &qmem->pp,
++					     &ns->rq[idx]->napi, idx);
+ 	}
+ 
+ 	qmem->rq = nsim_queue_alloc();
+ 	if (!qmem->rq)
+ 		return -ENOMEM;
+ 
+-	err = nsim_create_page_pool(&qmem->rq->page_pool, &qmem->rq->napi);
++	err = nsim_create_page_pool(dev, &qmem->rq->page_pool, &qmem->rq->napi,
++				    idx);
+ 	if (err)
+ 		goto err_free;
+ 
+@@ -937,12 +951,16 @@ nsim_pp_hold_write(struct file *file, const char __user *data,
+ 		return ret;
+ 
+ 	rtnl_lock();
++	netdev_lock(ns->netdev);
+ 	ret = count;
+ 	if (val == !!ns->page)
+ 		goto exit;
+ 
+ 	if (!netif_running(ns->netdev) && val) {
+ 		ret = -ENETDOWN;
++	} else if (val && (!ns->rq ||
++			   page_pool_is_unreadable(ns->rq[0]->page_pool))) {
++		ret = -EOPNOTSUPP;
+ 	} else if (val) {
+ 		ns->page = page_pool_dev_alloc_pages(ns->rq[0]->page_pool);
+ 		if (!ns->page)
+@@ -954,6 +972,7 @@ nsim_pp_hold_write(struct file *file, const char __user *data,
+ 	}
+ 
+ exit:
++	netdev_unlock(ns->netdev);
+ 	rtnl_unlock();
+ 	return ret;
+ }
+@@ -1059,6 +1078,8 @@ static int nsim_init_netdevsim(struct netdevsim *ns)
+ 	ns->netdev->netdev_ops = &nsim_netdev_ops;
+ 	ns->netdev->stat_ops = &nsim_stat_ops;
+ 	ns->netdev->queue_mgmt_ops = &nsim_queue_mgmt_ops;
++	if (ns->nsim_bus_dev->dev.dma_mask)
++		ns->netdev->netmem_tx = NETMEM_TX_DMA;
+ 	netdev_lockdep_set_classes(ns->netdev);
+ 
+ 	err = nsim_udp_tunnels_info_create(ns->nsim_dev, ns->netdev);
+diff --git a/drivers/net/netdevsim/netdevsim.h b/drivers/net/netdevsim/netdevsim.h
+index fd5599cd3bb9f..2aa7ea924396e 100644
+--- a/drivers/net/netdevsim/netdevsim.h
++++ b/drivers/net/netdevsim/netdevsim.h
+@@ -476,6 +476,7 @@ int nsim_setup_tc(struct net_device *dev, enum tc_setup_type type,
+ #define NSIM_BUS_DEV_MAX_VFS 4
+ struct nsim_bus_dev {
+ 	struct device dev;
++	struct device_dma_parameters dma_parms;
+ 	struct list_head list;
+ 	unsigned int port_count;
+ 	unsigned int num_queues; /* Number of queues for each port on this bus */
+-- 
+2.56.0.385.gac671c819a-goog
+
