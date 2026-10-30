@@ -1,103 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793399105;
-	b=l+DDuHCRHJTeP6aksUv0cm92kWqx/9s8AJC1xRYZKNHOZrGM+wDiUnxqzQaByArtLRws
-	 5Tk7oYNjlW67OzB5La5LsCg+z175yxZTdMICAfbOmZaj0IgQboJIVHL7NmkuN9eeLibMo
-	 +Dy4qlLzrM8KOkKlkfffpAhFk5jHgLEs/O491y3WA1WY0WArE5tIbdSRqVziIAQUuYtX2
-	 zhBjUiQv9Onjd9brFARRaHTUP5rhrLerIHF0FjNnJ9D8Ql/VjzwxYDBItIKgWefbP0yuz
-	 4CJjHF45elYdM4l7nrn/LoVTIuFdkS7heBHKv0k/KUsQNKOrLghXbpv4c1VtH5II00A==
+	t=1793399143;
+	b=a2AJsvsOm7GqGzH3i+RdmQ1LfJ85Ywei6BpgdeNmMWsXo1fbBgpWlD79U4BLONyoDDCO
+	 H8bwuDqcHMIkXQ9LOIke0WHBjfcdpCKCo18F7NklEOCqx9f2iisCa7Lfx2UuBdjrqGrAv
+	 hS0IyqSAMpTyjhpgX5/1D7Padb/709FxywpecHodlUXby/1Zp0l8ugcXwZf6Wf2oI35R5
+	 tGYnh0XRZrIu53QDo5aM/UALGAS5rXNSW3lSdqGqIC/lNVeeMpD0rjsukk/q4tSF9suss
+	 i/Ixhtj6muQBla3YYcK3fUPAecUByEk6cN3uPkKf7D4yc1j+nCiVdFI2PjT/xGGx6dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793399105;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=/+KneAP5j4JycW2Osy6h4oU9OQtsTeRD6BdS9+k/6qE=;
-	b=Z6uDajnOqGcSZE0nJxDnxpcbNcGVE3VuMLaOhmIKV+P51zocUbhfHAa/okn1qd8J/cbi
-	 tdno15+XUxCNBFFYKlu6sGKzaCcrid8RTFNvm/sfk7t6FL4JKlRNpp92/5UxevlisAN7G
-	 JZM8zaTbzN/vYFGXjbTj7DHOkHNTjVfa1UUybvo2GH06l/zQhOhH/fnO92oydnEbH7SGj
-	 3iBSRy1MBSusli+weIfgDYVJHKW8jbUuHvGosGmYbB1zEjvIAQ0JEhpSrAhcsXFLaqBMK
-	 e2UnCudPw8mHdg8apEUmqRjg67FijHkv8QEtKclHYmLSfRqY0hacoTi8EmA6SDlNC0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793399143;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=Y1n5wumFDIgsyS30s6mfyNDWk1UqqiypdP8Ght8uUkI=;
+	b=a3JBLoq1UGx/I3J8s9kCErn6Y5eTCV/v1bQCxfHG9+GuhHmkTRUMOLKp/5KlLCCo9rMZ
+	 1cGEfqUyhF9+CT1DJsb95N5cMnOJhZmTdUAoXW7HfeBs0FjVe/b4+Gmy5f64WKX/4JESD
+	 w0xIRNJXhccbkfO+8Fk7ZRW07S2YMw6FOruYo9pFDWB8fhIVR2eDiGwUqIDpm+v59SmT4
+	 z8NYxvJJc4tiZmr4/Xv9HOugRXmURITqaqEeC4fI1p9FRPMj52TJ4FGqLEmbjZKHLkEGp
+	 WVqtEFqj202Hmwx92hAqBolcF0EOUXwUmL8J9ifmRD9J2Lud88reTpmhRgdmCmVB10w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fON+oxNo;
-	arc=none smtp.remote-ip=209.85.128.174
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="i/G5Lyfb";
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D64E606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:25:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D64E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4488B606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:25:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4488B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fON+oxNo
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8b0d91601bdso19581047b3.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:25:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793399104; x=1794003904; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/+KneAP5j4JycW2Osy6h4oU9OQtsTeRD6BdS9+k/6qE=;
-        b=fON+oxNodYAgFJVlp9NMyimkvkAqRKgDVxsc7oPe5/oKL+jFJcDMbJD7JyAAlKDN6X
-         Ulrgfg5oRZHZvrJt1/wumsGGM6hnegz6txsFgooLxk17khHW2ooVi/Ebs0ftClD4SO5k
-         n87A+Wy9KTW+fTdyYvj8B78qf8da4YbMqPpTFvdhHzQbqLrSLrSxEbLO9sF5YhJ5aLZH
-         YzEujhIVn4WLLXO+6Is1F/CV7tGZSvmR9kqFIziZ6PFOz+Ezxqzc11v/PzKOrWmTKfIJ
-         HvRSkgc7fXxGW5Y1gE7/dvg5HajVlh5gjWdFt2sz6g7JoT2qcYV/r5PoHimftmTExgD9
-         ApVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793399104; x=1794003904;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/+KneAP5j4JycW2Osy6h4oU9OQtsTeRD6BdS9+k/6qE=;
-        b=pP72qY30Dv7WvM6QTe333D19o/HhBwOklA1uBYmnzLl9qdpcDaGqGP/1RhsLrODRcr
-         OjYlPg4FazHGKtTE9k5Rp5G7TWD4Ah7VAU8PGS8auL1/TTIAJDCLZQVT/C8VGj+k8AtH
-         ePukVVugku2umhHw/NMkkDCe3ip1f3d91qXNzjV4rOUDi9flhGRjMIE4cZR7P61hLNa8
-         YaTOnMKe5QpKyKIVqByb+wtaxZ7dFNd9YIDUmFsovP/M0BJDXZNZiz1w12zPUMFY7k0L
-         aOZkbdeP+IUeEd3qigw52I17NA9EXKfNpzbMS2wIk1X+1/uXStly9AT+dQ3yl3ka04PB
-         IClg==
-X-Forwarded-Encrypted: i=1; AKwUvBxVgd37JxhDmb9KvTnp8QKME15K0HFlZ+OOlhl7yeMJDu+erHlvlfXW3FHBEdqqW0JlPyqW3o1UWVKJGfc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJaYbi8bfU0JvCWsEp802tSU1aHS1Oobm/LQJC1q5vYKhEVgO3
-	7BrI83YimfdE9gGKI8zexyx0L5r0d9kvoq4hhu9a7ZTpXvdt8mO9+mXZZKuxSA==
-X-Gm-Gg: AYBFou1p2Z9rPOUvwwBlWj1MCnLrLJoduzU4RNviCsv+d6+9T0Y3kGm6L/OLMh/47o0
-	uSrVZYjZssmiwYOfvSHtsHU3969lII/vnEvcabJ+bGxm90teuiD+R0n+XFYT1X+FZCPr/XBW2nq
-	qF5PeTu67yOWrPH9SR7qax8Lf2+xjGoORgnAUhVQ88Eghx97qzr8qCElzpCquhLKFtdYQY/vDDP
-	dnZk3O83uBGDwLlaFe4hbTxTpZhh7z4c/dD6Vn3IgxhK69ZlaPk+P92h8ASE0F9rQ+Hc+Bqkq53
-	k6Hd9D9cP3nWkKqZOKLmHrIhr9hfckJizJLVWlkH1f+hdSEqHxAW+CiWSQZhSwhOSZnaDJvxrc1
-	e72P6dRZqrFcp/jyV9qCXprudhTjYdQnEZ8rSEY714B5ood2k/AZVwfPb6/NV2eiJfGMP4mN+A0
-	Vyz5PASMvoYic9y9OVricPq0IWrjkaULwhk0Qs8Uz7Iii32wvnrWeb2tmuJ/IQtrhQZEMb/XNuM
-	SrkN6rlZ3eJukZqmwo+8YJ9Z5d2UFSWfaFcSZNO2DLizV0SqUfpCmyY5G+V/0S/vwR3fwuytGOl
-	aNmhHsVkRR0tOt/hLTR8oj59bw==
-X-Received: by 2002:a05:690c:92:b0:8a9:8744:c07d with SMTP id 00721157ae682-8b1c67060e0mr55008757b3.18.1793399104308;
-        Fri, 30 Oct 2026 15:25:04 -0700 (PDT)
-Received: from localhost ([2a03:2880:ff:72::])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67baf147246sm730246d50.1.2026.10.30.15.25.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 15:25:03 -0700 (PDT)
-Date: Fri, 30 Oct 2026 15:25:02 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: jrmmhm.kernel@eldare.de
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, kvm@vger.kernel.org,
-	virtualization@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] vsock/virtio: clear vqs[] to avoid a UAF on a failed
- PM restore
-Message-ID: <auUZPiXDIPpQ2/vK@devvm29614.prn0.facebook.com>
-References: <20261001-vsock-restore-uaf-send-v1-1-5da60f707506@eldare.de>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=i/G5Lyfb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793399141; x=1824935141;
+  h=date:from:to:cc:subject:message-id;
+  bh=mX7o1WdmKKIjoux41HqbivKuN/Q90qQYfE+o+KMMPsM=;
+  b=i/G5LyfbJY8XqVeVm4VOr3WGvliAl2cC880Ba9tfUxIOnstp7wPdBUK+
+   K8SkdAvhCQcMl+sfNrutmQWMT5CaTd1mHfI+tBNdxXBMQ0uMNtA2UBEF4
+   z8GSYsINdLNXCodzh5sBxxNt9uLoyzVGi8NQGuLOGeq3dP/YLAZXs9lMj
+   YO/fZKkhTaGOE9Jmr9h8vZ/tZ8r1XtWqwtsXGJ9zv7H1X3KsWAnuglOJw
+   tBrlfFpRI2S9h/N4AeE8D3Cyuh20GW6labWdjb7MCdGUEwHPtKJ1xHLqi
+   UkcN31nFtGCrYfWgPewfoDuJ+RceDDNROMk69pZYrumjq3pmNJrwrRWFn
+   Q==;
+X-CSE-ConnectionGUID: lQynTqvsRseDCCtCNYt1MA==
+X-CSE-MsgGUID: K2gcNSwFTy+ObGB4xdMaeA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2176910"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2176910"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 15:25:40 -0700
+X-CSE-ConnectionGUID: tMnPVB1NQvu3UhUWUyyWpw==
+X-CSE-MsgGUID: h9uufwBzSmiTcI4yxb22qQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5438301"
+Received: from igk-lkp-server01.igk.intel.com (HELO 58ca8a381a5c) ([10.211.93.152])
+  by orviesa005.jf.intel.com with ESMTP; 30 Oct 2026 15:25:38 -0700
+Received: from kbuild by 58ca8a381a5c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xMv2W-000000005jV-2b4D;
+	Fri, 30 Oct 2026 22:25:36 +0000
+Date: Fri, 30 Oct 2026 23:25:00 +0100
+From: kernel test robot <lkp@intel.com>
+To: Swarna Prabhu <sw.prabhu6@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Damien Le Moal <dlemoal@kernel.org>,
+ Pankaj Raghav <p.raghav@samsung.com>
+Subject: drivers/scsi/sd.c:4493:2-17: WARNING: NULL check before some
+ freeing functions is not needed.
+Message-ID: <202610302345.WFnRd62s-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,144 +82,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-vsock-restore-uaf-send-v1-1-5da60f707506@eldare.de>
 
-On Thu, Oct 01, 2026 at 07:13:29PM +0200, Jerome Mohm via B4 Relay wrote:
-> From: Jerome Mohm <jrmmhm.kernel@eldare.de>
-> 
-> virtio_vsock_vqs_del() frees the virtqueues via del_vqs() but never
-> clears vsock->vqs[]. If a later virtio_vsock_restore() fails to
-> reallocate them (its error path is a bare "goto out" that only unlocks
-> and returns), the driver is left bound with a dangling vqs[]. The next
-> virtio_vsock_vqs_del() - on a second freeze or on remove/unbind - then
-> passes a freed vring_virtqueue to virtqueue_detach_unused_buf(), a slab
-> use-after-free. KASAN on a guest with a virtio-vsock device, after a
-> restore made to fail by fault injection:
-> 
->   BUG: KASAN: slab-use-after-free in virtqueue_detach_unused_buf
->   Read of size 4 at addr ... by task repro
->    virtqueue_detach_unused_buf
->    virtio_vsock_vqs_del (net/vmw_vsock/virtio_transport.c:785)
->    virtio_vsock_remove
->    virtio_dev_remove
->    ... unbind_store
->   Freed by task ...:
->    kfree
->    vp_del_vqs
->    virtio_vsock_freeze          <- the preceding freeze freed the vq
->   Allocated by task 1:
->    vring_create_virtqueue
->    virtio_vsock_vqs_init
->    virtio_vsock_probe           <- original allocation at probe
-> 
-> The object is the RX vring_virtqueue freed during the freeze;
-> vsock->vqs[RX] still points at it. virtqueue_detach_unused_buf() does
-> not guard a NULL vq, so a bare NULL-out is not enough on its own.
-> 
-> Clear vsock->vqs[] after del_vqs() in virtio_vsock_vqs_del(), skip the
-> detach loops when a vq pointer is NULL, and also clear the array when
-> virtio_find_vqs() fails partway in virtio_vsock_vqs_init() (which can
-> leave freed pointers behind). This mirrors virtio_blk
-> commit 0739c2c6a015 ("virtio_blk: NULL out vqs to avoid double free on
-> failed resume") and virtio_rtc commit 548d2208455f ("virtio: rtc: tear
-> down old virtqueues before restore"); virtio_console carries the same
-> stale-pointers-after-failed-restore fix.
-> 
-> Testing: reproduced on a private VM with a KASAN fuzz kernel based on
-> v7.3-rc5. The restore allocation failure was forced with CONFIG_FAILSLAB
-> steered by the fault-injection stacktrace filter to the virtio-vsock
-> restore path only; a guest-root program drives a pm_test=devices
-> freeze/restore cycle (so .restore returns -ENOMEM) and then unbinds the
-> device. The unfixed kernel reports the slab-use-after-free above; with
-> this patch the same run makes restore fail identically yet produces no
-> KASAN report. checkpatch.pl --strict is clean and the build is
-> warning-free. The reproducer is available on request.
-> 
-> Fixes: bd50c5dc182b ("vsock/virtio: add support for device suspend/resume")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
-> ---
->  net/vmw_vsock/virtio_transport.c | 28 +++++++++++++++++++++++-----
->  1 file changed, 23 insertions(+), 5 deletions(-)
-> 
-> diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
-> index 4f9aa9c4c3aa..0553c0641fd2 100644
-> --- a/net/vmw_vsock/virtio_transport.c
-> +++ b/net/vmw_vsock/virtio_transport.c
-> @@ -714,8 +714,15 @@ static int virtio_vsock_vqs_init(struct virtio_vsock *vsock)
->  	atomic_set(&vsock->queued_replies, 0);
->  
->  	ret = virtio_find_vqs(vdev, VSOCK_VQ_MAX, vsock->vqs, vqs_info, NULL);
-> -	if (ret < 0)
-> +	if (ret < 0) {
-> +		/*
-> +		 * On a partial failure virtio_find_vqs() can leave freed
-> +		 * virtqueue pointers in vsock->vqs[]; clear them so a later
-> +		 * virtio_vsock_vqs_del() does not detach a freed virtqueue.
-> +		 */
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   abf8c33470f78e2226ee3dcdc69004660020ab47
+commit: 7179e626b76eb42f2529c6f6dd6ba88ea2445372 scsi: sd: Enable sector size > PAGE_SIZE in SCSI sd driver
+date:   8 months ago
+config: loongarch-randconfig-r2103-20261029 (https://download.01.org/0day-ci/archive/20261030/202610302345.WFnRd62s-lkp@intel.com/config)
+compiler: loongarch64-linux-gcc (GCC) 12.5.0
 
-IMHO we can drop this comment. Clearing after failure is common enough.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 7179e626b76e ("scsi: sd: Enable sector size > PAGE_SIZE in SCSI sd driver")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610302345.WFnRd62s-lkp@intel.com/
 
-> +		memset(vsock->vqs, 0, sizeof(vsock->vqs));
->  		return ret;
-> +	}
->  
->  	virtio_vsock_update_guest_cid(vsock);
->  
-> @@ -782,19 +789,30 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
->  	virtio_reset_device(vdev);
->  
->  	mutex_lock(&vsock->rx_lock);
-> -	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
-> -		kfree_skb(skb);
-> +	if (vsock->vqs[VSOCK_VQ_RX])
-> +		while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
-> +			kfree_skb(skb);
->  	mutex_unlock(&vsock->rx_lock);
->  
->  	mutex_lock(&vsock->tx_lock);
-> -	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_TX])))
-> -		kfree_skb(skb);
-> +	if (vsock->vqs[VSOCK_VQ_TX])
-> +		while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_TX])))
-> +			kfree_skb(skb);
->  	mutex_unlock(&vsock->tx_lock);
->  
->  	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
->  
->  	/* Delete virtqueues and flush outstanding callbacks if any */
->  	vdev->config->del_vqs(vdev);
-> +
-> +	/*
-> +	 * del_vqs() has freed the virtqueues. Clear the stale pointers: if a
-> +	 * later virtio_vsock_restore() fails to allocate new ones, the driver
-> +	 * stays bound with a dangling vqs[] and the next virtio_vsock_vqs_del()
-> +	 * would detach a freed virtqueue (use-after-free). Mirrors virtio_blk
-> +	 * commit 0739c2c6a015.
-> +	 */
+cocci warnings: (new ones prefixed by >>)
+>> drivers/scsi/sd.c:4493:2-17: WARNING: NULL check before some freeing functions is not needed.
 
-Ditto here.
+vim +4493 drivers/scsi/sd.c
 
-> +	memset(vsock->vqs, 0, sizeof(vsock->vqs));
->  }
->  
->  static int virtio_vsock_probe(struct virtio_device *vdev)
-> 
-> ---
-> base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
-> change-id: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
-> 
-> Best regards,
-> --  
-> Jerome Mohm <jrmmhm.kernel@eldare.de>
-> 
-> 
+  4478	
+  4479	/**
+  4480	 *	exit_sd - exit point for this driver (when it is a module).
+  4481	 *
+  4482	 *	Note: this function unregisters this driver from the scsi mid-level.
+  4483	 **/
+  4484	static void __exit exit_sd(void)
+  4485	{
+  4486		int i;
+  4487	
+  4488		SCSI_LOG_HLQUEUE(3, printk("exit_sd: exiting sd driver\n"));
+  4489	
+  4490		scsi_unregister_driver(&sd_template);
+  4491		mempool_destroy(sd_page_pool);
+  4492		if (sd_large_page_pool)
+> 4493			mempool_destroy(sd_large_page_pool);
+  4494	
+  4495		class_unregister(&sd_disk_class);
+  4496	
+  4497		for (i = 0; i < SD_MAJORS; i++)
+  4498			unregister_blkdev(sd_major(i), "sd");
+  4499	}
+  4500	
 
-The rest LGTM.
-
-Best,
-Bobby
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
