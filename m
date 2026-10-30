@@ -1,60 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357463;
-	b=sJdS1eyXJU+yz0rd4ma224GDOGddPHu39FmEeaAbg9IIFIGHZdYZ3WLIyb7tzo+nW6vT
-	 XYup/2gM4YpidBreqGwkmTrYdZJMU0XGZuahl5qAlfElZGH3zgUMEggRokCDDqXWcUqd2
-	 RYjbreR3cabVwQs0tlKOx97hmm02D10xA+s8E8t+OYKrs5szvaEku856tM/53mpu0SjcW
-	 y7h27hjX5aUD/Ss9wwh2lWWaW16Mp7DnME2ZhsW+NBhfsi1kcJIIbV69/Nl1IsUpRdkV3
-	 E9Pfr2LdGkL69yKtX6/ba+QkUbcShhDfehbCbcM/nIH1OzkijbPqQ2+hKs4qx1+g3SQ==
+	t=1793357453;
+	b=aGir3VgI1J/Iq8HhGdmQJIBc6RI2636F978gxotcnexzIXBCod+rA7fvbhmAH6q7XVfl
+	 2kcPVE7rNMVM2ndy66oVL6qUHRfOiKHO1XaB7MlrhIRXF3uLfcX6klgv1hWcrSLe+Ewe/
+	 CCkoEqB8R9nJiOCl451i96aiuw4896ytrBb7cZ9xwuAlQ4tIN9ZJnSaDPHe/pa8jhtQSc
+	 fWvllKqNbDr9hPtn9FYkBhyTMm6y4JwOeBI5CmtAVZlzGiOZa+6bZwTp9fRiMFt/ya5+M
+	 k372nnpQMg9uH8w7Tfijnk1YF39GrB40v7TQ4vj9ezIYCQYbBYNcJ8xZbD2kmriYXEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357463;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rc8yH713lTTkC3YCGsQVmCdN2VXwj8IOvMwKjTz7x2w=;
-	b=2m/Zr6KqzjS4PB527zVgL4BOnEOec4y4uwxSJG79g/9WNOSTzQRuSQwg8zvu0xUacwId
-	 mmKfDO71PZO3B7SVzDVt53k3hXDE0dCk6D4j7Jzo4SgTLAAviRklkgNrk6/59V3JSDdmi
-	 ChLJQOYW9mICFQ0946GgL+ccccv0MKUP77dxXW3Gufy1m2nPnXgyXXYGmK6OmR0841UL6
-	 ZMBf3mT4kthigMJGKsViOfR82ji3ITHSO1H/I793CKLRnbS1VagYbSaVzStebj1lSLv9v
-	 /8UuQ2w+5Bdo9a7IfhAxzUIQn4GcG+tSVMCxywOyFK3Pc4nEluLouDlf4rxOUdFbFEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357453;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=GzD45p78gNzTa5aIk9ID2PyH1503C4udwMa1Ck4JnCw=;
+	b=IxdPkD94jMuyHXWxsle2WnHNPzKHE6+VY0KTZJTiFWqpX3ZDi4jfeFK0Ic2UtVWe9L2L
+	 bcZTUnabbt6kgVIKR+DV2OSCZ72P02IuKNPodTxZQSDPgT2+2druHTMkvlawEy6nvQw2l
+	 tNwj+4KSPLdKU/fjTn7tgwUZONmCDCPPlKLseZ2vlrkDo6mW/iHYhKxF5SWi8W0+xeqRB
+	 Rgg7whi+4j7vlOqeP77ENAAAyWgLSoZ0E2mMrbz2i2R8USF1GPvKn2jTPlZsUtnMBRWGn
+	 0H5PBOISIHzIVpa3idsPvd4NBv4+yYO3yR61z2WoGu/+aEokjzd2yYbrl5qYZhhi0xQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gfmoOaVH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=phbBjwmz;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D8760A3831;
-	Fri, 30 Oct 2026 10:51:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0F0606B97A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:50:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB0F0606B97A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gfmoOaVH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033961F000C1;
-	Fri, 30 Oct 2026 10:51:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793357462;
-	bh=rc8yH713lTTkC3YCGsQVmCdN2VXwj8IOvMwKjTz7x2w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gfmoOaVHZn191tLXONK7XlLWngL54hmcClr4De0X5oLOIAdmtthBVj7iyRfhUCEL7
-	 QKPh6RdkexwIfgoIvLIhxa9bZHsoTzFj497Em3NZYex0t1NqNS/Cl5ZbcqYVW+GdZy
-	 q/hz+avmrz/lFZK89D+b3wf332I9h8lGNzsKCe1/zQW4duTc1H+acv9d83f2mbQBON
-	 ZqZBNjVq1a6DYgcTQjPMzP/gih4naZWCrhVQoT+YrTvjtgBM7ZRbrH1GYS8WBnqvZl
-	 4DdRPvc9CruH2rsXG3Uq+qllrPTQx18Gb9eWZ1Gp76AH3Tyv/5JLxJ1rTX3DMk44QN
-	 YqayY0ZrnIwkQ==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Simon Trimmer <simont@opensource.cirrus.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 06/21] soundwire: intel_ace2x: Protect bus.bpt_stream with bus_lock
-Date: Fri, 30 Oct 2026 10:46:45 +0000
-Message-ID: <20261030104840.3361217-7-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-In-Reply-To: <20261030104840.3361217-1-lee@kernel.org>
-References: <20261030104840.3361217-1-lee@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=phbBjwmz
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35c76e9614aso903334eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:50:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793357452; x=1793962252; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GzD45p78gNzTa5aIk9ID2PyH1503C4udwMa1Ck4JnCw=;
+        b=phbBjwmzJ1KSYKgBFMuNBKYOO1MnWiVOZvjQiJqVyeAzTJCdH1X7VJJq4RzLvz0Nl6
+         OvR72MGGpaGKA5eke42lp1VvaUpC3NBC10M1sAOG7MeVeGhSuuNgllFkjOFFypkPVUJW
+         hXWpq02071rYk9fCyh0m2B9U3FxMM4xFNbylHekGY2O58gNdtz6R/VdjulTXlCAKW4YC
+         WkB6DfFTvyV+f5p4V3y7APBcedGTlNLHm9LYBhop68lyN/tUIhQ19xrWWm6akLELCS9O
+         Yu1sIzNxvuQWOCQmstwqRykXiac0yPNdWVk/5OZC6bbOWdFYNHzcxnze5668oKjzwTTX
+         ZMyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793357452; x=1793962252;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GzD45p78gNzTa5aIk9ID2PyH1503C4udwMa1Ck4JnCw=;
+        b=FG8QJTAF4HGAgSkA5n+6FqvydieehprKraKN8T7r615SH/3F32utYK2XniwkkNIb57
+         SGIGKbC8rS3Sa8OaSMtgCrLZMcNZhvyDbkteXhGWFQ8gpGtKIKgm8w5dGHKkdSECHVQg
+         PWqlVqDLP368lxZp3XhTo+vbN1g3VytD7zVU4nJFHlrsEVyzVmVR20LXjz/gbJRm4cW1
+         0EgyXRZq8NtGmzGQTwUjBt9GVautJOVj8LJiDtP5jKqUJ6fudWBTUQXA1fXQa+vqehNS
+         hCveCBUj0tsi5kRqy9GgcCBhxa8MSud9JUEe5LYScFrMP+RrHYQ2BpOKdPOF/i4kYa6s
+         ylxg==
+X-Forwarded-Encrypted: i=1; AKwUvByqTmRangI/WSNG4VjwZj8c6AQ51ac05TE7OQemio5Ccc0uqHFb0lmDunGeDyv/71p8wwoi34Z2Of3EsKE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNSVLRUYyagE+SuLwOM2lhubI+73FReiHCSK6K3kVbppE3Qk1P
+	xDyKMM4fidnTW9klhWwbApNv3wfUhYkW1qX/sk7LOfe8pyzsj5NsxkJxxfNjzA==
+X-Gm-Gg: AYBFou3azzSPfSf6/4qV4Z4440w3x0OSHoeo6r25Yg5Fu84jZRzunCcuQoyTbEw9nMx
+	UmErnPb1UmYrIoyd1A2DFW58C4TmQ2KmbZ6TQaGTCL0Rnps8yjclMkNLVc3FU8QMIR5OdNmX9yM
+	v+lMMQEFw3Km++Hu81UAJlw7+ZJwdDYK/vtBuTZ6skP9YSJpmp69P33PY49V/xxR3Rk7KxxVnP2
+	Ry60X0LZkrAs7/xMmaOycgi8L8jjg/eFhZlzLI0fsQ8Rc5ooVKwQpD0n4RWEzHHViDO6KRsPmys
+	YexgAkfphh7g+4Yh+qdkMmlrtkMPUVJE9LWtwVlCCN1jK+ryQeqMYFdVSVaOfCDUNBHTNCmJMgE
+	TugydTVu4nfoQo37BbvlIaiaUlKjcxuwvj2na3Ft46eSDB5leVm3NOJiBW+sbDQHmzhpu7TwOQd
+	e2UkJUzuYlKZNHv93MbV0asISutP3iJKUhKqqheS15BADQMa/1jJl/kUwCZNZf2zlOldCdQ/xZA
+	RXgqM6yLrICuDKqcyX97MYVFR1BiMdIbRK5yXN3PjGAX3LHtkk+N2eHVggNy01mXjdkf86WSYET
+	J92GO5rJdkUnvi+P5tzPvqUgC7K/Tpi149yTU1f1CSi52uGTawtDXg==
+X-Received: by 2002:a05:693c:639a:20b0:359:1b05:ed30 with SMTP id 5a478bee46e88-36a42203bc1mr3128900eec.4.1793357452078;
+        Fri, 30 Oct 2026 03:50:52 -0700 (PDT)
+Received: from LAPTOP-LJ15R92N.localdomain ([49.43.7.225])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429467cdsm6547838eec.19.2026.10.30.03.50.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 03:50:51 -0700 (PDT)
+From: Akshat Rawat <akshatrawat095@gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Akshat Rawat <akshatrawat095@gmail.com>
+Subject: [PATCH] rtc: rv3029: use sysfs_emit() instead of sprintf()
+Date: Fri, 30 Oct 2026 10:51:18 +0000
+Message-ID: <20261030105118.426-1-akshatrawat095@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,123 +97,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-intel_ace2x_bpt_open_stream() checks and assigns cdns->bus.bpt_stream
-without holding cdns->bus.bus_lock.  Concurrent BPT open requests can
-both observe a NULL cdns->bus.bpt_stream pointer, allocate separate
-streams, and overwrite cdns->bus.bpt_stream, leaking the first stream.
-In addition, failures after sdw_slave_bpt_stream_add() jump past
-sdw_stream_remove_master(), leaving the master runtime allocated by
-sdw_stream_add_slave() on the bus list.
+Use sysfs_emit() instead of sprintf() in sysfs show callbacks
+(rv3029_hwmon_show_temp and rv3029_hwmon_show_update_interval) to
+comply with the recommended sysfs attribute formatting guidelines in
+Documentation/filesystems/sysfs.rst.
 
-Hold cdns->bus.bus_lock when checking, assigning, and clearing
-cdns->bus.bpt_stream, and remove both slave and master stream runtimes
-on open failure.
-
-Fixes: b2c9f1d5a7eb ("soundwire: Intel: test bus.bpt_stream before assigning it")
-Closes: https://sashiko.dev/#/bug/linux-88535ed9-b7e9-4ede-93c7-59950c524c0b
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Akshat Rawat <akshatrawat095@gmail.com>
 ---
- drivers/soundwire/intel_ace2x.c | 36 ++++++++++++++++++---------------
- 1 file changed, 20 insertions(+), 16 deletions(-)
+ drivers/rtc/rtc-rv3029c2.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/soundwire/intel_ace2x.c b/drivers/soundwire/intel_ace2x.c
-index 642b33ab5526..3623fc9f4451 100644
---- a/drivers/soundwire/intel_ace2x.c
-+++ b/drivers/soundwire/intel_ace2x.c
-@@ -83,17 +83,19 @@ static int intel_ace2x_bpt_open_stream(struct sdw_intel *sdw, struct sdw_slave *
- 	int len;
- 	int i;
- 
--	if (cdns->bus.bpt_stream) {
--		dev_err(cdns->dev, "%s: BPT stream already exists\n", __func__);
--		return -EAGAIN;
-+	scoped_guard(mutex, &cdns->bus.bus_lock) {
-+		if (cdns->bus.bpt_stream) {
-+			dev_err(cdns->dev, "%s: BPT stream already exists\n", __func__);
-+			return -EAGAIN;
-+		}
-+
-+		stream = sdw_alloc_stream("BPT", SDW_STREAM_BPT);
-+		if (!stream)
-+			return -ENOMEM;
-+
-+		cdns->bus.bpt_stream = stream;
- 	}
- 
--	stream = sdw_alloc_stream("BPT", SDW_STREAM_BPT);
--	if (!stream)
--		return -ENOMEM;
--
--	cdns->bus.bpt_stream = stream;
--
- 	ret = sdw_slave_bpt_stream_add(slave, stream);
+diff --git a/drivers/rtc/rtc-rv3029c2.c b/drivers/rtc/rtc-rv3029c2.c
+index c348b31928e9..33b73bbcaf52 100644
+--- a/drivers/rtc/rtc-rv3029c2.c
++++ b/drivers/rtc/rtc-rv3029c2.c
+@@ -601,7 +601,7 @@ static ssize_t rv3029_hwmon_show_temp(struct device *dev,
  	if (ret < 0)
- 		goto release_stream;
-@@ -105,7 +107,7 @@ static int intel_ace2x_bpt_open_stream(struct sdw_intel *sdw, struct sdw_slave *
- 	if (!pdi0) {
- 		dev_err(cdns->dev, "%s: sdw_cdns_alloc_pdi0 failed\n", __func__);
- 		ret = -EINVAL;
--		goto remove_slave;
-+		goto remove_master;
- 	}
+ 		return ret;
  
- 	sdw_cdns_config_stream(cdns, 1, dir, pdi0);
-@@ -117,7 +119,7 @@ static int intel_ace2x_bpt_open_stream(struct sdw_intel *sdw, struct sdw_slave *
- 	if (!pdi1) {
- 		dev_err(cdns->dev, "%s: sdw_cdns_alloc_pdi1 failed\n", __func__);
- 		ret = -EINVAL;
--		goto remove_slave;
-+		goto remove_master;
- 	}
- 
- 	sdw_cdns_config_stream(cdns, 1, dir, pdi1);
-@@ -136,7 +138,7 @@ static int intel_ace2x_bpt_open_stream(struct sdw_intel *sdw, struct sdw_slave *
- 	pconfig = kzalloc_objs(*pconfig, 2);
- 	if (!pconfig) {
- 		ret =  -ENOMEM;
--		goto remove_slave;
-+		goto remove_master;
- 	}
- 
- 	for (i = 0; i < 2 /* num_pdi */; i++) {
-@@ -149,7 +151,7 @@ static int intel_ace2x_bpt_open_stream(struct sdw_intel *sdw, struct sdw_slave *
- 
- 	if (ret < 0) {
- 		dev_err(cdns->dev, "add master to stream failed:%d\n", ret);
--		goto remove_slave;
-+		goto remove_master;
- 	}
- 
- 	ret = sdw_prepare_stream(cdns->bus.bpt_stream);
-@@ -293,15 +295,16 @@ static int intel_ace2x_bpt_open_stream(struct sdw_intel *sdw, struct sdw_slave *
- 		dev_err(cdns->dev, "%s: remove master failed: %d\n",
- 			__func__, ret1);
- 
--remove_slave:
- 	ret1 = sdw_stream_remove_slave(slave, cdns->bus.bpt_stream);
- 	if (ret1 < 0)
- 		dev_err(cdns->dev, "%s: remove slave failed: %d\n",
- 			__func__, ret1);
- 
- release_stream:
--	sdw_release_stream(cdns->bus.bpt_stream);
--	cdns->bus.bpt_stream = NULL;
-+	scoped_guard(mutex, &cdns->bus.bus_lock) {
-+		sdw_release_stream(cdns->bus.bpt_stream);
-+		cdns->bus.bpt_stream = NULL;
-+	}
- 
- 	return ret;
+-	return sprintf(buf, "%d\n", temp_mC);
++	return sysfs_emit(buf, "%d\n", temp_mC);
  }
-@@ -335,6 +338,7 @@ static void intel_ace2x_bpt_close_stream(struct sdw_intel *sdw, struct sdw_slave
- 		dev_err(cdns->dev, "%s: remove slave failed: %d\n",
- 			__func__, ret);
  
-+	guard(mutex)(&cdns->bus.bus_lock);
- 	sdw_release_stream(cdns->bus.bpt_stream);
- 	cdns->bus.bpt_stream = NULL;
+ static ssize_t rv3029_hwmon_set_update_interval(struct device *dev,
+@@ -654,7 +654,7 @@ static ssize_t rv3029_hwmon_show_update_interval(struct device *dev,
+ 		interval_ms = 0;
+ 	}
+ 
+-	return sprintf(buf, "%d\n", interval_ms);
++	return sysfs_emit(buf, "%d\n", interval_ms);
  }
+ 
+ static SENSOR_DEVICE_ATTR(temp1_input, S_IRUGO, rv3029_hwmon_show_temp,
 -- 
-2.56.0.317.g454f8302e1-goog
+2.56.0.windows.4
 
