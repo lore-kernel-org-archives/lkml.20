@@ -1,60 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793354409;
-	b=zI5AQy9BTQA5XxiPCQAjK4+OPBoegWR8RGyBI68zr6bsGDPIXTmGprTiMB+8axQtMd4h
-	 W3j4ptCyfEAKjukhEGw2TEJoikRDxwG3myDy5rho0r/mm3OT+j66DVtnIuGK5QaJisM9X
-	 j7sZghP1gw3xvJW1SSo+SC4BHn97qORBv5XZpt8SPmLKJVUPuxdUve5oyt6jYvoNkoMGh
-	 QCukg5uSbJlYTmw7445KpDDcHlIVkBCRvutr3F5NpRCCSKqXc1Hl+NpwR3tPGJxLCe7KY
-	 ZP4qwXQEw6pHLmTb9Ts4uoil/GNfC611r3/TdNqRfqQ1Z7tRENKUPpTHUXwrjwtbB6g==
+	t=1793354435;
+	b=aGOKCJ4whOLC8rx1vyCn8X+wg3ACD+ucpXi+7hYQxyZDSas+H/byZGEF8anL6Dxk2WWw
+	 gPFsaxU22T7qMDT7MuTTNb33675JVvQ1PT2aNQatqZX0fujpP9QeccISsLl1TI0pFnp7R
+	 3urLy7ov4nnciJECv+n5OaAbvH0Dypr+SEbRIyCmNjDQfPiFqxxkpIWio2Yf5z3KmMOPg
+	 f742ERW2CNO2fEWB7jgM3lVPWAtFSdmxgTTuWy6QdahqgzBUDjQ/zGmPqxNxGAS6cAR+W
+	 AXYZ+noHmeIAUHkY5bVLd+78TSukqoILuLHWQ2cava5CrQj6lQsvbboR7oq7pLoknNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793354409;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=CK5jDSKCZff+wSi5cTNQhrxDZk3uYg8wCpUKhzVOEI88+RthVJC8D09e9esYMCPMi+rJ
-	 wq/DtPxf7+/cROaS6gJI3SyZ0Et2OO1XODhawHDtVRNHZGBlY7zdUODMEUftvVPyilNjA
-	 3yCDxMCnNm0sQV766qkT6fezNpI4rMhX9wZAhgyjqCW9YTdoVPvLtpvFrP8oJG+/52QiY
-	 D/k0YkDfyOlzwIggUdZn57sWGop7xkuj6/u729ig63kqhqhEaHq+syOpPzIaa2A8rQucj
-	 x3sQJvMSR89q1V6CeXrPJmN8ryJk2/cAgYptiojuFF9l5F0S7vA5f4FYwrhM+Tbsn2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793354435;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=ler9Vb08uoWkkGJsgusT3UJ2fmGaAr/9sD2dowX7gwE=;
+	b=V67dGsxIN74O3JBZ02ag3EhMF6Olc9m2zhED2dM69WwVUdv65Y2N2mbF3ORvLHySqSjA
+	 XkDQFR26bYmulBR9bjvsiHuxFwbqp7j2B4IElIkyVf/uL7qRnl+jv+yn6XUSiK5aek7mr
+	 NaEcTVpdFfjfw0jHYvwgHqDxwNQz/5gNRBl0FCsrQFTLtFlcua0bioJ1BQv56NCpl+grV
+	 CnFgaqIdh4IMCSBFdmYpm5JEUi34T0QK2fCRjIMMlEneYxYd9DglDSIBW3oOTjhIulujf
+	 OxitUPr7mB+AVXH481Pvm7/8Ui4z9zZJj2/3gw5jANIxsoUdHoYkKGQ3nSbpnl2pHGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZE568MS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amazon.de;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=HUhq70I3;
+	arc=none smtp.remote-ip=52.34.181.151
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221C4606A337;
-	Fri, 30 Oct 2026 10:00:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD4F606A320;
+	Fri, 30 Oct 2026 10:00:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CD4F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZE568MS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E478F1F000C1;
-	Fri, 30 Oct 2026 10:00:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793354408;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mZE568MS+/JitDYe3nCwZYcMSQwJXkakWOj5Be3b14zEBuDjPMnFLjlTZkQMhS8jf
-	 Aj+dNL+wrbeIOs6mxmU/V4PKx4H2z1Y2Tjn2QVBfg9K35MTQ72WKV5TvXaWUzVmgGH
-	 MhRtLnhoXzAyomL2FPMHBKdpCJJsGMoB+4g/K4mkhQ8fWqLLFcF+dBW/0emqCb0fxy
-	 3BjHv49494jed/p59X+7rWw6kpCk3cFeOBmZ4Xou3BEahEoBEAKCygBzCHVUcuKvCi
-	 Q3tKn8kH84JeTfUl+a2C8xA/Cvo6BNZG8RBX5E2/nzFhdyVibbWd+0qPFq/jn7ZlU+
-	 WKvX7ID3mj7HA==
-From: netdev-bot+sinfo@kernel.org
-To: Jijie Shao <shaojijie@huawei.com>
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, andrew+netdev@lunn.ch, shenjian15@huawei.com,
- liuyonglong@huawei.com, chenhao418@huawei.com, yangshuaisong@h-partners.com,
- ningwei15@huawei.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH v3 net 0/4] net: hns3: fix multiple bugs in reset/error paths
-Date: Fri, 30 Oct 2026 10:00:07 +0000
-Message-ID: <179335440742.3327.601321525899480645@kernel.org>
-In-Reply-To: <20261030095633.377289-1-shaojijie@huawei.com>
-References: <20261030095633.377289-1-shaojijie@huawei.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=HUhq70I3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1793354435; x=1824890435;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ler9Vb08uoWkkGJsgusT3UJ2fmGaAr/9sD2dowX7gwE=;
+  b=HUhq70I3xfLfFzBedmY+/ylM/XSLSUtcZPO3kG3yWr5yUlparGHUJZd3
+   gJqgVoRofkO02SqJC+U4W+ZvkZc8XwviFWLRbz9ew+MJt/o0hjIT5rOUV
+   36Fw2j8KLaKJqVPPu3HHL+yQEOoOETXUAgPhd8t7MZX7VONZ/xnfqKo4I
+   QSYXQpCVJxNrGnJyVlGgodkaaUhJEyiwvN93UdhYExZJGQ4PRGhtmsmMI
+   u8ZWheEvDTXDL7AB2kMD45Pw2onDEZai0tBrj18CGOUNCplHVN3iLB+xW
+   uYKfh0ZnMQuwZaurb1eC9K3Vqv2izK/ChuDmiQ1UFDQw5Qtq8PanHfuWY
+   Q==;
+X-CSE-ConnectionGUID: f41PGanPSUaMqPFAgY0gLw==
+X-CSE-MsgGUID: aXQZUxloQz+Q/vIVKiUTRA==
+X-IronPort-AV: E=Sophos;i="6.27,186,1787011200"; 
+   d="scan'208";a="32646804"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:00:32 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:26549]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.238:2525] with esmtp (Farcaster)
+ id 9c26f0e1-9b75-4adb-bb6b-4f1f1a420bc2; Fri, 30 Oct 2026 10:00:32 +0000 (UTC)
+X-Farcaster-Flow-ID: 9c26f0e1-9b75-4adb-bb6b-4f1f1a420bc2
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Fri, 30 Oct 2026 10:00:32 +0000
+Received: from dev-dsk-mheyne-1b-8cc83676.eu-west-1.amazon.com (10.13.235.223)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Fri, 30 Oct 2026 10:00:30 +0000
+From: Maximilian Heyne <mheyne@amazon.de>
+To: <stable@vger.kernel.org>
+CC: Maximilian Heyne <mheyne@amazon.de>, Marek Szyprowski
+	<m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, "Nicolas
+ Saenz Julienne" <nsaenz@kernel.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH] dma/pool: eliminate CMA alloc warning in atomic_pool_expand
+Date: Fri, 30 Oct 2026 10:00:00 +0000
+Message-ID: <20261030-ghent-tubes-5abba7d2@mheyne-amazon>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,29 +84,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hi!
+atomic_pool_expand() allocates with decreasing page order first from the
+CMA and if that fails via alloc_pages(). If the cma allocation fails a
+warning, such as the following, is printed:
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+  cma: __cma_alloc_frozen: reserved: alloc failed, req-size: 4096 pages, ret: -16
+  cma: number of available pages:
+  cma: range 0: 1024@0
+  cma:
+  => 1024 free of 1024 total pages
+  DMA: preallocated 262144 KiB GFP_KERNEL pool for atomic allocations
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+In this case the allocation succeeded via alloc_pages and therefore,
+printing the warning is not necessary. Therefore, similar to commit
+463d439becb8 ("dma/pool: eliminate alloc_pages warning in
+atomic_pool_expand") silence the warning also for the CMA attempt.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Fixes: d7e673ec2c8e ("dma-pool: Only allocate from CMA when in same memory zone")
+Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
+---
+ kernel/dma/pool.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+diff --git a/kernel/dma/pool.c b/kernel/dma/pool.c
+index 00f422a1e8966..aa44fd74db538 100644
+--- a/kernel/dma/pool.c
++++ b/kernel/dma/pool.c
+@@ -99,7 +99,7 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
+ 		pool_size = 1 << (PAGE_SHIFT + order);
+ 		if (cma_in_zone(gfp))
+ 			page = dma_alloc_from_contiguous(NULL, 1 << order,
+-							 order, false);
++							 order, true);
+ 		if (!page)
+ 			page = alloc_pages(gfp | __GFP_NOWARN, order);
+ 	} while (!page && order-- > 0);
+-- 
+2.50.1
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
