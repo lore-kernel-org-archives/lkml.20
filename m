@@ -1,95 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793336223;
-	b=EvJHDvExB+tOcLv9tF+lLxmOhrjld1Dd7N5XbHgfR7fdXWXHzsSW5peUK7WogQY0injr
-	 TDsUTIadby4WPRXFbI2skXD97jWRCRf07IuoeuRcrH5rX2ZxoBq39QXzJMQaFsqCjXDVM
-	 X8S6lHx1UkkYuOc0oFie1x1Kc+dAbIF/DxrnlhAthM8kJzBKnx6klhW8T+psz2t6PtiFh
-	 KcYZPaV3kk9heufUPjvo+XQGcWowBLqCsTafdSNW8HrZBxjK5MCgdbZgFk66XryplS7vX
-	 APOFg0eZ3PedYAzB/eytCv/Fy5jtcgacuZhdNIP/OHaH2vA/ZRHc3p/R9us6o6bhDVA==
+	t=1793336234;
+	b=Tf5SYKkbMw7F6MyMi2tzI2v453/n3ClRwjlLjboJtH7rinMjMPQU7NAm0gUY/qMq9ZOr
+	 Van/Jsda7OLZCpvI0avsSR4nO3GTL3vOHKCZ6cZ1+giIxRWrUmNtSFgeXcL4M6xxR7j5o
+	 4Dt4k4GoYFOCym3rdjyDGgNRZBCNC7P1i3bwuMM6ZZtz4m0R8GTqZsV4ZeTh1lkLe7foi
+	 stjAkiO9FTlBEQjvMd85iWtc8iZHkYf/BEbXZMsaNFfC4Y+AupaehiKJqOE1kGsCxnqgN
+	 W/SWNUafMXWVial5xgAC6brTnwMjV2aPl+aiPJ6mrW50NVyS0uBr99NmcAe5rcAcGgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793336223;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=WauGYljzgKnkDbfgsq+TqBtz3mTXIMflL8/jV2GYK38=;
-	b=5dGRiUot+aednag1Xw7oP+0Fwsp8ILymJyEf9UCGboSb+LtxUvzSFLqFxrU49Bc2bgFB
-	 gjid3LM4hiBKQGEOe1VkEkluiwHbIsusNxZoj2K/svuiigirslSrTrvCcden0u5gtE1qc
-	 ojB+1d8Ib5SCRFVIv93/QQFQErfT6tMYKzlfkXydkCUxK1+78RgI0OY/k8vBshfC0dABc
-	 ESNIRYAPPI+BKm0Jxmkd08nbmV4648P6Hg1jUSKWD1Ss3Tfftfaisi7oEflNPt2n1Saif
-	 af7dvP70YZ/ycTAOnCyACcfY+X3z+RdHJlPnJR3XTL6MKnncLPOCv7vT2bW6RzcbxFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793336234;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=LkSAHBtoPgrkAY7QvIyWogTu4sDPqd80TrYA0xZEnEk=;
+	b=1sh7C6ZMPUoZbrW14qqUBNMsdjHgUN8Lv03EhuM3D8eoZtOATkky/oRK9/WRhRDzK+D5
+	 I7BwreAnn50up8WFTHmEOH8wOFrviYWEg+EFjwX59Ze11aVZn0QsVMFsaglHTxsFQayGQ
+	 eq23zPW3Fh29HqK4IXdAAymMx7s3qniyB/Qb7aKEfgsoG3jvRDC2UMzqHVH8rRCe35fxL
+	 B3jBCy3CBbE3hsbBro9FTam1HpFGHG0LkWXv7zRO+zxcyCiRnqflVVEoA7YBhS/dfBYvB
+	 hpZp2zaiad3iZt+Iu4iI+DZMORPqZ2pSDzA5ELqG7Gsx1+iUchfRzz+W6sern7a7jyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rtnK0eLq;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=dlXIONyU;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C69606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:57:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17C69606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EC6606A31C;
+	Fri, 30 Oct 2026 04:57:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12EC6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rtnK0eLq
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so7416355e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:57:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793336221; x=1793941021; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WauGYljzgKnkDbfgsq+TqBtz3mTXIMflL8/jV2GYK38=;
-        b=rtnK0eLqQBZ6iE5ubPlRK7qFsX0fEdPLRNcKXT6yCKGRIaRqsFIYF+UA4UutebBA8A
-         0pC6JpW275fFdM/XVFN6yK6K+Y8jYCHmtKRk5vnS1vd/uKD/ip+FXcj7ndGUvZaJs3CI
-         agY3Xja6Hd3vz6a+DY3hu9+F9pggrsMhS/wJnQWfRhh5PhJeOdqg/+ne2lQtNSql7Vvf
-         brMUEZy2h2gn1oti6kOYSzWcuWQiwZUuvbQshK7xrWTu1y7E4Clrf3zv7oJib0q8h+aM
-         5JdRHVeJ+ALrw/sxZJgFwA8+uIWDra/B3JZ0qyuBGOfE8x1K3CsuMk01Sqva7RQIFvOp
-         9ngQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793336221; x=1793941021;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WauGYljzgKnkDbfgsq+TqBtz3mTXIMflL8/jV2GYK38=;
-        b=sxjZJHe1w7hPoOOa1GmT+cSZSTYtn0FpqnfylLPVObq54fHkuFxHKBhF91XnfI1M07
-         bQxl/HOnhVOKrrvioB2F39i1lMKEUs0pios0/fmAOqGpbQY5bba0kj+hEc1EOtXOR4XK
-         G2WT//WMXOxQTIdEA8jvFlpgzOmo/+ZlaDf2rrmUQXLkEe1uhT5j0Sz1Ve7yuXxIU06w
-         /QYXlj7ZuKGhtdbb8U63V0XidFPqopNOjNTonHY4IwhKcoxvL36iKv/50efX2orRWKCX
-         JgUhTON8ODRoiKpu43oZVBK87GY1Swj0fYAEojwCQpG4/hsweenoWsKZNxuhO2uIoiZq
-         qvXw==
-X-Forwarded-Encrypted: i=1; AKwUvBx5RfEmFedclBc9FqUipY8VD/u4LU1DVXpqJF9TmcwCcBLd6UGY5vkBs+1SheoPh4qKeoIz/DD6CwFXOzA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK4FDwscft4fKOwFn3r2DBGOJeaNuc12oZoKjCvpGxGWZ6bMy2T
-	1j24etYc/BMDdf+RVd8wm8OZbd9aMBJv8Lq6QhqDqeyrFAziigsel+lp
-X-Gm-Gg: AYBFou0J8YLfdgNuBxsxsl+aAAsOZsh+BmF2Utea0oS8OKnHlqJIsaJdCFyGqPFTmEL
-	QadZQ8OM3N9Y/SU9UL83tXUR9bJWUNmzqVnN5vRv6BjJIZRDI7g8iRNbkPBjks5CRifHMbdqQTw
-	4bzUlbz8pT0UMtSYLQ5bOUhPHRpZJifIUPuomVdw6gReTM73pgmOSVdCoxwT7iLUbJoiq7WcVPi
-	A68jVwk7y1b/dQd1RkGSTg7ECzWutw4S/wHHVv01obQaeCDe38lRKWHKgLXn64y02hyMoIBAeu5
-	v9FS8JRQBfhLDI1TabgHhHpB41fVKXloxAPs0e7uYm19Kc7UMUqLJX0CieZplyBlfto6UDZx/LQ
-	gV//y4BkaEP9pEBt2yBbJYSfCfcOAw1Poj6KnfIft54KS7usT/qw+DyHG13IkXRFVipSoLyWPGP
-	w0n/3dyfRP+6PDtrDvg4kjEXcG3UITz/NIDsnpW4iACArmIELCABLYO6BXSuOg5v2Sd/0tRKejy
-	rneR6XIIB6ijtfxCbsmebp7qrntFFar8YUDD40WcUt/3ptXlRf4EHpCW/Q6w6LmMZwZWXVBcz5L
-	ywNWp/7gCYLGElEWTzfBBaCPNHkReBw3QV7z5lcm13Oa0vR3uqjxTmhS4pFPcGWHKYZKo9FA
-X-Received: by 2002:a05:600c:19d3:b0:4a2:526b:d40f with SMTP id 5b1f17b1804b1-4ac1209eafcmr22580955e9.0.1793336221237;
-        Thu, 29 Oct 2026 21:57:01 -0700 (PDT)
-Received: from ahmad-HP-ZBook-17-G3 ([5.212.7.215])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abea72254csm19118045e9.1.2026.10.29.21.56.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 21:57:00 -0700 (PDT)
-From: ahmad baghereslami <ahmad.b1995@gmail.com>
-To: tiwai@suse.com,
-	perex@perex.cz
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ahmad baghereslami <ahmad.b1995@gmail.com>
-Subject: [PATCH v2] ALSA: hda/conexant: Add mute LED quirk for HP ZBook 17 G3
-Date: Fri, 30 Oct 2026 08:26:26 +0330
-Message-ID: <20261030045626.1608040-1-ahmad.b1995@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261029174446.1412118-1-ahmad.b1995@gmail.com>
-References: <20261029174446.1412118-1-ahmad.b1995@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=dlXIONyU
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=LkSAHBtoPgrkAY7QvIyWogTu4sDPqd80TrYA0xZEnEk=;
+	b=dlXIONyUPuQhZmuhCVJ9Kxz1cWOkRyM210Hdd3g7CpRzTkcjoW5dcIT/e1AqdzHD3yxjPUBGt
+	Kg8d91FT+/NcevLnn1rbWOV1WdTucGPMfWiKtOzXUsxtufmrvYHEX7AYgpa/mxbe4KxKSlvkh9H
+	+8bUTXdstDRfB7W/SMYTv44=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jG82p6qyjzcZyh;
+	Fri, 30 Oct 2026 12:56:50 +0800 (CST)
+Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
+	by mail.maildlp.com (Postfix) with ESMTPS id 24DA740579;
+	Fri, 30 Oct 2026 12:57:08 +0800 (CST)
+Received: from [10.67.120.103] (10.67.120.103) by
+ kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 30 Oct 2026 12:57:06 +0800
+Message-ID: <5bbd0d3b-1026-43f3-bc45-245472603144@huawei.com>
+Date: Fri, 30 Oct 2026 12:57:06 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,53 +62,244 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 08/15] KVM: arm64: Flush the HDBSS buffer on VM exit
+To: Leonardo Bras <leo.bras@arm.com>
+CC: <maz@kernel.org>, <oupton@kernel.org>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <corbet@lwn.net>, <pbonzini@redhat.com>,
+	<yuzenghui@huawei.com>, <wangzhou1@hisilicon.com>, <yangjinqian1@huawei.com>,
+	<caijian11@h-partners.com>, <liuyonglong@huawei.com>,
+	<tangchengchang@huawei.com>, <yezhenyu2@huawei.com>, <yubihong@huawei.com>,
+	<linuxarm@huawei.com>, <joey.gouly@arm.com>, <kvmarm@lists.linux.dev>,
+	<kvm@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <seiden@linux.ibm.com>,
+	<suzuki.poulose@arm.com>, <fuad.tabba@linux.dev>, <mark.rutland@arm.com>,
+	<seanjc@google.com>, <rdunlap@infradead.org>, <linux-doc@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <skhan@linuxfoundation.org>
+References: <20260929103655.85107-1-zhengtian10@huawei.com>
+ <20260929103655.85107-9-zhengtian10@huawei.com> <auDpyRNpeDNzIk3W@LeoBrasDK>
+From: Tian Zheng <zhengtian10@huawei.com>
+In-Reply-To: <auDpyRNpeDNzIk3W@LeoBrasDK>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemr100010.china.huawei.com (7.202.195.125)
 
-The HP ZBook 17 G3 (PCI SSID 103c:80d6, codec CX20724 with SSID
-103c:80f8) has its speaker-mute LED on codec GPIO0 and its mic-mute LED
-on GPIO1, both active high, like the HP ZBook 15u G3 that already uses
-CXT_FIXUP_MUTE_LED_GPIO. HP's Windows driver agrees: chdrt.inf sets
-EnableGPIO0MuteSignal for this model, and MicTray's MasterMute section
-for SUBSYS_103C80D6/103C80F8 sets PlaybackGPIO = 0 and CaptureGPIO = 1.
 
-Use CXT_FIXUP_MUTE_LED_GPIO for it.
 
-Tested on an HP ZBook 17 G3 with Ubuntu's 7.0.0 kernel: with each GPIO
-held high and low, GPIO0 switches only the speaker-mute LED and GPIO1
-only the mic-mute LED; GPIO2-6 switch neither. With this quirk applied,
-hda::mute and hda::micmute follow the speaker and mic mute, and sound
-and the microphone keep working.
+On 10/28/2026 2:13 AM, Leonardo Bras wrote:
+> On Tue, Sep 29, 2026 at 06:36:48PM +0800, Tian Zheng wrote:
+>> From: Eillon <yezhenyu2@huawei.com>
+>>
+>> HDBSS entries accumulate in the per-vCPU buffer while the guest runs,
+>> and must be drained into the dirty bitmap or dirty ring before
+>> userspace can observe them.
+>>
+>> Drain the buffer at a single point: kvm_arch_vcpu_ioctl_run() flushes
+>> it on every VM exit, before the exit reason is handled. Flushing
+>> inside the run loop keeps the dirty-ring feedback timely: when a flush
+>> pushes the ring past its soft limit, kvm_dirty_ring_push() raises
+>> KVM_REQ_DIRTY_RING_SOFT_FULL, which check_vcpu_requests() observes at
+>> the top of the next loop iteration, so the vCPU exits to userspace for
+>> the harvest before re-entering the guest.
+>>
+>> kvm_arch_sync_dirty_log() relies on the exit path to flush: it kicks
+>> vCPUs out of guest mode, and the GET/CLEAR protocol tolerates
+>> concurrent bitmap writes, so the snapshot is complete without extra
+>> synchronization.
+>>
+>> Signed-off-by: Eillon <yezhenyu2@huawei.com>
+>> Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
+>> ---
+>>   arch/arm64/include/asm/kvm_dirty_bit.h | 15 +++++++++
+>>   arch/arm64/kvm/arm.c                   | 20 ++++++++++++
+>>   arch/arm64/kvm/dirty_bit.c             | 45 ++++++++++++++++++++++++++
+>>   3 files changed, 80 insertions(+)
+>>
+>> diff --git a/arch/arm64/include/asm/kvm_dirty_bit.h b/arch/arm64/include/asm/kvm_dirty_bit.h
+>> index fe703f02626b..d828e6b43fe9 100644
+>> --- a/arch/arm64/include/asm/kvm_dirty_bit.h
+>> +++ b/arch/arm64/include/asm/kvm_dirty_bit.h
+>> @@ -13,6 +13,9 @@
+>>   #include <asm/sysreg.h>
+>>   #include <linux/sizes.h>
+>>
+>> +#define HDBSS_ENTRY_VALID	BIT(0)
+>> +#define HDBSS_ENTRY_IPA	GENMASK_ULL(55, 12)
+>> +
+>>   #define KVM_ARM_HDBSS_DEFAULT_SIZE  PAGE_SIZE
+>>   #define KVM_ARM_HDBSS_MAX_SIZE      SZ_2M
+>>
+>> @@ -22,7 +25,19 @@ static inline u32 kvm_hdbss_buffer_size(struct kvm *kvm)
+>>   	return kvm->arch.hdbss_buffer_size ?: KVM_ARM_HDBSS_DEFAULT_SIZE;
+>>   }
+>>
+>> +static inline bool kvm_hdbss_enabled(struct kvm *kvm)
+>> +{
+>> +	return kvm->arch.mmu.vtcr & VTCR_EL2_HDBSS;
+>> +}
+>> +
+>> +static inline bool vcpu_hdbss_enabled(struct kvm_vcpu *vcpu)
+>> +{
+>> +	return vcpu->arch.hw_mmu &&
+>> +		(vcpu->arch.hw_mmu->vtcr & VTCR_EL2_HDBSS);
+>> +}
+>> +
+> 
+> IIUC, arch.mmu is always the canonical s2_mmu, while hw_mmu can be the
+> nested s2_mmu, if enabled.
+> 
+> Was that your intend here?
+> If not, we could use only kvm* version, which can be called with vcpu->kvm.
+> 
+> If it was, then I would like to understand the logic here, as IIUC the
+> buffer is accessible only for the non-nested guest, as it's
+> allocated in a per-vcpu structure. (vcpu->arch)
+> 
 
-Finding the LEDs (the GPIO tests and reading HP's driver) and writing
-this patch were done with the help of an AI coding assistant (Claude);
-I checked the LEDs on the machine.
+Hi leo,
 
-Signed-off-by: ahmad baghereslami <ahmad.b1995@gmail.com>
----
+Yes, that was the intent. The shadow MMU never carries VTCR_EL2.HDBSS,
+so the flush is naturally skipped when running nested.
 
-Notes:
-    v2: v1 said the mic-mute LED is not on the codec and added a mute-only
-    fixup. That was wrong: my v1 test blinked each GPIO too fast to see.
-    Holding each GPIO high and low shows GPIO1 is the mic-mute LED, as HP's
-    MicTray configuration for this model says, so v2 just uses the existing
-    CXT_FIXUP_MUTE_LED_GPIO. v1:
-    https://lore.kernel.org/all/20261029174446.1412118-1-ahmad.b1995@gmail.com/
+>>   int kvm_arm_vcpu_alloc_hdbss(struct kvm_vcpu *vcpu);
+>>   void kvm_arm_vcpu_free_hdbss(struct kvm_vcpu *vcpu);
+>> +void kvm_flush_hdbss_buffer(struct kvm_vcpu *vcpu);
+>>
+>>   #endif /* __ARM64_KVM_DIRTY_BIT_H__ */
+>> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+>> index 5ea4ac26995e..9d7bdece149a 100644
+>> --- a/arch/arm64/kvm/arm.c
+>> +++ b/arch/arm64/kvm/arm.c
+>> @@ -1430,6 +1430,14 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+>>
+>>   		trace_kvm_exit(ret, kvm_vcpu_trap_get_class(vcpu), *vcpu_pc(vcpu));
+>>
+>> +		/*
+>> +		 * Drain the HDBSS buffer before the exit is handled, so
+>> +		 * entries pushed to the dirty ring are accounted for by
+>> +		 * dirty_ring_check_request() on the next iteration.
+>> +		 */
+>> +		if (vcpu_hdbss_enabled(vcpu))
+>> +			kvm_flush_hdbss_buffer(vcpu);
+>> +
+>>   		/* Exit types that need handling before we can be preempted */
+>>   		handle_exit_early(vcpu, ret);
+>>
+> 
+> 
+> looks the correct place, haven't looked too much on that, though.
+> 
 
- sound/hda/codecs/conexant.c | 1 +
- 1 file changed, 1 insertion(+)
+Thanks!
 
-diff --git a/sound/hda/codecs/conexant.c b/sound/hda/codecs/conexant.c
-index a141c94ee..88651a36d 100644
---- a/sound/hda/codecs/conexant.c
-+++ b/sound/hda/codecs/conexant.c
-@@ -1193,6 +1193,7 @@ static const struct hda_quirk cxt5066_fixups[] = {
- 	SND_PCI_QUIRK(0x1025, 0x1937, "Acer Aspire Go 16", CXT_FIXUP_ACER_ASPIRE_GO_MUTE_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8079, "HP EliteBook 840 G3", CXT_FIXUP_HP_DOCK),
- 	SND_PCI_QUIRK(0x103c, 0x807C, "HP EliteBook 820 G3", CXT_FIXUP_HP_DOCK),
-+	SND_PCI_QUIRK(0x103c, 0x80d6, "HP ZBook 17 G3", CXT_FIXUP_MUTE_LED_GPIO),
- 	SND_PCI_QUIRK(0x103c, 0x80FD, "HP ProBook 640 G2", CXT_FIXUP_HP_DOCK),
- 	SND_PCI_QUIRK(0x103c, 0x8115, "HP Z1 Gen3", CXT_FIXUP_HP_GATE_MIC),
- 	SND_PCI_QUIRK(0x103c, 0x814f, "HP ZBook 15u G3", CXT_FIXUP_MUTE_LED_GPIO),
--- 
-2.53.0
+> 
+>> @@ -2017,7 +2025,19 @@ long kvm_arch_vcpu_unlocked_ioctl(struct file *filp, unsigned int ioctl,
+>>
+>>   void kvm_arch_sync_dirty_log(struct kvm *kvm, struct kvm_memory_slot *memslot)
+>>   {
+>> +	unsigned long i;
+>> +	struct kvm_vcpu *vcpu;
+>>
+>> +	if (!kvm_hdbss_enabled(kvm))
+>> +		return;
+>> +
+>> +	/*
+>> +	 * The buffer is drained on every VM exit, so kicking running
+>> +	 * vCPUs is enough to flush them; the dirty-log GET/CLEAR
+>> +	 * protocol tolerates bits set concurrently with the snapshot.
+>> +	 */
+>> +	kvm_for_each_vcpu(i, vcpu, kvm)
+>> +		kvm_vcpu_kick(vcpu);
+>>   }
+>>
+>>   static int kvm_vm_ioctl_set_device_addr(struct kvm *kvm,
+>> diff --git a/arch/arm64/kvm/dirty_bit.c b/arch/arm64/kvm/dirty_bit.c
+>> index f9aeb9f34ad0..be0d12555c84 100644
+>> --- a/arch/arm64/kvm/dirty_bit.c
+>> +++ b/arch/arm64/kvm/dirty_bit.c
+>> @@ -13,6 +13,7 @@
+>>   #include <linux/kconfig.h>
+>>   #include <linux/log2.h>
+>>   #include <linux/mm.h>
+>> +#include <linux/srcu.h>
+>>
+> 
+> Out of curiosity, could you please explain you reasoning on selecting srcu
+> as locking here?
+> 
+> (Like, what are you protecting against, and why srcu is a good choice)
+> 
+
+kvm_vcpu_mark_page_dirty() resolves the memslot under SRCU
+(kvm_vcpu_gfn_to_memslot), and the flush loop calls it for each entry,
+so the whole loop needs the read lock held.
+
+>>   int kvm_arm_vcpu_alloc_hdbss(struct kvm_vcpu *vcpu)
+>>   {
+>> @@ -53,3 +54,47 @@ void kvm_arm_vcpu_free_hdbss(struct kvm_vcpu *vcpu)
+>>   	vcpu->arch.hdbss.hdbss_pg = NULL;
+>>   	vcpu->arch.hdbss.hdbssbr_el2 = 0;
+>>   }
+>> +
+>> +void kvm_flush_hdbss_buffer(struct kvm_vcpu *vcpu)
+>> +{
+>> +	int idx, curr_idx;
+>> +	u64 prod;
+>> +	u32 entries;
+>> +	u64 *hdbss_buf;
+>> +	struct kvm *kvm = vcpu->kvm;
+>> +	int srcu_idx;
+>> +
+>> +	if (!vcpu_hdbss_enabled(vcpu))
+>> +		return;
+> 
+> You test this before calling, is it really necessary to test it again, just
+> after calling?
+> 
+
+You're right, I've removed it.
+
+Thanks,
+Tian
+
+>> +
+>> +	prod = read_sysreg_s(SYS_HDBSSPROD_EL2);
+>> +	curr_idx = HDBSSPROD_IDX(prod);
+>> +
+>> +	if (curr_idx == 0 || !vcpu->arch.hdbss.hdbss_pg)
+>> +		return;
+>> +
+>> +	hdbss_buf = page_address(vcpu->arch.hdbss.hdbss_pg);
+>> +	if (!hdbss_buf)
+>> +		return;
+>> +
+>> +	entries = kvm_hdbss_buffer_size(kvm) / sizeof(u64);
+>> +
+>> +	/* kvm_vcpu_mark_page_dirty() resolves the memslot under SRCU. */
+>> +	srcu_idx = srcu_read_lock(&kvm->srcu);
+>> +	for (idx = 0; idx < min_t(u32, curr_idx, entries); idx++) {
+>> +		u64 gpa;
+>> +
+>> +		gpa = hdbss_buf[idx];
+>> +		if (!(gpa & HDBSS_ENTRY_VALID))
+>> +			continue;
+>> +
+>> +		gpa &= HDBSS_ENTRY_IPA;
+>> +		kvm_vcpu_mark_page_dirty(vcpu, gpa >> PAGE_SHIFT);
+>> +	}
+>> +	srcu_read_unlock(&kvm->srcu, srcu_idx);
+>> +
+>> +	prod &= ~HDBSSPROD_EL2_INDEX_MASK;
+>> +	write_sysreg_s(prod, SYS_HDBSSPROD_EL2);
+>> +	vcpu->arch.hdbss.hdbssprod_el2 = prod;
+>> +	isb();
+>> +}
+>> --
+>> 2.43.0
+>>
+> 
+> 
+> Thanks!
+> Leo
 
