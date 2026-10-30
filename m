@@ -1,49 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793355006;
-	b=pnWJlFVz2TOLfFgS6CMFJ8J8KtcNEQEyOAstoGtpPhW5m8RML0nl8R2v0MyQGIDnhD/d
-	 8sdeEowxRLvARMJbc+XSne4kfTWk/aqLw6vv9QoNYAzFEAS3jnkWGhHbFYQij4kESiUi8
-	 1INC2HP1oM4YNMHn0N42UK6K8zM7p789r6yXKLoTYjlrbi3jPBgRPGFh1lzdhH8zgerg5
-	 l8sPDOctuQrJVdbRZW1ZnQEWwXw/k7WzESyGTZb7oUV7uYZrlKbFk7S1XbjgySqtLhTXH
-	 /zdqOW74ZPel+xpVpyJn9riTS8+KCdfFsSIpHfrDQ0XOKPJvMf3H+7SkSrEmD/hMv7A==
+	t=1793355029;
+	b=AcEWF6vOqjtCQUumK+y/NGvsXE/u4MevGjZSZoJuUDtGjx3ORuS0z/iIcEEtNxQidK66
+	 pMcr7viJMhEpG9v//NwPyKHuq8pO+LTq9S+QWIeK+Fpzf/WMCvoQ4jbKslRI73nn0TUaw
+	 TYwW5ayrnb9lo2XDh7cRy0iJGonowKAf8dBwlIKmTIGdI9RmZio100kPhIBR2OuR8L8J6
+	 ZsGufZUp0FOrpXM4uzjQmvSIS9akCXyprh3flo60xKYwxgfBtvcnYneZXpXmJp1alNxMt
+	 KF+cHFUDYEo59VMmzfeH2ygKwPkWL0gINva1qiE9o8LWd6QWWmV3G851h4JaXpF26OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793355006;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=Fj4VgTyKpbQHPNQf8lhh6JhpdgtR8Rf8gD9G+4TbHwE=;
-	b=rFs9V8k93w8pCzyjXF7vpnF78AzDvBykO2YTis8ygl/2lnc58v5AYrMbjOni6WJY8MQ2
-	 /pW9dC7EutbnmwUna+RUo3Zs6KpANPtTqZzzigKecBHoDpATO9cyf16PdNMxXnyS4/GWo
-	 PKnxd2dAJjbk95dp7aden2KAUbXYI4n3ZnbbEb8ejGfcJoC6SH13zldUK++vAK8f4sFYT
-	 87Nz7fbToSUZTpeUgvas1ckmusOPEuOAPNGZKjk00HCdFXgLlsaAuFWyg3KCbG1f7zGwo
-	 xnrlHeqGGfnj9L++OeT6Bu7EgyeJnhKR9+512ZdTglpg9gN+5AQaMPyDWVNi3aGvJ9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793355029;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
+	 X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spamd-Result:X-Spam-Score;
+	bh=hgc9kT6EAMhObiE+bfu08ah0299M+NLVKvwe+j5eBak=;
+	b=2kHGrFaamsNOXLc6lb2u3cwm9Yrw+1ewxdBl3pK48KbJkdURrvIoo69HI5AVSLPZN+5/
+	 g/YhrT3gweSHoqI/lAJRdFVfHY6pjBMMmtIX1Ta/xpf4Jiy55Wd8GCAkk+UxWhOCypr7c
+	 Aike50Uk9rqt5E/k58P7NFU2v3f6blc6+ZaRLoaHaLFUKtphgYSpS8jUSe/g30XpMkzAx
+	 QuInIuneyxfhryLSHpz5V8LC9vsGZ/nD8+R85slHOpYi1pIjVpuvppiOw1TocL2Cpj+xn
+	 GWw8s9kDWcuvYUdLEkypmH+t4q15B3hhZKh4XygBknowZT3NiOAkbKmxteTYrOhIQwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="K4AEW/QL";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=cKkMrIjz;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=D1QR65iI;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XNQDDQTR;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=w4+llE7U;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92753606A31C;
-	Fri, 30 Oct 2026 10:10:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26F0606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:10:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C26F0606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K4AEW/QL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C43731F000C1;
-	Fri, 30 Oct 2026 10:10:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793355005;
-	bh=Fj4VgTyKpbQHPNQf8lhh6JhpdgtR8Rf8gD9G+4TbHwE=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=K4AEW/QL+59deKQr2OYBXgObW0eQg85+CJWLoZKK88MgmKyhnm5UTv2DSbQUHFGPR
-	 t3YPSo6KAiKeAAltz5xDkJgZtyyT1pBHB5o/t38Z5Mg4g4BTUcICknLURMmt3Irzc7
-	 QKWRCDlgWAnKQdFi7PRnmYYSawDkNTG5jjCsrwBOmBd81f7ruHVOgr6AzgQc9xr93f
-	 rMJ1YKT28SzvxERAzXYsDjOi7/kNPWklt3ol9DwL2AJb2RCsPOukpWqZI+socMd/s0
-	 +uwYSOxXFRmlLBHIgGMMvMDIBHApOHe5/lm1+ECYlK7oYw0GZqUvIw9KMKqEeqaCPL
-	 l3XQjBp8LVZEw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA1EA3800454;
-	Fri, 30 Oct 2026 10:10:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=cKkMrIjz;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=D1QR65iI;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XNQDDQTR;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=w4+llE7U
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B2ED41F387;
+	Fri, 30 Oct 2026 10:10:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793355025; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=hgc9kT6EAMhObiE+bfu08ah0299M+NLVKvwe+j5eBak=;
+	b=cKkMrIjzUSMuBBlDEdFV+Pi3z9vgzYZAWs37T3xsPSlHFe6fF0UH3DJYuSjLhcIvLH7PVU
+	Ry++lRyF4fVRiwNOIXMVdm3zkPkBo77rNGP8ofFYJwHZwO4D9sP7YoZ49AjxQiHjferHox
+	3FPhhc7+7KKwRKE28xwzzeq0l3dUbec=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793355025;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=hgc9kT6EAMhObiE+bfu08ah0299M+NLVKvwe+j5eBak=;
+	b=D1QR65iIq37dIr8Tyuez/YqdDovcjVhlvXHgBqcnr1/NzErmVOSXnwJEuJiZDWZIisD5tN
+	1yLiN0QWAQRqzYCA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=XNQDDQTR;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=w4+llE7U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793355024; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=hgc9kT6EAMhObiE+bfu08ah0299M+NLVKvwe+j5eBak=;
+	b=XNQDDQTRur7hhXiEZ8P3ffFm8rgQ7cBUL9meiJcWND3TZDbiL37Cg8xtKb1OtalCEufLYp
+	rdGTHQAwxfTMYHNbxjx3iWrBb3nQXvOJ7vu26vqhJDnd/1OyC9mHAyZWfKS8VOivIBmuGs
+	aRV+sH1Lkw70m2GAvX/5cud+wFYzktk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793355024;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=hgc9kT6EAMhObiE+bfu08ah0299M+NLVKvwe+j5eBak=;
+	b=w4+llE7UhkqWHw0en7eQreAe655sqhRi1QXF8oUpzTShn+NYBAlLHcFgrVE/6Xg7aiSKAg
+	PJ1eLucr/ko9XUCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5D13113419;
+	Fri, 30 Oct 2026 10:10:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 4Y60DRBt5GqeCQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Fri, 30 Oct 2026 10:10:24 +0000
+Message-ID: <9542d87c-439c-48fa-85e3-aeccd07d10e2@suse.de>
+Date: Fri, 30 Oct 2026 11:10:23 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,47 +108,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] vga-switcheroo: Allow VGA_SWITCHEROO to be enabled on
+ LoongArch
+To: zhaotianrui <zhaotianrui@loongson.cn>, David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ chenhuacai@loongson.cn
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ wuqianhai@loongson.cn
+References: <20261029013618.3558115-1-zhaotianrui@loongson.cn>
+ <5e547172-ac10-4a28-a584-9a385dbe2b80@suse.de>
+ <5141c98f-4595-c29e-14b0-8bd324bf8949@loongson.cn>
+ <2790b59c-9b8f-43f9-a4a8-53106906bf98@suse.de>
+ <186e26e9-da23-72e4-9464-18e9608ca8ea@loongson.cn>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <186e26e9-da23-72e4-9464-18e9608ca8ea@loongson.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] macvlan: fix allmulti reference counting in passthru
- mode
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179335500455.975222.9987670053252532591.git-patchwork-notify@kernel.org>
-Date: Fri, 30 Oct 2026 10:10:04 +0000
-References: <20261027024635.366900-1-prasad@arista.com>
-In-Reply-To: <20261027024635.366900-1-prasad@arista.com>
-To: Prasad Koya <prasad@arista.com>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-Rspamd-Queue-Id: B2ED41F387
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-13.50 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[loongson.cn,gmail.com,linux.intel.com,kernel.org,ffwll.ch];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,bootlin.com:url,suse.com:url,loongson.cn:email,suse.de:dkim]
+X-Spam-Score: -13.50
 
-Hello:
+Hi
 
-This patch was applied to netdev/net.git (main)
-by Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>:
+Am 30.10.26 um 09:39 schrieb zhaotianrui:
+>
+> 在 2026/10/30 下午4:17, Thomas Zimmermann 写道:
+>> Hi
+>>
+>> Am 30.10.26 um 08:04 schrieb zhaotianrui:
+>>>
+>>> 在 2026/10/29 下午4:16, Thomas Zimmermann 写道:
+>>>> Hi
+>>>>
+>>>> Am 29.10.26 um 02:36 schrieb Tianrui Zhao:
+>>>>> LoongArch systems with hybrid graphics (integrated +
+>>>>> discrete GPU) can benefit from the same GPU switching
+>>>>> mechanism that x86 laptops use. Relax the dependency
+>>>>> to allow VGA_SWITCHEROO to be built on LoongArch,
+>>>>> consistent with the existing dependencies on ACPI,
+>>>>> PCI, and FB=y.
+>>>>>
+>>>>> Change-Id: I84d38fdfe5e1591495fb3681474a7f1f64281fa8
+>>>>
+>>>> Internal change ids should be remove before submitting patches.
+>>>>
+>>> Thanks for your review, I will fix this.
+>>>
+>>>
+>>> Best regards
+>>>
+>>> Tianrui Zhao
+>>>
+>>>>> Signed-off-by: Tianrui Zhao <zhaotianrui@loongson.cn>
+>>>>> ---
+>>>>>   drivers/gpu/vga/Kconfig | 2 +-
+>>>>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/vga/Kconfig b/drivers/gpu/vga/Kconfig
+>>>>> index bad4bcee313..89edd1211aa 100644
+>>>>> --- a/drivers/gpu/vga/Kconfig
+>>>>> +++ b/drivers/gpu/vga/Kconfig
+>>>>> @@ -1,7 +1,7 @@
+>>>>>   # SPDX-License-Identifier: GPL-2.0-only
+>>>>>   config VGA_SWITCHEROO
+>>>>>       bool "Laptop Hybrid Graphics - GPU switching support"
+>>>>> -    depends on X86
+>>>>> +    depends on X86 || LOONGARCH
+>>>>
+>>>> I'm a bit skeptical if that's all there is to do.  Does loongarch 
+>>>> really work with the existing handlers in the graphics drivers 
+>>>> as-is?  See [1] for the interface that implements the actual 
+>>>> switching.
+>>>>
+>>>> [1] 
+>>>> https://elixir.bootlin.com/linux/v7.3/source/include/linux/vga_switcheroo.h#L93
+>>>>
+>>>> Best regards
+>>>> Thomas
+>>>>
+>>> Thanks,  I will carefully check whether all these 
+>>> vga_switcheroo_handler callbacks are supported on the LoongArch 
+>>> platform.
+>>
+>> Switcheroo used to be required for x86 notebooks from ~2010. Those 
+>> systems had two graphics cards, but only one set of output 
+>> connectors. That design is become rare, I think.
+>>
+>> So I'm a bit surprised to see it come back. Which loongarch systems 
+>> are there?
+>>
+>> Best regards
+>> Thomas
+>>
+>>
+> Hi Thomas,
+>
+> Thanks for your reply.
+>
+> On the Loongson platform, we don't have the "two GPUs but only one set 
+> of display outputs" scenario you described. However, we do have 
+> systems where an integrated GPU and a discrete GPU coexist.
+> We would like to use the vga_switcheroo interface to switch between 
+> the discrete GPU (DIS) and the integrated GPU (IGD), and to configure 
+> the default VGA device.
+> Would this approach be feasible? Do you have any suggestions or 
+> recommendations?
 
-On Mon, 26 Oct 2026 19:46:35 -0700 you wrote:
-> Enabling allmulticast on a down passthru macvlan, bringing it up,
-> then toggling allmulticast off and on can underflow the lower device's
-> allmulti reference count.
-> 
-> macvlan_change_rx_flags() only propagates IFF_ALLMULTI changes while
-> the macvlan is up. However, the passthru path in macvlan_open() skips
-> taking an allmulti reference when IFF_ALLMULTI is already set.
-> Clearing allmulticast after opening the device therefore decrements
-> a reference that was never taken. With no other allmulti users, the
-> unsigned counter wraps from zero to UINT_MAX. The next increment
-> fails with -EOVERFLOW and reports "allmulti touches roof".
-> 
-> [...]
+Oh, that's not what vga_switcheroo is for. For your scenario, simply 
+provide a DRM driver for each GPU. Selection of the boot-up display 
+happens in the UEFI/BIOS.  Picking the correct display hardware at 
+runtime is left to clients in user space (or fbcon). DRM itself has not 
+preference.
 
-Here is the summary with links:
-  - [net] macvlan: fix allmulti reference counting in passthru mode
-    https://git.kernel.org/netdev/net/c/d8a4f4c59da5
+Best regards
+Thomas
 
-You are awesome, thank you!
+>
+> Best regards
+> Tianrui Zhao
+>>>
+>>>
+>>> Best regards
+>>>
+>>> Tianrui Zhao
+>>>
+>>>>>       depends on ACPI
+>>>>>       depends on PCI
+>>>>>       depends on FB=y
+>>>>
+>>>
+>>
+>
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
 
