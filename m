@@ -1,78 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793385616;
-	b=fhXnou43LW6EF3huENuA8tJJ8VHJkZFh3g2YYCJx5AscK2bsrUUct4SsQplY2aezwhuT
-	 uPUBkkuUDmC+TGnh3wfnWTtz9O7svJlQ+YbaldDGp2bO39z0k4RprPBmUmww6sRvPB8j4
-	 NrSBTZvfcxWipW/jef/UPxCfZGic5zJGT7nFDn30AchIGfAj61VBQ/sf6SVeGhdBfvDp4
-	 obURUskhWz3fYXm55M3fM/OfrVCzh5SV9wiaxU5pGC18Om+H+MV7UfjcNHXSr3ca0XeN9
-	 8H+EI/ppPlDvxZaDE2OjIavzWg49Ij6556cacU5QftWRq2Uh+UOpyBaQ5lxBrVE0aHw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793385616;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nmKp4v41/VuOsBN9J0z1kpzyiFhTpOACyc1o25V2f18=;
-	b=RIzkIZyt1ihDAZj7UKlXte8dP+OSlIVJICVWEzaM1g1UqUzeybnYIP+vHtoYhfmm2Qqq
-	 27YxzZHegwf12YKN/8bC/0Qe5UJHezYS4YVLAHLHknsfUCXsxmLCpVZ1oS5cmc57Il9v6
-	 trrwci7OFXSlz79zU+BNxUSV6ieGRWMs2OSNHWJIPbbygsq5UFbEOVufTNd/stqOpfPe4
-	 hKR6gxE71ExQNGQiv50JlHr82Ur46D0P/akAPW8ikt+Se7FGH4mQcd9mGg7AuHYzwE5c5
-	 NMgz2B1KGPjbqgfPJ03ifmsrHJAHMN8Y/lSPNHVMWMi3slK3V1fNXA6LYTLMKM5Pw5w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EmH+nol6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793385634;
+	b=yvcEnKu+ud/4YArHGF0gVE9ny+hcK1lkvw+XqS4t58g6STchgIGF8eb6+wKv/mV1l8G9
+	 SsdBpFpc8K1Po2ktlp5FxH/2NMZCRavMr+wmpyeKoreLvE1iWhedPNNJZkeIOMxlxGryM
+	 mdgxabCK0W/XgSVgRu7dXL+tvYasYb54YdPDO03ooyoe05a3vTHG7PzLduw6hvhNjnaLM
+	 WvZGiE6vviwkvyu29JrcR13iP2hjds74R+jbvgP/InPpy3GzVT5hDDHPreKIORKS5IFuD
+	 2703/Y9eZsiKNXgrW/77gcgssXwXzEmh/sbXL/F9SEkaumOfrotAqJ30PJdbkw/7wHQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793385634;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ONEeQ2vVVqIFiv9OWZJtBKE+yPwMBA+oc/DtB3fqHGs=;
+	b=00YTZmlwog5cef71sqDGEctZI2qjlEB6hgk1XtFTv45ROnibediBx0BIn6UBpHzHpBw5
+	 zA7y3K1ynqDmtc5EQq0APxWpp68yJ4RvzOP9FPLwLs0VoBHFXZwkX8qAsG4o3e1d7pSht
+	 080XWZ/I98qVzOgkyANpTemiwHkk6kb8AX5RzMKRaz+CDcgKfnftd12SryL1Yx1TpiCL9
+	 vePr26HEeMloaoH5FjcoUSHeHvP4v0FgoM11G3HrH2h3QxQiZkSs4b9oZmMDR+TjL59+G
+	 5AtIml3sAY7mvpdNM9px9r8z7Xr5DL2wREfNPWNSiiL1i/9PJmt+WOThtk7Uw8yRpEw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4GYmdGR;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8015606A31A;
-	Fri, 30 Oct 2026 18:40:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D365606A31A;
+	Fri, 30 Oct 2026 18:40:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EmH+nol6
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793385615;
-	b=SiP/MLXfy2SnPcNm04UeVnR+zrcQC1GK7Gm0LiwaNSLz2TqPcKCKVd2YLOz3VeYR6BlR
-	 z8RU8BxBnPK3fY7CkIMb+EVtAgfqbgFlpeUajNrPfjbD8to7zCpiZG2qoUa9wKsPiiRkJ
-	 biSTvD/JUmBVVbzkE+78UeWqAUy8/BgaBddM/RqqElpiX4It1vFrdxNKB/c8bIK4cqDPU
-	 o3SG+KSDYpXXS/HyePTWMLGI3r+ygQSfieCvKn3koaCfsDZU//8G3Ta0S8cPKIgJz2rlv
-	 TZhC0aQVZ2dE9DUtu3zlbyiyvQVEgHmq0maTKUgsHu78nzecYqVDMlWBvKZcRVrXjeg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793385615;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nmKp4v41/VuOsBN9J0z1kpzyiFhTpOACyc1o25V2f18=;
-	b=Yu3sz4UdhDCgvKmOzGUdYFSkl4YbmJw553IHYDWxVz6aiC+nTDp+vyFroM2l+CakriiO
-	 z8BDkXzlMX4ssZLaehOfMto3k/HZ/3FcPx7h2N6RTKKmJ/5RXQFzwlklolGBJlGUE5VCr
-	 LDBnNjVe40u4MBsHxXbnjO1AtpUFZ9UFeFFdVJ2NCREJR0CpE8lF7bTaYnV5YRlFd5iKv
-	 yypF0T2T16p7oY7HRXt7BIfFCtJWsceA2VzcWQMwiY86fFoIoemsppfEKW3qqZma9PRLz
-	 u6mxBp96B8HaJfuv59Vc9fFdi525MfnR13TORcDqVjrBy910B8dFB/1uWhMOuxhoeVQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D5A701F000C1;
-	Fri, 30 Oct 2026 18:40:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4GYmdGR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 621061F000C1;
+	Fri, 30 Oct 2026 18:40:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793385615;
-	bh=nmKp4v41/VuOsBN9J0z1kpzyiFhTpOACyc1o25V2f18=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=EmH+nol6Q/g8Y2eZ24nVluAEOweNP87AdS19W/ixpZnAd3NOOUC6rXVyr2Yp43uwQ
-	 WAltNT1l9pZglNyJmN7ZW+Ye45xE/QZySPELULaFvOjVA9V1o3fzUyaZ4GAWmVTYcC
-	 BfQWS7+IfepVeBXgsWPUufhG5eCvfPhASc0dlB/bJlcaGE2Ius+WpZgu9a5yTweySx
-	 uhNIjLkk5mzfKxvtJ+aEaMZmMDwsPmU55GA2pIGSX3IOpR21ywqWyfJmzrupjp9006
-	 SNE3D51CMb4ll6s5tfdv5NAhh1fPn6aPOeZDBkV4hL+1nTHLjPW96iT57hAYrCLwf3
-	 74508H2oHCWpQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 389B744239;
-	Fri, 30 Oct 2026 18:40:14 +0000 (UTC)
-From: Rodnei Cilto via B4 Relay <devnull+rcilto1.lenovo.com@kernel.org>
-Date: Fri, 30 Oct 2026 15:39:08 -0300
-Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for Lenovo V15 AMN G6
+	s=k20260515; t=1793385633;
+	bh=ONEeQ2vVVqIFiv9OWZJtBKE+yPwMBA+oc/DtB3fqHGs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=g4GYmdGRkrRa9rr1VZVy16lj8F7kgfSQFGNgoaP0NQc8yP5kbP70jPZxywO4Bg/c3
+	 0bp9S6utH3XwVCus1FmdKTDHHkT7M2J+p1gz4z9VIYq0FySAg5uOA7blfLpVnroHsw
+	 dMTSwwZ8t4TvmoCdyVFjPqRZzQFTImfBNZxdJlaAQPI92QNCJTSlsw9ej0jH1UrcK4
+	 7WiWF3KyoSbtauBy+YUR6qKEssQewAcKArXpsE1aVOwltBrk02tK+XmfGiXBXMOHGa
+	 jduXrrKsBNmKTPIZda8Q4l0FzrR/p2plS32rzVHPIcO3eTQ14qLS0q9S3ylYC74gig
+	 +aNhTk9rZ129w==
+Date: Fri, 30 Oct 2026 18:40:29 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Parshuram Thombare <pthombar@cadence.com>,
+	devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jisheng Zhang <jszhang@kernel.org>, Fei Xie <fei.xie@horizon.auto>
+Subject: Re: [PATCH 3/3] spi: cadence-xspi: add ACMD mode support
+Message-ID: <20261030-register-coauthor-4de5eb324954@spud>
+References: <20261029-xspi-cadence-add-acmd-v1-0-53cd44690e04@analog.com>
+ <20261029-xspi-cadence-add-acmd-v1-3-53cd44690e04@analog.com>
+ <179329269255.62540.11497211982924609522.b4-review@b4>
+ <auRqTXctbxuuEfLL@nsa>
+ <e9d40994-ef33-4f0c-9319-4efaef3d8711@sirena.org.uk>
+ <auS-tFYUCIvMg-hH@nsa>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,85 +66,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-ideapad-mic-support-v1-1-7677371af384@lenovo.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBBA0avIrDVpCRFXEYvqDEaCpoNIxN0Vy
- 7f4/wKhwCRQJxcEOlh4XSJMmoAb7TKQYoyGTGel0bmOJOstqpmdkt37NWwKy6JCxK4yhYVY+kA
- 9n9+1aX/L3k3ktncF9/0AgjSgDHcAAAA=
-X-Change-ID: 20261030-ideapad-mic-support-d658dddb815a
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rodnei Cilto <rcilto1@lenovo.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793385554; l=1565;
- i=rcilto1@lenovo.com; s=20261030; h=from:subject:message-id;
- bh=ngSYT+Mjnj1bJD7gv/LtVb+GccB+Gm/tJ1Kvc5e3BMg=;
- b=2LxSq+RHIcA8dEoRez96sR+lFpsXGWYD38N80aDf5NYq9RcM3X7aadQQi7UKBAbo2Ltf806IB
- Hl42ySeSi89CXE6e4axzxavYCBQWy90xkrzukZ6B4+hBLzdUSJYqI6d
-X-Developer-Key: i=rcilto1@lenovo.com; a=ed25519;
- pk=6PTykaxM+bmmv9zzOdlotAPqQJMtcwF9npDR/4gLHaA=
-X-Endpoint-Received: by B4 Relay for rcilto1@lenovo.com/20261030 with
- auth_id=1365
-X-Original-From: Rodnei Cilto <rcilto1@lenovo.com>
-Reply-To: rcilto1@lenovo.com
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="A49ffsBr1vgzFZ1u"
+Content-Disposition: inline
+In-Reply-To: <auS-tFYUCIvMg-hH@nsa>
 
-From: Rodnei Cilto <rcilto1@lenovo.com>
+--A49ffsBr1vgzFZ1u
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The Lenovo V15 AMN G6 (product name 83VD and 84CS) uses the ACP6x PDM
-interface for its internal digital microphone array.
+On Fri, Oct 30, 2026 at 04:00:46PM +0000, Nuno S=E1 wrote:
+> On Fri, Oct 30, 2026 at 11:03:07AM +0000, Mark Brown wrote:
+> > On Fri, Oct 30, 2026 at 10:16:00AM +0000, Nuno S=E1 wrote:
+> > > On Thu, Oct 29, 2026 at 04:51:32PM +0000, Mark Brown wrote:
+> >=20
+> > > > We need some suspend/resume handling to invalidate the configuration
+> > > > when the IP power goes so we set everything up again.  I'm not seei=
+ng
+> > > > anything here.
+> >=20
+> > > Yeah, I did saw sashiko complain (and my local LLM also raised it
+> > > actually) but I do wonder how can that happen? So we need to assume t=
+hat
+> > > in suspend we might lose power (maybe because it's regulator powers d=
+own)
+> > > and need to do redo all the important initialization bits?
+> >=20
+> > Yes, might not even be regulators - some SoCs have good internal power
+> > domains and can gate parts of themselves very effectively.
+> >=20
+> > > > > +	if (cdns_xspi_acmd_can_read(cdns_xspi, op))
+> > > > > +		return 0;
+> >=20
+> > > > That function has a minimum size but not a maximum size...
+> >=20
+> > > > > +
+> > > > >  	op->data.nbytes =3D clamp_val(op->data.nbytes, 0, cdns_xspi->sd=
+masize);
+> >=20
+> > > > ...which we have here?
+> >=20
+> > > For ACMD, in theory we can just configure UINT32_MAX on the register =
+so
+> > > not sure if it makes sense to clamp to that?
+> >=20
+> > No, if that really is the limit it's fine.
+> >=20
+> > > Conor is pushing against the new bindings and that it should be infer=
+red
+> > > from the compatible. I tested this on [1] which is not an upstream
+> > > platform so I wonder if it's ok to add support for the complete
+> > > integration even if the SoC is not upstream?
+> >=20
+> > So long as it's an actual SoC that exists rather than some random FPGA
+> > configuration or whatever upstreaming just the SPI driver is totally
+> > fine, that's one less piece that needs doing whenever the rest of it is
+> > handled.
+>=20
+> Nice! Then v2 will bring the work for the SoC integration! Yes, real
+> SoC with two A55 cores and a shark DSP.
 
-Its firmware exposes neither the AcpDmicConnected _DSD property
-nor the _WOV method, causing acp6x_probe() to fall through to
-the DMI check and return -ENODEV. As a result, acp_yc_mach.0
-is not bound and no capture device is registered.
+You gotta start somewhere, often that is clock drivers and that kind of
+thing because that's what's needed for bare minimum bootable systems,
+but if it's spi, that's fine too.
 
-Add a DMI quirk entry for this model. With it, the machine
-driver binds correctly and the DMIC capture device becomes
-available.
+--A49ffsBr1vgzFZ1u
+Content-Type: application/pgp-signature; name=signature.asc
 
-Capture was verified working with arecord and PipeWire.
+-----BEGIN PGP SIGNATURE-----
 
-Signed-off-by: Rodnei Cilto <rcilto1@lenovo.com>
----
- sound/soc/amd/yc/acp6x-mach.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauTknAAKCRB4tDGHoIJi
+0pw6AQCXjgEUAx75vhUjxljYkfoZmeHx7ucvvi9fDXli4WmXBQD9F9udcW65GFzs
+u1P926tHP3gmBS1JkpdeA9aHs6GqEwg=
+=vU1b
+-----END PGP SIGNATURE-----
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 41f8c0885865..fc648590409a 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -395,6 +395,20 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "83UU"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "84CS"),
-+		}
-+	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "83VD"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
-
----
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
-change-id: 20261030-ideapad-mic-support-d658dddb815a
-
-Best regards,
---  
-Rodnei Cilto <rcilto1@lenovo.com>
-
-
+--A49ffsBr1vgzFZ1u--
