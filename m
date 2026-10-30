@@ -1,68 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793390474;
-	b=eVXM+hoaWCzTWM9bmEyvap4hgfoYjfVLLZZ0nReHwWLUTLeRrCcqNnjOCVY58gmbN95i
-	 1I+wI81Nj1o7eomdNenrudzTJm7EgyWJeG8whzLLvqySoS0wdERo4wU0YLD7DOpM88evk
-	 PlgniETUcr3Xf8pBrM1fHL+GJadLziJ/wQKwI9EzmKtJiBBsWWuzSVkDAnALCWoIrsGTf
-	 ejMYop7khXPz7/F/7svjlXDu/99fpzSrZxl6B5PELlZFdFE+VYcUoFRRfOL0CDLp+nlFC
-	 38pcGZu6jRSrkXZGX7+tHHQQTW8CaJhHC9H3AXhsZJ+iPMwd6Fjr5WLT7QN+1FXcVpA==
+	t=1793390562;
+	b=Ym/tE2tCCxUN2G150stNBfz96/rbOULWROjZ3jetVGSVlOr6U+EocDKhipCJOGGwWOYu
+	 xQXI5xcNAh77XMAzw4XyEHyCOYQAL8Ujxgo4NstNGhip/gtj/Tl7fj3dsesh2Xxt3iZ6U
+	 ECPpswGKUldJT3ZdyIOCS+bqsS7isalvDfaeIg7jxfTKlZ3PR51uQD/rAFl4h/NLCQfR2
+	 1cvHhFVOOVGExm19UfuPw/ArhZQfHSyyCxfmDgjIA/kfwBsD57kgZMVdFgezOuXag0Pa8
+	 fChjaaBu+nv6rgoc9HIuAXEjfwhLseMDxBMzUyTVv+bVYFjag8VhwS67aHEl55hk1Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793390474;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=pFrcOXhViBdH28F/rO42mZGNABj+tFhweJ/WrDNE/kg=;
-	b=wdrgb3JeZQC4fFLwayAnUisejA4QSFadTy0vqOCcA+PbUSbBWnlvNfOliZ+ddkLmISQH
-	 yRzjrvey1UfbrdTMsbNEV5Fqbq5/SRT5FMLDIhfBMlngDKnCikQP3r/iQFF0nkfWzn97W
-	 9DwVwtzUw5C5lroozddeK2MGAQ0NKraK7Mp9TQ5NKMsPo2naD33MzILLN5W9+pNaT6TMS
-	 Oi2KfFeMoseVS3tZMEbkyerSLMmjPj7rqa3z8H+2R4h3NFkzev9eZBdBeb4Ia/u7HEu6R
-	 9v1bJDNXag0fcoa/TOZz6jNpL6f7LxxhnNEosQxwu200jjFkpsBLRfSqkfvY96ruyAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793390562;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=CdgjB3iMB/xpCXm7PRSva07wAj5gmWKOsYwxpue/r48=;
+	b=mNSlN8ldhvDlnyfZcAlFV7ANByTdeST9rYDgwfnVQrK2qaLlIEhbyT144bFF0Fdfg/ww
+	 9b/CSw2xY7WLUVpoOyynWLjo7ZYu15djQXwL/KhgrFikhPF1wA8+NWzBFrJZy5LWMneRS
+	 m9AnY0UquX2maLGWf+ftlDXlyLUxAWxmLWJffGsRhP9sdaWr883NLemfOWCldXivsOfRs
+	 e+XbDZ1Lbz553p3cGzUva9phrIJinMUs0utN0zOjsgJJu2yyIA1c+raE6offHquNh8YW1
+	 DGhH1ZOnC7azR2PtTUSMv45E18oHHERv1vJ+mIh9ZMRb/F3saczw2R/1mfwTEcXfZYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vslcx7Dr;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=nnvYecgQ;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED13606A31C;
-	Fri, 30 Oct 2026 20:01:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ED13606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D891A606A31A;
+	Fri, 30 Oct 2026 20:02:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D891A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vslcx7Dr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793390473; x=1824926473;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=csjH2mric7kGbdZqhswZMkEiW0X3FsU+SuPN42EQ9Wc=;
-  b=Vslcx7DrLM86GDbOQQ1KCowoD/3W+rJourrCd0Ix+M4N8Wa6dwbjTnHd
-   2GqUHd7s39MM/ncbhYpaiiRqwG5LO5FeCZxph7Gu5x5m//nKcRbz1ykeL
-   I9LjTmOX/oU9JU+L8ZPaLSx82dne16c4zFwpWIWflRrCXOrduV6WKUUPC
-   AcuBrOqcn+i3OTf3hICjy2R2IwFhyaWrQA+TAF2183dQGnPu07rJqJrGg
-   0XJiClTX0S6xMsmfE9jWJQQoXpmZSjz4/0uTen3M41GXSVPRafjF8itaJ
-   Xd9v1rMqphvN9WfN1tPbWVVI5cV81RSvZVLfF04IYolpgiokorUDjJpM6
-   A==;
-X-CSE-ConnectionGUID: WTgrvaoLSouPFQ3TPUizTg==
-X-CSE-MsgGUID: J1UVyBuOSgiC7aHwEY3gbg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2040670"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2040670"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 13:01:12 -0700
-X-CSE-ConnectionGUID: ekxGTmPLS0+BfToRrPu8wA==
-X-CSE-MsgGUID: 6FiM6dEZT+CcNIfUHLp6/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5522460"
-Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 13:01:11 -0700
-Message-ID: <d0e5f936-8203-459a-b9e0-1bb796943644@intel.com>
-Date: Fri, 30 Oct 2026 15:01:10 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=nnvYecgQ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=CdgjB3iMB/xpCXm7PRSva07wAj5gmWKOsYwxpue/r48=; b=nnvYecgQBjPgn7ZIxAbvE6MhR8
+	jaKDY1bguj0p8uWbaxpsbCCUBMj0m5XFVq5bkZ8CmnhNN8WsKg1XXK5cQRTx/3r1ae3dNSqRCTNtc
+	3qcYP2vfr6YmksJg689a7UiNps8aeXsiEhfngI+9gDKJoA2gjhpxx2DBqQljUNfNp2xY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xMso4-00DQaS-L0; Fri, 30 Oct 2026 21:02:32 +0100
+Date: Fri, 30 Oct 2026 21:02:32 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Cc: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+	UNGLinuxDriver@microchip.com, netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Russell King <linux@armlinux.org.uk>,
+	Oleksij Rempel <o.rempel@pengutronix.de>, stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH net] net: usb: lan78xx: only stop phylink if the
+ interface is running
+Message-ID: <8bc84f9d-4c9a-41db-af34-28377cfb2b1b@lunn.ch>
+References: <20261029160204.2567-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,89 +67,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/16] KVM: x86/pmu: Emulate the GLOBAL_STATUS_SET and
- GLOBAL_INUSE MSRs
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
- Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org,
- Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>,
- Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi
- <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20260827223755.143247-1-zide.chen@intel.com>
- <20260827223755.143247-12-zide.chen@intel.com>
- <CALMp9eRvQ+iQdw_dWPLqZCrO7zpLut+O27pb-EPNa33hkegaBw@mail.gmail.com>
- <b3dcb403-ec19-4d23-9bab-336e2eb344bd@intel.com>
- <CALMp9eTHRzXXm1gpKR3u1nzJU3i9M1a_wUjp9+bD8_r4eoPQ_Q@mail.gmail.com>
- <dc0e6998-6b8c-4b0c-a04e-b6af0a1cf653@intel.com>
- <CALMp9eTRTLGziPtrSG9tQWLqoUuz9zmrRwUis5gb-wSeJeA7-w@mail.gmail.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <CALMp9eTRTLGziPtrSG9tQWLqoUuz9zmrRwUis5gb-wSeJeA7-w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029160204.2567-1-25031212351@stu.xidian.edu.cn>
 
-
-
-On 10/30/2026 1:23 PM, Jim Mattson wrote:
-> On Fri, Oct 30, 2026 at 10:20 AM Chen, Zide <zide.chen@intel.com> wrote:
->>
->>
->>
->> On 10/30/2026 6:55 AM, Jim Mattson wrote:
->>> On Thu, Oct 29, 2026 at 10:45 AM Chen, Zide <zide.chen@intel.com> wrote:
->>>> On 10/28/2026 4:24 PM, Jim Mattson wrote:
->>> [ ... ]
->>>>> As I pointed out in patch 04/16, we can't pass through the PMU global
->>>>> controls unless their reserved bits match hardware.
->>>>
->>>> Totally agree. Then the handling of bit 55 breaks this rule as well.
->>>>
->>>> if (vmx_pt_mode_is_host_guest())
->>>>         pmu->global_status_rsvd &= ~GLOBAL_STATUS_TRACE_TOPAPMI;
->>>>
->>>> Always intercepting GLOBAL_OVF_CTRL and GLOBAL_STATUS_SET can solve this
->>>> problem, but it may impair guest performance, especially for nested.
->>>>
->>>> Instead, I'd propal to have separate reserved masks:
->>>> - pmu->global_status_rsvd: unchanged, strictly tracking virtualized
->>>> guest state and preserving live migration validation.
->>>> - pmu->global_status_{clr,set}_rsvd: unmasking all architecturally valid
->>>> hardware bits for the corresponding MSRs on v4+.
->>>>
->>>> Any bits allowed by hardware but unvirtualized by KVM are
->>>> scrubbed/filtered in intel_mediated_pmu_{put,load}().
->>>
->>> That is a terrible proposal. MSR bits that vanish at unpredictable
->>> times?!? No. If an MSR contains bits that aren't virtualized, that MSR
->>> can't be passed through. Full stop.
->>
->> OK, I agree. I will intercept GLOBAL_STATUS_SET (0x391) and remove the
->> nested_vmx_merge_msr_bitmaps() for it.
->>
->> However, I propose we keep GLOBAL_OVF_CTRL (0x390) passed through, even
->> though its reserved bits don't match hardware. Since it is
->> write-1-to-clear, it cannot manufacture unvirtualized state or leak host
->> data.
->>
->> The only divergence is the lack of a #GP if the guest writes an
->> unvirtualized but hardware-valid bit. If we want to eliminate this
->> behavior by intercepting it, it will force an additional VM-exit on
->> every single guest PMI.
->>
->> What do you think?
+On Fri, Oct 30, 2026 at 12:02:04AM +0800, YuanZhe Liu wrote:
+> lan78xx_disconnect() unconditionally calls phylink_stop(), but
+> phylink_start() is only called from lan78xx_open(). When the device is
+> unplugged before the interface has been brought up, the attached PHY is
+> still in PHY_READY and phy_stop() reports:
 > 
-> That seems reasonable to me, as long as the architectural misbehavior
-> is documented in Documentation/virt/kvm/x86/errata.rst.
+>   called from state READY
+>   WARNING: drivers/net/phy/phy.c:1670 at phy_stop+0xad/0x380
+> 
+> The same warning is emitted after an ifup/ifdown cycle, where the PHY is
+> already in PHY_HALTED. Call phylink_stop() only when the network device is
+> running, which is when phylink_start() has been called.
+> 
+> Fixes: e110bc825897 ("net: usb: lan78xx: Convert to PHYLINK for improved PHY and MAC management")
 
-How about add something like this to errata.rst:
+Why did you pick this commit?
 
-IA32_PERF_GLOBAL_STATUS_RESET
------------------------------
-To reduce VM-exits to performance-critical paths, KVM passes through
-writes to IA32_PERF_GLOBAL_STATUS_RESET (0x390) in mediated PMU mode,
-even if the MSR has bits that are not supported by KVM.  Consequently,
-KVM does not inject #GP if the guest writes bits that are valid in
-hardware but unvirtualized by KVM.
+    Andrew
