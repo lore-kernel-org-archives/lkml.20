@@ -1,110 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793378548;
-	b=xIqv/gCOulE+ZROE8c4jRPw2OGZKyAyPxQ45IoVEC/IyzUwA2zgyoIVhs/GsT3RYMSzf
-	 /zCyPjtbOfJtstRrEaElv8/QI//XXglzvJoyBQQcm+9bzGXIIbc591jA5vIKm2CIDj7OP
-	 IWkzAb2NxtFhKYm1smOirt7AAfRDFJTo8F0FzAHgixJIeJ/iryFGPBTb/Y5i5fTSzxQJi
-	 Qs4zIoKXHiHQ+ssW1gCOeNnkc/zWVwo6NURNPDPrzCocHs++/smwnECnEMolVwg7HKXHo
-	 4igqyCuqpq+KHXcsobAdWqUesZHXevQ/QhaGuLMgZBHfZXIogAOdK6YzuvOMD3jPx2g==
+	t=1793378565;
+	b=i5JgR2jALHxvUF0HFHqLlX522mL8bQUd1+F0H+4rDheNEOc2QuTzCmI0ZMxR2O+CyLGS
+	 VNWs/W5Y+McOq1d0klHGpwlFp4t9gwA8gpYTGUvJbwxFXNqaXFCz7fn4UtDB6rABXiDRJ
+	 iYbi/Mr+dXHzszQRzVA2yOHZ9YGulYsjxtz6e854HS2hiChZ/e2PM5N1kqR/uqjiJovKa
+	 +Z9uwmQ4wb+UzniiefmQroFTcrl2Oz7uSQ/I7MaWAfW3cHCAQpqsRx674krEGWI5t6iqG
+	 Tq3agdCLuMhXf+GG0VfbWFWHLoyGHJYGqZ2Zn7feCIio4KkpMHSGwsBjuKJZZXbyJpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793378548;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=g8F21DZMe3A4V+cCXI32wwp1x22mpHQp2eEhNQy6rZg=;
-	b=FdcmEOb6ZmZhAbCQNKxrKBfy3VhqZs7wI2Da+x8fnUyF7k6cNFK4O+fI08HtJ5DTOzNL
-	 VLCKi3TvDwZAQ+Z89dSnJ9jKJH12zppOkc8wkw5hzujBpirazuLJ+uLZ++T7WFseuL8/e
-	 4MQXxDkNKmqKpK5NpMAQoO7rHopdAKujQ4oqGYyGPz8p9e1qBtn1a+zdeoVZGJkTmVdO+
-	 e9ZsIjVA34gyI6UIKE02opKR2lMrASTaSHMduz06fO9MAmQioURD6+Rw32l12FRRzEkg+
-	 W0CZGrhOpgAELCpt8xIeP/pzEZMc8W4nkA2HYvLEESjkYDJ5zN2atGHztaYA935nzVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793378565;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ok3D/afU2nVjQzmvIGoUXuLtqcy5MauRxmbOFQz2KJE=;
+	b=iMHx+PwIBBXLDqxXzWGAuXFZCP46PoQdJWJj8r1xW/xr1XagaNTYu0qgPe7S9vgt+/Md
+	 YSwHm42W894IIhi2xRmFXIVdn9DmWnEgOlKCRufp+9YFopO7aRjXQ8E0LKDr4PBJ0tL0G
+	 p1rFfk6nGUH8UsW7LmZw8a11vbYPms/xZ6ZxUt8esqw5j0WiGr+MMQLwfjmw2yASg0aOQ
+	 e+7N2z/b1X4RC+opqqWmkERVyqDWcXIy/oXjmlbli5EJs5/elFksYyn4fuLtmkprVx/JE
+	 YcdY6bjTMns6UyQ2Nc6Fr7sUqeW7y4M7f6ILLN7FkTivr+C2ZlgWZtfq9cNx6jl/Diw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GxSHJkUC;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZbeKqZBP;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=aJ8BVuHe;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4DEF606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:42:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4DEF606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C0B606A325
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:42:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07C0B606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GxSHJkUC;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZbeKqZBP
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UESNIO1955490
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:42:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	g8F21DZMe3A4V+cCXI32wwp1x22mpHQp2eEhNQy6rZg=; b=GxSHJkUC5198O8Ih
-	SFnWSUT53ZoG6dH9Yayj4yDGKREpJGRnLtX7RA3nqm+mNj2g1+HV5ahmoXmZ3B3a
-	7W90tx0e4RUB2V/PFsJejoe/qQxXh49tXekVD2f8n/j4QlXIyBHaZDt9UKX2Z15Q
-	k09XkDyovLji2vHvW7BiAzDzTBuZtiAJIBp5EzZ/Ebri7RjlhbpfhbVQRFxHWICI
-	JSHBoYz6hpmjNjFpd+yLZcsUFuSflhVaajs5+X+BPTj+Dtl+fredVi/giyAyGWZu
-	2NUU2n9ydMEowgV/XhZuNPdSenzEbbLtfsqwToyBxfANnhaZNTWVjhhq4AKxUDjM
-	44yTyw==
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6pm240-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:42:27 +0000 (GMT)
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-7051c542f0cso840816eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:42:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=aJ8BVuHe
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35b2c599f43so2177629eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:42:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793378546; x=1793983346; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g8F21DZMe3A4V+cCXI32wwp1x22mpHQp2eEhNQy6rZg=;
-        b=ZbeKqZBPEpk+WssYYbYsqnCrGXDed9tH0gpmBh+dH1Q257uHUdPvy4EYTvtJF+dr1r
-         kZY/L+ZcycM47wjCKjkVM7ByrtqHwJcqd8IHg/jkxagDzTbHCMS4boNbWrRBplKoY3y3
-         q/ppnPMVXfTk4jEs5jYM0zb7PXR8sp4p5zO5phrhVeGz4mjm49vjYdmDmyZWw/QiNtbE
-         t2iGYWzMfqeEXg9s1wl+X5y4QZlf7bpz80svXM3RX6qjctm9bXKwLAZlYzmjSeNT20eM
-         jpj2gAgpSz+sHhxqY3y0H1TsQoj5T18IUYmFaoXh/2tsRGA397og8Qgbc36Ip3CTWKA4
-         i0jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793378546; x=1793983346;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=purestorage.com; s=google2022; t=1793378564; x=1793983364; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=g8F21DZMe3A4V+cCXI32wwp1x22mpHQp2eEhNQy6rZg=;
-        b=IiVoiNX+eQfWLuHpWC/GwXpwIgtSxjqA4iVFOvKj/EJSG+oljutazTaZuUOawbk/Vg
-         s1hp5QS4wlVdXkvU3jJ9kau4NXicOzr9lVuM3aoAZNkGT0iBuPFGqm5yOZK7BSZHBBj/
-         z1jNd3iOwFTbqzoHz3yL+CULBjDhgz0tE/UhtUgRm06Ey1QM+5NwI5dAkgwnLLpq5Iu+
-         LahWbSz9ypjpSytlx9bMk3ToHjqTrPE8LCJOjCJ+YS4SuKKHd5q3VM9xEW6sDLiG8Gv0
-         razuFBKwDdHdUjP121S3YoY9J11U1zJe+YZGvxa7C+RoEb382iTfXmIy6Z2tCsyHT3I9
-         NV7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz9oFUpZ7bkrlTfHjyLBtCcdSzgpMOLwOfhrgIAh8H4XA2MLwyAt+AYuXPUs0pkaEq12mq2rF5HcFfaoaM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJSvYagG33zm+ekeO0c+55VsL7HgpKU/xa2CUqJKAaGymZg+/sQ
-	FsmHx1EhKBgSgmmqR8QJpRgz3JkXyLxp59XOSbLEMdU6ZFluh8szolpyHOVOgTcE9fZfIfZM2B5
-	yRBPD1Q8wvGKKR1sI56aOwNYaJjK35GkiYCt1VjfG9D8Ed30c00ynU1PjZ+4vngV/rAk=
-X-Gm-Gg: AYBFou0YyZTElGpapaslGYnaM3AR/hNCjqRMPcLj18Wir+DVQjD0Wa8qqnqFLFcafH5
-	KETRTv/yA/XpbRwp+vyd7tGq9wFOcZ+j9eYYdLz3uSGSH/9x3QQrNWwwEAR77++FbPtfJsNOeZJ
-	c2QdpHewTdH81z3vvY1BoveihSwt/iCk8YvtOyP1nIew9Em2izeEqjqEAAh801ZVPXUKO7+FIVQ
-	lquUMs4qwGNMJqWDFDrs1C8hWtVu03d6uIfy/1/gOZqzzGXCIVz8lQiA96gG+iYKMKRms4ojXAf
-	pRbNAhIk71eyxyqNxj4i3EAYOVjUAN3jzpOxSeILBSQdGd9sbxOUAdt+f15Op+p46TosWyEBRaf
-	ddMKD8LnVdbCzuXLOXfV6ExqTDkWRUzFxTogMMqsk95HVBdY6VB4tcYBkTgADDjD42JpoEvi3xR
-	yA
-X-Received: by 2002:a05:6820:1354:b0:6dd:a0e9:1ed8 with SMTP id 006d021491bc7-714f25315ebmr1576124eaf.57.1793378545973;
-        Fri, 30 Oct 2026 09:42:25 -0700 (PDT)
-X-Received: by 2002:a05:6820:1354:b0:6dd:a0e9:1ed8 with SMTP id 006d021491bc7-714f25315ebmr1576112eaf.57.1793378545592;
-        Fri, 30 Oct 2026 09:42:25 -0700 (PDT)
-Received: from [192.168.1.14] ([115.98.177.53])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-714f2a818b9sm2364487eaf.1.2026.10.30.09.42.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 09:42:25 -0700 (PDT)
-Message-ID: <d21ec697-c3ef-4bcc-a74f-128191a417a9@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 22:12:13 +0530
+        bh=ok3D/afU2nVjQzmvIGoUXuLtqcy5MauRxmbOFQz2KJE=;
+        b=aJ8BVuHeldtz9OI9GB9aOqjNrb5jTwSxyQsjpBrtDdDfWvwKON98ioFrFFLwHC/zTV
+         5UCa4e1UCpwRnFeRht1kk3Ola8k9SUZltnkmJ8aMrX7lZoyK0Q8Q1PV+z6ajn3HJd2Mv
+         3+XdjTR/iv318Dwa2ApGvJO/LLMCCHNxFTADVaHKSLNT9p+wGG5EzVmx0N7qwkYrOHvz
+         rYLXXLzhMc6YSXU+4zbaLEmniG4cpC5sQp+/jrn5ivppZQmhQCZ02MQTFaqscLJ9b4wN
+         8o/9jNw/7ESKYnAfimPbIdRTnVHnDxiJ5gnq8zt7ArfvDyNm4iDF9Mst57zaqHrJhCzt
+         ooXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793378564; x=1793983364;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ok3D/afU2nVjQzmvIGoUXuLtqcy5MauRxmbOFQz2KJE=;
+        b=Vnmb290wr4lft52paVa9gUc1cdMiLi6T1tuJJAG2ErHxqXROufKRaeeNuEF28sc9Kb
+         Rs5XD5Fme2Nd1PFezwgLbD0y95crg/3CbDdSj5HRbbllQ2a2wwpdFkN89WpUFXTJCW8D
+         M2RGnnetq9bbRX3pZblJHwqUwUd1HevwQq6HSQNpl6nRsKxyHMb0VC+dQ/CKQf6JpKGm
+         a5Cou5xvCJSahTM8weAdYWTM9n8Bj9JFJD6bTSLKjoEyCHMQ/32f70VXRAO8sWgiI22O
+         q/X9OwPOBDggHZoA2J1E9++JiZG1ShliF0qdkDOrjyYLnBJbCxtkpsi4T8/rGc2A2Zin
+         li8g==
+X-Forwarded-Encrypted: i=1; AKwUvBzEZUR28XY9x9eL1Dz5T+Svqmv2Gzawe/00+GPi8Z7fnX2mMlGwLumQk2yXS2l+zfZkJAxBQ+aLhNsMs/k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIn8VgwFEdyqGGGEDEQnp3QMJH1wZap0yn9aeZ5ZqTMZ7bBZ4yH
+	BvbpsjDiNx1hXGpjAPI2Vb69tYAYIqCGgEah8RZDyj9aYxhdck3ELJ8Q4tVqMZLgPjl0UzIc8rR
+	1jhhi2i7C3/jWXheOHG+b35qOdGcLkbMMb2HWR/M6VVLjFKQsUWsBtOyL49dfBZtSm37DvcU9+X
+	V+aHJ1DgOJO98v+c42DqpC1qsnrkPDUkrSRfA98jxtP0/wSrJoTJI81ym9GCP7v4iB31zOFyDHa
+	w==
+X-Gm-Gg: AYBFou3iUBx0D9hp0efvS4JreDIVTPWtDLux4qWjcuFCnxDY0aDyjpkdC5e/Ui7HVLx
+	NehwKaP4CBimbhrtgTLxleh+DznshICfgWR5aAOJbggag/Tib0rwplNC48WeL3LI1/0S/snmJvr
+	tkuMK603igZMmziFCdOGaj8+VCmjrGg97f+QBgDCs45X1a7dEfV8nTB55Q8HYxsxD1Fx6jrtijs
+	4Ah9zae9KYxeki3PGlACKK/CE2AIj7YB5dTwAUyHniLEorBmGXxvbo0MS5g+uLIaPuRWfc5GUfV
+	uUKqXn7cxG4grbhjjjUIAGCU7n2HwFVHz2VBiNeUVtGiAwSps0dPXczbESsBgIVreMEXLkZdjgE
+	vR/Q8hQIKpob8RbYXClKJSH6vu5U8/t31zPweJsC8Ts6NVHskXLVLzFQT13t4WywJ10BvE7X5KX
+	Ky6eVmtMS30/i26wpCmvUMTq4LAZ1nlhFWaJ9ONFDol8GH69/UqzKijxHIiP+oppKsA03M91KXT
+	MY8bmofYYYdLI4TRJbuwdIrC1gcIhjxpIVAxcTmIlno9wTjm0i/ottSfATSazFnfEk0ddlyNfHG
+	UjAhMZOfJwfo9pmH/qa4tJW4V0eAfk6Y9g1jDiUQWmy5+yevD90P43oR/UPp6rNxbaQkWNtbHqY
+	SBLgHcje8xtSIY/PwOQQCRS51vctTgSvyFHAe3XjNF0BnIqjRDOY7uMzGfTscnPByyGj6TkVJTM
+	cqCZqYhtxQQ19wmtLobUw=
+X-Received: by 2002:a05:693c:8107:b0:351:6b27:d67d with SMTP id 5a478bee46e88-36a4241aa57mr3973297eec.30.1793378563798;
+        Fri, 30 Oct 2026 09:42:43 -0700 (PDT)
+Received: from brian--MacBookPro18.purestorage.com ([170.85.204.93])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4294419dsm8475040eec.18.2026.10.30.09.42.42
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 30 Oct 2026 09:42:43 -0700 (PDT)
+From: Brian Bunker <brian@purestorage.com>
+To: linux-scsi@vger.kernel.org,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: lijinlin <lijinlin3@huawei.com>,
+	Wu Bo <wubo40@huawei.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	linux-kernel@vger.kernel.org,
+	Brian Bunker <brian@purestorage.com>
+Subject: [PATCH 1/1] scsi: core: Restart a stopped queue when sysfs sets a device running
+Date: Fri, 30 Oct 2026 09:42:29 -0700
+Message-ID: <20261030164229.10037-2-brian@purestorage.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261030164229.10037-1-brian@purestorage.com>
+References: <20261030164229.10037-1-brian@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,83 +107,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Subject: Re: [PATCH v23 15/15] arm64: dts: qcom: kaanapali-mtp-camera-s5kjn5:
- Add DT overlay
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        jeyaprakash.soundrapandian@oss.qualcomm.com,
-        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        rshankar@qti.qualcomm.com
-References: <20261028-kaanapali-camss-v23-0-95f250b18612@oss.qualcomm.com>
- <20261028-kaanapali-camss-v23-15-95f250b18612@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20261028-kaanapali-camss-v23-15-95f250b18612@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA2NiBTYWx0ZWRfXyL7Ye2x1MBpb
- sdp7u2l/ack3bEdKUyedHbAL3TEMwA3nhiEbLJ3yWiQ6FO85i9mBSv4NrsaOhvkP0c5CrhxKyQQ
- rMajkdeHIrCc1PXkt2xgLbyf82wTO8rREA3TAb8CRsTC5beM6hOojxBYY4eHqM61RVLGvzR870S
- UpSdpZBcmMs7khwpyI7Ob1PWFA7066Two36ZWSSDCS0ITxDmcgMpPVCmXf9Kkny22SvezpGcybo
- Z1VmLusT79+GHaNZ6hiXApqN1bm6YQFlpO3GEC0sAF919Ec9/XmR3GWHEgLim5lyA2wk/Eo8B0P
- tAT6QH6/kTOaorLsdZof9dL31qgA2dUe81BUkl8MBuPvcQjx6CDdgcvhofsM07okIyZjcn5ss0l
- qtWopCLaYWPDjAZCx65aM2gMqngLOZa2PGzMumn03vs9n+mficJaxTXhrStRUaHgedQUmUIcoNv
- 6yu1GalugB7k19/U6hQ==
-X-Proofpoint-ORIG-GUID: WPDk9HaGcsr7pHTDBtT7oWt0jNXr7NsM
-X-Proofpoint-GUID: WPDk9HaGcsr7pHTDBtT7oWt0jNXr7NsM
-X-Authority-Analysis: v=2.4 cv=AJ83otAg c=1 sm=1 tr=0 ts=6ae4c8f3 cx=c_pps
- a=lkkFf9KBb43tY3aOjL++dA==:117 a=iaXPdgsK/hfklW56b25dCw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=WWpD2f5wiKzpAssyet0A:9 a=QEXdDO2ut3YA:10
- a=k4UEASGLJojhI9HsvVT1:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA2NiBTYWx0ZWRfX/jUCH+SkBgqw
- rv9VqyQx8Z2lrqVg9vllN3loFRL4zDTCIhb2gs7DEFAMIyiDg7ol+q5SbKHNLiKy0cLjd7GOn73
- 3Gdsj8pkQn0OQhK6b66RW3/zo565dfI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 bulkscore=0 phishscore=0 malwarescore=0
- lowpriorityscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610300066
+Content-Transfer-Encoding: 8bit
 
+A device that its transport blocks has its queue stopped. If the SCSI
+error handler then gives up on the device, it moves it from SDEV_BLOCK
+to SDEV_OFFLINE and leaves the queue stopped. When userspace later
+writes "running" to the device's state attribute, store_state_field()
+moves it to SDEV_RUNNING, still with the queue stopped, and rescans it.
+The rescan takes the device lock and waits for I/O that can never be
+dispatched.
 
+Nothing restarts the queue after that. When the transport later
+unblocks the device, scsi_internal_device_unblock_nowait() rejects a
+device that is already in SDEV_RUNNING and returns before
+scsi_start_queue(), so the device is left running with its queue
+stopped for good. The task that wrote "running" hangs forever holding
+the device lock, and anything else that takes it hangs behind it.
 
-On 28-10-2026 20:50, Hangxiang Ma wrote:
-> Enable the S5KJN5 image sensor via CCI on Kaanapali MTP board.
-> 
-> The Kaanapali MTP board connect S5KJN5 with QUP I2C bus by default. This
-> DTBO enables S5KJN5 on CCI-0 interface connected to the CSIPHY2 in four
-> lane mode on a rework camera module.
-> 
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+This shows up with iSCSI when a session drops again just after
+recovering. iscsid onlines the session's devices after a relogin by
+writing "running" to every device it finds offline:
 
-Reviewed-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Tested-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+  1. The session is blocked, which blocks the device and stops its
+     queue.
+  2. The error handler cannot recover the device and moves it from
+     SDEV_BLOCK to SDEV_OFFLINE. The queue stays stopped.
+  3. iscsid writes "running": SDEV_OFFLINE -> SDEV_RUNNING with the
+     queue still stopped, then the rescan sends an INQUIRY that sits
+     unsent while holding the device lock.
+  4. The session recovery timeout calls scsi_target_unblock(). The
+     other devices go from SDEV_BLOCK to SDEV_TRANSPORT_OFFLINE and get
+     their queues restarted, but this one is skipped because it is
+     already running.
 
+A vmcore from such a hang shows the device in SDEV_RUNNING with
+queue_stopped set and the queue's quiesce_depth at 1, the rescan's
+INQUIRY never started (MQ_RQ_IDLE, no start time or deadline), and
+iscsid owning the device lock while other tasks wait for it.
+
+Restart the queue in store_state_field() when it moves a device to
+SDEV_RUNNING. scsi_start_queue() only unquiesces the queue when
+queue_stopped is set, so this is a no-op for a device whose queue is
+already running, and it keeps a later scsi_start_queue() from the
+transport balanced. If the transport is still blocked, its own
+readiness checks in queuecommand keep commands from reaching the wire,
+as for any other running device.
+
+Fixes: f0f82e2476f6 ("scsi: core: Fix capacity set to zero after offlinining device")
+Signed-off-by: Brian Bunker <brian@purestorage.com>
+---
+ drivers/scsi/scsi_sysfs.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/scsi_sysfs.c b/drivers/scsi/scsi_sysfs.c
+index fe54792ed69e..f5416a1548bd 100644
+--- a/drivers/scsi/scsi_sysfs.c
++++ b/drivers/scsi/scsi_sysfs.c
+@@ -811,8 +811,16 @@ store_state_field(struct device *dev, struct device_attribute *attr,
+ 		ret = 0;
+ 	} else {
+ 		ret = scsi_device_set_state(sdev, state);
+-		if (ret == 0 && state == SDEV_RUNNING)
++		if (ret == 0 && state == SDEV_RUNNING) {
++			/*
++			 * The device may have been offlined while blocked by
++			 * its transport, so its queue can still be stopped.
++			 * The transport's unblock skips a running device and
++			 * would never restart it, so restart it here.
++			 */
++			scsi_start_queue(sdev);
+ 			rescan_dev = true;
++		}
+ 	}
+ 	mutex_unlock(&sdev->state_mutex);
+ 
 -- 
-Regards,
-Nihal Kumar Gupta
+2.56.0
 
