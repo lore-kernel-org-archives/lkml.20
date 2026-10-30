@@ -1,85 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793351053;
-	b=RF0GNKHgeEvv00zQ08bJc1ZL81/n2pUA+L6V/ER2ox8kD2M2jHVQzT7uO0nbF0i/tNi5
-	 ZP/7yHEr5C+oikzLaH7IWlQTDI08Z1xWYwFHryn3Q2cGAzUwE59mumCepYjZtva+PE0nz
-	 heBQc1iVWwKUmIWdZJLp31fOQ4w6aFyZJrvqUwSXXKh09gjchXUCzivLEXQiKnbxYrVTe
-	 1bxWmpnLbEP1uFe91AX75jAL3W0J5TU/xa3XmGJg1Gqzg7OcsxH7YdYhbts4s04KcgIWz
-	 CkzLLqbrG2LBwLzc4FqSLLB9usdvfBBhrnR5V4WjFBWBifkfEwPQUglFvu1AcTGkQlw==
+	t=1793351128;
+	b=LleWyFK4DV2DgBqdc2EXONjIGvKZa4gM3M+kbKoMH4/IaE5UguriqEqMkkaRCHisy1GW
+	 QmHFkP3PtCUXqTY54wpzwsxOVH+LJ5a8Ae2ODOiq7yAq++goiUbFQbDHdWFUmVjZRDjkp
+	 ZfhJjGLfE1FEmJE8PebiDtbSrdW9zKafnlr1JBj4pt2Rq2A5FqPhSI3GrBah55wcGnfnb
+	 509tQUHMVkyRlh9sBsGbKeTtbTVLegvxyl320zTFHfJYxMFXzxOfwuKJUOOLCgqfRUxXm
+	 vWRJq1Tc9B+7+40KSfdDHVbhR/xlwC+yK1Czqe+cDuBqctpk5rP+8ngVE/JK0DckTTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793351053;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=Lyeem7zbd9Dj2v4p81+wNT8qJ6Duf4aQ5ILsHn2QZOY=;
-	b=oeIiGK25jHgy/mdXhBsDTO0asG9TzWbBj+0sMwiZoAuYGBPZZUp50Eo8VHX0efszByBn
-	 cq9lg+GzQ4JO/DcTufryVLuxhm5/rmKBiXr1rkWbx0jW6cPGnW8ig31RcnJ93vPWolK0G
-	 bBKwXZLtdJQZOpRvWmZigp4oLXbQwfkeHxZlaAn5CwG5LAzG/13zQK5J29b45vJxfXRR6
-	 1YnC48g/hH3ZQu/WhOVeq4nM1pn8hdQ8ymSOTK3kbLzN+dzsOs6BBmqFPm3TLZ3u3F+wv
-	 aTifiZNaY67l3meAilWBX+4CvnTgGX7+svh+qxqGUHiDrgTcNF4RoaBKh5V0l944Zyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793351128;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=vseUV4o9md+LD5/Wa8jfu6AIFMT9KG3u6VgrASquvzA=;
+	b=5s2t2WsPmQ1ywOAPOO0/v6UjgJemBJxT6PiTZAliRfjjyfsa6G1DcSHlryafqM/6D9Qm
+	 8N9W31phxd7HL6/ZTu/n1aeL0nCv27rWrIDO5TwMjD3tw3YDtFcPOI4G/IwuGzfQ6Uand
+	 L8ApqyzXu8upjPl5FL6IZ7vEvDEYkZ4F/Fih4D730QgOkb+thYUOFvTeInQcyaoPItI20
+	 7i+dE92q3HqhnyuJhjhWYJIT97tQk60zfWZEo5noBB+gpao89gJJxNyqUtE/JYwiZJea/
+	 rAgLInqeTwW/2TGXET+YA+7XkvUkqRa21g3d7JAgORMzmfQ+rtvQBYgayiUZgG47tbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LC9JeVje;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=crQtrazu;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8490C606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:04:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8490C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07B1606A31A;
+	Fri, 30 Oct 2026 09:05:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C07B1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LC9JeVje
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso279871f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:04:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793351051; x=1793955851; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Lyeem7zbd9Dj2v4p81+wNT8qJ6Duf4aQ5ILsHn2QZOY=;
-        b=LC9JeVjenZNzVagJ7qdBUAr3xSCrKK2xX+ErDqBCM/hOyfSUQl5TWUguX2FSPITYo9
-         sSuq93hv1facKhQXVoP3MXZl9vMca+axhzyi9/7WZPeM4isafJjESW9sVGDzCIMY+5fF
-         /h3cXUAmJOss9y0aaG9X4AQazR2VC/IpM87oIiDdcrm3djsTez5JPKf/dc7UeG878zcz
-         nbSkYJxxXn0f88w/MP40qXVYmU4m3Y6pemUZ8UChvLMxi7w7j7QkTDV2vJ1qdLegpad0
-         xIr9VJIGmCww8GPz2tEwD5Bgs6MuzZriwh0RtJ0iJxtA1WKb00IgDLvl6LiQpm9mIq1c
-         CEPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793351051; x=1793955851;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Lyeem7zbd9Dj2v4p81+wNT8qJ6Duf4aQ5ILsHn2QZOY=;
-        b=LR5x/XCQeYau9CLAi1wOfL4y0ThDodrQE9FRNjqfiLQHxxyzBO0cJ5InVZ++/t/cxV
-         31Hwi/rsIKFHlXnPq5tm/M5eFDpbq1iVYt49R00fb/wrXhuVdUB5EttO269RQyMbjXIO
-         33uJDH76wjN9nECflUWW8v+kZuj1tvV6Juzne83FsDm76t4CFNtTCU1SvmXAcLru+KtH
-         yUIwpELvtsIKEBMDlK6CTn6OAEFVq7tf6hxpFHHSQhjwE0QDM9rKNMsHYFCnDyOT1Njc
-         VfivtZ9wvdg6qxYuN9IUJ339954imA9IKF+CH6sZwJrv3hQT56Fs77tC6zdrmiE10QxS
-         eiZg==
-X-Forwarded-Encrypted: i=1; AKwUvByt2gmmnEEphwzyzz5cylzFOnnWioP13vh0VLUW5OYnkkhgCYyPFa0hT1u+CtlH86gDbHwqW2tUXjS4dLc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSCVGDo508xaFHFZZ3o9iT9m75E359luQjNdynOgMk6v36EnAQ
-	7fk5fNV/PMzYvOua3ZMvVjLOSFXPtassbhKW/fbFsOx0HXKH+kUF2oZcMRHw0FAQpXk=
-X-Gm-Gg: AYBFou3yqGXfCPbcGVsebjK3kLD/mGtSvuPoFvsZRR0znx0pp8TWmUHmIGJEvTb3r+M
-	0b9Yv9a4KqH8czJ/TnxRKfnV/Ka3ikPz+Zig0J7Z1Ag/zHFykd55dxMC5mILm8P5GWVt9Ovo16W
-	+U2/TJhRxjTBgpt+Wr605YwmBYHSwfAFRxJ/zPk7gaYYIlaX/TUSIObzdhExqYfPZxVcrL2HORh
-	GrskQm6job2PiaSo4TKanUCvCRGeB3qJD2Z9QhuCRWZlel8QQVcSkG3f88KE86Glt5iwRIkFRkd
-	1n42p0HOY/dBz8lI6zovyrSky4iCaEdesb3JAP3Jl4nGsv9HdZhuAzwd1FJ//5WwknFcmfdp5JH
-	15hJvkm3gZOa5fCkEbOctIsXp/t86cdtHe040TjdVR8RddxBUpVhy0hmr0XtyMHSB+hTtF9ZRiA
-	tGeWmBok+OBXISlaklh9G95XAAQDTmQjrGLAlsxBR/QX7KK30vP20CENhuBIJWbLsK0S63C64B+
-	SjxH70HA9sbJkSOnEe8D/imQwLDwt+21hVobFm/DsF6jlZ1SKLuxCHv7SZxz2ccQGEPyL+dRRu7
-	1c+sLiWmUtBMuvG+27SjJcSB9HjmUSJHp/m4r9MDNJVXKpF0JA==
-X-Received: by 2002:a05:6000:29d3:b0:48e:5df2:a011 with SMTP id ffacd0b85a97d-48e6e2c14a0mr2402572f8f.5.1793351050905;
-        Fri, 30 Oct 2026 02:04:10 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8bd8esm1977127f8f.42.2026.10.30.02.04.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 02:04:10 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=crQtrazu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793351128; x=1824887128;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kMGzZAECmr53FsMSctMRr27o0+GGxgHjgR8ag5r5LBc=;
+  b=crQtrazu7f468zQHFw4pZSQyclbTFVoDWrpqVrPlz5A47yHuuJ3oshsr
+   gYgBETQHnRcXtwzIQAMlBplT3qHEe7AZ0v2rKzmKQUm/oEfbU543BeHRw
+   CAlmHYuzUHCB0BqVDSlI2x67Vgm79ZpAxwHW/l+aPcljaT3fdRNYdtI7l
+   j6g9wfJ7MthTnoiT5QKcDYTYT7sQamB2z4gkVvc3wFUfiAh7CXXFzQSWO
+   g8f/CxcSVNn/a5IYlnGlzJBnLZ3CRqnDxgfjnYqIFI+Z7uYixTbjv4tEv
+   /nZ2VnSB6M1q2SrKybmvx7mYsoh3xiYWi51s0CZ2pukTpGQxzdoriMfAf
+   w==;
+X-CSE-ConnectionGUID: e+9NfJvnQoOJ0EnX+F7ywA==
+X-CSE-MsgGUID: H9KQGM/eRiez+1qIMZlIqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2123522"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2123522"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 02:05:27 -0700
+X-CSE-ConnectionGUID: sdek9oTWRkutoemTA7lacA==
+X-CSE-MsgGUID: c8sl7dtzTBCkQILpFzYdTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5509413"
+Received: from szadworn-mobl.ger.corp.intel.com (HELO alaakso-desk) ([10.245.246.71])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 02:05:24 -0700
+Date: Fri, 30 Oct 2026 11:05:20 +0200
+From: Antti Laakso <antti.laakso@linux.intel.com>
+To: Valerii Sokolov <valerii.sokolov@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Sarang Sapre <sarang.sapre@intel.com>,
+	Divyamani Tripathi <divyamani.tripathi@intel.com>,
+	Manik Bajpai <manik.bajpai@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 00/11] media: intel/ipu6: bounds, leak, and error
+ handling fixes
+Message-ID: <auRd0FTg3VXiUxGV@alaakso-desk>
+References: <20261023195446.22578-1-valerii.sokolov@pm.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,75 +83,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] clk: meson: Fix PLL enable timing
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Jian Hu <jian.hu@amlogic.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261028-fix_enable_timing-v1-1-70f060ec3f2a@amlogic.com>
-References: <20261028-fix_enable_timing-v1-1-70f060ec3f2a@amlogic.com>
-Date: Fri, 30 Oct 2026 10:04:05 +0100
-Message-Id: <179335104535.2573818.8004160070280286355.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1514; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=Xx/eVbgodhm0RN6K7j9bFweBrB1LQw7pZ6RJPufC9Ko=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlPYjsvLvb60dNYISrD82ePdkjGlu8bu59yTpnJIHckl
- d9Fel5hRykLgxgXg6yYIksNd7X4O0mtL7Om69yGmcPKBDKEgYtTACaiIcfwP+H5ve7nf765rXFe
- 3Xhp8cE/jpN2ld5xm75PWd5+WuaClckM/zRXCy/+OTWaq/BGwcM/q6vN/z03MD/MvFqk3Sg99NV
- zCT4A
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023195446.22578-1-valerii.sokolov@pm.me>
 
-> The hardware requires a 50us delay after setting the PLL enable
-> bit to meet its timing requirements.
+Hi Valerii,
+On Fri, Oct 23, 2026 at 07:55:28PM +0000, Valerii Sokolov wrote:
+> This series fixes bugs in the Intel IPU6 input system (ISYS), Buttress,
+> DMA/MMU and firmware interface code:
 > 
-> Without this delay, GP0 and HIFI PLLs on Amlogic T7, SM1 and C3
-> may fail to lock under stress testing.
+>  1    Move the vb2_is_busy() check from VIDIOC_TRY_FMT to VIDIOC_S_FMT, so
+>       TRY_FMT never returns -EBUSY and S_FMT can no longer overwrite
+>       av->pix_fmt with an unvalidated format while buffers are allocated.
+>  2    Return firmware message buffers to the free pool when sending a
+>       stream start or capture command fails.
+>  3    Bound the number of input and output pins in
+>       ipu6_isys_fw_pin_cfg().
+>  4    Clamp the crop top offset in ipu6_isys_csi2_set_sel().
+>  5    Only call auxiliary device ISRs for interrupts that belong to them.
+>  6    Release the firmware context when ipu6_fw_com_open() fails.
+>  7-10 DMA/MMU fixes: an IOVA leak and a silently ignored mapping failure
+>       in the scatterlist mapping helpers, a missing DMA unmap of the dummy
+>       L2 page table, and a dev_err(NULL, ...).
+> 11    Log the correct frame sequence number on EOF (debug only).
 > 
-> For example, enabling the GP0 PLL at 1512MHz may lose lock and
-> result in an output I/O error:
+> Patches 1, 3, 4 and 8 are tagged for stable. The other fixes address
+> bounded leaks or cosmetic issues.
 > 
-> echo 1512000000 > /sys/kernel/debug/clk/gp0_pll/clk_rate
-> echo 1 > /sys/kernel/debug/clk/gp0_pll/clk_prepare_enable
-> sh: write error: I/O error
-
-This is something for the cover letter or bellow the --- for a single change series.
-
+> The IPU7 code recently added to this driver appears to have the same
+> issues as patches 3 and 11 (ipu7_isys_fw_pin_cfg() and
+> ipu7_isys_isr_one()). I have left those alone as I have no IPU7 hardware
+> to test on.
 > 
-> Add the required 50us delay after enabling the PLL.
+> Testing: each patch was build-tested with W=1 on top of
+> media-committers/next, and the series was runtime-tested on a Raptor
+> Lake laptop (Lenovo ThinkPad X1 Carbon Gen 11, OV2740 sensor).
 > 
-> Testing on GXL shows that the PLL works correctly without the
-> additional delay and continues to lock successfully after the
-> 50us delay is added.
+> Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
 > 
-> On A1, remove the redundant 10us delay before enabling the
-> self-adaption current module, as the new PLL enable delay already
-> covers this timing requirement.
+> Valerii Sokolov (11):
+>   media: intel/ipu6: move busy check to ipu6_isys_vidioc_s_fmt_vid_cap()
+>   media: intel/ipu6: fix firmware message buffer leak on send failure
+>   media: intel/ipu6: check pin bounds in ipu6_isys_fw_pin_cfg()
+>   media: intel/ipu6: clamp crop top offset in ipu6_isys_csi2_set_sel()
+>   media: intel/ipu6: check irq_status mask before calling subdevice ISR
+>   media: intel/ipu6: clean up fwctx on ipu6_fw_com_open() failure
+>   media: intel/ipu6: fix IOVA leak on first entry failure in
+>     ipu6_dma_map_sg()
+>   media: intel/ipu6: return an error from ipu6_dma_map_sgtable() on
+>     failure
+>   media: intel/ipu6: unmap the dummy L2 page table in ipu6_mmu_destroy()
+>   media: intel/ipu6: pass the device to dev_err() in ipu6_mmu_unmap()
+>   media: intel/ipu6: fix EOF sequence logging in ipu6_isys_isr_one()
 > 
-> Tested on: T7, C3, S4, AXG, GXL, SM1 and A1.
+>  drivers/media/pci/intel/ipu6/ipu6-buttress.c   |  3 ++-
+>  drivers/media/pci/intel/ipu6/ipu6-dma.c        |  9 ++++++---
+>  drivers/media/pci/intel/ipu6/ipu6-fw-isys.c    | 10 ++++++++--
+>  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c  |  2 ++
+>  drivers/media/pci/intel/ipu6/ipu6-isys-queue.c |  4 +++-
+>  drivers/media/pci/intel/ipu6/ipu6-isys-video.c |  7 ++++---
+>  drivers/media/pci/intel/ipu6/ipu6-mmu.c        |  5 +++--
+>  7 files changed, 28 insertions(+), 12 deletions(-)
 > 
-> Fixes: e40c7e3cda07 ("clk: meson: clk-pll: add enable bit")
+> 
+> base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+> -- 
+> 2.56.0
+> 
+>
 
-This is the commit which introduced the enable bit and it is not really
-what you are fixing here
-
-A more likely candidate is b6ec400aa153 which introduced the delay
-sequence you are modifying here.
-
-I've got this other patch addressing PLL delays in my queue:
-
-https://lore.kernel.org/all/20251031-optimize_pll_driver-v3-2-92f3b2f36a83@amlogic.com/
-
-Which one is it ? both ?
-
-Please consolidate and resubmit.
-
--- 
-Jerome
+Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
 
