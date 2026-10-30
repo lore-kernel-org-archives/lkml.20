@@ -1,81 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793390089;
-	b=v8SrXxMw4Z//BXNE9FOIz9thUvAtobXlkpw+lKx0bSEXLSvOrrAGS1WB/cCFDZ3Kl/Ka
-	 Go+DLvhoA9lLK5t/NU/mhPnwScPZuaHSTiXC79qcPxVYrR8HUtA3K8ZNF+PTvehpp04oy
-	 PTwxVV9xhCSFxYQMVrHZmUHXNuk8aJELOzJKewSa5aOp0j4bUgI5nqpBCxvCcKap+e6yN
-	 g9XYPMaDP8dtyjRYui7R1RsfOq2RmHAk6lXgTAgsOM+cxCkmN6BrAMRylWr6bbIDZ+BpH
-	 oRM74LwsFExtDx4VCOTiSva54nxPPaKsqK17fLWGd5tWBvUui0Tp2TjNUoxDejsup3w==
+	t=1793390174;
+	b=JL7S4KWbZO6+I5X+capmh/QmHmvpwbF6tpMGh8/FLRbwRIUph44WxyL036cPIb247yc3
+	 tq54lCWrGlfNkoWjU0n0aJSEgOWETSSNig021uUI3CZqlJSjzh5iX22QtQH0gCA+YV9Hb
+	 F62npDV68taWLfGAtIcjXEnynkLItZyYwdcnxezcN6AmbTV8dofFj0u4TAxCwPyj9NeSk
+	 5GvsoLXKtlTUFeCfLlZXYQTD4WCcZP+lsQe70QpGl89L7Omgz+iPwCamB05v+b1TpkYyr
+	 lAD39GictRixSXu2q+bi/RwxSnVePry6uWceAZverT3UNtHaGnRIpit4Y+ezTPx6TdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793390089;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=WJUDZVbD9SA6/jQ+BrhjA59O5X08tqlfMKnPqF3KKcc=;
-	b=GdBxrKDQ8uFylTXMoe3C+sc6takt9mKGEvhqyERJsQ9xgcZ+soL7T3ETFgK7jjP9GF31
-	 B2NShIyAa0TRMKX2nT1xIvmVWQJyNCIQBNojKQpptHrNCgvY8/r4E/rHoWvuxIaSqzkYS
-	 ENrPYNIw9qdh5uE3zivsjoXIXP4fm4mNroo+bAA9UZcaM4VTXasYuOvj1PUv8Dvtlg/Yi
-	 vH9RHCeYQdLbQgQnDSK39FRxx502y90oNrOqoS9bK+l++MglIkYuKG6q7xuDV4O1ouPf5
-	 LNodCnwaQwFlrqV9Ttu8vpE1TS63XNZaxYi2oydEs8WKpvUVsk2xmDZvKW67Kjwpm6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793390174;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=8kVz0XILX5RIwQ6HYtuHl7gWfjeYLa70o0sQEUAqlEc=;
+	b=o4A2ycst5Uz+5Q1T22Xw7Nl3YvEUqwFva0d6Okpzy7dGUXykUnlzF0ZwcaoZ5izbvJR/
+	 zU4cBzr/2oDWqWeoEBtKWfX8M07nFOFl1klgNnSf6Q23cRqW/aUoSbG58TwsIayx6OuGE
+	 4ASlA9FVfULtbUAJ7wc/L04U1tY4jrIl3FbhKawghYLsjcqKpFXp1s5XYmS2Oukv/xlwA
+	 LpAx0F8a5ZeV3xRExXnoYfFbcmKWDb8FehX56nsknWy39stZTHFtmWvwRDppfkYunTzgJ
+	 xX9PWf+40U4fKDDasJRuY15Phlpp3eA0T4OzGjpnCkc88+kbc2zoIsutNXVzjUyxaAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OIAPhLQw;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=irb78aLA;
+	arc=none smtp.remote-ip=35.89.44.39
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9A1606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:54:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E9A1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1578606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:56:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1578606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OIAPhLQw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793390088; x=1824926088;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=VViLGYgk0+uL9dS9g8mxyQ1QXzeW9xuRljpBmZBoxV8=;
-  b=OIAPhLQwfiCzvRw+6HJru2bBACCptvAKDWL8sj1cQyrodLQp8ipvoGjN
-   so53zxN0CAIdsT4XHR171lLYxVZK9J3FcqoqKKcwcA4sqw8Nkl4jga+ve
-   0sopOeVOn4uquiNQDlFYYr6SSRb6Tl74qygHD3/3F/3XSWWRsw/ot6Zky
-   0q5BP5IxloKLC7XE7TS+FOzz1f2dKOQ0OVmUcKB2ePCexq8+GX/IlpxSb
-   GotL5EF+czoR3TZGJiI13TLect3NRmQLQAJvDp02DbWTJEHbqnPJHnuF6
-   h87OaR2w+uajKD/QEcyDOPKqexzKmThihirqZ40WZoZBO/6HW6T0K+ygT
-   Q==;
-X-CSE-ConnectionGUID: nhIzAWohSDuFTOfTR63kUQ==
-X-CSE-MsgGUID: M5POgj2SR1a62mOIPQzppQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2176651"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2176651"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 12:54:47 -0700
-X-CSE-ConnectionGUID: zQAJfl6PTOiL2g8kkWqPOA==
-X-CSE-MsgGUID: 56NGjL1cTSC0uWzPZW0S+w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5860198"
-Received: from sohilmeh.sc.intel.com ([172.25.103.65])
-  by fmviesa008.fm.intel.com with ESMTP; 30 Oct 2026 12:54:48 -0700
-From: Sohil Mehta <sohil.mehta@intel.com>
-To: Dave Hansen <dave.hansen@linux.intel.com>,
-	Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
-	Dave Hansen <dave.hansen@intel.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Sohil Mehta <sohil.mehta@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] x86/bugs: Replace RFDS model checks with VFM ones
-Date: Fri, 30 Oct 2026 12:52:14 -0700
-Message-ID: <20261030195214.1284995-1-sohil.mehta@intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=irb78aLA
+Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
+	by cmsmtp with ESMTPS
+	id MeihxTU6Bc3XsMshxxECiN; Fri, 30 Oct 2026 19:56:13 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id MshwxcMQXbxHHMshxx2iP4; Fri, 30 Oct 2026 19:56:13 +0000
+X-Authority-Analysis: v=2.4 cv=QK5oRhLL c=1 sm=1 tr=0 ts=6ae4f65d
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=Bq6zwJu1AAAA:8
+ a=QyXUC8HyAAAA:8 a=_jlGtV7tAAAA:8 a=FQuEuSn5fJWHmgwBhRsA:9 a=CjuIK1q_8ugA:10
+ a=KQ6X2bKhxX7Fj2iT9C4S:22 a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=8kVz0XILX5RIwQ6HYtuHl7gWfjeYLa70o0sQEUAqlEc=; b=irb78aLAgTGRW1joDBbOI1pJ4l
+	CiMU4xia3rmyGJcuc44medSaPBlvl8MLgbpRpkIc6y5/y+S3hPgTtgsAmZ0yYNTpL9TspgU9F4aIu
+	ZHVJvVuhkcaLcfaXwblDAmtGwlI52rLnPK5T/sThWTVvW2p5622vsP52jowuilovBtmwFdf28s0pB
+	L/DzIFxK5dKwXgvRUY3Yj5OxFru/Lw4563WYCJlG9ALTvp4SwNhcKcwHOVWhbkip25xmOGDlBIkBB
+	iAVISuWrDoc7eXIqQwdE+Xjv2zlOwF/+/Ud3T/lAjynlS8b8ikbiIMYpCgLmQNCGEYiypG91gJDm1
+	xBgaS43w==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:55592 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xMshw-00000003xjp-10yC;
+	Sat, 31 Oct 2026 01:26:12 +0530
+Date: Fri, 30 Oct 2026 12:56:11 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Iwona Winiarska <iwona.winiarska@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [PATCH v4 5/6] hwmon: (peci/cputemp) Add support for Granite
+ Rapids (GNR)
+Message-ID: <34cac8b5-ddb9-4b76-a60a-8f6ffb0fd9ac@roeck-us.net>
+References: <20261019114502.55307-1-changhuang.liang@starfivetech.com>
+ <20261019114502.55307-6-changhuang.liang@starfivetech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,34 +88,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019114502.55307-6-changhuang.liang@starfivetech.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xMshw-00000003xjp-10yC
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:55592
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 89
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfG6kNr+J7ksWu4KF/+x+qS6WCHiyc/bo1J2oRrFwD6vDrOVHtG2PadXjsRQRFI7Fs6IgGaJMXZfe/zN7LtfxODJIvAYeNhFh5rO+sVbPkqnlPle1QVL+
+ WV7EbU6PE2mZxBbNncDCmaxHvYkZs3CqKaBOx7Qh9+gJh4DX51sa9Gu2E7zMCaSDzWoKYwH5Nqs+GAMnr3BukiJobocaZV1rLfrvHmKHIS1c8wu9AKS1Sw/9
 
-The RFDS vulnerability check uses raw model numbers to identify Alder
-Lake and Raptor Lake. Most Intel-specific code has already moved away
-from x86_model checks, but this one got added recently.
+On Mon, Oct 19, 2026 at 04:45:01AM -0700, Changhuang Liang wrote:
+> Add Granite Rapids (GNR) CPU support to the PECI cputemp driver.
+> 
+> For Granite Rapids, the resolved cores mask must be collected from each
+> compute core. This implementation is relatively complex. Since we do not
+> use the resolved cores information for these CPUs, we can explicitly
+> state in the driver that the core mask is not supported for this model.
+> 
+> Define new cpu_info structure for GNR with minimum PECI revision 0x42 and
+> the thermal margin conversion function dts_ten_dot_six_to_millidegree().
+> 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> Reviewed-by: Iwona Winiarska <iwona.winiarska@intel.com>
 
-Replace the x86_model checks with VFM ones to make them more readable.
+Acked-by: Guenter Roeck <linux@roeck-us.net>
 
-Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
----
- arch/x86/kernel/cpu/common.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
-index c7352827f491..8d7bd8bb7b18 100644
---- a/arch/x86/kernel/cpu/common.c
-+++ b/arch/x86/kernel/cpu/common.c
-@@ -1392,8 +1392,8 @@ static bool __init vulnerable_to_rfds(u64 x86_arch_cap_msr)
- 	 * both Core and Atom CPUs. Mark unaffected when Atom CPUs are not
- 	 * present.
- 	 */
--	if ((boot_cpu_data.x86_model == 0x97 ||
--	     boot_cpu_data.x86_model == 0xB7) &&
-+	if ((boot_cpu_data.x86_vfm == INTEL_ALDERLAKE ||
-+	     boot_cpu_data.x86_vfm == INTEL_RAPTORLAKE) &&
- 	     boot_cpu_data.topo.intel_type != INTEL_CPU_TYPE_ATOM &&
- 	     !boot_cpu_has(X86_FEATURE_HYBRID_CPU))
- 		return false;
--- 
-2.43.0
-
+> ---
+>  drivers/hwmon/peci/cputemp.c | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+> 
+> diff --git a/drivers/hwmon/peci/cputemp.c b/drivers/hwmon/peci/cputemp.c
+> index 457089c561b4..69c4a07b99f7 100644
+> --- a/drivers/hwmon/peci/cputemp.c
+> +++ b/drivers/hwmon/peci/cputemp.c
+> @@ -339,6 +339,18 @@ static int init_core_mask(struct peci_cputemp *priv)
+>  	u32 data;
+>  	int ret;
+>  
+> +	/*
+> +	 * For Granite Rapids, the resolved cores mask is relatively complex to implement.
+> +	 * Since we do not use the resolved cores information for this CPU, the driver
+> +	 * explicitly does not support the core mask for this model.
+> +	 */
+> +	if (!reg) {
+> +		dev_dbg(priv->dev,
+> +			"resolved cores scan is not supported on vendor-family-model 0x%x\n",
+> +			peci_dev->info.x86_vfm);
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+>  	/* Get the RESOLVED_CORES register value */
+>  	switch (peci_dev->info.x86_vfm) {
+>  	case INTEL_ICELAKE_X:
+> @@ -543,6 +555,11 @@ static const struct cpu_info cpu_emr = {
+>  	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
+>  };
+>  
+> +static const struct cpu_info cpu_gnr = {
+> +	.min_peci_revision = 0x42,
+> +	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
+> +};
+> +
+>  static const struct auxiliary_device_id peci_cputemp_ids[] = {
+>  	{
+>  		.name = "peci_cpu.cputemp.hsx",
+> @@ -576,6 +593,10 @@ static const struct auxiliary_device_id peci_cputemp_ids[] = {
+>  		.name = "peci_cpu.cputemp.emr",
+>  		.driver_data = (kernel_ulong_t)&cpu_emr,
+>  	},
+> +	{
+> +		.name = "peci_cpu.cputemp.gnr",
+> +		.driver_data = (kernel_ulong_t)&cpu_gnr,
+> +	},
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(auxiliary, peci_cputemp_ids);
