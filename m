@@ -1,78 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793327651;
-	b=xvwU7sXNZqXaxXzNJPRneVB7Bj4hI3x1B/BJvubteT9KlHif4Hlgf4Og8oFf6FZ5nE7W
-	 jMbUr72bftiy+cx8FFAfmdq6RrI33Fv26cudsZC3lV6RvYWUnoio9JbKHAEBStHoAJCGw
-	 mSTjN8jDmlUgHuocRSE/4vpxt/kHIcn0dDxbuCCVqfIqIO5PMqT51fyb8vG/e2c1I047R
-	 vG1GkQXX6b+qa1SlkCWz1vNK5ExvkYXDy4ehTj8V/oMymuxDtNN6i6RnwNzZLtAjQ4pCC
-	 hcifr+16O+Bj239ourWHHOmKU4jadj4Gs2RX3D7DK58NG8HzzK8P3SknR+nmboN0rZQ==
+	t=1793327645;
+	b=TTxbJwAoq6ONiahMZ1KpN8B9a9PclcoNzIIvruVQtflCcRhuGbm6sujaqwZNMhADP2qm
+	 SbVNVs1Hcu2ercvG3D2H7fROFh4PjJDh9o9L7t21PVDuML1B67rdH9SlQXrTv52s/O9Ns
+	 24nVqPNBKuP5z74CQsnenYjoP3Gyji7evjaVtAPSQwvW1i0t6TNUsaeqm9o9rCZ9oXpRa
+	 PPk1HCOwOOXPVZBVx5myLrZrbAOx0GTqnCPtc5FuSQywJbzhI6bG+RoZyrVlnOfyG88N3
+	 Lk0lhMv9bHzHyt8U5sQslFTEYB5LQvCge3c1L84nLhB5ndlQWMKQzetjZ9k5qgg+M1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793327651;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yI38pTAxWIJdHS1u48CX7hR1jFdneroKUtAyhW5uxuM=;
-	b=phnyKoRPtr8FiURfwIwxXdsM1IdVxG2o+2UWq3qppcFydto7da2XNBacBQBWzJSpSfwh
-	 oM4pVBh12IAhX20BUOQXWdQb5g/qVs4RZ30l9GlqAvIhx6YA3wBkLweeH4FIwePD/OUoa
-	 XterSVI5TBMncjtm3hUHJeyfNQ/Av4GusVGPRt7TArNaiztZE7RP7pfIG5PQOnMPP4ryS
-	 lctQ6SGLywjpd4mqbuQwzwjHO8Mn4gRKWvMM7DlXAC+E1gcN37bPHWqsB3x6I8nsgP3q0
-	 Ja4GCNtKo63h+k67G2WYsebW1/7A8ClL2oR8nOugQLsrHfrJJd2d0mWeVZdwzwKBJOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793327645;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=+ygKCXCE551eA/tJUkyJ0eX5BoqYd4HLW3FgIhHoRJY=;
+	b=ui39IR8tXiadnoEdWx2egzdbBDxXsgMR6nze+CrHM2TOxsqxYwmZk5ioQMWBA5kaZEtw
+	 pcNWulH5nAzBvWwoS336qxiL9uq7Q+xSMNUcwyRKIYnxeNV7XWILiQJ/kFxhmenOBpqo9
+	 HgcfgSC4afgkQI9Rig5/Arqefze5R8oO/pcIZ2WNjtHuq9i46QEWoDYsyz3bYMIG3wKhI
+	 yzhNPeLbrX65GrH8fLliVOqN64JMjRrSUCro2wnukTxVWtJ/8ydp11X1VBc4RAmNJvPEQ
+	 S97P8sRZTTJbno0k+qk+H98X7zol1x9sP0NgqSsRqBuHSbquz15/KbDlQv8+Zs66uEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kJfXCyRe;
-	arc=none smtp.remote-ip=203.205.221.231
-Received: from out203-205-221-231.mail.qq.com (out203-205-221-231.mail.qq.com [203.205.221.231])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=kV4uLYKl;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90BA606A31A;
-	Fri, 30 Oct 2026 02:34:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C90BA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A1E606A31D;
+	Fri, 30 Oct 2026 02:34:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3A1E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kJfXCyRe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793327642; bh=yI38pTAxWIJdHS1u48CX7hR1jFdneroKUtAyhW5uxuM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kJfXCyReReLjxEgcRDtBGz05NGmtT3sNGUINfEZTiLA4Jcs/I9qWQIPDkDYiFlqvX
-	 jN36TG5j72py8+GUziVB/ICQB182RGeXHfDVJcbaDEsBP3sW4NlyKV7r+dqax2+vLk
-	 aeK1Lk4qylPjPVMA8Ztw9CIC1O8aOO+aaDLYWoF8=
-Received: from shuai-VMware-Virtual-Platform.. ([218.206.237.125])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id 8803A8CC; Fri, 30 Oct 2026 10:34:00 +0800
-X-QQ-mid: xmsmtpt1793327640t8grxmk6j
-Message-ID: <tencent_A0D3062EB058E244877B87B4324B8DFC4406@qq.com>
-X-QQ-XMAILINFO: M1ZCvr9KyDXtaCJcnF47S6R5I3mq0IV7kiidH4/XzxN5PLrN7Fu8PsfGr+ka98
-	 ubiqSNUdCT4zCufn3DQKkOjLb7yGNZuLMh1y9ltnrfuWvgMF03A9GbDRY0GzF2969BCWySg4Iz+B
-	 hN9vAQq79uCukI6ETF0ZxT+HZ/mOm2rS8ojT/s//xwJBcIbhDvfFTtsSPvIhD3VYYYq3lmarP1F8
-	 b0ObgRdNiADEeBeHRaRr8vUMli+Kl2xypBPVDBAtD9+uuZzynN6Prz5oN2jWvhTPSJKclDDCNvK0
-	 T5kiPNKZCQ4vHW959PlUvPuWrEvLnmR5reDhWuMqaSTMxmAJbbV1/Q0dMOBr8B156RwUxhMiaxes
-	 BRHOqi88H+cR9GoDNu6MNV3zl9w7R4A4daYmD9qrhffM2EASkDUlaat70g1FWYA+6HrfxRKNOBT2
-	 aRdU3oc/NLZB9mDIrmjJSDOj8sas+cb6AKgH74yPqU1E8u3QHy1SGXEG1lWITj0pykMWikcZ10C3
-	 W/SC29o5sSlbNPDQPrBOmsSHSYHOclHvQyBVpjZnhV/UOJC1jvRKd1m7PKOs6fyPzCbmIZQmz5Ea
-	 4G9sWsnrpMddsVTJDfB4n9y7tiy5Tq288dYnHKcrvuy4560ReiJPFL+wv669Mj/cY+qQ/CCwIIWO
-	 +0BkKh5du0UoXeL/eN7lqkJyFMMZopDKThAgszEtAnPE4skFfM87FsZStIciOD+p4lPKHJCbPUoW
-	 0p3yw9rNL9dYmX0uphH0+Lg0Scxf22pLOtfMParg6+PNnx/ECiw9QsV3wGVLjngnA96AcWOFF4jl
-	 N2GCd3leWt7iH9qjomUcCHKmohOD7fMIcKg/VK1cA8H0lCG0IhAGTZPSyoYLCZEH0sLNu8PVdaIH
-	 SHoiN8hrYWDeaxLz17qN4AiLc/aDKJl2nCSsClrC/F/u5f93mcvrqItEQ/gl9eKhxHpqbqhZSUPS
-	 R0ojgaCVtfoupJvRrqwxE5urXV5QnitZZ6dkldPYJboAyjxIkxxgIOL8GqIEbt7MvaUjcQLubGw1
-	 KEPxfM64Yjv2a+tJ2Way5QjI17QMaF3DgLH0k1ixj/NuAB2B++L4DiF2cAUAU3P8USfneifbFRiU
-	 EeCVmvjnUyCty0//A=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Shuai Liu <847807867@qq.com>
-To: Mike Lothian <mike@fireburn.co.uk>
-Cc: Oliver Neukum <oneukum@suse.com>,
-	rust-for-linux@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/5] rust: usb: host-side abstractions for a bulk-endpoint driver
-Date: Fri, 30 Oct 2026 10:34:00 +0800
-X-OQ-MSGID: <20261030023400.3849731-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260826163101.4168-1-mike@fireburn.co.uk>
-References: <20260826163101.4168-1-mike@fireburn.co.uk>
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=kV4uLYKl
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A37DA40E04CF;
+	Fri, 30 Oct 2026 02:34:02 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id MZ4pvWbUOmGC; Fri, 30 Oct 2026 02:33:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793327639; bh=+ygKCXCE551eA/tJUkyJ0eX5BoqYd4HLW3FgIhHoRJY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kV4uLYKlNxL7QEgZ4wnIDNIuaY+72edTTyZHHk2KLcvU8L8VdXi5qoeH56T8XFVpN
+	 VBdj3hQxGz0+YFcbeHci8YBew4pBo+xyuuCq6OlSmtyG5R2liEkgRbk5Vd4LzMxRqF
+	 1/dWmMfrjvkojmmYOLfCi5d4q1z0uTNn+4UW/K9CxrcKT8esKSllW0DW4OnuYcGYPD
+	 HylcrecQd1awMhxB+XKAWfp2O08dfXwr3G6ELCq7bSaDwoDNWFN5ANqn9aEkEf/+xK
+	 JMcvI0SWOX90lKelqf29+oqX6+386QLnsaOLemBUlnyCUQcGgTgcJ311GLQ+TzAEGR
+	 sAdfzhlW4rOwdI1iWLH7ZJ/kdVc5b3aOUTjRGFD1JnKfqSn7slfZTmPF4WKSa0CEVR
+	 sNNb2HwkJG1C3mHafjqAjdrlegLjbE4x1OFXtICdM8x6RgVjuj5nq1DQAB0fJroAuD
+	 GBdelCWUQioKfF/g3wMFhvgVaQBmxHBUKL6aqfJi4hXAbZp2TuT8j0mKxjKuw1wHsM
+	 ogGP5hRcHn1OwDx7+C8chSH22l29xW7jAD3IU3uSGCXA7rvgay/WutPv0nDUgE6Z3H
+	 nF4BEng8SZdQZ/MIdbbElHfXrTJCkPacoJXay/QqydJkstjKS4kIep028PivEQ+pi9
+	 k1fnP3AiudNeeK8Pr1ehzMvk=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5852740E02B7;
+	Fri, 30 Oct 2026 02:33:42 +0000 (UTC)
+Date: Thu, 29 Oct 2026 19:33:38 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	"biju.das.au" <biju.das.au@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"x86@kernel.org" <x86@kernel.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	Au Dang <au.dang.jx@renesas.com>
+Subject: [PATCH] MAINTAINERS: Fix Intel TDX kernel file patterns
+Message-ID: <20261030023338.GGauQCAuYyXGwIhlqX@fat_crate.local>
+References: <20261026-g2ul_sci-v3-0-b3097163edd5@bp.renesas.com>
+ <20261027055750.GBauA9XlPykc1c1Xhv@fat_crate.local>
+ <TY3PR01MB113468FBD8E5EFA65C4B4E5EB86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <072dd88c-4ca1-4c8a-98b1-7783bc43c1c5@kernel.org>
+ <TY3PR01MB11346BAE55FF22F66E86A6F8B86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <afdf1864-4721-4177-bc18-2a5821d97559@kernel.org>
+ <20261027205411.GAauEPc4AtLwvrDfFr@fat_crate.local>
+ <7b0a2e98-c614-4cdd-8604-3b5b21e8474f@kernel.org>
+ <20261028154743.GCauIZH3pZm24jCX9b@fat_crate.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,64 +100,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261028154743.GCauIZH3pZm24jCX9b@fat_crate.local>
 
-Hi Mike,
+From: "Borislav Petkov (AMD)" <bp@alien8.de>
+Date: Thu, 29 Oct 2026 19:25:27 -0700
 
-I read through the v3 diff (patches 1 and 2 in detail). I could not
-apply the series locally because the 8-month-old base no longer matches
-current usb.rs, so this review is from the diff, not a build. Two
-findings, both around alternate settings:
+A K: is a content regex file pattern which matches any text in a patch
+so if a commit message contains "TDx" as in
 
-1. set_alternate_setting() invalidates Endpoint<K> without the type
-   system noticing
+  the TDxE (Transmit Data Empty) flag
 
-Endpoint<K>'s invariants say the address names an endpoint of the
-interface's *active* alternate setting, with the transfer type and
-direction of K. That proof is only valid for one altsetting: after
+for example, see
 
-    interface.set_alternate_setting(1)?
+  https://lore.kernel.org/r/20261026-g2ul_sci-v3-3-b3097163edd5@bp.renesas.com
 
-every previously obtained &Endpoint<BulkOut> is still usable, but the
-same address in the new setting may name an interrupt endpoint or a
-different direction. A transfer method will then happily build a pipe
-for an endpoint that no longer matches the tag. C drivers get this
-right by re-fetching endpoints after usb_set_interface(); the Rust
-abstraction currently lets a driver keep stale proofs across the
-switch.
+get_maintainer.pl erroneously adds the x86 gang to the Cc list for what
+obviously is a completely unrelated patch.
 
-Something that binds the proof to the setting would close it, e.g. an
-Endpoint borrowed from an Altsetting token (making it unusable after a
-switch), or a generation stamp checked at transfer time. At minimum the
-doc comment on set_alternate_setting() and on Endpoint should state
-that all previously obtained Endpoint values must be discarded across a
-call.
+The same happens when someone uses it to check
 
-2. set_alternate_setting() with transfers in flight is undefined
+  drivers/power/reset/tdx-ec-poweroff.c
 
-usb_set_interface() tears down and reallocates the interface's
-endpoints, which unlinks and kills any URBs submitted on them. A
-persistent BulkInQueue/BulkOutQueue built in patch 2 therefore loses
-its URBs out from under the Rust slot state machine: the queue thinks
-a slot is in flight while the C core has killed the URB, and nothing
-ever wakes the waiter. The documentation of set_alternate_setting()
-does not warn about this.
+patches.
 
-Either the method should require an empty window (e.g. take &mut self,
-or refuse when the window has registered URBs), or it should document
-that the driver must drain and drop its queues before switching, with
-the queue Drop doing the cancellation.
+So switch the x86 TDX patterns to files and directories (N:) type
+patterns and group them by path, for less false positives.
 
-Two smaller notes:
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Link: https://lore.kernel.org/r/20261027055750.GBauA9XlPykc1c1Xhv@fat_crate.local
+---
+ MAINTAINERS | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-- queue_reset_device(): I checked hub.c; the "may be called from any
-  context, deferred to the core workqueue" documentation matches
-  usb_queue_reset_device().
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 7a162e9bcab1..6aaeb7df83c8 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -30347,8 +30347,11 @@ L:	linux-coco@lists.linux.dev
+ L:	kvm@vger.kernel.org
+ S:	Supported
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/tdx
+-N:	tdx
+-K:	\b(tdx)
++N:	arch/x86/.*tdx
++N:	Documentation/.*tdx
++N:	drivers/virt/coco/.*tdx
++N:	include/uapi/linux/.*tdx
++N:	tools/testing/selftests/tdx
+ 
+ X86 VDSO
+ M:	Andy Lutomirski <luto@kernel.org>
+-- 
+2.53.0
 
-- EndpointKind being sealed with BulkIn/BulkOut/InterruptIn is a nice
-  fit; control endpoint 0 going through Pipe instead of Endpoint avoids
-  pretending it takes part in the altsetting lifecycle.
 
-Best regards,
-Shuai Liu
+-- 
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
