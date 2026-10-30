@@ -1,49 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357459;
-	b=r6E56VAQTBbqMhOWTC0pSekACgfrsmDP2h8MJpt0PkeXCdXrffyztA4w2tC4iZUi/TWJ
-	 TZO0qhnb3dC/vCUWNYPFEeD3UufobmIt6pEQVa2mG3f8bwDzwprmMRH3kW77IjEHyTpG8
-	 ZDFAw4nl1rmN2qpSxmbYDoaIgA3zrVFqMWV0OTVUE4BTGxh61eOmssP95tRAE0ZXNwi8H
-	 PSqI0aq3lLZt50F3Ae0q3Ke8Kygm5STXUuO2wiYwdT3JwqfOlph8wAA4k6qexMMWaf0VR
-	 c8wsGC2A+FUxeI22X8GomgilHAGVPZryuSJ0KGWV7McJFxVGyzmiN0FkTwXNn5b52qg==
+	t=1793357471;
+	b=S9EUtvr31I9FC/q9Jh6MN4+pzc/KPq3z8C1mx5r9dEv3raY9HVna6jisZve3iGZ5AU/I
+	 LKlCnCmJbmVbQB4g5f8kTJ6T+JslhKP1xiMbds0x9Bu3LFbUN6VOdDRdfo9kEh6tk86q8
+	 KVoUNdF+AsGVaNRVatRoLy7wPlhRxaAR5TSO9R0Vm9lXprQ6dzVk5PlA7gAMJ+ebcG060
+	 fYxcpxSzdifKkV+wgRdqcp/D8qOjajHtaaF71JykLGkRmd58PWIx+atCTY9u277v0eqDR
+	 sKgsz+KyqeMMOphy7WSCSHMwXH2g4P3oj/0RmwMmtq/RMtfuur5d7bRoLdwo0jw/cEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357459;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=m9OIGk7Och9/7W7VBGIbXqrvhsGJ/tw00Ksy3Ru99n0=;
-	b=HWnoZsmLaKfdvZq2YvvSx9N+TyYt8lgKJkS41Eq0pHalWlkQE8CZGg0GB0tE2xuKjvh5
-	 8dtA8BiqlQkjlVsnnycG+uezWQKk6wsnwfibV//WcSmQvuSe8cwq30CUoo3eFMvr4mzw5
-	 7JYTxruxN0wEw8f6IhZFqaDGTdA+DfN8LH34i5v9SWyDFsZLU8sY/9RZO1apT6HU0FGFn
-	 /tfVpbwzxiaHoPaZh1sE+c4MCnkpzpWr8+RXL07Pxb7W1wv3Y1zvYkqwVEGJSi0sf3aar
-	 9AC8Jp90g1tl5x9WFDsKDAp4wvlRGDP+xx29iYNA/4LLW89CczukIzgFAg9/+jUmIAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357471;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=tJBs0pTceSyS3PVExgZo8XWqzDRyuZNRvwKFnHo9xDo=;
+	b=nxc5mwqYe9exQdq5DlvwwiiIx0LA9qQjHgX15RndG3xgm8txsndEt4eCa0gT6VVgn6tZ
+	 bbmoZC0bb+9d9vdXsXRP2WSCrOEofs3rJnxgMI7Guvq8+6tIYP7If+6XXwiNsLbnoAtgL
+	 mrq2Ljq3Z8o2TKLmw8rSvnWl21Q71r/4MW+MfxSPy4ojwP5EqR0/8hazFmQh1S7B1fdR2
+	 0hcsXU8W9SIEfJAMhfnKZaNQerTvyhyycG+KV1zDf5vItt7isvQ8A16rIPrGheLBEAWxE
+	 H1efdK7XtF2zY7JpSOQ0BDTrLnb0Lrg8BLTMivyVGYBOsw57hvxx1mlQGLZtRTYTLig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WBEEk86T;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65FA560A2621
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:50:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65FA560A2621
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=NGPwwBpS;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=jR5+BhQS;
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB05606C6EA
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:51:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDB05606C6EA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WBEEk86T
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8C3531BD0;
-	Fri, 30 Oct 2026 03:50:54 -0700 (PDT)
-Received: from [10.57.79.231] (unknown [10.57.79.231])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 545D73F673;
-	Fri, 30 Oct 2026 03:50:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793357457; bh=uV5YcTtCLVEXriZ7dyCjSz+UGinUL/gRKTjrpczvAi0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=WBEEk86ThlBDyE9YT/FmcB/75IIP+BNg9u267PpFztFaTe8ofgwXfmUI/RvtHbnRl
-	 uu0mcaVivYpyvlti8ZpTnxcjMREMJza16ky6Jaz0YDWBCFu4PjQ+IG6IkC6Vg6FAeB
-	 uzmQqLX4hye3NjKCneSC9vxoov+DLbRYAguLDgHU=
-Message-ID: <75772ae5-d297-4894-971a-683f92fb87a4@arm.com>
-Date: Fri, 30 Oct 2026 10:50:53 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=NGPwwBpS;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=jR5+BhQS
+Received: from pps.filterd (m0167069.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U6vbXq3771306
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:51:10 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pps01; bh=tJBs0pTceSyS3PV
+	ExgZo8XWqzDRyuZNRvwKFnHo9xDo=; b=NGPwwBpSza0naj99pmHYtUOK2/1y5Nl
+	brTuCIlQuOr8r94RfzFS6dZtQQPIoQGBmcatz6wMpru2KOpH2S9bYjpWvYRpAAE2
+	g9kKT2qm8GNC5v0r2+uyv0DsZhy0hp8wtquvCW7Imu8Xwqh11nag87pKy9cRTLin
+	ZmZqAYbIuxZm8IaDCV+x7Dk5IaqjnvmSmqd0Y3pMIyWM2+Lain2ypReU4AlYG4yv
+	6aUIpscwZjfXETpIWw3e9eFWrrYOmO6E0JapuD9tRGtXzRAGvKasSZAECCgXq0UN
+	oMxihv4MYDEdzVJOvoSzJDxla1kg6AHWlYICVmlIQoTQqxvszLwmfVA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hme6uudwv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:51:09 -0400 (EDT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93ecdc701a2so61989185a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:51:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1793357468; x=1793962268; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tJBs0pTceSyS3PVExgZo8XWqzDRyuZNRvwKFnHo9xDo=;
+        b=jR5+BhQSCud475ikCyTTRIYWc2h3JYGmlwZN7atrIechgWst21iGjMgniRfOQaWznU
+         9JFROaKwIQQT37XfTifaGlhMHwPP6zddmAMp6G+35Y0bd30auL9b931/8Glag1FramZo
+         3pnuySCDneoNryM0MEH0k+XP2zQm12dW+1Vl7FUJcZ0tzTUk9RMkc/mncxpIcPgo9V7d
+         X3aR5RSCgz6QUngiDa8lZ+FojNU6ClvDKxNK9c0sKP0J06kWzlvIcMNdpVMpjxU8puu6
+         BdZAGEo9gN7tuviO7r1pIN5Z57mHqWWIcHMiy5ab8LpGL6Hh72FXFvyBgPIpWlR9lBuN
+         E/BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793357468; x=1793962268;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tJBs0pTceSyS3PVExgZo8XWqzDRyuZNRvwKFnHo9xDo=;
+        b=o9J1jzNXV1sgA8z2cvwRnhbms6rIUeu8aEMpBP3FsPAXsPvQM3OWxUAo0g7kvInXF/
+         Oi40TShH8kPD5X7bET0NXzY5myZweJhv6oMFrJGeLA6DQyqUfWxht4ofzYSJ8LsB+wSE
+         kkPRs8G6bGr3LBk2IERAvC4piUFg3pnG9riDLIWXR5BjqmPn3NmR1j+sJ38GjtqGGmkO
+         hNOVpFqkGAmU8c4r1AGd7gfpjhgCm44/cNmAgtiaY5cB7mRKMW+UT4758etcXNAEuxGi
+         TK/uuEX50ogRio7Uuzf3+cm8fuoVhRVxkHDtEhJ/FnPMh55cK76vAIw6zG6HfIGyLUA5
+         Gu5Q==
+X-Forwarded-Encrypted: i=1; AKwUvByfQx1aC3fJzOVELRXuwAjH3RuJYlHMjywvigjtIKWGw39B252GFuO4Up6GaT+KYckknfYbdeAuRQK7XWc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTSGl2UoWrw1qgC4YzKhXm14tztZo+laOlEVjt8rMOOcHWHQaZ
+	2IZuI1hYF/c2fVP/aOhIsqRnSpeX0TJuOofO2mnSQApMusXaDXjHF9PPfeAYAdqzDmMBwWnmqRt
+	Gx6ZIVIdiPd9B+r6M3t9QaFVJ46Q0w60kgRY9x0RiiJ0Qu+VUkxTy1jwsx8VajQ==
+X-Gm-Gg: AYBFou08o+0EOXRZ4lyfXTO/gU7+sNx2MTpWx+zdRBkEPzAkt1+KCG+BVonb0M5hku7
+	X3FM2dCjfrNHTExHEpJz5iiE/D159cg8AY1EgBadcs+xXNw/Nj+zpAwEEGkfDpRufi+T0Pbp85+
+	1xZKKJGMRTCjtRpItM1/QARo02gxdWy1qD/iiVwyY0F6kjiKXTtGOwh3p6V89w9T0XXYnExrlSc
+	onGHPstReIp71Ze8fXuNKmTdeHeXoU6iiqet/J9AHoI/4SYtsc/8TpSe7DNOouwkk5nQZg0dbwx
+	QchU3pSiassSR9h8f6fvyM9PJf0UGfEBWgGZNXJDOOCOWuic1RFAvEwyges/Gfj/jbloL2pGvwu
+	0k0Q86Czf7fkiMhmrgnCXLuolncKwhCp/cwZAGHmwFdn2V96HgpxyOyI/9ARLWP0u8UnkSpLt
+X-Received: by 2002:a05:620a:1a04:b0:944:3c5:ffd8 with SMTP id af79cd13be357-944216ee039mr321429685a.35.1793357468071;
+        Fri, 30 Oct 2026 03:51:08 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a04:b0:944:3c5:ffd8 with SMTP id af79cd13be357-944216ee039mr321425985a.35.1793357467484;
+        Fri, 30 Oct 2026 03:51:07 -0700 (PDT)
+Received: from localhost.localdomain ([37.142.146.109])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b289f7sm51389245e9.5.2026.10.30.03.51.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 03:51:06 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org, ljs@kernel.org, ziy@nvidia.com,
+        baolin.wang@linux.alibaba.com, liam@infradead.org, npache@redhat.com,
+        ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+        lance.yang@linux.dev, usama.arif@linux.dev, linmiaohe@huawei.com,
+        nao.horiguchi@gmail.com, richard.weiyang@gmail.com, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org, mcgrof@kernel.org, liyouhong@kylinos.cn,
+        tz2294@columbia.edu
+Subject: Re: [PATCH] mm/memory-failure: fix folio refcount leak and min_order_for_split() locking
+Date: Fri, 30 Oct 2026 06:50:22 -0400
+Message-Id: <20261030105022.903008-1-tz2294@columbia.edu>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
+References: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,188 +124,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] sched/uclamp: Fix race condition leading to
- imbalanced uclamp_rq
-To: Qais Yousef <qyousef@layalina.io>, Ingo Molnar <mingo@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
- linux-kernel@vger.kernel.org, Wei Wang <wvw@google.com>
-References: <20261029131354.11030-1-qyousef@layalina.io>
- <20261029131354.11030-2-qyousef@layalina.io>
- <c4740152-e873-4409-b3a8-16c5a49548dd@arm.com>
- <d944d543-1756-43d8-aa08-bcbbf6df712f@layalina.io>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <d944d543-1756-43d8-aa08-bcbbf6df712f@layalina.io>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: MAGoiUqOl2jvBngnoG1vB5x5v7ZOKWOO
+X-Proofpoint-ORIG-GUID: MAGoiUqOl2jvBngnoG1vB5x5v7ZOKWOO
+X-Authority-Analysis: v=2.4 cv=GfuCDgXL c=1 sm=1 tr=0 ts=6ae4769d cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=2Vv74F+liJFs5eLlGJuaDg==:17
+ a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=JR4YdQiviy7OQf72WyZ1:22
+ a=Z5Fxo1IbJ55YNqwXoCEA:9 a=zgiPjhLxNE0A:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA0MyBTYWx0ZWRfXxZ0+RKAfqyy2
+ tjBhCSj6l+H3M60XZEFp7qqQ/Ws3KrIhZ0OKziO4Uj2owZLLXWzaHXLlxc6Y2u8k1udUGySqVFb
+ dToUAk/eMHKGlIzJGP5Zlfd+yUS3c8cLx42/jfQRNCxsjZqXN/yx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA0MyBTYWx0ZWRfX45947QG+4uB5
+ NcCAcauFD28z7pGSbd8NSSpReUBJy2iJPIwN8OFTZZf7YUWaiNpKs3+mVPSfy0tbIoNQtzY8AYt
+ McsWYtnZvB8j5ZPHGh3vSrAjeKAZEyRpEx6tMpeegyJRVRGYI9cxuVG2wypQatOC02r3Jq7XCWv
+ CQjXbuXPjymfxX6kesBElY9DFAAOPTF5d7NYCH+xN+iObn/qdjNUMMdhMwKwuKZcBpxYfor9V3K
+ 7ikVaNmcp51FJ3FvnvzzxmRYkrSylhKg92L9QOHNi/1uyz0Xa8xuljGmR4bOcwFVC6oKxl0txtm
+ w7G9vLzirhC2ghzRYAZ8eNt9H5GU2uDl93znsv8UwvmP7c+0V+kki/x9sTfBLT3bryyNlveiv1e
+ Hq/UDYq1yO/nr+XeKppWnc4pQ6B+ETS5L5odvwpQrLNXi8WSj1KfG6hfbj+5JpAd19DzKlH1Im3
+ M61h3xE0jdjP3ABQd+Q==
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11950
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=10 lowpriorityscore=10 priorityscore=1501
+ malwarescore=0 bulkscore=10 spamscore=0 phishscore=0 adultscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300043
 
-On 10/29/26 23:43, Qais Yousef wrote:
-> On 10/29/26 15:58, Christian Loehle wrote:
-> 
->>> diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
->>> index 76f3c84ca6846..84301fc49e699 100644
->>> --- a/kernel/sched/idle.c
->>> +++ b/kernel/sched/idle.c
->>> @@ -502,6 +502,25 @@ static void set_next_task_idle(struct rq *rq, struct task_struct *next, enum snt
->>>        * lost_idle_time of clock_pelt
->>>        */
->>>       update_idle_rq_clock_pelt(rq);
->>> +
->>> +    /*
->>> +     * Due to a race condition when enabling sched_uclamp_used static key,
->>> +     * we can end up with imbalance where uclamp_rq_inc_id() has happened
->>> +     * on a CPU without uclamp_rq_dec_id() on another CPU that hasn't seen
->>> +     * the static key flipped. The race condition is unlikely, but ensure
->>> +     * the uclamp_rq() state is set properly on each entry to idle.
->>> +     *
->>> +     * The reset will cause the uclamp_max from uclamp_idle_value() to be
->>> +     * lost. Since we are imbalanced, hard to know what is right. So just
->>> +     * cleanup. This should be a transient error state once we recover
->>> +     * everything should work as expected.
->>> +     *
->>> +     * We need to be careful of some paths that can force idle with tasks
->>> +     * are still queued.
->>> +     */
->>> +    if (uclamp_is_used() &&
->>> +        !rq->nr_running && unlikely(!uclamp_rq_is_idle(rq)))
->>
->> just checking nr_running isn't enough as CFS bandwidth throttling (a fun one
->> recently!) will decrement it through dequeue_task_fair() without calling
->> uclamp_rq_dec(), i.e. it's clamps must remain valid AFAICS.
-> 
-> I think this and the rt group throttling are false positives. Do they actually force idle or just under contention dequeue the task temporarily to allow other queued tasks to run?
+On Thu, Aug 06, 2026 at 01:14:38PM +0200, David Hildenbrand (Arm) wrote:
+> hwpoison code can end up calling min_order_for_split() without holding
+> the folio lock. There isn't really something that would prevent
+> concurrent folio split. Consequently folio->mapping can get set to
+> NULL after checking for "!folio->mapping", and if the compiler
+> reloads folio->mapping, mapping_min_folio_order() would try to
+> dereference NULL.
 
-It forces idle, I can reproduce active=1 and bucket->tasks=0 and the WARN_ON_ONCE triggers:
+Hi David,
 
-[  329.665099] WARNING: kernel/sched/core.c:1845 at uclamp_rq_dec_id+0x10c/0x1dc, CPU#5: systemd-journal/281
-[  329.679279] Modules linked in:
-[  329.682333] CPU: 5 UID: 0 PID: 281 Comm: systemd-journal Tainted: G S                   7.3.0-uclamp-cfs-repro-20261030 #2 PREEMPT_RT 
-[  329.694411] Tainted: [S]=CPU_OUT_OF_SPEC
-[  329.698323] Hardware name: Radxa Computer (Shenzhen) Co., Ltd. Radxa Orion O6/Radxa Orion O6, BIOS 1.1.0-1 2025-12-25T02:55:53+00:00
-[  329.710222] pstate: 834000c9 (Nzcv daIF +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-[  329.717174] pc : uclamp_rq_dec_id+0x10c/0x1dc
-[  329.721524] lr : uclamp_rq_dec_id+0x98/0x1dc
-[  329.725786] sp : ffff800081bb3a80
-[  329.729089] x29: ffff800081bb3a90 x28: 0000000000000001 x27: ffffb54253580c40
-[  329.736219] x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000000
-[  329.743348] x23: 0000000000000000 x22: ffff000085462380 x21: ffff0001fb6e2c40
-[  329.750478] x20: 0000000000000000 x19: 0000000000000000 x18: 0000000000000000
-[  329.757606] x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
-[  329.764736] x14: 0000000000000000 x13: 0000000000000001 x12: 0000000000000000
-[  329.771865] x11: 0000000000000000 x10: 006c616e72756f6a x9 : 0000000000000000
-[  329.778993] x8 : 006c616e72756f6a x7 : ffff000085462380 x6 : 0000000000000001
-[  329.786122] x5 : 00000000000000e1 x4 : ffff4abfa8162000 x3 : ffff0001fb6e2c40
-[  329.793251] x2 : 000000000000000c x1 : 0000000000000000 x0 : 0000000000000000
-[  329.800380] Call trace:
-[  329.802816]  uclamp_rq_dec_id+0x10c/0x1dc (P)
-[  329.807168]  dequeue_task+0x54/0x134
-[  329.810737]  __schedule+0x6b0/0x1018
-[  329.814307]  schedule+0x34/0xd4
-[  329.817440]  schedule_hrtimeout_range_clock+0x108/0x11c
-[  329.822657]  schedule_hrtimeout_range+0x14/0x20
-[  329.827179]  do_epoll_wait+0x47c/0x594
-[  329.830922]  do_compat_epoll_pwait.part.0+0x14/0xb4
-[  329.835792]  __arm64_sys_epoll_pwait+0x74/0x114
-[  329.840314]  invoke_syscall+0x54/0x108
-[  329.844055]  el0_svc_common.constprop.0+0xc0/0xe0
-[  329.848750]  do_el0_svc+0x1c/0x28
-[  329.852055]  el0_svc+0x38/0x250
-[  329.855189]  el0t_64_sync_handler+0xa0/0xe4
-[  329.859363]  el0t_64_sync+0x17c/0x180
-[  329.863018] ---[ end trace 0000000000000000 ]---
+Did this patch ever make it in?
 
-
-> 
-> If this is the last running task and throttling can force it off the queue partially then enter idle, I don't think the bug is here. It should do a full dequeue then. But I am not awfully familiar with this code, so could be missing something.
-> 
-> For context, below is Sashiko's full report. Proxy and core scheduling seems to cause temporarily context switch to idle. No idea about sched_ext. 3 and 4 seem false positive to me.
-> 
-> --->8---
-> 
-> Can calling init_uclamp_rq(rq) in set_next_task_idle() corrupt rq->uclamp
-> when the runqueue schedules the idle task while uclamp-active tasks are still
-> queued on rq?
-> In kernel/sched/core.c, init_uclamp_rq() zeroes all bucket->tasks counters
-> and resets rq->uclamp[clamp_id].value without clearing
-> p->uclamp[clamp_id].active on tasks that remain on rq:
-> kernel/sched/core.c:init_uclamp_rq() {
->     for_each_clamp_id(clamp_id) {
->         uc_rq[clamp_id] = (struct uclamp_rq) {
->             .value = uclamp_none(clamp_id)
->         };
->     }
->     rq->uclamp_flags = UCLAMP_FLAG_IDLE;
-> }
-> When those still-queued tasks are later dequeued, uclamp_rq_dec_id() in
-> kernel/sched/core.c sees uc_se->active is still true while bucket->tasks was
-> zeroed (or decrements another task's bucket reference count):
-> kernel/sched/core.c:uclamp_rq_dec_id() {
->     if (unlikely(!uc_se->active))
->         return;
->     bucket = &uc_rq->bucket[uc_se->bucket_id];
->     WARN_ON_ONCE(!bucket->tasks);
->     if (likely(bucket->tasks))
->         bucket->tasks--;
-> }
-> There appear to be several normal scheduling paths that reach
-> set_next_task_idle() while tasks remain queued on rq with
-> p->uclamp[clamp_id].active set and UCLAMP_FLAG_IDLE cleared:
-> 1. With proxy execution enabled, proxy_deactivate() and proxy_migrate_task()
-> in kernel/sched/core.c call proxy_resched_idle(rq) ->
-> put_prev_set_next_task(rq, rq->donor, rq->idle) -> set_next_task_idle()
-> immediately before calling block_task() or deactivate_task():
-> kernel/sched/core.c:proxy_deactivate() {
->     proxy_resched_idle(rq);
->     block_task(rq, donor, state);
-> }
-> Here set_next_task_idle() zeroes bucket->tasks via init_uclamp_rq(rq), and on
-> the very next line block_task() -> dequeue_task() -> uclamp_rq_dec() ->
-> uclamp_rq_dec_id() triggers WARN_ON_ONCE(!bucket->tasks). Similarly,
-> find_proxy_task() calls proxy_resched_idle(rq) when a mutex-blocked donor and
-> other runnable tasks remain queued on rq.
-> 2. With core scheduling enabled, pick_next_task() in kernel/sched/core.c can
-> force-idle an SMT sibling rq_i that still has runnable tasks queued when no
-> task matches the core cookie:
-> kernel/sched/core.c:pick_next_task() {
->         if (!cookie_equals(p, cookie)) {
->             p = NULL;
->             if (cookie)
->                 p = sched_core_find(rq_i, cookie);
->             if (!p)
->                 p = idle_sched_class.pick_task(rq_i, rf);
->         }
-> }
-> 3. With CFS bandwidth throttling enabled, throttle_cfs_rq_work() in
-> kernel/sched/fair.c dequeues tasks via dequeue_task_fair() directly without
-> going through dequeue_task() and uclamp_rq_dec():
-> kernel/sched/fair.c:throttle_cfs_rq_work() {
->         dequeue_task_fair(rq, p, DEQUEUE_SLEEP | DEQUEUE_THROTTLE);
->         list_add(&p->throttle_node, &cfs_rq->throttled_limbo_list);
-> }
-> 4. With RT group bandwidth throttling enabled, sched_rt_runtime_exceeded() in
-> kernel/sched/rt.c dequeues the throttled rt_rq via sched_rt_rq_dequeue() ->
-> dequeue_top_rt_rq() without calling dequeue_task() and uclamp_rq_dec() on the
-> queued RT tasks:
-> kernel/sched/rt.c:sched_rt_runtime_exceeded() {
->         if (rt_rq_throttled(rt_rq)) {
->             sched_rt_rq_dequeue(rt_rq);
->             return 1;
->         }
-> }
-> 5. With sched_ext enabled (where ext_sched_class sets uclamp_enabled),
-> do_pick_task_scx() in kernel/sched/ext/ext.c returns NULL when the local DSQ
-> is empty even if tasks enqueued on rq reside in a non-local DSQ or BPF
-> custody:
-> kernel/sched/ext/ext.c:do_pick_task_scx() {
->         p = first_local_task(rq);
->         if (!p)
->             return NULL;
-> }
-> When any of these paths causes rq to schedule rq->idle while tasks with
-> p->uclamp[clamp_id].active remain on rq, wouldn't init_uclamp_rq(rq) wipe
-> active frequency clamps and corrupt the bucket task counts?
-
+Thanks,
+Tal
