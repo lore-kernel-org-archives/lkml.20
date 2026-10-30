@@ -1,99 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793361169;
-	b=mLRHquHoyKU8qDqJUDT+V1pLiVMZsFL/V3jaWiwppopt3BDn+mj6Aiq58vEr239A4fYc
-	 rkr7V3C5m8lV5yyjQFJ2bpAVdXIVqcHD4NmSD6gOcWIJS9/e+exUCZtV+uDeAiyDvbb6E
-	 tF7uAlslIVsV6AUvqrsphO15DBcsWJK1gS39ylVjMGBW8YYij8katgC/KuOtKGFNXRjvw
-	 LJw0nxoP2PeNxM8lv8DB21L1kZVeMrDzlaYCDBhhcjUl3Owo+FpQcxrM/y3wyHjwbP5FJ
-	 ojJVJSrggAzPWUFGtd9KZMDYyB6idlip3hl8DS7j6cULMhTCIRJbUd3fDLA1pCyGA/w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793361169;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793361174;
+	b=Fwb9HLPSo9WhUoTQEj4Qxo9VovhEeSst9mBrc0IpcYLtw4CH8bxZvHmFv6Y8maQsO6Ss
+	 okfsT6ofBfHIjGaEUApZqcJsyg6P5klgxkXOJkYfzFE2uNG4wV7CtjmrVmwxaxjwY3leZ
+	 h+5z3L0UBgCFO2kXxIaJi2vxmtsHbkn7AgdAZVX2QgfZXecSbCF0j5pGukfdqjUBkMUdt
+	 o9bznfExIj9tPTU59lUf8LKFoNydAYbVraKstBlcHjvrvYLBDD4tIBiC1RrpHSdS2UZqc
+	 +HLXEt9HxM8GXu80O3CnFsxj9t5Ahz8wjrHNt+juqDDWSRu+Ebc9z4NPz/xa7jsQb/A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793361174;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=/PX9RtW2X0oN+uy2podVJ42Ja19q2gn1FASRjTAuuRE=;
-	b=XtvxOYZEf7E3PH+PtlsIrQCBJXqC24daU0TKGIHFiH3NL9JBt8Ro4lPYCiEmQxbFng/Z
-	 XNniOxLbdzkDMuSZjVMw/A8sqH5qm48nCMsXAVwXKheBpt0h8hOltYK+BWcVSIFqITt2I
-	 qv9oTjOJuuQPK97NgMQ2M7BQxlTHBNbCmsMcnUBTFkvK941VGpvTbu8biZ1RQEiv3HZZh
-	 PSx0FepCdgzIafUMzS5O9y/Oe4Ge8piqcGUednTnZI+Sq3tPguPHXUcApqU1Are6KqiDe
-	 bB/dXdBvDPd3o2THThDbktdUziLn6zlEDxd4zuO81z0AdgAURzRZPGrJYl+ueNvwPFw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=fooishbar.org;
-	spf=pass smtp.mailfrom=fooishbar.org;
-	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=ikS8efMe;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=D25azTNyiIXfYBfQtWHSChfm+RG7wZ+rEc2MJkCnUUE=;
+	b=v+Nw5ma8cvEit4C/HQkJNduHK5Z63AQTe6NCZzPtoA6C0VEBSn6q45OED3/riaKTX/+T
+	 ZGFk03PnHLQpPVJHF9RfVfhgcOFhYmQrgYao4okHqreTrCC3LRD0dErUbNRGJ5SYnGOwJ
+	 ftwg+7Ng99c8rOegEZucF06yHGKPDqOCArcNn3LlAp6gf4Q9BoHpfKyqCH03doTCeSnuD
+	 dHTCTV20IBbe83300B/eOZ5CIGOHtave6YRHogpC7vgvHqewQt1gEqA681OiRtRsZ5LYA
+	 /9BZeoflEiiOCWDW3ng5iAdmB4G3yt2mXklZt68ZaVFr44ypgW2nETMzOcOQSKWFdAw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LsYsf8+2;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A8F606A337
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:52:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24A8F606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A7D60A2604
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:52:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01A7D60A2604
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=ikS8efMe
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc147d86bebso462071a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:52:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793361168; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NajRqdfaNEF6eui+3P/M1Ou9KWsfSTieVu2EZ2KXNLDqtQDKpeELOwzF/mzMRoBsGT
-         a2nuL6EXAF6v2kX3yYJHZjdPJ8P3l8RykGGCwTMeMmNmlUOv09pixl8e5kqxLTyb8kQB
-         zJy0tyHpLNVwjF6Z6CLOFAVa9ScQB4dItc6r6G1DMwqnM7zWQUC78C8euH4eAOiXvl+4
-         HyT2966pY2vX/mziXpXAjCDtUe7snCnta1E7KwscsZEuIAw8HnX+kS0F/ZSFsQXLB+z3
-         qk0BanRgs6Z6WGGA1IrdGsWr2MpEOBtoPBHcf0MW77/8EZCSC09d1xYZ6yOc9yqcUzHZ
-         dYIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=/PX9RtW2X0oN+uy2podVJ42Ja19q2gn1FASRjTAuuRE=;
-        fh=6WMXPNrd/zwH0nvEYPsYVJytxoNWOjPkGknPmXbNxYI=;
-        b=gOgj9Chb4anGL+rch978lv1G5i9M8HUBbUYpzKKUH/y8RA2mZxu3gsFYofPp+/Yahe
-         x6O9cNcP/0RWNGsRQnzGxMVnO+Lp8hnezNiCIK1N0Qx0TrBQXfUorxcv+csGQ6eZG2/e
-         is2suUvgLryk1qX1dOERuX7UUlbZx+rhFR5vq4GgN9ktXQATL4bfh09B86TzY5LjaPe2
-         lZQb8lLl+QkU53G5EwZztEL0MwACGJDkkn451Q5UMri99q7R0t8wnhR0l2BTIo6mC030
-         lBqVREGIracxooCDb9XT09ekGHRyVosemJPM8ORKzZYfu6kW8CFQ4owFxiX5d7hrRnTc
-         n9RA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LsYsf8+2
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1ae18eb9b69so28992c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:52:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fooishbar.org; s=google; t=1793361168; x=1793965968; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/PX9RtW2X0oN+uy2podVJ42Ja19q2gn1FASRjTAuuRE=;
-        b=ikS8efMesq4B/ME3qWtqEYqBkQSvUsXOHLf77ypjvSGZYuR/7NhhdoZP0VUSKtkQSq
-         IYzshig68b62WTRkl+m/DapkK4kUNB77GbJYl7Y1xQrgPOE1vCWa/m+EtqKlcX+axzLN
-         xsPlFRSWkvDi/Ia4J9eZ6ByBGc7UgIlSbhu2glWOJk3SFpmeS4/8YAQmUyNuEoIZqqa4
-         xuMKUMCUseLRrcyITmBHdStMNw3qMkQaqJL4adJfcmpvit2IBNgoBv0ZG7TVIfEoHyo5
-         ff+P/lQUT9xMWCSYuOZx6owYgW34Ae5rIhmEo9TNvkcNSiOOEDJnlAsGCskSepkdpMEs
-         p+wg==
+        d=gmail.com; s=20260707; t=1793361173; x=1793965973; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D25azTNyiIXfYBfQtWHSChfm+RG7wZ+rEc2MJkCnUUE=;
+        b=LsYsf8+2GWbDTfS5zRQm6kyTfcXZRBqA4gxEEQGhZvp+8T6tiyEsqKQX4fEmqMJPJv
+         D9+nYhX3374EUFS1KBt8fYee83T1JSYNj2My3AO+K6tTuaaZQJqxmt9ppZSmYZcS+ngy
+         /EVhK0F1M+uo1Zw3fg9/0PRzQiIM7uyu+/41IEYMTEHKlgzUiYVabUokuuygQ2QnjhvM
+         Z/GFiqICqCf7+Lzjj/fXZ0STCU3gYCMkdvI8VXP8NNq5v7eiXsUZRoTp+k7nHkyj3aVd
+         MP7Hc+yO9zfqXgNcni4qfir2m9YXjwGCWbbdeP2pcmYJ/qL2GEDu8P8aoGY5H8dAnBlu
+         dlEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793361168; x=1793965968;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/PX9RtW2X0oN+uy2podVJ42Ja19q2gn1FASRjTAuuRE=;
-        b=jp8szR/S7i6K2+SXY+2u5B6C7zwaP8/9f4jNxTCh/oA5lYtfoSZ3JyVwhop1ua4iE1
-         cA+bfi0YK/DDrUvdlPKYVQJ16jbJAM5lbJeifhAfr1de77R0m5KR2qwyZC8LqWWIUeRs
-         MUSm51D6lq5JTUdwHksoujigD7oyYCZ3wg2AB1tW9jarPJDwfRnDL6kci4juR2tgRNeQ
-         jqfGL2NAmzgESJJY0/BI8buaWILrDHcGAbJ7V+HrnGt0QcFAJz/MPle6FP4G4tZAvI5p
-         8ePCPhfnQKZdby5+xScAn8PTqkWKAk4w8FiTrrpm/WHGi0lw8y4CSrgwtWingdUCrfFo
-         gt8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBypSQNCl5wLlQu3p9eU0ZKgN6O/LDvzP3xIAkV02cVIpyrC5K6EoojSLJnME+J3QkP+kZAwx4HMkaiskUc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIk56El75VfPod7gMz0MQ/ylafd6+u4sUn4XQxCO2LMKWD2t4N/
-	XX6BFfsayzoF2JIw3oU+x0swSuQpFaBNkr5gVENzWkuLTphGWml72ioJaxVZznOeGr+MV+7Oke6
-	4sXQzcbZ9a2L/jcgsupDOzanzwZAS6wngkpywz5NDbg==
-X-Gm-Gg: AYBFou2Ur0GmCVfnEY/b6UMa2xAuODo6hceC65JFjKZJ8V1N9SkUkn4WWdf8//MmRxx
-	xCZ3O2No5o38AcLYpbjztd+2Nmnz9BPlO5jh6gXTTNFbMm6y55Die4R8R74SbMWhh4LaUKtBMrx
-	+r7mtigMBqsjF7EACk0dkXmAmDwJvWL0LH9qWvYxu/RF6RtBDOcZr8p+wjn0Og8BZnz98y32C77
-	kadgEYWxnfOkX35m3MscVaV19fwC1RjrRtTE+v9nK7WNXgA+BB6luJRZ3wONbfDfyy3gnYmMtqS
-	UMKnKkPvv1pMyp4dYdaX+1Ra2BbrX+Jl0czZTwH5oV7N92+h/b3LoWc24y9drfociRRmO14zDca
-	J5gi6kqplX2yaZxuC8U/oC1hkAK3MMslvAyGX
-X-Received: by 2002:a17:90b:2f0f:b0:3a0:e568:ed63 with SMTP id
- 98e67ed59e1d1-3ae896d7af2mr1070361a91.8.1793361168540; Fri, 30 Oct 2026
- 04:52:48 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793361173; x=1793965973;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D25azTNyiIXfYBfQtWHSChfm+RG7wZ+rEc2MJkCnUUE=;
+        b=u5PYO4ywrhm9C8Awytt6s9WkLjFmZC41ZfLOsQRC4tqKzU2U0vdlgK9lAZS1u4SlHL
+         Dt+IF+B6C0f6sqghT5Cys8Mgq+d+iRJZvqoU9OOL+fDR38m6LpcI6oN4K79+q8zRllpA
+         gUNzpanrnAl25Q2MtNKlONy+k0UXW2KQ/vtxESk75G4RmQmYoFmzGz4pjbPL2EGMutUb
+         V+wi5SIhn4Gk+ZH1e8ZPvHF33saIxgAaUQQx5vfEvXXC9nXp+FD9xrREGLKmr1bXSDA/
+         pKQ5rkfKNuLomH0Rud969yosItCgZCvX4Qgt/mnNrxDK8TP7Du1sE8QBKRnC3h/Ekrwe
+         UQ1A==
+X-Forwarded-Encrypted: i=1; AKwUvBzWe8/p1N13ere2+vWL4Yr0bAQxrpSKYAe7DAxd17Ptlu69Wv57dKjOTxjePJyFOZ16gIWczwfyEpU5qrU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+4yGOfrYjWeXgknYzWZHgPljk2J47wjKTvJ4/AxCzVI472p/c
+	bzPRP0ogKfO+6hUN8PPCAQsf41LyKYRyblHvdRuzP/Z8kX1FUmQzJ5o9Qqi/5nvh
+X-Gm-Gg: AYBFou0xP6XbROIPdpB3vGey+Y0iTDpy82XoT+kznOK8SR4EHK/W8IHO0VbdDYOlnUL
+	p1YMdbcrj2JXsy0rch8e+GMYJQvXokZXRu0sKBkJZnYzUc0aoek96UqryYj5EmpOQCdPfQcvjF+
+	5gOvoZGYJ3ZSYw4aHZ71ieAHmoZ/Npkh/to3temH3FxJcdYuh82B7n4Cb7GAkZMB2kkBXhMOEfm
+	6cRdTcdoLqgnlyWHBulY+7DNyuJS8Zous5d6Xp5IZgloD6oNUDnCxvOwvBlC4NcJYR4dnJdZ0Lg
+	GeXt7JvG3uWGYps6STJwNdJWPm55ZqXe8zkEu9rQWbp2HDx+8jGi6jt//YxhIeE5E9Qk6rqKLQ0
+	skcBY68W5jB2iH2B0kMCvCi2cgZXiGwfHNxT2yaW5qhrHBvwHRCzKpbWj9+VTTtPi2K7wvsOoPL
+	GojFXJajc1I+cIVsTtJZ3KLmIs2CNN8mTAz9pdUgTZ7vRcUC7bb8QkmBakFL03m/AcpZRvbFLg6
+	qMt3PDBQ1fPGrmp6l/DdaiyO6uA2gTs3yvc86wQDVle381yiG6FkZF8LuZPVQx3xZQJ2kSsYmUF
+	rlb/J/Z0z77ggPfBqpTvBOjA
+X-Received: by 2002:a05:7022:3a03:b0:152:9e88:daaa with SMTP id a92af1059eb24-1ac5f181628mr3327498c88.36.1793361172984;
+        Fri, 30 Oct 2026 04:52:52 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1abcd6f1sm6437304c88.20.2026.10.30.04.52.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 04:52:52 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Fri, 30 Oct 2026 07:51:54 -0400
+Subject: [PATCH bpf-next v2 09/22] bpf: Strip nops through the patch list
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,55 +91,330 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com> <20261014-dw-hdmi-qp-yuv-v5-13-6fab0fe43a9b@collabora.com>
-In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-13-6fab0fe43a9b@collabora.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Fri, 30 Oct 2026 11:52:35 +0000
-X-Gm-Features: AclHuK-idMrAXuG27Lf8hdgtB5yVIMARZUjc-ne4rm8j_v5CZmkmZ5d54vPJbms
-Message-ID: <CAPj87rOMjFEjOQ9TVgbGWu3gTwVjmjuFNtnFiyxbWO+g_RPqeA@mail.gmail.com>
-Subject: Re: [PATCH v5 13/15] drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422
- output format
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
-	Andy Yan <andy.yan@rock-chips.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
-	Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org, 
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Igor Paunovic <royalnet026@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-bpf-verifier-patch-batch-v2-9-55cd43439f7c@gmail.com>
+References: <20261030-bpf-verifier-patch-batch-v2-0-55cd43439f7c@gmail.com>
+In-Reply-To: <20261030-bpf-verifier-patch-batch-v2-0-55cd43439f7c@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-Hi,
+bpf_opt_remove_nops() removes every "ja 0" and "may_goto +0" with
+verifier_remove_insns(). After removing may_goto +0, it looks at the
+instruction in front of it again, since a may_goto +1 there has turned
+into another may_goto +0.
 
-On Tue, 13 Oct 2026 at 23:52, Cristian Ciocaltea
-<cristian.ciocaltea@collabora.com> wrote:
-> @@ -229,7 +230,14 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
->         }
->
->         phy_cfg.hdmi.tmds_char_rate = conn_state->hdmi.tmds_char_rate;
-> -       phy_cfg.hdmi.bpc = conn_state->hdmi.output_bpc;
-> +       /*
-> +        * YUV422 always transmits two 12-bit components per clock cycle,
-> +        * regardless of the color depth, which from a rate perspective is
-> +        * equivalent to three 8-bit RGB components.  Force 8 bpc here to
-> +        * keep the PHY PLL output aligned with the TMDS character rate.
-> +        */
-> +       phy_cfg.hdmi.bpc = (s->output_mode == ROCKCHIP_OUT_MODE_YUV422 ?
-> +                               8 : conn_state->hdmi.output_bpc);
+Each removal moves the tail of the program and walks all of it, so
+loading 131072 "ja 0" takes about 53 seconds.
 
-Same question as for the VOP2: why only special-case YUV422 when
-YUV420 also needs special treatment? And presumably in a way which
-can't just be mashed into bpc, because the maths doesn't work. So
-would this be better off being handled as a separate output-mode
-adjustment?
+Mark the nops in a bitmap first, queue their removal with
+bpf_patch_list_del() and commit them once. Take a forward jump over
+removed instructions as one of +0, and keep looking back from a
+removed may_goto as long as that turns another one into a nop.
+verifier_remove_insns() and its static helpers have no users left,
+remove them.
 
-Cheers,
-Daniel
+Time of BPF_PROG_LOAD of n "ja 0" followed by "r0 = 0; exit", average
+of three runs, x86_64 VM with 32 vCPUs, before and after this patch:
+
+              before     after
+  n = 32768    3.207 s   0.203 s
+  n = 131072  52.940 s   0.766 s
+
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+ kernel/bpf/fixups.c | 236 +++++++++++-----------------------------------------
+ 1 file changed, 47 insertions(+), 189 deletions(-)
+
+diff --git a/kernel/bpf/fixups.c b/kernel/bpf/fixups.c
+index 95f4fe5d607e6..7c7c38eb9f0c2 100644
+--- a/kernel/bpf/fixups.c
++++ b/kernel/bpf/fixups.c
+@@ -298,14 +298,6 @@ static void adjust_insn_arrays(struct bpf_verifier_env *env, u32 first, u32 len)
+ 		bpf_insn_array_adjust(env->insn_array_maps[i], first, len);
+ }
+ 
+-static void adjust_insn_arrays_after_remove(struct bpf_verifier_env *env, u32 off, u32 len)
+-{
+-	int i;
+-
+-	for (i = 0; i < env->insn_array_map_cnt; i++)
+-		bpf_insn_array_adjust_after_remove(env->insn_array_maps[i], off, len);
+-}
+-
+ static void adjust_poke_descs(struct bpf_prog *prog, u32 first, u32 len)
+ {
+ 	struct bpf_jit_poke_descriptor *tab = prog->aux->poke_tab;
+@@ -743,133 +735,6 @@ static int adjust_jmp_off(struct bpf_prog *prog, u32 tgt_idx, u32 delta)
+ 	return 0;
+ }
+ 
+-static int adjust_subprog_starts_after_remove(struct bpf_verifier_env *env,
+-					      u32 off, u32 cnt)
+-{
+-	int i, j;
+-
+-	/* find first prog starting at or after off (first to remove) */
+-	for (i = 0; i < env->subprog_cnt; i++)
+-		if (env->subprog_info[i].start >= off)
+-			break;
+-	/* find first prog starting at or after off + cnt (first to stay) */
+-	for (j = i; j < env->subprog_cnt; j++)
+-		if (env->subprog_info[j].start >= off + cnt)
+-			break;
+-	/* if j doesn't start exactly at off + cnt, we are just removing
+-	 * the front of previous prog
+-	 */
+-	if (env->subprog_info[j].start != off + cnt)
+-		j--;
+-
+-	if (j > i) {
+-		struct bpf_prog_aux *aux = env->prog->aux;
+-		int move;
+-
+-		/* move fake 'exit' subprog as well */
+-		move = env->subprog_cnt + 1 - j;
+-
+-		memmove(env->subprog_info + i,
+-			env->subprog_info + j,
+-			sizeof(*env->subprog_info) * move);
+-		env->subprog_cnt -= j - i;
+-
+-		/* remove func_info and its aux */
+-		if (aux->func_info) {
+-			move = aux->func_info_cnt - j;
+-
+-			memmove(aux->func_info + i,
+-				aux->func_info + j,
+-				sizeof(*aux->func_info) * move);
+-			if (aux->func_info_aux)
+-				memmove(aux->func_info_aux + i,
+-					aux->func_info_aux + j,
+-					sizeof(*aux->func_info_aux) * move);
+-			aux->func_info_cnt -= j - i;
+-			/* func_info->insn_off is set after all code rewrites,
+-			 * in adjust_btf_func() - no need to adjust
+-			 */
+-		}
+-		/* The exception callback is live, so it cannot sit inside the removed range. */
+-		if (env->exception_callback_subprog >= j)
+-			env->exception_callback_subprog -= j - i;
+-	} else {
+-		/* convert i from "first prog to remove" to "first to adjust" */
+-		if (env->subprog_info[i].start == off)
+-			i++;
+-	}
+-
+-	/* update fake 'exit' subprog as well */
+-	for (; i <= env->subprog_cnt; i++)
+-		env->subprog_info[i].start -= cnt;
+-
+-	return 0;
+-}
+-
+-static int bpf_adj_linfo_after_remove(struct bpf_verifier_env *env, u32 off,
+-				      u32 cnt)
+-{
+-	struct bpf_prog *prog = env->prog;
+-	u32 i, l_off, l_cnt, nr_linfo;
+-	struct bpf_line_info *linfo;
+-
+-	nr_linfo = prog->aux->nr_linfo;
+-	if (!nr_linfo)
+-		return 0;
+-
+-	linfo = prog->aux->linfo;
+-
+-	/* find first line info to remove, count lines to be removed */
+-	for (i = 0; i < nr_linfo; i++)
+-		if (linfo[i].insn_off >= off)
+-			break;
+-
+-	l_off = i;
+-	l_cnt = 0;
+-	for (; i < nr_linfo; i++)
+-		if (linfo[i].insn_off < off + cnt)
+-			l_cnt++;
+-		else
+-			break;
+-
+-	/* First live insn doesn't match first live linfo, it needs to "inherit"
+-	 * last removed linfo.  prog is already modified, so prog->len == off
+-	 * means no live instructions after (tail of the program was removed).
+-	 */
+-	if (prog->len != off && l_cnt &&
+-	    (i == nr_linfo || linfo[i].insn_off != off + cnt)) {
+-		l_cnt--;
+-		linfo[--i].insn_off = off + cnt;
+-	}
+-
+-	/* remove the line info which refer to the removed instructions */
+-	if (l_cnt) {
+-		memmove(linfo + l_off, linfo + i,
+-			sizeof(*linfo) * (nr_linfo - i));
+-
+-		prog->aux->nr_linfo -= l_cnt;
+-		nr_linfo = prog->aux->nr_linfo;
+-	}
+-
+-	/* pull all linfo[i].insn_off >= off + cnt in by cnt */
+-	for (i = l_off; i < nr_linfo; i++)
+-		linfo[i].insn_off -= cnt;
+-
+-	/* fix up all subprogs (incl. 'exit') which start >= off */
+-	for (i = 0; i <= env->subprog_cnt; i++)
+-		if (env->subprog_info[i].linfo_idx > l_off) {
+-			/* program may have started in the removed region but
+-			 * may not be fully removed
+-			 */
+-			if (env->subprog_info[i].linfo_idx >= l_off + l_cnt)
+-				env->subprog_info[i].linfo_idx -= l_cnt;
+-			else
+-				env->subprog_info[i].linfo_idx = l_off;
+-		}
+-
+-	return 0;
+-}
+-
+ /* Clean up dynamically allocated fields of aux data for instructions [start, ...] */
+ void bpf_clear_insn_aux_data(struct bpf_verifier_env *env, int start, int len)
+ {
+@@ -886,44 +751,6 @@ void bpf_clear_insn_aux_data(struct bpf_verifier_env *env, int start, int len)
+ 	}
+ }
+ 
+-static int verifier_remove_insns(struct bpf_verifier_env *env, u32 off, u32 cnt)
+-{
+-	struct bpf_insn_aux_data *aux_data = env->insn_aux_data;
+-	unsigned int orig_prog_len = env->prog->len;
+-	int err;
+-
+-	if (bpf_rewrite_must_abort())
+-		return -EINTR;
+-
+-	if (bpf_prog_is_offloaded(env->prog->aux))
+-		bpf_prog_offload_remove_insns(env, off, cnt);
+-
+-	bpf_clear_insn_aux_data(env, off, cnt);
+-
+-	err = bpf_remove_insns(env->prog, off, cnt);
+-	if (err)
+-		return err;
+-
+-	/* before subprogs are adjusted, since it looks at them */
+-	bpf_adjust_func_ptrs_after_remove(env, off, cnt);
+-
+-	err = adjust_subprog_starts_after_remove(env, off, cnt);
+-	if (err)
+-		return err;
+-
+-	err = bpf_adj_linfo_after_remove(env, off, cnt);
+-	if (err)
+-		return err;
+-
+-	adjust_insn_arrays_after_remove(env, off, cnt);
+-
+-	memmove(aux_data + off,	aux_data + off + cnt,
+-		sizeof(*aux_data) * (orig_prog_len - off - cnt));
+-	env->insn_aux_data_len -= cnt;
+-
+-	return 0;
+-}
+-
+ static const struct bpf_insn NOP = BPF_JMP_IMM(BPF_JA, 0, 0, 0);
+ static const struct bpf_insn MAY_GOTO_0 = BPF_RAW_INSN(BPF_JMP | BPF_JCOND, 0, 0, 0, 0);
+ 
+@@ -1028,32 +855,63 @@ int bpf_opt_remove_dead_code(struct bpf_verifier_env *env)
+ 	return bpf_patch_list_commit(env);
+ }
+ 
++/*
++ * Whether insn i is a nop once the insns in 'removed' are gone. Only forward
++ * jumps over removed insns can turn into one.
++ */
++static bool insn_is_nop(struct bpf_verifier_env *env, int i,
++			const unsigned long *removed)
++{
++	struct bpf_insn insn = env->prog->insnsi[i];
++	int t = i + 1 + insn.off;
++
++	if (env->insn_aux_data[i].indirect_target)
++		return false;
++	if (insn.code != NOP.code && insn.code != MAY_GOTO_0.code)
++		return false;
++	if (insn.off > 0 && find_next_zero_bit(removed, t, i + 1) == t)
++		insn.off = 0;
++
++	return !memcmp(&insn, &NOP, sizeof(NOP)) ||
++	       !memcmp(&insn, &MAY_GOTO_0, sizeof(MAY_GOTO_0));
++}
++
+ int bpf_opt_remove_nops(struct bpf_verifier_env *env)
+ {
+-	struct bpf_insn_aux_data *aux = env->insn_aux_data;
+-	struct bpf_insn *insn = env->prog->insnsi;
+ 	int insn_cnt = env->prog->len;
+-	bool is_may_goto_0, is_ja;
+-	int i, err;
++	unsigned long *removed;
++	int i, j, err = 0;
+ 
+-	for (i = 0; i < insn_cnt; i++) {
+-		is_may_goto_0 = !memcmp(&insn[i], &MAY_GOTO_0, sizeof(MAY_GOTO_0));
+-		is_ja = !memcmp(&insn[i], &NOP, sizeof(NOP));
++	removed = bitmap_zalloc(insn_cnt, GFP_KERNEL_ACCOUNT);
++	if (!removed)
++		return -ENOMEM;
+ 
+-		if (!is_may_goto_0 && !is_ja)
+-			continue;
+-		if (aux[i].indirect_target)
++	for (i = 0; i < insn_cnt; i++) {
++		if (!insn_is_nop(env, i, removed))
+ 			continue;
++		/*
++		 * Removing may_goto +0 can turn the may_goto +1 in front of it
++		 * into another one, look back as long as it does.
++		 */
++		for (j = i; ; ) {
++			__set_bit(j, removed);
++			if (env->prog->insnsi[j].code != MAY_GOTO_0.code)
++				break;
++			while (--j >= 0 && test_bit(j, removed))
++				;
++			if (j < 0 || !insn_is_nop(env, j, removed))
++				break;
++		}
++	}
+ 
+-		err = verifier_remove_insns(env, i, 1);
++	for_each_set_bit(i, removed, insn_cnt) {
++		err = bpf_patch_list_del(env, i);
+ 		if (err)
+-			return err;
+-		insn_cnt--;
+-		/* Go back one insn to catch may_goto +1; may_goto +0 sequence */
+-		i -= (is_may_goto_0 && i > 0) ? 2 : 1;
++			break;
+ 	}
++	bitmap_free(removed);
+ 
+-	return 0;
++	return err ?: bpf_patch_list_commit(env);
+ }
+ 
+ int bpf_opt_subreg_zext_lo32_rnd_hi32(struct bpf_verifier_env *env,
+
+-- 
+2.43.0
+
