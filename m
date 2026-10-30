@@ -1,119 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793334564;
-	b=nZVilbjg7LiCadeVoi2oYYKTthwplmb9EdX6xGn2denb4Fnvnhd3SPZJbk3MbBYmARgi
-	 xb72Mdno4YEbL1AkDfMnRPSSzr05vr5iAnjPhGW01U0I8C/cg4jaXUBCJDZ+VfGzrIucI
-	 6OReMfulALZRFL96ng1VCVedCE/2wrjl2V7oQTLvIVZ/+A5a5pysW4KUTIJk0qr0YOEwY
-	 tCc4gk0X6JrXZGFhQV+kaI6h/a2p6+ha4kCHQ7XqpvTk1qvIaMnZyhnxOko6Qx/yPo1AK
-	 e3qBY08Ev7hD04HnmSDaS1jBi9T2c+FabiRVwDKlvszrXQ4wkcbY2E5L77hRQnfxU7g==
+	t=1793334573;
+	b=g6WtnZd6wyDX2e3LzPUat+EKC9BaDy3WKXid611IpWu3YJ/K+qcyTpGOQsz0dBfCHXK4
+	 WYk7GXTpq99kto/tdt0gITU9SPXI8cIh5DJloDSOlTgqKUSEG3zBfGuyZtFwn6mBd/gGp
+	 bey++efolE4usVT9/BRQPgucqz2o+MoygOtEKIWQ9/793NfoZ4bVjKHdjtELTAC/I8Yyu
+	 nzjtg7r6r1kcpcPz97GQBCtSxm8c9SwUqUlF5Vz8pDsrMMmDM6qUEB0hSnONteF+yAf9u
+	 Tn3nOHnk6XI9fOcfDW5zqwMb5KeBGMXJDVuDdrdfiVaCLL9asSFHA97IkvIOMAc9ioQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793334564;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793334573;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=HpeEYAEKyyCPvuV7efERlE4nfg2Y+m/mO0FuoK2R5s8=;
-	b=jiDr4jO8h3e+CifAKbjsA9oorL3ahChpKNjw+ObQFQFAiFbPJOrisdxHocTVrrjG3RAw
-	 fyCWpgcIDUJhl2d6gwDy0ifqxvXsGpqsnQ7fFC5TLq5g322J82qG+qKkpV5NldksadxlQ
-	 8EjszxvfGDPCGxThMvxokfzzfcPbe02SFofb93ASgqh2S17Lcjp/OZ8YYou5DdNKF+6ra
-	 TMqGo6QwtiuMllvNBQI9sBwGkNo1T4evirA0nm0IigvkBJcb+bfVTbyjCBf/WaxQyYBob
-	 N2QipCIEf32NJOO8thHMEFfxIPhCR0XkWvu3b/+fC3fxwaqr91dsz6H1scPURkFTqnQ==
+	bh=tN9CKb1zjGPoBG8E6tp5fkfqBwx6I1Gzk/q0OBzU968=;
+	b=lUGkwPc2esv1f0LEzmZk1+OS24TsMX7mjEM4S9GouI8j6rrVru5FYkk6D4SMxuCrKVpH
+	 Gx0irij7kkkgmqlAiLzpWB5cmHeGy6P0GV2nu6i8TDVY1/iQtETmgopd8VMBq2B2c+8I8
+	 ZJq0eVDkrV90RmKv7rBIIGFFY9UNfSnujCEeBosmIL/MvOc29flRWpn80Dsh0ZjpXowIZ
+	 0NnGpctiHIdLT/lXwLwtAysY9CjfPyMpLcxDMlj1wLxzL+J8pBVBFKBf89x2fZzBk1gmX
+	 0rm1UWTkonjxejxypnW0CZCy+r3pNUdHlmXNL7PTTgYosYucB21KIqft/JhMFEzGX/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WQDX+igh;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=aHKmx8SX;
+	arc=none smtp.remote-ip=209.85.219.47
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D47B606A329
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:29:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D47B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D81606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:29:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23D81606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WQDX+igh
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ae57dc1ea9so126516a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:29:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=aHKmx8SX
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91c79f306e9so3828886d6.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:29:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793334564; x=1793939364; darn=vger.kernel.org;
+        d=cs.unc.edu; s=google; t=1793334572; x=1793939372; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HpeEYAEKyyCPvuV7efERlE4nfg2Y+m/mO0FuoK2R5s8=;
-        b=WQDX+ighlA0CRmz6xmrYqh8MRT1ubdl1GaZNzjDEOOMFGhf87VDm+sHKrYM6Fhmnwa
-         k1BQG2WiH3kKgXLfx0ooUDc3j7jwn/203Cx1bW1y2fQZiDeOouuBa0T/TShMksbhZjep
-         OBuwMvKb5u0tilx2XrtW5cnD1oEjPyqFGs7k3IaEyQ/UhYHDN8k44zU6IVZsZi3pLsKR
-         caAcsU4jRXkCdn7IvtSHlQi3HL4QQqDNxPfYNQkgqccWadOsmLZmTJZG9D/8fWsq8jnP
-         mXlqdaAqf7J7PTynQsv1p3QcPa8hQ1h9j2/1+r0oG7RRDjqBnpH8rF7nhRB2Uil/0stu
-         EchA==
+        bh=tN9CKb1zjGPoBG8E6tp5fkfqBwx6I1Gzk/q0OBzU968=;
+        b=aHKmx8SXQV0DVgG4fMxLGmWqxc6pdvIhTosicXvDwZ8RVa+kQbLMvle+v9HtxdkAuy
+         7/AbuKcLB6W/VSBkdi7pspd/jyIZnVAyygIjPgveqWp1CWhMCq4wsh1mAl1I9WEi4MSH
+         pr8Q1WkHLsGM0me3DMV0NfoT/3inCzhgdCdlEfTpTK3NYRLJQPyltjmzNEOtWv6YyanU
+         CrmAI9eQ7aHs7e9O6ghtMQ/g3noeTxSj4IQjiCRxIP8PmiWNC8faCnAJ1Yy4HfKTCjXy
+         6168MGYMrkg/Q6LMTDnOe3Vazg4ZdT9mWyCPShHIURPfiEh67qwk/bCcjpU9ciK6W5RD
+         dtgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793334564; x=1793939364;
+        d=1e100.net; s=20260707; t=1793334572; x=1793939372;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HpeEYAEKyyCPvuV7efERlE4nfg2Y+m/mO0FuoK2R5s8=;
-        b=I5UhDDJxqhR63IHA8iP9cObnnBdXiV1J6znwEDGyeatFqBGQdo+tVnXhDCdSO5rXgj
-         sSjL1qQsYc3Vnb95rZOECbazANvSRNeU0onn5+/Xt7Gi4/lCOiR808shQA6cyiDOg9td
-         J/Tfl+TfZHWm6uXmM8lUTj95OYngqtNhPhp5Ao5mlRPgwZS4l33XE/5bS144KXpogncO
-         E8xGuEGW6KDuKN5Cldyf588uAx5O+G20JvxGJX4FBOsWGUVF+4wg49iW9Rz6JynfoDWs
-         MSvJdd0xcTv+GLO6fFWG1BJ6h+OJCimI06Be/GdCeg+D/9hxpf8IK/13NYzXb03a1jKH
-         iqyA==
-X-Forwarded-Encrypted: i=1; AKwUvBzI/UMHE11mbfWCo5JRS/lGW435rSqWmdrKVVHX6bvccddngzrLiXs+obLbsvhFbTPBQaIWhfh99VUc+VM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLpIoZfmPfRk9eYue4VqxNrV6e7Zq0dHItbV17BUn0vMuhsBVeb
-	C+3LpLmixE+dkcbg0YPmxJ5lGeVue58ToUkPVO+WJEht7OZOothrPfM=
-X-Gm-Gg: AYBFou2vOyXz5h/Hl5ZXocHo9cnU/SKYdWaubljPyCsNqj/pLlzKgs5rsicCr6Ih3cC
-	xmza9BCn9ax1dScA3FAYGFAyB9UHE6YbTV4eL0AeJiJf583dl4MWPDDvUudD+a4gUyK2ypxA187
-	x1crLB2+axcKAlUZsQHhUEmF7rcpOcIRHXX4a/38smdmWK167B6DdBl1/VgSsO5O01J/lfgMxI6
-	OtgAukFwZKHYRJh853m8lkuKsKhiX3QVaLBGbsQPReY54W4FaHiVYB0Lo01GDFT8w+G60qFu6fc
-	IgLHvc4K+lGHbop14djkKK2oas5ZXVCvnJaGkwLD1R9IMrmMmilAtFtEVHCw5Fm023TzQGf/uug
-	ab1LOjOGy372rf16Z+k5STwYHe1jhbgX9LK3EYsE1spFnrZjLgoZIa5tcdttg6aiiRcQYssgX3V
-	uDHpxMF5XoLJPs7r9FBVGFMw7n+timcvc+yU7WjMFudPMmSMFVityqUtAOxYxpI+uG9EUCtKAV4
-	OTvmn7xBDMaOzBjhuEFfhEN0jUitPR8o4r40nnRC3VNL/gDphIDtzuPt3YzLWXwjm/SLtEt1rHj
-	LRCJAtLF/3rWsc6KXyStTfe6Uy+S7vM+ykGyGn8O3v+FU8OMtpAFaVxJr7xLzX7voY/a
-X-Received: by 2002:a17:90b:268a:b0:3ab:b39f:41cd with SMTP id 98e67ed59e1d1-3ae897ddd43mr857008a91.60.1793334563678;
-        Thu, 29 Oct 2026 21:29:23 -0700 (PDT)
-Received: from freddie-kane.lan ([71.212.222.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae8826a769sm606067a91.4.2026.10.29.21.29.22
+        bh=tN9CKb1zjGPoBG8E6tp5fkfqBwx6I1Gzk/q0OBzU968=;
+        b=q2iV2tMktNJt51SbpWB4SqD9LJ/ItESaRbDQqnrYtY3+3/iTMk4vV/iEe8Zg/1w+UW
+         JPaCuM1a5+vNFQurZAk/eu9MIf4cb7yFR2m/iEQ/KI5SXwvz9jaOGsaIfxsCuvy9YsOK
+         Ih40sThnVE1QIELtlEwIWFAQ6lKRFBTEODcc1rkCqCAtyzJ8YmkdLuuA9B3A/nzvhont
+         geHB2lAyxGlhnH9KmwqJQWEG8k/g+GLyfYO+4VUq2O2zTN7ZMaYDFTG8x+jTgFV4JMU7
+         kuZWa/qinFESGV7fyd2uNOtIpkef70kWNrY4407rxzJ+E3xSyQjj0cE+vQNjTcotIXNr
+         m/+g==
+X-Forwarded-Encrypted: i=1; AKwUvBwSQHYKcmD3D8ZP+VVGYkgAJqkVYXWp6KTnTTR55zXrkEBYEzu5VXSStVWt1om9FgCMg5oIvziDmExzq3M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8c3L2pNp0QPphiJ5uUmYwZlqkO8gIY2W0CA3kRdPMrO8om7Jk
+	tvMGQ84hZZLvsUoQ+ZT/uPg3O2hh5IMOAEFcsoiPd+MkZXMV5+Mh/uNxct1ZtP9Gkg==
+X-Gm-Gg: AYBFou2qPrBpxxn24D+KRhcj/mlK+i31gxgp6ikvpXZY1j93MQZm3fkUuCEVA5fiZu8
+	RNIopt7+2pd4cDJUJ32hE/e4q6gNbFtiROa4kAhFYVICXbU4wsOvU43t1sXLizv/1EkfqfnpguH
+	YjE9HIKuWCaU7jV4M3W0UxX9XCTp9Nrccz5GsncLiMsZ5pGV4NQbiFxl8ZM5TQY9epyOaB9dS5C
+	7taX+l3mFtREyTnxbfFajKHu9vble9O9aMfNPzfJtjpiYtUqEdosooXHPbIhgVp5bnOedgaQrnS
+	rApsu97IlSyyfn4Lw9WD6kimTRqkhXKYm1lpVdjFsl0p+Yzc1SnxLJJwPa0f2q13+8ETD5HtswX
+	gBG6kqS3J1Qkskmspm9TdyNYtH5xjWqdSIej/Pz2aFxXnimXUzXue98iteKid9/hjxFKtPz2o7o
+	vsScKv/WuGfJ3OiVzK/uwIpwq4yh+ahlQKX8sHo17MZs/Xt6pzV6xR640nWpC7wnyY0WA2rSEv/
+	bmSQWXHvFad57je3BNMJxiWCw2+11o8IKbgK5HXIpmdC9J7cT4Hvjkx6xVaXVOp3AQt5CsSu+fJ
+	apFm/4Tv3FEEaDlVKJmgD3rLaHmdqibCTpF5SpwQUUo9JZjyORDs
+X-Received: by 2002:a05:6214:524a:b0:91b:82a6:d2f2 with SMTP id 6a1803df08f44-91ca4adcf10mr14769366d6.11.1793334561851;
+        Thu, 29 Oct 2026 21:29:21 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7f254a1sm5058166d6.7.2026.10.29.21.29.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 21:29:23 -0700 (PDT)
-From: Burke Cates <burke.cates@gmail.com>
-To: Xilin Wu <sophon@radxa.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	freedreno@lists.freedesktop.org,
-	dragon@radxa.com,
-	linux-amlogic@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 11/20] drm/msm/dp: Cache eDP link capabilities after successful discovery
-Date: Thu, 29 Oct 2026 21:29:00 -0700
-Message-ID: <20261030042912.2745609-1-burke.cates@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261009-msm-dp-hdr10-v2-11-1835d4966da3@radxa.com>
-References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com> <20261009-msm-dp-hdr10-v2-11-1835d4966da3@radxa.com>
+        Thu, 29 Oct 2026 21:29:21 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: slava@dubeyko.com
+Cc: glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] hfs: remove the dead grow path from hfs_file_truncate()
+Date: Fri, 30 Oct 2026 00:29:03 -0400
+Message-ID: <20261030042903.4160506-3-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261030042903.4160506-1-hengyul@cs.unc.edu>
+References: <20261030042903.4160506-1-hengyul@cs.unc.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,24 +101,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 09-Oct-26 11:16, Xilin Wu wrote:
-> Discover eDP capabilities from connector detect before the first
-> modeset.
+hfs_file_truncate() grows the file through hfs_write_begin() when
+i_size is larger than phys_size. That case no longer happens.
 
-I tested this patch on its own (not the rest of the series) on an ASUS
-Zenbook A16 (UX3607OA, Snapdragon X2 Elite), on v7.3 plus out-of-tree
-Glymur platform/board patches, which include other msm DP changes.
+phys_size is set to i_size when the inode is read. After that, i_size
+only grows through hfs_write_begin(), which grows phys_size first, or
+through a direct write that ends within phys_size.
+"hfs: report errors when extending files with setattr" made
+hfs_inode_setattr() extend files with generic_cont_expand_simple(),
+and "hfs: fall back to buffered I/O for direct writes past phys_size"
+made direct writes past phys_size go through hfs_write_begin() too.
 
-Without it, msm chose the eDP output bpp before the panel's link caps
-had been read, so the first modeset after boot ran the 2880x1800@120
-OLED at 18 bpp until a DPMS off/on. With this patch the first modeset
-after boot comes up at 24 bpp, 4 lanes at HBR2, with no link-training
-retries, on two boots of two different builds.
+This patch removes the grow path, and warns and returns if i_size is
+ever larger than phys_size.
 
-Tested-by: Burke Cates <burke.cates@gmail.com> # ASUS Zenbook A16 (UX3607OA)
+Suggested-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+ fs/hfs/extent.c | 18 ++----------------
+ 1 file changed, 2 insertions(+), 16 deletions(-)
 
-AI coding assistants helped run these tests and draft this reply; the
-results are from the hardware runs.
+diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
+index 26357086517f..8d04b7c0911e 100644
+--- a/fs/hfs/extent.c
++++ b/fs/hfs/extent.c
+@@ -491,23 +491,9 @@ void hfs_file_truncate(struct inode *inode)
+ 	hfs_dbg("ino %llu, phys_size %llu -> i_size %llu\n",
+ 		inode->i_ino, (long long)HFS_I(inode)->phys_size,
+ 		inode->i_size);
+-	if (inode->i_size > HFS_I(inode)->phys_size) {
+-		struct address_space *mapping = inode->i_mapping;
+-		void *fsdata = NULL;
+-		struct folio *folio;
+-
+-		/* XXX: Can use generic_cont_expand? */
+-		size = inode->i_size - 1;
+-		res = hfs_write_begin(NULL, mapping, size + 1, 0, &folio,
+-				&fsdata);
+-		if (!res) {
+-			res = generic_write_end(NULL, mapping, size + 1, 0, 0,
+-					folio, fsdata);
+-		}
+-		if (res)
+-			inode->i_size = HFS_I(inode)->phys_size;
++	if (WARN_ON_ONCE(inode->i_size > HFS_I(inode)->phys_size))
+ 		return;
+-	} else if (inode->i_size == HFS_I(inode)->phys_size)
++	if (inode->i_size == HFS_I(inode)->phys_size)
+ 		return;
+ 	size = inode->i_size + HFS_SB(sb)->alloc_blksz - 1;
+ 	blk_cnt = size / HFS_SB(sb)->alloc_blksz;
+-- 
+2.53.0
 
-Thanks,
-Burke
