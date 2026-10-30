@@ -1,79 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793368297;
-	b=2QoZargDSJWXOVjY1HLZN8JWkILVbo5ROrEVf1d50xe4KBLh/IQzXiY7qg532395Tzgc
-	 jGwGHnXNAvSlFNLrkjj8RTMd5mxuXo00HTvQp8kpaxVpGB5SUnAAiqhor3sdDkfnmUs98
-	 n5t61iW7zNCsQJVYt3L0u3+Jy3UXtGoHiT7b2cCsse/6BGOPWpowhH9jbSGH2Sd6colAy
-	 F8M703j3gfx2w609e9N0vKQfM5tGSDzSdNh+Pk796kAXkgB2tZ/BAjGF7HOZmSQARZqK2
-	 naoJpybApw+TRwTQIOHCRDyEnqiPZZE6M1Ihzf4DYQCEctSuUPgaS2aM2MGyE6nxmkg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793368297;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=M64UvXS64vo0gOOtp0YAqMhGqcxzmBpD7h7yNGxoB2I=;
-	b=eWvGMP0pPvI88uQw/eD2TnNRot/sWeVzR14THIAjjzRyLGwnch5OnpUk3Mn78AUNlH82
-	 5JhmkMV/GV+99rWibPeSjCzVs7Zxiv6XzFZsutcgtxlCRDIlaDt2EddS6QklG3eULeqmo
-	 LMCAy4W5XnQudJPl4psKOs+HvBhb98NtBw5fv9l58AWNy7AaISoDQYCmSCYwoR02D6eb8
-	 k/Y2Ex5HYJE2kkLOYyPrs+vtOYI/8NRQIt0BI7dEKGc/ZVAHJvEKPuHBBDVxAzVEsdo00
-	 jAgFFsEEp4d5q7QfwMstv4CXtYYpARXk2IQMa5/nm0t1d0wSxJOTT+AMdqopRu+03Hg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UAAwo16Y;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D3E606A32D;
-	Fri, 30 Oct 2026 13:51:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UAAwo16Y
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793368296;
-	b=3A62V09VkHt0AnEDAnx8v5zas8AB+3RU5oJdjSOGdpAOlMzOTjfHSEs7ko4iR9lZK3FM
-	 IkM1KyqLksfa5/nX0J8eObVsKQw2G7J24Yveg44vo8hJPAJQhseWBzZkhaIN19IEc729o
-	 wWt7sIX8VsTV55DUuOQ+rA63rp73jxEYb38kY9yF24HWTmwLrgTFF6YIt8NuFdLTkt1S1
-	 13Z9VSmuIeagOitwy4VBhVv3LHM3M7Bvovk3X0dc5/kKGchGPw1DY81GZgUTsQIEU1Fxn
-	 StV2PTBgQcc4iiNzt0W6afD3kewcloSufxsASvPyQUIvGNW7uRSZrvsC8cGEHTiZ8dA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793368296;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=M64UvXS64vo0gOOtp0YAqMhGqcxzmBpD7h7yNGxoB2I=;
-	b=DOOXZ638M8V7uKg9Gz09SQAOq0zNbj5002u257t4ySaerLACheh1XSMdpCGzqTnkm7TF
-	 PupbK72TlNuJN1JCdfnbWOGHZ8adW22/oZ/wgVg0mbVcxVCFIPoPJqXIxyyqh8fABYa3u
-	 /Xs4Ziu7jq9hNXCN/AIe4lnl9iOi9yqnYj8UJRW502nZwSo3lWQwJWbt4MXHRhfSQ/DMt
-	 oOZUNl0zcrZVHrBQr1vpaT0G71E3oUO7L5zy7BIXsgCRHjIALvkG0pZEoNMoBwoGa9MKw
-	 5DlvDN6hlDOLyxAQ+fg2T3rUN2LvyOQVytdUseg+MMLIUPPWzlcVT5gsHYhVht0laSA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793368326;
+	b=4fu4qknxXXggTkKALA1MFeTuhJUemDCFJyoqkQ4xD7SIJSseYeQ5Pa2QtnL1HJV4fYDh
+	 LE2vT0hl78rw7dV+VxsmxDiebibVSvy0JPtVioDtxuDFEHE1hEAxAmNvJOTffb46PBzHK
+	 UrGeVyygsCVnNegFg8EHhYSJ6T+fwoGI/Gyrdt67clZ/QVbnIsT31NRFAqg/grsaVeGS0
+	 XmQ1j8+MCe9BhfUYt+W2r9spGZkcPaCsMp6Msc8ZKNpQ7t9YRQDRMlL2rxINqnQKt8UYI
+	 G6dX4NbqjaR316NhwG71p/ZMJqrkAWNX1R86lFRo1hJ9XQ8LNbBQXLeZc3J9ZUJ4FaA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793368326;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=SXBe5FDUaux8CGMgkiRMsJSb/8g4y+WkcIulnsCpl5I=;
+	b=w8NMncssmtb3IGspOfurT0JiAyUacG6YRl0LcnKxTvm4/jNq+7gCKZClg9OwyppnRzYb
+	 KUdlvuKPmuGL08e17PBwSCfFWc0SHY00Tc0GyGaQBp5KQMu0XdQmOoxhQdnSSzwuu/S34
+	 w7Og9d15rQLF2kTJBiQP66JR9duJ2gd1UITJ7QCiHO2GH7V6yrZCQ3r4gFGcWo1dhABTQ
+	 Cb77HEYM0lvsXeJO/Mp58aJitMbMVSR/aX4feRxlqi0otDm4CKRCI9Cu09wNAmAXUudXv
+	 n7pJWd1spIStye9iYlzQdQqf5DxDzQ4qSJmmsRIeVE6HebDJf94UHCTlbeBvAgUypKQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=RkokQgTr;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 056511F00A16;
-	Fri, 30 Oct 2026 13:51:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793368296;
-	bh=M64UvXS64vo0gOOtp0YAqMhGqcxzmBpD7h7yNGxoB2I=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=UAAwo16Y0t/QiF0p6YXOkoKWoIleQ8laCqnq9Gm2kCexwVvDSqiVFqAUr0XSLHFdV
-	 bH2hSOLdhm60R1iil4qP67eYEu1e6mbfyMgHTELFRKnYZrtiYdrJ6SkUFxqnx7A8pS
-	 NP/UG9YqEWDx37hykyA/uNDJZ+yE7Sm2tx+h0IdX0a3u749UL2mkc8/ikMunODOPlm
-	 5lfDNLqNe0RpeOuOSQl56iKClLWWn2+o3f81l5EYud6OwudVVZtETysqRR65OaQHZA
-	 qn/WYITBo2kQw5ce/samq1B3RSiHW8OLWYH/OYfHV7eat4whw9s+yUYxpTOzEKUU/Z
-	 9LeV0+sShHvdQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 71B99437E3;
-	Fri, 30 Oct 2026 13:51:34 +0000 (UTC)
-From: Nikolay Plastinin via B4 Relay <devnull+plaztininikolai.gmail.com@kernel.org>
-Date: Fri, 30 Oct 2026 21:51:32 +0800
-Subject: [PATCH v4 2/2] leds: trigger: input-events: Restore previous
- brightness on input
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A98F606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:52:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A98F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=RkokQgTr
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso529055f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:52:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793368324; x=1793973124; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SXBe5FDUaux8CGMgkiRMsJSb/8g4y+WkcIulnsCpl5I=;
+        b=RkokQgTrTTmS/o3og9U6To27ycnHGXCRnyXyCvlEvTICBJCmqazJch6Zc6UZlJayQ3
+         70KQI9dCoCwxJ1bMatKTmpWw6v0K6ZM6VEFFI+pTXfWU5faHnzA/IiQSuSvFjpj9QPIs
+         jvSNJs0Z3LOnWPUdYH4Lr4NcpQSyzlQ5g2Eo5Cbix2NoDgPiPKPQPM5WevOZ4vo/cgwp
+         I8lc042KQHJiU9wAAIWadCXtntL/h6ueE/8XR1eYFxvguEUs5CdECdzgH5loCh4GvnoK
+         +FEw+1EMMASN8KWH6piunt43QF8dAKAsdIHnfqlZ9WjLz7cSJSHHRJJVI/REIW3jTqc3
+         LKYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793368324; x=1793973124;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SXBe5FDUaux8CGMgkiRMsJSb/8g4y+WkcIulnsCpl5I=;
+        b=ZNVTsYX3f2WLEDJkqh3i/xDHFZf1fUw7XrTEGw+cKV1NuPiIvDmvX0/wxM8pMSd/py
+         4L447plQdTMn2NKIdz+ojRj0EwYM8UBSCCaKpBPMJh7DcSiXrdB5CdpZgaL/a+n7dJnv
+         rfPMJiN14vakpPS4mymYukSRYcWKvS76hsNKUVDiLxBGzeSkCcfcAyu4Nrp3FcgTrxBM
+         ih/FP6K4TC8bQsSXUc2iK4qT8lm+wLFu6pjUSqENfI5XcWDpUe2vgOOieS4qyLam/5EW
+         cBSctsHVm8zBCwfXIW3erkSwnzKe6AbMfVxl/ODtceSnAE9swdeWT4PdTOOvGPSFZjvC
+         fnMg==
+X-Forwarded-Encrypted: i=1; AKwUvByPbHoPA7Pa7YmsnrcLyFcrfzy3UkWApiS7KMVaMUsYvw33qfW2vhdiYW6kIZMcZF15esYLfvTC/bgmKqw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL8CpYwsAFW58At+RB6ZCtkWAZ7RyYBsjT8j29sN1d7M4R9kaP/
+	8I9Qry1RmABHgdthTF5RdlKKBbjWlJRlfzximFUeNB5L/oAqjjzAnNAHwv9U/RGtXSo=
+X-Gm-Gg: AYBFou2nheoKkBFNPz/5PULgKLudQ5zuCvM2HPFCJicl0hPv5yS5YMc0imxu0k2moZi
+	+r8lIlu2jzIXL7D6pqGOM6pIx/NgreYk6yAogXlkMq25LX5vNcvdPMitLDAJuGA8w693OpvJFGi
+	TuIBkjmDC8dEo5fG558MOMrtjIzvehwIIeHLrIZetEULmOBnbKpxW5k73E/pKJ75V81vPDHLROw
+	DF9pn3phHoUKtag4LCrQ4slRINVkSY/Jzinmauxbf0rW4Ll+2Q6qw3xtPWdwAKzW/zHuMemFss2
+	dkbDybOKQJo1iWQIrahm6esydzKVLYPjlOzLetIlQL4MToPSOaNi57ZiqIJLbP/B/kqnT3VGC1a
+	FjHsXaCAigYkekKvQBq1AU5IwcHvkiW99YWF1jd7j7S2QK9cZGYwkbPCtZ/Xly1cWQdehzI19dD
+	Fp5i6SyhJY21BRd1CL7bc/sqL7WgYU65t2hVX+/s6fkUbX+1KIQrjh/U+ySodXV/w1Ev8DmModg
+	gsWFipy4nOmqrv7mPAcLH5iZxK7Z0Bdd1N2mLPmPakhQqXmxMsZi0M5YtBgAYRXPXt4z0nzl9mr
+	1BY5czJuKktvIO+je/jc
+X-Received: by 2002:a05:6000:454b:b0:48c:49bd:62df with SMTP id ffacd0b85a97d-48e6e2bc9c2mr3892543f8f.1.1793368323808;
+        Fri, 30 Oct 2026 06:52:03 -0700 (PDT)
+Received: from pathway ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71ba4ac6sm3514204f8f.52.2026.10.30.06.52.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 06:52:03 -0700 (PDT)
+Date: Fri, 30 Oct 2026 14:52:01 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Derek Barbosa <debarbos@redhat.com>, printk@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH printk] printk: Avoid multiple unregistration in
+ unregister_console_locked()
+Message-ID: <auShAQbJAwSqI6gu@pathway>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,180 +97,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-leds-input-events-brightness-v4-2-5ea0ead7480c@gmail.com>
-References: <20261030-leds-input-events-brightness-v4-0-5ea0ead7480c@gmail.com>
-In-Reply-To: <20261030-leds-input-events-brightness-v4-0-5ea0ead7480c@gmail.com>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>
-Cc: Hans de Goede <hansg@kernel.org>, linux-leds@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Nikolay Plastinin <plaztininikolai@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793368292; l=5347;
- i=plaztininikolai@gmail.com; s=20260924; h=from:subject:message-id;
- bh=0gQ+lQNtTSZ2rrSnglNS4oz/wIOSXLqSOeeFoSbjpMk=;
- b=xjgDMIhTZtF1JxtlsDoOtf9G2y5hQuqPvty+3ic+FOGw4chfj/eCkswdtA5K7dnq2X2A1oPy2
- Fl+vKlISXuIAq4H/Ij/6ytqkq4Ub8UZU2rJSH0MmJjUFv4Un5h6YeiD
-X-Developer-Key: i=plaztininikolai@gmail.com; a=ed25519;
- pk=bmHrETa14IbiLNkJSoiLqUMni+IeSFwhOSDM4vVFN4s=
-X-Endpoint-Received: by B4 Relay for plaztininikolai@gmail.com/20260924
- with auth_id=1052
-X-Original-From: Nikolay Plastinin <plaztininikolai@gmail.com>
-Reply-To: plaztininikolai@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87y0bgwm0y.fsf@jogness.linutronix.deq>
 
-From: Nikolay Plastinin <plaztininikolai@gmail.com>
+On Thu 2026-10-29 16:48:53, John Ogness wrote:
+> On 2026-10-29, Sashiko wrote:
+> >> @@ -4471,6 +4493,9 @@ static int __init printk_late_init(void)
+> >>  		}
+> >>  
+> >>  		unregister_console_locked(con);
+> >> +
+> >> +		/* Changed console list, may require printer threads to start/stop. */
+> >> +		printk_kthreads_check_locked();
+> >>  	}
+> >
+> > Should printk_kthreads_check_locked() be called after the
+> > hlist_for_each_entry_safe(con, tmp, &console_list, node) loop in
+> > printk_late_init() rather than inside the loop body?
+> >
+> > In kernel/printk/printk.c:printk_late_init():
+> >
+> >	hlist_for_each_entry_safe(con, tmp, &console_list, node) {
+> >		if (!(con->flags & CON_BOOT))
+> >			continue;
+> >		...
+> >		unregister_console_locked(con);
+> >
+> >		/* Changed console list, may require printer threads to start/stop. */
+> >		printk_kthreads_check_locked();
+> >	}
+> >	console_list_unlock();
+> >
+> > Because printk_kthreads_check_locked() is placed inside the loop,
+> > unregistering the last boot console sets have_boot_console to false and
+> > immediately attempts to start printer kthreads while the loop is still
+> > iterating over console_list.
+> >
+> > If kthread creation in legacy_kthread_create() or nbcon_kthread_create()
+> > fails for the console stored in tmp, printk_kthreads_check_locked() calls
+> > unregister_console_locked() on that console, removing it with
+> > hlist_del_init_rcu(), freeing nbcon resources, and invoking console->exit().
+> > On the next iteration of printk_late_init(), con is set to tmp, accessing the
+> > already-unregistered console and terminating the walk early because
+> > hlist_del_init_rcu() cleared tmp->next.
+> 
+> Geez, sorry. Obviously printk_kthreads_check_locked() needs to be
+> outside of the hlist_for_each_entry_safe(console_list) loop. That was
+> the whole point of the series!
+> 
+> I will wait a day for v2 in case there is any feedback regarding my
+> comments (or lack thereof).
 
-The trigger turns the LEDs back on with LED_FULL, which the LED core
-clamps to max_brightness. For keyboard backlights with several levels,
-such as asus::kbd_backlight, this means the backlight always comes back
-at maximum after being idle instead of at the level the user picked.
+JFYI, the comments look good to me.
 
-Remember the brightness per LED before turning it off and restore it on
-the next input event. Keep the level in a per-LED state struct allocated
-in activate() and freed in deactivate(), converting the simple trigger
-to a regular trigger. Pick up brightness changes made while the LED is
-on before saving the level again.
+It is quite twisted problem. I have got lost again when looking at
+this patch. I am not surprised that the 1st version was not right. ;-)
 
-Use led_trigger_for_each_led() under guard(rcu)() for both the on and
-off paths. Skip LEDs whose activate() callback has not set up their
-state yet.
-
-Clear trigger_data under the same lock used by the LED walker before
-freeing the per-LED state. Although normal trigger removal waits for an
-RCU grace period, the device_add_groups() error path calls deactivate()
-while the LED is still linked, so a walker must see NULL after teardown.
-
-The previous revision was tested on an ASUS ROG Flow X13 GV302XV:
-keyboard backlight levels 1 and 2 were restored after idle timeout and
-keyboard input, and 20 trigger activate/deactivate cycles completed
-successfully.
-
-Assisted-by: LLM
-Signed-off-by: Nikolay Plastinin <plaztininikolai@gmail.com>
----
- drivers/leds/trigger/ledtrig-input-events.c | 76 ++++++++++++++++++++++++++---
- 1 file changed, 70 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/leds/trigger/ledtrig-input-events.c b/drivers/leds/trigger/ledtrig-input-events.c
-index d057b2a23..6b0bfd343 100644
---- a/drivers/leds/trigger/ledtrig-input-events.c
-+++ b/drivers/leds/trigger/ledtrig-input-events.c
-@@ -28,7 +28,69 @@ static struct input_events_data {
- 	unsigned long led_off_time;
- } input_events_data;
- 
--static struct led_trigger *input_events_led_trigger;
-+struct input_events_led {
-+	/* Brightness to restore on the next input event */
-+	int brightness;
-+};
-+
-+static int input_events_activate(struct led_classdev *led_cdev)
-+{
-+	struct input_events_data *data = &input_events_data;
-+	struct input_events_led *led;
-+	unsigned long flags;
-+
-+	led = kzalloc_obj(*led);
-+	if (!led)
-+		return -ENOMEM;
-+
-+	/* Start with the current brightness, or full if the LED is off */
-+	led->brightness = led_cdev->brightness ?: led_cdev->max_brightness;
-+
-+	spin_lock_irqsave(&data->lock, flags);
-+	led_set_trigger_data(led_cdev, led);
-+	led_set_brightness(led_cdev, data->led_on ? led->brightness : LED_OFF);
-+	spin_unlock_irqrestore(&data->lock, flags);
-+
-+	return 0;
-+}
-+
-+static void input_events_deactivate(struct led_classdev *led_cdev)
-+{
-+	struct input_events_led *led;
-+
-+	scoped_guard(spinlock_irqsave, &input_events_data.lock) {
-+		led = led_get_trigger_data(led_cdev);
-+		led_set_trigger_data(led_cdev, NULL);
-+	}
-+	kfree(led);
-+}
-+
-+static struct led_trigger input_events_led_trigger = {
-+	.name = "input-events",
-+	.activate = input_events_activate,
-+	.deactivate = input_events_deactivate,
-+};
-+
-+/* Must be called with input_events_data.lock held */
-+static void input_events_set_leds(bool on)
-+{
-+	struct led_classdev *led_cdev;
-+
-+	guard(rcu)();
-+	led_trigger_for_each_led(led_cdev, &input_events_led_trigger) {
-+		struct input_events_led *led = led_get_trigger_data(led_cdev);
-+
-+		/* Not yet activated, or already deactivated during error unwind */
-+		if (!led)
-+			continue;
-+
-+		/* Preserve brightness changes made while the LED was on. */
-+		if (led_cdev->brightness)
-+			led->brightness = led_cdev->brightness;
-+
-+		led_set_brightness(led_cdev, on ? led->brightness : LED_OFF);
-+	}
-+}
- 
- static void led_input_events_work(struct work_struct *work)
- {
-@@ -42,7 +104,7 @@ static void led_input_events_work(struct work_struct *work)
- 	 * running before a new event pushed led_off_time back.
- 	 */
- 	if (time_after_eq(jiffies, data->led_off_time)) {
--		led_trigger_event(input_events_led_trigger, LED_OFF);
-+		input_events_set_leds(false);
- 		data->led_on = false;
- 	}
- 
-@@ -59,7 +121,7 @@ static void input_events_event(struct input_handle *handle, unsigned int type,
- 	spin_lock_irqsave(&data->lock, flags);
- 
- 	if (!data->led_on) {
--		led_trigger_event(input_events_led_trigger, LED_FULL);
-+		input_events_set_leds(true);
- 		data->led_on = true;
- 	}
- 	data->led_off_time = jiffies + led_off_delay;
-@@ -138,11 +200,13 @@ static int __init input_events_init(void)
- 	INIT_DELAYED_WORK(&input_events_data.work, led_input_events_work);
- 	spin_lock_init(&input_events_data.lock);
- 
--	led_trigger_register_simple("input-events", &input_events_led_trigger);
-+	ret = led_trigger_register(&input_events_led_trigger);
-+	if (ret)
-+		return ret;
- 
- 	ret = input_register_handler(&input_events_handler);
- 	if (ret) {
--		led_trigger_unregister_simple(input_events_led_trigger);
-+		led_trigger_unregister(&input_events_led_trigger);
- 		return ret;
- 	}
- 
-@@ -153,7 +217,7 @@ static void __exit input_events_exit(void)
- {
- 	input_unregister_handler(&input_events_handler);
- 	cancel_delayed_work_sync(&input_events_data.work);
--	led_trigger_unregister_simple(input_events_led_trigger);
-+	led_trigger_unregister(&input_events_led_trigger);
- }
- 
- module_init(input_events_init);
-
--- 
-2.56.0
-
-
+Best Regards,
+Petr
