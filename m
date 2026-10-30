@@ -1,100 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793369508;
-	b=CJTYC1dFw5pOWPTsGbbEgm7Coh0kbsjkQVOpTto2VWzw2vwElyB6obxlWjI4NhAjzQol
-	 emlZpgyZTCfYmCOcS86qZHWzZaLNsg/ijMgRu4YaFcrRLcWpXMYPJF138rccvqgEe0NEJ
-	 3kLV63ssdoSG89gs04g0EcJ5crBhA+xzJZ/UM0tT2yUAJQJso19OnM3wyw0widxV8CE3H
-	 fvCjFVmZ5fQMbHE3OGJh74NFmKhr/IG4cGPq8bg/vtAwzM48xfEQE1cQX6LnUcEqvM0fT
-	 szBtBT9nE8NIBHAFApg19JVH/4eWWxxq+5n6ws/9JU9eSY0htF33FxKxviei5NEnXTQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793369508;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=66LBFrIdvPN5I/Sp7uCyiL3h5+EwlBIU1Tk64BEBwyA=;
-	b=SvQFHTpKa8hUd5uNMiZ7pea7weXZ2bihvf0Z8wylt94/yFDHZPvMj8fHslsJS/wrzCSj
-	 PKTGqqOhhHV6TbfKyxxmFgRhz2KWxyyjvpZ1HTsbvvLpnVcmkUl8vnFvkhqgrF3l7xFwn
-	 8oV0V3WjxsaDzAZmyv4Hi1M/9WpjfE34sTpYTteUZXKikNgD6aEJVKZKyTuv8FK7qxUnL
-	 YEvJO/DYLMWk4IzzmdHZ8LLzTb+5wpxzjvRFAczBoa49yFpxSE/RCuprGpo0bxCFUes+8
-	 SR2/Jvm19wb58HBY17JURYjrDq9VdvqJ8jquoHvXqJ6MTo/UmLGVtaLif5OTUHn1JFQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=BuL1neDN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793369604;
+	b=eLphHElhIHTo2XAo7MQyqevQDpPYLuWKjvrhiTsvMW8xweYdoMKFhitzhd/DKLziSZ2b
+	 QZx6+5ezvKIdMaYINWS45ClbHNrBDOV1fsU7ZjxcjzAqdguO8V+cBaQo9d19z0HpBYlTH
+	 8ozE9qfmmCsxdPhkPzjkKCFyniGDzd8Ry72w7O8G5FZXwtdNy1j4fL9GNN19c0DZFcQ0c
+	 6lCcthB17zj7K6Xk1+eG53pX8UyRXBEEVeF9iFxmYFez4p8Ih2OcIf0kDPwV+XtYrNN5q
+	 oIwfHgg/RdlExZiN6d/iBDjJUmH/boqRedBeTpbXib1JeQe5Qs3/Vi/Ag3xW3A8+QDw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793369604;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=lU+2x8scRC18VNUX+VljgMc4XkWC/zplEJuZDkOMSzQ=;
+	b=ewGZ0RAURZy++jdb86w4TksKDkKdlBjwe9Loa3keZuS4euqRpmnJF+TxZrPWmS7YSw6Y
+	 Uo0rKfNkSSh3m54JP2eHJlA3uIjvvih0Oc9Syk7xjcEF9iosxEf/eoJCBxXNxhMePTxzT
+	 rKfdvoCSTQ5BzzQXQ9VcaNKAfA+nDIcgnnhLQSZvIHZbSpFdNFxZi1zvq77aASPXzjgfq
+	 paHz7hL6CjR+8ZIIjoSm9NQHcGDyyTYEMjcSvsFfHzyd3z6o6Ys7WkEPwv7P38S5E56k8
+	 kSJJhImeTF2cE8IjB2HjcBmuDhLecKhc2GeXW+TxVRcyuEu/+n0nesPPpHVvC7+Mraw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Nq+GJUkU;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCE3606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:11:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CCE3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E822606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:13:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E822606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=BuL1neDN
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e0d885929so620669f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:11:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793369505; cv=none;
-        d=google.com; s=arc-20260327;
-        b=p8k3HIGdTK/AxmzK3J63Im6AmunOx6lFMej0SIOzgYnqixHg0jwQwu7iCKco9UjsyJ
-         RIhv+cNgo0W6R3RZrtX+UOdAy4p8JtfZD0DMauQ7p0mCcQD1Ib4hYiyUFyFoWPPeZj5M
-         1TdaLK5/BNpQ7pOUWoW46hfLggPoy/D2tA94JrGmsFYn7xg1nBWFoBj3PMWn62YRxzaK
-         IikrIXV11xQgZdUsEwbu6c9IlwhWOyjDL843XV6FegLwJ9JF63uMHmeDzPYKA6ndCpRb
-         f/r1HPfQThIenEk0i9B3zIYK53ry830Fr+Eau5SOv+TQStqAZjeEaR1JI+r4vKs7RB6E
-         JLHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=66LBFrIdvPN5I/Sp7uCyiL3h5+EwlBIU1Tk64BEBwyA=;
-        fh=KON+aeKlWSsPwbSzHMJjRSpGwtGoG925ZS6/c5dW50M=;
-        b=jLwakieMZFxdNeKKv3FURK7R7ORHz4S4pkNtAlXpJGgE1Qho4S0HrUAo/IIvbV7t3B
-         nJ5DArlrzpHvAIXIPt+KXvqVMBiDgZCsSbQCOT1pVIKt9ynM8NEvocSY30APWGUxKIQy
-         I32uFIFyt/yu8MpU/TW8izf2Pf1/7POKKacO9DvPg3apqAJjyW9TqrLxgmmKWAColPqU
-         QWeux29sPJL+UxeQ7jMLrZHcSwepA8YBIlL4hCRy5i5VkM6FaCtwNLADqH1hfWFPyRQE
-         QSOnUeL2TXKiugCjcmssUJyxDKXry3bncUg5wWMmuB4Djtn795eYdZM8l0Zp/yyJYyvN
-         1osQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793369505; x=1793974305; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=66LBFrIdvPN5I/Sp7uCyiL3h5+EwlBIU1Tk64BEBwyA=;
-        b=BuL1neDNGdWshafjIbCeK741DC/opGgdwzqcNKNID8jAu0tcoYnijbuv+IrBjue3IX
-         KqU8tnNgBxAJ72rLfaeWKz9HTni0q6xbO3BR0ID6rBESZGZeUVV95jGaHsz+nMzkzp9y
-         T+rFJkA/rRg64LKHvr3QF1c+DtPySdoDbiaPAAFhV5zk1Bq8pBCO3zZQkJ1xTM6DxDaL
-         QuebSWNHELM9gAAg2IkIibtK/q5HPLpcfbWzZeIgPcZQC2t50cFZMbtuuk4MFwqnSbO1
-         RxcbbiOS/dX4kA0DjWi9NmSHhhzUZwZyJy7fCpvcybDdG0MeEHi/v5zO+KMeloFoLPdn
-         2Zig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793369505; x=1793974305;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=66LBFrIdvPN5I/Sp7uCyiL3h5+EwlBIU1Tk64BEBwyA=;
-        b=vTNMf+6aJ5SDJ+nBksChgNkWXGzR0PrxAnlp4xGUgvfF/WBIVuux8JSG/PsEPa/kk1
-         e2FgssNNHkEjzBEg8NbQWROYhK7F2mil0od70Yfw6kBusRRQW14sMKRrGycdQGgDEs3g
-         3OhjD8DFo6zkdvDOPuE48IefPpOcJm4EK86LQ1xUa20thRx3xY5P+9BrO7OyeSJywUj8
-         pFWDkzairVPG+YCW5/r3yGOlWvaKmS1tD7hZBiBeUqe+1UhLeHNeh1ENQ6fH79QHjwEu
-         evs/bqvP4b09f+tVBCo2xqQujCiLsdGQ67e1Pmev5w6ay+Lug8qGCWwGpq8xQ5yPLwS2
-         OmOw==
-X-Forwarded-Encrypted: i=1; AKwUvByaOaQCTBGMKQj9OKA5WEWR18jm/Xlo40S4jEcc9HZyu1MUn4DrUZKW5Z2L1hL2H7ERECYmd0YEQD5uzUg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJerqxvZrpsvLIFdEKol/lq5uezziMNs4YCXZEccGh9MBDHSH7K
-	YQ7ICe9zLE5t6rsypszaVmdxIp2UZQ9W/EbkpgM9iPUsPGQZcUnaY4W235P2qRukFQjllClTqQB
-	XIWuc6Lb/a19u0nqgJdMIZRtjs0B5skCLjBE31dQRkl9bWGxKNpG22SY=
-X-Gm-Gg: AYBFou0BviRSdu57QGm7wuDVFKT4mHZk9XpZL/0AEi/1yroIILY2m5EvSwAenF31xTb
-	1cEcFmtSpF6EWf74ZXMNWVXRyNZEkQ7ZZczzclrVc8FCOQlmQezLrlRQ32T5H9zmcCf+Biwwo21
-	hQ68J+xcP/kNn/d+31f1Vl4+EY0SjIZmS0vv+I58arF8YoyTAJ8LDOsLSnLBM3VuZoyAORC07gL
-	+ky84NLHO7gN/Kp4w5WbE2FGVjBqWE6q/h51VIIJ/XpiaqPCUsgcrvQjtOOs2lEJm07plPeW63s
-	PpT5F4CRWkKapiVVbqSdweKSyNEqjm3mqs90V6C1aGGZt7J3FcKyGRquyRokBvvRCCS7DSQ96sW
-	FMe4kz8xrdo9eKW3TQRTG5Q8PPzO1Gtiwv7T75LuqNf69blOBjE34Aw8UuS/2MI8FwrUhsZwVp3
-	fHLZpIZ2P8dCm7WkihwxJxsNM+5Fs8K+kTsSI=
-X-Received: by 2002:a5d:5d06:0:b0:48d:ff71:dd87 with SMTP id
- ffacd0b85a97d-48e6e303f29mr5929875f8f.17.1793369505232; Fri, 30 Oct 2026
- 07:11:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Nq+GJUkU
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=lU+2x8scRC18VNUX+VljgMc4XkWC/zplEJuZDkOMSzQ=; b=Nq+GJUkUNQPaEOp69d4M6+1EKg
+	oT4nN5Ed0sq7GCqRwPHvK2nQTmupSiQKhz4m7cQ7UVTmYJZ0ZyHj4uK7r82hCdM2NpZmUEiLqNMtU
+	4tnFuHtWDAEKRkw9kHBnyqfxkF//V8bdEphlD9xIt0ehlilZl6m85P0tTafi40MQ4fJ5AghJA3FjF
+	6dKpBJ3c0sqBPXJqc6a1yjUb0Q91ZqRgz/FhRFrkOvyBKskSujUTJVpPcIBeLOEyPX38DPQzP2Il2
+	fjIKGfCYMTt5mDbpNFNNKuewm+j2a12V+tMbKCaQeF2uRIJENfqnVk3zoVl+37WZ4SkcyqqecCo5x
+	VQrl4P0g==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xMnM7-00000000Pfg-0g6h;
+	Fri, 30 Oct 2026 14:13:19 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id D2DA2300578; Fri, 30 Oct 2026 15:13:17 +0100 (CET)
+Date: Fri, 30 Oct 2026 15:13:17 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Christian Loehle <christian.loehle@arm.com>
+Cc: Qais Yousef <qyousef@layalina.io>, Ingo Molnar <mingo@kernel.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org,
+	Wei Wang <wvw@google.com>
+Subject: Re: [PATCH v4 1/2] sched/uclamp: Fix race condition leading to
+ imbalanced uclamp_rq
+Message-ID: <20261030141317.GP1779021@noisy.programming.kicks-ass.net>
+References: <20261029131354.11030-1-qyousef@layalina.io>
+ <20261029131354.11030-2-qyousef@layalina.io>
+ <c4740152-e873-4409-b3a8-16c5a49548dd@arm.com>
+ <d944d543-1756-43d8-aa08-bcbbf6df712f@layalina.io>
+ <75772ae5-d297-4894-971a-683f92fb87a4@arm.com>
+ <20261030112825.z7k57twgua27p2vu@airbuntu>
+ <20261030121518.GE1813469@noisy.programming.kicks-ass.net>
+ <20261030124119.xulxkpo7aas3wlwa@airbuntu>
+ <7b9c9ab0-7b3d-414b-b1b1-5416be256cc7@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,101 +79,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014023733.266854-1-18983559317@163.com>
-In-Reply-To: <20261014023733.266854-1-18983559317@163.com>
-From: Daniel Vacek <neelx@suse.com>
-Date: Fri, 30 Oct 2026 15:11:33 +0100
-X-Gm-Features: AclHuK9_U1sdsfah92JETnlIiZP0F7Q7mLVpYaOkJD3_p8ZASapxcKb1MBMHWaE
-Message-ID: <CAPjX3FdCZpJkj+QaCMObtTy0_W=uxXfZfatUHvOPdjN07v7KTQ@mail.gmail.com>
-Subject: Re: [PATCH v3] btrfs: wait for a grace period before freeing a new device
-To: Binbin Deng <18983559317@163.com>
-Cc: dsterba@suse.com, mason@kernel.org, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Qu Wenruo <quwenruo.btrfs@gmx.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7b9c9ab0-7b3d-414b-b1b1-5416be256cc7@arm.com>
 
-On Wed, 14 Oct 2026 at 04:37, Binbin Deng <18983559317@163.com> wrote:
-> KASAN reports a slab-use-after-free in btrfs_statfs() walking
-> fs_devices->devices. btrfs_init_new_device() publishes the new device
-> with list_add_rcu() and can fail afterwards, for example with -ENOSPC
-> in init_first_rw_device() when a user with CAP_SYS_ADMIN adds a device
-> that is too small to a seeding filesystem mounted read-only. The error
-> path removes the entry with list_del_rcu() and frees the object in
-> btrfs_free_device() without waiting for a grace period, while
-> btrfs_calc_avail_data_space() and btrfs_ioctl_fs_info() keep reading
-> the device list under rcu_read_lock().
->
-> BUG: KASAN: slab-use-after-free in btrfs_statfs+0x11af/0x14a0
-> Read of size 8 at addr ffff8880096be858 by task poc/252
-> Call Trace:
->  <TASK>
->  dump_stack_lvl+0x53/0x70
->  print_report+0xd0/0x630
->  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
->  ? filename_lookup+0x1a9/0x540
->  ? btrfs_statfs+0x11af/0x14a0
->  kasan_report+0xce/0x100
->  ? btrfs_statfs+0x11af/0x14a0
->  btrfs_statfs+0x11af/0x14a0
->  statfs_by_dentry+0x117/0x1e0
->  user_statfs+0xac/0x130
->  ? __pfx_user_statfs+0x10/0x10
->  __do_sys_statfs+0x80/0xe0
->  ? __pfx___do_sys_statfs+0x10/0x10
->  do_syscall_64+0xf9/0x540
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
-> Allocated by task 256:
->  kasan_save_stack+0x33/0x60
->  kasan_save_track+0x14/0x30
->  __kasan_kmalloc+0x8f/0xa0
->  __kmalloc_cache_noprof+0x158/0x370
->  btrfs_alloc_device+0xad/0x3e0
->  btrfs_init_new_device+0x3e8/0x36e0
->  btrfs_ioctl+0x150d/0x6c20
->  __x64_sys_ioctl+0x134/0x1c0
->  do_syscall_64+0xf9/0x540
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
-> Freed by task 256:
->  kasan_save_stack+0x33/0x60
->  kasan_save_track+0x14/0x30
->  kasan_save_free_info+0x3b/0x60
->  __kasan_slab_free+0x43/0x70
->  kfree+0x121/0x380
->  btrfs_init_new_device+0x4a0/0x36e0
->  btrfs_ioctl+0x150d/0x6c20
->  __x64_sys_ioctl+0x134/0x1c0
->  do_syscall_64+0xf9/0x540
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
-> Fix by waiting for an RCU grace period after the device is removed
-> from the list and before it is freed.Place the synchronize_rcu() after
-> dropping the mutexes and before the `error_trans` label.
->
-> Fixes: 1f78160ce1b1 ("Btrfs: using rcu lock in the reader side of devices list")
-> Signed-off-by: Binbin Deng <18983559317@163.com>
-> Reviewed-by: Qu Wenruo<quwenruo.btrfs@gmx.com>
-> Reviewed-by: Daniel Vacek<neelx@suse.com>
+On Fri, Oct 30, 2026 at 01:21:30PM +0000, Christian Loehle wrote:
+> On 10/30/26 12:41, Qais Yousef wrote:
+> > On 10/30/26 13:15, Peter Zijlstra wrote:
+> >> On Fri, Oct 30, 2026 at 11:28:25AM +0000, Qais Yousef wrote:
+> >>
+> >>> Peter/Vincent, what do you think? It seems we have a schrodenger task that is
+> >>> both enqueued and dequeued simultaneously in these throttling paths. Shouldn't
+> >>> this be fixed? If yes, any thoughts on the right approach? Should we throttle
+> >>> if there are no other tasks on the rq too? I didn't realize the semantics are
+> >>> that strong for enforcing the quota.
+> >>
+> >> Urgh, nothing is ever straight forward is it ...
+> > 
+> > Exactly my thoughts..
+> > 
+> >>
+> >> Bah, so this is because the core does uclamp (for classes that have it
+> >> on) but then the class does the throttle without going through the core
+> >> {en,de}queue.
+> >>
+> >> Does it make sense to have throttle_Cfs_rq_work() and tg_unthrottle_up()
+> >> do uclamp_rq_{dec,inc}() respectively, along with the
+> >> {de,en}queue_task_fair() they're already doing?
+> > 
+> > Yes it does, just wanted to make sure we agree the bug is there rather than in
+> > the current patchset approach.
+> > 
+> > I remember seeing a patch to remove the uclamp_enabled bit and defer to
+> > enqueue/dequeue_task_$class to handle this instead. Maybe I can revive it if it
+> > makes more sense to go that way.
+> > 
+> > Let me find the path of least resistance and add it to the stack. Not sure we
+> > want to tag as Fixes for LTS to pick up this independent fix. Note we have rt
+> > group throttling path flagged up - which I also thought was false positive but
+> > not sure anymore - but it seems to do partial dequeue and must be fixed in that
+> > regard anyway even if it doesn't force idle.
+> 
+> I can reproduce the idle path without uclamp_rq_dec through sched_rt_rq_dequeue(),
+> too, so IMO that needs fixing up as well.
 
-Pushed to for-next. Thanks
-
---nX
-
-> ---
->  fs/btrfs/volumes.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
-> index 85ea9c5d4536..2693dacd1da7 100644
-> --- a/fs/btrfs/volumes.c
-> +++ b/fs/btrfs/volumes.c
-> @@ -3168,6 +3168,7 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
->         btrfs_update_per_profile_avail(fs_info);
->         mutex_unlock(&fs_info->chunk_mutex);
->         mutex_unlock(&fs_info->fs_devices->device_list_mutex);
-> +       synchronize_rcu();
->  error_trans:
->         if (trans)
->                 btrfs_end_transaction(trans);
-> --
-> 2.43.0
+Right, every class that has uclamp_enabled needs to be audited -- this
+seems to include sched_ext.
