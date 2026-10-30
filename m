@@ -1,78 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793355454;
-	b=ybPvLQU6h4OrdjtI2Iduo90Z5zz7MQqQQVdJbcH9uBvIl3WtE2K+XiBaais9LpFEB2el
-	 vL56ttJzUhV5ojCK/aSq2CY0AU7V1qH/rQzNNtVGgP+ClK+E8h/4gGGYR/aDq93oYFG8U
-	 EqNXM913mnx7BP1GsNUMFE7AAziEPAmd9OJhdGj3QAHmOZvhcaKyFiVitBYggmfunEmbN
-	 WQrAVfU9XwBUyXzsWg/xwXrVfjkkdDrNQ2xSE/Ip2CyNbR2RscEv0QeWZaAhmkdskTHp0
-	 V5IC6LKLKyLnAwLmSIP+JnB46DqP8PukT29q/lb35WqLjwDT5ASVgA5DINH5uNVZt4g==
+	t=1793355484;
+	b=f2JacLD3FsPSN8zL0kGSaafjPdXOgkCxWp7rNjMFS+X594HtHaT30H7nyAa1RZuVehrG
+	 1iiIaOqDXOSFziKCADXgX1U3ahkcKfnOkCwoJbXvXpXi/ymu9PV79/7H+/hgCYQxqDyY6
+	 sS0HQ1aHkH9R4x7BD3DQ3k6Ns+0O+MAJE9ZaYWQFAsq4gikIQVc2rs0GUCMdGZeec0/BP
+	 DtGk4RI1t/s4ZJlFq6a+XfaLuAso7fDSDrxb3kCq6QcVUtPFNyUieChpa2XelKZldbTl+
+	 gL8paEg+pxRdX0Z+iPiAZiOkAvV7fAFDKSpaOsooP+m+7NA0TCT/QM8WCqlzLOKUezg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793355454;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 User-Agent:MIME-Version:Content-Type;
-	bh=vBUdzf9+5JEYchc3xTK4SAZrJeZ/Y/pZNpI+PW7VW+8=;
-	b=y8mDV7sSlViY9JJ7cNRG3u8ZfdPJOfePzhH8qmXWllQZXM0X3ZaCvSxxwuHAUKiyDNgO
-	 teAmW6rNlWd0mLvzJnfwrhBVSNb/V98BG9ld2GLoBdmp73FopbghRRsWB9n7sAwYm3JCt
-	 UwB1+6BJTtLlhXIQ1x8QpXRcdkAf3mYADKv52anC5JhOTwFZqvFL61GZe+tarALqBPLI3
-	 ZLJ8gQ6/hiIYeCBpqa+69JdwS8TWYu1m0qD5qSWYJWcVIgMpit1wVK/k17sgrXniYZLpU
-	 Z6qAuN02mHEqL3numXvlNobWrwzrcuYpGY3XADtBLzgobSbhhAHS7jlWGbXtkkUZokA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793355484;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9yXaqoh5s4PPf38iH+x6/oHHC3PWrUNwJu1/pUiEDlE=;
+	b=grsvQ0uIZBP1keR6h2drkmYhnfyxiCBbiXjLxm+6+Ax/sI0i9p0ISKrKBK68dJpNpFL3
+	 SQR/MYKZR+C0zEnhUw5ccpCBqDX8gsBy4dia63u6w6SwS1F1PFSHihfSf6ZkuCijAzhei
+	 235U40nhuWCawC1wclHDPhCmqfl8qf0eZHRrXZsNZMqELb8u3P1WM5VlB+ICh6mpnocBo
+	 31TbBbE+R+9Dmj/PwOGGIZDCXmSS31sWLERa5sqBWtZBzHCfyHdpOu4O78dSEim/GuXAV
+	 J6nqZd8xy4NMgOiwp8JSbeYMvS2s0GboR8kSYQEGCLAZrwE67JFLT++WER0KD6OqOKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.parknet.co.jp;
-	spf=pass smtp.mailfrom=parknet.co.jp;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=xE3hhwbP;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b="R9/wjDkI";
-	arc=none smtp.remote-ip=210.171.160.6
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="USh/uglF";
+	arc=none smtp.remote-ip=91.218.175.97
+Received: from mta0.migadu.com (out-97.mta0.migadu.com [91.218.175.97])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 372CE606A31C;
-	Fri, 30 Oct 2026 10:17:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 372CE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8447606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:18:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8447606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=xE3hhwbP;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=R9/wjDkI
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 2F31326F7664;
-	Fri, 30 Oct 2026 19:17:31 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1793355451;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vBUdzf9+5JEYchc3xTK4SAZrJeZ/Y/pZNpI+PW7VW+8=;
-	b=xE3hhwbPnUR6Adh08DWezV6Sdi+AaNLuOV+2m885QzRQHj8ZvqVeFkMwtQ9T2Cs3/SyTPC
-	xsHpH6sJATFlX0dszUeU5YQJANFPLryWgYDClAaQ9R5Wpyd0h148cfOBd8I+4qvKRLBk3p
-	zKTViRXzbkOx4hjpdDzSAOvlvfoumZ/HCemY9CP+GtPCqnPrdoPu7QmTRqRF++vicvjZup
-	sCkgzJDYjEf/IdfMG2tIVxJihEY1QYnTSXIAjx3sRRLTSpQUOA15fxWmaEX7jCoTa9BIs1
-	qR14yVgI11VW68PPZxnC+UAXwhdCk2GqOd2imtP1WC4d6NQQ74A7WQACrVrxzg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1793355451;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vBUdzf9+5JEYchc3xTK4SAZrJeZ/Y/pZNpI+PW7VW+8=;
-	b=R9/wjDkIRCnlWtZI+4jrh2V1/worsDuJfBQ2thxeDG+QvCpuqe2PSdoXhCZmjoWzgclbH1
-	CY+iZjrBJIrSO1AQ==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id A8B51E006A9;
-	Fri, 30 Oct 2026 19:17:30 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id 9FFCA22001FE; Fri, 30 Oct 2026 19:17:30 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: brauner@kernel.org,  technoboy85@gmail.com,  teknoraver@meta.com,
-  linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  stable@vger.kernel.org
-Subject: Re: [PATCH] fat: check for hidden entries before overwriting
- end-of-directory marker
-In-Reply-To: <20261030090205.279419-1-hengyul@cs.unc.edu>
-References: <20261030090205.279419-1-hengyul@cs.unc.edu>
-Date: Fri, 30 Oct 2026 19:17:30 +0900
-Message-ID: <875wyjsdad.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=USh/uglF
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jxdOHkyiVlgx0ljrE8WPZ+UvQQ8nJ+n+xgvwtsmeeU0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793355481; v=1; x=1793960281;
+ b=USh/uglFKtNIE72pa2slhmXIbXPLaJ/+BKMtF37xJQh6jZZlIZwL/3d/OSdInl2NsZsqoQEF
+ hpPN4QWYMP+4pZasQ5EPNX5RQenkNVPjhFRuWDPdeRLxQPuadxWLQcvmXIP0eFpZM1LSuChbB4l
+ HZ6iG6pYa0cpQdns3OJmVWbQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e316e627bb9b034f;
+	Fri, 30 Oct 2026 10:18:01 +0000
+X-Mizu-Trace-ID: e316e627bb9b034f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <0f0f8e9d-b7c7-4032-9045-8d910d763e27@linux.dev>
+Date: Fri, 30 Oct 2026 18:17:49 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,124 +58,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/swap: fix swap_cache_get_folio() returning a folio
+ that left the swap cache
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: linux-mm@kvack.org, Kairui Song <ryncsn@gmail.com>,
+ Nhat Pham <nphamcs@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Jiayuan Chen <jiayuan.chen@shopee.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Youngjun Park <youngjun.park@lge.com>, linux-kernel@vger.kernel.org
+References: <20261015060528.302634-1-jiayuan.chen@linux.dev>
+ <23a3fa60-9489-48ff-ab0e-38a865d6bde7@linux.dev>
+In-Reply-To: <23a3fa60-9489-48ff-ab0e-38a865d6bde7@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hengyu Liang <hengyul@cs.unc.edu> writes:
 
-> Since commit 6a2875517c77 ("fat: stop reading directory entries past the
-> end-of-directory marker"), lookup and readdir stop at a slot whose first
-> name byte is 0, and fat_add_entries() reports corruption when its scan
-> finds an allocated entry after that slot.
+On 10/30/26 6:11 PM, Jiayuan Chen wrote:
 >
-> The scan stops as soon as it has enough free slots, though. When those
-> slots include the marker, the new entries overwrite it and the allocated
-> entries after it become visible again without being checked. A name that
-> lookup could not find can then appear twice in the directory, and removing
-> one copy leaves readdir listing a name that stat cannot find.
+> On 10/15/26 2:05 PM, Jiayuan Chen wrote:
+>> From: Jiayuan Chen <jiayuan.chen@shopee.com>
+>>
+>> swap_cache_get_folio() reads the folio from the swap table and takes a
+>> reference with folio_try_get(), without any lock. If the folio is
+>> removed from the swap cache and freed in between, and its memory gets
+>> reused, folio_try_get() still succeeds and we return a page that has
+>> nothing to do with the swap entry:
+>>
+>>    CPU 0                                  CPU 1
+>>    do_swap_page()
+>>      swap_cache_get_folio()
+>>        swp_tb = swap_table_get()
+>>        folio = swp_tb_to_folio(swp_tb)
+>>                                           madvise(MADV_DONTNEED)
+>> zap_nonpresent_ptes()
+>> swap_put_entries_direct()
+>> swap_put_entries_cluster()
+>> __try_to_reclaim_swap()
+>> swap_cache_del_folio()
+>> folio_put()   <- freed
+>>                                           page reused, e.g. as an anon
+>>                                           folio of another task
+>>        folio_try_get(folio)               <- succeeds
+>>        return folio
+>>      swap_update_readahead()              <- may clear PG_readahead 
+>> on it
+>>      folio_lock_or_retry()                <- locks it
+>>      folio_matches_swap_entry() fails, unlock and put
+>>
+>> filemap_get_entry() does the same lockless lookup for the page cache,
+>> and after folio_try_get() it rechecks the xarray, because the folio may
+>> have been freed and reused in between. swap_cache_get_folio() lost
+>> that recheck when the swap cache moved to the swap table.
+>>
+>> So CPU 0 writes to a folio it doesn't own: it may clear PG_readahead and
+>> takes the folio lock of someone else's page, before
+>> folio_matches_swap_entry() finds out the folio is not ours.
+>>
+>> Recheck the slot after folio_try_get() and retry if it no longer holds
+>> this folio.
+>>
+>> Fixes: 8578e0c00dcf ("mm, swap: use the swap table for the swap cache 
+>> and switch API")
+>> Cc: Jiayuan Chen <jiayuan.chen@linux.dev>
+>> Signed-off-by: Jiayuan Chen <jiayuan.chen@shopee.com>
+>> ---
+>> https://sashiko.dev/#/patchset/20261014090821.227366-1-jiayuan.chen@linux.dev 
+>>
+>> ---
+>>   mm/swap_state.c | 16 +++++++++++++---
+>>   1 file changed, 13 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/mm/swap_state.c b/mm/swap_state.c
+>> index ebef568cd62e..d9e36c505398 100644
+>> --- a/mm/swap_state.c
+>> +++ b/mm/swap_state.c
+>> @@ -92,17 +92,27 @@ void show_swap_cache_info(void)
+>>    */
+>>   struct folio *swap_cache_get_folio(swp_entry_t entry)
+>>   {
+>> +    struct swap_cluster_info *ci = __swap_entry_to_cluster(entry);
+>> +    unsigned int ci_off = swp_cluster_offset(entry);
+>>       unsigned long swp_tb;
+>>       struct folio *folio;
+>>         for (;;) {
+>> -        swp_tb = swap_table_get(__swap_entry_to_cluster(entry),
+>> -                    swp_cluster_offset(entry));
+>> +        swp_tb = swap_table_get(ci, ci_off);
+>>           if (!swp_tb_is_folio(swp_tb))
+>>               return NULL;
+>>           folio = swp_tb_to_folio(swp_tb);
+>> -        if (likely(folio_try_get(folio)))
+>> +        if (!folio_try_get(folio))
+>> +            continue;
+>> +        /*
+>> +         * The folio may have been freed and its memory reused before
+>> +         * we got the reference. Make sure it is still in the slot.
+>> +         */
+>> +        swp_tb = swap_table_get(ci, ci_off);
+>> +        if (likely(swp_tb_is_folio(swp_tb) &&
+>> +               swp_tb_to_folio(swp_tb) == folio))
+>>               return folio;
+>> +        folio_put(folio);
+>>       }
+>>         return NULL;
+>
+>
+>
+>
+> I spent some more time on this and I'm not happy with any of the
+> options I have. Advice welcome.
+>
+>   1. Trigger the worker where the zap gives up (this patch). On the
+>      swap entry side that works, __try_to_reclaim_swap() has the si.
+>      On the present PTE side it doesn't: free_swap_cache() lost the
+>      trylock, so it can't read folio->swap to find the si, as Kairui
+>      pointed out. And that trylock-and-give-up is not in one place,
+>      free_swap_cache(), do_wp_page() and __uprobe_write() all have
+>      their own copy. Chasing every one of them doesn't feel right.
+>
+>   2. Clean up at memcg offline. Doesn't cover the root cgroup or a
+>      cgroup that stays alive, and on mm-new the folios are reparented
+>      at offline anyway, so there is nothing left to find there.
+>
+>   3. A swapon flag, say --clean-cache, that enables the cleanup.
+>      Pro: covers everything, and the cleanup can live in its own
+>      function without touching the existing paths. Con: we know to
+>      turn it on because we hit this, others won't. Needs util-linux
+>      too.
+>
+>   4. A per-device worker that walks the device on its own, say 1024
+>      clusters per second, backing off when a pass finds nothing.
+>      Pro: same as 3, and nothing to turn on. Con: a worker that wakes
+>      up on its own for this, I expect objections.
+>
+>   5. A sysctl (or a drop_caches bit) to kick the cleanup by hand.
+>      Pro: same as 4, all in the worker. Con: same as 3, someone has
+>      to know to poke it.
+>
+> 4 is the one I'd pick if nobody objects. Thoughts?
 
-Yes, it is true. However, first of all that state is already corrupted
-FAT filesystem.  And there would be many cases like this on corrupted
-image. If we want to detect as possible as many corruptions, I guess it
-will become finally the something like online fsck.
 
-So I think we should not add additional sanity check has overhead
-(especially to normal path) if it doesn't crash the kernel. Simple
-sanity check is ok though.
+Plesase ignore his. I reply the wrong thread......
 
-Thanks.
-
-> For example:
->
->   mkfs.fat -F 16 -C fat.img 32768
->   mount -t msdos -o loop fat.img /mnt
->   touch /mnt/aaa.txt /mnt/bbb.txt /mnt/file1
->   umount /mnt
->   off=$(grep -obUa 'BBB     TXT' fat.img | cut -d: -f1)
->   dd if=/dev/zero of=fat.img bs=1 seek=$off count=32 conv=notrunc
->   mount -t msdos -o loop fat.img /mnt
->   touch /mnt/file1
->   ls /mnt
->
-> lists file1 twice.
->
-> Before using free slots that include the marker, scan the slots up to the
-> next marker and take the existing corruption path if one is allocated.
->
-> Fixes: 6a2875517c77 ("fat: stop reading directory entries past the end-of-directory marker")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-> ---
-> Tested on x86-64 KVM with KASAN, comparing mainline at d89e1d186ec9 with
-> this patch:
-> - The example above: the base kernel creates a second file1, which is
->   still there after a remount. With the patch, touch fails with EIO, the
->   error is logged and fsck.fat only finds the dirty bit.
-> - vfat, three-slot create whose free run ends exactly at the marker:
->   the base kernel exposes the hidden file, the patch returns EIO.
-> - vfat, one-slot create that leaves a zero slot after the new entry:
->   succeeds on both and the hidden file stays hidden.
-> - Valid directories on FAT16 and FAT32, msdos and vfat (creates, deletes,
->   renames and mkdirs, then filling the root): the same entry counts, ENOSPC
->   on a full FAT16 root and no FAT-fs messages on both; fsck.fat -n exits 0.
->
->  fs/fat/dir.c | 34 +++++++++++++++++++++++++++++++++-
->  1 file changed, 33 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/fat/dir.c b/fs/fat/dir.c
-> index 35bdb62944a2..ab99d53a719a 100644
-> --- a/fs/fat/dir.c
-> +++ b/fs/fat/dir.c
-> @@ -1318,6 +1318,32 @@ static int fat_add_new_entries(struct inode *dir, void *slots, int nr_slots,
->  	return err;
->  }
->  
-> +/*
-> + * The free slots chosen by fat_add_entries() include the end-of-directory
-> + * marker.  Once the new entries are written over it, the slots up to the
-> + * next marker become visible, so make sure that none of them is allocated.
-> + */
-> +static int fat_check_after_eod(struct inode *dir, loff_t pos)
-> +{
-> +	struct buffer_head *bh = NULL;
-> +	struct msdos_dir_entry *de = NULL;
-> +	int err = 0;
-> +
-> +	while (fat_get_entry(dir, &pos, &bh, &de) > -1) {
-> +		if (de->name[0] == 0)
-> +			break;
-> +		if (!IS_FREE(de->name)) {
-> +			fat_fs_error_ratelimit(dir->i_sb,
-> +				"allocated dir entry found after end-of-directory marker (i_pos %lld)",
-> +				MSDOS_I(dir)->i_pos);
-> +			err = -EIO;
-> +			break;
-> +		}
-> +	}
-> +	brelse(bh);
-> +	return err;
-> +}
-> +
->  int fat_add_entries(struct inode *dir, void *slots, int nr_slots,
->  		    struct fat_slot_info *sinfo)
->  {
-> @@ -1351,8 +1377,14 @@ int fat_add_entries(struct inode *dir, void *slots, int nr_slots,
->  				nr_bhs++;
->  			}
->  			free_slots++;
-> -			if (free_slots == nr_slots)
-> +			if (free_slots == nr_slots) {
-> +				if (saw_eod) {
-> +					err = fat_check_after_eod(dir, pos);
-> +					if (err)
-> +						goto error;
-> +				}
->  				goto found;
-> +			}
->  		} else {
->  			if (saw_eod) {
->  				fat_fs_error_ratelimit(sb,
->
-> base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
-
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
