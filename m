@@ -1,52 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793343385;
-	b=Il/RWv1puaeE83cYCRbBSdYBYa2NYbW/HlQ47/uFn6HxZtu8R64YIf+mGCSIWaqYxOb4
-	 H8WQoPmT7JnQhAzvhDbsBdTNhQNB+odkjJXq/tI9aGRr5guztc06S5L6X5/Nwuh9HbZKS
-	 FbhN/h33cb6NoX+3Oh8qubp3+5+iGiIN8KVRifIDI/i4RfEAIvYHKv19Ngg5zsrtJrlll
-	 MU4zzSoNnn4oZvBCe1jw35egV2J0hQBZlDrXExV7251eU2z0hKBp6GH3sQYKKZeTjGqj/
-	 sJBrrz89vTzC4Oss32VcDZH70KHbIMr95UI3NvZBT00XUf2Q9wy6QSgBWJxbLEc0Ofw==
+	t=1793343386;
+	b=ySL8OI4TUfIfz/V74NvojaXXlm0vpPJ1FfEmXtsUHX/MoaSBlR9sklmz1YIGomdfaqBY
+	 YAmZmAuDU02QPjVdgNAvzG3rYrZVxmr8mDNvI3LEJluq7wpivCFa9yZh5zb9FV6qDhr8w
+	 4l8o3i902Qop5RbPj/nnE+R/itAv0YBsXWP8zLEilBrYPx/LDbzuGLYmINdgtqZ8BwK5b
+	 /L9lBH3woL0DBLOIgvnV7453eI+4dLS5kfb9P8jhMz8ePVwrGGFIEpRZnCQbcjbbSXnYB
+	 UjUUk4d3DS8w59YHNX1GJJEXuTJbYUK5mwx9huogno9JfEZdno4FNZGxD9Q8CWTbbsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793343385;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793343386;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=aX9oxzryrpP/N+LbstdWGgRShaz+ZIQX/4rMf7PZOrM=;
-	b=flnRUSGHpnx0/MmqR9rWV3wP8HWXq1j6EXBgcZEzxL/kEKRpNA1xTBlvYlNrQY5vjn+P
-	 grTksQbMkN+NwWw/H+ye9u8GGgZYLN8jFESLsri62RhV22RQVbY7crgG3YHDxKdFsQ8OQ
-	 OCDS3MjZBkO1BMLDr9Z34X9vDXbjHaZ1N/2wRK/x+Wsdlf6gAFiEghb90008XLgNUfq20
-	 pmU/0wrqnxjxIBRuqjzNbq4sWcuNhtvD5xCj0zPaU0GHz8QZ5WmHgNixtQ2zA6UIQujT1
-	 uvyq4oKYbz5DccPaaWjwVk+M71qk0TfCItOdVHqMX6r5a7dDuY/5gatcI67bWJVj7cw==
+	bh=j3o4Hr1tImNLf1ZatEPhpw+q0Mj2sL9CPD7ffrsuWjI=;
+	b=Tr3kDftk25EqqJS7ij0nH4UM2FiUya8feYQPxZR3npyFCZNlJdvWitphQPaqh2tRt8tY
+	 pmnXVQ/2VGOCZSlKsPHEv7zWRHOuHlYseGFUbYblNtdSg6on21eWObaicT7vunm8BbpTl
+	 Tb63ZXio+kLn2eLHPlOr2uoa7sisdn3F07TVhImEVxN1vG2/jT6yzxolRmS+QVX2eWrCX
+	 O7tDDhkxMJ10Z+HnO+mlXD38csKO3GSPQCoE3Gciob6djEr2RmlivainGaUYw95KdsB0D
+	 daBE0aOxoWZrfUzg1UHVP3VrbkSNmEwA0UIM5Kwd1AZntwS3LhUDLCBWC/r9/VczCjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="Noh/vIGl";
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=JEGBT4X8;
+	arc=none smtp.remote-ip=113.46.200.224
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8781606A32F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9360E606A32E;
 	Fri, 30 Oct 2026 06:56:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8781606A32F
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9360E606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Noh/vIGl
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=JEGBT4X8
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=aX9oxzryrpP/N+LbstdWGgRShaz+ZIQX/4rMf7PZOrM=;
-	b=Noh/vIGlrIcfT7ytLHg4hzZRsj3j26ToV2uJy0btNnOrClRsUy/Bs1AbxtM2jwe5Maje6WNJG
-	imSedcH2dmfQqrHq55yPX7JcPVJmAnz0Z7zJmf0EpH0BZ7yPXgxgykVwKwuj4/F908TyUO+7Bwe
-	c/RLnrxuSTbKo/sXjSy5bns=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jGBhS6zjlz1T4GZ;
-	Fri, 30 Oct 2026 14:56:08 +0800 (CST)
+	bh=j3o4Hr1tImNLf1ZatEPhpw+q0Mj2sL9CPD7ffrsuWjI=;
+	b=JEGBT4X8yV888GI99lgi2m3H0Y541wkKwjqRq3YKadT94vflq6LzOdYnbgjuHferKblDfx3wj
+	YEQ73qEWgmtkNFqti798dOdhy9TlRNBhEdetNvLAsfSbaFNK1t4jhdW92EjVTfSDR31tgpAPP4O
+	1iq34tsO10T6uUWxxcb5Ao4=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jGBhY00Ytz1cynJ;
+	Fri, 30 Oct 2026 14:56:12 +0800 (CST)
 Received: from kwepemk300013.china.huawei.com (unknown [7.202.194.231])
-	by mail.maildlp.com (Postfix) with ESMTPS id 60ACC4057F;
-	Fri, 30 Oct 2026 14:56:21 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id E76374055B;
+	Fri, 30 Oct 2026 14:56:20 +0800 (CST)
 Received: from huawei.com (10.50.163.32) by kwepemk300013.china.huawei.com
  (7.202.194.231) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 30 Oct
@@ -58,9 +58,9 @@ CC: <maz@kernel.org>, <oupton@kernel.org>, <yuzenghui@huawei.com>,
 	<wangzhou1@hisilicon.com>, <zhengtian10@huawei.com>, <linuxarm@huawei.com>,
 	<kristina.martsenko@arm.com>, <pbonzini@redhat.com>, <fuad.tabba@linux.dev>,
 	<joey.gouly@arm.com>, <seiden@linux.ibm.com>, <prime.zeng@hisilicon.com>
-Subject: [RFC 6/6] KVM: arm64: Add tracepoints for TLBID vDomain load events
-Date: Fri, 30 Oct 2026 14:56:17 +0800
-Message-ID: <20261030065617.4090073-7-yangjinqian1@huawei.com>
+Subject: [RFC 5/6] KVM: arm64: Conditionally expose ID_AA64MMFR4_EL1.TLBID to guest
+Date: Fri, 30 Oct 2026 14:56:16 +0800
+Message-ID: <20261030065617.4090073-6-yangjinqian1@huawei.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20261030065617.4090073-1-yangjinqian1@huawei.com>
 References: <20261030065617.4090073-1-yangjinqian1@huawei.com>
@@ -78,110 +78,171 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
  kwepemk300013.china.huawei.com (7.202.194.231)
 
-kvm_tlbid_vcpu_info logs each vCPU's vDomain bitmap on migration,
-and kvm_tlbid_domain_mapping logs the pCPU mask and physical domain
-mapped for each vDomain, covering both the default vDomain0 mapping
-and the per-vDomain updates.
+The TLBID feature bit in ID_AA64MMFR4_EL1 is only advertised to the
+guest after userspace configures vDomains via KVM_ARM_VCPU_SET_VDOMAIN,
+which sets the guest_tlbid_enabled flag. Until then the bit is masked
+to prevent the guest from enabling TLBID without a valid vDomain
+affinity.
+
+Exposing the feature would otherwise let the guest read the physical
+TLBIDIDR_EL1 directly, so keep that register trapped in the guest
+FGT context and served by the emulation added earlier. The host's
+own register is never affected.
+
+Expose KVM_REG_ARM_ID_AA64MMFR4_EL1 in the arm64 UAPI header so
+userspace can read the sanitised value via KVM_GET_ONE_REG.
 
 Signed-off-by: Jinqian Yang <yangjinqian1@huawei.com>
+Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
 ---
- arch/arm64/kvm/arm.c       | 10 ++++++++
- arch/arm64/kvm/trace_arm.h | 47 ++++++++++++++++++++++++++++++++++++++
- 2 files changed, 57 insertions(+)
+ arch/arm64/include/uapi/asm/kvm.h |  2 ++
+ arch/arm64/kvm/arm.c              |  2 ++
+ arch/arm64/kvm/config.c           | 11 +++++++
+ arch/arm64/kvm/sys_regs.c         | 49 +++++++++++++++++++++++++++++--
+ arch/arm64/kvm/sys_regs.h         |  6 ++++
+ 5 files changed, 68 insertions(+), 2 deletions(-)
 
+diff --git a/arch/arm64/include/uapi/asm/kvm.h b/arch/arm64/include/uapi/asm/kvm.h
+index 019e5e3d892e..e54129ed431d 100644
+--- a/arch/arm64/include/uapi/asm/kvm.h
++++ b/arch/arm64/include/uapi/asm/kvm.h
+@@ -255,6 +255,8 @@ struct kvm_arm_counter_offset {
+ 
+ #define ARM64_SYS_REG(...) (__ARM64_SYS_REG(__VA_ARGS__) | KVM_REG_SIZE_U64)
+ 
++#define KVM_REG_ARM_ID_AA64MMFR4_EL1 ARM64_SYS_REG(3, 0, 0, 7, 4)
++
+ /* Physical Timer EL0 Registers */
+ #define KVM_REG_ARM_PTIMER_CTL		ARM64_SYS_REG(3, 3, 14, 2, 1)
+ #define KVM_REG_ARM_PTIMER_CVAL		ARM64_SYS_REG(3, 3, 14, 2, 2)
 diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index b5ab89db1c07..0352d62cea18 100644
+index ddf7c25f9ed9..b5ab89db1c07 100644
 --- a/arch/arm64/kvm/arm.c
 +++ b/arch/arm64/kvm/arm.c
-@@ -954,6 +954,9 @@ static void kvm_tlbidomain_vcpu_load(struct kvm_vcpu *vcpu)
- 				      max_vdomains);
- 		}
+@@ -2313,6 +2313,8 @@ static int kvm_arm_vcpu_set_vdomain(struct kvm_vcpu *vcpu,
+ 
+ 	kvm_info("vCPU%d: vDomain bitmap: 0x%x\n", vcpu->vcpu_idx, vdomain_bitmap);
+ 
++	kvm_update_aa64mmfr4_tlbid(vcpu->kvm);
++
+ 	return 0;
+ }
+ #else
+diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
+index 6c116aa1864a..d0402151a752 100644
+--- a/arch/arm64/kvm/config.c
++++ b/arch/arm64/kvm/config.c
+@@ -1536,6 +1536,17 @@ void compute_fgu(struct kvm *kvm, enum fgt_group_id fgt)
+ 	case HFGRTR2_GROUP:
+ 		val |= compute_fgu_bits(kvm, &hfgrtr2_desc);
+ 		val |= compute_fgu_bits(kvm, &hfgwtr2_desc);
++#ifdef CONFIG_KVM_ARM_VTLBID
++		/*
++		 * TLBIDIDR_EL1 must stay trapped even when TLBID is
++		 * exposed to the guest, so it can be emulated with the
++		 * synthesized virtual domain counts. This only affects
++		 * the guest FGT context; the host's own HFGRTR2_EL2 is
++		 * never modified.
++		 */
++		if (kvm->arch.tlbidomain.kvm_tlbid_enabled)
++			val |= HFGRTR2_EL2_nTLBIDIDR_EL1;
++#endif
+ 		break;
+ 	case HFGITR2_GROUP:
+ 		val |= compute_fgu_bits(kvm, &hfgitr2_desc);
+diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+index cf9804e54ff1..a1ca7309406e 100644
+--- a/arch/arm64/kvm/sys_regs.c
++++ b/arch/arm64/kvm/sys_regs.c
+@@ -2012,9 +2012,17 @@ static u64 __kvm_read_sanitised_id_reg(const struct kvm_vcpu *vcpu,
+ 		if (!system_supports_poe())
+ 			val &= ~ID_AA64MMFR3_EL1_S1POE;
+ 		break;
+-	case SYS_ID_AA64MMFR4_EL1:
++	case SYS_ID_AA64MMFR4_EL1: {
++#ifdef CONFIG_KVM_ARM_VTLBID
++		struct tlbidomain *vdomain = &vcpu->kvm->arch.tlbidomain;
++
++		if (!vdomain->guest_tlbid_enabled)
++			val &= ~ID_AA64MMFR4_EL1_TLBID;
++#else
+ 		val &= ~ID_AA64MMFR4_EL1_TLBID;
++#endif
+ 		break;
++	}
+ 	case SYS_ID_MMFR4_EL1:
+ 		val &= ~ID_MMFR4_EL1_CCIDX;
+ 		break;
+@@ -3494,7 +3502,8 @@ static const struct sys_reg_desc sys_reg_descs[] = {
+ 				       ID_AA64MMFR3_EL1_SCTLRX	|
+ 				       ID_AA64MMFR3_EL1_S1PIE   |
+ 				       ID_AA64MMFR3_EL1_S1POE)),
+-	ID_WRITABLE(ID_AA64MMFR4_EL1, ID_AA64MMFR4_EL1_NV_frac),
++	ID_WRITABLE(ID_AA64MMFR4_EL1, ID_AA64MMFR4_EL1_NV_frac |
++				    ID_AA64MMFR4_EL1_TLBID_MASK),
+ 	ID_UNALLOCATED(7,5),
+ 	ID_UNALLOCATED(7,6),
+ 	ID_UNALLOCATED(7,7),
+@@ -5495,6 +5504,42 @@ static bool index_to_params(u64 id, struct sys_reg_params *params)
  	}
-+	trace_kvm_tlbid_vcpu_info(vcpu->vcpu_idx, vcpu->cpu,
-+				  current_data->last_pcpu,
-+				  current_data->vdomain_bitmap);
+ }
  
- 	if (!vdomain->guest_tlbid_enabled) {
- 		old_map = vdomain->domain_map[0];
-@@ -966,6 +969,10 @@ static void kvm_tlbidomain_vcpu_load(struct kvm_vcpu *vcpu)
- 							   0,
- 							   current_data->last_pcpu,
- 							   test_bit(0, clear_bits));
-+		trace_kvm_tlbid_domain_mapping(0,
-+					       vdomain->vdomain_cpumasks[0],
-+					       vdomain->domain_map[0]);
++/*
++ * Update the VM's stored value for an ID register.
++ */
++#ifdef CONFIG_KVM_ARM_VTLBID
++void kvm_update_aa64mmfr4_tlbid(struct kvm *kvm)
++{
++	struct tlbidomain *vdomain = &kvm->arch.tlbidomain;
++	u64 val, tlbid_val;
 +
- 		if (vdomain->domain_map[0] == old_map)
- 			goto unlock;
- 	} else {
-@@ -983,6 +990,9 @@ static void kvm_tlbidomain_vcpu_load(struct kvm_vcpu *vcpu)
- 								   i,
- 								   current_data->last_pcpu,
- 								   test_bit(i, clear_bits));
-+			trace_kvm_tlbid_domain_mapping(i,
-+						       vdomain->vdomain_cpumasks[i],
-+						       vdomain->domain_map[i]);
++	mutex_lock(&kvm->arch.config_lock);
++
++	if (kvm_vm_has_ran_once(kvm)) {
++		/*
++		 * ID_AA64MMFR4 is a VM-level register already set during
++		 * the first vCPU init. Skip the write to avoid triggering
++		 * KVM_BUG_ON in kvm_set_vm_id_reg(). The per-vCPU
++		 * vdomain_bitmap is still updated by the caller.
++		 */
++		mutex_unlock(&kvm->arch.config_lock);
++		return;
++	}
++
++	val = kvm_read_vm_id_reg(kvm, SYS_ID_AA64MMFR4_EL1);
++	tlbid_val = read_sanitised_ftr_reg(SYS_ID_AA64MMFR4_EL1);
++	tlbid_val &= ID_AA64MMFR4_EL1_TLBID_MASK;
++
++	val &= ~ID_AA64MMFR4_EL1_TLBID_MASK;
++	if (vdomain->guest_tlbid_enabled)
++		val |= tlbid_val;
++
++	kvm_set_vm_id_reg(kvm, SYS_ID_AA64MMFR4_EL1, val);
++
++	mutex_unlock(&kvm->arch.config_lock);
++}
++#endif
++
+ const struct sys_reg_desc *get_reg_by_id(u64 id,
+ 					 const struct sys_reg_desc table[],
+ 					 unsigned int num)
+diff --git a/arch/arm64/kvm/sys_regs.h b/arch/arm64/kvm/sys_regs.h
+index bd56a45abbf9..0b5487947790 100644
+--- a/arch/arm64/kvm/sys_regs.h
++++ b/arch/arm64/kvm/sys_regs.h
+@@ -252,6 +252,12 @@ int kvm_sys_reg_get_user(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg,
+ int kvm_sys_reg_set_user(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg,
+ 			 const struct sys_reg_desc table[], unsigned int num);
  
- 			if (vdomain->domain_map[i] != old_map)
- 				domain_map_changed = true;
-diff --git a/arch/arm64/kvm/trace_arm.h b/arch/arm64/kvm/trace_arm.h
-index 9c60f6465c78..0e8faeb8964e 100644
---- a/arch/arm64/kvm/trace_arm.h
-+++ b/arch/arm64/kvm/trace_arm.h
-@@ -415,6 +415,53 @@ TRACE_EVENT(kvm_forward_sysreg_trap,
- 		      sys_reg_Op2(__entry->sysreg))
- );
++#ifdef CONFIG_KVM_ARM_VTLBID
++void kvm_update_aa64mmfr4_tlbid(struct kvm *kvm);
++#else
++static inline void kvm_update_aa64mmfr4_tlbid(struct kvm *kvm) { }
++#endif
++
+ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index);
  
-+TRACE_EVENT(kvm_tlbid_vcpu_info,
-+	TP_PROTO(int vcpu_idx, int current_pcpu, int last_pcpu,
-+		 u32 vdomain_bitmap),
-+	TP_ARGS(vcpu_idx, current_pcpu, last_pcpu, vdomain_bitmap),
-+
-+	TP_STRUCT__entry(
-+		__field(int,	vcpu_idx)
-+		__field(int,	current_pcpu)
-+		__field(int,	last_pcpu)
-+		__field(u32,	vdomain_bitmap)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->vcpu_idx	= vcpu_idx;
-+		__entry->current_pcpu	= current_pcpu;
-+		__entry->last_pcpu	= last_pcpu;
-+		__entry->vdomain_bitmap	= vdomain_bitmap;
-+	),
-+
-+	TP_printk("vcpu=%d current_pcpu=%d last_pcpu=%d vdomain_bitmap=0x%x",
-+		  __entry->vcpu_idx, __entry->current_pcpu,
-+		  __entry->last_pcpu, __entry->vdomain_bitmap)
-+);
-+
-+TRACE_EVENT(kvm_tlbid_domain_mapping,
-+	TP_PROTO(int vdomain_id, const struct cpumask *cpumask,
-+		 int pdomain_id),
-+	TP_ARGS(vdomain_id, cpumask, pdomain_id),
-+
-+	TP_STRUCT__entry(
-+		__field(int,	vdomain_id)
-+		__cpumask(cpumask)
-+		__field(int,	pdomain_id)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->vdomain_id	= vdomain_id;
-+		__assign_cpumask(cpumask, cpumask_bits(cpumask));
-+		__entry->pdomain_id	= pdomain_id;
-+	),
-+
-+	TP_printk("Domain mapping: vDomain=%d, cpumask=%s, pDomain=%d",
-+		  __entry->vdomain_id,
-+		  __get_cpumask(cpumask),
-+		  __entry->pdomain_id)
-+);
-+
- #endif /* _TRACE_ARM_ARM64_KVM_H */
- 
- #undef TRACE_INCLUDE_PATH
+ int kvm_finalize_sys_regs(struct kvm_vcpu *vcpu);
 -- 
 2.33.0
 
