@@ -1,85 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793371656;
-	b=CZrF71xzZpwtbcm0gPni2nelb0zrsvHa4zO8H/EdQsTmlS7QXPv2FUW93r5e/41WDbKt
-	 7z4qIVrVpgXjVCRpT4KlnPV3YawliAq9icfaJfOhem4zSnLE5867qV/NBBw6BK5ZFquHn
-	 TUeh9r3wxAqLTAiPkUd5DYgZr0y+Wrimv1lPesLQ0sgGmNPwUuyonLhr/M7s9EpicAMvA
-	 PcrHofInVrKxrTKsUwduMe2ghFm23U8IVYWUX0b/rOQAukK4Lw8mWFXCi2mvCwGEKuz2z
-	 cgiwBw0zRsD2licO4RSpenKDgj9M1w36tDa+QXRS6s9bXjdKEGiu3KEcIZLJ4Zg34rQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371656;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=sPlsd4bG0V+vrvx8aFKHI87T6e1+NNSF9v0SXVi9pes=;
-	b=BZxUywchuUn893KE8HtXQFH3RO7Ky9KkPtdIUqoD8T0M0HM/ZI8Jn0xTvEnkB7QfAhi9
-	 19yLvFm4r/RnIEjlHVdUKe6TyZSI9U6u001YrnTZ6vH6cfvW9IRGJUz615ay8Y7SeoiF7
-	 gYSUbAT4XfgMc40D30N8y6ap2Yg25XE4NtnnujftMHHu3UoriSduyzF98+FoBDSRsBdtr
-	 AfngnJz9LBUM5BXbs836gEEOufRTVwS110xOyf/cSbOwDveNbDoea4h0RbYA8kFF5FIr/
-	 bdJgwhayt/ojhZIkqXCRxIsLJZSETE65+n9qfYeuqP0vOHBfnmBSrULeFOyBiR/xi3A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=SSm48v6v;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 82DD0606A31C;
-	Fri, 30 Oct 2026 14:47:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82DD0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793371661;
+	b=Rdk5LyY9f0p3Yg+zdNiGAl8MC6aIXeCgDgPDer8x8YOAIMVRoFamS6h+ce27toBsrn0D
+	 L1/WvnQ17f43HKKRZe4MiTWNjkWXj4tfVEirAHieB61QHe8malSCzIkaTtCI9qJegGDKY
+	 gItKiecaqHXQAdzDPnUJw7yhluwScseaj8mY5WBVM7GM2IUpgcJepWDM6dNzTGLnjlWO4
+	 FdzKSDtV+VUP7ZGUuNCISqxmX9i4FVbvizoVIcJyYmQCzikhZNllDIA9H3RoBEYf8kDUX
+	 bDoh6b9wGuwIX5Ew9iECU9ZEwUz39tix8906wXqsPf/54MlILA9KP/+Kl/rqCUkxBGg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793371661;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Wii1bM2DmXt8anyyiJur5M4ikb+Kdg6ZYyMZSCzDZKY=;
+	b=Vws6HC1ElYY+I/z8CVzqV4KdKcy4lcEYrum+87pOFnoAOk/S6zH2ogCvqJ7iFHDfdL3E
+	 JsJUxrTILhgOr8i96oC+OQXofjZC73Q01LkDJJq1OOv8YlTP9XhkHBRWYhlUUOoS43SIQ
+	 082zUXc89AhC6+n1mM9uDT2WBr6Y49gDH+t16L50Ud2/7NE+eOUIlESSngeqXgsFHV0qx
+	 sqTuELkaKSAwGeKz4D7Hh/ngI8tR/GvQ5VgYCQ+O4+/f3qYDDZ/PiSAaIRYuN+6wW6WZG
+	 RFm8K016UaTeh1wuAyn0+xh+3TGpyyMfzwUTgM99fcwwd6e/ZBOV+UQv9Zg2qCmSAxQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=xDZDz5SO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.10
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012010.outbound.protection.outlook.com [52.101.66.10])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA56606A32E;
+	Fri, 30 Oct 2026 14:47:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFA56606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=SSm48v6v
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 565151595;
-	Fri, 30 Oct 2026 07:47:31 -0700 (PDT)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A91DE3F673;
-	Fri, 30 Oct 2026 07:47:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793371654; bh=2y5Hd/vh9yVMqWeig/UanF1eUsK1+QrSqq6sGhcwPTc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=SSm48v6v585NGj2S/xJPI2O483F1tfwhzpxf/qaSPaVIjKO6RIGXVTVMlRLqBaaXQ
-	 9lqZVtv9GVE8yrDveYOU0JxT+odoquId1L408SXmDrDMRK2+aGfNl6e6wdaf9PJzAq
-	 YazML+w1097RX3SWHYA4CIleFkjWb5q00oFOsOis=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Tian Zheng <zhengtian10@huawei.com>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	maz@kernel.org,
-	oupton@kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	corbet@lwn.net,
-	pbonzini@redhat.com,
-	yuzenghui@huawei.com,
-	wangzhou1@hisilicon.com,
-	yangjinqian1@huawei.com,
-	caijian11@h-partners.com,
-	liuyonglong@huawei.com,
-	tangchengchang@huawei.com,
-	yezhenyu2@huawei.com,
-	yubihong@huawei.com,
-	linuxarm@huawei.com,
-	joey.gouly@arm.com,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=xDZDz5SO
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nmTmL/UbaDZThS5IXxKEZYUx9LurfOulizS7tJQo4Iqu4IuyIE+Jkvzyz5qbdodRSWoDLupDtIMMFCn1Dm0fPTTxCFR6Zn6YRWk99JcBC/UeTp/ZwQVa+TSyvCQnyyFRNEnm8aiugNl6XeGdLKXp5ZvfhqIlsU0q0DMe6a8R9DIoyiX/cvle8rx7BJ062H8KxNNM+L53aWiapLocgWbbqAIQb90ldT7qMGG6eJdZmJ6AdFZyA1LlFiKdZk7M8sgoytAAxqZFs+W9AHW3CODsx8rcNpFKHpjkLrsOeeIw8tw0UhGJDYalxDqXfyGOt4shWzpeghjNqdOQ4ZZUTBVYng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Wii1bM2DmXt8anyyiJur5M4ikb+Kdg6ZYyMZSCzDZKY=;
+ b=cKQ4KL7UJEmfW6HahqWwkIrFkukKusmnCdi+5/XW0kpSA5yreK+8z41FYQ7u4FL33JLiJ9Vj4ib7gUNX5FzZZmKauS0XYgRyo/yQ6dUI91tCXDiaf0Ii6tPCkYSExZGJlHDWbEMOJSQnFjLBSbgJP0e5n+nCFk9u0PRjPKpd6XgUXBNjrg4GRh1w25fDOtOrFfcp9bV7YfLu+39YTU6xzRUjxvRzTDT+KCi94ZZWHgT9ak8x6MDkOx0J+MWfW4/igeV5+Jf5qxfhA1NzMR5iZqu6h6K/VxOI1Fi5eydAPHKicoIgNPp1GLNYUZQB8qJrfYZQwpkE2XmU++U7Q2eaUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wii1bM2DmXt8anyyiJur5M4ikb+Kdg6ZYyMZSCzDZKY=;
+ b=xDZDz5SOfTllVuVKksvG0SHisIdd2WV1q6hpZwTFyOCy17cC3LKxMWwkbwQl17/5CAgNgNsfSxqrTFqc9dzhLuiKwGYSY8YnUspAwFVsUKKGmuEnNrHttt9sK0IDbxiXIvDkBJ31pXAYTYQY2JpRg3p1gYXBts4+t2lcNG3XiIpM+OXdrfvoviggg3KnPWYxHe21nrcAuijLNOLc56sro6hJgmBBleX8HWZ5CbEw1YM4TDAfrmFhA1onpqCTlb89tJmclHLSxBsBftqQvR8PLsz4nQbWexLnBhPUpfFl4k5V0UrAJw/Ra7ZIyV2EFXY2KxWVoWKgeNffrYTnTEUFhg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM9PR04MB8114.eurprd04.prod.outlook.com (2603:10a6:20b:3b7::22)
+ by AM0PR04MB7154.eurprd04.prod.outlook.com (2603:10a6:208:19f::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 14:47:38 +0000
+Received: from AM9PR04MB8114.eurprd04.prod.outlook.com
+ ([fe80::cab0:e4b0:6be:b1d1]) by AM9PR04MB8114.eurprd04.prod.outlook.com
+ ([fe80::cab0:e4b0:6be:b1d1%4]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 14:47:38 +0000
+From: alice.guo@oss.nxp.com
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	festevam@gmail.com
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	fuad.tabba@linux.dev,
-	mark.rutland@arm.com,
-	seanjc@google.com,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	skhan@linuxfoundation.org
-Subject: Re: [PATCH v5 07/15] KVM: arm64: Add HDBSS per-vCPU buffer management
-Date: Fri, 30 Oct 2026 14:47:28 +0000
-Message-ID: <auSuAAmzoND1sy4c@LeoBrasDK>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <6e2d5b81-1ae9-476e-897c-f6dc7079565c@huawei.com>
-References: <20260929103655.85107-1-zhengtian10@huawei.com> <20260929103655.85107-8-zhengtian10@huawei.com> <at-bm_p_MHU3GmYn@LeoBrasDK> <6e2d5b81-1ae9-476e-897c-f6dc7079565c@huawei.com>
+	Alice Guo <alice.guo@nxp.com>
+Subject: [PATCH v1] arm64: dts: imx91: add U-Boot bootph properties
+Date: Fri, 30 Oct 2026 22:51:49 +0800
+Message-Id: <20261030145149.921308-1-alice.guo@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI1PR02CA0009.apcprd02.prod.outlook.com
+ (2603:1096:4:1f7::10) To AM9PR04MB8114.eurprd04.prod.outlook.com
+ (2603:10a6:20b:3b7::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,394 +102,357 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8114:EE_|AM0PR04MB7154:EE_
+X-MS-Office365-Filtering-Correlation-Id: 16e9d856-be0c-4776-a202-08df3694bdd0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|23010399003|19092799006|1800799024|18002099003|3023799007|10067099003|11063799006|56012099006|261021121427099003|261022105027099003|261022075727099003|261026121527099003|261026140227099003|261028144727099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	eBKdYtvbfIDjr/U9oY1/uPFaQ7OV7yWY8rKDcmHv2qmehkuAyL9dvA9yJOrwYx7JZjH0TIukrWTaIS24mzBimf30e9db4KJJDwnz9hJqDuE8wscE2dOQ3sU8eWijK9k1FHqaD3desOBKTflXeZXNJak5dWaat+wNkEbhgavKMktD+/5dszpDYJ63f+7jslb8M49pgw8Mqh8FV7ocFmNPJKLTQAAOTYnqwagzLNjlQN6Wfk+h23DQvmVGbNNov8QSIQF65Mm1+XS3SFNFhpDcXvZEuuW3yBKVDToE/aeIjh1mou59GT1q8LFsgv7AdjwkGn+NZju0wm1SiktcqYSyiWtCmyx+iRAvYfi81+PmAex98/Dbpo36MnsbzSbtC4sl52oeqRrH9qXpt1wf6/XdTe4Ro5gLUCczMxhVm2MUFgryrtQKAaZU6PjL98ERnn0IUNh+/dNZAZMW81VLR0WyfIvnD5e3TUToWwwqJguIelnMf4z8dOJkRCAdtodix4FMj71rM7w3W4PclvozimqOQND/egFz0Y4ScvVeXvQSofhulz0w2qGblF5NQ362BwBIhnAlnWDxcgw0AABX4jTjSwP4yk/jlCYe1eSDOF5DKzKi60xqiz2g5DH6YWhecgVzlkucFdE1tieQMl69j7R4OWlGzKkH43x9ri7kWIpDQoc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8114.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(19092799006)(1800799024)(18002099003)(3023799007)(10067099003)(11063799006)(56012099006)(261021121427099003)(261022105027099003)(261022075727099003)(261026121527099003)(261026140227099003)(261028144727099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?wH9/pRuTfdBwDEsv4z3SNpuU2mqR2hWQHz2+AIDqcMbFrg/HcK0sa5Mv+L+v?=
+ =?us-ascii?Q?oGtVFnZE6EyBtxNy10gAlHVDTY6n2VneLIhdCcsDskHq4VQaq5EDuyLI5tcx?=
+ =?us-ascii?Q?M6YSmxfS22guezYn16pEG19A89tHCHgM+UJHoed5p75OVmeaDscIzQP1SaJL?=
+ =?us-ascii?Q?iXIVHPk3sS237qgQ/v+Q7SAgCaeWMmsYggWLv0n3jZjCebtFh6g7KmjejGBb?=
+ =?us-ascii?Q?fiXaVu4A9ZTA8wXIT3osWDM7c/krd0uNyApYqLj/aI5x8s1rhSCsHs/mnc72?=
+ =?us-ascii?Q?2Ami9BsbVOKia2WYUBLQKUH8qGQ6U7lnOBUXfbmPD5wJ2y9e9NDrWH6IeW2q?=
+ =?us-ascii?Q?RxrR4556KJ/mBZ+IT02Uy61winEZyrIH7LHpN9RxmFxqPumeZ/nrnDlHNUUz?=
+ =?us-ascii?Q?6Nk61y7Mw7ZkgOoHZt6inRIrVXYU2/zELWWELckRL+lNmTYLqcDUOSVqbHJM?=
+ =?us-ascii?Q?pBNrNlrhxylDxrEBNBhcu+2Q7ebf35oSLqJZFRSOvln9MnD56wUMCVE6bp4Y?=
+ =?us-ascii?Q?6AM/KS8gwe0xMQkALyIZXk1I5C0MZ/gEVMz5igoOrg/un9M5T/2VqtJGmfmN?=
+ =?us-ascii?Q?H0MsM8bONS5tRJPx05HCjfqppb1pyeO9TejZqmp4f1ogqcdIfcHmgsFbTQzm?=
+ =?us-ascii?Q?lHgElr9YoVIEuf/hjF6I5rwPtsj9FNNuSoEgeOaf8Hhu9PGRR0pWkyQGO05D?=
+ =?us-ascii?Q?oBx/7BHFR21ROoJ7lJYPeFPkmsQiCOMXeysefJ4ErWzR3MMwCRPCHKx77L56?=
+ =?us-ascii?Q?io4PaZLlM3tpBBFnv0AosFmr9Ae+OphNVvN9vq1RrolS0RaesQQVNxKrEYGq?=
+ =?us-ascii?Q?mimZcqePahdUN1INx5oGcOJH3YVqScavYzFjBJ0OMhnZwLdax/0LTrkLM182?=
+ =?us-ascii?Q?odocdoqfY4dc+wiY4I7nECYAgJCCXdVEWBIQOBRAMN74l7EYpFl0I0iSxbtL?=
+ =?us-ascii?Q?27nj5b6LGPGxklE9mwTL3ktSBPbfBujAJh3ZlgecNOk177wEsK62zpMZyVCQ?=
+ =?us-ascii?Q?bsrXx1eSLZZ3RJvIIpcVtAOWpNWxjXk9uuyrbG51IW/HUmlW10iNKM+zCZ8C?=
+ =?us-ascii?Q?qfsLF8bH1dnI2mj+fPT0N0xVXheK+glSgzB3P9RffP4GfkVu1E5cvpNewcbc?=
+ =?us-ascii?Q?x7YR7DunkheV8fEBX7puqPTjx56sJCtUUzzyx7p/hepJv2+AlWQ9IJEElF9z?=
+ =?us-ascii?Q?D4KQyuB07l1aTCHbffsfEqZxAbiclHNopnTTFScAeXri7jENnTxiRy83N27O?=
+ =?us-ascii?Q?gwqcMdddDhcBoS/w0AIn2RiLQf/GaQ2cN5NIEHeRysVIoQHBZ5JZo2YzEaSC?=
+ =?us-ascii?Q?tK6DyKjlyZZ54w3GsaMqV8zQbgd585LQ1EhcaoeNfBphOmdhLWaPkwlrOIPP?=
+ =?us-ascii?Q?Vzl1kn45vUG32ivwNxD+pf2oNYIeQiLFXzJUc5Dk2KicYL3rjVvfzZvg5YTr?=
+ =?us-ascii?Q?VcoiAAWiFtJyer5dYkHU+h+a6y+ZtO+uW5KON7ul8jzMTOlMO14DFBmLh+xS?=
+ =?us-ascii?Q?Zo8nYWOS+XSJ9le56cnkoJYEhWWXkkqlnYXTr1h9NNZdV4rPE1AA/fM8mPFp?=
+ =?us-ascii?Q?QsLb+cl1MNppaPVNQbRKDhXI7+Yo3ViIqogbijWE7Xwl2SysXZfBbFnuuDoH?=
+ =?us-ascii?Q?YYOKg3JKUpX++h/jqwerIYDCCSn7ChGxyTy/NZH+XdSSvkp34k5Vvf+LKGlR?=
+ =?us-ascii?Q?z3Eahk3W2GJfMllqfaEcWy4IfKU0J2fo+gA6pvYqX2kiEeFlLOppzpM8MTu9?=
+ =?us-ascii?Q?e6k+LUfZiD5PTGUK6jNEQ2fHPoHbVtJCoTJNORO6ONKtYR8urN0G?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16e9d856-be0c-4776-a202-08df3694bdd0
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8114.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 14:47:38.2688
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MoXV9oo0lStoWAM5IjeAzMJFn9RfTUwZi1q6+EMZkMfnusXT+3UaKY298tZmXRCm81TBVqDjG8Cg39i70EXdLiwizbYBu0cow3RdkhLiiike2alt9fW9TvCHw484DyUN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7154
 
-On Fri, Oct 30, 2026 at 11:47:20AM +0800, Tian Zheng wrote:
-> 
-> 
-> On 10/27/2026 2:27 AM, Leonardo Bras wrote:
-> > On Tue, Sep 29, 2026 at 06:36:47PM +0800, Tian Zheng wrote:
-> > > From: Eillon <yezhenyu2@huawei.com>
-> > > 
-> > > Each vCPU owns an HDBSS buffer, described by HDBSSBR_EL2 (base
-> > > address and encoded size) and advanced by HDBSSPROD_EL2 as hardware
-> > > appends entries. Tie the buffer lifetime to the vCPU: allocate at
-> > > vCPU creation, free at destruction. The buffer is allocated zeroed,
-> > > so a stale producer index can only ever observe invalid entries.
-> > > 
-> > > Registers are programmed whenever the vCPU owns a buffer, regardless
-> > > of whether HDBSS is enabled. The feature can be turned on
-> > > mid-KVM_RUN, and hardware dirty-state updates write to
-> > > HDBSSBR_EL2.BADDR without any fault, so the registers must already
-> > > be in place by then. HDBSSPROD_EL2 is preserved across context
-> > > switches and vCPU migration.
-> > > 
-> > > Two details: the buddy order is kept separate from the HDBSSBR_EL2.SZ
-> > > encoding, since the two only coincide on 4KB pages; and kvm_share_hyp()
-> > > is unwound in kvm_arch_vcpu_create() when the HDBSS allocation fails.
-> > 
-> > Out of curiosity: why can't we allocate the buffers when dirty-tracking
-> > starts? (and free them when it stops)
-> > 
-> > Since we have to request the vcpus to guest_exit, and enable
-> > VTCR_EL2{HA,HD,HDBSS}, we could as well allocate the buffers and set the
-> > HDBSSBR_EL2.BADDR. In case the buffer allocation fails, we could just not
-> > enable HDBSS, maybe.
-> > 
-> > Buffer allocation could happen before the VCPU request, for every vcpu, or
-> > during the vcpu request, so every vcpu allocates it's own buffer.
-> > 
-> > Am I missing something, or is it just to make things easier?
-> > 
-> 
-> Hi loe,
-> 
-> Yes, allocating the buffers at vCPU creation does make things simpler.
-> 
-> I'd rather follow the x86 PML and dirty ring scheme: allocate at vCPU
-> creation. This avoids partial enablement when an allocation fails mid-
-> broadcast, the use-after-free window when freeing at logging stop, and
-> naturally handles vCPU hotplug during logging.
+From: Alice Guo <alice.guo@nxp.com>
 
-Ah, I see.
-Well, the problem of partial enablement is gone if the requester tries to  
-allocate all buffers for all vcpus, before requesting the vcpus to enable HDBSS.
-If one of them fails, then just don't request the vcpus to enable :)
+Add bootph-pre-ram, bootph-some-ram and bootph-all properties needed by
+U-Boot for early boot DT processing.
 
-As for the use after free: you can free the buffer at the vcpu request to 
-disable the feature, making sure it's not using it when you free the 
-buffer.
+Place the properties in the Linux DT sources so they can be consumed
+directly by U-Boot when generating its device tree. SoC-level nodes are
+updated in imx91_93_common.dtsi, while board-specific nodes are updated
+in imx91-9x9-qsb.dts.
 
-I agree that allocating at the creation of a vcpu is easier, but this can 
-receive pushback as a VM will have to carry this buffers for it's whole 
-lifetime, even though it may never use it. 
+The properties match the current requirements of the i.MX91 9x9 QSB
+platform and include the clocks, bus, GPIO, mailbox, USDHC, LPI2C, UART,
+PMIC and related pinctrl nodes used during early boot.
 
-I suggest we try allocating at vcpu creation should only if dirty-tracking 
-is already happening, so we can enable the feature on the new vcpu.
+Signed-off-by: Alice Guo <alice.guo@nxp.com>
+---
+ .../boot/dts/freescale/imx91-9x9-qsb.dts      | 21 ++++++++++++++++++
+ .../boot/dts/freescale/imx91_93_common.dtsi   | 22 +++++++++++++++++++
+ 2 files changed, 43 insertions(+)
 
-I agree that x86 may have chosen to do that for a reason, but if we don't 
-know the reason, or if it's not compelling for us, maybe we can just try 
-doing something better.
+diff --git a/arch/arm64/boot/dts/freescale/imx91-9x9-qsb.dts b/arch/arm64/boot/dts/freescale/imx91-9x9-qsb.dts
+index b7f0e39b867a..fbb7de8c0a12 100644
+--- a/arch/arm64/boot/dts/freescale/imx91-9x9-qsb.dts
++++ b/arch/arm64/boot/dts/freescale/imx91-9x9-qsb.dts
+@@ -172,6 +172,7 @@ reg_usdhc2_vmmc: regulator-usdhc2 {
+ 		regulator-min-microvolt = <3300000>;
+ 		gpio = <&gpio3 7 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
++		bootph-pre-ram;
+ 	};
+ 
+ 	reserved-memory {
+@@ -257,6 +258,7 @@ pinctrl_lpi2c1: lpi2c1grp {
+ 			MX91_PAD_I2C1_SCL__LPI2C1_SCL                           0x40000b9e
+ 			MX91_PAD_I2C1_SDA__LPI2C1_SDA                           0x40000b9e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_lpi2c2: lpi2c2grp {
+@@ -264,6 +266,7 @@ pinctrl_lpi2c2: lpi2c2grp {
+ 			MX91_PAD_I2C2_SCL__LPI2C2_SCL                           0x40000b9e
+ 			MX91_PAD_I2C2_SDA__LPI2C2_SDA                           0x40000b9e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_pcal6524: pcal6524grp {
+@@ -284,6 +287,7 @@ pinctrl_reg_usdhc2_vmmc: regusdhc2vmmcgrp {
+ 		fsl,pins = <
+ 			MX91_PAD_SD2_RESET_B__GPIO3_IO7                         0x31e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_sai1: sai1grp {
+@@ -300,6 +304,8 @@ pinctrl_uart1: uart1grp {
+ 			MX91_PAD_UART1_RXD__LPUART1_RX                          0x31e
+ 			MX91_PAD_UART1_TXD__LPUART1_TX                          0x31e
+ 		>;
++		bootph-pre-ram;
++		bootph-some-ram;
+ 	};
+ 
+ 	pinctrl_usdhc1: usdhc1grp {
+@@ -316,6 +322,7 @@ MX91_PAD_SD1_DATA6__USDHC1_DATA6                        0x1382
+ 			MX91_PAD_SD1_DATA7__USDHC1_DATA7                        0x1382
+ 			MX91_PAD_SD1_STROBE__USDHC1_STROBE                      0x1582
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_usdhc1_100mhz: usdhc1-100mhzgrp {
+@@ -332,6 +339,7 @@ MX91_PAD_SD1_DATA6__USDHC1_DATA6                        0x138e
+ 			MX91_PAD_SD1_DATA7__USDHC1_DATA7                        0x138e
+ 			MX91_PAD_SD1_STROBE__USDHC1_STROBE                      0x158e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_usdhc1_200mhz: usdhc1-200mhzgrp {
+@@ -348,12 +356,14 @@ MX91_PAD_SD1_DATA6__USDHC1_DATA6                        0x13fe
+ 			MX91_PAD_SD1_DATA7__USDHC1_DATA7                        0x13fe
+ 			MX91_PAD_SD1_STROBE__USDHC1_STROBE                      0x15fe
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_usdhc2_gpio: usdhc2gpiogrp {
+ 		fsl,pins = <
+ 			MX91_PAD_SD2_CD_B__GPIO3_IO0                            0x31e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_usdhc2: usdhc2grp {
+@@ -366,6 +376,7 @@ MX91_PAD_SD2_DATA2__USDHC2_DATA2                        0x1382
+ 			MX91_PAD_SD2_DATA3__USDHC2_DATA3                        0x1382
+ 			MX91_PAD_SD2_VSELECT__USDHC2_VSELECT                    0x51e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
+@@ -378,6 +389,7 @@ MX91_PAD_SD2_DATA2__USDHC2_DATA2                        0x138e
+ 			MX91_PAD_SD2_DATA3__USDHC2_DATA3                        0x138e
+ 			MX91_PAD_SD2_VSELECT__USDHC2_VSELECT                    0x51e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
+@@ -390,6 +402,7 @@ MX91_PAD_SD2_DATA2__USDHC2_DATA2                        0x13fe
+ 			MX91_PAD_SD2_DATA3__USDHC2_DATA3                        0x13fe
+ 			MX91_PAD_SD2_VSELECT__USDHC2_VSELECT                    0x51e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_wdog: wdoggrp {
+@@ -404,6 +417,7 @@ &lpi2c1 {
+ 	pinctrl-0 = <&pinctrl_lpi2c1>;
+ 	pinctrl-names = "default";
+ 	status = "okay";
++	bootph-pre-ram;
+ 
+ 	p3t1085: temperature-sensor@48 {
+ 		compatible = "nxp,p3t1085";
+@@ -455,6 +469,7 @@ &lpi2c2 {
+ 	pinctrl-0 = <&pinctrl_lpi2c2>;
+ 	pinctrl-names = "default";
+ 	status = "okay";
++	bootph-pre-ram;
+ 
+ 	pcal6524: gpio@22 {
+ 		compatible = "nxp,pcal6524";
+@@ -474,8 +489,10 @@ pmic@32 {
+ 		reg = <0x32>;
+ 		interrupt-parent = <&pcal6524>;
+ 		interrupts = <11 IRQ_TYPE_EDGE_FALLING>;
++		bootph-pre-ram;
+ 
+ 		regulators {
++			bootph-pre-ram;
+ 			buck1: BUCK1 {
+ 				regulator-name = "BUCK1";
+ 				regulator-always-on;
+@@ -540,6 +557,8 @@ &lpuart1 {
+ 	pinctrl-0 = <&pinctrl_uart1>;
+ 	pinctrl-names = "default";
+ 	status = "okay";
++	bootph-pre-ram;
++	bootph-some-ram;
+ };
+ 
+ &micfil {
+@@ -623,6 +642,7 @@ &usdhc1 {
+ 	pinctrl-names = "default", "state_100mhz", "state_200mhz";
+ 	fsl,tuning-step = <1>;
+ 	status = "okay";
++	bootph-pre-ram;
+ };
+ 
+ &usdhc2 {
+@@ -637,6 +657,7 @@ &usdhc2 {
+ 	vmmc-supply = <&reg_usdhc2_vmmc>;
+ 	fsl,tuning-step = <1>;
+ 	status = "okay";
++	bootph-pre-ram;
+ };
+ 
+ &wdog3 {
+diff --git a/arch/arm64/boot/dts/freescale/imx91_93_common.dtsi b/arch/arm64/boot/dts/freescale/imx91_93_common.dtsi
+index a68ffd04ee08..65e66309bc1d 100644
+--- a/arch/arm64/boot/dts/freescale/imx91_93_common.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx91_93_common.dtsi
+@@ -51,6 +51,7 @@ osc_32k: clock-osc-32k {
+ 		#clock-cells = <0>;
+ 		clock-frequency = <32768>;
+ 		clock-output-names = "osc_32k";
++		bootph-all;
+ 	};
+ 
+ 	osc_24m: clock-osc-24m {
+@@ -58,6 +59,7 @@ osc_24m: clock-osc-24m {
+ 		#clock-cells = <0>;
+ 		clock-frequency = <24000000>;
+ 		clock-output-names = "osc_24m";
++		bootph-all;
+ 	};
+ 
+ 	clk_ext1: clock-ext1 {
+@@ -65,6 +67,7 @@ clk_ext1: clock-ext1 {
+ 		#clock-cells = <0>;
+ 		clock-frequency = <133000000>;
+ 		clock-output-names = "clk_ext1";
++		bootph-all;
+ 	};
+ 
+ 	pmu {
+@@ -136,6 +139,7 @@ soc@0 {
+ 		#size-cells = <1>;
+ 		ranges = <0x0 0x0 0x0 0x80000000>,
+ 			 <0x28000000 0x0 0x28000000 0x10000000>;
++		bootph-all;
+ 
+ 		aips1: bus@44000000 {
+ 			compatible = "fsl,aips-bus", "simple-bus";
+@@ -143,6 +147,7 @@ aips1: bus@44000000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 			ranges;
++			bootph-all;
+ 
+ 			edma1: dma-controller@44000000 {
+ 				compatible = "fsl,imx93-edma3";
+@@ -357,6 +362,8 @@ iomuxc: pinctrl@443c0000 {
+ 				compatible = "fsl,imx93-iomuxc";
+ 				reg = <0x443c0000 0x10000>;
+ 				status = "okay";
++				bootph-pre-ram;
++				bootph-some-ram;
+ 			};
+ 
+ 			bbnsm: bbnsm@44440000 {
+@@ -384,6 +391,7 @@ clk: clock-controller@44450000 {
+ 				assigned-clocks = <&clk IMX93_CLK_AUDIO_PLL>;
+ 				assigned-clock-rates = <393216000>;
+ 				status = "okay";
++				bootph-all;
+ 			};
+ 
+ 			src: system-controller@44460000 {
+@@ -444,6 +452,8 @@ aips2: bus@42000000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 			ranges;
++			bootph-pre-ram;
++			bootph-some-ram;
+ 
+ 			edma2: dma-controller@42000000 {
+ 				compatible = "fsl,imx93-edma4";
+@@ -919,6 +929,8 @@ aips3: bus@42800000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 			ranges;
++			bootph-pre-ram;
++			bootph-some-ram;
+ 
+ 			usdhc1: mmc@42850000 {
+ 				compatible = "fsl,imx93-usdhc", "fsl,imx8mm-usdhc";
+@@ -1039,6 +1051,8 @@ gpio2: gpio@43810000 {
+ 			clock-names = "gpio", "port";
+ 			gpio-ranges = <&iomuxc 0 4 30>;
+ 			ngpios = <30>;
++			bootph-pre-ram;
++			bootph-some-ram;
+ 		};
+ 
+ 		gpio3: gpio@43820000 {
+@@ -1056,6 +1070,8 @@ gpio3: gpio@43820000 {
+ 			gpio-ranges = <&iomuxc 0 84 8>, <&iomuxc 8 66 18>,
+ 				      <&iomuxc 26 34 2>, <&iomuxc 28 0 4>;
+ 			ngpios = <32>;
++			bootph-pre-ram;
++			bootph-some-ram;
+ 		};
+ 
+ 		gpio4: gpio@43830000 {
+@@ -1072,6 +1088,8 @@ gpio4: gpio@43830000 {
+ 			clock-names = "gpio", "port";
+ 			gpio-ranges = <&iomuxc 0 38 28>, <&iomuxc 28 36 2>;
+ 			ngpios = <30>;
++			bootph-pre-ram;
++			bootph-some-ram;
+ 		};
+ 
+ 		gpio1: gpio@47400000 {
+@@ -1088,6 +1106,8 @@ gpio1: gpio@47400000 {
+ 			clock-names = "gpio", "port";
+ 			gpio-ranges = <&iomuxc 0 92 16>;
+ 			ngpios = <16>;
++			bootph-pre-ram;
++			bootph-some-ram;
+ 		};
+ 
+ 		ocotp: efuse@47510000 {
+@@ -1113,6 +1133,8 @@ s4muap: mailbox@47520000 {
+ 				     <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "tx", "rx";
+ 			#mbox-cells = <2>;
++			bootph-pre-ram;
++			bootph-some-ram;
+ 		};
+ 
+ 		media_blk_ctrl: system-controller@4ac10000 {
+-- 
+2.34.1
 
-> 
-> > > 
-> > > Signed-off-by: Eillon <yezhenyu2@huawei.com>
-> > > Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
-> > > ---
-> > >   arch/arm64/include/asm/kvm_dirty_bit.h | 28 +++++++++++++
-> > >   arch/arm64/include/asm/kvm_host.h      | 13 ++++++
-> > >   arch/arm64/include/asm/sysreg.h        |  9 +++++
-> > >   arch/arm64/kvm/Makefile                |  1 +
-> > >   arch/arm64/kvm/arm.c                   | 14 ++++++-
-> > >   arch/arm64/kvm/dirty_bit.c             | 55 ++++++++++++++++++++++++++
-> > >   arch/arm64/kvm/hyp/vhe/switch.c        | 17 ++++++++
-> > >   arch/arm64/kvm/reset.c                 |  3 ++
-> > >   8 files changed, 138 insertions(+), 2 deletions(-)
-> > >   create mode 100644 arch/arm64/include/asm/kvm_dirty_bit.h
-> > >   create mode 100644 arch/arm64/kvm/dirty_bit.c
-> > > 
-> > > diff --git a/arch/arm64/include/asm/kvm_dirty_bit.h b/arch/arm64/include/asm/kvm_dirty_bit.h
-> > > new file mode 100644
-> > > index 000000000000..fe703f02626b
-> > > --- /dev/null
-> > > +++ b/arch/arm64/include/asm/kvm_dirty_bit.h
-> > > @@ -0,0 +1,28 @@
-> > > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > > +/*
-> > > + * Per-vCPU buffer management for HDBSS-based dirty page tracking.
-> > > + *
-> > > + * Copyright (C) 2026 Huawei Technologies Co., Ltd
-> > > + * Author: Tian Zheng <zhengtian10@huawei.com>
-> > > + */
-> > > +
-> > > +#ifndef __ARM64_KVM_DIRTY_BIT_H__
-> > > +#define __ARM64_KVM_DIRTY_BIT_H__
-> > > +
-> > > +#include <asm/kvm_pgtable.h>
-> > > +#include <asm/sysreg.h>
-> > > +#include <linux/sizes.h>
-> > > +
-> > > +#define KVM_ARM_HDBSS_DEFAULT_SIZE  PAGE_SIZE
-> > > +#define KVM_ARM_HDBSS_MAX_SIZE      SZ_2M
-> > > +
-> > > +/* 0 means unconfigured, fall back to one page per vCPU. */
-> > > +static inline u32 kvm_hdbss_buffer_size(struct kvm *kvm)
-> > > +{
-> > > +	return kvm->arch.hdbss_buffer_size ?: KVM_ARM_HDBSS_DEFAULT_SIZE;
-> > > +}
-> > 
-> > Why not set arch.hdbss_buffer_size to KVM_ARM_HDBSS_DEFAULT_SIZE at start,
-> > instead of testing it here like this?
-> > 
-> 
-> The size is set by userspace via ioctl, and we don't allow it to
-> be set twice:
-> 
-> ```
-> if (kvm->created_vcpus) {
-> 	r = -EINVAL;
-> } else if (kvm->arch.hdbss_buffer_size) {
-> 	r = -EBUSY;
-> } else {
-> 	kvm->arch.hdbss_buffer_size = size;
-> }
-> ```
-> 
-> If we pre-fill the default at VM creation, hdbss_buffer_size is
-> always non-zero and the -EBUSY branch would reject every attempt
-> to set a size. The same 0 sentinel also gates the dirty-ring
-> enable (a configured size conflicts with the ring), so it has to
-> mean "not configured".
-> 
-
-It looks like there is a reason for us not to set the size more than 
-once. I have not figured it yet, do you mind sharing? 
-
-I ask because effectively what we are having here is the same effect: 
-kvm_hdbss_buffer_size() may return two different values depending on the 
-IOCTL being ran or not. So for it's users does it look like the expected 
-value changed mid way.
-
-What I am trying to understand: is it safe for us to change the perceived 
-value once? (default -> whatever the user sets) In which scenario is it 
-safe?
-
-In that case, can't we just allow that change to happen in that scenario, 
-instead of having a proxy function to return the ring size?
-
-
-> > > +
-> > > +int kvm_arm_vcpu_alloc_hdbss(struct kvm_vcpu *vcpu);
-> > > +void kvm_arm_vcpu_free_hdbss(struct kvm_vcpu *vcpu);
-> > > +
-> > > +#endif /* __ARM64_KVM_DIRTY_BIT_H__ */
-> > > diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> > > index 86a4d6e50934..c8fc29f3db75 100644
-> > > --- a/arch/arm64/include/asm/kvm_host.h
-> > > +++ b/arch/arm64/include/asm/kvm_host.h
-> > > @@ -425,6 +425,9 @@ struct kvm_arch {
-> > >   	 */
-> > >   	struct kvm_protected_vm pkvm;
-> > > 
-> > > +	/* HDBSS: per-VM buffer size in bytes (0 = not configured, use default) */
-> > > +	u32 hdbss_buffer_size;
-> > > +
-> > >   #ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
-> > >   	/* Nested virtualization info */
-> > >   	struct dentry *debugfs_nv_dentry;
-> > > @@ -844,6 +847,13 @@ struct vcpu_reset_state {
-> > >   	bool		reset;
-> > >   };
-> > > 
-> > > +struct vcpu_hdbss_state {
-> > > +	struct page *hdbss_pg;		/* HDBSS buffer */
-> > > +	u64 hdbssbr_el2;		/* programmed into the CPU on load */
-> > > +	u64 hdbssprod_el2;		/* producer index, saved on put */
-> > > +	unsigned int buddy_order;	/* allocation order for __free_pages() */
-> > > +};
-> > > +
-> > >   struct vncr_tlb;
-> > > 
-> > >   struct kvm_vcpu_arch {
-> > > @@ -951,6 +961,9 @@ struct kvm_vcpu_arch {
-> > > 
-> > >   	/* Hyp-readable copy of kvm_vcpu::pid */
-> > >   	pid_t pid;
-> > > +
-> > > +	/* HDBSS buffer state */
-> > > +	struct vcpu_hdbss_state hdbss;
-> > >   };
-> > > 
-> > >   /*
-> > > diff --git a/arch/arm64/include/asm/sysreg.h b/arch/arm64/include/asm/sysreg.h
-> > > index 7aa08d59d494..7c71560b57e4 100644
-> > > --- a/arch/arm64/include/asm/sysreg.h
-> > > +++ b/arch/arm64/include/asm/sysreg.h
-> > > @@ -1039,6 +1039,15 @@
-> > > 
-> > >   #define GCS_CAP(x)	((((unsigned long)x) & GCS_CAP_ADDR_MASK) | \
-> > >   					       GCS_CAP_VALID_TOKEN)
-> > > +
-> > > +/*
-> > > + * Definitions for the HDBSS feature
-> > > + */
-> > > +#define HDBSSBR_EL2(baddr, sz)	(((baddr) & HDBSSBR_EL2_BADDR_MASK) | \
-> > > +				 FIELD_PREP(HDBSSBR_EL2_SZ_MASK, sz))
-> > > +
-> > > +#define HDBSSPROD_IDX(prod)	FIELD_GET(HDBSSPROD_EL2_INDEX_MASK, prod)
-> > > +
-> > >   /*
-> > >    * Definitions for GICv5 instructions
-> > >    */
-> > > diff --git a/arch/arm64/kvm/Makefile b/arch/arm64/kvm/Makefile
-> > > index 59612d2f277c..ec2749af64fa 100644
-> > > --- a/arch/arm64/kvm/Makefile
-> > > +++ b/arch/arm64/kvm/Makefile
-> > > @@ -18,6 +18,7 @@ kvm-y += arm.o mmu.o mmio.o psci.o hypercalls.o pvtime.o \
-> > >   	 guest.o debug.o reset.o sys_regs.o stacktrace.o \
-> > >   	 vgic-sys-reg-v3.o fpsimd.o pkvm.o \
-> > >   	 arch_timer.o trng.o vmid.o emulate-nested.o nested.o at.o \
-> > > +	 dirty_bit.o \
-> > >   	 vgic/vgic.o vgic/vgic-init.o \
-> > >   	 vgic/vgic-irqfd.o vgic/vgic-v2.o \
-> > >   	 vgic/vgic-v3.o vgic/vgic-v4.o \
-> > > diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> > > index d9ad765943d9..5ea4ac26995e 100644
-> > > --- a/arch/arm64/kvm/arm.c
-> > > +++ b/arch/arm64/kvm/arm.c
-> > > @@ -36,6 +36,7 @@
-> > >   #include <asm/virt.h>
-> > >   #include <asm/kvm_arm.h>
-> > >   #include <asm/kvm_asm.h>
-> > > +#include <asm/kvm_dirty_bit.h>
-> > >   #include <asm/kvm_emulate.h>
-> > >   #include <asm/kvm_hyp.h>
-> > >   #include <asm/kvm_mmu.h>
-> > > @@ -580,10 +581,19 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
-> > >   	}
-> > > 
-> > >   	err = kvm_share_hyp(vcpu, vcpu + 1);
-> > > -	if (err)
-> > > +	if (err) {
-> > >   		kvm_vgic_vcpu_destroy(vcpu);
-> > > +		return err;
-> > > +	}
-> > > 
-> > > -	return err;
-> > > +	err = kvm_arm_vcpu_alloc_hdbss(vcpu);
-> > > +	if (err) {
-> > > +		kvm_unshare_hyp(vcpu, vcpu + 1);
-> > > +		kvm_vgic_vcpu_destroy(vcpu);
-> > > +		return err;
-> > > +	}
-> > > +
-> > > +	return 0;
-> > >   }
-> > > 
-> > >   void kvm_arch_vcpu_postcreate(struct kvm_vcpu *vcpu)
-> > > diff --git a/arch/arm64/kvm/dirty_bit.c b/arch/arm64/kvm/dirty_bit.c
-> > > new file mode 100644
-> > > index 000000000000..f9aeb9f34ad0
-> > > --- /dev/null
-> > > +++ b/arch/arm64/kvm/dirty_bit.c
-> > > @@ -0,0 +1,55 @@
-> > > +// SPDX-License-Identifier: GPL-2.0-only
-> > > +/*
-> > > + * Per-vCPU HDBSS buffer management.
-> > > + *
-> > > + * Copyright (C) 2026 Huawei Technologies Co., Ltd
-> > > + * Author: Tian Zheng <zhengtian10@huawei.com>
-> > > + */
-> > > +
-> > > +#include <asm/kvm_dirty_bit.h>
-> > > +#include <asm/kvm_mmu.h>
-> > > +#include <asm/sysreg.h>
-> > > +#include <linux/gfp.h>
-> > > +#include <linux/kconfig.h>
-> > > +#include <linux/log2.h>
-> > > +#include <linux/mm.h>
-> > > +
-> > > +int kvm_arm_vcpu_alloc_hdbss(struct kvm_vcpu *vcpu)
-> > > +{
-> > > +	struct page *hdbss_pg;
-> > > +	u32 size;
-> > > +	unsigned int buddy_order;
-> > > +	u32 sz_encoded;
-> > > +
-> > > +	if (vcpu->arch.hdbss.hdbss_pg || !system_supports_hdbss())
-> > > +		return 0;
-> > > +
-> > > +	size = kvm_hdbss_buffer_size(vcpu->kvm);
-> > > +
-> > > +	buddy_order = get_order(size);
-> > > +	sz_encoded = ilog2(size) - 12;
-> > > +
-> > > +	hdbss_pg = alloc_pages(GFP_KERNEL_ACCOUNT | __GFP_ZERO, buddy_order);
-> > > +	if (!hdbss_pg)
-> > > +		return -ENOMEM;
-> > > +
-> > > +	vcpu->arch.hdbss = (struct vcpu_hdbss_state) {
-> > > +		.hdbss_pg = hdbss_pg,
-> > > +		.hdbssbr_el2 = HDBSSBR_EL2(page_to_phys(hdbss_pg), sz_encoded),
-> > > +		.hdbssprod_el2 = 0,
-> > > +		.buddy_order = buddy_order,
-> > > +	};
-> > > +
-> > > +	return 0;
-> > > +}
-> > > +
-> > > +void kvm_arm_vcpu_free_hdbss(struct kvm_vcpu *vcpu)
-> > > +{
-> > > +	if (!vcpu->arch.hdbss.hdbss_pg)
-> > > +		return;
-> > > +
-> > > +	__free_pages(vcpu->arch.hdbss.hdbss_pg, vcpu->arch.hdbss.buddy_order);
-> > > +
-> > > +	vcpu->arch.hdbss.hdbss_pg = NULL;
-> > > +	vcpu->arch.hdbss.hdbssbr_el2 = 0;
-> > > +}
-> > > diff --git a/arch/arm64/kvm/hyp/vhe/switch.c b/arch/arm64/kvm/hyp/vhe/switch.c
-> > > index 7875911c0506..922fc9260e11 100644
-> > > --- a/arch/arm64/kvm/hyp/vhe/switch.c
-> > > +++ b/arch/arm64/kvm/hyp/vhe/switch.c
-> > > @@ -19,6 +19,7 @@
-> > >   #include <asm/cpufeature.h>
-> > >   #include <asm/kprobes.h>
-> > >   #include <asm/kvm_asm.h>
-> > > +#include <asm/kvm_dirty_bit.h>
-> > >   #include <asm/kvm_emulate.h>
-> > >   #include <asm/kvm_hyp.h>
-> > >   #include <asm/kvm_mmu.h>
-> > > @@ -219,6 +220,17 @@ static void __vcpu_put_deactivate_traps(struct kvm_vcpu *vcpu)
-> > >   	local_irq_restore(flags);
-> > >   }
-> > > 
-> > > +static void __load_hdbss(struct kvm_vcpu *vcpu)
-> > > +{
-> > > +	if (!vcpu->arch.hdbss.hdbss_pg)
-> > > +		return;
-> > > +
-> > > +	write_sysreg_s(vcpu->arch.hdbss.hdbssbr_el2, SYS_HDBSSBR_EL2);
-> > > +	write_sysreg_s(vcpu->arch.hdbss.hdbssprod_el2, SYS_HDBSSPROD_EL2);
-> > > +
-> > > +	isb();
-> > > +}
-> > > +
-> > >   void kvm_vcpu_load_vhe(struct kvm_vcpu *vcpu)
-> > >   {
-> > >   	host_data_ptr(host_ctxt)->__hyp_running_vcpu = vcpu;
-> > > @@ -226,10 +238,15 @@ void kvm_vcpu_load_vhe(struct kvm_vcpu *vcpu)
-> > >   	__vcpu_load_switch_sysregs(vcpu);
-> > >   	__vcpu_load_activate_traps(vcpu);
-> > >   	__load_stage2(vcpu->arch.hw_mmu);
-> > > +	__load_hdbss(vcpu);
-> > >   }
-> > > 
-> > >   void kvm_vcpu_put_vhe(struct kvm_vcpu *vcpu)
-> > >   {
-> > > +	/* Saved under the same ownership condition as __load_hdbss(). */
-> > > +	if (vcpu->arch.hdbss.hdbss_pg)
-> > > +		vcpu->arch.hdbss.hdbssprod_el2 = read_sysreg_s(SYS_HDBSSPROD_EL2);
-> > 
-> > Above suggestion would need you to reload HDBSSBR_EL2 as well.
-> > 
-> 
-> Right, that reload is part of the ordering obligation above.
-> 
-> I think keeping the allocation at vCPU creation is simpler, but
-> let me know what you think.
-> 
-
-I fully agree it's simpler, but we have to carry those per-cpu buffers 
-(that can go up to 2M each) for the whole life of the VM, which can be a 
-lot on a big VM.
-
-That being said, I'm not against it. But I think we should resort to it 
-only if we have a compelling reason not to allocate/free on demand.
-
-What do you think?
-
-Thanks!
-Leo
