@@ -1,69 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793396296;
-	b=H29LjLuv9zf2aTeJ/nt/NBryw1u19vw/wlqezBYj/wvDWBdhDEoH2Vm9qPJzNgor2Wiq
-	 K/Em6m07g4OzljZAQIfIXAIUo9yNlKWsivneAjZdSzqtuxbMKRe19Eb6i+JFyMkAnQzQU
-	 esEGVR++bIXtLPcZ1iTJlVh6YDoFcmWha2JfMJpCoTVrb90zJlE8irEUvfTwIUjawhvRT
-	 mCdIatYLqMTXSIIUXG+8jKb4eIo+LcRXTcXEOhneDRoNGECWh6fOnfTajh3ai5UuLCATJ
-	 9rvvS2QPw2QAm9uywyOooJ8rWrd+GnpZAmLVpAF8Eintj5QOfWh+KXhBJL9rcMhGkkA==
+	t=1793396277;
+	b=dJ/9ljcH/bqHudK/jmjjfLHqvtgvAXAAnqWVRTGx7Hwewd32pNz7qR77y1WaH7CATC6E
+	 LZ4+qeWYp6HRC2voXd7pqsOSv/m87C427fqXmUAD1yRrfOgKzMp8BpJ1Z00i/AfYbfhDa
+	 lnRcoQs4pr+CSPy8nKRq6KdgQeIUqjnts8INbS8saipYBzLJMsqQOyYyCrN6JgDwUKaVG
+	 42MHdh0xLtpne6kd5ttJJ/rPctYg5a2ZOXm12HetpS73NDAoW52Ap00Lv3Pic+em/lXrz
+	 /KojfeL7WMl4C4aFo7kM4cC0ESuBduzIqE1lEFPZ5NAUSpAyopq93h3GCeprAIUN+dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793396296;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=hPwxOiEv9fBE8aIWPVa1/bgdvb4W/YMWcaiy5lCsNN4=;
-	b=COXxGm/3Akqf8/2v3M47JkPY6xixziXmsSCZ5W57DciZOsACkhr8LEjRfWpNR+CufpLF
-	 20YdLsdgrRAi7U55kQKy0PXN6g6zvOwEy/CfBHwPEd2e3nL1nNvchRKDUdH6oKug0+OpT
-	 nSWy4xSDWc3fHwlK7EW7g3+FBC7DRZjyIPJIW6UE5TX1rubY8KR5KDWfGNAEWYJne+PGE
-	 3P2K9I6nT3q8r31LuHQjQLiJv01r6Bk7d7/ZKSH7Xp1TERKO8+acybIe3MoZDOCdVqp41
-	 FMQOuNWBWlCGWaICAqThyAfwbv4KWhHXYb9GK6dofltK32zgIvGjDOuFqeWwZ9Sw/AA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793396277;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
+	 To:Cc:Content-Type;
+	bh=E7HZ4wC4+K8HOqXkfuQZ8aAkOprR4TOij0W58WTuCRM=;
+	b=N7HZQKT9FfpDxWtlRKhNq2hAOeaB2jdVhaXuLeVziG5A5CSHU9Gpxs+jANIaytYTX7rN
+	 umESi/NwZrpxbdp7qo+g1srrkSA7VSp6uqCwTnzcdawwkSRCDaf0E2L3336dQ3vf5ln9i
+	 r9htbDEQBmLgAVZzQ5QLb7UowxyOzlThXhVh1vMxik4to5MEcXvC7yxnHLqgXWxaBK9ij
+	 8FPFCOI8NdeCG3h2llD69kAXWgJbmTCrH2BRTlJZZ0HAwgkA833c9yh+wXXdhkzwGVham
+	 LSoVseaQ2lmCzalbJD0YKJdQH0yH93dDq2xTU3eN6YHEpnBEIrHgVECN0XpAKCqaulg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="Q6f/BoxD";
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=M2WXBWVf;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCED606A325;
-	Fri, 30 Oct 2026 21:38:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFCED606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3670960A260B
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:37:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3670960A260B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Q6f/BoxD
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3638B4B0;
-	Fri, 30 Oct 2026 22:35:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793396150;
-	bh=mhvqEixdDbdzdKOTvnXWf9scL4yTOZMFHRlK1GjWEZM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Q6f/BoxDuUcNEpgNKmjpwv32hVuO7+97TwlOliyS1O/NIMXvvAQ8L6jJHeSv03vnS
-	 xeq1/GzIVeX91waAx0db4Lc2QSu82iVn41eCtBV7gl01Ljz9mX9KDyngeAdXc7+rPk
-	 tqPPPFGL+DGl2ZQwVoILu/+gSyPzypQSBUyQAesk=
-Date: Fri, 30 Oct 2026 23:38:03 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH DNI v3 05/15] arm64: renesas: r8a78000: Add VSP[BI] nodes
-Message-ID: <20261030213803.GC3178046@killaraus.ideasonboard.com>
-References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
- <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-5-e052903a3832@ideasonboard.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=M2WXBWVf
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-89ff475a0deso1082778b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:37:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793396276; x=1794001076; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=E7HZ4wC4+K8HOqXkfuQZ8aAkOprR4TOij0W58WTuCRM=;
+        b=M2WXBWVfQnzoYtkEiq4qRiUEB80cqDxbGVORrPlRrQdg5ECEQJ+c6YUu1Y1KTM8vS9
+         tLFjJ7tILed7bh/ZK+jGkOhcv4P4nUOtVnw2+IktaKhTswdiXsCNE2CjY0ugTzOJpaWQ
+         rRwHzzDu4Uqp38Opt50xqagv5mteQXM5XWEk7BCgyehgzQRgdXwhJ6z2S5uyXERFHnJJ
+         HnfhrOJZpAoinktGcy0Ef2u+Lop4vgCuK/AjAr8ZevD7gm+vALhT+5S2jL3vbi4jdEXe
+         YypnDpjaK4hGZ33GrbS2sDyzYoSzx35baOlbZN7ZRfMOwmXQmKCO/t3av/FRsj7RaOgf
+         Pi5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793396276; x=1794001076;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E7HZ4wC4+K8HOqXkfuQZ8aAkOprR4TOij0W58WTuCRM=;
+        b=QAwE4yB6qDwU7lTNLxzDjFveBKSa2CZMTGmW0ImRPqPCGSrmhj3bHezPWw1QtkNF19
+         ISLQpoZzsfyEzD3iQgIfDtTR1NS+3D9vTxxuk0VKYPf1SxpXKvrd4R05DbR3WELz4+ph
+         QJg5j7NUKQzSYw2apHJPfKREfcJ6/vEcFEpt6FrVFfd7wmKSoJWKR2HhiJv7OaODjaZA
+         EQ3K0c9aeRDyf+fACXKCtsR/lca7n7INR6NyXN/NwJ8syXdSBGu8qdLvmFmPhyEYZc3E
+         zN38iS7lCngcZJiXXLFi2SmgWLVq3pZJQ14VgzDvVMi6VLTaLPysKkeYI8tpXE0Aoeej
+         p91Q==
+X-Forwarded-Encrypted: i=1; AKwUvByd1zgtBxJk9AGuTz/u6xP9zYRnzIBF7JoBY1wywUYqDUEKSLQWHghp6+ufrclXz/EQR0R6AjVr2YbW3xw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKWFPeWqkYk8WS+ZFL5g1I+2Ut2BMoX3sDqsN1PirXjRr9J3Ocu
+	b4Y+U48Oo78kqVl7lphautJbgjuUXc0fmYaWD7FnABHhKkHnKhecet9u2Y3U8L1TEV3pktra3a9
+	wNh8Z5Q==
+X-Received: from pfst39.prod.google.com ([2002:aa7:8fa7:0:b0:884:7cdd:23d1])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:3c90:b0:880:4b56:dc2c
+ with SMTP id d2e1a72fcca58-8a9bdcc679cmr2516978b3a.34.1793396275335; Fri, 30
+ Oct 2026 14:37:55 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Fri, 30 Oct 2026 14:37:47 -0700
+In-Reply-To: <20261030213747.2611815-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,142 +79,168 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-5-e052903a3832@ideasonboard.com>
+Mime-Version: 1.0
+References: <20261030213747.2611815-1-seanjc@google.com>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261030213747.2611815-6-seanjc@google.com>
+Subject: [PATCH v3 5/5] KVM: selftests: Verify KVM handling of L1-owned CR0
+ bits on writes from L2
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Mahmoud Abumandour <ma.mandourr@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Paul,
+From: Mahmoud Abumandour <ma.mandourr@gmail.com>
 
-On Thu, Oct 15, 2026 at 04:51:45PM +0900, Paul Elder wrote:
-> From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> 
-> Add DT nodes for the VSPB and VSPI IP cores in the R-Car X5H SoC.
-> 
-> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> ---
->  arch/arm64/boot/dts/renesas/r8a78000.dtsi | 99 +++++++++++++++++++++++++++++++
->  1 file changed, 99 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> index 2f8886f8b6545026397fd83969882f8c62afa9d3..f90b869579d384e3fc13d0a13625b7cddaac2868 100644
-> --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> @@ -1072,6 +1072,105 @@ fcpvb4: fcp@c503c000 {
->  			resets = <&mdlc_vio 0x106>;
->  		};
->  
-> +		vspi0: vsp@c5080000 {
-> +			compatible = "renesas,vsp2";
-> +			reg = <0 0xc5080000 0 0x8000>;
-> +			interrupts = <GIC_SPI 643 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
+Expand the nested exceptions test to verify KVM's handling of VMX's CR0
+guest/host masks, i.e. of VMX's conditional interception of CR0 writes.
+LMSW in particular is nasty, as it preserves bits 31:4 as well as CR0.PE
+if it was already set.
 
-For the reason explained in 04/15, I would use
-R8A78000_CPG_SGD1_VIO_DP_OTHER here and below.
+Verify that MOV CR0 and LMSW in L2 that exits to L0, i.e. isn't intercepted
+by L1, doesn't modify an L1-owned bits and reads the correct value from the
+read shadow.  Use CR0.TS to do the bulk of validation, as its value in
+hardware can be easily inferred by triggering an #NM in L2.  Specifically,
+run with CR0.TS=1 in hardware but CR0.TS=0 in the read shadow, and verify
+that non-intercepted writes to CR0 from L2 preserve the CR0.TS values in
+hardware *and* the shadow.
 
-> +			power-domains = <&mdlc_vio 0x07 0xfe>;
-> +			resets = <&mdlc_vio 0xfe>;
-> +
-> +			renesas,fcp = <&fcpvi0>;
-> +		};
-> +
-> +		vspi1: vsp@c5088000 {
-> +			compatible = "renesas,vsp2";
-> +			reg = <0 0xc5088000 0 0x8000>;
-> +			interrupts = <GIC_SPI 644 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
-> +			power-domains = <&mdlc_vio 0x07 0xff>;
-> +			resets = <&mdlc_vio 0xff>;
-> +
-> +			renesas,fcp = <&fcpvi1>;
-> +		};
-> +
-> +		vspi2: vsp@c5090000 {
-> +			compatible = "renesas,vsp2";
-> +			reg = <0 0xc5090000 0 0x8000>;
-> +			interrupts = <GIC_SPI 645 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
-> +			power-domains = <&mdlc_vio 0x07 0x100>;
-> +			resets = <&mdlc_vio 0x100>;
-> +
-> +			renesas,fcp = <&fcpvi2>;
-> +		};
-> +
-> +		vspi3: vsp@c5098000 {
-> +			compatible = "renesas,vsp2";
-> +			reg = <0 0xc5098000 0 0x8000>;
-> +			interrupts = <GIC_SPI 646 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
-> +			power-domains = <&mdlc_vio 0x07 0x101>;
-> +			resets = <&mdlc_vio 0x101>;
-> +
-> +			renesas,fcp = <&fcpvi3>;
-> +		};
-> +
-> +		vspb0: vsp@c50c0000 {
-> +			compatible = "renesas,vsp2";
-> +			reg = <0 0xc50c0000 0 0x8000>;
-> +			interrupts = <GIC_SPI 618 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
-> +			power-domains = <&mdlc_vio 0x07 0xf9>;
-> +			resets = <&mdlc_vio 0xf9>;
-> +
-> +			renesas,fcp = <&fcpvb0>;
-> +		};
-> +
-> +		vspb1: vsp@c50c8000 {
-> +			compatible = "renesas,vsp2";
-> +			reg = <0 0xc50c8000 0 0x8000>;
-> +			interrupts = <GIC_SPI 619 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
-> +			power-domains = <&mdlc_vio 0x07 0xfa>;
-> +			resets = <&mdlc_vio 0xfa>;
-> +
-> +			renesas,fcp = <&fcpvb1>;
-> +		};
-> +
-> +		vspb2: vsp@c50d0000 {
-> +			compatible = "renesas,vsp2";
-> +			reg = <0 0xc50d0000 0 0x8000>;
-> +			interrupts = <GIC_SPI 620 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
-> +			power-domains = <&mdlc_vio 0x07 0xfb>;
-> +			resets = <&mdlc_vio 0xfb>;
-> +
-> +			renesas,fcp = <&fcpvb2>;
-> +		};
-> +
-> +		vspb3: vsp@c50d8000 {
-> +			compatible = "renesas,vsp2";
-> +			reg = <0 0xc50d8000 0 0x8000>;
-> +			interrupts = <GIC_SPI 621 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
-> +			power-domains = <&mdlc_vio 0x07 0xfc>;
-> +			resets = <&mdlc_vio 0xfc>;
-> +
-> +			renesas,fcp = <&fcpvb3>;
-> +		};
-> +
-> +		vspb4: vsp@c50e0000 {
-> +			compatible = "renesas,vsp2";
-> +			reg = <0 0xc50e0000 0 0x8000>;
-> +			interrupts = <GIC_SPI 622 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_OTHER>;
-> +			power-domains = <&mdlc_vio 0x07 0xfd>;
-> +			resets = <&mdlc_vio 0xfd>;
-> +
-> +			renesas,fcp = <&fcpvb4>;
-> +		};
-> +
->  		mdlc_cmnn: system-controller@ca410000 {
->  			compatible = "renesas,r8a78000-mdlc";
->  			reg = <0 0xca410000 0 0x1000>;
+Note, the downside of using CR0.TS is that any SIMD instructions in L2 will
+hit a #NM, which is especially problematic since ucall(), e.g. for guest
+prints and asserts, includes a memset(), for which the compiler likes to
+generate SSE instructions.  To avoid false passes and false failures, have
+L2 snapshot the CR0 it sees, but do the actual validation in L1.  E.g. if
+L2 observed the wrong value, then doing GUEST_ASSERT_EQ() could get a false
+pass as memset() would trigger the #NM expected by L1 (when L2 is trying to
+report the failure).
 
+Include CR0.NE and CR0.PE in the divergent shadow/hardware values as well
+for extra coverage, e.g. CR0.NE is a must-be-1 bit, and CR0.PE is preserved
+by LMSW, but if and only if it's already '1'.
+
+Signed-off-by: Mahmoud Abumandour <ma.mandourr@gmail.com>
+Co-developed-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ .../selftests/kvm/include/x86/processor.h     |  5 ++
+ .../kvm/x86/nested_exceptions_test.c          | 73 +++++++++++++++++++
+ 2 files changed, 78 insertions(+)
+
+diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
+index 5898a277a2e0..79c4b502b00c 100644
+--- a/tools/testing/selftests/kvm/include/x86/processor.h
++++ b/tools/testing/selftests/kvm/include/x86/processor.h
+@@ -617,6 +617,11 @@ static inline void set_cr0(u64 val)
+ 	__asm__ __volatile__("mov %0, %%cr0" : : "r" (val) : "memory");
+ }
+ 
++static inline void lmsw(u8 val)
++{
++	__asm__ __volatile__("lmsw %w0" : : "r" (val) : "memory");
++}
++
+ static inline u64 get_cr2(void)
+ {
+ 	u64 cr2;
+diff --git a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+index f47432526ea1..e83c1f41703d 100644
+--- a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
++++ b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+@@ -109,6 +109,51 @@ static void l1_svm_code(struct svm_test_data *svm)
+ 	GUEST_DONE();
+ }
+ 
++static u64 l2_cr0;
++
++static void l2_vmx_cr0_test(bool use_lmsw)
++{
++	/*
++	 * DANGER!!!  DO NOT add anything that might cause the compiler to emit
++	 * a "string" operation, e.g. memset().  Compilers often generate SIMD
++	 * instructions for memset() and friends, and so will hit an #NM due to
++	 * CR0.TS being set in hardware.  Note, all ucalls trigger memset()!
++	 */
++	u64 cr0 = (get_cr0() ^ X86_CR0_MP);
++
++	if (use_lmsw)
++		lmsw(cr0);
++	else
++		set_cr0(cr0);
++
++	/*
++	 * Snapshot CR0 and let L1 check the value; as above, attempting to use
++	 * GUEST_ASSERT_EQ() => ucall will likely trigger a premature #NM and
++	 * result in a false pass (L1 will see the #NM and think all is well).
++	 */
++	l2_cr0 = get_cr0();
++
++	/* FNOP should #NM as CR0.TS is set vmcs12.CR0 and thus vmcs02. */
++	asm volatile("fnop" ::: "memory");
++
++	/*
++	 * Signal failure with a #UD, again to avoid ucall/memset().  If FNOP
++	 * somehow succeeds but then #NM is triggered by a SIMD instruction in
++	 * memset(), the test will get a false pass.
++	 */
++	asm volatile("ud2");
++}
++
++static void l2_mov_cr0_test(void)
++{
++	l2_vmx_cr0_test(false);
++}
++
++static void l2_lmsw_test(void)
++{
++	l2_vmx_cr0_test(true);
++}
++
+ static void vmx_run_l2(void *l2_code, int vector, u32 error_code)
+ {
+ 	vmwrite(GUEST_RIP, (u64)l2_code);
+@@ -129,6 +174,8 @@ static void vmx_run_l2(void *l2_code, int vector, u32 error_code)
+ 
+ static void l1_vmx_code(struct vmx_pages *vmx)
+ {
++	unsigned long cr0;
++
+ 	prepare_for_vmx_operation(vmx);
+ 
+ 	load_vmcs(vmx);
+@@ -153,6 +200,32 @@ static void l1_vmx_code(struct vmx_pages *vmx)
+ 	vmx_run_l2(l2_ss_injected_tf_test, FAKE_TRIPLE_FAULT_VECTOR, 0);
+ 	GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON), EXIT_REASON_TRIPLE_FAULT);
+ 
++	/*
++	 * Validate KVM's CR0 mask+shadow emulation, for both MOV CR and LMSW.
++	 * Set TS and NE in the value loaded in hardware, to verify that doing
++	 * e.g. FNOP generates an #NM in L2, but clear the bits in L2's read
++	 * shadow and verify that L2 always sees '0' and can't set those bits.
++	 */
++	cr0 = vmread(GUEST_CR0) | X86_CR0_TS | X86_CR0_NE;
++	vmwrite(CR0_GUEST_HOST_MASK, X86_CR0_TS | X86_CR0_NE | X86_CR0_PE);
++	vmwrite(CR0_READ_SHADOW, cr0 & ~(X86_CR0_TS | X86_CR0_NE));
++	vmwrite(GUEST_CR0, cr0);
++	vmwrite(EXCEPTION_BITMAP, BIT_ULL(NM_VECTOR));
++
++	vmx_run_l2(l2_mov_cr0_test, NM_VECTOR, 0);
++	GUEST_ASSERT_EQ(l2_cr0, (cr0 & ~(X86_CR0_TS | X86_CR0_NE)) ^ X86_CR0_MP);
++	GUEST_ASSERT_EQ(vmread(GUEST_CR0), cr0 ^ X86_CR0_MP);
++
++	/*
++	 * LMSW preserves CR0.PE *if* CR0.PE=1.  Clear the bit in the shadow to
++	 * validate that KVM preserves CR0.PE in "hardware" even if L2 attempts
++	 * to clear CR0.PE via LMSW.
++	 */
++	vmwrite(CR0_READ_SHADOW, cr0 & ~(X86_CR0_TS | X86_CR0_NE | X86_CR0_PE));
++	vmx_run_l2(l2_lmsw_test, NM_VECTOR, 0);
++	GUEST_ASSERT_EQ(l2_cr0, cr0 & ~(X86_CR0_TS | X86_CR0_NE | X86_CR0_PE));
++	GUEST_ASSERT_EQ(vmread(GUEST_CR0), cr0);
++
+ 	GUEST_DONE();
+ }
+ 
 -- 
-Regards,
+2.56.0.385.gac671c819a-goog
 
-Laurent Pinchart
