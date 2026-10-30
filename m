@@ -1,66 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793343018;
-	b=kvXThNHbt7WJ+PqQwZWLaiTmA36f4X52aLSUNU8exs2iPR6AJj5/lIZ/7q6eHIQSx9Ze
-	 CIg6XlkP8Om6rSjf2q78ZDVVE6BCOj9zUzOPBAXvhvNn9d8k9tRr7GMz95kBtHvXuc+JF
-	 3iwNir9YLDLRNO6wXE/ySX+kpCwwRz+le1ncdQmqbQj1ReGqhHFV4X14buP4Pc+Puy9uK
-	 KOiW4bzUEe2VnMIyfmkJT5qOlFe+7/k45aj4+ETai9rar6duB7QBVx6p0uo4Vj4H2uepZ
-	 UyhNZ4myeH556HTNROIp16iC42MuSMJLgsMFNhiAvX9+zeDEDxhMof6UnV//FtgTUZQ==
+	t=1793343181;
+	b=QlYCSzx9l9QHvGrATLkEHZGSOwvqwltosbk4YN3m2VoCjtinVftSi16qxkVv16oXQSBm
+	 FuAvjs8DEs4r0ARJhGrE3zhK/sjcH1OpKVs/VQ3SA36CVflIAqSqf59aUW8boZXtVODag
+	 TXcY6KAUPszS26e6rFk1ZDtjUAaF94A94VWjv3MHdNfCyZrv6XwZ/+rULEBZ1ju0mrRnv
+	 SWpgL2jYY2ZTJXridCAET/Pfyejs1KyweTzSm6yjMa47Aqmo8FMjeMGV/8NQerQ6eSmEe
+	 ogL0CqdJBPsG9g6DTi9prTrEocTwmzcAK06nTJpO4Be5QmE9qx4OyevWT16Hkyi5eew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793343018;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
-	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=r1/R+aZcqsYR+3DPQv8/Fhe+b8fa/vAMKub/kpo2HNQ=;
-	b=BFxuFyVPiBXDuJmK20UQshRLP6lfAZ1wF2/5xGb7GM1SNUT4iL59XpH48nO+vaopgIVm
-	 MWjbqIEJfnn63Zz9ScNEPdHIWozWT+DVY4Zi5xqg84Ul1OFx54UdxFJ2qCmHEWwltHe7X
-	 yTDixTGY+7/WwsnQTwAQqkwj2s9ESjbxO6yT4uR5lPZUwHL/QH5t3jKTbIArLVSuoyyuK
-	 OTZuKmvD15Ln6R1edpjEID8THDbbBKKcDp3XEOQdnu/kCVjEJdtcMgtJqb0IV1W3qlvI+
-	 sIZul8uqoFkZ5pfHkMHUhU1z9g8fBxYJuiHyMiKNnXLgdYSq7oVxc8jbm8YuHZDxJRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793343181;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=qXtTOic1CSe7iLEVcnI3wJflAV0GHEPp/NEkAFGsTr8=;
+	b=jd16bEvJKzkLLR/FgnwEs0vWkuXScrYtrvr/UoLFxxsXFAUVzNbqi7O1jhF0KZ3sPPxo
+	 K5HZWSw1nXAB93rd+QlzWF6kKlLGOxHb5M+mPNUnc7l7+i/UzH7iWasF6JWdU4I6Okhkp
+	 cqe7sTnRhvDvcUhOmEWpgvTcjv5BuwEyEm1E5ImkJLAiI+Ls+bUSzAOsbk1A7Oq7J0fVl
+	 vZzOitBLnPbVIt2dYfAXozamEl5+YhNo6gYU/xGxVDnf+DE7+kI7qVqd62lCTS73Ei1Wu
+	 ny9bi28kdNCZHyxtNBw1LSFpxTt/0+t/88UQ8ghUeOiGYwjen2HsuYZ2/+3d3j+ETlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=CSGXn+rz;
-	arc=none smtp.remote-ip=113.46.200.220
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--starchang.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Jz3f5tt1;
+	arc=none smtp.remote-ip=209.85.210.197
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05919606A31A;
-	Fri, 30 Oct 2026 06:50:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05919606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C89606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:53:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33C89606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--starchang.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=CSGXn+rz
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=r1/R+aZcqsYR+3DPQv8/Fhe+b8fa/vAMKub/kpo2HNQ=;
-	b=CSGXn+rz75AHSq8H66iRqwFqFsxlO1cc7V+40y26/wPM4aTLtXZ/a/nOMnC1X803HB5tBvv6L
-	w/dxJglMohKSf8b7v0L0Q06+wJHdtyPX0GgXIEck9Hw8ORdSz39BPzqii3BzOhd50DHFRXkQ8xF
-	DZCFhMG2iaOqI6Oao/v90LA=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jGBYY5hDCz12LFf;
-	Fri, 30 Oct 2026 14:50:09 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id DF60340538;
-	Fri, 30 Oct 2026 14:50:11 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 30 Oct 2026 14:50:10 +0800
-Subject: Re: [PATCH] ubifs: fix auth node space and padding in journal buffers
-To: <shao.mingyin@zte.com.cn>, <richard@nod.at>,
-	<linux-mtd@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <202610301145238169CxodJv5_0n5vd-Vbd4XA@zte.com.cn>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com>
-Date: Fri, 30 Oct 2026 14:50:10 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Jz3f5tt1
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a5971cf7ceso500821b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:53:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793343180; x=1793947980; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qXtTOic1CSe7iLEVcnI3wJflAV0GHEPp/NEkAFGsTr8=;
+        b=Jz3f5tt1lHW+sWpdjFrp/X5c88hmABgX7JHsD7mDSt47kbWHamUxbvuWabR2amylU4
+         nkNf/8Y3zBaBkhXHHUWRxIo5MifNOVHrfNduzXa2/EbM3WZMA/slrw1ieeNGCn1GWHVr
+         ztwsHOUt2qfoWlJX3I/JmNDPzaU1Hh4rePYHpYsaI8noOYuxYGq5UmL36OuEU6/wEtmo
+         rIKbzHUtrYHRTN/t8jkTN+tsRSAjBduhj0GjhMXZ7nLrQTjQ8bOfDufhPIikR1Q8kDWV
+         OdGXW7iV5f4Kp3s0Eox69lhelltwncOSxY2acXtRLwf1xjwZ1Cp8StPU0+8eP5mlkice
+         EmjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793343180; x=1793947980;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qXtTOic1CSe7iLEVcnI3wJflAV0GHEPp/NEkAFGsTr8=;
+        b=pGDAIhXW57aR31KK7qMK5x/Zb175o89fIUat8CmNT1FnPwYgMgmz8G6zs5Kp3KwT6R
+         iYklI/AEbblJl+jZpKBlhhydDfbuFetP6jnfSVdticLn26nu5wdSRFRLQKockh/Gdu5D
+         xWzd5sZfpKM+/PrSh/LyTkz187+NzT5GcXsBqOZtjcLPy//wJxjLJ+WQA1mxa+9CQ56E
+         lxCmv3+SjfWWHkSOUjrbe3/ZrWZZ78FltPe+cKrgSET23n0R8Aa+OdnbANe/ojaXke4y
+         gXfip2Qp/HwdVWQ+AASXUdtTn/rE388W1gbk1DkVz+zZ//LJ70PcCwD7BZhBoG40FIRy
+         Q7TQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw8HB/lm5S2kDclgosegCJ2IR5lyIPHW2syAmqJQrDWVlPj2zb8gJYgtROpRuFfiw2D+zmMw52QvV0xvM0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYNH+wjTNRco1RvN1lbFF7WX5rrVOz7+mXhJkNDFolarYyfgHo
+	MiKdpEOkpaBKMAawzGoHdEFWxZRMeNSaY9U3zXe+HH23ODv91aXyz1ns2eVQluzhNGHVBd5ueNr
+	G/CRpYo5ySKWPdI6K3w==
+X-Received: from pfbkt3.prod.google.com ([2002:a05:6a00:4ba3:b0:8a0:2311:b0be])
+ (user=starchang job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:1f0b:b0:89e:779b:d0f with SMTP id d2e1a72fcca58-8a9beb69d8fmr1284653b3a.37.1793343180250;
+ Thu, 29 Oct 2026 23:53:00 -0700 (PDT)
+Date: Fri, 30 Oct 2026 06:52:58 +0000
+In-Reply-To: <65cf2338-7bb4-3151-f3b1-ef171bb5723b@ssi.bg>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,139 +78,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-In-Reply-To: <202610301145238169CxodJv5_0n5vd-Vbd4XA@zte.com.cn>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- whupemo200011.china.huawei.com (7.152.185.179)
+Mime-Version: 1.0
+References: <20261026150539.1357037-1-starchang@google.com>
+ <20261027015619.1745984-1-starchang@google.com> <5c1fe870-39ff-e83e-e479-0e1f0fed6a83@ssi.bg>
+ <20261028061644.2997812-1-starchang@google.com> <f631e178-d9ec-f335-9163-c44a9e6c58af@ssi.bg>
+ <20261030030715.604215-1-starchang@google.com>
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+Message-ID: <20261030065258.818406-1-starchang@google.com>
+Subject: Re: [PATCH net v4] net: Fix Hole-196 vulnerability by dropping
+ unicast ARP/IP in L2 BMC
+From: Star Chang <starchang@google.com>
+To: ja@ssi.bg
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	horms@kernel.org, johannes@sipsolutions.net, johannes.berg@intel.com, 
+	linux-kernel@vger.kernel.org, wangroger@google.com, starchang@google.com
+Content-Type: text/plain; charset="utf-8"
 
-在 2026/10/30 11:45, shao.mingyin@zte.com.cn 写道:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> write_head() appends an authentication node to the node group when
-> authentication is enabled and writes
-> ALIGN(node_len, 8) + ubifs_auth_node_sz(c) bytes from the buffer.
-> ubifs_jnl_write_data() allocates its buffer for that, but when the
-> allocation fails it falls back to c->write_reserve_buf.  That buffer is
-> sized for a data node only (COMPRESSED_DATA_NODE_BUF_SZ plus the cipher
-> block, 4144/4160 bytes), while an incompressible 4 KiB block needs
-> 4144/4160 bytes plus the auth node (24 + the HMAC length, 56 bytes with
-> sha256).  ubifs_hash_nodes() then writes the auth node past the end of
-> the reserve buffer, and write_head() reads it back from there.
-> 
-> The same write path also leaks uninitialized heap data.
-> ubifs_jnl_write_data(), ubifs_jnl_write_inode() and
-> ubifs_jnl_truncate() build their node groups in kmalloc()ed buffers, and
-> when the last node length is not a multiple of 8 the padding up to the
-> next auth node is written to the flash.  That padding is covered neither
-> by the node CRC nor by the rolling hash.
-> 
-> Size the reserve buffer for the largest possible auth node (the mount
-> path allocates it before authentication is initialized, so it cannot use
-> ubifs_auth_node_sz()) and zero the padding after the last node of each
-> group before it is written.  The padding is not part of any node, so
-> ch.len and the CRCs stay unchanged.
-> 
-> Fixes: 6a98bc4614de ("ubifs: Add authentication nodes to journal")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-> ---
-> diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
-> index 40a95a2fad50..38fb59225f27 100644
-> --- a/fs/ubifs/journal.c
-> +++ b/fs/ubifs/journal.c
-> @@ -840,6 +840,24 @@ int ubifs_jnl_update(struct ubifs_info *c, const struct inode *dir,
->   	return err;
->   }
-> 
-> +/**
-> + * ubifs_zero_node_pad - zero the padding after the last node of a group
-> + * @c: UBIFS file-system description object
-> + * @node: last node of the group
-> + * @len: length of the node
-> + *
-> + * When authentication is enabled the auth node is placed at the next
-> + * 8-byte aligned offset, so the bytes between the end of the last node
-> + * and that offset are written to the media.  They are covered neither
-> + * by the node CRC nor by the rolling hash, so clear them instead of
-> + * writing stale heap contents.
-> + */
-> +static void ubifs_zero_node_pad(const struct ubifs_info *c, void *node, int len)
-> +{
-> +	if (ubifs_authenticated(c))
-> +		memset((char *)node + len, 0, ALIGN(len, 8) - len);
-> +}
-> +
->   /**
->    * ubifs_jnl_write_data - write a data node to the journal.
->    * @c: UBIFS file-system description object
-> @@ -925,6 +943,7 @@ int ubifs_jnl_write_data(struct ubifs_info *c, const struct inode *inode,
->   	if (err)
->   		goto out_free;
-> 
-> +	ubifs_zero_node_pad(c, data, dlen);
->   	ubifs_prepare_node(c, data, dlen, 0);
->   	err = write_head(c, DATAHD, data, write_len, &lnum, &offs, 0);
->   	if (err)
-Hi Mingyin,
-Since ubifs_jnl_write_data() could use c->write_reserve_buf, we can keep 
-the modification in ubifs_jnl_write_data(). I suggest that replace 
-kmalloc with kzalloc in ubifs_jnl_write_inode() and 
-ubifs_jnl_truncate(), and remove zero_trun_node_unused from 
-ubifs_jnl_truncate().
-> @@ -1062,6 +1081,7 @@ int ubifs_jnl_write_inode(struct ubifs_info *c, const struct inode *inode)
->   	}
-> 
->   	pack_inode(c, ino, inode, 1);
-> +	ubifs_zero_node_pad(c, ino, ilen);
->   	err = ubifs_node_calc_hash(c, ino, hash);
->   	if (err)
->   		goto out_release;
-> @@ -1781,6 +1801,7 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
->   	ubifs_prep_grp_node(c, trun, UBIFS_TRUN_NODE_SZ, dlen ? 0 : 1);
->   	if (dlen) {
->   		ubifs_prep_grp_node(c, dn, dlen, 1);
-> +		ubifs_zero_node_pad(c, dn, dlen);
->   		err = ubifs_node_calc_hash(c, dn, hash_dn);
->   		if (err)
->   			goto out_release;
-> diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
-> index 38972786817e..538907aba8a0 100644
-> --- a/fs/ubifs/super.c
-> +++ b/fs/ubifs/super.c
-> @@ -1263,8 +1263,16 @@ static int mount_ubifs(struct ubifs_info *c)
->   		bu_init(c);
-> 
->   	if (!c->ro_mount) {
-> -		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
-> -					       UBIFS_CIPHER_BLOCK_SIZE,
-> +		/*
-> +		 * The reserve buffer is also used as a fallback for data
-> +		 * nodes which are followed by an authentication node, so
-> +		 * reserve room for the largest possible one.  Authentication
-> +		 * is initialized only later, hence the maximum sizes.
-> +		 */
-> +		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
-> +					       UBIFS_CIPHER_BLOCK_SIZE +
-> +					       UBIFS_AUTH_NODE_SZ +
-> +					       UBIFS_MAX_HMAC_LEN,
->   					       GFP_KERNEL);
->   		if (!c->write_reserve_buf)
->   			goto out_free;
-> @@ -1723,8 +1731,10 @@ static int ubifs_remount_rw(struct ubifs_info *c)
->   		goto out;
->   	}
-> 
-> -	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
-> -				       UBIFS_CIPHER_BLOCK_SIZE, GFP_KERNEL);
-> +	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
-> +				       UBIFS_CIPHER_BLOCK_SIZE +
-> +				       UBIFS_AUTH_NODE_SZ +
-> +				       UBIFS_MAX_HMAC_LEN, GFP_KERNEL);
->   	if (!c->write_reserve_buf) {
->   		err = -ENOMEM;
->   		goto out;
-> .
-> 
+Hi Julian,
 
+Thank you! Your point is spot-on: in a shared-key Wi-Fi network, an attacker
+can simply broadcast a forged GARP reply (sip == tip == gateway_ip) to poison
+the gateway MAC for all peers. Giving GARP an exemption indeed leaves a door open.
+
+We verified the Android / mobile use case and confirmed that completely
+disallowing neighbor learning from L2 BMC is safe:
+- Gateway validation: Android relies on NUD (Neighbor Unreachability Detection)
+  unicast probes and unicast replies (PACKET_HOST), never on broadcast replies.
+- Wi-Fi Roaming: Roaming clients *send* GARP to notify the AP/switch; they do
+  not need to receive broadcast GARP.
+- Router failover: NUD naturally detects stale neighbor state and re-probes
+  via unicast, recovering within seconds.
+
+For v6, following your guidance:
+1. L2 BMC ARP Replies:
+   Drop all of them unconditionally (including GARP) with
+   SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST.
+2. L2 BMC ARP Requests:
+   Process and send replies as usual, but suppress updating/creating neighbor
+   cache entries.
+
+Does this match your vision for v6? If so, I will prepare the patch accordingly.
+
+Best regards,
+Star Chang
