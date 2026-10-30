@@ -1,89 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793366512;
-	b=G8NP2X8FIuTClPDCL8h9pxXZYjG9Nkx7c0HY1kiEvPea0+m224S/ozfvJrVgoBeNicEF
-	 beEkBu1uB8q9JnF8d+9Ge4aQ3qMF8Ne/FIzMAChHwir8iCZKeV9NE2EF9F+Dp1e5S6Vmh
-	 Sf65Ej6RralAvArcx1rJ/hxHMcqwMAmCXxPmCAQFQFKt282ggDPvzjdB/OZbIDxHEyMF5
-	 sJ6OUnAEEmk310IZimbCLlUo7We2ZSrhL5jN3lkoM0agte8nvmeTB3swxOejAZzb8EG9U
-	 S0cftZSk7MUPH7uBmPTI5qD1tIh5atwTPSMeOAN+x2KP34bn8EbyjUU8oVfQ1/R1b7Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793366512;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793366551;
+	b=rcxdkNpUxn1J07eVTDwJHTUylUnv9lsK/kwLdsGhPfdrMsXQnMpHshzsXP6wWGH5D3R7
+	 itYzH+pHfKmxL1lUT301KBRHG+RZFFv81nf/tvvPvDk4TUqa4hVgNoKRDBzsB1RV0zDbc
+	 dOkEsJaB7MsUlezgefyS+t67pb6nj0QsWx16VxghN9OdKvW7BYpmhqvGe/PY4PDVqKCnW
+	 gLwJrsb2gdU+CL5FJJB1IH0wC+lSOIbaf+PzTqlTrR3fjPrTgfKYQpubOBrUUBZVVw4/P
+	 Talq3qPtdeHkEGBes1Uv0I/JJCuuiLbINGYtUTN5faGdBL8dvC8a7VohlwKI05SZ9Bw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793366551;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=HviuIgC87E/yRdmzffRcUTRCSi2vUjjI/a/n/qNyN10=;
-	b=GrcEi7mTywqTJft+yOlQTdORYdhrjRDrYygZC6qb3tv6H35YnywO1fGC6u/e9w1OXSD/
-	 QWSYiU1o/QTzyid0NtFsjpRct570AyqigO6s/Y5MSUtEV7OZrESTuwMsyJfQjVbhRk3zL
-	 nkk495ReCh4P2h2Od72zFbF6MxxDG5tKFJBXd7E1kxNPRblToqKB8EX4qaSWrPVQgjuK5
-	 a16E212QM5+NkmWDCfL8HhBTvXanmW+tSn5qsIxVLTbtMm5RorLCh71YXGfB9qe0Iql5n
-	 OFKzYMz6CdzdP2TE0RAfdmSGSn5aCLap2ISnkBU4oYwTzbr835GHrXdcMoixHTHfjeQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="fCdBm/fa";
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=wDbS/KENWLlu9JTjg4GkcGMa8Vz0Lw2ntMasExna5uQ=;
+	b=VbEhQRIc0fPFfOT/SHoWU9I9LoaakUCqBKUFIo5DJcYRKnfDhC/+FJZEByAdTcE5ppML
+	 /Olmjvx7J4p4F+2WnZV0JOBIjz0qcW7zJiBoz2YRICUykxyn+fQ5nG2cq2TlnwiDepzhK
+	 N4ZDJQKwSylASeD8aOfBSuQpeWA1G4yYDflrj/HR5blLApeLbmWbjGERsojPuFmOT+4bl
+	 YbfNtoRDnj068Vbkmxb9YyrLlrEIheKIqS9q2v5F6ZYvvNpKPmJnlyiAZwm4hWU5Evs/h
+	 x4PrLLMBNxPC8BerfxDL9+HmBrGwZEbU3f4gKDsZW3JxaOd7l5gO2F/hmvcpfed94Pg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=uber.com;
+	spf=fail smtp.mailfrom=uber.com;
+	dkim=pass header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=PFFHII5B;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54AE5606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:21:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54AE5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E0E606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:22:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7E0E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fCdBm/fa
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a4dc547987so3398055e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:21:52 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=PFFHII5B
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-679a2b5fe87so533710d50.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:22:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793366548; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Egi0S7ZxHrqYXU9kUPWyFVOB8MlSUK38miFqQlypi4q52rxyhMG7UPhrJhR3ofDe06
+         GGKC8kH4j0qyNZHTmWDkt86ZRlanfq5SgR9+pHuB0fhfYJeUA9Q6serNAdwwz7+zWRr+
+         Cm0V529+pJqmvfIedAzRTzO+bWSB4iMynMilpZO3+p7pcmUFxEqzrnAkNaGLfKi2eSJc
+         65aFYFZ9lq5WLRYKJjzBVQAtp4u06T0zie5/qr3/oQYjToRDhbaVYSAyi7FRdZQ0jwAJ
+         qMlc2vjtx2n6le21OlGeW+G/CI58Tl6i2MkyL5DuIT+pOSsT2+z44zWThK72dQijYngz
+         rnJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=wDbS/KENWLlu9JTjg4GkcGMa8Vz0Lw2ntMasExna5uQ=;
+        fh=wX96WYFMErR9YHjYjQ7JLQljrycYTU9HbwVUEGjbJqQ=;
+        b=JtsmRKtg/GxxTwam9BP5SKN4y6BvjaruJQBRfs7TmY8IrZ72M0Juh02Ip/a3JQksxM
+         9LjSRklK0p1YOE00ek50qSrU/gA/QUCPwH7X8oWQPcNXGh30DqolgrDgwJIi5HkuPhNj
+         2dn+tUwww1jaWtCg3nqLOP+Etnopkb1RmmTSHU4GSrXUCWw3yeY5F4dIKDReBukP3gQ+
+         hWtlWZ8Eyl4v/1f/56BW6FatHJFVBJ+S9XsOjhWRRSpkmtInjE4sIByZC9Csl4s+65Nl
+         0W4E9TvB/pXNJek6i3qsMPIGQBitcHabVlbllNf+TqSlJwI+PG6jAtwo6Fn94/qUe357
+         GShg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793366511; x=1793971311; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=uber.com; s=google; t=1793366548; x=1793971348; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HviuIgC87E/yRdmzffRcUTRCSi2vUjjI/a/n/qNyN10=;
-        b=fCdBm/fa/JyARCTD9TVi/fK3vJTkZEiIKkIsKNBXfjERuJrW7l+eD58q6lNCqvJ0DA
-         DYl4V6Tshl06yRP5PdXWEWKCcaEDwYjymZb7IIcbyzMvk6vxQeMXv4evwhfoUZdOyG0v
-         2J8SWRpA/2bWWopGl7idEY27kcoqFPE45kVrcZqxZS1rMW6wWN3+zXMMEiR81mVJxm8D
-         m51P+y8tqWDcwfZSY0AlVz7piv6vM9IWNwohCDPkVVc/Pus9Ki9w6kr2v4ATn4IarR/F
-         o4YaGCy2cF7RCKhLhT4HXsW9GnYMqFpDjt425VfraEPBij432JNf528O3rHZJLPohItj
-         WJYQ==
+        bh=wDbS/KENWLlu9JTjg4GkcGMa8Vz0Lw2ntMasExna5uQ=;
+        b=PFFHII5BxiVSfubs582dOHaqArRLaVXV1GGLOaYmarCMKjAY3gqXC8mHth9zsDBRQb
+         ZWCLEjMZbY4pSyXaaGyJCs2ty3rjSa6hkzw8rwXyWNSxywTsyzH0sniGu52dtSD4k0m4
+         uiezpq6AAwU4VMPjytD1nY49bybrnYMvBVjew=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793366511; x=1793971311;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HviuIgC87E/yRdmzffRcUTRCSi2vUjjI/a/n/qNyN10=;
-        b=BSmYmPdz2pVYSrO8TaFoCmC1h+/F7NF+tqru0xHPOcvCWS/doqoG+GbK/iwggn+K1Q
-         OhRQX0CFDr9syRjy7MkR5PxCh94ju22WeEd8spUcMlH+7bD7i5x9b8Vew/GJGmEPfTK1
-         82omug0+D5V6DoBM86Np5/s5A6O9Gjl4WEHmrCxLBNSiDBQv7CKUrIjA2wYmvWPNiJU+
-         QNClvsR11rCEA8H1dCFML9l2uBduE0QnB9F+gt6Byv/4U2wXGURmUf7ld7tTeVUCiB7c
-         xQn1GTaHqB7wB2JT3Mxayj+DAlQbSKmJDm+shmBAyKVjUx7gwp/LvFhUk9kCYlDQ5AOi
-         COvw==
-X-Forwarded-Encrypted: i=1; AKwUvBxF2lHZp/wG9ZCg3+cEt195P8HgEX4OMgqjwLfCbwuKqJxYpWEnnrWfhwYawUeb9e0RInHpvKLktv1vV4I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8gAEe+QGiXXuqN+wTQgBkq1yArKDgcmZF0Twe3le3t1kXFpKX
-	9WZL4lqmCqzReiS6Yj7dhgHtVjQ+i6IvU+qeLARRGJ2XV6hHPNwk0Vs2
-X-Gm-Gg: AYBFou241JsTNS13+p1nwfkIeCGClmNObvC+LMSQUuUDypHbUerlS8jA5uih/NJYuD2
-	zumnd+s2JIearzIfGEDTCUxXzalRmKc0kRrGxOzPmCndhUiVRlhaKuyoOSEphl4L994xqB1c/SF
-	fNTc44EUfVd3+f6wapaZ8D5IjMsknoku89Kmizq+z1tjaMPO5YjQPhywY6Hykgt+51Sc8hcWdS7
-	AbTmG1tiUPmSFQ0KFc0fxQVc21++L5g3vH2DL4Z7Ua2mRMiMoivfU+lW/JaNmbVNCvLk0Qs8hU8
-	TzHK3jq12IM8cBYQhAIKJ3CyBMNF4Op+1cJNKOWeObEMd6ne9S1WkaYLdU1Yjwzh7HZ7xjSndYG
-	/b7XoMePcaaQ4U05FBb0KOoqYdZugq5zGXbFjWCdaAaZsMjyM+8KaGGS4tw/mQ5Yf/ZlKku5qLF
-	7K4OT4ZGDWJicVKM3OkqXp7UxkcSr4bpWIhmVKQ1Q/S6oT/W+d2ryJ6kTz1Jf/LjHDwgth1CfTG
-	dmmRoutLUdYTG0820fN27M/EwfLjByh3aXKrVp0ECbcREBQ9wrMRo73h9FDqncYkIWtppNy/V5E
-	bDWzMDONqsArlYiXjqODjCr9GTBij7hjMBZdN9jKBFBM7leX9LfxRatVRpUuS8ih5pDYAdwBjlP
-	KhZUq
-X-Received: by 2002:a05:600c:4f86:b0:4a7:669c:c988 with SMTP id 5b1f17b1804b1-4ac18b7df2cmr50002535e9.23.1793366510349;
-        Fri, 30 Oct 2026 06:21:50 -0700 (PDT)
-Received: from [192.168.1.7] ([31.176.170.175])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896ecsm144128695e9.9.2026.10.30.06.21.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 06:21:48 -0700 (PDT)
-Message-ID: <2070cf87-bc38-4237-a58b-6554572a8842@gmail.com>
-Date: Fri, 30 Oct 2026 14:21:46 +0100
+        d=1e100.net; s=20260707; t=1793366548; x=1793971348;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wDbS/KENWLlu9JTjg4GkcGMa8Vz0Lw2ntMasExna5uQ=;
+        b=TTR/vAzO8fRVx0LhNvtrLOvQtd7tzF25WbwYlOkyCWkMcd43X3PQj6grua9tgwQR6y
+         Cnnys0ebkm8PPv9l3Xh+7K1tzUKpgn0XBO+29Ed0PXBUJpGXJcCZSIBpSzZxjmOkdLT4
+         zME/2hL4xe1bBHYWEvWo55fe51T6L41yAR5QbqufSJ/X9zKYrPGw16CxdbweAcvXLToY
+         7Ba2H1qY596wL1ejmyRrKCHRnGZnu7jcDBM7i9AYucO0thjnIL1C/18VBkf1gop4QRuc
+         RbPPcLPOB6aQHi5/wwXop+gE7Q0S58pV79/gKwv3Xnv0uSTeAFfOzIIAErpNTC0u6B8M
+         vCNQ==
+X-Forwarded-Encrypted: i=1; AKwUvByjwgi1BZ2qdwumKpJyUO0Y4ziRm3+csN6U6/9KYZcEj5CarQlIiImN6h+0OmqmLp1O0YqSVIFhyLqskr4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPdkP3eDr4NiuVj012Ggj42o+v0trF6yLsiTaANO4PuQBbFmEc
+	12ukZNLYdgYoajQRbzHO43Ws9Fy/9U0gzA0jnudLcMwWYXwVEszL4W+1sHuONNaENFu1tXdUL4b
+	BFkE3qpYSZ21ny7otc5scXtrObpgQddbA1tp/Y8gXNA==
+X-Gm-Gg: AYBFou08Nwf44hIyMsmVIs+BTyR8Q9IcsYu9cEAJg0WMYkRypXkmzgshhCm1/mzszD7
+	AzXD38hdqEwA3M9luCTDfgBh+JzVRg4fjpjBY5ik6FSEWyFzw50dPYgy8Nsb738na+fl2kXdlok
+	6k+ncbw9yeKN+NoC/RlUbRKfZOGv6Pysdu7pByE2WnLoCbuA7trELWnywEO5DvLRbOPdMEsBVhp
+	GJNB3FyICGhi3AItFjnT1aVRkiLk2VuSEvDw6JGzvTMwBb82p4e3u69KG/kBq42K+MZ5jeC5vf1
+	2KasqHLUVCKM3YJQ3rnoL9KKx0iLIio3RQ8FjevHB1zkJlB9+A+yIlkzWlPlCVsTpRBq4+BUvM2
+	shg9KQeZMIULBxDTfi2F0gTxzZRIsTJ27KAvLUWsdORnvXIKDHeuG2W6xP4zXbUjUQwY/dw==
+X-Received: by 2002:a05:690e:d8c:b0:679:91be:2aa7 with SMTP id
+ 956f58d0204a3-67ba4f54999mr1158346d50.76.1793366547261; Fri, 30 Oct 2026
+ 06:22:27 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,35 +100,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mac80211: move static function from header to
- referenced file
-To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>, johannes@sipsolutions.net
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261017155509.128114-1-omer.e.idrissi@gmail.com>
- <20261017155509.128114-2-omer.e.idrissi@gmail.com>
- <b60d12eb-dad1-4482-89ca-155dfcb410b9@oss.qualcomm.com>
-Content-Language: en-US
-From: Omer El Idrissi <omer.e.idrissi@gmail.com>
-In-Reply-To: <b60d12eb-dad1-4482-89ca-155dfcb410b9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260928075237.3055101-1-irogers@google.com> <20261027231513.816148-1-irogers@google.com>
+ <20261027231513.816148-9-irogers@google.com>
+In-Reply-To: <20261027231513.816148-9-irogers@google.com>
+From: Alireza Haghdoost <haghdoost@uber.com>
+Date: Fri, 30 Oct 2026 06:22:11 -0700
+X-Gm-Features: AclHuK-iiL-Ld_wXLssW-sUHXFNxuacVIP9_dp_rieEmV-QPdsLDk7h2zP4f03o
+Message-ID: <CA+w=M=QyQLD72nrdHMoq+FOkbhkJ7c_5xjm3j0NEbEq0XJRUNA@mail.gmail.com>
+Subject: Re: [PATCH v2 08/18] perf symbol: Add reference counting and DECLARE_RC_STRUCT(symbol)
+To: Ian Rogers <irogers@google.com>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Jiri Olsa <jolsa@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, Ingo Molnar <mingo@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 
->> Move static function from header file to only c file it's used in.
-> why? all the drv_ inlines are in driver-ops.h
->
-> first rule of commit text is to describe the problem you are tying to solve.
->
-> don't add unnecessary churn to the wireless code.
+On Tue, Oct 27, 2026 at 4:15 PM Ian Rogers <irogers@google.com> wrote:
+> struct map_symbol ms = {
+> .thread = thread__get(list->ms.thread),
+> .map = map__get(list->ms.map),
+> + .sym = symbol__get(list->ms.sym),
+> };
 
-i moved it because multiple files include the header and when those are 
-compiled they don't see the tracepoint definition because the next patch 
-ifdef guards it under the same config that enables the only file the 
-static function that uses the tracepoint is called from.
+This fixes a real bug and worth it's own patch ahead of the
+conversion series so it can go to the LTS independently imo.
 
-this static function was only used in that file and i didn't see any 
-obvious reason for it's existance in that header so i moved it to the 
-file where it's used.
+Since commit bffb5b0c0976a ("perf map/maps/thread:
+Changes to reference counting") the temporary map_symbol in
+merge_chain_branch() has had no .sym, so callchains merged during
+collapse lose their symbol. With this line, the default
+'perf report --children' output changes on recordings with inlined
+frames: a line like "|--35.41%--0x55566d988a0f" becomes
+"bench_sched_messaging" / "group (inlined)", with different
+percentages.
 
-commit messages are kept in the git history. should i send a v2 with a 
-better commit message? or is the patch series problematic otherwise?
+> - frame->sym = NULL;
+> - frame->sym_name = pos->sym ? strdup(symbol__name(pos->sym)) : NULL;
+> + frame->sym = symbol__get(pos->sym);
+[...]
+> - if (frame->map)
+> - frame->sym = pos->sym;
+
+Before this patch, frame->sym was only set when thread__find_map()
+found a map. call_path__init() stores ip = 0 whenever the call path
+has a symbol, so for those frames no map is found, and sym_offset now
+returns 0 - symbol__start(sym) instead of None. Returning None from
+pyrf_callchain_node__get_sym_offset() when there is no map would keep
+the old behaviour.
+
+Smaller things related to this patch:
+- call__parse() no longer records a call to the same function, so
+Enter on a recursive call in TUI annotate says "The called function
+was not found".
+
+- builtin-annotate.c now takes a symbol reference for each block_range
+entry, but the process-global block_ranges tree has no teardown.
+Patch 15/18 retains symbols with a refcount greater than one, so any
+symbol still referenced by this tree is permanently ineligible for
+shrinking. Could block_range get a cleanup path that puts the symbol
+references and frees the tree?
+
+Thanks,
+Alireza
