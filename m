@@ -1,68 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793321806;
-	b=Z6CSX84GiBUHH2R3br+8o8X3ecDyPZ+rNCWupChBBA2p6yJz8Uljk1RvRDZg1hT9+KUw
-	 rV6QaPodPz+CfRnZ82TUsURdcZPmotKKbhK69WC7JxOgao1ZXcREXDNLHz11Tu5TjRfMX
-	 6g/uuHe2kvLvuRw5vfBUcpTmzHB8Ttf4Bv/+tVyyE3AsmOP9dohRfS49hI7oRNt4vieJB
-	 CPvyuK5C1Df6Sj4g9T1a8GgssVNavFlVgLugG54dQzt8QxIdsPr8Z1WRMRmdAvJQuS7pF
-	 bVIPQx7/XJoJXdM+jDYETDMWrG41Oad4da0P2GLTWQxTtffMo9T68mKesx0HopjQeTw==
+	t=1793321856;
+	b=c3WrQvWd4iR2c/5tkAgxT/9tkncVN0z6xSW24WlhTlOHT9dspMrRI7XXCApCIHlrCUO9
+	 fYjoExFqQOtqmgSo0359wOBdqHLN+ViXBd2d2iCeanNuUZomcB7BhOtbGdGEsx1zLPAH5
+	 6nCM5zRGiukaO5Ch7jpuUIOnwTSHufIsjv8Nl1WNnqDNjbS8daxGnFe6Gfz3XRTJIxdyK
+	 JxKh43YITvcDyDurzR7XO1VF3r+vKg6hvOJk4I9Zw9mRXPOZ7Yy+d60P0L3bSbHU/X6Xn
+	 MfUqW19NJXJbvU7mfSaxii8ZJ9vfd9s7u1uZJ3GhbjbQpNgTdZ0ndI0zmDEjXLL0d0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793321806;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=xyb+69pYULmueBFnWcg46WwXw3RsTh6y1EVYsQDuyFQ=;
-	b=ET8m0WFxam/3JrbNw59wawxgPZUsVKQCjcHrmALhQmtqnw0yvb2roBnz8zTm2DyPSEpI
-	 1ZqmzgzQiVBzCkNP/Ok8kzFaeJLuwd3ZUoi22ZOoOvr3MZUJ8M+is75BBuEjRHUYfpi7/
-	 Vmz0AyXKHPCBTLxnKwzhGe3v5ly8nPIABfE0EsF/wd7dsRjHSCL1a7PLGI15QKfbRlcXB
-	 AyGRlGZI6hxahsWH7s12HlOq7yGwIkcxSMdo1x/xOyhjYhYkLxPTgX999Y94kg9tZvbL5
-	 0rSxhzZE/hLgiboPoImXjGG4J6GccEqFRtluFYFewLm5UXmiwL05SFvof75hmm+E/Bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793321856;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=M6bpDqyFL1t6pXSfv5Po8tZyxphIeTUYr2/GTeN0+Ow=;
+	b=By5COuiElj8L1m0sqckkX2lnkKV+QizJTUVQNPWPVanjeSwWQt5SxUYBg6qoDb8cQqd6
+	 yoiqfYC8osTFlYcOHOZbUTVhCIO6Kc7N/TC0BtyzBN84sDoUN5OUa8T8yJA8wmTcuD3jR
+	 HurW+dX71DGTraTKZFzJY51Gr9As2251GAL2C1jOA4a8ZZJTMoVjLmZlbf5+o7+iJMdzm
+	 O75zZkApayFFiHENllBBTRFv3RVSRhbeuvjskrvcIlvHXT60qG/Btyl1461wlzTC5TERp
+	 xeQQfXXssY9imQGqtZdQXg6hZmOC4vBbL7oKM0NPdGzBo0EaRgnlTkGriXCf+gejQ6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nYIqapg3;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bck9LEQ0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3979606A31A;
-	Fri, 30 Oct 2026 00:56:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3979606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E0F606A31A;
+	Fri, 30 Oct 2026 00:57:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nYIqapg3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793321805; x=1824857805;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Z3nw8QlyMetFne7VntyxtnLKzIox2A/5WbJcshmhr/A=;
-  b=nYIqapg3FV7uBBOw7RC0KqJ/sl/m5/eQTR4jJR4vNkNlZA2rFQPVAehN
-   Hd2pbhbcUve70av7boKBDlxNMTsDM5c6jwUkopfGIg/0SgggBtw5vS92O
-   KxlIMt4j5lSDR5ind0HRNmBciKXPg4M+aUlWseuWM6lC4uyf8Sl3KLrCv
-   7P1Jf7P3ziSoiAAAxzkrGBzZ4OmBzxUsXTqoSCH6wBtf4wKLS1+czUN/v
-   pRZImE9Bog0My3cXpbtTAN356pXBYNH+8xx2ZlVrCaTCHObS6Jz7KtgKB
-   IeeJQJRgO/SJfMkFZuoXqqt5jSaOToCcCPqHkkRb+FjS1LVcDD5/cEt1b
-   w==;
-X-CSE-ConnectionGUID: vBRL7H3PRtefO9M67UOzsQ==
-X-CSE-MsgGUID: UrOsY41XQTKtsZREp08AsQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="1964833"
-X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
-   d="scan'208";a="1964833"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 17:56:44 -0700
-X-CSE-ConnectionGUID: OoK+BY8NT8ajXUR5wneWmA==
-X-CSE-MsgGUID: 4jdV3FrhSqWX5C2IczAjIA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
-   d="scan'208";a="5419851"
-Received: from unknown (HELO [10.238.2.61]) ([10.238.2.61])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 17:56:39 -0700
-Message-ID: <955e7368-d7fa-4c37-8927-ecd6cbc837c9@linux.intel.com>
-Date: Fri, 30 Oct 2026 08:56:37 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bck9LEQ0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5070C1F000C1;
+	Fri, 30 Oct 2026 00:57:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793321855;
+	bh=M6bpDqyFL1t6pXSfv5Po8tZyxphIeTUYr2/GTeN0+Ow=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bck9LEQ0UPt4LikhQsWdEDa6SKxVHXgeqY8QxTgswXVFtiDdPukVSUu4n9MbVtYs5
+	 9bJB0UhYlqNoSAncXFJ2j1+NWPJNqcsDIAUWHsMxFaaWRhN5euG3twTUKMEQOkhMHq
+	 kCqRFz7lMFFHp8ifCqslKWbUlluFBnrNX2Gsx1QQZJ1my3+Qiqa83Vi4wtVn+wWcXY
+	 yr12zqlMfd4YaoyLMi/eCnYBn6ROMiu9tbRatmj2MhIT5+dvt+dbydBKyR+FVLJc9O
+	 dqXK/TupCXUvbOJG5GZZZVlCKD/5zJ1rV6kAoCfn2B0Pn4nRrmkZIvQ909w4V4Nmjy
+	 P8zEJJwppvlEQ==
+From: SJ Park <sj@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Kees Cook <kees@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Hugh Dickins <hughd@google.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Zi Yan <ziy@nvidia.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Rik van Riel <riel@surriel.com>,
+	Harry Yoo <harry@kernel.org>,
+	Alistair Popple <apopple@nvidia.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Peter Xu <peterx@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Nick Piggin <npiggin@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Minchan Kim <minchan@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Xu Xin <xu.xin@linux.dev>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Chris Li <chrisl@kernel.org>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Gregory Price <gourry@gourry.net>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	Josef Bacik <josef@toxicpanda.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 27/47] mm/mmu_gather: fix flushing ranges with 4 GiB or larger
+Date: Thu, 29 Oct 2026 17:57:25 -0700
+Message-ID: <20261030005726.155279-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261029-fixes_core-v2-27-a64ce7f83abb@kernel.org>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,109 +121,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Patch v5 09/18] perf/x86/intel: Keep LBR frozen throughout PMI
- handling
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo
- <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>,
- Sandipan Das <sandipan.das@amd.com>, Andrii Nakryiko <andrii@kernel.org>,
- Song Liu <song@kernel.org>, Ravi Bangoria <ravi.bangoria@amd.com>,
- Ananth Narayan <ananth.narayan@amd.com>, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, bpf@vger.kernel.org,
- Dapeng Mi <dapeng1.mi@intel.com>, Zide Chen <zide.chen@intel.com>,
- Falcon Thomas <thomas.falcon@intel.com>, Xudong Hao <xudong.hao@intel.com>,
- Sashiko <sashiko-bot@kernel.org>
-References: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
- <20261029043914.1395147-10-dapeng1.mi@linux.intel.com>
- <20261029102930.GK1779021@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20261029102930.GK1779021@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+
+On Thu, 29 Oct 2026 21:33:22 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> __tlb_adjust_range() takes the size of the range which has to be flushed
+> as an unsigned int. Its callers, tlb_flush_{pte,pmd,pud,p4d}_range(), get
+> and pass an unsigned long. Consequently, a range that is 4 GiB or larger
+> gets truncated, possibly to 0.
+> 
+> On arm64 with hugetlb, a 64k kernel can have 16 GiB hugetlb folios
+> mapped contiguously at the PMD level and flush them when unmapping, and a
+> 16k kernel can flush 64 GiB PUDs through tlb_unshare_pmd_ptdesc(). So
+> at least these two scenarios are affected.
+> 
+> Fix it by flushing the proper range instead of the truncated one by
+> properly using "unsigned long" for range_size.
+
+Makes sense to me.
+
+> 
+> Fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: b528e4b6405b ("mm/hugetlb: add tlb_remove_hugetlb_entry for handling hugetlb pages")
+> Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> [ david: use two-tab indent, simplify description ]
+
+It seems the convention [1] is to put the above modification note right before
+the last S-o-b: of David.  Maybe you forgot moving it after adding R-b: and
+T-b: from great reviewers?
+
+> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+> Reviewed-by: Dev Jain <dev.jain@arm.com>
+> Reviewed-by: Muchun Song <muchun.song@linux.dev>
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+[1] https://docs.kernel.org/maintainer/modifying-patches.html
 
 
-On 10/29/2026 6:29 PM, Peter Zijlstra wrote:
-> On Thu, Oct 29, 2026 at 12:39:05PM +0800, Dapeng Mi wrote:
->> For the platforms which has 4+ PMU version, streamline LBR freeze is
->> supported. The PERF_GLOBAL_STATUS.LBR_FRZ bit is set to freeze LBR once
->> a PMU counter overflow. However, the current PMI handler clears the LBR
->> freeze bit too early, allowing branch operations that occur during PMI
->> handling to be recorded into the LBR stack.
->>
->> This can pollute or overwrite the intended branch snapshot, especially
->> when bpf_get_branch_snapshot() is invoked from bpf_overflow_handler().
->> In that case, branches recorded while processing the PMI are mixed into
->> the original LBR data.
->>
->> Defer unfreezing until after PMI handling completes so the LBR remains
->> frozen for the entire PMI path and no branch activity from the handler
->> is recorded.
->>
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Closes: https://lore.kernel.org/all/sashiko-outbox-179823@kernel.org/
->> Fixes: 425507fa5f32 ("perf/x86/intel/lbr: Optimize v4 LBR unfreezing")
->> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
->> ---
->>  arch/x86/events/intel/core.c | 13 +++++++++++--
->>  1 file changed, 11 insertions(+), 2 deletions(-)
->>
->> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
->> index 15dcf8b78de9..a67297148bb6 100644
->> --- a/arch/x86/events/intel/core.c
->> +++ b/arch/x86/events/intel/core.c
->> @@ -4062,7 +4062,13 @@ static int intel_pmu_handle_irq(struct pt_regs *regs)
->>  	loops = 0;
->>  again:
->>  	intel_pmu_lbr_read();
->> -	intel_pmu_ack_status(status);
->> +
->> +	/*
->> +	 * Do not clear the LBR frozen status here; keep LBR frozen
->> +	 * throughout PMI handling.
->> +	 */
->> +	intel_pmu_ack_status(status & ~GLOBAL_STATUS_LBRS_FROZEN);
->> +
->>  	if (++loops > 100) {
->>  		static bool warned;
->>  
->> @@ -4081,10 +4087,13 @@ static int intel_pmu_handle_irq(struct pt_regs *regs)
->>  	 * Repeat if there is more work to be done:
->>  	 */
->>  	status = intel_pmu_get_status();
->> -	if (status)
->> +	if (status & ~GLOBAL_STATUS_LBRS_FROZEN)
->>  		goto again;
->>  
->>  done:
->> +	if (status & GLOBAL_STATUS_LBRS_FROZEN)
->> +		intel_pmu_ack_status(status & GLOBAL_STATUS_LBRS_FROZEN);
->> +
->>  	if (mid_ack)
->>  		apic_write(APIC_LVTPC, APIC_DM_NMI);
->>  	/* Only restore PMU state when it's active. See x86_pmu_disable(). */
-> Given the whole PMU is disabled per __intel_pmu_disable_all(), all that
-> can really happen is for more bits to be set, right? I mean, any counter
-> cleared on the first ack_status, will never be re-set, it already fired
-> and its disabled. All that can happen is that the disable is 'delayed'
-> and a counter can maybe fire a little bit after the disable; getting
-> missed on the first go.
->
-> Can we really get more than 1 extra loop there?
->
-> I'm sure this code has changed lots since we added that loop thing
-> there.
->
-> Anyway, if we can never get more than 1 extra loop, we can probably move
-> the ack to the end, without having to do a second.
->
-> I suppose this isn't something you have to do now, but keep it on the
-> todo list or something?
+Thanks,
+SJ
 
-Sure. I would investigate the history and check if it can be removed.
-
-
+[...]
