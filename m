@@ -1,55 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793352427;
-	b=oQYpufTLjMIBhtOXs5vxx0tnf5w/U9OJ5smKxUv480vxD41N8wArbEbX5MOuPKDAOrsz
-	 Fvht6ILbZpbIp/A+dE3esXpECmagtdExFhUr9YFYZFRCq3FH+O8UGtO2rI1V1voAJKnH3
-	 uIJnD0zCT6l88g9+uniNaNUZFYS6ov4aI8uTzTX7TxLJCZahkVoZLI8w3gQHJm3whdatO
-	 dbGinOyxZxh/XzH++1hcDdcRWlQH/cTSua+0PyYZfkIgDo0gqpfGrX1iHb8wR/0kBCY9a
-	 bRU7+pzkV0MsKg0N2ufe5Nsngro0ZhhQbTWBAhbfhf/xmxCJbthl/GCZZSzkCgMx1Aw==
+	t=1793352444;
+	b=HI7ra9WbnvxUmZOBRFi0XCewCweAEqdq6GUyPN26IZDP6KrlVu0XWfok1Y8QOIlpgs9J
+	 D0vyZQlAmJOWGVvQZDKXaOE1iQL1TLDaHn7nMjWqXX3wmz+ulg2N+m0aR+T7EMJJOaf35
+	 qffvbZEx4FmTiI+eVbfZpZJztBX3zN/K2OxPT4Y3KjseJf1Xi17wa7qEqPFYNj5ZwllMD
+	 gntPKKiEIPkwbB5PF/yNRU5H4WHJf6x7xbPTmdGCdi+WTIo4I0T0wrNUeH78DYJ/AW12X
+	 ZamLOTqJWNRLKukwE3Ujr9R/+Kcm7eytXNUJFA0qfGsQA0krMQmVmmQiQPG4jpcK8kQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352427;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=V1pspLk+fckd2Oob0tFDkfoQsu77+dAXAQw/b0Q2v3k=;
-	b=RUBQy/SgGi2b/aJgl/gpUCQGia5VyBGpDSOpom/Du0QoG6EFtLG37Pe1NChPhPbSCGjz
-	 mNlSPFCESEewvvOMJHp92SFIh5xHvta4b9HjU+MsM9Uid7K00oyuAwAbH2lvJHoSKBFQk
-	 etfCr5bHYzYJt0VGGAmMzHOm0L4BlgReZDcMFOYoVNBR1Sm97p1oL2MGdAGqm4VxQt7bQ
-	 BTS5sGBfA8/QDlju0n2MHNnGtw6w5B5tuiyTzfD5jocAEYYURjSOfkCc8MBMfaXIh3f7h
-	 w7+n120xCT/HEpke0IeqFdyBjDsKXQivd2+PijTx/GQ9UpObvJtPV0lsfSOvwwIgT1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352444;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=XpPOMbTanyLL1MaVenpd+9dFSgUty7k/DJCEJhgMbaA=;
+	b=NQvqAAwczmXtOOAuZ8Xv16KiyvvYUTHr/Zxwqv2bSZhC80RvCE4EC9RZJxYYvGPiAe6F
+	 dtitme0PuZS84P4QecM2bYbMFfm8waAPtjHfjJyVdBRCEex+yB152m/Gqr0YBWhMzhnlb
+	 TgFiDGzSrALZEcdW87Dv9WdD+DqNCV9A0/4fAWDnW1ShRv3haHvr4toWlbg81+uHLV6Gu
+	 fpXbD4Mj/nZg/d/mhBpipSctbd6JG+42tb7Xtk5PTLe0qMXic6bCkKKYSaXSh/w8dCRYB
+	 bKtwYx0oHKNOtvKTG6TuQWlXAcJlxpJwYAJ9VhwE7DbUdKSoL3k+WbjXSTu//ooQ6IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=drCZPP2U;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C7F606A326;
-	Fri, 30 Oct 2026 09:27:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C7F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jGG2W18dVz5B0xd;
-	Fri, 30 Oct 2026 17:26:59 +0800 (CST)
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl2.zte.com.cn with SMTP id 69U9Qm49099897;
-	Fri, 30 Oct 2026 17:26:48 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 30 Oct 2026 17:26:50 +0800 (CST)
-X-Zmail-TransId: 2afa6ae462da066-f0b1f
-X-Mailer: Zmail v1.0
-Message-ID: <20261030172650531F_VlxVrMiDglCJJ9rESWI@zte.com.cn>
-In-Reply-To: <ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com>
-References: 202610301145238169CxodJv5_0n5vd-Vbd4XA@zte.com.cn,ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com
-Date: Fri, 30 Oct 2026 17:26:50 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12390606A31A;
+	Fri, 30 Oct 2026 09:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=drCZPP2U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23AF21F000C1;
+	Fri, 30 Oct 2026 09:27:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793352443;
+	bh=XpPOMbTanyLL1MaVenpd+9dFSgUty7k/DJCEJhgMbaA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=drCZPP2UoLwd6pJnJTRElBjdiOrYo5djwqv/8kmgGvy8OYOLb0gSQ7vZj+lQ5UH0b
+	 mjF9SOlH2i0L+ILKPoeeFXezH/3vwbauPRaxohqxE3oNfVQ6qWnFPuBvLhdtQ7uXO5
+	 +yVtHYhm3rwTIyHv5sO+9Rwgx9axsm6Ivrhun81tWIwoT48FCL5OiCWUu4BJ07Tg6J
+	 HWLCDq/vtHaAfdP1uzfMFQRQJeCWz5pl0ptX2yVWLMY11ug88zcSCWZ9jTY3aUuxtJ
+	 9Ql4bLFGPvUSSwhZNDWaIM+2+0yHU42J8PGJyOVZIJz/JtfaNEhftD3Mtumr/KNzBZ
+	 +cI+rvLL0K3Og==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Eric Dumazet <edumazet@google.com>, Jason Xing <kerneljasonxing@gmail.com>
+Cc: Petr Oros <poros@redhat.com>, netdev@vger.kernel.org, Magnus Karlsson
+ <magnus.karlsson@intel.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Alexei
+ Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend
+ <john.fastabend@gmail.com>, Willem de Bruijn <willemb@google.com>,
+ Vladimir Oltean <olteanv@gmail.com>, Doruk Tan Ozturk <doruk@0sec.ai>,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] xsk: reset the mac header in the generic Tx path
+In-Reply-To: <CANn89i+aacS2PfaMXnimzGgbCLz-JSnqo6QyoS122Gf+kxya3w@mail.gmail.com>
+References: <20260817153957.3177627-1-poros@redhat.com>
+ <CANn89iKZe5reKy5uNxF7_G2=zytnPjWCUn+bX7-iGdJuTjBgMw@mail.gmail.com>
+ <CAL+tcoBX+3_oiy5KCtnBkjEdmDgzY6PYAT2oOqDSLXezDCFfHw@mail.gmail.com>
+ <CANn89i+aacS2PfaMXnimzGgbCLz-JSnqo6QyoS122Gf+kxya3w@mail.gmail.com>
+Date: Fri, 30 Oct 2026 10:27:20 +0100
+Message-ID: <87o6cb4jyf.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,214 +67,150 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
-        <chengzhihao1@huawei.com>
-Subject: =?UTF-8?B?W1BBVENIIHYyXSB1YmlmczogZml4IGF1dGggbm9kZSBzcGFjZSBhbmQgcGFkZGluZyBpbiBqb3VybmFsIGJ1ZmZlcnM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 69U9Qm49099897
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Fri, 30 Oct 2026 17:26:59 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE462E3.000/4jGG2W18dVz5B0xd
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+Poking this thread again.
 
-write_head() appends an authentication node to the node group when
-authentication is enabled and writes
-ALIGN(node_len, 8) + ubifs_auth_node_sz(c) bytes from the buffer.
-ubifs_jnl_write_data() allocates its buffer for that, but when the
-allocation fails it falls back to c->write_reserve_buf.  That buffer is
-sized for a data node only (COMPRESSED_DATA_NODE_BUF_SZ plus the cipher
-block, 4144/4160 bytes), while an incompressible 4 KiB block needs
-4144/4160 bytes plus the auth node (24 + the HMAC length, 56 bytes with
-sha256).  ubifs_hash_nodes() then writes the auth node past the end of
-the reserve buffer, and write_head() reads it back from there.
+Eric Dumazet <edumazet@google.com> writes:
 
-The same write path also writes uninitialized heap data.
-ubifs_jnl_write_data() and ubifs_jnl_write_inode() build their node
-groups in kmalloc()ed buffers, and when the last node length is not a
-multiple of 8 the padding up to the next auth node goes to the flash
-uninitialized.  That padding is covered neither by the node CRC nor by
-the rolling hash.
+> On Mon, Aug 24, 2026 at 2:47=E2=80=AFPM Jason Xing <kerneljasonxing@gmail=
+.com> wrote:
+>>
+>> On Fri, Aug 21, 2026 at 1:07=E2=80=AFAM Eric Dumazet <edumazet@google.co=
+m> wrote:
+>> >
+>> > On Mon, Aug 17, 2026 at 5:40=E2=80=AFPM Petr Oros <poros@redhat.com> w=
+rote:
+>> > >
+>> > > __dev_queue_xmit() resets skb->mac_header, __dev_direct_xmit() does =
+not,
+>> > > so a frame taking the qdisc bypass path reaches ndo_start_xmit() with
+>> > > the sentinel left by __finalize_skb_around() and skb_mac_header() po=
+ints
+>> > > 65535 bytes past skb->head.
+>> > >
+>> > > The packet socket reaches it through packet_direct_xmit(), and
+>> > > packet_parse_headers() was taught to anchor the header by
+>> > > commit c2707480cfbf ("net/packet: reset the MAC header on the
+>> > > packet-socket transmit path"). AF_XDP reaches it through
+>> > > __xsk_generic_xmit(), and net/xdp/xsk.c never sets the mac header.
+>> > >
+>> > > ice reads eth->h_proto through skb_mac_header() on its ordinary Tx p=
+ath.
+>> > > On an E810 every one of 2817224 AF_XDP frames reached the driver wit=
+h the
+>> > > sentinel still in place, so the ethertype never came from the frame.=
+ With
+>> > > this patch all 5757920 frames of the same test carried the correct 0=
+x88b5.
+>> > > An AF_PACKET sender on the same port read 0x88b5 in both runs.
+>> > >
+>> > > On a KFENCE kernel that read lands inside the pool and gets reported=
+ as a
+>> > > use after free of an unrelated object, 387 times in a 180 s run:
+>> > >
+>> > >         BUG: KFENCE: use-after-free read in ice_xmit_frame_ring+0xdd=
+b/0x1650 [ice]
+>> > >          ice_xmit_frame_ring+0xddb/0x1650 [ice]
+>> > >          __dev_direct_xmit+0x347/0x4d0
+>> > >          __xsk_generic_xmit+0xc13/0x1e70
+>> > >          __xsk_sendmsg.constprop.0.isra.0+0x519/0x640
+>> > >          xsk_sendmsg+0x6c/0x90
+>> > >
+>> > > Rerunning the same reproducer on the same E810 with this patch appli=
+ed
+>> > > produced no reports and no bad reads.
+>> > >
+>> > > Anchor the header in xsk_skb_init_misc(), which runs once per skb for
+>> > > both build paths. With IFF_TX_SKB_NO_LINEAR the offset still is not a
+>> > > real header, but it stays in bounds and no such driver reads it.
+>> > >
+>> > > Fixes: 35fcde7f8deb ("xsk: support for Tx")
+>> > > Signed-off-by: Petr Oros <poros@redhat.com>
+>> > > ---
+>> > >  net/xdp/xsk.c | 1 +
+>> > >  1 file changed, 1 insertion(+)
+>> > >
+>> > > diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
+>> > > index 7855ee09c4b640..885427392cb6b3 100644
+>> > > --- a/net/xdp/xsk.c
+>> > > +++ b/net/xdp/xsk.c
+>> > > @@ -931,6 +931,7 @@ static int xsk_skb_init_misc(struct sk_buff *skb=
+, struct xdp_sock *xs,
+>> > >         skb->priority =3D READ_ONCE(xs->sk.sk_priority);
+>> > >         skb->mark =3D READ_ONCE(xs->sk.sk_mark);
+>> > >         skb->destructor =3D xsk_destruct_skb;
+>> > > +       skb_reset_mac_header(skb);
+>> >
+>> > I don't know, I had at some point the goal of removing our dependency
+>> > on mac header in ndo_start_xmit(),
+>> > as this must be skb->data.
+>> >
+>> > ice could use skb_eth_hdr() instead of eth_hdr() or skb_mac_header()
+>> > and save few cycles.
+>> >
+>> > Some drivers call skb_reset_mac_header(skb), this is really a mess.
+>> >
+>> > With AI these days, it should not be too hard to completely remove our
+>> > dependency on mac_header.
+>> >
+>>
+>> I saw the status has been changed to 'rejected'. Why is that, I
+>> wonder? I think it's just a fix that can be done in xsk like
+>> skb_reset_network_header() that I'm going to add.
+>>
+>
+> skb_reset_network_header() is orthogonal.
+>
+> Patching net/xdp/xsk.c (and follow-up network header resets) only covers =
+one
+> caller while leaving the core issue open.
+>
+> The discrepancy is that __dev_queue_xmit() unconditionally executes
+> skb_reset_mac_header(skb), whereas __dev_direct_xmit() does not.
+>
+> As a result, other paths bypassing qdisc hit the exact same out-of-bounds=
+ read
+> in ice. For example, AF_PACKET with PACKET_QDISC_BYPASS only resets mac_h=
+eader
+> in packet_parse_headers() under:
+>
+> if ((!skb->protocol || skb->protocol =3D=3D htons(ETH_P_ALL)) &&
+>    sock->type =3D=3D SOCK_RAW) {
+> skb_reset_mac_header(skb);
+> ...
+> }
+>
+> Any PACKET_QDISC_BYPASS socket using SOCK_DGRAM or SOCK_RAW with an expli=
+cit
+> protocol (e.g. ETH_P_IP) sends an skb with mac_header unset (0xffff senti=
+nel)
+> directly into ndo_start_xmit().
+>
+> If the core stack was expected to guarantee mac_header for direct xmit, t=
+hat
+> reset belongs in __dev_direct_xmit(), not duplicated in xsk, packet,
+> selftests, etc.
+>
+> Work in net-next would presumably audit / change all drivers to not
+> rely on mac_header
+> being set (This I can do when net-next reopens)
+>
+> Then we can remove skb_reset_mac_header(skb) from __dev_queue_xmit()
+> and __dev_direct_xmit(), and from dpaa_tx() / dpaa_tx_extended()
 
-Size the reserve buffer for the largest possible auth node (the mount
-path allocates it before authentication is initialized, so it cannot use
-ubifs_auth_node_sz()), clear the padding after the data node before it is
-written, and allocate the node group buffers of ubifs_jnl_write_inode()
-and ubifs_jnl_truncate() with kzalloc().  The data write path cannot just
-use kzalloc() because it may fall back to the reused reserve buffer.
-ubifs_jnl_truncate() refills its data node with ubifs_tnc_lookup(), so
-what is left after the re-compressed node comes from the old node on the
-media, not from the heap.
+To clarify Eric's view: is the proposed TX contract that mac_header need
+not be initialized on entry to __dev_direct_xmit(), and rely on
+skb->data is at L2? What about skb->protocol and skb->network_header?
+For example, netkit L2 resets MAC locally, but relies on the existing
+protocol for peer RX, and its attached BPF can consume the existing
+network offset. (We just hit that internally for a packet sent from
+XSK/skb.)
 
-The padding is not part of any node, so ch.len and the CRCs stay
-unchanged.  With a zeroed truncation buffer, zero_trun_node_unused() is
-redundant, so remove it and the comments which refer to it.
+...checksum-offload checks in __dev_direct_xmit() aside, since TX
+validation can also consume metadata before ndo_start_xmit().
 
-Fixes: 6a98bc4614de ("ubifs: Add authentication nodes to journal")
-Link: https://lore.kernel.org/all/ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com/
-Cc: stable@vger.kernel.org
-Suggested-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-v2: Keep the explicit padding clear only in ubifs_jnl_write_data(), which
-    may fall back to the reused write reserve buffer; allocate the node
-    groups of ubifs_jnl_write_inode() and ubifs_jnl_truncate() with
-    kzalloc(), and drop zero_trun_node_unused() together with the
-    comments pointing at it.  Thanks to Zhihao Cheng for the review.
 
- fs/ubifs/journal.c     | 39 ++++++++++++++++++++++++++-------------
- fs/ubifs/super.c       | 18 ++++++++++++++----
- fs/ubifs/ubifs-media.h |  6 ++----
- 3 files changed, 42 insertions(+), 21 deletions(-)
-
-diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
-index 40a95a2fad50..449bc8c0a224 100644
---- a/fs/ubifs/journal.c
-+++ b/fs/ubifs/journal.c
-@@ -68,16 +68,6 @@ static inline void zero_dent_node_unused(struct ubifs_dent_node *dent)
- 	dent->padding1 = 0;
- }
-
--/**
-- * zero_trun_node_unused - zero out unused fields of an on-flash truncation
-- *                         node.
-- * @trun: the truncation node to zero out
-- */
--static inline void zero_trun_node_unused(struct ubifs_trun_node *trun)
--{
--	memset(trun->padding, 0, 12);
--}
--
- static void ubifs_add_auth_dirt(struct ubifs_info *c, int lnum)
- {
- 	if (ubifs_authenticated(c))
-@@ -840,6 +830,28 @@ int ubifs_jnl_update(struct ubifs_info *c, const struct inode *dir,
- 	return err;
- }
-
-+/**
-+ * ubifs_zero_node_pad - zero the padding after a journal node
-+ * @c: UBIFS file-system description object
-+ * @node: node to pad
-+ * @len: length of the node
-+ *
-+ * When authentication is enabled the auth node is placed at the next
-+ * 8-byte aligned offset, so the bytes between the end of the node and
-+ * that offset are written to the media.  They are covered neither by the
-+ * node CRC nor by the rolling hash, so clear them instead of writing
-+ * stale buffer contents.
-+ *
-+ * This is only needed when the buffer is reused, i.e. for the write
-+ * reserve buffer of ubifs_jnl_write_data().  Buffer owners which get a
-+ * fresh allocation use kzalloc() instead.
-+ */
-+static void ubifs_zero_node_pad(const struct ubifs_info *c, void *node, int len)
-+{
-+	if (ubifs_authenticated(c))
-+		memset((char *)node + len, 0, ALIGN(len, 8) - len);
-+}
-+
- /**
-  * ubifs_jnl_write_data - write a data node to the journal.
-  * @c: UBIFS file-system description object
-@@ -925,6 +937,7 @@ int ubifs_jnl_write_data(struct ubifs_info *c, const struct inode *inode,
- 	if (err)
- 		goto out_free;
-
-+	ubifs_zero_node_pad(c, data, dlen);
- 	ubifs_prepare_node(c, data, dlen, 0);
- 	err = write_head(c, DATAHD, data, write_len, &lnum, &offs, 0);
- 	if (err)
-@@ -1007,9 +1020,10 @@ int ubifs_jnl_write_inode(struct ubifs_info *c, const struct inode *inode)
- 	else
- 		write_len += ilen;
-
--	ino_start = ino = kmalloc(write_len, GFP_NOFS);
-+	ino = kzalloc(write_len, GFP_NOFS);
- 	if (!ino)
- 		return -ENOMEM;
-+	ino_start = ino;
-
- 	/* Make reservation before allocating sequence numbers */
- 	err = make_reservation(c, BASEHD, write_len);
-@@ -1716,7 +1730,7 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
- 	sz =  UBIFS_TRUN_NODE_SZ + UBIFS_INO_NODE_SZ +
- 		dn_size + ubifs_auth_node_sz(c);
-
--	ino = kmalloc(sz, GFP_NOFS);
-+	ino = kzalloc(sz, GFP_NOFS);
- 	if (!ino)
- 		return -ENOMEM;
-
-@@ -1725,7 +1739,6 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
- 	trun->inum = cpu_to_le32(inum);
- 	trun->old_size = cpu_to_le64(old_size);
- 	trun->new_size = cpu_to_le64(new_size);
--	zero_trun_node_unused(trun);
-
- 	dlen = new_size & (UBIFS_BLOCK_SIZE - 1);
- 	if (dlen) {
-diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
-index 38972786817e..538907aba8a0 100644
---- a/fs/ubifs/super.c
-+++ b/fs/ubifs/super.c
-@@ -1263,8 +1263,16 @@ static int mount_ubifs(struct ubifs_info *c)
- 		bu_init(c);
-
- 	if (!c->ro_mount) {
--		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
--					       UBIFS_CIPHER_BLOCK_SIZE,
-+		/*
-+		 * The reserve buffer is also used as a fallback for data
-+		 * nodes which are followed by an authentication node, so
-+		 * reserve room for the largest possible one.  Authentication
-+		 * is initialized only later, hence the maximum sizes.
-+		 */
-+		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
-+					       UBIFS_CIPHER_BLOCK_SIZE +
-+					       UBIFS_AUTH_NODE_SZ +
-+					       UBIFS_MAX_HMAC_LEN,
- 					       GFP_KERNEL);
- 		if (!c->write_reserve_buf)
- 			goto out_free;
-@@ -1723,8 +1731,10 @@ static int ubifs_remount_rw(struct ubifs_info *c)
- 		goto out;
- 	}
-
--	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
--				       UBIFS_CIPHER_BLOCK_SIZE, GFP_KERNEL);
-+	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
-+				       UBIFS_CIPHER_BLOCK_SIZE +
-+				       UBIFS_AUTH_NODE_SZ +
-+				       UBIFS_MAX_HMAC_LEN, GFP_KERNEL);
- 	if (!c->write_reserve_buf) {
- 		err = -ENOMEM;
- 		goto out;
-diff --git a/fs/ubifs/ubifs-media.h b/fs/ubifs/ubifs-media.h
-index 3c9792cbb6ff..7d4702f3e15f 100644
---- a/fs/ubifs/ubifs-media.h
-+++ b/fs/ubifs/ubifs-media.h
-@@ -591,14 +591,12 @@ struct ubifs_data_node {
-  * @old_size: size before truncation
-  * @new_size: size after truncation
-  *
-- * This node exists only in the journal and never goes to the main area. Note,
-- * do not forget to amend 'zero_trun_node_unused()' function when changing the
-- * padding fields.
-+ * This node exists only in the journal and never goes to the main area.
-  */
- struct ubifs_trun_node {
- 	struct ubifs_ch ch;
- 	__le32 inum;
--	__u8 padding[12]; /* Watch 'zero_trun_node_unused()' if changing! */
-+	__u8 padding[12];
- 	__le64 old_size;
- 	__le64 new_size;
- } __packed;
+Bj=C3=B6rn
