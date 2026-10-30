@@ -1,53 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793328049;
-	b=472299Geccc5zmObAGbRF9cjrZ9czxBWkOiptFgYKlBXXPb4KPxKySip/0aZeJ6Uxf+A
-	 SGs+74DViXppE7FwDmEeZxYr4nA9cB1VSfXyKoIIeBBddFPDuhjY8B1qU96yrnrZaSRhx
-	 Q1UI+NT9/ntD8ZL02rmJO1VKq66qJTAlQvYdky7RmAF7To9UEeq9Ptyj4psv8Dm+1Kl64
-	 fY1i2ISVc7a/nt/W6k5bEGD5PU+nHjpGS80IgRIF3UJLc/LMVHdZQDkbz+Imu1UhSK/qy
-	 f9RKRY5d4LR7OZbNxlS5aM8FMiEhGZbz6Ero2lRDtFhbns1y36AL9DOTPjKT9Jzsjug==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793328049;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=VaghlxoTkY6+PDm7BEV7DT23eF5DgKXQ6aJ5vhgJ1Yc=;
-	b=4jneUFdwn7jclS2JolBpmR6GfaAQNRoFoJjkNTgc4LBCtlnzwk7hC3/MIc/3aODxMi+Q
-	 iME/Uxz6fQkUmDcdY+wpflKimYZ38oqc+u9/88SbhfDFUwMFTGX1ot6MJxuUkW2AQMcB4
-	 zprsriMrmPqo2Vwn5lbA6mjfsKIX27hcupXV5a1o/e/ajidiwO/qF6TXxpadepzD+TyQ1
-	 MqaTr/wJO8xdkDnflmAAvlZziarTTb+xStsZb4jYp+xyft8BUr+VFtjUCNa/qN+PaOJ35
-	 FSEaAQz/xnymu937ThBqDcra4IcwdnGFaERm3y2TU5fbFiiltIGN7Z9P7RFkbVexVMA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=pIoYSvEV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793328181;
+	b=A9PEPvp0uOuTLlsK5qHd/wpJpO8M3oWgcXnyvvp6zCOhmF/LIkeumcqGgq8ItVCr8CSK
+	 p46B1uX4cYh8usmiitGTL4dAheIlX5/XMh1WS5c4le3nBk4qR9Q2r9dpzGediZyAEgX0Y
+	 47l9RrpOS3cxtyyNfXESkPlWY6oQBN0HJUrnMMVZovQQqsM2dD1H4wVK7ERIZJD0d3wEe
+	 NqtbkjSUD6rbMmF8HGExrHx0Yed4q1LTdxvedSQk02kTX3Cippa2Fgrw4MDeM+NTEAoVp
+	 5/ydh/NF68GA3caYpEzKDIAxqDyWcvXxh3Ub9BDWuAWRvTjiUz/ioBvOMEfBY27djbA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793328181;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
+	 To:Cc:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=qgcidXzasZXGmyCOcxrxXktzlpWjfMP81OF7oFSKqho=;
+	b=axh/L9dw+oDZ7YW+X+/449ap3F7Rku5kFg7Zy7pXKTP+emM+Z3YuZF7J7pRL/vqPTXCM
+	 1mTISp3sxQRgRwc8ckGl40IKFYB6/Ke1I4UAkjcCcBVBYwUj9mPfORiYDPwgHHXfPPPP8
+	 EtO1mA6HwAXLXuF8mBcvFff5lZDM6m0JECJPWrUlEHyJKxHQ+h4Z9YgkiBupM4cVpjzOz
+	 jTh+3V6mo4OHgxkG4yV4jSCBkggLNfTonCHmaG55U707nSFmFraGMdk37i6dsOMe43St6
+	 tT8cGyEgN9ie3JLeavv1OqE4xmntW1bG0csx2dXyYdGWMlYnzm9wB8xbslhT7raR1Tg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=p0tz7N7h;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.49
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011049.outbound.protection.outlook.com [40.107.208.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897B7606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:40:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E044606A31D;
+	Fri, 30 Oct 2026 02:43:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E044606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=pIoYSvEV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD72C1F000C1;
-	Fri, 30 Oct 2026 02:40:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793328049;
-	bh=VaghlxoTkY6+PDm7BEV7DT23eF5DgKXQ6aJ5vhgJ1Yc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=pIoYSvEVIeOMDbQ4GehnLZvj7LFdvId11l7/cvBaxDFHOF9uXwxpzYqZ8gZbCFmAe
-	 CiqdK53NTq9EHRe2o5AdD+W9XyXYSPfFM/7eJQE4FJHC0vm0UF05cP2LDYnviodZ7+
-	 yPCv9v/jzHz6mALlrO2/R2m4QUdrLu5PFKY7K5BM=
-Date: Thu, 29 Oct 2026 19:40:48 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "M. Grove" <mgrove@airmail.cc>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, Matthew Wilcox
- <willy@infradead.org>, Jan Kara <jack@suse.cz>
-Subject: Re: [PATCH] mm/filemap: queue non-exclusive folio waiters ahead of
- exclusive
-Message-Id: <20261029194048.5faf664d805bff08d3001e29@linux-foundation.org>
-In-Reply-To: <179296822701.680532.8543194155713536453@airmail.cc>
-References: <179296822701.680532.8543194155713536453@airmail.cc>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=p0tz7N7h
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h5t6+Q2iFWFT/bjJ9vh0jSQhdcCwXFdNYRhlvz5wqDkUgT30dvI4JHJg/zYTKgvTf3qQHBWXPAPsCWNOZavi5MnmBBTdhhkbMO5lbXo1OsyRQrfE9tLSItzf1pTaUpuZ9EY/ZrTSXHT3od0ykAAO9q7/L2V4GpnridMV28ajsNReY2xKTM5gI7r6TGUoemne9b2nnoBuhBhLd4xP7U22dQknxgQLQrqktpxWPkE+HiJujdymnepKKBk8WzxR9AEEmNMljDXjTLwaVmmqPTz0biezEO5U2JwdmfonBqBx28b8RopAuBDV/qfPr/xkrXgSxITxs5TaTOHtkDV3V1WLQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qgcidXzasZXGmyCOcxrxXktzlpWjfMP81OF7oFSKqho=;
+ b=Pxt0WmLSy4Kj56AQe5X8w7mBp1sYjHAidhyCKKYCjcOAmoFQixcWNKOLt/I5OVI/YPBbtW80mKn0o+XVPWny220WbPquU4zr+pOeGIswyOFqfe5v+u8haRFSkFIpXLWKWc5p2RxnToG6xJbPBUwhjDlqig02kmtpOxFHLUZ/JjjaQf6izqSEUSkPYO1qwBsvfCa1Kg4JOqDaMri5Lqtp3GgD0V9ewaTkqkG+rZ/nwo9+qfDGEm9PSKvVMwQNoTWfwSUYPeKgQQ8SmM1Wu+KdJ1PDlj7Uyp0RiXlMmDZxeCeI0yfHDINz5Vsy5If8/uewhMlRHgzWzX1fsKATwNyKrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qgcidXzasZXGmyCOcxrxXktzlpWjfMP81OF7oFSKqho=;
+ b=p0tz7N7hNa3M1cI2nj3EOHiBjTHNnYCq4U++E4vKsbkxN+phh4CMcjPgoGFB2Ht+zrKin5PeH+NNsl28uQ/rXUdmtxNNMtmFpIwRjBk+BMYvOpxuypeyb5iKelQLU2HsNgqhyfXCZVWjb76LNuxb/stX5HFoUf2qctFKh7VTWOm866WMLiV5g7E3tfkWHCPDHpB002ATx24aIeK0n/VkdXLc9ZpNjVn6aV/3uct8QpnVcLEDgnvEzIeEScuBpoo/20ZVf8JDPZRHNqhN8geD40M1at3QC7VgzlXuw5KANDxMBl79G8gF3WptbHbnwl/m/IbjyqJKxZZv3n62dkeT7A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by MW6PR12MB8834.namprd12.prod.outlook.com (2603:10b6:303:23c::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.20; Fri, 30 Oct
+ 2026 02:42:58 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 02:42:56 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 30 Oct 2026 11:42:54 +0900
+Message-Id: <DMHTS639LVGB.376844ZI0GD05@nvidia.com>
+Subject: Re: [PATCH v6 00/15] gpu: nova-core: gsp: prepare the command queue
+ for r000 dual-message types
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
+ <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>
+Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>
+References: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
+In-Reply-To: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0314.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:38b::18) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,97 +102,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MW6PR12MB8834:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4db13631-8513-46b7-6ee5-08df362f8101
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|10070799003|376014|1800799024|366016|23010399003|261026121527099003|261022105027099003|56012099006|11063799006|261021121427099003|261022075727099003|18002099003|22082099003|10067099003|261026140227099003|3023799007|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	beiuLRSsOHQtiLmYSM8XJ1cknB8BKxEpgjdLf3hSd0r1/Wdbhk0EysWPvIovbUFPAt51nYmCrdo10zoKVbELlTNtQH2NSYOJlo4XUWRKDX+O2Pa7YJlXo2A1Fl2BXXln+bFel0t4dbro14qGcKiJFc3FCYDVnWtNs1DdQoBTT6vZK9KItKMCqDQRy2LD9J6j3QWPO6LCLVDI0qdQAjg7/hv/+iHWT0u1nTCnBSzLnz1TZo+CGFkNEFBM+Jhl0lkPOXuKrqUolm2g+VV5eTgFuxgRQ3dFqh4EcSKj9mkPFtDroHdmnE13FdEnujHJq1FmjwDOJY/jIfG9463ateWa5DlEe1Vgt6yjkbSszP1ZwdZSuI3LdTvjXAVZ55GDbAuTwdFi2r/g5nCtvR6AqG04AOp17tLnXEFTONXjNGcIYSWLxsJYj8w60VYlgo0zdz+XZsbzU8RCbktvbQhGaLjAKXz6yza8aTJKbo5ffd3w7TRwosu/s20QBYC4wBP37F0gTMlN1q1FCNEeJLCOQZvIsHYL649z1JiOU3oejho0je9SPwxi8eZiTe/s8Dj1h3ni4nOcg7klT9WcCCfB1+kM7MqAUK3/DIPP8ekrfVCee5VRwBOVWcaWwuEcl1pykl0mHw9wwIVWLlzli9GtVUOI2EZgvrR7x1sSW5vvGmZi2Ok=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(10070799003)(376014)(1800799024)(366016)(23010399003)(261026121527099003)(261022105027099003)(56012099006)(11063799006)(261021121427099003)(261022075727099003)(18002099003)(22082099003)(10067099003)(261026140227099003)(3023799007)(261028144727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Rnd5WFR5QUdUZktPbzRPeEtOY2RqRG9ySzcwVlpQR0VYSEtPMThjcVZHSmNN?=
+ =?utf-8?B?WWJCcjI3aUJkbDN0WE5iTElqY3pKSXErUnBzS1RyK3JJcTdwRGJYODVzc3Qy?=
+ =?utf-8?B?cHVJNHJROHVaNFhwL3hoeDVySk9TWnY1RmhEL1phTW9lMnp0NWZWb2RCWXRv?=
+ =?utf-8?B?SXR5YlcrMUo5ZnNoTXM1bjJZN01IdllIYkxMVWVBbm5Ud3FJK0Z1U1Ztd3ZC?=
+ =?utf-8?B?N2xxVTRxR1Y3MGlrTm0vSGRDT3F5SFRhWEd2UnNSejkvZ3RaOGNYOHc5YUQ4?=
+ =?utf-8?B?dXRkRldvejNPQlQ0TzhIa0wvNTA1TXFUNjhXMFFJbStNdUt0S2c2eC9iQnNX?=
+ =?utf-8?B?TW00QVZkSWVBV3dRQ3NBVmxacitJUXlwZFlrMDRYMEV4dmpvdGxoaDFIUVcv?=
+ =?utf-8?B?OTh1S1Fwa3diV3pRZkVRN09KZ0JlT0VNSENqVnRNMUpxTWJpeEY4MUhxaGxD?=
+ =?utf-8?B?Um5URnR3SlhWVDdVR3FNMkZ0WjZNYWpRL3VjWlBVelFPTnE1dWhYc3VPWGRC?=
+ =?utf-8?B?Skt0aFlGVWozZm5UYjZMWU02RSswOFRjY1FRN1BoM0JEMktCSFE0QTY5dVdJ?=
+ =?utf-8?B?SE0xc1RlbjBkejNvT0tlMVg1WWdOanFYK2czbFVnUkVSQWliemJTY1pIVkND?=
+ =?utf-8?B?VSszUkt2enRGblN3dmJ1TlNRMk9BYWRtSnRaYjZ1V0VYNHFjZGFHMmdzZ0xj?=
+ =?utf-8?B?KzEyR2NoT0gyT2RWa1k5dHVEWjdYaDVLblIyWitzblE1WFVOSm5mMUt1OXBS?=
+ =?utf-8?B?S2ZBNHpaT3Y0ZVlFRHNVNE9UUnA3ZzRNdnJiQ3JkOTJ0UGFYcWtlWElLTElW?=
+ =?utf-8?B?ZjdISlJUU2ZiSWpWWCt6bHBTNnVwL09xZElQSEhmQ0pJUEdkbmUrRWJQaXVV?=
+ =?utf-8?B?VG5lL0YxcE9aTDJCc3MyNHpWSHZTNmY2dEpBbnZ1dDZubVJwL21IQXBySTJm?=
+ =?utf-8?B?VUVhTXhydkpiZnI3T0I4clkvZ3F1VnJDQ1VsdklDOEFBR09SVHJGL1MvVkFF?=
+ =?utf-8?B?UHM0c1dRRDNpNVhMa1pwd0tOT0NtU0tZeGlsRjVMeGZlQzdiMHU1dDlHeHdP?=
+ =?utf-8?B?OGlkZUlPSnhVR3djQWVOdnE2Ym5rU1JYTlhBbVBIZEJXYldZY3Z4UHpoMGp3?=
+ =?utf-8?B?bVg4SXdrTStpLzBDZS9KL3ppQklQODBxQW0vR1FlYndTY1grWithSzZJYlFM?=
+ =?utf-8?B?TGxxTzRqTlh1ajMxR2JaZUlVdEZld0NZbEpnSUgyWEsxNGdhOG9CTS9EbUh1?=
+ =?utf-8?B?TGpXdHZRQXhQUHZudnJ5NnBJYThVMUVIbm8rRDFWcW1KZytuU2MyQ0xwSDJJ?=
+ =?utf-8?B?ZnVydXlBTnhUZzJ4S0l0VmNRTGpoYmdVbXVxY3VmMGpuV3hQcyttK3RYaDhX?=
+ =?utf-8?B?L3pLUUEzWmZNT29jQUl6ekZPZDU1VHRLbUwyK3VTZERtN1p4UFlKRFZaampK?=
+ =?utf-8?B?L3JETEJxeElWWHpMWUwvSzB4NWh0NmlZTy8zQUFvMGpUTlNGTXdLWnhnSmVj?=
+ =?utf-8?B?ckJvMEs4QjZjSk82ZDB4d2dESGVEdm41bVpQN2g2NWlsUEFjdTFULzJ4ZGlk?=
+ =?utf-8?B?Yk95L1RnU3I1V0J3ek5ZUFREampra0V3N3N1MjBJa2EwNVU1T2ZjVlp0QUEr?=
+ =?utf-8?B?NXFjbGlQdk1CYWxENE5QSUdHRTAyWFlLYnA4MU9lODArZHdEN1Jsdzhud3By?=
+ =?utf-8?B?Tnd6bVphTkRUamZrcXZMdjlxVkdPZ0NyU1NDNEg5TTZaZXdXVS8yKzFONzVs?=
+ =?utf-8?B?azI0Ukl6R292cFdQY2RaNDZobldhMTJlNTV5dVkwbCtDYWtPRFJzY1RRZDBz?=
+ =?utf-8?B?ODg5VWVpem85YW8rRCsySUx3UWIxZ2pyNW9CTk42NUZremFVcHlvaG16OG1Y?=
+ =?utf-8?B?Q0hkWDU4Q2FaZnRyYXNERis1SHMrQXFDbUNYYm4wWVJOS1BpOXNHdUN1QzRs?=
+ =?utf-8?B?ajhxV3dNUWErWmFOQ3k4eTBvNXdOQS9uN3F4SDJ5Q3BUT09tQ0pBbEJPSkJk?=
+ =?utf-8?B?T25RbG9paFJpcTI1SXg4Zk0ralZlNEVwUm1PaHd0dXpleXpXUHR5cUt5Zyt5?=
+ =?utf-8?B?cGNNNmVQR2NFRlU0dFRsd3VjOVZIMGZWVlowYUNpamNWL0M2eHJacTlxblh1?=
+ =?utf-8?B?MWIyUGgwbHhnbGZsMGlzNFJTMjZscGFwUXJpUVZ6WE1ERzBCc1YzRUVmUThI?=
+ =?utf-8?B?LzVXNnQrM3EyaVkzaCtacENJREp6bU1OWTJqeFVEZkxBVEZGWXNSUk85M1VF?=
+ =?utf-8?B?S0J5L3ZQU1dQUEl2dmUyY0lIdzI1Vyt3Uy9ablpmTXVYdDJJbmNoK0FWOXN4?=
+ =?utf-8?B?TDhUMi9mZEo5cHVlYVdoN1p3SWxlODRCYjVUWVR1cDA4TUl5eUJ0c1plYTJN?=
+ =?utf-8?Q?hhDW9unBmOK2e5b40IeX8ew2VnFkNdoY0RabvVfY0uzCa?=
+X-MS-Exchange-AntiSpam-MessageData-1: vlmHpOn7lgXKVA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4db13631-8513-46b7-6ee5-08df362f8101
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 02:42:56.7526
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fPRAbzPVwYgheAUD0ugjpf6KTE1PU0ahBh/MCB1NZfrMDD5cGqt0j6AqkFsQfquRyZD/vJE0RKH0Fzk5VdI8Jg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8834
 
-(cc filemap.c maintainers)
+On Tue Oct 27, 2026 at 4:35 PM JST, Alexandre Courbot wrote:
+> Alexandre Courbot (15):
+>       gpu: nova-core: gsp: cmdq: remove stale comment
+>       gpu: nova-core: gsp: cmdq: simplify framing error description
+>       gpu: nova-core: gsp: cmdq: validate checksum earlier on receive
+>       gpu: nova-core: gsp: introduce and use proper RpcMessageHeader type
+>       gpu: nova-core: gsp: cmdq: group the RPC-specific part of send_sing=
+le_command
+>       gpu: nova-core: gsp: cmdq: split the transport part of the send pat=
+h
+>       gpu: nova-core: gsp: cmdq: split RPC parsing part of the receive pa=
+th
+>       gpu: nova-core: gsp: cmdq: move RPC message logging to RpcMessage
+>       gpu: nova-core: gsp: cmdq: split the transport part of the receive =
+path
+>       gpu: nova-core: gsp: cmdq: extract await_msg_with from await_msg
+>       gpu: nova-core: gsp: cmdq: do not sleep when waiting for a message =
+with timeout 0
+>       gpu: nova-core: gsp: cmdq: use consume_element to implement drain
+>       gpu: nova-core: gsp: cmdq: move the RPC code into a sub-module
+>       gpu: nova-core: gsp: move the RPC commands into a sub-module
+>       gpu: nova-core: gsp: add `rpc` to RPC message send/receive methods
 
-On Sun, 25 Oct 2026 22:43:47 -0000 "M. Grove" <mgrove@airmail.cc> wrote:
-
-> A folio waiter queued behind an exclusive folio_lock() waiter on the same
-> folio is skipped by folio_wake_bit()'s nr_exclusive=1 walk: a shared/DROP
-> sleeper (folio_put_wait_locked from do_read_cache_folio) never receives
-> WQ_FLAG_WOKEN even though its wake ran.  Readers then hang D-state in
-> folio_wait_bit_common while fresh reads of the same page answer instantly,
-> and the sleeper wakes only with each later lock/unlock of that address, one
-> page at a time.
-> 
-> Same symptom as syzbot's "INFO: task hung in read_cache_folio (6)"
-> (extid 9db0864859224b833108).
-
-https://syzkaller.appspot.com/bug?extid=9db0864859224b833108
-
-So are you saying that this patch will fix that sysbot report?
-
-If so, a Reported-by: and its Closes: would be helpful.
-
-Some description of *why* that sysbot hang occurred would also be
-helpful.
-
-You can do an emailed reply "#sys test" to the sysbot report.  Than
-paste in the patch and it'll rerun the test for you, if it has a
-reproducer.
-
-Plese reconcile this with
-https://lists.openwall.net/linux-kernel/2026/10/26/2932?utm_source=chatgpt.com
-
-Did Josef already fix this?
-
-> The change only reorders the enqueue side: non-exclusive waiters use wait.h's
-> default head-side insert, exclusive folio_lock waiters keep the tail, so
-> wake-one fairness for lockers is unchanged.  Built on mm-stable
-> 183895979c44; mm/filemap.o also builds on v7.2.6.
-> 
-> Queue-walk instrument (read-only, counts non-exclusive entries left
-> unvisited when folio_wake_bit() returns): 363 skipped waiters per 10-minute
-> run before the change, 1 after the folio_wait_bit_common site, 0 after the
-> softleaf_entry_wait_on_locked site as well.  Reproducer shape: threads pread
-> a file while others block in folio_lock on the same pages (hole punch,
-> truncate or mmap faults) under reclaim churn.  Harness, traces or configs on
-> request.
-
-Sorry, this is all quite unclear (to me, at least).  What is the actual
-bug, how is it triggered and observed, etc.  
-
-> Signed-off-by: M. Grove <mgrove@airmail.cc>
-> ---
->  mm/filemap.c | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
-> 
-> diff --git a/mm/filemap.c b/mm/filemap.c
-> index b74bc1e5015c..35869d19d17a 100644
-> --- a/mm/filemap.c
-> +++ b/mm/filemap.c
-> @@ -1293,8 +1293,18 @@ static inline int folio_wait_bit_common(struct folio *folio, int bit_nr,
->  	 */
->  	spin_lock_irq(&q->lock);
->  	folio_set_waiters(folio);
-> -	if (!folio_trylock_flag(folio, bit_nr, wait))
-> -		__add_wait_queue_entry_tail(q, wait);
-> +	if (!folio_trylock_flag(folio, bit_nr, wait)) {
-> +		/*
-> +		 * A non-exclusive (shared/DROP) waiter must queue ahead of
-> +		 * exclusive folio_lock waiters: the nr_exclusive=1 wake walk
-> +		 * stops at the first exclusive match, so a non-exclusive
-> +		 * waiter behind one is never visited and never woken.
-> +		 */
-> +		if (behavior == EXCLUSIVE)
-> +			__add_wait_queue_entry_tail(q, wait);
-> +		else
-> +			__add_wait_queue(q, wait);
-> +	}
->  	spin_unlock_irq(&q->lock);
->  
->  	/*
-> @@ -1428,7 +1438,7 @@ void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
->  	spin_lock_irq(&q->lock);
->  	folio_set_waiters(folio);
->  	if (!folio_trylock_flag(folio, PG_locked, wait))
-> -		__add_wait_queue_entry_tail(q, wait);
-> +		__add_wait_queue(q, wait);
->  	spin_unlock_irq(&q->lock);
->  
->  	/*
-> -- 
-> 2.56.0
+Merged into drm-rust-next, thanks!
