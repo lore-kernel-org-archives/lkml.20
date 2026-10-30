@@ -1,101 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793346286;
-	b=Z57zELxO0xk2QNMXBJIAiwJdX0UeoqrORXK5T0Q/FtQ8PM2bDOAhy27WNQ04fxOSPIsy
-	 I8gCca6j7TJCr2cMeaII4km3awMerayHpm+QwxQQ6sfx1hVMWldfnTp8AGZ3We8OyboLU
-	 yD2pw6m0/lro9c0j7ZWN51EOblth2sNfOAJpVH1QrJ6GJpmnZXf9ejbvQonzUS3B/NTD8
-	 XPSs3NbWad/qBFhtbcWu1ruw6wkjk48pT8kDGB0xb3s2Z9xmIsdC1mbnRouEStaovMp7s
-	 0DILESfnEZC0J01fSMn3t8qWc6AIUod3LZMEvbaNnwTBoLfaoug/4OuUjTNJQ1MtRSg==
+	t=1793346514;
+	b=HvJd7pMyMFBzz0DIWgU0Zwken1+OpVfKOYgdekhu/ExFgO9LWcRkYg8Q9oU+SoXTHc9P
+	 u3x6GqDVBMVb+Lg/0c6yuIXOVT9XXCbiUFn+d0BJVrWqCohpzQmD+k+sHe1s8ZCwM8dGt
+	 zp4AO0KWGIf7/KYl0q2VZBWRrX+I5ywL2xVc7kVrrUxNyUYS5WfIK88n7JUe7MoJQ0dTJ
+	 /XgDoOg1DCnIMZpd9R3zp7gjAzH4KEUgPYk8qT/YpHIli1wjWCBuXgiSyY/52DJnfx4qR
+	 JUp+U+SP3ovvwEzTCQQVndMwBzfXBJBxc0VWp+xmpaVicZ3J6uqSiPqCIpdjiy1Dv5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793346286;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=DZaSJ/DrR2W/omOznYqAJsfL915OOMlybi4GRGT1d6Y=;
-	b=hhpFShNfvJKrCy2mS4lKtX6QA67HEK1spkBeSrBvW0o9olbR9GGLz3dass3msWvIqilf
-	 Q0nN+2AJjJNgiczv+wClZLIkCm1pbSm48qSYhJWI03KIATiv7GWmLnB+dQGv2xT249Ze9
-	 28Iyde54ZoqcJMFh7HxlbGwsTxaoLi9HS7ilxSccQs40VYl1YceRGkg6UU2Kdrgo7RNZl
-	 fwvvh2J1uXIas05kf5HZkVuzv++rCTTEs+/ZCu94PIzhXMEJH6TUyf5gqZptc9KlUvb/N
-	 chdrLuAcA2d8yivfCTYVHJIDSd5aZ2IEr/aiE+bKC5XxVfBEeaIytuE3l6rYmf6yl1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793346514;
+	h=DMARC-Filter:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=l7MKHfjM/GW6yOyE5At/ew2VAID44/Vca7c9Dv1HJBo=;
+	b=p3nI900t7FZGwsrTQyE77neTTZVts+alJqYprgsUjQOo9XC5SLVGVKC3qysQCbJRmVsb
+	 uN1vcmg+EYAa4YXefdHVpILJ25lKaWQ89mUWccVgdWkzwMUn6SR4QtVz2Eqds0me63inF
+	 ZaYUK5jHNnfq5vErFDxw3q50VGpembEMtpYhszhv1bSn3SoEUd5tgi7koq+WCaxdpu9UT
+	 MbIztU6RcWpPe+EvBMIpkQCl5dQvKs3gJYRXkpjTtelmDfe2EbEfByq41h9ki9CiufdRq
+	 9djmakKHa9iNS57ildYR5/tQB6XkVXacUgRZ6tE3jmQzojwkBMHe0aKzWtSk6oSpXSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hesling.com;
-	spf=pass smtp.mailfrom=hesling.com;
-	dkim=pass header.d=hesling.com header.i=@hesling.com header.a=rsa-sha256 header.s=google header.b=jUq9BMXa;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE34B606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:44:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE34B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hesling.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hesling.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hesling.com header.i=@hesling.com header.a=rsa-sha256 header.s=google header.b=jUq9BMXa
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3514b90bb89so847981eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:44:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=hesling.com; s=google; t=1793346285; x=1793951085; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=DZaSJ/DrR2W/omOznYqAJsfL915OOMlybi4GRGT1d6Y=;
-        b=jUq9BMXaPY85KAuillXqP3Ky2xsgEqkWBAK8BB0yqrWVhs1jH73EBI0oIcquyj2At3
-         r64+0a6cyMyieeoQtWm0c0nNJ0hm8jHVn+8HYiE+gWO88amcIAqF3tASBN8XuVcAoFk6
-         xAWbnSIQsHER9/fZDOjlHquMWEyBg9ozCe2ANvHwM+nbdqPDMtKIa4TRZV3V46GO4BKL
-         sCgzjzBDTJQhFI0vuXp0yoenEB5QWU90GQWYzX08xP2vf7n0sPsiGFPMk7LktMGDvmsl
-         +etG5jkBo4dYd9hT+oqfOJ89VMJMrR8HkvQXWmlrv7XDJhyy9DFXKPk/VWhb0OJJKyzc
-         3Jtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793346285; x=1793951085;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DZaSJ/DrR2W/omOznYqAJsfL915OOMlybi4GRGT1d6Y=;
-        b=PXYdu7tGIZxZTIY6gpC3QapS8CcmMvmwJDaPMsJRlfk0OqS7Xij0u/MvlXyRDKa2BI
-         yRdvNDbTXwTpOFv77tqSTVFcGgSvf7BPSUp+pM2JQg1CJP4wuYLu3P3seimkhLvcnK+4
-         EdvXgsq7Kn///1+FBzcI7mY0NPDzUstaJQn8Ot+9Xf/EZ4j5cv28YZESY3AY6Wkil58+
-         DDtqzbOT0JPtENpULipEwpZFKz5GP7l6Smp6j4Sd75nhZZatg5GJYOlE26mn72tSkVlz
-         eNeeoE2pTLZtu5yNHlP5ErKiNuV3DRVyIqzyUFpYTP52tR8U1MhltAYsk4bH4xGbbwlf
-         IP+A==
-X-Forwarded-Encrypted: i=1; AKwUvBz3Zz74eYYoKYV4f0zxncn5jqtnkgT5ToCZ4GBnb8d3UlF8WAUnwsvPg0GHtTn6ScvZWYzVryYW1oF50II=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRCHgT5/8st6X2ZPe2naqD7UjUiejlaDjXQFzu5w2wP0TwksdT
-	6wF20Jt6hUWM10VGxdE0HnpPIEGXbxRhNXKasmD9pnmmsmLct0EfsaOsFALgzeYGjMQ=
-X-Gm-Gg: AYBFou11kOtbrmd3P4YcAMP9EOOhQijZFF448v6KwO5YTJSamw+gObELEN+hvN6K0h1
-	/JsQzJvzIEZnPVgWAw7GtJAqsWMuS/7EfDG0C8/TvUSgSDMD9RUM84wP3lUWBVlHJ7CE+peA210
-	XyRLznnv9ZM6U+WsQb5y27YsPX27xYYW0362DHLVXSfzGwYPZlU7xn2GN9l71s6cuP4qQN9dd9o
-	Zwn8awG8mURvXR1wUzFkOnHonKUonHGI0rZepY2a8Em8k0zW0vkht8WgiIaxb2ZfSqUrOhoGZTh
-	vdjbu/IhDgGgL618yNuCiF8PL9xyAAgIPxVweEX5AW06Cy+s4aGq2r3m3LQnJ0qP9tZlr7NKPGy
-	GTyCaTymvSg+xIYTQxcqqcQwFdIM67nNuNGw8JNHBH9oPT+B+Xyex14nNmRRiTZTnJ9SCWiQONi
-	AY8HMQvj/WkMYJ8mGVBZWLKXyncbxl3zUBJu0IckrSCQQOiZM1iYRXAyRksEsL4cMglW+tiYIMB
-	GgWbQ4B8pRPAG/cz0G7o1icLkJjV4n50+0X5iy5/3qwc+WDrOIsm9/V6e5VwdOABPewmSrfjW6V
-	9NkccrrK6Vw6vmNy9xxKGPVGzug6I85HcQXSChTzMHKd9SeZq02P2Xota18E60wGMDRKhxU9/lp
-	7XCPcfa/O+TpGzhVDHA==
-X-Received: by 2002:a05:7022:2522:b0:185:b157:f271 with SMTP id a92af1059eb24-1ac5d2c58cfmr2971559c88.23.1793346284608;
-        Fri, 30 Oct 2026 00:44:44 -0700 (PDT)
-Received: from ?IPv6:2001:5a8:693:ec00:90a8:f6fd:3390:41e0? ([2001:5a8:693:ec00:90a8:f6fd:3390:41e0])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c27cdsm7473973c88.10.2026.10.30.00.44.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 00:44:44 -0700 (PDT)
-Message-ID: <9970fa09ce5e1b468e473bc1e4bbe7d7802808e8.camel@hesling.com>
-Subject: Re: [PATCH] USB: serial: simple: narrow OWON match to avoid
- breaking VDS1022
-From: "craig@hesling.com" <craig@hesling.com>
-To: Huang Wei <huangwei@kylinos.cn>
-Cc: Johan Hovold <johan@kernel.org>, Greg Kroah-Hartman
-	 <gregkh@linuxfoundation.org>, leStoppe <lestoppe@gmail.com>, 
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Fri, 30 Oct 2026 00:44:43 -0700
-In-Reply-To: <20261030012805.4087311-1-huangwei@kylinos.cn>
-References: <20260810091322.2201740-1-huangwei@kylinos.cn>
-	 <fa1ec0429fe8c1287c126b50989f1cffe2567a86.camel@hesling.com>
-	 <20261030012805.4087311-1-huangwei@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-10+b1 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC23606A31E;
+	Fri, 30 Oct 2026 07:48:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BC23606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
+	by APP-05 (Coremail) with SMTP id zQCowABn0TusS+RqhTm6DA--.1494S2;
+	Fri, 30 Oct 2026 15:47:57 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: [PATCH 0/3] drm/bridge: add glue driver for T-Head TH1520 DW MIPI
+ DSI
+Date: Fri, 30 Oct 2026 15:47:48 +0800
+Message-Id: <20261030-th1520-dw-mipi-dsi-v1-0-753f34fd304f@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,35 +48,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDQAxA0V+RrA1kUsZWf0VcVCfWFHwwsQ8Q/
+ 71jXZ7FvRuYRBWDKtsgyltN5ynB5Rl0w316CGpIBiYuHF0I18F5JgwfHHVRDKbobxR8y9eS+xJ
+ SuETp9fuf1s1pe7VP6dbjBPv+A7nOOaF2AAAA
+X-Change-ID: 20261030-th1520-dw-mipi-dsi-580d5b2792f9
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ Icneowy Zheng <uwu@icenowy.me>, Han Gao <gaohan@iscas.ac.cn>, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>
+X-Mailer: b4 0.15.0
+X-CM-TRANSID:zQCowABn0TusS+RqhTm6DA--.1494S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tryfKw1fKr4rAFW7Gw4rKrg_yoW8Zr4kpa
+	nrGFy3AFykJrs29F9ayF48XFW3Jan5JFWrGrW7Gw1vvan8u3WrXrZFkFZ8WFy8Jrn7ZF42
+	vFWIg347WFnFv3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
+	nIWIevJa73UjIFyTuYvjfUUo7KUUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Hi Huang Wei,
+T-Head TH1520 contains a DesignWare MIPI DSI host controller paired with
+an internal DesignWare PHY, as a similar design (but with a different
+PHY) with the Rockchip DW MIPI DSI.
 
-Thank you for the explanation. That is completely fair.
+The functionality to write to the PHY is shared between these two
+implementations of DW MIPI DSI, so it's extracted from the Rockchip
+driver to the common code. (The same sequence could be seen in the
+HiSilicon Kirin DRM driver, but that one hasn't been converted to common
+DW MIPI DSI.)
 
-For my HDS272S hardware rev, the oldest fw I could get my hands on is
-V5.6.2. I confirmed that V5.6.2 and the latest fw v5.7.1 both share
-identical USB descriptors, including the interface subclass and
-protocol.
+Tested on a Lichee Console 4A (with a Mingjun MJ070BI30IA2 panel) with
+further pending DT patches.
 
-idVendor           0x5345
-idProduct          0x1234
-bInterfaceClass    5
-bInterfaceSubClass 0
-bInterfaceProtocol 0
+One question remains: I have to copy the extra lane bandwidth headroom
+from the Rockchip driver, otherwise the Mingjun panel cannot keep sync
+to the display signal; from my testing, changing the hardcoded
+PHY_STOP_WAIT_TIME from 0x20 to 0x2 (which is written by the vendor
+driver) can also make this panel to work w/o the extra headroom. I want
+some advice on whether to keep the extra headroom or changing the common
+code to make the PHY_STOP_WAIT_TIME parameter adjustable.
 
-Updated:
-https://usb-ids.gowdy.us/read/UD/5345/1234
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+---
+Icenowy Zheng (3):
+      dt-bindings: display: bridge: document TH1520 MIPI DSI controller
+      drm/bridge: dw-mipi-dsi: add PHY write function
+      drm/bridge: add TH1520 DesignWare MIPI DSI host controller
 
-I don't think this is a blocker, but I am also surveying other
-projects/devices possibly using owon serial, which include an SDS1102,
-HDS25S, Hanmatek HO52S, HDS242, and HDS2202S.
-https://github.com/lucky62/OWON_SDS1102_Linux_Capture/issues/1
-https://github.com/mjkloeckner/TB066/issues/1
-https://github.com/JohnDWilbourn/owon-hds200/issues/1
-https://github.com/einsz/whoop_thrust_stand/issues/1
-https://github.com/mkreutner/hds-mirror/issues/1
-https://github.com/scottsun2020/owon-electronic-load-tests/issues/1
+ .../display/bridge/thead,th1520-dw-mipi-dsi.yaml   | 102 ++++
+ drivers/gpu/drm/bridge/Kconfig                     |  10 +
+ drivers/gpu/drm/bridge/Makefile                    |   1 +
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c      |  21 +
+ drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c        | 530 +++++++++++++++++++++
+ drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c    |  86 ++--
+ include/drm/bridge/dw_mipi_dsi.h                   |   3 +
+ 7 files changed, 700 insertions(+), 53 deletions(-)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261030-th1520-dw-mipi-dsi-580d5b2792f9
 
-Thanks again,
+Best regards,
+--  
+Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
-Craig
