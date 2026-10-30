@@ -1,66 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357180;
-	b=Vx9caiL1BL1eTILEPvBQvf4mBI8ZD0g5BtThNqUum2Q9vcIFYVp/BCY6b7PrTCjr1+KU
-	 /CXfLOVkA2LQ3mWB3JOIZx91Rl7Rh6fR8VHNqPXfT8DjcR3Mv7su7KnpiaIPtotXzjRkv
-	 joUWPzB6WtmxPKiwJlAX9/RJu7bkr2oLeu3MeVCyd+OHV6BuO4boSl+rB/4xutjXsBkGL
-	 HOC0GjNn0Okc6c3dutcHi2erbhvhJJiHKnigUoszaxj1nIMBL721VQFUHaCb/jHlc5dGw
-	 8vydd3Hde5khBcfILYOccecXXqLGF0obr6kQoAnsLyG50wHUIfu76dGGX1H3WmPC4Vg==
+	t=1793357284;
+	b=bGQsnLHAivulZqYJeadZXJOsJusKAfSoPXi41ww9UjDfrYrgI5OlYzNmdPtASAJBi3bM
+	 WYSi9UJjWvROgVBZfMalU4/AtTUWhVCyt2+OrVkAHQwKd2tgyCTLxq8epOmuksi3zx+vS
+	 xBaMt0rZbxAocbcx2iwbTDVwkQMzzbcp3/JR965812JJSLrcjwIySdXz/HZIWv/YzHZi+
+	 Y9jL62zuF40A/Iqvwi7QyDQxj9s4ekgiFUmjjMKDRlbQffe1OaRPGmRbShLwHHKRukRAa
+	 PTGL/DFgq6WWZqL+y2nCDoo9HP7vlcNSjNuv8xF5Xy0PctdBwAN0OHE/wkVSl5FX6uQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357180;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=IeD1te9JsbH+posWGpI0LErcMqbnAyvM7nGUHinnYH0=;
-	b=G33rZeQuFytrJPpO1/KVRHzsqxUyGh+d6YbU2qzaU0yAq8p8SkrE3Ij35Sxt5uqmPuJC
-	 aX5VjTGBtKaG/z+utxkiVPYwoYLs+GoZApeWQNJGGtR+MhmvN2K7gR8UxRdzJDiagMk0I
-	 8LyfhL7Pmw7PtUf1UbDm1mw+dpAc7xOjkLMobGN+zAdmBtDh2TlEsXJ7wP816W9gwniOV
-	 D3o0vnZZXpTPOv4rP/pXH2itd2Xv61GS6ioK0fAuy2f2VQsI72F7GLZjU7Yrq2oZX6/kZ
-	 QZUWJ+fo+jdbSKu/hIDdCvef3nCyV9oarKQFuS1bSdn3T0V5Mt4pTlijzLSJuswrKUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357284;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=C57ru1ZgQyPfTj2Ltl+MtZ6bKGREeSrdFgZ8/zlIiCA=;
+	b=SpOWWe4RRIe9tXvq5AFp+q4dIeUItkcLQ4jONkt7KS8fZdoXlo/PwmrKlXm5zPHo49n0
+	 Rb2nCphJV5p6fo9dWTpVevgQYHl6LuUadmru589J5VEZuzVfvB69JsRTPQ90CjestOLsK
+	 5uDH/y8x+j+KC07mqPuahnUTzbeNz92X08L5NtK6qjXKWjWZ6wTfzsPPPYEBTWDA6tml1
+	 o2bQoxR5xlKIEJ3D8hrCuazHU6rHs34uRWJa1PGxUk6o5wdXHGOBGNvTYF3ilwpeiYQjT
+	 rW/FPOPl0zKlygYERChrnqGM8Z4PI3PvUaAvNld4UjIR7j4MxnMtdAaDYRYD0JZ8PHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="eK/PHqrz";
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y+c0kfy6;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EAE760A262F
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:46:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EAE760A262F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B9B606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:48:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05B9B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=eK/PHqrz
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=IeD1te9JsbH+posWGpI0LErcMqbnAyvM7nGUHinnYH0=; b=eK/PHqrzkjQgVhbCMJPf1MeeGP
-	X60Lmy8PWAQRAbb17GHHu0O7T30Vq6rwR5XXwd1Hw3H/Ev8Op7HtK8y1ynZ7m3lVm2fmrkVQTIC/9
-	91977gFeLDZez9UOidNBfxfTuDrGB70Q85lW4Ge/O3U03TFIDVImJhV5hZQBc3q26OvnDiHawlLvR
-	iyNhQXRTl5RpFZDM2oUP3xGrvW0NKkv+XjLnhlEQ2NQb54WKEwyAaPcGaSCFp4Qv3TQbesi8v1Qky
-	0M4T4JRXF74eoOgiFWdSSqQ0nkBR/t1815/UkL44k8CQroIqShI+yWe69duoTSa/xnDPoioJXGffw
-	WxJeQRFQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xMk7b-003lNW-2O;
-	Fri, 30 Oct 2026 10:46:07 +0000
-Date: Fri, 30 Oct 2026 03:46:03 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Will Deacon <will@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Mark Rutland <mark.rutland@arm.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, kas@kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] arm64: Kconfig: Don't select CPUMASK_OFFSTACK with 64K
- pages
-Message-ID: <auR0kSCYyo31Inxf@gmail.com>
-References: <20261007-arm_stack-v1-1-b48dad5fa8b2@debian.org>
- <auCSG2OmNMQKp3dq@gmail.com>
- <auRxNDAe_tv-mCvk@willie-the-truck>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y+c0kfy6
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so5581055e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:48:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793357282; x=1793962082; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C57ru1ZgQyPfTj2Ltl+MtZ6bKGREeSrdFgZ8/zlIiCA=;
+        b=y+c0kfy6ChDLjC2R1iiJMnAjUiTid9A+fyPapn4dSVhOrxBpyPmg3QbZSwOHJEAbYN
+         Q4HeyWLBCXC0p2ef9JYeIR5WCJ242CAZTHXEApeu5gmEJuqHgm0TtUKkz7iuTki2KO2O
+         5pEsL8TdYvMxN3An7qHagEnvL9CvyKmbyTAvb3ZLpDV3wLtRwzNsBpjP6xq+Z7AgqRpX
+         JRIJGIVhh7hrJTsJ7Uz01Lg2/RH2L5MGIjXpTckKFdSY/uYvKkyEPSoJksh8cx8V9DyZ
+         m9TAdMJ+TaFjKP5kB2PX/HTzNM8J/A3FxZQFFcUzMPykDYK4AGbrCGfM/LEjUke0V1KP
+         yx2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793357282; x=1793962082;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C57ru1ZgQyPfTj2Ltl+MtZ6bKGREeSrdFgZ8/zlIiCA=;
+        b=TvHzyqXHfWq2NkNx1UXQmKeoRABGNXggR5gvBc0ZIt9RF+6t02RJhKpqIYt3eE9rqo
+         YL9znhzlJkcoKfcPLcsEIGmJgftlSrkK3TS4OskqVGz5R3S0gc13UeilepBynOLadsOv
+         IN27MskuYKro2w7gGRFTuMyTwQlbSLTl5PqIHgCcxYVtam0i0xFST0mN8/p9tctr49jd
+         rD6IDL4ZgnxEm/poNqxxsogq7net4FsqAhhqSCLG3QuUFkYJO+eFh9tOSUb5Xf4wgH4P
+         3dP5SBTTgH4BMxJnL8ue+NJPJrHpXWL0rAKg2gq5xHNqPk78QTcXECzU9NdpdrfVbvG/
+         YtDg==
+X-Forwarded-Encrypted: i=1; AKwUvBxeioPLJB9O910UjWET14phhUilHP1RsmguRCur6hJvyqR3tgWBAuI6MXbW22TSBaTLLLK4HjdnQbQR1Ek=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJR0rvCpc7t2mLsMLQpdJa4pcRfnI/v02ZRgTDpWn5wbNEjIumR
+	1N4XkdWLgmwhvCdCRehjmoMatwPLfyaKiOcRbKKhKi4ph5cyTXDYZ7EL
+X-Gm-Gg: AYBFou021XaYBaWRmVx9WeKVAnrMbGQQ733AYOa2+4rt3uatLhuLn95/Y5aYNWz6c60
+	GW8Ds5IRXwlhbQZmgl2O9G5mtV8AOaUHPRNF0Y/r3p4okYlfjMAVrwgTent3rcfFXJx4VpUvb9V
+	zB83xLXolbtAOA1IG3vWY3y8eUzjHLjx1cwR+yUyoNOeFLA/hHNIGtJJHe879R9zpBDaCx/R/s/
+	mBg0ZceysC2WR3eEJuSAP/3Q5ajXp6WmNcxLDG2qLrEiTx8PlZSF8mw/ycKVmHlDQNf8++4GCsW
+	bytKVkU7DylhFvMLR7hnhy7plmrckTkKOA9U1OTIEPVCXoKjGmZhq2xzoI+b+2Lay4vHqAUZrRK
+	WIk73O7P47dzmoWgwUQ8P275IRCqAHHBT8/LhBQiSEdJqCgdUqI2fSGkCsyOlbW0dMgE25hMNpW
+	Mkr3wtvrTzy2GQtVbcuIpwj4PNve1IxVzMox0OCpC5tEug5I5y+RQ4RZfV4KT6TIdkKNY32HulG
+	GSfevIXgccoO+Qxwe//dZ/UO48Bo1Jx1ytQGvu9L9Z/TjPsYT7dKarhGsA78WywQMpfehd18QTW
+	j9l+WhIMRYlsmS0ezaeleP3oAX2kPw1jwPiSh7lwDQHTv7cVpjYeEJQF0o9K
+X-Received: by 2002:a05:600d:a:b0:4ac:aae6:6401 with SMTP id 5b1f17b1804b1-4acaae665d8mr12093245e9.12.1793357282256;
+        Fri, 30 Oct 2026 03:48:02 -0700 (PDT)
+Received: from fedora ([154.183.179.146])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71bae25dsm2240473f8f.59.2026.10.30.03.47.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 03:48:01 -0700 (PDT)
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux@analog.com,
+	linux-kernel@vger.kernel.org,
+	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Subject: [PATCH v2 0/2] staging: iio: addac: adt7316: clean up header inclusions
+Date: Fri, 30 Oct 2026 12:47:43 +0200
+Message-ID: <20261030104745.16693-1-abdelnasserhussein11@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,49 +102,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auRxNDAe_tv-mCvk@willie-the-truck>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-Hello Will,
+This series cleans up header inclusions in adt7316.c
 
-On Fri, Oct 30, 2026 at 10:28:04AM +0000, Will Deacon wrote:
-> On Tue, Oct 27, 2026 at 04:59:52AM -0700, Breno Leitao wrote:
-> > On Wed, Oct 07, 2026 at 12:58:16AM -0700, Breno Leitao wrote:
-> > > arm64 selects CPUMASK_OFFSTACK when NR_CPUS is above 256, which keeps
-> > > cpumask_var_t off the kernel stack. With 64K pages the kernel stack is
-> > > 64K as well, we have enough room to keep cpumask on the stack, avoiding
-> > > extra alocation and possible performance penalties.
-> > > 
-> > > Skip the select when ARM64_64K_PAGES is set. A 64K kernel can then raise
-> > > NR_CPUS above 256 and keep cpumask_var_t as an inline array. 4K and 16K
-> > > page kernels are unchanged.
-> > > 
-> > > Signed-off-by: Breno Leitao <leitao@debian.org>
-> > > ---
-> > > Based on Will presentation at LPC, I've decided to have a look at Meta's
-> > > stack usage, and I found that this might be an small optimization!?
-> > > ---
-> > >  arch/arm64/Kconfig | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > 
-> > > diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> > > index 5f2db2cecf9772..b73371327d2a47 100644
-> > > --- a/arch/arm64/Kconfig
-> > > +++ b/arch/arm64/Kconfig
-> > > @@ -111,7 +111,7 @@ config ARM64
-> > >  	select CLONE_BACKWARDS
-> > >  	select COMMON_CLK
-> > >  	select CPU_PM if (SUSPEND || CPU_IDLE)
-> > > -	select CPUMASK_OFFSTACK if NR_CPUS > 256
-> > > +	select CPUMASK_OFFSTACK if NR_CPUS > 256 && !ARM64_64K_PAGES
-> > 
-> > Does this one sound sane?
-> 
-> It doesn't make an awful lot of sense to me, to be honest. The page size
-> and the number of CPUs are two independent variables, so tying them
-> together like this looks a little odd.
+The changes are split into two logical patches:
+1. Drop proxy header <linux/kernel.h> and explicitly include
+   <linux/bits.h> and <linux/kstrtox.h> per IWYU.
+2. Explicitly include missing headers (<linux/err.h>, <linux/errno.h>,
+   <linux/pm.h>, <linux/string.h>, and <linux/types.h>), drop unused
+   headers, and sort the remaining headers alphabetically.
 
-Sure, but with 64K pages the kernel stack is _huge_. Why do we still
-need to keep the cpumask off the stack frame in that case?
+Note: <linux/device.h> is retained because the driver explicitly calls
+dev_get_drvdata() and dev_set_drvdata().
+
+v2:
+ - Split the original patch into a 2-patch series.
+ - Dropped proxy header <linux/kernel.h> and included <linux/bits.h>
+   and <linux/kstrtox.h>.
+ - Explicitly included missing headers for types, errors, and PM ops.
+ - Retained <linux/device.h> for device drvdata functions.
+
+Abdelnasser Hussein (2):
+  staging: iio: addac: adt7316: replace kernel.h with bits.h and
+    kstrtox.h
+  staging: iio: addac: adt7316: explicitly include missing headers and
+    sort
+
+ drivers/staging/iio/addac/adt7316.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
+
+-- 
+2.56.0
+
