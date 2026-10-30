@@ -1,59 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.73
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793359698;
-	b=Di7TjKiydKVHGZFm1OZ+P6iQsO3TGLRWEu19yiNjkG9gs0otQpqWWyXzhhEcQpZHfJxu
-	 6a/ez+g5J7O99iagvnY7LadBLKvV/lPU1wyNwu+w7oYkTqQVRc/lR9cbfmPTtdjGaxGdF
-	 p2dA6npvJq7MwTzHZpHmpG/rkm4ZleOY+TvT4OpT8igEjiIPQaSbhGhVSUsGRotQCkJ9V
-	 U2Elk+8eVhw2MP9J4FM7RA+q5S5jJS+MBOsRAOPWoav9P9lDZzVhxILWyRFCdv9RTkCBj
-	 I3mvFVOejODnzjuCor4sC6o9I57qja+iGP5NkMaGCjVpSGAZVLbu4iH5FzzPKr/fwZQ==
+	t=1793359710;
+	b=O4JWEytlvCE9SuIc72hlINYsic0LFbq/Ijj28Sg0y7oDtjFvJfY5apxIfJxDMWB1J6AB
+	 IXu8S93NE+Az0VSRFabYWgD1z1LjBXd0MkmryyMHn2NmWmvkEUGZLHgbJb5sGrksKHzTC
+	 eukuEkDE5b1jbCc7OKM3qGbuBouMJWJa7i0d6AiIlSmkW/fWp93BiRhDpK6E2uafkfSFJ
+	 jRnprPTSEajp8wd9RSYeYY2bNNA1bGGex5hFN7tWyKUV+u9NLFwCCtOMSRjHglaj0zv7K
+	 CaSFCt9ltQ6JX/wvqvJ3Iw0opj2Jn1/stB9AHX0s+ojVkVwVFJ68dYl6G3jZDt1WVEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793359698;
-	h=DMARC-Filter:DKIM-Signature:X-Forward-Email-ID:
-	 X-Forward-Email-Sender:X-Forward-Email-Version:
-	 X-Forward-Email-Website:X-Complaints-To:X-Report-Abuse:
-	 X-Report-Abuse-To:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=dXzwwPCoyNfgiSIG1Di95C91Uxki6FcrBZLOJdyX2zk=;
-	b=XfjBTSj3HFwRXd1BgGa7cN/pZRh8jPjTJyYcIEr8snZVG+utPLGH5BNWhOMnc59OdU6R
-	 QfzZu4YTMD9alxLlt74M8R86sbQA+3ClCjfQXytH5mi43BAzXWRmilOZLvN1Z97Wf17GG
-	 01t7+rzI9wv0F9BC1gEcttI9HHl9Bt+WU1VPPci7qzuTCL4DIHyOZGOON7MJygdRFFlRf
-	 k+iPWqPxOJb3ba0rQxighSW5/Rqah0c7C7ZQib86112VGqABynQ9UXohxtpj5q3e3T29C
-	 Iz75Hh4/DnQ08FS/LrnvRR6NOLGlrLeRGHfX9wTdcCZRZsJaFBGghjYSffcpLL/LiJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793359710;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=lMjuRXSTMpW2V62hMx3llGDBVgXdTtcOA3x1U5gYAK4=;
+	b=UU/UoRecG7IBIHdSKEa0ik4ujSHZG5o+GO2wq7BeK/fHtZRkjvy3daJVX6xiwOWxAXST
+	 RqlSGWZ8HHt6KHYaikDjQyWUdSISOTVphyQ2AwBF3wpjhcd1cfOxBrJnY5kwFq7zx1SMT
+	 qTr58jdK4T3Tj9tjSXvbWYcSQnAG0YgRJ9dmYqSdK+zTMk3GzXOJZMEqIhUnpN1lRBHlh
+	 mlSnaL70xFRgJ1IiqAaP1NAJjD+Ytcg+ytC72TtNFFmDUUSiEuGxCZEYTeNjYV9YL6L9a
+	 TLy6u48Zbph3YnU8DV3NKQbJFjzilU1PPFqvkeV6pwb8VpCwVQy42eH0lM31YCdpPfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ovn.org;
-	spf=pass smtp.mailfrom=fe-bounces.ovn.org;
-	dkim=pass header.d=ovn.org header.i=@ovn.org header.a=rsa-sha256 header.s=fe-13eddc7e57 header.b="h/IfcFJL";
-	arc=none smtp.remote-ip=121.127.44.73
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=layalina.io;
+	spf=pass smtp.mailfrom=layalina.io;
+	dkim=pass header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NMNtkeiJ;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C4A606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:28:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29C4A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ovn.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34ED606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:28:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A34ED606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=layalina.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=layalina.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ovn.org header.i=@ovn.org header.a=rsa-sha256 header.s=fe-13eddc7e57 header.b=h/IfcFJL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ovn.org;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
- Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
- s=fe-13eddc7e57; t=1793359691;
- bh=dXzwwPCoyNfgiSIG1Di95C91Uxki6FcrBZLOJdyX2zk=;
- b=h/IfcFJLpLaAiclb4yeb2wF1LDBqrAT207iT3BcXGCq/aMiwxKXptouyl+haqsMaGUfv7YDRy
- PnJNVEm+8piT3IQx4q5j7ZDydTsSIB/gpiUrktbMbB9gOX3MdGL800A1ke1kJtL2b31IKy19FcB
- sdJYjGo25qCQqJA8MdxIBhg=
-X-Forward-Email-ID: 6ae47f481785a26dc5230d02
-X-Forward-Email-Sender: rfc822; i.maximets@ovn.org, smtp.forwardemail.net,
- 121.127.44.73
-X-Forward-Email-Version: 2.18.12
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <be4ec40b-ed32-41e3-b564-2acfc63f651f@ovn.org>
-Date: Fri, 30 Oct 2026 12:28:04 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NMNtkeiJ
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso6622415e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:28:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=layalina-io.20260707.gappssmtp.com; s=20260707; t=1793359708; x=1793964508; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lMjuRXSTMpW2V62hMx3llGDBVgXdTtcOA3x1U5gYAK4=;
+        b=NMNtkeiJUG+Rwn4MaN0WVlaKzU8G9baYv9qXcpyTCNKQeIHF0G53ws51QdtkFRCkPN
+         YWq2FmGSiyhl4bUtOiRUSKtKu57j/+ZAlX2Oawx7/NeT+711onyJZQzWl7x9fCBYOCZh
+         p5L0nV0MdniPURcTgFBpNWNv8oJ47Jv3FSlYl64yqRTQouqvBeTjKNFLnml3M1kPMcup
+         eJIMT2026DY+tkpSfJDDkNHswlyv4jGDeHtxhUfEurPMLmuvAm7el6QS2qdF7Lr9xe9I
+         5a1ZL6Hk1EjfKaeWnkhVGpm2o7Bkak8dB1x7oBi1tkk2upqHde5+b1BxILTM6XhCNyKR
+         oTWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793359708; x=1793964508;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lMjuRXSTMpW2V62hMx3llGDBVgXdTtcOA3x1U5gYAK4=;
+        b=U+JZZME6WVu3BMyYDCquL9J4yF3wBoONqXRhsjAaoeV9eLkHHFL6P3Jy+PNlV6ynwA
+         hjlAZV+gpqMrJ/EcFT7fsMfYmYk8AYGp3okw9ByozpQnnrM3Tf4t6NlvBem6/+ff24+e
+         1j/an8davUpb9BFj7nSlJ+OaqKtIgtl6O9hyKeCvixZyEI7e/mtXC3aU90dUK4CLSo7X
+         4hS1AhEFsQrifpU8N1kpdcHjeVze4637uv9nZoOytBm0j/ynBt3knjlTQQ1rTaNhxZGX
+         Keyx39D+mfOGLAh6FweGTFK3go0e2kSCfneIEAcxn7oUNENnobBcgGkRfDTBBoxvm+YH
+         3Zog==
+X-Forwarded-Encrypted: i=1; AKwUvBzI4mxFkhLzEIOiosn9X8RfkTy/pAl7HNYz5pYSc28rHXTIaOmbxNFKK5KhY6c1XQ1VGRMODovrQOeeRnM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkK4ZJEE5TvnaRBdRSxQO6MDXQbu4r+EJFT8NcoJvmc/eOI4a3
+	AoM69fxrIE+pOVwEqpwDfqzwVqo+oV0A8EQGERwOxH1CHd3pF9Zk7ArMmYlB++J+HMDO0VymRfi
+	YDvBBjUA=
+X-Gm-Gg: AYBFou2g5nEyntw56hgMUX1sRv9nBaMqMFkuyZfFuUgjOM7ssBcN0QJZgO3r5NOrxHU
+	V7WjNTiUyjcriA0sn7+gManHT2W1LWhSRZf8YeOO/hOgqiqRpg00CS4TDMZ0wi3hQAOFWOjxCFc
+	sFoFAVnBDO5ubUi46w/hspCTWUx/0GnVfeg5lMVhnJzPwkPz5uLYCypc86+uluxVgcUfqTvDb5o
+	NMseaCM6HJwgh7Ddkoh9gtKv0dr+DvgxX4N8jThjjgo3F3PuZFKqEAuDh8sd/SuRLRl1oeth9Bq
+	XxWo7ACu4XecQ6g1zavcR/bd7/CnqxMQI90ReAWZJ9KKhp2G69OeLm5144PW0ZHvZM6YQQKHrlF
+	GyAoyKqwcOBeY0UcXrnvNG/VJeVcRGFptWdW1TD7cBQ8qfVib04aXBoiOVH3zpaSV0nhFuSq4Bk
+	ph3hXD7bxIfEktbs4/yQBnSveB9lQinjiZiWa5RTLptHmA/kPmC7O7L+2JkULbM0lrnGjYAkSdL
+	GVJ4CvpNR9GRvEgkuirg4ERcJzsL23IzN+TC8h51227SaxdFuIW9NcNvCQi8WxCCxyCJTLa58Y7
+	co0QNgHm9Vmq3NJrrdjKjf5VV5+bNcp2UGOpPaQwRSldP029kjZbjs2HCukSEGDUlWTbanA/C/F
+	Govs=
+X-Received: by 2002:a05:600c:8116:b0:4a1:ddaa:571e with SMTP id 5b1f17b1804b1-4ac182dc29cmr37677955e9.15.1793359707695;
+        Fri, 30 Oct 2026 04:28:27 -0700 (PDT)
+Received: from airbuntu (host86-128-182-179.range86-128.btcentralplus.com. [86.128.182.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b286a0sm44991995e9.4.2026.10.30.04.28.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 04:28:26 -0700 (PDT)
+Date: Fri, 30 Oct 2026 11:28:25 +0000
+From: Qais Yousef <qyousef@layalina.io>
+To: Christian Loehle <christian.loehle@arm.com>
+Cc: Ingo Molnar <mingo@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org,
+	Wei Wang <wvw@google.com>
+Subject: Re: [PATCH v4 1/2] sched/uclamp: Fix race condition leading to
+ imbalanced uclamp_rq
+Message-ID: <20261030112825.z7k57twgua27p2vu@airbuntu>
+References: <20261029131354.11030-1-qyousef@layalina.io>
+ <20261029131354.11030-2-qyousef@layalina.io>
+ <c4740152-e873-4409-b3a8-16c5a49548dd@arm.com>
+ <d944d543-1756-43d8-aa08-bcbbf6df712f@layalina.io>
+ <75772ae5-d297-4894-971a-683f92fb87a4@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,158 +108,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] net: openvswitch: make transport checksums writable
-To: Kyle Zeng <kylebot@openai.com>, dev@openvswitch.org
-Cc: Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
- Ilya Maximets <i.maximets@ovn.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, outbounddisclosures@openai.com
-References: <20261030042304.74291-1-kylebot@openai.com>
-Content-Language: en-US
-From: Ilya Maximets <i.maximets@ovn.org>
-Autocrypt: addr=i.maximets@ovn.org; keydata=
- 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
-In-Reply-To: <20261030042304.74291-1-kylebot@openai.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <75772ae5-d297-4894-971a-683f92fb87a4@arm.com>
 
-On 10/30/26 5:23 AM, Kyle Zeng wrote:
-> An IP address rewrite can execute even if the transport-header pull in
-> key_extract_l3l4() failed. In that case the transport key is cleared,
-> but the IP protocol and transport offset remain available. The address
-> rewrite helpers check the total skb length before updating the transport
-> checksum. This does not guarantee that the checksum is in the linear
-> head, or that it is writable.
+On 10/30/26 10:50, Christian Loehle wrote:
+> On 10/29/26 23:43, Qais Yousef wrote:
+> > On 10/29/26 15:58, Christian Loehle wrote:
+> > 
+> >>> diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+> >>> index 76f3c84ca6846..84301fc49e699 100644
+> >>> --- a/kernel/sched/idle.c
+> >>> +++ b/kernel/sched/idle.c
+> >>> @@ -502,6 +502,25 @@ static void set_next_task_idle(struct rq *rq, struct task_struct *next, enum snt
+> >>>        * lost_idle_time of clock_pelt
+> >>>        */
+> >>>       update_idle_rq_clock_pelt(rq);
+> >>> +
+> >>> +    /*
+> >>> +     * Due to a race condition when enabling sched_uclamp_used static key,
+> >>> +     * we can end up with imbalance where uclamp_rq_inc_id() has happened
+> >>> +     * on a CPU without uclamp_rq_dec_id() on another CPU that hasn't seen
+> >>> +     * the static key flipped. The race condition is unlikely, but ensure
+> >>> +     * the uclamp_rq() state is set properly on each entry to idle.
+> >>> +     *
+> >>> +     * The reset will cause the uclamp_max from uclamp_idle_value() to be
+> >>> +     * lost. Since we are imbalanced, hard to know what is right. So just
+> >>> +     * cleanup. This should be a transient error state once we recover
+> >>> +     * everything should work as expected.
+> >>> +     *
+> >>> +     * We need to be careful of some paths that can force idle with tasks
+> >>> +     * are still queued.
+> >>> +     */
+> >>> +    if (uclamp_is_used() &&
+> >>> +        !rq->nr_running && unlikely(!uclamp_rq_is_idle(rq)))
+> >>
+> >> just checking nr_running isn't enough as CFS bandwidth throttling (a fun one
+> >> recently!) will decrement it through dequeue_task_fair() without calling
+> >> uclamp_rq_dec(), i.e. it's clamps must remain valid AFAICS.
+> > 
+> > I think this and the rt group throttling are false positives. Do they actually force idle or just under contention dequeue the task temporarily to allow other queued tasks to run?
 > 
-> A non-linear IPv6 packet with a long, valid extension-header chain can
-> therefore cause an out-of-bounds checksum read/modify/write when the
-> GFP_ATOMIC head expansion fails. KASAN reports the access in
-> inet_proto_csum_replace16(). The IPv4 TCP/UDP and IPv6 TCP/UDP/ICMPv6
-> address rewrite paths all have the same missing check.
-
-While sending patches, make sure you Cc all maintainers.  And you need
-to specify the target tree, which is 'net' in this case.
-
+> It forces idle, I can reproduce active=1 and bucket->tasks=0 and the WARN_ON_ONCE triggers:
 > 
-> Make the applicable transport header writable before changing an
-> address, and propagate failure through the existing action error path.
-> Reload cached network-header and address pointers after the operation,
-> since it can move the skb head. Preserve the existing behavior for
-> unchanged addresses, truncated transport headers, non-first fragments,
-> and IPv6 destination rewrites that do not affect the pseudo-header.
-> 
-> Fixes: ccb1352e76cf ("net: Add Open vSwitch kernel components.")
-> Fixes: 3fdbd1ce11e5 ("openvswitch: add ipv6 'set' action")
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> ---
-> I have a reproducer for this issue and can share via DM
-> 
->  net/openvswitch/actions.c | 60 +++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 60 insertions(+)
-> 
-> diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
-> index 12e339cbf791..36c2a1963222 100644
-> --- a/net/openvswitch/actions.c
-> +++ b/net/openvswitch/actions.c
-> @@ -319,6 +319,35 @@ static int pop_nsh(struct sk_buff *skb, struct sw_flow_key *key)
->  	return 0;
->  }
->  
-> +static int ensure_l4_checksum_writable(struct sk_buff *skb, u8 l4_proto)
-> +{
-> +	unsigned int offset, len;
-> +
-> +	switch (l4_proto) {
-> +	case IPPROTO_TCP:
-> +		len = sizeof(struct tcphdr);
-> +		break;
-> +	case IPPROTO_UDP:
-> +		len = sizeof(struct udphdr);
-> +		break;
-> +	case IPPROTO_ICMPV6:
-> +		len = sizeof(struct icmp6hdr);
-> +		break;
-> +	default:
-> +		return 0;
-> +	}
-> +
-> +	offset = skb_transport_offset(skb);
-> +	if (unlikely(offset > skb->len))
-> +		return -EINVAL;
-> +
-> +	/* Truncated transport headers have no checksum to update. */
-> +	if (unlikely(skb->len - offset < len))
-> +		return 0;
+> [  329.665099] WARNING: kernel/sched/core.c:1845 at uclamp_rq_dec_id+0x10c/0x1dc, CPU#5: systemd-journal/281
+> [  329.679279] Modules linked in:
+> [  329.682333] CPU: 5 UID: 0 PID: 281 Comm: systemd-journal Tainted: G S                   7.3.0-uclamp-cfs-repro-20261030 #2 PREEMPT_RT 
+> [  329.694411] Tainted: [S]=CPU_OUT_OF_SPEC
+> [  329.698323] Hardware name: Radxa Computer (Shenzhen) Co., Ltd. Radxa Orion O6/Radxa Orion O6, BIOS 1.1.0-1 2025-12-25T02:55:53+00:00
+> [  329.710222] pstate: 834000c9 (Nzcv daIF +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+> [  329.717174] pc : uclamp_rq_dec_id+0x10c/0x1dc
+> [  329.721524] lr : uclamp_rq_dec_id+0x98/0x1dc
+> [  329.725786] sp : ffff800081bb3a80
+> [  329.729089] x29: ffff800081bb3a90 x28: 0000000000000001 x27: ffffb54253580c40
+> [  329.736219] x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000000
+> [  329.743348] x23: 0000000000000000 x22: ffff000085462380 x21: ffff0001fb6e2c40
+> [  329.750478] x20: 0000000000000000 x19: 0000000000000000 x18: 0000000000000000
+> [  329.757606] x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
+> [  329.764736] x14: 0000000000000000 x13: 0000000000000001 x12: 0000000000000000
+> [  329.771865] x11: 0000000000000000 x10: 006c616e72756f6a x9 : 0000000000000000
+> [  329.778993] x8 : 006c616e72756f6a x7 : ffff000085462380 x6 : 0000000000000001
+> [  329.786122] x5 : 00000000000000e1 x4 : ffff4abfa8162000 x3 : ffff0001fb6e2c40
+> [  329.793251] x2 : 000000000000000c x1 : 0000000000000000 x0 : 0000000000000000
+> [  329.800380] Call trace:
+> [  329.802816]  uclamp_rq_dec_id+0x10c/0x1dc (P)
+> [  329.807168]  dequeue_task+0x54/0x134
+> [  329.810737]  __schedule+0x6b0/0x1018
+> [  329.814307]  schedule+0x34/0xd4
+> [  329.817440]  schedule_hrtimeout_range_clock+0x108/0x11c
+> [  329.822657]  schedule_hrtimeout_range+0x14/0x20
+> [  329.827179]  do_epoll_wait+0x47c/0x594
+> [  329.830922]  do_compat_epoll_pwait.part.0+0x14/0xb4
+> [  329.835792]  __arm64_sys_epoll_pwait+0x74/0x114
+> [  329.840314]  invoke_syscall+0x54/0x108
+> [  329.844055]  el0_svc_common.constprop.0+0xc0/0xe0
+> [  329.848750]  do_el0_svc+0x1c/0x28
+> [  329.852055]  el0_svc+0x38/0x250
+> [  329.855189]  el0t_64_sync_handler+0xa0/0xe4
+> [  329.859363]  el0t_64_sync+0x17c/0x180
+> [  329.863018] ---[ end trace 0000000000000000 ]---
 
-All the checks above are already executed at different places on the same
-path.  With this and the new checks in set_ipv4(), the l4 protocol is
-checked at least 3 times for no good reason.
+Okay, thanks for checking.
 
-While inability to update L3 header is fatal for set_ipv4/6(), failure to
-update L4 checksum should not be.  And so, there is no point propagating
-the error.  If the header doesn't exist - there is nothing to update.  And
-if we ran out of memory trying to expand the linear parts of the skb, then
-we have a more significant problem at hand than a non-updated L4 checksum.
-In the worst case, the destination will just drop the packet.
-
-Can we just replace trnasport_len checks with skb_ensure_writable()?
-
-It sounds like that would be sufficient here.  And re-fetch the 'nh'
-pointers right after the set_ipv4/6() calls with an inline comment like
-this:
-
-@@ -481,6 +480,7 @@ static int set_ipv4(struct sk_buff *skb, struct sw_flow_key *flow_key,
-                if (unlikely(new_addr != nh->saddr)) {
-                        set_ip_addr(skb, nh, &nh->saddr, new_addr);
-                        flow_key->ipv4.addr.src = new_addr;
-+                       nh = ip_hdr(skb); /* Potentially reallocated. */
-                }
-        }
-        if (mask->ipv4_dst) {
----
-
-Creating a separate function with all the duplicated checks doesn't make
-much sense to me.
-
-Best regards, Ilya Maximets.
+Peter/Vincent, what do you think? It seems we have a schrodenger task that is
+both enqueued and dequeued simultaneously in these throttling paths. Shouldn't
+this be fixed? If yes, any thoughts on the right approach? Should we throttle
+if there are no other tasks on the rq too? I didn't realize the semantics are
+that strong for enforcing the quota.
