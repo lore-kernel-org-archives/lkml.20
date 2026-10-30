@@ -1,68 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348368;
-	b=haReCNWSaja01LxKXTSZ2q4dqMeCP2w4f9UwKJEsqDabX+JL0rKjabOz0eejNVa9HU83
-	 BigoXtAucPbWbaRi98H111Faut9Cyz7wdehXHaWpHrOiXlexGxQRraXR2tTwi9DP1n9UJ
-	 yf8WYzeuY+Hv/zj8qI1M2oLLAS2xME1u9U7XKFUeFdD+ugDrRYVFLCAEAg3nF0esCRbM4
-	 A4UcIHx7awqo+VWQwerIkctf+tYdIWKrz9tAh52k7DHpF7P3TrCUIn4pN+DQCj+0nrfpb
-	 TI0mO/AGWVWWfi8oGQCxJwpu159KwXABWlqIaZfACiHurQKn0scOvGUtffADmaTuqZw==
+	t=1793348388;
+	b=yztvVBBBMBxH7+0dW0aihyxbmqxrk7T0w0YK/tOaenljcRiN3jfjYl9P9IkmqfFWXBIe
+	 ItWhNd7SjP9n30XpTASl2Sus2P398b8hXcKHdq+gtHADIvRRSBFGsBowJ8l1yP6hZ5b5e
+	 qC4jbweLcq4jHyaCbKpu0P0GknvyoS9RvSbQlIwGIOlTy2XIh/H656FOKYszw2B0gGR+u
+	 wrIHWZCQwqshrFPddjGuYSB21MxEXaGdo2wG7nR1HG640bo0s+JtQIWpxGTQBlx9LZRpg
+	 voID7/1HZRt+DOVkTI5lAkScl5KmNNl5dhoqqlSVNLKGu02EHMHpZ+peRpBwGADc09A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348368;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=2SEJFh+LRxwXXlyrTQik91s/Kz05ep2+6P2vUZ4sEQY=;
-	b=tzX/EZs7Z+PRo3BXfRare8Ah5Ui7yQHv0CgX1K4USFRn6mEly6KaESaIwjECIu3I+zsf
-	 Kv9JhC7NSZxDJzvmYVrusvkW30Da2zLpi+itX7yexKMq3uRaBwQJijZo/MrTkkMFrnWsw
-	 Gil/Wv+GrQ0g8JDNqz32C8qCuRpynTT0z909pXlsRozmf1NwcD1qbUJRoL5mkzCrDldA1
-	 cQ3KE/lXVTafMWLR/Bim03h6JFiijC7wnXXZ2j/ysSoI948SfDdyIu0S6mkxl02VWXgYE
-	 qLZ52qcULb49WtU3dYisEIJ5/wPcxt2ZNTd002aWNBtCk0Scn4BeCvMiOJFuyy7fEUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348388;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=5k5+smRzBG/D3lDOFAkhMGxxPi4SQrohRh0tT4R9GYY=;
+	b=pTo8ixTOoGkkQ/Xn24Q0iolrQArJ921Z8dAvoqnWOK+z+zmhpzh0m4NKONRbEKjGvmCV
+	 6j+lJ9lcWed+NPE51FaynwDAlflTf+t0YEZoQalIWWhJn0nJRGeXoAe1OBikW6bKIipzP
+	 wdEjD5hqBlm+vRmf2hNAB27hvQEAuB1BZnW+7w++g07K9FUyILFax+8NjlV4NZNPz3m5E
+	 T6dQV+oZYcUo7VAXZF0dkzsSRiRA1gtcH9JuYb5ztS92htOmhLi6NQDfa/7ZiRJg/0nPz
+	 g9CaGA85mCFaQOHTDAem8WNT0PGpauA4Ly2plH6A+WNV9zNLymFKwyhLvUW/jvX6bTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=iGejnlw9;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.210.179
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53286606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:19:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53286606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=iGejnlw9
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 92B7D10BE43;
-	Fri, 30 Oct 2026 09:19:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1793348355; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=2SEJFh+LRxwXXlyrTQik91s/Kz05ep2+6P2vUZ4sEQY=;
-	b=iGejnlw9tE4nldq8GEJwD76geEShEcplvgy2j5ywp1hc95+TEFevLKorMIWO7eoy379ABq
-	e3iWsHctftr8MYZoS7Vds3fZclDKJ4wEXL5yh8Ij8X4H6l7khMvKJrLHSK+HTV9+XzoSO2
-	4stRlzKPeJAx0sx1MFc8tbcc167ywRbXGrQxGeJ11pRRc+MI4aCt0x6rNPI0M+NbFnm4Ic
-	MYvEUMbWpWux5r/74m/dksWm/L0XArjH2Tkh2KWLdKKEahH5eD/pQzR4JO+otmu7Tv0eCD
-	dPP5bcaT8ENwD2bRWiYLlUOVMxolRroMz5e1mrUqYugATKELCN/2DWSFXikBtQ==
-From: Marek Vasut <marex@nabladev.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	David Airlie <airlied@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	Stefan Agner <stefan@agner.ch>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287FA606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:19:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 287FA606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8a070781f63so151310b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:19:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793348386; x=1793953186;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5k5+smRzBG/D3lDOFAkhMGxxPi4SQrohRh0tT4R9GYY=;
+        b=fv7e6DJ2VBQf8gq8hrdERC8k6M7Zpr426fFuENjMVJr/f5caxG+QTLB8h197tdHOGn
+         noJs7pm9YP5wOf6Q2MYT4VssUJTha6cKetl8Qk0J8x6ZVeK1i0uXvJcBntAcnwRwDrJv
+         ZJD5H69nJ5ZpqoR8pFCVy8bE0d3oHHzj36RKKfiV62G3V4IWwEJYErav+rWHAWHADKWW
+         euTWG4Ga+6F1TgAHMRF5fC4oqsgqLfyUI/Rxmz3uKeZ3nL463TzPL74TQJnQiPBdvbfz
+         TxXwzgVjmvM01E5LUnmy7EnRjzMXHaHA4eR4nI1V/wKcQfpTjhCEsAW8j953Ixk39HDc
+         l4pw==
+X-Forwarded-Encrypted: i=1; AKwUvBzV/EWngjRZgi06LwIasbtF+1D5ebICW6RHE1KcsbbAAyVuK2j9tf8beuqZUkAHHR0cqvfIK9ncg+AG7i8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJoy/QEF9qZKPHIukCq2KHBXdghFhnmvpwgordafNUFZ25ABfHU
+	b2kL7Wkyay+x2449VO9DY0Hv9CAQf6kICx7kLgosAtVDFeJwGhgy8xxE
+X-Gm-Gg: AYBFou1+OHlKpawg94pkiO+9u8untmJ78hjdVQyPK4rvEP0dSF89oNtQC/mmoXgDUOV
+	84C81U3MTqBB6ZXu3yOgWsGJL9QR9kISnc+OOyw0ZSve2o0fgniHBv+FgQKTXWzMyfdNg2Kkhd+
+	otepWyYxLrn2LOUjJrKXPQ60dnYSvOPCMqNHlt4IfOqUOWMa5+cSZQUQ73L+W2RIpF0Hysqjrnk
+	rL9aZeZ0y36OLdzQYw3/tXo3o465gL53MUBrVBf60O/KYK4CmAe2O4M9EqOsab1bjjpmcOGj0QW
+	uztKgkMHy555fJTs4Jd1U7OFBzyA9u7ouvAZa9s0HGGBUdFuTGvHqdBFfCSA6AlcNNpUGRWNa2x
+	ErlG9mOAjXpfh1FBP/jV/aJwgW1u2f5yrSc1cVFY4gUTrMR8cLJ9rDxdtX5GBXNRjb+d1MWCMNa
+	JDJRRbZ4ZfIfXSdSl+4Fl06m5RhOHo9vbhrcKlfEGYYPukw5YGZrXfSCYjZqLO7Lg0Ikoe4s4zi
+	qLXvkKBjGVczKZ84eQen5FsyOk2yE6mhfCDO8XsmIa+6v9KnAOH6qq/dlRIQJgLWAdsJ3w0nbBY
+	IrD0wihZ3rS7f3U8z4Ald/v++0jzYg+MNMXihHzPOIgIEw==
+X-Received: by 2002:a05:6a21:7309:b0:3e2:a0a4:8ab2 with SMTP id adf61e73a8af0-3e928aaf470mr1560461637.2.1793348386408;
+        Fri, 30 Oct 2026 01:19:46 -0700 (PDT)
+Received: from localhost.localdomain ([116.128.244.169])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb096d3827sm417269a12.12.2026.10.30.01.19.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 01:19:45 -0700 (PDT)
+From: Hongyu Xie <xiehongyu1@kylinos.cn>
+To: Ingo Rohloff <ingo.rohloff@lauterbach.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] drm/mxsfb: Update MAINTAINERS entry
-Date: Fri, 30 Oct 2026 09:18:49 +0100
-Message-ID: <20261030081908.324212-1-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
+Subject: Re: [PATCH 3/3] usb: gadget: f_fs: Fix mmgrab()/mmdrop() balance.
+Date: Fri, 30 Oct 2026 16:19:41 +0800
+Message-Id: <20261030081941.652055-1-xiehongyu1@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260901120908.14386-4-ingo.rohloff@lauterbach.com>
+References: <20260901120908.14386-1-ingo.rohloff@lauterbach.com> <20260901120908.14386-4-ingo.rohloff@lauterbach.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,49 +84,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Fill in updated email address and imx@ list, no functional change.
+Hi Ingo,
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: David Airlie <airlied@gmail.com>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Stefan Agner <stefan@agner.ch>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org
-Cc: imx@lists.linux.dev
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
-V2: Add the imx@ list
----
- MAINTAINERS | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+I ran into the same imbalance while carrying a backport of 5eb5c72c72fe in
+a 5.10-based product tree, and your analysis matches what I see.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 75ef3d1aa9d6e..4476471b58445 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19168,9 +19168,10 @@ T:	git git://linuxtv.org/mkrufky/tuners.git
- F:	drivers/media/tuners/mxl5007t.*
- 
- MXSFB DRM DRIVER
--M:	Marek Vasut <marex@denx.de>
-+M:	Marek Vasut <marex@nabladev.com>
- M:	Stefan Agner <stefan@agner.ch>
- L:	dri-devel@lists.freedesktop.org
-+L:	imx@lists.linux.dev
- S:	Supported
- T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/fsl,lcdif.yaml
--- 
-2.53.0
+mmgrab() is taken in both ffs_epfile_read_iter() and ffs_epfile_write_iter()
+when the request is queued for AIO, but ffs_user_copy_worker() drops the
+reference only inside
 
+	if (io_data->read && ret > 0)
+
+so the reference is lost on every completed AIO write, and also on an AIO
+read that completes with ret <= 0. Moving mmdrop() out of the block fixes
+both cases, and it stays balanced with the mmgrab() in the iter functions.
+
+The released stable trees carry the same code: 6.6.160, 6.12.111, 7.2.y and
+rolling-lts (6.18.y) all still have mmdrop() inside the if. 5.10.y and
+5.15.y are not affected, they still use the older kthread_use_mm() code
+without mmgrab().
+
+It would help to add
+
+	Fixes: 5eb5c72c72fe ("USB: gadget: ffs: fix mm lifetime handling")
+	Cc: stable@vger.kernel.org
+
+so the stable trees pick it up; the change itself applies there with only
+offset differences.
+
+Reviewed-by: Hongyu Xie <xiehongyu1@kylinos.cn>
+
+Thanks,
+Hongyu
