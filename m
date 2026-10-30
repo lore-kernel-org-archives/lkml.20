@@ -1,94 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793347299;
-	b=JabJfOImzKNDT4ZeXC6xbemvVNoOmlXcxaCf61dIDTw9yiBqxWg3jx9enoz7p4LY846J
-	 Sz/rALwKirIJxFZEIHzLsPO5bmq9vTG16Hy/Jfa1/yXdZM+8O24EQf6azgI93omJnypkN
-	 X+Kd70FaLiFgD+aOqzlCM1LabVaZ/XnfKIPE4JrJvs7Ut8xSzOFO+5LL3axkET0Ziw2YM
-	 R2Jtz9e2kapPIHkY9gehAS5aOyriBP7PXJR1lMlTXymToZZ+dkxJllD/lLKqdcriJ1x92
-	 0tY7DGNSzSSAwyyTi/9+TTb502/0iUznPFCABR0VoRwsYrfn9qgzKppJXgfIF2YksfQ==
+	t=1793347405;
+	b=Lhvrq/pYA9Vic7+JLNUeAv5jng1hE+QhzDh//+Y6OVhnaOgak0ISBsGeGagGtgN/KRL6
+	 AoJngbSH9qexCZGsby2NXHIW/y7y3d8MceUmE0XVBxnTsjYO6KzKuiXmOUH+/LHdanXCX
+	 pLl00jttrs+/IediCm6Af+XAA7gRIyaVx7sr4ue/OsvUytqeFmdcOolK0cz1hGsXWOtdC
+	 nPyYQDtH3dXkEd0AwLx6HA/cQPcKaDOokng1FwNjB3CeV1VmhKDGPGjNgBohHFTP2KSk6
+	 ElbbW+KNAF0HiLq0JuDJbAqR/8u3xpQ+o2nlejpERpoEUULo6RdFLGDzu28MZmJfd2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793347299;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Date:Message-ID;
-	bh=uP8ou9OSrhsukg4Hi5jjDWDyb900vCyqUrqKeXYl4uw=;
-	b=oQgL46JxJ/lI/lQOuKhi7p9uGLt8QqdmH5UobKngfIf0N29aYg/HH8O/2NwpUZhdGMWX
-	 pjrhU43YGovp7sbg17f9P8oDEoA29/Mm02/BvaxrMja1B7COMewEChVC3OQAsrN+8Tkzs
-	 XGBBaOk87Dttbdk4bHZjHErvKTcK/n2b9+g70uqheXO7SqINSCaLDkzSs9VRTI+iLnbaj
-	 5UcgaptTYA2NvPtCudga0OoDg7BVMsifjV3gPcwiVJ6Cg/2l/zqVSe0b83/RIdCZY6b0N
-	 5P5h8VUYL5ZNAAkVtZfHNHjEQ19TADQPuKDjqzbQM59z5pIIBTrQuvlAbdVA5orenJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793347405;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=YJJfXC5ueSmApARbmgN+bIycFhSEHL95Tjj8W+dEiUc=;
+	b=IT/lSgAoimhwh2+Bd0oFoKHY6LrYY5eNp/xl2foM1OYZwCA1WnxjiVBNRKWgLJVybFnz
+	 m4M7iH9h64wOq/Tmlaxkdu2RMvcLdDLu/JjHYUBTZzZBTg7W1yjgXO6ut1iZtKna07/do
+	 6lroBbNIbYDZhnFZZihWBTQMpgMgzCNECLxfEsINWUB9DnJ6xt21wWTlCReWfva49EzAd
+	 G2VSpBl4CjDQ9h27SI0aIExfd3TMdIQ9TwsK4U6ol/1NNR2xsytykZAuNQ+YOeOB4PnMa
+	 vXJ+fGRHsQ9hfB7sqtCrOGDDzfSJjs4T12gtXYgOKCmcvdKkRYmxhqt7UqgEBRt+kCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qOSfpZbH;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItCr9aR7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD31F606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:01:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD31F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CAC606A31C;
+	Fri, 30 Oct 2026 08:03:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qOSfpZbH
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35829219da8so1855265eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:01:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793347298; x=1793952098; darn=vger.kernel.org;
-        h=message-id:date:content-transfer-encoding:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uP8ou9OSrhsukg4Hi5jjDWDyb900vCyqUrqKeXYl4uw=;
-        b=qOSfpZbH6RKU9AuDFQPj0DC4UuEbfue3MUJYD2VptaDUszoOQuhxWPMnLMzwRgDlRy
-         rg1CoeEVPl2ukcKiOYxYI67Ijm8dUgLOmNWDib/c1sZ/o6xxIGqDxifqoPqY5JrNZLt+
-         hk3XhDUezxFarHxAQj1fzy26vJinJr7rv4RszQgd1hjmhnJboWrZ5icP2m7ZV2EWXbsR
-         Xq7RfvY4FhUmN796j+wB4ilaQbmBWxS1TuquIGXdX4rDVHcES7+Cy2688Zl1PqaFUbhV
-         AKdkbla4aThXOBpdZthhBdquHgvvIE6e7cJq9R0OoUEHmeJ1vbfyTu/WaCsJV3Gz8s8Z
-         t2HA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793347298; x=1793952098;
-        h=message-id:date:content-transfer-encoding:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uP8ou9OSrhsukg4Hi5jjDWDyb900vCyqUrqKeXYl4uw=;
-        b=Z4u7s9llVx6oYyjoFEMQKNpnN29JAGmJ5uhLqJZBdjPNsl1AN2dfxLVdC9W7Vdq5R+
-         QrHnIQsU8882ni/azDbAl3p9TNl8n8XSZWs+S8higeD5n3n3FvrEv8wk1h8az5x7xPcs
-         tgQdjIZTcFhHdoX1wcIL+ZiTD3GmKwQI8Pk4l+ZQ/3QV1iTWMpx65GXbY5KcAKKl2QTH
-         7c6dPI72OkWT858d24ztbeDUXXEa3QVKvCwUwSVPNWNpcvNHtTbAmR0Rvw/dB93qDxyP
-         HEhv7u6zgvmCim67TIO8F3tFfqL5/zT6kodR9mYpyJ0qsfNetIv7XMeYlujsqpR32lRr
-         0aqw==
-X-Forwarded-Encrypted: i=1; AKwUvBwuRAlD6WN9ZUjVzyScNajD4Zp3Sg8Hf+sm/umfrw3DHa/Pf27C3SEzXmQZajYZo7zzpr0vD65pPKEj1+Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIl3DzmjQeLp/EuIuF6n/EVwmzktPUHAZv2Btjl+k3Wrg8Dp5wC
-	uOM+98GmPkB6SushNBCJ7FrkKCZCeFDX+rfOZHoU0nmXES6+oIvKaDt/
-X-Gm-Gg: AYBFou0vOS0vw53G4my+ufI7NFeDig0Jqt9m4xgNnZCXk+Tlkq9Ffa1PIHK3oVqOF9a
-	28GvtuGTqYo0n/ySRV1kpS14GCc+C7+oRjN2ea2c5CvRPtfXJIYHpzUpWHFVUX48/qOilhrUmC0
-	M1O3NBIxVYvWAEAWx69hKCYpW3RPZ5TOM3JmPIpAcnf8e7gzj9usxOXnudWOaiet7s0PZLaNGw9
-	4NjanJ8kPo6UWSkR3IveqgJmRZCfLxlIEL9try+hnXbeNIY7zHITXjcf9ShyBzvW2Gk70p0AsAE
-	N0pqdwwECUaGjk3wbBZpnl5WsEfyUt+vbfh1LgyovsX6SAwxrw5irk9zAWYQEJfrjwtNBV2uMj5
-	g0N6+bkV4g9H7YBcybqqVoYSdD5yUnz3dZ/+edzpFf7Jl4ZS/hS1FdfueyfIus7mSkbhGKQlZSJ
-	YmrQ2JJN3txaXH2Cq5nh1Sm3Uxqebbqjfcx8sKFwddVSig/I0DnleRaweMynLtVcxHwjX22rSEF
-	smZlS1zNbOL2XRgg+C/ld9F2H1Wn74zGVMJLSnI36RP4AAgyhWB1Wg0Gcjcdt8x6Vz2n9HlY5vU
-	rKqQnTBotaPK0Tv6/nNmqrb0/vfTPRsiWuL2ox4Thu6YelWaYzXo4Ey1cW3I7DyqJX8v5zBQ7Mh
-	e
-X-Received: by 2002:a05:7301:4683:b0:369:fa21:ba12 with SMTP id 5a478bee46e88-36a30009da6mr6910491eec.7.1793347297804;
-        Fri, 30 Oct 2026 01:01:37 -0700 (PDT)
-Received: from [127.0.1.1] (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429000f8sm4986017eec.13.2026.10.30.01.01.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 01:01:37 -0700 (PDT)
-From: Cheng Yongkang <teel4res@gmail.com>
-To: Qu Wenruo <wqu@suse.com>
-Cc: David Sterba <dsterba@suse.com>,
-    Chris Mason <mason@kernel.org>,
-    linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] btrfs: reject zero num_stripes in the system chunk array
-In-Reply-To: <6ad220fa-d6a0-4b4c-a313-a0cc052b8637@suse.com>
-References: <179328314071.648427.12527832319954042748@gmail.com>
-            <6ad220fa-d6a0-4b4c-a313-a0cc052b8637@suse.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItCr9aR7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D6601F000C1;
+	Fri, 30 Oct 2026 08:03:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793347405;
+	bh=YJJfXC5ueSmApARbmgN+bIycFhSEHL95Tjj8W+dEiUc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ItCr9aR7/sDs54F65dtn/l5KvGDVP3wiIxh6cfhXrqtjEo9l1rBZU+tflioAtpkTV
+	 pMQsTDGgoQBK36jmz9+FI70LZmMrc/4WMZaY2KfTZ7uq0wFFHXoWIKwdPMIpyka7Ax
+	 X2XHSHOgbDSHML6Gp++PPylOVLUYQD7zmMYINEBheIdi1+TmtmqU5I6NkIFZZ4bfcW
+	 U0Ks1gfSTGsoCvatL0W0T42gs5EYXUn+Qu5RpunhqKDlgjCReF+L78ySwpkFibZNmb
+	 BGcB0TGLUOROPOd9j8XMajLhs/3AtItyKZvvo76nsHr+mvo/Y4JmW8Jt6acoyz5U4w
+	 VSg0HQfLT5/XQ==
+Subject: Re: [PATCH] net: phy: only remove owned topology entries
+From: netdev-bot+sashiko@kernel.org
+To: yaojiale02@163.com
+Cc: maxime.chevallier@bootlin.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, chleroy@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Fri, 30 Oct 2026 08:03:23 +0000
+Message-ID: <179334740382.3134.15496907149210495059@kernel.org>
+In-Reply-To: <20261028050312.126508-1-yaojiale02@163.com>
+References: <20261028050312.126508-1-yaojiale02@163.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,31 +63,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Date: Fri, 30 Oct 2026 01:01:30 -0700
-Message-ID: <179334729054.2353588.12398743988940745859@gmail.com>
 
-Hi Qu,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Removing the ASSERT alone is not sufficient.  btrfs_chunk_item_size()
-computes
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-  sizeof(struct btrfs_chunk) +
-  sizeof(struct btrfs_stripe) * (num_stripes - 1)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-With num_stripes == 0, the (num_stripes - 1) term underflows in the
-unsigned multiplication and the function returns 16 bytes (48 - 32)
-instead of a valid item size.  The system chunk array loop would then
-advance by the wrong size before btrfs_check_chunk_valid() runs.
+- [High] The patch is titled "only remove owned topology entries", but it
+  only adds the ownership check to phy_link_topo_del_phy().
 
-So either btrfs_chunk_item_size() has to handle num_stripes == 0 first
-(for example, return sizeof(struct btrfs_chunk) and let
-btrfs_check_chunk_valid() reject it), or the early check has to stay so
-the size calculation is never reached with zero stripes.  I kept the
-early check as the minimal fix; if you prefer centralizing the rejection
-in the tree-checker, I can change btrfs_chunk_item_size() and drop the
-check.
+--
 
-Thanks,
-Cheng Yongkang
+net: phy: only remove owned topology entries
+
+This commit adds an ownership check to phy_link_topo_del_phy(). The PHY
+entry and its ports are now removed only when the entry at phy->phyindex
+belongs to the PHY being detached. It covers the case where
+phy_link_topo_add_phy() fails because the saved index is already in use,
+and the attach error path then runs the normal detach code.
+
+> diff --git a/drivers/net/phy/phy_link_topology.c b/drivers/net/phy/phy_link_topology.c
+> index 214ccce23cf69..175eef44cf545 100644
+> --- a/drivers/net/phy/phy_link_topology.c
+> +++ b/drivers/net/phy/phy_link_topology.c
+> @@ -185,6 +185,10 @@ void phy_link_topo_del_phy(struct net_device *dev,
+>  	if (!topo)
+>  		return;
+>  
+> +	pdn = xa_load(&topo->phys, phy->phyindex);
+> +	if (!pdn || pdn->phy != phy)
+> +		return;
+> +
+
+[Severity: High]
+Does this cover every topology entry the detach path removes? The caller
+still removes the module port with no ownership check, right after this
+function returns:
+
+drivers/net/phy/phy_device.c:phy_detach_internal() {
+    ...
+		phy_link_topo_del_phy(dev, phydev);
+		if (phydev->mod_port)
+			phy_link_topo_del_port(dev, phydev->mod_port);
+    ...
+}
+
+phy_link_topo_del_port() erases whatever is stored at port->id:
+
+drivers/net/phy/phy_link_topology.c:phy_link_topo_del_port() {
+    ...
+	xa_erase(&topo->ports, port->id);
+}
+
+Like phyindex, port->id is kept after removal and reused when the port is
+added again. A stale id can collide in the new topology:
+
+drivers/net/phy/phy_link_topology.c:phy_link_topo_add_port() {
+    ...
+	if (port->id)
+		ret = xa_insert(&topo->ports, port->id, port, GFP_KERNEL);
+    ...
+}
+
+Suppose a PHY's mod_port got its id while the PHY was attached to netdev
+A, and the PHY is later attached to netdev B. There seem to be two ways
+phy_attach_direct() reaches its error label and then calls
+phy_detach_internal():
+
+  phy_attach_direct()
+    phy_link_topo_add_phy()    -> -EBUSY, saved phyindex is used in B
+    goto error
+      phy_detach_internal()
+        phy_link_topo_del_phy()   -> now returns early
+        phy_link_topo_del_port(dev, phydev->mod_port)
+          xa_erase(&topo->ports, port->id)
+
+In this first case, which is the scenario from the commit message,
+mod_port was never inserted into B's topology. Can the xa_erase() then
+drop some other port of B that happens to sit at the same id?
+
+  phy_attach_direct()
+    phy_link_topo_add_phy()    -> succeeds
+    phy_link_topo_add_port(dev, phydev->mod_port)
+                               -> -EBUSY, another port of B owns the id
+    goto error
+      phy_detach_internal()
+        phy_link_topo_del_port(dev, phydev->mod_port)
+          xa_erase(&topo->ports, port->id)
+
+In the second case, is the other port's entry removed the same way?
+
+In both cases an entry this PHY does not own is removed from the topology,
+which is the problem the subject line says is fixed.
+
+Would it be better to put the ownership check in phy_link_topo_del_port()
+itself? For example, erase only when xa_load() returns this port, or use
+xa_cmpxchg(&topo->ports, port->id, port, NULL, ...). That would cover
+every caller, including the ports loop in phy_link_topo_del_phy().
+
+Another option is for the attach error path to skip removing mod_port
+when it was never inserted.
+
+>  	list_for_each_entry(port, &phy->ports, head)
+>  		phy_link_topo_del_port(dev, port);
+>
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028050312.126508-1-yaojiale02%40163.com
