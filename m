@@ -1,117 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793377644;
-	b=Q2oVRDNPU0x5X4oc2i1sbIT3XrvTdvOufh4dQY+ETQoL2D30v7SMSKCSAucQXzG74zg+
-	 buCkn0K3eIFCgemrK3g2/Y1h3ymskoMdhlu4bwKGhKlUNrMMstrdDKAxzwFanQAcLjbdf
-	 m2mO0lRK7E6yZMuK/EzO9NJs9e4nAWpWXwNH/WBShsy/GKTQ4AkAlzqW6ZL8yygVSkYcc
-	 4avU3t78iZss9L1vzS5vGWUtX0Ug73wAM3cSVJ4igeQW3/+qX47Qt7mVH1XfHGWm/BcwZ
-	 IDGskb0CHL6PouncW2ITHqDI6auIDeIzA52p/+isIHIHgmma1CMyRkAIrgVcXLMBkTw==
+	t=1793377658;
+	b=E3eCps9ea1FpWH4AQHmhvwVZS59tUnaqFiQbKdBs0LVw7UvvCjOqVYSPcXW7ZPlaKbjx
+	 /iTF/Uov5ZOyvipK27Xzci+ePdHGU37O8rpMI4duOvvdFl9lbnO/aBH4iMSykGB+wZ4Mz
+	 oiYztuDGoQiN1Ju3wdiSiY+Zp2u/pfalnVnJ4/MGCbaiCL9qCEXm6B3zCkYHbSM5tgdle
+	 O1R4fcxK95myJPXJ9dBvX2hICigo2yuXDnIv7U1BaoP9e4Sssdh36w96G57npsrhuJI9z
+	 ZakJ3N1mbp5q2N+ewcMfGRECg/UybKOC0Er2CIwdFSNNrUR6EjgxI7YXPoAC3RF7wFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793377644;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=/9L1C2O9A9EYZuMXOD/Ph20M8HC2FG+ckzCZ3wyzhV8=;
-	b=Q1J0BVUT0CSXlvlCgcIgfCb+U2bQWc3ieh4Lk5Jc+W6jZDx3bhilYDZi5Q7bnuS+JIca
-	 TEjxPa/z+Z2NzfUZhVnKFkSmbq0LGN+S9Bh6S6NRdl9iuKvvqRkQeTYflCX+rvTPH6MY0
-	 9hEljWGDZnjy+8Xr4lSfn4B+QHyiBe7FDYLaia5faWFWsw2NOHZV2RUZkRo/vgzycpMoL
-	 uYEXdUJ4MtBFqEEGtHZKQtIPplHdKxdS9t4+F2Ik8zm6K9sMaAvNzapYn412xjX5L555C
-	 KDkNid/dVBwEMF9ZH19sUOIg1QGmXcbgA7vggVmGw1/MDyXoyQwPsV0ivT6mZu5EeGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793377658;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=mzEUBFIuRLhQjuNB2s+5eSASza7E7mMlqO5ep8038NM=;
+	b=aZTspec0I9IZcVId7lIV4FphNnYKmcUY3PMwOpc7Jm+8noVJG1o65geCjnyvSepTww31
+	 EFowC66Z6IwVKct4r3xS/5V0kzJp99mzBCJ3LczXw9nO03dBN9zyw6l27BojeZg/iSWQp
+	 Ddv8NsrCuB7JooUBQNeC85wfLOIB26pcHLWXBOGElBGUrIhQbys+qpySr+9P54gj+Fs+2
+	 nOXio00dIyrzEfi4e9ZtNO/cNBW5yzUkuYp6zBcPUru6Mjxwqodm1frO+ohg2najiTw0+
+	 Y/iwZ86UDQavKw+3B7VIUzJMz9A+n6NoCeIDawxNq7ulfpbbKOCi5CCeL4EwMGDugzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=G6SUVgMU;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HtnF9z2r;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aPDWBFPT;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85892606A322
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:27:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85892606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78598606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:27:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78598606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=G6SUVgMU;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HtnF9z2r
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UER7m32596688
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:27:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=/9L1C2O9A9EYZuMXOD/Ph20M
-	8HC2FG+ckzCZ3wyzhV8=; b=G6SUVgMUtBHwtcW2z/0fLigGCHl29r1kHgUwD8ar
-	jct7BZ2WCc1Pn1g7lLJFFMmrkLKgZQbH+do04azKTrnjc0nOZzCYJSBcvrrF6wDj
-	rQcGyG4Co0e4dlogvEz68gSLHg5kg/5PLNHcSHfpvjIM3Mjc+3xokYfuLUgRSa+h
-	jTdRlYyZGr6EFspIUQ2P+hCT5UcD3TCoCm1Q+bN3MRsCexf8Lnb8fsZsKLPV+47F
-	mJOW5QojAlCy26HPUv9NuYyQ7mUafT3PggbWKVHjltdqlKzTJn4Q8bp78Gr4UhGi
-	k7mKokvzticMp/Gvi1aAI5B3j0+qCkgT56YJ8AMx0AjJww==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6pc09x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:27:23 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7cc175cb172so692141137.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:27:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aPDWBFPT
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48e0d1c095dso527743f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:27:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793377643; x=1793982443; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793377657; x=1793982457; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=/9L1C2O9A9EYZuMXOD/Ph20M8HC2FG+ckzCZ3wyzhV8=;
-        b=HtnF9z2rMJXgjvYISpbVJi6NUZkIgAkzPPazeluarJzk8LtTkVaBjjlsJMTGwdqUvi
-         WiOSCXTED35I12clk3awDqo9o+FlWXiS/wfdhe33yUk7Rn8xHIx79kSXglWCpI5RP4Dz
-         LtNUn8gphA6+TajgoULpCxFIrTCiOP6/H7/A08ENEdWEKvmYhUELnF/RI4pUhnQRpOC4
-         GIvaQ3CukIWuBWfQdmNGQ0uPhTOWFle+/rqxy50/D/Br1NHsVMA4Dvwk+YudvVrPDKqf
-         rL5/Q0MncJlca/ihfhVGszSNx1OnLAWWGhaBQHFt4WHsqRj+GM5O1sZAnONNJgboIIZ1
-         NkhA==
+        bh=mzEUBFIuRLhQjuNB2s+5eSASza7E7mMlqO5ep8038NM=;
+        b=aPDWBFPTU8Q78csDsdF9DMQr3jcbyJt14v/Bi59OXi9J8LSHWxibuQdxyVKGnagusI
+         +PLV5PFhR0GWzNWALG7ct7t1vtT87WGN4H5IBO/yTNAAV7FOLDMnLvLw7Ph2jjB0OARv
+         ZcCpCmlktijOGhyOaVtZf4NVnMZOz1Qrzr9f+FX8Gs69tnYIcCUai7YqhzZcEx+Wszbg
+         Bbd5B+0XhSVF+Wu+WQg9RvWktHDBpwI+IxSSI1XEXwkp/PVKOtZyns7gmYp9eZGGJXrU
+         0yycP9tWYmAyIYxj/FQ6fW+23k+4LDiGcawtwR8ajWpL44ARxx32un09AVK/5pSJ7tNj
+         5f6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793377643; x=1793982443;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793377657; x=1793982457;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/9L1C2O9A9EYZuMXOD/Ph20M8HC2FG+ckzCZ3wyzhV8=;
-        b=jdHOntyrj2VglzQdrfq45eyjKqVekx0WgTw0LcBD7HBQKMRMkDef9HHZ5tvKaEChWl
-         ly9wYcH8588D+jTSWTfLZpKKpTypZEvS8NsxrCMf9bIPgW2v4eUA/oF7L+yX/I/Q8mHd
-         5Oyt2s9wzVF4xaJBb/I3pifPKT2lx30PCkqanbiyr+1eIwtObxv+9wwyLaoEoBMzcl7j
-         1i3peqTwFPcsSD7PUOGR6N/oBHVZLVdPZfGlQNVqCS5eSay8qcO2iYwfduUF/3MesMal
-         U3MlStHBLK4mEAL23EIIsiQOipLljUCRYLQYT6Wc1kskSJWqcFCv4huvkABY5XBMLFye
-         KdKw==
-X-Forwarded-Encrypted: i=1; AKwUvBwlr+auqwoBVWDRgfMdfqwpcFeXwuqj9RyJU6AogCWWHv2dbgr4OB0MRbF1yDT8vjWvQ+7dpG+NUjBzV28=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIL0IEyHRjUKiSCoxxOI3avSTr0zZ1+bZ1a7Zka9FF6gQ8PgTmW
-	LiKLw/TGmI8e/dS4i8JXglUURORQv/nNFtJsItjQztqhyLC3XjTOb4et+ah8Jjvb648fbQ7dJzi
-	e8RWyVYAk7njcHdIoYmqc2eg9J1WXS1XpYK1tyWBX6r2I94yVdhXV9LcC5fLnxKNplXk=
-X-Gm-Gg: AYBFou2dqcMID5NPx3M92aQssU/4ow0FGbq6uwSLOvGFNzJFPWqNbSE15/1D2wpduFY
-	gq5mePICgeD9kuGLDbusPd0fL1ozaeLK/lEsLDkNBnRldYUofHgIxJcOJ3tfEtUrpdvWi5hnTFC
-	+Cpu5jMq5gWwHOViPxPkYjEJVagpH5F5n69VOzf45ksZbE0XKrik20QhnUuUhCWOmWIlGswbzD6
-	HBh2O4mz3dc17Mnl7qPydpFjoNoMZWL1fxvVCEGZZ7MJOKd4yugvFM7hmD7m4gNgsJT1ObWAdTV
-	GNst/0fWLwJlMXOXs5ncxF95AMDZFTr7uOteRGTb/C9Wdx4Bo/ePm+jTBUG3KFuUkjigRcHuD9z
-	AWIVdtp3MK9cJtKtjlQjP9Q3gNWWfznAclOslpxhixGuUYZ6AwzHXajKLt2epnLSs
-X-Received: by 2002:a05:6102:e09:b0:7cc:2946:7f80 with SMTP id ada2fe7eead31-7d07279aec4mr1618478137.35.1793377642191;
-        Fri, 30 Oct 2026 09:27:22 -0700 (PDT)
-X-Received: by 2002:a05:6102:e09:b0:7cc:2946:7f80 with SMTP id ada2fe7eead31-7d07279aec4mr1618463137.35.1793377641544;
-        Fri, 30 Oct 2026 09:27:21 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3f9sm4374029f8f.4.2026.10.30.09.27.20
+        bh=mzEUBFIuRLhQjuNB2s+5eSASza7E7mMlqO5ep8038NM=;
+        b=ercEyZQjlBRncDpym1qUNz8M2mzViVlLOgo0g9YfnyqMbVNu1CJ4o9CxYNhTB2jaj2
+         pHnZolzkmxJTfQhaquyHNH+OTnjUfQvyhHIgRo72LkcHBbx0g2YDennvTI5z1/wAsBwW
+         Vcbr3sOqDccfYruYJD+FN99Nxq3ZaqGskQELkeufLwIa9iefqSrjvIDlCQBfCIOrV6hx
+         L2S6R0UvpsMsAGwIxMBAE4JohFbt9SPIJU5JNTZY2MMHGhos8Tr/q/Qd/9bdnHYQoDhY
+         s/MxeZZTuC+Ct0qDHMWmsQN7Pe2Vo26oSdv8Zqd1cpi1XxEJW7DBTFk/crV4BDkMMt1O
+         gWGg==
+X-Forwarded-Encrypted: i=1; AKwUvBxWuJXBi77emShmeAbS/yutPGRQey02mBajr90DPymb/K7QSAhrJifaEaI5U/6SAyL35hVKkwrncOUriWM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOMk6cG+rqQIcvPUC8lONHuVma48JPLMdr5R6cbWHvgi6Ulbnb
+	UfQmiMckEBGwiWUum3d1IndkJf5uS036gmvt+aFs1Wxp55cQi+B6F4rq
+X-Gm-Gg: AYBFou3nlEhxYh0TaQuDfi67e89bAR8Qt5p6aVScD8DVUMi7sjfOfIYlrJwNYyQnJpe
+	UiW8uYA0iT/WfRnFl/soiKuRo/ULr7a/Hr7gM+ZeZ3HhD3oA8X4zifj2pqb2lLPI3GHh376+7cr
+	CVW6wxG5mj0A2O4Nt+fJicwI1zo4Tr9CeqU2dsW2xUZQMY08mGgaD/z5Ajhpu/GT88nuv1IttxB
+	PM9HXt5hfsvkjsPJ/EuKlDgAh+BM47+qLFXRNSPWZre6Zq+MfLM3TPiU0ATIZwMErj0P1U9dD71
+	e8b30nf819Zh0QUPqJ+0KRr8tpQ4YkkON1117yqBqOSF9Gn0E7KrFDZlPjGsRn5vgp5UJDHYkBL
+	8bhr6cB9IP4hEybxjeAULMVLpP/FAPU2a61iEndABdYuhbidU8ST4Icx0BG7c/fpuloC1GWoTZr
+	31eKJ3lemy5+XyOo0rzXVeCBEKW31ECneXGDjtjcYaQX94OaLcEqQKgyTQLCKV0s3lr6FSjAhN3
+	XkSiPocZTwoTIw5SKkwvSUUu5iaTIfa+zXwxlt04cQGZK/PvKZDD1Ff9dbK9wSt7iXU/Y9guOGF
+	d6XablNBXJXTY9r4c/n86eAvSft2wBu0/DPXugLyao1T87eiwDhlbEBzocxyiXznl8yuk4z6Iay
+	fkIfSMEfwKEo=
+X-Received: by 2002:a5d:5d09:0:b0:48e:76ab:7900 with SMTP id ffacd0b85a97d-48e76ab7eefmr386774f8f.17.1793377656539;
+        Fri, 30 Oct 2026 09:27:36 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b723b4sm4310823f8f.17.2026.10.30.09.27.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 09:27:20 -0700 (PDT)
-Date: Fri, 30 Oct 2026 18:27:19 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] soc: qcom: pd-mapper: Add support for the Qualcomm
- Shikra SoC
-Message-ID: <ktz4cbygffqztyz3zgv7j4zsyqkrj5susnifzg7q3kl52xtshv@3tjygrwbmu5z>
-References: <20261030-shikra_pd-v2-1-09bd0394629b@oss.qualcomm.com>
+        Fri, 30 Oct 2026 09:27:36 -0700 (PDT)
+Date: Fri, 30 Oct 2026 16:27:34 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Steve Wahl <steve.wahl@hpe.com>,
+ Dave Hansen <dave.hansen@intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ x86@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, justin.ernst@hpe.com, kyle.meyer@hpe.com,
+ dimitri.sivanich@hpe.com, russ.anderson@hpe.com,
+ linux-kernel@vger.kernel.org, Matt Mullins <mmullins@fb.com>
+Subject: Re: [PATCH] x86: Drop KGDB support
+Message-ID: <20261030162734.4baa1c22@pumpkin>
+In-Reply-To: <undine-1793325629776229606-c448071ee52df6e1@undined.local>
+References: <20261028122124.GJ2668804@noisy.programming.kicks-ass.net>
+	<28F95BAB-6D5B-4C70-A9F2-14B752EBF022@zytor.com>
+	<20261028142625.GU2668564@noisy.programming.kicks-ass.net>
+	<27a7b4b6-23da-4469-9161-2ce44e8ac2a9@intel.com>
+	<auJT1Ld3urbqaeA0@swahl-home.5wahls.com>
+	<20261029084606.GE1779021@noisy.programming.kicks-ass.net>
+	<20261029103438.69284f7c@pumpkin>
+	<undine-1793325629776229606-c448071ee52df6e1@undined.local>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,98 +110,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030-shikra_pd-v2-1-09bd0394629b@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA2NSBTYWx0ZWRfXw74pei+S7PQB
- XxIc0faS7EvNxBvFyp0u1pqFEkuqL2IrRYF3bweHWmfhVHtIdorqr+0aZ+/QceYwyiP0gMnh2tn
- YGmbMoIDhECl+LDgtVtGdUkeLM5BQeC0nJMDtZxDxkXRYqGGaqf3nLIusf4fJ/ns6cnizd5h79O
- 9un278618yVEA6YvNPi6KzcXeJDK7igNpAo7G9wan3tVFOv+KELwnQuRMwivtEA1wTURWCVKHY0
- 1dyQLC+LFx/RI3GbIq4/swAxo+0lRXCF25N5DyQZT/Qc5hFlMQMeivY9WFlxyy4gNXTKRI+b+OI
- JtW3mbNVNSvLN4uFulAdfmoxt5m4wdbOYxlWe9/Ct8Z9QOSkH/CaHHsgArhmdXgsf//Q3XEX65n
- 1jJOjApXDP4pQdMntgbkBqI/ZjHyOwAxib2l0mZE/dUdmkmO6V/JQqC41kbdQ2u1/Zn0YsxMKoB
- YPgIRiic1u65Gr2qpcQ==
-X-Proofpoint-GUID: mPP4cCGPr_9NT5Sh98_u2nkbmSDXeYbD
-X-Authority-Analysis: v=2.4 cv=Lp4HWXdc c=1 sm=1 tr=0 ts=6ae4c56b cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=9u1Yh8aEbUnWSn3VSZYA:9 a=CjuIK1q_8ugA:10
- a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-ORIG-GUID: mPP4cCGPr_9NT5Sh98_u2nkbmSDXeYbD
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA2NSBTYWx0ZWRfX352wV1qrw9ga
- bBn3bjJTtE1UotwJs5MOVxVv6+YG89w9QeJFD5Un66NWySZPejQZtl7r8vuY0JAHfEbeqi7V/FL
- eCC/2vXFagBIlM7dQJlnbhzyAc/2tSU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 malwarescore=0 clxscore=1015 impostorscore=0
- spamscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300065
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On 26-10-30 18:03:56, Anurag Pateriya wrote:
-> Add support for the Qualcomm Shikra SoC to the protection domain mapper.
-> 
-> All Shikra SoC variants (CQM, CQS, IQS) share the same protection
-> domain requirements: cdsp_root_pd, mpss_root_pd, mpss_wlan_pd.
-> 
-> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-> ---
-> Add support for the Qualcomm Shikra SoC to the protection domain mapper.
-> 
-> All Shikra SoC variants (CQM, CQS, IQS) share the same protection
-> domain requirements: cdsp_root_pd, mpss_root_pd, mpss_wlan_pd.
-> 
-> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-> 
-> Changes in v2:
-> - Adding mpss_root_pd and cdsp_root_pd for all shikra domains. (Konrad)
-> - Updated cover letter and commit body for all three protection domains.
-> ---
->  drivers/soc/qcom/qcom_pd_mapper.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/soc/qcom/qcom_pd_mapper.c b/drivers/soc/qcom/qcom_pd_mapper.c
-> index 64ca99d7fad9..9e456ead9eb3 100644
-> --- a/drivers/soc/qcom/qcom_pd_mapper.c
-> +++ b/drivers/soc/qcom/qcom_pd_mapper.c
-> @@ -498,6 +498,13 @@ static const struct qcom_pdm_domain_data *sc8280xp_domains[] = {
->  	NULL,
->  };
->  
-> +static const struct qcom_pdm_domain_data *shikra_domains[] = {
-> +	&cdsp_root_pd,
-> +	&mpss_root_pd,
-> +	&mpss_wlan_pd,
-> +	NULL,
-> +};
-> +
->  /* Unlike SDM660, SDM630/636 lack CDSP */
->  static const struct qcom_pdm_domain_data *sdm630_domains[] = {
->  	&adsp_audio_pd,
-> @@ -644,6 +651,7 @@ static const struct of_device_id qcom_pdm_domains[] __maybe_unused = {
->  	{ .compatible = "qcom,sc7280", .data = sc7280_domains, },
->  	{ .compatible = "qcom,sc8180x", .data = sc8180x_domains, },
->  	{ .compatible = "qcom,sc8280xp", .data = sc8280xp_domains, },
-> +	{ .compatible = "qcom,shikra", .data = shikra_domains, },
+On Fri, 30 Oct 2026 11:00:29 +0900
+"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
 
-Shouldn't this be alphabetically sorted?
+> On Thu, 29 Oct 2026 10:34:38 +0000, David Laight <david.laight.linux@gmai=
+l.com> wrote:
+> > On Thu, 29 Oct 2026 09:46:06 +0100
+> > Peter Zijlstra <peterz@infradead.org> wrote:
+> >  =20
+> > > On Wed, Oct 28, 2026 at 02:58:12PM -0500, Steve Wahl wrote: =20
+> > > > On Wed, Oct 28, 2026 at 08:10:54AM -0700, Dave Hansen wrote:   =20
+> > > > > On 10/28/26 07:26, Peter Zijlstra wrote:
+> > > > > ...   =20
+> > > > > > Also, when was the last time you used KGDB? I think I've tried =
+it once,
+> > > > > > some 20 years ago, and haven't bothered since -- it was *that* =
+good =F0=9F=99=82   =20
+> > > > >=20
+> > > > > I can't remember the last time I used it. I also grepped through =
+all of
+> > > > > my stashed-away kernel configs I've been using for the past 15 or=
+ so
+> > > > > years. The only place I even see it configured in is in distro-de=
+rived
+> > > > > configs. None of my trimmed down debug configs.
+> > > > >=20
+> > > > > There seems to be approximately one clear commit that shows anyon=
+e using
+> > > > > the x86 kgdb.c in the last decade:
+> > > > >=20
+> > > > > 	commit 71ab8323cc357c68985a2d6fc6cfc22b1dbbc1c3
+> > > > > 	Author: Matt Mullins <mmullins@fb.com>
+> > > > > 	Date:   Fri May 31 12:47:54 2019 -0700
+> > > > >=20
+> > > > > 	    x86/kgdb: Return 0 from kgdb_arch_set_breakpoint()
+> > > > >=20
+> > > > > The only question for me at this point would be whether we should=
+ just
+> > > > > config it out for a couple of releases rather than removing it ou=
+tright.   =20
+> > > >=20
+> > > > I have never used kgdb, but kdb is a different story.  I originally
+> > > > reacted quite poorly to this patch, assuming from what was changed
+> > > > in uv_nmi.c that both kgdb and kdb were being removed.
+> > > >=20
+> > > > I would like to see the kdb action remain in uv_nmi.c, even when
+> > > > removing kgdb.  Is there a good reason why both were removed?   =20
+> > >=20
+> > > kdb is just a local wrapper around the kgdb gunk. If we kept that, we=
+'d
+> > > still have all of kgdb.
+> > >  =20
+> > > > There have been a number of times over the past few years, on large
+> > > > cpu count systems that aren't easy to configure for VM usage, where
+> > > > I have a problem that wedges the system or leaves it unresponsive,
+> > > > and I enable kdb, reproduce the problem, enter kdb via uv_nmi, just
+> > > > to dump the stack of all processors and find out what they are
+> > > > doing, and check other things that I can get to with kdb.   =20
+> > >=20
+> > > So this uv_nmi thing looks a lot like sysrq; you could wire up one of
+> > > them things to use lib/nmi_backtrace.c to dump stacks for all CPUs, n=
+o? =20
+> >=20
+> > Where would the output go to?
+> > The kernel message buffer is too short to be useful.
+> > For a smaller number of cpu something used IPI to get each cpu
+> > to dump_stack() in turn might be useful as a sysreq command.
+> > But I've usually resorted to cat '/proc/*/task/*/stack' (or a subset
+> > thereof) to find where processes are stuck. =20
+>=20
+> Isn't it possible to use another external monitor like capturing
+> serial output to store the dump results (for logging all dumps)?
+>=20
+> If this is intended solely for performing an in-memory post-mortem
+> analysis (without generating a crash dump) by leveraging KDB=E2=80=99s
+> debugging information interface, it might be possible to restrict
+> the functionality to just that purpose by new kconfig. (In this
+> scenario, the kernel should trigger a panic at the moment of the
+> interrupt to ensure no further processing occurs.)
+>=20
+> IIUC, the core issue here is that intrusive KGDB interrupts=E2=80=94such
+> as breakpoints and watchpoints=E2=80=94disrupt the assumptions regarding
+> kernel consistency while the system is running. For examining
+> the state of an active, running system, tracing is a more
+> appropriate approach.
 
->  	{ .compatible = "qcom,sdm630", .data = sdm630_domains, },
->  	{ .compatible = "qcom,sdm636", .data = sdm630_domains, },
->  	{ .compatible = "qcom,sda660", .data = sdm660_domains, },
-> 
-> ---
-> base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
-> change-id: 20261028-shikra_pd-568b9b35056e
-> 
-> Best regards,
-> -- 
-> Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-> 
+Just writing all the stacks to a serial terminal is likely to be griefsome.
+It will take ages and would probably have to be done from a context
+where you can neither (sensibly) spin or have enough buffers space
+to cache everything.
 
-Looks good to me otherwise, so:
+Assuming the system is partially working something like using a IPI
+to get the stack copied into a memory buffer/page which can then be
+dealt with in a more normal context before requesting the stack of
+the next cpu.
+Yes, it won't be as good a snapshot as absolutely possible, but is
+likely to be good enough.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+David
+
+
+>=20
+> Thank you,
+>=20
+
