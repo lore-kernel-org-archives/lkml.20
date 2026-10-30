@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.53
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793383327;
-	b=0KEYtrPVkLSxbDXelXbydaPz2YD2c4pK+TloDCxMs1B3244KGJW31GaYq6MgGW+jAPGu
-	 wuFwPzGrNVY+5wRRju+uqPA4zIr8RhzdilKrmG8ORFjgfvPHOlvnsSW910zR27F7wquqi
-	 7SJvfEUQWEFqNSvtn1Sc3NoKZYwj4eNqqfh0gEHnJCnl9Jxu7zqz45gvRWNNwa8JUbz/d
-	 r+dJ4N95cPmAjv5/5QwWotcpfkRfTmQlCd6Zi50bXcUv3f2zv5uQYioCUVmKzSQuCp424
-	 ppPsuIvAs9SuaAQ1N/2yIsQFRGHV6WpoDXBR6tEejTkT+TVGl1RoMIw9u5crK9L/c3w==
+	t=1793383547;
+	b=JfPT8ZHuOcgLfrKadL6YHXVYnY54DpCDNxrei07ZCT7Lkbvu+yoQqNmRDwZ6pRfTVwBa
+	 wfT5F3iKkqB862gkrhyYXsImoGOlgMC7P+xQ30yMTmNglF2vCuhrcMPnaj2yYaKN7ySAD
+	 OgVcnBVsVKxVP8dGuYCsP7b6IURoMQmxIMgj+e/URj5mTCumlavczmBe/jTxpuR8iwXyo
+	 djyQk76K8RaNToUjAUNWRLely5xXEeVvhsrzRSkIututrUUdfQ6kQ7OckqKOmCD1I3kS1
+	 GoI73fMlodTC9H3cLLEuKeABFMPz8yl9HiDhFz24o3zcUgP8zePvN7j9uCJglrfG45g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793383327;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=r3mesjXZpMq/QbEmw5EflPGX4n+VcT5zdLRzDbA874g=;
-	b=BSuHdLg0aGpMJnOeU+hoaeJsZMvu8Ulzzlsd5E6xA3HpFAoTupJbp8dIt32GsvLAHZTF
-	 S/EI6h2LczznRkZn0f1F0o9IHo66qszoG+cxQ2uHSBruF+vZjlQPSVNAKVsY8pY3QkjWZ
-	 2CWOEtTEMq+PsifWJhf9w4mS8yGLMAwJWNwOjtVnsqE1Mp0Idcc2sKYkjQNmiGzEtBHOn
-	 /j9gSrvDvRZ9YRAy/OuKfisMIxU6//bOSXAvUcsHPBXiW6wute1UN26SQ/mOemm98xUmY
-	 ioauhcrQRR3e8P62rh4yuUXX3bPIcWo2mdngu4P/ZpyVRNKwIvgKgu0OralNtZhzSSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793383547;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=6nFFsAgTb2JrA6ZMIp0GSgZNxXMgbryc9P3LqO1yWB8=;
+	b=q4k+xtC6/62Ial2GL51YN5CTzUR8EyhF42CvBaZScGPuDGGh4KgxbwDjp/nmhPJ+Yjmx
+	 B5VEOIZVtsEkIX7eAZQhTZRl/FxHvm179+MbuvYnXCWJLbGkvAOH3vu6Q8KRNQGtd1Uy0
+	 ILxF7RNd1Wc5Grtmxe4Kb1JjuFwGtFYmwi/AIQeFCY2AJKYABYHCZA5iDj3R7u1SRfF1e
+	 yus5/oRkFqRcMp8uwDPKGixmiSU6TGYkwUQchTA+cWlTXLcnA4VFZd0kt6Q0QfvG71MvR
+	 5Wm7YJ/MNF8T1jDxlkuMIG3T+t6kCJ15dD4Gxj5SwHXyqE8YZwIHqECGiXR7naySwrw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cdjlzgza;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F093606A31A;
-	Fri, 30 Oct 2026 18:02:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cdjlzgza
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793383327;
-	b=SyF3OcjX58kElkpQXoic3U6BdE+HTImqvZT6BTI0niEbUpi46Da2FvzKlYF77lgXUot3
-	 HXL3oWFQs2oVLfdS/0J5caac496Br/R/il32DUpT4AC2j7tQFGOnZew4cP9a0DbJZxNSY
-	 O1iwsjLhBxnzGb6djs4LyoNlbhI8tOsZWGygV2gTzSIViZowa/9t8r9NfoVWsGi1PExWc
-	 NGKqzn1uIPT8yL4fIWDwkxbnlEaXqf0ubpypEXTfrvpHRAAcfrD1F3Q5sWTvC763kuK/e
-	 BIUrAQuo1DnYMwRyoPp8/addvAigS3r1v7QthT4hQw/OH+T+pDmAHsMhEuuK+plVUFQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793383327;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=r3mesjXZpMq/QbEmw5EflPGX4n+VcT5zdLRzDbA874g=;
-	b=XljPRJxZs+BdfpKUujWfuwq8tSA/gza4WGlrOdotv6HDvwfFi5FEvG4KboNTeOotQOCR
-	 TXmq4jGQFqpnfLAckvamP2QjkJWhx5wW9yB8hA01YWCID4Z0Zq/S5TIQ7y5pt2eMPIcLo
-	 IaCB49L/bV6P/lXAfXw3n9fAJHPqiJ6U/DUfykX+d8D8T1fYTxcrpbmc20Sb+spqMZ4TW
-	 oLxoGLxmV7C0YbxTlsG8/tyyLumGvT+AAQIjmXmEWMgsG7WuZUsEC976uyTEHW1I8oOfH
-	 LI8VTCvpl1GTXhDEfTY8pRTJgSwR62kG5O7dBmbCBYVqb/dg17sXjsAgFULIfiXAARw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WdkWd5e2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A7BE21F00A1A;
-	Fri, 30 Oct 2026 18:02:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793383327;
-	bh=r3mesjXZpMq/QbEmw5EflPGX4n+VcT5zdLRzDbA874g=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=cdjlzgzaKbrq+Ptz8+KPtXCMEA2reLNc0TFTY/eaUK78IhPMnbhuubDVCJs7b3n3G
-	 q42TUBvD4adGVTlrho7mKSeVKctaLBTGVEHwkSzluNwCOLhBX7ZWZBg+DWCrf3F3Wa
-	 xu5L3CUHzzyGvW8WJKlbPwWhBvA5+/2/fT32vgHmRcPDjyb9V2wLujl1AWA/lZo9ti
-	 KVgU7tVxQXHNOOLwsmXAaRRukuu/H1+q5O1CY/6axImqgZgStAuU+44Wecyiaryxri
-	 4hiL62vmpYa5ltEqimBWi54NMv/k2mN3e44vnmBoACTwXbx7B/8f+9AEBrrOSE4B4t
-	 NwFewo7TWLmBg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3416443F1B;
-	Fri, 30 Oct 2026 18:02:06 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Fri, 30 Oct 2026 18:02:04 +0000
-Subject: [PATCH v2] media: rkvdec: Do not keep the clocks enabled from
- probe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EE3606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:05:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66EE3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WdkWd5e2
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1a2af4c8d00so5949c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:05:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793383546; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ibu6hlBcAt5BCU12ZYSqzPCVI/CEpfC1zgS3pY6k/GbJW+E3NuU8G5cmhpvsHnr+Jo
+         AaBj6jPHU7h2TAic9CiEowtyy283IbiMMAKnT97gXRznvOqnPq/arO9Z5jTQ7SIg+EYD
+         9vKgyhocLjOiGuCMjZmYMpuMxWYnStnm6p0DYJrDoL62iKQbPn1hr8twQO7090+y2FJr
+         +1rFuPPQSO5H+1mNC7RQnBoUMiKWVvEUIuGUZ9JlkEZvDAtfqVpEnDTGnPoIun7xwMGk
+         EWnL+XqV+okpM7S1fDj7xEHk+UWA4fXxBp3oHlah6qweOZqeDyxRdCwF95Ilzu1jHz9a
+         Q/TA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=6nFFsAgTb2JrA6ZMIp0GSgZNxXMgbryc9P3LqO1yWB8=;
+        fh=pKHBSWHqO1hWt2h+wOFCF39VOZarSnuZow3fOx/pglo=;
+        b=oSiqLkYDXFmC9R7GDSPQEgBxnK8+sOcsHPK8P35iaWR1HgCx3Zs88GTD09D3EFbcxo
+         U6hIXD7uC9AggGh2fmXYmGSDJkauiGHsAyFkIGaxdNAPV5r24jYmjmYiHDsmTOeDixCz
+         2FYqdp/RgR4J24HhyDF/LV3dR0YrS8RqAXbt0v9E7C5fqPa3Wu/8yz2BPtew+SRX/Qca
+         DVNH4U3mtf/IXR8hC6psOalzfXTvpKhg3r8ThsVnJNryHBR/k838Absx0oLS7vG7uAH4
+         ztSRqSoxIkwqjTfExyz9YivBHjB6rwlvqoNH9iUqGRkwHp84el1TmGt1JQ5UB+i2nYJF
+         XIkg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793383546; x=1793988346; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6nFFsAgTb2JrA6ZMIp0GSgZNxXMgbryc9P3LqO1yWB8=;
+        b=WdkWd5e21k4WbvCxibQM8BdPrKKyHBCPM7scAPNXDbOUjzUDC4N7icSNDiB60gZlYj
+         nO4n4UTUZOsxm8/PmbZvcvpU2iI7GnBP87xkBeyB7yW9UdDbHnAvaJWtONWDP/Bo5y1H
+         y8Nc4QvmkLENOvyJ2uRlfm5vybB22Mw1eoSx2GhPAU1ShUFFD1ENMfjaoPk0IzlpT1Gk
+         BsI5P2c9SeYcpFd2cdI2AkJA6dQRGcMKRjjA95h7Dk2/VRs02NwzNfxNi3Yrya++OQ3U
+         UY3txWeCam2WGmCPBUpElJRyLCMQnEI86kpTg2v3q03cMYnsoOob/4CJvlaCr8LFw7PK
+         xWrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793383546; x=1793988346;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6nFFsAgTb2JrA6ZMIp0GSgZNxXMgbryc9P3LqO1yWB8=;
+        b=RC7JCCw3MFRgUa+j3XtLOcpREuU17GlXnHQp6I7HABzFpdVnZlbJb7+z5QAV1SbO7O
+         /OBDSgVnPDEa/tPHPKTww9R/louPOb7JNyWAG/aXOy/kFhov8SA80TX5+D1sqst11I+6
+         mlon4qAYDJnnQeueOu7S2ZmBdYMS68cSuSd7At/ng+dQFtZj8WoOWcuQMULKuBhkVQ3o
+         juboAh/bIGRXXeTdWRwzZMzEAaA7mU9D6W63129nY/2M4C+bKHs3RPezCcF5DPSfxCb1
+         WOS6FnHgvgy4qfZ4VOQHPUZeRtF0NIsgX4KISCtn3emTOuXumY+1/qeKEwfVixkcrDq3
+         7iyw==
+X-Forwarded-Encrypted: i=1; AKwUvBw6mEDUyRx+iqyLJYakiTm9PuuhzQkJfUBoV/Vf8fuDCitsSa6SRSovenshcGDCHgP3tNz63KRN2n6cOP0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYKjcJ1EIuv8ZKG59JhkFn91xowmS/MUxcn9/sueYuIVSm2ae4
+	1EKUYxh/X/i/snDDnOOqrAulTerwHFK2Ns6uusKrHl4BadHd+llAAvbpsmMHNwddd59m2rBh7x+
+	qYtS9X8I3jOyHcEYcEu2ZeT3pLAqL6Rk=
+X-Gm-Gg: AYBFou2wHRZeT54se+vFzyRzjkIafh7mkyVEXnRCHxoZayzc4wnmJf+WwDxyw+lMAPQ
+	k2FdqFFQY79X0iOm4D1MvNYkvTbOv2pUFdLImVc0ubELeggK5fS6P/bED6mNEAhlER7EY/HR1lu
+	hhjzHgPWSBDFB4oJdngHruoYWZnopDQNIsakaxx8YEkTlap08mXhPJ2TzKE3Cp7RCJsGSql/B+X
+	leFq625K27UdtytAeQXv1OXmiEHd37XUYAVbey6XNBY9Gq+iljM5BEKsRFDHYE77WMA60gSMZjm
+	GsdF0Sn8ECAYY/xrKM8HNRwWJyIc4T3OkP0dQZm/tcBC6e26/DLCdC/Fi2tHG65sSv0SK0FawSX
+	p7GNWYy9dl8hIvDeX9W+9j70pNAo8J8HmJ1ej9Wkogkt8OmGPHbypI6iOJw==
+X-Received: by 2002:a05:7022:3c04:b0:1a9:c52f:655c with SMTP id
+ a92af1059eb24-1ac5c555f7cmr3718375c88.36.1793383546411; Fri, 30 Oct 2026
+ 11:05:46 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,111 +103,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-rkvdec-runtime-pm-clocks-v2-1-8ff510a231de@iav.lv>
-X-B4-Tracking: v=1; b=H4sIAJvb5GoC/42NTQ6CMBBGr0Jm7ZhORQiuvIdhAWUqE37TYqMhv
- buVE7h8L/net4NnJ+zhlu3gOIiXZU6gTxmYvpmfjNIlBq10Qeqi0A2hY4PuNW8yMa4TmnExg8e
- cms5YykmXBGm+OrbyPtKPOnEvflvc53gK9LN/RAMhoW21ubaFrris7tKE8xigjjF+AZc1RKO9A
- AAA
-To: Detlev Casanova <detlev.casanova@collabora.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>, 
- Diederik de Haas <diederik@cknow-tech.com>, Jonas Karlman <jonas@kwiboo.se>, 
- Francesco Saverio Pavone <pavone.lawyer@gmail.com>, 
- linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3311; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=zsa4RX1c/nbvAozgmcN/IU1qGvXJqkjP4BnsN43BGmQ=;
- b=kA0DAAoWMpeVi+pfeQMByyZiAGrk252g3CU8c3IdDSZpGQ0cK1tTF0u77/pNmEQE36uaSbo3c
- 4h1BAAWCgAdFiEEkMIo2mik1f1PSDfgMpeVi+pfeQMFAmrk250ACgkQMpeVi+pfeQOANwEAoGgF
- h9OSXorU/sv8C1ifnWk32p5bhPxWTAmx/o+j6ZoA/3SCrX77lyVxa9AxhduIM5mMv6+txRaDQFe
- LTFYIq3EN
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
-Content-Transfer-Encoding: 7bit
+References: <20261028104758.299129-1-timur.stukan.linux@gmail.com> <179335745203.3134.6448413016247418659@kernel.org>
+In-Reply-To: <179335745203.3134.6448413016247418659@kernel.org>
+From: Timur Stukan <timur.stukan.linux@gmail.com>
+Date: Fri, 30 Oct 2026 20:05:35 +0200
+X-Gm-Features: AclHuK_oPUhcpJrKbW1D8_iO1QvO2I3T2TBooqrdX-PjaBCacASo09NEvMHhvII
+Message-ID: <CAF+_u5Cyzga3ic76Eiyb9eFZDyjdJGix9GQjwr9jYRJ6W+fiZw@mail.gmail.com>
+Subject: Re: [PATCH net v2] bonding: fix missing down path on speed/duplex
+ failure after FAIL->UP
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, hangbin.liu@linux.dev, razor@blackwall.org, 
+	fmancera@suse.de, jv@jvosburgh.net, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Igor Velkov <iav@iav.lv>
+On Fri, 30 Oct 2026 at 12:50, <netdev-bot+sashiko@kernel.org> wrote:
 
-Since commit 6a846f7d72c7 ("media: rkvdec: Enable all clocks without
-naming them") the clocks are fetched with devm_clk_bulk_get_all_enabled(),
-which keeps them enabled from probe until unbind. rkvdec_runtime_suspend()
-disables them on top of that, so their enable count never drops to zero
-and the clock gates stay open while the decoder is idle.
+> Does slave->link == BOND_LINK_FAIL always mean the slave is still in use?
 
-On RK3399 this also breaks restore from hibernation when the boot kernel
-has not enabled these clocks, for example with rkvdec built as a module:
-the gates are closed when the restored kernel takes over, while it still
-counts the clocks as enabled. Powering on the vdu power domain then finds
-the count at 1 and leaves the gates closed, and the first QoS register
-write of the domain never returns.
+No, but both routes described here start with the 802.3ad notifier
+setting FAIL on a slave that is DOWN or BACK, because it checks
+last_link_up rather than the current link state. I'll change the
+notifier to set FAIL only for a slave that is currently UP, so FAIL
+again means the slave was in use, and send it as patch 1 of v3.
 
-Get the clocks without enabling them and let runtime PM enable them while
-the decoder is in use, as before that commit. Without CONFIG_PM the
-runtime PM callbacks are not registered, so keep the clocks enabled from
-probe in that case, as etnaviv and v3d do.
+> Can an in-use slave reach this fallback with slave->link == BOND_LINK_UP?
 
-Fixes: 6a846f7d72c7 ("media: rkvdec: Enable all clocks without naming them")
-Cc: stable@vger.kernel.org # v7.0+
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-Tested on ROCK Pi 4A (RK3399) with v7.3, rkvdec and panfrost built as
-modules, panfrost not loaded:
-- idle decoder: the vdu clocks have enable_count 0 (1 without the patch);
-- hibernate, power cycle, restore: 3 of 3 (0 of 3 without the patch, the
-  restored kernel stops after bringing the secondary CPUs up);
-- H.264 decode with GStreamer v4l2slh264dec, 300 frames of 720p High
-  profile: output identical to avdec_h264 (md5 of all frames).
-The QoS hang was traced with debug prints in rockchip_pd_power() on a
-7.3-based kernel.
+Yes, this is also pre-existing, but it is the same problem this patch
+is fixing: a slave that may be in use being set to DOWN silently. I
+will add that to v3 also, and in v3 the full down path will be taken
+for a slave that is FAIL or UP if speed/duplex check fails, and only
+DOWN/BACK will be reverted silently. Checking curr_active_slave alone
+would miss non-active slaves in alb mode. In a normal miimon flow UP
+is never proposed for a slave that is already UP, so this only affects
+the racy cases.
 
-This is separate from the unbind leak in Jonas's patch that Francesco
-posted [1]: here the extra enable comes from probe.
-
-[1] https://lore.kernel.org/all/20260717154505.83935-1-pavone.lawyer@gmail.com/
----
-Changes in v2:
-- Keep the clocks enabled from probe when CONFIG_PM is disabled: the
-  runtime PM callbacks are not registered then (Nicolas).
-- Retested on the same setup: idle enable_count 0, hibernate 3 of 3,
-  H.264 output identical to avdec_h264. Builds without warnings with
-  CONFIG_PM=n (arm64 allnoconfig + COMPILE_TEST, W=1).
-- Link to v1: https://lore.kernel.org/r/20261030-rkvdec-runtime-pm-clocks-v1-1-fb2c5b629e79@iav.lv
----
- drivers/media/platform/rockchip/rkvdec/rkvdec.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-index 061281f903f3..81cf3c1ba7fb 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-@@ -1788,7 +1788,10 @@ static int rkvdec_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
--	ret = devm_clk_bulk_get_all_enabled(&pdev->dev, &rkvdec->clocks);
-+	if (IS_ENABLED(CONFIG_PM))
-+		ret = devm_clk_bulk_get_all(&pdev->dev, &rkvdec->clocks);
-+	else
-+		ret = devm_clk_bulk_get_all_enabled(&pdev->dev, &rkvdec->clocks);
- 	if (ret < 0)
- 		return ret;
- 
-
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261030-rkvdec-runtime-pm-clocks-41adcf141271
-
-Best regards,
--- 
-Igor Velkov <iav@iav.lv>
-
-
+pw-bot: cr
