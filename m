@@ -1,101 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793326496;
-	b=pSEGW7h5Ybh8YrZw6uSj78QbkIpe2mzLk7B7EBCWDQYp1lTChuUjMfwnOS577lpote28
-	 p6i68U8tQ0dY1dMHKV1frzComyGb7e4gFzGnblOFdIp/KRWueeEeyGUv+lvv+5FWwpIgV
-	 /NaAYl52e6+Imrajo/VUe6WFUG+aXN3A5JgFb6HMzTqO4VoyWdRAky5QfyqWfQFaP8dnk
-	 I2ICQyD7m/stFL0dH8kcBXc+JBLQcG8KDi4S+B/2et8Q2YyajFzjstjwsUZdmV4vax4pb
-	 Otemb0rrdJyHVq9/DtTLY0BUe8J6lncPcI6qmxoulBoZ5Ub2WPGy/FsS3ItG7nfScDw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793326496;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
-	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=iwalU9KoKC4ZBaGClYnM49I4RLKqn6c1U5K/O5xUFgM=;
-	b=GjIgfPBo68xl5D09BUy/CVvb3Yf4CRT99zORDDm0xtAGnsfTpj1iTUazJ4LLAI4ej/Bu
-	 ZL9esa8JvIOPomgorBVBIm5NmjqzDX8YQ82N1hOw58nS0KCAnvUHzKa4ZoBCR9OXH02Ux
-	 9voVxEv9cEb/iO4vQ6v5sl9BwhNm3Hg49H/HgxtjB6KDiEojjRyhilzF+c8/ogr0MxWqk
-	 oDsXFMvOzL7HzyBCJ6ZcvWPKZ7R8PG3ePC73odLLtJINIiaB5Hc3Lfb4HY2vtpmOYq5ts
-	 5sIMpQJmwrSqHboyN6Cqbybp+Hdv1jo+ZvazqnciL2mbOOfz4I8n/N4JQLV0F384W0g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=klzhDZVr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.20
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010020.outbound.protection.outlook.com [52.101.201.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.155
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793326604;
+	b=3jG8/Cu+tMuk0y2XUs1HpG1s1EHwO7pmOxsLM0RsfEykxNCci1xA8EsT6e5dEibFCpv2
+	 IvGD/XbOF5/ICau/5tcj7GK7B+RLZRF/nWb+nFatPwccBufGiJyixaJnjl0iBZCuB+GFz
+	 bgPcUvr3MEVovIiLPF6qMw9dJu+FaNsm5W2FThKCZpU0yVZgUgPZBZTLvuPr5ycVtr2cY
+	 M02FVPRlV/M7XIegO/Yb1TfYrVbPASXdMLhtZf9Ur1jlrUbNmB9yIuQw9E7cee5MxM113
+	 qFEXJtZKwnw79eRrmaVq+ISSYLVYCsBlf7iVDwFfnHt7uQdg6p/VaXp+Cy0feFRBP5Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793326604;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0NybnSmxUimOrGaT/uhAY/1Lsyep1HNUoiXKlp/WhLI=;
+	b=n/PsrOkthvZdllDaydqsOKdy1ElWyRCkEf9iacRD2sbq4tK6CFx4ZZGoOe3caJ8sSvS1
+	 nleUlCQWg1QgcQLBEJTiZEKSzms7ySYWMYMlytCFjd4ijgKeGBiwukZwm0/Ypir0TL7GL
+	 yaLZFoEAlKxW2qkJrmei5dxQujZS2tuH/QV/07FppGz7CJCeXUtzTUDgNTPO+y5qCAI1Y
+	 m8xlYzrvlz8g0ICrbUalaZurTdy5o9+G1sOWwjtcUebZVvxRjRlrU5s+h+yhf/ftacoLW
+	 mSCHkx7+YhSUHHMDhE2JypVOUBR+/fYwLFG4xzj9JF5NU43FZQUwltudeAbHKuh6X2A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=nTeBGzIt;
+	arc=none smtp.remote-ip=203.205.221.155
+Received: from out203-205-221-155.mail.qq.com (out203-205-221-155.mail.qq.com [203.205.221.155])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21412606A31A;
-	Fri, 30 Oct 2026 02:14:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21412606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9140C606A31A;
+	Fri, 30 Oct 2026 02:16:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9140C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=klzhDZVr
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F2AmC0HndNGvl5X8n44Stu9WuTZcXmDaI34Rg898398C6KcofgJXcHkRdJjZcaaTq/YWKNa5led9t4aKdnp/EwZfCu5QDjvo1ZtOz0d6qU13ibWs88RlEWmaqRcFi6aJDq8KokSELWT4enl45dPcHEgN+kiLquo+fwWxmA6NEshJ8b57edMkNVHNSdAm/7fpUlZfpoUwl/LrCQ+hWPY2k8qUzcWpvrq4Ln6jtLDB9NWRxkMkr1TqaMrEFY8f9HJSAfP46sKfP3CdWAAand6FsYCCyqALKtknCnqLbV/TpXumuGvngd8Bh2pjbMDKIfQLi00FXxPn+MaxmuuJzjNpvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iwalU9KoKC4ZBaGClYnM49I4RLKqn6c1U5K/O5xUFgM=;
- b=VSVx5cySfNMRIZ/J+KaWbBwn/aMK2HZOzKQRs5V5i1FWqxop6kJjI4IB7KtIZAH3iaUiR+jA0Cdt9+RHU+H6xifl/j5G5YrRc2GQAueO/6qqJAIF58Uz+6fOj27GFIi2eA3JbF7758oADWEY+RJUK5zAGvgThGAnUaMgC7mxzRZtws4K5489uo8GyGhIT/Lnb7keIfZo0hwu0h8XfvKfELYyCcKnPsvY1Wv6OquQPvky52zVmHnkjdbCtOAscqQ+EzJ3nv5cShjq7apQSZlS5lSwOlURiw1E2sLZzUFMgPsHFpkORGmVXwJuXWrFn9jpr9R8vFrxOcZMTlqsUjmfvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iwalU9KoKC4ZBaGClYnM49I4RLKqn6c1U5K/O5xUFgM=;
- b=klzhDZVrKhiZx1J6jDSHtORKusdtSAUgP7AlhiwlftdXXJmkNuXtghnm8BYSjMQnTx1g3jUg4EoO7sRch5pSB7ukQnsM01JBe4eHSJ5lRpagHR6YiIzVyrS214k9m6nyfK/x4GU4fPYImtrVgrmy65DL949WQKBqsK6UNXB9YjkS1IbkEFHDfqbpse/cuEGVJjfOuiEBI7MusmRqzIrjdNcjdqZbqb7ApJS2qAFB271X4iQo9i53qGozolHMryRZw2tR8O5Cpcw+EG1ZkkE1O0nsSDbCy+brnKKKM2Hplvz0JuvSUxKnzUfEideclo81Lt6dVZig3EOO4eqM/RToVw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by LV2PR12MB6014.namprd12.prod.outlook.com (2603:10b6:408:170::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Fri, 30 Oct
- 2026 02:14:52 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0569.007; Fri, 30 Oct 2026
- 02:14:52 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: Re: [PATCH v3 1/2] selftests/mm: track the modules run_vmtests.sh
- loads
-Date: Thu, 29 Oct 2026 22:14:47 -0400
-X-Mailer: MailMate (3.0r7032)
-Message-ID: <F4BF41F0-3148-41E2-862F-DA83D9B5BA42@nvidia.com>
-In-Reply-To:
- <20261029-bug-selftests-mm-run-vmtests-xfs-modprobe-v3-1-16ad772850ee@gmail.com>
-References:
- <20261029-bug-selftests-mm-run-vmtests-xfs-modprobe-v3-0-16ad772850ee@gmail.com>
- <20261029-bug-selftests-mm-run-vmtests-xfs-modprobe-v3-1-16ad772850ee@gmail.com>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: CY5PR15CA0174.namprd15.prod.outlook.com
- (2603:10b6:930:81::12) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=nTeBGzIt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793326573; bh=0NybnSmxUimOrGaT/uhAY/1Lsyep1HNUoiXKlp/WhLI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nTeBGzItB2SUwcTHXr9zkNZyfxF89nkWU3Ml3QBzumOKTFGIzf/rL6428Lq+7IiOk
+	 kFwoqqbOihLF2pUbGOvS83LiyeFDtDlXoMXTTTShfub10ZfvJBeu25cFWgYiOEUL/3
+	 p+i7qzt5KMsMcGQYfwH7+dwRmkdzuGDfIB2Fy3FY=
+Received: from shuai-VMware-Virtual-Platform.. ([218.206.237.125])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 40BB1AA5; Fri, 30 Oct 2026 10:16:11 +0800
+X-QQ-mid: xmsmtpt1793326571t4g2nzfk5
+Message-ID: <tencent_12B82162741365EE49D2A22CCDF2A04D6908@qq.com>
+X-QQ-XMAILINFO: N/WmRbclY25GrDD+nu7mOEFK7wfeneumfepYk5DRrb+ic7v0Brs7etkwBx66L0
+	 aIvLWr/is1w4mmVCNFOLq811d9mlqM5SleJNsXKfIn9FVvH1pXQBrRVYH3IB6G3pcWeHI5LLcQcG
+	 bZkm9MXIvq0L0IfDj0ocrJfkzx5KZqxG+durWIlSFyYlR3zJr1UQ6tVjn0lsaBytKYydbwjU/Qjt
+	 WUOLJUyNq2WPsSOb4sHGLhdZ7j5LBVtAhFSKihzqzhDWcc73u4gagzBKg03aKXcE38QLaHOKj+rI
+	 DtSFMpozd6IiiBRx5B5+VJv/YsxABARh8OjzrmDwGdw8XLd0xfEmkeAsFatQcxvmF3wqx8FgOExT
+	 kRCuwct20XxJ0BfWCbAY2k/jQgawbatxy1lu1gLpwTgxLr5gPyj+CfkGu4utOHhvGMKJc2Rx3UIS
+	 oeWZDiMwIgIb7He1dtlz6XHYblIQUBz1Bh+DXx2GrQUrY40EAT/WGc9xrFt3qbUXZDZusxU0tmrx
+	 pEt269vmjsW9bg85rFgxypDyJ9xT1FSAnUhXF3JNe7VwyP/G3/b5lw0+5CUGSuEM6EHj90J0Verf
+	 F4t0/GsUCwRcDmN35Yagt/sWp8rbUqp3JiDCydUch9aip1FjOLKVWuA2nUcE86QupDEj4P2S9azR
+	 CIqlfzFkPhClPN95k82ILPVhUWgBA32cX04YGm3AwSynmkUjBBI6Z6wbflkb64nPSyZRpLDd1J33
+	 IOjS8iZHeHjk+HmN8Vl8M4jSFg6gCd1An3JQrCiqEen6TZAnDsoKW02oYVcIYgGzbe4Whey2BS+d
+	 mDysFu+ZeE+7VQ228uHY28PdsSqjGd29cFwOkC64TSB86AxwELgC7HKC4bWIKq9UMR8cfnDnC8Ed
+	 weS6pJFCdukQLHVIwhsQCuX/kBsGOKZ5SNrTje2IhkvFrhUQAdVAXNqYBeyE7JC2RbdukNDTWPak
+	 hwTnyhMDo3WfzjXz4vDgdTEo4mrgyQliMwtLrbkUh8xq+qswJ4cRHvAwpHJ4vqYtDk20MiYMVROe
+	 c2TcBvmRb6XMm3wm+a
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: Shuai Liu <847807867@qq.com>
+To: Kwanghoon Son <asdfkwang@gmail.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>,
+	rust-for-linux@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 06/12] rust: serial: Add minimal serial-core polling console support
+Date: Fri, 30 Oct 2026 10:16:11 +0800
+X-OQ-MSGID: <20261030021611.3800688-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261029-rust-bl808-console-v1-6-b736ee920078@gmail.com>
+References: <20261029-rust-bl808-console-v1-6-b736ee920078@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,84 +81,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|LV2PR12MB6014:EE_
-X-MS-Office365-Filtering-Correlation-Id: 860a529f-d110-4f19-fa0d-08df362b94e2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|18002099003|6133799003|22082099003|56012099006|11063799006|4143699003|261026140227099003|261022075727099003|261026121527099003|261021123027099003|10067099003|261021121427099003|261009223027099003|261028144727099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	ZIGIyTI26F91j399LPnIwYL3cJBV/CNuTptT9DD65vh9nXfAlP2irj4P5Xp036BH6LP9SokweH+fI8v4fz2J2aT2zDRWFHB3a/QU5eeCenllm2YPmdsYqSFeHc5Lpt9XpodjhciTtaVvHYqOyTcb8aSBvIlcK7HQullK5NN6LIocDnGW1w5lOgDcjClYRZxeGM3THQL7LVASNKynLg9q2e7WlowjKRkWf75fv+0ocSoksN6kcZaP//c7U/qgC5DVgcxCOFSlyePufa1BfRiOvLeiuqJRfh/L2UJ/FAkowKTuCa7OJmhLeVGAz+OI73GYiOVTBxx8CBt/144aJTXRZUP7ShuFU+hxiCtQSWuprjkbByY8RpJc7Xnce1XMWcTR/Uh7oyg9Hvq0YWxeoxC2Ol7fSpt6GpOVpBbRzmNbjgby4X/aD9VmBs4KRu2MbGDsa9j97dymv6M5I40Pr6y1RDDe0bXZvrG8RERfEyVYrJpBryhWCzLwdlNF/H8AiPGb+nuGENNzkXmp7+ntIdgnBpWqQmRfgQjlyE/XNs/nuJzG2cM+YjIUCdklHfdvAQAxZpTMSlB8g+VLs7DA0rvx5OJYx9c4EwGeEhDFFqlXLKjwtV9kklR3taxM7SqllJzC+EPEw/SVQLRaMCFrPC3M9WjqOy4IXBxyuzvv3plHQtI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(18002099003)(6133799003)(22082099003)(56012099006)(11063799006)(4143699003)(261026140227099003)(261022075727099003)(261026121527099003)(261021123027099003)(10067099003)(261021121427099003)(261009223027099003)(261028144727099003)(261022105027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Wj2b5T+L5P/bfq/tgubAdumE5ePn3RVC7179GrwBRNUHF35rAda0YwVkKiu2?=
- =?us-ascii?Q?Jhs8LFgObiwieUdFXc+XJ2fSevXWkMFGiGNwZTtJ+ns+ADprhF42SnikoIki?=
- =?us-ascii?Q?1t0I9tJSTFy6pWunejpKReFBcgj2hWUf223rH8khzym+uRNzxiV6wfy58peA?=
- =?us-ascii?Q?kGNidTLGSUug7GNyuLiViygzcRJW+yyOocwIN/u1bjUXDNX7Z2VMPzo8XF3G?=
- =?us-ascii?Q?qBW6NQF04n/aKkSgAG4FFRX0piTJvIJAyOda+Lt6CbtSF0ApvzTUC4LFaE9Z?=
- =?us-ascii?Q?fr7et81KzHLHGd1JjPSKhBVnQNhIZw9Cx4H+gf+yAoDGWtyv/vsDRfH72aKE?=
- =?us-ascii?Q?WdkvLbLtBPyhWSEYlcX+CjDWTpaRSX8glJR+JEW1Icg5BM9ZmY4Jc18hiZcP?=
- =?us-ascii?Q?kc8DPT83P/zgRTjHPXJMBsMwwVI+EJRmMNnmNCoL33kCNtEA0VDh6MswnKyw?=
- =?us-ascii?Q?iyokDe+3ZmSLTv3TttmS+mQDpzGnrHHdqu9Ns9Ulf/LcXhpMW50v4u47iw2x?=
- =?us-ascii?Q?SKEpbfpQJv5RhjrpEmYKGUVOw9T6BFPDKq/hQq7Pak0mDazkgcL2LUnzfpoD?=
- =?us-ascii?Q?jBoIbKrMX/g90SmrSXJxOXwUWCYkcasE1du+yaVORbOUaZGV/lemR3NbHDiS?=
- =?us-ascii?Q?DTGG3ibSIW8rBjDBq/UkPfS9pDIYZJZ6pWuwNij76DDUKsNsctYmyqSxXQnO?=
- =?us-ascii?Q?qN5NXbtwohpW8ckmM+Deb3/IGStRBGouQOOk/Otb9hV/QWDMIpvCvwQuZYL2?=
- =?us-ascii?Q?pWoa4111GO9oP4LhPwgp6GKsZk1VHwE0TxJVUmLxdYkTTpkihGJa6qgMviNj?=
- =?us-ascii?Q?6C+swgGpcE5H7PB0qggVpovq3X9bA3wA7Aq5E9LvQcR6SjJeyRBSj7FJP3GQ?=
- =?us-ascii?Q?Ryc4wc3W3vwTsbpVJzrLWaIwYF+Yu5y3EGYHWof1CaAYlJah8XsGu2fifgb8?=
- =?us-ascii?Q?cv8OR9rPzj3wCL/l20N6xkhximQBNVEGBnYApHmfFwBEKR9hoXZP5BaiOXrS?=
- =?us-ascii?Q?ZoVMVD/lyIArVAgK0wf4Zw1KB6xjUK/v2tWq/0RBtLxFJqLNPrq3KNkggneC?=
- =?us-ascii?Q?DHVEK2kH7LAP2UZjR9DCKRUg85zLnTyuv68y+7ZF7TNTd5lbLDDiEeI5JvHV?=
- =?us-ascii?Q?fMWtuOrKwww04vHXB2tgmCOFKWV6/1X3aljzXtjR+PM1YWcCR6vWS4QZGhTc?=
- =?us-ascii?Q?xXC1NxcNONnY+20/Jltj+HeuHa/SyCl2YxEMAWups+N6seJcgekeULMgtM8d?=
- =?us-ascii?Q?bJEQDowjxa2PMPM2oQuYTvpQGVtnWlDHYK/b2QjOYYetu4O6s+HZRux1HROE?=
- =?us-ascii?Q?7kknZRcYW9kzACYDAko0dZJYb2DPA0JJHgfDLY2gbXO0dmA9Em3z3V62UHhM?=
- =?us-ascii?Q?XhsG9YgFCcKIa52/kn3f8x+xxrMvkbMfFUVGB4TQPHXyLe7VG4R90E9vYKIR?=
- =?us-ascii?Q?kZ85YH6cDA3CNYbBVVxZsP1t8Ze4m1qKTZrSbH6ujc9C84wJhlnWRXR8X1bb?=
- =?us-ascii?Q?t7HJCU77KwPV2i4AI3sTFUw/l5kWspGrJ5hVCijxL3RYTTiTWj4mY/xy5gRd?=
- =?us-ascii?Q?yIPFNYLI/lGudeNXY29s4V4r3FRVC1tbQ8kw5Ltad1rZuxT3e2da3C4OMiWj?=
- =?us-ascii?Q?hLTs2+Jpod9Uc8XB21mZl3sYkngdzKDy0aNo3Cr33vndHo/K/34cu5zPLa1S?=
- =?us-ascii?Q?2sRLHUiqtHoOSPCy9B7mXXkYv5Kn8/OyaVuVlrq+HRc4INXS?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 860a529f-d110-4f19-fa0d-08df362b94e2
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 02:14:52.0369
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kPUvQCnkVPpOWHb133AeUVLlBxlMUIP5vgTPt2RQfKf2x5FT0oPh12E9i6dlbUeK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB6014
+Content-Transfer-Encoding: 8bit
 
-On 29 Oct 2026, at 2:24, Qiliang Yuan wrote:
+Hi Kwanghoon,
 
-> run_vmtests.sh loads hwpoison_inject for the memory-failure test when it
-> is not there yet, remembers that in a variable local to run_test() and
-> unloads the module right after the test.
->
-> The thp tests need xfs loaded in the same way, and repeating the load,
-> the bookkeeping and the unload for every module that some test needs
-> does not scale.
->
-> Add load_module(), which loads a module unless it is already present
-> and records it, and unload every recorded module, in reverse order,
-> before the script exits. Use it for hwpoison_inject.
->
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-> Tested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> ---
->  tools/testing/selftests/mm/run_vmtests.sh | 31 +++++++++++++++++++++++--------
->  1 file changed, 23 insertions(+), 8 deletions(-)
->
-Thanks.
+I reviewed the Rust side of this series (the serial abstractions in
+06/12) and did not find any soundness issues. In particular I verified:
 
-Acked-by: Zi Yan <ziy@nvidia.com>
+- uart_port.lock is initialized by the serial core in
+  uart_add_one_port(), so zeroing the Opaque port storage and relying
+  on the core to initialize the lock is safe.
 
-Best Regards,
-Yan, Zi
+- The set_termios() adapter unconditionally taking the UART lock is
+  correct: the serial core callers (uart_change_line_settings(),
+  uart_set_options() and the console resume path) do not hold the port
+  lock when invoking the port->set_termios() callback.
+
+- The console callback accesses to driver->state are protected by the
+  ownership chain: the port holds an Arc<Driver>, the console is
+  unregistered before the serial state is freed, and removal drains
+  the console readers via SRCU.
+
+One thing to consider: SERIAL_BFLB_RUST depends on COMMON_CLK, which
+cannot be enabled on x86, so neither the driver nor the abstractions
+get build coverage from the Rust CI (allmodconfig on x86). Something
+like "depends on RISCV || COMPILE_TEST" (with the clk dependency
+handled for the COMPILE_TEST case), or splitting the abstraction
+Kconfig entry from the driver entry, might make it easier to
+build-test.
+
+While reviewing I also wrote KUnit tests for the pure-logic paths that
+can be exercised without hardware. The patch is attached; results with
+kunit.py under QEMU on arm64:
+
+  rust_kernel_serial: pass:8 fail:0 skip:0 total:8
+
+and CLIPPY=1 is clean. Feel free to squash it into 06/12 or keep it on
+top of the series.
+
+Best regards,
+Shuai Liu
+
