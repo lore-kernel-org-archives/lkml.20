@@ -1,97 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793404397;
-	b=rtsDeNmfmSXS2ziinM/XB4cbSuo75dtV48hw3J+4ysfdbE3IPRPM+l5BDCWfgfBCsoiN
-	 VIDLWcKqtXuDYZjbH6+P4PU9femeav6E0xZdurd41gmZbpipmQjEpQTaszwDN/7/K7ysh
-	 1zMMvfSfH9RMuQAV5iFTxU9ZzBreHqDIlNBycUCxhOB/0V/H/9TJNlERbdWnE5DgUAQkU
-	 rI3pzc4RFdIMIiXyfeoDNvjgQqVy1Xxo+k0LuYriW979c2ncdXpx4nqlTYhEOZruEZsaX
-	 VktP0Q/JmJrBGzKi+6heKFKaPBYOF9JNT348m4z6+oNdm2+OsCBaGJDLPQtH7IHjBfg==
+	t=1793404471;
+	b=f0mri9whup+BwLmWhHF85Q9yTiMJPHtFdLOr0qKX6VNI6kT1fVDVYNmLiRoEsqi1fbYt
+	 ZIlCaL8g20mIifZW2nt3dKFeRdQtsQADpiN6G9sB70s5tE1UrvACtqZwqeJkNq2fV9lYh
+	 /hLJceWKn/6R3EAvb3BKCV8bTZVcCTQps/q1sxTpD8aWIa5KSYgwCGx6g9Bqda/adIKcl
+	 z5wv5g4F3OS+6N1gu9d4vQh4uGTMZTOpHqFcouI4twYGhulwYpAo73xejnaUsp0MjPQ+h
+	 Ggo5G/d9GheTco9GO+20X7vBrobo+6xQDwDISJJCJP0lY9WPi2C1lHq7fAnwS3hCKKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793404397;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=GIw+GF4eDiJHFNgm2i3uIASD3dg9+F+UqVRzru91FIs=;
-	b=rxMHMgAozwZDAW19vypmsf4dBTWf9AGefdHvty+yPCVfDK2LCuusNudbwHFUZJC24tIF
-	 x16XKA8S2GRuSfHC/c0zEnqW7kaqAV7/xN7op5SKAZ9qIXZIsDagX0miqqLJHNqRy9ONK
-	 1JXvNA1a17ATl/5uAhX7STvnHs6mCRXH1gQENFR9rthUxfvvRXoFP+RUXJ91uh38wNKxy
-	 6pmryyeo0OfpgQUTRaU3ThB5eYQKb7HS/KtGK5aXsOv2DVCTE9xScVGZhKsJ9BAavPKZo
-	 VTY98PY51os3a8AjS4g1B4pTL/KZcDoxTimSozfICOK78Hx7yvWvLPZBwppLr2aq2tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793404471;
+	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-Spam-Status:X-Rspamd-Server:
+	 X-Stat-Signature:X-Rspamd-Queue-Id:X-Session-Marker:X-Session-ID:
+	 X-HE-Tag:X-HE-Meta;
+	bh=xgxwRoaTlzr2lRRyHYemNn4UAN/1kvxamPcokqd3PEE=;
+	b=el/jBrQiF/eXOiW+Wgc+uTrBl5t2hFGK5X6nsthqvbYFzIFnhJhMGomRzxo9/PnAxMbR
+	 lHbO4hhV3pfwiTwZToYGu73/SZLLishV1+cfVMYy7+evo+RA8whedgNXlpZYWo27lqpY2
+	 lJ/lS2bvi/Cr9AnDP6xYBcaHqfe+UQcl3i0BD60lSMY3g4Q3zaZuXFCABTX7AmnkePn4G
+	 t3mRyqaqKoslNDhNcvtxmDfHB8RVI/2h+hxb6zcSMikuU3VAXxMyfWkiFk65UpF3bcd+H
+	 LC9dqnKIogKU0+hNq8gBfMh5lsRDC7cKRkg0uiMD1+xnr1kuu2YOrvxEk1MrVA89skg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y3sBVQy4;
-	arc=none smtp.remote-ip=209.85.217.43
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=perches.com;
+	spf=pass smtp.mailfrom=perches.com;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C87606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:53:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80C87606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y3sBVQy4
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7cc81984fceso394775137.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:53:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793404395; x=1794009195; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GIw+GF4eDiJHFNgm2i3uIASD3dg9+F+UqVRzru91FIs=;
-        b=y3sBVQy4LTLycTmihHwYtv2ty18Lq4GTe5BJ0lR/E+byARC3KXK6AmBMkLrIoblDT/
-         ADKKljABW84gLk9X1k7kxAgt/sbIuF5yO+8A2/1winSvRr9L+gUD5QMmOQrRagqmlF1g
-         zPf0Ox1fsUUt9FcN+Lh98lwkDNmTJCYjyV2x4qo641aAGnQhUlT4bLwgcq+moY7OwXI3
-         dAP/kFxynsm6i5NArItkz6Q38e9Drs90HgAL1YScpT79ofm0H/ihojTZ9Y88PYPMi5BW
-         O3vH9KhyxexgybrALnKJNKPAZhCk+w29nG1qZkPoJgpvbLVAk6u0Aluyg0cOpgDplrc/
-         Fozg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793404395; x=1794009195;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GIw+GF4eDiJHFNgm2i3uIASD3dg9+F+UqVRzru91FIs=;
-        b=P9mX0f1OXqXmXp2aULdoojP5SB0c7PzQ1vY26B0n2cwakZVIKwO5xiami0/3IqnGMc
-         FBKKLY7lScahSgl3/9VK4jCY9gDw5RX/Bl55hrIMAGr7xSHVMbqWbwXetIQOf2KnIQiI
-         mett+rIpm+mHwjPKAIPeGPnFcIZnabzr32i6snWqW6173n07A5vAjHxm8SOb/YNg3eWQ
-         XIF+RoiNxqrkFDECjKw07jnwN0F44+2Lr22ebGuzbUlvAKC+bvTy2+F+E7nrUHDmFMoe
-         T8inJZz+qlRfO9DpcyKSYbE9ZTZtHxPxJIYYuAxCuOfTzBZrkWiR3a+kmGqdMM0AScDv
-         TPGw==
-X-Forwarded-Encrypted: i=1; AKwUvBxv6UnSYlicqt1w++achdyrAeCccVBiWVlugVWZB7GkfXHWU9+3YY8VQ+elwQPk519Jp9z4/FzNf+7nRYc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK5pdKe03cWw/DfKA0kqbD/aboTOWuo8dFSop2vZANjwQK+cHIZ
-	JKzk2Mlzu7DOw/IxqcLXrEARQj4QzywgwwZYW3rS+QZcuBpzD/6FmyOB
-X-Gm-Gg: AYBFou215o56KHjmj8/LHeC39T6kJmHMQNLA8eGy/zEenCARwyw9yxfz/MBU19yoX8l
-	agc9jREuoZLmP1GoeOlQrUdAguO9qytVcHiY2ING6Dih9LD5MgMA5ntka5nyd3VyosDxUQDYXjd
-	hppFxAogoL3EcRQInGCSnvXi19BYE6b5eOqGGlXf1eBeTYXjQOFxifUQOSKc/IaKB9oPBCgLor+
-	QGMT/IZXBPXJK+rq3wMX7M2FvogsQSPHNAw6RpeHwE0D2f+ugKInVrJtioEigXe4yEiHbqUljHg
-	oTZGAVR9vP+SCwe8OX1MbK23OgYiGm0wCkEUIsaZ51yNa7gw2mZXu46jNyPgiNI0ylsuy7bX2dN
-	rfUK30eNTkYNOVzNZqhZMsfB+DvLFDSx1nYVjEuVySfduWINYvsHIVhVpJWQnyuSaH7Eueq6pp/
-	dUsBeRJhS0yaxmDQBvi+8eAKNiLueyDXiKe6ZbuNnRUunbbUCddypFjTxBdniPE9pK1HxaZd5qy
-	+BfFGNdKxwBQUhsHNNx2/NFkMU5IYtIJkSO38dMbwg+gemFZafnyZ49Uk5E9DWlITv/2HfAf3QT
-	QMrLuzhbRIGcGTB/jKDPJqK+PLSD+cEf4KrIBf/IyVAhTm9mE68UgvSTokHU3gr9JFN/+oh6ssq
-	ZGig3lTzIAkdpWLA=
-X-Received: by 2002:a05:6102:3746:b0:7cc:9d46:f061 with SMTP id ada2fe7eead31-7d07273ecc6mr1784920137.26.1793404395194;
-        Fri, 30 Oct 2026 16:53:15 -0700 (PDT)
-Received: from [192.168.15.16] ([2804:1b3:a2c1:77a1:91d7:81fb:defa:df94])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-992edfb5511sm4688493241.0.2026.10.30.16.53.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 16:53:14 -0700 (PDT)
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-To:
- Jon Maloy <jmaloy@redhat.com>, Tung Quang Nguyen <tung.quang.nguyen@est.tech>
-Cc: David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Subject: [PATCH net v5] tipc: raise the minimum bearer MTU to fit tunnel and
- crypto overhead
-Date: Fri, 30 Oct 2026 20:53:04 -0300
-Message-ID: <179340438471.4412.6707287163192409104@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0C8606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:54:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD0C8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
+Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay04.hostedemail.com (Postfix) with ESMTP id 6E1651A0847;
+	Fri, 30 Oct 2026 23:54:29 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf01.hostedemail.com (Postfix) with ESMTPA id 7AF4F6000C;
+	Fri, 30 Oct 2026 23:54:27 +0000 (UTC)
+Message-ID: <d3e29969aeaf10b654a3be87601adee6be89c9d6.camel@perches.com>
+Subject: Re: [PATCH] get_maintainer: lazy load JSON::PP only when --json is
+ used
+From: Joe Perches <joe@perches.com>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Sasha Levin <sashal@kernel.org>, Andrew Morton
+ <akpm@linux-foundation.org>, 	linux-kernel@vger.kernel.org
+Date: Fri, 30 Oct 2026 16:54:26 -0700
+In-Reply-To: <auUps7Hy7W0SqWw3@redhat.com>
+References: <auS7NOsyw7pJ7rbF@redhat.com>
+	 <eb8d1fb4e2a8a32ae1b71df686ed65be800e2918.camel@perches.com>
+	 <auTDEy_vyMixVRTU@redhat.com>
+	 <1ad2ae74e3257578cac561f19af63ccb94fce85a.camel@perches.com>
+	 <auUPo66ISiR2gzmi@redhat.com>
+	 <e184b73da5229fa387074fce2d977994f6464f1e.camel@perches.com>
+	 <auUgX2kp9psrvQ6x@redhat.com>
+	 <9ba498189291b99fe18d3a8ac32722495fa3227d.camel@perches.com>
+	 <auUps7Hy7W0SqWw3@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,256 +67,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Rspamd-Server: rspamout06
+X-Stat-Signature: 8ebsq91znhu96xxmkr51fojxw5s1hmkp
+X-Rspamd-Queue-Id: 7AF4F6000C
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1+ohO4d+Vsnb1gWj5oEY41PJyTT0ROUo4Y=
+X-HE-Tag: 1793404467-569245
+X-HE-Meta: U2FsdGVkX1+RgRJMIh6vpLCayKzpaeBfOafdJdCJx8fzIToukV80fRuPXs/NSyjmTYeK7ZmQetuFLlvSb2rFBPF1zsIaWZO163rZBECSUG1Q2J4rfdIwy/Bwr0POVpJKKeN9m8mZGuG4kjstJGcGFapd7LqxsbFb0tDsnuLiYPrYnL5rzSElp/JRU3gdFa4AhvCGDbmQ7xaLQDpnQp6t1QwQv97yxHRj8vWVSZXOib9A9vV5uwij7ccVWd2NirWsodQHGwBj0F85jl+P9/xkMopi9xuukQzDkPQ4PQf/sdaWRNvnzu860l6hrVElUpkM
 
-A peer can lower the link MTU to TIPC_MIN_BEARER_MTU (100 bytes, plus
-the UDP encapsulation header) with the max_pkt field of a RESET or
-ACTIVATE message; tipc_link_proto_rcv() only checks the lower bound
-returned by tipc_bearer_min_mtu().  The same bound is applied to the
-device MTU when a bearer is enabled.
+On Sat, 2026-10-31 at 00:35 +0100, Oleg Nesterov wrote:
+> On 10/30, Joe Perches wrote:
+> > On Fri, 2026-10-30 at 23:55 +0100, Oleg Nesterov wrote:
+> > > > > But why? Why make get_maintainer.pl depend on yet another module?
+> > > > > FYI, on my Fedora 44
+[]
+> > > > Module::Load is a core perl module since 5.10 and
+> > > > I think you are using a broken version of a perl installation
+>=20
+> > > And how do you think it is broken? my laptop runs the fresh Fedora 44=
+.
+> > It doesn't include perl-core ;)
+>=20
+> you can blame the Fedora maintainers, not me ;)
 
-That bound predates two later reductions of the link MSS:
+<smile>
 
-  tipc_link_mss() = mtu - INT_H_SIZE                    (tunnel header)
-                         - EMSG_OVERHEAD               (CONFIG_TIPC_CRYPTO)
+That'd be the same as blaming the Fedora maintainers
+for not including development-tools by default.
 
-With CONFIG_TIPC_CRYPTO=y, which is the default, an MTU of 100 gives an
-MSS of 28.  Once the link comes up, tipc_named_node_up() calls
-named_distribute(), which computes
+> > > I used ./scripts/get_maintainer.pl many years, almost every day, and =
+I never
+> > > needed to install the additional modules. Until ("get_maintainer: add=
+ --json
+> > > output mode")
+> >=20
+> > I think that was added in Linus' 7.2 in mid August and in -next since A=
+pril
+>=20
+> Yes, I hit this problem months ago, but didn't have time to send the fix.
 
-  msg_dsz = ((tipc_node_get_mtu() - INT_H_SIZE) / ITEM_SIZE) * ITEM_SIZE;
+Nor apparently have time to send an email to the get_maintainer
+maintainer about it either.
 
-For an MSS of 28 the subtraction is negative and the result truncates to
-0xfffffff0; for an MSS between 40 and 59 it is 0.  named_prepare_buf()
-then allocates a buffer with no room for any item (the u32 size wraps),
-and msg_rem never reaches zero, so every cluster-scope publication on
-the node is written with publ_to_item() past the end of that one skb,
-over skb_shared_info and into adjacent memory.
+> > I don't disagree with the concept of the patch.
+> Great, then perhaps you can ACK my trivial patch? Then we can discuss
+> the possible improvements.
 
-Without crypto the MSS is at least 60, which still does not hold the
-first fragment built by tipc_msg_build(): INT_H_SIZE fragment header
-plus a message header of up to MAX_H_SIZE.  With pktmax below that, the
-header copies run past the pktmax bytes allocated for the fragment.
+Maybe when it's done without needing updates.
+In the meantime, you have an easy workaround with dnf install perl-core.
 
-Raise TIPC_MIN_BEARER_MTU to MAX_H_SIZE + 2 * INT_H_SIZE so the MSS can
-always hold INT_H_SIZE + MAX_H_SIZE, which also leaves room for name
-table items, and add tipc_bearer_mtu_floor(), which adds EMSG_OVERHEAD
-on top for CONFIG_TIPC_CRYPTO=y.  Use it for the device MTU check
-(tipc_mtu_bad()), the UDP MTU check, the netlink MTU setting and
-tipc_bearer_min_mtu(), which also bounds the max_pkt negotiation.
+> > I think we understand each other fine, you just care less about the
+> > output error message.
+>=20
+> Yes, it is true in that I don't really care about the output error messag=
+e.
+>=20
+> But then again. This error message can only happen if JSON::PP is not
+> installed, and my patch doesn't make it worse?
 
-Found by manual code review and reproduced with KASAN using two network
-namespaces joined by a veth pair (see below).
-
-Fixes: fc1b6d6de220 ("tipc: introduce TIPC encryption & authentication")
-Fixes: 2320bcdae628 ("tipc: fix changeover issues due to large packet")
-Suggested-by: Tung Nguyen <tung.quang.nguyen@est.tech>
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
----
-Changes in v5:
-- Drop the Assisted-by trailer; it is deprecated, see commit 1e035297ffda
-  ("docs: remove Assisted-by references").  No code change from v4.
-  Tool-use note: this patch was prepared with LLM assistance (code review
-  and drafting); the analysis was checked and the reproducer was built and
-  run by me.
-
-Changes in v4:
-- Rebased on net/main, on top of 592d0fdb02df ("tipc: bound the device
-  MTU accepted for L2 bearers"); tipc_mtu_bad() keeps the new
-  TIPC_MAX_BEARER_MTU upper bound and only the lower bound changes.
-  No functional change otherwise.
-
-Changes in v3:
-- Keep the CONFIG_TIPC_CRYPTO dependency in one helper,
-  tipc_bearer_mtu_floor(), instead of #ifdefs at each call site, as
-  suggested by Paolo.  tipc_mtu_bad() and tipc_udp_mtu_bad() use it, so
-  tipc_mtu_bad_crypto() and the crypto.h include in udp_media.h are gone.
-  The bounds are unchanged: 172 with crypto, 140 without.
-
-Changes in v2:
-- Derive the crypto bound from EMSG_OVERHEAD instead of a hard-coded 32:
-  TIPC_MIN_BEARER_MTU_CRYPTO in crypto.h and tipc_mtu_bad_crypto(), as
-  suggested by Tung.  Drop the BUILD_BUG_ON().
-- Apply the crypto bound to the UDP MTU check and the netlink MTU
-  setting too.
-
-v4 builds cleanly on net/main with W=1, with and without
-CONFIG_TIPC_CRYPTO.  The runtime results below are from v3, retested on
-602042bf29f6 (arm64, QEMU, KASAN); the rebase does not change the
-bounds.  With the reproducer
-below (node A with 40 cluster-scope publications and MTU 1500, node B
-enabling its bearer on a veth with the given MTU):
-
-  config            peer MTU   bearer on B         link   KASAN
-  unpatched            100     enabled              up      slab-out-of-bounds
-                                                            in publ_to_item()
-  TIPC_CRYPTO=y        100     refused (too low)    -       none
-  TIPC_CRYPTO=y        171     refused (too low)    -       none
-  TIPC_CRYPTO=y        172     enabled              up      none
-  TIPC_CRYPTO=y       1500     enabled              up      none
-  TIPC_CRYPTO=n        100     refused (too low)    -       none
-  TIPC_CRYPTO=n        139     refused (too low)    -       none
-  TIPC_CRYPTO=n        140     enabled              up      none
-  TIPC_CRYPTO=n       1500     enabled              up      none
-
-The reproducer exercises the bearer-enable check; the max_pkt
-negotiation in tipc_link_proto_rcv() uses the same bound through
-tipc_bearer_min_mtu() but was not hit separately with forged messages.
-
-Reproducer (as root; build with "gcc -Wall -O2 -o pub pub.c", run
-"sh tipc_repro.sh [peer_mtu]"):
-
-pub.c:
-
-  /* Bind N TIPC services with cluster scope, then sleep. */
-  #include <linux/tipc.h>
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <sys/socket.h>
-  #include <unistd.h>
-
-  int main(int argc, char **argv)
-  {
-  	int n = argc > 1 ? atoi(argv[1]) : 40;
-  	for (int i = 0; i < n; i++) {
-  		struct sockaddr_tipc a = {
-  			.family = AF_TIPC,
-  			.addrtype = TIPC_SERVICE_RANGE,
-  			.scope = TIPC_CLUSTER_SCOPE,
-  			.addr.nameseq = { .type = 1000 + i, .lower = 0, .upper = 0 },
-  		};
-  		int s = socket(AF_TIPC, SOCK_RDM, 0);
-  		if (s < 0 || bind(s, (struct sockaddr *)&a, sizeof(a))) {
-  			perror("tipc bind");
-  			return 1;
-  		}
-  	}
-  	printf("pub: bound %d cluster-scope services\n", n);
-  	fflush(stdout);
-  	pause();
-  	return 0;
-  }
-
-tipc_repro.sh:
-
-  #!/bin/sh
-  # TIPC named_distribute() overflow reproducer.
-  # Needs root, CONFIG_TIPC=y, CONFIG_TIPC_CRYPTO=y (default), KASAN recommended.
-  # Usage: ./tipc_repro.sh [peer_mtu]   (default 100; 100..131 trigger it)
-  PEER_MTU=${1:-100}
-
-  ip netns add A
-  ip netns add B
-  ip link add va type veth peer name vb
-  ip link set va netns A
-  ip link set vb netns B
-  ip -n A link set lo up
-  ip -n B link set lo up
-  ip -n A link set va mtu 1500 up
-  ip -n B link set vb mtu "$PEER_MTU" up
-
-  # node A: 40 cluster-scope publications (any number >= 1 overflows;
-  # more publications write further past the buffer)
-  ip netns exec A ./pub 40 &
-  sleep 2
-
-  # node A uses MTU 1500, node B uses PEER_MTU; the link MTU is
-  # negotiated down to PEER_MTU, the link MSS becomes PEER_MTU - 72
-  ip netns exec A tipc bearer enable media eth dev va
-  ip netns exec B tipc bearer enable media eth dev vb
-
-  # the overflow happens in tipc_named_node_up() as soon as the link
-  # comes up (a few seconds)
-  sleep 20
-  dmesg | grep -A30 -E "KASAN|BUG:|Oops"
-
- net/tipc/bearer.c    | 17 +++++++++++++++--
- net/tipc/bearer.h    |  9 ++++++---
- net/tipc/udp_media.h |  2 +-
- 3 files changed, 22 insertions(+), 6 deletions(-)
-
-diff --git a/net/tipc/bearer.c b/net/tipc/bearer.c
-index 774f68d..8b82101 100644
---- a/net/tipc/bearer.c
-+++ b/net/tipc/bearer.c
-@@ -546,9 +546,22 @@ int tipc_bearer_mtu(struct net *net, u32 bearer_id)
- 	return mtu;
- }
-
-+/* tipc_bearer_mtu_floor - smallest bearer MTU, excluding the media
-+ * encapsulation header, that leaves room for a fragment header plus a
-+ * full message header after the link MSS reductions (see tipc_link_mss())
-+ */
-+u32 tipc_bearer_mtu_floor(void)
-+{
-+#ifdef CONFIG_TIPC_CRYPTO
-+	return TIPC_MIN_BEARER_MTU + EMSG_OVERHEAD;
-+#else
-+	return TIPC_MIN_BEARER_MTU;
-+#endif
-+}
-+
- int tipc_bearer_min_mtu(struct net *net, u32 bearer_id)
- {
--	int mtu = TIPC_MIN_BEARER_MTU;
-+	int mtu = tipc_bearer_mtu_floor();
- 	struct tipc_bearer *b;
-
- 	rcu_read_lock();
-@@ -1164,7 +1177,7 @@ int __tipc_nl_bearer_set(struct sk_buff *skb, struct genl_info *info)
- 			}
- #ifdef CONFIG_TIPC_MEDIA_UDP
- 			if (nla_get_u32(props[TIPC_NLA_PROP_MTU]) <
--			    b->encap_hlen + TIPC_MIN_BEARER_MTU) {
-+			    b->encap_hlen + tipc_bearer_mtu_floor()) {
- 				NL_SET_ERR_MSG(info->extack,
- 					       "MTU value is out-of-range");
- 				return -EINVAL;
-diff --git a/net/tipc/bearer.h b/net/tipc/bearer.h
-index f9bfcc9..72abfca 100644
---- a/net/tipc/bearer.h
-+++ b/net/tipc/bearer.h
-@@ -60,8 +60,10 @@
- #define TIPC_MEDIA_TYPE_IB	2
- #define TIPC_MEDIA_TYPE_UDP	3
-
--/* Minimum bearer MTU */
--#define TIPC_MIN_BEARER_MTU	(MAX_H_SIZE + INT_H_SIZE)
-+/* Minimum bearer MTU, not counting the crypto overhead, see
-+ * tipc_bearer_mtu_floor()
-+ */
-+#define TIPC_MIN_BEARER_MTU	(MAX_H_SIZE + 2 * INT_H_SIZE)
-
- /* Maximum bearer MTU
-  *
-@@ -241,6 +243,7 @@ void tipc_bearer_cleanup(void);
- void tipc_bearer_stop(struct net *net);
- int tipc_bearer_mtu(struct net *net, u32 bearer_id);
- int tipc_bearer_min_mtu(struct net *net, u32 bearer_id);
-+u32 tipc_bearer_mtu_floor(void);
- bool tipc_bearer_bcast_support(struct net *net, u32 bearer_id);
- void tipc_bearer_xmit_skb(struct net *net, u32 bearer_id,
- 			  struct sk_buff *skb,
-@@ -265,7 +268,7 @@ static inline void tipc_loopback_trace(struct net *net,
- /* check if device MTU is usable for tipc bearers */
- static inline bool tipc_mtu_bad(struct net_device *dev)
- {
--	if (dev->mtu >= TIPC_MIN_BEARER_MTU &&
-+	if (dev->mtu >= tipc_bearer_mtu_floor() &&
- 	    dev->mtu <= TIPC_MAX_BEARER_MTU)
- 		return false;
- 	netdev_warn(dev, "MTU not usable for tipc bearer\n");
-diff --git a/net/tipc/udp_media.h b/net/tipc/udp_media.h
-index e7455cc..030e00a 100644
---- a/net/tipc/udp_media.h
-+++ b/net/tipc/udp_media.h
-@@ -48,7 +48,7 @@ int tipc_udp_nl_dump_remoteip(struct sk_buff *skb, struct netlink_callback *cb);
- /* check if configured MTU is too low for tipc headers */
- static inline bool tipc_udp_mtu_bad(u32 mtu)
- {
--	if (mtu >= (TIPC_MIN_BEARER_MTU + sizeof(struct iphdr) +
-+	if (mtu >= (tipc_bearer_mtu_floor() + sizeof(struct iphdr) +
- 	    sizeof(struct udphdr)))
- 		return false;
-
---
-2.39.5
