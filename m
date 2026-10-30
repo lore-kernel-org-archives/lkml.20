@@ -1,75 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793349344;
-	b=CTodX7EekuSOWO//G2/oFW72t63nAX11Hr19A89uAk3lWwQhMhBqmt8PXQF+DHKekRG6
-	 WkGC9NugW+EsC84PAdxP2awWiBRowWmN9ff1ypsyH7UpVatAamBYWYD71On8gWzjAIMOh
-	 859XM0SjpAFB/lm2AZV25phNx/mWtUyMGAG8ad7BaEd6BzKK8lWyep2/Bd3kRkdhGf+nI
-	 zfMskX7OlS13JWsZ9k5H75QgoXOa7tMtZLubKwqpa1olrsGcbP5CAxt3CuwLU+A43dhBF
-	 PT/3TgUI55IfTL4V7KbJaXl+3AgZe8Fyy33JDwp+zlRFkERCBPfS4gb1J1pv8YH3Rxw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793349344;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=F0zE/6OtBk5Lv6PuQXE1z46Ii6lr5+GgEZoby1iAKkE=;
-	b=0rNCe3cGt9R1l/q+5Q1Z9hL49MctoM/3ZT1rMJb/R5FJy+ayqolvBhrIPU774HhpXYbC
-	 jJiOVUvhEjoIajyjzcF0sUlarxCO6O0oKpMlKxvGpW+Y01UMLXNNQIymtjW7nMJBI0kZT
-	 wCIAAETu4feR0tr6AIqxvI6UP0TXwVcsvv6bi4bw1q8VS83fVed5nEZoDuSBI2OL07+9W
-	 mWUGd63ss9HgdVmBpRlfNb7Qi6pTSD0ACEIUsW9/BOsZQnFuq8Iwa0F/72xQbmX+tr4Pi
-	 7CD3h2XAXZ8IXy/2Eu2Wf2G5ObbIbhPbMKC8Sk/krnBfKSySkMbu18fbYKzdV/XjrxA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=np4rAAL0;
-	arc=none smtp.remote-ip=74.125.82.70
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.8
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793349392;
+	b=V5m4ntIQkhNDKOBSNqtaYP2Q8GdsGA1S0IiYdHjUSM0YeQHqyGafkdFYKQkUKvwoafRB
+	 Yjrceegeud4uslXOk1bjubmCKzqp7pRLn09MqQIKyU9gFyF5K0LQ7Sa9ilp3RFdBz4Q+o
+	 D2T61xgcWzcM7EhIw01vpFoSKLK86hO8szQK970kyTPAqghS67cNEDaorXWu+UWg0Ulvc
+	 Pj+DANPzHBdBhBZ9QdRJcwq8CCTeX9n/FkU7aycss+/4WsRMpDysbu1UivPBW9Lq6liP9
+	 4tsX29DrfJhDvC+czgjeXP7kCjvqTVqz4q6ZBCiSFOGZcYFe3cHGFt4lRxxTGBHvz4g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793349392;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=qlNE7SOOEfmF0k7hNyTtBWE4H7TMa7AeS/GDWIKc/bM=;
+	b=VzGxChtqbJV/39KY08/fmwx+HRhcTGhzt0OjSKrUCe7G2LSmQOmt7ASN8BGWBSs/+viF
+	 h095Qgs4y6IA4sfgUhEvhZS1o0uOTWkWq3yRl7aHFtQf8JEDjl/XFHVPouRx8sAkuOFpH
+	 EPbA3MUmTl+EigldmssC1DIaOdP7jSoM0vW5OtwAMI0wQda4iiUf8zLwsXv8K78CaYaT6
+	 h972TIRdMbooiXVtkoDqNv5c7er5EveQfY0JwAKeSqEysZP2VF8ssH+emHExAyNnPRIO+
+	 ygNLX78ZUl/bm23CHSh2ELHA0rAp8wK6b6dUBZ2tOPtxRsFbr3YD5hXnU6xO2FbpWjQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=N3Rt3T9S;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.8
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012008.outbound.protection.outlook.com [52.101.48.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558E060A2613
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:35:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 558E060A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943F6606A324;
+	Fri, 30 Oct 2026 08:36:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 943F6606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=np4rAAL0
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-189d17eca17so440542c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:35:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793349343; x=1793954143; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F0zE/6OtBk5Lv6PuQXE1z46Ii6lr5+GgEZoby1iAKkE=;
-        b=np4rAAL05BI9o4Ph9yLC+Fd6SQRxeSMagH6YvsWlM99GmbEhhF9aVt6A0bIkbuOFGf
-         SJRGj0VE4TdYstPMJXTMImXRfHviH1OOKELj4KKqztPhWph/56Ev58OqowGdYPScTxHk
-         QsuUXhazBsfZI3NDpJPYqWM0jbSPqEq36KFAto6uga2BdcQP1P7AxObO00EEAOOEk9hO
-         WzgIkr9HG0ET26pI/wnOO28Y9uEPEo2WqbkWmGuoZdrj2HReOQkVgEv7hDaSWBGJ9IAl
-         rBxhWccVFjitbg6/ghoxI11i2peC0qJM4D4LbEe9gLpeao6QV8VPH0Cc1cQ0J2zof+Bn
-         Gc5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793349343; x=1793954143;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F0zE/6OtBk5Lv6PuQXE1z46Ii6lr5+GgEZoby1iAKkE=;
-        b=Un9nT9dTLT5Xj+RfpX9b6Cyjhh18/7yy9eQ4iCd94xa4pjl1mI3ZbHYpN4Hu95vxKc
-         85dgPYm4jy8li0XjYA+eJkt3hVjBrNfIiyfFj2o0vWe+O5utK0x0P/UibUKjnKopXAEm
-         L4YtRmNIYOKZ1eiPaGJhptXc1G97BL1+0FLMJar56ldb023s5chW2fA2cDiba6qqPj77
-         ss2FxBh0zV01JSk8SJSQaHtamhBoCbPXQr6Mqv4CxRWBdODK2T6pUMwzdS81takTcTCn
-         QLXyt3vQxMis99fs7RJj+IMCEO4WxRdhvhUKd55jdt8ARMm9LuoODCTH4949VrY5b7o/
-         Jvsg==
-X-Forwarded-Encrypted: i=1; AKwUvByVQRGYL58wyASOjpMGXJQ8AOdU4LnSHZEJHzhDJSKNtF7wq7CT0d6Nq0DBHGS4wbZnBTgXaLEuqIBy7Po=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvNjefdlXW2xwxTd2vqikS05E6anyp5wW85EQ28tzp8VOQUOEe
-	EULbItdN7xRE6vqFgNxBb3eGiCZscEQJSr7lCMvxW3FfkJjLH4/whEu1XcB5CRntBmQX5YMYa6J
-	Pu2N+oTYUmITgDvIAIHufPVNlCw==
-X-Received: from dlbec15.prod.google.com ([2002:a05:7022:d8f:b0:19f:9e93:9354])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7023:904:b0:168:3243:c907 with SMTP id a92af1059eb24-1ad85de518fmr460495c88.24.1793349343177;
- Fri, 30 Oct 2026 01:35:43 -0700 (PDT)
-Date: Fri, 30 Oct 2026 08:35:37 +0000
-In-Reply-To: <20261030083539.777877-1-almasrymina@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=N3Rt3T9S
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vmOWFYLPGG24Lu112GARhRWmC33WJGK5V5XrvXFRN5LkJa+//nIJ8Q1vDjsjp3I5g9LxoZDulzoyKuH9sX90zUpQdGPEMmJaomZMu4+0btVQLz2b/+kR9+jf8Dt3AOV9cJpecZAUBDds/yFDxTh/Eu0mLtl32yc95F4XHvbNxufo2kgOuXN/XvDO5Kdk3X4Joe8bbTQQ/joyqTni1R6i5yZgOfWY8xD0kASPaqNsA58VDWa7BWYE9g+A/9HbX/EDz5NK5myKyJG2V7yVs8BwjhGG8n+KPTM+DCESI7iSx+U3fLSjbgqpQqH3tMWcT3phAzqTxrlKfxEVwEEvX4PcCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qlNE7SOOEfmF0k7hNyTtBWE4H7TMa7AeS/GDWIKc/bM=;
+ b=QJeVcgZeWlpX564rOr4kGYI3Cj8B8+bwjWokOkCWXKmeAZHDPmGj1VoHWHqEkfbxwVPdO4fd44hT0x64Djd8kVbouQ9UvZSefhFkrsp0vevSPxUccqkcmAgqT8Ayetsrv0YBhudW7CKxsVxJ5GKeuScxQ09AWk1xbmrGfXXcHidzqGv8MJySMt7O0VITonrNjNpXjbzlv4GZ8KQ7GAb4RId/G+31NjMuxlV4kAhLBDnww1EplniMZZFoDCSoIGOkHKH9Dt0JEqYWv9bQxR/bSD2Wa6JQxH0p7tVT3abJsXD9HB5YIc7DF+Q/4iFvnV428FXNXC/4QkV2P68+bUs/Wg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qlNE7SOOEfmF0k7hNyTtBWE4H7TMa7AeS/GDWIKc/bM=;
+ b=N3Rt3T9S6+Sn7g4ZtgeklNAXItzQTzpULz+wNajqHwUY8yrzOvW18lvkffTsBmszoWXN8ope0OJHvobugdyV+L9H7mIsOZtDPWcWlXWiAPaj5EprGfLcG1EHhmAkZuwE9mACKLb0HfcuLBLYNuOjxCDO0urr/F11wlnWfg6cOKITTxmoKtw8xkIsdZ2skXeopw7LL770j1kXZM0VyTF87xdg+IabY2RtHa8xXVhvp1NOm4lfqHMBx5X0sPOqafFTQJaBseGPyA3IWyhw0Fp34AcVUA7wiL0P/tfQZU1WBPjQmSkMGLHvt/2ydMWMS2IW5hybmVigpwS6lqvv95S2Jg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
+ by DS0PR12MB7996.namprd12.prod.outlook.com (2603:10b6:8:14f::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 08:36:27 +0000
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8%5]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 08:36:27 +0000
+Date: Fri, 30 Oct 2026 16:36:22 +0800
+From: Richard Cheng <icheng@nvidia.com>
+To: Srirangan Madhavan <smadhavan@nvidia.com>
+Cc: Alison Schofield <alison.schofield@intel.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>, 
+	Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>, 
+	Jonathan Cameron <jic23@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>, 
+	linux-cxl@vger.kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Li Ming <ming.li@zohomail.com>, Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com, 
+	alwilliamson@nvidia.com, Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>, 
+	Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>, Jiandi An <jan@nvidia.com>, 
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v16 16/18] PCI/CXL: Expose CXL Reset as a PCI reset method
+Message-ID: <auRW9pgDBzcUFn2h@MWDK4CY14F>
+References: <20261029145703.2185231-1-smadhavan@nvidia.com>
+ <20261029145703.2185231-17-smadhavan@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029145703.2185231-17-smadhavan@nvidia.com>
+X-ClientProxiedBy: TP0P295CA0020.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:5::10) To BL0PR12MB2370.namprd12.prod.outlook.com
+ (2603:10b6:207:47::27)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,219 +102,141 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261030083539.777877-1-almasrymina@google.com>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261030083539.777877-4-almasrymina@google.com>
-Subject: [PATCH net v5 3/4] netdevsim: support devmem RX and TX bindings
-From: Mina Almasry <almasrymina@google.com>
-To: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, Paolo Abeni <pabeni@redhat.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Mina Almasry <almasrymina@google.com>, 
-	Kaiyuan Zhang <kaiyuanz@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Bobby Eshleman <bobbyeshleman@meta.com>, Pavel Begunkov <asml.silence@gmail.com>, 
-	David Wei <dw@davidwei.uk>, Taehee Yoo <ap420073@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, 
-	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Stanislav Fomichev <sdf.kernel@gmail.com>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Nikolay Aleksandrov <razor@blackwall.org>, 
-	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>, 
-	Dragos Tatulea <dtatulea@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|DS0PR12MB7996:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4f31bdc-f05c-458d-ae65-08df3660e328
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|3023799007|6133799003|18002099003|22082099003|56012099006|5023799004|11063799006|4143699003|261026121527099003|10067099003|261021123027099003|261021121427099003|261022075727099003|261009223027099003|260925022911599003|260925021911599003|260925021311599003;
+X-Microsoft-Antispam-Message-Info:
+	I9PbuvDN8ou1r+iXWCJqDJ62xcKOgjV2REEE6MS9I9zp4KWq2DV3Jn4SJYz8ruIMM7BZoRMj2j61tRRJWYxYhb3ncihz/Squ+S2wiwoM8UwBHWMjmdlCoOJMao28VnCfqSY6vnxTXjKM3p14w61md4SLMl3WEUMW7xwalVze3zq81WYaOF3aDTW+VTYeV+9rFCvFOjY5LfNuq5Z2LV93cDuzFbp/iEROML/PiU7uAdUtRz9dBaIduz14C6/Mxk+gbVTvsE8vNL0zkZ2XJjIcePcdJDxD/3q76InkXuAd6RlqIx+lePF1MEStI6gA5DzSXH8jxVtH3N8ctSWWL9XKzZFD2nLKYKzd2colOYM3/zZzL1Mb7kLImGG60EKSONaQXt4XAO+4nLr2SH/BzNk3aKJ6kfDT3317SRC4VqUgFXF0o12K8MqwhkGXdZt2TzsPshcxEvm1cJYaJGAb1ph9LU3QCAJaerdNpo1FTckTTgBivl7u9lVrqs3W5ezTqGCa687tl6soL8e8JR6OfdmALnCAEg6fG+duGZNw/yekyiF6VGvMBagDZfGmxVOtxok0UWic3uMzYTpzRihO18z4OBosCe7OohMW2l8JmzUhkZwfelK2JvJrvsRxQ+pJBS+iVcE6ATVWog2ZeuOcjk3dvUB3M4Woiau/E/OU2q26PLg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(3023799007)(6133799003)(18002099003)(22082099003)(56012099006)(5023799004)(11063799006)(4143699003)(261026121527099003)(10067099003)(261021123027099003)(261021121427099003)(261022075727099003)(261009223027099003)(260925022911599003)(260925021911599003)(260925021311599003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?dsX8ety4Fdx4qtZkeCxm5OtnpU7G37E2pgpGZKNEJAzXmtkc65iC+qFWTSMH?=
+ =?us-ascii?Q?KNhGeXcU0OifS2gf/KgCMDuzI9PEljql5VYd4l9jdDLpFW7CAJPAIopAdq8O?=
+ =?us-ascii?Q?nXw3npvZSXmuy7Wer4dR2sCCdG86uIB0VwfnHQy55IKDDWirKYBLMCsjCLX5?=
+ =?us-ascii?Q?E5fXgxJmlEBsQ+zKeNu+pD+v9MjHj7hJjLVdTIrwu4SqnIi3tZF3dq8eXRhH?=
+ =?us-ascii?Q?74nwVbMipRSRLEfI3voMSvDcELqDuaR2YnyWTMeKaEIVRud7mCMJqnXdvARA?=
+ =?us-ascii?Q?JGlHMJ0BCPl0gdn1aEknZNdD5JzwRFYqVuMzhw98XVavwaEqJbJZf8CmgE/d?=
+ =?us-ascii?Q?k9dHVL7ALZuFl6CTnjzrItYJIVuhS/FFE9yixjzrQhGjdnEdmiolH7MtB9W+?=
+ =?us-ascii?Q?G2FgU2VG4VtHCnoDUoxLtDuMCelFtJlOvQ+c25mr3iZhgCTxHG7gp7FfAMDz?=
+ =?us-ascii?Q?4oAqfEQfUfwond/hdfMbU/4ebYoSlOQ7wnZaIbAixLyBjRZrdAhRUiV3f8UO?=
+ =?us-ascii?Q?JhwjffZcgfHq7r1GZV1lrvGcvjsyF3kDBcYATRnPiOucpUqQItNWyUByyhPO?=
+ =?us-ascii?Q?7KHSjUnZQFUcB9cAc5RaXEurOU+Tp89SPc8+6KbPm2TAegEPGSELsYfU9NY8?=
+ =?us-ascii?Q?F5WsVxc1AK08nXwwLSddaINZP56pqonkULALwpWHdQd4pTOMEdqZRf4a5X00?=
+ =?us-ascii?Q?euuOSgMBLP/ZyB2Ph59Pc9Zd0b+ExQMkbH+m8C+B32pJBHMBiE33fge/qELc?=
+ =?us-ascii?Q?pjHT6G6ap71mhxTZeax3wiVjBbJ7gHnDZIhNoC0EcHfA2FHASQJbkieYDr9A?=
+ =?us-ascii?Q?d/Ua8iS3h8QDFlOz06guB3jdq3T6/ym6z5V4iUQga53eNi+pViGH28T2/sJM?=
+ =?us-ascii?Q?A92H5XPwQFv+/3y0rPgO/oP6y+S8yUHuYNWKxOPvfs2djT8G7yth5/3rf1mQ?=
+ =?us-ascii?Q?FLrZl856euVgYmXjqyeDV2btkP0jR2MRtIbFPcKvcTQov6E9HNnXiH+tn8ub?=
+ =?us-ascii?Q?FdyY4E8er2tjOvICaQDheQJ8Go7eonP+St3kWibdDRD0dQ4VspUZWY+D/Zaz?=
+ =?us-ascii?Q?ETvmaA+aMRka/apMkmX6CEyB1zwnF4Tk6tVuqAQzRDyVdW3mAY3crRaXVqYZ?=
+ =?us-ascii?Q?M24DjufdqqTcNSxmXT4daDqfvEgGTG5/8AnVf0v1avK87xl+yjEryrMr+8Q3?=
+ =?us-ascii?Q?fHbrpafMPXbU9DbvsyjInb69ttTgjWmcup+ZCMZi03aU5GfSOifplcXuxTbp?=
+ =?us-ascii?Q?2Wup53cY6NQcc78kVmsw0LEGw4to17EM41+pfALL2HNpSCkaroihtalfSI0B?=
+ =?us-ascii?Q?IStHhmdm6Diq7TGEl830qz1utOvxB1/6YBqjgnHZUlNZRqfeGircrAcYuFvu?=
+ =?us-ascii?Q?u+N5p29Wffh2FbB06nqapSSxnmll3PlOIn131l01+n6qMsSkY3SMQoOtQckA?=
+ =?us-ascii?Q?MG9XAz/CSsCqepiij6WcEUFnCpl7UxxLWsr3doV/ONiMncmWYixe7NSy3JoG?=
+ =?us-ascii?Q?ybiSKUxhtsdLX7llliWLeiZP1Fy4pYhb1wtZIit2ffQmp3dFnPsCYaqNyjty?=
+ =?us-ascii?Q?TlIoYhxReB8XGdx+BWr7TqE1SifNQOuqbAJf64Knbg7dxkbIIfR5FG9B2+KB?=
+ =?us-ascii?Q?ZuQuAVc0cOUXX6/afSnQSTJQ+t7grWZnLsWnn8wFus11jMkMBviC2jWIpMX7?=
+ =?us-ascii?Q?3xSjVBpOQHLvT0a5jV91a7Z/vxKP/DHbUXEl4D+t7vB5zO/l9Mt+KyFnCMV1?=
+ =?us-ascii?Q?JRUB8dyJig=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4f31bdc-f05c-458d-ae65-08df3660e328
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 08:36:27.0464
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DyhlpdQmDaiXJF5mS4ZSeQ5+AdwMNWmzDtjSHumIOzPSNEFCo23OngIzunuASPHASajxNTSSW4lnHWcUa1KV8g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7996
 
-Set a 64-bit DMA mask and UINT_MAX max segment size on nsim_bus_dev in
-nsim_bus_probe() when direct DMA mapping is supported, enable
-NETMEM_TX_DMA on the netdevsim net_device, and configure page_pool
-instances with PP_FLAG_ALLOW_UNREADABLE_NETMEM and queue_idx, plus
-PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV when a DMA mask and
-PP_DMA_INDEX_BITS are available, so devmem bind-rx and bind-tx netlink
-operations can be tested against netdevsim in software selftests.
+On Thu, Oct 29, 2026 at 02:57:01PM +0800, Srirangan Madhavan wrote:
+> Register cxl_reset with the PCI reset-method interface and place it before
+> FLR, which does not reset CXL.cache or CXL.mem protocol state.
+> 
+> Return -ENOTTY when device capabilities, function scope, cached HDM state,
+> or required cache synchronization do not permit a safe reset.
+> 
+> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
 
-The pp_hold debugfs file allocates pages from the queue 0 page pool, so
-refuse it when that pool is absent or backed by a memory provider, and
-take the netdev instance lock there so a concurrent bind-rx cannot swap
-the pool in between. Since netdevsim forwards TX skbs in software
-without a DMA engine, drop unreadable or net_iov skbs in
-nsim_start_xmit().
+Reviewed-by: Richard Cheng <icheng@nvidia.com>
 
-Cc: Tariq Toukan <tariqt@nvidia.com>
-Cc: Kaifeng Wang <kaifengw@google.com>
-Signed-off-by: Mina Almasry <almasrymina@google.com>
-Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
----
-v5:
-- Configure the DMA mask and dma_parms in nsim_bus_probe() gated on
-  dma_pci_p2pdma_supported(), and require PP_DMA_INDEX_BITS before
-  setting PP_FLAG_DMA_MAP so page_pool_scrub() can unmap inflight pages
-  on 32-bit builds (Sashiko).
-- Check for NULL ns->rq in nsim_pp_hold_write() and drop unreadable or
-  net_iov skbs at the start of nsim_start_xmit() (Sashiko).
-
-v3:
-- Only request page pool DMA mapping when CONFIG_HAS_DMA is set
-  (Sashiko).
-- Refuse pp_hold on a page pool backed by a memory provider, under the
-  netdev instance lock (Sashiko).
-- Drop unreadable skbs in the software PSP path when it would have to
-  checksum the payload (Sashiko).
----
- drivers/net/netdevsim/bus.c       |  9 +++++++++
- drivers/net/netdevsim/netdev.c    | 33 +++++++++++++++++++++++++------
- drivers/net/netdevsim/netdevsim.h |  1 +
- 3 files changed, 37 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
-index b792ee10b1c1a..5f8f0c2f76939 100644
---- a/drivers/net/netdevsim/bus.c
-+++ b/drivers/net/netdevsim/bus.c
-@@ -5,6 +5,7 @@
- 
- #include <linux/completion.h>
- #include <linux/device.h>
-+#include <linux/dma-mapping.h>
- #include <linux/idr.h>
- #include <linux/kernel.h>
- #include <linux/list.h>
-@@ -416,6 +417,14 @@ static int nsim_bus_probe(struct device *dev)
- {
- 	struct nsim_bus_dev *nsim_bus_dev = to_nsim_bus_dev(dev);
- 
-+	if (dma_pci_p2pdma_supported(dev) &&
-+	    !dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(64))) {
-+		dev->dma_parms = &nsim_bus_dev->dma_parms;
-+		dma_set_max_seg_size(dev, UINT_MAX);
-+	} else {
-+		dev->dma_mask = NULL;
-+	}
-+
- 	return nsim_drv_probe(nsim_bus_dev);
- }
- 
-diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
-index eebc02ccc4a92..0372a9bd63bbb 100644
---- a/drivers/net/netdevsim/netdev.c
-+++ b/drivers/net/netdevsim/netdev.c
-@@ -133,6 +133,10 @@ static netdev_tx_t nsim_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 	int dr;
- 
- 	rcu_read_lock();
-+	if (!skb_frags_readable(skb) ||
-+	    (skb_shinfo(skb)->nr_frags &&
-+	     skb_frag_is_net_iov(&skb_shinfo(skb)->frags[0])))
-+		goto out_drop_any;
- 	if (!nsim_ipsec_tx(ns, skb))
- 		goto out_drop_any;
- 
-@@ -422,19 +426,27 @@ static int nsim_poll(struct napi_struct *napi, int budget)
- 	return done;
- }
- 
--static int nsim_create_page_pool(struct page_pool **p, struct napi_struct *napi)
-+static int nsim_create_page_pool(struct net_device *dev, struct page_pool **p,
-+				 struct napi_struct *napi, int idx)
- {
-+	struct netdevsim *ns = netdev_priv(dev);
- 	struct page_pool_params params = {
- 		.order = 0,
- 		.pool_size = NSIM_RING_SIZE,
-+		.flags = PP_FLAG_ALLOW_UNREADABLE_NETMEM,
-+		.max_len = PAGE_SIZE,
- 		.nid = NUMA_NO_NODE,
--		.dev = &napi->dev->dev,
-+		.dev = &ns->nsim_bus_dev->dev,
- 		.napi = napi,
- 		.dma_dir = DMA_BIDIRECTIONAL,
--		.netdev = napi->dev,
-+		.netdev = dev,
-+		.queue_idx = idx,
- 	};
- 	struct page_pool *pool;
- 
-+	if (ns->nsim_bus_dev->dev.dma_mask && PP_DMA_INDEX_BITS)
-+		params.flags |= PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV;
-+
- 	pool = page_pool_create(&params);
- 	if (IS_ERR(pool))
- 		return PTR_ERR(pool);
-@@ -458,7 +470,7 @@ static int nsim_init_napi(struct netdevsim *ns)
- 	for (i = 0; i < dev->num_rx_queues; i++) {
- 		rq = ns->rq[i];
- 
--		err = nsim_create_page_pool(&rq->page_pool, &rq->napi);
-+		err = nsim_create_page_pool(dev, &rq->page_pool, &rq->napi, i);
- 		if (err)
- 			goto err_pp_destroy;
- 	}
-@@ -770,14 +782,16 @@ nsim_queue_mem_alloc(struct net_device *dev,
- 	if (ns->rq_reset_mode == 1) {
- 		if (!netif_running(ns->netdev))
- 			return -ENETDOWN;
--		return nsim_create_page_pool(&qmem->pp, &ns->rq[idx]->napi);
-+		return nsim_create_page_pool(dev, &qmem->pp,
-+					     &ns->rq[idx]->napi, idx);
- 	}
- 
- 	qmem->rq = nsim_queue_alloc();
- 	if (!qmem->rq)
- 		return -ENOMEM;
- 
--	err = nsim_create_page_pool(&qmem->rq->page_pool, &qmem->rq->napi);
-+	err = nsim_create_page_pool(dev, &qmem->rq->page_pool, &qmem->rq->napi,
-+				    idx);
- 	if (err)
- 		goto err_free;
- 
-@@ -937,12 +951,16 @@ nsim_pp_hold_write(struct file *file, const char __user *data,
- 		return ret;
- 
- 	rtnl_lock();
-+	netdev_lock(ns->netdev);
- 	ret = count;
- 	if (val == !!ns->page)
- 		goto exit;
- 
- 	if (!netif_running(ns->netdev) && val) {
- 		ret = -ENETDOWN;
-+	} else if (val && (!ns->rq ||
-+			   page_pool_is_unreadable(ns->rq[0]->page_pool))) {
-+		ret = -EOPNOTSUPP;
- 	} else if (val) {
- 		ns->page = page_pool_dev_alloc_pages(ns->rq[0]->page_pool);
- 		if (!ns->page)
-@@ -954,6 +972,7 @@ nsim_pp_hold_write(struct file *file, const char __user *data,
- 	}
- 
- exit:
-+	netdev_unlock(ns->netdev);
- 	rtnl_unlock();
- 	return ret;
- }
-@@ -1059,6 +1078,8 @@ static int nsim_init_netdevsim(struct netdevsim *ns)
- 	ns->netdev->netdev_ops = &nsim_netdev_ops;
- 	ns->netdev->stat_ops = &nsim_stat_ops;
- 	ns->netdev->queue_mgmt_ops = &nsim_queue_mgmt_ops;
-+	if (ns->nsim_bus_dev->dev.dma_mask)
-+		ns->netdev->netmem_tx = NETMEM_TX_DMA;
- 	netdev_lockdep_set_classes(ns->netdev);
- 
- 	err = nsim_udp_tunnels_info_create(ns->nsim_dev, ns->netdev);
-diff --git a/drivers/net/netdevsim/netdevsim.h b/drivers/net/netdevsim/netdevsim.h
-index fd5599cd3bb9f..2aa7ea924396e 100644
---- a/drivers/net/netdevsim/netdevsim.h
-+++ b/drivers/net/netdevsim/netdevsim.h
-@@ -476,6 +476,7 @@ int nsim_setup_tc(struct net_device *dev, enum tc_setup_type type,
- #define NSIM_BUS_DEV_MAX_VFS 4
- struct nsim_bus_dev {
- 	struct device dev;
-+	struct device_dma_parameters dma_parms;
- 	struct list_head list;
- 	unsigned int port_count;
- 	unsigned int num_queues; /* Number of queues for each port on this bus */
--- 
-2.56.0.385.gac671c819a-goog
-
+> ---
+>  drivers/pci/cxl.c   | 12 +++++++++---
+>  drivers/pci/pci.c   |  1 +
+>  include/linux/pci.h |  2 +-
+>  3 files changed, 11 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/pci/cxl.c b/drivers/pci/cxl.c
+> index 58bbd5b47539..0c4ac0832b34 100644
+> --- a/drivers/pci/cxl.c
+> +++ b/drivers/pci/cxl.c
+> @@ -672,7 +672,7 @@ int cxl_reset_function(struct pci_dev *pdev, bool probe)
+>  
+>  	rc = cxl_pci_device_dvsec(pdev, &dvsec, &cap);
+>  	if (rc)
+> -		return rc;
+> +		return probe ? -ENOTTY : rc;
+>  	if (!(cap & PCI_DVSEC_CXL_CACHE_CAPABLE) ||
+>  	    !(cap & PCI_DVSEC_CXL_MEM_CAPABLE) ||
+>  	    !(cap & PCI_DVSEC_CXL_RST_CAPABLE) ||
+> @@ -681,9 +681,9 @@ int cxl_reset_function(struct pci_dev *pdev, bool probe)
+>  
+>  	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL, &ctrl);
+>  	if (rc)
+> -		return pcibios_err_to_errno(rc);
+> +		return probe ? -ENOTTY : pcibios_err_to_errno(rc);
+>  	if (PCI_POSSIBLE_ERROR(ctrl))
+> -		return -ENODEV;
+> +		return probe ? -ENOTTY : -ENODEV;
+>  	if (!(ctrl & PCI_DVSEC_CXL_CACHE_ENABLE) ||
+>  	    !(ctrl & PCI_DVSEC_CXL_MEM_ENABLE))
+>  		return -ENOTTY;
+> @@ -706,5 +706,11 @@ int cxl_reset_function(struct pci_dev *pdev, bool probe)
+>  	    !IS_ENABLED(CONFIG_CXL_REGION_INVALIDATION_TEST))
+>  		return -ENOTTY;
+>  
+> +	/* Raw reset callers may not have saved the PCI state needed for restore. */
+> +	if (!pdev->state_saved) {
+> +		pci_err(pdev, "CXL reset requires saved PCI state\n");
+> +		return -EINVAL;
+> +	}
+> +
+>  	return cxl_reset_execute(pdev, dvsec, cap);
+>  }
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index 9031060423cc..f5990d6cc51b 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -5148,6 +5148,7 @@ const struct pci_reset_fn_method pci_reset_fn_methods[] = {
+>  	{ },
+>  	{ pci_dev_specific_reset, .name = "device_specific" },
+>  	{ pci_dev_acpi_reset, .name = "acpi" },
+> +	{ cxl_reset_function, .name = "cxl_reset" },
+>  	{ pcie_reset_flr, .name = "flr" },
+>  	{ pci_af_flr, .name = "af_flr" },
+>  	{ pci_pm_reset, .name = "pm" },
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index 7bb37fcb556d..743b57ff885a 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -52,7 +52,7 @@
+>  			       PCI_STATUS_PARITY)
+>  
+>  /* Number of reset methods used in pci_reset_fn_methods array in pci.c */
+> -#define PCI_NUM_RESET_METHODS 8
+> +#define PCI_NUM_RESET_METHODS 9
+>  
+>  #define PCI_RESET_PROBE		true
+>  #define PCI_RESET_DO_RESET	false
+> -- 
+> 2.43.0
+> 
