@@ -1,102 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793371766;
-	b=S2VMEQocpvILXDLKESbmqLBCG3kca0vfCqDqGIlOnRyN5M/qNDHd8+TH9q2zP9Ky38Hu
-	 4acLydBrKpdxFekOIvVf9D/KFGoqQk8I4285gI+DDTfzU9ty/PgJ3/ZJrmPZ9gvIJaWJv
-	 RNSBEl9KdPD0U3GKtsVIUq6IZZHu5L+pm4R/R3ztlft5OLrGs1NbfrUpA0DQoShWqsmFO
-	 7d6eVUDe83zNpmKrs66uA0TM1bkrVQSdLiyiSc2WbP0tiChJgiCoJXmgQBNKvo5VUB29u
-	 Kz2zXoVXji+Yrb6TUANSIBRMgbmM5qdxeNz5u4MEJTVNMKypwDplmK89AJT5YNBdLAA==
+	t=1793371775;
+	b=Dn8gh1E7c07saBwshGy1C6GT4C6cwcIig4Ttq7hA2s4IU7WqQrZenLibXaYWP46i7IVJ
+	 DmmqhsOSSmCjaHVtMm9dmbkPK70a1BDPNOIzVymuwwx2rkP2UmXoezwCnMzoXFVUlBVWP
+	 VJzdQ32jyf+DvkVHk56Gx6b7+Su298J60e6JkmAzEwft5Emq52+nFBuD28JP0rQLObsG2
+	 O+pJt7E2NewZtuNP69E0SjDVLIC5SkbgHG0Rbgd+fQ2w3OSobaOEM933bQpz8+pIWFYH8
+	 uZGNPI1oMefoytJMvckahZOR4GQxSZ/ANqugVzsQeyXPwVJ/i+cba72xoS7U7G+yROA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371766;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=HEHKW4LBT6GpwoTEpcbAbsyC2GPR8DDtx+QfBPo6gbI=;
-	b=kYy3H2NOXKtHDRaR7PL+3vjjWWNg42+YtiaPiEDNWPWY8KWRjZPYnaa/rtVTvEH1yQdG
-	 lHgbx/hEXt9EfrZpexVcwlE8sQUotZTZXxI+Od6oWAwJoigosJU/4KfHNmkhOHv8saYxr
-	 5pgfaA+7CP1tIFChukl3cEpry6j6gwRmQUsiFzOIOgij+w0EGYJwKFLkiuHFsrZN3AOow
-	 6Q+mTorj5zVURd6C+t2q/IyRoWFUJ+L1QnFE8N7liGzYxaMzWE0uIEjK0p8wkHSTDRcLX
-	 IyxY5M8zLNuiK+O559xGeDyova+RkyBLTrU06p/LZ6I6dwjc/IOGPL5QUo+hCsVOipQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793371775;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=OWpSvmLxVyjHJDnY/ic5oIn7pg4FjtluY41trfB4Ge0=;
+	b=CddsXqTbA3ugoNj7QdO95vEDg3pGT0qQ6BBWO/X7Y9Omc1mwtpBejg/H1m1WMpaTRYfy
+	 z6Uig1SSk83KxciqxY/VVR2f0Ip0c57E1QB4YD3IHRekmPvJJnw34HaaOaKcRIrfD9MCo
+	 TdH6v14ZMmRz9BYjR37kCj9lATRtC1FI5Bj1dzMAmV2A/k2eFpKyKdvw4ms+QE16ii+D1
+	 d3JyVdJGgHCggDdsvVEIHJ7DyLn2iESKG463WaORj9rsKRcQIxWy2tVKVajlf4uRP0f4g
+	 fCfSU02oepJk0wno/ApsE9iRkFn22BLlGpCD07QwGS9ekwhoaEsGm9cHcVctrLDGhUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ExggUzQ4;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=S6c4AqG7;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802AA606A31A;
-	Fri, 30 Oct 2026 14:49:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 802AA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90C6606A31A;
+	Fri, 30 Oct 2026 14:49:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C90C6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ExggUzQ4
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UEiNBi3396324;
-	Fri, 30 Oct 2026 14:48:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=HEHKW4LBT6GpwoTEpcbAbsyC2GPR8D
-	Dtx+QfBPo6gbI=; b=ExggUzQ455ydNTjuXERdQK9pJ5iTVLioyncMYKtaMrybI6
-	krGz53pMUesedVdfoSwrjfyPFN6oKtLJ9ZGSc6iL6qdxumYmBDC53vPEnudKaHv7
-	ymcnCFyMC7J+0pWxlYcBqIeK0xL5Z/9YzRGeSHdJ6yt7M3KM5utOvyLsWcKlRXcF
-	yEHSvxiNs8gr20+K59YSPCoH6Bsi/Qm8mTA/OrqwXkpguyWfsWkKRySnaBj+fjZY
-	gasiwKpQjKQZBIjrcRsE6shxU/5OSa3YS9rziGJQij26td/8OPz7JnoUzaAZC1iQ
-	8CB0BpLwyIXpKLthffDo9so7x8Bqsy+nL7Fptlrw==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hmeay399t-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 14:48:50 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69UEZ5nw649967;
-	Fri, 30 Oct 2026 14:48:49 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hm69e50qj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 14:48:49 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69UEmjGw30737002
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 30 Oct 2026 14:48:45 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0E9BE2004B;
-	Fri, 30 Oct 2026 14:48:45 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 69B4D20040;
-	Fri, 30 Oct 2026 14:48:38 +0000 (GMT)
-Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com (unknown [9.124.208.227])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri, 30 Oct 2026 14:48:38 +0000 (GMT)
-Date: Fri, 30 Oct 2026 20:18:35 +0530
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-        Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
-        Huacai Chen <chenhuacai@kernel.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
-        Paolo Bonzini <pbonzini@redhat.com>, Fuad Tabba <fuad.tabba@linux.dev>,
-        Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Zenghui Yu <yuzenghui@huawei.com>, Nicholas Piggin <npiggin@gmail.com>,
-        Atish Patra <atish.patra@linux.dev>, Alexandre Ghiti <alex@ghiti.fr>,
-        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-        kvm@vger.kernel.org, loongarch@lists.linux.dev,
-        linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
-        linux-kernel@vger.kernel.org, Stefan Teodorescu <fane@google.com>
-Subject: Re: [PATCH 3/7] KVM: PPC: Explicitly force IPIs when directly
- kicking vCPUs
-Message-ID: <auStM0rbFol79h5o@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
-References: <20261028190259.1819571-1-seanjc@google.com>
- <20261028190259.1819571-4-seanjc@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=S6c4AqG7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793371774; x=1824907774;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=Doet1d1G+yKl57wfrg8ykSXvOY8cnDtwrnTipp+LGBY=;
+  b=S6c4AqG7VGEUBjg7kt9PgUAAU+In/yLbd78fxPV1KnAKOL5RAkNAlEkL
+   YQDlaInq1U+VBoFtkTCrkaoLPKQSNT4ulSa9qRuWKfVw9AyXytT1/q1yu
+   +j+kO8lsrDb+4PjFyIh/PF4bLV9JbL8y6IHZxWVhLMhVbARZa4TNzmXOF
+   +LcYqn0zjBtSxSe9XQB8ixUwhl4MePWsfV3RyOgEjA3ozbtiTBwVki7XR
+   wO0tCTWkpbLmsdJaTlAbPmSUXZm+y5fWBEGLzj8c5csbu6Q0Rd5jR2mZ1
+   uma6PtGhpEb1/T/xj3BUlIdiF/wfwcmGfu8UvgbzhEanneWWSssuEaGXj
+   A==;
+X-CSE-ConnectionGUID: 3zQLst2AQu6UWno95qlRqg==
+X-CSE-MsgGUID: ZVfxr2dRQMe9yukAtsibWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2165495"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2165495"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 07:49:33 -0700
+X-CSE-ConnectionGUID: Whl9C6Q1RimU+yAJRoGDNQ==
+X-CSE-MsgGUID: Xbttx0NnQ+i6/lThYFFfqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="7280422"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.32])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 07:49:27 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 30 Oct 2026 16:49:23 +0200 (EET)
+To: Denis Benato <denis.benato@linux.dev>
+cc: LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
+    linux-input@vger.kernel.org, kernel@lists.opengamingcollective.org, 
+    Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
+    "Luke D . Jones" <luke@ljones.dev>, 
+    Mateusz Schwartz <matthew.schwartz@linux.dev>, 
+    Denis Benato <benato.denis96@gmail.com>, 
+    Jonathan LoBue <jlobue10@gmail.com>, 
+    Khamunetri Clark <khamunetriclark@gmail.com>, 
+    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+    Joshua Leivenzon <hacker1024@users.sourceforge.net>, 
+    Nathan Chancellor <nathan@kernel.org>, 
+    =?ISO-8859-15?Q?Rebecca_Mara_M=FCller?= <rebecca.mara@posteo.de>, 
+    Ivan Levchenko <me@livan.pro>, Corentin Chary <corentin.chary@gmail.com>, 
+    Hans de Goede <hansg@kernel.org>
+Subject: Re: [PATCH v11 07/18] HID: asus: add support for response curve
+In-Reply-To: <6361f6a6-3cfb-4eaf-babf-be548f28f2c0@linux.dev>
+Message-ID: <731ec199-d121-e16d-c112-0694555b41bc@linux.intel.com>
+References: <20261025235232.129945-1-denis.benato@linux.dev> <20261025235232.129945-8-denis.benato@linux.dev> <7688fc40-c439-005f-6a78-efdc39356694@linux.intel.com> <6361f6a6-3cfb-4eaf-babf-be548f28f2c0@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,87 +90,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028190259.1819571-4-seanjc@google.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1OCBTYWx0ZWRfX231ITCmOe99R
- dfESFyd3RUHjMlk75/eFc/1OXzNu84c9omPa7EIxtAYWLGJA9eAO3zzjK7VTQa9llnkJXi4gWU8
- r/unyeMYxDjuR+cWiyOnVdmS7GG+HF21UyJwsDX2Xub75Vlm2pm0bctwtvWSinYL1jvetutMT9u
- syV9gMRp2C27a9ai2jX5gVTbQI0zWTEnKBPJsAESqMw35ihGvBQsvADDXhk3kK6RJKPFkGzUu/R
- 8hbWWaTe5yOXFUonP/DisFXU6OHDNrpGGIOnidy7knS9ossfiCuv+PjkyxIdfgZNrxB3ogLWnb/
- wIJApNH46JPjtF8WaAFMzRRJRq4ipRnblJwCI0gUhomM9spjDCQUvGpKUJceKZB8VwfgH+dzVOz
- eTTsRDooCRzKNdGwyScusI3QLV5OU6ngYDGXyI76iB5Vyotd+IKq7x3NvGErCC7qtLRge/dkbPg
- 7yc+RWco6LUsGg+cWpw==
-X-Authority-Analysis: v=2.4 cv=WJHqzXsR c=1 sm=1 tr=0 ts=6ae4ae52 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=1XWaLZrsAAAA:8 a=1goJhm9fjgf-yEZC_jsA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: Zln3Uvbt51spdXgJNma7nXq9r9SgUHNe
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1OCBTYWx0ZWRfX7S7KOd9POaV1
- Em+dt+hSOwRtH43TAR/rRI11q7Tee1s+P5cCU6Nfy9sKiFGQWrAn7ONzOJvQd/a2ydad09/AQ7n
- DooPLMaRQuyB21j0hWOf5aPFwNJGtms=
-X-Proofpoint-GUID: OIZDK0-t9uUR5jTdFJ0BXTWF-ze0VlkH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 spamscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
- bulkscore=0 impostorscore=0 malwarescore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300058
+Content-Type: multipart/mixed; boundary="8323328-2019838273-1793371763=:1187"
 
-On Wed, Oct 28, 2026 at 12:02:55PM -0700, Sean Christopherson wrote:
-> Explicitly force an IPI when invoking kvm_vcpu_kick() directly instead of
-> relying on kvm_arch_vcpu_should_kick() to unconditionally return 1/true.
-> This will allow dropping kvm_arch_vcpu_should_kick() in favor of
-> kvm_request_needs_ipi().
-> 
-> No functional change intended (1 || 1 == true).
-> 
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  arch/powerpc/include/asm/kvm_ppc.h | 13 ++++++++++++-
->  arch/powerpc/kvm/book3s.c          |  4 ++--
->  arch/powerpc/kvm/book3s_pr.c       |  2 +-
->  arch/powerpc/kvm/booke.c           |  6 +++---
->  arch/powerpc/kvm/e500_emulate.c    |  2 +-
->  arch/powerpc/kvm/powerpc.c         |  2 +-
->  6 files changed, 20 insertions(+), 9 deletions(-)
-> 
-> diff --git a/arch/powerpc/include/asm/kvm_ppc.h b/arch/powerpc/include/asm/kvm_ppc.h
-> index 169ea6a7fbad..bbe7378ad0ef 100644
-> --- a/arch/powerpc/include/asm/kvm_ppc.h
-> +++ b/arch/powerpc/include/asm/kvm_ppc.h
-> @@ -30,6 +30,17 @@
->  #endif
->  #include <asm/inst.h>
->  
-> +/*
-> + * TODO: For unknown reasons, KVM PPC has historically ignored vcpu->mode when
-> + *       determining if kicking a vCPU needs an IPI.  Either document why that
-> + *       behavior is necessary, or drop this helper and the @force param from
-> + *       __kvm_vcpu_kick().
-> + */
-> +static inline void kvmppc_vcpu_kick(struct kvm_vcpu *vcpu)
-> +{
-> +	__kvm_vcpu_kick(vcpu, false, true);
-> +}
-> +
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-AFAICS, there is no reason for PPC to always return 1. I was looking at
-the old patches on mailing list and found this - https://lore.kernel.org/kvm/0FEE585F-5E21-47F2-A3F0-AD0DE05EBB43@suse.de
+--8323328-2019838273-1793371763=:1187
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-```
-How about we return 1 for kvm_arch_vcpu_in_guest_mode() on !x86 always, just like it's done today basically? Then we can
-worry about needless IPIs later and don't regress from the respective current kick implementations.
-```
+On Fri, 30 Oct 2026, Denis Benato wrote:
 
-However, I'll do some testing and get back by mid next week to make sure
-there are no suprises.
+>=20
+> On 10/26/26 14:06, Ilpo J=C3=A4rvinen wrote:
+> > On Sun, 25 Oct 2026, Denis Benato wrote:
+> >
+> >> ROG ally devices allows configuring the response curve of both joystic=
+ks,
+> >> therefore add the ability of userspace to modify the response curve by
+> >> exposing relevant sysfs attributes.
+> >>
+> >> Signed-off-by: Denis Benato <denis.benato@linux.dev>
+> >> Signed-off-by: Luke Jones <luke@ljones.dev>
+> >> ---
+> >>  drivers/hid/hid-asus.c | 297 ++++++++++++++++++++++++++++++++++++++++=
+-
+> >>  1 file changed, 294 insertions(+), 3 deletions(-)
+> >>
+> >> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+> >> index b4bc89ec28bc..e1883ee20413 100644
+> >> --- a/drivers/hid/hid-asus.c
+> >> +++ b/drivers/hid/hid-asus.c
+> >> @@ -22,6 +22,7 @@
+> >> =20
+> >>  #include <linux/acpi.h>
+> >>  #include <linux/cleanup.h>
+> >> +#include <linux/ctype.h>
+> >>  #include <linux/device.h>
+> >>  #include <linux/dmi.h>
+> >>  #include <linux/hid.h>
+> >> @@ -185,6 +186,18 @@ struct asus_touchpad_info {
+> >>  =09int report_size;
+> >>  };
+> >> =20
+> >> +struct ally_joystick_resp_curve_param {
+> >> +=09u8 move;
+> >> +=09u8 resp;
+> >> +} __packed;
+> > Add include (if I didn't mentioned it already with some earlier patch,
+> > I don't recall anymore :-)).
+>=20
+> Which one? I only see drivers either not including it directly or highly =
+hardware-coupled including the one
+> for the architecture, what about a driver that must work for x86 and arm6=
+4?
 
+__packed comes through linux/compiler.h
 
-Thanks,
-Gautam
+It's actually in include/linux/compiler_attributes.h but I assume we can=20
+rely on compiler.h including it for the foreseable future (guaranteed=20
+indirect include path).
+
+--=20
+ i.
+
+--8323328-2019838273-1793371763=:1187--
