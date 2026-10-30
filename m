@@ -1,111 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793396194;
-	b=OuUAcT4BoZVVjnGUkIGyds+ErBsAeb7CWhZXySGP4untadmqU3lrhnJz55BWl4Zb/Pak
-	 GJ1OHgsfzvuyBfLSv9YXL2J93rEmcPJ8zhN/hulrsOOOhyjDQEs5jO7pLHhVx6bauZkpB
-	 PFCDMiBM9lfoB9oEXmToS8/my7VWAR+75hLG9oFVL0ZRHt+AijfGIuth45ZVMWELWM5pX
-	 edo6Ae3DIoLBQHtjpkW2eBX793KIM9X7j4arWiGkRsVs3iKFjII7ffnfgr0vIGWkamBF9
-	 k7Qsu1nq9ZE2X6XJ6PtfQLiOtY4zOh/+JQiUd2pnlfnZOvRQ7fS0pR2vqn6VDqP1g+A==
+	t=1793396270;
+	b=An3n6ez0uyun2I0w+3AQTZcN5F+yHZX07Qzg8FSXqZlmsGaKNYhQnfNrRDmjC7PYO1hu
+	 ogXIUUo6iVPKpWoLFzd7tV/Cy97TgaKWJRUcuAoxngW+3RcQD1kpu0enKc+kYeStA2MYI
+	 HSaTHHQpa6OlgxhVcIDkmduIv6zPcQeuz7sNvH/CdGFg6m5cvIUu2NYAJfMhiwGjwCfsW
+	 mo+sat1ogbRTxSi+OQ9VUe0AYojdXXcIg4peTDZ70cuTJnBEva8AxnQd3CtAywi3qedyW
+	 45EPWrGRpuMIuCvEzXtFsS4z5iwLAhjmd47G/OwJ7FU2td84RYl/IF9AJ2+kNEbJBDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793396194;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=oE0Ccbr5yPAfVWX0+h/q9Kt+558GBYavtTp5xHQ+Vuk=;
-	b=K3VJ2V7v7KhgsH6JIbM9Cf2sILBpYilgGdSdwDBM4Xd+6Vs7dF4RD/xFGW3MV1FiBBqp
-	 EaG79huG5oJtMs8MHh1ydqf/r7INdRbu/oFGoOBeUk7Cd+TLSMqk7gJTZaEZyRq/mmIX9
-	 rYhGHyjrKlHR4BiwyHTFRvX+NEJrAFtc/WsSmvEP/hd/218rzaBgganQx6VTF6JOYqKgn
-	 t8L5wA+8NKo/6zV7fAPS29kbbHqkf38cZbtDzmx2Ct3X7bzbTtc3Yy7OJF/grx2tNpavJ
-	 Q1d33FLhNu64MIGatoBArXu59tVb7kW7edKXjgLpU2DrAe4aG+IdduR5QTqhTdRJlkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793396270;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=cr3OrkM+aity3hrb+5Hsv+59qXtSShSDqGA7ToffXLU=;
+	b=U+/5pu3QRF7JGXwPLv75VpUZh6RTq01y2cvigkNHKUerhLbQB+tosmbg84cGi2bsWW0Y
+	 EfRZAyNyPNIKnLpz5nLP/gcY40enfBvkMLE8pbOQOMbRRnnF8hYE+e4sbd7qTYNjPlJL+
+	 ASTNq5TfJOymKfVOyZjIOxUDTJKmvO+3+x00STVTKBCcYM2FNSAP3L777aVQ3j2vsfBDI
+	 eV/pgAzWxjyk1nU/0aBShMAPQNhbGhhBz6DVGaK7rcuAIias5EIwijwbDWkrtgFu5BeRx
+	 WoXjQy6nKrbpvPF0UWUFSeJ7GB/lUE8lET6wn+C1Q0Ya1azJObS4DxZKIOzj2N6/oCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=QmnpfjVN;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=I4s6ucNT;
-	arc=none smtp.remote-ip=103.168.172.146
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mx2wLU5M;
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACCE606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:36:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ACCE606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289B6606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:37:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 289B6606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=QmnpfjVN;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=I4s6ucNT
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 41696EC00A9
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:36:28 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Fri, 30 Oct 2026 17:36:28 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793396184;
-	 x=1793482584; bh=oE0Ccbr5yPAfVWX0+h/q9Kt+558GBYavtTp5xHQ+Vuk=; b=
-	QmnpfjVNb5PXtxkjQ3UfhXQ4o0SvEsjyn7V0+caN/qbtfHRXESD5RTKYvbzZsMBo
-	N6QilYQT74A7Hx7q31WKAYj/3K9dBmZzizD2a+qYzCdWLU0/Adthf7gC5X86mdKv
-	JGZ3v8nlD1n3XQVzoPy0I0J1p8WpXUxH5FeXHflbczfM2ISqm1vPlQmmGp0FoooJ
-	vrbgFD1EgFMx/cnmYgG4crMhUyxdGaGUHR7GGepJ41yA6BWbbkXqudqWqfXcAsM2
-	+wCycCwu/0/KB7VvcMy1p+y4D4VyYj+TWy5zzGdmdknRH2jgJmOacFNcoJQxh0S5
-	xg/C4i0snQ8pdLkPK767Rg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793396184; x=
-	1793482584; bh=oE0Ccbr5yPAfVWX0+h/q9Kt+558GBYavtTp5xHQ+Vuk=; b=I
-	4s6ucNT0OpQGltlw/h/IkCTcLN6YqujL7bLXr8rGedbS420TBCOfhKYc24uEaN5i
-	f0dyJj2Gn4XWMW4diuZS+PhRHWIMgZRLDXnrrDTiFyqGsR/td41nTxy9FPm65lxw
-	q25fRkA6u/AFLgfd74l+O/VpbAKWWpMfXDVT9mpxWbeFu85Vdbdh2scH2DcPk6FX
-	RuGPSzo2UySDGJlUWWcvHUFgu4Siq+V0xy7T3PwSwslXDXWSfjoAfP/+EEJ5trYC
-	Zuda8n37Rh2gPq83ueOceo69C5cUZkriWFHQhlZKoy0TpN3Bsb5pKA+Y6kvPiG+e
-	ippXTr6hH6U/iyzA4djsg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793396184; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:i6WTw4O3dMWP7BgxoFzDzhBr6+Dhkyx91+a4xvFwSs1vcNQ
-	NiL6S5nYqesfTDBcLbLRJOrDeTGqGOQlQPGDQWJwm8oK5yLgvZ+nIYdsjgIQXw+j
-	u/xbpPXRr5kfcAp2lBb1vYncyykXMmQlcnrFFS0m8M1BrYi2AGeQcGEmVuhc8Zdw
-	JHIu66nExEIGAIQ9lrJuWPVVmwdqIliWaaBcnL02iBAf31F9gIbb/YSzTIzSqXZs
-	k6N3AsvsSAvZWhDD+R9SyvI1fwoqEchs1rj5DUg8GeVvvcCwr55MakSJkpf2KM7C
-	B08AFhy8d1yxYyRIz0tSG1auBJAR2z2ln0rXMXA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:YjdUR5jCf6CjMO0+1WbAwxi6QqFcALkLZWjqCdv+dcU=:pBZXxo+rCnq0x6xDr1cY3qhidvDU5DP2DXZEtcqtZs8=;
-X-ME-Sender: <xms:1Q3laipJfgN2WInhuzFVKtohAghkocsfPS7uiLCraWZ8ji4gZVEP5g>
-    <xme:1Q3lare2x6zOCX8YOFF0ic5K_dgi10zFWYFVccZ69DNIo3yhDHjScWZwCjdVajqHW
-    klc0khOIEIRDDNaxjmVxc9cKB1pa9EqMDj0bzTvAqyT25QiJxlzl8wA3Q>
-X-ME-Proxy-Cause: dmFkZTGUd5/iMN2OMhfaJ26juaq7IE2rBPXg7DztrvCvjbx5YO48EAz/0qrk50laxyF6V4
-    BpHj+L/0zigYN+dd2FqR85zk+puHQvwqHZwCrCjIJS5scqSsPNYZbmnAz3pZ9gQnNJgqz4
-    qR+dkgsbrsYNJ1kCDdM3cDQirs82a7YUELotdxvyARVaYGqegdjrqXZTIlBItc3gUah1+I
-    LoZoIEpjze+CkB57ofs85o25dD1AH6lY9KF6MRoq4GQqy1NQ/mnMrlOb8tgeuuXDShbXw/
-    ALk65+CCens+NJLxICTHolv0gf74lmQMLkWgISvAgUotRrvsqezLCq3zuaYfhLj8kiPMBb
-    Hq8hK1ZcR7+WQUGkK1xNKhCjAMrE6fNTe7aqJ0Wl3Uu7maczhAywzeIyxF1bPFmHgANBct
-    dQNrN6SWqEaPS1S4zRyuNcBlbblte16I6+y0AC9Q2/QdBXRPzuxUcJfShI0X92EAI/1j/A
-    RxOOzZmgBUCgmgA4j97KN7hcRSaQPPvLy0enI1P+fOrxD8bbbNxu/Yf7KSBNoB5zpI47tH
-    AprzbWLkx1NhrGdnrbj07ksxdHavsR6zyeMYD49BNIA0kPfbTYmzJzRaf+eL6HfyXSE2lR
-    zvc5jfe/iOrOHilz+6Np8tMaOpMUP1+Fp7W3a8EdNpJBl6jJWordvuKNdYuw
-X-ME-Proxy: <xmx:1g3lapZIrhjgDU9w0EFAes4_xwS2wYEqX6aRYLBJqrmegBKSW4j8rg>
-    <xmx:1g3lai-MZ0iZvFndWav1FxS6a8XRtOW7u7EDRGLbxEBkPlTAmbQ0xg>
-    <xmx:1g3lavm-emB2RSY8iJlop2Du48NG9roLQHmuyKNYqYnNUlqpKAjIsg>
-    <xmx:1g3lany772SX77tf-3-5KM0RnnPSe7i7teX5KFzMmdcx-_dLb_A7mQ>
-    <xmx:2A3lamG4l-BrpFSVsyCzMMkofxQoTQviPK25Ox2SCMtIjYmSaY7acsnn>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 4ED5232A0097; Fri, 30 Oct 2026 17:36:21 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mx2wLU5M
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a0619b1fe5so907551b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:37:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793396269; x=1794001069; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cr3OrkM+aity3hrb+5Hsv+59qXtSShSDqGA7ToffXLU=;
+        b=mx2wLU5M2o0Xs0vCMPqwYt0TDTbo25RoGYtImFzGNGspDAYfvmXP6iloOMySlKUNAY
+         jCerf+xzq37b6u+MH0Pr12rd1SnwxADUGNuKHLq1ekM1QHYGntP6UpmTnTtD1bgevHQs
+         Z/Hr6NHwN8rmRpjg+WDk2RifT+jE3Ium94Q2UxK8wDPNyUZAW3gBDPBIh1ULJ4rb7Ef6
+         47ytUs02ec1VOv/Iq+gb8MNnDaC+0ALM+Y7K2rM99b2xnPoELOywGNx2ImYoW+QCH070
+         zHvJMED8RKC9/vigH+gOx1J2qWXkddANuw52t6lmFzk4cqStg5bPccxMF5BYnlRgpiOg
+         Spxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793396269; x=1794001069;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cr3OrkM+aity3hrb+5Hsv+59qXtSShSDqGA7ToffXLU=;
+        b=Opyj84js5hUmrZCafG8Ntn4Twx+SOwEm7cfh5jnPkzK9mIP0OiU0FKuFUnyWi2prQZ
+         sMHJQO1uoNCMzMJYMVqelyHiTJZHrsvCg1cS1/lsyndX9j4NPcZy6C0Ndi6G/Ssi52Q3
+         UapIcd6QAF1IoDdMhU+ETiwNpshGrwYhMp7fc6PSWgUWCIZQ5qJ8ZHrYFB1IbwjBqv4n
+         yWzytNLR/BFkXAZ2kzoT0ax+bPirsAGC0HZtvRBEfAR93dgkNPyksc6RRSgAvMiqJtMS
+         pbwHnPA2gcKZ9Szs2WlXru6XFL4JZeLuH6vrrShvaqayFDHfaCZbh1AfV+lCAUSM0PTX
+         RZNw==
+X-Forwarded-Encrypted: i=1; AKwUvBwFZ6k0E7ZxIkBwNcuRWoP4UQAS1t4czVGTPZWp6ghEd/35RFqV+4MF1NCMb5nBjFALIlx2urG2U9UMDqg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfkAq+blA6oyHs4BZQ3SfzENSkAVagn39t+E/o/Z24mdTGSzgf
+	3CJpSnCd30e2x7dKYmmqxlmsEWrV6fxus5HegC6VN6YZuD0Y3HC/FexGkEHuFogACPEc8Wt3ock
+	vMvJMqw==
+X-Received: from pfak13.prod.google.com ([2002:aa7:92cd:0:b0:887:8dda:c9e4])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:349b:b0:8a0:70ff:ab28
+ with SMTP id d2e1a72fcca58-8a9c04ae65bmr2819645b3a.60.1793396269157; Fri, 30
+ Oct 2026 14:37:49 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Fri, 30 Oct 2026 14:37:42 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,47 +76,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-ThreadId: Ar2juRASE0hJ
-Date: Fri, 30 Oct 2026 22:36:01 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Thomas Huth" <thuth@redhat.com>, "Andy Lutomirski" <luto@kernel.org>,
- "Thomas Gleixner" <tglx@kernel.org>,
- "Vincenzo Frascino" <vincenzo.frascino@arm.com>
-Cc: soc@lists.linux.dev, shuah <shuah@kernel.org>,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Message-Id: <256fea10-f0c9-411d-a6b6-a82cad357b57@app.fastmail.com>
-In-Reply-To: <20261030174323.370687-1-thuth@redhat.com>
-References: <20261030174323.370687-1-thuth@redhat.com>
-Subject: Re: [PATCH] selftests: vDSO: Fix header search list for vgetrandom-chacha.S
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261030213747.2611815-1-seanjc@google.com>
+Subject: [PATCH v3 0/5] KVM: nVMX: Honor L1-owned CR0 bits for LMSW
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Mahmoud Abumandour <ma.mandourr@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Oct 30, 2026, at 18:43, Thomas Huth wrote:
-> On aarch64, vgetrandom-chacha.S includes the assembler file from
-> arch/arm64/kernel/vdso/vgetrandom-chacha.S, and that includes
-> <asm/assembler.h> which in turn includes lots of system header files.
-> For this, we should make sure that the kernel headers of the
-> *current* kernel are in the search path of the compiler, otherwise
-> we end up including headers from /usr/include of the current distro
-> instead, and this is calling for trouble! Thus use $(KHDR_INCLUDES)
-> here to make sure that we are using the right header files.
-> (This issue has been found in a patch series that replaces __ASSEMBLY__
-> with __ASSEMBLER__ in the various kernel headers and finally stops
-> defining __ASSEMBLY__ in the kernel makefiles - when vgetrandom-chacha.S
-> now tries to include a header from /usr/include the compilation fails
-> since those headers still require __ASSEMBLY__ to fence away the C code)
->
-> Signed-off-by: Thomas Huth <thuth@redhat.com>
-> ---
->  See this link for the build failure:
->  
-> https://lore.kernel.org/oe-kbuild-all/9e294bfd-4704-42a5-a704-f301f4afe042@app.fastmail.com/
+Fix a bug where KVM ignores vmcs12's CR0 guest/host mask when emulating an
+LMSW from L2, i.e. an LMSW tha exits to L0 but not to L1.
 
-Tested-by: Arnd Bergmann <arnd@arndb.de> # (build tested)
+v3:
+ - Handle the read_shadow in handle_set_cr0() (and for CR4, because why not).
+ - Kill off kvm_lmsw() entirely.
+ - Add a bunch of comments to the selftest to explain the dangers of running
+   with CR0.TS=1.
+ - Test MOV CR0 as well as LMSW.
+ - Add a patch to take full ownership of the must-be-1 CR0 and CR4 bits.
 
-If you like, I can add this to the asm-generic tree to avoid the
-regression from your series, or Shuah can pick this up the normal
-way as a bugfix for kselftest.
+v2:
+ - https://lore.kernel.org/all/20261030032937.2813-1-ma.mandourr@gmail.com
+ - Patch 2: order the CR0 store before FNOP and check L2's whole CR0.
 
-      Arnd
+v1: https://lore.kernel.org/all/20261029235040.12013-1-ma.mandourr@gmail.com
+
+Mahmoud Abumandour (3):
+  KVM: nVMX: Honor L1-owned CR0 bits when emulating intercepted LMSW for
+    L2
+  KVM: nVMX: Synthesize #GP if L2 writes a "bad" CR0 value via LMSW
+  KVM: selftests: Verify KVM handling of L1-owned CR0 bits on writes
+    from L2
+
+Sean Christopherson (2):
+  KVM: nVMX: Preserve L1-owned bits in CR{0,4} read shadows
+  KVM: nVMX: Take full ownership of the post-VMXON CR{0,4} must-be-1
+    bits
+
+ Documentation/virt/kvm/api.rst                |  9 ++-
+ arch/x86/kvm/regs.c                           |  6 --
+ arch/x86/kvm/regs.h                           |  1 -
+ arch/x86/kvm/vmx/nested.c                     | 30 +-------
+ arch/x86/kvm/vmx/vmx.c                        | 40 +++++-----
+ .../selftests/kvm/include/x86/processor.h     |  5 ++
+ .../selftests/kvm/x86/feature_msrs_test.c     |  2 +-
+ .../kvm/x86/nested_exceptions_test.c          | 73 +++++++++++++++++++
+ 8 files changed, 106 insertions(+), 60 deletions(-)
+
+
+base-commit: 7e60162b16f9da0d2fa83da5c1723b6853a0ac1d
+-- 
+2.56.0.385.gac671c819a-goog
+
