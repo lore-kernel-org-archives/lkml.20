@@ -1,79 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793347675;
-	b=3u9H+Z/lwXaFIciKFOm+Z3iQdPYd/zPFxN333MQzgv2POYhE5M6vgurJnRyFXZX+iT2N
-	 4i9oDrZreSgtW+X7BJ8BQ7Lvn3VFxTYwNct23JTgbTs95RqPos5Vvq2T1b30VLMPWd5Sz
-	 /KnKPIVePEuayyW9oC2IFeP+1dgfZYswS7WPoDcaTTzsTa8B9LqpWX/wBuPXfb4HMHiqy
-	 DtRt4ya9FhAuNX3kaX/9r28D15iu0lvtch/VUpBDNoDUYw2Oez3oTCKsIx3pUKj93i4Vf
-	 w7jyGRORttvI8gJK81Z/W6FRQ+ZptQ33Jjq/6Vc16HCiXhCOyNgtDeOdP2TKP7t9VNA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793347675;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Kq2hb77e59jXCvm+vum3diAj9PrESCNjUYLmNW0/uQw=;
-	b=MwiMd6D5AgwXK9sQ95bOeNgGD3cJtXYzIm3yoeFZ4E2q0sgjLeePCm9RG17SPQSrko/O
-	 vJp5LEW8VZVsr9pPWhhqmdYrMgYAHDPNcrCS7PdTY+MN0asTBxPLbdPokfJziJfHDzEoY
-	 RVpPzCQ6UE/AmBvJj3aMPqGrygN84Zx22f9lOsDy11gFZAIIgCtzEoqG3fnRDEfD6RYzm
-	 x1+RI7r99RFrEl+dmjn+o3bPJOY+G/IJHKciBNDd4JH8JcdANXIXqAQAhtYVBg6+dMm2t
-	 gz4ckQnvtZD6pIiDb//HnoFo74S4uCtxonVWo4Xz5f74dTVxzRcY3N1dG/PxvpBXyuQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bwg1K8Pv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D68606A322;
-	Fri, 30 Oct 2026 08:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bwg1K8Pv
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793347674;
-	b=sEcvDtmEE1nkVFWOS//3neu1GFv4F3AZ1ArdiSovWLXMj7EmTxoc2amutlMWuP9Mt+vs
-	 tBoaDk07UXKvH7IyQb2syzhxzp39jqOLjNaMPWp9ccQU1LOPvw5p7LC60IEMCgR0FgOMt
-	 6e8JGJKFZ/ZbSd5zYSsHyk15kaAKcFlzLuXXhqH7oIElrhm2bYd0SWPF1ZP/ULiwIujUY
-	 aBwFHjACQwEAbOw5AFIhOMWu632Z9WM2/+SSfH218c2UE2J4rDQK8Mr6evxTlTJR5yTaB
-	 CBAC2KigE62dhSZQVbWF2CskIYae8c3Ek5ILCe3kcbjD1JgupWgyMWy8eIWeL+HrRWA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793347674;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Kq2hb77e59jXCvm+vum3diAj9PrESCNjUYLmNW0/uQw=;
-	b=GYJcu26yNXSLwW81Qplx0Ixa6c++/8iYyPCI5lKfS3+iVZYeDypjbkSE24+axFocjZZ1
-	 HusejOf+GPyanUiTzJLJWREJHd435K3rixkGi/UuHFP10TiqgJOF5rQyROnSkYWJax9p3
-	 G8loV2T71CNSPgQrBHLdByC+hqeyJIA1bkf7nW70LQjNLqTqAz1yTOL2jweMFZLFJj7MO
-	 L5E21y/PMYme1bRPWjr3wIhO+E09ndmI8TlXhDxNtopiNy2alOR6gyi7rh+Hmb7Jwhudx
-	 ffBVHTX/oEqpw83mGspo40ODic27sareUj5B6cV1GGzizQtJ0rM8NcAdxRXFa1NaXqQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.142
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793347764;
+	b=ETucNAMljoQoRbkv8DhAEjNiW/1YafhbrJHfQHBko3uUxrjRQbJn+7gXgoNPa8E/u8RU
+	 O38FKU28PInd2GPltabFouvvlggSKoaLCp/FMWBqEVYQayt1jUTkkQWbCvAIicvyIx5Rh
+	 tO4RG0ryCwQKWomPtZ/NJ/hEpnNoXiODZvIXQjtcv5zMGTGHNSrrKCqWDTiISHQgxLgbh
+	 FK77kMo6UejFE2nhUNBERdPsyHj8Ivhu9TRFDgEf6d7XRnUtQUSKwsdbYq7wvF2mCdg8d
+	 9Uvs/DogKUTcNy4DiVjwPrv5wFSCpbnO9TET+jwNaQLr1PGiU1ZgdGsseNnmbunGBvw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793347764;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=TgSyY4/ng5nLiDGto5Kq5ST6lqpDa6TrnCUDb5pZH64=;
+	b=xm3WgLa4Jx642rcDGBMkjhIHD1QqYAo0YXBhcmgSSYUSmIpcehqsa3PWj3IkTzbH+03k
+	 2wIwPuUI7skViDdCuiPkmNYbM6Y1y1jCywxeEX6x0zi6q43x+KZaI5+s+eQtSHq1kQp5y
+	 /7Kf618now2qgZ7lsAtA8PIKrmFKL+KHCSwJLNX3+YIJR3ZHbQRp9acMKe7zcAPqUqsub
+	 a3SPjrdZ0uVfqI34ETi5LakhoYyz5lg3+Ow8Bhl1/jYij5V/g+46jOCWugKQWfikrDFp7
+	 aNmnl1+jhhDhaOOMVw0lri1vAcDnfFHsroLYtBzQRAfnAa08V7i+WPGsygWR9C6lGmQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OLMQoM8c;
+	arc=none smtp.remote-ip=91.218.175.142
+Received: from mta0.migadu.com (out-142.mta0.migadu.com [91.218.175.142])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4BFB11F00A17;
-	Fri, 30 Oct 2026 08:07:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793347674;
-	bh=Kq2hb77e59jXCvm+vum3diAj9PrESCNjUYLmNW0/uQw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=bwg1K8PvryYXZZgLkfauL7spOyxahNuS0VtIYDBKeH37EbK6pt3Wv+flEB1XSHdl9
-	 WSopkXsOIVwl6zrIyRBDOlnbkRHIIDag0SXWjXrIpvCj5ZlJVcXG+WGhP+qpQ/kEe4
-	 oIklcpxGjIY8HLVzf8iwtKL2ypGpx94Tnt+LeXIeYOdvCN+jDUHRdodOQJQeWiAVIk
-	 LMAc1g7fXZDvRf1yfl4r+oet00sZIY9pG5u0k6ljt4n19698OAmTBRnHqGJXU6x0Du
-	 YJe/Yr1nd7IGboofAupVUVzJaKewLj2xzmAUXgeWJbv+6p2NmTpaOg27i7+OtOWbO5
-	 QhCLkGBsAgpjw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CA81A436DC;
-	Fri, 30 Oct 2026 08:07:52 +0000 (UTC)
-From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
-Date: Fri, 30 Oct 2026 09:07:37 +0100
-Subject: [PATCH v4 5/5] ceph: keep LAZYIO with the read caps of a closed
- file
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5030F606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:09:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5030F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OLMQoM8c
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cPlhkNYw3K0eeAGK/JciXdzV5PYFFrSx544N7IS3wzs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793347760; v=1; x=1793952560;
+ b=OLMQoM8cWQTSf8dn2fMdyrb8LXcDJWZ9l/wVEl27yU5obVrrZiDW26ZnHeajRHUnsc9gFCqG
+ Klz1gWtRwjhIST2eTIEE9gx2DdHsMGiMAvLIs/VChml9dSWsLc1VDR0KN6qvljGZHH5CkbqA0Z2
+ 8JxmgB7cqI+U+YGqBP5xr0hQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a9a815571a40be43;
+	Fri, 30 Oct 2026 08:09:20 +0000
+X-Mizu-Trace-ID: a9a815571a40be43
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5bfca2a2af4so3976e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:09:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByf29BcBmDzEL0xSe/aL+PcmZAOTcIAlJNU+YKAXaWkq+JJlFfesbnbrxwNL3EXw9W24cboD6/sKZmqkLc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLM8SocpuZ+0UmjJFj+jhuLj75wDF7U0oK2G3VDyYqmm65iGd9V
+	t13unilhsn1qsRFO9L4gsmCrwQf9tzorDVIQ2u6y+CA/NUiFrBAVmUE+ynPgzTESV1EtW4uf0J9
+	0AbdB/xYiEvmV/da6D+sSkelh7xKPibW/9dJCxAse
+X-Received: by 2002:a05:6512:3501:b0:5bf:c9c6:ae92 with SMTP id
+ 2adb3069b0e04-5bfd18169ffmr245950e87.7.1793347758933; Fri, 30 Oct 2026
+ 01:09:18 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,69 +66,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-b4-wip-ceph-lazyio-fix-v4-5-f734a26bbaab@clyso.com>
-References: <20261030-b4-wip-ceph-lazyio-fix-v4-0-f734a26bbaab@clyso.com>
-In-Reply-To: <20261030-b4-wip-ceph-lazyio-fix-v4-0-f734a26bbaab@clyso.com>
-To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xiubo Li <xiubo.li@clyso.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793347670; l=1563;
- i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
- bh=vCRKa1jTwTRmyvIPqElXVacQQHdBR1gNvKu9DI1jLQE=;
- b=AAKsSDEVpRVRCJek6P/no7bgd17eiCjmHzFCKyDlvStwBzV9Aw+cipkZ0bPZSdOd7BEogo13g
- LDY+r1EFzIGAVGzAA25emvIiTXXJbt9z2jJZ2al3vfXogP62C6Wu5OR
-X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
- pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
-X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
- auth_id=840
-X-Original-From: Xiubo Li <xiubo.li@clyso.com>
-Reply-To: xiubo.li@clyso.com
-Content-Transfer-Encoding: 7bit
+References: <20261021110700.493315-1-fuad.tabba@linux.dev> <20261021110700.493315-3-fuad.tabba@linux.dev>
+ <auPCV6VdMEz4uZkK@arm.com>
+In-Reply-To: <auPCV6VdMEz4uZkK@arm.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 30 Oct 2026 08:08:42 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTxKeTG26Oqt=jdUqnCrzTNTW49xggCWJRJQz_XdV6prhw@mail.gmail.com>
+X-Gm-Features: AclHuK8pOIsgHYiMxZhDJpGYznE2BIP_eKzJt7aDibtxQihZUGQcXEve-pG0JDA
+Message-ID: <CA+EHjTxKeTG26Oqt=jdUqnCrzTNTW49xggCWJRJQz_XdV6prhw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/4] KVM: arm64: Clear the whole hugetlb folio when
+ storing MTE tags
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Steven Price <steven.price@arm.com>, 
+	Yang Shi <yang@os.amperecomputing.com>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Xiubo Li <xiubo.li@clyso.com>
+On Thu, 29 Oct 2026 at 22:02, Catalin Marinas <catalin.marinas@arm.com> wrote:
+[...]
+> > +                      * tags. A hugetlb folio is marked tagged as a whole,
+> > +                      * so its first tagging clears every page.
+> >                        */
+> > -                     if (folio_test_hugetlb(folio))
+> > -                             folio_try_hugetlb_mte_tagging(folio);
+> > -                     else
+> > +                     if (!folio_test_hugetlb(folio))
+> >                               try_page_mte_tagging(page);
+> > +                     else if (folio_try_hugetlb_mte_tagging(folio))
+> > +                             for (i = 0; i < folio_nr_pages(folio); i++)
+> > +                                     mte_clear_page_tags(page_address(folio_page(folio, i)));
+>
+> I guess we could have skipped the actual page we are going to copy into
+> but not worth it.
+>
+> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+>
+> >                       num_tags = mte_copy_tags_from_user(maddr, tags,
+> >                                                       MTE_GRANULES_PER_PAGE);
+>
+> Something Claude spotted and unrelated to your patch. A malicious VMM
+> using memfd (not guest_memfd) and MAP_SHARED could construct some
+> mapping so that the VM slot is !PROT_MTE while the same page is mapped
+> in the VMM with PROT_MTE. try_page_mte_tagging() (or the folio one)
+> above set PG_mte_lock but a subsequent fault on the uaccess to VMM
+> memory will attempt to zero the tags and wait (forever) on the page
+> lock. Not tested to prove it.
+>
+> If you get bored and want to fix it, I guess a copy_from_user() into a
+> local buffer and then setting the page tags.
 
-A lazy I/O open of a file in LOCK_SYNC gets LAZYIO issued along with
-the read caps.  Once the file is closed and its wanted caps lapse,
-ceph_check_caps() keeps the shared and read caps of a file that was
-not opened for writing, but not LAZYIO, so it sends the MDS a cap
-update for every closed file only to give LAZYIO back.  With the
-lazyio mount option, io500 mdtest-hard-read sends about one such
-message per file read, from about 60 seconds after the reads start,
-and the MDS serves the reads more slowly while they arrive.
+Thanks Catalin. I'll look into this and send a fix.
 
-Keep LAZYIO under the same condition as the read caps.  The MDS still
-revokes it together with CACHE when another client needs the file.
-
-Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
----
- fs/ceph/caps.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
-index 49e5c1c36b68..aca09351a094 100644
---- a/fs/ceph/caps.c
-+++ b/fs/ceph/caps.c
-@@ -2266,10 +2266,13 @@ void ceph_check_caps(struct ceph_inode_info *ci, int flags)
- 			/*
- 			 * keep RD only if we didn't have the file open RW,
- 			 * because then the mds would revoke it anyway to
--			 * journal max_size=0.
-+			 * journal max_size=0.  Keep LAZYIO with it: a lazy
-+			 * I/O open gets it issued in LOCK_SYNC, and giving
-+			 * it back costs a cap message per closed file, while
-+			 * the MDS revokes it along with CACHE when it must.
- 			 */
- 			if (ci->i_max_size == 0)
--				retain |= CEPH_CAP_ANY_RD;
-+				retain |= CEPH_CAP_ANY_RD | CEPH_CAP_FILE_LAZYIO;
- 		}
- 	}
- 
-
--- 
-2.53.0
-
-
+Cheers,
+/fuad
