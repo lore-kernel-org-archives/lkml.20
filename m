@@ -1,48 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793329166;
-	b=zFqfooZ5yUBMO1bBXMiHstYOggeTP1t2872/cmNZBO27g69h948uOo7dTFILYBy8G0Be
-	 2fPI0AWK+b7TpVXU/H0s6mfIA5PogXWzNkluNMYKbRn2tfWxdWoivvSH8LLVXoA6hXKSW
-	 qQ6lLLSXwwP0AH8m+YrLbEMlM9zfcLiL3U1+6keyEWTEFehi2hnVkbAGEfiXUhlxofT8j
-	 Fg6j1S2ES9l2EndDGE8zTpsWqgE3SAq5Rb2ytLciKeLQY8QPqWfBfNEwUgeVjU2uela8V
-	 2qbljjyznq1T0xCkxqWVyVxYKu1rpKs+eOb0QPI9ICwv+BS2XaaKCcR6kyQTKJmDT5w==
+	t=1793329164;
+	b=jHicqrU0kp+QlPR0/9qRuJyJu7mqpPhM4NdVHOqF9yC4Zl/qr34/WILTzEWvW1orEG6j
+	 aZs7ArPBLZKKFkiRNgzfl+juGwRwzenlA2+kLO9YqT6dXpkNj6m5m0YRfC6B9E2T2C8i+
+	 0ti98SG4/Z+hOMaTRGUfnF105eeeIkMPv1wllfvwcYjBt4U2j3V7hNYo86GkhipkkdbJk
+	 yR41hwJRKusBAD/JGnj0Y4cDixL5ZsOIKlGhlfsyYaTBLeoVX0WTJdORmhzNFprVLijRl
+	 jjrGR9EIfwDxfEfDeS16DaJXNkG8Kr+58kAjuiD3ySd6rN3IIeNZ2qLelUrETgrZ0Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793329166;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793329164;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=62mg+3Z40mHfhb9shiM2QUi4pmbWPeUl6R64ef1iEYE=;
-	b=f8OZo6kCCiG2BuxHAvs8mOyVRdoM4tBIA0a57ScLQd662ZXTzGd9hHqeKWUqQZTVZk/t
-	 DbidJwfXYfJRRyzZ3acqnE9arow7OQdzNNB2t4kGb+iVRRPlbtDYqp2ryUAJe2+07lA3+
-	 8CyJTLS890SNEnJkFokAA0ibViLLY4vKsIVK/qwNmtwYRwYBpcI3R7fngH2qhaM+rLhSg
-	 r7C2p47S1Er9ylgavYH2olr2aw9mlsSZkoLkoyeSs93oe5sLBgxeD6BanNsljBv09t5/4
-	 /SWHxoEU8dFlQ2T2UvmhG/xvQ1vqD896ARAck4/X7XhyvO2hsbdgKjHDdM5xn/VuyrQ==
+	bh=M1YFIP1momfayTo5BQCGcGIZ358SmM7AYY10VJeYGMA=;
+	b=HaqaIC6yBKZBlgS/T0B5OtHr1wp/qKu3nEafM2LdXM+0IgpAAE2yLJL7ZkD1POhOeeVG
+	 TrII0iG2HHPlJTUI9uYIfr7M7nqzFED8O8/NeW6+9m51dqzS/wBK7z9iZcBXaGeXGsRFr
+	 MB1HJt6z/nS78+aL+Ia5y/kyCvcSji32rxKbeAlDE3h3iidRUvCEzRcgwYDTTvrXwJJxp
+	 yDMxRNoP2wk/LQVrJk2Fx1IMr1t01V96n6W+6SW5JtbMFGaaEZFxcgxZmKk4yy6bHcLqZ
+	 fu3HafBvssYybxbKROMWP87+WLaYjs3UbPEdAOeMkF7PCdJ9jYOOC3O2BLUw4DX5erw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=XEiisPSp;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dAgBQoIt;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE84606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:59:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABE84606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882D9606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:59:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 882D9606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=XEiisPSp
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dAgBQoIt
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=62
-	mg+3Z40mHfhb9shiM2QUi4pmbWPeUl6R64ef1iEYE=; b=XEiisPSpy+oic6oPPA
-	MkCa7MZobswbSGkW3VQGoaf9vSJkTzMlGOnQ43olhu67ogk2yQXQqAf2iOXIFXvj
-	Bx4RWJX31kkQ1+vy0Pmxy1uLwZLYKfgB6DH8/PDagZMjcawPLoPpeT4/ODhyA4dH
-	C5qxF/IeW8FQ8si2fZFwS71O0=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=M1
+	YFIP1momfayTo5BQCGcGIZ358SmM7AYY10VJeYGMA=; b=dAgBQoItthieozI9GK
+	PAVrjylRYwpWFebCszC8FG8eOhGJlURUQA0zr8mc85YC8a7dQYae5M/zQuKr8r9y
+	nTwnGTbXEcicnuPhN2YliMCICDjYwoRawTh03YXuvsR3lew36k2O0uDGofp95LI6
+	kHLOrInIlWeOw+65/yjn53xbs=
 Received: from neo-TianYi510Pro-15ICK.. (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgCnZfjfB+RqfTvxCg--.40090S5;
-	Fri, 30 Oct 2026 10:58:47 +0800 (CST)
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgCnZfjfB+RqfTvxCg--.40090S3;
+	Fri, 30 Oct 2026 10:58:45 +0800 (CST)
 From: liuqiangneo@163.com
 To: "Michael S . Tsirkin" <mst@redhat.com>,
 	David Hildenbrand <david@kernel.org>
@@ -52,9 +52,9 @@ Cc: Jason Wang <jasowangio@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	virtualization@lists.linux.dev,
 	Qiang Liu <liuqiang@kylinos.cn>
-Subject: [PATCH 3/3] virtio_balloon: add tracepoints for free page hinting and migration
-Date: Fri, 30 Oct 2026 10:58:34 +0800
-Message-ID: <20261030025834.19160-4-liuqiangneo@163.com>
+Subject: [PATCH 1/3] virtio_balloon: add tracepoints for inflate and deflate operations
+Date: Fri, 30 Oct 2026 10:58:32 +0800
+Message-ID: <20261030025834.19160-2-liuqiangneo@163.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261030025834.19160-1-liuqiangneo@163.com>
 References: <20261030025834.19160-1-liuqiangneo@163.com>
@@ -68,131 +68,185 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgCnZfjfB+RqfTvxCg--.40090S5
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWFyrZFy7JF45GrWxGw43GFg_yoWrAr48pa
-	n2ywn8K3yUXr47ZayfJFW8Ww45u3s2kFWfJFW2gryUCF43JF92gFZrtr1DAFW5Ar10yrna
-	vF4IqFWUC3WkuaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jldgJUUUUU=
-X-CM-SenderInfo: 5olx1xxdqj0vrr6rljoofrz/xtbC-AfOMGrkB+egsAAA37
+X-CM-TRANSID:PSgvCgCnZfjfB+RqfTvxCg--.40090S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW3GFyUWF1rGw1xKFWxCFWfZrb_yoW7Ar4UpF
+	s7Arn0kw47XrW7Ka4fCF4rWrsxZwn7CFWxtFyaga4UCF43JFZrKr1DtrWDJF4UAry0grnI
+	ga9xXF1DCan0vaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jTKZJUUUUU=
+X-CM-SenderInfo: 5olx1xxdqj0vrr6rljoofrz/xtbC4AXOMGrkB+U8VgAA3d
 
 From: Qiang Liu <liuqiang@kylinos.cn>
 
-Free page hint requests cannot be traced, and migration only
-provides summary stats. Lock contention causing migration abort
-cannot be distinguished, making these two flows hard to debug.
+When the guest responds unexpectedly to balloon resize requests,
+the actual applied delta cannot be observed from the guest side.
 
-Add tracepoints to record host hint commands, leftover hint blocks
-and balloon_lock -EAGAIN migration failures.
+Add a "virtio_balloon" trace system with three tracepoints:
+config_change (target / resulting size / delta), and
+inflate and deflate (requested / applied page units / resulting size).
 
 Signed-off-by: Qiang Liu <liuqiang@kylinos.cn>
 ---
- drivers/virtio/virtio_balloon.c       | 11 +++++-
- include/trace/events/virtio_balloon.h | 48 +++++++++++++++++++++++++++
- 2 files changed, 58 insertions(+), 1 deletion(-)
+ MAINTAINERS                           |  1 +
+ drivers/virtio/virtio_balloon.c       | 13 ++++
+ include/trace/events/virtio_balloon.h | 87 +++++++++++++++++++++++++++
+ 3 files changed, 101 insertions(+)
+ create mode 100644 include/trace/events/virtio_balloon.h
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index e4ca41cdd872..0ef6f34471de 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -29590,6 +29590,7 @@ M:	David Hildenbrand <david@kernel.org>
+ L:	virtualization@lists.linux.dev
+ S:	Maintained
+ F:	drivers/virtio/virtio_balloon.c
++F:	include/trace/events/virtio_balloon.h
+ F:	include/uapi/linux/virtio_balloon.h
+ 
+ VIRTIO BLOCK AND SCSI DRIVERS
 diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index c4fdc6815b41..faf78c639f3c 100644
+index ab3e3d887e00..2d0b16383661 100644
 --- a/drivers/virtio/virtio_balloon.c
 +++ b/drivers/virtio/virtio_balloon.c
-@@ -803,6 +803,7 @@ static void virtio_balloon_report_free_page(struct virtio_balloon *vb)
- {
- 	int err;
- 	struct device *dev = &vb->vdev->dev;
-+	unsigned int cmd_id = virtio_balloon_cmd_id_received(vb);
+@@ -19,6 +19,8 @@
+ #include <linux/wait.h>
+ #include <linux/mm.h>
+ #include <linux/page_reporting.h>
++#define CREATE_TRACE_POINTS
++#include <trace/events/virtio_balloon.h>
  
- 	/* Start by sending the received cmd id to host with an outbuf. */
- 	err = send_cmd_id_start(vb);
-@@ -817,6 +818,9 @@ static void virtio_balloon_report_free_page(struct virtio_balloon *vb)
- 	err = send_cmd_id_stop(vb);
- 	if (unlikely(err))
- 		dev_err(dev, "Failed to send a stop id, err = %d\n", err);
+ /*
+  * Balloon device works in 4K page units.  So each page is pointed to by
+@@ -285,6 +287,8 @@ static unsigned int fill_balloon(struct virtio_balloon *vb, size_t num)
+ 	/* Did we get any? */
+ 	if (vb->num_pfns != 0)
+ 		tell_host(vb, vb->inflate_vq);
 +
-+	trace_virtio_balloon_free_page_hint(cmd_id,
-+					    READ_ONCE(vb->num_free_page_blocks));
- }
- 
- static void report_free_page_func(struct work_struct *work)
-@@ -869,8 +873,11 @@ static int virtballoon_migratepage(struct balloon_dev_info *vb_dev_info,
- 	 * recursion in the case it ends up triggering memory compaction
- 	 * while it is attempting to inflate the ballon.
- 	 */
--	if (!mutex_trylock(&vb->balloon_lock))
-+	if (!mutex_trylock(&vb->balloon_lock)) {
-+		trace_virtio_balloon_migrate(page_to_pfn(page),
-+					     page_to_pfn(newpage), -EAGAIN);
- 		return -EAGAIN;
-+	}
- 
- 	/* balloon's page migration 1st step  -- inflate "newpage" */
- 	vb->num_pfns = VIRTIO_BALLOON_PAGES_PER_PAGE;
-@@ -883,6 +890,8 @@ static int virtballoon_migratepage(struct balloon_dev_info *vb_dev_info,
- 	tell_host(vb, vb->deflate_vq);
- 
++	trace_virtio_balloon_inflate(num, num_allocated_pages, vb->num_pages);
  	mutex_unlock(&vb->balloon_lock);
+ 
+ 	return num_allocated_pages;
+@@ -333,6 +337,8 @@ static unsigned int leak_balloon(struct virtio_balloon *vb, size_t num)
+ 	if (vb->num_pfns != 0)
+ 		tell_host(vb, vb->deflate_vq);
+ 	release_pages_balloon(vb, &pages);
 +
-+	trace_virtio_balloon_migrate(page_to_pfn(page), page_to_pfn(newpage), 0);
- 	return 0;
++	trace_virtio_balloon_deflate(num, num_freed_pages, vb->num_pages);
+ 	mutex_unlock(&vb->balloon_lock);
+ 	return num_freed_pages;
  }
- #endif /* CONFIG_BALLOON_MIGRATION */
+@@ -567,11 +573,18 @@ static void update_balloon_size_func(struct work_struct *work)
+ 	diff = towards_target(vb);
+ 
+ 	if (diff) {
++		unsigned long target = vb->num_pages + diff;
++		unsigned long before = vb->num_pages;
++
+ 		if (diff > 0)
+ 			diff -= fill_balloon(vb, diff);
+ 		else
+ 			diff += leak_balloon(vb, -diff);
+ 		update_balloon_size(vb);
++
++		trace_virtio_balloon_config_change(target, vb->num_pages,
++						   (long)vb->num_pages -
++						   (long)before);
+ 	}
+ 
+ 	if (diff)
 diff --git a/include/trace/events/virtio_balloon.h b/include/trace/events/virtio_balloon.h
-index 559deb997e88..c29f833fa188 100644
---- a/include/trace/events/virtio_balloon.h
+new file mode 100644
+index 000000000000..f733fc360d8b
+--- /dev/null
 +++ b/include/trace/events/virtio_balloon.h
-@@ -103,6 +103,54 @@ TRACE_EVENT(virtio_balloon_host_ack,
- 		  __get_str(vq_name), __entry->num_pfns, __entry->latency_ns)
- );
- 
-+TRACE_EVENT(virtio_balloon_free_page_hint,
+@@ -0,0 +1,87 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#undef TRACE_SYSTEM
++#define TRACE_SYSTEM virtio_balloon
 +
-+	/*
-+	 * outstanding_blocks is the number of hint blocks still owned by the
-+	 * balloon (handed to the host but not yet reclaimed via a DONE/STOP
-+	 * command) at the end of the reporting round.  A high value means the
-+	 * host did not fully drain the round.
-+	 */
-+	TP_PROTO(u32 cmd_id, unsigned long outstanding_blocks),
++#if !defined(_TRACE_VIRTIO_BALLOON_H) || defined(TRACE_HEADER_MULTI_READ)
++#define _TRACE_VIRTIO_BALLOON_H
 +
-+	TP_ARGS(cmd_id, outstanding_blocks),
++#include <linux/tracepoint.h>
++
++/*
++ * All page counts reported by these events are in balloon page units, i.e.
++ * the 4K units the virtio balloon device operates on.  Divide by
++ * VIRTIO_BALLOON_PAGES_PER_PAGE to obtain the number of guest pages.
++ */
++
++TRACE_EVENT(virtio_balloon_config_change,
++
++	TP_PROTO(unsigned long target, unsigned long num_pages, long delta),
++
++	TP_ARGS(target, num_pages, delta),
 +
 +	TP_STRUCT__entry(
-+		__field(u32, cmd_id)
-+		__field(unsigned long, outstanding_blocks)
++		__field(unsigned long, target)
++		__field(unsigned long, num_pages)
++		__field(long, delta)
 +	),
 +
 +	TP_fast_assign(
-+		__entry->cmd_id = cmd_id;
-+		__entry->outstanding_blocks = outstanding_blocks;
++		__entry->target = target;
++		__entry->num_pages = num_pages;
++		__entry->delta = delta;
 +	),
 +
-+	TP_printk("cmd_id=%u outstanding_blocks=%lu",
-+		  __entry->cmd_id, __entry->outstanding_blocks)
++	TP_printk("target=%lu num_pages=%lu delta=%ld",
++		  __entry->target, __entry->num_pages, __entry->delta)
 +);
 +
-+TRACE_EVENT(virtio_balloon_migrate,
++TRACE_EVENT(virtio_balloon_inflate,
 +
-+	TP_PROTO(unsigned long old_pfn, unsigned long new_pfn, long ret),
++	TP_PROTO(unsigned long requested, unsigned long inflated,
++		 unsigned long num_pages),
 +
-+	TP_ARGS(old_pfn, new_pfn, ret),
++	TP_ARGS(requested, inflated, num_pages),
 +
 +	TP_STRUCT__entry(
-+		__field(unsigned long, old_pfn)
-+		__field(unsigned long, new_pfn)
-+		__field(long, ret)
++		__field(unsigned long, requested)
++		__field(unsigned long, inflated)
++		__field(unsigned long, num_pages)
 +	),
 +
 +	TP_fast_assign(
-+		__entry->old_pfn = old_pfn;
-+		__entry->new_pfn = new_pfn;
-+		__entry->ret = ret;
++		__entry->requested = requested;
++		__entry->inflated = inflated;
++		__entry->num_pages = num_pages;
 +	),
 +
-+	TP_printk("old_pfn=0x%lx new_pfn=0x%lx ret=%ld",
-+		  __entry->old_pfn, __entry->new_pfn, __entry->ret)
++	TP_printk("requested=%lu inflated=%lu num_pages=%lu",
++		  __entry->requested, __entry->inflated, __entry->num_pages)
 +);
 +
- #endif /* _TRACE_VIRTIO_BALLOON_H */
- 
- /* This part must be outside protection */
++TRACE_EVENT(virtio_balloon_deflate,
++
++	TP_PROTO(unsigned long requested, unsigned long deflated,
++		 unsigned long num_pages),
++
++	TP_ARGS(requested, deflated, num_pages),
++
++	TP_STRUCT__entry(
++		__field(unsigned long, requested)
++		__field(unsigned long, deflated)
++		__field(unsigned long, num_pages)
++	),
++
++	TP_fast_assign(
++		__entry->requested = requested;
++		__entry->deflated = deflated;
++		__entry->num_pages = num_pages;
++	),
++
++	TP_printk("requested=%lu deflated=%lu num_pages=%lu",
++		  __entry->requested, __entry->deflated, __entry->num_pages)
++);
++
++#endif /* _TRACE_VIRTIO_BALLOON_H */
++
++/* This part must be outside protection */
++#include <trace/define_trace.h>
 -- 
 2.43.0
 
