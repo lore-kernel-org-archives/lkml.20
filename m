@@ -1,112 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.230.196
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793322566;
-	b=uykKtbRNU65EAhlaLqaumtBFmhjpsjKpgI5Ogk4vmn7AfwxKlKEZ7Qc4dVHFkjoNmiAI
-	 Tf0R2uCR/LkGB23cz+VKwFNbivGW9xr3ZzRYmr9Z4KLCGejvxg0/vxOAhxfPM9RNq1mRq
-	 XnSjYRO/XluXBBNSIFOb4/zrqmzdA+/tX1S2MbBv9Vg64px/JYDayus6faTtfKGzusuvT
-	 lHOKMD5ChMY/bMyZqgcgBKcKaKyr3FP1RhuvYaC0bLxcPgmp9/TVBR7ahD6q/qU7y0esi
-	 o0i7pzLrxWcHbryxCmpGd7ZVPBcETbmIBoATwNActmcGf3wBsJ0Q9OaSCYFvACsRUlA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793322566;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:User-Agent:MIME-Version;
-	bh=Kko4zjOXBRybFPzuRuUxh6d2fqu3VVvE60ZOuuaPtno=;
-	b=Zj9jBpXMPuPFPhjfLKpKEodh8D6gyiGz4gDXM6OrMpFbkKf+dsmtHgGhKpfZyID8Zgyn
-	 cQVFzgZRDoARjXk6tIIbs8sWOnVdAwBlxXiiWA6Mav+2ugipmovI89HacvJTmvo+cQezV
-	 +2oIUwqjxVw3u5TfrEqMoULsq1Wr50vke6u6TabX3frN9KWTAwxhH98jDWsA3unB+KJFI
-	 4x/DI9vcs9ecT2s0yJzK6SFSpyKxhgQJHL36mEp1wx0Diwey9BPXk6SwiFUff3zXZcy8c
-	 rE1+g7DByAXM2uFgvgRxQDMvnZPZet8D41R1FTTNzOX5L3TEy95rgvsw6+1GhdshffQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=nSdFpO25;
-	arc=none smtp.remote-ip=74.125.230.196
-Received: from mail-qk2-f4.google.com (mail-qk2-f4.google.com [74.125.230.196])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.67
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793322723;
+	b=ulFZUj+WjqYHJpSyoc/7Fvw6NMNuuNggesYj3mO+tHImFrsBuMsO0TqIxXKWpl3IAhJq
+	 c8pEV+Dk6b1TB6HbNI3lddaVn87NQmffQNwMUZkYHjcjyhnSkg+yuoYrxiSj9zSLLd6lT
+	 7vChxy33Zs08k8SDIy1yUBhp44BucaDZhN6CrB/C8hdfBgLvZ1JG+jUrKxIjiJl+rjyIH
+	 DXAneAGte28szdAJ6EiR+IbZsTIoYHDQcLQgzFO0+KphyRrgDU+ICkwiOJNWLUMam2WPl
+	 xFgiHXr1BEdAOIyYlwMWU1lgfrAXnRuKIS/4Nohi85hcdE4KPaa9JIlrlt2r91ck77A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793322723;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=fUsg0xzQ2rGkBWv0Z8Wd1RoynIVu6mnpqm7ao34IOUo=;
+	b=ZnOE/yNyUdGwPlGPcfb3fsFgw0MVFeQe83eR/RvLlvDYb2ZL3NulQl7CTFX5mJ/FJj0p
+	 UVJb8Nlvxfe0/U63K16uoSU6FywQvyYcXZLOpnZRiibl/GfV3B3PJmh7tqCrm05QSmR1G
+	 3SQail0Au7aLQXZ/K5bFboR3nxBXD4MqF6SZOLMlgOPjfArxdkLN3UlIY/7Tk8ad24u7M
+	 G71nx4i71jQIlC8sQjCbZIr4gmzyVeKk4oIi4SiU4qPdq2roXv8eQnVxDpW/8qeHk2JOC
+	 I/gG54w/3QDbSod0/tC8HTkSWe5O9gMlnY+MQIQv1R8T4tm0dDuUDUNByGtAEfF+RSg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="Q880uf/M";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.67
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013067.outbound.protection.outlook.com [40.93.201.67])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F9A606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:09:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65F9A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA62606A31A;
+	Fri, 30 Oct 2026 01:12:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEA62606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=nSdFpO25
-Received: by mail-qk2-f4.google.com with SMTP id af79cd13be357-93f38343369so9801185a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:09:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1793322564; x=1793927364; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Kko4zjOXBRybFPzuRuUxh6d2fqu3VVvE60ZOuuaPtno=;
-        b=nSdFpO25KqPMrh0iT4EODIV4z5G016pYPTGR+EDqGNtlcuIfYNhqlIq5+ErDRdemZv
-         WRHbF9hjwnflghjSMQ/xAh5dtjm6Fg8+GrZDiZRqLcoexvty0T7k8s+dhYBW8QlSc8UK
-         Ra+dPVUA5zqBfFn0pluunnhrMKDSLNunFgVvAemu3cOGhedbT/5PlyCuQiXlFmMEDc37
-         rV0565sp1lpOcBLmU1wJBSu3qg+B7QJ+w7xaHh+GLU+Y8iEjhsPl+qM/YNIAnPX1ILWt
-         CdvJHuP5pdkgmbOi7yZuASaKxNMBO3xq6kYo50JtDhBYjGznP5obWeNvyypieeVFGgNO
-         lsOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793322564; x=1793927364;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Kko4zjOXBRybFPzuRuUxh6d2fqu3VVvE60ZOuuaPtno=;
-        b=mUQkyVqs9xOajaBV6NZvX1/LdoLD03JLuskyAuTEUg9IU3U9VTNrdBfKI84lqWBaSR
-         Ql9OU5Q75fNjkHp+v1ytWVC9qSapWXmQslFSgmo7GnLxOWymvRsBsIPX7WQvEHoNXOqg
-         MWFRGKNXNEM8lUt2DHJ20+MeC5mMR+kiWMruvDw/hYNW1/f9MqgrRaLXA3fuI/xAxsFa
-         GzLNTTG3sKlKjZFvHsZyHewEhmXzZkTLR73pMkb+KcfGGi6qZIXOoV/RFQyBqHxKLHc0
-         FxzOK1dTBgcVm6p9EXlIHIHbR7SOnQiZGuUKF8FTDqrbPZXh6/dtvhrA366kgue87Xcv
-         oq6w==
-X-Forwarded-Encrypted: i=1; AKwUvByPtDERCEABtbMAokbqJXit+nb6nLNJ3irRw76nNJJOCZDPshIISMPqiQAAmEXnsKbwvlihqL0Ry0UFAoc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8zlytPpvYhs3wPSfhAY9/vFHZv/Dyk4ciW11f8Bdqz/WeJ4ai
-	yRJsp8hPW+RZmoZDE4VEAzz6GCciuRckefJZ5Ue2KlRhk2tpXgaMY7XOzYRfcdzDErM=
-X-Gm-Gg: AYBFou3vSBw83M+KEkXQG12yxEnZ6MmIVX6inJXTrI9QbAJQvBfYuHaKboKt9DWhTbb
-	paCUkDzFLWn4szW7pQ0wC0wvWQDzvGvsZUsx3daILZy38usAY/ZsbAjc2wT//gUj0Yp7rEiSHWC
-	tnZ5pfykDGhrKSvviOxOPkOpws96l6zjrFy4STDM/tlAWwj5ri5Y6kMt2tqeoTjoHoDtNeXcVfP
-	HEF4MRrZ+dikCCGH1LzDSHSUFFLkYsyWKR2SQ1mCDDE/7qERue8o2Me5FiIy7OjU2ey54zRHT0i
-	MOogd8G5iFiXruj0D2tNERabUqVebtdNaGuVLb2t0WPeJN92XuZv3xrv776H3nXBQG/dSRUWzRb
-	7Tig03NISrWdElJS/517Mr+fhx95bqwYoVtqKMwexNDY9xRg1IpsT1CxFSnG7blNkZi2qm9dFCf
-	v2YMGIWOQljr3x7Fb9ei64kdxXuTLv9zxhyfvhOw74OijNjDPBwAk8hP6E6II1ktqcw7dAcNdW+
-	Gh05HJLzfoS853ocSvgo4oqwxRidfQYM0d/pYxH4hkjpiZwDkmqCt3PTcPgjpVvmkdS/VOuXmsz
-	y2CoDUHaYcUTla70jPsMg0BEKBaf97B/06LRR83tgI0O3mu5FODptWg=
-X-Received: by 2002:a05:620a:618d:b0:93f:5ac:14a0 with SMTP id af79cd13be357-9442171a0cfmr155775385a.67.1793322564021;
-        Thu, 29 Oct 2026 18:09:24 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425a63770sm9406185a.24.2026.10.29.18.09.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 18:09:23 -0700 (PDT)
-Message-ID: <0662c55edd8623628717a17de93be3e79343d017.camel@ndufresne.ca>
-Subject: Re: [PATCH v2] media: rkvdec: vdpu383: configure the reference read
- cache
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: vlry.bkv@gmail.com, Detlev Casanova <detlev.casanova@collabora.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Heiko Stuebner	 <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Thu, 29 Oct 2026 21:09:21 -0400
-In-Reply-To: <20261029-rkvdec-vdpu383-cache-v2-1-859bb44e03a0@gmail.com>
-References: <20261029-rkvdec-vdpu383-cache-v2-1-859bb44e03a0@gmail.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-chB0utv8MYz8DSoKGRbr"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Q880uf/M
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Xrz+PKv3xYjGanHTYvvxoK0osQQ7OcV30mfojgBLxh5ZeZSyU68MfdKRJBO0Eu5DW8ptrtFA/zVke1VQ6UDxdhbiawa/xAjJKgiUgnDz23iM805UgyBbF541OBIz1DbIJEW54N4F7zSb+EbkWvwnbbBADxl/QWx8jl+AiDXm2e3cx+3Dn9IUb7WuRVVgIudcJP8OfooClgCx32Y4FBZEoU6sWEGwUd3TBuB3RZzD79O8zmwfNn4+h4t0a8gDX7jz8schFaZfriPQHiy+4HEmmbCeZfl4MXAxf+2REuGIdXxTcGVYQa4bPq4IMDT97OHUfDXA/2uRie6XFIaRrghC8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fUsg0xzQ2rGkBWv0Z8Wd1RoynIVu6mnpqm7ao34IOUo=;
+ b=N4xqOYtt8Ri5Jy9pA/L4vQeA0oUYuxVyw4l7B6KlyR6NXGLzgmxu3mEyXwDY9iTc235oFjCTDgjY69cMhce2mH3y0FkRtWSibRIg5kKAWakaR5upkkHcUkiRyx5TQehEYOdnWWDE/d6gj3++y/1lo+ATW9Yb2GQ+zyKPcYztMlyTCLFHh7939iZe6eH3vzLRJ7jSRNxUAVz6k3db5VpQE8X3QShtyFgk/a5c8kXTMlswogA1M4oYaJByJpdyW/tQtQ+YTd/iTAQ9v1Aq3AfAJpYeIlHFf8jyTZ/OweUmH6Fk7OINm+ctI2qAIBQHNnnoxd4KyLAWOF3bI/8R0c90xQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fUsg0xzQ2rGkBWv0Z8Wd1RoynIVu6mnpqm7ao34IOUo=;
+ b=Q880uf/MXS/CnlxYKzfVr7WulFGyd0tTa7TfOcSzXstYXu0vtH+sIPqAIv4drsBRn6f6eqT9F6IVHpyeYpobFDjsG8RFOp+mkaCfHXsyjkTtD8orMHCoJjA+vSZohlQs+2cq40dT87R0lA13hcs2Gry3DumuKmx9qyhgP8CMq3DkNS1YaU6xjYzMWk4Yzl8SkHVqr5AwpE0a+CugIYWxXqa90H6jeTWaOYEF/4AwSwrZ24/6WFexfWvVebeCM/983ypxd8/nRAJYn76cakRn+XsIKfpXtJDbzdyjtsBHWwZ2ewQY5tbXzPMbJCPFe8d1Sk50ouMGmsVgvQ43Sc91IA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LY0PR12MB727857.namprd12.prod.outlook.com
+ (2603:10b6:408:3ba::5) by LY0PR12MB461782.namprd12.prod.outlook.com
+ (2603:10b6:404:233::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 01:12:00 +0000
+Received: from LY0PR12MB727857.namprd12.prod.outlook.com
+ ([fe80::843e:82cd:41ca:f522]) by LY0PR12MB727857.namprd12.prod.outlook.com
+ ([fe80::843e:82cd:41ca:f522%5]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 01:12:00 +0000
+Message-ID: <8263da30-f226-443a-a00c-9aefcee2b3ec@nvidia.com>
+Date: Thu, 29 Oct 2026 18:11:57 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 09/16] PCI/CXL: Cache endpoint HDM state during PCI
+ enumeration
+To: Alison Schofield <alison.schofield@intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
+ Jonathan Cameron <jic23@kernel.org>, Vishal Verma
+ <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+References: <20261011021422.3428136-1-smadhavan@nvidia.com>
+ <20261011021422.3428136-10-smadhavan@nvidia.com>
+ <auK7MxeCI2fsUNZC@aschofie-mobl2.lan>
+Content-Language: en-US
+From: Srirangan Madhavan <smadhavan@nvidia.com>
+In-Reply-To: <auK7MxeCI2fsUNZC@aschofie-mobl2.lan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY5PR04CA0030.namprd04.prod.outlook.com
+ (2603:10b6:a03:1d0::40) To LY0PR12MB727857.namprd12.prod.outlook.com
+ (2603:10b6:408:3ba::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,314 +109,289 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LY0PR12MB727857:EE_|LY0PR12MB461782:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7586327-79ad-4702-e622-08df3622cc8c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|6133799003|22082099003|18002099003|56012099006|4143699003|5023799004|11063799006|261022075727099003|10067099003|261028144727099003|261022105027099003|261021121427099003|261009223027099003|261026121527099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	52JkTaDEFvUYy4+VQCXtAoaDsFOdNwU07fxujIysL05dj6AoRCXFuYj2En2ZY15TH/U/Ee9TZp0K2rsu7/K6FT7MhAK+xA8ag2Y/BWQtJ+RSq2kyXz7LsSRdd7Xt0+/KEgfiFSulJ8WISvWlBcSa3/R0UP1RVEaTosr/W/4P/lYutV6ePZ7Ka0DVXjB17yu1URKFpezuOqLNrh5q7kdC6+1CcMC3vG9W+fAdIJreHRP8fbz6k8Fjss2QOZuhNNaYD2IPnCpw5sCpQ09J+1WlB80p4RJ47+hdeI0XIIjIj2cQ5xmCs+V7JGcuv6BFvWHGQx+HirBmhhIpWxK5zEAe9x9vpu/aeqQowHVZIxw3q04gvqUjrutj2IoeQ+89SNL9bDCwkPwLkkzZnIrwMPw5DkIzUYU+lb8tSoErtQ8BFxLwbTL0h4jLEfeSkYSy15hAhJTd+SRlNIEJv7FjtZirsG20hTzhejPYeshhH9OgzfHylEvr6vIhJZ7AGxk7hcaoFgbhdzTfCa5AIk1m1U6iWQDFBV1wj+bQOCMwfoKzHT5h078Gklp/kun5S0IkQ5AXgJi0s+iBpJZ/caEevIjWOoUZ34KglDwawJ61AnnygJy4PHQHrizoJar6AtPtFhp9uSg0o9VMx1MOn/dsNX5O4tv+hNZBCmOWcggyEu6NxL0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LY0PR12MB727857.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(6133799003)(22082099003)(18002099003)(56012099006)(4143699003)(5023799004)(11063799006)(261022075727099003)(10067099003)(261028144727099003)(261022105027099003)(261021121427099003)(261009223027099003)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NlBVZHd4ZTdIbjlsK1ZOOVdHVmhXaGIwTlVTZVdOc1BYYXZZWkRhcjAwYjZk?=
+ =?utf-8?B?V1lqVXJvWExCMFNyb0p6V2FtQ1d1dTJsVVJvcysrZExLT09NT1JxeFlScXZK?=
+ =?utf-8?B?YkF2LzJOWnNGYzJNUEpxNTZkRnZxL2EwVjVLZWZmSk9kbGpORlZjSVlGeGxk?=
+ =?utf-8?B?eWY2S1hTbEVSK0dqbVZPNGZUdjU3dGNocVJRTVkzVXEvQ1VXZlJ3K1dwdTBj?=
+ =?utf-8?B?NTNzMWpRNzNLcDhJZnNWU0lOdVBlODh0Nm82V0VJS3hJRzBLVTlZdWZLVDBv?=
+ =?utf-8?B?d21JdTBGaWdMSzBXN3BFMTJjUXhtWTYwL0loeUNnUklibEI5OGd3NWVocFAz?=
+ =?utf-8?B?NGNVbUdpLy9lL1RZT3FKMXcxWVg2NVhMSVJuUkVjVFpmZlNNbGNBakpMMXdH?=
+ =?utf-8?B?cDVKTHBFeGpWcnZsVXIvTGhuNi9TTUovdnVHZ05lYzFOcml4WldpOTZ2RkFv?=
+ =?utf-8?B?V1QzNys0U0I0cXR1eHdVRFVkUEpLc1JLVUVTaEZiZFZkTFA0SHU3M29vTjZF?=
+ =?utf-8?B?WDJnTmRSRFhQY2hHc2tKcmthVENybm5kZzdDdkp4ZEtpRnh6dzJpanlLd3Bx?=
+ =?utf-8?B?QWZyRnQ2NTF2Rko5WGkxQTF6MWRRbHFiQS9OS1Z5eG9hWkpqeHhscUZKMEFB?=
+ =?utf-8?B?bkVSWVhOdFRLUmx3WEw4dU1ZSEJtbGZicUtMQ0xqN1JTZkowcFpRbmNmUE5S?=
+ =?utf-8?B?bWtTbHBEaDVJRFRjR1pOMkwvaFA1Q0Vxekw5RlNkaFVrMncwYS8vVXJQcVJX?=
+ =?utf-8?B?OEZlRTE2SmV2cnhqRStVQUJYdHZrQlRRK0F5RlVoRmN5anRMU2ZiVy9zejlF?=
+ =?utf-8?B?N3FlbHpOaHN4WXpQemVJYUdTaEt3cFZsQnhJSzRVV1dnODR3cUN4Z09tRzBa?=
+ =?utf-8?B?cXM2SE1hRi9jY2RZSW5nZ3RCNEdoM1c0MDhXK0tQMlN2a0Jxc0JSb1AzYmhT?=
+ =?utf-8?B?akplRjVhd0d3UU5lUVBNU04rbWZ5ckJRSmxpOStuNlhkV093RkdPSFhobllP?=
+ =?utf-8?B?WTFyVFhGK0dObWI1QVRKNjRsaTl2ZVNXWkRUOUxzbzlBRG1WZG5YSi9KZWNJ?=
+ =?utf-8?B?bTk0TXZXd3cxczRiQWlnRFpNZXJ3c2w5SFVDSEFFalpkYVlxV3NRZW90aHJ2?=
+ =?utf-8?B?czJKWmFuQ0xkM0hYWUd3anMxZHdubWVSUVNvdlE0SXdnZE1FR1l5UGl5SnJV?=
+ =?utf-8?B?WkZhZFlTaFYzVkY3QUliazF5ckQ3SHZZa0IrU0ozSGl3R1VqVk1Td2IyVVFp?=
+ =?utf-8?B?MkdaR0xXTGxsTGdZZ2dGdTVKbXJLWHJqOEdyYlpmVTVFbFVRUUF3a2Qrb3Bm?=
+ =?utf-8?B?YzdYYzdVb1dLUzF6Wlg1UVppOCtuU3VhNXpadXNYbHNCdnU2ZGc1dDM2bUFU?=
+ =?utf-8?B?RjZ0cnRmU1BGNVBFY1NrVmhtc0FyTkkvaDBWdVJrdkYrQUJ3QmtrQVQyQkRn?=
+ =?utf-8?B?RUt2L0RWUURRTVQxclNjdGZxUEpHVUYwaVVKczBiMXBicU9SMWxVdUgzVEZh?=
+ =?utf-8?B?RGRqa0lMNnMwOGEzM3RTdDFKSllmejlEWjRkNXQ1QndvSG1HclpBdlBoYmJ5?=
+ =?utf-8?B?c2s4VEF3Z1BRUmlxTlArNXpaV2lpNytZOHFydEVXc0pJR3g0c3QyQ056amZs?=
+ =?utf-8?B?c2dLUTlZQ3NCaHZqSitMQmQybi96OCtpVXk0ZzNiVTB1Y0FPdE1QNUdJUnVk?=
+ =?utf-8?B?bC9md1Bpbkk0blB1NFJPOUFkTW00RkZPY1FiMnlQVkVBM0R3a3FZWUx4bVZz?=
+ =?utf-8?B?YkxCY2tGbDlKa1QwQ3NNcU1PU3dMcVpXa3JYc3NTT20xMVJ2VGNscUNlL244?=
+ =?utf-8?B?VE4rM0lrS3plWitFZERibkV2WXJXMWRvV0Ivelc2ejdsdktiUjFmeEpzSGxW?=
+ =?utf-8?B?Q2lvR09YZDNXU1N2L0liaU5BNjVRNDdmT3daYzc1YjlNSjRaYWM4NVd0MWY5?=
+ =?utf-8?B?L2ZKWmdvSDdjMEhneU8xQzBObEVEamdnK2lJenY5ZHd3cXYzZ1JmejlpY2Jv?=
+ =?utf-8?B?KzdxZ0V2NEVHL2FtYmEwU0VzOTQyUXhhTmJtcHJzZ256OWxpNm5NTmVYblJi?=
+ =?utf-8?B?WWJrVmt5VmxCaEkxM1k0Zk15OXV2RkNncjRnbGVtR3gxWlZlbnF3bTk4bnJy?=
+ =?utf-8?B?cHV2YXVNbXB3RkoxYmU1Um0va2w5SDJRcXNPeE5Nc2RJT1ZwTVpadnJxay9F?=
+ =?utf-8?B?T2xnLzkyZmZUSHJLc3JmNnltRll0WXFRUmhLWThSNFZWTWlGNndESmpXYXYw?=
+ =?utf-8?B?RmtaQWhGUVlMbDlkdWViT1hMMGdkREpBRk1xYlBOVnZqTHQvVks4ZmFjQ3hI?=
+ =?utf-8?B?V3MzNHV2R0NUR1pvV29PY2NYcnFsRGdCYWtTaUJKZjhZTkZMbmVpUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7586327-79ad-4702-e622-08df3622cc8c
+X-MS-Exchange-CrossTenant-AuthSource: LY0PR12MB727857.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 01:11:59.9792
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 34x2YKSvK1uMd90FgyDuAkwCc91QzstXhpphHCZnkS6Rcb0dJvROaEheN4GoFX2/+ZCmpPtnYaLrVgz1GaAFsw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB461782
 
+On 10/28/26 8:19 PM, Alison Schofield wrote:
+> External email: Use caution opening links or attachments
+> 
+> 
+> On Sun, Oct 11, 2026 at 02:14:15AM +0000, Srirangan Madhavan wrote:
+>> Cache HDM state in pci_dev->hdm after BAR resource setup and before driver
+>> binding, so reset can restore it without a bound CXL driver.
+>>
+>> Save the HDM register location, decoder settings, and Device DVSEC state.
+>> Validate capability reads and decoder counts, and restore PCI_COMMAND
+>> after temporary MMIO access, reporting restoration failures.
+>>
+>> Keep PCI discovery separate from shared HDM helpers. Move cxl_rwsem into
+>> built-in state code and protect cache publication with its DPA lock, so
+>> the cache remains usable when cxl_core is modular.
+> 
+> Hi Srirangan,
+> 
+> I felt the large-ness of this patch, so I'm coming back to the top
+> here to add this comment after doing the inline review below.
+> 
+> The commit message doesn't mention much of the preparation work that's
+> included. Could that prep be presented first in prep patches, and then
+> add the new code?  Something like:
+> 
+> cxl: Build register block helpers into the kernel
+> - regs.o moves from cxl_core into the built-in objects
+> - devm_cxl_iomap_block(), cxl_rcrb_to_aer(), __rcrb_to_component()
+>    and cxl_rcd_component_reg_phys() gain exports
+> - cxl_find_regblock() and cxl_setup_regs() move to include/cxl/pci.h
+> - struct cxl_register_map gains bar and bar_offset
+> 
+> cxl: Move cxl_rwsem into built-in code
+> - a new hdm_state.c holds cxl_rwsem and its export, and hdm.c drops it
+> 
 
---=-chB0utv8MYz8DSoKGRbr
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thank you for the break down. In v16 I moved the preparation into 
+separate patches before the PCI HDM cache patch:
 
-Hi,
+Patch 8: cxl: Move cxl_rwsem into built-in code
+Patch 10: cxl: Build register block helpers into the kernel
 
-Le jeudi 29 octobre 2026 =C3=A0 17:03 +0100, Valerii Bokov via B4 Relay a =
-=C3=A9crit=C2=A0:
-> From: Valerii Bokov <vlry.bkv@gmail.com>
->=20
-> The VDPU383 has a reference read cache with its own register region,
-> "cache" in the device tree, which the driver does not map. Its
-> configuration and read limit are therefore left at their power-on
-> values, and those differ between power-ups. On RK3576 this makes H.264
-> decoding of a 2688x1520 stream take either 22.5 ms or 65.4 ms per
-> frame, depending on the power-up, while the values the vendor driver
-> programs bring it to 3.6 ms per frame.
->=20
-> Map the "cache" region and configure it statically: enable cacheable
-> read-allocate accesses with 64-byte lines and set the read limit
-> (MAX_READS in the vendor driver) to 0x1c. The registers lose their
-> configuration whenever the decoder is powered down, so they are
-> programmed from runtime resume, which also covers the first use after
-> probe. As the vendor driver does (rkvdec_vdpu38x_run() in
-> mpp_rkvdec2.c), the cache is still cleared before every frame, because
-> reference buffers are rewritten between frames.
->=20
-> The region is optional: on a device tree that does not describe it, the
-> driver probes as before and leaves the cache unconfigured.
->=20
-> Decode time per frame for a 2688x1520 H.264 stream on RK3576, within
-> one decoder power-up, with the registers set between runs:
->=20
->   MAX_READS  CACHE0_CFG  ms/frame
->   0x0        power-on        65.4  (slow power-up)
->   0x2        power-on        22.5  (fast power-up)
->   0x1c       power-on         7.2
->   0x2        0x13             8.6
->   0x1c       0x13             3.6
->=20
-> The decoded output was bit-identical in all five cases. These numbers
-> were taken by setting the registers from user space through /dev/mem.
->=20
-> The registers were identified with the help of an AI coding assistant
-> (Claude, model claude-opus-5-5), which diffed register dumps of fast
-> and slow power-ups and matched the result against the vendor driver.
-> It also drafted this patch and its changelog, which I reviewed. The
-> measurements and tests were run on an RK3576 board.
->=20
-> Link: https://lore.kernel.org/r/20260619111810.564384-1-laszlo.fiat@tuta.=
-io
-> Signed-off-by: Valerii Bokov <vlry.bkv@gmail.com>
-> ---
-> Testing on RK3576 (Smatek T10PE) with this patch applied, on top of
-> 6.18.34 with Simon's priming patch:
-> - The cache registers are programmed on every runtime resume: zeroed
->   by hand while powered, then suspended and resumed without decoding,
->   they read back 0x1c/0x13 (4/4).
-> - 2688x1520 H.264: 4.0-4.2 ms/frame on a 257-frame clip across 8
->   separate power-ups, no fast/slow lottery left.
-> - Output is bit-exact against FFmpeg's software decoder (per-frame md5,
->   all 257 frames) for that H.264 clip and for an HEVC Main clip with
->   B-frames encoded from it.
-> - 10 minutes of a live 2688x1520 H.264 RTSP stream at the camera's
->   25 fps: 24.4 fps average (23-25 fps in every 30 s window), 14% of
->   one CPU core, no kernel or decoder errors.
->=20
-> Open questions:
-> - I have not checked whether the decoder's soft reset (after a timeout
->   or error) also resets the cache registers. If it does, they need to
->   be reprogrammed after a reset as well.
-> - Simon's out-of-tree priming patch also modifies
->   rkvdec_runtime_resume(), so the two will conflict textually there.
->=20
-> Possibly related, not part of this patch:
-> - VDPU381 (RK3588) may have the same problem. The vendor driver
->   programs three caches there before every frame (CACHE0/1/2 in
->   rkvdec2_run(): cacheable, read-allocate and 64-byte lines, plus a
->   clear of each), and mainline programs none. I have no RK3588 board to
->   check whether its decode speed also varies between power-ups.
-> ---
-> Changes in v2:
-> - Configure the cache statically from runtime resume instead of before
->   every frame, as suggested in review. The values are constants, so
->   "restore" is a plain rewrite; there is nothing to save.
-> - Keep clearing the cache before every frame, as the vendor driver
->   does. Happy to drop it if that is preferred, but I have only shown
->   bit-exactness with a single clear on one clip, which is not enough to
->   rely on.
-> - Make the "cache" region optional. v1 returned an error from probe
->   when it was missing, which would make the decoder disappear on any
->   device tree that does not describe it.
-> - Map the region only for the VDPU383 variant, since the configured
->   values are specific to it and are now applied from shared code.
-> - Link to v1: https://lore.kernel.org/r/20261028-rkvdec-vdpu383-cache-v1-=
-1-d3548d3b3586@gmail.com
-> ---
->  .../platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c |  2 +
->  .../platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c |  2 +
->  .../platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h |  9 +++++
->  drivers/media/platform/rockchip/rkvdec/rkvdec.c    | 46 ++++++++++++++++=
-+++++-
->  drivers/media/platform/rockchip/rkvdec/rkvdec.h    |  2 +
->  5 files changed, 60 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c=
- b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c
-> index 5ec755733..efb1f6975 100644
-> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c
-> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c
-> @@ -441,6 +441,8 @@ static int rkvdec_h264_run(struct rkvdec_ctx *ctx)
->  	timeout_threshold =3D h264_ctx->regs.common.reg013_core_timeout_thresho=
-ld;
->  	rkvdec_schedule_watchdog(rkvdec, timeout_threshold);
-> =20
-> +	rkvdec_vdpu383_clear_cache(rkvdec);
-> +
->  	/* Start decoding! */
->  	writel(timeout_threshold, rkvdec->link + VDPU383_LINK_TIMEOUT_THRESHOLD=
-);
->  	writel(0, rkvdec->link + VDPU383_LINK_IP_ENABLE);
-> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c=
- b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-> index 3462d995d..6223b89e2 100644
-> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-> @@ -568,6 +568,8 @@ static int rkvdec_hevc_run(struct rkvdec_ctx *ctx)
->  	timeout_threshold =3D hevc_ctx->regs.common.reg013_core_timeout_thresho=
-ld;
->  	rkvdec_schedule_watchdog(rkvdec, timeout_threshold);
-> =20
-> +	rkvdec_vdpu383_clear_cache(rkvdec);
-> +
->  	/* Start decoding! */
->  	writel(timeout_threshold, rkvdec->link + VDPU383_LINK_TIMEOUT_THRESHOLD=
-);
->  	writel(VDPU383_IP_CRU_MODE, rkvdec->link + VDPU383_LINK_IP_ENABLE);
-> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h=
- b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-> index 04eb23297..f64d56a22 100644
-> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-> @@ -42,6 +42,15 @@
->  #define VDPU383_STA_INT_SOFTRESET_RDY	(BIT(10) | BIT(11))
->  #define VDPU383_STA_INT_ALL		0x3ff
-> =20
-> +/* Reference read cache, in the "cache" register region */
-> +#define VDPU383_CACHE_CLR_CACHE0	0x10
-> +#define VDPU383_CACHE_MAX_READS		0x18
-> +#define VDPU383_CACHE_CACHE0_CFG	0x1c
-> +#define VDPU383_CACHE_CFG_CACHEABLE	BIT(0)
-> +#define VDPU383_CACHE_CFG_READ_ALLOCATE	BIT(1)
-> +#define VDPU383_CACHE_CFG_LINE_64B	BIT(4)
-> +#define VDPU383_CACHE_MAX_READS_VAL	0x1c
+>> @@ -8,7 +8,6 @@ CFLAGS_trace.o = -DTRACE_INCLUDE_PATH=. -I$(src)
+>>
+>>   cxl_core-y := port.o
+>>   cxl_core-y += pmem.o
+>> -cxl_core-y += regs.o
+> 
+> Does all of reg.c need to be built in? I'm implying that that you'd
+> only build in the part that PCI core needs and leave the rest in
+> cxl_core. Maybe moving more code around is not worth it. Just noticing.
+> 
+> 
+> snip
+> 
 
-nit: I tried to find better meaning and why 28 is better, but didn't. If yo=
-u do,
-perhaps document? They also call this "max outstanding reads". We could add=
- a
-blank line to make it clear is just a default value we picked, we could eve=
-n
-call this _DEFAULT ? Just ideas.
+I understand that adding in reg.c includes the unused parts of it.
+But I looked at splitting out only the helpers needed by PCI, and that 
+would move roughly 300-400 lines into a separate file. I kept the whole 
+file built in for now to avoid that code movement.
+Please let me know if you feel that this needs to be moved after v16, 
+I'll add a patch for that.
 
-https://github.com/rockchip-linux/kernel/commit/b6a726b6cace3d7e6cfac109766=
-b14bed1e39d5e#diff-0f3228bbff65fb9bd56a2b9ed33cc9ee55565caed231da6076939ce3=
-97064835
+> 
+>> +static int cxl_hdm_read_decoder_settings(struct device *dev,
+>> +                                      struct cxl_endpoint_decoder_settings *settings,
+>> +                                      void __iomem *hdm, int id)
+>> +{
+>> +     u64 base, size;
+>> +     u32 ctrl;
+>> +     int rc;
+>> +
+>> +     ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
+>> +     base = ((u64)readl(hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(id)) << 32) |
+>> +            readl(hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
+>> +     size = ((u64)readl(hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(id)) << 32) |
+>> +            readl(hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(id));
+>> +     rc = cxl_hdm_unpack_decoder(&settings->config, id, ctrl, base, size);
+> 
+> 
+> This duplicates work of init_hdm_decoder().
+> Could the new shared helper _unpack_decoder() grow to do the register
+> reads also, so the code is shared. Also, then you could do the reads
+> in low then high order, like init_hdm_decoder() does and like the
+> rest of the CXL code reads its Low/High register pairs.
+> 
+> snip
+> 
 
-> +
->  struct vdpu383_regs_common {
->  	u32 reg008_dec_mode;
-> =20
-> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/me=
-dia/platform/rockchip/rkvdec/rkvdec.c
-> index fbcd0f175..405df54cc 100644
-> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-> @@ -1158,6 +1158,29 @@ void rkvdec_schedule_watchdog(struct rkvdec_dev *r=
-kvdec, u32 timeout_threshold)
->  	schedule_delayed_work(&rkvdec->watchdog_work, msecs_to_jiffies(watchdog=
-_time));
->  }
-> =20
-> +/*
-> + * The reference read cache and the read limit lose their configuration =
-at
-> + * every power-down and come up with values that vary between power-ups,
-> + * several times slower than the vendor driver's. Program them whenever =
-the
-> + * decoder is powered up.
-> + */
-> +static void rkvdec_vdpu383_config_cache(struct rkvdec_dev *rkvdec)
-> +{
-> +	writel(VDPU383_CACHE_CFG_CACHEABLE | VDPU383_CACHE_CFG_READ_ALLOCATE |
-> +	       VDPU383_CACHE_CFG_LINE_64B, rkvdec->cache + VDPU383_CACHE_CACHE0=
-_CFG);
-> +	writel(VDPU383_CACHE_MAX_READS_VAL, rkvdec->cache + VDPU383_CACHE_MAX_R=
-EADS);
-> +}
-> +
-> +/*
-> + * Reference buffers are rewritten between frames, so the cache is clear=
-ed
-> + * before every frame, as the vendor driver does.
-> + */
-> +void rkvdec_vdpu383_clear_cache(struct rkvdec_dev *rkvdec)
-> +{
-> +	if (rkvdec->cache)
-> +		writel(1, rkvdec->cache + VDPU383_CACHE_CLR_CACHE0);
-> +}
-> +
->  static void rkvdec_device_run(void *priv)
->  {
->  	struct rkvdec_ctx *ctx =3D priv;
-> @@ -1807,6 +1830,19 @@ static int rkvdec_probe(struct platform_device *pd=
-ev)
->  		rkvdec->link =3D devm_platform_ioremap_resource_byname(pdev, "link");
->  		if (IS_ERR(rkvdec->link))
->  			return PTR_ERR(rkvdec->link);
-> +
-> +		/* VDPU383 reference read cache; device trees may not describe it */
-> +		if (rkvdec->variant =3D=3D &vdpu383_variant) {
-> +			if (platform_get_resource_byname(pdev, IORESOURCE_MEM, "cache")) {
-> +				rkvdec->cache =3D
-> +					devm_platform_ioremap_resource_byname(pdev, "cache");
-> +				if (IS_ERR(rkvdec->cache))
-> +					return PTR_ERR(rkvdec->cache);
-> +			} else {
-> +				dev_info(&pdev->dev,
-> +					 "no \"cache\" region, reference read cache not configured\n");
-> +			}
-> +		}
+Done in v16
 
-I'm wondering if this can be simplified, skipping manual vdpu383 hit, and j=
-ust
-go fet the cache. Though, I see that RK3566/68 might also have a cache, wit=
-h 3
-slots ?
+>> +}
+> 
+> Add a blank line before the final return please. (subsystem style)
+> 
+> snip
+> 
 
->  	}
-> =20
->  	ret =3D dma_set_coherent_mask(&pdev->dev, DMA_BIT_MASK(32));
-> @@ -1875,8 +1911,16 @@ static void rkvdec_remove(struct platform_device *=
-pdev)
->  static int rkvdec_runtime_resume(struct device *dev)
->  {
->  	struct rkvdec_dev *rkvdec =3D dev_get_drvdata(dev);
-> +	int ret;
-> =20
-> -	return clk_bulk_prepare_enable(rkvdec->num_clocks, rkvdec->clocks);
-> +	ret =3D clk_bulk_prepare_enable(rkvdec->num_clocks, rkvdec->clocks);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (rkvdec->cache)
-> +		rkvdec_vdpu383_config_cache(rkvdec);
-> +
-> +	return 0;
->  }
-> =20
->  static int rkvdec_runtime_suspend(struct device *dev)
-> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.h b/drivers/me=
-dia/platform/rockchip/rkvdec/rkvdec.h
-> index a24be6638..ab13b880a 100644
-> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-> @@ -136,6 +136,7 @@ struct rkvdec_dev {
->  	struct clk *axi_clk;
->  	void __iomem *regs;
->  	void __iomem *link;
-> +	void __iomem *cache;
->  	struct mutex vdev_lock; /* serializes ioctls */
->  	struct delayed_work watchdog_work;
->  	struct gen_pool *sram_pool;
-> @@ -180,6 +181,7 @@ void rkvdec_run_preamble(struct rkvdec_ctx *ctx, stru=
-ct rkvdec_run *run);
->  void rkvdec_run_postamble(struct rkvdec_ctx *ctx, struct rkvdec_run *run=
-);
->  void rkvdec_memcpy_toio(void __iomem *dst, void *src, size_t len);
->  void rkvdec_schedule_watchdog(struct rkvdec_dev *rkvdec, u32 timeout_thr=
-eshold);
-> +void rkvdec_vdpu383_clear_cache(struct rkvdec_dev *rkvdec);
+Added in v16.
 
-Overall, looks good to me.
+>>
+>> +static void cxl_hdm_cache_dvsec_ctrl(struct pci_dev *pdev, u16 ctrl)
+>> +{
+>> +     guard(rwsem_write)(&cxl_rwsem.dpa);
+>> +     if (!pdev->hdm)
+>> +             return;
+>> +
+>> +     pdev->hdm->dvsec_ctrl = ctrl;
+>> +     pdev->hdm->dvsec_ctrl_valid = true;
+> 
+> 
+> 
+> Could hdm_state.c add accessors for this, like the existing
+> cxl_hdm_cache_present() and cxl_hdm_cache_publish()? That way cxl_core
+> doesn't write pdev->hdm directly and the dpa locking stays in one place.
+> The same could be done for cxl_hdm_get_cached_info() and
+> cxl_hdm_check_decoder_count() added in Patch 8/16.
+> 
+> 
+Done in v16:
+Patch 9, cxl: Refresh cached PCI HDM decoder settings, moves the decoder 
+refresh and decoder-count checks into hdm_state.c.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Patch 11, PCI/CXL: Cache endpoint HDM state during PCI enumeration, 
+moves the DVSEC control update there as well.
 
-> =20
->  void rkvdec_quirks_disable_qos(struct rkvdec_ctx *ctx);
-> =20
->=20
-> ---
-> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-> change-id: 20261028-rkvdec-vdpu383-cache-8fbbf8313da3
->=20
-> Best regards,
+These functions take cxl_rwsem.dpa, so the callers no longer access 
+pdev->hdm directly.
 
---=-chB0utv8MYz8DSoKGRbr
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+> 
+> Can this function end in a single return, with the 0 or 1 result
+> in a variable, so that the cache is updated in one place?
+> 
+> snip
+> 
+Fixed in v16.
+>> @@ -200,6 +200,7 @@ void __iomem *devm_cxl_iomap_block(struct device *dev, resource_size_t addr,
+>>
+>>        return ret_val;
+>>   }
+>> +EXPORT_SYMBOL_NS_GPL(devm_cxl_iomap_block, "CXL");
+> 
+> 
+> Why not EXPORT_SYMBOL_FOR_MODULES(..., "cxl_core") here, like the hdm_regs.c
+> helpers?
+> 
+> snip
+> 
 
------BEGIN PGP SIGNATURE-----
+I changed this to use EXPORT_SYMBOL_FOR_MODULES in v16 patch 10.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauPuQQAKCRDZQZRRKWBy
-9GQqAQDHLM5SlCbk/wJ0SRV0odUpbr3Lg/xoKBqKoUJVueFzQAEAiY+dzhDBjmpM
-bTzbyWcvpoUlskrmDn0slsq1fJ0cpgI=
-=Qz1r
------END PGP SIGNATURE-----
+>> +static struct cxl_hdm_info *__cxl_pci_hdm_read_info(struct pci_dev *pdev,
+>> +                                                 struct cxl_register_map *map,
+>> +                                                 int dvsec)
+>> +{
+>> +     struct cxl_reg_map *hdm_map = &map->component_map.hdm_decoder;
+>> +     resource_size_t hdm_offset;
+>> +     void __iomem *hdm;
+>> +     int decoder_count;
+>> +     u16 dvsec_ctrl;
+>> +     int rc;
+>> +
+>> +     hdm = cxl_pci_hdm_map_regs(pdev, map, &hdm_offset, &decoder_count);
+>> +     if (IS_ERR(hdm))
+>> +             return ERR_CAST(hdm);
+>> +
+>> +     rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL,
+>> +                               &dvsec_ctrl);
+>> +     if (rc) {
+>> +             rc = pcibios_err_to_errno(rc);
+>> +             goto out_unmap;
+>> +     }
+>> +
+>> +     struct cxl_hdm_info *info =
+>> +             kzalloc_flex(*info, settings, decoder_count, GFP_KERNEL);
+> 
+> Move declaration to top of func.
+> checkpatch should be complaining about mixing statement & declarations.
+> 
+> 
 
---=-chB0utv8MYz8DSoKGRbr--
+Done in v16. But I rechecked and for some reason checkpatch is not 
+flagging this.
+
+>> +     if (!info) {
+>> +             rc = -ENOMEM;
+>> +             goto out_unmap;
+
+> 
+> 
+> This returns the __cxl_pci_hdm_read_info() result from two places, and then
+> has three more returns after a failed PCI_COMMAND restore. Try to end in a
+> single return. Li Ming's suggestion to warn and keep the info on a failed
+> restore would also reduce the tail to one return info
+> 
+> 
+
+Ack. Fixed this in v16.
+
+>> +             return rc;
+>> +     if (!(cap & PCI_DVSEC_CXL_MEM_CAPABLE) ||
+>> +         !cxl_dvsec_hdm_count_valid(FIELD_GET(PCI_DVSEC_CXL_HDM_COUNT, cap)))
+>> +             return 0;
+>> +
+> 
+> This cache is built for every function w CXL.mem, not just type2.
+> So I believe we are needlessly reading Type decoders at PCI enumeration.
+> 
+> Can this check the capability bits like cxl_reset_function() does
+> and limit this work to type2 devices that can use it?
+> 
+> snip to end...
+> 
+> -- Alison
+
+Done in v16 patch 11. Cache initialization now checks for CXL.cache, 
+CXL.mem, CXL Reset, and Reset Memory Clear capability before reading the 
+HDM decoder state.
+
+-- 
+Regards,
+Srirangan
