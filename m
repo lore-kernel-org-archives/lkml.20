@@ -1,53 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793349225;
-	b=AZdTDRgYiRCb2jGnF7aOdOUtfUHDi++9qCvZ0LdXd+cEKrxqrWvET1IEuo9BeRYoDphh
-	 8Dn+E+QzLS4zKnY8HCL7pYR8w9+RCSXXd1dndzZ1CwYENgsL4LpqwrCiWxBsNmcFpq+4N
-	 fsEXWsXGTd7zzyGO6H8PYXbRTms+7N1jF0uEBHB+BOUjDJkT69YOjrXZFZvaVMhLAoVDo
-	 +quAIcsQirtxx/dV8JoGb1bQi5YINJhqfFO8OkJNQ0Fz6MHzMguyLzvG/qvfYUWZeX8XN
-	 5hHgxMDUKQpcDXA0ayZu0nVWFFHYHF3RWoGrwm/DkwbPvgisA6fWTHkvRbboGwMoxyg==
+	t=1793349230;
+	b=f0RWI+LloSkxj/hksffayUphZtTwpTzQdHoRUdNX/03iaeXWavDtnN5iBN48Uw2UyWo3
+	 Gu5/42z50vwuDCdAd10F9zrHyAeZjkCWPBqlq7dHtFNByOxPK6arCTI/7QKJKpJk11gcl
+	 rnt48EMTuRx0ZtamH379yWTH20NhRytwD97NI+Tfe0qljElwpdmxmetnLYwAMHVooVeYX
+	 qObEBpa+SdrpQtvtU2ArBSNYBgErHnnIn6vsvgVIq1VoCQf50DFGFQhFY+mmCbcwjgoiu
+	 YD/7IQX9jTMJycFh+WssFzUdyEPqi6zAO2nEkZkP8GPJ9xANwRGojU/1SQaowdy0tww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793349225;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+c4jsLL0T595PoLzh/BXjFRLEK6XmKiSGFk7aEqBpRg=;
-	b=vmV74LhU4c+RFo+JvY+bHw0utMtUv5zEqVcnwdi5JSlPpHonvsacHwptfFrSqgZ4VRHM
-	 yh8FMpe3FIyRQ4Y4c7Q4e1VuFuON8QIT3TwoyumsViy3DK3h5sAOd0AY/kWbadOQb9DJn
-	 dhCA55LJISIOPnr60qVyQRcuoFvxklq79BvcLBH9+glszwDf6ikOhNhmxhJpOcipXqbbT
-	 CSfsGtFVWfSZ4129wqJGTuKvLZhlXC2Fk3Vnrf1jspT6oTafE+ckVpSiX0D7DXlb8u5OJ
-	 xwZYb2bET4ofmwHA+rSDMFLO/qq+4ToaGJ72aJ2zc45MciAIv+Sm7xAIYz5LIs8TX/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793349230;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=sPAT5BdNlhSR3TVHkk2zOI9YV8pl9pF9QIk48sjM/RA=;
+	b=SAi/CvrPAjUtod8QdK33fPl364Pr2obUoI4sgfXuzWTRefm9SNimoIW3+7LhpfcZi32b
+	 7K0AkaHa/H7SQF71xzoAr0d7F9B7q/Bvg7k4gjM62HWmiUd/szn4NGCXKk8QAiqenXVRg
+	 FszsQ+cu1P7S0avD33a+UW57N6+VD3J9vCrXN509xfHpbmQJ8+blU9EhdFFK3F/NgC40n
+	 OhilrDFM9f1Xz1rZXYacuq8Z8nLqHtWyfT00cQhsosiRbQFBchsBDLcYueFgAZa8BB70i
+	 sdlhPm6vi+aGfFbJcmk9HSeEHnuS7G9Cg7vs1LmxSeY33V5CPgv9aWrg6z1xd2S0K4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=seqOCzUw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1290606A31C;
-	Fri, 30 Oct 2026 08:33:44 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=RuNNqWEj;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BFCDB606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:33:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFCDB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=seqOCzUw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD67C1F000C1;
-	Fri, 30 Oct 2026 08:33:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793349224;
-	bh=+c4jsLL0T595PoLzh/BXjFRLEK6XmKiSGFk7aEqBpRg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=seqOCzUw6nQu9IivIDK5wwe5nGK49tanah9k49jhHwVtng8UZP2M4QsnMoblQqLAv
-	 M79qycDsU052vMzbH88/wSbSc4w1VNTZ0MkgW1jW0gF45CPewTDYSXoSOFRq7dqBhJ
-	 OKJ7dCxOO/MBg/PX5PD/ZuBBQCbIoDjV1cNbsk3U=
-Date: Fri, 30 Oct 2026 09:33:41 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: jirislaby@kernel.org, dmitry.torokhov@gmail.com,
-	mathieu.poirier@linaro.org, linux-serial@vger.kernel.org,
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-Subject: Re: [PATCH v4 1/2] tty: sysrq: don't expose a partially written
- reset_seq
-Message-ID: <2026103043-tributary-partake-aefd@gregkh>
-References: <2026103014-sketch-headed-2fd1@gregkh>
- <20261030075820.207049-1-zhanxusheng1024@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=RuNNqWEj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=RuNNqWEj6+XnzP+7lSLupdpDCajAdmybPNVly+fneDvgeY39ZyRTJxvtr1xuS42HaI9KimeGc43E6
+	 wQXFWpD1gyYQvA2eYXz9/4+MT0QrCCWfzMZo89XwyGf1NIJhNKFw1c1sDSG6P/VWJyeBT/1a+5DFtY
+	 KuIAgdRzL3NyIOXA=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16ae45667f13-4ec08;
+	Fri, 30 Oct 2026 16:33:46 +0800 (CST)
+X-RM-TRANSID:2ee16ae45667f13-4ec08
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.101])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96ae45668c95-55de9;
+	Fri, 30 Oct 2026 16:33:46 +0800 (CST)
+X-RM-TRANSID:2ee96ae45668c95-55de9
+From: laixiangwu <laixiangwu@cmss.chinamobile.com>
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Lucas Stach <l.stach@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	laixiangwu <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH] drm/imx/dcss: Fix clock leak on blkctl init failure
+Date: Fri, 30 Oct 2026 16:33:42 +0800
+Message-ID: <20261030083342.1531-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,50 +80,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030075820.207049-1-zhanxusheng1024@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 03:58:20PM +0800, Zhan Xusheng wrote:
-> Hi Greg,
-> 
-> On Fri, Oct 30, 2026 at 08:02:30AM +0100, Greg KH wrote:
-> > I still don't understand what the root problem is here, sorry.
-> 
-> Each keyboard keeps its own copy of reset_seq.  It rebuilds the copy on
-> the first key press after the parameter changes, and it rebuilds it
-> wrong in two ways.
-> 
-> 1) It adds the new keys to the old copy instead of replacing it (2/2):
-> 
->   echo 56,29,111 > /sys/module/sysrq/parameters/reset_seq # Alt+Ctrl+Del
->   (press any key)
->   echo 59,60 > /sys/module/sysrq/parameters/reset_seq     # F1+F2
-> 
-> Now F1+F2 does nothing.  Only holding all five keys resets.  So setting
-> reset_seq once works, but changing it later does not.
+dcss_submodules_init() enables the DCSS clocks before initializing the
+submodules, but if the first submodule (blkctl) fails to initialize the
+function returns directly, without disabling the clocks again. All the
+later error paths already jump to ctxld_err, which calls
+dcss_clocks_disable().
 
-So this feature has never worked?  Or it is just "one change only"?  So
-your change is an addition to the feature, not a bugfix?
+Since the clocks are only devm-managed for their reference (devm_clk_get),
+a blkctl init failure leaves all five DCSS clocks prepared and enabled.
 
-> 2) It can rebuild the copy while the write is half done (1/2).  The
-> write stores the keys one at a time, and the keyboard may read the list
-> in between:
-> 
->   echo 59,60 > reset_seq
->     store 59
->                       <- F1 pressed: keyboard reads "59" as the sequence
->     store 60
-> 
-> On a keyboard that has not used a reset sequence before, or on any
-> keyboard once 2/2 is applied, that F1 press completes the one-key
-> sequence and reboots the machine.  The window is microseconds; I only
-> hit it with an added delay.
+Jump to ctxld_err so the clocks are disabled like on the other error
+paths.
 
-So this isn't a "real" issue?  If you are modifying the key sequence,
-how can you press the key at the same time?  Doing "major" rework for
-that might just not be worth it.
+Fixes: 9021c317b770 ("drm/imx: Add initial support for DCSS on iMX8MQ")
+Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
+---
+ drivers/gpu/drm/imx/dcss/dcss-dev.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-thanks,
+diff --git a/drivers/gpu/drm/imx/dcss/dcss-dev.c b/drivers/gpu/drm/imx/dcss/dcss-dev.c
+index 7fd0c4c14..551786060 100644
+--- a/drivers/gpu/drm/imx/dcss/dcss-dev.c
++++ b/drivers/gpu/drm/imx/dcss/dcss-dev.c
+@@ -70,7 +70,7 @@ static int dcss_submodules_init(struct dcss_dev *dcss)
+ 
+ 	ret = dcss_blkctl_init(dcss, base_addr + devtype->blkctl_ofs);
+ 	if (ret)
+-		return ret;
++		goto ctxld_err;
+ 
+ 	ret = dcss_ctxld_init(dcss, base_addr + devtype->ctxld_ofs);
+ 	if (ret)
 
-greg k-h
+
