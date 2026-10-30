@@ -1,102 +1,32 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793380964;
-	b=Wi0gr7znQUqEGfIaZRI25oslcS8lLlkP0lqoclx7qfnXnGpC4rcf7MfpW2q/fwrqYpHT
-	 0WsuYCr0GoscBXk1iCHYXbUQyRGZVMvUIiWBoouNn44vKn5Pjdh2fY/0h3zkAn8oFQW+B
-	 RObiChoKY8MmvNduK7zMl2kfdjoA2q0Ikx8z7IZHRPaWgDxdHq437RWvTB5x/GvQNEY7E
-	 CyPrEQNDjUfS2wlTFavsOKNTTRSSa+VhVmHu5N65ta563U6KNdl/i8m+zAUi/1ZUVZLGI
-	 Jh8hcFGqI8mzll99BYycjMQ7pGTzIRgvhutErQsxO5qxynAt7w6RW9PYTEhbC0hi9cg==
+	t=1793380969;
+	b=DpuON9r3sTMrNh/SMmK9lGQnqjF5kHY99OARMRd10qI3n41iLUKdY00qFMIxOCASihUa
+	 rPKWe650ACchLUX1vuNMSSlGTo8wwiKasEOmX4gQAwUdCLmnfBKocAfU7C2oWK1jnEPXN
+	 ab6SvtQjdi4hCmpTYmaUZ3VL/CXhBIiR4DANOZcE33sHfSVcTH9yNGgnSkrHfasnk0DbW
+	 lNy333+y7DGyHupLOd9IoBmogfAXFw+lpRGvKTDntSnw1RgxD5oewb+xiaU0vRuZPL0IT
+	 H5vjWhQ+2j9G2OsYd9MYd498CgqmGOvS59+bG+4tNo/PXRK7Hx6ZX5MmSAoeKw7CnbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793380964;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=uJzytUwk23ovgU9TbV1PYDO56P/aKAkqKpMgUmlpTZI=;
-	b=CGt7tixjlTkqjTuzOT4woiXSfUHEDUmvEsNh4ber2aT00/DhoNkUx2Lto3pBGqiW8xEU
-	 unB5jx7kj/guEmgqgWuA+reM4Sw62K+0+Hl5BBIwVP1wPIAl3z4qKBmsCeRuEfKs0yfu+
-	 HUOee/bDd0IK4A+sGWVS9NsO6TBYh4ld25gbnqiEK1BKEw5gzUtJlp7VFYb+UlgcqucL3
-	 GgXIYHudDlv7YIYlFhQfqxNQbqc6GvAWVM8mIN3TCr/xvPATpx0nq5E9HH92RVEYT2vWQ
-	 jOMbJzWzBuo3XsyaHRGA+Gp9hbMcq9lgRcgs+61nckmez15H5LGe38VzuJtv/5vSbtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793380969;
+	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=AbWHoPwXUxv+0zxO3fNFnFkhWpGWb3Lui80zNc6p+r8=;
+	b=OMAmNouHzlHevZUYr8W7tVXnCrq/y1IrotZ7C/bi5CVU84CrxHi366G8fveisPwM+P3o
+	 PXTJjGzWwQMguDqkSvyxAm51CrAj3/KkuopQd8lHCoqtYe+y5o1NxMFf8e0b4MutFLwOT
+	 BDFERBgI1VnezG1fOh/rzVUnuPJgaaz5wFq2iPelf8K9vd9xeTFw9IOCNI6oPnHcSmYGM
+	 QeOZ5oETOZLQAcAfL5hxN2cnV6SnAKSHw58IInl+NACBesQ7uX+KxQyxCt0gbp5RC3Cgq
+	 aLo4m008dioI/+zUHkMg1rhdtD932U5ZxCi1an1GaZi26wS2uOvQ/heSHoKFxPzfrrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WzX5ZSDA;
-	arc=none smtp.remote-ip=209.85.221.177
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B64B606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:22:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B64B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WzX5ZSDA
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5eaefe5b523so786776e0c.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:22:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793380963; x=1793985763; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uJzytUwk23ovgU9TbV1PYDO56P/aKAkqKpMgUmlpTZI=;
-        b=WzX5ZSDAvT3UHZYgbL8cD7QJcaTmxK/HjuD8vHcV1VasQc9xQ/1M1gJxuClXJu3G71
-         0cQx0epuDNOaiQwOWpcS08+NxBBSc0iRr/JOMYt6N5R38zdF7MCBzVPnaISrGxuraccf
-         1s3eE0EVkRvBoFQxBfmv3RBoF2ppZMkkpZV63/6aOp87lyYoWXWNlRbY+eY7OGvyVIch
-         uTmGcqODp80JiIkU29BFSREd2vV7sRg/hl5beD+UoeSOXoRxumAZoXkfD5M2s3w4pgRA
-         i99tmffMIpgo1HnGF21ioAGGFkqfqvumHy0wa/qUyXSE3QMDmYVgml7u35F1CdfOUWBB
-         jbSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793380963; x=1793985763;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uJzytUwk23ovgU9TbV1PYDO56P/aKAkqKpMgUmlpTZI=;
-        b=VUHf7XhFprdJTrBhxy/7byyiXjkASN697aPdHLfAX+EWUIDK2RKJUMSftwcablx0/H
-         fAuQpoFYrP3rAbS8HkH+567+ZG2steDrR+wtPZFc5uudozzdbCXxDA63VqSqI+WfyVdv
-         vpIMEEuFPQjCQt0KJNLWeJeyIPJEa5jvXqw5T1gzkZ9JyMx6vTmmNCHIVbPzS8sIOOLg
-         IrnIpO85BgmIIOfRxALwKjGs275zSo5tnFY7liH4/sghSydIwWT2U89z0RgXL7a2RE/P
-         d6mpPkbD/ecVTs1bLPuWyG8wxlmvGV7OaYGNa+KTFK7WXPVEwL0yUzl5SJ/x8VQ4VImL
-         NL3g==
-X-Forwarded-Encrypted: i=1; AKwUvBxC3MV4yjNJaW9rTqJSaUHzLq4+nDyJQQarVCBW7bvoIFYAcD0Iub9Zgj/yZqodfg8F6e/AalIs/3atTjk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK08OyNjqAbjuuYfptXd2ZgTSq4nkFUKjF0sd7tf55ixs9BCDke
-	ciZKcsH7Mxa5oSuX/rzx7UIdZMCVus6EYQkFswwBGmE3wsYUM122jX01
-X-Gm-Gg: AYBFou2Tv5isM+KQbFcDmCBkcp92phOl21xXiMsuip6AKu62Hhd+4gEU9q5uAsC/Zii
-	51rtpTtdEYV26eQj8enDtZbKRyJ1lA/DduE5uoENWTpjLqud05McFyk0oENnJQeDPm79C0aaREz
-	cama8ZqdUvP8OnMslTeKkJ3L2h6MaYd2LYONjZXQoZgCWHc8gxe8rm4258Kchlqqm2j0H2rhXoa
-	KROOFPSE8qCug5IEPoKP5J56viXqwg1630OaDpxmj68Hl5xkTnGFFvAoA/vUJKRwDn8DDCj8g5U
-	SBi56XHxC40l3FisNEbU+cajUuNhSSH7OFxfhkv4HYzaO3msWsgR0KPKc/V4bmawG8hW4LY0yYO
-	jLk7BL3ygtapHjGkoTpHa6i3RVEyx3C0xDb/ROEYkdGzmM1cPQWHGVnHLOAvpGbaZKYps0u5/m9
-	vd7PLrRER0TZlf+3WZizlxQcmL8HcBNlH3j4Y/acIk4q1JAvo6oZs5ANwX7dE/NHq2Q505XHcgF
-	lpqJEcOaTLgzA+C7pJkUh0jbaQZI21DDdt30ZlIE+eQILYdMUBwLbUZkHTXu964j9nkou2iFSw2
-	55T0sFy7xNP+KgszbL853vx1KkUn3Uo2/OlX6qPVhh5bhql+SvhKXndZW8k9tAXV+Ku/DPbN02O
-	tLTFOS0ld1uDdY2IDsSXEXhzFPzbWkJjfOthS3sJDqbXRNq/fgizbh0A5OtIwyF/cklOMdlRX7s
-	niX3Gw18Dt0spzPiLAqw==
-X-Received: by 2002:a05:6122:1d53:b0:5ce:b65d:22c4 with SMTP id 71dfb90a1353d-5ec6896b8b6mr1733742e0c.16.1793380962808;
-        Fri, 30 Oct 2026 10:22:42 -0700 (PDT)
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([2804:18:15f:b9ba:756b:b70a:a34a:8232])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69c99e3csm3005317e0c.15.2026.10.30.10.22.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 10:22:42 -0700 (PDT)
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: David Heidelberg <david@ixit.cz>, Krzysztof Kozlowski <krzk@kernel.org>,
- David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, oe-linux-nfc@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] nfc: s3fwrn5: validate the firmware image size
- against the firmware file
-Date: Fri, 30 Oct 2026 14:22:26 -0300
-Message-ID: <179338094618.65825.9271330213423582924@gmail.com>
-In-Reply-To: <179332821053.3327.2621510890857714130@kernel.org>
-References: <179332800288.52644.4206885352837613064@gmail.com>
- <179332821053.3327.2621510890857714130@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327FC606A31F;
+	Fri, 30 Oct 2026 17:22:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A53A21F000C1;
+	Fri, 30 Oct 2026 17:22:40 +0000 (UTC)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,11 +36,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] PCI: iproc-msi: Bound events handled per IRQ
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Eugen Hristev <ehristev@kernel.org>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Ray Jui <rjui@broadcom.com>, 
+ Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <309f6f13-b010-4818-936d-4b7b4b389239@kernel.org>
+References: <20261016182124.GA1884550@bhelgaas>
+ <309f6f13-b010-4818-936d-4b7b4b389239@kernel.org>
+Date: Fri, 30 Oct 2026 22:52:19 +0530
+Message-Id: <179338093960.40615.2809022600772649565.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2945;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=NhrgfYtWWMAeXIzEEs5sdas0i8AXhL3y5gJHreUA8i4=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5NJaL0b7jZnx9aXTpdju9tpBVR/Vq5ouNes+V
+ 7Qh7Mmpd3GJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauTSWgAKCRBVnxHm/pHO
+ 9UFRB/9buwBUUSMn0bkqgILUriwc0wnyczcrScnvOGS4kpDnEMN46fnOiIiBJiUTnTzZ7xM8xRO
+ 6BtufB6deKYUwrB7az34W5VDiN1qm+JOml/Lt4Rc1XX++szyeH/oUfH+XBMOMPANTQKahLi/IcN
+ UoGbIteeaGTW0sWJ7959ZsFyycQ20LWs298/S7kj5N53Y6XHvgD9LaET5t3lJhLgv66IlS//eRx
+ B1ayn0MsNWk7B0bDvGwZEKo4GlpNf3BbJS+SJOg1Cb6QotVMN3Ycxlr1aPXgtac0AV7m38fumKx
+ Tt8AaEU6kglmDgorvqrPL5xn28SyjKYD4ANBGaSdCefaJRbK
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-This was found by LLM-assisted code review, as part of an audit of the
-NFC drivers that are only reachable with real hardware (and so are not
-exercised by syzbot).  It was then confirmed with KASAN on arm64 QEMU,
-using a test-only module that registers s3fwrn5 through s3fwrn5_probe()
-on a virtual phy and a userspace emulator of the controller's NCI and
-bootloader protocols, as described below the --- of the patch.  It was
-not hit in production or on hardware.
+On 2026-10-16 23:10 +0300, Eugen Hristev wrote:
+> On 10/16/26 21:21, Bjorn Helgaas wrote:
+> > On Fri, Oct 16, 2026 at 03:18:53PM +0300, Eugen Hristev wrote:
+> >> Limit each iProc MSI parent IRQ to 16 event-queue entries.
+> >>
+> >> A continuously fed queue could otherwise keep the chained handler running
+> >> and starve other work. The budget still drains pending events and lets the
+> >> next parent interrupt continue processing, improving fairness and bounding
+> >> interrupt-handler latency.
+> >>
+> >> Without this starvation avoidance, one CPU can stall indefinitely
+> >> in the loop and not serve other interrupts, timers, etc.
+> >>
+> >> While testing it with an Ethernet NIC,  when too many MSI interrupts
+> >> come in, CPU might get starved:
+> >>
+> >> Connecting to host 192.168.30.1, port 5201
+> >> [  5] local 192.168.30.2 port 52586 connected to 192.168.30.1 port 5201
+> >> [ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+> >> [  5]   0.00-1.00   sec   240 MBytes  2.01 Gbits/sec    2    334 KBytes
+> >> [  5]   1.00-2.00   sec  63.2 MBytes   531 Mbits/sec    1   1.41 KBytes
+> >> [  5]   2.00-3.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
+> >> [  5]   3.00-4.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
+> >> [  5]   4.00-5.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
+> >> [  5]   5.00-6.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
+> >> [  5]   6.00-7.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
+> >> [  5]   7.00-8.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
+> >> [  5]   8.00-9.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
+> >> [  177.568497] rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
+> >> [  177.568913] rcu:     0-...!: (1 GPs behind) idle=28ac/1/0x4000000000000002 softirq=28922/28930 fqs=1
+> >> [  177.569457] rcu:     (detected by 1, t=5256 jiffies, g=21629, q=819 ncpus=4)
+> >> [  177.569870] Sending NMI from CPU 1 to CPUs 0:
+> >>
+> >> With this bounded approach, IRQ handler will complete and continue
+> >> to serve MSI events on the next handler invocation.
+> > 
+> > Is there something unique about iproc that makes this an issue, or do
+> > we need to worry about this in every MSI interrupt handler?
+> > 
+> This is not specific to iPROC, so in theory it can happen to any other
+> MSI interrupt handler. If the handler has no way to break the loop, and
+> the condition that generates the MSI IRQ happens continuously, the same
+> situation will happen.
+
+> Some other drivers e.g. take the IRQ state into a local variable, do the
+> task, clear it up, and don't care to read it again, like the iPROC is
+> doing, unless another MSI fires.
+> 
+
+You should rework the iproc handler to read head and tail outside of the loop
+and handle the recorded events inside the loop. This will avoid using any
+arbitrary max event limit and allow other handlers to also run.
+
+- Mani
+
