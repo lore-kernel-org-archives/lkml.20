@@ -1,105 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793319803;
-	b=HLBq7VRhWMBeMMsiP2muGWLyI0qmxoyHVcq6GYSEQek7YsHb4Tmjm+TQsazX1sV0O7Y7
-	 ZtJnvnicyl57CN/I9qP2Sc/tRWtHWzdO1VC8gOqX7vFFiFAWv6EcJtgOLRMF7YYNSfjm9
-	 1AbfPnxrkGiUhFSjSH2rAs2j0M4jeVYSUZHWqDXq8uh4GR1+gzQMLILyToqD9eE1QBDoH
-	 K8d82rhG5B76h+/AM1QzfvgJwv5eGq3ToC42aARb8D2n9lb6El/egG/VGYRAvt18W79eZ
-	 4ahNqI0C+3uXnyIlM5HShX2WIRG/xOdtc7dnfsWoBHr8G2UGWLGJaDLAYqjvF4AuETg==
+	t=1793319843;
+	b=3jqURfYpJbvkC04nYg7SCLBS8uBEfy9Y1mqCEJfcerFN4qM0+umh1B9FvHwkK+QQyx1H
+	 4DfEjF050uCRoFWdNWpOTEdRt1Ad2d4lcilJSt55Z9fKFgTFjy2n7aFci3jd87UuplnVi
+	 9UKA2Uj5KczWWyuc1eHduUHGFYndm6MgveXtkCWoc+RXQceNu7MCVRbySdANlONuZxPR9
+	 MeMa+ixK67s/rKl8ONaZwHJSbrE2j/YqTh2JvyIkY9m1oVr/gNW1rNUSfaKh1WX2y+roE
+	 EKNm41t7YP0XlA3YWGh63tKqJJBw8mzZzLBDAqXeozcOntvTj6pKzwcblPBgu0aae3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793319803;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793319843;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=+NfimRk2GYnku3/wifGqwhcMFbQKhofA3PCyZ8KRFLg=;
-	b=l8IJHuFYA6cvsrudkTzArkuL5V9//ziNMuvgWx5mZMtm3DePICDDs136UL5OzsgCME0F
-	 KjO5c//ibH5gRHARvcrJLmeOSX5Et98CUYIuzhDo9rOlCMwhrQSM4wSZXaAcx/HxyaWrB
-	 IBKLMrQijJjUXInm1CYh/vmtyWxJTtH5UouFwWKdNpqmM6mxf1KKeuTuORFwJN4acZTy2
-	 KRFfG+oTZtBtzoRPGNlcCuFN5wk/rJSanyigF5/vYaYRd+JHsHjqACtXrrJBfIKY1Uwiq
-	 uL09G+BQH2D/Ks+jR3DfdAKAl32uhVnLeZaipb33/qAuyb7zS9qYtc/u6Fd0BpXdmaA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=KkjXI6XREDZgMovozjWwMnBiOd6uNUe+5PisGTE2NV0=;
+	b=2bRyJvBWC+oWJ2wRUGPzJOUPJnesa+HQq5eOGOz5+AOPPm/O4zsVspLndDTz+FjwG21j
+	 mdo2XV7/1KpPCG8ZdBa+3frxxLzWMdR1imPZf+t91WUMKlcUQ9jx9+Jt9pVEOx5Ha6mxD
+	 HZLRnDRKhZn9A/rM+MxNQ+4aGAS+ZwIgZOpe/VAR0itWhlUN8NiYfr28zJ1Q6jUHZKEBk
+	 MhKFLk6FxO8yj0rTE5FwJMiONKEecKuM9I2TkRirYibCbC60o1zKx3qMtodwum69wndIq
+	 /lcm4vYZUdoGz/jPUPB5k4pcZZ8DKu2eW0loa4KvscB124wh0IQNsGzMIMWBtxPmtVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ypsC157I;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dmarc=pass header.from=crusoe.ai;
+	spf=pass smtp.mailfrom=crusoe.ai;
+	dkim=pass header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=fepJCQ+g;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B830F606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:23:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B830F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D898606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:24:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D898606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ypsC157I
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c5358fc28so126014f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:23:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=fepJCQ+g
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso297096eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:24:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793319801; x=1793924601; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+NfimRk2GYnku3/wifGqwhcMFbQKhofA3PCyZ8KRFLg=;
-        b=ypsC157I+v7buErUok30TBiMODRXmt0y64VItSaKUENFC534TAfGzo2OHFZgJmXpwc
-         L9kRGPgyzBwdMo/O7Idj5K2oybXz418/96NL6mvw/0f02q4KmR0ACKymwGkg0VR1sK0l
-         x0wzJBDeOvbt7evJA5Odgu1gFVbJRNHXAodaadMy/gMC9F5lm+HQCUcxIi2iCXYAbq8/
-         k1WnX1L2j/7cClcqb9BTvinAQRSIx8wizdwUQkL5lXW+Rlu5PwBwLPae07RnC1v77LAt
-         Td7bjzE/7MQ0RZzXwLBskmvr6E+VWZiCZxQfZVtlenHW992yTqB75FefpYt1zPMJa8T5
-         4ZoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793319801; x=1793924601;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=crusoe.ai; s=google; t=1793319842; x=1793924642; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+NfimRk2GYnku3/wifGqwhcMFbQKhofA3PCyZ8KRFLg=;
-        b=TdhSehyJq4cghUmZXGfQ74kUDC/1iz4b/Jen9ub3Z0LIwF2T5nJFYXHZ9l/wm3ekpI
-         fPjcMNfZnphNwugryesSCJtQFSF+wejFugdtc/Yp17IcebUicpXCqJOTC0xMCAxIugtR
-         uy8HwlA/nz3SBI1IsmyDc5J3YbEpiH3qxOW9IyWLameBuGZkUdB5KVvOktfa771FroWc
-         XBYSLxH51uazrV5dkZjOKv+4NFOmcoBgTPFK5hCUjWl2RdM8seMJFQ/ehjPN+rxss14K
-         p12S/kV95y3oGYy7f5Ui6NRcizhpFwolB01YXtVNWpV271DdpEvVNscABccHEVCDK9e6
-         iXLg==
-X-Forwarded-Encrypted: i=1; AKwUvBzQil1XqcTv+jk37aENE3SsihWOjzrIpcl/z+1yu6ZcB9HIWFeNoNmk635MOsB6hNFmhFsywo8ZCCgVsgE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNFx7nbLTzzZRlhg0cIqU+epZCqiD75LzSrwnSTGDMtJEHmDss
-	0udyyf3X1j/iDVYWeQoCw9onuIykBCbRmIf2ouIAzEGAFnaLqZOXtyxM
-X-Gm-Gg: AYBFou0D0Hz3ew8nU+a/OpKtkfSlV/WT1EOjA6gLHrQjoqmCV11JlQLKLBw4Y8uxnk3
-	aM//F97JsBSFa+jrbyeiJEIez9Q0rWcOFxLf78IaqQMz8Z87SRXX5UueLj1kgAjaOIf7CbaGkUs
-	NwyXgic9FfYzlvXJhTWBap7obx8gFMvBWQBZDnnEiIrfRxHGP7ljg5d66kinHu4lzyMsqNXQf9U
-	UKVV78x5QcFIlXhW04Jyf2/pFkXWKpcVxhwl2ruMK4XsMdyZYYStfjTl/Nl19J+PJbse5ckSHIC
-	fcQd9aiLq5I4IG1JFcdXkPuRogFIqOLmrzTX6j1jsVR+DBb6u40N+5YueC65rTvsneFQkCP/f0o
-	Qg/lk1A4NT7YuBkl4Bw8hxU1yBrhGyd+ZEx0gbGizr0ONExqNG21fFexfH4HxhZbxSL1riwZAYv
-	DGZ5xPnVkydf5qfe8lwiN3uqRH2lDIaVSVvfqqoF40UhbSy42SoygmZ7tNlmPihBDhFauEUGz70
-	6OH0aSdZhsCT7ZKofAgNaBVfFa1iHItelTCb1Y2KtYIzDJC4TMGorvm0P3sHVWEqC/o8xO+zBSf
-	r4JW/zOjcRnfotfGG58RXBkKEBJK64AfItrvVzc9neyFnMc9kQ/q/uhDA4njATeS2xXxFfJ9se1
-	zbZCXcMnT4UM1f1MT1dGo1yfAQ/goGb7fzo361DACcv3hp+BsaQRcLXqwSP+T
-X-Received: by 2002:a05:6000:2211:b0:48e:6419:ddf2 with SMTP id ffacd0b85a97d-48e6e2e76bcmr1859407f8f.17.1793319800920;
-        Thu, 29 Oct 2026 17:23:20 -0700 (PDT)
-Received: from SD.cable.virginm.net (cpc117822-heme13-2-0-cust760.9-1.cable.virginm.net. [81.111.210.249])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b728ddsm69596f8f.9.2026.10.29.17.23.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 17:23:20 -0700 (PDT)
-From: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
-To: Saeed Mahameed <saeedm@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Mark Bloch <mbloch@nvidia.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>,
-	Cosmin Ratiu <cratiu@nvidia.com>,
-	Carolina Jubran <cjubran@nvidia.com>,
-	Alex Vesker <valex@mellanox.com>,
-	Erez Shitrit <erezsh@mellanox.com>,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net/mlx5: IPOIB, Fix QPN lookup race
-Date: Fri, 30 Oct 2026 00:22:14 +0000
-Message-ID: <20261030002241.8508-1-prathameshdeshpande7@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=KkjXI6XREDZgMovozjWwMnBiOd6uNUe+5PisGTE2NV0=;
+        b=fepJCQ+gqlT0HyBElz7OVjk3QQmv0GPv5GYS8oH29ml1mT0SpKH8HwChSXag30WKxK
+         iRimiOCgYS4l7xp0AMdYebg38Szg9+B7lswlzycBjqn2ocxcjLFPf5RP6TX/8GMkAJFs
+         xyNdo+/cYnoxVPquuRFBqbf2L/FZBD3Aju/Gh4JAk07YWRbIBVGtBqPlQrRMi2+gmfsa
+         5kw0KycMWUl2LXvDkWGVwXTGe3Vq7nasZ0uX+TR/E0CsA1k9YZoLzzyh5v9y0A/h1Ghp
+         xqrjK1Il0GnyBGldC+hphae2udyO6X6GhxX/VJX/aEdmc2r4oOwqxQwl3WjB3DO16Zyx
+         DCQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793319842; x=1793924642;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KkjXI6XREDZgMovozjWwMnBiOd6uNUe+5PisGTE2NV0=;
+        b=x0ICUkegJkUemXaaInnGGDTUU3T8BI0PT0b+cu1RwVMv4oI1Cbm3KmldLt+QYUgtq2
+         aBJ5NVO4J/yN96nUwRT2EUl9M1JKi+pwaT47kQEO+L9GId2sMb+ZUAquH/007zYuSJAp
+         ozR+GU0SxIpXUIhyYgr4EPqFM6k6DOIqyCOVpjgGxUFRTRuB+shJk+q0IgAGfNqBAb21
+         nZpxuvdF8Y+z74uC+olWVFUFq8hkkkzhcSD2gXwVJQbt6UyfSr6+Oei/CmLdqp6ryKaV
+         trjHRchnbUTopZjHHFzt2/8hb6nJYzIsBQk91vDBRDMq4AApQQv8iQqhqYvC9UlaBRI/
+         rIyg==
+X-Forwarded-Encrypted: i=1; AKwUvBwFsdvqSYpMuX9ahQFZEITDO2wHyMQQSg2fmKOFJQTd6jupgaJMOMZMMcet6hqBQ9B+7+ajBL8F6z/7MAs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImNXGZTjPOHhiX9gLZ2v+YWMaO+ln/E+U9N7T3viQGroQgyGZ6
+	R1FcG3qLj1QvdIDI9lX9or+552fmT+OK/SNRMjVhDhb5ldk06yF5/wUFnVVQK3MylkI=
+X-Gm-Gg: AYBFou0gwFMb3JbS/P9J4pHtZSpzzODJVUzUrYsA1JM0jQ7iSbq9sqR+3WdEVwUwWpz
+	OF5X6aXidtGffq34vwBSsChx9SfNGtMDHEqYf8YA9oe2lob5wM8iCJCFp5TLfP1RHfjlJ8a1w9/
+	S4XEh5KQ2i4QlThmwYqUX6Q/kypvfd5/tl4L40Zh0fInpVdYgQV5m07jTBPOnts7z37/OmJTZ5m
+	ne+lfIoFXn3gJeDuhxQL93OsKRCEM0Nw+tsAdIS0LLJdMZu9z/HLgSMOsK/h8bBa80hxMuwSdS2
+	PmNVdtnjKgIPbLjKg7sqYt2c3ojpat6lTTxkny+nh4aYnzRT2/rFwDYkzmtvBFBoKmQW2hJlbhx
+	a8/uk43DdPxpiRRvoET1Jf9DQui/54ipE6YT3kHlXfLBjhXB0VAHx5Fwhv6MJEN6cOtV0CjvMNP
+	5o74joFSkup7R2nBO3bRwj923ZqImxHsUTTgKEkZiEcq6cXfogj/KRMtef5DlbGf6pBLcVR/3oV
+	C7QsBwbD0VGu+AtCDE+Rvo3jyWKwhM/Pqb/GKH+TobB5IABQrTpJyqejON0PLnrU9Jaux+Zj6P0
+	3RTS3nrMe+M8bw71TI/BnRevFR6B7/oqNWmMXV+p247/hQeOCp3ON3/0GcJlUU83COpa4sYzUaa
+	TFBRhfaKlisKnqkijbxnB
+X-Received: by 2002:a05:693c:83cf:10b0:36a:1427:3933 with SMTP id 5a478bee46e88-36a4236e7bemr1488656eec.16.1793319841432;
+        Thu, 29 Oct 2026 17:24:01 -0700 (PDT)
+Received: from MBP-Saravanan-D.civet-hops.ts.net ([67.208.231.220])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm2241458eec.26.2026.10.29.17.23.59
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 29 Oct 2026 17:24:00 -0700 (PDT)
+From: Saravanan D <saravanand@crusoe.ai>
+To: linux-nvme@lists.infradead.org
+Cc: Saravanan D <saravanand@crusoe.ai>,
+	kbusch@kernel.org,
+	hch@lst.de,
+	sagi@grimberg.me,
+	axboe@kernel.dk,
+	nilay@linux.ibm.com,
+	dwagner@suse.de,
+	sgogte@purestorage.com,
+	hare@kernel.org,
+	hare@suse.de,
+	linux-kernel@vger.kernel.org,
+	iyamahata@crusoe.ai,
+	kiyer@crusoe.ai,
+	ganbalagane@crusoe.ai,
+	sjpark@crusoe.ai,
+	bchen@crusoe.ai,
+	shinichiro.kawasaki@wdc.com
+Subject: Re: [PATCH v6 0/2] nvme-tcp: allow setting per-queue io_cpu through sysfs
+Date: Thu, 29 Oct 2026 17:23:40 -0700
+Message-ID: <20261030002344.92839-1-saravanand@crusoe.ai>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261023230426.6425-1-saravanand@crusoe.ai>
+References: <20261023230426.6425-1-saravanand@crusoe.ai>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,48 +115,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mlx5i_pkey_get_netdev() reads the QPN hash table without ht_lock,
-while mlx5i_pkey_del_qpn() removes entries under that lock and then
-frees them.
+A short status update on v6. The Sashiko review of v6 came back without
+findings [1], and Shin'ichiro confirmed that the blktests case nvme/075
+passes with the series applied [2]. The blktests patch linked v5 by
+mistake, the version under review is this v6 thread.
 
-PKEY child interfaces share the parent's RX resources, so RX lookups
-can overlap child removal and access a freed entry. A lookup for
-another QPN in the same bucket can also be affected.
+[1] https://sashiko.dev/#/patchset/20261023230426.6425-1-saravanand%40crusoe.ai
+[2] https://lore.kernel.org/linux-nvme/auMw5Gxg6toa8GD2@shinmob/
 
-Hold ht_lock during lookup and save node->netdev before unlocking.
-
-Fixes: 7e7f4780c340 ("net/mlx5e: IPoIB, Use hash-table to map between QPN to child netdev")
-Signed-off-by: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
----
- .../ethernet/mellanox/mlx5/core/ipoib/ipoib_vlan.c   | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib_vlan.c b/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib_vlan.c
-index 4120afd097c3..6c24ae8e7662 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib_vlan.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib_vlan.c
-@@ -126,13 +126,17 @@ int mlx5i_pkey_del_qpn(struct net_device *netdev, u32 qpn)
- struct net_device *mlx5i_pkey_get_netdev(struct net_device *netdev, u32 qpn)
- {
- 	struct mlx5i_priv *ipriv = netdev_priv(netdev);
-+	struct mlx5i_pkey_qpn_ht *ht = ipriv->qpn_htbl;
-+	struct net_device *result = NULL;
- 	struct qpn_to_netdev *node;
- 
--	node = mlx5i_find_qpn_to_netdev_node(ipriv->qpn_htbl->buckets, qpn);
--	if (!node)
--		return NULL;
-+	spin_lock_bh(&ht->ht_lock);
-+	node = mlx5i_find_qpn_to_netdev_node(ht->buckets, qpn);
-+	if (node)
-+		result = node->netdev;
-+	spin_unlock_bh(&ht->ht_lock);
- 
--	return node->netdev;
-+	return result;
- }
- 
- static int mlx5i_pkey_open(struct net_device *netdev);
--- 
-2.43.0
-
+Thanks,
+Saravanan D.
