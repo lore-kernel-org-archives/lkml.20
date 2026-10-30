@@ -1,98 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793347088;
-	b=Ew1hs134/BC5vysyb3a4FA1ZxYi/UZBcja09/gdKBsiXVOwEOtKHhyI0sScM1p9vlNmx
-	 s4iplNA/GopeckyT9n/8VDfozGTmVJCzmmv1/qmgqHjLAU1L2NLpEToBB2d8UnHkTQus0
-	 apNr2ZFRRigg4CSJsqG11pWtNpp78tlqNTd68aJERywaOfkPvqxL8WIVa7e7kykBeBYld
-	 HfPnQGcimRhC/qUnlNpLnEBMe/JA9pnvyBZSPO4Xan+ooP0LBDf50+jjPjl7pw8pLdjNn
-	 RK+LdX5A6Sl9MfEmIt3VFDUjjKGWfIDJEyysQ32/GZb88hcO4f1s6Iso90Ig7uR81SA==
+	t=1793347107;
+	b=oiVOq3Oqc+QKJpkfE7iApA3znRTSrr0IGmpaG0Oqdc08DN78GvBNpBMlh6NjN32gaFVw
+	 bWK8rieJ2BwOY+/n4idz8bWTwOeYaIQdOgHkMUXyqeb9mmrVHZLnSU/XEXjO0dfKnnrwl
+	 R/FNxZbJRla1NSxZtrivB3GHocsccZARqHvBsS5syHxRlEOFeIB1HqUB1CCugHXaJ7i8P
+	 6r4TkEc3xPA/QaF4+ldpuYWwmcheCkLzEF+YSicuhOy2HDYSOE++GsRmMDO+A8esL+wym
+	 4oEvY0kPY0Ob4N+UHfkxF3ThlvM11FMWRFQBNEEkSGbw3ogPJLDLLbyonwyztR5XHKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793347088;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793347107;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=YZj2Qty9JInb5244dlMUxHY5wM7oXDHaDgfyNj4i0kU=;
-	b=Ub4zAdl2iriHAg9s2rNMidaY783FWvEcUfGCeWan9OgyNzClqPglnD05FjAeuhLG+q7Z
-	 a/0Ertjlo/t8TDmtva9VUN94Tcx0px2E463S5a9wakCsOAuuHDu/+Q6T1IyzheTR+uhvz
-	 Tot7/+lGMLEozNlWdbm86Y3mSjyuhh7lLmM4uw6g69k/2mKdm/9G/ZE69vaTnbH1a175M
-	 MOp6gn+MgpAx0gTfNxWncs/FF5rvmW6FaSMOTKDH+JsceSaGpGv+taDJJ1F9yVFmD5EHt
-	 gK9XlgPb9faQVpuEkHtqF4JShQG9gPZn3j7iwjc8aZhROyeS19KsScS2bGBeWx3PkDQ==
+	bh=4oAI5pxrIzXlsyWd5vlHzyNWwBTG6cTZg/AYjzhaORc=;
+	b=BR2KAXeV2EhWQEhLQcbaxC0mxs5OKSclvkjJA6nqiSo7tYh3JP2qRvevZGYWP9MoPWau
+	 IFJiXznOkN4mG5wvpjl5VMhzlmPH36wfGCRP+cYxnLNNBkynJr5rFFxreqmvTsBmImhL8
+	 yBPrB5Ofm0nuiTo87jjXE27W5xxlOnQ1RbRKarFBnCE0ZfYiH4aAClTBmMhrtenvPVKTM
+	 eMAC0B0JxM9p0BqHlohNuW+fRZ/6bDc2iHz+lJksnsTWriNVGBDdU6KFLuc8gsai5EQoJ
+	 DtXI6+6XYr+1RdFgetNJXiwpElpXHqihTffmICcvPo/T3CUMglHhc1S5pImojZU+97A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=fireburn.co.uk;
-	spf=none smtp.mailfrom=fireburn.co.uk;
-	dkim=pass header.d=fireburn-co-uk.20260707.gappssmtp.com header.i=@fireburn-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=XFE8VPb6;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GGG9vEBq;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34F1606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:58:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B34F1606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C266606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:58:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C266606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fireburn-co-uk.20260707.gappssmtp.com header.i=@fireburn-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=XFE8VPb6
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso2246405e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:58:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GGG9vEBq
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36a1947498bso1117680eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:58:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20260707.gappssmtp.com; s=20260707; t=1793347086; x=1793951886; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793347106; x=1793951906; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YZj2Qty9JInb5244dlMUxHY5wM7oXDHaDgfyNj4i0kU=;
-        b=XFE8VPb6m1GPfBx2CUgfiC5nJbXLI/Nv8RbA4+Ji34UonIDhtgJhIHSc75StLMcva9
-         KOWVbUN5h+ZaflzQySQO6eC5cwkxqqI8zuCDcFe21kSNODnzkzrXYalCsimjIRCEiP8N
-         +Kt0MDJ6+REjoou+T/CgBTbRGvgfrMtu2lEZbe9L8p0TkrjmYDQivqPSAsiTr55xygK4
-         8qY9VU+KadIp8YSwur7BL2MF0b+kcony3MVrFZmgkddU9eJyCzEaWjNMN+oqRx9LOBeA
-         5NHmsY8ReCQ0lqHVfQYG6HR7Odxo+A99SP48IVFY96FkA+y2ENhxGwCKLI9mfrDOia7a
-         SDEA==
+        bh=4oAI5pxrIzXlsyWd5vlHzyNWwBTG6cTZg/AYjzhaORc=;
+        b=GGG9vEBqs0KOdgWpmiKWSIt5WiVXa1uTTSIYJDfkXZTot6gliH6IsN1uuFr/2jrYSe
+         U7gllHE3EA+ogniCMpvqYCrZN9iykitU4bK2wKXp4ARtTJbW4ms7vkhdADyORj/ycI4H
+         G3KACOujmEYbJHeu0gTiGhwGYcg2b9X5IqEJNEM4MxjkgfcZchN3kL1bz+lINiJNWIzF
+         zGgqY6RUWYac/JAXO9F5JJ5jYRt0FVaae8UP7FlSjNNhD9m+UFZLz733RHavNFzFPDPQ
+         dueoDefL4Rlbv0MJcoOBr6BADn6WW6jesglLMWLzYPkxnwbyC7onuwK313uY5FSCt3SH
+         SFbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793347086; x=1793951886;
+        d=1e100.net; s=20260707; t=1793347106; x=1793951906;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YZj2Qty9JInb5244dlMUxHY5wM7oXDHaDgfyNj4i0kU=;
-        b=z2fwbpmArUQv2HOSYvf3hr7oUU/ImG9YKU1cWCgWOStVtZ0m/OnK3Wu1g/4LRMVhHX
-         DcoXZzEOQUSNL6GFZWf50bK9pTPx6SuXA5zGn0kGKXc3Zpn6GL8K7grxqrQi0OJL0/NZ
-         6gyBEHbF8GBx1bfBjSCREyM91ETKsUke5E2/rj9bLBtnhfBru1TRW8no+6HGgludft5Q
-         tacea+B9EM02+rRsBHmnVze/bOiJgx4AyWNpWMqrmLYLV+HtqRm1EBt5S/nMgBzNC2oL
-         nqGW8oRuCAFNjm1HgrxMuI9zDzWwgX/VKGRKuSlOSfmDm1R/A3Y7fksG/eqn2+CZQMpU
-         RhXg==
-X-Forwarded-Encrypted: i=1; AKwUvBw4MOz3wCpN8lKLGHV/fAU9AsKJpNGLFVjYuGf87v09wqB3vdek6p9oXpxUbBBBDJUXYx0crKAo3LZPbgc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLON0x7mn394pp/rQOXH9yURBQIBbLqOnNqNaX5HsWt6dEQQWnf
-	EBDyFAM4Ur9rwgfFIK/tAF4DBOkD9o8j5S85e1+FcAXesl3/VL9UQ7bgIWJxshEhWQ==
-X-Gm-Gg: AYBFou3G5qTXV+D02JNzy2rn7YSVje2vHA0D0JQntr8imwZNqi2tq+2OVcPOKkuEkNn
-	P7D6M1Fbg2hXs4N1cggw0QIf3un/56RR43Oinz/ClKRJq6DWhemYomkjRKG0kRRlBxsmbdXVSG3
-	U786/xe9fSP1J143UQzfLHdcAkGJkdPdQ8sN21CgEcPlzFLf+WzB2xbIeTEizzQj/VCDXApkjVN
-	nBNmbvzLfMbc1fT0SqHExXUNvpVbSjhtCcUbNBe2bNlR5e2zq2cu1Cw80CrCy9/ced3e+Vp3cRB
-	6URQr1QsQWgxS+JOZfTHAoAJYkz0i3/drPx2yRPFnEZQe2vzLFZxGHWEAfsZbSZip9t3y1GZB0E
-	UUwCUU9GstZpwjb/M1mymZ7CzQT0U4/AiEQTeL6oJ2VynIva8fK7yQsUJ/9JYkM560vYOcXrBU1
-	YXjtrpmNg8v/StS65jM+B8JMtGWfPFksrcQoVW+qlvhuXdXbafX5dy5fQMJUFfUA+ucq1khZasq
-	ml05sZVKR5ZoVDNDt98eZ644wJCq0SJ3w+5naKPP5RYCtc7Q8gIUPkYmkTsGsDbftNAAXvaDB5T
-	JeKiFfyVgP26KvkrmN35HB2wqB0qI5p5QWLFr82j4jRBFoo5/6D1MbNIIDiFhvB0dPg82NqsREt
-	v
-X-Received: by 2002:a05:600c:638f:b0:4a3:59c2:b41e with SMTP id 5b1f17b1804b1-4ac150b304cmr29519325e9.4.1793347086099;
-        Fri, 30 Oct 2026 00:58:06 -0700 (PDT)
-Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b289f7sm40818935e9.5.2026.10.30.00.58.05
+        bh=4oAI5pxrIzXlsyWd5vlHzyNWwBTG6cTZg/AYjzhaORc=;
+        b=YzW5O2rAM9rk/gMki1iHPoD/O4iGp6rvO0O/tBhwQ4xewMRINfDNYPTR72N2f0g75U
+         KztStHTZ5d3M6fMEEs/k5k5i9ygrm3fiBKJSMLiiuMgHHKYleMTBTZpFKf4jtMvCkbJv
+         gfOy8FMNzHZcMkpN/hcPQNN4617xyDBL+wsOcBYvZQTmZrTtxSAu5bqCc7OBDESlzndO
+         Corduo+teE31f5jTFuLxJGERGjixVAJ/xkjvwIWiz9Bjo7VBx01aBUNHDmrl5zxBEMZJ
+         iUM02vzJ2xLWPP+p+z3eeycRD8WtdeYE0C2JC4/u+pPBXifMFhqeU6aLxLG/Pbdr5c8r
+         jW9g==
+X-Forwarded-Encrypted: i=1; AKwUvBx8KXMwteXvaXDZT0NFOqDJg0gPHMdJRtxHqiZCZqXU5/B85FPq13M7+La5aPkCLqSmNuSUy3T6sEevdgw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2drQ8NgY1REIyvv8DryXYj071BlE+nnPZAu20QPB1mCpoMoCL
+	QAmi3j2PMITEO76zTlicdQi2ULDWX14gxs8VR4DkeSHAJaehBeRzO30ZbmKYBhLD
+X-Gm-Gg: AYBFou2ftnbUOhS6zX0KHhTYe3NlT7B63kMxMdxUv8w3ZhSaMHKggqSvrfQRtzbs5nH
+	qenWs2Di1EwoXwR+xYBGuJDyeSVYwJx+K/YymYa8MQmfmCUBLq9m+mWbiIOixxQtidQ2gk5w5pI
+	ZuXiiFBV5I8KABKg4//G6wnT92s9NT25uaLAv0qX6TCe/OgLET/CU0+KVilmopoH3PPpr3coRl0
+	ifZp1Mdc//xxGIFpwR9IaJxNsMD7YkBu1cetDVWzNlPeCMiqhlX5KAQRq12q38V+amDzUoS+8bx
+	O9bq1q0AK1FUskRHCX61mii+NbkPvnMNJz1PB4k2zzaMq0/2yRFZ86+2pkK4jQSRRC3kHjGfW5n
+	WRxzpMT1oEn8gaTg06n9qQXINasAZY9fe6ci4ey+QJcyiOwN+AEsGUktZFp2RooZHcdemEPpxv6
+	lPv17fCI/cpbcGW3imIjic9w+2EAuKLlpO2CtHmFj2W6yuk4tKbpOnNSMKsSSfyHmyj0gPPdSxB
+	c//1qKZ9OTXpW/D20zzP4+rkqur3O6sRuVKRaDy+1BhUPJ+B6Sa4Lqj19/E0CmNmgWtiPupjjNq
+	Haq+sovKgqnHgkSdo/kuxP39tdMRYd37Y3vJ5LJdFxAT2Ndgb/Ybqqo+HUofDfjeI3g=
+X-Received: by 2002:a05:7023:d0b:b0:1a7:216d:157c with SMTP id a92af1059eb24-1ac5de5380emr2405354c88.34.1793347106204;
+        Fri, 30 Oct 2026 00:58:26 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19c6b969sm4741054c88.14.2026.10.30.00.58.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 00:58:05 -0700 (PDT)
-From: Mike Lothian <mike@fireburn.co.uk>
-To: Shuai Liu <847807867@qq.com>
-Cc: rust-for-linux@vger.kernel.org,
-	linux-usb@vger.kernel.org,
+        Fri, 30 Oct 2026 00:58:25 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: jirislaby@kernel.org,
+	dmitry.torokhov@gmail.com,
+	mathieu.poirier@linaro.org,
+	linux-serial@vger.kernel.org,
+	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	dakr@kernel.org,
-	gregkh@linuxfoundation.org,
-	colinbrauncl@gmail.com
-Subject: Re: [PATCH v3 0/5] rust: usb: host-side abstractions for a bulk-endpoint driver
-Date: Fri, 30 Oct 2026 07:57:58 +0000
-Message-ID: <20261030075758.356879-1-mike@fireburn.co.uk>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <tencent_A0D3062EB058E244877B87B4324B8DFC4406@qq.com>
-References: 
+	zhanxusheng@xiaomi.com
+Subject: Re: [PATCH v4 1/2] tty: sysrq: don't expose a partially written reset_seq
+Date: Fri, 30 Oct 2026 15:58:20 +0800
+Message-ID: <20261030075820.207049-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026103014-sketch-headed-2fd1@gregkh>
+References: <2026103014-sketch-headed-2fd1@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,30 +104,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Shuai,
+Hi Greg,
 
-Thank you for reading it properly, both of those are real
+On Fri, Oct 30, 2026 at 08:02:30AM +0100, Greg KH wrote:
+> I still don't understand what the root problem is here, sorry.
 
-On Fri, 30 Oct 2026, Shuai Liu wrote:
-> set_alternate_setting() invalidates Endpoint<K> without the type
-> system noticing
+Each keyboard keeps its own copy of reset_seq.  It rebuilds the copy on
+the first key press after the parameter changes, and it rebuilds it
+wrong in two ways.
 
-Right.  Binding the proof to the setting would mean threading a
-generation through every Endpoint and checking it at transfer time, and
-I haven't got a version of that I like yet, so v4 documents it: both
-Endpoint and set_alternate_setting() now say that every Endpoint obtained
-earlier must be looked up again after a switch.  If you have a shape for
-the Altsetting token in mind I'd like to see it
+1) It adds the new keys to the old copy instead of replacing it (2/2):
 
-> set_alternate_setting() with transfers in flight is undefined
+  echo 56,29,111 > /sys/module/sysrq/parameters/reset_seq # Alt+Ctrl+Del
+  (press any key)
+  echo 59,60 > /sys/module/sysrq/parameters/reset_seq     # F1+F2
 
-v4 refuses it.  The window already knows about every queue URB registered
-against it, so set_alternate_setting() returns EBUSY while any queue is
-alive, and the doc says to drop the queues and build them again on the new
-setting.  That puts the cancellation in the queue's Drop, which is where
-you suggested
+Now F1+F2 does nothing.  Only holding all five keys resets.  So setting
+reset_seq once works, but changing it later does not.
 
-The one in-tree caller selects setting 0 once at bring-up, before any
-queue exists, so it isn't affected
+2) It can rebuild the copy while the write is half done (1/2).  The
+write stores the keys one at a time, and the keyboard may read the list
+in between:
 
-Mike
+  echo 59,60 > reset_seq
+    store 59
+                      <- F1 pressed: keyboard reads "59" as the sequence
+    store 60
+
+On a keyboard that has not used a reset sequence before, or on any
+keyboard once 2/2 is applied, that F1 press completes the one-key
+sequence and reboots the machine.  The window is microseconds; I only
+hit it with an added delay.
+
+If you want this fixed, I'll send a v5 with a much smaller 1/2, plain
+changelogs, and the Assisted-by: tag I should have added from the
+start.  Otherwise please drop it.
+
+Thanks,
+Zhan Xusheng
