@@ -1,48 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793349278;
-	b=K9V7y5ywh80mo4BB8bwjztlodE+vHv0Qt4HhpBa4I2v6zL1AECOy3GYmVy2BLxV1+GPl
-	 w1ZxezDcyalICxWmuzNRZgbgqmNlMosnm9hr2iy5T1xJnGGH1NC0tVE7MxdLzAEEoZtIO
-	 w28E8/tbnmpnA3mH+LTs26VP5lpm5sdDsBrIKyRyJ5BUr80FgwM8LT4cvccouv9GNIHVM
-	 /AuDi2CUiWqPm5udtd1VIasLyZA/6Dz6CJQOtofYQvt4WAJqFkHGNiMGFjGTvwmBZiUY1
-	 cgrnsJq1r5pSdLUF38H8sk35mWD3T3z8c7dfuE5UarU4FkvSPmJMNwcMFm1Sli844nQ==
+	t=1793349279;
+	b=aV3mfdbZdtKLOy5ziXxcUy1HtP3d+hm3UGTvlz+tqnf58tcmmc2vWcFVrsEgoOraeTxT
+	 /Ns6wnYNG6zNUH7aU8qe/SMpRW05hVhzwBhM48gYtqAwOPuikAU2g3a8z0b15hVZ9+0Ow
+	 jdFy7TKGmHcRP8Se0tQkhALN4HEwP37mwiazgYj2LXqbI+oWj8StcxfrTAFL5nbt+EDdE
+	 k/0ngrDI/U2ATEl6DsVy35uUyoRlU/BlIbJ0yiMf4R2cnfOoBhyPvhlIMyep2qiUqVoRb
+	 4kDK1f0mt6O6C5MflP8fGzIwRMkUQ9VnMgcBs/H0q4Dti5NPmCAkCvRCIpvi8krb1PA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793349278;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793349279;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=M1YFIP1momfayTo5BQCGcGIZ358SmM7AYY10VJeYGMA=;
-	b=QMa8ew59UyXQbB7wcXpHKQ289sxdhc3Nw3xRizTC/LiRlHHR2qDu+59ZHnkK8jTpvZKV
-	 dtQ4INVF7VDbDCzssdJU90k3Dlwlwhr+m3FzwzX3jO8WsUgReSGcqX8g8btu/6Qre9Tjc
-	 dohvJr71SgI+Nj+g2y2GYCVSkuzbphlOBO76rp8jekQXlWm5UrklBLpoGa5/hEfprmlvl
-	 POrCjSMyTkapw4NHRQ2pBVsG5yzSQvuQIEqwBLXfTNhFy62sIPtKTVb44vViLllh6h9Qr
-	 /QZH1fWD6wMv1LXQXK1Yu/Qc5nh8E8OjMTT79+JfOrz/caI6inCVFu7jXoyoi/iIoFQ==
+	bh=k/Cb+9PJIrDQIPotGU391kdpQTlHe+ce4bWa99eeXrE=;
+	b=nHCVvdkXRRnRg2u23RQFpLH7aTFE/PhaNljYdlIpKUrm9ZdB7K8cot3k2gGIWAGXTurw
+	 MNIzVru9xJc8TnzrIJSsgxuenn3fULrjwWFZFWSy79GyKiFrNGwErGR2U+jPCsWwrCp6p
+	 yJuztEByr9Y2Q0CwexZHNg5cTl3EhtjRV97ZTm2uko8Rxb4CHPcv4IWaexMoDZfRmNI9a
+	 5pyXt/pwskRj2KYVRJq7qAEgkq+32TOq6VMjWFolRLCgvnPK9zJm/Rs41sNYc3TZlcBfh
+	 jc//xQBQM867ZphzAvidqxEuQ1cuy0cycppRxiliuowSABYyzHjyRKcndwNeAVnfSaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=FGrASAKh;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="i/358uwq";
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C8D606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:34:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3C8D606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB809606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:34:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB809606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=FGrASAKh
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=i/358uwq
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=M1
-	YFIP1momfayTo5BQCGcGIZ358SmM7AYY10VJeYGMA=; b=FGrASAKhoFjTvfxLMT
-	i3GP66lHj4rMVS2psQz1PJc2yH9/Ox8KXkblBjd4kNzs4YfcH5K+zQZgUkOqXK1h
-	5aO6BnTKaBX7/uN+XuXYWYvH1g4zPWQkgdszX2hdU0KCAN+QTm/SqcijWGI6c1zQ
-	ov7QOQnYgv6UGzpGL1djF8dsE=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=k/
+	Cb+9PJIrDQIPotGU391kdpQTlHe+ce4bWa99eeXrE=; b=i/358uwq5lB2w8KcCt
+	q5Sdp77z6yAtfUWMJgNhNTaZTddX8ZXRt3qLPhr1z6W+1BB8En0lJ5sfZFulFf87
+	rLLopNVjAP1wk9iamAZHc7W9hckW9PgJn7zn6oAyafrAr9mF3jgI/7xg7fT5W6HT
+	L7e6hoSSebvAxwwoiY59cB/7g=
 Received: from neo-TianYi510Pro-15ICK.. (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgAXRXl+VuRqCoKSCg--.15983S3;
-	Fri, 30 Oct 2026 16:34:10 +0800 (CST)
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgAXRXl+VuRqCoKSCg--.15983S4;
+	Fri, 30 Oct 2026 16:34:11 +0800 (CST)
 From: liuqiangneo@163.com
 To: "Michael S . Tsirkin" <mst@redhat.com>,
 	David Hildenbrand <david@kernel.org>
@@ -52,9 +52,9 @@ Cc: Jason Wang <jasowangio@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	virtualization@lists.linux.dev,
 	Qiang Liu <liuqiang@kylinos.cn>
-Subject: [PATCH v2 1/3] virtio_balloon: add tracepoints for inflate and deflate operations
-Date: Fri, 30 Oct 2026 16:33:58 +0800
-Message-ID: <20261030083400.66005-2-liuqiangneo@163.com>
+Subject: [PATCH v2 2/3] virtio_balloon: add tracepoint for host ack latency
+Date: Fri, 30 Oct 2026 16:33:59 +0800
+Message-ID: <20261030083400.66005-3-liuqiangneo@163.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261030083400.66005-1-liuqiangneo@163.com>
 References: <20261030083400.66005-1-liuqiangneo@163.com>
@@ -68,185 +68,97 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgAXRXl+VuRqCoKSCg--.15983S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW3GFyUWF1rGw1xKFWxCFWfZrb_yoW7Ar4UpF
-	s7Arn0kw47XrW7Ka4fCF4rWrsxZwn7CFWxtFyaga4UCF43JFZrKr1DtrWDJF4UAry0grnI
-	ga9xXF1DCan0vaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jTKZJUUUUU=
-X-CM-SenderInfo: 5olx1xxdqj0vrr6rljoofrz/xtbC4AKJ6mrkVoLWYQAA3s
+X-CM-TRANSID:PCgvCgAXRXl+VuRqCoKSCg--.15983S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZFy5WFyfGw18KF4kCFy7trb_yoW5AFyxpF
+	nxArnIk3yUXr42qFyfta1j9r15u397GryfJFWSgw1UCr43JFyDKr4DKF1qyFyrAr4vg3s3
+	uFn2qFZ0kF1kZw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jfAwxUUUUU=
+X-CM-SenderInfo: 5olx1xxdqj0vrr6rljoofrz/xtbC-AOJ6mrkVoOMrAAA3n
 
 From: Qiang Liu <liuqiang@kylinos.cn>
 
-When the guest responds unexpectedly to balloon resize requests,
-the actual applied delta cannot be observed from the guest side.
+Balloon inflate/deflate block in tell_host() for host buffer consumption.
+Host-side stalls are easily mistaken for guest allocation issues.
 
-Add a "virtio_balloon" trace system with three tracepoints:
-config_change (target / resulting size / delta), and
-inflate and deflate (requested / applied page units / resulting size).
+Add virtio_balloon_host_ack to record tell_host() wait time,
+virtqueue and PFN count, to split balloon latency between guest and host.
 
 Signed-off-by: Qiang Liu <liuqiang@kylinos.cn>
 ---
- MAINTAINERS                           |  1 +
- drivers/virtio/virtio_balloon.c       | 13 ++++
- include/trace/events/virtio_balloon.h | 87 +++++++++++++++++++++++++++
- 3 files changed, 101 insertions(+)
- create mode 100644 include/trace/events/virtio_balloon.h
+ drivers/virtio/virtio_balloon.c       | 19 +++++++++++++++++--
+ include/trace/events/virtio_balloon.h | 22 ++++++++++++++++++++++
+ 2 files changed, 39 insertions(+), 2 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e4ca41cdd872..0ef6f34471de 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29590,6 +29590,7 @@ M:	David Hildenbrand <david@kernel.org>
- L:	virtualization@lists.linux.dev
- S:	Maintained
- F:	drivers/virtio/virtio_balloon.c
-+F:	include/trace/events/virtio_balloon.h
- F:	include/uapi/linux/virtio_balloon.h
- 
- VIRTIO BLOCK AND SCSI DRIVERS
 diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index ab3e3d887e00..2d0b16383661 100644
+index 2d0b16383661..c4fdc6815b41 100644
 --- a/drivers/virtio/virtio_balloon.c
 +++ b/drivers/virtio/virtio_balloon.c
-@@ -19,6 +19,8 @@
+@@ -19,6 +19,7 @@
  #include <linux/wait.h>
  #include <linux/mm.h>
  #include <linux/page_reporting.h>
-+#define CREATE_TRACE_POINTS
-+#include <trace/events/virtio_balloon.h>
++#include <linux/ktime.h>
+ #define CREATE_TRACE_POINTS
+ #include <trace/events/virtio_balloon.h>
  
- /*
-  * Balloon device works in 4K page units.  So each page is pointed to by
-@@ -285,6 +287,8 @@ static unsigned int fill_balloon(struct virtio_balloon *vb, size_t num)
- 	/* Did we get any? */
- 	if (vb->num_pfns != 0)
- 		tell_host(vb, vb->inflate_vq);
-+
-+	trace_virtio_balloon_inflate(num, num_allocated_pages, vb->num_pages);
- 	mutex_unlock(&vb->balloon_lock);
+@@ -197,8 +198,22 @@ static void tell_host(struct virtio_balloon *vb, struct virtqueue *vq)
+ 		return;
+ 	virtqueue_kick(vq);
  
- 	return num_allocated_pages;
-@@ -333,6 +337,8 @@ static unsigned int leak_balloon(struct virtio_balloon *vb, size_t num)
- 	if (vb->num_pfns != 0)
- 		tell_host(vb, vb->deflate_vq);
- 	release_pages_balloon(vb, &pages);
+-	/* When host has read buffer, this completes via balloon_ack */
+-	wait_event(vb->acked, virtqueue_get_buf(vq, &len));
++	/*
++	 * When host has read buffer, this completes via balloon_ack.
++	 *
++	 * The latency is only measured when the tracepoint is enabled, so a
++	 * disabled tracepoint adds no clock reads on this (hot) path.
++	 */
++	if (trace_virtio_balloon_host_ack_enabled()) {
++		ktime_t start = ktime_get();
 +
-+	trace_virtio_balloon_deflate(num, num_freed_pages, vb->num_pages);
- 	mutex_unlock(&vb->balloon_lock);
- 	return num_freed_pages;
++		wait_event(vb->acked, virtqueue_get_buf(vq, &len));
++		trace_virtio_balloon_host_ack(vb->num_pfns,
++					      vq->name,
++					      ktime_to_ns(ktime_sub(ktime_get(), start)));
++	} else {
++		wait_event(vb->acked, virtqueue_get_buf(vq, &len));
++	}
  }
-@@ -567,11 +573,18 @@ static void update_balloon_size_func(struct work_struct *work)
- 	diff = towards_target(vb);
  
- 	if (diff) {
-+		unsigned long target = vb->num_pages + diff;
-+		unsigned long before = vb->num_pages;
-+
- 		if (diff > 0)
- 			diff -= fill_balloon(vb, diff);
- 		else
- 			diff += leak_balloon(vb, -diff);
- 		update_balloon_size(vb);
-+
-+		trace_virtio_balloon_config_change(target, vb->num_pages,
-+						   (long)vb->num_pages -
-+						   (long)before);
- 	}
- 
- 	if (diff)
+ static int virtballoon_free_page_report(struct page_reporting_dev_info *pr_dev_info,
 diff --git a/include/trace/events/virtio_balloon.h b/include/trace/events/virtio_balloon.h
-new file mode 100644
-index 000000000000..f733fc360d8b
---- /dev/null
+index f733fc360d8b..559deb997e88 100644
+--- a/include/trace/events/virtio_balloon.h
 +++ b/include/trace/events/virtio_balloon.h
-@@ -0,0 +1,87 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#undef TRACE_SYSTEM
-+#define TRACE_SYSTEM virtio_balloon
+@@ -81,6 +81,28 @@ TRACE_EVENT(virtio_balloon_deflate,
+ 		  __entry->requested, __entry->deflated, __entry->num_pages)
+ );
+ 
++TRACE_EVENT(virtio_balloon_host_ack,
 +
-+#if !defined(_TRACE_VIRTIO_BALLOON_H) || defined(TRACE_HEADER_MULTI_READ)
-+#define _TRACE_VIRTIO_BALLOON_H
++	TP_PROTO(unsigned int num_pfns, const char *vq_name, s64 latency_ns),
 +
-+#include <linux/tracepoint.h>
-+
-+/*
-+ * All page counts reported by these events are in balloon page units, i.e.
-+ * the 4K units the virtio balloon device operates on.  Divide by
-+ * VIRTIO_BALLOON_PAGES_PER_PAGE to obtain the number of guest pages.
-+ */
-+
-+TRACE_EVENT(virtio_balloon_config_change,
-+
-+	TP_PROTO(unsigned long target, unsigned long num_pages, long delta),
-+
-+	TP_ARGS(target, num_pages, delta),
++	TP_ARGS(num_pfns, vq_name, latency_ns),
 +
 +	TP_STRUCT__entry(
-+		__field(unsigned long, target)
-+		__field(unsigned long, num_pages)
-+		__field(long, delta)
++		__field(unsigned int, num_pfns)
++		__string(vq_name, vq_name)
++		__field(s64, latency_ns)
 +	),
 +
 +	TP_fast_assign(
-+		__entry->target = target;
-+		__entry->num_pages = num_pages;
-+		__entry->delta = delta;
++		__entry->num_pfns = num_pfns;
++		__assign_str(vq_name);
++		__entry->latency_ns = latency_ns;
 +	),
 +
-+	TP_printk("target=%lu num_pages=%lu delta=%ld",
-+		  __entry->target, __entry->num_pages, __entry->delta)
++	TP_printk("vq=%s num_pfns=%u latency=%lldns",
++		  __get_str(vq_name), __entry->num_pfns, __entry->latency_ns)
 +);
 +
-+TRACE_EVENT(virtio_balloon_inflate,
-+
-+	TP_PROTO(unsigned long requested, unsigned long inflated,
-+		 unsigned long num_pages),
-+
-+	TP_ARGS(requested, inflated, num_pages),
-+
-+	TP_STRUCT__entry(
-+		__field(unsigned long, requested)
-+		__field(unsigned long, inflated)
-+		__field(unsigned long, num_pages)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->requested = requested;
-+		__entry->inflated = inflated;
-+		__entry->num_pages = num_pages;
-+	),
-+
-+	TP_printk("requested=%lu inflated=%lu num_pages=%lu",
-+		  __entry->requested, __entry->inflated, __entry->num_pages)
-+);
-+
-+TRACE_EVENT(virtio_balloon_deflate,
-+
-+	TP_PROTO(unsigned long requested, unsigned long deflated,
-+		 unsigned long num_pages),
-+
-+	TP_ARGS(requested, deflated, num_pages),
-+
-+	TP_STRUCT__entry(
-+		__field(unsigned long, requested)
-+		__field(unsigned long, deflated)
-+		__field(unsigned long, num_pages)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->requested = requested;
-+		__entry->deflated = deflated;
-+		__entry->num_pages = num_pages;
-+	),
-+
-+	TP_printk("requested=%lu deflated=%lu num_pages=%lu",
-+		  __entry->requested, __entry->deflated, __entry->num_pages)
-+);
-+
-+#endif /* _TRACE_VIRTIO_BALLOON_H */
-+
-+/* This part must be outside protection */
-+#include <trace/define_trace.h>
+ #endif /* _TRACE_VIRTIO_BALLOON_H */
+ 
+ /* This part must be outside protection */
 -- 
 2.43.0
 
