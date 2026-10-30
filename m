@@ -1,61 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.65.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793363503;
-	b=xELGeHYtlaPemYHnTErfedE8gg6x5cStJlf8LFdeX2Mo3+YViZCzc83uJRPiA3tKgWyi
-	 iCfxiJgXI+BJSJpEFzkUN6fD0uPom573MAYj7/sRaGCOa9mFqQfUhBpHChGgTj2JQY7T3
-	 52dPu+F1MWJGIfDrnVUYET6SdZjH3wjthrjUFp7fQKhejzSKPcmQv3q+dDv7DM47gv2sG
-	 Cxly+Abed4R115McUSwZ0J0XKfmEVhL8bn5c+UXDNWNGLhKd7YJ7hNjxHyHvcjqpFAKOx
-	 MuMlV5kFId2XrbXwp5PvutAj6mxXWDhfCoudIbJ5uokwEzLt7kKwle0OmwtslFKCHKw==
+	t=1793363515;
+	b=2qzJsRBcL50hSTIL+Q5dHvZpzaPFMTK/IcCqQDpEqoZpqQAy/MUbWtxdt5XfJ+k1S3wm
+	 gD+1aIctqc1e0YoNk8zgGRyvHK+1b33IsNrwkysQn0s5ZUmIRjKlY6hG4NEd8ZdXFPZE8
+	 6NJp6NFtDW3GB/Vo58h7VXXfMT9WfFhydOaif5z4ZxUNciWoToGiqX20ITJv4lNrCCHzK
+	 b3DuTCklsYxnOBU9giOVc79EH0xKdaORdWECRGc53+5U9Zm/4VnnYwigRBrRcNJQgsxeS
+	 u2f5uOxa8MwcYDQjJLhqO1Fz93JgdvrpupmlEi+VmOQ8GjnQYt6MTdX9wT2qAAK31cQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793363503;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=UDoy5Y6pyUGkFvr6CnxyA/cvulZjeL9SSvBftaqkDcU=;
-	b=Cjly4DXfgd+lkv0jH5oTOiN02TEm6IlEL+N5nQwYJMJYsmMAXo7gxSG4xh6xoMK3WbDg
-	 HD7ZxwQrVRcTgAIeJgMa4fi6tZxcdrijPjqkYv8EoujLMZ7D0fwOWYT0Vs2CGPQqzUVqK
-	 WXQUOJYzLFkKg5DMLcXDhB2iJL2/j7BBGTjQ99B6+9Ccf60FLeNhVbVCsWCcljFS1AMnv
-	 LuhDoVvEWu40jmk5vW+LOd5StULEziSMYWea8syFDTm3ZMR3Hw5bqsPoU83gANoADdbEA
-	 cDLICAhDODe4ADL4QuhytgqGJp8gI/9crlNL4UZtuyRw8o9LhBCEV9szEyoo4x5PbJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793363515;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Flowmailer-Platform:Feedback-ID;
+	bh=nrCVIt0iLjYvMWJchzfrWkAOaw7L3Fxelj65lORHoH4=;
+	b=FpsQN8ujAI/jFdZfIYzc0OEYHoM9Li4y5q6xX4oHSk+wUOuuJeGI9ClvAYODx7m+/k1x
+	 JbCC1pmerrCOsXD9DxOgAqw0dSK6qNFTOKlspbxZgCLoDF78S4G5hvIcXI3362pVyT8dn
+	 kJiu/GeB1DhzPdW6WO8SB8TiQQH9TLUq8wf+FY3KFkFVSAI4roOOxYdtvWQ0hZDQWbzb6
+	 Sg7popxsA4L3w9XoOc66SrHLUNK5+Vt2sV8ItGQN28BL4rHDL7EirVUG1bCRuMzGnQMWu
+	 wDQQjsc/rtkyEuhinhK76kW3ctNVu1Grm1RKJ5nekC0HiunWKlAltc4+of/rtdBO53g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gOiUAzAg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=siemens.com;
+	spf=pass smtp.mailfrom=rts-flowmailer.siemens.com;
+	dkim=pass header.d=siemens.com header.i=florian.bezdeka@siemens.com header.a=rsa-sha256 header.s=fm2 header.b=opTZ2VO1;
+	arc=none smtp.remote-ip=185.136.65.225
+Received: from mta-65-225.siemens.flowmailer.net (mta-65-225.siemens.flowmailer.net [185.136.65.225])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C5C606A31A;
-	Fri, 30 Oct 2026 12:31:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E63F606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:31:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E63F606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gOiUAzAg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 212521F000C1;
-	Fri, 30 Oct 2026 12:31:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793363502;
-	bh=UDoy5Y6pyUGkFvr6CnxyA/cvulZjeL9SSvBftaqkDcU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gOiUAzAgalNmuspXqWNxd0/bC1ZC138HacRukovaykxAkYsZHWblCZ0FrGRo73d2U
-	 vU0uvwUNuLgfU49FnqhePn1b9FgSzI3Y2EAUx75qRSpMGMhR1GIi/WlK44GoHMp/Ft
-	 tyqySIhIIKeY2VasPDAZloVXXk9ZBwXy/pjOg+T0s3Fb4Q9ZopQvh43JW2FMW5x359
-	 brAasqxL3ZrqWf6Kjxa/IsXeGaezv4RimpHLjjCbyvPwRZohqUOOn4uUCt6JYTd0CN
-	 WwoHTMa0T3ZJSTLa3O0qtOkD/xuDp3Tu5q49j3ULyyOmfyUSehIKwKen5Wwu5o6G7q
-	 7HgFMPntQFuhQ==
-Subject: Re: [PATCH net] mptcp: protect listener backlog reads in diagnostics
-From: netdev-bot+sashiko@kernel.org
-To: zzzccc427@gmail.com
-Cc: matttbe@kernel.org, martineau@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, geliang@kernel.org,
- horms@kernel.org, netdev@vger.kernel.org, mptcp@lists.linux.dev,
- linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-Date: Fri, 30 Oct 2026 12:31:41 +0000
-Message-ID: <179336350162.3134.14466007220476234920@kernel.org>
-In-Reply-To:
- <pm-mptcp-objects-candidate-0066-v3-73df72b7a543d4cada0e@gmail.com>
-References:
- <pm-mptcp-objects-candidate-0066-v3-73df72b7a543d4cada0e@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=siemens.com header.i=florian.bezdeka@siemens.com header.a=rsa-sha256 header.s=fm2 header.b=opTZ2VO1
+Received: by mta-65-225.siemens.flowmailer.net with ESMTPSA id 20261030123149d9e9d4bfaa0002073f
+        for <linux-kernel@vger.kernel.org>;
+        Fri, 30 Oct 2026 13:31:49 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
+ d=siemens.com; i=florian.bezdeka@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=nrCVIt0iLjYvMWJchzfrWkAOaw7L3Fxelj65lORHoH4=;
+ b=opTZ2VO1dLxqwC8l7i8OnngMubkj7Uov5FzLMzy3uHxe6gtGZH7suJcOk1lC+2SF069zlP
+ n2DdWMRrpYBzOjhVVBt6J/Dwf0Sn2fmxTbQBJ4uPAM2y0YUsOLsf+o6ZhCy9Fm2Niduhz7FV
+ PA0+Ivm32jj2oNVzZUqfIPa1nyEdQw2MhVw+YbvaOXu7rypcJoZrVKe4l9DqQt6TFha75PWt
+ 4v+KDw7dH7rDGfrK7nOkv1OgxWmAraKM8h2lD0bDvicLMvzi6cnOl4V3GErjjHxUz4LGFMSK
+ O4XBea7Tx6s8qGrzpzgsnEc7gIQkyG+4XSXfl07SZR2JnPBoEN4DHSgg==;
+From: Florian Bezdeka <florian.bezdeka@siemens.com>
+Date: Fri, 30 Oct 2026 13:31:41 +0100
+Subject: [PATCH 1/2] entry: Fix return type of syscall_trace_enter()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,115 +56,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-wip-flo-fixup-entry-code-v1-1-7724c29e800b@siemens.com>
+References: <20261030-wip-flo-fixup-entry-code-v1-0-7724c29e800b@siemens.com>
+In-Reply-To: <20261030-wip-flo-fixup-entry-code-v1-0-7724c29e800b@siemens.com>
+To: Thomas Gleixner <tglx@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>, 
+ Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: linux-kernel@vger.kernel.org, 
+ Florian Bezdeka <florian.bezdeka@siemens.com>
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-68982:519-21489:flowmailer
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+All return values of syscall_trace_enter() were migrated to bool in
+commit 71ff30013f19 ("entry: Make return type of syscall_trace_enter() bool"),
+but the function declaration has not been updated.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Fixing that up now.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fixes: 71ff30013f19 ("entry: Make return type of syscall_trace_enter() bool")
+Signed-off-by: Florian Bezdeka <florian.bezdeka@siemens.com>
+---
+ include/linux/entry-common.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-- [Medium] In net/mptcp/mptcp_diag.c, mptcp_diag_get_info() now only
-  applies the listener override when the socket is not owned: `if…
-
---
-
-mptcp: protect listener backlog reads in diagnostics
-
-This commit takes the MPTCP data lock in mptcp_diag_get_info() around the
-listener state check and the backlog reads. The override from msk->first
-is now applied only when no process owns the socket. The goal is to fix a
-use-after-free on the token based diag paths, which can race with a
-disconnect, re-listen and close of the same socket.
-
-> diff --git a/net/mptcp/mptcp_diag.c b/net/mptcp/mptcp_diag.c
-> index 136c2d05c0eeb..a71bcaee15c8d 100644
-> --- a/net/mptcp/mptcp_diag.c
-> +++ b/net/mptcp/mptcp_diag.c
-> @@ -199,7 +199,12 @@ static void mptcp_diag_get_info(struct sock *sk, struct inet_diag_msg *r,
->  			  READ_ONCE(mptcp_sk(sk)->backlog_len);
->  	r->idiag_wqueue = sk_wmem_alloc_get(sk);
->  
-> -	if (inet_sk_state_load(sk) == TCP_LISTEN) {
-> +	/* The listener walk holds the listen hash lock: do not wait for a
-> +	 * socket owner that could be unhashing the first subflow.
-> +	 */
-> +	mptcp_data_lock(sk);
-> +	if (!sock_owned_by_user(sk) &&
-> +	    inet_sk_state_load(sk) == TCP_LISTEN) {
->  		struct sock *lsk = READ_ONCE(msk->first);
->  
->  		if (lsk) {
-
-[Severity: Medium]
-mptcp_diag_get_info() is the shared idiag_get_info callback, so this new
-sock_owned_by_user() check also applies to mptcp_diag_dump_listeners().
-
-mptcp_listen() never inserts the msk into the token table. Isn't the
-listener walk then the main way a listening MPTCP socket gets reported?
-
-While a task holds lock_sock() on the listening msk, the override is
-skipped. That covers listen(), most mptcp_setsockopt() and
-mptcp_getsockopt() calls, shutdown and close, and the worker. In that
-case only the fallback values are reported:
-
-	r->idiag_rqueue = sk_rmem_alloc_get(sk) +
-			  READ_ONCE(mptcp_sk(sk)->backlog_len);
-	r->idiag_wqueue = sk_wmem_alloc_get(sk);
-
-For a listener these are normally 0/0, not the accept queue length and
-the max backlog. Could this make ss -Ml and accept queue monitoring show
-occasional 0/0 readings for MPTCP listeners?
-
-For comparison, tcp_diag_get_info() always reports sk_ack_backlog and
-sk_max_ack_backlog for TCP_LISTEN, with no ownership check:
-
-net/ipv4/tcp_diag.c:tcp_diag_get_info() {
-	if (inet_sk_state_load(sk) == TCP_LISTEN) {
-		r->idiag_rqueue = READ_ONCE(sk->sk_ack_backlog);
-		r->idiag_wqueue = READ_ONCE(sk->sk_max_ack_backlog);
-	...
-}
-
-The listener walk also looks like it was already memory safe before this
-patch:
-
-net/mptcp/mptcp_diag.c:mptcp_diag_dump_listeners() {
-	...
-		rcu_read_lock();
-		spin_lock(&ilb->lock);
-		sk_nulls_for_each(sk, node, &ilb->nulls_head) {
-			...
-			ret = sk_diag_dump(sk, skb, cb, r, net_admin);
-	...
-}
-
-Releasing the hashed listener subflow goes through
-tcp_set_state(TCP_CLOSE)->inet_unhash(), which takes the same ilb->lock.
-Hashed listeners are also SOCK_RCU_FREE.
-
-The use-after-free described in the commit message seems reachable only
-from the token based paths: the token iteration in mptcp_diag_dump() and
-mptcp_diag_dump_one(). On those paths TCP_LISTEN shows up only in the
-disconnect and re-listen race.
-
-The commit message accepts the tradeoff:
-
-  While a process owns the socket, the dump reports the MPTCP socket's
-  own queue values instead.
-
-It doesn't explain why the listener walk needs the check, though. Is the
-ownership check needed on the mptcp_diag_dump_listeners() path, or could
-it be limited to the token based callers?
-
-With this change, the existing comment inside the if (lsk) block, "so
-Send-Q will show accept queue", only holds while the socket is not owned.
-
-[ ... ]
+diff --git a/include/linux/entry-common.h b/include/linux/entry-common.h
+index fa2854fed1f289b9d2dffbc4bf70ab9927f36917..a8b2430eadc5f8500195454e24f86cd9e0d06614 100644
+--- a/include/linux/entry-common.h
++++ b/include/linux/entry-common.h
+@@ -62,7 +62,7 @@ void trace_syscall_enter(struct pt_regs *regs);
+ void trace_syscall_exit(struct pt_regs *regs, long ret);
+ void syscall_enter_audit(struct pt_regs *regs);
+ 
+-static __always_inline long syscall_trace_enter(struct pt_regs *regs, unsigned long work,
++static __always_inline bool syscall_trace_enter(struct pt_regs *regs, unsigned long work,
+ 						long syscall)
+ {
+ 	/*
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/pm-mptcp-objects-candidate-0066-v3-73df72b7a543d4cada0e%40gmail.com
+2.56.0
+
