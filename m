@@ -1,87 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793339566;
-	b=0bAyUNHA74CZr8J7ObmowJY/ckGJcz0QRSeK+UyliM55XKQ/mu4BfkmfE3Z6RbbNAkWq
-	 NKu++G1s2gnqNp5vbIXlKBhl7ZbypdMGLcFtI+MV3bOE0BzizbOlb/DrQIF/9uNVB1ELd
-	 hsiXSkoH9NB/TTfeBvAD7j/vH0DTG8rGXji89EhFxbOR/95Jm6pY7mHgavwW5gcl48WxQ
-	 gxV+pMcus9/JpLKZwbJG4NQ3OB1H+v27TvQ+xv5Il4gD/1O5KuG7xL8FdIuYqst8McCIo
-	 kRdTbHF7nwTHvDNw6KnpU1Pitfse6W1KGG+zQMsCVDVFpBaFWUdVBobnEoN6PuUiJXw==
+	t=1793339581;
+	b=Vxbx//87C5pvpC276MhHNTMOUGLx6jenvNYoG0gg8YeP40rAR4zoGmQuHmkawi/eim7I
+	 Pk6FMnOGSCDGpasZyoZ6N10/1llWpAs8Lqz0YyRUxGQdzbTKUDb5J9XMV8M10AkGO68ZC
+	 wBRhiU+4evu2ukd4FhYYcq5xgmOv+66v+Asv3U7RkvG6jDq2ePRyT8uVBQkIxw5NG5pdv
+	 7h9NteAUQmzrAlzISGIZeTcDZqoJlTYL4jEhyh8qgNwvaOoXJFXoSi0FbPuffy6tXKRcW
+	 +5Az9A4sJmRScdskMtOpEZh1qY8DbZNmMUs2z7oTNwQrErNFoxdNBXHKZca/VVMV+KQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793339566;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer;
-	bh=VbRiuv1zzZPpsXqO5zwHM0e9x6dnlvGPnhrO6rm2E7A=;
-	b=O4Y1hx4N74jN1JWCluPeRsRcwgezXWSgHUjXsPpiywmb/Ii9UL1LZLdbe4IBwNZsw8Ur
-	 9Yc1TXMOm6MEaCcDHuXQQaDDs6AyesNNeLZx9Xj1X7/XsbrVzPoJj4z6x+3hyxo4XR7sr
-	 UzwPbEB1NfTTRF1SM+l8IMA+EO3UaDDJwZ/56QkNk0BisQZNENvjjuFEenuObWLtQ8JG3
-	 Ro3W5WS5uMyrDsHSTvM5jcyoJU3SKO6QXCY+drq1u0T06T+NHX/wnR/NnK2Rn0Wev5+Ic
-	 Djd5/7sIlqvg1re8ypCwLAVQAc3KxgCSSdTvpBGHmDVBNgD/PGkFQvR2m5r1phOIjRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793339581;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=dFiXQ8/+LPXM9hQBfy6DKJOhJL1VeVJ4eXk+TVwAEKI=;
+	b=ZYy9rlo+9sgCRl+gJQ9UfvnvR0lGULDcmlCaHPaMB6Wy1AD0QUpjku+Khq9eQqdK5cLY
+	 ixREwzCMjZRFArk2h9LRU2/Dq7YDzqBDiSKpQ3Xjt/yFE+v1+8jXt8mnMFBiwmeiIF9aC
+	 nX20VLd4u4MfXgmBbhzsS8LZmUfhM7S5ckpqIK2ULKt5rLsThNrw6rssxxjkCePqJOIPX
+	 +S2+LNG/E6vnzR0o7rLlfA7SA1UmFS9XnxVu45nsLlo9w4G9VQSgZvuiEL9h7S2JPb8EW
+	 EbzYbDB53mS+k4jUHlUvKX1wcCDb/ke2WFAm2ziu3aTgLFR2kqqbKk+E4zxAyscMyew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kL+rJ5ml;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	dmarc=pass header.from=wyuan.org;
+	spf=pass smtp.mailfrom=wyuan.org;
+	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=xGbj1JhR;
+	arc=none smtp.remote-ip=91.218.175.221
+Received: from mta0.migadu.com (out-221.mta0.migadu.com [91.218.175.221])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43951606A324
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:52:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43951606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C222E606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:53:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C222E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kL+rJ5ml
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-18cdcfc05ffso416532c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:52:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793339564; x=1793944364; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=VbRiuv1zzZPpsXqO5zwHM0e9x6dnlvGPnhrO6rm2E7A=;
-        b=kL+rJ5mlhDTdElNXQpMNmC+lFFdeCCCvkIJjS+DDV40iDQZXyTs3SBB2eGEOCQJOtF
-         i4Ok80Jl/dyQnnLRATG4Td3Gswm32YCiQT8xqghaBRcVa79OSoHGtQs2R39LFX/jwnL/
-         /eRKmGGBw20AnqFQjZpcJKJVmMlLF8NZCpZrgKuz/yAZJ9dEl3egS2lv0Or/2b7DKW7a
-         qXzLrrXoXBoNE9m+gfyzTCmLd4rfN5+NfgwLmiILLhjUsj+Z7v94MyQ+kpgOX99nNCHT
-         XK5KIuplK8Vg0uRrjpY/hvMdogmx0CcLjeSgG/Td/Ogx7syKS3dPouQ6FzDUyXuhj/cE
-         2ZFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793339564; x=1793944364;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=VbRiuv1zzZPpsXqO5zwHM0e9x6dnlvGPnhrO6rm2E7A=;
-        b=RFD0qKM/mcV5cMrJLJmmjE3f5FimadBh9Lf6e3gkrCTpzUMG7uLu8J4aBeEy4hkcJl
-         BXm9VLJ/RhMYp1iWwev+xjXQawF28WshWyQFIDIrsNxsBtflHQ9DazrApsiydeOF5shh
-         88IMkLoCmsjuHgeaEVIjVZ2+a5vtK84U0GWrPx4LgY6NS1ezHmy9Csd1lLWFncazG+5G
-         T0BR1JyY4/d11WkHHaP34zGWBLDpzVq1rBGqz0UEvCb5GX+fNCbYNm9edCP8otto+CAp
-         AFcv4O4wVslSDHHvIROk3kwiMASy+fKkpm+zJOIxkUUHa00uMtTOGSKsvm8FG+h5xt2x
-         pY0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz+FxgC6rfpc3UDUg9VlEtF3fEswq/UDOoDNqiVZVeayFMAiwUus3BINL5/dnkAY648b8XjAsg1e9IJEmE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0QFK+OTSp0/OH660CbTN3Fnj3O+z7XgbL9j9QtNc45j7GaIeS
-	p3eGKkTzD20wjl1N8GGIlNv623AxECcXP1KlXYlaxo2unOOqCdAUSeNf
-X-Gm-Gg: AYBFou0WSCYH3tOP+v/JfA95SnwRzqBmruvWhQAFd0l9CLfAmCn66AQznwmHttLw+2y
-	j9496uevvNbu2TfSMCF+WWZcja8LrxYGtBk+UODUGfDjze7M6xkb76SeymbPOd9T6IQK/KDN5Ps
-	7m7QLF7/SQYLcfQK85o6JtMYSsrLGp91EJPFthPKs8Y8knryNoErrFO+84Ewai30eKYG2mvPrf5
-	vKR3dzg3LRTknUimtp91EncThjbUeDK5/QmeRCDR/NPKDbKpXQ1Ghm4KSY+0qvbSYTzlMcyFZG1
-	29Y8AbsIX4oXHbW3qKixGU9q2ZPIWA1AdbTOp8xAQ/LVVR/UanKFXwaKCRZP5G4EMYUADUNDxgN
-	HuQTPpbGjGBEvypABOcQ4CSWO4AG3Mjj1dADkjEYAj+qSpf4PXGNb0TBmU3P8IAJ8X45ubDj6+C
-	HfgZD9bAqcMvj2Pn2Q2tt5ImjJmahAyd5FnlPJJ4o0GR6sp/reCtbUu3NMKroRzUcXwG2/+iypj
-	qNWY1GbzhXUAs0K2ykYAw5TvoI2X0ma+Dbx9OOF2apr4vRSnwDDFADcT9FsqyQHjj3KZ0J1ZunE
-	QO/iSz7JSNffI4NpCoVccKfy
-X-Received: by 2002:a05:701b:2411:b0:1ac:75b9:f82c with SMTP id a92af1059eb24-1ac75b9f892mr1448025c88.34.1793339564232;
-        Thu, 29 Oct 2026 22:52:44 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1b0a628bsm3675448c88.22.2026.10.29.22.52.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 22:52:43 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Fri, 30 Oct 2026 01:52:38 -0400
-Subject: [PATCH] mm/filemap: clear page cache marks once when removing a
- folio
+	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=xGbj1JhR
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=tOyBd8nMtYVm54t/2HyXVQ/y3oISDTBaPm4PD2Fz7Fo=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793339578; v=1; x=1793944378;
+ b=xGbj1JhRncHXvbRYUmp106lKqsH7CeIW8N7WgQpEHf3MGhqtoeHPDvtLRs6JO6YLpaHflXbT
+ rUnVisnb45uFPoJhXr2ZA+tMWpyfaFKu4HjZUXJR+5b2FRBDzgIbUkpWjFve2vCr3QEAAedSOBM
+ JKQYR5nq0Ov5qdLaW9uQz2beu9xae0LFAFsLDAl0kl3f8FCh6nYK5Akri2ILH9IS1ZZyswaV3d1
+ 08VjmKw7z2br1GhOHRV7w2NTbFXe5ID1p21CrudGoxvWnWgBt2RQaOArHfqxXwxYQcdDaCnBEWc
+ FfWk1w9VvrDhYqM+vZItOHxqCk/rfti83f+Vu4r/1ctvw==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2d0467c948db7858;
+	Fri, 30 Oct 2026 05:52:58 +0000
+X-Mizu-Trace-ID: 2d0467c948db7858
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 30 Oct 2026 13:52:50 +0800
+From: Weijie Yuan <kernel@wyuan.org>
+To: Dongliang Mu <dzm91@hust.edu.cn>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, Weijie Yuan <wy@wyuan.org>,
+	Chen-Yu Yeh <chenyou910331@gmail.com>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] docs/zh_TW: drop unused enforcement statement label
+Message-ID: <auQwssHcQiM09SDd@wyuan.org>
+References: <f851e36f0ca9db7a0f71200964fe97a2efa85c13.1793265072.git.wy@wyuan.org>
+ <d32825a1-8da4-41f3-964b-8854618890d5@hust.edu.cn>
+ <auM4XND4sgE9kko_@wyuan.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,60 +71,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-bug-mm-filemap-init-marks-once-v1-1-699835fc6690@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAKUw5GoC/x3NQQ5AMBBA0avIrE1SJCWuIhbTGkxoSYtIxN01l
- m/z/wORg3CENnsg8CVRNp9Q5BnYmfzEKEMylKrUhaoUmnNC53CUlR3tKF4OdBSWiJu3jKaprCb
- StSEDKbIHHuX+B13/vh+gfW5ecAAAAA==
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <auM4XND4sgE9kko_@wyuan.org>
 
-xas_store() clears the marks of an entry before it replaces the entry
-with NULL.
+On Thu, Oct 29, 2026 at 08:13:21PM +0800, Weijie Yuan wrote:
+> On Thu, Oct 29, 2026 at 07:50:43PM +0800, Dongliang Mu wrote:
+> > 
+> > On 10/29/26 5:26 PM, Weijie Yuan wrote:
+> > > I happened to notice that there was actually an embarrassing label on
+> > > this page [*] that had been rendered in HTML.
+> > > 
+> > >   * https://docs.kernel.org/translations/zh_TW/process/kernel-enforcement-statement.html
+> > > 
+> > > Therefore let me drop these labels in process dir but leave the cleanup
+> > > job later.
+> > > 
+> > > --- >8 ---
+> > > From: Weijie Yuan <wy@wyuan.org>
+> > > 
+> > > We can link to these documents by path, so the top-level labels
+> > > do not buy us anything.
+> > > 
+> > > Drop these redundant labels from the Traditional Chinese process
+> > > documents.
+> > 
+> > Hi Weijie,
+> > 
+> > Removing these labels breaks existing zh_TW cross-references. The patch
+> > deletes 25 labels, but 17 of them are still targets of 25 :ref: uses.
+> > 
+> > Dongliang Mu
+> 
+> Thanks for your quick check! Indeed, there are many of them being used.
+> I'm doing this stupidly, sorry.
+> 
+> Then I'm wondering why 'make htmldocs' did not complain about this..
+> 
+> [compiled again..] OK, that's because my machine stuck for a moment.
+> Sphinx did complain about this, ouch.
+> 
+> Anyway, the actual reason of this patch is here:
+> 
+> > > diff --git a/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst b/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
+> > > index d54d20529294..45bb50fd1e6a 100644
+> > > --- a/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
+> > > +++ b/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
+> > > @@ -1,7 +1,5 @@
+> > >   .. SPDX-License-Identifier: GPL-2.0
+> > > -﻿.. _tw_process_statement_kernel:
+> > > -
+> > >   .. include:: ../disclaimer-zh_TW.rst
+> > >   :Original: :ref:`Documentation/process/kernel-enforcement-statement.rst <process_statement_kernel>`
+> 
+> There is an invisible U+FEFF character before '.. _tw_process_statement_kernel:'
+> prevents it from being recognized as a label, causing it to be rendered
+> as plain text in the HTML output.
+> 
+> Will handle these issues soon.
 
-page_cache_delete() calls xas_init_marks() after xas_store() whether it
-stored a shadow entry or NULL, so a folio removed without a shadow, as
-POSIX_FADV_DONTNEED and drop_caches do, has its marks cleared twice.
-With 4K folios that is about 6% of the time it takes to drop clean page
-cache.
+Hmm, now I realized that the last patch I submitted actually covered too
+wide a scope. The English originals still use those labels and
+references, e.g. ":ref:`development_process`" so I do not have a every
+strong standpoint to change zh_TW which would make our translation
+inconsistent with the original one.
 
-Call xas_init_marks() only after storing a shadow entry, whose marks
-xas_store() leaves alone. Dropping 8 GiB of 4K folios, median of five
-runs, averaged over two boots of each kernel, in a 32 vCPU VM:
+Therefore, here comes v2 which is only aiming to remove that
+embarrassing label.
 
-                          before    after
-  POSIX_FADV_DONTNEED    1517 ms  1423 ms
-  drop_caches            1515 ms  1422 ms
+-- >8 --
+From: Weijie Yuan <wy@wyuan.org>
+Subject: [PATCH v2] docs/zh_TW: drop unused enforcement statement label
 
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+The tw_process_statement_kernel label has an invisible U+FEFF character
+before its opening "..". This prevents the reStructuredText parser from
+recognizing it, so the HTML output shows the label definition as plain
+text.
+
+Nothing in the tree refers to this label, and the table of contents uses
+the document path. Drop the unused label to remove the stray text from
+the output.
+
+Signed-off-by: Weijie Yuan <wy@wyuan.org>
 ---
- mm/filemap.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../translations/zh_TW/process/kernel-enforcement-statement.rst | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index b74bc1e5015c6..a0c959e74533e 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -140,7 +140,8 @@ static void page_cache_delete(struct address_space *mapping,
- 	VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio);
+diff --git a/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst b/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
+index d54d20529294..45bb50fd1e6a 100644
+--- a/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
++++ b/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
+@@ -1,7 +1,5 @@
+ .. SPDX-License-Identifier: GPL-2.0
  
- 	xas_store(&xas, shadow);
--	xas_init_marks(&xas);
-+	if (shadow)
-+		xas_init_marks(&xas);
+-﻿.. _tw_process_statement_kernel:
+-
+ .. include:: ../disclaimer-zh_TW.rst
  
- 	folio->mapping = NULL;
- 	/* Leave folio->index set: truncation lookup relies upon it */
-
----
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
-change-id: 20261030-bug-mm-filemap-init-marks-once-b83c6aa67bab
-
-Best regards,
+ :Original: :ref:`Documentation/process/kernel-enforcement-statement.rst <process_statement_kernel>`
 -- 
-Qiliang Yuan <odys.yuan@gmail.com>
+2.56.0.385.gac671c819a
 
