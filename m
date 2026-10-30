@@ -1,59 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793376442;
-	b=oA/t2YwJxOB6FS+FjQSLEKtsfUl8GhGhE2RiCItSl2HEDx4hndRg8qs6DqiI54KNIvuG
-	 6YZRG6fqPlLSnDQGi6YyXRQ3EboWQ0kU6vUjUOmDxHN3AtB+LoD4TVOagF1B1j30d2nMO
-	 pUpFJ/TqtqQ/zKZhcb+nFqSA73P+JgzHLFH402AKMmJ3h8il4UQiycWeJBv34m9P8FB1L
-	 8IS+EWI758O6GEdwXTBawetzmGA1WZ/Rl3f0dg1G6qhhXJWcHG3uHbu633Z+pWV7F+HJu
-	 pE39VSbTpGGY903AcMYjc82uVh3JP+/9/xdWt4b38SA6XQf/8GsnxInGwHFYKDVLaJQ==
+	t=1793376489;
+	b=W/GDx4VKsQKU9/omvynDT7lG41CrSgjhHflvmDVouOxPhhDVJ2poXZKkozTuMvGTbomU
+	 bY7fHaw5YtsRa5VjATgTOVUHRVBIHXbVInAIc53Lt5N5IVYCX4N59aE/zKabRTHwZ03P0
+	 4SLZy+Z80amimnMDMQo3TC+EjUdM1LcdVqsV0gi5kdSxn2hMA3y4XldfSO4J/RlSGt981
+	 lCk6GYRc/JkbsHC0ARtnH2VKPYZ2sD0z4GhvJ+ITWNsIi6uGy28Me5FXPJNPedII8GLyA
+	 43ugUMuTgPb7aSUfqS5iGzGV8Gm7q4HlTojy8/k71fHZp3AO1Ry9gZe995OWUg9ZABA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793376442;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nPpHLJ4qd9XxaPO/9JWF3hf75s/PqPCDv9wRHXposPc=;
-	b=v+G7zsVRre3xp/sccChEGddzS+iz/+NlCN4OfLgZjwBwR+oAau+CZmOa3pGUoR20D/IW
-	 f3pohEin40PSUek5afjdHrNh8QuT5cWPNZyT0RoAk+z3uwD7+QiM4BX42rSmZcXvEzwF4
-	 +/7lT7eFq/BQu86pqoMWILEaRXV9hyV2pG4quogQaUVsJMQ8VRLbEK8LlCofdDVt0qdef
-	 5YzeNUQBpnQ4HhFuXaozYatgbVjU6DKJ2atU+DYb2b2d8LU1tXPsH2Rlcf/VrGPDB+BnI
-	 RNv0XrXM5BIpWtxUZVnDo0FudBcFGAfY0zhbuAYgvR2PCXTp4IP4Cj1EZA/2mE7oomg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793376489;
+	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
+	 X-HE-Meta;
+	bh=oq+g4iZ4UYrYnPbI/L10PT/jx1+ddlD+1MAkqGEt8ys=;
+	b=1/Q4geA6GcJc6vPWlYtnsX/LPRnXfEihEmYDvrUq/iEFFPLGbt7VsF35Dg+svebjvJPD
+	 9TmNZhWvd1tq2dmCGg5MgsS8/ZJSZ5vvLfT1srMp3KBVVkjC6Sl0/3mA7P+IuprnlDAuN
+	 qleORXMlCyJF6/ggBBQsxgZKfE7V5d3fT1+JEDeDPllAMB+uTrxSFJA59YQgVlx+5txg9
+	 azafncT5i1AlsQHINzsZfGTaIEuTgkgqWnlk05O3r/bPpCMujSyiHhmlyGpPmpzWADXXH
+	 P208y2iTfPVat/+wMzjz5VOd9b2rnoWUWaf9GAWjpK4diwaSVzi5E59ebBK+U0nrpYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IAHAhC+5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=perches.com;
+	spf=pass smtp.mailfrom=perches.com;
+	arc=none smtp.remote-ip=216.40.44.13
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693C4606A31C;
-	Fri, 30 Oct 2026 16:07:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IAHAhC+5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE6F1F000C1;
-	Fri, 30 Oct 2026 16:07:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793376442;
-	bh=nPpHLJ4qd9XxaPO/9JWF3hf75s/PqPCDv9wRHXposPc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IAHAhC+5ab8Be4EWDzIFytdPwcaO2BaKu768QtsliGZlbfObKsSfIRBXjTDkET0M6
-	 iUil1qIYysMUup4ePLhGR8XfOYpACqcufxv8kn7tJhaDk9/T5IVQ5sB1bJqLx1Fo07
-	 Z8tQetHwfx8hl5yWGB5juoop6+VypS/puGs8uaD1D1PwYIkexQpckf0djM2yBegYf4
-	 PGCZLtPkZxjght3+4EaSufQ6S7fj/HuZ2qbub9ZLW4AlHoksJpmRm6eMqwflq8qLBR
-	 ZQsTWOp8krs9ubrAx4HwS1TAx1qSbB2qSFdExulqVxS77VCV9f4yZHOamE964ChxE3
-	 rwv6CRdF9WN0g==
-Date: Fri, 30 Oct 2026 11:07:18 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Robert Marko <robert.marko@sartura.hr>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, hkallweit1@gmail.com,
-	kuba@kernel.org, andrew+netdev@lunn.ch, pabeni@redhat.com,
-	linux@armlinux.org.uk, lgirdwood@gmail.com, luka.perkov@sartura.hr,
-	broonie@kernel.org, lxu@maxlinear.com, michael@walle.cc,
-	edumazet@kernel.org, netdev@vger.kernel.org, lrosu@maxlinear.com,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	davem@davemloft.net
-Subject: Re: [PATCH net-next v3 4/5] dt-bindings: net: maxlinear: add
- MxL86211C lane mapping support
-Message-ID: <179337643788.258893.14486775212331901455.robh@kernel.org>
-References: <20261020093655.344585-1-robert.marko@sartura.hr>
- <20261020093655.344585-4-robert.marko@sartura.hr>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3BC606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:08:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE3BC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
+Received: from omf17.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay05.hostedemail.com (Postfix) with ESMTP id 4A739407A5;
+	Fri, 30 Oct 2026 16:08:02 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf17.hostedemail.com (Postfix) with ESMTPA id 5A4A518;
+	Fri, 30 Oct 2026 16:08:00 +0000 (UTC)
+Message-ID: <eb8d1fb4e2a8a32ae1b71df686ed65be800e2918.camel@perches.com>
+Subject: Re: [PATCH] get_maintainer: lazy load JSON::PP only when --json is
+ used
+From: Joe Perches <joe@perches.com>
+To: Oleg Nesterov <oleg@redhat.com>, Sasha Levin <sashal@kernel.org>, Andrew
+ Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org
+Date: Fri, 30 Oct 2026 09:07:59 -0700
+In-Reply-To: <auS7NOsyw7pJ7rbF@redhat.com>
+References: <auS7NOsyw7pJ7rbF@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,32 +59,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020093655.344585-4-robert.marko@sartura.hr>
+X-Rspamd-Server: rspamout07
+X-Rspamd-Queue-Id: 5A4A518
+X-Stat-Signature: 3jwum84oncjd48msaqehe69sqy7u6xyy
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1/FLhzE5OZMEsCLqZHHsJJLJ53tyLcnIp4=
+X-HE-Tag: 1793376480-957440
+X-HE-Meta: U2FsdGVkX1+s58IwUau2pyt4IigCVYrgUc1YTvzxMLaa1Ile5D0xq7Oi15jT3QpbfLGqklH0eTkQAybsnWuEYwnv80QSBH5L9A04/ULOvfIBaswZd/3+ndcIDnfRrCq2163oaARSMnLV0LRdMxC1BGVF1WMSxoaKe/e50APR1iHSUt/7Y7hCGXD83EW9FKibYQcHaC5phABxqoX7iRVcG7Bqtj/MgbdOzbNjDb7jl4g3L5EJp7436tEYmfmzKo2N0jG2LPHVRWMSem7UTNcv43zjdf6dKaF238wFodxruQ7RPYfInZj0hRG4BbLFVp5m
 
+On Fri, 2026-10-30 at 16:43 +0100, Oleg Nesterov wrote:
+> After commit 09d8b39563e8 ("get_maintainer: add --json output mode"),
+> I can no longer use get_maintainer.pl; it fails at compile time
 
-On Tue, 20 Oct 2026 11:35:37 +0200, Robert Marko wrote:
-> Describe the optional board-level mapping from physical TPI lanes to the
-> MxL86211C analog front ends (ASPs). This allows DTS to describe wiring
-> that differs from the hardware reset mapping.
-> 
-> Select nodes using the new property so invalid uses are checked even
-> without the MxL86211C compatible.
-> 
-> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
-> ---
-> Changes in v3:
-> - Select nodes using the lane-map property so misuse is validated.
-> - Restrict the property through the negated compatible condition.
-> 
-> Changes in v2:
-> - Define the lane-map property at the top level for type checking.
-> - Describe ASPs as analog front ends.
-> 
->  .../bindings/net/maxlinear,gpy2xx.yaml        | 21 +++++++++++++++++++
->  1 file changed, 21 insertions(+)
-> 
+?
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Just verifying that you mean when using perl directly and
+not something like perlcc.
 
+> if JSON::PP is not installed even when --json is not requested.
+
+What version of perl are you using?
+
+I believe JSON is bundled since perl 5.14
+
+> This module is only needed with the --json option. Use "require" to
+> load this module dynamically inside the "if ($json)" block instead.
+
+The patch may be sensible but could fail the same way
+if you used the --json option with your version.
+
+> diff --git a/scripts/get_maintainer.pl b/scripts/get_maintainer.pl
+[]
+> @@ -21,7 +21,6 @@ use Cwd;
+>  use File::Find;
+>  use File::Spec::Functions;
+>  use open qw(:std :encoding(UTF-8));
+> -use JSON::PP;
+> =20
+>  my $cur_path =3D fastgetcwd() . '/';
+>  my $lk_path =3D "./";
+> @@ -685,6 +684,7 @@ if ($json) {
+>      $result{web} =3D \@web if ($web);
+>      $result{bug} =3D \@bug if ($bug);
+> =20
+> +    require JSON::PP;
+
+style nit:
+I likely would have placed this require immediately after the
+if ($json) {
+
+>      my $json_encoder =3D JSON::PP->new->canonical->utf8;
+>      print($json_encoder->encode(\%result) . "\n");
+>  } else {
+>=20
+> ```
