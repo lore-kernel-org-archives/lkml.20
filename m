@@ -1,100 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793384152;
-	b=08hc1OjqG51+e7dGvpMgcXKYA8Kisz8San2zvF6rVwkig6ybxqCNdoKoHHqWUuj6DnwS
-	 cSJ/L/IH8WJRDuXe3iY40ffc2J7FU3+YifNFpErAYX7A7PEw2bFyCLZpdjtuekdroodk/
-	 jcbc62r0b03Av8nOb0i3Mp7oA1XI2qC/Ee32b/8DV1jx/BzNwBT8GC3+X0Ys8C77fChvU
-	 1nZdVnVGVieFbr4gOuREcs4W6HFJ9xUvDR6SUaMDspWaARUZL/K0n2zFVNmP7qeAwtpnz
-	 k09TLAZeqVhcrB8yPAzj/HMUZnhLUpsV8qnAWmN482UtEepRaup0qSCwns34IsxLs+A==
+	t=1793384255;
+	b=1PiFzT0ja1+cnt3vwGdFQYpHJSXDDM/kYnP7m1zFIDj8TQmIXCLfq7fZ/oLydsuF4FIY
+	 +9cKThngSZawa1sGBzouTseciFULcqLZyBlZRS7Vb9I1mxbugsmBPl9DpRZg2qncgB8vs
+	 BYaMoRz+P0T1H+cQE1X897mo693zRAhc+OY9jhVmL4G8K6gyJqn9csnXgDvsrSOdp+GMj
+	 AJk5BiGzeJaQtkFYFT6VyyeVlzZMa9Fa9274KHgKJmkMchFtXS5j+1MYC180g+DAdJof9
+	 dT0uLqTa804B58Bc23J2x3WMN/cGcWHPXOk+0RT9KBykWOJhD5tdihTf5EJ2QXfUd+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793384152;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793384255;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=knp/tm/TZZVuxSSAFhZ+sMDH3dqo4kKd8WvgszJHIrU=;
-	b=IDfQtl3dwKkTayYO2/wTNnYwN7k/sZxuyT16ifARIpe72ePe6B+h5nlxhaWlA+6x86rA
-	 EbSKdILSWDBjgIN2cY51I9qyaqDBBNGuDcwx36zwgQzO6/Q7h7EhL7W6yJTEhhP/x2kzu
-	 F4CPzcKawZOOsoTPTQQ2ki1JCG6ScGCX5BMJrFubqXFw/t+N1NOsLnALFAnJP9mEzuGwP
-	 NEQiQwQXW35OSKQ0Co1ZKBmbVxiSNTCIbEuIT6MaVjVGONooX/4IYTDpmkR6AdkmcefMH
-	 JwXtN03j71fZjIa4eeoY3vnKODvagWmka01a+/2xzEdw8jbhRew5K+bSHQv04VoEExA==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=P20Sssx6yjJUYGIDtxb2MekE1dkGAS2a+bVdnxR+A5o=;
+	b=Vxuw7iJfv6eZzHXkVJ2BuGEblU046raVsAjU+NzPFcJhb8fltK3PmGiPINgp7kva/Bsa
+	 zyvQ8A5w0GRZ3t3rj9L4tciv9kAWbt86xEHllpUBXZ1oAglkk9x8dHYvo64OJW9ukqh6K
+	 onfJSvaF+D8jtTkB4gd/cbCd/SSSEpCCT6AehIbatca+Av5tSsqAiVpi9wH4Y7CuH3oSq
+	 1JkjkQ61yI4ivihi50PQKNHNUrllApx8a8BmM7XPHQw2TW5LcpYSGGJjgRxlfTuftqngZ
+	 hN7yK06AnqWmh7r7o5PZPwrFmgecAqOuHsf8oYX3p7HeZWMsZTG6kb9Yb89Yw6xOkOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=x6u.co;
-	spf=pass smtp.mailfrom=x6u.co;
-	dkim=pass header.d=x6u.co header.i=@x6u.co header.a=rsa-sha256 header.s=google header.b=ogLD6Tp+;
-	arc=none smtp.remote-ip=209.85.222.50
-Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com [209.85.222.50])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jTLLsFfY;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F26660A2623
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:15:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F26660A2623
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8444E606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:17:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8444E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=x6u.co header.i=@x6u.co header.a=rsa-sha256 header.s=google header.b=ogLD6Tp+
-Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-9912c47367cso837282241.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:15:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jTLLsFfY
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48b060ec084so603581f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:17:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=x6u.co; s=google; t=1793384151; x=1793988951; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=knp/tm/TZZVuxSSAFhZ+sMDH3dqo4kKd8WvgszJHIrU=;
-        b=ogLD6Tp+YyMdz7wHpzk2XoQGinbHqKDrCMTIeQNH+D07GyBSjKeQ/u0XIWZApRyT6j
-         EQfrmIMyjPJBtCK0yMOK9/T+WtXdMU7MctcxAuwaNxJGr8O4JXreQzoYo3XL4r6nt16Y
-         Ty2/Xm8wPCi4SezydQGiQ9ZJA55gxRZKDqhpXsMiQwle70Z87cyPb3QVasZXmiq4TmGe
-         Jjv7nPieKeELmlm2NfN7Oh8RCgwNcnnQ5SHigFASw/+maW6e5IMdwsZvw14S3rZreDvu
-         1eA2PV2lvLkDH5tVHx5/vPtXxO9BYJjXB9Em7CURiMw+WZb/Hs13XZfUL1b3Yw7FXXlL
-         19Yg==
+        d=gmail.com; s=20260707; t=1793384254; x=1793989054; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P20Sssx6yjJUYGIDtxb2MekE1dkGAS2a+bVdnxR+A5o=;
+        b=jTLLsFfYXBiUSEMoVtR09XM8GfPg4iYCaKbWo9OruZYbtTBD8ki2MBYNG0cxoUkfxz
+         HvLpNotsTw11Oim4hDyO3ulBtyFEzmH2nmaR9/Qh3wT/hF69kSDM/leGwVLP7nP6lw/b
+         hgM/UZQ9ASwdyvRKghbMQ0/Cej6v5jziW6BJ3YsHcI4nTSwuP+NI1ZhsBdCgHX4DgJ0p
+         c1qIgiaySXMtLJolWetTAFVQFqXJ6B3Q4ayx8d79s1Ir0DRk6LxcD4bVoGq98/KX3XO/
+         9AtA1OWVDbTJLHt5VmzfTkJK/O6DonawbhLceu94lpZgBqtwIIEu9sOQRXJzRKx3D1yb
+         zlbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793384151; x=1793988951;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=knp/tm/TZZVuxSSAFhZ+sMDH3dqo4kKd8WvgszJHIrU=;
-        b=ywMeyPSekHoQV/dQOHhCv9nHRAtAs0fWBDmc/MtKswrbdbCBJuTa4+YsiQK4g5T3tz
-         49Y2W/1y2FTVfQy0dQeim9VuL9VtzLkv2jDLlJeLJFhak56WfFMKxJ4OHXvbVrq5bMsV
-         gQ2VCK5bW4kycyjMBq7wosMTjyJWX6MG5rMP/kUCahzssBF9S/NZJ/ThYy5765MVJl5/
-         DsK9QwYo6BFcMakhbny8dvbAfkWDnigsPCtaoXIa7ClNFapH53qlGdqh0nGrbm2kWUWZ
-         4gKRfC9+HrL3Jr6rPj4n5mJhJuvplTc7KuZpkI9N1QxD5XSdH2OzVvskl4EEDYpNc32v
-         JK/A==
-X-Forwarded-Encrypted: i=1; AKwUvBzkWwW3bvf/hmykDYxiNCpbVhVCMZoC3oUFpgnA4qVKPTGfDINgFXoMpmQ5x+AGe+hpTzYfLWCh7C/P1KY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHZ9PVQk9l3fK8ytzMGyoAeFnCayONS5Xrbee3dVUpNz+gcZev
-	//fyZC5UKP08uPArkx0yjxzfe49qLI64OYjZNoDGwJuL1iq1XYF5tYAmhPNrjnGqSJO8
-X-Gm-Gg: AYBFou162zj/l7RsKk/OReC9bSn86cx1rZMHpvyLReyL6c0fMmrifAv1QXFz/1QcFK5
-	bF98RPmeco5O/sUG6SfTDd5oSuBpvH+m6iZuH7moF9IbVyyxhfNquKPasSHW9fu9T170sA1BfNn
-	TWPkDywuKpin4+JRgRyRgy30kE+RWix91YHAM98yvNqGBd643wEnSIDxlrv8Aj+gaR5zojLC1TL
-	/e9kHp4bMKvIEoTDN1c+1M8i77T1rxq/qpyj4pgfE/Qrzj/nYJpV65rlcSXXK+7uxmaBl2yDgTp
-	xkl+2AmDzA5pcTtrWshdOWs+4nAf3E9zdsuPzujN5w+pEn4I94zoSx7KSVRuVyWuNdymaKntDSF
-	Hz+edgZqXcbndKNTD337BG4OMlyvw0+ZvvsjWBKzFIIMUwK4fZiTQ5GcrfSqOfAv2O2p22BdG+v
-	5JwHhZmcfj6lBAJmtQWMN47Xn1lEHhMV7rTBStRjUiNMFijOM0Anyk1b5mwCp/70pi4TDN3Fezr
-	Ubjd3ne8qOT6Nj1Mxp4FcW9clHEctOQEuU0U3gWUdhzFmJ1wJs1r8HkoNyZg9IFR6//OYiVTI5s
-	FKKKulF/M8Y9BVbm0kcJMirnzgq3ISgfpIRClUqqipvOHC/2d7UPi+3b3CO8asVtGt2wy20nnG0
-	uxSI00rOmV5flRq+dB7mCMUzrh+I6DRA/LlEtAA312jk2
-X-Received: by 2002:a05:6102:5106:b0:7c1:e804:3c91 with SMTP id ada2fe7eead31-7d072c398bdmr931456137.8.1793384151354;
-        Fri, 30 Oct 2026 11:15:51 -0700 (PDT)
-Received: from worldpeace10.c.googlers.com.com (109.243.150.34.bc.googleusercontent.com. [34.150.243.109])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d07754c1c6sm3077931137.3.2026.10.30.11.15.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 11:15:50 -0700 (PDT)
-From: David Hu <dhu@x6u.co>
-To: Mustafa Ismail <mustafa.ismail@intel.com>,
-	Shiraz Saleem <shiraz.saleem@intel.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Jacob Moroni <jmoroni@google.com>,
-	intel-wired-lan@lists.osuosl.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Hu <xuehaohu@google.com>
-Subject: [PATCH rdma-next v4 5/6] RDMA/irdma: Support UMEM attribute for CQ creation
-Date: Fri, 30 Oct 2026 18:15:11 +0000
-Message-ID: <20261030181512.2056056-6-dhu@x6u.co>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-In-Reply-To: <20261030181512.2056056-1-dhu@x6u.co>
-References: <20261030181512.2056056-1-dhu@x6u.co>
+        d=1e100.net; s=20260707; t=1793384254; x=1793989054;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P20Sssx6yjJUYGIDtxb2MekE1dkGAS2a+bVdnxR+A5o=;
+        b=EYdIMl/VOBK0KluS90L77kO+1AUvSNy/g3OYi7zb5FhvslZ1BbN3ZzzVh+CwTHFYv6
+         duLIgN8E5r/EIlNbXPUYJQ6DMJeULAQfp8vN6MflK5i9UCTcTHb5rggN9wStaQgz8fey
+         aCk6Vvmz3zqPWkV99+PA5TLwpdM19jozfjGcE1IoDr0y7bjL8RtfJY5BXwg6CugFVxf9
+         k1eOzbh08Od5Fi2bHqRTrtLnw713yI8I9Di31GT/MaRVkbtufWd1//1pVvuP7TLKN1ym
+         f5qDvTtNTC6+UooIA6mgpcPsfccen4HCE4d8B0zrNgVS7Sm/tb/U51JI0Df14uM3hYR6
+         AfEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw3fot5k29kXCKe0mCdaU/dfZCpYbvQMXNWYC0STWCEF1oNkYs8r1/MWfcIzY4jgYXuWZDhsoUCyC1kSVU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFkPHykmK0iSzGfw1o0UQ6hEIXS0GYxuihSZjogo/yuMLjuFIs
+	nRhYfyN5qpC9scDo4/7j2RkdtCLyAxUBPxjQ29bK+2BkdrIE7mbcuI7+
+X-Gm-Gg: AYBFou37UPT8l75F+IcE4Pb/qeB07eD+E1PQGB5HlP3bfwjE/W3VzncOXbMR0v2jEop
+	0IkFcYPL7udJs9ODxvhj+B3xmeXOOn2W2NhKWGa1w6xqXG6cOysKqkP1+nlxOJ+/Br4QIGGSDhJ
+	Pa7LVZH9o5gr8X/iBqMYgLbwbTgY6ESluQcsc4lLB5HdzCgeKfRTJHEnQwvJUccyl25wFbLG4L0
+	Dt2KDmRCg0zf+M7bfmT64gBy+rjCPbfOUjN2HKUpfTch6c03klbcCbQ0x3ozpaOXDZuTs1VCRY/
+	RRp5kMt0GSyn7J84uYnVvLe0u4zj3B51cGh3qgxm36FDCW9QKgVFSd9nh/Gvz36Jtmx/lnbST2c
+	05OTcuh4xwFXte4WILXxYvfT3uQ1J/W9N1q/MFEKqnAnKN9mNGa+DsMGL8OHpJM/u3vx2BicTb5
+	SnWFuBANL0+Y33aYjH53zPAbKLWNwoKMc3yr7ffIVKJad8x9Aga8Aj8/zukkBEmP9OF5hOvrT3g
+	2NDsXQamAGTfxBVDT7e2LGrcXyDbnORy2RI9Qx+uGp4V7Om2FXEnas1Z9HacrBpxwfBuk1evmgV
+	98geaJOPAePmD+H4jsSmgnqyL3mV/+q+zvfXOskLmFQ+Ku0r86uGqH1iK+OXQaMq2qd3YkQZ0DY
+	tbmw=
+X-Received: by 2002:a05:6000:178f:b0:48d:f14a:9177 with SMTP id ffacd0b85a97d-48e6e4faeacmr7358484f8f.56.1793384253663;
+        Fri, 30 Oct 2026 11:17:33 -0700 (PDT)
+Received: from ?IPV6:2a02:8086:cd5:c900:c69f:4b72:77ee:5fe1? ([2a02:8086:cd5:c900:c69f:4b72:77ee:5fe1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71ba5dc2sm4380862f8f.54.2026.10.30.11.17.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 11:17:33 -0700 (PDT)
+Message-ID: <e2e00074-6787-4c76-a6ac-5e17d37c1e76@gmail.com>
+Date: Fri, 30 Oct 2026 18:17:31 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,242 +93,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-next 1/3] wifi: ath10k: set the PMF peer flag on
+ WCN3990
+To: shunsuke@nagashi.ma, Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+ linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+ Fabricio Akio <fabricioakio@gmail.com>
+References: <20261016-ath10k-series-v1-send-v1-0-c847697b3558@nagashi.ma>
+ <20261016-ath10k-series-v1-send-v1-1-c847697b3558@nagashi.ma>
+Content-Language: en-US
+From: Conn O'Griofa <connogriofa@gmail.com>
+In-Reply-To: <20261016-ath10k-series-v1-send-v1-1-c847697b3558@nagashi.ma>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: David Hu <xuehaohu@google.com>
+On 16/10/2026 01:17, Shunsuke Nagashima via B4 Relay wrote:
 
-Support the standard 1-step queue buffer creation model for CQ by
-`UVERBS_ATTR_CREATE_CQ_BUF_UMEM`, `IRDMA_IB_ATTR_CREATE_CQ_SHADOW_BUF_UMEM`
-via `ib_umem_get_attr()`.
+>   - The firmware sends its ADDBA Request frames unprotected. The AP does
+>     not answer them, and no Block Ack agreement is set up, in both the
+>     2.4 GHz and the 5 GHz band. On a 5 GHz WPA3 AP, iperf3 to a wired
+>     host gave 22.6-31.6 Mbit/s up and 21.6-21.7 Mbit/s down, against
+>     280.2-283.0 / 264.5-272.3 Mbit/s with WPA2 on the same AP. A
+>     WPA2/WPA3 transition network gave the same low rate (23.4/22.7
+>     Mbit/s), because wpa_supplicant chose SAE with PMF there.
+>
+>   - On 5 GHz, the protected Deauth sent at disconnect carried CCMP PN 0
+>     (56 of 56 in one capture). One AP dropped it, kept the old
+>     association and answered the next association with status 30, so a
+>     reconnect took 24.3-24.4 s instead of about 5 s. Another AP accepted
+>     the PN 0 Deauth. On 2.4 GHz the Deauth carried a live PN even
+>     without the flag. I could not tell whether the band or the AP's
+>     HT/VHT capability makes the difference.
+>
 
-Set up hardware pble directly from the pinned CQ and shadow umems via
-`irdma_setup_q_pbl_from_umem()`.
+I can confirm the same problem happens on a PCI bus hw1.1 revision 
+QCA9377 in an Inspiron 5570 laptop (originally installed), primarily 
+testing the 5GHz band due to 2.4Ghz being congested in my area:
+ath10k_pci 0000:02:00.0: qca9377 hw1.1 target 0x05020001 chip_id 
+0x003821ff sub 1028:1810
+ath10k_pci 0000:02:00.0: firmware ver WLAN.TF.2.1-00021-QCARMSWP-1 api 6 
+features wowlan,ignore-otp crc32 42e41877
 
-Proper umem and pble cleanup are added into existing `irdma_cq_free_rsrc()`
-upon CQ destruction.
+Note that the MFP flag is not listed; I also checked the latest api 5 
+firmware and the flag is also missing. Without any changes, the driver 
+performs extremely poorly (~50Mbps) when PMF is negotiated with the 
+default or latest api 5 firmware, and confirmed to be an issue on my ISP 
+router and also a separate OpenWrt router using an ath11k chipset. Prior 
+to discovering this patch set, my workaround was to allow WPA3 
+Transition Mode on my routers and force PMF disabled on the client via 
+NetworkManager in order to coax the connection into WPA2 mode with PMF 
+disabled, allowing speed parity with Windows using WPA3 (~300Mbps).
 
-We maintain backward compatibility for legacy 2-step registration if UMEM
-attributes are not provided.
+By adapting your patch to also set ".peer_pmf_support = true" for my 
+hardware, WPA3-SAE (i.e. with PMF enabled) now runs at full speed 
+(~300Mbps).
 
-`irdma_resize_cq()` will have a possibility to deal with a pble/mr that
-is created via one-step logic, after this change. Therefore, a proper
-cleanup is added.
+Further context is available here (not my thread, but other users have 
+reported the same issue with this hardware and I posted this patch with 
+the flag added for my hardware): 
+https://bbs.archlinux.org/viewtopic.php?id=308424
 
-Signed-off-by: David Hu <xuehaohu@google.com>
----
- drivers/infiniband/hw/irdma/verbs.c | 132 +++++++++++++++++++++++-----
- 1 file changed, 111 insertions(+), 21 deletions(-)
+Regards,
+Conn O'Griofa
 
-diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/irdma/verbs.c
-index 9f4905fdb791..41e56ab8aa6d 100644
---- a/drivers/infiniband/hw/irdma/verbs.c
-+++ b/drivers/infiniband/hw/irdma/verbs.c
-@@ -2028,13 +2028,24 @@ static void irdma_cq_free_rsrc(struct irdma_pci_f *rf, struct irdma_cq *iwcq)
- 		if (iwcq->iwpbl) {
- 			iwmr = iwcq->iwpbl->iwmr;
- 
--			refcount_dec(&iwmr->user_ring_refs);
-+			if (iwmr && refcount_dec_and_test(&iwmr->user_ring_refs)) {
-+				ib_umem_release(iwmr->region);
-+				if (iwcq->iwpbl->pbl_allocated)
-+					irdma_free_pble(rf->pble_rsrc, &iwcq->iwpbl->pble_alloc);
-+				kfree(iwmr);
-+			}
- 		}
- 
- 		if (iwcq->iwpbl_shadow) {
- 			iwmr = iwcq->iwpbl_shadow->iwmr;
- 
--			refcount_dec(&iwmr->user_ring_refs);
-+			if (iwmr && refcount_dec_and_test(&iwmr->user_ring_refs)) {
-+				ib_umem_release(iwmr->region);
-+				if (iwcq->iwpbl_shadow->pbl_allocated)
-+					irdma_free_pble(rf->pble_rsrc,
-+							&iwcq->iwpbl_shadow->pble_alloc);
-+				kfree(iwmr);
-+			}
- 		}
- 	}
- 
-@@ -2161,6 +2172,7 @@ static int irdma_resize_cq(struct ib_cq *ibcq, unsigned int entries,
- 	struct irdma_dma_mem kmem_buf;
- 	struct irdma_cq_mr *cqmr_buf;
- 	struct irdma_pbl *iwpbl_buf = NULL;
-+	struct irdma_pbl *old_iwpbl = NULL;
- 	struct irdma_device *iwdev;
- 	struct irdma_pci_f *rf;
- 	struct irdma_cq_buf *cq_buf = NULL;
-@@ -2273,17 +2285,12 @@ static int irdma_resize_cq(struct ib_cq *ibcq, unsigned int entries,
- 
- 	spin_lock_irqsave(&iwcq->lock, flags);
- 	if (udata) {
--		struct irdma_pbl *old_iwpbl = iwcq->iwpbl;
-+		old_iwpbl = iwcq->iwpbl;
- 
- 		/* Only update if the resize was successful. Otherwise, HW is
- 		 * still pointing to the old PBL.
- 		 */
- 		iwcq->iwpbl = iwpbl_buf;
--		if (old_iwpbl) {
--			struct irdma_mr *old_iwmr = old_iwpbl->iwmr;
--
--			refcount_dec(&old_iwmr->user_ring_refs);
--		}
- 	}
- 	if (cq_buf) {
- 		cq_buf->kmem_buf = iwcq->kmem;
-@@ -2298,6 +2305,21 @@ static int irdma_resize_cq(struct ib_cq *ibcq, unsigned int entries,
- 	ibcq->cqe = info.cq_size - 1;
- 	spin_unlock_irqrestore(&iwcq->lock, flags);
- 
-+	/* Old pble/umem is cleaned up outside spinlock's atomic context
-+	 * since both of them take sleepable lock.
-+	 */
-+	if (old_iwpbl) {
-+		struct irdma_mr *old_iwmr = old_iwpbl->iwmr;
-+
-+		if (old_iwmr && refcount_dec_and_test(&old_iwmr->user_ring_refs)) {
-+			ib_umem_release(old_iwmr->region);
-+			if (old_iwpbl->pbl_allocated)
-+				irdma_free_pble(rf->pble_rsrc,
-+						&old_iwpbl->pble_alloc);
-+			kfree(old_iwmr);
-+		}
-+	}
-+
- 	return 0;
- error:
- 	if (iwpbl_buf) {
-@@ -2746,14 +2768,18 @@ static int irdma_setup_umode_cq(struct irdma_device *iwdev,
- 				struct irdma_cq_init_info *info,
- 				struct uverbs_attr_bundle *attrs)
- {
-+	struct irdma_cq_uk_init_info *ukinfo = &info->cq_uk_init_info;
- 	struct ib_udata *udata = &attrs->driver_udata;
- 	struct irdma_create_cq_req req = {};
- 	struct irdma_pci_f *rf = iwdev->rf;
-+	struct irdma_sc_dev *dev = &rf->sc_dev;
- 	struct irdma_ucontext *ucontext;
- 	struct irdma_cq_mr *cqmr_shadow;
- 	struct irdma_cq_mr *cqmr;
- 	unsigned long flags;
-+	bool cqe_64byte_ena;
- 	int err_code;
-+	u8 cqe_size;
- 
- 	iwcq->user_mode = true;
- 	ucontext = rdma_udata_to_drv_context(udata, struct irdma_ucontext,
-@@ -2767,26 +2793,87 @@ static int irdma_setup_umode_cq(struct irdma_device *iwdev,
- 	if (err_code)
- 		return err_code;
- 
--	spin_lock_irqsave(&ucontext->cq_reg_mem_list_lock, flags);
--	iwcq->iwpbl = irdma_get_pbl((unsigned long)req.user_cq_buf,
--				    &ucontext->cq_reg_mem_list);
--	spin_unlock_irqrestore(&ucontext->cq_reg_mem_list_lock, flags);
--	if (!iwcq->iwpbl)
--		return -EPROTO;
-+	cqe_64byte_ena = dev->hw_attrs.uk_attrs.feature_flags & IRDMA_FEATURE_64_BYTE_CQE ?
-+			 true : false;
-+	cqe_size = cqe_64byte_ena ? 64 : 32;
-+
-+	if (uverbs_attr_is_valid(attrs, UVERBS_ATTR_CREATE_CQ_BUF_UMEM)) {
-+		struct ib_umem *umem;
-+		struct irdma_mem_reg_req cq_req = {};
-+		u8 shadow_pgcnt = (rf->sc_dev.hw_attrs.uk_attrs.feature_flags &
-+				   IRDMA_FEATURE_CQ_RESIZE) ? 0 : IRDMA_SHADOW_PGCNT;
-+		u32 min_size;
-+
-+		cq_req.cq_pages = DIV_ROUND_UP(ukinfo->cq_size * cqe_size,
-+					       IRDMA_HW_PAGE_SIZE);
-+		min_size = (cq_req.cq_pages + shadow_pgcnt) << IRDMA_HW_PAGE_SHIFT;
-+
-+		umem = ib_umem_get_cq_buf(&iwdev->ibdev, attrs, min_size,
-+					  IB_ACCESS_LOCAL_WRITE);
-+		if (IS_ERR(umem))
-+			return PTR_ERR(umem);
-+
-+		iwcq->iwpbl = irdma_setup_q_pbl_from_umem(iwdev, umem, NULL,
-+							  IRDMA_MEMREG_TYPE_CQ, &cq_req);
-+		if (IS_ERR(iwcq->iwpbl)) {
-+			err_code = PTR_ERR(iwcq->iwpbl);
-+			iwcq->iwpbl = NULL;
-+			ib_umem_release(umem);
-+			return err_code;
-+		}
-+	} else {
-+		if (!req.user_cq_buf)
-+			return -EINVAL;
-+
-+		spin_lock_irqsave(&ucontext->cq_reg_mem_list_lock, flags);
-+		iwcq->iwpbl = irdma_get_pbl((unsigned long)req.user_cq_buf,
-+					    &ucontext->cq_reg_mem_list);
-+		spin_unlock_irqrestore(&ucontext->cq_reg_mem_list_lock, flags);
-+		if (!iwcq->iwpbl)
-+			return -EPROTO;
-+	}
- 
- 	cqmr = &iwcq->iwpbl->cq_mr;
- 
- 	if (rf->sc_dev.hw_attrs.uk_attrs.feature_flags &
- 	    IRDMA_FEATURE_CQ_RESIZE) {
--		spin_lock_irqsave(&ucontext->cq_reg_mem_list_lock, flags);
--		iwcq->iwpbl_shadow =
--			irdma_get_pbl((unsigned long)req.user_shadow_area,
--				      &ucontext->cq_reg_mem_list);
--		spin_unlock_irqrestore(&ucontext->cq_reg_mem_list_lock, flags);
-+		if (uverbs_attr_is_valid(attrs, IRDMA_IB_ATTR_CREATE_CQ_SHADOW_BUF_UMEM)) {
-+			struct ib_umem *shadow_umem;
-+			struct irdma_mem_reg_req shadow_req = {
-+				.cq_pages = IRDMA_SHADOW_PGCNT,
-+			};
-+
-+			shadow_umem =
-+				ib_umem_get_attr(&iwdev->ibdev, attrs,
-+						 IRDMA_IB_ATTR_CREATE_CQ_SHADOW_BUF_UMEM,
-+						 IRDMA_SHADOW_AREA_SIZE << 3,
-+						 IB_ACCESS_LOCAL_WRITE);
-+			if (IS_ERR(shadow_umem))
-+				return PTR_ERR(shadow_umem);
-+
-+			iwcq->iwpbl_shadow =
-+				irdma_setup_q_pbl_from_umem(iwdev, shadow_umem, NULL,
-+							    IRDMA_MEMREG_TYPE_CQ,
-+							    &shadow_req);
-+			if (IS_ERR(iwcq->iwpbl_shadow)) {
-+				err_code = PTR_ERR(iwcq->iwpbl_shadow);
-+				iwcq->iwpbl_shadow = NULL;
-+				ib_umem_release(shadow_umem);
-+				return err_code;
-+			}
-+		} else {
-+			if (!req.user_shadow_area)
-+				return -EINVAL;
- 
--		if (!iwcq->iwpbl_shadow)
--			return -EPROTO;
-+			spin_lock_irqsave(&ucontext->cq_reg_mem_list_lock, flags);
-+			iwcq->iwpbl_shadow =
-+				irdma_get_pbl((unsigned long)req.user_shadow_area,
-+					      &ucontext->cq_reg_mem_list);
-+			spin_unlock_irqrestore(&ucontext->cq_reg_mem_list_lock, flags);
- 
-+			if (!iwcq->iwpbl_shadow)
-+				return -EPROTO;
-+		}
- 		cqmr_shadow = &iwcq->iwpbl_shadow->cq_mr;
- 		info->shadow_area_pa = cqmr_shadow->cq_pbl.addr;
- 	} else {
-@@ -2872,6 +2959,9 @@ static int irdma_create_user_cq(struct ib_cq *ibcq,
- 	if (err_code)
- 		return err_code;
- 
-+	if (attr->cqe > rf->max_cqe * 2)
-+		return -EINVAL;
-+
- 	if (udata->outlen < IRDMA_CREATE_CQ_MIN_RESP_LEN)
- 		return -EINVAL;
- 
--- 
-2.56.0.317.g454f8302e1-goog
 
