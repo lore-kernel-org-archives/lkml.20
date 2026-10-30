@@ -1,97 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793337909;
-	b=unxRoTSAR3vY7kPL+lBsmppk4qA2jZJjplYHz5q9BnTJgr5RJsdnBMfsuuWZzFrOD2sN
-	 e9g6ftAv7AGsG12sWf7HScZNr2bJm93NPPQ0oVKfRIkgkbBCEnWWbB1p0vgCraMVv/5LT
-	 ahqFMGMJ26rnRJe+iaiDYecUAtqYor2lAcvPbriHxsh9E8TywaNl+ctPi91ygsuDXSVbU
-	 lLqDVbDm3qVSGBU4nE9uvJoKZ4C/ndc0aT55kDQuqP7rt6H/NhF0NnzmZCTVY5S/rS3dB
-	 YXZfT3wEOA+2ag4Lqg0/GKXSMbD5IPgo/hYcbOl9CQ7172J8si0qcWVHWT1mOwaCP1w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793337909;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Mck7iiQBTW9TKhdP7RVb/9jfgo9mu8qffyanjI2fNnM=;
-	b=PzNFWA58ZlzUR20JgcJ3++yI6mmSJwsYKv9hHYDe1syRAjh81oWb7vSF7OiA8XfSrCrh
-	 WPPCBgId7nfcTsKWEFdiosgP7QA1wl/lBn+aTdLRJfL+glnHJzZrEh6FHC0CZ2TeP3bX7
-	 Vc2VIpbNDHWGkuZxd1B73sT2TWVN3JA9Zpeg81LViz6RlR9cQnPw3gpgcudbbcSVzatiK
-	 kiaaVdT6wrkpUJy4K+Ojl8t+ZPp7XKQLt8rpDfI8sVOPPM5IIBFSzfPEL9FRTsQg35sqy
-	 XooVWcAx7Udj6KcZ06CbvLzOPO9Wfk3FANs4f9HuGpoYn9ZC04BuPT0SIl1K6C7gw3A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gSfQsXuf;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793337973;
+	b=ZfVtvKeM77yId7RQ/qytfQq6p6W8Bn2HuWtYAx5BTlFZJSwaAYeXPTs4LaQHruWuIsU3
+	 3lcR6O8sHruwYnJ3uWZbh7OvIOSN0nvGnjXwJNpfDusJiueL/Ns/+xID3sSOUPQfcdjUT
+	 U+X6PbjBFZGCr+qRQPsvsAiVTRAysD1xhHWXPOhMoeuvT8QGVQBeDWHfnAlkmzhCm6Bhv
+	 CiXqK3qx3G1b9IUTBEkpu1uUvXi52RMEkjNOXLpMlm47XVdoriD0R2dYArp00+OF6gtCS
+	 UtfhkEz/D1Sf3H6j8MI/iSZEpz4hdiTs8AeEERtP2x/kEWqqjkaxfIfmssTn37QLXBQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793337973;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=RwY9ncPNUidyY6GcL/Nu6REhsseut7+sFxbbvFeEapk=;
+	b=wGOqrK2c/BO2ZwntYVUdwqvQ104/dTA8YWAwBSZuxNhsVzqqeKHaP17MqOp3MMrNTUW5
+	 8jbh4kHQrRFR3leFdXilBjBJpke4FAZQjZGo/uAKZvISN21hIBaxKLAoo1cc+x8UtZkwZ
+	 dqYePZcxdIuN7z1e+kiZF0rWJQjc7OCciIr9sgdSrCHm8ksyeUiZXRtTVJ7YdqFYSJ6so
+	 X+cCrd3L/5fZf2vutCrZF6dgiULgv2ssLD24+ekNRBEmXDvVNSAhPyr+psOpGJMTYoQuT
+	 cy+dfAqOfMGYCGl08GMMjA/zOb2DIM5KsQofbfz0R6B0nmuPQF2X9cCglDiPZsBwFJA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=altera.com;
+	spf=pass smtp.mailfrom=altera.com;
+	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=jQ18aXf9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.53
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010053.outbound.protection.outlook.com [52.101.193.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1D2606A326
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:25:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B1D2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F9E606A31A;
+	Fri, 30 Oct 2026 05:26:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31F9E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gSfQsXuf
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e96502e447so3197425ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:25:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793337907; x=1793942707; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Mck7iiQBTW9TKhdP7RVb/9jfgo9mu8qffyanjI2fNnM=;
-        b=gSfQsXufXjwJvwPwRwn33nHa+CEeCA0z9Y3uSeALY2JCu0YZzgsX2fMLlUgF1kGTZi
-         6ru+liWvzyj7c9qTYp7YZPJ7mdPTH/aahCa9oZBheGO7TCH7i3sBaZ3ZN9eCb1s1qY+k
-         VEBSCfIJUTLE5NsK7ckurlm42TR4KRtH1N6wXvA4pDY1uoRbmluj8liQvow27+pvfFnX
-         pHZhMYc4pHdWOfhjzukV7Cjvw+mwPIrT0qGsukN4K9kQIhgGuNAizH4zhPy2V5wQ9cMK
-         MoJY5Yq/ZeSd+5HggraxrphM4OwllfbfdYGhLzRiO128+6D3UCCiA2SLEu1Qg+0MokHb
-         xLsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793337907; x=1793942707;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Mck7iiQBTW9TKhdP7RVb/9jfgo9mu8qffyanjI2fNnM=;
-        b=siXpPsbkYWcBK16uIKPWl3aeLQWP1JGI/z4b/ncYX9nLycK1H72STyDOSNTRJ0O+lK
-         QZJiBFymGuZwyRIP8v0NsAcEAmM6A3pdEpLtYFckBstM+xV521eXSnZBrtzPj7IHuZbv
-         sk/ygyQPxGyPH8gcAnCYx55DSRDZZvXwswkqths4jrWJt3l/VlLUEfhb8Tl9Ry82OU6x
-         zh7La5/RrxSK4dx/r2/S2CZcbjUky/HTT3SRJn+kWdmiP72wBzhSP5A8mKcL7Yi3de94
-         r8J+OC9QYQuXmtMz3NUFFtjWf+FourwprvMdPUKJXoxPvt2BEdT9yG5P6Uzm09ywxDu4
-         CcOw==
-X-Forwarded-Encrypted: i=1; AKwUvBz+chfRoVKvGJ0f2zJ/yWeXr0TbqCISZk0ymBqPO/as3tkZQya3GzYtRINf0jOVEFGkkUTVBekgCZ8tdbg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKM0N4kZRKIZSTjTFOI2LT36hzNTHrtkwDysOSNqBC3M+9H7urF
-	SZN+bc2sB0H5AWINnN+eeOcmHrRULjnmG2P+jCAgl5OSPbsY265X5ZKx
-X-Gm-Gg: AYBFou38Kq7JdsEuVmDcjmLqK02dWIiwY4TWkDIrfRg91Yzv1OS4sKduXgv8t8salND
-	9ylHg5IhS9YWq4DA5b9x+BUxLZqDA8bkCqEH44bIutI+sRC5iGcp5A483tC5zlZowthcvRc+/qA
-	A4AFuW+s2loHoGumi84oqADiqjHE25zJQnde0ssHGyY8bm3B0SCEecGGRKOikgGhVMemqPecXdA
-	9E/+fN3JGExtijju9L6ljmTID9SgR6KJtwTLurZKyB/CTYr5gNcd8Qr++KkqoumjpDmvM0O0j5I
-	XegeOoE17D/hqC33wK/oQK7l48LlIosLbNA4j7AzWX09ArW9eZj8c1XZFXRpmkobAyQpXlbrNz8
-	+5Yz8rrmKzRPgx9EmxWiUHWLnwudulQd5ncr4tnJOFF2Vwj2aQgnn1HrdCIJrKWYfleRjL3hoax
-	MFhnK9Kbmq8BYiMyOPeIpU5NLh4/B3rShSSgZkC/xAUiEH/cOMktHbQ3c5Uz61d73rc3QLrOb5S
-	KMGhCLJEFGRf21kKCNROJdukCp8rtvoRSmJ/0RVxAsjuTU/0H/l2Jw7EYAeHvp71/n82ln62TBV
-	iUFmU1XjKcSUxJN3vVG22EeW
-X-Received: by 2002:a17:903:18b:b0:2ea:825a:7f6d with SMTP id d9443c01a7336-2eb3649be2dmr14547155ad.13.1793337907342;
-        Thu, 29 Oct 2026 22:25:07 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3929087csm2458675ad.57.2026.10.29.22.25.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 22:25:06 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com
-Cc: heming.zhao@suse.com,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ocfs2: drain fs_state readers before journal teardown
-Date: Fri, 30 Oct 2026 13:25:01 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0003-v6-2f69dbb7417fcd537be6@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=jQ18aXf9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EWQWkCyqFv5c9ORyLsel0DzzW9rS16bK3Hkq34zbJKdq55F8ZnVcOz4q/DlR3ClJg9LeBEEB5K5VXLGLk9wixeP4ejtigLzfOhsNeVD1QhYEjJoYke3QuWUcvwzN/zHvp7TCqpAClP4P0eVyveIp3JeuHOYWwLr5PUR32WoxzcNj2qQxk/6pJxw9rFJxvlmLZ0fiPncETH5okNoDCh73HPwZQgFHYE1aFdfrdCQzogG4KtfEIvuM/iLzgIzF9szI5AOcXN7JbY2dz0oHehEwu6JbRWO/f5HuvWY9z8ZP5Pxouyiz5cAicNl/5XNuTA1/pJTdB2yn9G0ngKv6vkOAIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RwY9ncPNUidyY6GcL/Nu6REhsseut7+sFxbbvFeEapk=;
+ b=m/3TUGIglw73RxM/atAb/qyVgEDkkxm5QiIj4nIm6d9em79YcQX59uMGupTIHxGJ6Wmo6IdPsQFHXvSIno2EhngsLF6tk7k2is1U7xsl+rFgo/YfI4c5PUSKxe+JAJmyTVad0WaRejgEBgxdzrVQzwbo9+xFbdmuVkhP75PSWJ1u/kyZA2YCTg9YOCCxqK3DdHEnXj3JtOr//mWgKDHmhl1W+HuLqttLu3ExwdBHmr8FpdzG0egCC8uAfEAGYrn2yXKISFdcfeDgKINBfMh+5T0w44ufKxbf8hRLabiT7AhEFMSOGveYb7iFsYSaOWgF8bEvItwCB0lp3x5ed4LFlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RwY9ncPNUidyY6GcL/Nu6REhsseut7+sFxbbvFeEapk=;
+ b=jQ18aXf99kYyGUqhFHq/AoccfpXDwYy/HTkOz9OAXQNAKAoVDuITeFY+LemMjgLa2KznIRQ6r8ALfLb5ohQachExslgnH3zI3Qc9Ksvo9XoW2D6aARtizXvg1w06Hv1c2dqeN/baFqUX5kVA0CnOLmFHBIUR5JteUIwe5uPxWTFhZmYY5/mU/o6UhabLQlYCEw5uumzuYjXfdn2fhK2noDumj8Jnnv7PtRBr62Ula4bwv8nF8kjjmVmGhwqVNSlYZ1Aq5BGaOlVm6RWnvAOJeLVW51qCV6Ia8CTim2Oi+Mh3YTIIQ6kWwvT8CCS0gC8/QupngqSM/nxD8siY+gcmwQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from CO1PR03MB5937.namprd03.prod.outlook.com (2603:10b6:303:6e::18)
+ by MN6PR03MB8005.namprd03.prod.outlook.com (2603:10b6:208:4f8::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Fri, 30 Oct
+ 2026 05:26:05 +0000
+Received: from CO1PR03MB5937.namprd03.prod.outlook.com
+ ([fe80::f970:684e:8c80:91c3]) by CO1PR03MB5937.namprd03.prod.outlook.com
+ ([fe80::f970:684e:8c80:91c3%4]) with mapi id 15.21.0546.016; Fri, 30 Oct 2026
+ 05:26:04 +0000
+Message-ID: <2723bf11-8477-4f52-a95c-4ede190ecbd5@altera.com>
+Date: Fri, 30 Oct 2026 13:25:55 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] mmc: sdhci-cadence: add PHY settle after tuning
+ for SD6HC
+To: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <cover.1791459448.git.tze.yee.ng@altera.com>
+ <073f81c6e6dcc931d6e12c358b48679b2855a72a.1791459448.git.tze.yee.ng@altera.com>
+ <dab17adc-1691-463f-bb85-7d1276fbf28f@altera.com>
+Content-Language: en-US
+From: "NG, TZE YEE" <tze.yee.ng@altera.com>
+In-Reply-To: <dab17adc-1691-463f-bb85-7d1276fbf28f@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0179.namprd05.prod.outlook.com
+ (2603:10b6:a03:339::34) To CO1PR03MB5937.namprd03.prod.outlook.com
+ (2603:10b6:303:6e::18)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,194 +103,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR03MB5937:EE_|MN6PR03MB8005:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70609453-8f7a-4bb0-5218-08df36464926
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|261026140227099003|4143699003|11063799006|261028144727099003|56012099006|261026121527099003|261021123027099003|261021121427099003|261022105027099003|261022115727099003|261022075727099003|10067099003|22082099003|18002099003|55112099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	JT+hdKIN/FxoLbkF+/toydgkEl8+sm5JTfBkfObmW7Lj8PFRvD7uV79RtjklcRbNl8aWU7oGc2598zz4lkhx4mXLWotHczZTaEW0bj1ZlZayERNA2DxBuJk+XStiFskcI5W1NgMcYc0T5sJsAo5yzZ/mXCvqaC2PLiHadn5BN1eIq+N5OhdOvQp7m1pIa9lBLj81o1WilmbgmgdoKejaRuJ+trFZNP06ErLJBFaPCmj/7Mk8zX/+IDgMvKOgqbBZJtCgEMDIhMLVig58t6X0ZJ16skGK/cSKRpKcGIs0+qXEiP8sbAnOmAMLCJv+N3o/4YIA/qQtxVbxfDBSe8QyrP/OuwnJULf+l6MyzhvE54zDWtVsxYMdYNldByEw7b2GEkOSw0LF39yiUfeCBNAfG9VhseNzEnFgljDZ3ppkmBHTFteVuedyfQ1uJOOgk2GTUABdGCV7mDZjmxF8Aii4XxrfkY/zhKU0rgKYXhHd4s9xdLCFdbbpSe6l2BJDIV/nq6YxvSgA1TUSglz6PdTbp035OQTKRCRs53u9DmL5A2LM0+ey3VY7ZKihP4biuircVz+r0HpwpKMLdFJ5wBGD8LXGpTVFknTE5avY9I9olPXsWcIa3ZQePPC8qid4RvKaVjtCTQD5/AkdHHw3599Y+qiJKliKWjuxtm6HvfQ4CPQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR03MB5937.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(261026140227099003)(4143699003)(11063799006)(261028144727099003)(56012099006)(261026121527099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022115727099003)(261022075727099003)(10067099003)(22082099003)(18002099003)(55112099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a3pmQ3pNZEJNbEVicjJXdkxHeWpvNlhsYkJrUTF6OVJsQUxiQjhYY3QzY094?=
+ =?utf-8?B?WWtHWVIvUFYzZlBCTFZEREJKL0FxOTFhSGlhek45RlJ6b2ljd1hreGpCVzRm?=
+ =?utf-8?B?MnNpdGYvaDlpREQ0WWgxUWkrZ0RBbXFmQXhRMW5YNERkT3Zma3E0ZmwyUEZa?=
+ =?utf-8?B?bndiRTE4eWVaZFR3SFdsVXA4TFBKeTBQYzZMcXhjZExhdnJZd1JjR0dWT3Jq?=
+ =?utf-8?B?Nk9yUlBxeGVlUEdQSFBTWmgyK0JwamRnWWVzcyt3K3loL2FSVkpvMnN2TUt0?=
+ =?utf-8?B?RjIvQjMyV3B3cDVvRHoyWWJvdnNpZ2I5WnZWWVNsL24zZnZzMkhENUk3NU9q?=
+ =?utf-8?B?eGlJQW5zNFh0UVl2U2dDTW52WEp5SUtyN0NEVlRTejM3N2QvTkh3NVZhWll1?=
+ =?utf-8?B?a2pWMVY5N1JHQ3QrcFIzUERDemZqNDBLSU9TSUxKSjhrajNiblpMOWdJb2ZJ?=
+ =?utf-8?B?MWxpTkZ0RnNTZTFRR1N4UGI5VFdvcmhuaW9YVzQ4ejg4aVg5aGErNXM5RFZo?=
+ =?utf-8?B?T3cySEs1UVN0OHdGQklsVHdRenN3VnVMZm4rVkN6WS9TMlhCVFJ1cGE1Q2xI?=
+ =?utf-8?B?d2k0QmwwMWJNRDJ2bGpGZEUvWlRuYmp4YWwzU2pQMDlCVmZQOHdhSWtHNDFp?=
+ =?utf-8?B?Mlk2REtveFp2ZlVsMHhPYnBTa2gwOVRLRDg3bWtIL0FxWXp3UVZjVzk5L2hq?=
+ =?utf-8?B?UEh2R2RzR0JTOWUyc0hCK2VDeTRoVTRHWUt2N1hjMEx5T1RadnpwTHNNWUpO?=
+ =?utf-8?B?RS81dzZ4OGMvcWxEaHpVd0EvdzBvbzFvRUxhZmVKZUpmNWhwVVZMaWd6VW1s?=
+ =?utf-8?B?NGNMTUNqN1NXSXpPNWc3aXFKcUU0c2N6d3NCUTduS0lENExVSWZqYVUwZU95?=
+ =?utf-8?B?L1hhQU1weVVVZWg1RTIvMTdqUWh3UCtUK1huMFJ1T21GWjFRK2dtRHc5YTVt?=
+ =?utf-8?B?REF5d2pKZzNCSkNmY3lBNmtNZ2RyaGFCSnlxdW1IYjFQUUUvMHZYazVrZ2tX?=
+ =?utf-8?B?TTM1RldKMmdGNis3VUhlakdpQXo0MFpaOFFWamlTMFR0VXRSOXg4eWdDMkVW?=
+ =?utf-8?B?ZUQ1N255Uy9lZ0VZME9YdXp6bFdvY0lBQXZBcjBIM3VKaSt5T2xSalRCZDB5?=
+ =?utf-8?B?L1A1R0JPKzI3Sm5vSkxOcnNyUGpXdmFxZlVSUSsxQUZkY2FraGcvL0E5MWZz?=
+ =?utf-8?B?aFFXV3lWUitkbnJSc1pBQUl2OUxvcXYydWswd0tCaU13WE5mMFdPclNGa25x?=
+ =?utf-8?B?KzZEUWo5aHg0UndkbmtPVHQxWlppR1I3NzE3bVQxWnpYRlFmMlJ5b0VkbHgz?=
+ =?utf-8?B?Q09FekcyQWRyaU9wTk1EUHFwOS9rK3loTmpGY1YvMVZUbkRIcVR2Q2NXTU9i?=
+ =?utf-8?B?NUN2dXlnVzR5MGI4eEk0RG1IVkZEU29hN1ZTNnptWnRsSFZZUmJvOStOR3ZB?=
+ =?utf-8?B?UHI4dUhIRUdFSm9yUlc0b2Q1RW90a0U0bE1DZ1VMUk5KdVpHajI5RVpqSjVC?=
+ =?utf-8?B?WUZ5VW15OExCWGNuTjk1TCtJMXo5aUE2ZzZ2Vll1dkJxZU1qL3Q4LytKdDl4?=
+ =?utf-8?B?eVlhRXdDUHRjZ0FLTm10aHo2Vms2QmdncmRqUXA2ZkhmMVk2eDJJc2VMNFJn?=
+ =?utf-8?B?UDdCL0ZVSHViWHpmamlpekpmaVF2bDVNdnZaSWFicFlxOUZqMnRaSGpFLzZp?=
+ =?utf-8?B?bHFoekxkV3ZJSUg2MVVrZ1p4ZlBMUkllRHRRU2Iyb24zZFNBYXNkMGJQL2tQ?=
+ =?utf-8?B?MDRzNWN0L3JmRmVYWnZKUUIvbjhhN3FpMytHV2N1RDBjRmNGczFMTXloVXRQ?=
+ =?utf-8?B?TXVOMkpKc1RNenJVS0hNQzhLd0NOYUI1ZUZQbmNTVWxqVzZMK3NRRE5teGlD?=
+ =?utf-8?B?b3JOaWhzUHBVQkNJZk9PYlVROUw3N1RBMzJtS0lIWURYdlp5dm5veDlObytZ?=
+ =?utf-8?B?Q2dJOWtiZkJTaE4rT2RpVnJnUUpCeEhqdG1jRjh5aXFnd0VZTHh2Q242dVVy?=
+ =?utf-8?B?VmtvSUlmUEVXTmpMTHQrWHF5cER5cUNiSDRUbG9qM21kMkxFMEgvWllOSmFo?=
+ =?utf-8?B?WHE4cCtINlpRYmN4ZkNsRmV5Z1liOGthOTQ3akxRUVFOOGIvS1dlaDJoVGZ3?=
+ =?utf-8?B?dlZnZVJsR3BuU1o0ZldCbEd5TTJrSXhXb3E5aURwZXNNRkNncVlyRVNHQ3NE?=
+ =?utf-8?B?Rlp4c1lBRDNvbXlDOGJ4eGJnRXhkeWlOeXdISUdCVXNNSWwyYVJTcVg5Ukdo?=
+ =?utf-8?B?VTE5YmdpSTFYZCtOS3poSGJTNkZ0SEpZdmpjOVZTNFZ0cFg5TXBQV1NDV3Bv?=
+ =?utf-8?B?ZkRQM1ZGdXdReWRJb0lBTFQ3SFBuS3psaFZBQnl1QkRBSUY1N1pvQT09?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70609453-8f7a-4bb0-5218-08df36464926
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR03MB5937.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 05:26:04.6746
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: czvhiINOZ2RVlxAKYlRrWzFPh5jIfwsG0GDpr757ChKaANfVk0n/kGoHepw4xPnIg7fibeYCvGUl9U/GUyVzJw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR03MB8005
 
-The per-mount fs_state open callback formats journal fields through
-osb->journal. Its debugfs active-user guard protects the open callback,
-but does not keep the journal allocated after journal shutdown.
+Hi Tanmay,
 
-Both unmount and the mount-error path in ocfs2_mount_volume() can free
-and clear the journal before the debugfs subtree is removed:
+Thanks for the detailed walk-through against the spec, it matches what
+I see on the hardware.
 
-  fs_state reader                       Mount cleanup
-  ---------------                       -------------
-  enter ocfs2_osb_debug_open()
-    ocfs2_osb_dump()
-      load osb->journal
-                                        ocfs2_journal_shutdown()
-                                          free journal; clear pointer
-      read journal fields
-  leave the open callback
-                                        remove the debugfs subtree
 
-Remove fs_state before cleanup releases its backing state in both
-callers of ocfs2_journal_shutdown(). Debugfs removal prevents new opens
-and waits for admitted open callbacks to finish. Later reads and release
-use only the per-open snapshot buffer, so they do not need the journal.
+On 26/10/2026 4:17 am, Kathpalia, Tanmay wrote:
+> I'll test aborting each CMD21 that fails with a command error, and
+> also a single abort after tuning completes, to see whether that
+> removes the CMD6 failure. If you can test the same, that would help.
+> I would prefer that fix over an unconditional sleep.
 
-Keep removal in the caller paths while the per-mount debugfs parent is
-still present. The remaining debug files retain their teardown order.
+I tried the abort approach and dropped the PHY settle entirely, it 
+works. I now pass the command error back from mmc_send_tuning() and call 
+mmc_send_abort_tuning() whenever a tap fails with a command error, i.e. 
+the same thing the generic sdhci tuning path (sdhci_abort_tuning()) 
+already does. Aborting only the failed tuning commands was enough; I did 
+not need the extra single abort after the scan.
 
-KASAN report as below:
+Tested on Agilex5 SoCDK, both media:
 
-    BUG: KASAN: slab-use-after-free in ocfs2_osb_debug_open+0x967/0x15e0
-    Read of size 4 at addr ffff888116a56028 by task cat/502
-    
-    CPU: 3 UID: 0 PID: 502 Comm: cat Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy) 
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? ocfs2_osb_debug_open+0x967/0x15e0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? ocfs2_osb_debug_open+0x967/0x15e0
-     kasan_report+0xe0/0x110
-     ? ocfs2_osb_debug_open+0x967/0x15e0
-     kasan_check_range+0x105/0x1b0
-     ocfs2_osb_debug_open+0x967/0x15e0
-     ? __pfx_ocfs2_osb_debug_open+0x10/0x10
-     full_proxy_open_regular+0x193/0x310
-     do_dentry_open+0x595/0x12d0
-     ? __pfx_full_proxy_open_regular+0x10/0x10
-     vfs_open_consume+0xd1/0x400
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     path_openat+0x18d0/0x2020
-     ? __pfx_path_openat+0x10/0x10
-     do_file_open+0x21e/0x470
-     ? __pfx_do_file_open+0x10/0x10
-     ? _raw_spin_unlock+0x23/0x40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? alloc_fd+0x3a6/0x6b0
-     do_sys_openat2+0xf4/0x1b0
-     ? __pfx_do_sys_openat2+0x10/0x10
-     ? __pfx___do_sys_newfstat+0x10/0x10
-     __x64_sys_openat+0x136/0x1e0
-     ? __pfx___x64_sys_openat+0x10/0x10
-     ? irqentry_exit+0xbe/0x820
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? trace_hardirqs_on_prepare+0x11d/0x150
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    RIP: 0033:0x7f7d444d6687
-    Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-    RSP: 002b:00007fff1e988040 EFLAGS: 00000202 ORIG_RAX: 0000000000000101
-    RAX: ffffffffffffffda RBX: 00007f7d44444780 RCX: 00007f7d444d6687
-    RDX: 0000000000000000 RSI: 00007fff1e988df7 RDI: ffffffffffffff9c
-    RBP: 0000000000000001 R08: 0000000000000000 R09: 0000000000000000
-    R10: 0000000000000000 R11: 0000000000000202 R12: 0000560ae86f2a00
-    R13: 00007fff1e988380 R14: 0000000000000000 R15: 0000000000040000
-     </TASK>
-    
-    Allocated by task 495:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x28d/0x610
-     ocfs2_journal_alloc+0x91/0x450
-     ocfs2_initialize_super.isra.0+0x11b8/0x3070
-     ocfs2_fill_super+0x801/0x38f0
-     get_tree_bdev_flags+0x35d/0x5f0
-     vfs_get_tree+0x93/0x320
-     fc_mount+0x1d/0x200
-     path_mount+0x592/0x1e00
-     __x64_sys_mount+0x24b/0x2d0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    Freed by task 504:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x308/0x580
-     ocfs2_journal_shutdown+0x10a/0xc20
-     ocfs2_dismount_volume+0x315/0x940
-     generic_shutdown_super+0x15f/0x490
-     kill_block_super+0x40/0xa0
-     deactivate_locked_super+0xae/0x120
-     deactivate_super+0xa2/0xc0
-     cleanup_mnt+0x217/0x450
-     task_work_run+0x144/0x230
-     exit_to_user_mode_loop+0x17d/0x570
-     do_syscall_64+0x4d1/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    Last potentially related work creation:
-     kasan_save_stack+0x33/0x60
-     kasan_record_aux_stack+0xa7/0xc0
-     insert_work+0x37/0x210
-     __queue_work+0xb57/0x1600
-     queue_work_on+0xda/0xf0
-     ocfs2_queue_recovery_completion+0x301/0x480
-     ocfs2_complete_mount_recovery+0x10c/0x290
-     ocfs2_fill_super+0x2083/0x38f0
-     get_tree_bdev_flags+0x35d/0x5f0
-     vfs_get_tree+0x93/0x320
-     fc_mount+0x1d/0x200
-     path_mount+0x592/0x1e00
-     __x64_sys_mount+0x24b/0x2d0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    The buggy address belongs to the object at ffff888116a56000
-     which belongs to the cache kmalloc-512 of size 512
-    The buggy address is located 40 bytes inside of
-     freed 512-byte region [ffff888116a56000, ffff888116a56200)
-    
-    The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x116a54
-    head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-    flags: 0x200000000000040(head|node=0|zone=2)
-    page_type: f5(slab)
-    raw: 0200000000000040 ffff888100042c80 dead000000000100 dead000000000122
-    raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
-    head: 0200000000000040 ffff888100042c80 dead000000000100 dead000000000122
-    head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
-    head: 0200000000000002 ffffffffffffff01 00000000ffffffff 00000000ffffffff
-    head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
-    page dumped because: kasan: bad access detected
-    
-    Memory state around the buggy address:
-     ffff888116a55f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-     ffff888116a55f80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-    >ffff888116a56000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                      ^
-     ffff888116a56080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-     ffff888116a56100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-    ==================================================================
+- eMMC (HS400): HS200 -> HS -> HS400 completes and the CMD6
+   response timeout is gone. 8 GiB dd + 8 GiB fio (crc32c verify) + 2 GiB
+   image write/verify all clean.
 
-Fixes: da5e7c87827e ("ocfs2: cleanup journal init and shutdown")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
- fs/ocfs2/super.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+- SD (SDR104): 2 GiB image write/verify clean. Abort is a no-op here
+   since CMD12 is not defined for CMD19, so the SD path is unchanged.
 
-diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
-index 0af2245ae303..9f93ae9433c2 100644
---- a/fs/ocfs2/super.c
-+++ b/fs/ocfs2/super.c
-@@ -1783,6 +1783,9 @@ static int ocfs2_mount_volume(struct super_block *sb)
- 	return 0;
- 
- out_system_inodes:
-+	/* Drain fs_state readers before releasing their backing state. */
-+	debugfs_lookup_and_remove("fs_state", osb->osb_debug_root);
-+
- 	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
- 		ocfs2_shutdown_local_alloc(osb);
- 	/* Drain pending suballoc reclaim work before the journal goes away */
-@@ -1810,6 +1813,9 @@ static void ocfs2_dismount_volume(struct super_block *sb, int mnt_err)
- 
- 	BUG_ON(!sb);
- 	osb = OCFS2_SB(sb);
-+
-+	/* Drain fs_state readers before releasing their backing state. */
-+	debugfs_lookup_and_remove("fs_state", osb->osb_debug_root);
- 	BUG_ON(!osb);
- 
- 	/* Remove file check sysfs related directories/files,
+An ftrace of the tuning scan confirms your theory directly: a CMD21 
+fails in the command phase, I issue CMD12 to abort it, and tuning then 
+converges.
+
+err_stats after boot: Command Timeout = 0, Tuning Error = 0. The one 
+non-zero command CRC is the abort itself. The CMD12 is sent at that same 
+failing tap, so the card's response to it is mis-sampled and counted 
+(CMD12 is not a tuning opcode). The command is still delivered, the card 
+leaves the Data state, so it is cosmetic. The data timeouts are tuning 
+taps whose data phase did not return; data CRCs are suppressed as usual.
+
+For v3 I'll drop the unconditional PHY settle in this patch and replace
+it with the abort-on-command-error change.
+
+Thanks,
+Tze Yee
