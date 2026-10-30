@@ -1,134 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793395773;
-	b=zbia6kG4v8sQLSu+NUGBFlvsU6To7Xwl2oOCItJeP5dYPNmH17Aqc90guwQgcxUc2f7z
-	 o6tSpqKXHlJITodAOpJ6vXQqua/xyStW46Cvj4GAl8yJA7EB/j5QKF04qYajWgjc1w0gd
-	 Ny5qCgQmEJUcYJw7GzPNBsCMY9aBiMznROLmWlD1h/eG3d+/3Wu5G/a8x+t/Ckxd19BmI
-	 +tvzrx6f+9zv2pR0ST9Z/7d+bcno0ocAV1TxwMtSMI72+7d3R53fJKcoRvBZGZqJXQ8k8
-	 U7MX0ARtricIh+cjwPUtc7qy3D9I7ZQlr7F2lzreqg1XKS6y5lHFSilMjCRKKxIpYrA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395773;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:
-	 Content-Language:To:CC:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=T6IDSZ84R2y3qhKhqW2h2B7vMnUh8AA9DXCsBiKTE4Q=;
-	b=ofLpRwKlYerP4PSrB3tM9nzKoo6fGUUV9l2VjRI+p1geaJzuowPfntgcBgz9XITG9A3J
-	 SI6kT1SUkC/NskMw2T5Ol+iP+rX8Ypnwh29gQvF9xenjujW4uNVgS0wtMgKkTwAl8K6dh
-	 l/zfJpaspKfEcw763YSsoFSZH5TfRQwSV/1bovFxMoESxH/MPuyTM8ECa3B49ELDS+EiT
-	 DFSPn/aan0ArS63h7RsKQ4+c4H7uNH0jPKmD6MenD5D5Bm6I7Qxp1znFhG9YXqwSjO6+k
-	 xl0a/DMDMSKbgcGvsVKXoSYBSHHLEKQgggIEXEmmXLLL7CsjKpKahQpyb4FvV2jk8gg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hz2Y0fuK;
-	arc=fail smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793395863;
+	b=kTnQD+NqMI3nHGmX0ltHt7j870+viVc6rk1N3BCENrpV7cjTFFdfx7GQ5q+7QErthKjj
+	 y143aOcwMncEXUhMqKOPBvzIA+NB7qfFS1Bwh4XYQsBc4WbccInS/LoJfApO+uvcko8o9
+	 PQ398jo32RDjIo+qDB4ZiBkG7QQllqt7FmX8E8aEVKfJjDexPz/AtQDEp4U6rFjBlsgtF
+	 EezDGTXowRRZ7lyfHLJWFewh47WjribPPVJ1/8sY406Ky82RAt9546utytMvOmnjvpM7d
+	 z9OHLNUoLlKv0AThpFGgcV7ZdZQmWJ3aJZZbOEYXVXaR9CKxQBc1oGG5eLnrb5FMrxw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793395863;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=oMsLb/DFitXdzNYA1WSrlTGfxGJputCfg0bfurbuFrQ=;
+	b=0s6AsEUR0RS7A2SICO5LgyQIILerH5uZebhtwUli2tTZqHHwt8CUXWf6nI7+diIrs6IB
+	 BPlZFwZwlk+26dd2k/ZiOQ/zYJY417SnBzfeeQVHaaA7e9HoZXGzytm46RjW+AlDlpQ7e
+	 nqE81DXUb/XSPe/asRdMX8JRW3WbNCXnzYlWm8d/owp47W5eNnUryZj4DNniRVHSN/9QZ
+	 6x+NxXpV3XxCQuvR1Oj3peerFWrvpK2zWFctEsvWQTvY66gYEMQ4lpTGo3nzlqkjBHqir
+	 bjp8wwA5nLOLa1imU5JelggoIkkL3/YpULbQkFNdQZKc+jxKLMNuvIKe22UfH2IkhBg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=HEgm7fIY;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB77B606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:29:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB77B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9A2606A31A;
+	Fri, 30 Oct 2026 21:31:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC9A2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hz2Y0fuK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793395773; x=1824931773;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=8DgLm20yjJAbhMvv5VVT5M5550qHJeyrD5U/n445qIo=;
-  b=hz2Y0fuKxhZUT/S3HrViRcdB9lTdlfTTa/Ky4FvE96VWW6IlApl6etg7
-   kcMaTcEBx/o0p8SunpuSGKWyfL/PlATzmPpLb2+fzVj0o9qvqOtBN0T5w
-   ig4hceA6SUiIFQEioV35BSb7659Vw1EFHueEyKdNm3Xf8iIbM12XFC6AY
-   0B7+kcRr5pL6I/TqpE8D6d22hE3vaKRYe+h3NRMxe76xLm7ctWDHe6AC6
-   /GOJCqEFXdJj6bV/eGREWmGmyc3+X64kEFiNnogyklROrlD/BOuZk9kRg
-   jxJJfMbBfhAl8c0S1NNn7Ys3veAbYgWhqg0QpsCuYTHKhG4YSEmeJtbhB
-   A==;
-X-CSE-ConnectionGUID: bvQ9J9OrQiCpC0y/XnArag==
-X-CSE-MsgGUID: 2o3mr0eVQle2cYJQBmvxIA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2051941"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2051941"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 14:29:33 -0700
-X-CSE-ConnectionGUID: hrBpsYUKRkqriY9/q0cE2Q==
-X-CSE-MsgGUID: lgq8NaboS9GdiCDikNRz+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5873970"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 14:29:32 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 30 Oct 2026 14:29:31 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Fri, 30 Oct 2026 14:29:31 -0700
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.11) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 30 Oct 2026 14:29:31 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QTiXUJ4eNGi7/9OA1arbh6MXxMUlUj6EZzk4bw+7ChRGp1ejQG0zUrMGZWtDfhtnDPWbji/YfUP6Q2CCBOMeaxYkmJxQUaq8j67ML0fDq7aRVIfG9oGYu57UwnaxYLlY4CxJCv6OISx8tnZFu34YQt1fqSKSS4oAYMwJcCP+aWtIy4o1HZpdDM65TOm+PQfV3wNBWfO4MKbeihYp/ahc/MK00YiEGBoPUvL6LEozkSnIb24e5SsNioWMMPGr8rK2AOq7sklF+2/romgDW4grg6V+DHnFXZL445DgsmC6AL/mQ9THyO0MZGj8N5wlMMrdDvH9ssSNDgxQ9WPxu22HsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T6IDSZ84R2y3qhKhqW2h2B7vMnUh8AA9DXCsBiKTE4Q=;
- b=SnF4W1h8yD+9eU2W6MM9k8F7E9gLfhzvE3ebwq87wp8g5Gpy39omRI6nKhGTstxDAcbSlVENdpWkaTbflLlcl7YwyAVrtOEf0NmhCrbJBhTBWGLxowZk9gzknTWZnlQV9siL44z0oee9bSz46TtDz1q8TNIOzLe6aFKFEZON65GvSnSkoSfalr6x6t2uF1EgkFygmUg5C2GBe4/nhvY/oOUrWznF+xMJSg0kTRbRY5zRtxtYgfQgBx3zF0VORU+xTU2Q49lUTKo8dihOkgxyKI0BeHZKQkK9Y+9Q2KfQIK60OdiBqeUkc5Zsgb+/j32sOQDfytBOCmMjWPVGtIQbug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CY8PR11MB7846.namprd11.prod.outlook.com (2603:10b6:930:79::14)
- by BN9PR11MB5323.namprd11.prod.outlook.com (2603:10b6:408:118::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 21:29:28 +0000
-Received: from CY8PR11MB7846.namprd11.prod.outlook.com
- ([fe80::cae0:d05c:b2fc:c395]) by CY8PR11MB7846.namprd11.prod.outlook.com
- ([fe80::cae0:d05c:b2fc:c395%5]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 21:29:28 +0000
-Message-ID: <2a6f9c90-a6a3-4b4b-a77b-9a3b99d66d4a@intel.com>
-Date: Fri, 30 Oct 2026 14:29:25 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] x86/cpu: Change AMD uarch detection
-Content-Language: en-US
-To: Borislav Petkov <bp@alien8.de>, Sean Christopherson <seanjc@google.com>
-CC: x86-ML <x86@kernel.org>, LKML <linux-kernel@vger.kernel.org>, Dave Hansen
-	<dave.hansen@linux.intel.com>, "Luck, Tony" <tony.luck@intel.com>
-References: <20261022040047.GDatmKb9L_fwqBGQ0_@fat_crate.local>
- <auDBUQQ9Ympsobkh@google.com>
- <20261028044653.GBauF-PdTS6gsOOozC@fat_crate.local>
- <auIBRhu4Zs3UgsQ7@google.com>
- <20261028153458.GBauIWIhGKCYhaxl2_@fat_crate.local>
- <20261029175611.GEauOIu-Xi9_DGVXKe@fat_crate.local>
-From: Sohil Mehta <sohil.mehta@intel.com>
-In-Reply-To: <20261029175611.GEauOIu-Xi9_DGVXKe@fat_crate.local>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BY5PR04CA0010.namprd04.prod.outlook.com
- (2603:10b6:a03:1d0::20) To CY8PR11MB7846.namprd11.prod.outlook.com
- (2603:10b6:930:79::14)
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=HEgm7fIY
+Received: from omf06.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id 17581807EC;
+	Fri, 30 Oct 2026 21:30:54 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf06.hostedemail.com (Postfix) with ESMTPA id 2C14F2000E;
+	Fri, 30 Oct 2026 21:30:50 +0000 (UTC)
+Date: Fri, 30 Oct 2026 17:30:49 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Cao Ruichuang <create0818@163.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, Sami
+ Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Shuah Khan <shuah@kernel.org>, linux-trace-kernel@vger.kernel.org,
+ linux-modules@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] tracing: Export live module tracepoint strings in
+ printk_formats
+Message-ID: <20261030173049.6656d506@gandalf.local.home>
+In-Reply-To: <178647423521.280401.10184675433127100074@163.com>
+References: <20260428083920.4a64eaf6@gandalf.local.home>
+	<178647423521.280401.10184675433127100074@163.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -138,128 +66,420 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR11MB7846:EE_|BN9PR11MB5323:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2849814b-5234-49c7-0c84-08df36cce109
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10067099003|11063799006|4143699003|261028144727099003|261022105027099003|261021123027099003|56012099006|261026140227099003|261026121527099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: HKI1bt1AP1Xfwq7bRWFBrQzRZUa5qTaqCbPvdPT2dzMghcUCEho8nAF+Jb+VPa7B0h8RwGKU0ivpzqJZ6maSMkaKTmoZxAKkjAuSzML66heYc8SNIXG02pPCtkjTir59xoHiu/tbS4mGfRcdp38r1X9qTKIHntoXPdLYzqejUGs2AcHqxD0mrGXicancFEREx+BmtZeGZbJwTqnYrquV8CJVKVqG+AMGJGU5qjBBjx2N0TcXk+gJQNH7PNr8sBdjOvD7tfTjlg5ql8rKpMwROXnmuwBfnyXt8l1Y/O7dtunl4neA+1CxAGIIuvfQS8Kt3Os3OtYMX2ICoWfs3DBl13iyjZo2i3WGRg+TYqB4wynOv/PfoV2bPE7fSuoAjr3Z3S4ubBFc0aUNQEKMMgIIT3F8EQzNcT7ZMsHZNRSRXBgUvH/dFJryTk3DztBvODcaWfqy3Quyo7NSKP2Z1pJHg9P8NMuESGKyzr5QAXrEM37gxc6xRjgY9J7R4Apbs1wzcHGueuklztdR+eDD6I/sCIRJZDenmm42O+UB9GGQHSc6AKzmPcK2WE6fvYiXp80ut+6ByqfEZxrsKV0GaqlAaObZJmhsXaQl8MNEbJKBFtNXKsvPaxXh/5V+nkKIc0A/h1uDGj96Z0LFkh6BMXW7d0XYKvnobvLPgUNEybuOnd0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR11MB7846.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(11063799006)(4143699003)(261028144727099003)(261022105027099003)(261021123027099003)(56012099006)(261026140227099003)(261026121527099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OVNDUEE3a0c5N2FWT3UzakRQRXJBTm9XVXc2a1prUlIwS0lqWjRkRnEwNEtT?=
- =?utf-8?B?MitJczZNbFJtSzBpdlVRWmg3OTJYM0w0aktya0trM2VOSTlUNmlDZUVRSDFv?=
- =?utf-8?B?Tm5mL1U0WWNnOGdvSW80QzFmK09CS0twajU4RHF6bmtyME9GbFVkRTY0bVBj?=
- =?utf-8?B?VkZXR1RETnVheWFwTzlsZDR4WDhDcGJZNjhSVStEYlpwZVNNZitzdElPcUQw?=
- =?utf-8?B?aG1RME1vdHRodGcvYURBblI1YldYaVRlYkhSbG1zeXd6ZjZzNGs0Q1pKeFV5?=
- =?utf-8?B?MzcwbGtoek5US1JGVDVYZHRKckZIVkhDM1FjM1FxbEJYUjhnU0tHaHpuNFBt?=
- =?utf-8?B?WHYxdVBlalE5c2xnS0t6ZElmdEQ2L2JPWlZBTFpwK2kza3RDWVFXLzMzRks2?=
- =?utf-8?B?dzBJTUlVb0Z6S1M4K1NvRlZyMlFJZys1UEdNV1hxTW81QTRCakQwSTNzTzB1?=
- =?utf-8?B?VE1kU252MENiVDRLTzZjYndUclRaUmVzNHdMU0dJdGxCVzY1anM3d09zVVNh?=
- =?utf-8?B?alVraVE3WFozSVJUM1hjMXFJb29IbUxRb25kU3BubFNCUHFpYy9OTnRaR3JC?=
- =?utf-8?B?aEY0Q09wUkNrTjhiOFV6Uk1iODNlaGkrYTdxNzJyRlM4cTNVdjMveTM1Y1FR?=
- =?utf-8?B?N3JvblRtNWsrWXgyQ1JXQ0c1amt0ditxSllCbmVkeDBrYnZSQmcrU2JrNkNU?=
- =?utf-8?B?UVlZeUxPaHV2M2p2NSt3dmJVYWw5SE5YUlJ2M2xaUGdWWjJ1YjNjSFQ4QURz?=
- =?utf-8?B?SnM1dEtqUk1LWnlsK05NejJCRkErS3llNzRjbHBvcWJCLzhkM1pkMk5tM3VM?=
- =?utf-8?B?QWl2b1ExN28veSt0Q0xvTmhEcHJoTmpMeHEyc3pVMThxYklBY2RwcHJxd012?=
- =?utf-8?B?MGFKd2dYQ1NuNW4zTGhUSjViVVBhUisvMm1pN3JPYmN2N0ozVUFGeWJQWGk1?=
- =?utf-8?B?RnphaUViemtqWVBPNDE0WVczZjFsSFYrYlJYTDNxRjl2RUNkb2podk9UeGRx?=
- =?utf-8?B?MGVGRytvcjlqOVFSQXVqY3FXM0hRSk1jVEJmR3EyaTU4SkpoRlU5OFMycTN2?=
- =?utf-8?B?Yi9xakg5bWU0d2ZVK1ZwL3pVWUQ5LzhTaUpxNkRpR2ZCTkJwUWRZeUF4U2ZV?=
- =?utf-8?B?RTlIMWxPOGlNY1pWNWs2R3BZYVBlYjVhUGU2V3E3cHpxSTVJVktOaW12RWxn?=
- =?utf-8?B?bitjZjJKTW9oMG8zYmw0SFVxR2lvQVJFV2lSbHowVEFkUk5xbC80UEUyd0tl?=
- =?utf-8?B?VGFBTDBlakZiN2FhNTFRd0p5RkJyL2dTd2tsNFhza2NOK3YvQ1BpVXV2ekFC?=
- =?utf-8?B?MkN2T3k0QlliMjVaMkJ2L2JBeVZ1SmxDQUdwZXJTN3VsWHg4SmVXNUtLY3Ar?=
- =?utf-8?B?NC9RRmNQUHhubkZqSmdNZzVKZC9CblJCRmFHUDBlR1orYjNMVVN3NXc4SU9m?=
- =?utf-8?B?RGk5dkxVOFl4a2E1Z1NIRUM1RDhmSURBTzFkWG1XVXhlendicXhqa28xRXdh?=
- =?utf-8?B?ZlBxV1o5ZzV2QXNzV1JtY29uQnlLSjBaaGdYVEZBVmFYMTRqcE1henRDdTZj?=
- =?utf-8?B?dTFZVWtWWjZXWis5OUZKZDVjdVpmZHBTQ1VpN3c0RWtuMnhkRS8yanQwSzU2?=
- =?utf-8?B?eW05QWc2WkdIbkRHOWlOa3FDK1kza0tKNWQ4NXJBREd0MlNKWXhlbGhPN2ND?=
- =?utf-8?B?YVF6M3NERUxLNG5vN0ZCSlIvQWpKMFZLaVd0cmpHdzhsVjA5VnFhT3RBNjRw?=
- =?utf-8?B?K2NVRGNnYUgwZkdBUklMTmhSTWNxdDh2STZGTmJrU0M1dDFsbzJ5bCtHcm5F?=
- =?utf-8?B?Tktjd21TVis3akE5UVd3Mm5ab0R0NE9UQjhKNTZJUk81Q0x2QzBCNG5SQ2U1?=
- =?utf-8?B?eXVMWDNtMFl5VWdmdDZSSTZSS1hKZkI0M1Rhcy83OE9sL0grci9wK1pGVkhO?=
- =?utf-8?B?TUdMNE94bE9pNDBBTENGWHBmK216ekNqdkt1TGpMdVNudmk2TDJ1b2V5dThu?=
- =?utf-8?B?SUxvRnZGeWQyUXUxakswMWtvT2FUc3h5QUd2ZDZFZmdMRmladzVMbk96UFZG?=
- =?utf-8?B?TURYaU9WUEl0STlTZnowamZXaHp2U01sbEZ3WWxGRW45cXFPVU1DOFlCRVRo?=
- =?utf-8?B?L2FEa0lVSDNaaHovUzIwZi9tTDhmd0NFejFTVkR3VG1PK2dVSkMwRXVZU2RG?=
- =?utf-8?B?RmdxcnFxSTdFTG9LMWpvYVZ0cUcyamtMTVVReFlxcnliUDdmejVKZzIzNTQx?=
- =?utf-8?B?VTdkZjU5UDlpb1VsWjNZVEdMeEY4Q3ZyenAvaWtEemxoc3BOR0x2S1pGQUF2?=
- =?utf-8?B?bEJSQldhaHIwWWZ6ek1mTk1RQ0wzWU9ZdmFyU3AvLzJUU1VjMGNJZz09?=
-X-Exchange-RoutingPolicyChecked: GYDE/0mU4a8kFDBSYoA95LALjB2v0EW6tCoo/SNstGO3OeJTb4ZTfa7EpknQx6OvQi8q1mCafZx39lzCJDJZJsKx90e1QEX1SB61Gy5Gv0t/FWK8/xrQd7f2noKXBKjClKxVK6ZccZxx86Uu3E4UgroZE2P/NbJkdOD+T4EWNss/k7fW1Xpf21a95t6tlFQXqJQb89aS1tIWdwyv2vwTVXLy7Z69NBvDJK6QrpjingMinwiQn+PI0kjhPIguF+KmOczdxO8DzkHnohGGngV88IsrYMcL4EchQSyvVmIxhP61OYS2a0ZXbj3gHmaB6DgezoMe3Vf/Y/shpLahhFY9Bg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2849814b-5234-49c7-0c84-08df36cce109
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR11MB7846.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 21:29:28.7294
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SFMGUm4UuaxluRIBblAyMGijyUzwYqZYaqh6zmPUdPqV3WyDxsH8k1IUDNlMatDMxPzx72WQww+nwpuo1NIlKw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR11MB5323
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: ubn3dezjxx81ghku4sghe97xcf6efjmp
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: 2C14F2000E
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+p6zVZCfshOXdXdtQ8doj6JThgneZZKho=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=oMsLb/DFitXdzNYA1WSrlTGfxGJputCfg0bfurbuFrQ=; b=HEgm7fIYzQr/kbGuiWESOMsIUC+zI8ivUcYNnaB1fVeeeIyZCt05PhiavqMKz0XUrZef83OhIvAmfXyMUQCgoJp/MY0ljBgXksf1Ie666HuM9iBPSlrMNnT1WZy9gAXi+LWkhVP54uTVVe1Mj/dtmoTqoSjS9e3JmIdxNwXmxs0=
+X-HE-Tag: 1793395850-433973
+X-HE-Meta: U2FsdGVkX1/5tOWGQknL5oBXzt4xh+llECwTdv/3xHtyPxqO/mXKvY72/O1s3k3XaTHOBZQz/POGSJCgqR7kf3uiCK0gMbyy/qn693nO3WSTeuIcsS7vaBv6EDXlsuXqEIp1TR6EOMFwd/D+wsrvzQ4w+qL+4H7cXY4cM3aU0SlOXOciJ/KO1RLqFB3kn/9XrxBVJJOhkF7LxLQBG/qbxzQTRe6x04MPhO61DJDA6VMJkmMW/9IUMvOg9+b1HgfVYMwSBO9cQId6M4VuW5Q096KlcAkAVKFYI/dOdIYlV5cRdYBy1vX8Xw3DOVVj0/L5JZUWy1FfHZ953RwVssux4L4rkyXwjdNi
 
-On 10/29/2026 10:56 AM, Borislav Petkov wrote:
-> Looks easy enough but needs thorough testing and perhaps some commenting how
-> we're using x86_vfm on AMD a bit differently.
+On Tue, 11 Aug 2026 18:15:13 +0000
+Cao Ruichuang <create0818@163.com> wrote:
+
+Hi Cao,
+
+Sorry for the late reply, with AI bugs coming in, as well as travel and
+conferences, I fell very behind in submitted patches.
+
+> diff --git a/include/linux/module.h b/include/linux/module.h
+> index 7566815fa..d9ac1fd6e 100644
+> --- a/include/linux/module.h
+> +++ b/include/linux/module.h
+> @@ -513,7 +513,9 @@ struct module {
+>  #endif
+>  #ifdef CONFIG_TRACING
+>  	unsigned int num_trace_bprintk_fmt;
+> +	unsigned int num_tracepoint_strings;
+>  	const char **trace_bprintk_fmt_start;
+> +	const char **tracepoint_strings_start;
+>  #endif
+>  #ifdef CONFIG_EVENT_TRACING
+>  	struct trace_event_call **trace_events;
+> diff --git a/include/linux/tracepoint.h b/include/linux/tracepoint.h
+> index e0d838c9c..2b973cc72 100644
+> --- a/include/linux/tracepoint.h
+> +++ b/include/linux/tracepoint.h
+> @@ -508,10 +508,10 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
+>   * the ASCII strings they represent.
+>   *
+>   * The @str used must be a constant string and persistent as it would not
+> - * make sense to show a string that no longer exists. But it is still fine
+> - * to be used with modules, because when modules are unloaded, if they
+> - * had tracepoints, the ring buffers are cleared too. As long as the string
+> - * does not change during the life of the module, it is fine to use
+> + * make sense to show a string that no longer exists. For modules, the string
+> + * mapping is exported while the module is loaded. When the module is unloaded,
+> + * its trace buffers are cleared before the mapping is removed. As long as the
+> + * string does not change during the life of the module, it is fine to use
+>   * tracepoint_string() within a module.
+>   */
+>  #define tracepoint_string(str)						\
+> diff --git a/kernel/module/main.c b/kernel/module/main.c
+> index 46dd8d25a..cb0acb2ce 100644
+> --- a/kernel/module/main.c
+> +++ b/kernel/module/main.c
+> @@ -2729,6 +2729,10 @@ static int find_module_sections(struct module *mod, struct load_info *info)
+>  	mod->trace_bprintk_fmt_start = section_objs(info, "__trace_printk_fmt",
+>  					 sizeof(*mod->trace_bprintk_fmt_start),
+>  					 &mod->num_trace_bprintk_fmt);
+> +	mod->tracepoint_strings_start =
+> +		section_objs(info, "__tracepoint_str",
+> +			     sizeof(*mod->tracepoint_strings_start),
+> +			     &mod->num_tracepoint_strings);
+>  #endif
+>  #ifdef CONFIG_DYNAMIC_FTRACE
+>  	/* sechdrs[0].sh_size is always zero */
+> diff --git a/kernel/trace/trace_printk.c b/kernel/trace/trace_printk.c
+> index 98171a239..2aca8d206 100644
+> --- a/kernel/trace/trace_printk.c
+> +++ b/kernel/trace/trace_printk.c
+> @@ -13,21 +13,29 @@
+>  #include <linux/string.h>
+>  #include <linux/module.h>
+>  #include <linux/mutex.h>
+> +#include <linux/rcupdate.h>
+
+Please keep this in "upside-down x-mas tree" format. The order of headers
+goes by the length of their names.
+
+>  #include <linux/ctype.h>
+>  #include <linux/list.h>
+>  #include <linux/slab.h>
+>  
+>  #include "trace.h"
+>  
+> +static int trace_bprintk_fmt_cnt;
+> +
+>  #ifdef CONFIG_MODULES
+>  
+>  /*
+>   * modules trace_printk()'s formats are autosaved in struct trace_bprintk_fmt
+>   * which are queued on trace_bprintk_fmt_list.
+> + *
+> + * modules tracepoint_string() entries are kept as ranges into the owning
+> + * module's __tracepoint_str section and are removed again when the module
+> + * goes away.
+>   */
+>  static LIST_HEAD(trace_bprintk_fmt_list);
+> +static LIST_HEAD(tracepoint_str_list);
+>  
+> -/* serialize accesses to trace_bprintk_fmt_list */
+> +/* serialize updates and printk_formats iteration of the module lists */
+>  static DEFINE_MUTEX(btrace_mutex);
+>  
+>  struct trace_bprintk_fmt {
+> @@ -35,6 +43,14 @@ struct trace_bprintk_fmt {
+>  	const char *fmt;
+>  };
+>  
+> +struct tracepoint_mod_str {
+> +	struct list_head list;
+> +	struct rcu_head rcu;
+> +	struct module *mod;
+> +	const char **start;
+> +	unsigned int num;
+> +};
+> +
+>  static inline struct trace_bprintk_fmt *lookup_format(const char *fmt)
+>  {
+>  	struct trace_bprintk_fmt *pos;
+> @@ -75,6 +91,7 @@ void hold_module_trace_bprintk_format(const char **start, const char **end)
+>  			if (fmt) {
+>  				list_add_tail(&tb_fmt->list, &trace_bprintk_fmt_list);
+>  				tb_fmt->fmt = fmt;
+> +				trace_bprintk_fmt_cnt++;
+>  			} else
+>  				kfree(tb_fmt);
+>  		}
+> @@ -84,16 +101,63 @@ void hold_module_trace_bprintk_format(const char **start, const char **end)
+>  	mutex_unlock(&btrace_mutex);
+>  }
+>  
+> +static void hold_module_tracepoint_strings(struct module *mod)
+> +{
+> +	struct tracepoint_mod_str *tp_str;
+> +
+> +	if (!mod->num_tracepoint_strings)
+> +		return;
+> +
+> +	tp_str = kmalloc_obj(*tp_str);
+> +	if (!tp_str)
+> +		return;
+> +
+> +	tp_str->mod = mod;
+> +	tp_str->start = mod->tracepoint_strings_start;
+> +	tp_str->num = mod->num_tracepoint_strings;
+> +
+> +	guard(mutex)(&btrace_mutex);
+> +	list_add_tail_rcu(&tp_str->list, &tracepoint_str_list);
+> +}
+> +
+> +static void release_module_tracepoint_strings(struct module *mod)
+> +{
+> +	struct tracepoint_mod_str *tp_str;
+> +
+> +	if (!mod->num_tracepoint_strings)
+> +		return;
+> +
+> +	guard(mutex)(&btrace_mutex);
+> +	list_for_each_entry(tp_str, &tracepoint_str_list, list) {
+
+Please use list_for_each_entry_safe(). You are removing tp_str from the
+list. Do not rely on internals of RCU to protect this. If the lock was a
+spin lock, then it may have been safe (even though I would still ask for
+this change). But because it is a mutex, this could be preempted, the RCU
+grace period finish, the tp_str freed and then the loop will crash.
+
+> +		if (tp_str->mod != mod)
+> +			continue;
+> +
+> +		list_del_rcu(&tp_str->list);
+> +		/* Module teardown waits for RCU before freeing the section. */
+> +		kfree_rcu(tp_str, rcu);
+> +		return;
+> +	}
+> +}
+> +
+>  static int module_trace_bprintk_format_notify(struct notifier_block *self,
+>  		unsigned long val, void *data)
+>  {
+>  	struct module *mod = data;
+> -	if (mod->num_trace_bprintk_fmt) {
+> -		const char **start = mod->trace_bprintk_fmt_start;
+> -		const char **end = start + mod->num_trace_bprintk_fmt;
+>  
+> -		if (val == MODULE_STATE_COMING)
+> +	switch (val) {
+> +	case MODULE_STATE_COMING:
+> +		if (mod->num_trace_bprintk_fmt) {
+> +			const char **start = mod->trace_bprintk_fmt_start;
+> +			const char **end = start + mod->num_trace_bprintk_fmt;
+> +
+>  			hold_module_trace_bprintk_format(start, end);
+> +		}
+> +		hold_module_tracepoint_strings(mod);
+> +		break;
+> +	case MODULE_STATE_GOING:
+> +		/* Trace event teardown runs first and clears module event buffers. */
+> +		release_module_tracepoint_strings(mod);
+> +		break;
+>  	}
+>  	return NOTIFY_OK;
+>  }
+> @@ -119,7 +183,7 @@ static int module_trace_bprintk_format_notify(struct notifier_block *self,
+>   * next format in the list.
+>   */
+>  static const char **
+> -find_next_mod_format(int start_index, void *v, const char **fmt, loff_t *pos)
+> +find_next_mod_format(loff_t start_index, void *v, const char **fmt, loff_t *pos)
+>  {
+>  	struct trace_bprintk_fmt *mod_fmt;
+>  
+> @@ -158,6 +222,42 @@ find_next_mod_format(int start_index, void *v, const char **fmt, loff_t *pos)
+>  	return &mod_fmt->fmt;
+>  }
+>  
+> +static const char **
+> +find_next_mod_tracepoint_str(loff_t start_index, loff_t *pos)
+> +{
+> +	struct tracepoint_mod_str *tp_str;
+> +	loff_t offset = *pos - start_index;
+> +
+> +	if (offset < 0)
+> +		return NULL;
+> +
+> +	list_for_each_entry(tp_str, &tracepoint_str_list, list) {
+> +		if (offset < (loff_t)tp_str->num)
+> +			return tp_str->start + offset;
+> +
+> +		offset -= tp_str->num;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +static bool is_module_tracepoint_string(const char *str)
+> +{
+> +	struct tracepoint_mod_str *tp_str;
+> +	unsigned int i;
+> +
+> +	/* The tracepoint printk path can call this with IRQs disabled. */
+> +	guard(rcu)();
+> +	list_for_each_entry_rcu(tp_str, &tracepoint_str_list, list) {
+> +		for (i = 0; i < tp_str->num; i++) {
+> +			if (str == tp_str->start[i])
+> +				return true;
+> +		}
+> +	}
+> +
+> +	return false;
+> +}
+> +
+>  static void format_mod_start(void)
+>  {
+>  	mutex_lock(&btrace_mutex);
+> @@ -176,10 +276,21 @@ module_trace_bprintk_format_notify(struct notifier_block *self,
+>  	return NOTIFY_OK;
+>  }
+>  static inline const char **
+> -find_next_mod_format(int start_index, void *v, const char **fmt, loff_t *pos)
+> +find_next_mod_format(loff_t start_index, void *v, const char **fmt, loff_t *pos)
+> +{
+> +	return NULL;
+> +}
+> +
+> +static inline const char **
+> +find_next_mod_tracepoint_str(loff_t start_index, loff_t *pos)
+>  {
+>  	return NULL;
+>  }
+> +
+> +static inline bool is_module_tracepoint_string(const char *str)
+> +{
+> +	return false;
+> +}
+>  static inline void format_mod_start(void) { }
+>  static inline void format_mod_stop(void) { }
+>  #endif /* CONFIG_MODULES */
+> @@ -194,6 +305,7 @@ void trace_printk_control(bool enabled)
+>  __initdata_or_module static
+>  struct notifier_block module_trace_bprintk_format_nb = {
+>  	.notifier_call = module_trace_bprintk_format_notify,
+> +	.priority = 0, /* lower than the trace event notifier */
+>  };
+>  
+>  __printf(2, 3)
+> @@ -259,14 +371,14 @@ bool trace_is_tracepoint_string(const char *str)
+>  		if (str == *ptr)
+>  			return true;
+>  	}
+> -	return false;
+> +	return is_module_tracepoint_string(str);
+>  }
+>  
+>  static const char **find_next(void *v, loff_t *pos)
+>  {
+>  	const char **fmt = v;
+> -	int start_index;
+> -	int last_index;
+> +	loff_t start_index;
+> +	loff_t last_index;
+>  
+>  	start_index = __stop___trace_bprintk_fmt - __start___trace_bprintk_fmt;
+>  
+> @@ -292,7 +404,11 @@ static const char **find_next(void *v, loff_t *pos)
+>  		return __start___tracepoint_str + (*pos - last_index);
+>  
+>  	start_index += last_index;
+> -	return find_next_mod_format(start_index, v, fmt, pos);
+> +	if (*pos - start_index < trace_bprintk_fmt_cnt)
+> +		return find_next_mod_format(start_index, v, fmt, pos);
+> +
+> +	start_index += trace_bprintk_fmt_cnt;
+> +	return find_next_mod_tracepoint_str(start_index, pos);
+>  }
+>  
+>  static void *
+> diff --git a/samples/trace_printk/trace-printk.c b/samples/trace_printk/trace-printk.c
+> index cfc159580..54c709c82 100644
+> --- a/samples/trace_printk/trace-printk.c
+> +++ b/samples/trace_printk/trace-printk.c
+> @@ -2,6 +2,7 @@
+>  #include <linux/module.h>
+>  #include <linux/kthread.h>
+>  #include <linux/irq_work.h>
+> +#include <linux/tracepoint.h>
+>  
+>  /* Must not be static to force gcc to consider these non constant */
+>  char *trace_printk_test_global_str =
+> @@ -31,6 +32,9 @@ static int __init trace_printk_init(void)
+>  {
+>  	init_irq_work(&irqwork, trace_printk_irq_work);
+>  
+> +	(void)tracepoint_string("tracepoint_string_test_module_string_1");
+> +	(void)tracepoint_string("tracepoint_string_test_module_string_2");
+
+Actually this shouldn't be in trace_printk() as that's not how it would be
+used. Please add it to samples. Something like this:
+
+diff --git a/samples/trace_events/trace-events-sample.c b/samples/trace_events/trace-events-sample.c
+index ca5d98c360cb..e00630c2d922 100644
+--- a/samples/trace_events/trace-events-sample.c
++++ b/samples/trace_events/trace-events-sample.c
+@@ -51,6 +51,10 @@ static void do_simple_thread_func(int cnt, const char *fmt, ...)
+ 	trace_foo_with_template_print("I have to be different", cnt);
+ 
+ 	trace_foo_rel_loc("Hello __rel_loc", cnt, bitmask, current->cpus_ptr);
++
++	trace_foo_tracepoint_str(tracepoint_string("tracepoint_string_test_module_string_1"));
++	trace_foo_tracepoint_str(tracepoint_string("tracepoint_string_test_module_string_2"));
++
+ }
+ 
+ static void simple_thread_func(int cnt)
+diff --git a/samples/trace_events/trace-events-sample.h b/samples/trace_events/trace-events-sample.h
+index 816848a456a2..48bca97086b6 100644
+--- a/samples/trace_events/trace-events-sample.h
++++ b/samples/trace_events/trace-events-sample.h
+@@ -623,6 +623,23 @@ TRACE_EVENT(foo_timer_fn,
+ 
+ 	TP_printk("name=%s count=%d", __get_str(name), __entry->count)
+ );
++
++TRACE_EVENT(foo_tracepoint_str,
++
++	TP_PROTO(const char *str),
++
++	TP_ARGS(str),
++
++	TP_STRUCT__entry(
++		__field(	const char *,		str	)
++	),
++
++	TP_fast_assign(
++		__entry->str = str;
++	),
++
++	TP_printk("str=%s", __entry->str)
++);
+ #endif
+ 
+ /***** NOTICE! The #if protection ends here. *****/
+
+
+> +
+>  	trace_printk("This is a static string that will use trace_bputs\n");
+>  	trace_printk(trace_printk_test_global_str);
+>  
+> diff --git a/tools/testing/selftests/ftrace/test.d/event/trace_printk.tc b/tools/testing/selftests/ftrace/test.d/event/trace_printk.tc
+> index b02550b42..d66a8134c 100644
+> --- a/tools/testing/selftests/ftrace/test.d/event/trace_printk.tc
+> +++ b/tools/testing/selftests/ftrace/test.d/event/trace_printk.tc
+> @@ -23,5 +23,10 @@ grep -q ": (irq) .* trace_printk" trace
+>  
+>  grep -q "This is a %s that will use trace_bprintk" printk_formats
+>  grep -q "(irq) This is a static string that will use trace_bputs" printk_formats
+> +grep -q "tracepoint_string_test_module_string_1" printk_formats
+> +grep -q "tracepoint_string_test_module_string_2" printk_formats
+>  
+>  rmmod trace-printk ||:
+> +
+> +! grep -q "tracepoint_string_test_module_string_1" printk_formats
+> +! grep -q "tracepoint_string_test_module_string_2" printk_formats
+
+You would need different test that relies on the trace event sample code
+and do this test there.
+
+
 > 
-
-I was working on adding guidance for x86_vfm usage for Intel in the
-kernel documentation when I saw this thread. Here's the initial draft I
-had for Intel:
-
-      Intel CPU model checks
-      ----------------------
-
-      Intel CPU model checks should use the combined vendor/family/model
-      field, x86_vfm, together with the INTEL_* defines in
-      asm/intel-family.h. Avoid comparing x86_model against literal
-      model numbers. Instead of writing::
-
-              if (c->x86 == 6 && c->x86_model == 0x97)
-
-      Please use::
-
-              if (c->x86_vfm == INTEL_ALDERLAKE)
-
-      To match several models, prefer an x86_match_cpu() table built
-      with X86_MATCH_VFM(). If a model is missing from
-      asm/intel-family.h, add a define for it.
-
-      Range checks on x86_vfm can work, but they are discouraged for
-      newer CPUs. Model numbers are not assigned in release order, and
-      the newer Families 18 and 19 interleave with Family 6, which makes
-      ranges hard to get right.
+> base-commit: d5b201ed4feb7a11da242a97669424efeb724031
 
 
-IIUC, the AMD usage is primarily geared towards range checks for a group
-of CPUs whereas the Intel usage is for specific targeted CPUs.
+Thanks,
 
-Expressing uarch reusing x86_vfm and using it for range checks can be
-tricky. See below.
+-- Steve
 
-> amd-family.h is not really necessary right now but that's immaterial for this
-> change - we can always convert to it later if absolutely necessary. And
-> I don't think it will be.
-> 
-
-...
-> @@ -483,13 +482,13 @@ static void bsp_init_amd(struct cpuinfo_x86 *c)
->  		switch (c->x86_model) {
->  		case 0x00 ... 0x2f:
->  		case 0x50 ... 0x5f:
-> -			setup_force_cpu_cap(X86_FEATURE_ZEN1);
-> +			c->x86_vfm = AMD_ZEN1;
-
-Since x86_vfm is a union, wouldn't this clobber the vendor, family and
-model? This will set the x86_vendor to 0 and get detected as an Intel CPU.
-
->  			break;
->  		case 0x30 ... 0x4f:
->  		case 0x60 ... 0x7f:
->  		case 0x90 ... 0x91:
->  		case 0xa0 ... 0xaf:
-> -			setup_force_cpu_cap(X86_FEATURE_ZEN2);
-> +			c->x86_vfm = AMD_ZEN2;
->  			break;
->  		default:
