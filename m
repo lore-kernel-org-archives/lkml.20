@@ -1,78 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793371294;
-	b=zm+QVmQJUov69gJPUSyOMJHmVXQE7x8xxeyIxOTwJfkDQ23gkI5hABoApaVa/ql+Ibfk
-	 WxJ85/KEti9g8Tln3FK2wKFE1uzUExFUDzk5eTO3gm1jDN4T6fwlLOElyRhbMUpI342eo
-	 I7j0hDYuC7sKJV90RzrRrkLb1g1TaPD4dch5KhOcl6BTMI5hSPmbx5pXVc4HgrysYsjLV
-	 7WtU8oLyckmeFWv24M7FfEAkuYAvjN7iIn0IW/PFOGZ2U7NEwSuB442f/RMrk1c5mQ4u/
-	 av8+QxJVqhLLOOk4TdoD+zz2m2kqPKGjOg0a5uYZHuWQya+UQMR0H4ZRvjoAwkWk0WQ==
+	t=1793371348;
+	b=L4OHuoi5+Dp167pP4ayNJIyyQG7w3do3MfqglH+EzUlGLJec7WK9DYpq0hWsFLmVVupU
+	 y76xPVaDQyiAz9e1z2UE7revIvzQ2c/Bpgdl0hGmGDCoIpP6r/L7QpEqOm0h05TbtggIK
+	 BlppmYWnkKSXiKjj//kXfAeoX4+nVSjGCGlLe6Vux5bzynGNZFi+3iGM4yO5Zu8eNkyCl
+	 E/YHW1Ih7IpWNx9Ggq5hXN6JZL/ymuhLCZJecO5ipXY3nDDKLsbFh1BjRN5mWB9Q49/A7
+	 bIIuTm6pelgP9j4WyHimSyVg3Pvx7yZvWMm7/7qTcqYluUaTcRIAV1yawj0wOD6sbZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371294;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=iGt6RSK7yWWj55giIGgQVyqxXAu4XvXBM5uzKbjCTkI=;
-	b=isLvWe1xj7B8sYWbzFIOmF3LoNN4fOPi3LyHqcYlAyREfaP8Yzxqwqi8k+asm78p0fpa
-	 qVo8d/rBCWQQHxUoXtfNEHvQZa2Xul9/Pf5uHF104J3qN9op+oD5Kwn3euhgYoXJTy7hY
-	 QESLTKQYJBhQaS4pmbq6epvWvfy6PTnhX27M9kqK21jauTJvXXfgV1u2IPUkIIin8DZYZ
-	 yDKXtijvfMTRk4ZYjFH94vWs5M12QCqojkuwfQ2VXA+QrH2kv1RSSYimmH8WTj12uCSsA
-	 9W1q8/BCOeeZMZe1LKcbbFHfjPpt3g2idM0tQ5ZknzPr9doVv7IGYPIsBPlq8h3zemw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793371348;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=OU3zDVKepXMBwwR1kv5zeSUQ4EZ22iKhEWe2jjy3QKQ=;
+	b=sRdBNWAKit5GdnDC6mp9d51Y8s/nbz7HZt3d+NfxxHEwjzeT/9rVCly0KjNB7ilNy3S4
+	 iqbiSFquZs/mfzlByU24UgbXE4j/cuBqqAa9tA4VNPzna3NphxMQiSXtYfb2USpmnplh7
+	 tKQzcIjY1gQeUoye5Y8SzjZf5s6oNe+4S0tycb8Ci9V8aFvnBy6J7fx3BGg825KEFp4jS
+	 oZHMCMpAjHTvBGy+fSgOBH6q3kaNXjzxkMRiGq+Rtgd6tKmMiThqTvG3Pq3N4Qnrjd8Ww
+	 OLADnH/KnbR5tS7yQKXmlAMj2Tkr/1vOadvYs1mW0HeeSXMJp3lPQsD3U1b1ouiMR0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JAYwn9tM;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B6zqLY51;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA80606A31A;
-	Fri, 30 Oct 2026 14:41:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EA80606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95896606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:42:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JAYwn9tM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793371293; x=1824907293;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=A8iFghOosTD4Zm3Vh31UnlE/E9aYofFplatSiUbIcZ8=;
-  b=JAYwn9tMiXM8RczKU26WtzookRi3zp0yP7LTsqi6vk+yJeHVCsmCQHU3
-   Lk8URCHEgrFzkm8M3N+LYiJLxtCMAd/gV/0LJk77EW4mtpTr1nYMslm3T
-   WkbYGonjgU9LEJ8O1n00s3Mhv2KwtkemhwQ0+GBKG4gTAaoghsVRzAS55
-   NJFykB9FlGk+F8MH0wCQVzBd7x5adxuiU8tco7FOoPEautKI87Q9BxsqR
-   CnuExKS/QzknUihsI2MIsr6D5C7B4eBkiWEWHkJ7m6OVbwbA7KL6eQslU
-   U8Cx6GACCA/4QXJQ623qS/q+VvrM4pJBiHar/hqne9l2i6afoBzVEoPaD
-   g==;
-X-CSE-ConnectionGUID: /MCn0M1fTcOzOf9B7C7a5A==
-X-CSE-MsgGUID: tkVtFpoRSLG1376lsfriDQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2036854"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2036854"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 07:41:33 -0700
-X-CSE-ConnectionGUID: A7+PJm9qRr+DudHh8+7fug==
-X-CSE-MsgGUID: 7XZUW5h2TvWNZj4iep0niw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5792399"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.247])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 07:41:30 -0700
-Date: Fri, 30 Oct 2026 16:41:27 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-Cc: sergiu.cuciurean@analog.com, jic23@kernel.org, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, ukleinek@kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
-Subject: Re: [PATCH 0/2] iio: adc: add LTC2387 and ADAQ2387x support
-Message-ID: <auSsl5_xQNXCNphJ@ashevche-desk.local>
-References: <auDJu8u85flQ9bjo@ashevche-desk.local>
- <20261030100808.217874-1-Nicolae-daniel.Deaconescu@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B6zqLY51
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0A3A1F000C1;
+	Fri, 30 Oct 2026 14:42:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793371348;
+	bh=OU3zDVKepXMBwwR1kv5zeSUQ4EZ22iKhEWe2jjy3QKQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=B6zqLY51HL03HAbN7lCtJ3lFh7DfqAs+MNDqt4pDlmekKLANxMB0eErrw8PsTrl/J
+	 bhk9I9VG57rWGojcbjPYDvfXOZwhTgar1YEV5quKfL1b0Pwe/drjQd34EpBd3Y815W
+	 1d9Q5G2Cd5PIPAL+eTV/ecP9RuZBDZ7nl5Bl3mFrSUhrXD4jFsLHyYyYQHsTylLkGn
+	 NlinJiDxut9+mjHqjAAEc2p/loJkudu7r+TscY+B+okD70yxrGultokQdRtQ0P+G3n
+	 9sfhmK4CrBl/FEGq+tDpEnsQ7/pUWjxBP13v0uhwQR2Gi+eXMrx0jHd1x30BELyFhY
+	 i4QHMyc1GAT4g==
+Message-ID: <40eadc1b-5057-4286-9be2-021cb16bc020@kernel.org>
+Date: Fri, 30 Oct 2026 15:42:21 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,28 +51,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030100808.217874-1-Nicolae-daniel.Deaconescu@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/memory-failure: fix folio refcount leak and
+ min_order_for_split() locking
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: akpm@linux-foundation.org, ljs@kernel.org, ziy@nvidia.com,
+ baolin.wang@linux.alibaba.com, liam@infradead.org, npache@redhat.com,
+ ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+ lance.yang@linux.dev, usama.arif@linux.dev, linmiaohe@huawei.com,
+ nao.horiguchi@gmail.com, richard.weiyang@gmail.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, mcgrof@kernel.org, liyouhong@kylinos.cn
+References: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
+ <20261030105022.903008-1-tz2294@columbia.edu>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261030105022.903008-1-tz2294@columbia.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 30, 2026 at 12:08:08PM +0200, Nicolae-Daniel Deaconescu wrote:
-> On Tue, Oct 27, 2026 at 17:56:43 +0200, Andy Shevchenko wrote:
-> > Why have you written a brand new driver?
+On 10/30/26 11:50, Tal Zussman wrote:
+> On Thu, Aug 06, 2026 at 01:14:38PM +0200, David Hildenbrand (Arm) wrote:
+>> hwpoison code can end up calling min_order_for_split() without holding
+>> the folio lock. There isn't really something that would prevent
+>> concurrent folio split. Consequently folio->mapping can get set to
+>> NULL after checking for "!folio->mapping", and if the compiler
+>> reloads folio->mapping, mapping_min_folio_order() would try to
+>> dereference NULL.
 > 
-> ad7625 is the closest existing driver, and it shares the transport:
-> CNV PWM, clk_gate PWM and the AXI ADC backend. The converters differ
-> in a few ways though. For instance, the LTC2387 is DDR on one or two
-> lanes. ad7625 is one bit per clock on one lane. Also, the ad7625
-> clamps the period to 100 ns (10 MSPS). The LTC2387 runs at 15 MSPS.
+> Hi David,
+> 
+> Did this patch ever make it in?
 
-But these difference doesn't explain why you need a brand new driver.
-Is hard to configure this at run-time by choosing the respective driver
-data based on the compatible string?
+If you ask this way ... I guess not? :D
+
+I can see if it still applies and resend + apply.
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Cheers,
 
-
+David
