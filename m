@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348433;
-	b=KFeUPxAxqF/2FsFG8ebfg+UwWSIq3V52kMDeGyp2nZmvwRrPX7zBAv95LCmBV9Xp3r3x
-	 U5Z2InnQQZ5YSKExBmtE/YqW2bRFk40sOyhBLFhvH0OwZOjaKv21YPKVVCcrV3stlpgJG
-	 ISzbfeRUVSSnJlf22lV9qLnuvwA7bISSxokwbfiuFv7YocYLeOwdUP2F67cN2LhK7SpJc
-	 USA+MR6CXyzU+gmmETF0Omc3TyZTHJBe3hUv0xJe0RSMf/TnegjlN1FmLbUED2jeEkCfM
-	 lZInbBMnmkA7cDMfWKZnF1ZtbOOCsZj2tvBYLh0IM0ys58+rtGAA1D8HmGc+cPvynlA==
+	t=1793348472;
+	b=NiCHFTYEdCqnnDGQ+EdDIAcwqXmJi1LwO7uRleHDL5OgpgVgRW8WPstQICtsXFddPQQ9
+	 PS3JMwFSBWaeNYw2Lqejj+HbKBaM2OOMABKQuYyCV8wfs53LsxIdFZcsKXfx2a/fW84h4
+	 9e252sB+cDwOf5W67l1vhqDFDEII1eX92D1d7Sl6pBB30GUVrQgQnLoa+uqC89gmQaBdK
+	 ipqCrTPS3j3zVM7UnxLk7lE1GtDbSYsUCh5MBc43aRjGofiCy2OlMAuGouJdOZEFDfopc
+	 CbA4yU5MpH1wSjn77XT+dr3hAOlO5es9aIkqnrQK/zWnT4ek5fnzkbG0Agy1dAurfYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348433;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type;
-	bh=eMw0Tsc5hY6DqmDs0szKnY0CQ5h9hvbZXBJZty/2/ZY=;
-	b=MMkOchM3/1CjcUemjJ5jQl77UrO/q/Vozvnwp9zPi8eC7R+Y3lK++B8rkTKnbe0hrRMv
-	 V6Lk/gVzamXmAgPqw8p0YnFI8bFQQCLa013tAlipf54uq15zb+22SHBhRnS7rpIJKpXyi
-	 XpO38q15IXZYyVFd79z4gAG7UMocF/gz+y6mKZmh63KAu+vD4/s8MJBY79xvmXJrTPKEt
-	 +gFWXquSskuePOaEpfbRvqlagm+XAZMUu2br5a7Sls3ruTdHVT4eJJcgTPjIjCrfpOg7w
-	 dJ5LqfO5gKvK1Qyz4stRX9+YUVcQAn+0DENZKK33GnqDE4qB3wKDWWeK08h7PWYjujA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348472;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=fmEat90F9teQQy3ms7V3lZGMVmPXQNN72q1R3RZ1Clw=;
+	b=OfMKBnw5e+mgx5XBRF3jxJZ73sv7i7NeinRAAadqdxj+puHpF4VV8uDaG3p7mJIf8zYp
+	 KQhtUg7loMMbHEMAk4Hkpmpu13gHRFMzC1Ht1QozawbfL785o4+SY9FVzMlOhKn0Tfl1B
+	 O39Kb3KRVaC8tKm6HJ5iwlZ23vREYkilFv5DyymVQqC7XDSKo7EKiVyjItpKw58qtNmIk
+	 wZvEJF52uKU2W0KwVgaBO+4Z8LeCLQrvAkOHCNCgQk+CwXHnMlHkywEnJowtdngn3fw+X
+	 eu3uZGHcqIyKR9ainkLMGncD07mAZz8SxBHBprOcDwdA297wyZpwSO+ChFul2fVWhjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=aTFFpxxh;
-	arc=none smtp.remote-ip=185.70.43.22
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=LwJTH0Qt;
+	arc=none smtp.remote-ip=113.46.200.221
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DBD606A333
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:20:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77DBD606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3837B606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:21:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3837B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=aTFFpxxh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1793348430; x=1793607630;
-	bh=eMw0Tsc5hY6DqmDs0szKnY0CQ5h9hvbZXBJZty/2/ZY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=aTFFpxxhvkz0apQitjCI++GPp1sNBCa5jWnWyXYFtz1GKCM+9ohYEg83HdgIiZiff
-	 0KvYohZZJ9NHir8hk7O1KmwAnaLp42qpwZ10UltJy9alQ3bdCBl3+ERqdUmp0dAIZk
-	 MXgrUAgXOIIBmtcYsP4k+OjmPARdPdipTAXBtiebXQ2v+570qUTCUMhSZTUz7UlG06
-	 pLZ4qyavffn3G22B3YniS687Nc60WSfa6Mzy4a2fwEACWyaCllKftcsC5q1qAEcubD
-	 UFVvaDw+7uNwzf3qnnS+QhB79cv3773dTfsOm83etzYEyQaEnxRxFK8EJ0IalDVIxv
-	 EQDh7PRa+bNyQ==
-Date: Fri, 30 Oct 2026 08:20:25 +0000
-To: linux-i2c@vger.kernel.org
-From: Yazoudi <Yazoudi@proton.me>
-Cc: linux-kernel@vger.kernel.org
-Subject: [Linux I2C/SMBus] AMD FCH SMBus controller fails to bind on Gigabyte B850M FORCE WIFI6E
-Message-ID: <70db7519-da14-4b59-a196-27f5b67c84bd@proton.me>
-In-Reply-To: <defea8da-35df-478e-8c07-226db605bb1d@proton.me>
-References: <defea8da-35df-478e-8c07-226db605bb1d@proton.me>
-Feedback-ID: 197040310:user:proton
-X-Pm-Message-ID: f6cb6cce089e0a0c6e4fed18b1de0a903a89c4c0
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=LwJTH0Qt
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=fmEat90F9teQQy3ms7V3lZGMVmPXQNN72q1R3RZ1Clw=;
+	b=LwJTH0Qt5i/Dob1IWHWovwgsJGEA5P4hExqGywe1PSsqr68fGaBYHQG1HKyFA8F3S82jgae66
+	cV1HUo8E0CmB5P0WXQ7BZeX5YLMXvI5GXeKq9RV9dXTWPW5OziQA3k3vIUvawrKkA4TsezCfYzI
+	XEJ219VJQkN/HVu8aqePINw=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jGDZR75G4zRhQk;
+	Fri, 30 Oct 2026 16:21:03 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 368D340561;
+	Fri, 30 Oct 2026 16:21:07 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 30 Oct
+ 2026 16:21:06 +0800
+Message-ID: <e8f57912-b1e5-4434-a1b7-98a4fde9e540@huawei.com>
+Date: Fri, 30 Oct 2026 16:21:06 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,160 +62,268 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="b1=_tas4pBrJGPaOHPqnjwdzTAuh5bgQkqaAUyBar8YW1vc"
-
---b1=_tas4pBrJGPaOHPqnjwdzTAuh5bgQkqaAUyBar8YW1vc
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-
-Hello,
-
-I am investigating an SMBus controller that does not bind to the Linux=20
-i2c_piix4 driver on my Gigabyte B850M FORCE WIFI6E (revision 1.0)=20
-motherboard.
-
-The PCI device is detected, and i2c_piix4 is listed as a candidate=20
-module, but no driver is bound to the device. The kernel also logs an=20
-ACPI resource conflict involving the SMBus I/O range and the GSA1.SMBI=20
-operation region.
-
-System details:
-
-  *
-
-    Motherboard: Gigabyte B850M FORCE WIFI6E, revision 1.0
-
-  *
-
-    BIOS: F8a
-
-  *
-
-    Distribution: Arch Linux with zen kernel
-
-  *
-
-    Kernel: 7.2.11-zen1-1-zen
-
-  *
-
-    SMBus PCI device: 00:14.0, AMD FCH SMBus Controller [1022:790b],
-    revision 71
-
-  *
-
-    PCI subsystem: Gigabyte [1458:5001]
-
-Relevant observations:
-
- 1.
-
-    |lspci -nnk -s 00:14.0|lists |i2c_piix4|under Kernel modules, but
-    does not show a Kernel driver in use.
-
- 2.
-
-    |/sys/bus/pci/devices/0000:00:14.0/driver|does not resolve to a driver.
-
- 3.
-
-    The kernel logs:
-    |ACPI Warning: SystemIO range 0x0000000000000B00-0x0000000000000B08
-    conflicts with OpRegion 0x0000000000000B00-0x0000000000000B0F
-    (\GSA1.SMBI)|
-    followed by:
-    |ACPI: OSL: Resource conflict; ACPI support missing from driver?|
-
- 4.
-
-    |/proc/ioports|lists |0b00-0b0f : PNP0C02:03|.
-
- 5.
-
-    Reloading i2c_piix4 does not bind the driver, and no SMBus adapter
-    appears among the available I=C2=B2C adapters.
-
-I originally investigated this because OpenRGB cannot detect my KLEVV=20
-CRAS V RGB DDR5 modules. The |spd5118|driver loads, but no SPD devices=20
-are instantiated. I understand that SPD access and RGB control are=20
-separate issues; my immediate concern is the SMBus controller not binding.
-
-I found a related patch discussion concerning an ACPI resource conflict=20
-on the Gigabyte X870 EAGLE WIFI7:
-https://lkml.rescloud.iu.edu/2608.1/09152.html=20
-<https://lkml.rescloud.iu.edu/2608.1/09152.html>
-
-That is a different motherboard, so I do not know whether the same=20
-underlying issue applies here.
-
-Could you advise whether this looks like an ACPI resource reservation=20
-preventing i2c_piix4 from binding, and what additional diagnostics would=20
-help establish the cause? I have not forced the driver to bind or=20
-disabled the kernel's ACPI resource protections.
-
-I can provide the full kernel log, PCI configuration, and other=20
-diagnostic output if needed.
-
-Thank you.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] fs/resctrl: Skip monitor context allocation when
+ force-freeing RMIDs
+To: Reinette Chatre <reinette.chatre@intel.com>, <tony.luck@intel.com>,
+	<Dave.Martin@arm.com>, <james.morse@arm.com>, <babu.moger@amd.com>,
+	<bp@alien8.de>, <tan.shaopeng@fujitsu.com>, <x86@kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20261029081513.924019-1-ruanjinjie@huawei.com>
+ <20261029081513.924019-3-ruanjinjie@huawei.com>
+ <e47f73ac-311c-4a6d-a283-aed675b95b6b@intel.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <e47f73ac-311c-4a6d-a283-aed675b95b6b@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
 
---b1=_tas4pBrJGPaOHPqnjwdzTAuh5bgQkqaAUyBar8YW1vc
-Content-Type: text/plain; charset=UTF-8; name=diagnostics.txt
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename=diagnostics.txt
 
-PT09IEtlcm5lbCA9PT0KTGludXggWWF6b3VkaVBjIDcuMi4xMS16ZW4xLTEtemVuICMxIFpFTiBT
-TVAgUFJFRU1QVF9EWU5BTUlDIEZyaSwgMTYgT2N0IDIwMjYgMDA6Mjg6NDIgKzAwMDAgeDg2XzY0
-IEdOVS9MaW51eApMaW51eCB2ZXJzaW9uIDcuMi4xMS16ZW4xLTEtemVuIChsaW51eC16ZW5AYXJj
-aGxpbnV4KSAoZ2NjIChHQ0MpIDE2LjIuMSAyMDI2MDgxMCwgR05VIGxkIChHTlUgQmludXRpbHMp
-IDIuNDcpICMxIFpFTiBTTVAgUFJFRU1QVF9EWU5BTUlDIEZyaSwgMTYgT2N0IDIwMjYgMDA6Mjg6
-NDIgKzAwMDAKCj09PSBEaXN0cmlidXRpb24gPT09Ck5BTUU9IkFyY2ggTGludXgiClBSRVRUWV9O
-QU1FPSJBcmNoIExpbnV4IgpJRD1hcmNoCkJVSUxEX0lEPXJvbGxpbmcKQU5TSV9DT0xPUj0iMzg7
-MjsyMzsxNDc7MjA5IgpIT01FX1VSTD0iaHR0cHM6Ly9hcmNobGludXgub3JnLyIKRE9DVU1FTlRB
-VElPTl9VUkw9Imh0dHBzOi8vd2lraS5hcmNobGludXgub3JnLyIKU1VQUE9SVF9VUkw9Imh0dHBz
-Oi8vYmJzLmFyY2hsaW51eC5vcmcvIgpCVUdfUkVQT1JUX1VSTD0iaHR0cHM6Ly9naXRsYWIuYXJj
-aGxpbnV4Lm9yZy9ncm91cHMvYXJjaGxpbnV4Ly0vaXNzdWVzIgpQUklWQUNZX1BPTElDWV9VUkw9
-Imh0dHBzOi8vdGVybXMuYXJjaGxpbnV4Lm9yZy9kb2NzL3ByaXZhY3ktcG9saWN5LyIKTE9HTz1h
-cmNobGludXgtbG9nbwoKPT09IE1vdGhlcmJvYXJkIGFuZCBCSU9TID09PQpCODUwTSBGT1JDRSBX
-SUZJNkUKeC54CkY4YQowMy8xMS8yMDI2Cgo9PT0gU01CdXMgUENJIGNvbnRyb2xsZXIgPT09CjAw
-OjE0LjAgU01CdXMgWzBjMDVdOiBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJbmMuIFtBTURdIEZD
-SCBTTUJ1cyBDb250cm9sbGVyIFsxMDIyOjc5MGJdIChyZXYgNzEpCglTdWJzeXN0ZW06IEdpZ2Fi
-eXRlIFRlY2hub2xvZ3kgQ28uLCBMdGQgRGV2aWNlIFsxNDU4OjUwMDFdCglLZXJuZWwgbW9kdWxl
-czogaTJjX3BpaXg0LCBzcDUxMDBfdGNvCjAwOjE0LjAgU01CdXM6IEFkdmFuY2VkIE1pY3JvIERl
-dmljZXMsIEluYy4gW0FNRF0gRkNIIFNNQnVzIENvbnRyb2xsZXIgKHJldiA3MSkKCVN1YnN5c3Rl
-bTogR2lnYWJ5dGUgVGVjaG5vbG9neSBDby4sIEx0ZCBEZXZpY2UgNTAwMQoJQ29udHJvbDogSS9P
-KyBNZW0rIEJ1c01hc3Rlci0gU3BlY0N5Y2xlLSBNZW1XSU5WLSBWR0FTbm9vcC0gUGFyRXJyLSBT
-dGVwcGluZy0gU0VSUi0gRmFzdEIyQi0gRGlzSU5UeCsKCVN0YXR1czogQ2FwLSA2Nk1IeisgVURG
-LSBGYXN0QjJCLSBQYXJFcnItIERFVlNFTD1tZWRpdW0gPlRBYm9ydC0gPFRBYm9ydC0gPE1BYm9y
-dC0gPlNFUlItIDxQRVJSLSBJTlR4LQoJSU9NTVUgZ3JvdXA6IDEwCglLZXJuZWwgbW9kdWxlczog
-aTJjX3BpaXg0LCBzcDUxMDBfdGNvCgoKPT09IEkvTyByZXNvdXJjZSByZXNlcnZhdGlvbiA9PT0K
-ICAwMDAwLTAwMDAgOiBQTlAwQjAwOjAwCgo9PT0gUmVsZXZhbnQga2VybmVsIG1lc3NhZ2VzID09
-PQpPY3QgMzAgMTA6NTE6NTkgWWF6b3VkaVBjIGtlcm5lbDogQklPUy1lODIwOiBbbWVtIDB4MDAw
-MDAwMDAwYjAwMDAwMC0weDAwMDAwMDAwMGIwMjBmZmZdICBkZXZpY2UgcmVzZXJ2ZWQKT2N0IDMw
-IDEwOjUxOjU5IFlhem91ZGlQYyBrZXJuZWw6IFBNOiBoaWJlcm5hdGlvbjogUmVnaXN0ZXJlZCBu
-b3NhdmUgbWVtb3J5OiBbbWVtIDB4MGIwMDAwMDAtMHgwYjAyMGZmZl0KT2N0IDMwIDEwOjUxOjU5
-IFlhem91ZGlQYyBrZXJuZWw6IGU4MjA6IHJlZ2lzdGVyIFJBTSBidWZmZXIgcmVzb3VyY2UgW21l
-bSAweDBiMDAwMDAwLTB4MGJmZmZmZmZdCk9jdCAzMCAxMDo1MTo1OSBZYXpvdWRpUGMga2VybmVs
-OiBhY3BpIFBOUDBDMDI6MDM6IFJlc2VydmVkIFtpbyAgMHgwYjAwLTB4MGIwZl0KT2N0IDMwIDEw
-OjUxOjU5IFlhem91ZGlQYyBrZXJuZWw6IHJ0Y19jbW9zIFBOUDBCMDA6MDA6IFJUQyBjYW4gd2Fr
-ZSBmcm9tIFM0Ck9jdCAzMCAxMDo1MTo1OSBZYXpvdWRpUGMga2VybmVsOiBydGNfY21vcyBQTlAw
-QjAwOjAwOiByZWdpc3RlcmVkIGFzIHJ0YzAKT2N0IDMwIDEwOjUxOjU5IFlhem91ZGlQYyBrZXJu
-ZWw6IHJ0Y19jbW9zIFBOUDBCMDA6MDA6IHNldHRpbmcgc3lzdGVtIGNsb2NrIHRvIDIwMjYtMTAt
-MzBUMDY6NTE6NTEgVVRDICgxNzkzMzQzMTExKQpPY3QgMzAgMTA6NTE6NTkgWWF6b3VkaVBjIGtl
-cm5lbDogcnRjX2Ntb3MgUE5QMEIwMDowMDogYWxhcm1zIHVwIHRvIG9uZSBtb250aCwgeTNrLCAx
-MTQgYnl0ZXMgbnZyYW0KT2N0IDMwIDEwOjUxOjU5IFlhem91ZGlQYyBrZXJuZWw6IEFDUEkgV2Fy
-bmluZzogU3lzdGVtSU8gcmFuZ2UgMHgwMDAwMDAwMDAwMDAwQjAwLTB4MDAwMDAwMDAwMDAwMEIw
-OCBjb25mbGljdHMgd2l0aCBPcFJlZ2lvbiAweDAwMDAwMDAwMDAwMDBCMDAtMHgwMDAwMDAwMDAw
-MDAwQjBGIChcR1NBMS5TTUJJKSAoMjAyNjA0MDgvdXRhZGRyZXNzLTIwNCkKT2N0IDMwIDEwOjUx
-OjU5IFlhem91ZGlQYyBrZXJuZWw6IEFDUEk6IE9TTDogUmVzb3VyY2UgY29uZmxpY3Q7IEFDUEkg
-c3VwcG9ydCBtaXNzaW5nIGZyb20gZHJpdmVyPwpPY3QgMzAgMTE6MjQ6MjUgWWF6b3VkaVBjIGtl
-cm5lbDogQUNQSSBXYXJuaW5nOiBTeXN0ZW1JTyByYW5nZSAweDAwMDAwMDAwMDAwMDBCMDAtMHgw
-MDAwMDAwMDAwMDAwQjA4IGNvbmZsaWN0cyB3aXRoIE9wUmVnaW9uIDB4MDAwMDAwMDAwMDAwMEIw
-MC0weDAwMDAwMDAwMDAwMDBCMEYgKFxHU0ExLlNNQkkpICgyMDI2MDQwOC91dGFkZHJlc3MtMjA0
-KQpPY3QgMzAgMTE6MjQ6MjUgWWF6b3VkaVBjIGtlcm5lbDogQUNQSTogT1NMOiBSZXNvdXJjZSBj
-b25mbGljdDsgQUNQSSBzdXBwb3J0IG1pc3NpbmcgZnJvbSBkcml2ZXI/Cg==
+在 2026/10/30 2:15, Reinette Chatre 写道:
+> Hi Jinjie,
+> 
+> There is no "force-freeing" of RMIDs. How about
+> 	fs/resctrl: Do not allocate a monitor context when releasing limbo RMIDs
+> 
+> On 10/29/26 1:15 AM, Jinjie Ruan wrote:
+>> __check_limbo() allocates the architecture monitor context before the
+>> scan loop, even when the domain is going offline and the RMIDs will
+>> be freed without reading their occupancy. So if the allocation fails,
+>> the offline path returns early and leaves the busy RMIDs in limbo
+>> which will be leaked instead of being released.
+> 
+> (please separate the context, problem, and solution descriptions).
 
---b1=_tas4pBrJGPaOHPqnjwdzTAuh5bgQkqaAUyBar8YW1vc--
+OK.
+
+> 
+> "will be leaked" is a bit vague to gain confidence that there is an issue here.
+> Compare with, for example, "The caller goes on to destroy the domain's
+> monitoring state, freeing the bitmap that records which RMIDs are busy,
+> so nothing can clear those bits afterwards and the busy counts never reach zero."
+> 
+> I think that there is an argument for this change even in the successful
+> allocation path. If I understand correctly MPAM's resctrl_arch_mon_ctx_alloc()
+> may need to block as it waits for a monitor? This would cause the CPU-offline
+> path to block on a counter that will never be read.
+
+I agree.
+
+> 
+>>
+>> Split out release_limbo_rmids() for the offline path, which doesn't need
+>> the monitor context.
+> 
+> Considering the shape of this fix and the "Fixes:" tag I think it may be
+> worth a mention that this is not a revert of the indicated commit. This change
+> maintains the intent of the original fix that avoids reading a counter in the
+> offline path.
+
+I agree.
+
+> 
+>>
+>> Cc: James Morse <james.morse@arm.com>
+>> Cc: Reinette Chatre <reinette.chatre@intel.com>
+>> Fixes: fc16126cc11d ("x86,fs/resctrl: Prevent out-of-bounds access while offlining CPU when SNC enabled")
+> 
+> The changelog is missing a clear description of the impact of this issue.
+> Nowhere does it mention that this only impacts MPAM and how likely this issue is. 
+
+Will add the description.
+
+> 
+> This is important because this "Fixes:" commit has a "Cc: <stable@kernel.org>" so
+> we need to help maintainers determine the impact of this issue to 
+> guide where, if at all, it needs to be backported.
+
+Thank you for the reminder.
+
+> 
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> ---
+>>  fs/resctrl/internal.h |  3 +-
+>>  fs/resctrl/monitor.c  | 69 ++++++++++++++++++++++++++++---------------
+>>  fs/resctrl/rdtgroup.c |  2 +-
+>>  3 files changed, 48 insertions(+), 26 deletions(-)
+>>
+>> diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
+>> index e62a277dee85..a1837679b27a 100644
+>> --- a/fs/resctrl/internal.h
+>> +++ b/fs/resctrl/internal.h
+>> @@ -405,7 +405,8 @@ void cqm_handle_limbo(struct work_struct *work);
+>>  
+>>  bool has_busy_rmid(struct rdt_l3_mon_domain *d);
+>>  
+>> -void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free);
+>> +void __check_limbo(struct rdt_l3_mon_domain *d);
+> 
+> Looks like __check_limbo() can be static now?
+> 
+>> +void release_limbo_rmids(struct rdt_l3_mon_domain *d);
+>>  
+>>  void resctrl_file_fflags_init(const char *config, unsigned long fflags);
+>>  
+>> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+>> index b8f4e1ff4083..020140b794a7 100644
+>> --- a/fs/resctrl/monitor.c
+>> +++ b/fs/resctrl/monitor.c
+>> @@ -124,13 +124,36 @@ static void limbo_release_entry(struct rmid_entry *entry)
+>>  		closid_num_dirty_rmid[entry->closid]--;
+>>  }
+>>  
+>> +/*
+>> + * Release the busy RMIDs of a domain that is going offline. Their occupancy
+>> + * can't be read any more, so they are freed without being checked.
+> 
+> Please document the function self, not the caller. Considering the comments in
+> resctrl_offline_mon_domain() the caller already does a good job at this.
+
+OK.
+
+> 
+> The "Their occupancy can't be read any more" also does not look right. I think
+> this claim is based on x86's cpumask_empty() guard in resctrl_arch_rmid_read(), for
+> x86 that does not actually mean that the occupancy cannot be read anymore, just that
+> the CPU may already been removed from the domain at that point. This is really
+> a platform specific detail that resctrl fs cannot assume.
+> 
+> How about something like:
+> 
+> 	/*
+> 	 * Release the RMIDs that are marked as busy for this domain without
+> 	 * checking their LLC occupancy. Cache lines may still be tagged with
+> 	 * these RMIDs and will be accounted to the next user of each RMID.
+> 	 */
+> 
+> I think such comment pairs well with the comment in the caller - it documents
+> the consequence that the caller documents it is willing to take.
+> 
+>> + */
+>> +void release_limbo_rmids(struct rdt_l3_mon_domain *d)
+>> +{
+>> +	u32 idx_limit = resctrl_arch_system_num_rmid_idx();
+>> +	struct rmid_entry *entry;
+>> +	u32 idx, cur_idx = 1;
+>> +
+>> +	for (;;) {
+>> +		idx = find_next_bit(d->rmid_busy_llc, idx_limit, cur_idx);
+>> +		if (idx >= idx_limit)
+>> +			break;
+>> +
+>> +		entry = __rmid_entry(idx);
+>> +		clear_bit(idx, d->rmid_busy_llc);
+>> +		if (!--entry->busy)
+>> +			limbo_release_entry(entry);
+>> +		cur_idx = idx + 1;
+>> +	}
+>> +}
+>> +
+>>  /*
+>>   * Check the RMIDs that are marked as busy for this domain. If the
+>>   * reported LLC occupancy is below the threshold clear the busy bit and
+>>   * decrement the count. If the busy count gets to zero on an RMID, we
+>>   * free the RMID
+>>   */
+>> -void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free)
+>> +void __check_limbo(struct rdt_l3_mon_domain *d)
+> 
+> Now __check_limbO() can be static?
+
+Yes
+
+> 
+>>  {
+>>  	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+>>  	u32 idx_limit = resctrl_arch_system_num_rmid_idx();
+>> @@ -161,30 +184,28 @@ void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free)
+>>  			break;
+> 
+> To be true to the fix I think the rmid_dirty initializer added by fc16126cc11d
+> can also be removed?
+> 	"bool rmid_dirty = true;" -> "bool rmid_dirty;"
+Yes
+
+> 
+>>  
+>>  		entry = __rmid_entry(idx);
+>> -		if (!force_free) {
+>> -			if (resctrl_arch_rmid_read(r, &d->hdr, entry->closid,
+>> -						   entry->rmid, QOS_L3_OCCUP_EVENT_ID,
+>> -						   arch_priv, &val, arch_mon_ctx)) {
+>> -				rmid_dirty = true;
+>> -			} else {
+>> -				rmid_dirty = (val >= resctrl_rmid_realloc_threshold);
+>> -
+>> -				/*
+>> -				 * x86's CLOSID and RMID are independent numbers,
+>> -				 * so the entry's CLOSID is an empty CLOSID
+>> -				 * (X86_RESCTRL_EMPTY_CLOSID). On Arm the RMID
+>> -				 * (PMG) extends the CLOSID (PARTID) space with
+>> -				 * bits that aren't used to select the configuration.
+>> -				 * It is thus necessary to track both CLOSID and
+>> -				 * RMID because there may be dependencies between
+>> -				 * them on some architectures.
+>> -				 */
+>> -				trace_mon_llc_occupancy_limbo(entry->closid, entry->rmid,
+>> -							      d->hdr.id, val);
+>> -			}
+>> +		if (resctrl_arch_rmid_read(r, &d->hdr, entry->closid,
+>> +					   entry->rmid, QOS_L3_OCCUP_EVENT_ID,
+>> +					   arch_priv, &val, arch_mon_ctx)) {
+>> +			rmid_dirty = true;
+>> +		} else {
+>> +			rmid_dirty = (val >= resctrl_rmid_realloc_threshold);
+>> +
+>> +			/*
+>> +			 * x86's CLOSID and RMID are independent numbers,
+>> +			 * so the entry's CLOSID is an empty CLOSID
+>> +			 * (X86_RESCTRL_EMPTY_CLOSID). On Arm the RMID
+>> +			 * (PMG) extends the CLOSID (PARTID) space with
+>> +			 * bits that aren't used to select the configuration.
+>> +			 * It is thus necessary to track both CLOSID and
+>> +			 * RMID because there may be dependencies between
+>> +			 * them on some architectures.
+>> +			 */
+>> +			trace_mon_llc_occupancy_limbo(entry->closid, entry->rmid,
+>> +						      d->hdr.id, val);
+>>  		}
+>>  
+>> -		if (force_free || !rmid_dirty) {
+>> +		if (!rmid_dirty) {
+>>  			clear_bit(idx, d->rmid_busy_llc);
+>>  			if (!--entry->busy)
+>>  				limbo_release_entry(entry);
+>> @@ -843,7 +864,7 @@ void cqm_handle_limbo(struct work_struct *work)
+>>  	if (cpumask_empty(&d->hdr.cpu_mask))
+>>  		goto out_unlock;
+>>  
+>> -	__check_limbo(d, false);
+>> +	__check_limbo(d);
+>>  
+>>  	if (has_busy_rmid(d)) {
+>>  		d->cqm_work_cpu = cpumask_any_housekeeping(&d->hdr.cpu_mask,
+>> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+>> index 57ab090072c2..5d0351453c2f 100644
+>> --- a/fs/resctrl/rdtgroup.c
+>> +++ b/fs/resctrl/rdtgroup.c
+>> @@ -4590,7 +4590,7 @@ void resctrl_offline_mon_domain(struct rdt_resource *r, struct rdt_domain_hdr *h
+>>  		 * the RMID as busy creates RMID leaks if the
+>>  		 * package never comes back.
+>>  		 */
+>> -		__check_limbo(d, true);
+>> +		release_limbo_rmids(d);
+>>  	}
+>>  
+>>  	domain_destroy_l3_mon_state(d);
+> 
+> Thank you very much.
+> 
+> Reinette
+
+-- 
+Best regards,
+Jinjie
 
