@@ -1,69 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793354233;
-	b=X13DusfrLCAEojHUe6s6KH8acD34bummf7mNM/SUpLgWhp/y/iv5KoVGp0yEZviqoBWo
-	 4lQROSOouAt2j/XPJlt/TOHTsXxDGPca8uNKNnOhnad7ss1dBY6Cdv8EXdImWYQ4xzdLU
-	 YJLdkaelmwUCK7NowD+opOumrM+Inh5oa8ffRFojFFWs3H5JaLsIxuZpigyVwm56IDNzI
-	 TfSuWN7+P+DvRX+H/OM56kCpq4hXq5mNxj02rY3SB7bY9O8xRiENJQ9yBx5g6EfPwo0OT
-	 NwOFukqBC+cFWFyWiBJq4849z6s1gPidJ56X6C8whtlIeotwWJqWcyTUS/nJUB4fRgA==
+	t=1793354290;
+	b=NpyDX+9xPFRVRwpoM1s4ziNidlf0rm5nM318aUigt53jfjZeLbtNwRm8Oy+IpRGymttk
+	 n3QPQ9PItmEfCKgKGl/QZQZYMFZ99UuZ6bxK/4VAtr/UysY4B9FBTO7sj9qFikrKYrczm
+	 jdqk6pCuZirxG7SaSo8xzfa2Mu15UM1VyHDojl0HJwiJui1pH5Ykz27PdFAAcCjQ+8gr1
+	 sJyMLz34aU5XNPDu7qfEoNxAPcUx6a4nkiAU2wYa8Mi0S2YiAdv1qeU8Qs974vM125W2K
+	 IqiJvZv1HwO7uLV09EAdMMo0D39/N2JqRcPbtgT99Et5lyMLgUVdfvgQFFe3W03PyWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793354233;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=3LbVNazfsM2Q58uvglFiW/vriTAOOIBvjojRRPEHqxo=;
-	b=yhrbLZsfu4BG2fwXFAv6uWPOs/BZCU9B/OAs2B2YTs1nzAbibzLY7pLDjNnKKAdSydx5
-	 Su54p+FRW0I9oP0EyodkzGlF7R7MI3BmYN3MiHuG4C/JbMZFEu5h1By4DhGbr4udbt4Zz
-	 giWPa9fE0eDv4t92QfcGcDhsBa+TW0TBSodnLGqbqFIftJh/o7sG7OiX/fWzWH5MFVVOm
-	 q84kapwLAWLluShnDQoAbRWqIFzAWpk+8iNesK+abyPeFDZms4VnoxpozqWkDlAAmCELA
-	 hvmLxRs0/xElaYRhz7mqLI4FS4hmPNqrap2WReGXlrZPi4NqMspMPSBgYnRGV/eYDGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793354290;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=yNhU8GgQUg1o1nYtT+CT1yyH9rXOeQLdJVtY/2QBf5A=;
+	b=q1FmW3Wss8gMoATdj83uJZXI5DSGuPIoz+I+fcvQebUHHWaLnuymarszErZxPqKefyQu
+	 K0Qhn4QvViHWZVz1USFmM/F0imWCKvYXGZIGUvZ+bpII86rFsl+xjm6YKy5ysYGIz88Ep
+	 hPggQJATvhTTxtOmvg2xBA6mD7u3BsX+gqQoFwrjG2Egc+PPBfWM9JLs7sziLyt1n4Miw
+	 kk96hYdr2valgxaQ0TfuiIl//rAq8s2KrAIFBW253amThvF+D4PJTjkycozEytvnEMsad
+	 MHxKM4sQtCako66FhohhTTjnhx45EITKfOyZ9Ll5EHfMMYJJ5atdk0bpf0vB07KqEbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=HrTp8XDQ;
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NtvUXfff;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D12606A31A;
-	Fri, 30 Oct 2026 09:57:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4D12606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0486606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:58:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0486606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=HrTp8XDQ
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=3LbVNazfsM2Q58uvglFiW/vriTAOOIBvjojRRPEHqxo=;
-	b=HrTp8XDQT36oRONc80FvbEkqe4m7Uu9eM7wemgh/69KBC+batmrXbtVyqodIKmG6GaOG8nDZX
-	Ro9zkJSlnQKdHLxyRSf+jXH1BVbtDtZ2c2+jnxGZMf7K2XB6eWNKJrHX3E9ICRI1lo45ieYrrTp
-	42n8JvWOa6okm/bnJgTtVFQ=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jGGj940qNz1cySS;
-	Fri, 30 Oct 2026 17:57:01 +0800 (CST)
-Received: from kwepemo500018.china.huawei.com (unknown [7.202.195.199])
-	by mail.maildlp.com (Postfix) with ESMTPS id 8D30C4057A;
-	Fri, 30 Oct 2026 17:57:09 +0800 (CST)
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemo500018.china.huawei.com (7.202.195.199) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 30 Oct 2026 17:57:08 +0800
-From: Jijie Shao <shaojijie@huawei.com>
-To: <davem@davemloft.net>, <edumazet@kernel.org>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <andrew+netdev@lunn.ch>
-CC: <shenjian15@huawei.com>, <liuyonglong@huawei.com>,
-	<chenhao418@huawei.com>, <yangshuaisong@h-partners.com>,
-	<ningwei15@huawei.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <shaojijie@huawei.com>
-Subject: [PATCH v3 net 2/4] net: hns3: fix page_pool leak in hns3_alloc_ring_memory error path
-Date: Fri, 30 Oct 2026 17:56:31 +0800
-Message-ID: <20261030095633.377289-3-shaojijie@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261030095633.377289-1-shaojijie@huawei.com>
-References: <20261030095633.377289-1-shaojijie@huawei.com>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NtvUXfff
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261030095806euoutp02c42f1093943f5c7738a484c847e0820c~jRjjWIxMS1380313803euoutp02G
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:58:06 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261030095806euoutp02c42f1093943f5c7738a484c847e0820c~jRjjWIxMS1380313803euoutp02G
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793354286;
+	bh=yNhU8GgQUg1o1nYtT+CT1yyH9rXOeQLdJVtY/2QBf5A=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=NtvUXfff5dKjwBX0uM7X8ZM/3/RbE2GOv0oE+FmvpIbQNd3CHiOOEO4VCDVdLDCJh
+	 wXiSS4SadpXPwkLFCjZFTahhsAikSSMdcmoPyeBU7QSd3ZjrRRQ73pTT3c7eqLKjyG
+	 d9ZofaBWa24bwsKrH1ZIERUYMC9SzueXqIg4BGmo=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261030095806eucas1p1227bd86bd46487d5dfdbe36bd4df8e94~jRjjGqrbL2917029170eucas1p1k;
+	Fri, 30 Oct 2026 09:58:06 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261030095805eusmtip1ac47d4a4931e52d5610654736cf914b2~jRjik2heC1953319533eusmtip1E;
+	Fri, 30 Oct 2026 09:58:05 +0000 (GMT)
+Message-ID: <01841455-880c-4477-ac69-ea8c117cc6cd@samsung.com>
+Date: Fri, 30 Oct 2026 10:58:05 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,41 +64,243 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemo500018.china.huawei.com (7.202.195.199)
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v5 1/4] gpio: shared-proxy: Fix race between concurrent
+ first users
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>, Linus Walleij
+	<linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20261028123448.510401-2-shengchao.guo@oss.qualcomm.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261030095806eucas1p1227bd86bd46487d5dfdbe36bd4df8e94
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261030095806eucas1p1227bd86bd46487d5dfdbe36bd4df8e94
+X-EPHeader: CA
+X-CMS-RootMailID: 20261030095806eucas1p1227bd86bd46487d5dfdbe36bd4df8e94
+References: <20261028123448.510401-1-shengchao.guo@oss.qualcomm.com>
+	<20261028123448.510401-2-shengchao.guo@oss.qualcomm.com>
+	<CGME20261030095806eucas1p1227bd86bd46487d5dfdbe36bd4df8e94@eucas1p1.samsung.com>
 
-In hns3_alloc_ring_memory(), when hns3_alloc_ring_buffers() fails for
-an RX ring, the error path jumps to out_with_desc, which frees the
-descriptor ring but does not destroy the page_pool that was just
-allocated by hns3_alloc_page_pool(). The page_pool and its pages are
-leaked.
+On 28.10.2026 13:34, Shawn Guo wrote:
+> The proxy lets a consumer set the line direction and reset the
+> default value and vote tally only when usecnt == 1, i.e. when it is
+> the sole requester. But request() and direction_output() take the
+> descriptor mutex separately. When two consumers probe concurrently,
+> both request the line before either configures it, both see
+> usecnt == 2, both fall into the shared path, read back the still
+> unconfigured direction (input) and fail with -EPERM.
+>
+> On Nord RRD the two DAC supplies are reg-fixed-voltage regulators
+> sharing tlmm GPIO 41. They probe asynchronously and intermittently
+> both fail, leaving the codecs without supplies:
+>
+>   reg-fixed-voltage regulator-3p3-dac: setup of GPIO (default) failed: -1
+>   reg-fixed-voltage regulator-5p0-dac: setup of GPIO (default) failed: -1
+>
+> Requesting the line is not evidence that a consumer has claimed it.
+> Instead, count proxies that have actually configured the line (set its
+> direction or voted for a value) in a new cfgcnt, with a per-proxy
+> configured flag, and allow (re)initialization only while no other
+> proxy has done so. A consumer obtained with GPIOD_ASIS that votes via
+> gpiod_set_value() without ever setting the direction counts as
+> configured, so a later user can never reset def_val/votecnt behind its
+> vote. The count is dropped when the proxy frees the line.
+>
+> Fixes: e992d54c6f97 ("gpio: shared-proxy: implement the shared GPIO proxy driver")
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-Add page_pool_destroy() to the out_with_desc error path, guarded by
-a NULL check, mirroring the cleanup done in hns3_free_ring_memory().
+I've hit the same issue on RUBIK Pi3 board, see:
 
-Fixes: 93188e9642c3 ("net: hns3: support skb's frag page recycling based on page pool")
-Signed-off-by: Jijie Shao <shaojijie@huawei.com>
----
- drivers/net/ethernet/hisilicon/hns3/hns3_enet.c | 4 ++++
- 1 file changed, 4 insertions(+)
+https://lore.kernel.org/all/20261028222803.2682808-1-m.szyprowski@samsung.com/
 
-diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c b/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-index 2f3aeade558c..024d435ab62b 100644
---- a/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-+++ b/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-@@ -5078,6 +5078,10 @@ static int hns3_alloc_ring_memory(struct hns3_enet_ring *ring)
- 	return 0;
- 
- out_with_desc:
-+	if (!HNAE3_IS_TX_RING(ring) && ring->page_pool) {
-+		page_pool_destroy(ring->page_pool);
-+		ring->page_pool = NULL;
-+	}
- 	hns3_free_desc(ring);
- out_with_desc_cb:
- 	devm_kfree(ring_to_dev(ring), ring->desc_cb);
+This patch fixes it, so feel free to add:
+
+Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+
+
+> ---
+>  drivers/gpio/gpio-shared-proxy.c | 78 ++++++++++++++++++++++++++++----
+>  drivers/gpio/gpiolib-shared.h    |  1 +
+>  2 files changed, 70 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpio/gpio-shared-proxy.c b/drivers/gpio/gpio-shared-proxy.c
+> index bc69b8729d19..2e9ccd8a8d83 100644
+> --- a/drivers/gpio/gpio-shared-proxy.c
+> +++ b/drivers/gpio/gpio-shared-proxy.c
+> @@ -21,9 +21,37 @@ struct gpio_shared_proxy_data {
+>  	struct gpio_chip gc;
+>  	struct gpio_shared_desc *shared_desc;
+>  	struct device *dev;
+> +	bool configured;
+>  	bool voted_change;
+>  };
+>  
+> +/*
+> + * A proxy may (re)initialize the line - set its direction and reset the
+> + * default value and the vote tally - only while no other proxy has set the
+> + * direction or voted for a value. Requesting the line is not enough: consumers
+> + * may request concurrently, so counting requests lets every one of them
+> + * conclude that it is not first.
+> + */
+> +static bool gpio_shared_proxy_may_init(struct gpio_shared_proxy_data *proxy)
+> +{
+> +	unsigned int cfgcnt = proxy->shared_desc->cfgcnt;
+> +
+> +	lockdep_assert_held(&proxy->shared_desc->mutex);
+> +
+> +	return !cfgcnt || (cfgcnt == 1 && proxy->configured);
+> +}
+> +
+> +static void gpio_shared_proxy_mark_configured(struct gpio_shared_proxy_data *proxy)
+> +{
+> +	lockdep_assert_held(&proxy->shared_desc->mutex);
+> +
+> +	if (proxy->configured)
+> +		return;
+> +
+> +	proxy->configured = true;
+> +	proxy->shared_desc->cfgcnt++;
+> +}
+> +
+>  static int
+>  gpio_shared_proxy_set_unlocked(struct gpio_shared_proxy_data *proxy, int value)
+>  {
+> @@ -117,6 +145,11 @@ static void gpio_shared_proxy_free(struct gpio_chip *gc, unsigned int offset)
+>  
+>  	proxy->shared_desc->usecnt--;
+>  
+> +	if (proxy->configured) {
+> +		proxy->configured = false;
+> +		shared_desc->cfgcnt--;
+> +	}
+> +
+>  	dev_dbg(proxy->dev, "Shared GPIO freed, number of users: %u\n",
+>  		proxy->shared_desc->usecnt);
+>  }
+> @@ -131,7 +164,7 @@ static int gpio_shared_proxy_set_config(struct gpio_chip *gc,
+>  
+>  	guard(mutex)(&shared_desc->mutex);
+>  
+> -	if (shared_desc->usecnt > 1) {
+> +	if (!gpio_shared_proxy_may_init(proxy)) {
+>  		if (shared_desc->cfg != cfg) {
+>  			dev_dbg(proxy->dev,
+>  				"Shared GPIO's configuration already set, accepting changes but users may conflict!!\n");
+> @@ -155,15 +188,21 @@ static int gpio_shared_proxy_direction_input(struct gpio_chip *gc,
+>  	struct gpio_shared_proxy_data *proxy = gpiochip_get_data(gc);
+>  	struct gpio_shared_desc *shared_desc = proxy->shared_desc;
+>  	struct gpio_desc *desc = shared_desc->desc;
+> -	int dir;
+> +	int ret, dir;
+>  
+>  	guard(mutex)(&shared_desc->mutex);
+>  
+> -	if (shared_desc->usecnt == 1) {
+> +	if (gpio_shared_proxy_may_init(proxy)) {
+>  		dev_dbg(proxy->dev,
+> -			"Only one user of this shared GPIO, allowing to set direction to input\n");
+> +			"No other user configured this shared GPIO, allowing to set direction to input\n");
+>  
+> -		return gpiod_direction_input(desc);
+> +		ret = gpiod_direction_input(desc);
+> +		if (ret)
+> +			return ret;
+> +
+> +		gpio_shared_proxy_mark_configured(proxy);
+> +
+> +		return 0;
+>  	}
+>  
+>  	dir = gpiod_get_direction(desc);
+> @@ -176,6 +215,8 @@ static int gpio_shared_proxy_direction_input(struct gpio_chip *gc,
+>  		return -EPERM;
+>  	}
+>  
+> +	gpio_shared_proxy_mark_configured(proxy);
+> +
+>  	return 0;
+>  }
+>  
+> @@ -189,18 +230,20 @@ static int gpio_shared_proxy_direction_output(struct gpio_chip *gc,
+>  
+>  	guard(mutex)(&shared_desc->mutex);
+>  
+> -	if (shared_desc->usecnt == 1) {
+> +	if (gpio_shared_proxy_may_init(proxy)) {
+>  		dev_dbg(proxy->dev,
+> -			"Only one user of this shared GPIO, allowing to set direction to output with value '%s'\n",
+> +			"No other user configured this shared GPIO, allowing to set direction to output with value '%s'\n",
+>  			str_high_low(value));
+>  
+>  		ret = gpiod_direction_output(desc, value);
+>  		if (ret)
+>  			return ret;
+>  
+> +		/* Only this proxy can have voted, so the tally is ours to reset */
+>  		shared_desc->def_val = value;
+>  		shared_desc->votecnt = 0;
+>  		proxy->voted_change = false;
+> +		gpio_shared_proxy_mark_configured(proxy);
+>  
+>  		return 0;
+>  	}
+> @@ -215,7 +258,13 @@ static int gpio_shared_proxy_direction_output(struct gpio_chip *gc,
+>  		return -EPERM;
+>  	}
+>  
+> -	return gpio_shared_proxy_set_unlocked(proxy, value);
+> +	ret = gpio_shared_proxy_set_unlocked(proxy, value);
+> +	if (ret)
+> +		return ret;
+> +
+> +	gpio_shared_proxy_mark_configured(proxy);
+> +
+> +	return 0;
+>  }
+>  
+>  static int gpio_shared_proxy_get_cansleep(struct gpio_chip *gc,
+> @@ -230,10 +279,21 @@ static int gpio_shared_proxy_set_cansleep(struct gpio_chip *gc,
+>  					  unsigned int offset, int value)
+>  {
+>  	struct gpio_shared_proxy_data *proxy = gpiochip_get_data(gc);
+> +	int ret;
+>  
+>  	guard(mutex)(&proxy->shared_desc->mutex);
+>  
+> -	return gpio_shared_proxy_set_unlocked(proxy, value);
+> +	/*
+> +	 * A GPIOD_ASIS consumer may vote without ever setting the direction;
+> +	 * count it as configured so a later user can't reset its vote.
+> +	 */
+> +	ret = gpio_shared_proxy_set_unlocked(proxy, value);
+> +	if (ret)
+> +		return ret;
+> +
+> +	gpio_shared_proxy_mark_configured(proxy);
+> +
+> +	return 0;
+>  }
+>  
+>  static int gpio_shared_proxy_get_direction(struct gpio_chip *gc,
+> diff --git a/drivers/gpio/gpiolib-shared.h b/drivers/gpio/gpiolib-shared.h
+> index 618756f6c6aa..ae10506b7029 100644
+> --- a/drivers/gpio/gpiolib-shared.h
+> +++ b/drivers/gpio/gpiolib-shared.h
+> @@ -41,6 +41,7 @@ struct gpio_shared_desc {
+>  	struct gpio_desc *desc;
+>  	unsigned long cfg;
+>  	unsigned int usecnt;
+> +	unsigned int cfgcnt;
+>  	unsigned int votecnt;
+>  	int def_val;
+>  	struct mutex mutex; /* serializes all proxy operations on this descriptor */
+
+Best regards
 -- 
-2.43.0
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
