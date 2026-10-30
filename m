@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793379289;
-	b=f0tVkFREDfHiQXxAEOcw5Yf3f1Sw0OH7NJVThBlRN3NNBKQLePPK64PBF/n9An1YRdMt
-	 MEYv/q/jS/6OkOozSTXBvpnlKHQlTbCnjG5UfUsHt8NVTlyEplK/oipqT+AwcBuTxAlf9
-	 wdxEpWmtKmb8A70iYB+T6p2eTIFFHFWbeGuiBqbQVVNvqyQ/dvL7auiC2KKGcqdZ8O9im
-	 +Bban8u89JLgPDOpFEpYDC3I5rjhHF8thyqr0Qrs5QZDcUl0w84VIZWSBf1cO2LqRcCTp
-	 q2D+9KXJjJ7EfiuF7XYGCt2J6qt6VBJMjZt7U+P1YhkYrJxhBpf8oO4+JwTrR7Rt1fQ==
+	t=1793379312;
+	b=2W3wh0qkkWa/bFyBQDF/+hGu1MgcMG+BxsbbfTHHww8uUTmSQIgPbmjgqtAHY8pKgWkz
+	 z+htfz9Kf9sVbWZaJDCFH1M8d5SWgv4hBbzlobZJbpD9pGDNVzoXjSx6cZOlBez9Eo4aN
+	 T7C9bXzDlx06UuEkLwYiHhERqBuwAD0IBB4gzmB87je6F39IbzIDgl/AQB/W4zDd0CfL+
+	 6xaBXNTl6/UQVfrAoYRa6tpv7w0mRIdtJxzpzxtWPOpb8O5qHdySPqVDO7HpL5pP+Yjsn
+	 p3JeRnh3VfWs4vFF0kBo1Is+yoJY3eDUlwbTgPjC+DL3148gNmHHKwUxaKwTU8rlpCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793379289;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=5WYmI41jGKmU+EPTuiD4Bw81iGR/uGmO2ZB/q9TxT5c=;
-	b=zLI4llHrlDSquC1dJ8UC0jBuatNxtsF1X+kxrM3q0n/vynNU2n8Mr28oSJ7wsVak7SsW
-	 LFZyhP9LpbEdc90i8525mzRrQ59IJNDxBE07ymI7GqAydqINzbiVHskObyo6TfEYvKlpk
-	 Zd5UV3phwWBk6qGDIvRQ+IgUI51rhY/aa8UZt9P1zFPpvdB42jdWxarnoqU+6sUgmmVtp
-	 kNEaBuJSCpd6nkouKTPRHJYEYcJpYJKaggpYI8tpo7GSUjLk8g1Akd7CcoVoWfnIoQvZq
-	 kxGrFicdAPkn2kMdQmkJZpPCKwghFsSCeE1nQM4c6u86jyb7jxdraJw40tUHUg6skRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793379312;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=GctUwbYvSK3roB7Vn59UFzSO9QPBJxnr3dgZFkrkbz0=;
+	b=oL2K8fBOH+RQbEx2026WACSSZ5alzxut0WiYi2eoRYElP9IG/yZl/DJe9v6owycyFgby
+	 M1Vw/XAQPzUQ4R0z5nyPMh/5qyT72qpMOcxCZKvLkE/lDawOY9DcNyJCoExKX6ZORffjl
+	 cj/oP5oFqkwp0Lnr8JXfF47T3pt1QAaen9w8WMjh/ndJWLDTrcXEl4l5NEq64eJpTdhxn
+	 dp7Q9FgUmQMzPlnQjFswHp3x4qoPf3J/C7kOXnySoiItnPch0K6CwCS5UItJLuiNEoje4
+	 7crHfN3z9Ulw9KwY9Hus015/TzjoZVvyf2YJh5MYEe58IsIHkMNjXJGK7f76TX47GlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=crJIttWt;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aIK1O+sA;
+	arc=none smtp.remote-ip=209.85.210.171
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54C3606A31F;
-	Fri, 30 Oct 2026 16:54:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D54C3606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82DDB60A2620
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:55:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82DDB60A2620
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=crJIttWt
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 52f74f123;
-	Sat, 31 Oct 2026 00:54:44 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,
-	stable@vger.kernel.org,
-	Andy Walls <awalls@md.metrocast.net>,
-	linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aIK1O+sA
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so574386b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:55:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793379312; x=1793984112; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GctUwbYvSK3roB7Vn59UFzSO9QPBJxnr3dgZFkrkbz0=;
+        b=aIK1O+sAVUXAbQJ39O4mLW7XWKjeuGi69KLNSqe7baImJ641MkuB5xHEj4vC2xQ3RM
+         CvkIF0XU3kPDe+1UrmUZEVjvV/vKFn16F1awRkok93DTriChkXpHosIe+fS+1DpHmPEq
+         Ij3l3NffXixugYs1KPAYf+h10uE/Kr1YulcKhVy69X3pV7KweOpsQdBBEouG51MQCzIv
+         e2Uv0VdIN01ktblRX2xMic4Aqo2hWKRJNKnt4M7d20YW1zxUcYEmsQSBOBwkMIH9Q6+d
+         T/2YCthH2KyLvgfQ6iBQnYjEZyym6z7K/7aHZWJ/Kdj9c3l4+OsH6ikBGs0vQYFK4Pki
+         l5aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793379312; x=1793984112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GctUwbYvSK3roB7Vn59UFzSO9QPBJxnr3dgZFkrkbz0=;
+        b=ZM2nXQ8VeBywNjJzX8WSkpCSl1BEJ5uxpGTb3SE5JlnjETPmMGoUmG+pmxWnE60ahv
+         5B4clzUCRrLSNvp7B760il+528wBSiZapAQTYWZ59So3ryHxmfNapK2Df1x3P6YJVoXO
+         x7oWXlTz0yLb9oQetZBOeJwDSo/k0dUd7Mj5o8UWBuqBVxIfqBysn3jX0gY3ZN3fHHcf
+         H6UuKzqRkrP4raaO6jxMKEN/5GWLSgwwFM3kISP7Jim/WkogWXNFDV3WWwYsHZFmwSVj
+         6kkyQSbU6BKuJRaX1KlkolfsAWo3YdiT4gOASC0Utio0tDL+UclpHOyw2W/ubG7X6/yP
+         569Q==
+X-Forwarded-Encrypted: i=1; AKwUvByBHNn1rfyJBNzM/98WaH9OpLFXkW7uRe9JPQfc2H1hE96dnykmYwAidPJwd3nzUUPBje+Kq+gstE1rBOE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBgXUXlFKJUr+XVHXpUNs+NzLTRP5daUm7qCgScMf5AXp5ho2C
+	Hocn798OYvbBH2yitYSOLYuoa+LuiGZUxuuVzKl0MWiWXKvkwkEm7Undc0rNqQCd
+X-Gm-Gg: AYBFou2G8EOjkzktd5kcWNvDV/9cW2FBDNi7AvMuskLYPZ0jmkhOET+Xe1UZEbAo77I
+	1b/YewM8I40/9rd1DrCmo+ISN/dmZe1S63mFf++bqM87Qbkkvabkiu8FBi42XSBICMHz7eYWvSS
+	KovrZVvqDrECrmmOT5xKqx+n89OJPUMweJjFwWooL9+IAIKIGvTlL1a1dxVM0PF0VipPwx3zuXd
+	/3cMJF1Aeg6WXafa8rPPp7Md2QiHaCz2Q21LVvkp5gX2LnOsxQyot5NjHL6i4IT3zaTn8OswGxu
+	zulxrm6mDKS1L82BIn/PqAwrVv1UEzpwBxttM4pjTNT0fDnctl7fxpmvdzv6LlyZnAprIs3ng4c
+	JVsYn/9KlupOiQ4Te0O9JBweKKDMx4GHjVrfMgqesmeIwY/lojAJj78Ybid5MeYS8gheQacvaG3
+	qTtmML/Go9qf2a+lLbXhaafEbUYF7FcN1G7niP45jzAUSfIDaazo0ipSAdA9w1vTli/QeeA6dW+
+	5q4unmcBT2pmEgxDRtbpxwYkvu8+UqzdtBqbVo/rRAMsSn31FdXXqo/7maz+abx7zbTusWBy/Jd
+	h4z6X+elNBgLFoEDBPkmx/JufRgtmjPCZHpU0fdm/q+XkIs4fWid/Ov2y3HVg431j52yzdkTHol
+	UtKc/XA==
+X-Received: by 2002:a05:6a00:2906:b0:886:5eb6:dea4 with SMTP id d2e1a72fcca58-8a8317dd93amr4216703b3a.17.1793379311688;
+        Fri, 30 Oct 2026 09:55:11 -0700 (PDT)
+Received: from hostname.tail4fb79.ts.net ([2401:7400:c804:b668:65cc:625f:9c43:1e88])
+        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-8aad963d6acsm272873b3a.18.2026.10.30.09.55.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 09:55:11 -0700 (PDT)
+From: Ho Jie Feng <hjf3108@gmail.com>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
+	Ho Jie Feng <hjf3108@gmail.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	neo_jou <neo_jou@realtek.com>,
+	Hans Ulli Kroll <linux@ulli-kroll.de>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] media: cx18: Fix potential double free on ALSA initialization failure
-Date: Sat, 31 Oct 2026 00:54:40 +0800
-Message-ID: <4d2f79a4ef95eaaf9d4035a864153310254c5781.1793377439.git.liguangshuo@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1793377439.media.git.liguangshuo@mail.sdu.edu.cn>
-References: <cover.1793377439.media.git.liguangshuo@mail.sdu.edu.cn>
+Subject: [PATCH rtw-next v3] wifi: rtw88: usb: don't report the aggregation buffer as a frame
+Date: Sat, 31 Oct 2026 00:54:50 +0800
+Message-ID: <20261030165451.365591-1-hjf3108@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,45 +101,74 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa18dbc369b03a1kunm4d3d9b7e52a3c
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTxpLVkMZHU0aTR0aTkpLH1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
-	++
-DKIM-Signature: a=rsa-sha256;
-	b=crJIttWt8Py+5azu9dF7kROzT+3/uQBNIIHtsk82+CV/+KAsEA2xM6PItdxFPuxlVHyq906J5AGMHFLxEt8g0Ev8FIZ0+GfosVVLyEJXd8k4TsnQdYNLfSHCJ0DrVLrYevKMjZdnRe0+4Ij2KUNX5qthHWV0Fq8YWLgl0evwXLk=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=5WYmI41jGKmU+EPTuiD4Bw81iGR/uGmO2ZB/q9TxT5c=;
-	h=date:mime-version:subject:message-id:from;
 
-After snd_cx18_card_create() succeeds, the card's private_free callback
-owns cxsc. snd_card_free() already invokes that callback on subsequent
-initialization failures, so the explicit kfree() frees cxsc twice.
+When rtw_usb_tx_agg_skb() has more than one frame queued, it copies them
+into a new buffer. That buffer was also handed to mac80211, as one
+additional TX completion.
 
-Remove the redundant free.
+Report TX status only for the original frames, and free the aggregate
+buffer without passing it to mac80211.
 
-This issue was found by our static analysis tool under development.
-
-Fixes: 2c87d9db46d1 ("[media] drivers/media/video: fix memory leak of snd_cx18_init()")
-Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:gpt-6-astra
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
+Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
 ---
-Build-tested the changed object with x86_64 allmodconfig.
-No runtime or fault-injection testing was performed.
+Changes in v3:
+- Change to dev_consume_skb_any from a suggestion by Luka Gejak
+Changes in v2:
+- Remove unused drv_frame members in structs
 
- drivers/media/pci/cx18/cx18-alsa-main.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/net/wireless/realtek/rtw88/usb.c | 9 +++++++++
+ drivers/net/wireless/realtek/rtw88/usb.h | 1 +
+ 2 files changed, 10 insertions(+)
 
-diff --git a/drivers/media/pci/cx18/cx18-alsa-main.c b/drivers/media/pci/cx18/cx18-alsa-main.c
-index b77f5375f3ff..7fe538621d4e 100644
---- a/drivers/media/pci/cx18/cx18-alsa-main.c
-+++ b/drivers/media/pci/cx18/cx18-alsa-main.c
-@@ -171,7 +171,6 @@ static int snd_cx18_init(struct v4l2_device *v4l2_dev)
- err_exit_free:
- 	if (sc != NULL)
- 		snd_card_free(sc);
--	kfree(cxsc);
- err_exit:
- 	return ret;
- }
+diff --git a/drivers/net/wireless/realtek/rtw88/usb.c b/drivers/net/wireless/realtek/rtw88/usb.c
+index 715a2ce342d92..10f6d3bea0dfd 100644
+--- a/drivers/net/wireless/realtek/rtw88/usb.c
++++ b/drivers/net/wireless/realtek/rtw88/usb.c
+@@ -342,6 +342,11 @@ static void rtw_usb_write_port_tx_complete(struct urb *urb)
+ 
+ 		skb_pull(skb, rtwdev->chip->tx_pkt_desc_sz);
+ 
++		if (tx_data->drv_frame) {
++			dev_consume_skb_any(skb);
++			continue;
++		}
++
+ 		/* enqueue to wait for tx report */
+ 		if (info->flags & IEEE80211_TX_CTL_REQ_TX_STATUS) {
+ 			rtw_tx_report_enqueue(rtwdev, skb, tx_data->sn);
+@@ -431,6 +436,9 @@ static bool rtw_usb_tx_agg_skb(struct rtw_usb *rtwusb, struct sk_buff_head *list
+ 		goto queue;
+ 	}
+ 
++	/* report TX status only for the original frames */
++	rtw_usb_get_tx_data(skb_head)->drv_frame = true;
++
+ 	while (skb_iter) {
+ 		unsigned long flags;
+ 
+@@ -655,6 +663,7 @@ static int rtw_usb_tx_write(struct rtw_dev *rtwdev,
+ 	rtw_tx_fill_txdesc_checksum(rtwdev, pkt_info, skb->data);
+ 	tx_data = rtw_usb_get_tx_data(skb);
+ 	tx_data->sn = pkt_info->sn;
++	tx_data->drv_frame = false;
+ 
+ 	skb_queue_tail(&rtwusb->tx_queue[ep], skb);
+ 
+diff --git a/drivers/net/wireless/realtek/rtw88/usb.h b/drivers/net/wireless/realtek/rtw88/usb.h
+index 94ff21dd08463..e861e9a66ab22 100644
+--- a/drivers/net/wireless/realtek/rtw88/usb.h
++++ b/drivers/net/wireless/realtek/rtw88/usb.h
+@@ -59,6 +59,7 @@ struct rx_usb_ctrl_block {
+ 
+ struct rtw_usb_tx_data {
+ 	u8 sn;
++	bool drv_frame;
+ };
+ 
+ struct rtw_usb {
+
+base-commit: 9b0be45d4d52fd223994e151f169743a97abd290
+-- 
+2.55.0
+
