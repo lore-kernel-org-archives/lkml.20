@@ -1,98 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793361751;
-	b=1ThrdXvG53lCcvgkoOLgB+CeXGUCLwTt9w9z5CwiHwobXuJn33eyDXUq0AWiWFYbpDIT
-	 GyiyhypVjJ+6CyNtT9x29iNTmrZEFTPbJegnA+Ti8LIXrLJ143VDPC9A9OOX3AR14QkBR
-	 74SKSb8Pc0s2qecWGAn1tir2iyrkWWpN46/c0m243xW8fSrgdkgClGOumyd4q0qcJzCYZ
-	 HIgKtSeXQ9ZPuqk/ov23ntY0MeiWLZLSzq7c0jnisQaedhOUzMuO/g9JUd44lRQxl+icD
-	 FyihUBaUi0zvH6NDwUsE07tw617/Y7pUydSfcR0PEMKgzU3POuBPEDzsUkh4bgE3kBQ==
+	t=1793361767;
+	b=WBo0x0E4wKU1AQ6Qa5uhxZUlQUbUSate3mCKd3X6KCoHKGdUVtJ/Sc/9+oCMxq7LrNkn
+	 DNPrPp7fX4E/9TiQQNMcQuvIjpCoPenq5zZqP5IBNxhGqelnv39CEQq67pK3zzcqdto7U
+	 JQyB1QxLVJDa5ffvmXYX9o/MxenFF6NKIdgP6wfGLW9e58fEYu7rH3e412fNpmPImJJiO
+	 eaABuHR5Zcx9j0c98e0gd++nA5QiO7PJXG8HuwfJJP8IaZmaXiDTdHeNLGUMAyEtgD6mg
+	 KAlR0CmJYLqlIZNZ6tyxt1DKtqqeyoiUiPA2D+Jm99ocT3ObrOBsIEs/mA8Eul+x9IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793361751;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=JzqXssl8m3HG14RseNxta+R2J2slfsX+aAyBTx3LA54=;
-	b=yQjswSbLB0/Qg7AwDClfKrErv4JaYluuuat9gFAK2d7szn5zz/3tpCtoEVLkWE59jVzz
-	 VF/Ad9KM/MwJ2CkuClgluBMFZ3lzFSPWFc4eGUKkfexULK7sJJOC0W9fpUXVIW2lCfbUw
-	 /WfUSEZtCT9zAS8m7KMqbFpYK2NcrujI2UT/GKzI7hTL7tBt0cz/5MzlbE6jEs8c7l6md
-	 lVMN57FdhkKig+OUC/7W6KlZ2XrqSPXIdY4F7a/OChmFs0gPGzfvQnnUqeoZoX69TrQ7/
-	 5OrSgz6aVIrRvUzNofAAxn1lyJ6N0PH1tvoZr3K3kaZHYa1EOd7nnT0CGk86T7nirYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793361767;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=1PqmSpniIkR3UNsRisiiNe9YBl0Z5BurrhZSnr/D9fs=;
+	b=1D182iZf6aIzZ/PByhIbY1Cu0uACAwG7e8Xi0U47iclazyfXFjnIj9P+dPX/DeL5YjFH
+	 Y3atW/wSFDKy089+N3YrMQkAeE0OSqEFHpkOw/wNSqacP2qUKsleo8fvB/bmNcPxr+XKR
+	 zvsqmwdgWXRqK4tgi/B5tHdSH9bhK6JFiFDPJ4WOb0vpcbnfAtt4f7sv3s0DQQ+WyLJPR
+	 S2QBPpi380P7kVS8v1Q43ImoO+l2u2Ey4SO/cuUVSfJid9PBRAjrKAl+lLrXAGeIEEHFu
+	 C3spDT/T9bRR1MxQK0FujJ1WikwcNJhi2vsqItMuc8UvLAl84UD4VwWJKUKr8SZ5l8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=OJna+IR1;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=dgBePCZk;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=udEfknn1;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C09A606A31A;
-	Fri, 30 Oct 2026 12:02:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C09A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E1F606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:02:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1E1F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=OJna+IR1;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=dgBePCZk
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UBHePb078296;
-	Fri, 30 Oct 2026 08:02:25 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=JzqXssl8m3HG14RseNxta+R2J2slfsX+aAyBTx3LA54=; b=OJna+IR
-	1GeRkzo+v8IWQC57JPCep6bRdwEaqPMxOrXPlVVR7yW76EB8yK681IminGVxMR7J
-	/OZdLgsDGwJAb/ss6n2LOseeBLuYh5eDXgjarIofyuvy9pr0KqaF2YB0c2ZIWc2q
-	yF0crC4tBulNquCcTOhH5OAsL0BEd62PLDT7fb9PZrGTuP0o77xopE0SWVV45j2F
-	PEROOGjFLzr2zXQ0+JcXG4t9CttUL/xzl8GeDPRYpp69xBRnHST3gZ50QYPOcrQU
-	OD+oJI1swydsFSDiaw8MCHtSOf1HOrnsvPuiyoC1SPU2WtEpYK14Ib5vYiaqmqa9
-	NiPsS5IJ2wC0HWQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=JzqXs
-	sl8m3HG14RseNxta+R2J2slfsX+aAyBTx3LA54=; b=dgBePCZknftbGBoHAGm0z
-	akl/9qKSDsV6lRq4AMD8xVYXn02/T8gvmeksE12uL0oC9uH0Y6AdU41ZO/7PBng5
-	jtHnb4m1q/JvH+YQeuzQ+kfNxGE+mytQ42BiIq3Db91B4R5Kl8+KvaDgZ/jY5j8C
-	Up3XlF388x+cNDJnKp/kjS7g88Pju9HmKNL7khSX6/h02BcOzrwD9Qe95M1eEVcy
-	Z2idy5WiqxFAxFRUAuiB0ID/IU01MOpLtIRwXWwTLZBOMbDT7RVP06LI8TBD3xxB
-	1ZFyGIznxO0dzqkhFBlrbuyP0aThKG9SISHNbKHlc0l94RySNZmGgy97ojMzsbHf
-	A==
-Received: from nwd2mta3.analog.com ([137.71.173.56])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hme7buvc0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 08:02:25 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 69UC2Ovv026736
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 30 Oct 2026 08:02:24 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Fri, 30 Oct
- 2026 08:02:24 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Fri, 30 Oct 2026 08:02:24 -0400
-Received: from HYB-aFjnqsVU6Ag.ad.analog.com ([10.66.6.191])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69UC2B9E016763;
-	Fri, 30 Oct 2026 08:02:14 -0400
-From: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-To: <conor@kernel.org>
-CC: <sergiu.cuciurean@analog.com>, <jic23@kernel.org>, <dlechner@baylibre.com>,
-        <nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <ukleinek@kernel.org>,
-        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-pwm@vger.kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: add lltc,ltc2387
-Date: Fri, 30 Oct 2026 14:02:05 +0200
-Message-ID: <20261030120205.269090-1-Nicolae-daniel.Deaconescu@analog.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261027-attic-collector-cb4ffdb5cf82@spud>
-References: <20261027-attic-collector-cb4ffdb5cf82@spud>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=udEfknn1
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c169ae1cb26so279890466b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:02:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793361765; x=1793966565; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1PqmSpniIkR3UNsRisiiNe9YBl0Z5BurrhZSnr/D9fs=;
+        b=udEfknn1wJlB4xqoV0bydy4/81nYxIWfqqbG17NL2t82auW2v8g1Ck1GV1KAHqtoi3
+         iPE1/vyGkYTFwx1DhqoW7/DrivEJFt/4R64Or8hlx7cBKdidrcjhqd85nsQkbOC9bm5L
+         PKxE58oyVBXtjwzRWgg2dMI0FDol7SvtTMlXeCuIjSeBxJl1poq6V6uiqPazByzqVinG
+         ITfK6mA9i2Ap/6jUmxhaqrMxN+g8Cr8baVjzt0C/xcypAOJW3kxM/8ajiJZtJDXxcY8F
+         59RvhutyWZaV1IgayYOB2XuxDXbnczkLrW/rDrBe7vjGvQRCJ4ny/39LlLeZ+SQVYBZ7
+         gZ0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793361765; x=1793966565;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1PqmSpniIkR3UNsRisiiNe9YBl0Z5BurrhZSnr/D9fs=;
+        b=Ojy/ktXDxfFVfn5+hUSCLG6wFut27+M0tQRd06ZpQdWH8r6Y+00X2Jq6500/rquEbO
+         Xb/1bV3h8qJDc/cfOXmVbe4AEvgrTEjd0KGit2vejYz8OQ+D4eLTN20/Ld6SF2O8dSqD
+         sW7EaUsRfmZEOony3f4AUapcc7X16klnwMuvhiYejuMqIwptghvuU9eC19/0RdVjaTBQ
+         LHNsQzjK60gT9QDr31ina5Z353mP5WB3XM1+8aoGigDj+cSxaxdZrBowbwAF9cP40Vch
+         Jc33HDuvKTzRicGVvPaLLEyCovrRsfApT/4hZN++36D4tegbdFoNHxx6RXMuVB9CAucV
+         NCow==
+X-Gm-Message-State: AFq9FYLca4PEV3nCGCfdPL8feXjJec1G6GAO9lhEUCe0dtrE4JNehaKV
+	bPGi/siuYVNGYvx2yNLw5u7dQeESeYrdePFVS8Boricls6mDzrQGw5KohzLxHGlt
+X-Gm-Gg: AYBFou2BmfpJtCxtTCHZtsdOzvGohv6UgelUF1Q+z3HjWt+frd3AytovQel1vF3jep6
+	IbeyRcsBcuiJAzksahYk+xg0TARM+fqfn2Y5lYCXE2TbIX44IjQdA917NzavXBWfhDLqr/Ym5D0
+	PbvR9BKPAd0mZLEI+gDszouW3p685Nl8Izkw8InfaIO0OUahYt/iwOWuGe6XlxaLAbkYZ3eWRAC
+	A2iZCdzgyM3EGq9WSf8QYBBilEOBarj+5BYnBl/uUwsK9fKzYWReih9x4c3gTAkyzONxFu4dmc9
+	c5Ox92rzSWMqthzhJdTYOtPUd0ilx9C/hq5O5ngKphydoP22dn1pWlIApatbsZdQPxgV5YT5PVM
+	GSnQpBi4jT9iXocff424LOU4+Bwk6B1Tf3+kqqjgPqJrkPZ8RIGKKRDqogdNlDOFajuNd1ZhuFy
+	XmMEVE6S6akFJ+edcROvexPNAKATg5qb4aDuS4ob1Lslk1V9Z9msqR/HWywVoqyjK6dGGOGUIBd
+	rDqzUwr0kYjleRaaJjxuoEaFGrjdrthT28fZKzJGx+sJmp8UGYAull6dRNxfO06Rjuztp8Bzt1z
+	6yYApxmf0FgWN6sfgjZ7SzOi2rxb+6UcwYWg
+X-Received: by 2002:a17:907:d489:b0:c41:4512:a3b4 with SMTP id a640c23a62f3a-c49d13b6aa3mr501078466b.20.1793361764836;
+        Fri, 30 Oct 2026 05:02:44 -0700 (PDT)
+Received: from LAPTOP-AVI.lan ([2a06:c701:4773:6f00:5a44:fb2c:3845:1154])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b7815fsm2807786f8f.22.2026.10.30.05.02.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 05:02:44 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] gnss: sirf: keep wakeup IRQ enabled on failed suspend
+Date: Fri, 30 Oct 2026 14:02:42 +0200
+Message-ID: <20261030120241.2313517-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,67 +93,35 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-GUID: Hk5XRrQC3cZW5DmCILpOZeO_V4L6-Nk0
-X-Authority-Analysis: v=2.4 cv=T9AZ3PKQ c=1 sm=1 tr=0 ts=6ae48751 cx=c_pps
- a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=Z0pTeXoby7EwIRygza74:22 a=ZHbhB2N8C6C_tFmOh_cA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA0NyBTYWx0ZWRfXysXXnu4zintv
- dN4N5XGBfDZpMDCzr3oFQPIecJh0wptgAcs9kuScElrhVvNSSp/bmdht2sCaK4vnTCl56NMv/7F
- PSEMYkYfFF5gO1tVQTzmPBrli/VZfdpr6JtxF3tb7FkkQ5xailaz
-X-Proofpoint-ORIG-GUID: Hk5XRrQC3cZW5DmCILpOZeO_V4L6-Nk0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA0NyBTYWx0ZWRfX5dRUpZ5bBQlQ
- woGqepaTM57YpG8bjUWmFGaPH8jFIm/T3MKi3lmGeaBxDMkDRwgyN/7OVbs6kUIAXi/3hiElgje
- 9ckhjNvt2+dwmxJMJOUd2JN8OBUP1EQD5/g5krMoFHx1CgckHSC74scpeOLl6dEyWDcZGIOMsSA
- e6SnL7NUloD0+8K9rMpqEc1uvwAbbGwBZ5u904OXKUbqKov3iRTM5+P1opDYoNgyy38J1Tvngab
- wEZPpYrJN7Z4bkILFmqGFAk4ecRt29HX2fO4NRLJxTYAxpepC0/Fx1MpAOCzwE3sH7lFLbzjtSA
- R3gALWwyoUWgrklYcZDALTX5iy83o4Vc0h5vlfu7IVjyvlnEMURNp4SBgmIzA9hQGTxxio4kHJ+
- uU5UWGZbP+6GUYlhf6v3TcPM53VYhso6xVfWPBzir7FknDifELJQf4gfv7FY3f6DqH9kfBHSAi2
- UyWepEAjSnA9VOt9Ubg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 suspectscore=0 malwarescore=0 priorityscore=1501
- impostorscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1011
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300047
 
-On Tue, Oct 27, 2026 at 18:28:34 +0000, Conor Dooley wrote:
-> Why are we getting new devices with linear vendor prefixes?
+sirf_suspend() disables the wakeup IRQ even if
+sirf_runtime_suspend() fails. The PM core does not call
+sirf_resume() when this device's suspend callback fails,
+leaving the IRQ disabled.
 
-I'll fix this in v2. The binding file will be adi,ltc2387.yaml.
-The -x4 compatibles will also be dropped, because they described
-four devices sharing one AXI ADC.
+Only disable the wakeup IRQ after a successful runtime suspend.
 
-> Hmm, ltc2387-16 does not appear to have these signals?
-> Well, it has "cnv" but "cnv" has "sample clock" as the input name so is
-> the clocks property above and pwm-clock can be used if the provider is a
-> pwm?
+Fixes: d2efbbd18b1e2 ("gnss: add driver for sirfstar-based receivers")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ drivers/gnss/sirf.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The LTC2387-16 datasheet has these pins: CNV+/CNV- (pins 27/28), which
-is the conversion-start input; CLK+/CLK- (pins 23/24), which is an
-externally applied clock that shifts out the result; and DCO+/DCO-,
-the echoed clock. There is no clk_gate pin.
+diff --git a/drivers/gnss/sirf.c b/drivers/gnss/sirf.c
+index 79375d14bbb67..2ce96598bd4fe 100644
+--- a/drivers/gnss/sirf.c
++++ b/drivers/gnss/sirf.c
+@@ -354,7 +354,7 @@ static int __maybe_unused sirf_suspend(struct device *dev)
+ 	if (!pm_runtime_suspended(dev))
+ 		ret = sirf_runtime_suspend(dev);
+ 
+-	if (data->wakeup)
++	if (!ret && data->wakeup)
+ 		disable_irq(data->irq);
+ 
+ 	return ret;
 
-The part needs a burst of 8 CLK pulses per conversion in one-lane mode
-(4 in two-lane), starting t_FIRSTCLK = 65 ns after CNV and ending
-within t_LASTCLK = 49 ns of the next CNV. So the CLK input cannot run
-freely: the clk_gate PWM gates the host clock into that burst. That is
-why the clock needs a PWM and not a plain pwm-clock, which would give
-a continuous clock. The clocks property is the reference clock the PWM
-generator runs from, and the driver needs its rate to compute the
-waveforms.
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+-- 
+2.43.0
 
-> Please explain how this is not determinable from the compatible.
-
-TWOLANES is a digital input on the chip. High selects two-lane output,
-two bits per clock on DA and DB; low selects one-lane output. Both
-modes exist on every part, and the pin is set by how the board is
-wired, so the compatible does not say which mode is used.
-v2 will contain more detail in the description.
-
-Thanks,
-Daniel
