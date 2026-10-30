@@ -1,47 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793370024;
-	b=EP+ER6HZIjnwMKVueRbCXX4oyNd84pahalq9sTa++yOqgAFdX0lOMBWK5YZY8zLhjknb
-	 mCoO0xEPRF+9a47p8XZrIHXwaBt9BAylLGXTwna4skcpvtvxXkh5jek6pg9d7ULA28faF
-	 hTENhnjHXGTNlG+JHCgOGP/3qLadaYB3TCRd4XQZZFm5UU/DNmaGzmVVPWGj+3VgbjaJJ
-	 RhBLYReL6BqlO0HMDNwMs5AW3SzJpj8Zk2fiEy7wTb/0yG2aZmU15sJp7HY6DxI3ifaye
-	 v0+u3aIyzpk9rO2O2ZEmRD1CC41pA/i2IMBNES9tGG/RnKsEJBA1TKX/6bBNb76qSAw==
+	t=1793370049;
+	b=qRZbYCIcvawpYlkrcBrXisJlnzQZaferfKt+jcOdOIx4v3tufd0yYH5PgHA02pULCUtA
+	 M+6iA+CG1Oqad9Ua/VNLeZxvaApKIdGoRPI/qKmnqIz5SxWECCu+r67E0++mL/sNTTIZv
+	 boer2JfK0DQJdrcNYnhmr6qSI/yxuYHnFzBAPfow9nVE9TPd3/+iYTOv9+KE5klBrGwW/
+	 ZN6JAw2ozueM7of+oF6wCHfxZ9ICOGQggiJEcjQB3R/9qEl2THppyvBRz8mt99n/27svz
+	 kn5GYE1G4CYx89Be9Mfj7VZ7oE7WNt6/WFrrmbrYsGzEgerMnprvCtgiCNz3t+yaR9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793370024;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=TCEc+WjRhkdmQjjamO+cLAGLl/RfL/nh4jRiRyo8tzQ=;
-	b=X10gswiqp5Ag9lSObq2ne0Qe6BqMdlDDr2FmPdVcWd0/B9ZWFmMnHRN57mV7o1AUXyj4
-	 +56ZcEc0lINJs+72m+njParj5l9CjtNSlCOoEaOErK2b+RKyqA/H0z0N7nKcqGyzMHWwj
-	 JN1LcdQvRH/4BIv7TtzLq17LnwgumrdwTzJDu5gFvPHiZEW1YPssaNW3YJKgvAUD8Piz7
-	 bvkGoRQMyjCn+ETPf35NmaVwE4CN0dx8Oe4EHZ8A4E+omdW40Cvl14yYkxHKS73A4wtKD
-	 UixMWX2wM3L+xQ6XyszWzPmdBrC99rJWo5Ihli7yXJeR/3vvK49jx+/ZKNLRkI5HxWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793370049;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=MSaO26kWHJz53oXNK/ooSoR5p7kapKpTBftLSJ7Kq90=;
+	b=10mtj4iRIhI1Y7XWRYx/VQZbSQwWxHRG/0EaQbIPZlWDIwOg5/rJkKrlHF6spAilPGC5
+	 v5H/hI6T9HQvNHoHDC//wI3xuqskWs4T7Ekx9NvGAi2FteDIGOjjx5HHkJqHoMLTYrTnt
+	 3eTo2rAkyeEMYOvywoB46hZWdE+DMZAunsTNvs6BoQ3ud2GXt6GXOEusKVBpwnh7s5WuX
+	 iCOvMHb8hbJRyBSJFdrDPAYDggsxF4g8EHPJ+KI6Uc+rvje//WkLsWGc0TfMkKxVIaRM6
+	 F+gIUCc7VfTsHb1zOE2xyDEkA05lMhMiWZl5L+QMIb7v7zlVb4VFlQ904crzMiYi5yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZBe5U9X;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57BFF606A31A;
-	Fri, 30 Oct 2026 14:20:24 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NMLyfmu+;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B2928606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:20:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2928606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZBe5U9X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 828B21F000C1;
-	Fri, 30 Oct 2026 14:20:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793370023;
-	bh=TCEc+WjRhkdmQjjamO+cLAGLl/RfL/nh4jRiRyo8tzQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XZBe5U9XQfsP6G59LqMNpT+MnLwMjguj28mYxVQKcPQrFH2aLPL47iUk0vf+5/4zj
-	 iWG1h8nX4EX3LbStmQs1s8ug5RHe++SZi3K/ifO2wETJUjYXayFIm2MPrWRIij6pdk
-	 ovycjPTMwLlvtSqKll/2FJkJhZj34PMTNRYVknUYG67JUPgIbkM18JtwpIRDphaylV
-	 7s0qpVoYaEMfT8ajYy2XmlyRXfxSrGq69xgwULsYYOR9GkVgzwZTBnGvHkxbp6fvdT
-	 26W6XuIc9U6NxbnYjIavqJsKuyZNX9uVvuPhklY8Zq6u4GctyBc5buSRKW+qC10Zlj
-	 iFyA3Gdh8C6pw==
-Message-ID: <757731f0-d26b-4f87-a6e1-327a063caaf0@kernel.org>
-Date: Fri, 30 Oct 2026 15:20:19 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NMLyfmu+
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CC3BF1CE0;
+	Fri, 30 Oct 2026 07:20:44 -0700 (PDT)
+Received: from [10.163.155.53] (unknown [10.163.155.53])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 79FE63F673;
+	Fri, 30 Oct 2026 07:20:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793370047; bh=LvFZHPc5AjvmFfcnhOAcfYM00twt/E4D7ePpqxI4RHg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NMLyfmu+3qgBioBF8DPIpA0YdV971kcjPpR8H9920pmFHpKx+W8EpM4oJyHFyKev5
+	 yF0OlMWEphWAWXlnh8EIKY6K7Eg4mD58l+bMnr+4DDyVpSpX81cwoSsqg8a0Z8W8oc
+	 ipF3rlY/vHHH/M4U3q6PK9OOFRQm9ikxZsahEc1Y=
+Message-ID: <e8a2a42d-e424-4366-8a68-e39167f62276@arm.com>
+Date: Fri, 30 Oct 2026 19:50:38 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,79 +54,132 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] memory: tegra: Shut down Tegra210 EMC timers before
- teardown
-To: Myeonghun Pak <mhun512@gmail.com>, thierry.reding@kernel.org,
- jonathanh@nvidia.com
-Cc: linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
- ae878000@gmail.com
-References: <20261015002852.2159841-1-mhun512@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v3 03/10] mm/vmalloc: clamp an unaligned range in
+ vunmap_pte_range()
+To: Hao Ge <hao.ge@linux.dev>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org,
+ Sashiko <sashiko-bot@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Uladzislau Rezki <urezki@gmail.com>, Suren Baghdasaryan <surenb@google.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+References: <20261026080329.140244-1-hao.ge@linux.dev>
+ <20261026080329.140244-4-hao.ge@linux.dev>
+ <99f529e8-06f7-4a20-a60b-0330c5d3d91c@arm.com>
+ <5452d555-82f9-45a6-b443-ee732b1874ba@linux.dev>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261015002852.2159841-1-mhun512@gmail.com>
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <5452d555-82f9-45a6-b443-ee732b1874ba@linux.dev>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15/10/2026 02:28, Myeonghun Pak wrote:
-> The training and refresh timers can outlive the EMC state on removal
-> or probe failure after clock attachment, causing use-after-free.
+
+
+On 30/10/26 2:00 pm, Hao Ge wrote:
+> Hi Dev
 > 
-> Shut down both timers before detaching the clock provider and releasing
-> the timing tables to wait for callbacks and prevent rearming. Initialize
-> them before clock attachment, since set_rate() can start training.
+> Thanks for your review.
 > 
-> This issue was identified during our ongoing research while reviewing
-> kernel code.
+> On 2026/10/30 15:14, Dev Jain wrote:
+>>
+>>
+>> On 26/10/26 1:33 pm, Hao Ge wrote:
+>>> commit a739e6b557af ("mm: vmalloc: WARN_ON if mapping size is not
+>>> PAGE_SIZE aligned") made vmap_pte_range() warn and bail out when the
+>>> size is not a multiple of PAGE_SIZE. That loop steps in page
+>>
+>> Why are we checking the alignment so late into vmap_pte_range? Why not
+>> simply do
+>>
+>> if (!IS_ALIGNED(addr, PAGE_SIZE) || !IS_ALIGNED(end, PAGE_SIZE))
+>> 	return; (or return -EINVAL);
+>>
+>> at the start of vmap_range_noflush and vunmap_range_noflush?
+> 
+> I think adding that check at the entry of vunmap_range_noflush()
+> goes against its design intent. Its job is to tear down the mappings
+> of the given VA range, so even when the caller passes a size that is
+> not page-aligned, we still have to unmap whatever is mapped within
+> that range.
+> 
+> So the patch clamps end down to the last full page and keeps
+> clearing. A buggy caller still gets its mapping torn down as far as
+> it goes, and nothing is left behind. The check here is just for
+> protection. 
+> 
+> This is just my preliminary understanding; I may be mistaken.
 
-Really? Or you just took Sashiko's report?
-https://sashiko.dev/#/bug/linux-47538f77-fb50-4a06-b49b-92dbee8b538b
+Hmm I get you, but this is very ugly. We are trying to tolerate
+a blatant bug in the caller with not-so-nice code. But see below.
+> 
+> Thanks
+> Best Regards
+> Hao
+> 
+> 
+> But that's just my understanding, happy to be corrected.
+> 
+> 
+>>
+>>
+>>> multiples and stops only at addr == end; with an unaligned size addr
+>>> never lands on end, so the loop cannot terminate and walks off the
+>>> end of the page table.
+>>>
+>>> vunmap_pte_range() has the same loop without any guard, so an
+>>> unaligned range would clear PTEs past end without ever stopping,
+>>> walking off the end of the page table.
+>>>
+>>> Add the check there too. The range is clamped down to the last full
+>>> page rather than dropped, and the loop is skipped when nothing is
+>>> left, so a buggy caller still gets its PTEs cleared as far as they
+>>> go.
+>>>
+>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>>> ---
+>>>  mm/vmalloc.c | 5 +++++
+>>>  1 file changed, 5 insertions(+)
+>>>
+>>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+>>> index 44e0eb32708f..7131f60d1a8e 100644
+>>> --- a/mm/vmalloc.c
+>>> +++ b/mm/vmalloc.c
+>>> @@ -393,6 +393,11 @@ static void vunmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
+>>>  	pte_t ptent;
+>>>  	unsigned long size = PAGE_SIZE;
+>>>  
+>>> +	if (WARN_ON_ONCE(!PAGE_ALIGNED(end - addr)))
+>>> +		end = addr + PAGE_ALIGN_DOWN(end - addr);
 
-Running LLM is not an ongoing research.
+For simplicity assume PAGE_SIZE is 4, start is 3, end is 10.
+With your code we will get
 
-Applied.
+addr = 3, end = 3 + ALIGN_DOWN(10 - 3) = 3 + 4 = 7.
+So the range becomes [3, 7) clearing only two ptes, the one covering
+[0, 3], the second covering [4, 7]. I feel we should rather make
+the range from [3, 10] to [0, 11], clearing three ptes.
 
-Best regards,
-Krzysztof
+So, at the start of vunmap_range_noflush we could basically
+WARN_ON on non-alignment, and then clamp the start down, and clamp
+the end up to PAGE_SIZE.
+
+And with this also throw in a patch to bring the -EINVAL bailout
+in vmap_pte_range to the top, in vmap_range_noflush and check
+both start and end alignment.
+
+>>> +	if (end == addr)
+>>> +		return;
+>>> +
+>>>  	pte = pte_offset_kernel(pmd, addr);
+>>>  	lazy_mmu_mode_enable();
+>>>  
+>>
+
