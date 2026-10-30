@@ -1,76 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793342850;
-	b=PDdfXfCagyRGK/m9kRbp/TsAZgxlpLqpO8/Wnu0FTUjq5AQu40BkWKB3p4dAzwGezXxC
-	 2zHDaWOO/TkS4BmcsjKVAr0ffq/NpNpdxalUEtyf5lx5Xeg1hOjsNpNs2pE9wI98PT4Ni
-	 iyUeshA9wzP9l2ZUcRUj4HK31hjboJEUN4++hEAQhtmShqTBfKPASJl7S9On+ldYygi42
-	 kMUGr60eZa+eNye8Cyx6oI+olGum8nDsypW0PZHy9qNucUcb0fqrsyw/gXHAZ9ekE6/BR
-	 B6wPIOz+2rZtniRFMUfgimnG5uKHn7G+f/UkttMXEnCP3cK53UVK4zXYgpjqWwqTbQw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793342850;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JCA4Dw39EpYKvErdSLs70whxYqhuqitv81R2HouAmv0=;
-	b=3Xhd0SSvtk3+Bx+UtdIGHRESVSsAuYQzHZcP6pz/HlrYdvMgEh+dXIcsskVYWiBQT5oC
-	 HNc8VSwX4O0flhxFGu945WKVHXQBj1v52pirKWfHUmrk1FZlABBPVX2PZ6zQNedMMMflJ
-	 ebuHXR9v50obMQEur9bIsmRS/TkMRieUJpXS/GSYV1FwOqzq9Rw4F1eXH31ZGxYSplrr/
-	 Us97p2sioR2J5flnblpcpLkMxMF0SxbBFunOTAgvvBAArjqTSbv88WxIcppDjKSrQ4FBx
-	 o7hI4p6U3eyGC9TdfHnjRcVGtdTi6MJzLIoy3iQ/wlP/XbfFNan/jQCTVIvmMrnJfOw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ikuyo.dev;
-	spf=pass smtp.mailfrom=ikuyo.dev;
-	dkim=pass header.d=ikuyo.dev header.i=@ikuyo.dev header.a=rsa-sha256 header.s=s1 header.b=jiAAjAkm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.133.4.66
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793342853;
+	b=r9YVlRTygxITs2qOJIOMKb7ocDCh4H5i6hBXWDcWfG4tDJerDj0w3tfrqpiBWTr+Nt2N
+	 NTEM76nCvjLTmM8CVjJkzyAZTO/UWuQXR5vka6Gj1niYoQeaYML9aWUU46ax6jBKcZdJ9
+	 5/w4n0rHB3KQc6wee6f3tYmDbr4NAHHqP/OAHAFw9/VUnOrChY3Qzkqx1qNM57zymhLic
+	 CO7ZnaujBWlX8drJkNyXMSFHWko2O9ugz78WdEAQODz8zAtk0pjj31Gx8s8uwVYXIhh5U
+	 wxR3+CUL3aYoo8/tKjsLQC4Wfd6gOwj4V/y8oz9+CdUaDszKiPzv+Db+xZXoqdWi9zQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793342853;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-Original-Sender:
+	 X-Originating-IP:X-ZEDAT-Hint;
+	bh=CGO33vjjhHPs7FpZgp+z6k/2GQzXxoPaZjErD19+PFo=;
+	b=l/Pa+gMFqHms33kc4xOIVLyD+JHtiBpPDN2BCE7yhEUk2+oy6Qv59PBSmimktOijL9EU
+	 /wrZ+xcNrD41yIWdWxTuObQ0GomM5AbJF5wp1DKMTzS6PXag1LaqAWOJaLNnQayUg9zo3
+	 i3L9XkaOo4VqWuOynczZHiJFbHau9IkV8XMXo9jeuc7LlqXDd4atXvh9829AJ6oAz+pA7
+	 JY+B1oBWL5nnlrp0WvwStWP0S4OrJTS7OvxkH0iIk9lOahBDsoylEFz2/w7NpYMDZX3Rh
+	 Ez4wOUxLB16ETyG4Y3p7rleZiVYUii0jweEY9gYdCb1imdK5LQ1v6jHpaDptunC54LQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=physik.fu-berlin.de;
+	spf=pass smtp.mailfrom=zedat.fu-berlin.de;
+	dkim=pass header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b="kj0uS7U/";
+	arc=none smtp.remote-ip=130.133.4.66
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D6E7606A31C;
-	Fri, 30 Oct 2026 06:47:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D6E7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ikuyo.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ikuyo.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE58606A32E;
+	Fri, 30 Oct 2026 06:47:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEE58606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ikuyo.dev header.i=@ikuyo.dev header.a=rsa-sha256 header.s=s1 header.b=jiAAjAkm
-ARC-Seal: i=1; a=rsa-sha256; t=1793342816; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=GGRWgvbk4z6EgpbonyBt1ER1tnhKNlOHaQjKmWsvrY3xD/gmKDuZpLka5/2zCfNppwbAQXUzmnMbYEPiaqLXoEVBgwL7bw5krDw/PnJEw7FAnD8yYIFkERTrNS4yF9LpmQusa4VAoWxMqvJUotQ+V82Lha4+D2ktXuERbkekgB8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793342816; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=JCA4Dw39EpYKvErdSLs70whxYqhuqitv81R2HouAmv0=; 
-	b=SKIwpPpLd5Exjnq5ovDW+gwCtas7UncLK37DRRFQqyyDv2py12HV2O2mJ2SS2tzzs15oLlqnU9er+QdNfRQ5hug5xYSbUKFFM8QclwVX8fwT2662QD5H8jjv6JbZbUpJ7001GvJ2fPVi2IrhLhe/Tk6qz2fneipK6XKRs9JDsI8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ikuyo.dev;
-	spf=pass  smtp.mailfrom=eritque-arcus@ikuyo.dev;
-	dmarc=pass header.from=<eritque-arcus@ikuyo.dev>
-DKIM-Signature: a=rsa-sha256; b=jiAAjAkmj+Lox98skzB62m/AloFYWSK2UZrcygALrRE887pBIsSwKDQ/G7PHwdmMxHR3DJzlOiQFpbbuhWljnlf8L5UbajNkLinlYSbrOHX2uzNLEQIoVmaSloyTn6J7hkXrqjc541VeUUt78MwNa+sqCnV8M3+ylWetSJYUsIlWukCft8oKbh3jl6O6PoI59fhxWhsQa6r7gAWUNQiSsC9LZAMM9inXtny6m/urItNXtt876Z17A9KDPIF5Y2dFmFzcAN9Rf6kQzLCOC7LyFXd6FEmv4BYMkettSsg9MbekOaxih7knXkOzCMcYyz3to+wPCcHYKIblto4h9ncdVg==; c=relaxed/relaxed; s=s1; d=ikuyo.dev; v=1; bh=JCA4Dw39EpYKvErdSLs70whxYqhuqitv81R2HouAmv0=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793342812466154.35937773938758;
-	Thu, 29 Oct 2026 23:46:52 -0700 (PDT)
-From: Yiran Qiu <eritque-arcus@ikuyo.dev>
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>,
-	Bobby Eshleman <bobbyeshleman@meta.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	kvm@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yiran Qiu <eritque-arcus@ikuyo.dev>
-Subject: [PATCH RFC net v2 2/3] vsock/virtio: send credit updates only while connecting or connected
-Date: Fri, 30 Oct 2026 02:44:17 -0400
-Message-ID: <20261030064418.133349-3-eritque-arcus@ikuyo.dev>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261030064418.133349-1-eritque-arcus@ikuyo.dev>
-References: <20261030064418.133349-1-eritque-arcus@ikuyo.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=kj0uS7U/
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=CGO33vjjhHPs7FpZgp+z6k/2GQzXxoPaZjErD19+PFo=; t=1793342852;
+	x=1793947652; b=kj0uS7U/2fEidI9yXZu0LeL6Vd0FA4PWuRbb6hVbaFmm/Nxsw6CAVOPfhuWPE
+	r6lUMTIOMHRXhnidzKlufwpxjfp7RnQCiSza2+YrL54JNPo4EP/oQ9aI6T9saSTVVu6B5Ebmxjrox
+	S3CqyIU9FHrxW4p06bjOe6HRC5SOiF5LTP/DerC/qL1mIgN2X+R13xxX+yTuLDGwMXVrzGuvZv8t4
+	IyO5m6vod03GwA+lzU9icSAsiJc0cjGumhEjQhG/6n+bFJAPJMDFzrdQUDPQvcQjB4qqQeQAL8Z4Q
+	Ha+3TNjyF+PiR4FW9dONBYOP2bVGCNIp1HFYq8u8hTLNlm7pbA==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xMgOZ-000000034ab-0Yth; Fri, 30 Oct 2026 07:47:23 +0100
+Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=suse-laptop.fritz.box)
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xMgOY-00000003wUa-3QAW; Fri, 30 Oct 2026 07:47:23 +0100
+Message-ID: <a429a68d0675786cd95f9acc0da1c516ff330d98.camel@physik.fu-berlin.de>
+Subject: Re: [GIT PULL] sparc updates for v7.4
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Andreas Larsson <andreas@gaisler.com>, David Miller
+ <davem@davemloft.net>, 	sparclinux@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Fri, 30 Oct 2026 07:47:22 +0100
+In-Reply-To: <CAHk-=wiXTPC_jJ9o7k2JGVwA=F5_JFt4ikY2J4E69xJqYtAFGg@mail.gmail.com>
+References: <5df90753-163f-44d3-ae93-c6be6ca8647c@gaisler.com>
+	 <CAHk-=wgrPOQTFxy-mV2EaWLj9RvHY151sQTQ8jc7e0FiorhvDA@mail.gmail.com>
+	 <2c9bc34c-f0e0-4b71-a1d8-bc2881d1a7d2@gaisler.com>
+	 <9d7432f2a82685fe36f807a38f4ebd0a76f1cabf.camel@physik.fu-berlin.de>
+	 <CAHk-=wiXTPC_jJ9o7k2JGVwA=F5_JFt4ikY2J4E69xJqYtAFGg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,55 +83,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-Once a socket has a transport, changing its buffer size
-(SO_VM_SOCKETS_BUFFER_*) sends a credit update in any state, from the
-transport's CID to whatever remote address the last connect() left
-behind.  So a socket bound to (guest CID, P) whose loopback connect()
-failed or was refused still sends as (VMADDR_CID_LOCAL, P).  If another
-process has a connection open from (VMADDR_CID_LOCAL, P) to the
-listener that connect() targeted, the socket the listener accepted for
-it takes the update's buf_alloc and fwd_cnt as its peer's, and can
-stall.
+Hi Linus,
 
-On a host without a guest->host transport, a socket whose loopback
-connect() failed can then connect() to VMADDR_CID_ANY with
-VMADDR_FLAG_TO_HOST.  That fails with ENODEV but leaves VMADDR_CID_ANY
-as the remote address, so the update reaches any loopback socket on
-that port.
+On Thu, 2026-10-29 at 12:49 -1000, Linus Torvalds wrote:
+> John, wow I don't want to pull anything from you, since you clearly
+> have this completely broken mentality where it's ok to lie about
+> rebases to hide the fact that you do it.
 
-Only send the update while connecting or connected.  Now that connect()
-refuses a CID the transport does not own and leaves a failed socket in
-TCP_CLOSE, a socket in either state sends from its own address.
+I have not said that one should lie about rebases and the commit history
+of one's tree. I was merely trying to help Andreas fix his tree so it
+can be pulled.
 
-Found by an LLM review of an unposted draft of this series.  On
-unmodified kernels, where the first connect() times out instead of
-being refused, a non-blocking send() on the accepted socket returns
-EAGAIN after the update; with this patch it succeeds, and vsock_test
-passes.  Drafted with Claude.
+I'm sorry if I left the impression that it's okay to manipulate a git
+history that was not my intention. I'm already going through a shitty
+situation in my personal life at the moment and I'm not really prepared
+to just take another hit like this.
 
-Fixes: c0cfa2d8a788 ("vsock: add multi-transports support")
-Signed-off-by: Yiran Qiu <eritque-arcus@ikuyo.dev>
----
- net/vmw_vsock/virtio_transport_common.c |  4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Adrian
 
-diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-index 8f524d073ae1..4d0511629044 100644
---- a/net/vmw_vsock/virtio_transport_common.c
-+++ b/net/vmw_vsock/virtio_transport_common.c
-@@ -1098,7 +1098,9 @@ void virtio_transport_notify_buffer_size(struct vsock_sock *vsk, u64 *val)
- 
- 	vvs->buf_alloc = *val;
- 
--	virtio_transport_send_credit_update(vsk);
-+	if (sk_vsock(vsk)->sk_state == TCP_ESTABLISHED ||
-+	    sk_vsock(vsk)->sk_state == TCP_SYN_SENT)
-+		virtio_transport_send_credit_update(vsk);
- }
- EXPORT_SYMBOL_GPL(virtio_transport_notify_buffer_size);
- 
--- 
-2.56.0
-
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
