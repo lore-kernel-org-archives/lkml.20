@@ -1,52 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793352008;
-	b=tRFxfGUKfBtwDU+5CaIaEKgnva3253oI5UFQs0TjvWP5BJF6FQC9K0t5Hbj1ciGtgi35
-	 q0dOTFgA+aieKSRV9wu3TtwWiMTmLZtsVvB6c0MSnUTj/jUaeXXKE8OLPsoh/qtVFlfG9
-	 U2fa+Qo6Iu8nyyd47mzqkC7rTxj2ukcsJfWtYWq7ZzsUcRaCCrEeBN3CIMtK/zfnfoAcA
-	 lCy21yV1lPqJCXom7Ev2bXYx7Fr4iBxqXfhzs1kwrEP3aEGodxCP3b7XrZ0EvFWspHpvV
-	 1q2bIreL34kN9sLkkalZ9skEldOS7ZGd4jA5XyO5c1YJjaLhUScpA0dlaEE25MxQvFQ==
+	t=1793352053;
+	b=hHparZcevMyQ5flEz6cjMeU+vPc00daRg3f5tw3FTE/y+5kMbFJE/atEZU43iGXspFSG
+	 96jhyKys5HFgN/oFeqawkmnjsLFEzk6v4acRXP+WaWIGgqWrkP+4tdzVEU/yCntiH1e1H
+	 LC8CboIxZUciUAhdytSN+oF5D76zanNaovS/5NvJ2QXk92oJe/qoBJV/GfgDc7ArUfeLD
+	 IzK5MQnU6ZuFpdHkvnM84yZV2OwzoPLzpDgEC6fzMu9SX5B1RKrp5/esXO2pz0n/cLYCV
+	 Th0DZE/Na9qp7OwOE+DuLQeWgbKyUwORdVmIQmQckuuOZYpMyf0S2mrunN3Rvb7w9uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352008;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer;
-	bh=uyCrS3trZJ5YkE9uiv746PMfpKl6S+0MjX103j94QEY=;
-	b=GL+GMOQhUAurHEIc1cdxCfkemtwaxp6bNoX8mqIi+f3amldiL4stWGIz/nQZHKFDGggk
-	 EkC++I0U+q23YklNChH8ex79QwNVSnLjDR0ipdMrbvpD1C2OvzPmSWZQGXoE0hO4Il7r+
-	 Ml7OslWM7oAu6UwIDy/eb4pl6w/lZGLk0/omllnQz/d3ex97zbs/7GgqjfIhpZXYpvYdi
-	 9EpVsEr1Y1I0sG0BjLqq/a8o7yYNKvwzUwkzrO/cx4w5/QcsWxUoTEmgrLL1QY6NR1h5m
-	 OXESzATqLSh4uti+GrwxxvD5GeReWXm6UYxfvIz7NYUN2lRbAEDaTJEVjwUs8iC2heA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352053;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=DwWDiQU31GhAJkKLOok0q5GmDT5UejWxDA7k4JTVj4M=;
+	b=gNfc3W4bsb8KkjdYtrVZNrnXAcAC7rybJuFmanO0JiYs8n6P2iMX3UoZtMGB6e8uO6KH
+	 B83iJcFvdvi+PJGOk/FnGph8AauX5osf3orGgC9XWZEDplSYIBOTaU1fja8oa1FHlwt9E
+	 1qQsJJx5bXivFWYLqgpshQRj5qVE9EoTl1dlggapD2Y/1yoFXVGFUI1I9eKu1oYBH0tG8
+	 i0piia2RFLU8tPwh8Ys/E+hVoQysrj0SshAmmyRL2w+yAiTGXW4BgOretYPWFM38FU2pO
+	 MlcocKtunvY32Kl22xK3Ja0QfIuHalv4cmla5PNEyWLEnplPd5XXmoLc2fAIsHqPMMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZiovnmKr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d87jxZYs;
+	arc=none smtp.remote-ip=95.215.58.13
+Received: from mta1.migadu.com (out-13.mta1.migadu.com [95.215.58.13])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF9F606A329;
-	Fri, 30 Oct 2026 09:20:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76D5606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:20:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D76D5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZiovnmKr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 650CA1F00A02;
-	Fri, 30 Oct 2026 09:20:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793352008;
-	bh=uyCrS3trZJ5YkE9uiv746PMfpKl6S+0MjX103j94QEY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ZiovnmKrsbRP2VmxkyKnd/smnpW9g2XeHW0OgwBRw81hFTmlrAmSSvb3ln6dSEnpS
-	 ELLxvhCk2YPWZNnGj1a2svlnm2Na5/RJ4FOkfREQuyZ9aNduDaW4TwX4bbf+HFDNvO
-	 ZOW3cwjUdvtUc0MBnsN2cT+qrQ1MNpIwWR3+JWrcj0gXh2ZJxhXcFodPEAbFHB7QxH
-	 vL5+HmXsf1mA2ITlitEbSNIr5z0W/a1kRfCOwKoMcla/Q5jot2XcbOaq0qvs6pxPJ3
-	 8WimzQ7l1rfc5b8a6lGS5lMdHJT3JFOW+bs53Ca2UPZtIQ/R8n/v/3EtJUJ0JpQrNo
-	 k/2vTfw6psolw==
-Date: Fri, 30 Oct 2026 10:19:27 +0100
-From: Daniel Gomez <da.gomez@kernel.org>
-To: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, Björn Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Onur Özkan <work@onurozkan.dev>, Andrew Morton <akpm@linux-foundation.org>, Julia Lawall <Julia.Lawall@inria.fr>, Corinn Tiffany <corinn.tiffany@inria.fr>, Liam R. Howlett <liam@infradead.org>, Philipp Stanner <pstanner@redhat.com>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, Samsung GOST <gost.dev@samsung.com>, Daniel Gomez <da.gomez@kernel.org>
-Subject: Re: [GIT PULL] Rust XArray for v7.4
-Message-ID: <20261030101626.0-da.gomez@kernel.org>
-In-Reply-To: <20261012115028.73246-1-da.gomez@kernel.org>
-References: <20261012115028.73246-1-da.gomez@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d87jxZYs
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DwWDiQU31GhAJkKLOok0q5GmDT5UejWxDA7k4JTVj4M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793352050; v=1; x=1793956850;
+ b=d87jxZYsXzSYCQ/xHD6fPWdvBbmfDED2jZYdIP/wz0YMDb65qjez3nTkqQ2OiGGUSbvTbfQM
+ 4fRPwHh32lyypRcBqLI618nMxfYTKzklpEZuKUGzwqzhkdwzTqJOKu5v5/QYZXXVsjgPD8Ix4e3
+ f6sg9vfDv/TQg6Cbx/x5kjZ0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 222f0c8429a65a02;
+	Fri, 30 Oct 2026 09:20:38 +0000
+X-Mizu-Trace-ID: 222f0c8429a65a02
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,22 +57,110 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-X-Mailer: lorebird
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 06/15] mm/hugetlb: fix mremap() racing with page migration
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261028-fixes_hugetlb-v1-6-a0a033db180f@kernel.org>
+Date: Fri, 30 Oct 2026 17:20:12 +0800
+Cc: Oscar Salvador <osalvador@suse.de>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Mel Gorman <mgorman@suse.de>,
+ Andy Whitcroft <apw@canonical.com>,
+ Miaohe Lin <linmiaohe@huawei.com>,
+ Michal Hocko <mhocko@suse.com>,
+ Rik van Riel <riel@surriel.com>,
+ Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dave Airlie <airlied@redhat.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Peter Xu <peterx@redhat.com>,
+ Breno Leitao <leitao@debian.org>,
+ Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ linux-doc@vger.kernel.org,
+ linux-arch@vger.kernel.org,
+ linux-s390@vger.kernel.org,
+ stable@kernel.org,
+ Chris Mason <mason@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <9FFF0EF2-A99A-4448-9CA3-50E1733D6232@linux.dev>
+References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
+ <20261028-fixes_hugetlb-v1-6-a0a033db180f@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On 2026-10-12T13:50:26+02:00, Daniel Gomez <da.gomez@kernel.org> wrote:
-> Hi Matthew,
->
-> I'm sending the Rust XArray for the current v7.4 cycle, although it is
-> probably too late for it. Just let me know if you need me to resend it
-> later, rebased or under a different tag.
 
-This missed the v7.4 merge window, so please drop it.
 
-I'll send a new one for v7.5 based on rc2. I'm also asking Mark Brown
-to add rxarray-next to linux-next. Let me know if you'd prefer something
-else.
+> On Oct 29, 2026, at 04:13, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> Migration of anon hugetlb folios walks the anon_vma, so the file's
+> i_mmap_rwsem does not serialize it against move_hugetlb_page_tables().
+>=20
+> There are various issues with that. Most importantly, move_huge_pte()
+> releases both page table locks before the TLB is flushed. Migration =
+can
+> then find the destination entry and finish migration, reusing the old
+> folio while the TLB still has entries cached.
+>=20
+> Hold the anon_vma write lock across the move and the final TLB flush.
+> This also prevents concurrent rmap walks from missing entries moved
+> during rollback.
+>=20
+> When we must allocate a destination page table, flush the TLB before
+> dropping the anon_vma lock, then reacquire it after allocation.
+>=20
+> Dropping the lock only works around lockdep: hugetlb folios are not
+> reclaimed or migrated by allocation compaction, but their anon_vmas
+> share the lock class used by ordinary anonymous memory. Having a
+> separate lock class for hugetlb's anon_vma (like already done for
+> i_mmap_rwsem via hugetlbfs_i_mmap_rwsem_key) requires more thought.
+>=20
+> There is a concern that this can block page migration of anonymous
+> folios quite a while ... which is not really different to what happens
+> to page-cache folios today. If ever a problem, we can temporarily
+> release the lock.
+>=20
+> So let's keep it simple for now.
 
-Could you confirm by v7.4-rc5 that you can take it?
+Make sense.
+
+>=20
+> It is a shame that hugetlb has to implement everything core-mm =
+implements
+> in a different way that just screams for problems.
+
+Yeah, nightmare in MM.
+
+>=20
+> Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage =
+backed vma")
+> Cc: stable@kernel.org
+> Reported-by: Chris Mason <mason@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Acked-by: Muchun Song <muchun.song@linux.dev>
+
+Thanks.
 
