@@ -1,62 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793363113;
-	b=Z+oFkdnODUn7okFBvji/gXDGNt3uagfG3HeyhimWL0xqADKoS78F0CzJDaBkDsl0js1C
-	 mQ1hACAcs5tI3jzpy77s27evlAIp52DrcFGvvVZQ0C4ZvJ9ilQqwOhB4cUCFyp4zD+cMV
-	 vgJdgm3deP8Zndo4WiPkHxhRxKipLArM+wkIFhmH7bBEnQDP7xcqtonLHPmAL1jpJnqk/
-	 hvV4fMKCIl0zvrmSkITD0tFIzxAYgO5cs7U6nQMqKmkX8l6rISPPTu51U3udR6S+M12xD
-	 UlxoGDVdnwU37FOo67BUqTHAff3RZUjSpbeE5NrX14JsM0mV5xtXBirnrGDRVtUhKyQ==
+	t=1793363119;
+	b=IyDUN0SoR8ZeUyuPUeuNcn7/B1KlmkOFzBruSjPBeD50AzCM60VEOSoxJsXoxf3cxisG
+	 G7+EwEsQy0wVWfBb3C/8pCWU91xpbQMVLv4Duian15wG53ChGFc+5ZsSZmAcDe7/4YnU+
+	 ol0MWf6xqY7FbMrtGEbNgg6C1zNaO9gAHQRNj5PU5r+N4aXMT3hW3zKddnE8GZaSXcCXA
+	 DYD38uotqC0U9qnJ7UVgf0CHLMj6o0nyIljHou8KMxAqqDME2fwtskcbB4Lj9FsIJqgID
+	 Kl2AoUhGZwwDaOPnOsMuTajxK3cbdl/66cbVSkO2igNvApgo0nLxLgnZ8a4UNPNnlYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793363113;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=23LkiJqgraZQ3C0qET4DUDukldHjTQgox9RGCWz5tjE=;
-	b=xFE+SVf9AP6Vco9wQDlWp4/YO/ANSIxl83BRi3tiFCp2pLjA+iSviZDWDGBpkd5IDy50
-	 P526NXJrgEUlofLdv+AQnVH9cvxR++C21UsSmP1fMfBA+g4B8IjWtHQb5X4Y4PTUp2667
-	 f/ejZ4TBaM28UvCsRg2IC4V71gEX88W2VDzi8hUVQF/doB/NxZdNKt5w8URJslYS1M/RL
-	 w+sWIfnReNR+JPqOjZkUXCQ2QRTw2YzcWnDAWSVLawjuTCEkq6SlDELlUVyb+uQPSyqxK
-	 +9N7kQjulMAe6VoWVlek/eyj60um5w47QaSFbFdJVF1/+s9Vct+1MZpq7GXKRiAVsEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793363119;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=J8dAsB3ABUd2P8nmGjUreI+WMzKE8n8IiSWGI4JbEHM=;
+	b=fZ3NxzKftOcmJLAhLlGJT1O60ZXypwV153THumIy+ac5BszqPE5DIwF9voQyUnASG3Og
+	 8Ai4zxJCEKKLFBSb5z/ApC6TYGrsMvBKyiFbjGDBhCo5i1dzCMzsQ53XclXy7zmoqd9ta
+	 pHDozTjXfwRJDORmq0iI7VUpumXf4hAaIoszqClQ8r6cesCuEGeI5dX6NpCFS01cZkeuc
+	 0mdWqb6X/gwime0pa/gTwWgOKdWtsL2VWpUed9Papq1yk331kSF5T67nEQNUuDnWQBkML
+	 cd9mYA3snVkeVUX5AN2GK/B49xQKjwiqKSjZzFYOmStAcl83f3ze71Yo3MjmJTK4YOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VPs9LOOb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=NnYKhc8O;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ruVTPoyU;
+	arc=none smtp.remote-ip=103.168.172.152
+Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD84F606A330;
-	Fri, 30 Oct 2026 12:25:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E621606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:25:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E621606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VPs9LOOb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3A721F0093A;
-	Fri, 30 Oct 2026 12:25:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793363112;
-	bh=23LkiJqgraZQ3C0qET4DUDukldHjTQgox9RGCWz5tjE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VPs9LOObafEAkIgfCh0KBUw6CV63pTxlaTrjmreenP3GVHcY8nfbQ0a2EqwgIvx1p
-	 vxtcTOTRFlqw0+18PjsGmzRu14e+4nw328HisPAd/kbb3VuS4onhM7YE1wx7Iw0U+P
-	 UZHrDv9EkPWFU8VJKpilPsRhGXgjYXb2NJoBqnfrClg0vxAtHNCeeh4RXer7uCHdMF
-	 4P4AtHLXXa9v8cCk+S3Y4qHCk6MWbG4XDHUIenPPJ3247kg5sq0lgPbhkJm2UIfbhB
-	 NETQrR3avszMOOpVRRBcNVD0uXz0gD6t9tPwGUkXasDFujCNcEeWRA65H/gYB9r4qa
-	 Lg91oUJ3GUrMw==
-Subject: Re: [PATCH net 2/2] mptcp: release the parent socket reference with
- the subflow context
-From: netdev-bot+sashiko@kernel.org
-To: zzzccc427@gmail.com
-Cc: matttbe@kernel.org, martineau@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, geliang@kernel.org,
- horms@kernel.org, netdev@vger.kernel.org, mptcp@lists.linux.dev,
- linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-Date: Fri, 30 Oct 2026 12:25:11 +0000
-Message-ID: <179336311140.3134.6875927878730480019@kernel.org>
-In-Reply-To:
- <pm-mptcp-objects-candidate-0010-v3-14c229ea28a7d31f60a0-2@gmail.com>
-References:
- <pm-mptcp-objects-candidate-0010-v3-14c229ea28a7d31f60a0-2@gmail.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=NnYKhc8O;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ruVTPoyU
+Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 4A2B814001A0
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:25:18 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-01.internal (MEProxy); Fri, 30 Oct 2026 08:25:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793363114;
+	 x=1793449514; bh=J8dAsB3ABUd2P8nmGjUreI+WMzKE8n8IiSWGI4JbEHM=; b=
+	NnYKhc8OxhnuTLAhJbRHmsyXxr7iSNm0NhcLETnHmLlwdxquROZS10DPKZYNpL4Q
+	2yGHRipLfeq+D+PICH7hFpla9cQKTnLkjDZRQMAhKNmO3YjoDr9cBbh9cUifoZyS
+	Rsuy1vecDxoowQCiiHSAojqtmYSosyG9I1CkvoGUcVXbwPMx+yVxfPq2a2iekEAP
+	6+ObZ7JV//KJgZeKBDgjjdOQd+YWI7UVhk1mOU1LDZMdz8VqWc5PDeQ6+/+WmY7L
+	rn1ebJM3gUW7MQj/nc9g9tZPWv7e2WTiwvXwrH4l+jlkMpp9+UOYZTYUVGxtTTxj
+	zf0eJh5PLI6gWtLhqYnsXA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793363114; x=
+	1793449514; bh=J8dAsB3ABUd2P8nmGjUreI+WMzKE8n8IiSWGI4JbEHM=; b=r
+	uVTPoyUCLgWu8Gm1TzCJzzH+w4hWxGlrNxJSYZ90I5H07rGOApI9czQvQH5G7d6c
+	MMto7icwSOJmceDzxaNL71BpzFOOL7CvgFn22fXnU0oP/oBYTYFX7cjWN7Bvp9LH
+	8ZgR397lCepU2FTQizCBqQ3nHpH3TaX2NbLiIgizJqn/jf9+APztJyz5hyWIRPJG
+	xbnUqF7/FcCWhYIHf3aAQRNZtnBbTE4z4ZkTOmPouSkquRYm9hpzlrLLdOSPNzrL
+	lMDTMCmRfb9kwjhw+zB4YojlCv/t63NPxzgqxONQj90MRnvo2aON8xN693GJL4Aq
+	KmeCf85K70b9f1tXH1xQA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793363114; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:e3SXFu7l0Yy2ojLUW9qMvzcRGc2URx4JwudcPofA43ajWAZ
+	yIsf0KjZJSPr7PJnwa+fsRAlucMsWBXta1V1OECm5jOXR2BzVUuJQy57/TpFRn74
+	nT2T+Dbv7hNnH00NmFalEg+TELiyNEecc2+HdcPAQJnQ18ycJurFifXKg2jmUkLh
+	L0mRZQ80x9ZIqTevFkVaYu/vjQRw3zHVoq5gzVKS6SiICQVymd9b6lSChU53jVTI
+	6GiKs3yanlsmvdpwjfUjoOSOwF617mFoGwTMR4LeArcBaB8hvv6m+mW+vZAkpcWs
+	E/VwkBcACkLFazBX4LtDaqRuL+NGWERSSnrVTEQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:UxV6YTAoizPqtWa2AKjflWrZ77Hac13iK0pOv5rsOTE=:Zb2QRSDduhAAZaKJYul8Fpn1yObyVkEUtJHw3o0ClbQ=;
+X-ME-Sender: <xms:pYzkahReiNadF71TTxmY85O4IfeA8J1dmYOUcAOEZh_x7xClk6S69A>
+    <xme:pYzkakM8R5xQWll_ZILuDt4bMTHxxZ0kFWawAJE2FYahkKoQ24yZdri_oxVUb_cQ8
+    GaeFE1OlwN0RCwuVzw4UjcFPSV5ll9UXmUkwv0G8lWM-Q9yPblQmtTN>
+X-ME-Proxy-Cause: dmFkZTEjdZ0WgKkDeZ8IivnHN+6FPi2JsxEAcdLRcU74d11ptltXsOcEZjcgcfftZR168E
+    EIO6J7QiGPQhuHkRDyG6EOG4oAJQ4UYkVdOUJI20ULjkxm7ziBeG52p28bahXxlpCY3UNE
+    g68WjC/XnD4RBVHNhJPdtq8tXpN0R5KRf1WNe5IaB45Yfj7TJKbZsiduV3NicElToLV7iW
+    qV/o0BNeWEflK2OQESy5mqGWEijeriULooLwws4KKtnIneMx2NbMoOU+UyJr+4zbEXLsuO
+    TNznEF6cHoRSev/AS+8N74XtUlIj0s0NkQfiF3PikAxBSLvgApRMMEmYCgH/vdDcUdeUcU
+    7LFIwMXT3KUo1Kke0WrSjSCAcgJZW5iA6vr7sDlpVB42Rt5s7yDXU0VjvrHBGVkLOgR63h
+    TRua6UzXd/s8L51Jw1YXLOdVQ4WBdeKCkiHwheGudyzR3KI8mNHDZ9zXvr5vLV/rjZnZBf
+    O06vlJ6cocxbVKkqJd276EuuOOUdteQzEi6PbFR1n3zhMQf4yVo+0MNgvzy4iZZRKFf9Iv
+    NXEyzqvwcJPXrWIFJ6HwdLmBH2i/rq6SxRrAOwpa3aIYFzwv5z1zxrijy1dUl35cWxiIne
+    pvjlj+1L9ZShKPsQVLOvF8prqgnjARLBYbezMCKhswtkwubg+4pHt/fILLHw
+X-ME-Proxy: <xmx:qIzkalTJdaYVdlRDHnqAMt1yAN8Zdiu_lyxC9YS9WY-ZrQbrEfYqig>
+    <xmx:qIzkamo7Iz_ZsiYWFDE6AThXyvdqemjpNBvO-1YTVUzvPT_wnbK4bA>
+    <xmx:qIzkaqPnzO5SSUvkUhpu5GFniLnw3mSEiEJWGDwmShbtjxMqsxiGCg>
+    <xmx:qIzkakya8L1StVeIWzkABZsO-WjOwJ0emIqiXVTcA28L_9-Z-MHCuA>
+    <xmx:qozkajw6P7XiW7VrfJnlv8PvD5-6XSb2j8BYbCY7QveDIbQPgymwf90e>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id ED26F32A0097; Fri, 30 Oct 2026 08:25:09 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,247 +115,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-ThreadId: A9hbWorxIEzB
+Date: Fri, 30 Oct 2026 13:24:49 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "James Clark" <jjc@jclark.com>, "Matthias Kaehlcke" <mka@chromium.org>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "Doug Anderson" <dianders@chromium.org>,
+ "Ravi Chandra Sadineni" <ravisadineni@chromium.org>,
+ "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ regressions@lists.linux.dev
+Message-Id: <10ad94b3-66db-49b5-95c6-3ce9090f3278@app.fastmail.com>
+In-Reply-To: <20261030114705.3159093-1-jjc@jclark.com>
+References: <20261030114705.3159093-1-jjc@jclark.com>
+Subject: Re: [PATCH] usb: misc: onboard_usb_dev: don't defer the USB device probe
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
-
-Critical: 1 · High: 1 · Medium: 1 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Critical] The new sock_put(ctx->conn) sits in subflow_ctx_destruct(),
-  and a TCP child cloned from a retired MPTCP listener subflow can…
-- [High] The fix is incomplete.
-- [Medium] The commit message presents the delegated-action use-after-
-  free as a live bug that this patch fixes: the second interleaving, the…
-- [Low] The comment in subflow_ulp_release()
-  (net/mptcp/subflow.c:2115-2118) says the context 'will be freed by…
-
---
-
-I'm sending this review as a reply to the patch on the list. It has four inline comments:
-
-- **Medium:** the commit message credits this patch with a fix that the previous commit in the series already makes.
-- **High:** mptcp_subflow_drop_ctx() still drops the parent reference immediately, so the fix is incomplete.
-- **Critical:** a possible double free of the subflow context when a child is cloned from a listener that is being closed.
-- **Low:** a stale comment.
-
-mptcp: release the parent socket reference with the subflow context
-
-This commit moves the sock_put() on the MPTCP parent socket from
-subflow_ulp_release() into subflow_ctx_destruct(). The parent reference
-then lives as long as the subflow socket. The aim is to fix use-after-free
-in bpf_skc_to_mptcp_sock() readers and in delegated action processing,
-building on the previous commit that keeps a retired context attached
-until sk_destruct.
-
-> A delegated action pins the TCP subflow socket, but
-> mptcp_subflow_process_delegated() locks and updates ctx->conn. A peer
-> reset followed by the application closing the MPTCP socket releases
-> the parent before mptcp_napi_poll() takes its data lock:
+On Fri, Oct 30, 2026, at 12:47, James Clark wrote:
+> On a BeagleY-AI with BeagleBoard's device tree, kernels since commit
+> f918e3804498 ("arm64: enable HAVE_SHARED_GPIOS for all ARM64 platforms")
+> no longer boot to a usable system. The log repeats "hub 1-1:1.0: USB hub
+> found" for the on-board TUSB8041 hub every few milliseconds, with no USB
+> disconnect in between. The flood of uevents stalls udev and the boot ends
+> in emergency mode. Reverting that commit makes the board boot normally
+> again.
 >
->   Delegation / NAPI                 Peer reset / application close
->   queue SEND or SNDBUF
->     sock_hold(ssk)
->                                     subflow_ulp_release(ssk)
->                                       sock_put(parent)
->                                     mptcp_close(parent)
->                                       last sock_put(parent)
->   mptcp_napi_poll()
->     mptcp_subflow_process_delegated()
->       mptcp_data_lock(parent)
+> The underlying problem is in onboard_usb_dev. Both peer hub nodes in this
+> device tree carry the same reset-gpios, so the GPIO is now a shared one,
+> and with CONFIG_GPIO_SHARED_PROXY=m (the default) the hub's platform
+> probe is legitimately deferred until udev has loaded that module. The
+> bootloader leaves the hub running, so the USB core enumerates it long
+> before, and the USB device probe finds the platform device without
+> driver data.
 
-[ ... ]
+> At that point, onboard_dev_usbdev_probe() returns -EPROBE_DEFER. This is
+> what causes the problem. The driver has generic_subclass set, so
+> usb_probe_device() has already run the generic probe, which configured
+> the device and bound the interface drivers. Each binding is a
+> deferred-probe trigger, and the driver core re-triggers when a trigger
+> happened during a probe that then deferred. So the device is re-probed
+> straight away, reconfigured, its interfaces bound again, and so on for
+> as long as the platform device remains unbound. This is not specific to
+> shared GPIOs: it happens whenever the platform probe is deferred, and
+> briefly whenever onboard_usb_dev is a module.
 
-> Fixes: b19bc2945b40 ("mptcp: implement delegated actions")
+It sounds like the underlying problem should be fixed elsewhere,
+possibly by preventing the deferred probe to be retried each time.
+ 
+> +/*
+> + * Attach a USB device that was bound by onboard_dev_usbdev_probe() 
+> while its
+> + * platform device was still unbound. The device lock serialises this 
+> with
+> + * the probe and with an unbind. This walks the USB bus, not the 
+> driver's
+> + * device list: unbinding a device holds its lock while it waits for 
+> all
+> + * references to its node on the driver's list to be dropped, so an 
+> iterator
+> + * over that list that takes the device lock would deadlock with it.
+> + */
+> +static int onboard_dev_attach_usbdev(struct usb_device *udev, void 
+> *data)
+> +{
 
-[Severity: Medium]
-Can this delegated action sequence still happen on the tree this patch
-applies to?
+This conceptually looks like a layering violation: no driver should
+have to look through the list of devices like this.
 
-The previous commit in the series, "mptcp: keep delegated subflow contexts
-alive until socket release", added this guard to mptcp_napi_poll() in
-net/mptcp/protocol.c:
+> +	struct device *dev = &udev->dev;
+> +	struct onboard_dev *onboard_dev;
+> +	int err;
+> +
+> +	/* Unlocked pre-check, so as not to wait for every USB device's lock. 
+> */
+> +	if (READ_ONCE(dev->driver) != &onboard_dev_usbdev_driver.driver)
+> +		return 0;
+> +
+> +	device_lock(dev);
+> +
+> +	if (dev->driver != &onboard_dev_usbdev_driver.driver ||
+> +	    dev_get_drvdata(dev))
+> +		goto out;
+> +
+> +	onboard_dev = _find_onboard_dev(dev);
+> +	if (IS_ERR_OR_NULL(onboard_dev))
+> +		goto out;
 
-	bh_lock_sock_nested(ssk);
-	if (unlikely(!READ_ONCE(inet_csk(ssk)->icsk_ulp_ops))) {
-		...
-		goto unlock;
-	}
+IS_ERR_OR_NULL() is almost always a bug, make sure you understan
+the interface and what this can return. If the function can
+actually return both error codes or NULL pointers, fix that
+first.
 
-Before this patch, the parent sock_put() ran in subflow_ulp_release().
-That function is called from tcp_cleanup_ulp() right before:
-
-	icsk->icsk_ulp_ops = NULL;
-
-At that point the subflow is owned by the user or bh-locked. So
-mptcp_napi_poll() sees one of three states:
-
-- An attached ULP, where ctx->conn still pins the parent.
-- An owned socket, where it only clears the scheduled bit.
-- NULL ops, where it skips the entry.
-
-Also, tcp_release_cb_override() isn't reached after the ULP release,
-because mptcp_subflow_ops_undo_override() restores sk_prot.
-
-If that's right, this patch only fixes the bpf_skc_to_mptcp_sock() case.
-For delegated actions it is defence in depth.
-
-Should the second interleaving, the second KASAN report and the
-b19bc2945b40 Fixes tag move to the previous commit instead?
-
-> diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-> index 8dc0677dc5514..ebcface15661a 100644
-> --- a/net/mptcp/subflow.c
-> +++ b/net/mptcp/subflow.c
-
-[ ... ]
-
-> @@ -820,6 +822,8 @@ static void subflow_ctx_destruct(struct sock *ssk)
->
->  	rcu_assign_pointer(inet_csk(ssk)->icsk_ulp_data, NULL);
->  	ctx->tcp_sock_destruct(ssk);
-> +	if (ctx->conn)
-> +		sock_put(ctx->conn);
->  	kfree_rcu(ctx, rcu);
->  }
-
-[Severity: High]
-The commit message says "Every reference on the subflow socket then also
-keeps the parent alive". Does that hold for mptcp_subflow_drop_ctx()?
-That function still drops the parent reference right away when the ULP
-is attached:
-
-net/mptcp/subflow.c:mptcp_subflow_drop_ctx() {
-	...
-	if (inet_csk(ssk)->icsk_ulp_ops) {
-		subflow_ulp_fallback(ssk, ctx);
-		if (ctx->conn)
-			sock_put(ctx->conn);
-	...
-}
-
-In that branch the TCP socket stays hashed as plain TCP, so a reference
-on it no longer pins the msk. bpf_mptcp_sock_from_subflow() returns
-ctx->conn without taking a reference of its own.
-
-One way to reach it is closing a listener that has an unaccepted
-connection:
-
-mptcp_check_listen_stop()
-  mptcp_subflow_queue_clean()
-    __mptcp_unaccepted_force_close(msk)
-      mptcp_do_fastclose(msk)        <- only sends RST, child stays in ehash
-      __mptcp_destroy_sock(msk)
-        mptcp_destroy()              <- sets free_first
-          mptcp_destroy_common()
-            __mptcp_close_ssk(first) <- in_accept_queue branch
-              mptcp_subflow_drop_ctx(first)
-                sock_put(msk)
-        sock_put(msk)
-    mptcp_cancel_work(msk)
-    sock_put(msk)                    <- msk freed
-
-Suppose a TC or SK_SKB program on another CPU called bpf_sk_lookup_tcp()
-on that 4-tuple, then bpf_skc_to_mptcp_sock(), before the fallback. It
-holds only the TCP reference. Wouldn't it then read the freed msk, the
-same way as in the first KASAN report?
-
-The dispose_child label in subflow_syn_recv_sock() looks like a second
-path. It is reached after:
-
-	ctx->conn = (struct sock *)owner;
-
-and by then tcp_v4_syn_recv_sock() has already hashed the child.
-
-Does this put also need to be deferred, for example past an RCU grace
-period, or otherwise tied to the TCP socket's lifetime?
-
-[Severity: Critical]
-Can a TCP child cloned from a retired MPTCP listener subflow inherit
-subflow_ctx_destruct()? If so, it would run this new sock_put() on the
-listener's ctx.
-
-The comment on mptcp_subflow_ctx_release() from the previous commit says
-"TCP never clones such a socket". However, tcp_v4_rcv() checks the
-listener state without holding the listener lock:
-
-CPU1 (softirq)
-tcp_v4_rcv()
-  if (unlikely(sk->sk_state != TCP_LISTEN)) { ... }   <- passes
-  sock_hold(sk)
-  tcp_check_req()
-    ->syn_recv_sock()
-      inet_csk_clone_lock()
-        sk_clone_lock()
-
-CPU2
-mptcp_close()
-  mptcp_check_listen_stop()
-  __mptcp_destroy_sock()
-    mptcp_destroy()                  <- free_first = 1
-      __mptcp_close_ssk(listener ssk)
-        __tcp_close()
-          inet_csk_destroy_sock()
-            tcp_cleanup_ulp()
-              subflow_ulp_release()  <- release == true
-                mptcp_subflow_ctx_release()
-                  ssk->sk_destruct = subflow_ctx_destruct;
-              icsk->icsk_ulp_ops = NULL;
-
-tcp_cleanup_ulp() leaves icsk_ulp_data pointing at the listener's ctx.
-Suppose CPU2 gets this far before sk_clone_lock() copies the listener:
-
-- sk_clone_lock() keeps the inherited sk_destruct on success. It only
-  clears it on the failure path.
-- inet_clone_ulp() returns early because icsk_ulp_ops is NULL.
-
-The child then has sk_destruct == subflow_ctx_destruct, icsk_ulp_data
-pointing at the listener's ctx, and is_mptcp set.
-
-inet_csk_reqsk_queue_add() then sees that the listener is no longer
-TCP_LISTEN and calls inet_child_forget(). When the child is freed,
-subflow_ctx_destruct(child) runs ctx->tcp_sock_destruct, then
-sock_put(ctx->conn) on the listener msk, then kfree_rcu(ctx).
-
-Later the listener ssk is destroyed, and subflow_ctx_destruct() runs
-again on the same ctx. Wouldn't that call ctx->tcp_sock_destruct through
-a pointer read from memory that may already be freed? It would also put
-the listener msk a second time and kfree_rcu() the ctx twice.
-
-The destructor inheritance comes from the previous commit in this series.
-This patch adds the extra put on the listener msk on top of it.
-
-[ ... ]
-
-> @@ -2120,7 +2124,6 @@ static void subflow_ulp_release(struct sock *ssk)
->  		if (!release && !test_and_set_bit(MPTCP_WORK_CLOSE_SUBFLOW,
->  						  &mptcp_sk(sk)->flags))
->  			mptcp_schedule_work(sk);
-> -		sock_put(sk);
->  	}
->
->  	mptcp_subflow_ops_undo_override(ssk);
-
-[Severity: Low]
-This isn't a bug, but the comment a few lines above in
-subflow_ulp_release() still says:
-
-	/* if the msk has been orphaned, keep the ctx
-	 * alive, will be freed by __mptcp_close_ssk(),
-	 * when the subflow is still unaccepted
-	 */
-
-After this series, __mptcp_close_ssk() only retires the context through
-mptcp_subflow_ctx_release(). The context is freed in subflow_ctx_destruct()
-when the subflow socket is destroyed, and with this patch the parent
-reference is dropped there too.
-
-Should this comment be updated?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/pm-mptcp-objects-candidate-0010-v3-14c229ea28a7d31f60a0-0%40gmail.com
+     Arnd
