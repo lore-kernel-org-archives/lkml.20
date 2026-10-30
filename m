@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793352577;
-	b=B0v9j9mqXN4tqUnoaS29Oiin3s5EfExRK0CVSIt8H/S7scbQfTKRaxnKgLblseP2G6hN
-	 TL8bagEWqfZX34MYy+qVgqbTSiETkKCEkwkwJP3NGP4Cbk/M7LBhd1M23u1IIuRohHMEJ
-	 o04dAVIGykB6p4Ay2igjflFOR+T7eG0PQJH8OCROCpEoegZFknSVx3g6EmuYh+yzuQtQC
-	 CdlyXGa4XK7H5o3UQ1uXcLG5zSD9Nmvb0ImP3takwNJYI8C2ISj5HB75iFbAWJrH4kMV8
-	 BRRlyyrYSVFD1om30h+au7YRCLYsE0KqZiOZmGE9DEJtRl/dsrrjBTiAypsVup8S4Sw==
+	t=1793352591;
+	b=AWx0znTt6ECc6Taqn/AvWPYznAu2/cuRjJyt7Rtis4187rnitfdpG6xVp/Wuny+fPnTK
+	 t4Qbtj7ZiHuzbwy/Q1AnKiIWG/9Bn6JdqohceaYLJM+GzuBK2ewbNnCwkoosZdW4QkLVG
+	 R3csd4Xq54rQ9YHeAhpeDm8y0fvrmg2SCw/JNL8dnZ492nSd5Vd4W69INx+sR/NPuJIFf
+	 BZ8i7+YRgeimtDyNEiyQnE1B/4G9LPQpv3BhVkoIkuUORl5taucl6dBzVR4fUsAf3BcX9
+	 vYgLOpol+OiOLwSgzBDvEqfdOROyvSJzokwn8E+qtOqfcpVR6i6wqCgtdHAA0YlNoJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352577;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352591;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=JE2Z6jsS2IrzYo7G8NPWpMa0q9fIt8haCNz10tvF5ec=;
-	b=ab+io7pWS38RGXG/7y9ZmjkzGHqfeECo27f0rsiQzT/UgdwCcEPxJEJ/5znZ9qiOQSdH
-	 HNDkncD1AUMtSlxsJychKf4FGyCKN4eSQrUSx+OzNbZhOYXK2tQG/JCS6jW6qIORwAYdm
-	 S1/+Au8ScZvC3FVp9CkYOTdwYV9OxUCWXMqG1Mhc//cOX5WYk3OdrTBVx4v6JGQh4lm5v
-	 paiwSGMReMV/vCZCJkyhlJx2T2sb+I747vroj/k3meQEVVJc9kXPmXPA/hhfe5P5CkqPD
-	 mShOAdjipGUGm5Qv13aKHd8pcbx1PgiiQljQGR7tB9X1HPLTIgTeyNHrP3UT8MxHxhQ==
+	bh=AUW/VefxPVhSKqc9QwRcesaDMHJU1FaYetMkH8pU5n0=;
+	b=3u5cXovfwkRKlHiJIJip4SsZPFV11NZ9rvQDohNATwAsaAganhTIElDgTQZW6ObJXNVb
+	 MRVraUnN93w+OUnAwaynfN/ERuFZYXYHZgG9qGViiSXUxlEC46DnyjiDsSpkp8UyuOyle
+	 k1jhR00h4wEjlttCug3hU9QKAV7NwwfRA0D1vApAu6caF7S/SRRVWtRxuRr0Lkh+oidOS
+	 UyxcMos/zxUCjjERNIhkp42tl66WWR/UdJHVKjjwZ0Cl7tEfvoRKdWYvfyGsu3T9uwNMC
+	 olAxtyTtBCgi7rxXDnLfi/paU8LsVAWmencr2BC4grm6gC/z0XY6DOa6IXmX2QeXTYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Njy3M6el;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMNCQR25;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA5CA606A31F;
-	Fri, 30 Oct 2026 09:29:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34673606A31E;
+	Fri, 30 Oct 2026 09:29:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Njy3M6el
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8F261F000C1;
-	Fri, 30 Oct 2026 09:29:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMNCQR25
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFEF71F000C1;
+	Fri, 30 Oct 2026 09:29:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793352576;
-	bh=JE2Z6jsS2IrzYo7G8NPWpMa0q9fIt8haCNz10tvF5ec=;
+	s=k20260515; t=1793352590;
+	bh=AUW/VefxPVhSKqc9QwRcesaDMHJU1FaYetMkH8pU5n0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Njy3M6el+TKht2rHSOwWZIZCSp6SuLvXo1Y4YF6EaOKBnGUNFlH41isWyap9K4XRc
-	 aYLpViO9wVelb53Xbh4pO7grML4KzjDWd2cMD8khehVquisLFHQcAuvSFy6v/gRfHw
-	 gw4rGVS+/DRH4qGxMAyNlA248D0xKcBXnpgnmzE+B9fifQwipkxJU5vt8dZDAFtEXP
-	 CZq1dpdRzeiZcT+LN4jrPWOo4gky4MVmGubjMXvM21pFGbqM6A7YtM4EROC6e2t0ka
-	 OQ+txcBHxKEJ5ktcff4aZm323d96nlGeZOH3ZfTk7QPKt9E4whDTsx7CN8ykH4mGKS
-	 2hZlFuOZWyWcA==
-Date: Fri, 30 Oct 2026 10:29:32 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v5 01/11] drm: Add MIPI DBI bus support
-Message-ID: <auRjGM7briuvXDEg@houat>
-References: <20261029152909.234584-1-clamor95@gmail.com>
- <20261029152909.234584-2-clamor95@gmail.com>
+	b=fMNCQR25otJ8OHxoM4l3W/R3uJxbKp7btHDNJ18HY/kk3aiKkE+E/ii9IAtLA9lAX
+	 pQJ1+60uScGX9IP6qEmxA5zWjgLOL25FjV7RR5nko+n7a5BJjLo9NDSKjsFCJ/Bxuj
+	 7Emq//dbCIZPCI/gzfdG8jj+tRqUFAeCDlzb1Fd6wjSXusn2XHqlVjD4maiL2WAPDq
+	 DG23/Zw2vJYDDLJ/CWnpcQL+D8WiNlS10Opk4dbWyqWlipvua/3PbIFIJYdp+nG+dp
+	 tVCW2LL9fijHPpqcpzYXGtgFOvC5O1O/7ZYC8EiFQQ00aAzJU4WebX6WgsY5munY21
+	 gZ91vWDAZN0LQ==
+Date: Fri, 30 Oct 2026 10:29:44 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
+Cc: Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, chejiang@qti.qualcomm.com, quic_chezhou@quicinc.com, 
+	wei.deng@oss.qualcomm.com, jinwang.li@oss.qualcomm.com, mengshi.wu@oss.qualcomm.com
+Subject: Re: [PATCH v3 0/2] Bluetooth: hci_qca: Reopen port after power on
+ for QCA2066
+Message-ID: <ygy2hd47c3tb4vr2joiiy4bbg7rd4pn66x3co7iifv65cvnrf7@g36i65agh6p3>
+References: <20261028111839.2148515-1-shuai.zhang@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,55 +59,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="obui6kiykwkqqmel"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261029152909.234584-2-clamor95@gmail.com>
+In-Reply-To: <20261028111839.2148515-1-shuai.zhang@oss.qualcomm.com>
 
+On Wed, Oct 28, 2026 at 07:18:37PM +0800, Shuai Zhang wrote:
+> QCA2066 needs the serial port reopened after the controller is powered
+> on, otherwise the host and the controller run into RTS/CTS
+> synchronization issues.
+> 
+> Patch 1 reopens the port in qca_power_on() for QCA2066, as in v2.
+> 
+> Patch 2 keeps HCI_UART_PROTO_READY in sync with the port state, so that a
+> port which failed to reopen is not closed or flushed again.
+> 
+> Changes in v3:
+>  - Patch 1 is unchanged from v2.
+>  - Add patch 2. If serdev_device_open() fails during the reopen, the
+>    port stays closed but HCI_UART_PROTO_READY stays set, so the later
+>    serdev_device_close() and hci_uart_flush() use a closed port. Keep
+>    the flag in sync with the port state and skip the port flush when
+>    the port is not open.
+>  - Link to v2:
+>    https://lore.kernel.org/all/20261016022302.4003647-1-shuai.zhang@oss.qualcomm.com/
+> 
+> Changes in v2:
+>  - Use a separate case for clearer logic.
+>  - Link to v1:
+>    https://lore.kernel.org/all/20261015092224.262158-1-shuai.zhang@oss.qualcomm.com/
+> 
+> Shuai Zhang (2):
+>   Bluetooth: hci_qca: Reopen port after power on for QCA2066
+>   Bluetooth: hci_qca: Don't use the serdev port after a failed reopen
+> 
+>  drivers/bluetooth/hci_qca.c    | 46 +++++++++++++++++++++++++++++-----
+>  drivers/bluetooth/hci_serdev.c |  6 +++--
+>  2 files changed, 44 insertions(+), 8 deletions(-)
+> 
+> -- 
+> 2.34.1
+>
 
---obui6kiykwkqqmel
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 01/11] drm: Add MIPI DBI bus support
-MIME-Version: 1.0
-
-On Thu, Oct 29, 2026 at 05:28:59PM +0200, Svyatoslav Ryhel wrote:
-> From: Mikko Perttunen <mperttunen@nvidia.com>
->=20
-> The MIPI DBI bus allows modeling DBI hosts and peripherals using the Linux
-> driver model. DBI hosts are registered by their respective drivers. During
-> registration, DBI peripherals are created from the device tree nodes
-> provided by the host.
->=20
-> DBI hosts expose operations that can be used by peripheral drivers to
-> access associated devices.
->=20
-> The original code was authored by Mikko Perttunen; I have aligned it with
-> the existing MIPI DSI implementation.
->=20
-> Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-
-The SoB situation isn't right here. The author is allegedly Mikko
-Perttunen, but you don't have their SoB, and yours isn't there either.
-
-Aside from that, which MIPI-DBI type is this supposed to support, and
-how do you intend to support Type C panels we already support through
-SPI?
-
-Maxime
-
---obui6kiykwkqqmel
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCauRjeAAKCRAnX84Zoj2+
-dswoAX4ra2Q81kXA1DbFkC4tPY6X14by01GbUUlx6j/YMBKNzGv+0UiRjW+r+qyN
-p43Di2EBf29qbXNvycMurCZaRKUxPTjSvl9+Bk3BHys3GriT5iH8UCJdva57/eNe
-XPZpOdQpeg==
-=YMzq
------END PGP SIGNATURE-----
-
---obui6kiykwkqqmel--
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
