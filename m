@@ -1,123 +1,123 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793358034;
-	b=zUVzZVO5dwrm1+aglcwzo9eRIrIyMP/8k7m/UZQlep2kjr4yGeqMWpfrrHYAGDMnea/T
-	 hnfxBrSoJgeoiAiacDX6YTf2J1oqQvIgvW8nPUpPG8coXJPtG2X9MVttDhuWyqYKxRF8B
-	 8Eg30mpgcKSWAxxSa+qPttURztUtJ7URuIzDXVOGgFBGoEdc/o+u0BWtbiUyNex/hKSxJ
-	 MbnQUHkQpY9FRLd/0VOdKmJGqqsSrvTGMsTWNV2DGO9c4Ts1vks8bBPFsKsUjcZXIDoX9
-	 lukYu+39nve5fzPUoV+NWPUBplOiW+9XBoy/OR/mrEh8H+TvXHzze+3aTz3g61lKwQw==
+	t=1793358036;
+	b=VbrjO/Avhdl/1lbAMkufjQm7QL2G8Qd+4lfoTMOnd1pPbdAGs5aPVL3O60vJMSVvQyKE
+	 kiVuA8FRaFXIwQHF0pYgjtWoqNIZlp16nuav3sieJ24Z4B9bs8quBfbvUOLWzGSmeNRY+
+	 f/mnSl/1AkVFq3h6vvqyxdskEXAlxbkm4NB2Bxd0TR1HeALGe9fDPG48xbOT4vIr/J5E/
+	 7DtHz9Anszw9Fta+EZUVwS/XV8EJX0L3gp6OjSABSQjSVMePmA9qDYQnGffZGgKdvBcAz
+	 vlJmvVcqLQzfZpal30mGu2fCMeIiVE0OWzVlUtoXnHrL+xri/FRw8PDVzJKXdM7Ti7Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793358034;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793358036;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
 	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
 	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=IgLsF++4YrDHxiLkxSaC+mUba5OUh/3qh0E4AJY47EQ=;
-	b=FLVbKqoLkn9Q9XVw82QtWin2fHvjfRcBuKT2jyS7V0RbaHl2nBiKch4FCgVCN4h/mNXz
-	 ioJM59hUWo3nj0MFK1flaFemxj1fMK3f3WBTccmZiQpGK1cv+tC8WnV5ckGe4/GcOr6qf
-	 Ai7TfD2izG8FZaK5GqiooCDUyChAiviUy7wSiaP41ugounAnrECuqm6asF1FHDz4j4TaE
-	 S9pbcIMXBv0OiLXeNK0MqDXflSu/mlIUOhjnugbixxyq0yogUdk1a90ozCIdmEHhVwDND
-	 sF1dmVotOqLaa/KOUoJysSXkOF2JdbW+gI3RMQGYd+ykdSYmvlP/WRfvgPxWTSjkFNg==
+	bh=JcDbmSXB55pbh/pDj+0+0hVcgTy+254XVZ5pIx4rYQ0=;
+	b=a882yUN7gBvJGHy2anatEIJRQwkUQ9W9qFIQne6/6+i6Vk4z/hhXXLX5lD2pm8HUdvWs
+	 V7Mf+icKcy2+3Ie1V1Tgj1HKEJiR9o61w416WetLFmuZ0puyh5X+fNb53yNsvV/BgB/bM
+	 Hk5tH0Nj4PpO3SBzHuze9/hu5TvSQVkms9RZB25poH78afgmGYD0eEdQcwa7tmp/UWxUC
+	 xCLzXUeU9zg03P3IcjUKiU9yGL87Gp4JHky4tFz6avWaFrXp8xQFkv2XreRCr5PItPUBp
+	 ciho6HugiKLAWqP5SN6tlMtXCQdA5yYnvDKq00UbnxM2R9KRUalKhmHZKH4rO02qHnw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HmIUtBvE;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KfA0Hr3W;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CsSXa91d;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dzNcfsnC;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89657606C6E3
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:00:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89657606C6E3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D11606C6F5
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:00:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9D11606C6F5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HmIUtBvE;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KfA0Hr3W
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8FCw53738296
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:00:32 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CsSXa91d;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dzNcfsnC
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8F0Sf2682250
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:00:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IgLsF++4YrDHxiLkxSaC+mUba5OUh/3qh0E4AJY47EQ=; b=HmIUtBvER/Y2SW+i
-	q5qyGmDoHSPZdndt97PH0rykbu1/4QX7YiVLErRJi6rCe7850+rpnwajQdu5VUxp
-	pIAPcjEXNDjPn+uQ1AtxgikcP/JNvGpX0H0YUVLl4OKVGBD86MAxL7/TcGsHBfjF
-	VVCq697DkSz3vVq5I8JzA+m7+1xqRzrV2tEhmavl7NPBoWKP5n3xz0tuRm/66EsW
-	CvFuCc81VYGmkzj51FYXmakxs7M5Qp/mtS32JBEoDxcFPhzbqqcvRxTakgGf/DU/
-	nJWhukWUiGKGSNCZ7dqHeO6JbFzq1igI/QrfoxM1gpX35sZBWPP9eq/mcO/KKPJn
-	emqnOQ==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme752h91-1
+	JcDbmSXB55pbh/pDj+0+0hVcgTy+254XVZ5pIx4rYQ0=; b=CsSXa91dpCxyvxj2
+	fCDh+DquoMmfC9cuMNT/c2dEpu9g9t17dZ844GpG1h05rpsfBunpcqRv54iiI3u6
+	NimFHerF9cplX8hzp6E8RWHuhHbhNoctgXBUz/gvZlyPI3yJnM3LVnhUhW/mNKTb
+	XdCDTW8g+hBvmixKT/Y7gE+BIWyUwJVumOujq/s2ALGLz+Obu5SsGdTVuOkeKRMK
+	wCSfuQFpo/6F2wHBo43dPJRrt6dsHc54spYvVpjnMprPB6FjEo2PQLhzHPPhxZ8E
+	zIOaKP7y6mhOEwmZ9t6cfcVU4XhrIcIKugPgBVeSVUqTjLoVHZXzYQiO2dCT2Jq9
+	ZVVeXQ==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qjkd6-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:00:32 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a0619b1fe5so514300b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:00:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793358032; cv=none;
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:00:35 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-89fb6a45c48so729791b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:00:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793358035; cv=none;
         d=google.com; s=arc-20260327;
-        b=So/dzsViKgYaQ4pRtQ27jUzVnPRcFuuv2dwyuZ3NBxchNU6uaEcnnbI6SjYLNwgtyt
-         q9JK5e5/S3hr62zN09f8+Gsfs64AbnIDN3NT4oY0Hs+dmPGSnFGr9auTJHwMD70tlg24
-         RgqZQC6h9KRPQYlv01lghuvrVTi/wVPhkn5SzLHn5PfjdQaweMbUK3lj9UpBkkvas9N/
-         tAXocHmlYmjY5lty7MKH+A316Yzsmg7otTp+lZBU6pBoQ1VMZwR9rAnffpruYNUjJo6g
-         v5d2kcRg8PjOj19Buak8BXq0HkUCSrvFGFB21i44/B7TLgLDAVOFUSYmRiKzwv9JwysR
-         cxZA==
+        b=ElnNyTzSE5uSGrwJE4tEOwfFpDq1hwzD+vjCe0ZEErATRfA/UOHrQa2Ficy3313Jtp
+         Wtj+YHxJ2SkYlu17pDILpSZ9SpeIKp+c113mYa1OsUd0VL6gnvcgr4Wu51PrE/XmRztu
+         GttqDCoXr9tEyauheXnhen6IelDh13ircj1mbBS6IZaa6MNBpvmENCK5o/Po6hKC1hW0
+         LT6tGp0fstgOpuCBDNSMUyDOhhD7BSBB0QEeq79iyA73Fni7Xu24KW+0P1dcF45dQbGK
+         1kdN+hf8CjDK6toijmG02fjvmUlAWFk5pJ9NSwoKFjgS6mfDzj3BtNzL47cuyAIA7zsD
+         1dGw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=IgLsF++4YrDHxiLkxSaC+mUba5OUh/3qh0E4AJY47EQ=;
-        fh=7qRJ7bzw/Lwnc5In111WMEgVkC5MByZobSWRgyYHkUE=;
-        b=Ps/QhS72gam8sv3pwsWVVu4GGfllxL+MIWGeXOt8E0RQovAibHeqKTvhiGdAnHl3dg
-         0UnlXSpe8IiFbfv12pTDrz0wVPHhdhBVPwVUhcTB9HHv4hWo1HKaj5dddchMORirbI/o
-         uvEr2142D0e3oiRwbxdzBPem5kdnaYL8DyCjl5y6UMSiQ4PjyXh6u39Gyikw84NQdZwb
-         XeIVHPL9/VfKVwwvUOWtf7ewNidTD209y/XrgztHFWVWTN2ZA3rfV4KJF0m5TqKUfSPQ
-         nZwYvqsr/7EolU6lZSMCNhSBVFFCG4nsYNYlGnqxb7i+kTxmaeuKTCOdE6JDGGiQGCKJ
-         tEeg==;
+        bh=JcDbmSXB55pbh/pDj+0+0hVcgTy+254XVZ5pIx4rYQ0=;
+        fh=yxCiMjkNZL8oIa4cwSVWJHzmRKofFk17YeX+3unxqG4=;
+        b=UuW+UmoR872dYpEn9FXT4wRYBgDKI/yE3zQctLfGqAtpukRhJc6HPAfvgvXhjRlCYQ
+         wu9idOrFh80HQuHGPNx+AV2ztoaMQtPPKHDskuSDecvl0LJcvIVlu2AzqnL439vb1dDj
+         cVp3vkbkpRhcYBL2pn/cT/k0wkGYiYatdnIsVC3YOx2Bg4YKHq2SKg1DzQjYMlzOpmOR
+         DW/RsxPIYahk1+VxZ+x8xTpzuJwmD1nu9sXKERfjblSUvTZguHX7pQtkTO0Ll7VA3VGx
+         GJXTUPsmTSUUCiRz5OSIjsmISpcOlPXS5L0ZeusmfigcUVkKkraH2uKHMbDsMo4YKMvj
+         9Omw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793358032; x=1793962832; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793358035; x=1793962835; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=IgLsF++4YrDHxiLkxSaC+mUba5OUh/3qh0E4AJY47EQ=;
-        b=KfA0Hr3WhBknyfzqyxL31TMubUcP6kNcMUtnYVcPrSigRfCr6xSo4oWLlS1lkphdLY
-         ZA+wp7A3TcEIYv2qMdwlFkkc2aVCgu8gxadlLyWzQ50bMFj5Njcj/vWxxeOEsHOLXfqj
-         xJHuqWww51o+e1wm0HCrj8trLZ3GRw93MKV51A0wDfpBt5l+kMIMSx2ABzrws7LtoLmD
-         8iXP1bRHgIu0BLVucwlWlLs4VJkWmqOwK9ASZUPvX41IW8RmXSuOPEa2dJuayaHvjdsb
-         BFGPJ2m8YS9GM2vhO7DFWGSNLoYRB8/7Ua0rUApqMTecgOhmdKotqapxVP6W+MXoPKF6
-         9j0g==
+        bh=JcDbmSXB55pbh/pDj+0+0hVcgTy+254XVZ5pIx4rYQ0=;
+        b=dzNcfsnCTHFvM/87eonfepAJtGL99Ttpn9fVunVrZatzbz3RXK0jQ6eWn7O6lq/GPt
+         P5+znCAcsH2vFkSpg5KXFoTTlAoQhurHSThqw1AxXH8CxyDTEFtd+Q93pB/pHIKugUaq
+         3mkwNXgYSbAAVeYr3EB2flG60CFFyWa7J3qsgzntgv7D3wpNP4ELWI2sZYdiGtakvxoD
+         q4OBa7kW0GbMwQTn6rYDQlTvcgZ1ma+7HSEBq1YDIEL9HzCx0+6x1gv3vCsLZ0HpnqRq
+         36XnS7i7GCqFcR/BolE3R/ybHxPIwlUx/LnFsocwx7RQo4sGQY/wzLE3QrQbQTTCWNE9
+         Xxyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793358032; x=1793962832;
+        d=1e100.net; s=20260707; t=1793358035; x=1793962835;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IgLsF++4YrDHxiLkxSaC+mUba5OUh/3qh0E4AJY47EQ=;
-        b=Im2WPxUszJy+wEpK3W//7wIUXooXnFUZjPfODgcputIW7/GoAjRGgBMgy4KcReOZvL
-         TFdvrZ+566m4UXzE/rBMFhBzDyxIztTzj/hZQkw2yw0IYjmXGYUbzrzEbaDPIKJhGw5d
-         LpOenXY/e3XPR2J4AbZLNkdK+eM9D6/SX4HVcl4yg5VzqZZ1QVKWt+TX7mlI0eIYQRA0
-         YR+HNudBq6m7r7OLdy0vk9wIqPBzKpCEW1un/8g0UCI2ZWXZB6SHfz4sEAQ40Pn+mt/f
-         aH+V/wp8lSukS/WdnhTu1JlfpOp+F1GCAVElZVGdpE+HEbB6Z4OPVyRYcS83BVezOcbE
-         +3fA==
-X-Forwarded-Encrypted: i=1; AKwUvBwfUMJIhpDZ9uAQRinV4XmcknPjac4YS7HCrOOGXvtg97DnPmGC855GCL4HrEGZM+Pk1P6Xtui4O7pQlpw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCh2+vMdUa9RGtugsH9WV2JGMJty5XnjiGQBBw49XGAzLvkcXn
-	zzWhK1KpbT1UZS0ROMMGdeauKf48JhYPOrXmnp1D4Qk4x9MtIMIn0ASWUeR3flm7SiUR99seR5a
-	GV/IsFJGDc2r8aydkb8TpfgFq4aKRNdFmGDdOFvZlzaDkzAw/onDSxsa/rg24PSCvmwJIWgtIRG
-	2xkk7AEsDXM95vphZR5tH/sJUdI8Jb1hVYcorjZ7HpOw==
-X-Gm-Gg: AYBFou3pVllrNa0rE+2q/vDgGCZQYwQ7/cu6lv08bf3NT4qZvQrCqOE8UAJjNmy+QHB
-	pBLTiRJt0Jcgc4200wyPu5kBv4wWipisPANlyvV9mUwpsy6SJGGS1fi8+Y/GCWCESl4jr3MbnH4
-	LFCygDPjlcGJR9f8x7SkBF+ZvCSMUwhP4TDZUwADNiUD3uXgYAsU+Z7OD1sg==
-X-Received: by 2002:a05:6a00:4b52:b0:89e:7bfa:f880 with SMTP id d2e1a72fcca58-8a9be4912efmr1664160b3a.11.1793358028929;
-        Fri, 30 Oct 2026 04:00:28 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4b52:b0:89e:7bfa:f880 with SMTP id
- d2e1a72fcca58-8a9be4912efmr1663980b3a.11.1793358026227; Fri, 30 Oct 2026
- 04:00:26 -0700 (PDT)
+        bh=JcDbmSXB55pbh/pDj+0+0hVcgTy+254XVZ5pIx4rYQ0=;
+        b=Y0F7uZOCDX7Uem4VvjMwEe6PVVvTMMNWZbL6jAODhHBsonbIxoFFPbahTZvWcCnpSe
+         qzFcBGR9c1mxGfhpmGv3yfWrdcwLywEH/vUUBdQUJTRQN1GVVz0AHL+hk3PqbPDPjQwz
+         J8lPXLneRoTaWr55nWVtMHm/9ZJVNT5jvT4Z9rqZsuQV5aRQ0X7n+xRd1YhMIzk2dNM8
+         iStQzPpwIN5Rb+oeToDNO7T1ISyD2fjsTZZ53SFDxS7+7FwcmjHfxa5t0pqm4mWF4Ucb
+         JxXDs9Lv7/EduBRhHGeqN29QiiTxQQMud30mMPiJyFUHHjCJi9F+ifYfVS3B25C/o3Mz
+         78dw==
+X-Forwarded-Encrypted: i=1; AKwUvByCU+5f+c3ag2ZEkLHoYINiKruBitJh8qgLw5hFFtsZF2AdOTCHS+ozFSPUU+cDE0BCtzDJZyy/BTA6jMs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqb/A/8rgors+Ubmxyg9bx9j0tC/wp1tj6LXyNNpv18luOJGsp
+	yMRK6Z5okj1QHkFDHl0EcvwuS723kNL8uUeS0Tk4sUnCX4TtyKReX0q6ttovMFiwo1Qt0jZPuPz
+	24o5wnKJJoVTI1TMuMvnEhkTFOpdRuaDY2awL88wrgkl7sKyi+thNa2+J6EOEnloDv6iZco7wtS
+	pFNhMt0XwKzru05Hr5UkOJW4GowLuGoxOvIsN9Z9Je5Q==
+X-Gm-Gg: AYBFou058pE/RVBM49Cr/rowSL5dNvRsZMVjFBBRZZab+6sPCS8n+RLIuE0saxGiLZX
+	S1XEI4hrpj+qbBGd6rLeWRnANK5nvUJv3TgfNenKCIEv02kxlNdumeAkF1GBSXJbZnbjiG0n4E7
+	pE9Rp6UYN5Ivu2NlPkuw30WhZh9yrgIYHL0DaA3sSr+rr3f9MTsxHUx6RaUw==
+X-Received: by 2002:a05:6a20:7343:b0:3e5:6c93:2500 with SMTP id adf61e73a8af0-3e9290799a3mr1931064637.57.1793358034452;
+        Fri, 30 Oct 2026 04:00:34 -0700 (PDT)
+X-Received: by 2002:a05:6a20:7343:b0:3e5:6c93:2500 with SMTP id
+ adf61e73a8af0-3e9290799a3mr1931033637.57.1793358033943; Fri, 30 Oct 2026
+ 04:00:33 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,162 +127,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020220140.31752-1-anferneemelokc5@gmail.com>
-In-Reply-To: <20261020220140.31752-1-anferneemelokc5@gmail.com>
+References: <20261019143317.2222236-1-bruceli20040604@gmail.com>
+In-Reply-To: <20261019143317.2222236-1-bruceli20040604@gmail.com>
 From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 12:00:14 +0100
-X-Gm-Features: AclHuK9cDn85gWrusMMP-W9L41_UYwMzVXdFFjFJTDQP7QMovH4WYgXI-UJFkXY
-Message-ID: <CAPx+jO8ZmctKiQntoYrrYW61zwFXkT0_jR8Uqgup8iB1m0C8mQ@mail.gmail.com>
-Subject: Re: [PATCH] mmc: sunxi: fix clock and runtime PM leaks on probe failure
-To: Anfernee Cao <anferneemelokc5@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Samuel Holland <samuel@sholland.org>, linux-mmc@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Fri, 30 Oct 2026 12:00:22 +0100
+X-Gm-Features: AclHuK-5lepEJ6hbXHm1qJZsM8pIJhTJ4sodowpFgQQ3XyT_SGsEkcNO1TTf7hU
+Message-ID: <CAPx+jO8FYgO-p4kph+p8Y0M=qHz_We=k=eVYO=Smd5KJ26xVHw@mail.gmail.com>
+Subject: Re: [PATCH v2] mmc: wmt-sdmmc: release DMA descriptors after stopping
+ the host
+To: Guanxin Li <bruceli20040604@gmail.com>
+Cc: Alexey Charkov <alchark@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+        Ulf Hansson <ulfh@kernel.org>, linux-arm-kernel@lists.infradead.org,
+        linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: Ml3Ayeow0W8NsZFxbI5Q-eyIqV505C4n
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA0MyBTYWx0ZWRfXwXVoh2lXDJMx
- nytJyjkd1htTV9/vhi88NuHUKuings5ZBcdbQ3FYKJoCE/WXmSSgRaT+BAMtRDlytNI8G7o6k4y
- tUWcQi0paDM5ZiZmuGqqiCrpSiMslUKedgkfOHrQQdl+d/VSV2UPq/C2Ki1UVyLXmFrFXPk9JEi
- F//t3aqvNkJxYNwnhOBIpHtKb2Z37FI4YuJ7lMMCFX2gl1PNg2LPEp4rCi1xurQSLvgpne51iYv
- vLSO5FLGhNdo9bb9/1Qd+9/9/dcmtcQm0waCr02lIJsTW6NrrMchqAA2ZAQ5jjMAluYktq7bOTI
- 8S4RVOPIZMcKLKgXK/gkDpFY+BruYve4u7SerH3nlY7qEgtWDHpeUHbWPExNdeV55NtY5xe8zii
- oUw+XU6yk9EN4N9AjdK4v/IjH/a8sUNRKeP7nAhaZkNDgCM9P1Yi2cbt9cNhZcM6JfVpot3DQBh
- 2mjcL6wdXF1817/jVCg==
-X-Proofpoint-ORIG-GUID: Ml3Ayeow0W8NsZFxbI5Q-eyIqV505C4n
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA0MyBTYWx0ZWRfX93+zvWLF2LRH
- xhGhihxhSU7J2BaqrqOsSyKqkB0RkfT1IIGJNKcE94P8X9Bb1w9pj4JAFBF1jVe0v/5WmhpL5OS
- pSgcppHhLAZ5uPQO13hrJygu2t/kE3w=
-X-Authority-Analysis: v=2.4 cv=KdtHIgYD c=1 sm=1 tr=0 ts=6ae478d0 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+X-Proofpoint-GUID: EpB65-Bo1ZspdzttLEPQQP2i5_g93Ocy
+X-Authority-Analysis: v=2.4 cv=KLzPn1Fo c=1 sm=1 tr=0 ts=6ae478d3 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8
- a=BnDUjJD_-KrmPbzgTPgA:9 a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22
+ a=yOCtJkima9RkubShWh1s:22 a=pGLkceISAAAA:8 a=byypguvoXFTbGjyYA4UA:9
+ a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA0MyBTYWx0ZWRfX/QCGd2I46sUL
+ QfhJqdf350M0zmyrU6nTZypHR60GwaYYxAhnaUETDmuJlWnorZgIHt8+OS/zlC3XuLdyzDA50ox
+ HeFvBTkbrtwkLZyMAhekN2sdVWDeM/TIs0k0caCGMd/Tza3dWU1Fk5tgGxOZNnFmVS7zFZY1vBT
+ /AasERxf72lC6dH5O+y73PKTaKS3TOzWfAdxW1fl65vAWFNAaAEdrT29EU6cX9geI/Jd1UV7fUm
+ achWejHDDYfLGaV6/d6ybkmGg+G0xcNnsPlwFFqUfpX4xKFTfngb1z/BEAh5tMeKoA769+6Jwwk
+ i/RTvcpdfbkr85mssneKNMxpZ3foUWZ0H25DA2yaDt9COBYmRRjeM8aDzsZZfIwvkPy6QKlySMp
+ dZ1pR0ALfAsDl5ZrIsVQTGxlYNCM8n3xY+ij89erhY1599TpRRqukKpm8mMbK9D5cTNxqMXe5WB
+ 2/klgZBWMI6A5iIRS7g==
+X-Proofpoint-ORIG-GUID: EpB65-Bo1ZspdzttLEPQQP2i5_g93Ocy
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA0MyBTYWx0ZWRfX/7Bjfq8kFkll
+ a90KD9I27eGNeSPSmVy3nPUf9fxVnDhDoHXG4Z3+CmG39imuvWu3IRPJKU04guO06Z+he8wphbJ
+ Krih+JybfEszG1sWFVv0FyPIBCQDnuQ=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0 phishscore=0
- suspectscore=0 priorityscore=1501 malwarescore=0 adultscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ phishscore=0 adultscore=0 spamscore=0 malwarescore=0 impostorscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
  definitions=main-2610300043
 
-On Tue, Oct 20, 2026 at 4:01=E2=80=AFPM Anfernee Cao <anferneemelokc5@gmail=
-.com> wrote:
+On Mon, Oct 19, 2026 at 4:33=E2=80=AFPM Guanxin Li <bruceli20040604@gmail.c=
+om> wrote:
 >
-> sunxi_mmc_resource_request() enables the bus, card, output and sample
-> clocks before returning. Several failure paths later in
-> sunxi_mmc_probe() leave them running:
+> wmt_mci_remove() currently frees the DMA descriptor buffer before
+> calling mmc_remove_host() and freeing the controller IRQs. The
+> controller may still be using the descriptors, and an interrupt
+> handler may still access them during this window.
 >
->  - If devm_request_threaded_irq() fails, the clocks enabled by
->    sunxi_mmc_enable() are never disabled.
->  - If dma_alloc_coherent(), mmc_of_parse() or sunxi_mmc_init_host()
->    fails, probe only frees the DMA buffer and the mmc_host.
->  - If mmc_add_host() fails, runtime PM has already been enabled, but
->    pm_runtime_disable() is never called.
+> Stop the MMC host and free both IRQs before releasing the DMA
+> buffer to prevent DMA or interrupt accesses to the freed memory
+> during device removal.
 >
-> Besides leaking the clocks, this leaves the clock enable counts
-> unbalanced, so a reprobe (for example after -EPROBE_DEFER) calls
-> clk_prepare_enable() on the same clocks again.
->
-> Disable the IRQ and the clocks in the probe error path, and disable
-> runtime PM on the mmc_add_host() failure path. Also handle a failure of
-> devm_request_threaded_irq() in sunxi_mmc_resource_request().
->
-> Tested with QEMU's orangepi-pc machine: with forced sunxi_mmc_init_host()
-> and mmc_add_host() failures the MMC clocks stay disabled in clk_summary,
-> and a normal probe with an emulated SD card still works.
->
-> This issue was found by manual code inspection.
->
-> Fixes: 3cbcb16095f9 ("mmc: sunxi: Add driver for SD/MMC hosts found on Al=
-lwinner sunxi SoCs")
-> Fixes: 9a8e1e8cc2c0 ("mmc: sunxi: Add runtime_pm support")
-> Cc: stable@vger.kernel.org # v4.18+
-> Signed-off-by: Anfernee Cao <anferneemelokc5@gmail.com>
+> Signed-off-by: Guanxin Li <bruceli20040604@gmail.com>
 
-Applied for fixes, thanks!
+Applied for next, thanks!
 
 Kind regards
 Uffe
 
 
 > ---
->  drivers/mmc/host/sunxi-mmc.c | 24 ++++++++++++++++++------
->  1 file changed, 18 insertions(+), 6 deletions(-)
+> Changes in v2:
+> - Wrapped commit message lines to comply with the 72-column limit.
+> - Moved the DMA buffer comment next to dma_free_coherent().
 >
-> diff --git a/drivers/mmc/host/sunxi-mmc.c b/drivers/mmc/host/sunxi-mmc.c
-> index fe4c0f6d73f3..437fdadb5950 100644
-> --- a/drivers/mmc/host/sunxi-mmc.c
-> +++ b/drivers/mmc/host/sunxi-mmc.c
-> @@ -1354,8 +1354,13 @@ static int sunxi_mmc_resource_request(struct sunxi=
-_mmc_host *host,
->                 goto error_disable_mmc;
->         }
+>  drivers/mmc/host/wmt-sdmmc.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 >
-> -       return devm_request_threaded_irq(&pdev->dev, host->irq, sunxi_mmc=
-_irq,
-> -                       sunxi_mmc_handle_manual_stop, 0, "sunxi-mmc", hos=
-t);
-> +       ret =3D devm_request_threaded_irq(&pdev->dev, host->irq, sunxi_mm=
-c_irq,
-> +                                       sunxi_mmc_handle_manual_stop, 0,
-> +                                       "sunxi-mmc", host);
-> +       if (ret)
-> +               goto error_disable_mmc;
-> +
-> +       return 0;
->
->  error_disable_mmc:
->         sunxi_mmc_disable(host);
-> @@ -1385,9 +1390,11 @@ static int sunxi_mmc_probe(struct platform_device =
-*pdev)
->
->         host->sg_cpu =3D dma_alloc_coherent(&pdev->dev, PAGE_SIZE,
->                                           &host->sg_dma, GFP_KERNEL);
-> -       if (!host->sg_cpu)
-> -               return dev_err_probe(&pdev->dev, -ENOMEM,
-> -                                    "Failed to allocate DMA descriptor m=
-em\n");
-> +       if (!host->sg_cpu) {
-> +               ret =3D dev_err_probe(&pdev->dev, -ENOMEM,
-> +                                   "Failed to allocate DMA descriptor me=
-m\n");
-> +               goto error_disable_mmc;
-> +       }
->
->         if (host->cfg->ccu_has_timings_switch) {
->                 /*
-> @@ -1467,7 +1474,7 @@ static int sunxi_mmc_probe(struct platform_device *=
+> diff --git a/drivers/mmc/host/wmt-sdmmc.c b/drivers/mmc/host/wmt-sdmmc.c
+> index 489daee4f4fc..55675aa8d08a 100644
+> --- a/drivers/mmc/host/wmt-sdmmc.c
+> +++ b/drivers/mmc/host/wmt-sdmmc.c
+> @@ -895,15 +895,15 @@ static void wmt_mci_remove(struct platform_device *=
 pdev)
+>         writeb(0xFF, priv->sdmmc_base + SDMMC_STS0);
+>         writeb(0xFF, priv->sdmmc_base + SDMMC_STS1);
 >
->         ret =3D mmc_add_host(mmc);
->         if (ret)
-> -               goto error_free_dma;
-> +               goto error_disable_rpm;
+> -       /* release the dma buffers */
+> -       dma_free_coherent(&pdev->dev, priv->mmc->max_blk_count * 16,
+> -                         priv->dma_desc_buffer, priv->dma_desc_device_ad=
+dr);
+> -
+>         mmc_remove_host(mmc);
 >
->         dev_info(&pdev->dev, "initialized, max. request size: %u KB%s\n",
->                  mmc->max_req_size >> 10,
-> @@ -1475,8 +1482,13 @@ static int sunxi_mmc_probe(struct platform_device =
-*pdev)
+>         free_irq(priv->irq_regular, priv);
+>         free_irq(priv->irq_dma, priv);
 >
->         return 0;
+> +       /* release the dma buffers */
+> +       dma_free_coherent(&pdev->dev, priv->mmc->max_blk_count * 16,
+> +                         priv->dma_desc_buffer, priv->dma_desc_device_ad=
+dr);
+> +
+>         iounmap(priv->sdmmc_base);
 >
-> +error_disable_rpm:
-> +       pm_runtime_disable(&pdev->dev);
->  error_free_dma:
->         dma_free_coherent(&pdev->dev, PAGE_SIZE, host->sg_cpu, host->sg_d=
-ma);
-> +error_disable_mmc:
-> +       disable_irq(host->irq);
-> +       sunxi_mmc_disable(host);
->         return ret;
->  }
->
+>         clk_disable_unprepare(priv->clk_sdmmc);
 > --
-> 2.54.0.windows.1
->
+> 2.43.0
 >
