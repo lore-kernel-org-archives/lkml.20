@@ -1,89 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793369976;
-	b=HNBPL+lQAL+eTMfsiIhnQWOODXmEfdZzEK8rNFyhM7ovNL4CIUUzbirV5bFntD8D2Ol9
-	 96T7lhf18WkqttXphuLQpnZM5xPDDCNkGBWETq6HyuaW0Pa+FAZW1Ht51mNcBYoy59xVX
-	 nMnW7i5RHQYRlbPjYQv8RP8NyHzE+wim/7QaKqpYaYTu1hjI0zwMc6Ur/G+Nkg/G9Fdz/
-	 Vh8SzkUmy9kRHQTBQ/l/h4KssoF57jLZ2t2LN4wf/5r96yqhuRQhoSelbAiaXw+4V517S
-	 +tWXRAwogqdt2TvZ8J/+fbkHoW130Ohj7f47sE1Wvg1CBBFQWupD2TNEh+oU/wmMeEw==
+	t=1793370024;
+	b=frVUUCXWwr3FeDf6rWRsp45Ib0tDM/L3+yRleqbqVG4zxNzFtEjACRH6skj6HC0l1/0l
+	 EAchzbXSR7GclTuDKGiA6YAvLUYUDcFEahppmLHHTRJLXtieOLMGebD2GQIIo4lqeGDkH
+	 pBMPcABylqQbPEP0ufamSUl+bxUjLo+9dSNPixe/PsGc+354SDGDgB28MekRvdbgP+yZH
+	 PJlIfIRQr1HCg9vCJKTnRD4he4tps0kvr7//mIu4X5ngmS/98kWi2Qx46k9INP45fdwAQ
+	 3CARfyGc8Hw3iozurvcYrmCYRPa7ukw2boyuU4biWl5p4Ec4dBEYx4XbW8evvMGEjCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793369976;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
-	bh=bA1fHQBlzW2f3EluTeJ2sASuPAQq8eJKTH0MCDp2mJI=;
-	b=YImoWKybA7kB8/1o/JTqtgFFCfSVLBpFRhpmFL4rwvqFlWxdB0qJArwrwhZ1KhOcl3m5
-	 UHrpiTyTWEhfd+KhvHx0UWI16EcI0bBXSpxvbPPdgzsZN92coflYYJ/UlQ9RBlUv8wgHo
-	 ieyK3OAExbOxt1i40gFyQHccgZ9Alz5EIvfLv/g4JaPCb40eJ4kDwOZPgrVlISgK87KJX
-	 hcuwj4L2pxl/GkIwB2bRsXaD1QRoHSOrBrJ9HN6fQQAOZo2WOsH36Wt6xULwlh8MfTDgG
-	 YhpuFSXbkqoFbFAYDteR/28dpEFEk68C9dgIAfS4lIia3HES7drp4nxBkOvLYvMRIPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793370024;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Gz8tufo0m0wCulzcu/zCog+PiMQz+E7r7KmJRLFYN0k=;
+	b=sgtM448n9b/wBTkk+U60yxiir4MXnlbxa4sjlAEsOuj+ZOiArlz9BgkSMOuZArIEqXCy
+	 EBQ+uf/9MO81cijqHlyHnfPQKC8ZAKWRpKCDQssD8JfLua6EBcTstyt9204bntI8iJkiv
+	 cF8JugLpkrJiLsVBluQaIqjo+K4FG+HxKGr+0D1PEOMCZH3GzCR28YmbseBZSvtpNceUF
+	 gw1330oTzeeTf1gZKxuxdwunvO7pQob4KNlP1YVkgsbTnab6bAhK3VzWqVG4D4mFj3Kl0
+	 EN0iyeydfk8HLpQX9367/XhNLnxKN6TlGQgE/fEYWxJTq05784OuNL3EDXUmyA+saJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Esi1kjmC;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VKcRmLii;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CEF606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:19:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40CEF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 57CBC606A31C;
+	Fri, 30 Oct 2026 14:20:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Esi1kjmC
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1925248eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:19:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793369974; x=1793974774; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=bA1fHQBlzW2f3EluTeJ2sASuPAQq8eJKTH0MCDp2mJI=;
-        b=Esi1kjmCu/mPRLNW6Cph+bFN0jarTDCCCrwoQ2TSZDwxIXb2wtL6LXW4OPt/ipy3t0
-         /I2GAN+Bf3sPY0A2kspEkj/14Qc6h7BDjO4TvvKFPnXS80vbdfNlq0YcrffLZwXt3g8b
-         toSERLnJ7zIqd9r8fNei1Jxy7U4LiXPRmfgqGFVd3C5wkH4Sugzvh4iPL+fS8qtcLsYl
-         hIwWcdAvIXxVuSiQCNyvRGSseiNtUQNY1wQYB/vYC9cEEASCo5auPpCTsFsyrMVa8xlx
-         R9YFYiIUne+OZP1PbyvBbJjt+sZhTT8L+9jwnBfTb01pm52RfnzoYV+vE4ZKepsLJ7ep
-         Zszg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793369974; x=1793974774;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bA1fHQBlzW2f3EluTeJ2sASuPAQq8eJKTH0MCDp2mJI=;
-        b=yX5SNsOKeuTye7k1gYX9ZDxyBr3w5lx/90Hp/A61ZsIJTrBF4SYWe7antYoXV7aTqs
-         ENXHUjeKgMfgicmGgsb6xIT72D/Dqeaf9m7iHxPASzvWVSOsDqznqbuyHe1y6HeIqNaY
-         nKDSzlhMOUQvJfQ4XDdVLUTp+LTSHTMrhd7BTxMJ8W+3rhZec/Ixqm6bHVMBy5AL8G26
-         fT/7ioxsn/kFwJIpyLOAURGac4hHSgFIYQ7kdM3NzBsJSp3rx5biZ6iBZBx4bf/pM+h5
-         7Dvu/toZQty/GKnOx35MwNbDTVVt03WM2eEtGC6IgH4cd+oBWPSDoEHjWFHMWcx+R7gx
-         J3Lw==
-X-Forwarded-Encrypted: i=1; AKwUvBzI9MF6HUj09w/TVgDKw3X3mwWjZ7v/Ie1KNCfUnAn5O+d/jRzRUqSqhLK61lmbiocvz9kYFSwjjQz30Wo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqYHsh98sTRN7gC49HroBjVs+Nf/niCE9vNxZj5zitH0NUHfO7
-	OUwA0Wg9OSl36t8qKQV8Xker2iCxhyZ2WG2Djdw3ISX5NLzV+dqoT5f/fCVtTg==
-X-Gm-Gg: AYBFou2wrgIVu2tqiWYRJCWg0oUqSoInagyybwuUFg4FZ0u720Q5KRTYrQCeJnj9HXd
-	RLmW3bIrWB10up/n/S5R4RirpIL9kLQorXzqy18/6O6JtNMkGkAURNI17wMMOgHepxsTRtJWWBQ
-	8ZQQBhGa5MHvRwiniPxt9lOpp3EMPa87vF9mGsaWR/DuiR4b2PbHEiVNYD6tlJb1r9qg6VSepyd
-	5Uq1efK1oJiH52rnAVAocLYi8MV5ulp18r+vxzgP4LYk69zB1wmaNo3z0Ati6g7nDnqGeKiHsYN
-	uK6HdBEzkxE5f2dEhwSwUnsBNU8TkptTWqxeWptW6VG7Ponf3Sf2R+eVsefDfe6s8UdPu2cHKCw
-	8nbjHZwzkIrUtkT8dV8em7lTRt0pzdF2lfWBt8YZwDldKtdqXR3O8v4rFxZJYUQHpW8o9S7qGYc
-	X4grn0W/b+bEJBcRf4OVq+cr0hGPPIB+bFpVthq5efTwcR/Lxy5YD5TUdMSS9xr+QdJiezZj5ta
-	Ow2Csc5Za5iBbZh2wWmWcFN3eCZq5Tc/bwA2NjqY/zlnAQQskrZN3UsJcPzeh2dXfKcwKspXpUh
-	HY6O6uxLER8LvHBKplD4TJsT+QI=
-X-Received: by 2002:a05:7301:2511:b0:36a:1872:4b35 with SMTP id 5a478bee46e88-36a42203e6fmr3338125eec.2.1793369974284;
-        Fri, 30 Oct 2026 07:19:34 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a426681aesm10406146eec.1.2026.10.30.07.19.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 07:19:30 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Narayana Murty N <nnmlinux@linux.ibm.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org
-Cc: Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, Shrikanth Hegde <sshegde@linux.ibm.com>, Alexey Kardashevskiy <aik@ozlabs.ru>, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/1] KVM: PPC: Book3S: Protect TCE IOMMU table walks with RCU
-In-Reply-To: <20261015120137.28843-1-nnmlinux@linux.ibm.com>
-Date: Fri, 30 Oct 2026 19:32:20 +0530
-Message-ID: <5wyjwakz.ritesh.list@gmail.com>
-References: <20261015120137.28843-1-nnmlinux@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VKcRmLii
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7F44C1F0093A;
+	Fri, 30 Oct 2026 14:20:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793370024;
+	bh=Gz8tufo0m0wCulzcu/zCog+PiMQz+E7r7KmJRLFYN0k=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=VKcRmLiinGZk1rDYI30Cd7gr58jw5KY9OdMpYcEaX7iGvoWRWz77o7i7RjKqfDEnz
+	 PVjQMTYzAG/ZswC9q7LV2AZehWjqg5U+X74OuG4ghf8KzjkR0jaWpIh6O0T1mKRasl
+	 JIQDbCBftxoDLrn595kLzlNd05ocT0njCEJ6g5MkmHIrVsAngOCbc+iMVXx5McRhEm
+	 RpcpdgHEwrCqJ3TPN8jt1whmrJ4mFIm+5A3VXljLpf/cHOIfgtjNq1049dEijOcWB+
+	 E3AhNQ4BAbhOfyx2s3ohOlJhvlaevyBLJJ2W76kHiB7mm+lRQwgANf0IjB/FlRKpvN
+	 crrdo+GwzxKOg==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,62 +48,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v5 2/2] kbuild: Support directory targets for building
+ DTBs
+From: Nicolas Schier <nsc@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Saravana Kannan <saravanak@kernel.org>, David Heidelberg <david@ixit.cz>, 
+ Arnd Bergmann <arnd@arndb.de>, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261023-dtb-dirs-v3-v5-2-dfe13d47aa64@kernel.org>
+References: <20261023-dtb-dirs-v3-v5-0-dfe13d47aa64@kernel.org>
+ <20261023-dtb-dirs-v3-v5-2-dfe13d47aa64@kernel.org>
+Date: Fri, 30 Oct 2026 15:16:48 +0100
+Message-Id: <179336980813.3139600.12365744632390730361.b4-review@b4>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2025; i=nsc@kernel.org;
+ s=20250924; h=from:subject:message-id;
+ bh=xjoqRoFBUlJo0LxZQBS7KJFWVkqGKDnz+QZfxjGxBic=;
+ b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBq5KbTXElPAg1iNDSd8mx2dOh46umDBQfUYOF9d
+ XwzwqbSlrSJAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCauSm0wAKCRAHUgpwFiYS
+ aX9lEADyP0y324BnGj0w37NJTRd5zotHQwsbDz+f7cpsOePQpXuPO8gtRgguPBB1kPGguwiLidR
+ gutaGPK7lFhHrHgk8jkoLo6wBRsZSAs7Z4ReLHKv5bs62Zu1D3ZXGfkDIqXdnWXtzRA3Bq+bSUc
+ kp5ENeVReaX5FPFIiquN5d+pGQEDJ+n0efvwWFS3/ro8Bih6lhGoD6S0TZhCAT763UUadxyUjJJ
+ NjB4Y+onSQIyMqlXlsncHepeA/fijrcycITUCN/S87yf2FO4vhyBBQ4yqQ8jkiXIqKWEoeJ4ngv
+ buhEWzEGzYTlU4qkj+SpiJ4FiVQM2xG1Ay50bEaAdbE9brEiJahDuF9k+HDiMd0+eVEwaPh6YoT
+ DGE5f22H9wbjIRmAHymOaOaAe675Vvq+u4bVhPmq5fPMwp0xDX6x3NtXPatZL3ydXpgRTcZc3j5
+ EyamjcBntP3X10xy5Zq4xSuDy5hLdUCY73aKXlUb8TKlcfwfhYAAoxVCr3lfXIjJqCyoZTnLUsO
+ XlAitU35AZHuyJcocR6/UI011zZWDC0v506llQBS5sGuV7m+URgVo3+xLuR3vsMO1hZePm7xQrz
+ MeDB5jo+vtt1+j4xSeWtoRc/vphPSh4QRXRGgURB0w/V9LEKD3jc/EAqYuCcf1aPDlzv3QJxeHz
+ glYF5Zbad+yyGVg==
+X-Developer-Key: i=nsc@kernel.org; a=openpgp;
+ fpr=18ED52DBE34F860EE9FBC82B7D97093255A0CE7F
 
-
-Hi Narayana,
-
-Narayana Murty N <nnmlinux@linux.ibm.com> writes:
-
-> Commit cad32d9d42e8 ("KVM: PPC: Book3s: Retire H_PUT_TCE/etc real mode
-> handlers") moved the TCE hcalls from real mode to preemptible virtual
-> mode.
->
-> The stt->iommu_tables list is RCU managed. Entries are added with
-> list_add_rcu(), removed with list_del_rcu(), and released after an RCU
-> grace period with call_rcu().
->
-> However, kvmppc_h_put_tce(), kvmppc_h_put_tce_indirect(), and
-> kvmppc_h_stuff_tce() traverse iommu_tables using
-> list_for_each_entry_lockless() without an RCU read-side critical
-> section.
->
-> A concurrent IOMMU table detach can therefore remove an entry while a
-> TCE hcall is traversing or using it, without the traversal preventing
-> the entry from being reclaimed.
->
-> Use list_for_each_entry_rcu() under rcu_read_lock() for these walks so
-> that an entry removed concurrently is not reclaimed until the reader
-> has completed.
->
-> Fixes: cad32d9d42e8 ("KVM: PPC: Book3s: Retire H_PUT_TCE/etc real mode handlers")
-
-I am not sure if this is the right fix. On doing git blame, I see the
-following patch introduced this:
-
-121f80ba ("KVM: PPC: VFIO: Add in-kernel acceleration for VFIO") - Alexey Kardashevskiy
-
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+> It is useful to be able to build all the DTBs for a vendor. One can list
+> all the .dts files in a directory and convert those to %.dtb targets,
+> but that doesn't work for base+overlay DTB targets.
+> 
+> The 'dtbs' and 'dtbs_check' targets can use the directory rule targets
+> as well which avoids different make paths for building DTBs.
+> 
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 > ---
->  arch/powerpc/kvm/book3s_64_vio.c | 18 ++++++++++++++----
->  1 file changed, 14 insertions(+), 4 deletions(-)
+[...]
+> ---
+>  Makefile                          | 12 +++++++++---
+>  drivers/of/unittest-data/Makefile |  5 +++++
+>  scripts/Makefile.build            |  7 +++++++
+>  scripts/Makefile.dtbs             |  2 ++
+>  4 files changed, 23 insertions(+), 3 deletions(-)
+>
 
+[...]
+> diff --git a/scripts/Makefile.build b/scripts/Makefile.build
+> index 4349108e75e1..22fbd5199091 100644
+> --- a/scripts/Makefile.build
+> +++ b/scripts/Makefile.build
+> @@ -38,6 +38,13 @@ include $(srctree)/scripts/Makefile.compiler
+>  include $(kbuild-file)
+>  include $(srctree)/scripts/Makefile.lib
+>  
+> +# Make DT directory targets reachable for architectures with a DTS tree.
+> +ifeq ($(obj),arch/$(SRCARCH))
+> +ifdef need-dtbslist
+> +subdir-y += boot/dts
+> +endif
+> +endif
+> +
+>  # flags that take effect in current and sub directories
+>  KBUILD_AFLAGS += $(subdir-asflags-y)
+>  KBUILD_CFLAGS += $(subdir-ccflags-y)
+> diff --git a/scripts/Makefile.dtbs b/scripts/Makefile.dtbs
+> index c4e466390284..c7ec2a2a308e 100644
+> --- a/scripts/Makefile.dtbs
+> +++ b/scripts/Makefile.dtbs
+> @@ -23,7 +23,9 @@ dtb-y           := $(addprefix $(obj)/, $(dtb-y))
+>  multi-dtb-y     := $(addprefix $(obj)/, $(multi-dtb-y))
+>  real-dtb-y      := $(addprefix $(obj)/, $(real-dtb-y))
+>  
+> +ifdef need-dtbslist
+>  always-y        += $(dtb-y)
+> +endif
 
-Sashiko pointed out few more bugs around this path:
+Looks good to me, thanks!
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-- [High] kvm: ppc: UAF of spapr_tce_table due to missing rcu_read_lock()
-- [High] kvmppc_clear_tce: pinned memory leak on partial IOMMU map failure
+Reviewed-by: Nicolas Schier <nsc@kernel.org>
 
-So, even though these looks to be pre-existing bugs - do you think we
-can address them in a single patch series itself? This will reduce your
-testing/validation as well?
-Also since we are anyway fixing RCU specific bugs in patch-1, so I think
-we can also fix rcu handling for stt as well?
+To prevent too many ifdef/endif lines, we could use substution variable
+references in scripts/Makefile.{build,dtbs}, e.g.:
 
-Do you mind working on v2 and addressing Sashiko review comments please?
+always-$(need-dtbslist:1=y) += $(dtb-y)
 
--ritesh
-
+-- 
+Nicolas
 
