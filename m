@@ -1,101 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793341915;
-	b=kHTu2P4b6bwVsV+xF2bH2PgQ9eqpDUDHuvN2PYL9t8RLApaGzn84uOTGXS80yJXTrxHu
-	 tMmzf7zKEvnfate285HY7Y1B8Teob/Njh5uQm9tnLwRGkWgmADKtsFcTjZVHoO3DwQAmi
-	 Sb97WbEobxEooHGbUvyAYvUzmPJivSveRalz377m6QxH/XDZS7ZmkgjyOV97SF+W7nvz7
-	 qrSTKGxZc75TP0x/VOXxxuyy0ftkSrpArbF0qw6zyg8/3F6KwAtLvzTyqnHQ4bH0Mhov6
-	 aRauw1L6gL6JKMelOxti0AWWmsjQ++K8LaePzO0xB7crKU8Iee3nfWzKtmN0EtoUOZA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793341915;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=po4/7/QhF/scBRTBfQcn8+7a7UueR9Kf354VoVoto3E=;
-	b=kN08fTnctI1Vj7j53B/l2FeLqoje3kkctv3BhpCm6EErgxJUHdqHC7ytiCO/VIXGyVaF
-	 RVBWVMOmO0yFrMGMABdbblFmDASn15Mh753ofTaZPDEDnu7+wDtsudgajuYtHVXrRWI6N
-	 Zk1TAgXRCfVqNPcjJ99/OFFSZWxaFQKMdHA2ILRNQwBi1JtF39R2Ev3qtnHoEPRZvIGey
-	 2ItWpe6uVGVaiwb2i5L1QJ68JLClBcPeXbLDUKJ214OiaBmwHl2l65JzLlRKzmHbrhWzj
-	 DnjYSkauSo8d06lyWiDqf4PIyE2VV3Nr9Ca5UzLj8vwcXVvZ54dtRU8pTmyJkRmicFw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cHhGZfld;
-	arc=fail smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793341969;
+	b=caEEXy2+BqGsF2yrbXr7HWfn/cFrzYqI7a7khOSVJGjrnyWs3fmO/tiSFfJdLtzZtUmm
+	 VryzuHtnf4bcpyJTXevfJKj/kwFRpMxN5U9DTQuLObAddJZlzlrBZeNu2FtBdOsyGVCXN
+	 73bKzCwVnBcLCXFT0gdPMpkwuR8/OChgeGJsfKayiOTBuc9W8mXuBE4m9QDW5I7qp8wYD
+	 2a5Gx8m2iA2n8fO6XZPBXaTEOYQAb7WmScQDFX6gUN3fmtdCS373k54c4otRqH9za8meS
+	 c1QCoSQuPEYLgJQuUqpGG6tbL1e2sFpADTSu+DNB7DrhyPqJWi0wRqUNQrjB2IodO9w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793341969;
+	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
+	 Received:Received:Message-ID:Subject:From:To:CC:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version:X-MTK;
+	bh=pfj4X609hKhIRQ7z+Mq1LilV5/LakH8sYEZmcW2v6iI=;
+	b=VxJ9B8UcaVA5+REKLztXUWo8afinzwnUiY1Zo5+OTK6ZHHVvJ5kfqixFqoYO/uwM/kRk
+	 v/n2AOY59BbhVpX915S9Rv4SVEbYWjuH9iwKS4wVkL9t6SLhoFYNbYS1d2YJ7up5fYYQg
+	 nLa0seiJvIfhuiv8OmFc12HGTs9BLIwn7fFZtsBfQg4yVyMIRz/KRr3XP/v6Mnkvqf6uN
+	 fRh4C2qSC/z+HnHMtbmR6PnYAGOyEDxhVKgHd/vhKVPvZENzYyLi7DmP2JsXQPTp05ssc
+	 kmqz7cRRxnq2zb4XvQsK3KoFB0VRuHIJjUB4ij5zfwmxVr5W6ZjV5Hli92UVigtWdfQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mediatek.com;
+	spf=pass smtp.mailfrom=mediatek.com;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=QYOERf5X;
+	arc=none smtp.remote-ip=210.61.82.184
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD54606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:31:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CD54606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E03606A31A;
+	Fri, 30 Oct 2026 06:32:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10E03606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cHhGZfld
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35b2c599f43so920966eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:31:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793341915; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lXmg8+OWf+9uYNKr1JUl0TohvMIKma1WUocD5Su+bE4J3d3cQUGI1Zo+zCc+6/kp0g
-         V2UBe93JzjYPJ1ohFv7k3v2TggJMVCW/0GNVtF3D4jgW4ya3+nMrRR3MmQxlVjhiv3XC
-         dPYpjc9myA/O5vVpAQbZ0ikv68mLYiZq98UWej81WPvqz31n9zxvrZ1r9UG0AUEPOKT9
-         JLH2WjgbEwQ4xEjyTa9EFyBAzyiKNs4426aXHtmHWqEoftr53lTO/mGxOb/c9k9PHK+M
-         Bn/3j4GsPDFHOYIpK5o2TnpvJ8vj6Re+dLqX4fYG0YSIAqQFaoHAylJb1xjnuDaJKff0
-         lPgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=po4/7/QhF/scBRTBfQcn8+7a7UueR9Kf354VoVoto3E=;
-        fh=MHS4z2ncQ2AUjS7FqSf7S46LehslFNeF/+CvqumE3Zw=;
-        b=sPjhwG3S9lfkfUHA6SFrCeFHHBnvFWh0TgT3x96AnfEhtb3aGkKmOuEHMTJXoLJgTU
-         Vg+zLhBslO4pEp+2FMZl8lSvUMjSx7pAmsXCkCzj+0Ue/yoFyPuTriad7TC5RVO1aFH2
-         Yfkq72HHNbQp7YllhqP1o7ErHl5gLvrNhKn2aXTBH2hAOnVh0a6D4c2VAA8xc8uJ3kg/
-         1OZaV3Rdl2qrUirRI4jffDSe+zrMotL75T6MZaeh6l7IoRsf/oHvaltveuQupvYXCYXM
-         2crERcdwlejWVOAWJQeSxtSMKVwjV++sUkyzmOW+YNFuINNC+2jO2GuVCBjPxrXcgPNZ
-         Adbw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793341915; x=1793946715; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=po4/7/QhF/scBRTBfQcn8+7a7UueR9Kf354VoVoto3E=;
-        b=cHhGZfldf7rwLhH5KKbJjNDRKRapNAbZx8eScm4G6BCmNEX/trTh3APCkLfh7RB+2A
-         cOLu7dpCFuIi/m+jx/yTUFUZMcJ/kJsLk0BeCCxGTjWwhL7Fcn2U+1mjgVSS+5x+MocD
-         3qorXUcfIr3oq9+t+uVpP9+qFn8OYOWEu8f4WNt8FwjsiisYzVDtYEsHOQZK7cmuVU8s
-         3WGPwDeL6kTP/eAYTW0bJDdrufMyckcJZzLXjlZWf5QW4juLEPZ3WWHwuz41GyBX9HjW
-         PKxwgfe8XIQzCbxMVJIXkqmN2gVFfKVlfxMITH16qONvocH7wAlowIOwo20nkYQaUR7p
-         pDAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793341915; x=1793946715;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=po4/7/QhF/scBRTBfQcn8+7a7UueR9Kf354VoVoto3E=;
-        b=F+hy37ikLJYwR2J1eZY6xitciUPxk1UNzZYHBPOEipRDxpCJB2oac+uRD6B7uYPcZ0
-         MzDX1GTCoWaCVBHqHYH/dCbVEb3VDjjvpq3d9VVtsrkYRvWOo+XiScS3iihaxh8R1N4y
-         m+wOwwT1uqsghe6TBqmrW8iz0SM4Vx4UuKsCkltq9NJiidm1qaUmy/z5Wjn8kT0q+e9j
-         1UpHs9167RBJoO3i2y/p+ehSVUoalS5R58N8BnoxXhcF/gpHs9vd0UN0Ine1ZRN89VYB
-         VXMpel8LqXrqRPFv1FetUsxCVCpXDvwuQOaFBUZUGe0FkNjgeVeENmbb/+ETbE4d1fi/
-         tT9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzYcUB4KNcDf5rNkiHdgiXJTLi/a0bykdZ6MgsZy1j1lEb0adjcR0qIHmh9prTrY+e8gacBOsIy7AvcUwM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJllrmJBCOtAyFXHCtP0QiBLC8Mv/FhWc7AQFPgdYe1HCmPaQQ+
-	YTNIRjWy1PPLNBEf0zoxUcdt76rNxqyYbMNxLCfKiZ9e1Olrt1ot2U1RP2Yqqekhnx8YI5zI5F4
-	pvqmzEYjBwBQbwgA7oLxHMQ4zub8oBKo=
-X-Gm-Gg: AYBFou0l2NGumRcKk2t1Abh1ZmDdSPW5H8wc+o9cqvWIdKFQIPlXQZ2bQpWQZkA89Sd
-	ZgALpB/7yy1X236DQW93oS22zfB74w9oVLVdBX1XE+9MqJTBSmp6k9DlGno1fKCnee580zk7eVc
-	lsdyJDiqz6FL2zqWyzfOdWjyQJXpYQ3JP4VQdLVJcObRkF92fLx8RyQvhkP3medWN8poBXaEhkP
-	3UfkYoEmo+RIHRVvQA3IEA1FA5uvflTHzgOi7boj3DX5wahzub8aS73ue2Y1Z+VvmradSqtTE6w
-	7Z88HOPz16jVEeoTmVLZVcsrP15AfeepnrIR08hnt0pvLgrHICPVgpatbYAQ2VnXMybKZddDAAa
-	MZbk5S+TtfsbTzJKIkVl/AK/Nc9RaR4O5tEt7ckdGOjMWmvkUBktoAkloHwcytwaC1CAZ6mDRtC
-	M3hEUQ4Wp/J021eT72o0YGAm6UnOfQDBAhvfsOhTtW6WXso+QHiFs=
-X-Received: by 2002:a05:7301:618f:20b0:369:fa8b:d725 with SMTP id
- 5a478bee46e88-36a42440a69mr2479370eec.35.1793341914428; Thu, 29 Oct 2026
- 23:31:54 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=QYOERf5X
+X-UUID: b420f2c2d42b11f18dc8c9802ae25ab1-20261030
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=pfj4X609hKhIRQ7z+Mq1LilV5/LakH8sYEZmcW2v6iI=;
+	b=QYOERf5XmrsQPWZPvK73zFPBDDwN8WazkZmAblzBF6C1zK/bEd7AOvbjowbVYGQ2diHA1+KoV4bE43MLRRXnrzK5XqCbebuRgG0AQOAF8SLpzyNpBWaJ/+fRYYeEBX8odUtcpFsHKpTbTtEvS1BG7pL1Yx45KSOLg2SrUMV2pBE=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.21,REQID:895cdad1-cafa-4729-a787-946d41c78b32,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:b0318ac,CLOUDID:8cf4af21-7030-4fea-80dc-cfd692cf1438,B
+	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|136|836|865|888|898,TC:-5,Cont
+	ent:0|15|50|99,EDM:-3|-100,IP:nil,URL:99|1,File:130,RT:0,Bulk:nil,QS:nil,B
+	EC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: b420f2c2d42b11f18dc8c9802ae25ab1-20261030
+Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw02.mediatek.com
+	(envelope-from <peter.wang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1961799278; Fri, 30 Oct 2026 14:32:39 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Fri, 30 Oct 2026 14:32:38 +0800
+Received: from [10.233.130.16] (10.233.130.16) by mtkmbs11n1.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
+ Transport; Fri, 30 Oct 2026 14:32:38 +0800
+Message-ID: <53fe962918514149044cd919786ff12d56b8d33d.camel@mediatek.com>
+Subject: Re: [PATCH v2 0/5] scsi: ufs: Fix device management timeouts and
+ runtime PM errors
+From: Peter Wang <peter.wang@mediatek.com>
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
+	<mkp@kernel.org>, "James E . J . Bottomley"
+	<James.Bottomley@HansenPartnership.com>, Alim Akhtar
+	<alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, Bean Huo
+	<beanhuo@micron.com>
+CC: Can Guo <can.guo@oss.qualcomm.com>, <linux-scsi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Date: Fri, 30 Oct 2026 14:32:38 +0800
+In-Reply-To: <20261029040003.2100003-1-stanleyjhu@google.com>
+References: <20261029040003.2100003-1-stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,106 +89,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030023248.78802-1-testwrzwrz@gmail.com> <20261030023248.78802-2-testwrzwrz@gmail.com>
-In-Reply-To: <20261030023248.78802-2-testwrzwrz@gmail.com>
-From: Jason Xing <kerneljasonxing@gmail.com>
-Date: Fri, 30 Oct 2026 14:31:14 +0800
-X-Gm-Features: AclHuK-3MmLI6pDH5EvsdDyQjqZxLAj0eXtw9LqREvrfIl7g5xpi_yP0zHn6NUo
-Message-ID: <CAL+tcoDUGqk-KfMBqdG4RBURHQc=9J+Ce7B7CZZWRN5yN7pRrw@mail.gmail.com>
-Subject: Re: [PATCH net v4 1/2] xsk: defer software checksum until the skb is complete
-To: Rongzheng Wang <testwrzwrz@gmail.com>
-Cc: netdev@vger.kernel.org, Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
-	Magnus Karlsson <magnus.karlsson@intel.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, stable@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MTK: N
 
-On Fri, Oct 30, 2026 at 10:33=E2=80=AFAM Rongzheng Wang <testwrzwrz@gmail.c=
-om> wrote:
->
-> When XDP_UMEM_TX_SW_CSUM is used with multi-buffer TX, xsk_skb_metadata()
-> calls skb_checksum_help() while only the first descriptor has been added =
-to
-> the skb. The checksum therefore covers just the first fragment, and
-> skb_checksum_help() sets ip_summed to CHECKSUM_NONE, so the remaining
-> fragments are never included in the checksum.
->
-> Move the software checksum calculation to the point where the last
-> descriptor has been added to the skb.
->
-> On a checksum failure the packet is now dropped instead of being returned
-> to the application for a retry. This path is not reachable with the
-> existing metadata validation, but the behavior change is intentional.
->
-> Fixes: 11614723af26 ("xsk: Add option to calculate TX checksum in SW")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rongzheng Wang <testwrzwrz@gmail.com>
-> ---
->  net/xdp/xsk.c | 23 +++++++++++++++--------
->  1 file changed, 15 insertions(+), 8 deletions(-)
->
-> diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-> index 33475b180ea6..aa6b010192ad 100644
-> --- a/net/xdp/xsk.c
-> +++ b/net/xdp/xsk.c
-> @@ -1011,14 +1011,6 @@ static int xsk_skb_metadata(struct sk_buff *skb, v=
-oid *buffer,
->                 skb->csum_start =3D hr + csum_start;
->                 skb->csum_offset =3D csum_offset;
->                 skb->ip_summed =3D CHECKSUM_PARTIAL;
-> -
-> -               if (unlikely(pool->tx_sw_csum)) {
-> -                       int err;
-> -
-> -                       err =3D skb_checksum_help(skb);
-> -                       if (err)
-> -                               return err;
-> -               }
->         }
->
->         if (flags & XDP_TXMD_FLAGS_LAUNCH_TIME)
-> @@ -1030,6 +1022,15 @@ static int xsk_skb_metadata(struct sk_buff *skb, v=
-oid *buffer,
->         return 0;
->  }
->
-> +static int xsk_skb_sw_csum(struct sk_buff *skb, struct xsk_buff_pool *po=
-ol)
-> +{
-> +       if (unlikely(pool->tx_sw_csum &&
-> +                    skb->ip_summed =3D=3D CHECKSUM_PARTIAL))
-> +               return skb_checksum_help(skb);
-> +
-> +       return 0;
-> +}
-> +
->  static struct sk_buff *xsk_build_skb_zerocopy(struct xdp_sock *xs,
->                                               struct xdp_desc *desc)
->  {
-> @@ -1275,6 +1276,12 @@ static int __xsk_generic_xmit(struct sock *sk)
->                 if (xp_mb_desc(&desc)) {
->                         xs->skb =3D skb;
->                         continue;
-> +               } else {
-
-Why are you still using this 'else' as you already posted a new one?
-Please take a look at my previous feedback.
-
-And please carry the reviewed-by tags through the version next time.
-
-Thanks,
-Jason
-
-
-> +                       err =3D xsk_skb_sw_csum(skb, xs->pool);
-> +                       if (unlikely(err)) {
-> +                               xsk_drop_skb(skb);
-> +                               goto out;
-> +                       }
->                 }
->
->                 err =3D __dev_direct_xmit(skb, xs->queue_id);
+On Thu, 2026-10-29 at 15:08 +0800, Stanley Jhu wrote:
+> This series fixes two problems in UFS core entry points that issue
+> device management commands or touch host registers.
+>=20
+> Patch 1/5 restores the millisecond to jiffies conversion of device
+> management command timeouts. Since the timeout moved to rq->timeout,
+> a 1500 ms query timeout waits 6 s with CONFIG_HZ=3D250.
+>=20
+> Patches 2/5 to 5/5 handle runtime PM resume errors. Several UFS core,
+> sysfs, BSG, hwmon, and debugfs entry points call
+> ufshcd_rpm_get_sync()
+> before accessing host registers or issuing device management and UIC
+> commands, but ignore its return value.
+>=20
+> ufshcd_rpm_get_sync() wraps pm_runtime_get_sync() on the UFS device
+> W-LUN and returns a negative errno when runtime resume of the W-LUN
+> or
+> host controller fails, leaving the device or controller in
+> RPM_SUSPENDED.
+>=20
+> Continuing after such a failure can access host registers or issue
+> commands while the device or controller is not known to be active,
+> while checking pm_runtime_get_sync() directly would leave
+> power.usage_count elevated unless balanced with
+> pm_runtime_put_noidle().
+>=20
+> Add ufshcd_rpm_resume_and_get() around pm_runtime_resume_and_get()
+> and
+> convert the 20 external and helper call sites to abort and propagate
+> the
+> error when resuming the W-LUN fails. The three lifecycle call sites
+> in
+> ufshcd_rpm_dev_flush_recheck_work(), ufshcd_wl_shutdown(), and
+> ufshcd_remove(), plus ufshcd_err_handling_prepare(), are
+> intentionally
+> left unchanged.
+>=20
+> Tested on QEMU ARM64 UFS (SDB and MCQ) with W-LUN runtime resume and
+> suspend failures via sysfs offline (no behavior change on suspend
+> failure) and GDB power.disable_depth=3D1 to make ufshcd_rpm_get_sync()
+> fail, and on SDB with a timed out query request.
+>=20
+> Changes since v1:
+> - Drop the incorrect claim that a failed W-LUN runtime suspend
+> =C2=A0 latches power.runtime_error from the cover letter and commit
+> =C2=A0 messages. The PM core latches a runtime suspend error only if it
+> =C2=A0 is neither -EBUSY nor -EAGAIN, and in-tree UFS drivers fail W-LUN
+> =C2=A0 runtime suspend only with -EBUSY or -EAGAIN (Bart).
+> - Say in the cover letter how the series was tested.
+> - Describe each failing sequence in patches 2-5 step by step in
+> =C2=A0 time order, and drop the runtime PM disabled (-EACCES) scenario.
+>=20
+> Link:
+> https://lore.kernel.org/linux-scsi/20261025013446.345974-1-stanleyjhu@goo=
+gle.com/
+> =C2=A0
+>=20
+> Stanley Jhu (5):
+> =C2=A0 scsi: ufs: core: Restore jiffies conversion of device management
+> =C2=A0=C2=A0=C2=A0 timeouts
+> =C2=A0 scsi: ufs: core: Introduce ufshcd_rpm_resume_and_get() helper
+> =C2=A0 scsi: ufs: sysfs: Propagate runtime PM resume errors
+> =C2=A0 scsi: ufs: bsg: Abort ufs_bsg_request() when runtime resume fails
+> =C2=A0 scsi: ufs: hwmon, debugfs: Propagate runtime PM resume errors
+>=20
+> =C2=A0drivers/ufs/core/ufs-debugfs.c |=C2=A0 8 +++-
+> =C2=A0drivers/ufs/core/ufs-hwmon.c=C2=A0=C2=A0 | 12 +++++-
+> =C2=A0drivers/ufs/core/ufs-sysfs.c=C2=A0=C2=A0 | 67 +++++++++++++++++++++=
+++++++-----
 > --
-> 2.39.5 (Apple Git-154)
->
+> =C2=A0drivers/ufs/core/ufs_bsg.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 +-
+> =C2=A0drivers/ufs/core/ufshcd-priv.h |=C2=A0 5 +++
+> =C2=A0drivers/ufs/core/ufshcd.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 9 +=
+++--
+> =C2=A06 files changed, 84 insertions(+), 21 deletions(-)
+>=20
+>=20
+> base-commit: 503e6172fa74da6b4944ece458f5534681e51d21
+
+For the series:
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+
