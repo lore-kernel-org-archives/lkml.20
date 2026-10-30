@@ -1,107 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793380880;
-	b=rZUQL2hve4OBlEF7Vf7I+d0/VXp8DH8UEgZ1GwPMGMm7KpSRbE0lGWdJMJbrJDX1KfvE
-	 B2ta6DnwcIMgN6pPgFj+4qKUE7wdspo1KaCwduISymrtuWtVwWBM/feLk8UQmgbfXcsB1
-	 46L7R9KEecNqVH2fqni4PJQOnJCZCgfSFwBUnTN088h4tdiK2mfNRuNW/fEL7RkOaMDUw
-	 d6cAa+DOYQbg3dtc+69EEJ9sMEhNQVGKRCwjtxGqlMy/QaMp4Yz9twv/5iNvaHIAZiulD
-	 7iUP/qC9JUSEWOhIity8Zwd3ryt3Zeh2xO98qA3ArRV/x2gVrSc0zfaYTI/rPQQazgw==
+	t=1793380894;
+	b=wV9+gFp3EpjiHAj/Q4Z+9q+KBOz0o8MQOB3zTW+c9cQD6wOKiLF4w5fttcmNlmzD50aX
+	 NTQ+PbPv/oXGFc0mVb5LERDDw3U6iDIzxUCgBdDjtU1eMweiTDdqnMvX4en58/n7gXTJw
+	 K6/k8eAf3BpBa3WDq0QnLtpKZihAEheE/8oJqSDZtDztczAvfPcy7WmArX4uIVD4PHdX/
+	 8fFN+xLnzBoJcCPIyRyqILCRB9syKmco6iThiM7k4pJZVOx3M55Uly2S7aGXqXWQ4zMUw
+	 r6RZV+OUus4pytKrc8WnewvuFs8Kmy8awQXPJMIu4i1KfwDBXTcXIPQtkbg4Urnrswg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793380880;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=VxyF/d0tbyiABUKo5yoe5ji6zMNg4n+kmjLnR2dR3BI=;
-	b=DgVujjeGasY6c8HXdbSSastr5Fv2J20t71YXURCcJuJljFUrWaN0dhS+AwzC9uuaIrdn
-	 0WlLhFLOxhGVe1uwnCFnFk9qvnkaNoEKhZ8fSAAeStX2TRrKbuHkMxSbdRUaB9D/z+rSZ
-	 RnE0Hf5aeGXcHVyXsw+SDWQKRLjknN0BN06AO+usYNCD1q19LPRV2340w54ugjedtS459
-	 OkUKPSRrLEblxwebohFA2N7nGE0IqOQiy6YnRc7UqBvXu51MmnylOkeRGG/AC6WM2wZCV
-	 VcghUWGSJbht8ed5Sj0tMYX975EseZf5Yt7lOXqLYvcF/kHWki02elLzGSwFp5F7z4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793380894;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bE6EUIX4raQQzk65tdy5knpZB7YF/98Hlcxg+NagdUo=;
+	b=1POI39FeJqzmx7dstymk+JrwIrSRe40MNyLCfphAlAAg/9UmxW72tBaJK62u9JYFe8Yg
+	 zRBpCNogU+Yv0NprLDIOYPOveZUqcyOI8eXSMwdE1+NBqhfCLGcvc0Sgj9kvioJpPO73j
+	 hIPWsVBSbFjENLN5wKx5+o02FQRdwtnRw3lxp1Wid0h3Zad/y1yrUPup0RgdMOtBSH4E0
+	 PyQvF71k+glLWQS1A0/fszScBwG+qX+OCHzyGgmdcxfsx1JbUeajijoQoS+h9AiN5LTzE
+	 keKpu7V2wDphCiHWu9UHhsznrKbHsP9XCSQBaILv6uGzJ6qxzXwp/pub1WU5WoW0C7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bxbf21FW;
-	arc=none smtp.remote-ip=209.85.221.182
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=IyXVInd8;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32ACB606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:21:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32ACB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33BBD606A31C;
+	Fri, 30 Oct 2026 17:21:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33BBD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bxbf21FW
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5eaefe5b523so785352e0c.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:21:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793380879; x=1793985679; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VxyF/d0tbyiABUKo5yoe5ji6zMNg4n+kmjLnR2dR3BI=;
-        b=bxbf21FWR2WYewpid++ZNkYFvvsreelnK1V1ZNObX9hYbbAhlD+5jvz1t1qw9izRxJ
-         IHVrb+VOWJQjHqKUWA4alLUiYec5YGz4/iBEx/64gW1nMtk7HP2zO0Zn9QSXNE4dv8M4
-         OsMoXyxxqRPCNV+DI/vnHfoqB7MUoqy3nfC1E1tgG1J/cwB9ArwTo23oUbziHmZKlAvt
-         7Oz+8STex4eHXGUjo6f2Zz9lkDdbYPGKZ9SXnibUDM7SH5RshWyoeXmJxVmMk4aYmFh7
-         smhuNbWtSoLMnnYnbPqWspN3wuC+i7pzX52eQCJxAqZB4/ZJeBpLnVa0D/3uJKwwO3ZL
-         V2KQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793380879; x=1793985679;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VxyF/d0tbyiABUKo5yoe5ji6zMNg4n+kmjLnR2dR3BI=;
-        b=t79Q9TEPPRNS2mbNW8n//+TCqkmL27tp+9FDzRxNVOve0MyfX+l4YlOE1zYwGY4J2Q
-         0wCmh2zwGt8YEacMdxSxclDwwBD9MXzGNL96FoRysF8SusSMlZLDBjETQCgkYy83U4rj
-         CYEIj0awjQoJszCh+Fk3os+R46lbb2W7utH5TaK5MWjae4jPTze8wBAZlK6FKMoz91H1
-         QadSAJOBAX5GVn5qZvR5+QO03qLZ8y/WUnTFdz+674BIboxu2jpfyqMWslRJJG/W8kGN
-         O0gR0PesQsUdZnN1q12jV0UN/XHLImC/d2ECR9/ERl7dPhv8B1J7FRtFGanyDWrO8mzm
-         y8tQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxaji9a64ciaXgF3V1/DWTrd3bygZNGyxcBJcwrwRLXW7Fyk4W4C4qKc0xiMBvgKO4SSavqDP3PpjBd1i8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOJcz5GOhav47hNE9KBSGrRNLzxhySKaFQHuEshKr21luQu3zo
-	7uRYQjx7EueQcHqGN8LDt+yh0e7/P2rbFmjjtmd7LYxwdWffidbakc0k
-X-Gm-Gg: AYBFou1X4aIH3EyjoO3O2haYTj++l1t8tniQZI2ukA3f+vN7w9325H/UtNNtjQiIaEr
-	A2yhF47BGnyQoDeabWfmxI5ZsBmB0tdWRyHGfuqO32AQLC3zgMGEIJdqFBy8XQm5q7LR5Le3x8G
-	UxiaUtE7euPXbeo5iulCDlXiyjqKribBxYsM1DhW9v69dR9POwKYKm/yaqs+CYsfxjMgyR+HxxZ
-	SDKv/MfPIjNQboHO6MwO+ISHIrHPjn9PcaL0yorRhRbrGI6akvAOruLGMcDJLtHNAwf2z8DCAxI
-	KL5DSQ1+FzeV3sbcxFQa17GV3ayK6aZJK8ueByotlSXgALBeVtUG8KDGN4gJBYuwmOH1q8o76C8
-	sFXg8hkP7JMIcrVo0vGQAuP5vSgd/yxWUvHMp3K9YkjIZzAtZyPZ/CWT8UV6nl8q99+DdB1YOPY
-	jEPI0VUt1XcbEnxqudJQR/kz1ShKwioWfcSy7mTxCMqgIg4vg/KVXNHu9m9qFiylH+qWSAKWasl
-	6KNRLsh0bdNyVRKdB1cgj2UDErOTvsLbFcuXnmBqUs05Nh+bZzpa2FRctX74TWyBEns3PbjoPaI
-	+CppLqSaP50mhEQmSzcdZj6HQMKpYiaYjs/3KqUWYxDd5vjyjDkv1PBY4hcgBHVMxMgdBn6Mf66
-	RpmYwB6C5wPNX29e8qXnAfMSOF5eSQeCbCvUG0/XpdYX6eqMmHT+CeIoOFq+7xMsdxMPN
-X-Received: by 2002:a05:6122:3a03:b0:5ea:c722:b3a with SMTP id 71dfb90a1353d-5ec6871d778mr1795867e0c.7.1793380879159;
-        Fri, 30 Oct 2026 10:21:19 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69803be7sm3127076e0c.0.2026.10.30.10.21.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 10:21:17 -0700 (PDT)
-Date: Fri, 30 Oct 2026 13:21:17 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Jingxuan Xie <jingxuanxie@deeproute.ai>, 
- netdev@vger.kernel.org
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- "David S . Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- John Ogness <john.ogness@linutronix.de>, 
- linux-kernel@vger.kernel.org, 
- linux-rt-devel@lists.linux.dev
-Message-ID: <willemdebruijn.kernel.17d3748debf8b@gmail.com>
-In-Reply-To: <20261030081704.251652-2-jingxuanxie@deeproute.ai>
-References: <20261030081704.251652-1-jingxuanxie@deeproute.ai>
- <20261030081704.251652-2-jingxuanxie@deeproute.ai>
-Subject: Re: [RFC net v2 1/2] af_packet: prepare the virtio header before
- reserving an RX frame
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=IyXVInd8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=bE6EUIX4raQQzk65tdy5knpZB7YF/98Hlcxg+NagdUo=; b=IyXVInd8tb12n1L/gsdU+PhHoj
+	ZERemV7GYyVGvH9d+wQaznS/3rNHY/UQKOgcut1r1DmaQbp55cvo8IkZBuzbQZHxx3cTDLA/y0+ZB
+	HsNptnnaF1NYdJNI3HL2IcrLlJvF32WB6cXQ8oAE6XXR2qG0ittnQjDxpQLQEzi47a1Vn1tVp7WNc
+	Xk8GA4JesByhLpsBAIRRhOT8mg4YbvExxZhzVUtvJ4PEaiPKtnflSUSox4uaR2ZkOnOgY7nk92TkN
+	O37XzY3WuD2lKRY3Dyb8ymXYf+MEkjvEdInK+pAOmClck/f7c3Q+hg1DL6cs5WB4hsJ8BJaKtGO+d
+	WUWsjhSw==;
+Received: from [177.172.124.63] (helo=[192.168.15.100])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xMqIC-00FCYt-Jf; Fri, 30 Oct 2026 18:21:28 +0100
+Message-ID: <233c47ca-5d1a-4e16-b0c8-6e0bc8857751@igalia.com>
+Date: Fri, 30 Oct 2026 14:21:35 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,84 +57,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ovl: reserve space for the casefolded name terminator
+To: Hungyu Lin <dennylin0707@gmail.com>, amir73il@gmail.com
+Cc: linux-unionfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, miklos@szeredi.hu
+References: <20261028195133.86636-1-dennylin0707@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20261028195133.86636-1-dennylin0707@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Jingxuan Xie wrote:
-> From: jingxuanxie <jingxuanxie@deeproute.ai>
+Hi Hungyu, Amir,
+
+Sorry for the delay and thanks for the patch!
+
+Em 28/10/2026 16:51, Hungyu Lin escreveu:
+> ovl_casefold() allocates NAME_MAX bytes and passes that capacity to
+> utf8_casefold(), which also needs room for a terminating NUL. A valid
+> name whose folded form is exactly NAME_MAX bytes therefore fails to
+> fold, and ovl_fill_merge() falls back to comparing the original bytes.
 > 
-> An RX virtio-header conversion can fail after packet_current_rx_frame()
-> has reserved space in a TPACKET_V3 block and increased its packet count.
-> Releasing the copy lock on that error path does not remove the incomplete
-> record from the block.
-
-Can you give a little more detail on the exact bug: what state does
-not get reverted on error, and how problematic is this.
-
-> Prepare the header in a local variable before reserving a frame, and copy
-> it to the reserved frame only after conversion succeeds. Keep drop
-> accounting, notification and copy_skb cleanup on conversion failure.
-> This also keeps conversion out of the receive queue critical section.
+> For example, when two casefolded layers contain directories named with
+> 255 uppercase and lowercase ASCII letters respectively, readdir lists
+> both names even though lookup treats them as the same directory. The
+> same names merge correctly at 254 bytes.
 > 
-> Assisted-by: LLM
-> Signed-off-by: Jingxuan Xie <jingxuanxie@deeproute.ai>
+> Reserve one additional byte in both the allocation and the folding
+> capacity so that NAME_MAX-byte folded names use the canonical merge key.
+> 
+> Fixes: ee95c5fc86dd ("ovl: Create ovl_casefold() to support casefolded strncmp()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+
+Reviewed-by: André Almeida <andrealmeid@igalia.com>
+
+I've tested and confirmed that files with 255 filenames will appear 
+duplicated.
+
 > ---
->  net/packet/af_packet.c | 22 ++++++++++++----------
->  1 file changed, 12 insertions(+), 10 deletions(-)
+>   fs/overlayfs/readdir.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> index 823e0911c910..7b3e1e27f777 100644
-> --- a/net/packet/af_packet.c
-> +++ b/net/packet/af_packet.c
-> @@ -2273,6 +2273,7 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
->  	__u32 ts_status;
->  	unsigned int slot_id = 0;
->  	int vnet_hdr_sz = 0;
-> +	struct virtio_net_hdr vnet_hdr;
->  
->  	/* struct tpacket{2,3}_hdr is aligned to a multiple of TPACKET_ALIGNMENT.
->  	 * We may add members to them until current aligned size without forcing
-> @@ -2375,6 +2376,14 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
->  			vnet_hdr_sz = 0;
->  		}
->  	}
-> +	if (vnet_hdr_sz &&
-> +	    virtio_net_hdr_from_skb(skb, &vnet_hdr, vio_le(), true, 0)) {
-> +		drop_reason = SKB_DROP_REASON_PACKET_SOCK_ERROR;
-> +		atomic_inc(&po->tp_drops);
-> +		sk->sk_data_ready(sk);
-> +		sk_skb_reason_drop(sk, copy_skb, drop_reason);
-> +		goto drop_n_restore;
+> diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+> index 7d6f7f6022eb..6113d690f8ad 100644
+> --- a/fs/overlayfs/readdir.c
+> +++ b/fs/overlayfs/readdir.c
+> @@ -81,13 +81,13 @@ static int ovl_casefold(struct ovl_readdir_data *rdd, const char *str, int len,
+>   	    name_is_dot_dotdot(str, len))
+>   		return 0;
+>   
+> -	cf_name = kmalloc(NAME_MAX, GFP_KERNEL);
+> +	cf_name = kmalloc(NAME_MAX + 1, GFP_KERNEL);
+>   	if (!cf_name) {
+>   		rdd->err = -ENOMEM;
+>   		return -ENOMEM;
+>   	}
+>   
+> -	cf_len = utf8_casefold(rdd->map, &qstr, cf_name, NAME_MAX);
+> +	cf_len = utf8_casefold(rdd->map, &qstr, cf_name, NAME_MAX + 1);
 
-Probably prefer a goto drop_n_account_unlocked rather than open coding
-that here.
+I wonder if the other callers for utf8_casefold() also need a fix?
 
-> +	}
->  	spin_lock(&sk->sk_receive_queue.lock);
->  	h.raw = packet_current_rx_frame(po, skb,
->  					TP_STATUS_KERNEL, (macoff+snaplen));
-> @@ -2388,16 +2397,9 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
->  		__set_bit(slot_id, po->rx_ring.rx_owner_map);
->  	}
->  
-> -	if (vnet_hdr_sz &&
-> -	    virtio_net_hdr_from_skb(skb, h.raw + macoff -
-> -				    sizeof(struct virtio_net_hdr),
-> -				    vio_le(), true, 0)) {
-> -		if (po->tp_version <= TPACKET_V2)
-> -			__clear_bit(slot_id, po->rx_ring.rx_owner_map);
-> -		else
-> -			prb_clear_blk_fill_status(&po->rx_ring);
-> -		goto drop_n_account;
-> -	}
-> +	if (vnet_hdr_sz)
-> +		memcpy(h.raw + macoff - sizeof(vnet_hdr), &vnet_hdr,
-> +		       sizeof(vnet_hdr));
->  
->  	if (po->tp_version <= TPACKET_V2) {
->  		packet_increment_rx_head(po, &po->rx_ring);
-> -- 
-> 2.25.1
-
+>   	if (cf_len > 0)
+>   		*dst = cf_name;
+>   	else
 
