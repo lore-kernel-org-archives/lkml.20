@@ -1,20 +1,20 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.65
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.25
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793360875;
-	b=13tPtKYWB48gS/zB3o4jkoYWabWSUEgMcgcxx+Iea4sFwnRyUc1Y/OUW/wMLZ1ET0hjz
-	 UXmdNYGRDbVNGL0dvRjtaxPXPhJPoN2EdGWMDAOi8In16RuurA2RQ63d7Q1dtOCYA5QZu
-	 7XGTxSLwCKl9xPfcHL06hfZK+rkVceIZVvn2Hdx2Id8ufxDdR6DRK/uLkbwvB6v1BFWEY
-	 Pv8TJmkUQT44x8gFeBXY2RfByt3t+DoZajJshLJgcQl4LzU7CAJp8cpQpUDdliXeoPF4c
-	 sOz0r77tfnJAwK6Y77pEfTEJleB72gis0LTlNpym0FR+zZ/Hd5c+9OPA+YAFSu+idvQ==
+	t=1793360882;
+	b=hm0bc+gG6mVCso66LbklqBMsoiwtrVDpbBbjBzqLZlwozB38HFjBzVTBSuiN9IF022gV
+	 JFm++NMvzYIAIcflUPkCS1i23w2PNUU18hTJ6C6Orrp8DhYCpdiWNNdQyoF2BNjZiiSJP
+	 7CPe2SjHz22eQJuM84yjXWxVSY9nJAZuRUT1vcKn8qN1nnyGuO7oGWPDHnNcRxVxB4VHO
+	 bAA1J1XT1oR899G7Qz/P9osmEqsjb72C16Qu+cx9JS+ON8NCi4WS6eDm6zsCOnhsO5ZUt
+	 xeH66+XJ+X8S4d5qeAj5qaVwOKUGRzB2HbksLKQ2zC5uzBBincmfqZKgzNfIkKslToQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793360875;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793360882;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
@@ -24,73 +24,96 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UmH65B6EO530OcWorUFAwiJaTkRj4JGJci1sXxK7Yxk=;
-	b=LQSEt9jwraB/ub0Bqs59fp6ZPkZ/RLFt8g5pum7kJYXJeIjzJ+9gx3wB+Wd8CSgaUv5K
-	 Y3vyFge4Xq2eNjSTdup6Hi0ey5kAuoezIjcdbazd7DbdKUGxX1H35BfaUtiqqg9YcKGep
-	 0rj4bywDhzHYO7p3nmr9L6LPU2OBhBmmHPULNX1tyt2K6Gni+gtyRdbvqS7udgv21CZMM
-	 Hh1nnt2r75SYs+8Cw4zBDQjsFK/nY9/rgasvwIc3FvKpg/EwXMWhx6VgatQ+tAK9TSpMN
-	 YgPW1C5trb4pZk6cgbcRhOOi/YZejONxjUTPGQA3kbqnu8++sXwjH0ktG8hAiFxl0Ig==
+	bh=HTeOB6YV+jgrF78grOKOC7Crho7VfrzZEJy4NurXtKM=;
+	b=q3yruCq4OG7V4E6+CUiB8cgd9VdYubofPuI58VRmGcSAk2X4+9vSc2CGg+2/H6HBo63y
+	 l49eq59trhVHcIHfmJiYzknVZfrOEQ5ndjHlbruz8pgYtVkyxpV8t/2uOkzNTtgywqbnH
+	 Mi4Jt/6R4Bf2JLxkFwfNmGjPi6T5Ss8BfXvbI2lvIlEiTPTaZSxYHtdS42oVOOn3oj4dW
+	 9wW7W2IBTm0vAL2M6sqgbOQsg5+6ESNU9BQlswqOPJRG1sb1RsPQKCCnYok97GIotY9g0
+	 +WCEe0JqoUTzRZsABd8GmHykfCTZuTid1EeUQ/t2p1e+VsQBbkloLt/tTPo1vSV3ODA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Q5sOLasJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.65
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011065.outbound.protection.outlook.com [52.101.62.65])
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=iapwY4Rv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.25
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011025.outbound.protection.outlook.com [52.101.70.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3218606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:47:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3218606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95161606A31A;
+	Fri, 30 Oct 2026 11:48:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95161606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Q5sOLasJ
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=iapwY4Rv
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KIICaf/NFuTwy3BRxzeVY46W2rQiPCuEeaNU1f1Ub9uG11GQHcRkhkQhuQUmcHuolKJdJ2Y61ecn3t5ivYPGC5SLrQWHSqxB24qOnqaWW8CfxcgE7l92YXa8X5sh40nj+3/6Nu0lhdT0sXhV4lnJzjPOLoKgb26+bdyURKlMrkPLYPo3JUsDAofmegnCLd6Xsqr1cDl3uTUOeUdJtNQJI3jCGoiKLt5cZZ15UV2muTY4DdI2jU0Y5rUaoYDj+91pio6p/o1rc/UbmZtpKSbWZ1cBt20zGsEDHzfTOuxL3wq/ab7APP4tX003u2iiyjRskWK+QnCQzHBA8QVMkg+dtQ==
+ b=fhwDDaV38d4zlrWa2SzK8cFBvOPC3fBxoxbW6o8Q2oWm6Zwk64u6e7T+IzZsdPGwhxn+SMuaoN/VwvDo3ZxAcG2gWmWI7Y0eBC9LzSAFq9EaggqDkskYY5DMObjk+kvg6r+OmbLzPXPQU0rrG57Y525gTmDMBEY4L963pqlx3rI7BgZmO8aCCMszbw14W3ww8xfIkcr6ElSAlIIifaTaNyFXQ5Jm8XR4pSKPjwYtrOpXjCqcDVHtQJwS8glm5s0QcoZI5nvrL4+4UgglsuTN/9/Pr3BSw9FqvFosjmjUGIYarIHPBvglXp8nVmlN2HllSODLokt5CylIfLfZZrrJug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UmH65B6EO530OcWorUFAwiJaTkRj4JGJci1sXxK7Yxk=;
- b=E+RpKx+L2t/OrUgdVMedONysmmlX+pb35sWzFJi9IOFl69+Y9ZO8/uc7Tebfk9D2odRODq9SyHnCthiTTeQMaotrkVolEdK7faLmjG3zWh1poAiNRLHxvWELXN/ceKTdTtody1HnNGSkceLWIedGbKkaP0siKhJqfoRRfYo0/g+ou4J20RrXNwZ05JU7HPrazx7uk6XWynBMLHb1sxk7qWRPIOmRfo+IsPwk8QjAYlgtq+5Pcksr9w9I/sHk67nzXSSuhMiNTsB8cWYTVclKsBMhA7egutFLmiSoKOpXRo2O90OXHa9iIu+nomMbs3oCZvG7wjIPIxXtCrrA3KaG/Q==
+ bh=HTeOB6YV+jgrF78grOKOC7Crho7VfrzZEJy4NurXtKM=;
+ b=tuRSdnaJcK7JlTfirG+QaDL/A99RdOsQZsPgWaLWp32fQVnZGE2QcMu8bQsN6uOuPSHkPTPWyjkFwa65MqgFIbpabJAVGjVMAWGsjJn98hbPowB2vGX1lIEuEwpQV7DCoq9nfXSq9gaqJ95pthUD88DKHR3+ogi5AUqoo1kl9944m2k0RdPrpAMc18pLT52GKsgwCSLzV3oCdpa7K7w8Hj6+QFAyy7WjjEsRnJzJGE3TVkh+blKnHBAzzw3JlU0vJpsnKmH8BFy+edYb3bEi3Jq7BGr4Kk+EjKBvp4NgqWAMUp9c7pdYJNd8cq+DprB+KFZFSBqT4VxYHS3uc1QpHg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UmH65B6EO530OcWorUFAwiJaTkRj4JGJci1sXxK7Yxk=;
- b=Q5sOLasJCgPvEH42EXKYHg7+znF2GPP26kUzl4oss6dBvZ/sQpnqxzWpAyyOhfVE0rPQSyH4A9rlcMRQ0lEZrkNgPhReGGLtGT4W4ILiWpe5c6oMpDNMbkWAFI590f4nsBRN7/yCemUN/zlNB++N5PGDx8diLrRZxfmHLtyLccA=
+ bh=HTeOB6YV+jgrF78grOKOC7Crho7VfrzZEJy4NurXtKM=;
+ b=iapwY4Rv7Zh2QKL9PoqBs7UXaHgNJ7uLTMuo3BPhJF5R5r/8p4DOlVLM7BsHlgSabP5LsGSRB+M3/rK4qhtewwowNx9h9b/EfsbdAUUmb1u36jlsME1VjSJ8TdDBhgJUxxs+gL6FnPLMp3NlErQ3s9TsRb7gPMuGWmeR94Xf1k+rxx594goHCFJSl1nh9IhSIbQ92NtZ0DLHu2jmRTDo3y0zvlXdWDmjcsav71eT6rwMu03Cmk0ovH7MAJ9vbzwb8E9akJ8xCNoDLk/R0gqh9pIkc4xLqapjOFganPAJMVrntrVhtJZAOKLfoelYkB8mYEIpcjjWhurW+ip9oikhKw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5354.namprd12.prod.outlook.com (2603:10b6:408:103::22)
- by MW4PR12MB7015.namprd12.prod.outlook.com (2603:10b6:303:218::10) with
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
+ by AM9PR04MB7571.eurprd04.prod.outlook.com (2603:10a6:20b:2dd::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 11:47:43 +0000
-Received: from BN9PR12MB5354.namprd12.prod.outlook.com
- ([fe80::7ae3:c4f2:733a:50bd]) by BN9PR12MB5354.namprd12.prod.outlook.com
- ([fe80::7ae3:c4f2:733a:50bd%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 11:47:40 +0000
-Message-ID: <8154f817-b401-41b1-9800-dcd639fb03f6@amd.com>
-Date: Fri, 30 Oct 2026 17:17:34 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] misc: amd-sbi: Fix use-after-free on driver unbind
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, arnd@arndb.de,
- naveenkrishna.chatradhi@amd.com, Anand.Umarji@amd.com,
- Prathima L K <Prathima.Lk@amd.com>
-References: <20261026113910.1003008-1-Akshay.Gupta@amd.com>
- <2026102651-prideful-finance-b60a@gregkh>
- <dae36cea-b00a-4b3c-aa79-d82bfbb67f3e@amd.com>
- <2026102842-jam-demanding-7ba3@gregkh>
-Content-Language: en-US
-From: "Gupta, Akshay" <Akshay.Gupta@amd.com>
-In-Reply-To: <2026102842-jam-demanding-7ba3@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0180.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1a9::6) To BN9PR12MB5354.namprd12.prod.outlook.com
- (2603:10b6:408:103::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 11:47:58 +0000
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023%4]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 11:47:58 +0000
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Wang Zhan <wang.zhan@smartx.com>,
+	Martin Karsten <mkarsten@uwaterloo.ca>,
+	Toshiaki Makita <makita.toshiaki@lab.ntt.co.jp>,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	virtualization@lists.linux.dev,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Subject: [PATCH net 1/2] net: pass the XDP action to generic_xdp_tx() for tracing
+Date: Fri, 30 Oct 2026 13:47:52 +0200
+Message-ID: <20261030114753.185281-1-vladimir.oltean@nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AS4P192CA0035.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:20b:658::18) To AM0PR04MB6900.eurprd04.prod.outlook.com
+ (2603:10a6:208:17d::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,263 +124,163 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5354:EE_|MW4PR12MB7015:EE_
-X-MS-Office365-Filtering-Correlation-Id: 327d5d6b-41c5-4f37-68f7-08df367b99e9
+X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|AM9PR04MB7571:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ec29c31-12c3-42e6-65c9-08df367ba46d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|4143699003|11063799006|56012099006|261009223027099003|261026121527099003|261028144727099003|261026140227099003|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261022113327099003|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|19092799006|11063799006|56012099006|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261021123027099003|261021121427099003|261022105027099003|10067099003|18002099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	BemtsfT4GglQ24I7RnI++xK4AErCStHchTYx0HCZHX2XmuciQ90j6Hq/5J3aEVlHlrooG/CNc5vXLD4wznfcy/iJXY4/Sy/h8SCOm153ikEChk0775IcJQCU5pt1zbJCE9SoyEK2l/83hhc4B+c26FnO+06Lh3CizbKIJ0jQMES/jAc1loN/jM8sbs6VA2WYPtBZ6Ry5HuLk8szGJHLPIeQnW9yMc0I/RSUEOMoYq+6dQ2AHv0RCmRDmRnrSYRd5HVzo7L59NzStUnNoVlMpRWPnGiLa2aRKEMbmmNfcpDSnFCkWdjq3hoNkG/BuibKhPxsab+nadoJHdbjFNciYCot69gFMGTcZO2k3LSzFSoaQ7ad26SGUQ37FakZZqzdm1Klluv1UwwZN8jENGN+goRnUAwA/poD3GYoWcgqO/ghGoF2EV8R+X2HhzJdBHvYvCdIPKYfF5/tUB1FtkWz4E4VJzlskfRU9r8bwf4dhX8hBucNR9rgxC0WMSrziUMBIQAdRu6r0awGdOsM8zJTnwaHYOZA1cexSFBYip+Xxk2+s2ogk1A5WNl/Uw7atvA8l/GXjT9v+NLOPdmgGDqUrtKtNwSwO0DStW/czd9TWFUvMVkqcUIa4xA5JfV30tlV+mVErEEWXdBfekGI+vndoDkAIdIvx91lgkLQZB+w6H9o=
+	Q9Gt8zAuZyNqKaZjNdYqeHr5T9ccXwdd1b7WoszetLb7Gtw1BZTArhGIDIbP/UeBx3f38gWKa8vaW3c+b+LtgYeyRVfjhlYkFBCsGrl0hVUzjtUTJB1lDkv6SjuScDxxKKHPmQ+/IID141AwToVUlrEImbu+wuan5zZs74+TBXeo3GbgbHlrKiqcek1Y7Yyi7f+Fcq+vbRmzNZoaOfFyBlQLCQr0JLo2LXNIVxsZ2kCq85p5juB7QWEStt8ByVAUNVuBcqKEPmLldGDU9SzB4+QM1b4Db7DbqpYiCNUkni/iwZcnkEEdN1kmL2t0W3BMtOgfpTWTkzPsBUX4d8tsg/D3qjDdsaDb177QtQ4LDxKajNgDb0BEFroN0bt/QgkRaBJ4id6Kg8EZCMHUCN+us958nSkr/8LmHcGyCGW2unV2EnvJHEC7S8sL1SzzDH1Z2QZnR+JHdQN0jWH10iZSTjTuW5hfMjTGXfZnl2mX/f7UhOHZ9qe7PQfZ3ZhXTJ2gdr8l682jF4cVHA5fvESZyP8n5QrqABI8ivtWEMEXKft0WOlA7f5bn4oU3MoeQ44ih2UCGArRjBwrR9ei2wzg5R5X++ljhtYKv82beWPlPPe7jWfUZaiQDCENiVIi2/MAMvQ49SbcB+1gpHT14/dcAXSWouXB/7JTc7bH79XxYws=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5354.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(4143699003)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261028144727099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261022113327099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(19092799006)(11063799006)(56012099006)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021123027099003)(261021121427099003)(261022105027099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TG9WRGUxcWIyZzVZTmRLdnUvQ1M1U3YyVjhvZW1zcXFSMVV2dWtVdnVvYWpR?=
- =?utf-8?B?Nmg5UmkxL1NMTUN3YlZaQ3k4V2lmaVh4NXFseG9xN25uOFdwaWRIK293UFFn?=
- =?utf-8?B?SnpKTU42VkhocmVyU2wwd1FVVG0vRFBVSWRzUC84VTNpNFlGbEpjM1FXdHdK?=
- =?utf-8?B?YWxESitEZGRoYXFLSnc0b24rMTdPbTd5NDlFRVlSL0hQeWRYbDlNTUdGazAw?=
- =?utf-8?B?bkxRbGpycU1va2FXZ0RncjNudEM5bkxKby9LZjlxYkQ2ZEJ0bW8xa0g4c21C?=
- =?utf-8?B?QjE0ZUI1MElxY3dHNXBmaEwydzlZNm1mb2dNbWU5TXdFN3ZpYzB5MkFDelRl?=
- =?utf-8?B?SDJTeWxBNkVLcmtOTVZVWFk1M3ZjUGQ5b3lGQURDTnI2ZHR4cUlCb2c5TXVa?=
- =?utf-8?B?OUVYQ3dXSkE0Y2dvbXpDc0UrbU8vMk9ZQ1NJSlI0QngxVmdvOUNXY3REMjc0?=
- =?utf-8?B?eUJDT2JJbkZYcDlQbHNaWmJVZ21ReldXQmF2Y3JEM0w3MjdlQUZDZllQQytu?=
- =?utf-8?B?M2pMTDNwWTJoRUdFamJyZnMyamxMQndrRE43OHdQNnlsQmdwT0trSVBpeVda?=
- =?utf-8?B?VW95TUJ0N2l6RXVkU0FYSG5UbFBHMmJxOE1KMUFGVUlGYWxYSVdOMUpoRjFs?=
- =?utf-8?B?U3ZtekRRRnFTM2VQWU5PSU8xaTY5TUVKcW5yR3dCN0hobGVnb3lTN2VzUVZU?=
- =?utf-8?B?S0tLV3QxVkoyLytYNHZNVnZrK2JNQzBmbTllcmZUeUZ3OHVRMUhIU3hXdGcz?=
- =?utf-8?B?SVVZODc1VGtFK1RSak1adHZFU25Bdk0rUXc0TzdtMVhIMll4YWduU1FsRUVx?=
- =?utf-8?B?VzllS2ptZnZGbkZvZ2N0R1o1czFoQ2FXRzdlMDFqdE42bUxCbUt5ZElnczk1?=
- =?utf-8?B?aVhKREhsZStmdERmaDRqWktCS1J4bEJQZmhDUU52cTdlM1lvT1hzNUhCbnpV?=
- =?utf-8?B?RzNoSWNRYXhnZUFKZ2FQYkNkSDNsUnhDekJZNDMxOURRK214WmZhUzJENnFF?=
- =?utf-8?B?TDd2V3hZSUtUK08rZ3lQQzgwNjgwd2pvNk9VaWg0eUt4clRaTkl4bmNwK0Jm?=
- =?utf-8?B?RXdWYmhOWUFSQjhFVHFYNm1COFFvdDRTUU1wcWdoT1dCZDdnWk1EdUZsVzda?=
- =?utf-8?B?d2YrRktIVW1Ndyt4MkFpblo4UzMvZ0hYMjVOTVNyV3dQeDZJUnRIMGNsZmFs?=
- =?utf-8?B?L1BONlBPU0xha052cGYzb053YThLY2UzaFIzZTNjdXFHSmJpby9lUVlCeVJj?=
- =?utf-8?B?T1FYSGhiVnNybjg1SGQzYUJtSkNMQ0YySXB3aEE5ZXAxNlliNWwrVHVycDVV?=
- =?utf-8?B?OUhRTDBNT0V3alJaY2kzSWhHcUNrQnludjJpRnloeWRIYTM0Z05tWUNZblJR?=
- =?utf-8?B?U1VFYXZ6M3ZNcDhza1hYTzBqeE1IUkNjaEo0VDJ4djhEZzZjY1JhanAvcmpX?=
- =?utf-8?B?cjlra1NlZmRpTzJ2Ky80dU0vZ2kyeFVnMTNHTnBSTWo0TW5yWDcyWGdMdEkz?=
- =?utf-8?B?TnlzanpiUnoxeVZ4ZFZDYXYzUFYzRHFnbFUrcDBUKzkzWmtsZE1rQnh5NHNX?=
- =?utf-8?B?SFpJbWdwZnZmYVVtdlUzNTZ4UWNMN01pSkpTUlZYdXphaUxMZVgzYVdPSkJS?=
- =?utf-8?B?Zlhlb1hmbmpDNWJRSGVtSTZIRDAyYWxuSHdVWE9TWmZmSW13bVdYSGxqVm9m?=
- =?utf-8?B?TW93Nzdlbk8zSUcyeXM2ZjkzUm4zcURpL1FaVTZIemcyL01RTi9SL2o5M2Q2?=
- =?utf-8?B?cWFaNkdKVFpyaXhteTJvUVZzSlk1VXBoNktMdnFzUGNKZHdtc1Q4YVFxditV?=
- =?utf-8?B?TllCczVVRURFcFhwOTlTS1MxSGhKdG9VQmk2RXVqc09BOGpOZnM0cFdwK2Na?=
- =?utf-8?B?RE5GcU5OYUxRUGxlN2d1V0had0dLTXRuSk4zRDc2RFVER3hWa0UvT2wzVWpz?=
- =?utf-8?B?OE5PbE5JUWdMQzVrcG1aYmV6TE5SWEYrbmxFYnFlVCtzUThnVGhNWUVnZlh4?=
- =?utf-8?B?dUlHVW9tWDZaZ213OEoramU2M0FlTjNTRVBLdS9rbGExSkZ3T0N6VjF6Zkxw?=
- =?utf-8?B?Q29wSURUeDNhSU5wUUNhaWFIRndRSlplNi81eDd5MFl4WDB1YUgvTGdObHE4?=
- =?utf-8?B?cXpqMUVyUTBlRHRMYllROUNPSVFPckQyOHFxNlhlYlY4eEJqMS9vMm82a3l6?=
- =?utf-8?B?eHZNOGhTTmpwTGxkWXhXQ2JGaVhBK05HazcxYjR3VnUxcTA3cFh6YzJkOHRK?=
- =?utf-8?B?eENRMUZ5YTh2R25rUzR1am5XY0RKeGowdkZaeEtFOWtNZ3Nxdm9tWXFDL2Jr?=
- =?utf-8?Q?raO0OPlkTFC/vZc62V?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 327d5d6b-41c5-4f37-68f7-08df367b99e9
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5354.namprd12.prod.outlook.com
+	=?us-ascii?Q?JmmIMSi0zVFcx6qP/aLrns9UhK9R7CnkjFuNmxsCGHnF07UiVlQio7cnVfS0?=
+ =?us-ascii?Q?AcaO+0u/ojIi4RIR6b4gMaXwtmiBmtSukJPBM/HwaolRrOqhTNwI1q4UNIeB?=
+ =?us-ascii?Q?hDdIwl7uvCi7BdcGqXDypI7gJpsebnU/jTAwd86CDoAYAeS1jiEG8yuLdsbI?=
+ =?us-ascii?Q?630zsk+bhpxDtEofZ9jpMOi84pK0efEc+L4+YLyPcubXzQdUOLmwgcdnFjPX?=
+ =?us-ascii?Q?F7vKvac17G9BjHrQ1lZklbTpDs1VAt4BEi4dxatcn/qoZVnvcm7+7o8pe1Uu?=
+ =?us-ascii?Q?GkN3QdD6mIf24v4SvFOYbe1Vd61eINGB+Jr6XklzjRGz9o9jgbGhZ4zEheCv?=
+ =?us-ascii?Q?65saLlIabaV2uGRmekm3RljjG9TbHCKFw68e1w85zDtjS0/c5zaS9QgktNHA?=
+ =?us-ascii?Q?Ag45ShSaXfZZ9BGWx2qZ1mai0nesj+cfXo8t3xqfbBn+NxuteEXlwhCHb5Fv?=
+ =?us-ascii?Q?Scs43/zmEtANVFMBnKMUDI/MTQzghfr8/lJtfOhytmT3SPidWVXQbOXJ3xoc?=
+ =?us-ascii?Q?tCEEuah7Z40K5ury3JFB88ZI6+uhtSvA2c3Il85M0ftyOuZc4F22ZvIB0eeV?=
+ =?us-ascii?Q?bUqVw1sUSkgPpSWVSqrdcdcMDHiNrywl0NW/xkIPAYT/UfXweWn5fzZggbn7?=
+ =?us-ascii?Q?dZXABSxqSQ7ggqGJKIHV2C0vN9LC5uw2rCFoU+TgZmGHXplKdhKVXpsOs7wz?=
+ =?us-ascii?Q?Q1WFMxFnTtaMq9zVsJ9+eZC7T7MKyVZBXOoLjD2pRkMdUnAETd9Zs1L3ety8?=
+ =?us-ascii?Q?BUunPrlDrz5twVySZGk9R0kv3fKDES+hlYKfpJ1E3AXlI2e3T8xJcg/43KEr?=
+ =?us-ascii?Q?9Thwe0mmWavkT5cpkWK6J4x2KmeAWbU/jpTRKxTB+vQyOFapxiP9CNLod9d5?=
+ =?us-ascii?Q?iqaZt/qAfy1W5zH+l45th1ewkDACkzmKfuig1KW0hLvCM3QSa+5+gS7Vs78B?=
+ =?us-ascii?Q?akJlktIpE5GiIruofaRkpXIqZ9NHpBiEC6V/D0ktM2KRU3EU/jnQsU6LIS2q?=
+ =?us-ascii?Q?e8uC6WXL6LmoIZPbMww2EKMVUHj4YvdjdxaqTTWoUQcWZ9mDQTh8wtZfgC10?=
+ =?us-ascii?Q?YJ8ODiso4zfOWEjVkTnIOpZwga2C99ilnMnihd5/ftzWvm82je0xRdVQaZ5M?=
+ =?us-ascii?Q?ZmQedjgDkZSPopPzOQy2OENnJFe1tmlV0iKx4KNUciWrJOwyhKJ1XrBB33PA?=
+ =?us-ascii?Q?tMdDBkO25ePuy+xz4k8rnpSa4ypJ5v8Dv8uSlHwXmCtmhDWHID3Fbvb5Wwtd?=
+ =?us-ascii?Q?izpIwSQoiFVmNTHp/GzA37dAny1pcU0Q3M1eBDKp+MkrtAp7q/kWSgbXveSA?=
+ =?us-ascii?Q?hzfexnnfZtmihBxm9uKUsY7v95t6OlKuz0WSR2TusvPl0dES2R8gGrGTqO6P?=
+ =?us-ascii?Q?X5q1H0rlQku6/UuOEebM3cRf9IyGBSU8+3UVNG1pfxns4WHrRhzSiYvg5G0L?=
+ =?us-ascii?Q?7ld60+QHQvoldvu9URneDCoddALuakLFWqiXotTNrSOHYSMlfGwmItdm0jaZ?=
+ =?us-ascii?Q?LTCEL7ANLOrvryBQxqA4GI8Fy2lkdxPb4g6GdzISpwfdIvVRTzdFdxY91l/D?=
+ =?us-ascii?Q?N0rnQ8Q8ANJg+3HoyWQR6Mp1xuJLPiK0ZUndVOkcCBZVRc3OvtwS7hOUwur9?=
+ =?us-ascii?Q?LmWdnK6eU6Fxz5ErTHJBixLXnIgtcxzy62uOTDAqADQinJPdX1arATnv+v/S?=
+ =?us-ascii?Q?k2fNA9b9bFJ0eGCZb8FVEClC2k+4bb6hdz1QURzBfKCTE7RFChEwPr2k0Vvj?=
+ =?us-ascii?Q?cLH+KUPyVcBZBWGeU2myzsBSfLnijC8=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ec29c31-12c3-42e6-65c9-08df367ba46d
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 11:47:40.2474
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 11:47:58.0294
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FyIfjZRNAw0IcBTrgtY9kc3E77F3ABW56NQMd68KTNEdFaHxAMduxhIWzBoL/g+yRtibGmHyLheiWhGUvmbDUw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7015
+X-MS-Exchange-CrossTenant-UserPrincipalName: d9AfYLyKpwYqxRnMMhTCaHbisp0rKbCUv5HJ28igpsWeyl6fntZdEk2FGjWCCzye37Yv6jbb2dMrjsiRp7Z/uw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7571
 
+When generic_xdp_tx() fails to transmit an skb, it reports the drop
+through trace_xdp_exception() with the action hardcoded to XDP_TX.
+That was right when generic XDP was added, and XDP_TX was the only
+caller. Since then, two XDP_REDIRECT paths have started to transmit
+through generic_xdp_tx() as well:
 
-On 10/28/2026 5:56 PM, Greg KH wrote:
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
->
->
-> On Wed, Oct 28, 2026 at 05:49:32PM +0530, Gupta, Akshay wrote:
->> On 10/26/2026 5:44 PM, Greg KH wrote:
->>> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
->>>
->>>
->>> On Mon, Oct 26, 2026 at 05:09:10PM +0530, Akshay Gupta wrote:
->>>> From: Prathima L K <Prathima.Lk@amd.com>
->>>>
->>>> sbrmi_data was allocated with devm_kzalloc() and freed at unbind while
->>>> an open /dev/sbrmi-* fd could still reference it, leading to a
->>>> use-after-free on ioctl after removal.
->>>>
->>>> Refcount sbrmi_data with a kref: take a reference in open(), drop it in
->>>> release(), and free the structure only when the last fd closes. Mark the
->>>> device 'detached' under lock when the misc device is deregistered so all
->>>> ioctl/xfer paths return -ENODEV. Move misc deregistration to a devm
->>>> action and drop the now-unneeded i2c/i3c ".remove" callbacks.
->>>>
->>>> Fixes: 35ac2034db72bbbc73609aab5f05ff6e0d38fdd0 ("misc: amd-sbi: Add support for AMD_SBI IOCTL")
->>> The documentation shows how to properly format this line, please fix it
->>> up, and don't put a blank line between it and these:
->> Hi Greg,
->>
->> Thank you for the feedback.
->>
->> Will update the commit message in proper format.
->>
->>>> Reviewed-by: Akshay Gupta <Akshay.Gupta@amd.com>
->>>> Signed-off-by: Akshay Gupta <Akshay.Gupta@amd.com>
->>> signed-off-by implies review.
->>>
->>>> Signed-off-by: Prathima L K <Prathima.Lk@amd.com>
->>> Wait, this is out of order, yours should be below this, right?
->>>
->> I will drop my Reviewed-by, and fix the order
->>>> ---
->>>>    drivers/misc/amd-sbi/rmi-core.c | 54 +++++++++++++++++++++++++++++++++
->>>>    drivers/misc/amd-sbi/rmi-core.h |  6 ++++
->>>>    drivers/misc/amd-sbi/rmi-i2c.c  | 54 +++++++++++++++++++--------------
->>>>    3 files changed, 91 insertions(+), 23 deletions(-)
->>>>
->>>> diff --git a/drivers/misc/amd-sbi/rmi-core.c b/drivers/misc/amd-sbi/rmi-core.c
->>>> index 95c9109101b5..e77f114c16c6 100644
->>>> --- a/drivers/misc/amd-sbi/rmi-core.c
->>>> +++ b/drivers/misc/amd-sbi/rmi-core.c
->>>> @@ -13,6 +13,7 @@
->>>>    #include <linux/module.h>
->>>>    #include <linux/mutex.h>
->>>>    #include <linux/regmap.h>
->>>> +#include <linux/slab.h>
->>>>    #include "rmi-core.h"
->>>>
->>>>    /* Mask for Status Register bit[1] */
->>>> @@ -193,6 +194,10 @@ static int rmi_cpuid_read(struct sbrmi_data *data,
->>>>         u16 thread;
->>>>
->>>>         mutex_lock(&data->lock);
->>>> +     if (data->detached) {
->>>> +             ret = -ENODEV;
->>>> +             goto exit_unlock;
->>> Why isn't a guard being used here instead?  Then you can do a simple
->>> "return -ENODEV", right?
->> The existing code in rmi-core.c take data->lock with mutex_lock() and
->> release through mutex_unlock()
->> The new code added as part of this fix patch, follows this so patch stays a
->> lifetime fix.
->> I can submit separate patch converting the mutex_lock/mutex_unlock() to
->> guard(mutex) after the fix patch is merged.
->> Let me know your opinion if you suggest to submit the guard_mutex() patch
->> before the fix patch.
->>
->>>> +static int sbrmi_open(struct inode *inode, struct file *fp)
->>>> +{
->>>> +     struct sbrmi_data *data;
->>>> +
->>>> +     data = container_of(fp->private_data, struct sbrmi_data, sbrmi_misc_dev);
->>>> +
->>>> +     mutex_lock(&data->lock);
->>> Again, please use a guard.
->> same as above.
->>>> +     if (data->detached) {
->>>> +             mutex_unlock(&data->lock);
->>>> +             return -ENODEV;
->>>> +     }
->>>> +     mutex_unlock(&data->lock);
->>>> +
->>>> +     kref_get(&data->kref);
->>> Are you attempting to use a kref without a lock?  That way lies madness
->>> and is sure to be wrong.
->>>
->>> Are you attempting to keep the data "alive" somehow?  Are you sure this
->>> is correct?
->> Yes, the kref is there to keep sbrmi_data alive. kref_get() in open() does
->> not race with the final put. misc_open() calls ->open() while holding
->> misc_mtx, and misc_deregister() takes that same mutex. The probe reference
->> is dropped by a devm action that runs only after
->> misc_deregister() has returned, so the object cannot reach zero while open()
->> runs.
->> kref_get() and kref_put() are atomic. I will add a comment at the kref_get()
->> saying this.
->>>> +
->>>> +     return 0;
->>>> +}
->>>> +
->>>> +static int sbrmi_release(struct inode *inode, struct file *fp)
->>>> +{
->>>> +     struct sbrmi_data *data;
->>>> +
->>>> +     data = container_of(fp->private_data, struct sbrmi_data, sbrmi_misc_dev);
->>>> +     kref_put(&data->kref, sbrmi_data_release);
->>> If open is the only thing that can get the reference to the kref, and
->>> this is the thing that drops it, why is the kref needed at all?
->> open () is not the only holder, kref_init() is the reference owned by the
->> driver binding and a devm action drops it on unbind. each open() takes
->> another reference and drops it in release().
->> sbrmi_data is freed only when both are gone, which is what closes the window
->> where devm frees the structure while an ioctl is still using it.
-> That's not good, this should be attached to the file descriptor.  Don't
-> go allocating things at bind as you will mess with the lifetime rules
-> here very quickly, and it gets very messy.  Rely on the rules that the
-> vfs layer gives us and it will be much much simpler.
->
->>>
->>>> +     return 0;
->>>> +}
->>>> +
->>>>    static long sbrmi_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
->>>>    {
->>>>         void __user *argp = (void __user *)arg;
->>>> @@ -570,6 +622,8 @@ static long sbrmi_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
->>>>
->>>>    static const struct file_operations sbrmi_fops = {
->>>>         .owner          = THIS_MODULE,
->>>> +     .open           = sbrmi_open,
->>>> +     .release        = sbrmi_release,
->>>>         .unlocked_ioctl = sbrmi_ioctl,
->>>>         .compat_ioctl   = compat_ptr_ioctl,
->>>>    };
->>>> diff --git a/drivers/misc/amd-sbi/rmi-core.h b/drivers/misc/amd-sbi/rmi-core.h
->>>> index 975ae858e9fd..ae084beb6c03 100644
->>>> --- a/drivers/misc/amd-sbi/rmi-core.h
->>>> +++ b/drivers/misc/amd-sbi/rmi-core.h
->>>> @@ -9,6 +9,7 @@
->>>>    #include <linux/miscdevice.h>
->>>>    #include <linux/mutex.h>
->>>>    #include <linux/i2c.h>
->>>> +#include <linux/kref.h>
->>>>    #include <linux/platform_device.h>
->>>>    #include <linux/regmap.h>
->>>>    #include <uapi/misc/amd-apml.h>
->>>> @@ -56,9 +57,13 @@ struct sbrmi_data {
->>>>         struct regmap *regmap;
->>>>         /* Mutex locking */
->>>>         struct mutex lock;
->>>> +     /* Reference count; keeps @sbrmi_data alive while misc fds are open */
->>>> +     struct kref kref;
->>>>         u32 pwr_limit_max;
->>>>         u8 dev_static_addr;
->>>>         u8 rev;
->>>> +     /* Set on driver unbind; open/ioctl return -ENODEV afterward */
->>>> +     bool detached;
->>> How can open/ioctl even run if the driver is unloaded?  You aren't using
->>> the cdev api properly I think...
->> This fix addresses driver unbind, including unbind through sysfs; it is not
->> limited to module unload. misc_deregister() removes the miscdevice from the
->> misc-device list and destroys its device node. Although it prevents new
->> opens, it does not retain a reference to the driver-private sbrmi_data for
->> files that are already open. Such files retain sbrmi_fops and private_data,
->> so a later ioctl can still enter the driver.
-> unbind through sysfs is for developers and if things break, you get to
-> keep the pieces when it happens (see the discussions on lkml about the
-> recent taint flag added when this happens.)
->
-> So it's rare, but still, let's make this simpler by just moving the
-> resource management to open/release instead of probe/remove.
->
-> thanks,
->
-> greg k-h
+- xdp_do_generic_redirect(), for a redirect to an ifindex
+- dev_map_generic_redirect(), for DEVMAP and DEVMAP_HASH redirects,
+  including broadcast
 
+Drops on those paths are reported as XDP_TX, an action which the
+program never returned. Tools which count xdp:xdp_exception events per
+action, such as the samples/bpf programs built on xdp_sample, therefore
+attribute generic XDP redirect drops to the wrong action. Drivers with
+native XDP already report XDP_TX and XDP_REDIRECT drops separately.
 
-Hi Greg,
+Add an "act" argument to generic_xdp_tx(), and have each caller pass
+the action that led to the transmission: XDP_TX from do_xdp_generic(),
+XDP_REDIRECT from the two redirect paths. generic_xdp_tx() is not
+exported, so these are all of its users.
 
-Thanks for the review. I will drop the probe-owned kref.
-v2 will move misc to cdev API so the open file holds the reference.
-sbrmi_data will be freed from the device release callback when the last 
-file is released,
-rather than from remove.
+Fixes: 6103aa96ec07 ("net: implement XDP_REDIRECT for xdp generic")
+Fixes: 6d5fc1957989 ("xdp: Fix handling of devmap in generic XDP")
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+---
+ include/linux/netdevice.h | 3 ++-
+ kernel/bpf/devmap.c       | 2 +-
+ net/core/dev.c            | 7 ++++---
+ net/core/filter.c         | 2 +-
+ 4 files changed, 8 insertions(+), 6 deletions(-)
 
-thanks,
-Akshay
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index c0ae442c4344..b988afe797c3 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -4355,7 +4355,8 @@ static inline void dev_consume_skb_any(struct sk_buff *skb)
+ 
+ u32 bpf_prog_run_generic_xdp(struct sk_buff *skb, struct xdp_buff *xdp,
+ 			     const struct bpf_prog *xdp_prog);
+-void generic_xdp_tx(struct sk_buff *skb, const struct bpf_prog *xdp_prog);
++void generic_xdp_tx(struct sk_buff *skb, const struct bpf_prog *xdp_prog,
++		    u32 act);
+ int do_xdp_generic(const struct bpf_prog *xdp_prog, struct sk_buff **pskb);
+ int netif_rx(struct sk_buff *skb);
+ int __netif_rx(struct sk_buff *skb);
+diff --git a/kernel/bpf/devmap.c b/kernel/bpf/devmap.c
+index 1b8f0d7f8455..c73e8797c0fc 100644
+--- a/kernel/bpf/devmap.c
++++ b/kernel/bpf/devmap.c
+@@ -731,7 +731,7 @@ int dev_map_generic_redirect(struct bpf_dtab_netdev *dst, struct sk_buff *skb,
+ 		return 0;
+ 
+ 	skb->dev = dst->dev;
+-	generic_xdp_tx(skb, xdp_prog);
++	generic_xdp_tx(skb, xdp_prog, XDP_REDIRECT);
+ 
+ 	return 0;
+ }
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 3ac700d37e59..88860185f583 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -5851,7 +5851,8 @@ static u32 netif_receive_generic_xdp(struct sk_buff **pskb,
+  * and DDOS attacks will be more effective. In-driver-XDP use dedicated TX
+  * queues, so they do not have this starvation issue.
+  */
+-void generic_xdp_tx(struct sk_buff *skb, const struct bpf_prog *xdp_prog)
++void generic_xdp_tx(struct sk_buff *skb, const struct bpf_prog *xdp_prog,
++		    u32 act)
+ {
+ 	struct net_device *dev = skb->dev;
+ 	struct netdev_queue *txq;
+@@ -5868,7 +5869,7 @@ void generic_xdp_tx(struct sk_buff *skb, const struct bpf_prog *xdp_prog)
+ 	}
+ 	HARD_TX_UNLOCK(dev, txq);
+ 	if (free_skb) {
+-		trace_xdp_exception(dev, xdp_prog, XDP_TX);
++		trace_xdp_exception(dev, xdp_prog, act);
+ 		dev_core_stats_tx_dropped_inc(dev);
+ 		kfree_skb(skb);
+ 	}
+@@ -5896,7 +5897,7 @@ int do_xdp_generic(const struct bpf_prog *xdp_prog, struct sk_buff **pskb)
+ 					goto out_redir;
+ 				break;
+ 			case XDP_TX:
+-				generic_xdp_tx(*pskb, xdp_prog);
++				generic_xdp_tx(*pskb, xdp_prog, XDP_TX);
+ 				break;
+ 			}
+ 			bpf_net_ctx_clear(bpf_net_ctx);
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 09c60a58c82a..7c6f8bcc6c29 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -4821,7 +4821,7 @@ int xdp_do_generic_redirect(struct net_device *dev, struct sk_buff *skb,
+ 
+ 		skb->dev = fwd;
+ 		_trace_xdp_redirect(dev, xdp_prog, ri->tgt_index);
+-		generic_xdp_tx(skb, xdp_prog);
++		generic_xdp_tx(skb, xdp_prog, XDP_REDIRECT);
+ 		return 0;
+ 	}
+ 
+-- 
+2.43.0
 
