@@ -1,115 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793332085;
-	b=N2u/G5UMFP8NHwwj3kVMV0FDgL+jUmM+H8qNjNyIGRn37CgZHrY/TDIwHa4IaS1CvKAy
-	 XUmD1C9PI9FA1ak7c0i+0I6P1ll4gyf4hKfjrfgQjku+awOwm4VvQxYZPvXYxDGEyAq6g
-	 DZrNVNSV9hRcCvl2b7fXstmJt1s93BtKLGdX8sGJGTWAg91AMH1xggKmUpcjIVgGXId05
-	 sdCvT+ZZvBzXoqplkrwhhYb/5iGhGEt+1P6kjtF9wfX520v96S/Nq+gn0HA8qET3Cwk4G
-	 A/E6cE9YNYua3xuO3hV5qgeLJPaONi9f2soexYFygpFYl+izFnzbgnVj5Xec7SZtQ2Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793332085;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793332366;
+	b=XEsGOUCQcyvrX6+nkEgK1gFRcOd4Ps4Xk38tmyyAss6rt1raaaH38423fPFQ+caxX5CY
+	 LefN6oyoo6EI+P48DIP/wBRcCmQ/fQgpGf2h9tD2AGxmmB+VA0DTYxy2hmOcNAq0Rek4r
+	 mUwyxutLYc3ppX7fTOnHQZ8bQIXXftXJnIvBTBsSra8zx9CA2ECwuFeJjaINSU5Vw3/ta
+	 kjzWCekXff7TEEKyqAiircykly5nYzNyJnDvYkvbYiaSmahLEjM9+2zvKH3zYHr2ZuSGb
+	 7uLfK0u+XZ2fG08iR+c18TIVY+dhvojaXAK6eUAIDspmhH3rESRsUnPY9Jnddan7KOQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793332366;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=iysMAEzBYuRpLgnQMNCkF8C+wwy010ieTKcmJAPE1LY=;
+	b=tt5gYc5c4hT3n1/2koJx/94U+nN+ymRPdT9FVjpYLqfLzOIa/WulEag4OynJrLL61+tA
+	 w5pQfp77zafBaEJJCYSkMG5CYEoWDNnp6B9eiTiwgWvfphgnY79u9kgzFWQLsC0joT2Za
+	 RvYXLM0e1fZVCCZn8ces6FflkZX0aGjzrEka5GqAtl5jAMvqX5TUvKZbchblqeMrZBei9
+	 rD2B23Q7RgWaaZZB6Nqh4YoS1aRmXRiyjkTjkcQMagqXnsurnVYqKJ/j4dZ/aGLAV/evd
+	 XjaBgfVGl+Kxscj1RPUwAbiNFyKRMWHlMQR+QBSxwe/8A/A+ShDin4lziDKpe/z3QGw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XHdkd5og;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C99AF606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:52:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XHdkd5og
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793332365;
+	b=NIAFCn6Gp942P6YuC4F1Rck4ykmuGKnOhUV0THIcHm/9OAzp2Gk8z4bspeZCt3h1QNB+
+	 hSNgaXJqJlItvJE8fihRXRiWHlc5mlVSh3NrcxUGf15om0jzHHgiRM4QmfWETHAG0Y99+
+	 OPckIrlPesQJDuGq94ixnfGA9Xua3bd1oObWBtYej5lNV/EVZmNBKalyRQqkRCa5z/SBX
+	 hMh1AJAiwU7RL7ix7h4B1ZOFU3hXKlApDaCPvkW/wpWlusaCBhakw4B2/ar3V+o7tOLFg
+	 NPbqd5zVoVeB7/Px9umfDuZY6mFcGvnWr2xdx+uZXYBzErcXJFMbIe839fOijXCEdew==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793332365;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
 	 Content-Transfer-Encoding;
-	bh=xjPgmkWmjjiepUEqVCYqYWCNkiqSqiBwJ+ovcaPQssc=;
-	b=h20sMf964u5zAiAQbPHHJuUIFz8Str1xEcZVLeiPgcnRXf6+N6sX7L/0B8NWgfn7By5Z
-	 0QRvzAVl5u6R87xsZCLGY3aAs1hMVWp8/Rp5xYlhhWfo4e72cANdDQaKBOGgCR1fbq8qd
-	 bgg2MYhNcziCI7e2m37b+/7UDuTv08+PotNKdMgbiSXanyq0E32ULyZwCkBAsGF1wyqUa
-	 JYEuO9CUjO+QMDJ+mv8UY8Msvi4zLxzg40E+Qlj71ucHS50QyNg5igvePcR/ujzpGjxo+
-	 PmBOs+fMZbdcMeg1cQdmW+hun7pa8gaj3ujp9wzuJ2iFD+kMgQKEa9Rq2qCJk2F7BDA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=kJKdhpx0;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ZSDy0WnR;
-	arc=none smtp.remote-ip=103.168.172.147
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	bh=iysMAEzBYuRpLgnQMNCkF8C+wwy010ieTKcmJAPE1LY=;
+	b=M7Kw+saMKBhIJM8P0O5CmEEIRtVx73GB/noMs0wff7/Dk4ONciuZeOI6fI2tIixno9Az
+	 BhyWIHappbAk6JC27FRu8HOSjwD9xCI5sraGeA6GynAe7lPoZiGZCUNnNg4UJ6G+EjNeE
+	 ixzc5uJRvoRh90SbuVmhmyOr85F3Ox2mDdZ9uZJlU1A/fVpF6mKA2r1xfabGasHXXqVUp
+	 W5L5skiDy6cDkt2VRHfedOVTt+Mgy0RZylVh5HjP0N1vamkPrG2uWRtR+l9VRweJud3A1
+	 y/X+JJvgGcfNsM9epI0t5sRNlRAZ7yykoM8QSAxx86kOTCgE73uVocP2I+xj6iSSadA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01135606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:48:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01135606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=kJKdhpx0;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ZSDy0WnR
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id 39528EC01A2
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:48:04 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-03.internal (MEProxy); Thu, 29 Oct 2026 23:48:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793332084;
-	 x=1793418484; bh=xjPgmkWmjjiepUEqVCYqYWCNkiqSqiBwJ+ovcaPQssc=; b=
-	kJKdhpx0ffKjoem4/KiPylZjhTLf7l8f+7q7worlDSLXE3y4Yp8fKEYkQpB9jnU+
-	Bn8Z/+al8vx9d8p6Cz8mFwkA6SxfkwOkeWEzUd5F1F7JP8QjQS/tUmoyDeBMbBqE
-	7WYBevC2mvSZhOWIyMPgz05B3Qp2e6SOngtn9L26f7IeK81Ph6v7+VBCvpGNz/gJ
-	UhDBHMasrRGfx6VaVyCBM6cBjMjYM7/CMOWHY8CE4tCZWa+B6i5HEFmFAcYuhIOs
-	rmxo9mvIiNp8nObdrGCemKkZCM/6scPxCUzKHFDbKxBEVedAWI6EhSmy9xW/QszI
-	Ey6gChQis0KUeTEOtZvAPA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793332084; x=
-	1793418484; bh=xjPgmkWmjjiepUEqVCYqYWCNkiqSqiBwJ+ovcaPQssc=; b=Z
-	SDy0WnRCE+JFObsOaykMOWonYBGtlA5zJ7DofxJRf5S0tgSiZ3CrhOIXvdvtL7Bj
-	3azxi7FiACWPHNNc+00glOM+8BVpV9oMroN8LolkbA6B1BfBjvy6Cat7LWzKad6S
-	iF6rO5vyPxEK7vkUXn2rtMekddqigB+2Cj5T8kzgC5rFO85+72mK81NZkgDTWZK1
-	Rg1eQ9SvLeFwaQD3rGur35UIpLnI7T7Uz63w837QuN3U4/0NtFt51tqXW2T6bNXo
-	VAmVHD97Edun2j+IY68O6ammeHuZJ7dNDSgvwCVGNL3SIMqw+pUMGZQkrbrqZK0/
-	HNHHSEcd8d6pFbgq4WsxQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793332084; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:puwxtDrJhiNVxd6EgAmBgIZtX6HEWY+VUT1ilM07c7gMcY3
-	Kv5FztSBrrUDx5hztQeRye2fgszuaaKV1EBIyhjegdC82IRgVDOVjCF/ZBntOnW5
-	n92Lh5RKSmM5eZOm3IcmHqdWk9BRMX7to3bYSxec0YyONLhsD49kOHXkS9oTfNfd
-	Z/YTmu9jDM0ROSVRerxMCR8YJnCbDsUD4f2QhCiiOF5W9cGYdpf8oZfZIcY+gHvf
-	VWJjeT4mV/utGyhNUHJS+FtJG71qssxw3qu6olfAlOu8P6Y5eI1BP4fy4mEyo2f9
-	RH90RrELjPoTuF8YROGzjvSP3nZMKimhF/Nn7xw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:LbJBPO8stnTw1DJM0JWN8rWn9tnnRa5tvl/WdZCI/Qk=:C2RfkfL3qkMpLNuxu22mGeVII2PRWQNWXyvqFVBT6+I=;
-X-ME-Sender: <xms:cxPkao5j2bmD4oCxuHku5vF2k11slswgY6kJbxYhRjAUyUuE018xnw>
-    <xme:cxPkalxG7DdJn3s62iMK_bK0DV1eBabqPQl5G_h5NtTUO0V_JAOHoXEx-bAa6qk6S
-    UJfPEg5hD4xzocP7SaYdghPVNCymarlRHNGNn5zt1TInG_qz-8LMa0C>
-X-ME-Received: <xmr:cxPkai-EtMTiD92BHRqSEqSUp5ZuQXKyOMavyUIqdQLCT3bJOYiboFigx3ODCmvcWHQxXrSSkAy1PgbhEQdCezS2Ge4rE9r_>
-X-ME-Proxy-Cause: dmFkZTGCQYDZhVNJFhaM6mm3LC/gLYkMnd+pHPOKmU/pIl7DcfHkEu90SW6zrD160ZojeO
-    GOUGrXb43KdjTgMbkg9MkRHEFZD45JvKklzySBbSapQRSyy/s9+ltDhGJTs/ZeT77fzxeA
-    xd9vq0x5gML8YSGUr3IdIGhW04YUVO/fGlIKViXwKzckzu8ru6kLKUv6JgDp+3c1TBwDbP
-    fbTlT4TMxlwdWa45K6au6RUxV8QQDxwW1KBJB4RjhTdt1HrONv320H+Ho7wbcyxQELRIJz
-    004z4wr/EBd3JGMqdkPpI6SvI1MNPNAf6Y+FoDMXAe1wfLRT6wdnTP4amMulSAPC8CACSY
-    SzgIX45XhHfqys3RedK7DB/5d4t0rivy1HDxcbXnvLdqH7Da7PPufvh7Zo6AX0aGggmHx9
-    9+e0YM5ljsH8XaRFDfhhtDjgYRGS8wBTnqsnlCRQFlXXM/HhiJ9EuISi11n5y6NxXScrtf
-    Ufccvm6o8vBq2qtQxmoJqt9t9qyxClguoTP9FVzT8J9vO0tO2y2LQMyWmCg8Are9uly1X2
-    Eda0udI7fTV9N/+gadwd6uWd0rEcVIQe1oqp5UsMt5oI5KdTyOSNQ/NsM+8nkXtR8DYY53
-    lybIWq4xx3QPgFsJpyAKMj8LPaW+Cd9pBqjPQIe0pjjv/z1Pi2H1ysBbwINQ
-X-ME-Proxy: <xmx:cxPkahFsZeB2L4lNYolOIkzOlZdlf5HBBXiDunTyVd38vl-gpTcUlA>
-    <xmx:cxPkakACXoMAj53WzXcMPihFjx0LMl9Hp9cwHYYps_3kXqOLpzmMuA>
-    <xmx:cxPkatkLaLiGAOwq25BACVtRvtNtUOFsc0FiRRdtYgUmK2UcyRXuXA>
-    <xmx:cxPkavQiyCJ167hlNdD7qBjrRAJ6sv6A6v0bkNJVOCU4TBaVQQs_GA>
-    <xmx:dBPkauPDUf-kjn851G8M_qV4b-OtgcueVKvlpCHCPXPf2XJ0q_-Rj2l_>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 23:48:01 -0400 (EDT)
-Message-ID: <76d96a5d-41d8-48ba-8cd7-64c47ff0559a@pobox.com>
-Date: Thu, 29 Oct 2026 20:47:59 -0700
+	by smtp.kernel.org (Postfix) with ESMTPS id CC5FF1F000C1;
+	Fri, 30 Oct 2026 03:52:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793332365;
+	bh=iysMAEzBYuRpLgnQMNCkF8C+wwy010ieTKcmJAPE1LY=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=XHdkd5og36XBX6Y0CKOirURH4O86UuKspW7B0vwL6GEdcv9KiUKw9f5b0BF1Jw1av
+	 sKkNAjmnbVli9io0JC42m2CgBPk6EMScyP3JZcE9TA63WImPALjQwsinIvIwdoDOm/
+	 DyHIWmqL3dO8guWKZRkLc8pgzSTzqVyIuUzQzjDYlc5d4MWlBwes22sziV4dCbxSPb
+	 vNARyKDxLW25rSzGASzokJFfvsbcREraKe5lQprsSfoR8Zwv2maAQ1fqfupwfHGI7W
+	 +bWLU3ffIhlH8WzROEIfHQHXejit1DaIdO042LqyK5oA3K6uB13rSJ3JpBZcNq73jI
+	 MrzLVQsK3iEVw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 293474363D;
+	Fri, 30 Oct 2026 03:52:44 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Fri, 30 Oct 2026 12:52:44 +0900
+Subject: [PATCH] erofs: apply the stacked fs check to extra file-backed
+ devices
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,46 +83,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/109] 6.18.60-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261028165942.357251485@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261028165942.357251485@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261030-erofs-stacked-extra-devices-v1-1-39f7df7ac01b@samsung.com>
+X-B4-Tracking: v=1; b=H4sIAIsU5GoC/x3MQQqDQAxA0atI1g1MRrGlV5EuwiTaUNCSiAji3
+ R1cvsX/B4S6acC7OcB1s7BlrqBHA+XL86RoUg055Z5SfqH6MgbGyuWngrqvzig1LBooT6aOhBO
+ 1LdTD33W0/b4Pn/O8AHOgu11tAAAA
+To: Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>
+Cc: Yue Hu <zbestahu@gmail.com>, Jingbo Xu <jefflexu@163.com>, 
+ Sandeep Dhavale <dhavale@google.com>, Hongbo Li <hongbohbli@tencent.com>, 
+ Chunhai Guo <guochunhai@vivo.com>, linux-erofs@lists.ozlabs.org, 
+ linux-kernel@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793332363; l=2715;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=ewjS8koWFn8Z4rafq/egOLIaNXTnJqYTfaJQKrbMB9s=;
+ b=Bxud52oBS6RR96umz1PtXO37YvER3b+2EfdcZL8t9uPHVWsq+/Uz3ePCKWAOKbZTXGR7NGnva
+ nFn3KIa7gzFAP/HdYKb9DQZFWkBJqKLaV5LyPa3JI2b8LA9yVJcSgKT
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
 Content-Transfer-Encoding: 7bit
 
-On 10/28/26 9:59 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.60 release.
-> There are 109 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.60-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+From: Daejun Park <daejun7.park@samsung.com>
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1) and an arm64
-virtual macihne. Working well, no regressions observed.
+erofs_fc_fill_super() rejects a file-backed mount whose image is on a
+file-backed EROFS or on a filesystem with s_stack_depth set. This
+bounds the nesting of reads. Extra devices given by device= are not
+checked. File-backed mounts can still nest through them without limit.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Apply the same check to extra devices.
 
+Fixes: fb176750266a ("erofs: add file-backed mount support")
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+---
+Tested on erofs dev in a QEMU guest with KASAN and lockdep:
+
+- Blobs on a file-backed EROFS or overlayfs now get -EINVAL.
+
+- Blobs on XFS or a loop-mounted EROFS still mount and read back.
+
+- Lockdep warns about devs->rwsem vs i_rwsem for a device= path inside
+  an EROFS mount, with or without this patch.
+---
+ fs/erofs/super.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/fs/erofs/super.c b/fs/erofs/super.c
+index ce05557bd9..ee01a5ef85 100644
+--- a/fs/erofs/super.c
++++ b/fs/erofs/super.c
+@@ -122,6 +122,14 @@ void *erofs_read_metadata(struct super_block *sb, struct erofs_buf *buf,
+ 	return buffer;
+ }
+ 
++/* see the comment in erofs_fc_fill_super() */
++static bool erofs_is_stacked_file(struct file *file)
++{
++	struct super_block *sb = file_inode(file)->i_sb;
++
++	return (sb->s_op == &erofs_sops && !sb->s_bdev) || sb->s_stack_depth;
++}
++
+ static int erofs_init_device(struct erofs_buf *buf, struct super_block *sb,
+ 			     struct erofs_device_info *dif, erofs_off_t *pos)
+ {
+@@ -161,6 +169,11 @@ static int erofs_init_device(struct erofs_buf *buf, struct super_block *sb,
+ 		} else if (!S_ISREG(file_inode(file)->i_mode)) {
+ 			fput(file);
+ 			return -EINVAL;
++		} else if (erofs_is_stacked_file(file)) {
++			erofs_err(sb, "%s: file-backed devices cannot be on stacked fses",
++				  dif->path);
++			fput(file);
++			return -EINVAL;
+ 		}
+ 		if (!dif->dax_dev && test_opt(&sbi->opt, DAX_ALWAYS)) {
+ 			erofs_info(sb, "DAX unsupported by %s. Turning off DAX.",
+@@ -701,9 +714,7 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
+ 		 * It MUST change if another fs plans to support them, which
+ 		 * may also require adjusting FILESYSTEM_MAX_STACK_DEPTH.
+ 		 */
+-		inode = file_inode(sbi->dif0.file);
+-		if ((inode->i_sb->s_op == &erofs_sops &&
+-		     !inode->i_sb->s_bdev) || inode->i_sb->s_stack_depth) {
++		if (erofs_is_stacked_file(sbi->dif0.file)) {
+ 			erofs_err(sb, "file-backed mounts cannot be applied to stacked fses");
+ 			return -ENOTBLK;
+ 		}
+
+---
+base-commit: 209108a5456171ab430e25b54b2dfe083455bfb6
+change-id: 20261028-erofs-stacked-extra-devices-d7a141da0133
+
+Best regards,
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+Daejun Park <daejun7.park@samsung.com>
+
+
