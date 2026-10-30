@@ -1,114 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793400350;
-	b=NVk/iu69ji0X6F16OG0jtQX/Au0TO0YozuvoQf7NXUj+JQstmPYGgWhplcGUTb6hJEOC
-	 0VXWGUi9G1ilIC5vWj7yo717/ZhSOD7wuQKUMxExqGu1zV0Owq6/Xxdpi/tr7DRUSAPRG
-	 HlJHiD/K5nuh1SiYOekjz0vUC82QvF/WAWldiKLRJZqGO+sZf8f1wrSgPaOKw9NJGAY1R
-	 IQKPvzfpCoUsg/YymgIcvxWue3n138+0AaYUmCUykeGhkzx/TnKtowMaLACRTThIuW19a
-	 z3KVmNP/iBBmLcuM4vO6VcB5q/uVRBmhoeXb2kwWQNDAfVmU2TEiyC5wRm1HBaNzhAA==
+	t=1793400446;
+	b=tyXr1fd5Xa6Hk5tsHp51/sfaqnEDxb5G1UGlVsZ/rrHwHkXh2ovw1H1OjarI9k5oCDdW
+	 FacYS77Gs1KLiJSdzJNb7LpI1kyF/QcG0VzkSOaQxp0xgtL5QSLChyI5KFcJPDYSvmYyV
+	 xo9ymD7DCfyxUt7ZyRoBYZbajmA2j1fwGXZF+FLzUdgHW7pesH/hCzXsGinJlkphcjgD6
+	 C+F0QomIXntpsGsU1bQo6Fevh7kkBKjRu9g29b0nEDPM8TEB8tUA5sr/sHUpnwEYX56C9
+	 /hc7IezApo6L+53yxwKSQZMBP/UWx4N6Jck5nTcpz31/oKDs585ckPtNM1Nw32p+GMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793400350;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Content-Type:Content-Transfer-Encoding:MIME-Version:From:To:
-	 Cc:Subject:In-reply-to:References:Date:Message-id:Reply-To;
-	bh=0B8O7nu9f1oA8mtZ669QAgxW4AUmioLSCxqsLxGiP0U=;
-	b=GPOA6nuLUcygaQX2ymj1sMUyOyHzTFpHSuslDMcjILZgVwwW87j9eARQaJEAg3nmx9NG
-	 0bN6Qt/QODIozbjHu6VwZP7I+3o6QyfWixOGEE2G+F+Ppgms5WZWXhETj8t84D2CApufa
-	 aJWej6NoNFdyNJAUMQAAFCYzlR36jWEHgZY2vOvxYS1oXzWhlt0Q70vaRzo1y/y5SXPWK
-	 ooky7s0DqrgRM1DqC5COHiMPcMVTPIBE3yIWGk9so7VsK3PYnSdDUbsu5r0OSrQyq0Jhq
-	 vA+lqGTHUgK78UStua7qxn7wSojJXBmQHqoc7n6jjn9/RN3+rLF6eOJHJSIBETze5nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793400446;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=30fXaKKbd46d8fP4eF3UV28bEpjvYYXr5FYuZ+bJRHs=;
+	b=TP+9NUSWPClrZj/NJ54UhrHMR0bFFVUfkZnqFLHuLF8bqh+KFRgY0L5QtlbF7oE/Yns2
+	 GMKxCdycqSbufrusw2U5V/7sPhjF+pRZeoIle7876e9NP67MyEybc5CRLfTFzd8eiLMis
+	 719yZgGLKBAxjvJOhFk5CgHGPDMYHIiO2AyjwA1Zh6JOq6lZM05xja8nu7w+3d6v6z3eS
+	 KAgIEHV56C3KuO/HLBN5uMh7UvcSllvua8RfzDVMePu55IXzyt7q5WX/RPVY24erdLb8m
+	 Y+uVEsn0hBN6AMiGbQ1XZSu/dm7353i1+mqxnEwm+6Sq7XScxzaMFhlC8hP5m+exAvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ownmail.net;
-	spf=pass smtp.mailfrom=ownmail.net;
-	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=RLnZSdWX;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=imNKQsTW;
-	arc=none smtp.remote-ip=202.12.124.152
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="R34PI/7A";
+	arc=none smtp.remote-ip=44.202.169.39
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68141606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:45:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68141606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF8A606A31C;
+	Fri, 30 Oct 2026 22:47:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FF8A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=RLnZSdWX;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=imNKQsTW
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id C7CBB7A015E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:45:48 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Fri, 30 Oct 2026 18:45:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
-	1793400348; x=1793486748; bh=0B8O7nu9f1oA8mtZ669QAgxW4AUmioLSCxq
-	sLxGiP0U=; b=RLnZSdWXklO+Dl2hB1PDqehMxnk3I51lzbjzPytoWS9xCjFA9fV
-	MQx3N3RqieAIr4vjBtzsQTG+aohUO+J6RzAvzJcszeIcDlXiDhx7zgm0jqPEQuID
-	Szrw0Huay946e2avB8uE4NSLfZeNNzSdSfwJoDShf3rUooJ4phG9AQUux2jD0PGA
-	epKrmomaUqCZiAwXz/UnA03f6vPcy9oKx45QiJ/QtedwHyunREFJ+xbfuo0u60Wd
-	7hfFFngjj/rvic/heSFunGpXyUhEBunmlLCwEWhna7TiDT6r9G+K6jXaYKL7VwU5
-	mSpxkG5cmI27rSuJsQelmCWUHjdKw+1u7/g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793400348; x=
-	1793486748; bh=0B8O7nu9f1oA8mtZ669QAgxW4AUmioLSCxqsLxGiP0U=; b=i
-	mNKQsTWMXZmUzulgqrFmEbjY81/LIz4JpcFmkB03Ln6T8IHtITkSQZSkL/045rO6
-	GQdgkM0ki1gnCMB2c8GlXWVGG5HpfVcLCrQA4fnVBMJzJOSjwCJaz4WNa6htCMPw
-	BjLf20xCKVEnihA+dW9eMAxsTaZXrPth6oY0CMgaQPEn2ECWLUuJwYPCB+s1in+z
-	K05PcdyFGeQvBW5PebP8ovdXo7pw33DLWZYO4ANFSORCgkb268V1Yah1W1hzX9BL
-	xkcqBQgsm9IwyE0FgXWN+/FTT/hwYAAANUlPEnXg6mOR6H6RyoWFf3ihIucDtMO0
-	OJ2kNK3kx1DrRrmjId4HA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=ownmail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793400348; d=ownmail.net;
-	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:MjQz6HVEL4pH6vPyv7XN95NNecOxrSVWrMBQQSP94pH0Buq
-	dXtIHlD3rrHjIr62a20Vbwhd8pqyp7xxgoaYUjWtsFJT3rC5PECj7ROrqu3gG9dY
-	ieCJEBlLnm8jlhNvS3wS73dGII0yfO1SKHE+DcjPbiZQn29iCq+LXVgZ5bIP+chp
-	eqA/ImZyEVakin07a0q27nf84f35kMVowxWQl+8lPMjo+949Iz/3YE8gn5zEwQhf
-	np5ySehejsnYVsG++icyvNsCGxGwYurC9NTZSLxC1Jd96bMsNllgu3BFIBWKHrgB
-	tm0CevtORysLoBczTXIvKTDZJFNSPzAeOTeu0qA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,reply-to,
-	subject,to;
-Message-Instance: m=1; h=sha256:6hS8kX8/2Y/Z02XsQ/S0GdyJ84NWRMwe7axxxaOjTNY=:ln1xf0CyP84OtQxdxCpn+k5tLttKTvxi8ap5isSNh3Q=;
-X-ME-Sender: <xms:Gx7lamfFP_mfuzxUGs31fMhFiGpsD89uYDXoIuF6aQ6VpYLsK9j4DQ>
-    <xme:Gx7lalz2KGzxldIGZbbOubnNLn4FlKwqlyWQpBEbOE3ZghM9rK5p4FjMT7Bf8_MHe
-    cLXafqcplc9g_GNWkH_rbYBwXPePQ67c5Z88K4X3PlbjM-G0w>
-X-ME-Received: <xmr:Gx7lahEV6dNd6QNAJZ3SLh9G0utdymFzsJ9N9xhMf_faIqdHSKItJWt1kop7KsJM6L4WCn_AJ4Dp1S8BTLFkrwMGo-qmjno>
-X-ME-Proxy-Cause: dmFkZTENnjV24hxZOZ2AhqWYYvaUGnTJGIvJXMAM/HCP0jMhhBPFe17oUdYSKatVeqdPzZ
-    Vpf2QikxTbrzIGvPM/XTu8ZdA0ZvVMjiSS8sTUT/UG0mF0QujI4xuz7+fDuJ5fTBeMOZk0
-    kT32b7viec1SkGY98z0PRJepQN7PQw1ZBEsLFhS7Qavt9hRt19/navlj949D1uf/jv0Mqr
-    9PwjMspBYtAkOteLu/NieyU9rupiM/H8tYIpKPslQ5IXfKTDPA6GCoTrpi1qm+RGexx32/
-    zB+YItZ4XCdwtse0c4X6q5GMd9zWnFwtaQFTSKgeDMt4jl5mAOaDGjGZjz8hYGaUgva9oT
-    J1H9fNRGhuYdB31gjto3Zjhemlf9hp3w66eNSTNeJOJ/i92vuY6qN7J2G0e3SYuccD2LaZ
-    Fg0BNSr8Tymvkq4pMiseqGVLQnzkgVnRwmlQZwSNAeZNdG2Y90LOoqxjUazSlamHSVUemY
-    A2HBRsKd1y0RVmnzGNZt4QM8s3WEk1BNBo7tIAVkP99LGGjcOnIK7QIp4pGGhI4qvILU5t
-    kpnkaJQl9/0716DR7BMF143vlmB9Xp6YaXk8plsLI7gS/f2WqPD7p9Gslq28DfNV9jKzFH
-    slzHq88UugB2KdDb2Fb/Y0XbLOJcA//KdfGkWuHfQBVhKtK4ohYPFWPpgnAQ
-X-ME-Proxy: <xmx:Gx7lak18XawSA9qLkltB3cMfg6XV692L5nRUg8HkeSaEEj7iugQFeg>
-    <xmx:Gx7lap82czRjD0aSai-Gy-5GXHxnKPQqwmd5saoxmdm5DGP6Ab_-KA>
-    <xmx:Gx7lanFnG-Y30YA5hc7OmETIL3qVu9bC8Mx4unaftyRX8J4Q8_GDsQ>
-    <xmx:Gx7lavjOxcLUTtrjQR5y1RaHo_h7J9MpDXR2MQt3K6mLIPvf5mk-jA>
-    <xmx:HB7lakzguzV6FITwoQXyGzP9IxX1OkMztxcoHOS75Tg8a4Q2Efuv6sYa>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 30 Oct 2026 18:45:43 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=R34PI/7A
+Received: from eig-obgw-6002b.ext.cloudfilter.net ([10.0.30.203])
+	by cmsmtp with ESMTPS
+	id Mn9JxFWNZMylkMvNdxjLmL; Fri, 30 Oct 2026 22:47:25 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id MvNcxTOMz63hBMvNcx2sj2; Fri, 30 Oct 2026 22:47:24 +0000
+X-Authority-Analysis: v=2.4 cv=CYsI5Krl c=1 sm=1 tr=0 ts=6ae51e7c
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=eNXyHOXcY0__OJ8I6H8A:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=30fXaKKbd46d8fP4eF3UV28bEpjvYYXr5FYuZ+bJRHs=; b=R34PI/7Atx76HYCV1ZaWWd775d
+	xBknMzcTAtvhoA4hqkHV21sbvXlb1TMqApg4ijC1Ib6w6AqLEM61/tmTS8TfL5g0Tj5W/s7QhtoWF
+	7aRSToLGG8afWvY+PgouG97FE8FjRAIYSc6Dx/aOPATSwz5iA0hrnP4Dt7SwAd+Ct3/DWnBSrBg80
+	o8p2uO5zlJGdtLE7L4V/UcS6K+2HJVxnS9l6eL3cxHJpT8nAjls2JA0WN6TAvtLRLlyAL7lZZON2a
+	buyKnCVFOc6q0fMnbIw9yV81Kzpa+fsmEbZLYWTwAApa0EoSfOWiZfNKLQUGD5etWBQVTD9skgYha
+	98sNnEgw==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:41222 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xMsdx-00000003vdq-2kxc;
+	Sat, 31 Oct 2026 01:22:05 +0530
+Date: Fri, 30 Oct 2026 12:52:04 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Igor Velkov <iav@iav.lv>
+Cc: Jean Delvare <jdelvare@suse.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon: pwm-fan: Reference the common
+ fan schema
+Message-ID: <d1fc3c7b-323a-4ad6-b770-4f3df02f5615@roeck-us.net>
+References: <20261018-helios64-fan-label-v1-0-69a3f96d4efa@iav.lv>
+ <20261018-helios64-fan-label-v1-1-69a3f96d4efa@iav.lv>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,151 +87,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Kal Cutter Conley" <kalcutterc@nvidia.com>
-Cc: "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>,
- "Chuck Lever" <cel@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
- "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
- "Tom Talpey" <tom@talpey.com>, "David S. Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>,
- "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
- "Kal Cutter Conley" <kalcutterc@nvidia.com>, linux-nfs@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sunrpc: fix lost wakeups when stopping service threads
-In-reply-to: <20261030130629.103716-1-kalcutterc@nvidia.com>
-References: <20261030130629.103716-1-kalcutterc@nvidia.com>
-Date: Sat, 31 Oct 2026 09:45:39 +1100
-Message-id: <179340033904.269288.4611945330659974906@noble.neil.brown.name>
-Reply-To: NeilBrown <neil@brown.name>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018-helios64-fan-label-v1-1-69a3f96d4efa@iav.lv>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xMsdx-00000003vdq-2kxc
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:41222
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 0
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfNrBatqbeBzD9lnp6awJ46G6sDv/NMam0fERwIr3eIR5u4xTYoqFLx56jGkEzgBhCY9jCz4PhLga9oCQK7CNGlKfgQgel5aaOWd3OuFi3J2qYgMOhlPf
+ fb2Q/gEnRvhquNpubkigwzezbayRLl/MyDELyZbzf/NDf1O2zh1hwFjF7dwUi6VwHJCx5xfRf8vFHaSQkAzAK30/wupbAp4VxIeC6Ans0p2DikbNZQk3KJAn
+ YMZKkp3qj3JluMiVTFiWrs37RSKnrwu6EnBqrbbQXUw=
 
-On Sat, 31 Oct 2026, Kal Cutter Conley wrote:
-> Stopping NFS can leave rpc.nfsd 0 in an uninterruptible wait with
-> this stack:
->=20
->   svc_stop_kthreads [sunrpc]
->   svc_set_num_threads [sunrpc]
->   nfsd_svc [nfsd]
->   write_threads [nfsd]
->   nfsctl_transaction_write [nfsd]
->=20
-> SP_NEED_VICTIM and SP_VICTIM_REMAINS remain set while all remaining
-> nfsd threads sleep in svc_recv() and none has RQ_VICTIM set.
->=20
-> The stop request is published with unordered set_bit() operations.
-> svc_pool_wake_idle_thread() checks the idle list and task state before
-> calling wake_up_process(). If it sees an empty list or TASK_RUNNING,
-> it skips the wakeup and its memory barrier. The requester can therefore
-> miss a sleeping worker while that worker misses the stop request.
->=20
-> Order work publication before both lockless checks, even when no
-> wakeup occurs. Pair with set_current_state() and llist_add() in
-> svc_thread_wait_for_work(), so the worker observes the pending work or
-> the requester observes the idle worker and wakes it.
->=20
-> Fixes: 60749cbe3d8a ("sunrpc: change sp_nrthreads from atomic_t to unsigned=
- int.")
-> Signed-off-by: Kal Cutter Conley <kalcutterc@nvidia.com>
-> ---
->  net/sunrpc/svc.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
->=20
-> diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
-> index af8d87c1de83..f3cc63acc5e1 100644
-> --- a/net/sunrpc/svc.c
-> +++ b/net/sunrpc/svc.c
-> @@ -29,6 +29,8 @@
->  #include <linux/sunrpc/clnt.h>
->  #include <linux/sunrpc/bc_xprt.h>
-> =20
-> +#include <asm/barrier.h>
-> +
->  #include <trace/events/sunrpc.h>
-> =20
->  #include "fail.h"
-> @@ -693,6 +695,13 @@ void svc_pool_wake_idle_thread(struct svc_pool *pool)
->  	struct svc_rqst	*rqstp;
->  	struct llist_node *ln;
-> =20
-> +	/*
-> +	 * Order work publication before the idle-list and task-state checks,
-> +	 * even when wake_up_process() is skipped. Pairs with the barriers in
-> +	 * set_current_state() and llist_add() in svc_thread_wait_for_work().
-> +	 */
-> +	smp_mb();
-> +
+On Sun, Oct 18, 2026 at 07:54:59AM +0300, Igor Velkov wrote:
+> From: Igor Velkov <iav@iav.lv>
+> 
+> pwm-fan predates fan-common.yaml and repeats several of its properties.
+> Reference the common schema, drop the duplicated properties and keep
+> only the constraints specific to PWM fans.
+> 
+> This also allows label, which the hwmon core exposes as the label
+> attribute.
+> 
+> Link: https://lore.kernel.org/r/20250106173805.GA501301-robh@kernel.org
+> Signed-off-by: Igor Velkov <iav@iav.lv>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-I don't like this.  Stand-alone barriers are, I think, harder to read
-than barriers combined with operations, like smp_load_acquire() or
-similar.  And this one seems quite detached from anything.
-
-If I understand correctly, the possible race is between
-svc_thread_wait_for_work which includes:
-
-		llist_add(&rqstp->rq_idle, &pool->sp_idle_threads);
-		if (likely(svc_thread_should_sleep(rqstp)))
-
-and svc_stop_kthread which includes:
-
-		set_bit(SP_NEED_VICTIM, &pool->sp_flags);
-		svc_pool_wake_idle_thread(pool);
-
-The first sets ->sp_idle_threads.first and then checks SP_NEED_VICTIM
-and the second sets SP_NEED_VICTIM and then checks
-->sp_idle_threads.first.
-
-So we need barriers to ensure the values are seen is the expected order.
-Have I missed anything?
-
-llist_add() always calls try_cmpxchg() which is fully ordered, so no
-extra barriers are needed there.
-
-There is no barrier between the set_bit)( and the READ_ONCE() in
-svc_pool_wake_idle_thread(), so you added one.  I agree that is correct
-and solves the problem.
-But it is only this call to svc_pool_wake_idle_thread() that needs a
-barrier, not all calls.  So I would prefer the barrier went in
-svc_stop_kthreads().   Do you have a reason for not including it there?
-
-We do need a full memory barrier - a "release" on the set_bit and an
-"acquire" on the test of ->sp_idle_threads.first
-
-I would be happy with smp_load_acquire(->sp_idle_theads_first) in
-svc_pool_wake_idle_thread().  I'm not sure it is needed though.
-
-I would like set_bit_release(SP_NEED_VICTIM) in svc_stop_kthreads()
-but we don't have that.
-We could do
-   atomic_long_fetch_or_release(BIT(SP_NEED_VICTIM), (atomic_long_t*)&pool->s=
-p_flags)
-but that is ugly.
-
-So I think the best solution is
-
-		set_bit(SP_NEED_VICTIM, &pool->sp_flags);
-		/* Order SP_NEED_VICTIM before testing sp_idle_threads,
-                 * matching svc_thread_wait_for_work() which orders
-                 * setting sp_idle_threads before testing the bit
-		 */
-+               smp_mb__after_atomic();
-		svc_pool_wake_idle_thread(pool);
-
-We probably need the same in svc_wake_up() after the set_bit().
-
-Does this make the barriers easier to understand?
-
-Thoughts?
+Applied.
 
 Thanks,
-NeilBrown
-
-
->  	rcu_read_lock();
->  	ln =3D READ_ONCE(pool->sp_idle_threads.first);
->  	if (ln) {
->=20
-> base-commit: b803428098f6fcd584db9f0499217b80e465bb34
-> --=20
-> 2.53.0
->=20
->=20
-
+Guenter
