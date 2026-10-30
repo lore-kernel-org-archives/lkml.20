@@ -1,56 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793343386;
-	b=ySL8OI4TUfIfz/V74NvojaXXlm0vpPJ1FfEmXtsUHX/MoaSBlR9sklmz1YIGomdfaqBY
-	 YAmZmAuDU02QPjVdgNAvzG3rYrZVxmr8mDNvI3LEJluq7wpivCFa9yZh5zb9FV6qDhr8w
-	 4l8o3i902Qop5RbPj/nnE+R/itAv0YBsXWP8zLEilBrYPx/LDbzuGLYmINdgtqZ8BwK5b
-	 /L9lBH3woL0DBLOIgvnV7453eI+4dLS5kfb9P8jhMz8ePVwrGGFIEpRZnCQbcjbbSXnYB
-	 UjUUk4d3DS8w59YHNX1GJJEXuTJbYUK5mwx9huogno9JfEZdno4FNZGxD9Q8CWTbbsQ==
+	t=1793343392;
+	b=PULuXl6dCGPivmJ0B06ui5+toiIXNU5AOScBnHzXr3B8K1GNpvUh3NJgAp7OJgAZEinL
+	 hqmHDyh5X6Vp0QVMgnfYcjhAA73xalfpKwTuAsr0WXg0GXU/LQ/g3G45q75NeV4TDMD8S
+	 HrcnLTAP8Uh84v6EJU9GTspCUBUZwyzxw5KkFOsHsnjiJVHjak/pUzWHlXFf76MO4lFV6
+	 UhHKDl2uDTOVrcdHr4MCJLJ5JmnD6KhZoIegobqnXs64i1uvMZNe4DDvp42RijCYJH7NJ
+	 I8kMGO+9ratHK8KGwcy705F48a9fETdS+MqT9LrNS/FsdZfC1u4KZmszHnu96PjX7Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793343386;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793343392;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=j3o4Hr1tImNLf1ZatEPhpw+q0Mj2sL9CPD7ffrsuWjI=;
-	b=Tr3kDftk25EqqJS7ij0nH4UM2FiUya8feYQPxZR3npyFCZNlJdvWitphQPaqh2tRt8tY
-	 pmnXVQ/2VGOCZSlKsPHEv7zWRHOuHlYseGFUbYblNtdSg6on21eWObaicT7vunm8BbpTl
-	 Tb63ZXio+kLn2eLHPlOr2uoa7sisdn3F07TVhImEVxN1vG2/jT6yzxolRmS+QVX2eWrCX
-	 O7tDDhkxMJ10Z+HnO+mlXD38csKO3GSPQCoE3Gciob6djEr2RmlivainGaUYw95KdsB0D
-	 daBE0aOxoWZrfUzg1UHVP3VrbkSNmEwA0UIM5Kwd1AZntwS3LhUDLCBWC/r9/VczCjg==
+	bh=DDTZCgeXRZrOdO0H7W205aFqDmAAtb4mFnHHlLSHJyg=;
+	b=uPW2nBu7KUuCku80dsIe+O2iYABjV9atSGYwzEqb5cBlni+rIIK0N47LGH/heq58ZJhE
+	 dWN3/ntWEbXxW6I3MROaWiwrnvqRRPHfxQcRACLIi1baMYTlRqCfIg+B8mdofuf0cuE5x
+	 ClF55HR2Y6ihdX/oE5KBpneUDAzvld5XQM7ywl6VgcSP/YKnkWD5FK7pDwfq0L4tUPsdQ
+	 hcO1QMVXR4I/arHPnt7bYqKK+3V0jNIDTPdma9wRYcoQMzo6g2ZfAKVJwajdfhsLM4wQ0
+	 fLFKk3iHFh0GHpRKZpmtq+pyATZQisM+um8Expm5FKF7dFC59oq8jWyfZiMGFHGY+8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=JEGBT4X8;
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9360E606A32E;
-	Fri, 30 Oct 2026 06:56:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9360E606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB40606A31A;
+	Fri, 30 Oct 2026 06:56:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDB40606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=JEGBT4X8
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=j3o4Hr1tImNLf1ZatEPhpw+q0Mj2sL9CPD7ffrsuWjI=;
-	b=JEGBT4X8yV888GI99lgi2m3H0Y541wkKwjqRq3YKadT94vflq6LzOdYnbgjuHferKblDfx3wj
-	YEQ73qEWgmtkNFqti798dOdhy9TlRNBhEdetNvLAsfSbaFNK1t4jhdW92EjVTfSDR31tgpAPP4O
-	1iq34tsO10T6uUWxxcb5Ao4=
+	bh=DDTZCgeXRZrOdO0H7W205aFqDmAAtb4mFnHHlLSHJyg=;
+	b=rd3Uzf/lVd3dYMhpJWMGIofKdjoCrwY0qYGiyfdrjCFCu0d68gxIe6bHFtsBIdj3n7QOIwXya
+	yMfpNKsjgLK0hdIgIr0ykKAimNSJXtsYKZ1a126BmhvxAuXvmEY+aDLxfrm0vVGxfWU6J+de9ku
+	mB1+lEy6T8RyLkbphvL+MdM=
 Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jGBhY00Ytz1cynJ;
-	Fri, 30 Oct 2026 14:56:12 +0800 (CST)
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jGBhV3sZhzLlt6;
+	Fri, 30 Oct 2026 14:56:10 +0800 (CST)
 Received: from kwepemk300013.china.huawei.com (unknown [7.202.194.231])
-	by mail.maildlp.com (Postfix) with ESMTPS id E76374055B;
-	Fri, 30 Oct 2026 14:56:20 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 31A144055B;
+	Fri, 30 Oct 2026 14:56:18 +0800 (CST)
 Received: from huawei.com (10.50.163.32) by kwepemk300013.china.huawei.com
  (7.202.194.231) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 30 Oct
- 2026 14:56:20 +0800
+ 2026 14:56:17 +0800
 From: Jinqian Yang <yangjinqian1@huawei.com>
 To: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<kvmarm@lists.linux.dev>, <linux-doc@vger.kernel.org>
@@ -58,12 +55,10 @@ CC: <maz@kernel.org>, <oupton@kernel.org>, <yuzenghui@huawei.com>,
 	<wangzhou1@hisilicon.com>, <zhengtian10@huawei.com>, <linuxarm@huawei.com>,
 	<kristina.martsenko@arm.com>, <pbonzini@redhat.com>, <fuad.tabba@linux.dev>,
 	<joey.gouly@arm.com>, <seiden@linux.ibm.com>, <prime.zeng@hisilicon.com>
-Subject: [RFC 5/6] KVM: arm64: Conditionally expose ID_AA64MMFR4_EL1.TLBID to guest
-Date: Fri, 30 Oct 2026 14:56:16 +0800
-Message-ID: <20261030065617.4090073-6-yangjinqian1@huawei.com>
+Subject: [RFC 0/6] KVM: arm64: Add support for virt TLBID
+Date: Fri, 30 Oct 2026 14:56:11 +0800
+Message-ID: <20261030065617.4090073-1-yangjinqian1@huawei.com>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20261030065617.4090073-1-yangjinqian1@huawei.com>
-References: <20261030065617.4090073-1-yangjinqian1@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,171 +73,39 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
  kwepemk300013.china.huawei.com (7.202.194.231)
 
-The TLBID feature bit in ID_AA64MMFR4_EL1 is only advertised to the
-guest after userspace configures vDomains via KVM_ARM_VCPU_SET_VDOMAIN,
-which sets the guest_tlbid_enabled flag. Until then the bit is masked
-to prevent the guest from enabling TLBID without a valid vDomain
-affinity.
+Hi,
 
-Exposing the feature would otherwise let the guest read the physical
-TLBIDIDR_EL1 directly, so keep that register trapped in the guest
-FGT context and served by the emulation added earlier. The host's
-own register is never affected.
+This series adds virtual TLBID (vTLBID) support for KVM guests, built
+on top of Kristina's TLBID domains RFC [1]. It lets a guest use TLBI
+domains of its own, translated by KVM into physical domains via the
+VTLBIDn_EL2 registers, so guest TLBIs only reach the physical CPUs
+where the guest's vCPUs actually run.
 
-Expose KVM_REG_ARM_ID_AA64MMFR4_EL1 in the arm64 UAPI header so
-userspace can read the sanitised value via KVM_GET_ONE_REG.
+The series adds:
 
-Signed-off-by: Jinqian Yang <yangjinqian1@huawei.com>
-Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
----
- arch/arm64/include/uapi/asm/kvm.h |  2 ++
- arch/arm64/kvm/arm.c              |  2 ++
- arch/arm64/kvm/config.c           | 11 +++++++
- arch/arm64/kvm/sys_regs.c         | 49 +++++++++++++++++++++++++++++--
- arch/arm64/kvm/sys_regs.h         |  6 ++++
- 5 files changed, 68 insertions(+), 2 deletions(-)
+ - KVM_CAP_ARM_TLBIDOMAIN plus two ioctls to configure each vCPU's
+   vDomain membership;
+ - programming of VTLBIDn_EL2 at vCPU load/put, mapping vDomains to
+   the smallest physical domain covering the vCPUs in them;
+ - a guest-visible TLBIDIDR_EL1 with virtual domain counts, and
+   conditional exposure of ID_AA64MMFR4_EL1.TLBID once userspace
+   configures vDomains;
+ - tracepoints for the vDomain load path.
 
-diff --git a/arch/arm64/include/uapi/asm/kvm.h b/arch/arm64/include/uapi/asm/kvm.h
-index 019e5e3d892e..e54129ed431d 100644
---- a/arch/arm64/include/uapi/asm/kvm.h
-+++ b/arch/arm64/include/uapi/asm/kvm.h
-@@ -255,6 +255,8 @@ struct kvm_arm_counter_offset {
- 
- #define ARM64_SYS_REG(...) (__ARM64_SYS_REG(__VA_ARGS__) | KVM_REG_SIZE_U64)
- 
-+#define KVM_REG_ARM_ID_AA64MMFR4_EL1 ARM64_SYS_REG(3, 0, 0, 7, 4)
-+
- /* Physical Timer EL0 Registers */
- #define KVM_REG_ARM_PTIMER_CTL		ARM64_SYS_REG(3, 3, 14, 2, 1)
- #define KVM_REG_ARM_PTIMER_CVAL		ARM64_SYS_REG(3, 3, 14, 2, 2)
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index ddf7c25f9ed9..b5ab89db1c07 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -2313,6 +2313,8 @@ static int kvm_arm_vcpu_set_vdomain(struct kvm_vcpu *vcpu,
- 
- 	kvm_info("vCPU%d: vDomain bitmap: 0x%x\n", vcpu->vcpu_idx, vdomain_bitmap);
- 
-+	kvm_update_aa64mmfr4_tlbid(vcpu->kvm);
-+
- 	return 0;
- }
- #else
-diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
-index 6c116aa1864a..d0402151a752 100644
---- a/arch/arm64/kvm/config.c
-+++ b/arch/arm64/kvm/config.c
-@@ -1536,6 +1536,17 @@ void compute_fgu(struct kvm *kvm, enum fgt_group_id fgt)
- 	case HFGRTR2_GROUP:
- 		val |= compute_fgu_bits(kvm, &hfgrtr2_desc);
- 		val |= compute_fgu_bits(kvm, &hfgwtr2_desc);
-+#ifdef CONFIG_KVM_ARM_VTLBID
-+		/*
-+		 * TLBIDIDR_EL1 must stay trapped even when TLBID is
-+		 * exposed to the guest, so it can be emulated with the
-+		 * synthesized virtual domain counts. This only affects
-+		 * the guest FGT context; the host's own HFGRTR2_EL2 is
-+		 * never modified.
-+		 */
-+		if (kvm->arch.tlbidomain.kvm_tlbid_enabled)
-+			val |= HFGRTR2_EL2_nTLBIDIDR_EL1;
-+#endif
- 		break;
- 	case HFGITR2_GROUP:
- 		val |= compute_fgu_bits(kvm, &hfgitr2_desc);
-diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index cf9804e54ff1..a1ca7309406e 100644
---- a/arch/arm64/kvm/sys_regs.c
-+++ b/arch/arm64/kvm/sys_regs.c
-@@ -2012,9 +2012,17 @@ static u64 __kvm_read_sanitised_id_reg(const struct kvm_vcpu *vcpu,
- 		if (!system_supports_poe())
- 			val &= ~ID_AA64MMFR3_EL1_S1POE;
- 		break;
--	case SYS_ID_AA64MMFR4_EL1:
-+	case SYS_ID_AA64MMFR4_EL1: {
-+#ifdef CONFIG_KVM_ARM_VTLBID
-+		struct tlbidomain *vdomain = &vcpu->kvm->arch.tlbidomain;
-+
-+		if (!vdomain->guest_tlbid_enabled)
-+			val &= ~ID_AA64MMFR4_EL1_TLBID;
-+#else
- 		val &= ~ID_AA64MMFR4_EL1_TLBID;
-+#endif
- 		break;
-+	}
- 	case SYS_ID_MMFR4_EL1:
- 		val &= ~ID_MMFR4_EL1_CCIDX;
- 		break;
-@@ -3494,7 +3502,8 @@ static const struct sys_reg_desc sys_reg_descs[] = {
- 				       ID_AA64MMFR3_EL1_SCTLRX	|
- 				       ID_AA64MMFR3_EL1_S1PIE   |
- 				       ID_AA64MMFR3_EL1_S1POE)),
--	ID_WRITABLE(ID_AA64MMFR4_EL1, ID_AA64MMFR4_EL1_NV_frac),
-+	ID_WRITABLE(ID_AA64MMFR4_EL1, ID_AA64MMFR4_EL1_NV_frac |
-+				    ID_AA64MMFR4_EL1_TLBID_MASK),
- 	ID_UNALLOCATED(7,5),
- 	ID_UNALLOCATED(7,6),
- 	ID_UNALLOCATED(7,7),
-@@ -5495,6 +5504,42 @@ static bool index_to_params(u64 id, struct sys_reg_params *params)
- 	}
- }
- 
-+/*
-+ * Update the VM's stored value for an ID register.
-+ */
-+#ifdef CONFIG_KVM_ARM_VTLBID
-+void kvm_update_aa64mmfr4_tlbid(struct kvm *kvm)
-+{
-+	struct tlbidomain *vdomain = &kvm->arch.tlbidomain;
-+	u64 val, tlbid_val;
-+
-+	mutex_lock(&kvm->arch.config_lock);
-+
-+	if (kvm_vm_has_ran_once(kvm)) {
-+		/*
-+		 * ID_AA64MMFR4 is a VM-level register already set during
-+		 * the first vCPU init. Skip the write to avoid triggering
-+		 * KVM_BUG_ON in kvm_set_vm_id_reg(). The per-vCPU
-+		 * vdomain_bitmap is still updated by the caller.
-+		 */
-+		mutex_unlock(&kvm->arch.config_lock);
-+		return;
-+	}
-+
-+	val = kvm_read_vm_id_reg(kvm, SYS_ID_AA64MMFR4_EL1);
-+	tlbid_val = read_sanitised_ftr_reg(SYS_ID_AA64MMFR4_EL1);
-+	tlbid_val &= ID_AA64MMFR4_EL1_TLBID_MASK;
-+
-+	val &= ~ID_AA64MMFR4_EL1_TLBID_MASK;
-+	if (vdomain->guest_tlbid_enabled)
-+		val |= tlbid_val;
-+
-+	kvm_set_vm_id_reg(kvm, SYS_ID_AA64MMFR4_EL1, val);
-+
-+	mutex_unlock(&kvm->arch.config_lock);
-+}
-+#endif
-+
- const struct sys_reg_desc *get_reg_by_id(u64 id,
- 					 const struct sys_reg_desc table[],
- 					 unsigned int num)
-diff --git a/arch/arm64/kvm/sys_regs.h b/arch/arm64/kvm/sys_regs.h
-index bd56a45abbf9..0b5487947790 100644
---- a/arch/arm64/kvm/sys_regs.h
-+++ b/arch/arm64/kvm/sys_regs.h
-@@ -252,6 +252,12 @@ int kvm_sys_reg_get_user(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg,
- int kvm_sys_reg_set_user(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg,
- 			 const struct sys_reg_desc table[], unsigned int num);
- 
-+#ifdef CONFIG_KVM_ARM_VTLBID
-+void kvm_update_aa64mmfr4_tlbid(struct kvm *kvm);
-+#else
-+static inline void kvm_update_aa64mmfr4_tlbid(struct kvm *kvm) { }
-+#endif
-+
- bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index);
- 
- int kvm_finalize_sys_regs(struct kvm_vcpu *vcpu);
--- 
-2.33.0
+Known limitations:
 
+ - VHE only: VTLBIDn_EL2 cannot be written from EL1, so vTLBID is
+   disabled on nVHE hosts.
+ - No interaction with nested virtualization is modelled yet.
+ - The guest is told about OS domains (NOS), but VTLBIDOSn_EL2 is
+   never programmed, so outer-shareable domain TLBIs are broadcast.
+
+[1] https://lore.kernel.org/all/20261001110655.461473-1-kristina.martsenko@arm.com/
+
+Jinqian Yang (6):
+  KVM: arm64: Introduce TLBID virtualization infrastructure
+  KVM: arm64: Add VTLBID sysregs and update VTLBID(n) on vCPU load
+  KVM: arm64: Wire up TLBID vDomain configuration ioctls
+  KVM: arm64: Emulate TLBIDIDR_EL1 with virtual domain counts
+  KVM: arm64: Conditionally expose ID_AA64MMFR4_EL1.TLBID to guest
+  KVM: arm64: Add tracepoints for TLBID vDomain load events
