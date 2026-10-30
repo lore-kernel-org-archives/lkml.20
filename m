@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793398796;
-	b=Gr7qnGuUrt1NbrwBzBLJgrTLqZLhdGvua7NutdsJTbZV2hFbcu2diJtz4Wuon7pqGsCT
-	 tXWtbZ2IhiKq81Nbb41lbRtFbcaFR2okVUqY+nVuZFQaOBw+6JnGK3qwcZhvHHQlmQ4ZZ
-	 fTYLih6jqOkdtSnxfk/wDxo9cYMhL2oPfzPW8GXCPHGqIWXE3S053cglksj4UUpdA1Vgh
-	 DIrICvMWPB/Lv2dF945KWvMLnyjQuHtDeS3q16mAE3qx53aowuuHOuL+4Xxdch2jzzL9F
-	 M5tBFJTebNTNoWHPAsCxc2lOSZ6zYAOWtQLVJQkbQ5OUG9zzqbKU27VvZdXoy1hKMow==
+	t=1793398858;
+	b=q6Nc6Oug6JnRGGFQwG3tWFJzwBpzq0xDwEqZNMK7nIIFfy/hvzXdpTwLhzlQgQ1W2Iyw
+	 quukN41WlOZ6Y8LzfXixUc6b636r+PcjwC9ZPJCeRt87xviB+XSFjiZ4xwfA/ZTJzQVyf
+	 iTd0v50eGNBTinYyPjCYMTN7jMQEB1erFa7HOeOTBI/kpHhPg5ac5J5VJpzUaZ9nnCrG1
+	 lgTLvUeAqajxjn3De5aymMk5dIQIo2jWjQ84x3XOJSJuOTgNeBfNpua98DkDLi4gNRvZV
+	 H9RXN2PZwwzpJgll/P12ZeXUpl6CAjG8p57rAuCxUt9eUGEejgQIFZLqvYeiHJwDBLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793398796;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
-	 X-HE-Meta;
-	bh=0MYxr4Xxvaoaz3nCIWIJ2vjoXYwNVFw0vflixUyh0Io=;
-	b=r1wgW0jBUnDRuJrbIwEEp7euIo7sY0ehZRVl/FQVJXHgbUP/Wcwch7xRwGpAQWZrUmfp
-	 IkAHvFIjLoLLBUorwI+VcuRd2zi+s8XfWtr6oTrJNl3GlcBRpg4wnOGu3STQ8rYunb7MJ
-	 tJ5BHX9n+jQYtUdKNKEpGYxeQkY4RhOmM0xHzpd/t6FYMZuItthIKhFxts5Gk4x60X72E
-	 7DfJWVI5337pUgcmuEg+FxFV+UguA36dJf2e9AIzIytcKRbjJuHi/OXOkGnMue4JJyJ1Z
-	 klDmtnn98L2EG01TEkzCBD05+FFP6fJksubuzWfmrfK//w4H6UTFqtVOUog631gQs7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793398858;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=W0wF84cKpgfwLnOYrXZw6pCJweTT8rbeu0cwvvIFrYs=;
+	b=l+WfC+w76IiPVnqiTlvvgaXD6/eRxntHAupyIVQ3Ax5a0XXEfNXuHCRKo7qVsi298kpO
+	 AxvI3CRhlmjY+pMlFbMDCr+marE3eLMMIaHPROgzkzAUXpvl9sO+gezVnUgwQTATU9Ywq
+	 2wzU4Sv7n2q185leb6TJULgIGa/QOWv5anwuRvGAyBTOkTkpEMKJ89hmmW8nNTcaL5Ai7
+	 rA0a/WKOCTpAZ/YWaYS1VYdN7JBaS67EczDNRW0b6xray/y/ZvkdFw0hUCAoQIMV7UePG
+	 qk5ps2wc6UDYRINoVLXRRLm3wVCfiq8cnfNNPc3YhRUzK5NdjFRadX3IKVHgSPT3yfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xojG2C+o;
+	arc=none smtp.remote-ip=95.215.58.198
+Received: from mta1.migadu.com (out-198.mta1.migadu.com [95.215.58.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A39606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:19:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7A39606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id 893A91A08C0;
-	Fri, 30 Oct 2026 22:19:54 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf18.hostedemail.com (Postfix) with ESMTPA id B6DDF32;
-	Fri, 30 Oct 2026 22:19:52 +0000 (UTC)
-Message-ID: <e184b73da5229fa387074fce2d977994f6464f1e.camel@perches.com>
-Subject: Re: [PATCH] get_maintainer: lazy load JSON::PP only when --json is
- used
-From: Joe Perches <joe@perches.com>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Sasha Levin <sashal@kernel.org>, Andrew Morton
- <akpm@linux-foundation.org>, 	linux-kernel@vger.kernel.org
-Date: Fri, 30 Oct 2026 15:19:51 -0700
-In-Reply-To: <auUPo66ISiR2gzmi@redhat.com>
-References: <auS7NOsyw7pJ7rbF@redhat.com>
-	 <eb8d1fb4e2a8a32ae1b71df686ed65be800e2918.camel@perches.com>
-	 <auTDEy_vyMixVRTU@redhat.com>
-	 <1ad2ae74e3257578cac561f19af63ccb94fce85a.camel@perches.com>
-	 <auUPo66ISiR2gzmi@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032D5606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:20:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 032D5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xojG2C+o
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rfrLPOew4oTV1/b/ZMN6ioBLKrmDuQ240tTpCfS2G5M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793398853; v=1; x=1794003653;
+ b=xojG2C+osOxpuXu3L3Kb5K+9FpYCrA/6gnJN2FDJAJn/JJoThywPQq1eqsnyJJ01KdLM3wNm
+ e9ZVsIhGqE1MBvPO2DhDBdzddv2Wq5fBLm7qUu4YUpVJZw5uZGX6eakxwLH0Hf1BQ0Zs0gn5Ob6
+ m7MqbpvO0UnTVtwpi+hOsECY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 47fb9eebfd2a40a4;
+	Fri, 30 Oct 2026 22:20:53 +0000
+X-Mizu-Trace-ID: 47fb9eebfd2a40a4
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f04883fc-563b-41f9-988f-9b8f22c3129c@linux.dev>
+Date: Fri, 30 Oct 2026 15:20:46 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,108 +58,293 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout07
-X-Rspamd-Queue-Id: B6DDF32
-X-Stat-Signature: e6ga8h4xfo8ewzrjyiawsbyhq7wq3ew5
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX18TExNSLjEm4FBYRLSZCtj54s5w4Gpi1Ks=
-X-HE-Tag: 1793398792-11267
-X-HE-Meta: U2FsdGVkX1/s0DByItt5t65mtes7ZDs8N9tJG3Y+nej4rCcmvd121aiPFu1GyPBy6OO5A46Zd9n1pQP4I9/CQocG1JMkg9o9YBTXAyA0/Vg2zgfjXT+d7X8m0tQyEabQ7MXG8IL5v0GUgZOkw1g9X9az6yNiRE0zwYNhLqQpF9rAiVzoXmSViBvnluVIEv8KzT8IwRw9aBF/l3aN7jORPxs37/66e6/oVDtFxbdI6mz1JWYllK4MOFUaQF62Ipk45S6hb2vhW6+jHGn8In/Rfw9ZMgE7xXJNjbYTmRfCjy6iKVlszUKnWzpxjCGCLXSCOjS6ai30W0yd7RVz+VllwoPZ+RSvIdGK/lp/nE5m8tUXQ8HyfWabQzAyodGWM7ffw1inoaIR3qSOWW8vmjzsSw==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 1/2] RDMA/rxe: copy send WQE to kernel buffer before
+ processing
+To: Tristan Madani <tristmd@gmail.com>, Zhu Yanjun <zyjzyj2000@gmail.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
+References: <20261030193235.3470653-1-tristan@talencesecurity.com>
+ <20261030193235.3470653-2-tristan@talencesecurity.com>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <20261030193235.3470653-2-tristan@talencesecurity.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-10-30 at 22:44 +0100, Oleg Nesterov wrote:
-> On 10/30, Joe Perches wrote:
-> > On Fri, 2026-10-30 at 17:17 +0100, Oleg Nesterov wrote:
-> > > > > This module is only needed with the --json option. Use "require" =
-to
-> > > > > load this module dynamically inside the "if ($json)" block instea=
-d.
-> > > > The patch may be sensible but could fail the same way
-> > > > if you used the --json option with your version.
-> > > Of course, "./scripts/get_maintainer.pl --json ..." will still fail
-> > > the same way without JSON::PP. But with this patch get_maintainer.pl
-> > > works without the --json option.
-> > What does that failure output?
-> Hmm. I am not sure I understand you concerns. Let me add more details.
-> So, I think this patch makes no difference if JSON::PP is installed.
-> Do you agree?
->=20
-> Now lets see what happens on my machine where JSON::PP is NOT installed.
-> Without --json:
->=20
-> Before this patch:
->=20
-> 	$ ./scripts/get_maintainer.pl ./scripts/get_maintainer.pl
-> 	Can't locate JSON/PP.pm in @INC (you may need to install the JSON::PP mo=
-dule) (@INC entries checked: /usr/local/lib64/perl5/5.42 /usr/local/share/p=
-erl5/5.42 /usr/lib64/perl5/vendor_perl /usr/share/perl5/vendor_perl /usr/li=
-b64/perl5 /usr/share/perl5) at ./scripts/get_maintainer.pl line 24.
-> 	BEGIN failed--compilation aborted at ./scripts/get_maintainer.pl line 24=
-.
->=20
-> After:
->=20
-> 	$ ./scripts/get_maintainer.pl ./scripts/get_maintainer.pl
-> 	Joe Perches <[joe@perches.com](mailto:joe@perches.com)> (maintainer:GET_=
-MAINTAINER SCRIPT)
-> 	[linux-kernel@vger.kernel.org](mailto:linux-kernel@vger.kernel.org) (ope=
-n list)
->=20
-> With --json:
->=20
-> Before this patch:
->=20
-> 	$ ./scripts/get_maintainer.pl --json ./scripts/get_maintainer.pl
-> 	Can't locate JSON/PP.pm in @INC (you may need to install the JSON::PP mo=
-dule) (@INC entries checked: /usr/local/lib64/perl5/5.42 /usr/local/share/p=
-erl5/5.42 /usr/lib64/perl5/vendor_perl /usr/share/perl5/vendor_perl /usr/li=
-b64/perl5 /usr/share/perl5) at ./scripts/get_maintainer.pl line 24.
-> 	BEGIN failed--compilation aborted at ./scripts/get_maintainer.pl line 24=
-.
->=20
-> After:
->=20
-> 	$ ./scripts/get_maintainer.pl --json ./scripts/get_maintainer.pl
-> 	Can't locate JSON/PP.pm in @INC (you may need to install the JSON::PP mo=
-dule) (@INC entries checked: /usr/local/lib64/perl5/5.42 /usr/local/share/p=
-erl5/5.42 /usr/lib64/perl5/vendor_perl /usr/share/perl5/vendor_perl /usr/li=
-b64/perl5 /usr/share/perl5) at ./scripts/get_maintainer.pl line 665.
->=20
-> Same failure. Sorry, I don't understand what is not clear for you :(
->=20
->=20
-> > Dunno.  Depending on the current failure output
-> > maybe adding something like the below is better:
-> >=20
-> > use Module::Load::Conditional qw(check_install);
-> >=20
-> > if (!check_install(module =3D> 'JSON:PP')) {
-> >     die "$P: --json not available - missing perl module JSON:PP\n";
-> > }
->=20
-> But why? Why make get_maintainer.pl depend on yet another module?
-> FYI, on my Fedora 44
->=20
-> 	$ perl -we 'use Module::Load::Conditional qw(check_install);'
-> 	Can't locate Module/Load/Conditional.pm in @INC (you may need to install=
- the Module::Load::Conditional module) (@INC entries checked: /usr/local/li=
-b64/perl5/5.42 /usr/local/share/perl5/5.42 /usr/lib64/perl5/vendor_perl /us=
-r/share/perl5/vendor_perl /usr/lib64/perl5 /usr/share/perl5) at -e line 1.
-> 	BEGIN failed--compilation aborted at -e line 1.
+在 2026/10/30 12:32, Tristan Madani 写道:
+> The rxe send queue is mapped into userspace via mmap. The requester
+> processes Work Queue Entries (WQEs) directly from this shared buffer
+> without first copying them to kernel memory. Userspace can modify WQE
+> fields (num_sge, sge_offset, SGE entries) between kernel reads,
+> leading to inconsistent state in copy_data().
+> 
+> This is the send-path counterpart to the receive-path fixes:
+>    - commit 22b8fbded65b8 ("RDMA/rxe: Fix TOCTOU heap overflow in
+>      get_srq_wqe")
+>    - commit d6ab440240a04 ("RDMA/rxe: Copy WQE to local buffer in
+>      non-SRQ receive path")
+> 
+> Fix by copying the send WQE to a kernel-private buffer in req_next_wqe()
+> before processing. The copy uses the full queue element data size
+> (max of max_sge SGEs and max_inline bytes) so that both SGE entries
+> and inline data are always captured.
+> 
+> After copying, reject out-of-range opcodes by setting mask to 0 so that
+> next_opcode() transitions the QP to error state. Clamp atomic write
+> residual to exactly sizeof(u64) to prevent finish_packet() from reading
+> past the WQE buffer or leaking uninitialized pad bytes. The WR-level
+> mask (WR_ATOMIC_WRITE_MASK) is checked since wr_opcode_mask() populates
+> wqe->mask from enum rxe_wr_mask.
+> 
+> The local copy is reused across multi-packet sends to preserve DMA
+> progress state (cur_sge, sge_offset, resid). Field updates including
+> DMA progress are written back to the shared queue using WRITE_ONCE()
+> for individual fields and smp_store_release() for state transitions,
+> so the completer and userspace observe consistent values without the
+> tearing risk of bulk memcpy(). DMA progress writeback ensures retries
+> can resume from the correct offset.
+> 
+> The copy is invalidated when the WQE index advances (last packet sent,
+> error, local ops, UD oversized), when a retry resets WQE state, on QP
+> reset, or when the QP enters error state for flush.
+> 
+> Fixes: 8700e3e7c485 ("Soft RoCE driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 
-Module::Load is a core perl module since 5.10 and
+Thanks a lot for your efforts.
+I am fine with this.
 
-I think you are using a broken version of a perl installation
-and I think you should:
+Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
 
-$ sudo dnf install perl-core
+Zhu Yanjun
 
-> And for what ???
+> ---
+> 
+> Changes since v9:
+>    - Atomic write resid: check != sizeof(u64) instead of just > to also
+>      catch undersized resid that would leak uninitialized skb pad bytes
+>      (sashiko finding).
+>    - Bisection fix: move qp->comp.comp_wqe_valid invalidation from
+>      this patch to patch 2/2, since comp_wqe_valid is defined there
+>      (sashiko finding).
+> 
+> Changes since v8:
+>    - Fix atomic write resid check: use WR_ATOMIC_WRITE_MASK (WR-level
+>      mask) instead of RXE_ATOMIC_WRITE_MASK (packet-level mask) so the
+>      condition actually fires for IB_WR_ATOMIC_WRITE WQEs (sashiko
+>      finding).
+>    - Fix atomic write rejection: clamp dma.resid to sizeof(u64) instead
+>      of setting mask to 0, since next_opcode() ignores wqe->mask and
+>      uses wqe->wr.opcode directly (sashiko finding).
+> 
+> Changes since v7:
+>    - Reject atomic write WQEs with oversized dma.resid to prevent
+>      OOB read in finish_packet() (sashiko finding).
+> 
+> Changes since v6:
+>    - Fixed all sashiko review findings (2 Critical + 9 High).
+>    - FORTIFY_SOURCE: memcpy into enclosing struct, not inner member.
+>    - Copy size: max(max_sge * sizeof(ib_sge), max_inline).
+>    - Opcode bound: IB_WR_REG_MR (was IB_WR_ATOMIC_WRITE).
+>    - Removed silent num_sge clamp, use mask=0 for invalid opcodes.
+>    - DMA progress writeback (resid, cur_sge, sge_offset).
+>    - Addressed Zhu Yanjun review feedback.
+> 
+> Changes since v5:
+>    - Added opcode bounds check and num_sge clamp after copy.
+> 
+> Changes since v4:
+>    - Resent from the correct sender address.
+> 
+> Changes since v3:
+>    - Copy full queue element (max_sge SGEs) instead of per-WQE size.
+>    - Invalidate on QP reset, ERR flush, RESET state check.
+> 
+> Changes since v2:
+>    - WRITE_ONCE/smp_store_release for field writeback.
+> 
+> Changes since v1:
+>    - Split into per-path patches. Cache across multi-packet ops.
+> 
+>   drivers/infiniband/sw/rxe/rxe_qp.c    |  1 +
+>   drivers/infiniband/sw/rxe/rxe_req.c   | 71 +++++++++++++++++++++++++--
+>   drivers/infiniband/sw/rxe/rxe_verbs.h |  6 +++
+>   3 files changed, 73 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
+> index 311f285d78a6b..77606c4a039b1 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_qp.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_qp.c
+> @@ -581,6 +581,7 @@ static void rxe_qp_reset(struct rxe_qp *qp)
+>   	qp->req.need_retry = 0;
+>   	qp->req.wait_for_rnr_timer = 0;
+>   	qp->req.noack_pkts = 0;
+> +	qp->req.send_wqe_valid = false;
+>   	qp->resp.msn = 0;
+>   	qp->resp.opcode = -1;
+>   	qp->resp.drop_msg = 0;
+> diff --git a/drivers/infiniband/sw/rxe/rxe_req.c b/drivers/infiniband/sw/rxe/rxe_req.c
+> index 24f5c044363f7..dd8ad19ed1d86 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_req.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_req.c
+> @@ -161,6 +161,26 @@ static void req_check_sq_drain_done(struct rxe_qp *qp)
+>   	spin_unlock_irqrestore(&qp->state_lock, flags);
+>   }
+>   
+> +static void rxe_req_writeback_wqe(struct rxe_qp *qp)
+> +{
+> +	struct rxe_send_wqe *shared = qp->req.shared_wqe;
+> +	struct rxe_send_wqe *local = &qp->req.send_wqe.wqe;
+> +
+> +	if (!qp->req.send_wqe_valid || !shared)
+> +		return;
+> +
+> +	WRITE_ONCE(shared->status, local->status);
+> +	WRITE_ONCE(shared->first_psn, local->first_psn);
+> +	WRITE_ONCE(shared->last_psn, local->last_psn);
+> +	WRITE_ONCE(shared->mask, local->mask);
+> +	WRITE_ONCE(shared->has_rd_atomic, local->has_rd_atomic);
+> +	WRITE_ONCE(shared->dma.resid, local->dma.resid);
+> +	WRITE_ONCE(shared->dma.cur_sge, local->dma.cur_sge);
+> +	WRITE_ONCE(shared->dma.sge_offset, local->dma.sge_offset);
+> +	/* State must be last so the completer sees prior updates */
+> +	smp_store_release(&shared->state, local->state);
+> +}
+> +
+>   static struct rxe_send_wqe *__req_next_wqe(struct rxe_qp *qp)
+>   {
+>   	struct rxe_queue *q = qp->sq.queue;
+> @@ -193,7 +213,35 @@ static struct rxe_send_wqe *req_next_wqe(struct rxe_qp *qp)
+>   	}
+>   	spin_unlock_irqrestore(&qp->state_lock, flags);
+>   
+> -	wqe->mask = wr_opcode_mask(wqe->wr.opcode, qp);
+> +	/* Reuse the existing kernel-private copy if still valid */
+> +	if (qp->req.send_wqe_valid && qp->req.shared_wqe == wqe)
+> +		return &qp->req.send_wqe.wqe;
+> +
+> +	/* Copy WQE from userspace-mapped shared queue to kernel-private
+> +	 * buffer. Copy size matches the queue element data area.
+> +	 */
+> +	memcpy(&qp->req.send_wqe, wqe, sizeof(*wqe) +
+> +	       max_t(int, qp->sq.max_sge * sizeof(struct ib_sge),
+> +		    qp->sq.max_inline));
+> +	qp->req.shared_wqe = wqe;
+> +	qp->req.send_wqe_valid = true;
+> +
+> +	wqe = &qp->req.send_wqe.wqe;
+> +
+> +	/* Prevent OOB in wr_opcode_mask() for corrupted opcodes.
+> +	 * Mask 0 causes next_opcode() to fail, moving QP to error state.
+> +	 */
+> +	if (unlikely(wqe->wr.opcode > IB_WR_REG_MR))
+> +		wqe->mask = 0;
+> +	else
+> +		wqe->mask = wr_opcode_mask(wqe->wr.opcode, qp);
+> +
+> +	/* Atomic writes carry exactly sizeof(u64) payload.
+> +	 * Clamp oversized resid to prevent OOB read in finish_packet().
+> +	 */
+> +	if (unlikely((wqe->mask & WR_ATOMIC_WRITE_MASK) &&
+> +		     wqe->dma.resid != sizeof(u64)))
+> +		wqe->dma.resid = sizeof(u64);
+>   	return wqe;
+>   }
+>   
+> @@ -582,9 +630,13 @@ static void update_state(struct rxe_qp *qp, struct rxe_pkt_info *pkt)
+>   {
+>   	qp->req.opcode = pkt->opcode;
+>   
+> -	if (pkt->mask & RXE_END_MASK)
+> +	rxe_req_writeback_wqe(qp);
+> +
+> +	if (pkt->mask & RXE_END_MASK) {
+>   		qp->req.wqe_index = queue_next_index(qp->sq.queue,
+>   						     qp->req.wqe_index);
+> +		qp->req.send_wqe_valid = false;
+> +	}
+>   
+>   	qp->need_req_skb = 0;
+>   
+> @@ -634,7 +686,9 @@ static int rxe_do_local_ops(struct rxe_qp *qp, struct rxe_send_wqe *wqe)
+>   
+>   	wqe->state = wqe_state_done;
+>   	wqe->status = IB_WC_SUCCESS;
+> +	rxe_req_writeback_wqe(qp);
+>   	qp->req.wqe_index = queue_next_index(qp->sq.queue, qp->req.wqe_index);
+> +	qp->req.send_wqe_valid = false;
+>   
+>   	return 0;
+>   }
+> @@ -666,6 +720,7 @@ int rxe_requester(struct rxe_qp *qp)
+>   		wqe = __req_next_wqe(qp);
+>   		spin_unlock_irqrestore(&qp->state_lock, flags);
+>   		if (wqe) {
+> +			qp->req.send_wqe_valid = false;
+>   			wqe->status = IB_WC_WR_FLUSH_ERR;
+>   			goto err;
+>   		} else {
+> @@ -681,6 +736,7 @@ int rxe_requester(struct rxe_qp *qp)
+>   		qp->req.wait_psn = 0;
+>   		qp->req.need_retry = 0;
+>   		qp->req.wait_for_rnr_timer = 0;
+> +		qp->req.send_wqe_valid = false;
+>   		spin_unlock_irqrestore(&qp->state_lock, flags);
+>   		goto exit;
+>   	}
+> @@ -695,6 +751,7 @@ int rxe_requester(struct rxe_qp *qp)
+>   	if (unlikely(qp->req.need_retry && !qp->req.wait_for_rnr_timer)) {
+>   		req_retry(qp);
+>   		qp->req.need_retry = 0;
+> +		qp->req.send_wqe_valid = false;
+>   	}
+>   
+>   	wqe = req_next_wqe(qp);
+> @@ -772,10 +829,12 @@ int rxe_requester(struct rxe_qp *qp)
+>   			wqe->last_psn = qp->req.psn;
+>   			qp->req.psn = (qp->req.psn + 1) & BTH_PSN_MASK;
+>   			qp->req.opcode = IB_OPCODE_UD_SEND_ONLY;
+> -			qp->req.wqe_index = queue_next_index(qp->sq.queue,
+> -						       qp->req.wqe_index);
+>   			wqe->state = wqe_state_done;
+>   			wqe->status = IB_WC_SUCCESS;
+> +			rxe_req_writeback_wqe(qp);
+> +			qp->req.wqe_index = queue_next_index(qp->sq.queue,
+> +						       qp->req.wqe_index);
+> +			qp->req.send_wqe_valid = false;
+>   			goto done;
+>   		}
+>   		payload = mtu;
+> @@ -839,8 +898,10 @@ int rxe_requester(struct rxe_qp *qp)
+>   	goto out;
+>   err:
+>   	/* update wqe_index for each wqe completion */
+> -	qp->req.wqe_index = queue_next_index(qp->sq.queue, qp->req.wqe_index);
+>   	wqe->state = wqe_state_error;
+> +	rxe_req_writeback_wqe(qp);
+> +	qp->req.wqe_index = queue_next_index(qp->sq.queue, qp->req.wqe_index);
+> +	qp->req.send_wqe_valid = false;
+>   	rxe_qp_error(qp);
+>   exit:
+>   	ret = -EAGAIN;
+> diff --git a/drivers/infiniband/sw/rxe/rxe_verbs.h b/drivers/infiniband/sw/rxe/rxe_verbs.h
+> index 0f5ffd94643f9..a22dfc6e5ae3c 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_verbs.h
+> +++ b/drivers/infiniband/sw/rxe/rxe_verbs.h
+> @@ -114,6 +114,12 @@ struct rxe_req_info {
+>   	int			wait_for_rnr_timer;
+>   	int			noack_pkts;
+>   	int			again;
+> +	struct rxe_send_wqe	*shared_wqe;
+> +	bool			send_wqe_valid;
+> +	struct {
+> +		struct rxe_send_wqe	wqe;
+> +		struct ib_sge		sge[RXE_MAX_SGE];
+> +	} send_wqe;
+>   };
+>   
+>   struct rxe_comp_info {
 
-My idea is to make it more obvious _why_ something fails
-and not like get_maintainer itself is broken.
-
-> If we want to "improve" the errmsg, we can use "eval { require JSON::PP; =
-}; die ... if $@"
-> but this looks absolutely pointless to me.
-
-We disagree.  I prefer output errors to look less broken.
