@@ -1,89 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793352595;
-	b=dM8rfnZP9bYwbPajKqWByLoN6JrWGHMV0RIur7aUILm8DsZsjDxQ9jAXuqgD+rbTtzm0
-	 Kb718Fy+HTHOrv6JHwBQT1RvgBA4AfIsjJfgc5Kh6b8D9AiJOpU0WQOY45uqibzFVNxRX
-	 pJAcdAWO6ZTwXgnjy7cw9tc/2xPvj+1anlCMQjkoq9vzaZpNhL7duied+4swbNSykD1f0
-	 XL+j75uMkCH6OD24U0tbPE6ROKANRd/CYAkxVjuN6kARmHcLs05y8rldyvVYsQiA5ZBb7
-	 MFhl4N7OMsewCxYV3yzq++r5tIy+9Tfz7imrfZSNyU/msX23GRdP00kSDREgmPr2iXw==
+	t=1793352620;
+	b=awNIUxMJhfzowIxaLDY9Dyy2aoR6hUF26dkjzsbMwStXf3y7fS/VSeZKk9Bwgg9/ecsr
+	 6v2HxkeCd6+WCmtYgz7RZ4bKFlU/MPsQt0pItB9Ccv3ZPDKhvfVxjHYkxd8A/4tPB+knT
+	 uzeywKF0gesWimGbTCPQPWRu+kv8yX2WEeSbYMbioaWYDMVEExzxgE60zSkKJ5JrzVVMh
+	 IaIjGcvhXgQwCC122Zks5b79y1FD2dhW8C5h9/qt/AzUO5UYFgjPw5mc0yRmuK6Sck9NN
+	 aeLxh7HE8zuz/cpold+X2ZzH1d+Y6iCMiti+p1Z4xVQxKrK2Aqs1zY3xv1xn3KzB/+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352595;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352620;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=9dTvHmvExgXL4658zs3vpBdkxj2etJxtu77jFSpqQsE=;
-	b=GPGEAtQ3iUizZ2vcgLPhrYiWkuSjRFwjj5nYt+oTAiN5iT/cLuDtAqkx2uH+rHF03pH0
-	 TDdPkRTzv+2wCKvzRcbjC6yWwV9336vxymdbcZbpupoeCHALhOCmGhRuW9mKljGQNFbDW
-	 WflzZnjkfKqSC8wVXQ6CVempi7QL8DWx8yb1rDVFkYZzksSE2qpvLeyV4h2EIwZTscFJ8
-	 8CTmkQdbjSxNcDhN43tPHb5gIH0fL++nRSGJ/Xt03nVCh3WD4fBbAfg67Lr+McU/IJVrH
-	 0aZwY47srZP+qie/rce+MtBbSMzLYkLTeKJzmLSdm9CalVlIs95lUxSVrMjlrQ2D0cA==
+	bh=iHCN2Ghkn6TNzamyqwkzKubIIg2CrJLoUEljP3EOIRY=;
+	b=WVOncx2MGQDp7XoZbb7poLewebyDplMazJ0PZZVjYT/X0HSn/PvCW/rt7vEzw2efkQ3l
+	 YfpLq5Mfco3TFlgHKPoM9Gr56DnEPZmM8wiBPEWVVvqEs4zwPKd+3kaws17sPgsILMHdl
+	 6VEfijTUZfOtdcAsIHf3gF/sF7moCgccWZODAbbFtkPpcwVp1lM4aE4pArUb5ra+lCScX
+	 tOHur7FplG4Io5TVuBXSCHiZgExILbYp6s5jHrnumkBGbvvgZB1COu93Uk9XozoJXLHIb
+	 kw/kf1QbPEP1BxCcQ+NVuAVP1MUfswzxt4g+gmovSHngN+y7SGxEKnizw44qHyQwoGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WRkrYC65;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=INVyZoPI;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC20606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:29:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CC20606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3332E606A322;
+	Fri, 30 Oct 2026 09:30:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3332E606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WRkrYC65
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793352593; x=1824888593;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=EMqMfThf7wBi+xqcGlz73yvEPZiRd9YLlzGUba045ok=;
-  b=WRkrYC651dLVGtKe/aTgbLwcxQ4FfFDLdZ5D/0JsAWUC2RN+yK+kKEYl
-   sND20Jfl+//hrdR9/Vi/CsXidyCGPbrnGCMZ6k3LjIIoTeANCZ6PoEpt+
-   18QL5hJx/kxKdDwuu3ySHAC1IVyzOdbOfi1T5TvD/TlAAZOEhyYIwwlDz
-   kdpGRxjXYZxot69op3IC6AN6ZQeHfGPXg8owd/dIIuDwB75iQm1uY6hqo
-   8VG7gASkxAyY1aW3MBOfdKfyO0VUVycBl2qyLr9nSiAgAMmlXL9UbM3yP
-   H9QA1Aw4zwHJuQkqeX1lbR8qsiztEkhojsFqe6hb7dfQKKYf4vSDnbj3x
-   w==;
-X-CSE-ConnectionGUID: x0ly6ZBlRYipTqNMyZRZJw==
-X-CSE-MsgGUID: /C3Rci8zRUy+P35rh9PYBA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2126345"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2126345"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 02:29:52 -0700
-X-CSE-ConnectionGUID: A1XjQrnCRSGV8+6OT8/tjQ==
-X-CSE-MsgGUID: G8pzq4FHSjeDHRV7HzC5bg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5517732"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa005.fm.intel.com with ESMTP; 30 Oct 2026 02:29:49 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xMivh-00000000bXI-1r9z;
-	Fri, 30 Oct 2026 09:29:45 +0000
-Date: Fri, 30 Oct 2026 17:29:37 +0800
-From: kernel test robot <lkp@intel.com>
-To: Chaoyi Chen <kernel@airkyi.com>, Sandy Huang <hjc@rock-chips.com>,
-	Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
-	Andy Yan <andyshrk@163.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: Re: [PATCH v2 1/3] drm/rockchip: vop2: Use
- drm_format_info_min_pitch() for plane offsets
-Message-ID: <202610301711.Dm8BmGiV-lkp@intel.com>
-References: <20261029081429.862-2-kernel@airkyi.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=INVyZoPI
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=iHCN2Ghkn6TNzamyqwkzKubIIg2CrJLoUEljP3EOIRY=; b=INVyZoPINRKB5eckC6/bbZQaZ7
+	jbrGGpj+GvdE5dp3TUwfZ+ePeBgH+aXozdCRn5Qgn/lL2FI4ZtHxWsQOlb0hzE4G28SZytj7WPw1x
+	eio35IVHVuliSgVJH/f2lZZlt7Yga/4eQH/z9BcfVjJtTKOdvMLKW1XBLzSp8mh3gceP09jztXxIS
+	wUMpunwRClHfdPYD2+ZYWi6lqfMahpbzRN2p9EJy7obNWc1vZYUJ9LjOr5H5R5WqzqUmQJCtfhC8S
+	ZAFCJjCIW7JmOIYdb5xgDqo5looADIpcH9aIwn5qpIY9Pnyrim0TYow30qLT4Nl8rEniv/uAt4Aa+
+	4N8U0Zcw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xMiw9-00000004Zgj-3TDE;
+	Fri, 30 Oct 2026 09:30:13 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 6014E300329; Fri, 30 Oct 2026 10:30:13 +0100 (CET)
+Date: Fri, 30 Oct 2026 10:30:13 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>,
+	Sandipan Das <sandipan.das@amd.com>,
+	Andrii Nakryiko <andrii@kernel.org>, Song Liu <song@kernel.org>,
+	Ravi Bangoria <ravi.bangoria@amd.com>,
+	Ananth Narayan <ananth.narayan@amd.com>,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	bpf@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Falcon Thomas <thomas.falcon@intel.com>,
+	Xudong Hao <xudong.hao@intel.com>
+Subject: Re: [Patch v5 13/18] perf/x86/intel: Refresh LBR stack for non-PEBS
+ LBR events if needed
+Message-ID: <20261030093013.GM2668804@noisy.programming.kicks-ass.net>
+References: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
+ <20261029043914.1395147-14-dapeng1.mi@linux.intel.com>
+ <20261029110046.GO1779021@noisy.programming.kicks-ass.net>
+ <16441880-1831-4741-ac90-02e5f662435d@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,36 +86,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261029081429.862-2-kernel@airkyi.com>
+In-Reply-To: <16441880-1831-4741-ac90-02e5f662435d@linux.intel.com>
 
-Hi Chaoyi,
+On Fri, Oct 30, 2026 at 09:54:02AM +0800, Mi, Dapeng wrote:
 
-kernel test robot noticed the following build errors:
+> >> @@ -4012,8 +4023,14 @@ static int handle_pmi_common(struct pt_regs *regs, u64 status)
+> >>  
+> >>  		perf_sample_data_init(&data, 0, last_period);
+> >>  
+> >> -		if (has_branch_stack(event))
+> >> +		if (has_branch_stack(event)) {
+> >> +			if (lbr_need_update) {
+> >> +				intel_pmu_lbr_read(&cpuc->lbr_stack,
+> >> +					cpuc->lbr_entries, cpuc->lbr_counters);
+> >> +				lbr_need_update = false;
+> >> +			}
+> >>  			intel_pmu_lbr_save_brstack(&data, cpuc, event);
+> >> +		}
+> >>  
+> >>  		x86_pmu_clear_perf_regs(regs);
+> >>  		x86_pmu_update_perf_regs(event, &data, regs, false);
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on rockchip/for-next linus/master v7.3 next-20261029]
-[cannot apply to linux-review/Chaoyi-Chen/drm-rockchip-vop2-Use-drm_format_info_min_pitch-for-plane-offsets/20261022-151735]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> > Or... you move intel_pmu_lbr_read() from handle_irq() into pmi_common()
+> > after we done the PEBS things?
+> 
+> Yes, I ever tried to do that, but I found it would break the PEBS LBR
+> sampling on the platforms prior to ICE LAKE. The PEBS doesn't support
+> snapshot LBR stack on these old platforms, so PMI handler has to snapshot
+> the LBR stack before draining the PEBS buffer.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Chaoyi-Chen/drm-rockchip-vop2-Use-drm_format_info_min_pitch-for-plane-offsets/20261029-161427
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20261029081429.862-2-kernel%40airkyi.com
-patch subject: [PATCH v2 1/3] drm/rockchip: vop2: Use drm_format_info_min_pitch() for plane offsets
-config: hexagon-randconfig-1001-20261030 (https://download.01.org/0day-ci/archive/20261030/202610301711.Dm8BmGiV-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project c2ea4440d4b64c148de4fdfca1fc2c437a0701e4)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261030/202610301711.Dm8BmGiV-lkp@intel.com/reproduce)
+Argh; we have so many variations :-(
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610301711.Dm8BmGiV-lkp@intel.com/
+Still, re-reading those MSRs seems wasteful, esp. if most modern chips
+will be affected.
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
-
->> ERROR: modpost: drivers/gpu/drm/rockchip/rockchipdrm.ko: symbol '__hexagon_udivdi3' undefined!
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Can't we have a toggle between early and late LBR read or something?
