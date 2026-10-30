@@ -1,49 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356092;
-	b=nzCbG/o+tsOCeq7Nn3ue/a1twmdoPFyNDW0pWbKSHMzRhgTIkO007QEUOQazt0d2BQbS
-	 gvOuFbh636MccqMeR1BYPyjgki1UGS6qvISZww8DZt1GuOYDhQuQj4udoXPe4odnWtLA1
-	 UbGTkYW3BGA4KhzIaW9m+ezV2p7oF8iuxKjiKj87DzfF0ASQbD8mlg0gyzB0s29b8oZVm
-	 CupXoG4D0Sgb+huEU10Cz5LHp1dLbS/xMNXvg2F1TcldqP/TZMDEampjTUHsr5CYfmHyL
-	 JVRmZaa0jbEdDeUnPG7/Gt657hP/GjoVhsx45ZoMycdT58HoMzimakLqUByTgK2M5uA==
+	t=1793356088;
+	b=CrCqDQWLlAL5WVgH4cnWaqJJBXIb0+ZZooLvRaBnpHKjQ33vnl+VuhSEP0ooWlNIexcE
+	 CrVuSkiY85XSXU+0Lt4TDpqhpLA4aJqV6ICYYTXDzMyX9VPpTe4aRU237RuO76wC7Teg8
+	 D4UJlZfkCIlBU+NZnarYGbCtFWbgaoi8QRWuxh8UG87BjR8MJ1wg5XowkSsrjG7WRz+V1
+	 tsPjrM7SznxMsZlUC2yioqSR8L/j7WuSuso2OBC+RP8VEcgh6bqOKfEhEbSNh4SAk/mC8
+	 5b65srGeGGIatFeoTMkfG8B3SDv0D7cY2ps3ddRUzNXYH79fiFTvpfr5jc5XnhtYIeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356092;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=mTDmY50binhv4KAhOwDjYuuuzxrs3fracWCulNAzN7A=;
-	b=uLrRbktCrgBZYRT4vBIsyVZZ+8h8KMBSO3vGqGayjRNxBW9OeKoSa6LXgovVYSCsB28A
-	 jAYxy2FWufZz6fLhUvOATpmr3WEOcNr/627FuL3oB/ipeZuVj4C8jeRBIUasTD5gv4UPd
-	 jKRmDuGJkLZIsm9jKugKJcmMaEDKLi3cOz2Kmrh0h+eiMAqIdl9d7xn7dKVcPuPNwmqtt
-	 fnB4BXXm2EGuDDWS9mFsPI30aOy6j6YD7GYvUBxZw6Bj11N2PlMO4EGdPGQjcwMQHw6gK
-	 kW5riw5PnM1eV2XrhDuj5N4zwSR9ZE1sLfzVbN/DDKcn3zlp65MUxB0IdLWtmcmq4lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356088;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=NnAtcy2DdStviAIIu67Lv5yT5v++fcCVEEkxY/cv+jw=;
+	b=0qRNHoM13HZxDNC2jJ0QjERp0nwXlKOv+vEZzLgwMnwU3q2PV4OfYJ1cfGmn93UOr7n6
+	 96xIM5fpSmRqYceYC4xb4Gvkn7ocZIkOXnJjIXIeWnrNz+BOkQZYsJWa/uDqwHsNWEJnr
+	 cMp3o/A2ok7NEgkDDCWWYxXOu1jGvAs1EqlGaCo4HjAHbhqgBswTLW4gPswLAFPDNE2WU
+	 mOgIK/Z+n0/7cbiJtkT6tFReE+xd5Iu+vvtAur++qpOsbPg2zSHUz7Js+LuuFlHSDCW4Y
+	 /c9Zf9Kv1lJf8rAMoHqrGX7IKWS/U5EPBr+z9K1fbk+u/97mtJO4LVv3RJTGAuE8UIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZrrihNS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=kHpw6gx6;
+	arc=none smtp.remote-ip=212.27.42.4
+Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB3060A260D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:28:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65AEF606A33D;
+	Fri, 30 Oct 2026 10:28:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65AEF606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZrrihNS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEDF71F00A20;
-	Fri, 30 Oct 2026 10:28:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793356092;
-	bh=mTDmY50binhv4KAhOwDjYuuuzxrs3fracWCulNAzN7A=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=jZrrihNS5rJSOHMVZzhZWQCont/txa8b1oNAyPa8oDoHrILr2BWRe/C95c7EQZVZz
-	 EbbfmFcz33zTr5WMDfHc6tdIWR90BH8aTd7/toOLCaEfu+NCWlwtA+b3hZXMepMjnC
-	 tzatEncFzwu39zB2VwjgKcs1cM2JjhncvJrLcU05CDTrYoY7v3qCbt8tRkGhhS1GrT
-	 4Rxjt59mW3b/vbg/P2Iud20IPI+8w3W22sdqBLgHcxbZI9zVOvSsaX0ihDJD15jI/X
-	 xYcNlIYGcS2w4A02rUzJkDF3NsSXH/qcnzbjM1GCSby4wop/lygYztBdfc7MNmXlSs
-	 gvTv1yiyLVFRQ==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 30 Oct 2026 11:27:39 +0100
-Subject: [PATCH v7 07/16] drm/atomic: Create function to insert plane state
- into a commit
+	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=kHpw6gx6
+Received: from stf-laptop.peak-system.com (unknown [IPv6:2a02:8424:8fef:6e01:2a4e:9a3e:485b:cbb0])
+	(Authenticated sender: stephane.grosjean@free.fr)
+	by smtp4-g21.free.fr (Postfix) with ESMTPSA id 3A2A519F574;
+	Fri, 30 Oct 2026 11:27:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1793356086;
+	bh=HLQvl6Lqe0D0D0QVBPQB2h1Sv8s0n6l64rahB/uZ1qM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=kHpw6gx6Xu4WCnTFDG9isBZzvFUO67x6PtwSzq0ySvFn97VtfO25kyPWWpif4dmyp
+	 CwRDA0ZZHUpZEd7Ep7IrJWeX/juzHFDTrRK5w535dYq7SWu2jQYK8knojIb50mnAe6
+	 SZxgDS1AOKPwOLh2L9oniAgeOmXyRajXcmwJX2bRX/xPoIGCeI24HBrtRY1dIPwI31
+	 hzku0rlOlHePSL6SgdDyHz3iA1/W+clnXdlGhxKRuWQVWFPmndcJLvCQJVX4xnXJGh
+	 d4qU7PvgYzi/jFneR3sp3PtbB6g9V48Bjp/tFAXLWp2N38COGq+r+NCjhGsyjUmsSF
+	 fSe0kz6Qd+Jmg==
+From: =?UTF-8?q?St=C3=A9phane=20Grosjean?= <stephane.grosjean@free.fr>
+To: netdev-bot+sashiko@kernel.org
+Cc: mkl@pengutronix.de,
+	mailhol@kernel.org,
+	wg@grandegger.com,
+	error27@gmail.com,
+	lukas.magel@posteo.net,
+	linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	kuba@kernel.org
+Subject: Re: [PATCH v6 11/13] can: peak_usb: don't read past the message in PCAN-USB Pro decoders
+Date: Fri, 30 Oct 2026 11:27:03 +0100
+Message-ID: <20261030102705.30262-5-stephane.grosjean@free.fr>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <179281433565.3130.14307625292135673040@kernel.org>
+References: <20261022-canfd_check_channel_idx-v6-0-197704231551@peak-system.fr> <20261022-canfd_check_channel_idx-v6-11-197704231551@peak-system.fr> <179281433565.3130.14307625292135673040@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,98 +74,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-drm-reset-state-flag-v7-7-4e55eaeae683@kernel.org>
-References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
-In-Reply-To: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2304; i=mripard@kernel.org;
- h=from:subject:message-id; bh=41LUGhYJAROn0oZPZrkQUy7D8c62RSMKcGFPg+lAdDc=;
- b=kA0DAAkTJ1/OGaI9vnYByyZiAGrkcRqhto4saHp4LHYweBWsntZMNL5pKcZn+kJsb6P78UwD2
- IiVBAATCQAdFiEE5BxWy6eHo3pAP6n4J1/OGaI9vnYFAmrkcRoACgkQJ1/OGaI9vnYMqQF+MNjL
- kunAj9V7rgT/byFtwP+edZzuSsQVgocFU5qlVmBiygiRXnSAGMjYHpuNCQ5cAYCroUDcPu4Z0hv
- zyVQnzesdQOK95xaV6+WxP2978HAJlEGqMk43qBu/oBD0WAJIDC8=
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Transfer-Encoding: 8bit
 
-drm_atomic_get_plane_state() allocates a new plane state by
-duplicating the current one and inserts it into the atomic commit as
-a single operation.
+On 24/10/2026 05:58, netdev-bot+sashiko@kernel.org wrote:
+[...]
+> [Severity: Low]
+> With the current callers, is the last sentence accurate? The code change
+> looks correct. It is less clear that the old walk could ever leave the
+> command buffer allocation.
+[...]
+> Could the commit message describe this case instead, so that the stated
+> impact matches what the old pcan_usb_pro_wait_rsp() code could actually
+> do?
 
-However, a later change will need to insert a plane state into a
-commit without going through the full allocation and duplication path
-in drm_atomic_get_plane_state().
+Right, the walk can't leave the command buffer with the current
+callers. v7 reads:
 
-Extract the state insertion logic into a new static
-drm_atomic_commit_set_plane_state() helper, and convert
-drm_atomic_get_plane_state() to use it.
+  - pcan_usb_pro_wait_rsp() doesn't check the records against the
+    received length at all. A truncated response is then accepted, and
+    pcan_usb_pro_get_can_channel_id() returns stale bytes of its own
+    request as the channel id. With the current callers, the walk only
+    stays within the command buffer because its unused tail is zeroed.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/drm_atomic.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
+Thanks!
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 178eca95d0e3..b26458ee98d8 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -631,4 +631,19 @@ static int drm_atomic_connector_check(struct drm_connector *connector,
- }
- 
-+static void drm_atomic_commit_set_plane_state(struct drm_atomic_commit *commit,
-+					      struct drm_plane *plane,
-+					      struct drm_plane_state *plane_state)
-+{
-+	int index = drm_plane_index(plane);
-+
-+	drm_modeset_lock_assert_held(&plane->mutex);
-+
-+	commit->planes[index].state_to_destroy = plane_state;
-+	commit->planes[index].old_state = plane->state;
-+	commit->planes[index].new_state = plane_state;
-+	commit->planes[index].ptr = plane;
-+	plane_state->state = commit;
-+}
-+
- /**
-  * drm_atomic_get_plane_state - get plane state
-@@ -649,5 +664,5 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
- 			  struct drm_plane *plane)
- {
--	int ret, index = drm_plane_index(plane);
-+	int ret;
- 	struct drm_plane_state *plane_state;
- 
-@@ -672,9 +687,5 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
- 		return ERR_PTR(-ENOMEM);
- 
--	state->planes[index].state_to_destroy = plane_state;
--	state->planes[index].ptr = plane;
--	state->planes[index].old_state = plane->state;
--	state->planes[index].new_state = plane_state;
--	plane_state->state = state;
-+	drm_atomic_commit_set_plane_state(state, plane, plane_state);
- 
- 	drm_dbg_atomic(plane->dev, "Added [PLANE:%d:%s] %p state to %p\n",
-
--- 
-2.55.0
-
+Stéphane
