@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793395296;
-	b=W3Cj/saw6IoHGMQAFKCBWZq/uL3qbNnT9HTl2qTMp9x5Z8ZDHwAjgXx3AgawXlEN6vjc
-	 Rd1qpub2RvLkQYuoolrECs0WmFh38W3TunaJyIlNUojV45wCTHKRQ6oHVmb/eQ9UIRmaJ
-	 uFeysUSThVOtNPPY3whWCkACdgrokqK7BO6WWua1bHAjjyFGXN4SJG3mlpDaRxOD+hqZ2
-	 Qxsd7avcBIMXjNCwZRNZKliyjnG5euzJQrOKUzhD0oG+OT1T4Ok0vlLVtrVo8i85GTQ2+
-	 Rvua+0WXkWtM2Gt8WOYWuwOCg6fth1vClBBQouEb7KEZ15SllwQKWi+J2dt46TKjA5A==
+	t=1793395298;
+	b=2GH0fcdosrZQbOWFATjdBlRxEr1ouhQcCfvvgr3HsGxDI8agMd/3NT4M2tFWGaGQBoJp
+	 7eOLqDAw+qTht1k5RkW+m2MBYa//o9shwmOTIY7ZbZCQAT1KWVYDAtiXEPWZNi0J55lqS
+	 Z76goBTm3UN0+0f/5habIYIrZEDH14Wr+kJb/V+5qw+xTM+gDob1rMrjIDpnfBpgtbb8f
+	 ToZn8os4qssdtUEyYuPfu6HFxjJElADPruJVX12bKMDSh8U06f/GLXRBlEcUlx7kSDPRI
+	 ErhiC2e1pdqQi7nl1zBH9XtGb4TRTfQ79E7rFohz7fFadXlmk6SyCmZrQVC7eFfrWQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395296;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793395298;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
 	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
 	 To:Cc:Content-Type;
-	bh=5bp4E318lJOU9KTeZ4/sgGBHaMDL7s7CdLDZqDaaPsA=;
-	b=wGCqZmwV3Ms9QPJaoEs3coWeTiVNbk+Qbzkf6duFTwlGVnqstzqPnYcTSsKRkPCFZ6AR
-	 hjS/+2XbxvKl1cDRY60Be1WXX7U3zVZy6UjdrcPjxioM3D/vv4v7oxZLj4V4uimsRi/GW
-	 GBQjhOlBWLoABmlv6kQOgAiq0mrEi2e6nWj0GiDsLTO0gb6Y5FlGP5Q6X9in4G/+vMkzv
-	 oaPzDFcsttSRDiZ7uJBfHwYe518j1wdVVfgI2E+vNJy2TWAC74pKkKIKSxVZeNluZR55H
-	 ja/JP4GyaXtVT2OVi6H5O9NXOWRCRv3TXpS89SpeMPdU2dRn8yAn6CKlmvXG11Wlsrw==
+	bh=1RT2Hwd4eS7iM21uuSoBg92EWPQROZNPCWfD+pi67rE=;
+	b=MBiEmSf1bgFp1oZBqdfgIXUsHbE/R02Ykewmr/6yDlNQEMsYUXrwxVp+P4AczRJDVapy
+	 P2K/sfWtFUUMxEltBFN9KfK+il/gS/I4gJZquJbB9blDzav525Xff3welNavjDambo1DL
+	 i9E6E/ksMBZ8PHTnz2Egn33kUsFAiccsA/cST9dHL8HCzuWXj8dGdUTyVTQhtysOPvvrf
+	 OYyvMjeXkBuce/mNaN9MAnXSFUaOdYmmvUXR5rign1EFaOVMXKEMeiy1xqKZMzZQySZ5e
+	 6s9oHKmYKPFFui7dx+8qR4DtviEaEgcPg/lNfBlObuMM2tJl3BPZ4gaYKnxLpJWBSrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=R+PQngeS;
-	arc=none smtp.remote-ip=209.85.210.197
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JHU8bw99;
+	arc=none smtp.remote-ip=209.85.215.198
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C100606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:21:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C100606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1129606D978
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:21:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1129606D978
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=R+PQngeS
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a59717b0c0so883449b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:21:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JHU8bw99
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc7d2ff0087so723591a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:21:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793395296; x=1794000096; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793395297; x=1794000097; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=5bp4E318lJOU9KTeZ4/sgGBHaMDL7s7CdLDZqDaaPsA=;
-        b=R+PQngeSOkCIs8w+1oDbMZaW7MkHUlsuY7FNbNw7TIre9Em2V58dH7bsp5TUvYBWtT
-         3yVvUWlnjcQoxgbq8dZKijcCqmKKB78cgjoyaFtnuAerVV6SGpi/UrzK7r6YUuyDCVqb
-         AU5hU5Iw5j4NaX41ayczTXDIO0nBf1fkfTm/9jZivD+9ZvdGwGu4+cy98PEtSxXv6uB6
-         QHfBq8yXqnYAMQdPFSUXSl9/DOq6UvKV0zoem8jv8qfpYjgV4xcDUTVismp8V+IF8edC
-         TBiSi8QJdmXq4Y0BuWCP8h4onoCZlz1OVhUZKOZMXEI+1uTJr8BifBiPa/gRVWRYcvWb
-         foWA==
+        bh=1RT2Hwd4eS7iM21uuSoBg92EWPQROZNPCWfD+pi67rE=;
+        b=JHU8bw99jkDLUan3RvNhDUnkKZLez9b+K1OF4RAMln0B/bcLZvdoriO/l4V6D2WHQh
+         uzTzk7b2xtfTa5qLr1cmcfQ3uWgvlrk1p2zkhwVY6egDsIZ3Njtnl4Ciwa2SnlK+3yX4
+         KyWPQImBC1GUqClJ7WI5jCwNZV0NLvqWvAQRR5REutFPFrvHmgX59LUz+MQHrdjsq8rH
+         soaYz84Z/klMh/VVs7ih+WyU6n8AOaSuHB/prqMbejwai7rfsK2kiY+uQxLPrwG7hmIB
+         vREezuGa+Q6ZLdm8uYYIJquF0MW/zddaOfnp5vSh32N6NDVLs04sBRU3DsMC68ajxDTT
+         xacw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793395296; x=1794000096;
+        d=1e100.net; s=20260707; t=1793395297; x=1794000097;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=5bp4E318lJOU9KTeZ4/sgGBHaMDL7s7CdLDZqDaaPsA=;
-        b=rOr0xVUzWKG/H7zyubseZexvhqejfF3nPi3EEPdWb0Q4hmwUVXFtKRYrHGpfDBmFS7
-         LCFVNBe96W1OuXJS9AAK4foRQCCzyzNY1w/4N8JlsB2Lj+gAGme/VNCunJi6Si18WgJ2
-         Rw3EhziSArRfSHTQZhW2GCH70LDkFePveoa6O+A0SZyMjvJ7Z53fl6gBQlzDaYdLKfpk
-         Ft2yQAALUfCR+pcyNmmLgm5kgk9jssYQZH+rSh5ak9kd2aWSLHjr1Iyqo/DYYn7HEr1g
-         qO4l26i7OX34GiRpS8Uptwr8+9GFt8o5smF3nQQ5QK+T04kTDu2pflyok63IumymHLcF
-         RpNw==
-X-Forwarded-Encrypted: i=1; AKwUvBzTjFO7D0E12T4GYToluNmm9ryHbTxJ/v0p9MYamZJMnOU8PcSF/t7P8j3VwHf//aZl0wRZ6u35sPv9FpE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyFhP5/zfcQBIBT1qTzS8mdZtoeEdLEP/yIqfttQG9YeEVQJ23
-	+vMxZstIJxCPo3ySIKCABUUVJ79m4GSH8u7M0ct4BCsXZvi9KtAN70L9boYKjvr7wEmLc6BBWLq
-	qZqgBzg==
-X-Received: from pgdo11-n1.prod.google.com ([2002:a05:6a02:620b:10b0:cda:ea8c:c389])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:8201:b0:3e2:7643:30b2
- with SMTP id adf61e73a8af0-3e928a7a901mr3766488637.3.1793395295633; Fri, 30
- Oct 2026 14:21:35 -0700 (PDT)
+        bh=1RT2Hwd4eS7iM21uuSoBg92EWPQROZNPCWfD+pi67rE=;
+        b=lzCFLW1g9NJs14AshD9I+b6GwIxRQ7TSVBr/9VAbunh15oXlXOzNaCGzY+CXqigV//
+         /Inb2Q3WCPN6J1B0ozH/FtHx7fXlt/dSe69SMWgjLaIil6p+zIuTDbix1pDoAdQgkUrg
+         oa5Mz5qXs8sbH50wt9uuK7dfn19iJFb/jtSHF6X16AOaL1+6943q8WBzfyNtDcdSAcWw
+         xJ713XQbiwtMjUYIXNA7CW5YNtFkv6Uwx6NL0/sQpkc3oaRDvXX8VD6ST4em17S9e8gn
+         /GRlF1Q/axuYqlOMOEQ6NwvBABBqoQh4aacJxrYPYJtKUYbUHUQa/UilBbHeuTSmF+e7
+         Cmqg==
+X-Forwarded-Encrypted: i=1; AKwUvBzNp6QtG+L911eX8B3bPGx3KEgxS4bTr6sfPwiSMrjf4qPYD4Ekj8DLnSXVha5yzywWgbnUTIbhwZ5kX64=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLt7bi0qQJ709NORHTzfknLsFGJKKvapI5KkZAARJxLV4P7yCz
+	+hLC3PN0mFneQOcedQuU3E2ZQ0ny0VHlRyXCtEkgDfKBZVbLGvcmjt31ZBIlYXqI79Coz7kSOkW
+	r9lSS5Q==
+X-Received: from pjrm17.prod.google.com ([2002:a17:90a:b791:b0:3a8:6a28:2f71])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:264c:b0:3a7:d2b5:2e99
+ with SMTP id 98e67ed59e1d1-3ae8970fd76mr2702613a91.20.1793395296953; Fri, 30
+ Oct 2026 14:21:36 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Fri, 30 Oct 2026 14:21:06 -0700
+Date: Fri, 30 Oct 2026 14:21:07 -0700
 In-Reply-To: <20261030212112.2598640-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,9 +82,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261030212112.2598640-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261030212112.2598640-19-seanjc@google.com>
-Subject: [PATCH v4 18/23] KVM: nVMX: Cancel the nested VMX Preemption Timer's
- hrtimer in free_nested()
+Message-ID: <20261030212112.2598640-20-seanjc@google.com>
+Subject: [PATCH v4 19/23] KVM: Add lockdep-only APIs to query and assert that
+ a vCPU is unreachable
 From: Sean Christopherson <seanjc@google.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, Sean Christopherson <seanjc@google.com>, 
 	Paolo Bonzini <pbonzini@redhat.com>
@@ -93,42 +93,56 @@ Cc: Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger
 	James Houghton <jthoughton@google.com>, Chris Mason <mason@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Cancel the hrtimer used to emulate a VMX Preemption Timer for L2 when
-freeing nested state instead of precisely canceling the timer if and only
-if the vCPU is/was in L2.  hrtimer_cancel() bails early if the timer isn't
-running, and KVM initializes the timer when allocating nested state, i.e.
-canceling the timer even if it's not fully in-use is a glorified nop.
+Add an APIs to assert that a vCPU is unreachable, along with a helper to
+deduplicate the "is unreachable" logic with the existing "assert the vCPU
+is locked or unreachable".  The new assert API will be used by VMX to
+ensure a not-so-innocuous vCPU teardown helper is really only used when
+the vCPU is unreachable and being destroyed.
 
-Canceling the timer even if L1 is active will allow KVM to leave the vCPU
-in L2 without having to retain an "is_guest_mode()" check just to cancel
-timer.
+Disallow using the query API without lockdep to prevent it from being used
+to make control-flow decisions in KVM.  Taking different actions based on
+whether or not a vCPU is reachable isn't fundamentally broken, but would
+all but guarantee other code _is_ flawed and/or brittle, e.g. that unwind
+error code relies on common functionality to behave differently.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/vmx/nested.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ include/linux/kvm_host.h | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 1b30ad7731ee..553915015a75 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -339,6 +339,8 @@ static void free_nested(struct kvm_vcpu *vcpu)
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index ba8ea62b7304..28a0c01d6a55 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -984,11 +984,26 @@ static inline struct kvm_io_bus *kvm_get_bus(struct kvm *kvm, enum kvm_bus idx)
+ 					 lockdep_is_held(&kvm->slots_lock));
+ }
  
- 	kvm_clear_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
- 
-+	hrtimer_cancel(&vmx->nested.preemption_timer);
++static inline bool kvm_is_vcpu_unreachable(struct kvm_vcpu *vcpu)
++{
++	/*
++	 * There is no actual dependency on lockdep, but generally speaking KVM
++	 * shouldn't be making runtime decisions based on whether or not a vCPU
++	 * is reachable.
++	 */
++	BUILD_BUG_ON(!IS_ENABLED(CONFIG_LOCKDEP));
++	return vcpu->vcpu_idx < 0 || !refcount_read(&vcpu->kvm->users_count);
++}
 +
- 	vmx->nested.vmxon = false;
- 	vmx->nested.smm.vmxon = false;
- 	vmx->nested.vmxon_ptr = INVALID_GPA;
-@@ -401,7 +403,6 @@ void nested_vmx_free_vcpu(struct kvm_vcpu *vcpu)
++static inline void kvm_lockdep_assert_vcpu_is_unreachable(struct kvm_vcpu *vcpu)
++{
++	lockdep_assert_once(kvm_is_vcpu_unreachable(vcpu));
++}
++
+ static inline void kvm_lockdep_assert_vcpu_is_locked_or_unreachable(struct kvm_vcpu *vcpu)
+ {
+ 	lockdep_assert_once(lockdep_is_held(&vcpu->mutex) ||
+-			    vcpu->vcpu_idx < 0 ||
+-			    !refcount_read(&vcpu->kvm->users_count));
++			    kvm_is_vcpu_unreachable(vcpu));
+ }
  
- 	vcpu_load(vcpu);
- 	if (is_guest_mode(vcpu)) {
--		hrtimer_cancel(&vmx->nested.preemption_timer);
- 		leave_guest_mode(vcpu);
- 		vmx_switch_vmcs(vcpu, &vmx->vmcs01);
- 	}
+ static inline struct kvm_vcpu *kvm_get_vcpu(struct kvm *kvm, int i)
 -- 
 2.56.0.385.gac671c819a-goog
 
