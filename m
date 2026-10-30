@@ -1,58 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793382887;
-	b=vAtFNmTuMu5T6QVLlbkhRU8DS9lRn0uBsb0s815biUvpMTMY+wXtE9gnm13uLlBA36u0
-	 OhpY7KdKIh4MLJB2+NCD7GozRbLk0V4Z+No7cu+76kHwtTGDn4S9TCBRL8SaRzxQpy2UG
-	 R2o6gYr29a/qa23hrSCz+leIvqVigVNzVGUq9IyYNXOZ74Aw/dBVnITBDQvfUlE2aitUN
-	 Ggp43DzT+N2T0OgGZVXKZkXg16ROKNsNuc3MYIQKqf1Fb/mDtQvvmunlX3aPNf9CDvYsm
-	 74LzYuicsPDByFuReDknIcnSJ+8PVnNYybcbIhr0e1l2NzEgV8hywh2Dw3+Hsxp1kdw==
+	t=1793382920;
+	b=uFw7sIStPWHE1TjOW2yWX6zK678didZu6LJN64Ae7FLItLrEHcrloLZY+mnHH8Y9aKax
+	 LSWhtLBNkZiuqIOXbUKq7Zjyu6NfFSfXq/X2jNgM71sQXmwbSkjMWgXlql4LZOjZjX4PI
+	 txOkWtJ87VtzHAo8nQnsVD5Hs0tAn5bNf//z48TyKCSJA2f91KttEFl0Y3KoiJDcjRcHz
+	 mWXEZ6i9LQvRyH7uYSxQlggBc+LMSZO/fZnyHGbo8QeQH3snYh1P4EQ57xi5Y+vcnmMVt
+	 /NiKG+d5NTNX1F6krFudLLXUwU38eNAmlFmnyzk3Q9ijA6MvXeAzC9IcVut7t2VWSKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793382887;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=3UfZG3+pcxBGzlDM7p3wxd7lWx3StudQV3isrWC7GYo=;
-	b=Hq/m/Ql7UTI8LY/51qfqbtKq5UU/+Xw6DJbCVeJiIW2SpE2folflXQxta6oV8WNdGaOk
-	 kEpxYv0iLyuL6m76uLnGyQDLjScIHha95vBgT/0SrKruAHVgoP+dyls/F8rGtjHFBHDfN
-	 l2RiCnrQqNSSiHnYMJdMSkLDyhgZaz1FyyymU2BnfOGn2LqiE1ewPlnW1/ca0GO5xaVqp
-	 u6xh9ZNqYVJKbyBGr//etBAEW6IaCxEwBSgS4NCAFcLMWBRyGgmS+mThagSjzgOK/m4m7
-	 jR3WzVf/yvrngFR9IWXEs7soFNzf8BgXcQZFcNtFPgbZyTU7yNONkE2L20HiVrxCqbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793382920;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=dHqkgOMA9Td5gDdmO7PZl3wHOa87W28GWf0OpcKFz7Q=;
+	b=JLqYVcl5UOP+kwn3Vs6jnmV9FnhficNVG2zdBzijE/z4nPcNvRTgmkJMOffYIIC9fARf
+	 sE4CIFIaZi4Jf8cSCbW4GPKnQK/xQZlj0iGesuVeWOAWOnXfTDVNnT7m6cvgfPCE0mQT+
+	 NXNsuSXx0SzE5y3fCsa6HXA+ZedKf3Zsn8Kdp7KX9+P8Ohlz8bf4v+kPlQC5In9yPis74
+	 /1S1rAg5EYABa245o16c56v2nUITVDvlHbQAFBm7pBKmnddPV55HE2DOiME7wNBAHbgW0
+	 VXiMCJL+fn9XBAGwWcFP/hwd+Y2ypcIKSG4XuvpHP0BryBFYY7JYt2nlaBDka0zNMbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="Ed/AU9Ef";
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JiDfY8hP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4AA606A32F;
-	Fri, 30 Oct 2026 17:54:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B4AA606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5BB606A31A;
+	Fri, 30 Oct 2026 17:55:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ed/AU9Ef
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id AC81D4E413A1;
-	Fri, 30 Oct 2026 17:54:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6CDC0603C2;
-	Fri, 30 Oct 2026 17:54:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2DF2610328D09;
-	Fri, 30 Oct 2026 18:54:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793382878; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=3UfZG3+pcxBGzlDM7p3wxd7lWx3StudQV3isrWC7GYo=;
-	b=Ed/AU9EffaVtc40WEgAfXmqRJd0jQnDRTVE2wED7Hwrq55Rwh+eQG6ovoxUQLGR63U8fC6
-	mNRoZWfjywsPPSY81bOYrdXfKxGAA9raI1qMIBNFVwMrEcUK9vzBGfp1DzysTvSECPwCz4
-	Uyzksz2eyOXr6Y58PdOzc80JDSedjpZRhdT5lW9zWyJkACFylYsQdz8nusoPcqhL0H18tP
-	W7PDks3GpMiEzH8VoxZAnOzpeQUWfu2Rr8PdTRXGNNfXY8AZ5UKkXGbU9Ok933rdtsbQcH
-	DauqcFr9/QVIepsN9CTkMlA8Ks/hsLI98uQl8KpqOpD5omSg/BmlA7GazG2uGA==
-Message-ID: <701c6f7e-e715-4647-bddf-48a1485afbe2@bootlin.com>
-Date: Fri, 30 Oct 2026 18:54:32 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JiDfY8hP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97A401F0093A;
+	Fri, 30 Oct 2026 17:55:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793382919;
+	bh=dHqkgOMA9Td5gDdmO7PZl3wHOa87W28GWf0OpcKFz7Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JiDfY8hPHUzLfE9EHO+s/TGhLElxX1Wla9Khx5gkIOcGm/DwIIfz6fG8npD6sAh4K
+	 OjMD4sYU8zaXkHZcn6tU88lzOkBuhPeiv3pmgrS4aENXVLa0p+1vf9VEXuYLR4X7C3
+	 CXSGFOr70PNRXT89GaHNXb8Na98574GNsxuTegalueX6TrMNiKEGCTRSYbiRgKNVPO
+	 uqStMScNCOH8KFgYmQ0j05VVFJcLLLBiq+M6erAfSlCmTys/Dy8/c47E/Oy96LnVMC
+	 UGd+Q4U20Sbr8/VQCZ8JZflXDAb9/TaH0qNlwjZXaeGBq+GlYFQqgTnRz4TmSucEko
+	 VkXkcX4V+6Jpw==
+Date: Fri, 30 Oct 2026 12:55:17 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Cunhao Lu <1579567540@qq.com>
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-pm@vger.kernel.org,
+	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Jisheng Zhang <jszhang@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	mfd@lists.linux.dev, Brian Masney <bmasney+clk@redhat.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	linux-serial@vger.kernel.org, Zhang Rui <rui.zhang@intel.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Jiri Slaby <jirislaby@kernel.org>, linux-gpio@vger.kernel.org,
+	Stephen Boyd <sboyd@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, linux-usb@vger.kernel.org,
+	linux-i2c@vger.kernel.org, linux-phy@lists.infradead.org,
+	Jaehoon Chung <jh80.chung@samsung.com>,
+	Elaine Zhang <zhangqing@rock-chips.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	David Wu <david.wu@rock-chips.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>,
+	Lee Jones <lee@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	linux-rockchip@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH 02/27] dt-bindings: power: rockchip: Add RK3572 power
+ domains
+Message-ID: <179338291694.1040563.11893867184826906953.robh@kernel.org>
+References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
+ <20261022-add-board-ok3572-c-v1-2-0b0fd85a31ee@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,68 +94,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] selftests: drv-net: pause: Skip support tests without
- link autonegotiation
-To: Mohsin Bashir <mohsin.bashr@gmail.com>, netdev@vger.kernel.org
-Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org
-References: <20261030173516.1002250-1-mohsin.bashr@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261030173516.1002250-1-mohsin.bashr@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022-add-board-ok3572-c-v1-2-0b0fd85a31ee@qq.com>
 
-Hi,
 
-On 10/30/26 18:35, Mohsin Bashir wrote:
-> From: Mohsin Bashir <hmohsin@meta.com>
+On Thu, 22 Oct 2026 00:10:59 +0800, Cunhao Lu wrote:
+> Define the RK3572 power-domain IDs and require the system GRF used to
+> check firewall status.
 > 
-> Devices without link autonegotiation support may reject both link-setting
-> requests in pause_test_support(). On fbnic, all four variants then fail
-> in cleanup when the deferred restore of unchanged link settings returns
-> EOPNOTSUPP. Removing the restore alone would report PASS without running
-> any pause checks.
-> 
-> Fix this by calling require_link_autoneg() before pause_setup() to skip
-> the test when either interface lacks link autonegotiation support. This
-> also skips devices that support only forced link configuration.
-> 
-> The issue was observed in the fbnic CI/CD pipeline. It was reproduced and
-> the fix was tested on a local fbnic device.
-> 
-> Fixes: cbd8a536cd6d ("selftests: drv-net: Introduce a selftest for ethtool flow control")
-> Signed-off-by: Mohsin Bashir <hmohsin@meta.com>
-> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> Signed-off-by: Cunhao Lu <1579567540@qq.com>
 > ---
->  tools/testing/selftests/drivers/net/hw/pause.py | 1 +
->  1 file changed, 1 insertion(+)
+>  .../bindings/power/rockchip,power-controller.yaml  | 17 ++++++++++++
+>  .../power/rockchip,rk3572-power-controller.h       | 30 ++++++++++++++++++++++
+>  2 files changed, 47 insertions(+)
 > 
-> diff --git a/tools/testing/selftests/drivers/net/hw/pause.py b/tools/testing/selftests/drivers/net/hw/pause.py
-> index ca4a55e59c30..1537f88e0e77 100755
-> --- a/tools/testing/selftests/drivers/net/hw/pause.py
-> +++ b/tools/testing/selftests/drivers/net/hw/pause.py
-> @@ -466,6 +466,7 @@ def pause_test_support(cfg, pauseparams):
->      supported fields.
->      """
->  
-> +    require_link_autoneg(cfg)
 
-This helper checks if the remote supports aneg too, so it's too restrictive.
-
-The goal of this test is to check the local device's behaviour, without too
-much dependencies on the remote, so that we can at least have it test some of
-the local driver behaviour even when it's connected to a dumb remote or a switch.
-
-Maybe the sane thing to do is to allows the defer() calls in pause_setup() to
-fail silently with "fail=False" ?
-
-Or maybe a bit more clever, have a quick check to see if the device accepts
-an ethtool -s XXX command ? looks like fbnic will refuse all of'em as it
-doesn't have a .set_link_ksettings.
-
-Maxime
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
