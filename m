@@ -1,49 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793371808;
-	b=fEA6vIA9bHB7IPSn3NteFAXEvwVkUdjGjipjCcvA9nQGFTmABeNPs2ueHabnQBXE+TgF
-	 7zcPvvGyTGLntsMxI9LqNWxyHk7rq2QTM0eEhAMcwFTb70qDmnMOtfCcJoAd98xJ9DyDc
-	 b667AsgT15lveLOzp05BXdq+2uabw5c1ZVtfjoGkF3fkK2F0GvkOpHtm/sHOPhwE/W29d
-	 7SA9fD6NJENkPw16qYtgW/8X4iqyCLKMPm8hUjo0ms+vmrDkoQFI2Q3TTk68GpbVxoTUA
-	 N8h90jZBlOYloI3OkM0FK6eWgt/b7W9m5yzhySSAUx/MIahITdrEY9OQt8mypQsj7tA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371808;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=FvakPVYddoS6NiMfxwZ1O3BH1zokpKzHwnt9Wog63Fg=;
-	b=yPKuOasdAXXYjAvVc9Ov2iRUNwGKBrb8Ep+8ShGGqcvYB3MFn/jAssunDNv6EBRCILNn
-	 0540JKIGA/d2IdlNTM33nCE7SOFzWCWyEqSPRXGBt8j/v+RQLQq4Y55hO4f+8V7jTH6M7
-	 9qRqtOxt/+yWS/QgawRHFf6myiaU4bZ2L3S3sfgMocK3ONJ8eycZIOnErG8D/PyBjn5Dz
-	 Tu2DTpnt7p7E+nPZz12uIwFQSuVFrVe6SSa7B2tnVkCR/MdTxOiVkDQCxwBWHJHQL7/76
-	 mfilwl2vW2mqkt37I7Mlf3Vh9+6sVwdLnxu/utqhLgxjFuhDQzEpIrtkQ/8w9y6ej3Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GyMooQU4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793371851;
+	b=ewX1YmRiu43NAiNHF1gOBLAYwgX+KWxcuNf5KNUR2XGC/im6kNits8mekxtpmTjg9Jza
+	 vfeiH4u1uCuvAkD53oF593F4u03JrjDPymK14jQ86ed0yBo2/kdth2NQYwAUSyXO8xUl3
+	 lrFXxE0KeqPmCHw+G8aRqES4tnrd30pCxJiljGalPds79E1dLzP7oNx6XbDUz0GJfSgvQ
+	 +5LxafjpXK++nRWy/bU/8+gxSDrbHcjRAiXrCjh2xtHnXjficCinZTbrlMf9U0ln/YnkO
+	 K83lNY+Hm/0/aTG7h0rj8n1uzoBFhYfO1EM4JxGZ4akJaN/t1cigPQFwxdtJf7L7XHg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793371851;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=iG51RddM0VbejHEn6/2dEi0PvCvF7i4r5vi+URC0sn4=;
+	b=zC2ESnE/3S9yiW/3CKo+0ej1tTZAhH4CQhSbwezHyOND5P58lDJisnXiyspsjXB+4cMu
+	 ry/hp883VJ+STlzuDLrwBQ0NKRB3yyqnT43LDn6m6RcAUOeb/IPqdvBh/7OtB5iDP/PTz
+	 faxS2WTf5ZTupptrGlk7Bzix/bVh/E9bUrWJbo18xfQTuA2T9ZDcjoXdSpbXr8sRLxqAm
+	 jw+6A620KQFSxliaO9XSTCoogY4r4vL/x1MRR8aZt0T7Gv/k8+u03n/57xcAa1ozGHRjB
+	 HwPoJ0treKtQwyx0VT3+DZpwVx6Z2KZoy5jgQzVejzR2swWM/dWtm2ScUzt0rs8MTpQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fya6609Z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.16
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011016.outbound.protection.outlook.com [52.101.52.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5588F606A31A;
-	Fri, 30 Oct 2026 14:50:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA871606A31A;
+	Fri, 30 Oct 2026 14:50:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA871606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GyMooQU4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7E181F0093A;
-	Fri, 30 Oct 2026 14:50:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793371807;
-	bh=FvakPVYddoS6NiMfxwZ1O3BH1zokpKzHwnt9Wog63Fg=;
-	h=From:Date:Subject:To:Cc;
-	b=GyMooQU4YJ1rwUHOf87xNcBREsb+afyHifpHZjznnS3pLcBUkbWZ9ZTlWQuLBK43a
-	 VfDR0yVuvAtkqWFIq0xuFJqY0t6xeT9fQoeXVbTw7hjXutaU8AsX96xebcOywH6t+4
-	 YRRys3MiA/IWChX03/BKML/j/Qrg6IE1i5oQ99vjN5B0o5iLqmt15dMvLQbZly4R/l
-	 q06AvmS+wEE2Uob3m0xulQY6YByMHSvNqmgdtFHWf2M7cEklGRfH+EenLALXJXE7PG
-	 /akTwmkRa5bq7xUFznmop5rHydRdW8Lw0k7hRDmWQ3feOmQBqb3ecp4ecr3vZYidHX
-	 xuWQj+xJwOYeA==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Fri, 30 Oct 2026 10:49:51 -0400
-Subject: [PATCH] scsi: mpt3sas: Time out delayed not-responding device
- blocks
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fya6609Z
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XyuIWuSSmpwVzb6VurZtc61qoWP4FUL/VoVCDn4oWkqz9bGJX7lQu8tNm0k+Zm0paGQ3VjRIzX5znix9nASBZAhFSIxvLBAxFK+/P9ZLTdUoIYooRMB/CLhJj8DP5b7vZcNXl59V4sCp1Ke22W3kzjRxAeca2G0V96O9yOKGgZvvI0VZGj3Z4R6QGTClL/XxaSDk47t712xsXq5R3dBGkKYxOB41xjiAk9FXceFlDM9CywLNpH12UAozJmys7/XSGvBsBySU6AejMvD0y8iHLTPx2knBtZi5u4Qk7e0eYdiR8ATRkPFoy/i8seeZgL0xz3ZIy+o2PxYzoh5jSo/PmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iG51RddM0VbejHEn6/2dEi0PvCvF7i4r5vi+URC0sn4=;
+ b=aWzAuhzMSNa2dalKR9O0gCSuI8+dmXzScfpKvAt4PHUV2SM81CbFmLpAzeADQi6JXonaTzDZyOt7JTdOowYN39avySzU8YKpG3fim7XBzNbGFXC8AMpcnPg9bwCaIkpaTm8elZBgw4PiaxmO29jkUZM+hVMKawFY/Dq2f93GWbE93lDKSL9g+L0UWhvoctT5cOov41C6ZL7UbhcGmqry421pGykLSSUCTH0p+qhNPMUiDfaTzNFzaHtTjtGs1rQB8wuVXqB3EWhWykMCu+LM8L1SNXRzaR3EffNRYTSKkQLv1TUTjskeRtuxsjHnL4UStPur8obgCKq9gWf0udwjIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iG51RddM0VbejHEn6/2dEi0PvCvF7i4r5vi+URC0sn4=;
+ b=fya6609ZNFbokk6lfB/b7IfNt5kgQ3OFoPp0XpHpaJ4i0kg1RTACol1+GT2Ia1dGQ/3BepuGQOHVqwXia/kMVsQ5tXg7T4ovzRAN7JX1EfDRbYdRRGWtjQDsCpQpSNXh+mDoiGbFkaBiGm29GujkSjTfNUZvWGzxObLU52InxiQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4283.namprd12.prod.outlook.com (2603:10b6:5:211::21)
+ by LV8PR12MB9205.namprd12.prod.outlook.com (2603:10b6:408:191::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 14:50:45 +0000
+Received: from DM6PR12MB4283.namprd12.prod.outlook.com
+ ([fe80::9eab:812b:ad20:6087]) by DM6PR12MB4283.namprd12.prod.outlook.com
+ ([fe80::9eab:812b:ad20:6087%6]) with mapi id 15.21.0546.016; Fri, 30 Oct 2026
+ 14:50:44 +0000
+Message-ID: <2b16b50f-6d36-4867-87fe-d76c3f8a58e9@amd.com>
+Date: Fri, 30 Oct 2026 14:50:41 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v4 2/3] sfc: ptp: serialize host and MC
+ synchronization transactions
+To: netdev-bot+sashiko@kernel.org
+Cc: ecree.xilinx@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ richardcochran@gmail.com, alucerop@amd.com,
+ pieter.jansen-van-vuuren@amd.com, netdev@vger.kernel.org,
+ linux-net-drivers@amd.com, linux-kernel@vger.kernel.org
+References: <20261026123023.3566549-3-alex.austin@amd.com>
+ <179336481081.3134.5405870739856758840@kernel.org>
+Content-Language: en-GB
+From: "Austin, Alex (DCCG)" <alex.austin@amd.com>
+In-Reply-To: <179336481081.3134.5405870739856758840@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0368.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18e::13) To DM6PR12MB4283.namprd12.prod.outlook.com
+ (2603:10b6:5:211::21)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,335 +101,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-sas-abba-v1-1-b8cdd714a37c@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDA2MD3eLEYt3EpKRE3dTE5LTkZBPTtFRjMyWg8oKi1LTMCrBR0bG1tQA
- Eb7leWgAAAA==
-X-Change-ID: 20261030-sas-abba-eacfcc45fe36
-To: Sathya Prakash <sathya.prakash@broadcom.com>, 
- Sreekanth Reddy <sreekanth.reddy@broadcom.com>, 
- Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>, 
- Ranjan Kumar <ranjan.kumar@broadcom.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, 
- Nagalakshmi Nandigama <Nagalakshmi.Nandigama@lsi.com>, 
- James Bottomley <JBottomley@Parallels.com>
-Cc: Sreekanth Reddy <Sreekanth.Reddy@lsi.com>, 
- MPT-FusionLinux.pdl@broadcom.com, linux-scsi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Keith Busch <kbusch@kernel.org>, 
- Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11602; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=N5NAT1rqT41gS3vgYe0Dkstejbnubg2rN9jYWW/JKdc=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBq5K6aeURdP7oH97Wd8HUCab1ksgse+v8VRcrKr
- Q0AtKAkOJSJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCauSumgAKCRAADmhBGVaC
- FYwRD/oDl+7GFwx022gswu1nmoT0vdEKs5yL3jbF2oo83uVeTrzOF4Jcyd+ROpNUC/KOEpp7gfb
- HM18ZbUJwW72/7oyq3LeRUau0jq1sE3pvyGVQ8bjy/EqilR0bTPv/q+clAligw6V5jVnSlSr+ac
- SdkxBI3IL+ZhyLVpyJofBeWFu5hrwkwoediyecaNFDuQxnNZ6KmeIN7PeY2y7nRImoWq/QUJInN
- 5m+KG9VopEqXt2xBCXhEBcD27Jd/NzW8EO5PQynE76nEDQqCJsJ91SrcHAO4Fmfr1fH4lCVo4gl
- SIZxyUArJ9QU/2VQvpSp6YvqB/zt73TBSuynx89HZdy5ZqGZUKVxCE1qlm8m7ak7zD6IhzQUgvN
- twpX+0hEMSJVADqjmuk24Z/FDPd/++haFASsfsQhkEa8qXXA1drlC6eRLHms4YK43LNBgxbqwj1
- VNTBghbwcux7O1fBAjMtMRYK9DeNx0oj1t86jET5sHT2l+Ia1515F77OVpfmdWm/19ymhvcU9UU
- Y3ApBGtSeS73djL7oSOaZhDBazrzmbxdnCwGeup3NhnjED8AVn6PzUcxdSG7b5ABUssc4nZlYrX
- Wfv/2AMnVfevxk+QtAWDzIk64LLJTxKNGCgZEmrgNPrV0n/YP0p8UO3e9Ey0PDB1wX6hf8wF271
- AEluJRYDbguI91A==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4283:EE_|LV8PR12MB9205:EE_
+X-MS-Office365-Filtering-Correlation-Id: 270f231f-ae0a-45d5-a49c-08df36952d3a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|22082099003|18002099003|56012099006|4143699003|5023799004|11063799006|261026121527099003|261026140227099003|261028144727099003|10067099003|261022075727099003|261022105027099003|261021121427099003|261021135927099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	a7O5uHU2ISTdTeuIo1/Re5kABT1eDWEey2MIGyeIMiOheOgNxMGNN9hQUUUmLzXqerU/zbwaEJ5IkQl1uql6TUtZdkhBL3RE04op3cvYzRZgblvtFwC5WgUHveyssxMHGjIA4cXE0jatWsYcHabWfZDjD02Tc2Og7o+2ppr4JErxrUePlW6v/kTsBob0MEgppPWk8NvndxDjUrdvJ0JMj+Hk1Gn23RuM4Tuj7r2S2t/I58LvBXdAqJ5wtG5EQgqtDNZwGh2T46xDXVLO6ovgXfDasvDyOxe8JX+yLCiMkftXK+cj7+gxU1NCxQQqUE0u2AMMWEuA0waDPAys76UNqXN5JBEXePRs8PNbwX4kxxKN/RSZ+r1Ny2ArYdMCsDhpJcKMA+kXWzt9jcfZtp9HxFz3DaWtRBgD1NQWYeVzeTJwniCbSDbkkKbIw0acmN3T/hEz+N4E7soqqqhDZFpoCDQi6fuYI2sbEN8aG3btQe0b11mLf3hshHyno6Nc6+bPlXRmRteZ1gIKqSoEg05mBkqTVC7qGz7+PiO314ejJYdu+V3ChmM0v4gQUUsHEj1rl3mJiqrC2F612Xy5vO0qgvevsMDt2FuBlEEXO+YuwzH+pYXmOAyz2pLs2P5RForQ
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4283.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(22082099003)(18002099003)(56012099006)(4143699003)(5023799004)(11063799006)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021135927099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bUtId0FsZlg2K1ZEMGV0ZUcrbm4zbW5sbWhLalUyeFNRNVJ6ekdZN1M0Z3JH?=
+ =?utf-8?B?cEJ4aXNTY0pYUjhlN0NjMGh0YzB2S0FtMW5sWXoxZUlZQlc4aXBSWEFEU0hR?=
+ =?utf-8?B?MmxKUnF3dnNOT3pMUDNBK0ZhRHNQSC96ZitFcmdORXNNckJEK0x0OTZRMWVv?=
+ =?utf-8?B?c1dnK04vczZwYmpJcDA2Vy94NnFucStGbmxHeDRVYzNPZzQ1a0tuYWVMT0Fk?=
+ =?utf-8?B?ekpNekdHRUdUc0kvbUc0TW92M0JVR1JlRjRvWnZzSm9zeXZuUlFraWJjblQx?=
+ =?utf-8?B?VVVOYS9ma3o5YS93ZzVkWXl0L2xHV24xVTFHZitlemVhdXBqZjFNWlpJUGgy?=
+ =?utf-8?B?ZVJXQXl4YXlRUkQwQ29QZkJFa0hnMktKMmFpY0RqOWJRUmdoaTBPT0lPaDhn?=
+ =?utf-8?B?QWFEKzBQMFI4L2tDMTFpQmNxbjliMFFJOFE2c29hNzRjOEJnNGZKVXE4YWh6?=
+ =?utf-8?B?a2hHdGNYU3FOUnRWeEVMSkQ2K1ZFV0JUWFhWUklFM1hWVE13VVZvQmM5b1hX?=
+ =?utf-8?B?ODhDL1FNN0N4dXVYSE9MenQwMENQMExMcVJocVl5OTkzL1FwWXBER0JHZnpY?=
+ =?utf-8?B?Uk8rTnRZZlpRU0lHUlBzdG9HMGwrTC9keERHRUg4aW43VE9vYlRDWlpJL0Qx?=
+ =?utf-8?B?NzAxN2xZREF2bDFyODA0TjhER3RjVENEcVFjdlkvMG8rc0t3elVQcHZycm5m?=
+ =?utf-8?B?YnozQkdkU24zRnVmN2pBQSsrVE5nU25GNVhab0d4bHZaZzVtbjJWOWZ5dndy?=
+ =?utf-8?B?d3MwOVRsYm1XaVpHNW9jRXVGbHllTHZoWnVZeFBLcmQ1d1FoUm1nMWRITGp6?=
+ =?utf-8?B?cWMyYTd6Q2RqcHZlTGR1TFU4QjhURG5aUWo5eEdnd1BMc2NjaitKb0F4ZTBW?=
+ =?utf-8?B?RHVxK29Mc2pvSnFTSGFOZnVEK2xuZkNPVWN0dk9EUDcyZXlSdTBndEpUd01U?=
+ =?utf-8?B?RVNnTXJqZWU4WE9pbHBycjBoT3VZUXRKek1EWFpaWEN2R0tZVlJ2N0svYk5F?=
+ =?utf-8?B?OVZDYUpYeThuQ2JWYmpFLzcrMUJrSXExVTUwUEdzSzREa05OTzBMdEtScEdW?=
+ =?utf-8?B?VWE0elBsa0k4VVRQS2lBTVdLanNzMTlMS0Y0UHNTSmlMRGNRVGh3VDR5V1R0?=
+ =?utf-8?B?YzdLTXdneE9KNmwySzdpSU5iand4L3o4TUFoWFJlaHdyWnJzSjcxeDJ5QmVl?=
+ =?utf-8?B?WUU3c2kxVURKSG5vV1kwQkdUbkVoRDRXdjU1cUhZcHVEbUJlTkU3Mmp2ZVRH?=
+ =?utf-8?B?RkxoQVZOc2R0T3Y1QldKMUhJKzA4QlBmRER3UC9iWUxhRHgzVGgvT1FGaWs4?=
+ =?utf-8?B?UDgrdU5UZ3AyN2RXRU1PYmQvWHVBZnNyVTZUSWU4NmNna2dhb2xReWRVUkxH?=
+ =?utf-8?B?dGJqdkVQYVpNbURUYjRKVlBnRFd5OXFkZnpEVWl0STRoMUZYR1dhb0tMclhq?=
+ =?utf-8?B?MG9Eb0tTWmpwK1hxL1hHUm9IcWpDcXJYZldmVHJLUjBEOFlyemhFWXMyZjMv?=
+ =?utf-8?B?OElKM1ZubWxrVFREc0hYZkhjUmhFblJQdnRqMXJvdGZCN1grcXpScG43bXhT?=
+ =?utf-8?B?Ry8xaTV5Y1BCR3Y2ZjhCeUpPSExCVWIrQ3FFbnlXMGdBdW1ZV25DRk1yOTFZ?=
+ =?utf-8?B?UVFkUitvVkgrZjMyQ0xLVk81YTJTaG4rVUNwdFRsRzhxSlpmeExRd0pKZllk?=
+ =?utf-8?B?UXFMRkU4SXlBdHlQekhlUWk4TmFneW83elp4SlJoUkU3NkNUc2N6enhmR1d1?=
+ =?utf-8?B?Ny9uZnYrdk5NdUhmRkgxTC9XdjYvUU95UkxXZDJqMXdCNEI0R2xKV1hBM3B1?=
+ =?utf-8?B?ZXQ5ODR2VURZSENvU0dJRGl3dTZuUWdkTkpvOVgzaGpPZ1pvYWMrNlIwSjQ4?=
+ =?utf-8?B?QzhpYzFUenRjRy8yZHVNQmFGalZDTUhaMTFYQ0M2aDNlenFsN25iLzNpd3Ux?=
+ =?utf-8?B?SzVQYnBUdEQrNEVESWI5bS9INHhuc2dMTXNCQ3htQVR2elhZaFBjUFByKzJk?=
+ =?utf-8?B?M0ErbU9sd3A4U252UkdSVUllWmkyT0RZTWRDRStWSG9xWHRlTUJDTHlpRTdU?=
+ =?utf-8?B?SDk5QzVkcEdpUGVaTWNORE8rYVY5WGpHcG9XOEJMd0dtSk5xTzRRV3RHT21x?=
+ =?utf-8?B?eVdJSHhTdWxCc3ZSa0FiSFhOLy80eldVUE1Gb3N4ZmIxdGhuL3lZUCs5QjU3?=
+ =?utf-8?B?aWJBN1NmVXhkTUJBWWpMZThFMzNuMHFXTHIwODR0aVJ1QWRIaVpnaUxlR3NW?=
+ =?utf-8?B?MDU2OTVWNXpBVlI1aW10b28vUzVyeHNBUFlDYmZ6OW1ka3NCUEdqNmhqK2xV?=
+ =?utf-8?Q?CVJmFA8Sm5DlH67YUP?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 270f231f-ae0a-45d5-a49c-08df36952d3a
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4283.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 14:50:44.8960
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +6yvRondpivi84q3Xn7xsAo3fyNgy5meSfusrGcINuq5WK1cbsoFYHDReAzivLkWn+ovrzhUD1xy7qSOjouq/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9205
 
-We have an agent that writes "- - -" to the sysfs scan attribute at
-regular intervals. Several of these scans ended up deadlocked:
 
- 1. A drive in reset failed its initial scan, so the worker started to
-    remove the drive.
- 2. A sysfs scan took sas_host->lock, allocated an sdev for the drive
-    and sent an INQUIRY.
- 3. A DELAY_NOT_RESPONDING event blocked the new sdev.
- 4. The worker waited for sas_host->lock in sas_rphy_free():
+On 30/10/2026 12:53, netdev-bot+sashiko@kernel.org wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+>
+>
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
+>
+> Low priority / nit picks for your consideration:
+>
+> - [Low] The new kernel-doc for `@phc_lock` in struct efx_ptp_data
+>   (drivers/net/ethernet/sfc/ptp.c:275-276) says the lock "Serializes PHC…
+>
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but
+>   `_efx_phc_adjtime()` in drivers/net/ethernet/sfc/ptp.c (line 2144)…
+> - [Medium] Baseline decision: not a defect of this patch (pre-existing,
+>   Medium, in a driver the patch does not touch).
+> - [Low] Baseline decision: false positive, fixed later in the series.
+>
+> --
+>
+> sfc: ptp: serialize host and MC synchronization transactions
+>
+> This adds a phc_lock mutex to struct efx_ptp_data. The mutex is held
+> across the whole efx_ptp_synchronize() transaction and around the PHC
+> adjfine/adjtime/settime operations, so the PPS worker and the hwtstamp
+> enable path no longer clobber each other's handshake flag and timesets.
+> It also bails out of efx_ptp_synchronize() when efx_mcdi_rpc_start()
+> fails.
+>
 
-      __mutex_lock
-      sas_port_delete+0x75 [scsi_transport_sas]
-      mpt3sas_transport_port_remove
-      _scsih_add_device
+[...]
 
-After that, all further scan attempts got stuck waiting on the
-sas_host->lock.
+> [Severity: Medium]
+> This is a pre-existing issue, and it is not in a file this patch
+> touches. The Siena copy of this function still has the same pattern:
+>
+> drivers/net/ethernet/sfc/siena/ptp.c:efx_ptp_synchronize() {
+>     ...
+>         WRITE_ONCE(*start, 0);
+>         rc = efx_siena_mcdi_rpc_start(efx, MC_CMD_PTP, synch_buf,
+>                                       MC_CMD_PTP_IN_SYNCHRONIZE_LEN);
+>         EFX_WARN_ON_ONCE_PARANOID(rc);
+>     ...
+> }
+>
+> It takes no host lock around the handshake flag. When rpc_start fails
+> it still goes on to efx_siena_mcdi_rpc_finish(), and it processes
+> results into ptp->timeset[] after the MCDI interface has been released.
+> Both racing callers exist there as well: efx_ptp_pps_worker() and
+> efx_ptp_change_mode().
+>
+> The Siena efx_phc_settime() also still does an unserialized gettime
+> followed by adjtime. current_adjfreq is written in efx_phc_adjfine() and
+> read in efx_phc_adjtime() with no lock.
+>
+> Would it make sense to send a separate sfc/siena patch with the same
+> fix?
 
-On DELAY_NOT_RESPONDING the event callback blocks every sdev on the
-handle. The block is released only:
- - by the callback, if the firmware later reports TARG_NOT_RESPONDING
- - by the firmware event worker, when it processes a later event
 
-Commit e4bc7f5c21a1 ("mpt3sas: Don't block the drive when drive addition
-under the control of SML") was a partial fix for a similar issue.  Not
-blocking sdevs that a scan is still probing is not enough: the scan also
-sends REPORT LUNS to LUN 0 once it is visible, and LUN 0 may be blocked
-before or during the scan.
+As before, I think we should tackle Siena issues in a different patchset.
 
-Within the report device missing delay, the firmware either reports the
-device as not responding, and the callback unblocks it, or the device
-has come back. Past that delay the block has no further use. So:
+[...]
 
-Schedule delayed_work to the system_wq for the missing delay plus 30s.
-When it runs, unblock any expired sdevs.
+> [Severity: High]
+> This is a pre-existing issue, but should this be
+> ptp_data->ns_to_nic_time() rather than going back through
+> efx->ptp_data? The ptp_data argument comes from container_of() on the
+> registered phc_clock_info, so it is always valid here.
+>
+> efx_realloc_channels() clears efx->ptp_data while it tears down the old
+> channels, and the PHC stays registered for that whole time:
+>
+> drivers/net/ethernet/sfc/efx_channels.c:efx_realloc_channels() {
+>     ...
+> out:
+>         efx->ptp_data = NULL;
+>         /* Destroy unused channel structures */
+>         for (i = 0; i < efx->n_channels; i++) {
+>     ...
+>         efx->ptp_data = ptp_data;
+>     ...
+> }
+>
+> A clock_settime() or clock_adjtime(ADJ_SETOFFSET) on the PHC that runs
+> at the same time as ethtool -G could then do:
+>
+> efx_phc_settime() or efx_phc_adjtime()
+>   mutex_lock(&ptp_data->phc_lock)
+>   _efx_phc_adjtime()
+>     efx->ptp_data->ns_to_nic_time()    <-- efx->ptp_data is NULL
+>
+> The PHC ioctl path does not take RTNL, and efx_realloc_channels() does
+> not take phc_lock, so nothing seems to stop the two from overlapping.
+>
+> With this patch the oops now happens while phc_lock is held. Would that
+> leave the mutex locked for good? Every later efx_ptp_synchronize() call
+> would then block, both from the PPS worker and from
+> efx_ptp_change_mode(), which runs under RTNL for SIOCSHWTSTAMP.
+>
+> Since this function is already being reworked here, using the ptp_data
+> argument would avoid the NULL dereference.
+>
 
-Cc: Keith Busch <kbusch@kernel.org>
-Fixes: f92363d12359 ("[SCSI] mpt3sas: add new driver supporting 12GB SAS")
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
----
- drivers/scsi/mpt3sas/mpt3sas_base.c  | 10 +++++
- drivers/scsi/mpt3sas/mpt3sas_base.h  |  7 +++
- drivers/scsi/mpt3sas/mpt3sas_scsih.c | 82 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 99 insertions(+)
+Ed, are you happy if we tackle this in a follow up patch since it is a
+pre-existing issue?
 
-diff --git a/drivers/scsi/mpt3sas/mpt3sas_base.c b/drivers/scsi/mpt3sas/mpt3sas_base.c
-index 1af25a22611a..1c4d10acc7ff 100644
---- a/drivers/scsi/mpt3sas/mpt3sas_base.c
-+++ b/drivers/scsi/mpt3sas/mpt3sas_base.c
-@@ -5405,6 +5405,7 @@ _base_update_diag_trigger_pages(struct MPT3SAS_ADAPTER *ioc)
- /**
-  * _base_assign_fw_reported_qd	- Get FW reported QD for SAS/SATA devices.
-  *				- On failure set default QD values.
-+ *				- Also get the PCIe device missing delay.
-  * @ioc : per adapter object
-  *
-  * Returns 0 for success, non-zero for failure.
-@@ -5416,6 +5417,7 @@ static int _base_assign_fw_reported_qd(struct MPT3SAS_ADAPTER *ioc)
- 	Mpi2SasIOUnitPage1_t sas_iounit_pg1;
- 	Mpi26PCIeIOUnitPage1_t pcie_iounit_pg1;
- 	u16 depth;
-+	u8 dmd;
- 	int rc = 0;
- 
- 	ioc->max_wideport_qd = MPT3SAS_SAS_QUEUE_DEPTH;
-@@ -5453,6 +5455,14 @@ static int _base_assign_fw_reported_qd(struct MPT3SAS_ADAPTER *ioc)
- 	ioc->max_nvme_qd = (le16_to_cpu(pcie_iounit_pg1.NVMeMaxQueueDepth)) ?
- 	    (le16_to_cpu(pcie_iounit_pg1.NVMeMaxQueueDepth)) :
- 	    MPT3SAS_NVME_QUEUE_DEPTH;
-+
-+	dmd = pcie_iounit_pg1.DMDReportPCIe;
-+	if (dmd & MPI26_PCIEIOUNIT1_DMDRPT_UNIT_16_SEC)
-+		ioc->pcie_device_missing_delay =
-+		    (dmd & MPI26_PCIEIOUNIT1_DMDRPT_DELAY_TIME_MASK) * 16;
-+	else
-+		ioc->pcie_device_missing_delay =
-+		    dmd & MPI26_PCIEIOUNIT1_DMDRPT_DELAY_TIME_MASK;
- out:
- 	dinitprintk(ioc, pr_err(
- 	    "MaxWidePortQD: 0x%x MaxNarrowPortQD: 0x%x MaxSataQD: 0x%x MaxNvmeQD: 0x%x\n",
-diff --git a/drivers/scsi/mpt3sas/mpt3sas_base.h b/drivers/scsi/mpt3sas/mpt3sas_base.h
-index 47255bf9cdda..4d12b1f6231c 100644
---- a/drivers/scsi/mpt3sas/mpt3sas_base.h
-+++ b/drivers/scsi/mpt3sas/mpt3sas_base.h
-@@ -469,6 +469,8 @@ struct MPT3SAS_TARGET {
-  * @flags: MPT_DEVICE_XXX flags
-  * @configured_lun: lun is configured
-  * @block: device is in SDEV_BLOCK state
-+ * @block_deadline: jiffies after which a delayed not-responding block is
-+ *	released without waiting for the firmware event worker, 0 if none
-  * @tlr_snoop_check: flag used in determining whether to disable TLR
-  * @eedp_enable: eedp support enable bit
-  * @eedp_type: 0(type_1), 1(type_2), 2(type_3)
-@@ -486,6 +488,7 @@ struct MPT3SAS_DEVICE {
- 	u8	ignore_delay_remove;
- 	/* Iopriority Command Handling */
- 	u8	ncq_prio_enable;
-+	unsigned long	block_deadline;
- 	/*
- 	 * Bug workaround for SATL handling: the mpt2/3sas firmware
- 	 * doesn't return BUSY or TASK_SET_FULL for subsequent
-@@ -1165,6 +1168,7 @@ typedef void (*MPT3SAS_FLUSH_RUNNING_CMDS)(struct MPT3SAS_ADAPTER *ioc);
-  *			pci resource handling
-  * @fault_reset_work_q: fw fault workqueue
-  * @fault_reset_work: fw fault work
-+ * @dnr_unblock_work: releases expired delayed not-responding blocks
-  * @firmware_event_thread: fw event work queue
-  * @fw_event_lock:
-  * @fw_event_list: list of fw events
-@@ -1251,6 +1255,7 @@ typedef void (*MPT3SAS_FLUSH_RUNNING_CMDS)(struct MPT3SAS_ADAPTER *ioc);
-  * @pcie_device_lock:
-  * @io_missing_delay: time for IO completed by fw when PDR enabled
-  * @device_missing_delay: time for device missing by fw when PDR enabled
-+ * @pcie_device_missing_delay: time for PCIe device missing by fw
-  * @sas_id : used for setting volume target IDs
-  * @pcie_target_id: used for setting pcie target IDs
-  * @blocking_handles: bitmask used to identify which devices need blocking
-@@ -1350,6 +1355,7 @@ struct MPT3SAS_ADAPTER {
- 	/* fw fault handler */
- 	struct workqueue_struct *fault_reset_work_q;
- 	struct delayed_work fault_reset_work;
-+	struct delayed_work dnr_unblock_work;
- 
- 	/* fw event handler */
- 	struct workqueue_struct	*firmware_event_thread;
-@@ -1487,6 +1493,7 @@ struct MPT3SAS_ADAPTER {
- 	spinlock_t	raid_device_lock;
- 	u8		io_missing_delay;
- 	u16		device_missing_delay;
-+	u16		pcie_device_missing_delay;
- 	int		sas_id;
- 	int		pcie_target_id;
- 
-diff --git a/drivers/scsi/mpt3sas/mpt3sas_scsih.c b/drivers/scsi/mpt3sas/mpt3sas_scsih.c
-index 085d4672db85..dda5a429a917 100644
---- a/drivers/scsi/mpt3sas/mpt3sas_scsih.c
-+++ b/drivers/scsi/mpt3sas/mpt3sas_scsih.c
-@@ -3878,6 +3878,7 @@ _scsih_internal_device_block(struct scsi_device *sdev,
- 	sdev_printk(KERN_INFO, sdev, "device_block, handle(0x%04x)\n",
- 	    sas_device_priv_data->sas_target->handle);
- 	sas_device_priv_data->block = 1;
-+	sas_device_priv_data->block_deadline = 0;
- 
- 	r = scsi_internal_device_block_nowait(sdev);
- 	if (r == -EINVAL)
-@@ -3903,6 +3904,7 @@ _scsih_internal_device_unblock(struct scsi_device *sdev,
- 	sdev_printk(KERN_WARNING, sdev, "device_unblock and setting to running, "
- 	    "handle(0x%04x)\n", sas_device_priv_data->sas_target->handle);
- 	sas_device_priv_data->block = 0;
-+	sas_device_priv_data->block_deadline = 0;
- 	r = scsi_internal_device_unblock_nowait(sdev, SDEV_RUNNING);
- 	if (r == -EINVAL) {
- 		/* The device has been set to SDEV_RUNNING by SD layer during
-@@ -4121,6 +4123,7 @@ _scsih_ublock_io_device_wait(struct MPT3SAS_ADAPTER *ioc, u64 sas_address,
- 			&& count++ <= command_retry_count);
- 
- 		sas_device_priv_data->block = 0;
-+		sas_device_priv_data->block_deadline = 0;
- 		if (rc != DEVICE_READY)
- 			sas_device_priv_data->deleted = 1;
- 		scsi_internal_device_unblock_nowait(sdev, SDEV_RUNNING);
-@@ -4221,6 +4224,74 @@ _scsih_block_io_all_device(struct MPT3SAS_ADAPTER *ioc)
- 	}
- }
- 
-+/*
-+ * Margin on top of the firmware's report device missing delay before
-+ * _scsih_dnr_unblock_work() releases a delayed not-responding block.
-+ */
-+#define MPT3SAS_DNR_BLOCK_SLACK	30
-+
-+static unsigned long
-+_scsih_dnr_block_timeout(struct MPT3SAS_ADAPTER *ioc)
-+{
-+	return (max(ioc->device_missing_delay, ioc->pcie_device_missing_delay) +
-+	    MPT3SAS_DNR_BLOCK_SLACK) * HZ;
-+}
-+
-+/**
-+ * _scsih_dnr_unblock_work - release expired delayed not-responding blocks
-+ * @work: the dnr_unblock_work of the adapter
-+ *
-+ * Within the device missing delay, the firmware either reports the device
-+ * as not responding, and the event callback unblocks it, or the device
-+ * comes back, and only the firmware event worker unblocks it.  The worker
-+ * may first need shost->scan_mutex or the SAS transport's host lock, and
-+ * a scan holding those can have a command queued on the blocked sdev.
-+ * Past the delay the block has no further use, so release it here.
-+ */
-+static void
-+_scsih_dnr_unblock_work(struct work_struct *work)
-+{
-+	struct MPT3SAS_ADAPTER *ioc = container_of(to_delayed_work(work),
-+	    struct MPT3SAS_ADAPTER, dnr_unblock_work);
-+	struct MPT3SAS_DEVICE *sas_device_priv_data;
-+	struct scsi_device *sdev;
-+	unsigned long deadline, next = 0;
-+
-+	if (ioc->remove_host)
-+		return;
-+	if (ioc->shost_recovery || ioc->pci_error_recovery) {
-+		queue_delayed_work(system_dfl_wq, &ioc->dnr_unblock_work, HZ);
-+		return;
-+	}
-+
-+	shost_for_each_device(sdev, ioc->shost) {
-+		sas_device_priv_data = sdev->hostdata;
-+		if (!sas_device_priv_data || !sas_device_priv_data->block)
-+			continue;
-+		deadline = sas_device_priv_data->block_deadline;
-+		if (!deadline)
-+			continue;
-+		if (time_before(jiffies, deadline)) {
-+			if (!next || time_before(deadline, next))
-+				next = deadline;
-+			continue;
-+		}
-+		sdev_printk(KERN_WARNING, sdev,
-+		    "delayed not-responding block expired, handle(0x%04x)\n",
-+		    sas_device_priv_data->sas_target->handle);
-+		_scsih_internal_device_unblock(sdev, sas_device_priv_data);
-+	}
-+
-+	/*
-+	 * A block made while this ran may have queued the work already,
-+	 * with its own later deadline.  Pull the timer in to the earliest
-+	 * one seen here; the next run reschedules for the rest.
-+	 */
-+	if (next)
-+		mod_delayed_work(system_dfl_wq, &ioc->dnr_unblock_work,
-+		    max_t(long, next - jiffies, 1));
-+}
-+
- /**
-  * _scsih_block_io_device - set the device state to SDEV_BLOCK
-  * @ioc: per adapter object
-@@ -4234,6 +4305,8 @@ _scsih_block_io_device(struct MPT3SAS_ADAPTER *ioc, u16 handle)
- 	struct MPT3SAS_DEVICE *sas_device_priv_data;
- 	struct scsi_device *sdev;
- 	struct _sas_device *sas_device;
-+	unsigned long timeout = _scsih_dnr_block_timeout(ioc);
-+	bool blocked = false;
- 
- 	sas_device = mpt3sas_get_sdev_by_handle(ioc, handle);
- 
-@@ -4254,10 +4327,16 @@ _scsih_block_io_device(struct MPT3SAS_ADAPTER *ioc, u16 handle)
- 			continue;
- 		}
- 		_scsih_internal_device_block(sdev, sas_device_priv_data);
-+		sas_device_priv_data->block_deadline = (jiffies + timeout) ?: 1;
-+		blocked = true;
- 	}
- 
- 	if (sas_device)
- 		sas_device_put(sas_device);
-+
-+	if (blocked)
-+		queue_delayed_work(system_dfl_wq, &ioc->dnr_unblock_work,
-+		    timeout);
- }
- 
- /**
-@@ -12541,6 +12620,7 @@ static void scsih_remove(struct pci_dev *pdev)
- 		return;
- 
- 	ioc->remove_host = 1;
-+	disable_delayed_work_sync(&ioc->dnr_unblock_work);
- 
- 	if (!pci_device_is_present(pdev)) {
- 		mpt3sas_base_pause_mq_polling(ioc);
-@@ -12641,6 +12721,7 @@ scsih_shutdown(struct pci_dev *pdev)
- 		return;
- 
- 	ioc->remove_host = 1;
-+	disable_delayed_work_sync(&ioc->dnr_unblock_work);
- 
- 	if (!pci_device_is_present(pdev)) {
- 		mpt3sas_base_pause_mq_polling(ioc);
-@@ -13553,6 +13634,7 @@ _scsih_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	INIT_LIST_HEAD(&ioc->delayed_tr_volume_list);
- 	INIT_LIST_HEAD(&ioc->reply_queue_list);
- 	INIT_LIST_HEAD(&ioc->port_table_list);
-+	INIT_DELAYED_WORK(&ioc->dnr_unblock_work, _scsih_dnr_unblock_work);
- 
- 	sprintf(ioc->name, "%s_cm%d", ioc->driver_name, ioc->id);
- 
-
----
-base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-change-id: 20261030-sas-abba-eacfcc45fe36
-
-Best regards,
--- 
-Jeff Layton <jlayton@kernel.org>
-
+> --
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026123023.3566549-1-alex.austin%40amd.com
