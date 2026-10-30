@@ -1,82 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793354449;
-	b=HzyNbIFvGb8hWq6DIiAB4BIf+7Ajyf6OY8/HzYOxrJrs1VMfCyABFIlIR64FyxTZewg3
-	 1QhsEo1ttmQtQPhdXtqRelHQ9Cv99HiKNRr3VLWyUZLnPIWgFenCtdr0UUB4SDIpLY9BZ
-	 Gc5OkeFgV+pxir0MZXpDiCQxEU8IdWkEATtiorGTA7T+tuPiOXMjka8nwC81Uo2NZUkJo
-	 6UScPfUzt5k6ArDC9ate46oubAYTwGylfG1UmIpC7QnasgIOLO9mNhHCt9SgrfazXTmmd
-	 Ei4iJgPJ/GoS6FctlHdqrrl9Go1K/f/4DCbd/zM/Ya2VT7KtrVOMWZx8XHSwlTYjEWg==
+	t=1793354483;
+	b=cXvR0MA8rc2KdB9CEBMV9nCYL75A1bHM6p1nFk4Ul9VbmLUZ7bg5f/edTvcBTEfndax+
+	 9yrSdqZLXgtKGBJpE6yjazZyxeQkCNaVtCHnPcWQ0OM6PWrAOKOSlx+Afhs5gPEYSt1hK
+	 EUQFHiJ6kHiicgk/g03LwNSOd+Nm1VRpcyJO6xcuicRwVALaDxyOqaz0zoOceaO15UREr
+	 kbscrWfaswsgyGVGL8Y+YJLVxbWoKqNY0bEQQp3coLYP1ZIkm3SZNbrHsfLH2VHqIA3bV
+	 bpdCQrxmgJOZpkmpxPtg6UuTwwg9MBUTYfMT/f8y7YQeRI+9C5ec7IU2WyujlG6jNXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793354449;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=vbB1PXZ8iofBpMV+/vOpPqAHgjVf96svSHPsdRMK9m8=;
-	b=ZveSlnuWe4JYjmWVGXjqIvPwBmvdixF06A+l+dnmtItQbJYHgEW3QQNAfgg724QoHgcY
-	 MI9G8bfX9pofPvdV5NfcEAhIePV+9p8VR4D8yE3nDX0vaN+L72qvF44ESIor/UL1tX+lt
-	 evZzR5rvq+ZvAmXAnN4wLUhFdQlPkK3las5Hifyy41OE742kg1xnhycnI8w3p8whe2yg5
-	 24PubqodDnpJjcwcPkINDGfhXmGTyslO/U+b7ghs8fZ2HRjAHh2BoYltfjgiIA8JqgvvD
-	 SZFjZCHnSjAbCLfwmddnHBg4Z+OtmAKqYYNR4b++RcQiF6pj0mWvqG8t3qid4RWbVpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793354483;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
+	bh=GL+scJfnHWYGcb5ZDCDZq1DsFM4XmLZLO7gXJFvI4SE=;
+	b=XFVrpEqxSLkYQaQ2o3jgnAaLVkTvbYsap7fKVaOP6FeINbIt7Q7fky+/4Md6WwmBs+rU
+	 pga61VHNRRBTuZ/dTjpKsQ5m5V0bcSEmGqrAzpel5iY2x/auNN8qmTUj7pazK3iQw5wjh
+	 T33XYgPoIZSymCre7woFWu5B4edLcwJtf7pI4h7tn8SYGj+/eT4HKDwVqnhJVjcG8jZeu
+	 fTLCy8Xlcj7ehMLT672KqGe3L3Ly3nu9MqjpwfPGqfw2e6wMNBGifQaA4TpLLiTEwwa5q
+	 DO5mFaAuuG/vCIAyZVSUhIaH0HP558zPXrn//dPVrO1RXf/Olp346CWQ4dd3xiIZFJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AhqxZhPw;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=UL6qCozx;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84C4606A321;
-	Fri, 30 Oct 2026 10:00:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E84C4606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94FDE606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:01:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94FDE606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AhqxZhPw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793354449; x=1824890449;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=HaKzP3810qJc116puiQADiUuz5O1FIDoNR4g6mlq8v8=;
-  b=AhqxZhPwolvonocZIXvww7LXaymX+LfzDQFSZqFcXR1k13fCsW8j/FxL
-   zCXXqrtQDYtQFftrpEWhPHn78JpbBJXxZyeN6NZDy+itvIBjitsx8GT15
-   MhYDhIQIYU739YSvLdNS1BFkbJOA87BOewt7FoIydy+KpmEBOKZx+qrQv
-   WZkaqa5Py88z5pz2MO5SJEfkfqijpl9wLj1/+ssTXDFNi8YK1J8mJqXMy
-   jCS5EQWY7oX9NPToOQMkwE8z8IumUzCYl0HJK3ejEoEmmTRCWwV97x3J4
-   de+m0A+JIeA3C7Rr4rSgi6vE7B/0L1dFKQ1d7EUXlea2FU5Fe90Uhcl5x
-   A==;
-X-CSE-ConnectionGUID: WD1rfvyDR52E7pr7vNqFnA==
-X-CSE-MsgGUID: VaCGPhGgQCOYfyhN1r4F/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2001669"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2001669"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 03:00:48 -0700
-X-CSE-ConnectionGUID: 9X1qCIjjSt+PfUy51gRjaw==
-X-CSE-MsgGUID: FummiFHNSVWXyiswHYi6ow==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5521270"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.32])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 03:00:44 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 30 Oct 2026 12:00:41 +0200 (EET)
-To: James Hilliard <james.hilliard1@gmail.com>
-cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-    Jernej Skrabec <jernej.skrabec@gmail.com>, 
-    Samuel Holland <samuel@sholland.org>, LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>, devicetree@vger.kernel.org, 
-    linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v5 7/8] serial: 8250_dw: discover Allwinner A523 FIFO
- depths through FCC
-In-Reply-To: <20261029-submit-h616-uart-fifo-v1-v5-7-53b433aebbf8@gmail.com>
-Message-ID: <6499d93e-c6e3-7bfe-b717-a2e032137e1a@linux.intel.com>
-References: <20261029-submit-h616-uart-fifo-v1-v5-0-53b433aebbf8@gmail.com> <20261029-submit-h616-uart-fifo-v1-v5-7-53b433aebbf8@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=UL6qCozx
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 8EB3DC49F5E;
+	Fri, 30 Oct 2026 10:02:21 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C4E19603C2;
+	Fri, 30 Oct 2026 10:01:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1BBD910328D09;
+	Fri, 30 Oct 2026 11:01:07 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793354476; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=GL+scJfnHWYGcb5ZDCDZq1DsFM4XmLZLO7gXJFvI4SE=;
+	b=UL6qCozxlBY7caFOEQgPh5XeTPxe0uKsEO4bkWj9MyqY+iB6UMEjvRtH21o5vvUXcVKUI/
+	CcysYI7iXZOapAOxnIb6BQjZdAGx1qYjrMvBt0YRs7+E6O4aDVwGHjCk7OhzXkeZhDVO23
+	TQHECJhi0LcZgT1o+KpDTc7YN8L1J5L2EKzanWVej8oZEGJ6Vzsn4R5joPQ/BlfzljTve8
+	PmVSOem/IiDXooQmrkdr7+6vYj1l1oO978SJdcSMrim3K4XcjL2JGzD7Q4YBKbsHs433CU
+	FcHLSyrQvT1ygOs2bTiBRo350ax7+Z/O+9J+3YqY0rAvCHSzf0Ekv2GDiK8KUA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,126 +59,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 2/2] mfd: cgbc: Allow compile testing
+From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Thomas Richard <thomas.richard@bootlin.com>, 
+ Andy Shevchenko <andy@kernel.org>, Chanwoo Choi <cw00.choi@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Andreas Werner <andreas.werner@men.de>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Matti Vaittinen <mazziesaccount@gmail.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, mfd@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, patches@opensource.cirrus.com
+In-Reply-To: <20261030071137.100954-4-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261030071137.100954-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <20261030071137.100954-4-krzysztof.kozlowski@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 11:00:48 +0100
+Message-Id: <179335444849.822489.8403085231738038338.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 29 Oct 2026, James Hilliard wrote:
+> cgbc-core.c driver does not use any X86-specific headers, so looks like
+> it can be build tested everywhere for increased build coverage.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>
+> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+> index 87ed55c155f0..de957f574056 100644
+> --- a/drivers/mfd/Kconfig
+> +++ b/drivers/mfd/Kconfig
+> @@ -255,7 +255,7 @@ config MFD_AXP20X_RSB
+>  config MFD_CGBC
+>  	tristate "Congatec Board Controller"
+>  	select MFD_CORE
+> -	depends on X86
+> +	depends on X86 || COMPILE_TEST
+>  	help
+>  	  This is the core driver of the Board Controller found on some Congatec
+>  	  SMARC modules. The Board Controller provides functions like watchdog,
 
-> The A523 UART integration, also used by A527 and T527, has 64-byte FIFOs
-> on UART0 and 128-byte FIFOs on UART1 through UART7. Each controller reports
-> its TX/RX FIFO depth in bits 31:8 of the FIFO Clock Control register at
-> offset 0xf0. The field holds a byte count, not a logarithmic encoding.
-> 
-> Read this field in the sunxi setup callback when platform data does not
-> provide a fixed FIFO size. A fixed size takes precedence, so H616 retains
-> its 256-byte configuration without accessing FCC. The probe has already
-> enabled the clocks and deasserted reset before invoking the callback.
-> Leave the FIFO clock-control bits untouched.
-> 
-> Validate the depth before generating the RX trigger table or setting the
-> transmit load. The quarter-full threshold must be positive and the
-> FIFO-depth-minus-two threshold must fit in the byte-sized table and RX
-> trigger API. Report an invalid depth and fail probe instead of generating
-> zero or truncated thresholds.
-> 
-> Select this setup for the A523 compatible. Derive the transmit load and
-> RX threshold table from the discovered depth using the common sunxi
-> helpers. This handles the different FIFO sizes with one compatible and
-> one receive-trigger mapping.
-> 
-> Like H616, this integration has Allwinner-specific debug-divisor and
-> RS485 registers overlapping the generic DesignWare feature probes. Use
-> the common sunxi PIO setup, BUSY-safe integer divisor programming and
-> software RS485 handling. Keep the APB clock gate enabled during termios
-> updates with SKIP_SET_RATE.
-> 
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
->  drivers/tty/serial/8250/8250_dw.c | 23 +++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
-> 
-> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-> index 3bc6735fc253..2ab91f479fc6 100644
-> --- a/drivers/tty/serial/8250/8250_dw.c
-> +++ b/drivers/tty/serial/8250/8250_dw.c
-> @@ -17,6 +17,7 @@
->  #include <linux/device.h>
->  #include <linux/err.h>
->  #include <linux/io.h>
-> +#include <linux/limits.h>
->  #include <linux/lockdep.h>
->  #include <linux/module.h>
->  #include <linux/mutex.h>
-> @@ -45,6 +46,10 @@
->  #define RZN1_UART_xDMACR_8_WORD_BURST	(2 << 1)
->  #define RZN1_UART_xDMACR_BLK_SZ(x)	((x) << 3)
->  
-> +/* Allwinner FIFO Clock Control register */
-> +#define SUNXI_UART_FCC			0xf0
-> +#define SUNXI_UART_FCC_FIFO_DEPTH		GENMASK(31, 8)
-> +
->  /* Quirks */
->  #define DW_UART_QUIRK_OCTEON		BIT(0)
->  #define DW_UART_QUIRK_ARMADA_38X	BIT(1)
-> @@ -64,6 +69,7 @@
->  struct dw8250_platform_data {
->  	u8 usr_reg;
->  	u32 cpr_value;
-> +	/* Fixed sunxi FIFO depth; zero selects discovery through FCC */
-
-Please generalize the wording by removing sunxi, it might true today but 
-as more drivers start to use it, then the comment gets obsoleted by the 
-code additions.
-
->  	unsigned int fifo_size;
->  	unsigned int quirks;
->  	int (*setup)(struct uart_port *p);
-> @@ -729,6 +735,16 @@ static int dw8250_sunxi_setup(struct uart_port *p)
->  	p->type = PORT_16550A;
->  	p->flags |= UPF_FIXED_TYPE;
->  	p->fifosize = data->pdata->fifo_size;
-> +	if (!p->fifosize) {
-> +		u32 fcc = dw8250_readl_ext(p, SUNXI_UART_FCC);
-> +
-> +		p->fifosize = FIELD_GET(SUNXI_UART_FCC_FIFO_DEPTH, fcc);
-> +	}
-> +	/* The RX trigger table must contain positive, byte-sized thresholds */
-> +	if (p->fifosize < 4 || p->fifosize - 2 > U8_MAX)
-
-As is, these checks are hard to understand / connect to why.
-
-It would make this more obvious if you'd name those literals so they'd 
-connect to the FCR side code (naming should be done already in the FCR 
-patch, obviously).
-
-> +		return dev_err_probe(p->dev, -EINVAL,
-> +				     "invalid FIFO size %u\n", p->fifosize);
-> +
->  	up->capabilities = UART_CAP_FIFO | UART_CAP_NOTEMT | UART_CAP_AFE;
->  
->  	dw8250_sunxi_setup_rxtrig(p);
-> @@ -972,6 +988,12 @@ static const struct dw8250_platform_data dw8250_h616_data = {
->  	.setup = dw8250_sunxi_setup,
->  };
->  
-> +static const struct dw8250_platform_data dw8250_a523_data = {
-> +	.usr_reg = DW_UART_USR,
-> +	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
-> +	.setup = dw8250_sunxi_setup,
-> +};
-> +
->  static const struct dw8250_platform_data dw8250_octeon_3860_data = {
->  	.usr_reg = OCTEON_UART_USR,
->  	.quirks = DW_UART_QUIRK_OCTEON,
-> @@ -1024,6 +1046,7 @@ static const struct dw8250_platform_data dw8250_tda54 = {
->  static const struct of_device_id dw8250_of_match[] = {
->  	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
->  	{ .compatible = "allwinner,sun50i-h616-uart", .data = &dw8250_h616_data },
-> +	{ .compatible = "allwinner,sun55i-a523-uart", .data = &dw8250_a523_data },
->  	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
->  	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
->  	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
-> 
-> 
+Reviewed-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
 
 -- 
- i.
+Best Regards,
+Thomas Richard
+
