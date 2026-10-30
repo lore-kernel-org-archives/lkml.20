@@ -1,76 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793391182;
-	b=tiQiyWkJ+zf8c/QY2lTJoQRILT6n3PWW1baum+0/DKMEmmZm5+jGUNGxA80vFDDzr9RO
-	 8tVj4cXxKJbSw6imJ/WOh0TIL3CW/478vfqQC5EyCbjyP0f2Tq2NvX8FbqC0wX43Xq/gb
-	 iN83zn4rm0lIfwzRL1spAqtCcy/MJZiNG9CqU49h0XxSxbem0lQGJSWHEkhQthfRwIgp9
-	 VHkghWM6LPN/fdJAsjn9Wd5LgZPT7h6DiO2HXTyX2B5OuUSBPQR4PEBBFQxiRvGBpoEwL
-	 ATG01SdsuOIPazmtqwFMNMqghtbIknySMVE0RGIFT8NS5D24e4p3yRRsCmlZKbJF7BQ==
+	t=1793391179;
+	b=AYeSWpNMevuegl1zbeLtWYG0iT+w0OzYRrLl6M6jQA1rBhhHH/qEJvW64RI5cSEj1wmV
+	 0AQ0RCo2+kKWZClPDaHeUYbni3N/rKamUd03CMFrYEn0/orZGtWtYInkZtOnoHkerfo/Y
+	 vltcd20KmpLsyft594v3RUhdc/HhOWylZAGKo+O9mNhQYKOjfs5WNjWZhbjBVUx+G6sUv
+	 Zl2SVN/2emUNs5xezC8FOHADk691hKCDP3OcGmWXQJEZM3xi47ZHLIw7BeMO06XrvUgiF
+	 n3RfOK7ECdRjTDyIIt75eg97XBi1cs2yZawqBVOybWRrrHaPMNo4t+ANOGjcm013+dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793391182;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793391179;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ua+C9vpOidUeh38X5VWKBRe9NwFSaOtLQgMBx+NbHhE=;
-	b=pPFgbbrlJYJsRJK9bOBNTDuz4n4ZajB0vd6oGVBYL8AfIRnBKVlQebtt5JfWM5Jq+svb
-	 ZV0fPGS8KAnk9UwC3i6j+kh+bXjF64lzlNDYbBZSYQv/khGsyikusX0G4OiQBMqZWmWds
-	 Tx05YWm89pk5Y9Mn0Q3gFkvwnZduP0aAfzBp+mdZNbtkNKUbik2TMjYg/8bkq8gM+lCDw
-	 AsHTfYJt0F4OHP093SbpC0FFt5QJWDBfFyb0nSG+C9nPFOXcut6H0Pl14NB1GCujqsmDY
-	 8YFW8DcbiAocfbYTK3fhhN4UMuBcVB920bKBM/wrGld9vlo4Lm0BfzYLOYJlCpEzQew==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=+uEj7dkzggUb6lkggRktE0fOB+YC39Gh7yxfAZ3lKo4=;
+	b=Fn6xA3URH/cZLA1Ck/tPgw/dJyG+x3h+Ijo23awRGhBKCv92Nvt7FN/eZGt9mOkq77wl
+	 SEoGK8zl8rA2uDKTIzK1RVopBSKLTmlbKbKMHFLMO4VVYQYqf8b7+z8qrFht5zhgW+jjt
+	 1ysM7edPhOKN1knTFNe7mUwpLVd6HidX9rZ0SKCMoinqyS6dTTslk5e38z53pss03oaC6
+	 KnYzwdQmDb0ZM/dY8KP+zWUAojIMnug4MmZnfHSnaT1ronjHIoqq/XRzfiWAR5zqPHXV6
+	 zYmq4PmqdMQ9xBgXst7B/TiR0UZ4ldN9OjnZ3W7Wb37+U/8i6aNcGBtQrsD1ZxvXtTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bBIGQQUl;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SbdZiQoN;
+	arc=none smtp.remote-ip=74.125.229.9
+Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6407E606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:13:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6407E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46511606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:12:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46511606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bBIGQQUl
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a0592d4539so1443452b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:13:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SbdZiQoN
+Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-34cbc588a31so563852eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:12:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793391181; x=1793995981; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ua+C9vpOidUeh38X5VWKBRe9NwFSaOtLQgMBx+NbHhE=;
-        b=bBIGQQUlZU11drb/YdFP19thgVsO6QOFUewvM8uTGj9M+dlBtUlEyYAJrqOaKrY0Ry
-         ZF/Z6VGVe3MMd03CD5Fb65U7josq/sX+OAZTyj4s0lOpru20jpEG70EJHE0TaPcIVrCJ
-         0gqE3M1IQvGGYNqyDLAImm3T9amMsXOJG0aEjOnTEaTDShiI4RvuE0CHjoQEcFdEF2hH
-         hNjqb8gzMNFXB5oBceQHMg9Omp37T0WV/oHmkBx7odrvwT8oxOu05Q+R5YR2mJ2XdqAc
-         F4pfAJKagJjscnMr31jT8gi1LoKuza6T4XKZv8b270LH23krUcwq9Skon3EkRUqWmnOL
-         hrjA==
+        d=gmail.com; s=20260707; t=1793391178; x=1793995978; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+uEj7dkzggUb6lkggRktE0fOB+YC39Gh7yxfAZ3lKo4=;
+        b=SbdZiQoNd9v8nZxQuOMNPRPAe3YN2K/2lS+7X9Bn5BxLITOLrcB/hcYjzkI20WWS4y
+         fQtDhN+STPp2Dp0/8jJwHW/ofizMr/sz7JyYnt0QKsCias2AT1scQyiu3EUysCy2pkMm
+         5+8smIXAqprspCMZSCaCNLCvO9EIOEqYqVaFzDA4ea+YmKxbDNbpYljFke/oD5wDjtz7
+         KVbwuTxXV9dDsWLdse7wjZIq7JVItQopjnOPpBeL6CnpdEAh51fr4V/62fxwkrOom3al
+         rq9la/RooBlB1Fx85WhoLa0CIdH4Nn6lEELyrTkCoIaEivYuHKS1p/GFeD36Mx+YqvSp
+         eTWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793391181; x=1793995981;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
+        d=1e100.net; s=20260707; t=1793391178; x=1793995978;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ua+C9vpOidUeh38X5VWKBRe9NwFSaOtLQgMBx+NbHhE=;
-        b=m33nYF3mIYh9UnR/+9dcB3ujjb4/eCeb2dFVCBOQYmEtGSMYbiwyV2WsWoECos0eMV
-         W0wkEAqkEAlJraN/GaBnnEFVJ1nKTkAB2RDZIT+yp5/zxktYHfv2t2l7Y9oxVF4WLGNV
-         6X+vnZy2bHvLLhifTwQnrfUoXXya8jorU2gn/mh2tMdKU5AYQuU63+E1jGzCnq9NyDgE
-         5OVu7YUZhk9sUtGlAx3OZ0Wsu3XqsSKKtxAZgHQ5BzCo8vySzs149B+20tVuijprC+Gc
-         RhwTk9nVn7tWCaKHTuVUjuMu6uPj65PeFTZxjFMe7RXT/ohS1JKy9SEbzKT6OVgx6GnJ
-         XntA==
-X-Forwarded-Encrypted: i=1; AKwUvByEdRr9O+vApB/YZ8i0JrEf2n0dmps+NpB40ccyGmDjJuiZuTlxulfD9J8FE6sjyMKu4D1H4tJDcTmNUKg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNIf92kguz8fYOImdSNEXVmKnOwNq4qkM6jZqTxWFGHfj/RQWc
-	AIwO3+tLU5cezWeRbnNcl2pUJubDvTcHYKj9BPeVU1KtGyORWj7P4etP3nHY7BdRXIHyiww+Sua
-	x3gemGw==
-X-Received: from pfbgr18.prod.google.com ([2002:a05:6a00:4d12:b0:888:e7c7:5580])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1daa:b0:882:956c:58e2
- with SMTP id d2e1a72fcca58-8a9bd2f071fmr3325949b3a.17.1793391180582; Fri, 30
- Oct 2026 13:13:00 -0700 (PDT)
-Date: Fri, 30 Oct 2026 13:12:59 -0700
-In-Reply-To: <62e09b20-b839-448c-90ad-0c63233b523e@oracle.com>
+        bh=+uEj7dkzggUb6lkggRktE0fOB+YC39Gh7yxfAZ3lKo4=;
+        b=jOMH8cV02f8cOBUoJD2mfUXITMpfOEJzNIhrkDGNzaT9tW8L//TPC7TXpdN2r82Cd+
+         LlMwoSoZyvIQJPTtYaEJrAj8uILPNCEroZeHVjd4PFG7+HZjbGj6XGjBLrvPRAhcBYrY
+         Zaqi/SaurPxKd9WeVXBp0p5Drrla8lQYZ5yls9qbJSrS1QJIF+E/hpNC/vRBuzh6eNO1
+         c9R50PdZpzX0QbprjvdRWoASlRI7FA3BSWVIOWDh7ByCoLNkkNMyUjUOWdoYA5T6JdTH
+         Rh/Fh/iWbopDYf6IepQh3gtLqROP/EjTQIcb5DBfxNonfSqgStuw9zI2b591ilnaVXFG
+         AAMg==
+X-Forwarded-Encrypted: i=1; AKwUvBycC0s//tfuy7m/o+ePi4VVYCVli+XLkD7CtaLGbn3leObOt7qKAf6aSIjl3ZBAHC8Sa3wB5KwciaEalyM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL90cQvesOAnBzmeZO1rkxOm29Wsynfp/pcp49qdt7qPUKP5QPH
+	CX4oFmvPV48ia7rmFpPlIXPUxqFU0fEwSphA+Rua3Bcko7wDsLMjLcNy
+X-Gm-Gg: AYBFou2iJPR2fY3plbQGCDAF2NMelk49nMhq//CvPb/bAibr8Wnx2EN1KKqr3LIZ3lP
+	FRuur8B4NkfQvI8qvMTL5n8iKhVmmhURTChKAsSqQmoCjETbgPj+/QUqU7qPnGpOXzdlvJKAn1k
+	y9H5iOhlutq9hBNkqssN++LxtLuVHAL7d8kSEtHgnvY0FV99df5LTtRf2b69Qn+JPWVJ31ctCY1
+	IdL+XXFZ2RtrTcbqDoNu3irsn4IJYR47QBOwm+WkK05ayURSH1wn/L7qOt6YpVrpzFW87rQ6Uoh
+	ls+qY/yZyt1osVFcEfn4vqQ2BwODq/VSFwYdCPY0KZRGtevXrRwe1PK95zuFrKwC5kPuC2aEgTI
+	1EAsc5c+IynNVhwIk6MYq9E9shNnmdQTbOz7LJm7ggf2BKUDs9L+CTNhFJ9IOXhj+i0LEoF5i5Y
+	mGFCbqiU9MtaJrCvqN5kmzVDDtec/O3qo72m9Zg3fdSvuLiUJDp2AFjCFdodnb1lfekOLG74IND
+	KYZZNDX45kw1rEMTuiq5RpCmkgSy2V2edR6nFpO4Mt7MHcpg+2J8YsZfbFz4PMW3C/DtPLMaeaQ
+	y/tXVQXKCVmSSt3NL+bpqKw=
+X-Received: by 2002:a05:7300:e9c5:10b0:367:3d68:8480 with SMTP id 5a478bee46e88-36a4206d82emr5086488eec.0.1793391178247;
+        Fri, 30 Oct 2026 13:12:58 -0700 (PDT)
+Received: from localhost ([2a03:2880:9ff:6a::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429467cdsm9450626eec.19.2026.10.30.13.12.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 13:12:57 -0700 (PDT)
+Date: Fri, 30 Oct 2026 13:12:53 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Rongzheng Wang <testwrzwrz@gmail.com>
+Cc: netdev@vger.kernel.org, 
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Magnus Karlsson <magnus.karlsson@intel.com>, 
+	Jason Xing <kerneljasonxing@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, stable@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4 2/2] selftests/bpf: cover AF_XDP multi-buffer TX
+ software checksum
+Message-ID: <auT51NbSPvKJwgiD@devvm16445.scu0.facebook.com>
+References: <20261030023248.78802-1-testwrzwrz@gmail.com>
+ <20261030023248.78802-3-testwrzwrz@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,195 +100,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261027051808.243000-1-partha.satapathy@oracle.com>
- <auDF9WpqW8OCu_8w@google.com> <85b0e3aa-0b84-4a00-852a-821aed4a0649@oracle.com>
- <auEI0B7QkIhg-lLG@google.com> <62e09b20-b839-448c-90ad-0c63233b523e@oracle.com>
-Message-ID: <auT6S-I5b5ordXy9@google.com>
-Subject: Re: [PATCH 1/2] KVM: x86: Select lowest vCPU ID for aliased xAPIC IDs
-From: Sean Christopherson <seanjc@google.com>
-To: Alejandro Jimenez <alejandro.j.jimenez@oracle.com>
-Cc: Partha Sarathi Satapathy <partha.satapathy@oracle.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H . Peter Anvin" <hpa@zytor.com>, Shuah Khan <shuah@kernel.org>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	wim.ten.have@oracle.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261030023248.78802-3-testwrzwrz@gmail.com>
 
-On Wed, Oct 28, 2026, Alejandro Jimenez wrote:
-> On 10/27/26 4:25 PM, Sean Christopherson wrote:
-> > On Tue, Oct 27, 2026, Alejandro Jimenez wrote: > On 10/27/26 11:=E2=80=
-=8A40 AM,
-> >> The issue was triggered with QEMU and a tool that uses libvirt API for
-> >> resizing guests and balancing their vCPU allocations across NUMA nodes=
-. I
-> >> am not sure if similar work has been published upstream, so I'll defer=
- to
-> >> Wim (CC'd) if you want more details.
-> >=20
-> > Oooh, actual hotplug of vCPUs.  That makes sense.
+On 10/30, Rongzheng Wang wrote:
+> Extend test_xdp_metadata to send the same UDP packet using every descriptor
+> count from 1 through MAX_TX_DESCS (MAX_SKB_FRAGS + 1), and to run the
+> existing metadata and checksum verification for each case.
+> 
+> Build the packet once and write it into the TX descriptors in a loop
+> instead of using a flat two-descriptor layout. Keep the first descriptor
+> large enough to cover the checksum offset; the remaining payload is split
+> across the continuation descriptors, with the last descriptor taking the
+> remaining length.
+> 
+> Reuse the existing AF_XDP setup, packet generation, completion, and receive
+> helpers in xdp_metadata.c instead of adding a separate test harness.
+> 
+> Signed-off-by: Rongzheng Wang <testwrzwrz@gmail.com>
+> ---
+>  .../selftests/bpf/prog_tests/xdp_metadata.c   | 147 +++++++++++-------
+>  1 file changed, 92 insertions(+), 55 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c b/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c
+> index 5c31054ad4a4..17da0a145666 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c
+> @@ -18,12 +18,15 @@
+>  #define TX_NAME "veTX"
+>  #define RX_NAME "veRX"
+>  
+> -#define UDP_PAYLOAD_BYTES 4
+> +#define UDP_PAYLOAD_BYTES 32
+> +
 
-...
+[..]
 
-> > I suspect there's no solution that will magically fix everything.  E.g.=
- if you're
-> > trying to resolve an issue where vCPUs aren't recognizing SIPIs, then t=
-he example
-> > you provided means vCPU_531 will never wakeup, i.e. which vCPU is  "bug=
-gy" changes,
-> > but the bug itself is still there.
-> >=20
->=20
-> Sorry, I don't follow. vCPU 531 would not receive an INIT/SIPI addressed =
-to
-> the aliased 0x13 APIC ID in my example, but it will be reachable using it=
-s
-> full x2APIC ID of 0x213, for which an entry in the phys_map was installed=
- in:
->=20
->         if (vcpu->kvm->arch.x2apic_format) {
->=20
->                 /* See also kvm_apic_match_physical_addr(). */
->=20
->                 if (apic_x2apic_mode(apic) || x2apic_id > 0xff)
->=20
->                         new->phys_map[x2apic_id] =3D apic;
+> +#define MAX_SKB_FRAGS 17 /* minimum CONFIG_MAX_SKB_FRAGS */
 
-Oh, duh, the hotplug hack allows using the x2APIC ID even if the target isn=
-'t
-in x2APIC mode.
-
-> My interpretation is that behavior is "the KVM hotplug hack", and that
-> behavior is not changed in the proposed patch.
->=20
-> My example was meant to show the conflict of your proposed change with th=
-e
-> "deliver to the lowest ID" rule, which you clarified is not a rule after
-> all :) (but perhaps it should be since it has been working so far..?)
-
-Heh, "rule".  More like half-assed description of what KVM kinda sorta does=
-.
-
-> > If this is about SIPIs hitting the all CPUs, then I think to have a rob=
-ust (well,
-> > as robust as this mess can get) implementation, we'd have to disable us=
-e of the
-> > optimized map when processing SIPIs with PHYSICAL delivery, e.g.
->=20
-> But then we would also have to disable the optimized map for INIT as well
-> (APIC_DM_INIT), since those would still be routed to the wrong vCPU other=
-wise?
->=20
-> And if both INIT & SIPI are using the slow path, they will be delivered t=
-o
-> all matching vCPU IDs, which is likely to cause problems e.g. hot pluggin=
-g
-> one vCPU will potentially initialize and start all of its aliases too?
->=20
-> I need to test this with proper instrumented kernel so I can "bring
-> receipts" (and I think Partha is doing it already), but hopefully my
-> concern above makes sense.
-
-Don't bother testing my patch, my brain was slow to catch on.
-
-> In short, I think the original proposal of allowing a replacement of a
-> phys_map[xapic_id] entry only with a new "low" entry (i.e. one with vcpu_=
-id
-> =3D=3D x2apic_id =3D=3D xapic_id) fixes the creation order issue while pr=
-eserving
-> the existing behavior for the typical cases.
-
-Agreed, though I think we tie the overide to "xapic_id <=3D 0xff" instead o=
-f letting
-the "lower" vCPU win.  I.e. to make it a bit more obvious that the goal is =
-to keep
-the non-truncated xAPIC ID reachable.
-
-Ha!  Yeah, looking at 5bd5db385b3e ("KVM: x86: allow hotplug of VCPU with A=
-PIC ID
-over 0xff"), it had:
-
-                /*
-                 * ... xAPIC ID of VCPUs with APIC ID > 0xff will wrap-arou=
-nd,
-                 * prevent them from masking VCPUs with APIC ID <=3D 0xff.
-                 */
-                if (!apic_x2apic_mode(apic) && !new->phys_map[xapic_id])
-                        new->phys_map[xapic_id] =3D apic;
-
-so the goal really was to prevent an truncated x2APIC ID from clobbering a =
-"pure"
-xAPIC ID.
-
-Actually, even better: what if we only let the vCPU whose ID exactly matche=
-s the
-aliased xAPIC ID win?  Unless I've gone into the weeds yet again, that's wh=
-at we
-(and more importantly, userspace and guest firmware) really want.  It shoul=
-dn't
-matter in practice, but it lets KVM provide a stronger, and hopefully easie=
-r to
-understand, guarantee in the errata.
-
-E.g.
-
-diff --git a/Documentation/virt/kvm/x86/errata.rst b/Documentation/virt/kvm=
-/x86/errata.rst
-index a9cf0e004651..09c6e6a29ae2 100644
---- a/Documentation/virt/kvm/x86/errata.rst
-+++ b/Documentation/virt/kvm/x86/errata.rst
-@@ -63,10 +63,11 @@ When KVM_X2APIC_API_USE_32BIT_IDS is enabled, KVM activ=
-ates a hack/quirk that
- allows sending events to a single vCPU using its x2APIC ID even if the tar=
-get
- vCPU has legacy xAPIC enabled, e.g. to bring up hotplugged vCPUs via INIT-=
-SIPI
- on VMs with > 255 vCPUs.  A side effect of the quirk is that, if multiple =
-vCPUs
--have the same physical APIC ID, KVM will deliver events targeting that API=
-C ID
--only to the vCPU with the lowest vCPU ID.  If KVM_X2APIC_API_USE_32BIT_IDS=
- is
--not enabled, KVM follows x86 architecture when processing interrupts (all =
-vCPUs
--matching the target APIC ID receive the interrupt).
-+have the same physical legacy xAPIC ID, KVM may deliver events targeting t=
-hat
-+xAPIC ID only to the vCPU whose vCPU ID matches the aliased x2APIC ID.  If
-+KVM_X2APIC_API_USE_32BIT_IDS is not enabled, KVM follows x86 architecture =
-when
-+processing interrupts (all vCPUs matching the target APIC ID receive the
-+interrupt).
-=20
- MTRRs
- -----
-diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-index d6e5fbc3c58c..e89c4fef1832 100644
---- a/arch/x86/kvm/lapic.c
-+++ b/arch/x86/kvm/lapic.c
-@@ -297,8 +297,8 @@ static int kvm_recalculate_phys_map(struct kvm_apic_map=
- *new,
- 	 * Apply KVM's hotplug hack if userspace has enable 32-bit APIC IDs.
- 	 * Allow sending events to vCPUs by their x2APIC ID even if the target
- 	 * vCPU is in legacy xAPIC mode, and silently ignore aliased xAPIC IDs
--	 * (the x2APIC ID is truncated to 8 bits, causing IDs > 0xff to wrap
--	 * and collide).
-+	 * but make sure the non-truncated xAPIC ID always "wins" (the x2APIC
-+	 * ID is truncated to 8 bits, causing IDs > 0xff to wrap and collide).
- 	 *
- 	 * Honor the architectural (and KVM's non-optimized) behavior if
- 	 * userspace has not enabled 32-bit x2APIC IDs.  Each APIC is supposed
-@@ -312,7 +312,8 @@ static int kvm_recalculate_phys_map(struct kvm_apic_map=
- *new,
- 		if (apic_x2apic_mode(apic) || x2apic_id > 0xff)
- 			new->phys_map[x2apic_id] =3D apic;
-=20
--		if (!apic_x2apic_mode(apic) && !new->phys_map[xapic_id])
-+		if (!apic_x2apic_mode(apic) &&
-+		    (!new->phys_map[xapic_id] || vcpu->vcpu_id =3D=3D xapic_id))
- 			new->phys_map[xapic_id] =3D apic;
- 	} else {
- 		/*
-
+Any reason you're not reading the real value from
+/proc/sys/net/core/max_skb_frags ? 
