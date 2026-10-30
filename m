@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793373241;
-	b=tzKs2Eh0XvBB2vwMkITsbCXeyuqTL+QDtTVryJ6QIEriH+1XQ8lUYp/+aGFevqgo+JJK
-	 5NGbMiHPrZ2Vwm9SgoB9x9frtjeGjQlbIHBw0L9/KnmlpivQs9js0ZyapP3KthD8KBpGC
-	 U6ebQdDZZJ8ylp4A/rr0MVFzORf3U7ZD/bv3Utex7FjiuPANNT6IaOXtDMhRlSSWb0JAE
-	 wiDJTaFVjzWxaW+tXUpG2Iokopb4bocKJrQcMnJj9z4BJaaRxll6/SiYdc02HtGdGvy4A
-	 QxfCwTphfPt8/FXt9LRH3ul7DipbBae8WgT9mP9Nx68Tg0tmYyqSp5o6n5e39UZfx0Q==
+	t=1793373238;
+	b=nCusZCZcZfnj1YVrgjCmBlR1ts8q06refQVcEsSFuAtySbRhguvUaWOzpN1n/F8nTFvq
+	 0Dv69on1pWk11EvUOL81j78U25u2GkKwiDjxDLieeflhYaPOPKCRBn6tHvrY2h6l1B/YF
+	 pzRKjOCjM9qJGa7vx5wF7ro8AOTPcocfSVE4+sHYlsPB2Jstpdclm+WZtG3h9/JgwMj7C
+	 LjJ7+DKgtQtww/vOyfh4OMe1CgmXzD54aN0AkKxXgnSPmKD16GdLsTD7LGOHeVppM62sg
+	 i8u9HJ+VECj+NTYqLIBsFL7v2BBD7W5l95XHko637rlU034sbBen/g250PIRB4tw1Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793373241;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793373238;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=+rM42lMVWYrTyqPz3fPMPzSnMbUrQ5yCmC7jK/qTA9M=;
-	b=fNkF8bxJa8Mq9nAb/L2GZs5rjTxgFvLKVAG4hD8H83oSdpYe9qtGpyRQcghAVlvVFftX
-	 5C2xlM3bLN+LIQRUzJp38ujg5ex33uEa/4SwAcOKuXHn+LEujc94yN6YiYSaxfc8k1oZi
-	 DMSY+v8reRGhHIekwCSICo6OMOo7GdvxxA7ySnSSQnM8McMB9AQhW4rEZ/XsobvCpbXIv
-	 56SOqCSBchXvmSVfFJqNBZgjRlvj0b8isM8PZUoSZHojxa2CBydzcRIonoIwAB7NcIVIi
-	 FAUrjLB6Sv6oKroYFKNGLWm85wS0iX0lECkvkAaebLzOWb+PQQGWIV6HehzEaxPxFIQ==
+	bh=1D2a9ueIcn/1KozkUgYJhguse0u76K/q+NIdrK85fIM=;
+	b=yJnZZbslEzWm2wJIqaEhOsO28rK1mS10v4STKX5LGYkqoZ98tQGHtwdntws3bmSePDQB
+	 JJ0O0FlO54Mdnh0UbSFFR4/PnAUNyP1SxHFDLw63dIGLrU6jMlPPD3CdbyXnSzswJMypF
+	 xwAtfjDNH1iZoZtwS17nkai95riEGNf4lclgh1XrWyk/nTeUEM0cMETAALwaUiT2Sbf1C
+	 XcjY6o1AVBdNhJ5vU5+Ff6zoyAO2R0+1rg9B36a5O4MTGhiMO6rhcAD9HEBCBEUDzAgp2
+	 mX2xwGTVHUnR+S46vv2xn1yeh8qV3KHx9bXzmQJ/mY3XWezc25O8VtrwJlwnGtane4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LuAd9ScQ;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=IeYpwhqn;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8215E606A33D;
-	Fri, 30 Oct 2026 15:14:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8215E606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B6DEC60A5BD7;
+	Fri, 30 Oct 2026 15:13:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6DEC60A5BD7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LuAd9ScQ
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=IeYpwhqn
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B9FF91682;
-	Fri, 30 Oct 2026 08:13:56 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 30AC51BD0;
+	Fri, 30 Oct 2026 08:13:54 -0700 (PDT)
 Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A22B23F59E;
-	Fri, 30 Oct 2026 08:13:57 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 170273F59E;
+	Fri, 30 Oct 2026 08:13:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793373239; bh=ud+KGbq8vc4zGQ8mJPdEUGfwVQqtsWXdPrjpP0/C8CA=;
+	t=1793373237; bh=QW3Emauw/3585Ti2E2DMVGVF9Y4J58sbh1ibON++zdc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=LuAd9ScQsOiJzzolp6bSj5UdKDSOyu1j+JUaW5x7BIlJXffN/JGqSZNj5Gc30j0Dy
-	 45Im3CEQwhKy4jfl5IdFCi8rg7lu1iXxPkO3baiwt4RUFw0HT1+Inh+aVb4DCCePUY
-	 RjVJPP1oGq1vyHMtOyIV1BnnQ+bVT7e4DBZfVqQ4=
+	b=IeYpwhqnPR52ZjETXZpv/6kiC7ay70Z20ArPJ2s53IxX0/ko7iV86HMkHc3QETP8d
+	 FPH62VgSlX2U04hlzl621oNN5Z2OH1u8Q+QQw9ystwINcGllH85PVd1tSyQzFFFkDZ
+	 4y0CBWHJ6FHbx+2NdRVXnmhbTt6ahfzWoy7Bt5E0=
 From: Leo Yan <leo.yan@arm.com>
-Date: Fri, 30 Oct 2026 15:13:21 +0000
-Subject: [PATCH v3 14/14] perf tests: Check CoreSight emulated instruction
- entry and exit
+Date: Fri, 30 Oct 2026 15:13:20 +0000
+Subject: [PATCH v3 13/14] perf tests: Check CoreSight abort entry and exit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,7 +57,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-perf_cs_etm_fix_non_taken-v3-14-7629b52ab047@arm.com>
+Message-Id: <20261030-perf_cs_etm_fix_non_taken-v3-13-7629b52ab047@arm.com>
 References: <20261030-perf_cs_etm_fix_non_taken-v3-0-7629b52ab047@arm.com>
 In-Reply-To: <20261030-perf_cs_etm_fix_non_taken-v3-0-7629b52ab047@arm.com>
 To: Arnaldo Carvalho de Melo <acme@kernel.org>, 
@@ -71,85 +70,162 @@ Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, coresight@lists.linaro.org,
  linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Leo Yan <leo.yan@arm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793373201; l=2576;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793373201; l=5442;
  i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=ud+KGbq8vc4zGQ8mJPdEUGfwVQqtsWXdPrjpP0/C8CA=;
- b=J+IpPXgeZpt+yD5qjm+xAxSH2eL2hkn8/kHiIR8jsu3OebW9Ysc7gBjHTyKPgCecuuDCBoBkD
- lS0wmbWXA3WBJ6bc5Bk8FP+TPT2Z+fVUa7tVyUx5nprMxNE1N8044pK
+ bh=QW3Emauw/3585Ti2E2DMVGVF9Y4J58sbh1ibON++zdc=;
+ b=oMfv/q3JKC9v0UpCFOmc08kxcZCqBkm8fl2VNXLkIU9rtXAGedWzl9CGIcau9i8z61sqOpiS8
+ 937k1sIzIGEBeggGiU2olYFOGctepINGoXVX6eGXY1BjzIvNkUxqxPH
 X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
  pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-Use traploop's EL0 read of ID_AA64ISAR0_EL1 to check an emulated
-instruction. The kernel emulates MRS and advances the return PC by four
-bytes.
-
-Select MRS entries by instruction encoding and reuse the common FIFO
-recorder and pair checker. An instruction page fault at MRS also matches
-the opcode filter and returns to the same PC. Retry recordings when the
-pair check fails or finds no complete pair, and fail after three
-unsuccessful attempts. Recording and decoding errors fail immediately.
+Add page_fault_loop to repeatedly discard an anonymous page with
+MADV_DONTNEED and read it again. Each demand fault is resolved without
+signal delivery, so the load must be retried at the same PC.
 
 For example, an expected int/iret pair is:
 
-  int            5cc808 => ffff800080010c00 insn: 00 06 38 d5
+  int            5ccadc => ffff800080010c00 insn: 00 00 40 39
   ...
-  iret ffff800080012284 =>           5cc80c insn: e0 03 9f d6
+  iret ffff800080012284 =>           5ccadc insn: e0 03 9f d6
 
-The entry instruction is MRS X0, ID_AA64ISAR0_EL1. After emulating the
-read at 0x5cc808, the kernel returns via ERET to the next instruction at
-0x5cc80c.
+The LDRB W0, [X0] at 0x5ccadc faults before completing. After resolving
+the page fault, the kernel returns via ERET to the same PC to retry it.
 
 Reviewed-by: James Clark <james.clark@linaro.org>
 Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
- .../perf/tests/shell/coresight/trap_entry_exit.sh  | 39 ++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+ tools/perf/tests/builtin-test.c                    |  1 +
+ .../perf/tests/shell/coresight/abort_entry_exit.sh | 32 +++++++++++++++++++
+ tools/perf/tests/tests.h                           |  1 +
+ tools/perf/tests/workloads/Build                   |  2 ++
+ tools/perf/tests/workloads/page_fault_loop.c       | 37 ++++++++++++++++++++++
+ 5 files changed, 73 insertions(+)
 
-diff --git a/tools/perf/tests/shell/coresight/trap_entry_exit.sh b/tools/perf/tests/shell/coresight/trap_entry_exit.sh
+diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
+index 24e095d4d20cee6a6aae7cfda364fb237ef74b30..86698b86657f45b094755583800062c37e16ca8b 100644
+--- a/tools/perf/tests/builtin-test.c
++++ b/tools/perf/tests/builtin-test.c
+@@ -192,6 +192,7 @@ static struct test_workload *workloads[] = {
+ 	&workload__landlock,
+ 	&workload__traploop,
+ 	&workload__branch_not_taken_loop,
++	&workload__page_fault_loop,
+ 	&workload__inlineloop,
+ 	&workload__jitdump,
+ 	&workload__context_switch_loop,
+diff --git a/tools/perf/tests/shell/coresight/abort_entry_exit.sh b/tools/perf/tests/shell/coresight/abort_entry_exit.sh
 new file mode 100755
-index 0000000000000000000000000000000000000000..4521e4f4ba58100c7da7a915d729df7ad814f031
+index 0000000000000000000000000000000000000000..98aeb2b1068e9847d87e3b25aeabf6da114c6ae2
 --- /dev/null
-+++ b/tools/perf/tests/shell/coresight/trap_entry_exit.sh
-@@ -0,0 +1,39 @@
++++ b/tools/perf/tests/shell/coresight/abort_entry_exit.sh
+@@ -0,0 +1,32 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
-+# CoreSight emulated instruction entry and exit (exclusive)
++# CoreSight abort entry and exit (exclusive)
 +
 +. "$(dirname "$0")/../lib/coresight_exception.sh"
 +
-+test_trap_entry_exit()
++test_abort_entry_exit()
 +{
 +	local attempt result
 +
-+	# traploop reads ID_AA64ISAR0_EL1 from EL0. The kernel emulates MRS and
-+	# advances the saved PC, so IRET must resume four bytes after the trap.
++	# A demand page fault retries the load at the same PC after resolution.
 +	for attempt in 1 2 3; do
-+		echo "Recording emulated instructions (attempt $attempt/3)"
-+		if ! record_trace traploop 256; then
++		echo "Recording page faults (attempt $attempt/3)"
++		if ! record_trace page_fault_loop; then
 +			cat "$tmpdir/record.log"
-+			echo "Failed to record the traploop workload"
++			echo "Failed to record the page fault workload"
 +			return 1
 +		fi
 +		decode_trace || return 1
-+		# Select MRS Xt, ID_AA64ISAR0_EL1; the low five bits select Xt.
-+		check_exception_pairs "int.*insn: [01][[:xdigit:]] 06 38 d5" "iret" 4
++		check_exception_pairs "int" "iret" 0
 +		result=$?
-+
-+		# An instruction page fault at MRS can also match the opcode filter.
-+		# Retry failed checks to tolerate such transient faults.
-+		case $result in
-+		0) return 0 ;;
-+		1|2) continue ;;
-+		*) return "$result" ;;
-+		esac
++		if [ "$result" -ne 2 ]; then
++			return "$result"
++		fi
 +	done
 +
-+	echo "FAIL: No valid trap pair after three recordings"
++	echo "FAIL: No complete abort pair after three recordings"
 +	return 1
 +}
 +
 +setup_exception_test || exit $?
-+test_trap_entry_exit
++test_abort_entry_exit
+diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
+index 989208fcd417a676d03e2372e8a71ecf2059b9c6..8c399840a735910d4344eba928075e3ec6b1f81c 100644
+--- a/tools/perf/tests/tests.h
++++ b/tools/perf/tests/tests.h
+@@ -265,6 +265,7 @@ DECLARE_WORKLOAD(datasym);
+ DECLARE_WORKLOAD(landlock);
+ DECLARE_WORKLOAD(traploop);
+ DECLARE_WORKLOAD(branch_not_taken_loop);
++DECLARE_WORKLOAD(page_fault_loop);
+ DECLARE_WORKLOAD(inlineloop);
+ DECLARE_WORKLOAD(jitdump);
+ DECLARE_WORKLOAD(context_switch_loop);
+diff --git a/tools/perf/tests/workloads/Build b/tools/perf/tests/workloads/Build
+index d3030bd9c0752a5bc8743a4539a0ac365d215719..43cc4da6fb0786de8bb5c52717c2ad5fdbaa639c 100644
+--- a/tools/perf/tests/workloads/Build
++++ b/tools/perf/tests/workloads/Build
+@@ -10,6 +10,7 @@ perf-test-y += datasym.o
+ perf-test-y += landlock.o
+ perf-test-y += traploop.o
+ perf-test-y += branch_not_taken_loop.o
++perf-test-y += page_fault_loop.o
+ perf-test-y += inlineloop.o
+ perf-test-y += jitdump.o
+ perf-test-y += context_switch_loop.o
+@@ -28,6 +29,7 @@ CFLAGS_brstack.o          = -g -O0 -fno-inline -U_FORTIFY_SOURCE
+ CFLAGS_datasym.o          = -g -O0 -fno-inline -U_FORTIFY_SOURCE
+ CFLAGS_traploop.o         = -g -O0 -fno-inline -U_FORTIFY_SOURCE
+ CFLAGS_branch_not_taken_loop.o = -g -O0 -fno-inline -U_FORTIFY_SOURCE
++CFLAGS_page_fault_loop.o  = -g -O0 -fno-inline -U_FORTIFY_SOURCE
+ CFLAGS_inlineloop.o       = -g -O2
+ CFLAGS_deterministic.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
+ CFLAGS_named_threads.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
+diff --git a/tools/perf/tests/workloads/page_fault_loop.c b/tools/perf/tests/workloads/page_fault_loop.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..4afbc4ab0a55400360facdc3a99ea5a5a9d52596
+--- /dev/null
++++ b/tools/perf/tests/workloads/page_fault_loop.c
+@@ -0,0 +1,37 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <linux/compiler.h>
++#include <stdio.h>
++#include <sys/mman.h>
++#include <unistd.h>
++#include "../tests.h"
++
++static int page_fault_loop(int argc __maybe_unused, const char **argv __maybe_unused)
++{
++	size_t size = getpagesize();
++	char *page;
++	int ret = 1;
++
++	page = mmap(NULL, size, PROT_READ, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	if (page == MAP_FAILED) {
++		perror("mmap");
++		return 1;
++	}
++
++	for (int i = 0; i < 256; i++) {
++		/* Drop the PTE so the kernel must resolve a fault on each read. */
++		if (madvise(page, size, MADV_DONTNEED)) {
++			perror("madvise");
++			goto out;
++		}
++		if (READ_ONCE(*page)) {
++			fprintf(stderr, "Anonymous page is not zero-filled\n");
++			goto out;
++		}
++	}
++	ret = 0;
++out:
++	munmap(page, size);
++	return ret;
++}
++
++DEFINE_WORKLOAD(page_fault_loop);
 
 -- 
 2.34.1
