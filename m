@@ -1,91 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793344122;
-	b=hddJK3RyWW3j2kyQFNjF+f0kUm2sLnajI+ClWlSFMfIh2PwMGOsW3Uf5rEYeQ8TSh0Qt
-	 NU7DrrkL6ENBpSUUmdhkxNEn8JOBBvPLrmOmYMpfPZceb2GZIXKsDHGy8/3Uj5FNuFZ3n
-	 GfzjU4Tu6cv1wkY+O4Tqbs9tGUAXtWPZyO5EzmeOjCSK8ethSo2eO9wyi41xiin6GV4Ad
-	 n1AP3m1e7qCu137X89OJC05ntHWar+3kgbXsvEGuONCAu+zOSZznC8H3ejRxLj8pvRFlw
-	 Sw8c3H4abSHmxudcOJgorJeU2ByceJ5Xx/XYzwgGtZ0FOtgF5ihuLaWq4oBnPQQTASg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793344122;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=mHd/Wr3BFH8QFtsPeQilYKemQuojRmVOWieDBcVZcE8=;
-	b=D8ku4Rx/E48OO2A6ctw+6ogjF58MM5Gr4Q5vHEV6Cm4JHGktyAojGCOpUKx1HrzAOb7h
-	 WAurlFBpFS1Rf5duQJ+n0tZPN22VsW5zUAjhKIBV28PH8rxVd8wP84tOuNMRXT9XjWTXZ
-	 atP3+4VYNJ/MR/C7c7gqy/IHugYMAIcDnVPAEAm/nh1mLEJvEREHIM04HN2fGlwZiu07S
-	 wPHRQOaOrMUv04MQqXV8hVBoB48dV5gsgOtMuWmj65HWnD3fdbqyRMCSmFT+TIr0QRQ5P
-	 5t5lRXaiHjO6G8cIlL1+aoG6jZsZgNTqeVgcbJhfvE6Pdz7f2E+U2SbtT8Xhdf9gvyQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kc7jdnZC;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793344159;
+	b=HN9Gkh02qUH3IwtDAjU2g7zE0BuXdILKcQ1MzoKX8loyl5TNfBVL9nrhN0DqKEXI2TNW
+	 91I5Ud3yH8OD/DENjwtQAaZft269wtrA6AFkaTw3oCpV09J7fZk2W2brEdX5kZikz0qwn
+	 3hOF6WVt408s8/u4Sjibcxl9lek+GzioXdDePnZK0kQ3HMIPo7wS+HU+PO12Zq6uzYc7e
+	 BYT4cTBT/PTivbZtGGgc0LZKPP4bz/YTgCExyZ/NaA1NuMiIDckOKyJoMRPK/ny/dscJj
+	 UDkcFeW3ghcZecYklEfaZ7dPBDiaoHYZdpqgutOrx8IGn1Ti9/HKF+tLz5UsGm2lfdQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793344159;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Ios6e/ssWvn5GGMdu+G4ErLF0ZMyTTEaz9Lj8Wf5tRU=;
+	b=LiUFM+MtAZzD4w9YNEYeHOoLwF72IG5OgxHh09vD0/Aik2VipR+73sgxZFNRw/Djbo83
+	 mUwxAd/87McbQnIW5QpqkpDOr6hgbwPV0FK8FbyYltVezzWY+ae432h7sT3rVG9Qn62rN
+	 DzBBT2AkEnMVuAe2R5w2j5spTnQ5z7k+g2YxgOL129M2tsPvYi0QliQOJztXUtUAPXSaZ
+	 EeFjdKIAYOfQ1ikGjw8E2iRcG7cKiyCJRSenBsTNcan1xI7tzxDEIYnlNgUpP/MYdBk7W
+	 WEKo8KT1ZRsQ794wKJUMPr0W+l6xcNLsnhOai+czYgyCdZpGGFGgJ5GrLEuAdB3pLkA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=Pxv3UV0B;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.15
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013015.outbound.protection.outlook.com [40.107.162.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36229606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:08:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36229606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD65606A31C;
+	Fri, 30 Oct 2026 07:09:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCD65606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kc7jdnZC
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e47347279so175230f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:08:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793344120; x=1793948920; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mHd/Wr3BFH8QFtsPeQilYKemQuojRmVOWieDBcVZcE8=;
-        b=Kc7jdnZCdv4SlnsrVznX30ADusJK02ouRndqH+v9CwGQ0VPn/uZI4OLLREFkpiHlR7
-         6F4bqzoq60uwZIuu1FPzRUeWaf+zGatfkLByJF5VcW9WB4OdKUfJ2y4EgnNm1ll6cGtU
-         z44iLg3aGtFNLuAb5LzPa3b1aZnrXUp1HTbIA4nXbICk0asvbEjdWkpivTB5Az3AHPAf
-         TmCiJ4A9a1evNOrPOOeMg7tSlhQPFuRFAiDiK2wuAAT+LuVC8MgxQRXYHxZRALmlFoi8
-         yr/w/Nae+Ihq77PTEvrJntqEfaocPkFgfDi1JgaHfxdboGi9fWliemP1mnRakHbdB7nO
-         CjhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793344120; x=1793948920;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mHd/Wr3BFH8QFtsPeQilYKemQuojRmVOWieDBcVZcE8=;
-        b=QebV/pBXRUG/EOzRYcXl0OsN2PgcU1bnyZFV7tQqeLJZGM9sctJ2k3DklMbQ2UgGRx
-         i32k2Q/cQ5TNo1a5yU8m8dk5L7k5iN20R7888ASnPpY9QuxLd5Lp6J+8jMt0TEEBm5/k
-         ZF++iWDd62jfLj+tQUJxap4wzK9jggPAdbDXvMAQ2gtRFYbXiIJw/dng+rjNS+WRIpu1
-         U2DKO5o7N+8H98CBE7TAVhY3PHF3k4GH/GjWD97tV8xR+b3PSBDtLnnsySPeOCUneWDp
-         o6k1UCq11zImaB7ESWQAHy6Jyisb1zDd5fuBX0J4xrPyPiedj9vjjEJWvlE4209yGE9B
-         h6Sg==
-X-Forwarded-Encrypted: i=1; AKwUvBwHSI5s7xLzMspVTFPo8MfHpeqPSrIIsg65urGF6N12TOHRWSKZM/UofRfjkhn7owxbKPzeOxbrzIp1qOk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKiTTryvl0bUk/ELFlWXNbnb1u0myw0xIwONV8y9AHyAzf3KOGA
-	W5O/vB9hQenrysWZfCFxr0WurC82QzXqC5arnqKzGxq6J7em0lvH03a+
-X-Gm-Gg: AYBFou1Jx6eaetL9fZAWUqx+GaL2zuDKDpfR8ubKVqLAFBpmGp1nw/GVnqtkidkhh7G
-	CAys5KuTHh9A4cznIaBaFf0+olV4s+oqdIvdokBuby7C6qtimOR8+m2U7/qk6p9rOuHKQ/SIsps
-	EGwegblVEQa65o4LNWBsfaF6kVOuQezBzCdrZTEslYgXh8H2/U5O0smgPS3rAlA3VDRQP+rt06u
-	N5yOOHbp4yb1XlZCfnO2aC84ij6PNbwF/f+DQKvQmRxWmx4LRiipY5FliMno4xzb0HMzaBQRHGq
-	STmFbaA1nYUbwxVnrxPJ2vqXcLV2Cn6P7qEwlwzphBt1fVLnRGWqFMzVrjbT5gA4orujFVs72rS
-	CK9OF62JMdtTqhglYZXlWCm5y5nD2aGkhkROYfxc34nLPWbYz3/dDrk1Zx8cRVV6OFm4dIKIbEx
-	/yfFEyqRpFUSKYPvrAroWDGgparR2CegSSVLreZOvOKIxHHTOc7x8De2Fa4uegnUbtkzgNs0hva
-	0TEBuNWp2evvAWa2mf1h2nIUI93Yru/e5/bELqMyLxkXZhSQDWOHnQzidYYJ8bv1YGdZO3aBfpG
-	li8+JBqH0lcCeT28Bgs0IXgxsDX1NnI1+F//I7uzrs8VqID6znfnpClwfY4IlyZSXEsZrmS0
-X-Received: by 2002:a05:6000:2c01:b0:48e:6dd5:30d0 with SMTP id ffacd0b85a97d-48e6e504e6emr3441527f8f.53.1793344120319;
-        Fri, 30 Oct 2026 00:08:40 -0700 (PDT)
-Received: from ahmad-HP-ZBook-17-G3 ([5.212.7.215])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b723fcsm1700069f8f.14.2026.10.30.00.08.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 00:08:39 -0700 (PDT)
-From: ahmad baghereslami <ahmad.b1995@gmail.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ahmad baghereslami <ahmad.b1995@gmail.com>
-Subject: [PATCH] Input: synaptics - support the touchpad LED on RMI function $30
-Date: Fri, 30 Oct 2026 10:38:21 +0330
-Message-ID: <20261030070821.1716595-1-ahmad.b1995@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=Pxv3UV0B
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SDKEvzvFdxGu2Qgh7xCdMjs8D4/+xUfqRSZqVsrqikyS9mSGLgt+0XaGQuoKPtYLmOAMx8A/CYxQjYXBO21v+5GCVcJV930S9pPusJSJfSRhJM0zRGec9MqPgWpr27JGWIgsxiv1H3kMpu/+IFh3AX/vkwJbR24ayvu1IMJlGqII5OnTQFbBWnz1I51WPyt6eH0AJ4QO44Pdi+2odCwIGdeePITVlGby5G+IoNtKeU4qOAxKTpmfmPuCx0HXXyrCb/24IyYeu+vyiSafXf9VcCuVjvMfP8DMLu5z37AtK4biJty9yQJUj8M659Q9h0oUtMCHbup45Hl5Z2fxWnaL0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ios6e/ssWvn5GGMdu+G4ErLF0ZMyTTEaz9Lj8Wf5tRU=;
+ b=DXf75C6VHe1SBeuC5Jwd9f9W9KWnPLZ5id7m2mnSjwEg9Vs9og1nncM6yhp84YtFKJ2XuFbThK8J2RK8KlIp3c9QM6iCgYx+FlbbQrW+aKhAJZFBfb89Zaxnc3cuyasr3v98J8/VT7vPk84q/AU+YL0whdTfcxGEwzIUaJM3k00pqBSBgEcwm7ad5OrjZX6HeleOH8i2ErMuUce2V+ozr9EyAzDWlqB0f9jZF4zGX9fjN10vRIRSZ5VpBbvFnSmDrVgJxAD4IjFO9i3gvCTvigmyyem5Vrf5PGqOSkfVQEFS5GE6gUZSfiNqM4N/G5zNRkyo9vazlyjFWwEhjPn/ew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ios6e/ssWvn5GGMdu+G4ErLF0ZMyTTEaz9Lj8Wf5tRU=;
+ b=Pxv3UV0BeI/tZOrMrdDc2HvXrjo7ktGaUxqGW7ZUQZBKTDFjS1zhfrUaud6LH8iC3HkXrtx1lL6s8cyDy5H8mE0U449Jfgg783sZKy3jHpkkDcrekefv20WZLO6hZfvpaJBPgnMQrTO0AFWZ7XEdNM/Sqt2tYn01TkQ/uIeVl+wL4oCtuzv7cFgPFvdIdLWl6ivvysnZ6UAVXq1k1bH4YAYKok808w7iEuuzch7XZfYHwWCilG0L+teKDWiRIGcZ6jXMSecZUxbhQhxw03jPa74zgic3ZF63XtD4fD98lhcRC0/SaktWjPUPy+awZhsMRWlhM7VIzJSAi4zr2Q4Mrg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
+ by DBBPR04MB7898.eurprd04.prod.outlook.com (2603:10a6:10:1ed::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 07:09:14 +0000
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 07:09:14 +0000
+Date: Fri, 30 Oct 2026 15:10:51 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v7 07/15] drm/imx: dc: Add PRG support
+Message-ID: <auRC-xz5IYaHf_AP@raspi>
+References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
+ <20261026-imx8-dc-prefetch-v7-7-a0b50cc4fc65@nxp.com>
+ <auMIsiZ5ARIl-6N6@vm>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auMIsiZ5ARIl-6N6@vm>
+X-ClientProxiedBy: SG2P153CA0005.APCP153.PROD.OUTLOOK.COM (2603:1096::15) To
+ MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,356 +110,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|DBBPR04MB7898:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72a35c19-7909-4b2c-7097-08df3654b497
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|19092799006|56012099006|4143699003|11063799006|5023799004|261009223027099003|261009221227099003|261009223327099003|261009220027099003|261009221727099003|261026121527099003|261026140227099003|261028144727099003|261021121427099003|261022105027099003|261021123027099003|261022075727099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	4A0spMOMoAFOLgp2t7ZKv65nBEgvbe4iLzDh7i9BEjbMfOwo8/EV5sfZTKe5fmSCBC55i3Oyac4qqIkQmSki8/63/L5gQ4mm6WjinbIq6AA/7KIiI/akh01hBJcguiJe6SlU8WqlU+C35JFOJRmMV9mgD+cUtMHc75wttA7+opejBlaxPFhe0qhrJ3gyKSVCKaDv26NjPLWV5zsM4m8Bb0onEkHeH+mG8BiJ6vDTF1srPMMIwU3yIAWWV8Ct8iuxoj+s5FN2AG7jRxX81zKGCqSCZKSp7lntmiaW94vG9bHfVSRbPWeYllSxkJbdclsqQ9KYQLlraLoiM6ukNykor5QhDSl51LQRB4fgUocWNsNrbtMqAF+qj9IQDFgbRa1MTnXIzgH7Mv+zzUgmGq/1B0wC/lpAezA7rreprLf1KWTbyPpWrm42pStr8DZ1zhpguIusD+KiXtxa6acByAdvtBnuWKusojP8poP1QPTB2Eiadvv1QEpBTi1JhMxuEJSP3E3VGh3mfie2NQKnZjqdGrEhzK7p3Ro/KII4FUBy5/u8nsKH5VtEBaCeKQ2j8z/CEC5cd9TP9ZEI6cvOo/6LLBX4xt95gWAFGeHIoXYLXrpV+eACtR0Q8mamqwB1LRmUecRyR3Gpuan/3Aie7f9s/A0SLcKzMECkAsB0AEisvL0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(19092799006)(56012099006)(4143699003)(11063799006)(5023799004)(261009223027099003)(261009221227099003)(261009223327099003)(261009220027099003)(261009221727099003)(261026121527099003)(261026140227099003)(261028144727099003)(261021121427099003)(261022105027099003)(261021123027099003)(261022075727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?z8HPl5MlixkQoEyv4OC+LvVrbl/fr2DTl7ixmk+Ex0fCCqs4vIr68mC/YhML?=
+ =?us-ascii?Q?dUEWXdScuUToByWgQsgAOgM/a6lUq0te69mF90vp40YXQMDL4noODxRrT/QQ?=
+ =?us-ascii?Q?X4cvOsR8PYWUbmULJgaxsccYycOOu0f/ZD1b0bGokh8MkRB4CHWJ+aE82GPP?=
+ =?us-ascii?Q?v/I6pSTkXKRp6zympVo39sPNWiyoHM9YWAf6SVAVP2PQvv4Jb7FLg/a0j1Nk?=
+ =?us-ascii?Q?TJSiWj/8eeKRu7u9amCRJuuzdaq4aq97fLiUvcccb6rOz0Xzq6SqUqbkWRI5?=
+ =?us-ascii?Q?uQZZgiIz3jwF/QBjqpimHoPUB3EeT3BxhqAg4sPDcGC2pzaDAGoj3ZJPp3L0?=
+ =?us-ascii?Q?/ldHi9GHF4wa5ll/5/JyFRB8K05liWGaHY+yh6NtxvtHdU320DeYghtm9/gn?=
+ =?us-ascii?Q?MMZQqSMHXYV0I1Mm4SivKaKmbkJ/vFhcRkbb6bbqfnHOarHaWCR0Meh2ksw5?=
+ =?us-ascii?Q?FA9eF3NjA9i8I2PpLBKYwMpSD2QHajUEfB1Kgi1o181BGmmjGDyVQX5GC+z6?=
+ =?us-ascii?Q?6766xTwK/Sa5u8ZkceoKGhY2DsnnYguo3kDh24ge6iJ1lqnufzz78PuSkOkA?=
+ =?us-ascii?Q?aRYWQ2eblMDtl0p0t28jXK2yhTeolxX363o6ax5JHOVtHqqRAexs7tn0IiIf?=
+ =?us-ascii?Q?VOPGABmMKIuc+3f89rHZ2DJP2GnWYn9DOLjzTbimOm23KRQeFZzCXYyJ7iEV?=
+ =?us-ascii?Q?lSHi47kuc4S4nxm8e4a9SP9mH4FE7BdMQ1W+JolDnsRiztcF0rkGls8smp6Y?=
+ =?us-ascii?Q?4RWOfs+kUK96y9+TALuZaVaX2ZlbPsJyH/lzB022alvzj/EUM4n5OYPdK/Uf?=
+ =?us-ascii?Q?BxPwDIsCb/QzgresDUES5a7N7JeupQ/QwRnG6u/Mhr0XQyxsY+Z2l47gmkha?=
+ =?us-ascii?Q?5X8hATwuqtZpoN9qpoBKC+H9mBfq8S1xObnXwA5x7E7ijWiGuoeGq69lTmMx?=
+ =?us-ascii?Q?hg1MB8hiRSGhVV/LeZxOI51l3GnZL0ozrGmZHXDJz006opWT3lqw29BQAG9i?=
+ =?us-ascii?Q?nhD/iLsirORvqZGxO7W3I/OwWgdn9cHTHw9hiWyRh2g5MAg3wjiwuwERpueB?=
+ =?us-ascii?Q?gjkh+Tp0ga3D8EeEQyendo+rwJZ4XQS39JoQU3iInZxgPAenh2blvzDesDEM?=
+ =?us-ascii?Q?td4843yIwaNs0K6YItKOJjSWfHfHaTrqKaeQOCp8XKrikWOmDctui53jfHMm?=
+ =?us-ascii?Q?5K03Dyy2JP9w5yJ7E0MsuV525JgRh+2FDr6RiOvzABsD/aTHHmxABqJH6hxq?=
+ =?us-ascii?Q?2+uALvgqA7u1EUhvtnlBM6UMubY8QECAc8H2/tQG+scpaOphvTHok941NNCF?=
+ =?us-ascii?Q?DMjxHnh0af5TXyBEBA6CDPbj5fLPS8NxeiyJHUCG8qir8jGwZH5/sUePswyF?=
+ =?us-ascii?Q?S9f19DyI1MxgcP9E8ew1L/Vtjr3xs5g8EXbwBbLPf4mnXf6i6HGrReRYa9Sg?=
+ =?us-ascii?Q?DBWSU1Z46HBcFc7ad1MklkbQ0KlMCpVhaVGWFRqygwTiC4z6dERmN8HlTd4u?=
+ =?us-ascii?Q?4meNVB3wsCG9OzdDWuzJ6bjDVfSZCl7/BNf8PaOf895k1qDNHfswxH2t3Xdd?=
+ =?us-ascii?Q?6U/v3agYL7vUIEmqx3K0W6VY8ayeYUm2wXZT2Z+LFzji+GFO6lJtq5EZV/t+?=
+ =?us-ascii?Q?lT1F9+tSaKA90XG+KNH67hXm1yIUpL7PqIVPuqC8QD2y/R/wN4HZW7Vn8Ew4?=
+ =?us-ascii?Q?5RTR3HvQGN29PA/LPiFT8BZ52RLx0pJBRsW5/mxNSh53RicYX0pAhbpvuntJ?=
+ =?us-ascii?Q?DP1OjTNgkQ=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72a35c19-7909-4b2c-7097-08df3654b497
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 07:09:14.7059
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dBNERc0X7mUt1BD+hbZvWNC+KeYP3WDrqDyO1WE39dWsE2siQArO+/nm8kL7nKg+H9DdJdj+HMm++EGwhcT4Bg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7898
 
-Some HP laptops have an LED in the top left corner of the Synaptics
-touchpad that HP's Windows driver lights while the touchpad is disabled
-(double tap on that corner). On the HP ZBook 17 G3 (SYN3040, TM2706-002)
-the LED is not driven through the PS/2 deluxe LED command: the Windows
-driver (SynTP.sys 19.0.19.68) switches the touchpad to RMI register
-access over PS/2 with mode byte 0x7f, looks up function $30 (GPIO/LED)
-in the page description table and sets the LED bit in its control
-register:
+On Thu, Oct 29, 2026 at 11:30:55AM +0200, Laurentiu Palcu wrote:
+> On Mon, Oct 26, 2026 at 06:05:12PM +0800, Liu Ying wrote:
 
-  register write:  SetScale 2:1, SetRate <reg>, SetRate <value>
-  register read:   SetScale 2:1, SetRate <reg>, GetInfo (first byte)
+[...]
 
-For touchpads in a new rmi_led_pnp_ids list, look up the F30 LED this
-way when the touchpad is set up and register a
-synaptics::touchpad_disabled LED class device. Setting it deactivates
-the touchpad, writes the F30 registers and restores the mode byte, which
-leaves RMI access. The LED is restored after reconnect.
+> > diff --git a/drivers/gpu/drm/imx/dc/dc-prg.c b/drivers/gpu/drm/imx/dc/dc-prg.c
+> > new file mode 100644
+> > index 000000000000..43df5683b24d
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/imx/dc/dc-prg.c
+> > @@ -0,0 +1,314 @@
+> > +// SPDX-License-Identifier: GPL-2.0+
+> > +/*
+> > + * Copyright 2025 NXP
+> > + */
+> > +
+> > +#include <linux/bitfield.h>
+> > +#include <linux/bitops.h>
+> 
+> This header can be removed.
 
-On this touchpad F30 is on page 1 with control base 0x55 and four
-GPIO/LED pins; the LED is bit 3 of control register 0x59 and its
-brightness register is 0x5f.
+Done.
 
-Tested on an HP ZBook 17 G3 with Ubuntu's 7.0.0 kernel: the LED follows
-writes to its brightness file, the touchpad and the pointing stick keep
-working, and a userspace helper that turns the touchpad off on a double
-tap in the corner keeps the LED in step with GNOME's touchpad setting.
+> 
+> > +#include <linux/bits.h>
+> > +#include <linux/cleanup.h>
+> > +#include <linux/clk.h>
+> > +#include <linux/delay.h>
+> > +#include <linux/device.h>
+> > +#include <linux/list.h>
+> > +#include <linux/module.h>
+> 
+> This one too.
 
-Reading HP's Windows driver (Ghidra) and writing this patch were done
-with the help of an AI coding assistant (Claude); I tested the LED and
-the touchpad on the machine.
+Done.
 
-Signed-off-by: ahmad baghereslami <ahmad.b1995@gmail.com>
----
- drivers/input/mouse/synaptics.c | 241 ++++++++++++++++++++++++++++++++
- drivers/input/mouse/synaptics.h |  13 ++
- 2 files changed, 254 insertions(+)
+> 
+> [...]
+> 
+> > +
+> > +void dc_prg_disable(struct dc_prg *prg)
+> > +{
+> > +	regmap_write(prg->reg, PRG_CTRL, BYPASS);
+> > +
+> > +	pm_runtime_put(prg->dev);
+> 
+> I have a question about this. I see Sashiko also flagged an issue regarding the
+> unconditional put when the pm_runtime_resume_and_get() fails in
+> dc_prg_configure(). The resume is, probably, unlikely to fail.
 
-diff --git a/drivers/input/mouse/synaptics.c b/drivers/input/mouse/synaptics.c
-index b007e642e..bf1c6c738 100644
---- a/drivers/input/mouse/synaptics.c
-+++ b/drivers/input/mouse/synaptics.c
-@@ -589,6 +589,236 @@ static int synaptics_set_advanced_gesture_mode(struct psmouse *psmouse)
- 	return 0;
- }
- 
-+/*
-+ * Some HP touchpads have an LED in the top left corner that HP's Windows
-+ * driver lights while the touchpad is disabled. It is wired to RMI function
-+ * $30 (GPIO/LED), which these touchpads also expose over PS/2: mode byte 0x7f
-+ * switches them to RMI register access, where SetScale 2:1 followed by two
-+ * SetRate commands writes a register, and SetScale 2:1, SetRate and GetInfo
-+ * read one. Setting the normal mode byte again leaves RMI access.
-+ */
-+static const char * const rmi_led_pnp_ids[] = {
-+	"SYN3040", /* HP ZBook 17 G3 */
-+	NULL
-+};
-+
-+#define SYN_RMI_MODE			0x7f
-+#define SYN_RMI_PAGE_SELECT		0xff
-+#define SYN_RMI_PDT_START		0xee
-+#define SYN_RMI_PDT_END			0x0b
-+#define SYN_RMI_PDT_ENTRY_SIZE		6
-+#define SYN_RMI_NUM_PAGES		4
-+#define SYN_RMI_F30			0x30
-+#define SYN_RMI_F30_HAS_LED		BIT(2)
-+#define SYN_RMI_F30_HAS_GPIO		BIT(3)
-+#define SYN_RMI_LED_BRIGHTNESS		0x0b	/* as set by HP's Windows driver */
-+
-+static int synaptics_rmi_write(struct psmouse *psmouse, u8 reg, u8 val)
-+{
-+	struct ps2dev *ps2dev = &psmouse->ps2dev;
-+	int error;
-+
-+	error = ps2_command(ps2dev, NULL, PSMOUSE_CMD_SETSCALE21);
-+	if (error)
-+		return error;
-+
-+	error = ps2_command(ps2dev, &reg, PSMOUSE_CMD_SETRATE);
-+	if (error)
-+		return error;
-+
-+	return ps2_command(ps2dev, &val, PSMOUSE_CMD_SETRATE);
-+}
-+
-+static int synaptics_rmi_read(struct psmouse *psmouse, u8 reg, u8 *val)
-+{
-+	struct ps2dev *ps2dev = &psmouse->ps2dev;
-+	u8 param[3];
-+	int error;
-+
-+	error = ps2_command(ps2dev, NULL, PSMOUSE_CMD_SETSCALE21);
-+	if (error)
-+		return error;
-+
-+	error = ps2_command(ps2dev, &reg, PSMOUSE_CMD_SETRATE);
-+	if (error)
-+		return error;
-+
-+	error = ps2_command(ps2dev, param, PSMOUSE_CMD_GETINFO);
-+	if (error)
-+		return error;
-+
-+	*val = param[0];
-+	return 0;
-+}
-+
-+/* Finds the LED of RMI function $30. Leaves the touchpad in RMI mode. */
-+static int synaptics_rmi_led_probe(struct psmouse *psmouse)
-+{
-+	struct synaptics_data *priv = psmouse->private;
-+	u8 fn, query, ctrl, caps, count, gpios;
-+	unsigned int page, zeros, i;
-+	int addr, error;
-+
-+	error = synaptics_mode_cmd(psmouse, SYN_RMI_MODE);
-+	if (error)
-+		return error;
-+
-+	for (page = 0; page < SYN_RMI_NUM_PAGES; page++) {
-+		error = synaptics_rmi_write(psmouse, SYN_RMI_PAGE_SELECT, page);
-+		if (error)
-+			return error;
-+
-+		for (addr = SYN_RMI_PDT_START; addr >= SYN_RMI_PDT_END;
-+		     addr -= SYN_RMI_PDT_ENTRY_SIZE) {
-+			error = synaptics_rmi_read(psmouse, addr, &fn);
-+			if (error)
-+				return error;
-+			if (!fn)
-+				break;
-+			if (fn != SYN_RMI_F30)
-+				continue;
-+
-+			error = synaptics_rmi_read(psmouse, addr - 5, &query);
-+			if (!error)
-+				error = synaptics_rmi_read(psmouse, addr - 3, &ctrl);
-+			if (!error)
-+				error = synaptics_rmi_read(psmouse, query, &caps);
-+			if (!error)
-+				error = synaptics_rmi_read(psmouse, query + 1, &count);
-+			if (error)
-+				return error;
-+
-+			if (!(caps & SYN_RMI_F30_HAS_LED))
-+				return -ENODEV;
-+
-+			priv->rmi_led_page = page;
-+			if (!(caps & SYN_RMI_F30_HAS_GPIO)) {
-+				priv->rmi_led_mask = BIT(0);
-+				priv->rmi_led_ctrl = ctrl + 1;
-+				priv->rmi_led_brightness = ctrl + 4;
-+				return 0;
-+			}
-+
-+			/* GPIO/LED select: the LED is the first set bit */
-+			error = synaptics_rmi_read(psmouse, ctrl, &gpios);
-+			if (error)
-+				return error;
-+
-+			priv->rmi_led_mask = 0;
-+			for (i = 0, zeros = 0; i < min(count, 8); i++) {
-+				if (!(gpios & BIT(i)))
-+					zeros++;
-+				else if (!priv->rmi_led_mask)
-+					priv->rmi_led_mask = BIT(i);
-+			}
-+			if (!priv->rmi_led_mask)
-+				return -ENODEV;
-+
-+			priv->rmi_led_ctrl = ctrl + 4;
-+			priv->rmi_led_brightness = ctrl + 7 + zeros;
-+			return 0;
-+		}
-+	}
-+
-+	return -ENODEV;
-+}
-+
-+/* Sets the LED. Leaves the touchpad in RMI mode. */
-+static int __synaptics_rmi_led_set(struct psmouse *psmouse, bool on)
-+{
-+	struct synaptics_data *priv = psmouse->private;
-+	u8 val;
-+	int error;
-+
-+	error = synaptics_mode_cmd(psmouse, SYN_RMI_MODE);
-+	if (error)
-+		return error;
-+
-+	error = synaptics_rmi_write(psmouse, SYN_RMI_PAGE_SELECT, priv->rmi_led_page);
-+	if (error)
-+		return error;
-+
-+	if (on) {
-+		error = synaptics_rmi_write(psmouse, priv->rmi_led_brightness,
-+					    SYN_RMI_LED_BRIGHTNESS);
-+		if (error)
-+			return error;
-+	}
-+
-+	error = synaptics_rmi_read(psmouse, priv->rmi_led_ctrl, &val);
-+	if (error)
-+		return error;
-+
-+	val = on ? val | priv->rmi_led_mask : val & ~priv->rmi_led_mask;
-+	return synaptics_rmi_write(psmouse, priv->rmi_led_ctrl, val);
-+}
-+
-+static int synaptics_set_mode(struct psmouse *psmouse);
-+
-+static int synaptics_rmi_led_set(struct led_classdev *led,
-+				 enum led_brightness value)
-+{
-+	struct synaptics_data *priv = container_of(led, struct synaptics_data, rmi_led);
-+	struct psmouse *psmouse = priv->psmouse;
-+	int error, ret;
-+
-+	guard(mutex)(&priv->rmi_led_lock);
-+
-+	if (psmouse->state != PSMOUSE_ACTIVATED)
-+		return -EBUSY;
-+
-+	error = psmouse_deactivate(psmouse);
-+	if (error)
-+		return error;
-+
-+	ret = __synaptics_rmi_led_set(psmouse, value != LED_OFF);
-+
-+	/* Setting the mode byte again leaves RMI access */
-+	error = synaptics_set_mode(psmouse);
-+	if (!ret)
-+		ret = error;
-+
-+	error = psmouse_activate(psmouse);
-+	return ret ?: error;
-+}
-+
-+static void synaptics_rmi_led_init(struct psmouse *psmouse)
-+{
-+	struct synaptics_data *priv = psmouse->private;
-+
-+	if (!IS_REACHABLE(CONFIG_LEDS_CLASS) ||
-+	    !psmouse_matches_pnp_id(psmouse, rmi_led_pnp_ids))
-+		return;
-+
-+	if (synaptics_rmi_led_probe(psmouse))
-+		return;
-+
-+	psmouse_info(psmouse, "touchpad LED on RMI F30 (page %u, ctrl %#x, mask %#x)\n",
-+		     priv->rmi_led_page, priv->rmi_led_ctrl, priv->rmi_led_mask);
-+	__synaptics_rmi_led_set(psmouse, false);
-+	priv->has_rmi_led = true;
-+}
-+
-+static void synaptics_rmi_led_register(struct psmouse *psmouse)
-+{
-+	struct synaptics_data *priv = psmouse->private;
-+	int error;
-+
-+	if (!priv->has_rmi_led)
-+		return;
-+
-+	mutex_init(&priv->rmi_led_lock);
-+	priv->psmouse = psmouse;
-+	priv->rmi_led.name = "synaptics::touchpad_disabled";
-+	priv->rmi_led.max_brightness = 1;
-+	priv->rmi_led.brightness_set_blocking = synaptics_rmi_led_set;
-+	error = led_classdev_register(&psmouse->ps2dev.serio->dev, &priv->rmi_led);
-+	if (error) {
-+		psmouse_warn(psmouse, "failed to register touchpad LED: %d\n", error);
-+		priv->has_rmi_led = false;
-+	}
-+}
-+
- static int synaptics_set_mode(struct psmouse *psmouse)
- {
- 	struct synaptics_data *priv = psmouse->private;
-@@ -1444,6 +1674,9 @@ static void synaptics_disconnect(struct psmouse *psmouse)
- {
- 	struct synaptics_data *priv = psmouse->private;
- 
-+	if (priv->has_rmi_led)
-+		led_classdev_unregister(&priv->rmi_led);
-+
- 	/*
- 	 * We might have left a breadcrumb when trying to
- 	 * set up SMbus companion.
-@@ -1496,6 +1729,10 @@ static int synaptics_reconnect(struct psmouse *psmouse)
- 		return error;
- 	}
- 
-+	/* The reset turned the LED off; the mode byte below leaves RMI access. */
-+	if (priv->has_rmi_led && priv->rmi_led.brightness)
-+		__synaptics_rmi_led_set(psmouse, true);
-+
- 	error = synaptics_set_mode(psmouse);
- 	if (error) {
- 		psmouse_err(psmouse, "Unable to initialize device.\n");
-@@ -1616,6 +1853,8 @@ static int synaptics_init_ps2(struct psmouse *psmouse,
- 	 */
- 	priv->is_forcepad = psmouse_matches_pnp_id(psmouse, forcepad_pnp_ids);
- 
-+	synaptics_rmi_led_init(psmouse);
-+
- 	err = synaptics_set_mode(psmouse);
- 	if (err) {
- 		psmouse_err(psmouse, "Unable to initialize device.\n");
-@@ -1693,6 +1932,8 @@ static int synaptics_init_ps2(struct psmouse *psmouse,
- 		}
- 	}
- 
-+	synaptics_rmi_led_register(psmouse);
-+
- 	return 0;
- 
-  init_fail:
-diff --git a/drivers/input/mouse/synaptics.h b/drivers/input/mouse/synaptics.h
-index 3853165b6..1d36a207e 100644
---- a/drivers/input/mouse/synaptics.h
-+++ b/drivers/input/mouse/synaptics.h
-@@ -6,6 +6,9 @@
- #ifndef _SYNAPTICS_H
- #define _SYNAPTICS_H
- 
-+#include <linux/leds.h>
-+#include <linux/mutex.h>
-+
- /* synaptics queries */
- #define SYN_QUE_IDENTIFY		0x00
- #define SYN_QUE_MODES			0x01
-@@ -202,6 +205,16 @@ struct synaptics_data {
- 	bool					press;
- 	bool					report_press;
- 	bool					is_forcepad;
-+
-+	/* Touchpad LED on RMI function $30, reached over PS/2 */
-+	struct psmouse				*psmouse;
-+	struct led_classdev			rmi_led;
-+	struct mutex				rmi_led_lock;
-+	bool					has_rmi_led;
-+	u8					rmi_led_page;
-+	u8					rmi_led_ctrl;
-+	u8					rmi_led_mask;
-+	u8					rmi_led_brightness;
- };
- 
- void synaptics_module_init(void);
+Yes, dc_prg_configure() is only called at atomic commit stage which is supposed
+to run successfully without any error.  If pm_runtime_resume_and_get() fails
+there, something should be fixed, so I don't bother to handle the failing case.
+
+> But, I see a
+> situation where the dc_prg_configure() is never called: when the plane is
+> invisible. The dc_prg_disable() would still be called in flush() when the plane
+> is disabled, would it not?
+
+Yes, patch 15 doesn't handle the invisible plane properly with the prefetch
+engine enabled.  I'll fix this in next version in patch 15.
+
+[...]
+
+> > +bool dc_prg_stride_supported(struct dc_prg *prg,
+> 
+> It looks like you're not using prg. Can it be removed?
+
+dc_dprc_stride_supported() in patch 8 uses it, so it cannot be removed.
+
 -- 
-2.53.0
-
+Regards,
+Liu Ying
