@@ -1,114 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793374533;
-	b=o/XKLsrbe2E/qttfrToFrg6z4svt4I3AxThhjjI/8QOCVQmV4wZBDK27Qv37EX9bX3bM
-	 FXyZjzFmpe/CGuvGaDtrWwE4t+5PQbrmPRbphN55p2wVBC1dPXOI5pgA/a5kfJ7aLDrCe
-	 FYXtl84exmV/LXRdIsUmjMo5ehSDr1tslmjtN/yVPLH7qmxsFb2eulrSL1po+ie2LjX6z
-	 g+VjztbyNDqU3fWA4fQ526KDLTNfqqH1RxTVH/5RTKEjWAIzwQFz6HDD41fjIPq1Zk+DR
-	 DJKaKGE4Gj3nMZGLrgQbIj8OgkQECOuXSdzpVq190k6Lqj3Xb3fKjRsOXg7K6UfECgw==
+	t=1793374542;
+	b=fuAAujrj1SW/48aUuPoYr0ngJUYCCmnEXCiOiGjSPHhjMhN/1zEgDJ0jJ0NFBGLMoVMT
+	 z3+wqD5XYBkfZYWdBLuN4Td7fTyGFiG/R/AIfOVNCsC+A/JL6t5V2l1W3gcURyz5QsWp+
+	 VWBUQ+i5U8bGA872eyaftx9K0P5mlJwssMkJPx/xKVRO89LCc9kurWlU6b+I919x7RvTk
+	 /8fuwr7dBx+zHfI+sFRwr8nDvd3pSargPRqhiI24FfJU+N28q9YmJ3yzoRYIcYPkmGKSi
+	 Z9q1Ebcao6UBDOjY9d/8Sicu0r509rqdM7rw7HIPZTZg9OuGS8QPC1d5LPWEegI2kGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793374533;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RFd8QlUF/2f8EIujxTa2mmugUe04z4PT62Q1oHJNdgA=;
-	b=T8j40L6Cm08ZuG0yHS+9CfvQUOf/joPDycyeaPn6VHHFEG0EtYHpvrJfRcckSNakZxwY
-	 taAJP7kaQs49zSsxbahFVsn7vS4z39sj0ckMVTfhYgEA1/oFferYmsZIup4sN/p3qPF6P
-	 7MeDxQnbI6fWTPlZd444/YA4vJ25NStKgHnuZ9ZxllGCMY/7CPuOWywzSYMqSG24pVSdC
-	 niKR3l/Yvr6NwdAs6SSfGy2UwlSQmAnrpHYjwSzg2prZ7oeebzD/XUNLtKgShBooh5HuF
-	 oqJpVTj3r1TXn6KnQM98tN+CoE3KBN/wdUukQropLSDhquYZaW+vSzfCCfLTVb8gFjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793374542;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=eQsm+u4m3P1glnm8udwzWVnFP88fQqS4HZ3d8qMuYcc=;
+	b=jzUZW0r3T2AQMB2uEFjwqnBtwhVifT2crmDrKGSGM8cEghccYbG/dq0YEGR0TtyShlsM
+	 cNsA/N2atwvNN+SzQm6uhpLzvv3WXG3AFvO8oRuOHGAdzEZ37PW+FgNHwCr0DwTWulTdM
+	 +94R1ySnk1IlHknTRsGGPZFtq6ihvSjdWMu1j44gfXlbhSVkfzao7VcY06aaOUC41lVqf
+	 yShgGDemLF/hRsolLVJ1YGhaKb9cqGfbAz6O1FmrG2vrMhQsEwnX7SfcmCZDan0i1tTf1
+	 TU0t7YFfhUswNRlgDAb38/z1oAMt58yuQrK8v91ceZcvLAlVw0oPqIf4FpjfTba2qqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RjGbbE3X;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWGUWEzr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4FB606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:35:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC4FB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 387A1606A32C;
+	Fri, 30 Oct 2026 15:35:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RjGbbE3X
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a215e64962so8301685e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:35:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793374531; x=1793979331; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RFd8QlUF/2f8EIujxTa2mmugUe04z4PT62Q1oHJNdgA=;
-        b=RjGbbE3X8BPclL0e72nIXlgY9hYoB3XaopldJs3l7cp6GLmip8FPSNV6VGCzcTSu2T
-         bJfC0sWgzYmHCLlD5CShQg0a48xOaPVY65ALbgjvFv7y5y4OyjfMrFZLeFok70kdKqvJ
-         9Lh2Ix8F152sdvnrSY5XZRMZde2U7ksobftizu3b3zCbfyvl+VU8o1WBAfUao0aZS5i0
-         BONczumcBtnudzqXOBSk+HZr2Hg9qV0E9p2nhcBGrw6Hg3ql+L/ilNvi6sxNDA04JU7L
-         bkz3cQ1uWupdjMbFiJzT9luwq5GQXyjs3Sg1mnhLt8AezCWy67N1bhlRjGaeT79xFjVw
-         Q6KQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793374531; x=1793979331;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RFd8QlUF/2f8EIujxTa2mmugUe04z4PT62Q1oHJNdgA=;
-        b=249U51yjM24uxgp/PGPGBga66MkdRvqdGc3GLtyVMjcyJ7ejGaLuh/wKwl/PLIphGf
-         Y4ZEvTSmxH6ou+E96AvLimGMJbB5PdIXzPhqcotDZv5ey0nLmJattD44vDwPf1rK4m94
-         WKakUuEdMbeyK2uRN1QgQ76fYywVaBtyCt1rr9fRcC97qaVsDG1Ov2v5OyQEXtQXSAoi
-         WVO4OdadN8kwjgwLDGKTLNZquWIuFJk8YUZoj90JIN7FcwqD34EG5xkIFJe6dEr8FZhe
-         kd9ez5nm5cr6jAjxx7c/ROzyOfWM7nUkvas3DSlEHM1IXgV6mOmWIvP8f/NllF71qGHq
-         aq9A==
-X-Forwarded-Encrypted: i=1; AKwUvBzqFNZ7tv7qRN7U5mkych5f9erMXF869YY3ncEZMQ73vBY68RP2WR7VZOW8y38yU+ACFBwp9iP54YYDfFo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtAXlcXMV9XIO8VTb0zOoIQZun0j9qHznOGxG4j+tY2hpO1U/M
-	zfBhZWhVV2kgovLJek/7TJnPzzXV/kGtst9qYYGskPiRfs+ONjdJqEEg
-X-Gm-Gg: AYBFou0VTSkuTL8rXPhFmrk+KKtGx2NhcL1hzkDSXcysivjreg/Rzdligszq7Rcek4o
-	tUdGfk7yp14y4ElBAPjDpQTdIvZXcmjxojtm2osJnj0tdrUTn/EVt1pqeDYpUlE2P4euTZGtKhN
-	bo5G0U1LdAyj9b9ErsqbniQvbzNBYP3w0kcW4pdBuCJ0rSA3PNLKVkrntQSxNsrsRyjQU66GpUc
-	7I2i9qyTeAYBAT08ggSjGjSU+jDrUEfJnEidU0gVwmIP2lNHbC5fG1iKxO0FwOnGHr0bkcjWiSu
-	dFFiQUmDkslNq7TVUzrjri6lclMSizbot4W91cogPjqJvNzkefrV3+UkIRoFNX01fFDOd2mJYXB
-	STiKmz9gg9Pnix2mCHWZK4HsXTv7GCz7WEorsKaf3U+d/X9PRFyVWyviwtbntAC0B09Y88NObQY
-	YftGDloXe0FpP1kxB7Xiby0kPpwJcF984Ce1lIWUQTPrXdfII7AS7fSH8nNFeLwxeOtpPMmRmvN
-	CVv3QldJb7z3EfA9D2+PwWmc6nOeFdfF4/uf0f74/uj8EJJ1ec6LfjrSdf6JeThvYFcDCloazKP
-	K2TW6E2DAe/5CqwcxmYwGoqGhx9GuzbPRr3Yu7jErf0sykm36iocdnpG1OekXaAbbQ==
-X-Received: by 2002:a05:600c:8b85:b0:49f:e8bf:8f9b with SMTP id 5b1f17b1804b1-4ac14fbdcf7mr54356935e9.4.1793374531121;
-        Fri, 30 Oct 2026 08:35:31 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6c76507sm70755145e9.10.2026.10.30.08.35.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 08:35:29 -0700 (PDT)
-Date: Fri, 30 Oct 2026 15:35:28 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: Samuel Wu <wusamuel@google.com>, Jonathan Corbet <corbet@lwn.net>, Shuah
- Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner
- <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Andrii Nakryiko
- <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai
- <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, Daniel
- Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi
- <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu
- <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa
- <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Nathan
- Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- kernel-team@android.com, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to
- /proc/kallsyms
-Message-ID: <20261030153528.0d5113e7@pumpkin>
-In-Reply-To: <CAEf4BzbyqPC=RQGWEdpkqu1WDQ2_S0H8pZU2i=_gLuSDQtpFbg@mail.gmail.com>
-References: <20261023001603.560210-8-wusamuel@google.com>
-	<20261023001603.560210-9-wusamuel@google.com>
-	<CAEf4Bzb--Jzz696u057G9_CgQN7zf6ksvoL80KJacKO2CorsnQ@mail.gmail.com>
-	<CAG2Kctojb7xiOqTmwWqoAKFaNUECjOzXVc_t6KbG13Pqm2dbng@mail.gmail.com>
-	<CAEf4Bzbs8F1DPBz=WXVTExrrNjzvaFsi4L+HEj+zbUTpPSTX5g@mail.gmail.com>
-	<CAG2KctpSTCyWQHgJ8GyFEhHPdFawUa6zy0g7rkfCcujJRN6f6w@mail.gmail.com>
-	<CAEf4BzbyqPC=RQGWEdpkqu1WDQ2_S0H8pZU2i=_gLuSDQtpFbg@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWGUWEzr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 397B91F00A1F;
+	Fri, 30 Oct 2026 15:35:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793374541;
+	bh=eQsm+u4m3P1glnm8udwzWVnFP88fQqS4HZ3d8qMuYcc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UWGUWEzrLmn2s7M44g/JrjvyIPeoCOSANrEkjxxNWoAAYQEAE/iPaxnBZiNwFFmlq
+	 XHCT5Ze1mqc1WV+BosRvFWN0jVweMI7hhhvmGZwP1N9M72XfSTNb1MI7veCbpWTgr/
+	 VRfmJvKiil/fw3NBhatK/VF2668CctEDoSieYSvdGDIQtwlVvImgI4ug9P5h5gNTwZ
+	 Uf9A7EaZLK2+Y155WLLAzYa1ffAG8J0ukOB5FTV3XAqMpuiNwD3Xa9vMTN8mi4t9dX
+	 SH6nimXqhUzutRM8vABP5Vc4WhK1+0QKGwN6MVhLYqE1vqZit0rVNTJA2gJG6rtJek
+	 29dpVo2e/1CUA==
+Date: Fri, 30 Oct 2026 10:35:37 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v1 5/8] dt-bindings: pinctrl: Add
+ starfive,jhb100-emmc-pinctrl
+Message-ID: <179337453707.73219.2801930067903885958.robh@kernel.org>
+References: <20261017052534.115203-1-changhuang.liang@starfivetech.com>
+ <20261017052534.115203-6-changhuang.liang@starfivetech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,133 +63,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017052534.115203-6-changhuang.liang@starfivetech.com>
 
-On Thu, 29 Oct 2026 15:54:01 -0700
-Andrii Nakryiko <andrii.nakryiko@gmail.com> wrote:
 
-> On Thu, Oct 29, 2026 at 3:36=E2=80=AFPM Samuel Wu <wusamuel@google.com> w=
-rote:
-...
-> > > > Makes sense, but I'm thinking v3 doesn't need pagination or batchin=
-g.
-> > > > I didn't see any performance wins when profiling libbpf, and it can=
- be
-> > > > added later without breaking UAPI.
-> > > > =20
-> > > > > on input I'd also add module name as optional input argument, with
-> > > > > "vmlinux" limiting to just vmlinux, set module name to just that =
-name,
-> > > > > and NULL/zero meaning "we don't care" =20
-> > > >
-> > > > Makes sense, so here is a possible plan for QUERY_BY_NAME:
-> > > > - Optional module filter: NULL =3D any, "vmlinux", or a module name
-> > > > - Returns the first match by default (vmlinux first, then modules).=
- An
-> > > > ALL_MATCHES flag searches everything and reports the number of matc=
-hes =20
-> > >
-> > > searches everything as in all modules, or you mean just full linear s=
-can? =20
-> >
-> > I envision ALL_MATCHES to do some form of lower_bound() +
-> > upper_bound() on vmlinux since it's sorted, and then linear scan of
-> > all modules. Of course, just one of the two or both aforementioned
-> > things depending on the module filter (any, vmlinux, module). =20
->=20
-> no point in upper_bound() if it's sorted, you just start at
-> lower_bound and go linearly from there. I don't think it's realistic
-> to assume large number of duplicates, so I wouldn't optize for that,
-> one log(N) lower bound + linear scan will be faster in most cases,
-> probably
+On Fri, 16 Oct 2026 22:25:31 -0700, Changhuang Liang wrote:
+> Add pinctrl bindings for StarFive JHB100 SoC eMMC(emmc) pinctrl
+> controller.
+> 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>  .../pinctrl/starfive,jhb100-emmc-pinctrl.yaml | 129 ++++++++++++++++++
+>  1 file changed, 129 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-emmc-pinctrl.yaml
+> 
 
-Doing a system call for each symbol is probably fine and scales nicely.
-Just return the symbol number (in the by-address list or by-name list)
-so that the application can request the next one.
-While the application probably isn't interested in symbols with a
-lot of duplicates, some symbols get duplicated thousands of times.
-So you have to allow for them.
-
-(My kallsyms patches get scripts/kallsyms to mark when a symbol is a duplic=
-ate
-of the previous one, but after a short linear scan for the first it falls
-back on the binary search otherwise looking up some symbols takes a long ti=
-me.)
-
-...
-> > > > =20
-> > > > > tl;dr, this is the right direction, but I think we should polish =
-API a
-> > > > > bit more to be more universally useful and extensible =20
-> > > > > > +
-> > > > > > +#define KALLSYMS_QUERY_SIZE_VER0       40 /* sizeof first publ=
-ished struct */
-> > > > > > + =20
-> > >
-> > > [...]
-> > > =20
-> > > > >
-> > > > > PROCMAP_QUERY uses offsetofend() for the last defined field, any
-> > > > > reason to have this #define and BUILD_BUG_ON here? =20
-> > > >
-> > > > David pointed out that the size field in struct kallsyms_query is
-> > > > redundant. In v3, I can drop the size field and use _IOC_SIZE(cmd),
-> > > > keep the *_SIZE_VER0 define (since we need minimum size). Perfectly
-> > > > fine to switch to the PROCMAP_QUERY style though if preferred. =20
-> > >
-> > > I'm not sure how size is redundant, I don't see ioctl subsystem
-> > > accepting argument size as a separate parameter, so the size has to
-> > > come from the user and be embedded in user-provided structure, if we
-> > > want any sort of backward/forward compatibility. At least looking at
-> > > PROCMAP_QUERY I don't see how we could have avoided it, so not sure
-> > > how we can do that here. =20
-> >
-> > My understanding is that the size is encoded in the ioctl command
-> > itself: _IOWR() puts sizeof(struct) into the command number when
-> > userspace is compiled, so _IOC_SIZE(cmd) is the struct size of the
-> > header the caller was built against.
-
-Yep, I think that was added by the BSD kernels (but not SYSV) when they
-changed from 16bit to 32bit.
-Linux mostly uses it, but not always.
-If it were used consistently (or the high two direction bits are guaranteed
-unset) then the ioctl syscall wrapper can do the user copies.
-
-You'll find that _IOC_SIZE() is used in many places.
-Amongst other things it can select between 64bit and 32bit compat structure=
-s.
-
-> oh, interesting, I didn't realize we embed struct size into ioctl cmd
-> and match it exactly. I see that pm_scan_arg has the same __u64 size
-> in the struct approach, I'd stick to that, and when we extend any of
-> them we'd need to make sure to either ignore or hard-code the size
-> part, hm..
->=20
-> > That said, either way is fine. We could mirror PROCMAP_QUERY style for
-> > consistency.
-
-There is nothing to be consistent with.
-These are the first ioctls for /proc/kallsyms.
-
-I'd also point out the _IOC_SIZE() is limited to 14 bits.
-There is much less scope for applications causing grief with very out
-of range values - indeed you don't get past the switch statement.
-
-David
-
-> > =20
-> > > >
-> > > > Thanks Andrii for all the thoughtful feedback!
-> > > > =20
-> > > > > > +               return -EINVAL;
-> > > > > > +
-> > > > > > +       err =3D copy_struct_from_user(&karg, sizeof(karg), uarg=
-, usize);
-> > > > > > +       if (err)
-> > > > > > +               return err;
-> > > > > > + =20
-> > > > >
-> > > > > [...] =20
->=20
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
