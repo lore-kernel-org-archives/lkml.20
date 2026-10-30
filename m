@@ -1,81 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.205.69.214
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793371565;
-	b=WXXWDHr6uTtDmEyItvZIMaNW59h73j4d238MVn3KymcbZ4g9AdBzz+gILkTTOHA7NA7s
-	 ggkkjjkqI1+Yus6P8q4K2qHny1JWjCaRzcEuYYrQO0lUrV8WxNGfkDsNceI51lsS19mJD
-	 iYRhcRFBdFJlXlaHvy+a8hptc0WMkev/3/M0tbnCx5iWBpiflFw9b5ohsOtF3Yj9kkCgF
-	 ltmkANxUvrI9MGyOvVlkwBzJQc2UBYJb/aTtDGzJv1TPO/MbgYEUwA2uvPFjabCuyORCm
-	 2ZC94TnXtkxDjUU0NAC0A1jvTTRYFWAzfbsaSiYlWsIxEtJO6awhMjZpt69enQnMifw==
+	t=1793371570;
+	b=0QaEwy4i4ivlHq6XEa7SpgtqZ8ENY/JgqeV/hAE7EOcRuJy8Q8YYavYSPbrb40uycjNf
+	 Gg5NKiLdvlAJcTMeJ4+J0gv96MRzGr/wJXjeIrhADqpbKC51KzWPdtlKhOF00SYLYF43j
+	 DLf3dqeACfPneu0OYi1sxeGKKow1zjprk+ER2EE+/7PmL/8kITV0aIzIloESnleZdigHR
+	 gJgwWvXFThkL5HOvF+0MhBnabudkgG50+1vXKWMOiTyv9iPcGn3U3kSlJcYKH4RGEd4Ef
+	 1A00d6I8YrpIWRZB7B9Y2cHdGy3Ys9FA7q0H48cs7TtJxKCcWF9NvRLrZ1avJmyDUuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371565;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=bPq57VhC1eT6C3oWLh0wFB4RkgJpNICv5oxYVxwHXE8=;
-	b=LNkjJs9W1unGIkVMG46vL16qSz0T631pt7npUkyqLwO7PvL/cOzTx1c1tqvqL+uhxSZY
-	 gAgNBltdd4jlz8QCLjq8TmwnnEn0eZFipQ+K0pUpHY1LXPFKLnYRXZKDmNjjINM7Lhnn4
-	 5671VhcMtjOq+f0MVswOpFP7VthG0KqC7yv/WEI5iRtbQa5iNOIpA673QtxP2KK6u1sT0
-	 fzKTDBSfSrDRyUMwR7ht+1W49CHQH8zntIPtkI4CXqkvrSv3+llPH4mIfHMPtxoahBTSS
-	 8m5ZvHL5U3MRfeSekeXt+hM9sSensvYJwWF9eieiDLe3G0qFRqMPVfkZjBKfKzIjC6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793371570;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
+	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Feedback-ID;
+	bh=pMqOs9POd/nFez3NQApXq5U89yNIxrjJgtJv5CPX2Yo=;
+	b=JQt8b+3SNl5ncCidB6041kSAEseD8NHf+jP6k6OCn2ekwQpQn/edIG3gK+FSywoyMvcu
+	 3n7x82EqYMaQnOUIrBhW7Fj9xPhZFzeHDdaiV3HXbZZdIS6W6Qf0GEofxZXARPULUPBU5
+	 xh3FgLRUuZlu3jsjGgd7XKDRY5gLMN9ADms5ExY2t0bUiep+/7mvN0I6blsBP4qtBh2Er
+	 PRRmPqufP+DMsJt6Nuc6T/MNjTHxEQQs2kOiOug5xXEZ82hyF7h5UcvHMkavk0XW/6K5+
+	 CorRsbNiviB8qIRPH1U6r6p/J01+MWADT+2qccAh8qt/0Di4XmLCotqDTZ9xT8UA5Nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=hzsHnFZV;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dmarc=pass header.from=well-founded.dev;
+	spf=pass smtp.mailfrom=well-founded.dev;
+	arc=none smtp.remote-ip=185.205.69.214
+Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBD6606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5AE5606A320
 	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:46:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FBD6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=hzsHnFZV
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UEiCG93395951;
-	Fri, 30 Oct 2026 14:45:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=bPq57V
-	hC1eT6C3oWLh0wFB4RkgJpNICv5oxYVxwHXE8=; b=hzsHnFZVP4SaUCQ6ErScuV
-	Pgl65+fR28R5zMo/TYzPvKHwVEhe38xOPujopK6+63jrMimC/Y7U624hVDqL6gY9
-	Q3Pl4Xj6tpDtfXT0nPy5uZQG85WUIV9hnusbDWBskfuMByoW8Im9wJxl+g1I6UFw
-	2upe2arcranZWQ1t/C6UDJs4TJCg0LJAKrtmwguY5FI2QLhTtiEZe5zm5Mw4qMEv
-	4HfyW+6QeDUjccp32gPTC3VwQm/s9YlMX5mTarbg6BLxcBdm7agrqgCT/whGUYlG
-	j7mkWgLwMapnkT4Wip1/KRxaOPyK+VeeAO4Gkhr51SyzgsfQ24ozq7w2RjikkCVA
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hmeay38wa-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 14:45:29 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69UEZ6JN649977;
-	Fri, 30 Oct 2026 14:45:28 GMT
-Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hm69e50c8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 14:45:28 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
-	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69UEidma22479478
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 30 Oct 2026 14:44:39 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9468B58055;
-	Fri, 30 Oct 2026 14:45:27 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D52A55805F;
-	Fri, 30 Oct 2026 14:45:22 +0000 (GMT)
-Received: from [9.61.35.48] (unknown [9.61.35.48])
-	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 30 Oct 2026 14:45:22 +0000 (GMT)
-Message-ID: <4b3a601f-3035-4883-ad2d-c6a20d2891ef@linux.ibm.com>
-Date: Fri, 30 Oct 2026 20:15:20 +0530
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5AE5606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=well-founded.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=well-founded.dev
+Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
+	by mail.w14.tutanota.de (Postfix) with ESMTP id 9963119F60B65
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:46:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793371561;
+	s=s1; d=well-founded.dev;
+	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:References:Sender;
+	bh=pMqOs9POd/nFez3NQApXq5U89yNIxrjJgtJv5CPX2Yo=;
+	b=Ndlo3KxNHleP2mYx79KSiJ4AnOwnEtxe321wTcMteVa3qcJH7BlZzRic40e7Ulcd
+	MNOadZMyCbr4LNst3Z1iQv5VsOJ8aro++N2EL1ehWHQEj8iB/Q7pJYcLaYGQYUJ7nx0
+	JUmikAIWNnq7HwXjsdLhpdU128jYmlxmZWPxJ+8uovXtV3hb8ELQ/DAGxl3rb6lEHUt
+	q7VNBr5r5jaR520o0obyAm5dXvyBFao+BGUcWNf7RDolejFTD0PZGOh7Hve1KPnmhxp
+	F/QGyLqv44lOcGywEOLePIgCjdOE+z7X+wPRHCJ7PfFipWEKCSnxwzQM22DKtrTT3G5
+	0rr9rvZpRw==
+Date: Fri, 30 Oct 2026 15:46:01 +0100 (CET)
+From: Ramses <ramses@well-founded.dev>
+To: Netdev Bot+sashiko <netdev-bot+sashiko@kernel.org>
+Cc: Jv <jv@jvosburgh.net>, Andrew+netdev <andrew+netdev@lunn.ch>,
+	Davem <davem@davemloft.net>, Kuba <kuba@kernel.org>,
+	Pabeni <pabeni@redhat.com>, Jbohac <jbohac@suse.cz>,
+	Edumazet <edumazet@kernel.org>, Netdev <netdev@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Razor <razor@blackwall.org>, Hangbin Liu <hangbin.liu@linux.dev>
+Message-ID: <P5CGXCc--F-9@well-founded.dev>
+In-Reply-To: <179336101608.3134.1827486120303560891@kernel.org>
+References: <20261028-bonding-last-rx-v4-0-4d8e4cd47467@well-founded.dev> <20261028-bonding-last-rx-v4-1-4d8e4cd47467@well-founded.dev> <179336101608.3134.1827486120303560891@kernel.org>
+Subject: Re: [PATCH net v4 1/2] bonding: fix initial last_rx vs
+ ARP-monitor
+ slack window
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,139 +67,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] nvme-tcp: allow setting per-queue io_cpu through
- sysfs
-To: Saravanan D <saravanand@crusoe.ai>, linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org, hch@lst.de, sagi@grimberg.me, axboe@kernel.dk,
-        dwagner@suse.de, sgogte@purestorage.com, hare@kernel.org, hare@suse.de,
-        linux-kernel@vger.kernel.org, iyamahata@crusoe.ai, kiyer@crusoe.ai,
-        ganbalagane@crusoe.ai, sjpark@crusoe.ai, bchen@crusoe.ai
-References: <20261023230426.6425-1-saravanand@crusoe.ai>
- <20261023230426.6425-3-saravanand@crusoe.ai>
-Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <20261023230426.6425-3-saravanand@crusoe.ai>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1OCBTYWx0ZWRfX/vNfpLKaKA2z
- fZY4KzFs3mYC/b3X5ykXewF7OmU9j1nOlshi+N+pgmk1ESxDMit/fRZGdB5nSR4mwuysyAAQFVf
- HNrOA3pbSSUw7/s4U1SM9F27vVo4+If4xL75S1kfui5dzWzKZ8Xu+ZrfrUGagtkjW06PHOv5tSG
- GZXGOfd2jVB+P6ddfE8GJUtEcNNEmtwEQRTGs+lT5PnU3iReCoJcfBgp6abs0WGPFPV8LhIYIga
- MEJJq5h+ysC6qoh/veqzUWjtMUZrMDhCO/eLJRWrKtk9kcRKl4TUv0ajdmxrNcwQbs8qXgYRJW0
- L25agbnKERYoNuB79c4oe3/rbyzpoKTcJYZzA9ITV71vxvXvMhFA0nwOmD5lYxf/pdDWppGeZXW
- JIxcwCcr1ehKCqk309bObqrzuQb5vovCITOmDBlxe4agzOcY2jeg2JvgBoNlSrDJIcKgyPsnPWV
- oUc7eKYfUOViropZ8SA==
-X-Authority-Analysis: v=2.4 cv=WJHqzXsR c=1 sm=1 tr=0 ts=6ae4ad89 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=nN4Wz2icVkWj8QAAA9QA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: 6w46d9JECINyg7M4edK7_u7UzvH7HdHV
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1OCBTYWx0ZWRfX+TLJEcIjJMJE
- z0uL31qj91O6I3IWjG+Qu4ciANGn6EhXHfbP/XoKhIldrNUreAYeCGa5AOqWOSOmkWdi9hHk9xf
- NIFXRy1ZNh016rcS81dYti4n3c29r8g=
-X-Proofpoint-GUID: 6w46d9JECINyg7M4edK7_u7UzvH7HdHV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 spamscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
- bulkscore=0 impostorscore=0 malwarescore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300058
+Feedback-ID: 0163e381fa67fa966160938ffa017803050e57578bb1735d37cd25d20463a96a9bb3a550250bbc5eaa94bfdfd8cf3defcf1aa43859ae980630826bb8230f264e7f:TurnOnPrivacy!:tutamail
 
-On 10/24/26 4:34 AM, Saravanan D wrote:
-> nvme_tcp_set_queue_io_cpu() picks each queue's io_cpu at connect time
-> as the least loaded CPU in the queue's blk-mq map group, and all socket
-> work runs there for the connection's lifetime. This decision falls
-> short when the host partitions its CPUs after connect time. On a 384
-> cpu multi tenant host with 128 queue controllers, blk-mq folds three
-> CPUs into every map group, some groups straddle two tenants' cpusets,
-> and 9% of nvme_tcp_io_work executions ran outside the submitting VM's
-> cpuset, seen by the neighbor as steal time.
-> 
-> Expose the io_cpu in each I/O queue's directory
-> 
->    /sys/class/nvme/nvmeX/queues/<qid>/io_cpu
-> 
-> so a control plane that owns CPU placement can set it directly instead
-> of relying on the driver's heuristic. The attribute accepts a decimal
-> cpu number, -1 or "unbound". A user assignment, unbound included, is
-> marked in the queue flags, persists across reconnects and is never
-> reselected by the driver. The read-only managed attribute reports 1
-> while io_cpu is driver managed and 0 once the user assigned it. The
-> accounting of nvme_tcp_cpu_queues applies regardless of who set the
-> io_cpu.
-> 
-> A queue's directory is added once the connect time selection has set its
-> io_cpu, so readers never see a placement that is about to change, and
-> removed when the queue is freed, before it is torn down, so a sysfs
-> store never runs on a freed queue. The queues directory is created
-> before the I/O queues are set up in parallel. All io_cpu writes, from
-> sysfs and from the driver, serialize with the accounting under
-> nvme_tcp_cpu_queues_lock, while the I/O paths read io_cpu locklessly.
-> The queue stop now clears NVME_TCP_Q_IO_CPU_SET under that lock, since a
-> sysfs store may move io_cpu in between.
-> 
-> nvme_tcp_free_queue() now clears NVME_TCP_Q_IO_CPU_SET and drops its
-> count, because a queue can still be counted when it is freed. A sysfs
-> store may have run after the queue stop, or the connect may have
-> failed, and the setup error path frees such a queue without calling
-> nvme_tcp_stop_queue(), where the count is normally dropped.
-> 
-> Suggested-by: Sagi Grimberg <sagi@grimberg.me>
-> Link: https://lore.kernel.org/linux-nvme/13c160d0-0657-47ce-9a16-58d348267ab0@grimberg.me/
-> Assisted-by: Claude:claude-opus-5-5 [Claude Code]
-> Signed-off-by: Saravanan D <saravanand@crusoe.ai>
-> ---
->   Documentation/ABI/stable/sysfs-nvme |  31 +++++
->   drivers/nvme/host/tcp.c             | 172 ++++++++++++++++++++++++----
->   2 files changed, 183 insertions(+), 20 deletions(-)
-> 
+> [Severity: Low]
+> This isn't a bug, but is "until a real reply arrives" accurate? More than
+> ARP replies can move last_rx forward.
 
-[...]
+Right, with arp_validate=none any received frame updates last_rx. v5
+says "until it receives traffic".
 
-> @@ -2303,6 +2429,11 @@ static int nvme_tcp_configure_io_queues(struct nvme_ctrl *ctrl, bool new)
->   	if (ret)
->   		return ret;
->   
-> +	/* the parallel queue setup below adds the queue directories */
-> +	ret = nvme_queue_dir_create(ctrl);
-> +	if (ret)
-> +		return ret;
-> +
+> [Severity: Medium]
+> This seed uses the arp_interval in effect at enslave time. What happens if
+> ARP monitoring is turned on later, or the interval is raised?
 
-I see here nvme_queue_dir_create() is invoked on every reconnect. Although
-it is guarded by ctrl->queues_kobj, the directory is controller-lifetime
-state, so it would be cleaner to create it once from nvme_add_ctrl().
+That issue already existed before this series. The seed was already
+ computed from arp_interval at enslave time and is not refreshed when the
+ ARP monitor starts, from bond_open() or bond_option_arp_interval_set().
+ This patch does not make it worse. Reseeding the slaves when the monitor
+ starts touches different code paths, so I would rather do that in a separate
+follow-up than grow the current patch series.
 
-Moreover, this also makes the ownership asymmetric: nvme-tcp creates the
-queues directory, but nvme-core removes it from nvme_uninit_ctrl(). Could
-nvme-core manage both creation and destruction instead?
+pw-bot: cr
 
-One way to do that is to add queue_attr_groups to struct nvme_ctrl_ops.
-A transport that provides per-queue attributes can register its groups
-there; for example, NVMe/TCP would set:
-
-         .queue_attr_groups = nvme_tcp_queue_groups,
-
-Then, after cdev_device_add() succeeds, nvme_add_ctrl() can create the
-directory when queue_attr_groups is set:
-
-         if (ctrl->ops->queue_attr_groups) {
-                 ret = nvme_queue_dir_create(ctrl);
-                 if (ret)
-                         goto out_del_cdev;
-         }
-
-where out_del_cdev unwinds the successful cdev_device_add().
-
-This lets nvme-core own both creation and removal of the queues
-directory, and nvme_queue_dir_create() no longer needs to be exported.
-It also means nvme_add_queue_info() need not take attribute groups as
-an argument as it can use ctrl->ops->queue_attr_groups directly.
-
-Thanks,
---Nilay
