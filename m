@@ -1,77 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793349991;
-	b=3BiRNVW8XNU8yK3a9t0cdODS9pd9/ur9qrc12sVnlWU4oHKwrOspF4LO6R3D+FZRglW1
-	 sw286Tq+VNr5o9jj07vNNbe3eYR2dKifsQy9R3KsO2+9Nrvg1+b+5tYxcv4QTykjB7sAa
-	 9oLD4epH9EVuPYMG4rLjhTbQONaFek3ba6cPwDrZD6XdibczNfQ5NZX/RNplDLRi74UDA
-	 d89MU4x1YEHaT9IMqYULJQ+yQxEMwMhk3Ix/VjVyUMPuLZgRb3t+ktHhMHSEFGItARH+w
-	 hu9ZcJkcf+dV+ZPwE2PK2AnToTb4qdEMbPsHnbwQZ7eQmX2oirVlKfWW3L4sBv0PtmQ==
+	t=1793350029;
+	b=a1qGG9XmNRvLIpnGRu6a2Doo5XdLuK0+N4ubyydd8HgbRe7PF7dTZ129fcUpc6J5YAog
+	 9TToQ5cKxirMHgWR6v5WtWDl1mvRENGGypH8GxGFmFwsnzW1qr2lxsFsT8PquYUp5RKT8
+	 t/h5gCwmw3WTreyGsm63yc+du+/aOF3sAFJKaES+UvEa3UcKSjhsoMQI36e2n3NAB+Ili
+	 6mR7So0CycB8JB6uKOkeHJe5teNBP9xtIAxyBjgUmjH8VvNThVbhrOPasvqGB+Y0pF6kr
+	 6soRbTTX60xKNYGsvoFKwNcuH/9mcF/YuyqNJ+ohqmGh4zvEz9HbTOrdduwGLQaZ+0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793349991;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=4PuUhSHvezLBSZJFINC4++j3AbiYAFeVh5nQiEi2aiY=;
-	b=QXK6BH+FDqjBu2WiNhf+7cjqBuiYv3yVNGXVPijgYc+ifqL+MiMNT2FOwe1asrNhoJTI
-	 nSxoIa8Hohm2UYD4KXVzXB19Bby5/K3g4IEJcSKZ+PxgLtk2egsjHBfxkN6FGVtYDo8mk
-	 WWThNRENix67lFkuYKUDDzSIouoKQUKpKM0YUYuDW8uCb4K2el5FiF7610rlTD9nyAC6T
-	 oEtD+piBRuSeShip2/YBxJj5r7anVSI9KwWVKY2WTHnzZRgsPHOh0c8YDUv9E1j8OiVhq
-	 JgokTU0Vya2y4lZwNfwUbxM2RKKXclqEiKc9thqWF5CdBzx65uIkdt+ZicSEhJRo7VQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793350029;
+	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
+	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:Content-Language:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=Mbldlb3LRAVqxh2lpIHUL758U5buI0uOgdoxlR0kTew=;
+	b=Ub6nwDNY6yY5k5ozxIcI8fDvlmIiRhAI/fbLFxPeDH3Aw6xle0M3FtEvCVeK6vCF+NJp
+	 nvNPNnFhcirsa8+1DxYx+m8K6BqRy/FkDosz4z2dUfH9Cnqhi85bcx4xA3vLDrGl0EQ2i
+	 +rektWyf9P8q+1BJXfG0DkEdUgv7YoGT6c4CZK435drthIpO4hlM7n4/6xo8J/JYIkdnY
+	 /TBgFA39si28omyIi7eTDcolF/G2KSjgCvaQdKO0XVzUriJT7V2nvnTYkWWcUMfYW6Ve+
+	 DHXeycQjf17hILWnIaqSb16brXdkuh/S+auB0YRIjJ3XCp+BaCJqic4gSt+w9cNDzww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=L4S5w7Qi;
-	arc=none smtp.remote-ip=162.62.57.137
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAAE606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:46:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAAAE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=L4S5w7Qi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793349985; bh=4PuUhSHvezLBSZJFINC4++j3AbiYAFeVh5nQiEi2aiY=;
-	h=From:To:Cc:Subject:Date;
-	b=L4S5w7Qi2FmqMOD8kKmxAWgmKlf8cTCBypUncskB6R4EGOBtwsE6lvcE74LrkQJZC
-	 mmgaKkHc9Wz6TF5Y8CGYXVBlgXwDdEViYH8YguehTyZPioK1sPZwLzClSRHApzP8iL
-	 B7eK+pcLHleEiPZGA0dNfLIifL24qrI8wf7exxvI=
-Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:5510:213f:594e:6216])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id B969DEA3; Fri, 30 Oct 2026 16:46:22 +0800
-X-QQ-mid: xmsmtpt1793349982tvc9gdgie
-Message-ID: <tencent_E7828EAC883D49896E2EDD4FCCFE653E9909@qq.com>
-X-QQ-XMAILINFO: Nx5J06Esz7r7PMhUy8UoGmObr45+JzSl81wouu51VZczr6ixFLgDWGSHohfeK9
-	 XOxNdZsBgHpqdJXoYPrw08Jo5IjDOrcTBbKT/VTB+osBD+kFMQkIowzwd1xfOiSV/7OrnNG7xVha
-	 jI6S4hHBKZq0SnivF8SKd68OLYh4G4+037zXIhMvUtDofOaWfsQ6E8T8aCWMhA6+9y8AzXsgLGlC
-	 hl3Xd79jZ4mOXv2gjXdQ3fvVw/a3dEHKRQbBnI1/Vl9OLokoB3MiidkkfE/rLnPhc6u41rvW1Wff
-	 mEdC3krQC/ArtzcnWt5oG97Rxesq5f5piVfyU9VV1rY1e5mx4CiUt85EroYjmgXSKPF6CuTGfCNq
-	 62v/v+xrsMUiZsmffMjcdAHPC3D2Cu5wME/oP7SOXnX3/vEVZHzzGXjuI5gkzbQIW7pGw3WcsV2F
-	 CSqyrpI0ZZjnYzusuMInrorS4PpzVDgYhoPn3ZZWGwYzcjJ+DDpSEDJ5nVIIRrbUERDk7MRFZ5Nb
-	 o+BNz5JAlrVdy3ND3XdPik+VrrSCzTylxwjTvVKPyKxckx7EbMuMgwipYdS3eTEhnQFg38LFLjfX
-	 eJEfVRLNXF3EGJFOx+/7/3qKaYwr+vNIamsRqvIVk9HV7C0qU9qHTUGJsnAsbchnD5vlzlSLhNkx
-	 2tjpOEfPHBajr+Bxqn7TwM0iX3cHqnU+u5oZoIJKhWk7Lx3/12ZllUXDRe56LXLw9sjHCfh1VIKy
-	 3exeEzwQtuANFB6w2LdDV4lpNDWIQkIYxypC3ySXrUdNvOiWbAqK//6JuaVKTLvPVXOSov5f2ilD
-	 7JIoObL4ACUOCHP14P1OBSDnhWy+GBZRxfEvvkM5idKOU/kZ4oCkJCLpP4EeOaUBJW26Yr723e9V
-	 vABHlb87VLkoVgC7MdZ4/o3TgA4vd8AsgaBjOc25ciWd7XXw9CorzgUxtkNPWTyheqdEA2X4OHN8
-	 CyGAl4FnQRXUQ5cpvGRjdD1S29SzJMsJSljkx0uznkt+CsMPfJhTTjHdjMG3qfTT2zyGyUejBbPi
-	 VusrFDAgw1RDswkGYSvaBkjHX5t9nSSOSlhOGCYX/tjuH45/JWkrbDE1UZRBtJMCTxGbFFy/UmUL
-	 /fCYI4wExGT+xRx96s1n0pzYrM4A==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Yingjie Wang <1075151112@qq.com>
-To: linux-nvme@lists.infradead.org
-Cc: hch@lst.de,
-	sagi@grimberg.me,
-	kch@nvidia.com,
-	kbusch@kernel.org,
-	axboe@kernel.dk,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] nvmet: reject keep-alive timeouts that would overflow
-Date: Fri, 30 Oct 2026 16:46:22 +0800
-X-OQ-MSGID: <20261030084622.2485816-1-1075151112@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 11219606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:47:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11219606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.183])
+	by gateway (Coremail) with SMTP id _____8BxbdKIWeRqnccaAA--.13805S3;
+	Fri, 30 Oct 2026 16:47:04 +0800 (CST)
+Received: from [127.0.0.1] (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJBx6c2EWeRqxGgxAA--.13118S3;
+	Fri, 30 Oct 2026 16:47:02 +0800 (CST)
+Subject: Re: [PATCH] vga-switcheroo: Allow VGA_SWITCHEROO to be enabled on
+ LoongArch
+To: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ chenhuacai@loongson.cn
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ wuqianhai@loongson.cn
+References: <20261029013618.3558115-1-zhaotianrui@loongson.cn>
+ <5e547172-ac10-4a28-a584-9a385dbe2b80@suse.de>
+ <5141c98f-4595-c29e-14b0-8bd324bf8949@loongson.cn>
+ <2790b59c-9b8f-43f9-a4a8-53106906bf98@suse.de>
+From: zhaotianrui <zhaotianrui@loongson.cn>
+Message-ID: <186e26e9-da23-72e4-9464-18e9608ca8ea@loongson.cn>
+Date: Fri, 30 Oct 2026 16:39:30 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,109 +60,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+In-Reply-To: <2790b59c-9b8f-43f9-a4a8-53106906bf98@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-CM-TRANSID:qMiowJBx6c2EWeRqxGgxAA--.13118S3
+X-CM-SenderInfo: p2kd03xldq233l6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxWr47XF1xXw1rZF1fKr1ruFX_yoW5WF1xpr
+	yvgFyjkFZ7Jrn5Xw1293W7Wryjy3ZxGFWUWF15J3WDu390yFyfKr4jgryj9FyDCFs3Ar4U
+	JrW0qryxuFyDAFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUB2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	AVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
+	8JMxk0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
+	Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E
+	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU466zUUUUU
 
-nvmet_set_feat_kato() and nvmet_alloc_ctrl() convert the 32-bit
-millisecond KATO from the host to seconds with DIV_ROUND_UP(kato, 1000).
-The addition in DIV_ROUND_UP() is done in 32 bits, so any KATO above
-4294966296 ms wraps around and rounds to 0 seconds. A Set Features
-command with KATO 0xffffffff then succeeds but disables the keep-alive
-timer: Get Features returns 0 and Keep Alive fails with Keep Alive
-Timeout Invalid. A Connect command with such a KATO creates a controller
-without a keep-alive timer.
 
-The converted value has more consumers that can overflow. Get Features
-multiplies it by 1000, and the timer paths multiply it by HZ in 32 bits
-and arm a delay that must not exceed MAX_JIFFY_OFFSET.
+在 2026/10/30 下午4:17, Thomas Zimmermann 写道:
+> Hi
+>
+> Am 30.10.26 um 08:04 schrieb zhaotianrui:
+>>
+>> 在 2026/10/29 下午4:16, Thomas Zimmermann 写道:
+>>> Hi
+>>>
+>>> Am 29.10.26 um 02:36 schrieb Tianrui Zhao:
+>>>> LoongArch systems with hybrid graphics (integrated +
+>>>> discrete GPU) can benefit from the same GPU switching
+>>>> mechanism that x86 laptops use. Relax the dependency
+>>>> to allow VGA_SWITCHEROO to be built on LoongArch,
+>>>> consistent with the existing dependencies on ACPI,
+>>>> PCI, and FB=y.
+>>>>
+>>>> Change-Id: I84d38fdfe5e1591495fb3681474a7f1f64281fa8
+>>>
+>>> Internal change ids should be remove before submitting patches.
+>>>
+>> Thanks for your review, I will fix this.
+>>
+>>
+>> Best regards
+>>
+>> Tianrui Zhao
+>>
+>>>> Signed-off-by: Tianrui Zhao <zhaotianrui@loongson.cn>
+>>>> ---
+>>>>   drivers/gpu/vga/Kconfig | 2 +-
+>>>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/vga/Kconfig b/drivers/gpu/vga/Kconfig
+>>>> index bad4bcee313..89edd1211aa 100644
+>>>> --- a/drivers/gpu/vga/Kconfig
+>>>> +++ b/drivers/gpu/vga/Kconfig
+>>>> @@ -1,7 +1,7 @@
+>>>>   # SPDX-License-Identifier: GPL-2.0-only
+>>>>   config VGA_SWITCHEROO
+>>>>       bool "Laptop Hybrid Graphics - GPU switching support"
+>>>> -    depends on X86
+>>>> +    depends on X86 || LOONGARCH
+>>>
+>>> I'm a bit skeptical if that's all there is to do.  Does loongarch 
+>>> really work with the existing handlers in the graphics drivers 
+>>> as-is?  See [1] for the interface that implements the actual switching.
+>>>
+>>> [1] 
+>>> https://elixir.bootlin.com/linux/v7.3/source/include/linux/vga_switcheroo.h#L93
+>>>
+>>> Best regards
+>>> Thomas
+>>>
+>> Thanks,  I will carefully check whether all these 
+>> vga_switcheroo_handler callbacks are supported on the LoongArch 
+>> platform.
+>
+> Switcheroo used to be required for x86 notebooks from ~2010. Those 
+> systems had two graphics cards, but only one set of output connectors. 
+> That design is become rare, I think.
+>
+> So I'm a bit surprised to see it come back. Which loongarch systems 
+> are there?
+>
+> Best regards
+> Thomas
+>
+>
+Hi Thomas,
 
-Reject a KATO whose rounded value does not fit all of these. Return Keep
-Alive Timeout Invalid from both Set Features and Connect. Validate Set
-Features before stopping the current timer so a failed update leaves its
-timeout unchanged. Round in 64 bits. A KATO of 0 keeps its current
-meaning.
+Thanks for your reply.
 
-Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
----
- drivers/nvme/target/admin-cmd.c | 7 ++++++-
- drivers/nvme/target/core.c      | 8 +++++++-
- drivers/nvme/target/nvmet.h     | 8 ++++++++
- 3 files changed, 21 insertions(+), 2 deletions(-)
+On the Loongson platform, we don't have the "two GPUs but only one set 
+of display outputs" scenario you described. However, we do have systems 
+where an integrated GPU and a discrete GPU coexist.
+We would like to use the vga_switcheroo interface to switch between the 
+discrete GPU (DIS) and the integrated GPU (IGD), and to configure the 
+default VGA device.
+Would this approach be feasible? Do you have any suggestions or 
+recommendations?
 
-diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
-index 26028be8fe4d8..a06cff8304db0 100644
---- a/drivers/nvme/target/admin-cmd.c
-+++ b/drivers/nvme/target/admin-cmd.c
-@@ -1227,8 +1227,13 @@ u16 nvmet_set_feat_kato(struct nvmet_req *req)
- {
- 	u32 val32 = le32_to_cpu(req->cmd->common.cdw11);
- 
-+	if (val32 > NVMET_MAX_KATO * MSEC_PER_SEC) {
-+		req->error_loc = offsetof(struct nvme_common_command, cdw11);
-+		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
-+	}
-+
- 	nvmet_stop_keep_alive_timer(req->sq->ctrl);
--	req->sq->ctrl->kato = DIV_ROUND_UP(val32, 1000);
-+	req->sq->ctrl->kato = DIV_ROUND_UP_ULL(val32, MSEC_PER_SEC);
- 	nvmet_start_keep_alive_timer(req->sq->ctrl);
- 
- 	nvmet_set_result(req, req->sq->ctrl->kato);
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index 956f9a552e70f..9b30a9b7a0b71 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -1612,6 +1612,12 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
- 	u8 dhchap_status;
- 	int ret;
- 
-+	if (kato > NVMET_MAX_KATO * MSEC_PER_SEC) {
-+		args->status = NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
-+		args->error_loc = offsetof(struct nvmf_connect_command, kato);
-+		return NULL;
-+	}
-+
- 	args->status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
- 	subsys = nvmet_find_get_subsys(args->port, args->subsysnqn);
- 	if (!subsys) {
-@@ -1684,7 +1690,7 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
- 		kato = NVMET_DISC_KATO_MS;
- 
- 	/* keep-alive timeout in seconds */
--	ctrl->kato = DIV_ROUND_UP(kato, 1000);
-+	ctrl->kato = DIV_ROUND_UP_ULL(kato, MSEC_PER_SEC);
- 
- 	ctrl->err_counter = 0;
- 	spin_lock_init(&ctrl->error_lock);
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index bd13adc72f671..9ac599d90b413 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -7,6 +7,7 @@
- #define _NVMET_H
- 
- #include <linux/dma-mapping.h>
-+#include <linux/jiffies.h>
- #include <linux/types.h>
- #include <linux/device.h>
- #include <linux/kref.h>
-@@ -712,6 +713,13 @@ void nvmet_add_async_event(struct nvmet_ctrl *ctrl, u8 event_type,
- #define NVMET_KAS		10
- #define NVMET_DISC_KATO_MS		120000
- 
-+/*
-+ * Largest keep-alive timeout in seconds that can be reported back in
-+ * milliseconds and converted to jiffies without overflowing.
-+ */
-+#define NVMET_MAX_KATO	\
-+	min3(U32_MAX / MSEC_PER_SEC, U32_MAX / HZ, MAX_JIFFY_OFFSET / HZ)
-+
- int __init nvmet_init_configfs(void);
- void __exit nvmet_exit_configfs(void);
- 
-
-base-commit: 89480d137bf0d943a82c64f86ae2407a15276b5e
--- 
-2.43.0
+Best regards
+Tianrui Zhao
+>>
+>>
+>> Best regards
+>>
+>> Tianrui Zhao
+>>
+>>>>       depends on ACPI
+>>>>       depends on PCI
+>>>>       depends on FB=y
+>>>
+>>
+>
 
