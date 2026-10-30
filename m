@@ -1,45 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793377268;
-	b=v5VWczGuTB9J73ayeBqXsHjvoCdDTFWNli1RYeQKufDeWWBJBQA1LVjuqGrbdmf+fl3G
-	 Bs9jNjQxEXdZ0o1WKTilRVVSnQ0WRPSLKEhpcV0qz8ChRWJ4v66jA3qfRB2kRGB628ZYA
-	 4/8K5CTWRTCBwllhCUFKdRAr7dp7+bfawWzO4dO4zTbzk5CP7JCnogZjpOFQuBVaNgWFM
-	 Tj9WWEIAlRS95ffMqcXmhjcwMbqbB36O6NLoNwjKscYD3ZhUOcM7W3WRLDuJOXLvko1m6
-	 5ye3p/XRmpxM8nzaeEOQ9ZYkVF3XqLL59mb/B+l+B6RdgHTVY98aCPl230HT2zxdHGg==
+	t=1793377281;
+	b=XKqPnQBIJvtaWQjJocaSWbiAd5Agobim15e6rGXgRzyieT+8k0LuW6gq0JsCmC6qGwbA
+	 Xew3S8TXi5p8UhdGlSKY2NqHL/auPVS11nKr86pmaxkI0Kbe8yIHkMeLFCCFK8eWabENE
+	 y3Bmki439s6r2SvBq9pJD+mlDS4hDdUL+VWBEh1LiLytYdpvKwYi7NDKx3U0MpdmJjR/j
+	 nNuBZr9lOfne6W/D0CMuygvr3B7ReNr1coBY+U0Nil6vJKdOYW7nlRoWFA1eLi0sRPzWk
+	 E32LMJlmdojw/pBqhIJDfiv0j+AQVtsjoeaq0iSngvpjfzBUKb/uE3BpuFZ/lB35AJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793377268;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=5D5IUwAV6ubSLQuzMHw5PO6IT8G4ZDGeE8MNEDcQwOQ=;
-	b=ikNuXPmtneryw4i8P+Xobyjc9vDuEUesdRaqXM8No0lyT1QJxG0ftI+lduktzDj5gzVL
-	 hvzCU8vUREOUBuwRLyMgprJNcJ61ZwwXcLB+xEJ3BqyqRdBV/Ys8TaR1GioqzDTpnzF/k
-	 fBFWqFcwOHsiW3zoCPdtfEOURAfogzScovIeTzWrTcThwhYmNqDUm9xhTOWZWR8E/mKAp
-	 L2eaW3iES3IyJ8zJq8dmVIdJl3h5HLTD3Ketqsry9Upb25REY00yeHZqaCOHPEk9FuTzO
-	 m1hihVjjnJ6qtPCUtcyWWzcBTBy+UOELHoiyCxw5MlXMgidq/kbW46VXYHhvm7EtqsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793377281;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=P3sMZdQ8vNG+NMmxWGi58o4c8YdyyCQhTB94DmlU1wU=;
+	b=FGn668LcvoGd8Vz7PrLe7J3TOBQKdQyU9GNvevt+lewzG20TL/zcBTC4MqGe3ATxQQvR
+	 PbU/yGfb0DibDEm/3vriig5CeNfmKAKA2dSAt9f44qxThGZXDTUjkb+ZnLNzWexcXlTVk
+	 YjsdQVKW2i9fPrVApTA4VQHEm6MdOnw0wyDsEY+EJCPazQPuyV+rn8T6p9npg8zUze2J/
+	 hRovqAXf4mkZjLNsWM1tCnOtxItq2CSdUwo47q+SF20eftt5lC50MU9V16qr4ZJtqZE+H
+	 fhN6xxYAn7BApkdyis8xMfBguncE1/GDJzlgYOMNfbMLuhFLpVYgWT6HzuXB/Y2enqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IO/QI05g";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MJnQIGuQ;
+	arc=none smtp.remote-ip=209.85.160.47
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32471606A330;
-	Fri, 30 Oct 2026 16:21:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88268606A32C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:21:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88268606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IO/QI05g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B00F61F00A02;
-	Fri, 30 Oct 2026 16:21:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793377267;
-	bh=5D5IUwAV6ubSLQuzMHw5PO6IT8G4ZDGeE8MNEDcQwOQ=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=IO/QI05gI9iFWuwVDBRu0OVtmf7CFVseccpSfHbAPmFzQKq4zbRSiOKVfUvZoAfFg
-	 LbODU/upmcyhs5dYtdMbfJbXSDz7XMEGhIvcUEgN+g8PyOLvHbirw1N1PeAliwVVdy
-	 1PlP5TgZv6LAHxvd6vCI+LiP/wcP1hTQUGhih/mW52L9FWB3/bpR6jIPxj6ZA3fhE3
-	 7GSg4WUNuSz2UtCtIT3vF61yCG6jOkVr0M+WrXMdj1xfYzpDqx3NN+ZZcnYYRvTF5S
-	 /Jwf4sEVtMqi+YMqhqZlZ7aK05XFNXK8eYFDFyyajq3IXgo+Q36ApHGsNe6KH17xmm
-	 kWOXEwRnYjr/w==
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MJnQIGuQ
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-4a76f63b243so1798071fac.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:21:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793377280; x=1793982080; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P3sMZdQ8vNG+NMmxWGi58o4c8YdyyCQhTB94DmlU1wU=;
+        b=MJnQIGuQlLPZonf3ey0zhT869dexzoA4QU8naKaMl6T5gjA/WRI4KoPDBmVJE8qay6
+         rLukk756sikUoEXt6Td73pH7mFMlPcFbZ08eb2fw4/JMkkv5tbXnQET97K+UlMRfy70f
+         NJe33P7WRI+2jxJ2bRFVF8rv5CN6+1dMjdOBSIxIV3cAWocLSu66s4oRADFP7iXW9CUm
+         0yfiVz2M1qvP6FNqHZZWzpN9X6Q78oLyJo4xYE6hJalw8uB4tJdbIWVl3Z4as/0EYcWm
+         2E0iHweU9P6XNDkDyal2mfTHeEQ7+ERAZLil5nv6i4HqhONM8qlgjF8v73jsNsj+2CxQ
+         37ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793377280; x=1793982080;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P3sMZdQ8vNG+NMmxWGi58o4c8YdyyCQhTB94DmlU1wU=;
+        b=weCJWIPL3BFlW6vjyUhEZUVfDwCwlaWhfaJjVntYFkNaqz1+kkRQv6NjRVRhIuFPkv
+         62uBMMkSqVJp0dC+SHzEuZPisMXvfEpJsgD9D+AyZWps5eNdhmT7bp6a3j3BEwsMczGb
+         LEWtIItpvkkbmG24lBlUh4xkScTS9N1N7XJjYFlWCFVYvyfK2aB+e7mUi+YkRJAn7IqD
+         FhQ0m9IUk6pZoe16zVNCglQ3s3O2nPcy/ou4F1iJEuFzVjhIi8B3Okxsb1phrdy4HPoX
+         TSu2GddFAALHUuxxniriRHviIoGJdwSYzAZgZYURsZWr1F490gTcfU5x+leVmkXbdgXr
+         hr+w==
+X-Forwarded-Encrypted: i=1; AKwUvBzjdu7/da5tbmaiu+P4Hq8RRUeZI8Ngl4x/O0seMFsSnWUulnEuu9cmTuHQm6oLxxEO+zSyc9xY/qhD5wY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnoNj+Z8pG/lMCFuKitxefv5rAuGwWyQgygPqRC/Abhu+q4N0G
+	/A1MBZwUHGpYY1v7DJ71zNacuvQNnJZj8n87Q85GNvildp61XSRt+YhM
+X-Gm-Gg: AYBFou3plH18dCFr3AHBAhraaeba7YlpNk6bhuyPL9kwZ8z1U3Or2RkCuvB3AramJcw
+	21KAp14XyjRbZViTwEhkkA9tRFwPfEGfP7sbn6NN8/faGXHlJdfNvjGZqg3OJrgpqiI88unErIb
+	Dbi4zarcSZdtqcpvF92ziqLzm+30eRSlKgWeTEKo7enHRmrR0yYi2rf4zb5Rvj1z+SOGvAktOKj
+	9BkAwjdgleFGlHiG3hIAJxvpCe9RVeceKCLSHIwGZ2R3OROh/TWMubFHI739Y6qBr7AYE67W8th
+	yKY2FyUdUtk7Nhsua8VL6491ljwrpzeZMmBdLV0wolIbSuI6cHaY3ITVAwRwMshk+brPC/zQ04a
+	IrNwm7c/N/h2/2ZttSMhRnRrOnLghv6CXe0wAK2G2tKeS6N9Q+A7IlhVy5U4oGleE7pZb/NLmN9
+	zOOlfosgZY/F5alJtes1zceoWzm2FoBBiZ7532TAZRkFU8MG7igzG40QVfs6Fqq7Obr8b8ARydy
+	ndVCznhcssKsc0P2oYtXosInq73SDIju8EBWkrX7RdZ0LmeAzwuWAToehbd2I9m1RCNHmNMU0cu
+	wd9C/JePz+o6PVhu6LDcazGk9nCadSo7SYyEOEKOMG7BFtLipIrSXQ/vPBIIMKN8DtHwqNCq9Wz
+	ouFPHxL1zq00NQHLOc7vRYK5wcFwdX0Ina0PRmpdkmYSuMqPCU+kChUBxhIw/SImqalVhrkcfsn
+	YhOfMg1fCqb+92fwFBo5+fbKsD//k/VULu88x/
+X-Received: by 2002:a05:6870:c191:b0:4a6:d831:cbb1 with SMTP id 586e51a60fabf-4a90767d2f9mr1286539fac.10.1793377280468;
+        Fri, 30 Oct 2026 09:21:20 -0700 (PDT)
+Received: from brev-9gdpyq8lp.ap-south-1.compute.internal (ec2-3-110-210-194.ap-south-1.compute.amazonaws.com. [3.110.210.194])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a92167b03csm322536fac.2.2026.10.30.09.21.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 09:21:19 -0700 (PDT)
+From: Samarth Narang <samarth.colleges@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Han Xu <han.xu@nxp.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Richard Weinberger <richard@nod.at>,
+	linux-mtd@lists.infradead.org,
+	imx@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Samarth Narang <samarth.colleges@gmail.com>
+Subject: [PATCH v2 5/6] mtd: rawnand: marvell: stop DMA before unmapping on timeout
+Date: Fri, 30 Oct 2026 16:20:40 +0000
+Message-Id: <20261030162041.2998170-6-samarth.colleges@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261030162041.2998170-1-samarth.colleges@gmail.com>
+References: <20261030162041.2998170-1-samarth.colleges@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,56 +110,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 2/3] regulator: Support regulators where the voltage
- selector spans two registers
-From: Mark Brown <broonie@kernel.org>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Herve Codina <herve.codina@bootlin.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-In-Reply-To: <20261030-paul-lm51772-v3-2-0de62c22f342@bootlin.com>
-References: <20261030-paul-lm51772-v3-0-0de62c22f342@bootlin.com>
- <20261030-paul-lm51772-v3-2-0de62c22f342@bootlin.com>
-Date: Fri, 30 Oct 2026 16:21:02 +0000
-Message-Id: <179337726254.87968.6479604498687216257.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=666; i=broonie@kernel.org;
- h=from:subject:message-id; bh=LUAm5yfoXESF58hzishHQE9DKGWsa+8vYs6Ts99+ykU=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLKeHH7/Mmuh+Y1A1W0vW1aHLzW6bcj6/5d+i1OH9+pC+
- 9mWPGsvd5SyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiEncYGa4fTb9xYaNdimH7
- Re3AroYPTv+yJVPfCXxbt0P/2Uufx7cY/jscvrJs0ucVX9XnawSmHdpXd2XB0lXzfuQcvcDxVvF
- q8UFeAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-> Some devices uses 8-bit registers to store the voltage selector across
-> two registers: one for the least significant bits and one for the most
-> significant bits.
+When marvell_nfc_wait_cmdd() times out in marvell_nfc_xfer_data_dma(),
+the driver unmaps the DMA buffer before calling
+dmaengine_terminate_all(), which does not guarantee that the transfer
+has stopped. As a result, the DMA engine may continue accessing the
+buffer after its mapping has been released.
 
-> +static int get_voltage_sel_reg(struct regulator_dev *rdev, unsigned int *sel)
-> +{
-> +	unsigned int val;
-> +	__le16 buf;
-> +	int ret;
-> +
-> +	if (rdev->desc->vsel_reg_oversize) {
-> +		if (regmap_get_val_bytes(rdev->regmap) != 1)
-> +			return -EINVAL;
+Use dmaengine_terminate_sync() before unmapping the buffer on the
+timeout path, while preserving the existing status logging before
+termination so that it reflects the timed-out transfer.
 
-Can't we validate this while registering the regulator rather than on
-every read?
+Fixes: 02f26ecf8c77 ("mtd: nand: add reworked Marvell NAND controller driver")
+Assisted-by: LLM
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+---
+This issue was identified by a research static analyzer for DMA
+lifecycle ordering and has not been validated on hardware.
 
->  EXPORT_SYMBOL_GPL(regulator_get_voltage_sel_regmap);
->  
-> +
->  /**
+ drivers/mtd/nand/raw/marvell_nand.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-Random whitespace change.
-
+diff --git a/drivers/mtd/nand/raw/marvell_nand.c b/drivers/mtd/nand/raw/marvell_nand.c
+index 38b7eb5b9..a342a48e2 100644
+--- a/drivers/mtd/nand/raw/marvell_nand.c
++++ b/drivers/mtd/nand/raw/marvell_nand.c
+@@ -900,14 +900,15 @@ static int marvell_nfc_xfer_data_dma(struct marvell_nfc *nfc,
+ 
+ 	dma_async_issue_pending(nfc->dma_chan);
+ 	ret = marvell_nfc_wait_cmdd(nfc->selected_chip);
+-	dma_unmap_sg(nfc->dma_chan->device->dev, &sg, 1, direction);
+-	marvell_nfc_disable_dma(nfc);
+ 	if (ret) {
+ 		dev_err(nfc->dev, "Timeout waiting for DMA (status: %d)\n",
+ 			dmaengine_tx_status(nfc->dma_chan, cookie, NULL));
+-		dmaengine_terminate_all(nfc->dma_chan);
+-		return -ETIMEDOUT;
++		dmaengine_terminate_sync(nfc->dma_chan);
+ 	}
++	dma_unmap_sg(nfc->dma_chan->device->dev, &sg, 1, direction);
++	marvell_nfc_disable_dma(nfc);
++	if (ret)
++		return -ETIMEDOUT;
+ 
+ 	return 0;
+ }
 -- 
-Mark Brown <broonie@kernel.org>
+2.34.1
+
