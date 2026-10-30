@@ -1,80 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793341286;
-	b=zu9U03QssxtSEwla9NHtsyzZI14GHcomziVVN1lu0m6Lr6oNUKKnG1KvRS1GqMKXcyNS
-	 1jSbEqR+klhZ87w11bQ0g67SuR3KNqNW1j2MHL6JuQpJH6PlUCB7gas1Xj683e4nyNBuc
-	 W9GQq6N10nRiEty7Qg9L0zf1CsRVd2VH7AxEkVYTPDN4tzF/GkGAEoeW/avxOFg4CnkgK
-	 q+VGbd8cmPHI3zYDMYK7E6e7px12/C96AQd2zNnm0Ocv2zUjYGqHws2iligOB+W3o1r6s
-	 /HL4A862S93+Vv1UxlmoJvDulfNZSeYS/gm0tB3t2XiLw6S+HUWZLzuztJeJhAUIo5g==
+	t=1793341285;
+	b=1AFXjEQjrJRVwN3GyZRVBnQtGJrPZt1V/qjXHIiuo+G1nJnkHF9CO9OFydQqZgvrhCjN
+	 zpV01Wy+9yU3HMh9YPAzHvYF9vuf+gwfU0N15fisdpmi54ltml5RL/jWxEvZc9Qr881nu
+	 UvAR1RSQnmg+qlcwU3LjmQtWCJxU67ZegRDLxPhvwAIR9I0oMvkizeHGf9s4SKfWHP0fV
+	 ZMdOmMozUaG+n2eQPyee0/Bfj7OXLliykoKpmxYtJ4hUBxySDkKGNbMFcqSU+/+2Ld1CW
+	 nWQ/rAKu2lniIgOwz8Md9DvudLzOIP467OMN4ZjX0zyXarFo8Y16Zv838Wsmgp1u16g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793341286;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 User-Agent:MIME-Version:Content-Type;
-	bh=GiXNO1xoFrtVmJgmRNqxC8OP6M0JGgWXZ3yX3zeP6fc=;
-	b=lGsUMhOd0tCtXauVGR2Baea3MkzdCEAP2InwjeL1yFa1krfyup1aF7tbu+ThVhzR7THZ
-	 Yswa/vMz0p6/8J7VJH2w/YZiictpBVh5WywXhoUGByiexJk9dHzH8Rm9vM3+p63Yv9Khn
-	 HERXL6hkGh1Pd9lBEUbBhaDSNTSLPMq+B5egwqXa/ev4GIF0saVMBs6IS8GX65slJFFhq
-	 m/sn9hYsQOMYl+K3ij7+AE/XtP3GmIkAR59kB0uDphUEkPCS4InkaxsKzxtcsN/ZEEDB3
-	 sMR8EcmtTBnbYgW2cBNXT7+5hcxJaIWUARSDEVkB3SmFoxdm8cSrBZS/yrSbSr6MBGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793341285;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=FsXK1O0HJYviQ0L+PescLIZvVO2QJTar+nEOAo7BaRs=;
+	b=Y4MLDebQpTXV5cFj8pwFduEhlED750W/lO0bdd4NqxNA3bW3999BtC/Lu9tlh9C5dNDd
+	 F61/QKSrTg/0ERfoKIHwUs9AQgMBXLjAGorTF4Ulv0KjstflWdFdmSa268JLDwrbHGNeI
+	 eB8nzzjWhdCURAhavsCB7LeOgwIpdpQglbjdqvzYRVlz/AbQ0JG/Q/9+RCUzzj+c4KMxN
+	 uSYdGWj35aSFIghz6bvMjrW1A/aEKNnlD7LNOZNWe42mZull1Li5y5da3N+OtUxaMX9ke
+	 YIo3pO+WnftR2G15/zSuPwKF0ur8Rj8FfCUk2O4mk8MaH7QagwvoQiNOS81fqMllE0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.parknet.co.jp;
-	spf=pass smtp.mailfrom=parknet.co.jp;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b="f/rROE65";
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=g4Qc11vf;
-	arc=none smtp.remote-ip=210.171.160.6
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a0ggboqO;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dgxJmwWO;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A6E606A32C;
-	Fri, 30 Oct 2026 06:21:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62A6E606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D542606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:21:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D542606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=f/rROE65;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=g4Qc11vf
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id E1B9C26F7664;
-	Fri, 30 Oct 2026 15:21:23 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1793341283;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GiXNO1xoFrtVmJgmRNqxC8OP6M0JGgWXZ3yX3zeP6fc=;
-	b=f/rROE65RKXRnGHsEAXSHI3/wXWtNro+5uzAgdLlywgD+BcnGWCZNMyDxF7rAOoQ1A1V4Q
-	jdK++9cOtMBuw//gD9Fb75d+2dm8BUnCBwn97Ua1oMlqNm31aN93sF/n1tAWRLyPU0Z8WE
-	Ogb6X8W7NyAqiZZwzWYOOsOnGpLJ37Yr0OnzrNgl3d+QTZlAssSpMxGyHH1eYd16CotJlu
-	gS3qBnUwxzKW/WuxiZcggSZHHoUuza6ot9sl8b15gg4nEuYB5iSXh/F9tdmtxD+quljLvR
-	tV/7hh27qNqw818BFIl8qZA6QRwCFaFWPZnXc7h6ymkVDW+ed3h76paeT44ZYw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1793341283;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GiXNO1xoFrtVmJgmRNqxC8OP6M0JGgWXZ3yX3zeP6fc=;
-	b=g4Qc11vfghoikZdM7Up/8OuE1dotH0vg38eC9Hy5E2tGhOF1DA3xdhF6Y7kRN42XFA2MfJ
-	TmIxWY4sEZ8v/PAg==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 720CFE00144;
-	Fri, 30 Oct 2026 15:21:23 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id 5DB9A22001FE; Fri, 30 Oct 2026 15:21:23 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Bryanna Marihugh <bryannamarihugh@manhattantech.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>,  Jan Kara <jack@suse.cz>,
-  linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC] fat: use write_inode_now() on flush to avoid racing
- the flusher
-In-Reply-To: <87ik2jsp9n.fsf@mail.parknet.co.jp>
-References: <20261029-fat-flush-isync-v1-1-69c02c258d0c@manhattantech.edu>
-	<878q3gth64.fsf@mail.parknet.co.jp>
-	<457c34c8-b52f-41c6-8b58-ed334b0dc483@manhattantech.edu>
-	<87ik2jsp9n.fsf@mail.parknet.co.jp>
-Date: Fri, 30 Oct 2026 15:21:23 +0900
-Message-ID: <87a4nvso7w.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a0ggboqO;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dgxJmwWO
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U5F9AO3312595
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:21:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	FsXK1O0HJYviQ0L+PescLIZvVO2QJTar+nEOAo7BaRs=; b=a0ggboqOmG+psuGi
+	VA57s0V6rnM/0Wsg2IUq5MCaJACkI48OXk0ygJKRwd+GgdQw5ydPhoyjF4z2DiwM
+	N2mAVmR3mR34b2ndN/v9ygZVA6Yn9QPhPmhqcBUbLs6+xVUjBiLsAGQGYmKPPKRM
+	onmdkePp5nIBqoZe5ejToW+K4i98kw2ELw25iWbrFnq82Rl/xBaKvInShdL1RIFR
+	9HLB5JJdh3ZYEeS+aNIjFOk5FHKGgz6xAm1H3U/pQz9Z0oPDDj0mMaDHB/LlHHA9
+	Q1sBWVcUR94jkvFb8R/xyRlYRnFK9uRCQQ/6/YtngR72eVKk3HGqEwu/XZWgbUpZ
+	+p5QuQ==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6rhjtg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:21:23 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-89e96c03cd0so346990b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:21:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793341283; x=1793946083; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FsXK1O0HJYviQ0L+PescLIZvVO2QJTar+nEOAo7BaRs=;
+        b=dgxJmwWO84TTnIFYlPI5Teov6PndJIVzCjwy7Uj7X0Ik0Cjd3MQxnuARg4/ohpvWVg
+         qkA1MyJDm0Kfa7abYSfKW8sgMHDpOzefJRq5mWsA7mkKbpEit1GedhmnM1AkfQy76BKZ
+         Ic4v8nybYpEHYvZyDodWeZsk0z+xRLSTYsWDHLaUHle1C/VoP4F1/mBe3SzJX78nX+yj
+         jdjR7soD5RLfFEXTOTxxhwEoEPfx7tjcsRnApCWlAPQa+tGV4+mefnahGn/+ep89KPVS
+         17l5bdehyAnT8hmQXQR5yflNLrkka28W+rSx+I29FuVSmrFABdCYugdwJSD81OffQqxK
+         NkQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793341283; x=1793946083;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FsXK1O0HJYviQ0L+PescLIZvVO2QJTar+nEOAo7BaRs=;
+        b=LGSyjnXZge3BAPnbacWAYBTzorbsu954o/kd6FEdRBOke4kEJtHk4o8WfyooSTdhDz
+         57aHZHzpSZE9O0vc1jaXvgZg7muYTuNIC09+EK0FolFrI0UPJMZU6+X3yaBv2uDXyjcg
+         Xy9cy6kI5G/2KiTwE7g7YbKZak97xmpa2/rzWEe0I3/vZVQsBTIM5TxuheZG9J4G36RU
+         ctCO5UPWCdM3/+9i4Pu9Dk3m45tvAm1W1ShGCdP0DGvnUNWAJj1Bmmvj8Zxgjm9ROcwJ
+         kUxbuUqm5+ZbtaJBprwMADOr2k6mXsGZyVkj06YrlVGPm0iT+WhVOsKI2saGiUdOcDXD
+         rpHw==
+X-Forwarded-Encrypted: i=1; AKwUvBx4PvrFgQeN+WGU+VktcMWiKEADomIptILk4vuvEOpYrCA9X8nfZBrCR5YtkcS9WwUsy9b3eGp5Zzxp8Sc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxaZQbsfbDEwkO4uWOUItevmGZLpEPuRSjnsCJ9CxiDGYi4ufC
+	MvwpUjs6MUdZO44S27cgiuTrHPme4HP8Dgn2B8quX9jm3rcUnzkpD/WoupC1Xyql0lmogYSbSfI
+	+4rG7l5gDkMBrzyL5EG6vwJUmnhmWMc6S97plTEngx1pHrGY1Nhm/YkWAuNQdDiA+0Vg=
+X-Gm-Gg: AYBFou2+7R0Vyc+3dEODkR2o5beG/V814DZ+VXTR8wdo43XrNnL3q/i+qLUx999KTXD
+	BrnvvMpmMrqC5E1ftnKI6TPe2YLEkAx9dNLo96CsFaM9lSLwXKL6QZs501eor+J5ckoCdSljQNV
+	0SbzQE7RPAPyhRqohoZnZeIEjbQUzjSlgkX+I1kTio+iGYNfc5VgWg2aNV0vrQWzUOixDpKXwui
+	haqL+rpSdCjMBkOsybkLttlpPm4C5LtpGPKdpZKu8QsXfGDl6DAxInuWwUYqaqWJr4Aax9RURL2
+	orA4ZfPdiWFiILT184Kn6mU4jYEpKVx55+bUWez/G6z1lvhEeQHqYkIe+IlUl0C4t6mFYzYHM59
+	VeDMJoZITMX6oiet3HIAstDHiGTtDabHQ1W9OTtzoAbR/K7Fn0O6I18UGJRt5fLX6c34=
+X-Received: by 2002:a05:6a00:10d4:b0:89f:28c3:aab0 with SMTP id d2e1a72fcca58-8a9bf61f237mr1085872b3a.40.1793341283253;
+        Thu, 29 Oct 2026 23:21:23 -0700 (PDT)
+X-Received: by 2002:a05:6a00:10d4:b0:89f:28c3:aab0 with SMTP id d2e1a72fcca58-8a9bf61f237mr1085850b3a.40.1793341282807;
+        Thu, 29 Oct 2026 23:21:22 -0700 (PDT)
+Received: from [10.213.109.130] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a9ef08b936sm351163b3a.13.2026.10.29.23.21.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 23:21:22 -0700 (PDT)
+From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 11:50:51 +0530
+Subject: [PATCH v3 3/7] regulator: pm8008: Add mode voting support for
+ PM8010
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,88 +116,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-pm8010_i2c_support-v3-3-995ed1ec7a72@oss.qualcomm.com>
+References: <20261030-pm8010_i2c_support-v3-0-995ed1ec7a72@oss.qualcomm.com>
+In-Reply-To: <20261030-pm8010_i2c_support-v3-0-995ed1ec7a72@oss.qualcomm.com>
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Guru Das Srinagesh <linux@gurudas.dev>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, mfd@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        Oleg Keri <okerixx@gmail.com>, Burke Cates <burke.cates@gmail.com>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793341260; l=4483;
+ i=jishnu.prakash@oss.qualcomm.com; s=20251014; h=from:subject:message-id;
+ bh=tHHgTISLfM+T4SJmOLlmYYBACZZHmxw+90f4UR9hBoo=;
+ b=BimwX38dbCkungPzRaMM/QWdjnVXFdBexA4R87ih3fXcdSL5WBUYAzu4zn6SiULshvfBsMmK9
+ IHeY4diBFTgCFFGccT3qpZpUDHTPP6rQBZCWAlc1of6fnPiPg38owwh
+X-Developer-Key: i=jishnu.prakash@oss.qualcomm.com; a=ed25519;
+ pk=g89pXdLVwRjdTeQ+uX1QzvBO346E3hQAc1N7fcTXgmk=
+X-Proofpoint-ORIG-GUID: 2DkJTRn8mkHoOI9AyzMwy7JOVvrQcpdN
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAyNSBTYWx0ZWRfXw4ftpKPDcGwO
+ Y+zf9rIxYztWVcSvyFVOtsIyRunsntCtVLQhNggQ2jqbokyXk49C2BYb/88h/+YUVvJO/03q5ae
+ 5g/58+dL8Im8gk3JNCdBRm/YHLHaPAU=
+X-Authority-Analysis: v=2.4 cv=PIqaavqC c=1 sm=1 tr=0 ts=6ae43763 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=azaBX0EM9DmJuHldzdsA:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAyNSBTYWx0ZWRfX4EiZpBLbSIGP
+ 66TQdeD0WGJisXKd3fvKUUYqFeec7W7KkBw+Lc+Bbk3uZlzcIvbz7nN0LMKzjGCRweW5cuEK3/f
+ XZt1f+tdJ/HulhQQCMVxs6K4/fzxvKlHxGJIrKuKOpl2kwgFXHoNBpjJBmSzEzhugIvDeyccDEh
+ DAy0jpLMYli7jIFOl5Z49HoLY3dwA/9SqOkNatFP8p0PLXt8He2xFv7Qoh158GKfNouT/lCXU/n
+ npBqvz/pHj1l+6mZJdPL5ue1aH+mqonKgtJIYv870z9/ixUqJvyqtJX90lzUVDSUQKAlEU0UqXI
+ ZuyEJORCurlJKaI8ht3ijy22SWMpH5E5A4QVZnLxhdEM54SX28bNkxGjaGlkftY5h62j9DW4G3u
+ 9LFP4KuY6n7coTVkJ7WyYXRSjnMZbhpxMndEqZudsxOQ59hhSTDiv7PEM/N1Eg53sISNJAFdEQA
+ ZAHWPCy4M0n0sHSXC8A==
+X-Proofpoint-GUID: 2DkJTRn8mkHoOI9AyzMwy7JOVvrQcpdN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
+ lowpriorityscore=0 suspectscore=0 phishscore=0 adultscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300025
 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp> writes:
+From: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
 
-> Bryanna Marihugh <bryannamarihugh@manhattantech.edu> writes:
->
->> On 10/29/26 2:56 PM, OGAWA Hirofumi wrote:
->>> Looks like this waits the I/O, and sounds like optimization only for
->>> specific drives. Well, so no slowdown for other drives by this patch?
->>
->> Thanks for the rapid reply and feedback.
->>
->> writeback_inode is called only when flush is set. My understanding is
->> that mode is for storage that could disconnect. I set write_inode_now
->> to wait as that seemed to be right for flush. Given it does change
->> behavior I should have explained that better. I can change it to 0 if
->> you want the old behavior. Because I_SYNC is still set no matter if
->> it waits or not, it should keep the kernel flusher from writing the
->> same file.
->>
->> I focused on the reduced write request size causing the stall, and
->> tested for slowdowns mostly doing a cp and looking at the times, for
->> big and small files. Everything in MB/s
->>
->> PNY 32G stick (usb-storage), copying a 3 GiB file 3x
->>
->>   before: 16.3, 13.2, 11.6
->>   after:  18.0, 18.0, 17.6
->>
->> Samsung 64G stick (usb-storage), copying a 3 GiB file 3x
->>
->>   before: 33.4, 33.5, 33.5
->>   after:  33.5, 33.5, 33.5
->>
->> PNY 250G stick (uas), copying a 4 GiB file 3x
->>
->>   before: 365, 200, 322
->>   after:  365, 255, 251
->>
->> Samsung 870 EVO in a USB-SATA adapter (uas), copying a 4 GiB file 3x
->>
->>   before: 379, 346, 346
->>   after:  376, 378, 379
->>
->> The PNY 250G numbers vary on both kernels because the stick slows
->> itself down partway through.
->>
->> For small files I saw maybe improvements on the cheap stick, with no
->> harm on the nicer Samsung stick.
->>
->> PNY 32G stick (usb-storage), copying 1000 x 1 MiB files 2x
->>
->>   before: 5.37, 5.55
->>   after:  5.64, 5.62
->>
->> Samsung 64G stick (usb-storage), copying 1000 x 1 MiB files 2x
->>
->>   before: 7.33, 7.37
->>   after:  7.35, 7.36
->>
->> PNY 250G stick (uas), copying 1000 x 1 MiB files 2x
->>
->>   before: 9.61, 9.61
->>   after:  9.28, 9.26
->>
->> 870 EVO in USB-SATA adapter (uas), copying 1000 x 1 MiB files 2x
->>
->>   before: 9.61, 9.61
->>   after:  9.59, 9.51
->>
->> There is some regression with small files on the uas drives from the
->> wait.
->
-> Is this wait=1? The flush should just be early flush, no guarantee to
-> flush completely. So I think it should be wait=0.
->
-> And the flush is assuming basically for removable media though, we can't
-> choose. I think we need to check the result of such HDD/SSD.
+Implement set_mode/get_mode support for PM8010 LDOs using the mode
+control and status registers to allow clients to vote for LDO modes.
+Mode voting is not supported in the PM8008 LDOs.
 
-And maybe it needs to check unmount time (check how many dirty was
-missing to flush).
+Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
+Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+---
+ drivers/regulator/qcom-pm8008-regulator.c | 74 ++++++++++++++++++++++++++++++-
+ 1 file changed, 73 insertions(+), 1 deletion(-)
 
-Thanks.
+diff --git a/drivers/regulator/qcom-pm8008-regulator.c b/drivers/regulator/qcom-pm8008-regulator.c
+index b484c0f73eea..3db825e93731 100644
+--- a/drivers/regulator/qcom-pm8008-regulator.c
++++ b/drivers/regulator/qcom-pm8008-regulator.c
+@@ -24,6 +24,11 @@
+ 
+ #define LDO_VSET_LB_REG			0x40
+ 
++#define LDO_MODE_CTL1_REG		0x45
++#define MODE_PRIMARY_MASK		GENMASK(2, 0)
++#define LDO_MODE_NPM			7
++#define LDO_MODE_LPM			4
++
+ #define LDO_ENABLE_REG			0x46
+ #define ENABLE_BIT			BIT(7)
+ 
+@@ -46,6 +51,7 @@ struct pm8008_match_data {
+ 	const bool has_stepper_ctl_reg;
+ 	const struct pm8008_regulator_data *regulator_data;
+ 	const int num_regulators;
++	const struct regulator_ops *ops;
+ };
+ 
+ static const struct linear_range pm8008_nldo_ranges[] = {
+@@ -134,6 +140,57 @@ static int pm8008_regulator_get_voltage_sel(struct regulator_dev *rdev)
+ 	return regulator_map_voltage_linear_range(rdev, uV, INT_MAX);
+ }
+ 
++static int pm8010_regulator_set_mode(struct regulator_dev *rdev, unsigned int mode)
++{
++	struct pm8008_regulator *preg = rdev_get_drvdata(rdev);
++	unsigned int val;
++
++	switch (mode) {
++	case REGULATOR_MODE_NORMAL:
++		val = LDO_MODE_NPM;
++		break;
++	case REGULATOR_MODE_IDLE:
++		val = LDO_MODE_LPM;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return regmap_update_bits(preg->regmap, preg->base + LDO_MODE_CTL1_REG,
++				   MODE_PRIMARY_MASK, val);
++}
++
++static unsigned int pm8010_regulator_get_mode(struct regulator_dev *rdev)
++{
++	struct pm8008_regulator *preg = rdev_get_drvdata(rdev);
++	unsigned int val;
++	int ret;
++
++	ret = regmap_read(preg->regmap, preg->base + LDO_MODE_CTL1_REG, &val);
++	if (ret < 0)
++		return REGULATOR_MODE_INVALID;
++
++	switch (val & MODE_PRIMARY_MASK) {
++	case LDO_MODE_NPM:
++		return REGULATOR_MODE_NORMAL;
++	case LDO_MODE_LPM:
++		return REGULATOR_MODE_IDLE;
++	default:
++		return REGULATOR_MODE_INVALID;
++	}
++}
++
++static unsigned int pm8010_regulator_of_map_mode(unsigned int mode)
++{
++	switch (mode) {
++	case REGULATOR_MODE_NORMAL:
++	case REGULATOR_MODE_IDLE:
++		return mode;
++	default:
++		return REGULATOR_MODE_INVALID;
++	}
++}
++
+ static const struct regulator_ops pm8008_regulator_ops = {
+ 	.list_voltage		= regulator_list_voltage_linear_range,
+ 	.set_voltage_sel	= pm8008_regulator_set_voltage_sel,
+@@ -143,6 +200,17 @@ static const struct regulator_ops pm8008_regulator_ops = {
+ 	.is_enabled		= regulator_is_enabled_regmap,
+ };
+ 
++static const struct regulator_ops pm8010_regulator_ops = {
++	.list_voltage		= regulator_list_voltage_linear_range,
++	.set_voltage_sel	= pm8008_regulator_set_voltage_sel,
++	.get_voltage_sel	= pm8008_regulator_get_voltage_sel,
++	.enable			= regulator_enable_regmap,
++	.disable		= regulator_disable_regmap,
++	.is_enabled		= regulator_is_enabled_regmap,
++	.set_mode		= pm8010_regulator_set_mode,
++	.get_mode		= pm8010_regulator_get_mode,
++};
++
+ static int pm8008_regulator_probe(struct platform_device *pdev)
+ {
+ 	const struct pm8008_match_data *match_data;
+@@ -185,7 +253,9 @@ static int pm8008_regulator_probe(struct platform_device *pdev)
+ 		desc->supply_name = data->supply_name;
+ 		desc->of_match = data->name;
+ 		desc->regulators_node = of_match_ptr("regulators");
+-		desc->ops = &pm8008_regulator_ops;
++		desc->ops = match_data->ops;
++		if (desc->ops == &pm8010_regulator_ops)
++			desc->of_map_mode = pm8010_regulator_of_map_mode;
+ 		desc->type = REGULATOR_VOLTAGE;
+ 		desc->owner = THIS_MODULE;
+ 
+@@ -231,12 +301,14 @@ static const struct pm8008_match_data pm8008_data = {
+ 	.has_stepper_ctl_reg = true,
+ 	.regulator_data = pm8008_reg_data,
+ 	.num_regulators = ARRAY_SIZE(pm8008_reg_data),
++	.ops = &pm8008_regulator_ops,
+ };
+ 
+ static const struct pm8008_match_data pm8010_data = {
+ 	.has_stepper_ctl_reg = false,
+ 	.regulator_data = pm8010_reg_data,
+ 	.num_regulators = ARRAY_SIZE(pm8010_reg_data),
++	.ops = &pm8010_regulator_ops,
+ };
+ 
+ static const struct platform_device_id pm8008_regulator_id_table[] = {
+
 -- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+2.43.0
+
