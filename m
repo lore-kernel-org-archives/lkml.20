@@ -1,83 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=104.30.16.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793329777;
-	b=LpYwiPBv02AkAHPhMNy4KkhMNsGeq3u9U2eZ/ZWfIfXDCimd31U5ISnLLm52+2sevuns
-	 66ZICPBWV3WuP8wM6+O/gqInIK6uPoY1ZDJdWv6RaOqEO3f1HdhUJXiq55G2yigtrs94l
-	 ZviThYnAqYypbCPgaW25n0hOF8Um3WSBB7JvTDgyFEciGi0p26AcwfoXnxCSZHDHfha1i
-	 jCSA7/2Md+i4p3U9kyuMDvADtRQZMi0mtWGxQsV0M/LHW7sOh4tGs1KkvpmBtHlm3uSa0
-	 7kKH5jp90eeRcdM16GIyGZCgHfjxTa8J4lvE66ZgeL/Pz0+cEGHLVH01DI7lc5bHDkw==
+	t=1793329860;
+	b=x7qEfPHraFnsiA3Ol3S3z4At5Naqc2Lxx6b66fP1AFrqupzUl7gyByRKm6qJwpD3sw9S
+	 Ac+EVO38t4vf23s4KE0OFIJLZ+sCzVE67Z7jRIwEKErK5y/xkBHYOUYTNZmMIJKZsgC0a
+	 aacumAFcSibhiuPbWhtIqdua4ltIIbfsJoXmeyUAv8mcvT9UFpKpKqH2m5yprWSHXIB4h
+	 4+qcT3rmO+wzMKUJoyGh1PZMJxO63zELyDGAGP5gTDerjLdwWer8r+4FT8E8oSdPr0Hme
+	 H78/4tcA4bPQXHuWiS0eOvCylqJpAnBa6oyv1PfkWRLsjnLe1e9aNoZ+E8hAGyD6paA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793329777;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
-	 X-QCInternal:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=t9B8LOl9eRKECAY6vBT+V+Amr9c0AFgt2hSkAYoPyHs=;
-	b=JKOpzELSFgufZtIk00snWATXbw4aFGfOQ9HV6MVey08OmcwLv3skWnTAcYbZVIF833qE
-	 BQ4WsajlW4du6I2o/4rfYpR7vngbtn5ZiYRAucDK/DXwb1JZWYK3Ae35oj9kmCKfqH2Qz
-	 adiqkcR9eVkz378hDkT/JkBvu8spQnBimMWmlvCy9LQojC3ExytmAdhQ4Rq2nO58/Bcqc
-	 WLO6CVQvVM1MinWoLK79lg/xEbl2qT9jZc3WfS3sUKOfyeB2le8AK/G8Bwz8892HoJLrd
-	 aCf274Uw5dBS2phGSf8D0Xz8fuBZel3M+eawb3WRjH9K2eyxVF/5cbOOocEWupD+QVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793329860;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:Message-ID:
+	 Received:From:To:Cc:Subject:Date:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5RMaJLdOqxhz6uN3b9vGcTDRWt0U48Knz5DQ3YYyltM=;
+	b=ZulFu3nB+bfVimlAfn0d/m+UNeDlGPzikieudCMyGxbeVgfKniqhEj8rKfK3VX1mEByu
+	 UxRDHL7B/yLKM3g64F03K14pO7XBcK+/AFj6qU/809+/ppoKDxKfMk8fzOfbLEN60nDbj
+	 tczVjIw0c+HMPV08QvIWkglpf3JKGJbZeeScX6Up8vU5pi9fvcwfAKoXG3vfpWhFeLTY/
+	 DgC2dRGMy5thv/rsdDxf2y0GNr9BsA9f/9dcA+Lshiq/Bnw0z+zsqR/dYFpsWVnqmQDVy
+	 8smeMhZNVHC46oFUyU/UjJzDwKjl9VuI75ohI3OegSeBbPoWeH1cM4iZy4cwrlbUexA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hpUyHgJE;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=robsoncassiano.software;
+	spf=pass smtp.mailfrom=cf-bounce.robsoncassiano.software;
+	dkim=pass header.d=robsoncassiano.software header.i=@robsoncassiano.software header.a=rsa-sha256 header.s=cf-bounce header.b=XOnHmgdf;
+	dkim=pass header.d=cloudflare-smtp.net header.i=@cloudflare-smtp.net header.a=rsa-sha256 header.s=cf2024-1 header.b=blYlCDWm;
+	arc=none smtp.remote-ip=104.30.16.97
+Received: from bg-jh.cloudflare-smtp.net (bg-jh.cloudflare-smtp.net [104.30.16.97])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A069606A31A;
-	Fri, 30 Oct 2026 03:09:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A069606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A03606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:10:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2A03606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=robsoncassiano.software
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.robsoncassiano.software
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hpUyHgJE
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U2K8r2889225;
-	Fri, 30 Oct 2026 03:09:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=t9B8LOl9eRKECAY6vBT+V+Amr9c0AFgt2hS
-	kAYoPyHs=; b=hpUyHgJE6yP6aQ9ptVpX2v1DZ1fhwhEspvqHGsvVmZ+LYDpJIUX
-	vSutBtSdmxLCNda8/rFF5uTNSklwXlIt3yk6d5SqoX4IQeWGUPc8pKLDHSZq3pWy
-	bQvPEMXcK47gCmXgb7z2GsXb/YhqQUx9afcp5Y26v99dHaq1przis101aX7pUL2T
-	4F/iXtCcy8mNGJGEdbxW/dBsrfLcWfxeUDxnHr/71PG5SzZJWhjnzwIHCCWzPEjK
-	PqMIwJMoIf9skml21X6dNUSghiQjJRrnA3z1kAD9eDivNQEwxX7N+yo/1k0RZ5sA
-	8jY4zWNFe7gWsvfCrLejTye0TstzR2eEwTg==
-Received: from aptaippmta01.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6p0y7n-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 03:09:33 +0000 (GMT)
-Received: from pps.filterd (aptaippmta01.qualcomm.com [127.0.0.1])
-	by APTAIPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69U39V8w1943462;
-	Fri, 30 Oct 2026 03:09:31 GMT
-Received: from sdciot-sh01-lnx.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
-	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTPS id 69U39Ve01943455
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 03:09:31 +0000 (GMT)
-Received: by sdciot-sh01-lnx.qualcomm.com (Postfix, from userid 3972706)
-	id 2AC5E211E5; Fri, 30 Oct 2026 11:09:30 +0800 (CST)
-From: Zhiyuan Sheng <zhiyuan.sheng@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        cheng.jiang@oss.qualcomm.com, wei.deng@oss.qualcomm.com,
-        shuai.zhang@oss.qualcomm.com, xiuzhuo.shang@oss.qualcomm.com,
-        jinwang.li@oss.qualcomm.com,
-        Zhiyuan Sheng <zhiyuan.sheng@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: [PATCH v2] arm64: dts: qcom: eliza-evk: Fix M.2 W_DISABLE2# GPIO polarity
-Date: Fri, 30 Oct 2026 11:09:06 +0800
-Message-Id: <20261030030906.3856759-1-zhiyuan.sheng@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=robsoncassiano.software header.i=@robsoncassiano.software header.a=rsa-sha256 header.s=cf-bounce header.b=XOnHmgdf;
+	dkim=pass (2048-bit key, unprotected) header.d=cloudflare-smtp.net header.i=@cloudflare-smtp.net header.a=rsa-sha256 header.s=cf2024-1 header.b=blYlCDWm
+DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=robsoncassiano.software; c=relaxed/relaxed;
+	h=Date:Subject:Cc:To:From:Feedback-ID:from:reply-to:resent-date
+	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
+	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
+	:list-owner:list-archive; t=1793329858; x=1793934658; bh=5RMaJLdOqxhz6uN3b9
+	vGcTDRWt0U48Knz5DQ3YYyltM=; b=XOnHmgdffDaxgu8MAvuchAu9lgmQoOt6I+dvpeCm5I8yH
+	wvTkBjZF10ljHyGknJrKJ8OflTXWSoSCMPtiawFOqh0xUUW06evgHdwcFLY39h+r65XC/pGVejY
+	WxapHO3Qtp/P3HJ/JxKb4q2UXOvGLM4b6Me6vQSwauo6uM1XbB7cQzH4/f4HMVKbfaDHV8b6Mra
+	p3xEo9bMDB3iB116WqHFO1Tklh7bAnInCoIxF2nhH+KoSQQYNznsIlkQRtimsS2Wa0tc41ab5zP
+	+1SL72eoCw4k+BHjre2nNj9SLgqjopAxqsLcfP33J80f+5zFqs8vnPW7nwr+u8EbrYajiHig==;
+DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.net; c=relaxed/relaxed;
+	h=Date:Subject:Cc:To:From:Feedback-ID:from:reply-to:resent-date
+	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
+	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
+	:list-owner:list-archive; t=1793329858; x=1793934658; bh=5RMaJLdOqxhz6uN3b9
+	vGcTDRWt0U48Knz5DQ3YYyltM=; b=blYlCDWmbyG2ejkI1JFz1DIWVR1tvfPWYJKKFHnvWp1M1
+	XthQiVDG3WqZivLB1H9Ab8duvaGcNXrLWtOkJOlYTErN7bMoJq6dB0MvFZsAZmwlHd+d/znAAbD
+	zMca+cTGS0O4gszn+xzN7z0rfvUA8vOYvMTPWYUF489ta246DNqdsg3HKJ7lQgRqIR7mDTt6dGo
+	C9Ff7CFFsrZTwWLVUmP5ZlJsvIeHeGYkxk4skxT07AYkiCTxRE1sqmdBpc0/5pxnca6Iup1GHhx
+	6ZjD4HPbsx2T5hczmMlMIhYGxP9RojVwE1+sVMQsjhbSoq/yQRJgqHx1Z3xiddsDrwhLpdhg==;
+Feedback-ID: robsoncassiano.software:5:5:Cloudflare
+Message-ID: <WnzOhxjlW7w5jwpSIQmUzrvduOStpoX2h3FS@robsoncassiano.software>
+Received: from authenticated-submission.invalid
+        by mx.cloudflare.net (Cloudflare Email Submission) with ESMTPSA id LKLvqPjuMPko; Fri, 30 Oct 2026 03:05:13 +0000
+From: Robson Cassiano <linux@robsoncassiano.software>
+To: kbusch@kernel.org,
+	axboe@kernel.dk,
+	hch@lst.de,
+	sagi@grimberg.me
+Cc: linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Robson Cassiano <linux@robsoncassiano.software>
+Subject: [PATCH] nvme-pci: add NVME_QUIRK_NO_SECONDARY_TEMP_THRESH for WD SN740
+Date: Fri, 30 Oct 2026 00:05:13 -0300
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,65 +80,76 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAxMiBTYWx0ZWRfX1WqUkRSi77Fm
- hujhh3UruTHmlnwKUwPsBtAWoZkZdpuNQpyqul14QPpF+Mn/JTRB8Ngarkt8wlxfybBCg2euz4k
- tXyY4J6m1JrXa7Lysi8a7xcGiQxCjjWUmU2oGD0TM6Cel1nDrQ4re7TuDLeHEml4kd/+j8JFILq
- wksQBbtPtr498mRyqUMejGz7rPWO9B84n2TzAgfwjhz33x0B05iVNkEkj07LbY2Letvw2cqjGV2
- NVvV/qqsyLYsCEBw8TyHdU863La0GmSRUm1gAMH3Ah7/FMTdy9ep6ObnqyVpq9zfguc+gxPEWSJ
- v5ISeCye5gnXxOVStQrgkdJnU4ypkIM3+AjE4XndsP3jn85ZGgdXOrNZk0WTeKe/IbMC2fHgzST
- lRmJdPsnsg9+WAPqL3OSyP7DWEYamUTadoJa9kkvRvDcCcoN0CeaqHbsNuiVpDTC3x7X3ck9utB
- Dqy0qEr2AWCOXMLq88A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAxMiBTYWx0ZWRfX10kCqBcmaurX
- IbjXfZiOlcwOEPsQOmP3iyO4o8XVL1mckNL7h8OR0JjFg4PsiOAZBVA+Hdo73MA4WMpb9ewIgG1
- snvQjuE/pK4498h4rw/lkkjzWhV4P10=
-X-Proofpoint-ORIG-GUID: AgH3HYYayCbwUOSmjqGOgbnYCTeozoSK
-X-Proofpoint-GUID: AgH3HYYayCbwUOSmjqGOgbnYCTeozoSK
-X-Authority-Analysis: v=2.4 cv=TL3Q2Fla c=1 sm=1 tr=0 ts=6ae40a6d cx=c_pps
- a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=c38QbCulxCfvbD_P-AEA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1015
- adultscore=0 bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610300012
 
-The W_DISABLE2# signal of the M.2 E key connector is active-low as
-defined in the PCI Express M.2 Specification. Fix the w-disable2-gpios
-polarity by using GPIO_ACTIVE_LOW instead of GPIO_ACTIVE_HIGH.
+The WD SN740 (15b7:5017) reports two secondary temperature sensors in
+the SMART/Health log but returns the 0 and 0xffff (Kelvin) sentinels
+for their temperature thresholds. nvme-hwmon exposes those as
+temp2_min/max and temp3_min/max, producing -273.15 C and 65261.85 C in
+sysfs.
 
-Fixes: 073c6a891eb3 ("arm64: dts: qcom: eliza-evk: Add PCIe0 with M.2 E key connector")
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Zhiyuan Sheng <zhiyuan.sheng@oss.qualcomm.com>
+Mark the controller with NVME_QUIRK_NO_SECONDARY_TEMP_THRESH so only
+the sensor inputs are exposed.
+
+Assisted-by: LLM
+Signed-off-by: Robson Cassiano <linux@robsoncassiano.software>
 ---
-Changes in v2:
-- Added Fixes tag.
-- Picked up Reviewed-by tags from Konrad and Abel.
+Tested on the affected system, WD SN740 512 GB, firmware 73100004:
 
- arch/arm64/boot/dts/qcom/eliza-evk.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+  # lspci -nn -s 01:00.0
+  01:00.0 Non-Volatile memory controller [0108]: Sandisk Corp WD SN560/SN740/SN770/SN5000 NVMe SSD [15b7:5017] (rev 01)
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-index 6c5cc47a183e..2e380ffee658 100644
---- a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-@@ -98,7 +98,7 @@ connector-0 {
- 		compatible = "pcie-m2-e-connector";
- 		vpcie3v3-supply = <&vreg_pcie_m_3p3>;
- 		w-disable1-gpios = <&tlmm 35 GPIO_ACTIVE_LOW>;
--		w-disable2-gpios = <&pm8550vs_g_gpios 4 GPIO_ACTIVE_HIGH>;
-+		w-disable2-gpios = <&pm8550vs_g_gpios 4 GPIO_ACTIVE_LOW>;
- 
- 		pinctrl-0 = <&m2_w_disable1>, <&m2_w_disable2>;
- 		pinctrl-names = "default";
+Before, on 7.2.8:
+
+  temp2_label    Sensor 1
+  temp2_input    53850
+  temp2_min      -273150
+  temp2_max      65261850
+  temp3_label    Sensor 2
+  temp3_input    38850
+  temp3_min      -273150
+  temp3_max      65261850
+
+After, on 7.3.0 with this patch:
+
+  temp1_label    Composite
+  temp1_input    45850
+  temp1_min      -40150
+  temp1_max      83850
+  temp1_crit     87850
+  temp2_label    Sensor 1
+  temp2_input    59850
+  temp3_label    Sensor 2
+  temp3_input    45850
+
+temp1_* are the Composite thresholds and stay exposed; the quirk only
+suppresses the secondary sensor thresholds.
+
+The quirk also covers the other models sharing 15b7:5017 (SN560, SN770,
+SN5000); only the SN740 was tested.
+
+OEM systems: Dell OptiPlex 3000, Lenovo IdeaCentre AIO 5 and Samsung
+NP750QFG-KS1BR (the test system).
+
+ drivers/nvme/host/pci.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
+index 77317e5..4f1f10b 100644
+--- a/drivers/nvme/host/pci.c
++++ b/drivers/nvme/host/pci.c
+@@ -4170,6 +4170,8 @@ static const struct pci_device_id nvme_id_table[] = {
+ 	{ PCI_DEVICE(0x15b7, 0x5009),   /* Sandisk SN550 */
+ 		.driver_data = NVME_QUIRK_BROKEN_MSI |
+ 				NVME_QUIRK_NO_DEEPEST_PS },
++	{ PCI_DEVICE(0x15b7, 0x5017),   /* Sandisk SN560/SN740/SN770/SN5000 */
++		.driver_data = NVME_QUIRK_NO_SECONDARY_TEMP_THRESH, },
+ 	{ PCI_DEVICE(0x1987, 0x5012),	/* Phison E12 */
+ 		.driver_data = NVME_QUIRK_BOGUS_NID, },
+ 	{ PCI_DEVICE(0x1987, 0x5016),	/* Phison E16 */
 -- 
-2.34.1
+2.56.0
+
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+
 
