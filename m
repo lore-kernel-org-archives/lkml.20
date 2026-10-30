@@ -1,68 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793385557;
-	b=SG0jnG3EA8AK1fe9+zIfQ7kerjOd6YLaUmJHCPuLCazpn4nWPUX1UlXmlus9TNQ35SHN
-	 mCcGgx11bZNPw8yEK6AubUBtY0dpQfH3soycGonPSGtqRiC2YjejGQF9rxQLXe7KnaNEh
-	 //AEP/ffzdQ6HR460YQZxbMLhOepTt/vm5M0XpLgpctijyv4jJqjyw8kA1mAikJ353USH
-	 8swd37Xm6kFiKWzJRcy8Cuoi40enbc5VfJ1UiBiTsy0anmc8yjxi7i76M+0n5KHRSPJLF
-	 mwHadBaGHdiVLB1rMamVJzEOhTS+Ky2NnLl53FT78gjF+HO+WxDQfuZqepVTYEiLn7A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793385557;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=2z4n8t7UyAs2zhyh3rfLcTEvPoKHSDEFmDtIMhUC/uE=;
-	b=DnLuZXtLcpuEWpaoqzgZS6uLqmrmIuDvgukEwmaMxldvjKshxG4SVVnMqxBJyXAH/uQJ
-	 +oFOsIBpt+QsDAAItFuJw3AXK52fWYL7LExrmt21KSXWlpYBVB4y9bmgpHiDK3MfPWoxD
-	 9ufa3fcWWCz0kb/K7OZQcqeGqTn4/9TKJg8CtK1zZVqNJib0b8G2Kuy9NCaq0EigSMEr9
-	 O+KxO8GpND3jhCY1X4FheXY5iwl5wcpWl46eYP730qCIYcd4oyXPQALT2/xUaFhv4mdrb
-	 OUh6W3eKeaCC8Up1L0TyXuMwbTNz3f8Mii+8aoFviNIYNgQsFSfU3gH5c7HL2HYG9vQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MmDOkdg+;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793385616;
+	b=fhXnou43LW6EF3huENuA8tJJ8VHJkZFh3g2YYCJx5AscK2bsrUUct4SsQplY2aezwhuT
+	 uPUBkkuUDmC+TGnh3wfnWTtz9O7svJlQ+YbaldDGp2bO39z0k4RprPBmUmww6sRvPB8j4
+	 NrSBTZvfcxWipW/jef/UPxCfZGic5zJGT7nFDn30AchIGfAj61VBQ/sf6SVeGhdBfvDp4
+	 obURUskhWz3fYXm55M3fM/OfrVCzh5SV9wiaxU5pGC18Om+H+MV7UfjcNHXSr3ca0XeN9
+	 8H+EI/ppPlDvxZaDE2OjIavzWg49Ij6556cacU5QftWRq2Uh+UOpyBaQ5lxBrVE0aHw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793385616;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=nmKp4v41/VuOsBN9J0z1kpzyiFhTpOACyc1o25V2f18=;
+	b=RIzkIZyt1ihDAZj7UKlXte8dP+OSlIVJICVWEzaM1g1UqUzeybnYIP+vHtoYhfmm2Qqq
+	 27YxzZHegwf12YKN/8bC/0Qe5UJHezYS4YVLAHLHknsfUCXsxmLCpVZ1oS5cmc57Il9v6
+	 trrwci7OFXSlz79zU+BNxUSV6ieGRWMs2OSNHWJIPbbygsq5UFbEOVufTNd/stqOpfPe4
+	 hKR6gxE71ExQNGQiv50JlHr82Ur46D0P/akAPW8ikt+Se7FGH4mQcd9mGg7AuHYzwE5c5
+	 NMgz2B1KGPjbqgfPJ03ifmsrHJAHMN8Y/lSPNHVMWMi3slK3V1fNXA6LYTLMKM5Pw5w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EmH+nol6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D252606A321;
-	Fri, 30 Oct 2026 18:39:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D252606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8015606A31A;
+	Fri, 30 Oct 2026 18:40:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MmDOkdg+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793385556; x=1824921556;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ZXo9VbuOZo50mRPjcb/rvfj7jmkkuUo8q7gJTPgUEBU=;
-  b=MmDOkdg+Sej2HYwYOn1hN10BGNuZpvBHG5yGciiKM7lIcpWYO4pxEnlU
-   l9RAvEG5jhEZiMnsHJ+v3wd6L4xulfZ3PsGR1GK/dYOPjA2bQ6qY4qwhg
-   HCzYoscd0VcekHbSgs81Qvbxp9MfOrPeek/g2Gglsby77pg8bl1X63xj0
-   hvSGGHypjuNfyjWqVL8K3LxhNXGk8LwGwsyem4/TvmZ5ROtM+sIwtcx01
-   cowzMICqtCU4f+5WzGLZRW/A6i5Fcm5nINFRAx9l65m6lCYbIkP8slHz4
-   lVqFBg1D1xbQnD3lX9/aXhMCY4yf0P6TtjPMbAUF3HX7fNFM2nwwxNdnC
-   g==;
-X-CSE-ConnectionGUID: fehLtUT8TyehxnFh806cOg==
-X-CSE-MsgGUID: FQty7XgXT8m9ERc9Wt74LQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2181906"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2181906"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 11:39:04 -0700
-X-CSE-ConnectionGUID: uYjgqvqKSCCDcv98GxIy5w==
-X-CSE-MsgGUID: 2Ze/VbxbTR24Fehux7Siag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5504989"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.85]) ([10.125.109.85])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 11:39:02 -0700
-Message-ID: <2f2fac75-eb91-408a-a436-f7e2494f7e3c@intel.com>
-Date: Fri, 30 Oct 2026 11:39:01 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EmH+nol6
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793385615;
+	b=SiP/MLXfy2SnPcNm04UeVnR+zrcQC1GK7Gm0LiwaNSLz2TqPcKCKVd2YLOz3VeYR6BlR
+	 z8RU8BxBnPK3fY7CkIMb+EVtAgfqbgFlpeUajNrPfjbD8to7zCpiZG2qoUa9wKsPiiRkJ
+	 biSTvD/JUmBVVbzkE+78UeWqAUy8/BgaBddM/RqqElpiX4It1vFrdxNKB/c8bIK4cqDPU
+	 o3SG+KSDYpXXS/HyePTWMLGI3r+ygQSfieCvKn3koaCfsDZU//8G3Ta0S8cPKIgJz2rlv
+	 TZhC0aQVZ2dE9DUtu3zlbyiyvQVEgHmq0maTKUgsHu78nzecYqVDMlWBvKZcRVrXjeg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793385615;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=nmKp4v41/VuOsBN9J0z1kpzyiFhTpOACyc1o25V2f18=;
+	b=Yu3sz4UdhDCgvKmOzGUdYFSkl4YbmJw553IHYDWxVz6aiC+nTDp+vyFroM2l+CakriiO
+	 z8BDkXzlMX4ssZLaehOfMto3k/HZ/3FcPx7h2N6RTKKmJ/5RXQFzwlklolGBJlGUE5VCr
+	 LDBnNjVe40u4MBsHxXbnjO1AtpUFZ9UFeFFdVJ2NCREJR0CpE8lF7bTaYnV5YRlFd5iKv
+	 yypF0T2T16p7oY7HRXt7BIfFCtJWsceA2VzcWQMwiY86fFoIoemsppfEKW3qqZma9PRLz
+	 u6mxBp96B8HaJfuv59Vc9fFdi525MfnR13TORcDqVjrBy910B8dFB/1uWhMOuxhoeVQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id D5A701F000C1;
+	Fri, 30 Oct 2026 18:40:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793385615;
+	bh=nmKp4v41/VuOsBN9J0z1kpzyiFhTpOACyc1o25V2f18=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=EmH+nol6Q/g8Y2eZ24nVluAEOweNP87AdS19W/ixpZnAd3NOOUC6rXVyr2Yp43uwQ
+	 WAltNT1l9pZglNyJmN7ZW+Ye45xE/QZySPELULaFvOjVA9V1o3fzUyaZ4GAWmVTYcC
+	 BfQWS7+IfepVeBXgsWPUufhG5eCvfPhASc0dlB/bJlcaGE2Ius+WpZgu9a5yTweySx
+	 uhNIjLkk5mzfKxvtJ+aEaMZmMDwsPmU55GA2pIGSX3IOpR21ywqWyfJmzrupjp9006
+	 SNE3D51CMb4ll6s5tfdv5NAhh1fPn6aPOeZDBkV4hL+1nTHLjPW96iT57hAYrCLwf3
+	 74508H2oHCWpQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 389B744239;
+	Fri, 30 Oct 2026 18:40:14 +0000 (UTC)
+From: Rodnei Cilto via B4 Relay <devnull+rcilto1.lenovo.com@kernel.org>
+Date: Fri, 30 Oct 2026 15:39:08 -0300
+Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for Lenovo V15 AMN G6
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,199 +82,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] cxl/core: Create einj_types when EINJ becomes
- available
-To: Yongxin Yang <yangyongxin@kylinos.cn>, Davidlohr Bueso
- <dave@stgolabs.net>, Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Jonathan Cameron
- <jic23@kernel.org>, Ira Weiny <iweiny@kernel.org>
-Cc: linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
- Ben Cheatham <benjamin.cheatham@amd.com>, stable@vger.kernel.org
-References: <20261029065629.333949-1-yangyongxin@kylinos.cn>
- <20261030032050.787682-1-yangyongxin@kylinos.cn>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20261030032050.787682-1-yangyongxin@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261030-ideapad-mic-support-v1-1-7677371af384@lenovo.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBBA0avIrDVpCRFXEYvqDEaCpoNIxN0Vy
+ 7f4/wKhwCRQJxcEOlh4XSJMmoAb7TKQYoyGTGel0bmOJOstqpmdkt37NWwKy6JCxK4yhYVY+kA
+ 9n9+1aX/L3k3ktncF9/0AgjSgDHcAAAA=
+X-Change-ID: 20261030-ideapad-mic-support-d658dddb815a
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rodnei Cilto <rcilto1@lenovo.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793385554; l=1565;
+ i=rcilto1@lenovo.com; s=20261030; h=from:subject:message-id;
+ bh=ngSYT+Mjnj1bJD7gv/LtVb+GccB+Gm/tJ1Kvc5e3BMg=;
+ b=2LxSq+RHIcA8dEoRez96sR+lFpsXGWYD38N80aDf5NYq9RcM3X7aadQQi7UKBAbo2Ltf806IB
+ Hl42ySeSi89CXE6e4axzxavYCBQWy90xkrzukZ6B4+hBLzdUSJYqI6d
+X-Developer-Key: i=rcilto1@lenovo.com; a=ed25519;
+ pk=6PTykaxM+bmmv9zzOdlotAPqQJMtcwF9npDR/4gLHaA=
+X-Endpoint-Received: by B4 Relay for rcilto1@lenovo.com/20261030 with
+ auth_id=1365
+X-Original-From: Rodnei Cilto <rcilto1@lenovo.com>
+Reply-To: rcilto1@lenovo.com
 Content-Transfer-Encoding: 7bit
 
+From: Rodnei Cilto <rcilto1@lenovo.com>
 
+The Lenovo V15 AMN G6 (product name 83VD and 84CS) uses the ACP6x PDM
+interface for its internal digital microphone array.
 
-On 10/29/26 8:20 PM, Yongxin Yang wrote:
-> From: Yang Yongxin <yangyongxin@kylinos.cn>
-> 
-> The einj_types file under the CXL debugfs directory is never created when
-> cxl_core is built in.
-> 
-> cxl_core_init() runs at subsys_initcall level, while EINJ registers itself
-> from einj_init() at device_initcall level. With cxl_core built in, the
-> einj_cxl_is_initialized() check in cxl_core_init() therefore always sees
-> false and the debugfs_create_file("einj_types") call below it is never
-> reached, so users have no way to discover which CXL error types the
-> platform supports from debugfs. When cxl_core is a module, module
-> dependencies make sure it is loaded after EINJ is up, and the file is
-> created.
-> 
-> Create the file from every point that can tell EINJ is up. cxl_core_init()
-> covers cxl_core being a module loaded after EINJ has been initialized. The
-> cxl_acpi_probe() hook covers cxl_core being built in while cxl_acpi is a
-> module, and is the only hook that can work on RCH/RCD hierarchies, where
-> the single dport is added by the ACPI probe itself, too early to help. The
-> dport probe path covers the built-in virtual host case, where the dport
-> added from the memdev probe is the only hook reached after einj_init().
-> 
-> The dport probe path can run concurrently for different parent ports, each
-> holding only its own device lock, so serialize the check and the create to
-> avoid a duplicate debugfs_create_file() attempt that would only fail with
-> -EEXIST. Reset the cached dentry in cxl_core_exit() so that reloading
-> cxl_core starts from a clean state.
-> 
-> Fixes: 8039804cfa73 ("cxl/core: Add CXL EINJ debugfs files")
-> Cc: <stable@vger.kernel.org>
-> Link: https://lore.kernel.org/all/de14c4ef-e3d8-432f-9ce8-87c468d6d2ad@amd.com/
-> Link: https://lore.kernel.org/all/7a22cc6a-deba-40e6-8033-97d1234420ba@amd.com/
-> Reviewed-by: Ben Cheatham <benjamin.cheatham@amd.com>
-> Signed-off-by: Yang Yongxin <yangyongxin@kylinos.cn>
+Its firmware exposes neither the AcpDmicConnected _DSD property
+nor the _WOV method, causing acp6x_probe() to fall through to
+the DMI check and return -ENODEV. As a result, acp_yc_mach.0
+is not bound and no capture device is registered.
 
-Couple more things. Can you send a new email per revision instead of reply-to the previous post? Otherwise it's a mess of email threads.
+Add a DMI quirk entry for this model. With it, the machine
+driver binds correctly and the DMIC capture device becomes
+available.
 
-Also, please update email addresses in your submission. Many of them have changed and are now bouncing. Check the latest MAINTAINERS please.
+Capture was verified working with arecord and PipeWire.
 
-DJ
+Signed-off-by: Rodnei Cilto <rcilto1@lenovo.com>
+---
+ sound/soc/amd/yc/acp6x-mach.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-> ---
-> Changes in v4:
-> - Scope the problem statement to the built-in case: the file is only never
->   created when cxl_core is built in, the module dependencies take care of the
->   ordering otherwise.
-> - Replace the "no dport is ever added" rationale with the RCH/RCD case, in
->   the changelog and in the cxl_acpi_probe() comment: a system without any
->   dport cannot do error injection at all, so the file is useless there. On
->   RCH/RCD hierarchies the only dport comes from the ACPI probe, so this hook
->   is the one that matters.
-> 
->  drivers/cxl/acpi.c      |  9 +++++++++
->  drivers/cxl/core/port.c | 41 +++++++++++++++++++++++++++++++++++------
->  drivers/cxl/cxl.h       |  2 ++
->  3 files changed, 46 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/cxl/acpi.c b/drivers/cxl/acpi.c
-> index 3b818adbd38b..ca7741203740 100644
-> --- a/drivers/cxl/acpi.c
-> +++ b/drivers/cxl/acpi.c
-> @@ -958,6 +958,15 @@ static int cxl_acpi_probe(struct platform_device *pdev)
->  	if (rc < 0)
->  		return rc;
->  
-> +	/*
-> +	 * Create einj_types from here as well: with cxl_core built in,
-> +	 * cxl_core_init() runs before EINJ is up, so when cxl_acpi is a module
-> +	 * loaded afterwards this is the only hook that can create the file,
-> +	 * including on RCH/RCD hierarchies, where the single dport is added by
-> +	 * this probe itself and cannot help.
-> +	 */
-> +	cxl_debugfs_einj_add_types();
-> +
->  	/* In case PCI is scanned before ACPI re-trigger memdev attach */
->  	cxl_bus_rescan();
->  	return 0;
-> diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
-> index 625e4aa427db..76ac612b514c 100644
-> --- a/drivers/cxl/core/port.c
-> +++ b/drivers/cxl/core/port.c
-> @@ -802,6 +802,35 @@ static int cxl_dport_setup_regs(struct device *host, struct cxl_dport *dport,
->  
->  DEFINE_SHOW_ATTRIBUTE(einj_cxl_available_error_type);
->  
-> +static struct dentry *cxl_debugfs;
-> +static struct dentry *einj_types_dentry;
-> +
-> +/*
-> + * einj_types can only be created once EINJ is up, and no single hook is
-> + * reached after that point in every configuration:
-> + *
-> + *  - cxl_core_init() runs at subsys_initcall level and cxl_acpi_probe() at
-> + *    subsys_initcall_sync level, so both create the file when cxl_core and
-> + *    cxl_acpi are modules loaded after EINJ has been initialized;
-> + *  - when EINJ is built in, einj_init() runs at device_initcall level, so
-> + *    both of them are too early and the only hook left is the dport added
-> + *    from the memdev probe.
-> + *
-> + * The dport probe path can run concurrently for different parent ports, each
-> + * holding only its own device lock, so the check and the create need to be
-> + * serialized to avoid a duplicate debugfs_create_file() attempt.
-> + */
-> +static DEFINE_MUTEX(einj_types_lock);
-> +void cxl_debugfs_einj_add_types(void)
-> +{
-> +	guard(mutex)(&einj_types_lock);
-> +	if (cxl_debugfs && !einj_types_dentry && einj_cxl_is_initialized())
-> +		einj_types_dentry = debugfs_create_file("einj_types", 0400,
-> +							cxl_debugfs, NULL,
-> +							&einj_cxl_available_error_type_fops);
-> +}
-> +EXPORT_SYMBOL_FOR_MODULES(cxl_debugfs_einj_add_types, "cxl_acpi");
-> +
->  static int cxl_einj_inject(void *data, u64 type)
->  {
->  	struct cxl_dport *dport = data;
-> @@ -822,6 +851,8 @@ static void cxl_debugfs_create_dport_dir(struct cxl_dport *dport)
->  	if (!einj_cxl_is_initialized())
->  		return;
->  
-> +	cxl_debugfs_einj_add_types();
-> +
->  	/*
->  	 * Protocol error injection is only available for CXL 2.0+ root ports
->  	 * and CXL 1.1 downstream ports
-> @@ -2501,8 +2532,6 @@ const struct bus_type cxl_bus_type = {
->  };
->  EXPORT_SYMBOL_NS_GPL(cxl_bus_type, "CXL");
->  
-> -static struct dentry *cxl_debugfs;
-> -
->  struct dentry *cxl_debugfs_create_dir(const char *dir)
->  {
->  	return debugfs_create_dir(dir, cxl_debugfs);
-> @@ -2515,10 +2544,6 @@ static __init int cxl_core_init(void)
->  
->  	cxl_debugfs = debugfs_create_dir("cxl", NULL);
->  
-> -	if (einj_cxl_is_initialized())
-> -		debugfs_create_file("einj_types", 0400, cxl_debugfs, NULL,
-> -				    &einj_cxl_available_error_type_fops);
-> -
->  	cxl_mbox_init();
->  
->  	rc = cxl_memdev_init();
-> @@ -2541,6 +2566,8 @@ static __init int cxl_core_init(void)
->  
->  	cxl_ras_init();
->  
-> +	cxl_debugfs_einj_add_types();
-> +
->  	return 0;
->  
->  err_region:
-> @@ -2560,6 +2587,8 @@ static void cxl_core_exit(void)
->  	destroy_workqueue(cxl_bus_wq);
->  	cxl_memdev_exit();
->  	debugfs_remove_recursive(cxl_debugfs);
-> +	cxl_debugfs = NULL;
-> +	einj_types_dentry = NULL;
->  }
->  
->  subsys_initcall(cxl_core_init);
-> diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
-> index cab8ce39f465..b9245261ee39 100644
-> --- a/drivers/cxl/cxl.h
-> +++ b/drivers/cxl/cxl.h
-> @@ -926,4 +926,6 @@ struct cxl_dport *devm_cxl_add_dport_by_dev(struct cxl_port *port,
->  
->  u16 cxl_gpf_get_dvsec(struct device *dev);
->  
-> +void cxl_debugfs_einj_add_types(void);
-> +
->  #endif /* __CXL_H__ */
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 41f8c0885865..fc648590409a 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -395,6 +395,20 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "83UU"),
+ 		}
+ 	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "84CS"),
++		}
++	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "83VD"),
++		}
++	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
+
+---
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+change-id: 20261030-ideapad-mic-support-d658dddb815a
+
+Best regards,
+--  
+Rodnei Cilto <rcilto1@lenovo.com>
+
 
