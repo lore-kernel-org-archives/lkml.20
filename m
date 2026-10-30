@@ -1,102 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793388772;
-	b=CNXzKmW1w72U4ZWYh2vdMmr2zj/rzxknsqDN+bUUzM35Vt5Y1471MFB+2MjHN7uy59IK
-	 nJ43xccNIaIkl1XAD0NSKY2udDgJKR6DLMgUkTLKiohQ/X5wccUoG26wfaXn1Pb6Jooft
-	 UKcz1lJVl2aqwbCE02ernopqCVFv7fON0epyjNzNVtSYB2zJeAQOpJaZ0xVyggK5tKynm
-	 Eg9FdpJjZHa1AImJ1+V6jk5C50QgS1IjskyKXG99+kg08V1SsPgLykYUR6MXr6vGFNPG/
-	 L876JM4ZsUZ7gy7CfqP41/Kgz6W6exRf9tpVvfQ2YKnU23JRSEss5dF61+JmVu54YiA==
+	t=1793388763;
+	b=szX7OZ/rhpgxJg/+yhF9vG+2sX2qkNzCRoVTATjfytznmgaeUscZEFOYq0DTZepkFFpc
+	 VZNZ0XIXKipuBByNUe63NqFuYIOGnFGlTG8c8xHDxwr6E0Fgb8OLl4KPEpZ42z36hMg9C
+	 YFTLIIILzXyuxpwguuLvOM3N/g7SsH00Y2mMptnAD6eJ2FIburSk8io25lWrvzDbdpEAr
+	 elvrafl5DNvtdVSZmVwq6D18GCO/uSWYmUI2uDxZ+Ygt66awiV4AM+YqqUdavxF8X/JSN
+	 oqiXoGT7QR/WSP81e5G6m1TANJt2i+lAEz5EiYz9kbiFeC2y7wYxbQxSfetL4iQaIPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793388772;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793388763;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kziFYy/eWa7GbPeapnKYCdL0r2cjvVX4oj7u0OCrPiA=;
-	b=ebVTBNmZ/5blR41ViZoX8/RJ2OKQS1+Kw8P1LRoJZK6i8TA/Qo19MFSiGkzUSTU4w7jY
-	 q3p23fUlgIh0ESinYER35Yicnn8Ydx9Tk9VC5/hsvfIy61NoI6PpZLCCtjMcxn/gZeAsS
-	 KtzMI8Y6F1mo4mB+PGGKA6AaR5tS1VAJ7Hlfs4pD5I496mG6KbuV8y6ggX/m8Hvo7RQzs
-	 ADk9HMrzThFc3VsCgRaNCn/z93VasgCmvdiYwpZ84Ys5lY13GfcTbZBZqT7a4Q8G4v0XO
-	 UsZN+GDHHpHmO9+MaTllv0h+3a9RR48Li+7X2kOWe4qK87ZF3hWtEzF6zuyR/B0qf8Q==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=q2LXv8ac8e3VuQ2Tz5JVmLM+VGtw7lVuKx86bhewjrI=;
+	b=Tyha8WQ22qAbFjTebfSz3QKB1WY5oprGDom4uokr1R6ew3KCq6yAeLf/9dTZKx9d+t1h
+	 an6DiAxZZwfCsXd7nt6e1/zy04trOqm7XQDCDNz7HJA/nAFaG3EBmm/HbBaBj2tFGsm3P
+	 pl2y8dvhUEc+R64fPAJZ/jW0D51Jv2bA4j0258DWuqYthseES6wOHrF2sjmbfmMnPt7VI
+	 GovIL8RJ28qBruxMTj8EOV3VP5EA/04R4lzytAFG0BlRfYT90eQVKkk/gcWggbxTZL574
+	 io83EHw0i0zKDICaVsymzRKvFRHu8fSalrYyKktJyq1NRgR/yvT5rS8eJ/xi9+7gVsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tW07ygd8;
-	arc=none smtp.remote-ip=209.85.128.176
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ux6u5PsU;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57385606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:32:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57385606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0567606A333
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:32:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0567606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tW07ygd8
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b10d24345dso10549647b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:32:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ux6u5PsU
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso10107405e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:32:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793388771; x=1793993571; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793388761; x=1793993561; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kziFYy/eWa7GbPeapnKYCdL0r2cjvVX4oj7u0OCrPiA=;
-        b=tW07ygd86fMBYUFSzmeP5NsVR1FMWSB/sU4qdpGPlVNJNzxwLbL7wHoUx7gf22oqHE
-         /VvJMEG3nH9VHymjQjyZLAyZMt4s6aEbm73hcoZVs0/xMg1a8ly1UmIrlvk+xw2gQIT2
-         P8sNs3zS5GVROGrF1j3FIGsNuYQotkw/qtLYsPaAPrlZZJwgKbsnZYgd6Oechz3+KAdq
-         WGv/1YWEg6I2o0iflvCxi8KQ142EN7GqioVHR4zhJfx5FRz+eJISaFw9CrqkEMoV4fy7
-         lenTaGf9dKRr1Kv8NBeuoLo5EM21MhnwELWIhcEQ/KRaDHkZaMvS4o2HOiMpeNd9iPy+
-         2/UA==
+        bh=q2LXv8ac8e3VuQ2Tz5JVmLM+VGtw7lVuKx86bhewjrI=;
+        b=Ux6u5PsUvOZ+lGFbeW1LMsEeXFPuIG04rzlGZFq3QpxSA/DDEtu01ll9AbvwBKbPGi
+         6Xj7h6nKEh+lVDSord9lw26xaEGVYXe7m9JUjOrF4gp2/418zEBa9w+0BuCh+UXIQ0Yz
+         uoPkLqE6eoEJurGuqPIKBfGVd6MnjaDe2knMZCdesTOOuGQXcuUA1B5An/+OkJysE5Ey
+         EIyVKfp7zfM8E3piv1ZaVRWVdU0M+qK1UWL/0izkxzG2Zcx/UzbG/tQxPrLB/cn4XOEE
+         RuNPhVwvi3snI8CG2QJQUwRINRlTfqaT+AvIsG+cBzhVt1ChGbPAush34gSQnjAvrUSp
+         pMGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793388771; x=1793993571;
+        d=1e100.net; s=20260707; t=1793388761; x=1793993561;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kziFYy/eWa7GbPeapnKYCdL0r2cjvVX4oj7u0OCrPiA=;
-        b=sWMtpM0fJasv9Sep11yfT9cjQC9yT9MY99UA/GFIc3VMOHk8OEmNoKOVMz0+hFEA09
-         0JSOFmwjfv8x4mIS1GVx79zR11+MjbvuskoK4EiQHVvT+BukA4Vod+kC6Hdgv973IRg/
-         SywtjTO4cVkt/L+WvXSZXEpMUJUzMSQygBKy2EpbBk+3uPqFnS9JWXNNKaAvjVKhbevN
-         WlM6Q78TWV6BIlZx/bu0+EiX/l/oyVNZ1a7tY4zkcKHBm+TObwURMM4e9KJeVVg81O0i
-         yiIofxZXh8MT+3KeJK5/kg2jfDkINBxwlM0OJwSP2rpRidPhJKa1FFLVqp9ZkZRmEHS3
-         00DQ==
-X-Gm-Message-State: AFq9FYIEQHYmhZD0LhUX10N8kL2q7DwXFMxbsJAvjbReNtgbB/axqH+b
-	YGyAqEivEBkNwehgvlTXDZFLD4aVZh+ymmulM3ZZWJh92+HwEG+Rxly1
-X-Gm-Gg: AYBFou2CyCb/Wp1ZIJ5sqWEaXBLwughreXnt5oKOSG2qocx8hKi95gWoaE7Q0WjzmrK
-	gqRoay6H7q0gyUVTXDeOQoNdvqzIyGSRs08cAfnkSqFuR/qWn1ktH0pSzpJYU8+7QiM04DrwQmN
-	etbl3//58Wmdam7bOqBYgt+CtidAKXaG+zrOBzVlwpSWAfw26rtR75WpGGgrdYlrHu6eHrJsTAA
-	QbFCQuaUPkjwwsBjuLltDyqc1eTwPrjQE4CNpCdlrkD1v2Tdh7jvj09MYB4LQa/HVyQj93gQeGX
-	Ie5UrwIp1WC9D2YpWg7Dk+6Vg0Ra3c1SaVXaEXuHs2S4s7e2eRnZnVSSVXHMgeXNL9QXf9mQ/xf
-	DFWDUno5yQVFXt/sFDfM6h1L3bgw8h/CyIbvLr5x1KuJPhmpylx9SyQL8R7FL2RZ1Fpli5PZiwG
-	8b71OayM1J9ItNl+b3zVepZWOhflG5tr+mbd0V1z0zm3R5SmNaAdyWjz7sPdiBS2hYDPzf4mKH0
-	5US9txtXfZkqWJrkLSZGa+Zlr2FWwwea/4iAgVzHdTxRKTN4/6OpANozDhNPlcZI6Anzdn5xSAK
-	QQ2my810zddCICDXvOFn1SaD
-X-Received: by 2002:a05:690c:389:b0:8ab:37e5:6678 with SMTP id 00721157ae682-8b2b679d88cmr20934607b3.44.1793388771167;
-        Fri, 30 Oct 2026 12:32:51 -0700 (PDT)
-Received: from gmail.com ([2a03:2880:1fff::])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b704cd14sm13571167b3.6.2026.10.30.12.32.50
+        bh=q2LXv8ac8e3VuQ2Tz5JVmLM+VGtw7lVuKx86bhewjrI=;
+        b=EUrhrXwqoryZaRtWQHC4vK9fG8/ZAWtjaAkeiuBdA9xeRLwR8sotn+jTc8fUxunt6w
+         1xmLOxz3CxbPhwrKvZuj5vqr1NA2Y12G1c7VX5MfVCDlXZz9FzDgfcYWXKiY6erkbTMW
+         Gfc66cIXmNlpnTsZ/iQCMIlQcD08hOzreW9EXDLfNnqhL9ICcqwUIPQueZxK5SK/rrds
+         Fj/8xwsrp+HEA47oC7mzUUx72l+7GlolcZoBgH/shvAreOR9mRrOmQGvir0dlHv5Gjqf
+         +nS/xpXbDJNBlnmjjDW8IeubTeATxBHfjDUz19gnHRU2PT3Avh2ZMxI8Y7mRUI7p/PjX
+         nwzA==
+X-Forwarded-Encrypted: i=1; AKwUvBxIk1OGyBKVJl/z33+5JqEvVDbcHzuB2KxaSYrylA5vGZjPLvw/auHN3qm9CZDRWPM6x9bhfgJGgEBxtxk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMprwzbULkG78uf9Y1fjQ4R3SPQ4oWuHGeQGfY5EtzgRz+JN6k
+	ejhKYWup9oGL6moV8rVL/cE+sCwEVhlvi25OZ6PbNqHzNGSwpbBMm38DkXrN
+X-Gm-Gg: AYBFou00xZkmTXdxzUjkrJipKNwpi2cG8mFe8g32nN8QH71E2Vgnf3rQS4Dw6Js5D3r
+	7EWc9o4bkU96NAycex3nf9n18kPskRf6ezAOSTp9P4G9YH1Z3PTrCiaGl0WuKLa9Q+db4I2Pw2O
+	ZCYEL8L3ExqyvU43r4hPaUnFcEpDzTsSyGXgf5K9y4fme8V/4Qf9JlN7TFOxwy1vexiSQhG8RgE
+	0cLcEScgzplFldgIE1ixqenqvSsi8KAaM0vnniHpDZ0Af+NyDpBFBGvCuK6Si546eopCxNsf4Ot
+	BzpAoZ9gJcthstQtMwAmDypYv8Ov3yvmQyhNEvnlO/IvndPSsKXK2+93HjwVytbL9cgNukR3ENm
+	+YDS+ftCItpnCe5Ni2YqVZh8McdoYBeGyPO8ehV8srk0T+YSeRS0zfw+DVi/0MwHijRCdtwc+4o
+	CjrrxKcwxbFwytx18ZWhr8Sy7oqNdgZfrwSMkq3CtNDUo6aveWvRWfek9xx16MuTpdFZ20gv7bY
+	rT0Wmm1jZK8TLh934VcudNtA3tz7HYxYa06j4HmwZKyc/3rv5L3sJ7yh59dMStYQU/ffikPncCY
+	OE7wW4CVUqk=
+X-Received: by 2002:a05:600c:8b66:b0:4a3:5a91:5f61 with SMTP id 5b1f17b1804b1-4ac1793f8ddmr78070535e9.14.1793388760823;
+        Fri, 30 Oct 2026 12:32:40 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78a6bsm4799150f8f.27.2026.10.30.12.32.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 12:32:50 -0700 (PDT)
-From: Matthew Wood <thepacketgeek@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>
-Cc: linux-kernel@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	linux-perf-users@vger.kernel.org
-Subject: [PATCH v3 2/2] perf unwind: Don't look up symbols when the caller doesn't want them
-Date: Fri, 30 Oct 2026 12:32:34 -0700
-Message-ID: <20261030193237.1440673-3-thepacketgeek@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261030193237.1440673-1-thepacketgeek@gmail.com>
-References: <20261030193237.1440673-1-thepacketgeek@gmail.com>
+        Fri, 30 Oct 2026 12:32:38 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v10 1/2] RDMA/rxe: copy send WQE to kernel buffer before processing
+Date: Fri, 30 Oct 2026 19:32:34 +0000
+Message-ID: <20261030193235.3470653-2-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261030193235.3470653-1-tristan@talencesecurity.com>
+References: <20261030193235.3470653-1-tristan@talencesecurity.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,427 +104,271 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 02b2705017d2 ("perf callchain: Allow symbols to be optional when
-resolving a callchain") let callers that only need maps, such as
-build-id marking in 'perf record' and 'perf inject', resolve callchains
-without loading symbols. The DWARF unwinders were left out:
-thread__resolve_callchain_unwind() just notes that "Not resolving
-symbols with an unwinder isn't currently supported", and both libdw and
-libunwind look up the symbol of every frame they visit. The first lookup
-in a DSO loads its whole symbol table and demangles every name in it.
+The rxe send queue is mapped into userspace via mmap. The requester
+processes Work Queue Entries (WQEs) directly from this shared buffer
+without first copying them to kernel memory. Userspace can modify WQE
+fields (num_sge, sge_offset, SGE entries) between kernel reads,
+leading to inconsistent state in copy_data().
 
-On arm64 this happens even for frame pointer callchains, because
-get_leaf_frame_caller_aarch64() runs a two frame DWARF unwind for every
-sample to recover the leaf function's caller. Since commit 29be60c93d2d
-("perf build-id: Mark DSO in sample callchains"), process_buildids()
-does that for every sample at the end of 'perf record', so with -a it
-loads and demangles the symbol tables of every user binary it sampled.
-A C++ binary with a pathological mangled name sent __cxa_demangle() into
-exponential time and memory, and
+This is the send-path counterpart to the receive-path fixes:
+  - commit 22b8fbded65b8 ("RDMA/rxe: Fix TOCTOU heap overflow in
+    get_srq_wqe")
+  - commit d6ab440240a04 ("RDMA/rxe: Copy WQE to local buffer in
+    non-SRQ receive path")
 
-  perf record -a -e cycles:u --call-graph fp -- sleep 2
+Fix by copying the send WQE to a kernel-private buffer in req_next_wqe()
+before processing. The copy uses the full queue element data size
+(max of max_sge SGEs and max_inline bytes) so that both SGE entries
+and inline data are always captured.
 
-never finished writing perf.data after the workload exited.
+After copying, reject out-of-range opcodes by setting mask to 0 so that
+next_opcode() transitions the QP to error state. Clamp atomic write
+residual to exactly sizeof(u64) to prevent finish_packet() from reading
+past the WQE buffer or leaking uninitialized pad bytes. The WR-level
+mask (WR_ATOMIC_WRITE_MASK) is checked since wr_opcode_mask() populates
+wqe->mask from enum rxe_wr_mask.
 
-Pass a symbols flag down to the unwinders. When it is false, look up
-only the map of each frame and leave entry->ms.sym NULL, which
-unwind_entry() already handles just as add_callchain_ip() does for
-symbols=false. get_leaf_frame_caller_aarch64() only uses the addresses,
-and its caller looks up the leaf frame caller's symbol through
-add_callchain_ip() when it wants it, so it never asks for symbols.
+The local copy is reused across multi-packet sends to preserve DMA
+progress state (cur_sge, sge_offset, resid). Field updates including
+DMA progress are written back to the shared queue using WRITE_ONCE()
+for individual fields and smp_store_release() for state transitions,
+so the completer and userspace observe consistent values without the
+tearing risk of bulk memcpy(). DMA progress writeback ensures retries
+can resume from the correct offset.
 
-The unwinders still need what loading the symbols used to find: the
-DSO's build-id and any separate debuginfo, through
-dso__symsrc_filename(). Without symbols, they get those from
-dso__load_symsrc(). libdw does that before reporting each module, and
-both its report_module() and entry() follow the flag, so with symbols
-the module's symbols are still loaded before libdw first asks
-__find_debuginfo() for its debuginfo, which it does while unwinding the
-frame to find out whether it is an activation. libunwind does it in
-entry(), where it used to load the symbols. The frames returned are
-unchanged.
+The copy is invalidated when the WQE index advances (last packet sent,
+error, local ops, UD oversized), when a retry resets WQE state, on QP
+reset, or when the QP enters error state for flush.
 
-The dwarf unwind test now unwinds without symbols first, checking that
-no symbols get loaded, and then checks that unwinding with symbols
-returns the same addresses and maps.
-
-With libdw, 'perf inject -b' on an x86 'perf record --call-graph dwarf'
-profile of a Python workload goes from 0.19s and 69MB max RSS to 0.10s
-and 33MB, with the same build-ids injected.
-
-Fixes: 02b2705017d2 ("perf callchain: Allow symbols to be optional when resolving a callchain")
-Fixes: 29be60c93d2d ("perf build-id: Mark DSO in sample callchains")
-Signed-off-by: Matthew Wood <thepacketgeek@gmail.com>
+Fixes: 8700e3e7c485 ("Soft RoCE driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- tools/perf/tests/dwarf-unwind.c               | 71 ++++++++++++++++---
- .../util/arm64-frame-pointer-unwind-support.c |  7 +-
- tools/perf/util/machine.c                     |  7 +-
- tools/perf/util/unwind-libdw.c                | 17 ++++-
- tools/perf/util/unwind-libdw.h                |  1 +
- tools/perf/util/unwind-libunwind.c            | 22 ++++--
- tools/perf/util/unwind.c                      |  7 +-
- tools/perf/util/unwind.h                      | 11 ++-
- 8 files changed, 116 insertions(+), 27 deletions(-)
 
-diff --git a/tools/perf/tests/dwarf-unwind.c b/tools/perf/tests/dwarf-unwind.c
-index 9ed78d00fb87..2cbb95c577a9 100644
---- a/tools/perf/tests/dwarf-unwind.c
-+++ b/tools/perf/tests/dwarf-unwind.c
-@@ -15,6 +15,7 @@
- #include "map.h"
- #include "symbol.h"
- #include "thread.h"
-+#include "dso.h"
- #include "callchain.h"
+Changes since v9:
+  - Atomic write resid: check != sizeof(u64) instead of just > to also
+    catch undersized resid that would leak uninitialized skb pad bytes
+    (sashiko finding).
+  - Bisection fix: move qp->comp.comp_wqe_valid invalidation from
+    this patch to patch 2/2, since comp_wqe_valid is defined there
+    (sashiko finding).
+
+Changes since v8:
+  - Fix atomic write resid check: use WR_ATOMIC_WRITE_MASK (WR-level
+    mask) instead of RXE_ATOMIC_WRITE_MASK (packet-level mask) so the
+    condition actually fires for IB_WR_ATOMIC_WRITE WQEs (sashiko
+    finding).
+  - Fix atomic write rejection: clamp dma.resid to sizeof(u64) instead
+    of setting mask to 0, since next_opcode() ignores wqe->mask and
+    uses wqe->wr.opcode directly (sashiko finding).
+
+Changes since v7:
+  - Reject atomic write WQEs with oversized dma.resid to prevent
+    OOB read in finish_packet() (sashiko finding).
+
+Changes since v6:
+  - Fixed all sashiko review findings (2 Critical + 9 High).
+  - FORTIFY_SOURCE: memcpy into enclosing struct, not inner member.
+  - Copy size: max(max_sge * sizeof(ib_sge), max_inline).
+  - Opcode bound: IB_WR_REG_MR (was IB_WR_ATOMIC_WRITE).
+  - Removed silent num_sge clamp, use mask=0 for invalid opcodes.
+  - DMA progress writeback (resid, cur_sge, sge_offset).
+  - Addressed Zhu Yanjun review feedback.
+
+Changes since v5:
+  - Added opcode bounds check and num_sge clamp after copy.
+
+Changes since v4:
+  - Resent from the correct sender address.
+
+Changes since v3:
+  - Copy full queue element (max_sge SGEs) instead of per-WQE size.
+  - Invalidate on QP reset, ERR flush, RESET state check.
+
+Changes since v2:
+  - WRITE_ONCE/smp_store_release for field writeback.
+
+Changes since v1:
+  - Split into per-path patches. Cache across multi-packet ops.
+
+ drivers/infiniband/sw/rxe/rxe_qp.c    |  1 +
+ drivers/infiniband/sw/rxe/rxe_req.c   | 71 +++++++++++++++++++++++++--
+ drivers/infiniband/sw/rxe/rxe_verbs.h |  6 +++
+ 3 files changed, 73 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
+index 311f285d78a6b..77606c4a039b1 100644
+--- a/drivers/infiniband/sw/rxe/rxe_qp.c
++++ b/drivers/infiniband/sw/rxe/rxe_qp.c
+@@ -581,6 +581,7 @@ static void rxe_qp_reset(struct rxe_qp *qp)
+ 	qp->req.need_retry = 0;
+ 	qp->req.wait_for_rnr_timer = 0;
+ 	qp->req.noack_pkts = 0;
++	qp->req.send_wqe_valid = false;
+ 	qp->resp.msn = 0;
+ 	qp->resp.opcode = -1;
+ 	qp->resp.drop_msg = 0;
+diff --git a/drivers/infiniband/sw/rxe/rxe_req.c b/drivers/infiniband/sw/rxe/rxe_req.c
+index 24f5c044363f7..dd8ad19ed1d86 100644
+--- a/drivers/infiniband/sw/rxe/rxe_req.c
++++ b/drivers/infiniband/sw/rxe/rxe_req.c
+@@ -161,6 +161,26 @@ static void req_check_sq_drain_done(struct rxe_qp *qp)
+ 	spin_unlock_irqrestore(&qp->state_lock, flags);
+ }
  
- /* For bsearch. We try to unwind functions in shared object. */
-@@ -53,9 +54,38 @@ int test__dwarf_unwind(struct test_suite *test, int subtest);
- 
- #define MAX_STACK 8
- 
-+struct unwind_test_data {
-+	unsigned long cnt;
-+	unsigned long nr;
-+	u64 ips[MAX_STACK];
-+	struct map *maps[MAX_STACK];
-+	bool check_unloaded;
-+};
-+
-+static int unwind_entry_maps(struct unwind_entry *entry, void *arg)
++static void rxe_req_writeback_wqe(struct rxe_qp *qp)
 +{
-+	struct unwind_test_data *data = arg;
-+	unsigned long idx = data->cnt;
++	struct rxe_send_wqe *shared = qp->req.shared_wqe;
++	struct rxe_send_wqe *local = &qp->req.send_wqe.wqe;
 +
-+	if (idx >= MAX_STACK || entry->ms.sym || !entry->ms.map) {
-+		pr_debug("failed: invalid entry without symbols\n");
-+		return -1;
-+	}
-+	if (data->check_unloaded && dso__loaded(map__dso(entry->ms.map))) {
-+		pr_debug("failed: unwinding loaded symbols\n");
-+		return -1;
-+	}
++	if (!qp->req.send_wqe_valid || !shared)
++		return;
 +
-+	data->ips[idx] = entry->ip;
-+	data->maps[idx] = map__get(entry->ms.map);
-+	data->cnt++;
-+	return 0;
++	WRITE_ONCE(shared->status, local->status);
++	WRITE_ONCE(shared->first_psn, local->first_psn);
++	WRITE_ONCE(shared->last_psn, local->last_psn);
++	WRITE_ONCE(shared->mask, local->mask);
++	WRITE_ONCE(shared->has_rd_atomic, local->has_rd_atomic);
++	WRITE_ONCE(shared->dma.resid, local->dma.resid);
++	WRITE_ONCE(shared->dma.cur_sge, local->dma.cur_sge);
++	WRITE_ONCE(shared->dma.sge_offset, local->dma.sge_offset);
++	/* State must be last so the completer sees prior updates */
++	smp_store_release(&shared->state, local->state);
 +}
 +
- static int unwind_entry(struct unwind_entry *entry, void *arg)
+ static struct rxe_send_wqe *__req_next_wqe(struct rxe_qp *qp)
  {
--	unsigned long *cnt = (unsigned long *) arg;
-+	struct unwind_test_data *data = arg;
-+	unsigned long *cnt = &data->cnt;
- 	char *symbol = entry->ms.sym ? entry->ms.sym->name : NULL;
- 	static const char *funcs[MAX_STACK] = {
- 		"test__arch_unwind_sample",
-@@ -85,16 +115,26 @@ static int unwind_entry(struct unwind_entry *entry, void *arg)
- 		return -1;
+ 	struct rxe_queue *q = qp->sq.queue;
+@@ -193,7 +213,35 @@ static struct rxe_send_wqe *req_next_wqe(struct rxe_qp *qp)
  	}
+ 	spin_unlock_irqrestore(&qp->state_lock, flags);
  
--	(*cnt)++;
-+	if (*cnt >= data->nr || entry->ip != data->ips[*cnt] ||
-+	    !RC_CHK_EQUAL(entry->ms.map, data->maps[*cnt])) {
-+		pr_debug("failed: unwinding with symbols changed the callchain\n");
-+		return -1;
-+	}
+-	wqe->mask = wr_opcode_mask(wqe->wr.opcode, qp);
++	/* Reuse the existing kernel-private copy if still valid */
++	if (qp->req.send_wqe_valid && qp->req.shared_wqe == wqe)
++		return &qp->req.send_wqe.wqe;
 +
- 	pr_debug("got: %s 0x%" PRIx64 ", expecting %s\n",
- 		 symbol, entry->ip, funcs[idx]);
--	return strcmp((const char *) symbol, funcs[idx]);
-+	if (strcmp(symbol, funcs[idx]))
-+		return -1;
-+	(*cnt)++;
-+	return 0;
- }
- 
- NO_TAIL_CALL_ATTRIBUTE noinline int test_dwarf_unwind__thread(struct thread *thread)
- {
- 	struct perf_sample sample;
--	unsigned long cnt = 0;
-+	struct unwind_test_data data = {
-+		.check_unloaded = callchain_param.order == ORDER_CALLER,
-+	};
- 	int err = -1;
- 
- 	perf_sample__init(&sample, /*all=*/true);
-@@ -103,17 +143,32 @@ NO_TAIL_CALL_ATTRIBUTE noinline int test_dwarf_unwind__thread(struct thread *thr
- 		goto out;
- 	}
- 
--	err = unwind__get_entries(unwind_entry, &cnt, thread,
--				  &sample, MAX_STACK, false);
-+	/* Resolve maps first so symbol loading cannot hide a regression. */
-+	err = unwind__get_entries(unwind_entry_maps, &data, thread,
-+				  &sample, MAX_STACK, /*symbols=*/false,
-+				  /*best_effort=*/false);
-+	if (err || data.cnt != MAX_STACK) {
-+		pr_debug("unwind without symbols failed\n");
-+		err = -1;
-+		goto out;
-+	}
-+
-+	data.nr = data.cnt;
-+	data.cnt = 0;
-+	err = unwind__get_entries(unwind_entry, &data, thread,
-+				  &sample, MAX_STACK, /*symbols=*/true,
-+				  /*best_effort=*/false);
- 	if (err)
- 		pr_debug("unwind failed\n");
--	else if (cnt != MAX_STACK) {
-+	else if (data.cnt != MAX_STACK) {
- 		pr_debug("got wrong number of stack entries %lu != %d\n",
--			 cnt, MAX_STACK);
-+			 data.cnt, MAX_STACK);
- 		err = -1;
- 	}
- 
-  out:
-+	for (unsigned long i = 0; i < MAX_STACK; i++)
-+		map__put(data.maps[i]);
- 	zfree(&sample.user_stack.data);
- 	zfree(&sample.user_regs->regs);
- 	perf_sample__exit(&sample);
-diff --git a/tools/perf/util/arm64-frame-pointer-unwind-support.c b/tools/perf/util/arm64-frame-pointer-unwind-support.c
-index 3af8c7a466e0..c16eeee34211 100644
---- a/tools/perf/util/arm64-frame-pointer-unwind-support.c
-+++ b/tools/perf/util/arm64-frame-pointer-unwind-support.c
-@@ -67,7 +67,12 @@ u64 get_leaf_frame_caller_aarch64(struct perf_sample *sample, struct thread *thr
- 		regs->cache_regs[PERF_REG_ARM64_SP] = 0;
- 	}
- 
--	ret = unwind__get_entries(add_entry, &entries, thread, sample, 2, true);
-+	/*
-+	 * Only the addresses are used. The caller looks up the leaf frame
-+	 * caller's symbol itself if it wants it, so don't load symbols here.
++	/* Copy WQE from userspace-mapped shared queue to kernel-private
++	 * buffer. Copy size matches the queue element data area.
 +	 */
-+	ret = unwind__get_entries(add_entry, &entries, thread, sample, 2,
-+				  /*symbols=*/false, /*best_effort=*/true);
- 	memcpy(regs, &old_regs, sizeof(*regs));
- 
- 	if (ret || entries.length != 2)
-diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
-index f86b3b7df742..16847e26ea09 100644
---- a/tools/perf/util/machine.c
-+++ b/tools/perf/util/machine.c
-@@ -3061,11 +3061,8 @@ static int thread__resolve_callchain_unwind(struct thread *thread,
- 	    !sample->user_stack.size)
- 		return 0;
- 
--	if (!symbols)
--		pr_debug("Not resolving symbols with an unwinder isn't currently supported\n");
--
--	return unwind__get_entries(unwind_entry, cursor,
--				   thread, sample, max_stack, false);
-+	return unwind__get_entries(unwind_entry, cursor, thread, sample,
-+				   max_stack, symbols, /*best_effort=*/false);
- }
- 
- int __thread__resolve_callchain(struct thread *thread,
-diff --git a/tools/perf/util/unwind-libdw.c b/tools/perf/util/unwind-libdw.c
-index 63a5c2253174..bc6b8fd40110 100644
---- a/tools/perf/util/unwind-libdw.c
-+++ b/tools/perf/util/unwind-libdw.c
-@@ -73,11 +73,17 @@ static int __report_module(struct addr_location *al, u64 ip,
- 	Dwfl_Module *mod;
- 	struct dso *dso = NULL;
- 	Dwarf_Addr base;
++	memcpy(&qp->req.send_wqe, wqe, sizeof(*wqe) +
++	       max_t(int, qp->sq.max_sge * sizeof(struct ib_sge),
++		    qp->sq.max_inline));
++	qp->req.shared_wqe = wqe;
++	qp->req.send_wqe_valid = true;
 +
- 	/*
--	 * Some callers will use al->sym, so we can't just use the
--	 * cheaper thread__find_map() here.
-+	 * Callers that want symbols will use al->sym. Loading the symbols
-+	 * also finds the DSO's build-id and any separate debuginfo, which
-+	 * are needed below and by __find_debuginfo(), so look for those
-+	 * without loading the symbols when they aren't wanted.
- 	 */
--	thread__find_symbol(ui->thread, PERF_RECORD_MISC_USER, ip, al);
-+	if (ui->symbols)
-+		thread__find_symbol(ui->thread, PERF_RECORD_MISC_USER, ip, al);
++	wqe = &qp->req.send_wqe.wqe;
++
++	/* Prevent OOB in wr_opcode_mask() for corrupted opcodes.
++	 * Mask 0 causes next_opcode() to fail, moving QP to error state.
++	 */
++	if (unlikely(wqe->wr.opcode > IB_WR_REG_MR))
++		wqe->mask = 0;
 +	else
-+		thread__find_map(ui->thread, PERF_RECORD_MISC_USER, ip, al);
- 
- 	if (al->map)
- 		dso = map__dso(al->map);
-@@ -85,6 +91,9 @@ static int __report_module(struct addr_location *al, u64 ip,
- 	if (!dso)
- 		return 0;
- 
-+	if (!ui->symbols)
-+		dso__load_symsrc(dso);
++		wqe->mask = wr_opcode_mask(wqe->wr.opcode, qp);
 +
- 	/*
- 	 * The generated JIT DSO files only map the code segment without
- 	 * ELF headers.  Since JIT codes used to be packed in a memory
-@@ -361,6 +370,7 @@ int libdw__get_entries(unwind_entry_cb_t cb, void *arg,
- 			struct thread *thread,
- 			struct perf_sample *data,
- 			int max_stack,
-+			bool symbols,
- 			bool best_effort)
- {
- 	struct maps *maps = thread__maps(thread);
-@@ -389,6 +399,7 @@ int libdw__get_entries(unwind_entry_cb_t cb, void *arg,
- 		.max_stack	= max_stack,
- 		.e_machine	= e_machine,
- 		.e_flags	= e_flags,
-+		.symbols	= symbols,
- 		.best_effort    = best_effort
- 	};
- 
-diff --git a/tools/perf/util/unwind-libdw.h b/tools/perf/util/unwind-libdw.h
-index 6423bf5a2492..ab37bf5cb105 100644
---- a/tools/perf/util/unwind-libdw.h
-+++ b/tools/perf/util/unwind-libdw.h
-@@ -22,6 +22,7 @@ struct unwind_info {
- 	int			idx;
- 	uint32_t		e_flags;
- 	uint16_t		e_machine;
-+	bool			symbols;
- 	bool			best_effort;
- 	struct unwind_entry	entries[];
- };
-diff --git a/tools/perf/util/unwind-libunwind.c b/tools/perf/util/unwind-libunwind.c
-index 73d191ce51a5..3c5acc052715 100644
---- a/tools/perf/util/unwind-libunwind.c
-+++ b/tools/perf/util/unwind-libunwind.c
-@@ -589,14 +589,26 @@ void unwind__finish_access(struct maps *maps)
- 	libunwind_arch__finish_access(maps);
++	/* Atomic writes carry exactly sizeof(u64) payload.
++	 * Clamp oversized resid to prevent OOB read in finish_packet().
++	 */
++	if (unlikely((wqe->mask & WR_ATOMIC_WRITE_MASK) &&
++		     wqe->dma.resid != sizeof(u64)))
++		wqe->dma.resid = sizeof(u64);
+ 	return wqe;
  }
  
--static int entry(uint64_t ip, struct thread *thread, unwind_entry_cb_t cb, void *arg)
-+static int entry(uint64_t ip, struct thread *thread, bool symbols,
-+		 unwind_entry_cb_t cb, void *arg)
+@@ -582,9 +630,13 @@ static void update_state(struct rxe_qp *qp, struct rxe_pkt_info *pkt)
  {
- 	struct unwind_entry e;
- 	struct addr_location al;
- 	int ret;
+ 	qp->req.opcode = pkt->opcode;
  
- 	addr_location__init(&al);
--	e.ms.sym = thread__find_symbol(thread, PERF_RECORD_MISC_USER, ip, &al);
-+	if (symbols) {
-+		thread__find_symbol(thread, PERF_RECORD_MISC_USER, ip, &al);
-+	} else {
-+		/*
-+		 * Still find the DSO's separate debuginfo, which loading
-+		 * the symbols would have, for read_unwind_spec_debug_frame().
-+		 */
-+		thread__find_map(thread, PERF_RECORD_MISC_USER, ip, &al);
-+		if (al.map)
-+			dso__load_symsrc(map__dso(al.map));
+-	if (pkt->mask & RXE_END_MASK)
++	rxe_req_writeback_wqe(qp);
++
++	if (pkt->mask & RXE_END_MASK) {
+ 		qp->req.wqe_index = queue_next_index(qp->sq.queue,
+ 						     qp->req.wqe_index);
++		qp->req.send_wqe_valid = false;
 +	}
-+	e.ms.sym = al.sym;
- 	e.ip     = ip;
- 	e.ms.map = al.map;
- 	e.ms.thread = thread__get(al.thread);
-@@ -614,7 +626,7 @@ static int entry(uint64_t ip, struct thread *thread, unwind_entry_cb_t cb, void
- int libunwind__get_entries(unwind_entry_cb_t cb, void *arg,
- 			 struct thread *thread,
- 			 struct perf_sample *sample, int max_stack,
--			 bool best_effort)
-+			 bool symbols, bool best_effort)
- {
- 	struct unwind_info *ui;
- 	uint64_t first_ip;
-@@ -640,7 +652,7 @@ int libunwind__get_entries(unwind_entry_cb_t cb, void *arg,
  
- 	if (max_stack == 1) {
- 		/* Special case for a single entry. */
--		ret = entry(first_ip, thread, cb, arg);
-+		ret = entry(first_ip, thread, symbols, cb, arg);
- 		return ret ? (ret == -ENOMEM ? -ENOMEM : 0) : 1;
+ 	qp->need_req_skb = 0;
+ 
+@@ -634,7 +686,9 @@ static int rxe_do_local_ops(struct rxe_qp *qp, struct rxe_send_wqe *wqe)
+ 
+ 	wqe->state = wqe_state_done;
+ 	wqe->status = IB_WC_SUCCESS;
++	rxe_req_writeback_wqe(qp);
+ 	qp->req.wqe_index = queue_next_index(qp->sq.queue, qp->req.wqe_index);
++	qp->req.send_wqe_valid = false;
+ 
+ 	return 0;
+ }
+@@ -666,6 +720,7 @@ int rxe_requester(struct rxe_qp *qp)
+ 		wqe = __req_next_wqe(qp);
+ 		spin_unlock_irqrestore(&qp->state_lock, flags);
+ 		if (wqe) {
++			qp->req.send_wqe_valid = false;
+ 			wqe->status = IB_WC_WR_FLUSH_ERR;
+ 			goto err;
+ 		} else {
+@@ -681,6 +736,7 @@ int rxe_requester(struct rxe_qp *qp)
+ 		qp->req.wait_psn = 0;
+ 		qp->req.need_retry = 0;
+ 		qp->req.wait_for_rnr_timer = 0;
++		qp->req.send_wqe_valid = false;
+ 		spin_unlock_irqrestore(&qp->state_lock, flags);
+ 		goto exit;
+ 	}
+@@ -695,6 +751,7 @@ int rxe_requester(struct rxe_qp *qp)
+ 	if (unlikely(qp->req.need_retry && !qp->req.wait_for_rnr_timer)) {
+ 		req_retry(qp);
+ 		qp->req.need_retry = 0;
++		qp->req.send_wqe_valid = false;
  	}
  
-@@ -662,7 +674,7 @@ int libunwind__get_entries(unwind_entry_cb_t cb, void *arg,
- 		int j = callchain_param.order == ORDER_CALLEE ? i : ui->cur_ip - i - 1;
+ 	wqe = req_next_wqe(qp);
+@@ -772,10 +829,12 @@ int rxe_requester(struct rxe_qp *qp)
+ 			wqe->last_psn = qp->req.psn;
+ 			qp->req.psn = (qp->req.psn + 1) & BTH_PSN_MASK;
+ 			qp->req.opcode = IB_OPCODE_UD_SEND_ONLY;
+-			qp->req.wqe_index = queue_next_index(qp->sq.queue,
+-						       qp->req.wqe_index);
+ 			wqe->state = wqe_state_done;
+ 			wqe->status = IB_WC_SUCCESS;
++			rxe_req_writeback_wqe(qp);
++			qp->req.wqe_index = queue_next_index(qp->sq.queue,
++						       qp->req.wqe_index);
++			qp->req.send_wqe_valid = false;
+ 			goto done;
+ 		}
+ 		payload = mtu;
+@@ -839,8 +898,10 @@ int rxe_requester(struct rxe_qp *qp)
+ 	goto out;
+ err:
+ 	/* update wqe_index for each wqe completion */
+-	qp->req.wqe_index = queue_next_index(qp->sq.queue, qp->req.wqe_index);
+ 	wqe->state = wqe_state_error;
++	rxe_req_writeback_wqe(qp);
++	qp->req.wqe_index = queue_next_index(qp->sq.queue, qp->req.wqe_index);
++	qp->req.send_wqe_valid = false;
+ 	rxe_qp_error(qp);
+ exit:
+ 	ret = -EAGAIN;
+diff --git a/drivers/infiniband/sw/rxe/rxe_verbs.h b/drivers/infiniband/sw/rxe/rxe_verbs.h
+index 0f5ffd94643f9..a22dfc6e5ae3c 100644
+--- a/drivers/infiniband/sw/rxe/rxe_verbs.h
++++ b/drivers/infiniband/sw/rxe/rxe_verbs.h
+@@ -114,6 +114,12 @@ struct rxe_req_info {
+ 	int			wait_for_rnr_timer;
+ 	int			noack_pkts;
+ 	int			again;
++	struct rxe_send_wqe	*shared_wqe;
++	bool			send_wqe_valid;
++	struct {
++		struct rxe_send_wqe	wqe;
++		struct ib_sge		sge[RXE_MAX_SGE];
++	} send_wqe;
+ };
  
- 		if (ui->ips[j]) {
--			ret = entry(ui->ips[j], thread, cb, arg);
-+			ret = entry(ui->ips[j], thread, symbols, cb, arg);
- 			if (ret)
- 				break;
- 			entries++;
-diff --git a/tools/perf/util/unwind.c b/tools/perf/util/unwind.c
-index 4ed4b1d55c69..8555ece4b6f3 100644
---- a/tools/perf/util/unwind.c
-+++ b/tools/perf/util/unwind.c
-@@ -10,6 +10,7 @@ int unwind__get_entries(unwind_entry_cb_t cb __maybe_unused, void *arg __maybe_u
- 			struct thread *thread __maybe_unused,
- 			struct perf_sample *data __maybe_unused,
- 			int max_stack __maybe_unused,
-+			bool symbols __maybe_unused,
- 			bool best_effort __maybe_unused)
- {
- 	int ret = 0;
-@@ -29,10 +30,12 @@ int unwind__get_entries(unwind_entry_cb_t cb __maybe_unused, void *arg __maybe_u
- 	for (size_t i = 0; i < ARRAY_SIZE(symbol_conf.unwind_style); i++) {
- 		switch (symbol_conf.unwind_style[i]) {
- 		case UNWIND_STYLE_LIBDW:
--			ret = libdw__get_entries(cb, arg, thread, data, max_stack, best_effort);
-+			ret = libdw__get_entries(cb, arg, thread, data, max_stack,
-+						 symbols, best_effort);
- 			break;
- 		case UNWIND_STYLE_LIBUNWIND:
--			ret = libunwind__get_entries(cb, arg, thread, data, max_stack, best_effort);
-+			ret = libunwind__get_entries(cb, arg, thread, data, max_stack,
-+						     symbols, best_effort);
- 			break;
- 		case UNWIND_STYLE_UNKNOWN:
- 		default:
-diff --git a/tools/perf/util/unwind.h b/tools/perf/util/unwind.h
-index a2d4af694fde..59dfb234cbea 100644
---- a/tools/perf/util/unwind.h
-+++ b/tools/perf/util/unwind.h
-@@ -23,6 +23,9 @@ int unwind__configure(const char *var, const char *value, void *cb);
- int unwind__option(const struct option *opt, const char *arg, int unset);
- 
- /*
-+ * When symbols is false, only the map of each frame is looked up and
-+ * entry->ms.sym is left NULL, so that no symbol tables are loaded.
-+ *
-  * When best_effort is set, don't report errors and fail silently. This could
-  * be expanded in the future to be more permissive about things other than
-  * error messages.
-@@ -30,19 +33,20 @@ int unwind__option(const struct option *opt, const char *arg, int unset);
- int unwind__get_entries(unwind_entry_cb_t cb, void *arg,
- 			struct thread *thread,
- 			struct perf_sample *data, int max_stack,
--			bool best_effort);
-+			bool symbols, bool best_effort);
- 
- #ifdef HAVE_LIBDW_SUPPORT
- int libdw__get_entries(unwind_entry_cb_t cb, void *arg,
- 		       struct thread *thread,
- 		       struct perf_sample *data, int max_stack,
--		       bool best_effort);
-+		       bool symbols, bool best_effort);
- #else
- #include "debug.h"
- static inline int libdw__get_entries(unwind_entry_cb_t cb __maybe_unused, void *arg __maybe_unused,
- 				     struct thread *thread __maybe_unused,
- 				     struct perf_sample *data __maybe_unused,
- 				     int max_stack __maybe_unused,
-+				     bool symbols __maybe_unused,
- 				     bool best_effort __maybe_unused)
- {
- 	pr_warning_once("Error: libdw dwarf unwinding not built into perf\n");
-@@ -55,7 +59,7 @@ static inline int libdw__get_entries(unwind_entry_cb_t cb __maybe_unused, void *
- int libunwind__get_entries(unwind_entry_cb_t cb, void *arg,
- 			   struct thread *thread,
- 			   struct perf_sample *data, int max_stack,
--			   bool best_effort);
-+			   bool symbols, bool best_effort);
- int unwind__prepare_access(struct maps *maps, uint16_t e_machine);
- void unwind__flush_access(struct maps *maps);
- void unwind__finish_access(struct maps *maps);
-@@ -66,6 +70,7 @@ static inline int libunwind__get_entries(unwind_entry_cb_t cb __maybe_unused,
- 					 struct thread *thread __maybe_unused,
- 					 struct perf_sample *data __maybe_unused,
- 					 int max_stack __maybe_unused,
-+					 bool symbols __maybe_unused,
- 					 bool best_effort __maybe_unused)
- {
- 	pr_warning_once("Error: libunwind dwarf unwinding not built into perf\n");
+ struct rxe_comp_info {
 -- 
-2.53.0-Meta
+2.47.3
 
