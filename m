@@ -1,91 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793334213;
-	b=NjibdW5+LAdXs0KewCZ9XVCNb/zC4UbY+hh7au8AperhY0I85OdV13otbugf0mD7i8/z
-	 8MSUJlUt9Kmp2NRPRYx2OQRS3rgC/yDrMBDMnqtQBkZO3MxHe/OK7DZ/Esg9NqvEG2Xdj
-	 R2L4DQJjm8IB0JankWnJ4cJ67R7lQfumg9aEBfGYszd5IzAdAfxlSb9f8La/WtkQcgm8w
-	 /qbAPw/g+upRnwPg+IF+gfGabqigJU7wz0gI8zSallH8sRnGBruj/FDREwpUF7TwMSYcu
-	 w7IGLwq/7VjBepPlBaJJcoWPyzcmpUpv+dpxbDI/by4e+RkA+8DwzrqGM1UZ8/JB/6A==
+	t=1793334221;
+	b=LtaDJYenWaD/Q5O5RuF50lYQh8xMFnmMlG4rsJUBrf7vNqh6zeKsnwKq/3XBa7HBnoYH
+	 JRtXYPGy79EzyNaahFNEMVgizUwpJJoe13+yFugzzmJGl8wResh3U1ZDgKFKRGCR5G9Lh
+	 HErBTAtV8bdGU6PcYP9EWC/0dBqcjP+YjaKFvRS8p+0LwZKFcfc9qzTgt4McyP3f0hFYP
+	 1RNZNBZLeL2aEPQuN7mNAxoR9DtQ6qAkBubcRc1dvI87yEqJXCimWNCPZFbusc3Wof7gC
+	 pZxHLuRdneHGavSi7GaawmKdDKrEGpkTI4baPFuECRe8UbvZXeJ5eg9py+FlsMEO5Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793334213;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793334221;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=XN4XDyaiqYlOIplV7CClfO+XYVm+Kn4edMfOjEe2lFQ=;
-	b=fUivY2HsqUzIjiShirMPjFo72Ou4uT5FOeWBctldaJgSz6x4xijnY2ZMoAhHGxq/oGm3
-	 fXypkILA94oTaQEm/ae/zzBnwdA6720LjUIz4svMfqvJIaiHNzw9rp/YVQQUGsas0GGBu
-	 F3kPNElZiMhS7S0KKkXUlVmlcU4zeBqkynyKaNcDopwgOnDy2qyOEdpbYnoORl928SeI2
-	 0JqmCuDMj6uslbRUSKZhrJBMxuWWeyx3Y70lHfV+wB9kqRMrehyoy32IWC/cDJbyYeSDW
-	 R6XFF7dndBwxIyXmRpjPJcdnXnOCHNO4IW82JZ3WzANG7CP1mUTrvf6EIuuQJ0vqUpA==
+	bh=S6qrCm3VJbLk2H2beVEtsK8a9baQ0SAzBEfNGb4zgPg=;
+	b=yLY929nogiJJ9pQ5A9pl+Ii1aqLT9Y9MBdiFa/8HomU3Eujk5hq0x0FIDJ9mBBIIzA0m
+	 TplE9UAmm0aHzxxxQWbQ6dF+VEmb/SUNavwJKahApKInMB6wBNFePp5HtR2OQCCy+4x6q
+	 XLbXIfJQnvv4VwE0VWv576YhA+wQNrMY1LS/rSi1AH6q1pFFyiym7XwopOcqlLxxDL5hH
+	 wLJeyClYM6Ch83t6HHK7bkhImpxKz4pHbNwUfSrT134DfK31LxgtM8thvAlqB4HNl+NEY
+	 uF4OdDSdrkhEr3TWOQ3YUCg5NeYDCYdDLJspZpZpUdyV/uNlN6Z8DF56L+NBNqzMKtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=openai.com;
 	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=WbyQfqI0;
-	arc=none smtp.remote-ip=209.85.210.47
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=Qp186+H6;
+	arc=none smtp.remote-ip=209.85.210.49
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6BA1606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:23:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6BA1606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C0A606A333
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:23:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46C0A606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=WbyQfqI0
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-843cf077f10so448517a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:23:32 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=Qp186+H6
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-843cf077f10so448597a34.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:23:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1793334212; x=1793939012; darn=vger.kernel.org;
+        d=openai.com; s=google; t=1793334219; x=1793939019; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XN4XDyaiqYlOIplV7CClfO+XYVm+Kn4edMfOjEe2lFQ=;
-        b=WbyQfqI097yHRB3+7aqxBmB1xknuabF6gN0MRP10jfBMsSndXmWbK9pPvOZllmPr05
-         MBm2qcpdzkbWWNEy7thMZjekuiOkgjZqB6MClyeokHWrZ/4n2joOeIAxlttHCer/Bqq3
-         9Lc+byJPShOER5gUpuxDeqKRsavCodwfdHjcA=
+        bh=S6qrCm3VJbLk2H2beVEtsK8a9baQ0SAzBEfNGb4zgPg=;
+        b=Qp186+H6nDG5dCHQ8CdatqiicdYdxzaOBmc1LQWJBRsEPtK1ukFV7bQmGhHYAS1ycJ
+         vBLzVJW9poHdLm71gzPv0JWD6g/TL5VvTx1RDFza6oZD/BktGHeR3tSHcW/7+nPS6ckB
+         QrzVdOgTVsZgtzTYDVDE925yffkK/YUl6WG+c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793334212; x=1793939012;
+        d=1e100.net; s=20260707; t=1793334219; x=1793939019;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XN4XDyaiqYlOIplV7CClfO+XYVm+Kn4edMfOjEe2lFQ=;
-        b=CboZUBF/YvBJgFQwerFPwLUKLIC7viOaW/IrlXElsxzRRfCy0qqi4K2DN7JbdXfRLz
-         HgTp/fvxPvpt0/C31dqpnIiXARHuudMsXYAWhQ+WuAz/k27RvSYXauRlpiYoirOcBqWn
-         Qz+kThOqJpyROQyf2kZgvSLWDi15e/R9nqd5I92h03TV71zDem2Ylmf/B56s2Etb+mMe
-         Tte3I0B4j7oISd3iFtLeykrROt+M54q/V9vuMCR3EixxYoeOtR0Y+t2MdcReJm4vyX2M
-         ZnDE8i5fZY2beOhTN5fICvmk2VGZJnonyCZRpC/MVxWRhSWg0AHxDy6llb+XAo8DQJZi
-         0W8w==
-X-Forwarded-Encrypted: i=1; AKwUvBwD1qE5jPoiW2kp28Ayc+9oOFXtyMfPjS1amiKvckh9RpRy5azYlJq3vfLrgA0I9pNz2bT/eNHci0KdKRI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMP3uBlAJouHIuCmshksY63ouv/x2wyS/BTPFDbNwPdvjbBLBc
-	d/5hSvT1IWgcrWxqGkP49kTLdf+99hWCxGbRYQM9U6EdSADm/EZqYcjN6b9SaBwXif4=
-X-Gm-Gg: AYBFou3VDs/xxkTpcHyfAaLR2QQVpJH670Qyse7h6MONwoQP0cwmH/9889SD6J7MoFz
-	mvajBTOdFSuGe175Jz9NbRNXsgYJyM+rl+ePWi16v4bx3P6Tgyw2bWa3TA4A6qbfCR1aIb7MRfB
-	Dfrhn7h8tVYFnCqaDh+Wj5oJ/26NpVLcBLVJvqU2hifUGILK/bagwjjqJ8UYe1uY2RpHmUePkv+
-	G/qFLBcvDdBC6t/8oQGYia/cjO4/J1EusOKj3O9061vOg6Lf9w2ZXRMu02R9yC3kmFZkUSe+Bvo
-	88JnIxX/6kt8hkvTdtL81rqrd2jWjTesHRT7aTvEMkcOZIfvoZE8hPRAO41xseqZNrQUBf2podj
-	JWd/CtqPnDtDel/JAE+MuJwtBqwqtO8yom8pIKWk1vym2QLiL+LTpuHz/KZgeu5nkWAdO0ebMK/
-	Ke/tGnOn/2DGqJva2RuiEPgu5I3sNhG+Ja9LzYEY8e7hUypPrwSIJReDNBmo8tCMRZ48o9tnO1u
-	S2o4JU4pASgr5cL1GK1PvmOcxE+IEzw1FsBdU0kY3CwOHGECSBZ3t12XuUR76Xi1IjQnAAJCY9Q
-	0m4qBw5htULuuzoKx1IZ1gCpu9kHlEoWgEC2T/2AyzLSlTwvEh2JVuIf8w4Hvk878m0BNbMpfFQ
-	XVQv1BUqAJdTwxQ06WmZwuzhxAHOroQ==
-X-Received: by 2002:a05:6830:4c0c:b0:815:e061:e72e with SMTP id 46e09a7af769-85d365b33c0mr897995a34.23.1793334211180;
-        Thu, 29 Oct 2026 21:23:31 -0700 (PDT)
+        bh=S6qrCm3VJbLk2H2beVEtsK8a9baQ0SAzBEfNGb4zgPg=;
+        b=IJ/fwq5mAgzgLLkD/nrQaatgkBaq8Xkr/h4+F1ZvTtgDRcs/vPv3SD0cS/loi+BJ8U
+         ZMeuDfj8gAu0COI14DptPQcCtg8voSsUxsKKi5R6aL5x8ZuxFbm6CXtnjm8z+Yh0tGjn
+         79W4zk7VxO5oHONKyl6Hg6cM9Aj9XKGFV+qHokWUfFkSN0QK0iQAQ376VvTS/GUgtQdy
+         SY1UIVMrYPuV0HdYLLYAfbrF0Bi3m1YQSuqaTIAd3qmHsPHkDJW5hXA4YdawIA3IDGRi
+         RjFERn2sGp4qew7e/4I3Bj2FlLLs6O4qL/Qr8np9F3lZqECgKTIsol/Pg4SwgYl+4MnE
+         No+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy5sJjWFRLAhSfu1A4RKqMMMGP1KN9ne5mynU4mt22HmRWPjTIuOLlkVmVOmnUGfmff4v2qmOv4OAoNjOI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvIJHWFKUjf5NYsGjGF0EidQ3Sl/JX8h5OKiEgBAN0UUP8d3rZ
+	ctN1WWBTUfByGha7+nMGX0rL5B6UgOra55I0sEXaYPJq+4cLgxiJjYu+nyjASjFKAP0=
+X-Gm-Gg: AYBFou3/bNMNBf0RMhYlS/oXX+MUIqc+PRmwvRXc3xzDK+VjtFTl09MAAq5wifRXawQ
+	LUs1H5DpVxolbvkE52fONPFXnxPprG6w6Jd+wZnZGr0C4pUpmmjqLcTfrjuPGxouQfGJH/Bo0kY
+	zAgjPJYpFHJS8s5UgcuaHb3MWQa4gLR8rdxgA4b09m3hJ6yollGhhTyK03QzhmV+G7Sx0aHN3hQ
+	12k0N71BmixaiazvQDoXjD5K+M5AvbYrmERijash3GhL380lQl0PWKepXUO7iPVmCjUWOIWPqk9
+	fiqKXL09h78j8gpkiMdRssO7qKhB/LxvFtc+CmD7jnD4KbnuzvCozj4xiaxft+d43ZLiwQ19Q24
+	C+ay3Jk60UfEDr45Nts+EcAlMPsRF5ui9o+Z5IeFuKm40aM/OnNOzqlek6n3Qh7ffNH7AYg2uDU
+	39E+uscHo+CkkKYR9IGfvYfaoOS3EKIcyQiPlf5Hsy+gqRatzTkx23PN1E+DE9btciQFBwoGRTK
+	C9ePSCshEP6m3o8LIWm3t4a7U9lQguKHmmwlh/Rip/qgsP8VUh3ZjLqucmkyLMOAZLhuUd+jN4C
+	+r8MdVPeOyDESh7NshJvnXurGbpaUSe9wwpJa6fimaPrhpxdTFGKT5jEKuFOUfHD+8AdznpG/7x
+	XqPVY0ec2sZgkqOR+jmiMtCJVyf2oAxA=
+X-Received: by 2002:a05:6830:4490:b0:81c:37e2:2012 with SMTP id 46e09a7af769-85d3652e9e4mr823151a34.15.1793334219235;
+        Thu, 29 Oct 2026 21:23:39 -0700 (PDT)
 Received: from com-75606.corp.openai.org ([199.47.143.5])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d354985cdsm1218751a34.10.2026.10.29.21.23.30
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d351e77c8sm1162541a34.2.2026.10.29.21.23.38
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 21:23:30 -0700 (PDT)
+        Thu, 29 Oct 2026 21:23:38 -0700 (PDT)
 From: Kyle Zeng <kylebot@openai.com>
-To: netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+To: kvm@vger.kernel.org
+Cc: Alex Williamson <alex@shazbot.org>,
 	linux-kernel@vger.kernel.org,
 	outbounddisclosures@openai.com
-Subject: [PATCH] net: skbuff: preserve fclone lifetime when freeing stolen heads
-Date: Thu, 29 Oct 2026 21:23:29 -0700
-Message-ID: <20261030042329.74461-1-kylebot@openai.com>
+Subject: [PATCH] vfio: Publish the container after all fallible initialization
+Date: Thu, 29 Oct 2026 21:23:37 -0700
+Message-ID: <20261030042337.74512-1-kylebot@openai.com>
 X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,55 +95,148 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-skb_morph() can give an skb from skbuff_fclone_cache a page-fragment
-head without changing its fclone tag. IPv4 reassembly can produce such
-an skb, which can subsequently reach the GRO stolen-head path.
+vfio_group_init() publishes /dev/vfio/vfio before vfio_init() has
+finished. The optional no-IOMMU backend is also registered after the
+misc device. A concurrent open can therefore obtain a container while
+the module is still COMING, even if a later initialization step fails.
 
-napi_skb_free_stolen_head() puts the shell into the ordinary NAPI skb
-cache without dropping its fclone_ref. If the embedded companion is
-still live, KASAN poisons it along with the original, and later cache
-reuse or eviction can overwrite or free the allocation underneath it.
-A mirrored batman-adv DAT packet retained in a plug qdisc reproduces a
-KASAN use-after-free in plug_dequeue().
+The failed-module-init path frees the module without waiting for these
+open files. misc_deregister() prevents new opens, but does not revoke
+existing files, leaving their vfio_fops and callbacks in freed module
+memory. An unprivileged first-autoload race can trigger this by exhausting
+the global task limit before the IRQFD workqueue creates its rescuer.
+A subsequent VFIO_GET_API_VERSION ioctl reports:
 
-Use kfree_skbmem() for fclones in napi_skb_free_stolen_head(), retaining
-NAPI caching for ordinary skb heads. Also use kfree_skbmem() in
-kfree_skb_partial(), whose stolen-head branch has the same assumption
-about the allocation cache. This releases the shell according to its
-allocation kind and preserves any live companion without freeing the
-data that has been transferred to the receiving skb.
+  BUG: KASAN: vmalloc-out-of-bounds in __se_sys_ioctl+0xaf/0x120
+  Read of size 8 at addr ffffffffc089df70 by task vfio_race/1484
 
+Move container initialization out of vfio_group_init() and make it the
+last fallible step in vfio_init(). Register the no-IOMMU backend before
+the misc device, and unwind both resources in reverse order. Once an
+open can reach vfio_fops, module initialization can no longer fail.
+
+Fixes: cba3345cc494 ("vfio: VFIO core")
 Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
 I have a reproducer for this issue and can share via DM
 
- net/core/skbuff.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/vfio/container.c | 22 +++++++++++++---------
+ drivers/vfio/group.c     |  9 +--------
+ drivers/vfio/vfio_main.c |  8 ++++++++
+ 3 files changed, 22 insertions(+), 17 deletions(-)
 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 48f676411724..7f08139ff3d5 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -1495,6 +1495,10 @@ void napi_skb_free_stolen_head(struct sk_buff *skb)
- 		skb_orphan(skb);
- 		skb->slow_gro = 0;
- 	}
-+	if (skb->fclone != SKB_FCLONE_UNAVAILABLE) {
-+		kfree_skbmem(skb);
-+		return;
+diff --git a/drivers/vfio/container.c b/drivers/vfio/container.c
+index 003281dbf8bc..bd245e23a55d 100644
+--- a/drivers/vfio/container.c
++++ b/drivers/vfio/container.c
+@@ -577,29 +577,33 @@ int __init vfio_container_init(void)
+ 	mutex_init(&vfio.iommu_drivers_lock);
+ 	INIT_LIST_HEAD(&vfio.iommu_drivers_list);
+ 
++	if (IS_ENABLED(CONFIG_VFIO_NOIOMMU)) {
++		ret = vfio_register_iommu_driver(&vfio_noiommu_ops);
++		if (ret)
++			goto err_mutex;
 +	}
- 	napi_skb_cache_put(skb);
++
+ 	ret = misc_register(&vfio_dev);
+ 	if (ret) {
+ 		pr_err("vfio: misc device register failed\n");
+-		return ret;
++		goto err_noiommu;
+ 	}
+ 
+-	if (IS_ENABLED(CONFIG_VFIO_NOIOMMU)) {
+-		ret = vfio_register_iommu_driver(&vfio_noiommu_ops);
+-		if (ret)
+-			goto err_misc;
+-	}
+ 	return 0;
+ 
+-err_misc:
+-	misc_deregister(&vfio_dev);
++err_noiommu:
++	if (IS_ENABLED(CONFIG_VFIO_NOIOMMU))
++		vfio_unregister_iommu_driver(&vfio_noiommu_ops);
++err_mutex:
++	mutex_destroy(&vfio.iommu_drivers_lock);
+ 	return ret;
  }
  
-@@ -6263,7 +6267,7 @@ void kfree_skb_partial(struct sk_buff *skb, bool head_stolen)
+ void vfio_container_cleanup(void)
  {
- 	if (head_stolen) {
- 		skb_release_head_state(skb);
--		kmem_cache_free(net_hotdata.skbuff_cache, skb);
-+		kfree_skbmem(skb);
- 	} else {
- 		__kfree_skb(skb);
- 	}
++	misc_deregister(&vfio_dev);
+ 	if (IS_ENABLED(CONFIG_VFIO_NOIOMMU))
+ 		vfio_unregister_iommu_driver(&vfio_noiommu_ops);
+-	misc_deregister(&vfio_dev);
+ 	mutex_destroy(&vfio.iommu_drivers_lock);
+ }
+ 
+diff --git a/drivers/vfio/group.c b/drivers/vfio/group.c
+index 185f359f75d3..a7089eff3039 100644
+--- a/drivers/vfio/group.c
++++ b/drivers/vfio/group.c
+@@ -907,14 +907,10 @@ int __init vfio_group_init(void)
+ 	mutex_init(&vfio.group_lock);
+ 	INIT_LIST_HEAD(&vfio.group_list);
+ 
+-	ret = vfio_container_init();
+-	if (ret)
+-		return ret;
+-
+ 	/* /dev/vfio/$GROUP */
+ 	ret = class_register(&vfio_class);
+ 	if (ret)
+-		goto err_group_class;
++		return ret;
+ 
+ 	ret = alloc_chrdev_region(&vfio.group_devt, 0, MINORMASK + 1, "vfio");
+ 	if (ret)
+@@ -923,8 +919,6 @@ int __init vfio_group_init(void)
+ 
+ err_alloc_chrdev:
+ 	class_unregister(&vfio_class);
+-err_group_class:
+-	vfio_container_cleanup();
+ 	return ret;
+ }
+ 
+@@ -934,5 +928,4 @@ void vfio_group_cleanup(void)
+ 	ida_destroy(&vfio.group_ida);
+ 	unregister_chrdev_region(vfio.group_devt, MINORMASK + 1);
+ 	class_unregister(&vfio_class);
+-	vfio_container_cleanup();
+ }
+diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+index 4e5d738ccf4b..8f780049b7c4 100644
+--- a/drivers/vfio/vfio_main.c
++++ b/drivers/vfio/vfio_main.c
+@@ -1824,10 +1824,17 @@ static int __init vfio_init(void)
+ 	if (ret)
+ 		goto err_alloc_dev_chrdev;
+ 
++	/* Publish /dev/vfio/vfio only after all other fallible setup. */
++	ret = vfio_container_init();
++	if (ret)
++		goto err_container;
++
+ 	vfio_debugfs_create_root();
+ 	pr_info(DRIVER_DESC " version: " DRIVER_VERSION "\n");
+ 	return 0;
+ 
++err_container:
++	vfio_cdev_cleanup();
+ err_alloc_dev_chrdev:
+ 	class_unregister(&vfio_device_class);
+ err_dev_class:
+@@ -1840,6 +1847,7 @@ static int __init vfio_init(void)
+ static void __exit vfio_cleanup(void)
+ {
+ 	vfio_debugfs_remove_root();
++	vfio_container_cleanup();
+ 	ida_destroy(&vfio.device_ida);
+ 	vfio_cdev_cleanup();
+ 	class_unregister(&vfio_device_class);
 
 base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
 -- 
