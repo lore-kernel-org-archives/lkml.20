@@ -1,111 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793352418;
-	b=vTQ3zUCXpJgwM5DzjpbrL1Se0qOfplUZda1ZgQOs3sissDF/Sf8fYKK2pi8xPgIlzpeS
-	 R6rnfZAJHA+iKUwQPwsmnn7VR2RlQn4iAfhkKbrea6wj7i0mRlkdGK+QbPjzv9yXH1aLH
-	 4+r50j3wJ12pH0jQDshDfJ5UlHQLoiqLvpm3nUcxikMdy7MAbuMkOyl/8b7V20tvsfebp
-	 +VtudaJEvLTgv6fPR8osFe5efUVgsSe9l6uJoEstEAx9em1EQvpbkoibtnIVptKTBDAQy
-	 Mjj/GVRHrTFl8lbDBkpv0PJHGAicUj5rEa2YAsGkOsgGfIACK86FcAucUesN6QlfkCg==
+	t=1793352427;
+	b=oQYpufTLjMIBhtOXs5vxx0tnf5w/U9OJ5smKxUv480vxD41N8wArbEbX5MOuPKDAOrsz
+	 Fvht6ILbZpbIp/A+dE3esXpECmagtdExFhUr9YFYZFRCq3FH+O8UGtO2rI1V1voAJKnH3
+	 uIJnD0zCT6l88g9+uniNaNUZFYS6ov4aI8uTzTX7TxLJCZahkVoZLI8w3gQHJm3whdatO
+	 dbGinOyxZxh/XzH++1hcDdcRWlQH/cTSua+0PyYZfkIgDo0gqpfGrX1iHb8wR/0kBCY9a
+	 bRU7+pzkV0MsKg0N2ufe5Nsngro0ZhhQbTWBAhbfhf/xmxCJbthl/GCZZSzkCgMx1Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352418;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=q6xEct3/Tvw/ILT4uLuSMRuS/JTgGJM/Yn19K9L9EIw=;
-	b=gwIiUyE1XOJIKo9hXyaa42E+rc8mIrrAj+7tKATQWiWMKOgrBBjHenTygk9TaZfrXJDR
-	 bjW3gu7gyG76h8VgKl42HZhP9sOqIfkhW0MM00EES3SOUOEDwJv+WHT08fipO6Av+1pvS
-	 VgIYhb5M6gWSUQmMlM1zsq84u89Vmo+Wt4XWWrUc1YlyF7vB6/JLH+TJaPU+VH7Z/YgeJ
-	 Glwr8yQKjVIdFSA3WBYcwrge8MJEB1TtWtLj0Qwg5P5cJDijL1OYHkSIaOmj9ZEuqpIX/
-	 YyxupXTa0nBtDrY4PAHFYdTYo0IR9eyyL+Zu3Xe+Lx5a9g1F4KqfXkBVBH/xulKuK8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352427;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=V1pspLk+fckd2Oob0tFDkfoQsu77+dAXAQw/b0Q2v3k=;
+	b=RUBQy/SgGi2b/aJgl/gpUCQGia5VyBGpDSOpom/Du0QoG6EFtLG37Pe1NChPhPbSCGjz
+	 mNlSPFCESEewvvOMJHp92SFIh5xHvta4b9HjU+MsM9Uid7K00oyuAwAbH2lvJHoSKBFQk
+	 etfCr5bHYzYJt0VGGAmMzHOm0L4BlgReZDcMFOYoVNBR1Sm97p1oL2MGdAGqm4VxQt7bQ
+	 BTS5sGBfA8/QDlju0n2MHNnGtw6w5B5tuiyTzfD5jocAEYYURjSOfkCc8MBMfaXIh3f7h
+	 w7+n120xCT/HEpke0IeqFdyBjDsKXQivd2+PijTx/GQ9UpObvJtPV0lsfSOvwwIgT1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=A4gWONdB;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Geiq5UlT;
-	arc=none smtp.remote-ip=103.168.172.146
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5E9606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:26:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA5E9606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=A4gWONdB;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Geiq5UlT
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 88A35EC01E3
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:26:55 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Fri, 30 Oct 2026 05:26:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793352413;
-	 x=1793438813; bh=q6xEct3/Tvw/ILT4uLuSMRuS/JTgGJM/Yn19K9L9EIw=; b=
-	A4gWONdBdW02zw5P67yQysOdxGsmoptqn5cqpA5aVkE/3miAG9UH09FEkzJatthp
-	fG0OuG5d1JeGTGiisqOFYAE0lZ4xLJ9KJMwbTZSWatu713S/o9WV2cQq+TsmRwkC
-	Iy4BdsDy/gy/E30AlmQ3Xbn5N5N2t6BR/lggUIhvtjWqYDd8DTyVYpEMY1IIYnal
-	vU6r06v5ttgqbyv6ethNWygLLBqe3d1lmMp02ULiYp4xdszVjd7lNhIEjKs2+0WJ
-	nb/4vtBx/bMLMlJH+hSrkJCAvtZWLERdIBk/ZUkMP/EFaaWjUN3o2QoeQsHsHn+X
-	VIN5bDZuLOjF5DragM8UiQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793352413; x=
-	1793438813; bh=q6xEct3/Tvw/ILT4uLuSMRuS/JTgGJM/Yn19K9L9EIw=; b=G
-	eiq5UlTo+rtM/j9aMBD64ps3UzXSENMldIxxqF5j4jFpw+7d/5YSPyOA358eQzhM
-	V1i40oyv+ZFXCE1m25nggUOO6PfPRsWLpZuMYFWXVflKjiil5QoAsQdNochjK+Ek
-	SmS9XPi4KszVkVxh8T2Rttecw1J6XNt0wval118sWhvL8M1wT553Yrx3XLzxNopV
-	/E5t9K9sab/3xxtnC9vlVkkvJ93omaLjdz0nNwhPKWhbzK5cAAImlcIiLc7tbDVb
-	gJARSfnN2kO0cROHu7V/qNWBl/ZmUDqj1x0Eqdirvm05G6eK1DqJpI6S8bR3d0xe
-	YuTOYRpychBAJVj/6ZgBg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793352413; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:XD0a0gtvVTIYQx1rMkjDwMOzMi4o3RT8MGHpZrK5Ai8HpVm
-	j6WZiTyPuRJLUSd/iBULR3UvIx73yvpl6RBZnZ+Hv2InA4mewhihaJrZV2ydvZOo
-	uwGriiTdlWKkZ4BPmEcG5UVXKfbAx5SwYwWljBLJL8gx6VWKaq4D74Sa1/TNlohY
-	GnGI2jhnL7DQ3mUdbW+5e5NL9XMjSv320xHvXRn/UYJAgC+/S1BSYnoAz68hLzvo
-	jZ/l8kUmxFDCwR/niAGH9kcb87mtDPBJWHoLwi89p6ge2lw/Gb37AeGv9sfpva1a
-	RSKSFm12eR1QXgFaWSoqsRNvJhFdRolyVVwY32Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:0+EPRUV970s4OZlHmTFKm3gsiY+sGHAHhdCQA0i95dE=:gmvX2jCLTU6mOxO7BXHnTbWLt36sxfk/auN8dImB3hc=;
-X-ME-Sender: <xms:22Lkan27EPJq1S1e3n4t9bRh6QWabSJXsX-sas-rPGMHdCZCUOp3Lw>
-    <xme:22Lkag72XDJTIgKFOTGrl27XVB6zYEu2zWY12aICbb2yoPdmt2uWMDR6-_Z-vQnml
-    vod8hLFUdDb2sHi-nMevM2Onlz2NmMV_lXeqkaJjWMbo-1SaPSXoPo>
-X-ME-Proxy-Cause: dmFkZTEtKm7TbVpyHutLdLiHabetxGk25DJ5oQjpMmX6aXHRVHS8CHuvwQZW52KAI1ZPcw
-    6mPMOQbdBcr/ISBXdK4cqc6VI0p5tQSHD6rDcdUy5ak4DhaT3aWv5I1vP6vvaaWsmc5qS7
-    CdiRyxmpzvowlSJrcfd0Yism3nn4u3OtljTmhN0U8ZlizmTyifhulCi5fxWMde2EqZiaBz
-    cp1hkpdvV7pT5ndePDtguGK/TWIwoTGJws58vqo9EMrlVCyRxm6CFp/ajz7OYfGH9psjNA
-    7ka0ryZzpSDBoCfb92+GdfOCJhiUNxH3XavedO5Kda1aBXakRbauvJN3vn7YupvdgtMuLo
-    /SLAg1EeGGix+kFBHpduIgAaFzxoaElfF0RMmGwDz1Pc6YcAs4oqJtJBFaatuSAKMYCHya
-    BrVZTpAcUG0tMpxlfNPSUvXY6waU1IDGicm2M2SQQVXWD9pV6NTxDqcHkGjUI33mTcM1m3
-    PGMHMcVBxuOH5VeAODceYbabIRcsrutekPDVL7mFfbMzbMaT3oXkiCbi4lTtGxJvdazdf2
-    s75kJupYjzKIY0NlvhCIu2Tz9Af7pMMHTXJXRtDCcrz+FA3+TnZyYVeQ1fgGnnLp7Raqcl
-    gn2ZX2XaGeoZDVL8E4KijwDlwKB2VOmUDJBKOnCsWsbeYKljfpyIbffP0bBw
-X-ME-Proxy: <xmx:3GLkakBilv2Edi4ANwVlwyjRu2FX1LJWSrMWbjly_g_q92VRPGi8bQ>
-    <xmx:3GLkaveuSSxhF1WTWoNdLC1rgQn73QNXheUddnteAy6abAtl0VoWjg>
-    <xmx:3GLkajKxfuIKxeadHbb0Gt3MaozUimdDZ8RdOHGL_8Z51zgfayNc-g>
-    <xmx:3GLkaq2frfDJyBqAt7eY5jTQyje-M8-GVF8W52vZxsHQI-pt0o37xA>
-    <xmx:3WLkaprSOdcF_v7_5FcDxfYn1I-QtTdUjJRmfE6n7fgMkzaGZmHHRxFr>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 45F4B32A0093; Fri, 30 Oct 2026 05:26:51 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C7F606A326;
+	Fri, 30 Oct 2026 09:27:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C7F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jGG2W18dVz5B0xd;
+	Fri, 30 Oct 2026 17:26:59 +0800 (CST)
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl2.zte.com.cn with SMTP id 69U9Qm49099897;
+	Fri, 30 Oct 2026 17:26:48 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Fri, 30 Oct 2026 17:26:50 +0800 (CST)
+X-Zmail-TransId: 2afa6ae462da066-f0b1f
+X-Mailer: Zmail v1.0
+Message-ID: <20261030172650531F_VlxVrMiDglCJJ9rESWI@zte.com.cn>
+In-Reply-To: <ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com>
+References: 202610301145238169CxodJv5_0n5vd-Vbd4XA@zte.com.cn,ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com
+Date: Fri, 30 Oct 2026 17:26:50 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,47 +58,214 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-ThreadId: AkBENj9svcUo
-Date: Fri, 30 Oct 2026 10:26:30 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Julian Vetter" <julian@outer-limits.org>,
- "David S . Miller" <davem@davemloft.net>,
- "Andreas Larsson" <andreas@gaisler.com>
-Cc: sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <29541187-7232-48b9-86af-1cc4398713d3@app.fastmail.com>
-In-Reply-To: <82307061-8bbb-4e42-89cf-cb0b5ab1442f@outer-limits.org>
-References: <20261029145309.132218-1-julian@outer-limits.org>
- <e26b3c92-5213-44f3-8914-5ee8fb2d662a@app.fastmail.com>
- <82307061-8bbb-4e42-89cf-cb0b5ab1442f@outer-limits.org>
-Subject: Re: [PATCH] sparc: Remove IO memcpy and memset from sparc code
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
+        <chengzhihao1@huawei.com>
+Subject: =?UTF-8?B?W1BBVENIIHYyXSB1YmlmczogZml4IGF1dGggbm9kZSBzcGFjZSBhbmQgcGFkZGluZyBpbiBqb3VybmFsIGJ1ZmZlcnM=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 69U9Qm49099897
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Fri, 30 Oct 2026 17:26:59 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE462E3.000/4jGG2W18dVz5B0xd
 
-On Fri, Oct 30, 2026, at 10:03, Julian Vetter wrote:
-> On 10/29/26 16:13, Arnd Bergmann wrote:
->
-> thank you for your reply! I'm not sure, but to me it seems unlikely that 
-> the PCI host bridge swaps. On sparc64 readl()/readq() use the flag 
-> ASI_PHYS_BYPASS_EC_E_L, so they work on little-endian data. The CPU does 
-> the byte swap here. The __raw_*() accessors use ASI_PHYS_BYPASS_EC_E, 
-> which does not swap (which are used in lib/io_memcpy.c as well), so they 
-> return the data in address order. 
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Ok, good. I missed the '_L' bit and assumed they were the same.
+write_head() appends an authentication node to the node group when
+authentication is enabled and writes
+ALIGN(node_len, 8) + ubifs_auth_node_sz(c) bytes from the buffer.
+ubifs_jnl_write_data() allocates its buffer for that, but when the
+allocation fails it falls back to c->write_reserve_buf.  That buffer is
+sized for a data node only (COMPRESSED_DATA_NODE_BUF_SZ plus the cipher
+block, 4144/4160 bytes), while an incompressible 4 KiB block needs
+4144/4160 bytes plus the auth node (24 + the HMAC length, 56 bytes with
+sha256).  ubifs_hash_nodes() then writes the auth node past the end of
+the reserve buffer, and write_head() reads it back from there.
 
-In this case your patch looks good.
+The same write path also writes uninitialized heap data.
+ubifs_jnl_write_data() and ubifs_jnl_write_inode() build their node
+groups in kmalloc()ed buffers, and when the last node length is not a
+multiple of 8 the padding up to the next auth node goes to the flash
+uninitialized.  That padding is covered neither by the node CRC nor by
+the rolling hash.
 
-> And other I/O functions, e.g., readsl()/writesl() and 
-> ioread32_rep()/iowrite32_rep() end up in insl()/outsl() in 
-> arch/sparc/lib/PeeCeeI.c, which copy buffers with 
-> __raw_readl()/__raw_writel(). And __ioread32_copy()/__iowrite32_copy() 
-> in lib/iomap_copy.c use the __raw_ accessors on sparc64 as well.
->
-> But that's just from me looking at the code and compiling the 
-> sparc32_defconfig and sparc64_defconfig. I have no sparc platform, so 
-> can't test it. Maybe some sparc expert can comment.
+Size the reserve buffer for the largest possible auth node (the mount
+path allocates it before authentication is initialized, so it cannot use
+ubifs_auth_node_sz()), clear the padding after the data node before it is
+written, and allocate the node group buffers of ubifs_jnl_write_inode()
+and ubifs_jnl_truncate() with kzalloc().  The data write path cannot just
+use kzalloc() because it may fall back to the reused reserve buffer.
+ubifs_jnl_truncate() refills its data node with ubifs_tnc_lookup(), so
+what is left after the re-compressed node comes from the old node on the
+media, not from the heap.
 
-I'm sure it's fine then. For your patch:
+The padding is not part of any node, so ch.len and the CRCs stay
+unchanged.  With a zeroed truncation buffer, zero_trun_node_unused() is
+redundant, so remove it and the comments which refer to it.
 
-Reviewed-by: Arnd Bergman <arnd@arndb.de>
+Fixes: 6a98bc4614de ("ubifs: Add authentication nodes to journal")
+Link: https://lore.kernel.org/all/ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com/
+Cc: stable@vger.kernel.org
+Suggested-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+v2: Keep the explicit padding clear only in ubifs_jnl_write_data(), which
+    may fall back to the reused write reserve buffer; allocate the node
+    groups of ubifs_jnl_write_inode() and ubifs_jnl_truncate() with
+    kzalloc(), and drop zero_trun_node_unused() together with the
+    comments pointing at it.  Thanks to Zhihao Cheng for the review.
+
+ fs/ubifs/journal.c     | 39 ++++++++++++++++++++++++++-------------
+ fs/ubifs/super.c       | 18 ++++++++++++++----
+ fs/ubifs/ubifs-media.h |  6 ++----
+ 3 files changed, 42 insertions(+), 21 deletions(-)
+
+diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
+index 40a95a2fad50..449bc8c0a224 100644
+--- a/fs/ubifs/journal.c
++++ b/fs/ubifs/journal.c
+@@ -68,16 +68,6 @@ static inline void zero_dent_node_unused(struct ubifs_dent_node *dent)
+ 	dent->padding1 = 0;
+ }
+
+-/**
+- * zero_trun_node_unused - zero out unused fields of an on-flash truncation
+- *                         node.
+- * @trun: the truncation node to zero out
+- */
+-static inline void zero_trun_node_unused(struct ubifs_trun_node *trun)
+-{
+-	memset(trun->padding, 0, 12);
+-}
+-
+ static void ubifs_add_auth_dirt(struct ubifs_info *c, int lnum)
+ {
+ 	if (ubifs_authenticated(c))
+@@ -840,6 +830,28 @@ int ubifs_jnl_update(struct ubifs_info *c, const struct inode *dir,
+ 	return err;
+ }
+
++/**
++ * ubifs_zero_node_pad - zero the padding after a journal node
++ * @c: UBIFS file-system description object
++ * @node: node to pad
++ * @len: length of the node
++ *
++ * When authentication is enabled the auth node is placed at the next
++ * 8-byte aligned offset, so the bytes between the end of the node and
++ * that offset are written to the media.  They are covered neither by the
++ * node CRC nor by the rolling hash, so clear them instead of writing
++ * stale buffer contents.
++ *
++ * This is only needed when the buffer is reused, i.e. for the write
++ * reserve buffer of ubifs_jnl_write_data().  Buffer owners which get a
++ * fresh allocation use kzalloc() instead.
++ */
++static void ubifs_zero_node_pad(const struct ubifs_info *c, void *node, int len)
++{
++	if (ubifs_authenticated(c))
++		memset((char *)node + len, 0, ALIGN(len, 8) - len);
++}
++
+ /**
+  * ubifs_jnl_write_data - write a data node to the journal.
+  * @c: UBIFS file-system description object
+@@ -925,6 +937,7 @@ int ubifs_jnl_write_data(struct ubifs_info *c, const struct inode *inode,
+ 	if (err)
+ 		goto out_free;
+
++	ubifs_zero_node_pad(c, data, dlen);
+ 	ubifs_prepare_node(c, data, dlen, 0);
+ 	err = write_head(c, DATAHD, data, write_len, &lnum, &offs, 0);
+ 	if (err)
+@@ -1007,9 +1020,10 @@ int ubifs_jnl_write_inode(struct ubifs_info *c, const struct inode *inode)
+ 	else
+ 		write_len += ilen;
+
+-	ino_start = ino = kmalloc(write_len, GFP_NOFS);
++	ino = kzalloc(write_len, GFP_NOFS);
+ 	if (!ino)
+ 		return -ENOMEM;
++	ino_start = ino;
+
+ 	/* Make reservation before allocating sequence numbers */
+ 	err = make_reservation(c, BASEHD, write_len);
+@@ -1716,7 +1730,7 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
+ 	sz =  UBIFS_TRUN_NODE_SZ + UBIFS_INO_NODE_SZ +
+ 		dn_size + ubifs_auth_node_sz(c);
+
+-	ino = kmalloc(sz, GFP_NOFS);
++	ino = kzalloc(sz, GFP_NOFS);
+ 	if (!ino)
+ 		return -ENOMEM;
+
+@@ -1725,7 +1739,6 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
+ 	trun->inum = cpu_to_le32(inum);
+ 	trun->old_size = cpu_to_le64(old_size);
+ 	trun->new_size = cpu_to_le64(new_size);
+-	zero_trun_node_unused(trun);
+
+ 	dlen = new_size & (UBIFS_BLOCK_SIZE - 1);
+ 	if (dlen) {
+diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
+index 38972786817e..538907aba8a0 100644
+--- a/fs/ubifs/super.c
++++ b/fs/ubifs/super.c
+@@ -1263,8 +1263,16 @@ static int mount_ubifs(struct ubifs_info *c)
+ 		bu_init(c);
+
+ 	if (!c->ro_mount) {
+-		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
+-					       UBIFS_CIPHER_BLOCK_SIZE,
++		/*
++		 * The reserve buffer is also used as a fallback for data
++		 * nodes which are followed by an authentication node, so
++		 * reserve room for the largest possible one.  Authentication
++		 * is initialized only later, hence the maximum sizes.
++		 */
++		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
++					       UBIFS_CIPHER_BLOCK_SIZE +
++					       UBIFS_AUTH_NODE_SZ +
++					       UBIFS_MAX_HMAC_LEN,
+ 					       GFP_KERNEL);
+ 		if (!c->write_reserve_buf)
+ 			goto out_free;
+@@ -1723,8 +1731,10 @@ static int ubifs_remount_rw(struct ubifs_info *c)
+ 		goto out;
+ 	}
+
+-	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
+-				       UBIFS_CIPHER_BLOCK_SIZE, GFP_KERNEL);
++	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
++				       UBIFS_CIPHER_BLOCK_SIZE +
++				       UBIFS_AUTH_NODE_SZ +
++				       UBIFS_MAX_HMAC_LEN, GFP_KERNEL);
+ 	if (!c->write_reserve_buf) {
+ 		err = -ENOMEM;
+ 		goto out;
+diff --git a/fs/ubifs/ubifs-media.h b/fs/ubifs/ubifs-media.h
+index 3c9792cbb6ff..7d4702f3e15f 100644
+--- a/fs/ubifs/ubifs-media.h
++++ b/fs/ubifs/ubifs-media.h
+@@ -591,14 +591,12 @@ struct ubifs_data_node {
+  * @old_size: size before truncation
+  * @new_size: size after truncation
+  *
+- * This node exists only in the journal and never goes to the main area. Note,
+- * do not forget to amend 'zero_trun_node_unused()' function when changing the
+- * padding fields.
++ * This node exists only in the journal and never goes to the main area.
+  */
+ struct ubifs_trun_node {
+ 	struct ubifs_ch ch;
+ 	__le32 inum;
+-	__u8 padding[12]; /* Watch 'zero_trun_node_unused()' if changing! */
++	__u8 padding[12];
+ 	__le64 old_size;
+ 	__le64 new_size;
+ } __packed;
