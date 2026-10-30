@@ -1,123 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793370185;
-	b=4L9PjbzhqI/GSdOrysyJFE67GiP1jWezsZttn+lFwN1IE6n8AB/5G/TlRpf96vEgGMEe
-	 Bx5M5GldW4CW+lr3N0DV9GzjKCcgnpax3TxqF2amhZp1l8+GoP2QqB6uZIEybHnYUNiMI
-	 JOXb/BuMIiZ7lWcpIuGgiOPzAvllw5+Aok7WN519vhwBaX5K0B/s0u3Bvis2hvod5g2eF
-	 5yHF6Seys57YjAj77I3BEE+Q7UDgIe6PmHDzuIIiQPhDzswkIUYrmep4C9PDUurqmaFQL
-	 N4/1iRB2ePC24W3YfmC5JjlVlC13c/113A9PqDOyF690CQ1pfrS9NHzGIlrlqk1NFZw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793370185;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:Reply-To:From:Date:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Yjr0RvvmXOhOI5x8DKMkHT1XyeXVZPh6p80n/QvfSz0=;
-	b=0JM0TeeGbqhpuzxdeCEhJvRSTRDPawfY0fcrJiBaxdJfDNTdt7y2+upgxeXrV5lu+zoC
-	 2nspz20O3zQn+yRZSIvBrOXzE/Ou7Ht/xIM/dyYP1Jw5v4P4QJeTfbfzg+tBmvtXb8uCg
-	 e/8v/kssKOSVaVyVOLgbqkBe09pMPrR11yLBgTDfHcPERNA0D9FwNSMAJ1dHuVqdtQSMK
-	 4XOO5xscwbG9dDSqr7L/oIXOKne0seVuc328FXTTz17zYqgifR7EWh2M2qSBFhN+xFjz9
-	 Blk0sYPouYk2UxpEvaEeutvIsdmhFGLMtEn+FjLmoISdS+BLT9duJjJG+ynJ7K4jdFA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="hjE8gb/B";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aRIa302H;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793370220;
+	b=Ttd5w8i7iaBXfBlHnbIrVnz/GVg1fO2sPznVlR9/m2/jnBm7KEl2YbNG7eIitzZFfDnG
+	 InLleO3GiZXDQKGB5A/TA1/EjN4lf4DrSaTvMeuOHcxNDdhqAUuF2HMZfMH/UOi8W9eKU
+	 uXSh+h0REIlmVQfpvqfTLDPYdxi1lUcdA6dfm1pMeMZ9r3YzfvS4sKL2wfW8Qb8ZGNfNK
+	 /08VWhfwLvxCu8aCnOL9DRIrH1c4QEX+uqdi2bZycwqfCugMe7Yu/rVIkdnorcgLTAFDZ
+	 4/HK99CskdmqhPgHEwugPNHfUF4R3DhSkIQNQyON65IO5oliQhCtv8sFVCyZrPXuTlg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793370220;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZEQg28jwro3K5L2KhzngzVzraJ2WGxfB9b1+b0RvAeM=;
+	b=o2xf3cPKFc2VCNKCEdhsk5gPgW037/322y/GIiwQku3e+PT++obURZhqqRKI5Q6EUF9G
+	 5sr6rpOO/5ICcbYxIHOfST0ZR3++YxicjJeZrSvnDUqlAYa/YsITB+SmLVLPq+LpccnhJ
+	 l431maXO4jWRg5Xom31uuY7sI2PXYylQ9bHysl1JrHDIiY4pfaYEu3+zpsWDU4kC0iwBt
+	 u/96SjhCDzsLH/1GHBl1wcJyReaoGzrVVgaqpOWQmgTFz5e4FfNDLhzXwKDV34ir2tTxK
+	 DLo9c8/fEZIGD1QmZQ0yK4qpgol20f1h6d/OqD6Vq/qrMlWpMB33KKqUTsCCvy2t1sA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gQ9+hrZ3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2BF606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:23:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C2BF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E0D606A31C;
+	Fri, 30 Oct 2026 14:23:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hjE8gb/B;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aRIa302H
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UDnCMr3468750
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:23:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:to; s=
-	qcppdkim1; bh=Yjr0RvvmXOhOI5x8DKMkHT1XyeXVZPh6p80n/QvfSz0=; b=hj
-	E8gb/Buf1te2qD5qTJO1a2YL6QQfCZsKF4VOQYoPrfzziWccpC7DCMd7N9os00c3
-	wcoVX8ULmhHOyswUm8tJgAx2MkIrIGhyCUsrEuFJC2A6icUPauFGzEUywLZzWnUI
-	woNEmnj/Ugm8Iz/Uj2Z/VYP/Z9T3aWfbeGYOKPRYsBAeyF1Qo2PUX0DIW10IkYO/
-	jC8MXE8OXgdpgoL701MqonhfcOA11m6u1ZeyA5P90Rnf/AMMsjLk2Qdh/V+uhKU9
-	eovfZcTeBmKSLbTwCRhYCZS8FsXcRJdxZvyRbgxIuLyvmWycI4D+pLQvIcNXRth6
-	vAEcYLnadSvAED05VNNg==
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qkdwe-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:23:04 +0000 (GMT)
-Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-46ac13882ccso705318fac.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:23:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793370183; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JLEMkIbfWxZZfFa0UPKNMKWqzFJBl43x8ajFt/WEv0dcCxYaC1itd06O8+dZS3BFEA
-         UTYs1GSvUfhiDpJEJwv/MQD5iHr7Py1c+fS5rNcPAqITq/tB0w2d/KgrEv1biAIfvgVY
-         6tQfAakzsUwmjJGGXRm9Be/fwQWg2Pj3MLqd5+23vDBQwG/ML6ND4qK+yknvy005qDGV
-         DsjfMCuRc3PV0LJB1xANfsElZdbwTI9mUHAO12ZWRwa7qj2RkSd02yGJ8gn0qmirx9ez
-         5QaL4Uyrp7RkZr2MXLQGhl9RtCqQVqT8onKPlXxQ0XGq7lSG3xOcbx1AL0NvpNvF4U1P
-         I99A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:in-reply-to:references:mime-version:dkim-signature;
-        bh=Yjr0RvvmXOhOI5x8DKMkHT1XyeXVZPh6p80n/QvfSz0=;
-        fh=ELMG4PsrYMDDNQj/2IObZngtaOwObO27bqpSE52tNN0=;
-        b=adOkgs0bXdJgrxofXVYdwo0v3W/BID1AdvS6+XVeuYJaApkLOOTNIAg/4NjYA5bXWa
-         vE9/Z2ASJemxNubGBnKldK6IXBqaWTybDAndR9GdWdWC3SeLq6hQqQpfP3vERm0XTBg9
-         jrz+CPo89hnH+LCMXUTpBgt2PwszrWerNe4lEatZ0KzcyiMxzCwWIR7QtR8Twcm14Ezw
-         6x4iz3j9Jnls8nD0VtYCR71BP4taKI7yFIqhaRBW2ngL8qU+xHxB+7mjL/kw9rIrcwdk
-         dAQNKSH6Bf0GLHQlgtMVx8anLF95SepfyES5UppQTnApR9o/2e1oF1wjNdQikrufSIoj
-         8eTQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793370183; x=1793974983; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Yjr0RvvmXOhOI5x8DKMkHT1XyeXVZPh6p80n/QvfSz0=;
-        b=aRIa302HyE08UfmCorZdeydGshGboJCBe3HestU0xBXoUmMRW8ytuwR16s73SMbQO8
-         KYrGcvOSm+o4XGHErBye689yzGm/3THHVPGRLnAcNixV9SSofaD6Z2e+sbmuCgYagPZr
-         1EAmch1+vTn2wBIftyC9Hmbd47HEoAo60Tw6aEjFQ63fOcFzRJZFvZfCiIGmmSl0z3ri
-         HvZoJzySJMfDk/w1IeNKZaj22QCens7Sq6SY/wMsNb7DFpqvYtMEhWKn9+ctUpcfzc3X
-         L21lYVm/H/l1U0thWiRK6u6G5rkV2SGtyWzwSOnc9shIoUVCkSLo62VVwOvjKeHlKMwj
-         L/nQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793370183; x=1793974983;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Yjr0RvvmXOhOI5x8DKMkHT1XyeXVZPh6p80n/QvfSz0=;
-        b=dOhOMZneWd2T2wWEcsdfX42w9RMEm7UjeQjS+fKhAriHTxNQ0P84FmbUV2tW0SB6lj
-         MUm4zKNCmvavAX9xgwky2x66d2hGE68O3u1nhaYKFy9ftAybFjYqPxfMAaY6Gdyf5+iC
-         pI0Av2szrM+cOtN6aM6YSeuRmQ3TiimDEHL96i8Fqa9mlG1XQEYvEiEA0R1RSU9PA6ka
-         461/kWhLGk7GdIcnrGWHp68ODvqg6lFiSMeA/QrOBFxHqWZtwNf1p6MVMgkngROllHbE
-         10zXw3LvhStr1t/qi2l4IZvAw7rzI+9ia7uxVi7JxfzPnqY22wgWpvaiDitM1oWWQ70b
-         QyIw==
-X-Forwarded-Encrypted: i=1; AKwUvBw9SXUH3oEkvl0bM+S+cdIrqsv8UpFYqMz3E53VkaFTYzQ8mA4z9V/bJyfdz6i3CfubuExlWJDw9KMJPhc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLz8ujhq6IwWWpCpGu9KYyzya/u4oF6zFZktNHE5EkMfb2knIj1
-	EwJldTBS7ol+xAH001KzuwqIVyckA4t+x+zRKOlgrVzUzTiGGOTEVzXY4ixkfldAX1C6kyjKwIc
-	MXxHQDv3X5tsZ1tZaoOGGG0duoz36FozN9Qb1rPSf0frBlpN7yMTSAJWbkY+TNWCkpWrzzA9wxM
-	+4mjNfGq9cmGu56Jc1gASlkPFIUob9i8zbr9kOvi7tPA==
-X-Gm-Gg: AYBFou3kXrlXYz00e0WZMRUMnSaRWhH6p4PbBAADIWsze385o5SyJ/UUvwdcgdFZll3
-	kymsq8ryy7dr5Y/lpFALcz/LxgiAKdTEcT+o8XbHBGAigMjCovOkx/8rHlLqf30aMJBuGh51cSY
-	53EmH8u40SZfx6dYAJ4HZ+6fRG8kDYdX3OlJVu12JioeT5Q90ZNruD5j8bBw==
-X-Received: by 2002:a05:6870:702b:b0:4a8:1837:bc27 with SMTP id 586e51a60fabf-4a9072faaaemr1677690fac.3.1793370183314;
-        Fri, 30 Oct 2026 07:23:03 -0700 (PDT)
-X-Received: by 2002:a05:6870:702b:b0:4a8:1837:bc27 with SMTP id
- 586e51a60fabf-4a9072faaaemr1677666fac.3.1793370182955; Fri, 30 Oct 2026
- 07:23:02 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gQ9+hrZ3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5324A1F000C1;
+	Fri, 30 Oct 2026 14:23:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793370219;
+	bh=ZEQg28jwro3K5L2KhzngzVzraJ2WGxfB9b1+b0RvAeM=;
+	h=From:To:Cc:Subject:Date;
+	b=gQ9+hrZ3y+eFjTvNJhcvd8JIeJjJbZIJeJ3qherhyoFzKzEa9gk8W1BAI3ex3kvfF
+	 rKtfmwUP+HsuJtHEsCxx+iVLrhG05Ghizm9JgMX33g5VZSLsIUwOg/CgysmcOfNvUL
+	 IdZcFYUcx8cuIROnkgNUTXRB9J4+1q2yx6ihhXw2FkKpGukRFpro/TcRz+tdgvH12j
+	 s2rJ2neAc63q5h4vT5IuMROQR9e2sd8XlQcJuaSecFLxn+Nu35GnpE8aXSiJ5gVISu
+	 KaDtXmIFdJxLrsTz4LM5BmIyf2DVtWcfeu579E8uhve5uMrtwofJgC8dy77p3MckZf
+	 SiC4kOpapQZNA==
+From: Tejun Heo <tj@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCH sched_ext/for-7.4-fixes] sched_ext: Fix stale pick when a wakeup resets the donor during dispatch
+Date: Fri, 30 Oct 2026 04:23:38 -1000
+Message-ID: <20261030142338.3453484-1-tj@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,73 +61,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029201730.151754-1-robin.clark@oss.qualcomm.com>
- <20261029201730.151754-8-robin.clark@oss.qualcomm.com> <0103e15d-42e0-4e8c-9f6e-ebd0b56bf3cf@oss.qualcomm.com>
-In-Reply-To: <0103e15d-42e0-4e8c-9f6e-ebd0b56bf3cf@oss.qualcomm.com>
-Reply-To: rob.clark@oss.qualcomm.com
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 07:22:52 -0700
-X-Gm-Features: AclHuK_L_2HBiXq59BCEL1wHfkKwJn-aIJQ8gMMWTwWyz_La_kw_FYR72xePUcE
-Message-ID: <CACSVV01QNDTkri8WB4nwEHjOZA24x70LfKsqJa4sp9NmJp9_5A@mail.gmail.com>
-Subject: Re: [PATCH v3 07/16] drm/msm/a8xx: Stop getting GMEM_PROTECT from
- nonctx list
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
-        freedreno@lists.freedesktop.org,
-        Alexander Koskovich <akoskovich@pm.me>,
-        Jie Zhang <jie.zhang@oss.qualcomm.com>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
-        Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: xKLfCWNBKg7JTh5fwmZb0FdKXBCPskoT
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1NyBTYWx0ZWRfX3UL45nfYnfDK
- 1r4CVzBO5zH6u3TQ5yiudBivEWTKrDgw4BHIRpME/9kY6OpoOveOR4ftXYGuYNVxYb0u+rsV5S0
- 2x1Jx6p0BVVoK0lnWLMmpU4ajIJUfyk=
-X-Authority-Analysis: v=2.4 cv=DfSCOftW c=1 sm=1 tr=0 ts=6ae4a848 cx=c_pps
- a=nSjmGuzVYOmhOUYzIAhsAg==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=WwG0zxbtD6kTrJi3JyUA:9
- a=QEXdDO2ut3YA:10 a=1zu1i0D7hVQfj8NKfPKu:22
-X-Proofpoint-GUID: xKLfCWNBKg7JTh5fwmZb0FdKXBCPskoT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1NyBTYWx0ZWRfX/el//pPl1du/
- RziFRi5XKu+jBKKHTN59BEot9Aev8OGDZCalk66WAzvb2uJENb4exr1LvlvppT00HQNdv1IiZjV
- if8rFDVW2ZVZvOYOtWWlJGnXHcDOTOtYEM8TBg4y4t0cbrzsbXbdP6cF4uWvd+WGag2lLeIEojW
- ZXhV5bELET90yMalZgcUSvWUJGSXm1VMTDBqcFtnzJlrirblGWqRRIHNh9sRh3r34wNnZ44uDLn
- Bm5NqK9CAxe9UrZtW8xSni4IQGgYB/Saw7NrjNDTeUyUB7lS7X1UJaMqPpEYpe2Mry7Q0Kgnvpe
- HGSxVMNiwaW4cHJXI1xcE11b8cWv7btBZSyfrNbvuv5FM+o+soU6ZwHO5m4EVyq3nkb5rbVcXk2
- 6Ypvnhf2fw7r2Vi56Xs0IrSHTY0vRE58WH3u49vaPQ03Xms5XZtJVeZsJyxsKM+lDJC+uDYiGNn
- KO9owwhoY34RdxClyDg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 adultscore=0 priorityscore=1501 spamscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300057
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 6:43=E2=80=AFAM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 10/29/26 9:16 PM, Rob Clark wrote:
-> > We can just simplify things and calculate the value, instead of manuall=
-y
-> > adding it to the nonctx list.
-> >
-> > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> > ---
->
-> Should we drop the entry from nonctxt tables then?
+With proxy execution, do_pick_task_scx() passes rq->donor to dispatch_one()
+as @prev. Unlike rq->curr, the donor can be moved to another CPU by a wakeup
+while dispatch_one() has the rq lock released:
 
-Yeah, since I punted on using generated nonctx list for now, I'll drop them
+1. dispatch_one() releases the rq lock, e.g. to move a task from another
+   CPU.
+2. Another CPU wakes the donor, which proxy execution migrated to this CPU.
+   proxy_needs_return() dequeues it and resets the donor to rq->curr, and
+   the wakeup enqueues it, possibly on another CPU.
+3. dispatch_one() sees @prev queued and returns SCX_DSP_PREV.
+4. do_pick_task_scx() returns @prev, and this CPU runs a task that is queued
+   on another rq.
 
-BR,
--R
+The other verdicts are stale too. If the dispatch finds nothing before the
+wakeup enqueues @prev, SCX_DSP_NONE picks idle, and put_prev_task_scx()
+parks rq->curr on the local DSQ with nothing to reschedule the CPU, or trips
+its SCX_OPS_ENQ_LAST warning. SCX_DSP_LOCAL preempts rq->curr even when the
+dispatch would have kept it.
+
+rq_modified_above() catches the reset only when rq->curr is in a class above
+ext, and the dl_server pick skips the check.
+
+The verdict, whatever it is, describes the old donor. Restart the pick when
+@prev is no longer the donor, as dispatch_core_pick() already does whenever
+the dispatch released the rq lock. The retry runs with rq->curr as the
+donor, and proxy_needs_return() returns early for the current task, so the
+donor can't change again.
+
+7a3a6bfbd62a ("sched: Rework prev_balance() to avoid stale prev references")
+closed the same window in prev_balance() by reading rq->donor instead of
+taking @prev. That doesn't work here, as the dispatch never evaluated
+rq->curr, which may not even be a sched_ext task.
+
+Verified with a synthetic reproducer.
+
+Fixes: c6fe97c34a1a ("sched: Allow enabling proxy exec with sched_ext")
+Signed-off-by: Tejun Heo <tj@kernel.org>
+---
+ kernel/sched/ext/ext.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 15123f181b5b..3119a1938c6e 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -3936,6 +3936,16 @@ static enum scx_dsp_verdict dispatch_pick(struct rq *rq, struct rq_flags *rf,
+ 	verdict = dispatch_one(rq, prev);
+ 	rq_repin_lock(rq, rf);
+ 
++	/*
++	 * With proxy execution, @prev is the donor and need not be the running
++	 * task. A wakeup while dispatch_one() has the rq lock released can
++	 * reset the donor and move @prev to another CPU. The verdict was
++	 * computed for @prev and doesn't apply once the donor changed. Restart
++	 * the pick.
++	 */
++	if (unlikely(prev != rq->donor))
++		return SCX_DSP_RETRY;
++
+ 	return verdict;
+ }
+ 
+-- 
+2.56.0
+
