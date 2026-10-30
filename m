@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793332378;
-	b=zMUaOrXKFPhd6OVOm4Ksa3dmb/qRnQOBYKDutB8920IU5BOF80cPOIOD/75Krmb9naAb
-	 x143KcBO6Ib5AuwDsogWiwAN3nClFcTHJwmrTCHxIcw0ivYiljq1TdL68RJRv6FAwCpLI
-	 4TPR38NltDvcZtFcaE816KAOaq8uLhfMHMb1B/NzQWxrB13hBp/arKh7o3bgzXAOAaFnu
-	 R0mJIniBDwnuQ2MjYo1lePLizq2y99X1zV/L8tHYlbPPe6aOhIueFT4XNlugVz1kB6M/g
-	 vXtDIm+/XWnBf4eP62VKVYY9uxRIu8a61wmeSGPyHk5MflkEDiQn+IYi6DaOMJd9aGA==
+	t=1793332477;
+	b=ky+mHB4PphtZvq4OX7haZh48/d6Dbd3RtVvzNgW/ZKONwI6A9tDGzm6NkBgFv8szUaSS
+	 UNbke+r6ANTgqCIBgzP9RU7zVn2WcHJeqArqw1wE+2d2w774HEtTfiJECVVp5OeifWBWG
+	 GVT5Wah5JiQIcF421FmhIQQvOuHBIF8OzlJU5UcDlydtbrxvcj9PN/aYuaKksfTd7a9op
+	 RyAt4IGo2X+pdRSz0ME7uMmrrr9bbow3hXFnOAS5LQSF5NC7zo32XKdPK+Nswrb8QFVrb
+	 iIg4DnzNe37QD0KLJAhCdJashlhszeoyg+yOkkHjAoVwORzbY9qrdminKJMLZXga18A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793332378;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793332477;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=5bagKzpGDehBxLfa97XQN1B8UzHzLG4c9sAiEfjTT94=;
-	b=aFvO2Kv7osFThmmERPnN6ygOPNlUTexk/92bECDz54u1JSX57Z67ukA/vXAuHkJ33z1Z
-	 PCgKsiffgL8UE/JX22A16l714fqzg2P0R8thOax0BSSSFlwx4gKGn/qV3qljNTGIi9pXe
-	 IPRMVRfkpRDNqSaXkFUH733BDSUqv39QxFMr7h1pcte7Owo20eUJdng/sebbk1HxnLecT
-	 AVriVLh4de8NUcAeVdM4UexjTrHpeTExdhXzs55yI/YccCpXUhfS5rSl+hktEw82f/R6Q
-	 VkiILTvhJpqvYXT/9JlEfFTcqgH697dlMohYYZqRxax9utm8NL0u5mrsYEe+VZtJlMw==
+	bh=Y94x0XFkUWge/pJ0DfaIyGIPUJpHReZSVXKDZIueDcI=;
+	b=uXP7NR667jsYwDgdCULfHecWlDOQBRHq6eRgoM9WLS1BoGfMe4ipO3O6CkWkXVVpcCBe
+	 cguAG2WyXNaJmN5StNjTnXThG19E90mEHlUDKBYT+OnncnjowowwIEkApwOZ/4mtzvrxm
+	 DOTtYRjBWaXdD89OkIdjldcW9eUkhDPtlEfex94GB7fzF6nU9YyxORBx1F91Z8wM9/u3p
+	 aG4I6EgNQ1PAOSoitsA/G/HSvaok1DtGC88HIdiWmZTs0f5IiD6fT6s9e8AROo0RKbU9k
+	 gJ8v6cLDqEYFPl+K7uIYFbin+1z29r5h1yBLi69Ojw+ApUlKN3i39an7ImCOQmUFemQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DZY6Ki4Z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hO5/TKe8";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA638606A31A;
-	Fri, 30 Oct 2026 03:52:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E239606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:54:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DZY6Ki4Z
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hO5/TKe8
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793332377;
-	b=gOiNJwv7Og6rmhGD0HKrOYrgUOFmX6QSaopL04+Rp4IGn66j2m79ZdP11puVGIETj4uD
-	 LWX6P1Q57mkTqQ4ZwxU63SVqCeEhJGCvxn2BL64JbuEgK1KQEHfaL2UhOqwt4tCXEsdIG
-	 ta8Uk6ZQGNGoGBTHYbCbwhXHV0lkzeyC5mUiSlMO65K1bNEIk+VJG+A6idt4T7Jsv5qoy
-	 BqPR68ozH1vCvVae209NSmeUrgIVpwb2tiUsqt0JOqV6DlFe/juw3yrg711W5JHjpPfK3
-	 +V2fu3zuxOHdRgmpwo6gMPU8ZXwUng2wpJzwNjxWa6UH7b83oQXBAtAI0eQIsFk9aug==
+	t=1793332477;
+	b=yfCxlAlkqrjdlJcthNwKSA80KDla00Ts66DLx6S7qocZx3GU5i/9EwZPApdfarkJyTZa
+	 SBuuqGKB7gqjCLDEVEFMMp5+577SHe8wv2+n671lpF5fCxPrWcHcjBybNbSq51hbExNdC
+	 peaqSO6mhf7bIb/dE6frfQSawVALuT575J0L9ITEaBW0IP2FW1Vwe2OgpODBgszAZUwyy
+	 qQvE0OgcNwpgd+K8AH5aXazjZnvWYU1L5QY7vZdY5IK93I6D8Tw7YgRJenrC4RfJ3DskC
+	 75eOsYQ0lcPBB0+aXpW25XGwQC4o9T+qwDz6HjGbXby0yKZcLieieqgw9AY7g7dMN7w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793332377;
+	c=relaxed/relaxed; t=1793332477;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
 	 Content-Transfer-Encoding;
-	bh=5bagKzpGDehBxLfa97XQN1B8UzHzLG4c9sAiEfjTT94=;
-	b=ybGrV8qddiBMBv2dc1+uNBCNffHvT1kUk9IUh1CEVU81OVGRRMsG/qjTsgF1hRnQkYIn
-	 uxsVjuEk7UgGsMHoQWf2XZuv2XWXilaq6dGor1RAwD+0vw+CCmRQrAzUEfdv4WAfvLGx8
-	 OBHPQupB+uOC268CDPxbEuUa8kia1ItCP9x1uiTX+IUGtCxniIGcHwe6B3fytGCXXuR2Y
-	 Q2Oy07tOg7NYth0s2thvd2QwuI0t6M8nRlUYrGzSzhK0EiWeToetzlBqDIQrfXWMADvPI
-	 132JLkEmbMmongl0wob0T0AdeuqGAUIkElVtScQYHulCbh7i9m1YBejB/mznL4J+aAw==
+	bh=Y94x0XFkUWge/pJ0DfaIyGIPUJpHReZSVXKDZIueDcI=;
+	b=N5rpiaK947K5XrGTiV7NiHlLN4Y3YWxMxdQDqq0Gx67CU+aRf4mlEMJkTKML0HWeR1tc
+	 LsfV4C2BSOldzypTOX1PmMhKdmW22z6PIfkJkEcuSTXOzRXuKHpS0/+hfohSc2WgRL17L
+	 69mniD6CrhtWqnVK44mEfmH31juqzNhxzIBmlm7PtJ4nkTugng3TvRNUqDHCJ0vpmeLS2
+	 oWmZDil11gfUzTEobXzRa4LkOZu+XFP/pUr1ks6/At+CpIfiLh5Y5irwrdT7jrnBnBrtd
+	 L6S1vhA9RJFEqyD4R07I+kk19O8728NCCTCGrWQJkO5yyrjDYyY+5SntaO7/JCv0QNw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 28E7C1F000C1;
-	Fri, 30 Oct 2026 03:52:57 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 836D61F000C1;
+	Fri, 30 Oct 2026 03:54:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793332377;
-	bh=5bagKzpGDehBxLfa97XQN1B8UzHzLG4c9sAiEfjTT94=;
+	s=k20260515; t=1793332477;
+	bh=Y94x0XFkUWge/pJ0DfaIyGIPUJpHReZSVXKDZIueDcI=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=DZY6Ki4ZoiC/7TJ4jKqVzEvih70W2MICtGk9hryVMvWSxOv/CspVZUQ4MzMOH57DJ
-	 9lS+pXxC3mO8DDqmJVcqDYqTpcGLH5whhb6PAq73rw357IPCfc8nxcI+8EF1KEgFAz
-	 yrdpueX2cSwTbICwyAdYUz0no6nCo/OtNcZzGte+Bl4BdprTB501yATT42LethgYIQ
-	 MkIvqdUBq8qJGIus70ghpNHcA0ZovKBws3gIpp0ST1RNeHBX74rk2RS6S0Kt7IjTGA
-	 dS1Qr5RdA9KztnsQzA9LrJtEpCSU1HL2SBivl25H+svtCzWrMeStRzhKrgT/d0QrcR
-	 x6WWKKYm8w5zA==
+	b=hO5/TKe8jFMfYu/Y+OnT611ZFlGksbiJgANg/7QvuXs8qHRWqThO1MpnSLrGRbpTh
+	 XwPEy4N2W/TydQlZFfOGr/HKwp9hdAlWoJee7Uicp3viS6NS5nadvl+yOqesFJLuLl
+	 6paYNSRAWL3PWDyKIveo5NVOVO5DEIAUyS2nK26Ru0ftyonjfCZRYkWDvovOqwlaoG
+	 /9umYj4ZNyxAPG50YuRqu1jTNN8tRNerxqLSl/tVn5BeBV2TMTyXYtu9j8TTLiFx4e
+	 tQTKMbbwrmG/TdOx4y88VYfYiCxMkCWrpix9tEGYcICftdoLpHMB8N3QfnUJQzz0uw
+	 jC0+YnUynxbOQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AACF7435F8;
-	Fri, 30 Oct 2026 03:52:56 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 10C0F435F8;
+	Fri, 30 Oct 2026 03:54:36 +0000 (UTC)
 From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Fri, 30 Oct 2026 12:52:57 +0900
-Subject: [PATCH] mm/readahead: keep at least half of the async window when
- aligning it
+Date: Fri, 30 Oct 2026 12:54:36 +0900
+Subject: [PATCH] erofs: allocate file-backed mount requests from a bio_set
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,21 +83,21 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-mm-readahead-async-align-v1-1-109dea6851fc@samsung.com>
-X-B4-Tracking: v=1; b=H4sIAJgU5GoC/x2MQQqAIBAAvxJ7biEthPpKdNh0q4WyUIhC/HvSZ
- WAOMwkiB+EIQ5Ug8C1RTl9E1RXYjfzKKK446EYb1egejwMDk6OtACm+3iLtsnrkrldz66wyZKD
- kV+BFnn89Tjl/F5UzkmoAAAA=
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>
-Cc: Ryan Roberts <ryan.roberts@arm.com>, linux-fsdevel@vger.kernel.org, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Daejun Park <daejun7.park@samsung.com>
+Message-Id: <20261030-erofs-fileio-bioset-v1-1-caf47adbb3a3@samsung.com>
+X-B4-Tracking: v=1; b=H4sIAPsU5GoC/x3MTQqAIBBA4avErBtQo9KuEi36GWsgNJyIILp70
+ vJbvPeAUGIS6IoHEl0sHEOGLguYtzGshLxkg1Gm0co4pBS9oOedOOLEUejEVld1qybrFusgl0c
+ iz/d/7Yf3/QACpbrhZQAAAA==
+To: Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>
+Cc: Yue Hu <zbestahu@gmail.com>, Jingbo Xu <jefflexu@163.com>, 
+ Sandeep Dhavale <dhavale@google.com>, Hongbo Li <hongbohbli@tencent.com>, 
+ Chunhai Guo <guochunhai@vivo.com>, linux-erofs@lists.ozlabs.org, 
+ linux-kernel@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793332376; l=2790;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793332475; l=7653;
  i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=KlGeHCvXeiq1+GF1wuBXkFRE3vYfwUDNHyzWlyHiR68=;
- b=6sgU0Xgwqz6XOoOauwEV72LBz9kw9m5WlIYb+cqZUpHR8kgYzsAyqdlAug65ocGla5qbp/Hrj
- bPKuxR/UQasC8l7t1DapqPOFgn9m5GwmI0sdNdV2RMIBMd8du/pBJp+
+ bh=gbIxnX8FciCSXpNYzWxLVeaper8bYHxXoy7NVQKYLCc=;
+ b=I6WF5AUXX0OQ89qm/VX6quw8eorvh1mBHO9e7AewMvJa0Kcn5MiGTDvcC4lwsZ93fdrT2yliD
+ 6BIC9qz1LBkDbjbNHf8QEkMl3JZqfJOp+386V0RVbVamf1RBQjgp1Uu
 X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
  pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
 X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
@@ -109,72 +108,218 @@ Content-Transfer-Encoding: 7bit
 
 From: Daejun Park <daejun7.park@samsung.com>
 
-page_cache_async_ra() trims the end of each new window to a multiple of
-1 << ra->order pages. A window that starts just below such a boundary
-keeps only a few pages. With read_ahead_kb=128 and max_sectors_kb=512,
-1 MiB reads after a 4 KiB read at offset 0 hit this on about one window
-in three. They issue three times as many device reads.
+Since commit 9f74ae8c9ac9 ("erofs: shorten bvecs[] for file-backed
+mounts"), a file-backed request holds at most 16 bvecs. A 1 MiB
+synchronous readahead window of order-0 folios can then take several
+backing reads.
 
-Halve the alignment until the trim keeps at least half of the window.
+Allocate requests from a bio_set, using the mempool that commit
+considered. With GFP_NOIO, bio_alloc_bioset() does not fail if each
+task submits a request before it allocates another:
 
-Fixes: 18ebe55a9236 ("mm/readahead: terminate async readahead on natural boundary")
+- Every path submits its request before it allocates the next one.
+
+- Mount already rejects backing files on stacked fses and on
+  file-backed EROFS. A backing read cannot reach this pool again in
+  the same task.
+
 Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
-Tested on mm-new in a QEMU guest with XFS on an emulated NVMe,
-read_ahead_kb 128 and a cold cache.
+This needs "erofs: apply the stacked fs check to extra file-backed
+devices" [1].
 
-- max_sectors_kb 512, median of 5 runs: reading a 512 MiB file this
-  way takes 0.247 s before and 0.180 s after. The device sees 3329 and
-  1032 reads.
+Tested in QEMU on mm-new with that patch and "mm/readahead: keep at
+least half of the async window when aligning it" [2]:
 
-- Other reads with max_sectors_kb 512: without the 4 KiB read, and with
-  64 KiB reads, the times do not change. Random 4 KiB and 64 KiB reads,
-  two interleaved streams on one file, and 2 MiB reads at random
-  offsets also take the same time. They read the same amount from the
-  device, within 0.3%.
+- With read_ahead_kb=1024, 1 MiB read() calls on 256 files of 1 MiB
+  take 0.119 s instead of 0.141 s (median of 6). The other 15 cases
+  changed by -22% to +0.4%.
 
-With the device's transfer limit at 2 MiB:
+- Without the mm patch, this patch makes the same reads about 25%
+  slower.
 
-- max_sectors_kb 256: 512 KiB reads after the 4 KiB read take 0.626 s
-  before and 0.322 s after. The device sees 6147 and 2056 reads.
+- With failslab failing all bio and biovec slab allocations of 8
+  parallel readers, every request came from the bio_set's reserves.
+  All data read back correctly.
 
-- max_sectors_kb 1024 or 2048: 1 MiB reads are not trimmed.
+- KASAN and lockdep found only the lockdep report noted in [1].
 
-- max_sectors_kb 2048, 3 MiB reads: the device sees 343 instead of 271
-  reads. The time is 0.120 s instead of 0.118 s, the median of 40 runs.
-  The interquartile range is about 0.10 to 0.13 s for both. The window
-  stays at 3/4 of the maximum, off the 2 MiB boundary. mm-new reaches
-  that boundary by trimming deeply.
+[1] https://lore.kernel.org/r/20261030-erofs-stacked-extra-devices-v1-1-39f7df7ac01b@samsung.com
+[2] https://lore.kernel.org/r/20261030-mm-readahead-async-align-v1-1-109dea6851fc@samsung.com
 ---
- mm/readahead.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ fs/erofs/fileio.c   | 44 ++++++++++++++++++++++++++++++++------------
+ fs/erofs/internal.h |  4 ++++
+ fs/erofs/super.c    |  7 +++++++
+ 3 files changed, 43 insertions(+), 12 deletions(-)
 
-diff --git a/mm/readahead.c b/mm/readahead.c
-index 6e55632902..f4da9b4606 100644
---- a/mm/readahead.c
-+++ b/mm/readahead.c
-@@ -713,6 +713,17 @@ void page_cache_async_ra(struct readahead_control *ractl,
- 	align = 1UL << min(ra->order, ffs(max_pages) - 1);
- 	end = ra->start + ra->size;
- 	aligned_end = round_down(end, align);
-+	/*
-+	 * Keep at least half of the window when aligning its end. A
-+	 * window that starts just below a large boundary would otherwise
-+	 * shrink to a few pages and cap the folio order. Use a smaller
-+	 * alignment instead.
-+	 */
-+	while (aligned_end > ra->start &&
-+	       2 * (aligned_end - ra->start) < ra->size) {
-+		align >>= 1;
-+		aligned_end = round_down(end, align);
-+	}
- 	if (aligned_end > ra->start)
- 		ra->size -= end - aligned_end;
- 	ra->async_size = ra->size;
+diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
+index e13293ec70..0fe6eb6643 100644
+--- a/fs/erofs/fileio.c
++++ b/fs/erofs/fileio.c
+@@ -7,13 +7,15 @@
+ #include <trace/events/erofs.h>
+ 
+ struct erofs_fileio_rq {
+-	struct bio_vec bvecs[16];
+-	struct bio bio;
+ 	struct kiocb iocb;
+ 	struct super_block *sb;
+ 	refcount_t ref;
++	/* must be last: erofs_fileio_bioset allocates the rest as front_pad */
++	struct bio bio;
+ };
+ 
++static struct bio_set erofs_fileio_bioset;
++
+ struct erofs_fileio {
+ 	struct erofs_map_blocks map;
+ 	struct erofs_map_dev dev;
+@@ -38,9 +40,8 @@ static void erofs_fileio_ki_complete(struct kiocb *iocb, long ret)
+ 		rq->bio.bi_status = errno_to_blk_status(ret);
+ 	}
+ 	bio_endio(&rq->bio);
+-	bio_uninit(&rq->bio);
+ 	if (refcount_dec_and_test(&rq->ref))
+-		kfree(rq);
++		bio_put(&rq->bio);
+ }
+ 
+ static void erofs_fileio_rq_submit(struct erofs_fileio_rq *rq)
+@@ -56,22 +57,25 @@ static void erofs_fileio_rq_submit(struct erofs_fileio_rq *rq)
+ 	if (test_opt(&EROFS_SB(rq->sb)->opt, DIRECT_IO) &&
+ 	    rq->iocb.ki_filp->f_mode & FMODE_CAN_ODIRECT)
+ 		rq->iocb.ki_flags = IOCB_DIRECT;
+-	iov_iter_bvec(&iter, ITER_DEST, rq->bvecs, rq->bio.bi_vcnt,
++	iov_iter_bvec(&iter, ITER_DEST, rq->bio.bi_io_vec, rq->bio.bi_vcnt,
+ 		      rq->bio.bi_iter.bi_size);
+ 	scoped_with_creds(rq->iocb.ki_filp->f_cred)
+ 		ret = vfs_iocb_iter_read(rq->iocb.ki_filp, &rq->iocb, &iter);
+ 	if (ret != -EIOCBQUEUED)
+ 		erofs_fileio_ki_complete(&rq->iocb, ret);
+ 	if (refcount_dec_and_test(&rq->ref))
+-		kfree(rq);
++		bio_put(&rq->bio);
+ }
+ 
+ static struct erofs_fileio_rq *erofs_fileio_rq_alloc(struct super_block *sb,
+-						     struct file *file)
++		struct file *file, unsigned short nr_vecs)
+ {
+-	struct erofs_fileio_rq *rq = kzalloc_obj(*rq, GFP_KERNEL | __GFP_NOFAIL);
++	struct bio *bio = bio_alloc_bioset(NULL, nr_vecs, REQ_OP_READ,
++					   GFP_NOIO, &erofs_fileio_bioset);
++	struct erofs_fileio_rq *rq =
++			container_of(bio, struct erofs_fileio_rq, bio);
+ 
+-	bio_init(&rq->bio, NULL, rq->bvecs, ARRAY_SIZE(rq->bvecs), REQ_OP_READ);
++	memset(rq, 0, offsetof(struct erofs_fileio_rq, bio));
+ 	rq->iocb.ki_filp = file;
+ 	rq->sb = sb;
+ 	refcount_set(&rq->ref, 2);
+@@ -80,7 +84,8 @@ static struct erofs_fileio_rq *erofs_fileio_rq_alloc(struct super_block *sb,
+ 
+ struct bio *erofs_fileio_bio_alloc(struct erofs_map_dev *mdev)
+ {
+-	return &erofs_fileio_rq_alloc(mdev->m_sb, mdev->m_dif->file)->bio;
++	return &erofs_fileio_rq_alloc(mdev->m_sb, mdev->m_dif->file,
++				      BIO_MAX_VECS)->bio;
+ }
+ 
+ void erofs_fileio_submit_bio(struct bio *bio)
+@@ -108,11 +113,14 @@ static int erofs_fileio_iomap_read_folio_range(const struct iomap_iter *iter,
+ 			   offset_in_folio(folio, iter->pos))) {
+ 		struct super_block *sb = iter_ctx->realinode->i_sb;
+ 		struct erofs_device_info *dif = iter->iomap.private;
++		unsigned short nr_vecs;
+ 
+ 		/* submit the existing range if there was one. */
+ 		if (ctx->read_ctx)
+ 			erofs_fileio_iomap_submit_read(iter, ctx);
+-		rq = erofs_fileio_rq_alloc(sb, dif->file);
++		nr_vecs = bio_max_segs(DIV_ROUND_UP(iomap_length(iter),
++						    PAGE_SIZE));
++		rq = erofs_fileio_rq_alloc(sb, dif->file, nr_vecs);
+ 		rq->bio.bi_iter.bi_sector = sector;
+ 		bio_add_folio_nofail(&rq->bio, folio, plen,
+ 				offset_in_folio(folio, iter->pos));
+@@ -161,10 +169,22 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
+ 		}
+ 	}
+ 
+-	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file);
++	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file, 1);
+ 	io.rq->bio.bi_end_io = erofs_fileio_meta_endio;
+ 	io.rq->bio.bi_iter.bi_sector = pos >> 9;
+ 	bio_add_folio_nofail(&io.rq->bio, folio, len, 0);
+ 	erofs_fileio_rq_submit(io.rq);
+ 	return 0;
+ }
++
++int __init erofs_init_fileio(void)
++{
++	return bioset_init(&erofs_fileio_bioset, BIO_POOL_SIZE,
++			   offsetof(struct erofs_fileio_rq, bio),
++			   BIOSET_NEED_BVECS);
++}
++
++void erofs_exit_fileio(void)
++{
++	bioset_exit(&erofs_fileio_bioset);
++}
+diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
+index 924b37e06e..e6b85bde82 100644
+--- a/fs/erofs/internal.h
++++ b/fs/erofs/internal.h
+@@ -510,9 +510,13 @@ int z_erofs_parse_cfgs(struct super_block *sb, struct erofs_super_block *dsb);
+ #ifdef CONFIG_EROFS_FS_BACKED_BY_FILE
+ struct bio *erofs_fileio_bio_alloc(struct erofs_map_dev *mdev);
+ void erofs_fileio_submit_bio(struct bio *bio);
++int __init erofs_init_fileio(void);
++void erofs_exit_fileio(void);
+ #else
+ static inline struct bio *erofs_fileio_bio_alloc(struct erofs_map_dev *mdev) { return NULL; }
+ static inline void erofs_fileio_submit_bio(struct bio *bio) {}
++static inline int erofs_init_fileio(void) { return 0; }
++static inline void erofs_exit_fileio(void) {}
+ #endif
+ 
+ #ifdef CONFIG_EROFS_FS_PAGE_CACHE_SHARE
+diff --git a/fs/erofs/super.c b/fs/erofs/super.c
+index ee01a5ef85..faea77ba25 100644
+--- a/fs/erofs/super.c
++++ b/fs/erofs/super.c
+@@ -1100,6 +1100,10 @@ static int __init erofs_module_init(void)
+ 	if (err)
+ 		goto ishare_err;
+ 
++	err = erofs_init_fileio();
++	if (err)
++		goto fileio_err;
++
+ 	err = register_filesystem(&erofs_fs_type);
+ 	if (err)
+ 		goto fs_err;
+@@ -1107,6 +1111,8 @@ static int __init erofs_module_init(void)
+ 	return 0;
+ 
+ fs_err:
++	erofs_exit_fileio();
++fileio_err:
+ 	erofs_exit_ishare();
+ ishare_err:
+ 	erofs_exit_sysfs();
+@@ -1122,6 +1128,7 @@ static int __init erofs_module_init(void)
+ static void __exit erofs_module_exit(void)
+ {
+ 	unregister_filesystem(&erofs_fs_type);
++	erofs_exit_fileio();
+ 	erofs_exit_ishare();
+ 
+ 	/* ensure all delayed rcu free inodes & pclusters are flushed */
 
 ---
-base-commit: 9c449f885765cf8d80b2c60b1971e774bba51a3f
-change-id: 20261029-mm-readahead-async-align-e491b3dc16a6
+base-commit: 7778e12f447c2b465fd9c8796348521494b5d3e4
+change-id: 20261029-erofs-fileio-bioset-713570b89d89
 
 Best regards,
 -- 
