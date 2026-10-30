@@ -1,126 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793394622;
-	b=TQSU+Q/8Tn3JnXfYuu0qHNz70rQBukRhQHFrxlvWxSvOWszN/KRnbEj1R8iQ7luQN22N
-	 uhqDRJR2MyIir5q2nKOMaWdeXpvrb7eVNap3MAoHY5zqtJT1lQIerlN0m98IX4emW/N4/
-	 zErqEY3tCwLmFQ8sZR0SmAEAEUCv5JXQA4joIy+4hh0337akqAt8Mr3x4gKbM14oojMy/
-	 Q4Gv9iQrEEdCWhS81Ri+GhJACBDhnUzS8hpwcRl8LFKPbdrQ8PnoiEhDkkC93MQNc3p6K
-	 42raTNXnlfr/32IKbg0ZVbp3UwLXsnvvVcquNlQVstBoHLmfRgDOrtiAlwsRPEetOHA==
+	t=1793394750;
+	b=guYrVkWZMEGoIrj2heoP9x/0XMo/RjbO+eu77oll6kWUOkutIGVisTbIEM763K/W6B+O
+	 lBoThC7ieoaiyuFTJDN1mKV1al0lTJAs0SQk/vwkE19x+kaXBONTvH/GSGuiaVpw5d+bj
+	 vJWzXsr9AXElrKKonft35tqirl5MR9C21r/CxWDx6XykPAsBqbook/ObtP1EDA3SK3Xnk
+	 GiREjm22VQ8Z/no7Hce3u950yrvxmIwFj6P0xMUZuiT63dLw549tALvo8yTwfNTKNp7z0
+	 cXZT4Zg0mnZNja7sfvNcMkkACMZvMJRW7u9LrPnUZH6iL/i19fswMkZAU83uQQ+N2Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793394622;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=b6rgIm+5PbCV1VV/h+qGVE2kN3elc6rHKJjG61+uC6E=;
-	b=imYfAcRlsfv8yViwA4gdl/2Y0BYdSDuhrtwPB6E2EvG04t8M4Y0KYVEwCpDTawA6wXMg
-	 bfhLR16pQmVR1kYwFh7bhKcnxH+RPH0viMGQ+K7G2DC8knf1a7uKwyy14xXQHu3xp6KcB
-	 wRVoeOMJwk8cibJuYTpzEgF35UJwwIkW18koknObl+vzFm3475bQxZm7a3q9Kl1Z5J/Sv
-	 jQ3yOj2hoINwJBFkcekA+MBoUtB43wp/2aewhlqdwA6E6yVWYzjxYtQxwZwMiVw5VZTIO
-	 5FpvoWivGoai2VY7VuJCbqSBVH3D0pwTHALjwWwKaErdWJbXCZEM4pr96SihTfE+i2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793394750;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=IEONd4jOnVyWQkHj1MJzqvWpoLIH0hBXrfM3VziQ+qI=;
+	b=JG18oeuyDmB4Mip1pcrJVm3hq3awonTqudCAr9GicMVJUEvN5DcCcePERq3aEKODJJeO
+	 jjkjrdB02/pdqETt7205b+pkVzv0pvpJIIDHqybBxadATmRU8I0U1LwfaITufCEnV/59G
+	 QrpucDulpWuYpru8WRltHRGLBhKJcsLXAqnlt8yJtmV6e2WcJjCV4M0WcSjc7YqZO2mht
+	 G8APyp3Dsdi6JZqU6u60l62rXX8Uy3cfm1JIDpTfmbz0vN2cTNYzAxefWkHJRYdifmmwu
+	 Wld4xN/8zqxEfQBpXp98K8VjRIVfGKxQr8/GjW17soJnxwmZ5gM3uLRkC8zTT/bNUMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arista.com;
-	spf=pass smtp.mailfrom=arista.com;
-	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=bfb4H3Ja;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=kGW4GTWR;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399D260A263D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:10:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 399D260A263D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BB2606A31A;
+	Fri, 30 Oct 2026 21:12:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83BB2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=bfb4H3Ja
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-170135e43c7so204791c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:10:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1793394620; x=1793999420; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b6rgIm+5PbCV1VV/h+qGVE2kN3elc6rHKJjG61+uC6E=;
-        b=bfb4H3Ja92X3d9BVzx0zy/DiN96n2Dee4Kykw1jdIKADVNsOMyCtGPlMdJJ58ZTfOX
-         bzu0/KRWsSCh1CPt95Vwiei/OwzvRPo7ka5TFEi8Zv07E4pdUdyoK/mMq4mUPgk1XPHp
-         qfHPqKtxBko5a8v3thC5K1lsFyydIdqP0Dv/NNec8wL7Zme/uN84ZjbTMKfpRwWquyX7
-         fq9oZy49jz8rzvomyGKezWhZkwkf752VkUC6CfZX0I9E4kRP3L78t1xJvGOc0QG0Dp65
-         FvpBh/5e8t7FyGc6xLnuCEhCmmv2KuFY7TWrJFQFgBDmn8C9Q+khLD9Xvz/ReEq/1R2U
-         KGIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793394620; x=1793999420;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b6rgIm+5PbCV1VV/h+qGVE2kN3elc6rHKJjG61+uC6E=;
-        b=Exmn5sB2J604JYdukEMwCLvf4ATUWvcvBB+Kp4pNVGtbiJN8f35YCGA2vGesbEYkJn
-         QlKrjAsyQLt/0uMRlknAbYatAyzDYo9GvX5YZIWR8oregf6o+BEPZ68nPR08N6+yzX94
-         a60WGVNdsjZ7vp9u4pZE8gCRQeJno4s2rda4wu2WDbwLcGCsptYAf/kDbtA2NuoPE9jG
-         gzPB+bK5RsX6FFzVw6x4ir47LsQgCqTCCAhCYNkksHhB9LUM2/vPKQxjgrdrTkQ6bAff
-         2TfLNgmTPd+RsQO5koGj6KN/xurcBNnU8sT7i5oGXkEU03tggIGvG5kYhJp4yJDcWwgH
-         w0Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBzGzpHZQb5INn3Jfpjv+B07ENd1j33JoFhhNgVlKRGVzSKICL5FODqoqnppeWb+YZEPWc4eY7iZGeRg/7w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZe7AbSGXArYoqykh/8U6nCEKNqlyocaQ74NsZt8p6IhgdD9Dj
-	XiOkaKZe8Wg7vsXns1vf5YA7A7RSkAEjA2ZhPHPSm0tAjCxsx/Tmp/47wj0VDDPC8w==
-X-Gm-Gg: AYBFou03T6RQQfQpcZiFPQE3nLgUG+ibCqpXldterVUzzzQR3yK1Sj4jlvEIyV32uCJ
-	98nOaf+acT54W40PebxxkyjT1+XVwgYcyyYFkQoskph/pis0bTaBc7U4HbTjcd2YunY46ww3t6c
-	Gx+L5nFFkw2mzcBkzlDPrh21g1uWQF6DFuJcuizgPVtmIBSmdKP4Drl/Xxd8v3K94aoFG1Z0zKz
-	un1gOh1BIHTJWuYawPNUX9d+TTzBTzKGK9UPB0X/mONE7U6Fn378MJr88sDpnm2mWLJaKPkvX+w
-	AjyqDaneDtPSuBOB7VPSavjzG7z0QLbUZg2j5zvAMBEnz4YIE2tjUJwm142kfsGl4EEQzqGMIaP
-	g/7sNLUm9d10C+K5UsFKKHfxqWkZM5VWgckvsq1TdA8XCBxS221d2c9P4g1feUb8SHmYLzVBrAN
-	qwX1PkXX0ABIGj2lWqTPFyH5l6BcgvjzQk/qbRmr+T73+mpTn0Km4+46DVeTiZRp4ELDUOmioub
-	P4U4crLN/56/9Biukydp6DgkWtTSO1ok8yFlf5lGsBRbiXx76G7WB7uGL91vP9l+p6WXS+N3Y85
-	Z0U3O8rSQvdUoqRQ5pwHimFE3JUdv0Ixyl1JD/O6Z8HSI2zTo27uQ9dycVWi+e9JNaq0A5fZBJg
-	KFxOoVYuHW7dS4r82hvWoINU=
-X-Received: by 2002:a05:7022:b043:20b0:19c:dd9b:d09e with SMTP id a92af1059eb24-1ac5cdf9b17mr5090344c88.23.1793394619875;
-        Fri, 30 Oct 2026 14:10:19 -0700 (PDT)
-Received: from dannyhu-upstreamLinux.sjc.aristanetworks.com ([74.123.28.18])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1abcf67csm9471777c88.21.2026.10.30.14.10.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 14:10:19 -0700 (PDT)
-From: Danny Hu <dannyhu@arista.com>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Mimi Zohar <zohar@linux.ibm.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	Jan Kara <jack@suse.cz>,
-	Victor Kamensky <kamensky@cisco.com>,
-	Taras Kondratiuk <takondra@cisco.com>,
-	Tianxing Zhang <zhangtianxing3@huawei.com>,
-	Zheng Zengkai <zhengzengkai@huawei.com>,
-	zhoushuiqing <zhoushuiqing2@huawei.com>,
-	zhangguangzhi <zhangguangzhi3@huawei.com>,
-	Danny Hu <dannyhu@arista.com>,
-	Jason Yan <yanaijie@huawei.com>,
-	silviu.vlasceanu@huawei.com,
-	hpa@zytor.com,
-	arnd@arndb.de,
-	rob@landley.net,
-	james.w.mcmechan@gmail.com,
-	niveditas98@gmail.com,
-	pierre@arista.com,
-	julien@arista.com,
-	kbharathi@arista.com,
-	erosca@de.adit-jv.com,
-	alexandr.lobakin@intel.com,
-	jim_baxter@mentor.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	initramfs@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bug-cpio@gnu.org
-Subject: [PATCH v5 4/4] gen_init_cpio: add support for file metadata
-Date: Fri, 30 Oct 2026 14:09:43 -0700
-Message-ID: <20261030210944.2143778-5-dannyhu@arista.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261030210944.2143778-1-dannyhu@arista.com>
-References: <20261030210944.2143778-1-dannyhu@arista.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=kGW4GTWR
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5F9934B0;
+	Fri, 30 Oct 2026 22:10:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793394612;
+	bh=4ZcjkwBtXwpWd5YLcsKxjAoYlftpO+e2haPr8crGBDY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kGW4GTWRX2wvyUs92Hm7D+e4Tmn49DaB8rEiCWEcvqpEQpE0bEDtJ4DU6aI38BGd3
+	 5FIowGc4/rt0hw2S12LMGXi2zmZYHe+Ixd9Y7KqKi25i2OHSYWfzjkl/p+BQ0a8tKu
+	 D3QARqLMcbePtpSInZsbQzaq3bUHKuVgToZVyrRc=
+Date: Fri, 30 Oct 2026 23:12:25 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH DNI v3 04/15] arm64: renesas: r8a78000: Add FCPV[BI] nodes
+Message-ID: <20261030211225.GA3144851@killaraus.ideasonboard.com>
+References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
+ <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-4-e052903a3832@ideasonboard.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,550 +73,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-4-e052903a3832@ideasonboard.com>
 
-From: Roberto Sassu <roberto.sassu@huawei.com>
+Hi Paul,
 
-This patch adds support for file metadata (only TYPE_XATTR metadata type).
-gen_init_cpio has been modified to read xattrs from files that will be
-added to the image and to include file metadata as separate files with the
-special name 'METADATA!!!'.
+Thank you for the patch.
 
-This behavior can be selected by setting the desired file metadata type as
-value for CONFIG_INITRAMFS_FILE_METADATA.
+On Thu, Oct 15, 2026 at 04:51:44PM +0900, Paul Elder wrote:
+> Add DT nodes for the FCPVB and FCPVI IP cores in the R-Car X5H SoC.
+> 
+> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
-Signed-off-by: Tianxing Zhang <zhangtianxing3@huawei.com>
-Reviewed-by: Jason Yan <yanaijie@huawei.com>
-Signed-off-by: Zheng Zengkai <zhengzengkai@huawei.com>
-Signed-off-by: zhoushuiqing <zhoushuiqing2@huawei.com>
-Signed-off-by: zhangguangzhi <zhangguangzhi3@huawei.com>
-Signed-off-by: Danny Hu <dannyhu@arista.com>
----
-Changes in v5:
- - context adapt usr/Makefile, usr/gen_initramfs.sh (zhangguangzhi)
- - del duplicate code in usr/Makefile (zhangguangzhi)
- - fix checkpatch warning STATIC_CONST_CHAR_ARRAY in usr/gen_init_cpio.c:38
-   (zhangguangzhi)
- - make CONFIG_INITRAMFS_FILE_METADATA a choice rather than having to
-   specify it manually
- - document -e option and supported values in gen_init_cpio usage()
- - Update gen_initramfs.sh to pass source paths to gen_init_cpio.c for
-   nonregular entries (slink, dir, nod). Modify gen_init_cpio to
-   properly collect xattrs from the source object. Without this change,
-   xattrs will not get included for slink, dir and nod.
- - xattr collection now uses llistxattr() and lgetxattr() so symlink
-   xattrs come from the link itself rather than the target.
- - use the size_t hexadecimal format specifier in write_xattrs()
- - initialize xattr_value as NULL to prevent free of uninitialized ptr
- - free xattr_list after checking whether xattr iteration completed
- - clean up temporary metadata file before gen_init_cpio exits
+I need to reconsider this...
 
- usr/Kconfig          |  19 ++++
- usr/Makefile         |   3 +-
- usr/gen_init_cpio.c  | 216 +++++++++++++++++++++++++++++++++++++------
- usr/gen_initramfs.sh |  15 ++-
- 4 files changed, 219 insertions(+), 34 deletions(-)
+> Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> ---
+>  arch/arm64/boot/dts/renesas/r8a78000.dtsi | 72 +++++++++++++++++++++++++++++++
+>  1 file changed, 72 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> index 9a07753b221541ed49a975e0c95f2f5d1fdc6ac2..2f8886f8b6545026397fd83969882f8c62afa9d3 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> @@ -1000,6 +1000,78 @@ mdlc_aon: system-controller@c1338000 {
+>  			bootph-all;
+>  		};
+>  
+> +		fcpvi0: fcp@c5030000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc5030000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
 
-diff --git a/usr/Kconfig b/usr/Kconfig
-index 9279a2893ab0..135a9248bba2 100644
---- a/usr/Kconfig
-+++ b/usr/Kconfig
-@@ -227,3 +227,22 @@ config INITRAMFS_COMPRESSION_NONE
- 	  filesystem image will be present in memory simultaneously
- 
- endchoice
-+
-+choice
-+	prompt "File metadata type"
-+	default INITRAMFS_FILE_METADATA_NONE
-+	help
-+	  Specify the metadata types to be included in the image.
-+
-+	  If you are not sure, leave unchanged.
-+
-+	config INITRAMFS_FILE_METADATA_NONE
-+		bool "no xattrs (default)"
-+	config INITRAMFS_FILE_METADATA_XATTR
-+		bool "xattr"
-+endchoice
-+
-+config INITRAMFS_FILE_METADATA
-+	string
-+	default "" if INITRAMFS_FILE_METADATA_NONE
-+	default "xattr" if INITRAMFS_FILE_METADATA_XATTR
-diff --git a/usr/Makefile b/usr/Makefile
-index e8f42478a0b7..dc4a1f4b3da2 100644
---- a/usr/Makefile
-+++ b/usr/Makefile
-@@ -65,7 +65,8 @@ quiet_cmd_initfs = GEN     $@
- 	$(addprefix -u , $(CONFIG_INITRAMFS_ROOT_UID)) \
- 	$(addprefix -g , $(CONFIG_INITRAMFS_ROOT_GID)) \
- 	$(if $(KBUILD_BUILD_TIMESTAMP), -d "$(KBUILD_BUILD_TIMESTAMP)") \
--	$(ramfs-input)
-+	$(if $(filter-out "",$(CONFIG_INITRAMFS_FILE_METADATA)), \
-+	  -e $(CONFIG_INITRAMFS_FILE_METADATA)) $(ramfs-input)
- 
- # We rebuild initramfs_data.cpio if:
- # 1) Any included file is newer than initramfs_data.cpio
-diff --git a/usr/gen_init_cpio.c b/usr/gen_init_cpio.c
-index b7296edc6626..f07be54c9219 100644
---- a/usr/gen_init_cpio.c
-+++ b/usr/gen_init_cpio.c
-@@ -6,6 +6,7 @@
- #include <stdbool.h>
- #include <sys/types.h>
- #include <sys/stat.h>
-+#include <sys/xattr.h>
- #include <string.h>
- #include <unistd.h>
- #include <time.h>
-@@ -13,6 +14,7 @@
- #include <errno.h>
- #include <ctype.h>
- #include <limits.h>
-+#include "../include/linux/initramfs.h"
- 
- /*
-  * Original work by Jeff Garzik
-@@ -37,12 +39,126 @@ static bool do_file_mtime;
- static bool do_csum = false;
- static int outfd = STDOUT_FILENO;
- static unsigned int dalign;
-+static char metadata_path[] = "/tmp/cpio-metadata-XXXXXX";
-+static int metadata_fd = -1;
- 
- struct file_handler {
- 	const char *type;
- 	int (*handler)(const char *line);
- };
- 
-+static enum metadata_types parse_metadata_type(char *arg)
-+{
-+	static char *metadata_type_str[TYPE__LAST] = {
-+		[TYPE_NONE] = "none",
-+		[TYPE_XATTR] = "xattr",
-+	};
-+	int i;
-+
-+	for (i = 0; i < TYPE__LAST; i++)
-+		if (!strcmp(metadata_type_str[i], arg))
-+			return i;
-+
-+	return TYPE_NONE;
-+}
-+
-+static int cpio_mkfile(const char *name, const char *location,
-+		       unsigned int mode, uid_t uid, gid_t gid,
-+		       unsigned int nlinks);
-+
-+static char *cpio_replace_env(char *new_location);
-+
-+static int write_xattrs(const char *path)
-+{
-+	struct metadata_hdr hdr = { .c_version = 1, .c_type = TYPE_XATTR };
-+	char str[sizeof(hdr.c_size) + 1];
-+	char *xattr_list, *list_ptr;
-+	char *xattr_value = NULL;
-+	ssize_t list_len, name_len, value_len, len;
-+	int ret = -EINVAL;
-+
-+	if (metadata_fd < 0)
-+		return 0;
-+
-+	if (path == metadata_path)
-+		return 0;
-+
-+	list_len = llistxattr(path, NULL, 0);
-+	if (list_len <= 0)
-+		return 0;
-+
-+	list_ptr = xattr_list = malloc(list_len);
-+	if (!list_ptr) {
-+		fprintf(stderr, "out of memory\n");
-+		return ret;
-+	}
-+
-+	len = llistxattr(path, xattr_list, list_len);
-+	if (len != list_len)
-+		goto out;
-+
-+	if (ftruncate(metadata_fd, 0))
-+		goto out;
-+
-+	lseek(metadata_fd, 0, SEEK_SET);
-+
-+	while (list_ptr < xattr_list + list_len) {
-+		name_len = strlen(list_ptr);
-+
-+		value_len = lgetxattr(path, list_ptr, NULL, 0);
-+		if (value_len < 0) {
-+			fprintf(stderr, "cannot get xattrs\n");
-+			break;
-+		}
-+
-+		if (value_len) {
-+			xattr_value = malloc(value_len);
-+			if (!xattr_value) {
-+				fprintf(stderr, "out of memory\n");
-+				break;
-+			}
-+		} else {
-+			xattr_value = NULL;
-+		}
-+
-+		len = lgetxattr(path, list_ptr, xattr_value, value_len);
-+		if (len != value_len)
-+			break;
-+
-+		snprintf(str, sizeof(str), "%.8zx",
-+			 sizeof(hdr) + name_len + 1 + value_len);
-+
-+		memcpy(hdr.c_size, str, sizeof(hdr.c_size));
-+
-+		if (write(metadata_fd, &hdr, sizeof(hdr)) != sizeof(hdr))
-+			break;
-+
-+		if (write(metadata_fd, list_ptr, name_len + 1) != name_len + 1)
-+			break;
-+
-+		if (write(metadata_fd, xattr_value, value_len) != value_len)
-+			break;
-+
-+		if (fsync(metadata_fd))
-+			break;
-+
-+		list_ptr += name_len + 1;
-+		free(xattr_value);
-+		xattr_value = NULL;
-+	}
-+
-+	free(xattr_value);
-+out:
-+	if (list_ptr != xattr_list + list_len) {
-+		free(xattr_list);
-+		return ret;
-+	}
-+
-+	free(xattr_list);
-+
-+	return cpio_mkfile(METADATA_FILENAME, metadata_path, S_IFREG, 0, 0, 1);
-+}
-+
- static int push_buf(const char *name, size_t name_len)
- {
- 	ssize_t len;
-@@ -119,7 +235,8 @@ static int cpio_trailer(void)
- }
- 
- static int cpio_mkslink(const char *name, const char *target,
--			 unsigned int mode, uid_t uid, gid_t gid)
-+			const char *location, unsigned int mode,
-+			uid_t uid, gid_t gid)
- {
- 	int len;
- 	unsigned int namesize, targetsize = strlen(target) + 1;
-@@ -150,7 +267,8 @@ static int cpio_mkslink(const char *name, const char *target,
- 	    push_buf(name, namesize) < 0 ||
- 	    push_pad(padlen(offset, 4)) < 0 ||
- 	    push_buf(target, targetsize) < 0 ||
--	    push_pad(padlen(offset, 4)) < 0)
-+	    push_pad(padlen(offset, 4)) < 0 ||
-+	    write_xattrs(location) < 0)
- 		return -1;
- 
- 	return 0;
-@@ -161,22 +279,29 @@ static int cpio_mkslink_line(const char *line)
- {
- 	char name[PATH_MAX + 1];
- 	char target[PATH_MAX + 1];
-+	char location[PATH_MAX + 1];
- 	unsigned int mode;
- 	int uid;
- 	int gid;
-+	int nfields;
- 	int rc = -1;
- 
--	if (5 != sscanf(line, "%" str(PATH_MAX) "s %" str(PATH_MAX) "s %o %d %d", name, target, &mode, &uid, &gid)) {
--		fprintf(stderr, "Unrecognized dir format '%s'", line);
-+	nfields = sscanf(line, "%" str(PATH_MAX) "s %" str(PATH_MAX)
-+			 "s %o %d %d %" str(PATH_MAX) "s",
-+			 name, target, &mode, &uid, &gid, location);
-+	if (nfields < 5) {
-+		fprintf(stderr, "Unrecognized slink format '%s'", line);
- 		goto fail;
- 	}
--	rc = cpio_mkslink(name, target, mode, uid, gid);
-+	rc = cpio_mkslink(name, target,
-+			  nfields == 6 ? cpio_replace_env(location) : NULL,
-+			  mode, uid, gid);
-  fail:
- 	return rc;
- }
- 
--static int cpio_mkgeneric(const char *name, unsigned int mode,
--		       uid_t uid, gid_t gid)
-+static int cpio_mkgeneric(const char *name, const char *location,
-+			  unsigned int mode, uid_t uid, gid_t gid)
- {
- 	int len;
- 	unsigned int namesize;
-@@ -204,7 +329,8 @@ static int cpio_mkgeneric(const char *name, unsigned int mode,
- 	offset += len;
- 
- 	if (len != CPIO_HDR_LEN ||
--	    push_rest(name, namesize) < 0)
-+	    push_rest(name, namesize) < 0 ||
-+	    write_xattrs(location) < 0)
- 		return -1;
- 
- 	return 0;
-@@ -239,18 +365,24 @@ static const struct generic_type generic_type_table[] = {
- static int cpio_mkgeneric_line(const char *line, enum generic_types gt)
- {
- 	char name[PATH_MAX + 1];
-+	char location[PATH_MAX + 1];
- 	unsigned int mode;
- 	int uid;
- 	int gid;
-+	int nfields;
- 	int rc = -1;
- 
--	if (4 != sscanf(line, "%" str(PATH_MAX) "s %o %d %d", name, &mode, &uid, &gid)) {
-+	nfields = sscanf(line, "%" str(PATH_MAX) "s %o %d %d %"
-+			 str(PATH_MAX) "s", name, &mode, &uid, &gid, location);
-+	if (nfields < 4) {
- 		fprintf(stderr, "Unrecognized %s format '%s'",
--			line, generic_type_table[gt].type);
-+			generic_type_table[gt].type, line);
- 		goto fail;
- 	}
- 	mode |= generic_type_table[gt].mode;
--	rc = cpio_mkgeneric(name, mode, uid, gid);
-+	rc = cpio_mkgeneric(name,
-+			   nfields == 5 ? cpio_replace_env(location) : NULL,
-+			   mode, uid, gid);
-  fail:
- 	return rc;
- }
-@@ -270,9 +402,9 @@ static int cpio_mksock_line(const char *line)
- 	return cpio_mkgeneric_line(line, GT_SOCK);
- }
- 
--static int cpio_mknod(const char *name, unsigned int mode,
--		       uid_t uid, gid_t gid, char dev_type,
--		       unsigned int maj, unsigned int min)
-+static int cpio_mknod(const char *name, const char *location,
-+		      unsigned int mode, uid_t uid, gid_t gid, char dev_type,
-+		      unsigned int maj, unsigned int min)
- {
- 	int len;
- 	unsigned int namesize;
-@@ -305,7 +437,8 @@ static int cpio_mknod(const char *name, unsigned int mode,
- 	offset += len;
- 
- 	if (len != CPIO_HDR_LEN ||
--	    push_rest(name, namesize) < 0)
-+	    push_rest(name, namesize) < 0 ||
-+	    write_xattrs(location) < 0)
- 		return -1;
- 
- 	return 0;
-@@ -314,20 +447,26 @@ static int cpio_mknod(const char *name, unsigned int mode,
- static int cpio_mknod_line(const char *line)
- {
- 	char name[PATH_MAX + 1];
-+	char location[PATH_MAX + 1];
- 	unsigned int mode;
- 	int uid;
- 	int gid;
- 	char dev_type;
- 	unsigned int maj;
- 	unsigned int min;
-+	int nfields;
- 	int rc = -1;
- 
--	if (7 != sscanf(line, "%" str(PATH_MAX) "s %o %d %d %c %u %u",
--			 name, &mode, &uid, &gid, &dev_type, &maj, &min)) {
-+	nfields = sscanf(line, "%" str(PATH_MAX) "s %o %d %d %c %u %u %"
-+			 str(PATH_MAX) "s", name, &mode, &uid, &gid, &dev_type,
-+			 &maj, &min, location);
-+	if (nfields < 7) {
- 		fprintf(stderr, "Unrecognized nod format '%s'", line);
- 		goto fail;
- 	}
--	rc = cpio_mknod(name, mode, uid, gid, dev_type, maj, min);
-+	rc = cpio_mknod(name,
-+			nfields == 8 ? cpio_replace_env(location) : NULL,
-+			mode, uid, gid, dev_type, maj, min);
-  fail:
- 	return rc;
- }
-@@ -490,7 +629,7 @@ static int cpio_mkfile(const char *name, const char *location,
- 		name += namesize;
- 	}
- 	ino++;
--	rc = 0;
-+	rc = write_xattrs(location);
- 
- error:
- 	if (file >= 0)
-@@ -570,22 +709,24 @@ static int cpio_mkfile_line(const char *line)
- static void usage(const char *prog)
- {
- 	fprintf(stderr, "Usage:\n"
--		"\t%s [-t <timestamp>] [-c] [-o <output_file>] [-a <data_align>] <cpio_list>\n"
-+		"\t%s [-t <timestamp>] [-c] [-o <output_file>] [-a <data_align>] [-e <type>] <cpio_list>\n"
- 		"\n"
- 		"<cpio_list> is a file containing newline separated entries that\n"
- 		"describe the files to be included in the initramfs archive:\n"
- 		"\n"
- 		"# a comment\n"
- 		"file <name> <location> <mode> <uid> <gid> [<hard links>]\n"
--		"dir <name> <mode> <uid> <gid>\n"
--		"nod <name> <mode> <uid> <gid> <dev_type> <maj> <min>\n"
--		"slink <name> <target> <mode> <uid> <gid>\n"
--		"pipe <name> <mode> <uid> <gid>\n"
--		"sock <name> <mode> <uid> <gid>\n"
-+		"dir <name> <mode> <uid> <gid> [<location>]\n"
-+		"nod <name> <mode> <uid> <gid> <dev_type> <maj> <min> [<location>]\n"
-+		"slink <name> <target> <mode> <uid> <gid> [<location>]\n"
-+		"pipe <name> <mode> <uid> <gid> [<location>]\n"
-+		"sock <name> <mode> <uid> <gid> [<location>]\n"
- 		"\n"
- 		"<name>       name of the file/dir/nod/etc in the archive\n"
- 		"<location>   location of the file in the current filesystem\n"
- 		"             expands shell variables quoted with ${}\n"
-+		"             optional for nonregular entries; used to read xattrs\n"
-+		"             with -e xattr. If omitted, no xattrs are included.\n"
- 		"<target>     link target\n"
- 		"<mode>       mode/permissions of the file\n"
- 		"<uid>        user id (0=root)\n"
-@@ -611,7 +752,8 @@ static void usage(const char *prog)
- 		"<output_file>: write cpio to this file instead of stdout\n"
- 		"<data_align>: attempt to align file data by zero-padding the\n"
- 		"filename field up to data_align. Must be a multiple of 4.\n"
--		"Alignment is best-effort; PATH_MAX limits filename padding.\n",
-+		"Alignment is best-effort; PATH_MAX limits filename padding.\n"
-+		"<type>: include file metadata: none (default) or xattr.\n",
- 		prog);
- }
- 
-@@ -640,7 +782,7 @@ static const struct file_handler file_handler_table[] = {
- 	}
- };
- 
--#define LINE_SIZE (2 * PATH_MAX + 50)
-+#define LINE_SIZE (3 * PATH_MAX + 50)
- 
- int main (int argc, char *argv[])
- {
-@@ -650,10 +792,11 @@ int main (int argc, char *argv[])
- 	int ec = 0;
- 	int line_nr = 0;
- 	const char *filename;
-+	enum metadata_types metadata_type = TYPE_NONE;
- 
- 	default_mtime = time(NULL);
- 	while (1) {
--		int opt = getopt(argc, argv, "t:cho:a:");
-+		int opt = getopt(argc, argv, "t:e:cho:a:");
- 		char *invalid;
- 
- 		if (opt == -1)
-@@ -669,6 +812,9 @@ int main (int argc, char *argv[])
- 			}
- 			do_file_mtime = true;
- 			break;
-+		case 'e':
-+			metadata_type = parse_metadata_type(optarg);
-+			break;
- 		case 'c':
- 			do_csum = true;
- 			break;
-@@ -721,6 +867,13 @@ int main (int argc, char *argv[])
- 		usage(argv[0]);
- 		exit(1);
- 	}
-+	if (metadata_type != TYPE_NONE) {
-+		metadata_fd = mkstemp(metadata_path);
-+		if (metadata_fd < 0) {
-+			fprintf(stderr, "cannot create temporary file\n");
-+			exit(1);
-+		}
-+	}
- 
- 	while (fgets(line, LINE_SIZE, cpio_list)) {
- 		int type_idx;
-@@ -777,5 +930,12 @@ int main (int argc, char *argv[])
- 	if (ec == 0)
- 		ec = cpio_trailer();
- 
-+	if (metadata_type != TYPE_NONE) {
-+		close(metadata_fd);
-+		if (unlink(metadata_path))
-+			fprintf(stderr,
-+				"warning: cannot remove temporary file %s: %s\n",
-+				metadata_path, strerror(errno));
-+	}
- 	exit(ec);
- }
-diff --git a/usr/gen_initramfs.sh b/usr/gen_initramfs.sh
-index 7eba2fddf0ef..fea88d761d62 100755
---- a/usr/gen_initramfs.sh
-+++ b/usr/gen_initramfs.sh
-@@ -14,7 +14,7 @@ set -e
- usage() {
- cat << EOF
- Usage:
--$0 [-o <file>] [-l <dep_list>] [-u <uid>] [-g <gid>] {-d | <cpio_source>} ...
-+$0 [-o <file>] [-l <dep_list>] [-u <uid>] [-g <gid>] {-d | <cpio_source>} [-e <type>]...
- 	-o <file>      Create initramfs file named <file> by using gen_init_cpio
- 	-l <dep_list>  Create dependency list named <dep_list>
- 	-u <uid>       User ID to map to user ID 0 (root).
-@@ -27,6 +27,7 @@ $0 [-o <file>] [-l <dep_list>] [-u <uid>] [-g <gid>] {-d | <cpio_source>} ...
- 	<cpio_source>  File list or directory for cpio archive.
- 		       If <cpio_source> is a .cpio file it will be used
- 		       as direct input to initramfs.
-+	-e <type>      File metadata type to include in the cpio archive.
- 
- All options except -o and -l may be repeated and are interpreted
- sequentially and immediately.  -u and -g states are preserved across
-@@ -113,14 +114,14 @@ parse() {
- 
- 			[ -b "${location}" ] && dev="b" || dev="c"
- 
--			str="${ftype} ${name} ${str} ${dev} ${maj} ${min}"
-+			str="${ftype} ${name} ${str} ${dev} ${maj} ${min} ${location}"
- 			;;
- 		"slink")
- 			local target=`readlink "${location}"`
--			str="${ftype} ${name} ${target} ${str}"
-+			str="${ftype} ${name} ${target} ${str} ${location}"
- 			;;
- 		*)
--			str="${ftype} ${name} ${str}"
-+			str="${ftype} ${name} ${str} ${location}"
- 			;;
- 	esac
- 
-@@ -228,6 +229,10 @@ while [ $# -gt 0 ]; do
- 			fi
- 			shift
- 			;;
-+		"-e")   # file metadata type
-+			metadata_arg="-e $1"
-+			shift
-+			;;
- 		"-h")
- 			usage
- 			exit 0
-@@ -247,4 +252,4 @@ done
- 
- # If output_file is set we will generate cpio archive
- # we are careful to delete tmp files
--usr/gen_init_cpio $output $timestamp $cpio_list
-+usr/gen_init_cpio $output $metadata_arg $timestamp $cpio_list
+... as this may not be the correct clock.
+
+The user manual lists the following SGD clocks for the media-related IP
+cores:
+
+- CSI[0123]:		SGD1_VIO_CSI[0123]φ, SGD2_VIO_CSI[0123]φ,
+			SGD4_VIO_CSI[0123]φ, SGD16_VIO_CSI[0123]φ
+
+- VIN[012]:		SGD1_VIO_CSI0φ, SGD4_VIO_CSI0φ
+- VIN[345]:		SGD1_VIO_CSI1φ, SGD4_VIO_CSI1φ
+- VIN[678]:		SGD1_VIO_CSI2φ, SGD4_VIO_CSI2φ
+- VIN{9,10,11}:		SGD1_VIO_CSI3φ, SGD4_VIO_CSI3φ
+
+- ISP CS[0123]:		SGD1_VIO_CSI[0123]φ, SGD2_VIO_CSI[0123]φ
+- ISP Core[0123]:	SGD1_VIO_ISP[0123]φ, SGD2_VIO_ISP[0123]φ
+
+- FCPV[BI][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
+- FCPVD[ab][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
+- FCPVX[0123]:		SGD1_VIO_ISP[0123]φ, SGD4_VIO_ISP[0123]φ
+
+- VSP[BI][0-9]:		SGD1_VIO_DP_OTHERφ, SGD4_VIO_DP_OTHERφ
+- VSPD[ab][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
+- VSPX[0123]:		SGD1_VIO_ISP[0123]φ, SGD4_VIO_ISP[0123]φ
+
+- VCON[0123]:		SGD1_VIO_DP_OTHER0φ, SGD4_VIO_DP_OTHER0φ
+- VCON[4567]:		SGD1_VIO_DP_OTHER1φ, SGD4_VIO_DP_OTHER2φ
+- VCON[89]:		SGD1_VIO_DP_OTHER2φ, SGD4_VIO_DP_OTHER2φ
+
+- DPTX[012]:		SGD2_VIO_DP_TXφ, SGD16_VIO_DP_TXφ
+
+Those IP cores are connected in four types of pipelines:
+
+- FCPV[BI] -> VSP[BI]
+- FCPVD -> VSPD -> VCON -> DPTX
+- FCPVX -> VSPX -> ISP Core
+- CSI -> VIN -> ISP CS
+
+It would be quite logical for all IP cores in the same pipeline to use
+the same clock. This would be
+
+- FCPV[BI] -> VSP[BI]:			SGD*_VIO_DP_OTHERφ
+- FCPVD -> VSPD -> VCON -> DPTX:	SGD*_VIO_DP_TXφ
+- FCPVX -> VSPX -> ISP Core:		SGD*_VIO_ISP[0123]φ
+- CSI -> VIN -> ISP CS:			SGD*_VIO_CSI[0123]φ
+
+This mostly matches the clocks listed in the user manual, except for
+
+- FCPV[BI] that is listed as using SGD*_VIO_DP_TXφ
+- VCON that is listed as using SGD*_VIO_DP_OTHER[012]φ
+
+Now, note how in the clock diagram document the VIO "ISP" and "CSI"
+hierarchies both show 4 groups of SGD clocks (respectively named
+SGD*_VIO_ISP0 and SGD*_VIO_CSI0 in the first group), the VIO "DP"
+hierarchies show 3 groups of SGD clocks (named SGD*_VIO_DP0 in the first
+group) and the VIO "DP_OTHER" hierarchy shows a single group of SGD
+clocks (named SGD*_VIO_DP_OTHER).
+
+This makes me believe that, wherever the user manual lists
+SGD*_VIO_DP_TXφ, it actually means SGD*_VIO_DP[012]φ. Similarly, where
+the user manual lists SGD*_VIO_DP_OTHER[012]φ for VCON, I believe it
+should be SGD*_VIO_DP[012]φ, both because there is a single
+SGD*_VIO_DP_OTHERφ, and because the rest of the VCON pipelines (FCPVD,
+VSPD and DPTX) all use SGD*_VIO_DP[012]φ.
+
+For full consistency, I also suppose that the FCPV[BI][0-9] instances
+match the corresponding VSP[BI][0-9] and use the SGD*_VIO_DP_OTHERφ
+clocks, not the listed SGD*_VIO_DP_TXφ clocks.
+
+This being said, in practice this probably makes no difference, as all
+those clocks derive from the same SGD1_VIO_MAIN clock and none of them
+are programmable or gateable.
+
+If the above explanation makes sense to you (and to Geert), we can ask
+Renesas to check if the issue I suspect are errors in the documentation.
+
+Finally, while neither the FCP nor the VSP chapters indicate what the
+SGD1 and SGD4 clocks are used for, the VCON chapter lists SGD1 as the
+"VSPD I/F clock" and SGD4 as the "APB I/F clock", and the ISPCS chapter
+lists SGD1 as the "Processing clock of ISP CS" and SGD2 as the "APB I/F
+clock". The APB clocks are used for register access, while the "I/F
+clock" or "processing clocks" are used for the data flow. If the FCP
+driver (or the VSP driver) had a need to know any clock frequency, it
+would be the data clock. I would therefore use SGD1 instead of SGD4 here
+(same for the VSP).
+
+> +			power-domains = <&mdlc_vio 0x07 0x107>;
+> +			resets = <&mdlc_vio 0x107>;
+> +		};
+> +
+> +		fcpvi1: fcp@c5031000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc5031000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x108>;
+> +			resets = <&mdlc_vio 0x108>;
+> +		};
+> +
+> +		fcpvi2: fcp@c5032000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc5032000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x109>;
+> +			resets = <&mdlc_vio 0x109>;
+> +		};
+> +
+> +		fcpvi3: fcp@c5033000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc5033000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x10a>;
+> +			resets = <&mdlc_vio 0x10a>;
+> +		};
+> +
+> +		fcpvb0: fcp@c5038000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc5038000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x102>;
+> +			resets = <&mdlc_vio 0x102>;
+> +		};
+> +
+> +		fcpvb1: fcp@c5039000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc5039000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x103>;
+> +			resets = <&mdlc_vio 0x103>;
+> +		};
+> +
+> +		fcpvb2: fcp@c503a000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc503a000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x104>;
+> +			resets = <&mdlc_vio 0x104>;
+> +		};
+> +
+> +		fcpvb3: fcp@c503b000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc503b000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x105>;
+> +			resets = <&mdlc_vio 0x105>;
+> +		};
+> +
+> +		fcpvb4: fcp@c503c000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc503c000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x106>;
+> +			resets = <&mdlc_vio 0x106>;
+> +		};
+> +
+>  		mdlc_cmnn: system-controller@ca410000 {
+>  			compatible = "renesas,r8a78000-mdlc";
+>  			reg = <0 0xca410000 0 0x1000>;
+
 -- 
-2.51.0
+Regards,
 
+Laurent Pinchart
