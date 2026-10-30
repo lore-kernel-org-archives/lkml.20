@@ -1,112 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793353157;
-	b=BJpRELsK6GT6opj2Phft/52aEFPZ1LNI3lAIrJdhfIV84k32FZ+kGeotALNhrrkCU5Cv
-	 mtyZvLNsiXl7CopoZO2qWnatBVaWKgJ+9d9IH6l4kkJMOf7OBMwZqQZ1ZqSoDabdi2de4
-	 /QYDA3S08xxBuIvRGyVl1xPigZ1HZO02f5pJluyJbl2XS3AXgQwt54GWEYXlphFeJpnBc
-	 DodfP5ojNnRtvY6L7OrxNKdnMmnvsCEQmN94rmREFmzRCkygZMvOwDu2kftAh8ZYUtu2q
-	 JCYbxwMJN1bfOGiY9JqEuOlIBrTKal+IVhhrU76Em9Mz/eizUv/+b/hcH81DZgqLVjQ==
+	t=1793353156;
+	b=dzzBoQCuScqQJ3J0VT+TbMpiGDXpzVL/wl5fk7PFoOe8SmwnEtp9rrUDJ05VgUbcs+Bs
+	 x+6xriUv2TihU9NA4/UMvwzMs0jrypoC1WRFhbfavzjJQmn8qPcr5wKsfYvzg0mhPprQy
+	 UHXSlI246TZbouzF0W/npCxK4XvUKFHhLohp6w1HBEiMBMAz1BVnAHQtCq8bf0COYQfF+
+	 XOfN7SwMkF7fSZuQBidY7KEICWaxEe9YAmzUsjIML3nHN2kmbCwTShITmZzFJvlbrIYaz
+	 HgDfRHjvv8d2XGFj1na0G/X3Dq4jLe/uD1KDvCWetFoezTf5n4N5aEQSPTl/7sYKsZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793353157;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=wat7q1UYgkEGaTTWcudFAFVB2otd83omGVIbYCT/JIc=;
-	b=YJeyd6rpFZUF3rzUbo2mnvdERJyAsd8F3DwMiT8dmNhVi9CEPIolkBvZ6KSonMeWdx3Y
-	 RypcCTgd05C1hVIeJk3UJs3oEjfkVmlAkZhgtGwRFeyHEOBsp+yBXHN4j2Da9D+Z3rym0
-	 Ip6ACQmTy9gTaJnRhY0edM+WWvsZapnerOer8mzV8dECltQayX1Zjga88dZpvHBFMV7er
-	 nsfSmTcXh3boEl8sBMATaRiCMQClKycnNKyhWURfyuyjPquG/2Xlm8uTeVl99fj6CDOet
-	 Gh07MjBro8TGfZT+znWNBr+U+TZX5J+7VwEjfaEgsQzNu/RDNsUnt5aEyN2XIpLpl0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793353156;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
+	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=p2p6dOL2KDWMR3mhYs0uPWdNBKHHcJR5aV59rO4jsGM=;
+	b=Wwm7wcYig9oAa+aHFthKWTCiibg+0WJvWzw4kkbgWvwec+/cPdPdgOPS78h8Ym0gqTNb
+	 ytM55QblZM3WBd13BYGRATgBdu9UMHi7H48A/GLeo3t+9oNEfDk4nPcvHOblyfFLf2fI+
+	 JvMY+Z9zr7NCu/72QSJcjawaYdDJVnQ2+adf8+/pLlLXJudbMy+T3IV9CEq+XbyJPtD2O
+	 frieq/lwrOvhK1RNyMK1wf97159lIMhQKzPKDp8sW5i1Ebz+r/v0mXSpj7lklPE8jhr9C
+	 1+hxabvF/fq95Jg1/Zi0o9Bsx7UJ74Rfv7ro7Gp0LDAHWMovy4bssGNUl+FxlNliqgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fKM6Hf+O;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UmW2QZu+;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="CDIf/thi";
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E66606A322
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:39:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7E66606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6312B606A31A;
+	Fri, 30 Oct 2026 09:39:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6312B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fKM6Hf+O;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UmW2QZu+
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8F9ww2374149
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:39:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=wat7q1UYgkEGaTTWcudFAF
-	VB2otd83omGVIbYCT/JIc=; b=fKM6Hf+O6j/LL7fINVr8cE27HKhBmPwBZkM6MN
-	bAPoK/O5oGkwoWwmMNRSZJpfk0wlCptMMIkTooPDqcaO6iFqTMXfel4KZAdjBuHA
-	qqeR2voCdJN4i1zIJ28QdCI8m6k1/4Dach9cl9Y9BayIJtCgK2u6MHZQIQgwjstj
-	0yfKIxaVpGZEhZB0FvvKxx//yUU93H1yRU5OZ3+RJA3kB4lLG2P4qZq4inq2+wFv
-	9Q3XoLP3Jim0cnTqG22whZl+EB7KnjDsWa6taPjFExPkL4POFwUL4bhqhPQ39UEx
-	dSzazljrBUxwCrSMFx+/eM26NFTCsbsCM8DzaXtEf1fj01dA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qj941-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:39:15 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93caf7856ffso94582885a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:39:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793353155; x=1793957955; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wat7q1UYgkEGaTTWcudFAFVB2otd83omGVIbYCT/JIc=;
-        b=UmW2QZu+Tyl6X1wK5EhC0O4uWFl8CE32UoGXlszMEkMhIln7MDKviUtx3g8QamJlrG
-         qSC81a7dSEWNgCuOA2LYtjzMHcyJPhejo/6XZ3ug96Lubj+hIU5ghlQMNa3ea7aT8tby
-         j0Fn1picg+ZXmm5ZWXCfA6jic6mVXBdFR2X+EPFKXuPdZetDPAdTcKdMMOWgY0qMf6o+
-         85PB/m2peI7WwGum7jVHWqIUKYMFzh9ubvKFqJ0A9l73bPkA6uqhy6naxGFYp3cTqzUk
-         68HPiZJkcn0mLCqNA0oJWWKrfJDY+UGSn9flmFKkz4SiOZ+4pJRnrQtSQ/LrCjQ1sYYU
-         Vhpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793353155; x=1793957955;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=wat7q1UYgkEGaTTWcudFAFVB2otd83omGVIbYCT/JIc=;
-        b=hX3W7BEUIVIOApcUUJ6zqRhNXKEszVou42sS6LnFvXwL756mZQ7VU93L58Wy/wXdmI
-         JGRojrbBW7jlJhO5IrKv+Hmq9Fr5QyyJ5rxXjZh3VtO1QbEH0Kq/Yu56eA/8Dss/VZF/
-         rXLQ32d0puuwvR9wbZcmhi9TCzVzoi9SN8svkRx4LtIAkvAceVTnDaHzhhxBHiFzeyMX
-         OvL2q7W1NrVUHBepKnYi7AUzblTA6wv3qRttOEII1CBqCwJrvfGy01ah0iQs4CaD6tpc
-         mDdAwpMhvBbMufDJgAHH2X6lmPbF29/3JRD0upAZUy3ggbqQtUnYZ//e6qN7lOmMjA5t
-         qoEA==
-X-Forwarded-Encrypted: i=1; AKwUvBz/BJDRsgzuJ9fUeoYLkVjc5ziydQc/+zVfFJe3OnyETvRG45i1uwyFeq2HHcQz+liu94ImPjgibAbUazY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIH2oBaOIMxBym/Rzy/MAA6pO7E1VWn+tEVRAYJcEYOEEGzt+St
-	HiZHllYIJciHKmfJjs4LzefCqvL1EWjegkZjj8ONUmRlWVGZTpltNv8Px+01Fj8KoPNwLbyDi7A
-	xHty7qDbpG6tNffAmqkEMyu0yHd3EXLhwhiH3OKd4LDatUM5afgGxyY15myEnjzncJWQe4N8upR
-	KH8Q==
-X-Gm-Gg: AYBFou0owJWZUEq4YbuQ+uc9PrXbKDwJ4P4lwzDKe3c5TXE0yOKqgC7TJL79M+bhY0h
-	Tc73ZrmtrAq6CZaMTatwOkns4me50q0cAMP0fXx9BNMYyom067+l5YTLDTCEsE/l6EzD40lb1VF
-	XGc1dKNA5o+a4aAUyBIDu6fM5r9EhREU95nJH8/ab3L3X+wVKuaQ0wqfPholJmO4LaEfFKjmska
-	n2UXfMzQ/HFQPGoOK8O1suP3eOl4SfcCa2Vd2+oHSPdqX2O3tHF+ZvLz0CUvdmOlee6RjHluNK5
-	3yhv0UjBzmCmC8yVVkNvhLL9KlyfqqBDEWYy2NPq0d4MxrEvyQPNLnAbbzxWy7nrbHLgUa9qODW
-	eLW1WxTfk0KeIeaJplW2zgXmUaZxtA8TyhoNR3nnKQ+p/YvH/8bkBveNMlrNnIcazvd4/oGYHuQ
-	VQVEu5XEC7DLqtQTBpyIxmlyAxYZAiCWXBfa8tfJLi5DHITNnFRchVD1xxjxCBoI08V2rYd+IVr
-	ZePHb/+wdrRP819fiAAOYFruYFY
-X-Received: by 2002:a05:620a:6603:b0:93f:25c7:a4e1 with SMTP id af79cd13be357-94421744ef3mr263254485a.26.1793353154689;
-        Fri, 30 Oct 2026 02:39:14 -0700 (PDT)
-X-Received: by 2002:a05:620a:6603:b0:93f:25c7:a4e1 with SMTP id af79cd13be357-94421744ef3mr263249785a.26.1793353154159;
-        Fri, 30 Oct 2026 02:39:14 -0700 (PDT)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:9d77:8e43:b62f:d85d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa813d295csm126785025e9.7.2026.10.30.02.39.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 02:39:13 -0700 (PDT)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 10:39:11 +0100
-Subject: [PATCH] media: qcom: camss: vfe: Clear active buffer pointers
- after flushing
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=CDIf/thi
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=p2p6dOL2KDWMR3mhYs0uPWdNBKHHcJR5aV59rO4jsGM=;
+	b=CDIf/thi6+FNUxoHVdaP7IeL1YfbVmvpaT9AK93IDixWVIZKAJsiQHjhPGL0lwpzhwpxdBdxm
+	uEAbjyQiOnuSVHxqqspiUxgq736myvR2fL1lZHqoa2RtxaAD7pefU6wpocaorUfxQ9lYzgar0cf
+	YJOGtC4m7NXrPbs1QPz9eNs=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jGGJL3Bt6z1T4G5;
+	Fri, 30 Oct 2026 17:38:58 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id 01A6C4057F;
+	Fri, 30 Oct 2026 17:39:11 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 30 Oct 2026 17:39:09 +0800
+Subject: Re: [PATCH v2] ubifs: fix auth node space and padding in journal
+ buffers
+To: <shao.mingyin@zte.com.cn>, <richard@nod.at>,
+	<linux-mtd@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20261030172650531F_VlxVrMiDglCJJ9rESWI@zte.com.cn>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <6a391820-7fc6-eabd-e22e-5940b6da2f82@huawei.com>
+Date: Fri, 30 Oct 2026 17:39:09 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,125 +71,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-camss-fix-v1-1-ecc170342d0d@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAL5l5GoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDA2MD3eTE3OJi3bTMCl0TS3MjM0vz1DRLg1QloPqColSgMNis6NjaWgD
- dsvDnWwAAAA==
-X-Change-ID: 20261030-camss-fix-4972697ef90e
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Todor Tomov <todor.too@gmail.com>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        Sashiko <sashiko-bot@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Authority-Analysis: v=2.4 cv=KsrYSmWN c=1 sm=1 tr=0 ts=6ae465c3 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=SZjMrJynLI06Tb3JO1YA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: DNdnqJixmprtzHjevwbgYrKqzrhU45Ks
-X-Proofpoint-GUID: DNdnqJixmprtzHjevwbgYrKqzrhU45Ks
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAzOCBTYWx0ZWRfX52AYKgSzZAIe
- 4vTNoAc1O/tM0k0HZr+W6TJI8MSXkYxUM6syVsxTxOyAhR8aDTnDiuhBkS1fMQpiQ2kERvrkLqu
- yfX54ry3lTlm5Ps0jyuHRIYusDkZfD4tNwcu9js0SEhtPep5peyuIWp612mbMGIXS4xxR5Ei2My
- IkSm+kBEKPifIzbKo0bajLyaSmIswF/+MK3JuZ1GnrB5qZoJsO+9dP5P5ICsdBqTXuxI6ghae/I
- AWnOdcDekQM4QaEOtYHbGskZlUItSnj2q0bOHoBL00/hYwFj4EKaxIhrnBEFssWcwptkmZWHj58
- FvYmv/ZNhw7ZjIQKa3YW4V630Jxgme++m/26V9u+FXYXXRJsBrJpqellig+7O6XHZkfBRscDg3g
- /ZBSSIa2ksTqu6XFjVtHE0UxzyJn0CfjC7oEWgz6LaeKl8N/bsTgfhHvrOo76krfmjKr+OIqJwx
- E7cNzj+MXE6+298moMQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAzOCBTYWx0ZWRfX2zsrX0DaPExM
- 1NTfSHcWCV9SiXcMdjsjsFSKqmvYIf3mFLWfzN+8ygMkIAEwfkMk73MmKrvpnJ+92J4p5FQqnm0
- H9//inKy9YKhCHcHIY4H/AlWeDT2YV8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
- lowpriorityscore=0 impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300038
+In-Reply-To: <20261030172650531F_VlxVrMiDglCJJ9rESWI@zte.com.cn>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-vfe_flush_buffers() returns all active buffers to vb2 but it leaves
-output->buf[0] and output->buf[1] pointing to the completed buffers
-despite the lost of ownership.
-
-This can lead to subsequent flush or completion paths operating on
-stale state and potentially completing the same buffer more than once.
-
-Clear the buffer pointers explicitly.
-
-Note: vfe_enable_output_v2 is supposed to overwrite those pointers with
-pending buffers when streaming is restarted, but nothing guarantees that
-enough pending buffers will be available to overwrite all entries.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-e617a776-3d96-47cb-8d60-a769340c25a7
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Fixes: 4c98a5f57f90 ("media: camss: Add VFE files")
----
- arch/arm64/boot/dts/qcom/monaco-pmics.dtsi    | 2 ++
- drivers/media/platform/qcom/camss/camss-vfe.c | 8 ++++++--
- 2 files changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi b/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi
-index 361f5163b6d91eef794d3bf86b374d4dcbc6d60f..1ed4de00b1a3e23e1ef0f1c412a2e29bf840c870 100644
---- a/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi
-+++ b/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi
-@@ -58,6 +58,7 @@ pmm8620au_0_adc: adc@8000 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			#io-channel-cells = <1>;
-+			#thermal-sensor-cells = <1>;
- 
- 			channel@3 {
- 				reg = <ADC5_GEN3_DIE_TEMP(0)>;
-@@ -112,6 +113,7 @@ pmm8650au_1_adc: adc@8000 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			#io-channel-cells = <1>;
-+			#thermal-sensor-cells = <1>;
- 
- 			channel@203 {
- 				reg = <ADC5_GEN3_DIE_TEMP(2)>;
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 2680a9914765fa2c8f3c2b38a5f4f0e0bcf4d873..8e297e2bcafcbf30b09fc2ad6e57f484a4e41898 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -1187,11 +1187,15 @@ int vfe_flush_buffers(struct camss_video *vid,
- 
- 	vfe_buf_flush_pending(output, state);
- 
--	if (output->buf[0])
-+	if (output->buf[0]) {
- 		vb2_buffer_done(&output->buf[0]->vb.vb2_buf, state);
-+		output->buf[0] = NULL;
-+	}
- 
--	if (output->buf[1])
-+	if (output->buf[1]) {
- 		vb2_buffer_done(&output->buf[1]->vb.vb2_buf, state);
-+		output->buf[1] = NULL;
-+	}
- 
- 	if (output->last_buffer) {
- 		vb2_buffer_done(&output->last_buffer->vb.vb2_buf, state);
-
----
-base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
-change-id: 20261030-camss-fix-4972697ef90e
-
-Best regards,
--- 
-Loic Poulain <loic.poulain@oss.qualcomm.com>
+在 2026/10/30 17:26, shao.mingyin@zte.com.cn 写道:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> write_head() appends an authentication node to the node group when
+> authentication is enabled and writes
+> ALIGN(node_len, 8) + ubifs_auth_node_sz(c) bytes from the buffer.
+> ubifs_jnl_write_data() allocates its buffer for that, but when the
+> allocation fails it falls back to c->write_reserve_buf.  That buffer is
+> sized for a data node only (COMPRESSED_DATA_NODE_BUF_SZ plus the cipher
+> block, 4144/4160 bytes), while an incompressible 4 KiB block needs
+> 4144/4160 bytes plus the auth node (24 + the HMAC length, 56 bytes with
+> sha256).  ubifs_hash_nodes() then writes the auth node past the end of
+> the reserve buffer, and write_head() reads it back from there.
+> 
+> The same write path also writes uninitialized heap data.
+> ubifs_jnl_write_data() and ubifs_jnl_write_inode() build their node
+> groups in kmalloc()ed buffers, and when the last node length is not a
+> multiple of 8 the padding up to the next auth node goes to the flash
+> uninitialized.  That padding is covered neither by the node CRC nor by
+> the rolling hash.
+> 
+> Size the reserve buffer for the largest possible auth node (the mount
+> path allocates it before authentication is initialized, so it cannot use
+> ubifs_auth_node_sz()), clear the padding after the data node before it is
+> written, and allocate the node group buffers of ubifs_jnl_write_inode()
+> and ubifs_jnl_truncate() with kzalloc().  The data write path cannot just
+> use kzalloc() because it may fall back to the reused reserve buffer.
+> ubifs_jnl_truncate() refills its data node with ubifs_tnc_lookup(), so
+> what is left after the re-compressed node comes from the old node on the
+> media, not from the heap.
+> 
+> The padding is not part of any node, so ch.len and the CRCs stay
+> unchanged.  With a zeroed truncation buffer, zero_trun_node_unused() is
+> redundant, so remove it and the comments which refer to it.
+> 
+> Fixes: 6a98bc4614de ("ubifs: Add authentication nodes to journal")
+> Link: https://lore.kernel.org/all/ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com/
+> Cc: stable@vger.kernel.org
+> Suggested-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> ---
+> v2: Keep the explicit padding clear only in ubifs_jnl_write_data(), which
+>      may fall back to the reused write reserve buffer; allocate the node
+>      groups of ubifs_jnl_write_inode() and ubifs_jnl_truncate() with
+>      kzalloc(), and drop zero_trun_node_unused() together with the
+>      comments pointing at it.  Thanks to Zhihao Cheng for the review.
+> 
+>   fs/ubifs/journal.c     | 39 ++++++++++++++++++++++++++-------------
+>   fs/ubifs/super.c       | 18 ++++++++++++++----
+>   fs/ubifs/ubifs-media.h |  6 ++----
+>   3 files changed, 42 insertions(+), 21 deletions(-)
+> 
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
+> index 40a95a2fad50..449bc8c0a224 100644
+> --- a/fs/ubifs/journal.c
+> +++ b/fs/ubifs/journal.c
+> @@ -68,16 +68,6 @@ static inline void zero_dent_node_unused(struct ubifs_dent_node *dent)
+>   	dent->padding1 = 0;
+>   }
+> 
+> -/**
+> - * zero_trun_node_unused - zero out unused fields of an on-flash truncation
+> - *                         node.
+> - * @trun: the truncation node to zero out
+> - */
+> -static inline void zero_trun_node_unused(struct ubifs_trun_node *trun)
+> -{
+> -	memset(trun->padding, 0, 12);
+> -}
+> -
+>   static void ubifs_add_auth_dirt(struct ubifs_info *c, int lnum)
+>   {
+>   	if (ubifs_authenticated(c))
+> @@ -840,6 +830,28 @@ int ubifs_jnl_update(struct ubifs_info *c, const struct inode *dir,
+>   	return err;
+>   }
+> 
+> +/**
+> + * ubifs_zero_node_pad - zero the padding after a journal node
+> + * @c: UBIFS file-system description object
+> + * @node: node to pad
+> + * @len: length of the node
+> + *
+> + * When authentication is enabled the auth node is placed at the next
+> + * 8-byte aligned offset, so the bytes between the end of the node and
+> + * that offset are written to the media.  They are covered neither by the
+> + * node CRC nor by the rolling hash, so clear them instead of writing
+> + * stale buffer contents.
+> + *
+> + * This is only needed when the buffer is reused, i.e. for the write
+> + * reserve buffer of ubifs_jnl_write_data().  Buffer owners which get a
+> + * fresh allocation use kzalloc() instead.
+> + */
+> +static void ubifs_zero_node_pad(const struct ubifs_info *c, void *node, int len)
+> +{
+> +	if (ubifs_authenticated(c))
+> +		memset((char *)node + len, 0, ALIGN(len, 8) - len);
+> +}
+> +
+>   /**
+>    * ubifs_jnl_write_data - write a data node to the journal.
+>    * @c: UBIFS file-system description object
+> @@ -925,6 +937,7 @@ int ubifs_jnl_write_data(struct ubifs_info *c, const struct inode *inode,
+>   	if (err)
+>   		goto out_free;
+> 
+> +	ubifs_zero_node_pad(c, data, dlen);
+>   	ubifs_prepare_node(c, data, dlen, 0);
+>   	err = write_head(c, DATAHD, data, write_len, &lnum, &offs, 0);
+>   	if (err)
+> @@ -1007,9 +1020,10 @@ int ubifs_jnl_write_inode(struct ubifs_info *c, const struct inode *inode)
+>   	else
+>   		write_len += ilen;
+> 
+> -	ino_start = ino = kmalloc(write_len, GFP_NOFS);
+> +	ino = kzalloc(write_len, GFP_NOFS);
+>   	if (!ino)
+>   		return -ENOMEM;
+> +	ino_start = ino;
+> 
+>   	/* Make reservation before allocating sequence numbers */
+>   	err = make_reservation(c, BASEHD, write_len);
+> @@ -1716,7 +1730,7 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
+>   	sz =  UBIFS_TRUN_NODE_SZ + UBIFS_INO_NODE_SZ +
+>   		dn_size + ubifs_auth_node_sz(c);
+> 
+> -	ino = kmalloc(sz, GFP_NOFS);
+> +	ino = kzalloc(sz, GFP_NOFS);
+>   	if (!ino)
+>   		return -ENOMEM;
+> 
+> @@ -1725,7 +1739,6 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
+>   	trun->inum = cpu_to_le32(inum);
+>   	trun->old_size = cpu_to_le64(old_size);
+>   	trun->new_size = cpu_to_le64(new_size);
+> -	zero_trun_node_unused(trun);
+> 
+>   	dlen = new_size & (UBIFS_BLOCK_SIZE - 1);
+>   	if (dlen) {
+> diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
+> index 38972786817e..538907aba8a0 100644
+> --- a/fs/ubifs/super.c
+> +++ b/fs/ubifs/super.c
+> @@ -1263,8 +1263,16 @@ static int mount_ubifs(struct ubifs_info *c)
+>   		bu_init(c);
+> 
+>   	if (!c->ro_mount) {
+> -		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
+> -					       UBIFS_CIPHER_BLOCK_SIZE,
+> +		/*
+> +		 * The reserve buffer is also used as a fallback for data
+> +		 * nodes which are followed by an authentication node, so
+> +		 * reserve room for the largest possible one.  Authentication
+> +		 * is initialized only later, hence the maximum sizes.
+> +		 */
+> +		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
+> +					       UBIFS_CIPHER_BLOCK_SIZE +
+> +					       UBIFS_AUTH_NODE_SZ +
+> +					       UBIFS_MAX_HMAC_LEN,
+>   					       GFP_KERNEL);
+>   		if (!c->write_reserve_buf)
+>   			goto out_free;
+> @@ -1723,8 +1731,10 @@ static int ubifs_remount_rw(struct ubifs_info *c)
+>   		goto out;
+>   	}
+> 
+> -	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
+> -				       UBIFS_CIPHER_BLOCK_SIZE, GFP_KERNEL);
+> +	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
+> +				       UBIFS_CIPHER_BLOCK_SIZE +
+> +				       UBIFS_AUTH_NODE_SZ +
+> +				       UBIFS_MAX_HMAC_LEN, GFP_KERNEL);
+>   	if (!c->write_reserve_buf) {
+>   		err = -ENOMEM;
+>   		goto out;
+> diff --git a/fs/ubifs/ubifs-media.h b/fs/ubifs/ubifs-media.h
+> index 3c9792cbb6ff..7d4702f3e15f 100644
+> --- a/fs/ubifs/ubifs-media.h
+> +++ b/fs/ubifs/ubifs-media.h
+> @@ -591,14 +591,12 @@ struct ubifs_data_node {
+>    * @old_size: size before truncation
+>    * @new_size: size after truncation
+>    *
+> - * This node exists only in the journal and never goes to the main area. Note,
+> - * do not forget to amend 'zero_trun_node_unused()' function when changing the
+> - * padding fields.
+> + * This node exists only in the journal and never goes to the main area.
+>    */
+>   struct ubifs_trun_node {
+>   	struct ubifs_ch ch;
+>   	__le32 inum;
+> -	__u8 padding[12]; /* Watch 'zero_trun_node_unused()' if changing! */
+> +	__u8 padding[12];
+>   	__le64 old_size;
+>   	__le64 new_size;
+>   } __packed;
+> .
+> 
 
