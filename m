@@ -1,103 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793352198;
-	b=0Ro53xno145d5Nv12QVCBUVuNL2IfI4XfNieuY9h+M10bXx9X0m9YeUShq/6I0I3J1p1
-	 BiR2P/lj5N3cHNBkTd1WjC5CQNwVA/NmjFgENGQ5+Tyq9LLoE1zw6bcWC3QbJojVIe7lQ
-	 snMcXoVIL//imi/p48/MRpVwpsxvcsG6HAJy57KtXtTi1faHVqJ1pjTdB7TsWDvA+8C1j
-	 qTUZAiyO0DNXnitDNkwiE7CLuv2SgntKQsa4HqoAb0VeZlcLFC2gpAyhsjQGNEzePbVHy
-	 IlksamFxvOPsAjReNP3FZZQ42OoVdtAOpDNxL7knkH7SixTpm/QZJVN6/PplABsXwBQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352198;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JAuZVLYEPLoEITPcQc7Yebtk0mlDdnLB2+PWyq4KYq4=;
-	b=DlO4s+8hJApoJeTx58X6k5uNFFUxyrIenDHqxLwGsRpTbh9V+JtHVjfkvmmxfzyXXoDX
-	 lgvcO6dV7yFTsMslenzEDOYnfXG0xd4Ztu6i2LZ+bJEDdV4vtLP9Sm164nMpuq23+USbG
-	 JXk65kZAPCot6YFR543VLLQ/zzTKzMONDtlRpBox0MulQznFdn+/yU8oq0i6QprEAZ+Mc
-	 A/dhEfPx5+8QQEAhRterEdNglBEce1tBI5qKHuBo1U6m9XQU+5/x9Ee/HF4FqWnLQDL+r
-	 Rk0GIGbtIsyzijaAa8arIIn75zSi79eJpDTumhLlLntXrBix0VfHQrDYtiARwlJlYrg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RlUGkL6U;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.3
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793352213;
+	b=404jvvy985Oq1luH0oyI98WuH1RkMo0qTDH0fZtufoH9kifXCM2yhY9mP5aSec6ko0T+
+	 CvCf5NfDdCKFmsLaLiRqszdCzEEUMXZWXb/oN10yPDE4Qq+TcpoRqRSn0/vC8EBpkfvNY
+	 /Z0+BIvDUE4tBQVKZM84I6wYlClkuBBHWqf1SON4c5lO6drZphbqF9Hkmw8swRsTyyeu7
+	 yPhzP8QMfgejd47IfHrKgZP9I4sgDDjTDcHR9Q3Byvv3osKgx2aJA1rkt1VGj7c9+qoh3
+	 GQdlNhHH5HCo5RA8RzTPKfevJ1TUTIsLjzYii4jkn0t9BKllyaZWxS6lbvpZCfUMBkw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352213;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=e49ZIpdacen+euhKghU0zuc7lLWM4WCit6PNxCgSJp4=;
+	b=mpt/S77HmR2LzteIZfgwn2QtEgXqi/iYtPbZqPGLq0gf52vLQzATx/iaFeT5EABQ/hxl
+	 0AnmuP8dGj3P5x/dp8H0rT+xQVVfyP2nMyt4+gI7Pwmd4AIYXPuYER/ucRmhWsWpArOxF
+	 onV+a343P3EwsuvBCEcccnkYw1kcy3Uat9xyRftvv3VbbUJRLi+EkWkVZEDji/Y8DxavZ
+	 0sp0MAGp5BUHBq8+xl614WPi2uvJAG+iqUqQiqxyLkI985twKWQQgrmt1y8dtarRlP7ig
+	 lDMYamY8aZr+KTp0S4fpSYWfJAYYIHm1uhK59Gf2kt0SouIJGj+Zaxfro4Ag6ruuLdg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PdpgmCJe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.3
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012003.outbound.protection.outlook.com [52.101.53.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B341606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:23:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B341606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88DCE606A31C;
+	Fri, 30 Oct 2026 09:23:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88DCE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RlUGkL6U
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so3115305e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:23:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793352196; x=1793956996; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JAuZVLYEPLoEITPcQc7Yebtk0mlDdnLB2+PWyq4KYq4=;
-        b=RlUGkL6UQIf8N+8QfoyQMOAtrl/MGzXwj1MTtmRX6sSAL6Oe7Psm+JoPST563PChA1
-         +8n8iwDYnw9iOJwugMG6AynJozQnl+0+b4HC8dYknuPTSzyTllJG7DtqHspj2pcAR08y
-         hqwmfB0TXpYkQ60kC1uZjPOdoJnTJ+3RCoibIAw5Jqps+EKWlm6IKY5zr9EdSPhzwbV/
-         4PqJXRyT9azEkf0jnr0OAHBOhhKSBPLBhd78HaRtDT2ufeTsZkIzWeTzI0v/rEUqcLtr
-         B76/K+3lZcqjFQk6UMNeUvo7DeXiFO0XJqz75zNjlXEd8jL24DK8N868ojdfhUu3nYFv
-         sK4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793352196; x=1793956996;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JAuZVLYEPLoEITPcQc7Yebtk0mlDdnLB2+PWyq4KYq4=;
-        b=Og1gg2ryeawxk6zqqIEOl+erQ76M0EdNHWugtY3qnGQZGEMwKwNtvp2Z7w2CGM37iz
-         ZSiAAftjqiggOPI/dPD2hKzK3F5A5LY8Jn0SHS0TEjEgmy+2SHB5YpQpNApRAQrR5TlQ
-         gPwhFN7pWQWUV98IIjWsHcEwkkfG2kcCJ3vpev00Wa8yDBwjiap6sOLB0LFbILviVaWH
-         lwAYjbKdNoA5TBbvIwIP5huxS4KCBgYLYlu63Ejhnr7F/u5e2FiZ7/9u7AQYYnryZO65
-         USWTZJr/6XBe3fXiS8//uxkaCSzlUpKnH1al/aNenZqAzj2+Yohx4oCGkZyr133X+ux3
-         mlmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz509W0iLPPPu7HAW6+mF9tJTIu2X0lXbNa08ETnZSING/1pRNELi++lQP2GKWF03R2X5JEKW6aL49pACQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLk0G5l755JRiXntHhCTTpUko4IDLX1ifieKE4qbFZ+srp4ImLv
-	Z3kFU0SY4PBNMXzlOXLTTqs5FnkYpl/j2/Eb57NLk0RlQbPGwGZz3cK6
-X-Gm-Gg: AYBFou2Msq47egnQi8zAN90GQiDYVhmGkTLGvPtx4I7lmHzqv+ay33Uk6pE7HWg1whc
-	dblKkH+22yQTGSdZib4dEwiiw+nrZ8FWY5uzobgk2vIKMyhkHcwF7bsBFUYlRDzP+RNtxnjEa/E
-	eB+BwjiwNHxUMZMHfd10dxtcSgMhm1fUpASMu+WPGcVHH5cQuQ0ykOamuSacusG23jYrqMFnnTV
-	//TxwM9HEkuuExC8HryIwAZ1ZYs1FRGs+zpAOEACngBZj9dZJx7qGOisZe9E2exkQGg2Aov5740
-	O40bPMgvNf/oCROPEV6pWoTHmcoJxDHnUHJqpNl25k0ZI+KTmSVj3yNQqsYvHaVD6YAsYf2P9iH
-	q2tB1fBnP2wt2cKvP+SeEcoYxXOi7Mezq2QJxmz7/Ydnnkop2bhE2KniMGUiDcuy0Zi6f6hHU6n
-	kdv7qAS6D9TJ1nTuojDq+hz+vNj2Z/aYyLkDGSw2gU2/VIj0baCuDCYUG+dAYj6PkfjphiUYiiT
-	NDdqzFt3J9sfDe0oTcWBBrYEs/1Z69mk6fa8qQJg7HIiy+3FmKQc78YBrmk9IGh2oL41YLzUsVK
-	I5rAgtChcm5pDiScs/Fkfhf1ZQJHys9FwTxxrlM0o4W3Rc1lehGmzubsFNGKNq0hIvDNenjeIQk
-	Ux4t93cQQuBW1IG7mmh1ayw==
-X-Received: by 2002:a05:600c:6095:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4ac18b7e1c1mr33393895e9.23.1793352195788;
-        Fri, 30 Oct 2026 02:23:15 -0700 (PDT)
-Received: from mtardy-friendly-lvh-runner.europe-west1-c.c.cilium-dev.internal ([2600:1900:4010:1a8::])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4abf723b5dcsm47072665e9.14.2026.10.30.02.23.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 02:23:15 -0700 (PDT)
-From: Mahe Tardy <mahe.tardy@gmail.com>
-To: bpf@vger.kernel.org
-Cc: Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	linux-kernel@vger.kernel.org,
-	John Fastabend <john.fastabend@gmail.com>,
-	Mahe Tardy <mahe.tardy@gmail.com>
-Subject: [PATCH bpf] libbpf: Enforce program limit only for loaded programs
-Date: Fri, 30 Oct 2026 09:22:48 +0000
-Message-ID: <20261030092248.7388-1-mahe.tardy@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PdpgmCJe
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gxIjaMCvZYA2Bvn1Wy0Ym+0ETV8wOznf861XMHj9IJQXPMjiOmc6c41F5MSPwoPAA7eT9TBJ70GKajDmMIXgp43mQh9NyoiODnT/vATD1bP8LY6YxOUXzSYi1PqTQcikFsU9mcsXzXAX1QBjvywAfJZzo0ZSD6QggB/1wEvB84xOjSx3rnzslXvjdnWmT6LIHzaXbrgyiOPeEccrUW/fHFHtbv6zC+b0QaI3CWl4vZAHSJfXzHKBjNHJmK/nbK+pCQx5PLeA5dfGuW3CVajuFJXxyemuLR7OcqVAq441EAgGN6AxOmlbe2LtRP0fo9OK8bb6EjPK6bviSS8jWBwsEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=e49ZIpdacen+euhKghU0zuc7lLWM4WCit6PNxCgSJp4=;
+ b=vrEF6IGJR9zs55RpmkFC6iZXF6y7JCxSfeliR6wDM+VZ1CMyP5AZSUE1fVtBP8OQ7cJGLceUppJ6ZQqP4Pui5eqi/oIh0hzL/C+ZMtFJYSNBuq6GJQ853jGxt2hxXHtv1iG6KwYaxfhLDrxOdwqr/G6ZOgoHV8r9/ox2jDSJqxy0kTC0oKCaGK4reKxfR+ey10uy/J/V9UjoJeFwXBQTzqhafgbRmQ3tNWXfQUgaYA0UT8oAsWc5bqJcpRXdf4Qp+dY6HVcSy67bVd7iYG/ppr3/naLhq/daHm2aav8pl1/m0bXOR+I6sO8kkfkN7GUAyEOa9bus70W7w51b7zIHmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e49ZIpdacen+euhKghU0zuc7lLWM4WCit6PNxCgSJp4=;
+ b=PdpgmCJe+prfh7JuaqkyDrnVt8UEWuaPYCqwvrVmipvCaewgVc1AJHsZZ6JZMjhl+YUNjPMeYUdHMVUrJNDrkAMZSsa5GqKhStWVriCDzSfWcBdgpbvQx/OWAD1dcpu34cqtiWqKZPi9GO1wSEEOZSGXt9aKhIRh7EPjv3BaTi0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA1PR12MB7293.namprd12.prod.outlook.com (2603:10b6:806:2b9::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 09:23:25 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Fri, 30 Oct 2026
+ 09:23:25 +0000
+Message-ID: <b1e52411-e866-469d-943f-87922fd31068@amd.com>
+Date: Fri, 30 Oct 2026 10:23:20 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: gadget: f_fs: Remove deprecated dma_fence->ops
+To: Paul Cercueil <paul@crapouillou.net>, phasta@kernel.org,
+ Neill Kapron <nkapron@google.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Al Viro <viro@zeniv.linux.org.uk>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Sam Day <me@samcday.com>,
+ Michael Bommarito <michael.bommarito@gmail.com>,
+ Gabriel Prostitis <prostitisgabriel@gmail.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
+References: <20261029125143.1744481-2-phasta@kernel.org>
+ <7fd62daa875e4a3772e980127d368704a849caee.camel@crapouillou.net>
+ <e30a0a03cb7d393cbd88565bf81e156d2f38b293.camel@mailbox.org>
+ <304c061aa5fa7f271acfa74c640ab1f0a40e393c.camel@crapouillou.net>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <304c061aa5fa7f271acfa74c640ab1f0a40e393c.camel@crapouillou.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0180.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a0::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,80 +105,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB7293:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a4fe8d4-1262-4183-9e96-08df36677363
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|18002099003|22082099003|921020|11063799006|4143699003|56012099006|261026140227099003|261026121527099003|261022105027099003|261022075727099003|261028144727099003|261021121427099003|261021135927099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	t6PNaQewTFuci7tKS1y8TFdab3Bk3sgPvvdufXLgQDG3KslZuT3z+gmideelasZ8bftEnsIY6DDrEpDplgOp2xsfw1wb8f/K5eS98Mb+HbhNm+DPDi2sUzSDBWoUPKsbpZU9dw3eSFCAye7TlFPJP4Yum5o+v2r9fVVdq7lEyTX2ttzhPK0JPyTbjCDkXxbq9pKuaHYO4n/4uEsJ8g57srbLXTIpX7Lxr6B3Tn9oseNRzlJjnooNxwa1h6MI3gfD4jUohTSP+8sSb+hrVByZY3rob1UejNDwoUeqw76gVC9pw5/h1R6vqzlLWjb+XynAZnQYehhfDmWIeF9Bcocq+dXjMmPR+MP2XplBUGl2VUkRAUebrtwlFzKT2e/qJLXQBv3Nifd1pHzDy0sgxFsv0RblMGMonBCw+ESavyPNU0L0rcL/E286LJ1b45/976IvlqXq2fUZBbK2KPmkgGRHUaBtxSr6w4KEDNPNhRIMKdgqqMjX2k6LP/jwT+3hr61WR52H0LHITB1JWTPruJNs2wBQcDC0iDS+1vKXAOlM9cgmINQ2tWeINvQt4Dpff2YJZfUOP4zkeH9EJHCC2xh6Jpzh5poZ2AB+3NKTkwNqVR536ynzxCfneHeiW8adofOsWmxwaymTYuaSQ2gv+HYFKYp7qM1JOSi43wagESOuUZI8sQlioZFCU/EU5JoMzc2iDxKG2OWDKFpetyB9ahLkJw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(921020)(11063799006)(4143699003)(56012099006)(261026140227099003)(261026121527099003)(261022105027099003)(261022075727099003)(261028144727099003)(261021121427099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?N1Q2ZUtNTDRhRU11RTA5ZUtVeDhQSlp3ekRsR3BzeXlwUzRmNDdtdExKVXFv?=
+ =?utf-8?B?T3RlZWxnMENxa28yZ2RxcU5uSUlYNVU4TUx6VHExajJGaXgwT0Y4RGFXTjBO?=
+ =?utf-8?B?QkY0NTZxVWw1dWtGWS9yYUtMM1BQS0dLUm1HT3B3QjFKQTJFYmNEYlNmdEJm?=
+ =?utf-8?B?dzhoaWZyNlRKa1ZVclVDTDNHVnBObitMbCtXR2Z0a3FvQmhONGxxeGt0Vmg5?=
+ =?utf-8?B?SGFEV3hMaE9TZUw1R1ljaEZ0T0wxbFllcDFKMk9iODVGU1pKdlpGWlF3OWNo?=
+ =?utf-8?B?NmhGZ0dkOHhiNTRSTXpCcEczN1Q5RjAxOTlqOEhaV1VuUmJCYWV6Z1NTK1pK?=
+ =?utf-8?B?TE55cFA3Z0k0Sm02ZDNlTWxodHJKQWZFM2Ivcms0T1VCa25NdHRiL2VMQ0hj?=
+ =?utf-8?B?aCtuY0tzWitDblUxMGprQ2EwczlIWG9OekU3YmtqUDRvV2RqNnNDY1hXN3Rh?=
+ =?utf-8?B?Vk1mQXdlV04xbFE0cEJTK2J1RVV4UEh2WmV0dVpYVTkxZVNPMmNJQ2hLZUFZ?=
+ =?utf-8?B?UFY3MmVsRmlrRUFoZFZaa2RaVUx2MFdhTTRuRVl4aHZiaC9Kem1SeVg2V2RM?=
+ =?utf-8?B?SUhSU0dtaUJSUkpBMXlRRjR4UE0vdWpnMSs4c3grOGdJdWVpT3ZsRnJrM2Fv?=
+ =?utf-8?B?S2JZRWNadCtrSStkWXF1SURyN0lzYWRuWUxqTkljNlZ1blYwdkhCWkJsU2U0?=
+ =?utf-8?B?ZVZBV3IwbE8yNW1DZlVnckxWUUJpaHI2dmwrdVZ6U2F1bDhVMHlEZ0hLdjRq?=
+ =?utf-8?B?RzNDR2kvazIrRHhvNnM0c2YwT2ZPUHFPU2tiOTNMdFJNbjRsWmxwOGdpbjBs?=
+ =?utf-8?B?bUF2Z3NFR1JXaExtNkYwOUFha0dSS2NnWGlEcTdWRllMZllZM3hVSjR3dUNr?=
+ =?utf-8?B?L2RlVG5nd21lSEZwVTdtcW05ejlHeVJxQW9KSFN5U29sRlBLNEN0a2NtdlNW?=
+ =?utf-8?B?VG91UDNCaWYvM2plbjZrZlQ4QVdBU3dKTVdic2JDcFd4eUtzT1VSVTZ2N1VL?=
+ =?utf-8?B?RlZYVzhjRUhEVnl6Yys0R0tHUFlsY0hFM2VIamcxWnVlcHRySTNFSVhUOFlW?=
+ =?utf-8?B?Q3JObU8zcUlMTDlPWjlVNlA1aVQ0OEpzVEMxbVFaVWQ5U1RuczRLRVZoRkht?=
+ =?utf-8?B?ajVBVlBIREREZ3d6REJRWmI5VE9NQ3hFdnV0LzY4S045ejljYmZJYVk1RUow?=
+ =?utf-8?B?M0pudHVkRDZOeVVJbnNSdXFVa25NWER0MnI3Z09IelFNZjFZS0JndnRvVjh0?=
+ =?utf-8?B?dnlnT1Q5Z3lFZ1dCZWpIMHQwd29pN0pTTTYxd0dhL0c2bndiM21pSUhXTnlh?=
+ =?utf-8?B?b1RjaVN3MHZ2RTIrS0hFdXE3L0NXNzVFUWw3ampqbThQTlh6eUFjWG1YQXFh?=
+ =?utf-8?B?dlF4ZGlzNDJYT0RpVUJLUGdaTTF3MzBWOGpoVzJNZkp0VVRudm5KbFhhZ0pO?=
+ =?utf-8?B?ZTVFTGFNQzVrYS8yYUtQYXRWNVE1dExZK3lJUUprMThFaGY5d080V3BLcERJ?=
+ =?utf-8?B?ejBzMGIrRmsrQ2FIVHVQeGxQV1JVMDV3bVArdTNYY3VITXpEWFdhWW8yN09C?=
+ =?utf-8?B?eGpYenZGejRaalpPbzhQZ015eXJ6UmRnKzU2WXVoVmovT0dkM2JIRGJPSU0v?=
+ =?utf-8?B?RTh3SzJSdUlzcnJJUHBJUGhNQkFMcWlpSXRmamlvbFZBWGdObExyVnhqK2tP?=
+ =?utf-8?B?aGZsTHE0dGdzY0htVUVzUnRpY1p3aEt4WHI0dGNkd2dCU3d0RW82RC9EeEha?=
+ =?utf-8?B?c3VYS3EzQjJmejNVUnVZREFNd1JBSFdvS2V4eXVGMmVLRUl6NEQ1WG1mT0Fi?=
+ =?utf-8?B?M20wNVFzSE9jdVg5Q29aeHd0LzdYNmFZVEZlaGl6QUpib2NBSFBQY0ZVM3dP?=
+ =?utf-8?B?ZHJJNnVHM1pBSVdLZWVPRFcvUXdPcVlUQzJZYm9zSnVSMDduekJtclY2c1Jq?=
+ =?utf-8?B?VlJQUVdmckFSTWpHNGRwdlZ1dUlLVTlBQWw0TWprVERHWjJlOHBFeFBrNDdW?=
+ =?utf-8?B?Z1RsM2Y2SjZGSHBCaHVDMEdPL01Yc3RQYVp4NlZnR3NyMG41UDg4YlJ0RDk4?=
+ =?utf-8?B?NFhuSWU2c3BZbCtiaEY4N0FlT1c1L3FuZG9iYVJtQlp5cTFGeVVpb1RDZjEz?=
+ =?utf-8?B?ZlRYWVYzQWRXcmhRN2VnYmpWVUpOOVdMZnpZcEJRYk5qY0YreUIxdk9pdWUw?=
+ =?utf-8?B?ZTB6cG5zUjBUcEwvdHBtTXFDYVoxNjdaN2R1VTVNVVBrNDlaZnJQaFowUVJt?=
+ =?utf-8?B?aTA5TVlJRFpmaEtRZGlyZGM3ZEMrdFNHRnBJd0R4dkRnajFlcHhIaFhWVWYy?=
+ =?utf-8?Q?w6yAKbrhwB6E+DnAMb?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a4fe8d4-1262-4183-9e96-08df36677363
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 09:23:25.6584
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tvrutkKmtGg8UVN3DKr2y8vvgSjqC8yN+M/Bj9Lvxys1MNzqnS7XHkrQAKBsvBM2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7293
 
-As explained in commit '259172bb6514 ("libbpf: Fix gen_loader assumption
-on number of programs.")', nr_progs which is obj->nr_programs at this
-stage is including subprogs and autoload=false progs which are filtered
-later during the generation.
+On 10/29/26 15:18, Paul Cercueil wrote:
+> Le jeudi 29 octobre 2026 à 14:49 +0100, Philipp Stanner a écrit :
+>> Hi,
+>>
+>> On Thu, 2026-10-29 at 14:19 +0100, Paul Cercueil wrote:
+>>> Hi Philipp,
+>>>
+>>> For context, this .release() callback was added to avoid the implicit free
+>>> of
+>>> the base class, which IIRC was a request I got during the review process of
+>>> this
+>>> change set.
+>>
+>> Can't say anything about the request you got, but fences are reference-
+>> counted and the ability to free itself exists since at least
+>> 3c3b177a9369 (2014).
+> 
+> Yes, it already existed when I wrote the code and I was requested to make it
+> explicit. Not trying to make a point here, just stating the reasons why it was
+> written that way.
+> 
+>> From dma_fence's perspective it's certainly the desired canonical
+>> pattern since the release() ops prevents fences from the important
+>> feature of decoupling fence producer and consumer.
+> 
+> ACK.
+> 
+>>> I'm personally fine with the change, but do we need a "keep this field at
+>>> the
+>>> top" comment for the base class in the ffs_dma_fence struct? Or what's the
+>>> policy here?
+>>
+>> When I got into the kernel I was told that it's common practice to
+>> always have the base class as the first element. That also allows for
+>> obtaining the parent class by a mere pointer-cast instead of
+>> container_of.
+>>
+>> But the reality is also that some users are not aware of this rule. I
+>> can document it in a v2 if you like.
+> 
+> Let's wait on feedback from more people. I don't have a strong opinion either
+> way.
 
-Quoting Alexei, previous patch 'aac5ba0a4d52 ("libbpf: Reject excessive
-program counts in generated loaders")' does move rejection at gen time
-instead of load time, but some programs are still wrongfully rejected:
+As far as I know It is indeed common practice , if you want a comment or not on your structure that the base class needs to be the first element or the dma_fence release will break is totally up to you I think.
 
-  Two objects with obj->nr_programs == 33:
+On the other hand it is maybe possible to provide a dma_fence_alloc_obj() macro which wraps kmalloc_obj and compile time asserts that the member you give for the base class is at offset 0.
 
-    object               before aac5ba0a  after aac5ba0a should be
-    -------------------  ---------------  -------------  -------------
-    33 progs             -EACCES at load  -E2BIG at gen  -E2BIG at gen
-    1 prog, 32 subprogs  -EACCES at load  -E2BIG at gen  loads
+Regards,
+Christian.
 
-  The second object fails today because of the cleanup loop in
-  bpf_gen__init(). It closes nr_progs slots of prog_fd[], and
-  prog_fd[32] is at r10 + 0:
-
-    r1 = *(u32 *)(r10 +0)
-    invalid read from stack R10 off=0 size=4
-
-We now clamp the loop generating the cleanups, which may still be more
-numerous than necessary and do the actual E2BIG check just before
-writing the actual prog_fd into the stack for the cleanups, after
-bpf_object__load_progs() has been doing the filtering on progs.
-
-Fixes: aac5ba0a4d52 ("libbpf: Reject excessive program counts in generated loaders")
-Suggested-by: Alexei Starovoitov <ast@kernel.org>
-Signed-off-by: Mahe Tardy <mahe.tardy@gmail.com>
----
- tools/lib/bpf/gen_loader.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
-
-diff --git a/tools/lib/bpf/gen_loader.c b/tools/lib/bpf/gen_loader.c
-index 80a6b5306183..555d4757a898 100644
---- a/tools/lib/bpf/gen_loader.c
-+++ b/tools/lib/bpf/gen_loader.c
-@@ -122,11 +122,6 @@ void bpf_gen__init(struct bpf_gen *gen, int log_level, int nr_progs, int nr_maps
- 	gen->log_level = log_level;
- 	gen->nr_obj_maps = nr_maps;
- 	gen->max_func_ptr_maps = max_func_ptr_maps;
--	if (nr_progs > MAX_USED_PROGS) {
--		pr_warn("Total programs exceeds %d\n", MAX_USED_PROGS);
--		gen->error = -E2BIG;
--		return;
--	}
- 	if (nr_maps + max_func_ptr_maps > MAX_USED_MAPS) {
- 		pr_warn("Total maps exceeds %d\n", MAX_USED_MAPS);
- 		gen->error = -E2BIG;
-@@ -144,6 +139,8 @@ void bpf_gen__init(struct bpf_gen *gen, int log_level, int nr_progs, int nr_maps
- 	emit(gen, BPF_MOV64_IMM(BPF_REG_3, 0));
- 	emit(gen, BPF_EMIT_CALL(BPF_FUNC_probe_read_kernel));
-
-+	/* nr_progs includes subprogs and progs that are not loaded */
-+	nr_progs = min(nr_progs, MAX_USED_PROGS);
- 	/* amount of stack actually used, only used to calculate iterations, not stack offset */
- 	nr_progs_sz = offsetof(struct loader_stack, prog_fd[nr_progs]);
- 	/* jump over cleanup code */
-@@ -1139,6 +1136,11 @@ void bpf_gen__prog_load(struct bpf_gen *gen,
- 		gen->attach_kind = 0;
- 	}
- 	emit_check_err(gen);
-+	if (gen->nr_progs == MAX_USED_PROGS) {
-+		pr_warn("Total programs exceeds %d\n", MAX_USED_PROGS);
-+		gen->error = -E2BIG;
-+		return;
-+	}
- 	/* remember prog_fd in the stack, if successful */
- 	emit(gen, BPF_STX_MEM(BPF_W, BPF_REG_10, BPF_REG_7,
- 			      stack_off(prog_fd[gen->nr_progs])));
---
-2.43.0
+> 
+> Cheers,
+> -Paul
 
