@@ -1,65 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793395436;
-	b=JNEL7BVwIO6BqPqu4L1l2VKkceDNmfKGOkXmsAfmXiBI7KQzrmzlE1acn6ntU0G8Vdg5
-	 4LgyBU2kQ78smIQnB6nd9COrceJ0IJKkUlZ6D6I8vqg3az2E+2UvI3x0Ceebicm8mxm0j
-	 AIT5NgFghyzEvwqI3IUFTWURtWYFa+PBdKDNcMy6bZI/LRXHhF3a1hfDxVi47HwP4MCiI
-	 8b7nfmHxXy6OrbQYKtTwU7vpTX/5KEGa6FVER0kCauC/OualEP8nSrk+gO2M2rdaMZgNd
-	 SaGkk+DS8Io8N4QH/JqdwbswWEJWhlK1rNF+9HoiJH+y7l0ZRBeoCJb32umJ3nDcmlw==
+	t=1793395482;
+	b=uAD9uFuP/vajCZrFQRP68n5ki4iBTM5ZRlYSrCMcSGzN0dut2iPh56/eKi1Rl17F8z4i
+	 JAct3my81hkSOy9Ea1Qi9D6lJqmac8yD4OAIrSfq3C743ML/ojyMr6ago6dDvNHHqchUA
+	 odaYHGS0rZP689xYlfUmBg+8DfLLCK314iCnHmNM94V6UcSkU6Mqf5YnAim/MCvrMSHUl
+	 pYEJAw77QEYGC5twFgcYskLiGywKtYSq7ZbTUqvOKCcvUsnUCi/365F+HdUjBdATj0Xwr
+	 NmQJtQy88RFTHoOJM1r0VioprJz8zM0CNSnRrl5nHe+qTDm0unUSnJBrZ9w5VLl0pOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395436;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=MPS9RDCKJsXmogjILpx6IfNjyJ/9Sva18zyFQsvPCR8=;
-	b=1l/hkaYOiMc46yVThfn1cYpabZAyfRbRU+8ebJjQrWfyRqUpAlELBmbS8qzpkCK1ysYS
-	 R/MgHxIKcyQ6vI+hFYCp0BZSIfe41x+FoFC4HLRlvppQ6k/cHfsouPWa/+prrOS/EQN0F
-	 1hzpjZlRD7HjMVG9Lq+rRtXp3w8ri2xVtZGRbPAHdi8LrHDDG50echB+RGGdLZp2V8G1+
-	 3zC04EbpX5yiXtf0nzZcY/K2w+NS0YHOKN44saAuLyclDaQMfKlIxRzu3aMRJd2g+dSv+
-	 BAxA4mR0wl2spq6ROc2jEwIsUCFo7Zr+uYROCDQEjtXxnS6AQQ6GU6TPxeQR1g3bxpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793395482;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=aQ0Es9+34HNHRUII6Yl2Wa2R6Euk+ARdRZIX1Dn+ouk=;
+	b=g6CBjeJnJ0LiamMEjXaf9c7ZS9cddsJuBN5CoCpjXuYctthxjCvia6zRnEeFg41nlW7m
+	 USzTTG6rA3/mML4qfpJqMD7iv7nDl+JQDF/BSb/m/08NyVQXHHbYWjgiJw3Tri/y5ElDu
+	 Czp7gUAVCQNkf3tSKH17HGqCQMPcCsmwwhR+GpbrX08fW8OUiAB9WZpd+w9EREYmD9XUd
+	 m8PpMuAA8QXD5xRcj2J8ciigLITz6+4oqAWd72BrmZldIrSkWrlfUD0mhLK1sp/LHPepc
+	 CTmtqsqjz8qGco3QnK12qnzNj1NMfP48JnJ3STj5x0yehBRO3YmNjhFaQTPZDbI192w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=IM42Jxh5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G3Jnuwg9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB2E606A98D;
-	Fri, 30 Oct 2026 21:23:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 054E1606A98D;
+	Fri, 30 Oct 2026 21:24:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=IM42Jxh5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EA511F000C1;
-	Fri, 30 Oct 2026 21:23:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793395435;
-	bh=MPS9RDCKJsXmogjILpx6IfNjyJ/9Sva18zyFQsvPCR8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IM42Jxh5ux0XJor0AFuAttJAvIMJ6d58hMioBo9mpOFm61SkgVY9UfLa1mUWWDBS4
-	 8o4/couykb5LBUPdW319mSne0G0NHI76tIe/XODdH+EaxxJ+K5QvdcjAX2nEP9fWcZ
-	 9sAfeJrJgbpXTXFHNrk7EhoGsOJA9gEUXGqQCmvs=
-Date: Fri, 30 Oct 2026 14:23:54 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Andrey Konovalov <andreyknvl@gmail.com>, Alexander Potapenko
- <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, Marco Elver
- <elver@google.com>, Bradley Morgan <brads@mainlining.org>, Anna-Maria
- Behnsen <anna-maria@linutronix.de>, Frederic Weisbecker
- <frederic@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, Juri Lelli
- <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
- <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
- <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
- Nayak <kprateek.nayak@amd.com>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>,
- linux-rt-devel@lists.linux.dev, kasan-dev@googlegroups.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 4/6] sched/core: Pause KCOV in __schedule()
-Message-Id: <20261030142354.bbc5e7f26fbfb6a8eee21290@linux-foundation.org>
-In-Reply-To: <20261005185803.39170-5-kmehltretter@gmail.com>
-References: <20261005185803.39170-1-kmehltretter@gmail.com>
-	<20261005185803.39170-5-kmehltretter@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G3Jnuwg9
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1A4A71F00A20;
+	Fri, 30 Oct 2026 21:24:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793395481;
+	bh=aQ0Es9+34HNHRUII6Yl2Wa2R6Euk+ARdRZIX1Dn+ouk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G3Jnuwg9ZEx8638kcTmNJ5bdVxPjENZEL/PfDOsNMj1OKb3H+nHd8VmfHs2h4/9M9
+	 k8u3JvLxq5bv1xTzRfXl2I/V99exQmsvGjSmNbtSBau1ejwkDt8l0WFwa6fiAuPqJv
+	 BDQKD2AU6Rz8OkAFlCJvP3FrHvTSgPDWmbqbjQqB45iXXjL0IaP9x/ZeTnJiTsw6u1
+	 M5kYeFHG2C7+CV1fATibE2E6cwo966qtrPNTFyXMU0rI3kEpAH8ZH1rKMcCVu++5HO
+	 Llq6UYRZDH/VG32ADiV7CTpvoXs3CuusZJF3WtOpsP0NNeU6IK0dSH8N7LdjfLTFh0
+	 ST/TwSq7CMeiQ==
+Date: Fri, 30 Oct 2026 23:24:38 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Arun Menon <armenon@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>,
+	linux-integrity@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v6 0/7] tpm_crb: Add command and response buffer chunking
+ support
+Message-ID: <auULFhtOCLdNS69G@kernel.org>
+References: <20261030200649.357508-1-armenon@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,73 +56,18 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030200649.357508-1-armenon@redhat.com>
 
-On Mon,  5 Oct 2026 20:58:01 +0200 Karl Mehltretter <kmehltretter@gmail.com> wrote:
+On Sat, Oct 31, 2026 at 01:36:42AM +0530, Arun Menon wrote:
+> v6
+> --
+> -  Rebased on master and the sparse __iomem warning is fixed.
+ 
+I appreciate the trouble, thank you.
 
-> kernel/sched/ is built without KCOV instrumentation, but it calls code
-> that is instrumented with KCOV, such as sched_clock(), architecture
-> CPU-capacity helpers and profile_hits().
-> 
-> During preemption and schedule() calls, these callees can add
-> nondeterministic scheduler coverage to current.
-> 
-> With CONFIG_KCOV_SELFTEST added to x86_64 defconfig, the interrupt
-> selftest fails under QEMU, detecting spurious coverage in
-> arch_scale_cpu_capacity().
-> 
-> Annotating each callee would spread exclusions across architectures.
-> Pause across __schedule() instead, extending the scheduler exclusion to
-> its callees.
-> 
-> KCOV_PAUSED remains set while a task is switched out. The guard in its
-> resumed __schedule() frame restores the prior state.
-> 
-> ...
->
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
+Now it is applied, will push soon.
 
-I applied this series and poked around in kernel/sched/core.i, with CONFIG_KCOV=n:
-
-> @@ -7123,6 +7123,9 @@ static void __sched notrace __schedule(int sched_mode)
->  	struct rq *rq;
->  	int cpu;
->  
-> +	/* Callees instrumented with KCOV would leak coverage into current. */
-> +	guard(kcov_pause)();
-> +
->  	/* Trace preemptions consistently with task switches */
->  	trace_sched_entry_tp(sched_mode == SM_PREEMPT);
-
-This expands to
-
- class_kcov_pause_t __UNIQUE_ID_guard_1782 __attribute__((__cleanup__(class_kcov_pause_destructor))) = class_kcov_pause_constructor();
-
-and class_kcov_pause_constructor() is
-
-static inline 	__attribute__((__gnu_inline__))
-		__attribute__((__unused__))
-		__attribute__((no_instrument_function))
-		__attribute__((__always_inline__))
-class_kcov_pause_t class_kcov_pause_constructor(void)
-{
-		class_kcov_pause_t _t = { .lock = (void*)1 },
-			*_T __attribute__((__unused__)) = &_t;
-		_T->paused = __kcov_pause();
-		return _t;
-}
-
-Adding all this goop to core scheduler functions on non-KCOV kernels
-won't be terribly popular!
-
-A bit of macro magic can trivially make all this go away for non-KCOV
-kernels.  The overhead is probably acceptable with CONFIG_KCOV=y
-kernels - seems it's only enabled for debug/research/fuzzing kernels.
-
-Ditto the hrtimer change.  Aim to make these patches produce no change
-in generated code with CONFIG_KCOV=n.
-
-
+Br, Jarkko
