@@ -1,57 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.32.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793353197;
-	b=JdLZaj6nH5jsxhEQ8Sf5Jb/NNnNV8mBrOtFjfyax4GqlFsFkfIcC3uQb3Sla4AA0PGNx
-	 upijdV9tpKqtFS8qgDtqTWTxzSvmfYeJ4yOetVOtWrtZzP6SjIPkheHqUZxp7LiIYV0uF
-	 fu+5pDOeQaT/ac/l2KQe44zDhSa7+DQXcjIfTIiSVdoxGaZ3ravVDI/C7QKPr6FJ/8aHt
-	 z13p1V3c/aEMsqrz2oMUQ3+h9USkGMXM/QV5HYrmIdS3nX2DYDs9AKvMtOPgdapnbJzEO
-	 +yE+AViiWqi4QriQwpVOA/hNoh5p+ddcWiw91lY3IhxefWz2Q7xIXAkbt/0KzQ/8/9A==
+	t=1793353209;
+	b=FyQ+W3v/XR8TuXx88DxeOLcVPafLvNZmwzIj5ZxQJnbmThkfYB068t5d2UhsSvZCvxDi
+	 vGW8EBjFgC58vQ87Y6Knlc+jeoD4rV+2aT17bIZF14KbKfziFmV5NwNB0SbTlv0IQxCXq
+	 F3H6PDkPtr0u45P09LDPnYAYrY/o3idlQ8vFlEmUsCztqCMavGNNLRqcVOJrUg5Ncmp79
+	 PTC81jFxZbOvegX8h1Z19XCvx8hlIE9uZ+SQ7W6w5i77W8rVNzXUhr9JSbu+fpy6yz2V8
+	 PWFMzkwBj3UAesQteO6oSo7pY2nOUezBLIuYCcl7GdwABV6J78cn1efvb4lwtZGJ7hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793353197;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=zOMWdRYZ72p10sJ4dbOah+fIXgGE+K9ZB0ijg3sy0YQ=;
-	b=mJjAe/LPra5MjQtsnRoMvqc3HAjgiq26ezl1o4XyNyjxsr2FaqOt+V8/I3Q5OdUvtRgM
-	 m0Yn9Ee2ntzrPLYD2881C8kGpOmIcsiL8JKKxZS1LYLmyDY34ZH+Yj8jX5msfljMoJu4N
-	 RauyxgOehnMvRaL9GQ7et0OUPW/OZoEK5Rq4NqwLR+mtw7mbZjAdZypenx1WzmrJcAiUK
-	 pAzSlOBE/ErufQR05bteldZRZVj1HuB9rGNZ2sWI0C6ho5WP7+mqTotX4IlnBvwmFWlVe
-	 pI/qlHF3fxjDNTUwF//Ax8A97ZfiYVKC2rnS8Y4ELjZNmD3uDazrUZIxoGOvzYuG01Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793353209;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=GjoByvQgZF8hrJ3bMrfVpCnfunVN4IpvJDxs7mkxVe4=;
+	b=vwpa6OW+US0Q+5dWfpLhlnOqJRG9hKUPuXDYKVo7O5j0FXKZzeY+cOZB/P1JVI8EPpRD
+	 KCvJx0fAAkHFz3ZXVXip90LjBmYc/7/m22O99z9wNiohNNFkAYxXItohkGeFRzBKLd/Hg
+	 Ok9cjTKdRqENG20SUNEANKRSRy/euVkhZZ7xOp5AYfPky6Tqe/pjgiGCNWrcg9XQJm6Se
+	 iloFN9qS9XTPsJjQgRj9bFNt+buxJvNU4sa2sLO7d+nYNvk5OpL6+EuzG8Dfu5uUKcK0E
+	 zoECJ2b7d6Imszm9QzPmcLmQRtUl4XTAdTD8WmqRRj3NtKpn28fNdOT12IVFrRy9SNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yeah.net;
-	spf=pass smtp.mailfrom=yeah.net;
-	dkim=pass header.d=yeah.net header.i=@yeah.net header.a=rsa-sha256 header.s=s110527 header.b=dZhKe9z3;
-	arc=none smtp.remote-ip=220.197.32.19
-Received: from mail-m16.yeah.net (mail-m16.yeah.net [220.197.32.19])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=95.215.58.116
+Received: from mta1.migadu.com (out-116.mta1.migadu.com [95.215.58.116])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF204606A31C;
-	Fri, 30 Oct 2026 09:39:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF204606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yeah.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yeah.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=yeah.net header.i=@yeah.net header.a=rsa-sha256 header.s=s110527 header.b=dZhKe9z3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yeah.net;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=zO
-	MWdRYZ72p10sJ4dbOah+fIXgGE+K9ZB0ijg3sy0YQ=; b=dZhKe9z3niOR/6rcF2
-	hYCkNiH/ufb7i+lfbmzUzv1pT3TLTegypO1sKL/vvDf9QDwVog4Y9aHnHAlCaIEV
-	J/YqAe+xcQOyK9gA7ns+oYld1nT/Z1I8/ml9ro5zdEGDvnh6nhxXCOpUAZPVz/Wq
-	UuBSdqkrMZUoRTkt+vuYPQIkw=
-Received: from deepin (unknown [])
-	by gzsmtp1 (Coremail) with UTF8SMTPA id Mc8vCgC3H4TXZeRqOkrbBQ--.62508S2;
-	Fri, 30 Oct 2026 17:39:36 +0800 (CST)
-From: Ziran Zhang <zhangcoder@yeah.net>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: netdev@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ziran Zhang <zhangcoder@yeah.net>
-Subject: [PATCH] include/linux/jhash.h: fix kernel-doc parameter name
-Date: Fri, 30 Oct 2026 17:38:33 +0800
-Message-ID: <20261030093834.13043-1-zhangcoder@yeah.net>
-X-Mailer: git-send-email 2.51.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F21B606A320
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:40:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F21B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GjoByvQgZF8hrJ3bMrfVpCnfunVN4IpvJDxs7mkxVe4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793353201; v=1; x=1793958001;
+ b=qZexjLA3z72ct6BDu7Dc0m9BncpgG3hK4j1b3DwD3NTBjBZ20OkGtqQCD+B6oCyJi38c8XHe
+ 9b2RX+szEZRshADVCh8gg+NONUQycTdJN52pAqQDMvLEgbE702NFZ3cLusXxVA4wy+dTS9SAuUR
+ yzwDlzgYu4KRlYFifvWrzh7g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 391089da5ea8dc07;
+	Fri, 30 Oct 2026 09:40:00 +0000
+X-Mizu-Trace-ID: 391089da5ea8dc07
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,40 +54,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:Mc8vCgC3H4TXZeRqOkrbBQ--.62508S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtF43tw4fCr4kXw1ktr4fZrb_yoW3GFbEkw
-	4fX3ykZw48CF18Zr40kFZ7tr12gw1xJF18uFn5Jw15t3s09an8t397Crn7tw47GanrCrWr
-	AF1qg34fJrnxWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_UUUUUUUUU==
-X-CM-SenderInfo: x2kd0wpfrgv2o61htxgoqh3/1tbiNxhjJGrkZdjEUgAA3N
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 07/15] hugetlbfs: fix unmapping folios from private VMAs
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261028-fixes_hugetlb-v1-7-a0a033db180f@kernel.org>
+Date: Fri, 30 Oct 2026 17:39:38 +0800
+Cc: Oscar Salvador <osalvador@suse.de>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Mel Gorman <mgorman@suse.de>,
+ Andy Whitcroft <apw@canonical.com>,
+ Miaohe Lin <linmiaohe@huawei.com>,
+ Michal Hocko <mhocko@suse.com>,
+ Rik van Riel <riel@surriel.com>,
+ Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dave Airlie <airlied@redhat.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Peter Xu <peterx@redhat.com>,
+ Breno Leitao <leitao@debian.org>,
+ Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ linux-doc@vger.kernel.org,
+ linux-arch@vger.kernel.org,
+ linux-s390@vger.kernel.org,
+ Josef Bacik <josef@toxicpanda.com>,
+ stable@kernel.org,
+ Daehyeon Ko <4ncienth@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <EE1BEB7B-295B-4F93-9876-C397C2FF473B@linux.dev>
+References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
+ <20261028-fixes_hugetlb-v1-7-a0a033db180f@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-The kernel-doc comment for jhash() documents the first parameter as @k,
-but the function signature uses key.
 
-Fix the parameter name in the comment to match the signature.
 
-No functional changes.
+> On Oct 29, 2026, at 04:13, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> From: Josef Bacik <josef@toxicpanda.com>
+>=20
+> hugetlb_unmap_file_folio() assumes vm_private_data points to a struct
+> hugetlb_vma_lock when hugetlb_vma_trylock_write() fails. Since hugetlb =
+VMA
+> locking was extended to private VMAs, this can also happen when
+> vm_private_data contains a resv_map pointer; treating it as a
+> hugetlb_vma_lock corrupts memory and can cause crashes or hangs.
+>=20
+> Only take the VMA lock when a shareable lock exists, as additional =
+locking
+> is only needed for PMD table sharing. The fault mutex and i_mmap_rwsem
+> already provide the required protection for private VMAs.
+>=20
+> Fix generated by an LLM and sent by Josef Bacik in private.
+>=20
+> Fixes: bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private =
+VMAs")
+> Cc: stable@kernel.org
+> Tested-by: Daehyeon Ko <4ncienth@gmail.com>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ david: simplify description and comment ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Signed-off-by: Ziran Zhang <zhangcoder@yeah.net>
----
- include/linux/jhash.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Acked-by: Muchun Song <muchun.song@linux.dev>
 
-diff --git a/include/linux/jhash.h b/include/linux/jhash.h
-index 7c1c1821c..d320de0af 100644
---- a/include/linux/jhash.h
-+++ b/include/linux/jhash.h
-@@ -58,7 +58,7 @@
- #define JHASH_INITVAL		0xdeadbeef
- 
- /* jhash - hash an arbitrary key
-- * @k: sequence of bytes as key
-+ * @key: sequence of bytes as key
-  * @length: the length of the key
-  * @initval: the previous hash, or an arbitrary value
-  *
--- 
-2.51.0
+Thanks.
 
