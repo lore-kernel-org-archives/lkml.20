@@ -1,41 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.187.6.220
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793339433;
-	b=OQnRIDNavCxVj+QcDorkjp2v1DHQQ53SwAaZjTYfRf/Of6OwgPRTP0bxahF0MZKNKQzN
-	 h/SX4T0yUb3VI8+1OaOV5J+ynahJnppI2GZ9z/3pHZRaolz6cJUVV3CqHvKDhJRMe6Tej
-	 PB6YQ/qlBrjCtLnofnud9TUSlI9hkVZCQsPVMMjxaZbl21mBwcS+XKek4RN7tT8dgCLBS
-	 bWlLJEmHacfsqQSFUIlR0C7mDgq/iDpQEHYAXlAaCVzNpusDa+03R0jhCD9p4VRzF7sZ9
-	 3SNeQC0dEArjBltETdXCl/51RTlTXH/i3NOlow7ZJQhYkVnEvKanuIeNyv5quVcqqlA==
+	t=1793339566;
+	b=0bAyUNHA74CZr8J7ObmowJY/ckGJcz0QRSeK+UyliM55XKQ/mu4BfkmfE3Z6RbbNAkWq
+	 NKu++G1s2gnqNp5vbIXlKBhl7ZbypdMGLcFtI+MV3bOE0BzizbOlb/DrQIF/9uNVB1ELd
+	 hsiXSkoH9NB/TTfeBvAD7j/vH0DTG8rGXji89EhFxbOR/95Jm6pY7mHgavwW5gcl48WxQ
+	 gxV+pMcus9/JpLKZwbJG4NQ3OB1H+v27TvQ+xv5Il4gD/1O5KuG7xL8FdIuYqst8McCIo
+	 kRdTbHF7nwTHvDNw6KnpU1Pitfse6W1KGG+zQMsCVDVFpBaFWUdVBobnEoN6PuUiJXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793339433;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=nRLWCqYk1y7vVdpT5+4Ia/48/2K4M5vE4bN2ZGaSYiI=;
-	b=c1P8HmgEYZ/dfb+pi+bw9rprmfliGQeb1o7v9U+ZXy1R4+DPdREw4iT8pcTKz0pV2avP
-	 9yuWIZYvfl520qLk8LbiW8lAcnvwoKZw/jyqXWSi0VsOx/YAObDHD+KhKYlRySAePKumR
-	 dYBSt8iqx9X0eOAtaX0SGxOLfe2xUVIoaJpnulgBKhG+/dMe8Cu/lukcfxx34gw3MAcDn
-	 l65AB1F+CnoCBRpK4QN3Xef0Foh5bZ4JUP/8A6byuS7WPba0IQQvsV4J80xQvj7DVAZTx
-	 uf6Jq5zZpxLs8+YR2/t7geMdbQ6dbrOQtSBZBi2blU23N2SmDUylPHJ8QzefmistZBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793339566;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=VbRiuv1zzZPpsXqO5zwHM0e9x6dnlvGPnhrO6rm2E7A=;
+	b=O4Y1hx4N74jN1JWCluPeRsRcwgezXWSgHUjXsPpiywmb/Ii9UL1LZLdbe4IBwNZsw8Ur
+	 9Yc1TXMOm6MEaCcDHuXQQaDDs6AyesNNeLZx9Xj1X7/XsbrVzPoJj4z6x+3hyxo4XR7sr
+	 UzwPbEB1NfTTRF1SM+l8IMA+EO3UaDDJwZ/56QkNk0BisQZNENvjjuFEenuObWLtQ8JG3
+	 Ro3W5WS5uMyrDsHSTvM5jcyoJU3SKO6QXCY+drq1u0T06T+NHX/wnR/NnK2Rn0Wev5+Ic
+	 Djd5/7sIlqvg1re8ypCwLAVQAc3KxgCSSdTvpBGHmDVBNgD/PGkFQvR2m5r1phOIjRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=52.187.6.220
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 036D5606A31A;
-	Fri, 30 Oct 2026 05:50:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 036D5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.52])
-	by app2 (Coremail) with UTF8SMTP id IQEQrMDW_XYdMORqad9lAA--.2791S2;
-	Fri, 30 Oct 2026 13:50:21 +0800 (CST)
-Received: from [100.81.40.43] (unknown [10.12.191.55])
-	by gateway (Coremail) with SMTP id _____wDXsToaMORq2acKAA--.1267S2;
-	Fri, 30 Oct 2026 13:50:21 +0800 (CST)
-Message-ID: <b95c5ea9-cb4b-4535-8eb0-0318357aa11a@hust.edu.cn>
-Date: Fri, 30 Oct 2026 13:49:11 +0800
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kL+rJ5ml;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43951606A324
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:52:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43951606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kL+rJ5ml
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-18cdcfc05ffso416532c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:52:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793339564; x=1793944364; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VbRiuv1zzZPpsXqO5zwHM0e9x6dnlvGPnhrO6rm2E7A=;
+        b=kL+rJ5mlhDTdElNXQpMNmC+lFFdeCCCvkIJjS+DDV40iDQZXyTs3SBB2eGEOCQJOtF
+         i4Ok80Jl/dyQnnLRATG4Td3Gswm32YCiQT8xqghaBRcVa79OSoHGtQs2R39LFX/jwnL/
+         /eRKmGGBw20AnqFQjZpcJKJVmMlLF8NZCpZrgKuz/yAZJ9dEl3egS2lv0Or/2b7DKW7a
+         qXzLrrXoXBoNE9m+gfyzTCmLd4rfN5+NfgwLmiILLhjUsj+Z7v94MyQ+kpgOX99nNCHT
+         XK5KIuplK8Vg0uRrjpY/hvMdogmx0CcLjeSgG/Td/Ogx7syKS3dPouQ6FzDUyXuhj/cE
+         2ZFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793339564; x=1793944364;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=VbRiuv1zzZPpsXqO5zwHM0e9x6dnlvGPnhrO6rm2E7A=;
+        b=RFD0qKM/mcV5cMrJLJmmjE3f5FimadBh9Lf6e3gkrCTpzUMG7uLu8J4aBeEy4hkcJl
+         BXm9VLJ/RhMYp1iWwev+xjXQawF28WshWyQFIDIrsNxsBtflHQ9DazrApsiydeOF5shh
+         88IMkLoCmsjuHgeaEVIjVZ2+a5vtK84U0GWrPx4LgY6NS1ezHmy9Csd1lLWFncazG+5G
+         T0BR1JyY4/d11WkHHaP34zGWBLDpzVq1rBGqz0UEvCb5GX+fNCbYNm9edCP8otto+CAp
+         AFcv4O4wVslSDHHvIROk3kwiMASy+fKkpm+zJOIxkUUHa00uMtTOGSKsvm8FG+h5xt2x
+         pY0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz+FxgC6rfpc3UDUg9VlEtF3fEswq/UDOoDNqiVZVeayFMAiwUus3BINL5/dnkAY648b8XjAsg1e9IJEmE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0QFK+OTSp0/OH660CbTN3Fnj3O+z7XgbL9j9QtNc45j7GaIeS
+	p3eGKkTzD20wjl1N8GGIlNv623AxECcXP1KlXYlaxo2unOOqCdAUSeNf
+X-Gm-Gg: AYBFou0WSCYH3tOP+v/JfA95SnwRzqBmruvWhQAFd0l9CLfAmCn66AQznwmHttLw+2y
+	j9496uevvNbu2TfSMCF+WWZcja8LrxYGtBk+UODUGfDjze7M6xkb76SeymbPOd9T6IQK/KDN5Ps
+	7m7QLF7/SQYLcfQK85o6JtMYSsrLGp91EJPFthPKs8Y8knryNoErrFO+84Ewai30eKYG2mvPrf5
+	vKR3dzg3LRTknUimtp91EncThjbUeDK5/QmeRCDR/NPKDbKpXQ1Ghm4KSY+0qvbSYTzlMcyFZG1
+	29Y8AbsIX4oXHbW3qKixGU9q2ZPIWA1AdbTOp8xAQ/LVVR/UanKFXwaKCRZP5G4EMYUADUNDxgN
+	HuQTPpbGjGBEvypABOcQ4CSWO4AG3Mjj1dADkjEYAj+qSpf4PXGNb0TBmU3P8IAJ8X45ubDj6+C
+	HfgZD9bAqcMvj2Pn2Q2tt5ImjJmahAyd5FnlPJJ4o0GR6sp/reCtbUu3NMKroRzUcXwG2/+iypj
+	qNWY1GbzhXUAs0K2ykYAw5TvoI2X0ma+Dbx9OOF2apr4vRSnwDDFADcT9FsqyQHjj3KZ0J1ZunE
+	QO/iSz7JSNffI4NpCoVccKfy
+X-Received: by 2002:a05:701b:2411:b0:1ac:75b9:f82c with SMTP id a92af1059eb24-1ac75b9f892mr1448025c88.34.1793339564232;
+        Thu, 29 Oct 2026 22:52:44 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1b0a628bsm3675448c88.22.2026.10.29.22.52.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 22:52:43 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Fri, 30 Oct 2026 01:52:38 -0400
+Subject: [PATCH] mm/filemap: clear page cache marks once when removing a
+ folio
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,82 +91,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/9] docs/zh_CN: align translation paths and update
- guides
-To: Weijie Yuan <wy@wyuan.org>
-Cc: Weijie Yuan <kernel@wyuan.org>, Alex Shi <alexs@kernel.org>,
- Yanteng Si <si.yanteng@linux.dev>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261028034134.4144660-1-dzm91@hust.edu.cn>
- <auGucr4smrSp9g5l@wyuan.org>
- <0ecb719c-5e0a-400c-b1b3-da2923c40bb4@hust.edu.cn>
- <auQPB6S1VAFOLuhs@wyuan.org>
-From: Dongliang Mu <dzm91@hust.edu.cn>
-In-Reply-To: <auQPB6S1VAFOLuhs@wyuan.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IQEQrMDW_XYdMORqad9lAA--.2791S2
-Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvJXoWxJr18tFWfWry7uFy3Gw1fCrg_yoW8Wr4xpF
-	93WFyI9a1fJr1fArn7K3y7JF1fKF47Gay7GF17t3sayFnav3s5tFWrtrZ8uF9rXrn5ua47
-	XF45tF95Xay5uaDanT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQlb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
-	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2
-	z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2kKe7AKxVWUAV
-	WUtwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AI
-	YIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VACjcxG62k0Y48FwI0_Gr
-	1j6F4UJwAv7VCjz48v1sIEY20_GFW3Jr1UJwAv7VCY1x0262k0Y48FwI0_Gr1j6F4UJwAm
-	72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4
-	AK6svPMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_GFW3Jr1UJwCFx2IqxVCF
-	s4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUAVWUtwC20s026c02F40E14v26r1j6r18MI
-	8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41l
-	IxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIx
-	AIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2
-	jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU0XVy3UUUUU==
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-bug-mm-filemap-init-marks-once-v1-1-699835fc6690@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAKUw5GoC/x3NQQ5AMBBA0avIrE1SJCWuIhbTGkxoSYtIxN01l
+ m/z/wORg3CENnsg8CVRNp9Q5BnYmfzEKEMylKrUhaoUmnNC53CUlR3tKF4OdBSWiJu3jKaprCb
+ StSEDKbIHHuX+B13/vh+gfW5ecAAAAA==
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
+xas_store() clears the marks of an entry before it replaces the entry
+with NULL.
 
-On 10/30/26 11:29 AM, Weijie Yuan wrote:
-> Dongliang Mu <dzm91@hust.edu.cn> writes:
->
->> On 10/28/26 4:12 PM, Weijie Yuan wrote:
->>> On Wed, Oct 28, 2026 at 11:41:25AM +0800, Dongliang Mu wrote:
->>>> Several Chinese translations are no longer at the same relative paths as
->>>> their English originals, and some Original fields are stale. This series
->>>> moves the translations to matching paths, adjusts their indexes, and
->>>> removes stale Original fields. It also updates selected translations to
->>>> newer English commits.
->>>>
->>>> v1->v2:
->>>> - Drop the unused top-level readme_zh label from the translated
->>>>     admin-guide README.
->>> Hmm, so why still keeping these labels here?
->>>
->>> [2/9] .. _zh_applying_patches:
->> This is necessary and used by another location.
-> $ git grep -n -F -- 'zh_applying_patches' Documentation/
-> Documentation/translations/zh_CN/admin-guide/README.rst:82:   :ref:`Documentation/translations/zh_CN/process/applying-patches.rst <zh_applying_patches>`。
-> Documentation/translations/zh_CN/process/applying-patches.rst:11:.. _zh_applying_patches:
->
-> Seems that it is only used in your patchset? Because I didn't create
-> this label when I made this translation.
+page_cache_delete() calls xas_init_marks() after xas_store() whether it
+stored a shadow entry or NULL, so a folio removed without a shadow, as
+POSIX_FADV_DONTNEED and drop_caches do, has its marks cleared twice.
+With 4K folios that is about 6% of the time it takes to drop clean page
+cache.
 
+Call xas_init_marks() only after storing a shadow entry, whose marks
+xas_store() leaves alone. Dropping 8 GiB of 4K folios, median of five
+runs, averaged over two boots of each kernel, in a 32 vCPU VM:
 
-Yes. It originates from the English documentation. To make the 
-translation have the same style, I create a similar top level label in 
-our translation.
+                          before    after
+  POSIX_FADV_DONTNEED    1517 ms  1423 ms
+  drop_caches            1515 ms  1422 ms
 
-Dongliang Mu
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+ mm/filemap.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/mm/filemap.c b/mm/filemap.c
+index b74bc1e5015c6..a0c959e74533e 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -140,7 +140,8 @@ static void page_cache_delete(struct address_space *mapping,
+ 	VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio);
+ 
+ 	xas_store(&xas, shadow);
+-	xas_init_marks(&xas);
++	if (shadow)
++		xas_init_marks(&xas);
+ 
+ 	folio->mapping = NULL;
+ 	/* Leave folio->index set: truncation lookup relies upon it */
 
->
->>> [4/9] .. _process_index_zh:
->>> [5/9] .. _magicnumbers_zh:
->> The above labels needs removed. I forget to clean the same issues in other
->> patches.
-> Thanks!
+---
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+change-id: 20261030-bug-mm-filemap-init-marks-once-b83c6aa67bab
+
+Best regards,
+-- 
+Qiliang Yuan <odys.yuan@gmail.com>
 
