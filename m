@@ -1,80 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793354435;
-	b=aGOKCJ4whOLC8rx1vyCn8X+wg3ACD+ucpXi+7hYQxyZDSas+H/byZGEF8anL6Dxk2WWw
-	 gPFsaxU22T7qMDT7MuTTNb33675JVvQ1PT2aNQatqZX0fujpP9QeccISsLl1TI0pFnp7R
-	 3urLy7ov4nnciJECv+n5OaAbvH0Dypr+SEbRIyCmNjDQfPiFqxxkpIWio2Yf5z3KmMOPg
-	 f742ERW2CNO2fEWB7jgM3lVPWAtFSdmxgTTuWy6QdahqgzBUDjQ/zGmPqxNxGAS6cAR+W
-	 AXYZ+noHmeIAUHkY5bVLd+78TSukqoILuLHWQ2cava5CrQj6lQsvbboR7oq7pLoknNg==
+	t=1793354449;
+	b=HzyNbIFvGb8hWq6DIiAB4BIf+7Ajyf6OY8/HzYOxrJrs1VMfCyABFIlIR64FyxTZewg3
+	 1QhsEo1ttmQtQPhdXtqRelHQ9Cv99HiKNRr3VLWyUZLnPIWgFenCtdr0UUB4SDIpLY9BZ
+	 Gc5OkeFgV+pxir0MZXpDiCQxEU8IdWkEATtiorGTA7T+tuPiOXMjka8nwC81Uo2NZUkJo
+	 6UScPfUzt5k6ArDC9ate46oubAYTwGylfG1UmIpC7QnasgIOLO9mNhHCt9SgrfazXTmmd
+	 Ei4iJgPJ/GoS6FctlHdqrrl9Go1K/f/4DCbd/zM/Ya2VT7KtrVOMWZx8XHSwlTYjEWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793354435;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793354449;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=ler9Vb08uoWkkGJsgusT3UJ2fmGaAr/9sD2dowX7gwE=;
-	b=V67dGsxIN74O3JBZ02ag3EhMF6Olc9m2zhED2dM69WwVUdv65Y2N2mbF3ORvLHySqSjA
-	 XkDQFR26bYmulBR9bjvsiHuxFwbqp7j2B4IElIkyVf/uL7qRnl+jv+yn6XUSiK5aek7mr
-	 NaEcTVpdFfjfw0jHYvwgHqDxwNQz/5gNRBl0FCsrQFTLtFlcua0bioJ1BQv56NCpl+grV
-	 CnFgaqIdh4IMCSBFdmYpm5JEUi34T0QK2fCRjIMMlEneYxYd9DglDSIBW3oOTjhIulujf
-	 OxitUPr7mB+AVXH481Pvm7/8Ui4z9zZJj2/3gw5jANIxsoUdHoYkKGQ3nSbpnl2pHGw==
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=vbB1PXZ8iofBpMV+/vOpPqAHgjVf96svSHPsdRMK9m8=;
+	b=ZveSlnuWe4JYjmWVGXjqIvPwBmvdixF06A+l+dnmtItQbJYHgEW3QQNAfgg724QoHgcY
+	 MI9G8bfX9pofPvdV5NfcEAhIePV+9p8VR4D8yE3nDX0vaN+L72qvF44ESIor/UL1tX+lt
+	 evZzR5rvq+ZvAmXAnN4wLUhFdQlPkK3las5Hifyy41OE742kg1xnhycnI8w3p8whe2yg5
+	 24PubqodDnpJjcwcPkINDGfhXmGTyslO/U+b7ghs8fZ2HRjAHh2BoYltfjgiIA8JqgvvD
+	 SZFjZCHnSjAbCLfwmddnHBg4Z+OtmAKqYYNR4b++RcQiF6pj0mWvqG8t3qid4RWbVpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.de;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=HUhq70I3;
-	arc=none smtp.remote-ip=52.34.181.151
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AhqxZhPw;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD4F606A320;
-	Fri, 30 Oct 2026 10:00:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CD4F606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84C4606A321;
+	Fri, 30 Oct 2026 10:00:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E84C4606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=HUhq70I3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1793354435; x=1824890435;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=ler9Vb08uoWkkGJsgusT3UJ2fmGaAr/9sD2dowX7gwE=;
-  b=HUhq70I3xfLfFzBedmY+/ylM/XSLSUtcZPO3kG3yWr5yUlparGHUJZd3
-   gJqgVoRofkO02SqJC+U4W+ZvkZc8XwviFWLRbz9ew+MJt/o0hjIT5rOUV
-   36Fw2j8KLaKJqVPPu3HHL+yQEOoOETXUAgPhd8t7MZX7VONZ/xnfqKo4I
-   QSYXQpCVJxNrGnJyVlGgodkaaUhJEyiwvN93UdhYExZJGQ4PRGhtmsmMI
-   u8ZWheEvDTXDL7AB2kMD45Pw2onDEZai0tBrj18CGOUNCplHVN3iLB+xW
-   uYKfh0ZnMQuwZaurb1eC9K3Vqv2izK/ChuDmiQ1UFDQw5Qtq8PanHfuWY
-   Q==;
-X-CSE-ConnectionGUID: f41PGanPSUaMqPFAgY0gLw==
-X-CSE-MsgGUID: aXQZUxloQz+Q/vIVKiUTRA==
-X-IronPort-AV: E=Sophos;i="6.27,186,1787011200"; 
-   d="scan'208";a="32646804"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:00:32 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:26549]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.238:2525] with esmtp (Farcaster)
- id 9c26f0e1-9b75-4adb-bb6b-4f1f1a420bc2; Fri, 30 Oct 2026 10:00:32 +0000 (UTC)
-X-Farcaster-Flow-ID: 9c26f0e1-9b75-4adb-bb6b-4f1f1a420bc2
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 30 Oct 2026 10:00:32 +0000
-Received: from dev-dsk-mheyne-1b-8cc83676.eu-west-1.amazon.com (10.13.235.223)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 30 Oct 2026 10:00:30 +0000
-From: Maximilian Heyne <mheyne@amazon.de>
-To: <stable@vger.kernel.org>
-CC: Maximilian Heyne <mheyne@amazon.de>, Marek Szyprowski
-	<m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, "Nicolas
- Saenz Julienne" <nsaenz@kernel.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH] dma/pool: eliminate CMA alloc warning in atomic_pool_expand
-Date: Fri, 30 Oct 2026 10:00:00 +0000
-Message-ID: <20261030-ghent-tubes-5abba7d2@mheyne-amazon>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AhqxZhPw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793354449; x=1824890449;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=HaKzP3810qJc116puiQADiUuz5O1FIDoNR4g6mlq8v8=;
+  b=AhqxZhPwolvonocZIXvww7LXaymX+LfzDQFSZqFcXR1k13fCsW8j/FxL
+   zCXXqrtQDYtQFftrpEWhPHn78JpbBJXxZyeN6NZDy+itvIBjitsx8GT15
+   MhYDhIQIYU739YSvLdNS1BFkbJOA87BOewt7FoIydy+KpmEBOKZx+qrQv
+   WZkaqa5Py88z5pz2MO5SJEfkfqijpl9wLj1/+ssTXDFNi8YK1J8mJqXMy
+   jCS5EQWY7oX9NPToOQMkwE8z8IumUzCYl0HJK3ejEoEmmTRCWwV97x3J4
+   de+m0A+JIeA3C7Rr4rSgi6vE7B/0L1dFKQ1d7EUXlea2FU5Fe90Uhcl5x
+   A==;
+X-CSE-ConnectionGUID: WD1rfvyDR52E7pr7vNqFnA==
+X-CSE-MsgGUID: VaCGPhGgQCOYfyhN1r4F/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2001669"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2001669"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 03:00:48 -0700
+X-CSE-ConnectionGUID: 9X1qCIjjSt+PfUy51gRjaw==
+X-CSE-MsgGUID: FummiFHNSVWXyiswHYi6ow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5521270"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.32])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 03:00:44 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 30 Oct 2026 12:00:41 +0200 (EET)
+To: James Hilliard <james.hilliard1@gmail.com>
+cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+    Jernej Skrabec <jernej.skrabec@gmail.com>, 
+    Samuel Holland <samuel@sholland.org>, LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, devicetree@vger.kernel.org, 
+    linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v5 7/8] serial: 8250_dw: discover Allwinner A523 FIFO
+ depths through FCC
+In-Reply-To: <20261029-submit-h616-uart-fifo-v1-v5-7-53b433aebbf8@gmail.com>
+Message-ID: <6499d93e-c6e3-7bfe-b717-a2e032137e1a@linux.intel.com>
+References: <20261029-submit-h616-uart-fifo-v1-v5-0-53b433aebbf8@gmail.com> <20261029-submit-h616-uart-fifo-v1-v5-7-53b433aebbf8@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,46 +86,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=US-ASCII
 
-atomic_pool_expand() allocates with decreasing page order first from the
-CMA and if that fails via alloc_pages(). If the cma allocation fails a
-warning, such as the following, is printed:
+On Thu, 29 Oct 2026, James Hilliard wrote:
 
-  cma: __cma_alloc_frozen: reserved: alloc failed, req-size: 4096 pages, ret: -16
-  cma: number of available pages:
-  cma: range 0: 1024@0
-  cma:
-  => 1024 free of 1024 total pages
-  DMA: preallocated 262144 KiB GFP_KERNEL pool for atomic allocations
+> The A523 UART integration, also used by A527 and T527, has 64-byte FIFOs
+> on UART0 and 128-byte FIFOs on UART1 through UART7. Each controller reports
+> its TX/RX FIFO depth in bits 31:8 of the FIFO Clock Control register at
+> offset 0xf0. The field holds a byte count, not a logarithmic encoding.
+> 
+> Read this field in the sunxi setup callback when platform data does not
+> provide a fixed FIFO size. A fixed size takes precedence, so H616 retains
+> its 256-byte configuration without accessing FCC. The probe has already
+> enabled the clocks and deasserted reset before invoking the callback.
+> Leave the FIFO clock-control bits untouched.
+> 
+> Validate the depth before generating the RX trigger table or setting the
+> transmit load. The quarter-full threshold must be positive and the
+> FIFO-depth-minus-two threshold must fit in the byte-sized table and RX
+> trigger API. Report an invalid depth and fail probe instead of generating
+> zero or truncated thresholds.
+> 
+> Select this setup for the A523 compatible. Derive the transmit load and
+> RX threshold table from the discovered depth using the common sunxi
+> helpers. This handles the different FIFO sizes with one compatible and
+> one receive-trigger mapping.
+> 
+> Like H616, this integration has Allwinner-specific debug-divisor and
+> RS485 registers overlapping the generic DesignWare feature probes. Use
+> the common sunxi PIO setup, BUSY-safe integer divisor programming and
+> software RS485 handling. Keep the APB clock gate enabled during termios
+> updates with SKIP_SET_RATE.
+> 
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>  drivers/tty/serial/8250/8250_dw.c | 23 +++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+> 
+> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+> index 3bc6735fc253..2ab91f479fc6 100644
+> --- a/drivers/tty/serial/8250/8250_dw.c
+> +++ b/drivers/tty/serial/8250/8250_dw.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/device.h>
+>  #include <linux/err.h>
+>  #include <linux/io.h>
+> +#include <linux/limits.h>
+>  #include <linux/lockdep.h>
+>  #include <linux/module.h>
+>  #include <linux/mutex.h>
+> @@ -45,6 +46,10 @@
+>  #define RZN1_UART_xDMACR_8_WORD_BURST	(2 << 1)
+>  #define RZN1_UART_xDMACR_BLK_SZ(x)	((x) << 3)
+>  
+> +/* Allwinner FIFO Clock Control register */
+> +#define SUNXI_UART_FCC			0xf0
+> +#define SUNXI_UART_FCC_FIFO_DEPTH		GENMASK(31, 8)
+> +
+>  /* Quirks */
+>  #define DW_UART_QUIRK_OCTEON		BIT(0)
+>  #define DW_UART_QUIRK_ARMADA_38X	BIT(1)
+> @@ -64,6 +69,7 @@
+>  struct dw8250_platform_data {
+>  	u8 usr_reg;
+>  	u32 cpr_value;
+> +	/* Fixed sunxi FIFO depth; zero selects discovery through FCC */
 
-In this case the allocation succeeded via alloc_pages and therefore,
-printing the warning is not necessary. Therefore, similar to commit
-463d439becb8 ("dma/pool: eliminate alloc_pages warning in
-atomic_pool_expand") silence the warning also for the CMA attempt.
+Please generalize the wording by removing sunxi, it might true today but 
+as more drivers start to use it, then the comment gets obsoleted by the 
+code additions.
 
-Fixes: d7e673ec2c8e ("dma-pool: Only allocate from CMA when in same memory zone")
-Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
----
- kernel/dma/pool.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>  	unsigned int fifo_size;
+>  	unsigned int quirks;
+>  	int (*setup)(struct uart_port *p);
+> @@ -729,6 +735,16 @@ static int dw8250_sunxi_setup(struct uart_port *p)
+>  	p->type = PORT_16550A;
+>  	p->flags |= UPF_FIXED_TYPE;
+>  	p->fifosize = data->pdata->fifo_size;
+> +	if (!p->fifosize) {
+> +		u32 fcc = dw8250_readl_ext(p, SUNXI_UART_FCC);
+> +
+> +		p->fifosize = FIELD_GET(SUNXI_UART_FCC_FIFO_DEPTH, fcc);
+> +	}
+> +	/* The RX trigger table must contain positive, byte-sized thresholds */
+> +	if (p->fifosize < 4 || p->fifosize - 2 > U8_MAX)
 
-diff --git a/kernel/dma/pool.c b/kernel/dma/pool.c
-index 00f422a1e8966..aa44fd74db538 100644
---- a/kernel/dma/pool.c
-+++ b/kernel/dma/pool.c
-@@ -99,7 +99,7 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
- 		pool_size = 1 << (PAGE_SHIFT + order);
- 		if (cma_in_zone(gfp))
- 			page = dma_alloc_from_contiguous(NULL, 1 << order,
--							 order, false);
-+							 order, true);
- 		if (!page)
- 			page = alloc_pages(gfp | __GFP_NOWARN, order);
- 	} while (!page && order-- > 0);
+As is, these checks are hard to understand / connect to why.
+
+It would make this more obvious if you'd name those literals so they'd 
+connect to the FCR side code (naming should be done already in the FCR 
+patch, obviously).
+
+> +		return dev_err_probe(p->dev, -EINVAL,
+> +				     "invalid FIFO size %u\n", p->fifosize);
+> +
+>  	up->capabilities = UART_CAP_FIFO | UART_CAP_NOTEMT | UART_CAP_AFE;
+>  
+>  	dw8250_sunxi_setup_rxtrig(p);
+> @@ -972,6 +988,12 @@ static const struct dw8250_platform_data dw8250_h616_data = {
+>  	.setup = dw8250_sunxi_setup,
+>  };
+>  
+> +static const struct dw8250_platform_data dw8250_a523_data = {
+> +	.usr_reg = DW_UART_USR,
+> +	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
+> +	.setup = dw8250_sunxi_setup,
+> +};
+> +
+>  static const struct dw8250_platform_data dw8250_octeon_3860_data = {
+>  	.usr_reg = OCTEON_UART_USR,
+>  	.quirks = DW_UART_QUIRK_OCTEON,
+> @@ -1024,6 +1046,7 @@ static const struct dw8250_platform_data dw8250_tda54 = {
+>  static const struct of_device_id dw8250_of_match[] = {
+>  	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
+>  	{ .compatible = "allwinner,sun50i-h616-uart", .data = &dw8250_h616_data },
+> +	{ .compatible = "allwinner,sun55i-a523-uart", .data = &dw8250_a523_data },
+>  	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
+>  	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
+>  	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
+> 
+> 
+
 -- 
-2.50.1
-
+ i.
