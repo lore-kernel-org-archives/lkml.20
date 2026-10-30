@@ -1,72 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793329899;
-	b=REj2wq4IY6N0AjulDAK9fZz6cJjRl6DXacen/UBkvKdVYtkvhkQCSsbT4n1koZelXiRj
-	 nIFcZ5QC0iA8u2J+QiYqXeYkPjNu2AhfC15gUX5gYwjQ0UTPZGSXbvgzPBTcOfgJJEdNF
-	 lG9V9ROKzWHD8sERv1KE2ItFSijVLbNY7YpNW0sbHBUvlc8F61qHDXQEvypfmFMtexNl5
-	 15b54z5GVBRqxV68bFfBOVe9suTWxMFn50mLrjW0lKJXk+pNLEHO+xvVKFN6A59bXTJxk
-	 663/NpDy7czfAqRLkDGj6rQKTL4gVNR9Qy05eJr99e1p6lNG0OFeviZY1ml0o2TZUHg==
+	t=1793330116;
+	b=Hx6/u21Fzghx8hJ6C+OCMJgi8KFAsk/IMtnJqWcMD2qQ3zixgngB4ksZ5C+JvJZD6fG1
+	 D1MJP9zjozgC7YH/t7HrZ9vee1kJiFsKyJs+0lMdZq/kznLYJfqcLdKN1zny9+tg/i+8s
+	 PaNj/kM2FJF57wM3MGqoFrPkESe3achN0VEvHR76ln9Lutg4OV/azweC/T46w7AvTvwum
+	 qdspJl1sU+tBkcz7GfocfjZD0HpxnNU5T9+9OmoRo5qOz5InjNlJwzSpFsx9GE0YbRxMy
+	 j1tJNVvsKOiqUvQ6BGCEoxRqBkJm9u/+TDhXlyhJxTFPct3JhJOUn1vXSAqSWJeHBow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793329899;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793330116;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=2fDJp0mtNAsbfuIPfVhzQZRqcvQEENgLWc8ECje75lk=;
-	b=ioR0K1zzRfd5jq3q5aAWIDompwNR9HP5e9oPORSsVG9W2q+DrQuTb+JuQxPWSplQ14i0
-	 ke1VVYKoazE9FQ3lCVuF+W2qwmG9UsC6HcIVN6X6wRV9iKVTbKrq6r+PCH/0wzscaBMzO
-	 Sab9RsmoU7lD6LO/P1w/fUYDI7s4XaF4Nnq374ew4hVx9TTWU4WrUpbmnd4EQuiX7HVwU
-	 8yqzZfrbGNeTGFFqWac5xUOx0NgpGDbSTjd73tZL6fdOX0oVhWqBftMOVbcd8HnsZaGmV
-	 PqrzyVhCACw65FlGeI/aRnNSEkwVoJukazMC4taPXC0nZ9ReYtMLkSkhpnrQYSQhqlA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=AVQv90cVLZ+qJuF4mQ4kF8CxT7gJb59j0c9vMsRIsuI=;
+	b=b1vzwd+VdIw9ZPSqePcdC47j6UueV/A7HlUklG9t96Zx7ylHZWYORbeDt2m1rjeGS54W
+	 h5BehWGJeFSMs9XITNjKGjBjHZzAug8ThbltjWhCuEPZIzmTGAj/fTMXkHACj+nuicSnv
+	 cuay/scHoD5ShMUW6JRpQ0fxDIx4t3iNaqKldDDCSRvaw3LdgmMOzQjYJyvDW8JQgYdgt
+	 mf+cawupGlcimZv8uuyOttHqFLQ770Duw0OpeVy/qDl76qrT71gJIWxKb3Mw7wDNu5xVb
+	 1Z6/dRdZiriNcLQaxchOMfOdkDQsA1KV0rtfqmZ5DxVNd7VnA+IHKOJrOO/+mUziTug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--starchang.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jKrdVlwV;
-	arc=none smtp.remote-ip=209.85.210.199
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="aaSqiqk/";
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86589606A326
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:11:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86589606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--starchang.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65328606A324
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:15:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65328606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jKrdVlwV
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a079256596so186761b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:11:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aaSqiqk/
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso879259a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:15:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793329899; x=1793934699; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2fDJp0mtNAsbfuIPfVhzQZRqcvQEENgLWc8ECje75lk=;
-        b=jKrdVlwVUzHlCoqlXv/D4pBj/numfL+p81jNrs982LRoMu1evrn3GJO6A/a1kc6gh1
-         cZwFqV0Hh+J3egBb/qxTDFddtgYtnFtESqmVmxjMr/TfH7FWudq9bZFZ/UR4FsIvs/KH
-         9DB0c8VAomn3Y8rIoK91W0Kk8UZjlyo5N4H5TlRMRheI3aD/Fc6pHRXXsF74WQkyEWJ9
-         kPNaorAFqPtCb5ZbsQAUfafws9TJkCAL6io7zxGEHHOpB4pXMAaDpu0euLGitLegRo2k
-         85eg176H6HsDSmgAESAXlZyI8ZoOtvtc7iw+zMTqrzoe9a3mpvwq7mE4D9WsackzHPKN
-         of9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793329899; x=1793934699;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793330116; x=1793934916; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2fDJp0mtNAsbfuIPfVhzQZRqcvQEENgLWc8ECje75lk=;
-        b=d8sDWWUFOXLjdWs1B1YKjJbtbRGNopMaj15fYbEfE0gimvJs5JdmO/rH1BoDlPeIEX
-         3Zu8PC1KzSx/2WqU1F8rXRcQqSmklva56A8sD93BZQDbR/ETdmDgR2gKrGnLjLd9j8U0
-         H9SF3CD/goEizPQo9blvRVQuorQHqc9bPNeqPZElquuwb3zPKkiR4CZg2+O6DxnZ80K4
-         yf3FLjAz3/buPiq+gozSFras8NwYWk1N+6e/6hUftDcHdCJ375Fr17kcqBYccCvjQBgE
-         Ht/Rfr0pDhqm0OWC9LMNCO6YJBl/nsQv/0d/DPMHrR0+PuwTm6ZKEey7Yq0PebLajl6J
-         FnKw==
-X-Forwarded-Encrypted: i=1; AKwUvBwhkk7YLfeOkpkbZ5LmY1BzJiYFAyvlAdA6bDJ4VfuZm3DJD7XfK1x0tZbc7jfT+VMqorzyTh3dzNa5t7s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCsYcivp/M0KZCVZVds0FhFNOSUb147exvqTwttPTOffXbP+HC
-	SEjqxfQbRWn/e44kvooyUchzawPAUmEYNIg+ZR3atvneISmdmBDZXWWand+pR9oa8wXOibduTLh
-	xN5svj5mGnIrWdEa5bw==
-X-Received: from pffl11-n1.prod.google.com ([2002:a05:6a00:c34b:10b0:89e:78fd:6ab9])
- (user=starchang job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:4f8c:b0:899:465d:c8ff with SMTP id d2e1a72fcca58-8a9bdbd0f81mr976153b3a.13.1793329898568;
- Thu, 29 Oct 2026 20:11:38 -0700 (PDT)
-Date: Fri, 30 Oct 2026 03:11:36 +0000
+        bh=AVQv90cVLZ+qJuF4mQ4kF8CxT7gJb59j0c9vMsRIsuI=;
+        b=aaSqiqk/H1U8WEQGlWNsFZOX7aajgQfKPp5EL2DyY++KF2L86/T31dba7vVN0KR10U
+         vv/GFiQEWjtG7RT/O/22jpjh1SOyfq5ljVTJ9dNEyc4BBf4IIKvTqVQaMOqZffXrmC+7
+         MGQ7ZyZbdPgBafeq0sPoYsxHX7UER8ObJY4OvnEXCwkuq3zzLEC45mcLdRFgVwcqBWJK
+         7ItWZtYxRqpwdGgUlpIhyiO1wXqPrISF7TmVtrxAQLRxewvRdX+s+udAPqo8POMS/PQC
+         G4QFEcrRFME9cUHGKm0JmOa+gD294hUYUXV5GNRe2dD1ly5x3LtTmytlxRzTi8Cgqn4k
+         jf/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793330116; x=1793934916;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AVQv90cVLZ+qJuF4mQ4kF8CxT7gJb59j0c9vMsRIsuI=;
+        b=I8KnBlWNdq8I03pFeu9IFoE82bUMR9ij+kRtLrCmkwkucqSYOm4709+puVGq05mrlL
+         kU8pYo4xlwk9t7ZgIOcF/e6rhICLdg0q2QU8yxmqA1egvM0/GciuoZP568uVKxneBScu
+         Wmyo9XE1AGdEStqS3pecg/lW4sGR/g6epFbGSRWbq5f85DmfDPNTqi9//TU1Oacs/Yzc
+         dS+CWe/pFd/xTuYkllvPYOVKiKF3p89lYDErR+K62iYh+gP7tkrM/YirIjCHaNSmv4S0
+         ZBH1np5rREPwRWuW6bGmqsJevdWKhhfTFJ4dENWaql4jy0r4zoTlABcVc/6GozFPO7D7
+         LxEw==
+X-Forwarded-Encrypted: i=1; AKwUvBzwpURYlkRlvqO+Kv3qadDevkRAfLqQprYcd6bellVgbYfrnq0d819vYEGq29Hgh8G1KMmQGjamRTpfIHI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKTVl9euh0f5LQwtr4NllXDzsWH7oL2Y2iHY5yj3wvk4WPSebET
+	ZljNqpHYKVvZNDNWVr2DdSwaDWqVDqXWVuke+UanLj5bxyI5AyBcqiNnXMttfg==
+X-Gm-Gg: AYBFou3sHRja1uZhyGHo7x8XwoK4MCE++E8NdgrSIGh9m2xVqxcv7CVgz/uiFMuFKqm
+	CUwnd+j5/eSe0raZ9cUwEBRo4o9UqI2I+2zXZFa+P9PDMIBVLVcd3xk949JuQEo63esMWVvgLxT
+	q3tK/uDIYEbXyNb5X2mFTTbMkGf+xWZVI4zmzuqPVe/pBU8N23S6+rIrE521DJUcKPYDc4rioBD
+	WivI0CPVgaJDaFO5FGl5JsepdOCtmYy/Na/2Uuby4YY03NUzFxAa8Cl3YDcwYXeOxtvznevnZb2
+	qQK4s0ZqQg4yWdcILvTecT3vmIwgp+PYH5LtP2qHe/l8zEgGwzur+6KTuAuMOMyh1HIji64s8bs
+	yOWsa4IU1b8cHbR3CTWJhB+adEvCHbvTHMt2Xxnfdq82Hr33eFXFwVjJg8mI5DXnIDZ0t5TyJnQ
+	gR0Iyh1Bs26In1rWWqFPCkIh+Ns7tEKBIGdsqYT/5cNpHImEYIgsckl7gKcWQGQB+1NF6nmjdTk
+	Hzpe6gf89yyPTqkP/DbVHsluea17rvTa/btyGpGxGE1xkh5WHYwWKfQ5omzp0EWaqK98+kXLV2k
+	+BdImvsevFQtrJ0V9ORXgmbSXEclOQWqLtRQxo8Y/A12/MiQo+p2N4YHQ2eWBT8+A2qwFxzIZBW
+	d4eIBON7Hj+75gCo=
+X-Received: by 2002:a17:90b:1845:b0:3ab:8288:b8ce with SMTP id 98e67ed59e1d1-3ae8974d028mr473136a91.24.1793330115599;
+        Thu, 29 Oct 2026 20:15:15 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e2a703esm6590630a91.0.2026.10.29.20.15.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 20:15:15 -0700 (PDT)
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+To: jic23@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cwweng@nuvoton.com,
+	cwweng.linux@gmail.com
+Subject: [PATCH v3 0/2] iio: adc: Add Nuvoton MA35D1 EADC support
+Date: Fri, 30 Oct 2026 11:14:59 +0800
+Message-Id: <20261030031501.130290-1-cwweng.linux@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,118 +105,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261030031136.607720-1-starchang@google.com>
-Subject: [PATCH net v5] arp: Fix Hole-196 vulnerability by dropping unicast
- ARP replies in L2 BMC
-From: Star Chang <starchang@google.com>
-To: netdev@vger.kernel.org
-Cc: ja@ssi.bg, dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	johannes@sipsolutions.net, johannes.berg@intel.com, 
-	linux-kernel@vger.kernel.org, wangroger@google.com, starchang@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Wi-Fi 802.11 to 802.3 frame translation allows attackers to inject
-frames inside GTK-encrypted L2 broadcast/multicast (BMC) frames (the
-"Hole-196" vulnerability).
+From: Chi-Wen Weng <cwweng@nuvoton.com>
 
-While the `drop_unicast_in_l2_multicast` sysctl drops unicast
-IPv4/IPv6 packets received over L2 BMC, it did not check ARP replies in
-`net/ipv4/arp.c`. In laboratory testing on shared-key Wi-Fi networks,
-an attacker can inject an unsolicited unicast ARP reply (e.g. sip =
-gateway IP, sha = attacker MAC, tip = victim IP) over L2 broadcast. If
-the victim already has a neighbor entry for the gateway (such as after
-normal network traffic), `neigh_update()` is invoked after the
-1-second locktime window, overwriting the gateway's cached MAC address
-with the attacker's MAC.
+Add devicetree binding and IIO driver support for the Enhanced
+Analog-to-Digital Converter (EADC) found on Nuvoton MA35D1 SoCs.
 
-Under standard networking behavior, a non-GARP ARP reply is strictly
-meant to be delivered as an L2 unicast frame (PACKET_HOST) to the
-requester. The only legitimate reason an ARP reply is sent over L2
-broadcast is for Gratuitous ARP (sip == tip) or address announcement.
+The MA35D1 EADC is a 12-bit ADC controller with eight external analog
+inputs. It supports single-ended conversion and four fixed differential
+input pairs: 0-4, 1-5, 2-6 and 3-7.
 
-Enhance `drop_unicast_in_l2_multicast` sysctl enforcement:
-- Drop ARP replies received over L2 BMC frames unless they are
-  Gratuitous ARP (sip == tip), recording
-  SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST.
-- Preserve legitimate GARP announcements (sip == tip) so they continue
-  to defer to the `drop_gratuitous_arp` sysctl, preserving VRRP/HSRP
-  router failover.
-- Leave ARP requests untouched per RFC 826.
-- Update Documentation/networking/ip-sysctl.rst to describe the ARP
-  behavior.
+The controller provides four interrupt outputs, ADINT0 through ADINT3.
+ADINT0 through ADINT2 are associated with the corresponding conversion
+interrupt flags. ADINT3 is shared by the ADIF3 conversion interrupt and
+the ADCMPF0 through ADCMPF3 result-compare interrupt sources.
 
-Fixes: 12b74dfadb5a ("ipv4: add option to drop unicast encapsulated in L2 multicast")
-Signed-off-by: Star Chang <starchang@google.com>
----
-v4 -> v5:
-  - Drop all IP and IPv6 changes to avoid UAF risks and adhere to RFC 1122.
-  - Simplify ARP logic to strictly drop non-GARP ARP replies (ar_op == ARPOP_REPLY && sip != tip) over L2 BMC.
-  - Do not inspect or gate on target hardware address (tha), leaving ARP requests untouched per RFC 826.
-  - Update Documentation/networking/ip-sysctl.rst to accurately reflect ARP behavior.
-  - Record SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST on drop.
-  - Retain only Fixes: 12b74dfadb5a.
+The initial driver uses sample module 0 and ADINT0 for conversion
+completion. It supports direct reads and externally triggered buffered
+capture. The driver supports an optional external reference supply and
+uses the internal 1.6 V reference when no external reference is
+provided.
 
-v3 -> v4:
-  - Addressed review feedback on ratelimit logging and drop counters.
+The binding describes the optional DMA request and all four hardware
+interrupt outputs, including the result-compare sources sharing ADINT3.
+The initial driver does not use DMA or result-compare functionality.
 
-v2 -> v3:
-  - Added THA validation and gratuitous ARP handling.
+Changes in v3:
+- Document all four ADINT0 through ADINT3 hardware interrupt outputs and
+  add interrupt-names.
+- Document ADINT3 as the shared conversion and result-compare interrupt
+  output.
+- Remove the redundant minItems/maxItems constraints from the fixed
+  interrupts items list.
+- Rework the channel binding for the fixed differential pairs and use
+  single-channel for single-ended inputs.
+- Add #io-channel-cells so the EADC can be referenced by DT IIO
+  consumers, and define the cell as the logical channel index.
+- Add firmware-node channel translation so sparse or reordered channel
+  child nodes are mapped by their logical channel index.
+- Restrict unsupported generic ADC channel properties including bipolar,
+  common-mode-channel, settling-time-us and oversampling-ratio.
+- Explicitly configure INTPOS for end-of-conversion interrupt
+  generation.
+- Explicitly configure the ADINT0 sample-module source and clear unused
+  sample-module routing.
+- Reset the EADC control circuits during hardware initialization and
+  clear inherited ADC interrupt enables, result-compare interrupt
+  enables and sample-module trigger sources.
+- Add timeout recovery using the EADC control-circuit reset, followed by
+  IRQ synchronization and stale status/completion cleanup.
+- Use iio_push_to_buffers_with_ts() for triggered buffered capture.
+- Avoid mixing cleanup guards with goto paths in the trigger handler.
+- Add ARCH_MA35 || COMPILE_TEST and HAS_IOMEM Kconfig dependencies.
+- Drop redundant linux/bitops.h and linux/mod_devicetable.h includes.
+- Use direct regmap helpers, explicit REGCACHE_NONE and
+  regmap_assign_bits() where appropriate.
+- Use fixed-width register offsets and kernel time/unit helpers.
+- Use size_add() for channel array allocation.
+- Request ADINT0 by interrupt name.
+- Improve system suspend and resume handling.
+- Address review comments from Jonathan Cameron, Rob Herring,
+  Andy Shevchenko, Uwe Kleine-König and automated review/testing.
 
-v1 -> v2:
-  - Initial expansion to ARP.
+Changes in v2:
+- Reworked the driver to use regmap.
+- Added optional external reference supply support and IIO scale
+  reporting.
+- Added optional reset handling.
+- Added externally triggered buffered capture.
+- Added signed differential conversion handling.
+- Added fixed differential-pair validation.
+- Added system sleep support.
+- Added optional DMA properties to the binding.
 
- Documentation/networking/ip-sysctl.rst |  4 ++--
- net/ipv4/arp.c                         | 20 ++++++++++++++++++++
- 2 files changed, 22 insertions(+), 2 deletions(-)
+Patch 1 adds the devicetree binding.
+Patch 2 adds the IIO driver.
 
-diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
-index 208f46967ee5..0e4f151fac48 100644
---- a/Documentation/networking/ip-sysctl.rst
-+++ b/Documentation/networking/ip-sysctl.rst
-@@ -2297,8 +2297,8 @@ promote_secondaries - BOOLEAN
- 	Default: 0 (disabled)
- 
- drop_unicast_in_l2_multicast - BOOLEAN
--	Drop any unicast IP packets that are received in link-layer
--	multicast (or broadcast) frames.
-+	Drop any unicast IP packets and non-GARP ARP replies that are
-+	received in link-layer multicast (or broadcast) frames.
- 
- 	This behavior (for multicast) is actually a SHOULD in RFC
- 	1122, but is disabled by default for compatibility reasons.
-diff --git a/net/ipv4/arp.c b/net/ipv4/arp.c
-index d409f606aec0..d6a01d05aa75 100644
---- a/net/ipv4/arp.c
-+++ b/net/ipv4/arp.c
-@@ -791,6 +791,26 @@ static int arp_process(struct net *net, struct sock *sk, struct sk_buff *skb)
- 	    (!IN_DEV_ROUTE_LOCALNET(in_dev) && ipv4_is_loopback(tip)))
- 		goto out_free_skb;
- 
-+/*
-+ * Hole-196 defense for ARP:
-+ * If drop_unicast_in_l2_multicast is enabled, drop ARP Replies received
-+ * in L2 BMC frames unless they are Gratuitous ARP (sip == tip).
-+ *
-+ * Standard ARP Replies are strictly unicast (PACKET_HOST). An ARP Reply
-+ * in an L2 broadcast frame with (sip != tip) is an injected unicast packet.
-+ * Legitimate GARP (sip == tip) is preserved and defers to DROP_GRATUITOUS_ARP.
-+ * ARP Requests are left untouched per RFC 826.
-+ */
-+	if ((skb->pkt_type == PACKET_BROADCAST ||
-+	     skb->pkt_type == PACKET_MULTICAST) &&
-+	    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
-+		if (arp->ar_op == htons(ARPOP_REPLY) && sip != tip) {
-+			kfree_skb_reason(skb,
-+					 SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST);
-+			return NET_RX_DROP;
-+		}
-+	}
-+
-  /*
-   *	For some 802.11 wireless deployments (and possibly other networks),
-   *	there will be an ARP proxy and gratuitous ARP frames are attacks
+Chi-Wen Weng (2):
+  dt-bindings: iio: adc: Add Nuvoton MA35D1 EADC
+  iio: adc: Add Nuvoton MA35D1 EADC driver
+
+ .../bindings/iio/adc/nuvoton,ma35d1-eadc.yaml | 175 ++++
+ drivers/iio/adc/Kconfig                       |  14 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/ma35d1_eadc.c                 | 849 ++++++++++++++++++
+ 4 files changed, 1039 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
+ create mode 100644 drivers/iio/adc/ma35d1_eadc.c
+
+
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
 -- 
-2.56.0.317.g454f8302e1-goog
+2.25.1
+
