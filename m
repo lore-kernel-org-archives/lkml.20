@@ -1,107 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793343582;
-	b=uqJZou7aC7OtUMDomY62s4JVA6EOjzGaS7KRafkj2w7rfSdKvsjluExB2B9IDjGY8d3l
-	 I9r+vL7daAWil/3JcYZHj9tJ+KCmYJBwj3rMxvQ0N8V2dnWW/oVBdeKUs4apV+u/UwhNS
-	 rOL5E2mMs+nxnLwQuaSIeS3Qh9dDUbCDxhMpjvG7srle6h85F5LB104m9L6k4LYzWPcve
-	 EamIvSxanbQl0Ukw3RIsjMtZI2w1+MYrDDpLUZZiqNOWD5W5TutmXQstkmapfhFCE2TKu
-	 i31DFlYebsXp+uaqNVT5BEM+ka+v44HQNPfqPi+fzy8R0x++Gr/IW8DdhZGax6UeCYg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793343582;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=MM67aKZa2k2c6bKq+gBbl3F1MAGEAQchHa0lPFGtDy8=;
-	b=H36zjZgUlRq5LnmlfBA8NoQO/uo9kUD/O2GdPf7XjuNUDV/TSmfOG7s5RhNPV6VTjW7t
-	 f5NqwwiXi27/RBod1XmZbySS/mMKSrKCg28mPyUW4K2XX3etJt6/1vk0xXpXQfped23eO
-	 Bd+sSFmMPvEV47YmOImbZwvGSOnL5mY0TK6BknDMgyEnFAbleVDLqf82wyqy+Z9VldN/3
-	 YlUZAHqCap3IrxQWJV0Oekbdk60SUX1goCHO76N5DDSMhJYnOs9TxJy9c2m3a61lDD3pP
-	 rnijIT2/cRQWU+9qOt/xpejLlWI7QR5ev8OrAqgSo69G1U66o+YgjB+tl9pR8A8yJ8g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=izXGW7YM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.19
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013019.outbound.protection.outlook.com [40.107.162.19])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.77
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793343618;
+	b=u8bndQJsH9KJcURiJ/jUqBw4NhvpCLSyu/1nNgZl57BPvM1XwL3AxlcUhx5DKogWGaD7
+	 i5MFG3D/MwgE57QNviDh9GszB8P/81j689OhjlTYk3pYb6InVJa/4pKrJz6t+RwH82wyf
+	 zRgOjScttLF0igT6AqRkJbrrMwpAFG/KtJk68dUTydY2/iVisDPH7Ge/cUrwmuJ6imsSd
+	 +CMPvPVVshtXymldpHiScu1VBAXdUclVOwN0IW6zVJjCjYEW6svSw+j8awjwigLFmCrFG
+	 yhDFaft1oGKLdyTnAeYi586Bds/KiZMnOntkz5uerj6yVhwb7vvumz5qR3e3CO0bWXA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793343618;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=fgtgbqMxBK3o0mNT8b3UNZoB9xCVQE8JKhDZkyq/NkI=;
+	b=39qAoy/5fFFrhrz5Sfjl9hAdIMNBbD6AttWlfiQyaSi4/LZRYZCqvghK41AGTaigqewl
+	 ztbKLDj9efunuaTeCupm8kTMOLHBAX+iRrbnkrLfxy4sieTbRAxcyVTPMFWZtJH9KRLBE
+	 7uwuOvzK+ciJ1RM6aFLCKy9feW+pgrO37RdBeUvV6nQcsherIGisJPe1G0QLtfODuVkCG
+	 Qp3VRHWAqqH9uwAJ6J5HGgk7iXaPESR8XxpoIE0JJKZLjhiVWC1WkUv0uyFZH8fFeWE6F
+	 hKWNnugpF25Lt7vkesE4LMy/8u6EwaS2sG3ZjQb9qKqubou0SwOM5ylkxpG91q5g9AA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=open-hieco.net;
+	spf=pass smtp.mailfrom=open-hieco.net;
+	arc=none smtp.remote-ip=115.124.28.77
+Received: from out28-77.mail.aliyun.com (out28-77.mail.aliyun.com [115.124.28.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ADCD606A31A;
-	Fri, 30 Oct 2026 06:59:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ADCD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=izXGW7YM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mgUDo7/xZJBLgESW1nYl0zz+QdY+TPEZsLpo/YiQYRsoVPujiw58WEiXzL19J1VhHZDtQIpXZwyLSTDRjL3bbc6RTkscGx1yRK2kcCdx5L8BX/UhXT9HEd+OtvLKFe+asyK11Fs56AdV2MCSQnDsUvL3KpgcWuBi5CHHO67zpVPXRhZTaUDR+Hi8Pznekfi/69mOU2z58wOUmfqF/Y6K2H7RqbwUKdEOvrwNahIfAjdEn5j+zUr/BPxWyvB/VQtwiBbcNpxtynYoR7i/qqkGdr9Saov+23M+FEC3942l7ZgQ/cq0uSa8p1TR8qxgxrv5v+15UKG1Pg0SvrKeDjLJ/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MM67aKZa2k2c6bKq+gBbl3F1MAGEAQchHa0lPFGtDy8=;
- b=VY58Dl9m+yKtY1d9BS73IjJxQ9ST8Fbo7NDRFwinwsdW0GCAy+SC6IEHBodJnydAcCo88y3wcDdEu/ogBkbFJij1K7YbfTSHe9CVIWdswZMsHnvjL5TJf6p4065aXaLNr4K57SfVzGHzIYMWJ38KLt/6ie5OSlV7mIqAz8wb4iFhPVE/LnM4VzXny+CgWVdnbDDhuYHSfzf0Der11EpN8DaH08r+1LpMhvonJEvx4yNqOnfpTNKwcfUujnB0RS8lVfWCjuUSnPJrWWxymM82nHnrTWNouchay0rkuCnlJPt8HiSPJZhXM0AwLR2+hjsXPW+YzsR2QiRgbmul0J4F7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MM67aKZa2k2c6bKq+gBbl3F1MAGEAQchHa0lPFGtDy8=;
- b=izXGW7YM16KyQ9YvUM9Zgaye43hmLqqXvJtd7hVpHj9aNvhSYm9nxVFiC7XCA1E6jLfjYPTxbgPOYCPs8iJxEMm6hmiaF4chcfAS2Y2al+4xNgUZXE49Lk5YturtMURBOiWaBDsRzlL0yLT8yHFMugTx44jerIPSff+DGc8GqJN5u4WfyR0noTZKqLcB/5ccHSCwfEdlyhvGVq+nj/57f8wlLyHQnXZ0WIQ2jwWbZcDa0/qMQckVSFtO071MTnCd4GG7zULKrQYZs+fD2K1Z6LiJq2QGFD3Rl4b2xbYnVC/O3nuFaPrjbm077j6woPCrKuoFTvgNn24+j6dOoKFpVw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
- by AS8PR04MB8561.eurprd04.prod.outlook.com (2603:10a6:20b:420::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 06:59:38 +0000
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 06:59:38 +0000
-Date: Fri, 30 Oct 2026 15:01:15 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v7 06/15] drm/imx: dc-crtc: Disable at boot
-Message-ID: <auRAu8P3JDfSV7Sh@raspi>
-References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
- <20261026-imx8-dc-prefetch-v7-6-a0b50cc4fc65@nxp.com>
- <auH8X0tITcU72fk5@vm>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auH8X0tITcU72fk5@vm>
-X-ClientProxiedBy: SI3PR02CA0014.apcprd02.prod.outlook.com
- (2603:1096:4:295::6) To MI9PR04MB350878.eurprd04.prod.outlook.com
- (2603:10a6:290:c0::7)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2D1606A31E;
+	Fri, 30 Oct 2026 07:00:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED2D1606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07960097|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00893295-0.000139809-0.990927;FP=9925747066805812598|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034184;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jstcwvx_1793343604;
+Received: from localhost.localdomain(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jstcwvx_1793343604 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 30 Oct 2026 15:00:05 +0800
+From: Li kunyu <likunyu@open-hieco.net>
+To: axboe@kernel.dk,
+	tj@kernel.org,
+	josef@toxicpanda.com
+Cc: cgroups@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Li kunyu <likunyu@open-hieco.net>
+Subject: [PATCH 0/2] block: Add done_split_bio() for chained bio post-processing
+Date: Fri, 30 Oct 2026 14:59:43 +0800
+Message-ID: <20261030065945.88742-1-likunyu@open-hieco.net>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,74 +54,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|AS8PR04MB8561:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ffa6725-6a7d-412a-7c7a-08df36535cef
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|19092799006|4143699003|11063799006|56012099006|261009223027099003|261026140227099003|261028144727099003|261022105027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ZpzPkgIzuDwRuqMwx76dtHetOqSXl73p1M2tbpr2BH0NbfyQTyYjiYoEroUU2ZbsbgTc3OBAQm6sAAcFsXNPniA9OJxG3l4/9kPqCrUjHM7SdAKtqEpwkUNl5hGYSgZTx5TO8Mk18bJ90dCrO/f2r2UZ+DLMOtNw1aChdUV0r5s70rOE+9MgI7VOlRM3EXVOE72PN8v2AQKANzAdXtwLQDDS/IKD78fJOLm72unTei4kn5sInIjVFUVeGvo3iEGh8dVy/QKl1E+d1CoI09vHweD501hKkKmWoRAniYppfNaV9yFbtPMA7B9bq+nDor7AkQNzi3yAnFOEiBO1OvtB5CbsyivSNFrPOGw5JfKP1YQb3NfShdxxeseMVS5iPf2+umm8SPn/7TvEX9U4+0/J8RPM44Q8L7p90YQP2xTFUe+KP+qrpnyq5YVOIJmPkcFz6FsjlqpQIwuQFPrlFNlZDJA36Pe2iaIBNmsHQLg7uL5NqsVYQ5wz16Y5OeJcfUpIwmN/YKGavTEwwyNxkk4tkNKy/WywlJ3F5R1w+rhLPBsUTLhKzsLxQP/PfROmOJSOgcx1n3Ht6rvRYIqVuoklV92qSr7b5QFX/x/LP8nf/4jnP4mzKLztexZvnWsYNxCCfOJj4chCgX3UVqW4REVRBvGU731LvGdnOnoCHYD36Fw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(19092799006)(4143699003)(11063799006)(56012099006)(261009223027099003)(261026140227099003)(261028144727099003)(261022105027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?LaVzPSQyzO4RtfUXS0bIPfnYi8sy3wGRKZDW22g+bK/rCKyu5WT/+JbmUiTI?=
- =?us-ascii?Q?4dt1ngs8mW+dqeDLgJwQCG6yVClx7I2Km4d64faF3FZlbRAtj39VU7zAOMoF?=
- =?us-ascii?Q?S8NHkmoH4uqO/Iu5vthW/yYVXnlYGw0MXws3N+1e+gmni9vJeK9IamagkwLb?=
- =?us-ascii?Q?iJ1uXW690Ukslca6l5dJIpyh/vMWpApWhls8OhZi8hUEMk50P7nf2h95RUV6?=
- =?us-ascii?Q?Z7x/rdUoRflXeipiJ/TjryksfxIVm9Yrw9CJ1ETkLnMmPqKkr91WFFuxM/1H?=
- =?us-ascii?Q?mHYs5jWkpSFWib8yJrb05PVtUUJ2fGm3OPMX/zjBpiD3gfom4NjeYDibRZJ2?=
- =?us-ascii?Q?fhJ8boZk9lLhxvi/VmyLTCKGMnYT2wEh+nKs42bpsI6VIo7OggXW+O5lZxhE?=
- =?us-ascii?Q?jyVx5GCp1Idgme46dGyVNJY2DyLA1FeoumiCj+rK2ihF+dUV746CY+7+5GLQ?=
- =?us-ascii?Q?5NCSjZNmrwK/tz2ISh/LZXJImnO+4uquUuERyeH2KjCO+U21JQBMH0iJ0N6L?=
- =?us-ascii?Q?GqCiRjm3eKz3kUEntKkr4nNBQ9FCE1eiqc3vVvqIqUIfvYcxdvUD8vq+eZLC?=
- =?us-ascii?Q?7hnF8EAtXsXksD1/XxarzaI21BQF7vC9+VgHhr06TfPfwqqaEGYFUAEHq+dO?=
- =?us-ascii?Q?qywTbPjGbl/ADni1GeXWkcKuLDw17I5yFA/8eKD8pVSiBttSNQpTsLw+ZtEo?=
- =?us-ascii?Q?znSgBesrmziTxgZyO99VarrAWTWDHadHQXzEF/WgfAAUu87+pQVghB4B2Uzx?=
- =?us-ascii?Q?Gl3Qc+ZoxC/Hq+7+tqafTQ3I/u3gkUleNoFkTVYL00F9uGh7YlonfMxKJfkB?=
- =?us-ascii?Q?xxUbqfLBOTvwugc5FPZoXkVTFz0v7mWtWosIngx5gVq8kXMAydFUa+faR5tW?=
- =?us-ascii?Q?yFp65sRcFAoAtDdlB7T+QJbDVK6IB4KtzFd4qp/reYbEuTmwCgcgRefgKhN3?=
- =?us-ascii?Q?wa5rOpAuf/xujpRWCLH+dk4lJ/B9y3jUwtbIJxE3ZzJEWm5HjOspKB4YKmT9?=
- =?us-ascii?Q?ujN5kNi1g8+blWZyHECJbgl09OQFatVeWlUBjVTnrL/R+3N95VlrwaI+JTlb?=
- =?us-ascii?Q?YkPC1mInt2G1CIZ6HqdtNGrlGWWcc6/sBuV69L20+wgW2L1ueCvB4pZy7MeH?=
- =?us-ascii?Q?11KyBaLRfHDbra4t4j71ZCJlyW1RgRacuF3hC8JIrNCS21SNP6V1icNx40xI?=
- =?us-ascii?Q?gfFKvt6vOmtsC2643yFtwqSjhV5WvGo2+gV8IWs+BU8bQNm/cZGIP9aMYLkD?=
- =?us-ascii?Q?JZB2mB+YVO687QWNYtRTh9zsxSBFdh+BGMwa/EIXSIlbVl+yO1qFCiy4FItJ?=
- =?us-ascii?Q?OFRwejL6qmW1dCXqRucqJfLZOOJXUUJAoXWaG0hQbYy0ggK6dQHngRk8++Ww?=
- =?us-ascii?Q?YGapudFVuhWnVeFTosM0Umz+zvtu7d+OE+pZCOGrIjjnvnmSCvBJbaE0sZt6?=
- =?us-ascii?Q?1aa+2tc9EhFjee5RCzNexe5IdHBf/a9WAFvgdqs0bsOlp4Vz2b3x2da1Ct0x?=
- =?us-ascii?Q?BI6R3LkITulylUHyjYhbpQ9AFoSeHn65vw3AQIlgJ33La0sTzvOcptX3w7En?=
- =?us-ascii?Q?88wX9sbIMSaENmaMCrnUh7wlvz6o4v5rcGfPC0yQapZ2w/TtmRWNJZNVJnU5?=
- =?us-ascii?Q?Nleexiy6ZE+MUzFfZdNjWLHoao30wlm8NaHfuP/dwiX5xNmFQ0QYVSDTkyyM?=
- =?us-ascii?Q?cOq/quLUlfyZAp6M/YIEbjV+nM8RJg57/Q2/m7N+Sd3SMRizA3N8lrtULnJN?=
- =?us-ascii?Q?zZQuXidj5w=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ffa6725-6a7d-412a-7c7a-08df36535cef
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 06:59:37.9905
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6xibwtnVSCEPJECvmDMjrgbgTfSl7QLuLFXsmVmqE3w/RQb4FI9Euodl5l2LgHwCG8kvvbRronut3M1PwQOMGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8561
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 11:30:06AM +0200, Laurentiu Palcu wrote:
-> On Mon, Oct 26, 2026 at 06:05:11PM +0800, Liu Ying wrote:
+[Problems encountered]
 
-[...]
+The split-out chained bio path has a QoS accounting issue. In a complete
+chained bio composed of 10 bio headers and 1 sub-bio (produced by
+repeatedly splitting a large block), only the first bio header among the
+10 bio headers, the one that satisfies atomic_dec_and_test(&bio->
+__bi_remaining) and the single sub-bio can execute rq_qos_done_bio(bio)
+to update the QoS-related accounting.
 
-> > +void dc_crtc_disable_at_boot(struct drm_crtc *crtc)
-> 
-> Shouldn't this function return int in order to propagate a potential error to
-> dc_drm_bind()? For example, if pm_runtime_resume_and_get() fails, or frame
-> index isn't moving, wouldn't it be better for dc_drm_bind() to fail as well?
+This prevents other bio headers from updating QoS-related information
+such as inflight counts. The inflight counts added in
+rq_qos_throttle(rq->q, bio) are not subtracted, so the inflight count in
+the bio's QoS area gradually increases. As a result, it can no longer be
+used as a reference value.
 
-Will make it return an integer.
+Reproducible scenarios are detailed below(blk-iolatency):
+1. fio is used to issue at least 1024 consecutive reads or writes, each 1MB
+or larger, thereby exceeding the maximum single I/O size supported by the
+hardware device.
+
+2. The 'inflight' count described in the text is observed by printing
+inflight = atomic_dec_return(&rqw->inflight); in blkcg_iolatency_done_bio.
+
+
+[Implementation]
+
+patch 1:  Introduce a new abstract function 'done_split_bio' and call it
+from bio_remaining_done to resolve this issue.
+
+patch 2: Implement the blkcg_iolatency_done_split_bio callback in
+blk-iolatency to correctly decrement the inflight count when the other
+bio headers, which have not called rq_qos_done_bio(bio), complete.
+
+
+Li kunyu (2):
+  block: Add done_split_bio() for chained bio post-processing
+  block/blk-iolatency: Fix inflight decrement for chained bio sub-bios
+
+ block/bio.c               |  2 ++
+ block/blk-iolatency.c     | 42 +++++++++++++++++++++++++++++++++++++++
+ block/blk-merge.c         |  4 +++-
+ block/blk-rq-qos.c        |  9 +++++++++
+ block/blk-rq-qos.h        | 23 +++++++++++++++++++++
+ include/linux/blk_types.h |  6 ++++++
+ 6 files changed, 85 insertions(+), 1 deletion(-)
 
 -- 
-Regards,
-Liu Ying
+2.47.3
+
