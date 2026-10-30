@@ -1,60 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793354290;
-	b=NpyDX+9xPFRVRwpoM1s4ziNidlf0rm5nM318aUigt53jfjZeLbtNwRm8Oy+IpRGymttk
-	 n3QPQ9PItmEfCKgKGl/QZQZYMFZ99UuZ6bxK/4VAtr/UysY4B9FBTO7sj9qFikrKYrczm
-	 jdqk6pCuZirxG7SaSo8xzfa2Mu15UM1VyHDojl0HJwiJui1pH5Ykz27PdFAAcCjQ+8gr1
-	 sJyMLz34aU5XNPDu7qfEoNxAPcUx6a4nkiAU2wYa8Mi0S2YiAdv1qeU8Qs974vM125W2K
-	 IqiJvZv1HwO7uLV09EAdMMo0D39/N2JqRcPbtgT99Et5lyMLgUVdfvgQFFe3W03PyWA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793354290;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=yNhU8GgQUg1o1nYtT+CT1yyH9rXOeQLdJVtY/2QBf5A=;
-	b=q1FmW3Wss8gMoATdj83uJZXI5DSGuPIoz+I+fcvQebUHHWaLnuymarszErZxPqKefyQu
-	 K0Qhn4QvViHWZVz1USFmM/F0imWCKvYXGZIGUvZ+bpII86rFsl+xjm6YKy5ysYGIz88Ep
-	 hPggQJATvhTTxtOmvg2xBA6mD7u3BsX+gqQoFwrjG2Egc+PPBfWM9JLs7sziLyt1n4Miw
-	 kk96hYdr2valgxaQ0TfuiIl//rAq8s2KrAIFBW253amThvF+D4PJTjkycozEytvnEMsad
-	 MHxKM4sQtCako66FhohhTTjnhx45EITKfOyZ9Ll5EHfMMYJJ5atdk0bpf0vB07KqEbQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NtvUXfff;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.8
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793354380;
+	b=cfb/oJ75DEXYDACObObA9YV2l503nZ0pLVCbcULYlRf/tLmGqWNv7QRPBv46VSWQ+dW1
+	 8WTpyLXopgRWwwEsDgMzX/a6oOhHCJJqtQmSebwTYSPjTRYGjjVX+yit5bG1DuVk45zI7
+	 8ARKHfuqMiCSo5Yxg7w8RH/Pav2QLzijI/6rXbdIz7mLQ+B6gpp4pCNRGbqZXFXeiTxch
+	 Yi9TzToLPiqAJLs2eUhYaX6vwfbcHlxeFm2DWENft0MHR12vQiupbO5NFe3vqb4wcEe2m
+	 JJgJGzv47t1FYhm1A12ooDhIrwvK5RgIMqI2Ppj6wlK2CkPPj1BvYZbtHwo4eGLNDlg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793354380;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=WhVjyAuGzq/HjJ2e1N/h3uMAk8Q27f6RY2j6TS0nxfE=;
+	b=pZKo5EyRI49rzye8f3ER/e3NQ7BHhDo8OQbEjuBqIt7h5JAWsE5RNyS3L7TXCJNPFCL6
+	 FiVfuriuPv8KuvbS/e//n8o8rZLJCOroPRlHcMHDkUD/TE7D2+8cjUfI+5lASBzpf0o3K
+	 RPbsDxX7o0kXlbNBoCUn8YoWSHoJVYwp1YDZhg0dZoJQXJr7DFIqlx5fbH6NOPaS+hU3o
+	 8KMq3N5AkhHKsOAE8c7PyTAHoPxhtFZwrVhuBAWXAnCuQkCSGsROSXL9JzYBIFjOVT5Sk
+	 tdo6IUApwddAxuWUawsxnBlN1Kt9IR+GI9/r+gOk4IsB81sMo6cop6bIEhUcN4ghypA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MAnYpcZj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.8
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013008.outbound.protection.outlook.com [40.93.201.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0486606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:58:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0486606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7E8606A31A;
+	Fri, 30 Oct 2026 09:59:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC7E8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NtvUXfff
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261030095806euoutp02c42f1093943f5c7738a484c847e0820c~jRjjWIxMS1380313803euoutp02G
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:58:06 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261030095806euoutp02c42f1093943f5c7738a484c847e0820c~jRjjWIxMS1380313803euoutp02G
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793354286;
-	bh=yNhU8GgQUg1o1nYtT+CT1yyH9rXOeQLdJVtY/2QBf5A=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=NtvUXfff5dKjwBX0uM7X8ZM/3/RbE2GOv0oE+FmvpIbQNd3CHiOOEO4VCDVdLDCJh
-	 wXiSS4SadpXPwkLFCjZFTahhsAikSSMdcmoPyeBU7QSd3ZjrRRQ73pTT3c7eqLKjyG
-	 d9ZofaBWa24bwsKrH1ZIERUYMC9SzueXqIg4BGmo=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261030095806eucas1p1227bd86bd46487d5dfdbe36bd4df8e94~jRjjGqrbL2917029170eucas1p1k;
-	Fri, 30 Oct 2026 09:58:06 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261030095805eusmtip1ac47d4a4931e52d5610654736cf914b2~jRjik2heC1953319533eusmtip1E;
-	Fri, 30 Oct 2026 09:58:05 +0000 (GMT)
-Message-ID: <01841455-880c-4477-ac69-ea8c117cc6cd@samsung.com>
-Date: Fri, 30 Oct 2026 10:58:05 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MAnYpcZj
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HEKGj26aeQ5tv2MnMnp5BTVPZcdX6KCIXQbosDw3txkrlitRrZZklMWGVGbSlN5iT5OoWfX2A1y/UM4tUdOBIP7pOtElPwjKocO7x5cOR1mxOA45DImGv0MnwL3cKMUp4TXtxOZ9cXlNdT1AZQdat5hzyw3yLMiqfh5T+0qe/w7fRK1KaV6WSb7PcIF4crCPQaC0O1iQnXe27vZtE7wUL+IOnAzskgRgPVCY81miHXTbERMKoRhXkDT6QsOCx6nvFZi0RgjCvjQfySKfV855fE9k78zV8GesaiIF83vkyQ7wqkza2GzOJRZNf+XR/slZ+AFF1tKQ+MIEfm4E4dWTGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WhVjyAuGzq/HjJ2e1N/h3uMAk8Q27f6RY2j6TS0nxfE=;
+ b=E5BbMH8RiHZw8BVKha3tutJqfpbRYEj5miQL/ZXVHUG3yTUPdFFMw1WgyiLLWN+SqaBKztVfDPYzTl/oCx678zhUfAzymIYL5tEqJRaAc6dskw0SNsVWyad0zbuxJ43ZUWdgMZiLBIwhYnoVM03cJ0pxuVGTqrPhYn9wrjGMdhBRFDcGDFRVWAaHxe9YJvUgbBvJRVwIebk2N3O/qhNC+xLk9dDI703eruX19+b0D9jEO9VJMhOH/q+a92+atnmVdaLPGiHoo7+eQ0zvItgxua+o8YqZxp6qF24YEsmB+oC18u38D7W8Md32iNuLpYGgEjfeLyzNWKeEHJGy0b18rQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WhVjyAuGzq/HjJ2e1N/h3uMAk8Q27f6RY2j6TS0nxfE=;
+ b=MAnYpcZjNYlVDLjbUcZyhX5g8vnutKYIfqsiwF5oCotDEteG3OgS15OsifP7R4P9vOUjnGC1uicH9ely3TNT2j3bsyaQFUcyHbe8GWntXHAGB0oYEcj2I4A3FiLyFRRchgBLsG9I3XzGs1FdFFtbAcGGS9/s3EMS2AQqhwedH0SUNYLulmIVJPmphgaQlevgSIy+9PhMUZPkLas6KLL9XfH9r6dp4vCg21gEuSZDof+kQHssHMlanFo525c7qu9WgKWp40MHHi3XJKPsaMgXUzlbiyq4Aaj7Ejp9N3aY4F22Ps4udZVEmZ8+0iAfUx94PJMDabIo9pkVkwCiVQtrJw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
+ by CH3PR12MB8457.namprd12.prod.outlook.com (2603:10b6:610:154::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 09:59:36 +0000
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8%5]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 09:59:36 +0000
+From: Richard Cheng <icheng@nvidia.com>
+To: dave@stgolabs.net,
+	jic23@kernel.org,
+	dave.jiang@intel.com,
+	alison.schofield@intel.com,
+	vishal.l.verma@intel.com
+Cc: iweiny@kernel.org,
+	ming.li@zohomail.com,
+	icheng@nvidia.com,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kaihengf@nvidia.com,
+	kobak@nvidia.com,
+	newtonl@nvidia.com,
+	kristinc@nvidia.com
+Subject: [PATCH] cxl/port: Fix endpoint RAS error unmasking
+Date: Fri, 30 Oct 2026 17:59:23 +0800
+Message-ID: <20261030095923.46051-1-icheng@nvidia.com>
+X-Mailer: git-send-email 2.50.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR06CA0005.apcprd06.prod.outlook.com
+ (2603:1096:4:186::12) To BL0PR12MB2370.namprd12.prod.outlook.com
+ (2603:10b6:207:47::27)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,243 +105,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v5 1/4] gpio: shared-proxy: Fix race between concurrent
- first users
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>, Linus Walleij
-	<linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261028123448.510401-2-shengchao.guo@oss.qualcomm.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261030095806eucas1p1227bd86bd46487d5dfdbe36bd4df8e94
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261030095806eucas1p1227bd86bd46487d5dfdbe36bd4df8e94
-X-EPHeader: CA
-X-CMS-RootMailID: 20261030095806eucas1p1227bd86bd46487d5dfdbe36bd4df8e94
-References: <20261028123448.510401-1-shengchao.guo@oss.qualcomm.com>
-	<20261028123448.510401-2-shengchao.guo@oss.qualcomm.com>
-	<CGME20261030095806eucas1p1227bd86bd46487d5dfdbe36bd4df8e94@eucas1p1.samsung.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|CH3PR12MB8457:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7117f87c-708c-48d8-091b-08df366c80d0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|18002099003|261009223027099003|261028144727099003|261022075727099003|261021121427099003|10067099003|261021123027099003|261022105027099003|261026140227099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	2YcZ7oEn5ucjmznodIusXQAzev+UI6ZYi3hCEZ01jRP/s8NiReWD3t57IImlnUSjmP9MKndGTt01EjrDiUVQoyZH7yeFvCxQcSSCjrLfG2mHJjXYIA/QfXgjY2B6HWwzdhY1BnnxL9YZf08m7OhKFWZN151UfGThVXxaaAsFjv41U3tlLLElFHLwfyMBcqXjQ0sShqOhuqYz/F2xUmw79uUZ1vR/FrKni6acvBGOAp43yVeWRbuzSF3q5t+xPE3eGCrSyaToCjOSWBysJjhlQNEzkFw8pt6+JRFhmH6OlDjPyPWRjHZDGtqfKgF2u0mnb+PoLZr1WrxaJC53ucaF0BTqzUZq4/VicO55ezQGmYzK1G+ZNGcILwtKr+hKvb9xysDqG0QKQ5wotoWx91KAUI3ozY5tqBUrKYuC0hKxujhW8R+lU5ooRY6pyDQUtpRJ/FlFdDxHY5tJGFIukrM2KMhCdVYh0iEcXRBIE7FWGgUQ+zHPR3Yi9OMC7Kn3OOlO4nuZPnawalnP+IJznFidF+u2c/jz/4We9Ot/8wYqKcxCfpYQG0BNcrl64sO8xJTUIyKD1PkuL8SgGpJc4zsq8c1MwJpmN70I34PRCfBsg+alpBE+e/yLrWxlOL0OCyf97kKbWYOceYNwcvX76toDuHYUDDzFAnF172bCqBpMdlI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(18002099003)(261009223027099003)(261028144727099003)(261022075727099003)(261021121427099003)(10067099003)(261021123027099003)(261022105027099003)(261026140227099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?THOdJPdc2sCoI6MeTaIus6Drb6SpoJNslKd4fYrLjsIZWMSCPqbXLbD55dqG?=
+ =?us-ascii?Q?kBWT8q8hGIvFVayHyiuazjA3vKJx37YCCvQyVNu1dv35S7hInFvKYFEpHBft?=
+ =?us-ascii?Q?BOMCBtMqfqdZ3TYIpWhzNnD71o5iOmLiGb15XY05L00aSY/8XANKE+XaPme5?=
+ =?us-ascii?Q?DBtbRpgGnkYl6DrAQ2gbB3YBUgU+ozgTIFPTEJdTXg8fBapwRXcj24gCVCKr?=
+ =?us-ascii?Q?2s1Kl0LkOofHzytXtIDDo2CpU3zhkji3HRQj9BGkOAbTh94xvzXAtub9rB/S?=
+ =?us-ascii?Q?r45uF6UIWsZCS85OwIWaUz03o0u+QqCimrIS7ZPi6X8uq9ita4YLXQGbBDIy?=
+ =?us-ascii?Q?Qo/47F2ecDIoD8NWL1KUoJvPZGx12UuxhhviMBAAq4LAAT1JVXUkXbUh8wJO?=
+ =?us-ascii?Q?8EmMr6g0STO9XK9jpVq+5OAgyUTBx0e6SIUx+81gpifSCOqBONKLeCYLsLfF?=
+ =?us-ascii?Q?0tcwROSpWoQIarjOCKWFLEmEO19v8tWEpDXwfld8B74ffa+Nrr6ok6GQCFSI?=
+ =?us-ascii?Q?Z3wZbeyqi2RHE+TzFtdA0Y3xVYJHWsvZYe6J4YbvmSURslHFITKqPXfflhrI?=
+ =?us-ascii?Q?J0NFk6SnFQB5NJA9exgSW6S1rt7BQmMT/T95qNF2OLDpsrHPa4BxoUBtgocD?=
+ =?us-ascii?Q?IfzkjQ27lRiPe7jksoGns+tquqAPAfwKUNLDf+qbPxEk+BZ9d0IB6q2NivGX?=
+ =?us-ascii?Q?gSdwdmWpy+s9/SKN89XUj13ES4CyPYeJd0elvZyUiAVuUm1abnBDZcZHyctS?=
+ =?us-ascii?Q?0sKhd4Z9FSXGHU9JL3eQK5AV1dFbv8AuIZnzWpHVixagIiqVoPcqPQDQ5pC5?=
+ =?us-ascii?Q?QN/QXnO4ge3PijrH1XG4vrTLgoV9YXBKbHtx08jyaBGkL9+m5R3xdwXkzKcW?=
+ =?us-ascii?Q?r7lvHniKJo9fN67rd5X94mYgxVIoerT8IykpAiY84BYpySMui5dZrdbdFD7m?=
+ =?us-ascii?Q?OeFj2fxEr4n0dSHyg860PMsGavVTsB/R0u7W5W1gJEtARlAPwodTeVTNCBUu?=
+ =?us-ascii?Q?e5wBnjy367VjYqAr9qxCJvIDTdE2zXWz1LILWU4tTzsN1c6w+KdX8s3JnQzu?=
+ =?us-ascii?Q?H7bT2ZOiVdJ0ZrhfsSyvG7rUI3/5tTSz0cGxCzsbxNAVX5RuAX6ox7YMJC2Q?=
+ =?us-ascii?Q?Le1oGIa+OskaipsH/fJH27T6m2QUlj+vAgaF4HdAk8HSs+MUz4JzZ4TLTXme?=
+ =?us-ascii?Q?NGwFXXDqS2SSwxlHYy+L3MLgh/6T0Mnu5/UreX0J1xsnoNIit6nTzDmxnQGl?=
+ =?us-ascii?Q?bPmsrRZRZJFn0pcIyTWvia8TM3loNNiTMVhWXawrCN89bLXDsbtDEWDMbMV4?=
+ =?us-ascii?Q?G2MBdwUZybsjD6lsKkNXCOsTyplncgbVpfRSSs6j3SciqZq0rsOaCOKB/KQf?=
+ =?us-ascii?Q?MdgnOtULcHC9TNK108I0XjGFLiNxqrQhf2tC3co46p2z5Am23100FBRjuBCn?=
+ =?us-ascii?Q?K4AiZdFCtPZ/Vs42OdGxVa7Qs3BMlsN7HMZAkL2SanclGZxAarkIVbm7qKUm?=
+ =?us-ascii?Q?/hMGr/5L+rXaxat70a6N7Hk0XHZz+dLwUZexzN/qzUECdce5RuNPU7zN2mal?=
+ =?us-ascii?Q?l8rSyxcGibTSh1cbLfjHi4WbtERfVi6NhR1+t8F/SaQZg9bs1j6XRI2Lx4Wv?=
+ =?us-ascii?Q?F3Gwm+3vns46WPh+FxzB5XZHRZU8fK8KKM27g6i5YoLo7FeUYDDg+OXTGblX?=
+ =?us-ascii?Q?vXR2j5tXumqSDIMoGIiIpSyoVLYPvObsE5xPPmxp6dAZE2pw+ywswYmIBuPP?=
+ =?us-ascii?Q?1K7YqkR5NQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7117f87c-708c-48d8-091b-08df366c80d0
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 09:59:36.0502
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Fa5PHc55CgLWxGQjUlhuECSqseHxdVsc49lMvkp+vcw3fINGGte6/nXHZMahssIhz/aQTzxzdo7Wg5VhQThGKg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8457
 
-On 28.10.2026 13:34, Shawn Guo wrote:
-> The proxy lets a consumer set the line direction and reset the
-> default value and vote tally only when usecnt == 1, i.e. when it is
-> the sole requester. But request() and direction_output() take the
-> descriptor mutex separately. When two consumers probe concurrently,
-> both request the line before either configures it, both see
-> usecnt == 2, both fall into the shared path, read back the still
-> unconfigured direction (input) and fail with -EPERM.
->
-> On Nord RRD the two DAC supplies are reg-fixed-voltage regulators
-> sharing tlmm GPIO 41. They probe asynchronously and intermittently
-> both fail, leaving the codecs without supplies:
->
->   reg-fixed-voltage regulator-3p3-dac: setup of GPIO (default) failed: -1
->   reg-fixed-voltage regulator-5p0-dac: setup of GPIO (default) failed: -1
->
-> Requesting the line is not evidence that a consumer has claimed it.
-> Instead, count proxies that have actually configured the line (set its
-> direction or voted for a value) in a new cfgcnt, with a per-proxy
-> configured flag, and allow (re)initialization only while no other
-> proxy has done so. A consumer obtained with GPIOD_ASIS that votes via
-> gpiod_set_value() without ever setting the direction counts as
-> configured, so a later user can never reset def_val/votecnt behind its
-> vote. The count is dropped when the proxy frees the line.
->
-> Fixes: e992d54c6f97 ("gpio: shared-proxy: implement the shared GPIO proxy driver")
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Commit dab7162d0ae7 ("cxl/port: Move endpoint component register
+management to cxl_port") moved EP RAS handling from cxl_pci to cxl_port,
+while cxl_ras_unmask() have the assumption that port->uport_dev is a PCI
+device.
+If the topology use cxl_memdev as uport_dev, the PCI check will fail and
+CXL RAS masks remain set.
 
-I've hit the same issue on RUBIK Pi3 board, see:
+Resolve memdev uports to their parent dev and verify the device is PCI.
 
-https://lore.kernel.org/all/20261028222803.2682808-1-m.szyprowski@samsung.com/
+Fixes: dab7162d0ae7 ("cxl/port: Move endpoint component register management to cxl_port")
+Signed-off-by: Richard Cheng <icheng@nvidia.com>
+---
+Reproducer is a QEMU Type-3 guest
 
-This patch fixes it, so feel free to add:
+1. Ensure no CXL region is active and PCIe AER is enabled.
+2. Restore the emulated RAS registers to their reset masks.
+3. Reprobe cxl_pci and read the masks again.
 
-Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+```
+BDF=$(basename "$(dirname "$(readlink -f /sys/bus/cxl/devices/mem0)")")
+BAR0=$(awk 'NR == 1 { print $1 }' /sys/bus/pci/devices/$BDF/resource)
+UNC_MASK=$(printf '0x%x' $((BAR0 + 0x1084)))
+COR_MASK=$(printf '0x%x' $((BAR0 + 0x1090)))
 
+busybox devmem "$UNC_MASK" 32 0x1cfff
+busybox devmem "$COR_MASK" 32 0x7f
 
-> ---
->  drivers/gpio/gpio-shared-proxy.c | 78 ++++++++++++++++++++++++++++----
->  drivers/gpio/gpiolib-shared.h    |  1 +
->  2 files changed, 70 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpio/gpio-shared-proxy.c b/drivers/gpio/gpio-shared-proxy.c
-> index bc69b8729d19..2e9ccd8a8d83 100644
-> --- a/drivers/gpio/gpio-shared-proxy.c
-> +++ b/drivers/gpio/gpio-shared-proxy.c
-> @@ -21,9 +21,37 @@ struct gpio_shared_proxy_data {
->  	struct gpio_chip gc;
->  	struct gpio_shared_desc *shared_desc;
->  	struct device *dev;
-> +	bool configured;
->  	bool voted_change;
->  };
->  
-> +/*
-> + * A proxy may (re)initialize the line - set its direction and reset the
-> + * default value and the vote tally - only while no other proxy has set the
-> + * direction or voted for a value. Requesting the line is not enough: consumers
-> + * may request concurrently, so counting requests lets every one of them
-> + * conclude that it is not first.
-> + */
-> +static bool gpio_shared_proxy_may_init(struct gpio_shared_proxy_data *proxy)
-> +{
-> +	unsigned int cfgcnt = proxy->shared_desc->cfgcnt;
-> +
-> +	lockdep_assert_held(&proxy->shared_desc->mutex);
-> +
-> +	return !cfgcnt || (cfgcnt == 1 && proxy->configured);
-> +}
-> +
-> +static void gpio_shared_proxy_mark_configured(struct gpio_shared_proxy_data *proxy)
-> +{
-> +	lockdep_assert_held(&proxy->shared_desc->mutex);
-> +
-> +	if (proxy->configured)
-> +		return;
-> +
-> +	proxy->configured = true;
-> +	proxy->shared_desc->cfgcnt++;
-> +}
-> +
->  static int
->  gpio_shared_proxy_set_unlocked(struct gpio_shared_proxy_data *proxy, int value)
->  {
-> @@ -117,6 +145,11 @@ static void gpio_shared_proxy_free(struct gpio_chip *gc, unsigned int offset)
->  
->  	proxy->shared_desc->usecnt--;
->  
-> +	if (proxy->configured) {
-> +		proxy->configured = false;
-> +		shared_desc->cfgcnt--;
-> +	}
-> +
->  	dev_dbg(proxy->dev, "Shared GPIO freed, number of users: %u\n",
->  		proxy->shared_desc->usecnt);
->  }
-> @@ -131,7 +164,7 @@ static int gpio_shared_proxy_set_config(struct gpio_chip *gc,
->  
->  	guard(mutex)(&shared_desc->mutex);
->  
-> -	if (shared_desc->usecnt > 1) {
-> +	if (!gpio_shared_proxy_may_init(proxy)) {
->  		if (shared_desc->cfg != cfg) {
->  			dev_dbg(proxy->dev,
->  				"Shared GPIO's configuration already set, accepting changes but users may conflict!!\n");
-> @@ -155,15 +188,21 @@ static int gpio_shared_proxy_direction_input(struct gpio_chip *gc,
->  	struct gpio_shared_proxy_data *proxy = gpiochip_get_data(gc);
->  	struct gpio_shared_desc *shared_desc = proxy->shared_desc;
->  	struct gpio_desc *desc = shared_desc->desc;
-> -	int dir;
-> +	int ret, dir;
->  
->  	guard(mutex)(&shared_desc->mutex);
->  
-> -	if (shared_desc->usecnt == 1) {
-> +	if (gpio_shared_proxy_may_init(proxy)) {
->  		dev_dbg(proxy->dev,
-> -			"Only one user of this shared GPIO, allowing to set direction to input\n");
-> +			"No other user configured this shared GPIO, allowing to set direction to input\n");
->  
-> -		return gpiod_direction_input(desc);
-> +		ret = gpiod_direction_input(desc);
-> +		if (ret)
-> +			return ret;
-> +
-> +		gpio_shared_proxy_mark_configured(proxy);
-> +
-> +		return 0;
->  	}
->  
->  	dir = gpiod_get_direction(desc);
-> @@ -176,6 +215,8 @@ static int gpio_shared_proxy_direction_input(struct gpio_chip *gc,
->  		return -EPERM;
->  	}
->  
-> +	gpio_shared_proxy_mark_configured(proxy);
-> +
->  	return 0;
->  }
->  
-> @@ -189,18 +230,20 @@ static int gpio_shared_proxy_direction_output(struct gpio_chip *gc,
->  
->  	guard(mutex)(&shared_desc->mutex);
->  
-> -	if (shared_desc->usecnt == 1) {
-> +	if (gpio_shared_proxy_may_init(proxy)) {
->  		dev_dbg(proxy->dev,
-> -			"Only one user of this shared GPIO, allowing to set direction to output with value '%s'\n",
-> +			"No other user configured this shared GPIO, allowing to set direction to output with value '%s'\n",
->  			str_high_low(value));
->  
->  		ret = gpiod_direction_output(desc, value);
->  		if (ret)
->  			return ret;
->  
-> +		/* Only this proxy can have voted, so the tally is ours to reset */
->  		shared_desc->def_val = value;
->  		shared_desc->votecnt = 0;
->  		proxy->voted_change = false;
-> +		gpio_shared_proxy_mark_configured(proxy);
->  
->  		return 0;
->  	}
-> @@ -215,7 +258,13 @@ static int gpio_shared_proxy_direction_output(struct gpio_chip *gc,
->  		return -EPERM;
->  	}
->  
-> -	return gpio_shared_proxy_set_unlocked(proxy, value);
-> +	ret = gpio_shared_proxy_set_unlocked(proxy, value);
-> +	if (ret)
-> +		return ret;
-> +
-> +	gpio_shared_proxy_mark_configured(proxy);
-> +
-> +	return 0;
->  }
->  
->  static int gpio_shared_proxy_get_cansleep(struct gpio_chip *gc,
-> @@ -230,10 +279,21 @@ static int gpio_shared_proxy_set_cansleep(struct gpio_chip *gc,
->  					  unsigned int offset, int value)
->  {
->  	struct gpio_shared_proxy_data *proxy = gpiochip_get_data(gc);
-> +	int ret;
->  
->  	guard(mutex)(&proxy->shared_desc->mutex);
->  
-> -	return gpio_shared_proxy_set_unlocked(proxy, value);
-> +	/*
-> +	 * A GPIOD_ASIS consumer may vote without ever setting the direction;
-> +	 * count it as configured so a later user can't reset its vote.
-> +	 */
-> +	ret = gpio_shared_proxy_set_unlocked(proxy, value);
-> +	if (ret)
-> +		return ret;
-> +
-> +	gpio_shared_proxy_mark_configured(proxy);
-> +
-> +	return 0;
->  }
->  
->  static int gpio_shared_proxy_get_direction(struct gpio_chip *gc,
-> diff --git a/drivers/gpio/gpiolib-shared.h b/drivers/gpio/gpiolib-shared.h
-> index 618756f6c6aa..ae10506b7029 100644
-> --- a/drivers/gpio/gpiolib-shared.h
-> +++ b/drivers/gpio/gpiolib-shared.h
-> @@ -41,6 +41,7 @@ struct gpio_shared_desc {
->  	struct gpio_desc *desc;
->  	unsigned long cfg;
->  	unsigned int usecnt;
-> +	unsigned int cfgcnt;
->  	unsigned int votecnt;
->  	int def_val;
->  	struct mutex mutex; /* serializes all proxy operations on this descriptor */
+echo "$BDF" > /sys/bus/pci/drivers/cxl_pci/unbind
+echo "$BDF" > /sys/bus/pci/drivers/cxl_pci/bind
+udevadm settle
 
-Best regards
+busybox devmem "$UNC_MASK" 32
+busybox devmem "$COR_MASK" 32
+```
+
+Before the fix, the masks remain 0x1cfff and 0x7f. After the fix,
+both masks read as zero.
+
+Best regards,
+Richard Cheng.
+---
+ drivers/cxl/port.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/cxl/port.c b/drivers/cxl/port.c
+index c12fd0b89883..c48216e5078f 100644
+--- a/drivers/cxl/port.c
++++ b/drivers/cxl/port.c
+@@ -74,15 +74,18 @@ static int cxl_switch_port_probe(struct cxl_port *port)
+ 
+ static int cxl_ras_unmask(struct cxl_port *port)
+ {
++	struct device *host = port->uport_dev;
+ 	struct pci_dev *pdev;
+ 	void __iomem *addr;
+ 	u32 orig_val, val, mask;
+ 	u16 cap;
+ 	int rc;
+ 
+-	if (!dev_is_pci(port->uport_dev))
++	if (is_cxl_memdev(host))
++		host = host->parent;
++	if (!host || !dev_is_pci(host))
+ 		return 0;
+-	pdev = to_pci_dev(port->uport_dev);
++	pdev = to_pci_dev(host);
+ 
+ 	if (!port->regs.ras) {
+ 		pci_dbg(pdev, "No RAS registers.\n");
+
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.43.0
 
