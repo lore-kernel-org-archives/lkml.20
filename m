@@ -1,63 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793329164;
-	b=jHicqrU0kp+QlPR0/9qRuJyJu7mqpPhM4NdVHOqF9yC4Zl/qr34/WILTzEWvW1orEG6j
-	 aZs7ArPBLZKKFkiRNgzfl+juGwRwzenlA2+kLO9YqT6dXpkNj6m5m0YRfC6B9E2T2C8i+
-	 0ti98SG4/Z+hOMaTRGUfnF105eeeIkMPv1wllfvwcYjBt4U2j3V7hNYo86GkhipkkdbJk
-	 yR41hwJRKusBAD/JGnj0Y4cDixL5ZsOIKlGhlfsyYaTBLeoVX0WTJdORmhzNFprVLijRl
-	 jjrGR9EIfwDxfEfDeS16DaJXNkG8Kr+58kAjuiD3ySd6rN3IIeNZ2qLelUrETgrZ0Lg==
+	t=1793329204;
+	b=1GxiYwBEjbRZNzOBgI8c/XOlzeIeTMvt2z9O5eHlXaNyTtCS3Fm3xEFF9lJ3DMA8LlB9
+	 x4t+zr6QUMXkOnANv85y2jEC64KPSYWazsulBClcNap3SiXVpSPHz8eMVdOSf/dYlCUCQ
+	 MKTZUnmavCIaomcfpz7B7VYYtFcsbZJAigfQVZox3Uo28WZ1U3fRECrOi8fSVOknqJ9br
+	 mMwDK/hv/T+FH1r6WfXBMqQOA16jd2aNLottguEFmAKHOgRoSq9hGkYtjrZ7zFYeD3jt7
+	 aZuh4XC27yevIeOwwAEjqsiSyuLUQGRU+gMvtB8vcFXCrZb91xjoxAWmRlDnCbKNRYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793329164;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=M1YFIP1momfayTo5BQCGcGIZ358SmM7AYY10VJeYGMA=;
-	b=HaqaIC6yBKZBlgS/T0B5OtHr1wp/qKu3nEafM2LdXM+0IgpAAE2yLJL7ZkD1POhOeeVG
-	 TrII0iG2HHPlJTUI9uYIfr7M7nqzFED8O8/NeW6+9m51dqzS/wBK7z9iZcBXaGeXGsRFr
-	 MB1HJt6z/nS78+aL+Ia5y/kyCvcSji32rxKbeAlDE3h3iidRUvCEzRcgwYDTTvrXwJJxp
-	 yDMxRNoP2wk/LQVrJk2Fx1IMr1t01V96n6W+6SW5JtbMFGaaEZFxcgxZmKk4yy6bHcLqZ
-	 fu3HafBvssYybxbKROMWP87+WLaYjs3UbPEdAOeMkF7PCdJ9jYOOC3O2BLUw4DX5erw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793329204;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hq/4YWC1b796zdvcvOcwCEmulCT+xUiahOe+NXgkySI=;
+	b=j/gu9KXW8R1o5bcKvlEALFw45GNmib+RSVUvSnAEFEnkkgwTJJAlDxJlD0rSNQRJ9659
+	 t5qDLvQmxRMP99JPXo3R5OwuWZtFxROjhJJ3NlJPtftVtzG8JYT5v6njZshrAbGPJGMbp
+	 yVfrmN26GYN9IucHHxfCdkEaEKkaj46Lrb2n+vg5LlWhORz/obrYSEKhjCpgyWT04fJ+K
+	 g1H5m9eaxVOW2StW/lFmmaxFWLFkg03cwNGxL3uvq0fzajOfOSg7a1gSvWZ1NXO48DLlJ
+	 TLdNkL9UOrkCSRf3yjlGfQMMaqPqIPhF+IhrbfG/br1HaXpxEqH3LI6RHUoseC/z4Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dAgBQoIt;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l4XMUV5j;
+	arc=none smtp.remote-ip=91.218.175.52
+Received: from mta0.migadu.com (out-52.mta0.migadu.com [91.218.175.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882D9606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:59:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 882D9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FECA606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:00:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FECA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dAgBQoIt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=M1
-	YFIP1momfayTo5BQCGcGIZ358SmM7AYY10VJeYGMA=; b=dAgBQoItthieozI9GK
-	PAVrjylRYwpWFebCszC8FG8eOhGJlURUQA0zr8mc85YC8a7dQYae5M/zQuKr8r9y
-	nTwnGTbXEcicnuPhN2YliMCICDjYwoRawTh03YXuvsR3lew36k2O0uDGofp95LI6
-	kHLOrInIlWeOw+65/yjn53xbs=
-Received: from neo-TianYi510Pro-15ICK.. (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgCnZfjfB+RqfTvxCg--.40090S3;
-	Fri, 30 Oct 2026 10:58:45 +0800 (CST)
-From: liuqiangneo@163.com
-To: "Michael S . Tsirkin" <mst@redhat.com>,
-	David Hildenbrand <david@kernel.org>
-Cc: Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	Qiang Liu <liuqiang@kylinos.cn>
-Subject: [PATCH 1/3] virtio_balloon: add tracepoints for inflate and deflate operations
-Date: Fri, 30 Oct 2026 10:58:32 +0800
-Message-ID: <20261030025834.19160-2-liuqiangneo@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261030025834.19160-1-liuqiangneo@163.com>
-References: <20261030025834.19160-1-liuqiangneo@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l4XMUV5j
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=p+cl6/IcAPPzRu6xYDnXuIfufAoXhxeNqlv/DOQSqyM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793329201; v=1; x=1793934001;
+ b=l4XMUV5jqgBgZ6CG2vgItAxTbvy4TLETZ5ePvpddf2tKiLKZpRi7XkE5fy/MHXDcOrJEwTYX
+ s7D2GTbSX0tv8bWxVfFOjOzT4h1oNrlQaz3Yif3cUIoeARSP65Gb5R0W3+hpQf1EZlSQDt7LGLi
+ VAAvBT08ehqwOvtR7ehSqa1M=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id db5584a886e22652;
+	Fri, 30 Oct 2026 03:00:01 +0000
+X-Mizu-Trace-ID: db5584a886e22652
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 30 Oct 2026 10:59:51 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: ramses@well-founded.dev
+Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Jiri Bohac <jbohac@suse.cz>, Eric Dumazet <edumazet@kernel.org>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Nikolay Aleksandrov <razor@blackwall.org>
+Subject: Re: [PATCH net v4 1/2] bonding: fix initial last_rx vs ARP-monitor
+ slack window
+Message-ID: <auQIJ731irNtKSFI@bogon>
+References: <20261028-bonding-last-rx-v4-0-4d8e4cd47467@well-founded.dev>
+ <20261028-bonding-last-rx-v4-1-4d8e4cd47467@well-founded.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,190 +69,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgCnZfjfB+RqfTvxCg--.40090S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW3GFyUWF1rGw1xKFWxCFWfZrb_yoW7Ar4UpF
-	s7Arn0kw47XrW7Ka4fCF4rWrsxZwn7CFWxtFyaga4UCF43JFZrKr1DtrWDJF4UAry0grnI
-	ga9xXF1DCan0vaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jTKZJUUUUU=
-X-CM-SenderInfo: 5olx1xxdqj0vrr6rljoofrz/xtbC4AXOMGrkB+U8VgAA3d
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028-bonding-last-rx-v4-1-4d8e4cd47467@well-founded.dev>
 
-From: Qiang Liu <liuqiang@kylinos.cn>
+On Wed, Oct 28, 2026 at 12:48:07PM +0100, Ramses de Norre via B4 Relay wrote:
+> From: Ramses de Norre <ramses@well-founded.dev>
+> 
+> bond_enslave() seeds a new slave's last_rx so that the ARP monitor does
+> not report it UP before a real ARP reply arrives, see commit
+> f31c7937c254 ("bonding: start slaves with link down for ARP monitor").
+> 
+> The seed is one arp_interval (plus a tick) in the past. That was old
+> enough when the up test was "jiffies <= last_rx + arp_interval". Commit
+> da210f559019 ("bonding: add some slack to arp monitoring time limits")
+> added arp_interval/2 of slack to that test without moving the seed, so
+> the seed now falls inside the up window. For the first half interval
+> after enslavement, bond_ab_arp_inspect() proposes a slave that starts
+> DOWN as UP although it has received nothing. The up test always uses a
+> single interval, so this does not depend on primary_reselect or
+> arp_missed_max.
+> 
+> If that slave is the configured primary, force_primary makes it the
+> active slave. ARP validation fails it shortly after (on SFP+ ports the
+> PHY is often still negotiating) and the bond falls back to the backup.
+> With primary_reselect=always the bond recovers once the port really
+> comes up, but drops traffic until then. With primary_reselect=failure,
+> force_primary is spent and the bond stays on the backup.
+> 
+> Reproducer:
+> 
+>   ip link add bond0 type bond mode active-backup arp_interval 1000 \
+>       arp_validate all arp_ip_target 192.0.2.1 \
+>       primary eth0 primary_reselect failure
+>   # eth0: SFP+ (slow link-up), eth1: RJ45 (fast link-up)
+>   ip link set eth0 master bond0
+>   ip link set eth1 master bond0
+>   ip link set bond0 up
+>   # bond0 lands on eth0 via force_primary, ARP-fails it before the
+>   # SFP+ has carrier, falls to eth1, and stays there.
+> 
+> Move the seed below the initial link state and seed a slave that starts
+> DOWN two intervals in the past, outside the up window. A slave that
+> starts UP keeps its current seed: the up test does not apply to it, and
+> an older seed would only bring its down deadline forward by one
+> interval. The initial link state is unchanged.
+> 
+> Fixes: da210f559019 ("bonding: add some slack to arp monitoring time limits")
+> Signed-off-by: Ramses de Norre <ramses@well-founded.dev>
+> ---
+>  drivers/net/bonding/bond_main.c | 23 ++++++++++++++++-------
+>  1 file changed, 16 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+> index 7019e5d8fdc8e..bfa4cb97e647c 100644
+> --- a/drivers/net/bonding/bond_main.c
+> +++ b/drivers/net/bonding/bond_main.c
+> @@ -2122,13 +2122,6 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+>  	if (res && bond_needs_speed_duplex(bond))
+>  		new_slave->link = BOND_LINK_DOWN;
+>  
+> -	new_slave->last_rx = jiffies -
+> -		(msecs_to_jiffies(bond->params.arp_interval) + 1);
+> -	for (i = 0; i < BOND_MAX_ARP_TARGETS; i++)
+> -		new_slave->target_last_arp_rx[i] = new_slave->last_rx;
+> -
+> -	new_slave->last_tx = new_slave->last_rx;
+> -
+>  	/* check for initial state */
+>  	new_slave->link = BOND_LINK_NOCHANGE;
+>  	if (bond->params.miimon) {
+> @@ -2159,6 +2152,22 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+>  
+>  	if (new_slave->link != BOND_LINK_DOWN)
+>  		new_slave->last_link_up = jiffies;
 
-When the guest responds unexpectedly to balloon resize requests,
-the actual applied delta cannot be observed from the guest side.
+Nit: This part could move down and merge with the "else" part.
 
-Add a "virtio_balloon" trace system with three tracepoints:
-config_change (target / resulting size / delta), and
-inflate and deflate (requested / applied page units / resulting size).
+> +
+> +	/* The ARP monitor's up test includes arp_interval/2 of slack, see
+> +	 * bond_time_in_interval(). Seed a slave that starts DOWN outside
+> +	 * that window, so it stays DOWN until a real reply arrives.
+> +	 */
+> +	if (new_slave->link == BOND_LINK_DOWN)
+> +		new_slave->last_rx = jiffies -
+> +			(2 * msecs_to_jiffies(bond->params.arp_interval) + 1);
+> +	else
+> +		new_slave->last_rx = jiffies -
+> +			(msecs_to_jiffies(bond->params.arp_interval) + 1);
+> +	for (i = 0; i < BOND_MAX_ARP_TARGETS; i++)
+> +		new_slave->target_last_arp_rx[i] = new_slave->last_rx;
+> +
+> +	new_slave->last_tx = new_slave->last_rx;
+> +
+>  	slave_dbg(bond_dev, slave_dev, "Initial state of slave is BOND_LINK_%s\n",
+>  		  new_slave->link == BOND_LINK_DOWN ? "DOWN" :
+>  		  (new_slave->link == BOND_LINK_UP ? "UP" : "BACK"));
+> 
+> -- 
+> 2.56.0
+> 
+> 
 
-Signed-off-by: Qiang Liu <liuqiang@kylinos.cn>
----
- MAINTAINERS                           |  1 +
- drivers/virtio/virtio_balloon.c       | 13 ++++
- include/trace/events/virtio_balloon.h | 87 +++++++++++++++++++++++++++
- 3 files changed, 101 insertions(+)
- create mode 100644 include/trace/events/virtio_balloon.h
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e4ca41cdd872..0ef6f34471de 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29590,6 +29590,7 @@ M:	David Hildenbrand <david@kernel.org>
- L:	virtualization@lists.linux.dev
- S:	Maintained
- F:	drivers/virtio/virtio_balloon.c
-+F:	include/trace/events/virtio_balloon.h
- F:	include/uapi/linux/virtio_balloon.h
- 
- VIRTIO BLOCK AND SCSI DRIVERS
-diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index ab3e3d887e00..2d0b16383661 100644
---- a/drivers/virtio/virtio_balloon.c
-+++ b/drivers/virtio/virtio_balloon.c
-@@ -19,6 +19,8 @@
- #include <linux/wait.h>
- #include <linux/mm.h>
- #include <linux/page_reporting.h>
-+#define CREATE_TRACE_POINTS
-+#include <trace/events/virtio_balloon.h>
- 
- /*
-  * Balloon device works in 4K page units.  So each page is pointed to by
-@@ -285,6 +287,8 @@ static unsigned int fill_balloon(struct virtio_balloon *vb, size_t num)
- 	/* Did we get any? */
- 	if (vb->num_pfns != 0)
- 		tell_host(vb, vb->inflate_vq);
-+
-+	trace_virtio_balloon_inflate(num, num_allocated_pages, vb->num_pages);
- 	mutex_unlock(&vb->balloon_lock);
- 
- 	return num_allocated_pages;
-@@ -333,6 +337,8 @@ static unsigned int leak_balloon(struct virtio_balloon *vb, size_t num)
- 	if (vb->num_pfns != 0)
- 		tell_host(vb, vb->deflate_vq);
- 	release_pages_balloon(vb, &pages);
-+
-+	trace_virtio_balloon_deflate(num, num_freed_pages, vb->num_pages);
- 	mutex_unlock(&vb->balloon_lock);
- 	return num_freed_pages;
- }
-@@ -567,11 +573,18 @@ static void update_balloon_size_func(struct work_struct *work)
- 	diff = towards_target(vb);
- 
- 	if (diff) {
-+		unsigned long target = vb->num_pages + diff;
-+		unsigned long before = vb->num_pages;
-+
- 		if (diff > 0)
- 			diff -= fill_balloon(vb, diff);
- 		else
- 			diff += leak_balloon(vb, -diff);
- 		update_balloon_size(vb);
-+
-+		trace_virtio_balloon_config_change(target, vb->num_pages,
-+						   (long)vb->num_pages -
-+						   (long)before);
- 	}
- 
- 	if (diff)
-diff --git a/include/trace/events/virtio_balloon.h b/include/trace/events/virtio_balloon.h
-new file mode 100644
-index 000000000000..f733fc360d8b
---- /dev/null
-+++ b/include/trace/events/virtio_balloon.h
-@@ -0,0 +1,87 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#undef TRACE_SYSTEM
-+#define TRACE_SYSTEM virtio_balloon
-+
-+#if !defined(_TRACE_VIRTIO_BALLOON_H) || defined(TRACE_HEADER_MULTI_READ)
-+#define _TRACE_VIRTIO_BALLOON_H
-+
-+#include <linux/tracepoint.h>
-+
-+/*
-+ * All page counts reported by these events are in balloon page units, i.e.
-+ * the 4K units the virtio balloon device operates on.  Divide by
-+ * VIRTIO_BALLOON_PAGES_PER_PAGE to obtain the number of guest pages.
-+ */
-+
-+TRACE_EVENT(virtio_balloon_config_change,
-+
-+	TP_PROTO(unsigned long target, unsigned long num_pages, long delta),
-+
-+	TP_ARGS(target, num_pages, delta),
-+
-+	TP_STRUCT__entry(
-+		__field(unsigned long, target)
-+		__field(unsigned long, num_pages)
-+		__field(long, delta)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->target = target;
-+		__entry->num_pages = num_pages;
-+		__entry->delta = delta;
-+	),
-+
-+	TP_printk("target=%lu num_pages=%lu delta=%ld",
-+		  __entry->target, __entry->num_pages, __entry->delta)
-+);
-+
-+TRACE_EVENT(virtio_balloon_inflate,
-+
-+	TP_PROTO(unsigned long requested, unsigned long inflated,
-+		 unsigned long num_pages),
-+
-+	TP_ARGS(requested, inflated, num_pages),
-+
-+	TP_STRUCT__entry(
-+		__field(unsigned long, requested)
-+		__field(unsigned long, inflated)
-+		__field(unsigned long, num_pages)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->requested = requested;
-+		__entry->inflated = inflated;
-+		__entry->num_pages = num_pages;
-+	),
-+
-+	TP_printk("requested=%lu inflated=%lu num_pages=%lu",
-+		  __entry->requested, __entry->inflated, __entry->num_pages)
-+);
-+
-+TRACE_EVENT(virtio_balloon_deflate,
-+
-+	TP_PROTO(unsigned long requested, unsigned long deflated,
-+		 unsigned long num_pages),
-+
-+	TP_ARGS(requested, deflated, num_pages),
-+
-+	TP_STRUCT__entry(
-+		__field(unsigned long, requested)
-+		__field(unsigned long, deflated)
-+		__field(unsigned long, num_pages)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->requested = requested;
-+		__entry->deflated = deflated;
-+		__entry->num_pages = num_pages;
-+	),
-+
-+	TP_printk("requested=%lu deflated=%lu num_pages=%lu",
-+		  __entry->requested, __entry->deflated, __entry->num_pages)
-+);
-+
-+#endif /* _TRACE_VIRTIO_BALLOON_H */
-+
-+/* This part must be outside protection */
-+#include <trace/define_trace.h>
--- 
-2.43.0
-
-
-No virus found
-		Checked by Hillstone Network AntiVirus
-
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
