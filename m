@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793377257;
-	b=V0wnfzIcpujIsvf6Z2AlPWWZskAbbGLGIhQmP+UEtBFNXyEI6lTPluff4Z/z7b5kLov1
-	 KxWFWSken8dPkZ3/N56Wa4+OJlKNWy3CHKVAb+FwdLB5mrkwI2/qhcUanshjzIThOmLlK
-	 a+hT8IU9w66kc1qgeEo5bjvRXGMLcOCYuBLjFsCV6EShQeCf28CYKfF2xIQlVdl3hcfu3
-	 7m5mrpeRG274x3aydB+5aPpjEPDbD0dpNJnV1h9PVtcp5A/n6MiZCxEqYokInGVMAl1dq
-	 dYZ6iWB/dxc0sW+WQzQYkeN+nea6fitPDK5GtWMWqbJTvVAs/RrA8z+gA9rjJ1GMEuw==
+	t=1793377265;
+	b=iH6eOzW8hKvmn4Ic/wvudzxfyBAt6RvVHSHC9Lz9H/dxw8OQOfK5uOv8Ue6cYGjyGFGk
+	 d/4YtnYRvtQpSrTf7PSsUw3feUq1rSiUNX8t3Ut9f3z239xjO+ohuHxwaemY9SkFcZSxu
+	 RMvsS8xX+3R47GL4bSUIDm8NEuMs5CFUTHDCnA9rIVj94VRQ20JNSb70vUIWuwUgEtvDu
+	 9PTyIclaB5J4Z2v8Z3MVlccfTi4moJ6N52PU80SSkGoBjHcN9cYLApcbvKSjk+rpd5y9H
+	 XA2CbTDAInO/uA99S7t8q82XU/WjzChi4tDfnt0rWQyM8sPnXdB1zHkGjVpdLdx+qxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793377257;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793377265;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=iaMtQnbofJSAxTx/DkcM6OMXQPU8wWZ6SE6xw52uqKs=;
-	b=p59MDoniW2HCQNnUSaVGeFXec4FeTzwHEGWz9pH8TTmAJp2+6+hiVlXtfDCNOoEGo1jH
-	 hAsl4MFUf+O/wvUpWJ9LmQS0Xl25cmxil1jTGgzCuhcT3zY5P6MRoy+zhFb/m8/H4GibJ
-	 H4++0i9ywOfDHhfqIk+SWOZLvkxGkwjCD2R3fo8Rv6NgEW6b6Eugw/nuzvg4Ad3sQwsBp
-	 HxyAccaQYLyQyrDSx7Cg8ug5tuK/i0h1AyX6f+Tfi4m4Fs7TR3vdMQkpTtpDnqPjSDrXT
-	 6uYmLX9+fPUkd3l0kELabu5jQsSVFCJ6n26NmOmYUO8e6sHpW9sjvIvJCiDLLbm/cxQ==
+	bh=3LJfsKdpKDX4HmeIK5NT3BudGEfehV1hBOYrKs1Or3g=;
+	b=dnoHiLF+yYi/x+UllSkVlSbmhrfZAa8BmZ5iUu2HCogC5rlhJVQbDA7gTwFx2iaTp/zW
+	 4ESr04iPk0kv2REkzkb21yU5ft/SDZhG53uDvYLHxPbEOO5QKqyigxBP/i3TzGLe6WvR2
+	 bJV58wDUIlApFyrFn3aYiPa0BQq6SFZktuzwyPHgjqlCaqWgMO+yqdIgdLhKmZhmPG6Vq
+	 ah7YkCqKGITeqlQf5X20wnwSWKXsqURIZyV6xp7WP+75rTu7Ll3NynC0KeW1QT86H+qdp
+	 gsLZUkG/gkDSWEOwtUAOcysPw1apejGrc2PZI2IyXPCySRh5+1/vrSO1FF8O/6qutew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uht1v+iq;
-	arc=none smtp.remote-ip=209.85.160.49
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T59Jz92y;
+	arc=none smtp.remote-ip=209.85.167.172
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85EC606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:20:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E85EC606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EBA5606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:21:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EBA5606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uht1v+iq
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-49de8ea072cso447465fac.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:20:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T59Jz92y
+Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-4b190cdc9feso590843b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:21:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793377255; x=1793982055; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793377264; x=1793982064; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iaMtQnbofJSAxTx/DkcM6OMXQPU8wWZ6SE6xw52uqKs=;
-        b=Uht1v+iqUJcWRZy06lwzLvcycSp6R6ozrVk/cVPLZXcERt85Pa3iVcTSb6bidQj9yb
-         CsicUJaZ2QEEWuHIiAbylCAVphtR3IvLOu3kmmaVcvTb+t8qqSWsXLcssLNBZrT22ObE
-         SAe9SyQaEGj2OUQ61YgWh2SO/u8UxB6st6HBNiD+SyLtU0WussPppr4UB1nHhDHFeE4I
-         x9rGrZgRyqBndsxZXqGeOsSb7c1hMYauxWSuZsDHZDfh5Ji3QSue7CXi3UNc1ZTAFy8A
-         97SEtdP65b9DU8HEKj2yqLKNu/Xpx7DURZBtnTZ4YTZSlSDsgG359BWbjP5C9sLfD0es
-         LoNg==
+        bh=3LJfsKdpKDX4HmeIK5NT3BudGEfehV1hBOYrKs1Or3g=;
+        b=T59Jz92y5UNIU2Se+frZiyeIsQvDV3jh66PZoH7Dmcv+1IxaZStmuHrav84KWe8tP5
+         M1f2zVEWXxkysFGikV/NzJxHIDtyDZaWPtukJx8TqHRblxyD/L/e3twRnVAFpqTJprrw
+         /VxoUUmfQsEjp017f7jXT9/+4sQ0ZsOEXwnFoZIBAqDyprHTaUJCxKQq4qivEweYWZxT
+         4YWGoiWPCPV1vP8JC0DNszbPn6jCE//vjO7UsIarftEtkNVm4/JT7iXGFvZN2PZtzZZY
+         rwOaxyO94uxo/P5YvHelDf62RQ7zkkSZgSIJSv8uahrJ3XMrNFzJt2Bgqr8m+iCMnBSE
+         W98A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793377255; x=1793982055;
+        d=1e100.net; s=20260707; t=1793377264; x=1793982064;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iaMtQnbofJSAxTx/DkcM6OMXQPU8wWZ6SE6xw52uqKs=;
-        b=DciA6qVWp6O+BjUBwP5zNBploWu/qHBUlmbfmWhCPDBjNMGIYKHSuf3IrpTp/iXGOa
-         E6GB7G6baDFDYJcwWUs8BsRQAu7R+lBVEqtlDTLDEuFj6PN2xE747JxUEWSiKjpkPrSK
-         qnS9apjExGIsCaVdEHTYjaZ9ystDMCTfvP9ntUQCuCTibcKofKHeCRB0Hu4aIP3Lp4lD
-         W3qNVUT0afQuwUH9tDe+3Rl0eUoHwrSDA7i8fNCUZbdjzQtqj47d+K97Orv3vSGR3aeK
-         BOojLRnLjxodnAI0qFftwqm3HQA/7PNMYzkDsdO9nRkNV7kEi+G7wsNJS1pVx5FVOx7h
-         NQqA==
-X-Forwarded-Encrypted: i=1; AKwUvBxun5bW7UE53DQAapGLtrn4qJ+SCOhSeHUrJ6fIh/uoMnTEeQW8GXc08hEYupY0RZhYOsRIA2a+Z67PnBU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6ZKQj4eOSXnWLhePxB9uSzXNsaRJvwo+E17ioepPSEF+OyREw
-	atuXUHWYRl0IYTszZJpY9NbFxgT5s665AKj7zMoPMzCVFPvqg8FUfoB6
-X-Gm-Gg: AYBFou1FhgFLUS8bAIruNWos2XI5R/g0f38fabuDbzngiG3VW0sGlrk1gN2NYQThXIJ
-	8+ZrBbf08b7VTiMT57KRhkbl6jNm8t1uDV5v+5xumbZwuwkrlc6oX41gJ9BA5Tw+EGtSi8pEO/U
-	V9R5KqqkqhkfXPc4o3ESzUT+Nv66xfpQcSCIug4zWgS/pACRi85X/KQS09ukhz6kvfbeg6O6RKb
-	qg8Udy7DLlHm6YN7u0snmZBSbA5xS9h2GbtzklF652Q35j6d/ezGY3YgpcBqkJYzkTnc4kNYsiL
-	N22EmXVeYvJHHdwd8PgnQoXWrs5ZiyhLZVMSDhsvNi+ZQGFUEtPJHiD1f3tLHVMeRUeZlMASXOR
-	JSyUtUMgV7tkm5mqhLZP9CE4n+/i0GMXx5M640Em8s7kpURynEd1dQeyZszl0Er+a6Nye3I6wLe
-	2sJeGxoL/T688x6dfJZbGNf4tqKOcdCg8cCIDwVHajF5e7U++FDTXhk+BRTVXXDkvbefw2Ij8LT
-	BhXR/Vf0QsrFOsBNuaPXcapXdmFAGa8rmrmyRhpllUKosci3zEZ7dvnpbQE1jDYV9YhBjrKFSL6
-	en75cmGZBvkNIo0ri3s3AxPjZo9kfe0em48dKLqnFO35HuWskt2wQMMyZLfVYcfmcUzr33Se3p9
-	tu1o2vLTy0Nc2iH0RBdgfp7/xXaXdD4uSUCTi5GMjbYtHadQzMmEIrlT6cE/3Z1K7mi9hqdQbeR
-	rrLN006K4JWmHHAZE=
-X-Received: by 2002:a05:6871:a1e7:b0:49e:334f:312d with SMTP id 586e51a60fabf-4a90764b81amr1805240fac.16.1793377254766;
-        Fri, 30 Oct 2026 09:20:54 -0700 (PDT)
+        bh=3LJfsKdpKDX4HmeIK5NT3BudGEfehV1hBOYrKs1Or3g=;
+        b=jr31m7MMFmO+VqlwunOih1HdfLLIASImfEYaxhSekVpZl9lHddIDU0KG9I2UIttN3X
+         QgymKD7xh9QovmkX9eBMpwaa0SH41SN59ou+S45Q4b/Pk0lwFv5kjp01AoC1BweFex/w
+         iD4kD1B81+6L7VGZ+2+/KE5ZhROfp/CFE63rksGbJrveE40LWF4rnjvIFnXb+p2x5dhl
+         Vw/kJc63IUw4FlZJ1xpwtwVNpCffpwk4GWbjnw9W3FxHldgElDxLX9PnQZfqGCdjiydk
+         czheh6SBo1WsWC+fWvjGzKKgsDBnNxRw3ooLQHeJr0Co1ku6gm7jr21R9c9RdEmnrjto
+         GcQw==
+X-Forwarded-Encrypted: i=1; AKwUvByyFCSrAVptl9TwkXRvpZDhMuGOqKCxm3R2b1VzZfHam0ZTroV33aW4XEbwhn36aRvagEaLsDaawuCo0BI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpUYsRonPy6puQhOu3a48pav7kJr8WW9xXv+E5xqJb6aZlkz5u
+	us03sSkDeWAAWgnhcqEfBfxqfJYHvbMtWTxUiadwW3pcXHlL7K72hhQ4ObDpTA32AxY=
+X-Gm-Gg: AYBFou00Qa6g3sj4Na/STLDGJO5CK/MplY8S6X5QVCfk778QToRyvarl92UtYcq21Yk
+	625O+KlZFjhtKptKL2CGvGevWryqH/xARRauMwWXWE4YFUDhWaPaoGpwz71WGu15Y3tWccfBdI9
+	Sjn1CPGVm/WJ/YX3nNq7ABcWF96A7ZT/1Ku6qga+N0U0Bkz3AAnPDvUGWj4EYa5UWr18cZiyPuv
+	MJoLhvxh51/O5aOWvnT6Auxzu7E9QPG0X22mTmhe7SQPUhmsszU/UqtfIJrK9x5EA9yl7Xkenc4
+	KxTTaQ54/cTh3TxXr00m4Hj5AmN3WWKCfKw1akLLjTik6cmr3G5U2y+47lpngQ13GZZ8yxHJV8Y
+	SWe4+HvcTWxIku1NbC+50rWX7IcBG5RxNEMDdXP8vrCoWsAPZ7xumtCqhv78lX4RzEbzeftSEa5
+	DVfeWGV6fdySUcYf2thd/++TC0i833Ai6bvTQldwRM/NOC3uAaMXRXq4IGOvo0E56dLUV5Szn99
+	YbA13Gl08Z2IEQlnk6Xf3SMWDV3GS1sJU3MGebxU8flxu/dEdb6AqKsfNRVrDM+3nJdmsnYLE4V
+	odSAtIF3lXK0YE92M2x0y7WtoNYSf+iX8JBfPrUOGeRV1BKlu6MDxl2n5Y1dNEe0dmMmmKR5xNC
+	UUoNkKOz3hDogOeTV/Vg6ZSMIHmyp6Gy0b7gmWTZGYsDrmfqPv9aR/0xfzjf6lnAzdaKyf0hXdQ
+	P4eeAk9QEo6hqi4QE=
+X-Received: by 2002:a05:6808:4fd4:b0:4cb:f21b:6f8d with SMTP id 5614622812f47-5640dd9e77cmr2333862b6e.32.1793377264401;
+        Fri, 30 Oct 2026 09:21:04 -0700 (PDT)
 Received: from brev-9gdpyq8lp.ap-south-1.compute.internal (ec2-3-110-210-194.ap-south-1.compute.amazonaws.com. [3.110.210.194])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a92167b03csm322536fac.2.2026.10.30.09.20.49
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a92167b03csm322536fac.2.2026.10.30.09.20.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 09:20:54 -0700 (PDT)
+        Fri, 30 Oct 2026 09:20:59 -0700 (PDT)
 From: Samarth Narang <samarth.colleges@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
 	Vignesh Raghavendra <vigneshr@ti.com>,
@@ -95,9 +95,9 @@ Cc: Richard Weinberger <richard@nod.at>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Samarth Narang <samarth.colleges@gmail.com>
-Subject: [PATCH v2 1/6] mtd: rawnand: gpmi: terminate the DMA chain on completion timeout
-Date: Fri, 30 Oct 2026 16:20:36 +0000
-Message-Id: <20261030162041.2998170-2-samarth.colleges@gmail.com>
+Subject: [PATCH v2 2/6] mtd: nand: qpic_common: terminate DMA channels on transfer timeout
+Date: Fri, 30 Oct 2026 16:20:37 +0000
+Message-Id: <20261030162041.2998170-3-samarth.colleges@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261030162041.2998170-1-samarth.colleges@gmail.com>
 References: <20261030162041.2998170-1-samarth.colleges@gmail.com>
@@ -112,41 +112,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When DMA completion times out in gpmi_nfc_exec_op(), the driver unmaps
-the operation's buffers and returns -ETIMEDOUT without stopping the APBH
-DMA channel. Since mxs-dma leaves the channel in DMA_IN_PROGRESS, the
-pending descriptor chain may resume after the timeout, while a
-subsequent operation can append new descriptors to the stale chain and
-cause the old DATA_IN transfer to execute again against an unmapped
-buffer.
+When DMA completion times out in qcom_submit_descs(), the driver unmaps
+the descriptors' scatterlists without stopping the BAM DMA channels.
+Since the issued descriptors may still be active, the RX and TX channels
+can continue accessing the caller's buffer after it has been unmapped
+and returned to the NAND core. The ADM path has a similar issue when
+dma_sync_wait() times out.
 
-This can result in DMA writes to memory that has already been released,
-including buffers freed after ONFI parameter page detection in
-nand_onfi_detect().
+Terminate the affected channels with dmaengine_terminate_sync() before
+unmapping, ensuring that outstanding DMA transfers are stopped before
+their mappings are released. On BAM, termination resets the pipe and
+discards pending descriptors.
 
-Terminate the channel with dmaengine_terminate_sync() before unmapping
-so that outstanding transfers are stopped and subsequent operations
-begin with a fresh descriptor chain.
-
-Fixes: ef347c0cfd61 ("mtd: rawnand: gpmi: Implement exec_op")
+Fixes: 381dd24539a8 ("mtd: nand: qcom: add BAM DMA descriptor handling")
+Fixes: c76b78d8ec05 ("mtd: nand: Qualcomm NAND controller driver")
 Assisted-by: LLM
 Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
 ---
- drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/mtd/nand/qpic_common.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
-index 527165ccc..86163a552 100644
---- a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
-+++ b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
-@@ -2659,6 +2659,7 @@ static int gpmi_nfc_exec_op(struct nand_chip *chip,
- 	if (!to) {
- 		dev_err(this->dev, "DMA timeout, last DMA\n");
- 		gpmi_dump_info(this);
-+		dmaengine_terminate_sync(get_dma_chan(this));
- 		ret = -ETIMEDOUT;
- 		goto unmap;
+diff --git a/drivers/mtd/nand/qpic_common.c b/drivers/mtd/nand/qpic_common.c
+index 4f3e4dd76..250154a08 100644
+--- a/drivers/mtd/nand/qpic_common.c
++++ b/drivers/mtd/nand/qpic_common.c
+@@ -592,11 +592,18 @@ int qcom_submit_descs(struct qcom_nand_controller *nandc)
+ 		dma_async_issue_pending(nandc->cmd_chan);
+ 
+ 		if (!wait_for_completion_timeout(&bam_txn->txn_done,
+-						 QPIC_NAND_COMPLETION_TIMEOUT))
++						 QPIC_NAND_COMPLETION_TIMEOUT)) {
++			/* Retire every issued pipe before unmapping its buffers. */
++			dmaengine_terminate_sync(nandc->tx_chan);
++			dmaengine_terminate_sync(nandc->rx_chan);
++			dmaengine_terminate_sync(nandc->cmd_chan);
+ 			ret = -ETIMEDOUT;
++		}
+ 	} else {
+-		if (dma_sync_wait(nandc->chan, cookie) != DMA_COMPLETE)
++		if (dma_sync_wait(nandc->chan, cookie) != DMA_COMPLETE) {
++			dmaengine_terminate_sync(nandc->chan);
+ 			ret = -ETIMEDOUT;
++		}
  	}
+ 
+ err_unmap_free_desc:
 -- 
 2.34.1
 
