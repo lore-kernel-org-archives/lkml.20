@@ -1,65 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=176.10.93.31
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793359527;
-	b=5Q92Ekf0TCroxAsQo3axg2iVsL+oALJnYeTnOVYN0h8cJQLAwNnnFS0L3vIfDBC01w+g
-	 RfJwtTtBH+F4lek+Adg7eeGN1sgsoujZ1IT+LuchQFK/pIDU8dnLLL0fVaTCBLoumlHeL
-	 zd0QxIZc4V4lFDiU/WPC7zsa6jdT56aUWskWUf9A6JFB96DqUEILKk65d+pIAOjU/Xiu4
-	 kEHntoQVyeuP0xPFIDen1J3oG/8S2o9Iu9vr2nuhP9KiG14ZVMzavp/AqC3Om2BqKa9ln
-	 jocj0zQ6wKeFDdiqXY/FWPDcG0TsDB4DPYmwMuyFamZaZVPBDpNFoqqzJLk25fR1RJA==
+	t=1793359586;
+	b=CFHriLISpF/fSCiczu14gI15sqYs7CgIm50CLznEjKkOtlRyzCLRrDMRUn4JkPTMZbKf
+	 PyTHb8zj5AifrsUHtwQF1kceK1mwLc7lbqKrJZXOGeptPmfb8vPXG30o+qSayC7q0tr4L
+	 axDclQZvPP414FEJJCx4i0pa44uYqWrW8SlSLozyA8LAQKERM/OzbmaeIx3tE0efVvZrV
+	 2nNTdRvcarGD4Yv3xndPBEAkL6kmcqK9+E/ds78cAJHcBcWo7ayfpORZBNmMEGEN2h+d/
+	 qkccr4gXPJHmcOHOSbRgpi91T+wRXqy9ca2l5XQH0H/5JhH2eqCRCEhq+JZhFoaQTrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793359527;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=GYxzBfV8nb382eo52z1jeyt/BLYppy/OrUDjVytaEig=;
-	b=3vGnDxwUlnfNky62ErhAXs2yWVJ/QraYcp4Us1qy6a68Mpq32k7bU+8P32EPpuyVMDZE
-	 4VYHwa1Pg05E+FZbWrQ/phiyhlP4MKK7AqHl6d9AX8eCEQrDww1kDtrICX34fGaKt7Sh1
-	 W9DvlZEsDrYSaYz+Pu16TakpiKXz+5om9RP+EaDPcCD+dpzCWmix9zwbytxeJE+A1Ug0d
-	 Wv8XqAtRgdJeXE1kid2JQwmtr0KZjBBMHRe8CfQZ6E8M+YaeqKbG1QECUHW9rxJ6yZcoJ
-	 uloCzACXPy2686sUy5CRpAMfjFC/BKb3rNTHExbPc2/QAzBD6hSWgssSb9iuJ7JxnWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793359586;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=3lYBSPOUkDUYx/GqJ2cXYoKcfGUJRnJswQ+l9oWZRUo=;
+	b=wDpmTkVoNWQQsiV4yuPGuS3zJMeYTT1Czj8vLMkOvZMR72zPPFhmxJ2GUbJQB4gjhj3H
+	 EEYNIPxfN9hyl+nG6mmp82Xrk4tPHN/3wcG4fem8KzzXHXdL+vEn+JrYBUN0jgtxugaPh
+	 5Z/RVX7w1+9z852zRZKkw7+QdXSKlC8fIaFUPttztIBxkwEob029JYQF2PXn4EsbhsLiy
+	 ucJXVcekxYJRo6Xa0BPH0hGhorLla4AOusjIpV4yGol6NFIoZnTZecvVNbghMcLJ2ldMa
+	 erbG6tLwWklq7He9VPYPK/QuW8CbPinxc2/o/E+72UJwFTacxHwgyBAtEwhQoOXNBEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cyberprotect.ru;
-	spf=pass smtp.mailfrom=cyberprotect.ru;
-	dkim=pass header.d=cyberprotect.ru header.i=@cyberprotect.ru header.a=rsa-sha256 header.s=dkim-r header.b=QuS4jBxd;
-	dkim=pass header.d=cyberprotect.ru header.i=@cyberprotect.ru header.a=ed25519-sha256 header.s=dkim header.b=Y57LJXjr;
-	arc=none smtp.remote-ip=176.10.93.31
-Received: from mx2.cyberprotect.ru (mx2.cyberprotect.ru [176.10.93.31])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PbIUdlYA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5972606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:25:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5972606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cyberprotect.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberprotect.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF851606A326;
+	Fri, 30 Oct 2026 11:26:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.a=rsa-sha256 header.s=dkim-r header.b=QuS4jBxd;
-	dkim=pass header.d=cyberprotect.ru header.i=@cyberprotect.ru header.a=ed25519-sha256 header.s=dkim header.b=Y57LJXjr
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=cyberprotect.ru; s=dkim-r; h=MIME-Version:Date:From:Sender:Reply-To;
-	bh=GYxzBfV8nb382eo52z1jeyt/BLYppy/OrUDjVytaEig=; b=QuS4jBxdw067+NggE0xgNIi8NR
-	GuFsxheNmzKidZcHFzLR6rklV79nUeAKdwEl2Has80OZ51/nlEyDjM/2unzONzZ/eRgTGV8OVy25q
-	nKFDx7YXV1PsM+4fLfdiiCZpq+9RI6eQ22MzpYZuhmgr/DnX7w0p+5r/AG40UrTJCoQl4llqYijnF
-	AAerwV/iRLirm+/QyxdiAfhgHVq/CB2Ki/HDEo9b4W2UlqUsHtDF5MKfo39m43zdIZ+Tl0jRl0etb
-	tIaRCfHcofVGKeRkrhNdFjdYleRsoLlfQ+eexmXZgMMfAEt8adg3WPDVVUeIUYCtT1tHI1PDYMM1p
-	4Ui85Whg==;
-DKIM-Signature: v=1; a=ed25519-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=cyberprotect.ru; s=dkim; h=MIME-Version:Date:From:Sender:Reply-To;
-	bh=GYxzBfV8nb382eo52z1jeyt/BLYppy/OrUDjVytaEig=; b=Y57LJXjrCWbPUhFtq0k5kFusQu
-	lfaamp727G7T/y5l642QXtWPv5y31FuA9aYzqRD2dHtPKSqXI5/fb7TsNzBA==;
-From: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
-To: Jaroslav Kysela <perex@perex.cz>
-CC: Takashi Iwai <tiwai@suse.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>, Oswald
- Buddenhagen <oswald.buddenhagen@gmx.de>, Mehul Rao <mehulrao@gmail.com>,
-	Ji'an Zhou <eilaimemedsnaimel@gmail.com>, Norbert Szetei
-	<norbert@doyensec.com>, <alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>, Dmitriy
- Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
-Subject: [PATCH] ALSA: pcm: Don't WARN on NULL dma_area in the default mmap fault handler
-Date: Fri, 30 Oct 2026 14:25:02 +0300
-Message-ID: <20261030112502.22227-1-Dmitry.Chumachenko@cyberprotect.ru>
-X-Mailer: git-send-email 2.49.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PbIUdlYA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D08E11F000C1;
+	Fri, 30 Oct 2026 11:26:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793359585;
+	bh=3lYBSPOUkDUYx/GqJ2cXYoKcfGUJRnJswQ+l9oWZRUo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PbIUdlYAuEN1TYtmyKypruUtd4NjkwrZpTosLekKjzcewGM6vjUENVRHwRu0hqMLZ
+	 oorY8DnEAbTVLkZTITWVYFxfWUDpHYccUG/dKYqBbZzb7tMDvHBiwLdpoRkBRvuuQw
+	 +SC+7woRfRXndicdbFvj9JDH7K2huS7whb7CApIE5/2d4yLUpz5Detz2hxD60os84E
+	 nNEHvTXusrgMFolxG8iYCNTmGU/O0bjFm8SxQ3qcgv/JVQgmBXdDU0hrbysxLufhQE
+	 HcvSeuqokgSgAyvag5CuV4y3Y8i8wmxnluFj8rwNcPESOiYRvK19dPwgpHi4H22cBr
+	 ormOcqlnf5kpg==
+Date: Fri, 30 Oct 2026 12:26:21 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: christian.koever-draxl@student.uibk.ac.at
+Cc: zhentao.guo@amlogic.com, mchehab@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Christian Stefan =?utf-8?B?S8O2dsOpci1EcmF4bA==?= <ckoever@outlook.de>
+Subject: Re: [PATCH 02/11] dt-bindings: media: amlogic,s4-vdec: describe both
+ decoder cores
+Message-ID: <20261030-adorable-garrulous-flounder-d4bd09@quoll>
+References: <20261025192507.210058-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192507.210058-3-christian.koever-draxl@student.uibk.ac.at>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,62 +61,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AIP-EXCH-1.aip.ooo (10.77.28.101) To AIP-EXCH-1.aip.ooo
- (10.77.28.101)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261025192507.210058-3-christian.koever-draxl@student.uibk.ac.at>
 
-During fuzz testing, the following issue was discovered.
+On Sun, Oct 25, 2026 at 08:24:58PM +0100, christian.koever-draxl@student.ui=
+bk.ac.at wrote:
+> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
+>=20
+> The S4 video decoder has two cores: VDEC for H.264, MPEG-1/2 and MJPEG,
+> and the HEVC core for HEVC, VP9 and AV1. Update the description and
+> name the individual reg, interrupt, clock and power-domain entries.
+>=20
+> Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
+> ---
+>  .../bindings/media/amlogic,s4-vdec.yaml       | 24 ++++++++++++++-----
+>  1 file changed, 18 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml=
+ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+> index e3c2ab4000aa..6c98d7013029 100644
+> --- a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
 
-WARNING: CPU: 2 PID: 1734 at sound/core/pcm_native.c:3835 
-snd_pcm_mmap_data_fault+0x47f/0x530 sound/core/pcm_native.c:3835
+There is no such file. Do not send in-flight patches with fixes, just
+fix the source.
 
-Modules linked in:
-CPU: 2 PID: 1734 Comm: syz.1.352 Not tainted 6.1.187-syzkaller-00593-g063a81552262 #0
-RIP: 0010:snd_pcm_mmap_data_fault+0x47f/0x530 sound/core/pcm_native.c:3835
+> @@ -11,15 +11,19 @@ maintainers:
 
-Call Trace:
- <TASK>
- __do_fault+0x10d/0x480 mm/memory.c:4280
- do_cow_fault mm/memory.c:4661 [inline]
- do_fault+0xa7a/0x1100 mm/memory.c:4762
- handle_pte_fault mm/memory.c:5031 [inline]
- __handle_mm_fault+0xdf3/0x2e40 mm/memory.c:5173
- handle_mm_fault+0x2da/0xa60 mm/memory.c:5294
- do_user_addr_fault+0x4aa/0x1050 arch/x86/mm/fault.c:1338
- handle_page_fault arch/x86/mm/fault.c:1429 [inline]
- exc_page_fault+0x98/0x1b0 arch/x86/mm/fault.c:1482
- asm_exc_page_fault+0x22/0x30 arch/x86/include/asm/idtentry.h:608
+>    - Zhentao Guo <zhentao.guo@amlogic.com>
+> =20
+>  description:
+> -  The Video Decoder Accelerator present on Amlogic SOCs.
+> -  It supports stateless h264 decoding.
+> +  The video decoder (DOS block) of the Amlogic S4 family. It has two cor=
+es,
+> +  VDEC for H.264, MPEG-1/2, MPEG-4 Part 2 and MJPEG, and the HEVC core f=
+or
+> +  HEVC, VP9 and AV1. Both run microcode that the secure world loads, and
+> +  are exposed as a stateless V4L2 decoder.
+> =20
+>  properties:
+>    compatible:
+>      const: amlogic,s4-vdec
+> =20
+>    reg:
+> -    maxItems: 2
+> +    items:
+> +      - description: DOS register block, both decoder cores
+> +      - description: DMC request control, gates the cores' memory reques=
+ts
+> =20
+>    reg-names:
+>      items:
+> @@ -27,10 +31,16 @@ properties:
+>        - const: dmc
+> =20
+>    interrupts:
+> -    maxItems: 3
+> +    items:
+> +      - description: HEVC core
+> +      - description: VDEC core
+> +      - description: third DOS mailbox, not used by the decoder
+> =20
 
-snd_pcm_mmap_data_fault() guards the default RAM-buffer path with
-WARN_ON_ONCE(!runtime->dma_area). As commit d2913a07d903 notes, a driver
-may allow mmap before dma_area is set up, so this state is reachable from
-user space: mmap the PCM data region and fault it while the buffer is not
-allocated. The WARN then fires on a user-triggerable path and panics a
-kernel with panic_on_warn.
+Aren't you just duplicating names properties? I would check... if that
+file ever existed :/
 
-Drop the WARN; the NULL check and VM_FAULT_SIGBUS return stay, which is
-the correct silent handling.
-
-Fixes: d2913a07d903 ("ALSA: pcm: Add sanity NULL check for the default mmap fault handler")
-Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
----
- sound/core/pcm_native.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index fcb5f176f0df..dd640d90f6a3 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -3832,7 +3832,7 @@ static vm_fault_t snd_pcm_mmap_data_fault(struct vm_fault *vmf)
- 	if (substream->ops->page)
- 		page = substream->ops->page(substream, offset);
- 	else if (!snd_pcm_get_dma_buf(substream)) {
--		if (WARN_ON_ONCE(!runtime->dma_area))
-+		if (!runtime->dma_area)
- 			return VM_FAULT_SIGBUS;
- 		page = virt_to_page(runtime->dma_area + offset);
- 	} else
--- 
-2.49.0
+Best regards,
+Krzysztof
 
