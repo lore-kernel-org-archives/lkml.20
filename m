@@ -1,76 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793329639;
-	b=ElzSXtzIjqJonFVNSvc7ZVSW4PKtt2sLuOo+ll93OJyJdFDcJzsk28h9u9zMG6DzTUYX
-	 w0XxEGPcrZ6nWJ7/cdODooqxLvujO6PTpkuDWmGgDkisWyJW2ISZxxjVX9tK6JaR/zn9T
-	 6o/SNAlekG4lxqsADC6deKlpVO6LE6Nosw86LfiWrdpoK89lic4yJfDSUHlYR1jDNkf2Y
-	 rLJGPVjAXmPrCB1WNver/GNGQNwTGVe2rZQAYgDs+3VZNhrgh+aoL/hc40329/1bBZ+22
-	 zMvTWTvyQ4xmst4YrinYd9BcCk5+A2TgDhhPFtQLtT52cQHa3vg2wLhtgiKV5OApJhw==
+	t=1793329649;
+	b=hUQw0XbXAN55uKp4+crrnw2tkW8U1S643yKPVC/tFh0hC6CbavKO6OjpJarfl7npvYfT
+	 pAmHcbdT0pPg0duy+zuGGgkoobOoXxVxVvuOUvZPI3qrOBF+0yX3oJFAkYc59JZYTorGb
+	 gipTbX5cyzCJsh5Y526swyj1oM7zeu0Wi6g3DsmDIoMV1oE6SPjM4S/M+8uitrDCNlgpU
+	 eUByuIT23Rw1bVjNmWj4u9WjsTqvtpu8UURqq9a+FlggpgmP8hdoZ2z2Hk6IPBdlgumI6
+	 C6HEZ21yuFMtjNKs82zZFa4fryRhHx9vpuBqszqo/yE7QpivzxeZwlXqFijb1ZXZZpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793329639;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZM/x67kZFWzNFHq6c2CFofQ7P7hekwtvQXb7jH6aHSw=;
-	b=1HnfCGhGLxbRrM0E6XOt36xCkFfNJQXjgkYGXC/tyQ6W6XDBWH/LeEuatSNvZ2C9XnX2
-	 9ZNDL5prCtglE6oLFu0irXVV8h7EAar2yrzB+ie5fJS8dJuFS0N8wa1F7Dfq2ey3SnbKd
-	 CeG1Nk0Y2r2npVFE5yXl5+nQFUEhJnx4eOSbdMgiMOMZqgt+M6LizUEUF0LYGi5I8z95E
-	 yxSxmQKNA0pmG0L5goAAFUt6XzENiBBsdgeQqFTiKLwJfikPXID6pP6aiRs39hLbOGOsq
-	 Ifk+smc3kIfzq83z+ev4WYIpCCV6sTPXmuvTrH6Lb1nGGhUdv8PGUjfSZGCNf3pNOmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793329649;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=aHgpdCEoD5lWUeN6+WJA5Jj9bBqBJTPp6GiL3jJIPFM=;
+	b=xnyeA0gReQAVS5x6ZnIZqczBmfeB5/v1UXTrnGILDrqITBJFTBSe+F+DrAnXrSEnCH9W
+	 81667qVnzL3KL6HObvteLqgQPau8EW21PK9uCvNhsjDSppiDPWGAjeXnfmnyrUWWIb5AF
+	 GTaM1VV43ftlOm/iUOwEPs1L5enRTaWrlT2Ttu/ZzmQ7hFAJMuUOQ5M7HRyCIAEdGpEnH
+	 tOMab1lTyFh9sG3y4+vl1YzHWKR+pFH8HG3rqNmHNzCETcrPyagRPaY0jiKtDgsLIIY7U
+	 /xi25CrZtFoTP6D+C1aIDEtPd2p6NAHH+PRX/wytllAYEOIKfWjyW53i2wR5Jd4XCmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--starchang.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kB1VQOe3;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ihYm97t3;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21ED0606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:07:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21ED0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--starchang.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B90606A31C;
+	Fri, 30 Oct 2026 03:07:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65B90606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kB1VQOe3
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3425098ae4bso1962986eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:07:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793329638; x=1793934438; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ZM/x67kZFWzNFHq6c2CFofQ7P7hekwtvQXb7jH6aHSw=;
-        b=kB1VQOe3PZag9TaZd3CP49bRPJwMssqL7qcUGvBJoq78curtxR8+5TZNMSw5QIqDUm
-         E/eG0EIJcUhTzpIrm+YkQ/D0OQF2pw0GAYB6BFLcf+2F9NqprbCiDxOqP3A0zqod/wBJ
-         /tvmjITuhldJk6JYVv4FUgAK6iu7ne/MCC+vUFekpILFlRzuSQdcyq9bkUpMmy5TYLW6
-         OHTEB6epLtjHJmWOy0u30NtfMvg/EeofNLqsTo5sxV5pV8V6hJGcZb/XZ4XMDuL0+pab
-         6CSS22U/0x4Qq8yHHFwuAEJtQHNOCSymdn9pKbxzN2Ouxd3EJbzmeias4eEV7DPLx9qy
-         UCYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793329638; x=1793934438;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZM/x67kZFWzNFHq6c2CFofQ7P7hekwtvQXb7jH6aHSw=;
-        b=P91LMJSioX7SMACY76r4Lekj8Y3OUwqJ6kv1j3tIRqWTX6wt24CT3QArNalhahhwrx
-         i1DfD07Dfbq0Vt0uuriAmhWID7BV4FRizcHXssL/lwbOSQeoH3ncupNZmG3+kSKGkDB4
-         v2FdhOFGrf8dPfjdbDvjQz1VFJv/dit+unPrEdjDZVkJ1FhVxMqzaq4uaHGLrOUqgbpX
-         KIQq3gj2iYALTrqu2TA6CVtW4zz0Qr4x4kehRUwpUVbWHHh+z5u0aQ74XQSpcEYeaA4N
-         Aa9ACevvK114a3ucbXkoFIpai8S049t29xyPLY5k+ycntOb2LPF6syK7Qbc0x9pGm0YS
-         VuWw==
-X-Forwarded-Encrypted: i=1; AKwUvBywQ2ZAESE3SN67akaBajvgx3AOZDdEynAMu3HZDLGh3aHFbNVNHylPdr6VyH3BoDTm4CcZNLvK6ZWjNQY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqMkKgSmwErWoqgTyTKof+9rfL9uUFi4ZKxqO1UOywhi6B/sNq
-	InTV2bZTvxXmv7fmMvlRhKxGgSCwmV9QU+p/YMTHbb4DQJelTGXnIpGrut12DQ2j27FH9kgyuqC
-	uoX9HVWTEvTX0NwQcnA==
-X-Received: from dlx12.prod.google.com ([2002:a05:7022:8c:b0:19b:2ad6:6374])
- (user=starchang job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:3c02:b0:196:b805:9546 with SMTP id a92af1059eb24-1ac5a67f996mr1102998c88.10.1793329637789;
- Thu, 29 Oct 2026 20:07:17 -0700 (PDT)
-Date: Fri, 30 Oct 2026 03:07:15 +0000
-In-Reply-To: <f631e178-d9ec-f335-9163-c44a9e6c58af@ssi.bg>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ihYm97t3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793329648; x=1824865648;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=O/zzEIHYeFxsYEQca3VGErkJGqkPr5bCwH/rsaqactw=;
+  b=ihYm97t3a28CsECZdxHKRbZ78yldgfhKlvtJuTy98/HhzNe1+lL/GHNg
+   z2ERSVxR9ss8xYEsfCUvbMFO5ZbhU+jdHFQ/c6Sj6asKpT5F10F4F3S4c
+   vN1a1xqbhJBJj6fYF5IDFOQMsSN3UQpRPnfAO41sHMOBl4JoAiPDBja+K
+   9gn9esvxkk6U+Rb2LV0gJjDXJU9sWr3FFr/i0x5mw7EvKsvYjOSxHklUZ
+   KSKDLrlz+HT/GQPhMNKeL4vrkL0KH6h4YSKMubN9zJXmA4KughoFO5JLz
+   HvtKnx6+GVJH6WGinIAI3c77dN/wzO7uxeMQMh8VSOnEk1ZCWFt0MuRGQ
+   Q==;
+X-CSE-ConnectionGUID: LrlwW726QsC4k9rs9uMoUQ==
+X-CSE-MsgGUID: AKU4fHEYR/u9oI0CvHpcWQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2110465"
+X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
+   d="scan'208";a="2110465"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 20:07:28 -0700
+X-CSE-ConnectionGUID: dRudyGz6TzmyUXOiJlCqUw==
+X-CSE-MsgGUID: bu7g0lICRlKoS+ecWB/B8g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
+   d="scan'208";a="5403253"
+Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 20:07:24 -0700
+Message-ID: <14cf71cd-35cd-45b1-a0fe-94d4a76e9e06@linux.intel.com>
+Date: Fri, 30 Oct 2026 11:07:20 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,52 +71,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261026150539.1357037-1-starchang@google.com>
- <20261027015619.1745984-1-starchang@google.com> <5c1fe870-39ff-e83e-e479-0e1f0fed6a83@ssi.bg>
- <20261028061644.2997812-1-starchang@google.com> <f631e178-d9ec-f335-9163-c44a9e6c58af@ssi.bg>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261030030715.604215-1-starchang@google.com>
-Subject: Re: [PATCH net v4] net: Fix Hole-196 vulnerability by dropping
- unicast ARP/IP in L2 BMC
-From: Star Chang <starchang@google.com>
-To: ja@ssi.bg
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	horms@kernel.org, johannes@sipsolutions.net, johannes.berg@intel.com, 
-	linux-kernel@vger.kernel.org, wangroger@google.com, starchang@google.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, Robin Murphy <robin.murphy@arm.com>,
+ Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
+ Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ David Matlack <dmatlack@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
+ Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
+ John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v6 03/18] iommupt: Implement preserve/unpreserve/restore
+ callbacks
+To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ David Woodhouse <dwmw2@infradead.org>
+References: <20261025021930.674647-1-skhawaja@google.com>
+ <20261025021930.674647-4-skhawaja@google.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <20261025021930.674647-4-skhawaja@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Julian, Sashiko, and netdev reviewers,
+On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
+> Add iommupt ops for presevation, unpresevation and restoration of iommu
 
-Thank you for the detailed review and feedback.
+... preservation, unpreservation ...
 
-The points raised regarding the IP part are completely legitimate:
-1. The pskb_may_pull() failure path did indeed introduce a potential UAF re=
-ad of &iph->daddr when skb->head was reallocated.
-2. Furthermore, exempting UDP port 68 weakens the Hole-196 protection. In p=
-ractice, DHCP clients operate via AF_PACKET raw sockets (which tap frames b=
-efore IP input) or rely on broadcast destination 255.255.255.255 (which rou=
-tes as RTN_BROADCAST and is never dropped by drop_unicast_in_l2_multicast).
-3. The net_warn_ratelimited() calls also introduce potential log suppressio=
-n risks under a packet flood.
+> page tables for liveupdate. Use the existing page walker to preserve the
+> ioptdesc of the top_table and the lower tables.
+> 
+> Preserve top_level, VASZ and FEAT Sign Extended to restore the domain in
+> the next kernel. On restore, the domain has only the preserved features
+> enabled and all the other features are zeroed. This is ok since the
+> restored domain is made immutable and can only be freed. A kunit test is
+> added to verify that the IOMMU domain free can be done with trimmed
+> features.
+> 
+> Signed-off-by: Samiullah Khawaja<skhawaja@google.com>
+> ---
+>   drivers/iommu/generic_pt/iommu_pt.h       | 155 ++++++++++++++++++++++
+>   drivers/iommu/generic_pt/kunit_iommu_pt.h |  30 +++++
+>   include/linux/generic_pt/iommu.h          |  30 +++++
+>   3 files changed, 215 insertions(+)
 
-Therefore, we have completely dropped the IP and IPv6 changes (ip_input.c a=
-nd ip6_input.c), preserving the original silent discard behavior per RFC 11=
-22 and removing the extraneous IPv6 Fixes tag.
+This patch looks good to me,
 
-On the ARP side:
-We have simplified the logic per the discussion with Julian:
-- Strictly drop ARP Replies in L2 BMC unless they are Gratuitous ARP (sip =
-=3D=3D tip), recording SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST via kfree_sk=
-b_reason().
-- Leave ARP Requests completely untouched per RFC 826 (eliminating any chec=
-ks on tha).
-- Legitimate GARP (sip =3D=3D tip) defers to the existing drop_gratuitous_a=
-rp sysctl.
-- Updated Documentation/networking/ip-sysctl.rst accordingly.
-
-We will submit these changes cleanly in v5.
-
-pw-bot: cr
+Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
