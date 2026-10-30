@@ -1,83 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793386742;
-	b=3u9vYWiLpyg1XIJoOKvFJe6a7RkHI/2JT69jlPVWEWqRj1NjBogdxtOCcMkv8pVKKjbn
-	 AYlqXD8YSBfnmgp/lkoQ4v5ZUlko4ZakyS7Wz2KOpwfx4yWxTlHYWGS2/5z8rvm60BlMd
-	 zrvvGTd0Dea0fWNTrBLnL7EzPIzT2qW5u3lSQ8Y5Dx7+HIJXdSccEEfjf+O4PnDdSNhUa
-	 jgMM99A2TQyzz02ZThjhrhA4A7bMtaS1LwQfLvN1sb3ra2Ok34WYmlmkbGf2X30ainiIV
-	 r934YKkjtzluVnYsmZPvaAiD4Cu9UMXNyPalaESixvzGUomSxswvF4X5lgXz1hAYbIQ==
+	t=1793386768;
+	b=DSSLFTE6wgIpuHcfx1iB1u+0gV0XCDdJK1xEbFamIbhb3WBNb4GC3+bZUcE+C+i86Xfk
+	 b/MFCOS2COX9irVEfSC6G/qq6MT4G9cv9RZ/dw6uH5eVha2yO1lthjUYztwjvWK4ubUFA
+	 fqGLpUG7fIqXAAfSdNaYKoovnY8+1vjmogCZ7HfvstOyCeXSlVXGyvm1Ftl9SoOubNEMn
+	 0HcAoZeA/ccppybJBwtk/2xhSY3zMezk/hhmY2I80xEqWgYi/phrPg/ukHPkBhJxRkhFl
+	 j3i3St91q+6EAtFTBGrNbe9K+dogvRvna+sCJnwjgyvWQ13wbifSWyKyNVT0wQGkZiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793386742;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-USESPAMBG:From:To:Cc:Subject:Date:
-	 X-OQ-MSGID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=mw96Q007DUPAQeKT8Ptwo3yABVaVeFnZ+TFfC0JmVJ8=;
-	b=13Bw5IB5zQmBJezRxtosiEEEO/i0r0zy7Zo2LDYB9D1ITW3stpcuX7F/r0n6oPx5TkfK
-	 3P/mFWHTswObro2aqM6AZQqCp8tac7t2/e/ipKpbfrJ5l7rgyQEePLfQ/0LTEXejDuw3Y
-	 PzCk1OOqyNUTxlOyYfaobsJ6/wlTAnPjiDNFpmnh5PcJLWmptOODGhwaCOqUwQ4LTZ1Y4
-	 AL6Bp++mUx8IqWCz2jOHuVGnJWV4eOHlf3dbiJ65EvlaK9v7DX6k3QXS+qnyWwxOoyEOo
-	 gbnYjF2iA4MQJ0ZGUdxmzCud8PINL0QLeNFe/nVGWaMtgUPnGzjYQw+ccMw84ot5C0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793386768;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=hPoGYDC/EcX64TLH24GIzKak03OQbDgbY40101dK4cw=;
+	b=r5xzUQSFX6fXDvhqGwkYUtoMhWbfbjXQuq87PyCF7mls2Aw5O9dEOwWtDW8tlfYmYIN3
+	 nBnRGTuNDXTIeKMB7TYzWOdsqjWx8qgSckCGb7QSzq57qS281qOB3TRmWauct/uuVcuto
+	 k4A6CMqQOSAwuhUTuw+L2m+gs778vbFcU3cXyY40BBO3JA3kHrBGZS9xe2m+T1p1ShAyq
+	 lndRyWLFDetRVrYxH+VpWJfW9B4dPQICZIRPCiyUr8dFqTFqd8elQPJVBxYiDbS5599b0
+	 yZ2w6bz36h1U8ieU6oW2K0MXDaqYvBd4fSJO+aTCww6BXgqDRzylocN+rj45bLvHqFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cyyself.name;
-	spf=pass smtp.mailfrom=cyyself.name;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=yMDR21xP;
-	arc=none smtp.remote-ip=162.62.58.69
-Received: from out162-62-58-69.mail.qq.com (out162-62-58-69.mail.qq.com [162.62.58.69])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWlEiL3x;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A87606A31C;
-	Fri, 30 Oct 2026 18:58:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30A87606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cyyself.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyyself.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18DF0606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:59:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=yMDR21xP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793386730; bh=mw96Q007DUPAQeKT8Ptwo3yABVaVeFnZ+TFfC0JmVJ8=;
-	h=From:To:Cc:Subject:Date;
-	b=yMDR21xPnfephXqAxRXDTKMF0f3O1t4bQN2gVuUDIo6viJU566JwQSPmE/pncAFwa
-	 SvgRZpbWDZXmn3O/e5IRmD60yrM3kaJ8DIW3eZeThfz0158r+nMwfx+nx8vEq3ofLf
-	 TzApOeLWcJC3rppCMCxe8TsQa6W3+9K8NAuxG8oA=
-Received: from cyy-pc.lan ([240e:37c:221f:3500:33ac:ff07:4262:aa6f])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id EAC2CE97; Sat, 31 Oct 2026 02:58:44 +0800
-X-QQ-mid: xmsmtpt1793386724t5a8cffea
-Message-ID: <tencent_C8B170AF63DC42F81A47F9EA044BB4B11C09@qq.com>
-X-QQ-XMAILINFO: MDJWyUmJdVqKyq6UzhUWUXe+4k6nld/Qa5hXvirgeodHiPQTqx5ZGiPGbDNjZX
-	 4qgBqJX7f5EYtOIGRcELlt5Hu7bZsdvzNlHnZi/R9D0bt8PMemZzy67lQIoYR8QQwNclLy4UbYLv
-	 4jU6O+u/VH0cvmaBHCZe8eBAjqjd2x49hPuLybfqomJq7EEaCIxShYmBj0q+oL5svh8QUmbDvKPT
-	 nCvSLFhLySRNnDW4EFHt0b/z+ewKh/1/dN3UpDzI4EMSIIpaB1vXGOV0lf29SuN2z9VNyxGk9d9e
-	 pFLmJM2W9S1BwVoT9VWOGgKI8czYvBkXH8lie1HnO4NMunCByORRYn/tuslVApvIiXXO5CEKn2W9
-	 F28keu9gS1gEKEODEH1d/fkqeD6SLBofCPpTZRKyje4vqClWdi2UO0S6wxpVW36o06hKrXla2FyE
-	 lydfhHbkztV5R0hUYJdDunm8Q7Eqyv5/ahZhzAZmh/gqxXMBlWYDJcNUHIhUsE4dMg3mbJLgLKuO
-	 JaY9YaTX/AMcsmrJRG7DacKsHQuSuJsQAq3gc5iJD7WWRB/PwDXNgrIyGbFeVrUPSdcAI9536qHl
-	 vJeCSNqIuWT9sDZVmdtONJj8WfAjz1WTHtpwJs8BVS0mqUfnAx6N73wJTUoKc2kmCaJNpXqejTXs
-	 j/uAtOTRr8Ve+/X+kAu+TofzdTeSsKi9ynS3rlyw1f49eT4Z5smOxqVzTJWqa9nJwj7GshoWCHnl
-	 YyjRp8MDgTZNgz5kcWETZgpQS7ycJZ4oI3BiXgYdNF7pctMl1bP0ti3CK4WvlIrjuGBwIfXB5VZB
-	 dZphAlVex5klG+9gNA3rdAmyvVlZ20WzwsYocIM84gBvTsvod/viMgjWJyDrQmUriEN87IdVNWrS
-	 ltOB2ifHzWtCXzn8q94zbrgLejWikVtOEcQ2QXES/KSVC9yF3tl8qY91cSqHgD2xqqLhv4xds6Xa
-	 4PbxkxsOFACNC3Vz0y0a2KwxQaQlnzJOlQ01bTMC7x+RqiHaSNzeXG6L5/IUL53OiRwjtrzHPPqk
-	 9ndeif1q2Y1zdx8Fx9r0xAt9AIL0N3/AicUjVU4Q4g8fPVwRdvloiJX3ro9xwlLhjV0DJEsBAwqv
-	 8+8P9zqo5zfLEBCAUJBlfNSFvTzg==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-USESPAMBG: true
-From: Yangyu Chen <cyy@cyyself.name>
-To: anup@brainfault.org
-Cc: atish.patra@linux.dev,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	kvm@vger.kernel.org,
-	kvm-riscv@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Yangyu Chen <cyy@cyyself.name>,
-	stable@vger.kernel.org
-Subject: [PATCH] RISC-V: KVM: Fix G-stage page table memory leak on VM destroy
-Date: Sat, 31 Oct 2026 02:58:36 +0800
-X-OQ-MSGID: <20261030185836.4018167-1-cyy@cyyself.name>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWlEiL3x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A5E01F0093A;
+	Fri, 30 Oct 2026 18:59:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793386767;
+	bh=hPoGYDC/EcX64TLH24GIzKak03OQbDgbY40101dK4cw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FWlEiL3xtBUIIRLtNg2ILrHuSsKjcjtZznUVcjbHA0NAITdeGRerd/ADUbbvjAdfH
+	 WG/ISury1MVYPRwmmWxhOdpK2Zqy6ghUpE9X6n6EMBb5rMn0xh7pNZjy4Dq3jwQXnl
+	 /OKrkYgpWJUG3KFXNa8gy3QKlNFMHEBjKq9ZAOvTfH3utP43TBvEFZ/0orA0rAA5Dt
+	 N87mYuFe6AaV5gYVEyDazCJ1LjG1xsEEJcLTDpIILI4uZ4ymTycV+SPGis5MwEKm15
+	 iBWhlZ/yTXklldNiRg7/n488w5TVnzDX2rnMBe/jWQoxTdB+wgAUVQu3OwOU92sHFm
+	 FdtCtdqPy4Njg==
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 5B4EEF40069;
+	Fri, 30 Oct 2026 14:59:26 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Fri, 30 Oct 2026 14:59:26 -0400
+X-ME-Sender: <xms:DunkalMziSZyqZv2aEGvjKSI1ua6ASEBXTFFisW-QC1Sdzd6c3ZYjA>
+    <xme:Dunkav4iAvvw23r73dFrEnnHBqparfd1s0gGcJzIQdluXj4vVdAtVgXEOzTno39Li
+    GfSTBwAuO9SfVFaQFsFrrCo6ZOYMtoRh2GJdHDbZnkPUg6qtyheIA>
+X-ME-Received: <xmr:DunkarcjJ2dqccRnB5kr7LrCme0Ty69_loYeRwMESile4x3YZAnD3pvFxk6J-JZvY84JD-F1aZ3y9mPaqJ9gf5_MbxVNKgh0>
+X-ME-Proxy-Cause: dmFkZTEANoIokc/FPSwXY9/jcV5fn+Rbv8Dm0sEF6nfTJ5IhU7IzQKAelVIMlJy2Whd5p1
+    +hpDoJtmjPRRUclaaP+vGZOk2hO9ReAhYqrPb7zaL2MGoc55s4oCRLML0mMFPuEOnPKxjN
+    6Nf+SSmbUrFTTpgsi4TdhkylvIl8vGCX00rawu8/u0FoTXj2FTJMhqOU9rVult+lUvbh09
+    6aGM86atILr6fCyGSmKIHWlVsz+GOVqFHF9mH+qY14MHLbtp0frUdw+70WHHhOyYJNHXLj
+    zCp/IHfH1pckC7H/m5YUZb8GPabpYBmCWWgYDVwgOEBdsYOjStj8RviUjBxewrIZDe7lUj
+    rbfWTgXa7soj0wqi8NuFssXiLBV1diMM94VJiw7Xc+jCUwp+oEP5tTjK38ZS/DyYDyIf7Q
+    q5jymcyScI6UL8mS/QOnHH1deT5g9CAhh1dbUNxB6sRs2yLWXZ09q9o41WCxdBZslulB36
+    Fka3rP2TcL4RbdxUgwhSA/lNpsbsbZCvkqHX7HDVWNDPrsdBxCptdA7FetTK48LSNo0UgE
+    3BMHLxUBFq0aMPLqlzYUahoibVwI2eaf9FV+2Chzl9MhWzJOg99fvher1RY9AN3dzIdiKS
+    LNRc8G8Iahx1DLD99ujRYFP4xxUacCoGISQIBMN+5IKZegrAGNApJMDBFI7g
+X-ME-Proxy: <xmx:DunkaoL8V8l7BCzzk3dqwV859F7dDPLkQruSG3VSM9AQZmiVSzFIrg>
+    <xmx:DunkapmhGv00KZKYz1BB-uaoLLZU0GJqw1IeIR-QtYQdvwuxPyKcGw>
+    <xmx:DunkakF8SH0T_mEHFt6yCTS57-cIT17q_AbcB3bOPf8HZd4qd4F8YQ>
+    <xmx:DunkaidCynvDGfs-LtwBCUlPDGGH8yWbBxgsLw5PbswhiEzLVvppHg>
+    <xmx:DunkahEMU7d8dVG2aenP5RKkvhuWSoykmTRuO3CGYf7DWJyfjE0QRFPy>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 30 Oct 2026 14:59:25 -0400 (EDT)
+Date: Fri, 30 Oct 2026 11:59:24 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: FUJITA Tomonori <tomo@flapping.org>
+Cc: mike@fireburn.co.uk, a.hindborg@kernel.org,
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+	ojeda@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
+	lossin@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
+	dakr@kernel.org, daniel.almeida@collabora.com, frederic@kernel.org,
+	tglx@kernel.org, anna-maria@linutronix.de, jstultz@google.com,
+	sboyd@kernel.org
+Subject: Re: [PATCH 9/9] rust: time: add ktime_get_real_seconds
+Message-ID: <auTpDD4GRiD00jP2@tardis.local>
+References: <87h5jzx5gj.fsf@t14s.mail-host-address-is-not-set>
+ <20261030075750.356854-1-mike@fireburn.co.uk>
+ <20261030.190502.1711453613571853758.tomo@flapping.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,154 +92,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030.190502.1711453613571853758.tomo@flapping.org>
 
-kvm_riscv_mmu_free_pgd() tears down the G-stage with
-kvm_riscv_gstage_unmap_range() over the whole guest physical address
-space. That function looks up each address with
-kvm_riscv_gstage_get_leaf(), which walks down to the leaf PTE, and then
-clears only that leaf. kvm_riscv_gstage_op_pte() frees a page table only
-when it is called on a non-leaf PTE, which never happens here, so every
-page table below the PGD is leaked when a VM is destroyed. With 4 KiB
-mappings this is one page per 2 MiB of guest memory that was ever
-mapped, plus the upper-level tables.
+On Fri, Oct 30, 2026 at 07:05:02PM +0900, FUJITA Tomonori wrote:
+> On Fri, 30 Oct 2026 07:57:50 +0000
+> Mike Lothian <mike@fireburn.co.uk> wrote:
+> 
+> > So it's the case you described, Tomonori: the format is fixed outside
+> > the kernel, by the dock's firmware, and what the caller wants is an i64
+> > of seconds since the epoch.  It never gets subtracted from anything, so a
+> > seconds based Instant would only be there to be converted straight back
 
-The leaked pages are not slab, vmalloc or page cache, so they show up
-only as unaccounted used memory. On a SpacemiT K3 host, a workload that
-creates and destroys tens of thousands of small VMs leaked 0.5-1 MiB per
-VM and ran the host out of memory after about 20,000 VMs.
+Even that, I think Instant<Sec> would still be more clear than returning
+an i64. Also regarding Tomo's concern:
 
-Add kvm_riscv_gstage_unmap_all(), which calls kvm_riscv_gstage_op_pte()
-with GSTAGE_OP_CLEAR on every PGD entry. That recursively clears all
-leaf PTEs and frees each page table below the PGD. Use it in
-kvm_riscv_mmu_free_pgd().
+| So a seconds based `Instant` has to define what `Instant - Instant`
+| returns, and `Delta<Sec>` would have no consumer.
 
-Tested with a reproducer script that builds a minimal KVM host kernel
-from a source tree and boots it under QEMU 11.0.2 (TCG, rv64 with H,
-Sv57x4 G-stage). Its init creates 10 VMs one after another. Each guest
-writes one word in every 2 MiB of an 8 GiB RAM region (anonymous memory
-with MADV_NOHUGEPAGE, so 4 KiB G-stage mappings) and then shuts down,
-so each VM needs 4096 last-level page tables (16 MiB). MemFree lost per
-VM, after one warm-up VM:
+We can probably only impl ops::Sub for Instant<C, NSec>, then we don't
+have to deal with `Delta<Sec>` until there is a user. (We probably want
+to avoid a from_ktime() for Instant<Sec> as well, so separate impl
+blocks make sense).
 
-  before:  16415 kB  (RESULT: LEAK)
-  after:    1636 kB  (RESULT: OK, noise)
+> 
+> Right, you only need an i64 of seconds since the epoch and do no
+> arithmetic or comparison on it. A type is useful when it guards those
+> operations, and there are none here. So the plain function is fine
 
-The bug was found while investigating the host OOM, and the fix and
-reproducer were written with the help of an AI coding assistant
-(Claude). The analysis, fix and test results above were reviewed by
-the submitter.
+The way I see it is from kernel::time perspective, we still want to make
+sure the APIs are still in the same abstraction layer, a
+ktime_get_real_seconds() co-exists with Instant::now() as the public
+interface layer breaks that in my opinion. And the generic type
+parameter should be flexible enough to avoid introduce anything we don't
+have a user yet.
 
-Fixes: 9d05c1fee837 ("RISC-V: KVM: Implement stage2 page table programming")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yangyu Chen <cyy@cyyself.name>
----
-How to reproduce:
+Thoughts?
 
-The reproducer script is at
-https://gist.github.com/cyyself/23abb87a8ad9ee8c64ce03cca78669fc
-and needs riscv64-linux-gnu-gcc, qemu-system-riscv64 and cpio. Run it
-from the top of a kernel source tree:
+Regards,
+Boqun
 
-	$ cd linux
-	$ /path/to/kvm-riscv-gstage-leak.sh
-
-It builds a minimal riscv64 KVM host kernel (allnoconfig + KVM) into
-.kvm-leak-build/ and boots it under QEMU (TCG, -cpu rv64,h=true) with a
-static test program as /init. The test creates 10 VMs one after another.
-Each guest touches one page in every 2 MiB of 8 GiB of guest RAM, so it
-needs 16 MiB of last-level G-stage page tables. The test then prints how
-much MemFree each VM leaves behind. The first run takes about 1.5
-minutes, mostly kernel build; reruns take about 10 seconds.
-
-Without this patch:
-
-	10 VMs, each touching one 4 KiB page per 2 MiB of 8 GiB guest RAM
-	MemFree 2037664 -> 1873512 kB: 16415 kB lost per VM (a leaking kernel loses ~16384 kB)
-	RESULT: LEAK
-
-With this patch:
-
-	MemFree 2054080 -> 2037716 kB: 1636 kB lost per VM (a leaking kernel loses ~16384 kB)
-	RESULT: OK
-
-The exit status is 0 for OK, 1 for LEAK and 2 if the test could not
-run. IMAGE=<path/to/Image> boots an existing kernel instead of building
-one. That kernel needs CONFIG_KVM=y, CONFIG_BLK_DEV_INITRD=y and
-CONFIG_DEVTMPFS=y.
-
-I also tested VMs that select Sv39x4, Sv48x4 and Sv57x4 through
-KVM_CAP_VM_GPA_BITS, and four VMs with mixed modes alive at the same
-time, destroyed one by one while the remaining VMs kept running and
-were checked for correct guest memory contents. With this patch, no
-memory was lost in any mode and no guest data was corrupted. Without
-it, every mode leaked about 16 MiB per VM.
----
- arch/riscv/include/asm/kvm_gstage.h |  2 ++
- arch/riscv/kvm/gstage.c             | 22 ++++++++++++++++++++++
- arch/riscv/kvm/mmu.c                |  3 +--
- 3 files changed, 25 insertions(+), 2 deletions(-)
-
-diff --git a/arch/riscv/include/asm/kvm_gstage.h b/arch/riscv/include/asm/kvm_gstage.h
-index aaf080ba1b77..90ec9e0b34b1 100644
---- a/arch/riscv/include/asm/kvm_gstage.h
-+++ b/arch/riscv/include/asm/kvm_gstage.h
-@@ -80,6 +80,8 @@ bool kvm_riscv_gstage_op_pte(struct kvm_gstage *gstage, gpa_t addr,
- bool kvm_riscv_gstage_unmap_range(struct kvm_gstage *gstage,
- 				  gpa_t start, gpa_t size, bool may_block);
- 
-+bool kvm_riscv_gstage_unmap_all(struct kvm_gstage *gstage);
-+
- bool kvm_riscv_gstage_wp_range(struct kvm_gstage *gstage, gpa_t start, gpa_t end);
- 
- bool kvm_riscv_gstage_wp_pt_masked(struct kvm_gstage *gstage, gfn_t base_gfn,
-diff --git a/arch/riscv/kvm/gstage.c b/arch/riscv/kvm/gstage.c
-index e5002cb9cbef..c912cdc2021f 100644
---- a/arch/riscv/kvm/gstage.c
-+++ b/arch/riscv/kvm/gstage.c
-@@ -456,6 +456,28 @@ bool kvm_riscv_gstage_unmap_range(struct kvm_gstage *gstage,
- 	return flush;
- }
- 
-+/*
-+ * Clear every G-stage mapping and free all page tables below the PGD.
-+ * kvm_riscv_gstage_unmap_range() only clears leaf PTEs and leaves the
-+ * page tables in place, so it cannot be used to tear down a G-stage.
-+ */
-+bool kvm_riscv_gstage_unmap_all(struct kvm_gstage *gstage)
-+{
-+	u32 level = gstage->pgd_levels - 1;
-+	pte_t *pgd = (pte_t *)gstage->pgd;
-+	unsigned long i, page_size;
-+	bool flush = false;
-+
-+	if (gstage_level_to_page_size(gstage, level, &page_size))
-+		return false;
-+
-+	for (i = 0; i < kvm_riscv_gstage_pgd_size / sizeof(pte_t); i++)
-+		flush |= kvm_riscv_gstage_op_pte(gstage, i * page_size, &pgd[i],
-+						 level, GSTAGE_OP_CLEAR);
-+
-+	return flush;
-+}
-+
- bool kvm_riscv_gstage_wp_range(struct kvm_gstage *gstage, gpa_t start, gpa_t end)
- {
- 	int ret;
-diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-index 371fccaf9df0..87838a0f6bb9 100644
---- a/arch/riscv/kvm/mmu.c
-+++ b/arch/riscv/kvm/mmu.c
-@@ -784,8 +784,7 @@ void kvm_riscv_mmu_free_pgd(struct kvm *kvm)
- 	write_lock(&kvm->mmu_lock);
- 	if (kvm->arch.pgd) {
- 		kvm_riscv_gstage_init(&gstage, kvm);
--		flush = kvm_riscv_gstage_unmap_range(&gstage, 0UL,
--			kvm_riscv_gstage_gpa_size(kvm->arch.pgd_levels), false);
-+		flush = kvm_riscv_gstage_unmap_all(&gstage);
- 		pgd = READ_ONCE(kvm->arch.pgd);
- 		kvm->arch.pgd = NULL;
- 		kvm->arch.pgd_phys = 0;
--- 
-2.53.0
-
+> with me. If a caller that needs them shows up later, we can add a type
+> then.
