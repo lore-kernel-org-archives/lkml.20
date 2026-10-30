@@ -1,58 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793328845;
-	b=tfxJJqq/Dq3D8QcBIs+RaVq8K+skQ6q0Khzz2aatazU9FO/GTt16n/Kb9NK1VTIYHCfH
-	 5yLgZafNtbvFFkndPDzWrHl8thHa8VFJf9X4sTjENWkAmAHLr07v5pYWuyuZiByNZx9wk
-	 bDhPJtRK4jInqDvr7wpe9p1A/hOOkqTwRdG9Fr+cSLeA4EWmF2YszLTz1G5caiphP+0aC
-	 yYfSAjbsuhoiEK8llQrlMpw6D6f5yd17PFvPiB04ZRjf6xJgLW3w8o75dGSZoOyVQaZ3D
-	 3CLQR/h0CIh3J8qs7/AtRa4O0NWEZJ9Ok5UaWYB0faCCoFGHyEzuQZcwppCF/ZQEjxw==
+	t=1793328943;
+	b=q4CPYbJUrjHQg+MmO0+PQweaT1KqqjeeRQ8UgY2ZGEVm+54G2AuB4oQt/SWSCQXym2Ap
+	 EP9iJ2FjlDyJnsOooemd6mdpcglDbwGNsKH/cdstegqnKW1YAPsCV3gA+iKmmzf0JbBvX
+	 DA9GM/tZgQFbUhxijMQytK4nv3tAQ3o6CYmAh/Rnjk4eq8lizz34gJfEta45XwYodirHb
+	 TzO+UDUFA6/kanLYHIjnsQDBKVC6bf+4VmczdZq5bps5S6JPmR/+MrD5VVf3YWSfYeBEd
+	 ApcmpXJaH4xqYd0Ho3RlViymH98O9SjSWAS6ClzFs9DYwBFsgHQ1b0D0pLNGvqMXSpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793328845;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=R32rGPcJuG+1kCDhnHECP/PCqav9h3by8BHulE0myn4=;
-	b=xxa2/U/X5G811Cp2PyU9lVhl10GYpiR/e2iTh+FIq4xw5wWkLYWggf9u2Gi1yB+Rkpid
-	 bIicftAHTr3L/M6j5mqvMl3VO2p+7aMSHHaxJflpeOK6OeAG6ThkxeZgd706Q/0BEkO2o
-	 oIjjgc+Wj+RjGcVXXq5WOd0gkwRnas4bbxLHTlj/NbchfC+HxE11E6ReuzKrxsUyt3Iu6
-	 YrN8PdwxCjqn66MLUrEfKVBE/giCCvJ0S6zCxyBXvzGjcf5eFGkCAKh73x8bbBFBQ9kxJ
-	 VE3yp4m4PErjXFClkDMF/NmkGlYqJR4Rx3qMcS+i1do9EDHgDqGa3LfKffpKbIusqSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793328943;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=pUCbReckSqEr12tJBWbX35Dm/JKcttu5DEw0fkc69DI=;
+	b=EkhO72/bHHeQpm0jaKlHRUtF80tt3meq/gAdSze53BIXgauu6avYCTaH9sXrdx8VqsEN
+	 5x2Ox6iTj+G831CYW9NYyxqOx0s4mmjT1P7xz9xwhSRoiqyomQ3eJYtLDvjt0OXDc1Fug
+	 tOFEWv5uH7WI9VYY/PzGDkEP256/Bk/6kCYt0KiZDVcRBW4w23DMZKSku+HxnXThLosdJ
+	 hVqB0R8WwZTCPJX04MU3tBuUNwoxq4xL2Y563q6zx/QfyGkYsXS8PiAV4Q/G/mpv85ZHO
+	 EMJ4wWmzgKtKar0NCnNbE5OR1ELV3WfeVL7OdS9SN+bL8//EG9tXIjM3bX1Oo8UXUPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="Unh/wbOF";
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZLPuw5EX;
+	arc=none smtp.remote-ip=95.215.58.180
+Received: from mta1.migadu.com (out-180.mta1.migadu.com [95.215.58.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE28606A31A;
-	Fri, 30 Oct 2026 02:54:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AE28606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A342C606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:55:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A342C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Unh/wbOF
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=R32rGPcJuG+1kCDhnHECP/PCqav9h3by8BHulE0myn4=;
-	b=Unh/wbOFJAII1gDiU/F8veoDlAxf3h+Pjvdy/1dOAIZPRYuocBY31he/5knqTdGoGovtmcwML
-	XvQdJ+ueqPeQKCYaPPM0bZ1ZSGqYTs/EZxNqO4WTd4Q0zQ6D1+1LbnP+1BqJJmbgBiSkzqj+XeS
-	EvdUwJ1ckbq1VmqrXfnldKM=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jG5K16Mmmz1K9D6;
-	Fri, 30 Oct 2026 10:53:57 +0800 (CST)
-Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7CE2B40565;
-	Fri, 30 Oct 2026 10:53:59 +0800 (CST)
-Received: from [10.67.120.103] (10.67.120.103) by
- kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 30 Oct 2026 10:53:58 +0800
-Message-ID: <a301e884-f6d1-4082-8551-8d8a17276dc3@huawei.com>
-Date: Fri, 30 Oct 2026 10:53:57 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZLPuw5EX
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=sAQYKG0X+cRq7vrg7+ttEQx6a2fpFc91J/Dodm9J4/w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793328939; v=1; x=1793933739;
+ b=ZLPuw5EXMctc9GYJweSlQAVVeQcklAr1ydzoP1OgL9PNQ1GMrdrfZh319f8dRhKqxrXYbFmu
+ oG5oSwUsozWbD77rPDJ1+F3Q+Cq16azVhE4HxwZKtGOsrXdIs9A463tt6WRzHC7N1WLSsre3BLj
+ O3TzgJQEXeStP+MhnI3apFGE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 392c1607db233a43;
+	Fri, 30 Oct 2026 02:55:39 +0000
+X-Mizu-Trace-ID: 392c1607db233a43
+X-Migadu-Flow: FLOW_OUT
+From: Hui Zhu <hui.zhu@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Zi Yan <ziy@nvidia.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>,
+	stable+noautosel@kernel.org,
+	Dev Jain <dev.jain@arm.com>
+Subject: [PATCH v2] mm/compaction: annotate data race for zone->free_area[order].nr_free
+Date: Fri, 30 Oct 2026 10:55:07 +0800
+Message-ID: <20261030025507.115248-1-hui.zhu@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,75 +72,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 06/15] KVM: arm64: Add support for FEAT_HDBSS
-To: Leonardo Bras <leo.bras@arm.com>
-CC: <maz@kernel.org>, <oupton@kernel.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <corbet@lwn.net>, <pbonzini@redhat.com>,
-	<yuzenghui@huawei.com>, <wangzhou1@hisilicon.com>, <yangjinqian1@huawei.com>,
-	<caijian11@h-partners.com>, <liuyonglong@huawei.com>,
-	<tangchengchang@huawei.com>, <yezhenyu2@huawei.com>, <yubihong@huawei.com>,
-	<linuxarm@huawei.com>, <joey.gouly@arm.com>, <kvmarm@lists.linux.dev>,
-	<kvm@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <seiden@linux.ibm.com>,
-	<suzuki.poulose@arm.com>, <fuad.tabba@linux.dev>, <mark.rutland@arm.com>,
-	<seanjc@google.com>, <rdunlap@infradead.org>, <linux-doc@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>, <skhan@linuxfoundation.org>
-References: <20260929103655.85107-1-zhengtian10@huawei.com>
- <20260929103655.85107-7-zhengtian10@huawei.com> <at-X_hFbsBU_Dsgr@LeoBrasDK>
-From: Tian Zheng <zhengtian10@huawei.com>
-In-Reply-To: <at-X_hFbsBU_Dsgr@LeoBrasDK>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemr100010.china.huawei.com (7.202.195.125)
 
+From: Hui Zhu <zhuhui@kylinos.cn>
 
+KCSAN reports a data-race on nr_free which also exists on mainline:
 
-On 10/27/2026 2:12 AM, Leonardo Bras wrote:
-> On Tue, Sep 29, 2026 at 06:36:46PM +0800, Tian Zheng wrote:
->> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
->> index 32102c3912fa..12fa37328dd2 100644
->> --- a/arch/arm64/kernel/cpufeature.c
->> +++ b/arch/arm64/kernel/cpufeature.c
->> @@ -2158,6 +2158,11 @@ static bool hvhe_possible(const struct arm64_cpu_capabilities *entry,
->>   	return arm64_test_sw_feature_override(ARM64_SW_FEATURE_OVERRIDE_HVHE);
->>   }
->>
->> +static bool has_vhe_hdbss(const struct arm64_cpu_capabilities *entry, int scope)
->> +{
->> +	return is_kernel_in_hyp_mode() && has_cpuid_feature(entry, scope);
->> +}
->> +
-> 
+  BUG: KCSAN: data-race in fast_isolate_freepages+0x284/0x1550 mm/compaction.c:1589
 
-Hi leo,
+  race at unknown origin, with read to 0xffff9894ff3dcb60 of 8 bytes by task 179078 on cpu 12:
+   fast_isolate_freepages+0x284/0x1550 mm/compaction.c:1589
+   isolate_freepages+0x52/0x650 mm/compaction.c:1722
+   compaction_alloc_noprof+0x36e/0x3e0 mm/compaction.c:1850
+   compaction_alloc+0x21/0x30 mm/compaction.c:1880
+   migrate_folio_unmap+0x7f/0x820 mm/migrate.c:1177
+   migrate_pages_batch+0x37e/0x1200 mm/migrate.c:1762
+   migrate_pages_sync+0xce/0x560 mm/migrate.c:1928
+   migrate_pages+0x8c6/0xc20 mm/migrate.c:2037
+   compact_zone+0x539/0x10b0 mm/compaction.c:2660
+   compact_zone_order+0x1b8/0x230 mm/compaction.c:2795
+   try_to_compact_pages+0x20b/0x630 mm/compaction.c:2851
+   __alloc_pages_direct_compact+0x98/0x2b0 mm/page_alloc.c:3722
+   __alloc_pages_slowpath.constprop.0+0x452/0xdf0 mm/page_alloc.c:4401
+   __alloc_pages_noprof+0x28a/0x2d0 mm/page_alloc.c:4794
+   alloc_pages_mpol_noprof+0x1b1/0x470 mm/mempolicy.c:2270
+   alloc_pages_noprof+0x7a/0xe0 mm/mempolicy.c:2347
+   io_mem_alloc_compound io_uring/io_uring.c:2848 [inline]
+   io_pages_map+0xb9/0x330 io_uring/io_uring.c:2892
+   io_allocate_scq_urings+0x231/0x300 io_uring/io_uring.c:3933
+   io_uring_create+0x29c/0x9c0 io_uring/io_uring.c:4091
+   io_uring_setup+0xb6/0x100 io_uring/io_uring.c:4203
+   __do_sys_io_uring_setup io_uring/io_uring.c:4230 [inline]
+   __se_sys_io_uring_setup io_uring/io_uring.c:4224 [inline]
+   __x64_sys_io_uring_setup+0x66/0xe0 io_uring/io_uring.c:4224
+   x64_sys_call+0x1816/0x1d90 arch/x86/include/generated/asm/syscalls_64.h:426
+   do_syscall_x64 arch/x86/entry/common.c:51 [inline]
+   do_syscall_64+0x70/0x2a0 arch/x86/entry/common.c:81
+   entry_SYSCALL_64_after_hwframe+0x76/0xe0
 
-> IIUC you run this on every cpu in the system, to make sure it's matching
-> the feature. Is there any chance the kernel is in EL2 only on some of the
-> cpus here?
-> 
+  value changed: 0x00000000000002f4 -> 0x00000000000002f5
 
-It's impossible for the system to have only some CPUs in EL2 and others
-  not.
+nr_free is only updated with zone->lock held, but fast_isolate_freepages()
+and fast_find_migrateblock() read it locklessly to skip an order that has
+no free pages.  page_alloc.o is excluded from KCSAN, so the writer is not
+instrumented and the report is of unknown origin.
 
-> If not, maybe we can run it on system_supports_hdbss() instead, which would
-> be easier for the user to understand it only runs in EL2, on top of not
-> needing the above.
-> 
+The race is benign: a stale zero only skips the order for this round, and
+a stale non-zero just finds an empty MIGRATE_MOVABLE freelist under the
+lock.  Annotate both reads with data_race(), following commit
+af1c31acc853 ("mm/vmstat: annotate data race for zone->free_area[order].nr_free").
 
-However, The question is whether a cap should mean "this system can use
-the feature" or "this hardware supports the feature". If the cap only
-tracks hardware support, users may be confused when the hardware
-supports HDBSS but the system runs in nVHE mode — they would mistakenly
-believe they can use the feature.
+No functional change intended.
 
-So I think we should keep is_kernel_in_hyp_mode() in has_vhe_hdbss(),
-and add a comment in system_supports_hdbss() explaining this.
+Fixes: 70b44595eafe ("mm, compaction: use free lists to quickly locate a migration source")
+Fixes: 5a811889de10 ("mm, compaction: use free lists to quickly locate a migration target")
+Cc: stable+noautosel@kernel.org # KCSAN annotation only, no functional change
+Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Acked-by: Zi Yan <ziy@nvidia.com>
+---
+ mm/compaction.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-Does that work for you? Looking forward to your reply.
-
-Thanks,
-Tian
-
+diff --git a/mm/compaction.c b/mm/compaction.c
+index f1b2060eb2016..499ec7ceaa3ed 100644
+--- a/mm/compaction.c
++++ b/mm/compaction.c
+@@ -1601,7 +1601,11 @@ static void fast_isolate_freepages(struct compact_control *cc)
+ 		unsigned int order_scanned = 0;
+ 		unsigned long high_pfn = 0;
+ 
+-		if (!area->nr_free)
++		/*
++		 * Access to nr_free is lockless as it is only a hint; a stale
++		 * value is harmless. Use data_race to avoid KCSAN warning.
++		 */
++		if (!data_race(area->nr_free))
+ 			continue;
+ 
+ 		spin_lock_irqsave(&cc->zone->lock, flags);
+@@ -2031,7 +2035,11 @@ static unsigned long fast_find_migrateblock(struct compact_control *cc)
+ 		unsigned long flags;
+ 		struct page *freepage;
+ 
+-		if (!area->nr_free)
++		/*
++		 * Access to nr_free is lockless as it is only a hint; a stale
++		 * value is harmless. Use data_race to avoid KCSAN warning.
++		 */
++		if (!data_race(area->nr_free))
+ 			continue;
+ 
+ 		spin_lock_irqsave(&cc->zone->lock, flags);
+-- 
+2.43.0
 
