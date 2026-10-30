@@ -1,70 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793385305;
-	b=JynBQIxxMISApaPVoXyOAcKYXNxh7sXVoJvhtxID+qRMpb/XeGEZ0v4BFK+vTFU1j80v
-	 XWIVmV3jsVkFfoDBevc6Xd3J9uqTdZZF4C34+1YXH2vGZgIXeYnQrL/PmzKsBLNpdciGE
-	 oTcSyw+/891oaj6EUNbvdeAiT07leBHUas69tZPnxBz8suA35YJsdIsUeQuYOHcAr3/HI
-	 DywiwWt80DHItznmunjwWICsj0Ec7MzIRpA638LwihLq22Nu73bVnAEONMlWiRJEXGOdd
-	 gyUq0A0RdoatjPbGfcz2/PujY855pVA92YvgQSKfOCwV89DoO6BH3EDmmEZjaVRLazA==
+	t=1793385322;
+	b=oi3Ptupk7yWvBR38lpkYZmGYKCZl9ROUvGJ8I6nxJngcMsYgeJu2UrBcHv/X2ZlR7lVb
+	 rGyrOwt3HXtrEyGZKqO7DFJmH3Jilzpa4pMb8ooA9glU8GSfB1jot2FeDbBpJYHLjiV2Q
+	 OKI6rmmYt30Y1nopLBkiejmoo/ahgxM53Cusdb3j5Q95MnaW9s3OWRuJOCFX6QAm1qHHz
+	 4r5if0x2PdOqLxzqWsXsC/zwcLDiBjkWrPASA0Q0sOc9rROFtNtNzFjNfQWIj7epuG7cj
+	 MY4vRFYMTlti02S6pOczJjFaW11dUCMkRlP1x93e7ohh+k8cbansYapkcaUOeEQsJzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793385305;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=WsATcwliNKu8sEfYqxxsUH41yWcXoOT5yVDkyAK5yrw=;
-	b=LUb8i0Rx/JRerHsAtUz3aKQUPbG4hpLQxKuV3nYvyk2W3neTfvvk5hV8thkjvud7AkeH
-	 1MlNT2+NxSkl0e7ognwmm8WLUipo9KbPYzKlYT3UvtpJrYEEnJIytS2v0Icm6g9CWSBxM
-	 Xn6zJfbS5THlaBd7yMrsE9f/dJwJfN3z854pU6Pz2ryHB3JOyc+zMzn+/8t9p44Wgx1Tz
-	 SabQh6TUsCR6oQveOEqCK/wD46c5nqSwV0T2aCR1zkFe1CMz6slfg9arSwSRpubKB+LxO
-	 fjMWvJQr1Q7qQfnqrOQxzcY+PFUuzcrgyDnS5+c+ziMAd7ntYKYZ86sCfwVqvegSE0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793385322;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=X31MSaNYy5A9TjyHtuzQzoXsaJ7T3g1SAiJDg1zqAmU=;
+	b=siSDO7NEsse8Uicav54H39iWiyGvd38C6xxfmtttSUAzb//EpYD6WW0AxDTW1ykzsQt1
+	 O+/tyjVlbCiX5FpWhJ88WRkve1+ueHkGSqbtCSrF0bYZU3uVTwAqYGb26Jm0GOxw6jJbh
+	 Q48ZbvrCq3rl3+7LYPZJ/RrAuJzV/ZoZGX1usFu63NMBOoNGuCyLh1ZVcQZhrpKLq4a27
+	 Wd/muhJzQrp+iSIUucaMKrPw6oktJ6TzcF55Z0gv4sraeF2TyRHV9asaIn7yucfdaIcC6
+	 /gWi18DIMMkfW+gQRJ18i7WltBrtqGML5BK/UjLOC2akaIoH7pPp7xlAroeL+QwF4Lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V6c82ztc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hh53Qcov;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA57C606A31D;
-	Fri, 30 Oct 2026 18:35:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1CE606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:35:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D1CE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V6c82ztc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 184741F000C1;
-	Fri, 30 Oct 2026 18:34:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793385303;
-	bh=WsATcwliNKu8sEfYqxxsUH41yWcXoOT5yVDkyAK5yrw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=V6c82ztcma7IUAgw75dJDqEmKnfD9tpqCfNRg9eNIRWkbC48DGKJ+EWqmvB5QfYhr
-	 HTUhd/IvVzU5pq5poo6t1pxF+eaUDeKkH617t6naSu3QXhHyRBJpyTwUiGEO536Wog
-	 W/+HwIDg2033cC7iCNgdjDwKWncdqCKYVzbkwyyYP/1zjDcjwY5iURWHYwRf6rLy09
-	 3YwNy1Ww2ITh7WbD0C+zOHuPcW1UagHGvKRLf2t1gFzGF/aTaUh5GMkk+Kq2DmHm/+
-	 1PU+uv4Co6gllgcxKAFyjPPc8xSD17tDy7CZNKDZ/484Wocdx2qEL4O5H8t3xbZ1hn
-	 acbrbrwQD2L8g==
-Date: Fri, 30 Oct 2026 18:34:56 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Rodolfo Giometti <giometti@enneenne.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Angelo Dureghello <adureghello@baylibre.com>,
-	Tobias Sperling <tobias.sperling@softing.com>,
-	Eason Yang <j2anfernee@gmail.com>,
-	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	duje@dujemihanovic.xyz, herve.codina@bootlin.com,
-	thomas.petazzoni@bootlin.com, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: add Texas Instruments
- TLA2528
-Message-ID: <20261030-parka-undrafted-b2f3d8f96d11@spud>
-References: <20261030164705.297354-1-maxime.chevallier@bootlin.com>
- <20261030164705.297354-2-maxime.chevallier@bootlin.com>
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hh53Qcov
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E0F0D40E03BE;
+	Fri, 30 Oct 2026 18:35:19 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id mp69dl5ZuUdR; Fri, 30 Oct 2026 18:35:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793385316; bh=X31MSaNYy5A9TjyHtuzQzoXsaJ7T3g1SAiJDg1zqAmU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hh53QcovOBqMSo5hCSffGR/EKSQz4BPdId59k8O8EO0hurbSaf9OKZmrM82IFsFuU
+	 HpHByeIYsaz7iLp3oqZEo8FK7TzrGUtnVKU0TUmHczHRSvYsPGqWR266/Mdk/4fWgX
+	 qKcNm0LFd9D25uvlcO/wM6lqNYY7260q4RplVIs6xGEcRBBCFwQilG9yKfVZ/iBuT5
+	 R8IiLDCyGuCm+9U5F/2/+htrlGrlcnuYwNb2lZ+LP4tPz2LtfmIYbnEJ+2zkQqs/jl
+	 XKossf080g+55E7dE90W6TT7DaH2WDzSluNeO1sE2Q7VsqvbL9/BaJ/rjkLHm7rCkC
+	 nuGyArwak9HN6TmJPm+MVuanJ0VW7/WS0eoQi8yGfghOQvPBWAnKNSm/h+PPfGDNNX
+	 JGlsd7gREWPsPnPlJOEZap0zxBCmPIiZ/nODiFWVscegV6zS2LQ7X2DtYUu/2VO1FB
+	 agNHF6tzqH8CgmGfqdfOWpeTJU/t6Xh8b3sL76y9lZwuvdfV1BpkwSgnVUEncdMbg3
+	 1YD2mDwbY3nqyz9zQX3k/vYHb684sjjEDg3aFCWvLxc91r9K1Zvi4SJpcmb7zCfewB
+	 khRvp3R2N9eTu0HG4p2f7Fs48/TF+HNPa4UwEDzJVFpGfk4nKiLbCuDK/QvZADvNby
+	 FrQ31Q8KphlUL/kKyua4I8Pc=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2A49640E02B7;
+	Fri, 30 Oct 2026 18:34:57 +0000 (UTC)
+Date: Fri, 30 Oct 2026 11:34:54 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Breno Leitao <leitao@debian.org>
+Cc: david.kaplan@amd.com, Peter Zijlstra <peterz@infradead.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH RFC] x86/syscall: Dispatch via sys_call_table when
+ Spectre v2 and BHI are off
+Message-ID: <20261030183454.GDauTjTmOSFyeeUqAx@fat_crate.local>
+References: <20261029-syscall-table-dispatch-v1-1-bca9dbb886de@debian.org>
+ <20261029104938.GC1813469@noisy.programming.kicks-ass.net>
+ <auM6mSXz-BVIjYBc@gmail.com>
+ <20261030053825.GKauQtUX0pauVeLsGg@fat_crate.local>
+ <auSIfywq5DhT-SBt@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,27 +95,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="u5pR1ZRuklYsPkVg"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261030164705.297354-2-maxime.chevallier@bootlin.com>
+In-Reply-To: <auSIfywq5DhT-SBt@gmail.com>
 
---u5pR1ZRuklYsPkVg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Fri, Oct 30, 2026 at 05:11:40AM -0700, Breno Leitao wrote:
+> I read most of the thread. As I understand it, there is a desire for
+> something more dynamic, but that is non-trivial work that still needs
+> to be done, and it is unclear if there will be follow-up (the patchset
+> is 1year old)
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+It needs reviewers and testers, yes, exactly because it is complex but a good
+thing to have, as you guys show interest.
 
---u5pR1ZRuklYsPkVg
-Content-Type: application/pgp-signature; name=signature.asc
+The day has only 24h, however. :-\
 
------BEGIN PGP SIGNATURE-----
+But yes, we are going to refresh and update the patchset soon(tm).
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauTjUAAKCRB4tDGHoIJi
-0sFjAP9wipade2rjk5+f6l5tRhmFDmS60xEv+olGf4pYd5Ff5AD8DrzFsR9t90Dz
-5ECkZ56r7c7xJ3UTCI+S/8bp4CtI8QM=
-=Z1mQ
------END PGP SIGNATURE-----
+The prerequisite is the stomp_machine NMI stuff:
 
---u5pR1ZRuklYsPkVg--
+https://lore.kernel.org/r/20261015211426.49114-1-chang.seok.bae@intel.com
+
+which needs careful poking at first.
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
