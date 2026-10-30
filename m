@@ -1,72 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793374671;
-	b=aRKhuVvO1DYz1fYoaKCO0xNSANpLcuwVQKUKwJJAcAmOg/cPZQYynte6VApYIkY0khuy
-	 dPmtAUvYTK7i1RG9vJPV7ngNasFC4EPnunK+f/XzI/e6ppQ9P1DMmC6KvGkjx/k8dVDUh
-	 q8/ITNUzuTjpRBgk8IdvI6PBfI/5XpH7rR+4yto3wQIZbh/jZ27isRQ66cIeh5bcjFMxO
-	 81Mm3cKf6abzfHFEwAKu8vdnDwe2qBxPch5+5oF3W4gfmBZXHZjoUy3vKA7TDLEjIIrXx
-	 seT3WxUj7qm53QSlmTR4ED29//e3MKm4A2WAjbZyGtvUDMdOH0YYzvFgT1avKr+D49w==
+	t=1793374673;
+	b=evX+ZZBP1fIQIgwnzDjyWVOyAAc9n1j3lwmyJ5UIQFGvpuoQoXcoW+ksLFkcGYOljNRv
+	 PO9M+tlUarQl7/QVqZMzs6OOk6TcZZFXSswEAXIL4b40jnn3om+cwga9//aKi/TqIiV8s
+	 pGlsDMd0AwIr6yKgGa0k6BuPHtEZP4A8UF/jIx0aMN0fdTGL3HuvDyR4q7BlPF3tliVV4
+	 s8lbGONwgT0olwx0oYmQNg8lFqFHS/1Lr1hAIrmbuTu9B3IhpikOnaE2cx59uquIJftUt
+	 MNq8pIznlxJiOG9SGsNxhmSUK3663h4aMzdNasIIYWXhLJ+DWEF0b57hrvytn2KrgCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793374671;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=Eb083Lhc9S6Iyxxmprup0mjMXvghWUY0aQYzPG3iQiA=;
-	b=YbCkZyV9SXNuIgVgdtHwAj6htzDnKSuaC2Xm2PMbN7YtyYY46BfgN1MQLPROoBxcrS5m
-	 cAvuLz5qEzpBH03g+aOb9ZR0zlyPRzmeueiVDzfVmGtG2XHsL7G9cOU5qJ/U5D6o4yhEm
-	 BrWH3jhzdgVCM2ipOtSLaZRZpnPRRVM+KhYRn1VJdezT/dATlcGWn9aYTSLlGQqexQXzH
-	 PheqfLOYqkqCqrlIdc+ECIvgirIMyQ9Qdfxy/V+8q3sLThvrjDpx95MCB6dfAWhwGI0UB
-	 yFpQFl4Xs1+V/V2H4f78s0A4IWWE+tqvfwkLsunwf72PQEfUV1nfI9Ools3ju7oeYTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793374673;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=ZVIlfayF5vUxT7epbX9dc09pgWCaEWLWPRoQ2PnaHw8=;
+	b=d8nmwQ3too91mbuD5/xxMnyzZ8Xf+5Qxbkf0oMR4xzdgmNwV6Gaz/zI5/VM9Duv06fXI
+	 w/zTfkXei+NCPn3SJhwSqyTdlD4NPszcATOxD2AldcQ6RmD8559Q3NiAwkEu9YVUZXStw
+	 NRMdE6Ph9slSPLqLiIM7ALXRxy3leHlMzQJvAvOaIcj/xyTEAQC6Qy8EyrcabZSGpJ/86
+	 c3DFslclf9plR+g9ymo/O0nZH44gK9Tf7tQaq62krI3Vag0gul+Q+NliPFqd4wSXsrKUQ
+	 ELFjSmQtD8QQJ7gWP+vgphmSh+NNps5PIBXM+b5D9bH1U9Yn/PCrm0NRwCt04+AEORQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=4rrdJh7a;
-	arc=none smtp.remote-ip=44.202.169.39
-Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fFYhMSiv;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB12606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8873C606A32A
 	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:37:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DB12606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8873C606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=4rrdJh7a
-Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
-	by cmsmtp with ESMTPS
-	id MiSyxEWtWMylkMofuxg4M5; Fri, 30 Oct 2026 15:37:50 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id MoftxRl3c1fkWMoftx8byW; Fri, 30 Oct 2026 15:37:50 +0000
-X-Authority-Analysis: v=2.4 cv=CLMqXQrD c=1 sm=1 tr=0 ts=6ae4b9ce
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=EUspDBNiAAAA:8
- a=_jlGtV7tAAAA:8 a=VwQbUJbxAAAA:8 a=ehfqsZ6UyqGNEVwpBysA:9 a=QEXdDO2ut3YA:10
- a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:To:Subject:MIME-Version:Date:Message-ID:Sender:
-	Reply-To:Cc:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=Eb083Lhc9S6Iyxxmprup0mjMXvghWUY0aQYzPG3iQiA=; b=4rrdJh7acYmG
-	CXCYblfhWCeYV2jFGxSlDOq0j35sSrQcluKiiOOzoCIvwM/6EodrtGOMj5nkc+PdKXQ6d3PQ5AV8k
-	EMeV2S5OEP0Xt34UCMLFKZgJL+l1AniObzwXX8Gn8fVU+wOG40gfijeI54j6o/W4tCdYx/FmXy9Tv
-	lwd/COPSb+Ctc1wG31apOjCXAW16I4AMmrw4kGUzrPTDJ9vlQj+vk5cFJ+ZFT0SMkoKbjNtNFDi0x
-	pk27jBhxusmHYlu5ukH8qqnjexALbOWlSIZFsb0m9e+KS+tKmW0ZmunS4vf1aRy7Sb7wtrM/IQ6Fv
-	gfH7ntK1UQOZ1AeIg2vv2w==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:39764)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xMoft-00000001ayA-1Z98;
-	Fri, 30 Oct 2026 21:07:49 +0530
-Message-ID: <4b64860b-322b-4646-b132-0b75efb0086d@roeck-us.net>
-Date: Fri, 30 Oct 2026 08:37:48 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fFYhMSiv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793374671; x=1824910671;
+  h=date:from:to:cc:subject:message-id;
+  bh=8nADVrkXlSf8Rzfp23Bj0glyjKPxgJMbJBa8KcK4Zbc=;
+  b=fFYhMSiveL5lovFd+X3e9JCd/nmLtyuIxUFQZvk0ckc60oUkxRn/gF2c
+   EaIjC2ULDVtgoYnV9i+eD6q15dQE1aD2mQkWpqYGztdfm1VuN8ajhyQw1
+   18Yxj6J/0F0pl34dHS+euZV9KtK9oEGU5yUh0f+wOJYXk8D6ROB0rsfIx
+   TAf5QPOXfGzhv0/77H2F7ph05oy5StL6If8oqyezf9ogT7QdPNmLu6Xxy
+   I2gWRvjqSuIxhJmvrKYBR/4XDfNucRzdYGigdNNptENxXDTLIUsLCDThx
+   sKTUNGTqrVjRrAn8PrAk2JQKWTQ8pkRnsd/EmvWFzKI/lwwW/Ct0g6M6S
+   A==;
+X-CSE-ConnectionGUID: Eu9XeK/IT0ybhihqjkPImg==
+X-CSE-MsgGUID: RDZZ+JgrS5yJQcbX/BjK4g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2018538"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2018538"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 08:37:51 -0700
+X-CSE-ConnectionGUID: vu+uvwjuRMq7oHTmZNpcXw==
+X-CSE-MsgGUID: 5JmSM+7VQ8uyWLI9H50nJA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5789039"
+Received: from igk-lkp-server01.igk.intel.com (HELO 58ca8a381a5c) ([10.211.93.152])
+  by fmviesa001.fm.intel.com with ESMTP; 30 Oct 2026 08:37:49 -0700
+Received: from kbuild by 58ca8a381a5c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xMofq-000000005cP-2dy4;
+	Fri, 30 Oct 2026 15:37:46 +0000
+Date: Fri, 30 Oct 2026 16:36:57 +0100
+From: kernel test robot <lkp@intel.com>
+To: Florian Westphal <fw@strlen.de>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Pablo Neira Ayuso <pablo@netfilter.org>
+Subject: net/netfilter/ipset/ip_set_hash_ipportnet.c:141:25: sparse:
+ sparse: cast to non-scalar
+Message-ID: <202610301616.CMLXGsZd-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,121 +80,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: mfd: Drop MEN F21BMC (bouncing email)
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Lee Jones <lee@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>,
- mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-watchdog@vger.kernel.org
-References: <20261030152821.283215-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261030152821.283215-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xMoft-00000001ayA-1Z98
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:39764
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 16
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfJySRLIftlNjA2oX7SPfMUUHxe3JObjBpWyiQ0H/QdzC3II8/5gxSl4GdtqZus7pG1eF1nCdVqCEYtXxPpqzBpDatUnZM9FPBOwInZweaLrlS10scSZj
- lpPyCUeZX8evbtvJ/i/UkVK+Dto9b3ighs38TUPaBNwc9lgqVDfjX8Nhnum2w+D+/bJadal5LBWPhJbtx2sNqmfnVcWit/l8I/B1FFiBm+bCCtGrbWpzMZWr
 
-On 10/30/26 08:28, Krzysztof Kozlowski wrote:
-> Emails to Andreas Werner bounce ("reason: 550 5.4.1 Recipient address
-> rejected: Access denied.), so apparently driver is not supported
-> anymore.  Last emails from Andreas Werner are from 2016.  Drop the entry
-> completely.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+commit: e80456d79ec83b00a6bd44c377684b1632ccc3c7 netfilter: ipset: remove need to allocate memory on delete operations
+date:   2 months ago
+config: alpha-randconfig-r2311-20261030 (https://download.01.org/0day-ci/archive/20261030/202610301616.CMLXGsZd-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 8.5.0
+sparse: v0.6.5-rc1-1-gc4640450
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261030/202610301616.CMLXGsZd-lkp@intel.com/reproduce)
 
-Makes sense.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: e80456d79ec8 ("netfilter: ipset: remove need to allocate memory on delete operations")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610301616.CMLXGsZd-lkp@intel.com/
 
-Acked-by: Guenter Roeck <linux@roeck-us.net>
+sparse warnings: (new ones prefixed by >>)
+   net/netfilter/ipset/ip_set_hash_ipportnet.c: note: in included file:
+   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast from non-scalar
+>> net/netfilter/ipset/ip_set_hash_ipportnet.c:141:25: sparse: sparse: cast to non-scalar
+>> net/netfilter/ipset/ip_set_hash_ipportnet.c:141:25: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_ipportnet.c: note: in included file:
+   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_ipportnet.c:401:25: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_ipportnet.c:401:25: sparse: sparse: cast from non-scalar
+--
+   net/netfilter/ipset/ip_set_hash_netnet.c: note: in included file:
+   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:1341:48: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:1341:48: sparse: sparse: cast from non-scalar
+>> net/netfilter/ipset/ip_set_hash_netnet.c:153:21: sparse: sparse: cast to non-scalar
+>> net/netfilter/ipset/ip_set_hash_netnet.c:153:21: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_netnet.c:154:21: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_netnet.c:154:21: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_netnet.c: note: in included file:
+   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:1341:48: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_gen.h:1341:48: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_netnet.c:394:21: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_netnet.c:394:21: sparse: sparse: cast from non-scalar
+   net/netfilter/ipset/ip_set_hash_netnet.c:395:21: sparse: sparse: cast to non-scalar
+   net/netfilter/ipset/ip_set_hash_netnet.c:395:21: sparse: sparse: cast from non-scalar
 
-> ---
-> 
-> Maybe this can go via MFD tree?
-> ---
->   MAINTAINERS | 9 ---------
->   1 file changed, 9 deletions(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 365bec8eb7fb..51673747ab91 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17998,15 +17998,6 @@ F:	Documentation/driver-api/men-chameleon-bus.rst
->   F:	drivers/mcb/
->   F:	include/linux/mcb.h
->   
-> -MEN F21BMC (Board Management Controller)
-> -M:	Andreas Werner <andreas.werner@men.de>
-> -S:	Supported
-> -F:	Documentation/hwmon/menf21bmc.rst
-> -F:	drivers/hwmon/menf21bmc_hwmon.c
-> -F:	drivers/leds/leds-menf21bmc.c
-> -F:	drivers/mfd/menf21bmc.c
-> -F:	drivers/watchdog/menf21bmc_wdt.c
-> -
->   MEN Z069 WATCHDOG DRIVER
->   M:	Johannes Thumshirn <jth@kernel.org>
->   L:	linux-watchdog@vger.kernel.org
+vim +141 net/netfilter/ipset/ip_set_hash_ipportnet.c
 
+3d14b171f004f75 Jozsef Kadlecsik 2011-06-16  132  
+41d22f7b2e48c77 Jozsef Kadlecsik 2011-02-01  133  static int
+41d22f7b2e48c77 Jozsef Kadlecsik 2011-02-01  134  hash_ipportnet4_kadt(struct ip_set *set, const struct sk_buff *skb,
+b66554cf03fe866 Jozsef Kadlecsik 2011-06-16  135  		     const struct xt_action_param *par,
+5d50e1d88336a93 Jozsef Kadlecsik 2013-04-08  136  		     enum ipset_adt adt, struct ip_set_adt_opt *opt)
+41d22f7b2e48c77 Jozsef Kadlecsik 2011-02-01  137  {
+21956ab290f7f3f Jozsef Kadlecsik 2015-06-26  138  	const struct hash_ipportnet4 *h = set->data;
+41d22f7b2e48c77 Jozsef Kadlecsik 2011-02-01  139  	ipset_adtfn adtfn = set->variant->adt[adt];
+5d50e1d88336a93 Jozsef Kadlecsik 2013-04-08  140  	struct hash_ipportnet4_elem e = {
+8e5fd2a55e2468f Jozsef Kadlecsik 2026-07-30 @141  		.cidr = INIT_CIDR(h->rnets[0], HOST_MASK),
+9b03a5ef49c0151 Jozsef Kadlecsik 2011-06-16  142  	};
+ca134ce86451f3f Jozsef Kadlecsik 2013-09-07  143  	struct ip_set_ext ext = IP_SET_INIT_KEXT(skb, opt, set);
+41d22f7b2e48c77 Jozsef Kadlecsik 2011-02-01  144  
+41d22f7b2e48c77 Jozsef Kadlecsik 2011-02-01  145  	if (adt == IPSET_TEST)
+5d50e1d88336a93 Jozsef Kadlecsik 2013-04-08  146  		e.cidr = HOST_MASK - 1;
+41d22f7b2e48c77 Jozsef Kadlecsik 2011-02-01  147  
+ac8cc925d35fc5a Jozsef Kadlecsik 2011-06-16  148  	if (!ip_set_get_ip4_port(skb, opt->flags & IPSET_DIM_TWO_SRC,
+5d50e1d88336a93 Jozsef Kadlecsik 2013-04-08  149  				 &e.port, &e.proto))
+41d22f7b2e48c77 Jozsef Kadlecsik 2011-02-01  150  		return -EINVAL;
+41d22f7b2e48c77 Jozsef Kadlecsik 2011-02-01  151  
+5d50e1d88336a93 Jozsef Kadlecsik 2013-04-08  152  	ip4addrptr(skb, opt->flags & IPSET_DIM_ONE_SRC, &e.ip);
+5d50e1d88336a93 Jozsef Kadlecsik 2013-04-08  153  	ip4addrptr(skb, opt->flags & IPSET_DIM_THREE_SRC, &e.ip2);
+5d50e1d88336a93 Jozsef Kadlecsik 2013-04-08  154  	e.ip2 &= ip_set_netmask(e.cidr + 1);
+41d22f7b2e48c77 Jozsef Kadlecsik 2011-02-01  155  
+5d50e1d88336a93 Jozsef Kadlecsik 2013-04-08  156  	return adtfn(set, &e, &ext, &opt->ext, opt->cmdflags);
+41d22f7b2e48c77 Jozsef Kadlecsik 2011-02-01  157  }
+41d22f7b2e48c77 Jozsef Kadlecsik 2011-02-01  158  
+
+:::::: The code at line 141 was first introduced by commit
+:::::: 8e5fd2a55e2468f6225ef5af01ae58cdbcbae8cf netfilter: ipset: rework cidr bookkeeping
+
+:::::: TO: Jozsef Kadlecsik <kadlec@netfilter.org>
+:::::: CC: Pablo Neira Ayuso <pablo@netfilter.org>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
