@@ -1,49 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.65.141
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793375424;
-	b=lMMSd4fNOJhOqFGW2OtyelOMSc6mO6HW4Xhh+J55b1jPTVHWF+bbNXtF4BtWUxlrQdsm
-	 g/PG8CN6lZAZX3WOV91AAkdvvys15cviVGMXV4nSiuaYpaWjt7Cc7EC5/bWZMBEYKjvw/
-	 cBzxa0aZnhTTeUZ9Patopvhy+36mSadZriTOj6KDKZZiKE2XO9X+Pi6hQpidEc+wWg0HI
-	 7goObSE1yliIkLbH3mvEuMeUT398Yynor/do610XBCkCpsHFD2BL6gxLfvPS2AOa7HOwa
-	 ZtmJnHUmLrTaFjMTQRt2oGNKGkxnPPWLD7V/ZD1hJBqR+V7pE6hRdDEoDuWja2kk/fQ==
+	t=1793375638;
+	b=uFs0V7dARMkdkb5z3ennpJz4pTNv9rbUwlEJQ2Tvkd9ycRrCBoHAW8DQQOnN5qPIcesU
+	 LnvIjb5H++C3aSBFfyNcsJFZK/3aWSjFMNblRXKBitDAVC83jB8yMBkB/y8OTbPzxG0fp
+	 4Vm5rPkBWEFChZDO+xu/JJcpggojdfR8ZUrboHvxIUqoBH6+DABcOfbSKBmGiZlZOd4EF
+	 EgpyudpRrllMG5OCxG5O/96CdTrPNGuDVZ0xnssmV5in8iaFVh6jT63t4IrTQ0c8nit8t
+	 TIjTnln8qa/nkcnfJ7znkUB08x8D450oyHdl1OfWiSK3fSBHhil0uEJtsx/s2vnBk4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793375424;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=6zs7KIdtqObt3G5F3sKpbT+49YyGEZ76NLVtZ95Ea20=;
-	b=xwuF7EBf7kKRRmyWP4PeOQHynVkRZlGZ+IfW0r9gQOryRZcHbgn8taWe6XcBa+xKBsCP
-	 YfTnlF51wRcBj7n1zxjUPlMJOQ/kAwFi1ZhbOVciuuTyKBsoYFZ5HRnjyOzWFON77tzTb
-	 m0/OWd/e3GTWa6bm12sMJJrnmyIvfmkkyQa9OEwsp29Cc/Keg9eMhGlj4vYkF4JYvAqZx
-	 PeCOvongJ4TDTWilk92LOGS4UKCbQqSsWwNts4BWBneTp523705fBX07TiBMpcu8ksylm
-	 /xAARm9flRFnlCKa46iqdeDda3UWbS1UVHJv6zN9uKQQKApTaxNaeZImus3zwGVBXcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793375638;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=cpjNowf7VMm/HUPL7hbuRXJOs+m21N46OI2eAXFUvAA=;
+	b=OkfQ6zmeTn4fLKqjrbfzK8IHydQkv+9sZrM/fnTN6gtScroAVlZuMtPgGMYQY4qMsjMM
+	 EaCE+jpmZ3saQcIzfRPlagjt4vk+CWiNVlvdiwZIzdOpCgS0Tv4RyXPzYUox0TAfZyBRx
+	 e3TVlUw4SNnyIOKfF7Vj2c8xR4sBesaj03dHcZ5bgpe3tLMvuemlF+Gey2oZt+XYESmB0
+	 pfAPvwR373LwgRIUJ3Dt/k5UGleQms2vuu4vg0xopYrENIhJJsZT6VT4XBmea3DQRZDHm
+	 qCqxC2Tpar4Uv2GUpibaVrYZeviBO9t7np5X88oOSq0KN3UJH2z3Hq/2GZf+J9GdBVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Il8+Wfdf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=siemens-energy.com;
+	spf=pass smtp.mailfrom=errorhandling.siemens-energy.com;
+	dkim=pass header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=np9ADyET;
+	dkim=pass header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=kve4lECv;
+	arc=none smtp.remote-ip=185.136.65.141
+Received: from mta-65-141.flowmailer.net (mta-65-141.flowmailer.net [185.136.65.141])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6472C606A31C;
-	Fri, 30 Oct 2026 15:50:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89259606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:53:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89259606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Il8+Wfdf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B12171F000C1;
-	Fri, 30 Oct 2026 15:50:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793375424;
-	bh=6zs7KIdtqObt3G5F3sKpbT+49YyGEZ76NLVtZ95Ea20=;
-	h=From:Date:Subject:To:Cc;
-	b=Il8+WfdfaPZAgRcR1lfjO5no/kPmT1KOA9nhDrRqXG2GUPhhA7WT5QNAni65luq11
-	 F5aIvUSDBWUcEc/gM7vwlJebdqyhEwjOt88ErqE9/6SF4aRTjACQXhk8PJy5PG0hCG
-	 W901Yn/YUJhvhyx2SQ1FvdWUg2cqxFUjWTxl/Ch1VOYJyeG5Q7wsj+VstbDbfs8Cqo
-	 aeKqHtFyt2FjDW/MwmQ1mRdvh5gaUgNJHU5EZC0qHP391bhSsFkLvZHFZkfDejiTnP
-	 xo6Nfk0JF1N9TciSHmq7hHMg706Va/6Uyzm8EfNkapo5c+Ut5vC/aYUN6SuvRUyLsq
-	 tWDajir5fK+fg==
-From: Christian Brauner <brauner@kernel.org>
-Date: Fri, 30 Oct 2026 16:50:07 +0100
-Subject: [PATCH] ns: don't add init_ipc_ns and init_net without namespace
- support
+	dkim=pass (1024-bit key, unprotected) header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=np9ADyET;
+	dkim=pass (2048-bit key, unprotected) header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=kve4lECv
+Received: by mta-65-141.flowmailer.net with ESMTPSA id 20261030155347e6ef842f820019fd3c
+        for <linux-kernel@vger.kernel.org>;
+        Fri, 30 Oct 2026 16:53:47 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=s1;
+ d=flowmailer.net;
+ h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
+ bh=cpjNowf7VMm/HUPL7hbuRXJOs+m21N46OI2eAXFUvAA=;
+ b=np9ADyET4HJnxm6lR5shZosk1yJmMZbJkpG5GOOJQbuP29tDnUtR15Lbm+W3h2B0EdVYZ0
+ 6DGsFTYZdsLZZfyNmwdFltPUXUIZPK6cFPMalQbpd84wnS05pwFaQQsS1j7awaiRkR65IrPd
+ gjeivIoPB5jSgRRFsdCRcIjjFGV04=;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm4;
+ d=siemens-energy.com; i=schuster.simon@siemens-energy.com;
+ h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
+ bh=cpjNowf7VMm/HUPL7hbuRXJOs+m21N46OI2eAXFUvAA=;
+ b=kve4lECvMwgSVNk/gBEToDewLOpCSTP0WZbscJdfOOIVZG3Luq4+6kDZPeTPt/ogRfE9Xd
+ Ihhmmejk0GXwK/DCNhZpa8vQpB3w0ytC/+Bqz32QiC1P+8ajPuCuBSLr2Ip7XIql3Ia1U6tw
+ p/pCQf+KpmUs9H4oliBDPrz8GVdbuUf1mEmxCgyRS+M1FOtPBg0EAvqgL4PkNEdBK62iCxSC
+ cLPYIbHnImrQjlrtXSidLAjoGqwArHyGbdFCxGXsrJIZ4wlFYXnC6V0FZDd+WgsTCBbUff1k
+ +qQEhb4f7F2Zn02VMrHmpM2q+chCTu6VIdYl7BUHQaS7wkFsx+XXx5dQ==;
+From: Simon Schuster <schuster.simon@siemens-energy.com>
+Date: Fri, 30 Oct 2026 16:53:04 +0100
+Subject: [PATCH 1/3] nios2: remove usage of libgcc
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,128 +68,242 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-work-nsfs-init_ns_tree-v1-1-7ec0adb47c54@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCMBBFr1KydiSJ0oVXESlJOrGjMJWZWIXSu
- 5vY5fv891ajKIRqLt1qBBdSmrmCO3QmTYHvCDRWNt763tmThc8sT2DNCsRUBtahCCKMCV1IeO4
- zelPll2Cm7z98ve2s7/jAVFqtPWJQhCiB09SmJetxN7btB81HGOKWAAAA
-X-Change-ID: 20261030-work-nsfs-init_ns_tree-dce1ace46fe2
-To: linux-fsdevel@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- kernel test robot <yi1.lai@intel.com>, stable@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4035; i=brauner@kernel.org;
- h=from:subject:message-id; bh=CmeNgtalbAc+JOBUPeLqNAYbAsC85B0PiD2APD63NlM=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ92bOn9dQzRX+ZN+5sS00EXsxYGJkTt2p3i67p+QVuF
- ozmC/R2d5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAExkTjcjw68ivlQvqdPyO36c
- nfr+xxmXwo/n7tTvujW/LX668+egFUsZ/lmlKDxULRdbfPA9+/TlagV61vO4E08u7hX45VHAEuw
- szgcA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Message-Id: <20261030-nios2-remove-usage-of-libgcc-v1-1-4e341c66082e@siemens-energy.com>
+References: <20261030-nios2-remove-usage-of-libgcc-v1-0-4e341c66082e@siemens-energy.com>
+In-Reply-To: <20261030-nios2-remove-usage-of-libgcc-v1-0-4e341c66082e@siemens-energy.com>
+To: Dinh Nguyen <dinguyen@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>
+Cc: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org, 
+ Simon Schuster <schuster.simon@siemens-energy.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793375627; l=5211;
+ i=schuster.simon@siemens-energy.com; s=20250818; h=from:subject:message-id;
+ bh=tudYzqMogIbEMV7LbZh9VjhbkFS0hjzSqFpyaZz0ong=;
+ b=gmNJ9SmOdyovxdY5rf9LCt1wejJrTL+Hpsdn1bhID3raFC82u/Atgl1kb625exJTqW18D9oxV
+ 3ZXyuiBxBOzBMqRdDZ5STSEBIBwIdTlCe4R+Zkc87O8BulgV0Jr6S29
+X-Developer-Key: i=schuster.simon@siemens-energy.com; a=ed25519;
+ pk=PUhOMiSp43aSeRE1H41KApxYOluamBFFiMfKlBjocvo=
 
-When CONFIG_IPC_NS or CONFIG_NET_NS are turned off we still add the
-initial ipc and network namespace to the namespace trees. ipc_ns_init()
-calls ns_tree_add(&init_ipc_ns) whenever CONFIG_SYSVIPC is set and
-setup_net() calls ns_tree_add_raw() on init_net whenever CONFIG_NET is
-set.
+From: Dinh Nguyen <dinguyen@kernel.org>
 
-But without CONFIG_IPC_NS and CONFIG_NET_NS these aren't namespaces
-userspace can do anything with. They don't have proc_ns_operations so
-there's no /proc/<pid>/ns/{ipc,net} for them, nsfs_fh_to_dentry()
-refuses them with -EOPNOTSUPP, and since ns->ops is NULL
-__ns_tree_add_raw() doesn't add them to the owner list of init_user_ns
-either. So they end up half registered. That's also not how we treat
-any of the other namespace types. Without CONFIG_UTS_NS, CONFIG_PID_NS,
-CONFIG_TIME_NS or CONFIG_USER_NS the initial namespace is never added
-to the tree.
+Use the kernel's runtime support for lshrdi3, ashldi3, ashrdi3, muldi3,
+and ucmpdi2.
 
-listns() walks the unified tree and calls is_current_namespace() for
-every namespace it finds via may_list_ns(). But is_current_namespace()
-only knows about CLONE_NEWIPC and CLONE_NEWNET if CONFIG_IPC_NS and
-CONFIG_NET_NS are set. Otherwise we end up in the default case and its
-VFS_WARN_ON_ONCE(). Any unprivileged caller can trigger that with a
-plain listns() call:
+Copy over the math functions from a GPLv2 GCC implementation of divsi3,
+udivsi3, mulsi3, umulsi3, modsi3, and gcc_bcmp.
 
-  WARNING: CPU: 0 PID: 526 at fs/nsfs.c:508 is_current_namespace+0x12f/0x440
-  Call Trace:
-   legitimize_ns+0x25f/0x4c0
-   do_listns+0x185/0x5c0
-   __do_sys_listns+0x13b/0x300
-
-Instead of teaching is_current_namespace() about namespaces that can't
-be opened, only add the initial namespaces to the tree if their
-namespace type is enabled. Move the registration of init_ipc_ns into
-ipc/namespace.c which is only built with CONFIG_IPC_NS. That also fixes
-CONFIG_SYSVIPC=n, CONFIG_POSIX_MQUEUE=y, CONFIG_IPC_NS=y where
-ipc/shm.c isn't built and init_ipc_ns was never added at all. For the
-network namespace only call ns_tree_add_raw() if CONFIG_NET_NS is set.
-Without CONFIG_NET_NS cleanup_net() isn't built and init_net is never
-removed so there's nothing to balance.
-
-Fixes: 74b24a582e1f ("ipc: support ns lookup")
-Fixes: 195f7422298d ("net: support ns lookup")
-Reported-by: kernel test robot <yi1.lai@intel.com>
-Closes: https://lore.kernel.org/oe-lkp/202610260917.6248e316-lkp@intel.com
-Cc: stable@vger.kernel.org # v6.18+
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
+Signed-off-by: Simon Schuster <schuster.simon@siemens-energy.com>
 ---
- ipc/namespace.c          | 7 +++++++
- ipc/shm.c                | 2 --
- net/core/net_namespace.c | 4 +++-
- 3 files changed, 10 insertions(+), 3 deletions(-)
+ arch/nios2/Kconfig              |   5 ++
+ arch/nios2/Makefile             |   4 +-
+ arch/nios2/kernel/nios2_ksyms.c |  22 --------
+ arch/nios2/lib/Makefile         |   1 +
+ arch/nios2/lib/math.c           | 119 ++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 126 insertions(+), 25 deletions(-)
 
-diff --git a/ipc/namespace.c b/ipc/namespace.c
-index 75aa7b469348..b54d23fd83d7 100644
---- a/ipc/namespace.c
-+++ b/ipc/namespace.c
-@@ -255,3 +255,10 @@ const struct proc_ns_operations ipcns_operations = {
- 	.install	= ipcns_install,
- 	.owner		= ipcns_owner,
- };
+diff --git a/arch/nios2/Kconfig b/arch/nios2/Kconfig
+index 9c0e6eaeb005c..9417bcf583957 100644
+--- a/arch/nios2/Kconfig
++++ b/arch/nios2/Kconfig
+@@ -14,6 +14,11 @@ config NIOS2
+ 	select GENERIC_CPU_DEVICES
+ 	select GENERIC_IRQ_PROBE
+ 	select GENERIC_IRQ_SHOW
++	select GENERIC_LIB_LSHRDI3
++	select GENERIC_LIB_ASHLDI3
++	select GENERIC_LIB_ASHRDI3
++	select GENERIC_LIB_MULDI3
++	select GENERIC_LIB_UCMPDI2
+ 	select HAVE_ARCH_TRACEHOOK
+ 	select HAVE_ARCH_KGDB
+ 	select HAVE_PAGE_SIZE_4KB
+diff --git a/arch/nios2/Makefile b/arch/nios2/Makefile
+index f1ff4ce0f1a2c..173588c31abf9 100644
+--- a/arch/nios2/Makefile
++++ b/arch/nios2/Makefile
+@@ -19,8 +19,6 @@ UTS_SYSNAME = Linux
+ 
+ export MMU
+ 
+-LIBGCC         := $(shell $(CC) $(KBUILD_CFLAGS) $(KCFLAGS) -print-libgcc-file-name)
+-
+ KBUILD_AFLAGS += -march=r$(CONFIG_NIOS2_ARCH_REVISION)
+ 
+ KBUILD_CFLAGS += -pipe -D__linux__ -D__ELF__
+@@ -37,7 +35,7 @@ KBUILD_CFLAGS += -DUTS_SYSNAME=\"$(UTS_SYSNAME)\"
+ KBUILD_CFLAGS += -fno-builtin
+ KBUILD_CFLAGS += -G 0
+ 
+-libs-y		+= arch/nios2/lib/ $(LIBGCC)
++libs-y		+= arch/nios2/lib/
+ 
+ INSTALL_PATH ?= /tftpboot
+ nios2-boot := arch/$(ARCH)/boot
+diff --git a/arch/nios2/kernel/nios2_ksyms.c b/arch/nios2/kernel/nios2_ksyms.c
+index e8710a269b398..351664e236fac 100644
+--- a/arch/nios2/kernel/nios2_ksyms.c
++++ b/arch/nios2/kernel/nios2_ksyms.c
+@@ -21,25 +21,3 @@ EXPORT_SYMBOL(memmove);
+ /* memory management */
+ 
+ EXPORT_SYMBOL(flush_icache_range);
+-
+-/*
+- * libgcc functions - functions that are used internally by the
+- * compiler...  (prototypes are not correct though, but that
+- * doesn't really matter since they're not versioned).
+- */
+-#define DECLARE_EXPORT(name)	extern void name(void); EXPORT_SYMBOL(name)
+-
+-DECLARE_EXPORT(__gcc_bcmp);
+-DECLARE_EXPORT(__divsi3);
+-DECLARE_EXPORT(__moddi3);
+-DECLARE_EXPORT(__modsi3);
+-DECLARE_EXPORT(__udivmoddi4);
+-DECLARE_EXPORT(__udivsi3);
+-DECLARE_EXPORT(__umoddi3);
+-DECLARE_EXPORT(__umodsi3);
+-DECLARE_EXPORT(__muldi3);
+-DECLARE_EXPORT(__mulsi3);
+-DECLARE_EXPORT(__ucmpdi2);
+-DECLARE_EXPORT(__lshrdi3);
+-DECLARE_EXPORT(__ashldi3);
+-DECLARE_EXPORT(__ashrdi3);
+diff --git a/arch/nios2/lib/Makefile b/arch/nios2/lib/Makefile
+index 9d5bf1df520c1..86433dcaac7e5 100644
+--- a/arch/nios2/lib/Makefile
++++ b/arch/nios2/lib/Makefile
+@@ -7,3 +7,4 @@ lib-y += delay.o
+ lib-y += memcpy.o
+ lib-y += memmove.o
+ lib-y += memset.o
++lib-y += math.o
+diff --git a/arch/nios2/lib/math.c b/arch/nios2/lib/math.c
+new file mode 100644
+index 0000000000000..9a89fa268a96e
+--- /dev/null
++++ b/arch/nios2/lib/math.c
+@@ -0,0 +1,119 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Copyright Altera Corporation (C) 2026. All rights reserved.
++ */
 +
-+static int __init ipc_ns_tree_init(void)
++#include <linux/export.h>
++#include <linux/string.h>
++#include <linux/types.h>
++
++/*
++ * Software 32-bit multiply for cores built without the hardware multiplier.
++ */
++s32 __mulsi3(s32 a, s32 b);
++s32 __divsi3(s32 a, s32 b);
++s32 __udivsi3(s32 a, s32 b);
++s32 __modsi3(s32 a, s32 b);
++s32 __umodsi3(s32 a, s32 b);
++int __gcc_bcmp(const void *s1, const void *s2, size_t len);
++
++static u32 udivmodsi4(u32 num, u32 den, int modwanted)
 +{
-+	ns_tree_add(&init_ipc_ns);
-+	return 0;
++	u32 bit = 1;
++	u32 res = 0;
++
++	while (den < num && bit && !(den & (1U << 31))) {
++		den <<= 1;
++		bit <<= 1;
++	}
++
++	while (bit) {
++		if (num >= den) {
++			num -= den;
++			res |= bit;
++		}
++		bit >>= 1;
++		den >>= 1;
++	}
++
++	return modwanted ? num : res;
 +}
-+pure_initcall(ipc_ns_tree_init);
-diff --git a/ipc/shm.c b/ipc/shm.c
-index bb1a721a3e74..cbab3d16cf70 100644
---- a/ipc/shm.c
-+++ b/ipc/shm.c
-@@ -45,7 +45,6 @@
- #include <linux/mount.h>
- #include <linux/ipc_namespace.h>
- #include <linux/rhashtable.h>
--#include <linux/nstree.h>
- 
- #include <linux/uaccess.h>
- 
-@@ -149,7 +148,6 @@ void shm_exit_ns(struct ipc_namespace *ns)
- static int __init ipc_ns_init(void)
- {
- 	shm_init_ns(&init_ipc_ns);
--	ns_tree_add(&init_ipc_ns);
- 	return 0;
- }
- 
-diff --git a/net/core/net_namespace.c b/net/core/net_namespace.c
-index da5f881fbd3b..52c2bd44778a 100644
---- a/net/core/net_namespace.c
-+++ b/net/core/net_namespace.c
-@@ -447,7 +447,9 @@ static __net_init int setup_net(struct net *net)
- 	down_write(&net_rwsem);
- 	list_add_tail_rcu(&net->list, &net_namespace_list);
- 	up_write(&net_rwsem);
--	ns_tree_add_raw(net);
-+	/* Without CONFIG_NET_NS init_net isn't exposed as a namespace. */
-+	if (IS_ENABLED(CONFIG_NET_NS))
-+		ns_tree_add_raw(net);
- out:
- 	return error;
- 
++
++s32 __mulsi3(s32 a, s32 b)
++{
++	s32 res = 0;
++	u32 cnt = a;
++
++	while (cnt) {
++		if (cnt & 1)
++			res += b;
++
++		b <<= 1;
++		cnt >>= 1;
++	}
++
++	return res;
++}
++EXPORT_SYMBOL(__mulsi3);
++
++s32 __divsi3(s32 a, s32 b)
++{
++	int neg = 0;
++	s32 res;
++
++	if (a < 0) {
++		a = -a;
++		neg = !neg;
++	}
++
++	if (b < 0) {
++		b = -b;
++		neg = !neg;
++	}
++
++	res = udivmodsi4(a, b, 0);
++	if (neg)
++		res = -res;
++
++	return res;
++}
++EXPORT_SYMBOL(__divsi3);
++
++s32 __udivsi3(s32 a, s32 b)
++{
++	return udivmodsi4(a, b, 0);
++}
++EXPORT_SYMBOL(__udivsi3);
++
++s32 __modsi3(s32 a, s32 b)
++{
++	int neg = 0;
++	s32 res;
++
++	if (a < 0) {
++		a = -a;
++		neg = 1;
++	}
++
++	if (b < 0)
++		b = -b;
++
++	res = udivmodsi4(a, b, 1);
++	if (neg)
++		res = -res;
++
++	return res;
++}
++EXPORT_SYMBOL(__modsi3);
++
++s32 __umodsi3(s32 a, s32 b)
++{
++	return udivmodsi4(a, b, 1);
++}
++EXPORT_SYMBOL(__umodsi3);
++
++int __gcc_bcmp(const void *s1, const void *s2, size_t len)
++{
++	return memcmp(s1, s2, len);
++}
++EXPORT_SYMBOL(__gcc_bcmp);
++
 
----
-base-commit: b44341e39d856e4cc6ad8ed94ebffd440f39846c
-change-id: 20261030-work-nsfs-init_ns_tree-dce1ace46fe2
+-- 
+2.39.5
 
