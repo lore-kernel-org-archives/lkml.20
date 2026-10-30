@@ -1,80 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348758;
-	b=boqqkI5keRNDwWJlSJ6D27ZYqCeAVY8D1hNdGu33Hgwu0aBxNObRsUnWhO3oUwz+VrD/
-	 w5WaaEVUESyibggRrfDbwJjDDkZTE/ZTILlDDSk4yEctuHta4NL3NcwzBOfiCBr5Q+c5A
-	 3dLGjDmXmJz8xD/Sc0fRGJjl2K7nDOJwruVlONGiK7Co6aibPQQ3JueARd16HeV7HA99R
-	 n+oI7jNvP5R/DySDlcm0Kz4kpLTVfob7y+OoZnorM2Z61vfRfo1V6oVB4fwP2o8CBZbRc
-	 9D8m9uy0j6Kl3+fpWCevUTSqsMbB+PBRev+fiKo8KYortYLPrePIYodI6zG/5/NwO0w==
+	t=1793348774;
+	b=unfbsJEhGhxBNjXaiUsK073tBCjH5pZcIGTKnjv4PHaCsgYJ0xizROuEPpWir9nnd86G
+	 x9ooWfwvmb+1c2OEeqKoJE7WdrKvYALot5bOeatJEttvNX/9DJf6s3ESC30iY7yPz4S4U
+	 k4kf7SgbZ4cqpQbgu/0Gt52YMfHwltY2W3bc6wVb5tKqF/cH2gZldvBsB1Zf6P7jv/gwm
+	 LL+dOudfv8qimuEJGEZYTDvh5J+ySBzYotAJAbSMEjkZ+2nvzpn8t60dhJ6zEIJ99A9RM
+	 EKEweynQs9tfYxIf2LtljI0xLNIj/UVhFYi9saoHV4P9psccWhMgY10fETlZPVksM3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348758;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-MTK;
-	bh=htf0XnCq8b3mGZpyFUeRWCE6zqOV8+iGrdXbpt9HnI4=;
-	b=t4CXavbPe8qSqZgt9BATOpEsBpInf9T79N/yUwXrXZ6i8+oId5fCUyqUCVHXYzDJctVI
-	 cQwP+y1l6V4kelggrLD2nnDqDZcpKQlgIt7sMM0b7exS9xR7w4LLAet6tWdmdVkiycggf
-	 6J0LtBfp5UfZgGwLslnJ5OGqhK6hyh6+s9H00/VHM/kPZPKsTHNQWKIp1czdTtoGuBevg
-	 61b6/Cr0OkKf9ZouIy3skA05cx8nxbx3Qn8iuDR6lcz5s6I2yE/3i8bOI2IM402jL1N7o
-	 Eiz7e5wWIH+cHidZl8EmUc54YFrrcfAoLXGGF2XayX/ntI7VsLJxWo/ADsdpZ1LIlhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348774;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=aNXERptz7qTR+6t+3Qsay7S44BkYXF3Cv2liAKg/moM=;
+	b=VJBGEDrosb+ABKEqERxCZuvRafwt6weKQWeIX1yhDHsPj+EuijWoVRaWvljkokfY5gHd
+	 I50a3L5GF/9g0zxTg0TQFF1SNSKii3kQevRvzYYhw0iy0T+oLElz9E6c/RZ0VJeY/iQCO
+	 E/e9SWtGQVHzBGcGitQPryjB5cAdSObU+lAD4yEazXjRbvfHNKuuJ/SBYI4fFyauEpapD
+	 KXm9k8TRzGMvnGlEN92sZhmmwOJH2Yp55mc56jLm4eMLCTp4fmJlpgKAi+44LcBCly2lA
+	 CWOE6E6th4remPj9uKokIB/jk/O1QSKtDK5koOy0iPJGPSManr3tI5B8ac5zHA9Ustg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=ncM5MH9O;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R6WFI+eF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24561606A31C;
-	Fri, 30 Oct 2026 08:25:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24561606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEF3606A335
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:26:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=ncM5MH9O
-X-UUID: 84dfcceed43b11f18dc8c9802ae25ab1-20261030
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=htf0XnCq8b3mGZpyFUeRWCE6zqOV8+iGrdXbpt9HnI4=;
-	b=ncM5MH9OiDXnAMTTfYf0ACPVHJ23Z8v6Lomf7KRzk/qFLgelf9qT6jetllI7MafB1AU7OAL47L59aY1x85doyqoVZyASr4fVXk6ZOdVEuOZ5MFJ64ZLTnCUx5whZKBbqzxmzzOme///MIIitcuMR/BHGNrrv3MCvk30JnzJ5V+w=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:ef037393-0584-4e12-9a23-3620b3bfe4c3,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:b0318ac,CLOUDID:1262e7ec-b50c-48b5-b20a-bfe3130e16d3,B
-	ulkID:nil,BulkQuantity:0,SF:102|136|836|865|888|898,TC:-5,Content:0|15|50|
-	99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
-	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 84dfcceed43b11f18dc8c9802ae25ab1-20261030
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
-	(envelope-from <chunfeng.yun@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 2146420178; Fri, 30 Oct 2026 16:25:52 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 30 Oct 2026 16:25:50 +0800
-Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 30 Oct 2026 16:25:50 +0800
-From: Chunfeng Yun <chunfeng.yun@mediatek.com>
-To: Mika Westerberg <westeri@kernel.org>
-CC: Andreas Noever <andreas.noever@gmail.com>, Yehezkel Bernat
-	<YehezkelShB@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, <linux-kernel@vger.kernel.org>,
-	<linux-usb@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>, Chunfeng Yun
-	<chunfeng.yun@mediatek.com>
-Subject: [PATCH 0/4] add support platform nhi driver
-Date: Fri, 30 Oct 2026 16:25:35 +0800
-Message-ID: <20261030082539.1208733-1-chunfeng.yun@mediatek.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R6WFI+eF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1AA61F00A17
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:26:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793348761;
+	bh=aNXERptz7qTR+6t+3Qsay7S44BkYXF3Cv2liAKg/moM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=R6WFI+eFjQuCiLtMF6m/X2DqXL6K4cKlYw4jkM7/JLuUY/34IjcRjDW8EgXKUQ93J
+	 uFuP28d5QeKUEUQdT6vKfnFvzsGlX1yzxPg6CxiWQnr1iU/98P9xax32llM7ynUKpA
+	 8aYs8wgSetg/+j5O825YHGXA4zUlsxQ0ls3YDP+pC3/Pn8DTFr6W77+qZ9JlPk69av
+	 pDoc9RFM7f+APMqLN81e+ApLEO43BsKuhClMMmGq4JmavkH1uR3e7mu9hgJv+5UXNS
+	 oAVSp33TyZly90uP1yf0+mwf95+6BKNVjxIhuYKkfVqaf2JEEEpszW39DmJ4V+F3fg
+	 LejLFjVHZ7v2Q==
+Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-55e0090c580so124773b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:26:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwJBEFI8cKOzoDAkSCvjFJvOVkEwE57WQFt8cR7Vt0ThNyeMNaBSqLi80aqM1G+9duopvqeOCzQrgY0fT4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRzyEqsXkSoRI9lN2I5S7lDFH//6t/4YMJ+AXuG1QQgJ+m/32S
+	YqwNzTcA+DMapDu0SbNB2ISN4bKJgeEhtEP9lV/+UoYeYkdCOtZLNPqx0LUewZ14rEDhILEorWA
+	sT24TE0fX9HB9MK+hozxZ/0OnPL3v7I8=
+X-Received: by 2002:a05:6808:1303:b0:4f8:65de:7293 with SMTP id
+ 5614622812f47-5640dce8ea9mr1292336b6e.15.1793348761127; Fri, 30 Oct 2026
+ 01:26:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,81 +59,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+References: <6ae4102e.9c6421ad.36baac.0005.GAE@google.com>
+In-Reply-To: <6ae4102e.9c6421ad.36baac.0005.GAE@google.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Fri, 30 Oct 2026 09:25:49 +0100
+X-Gmail-Original-Message-ID: <CAL4WiipBVMi_fiSQVUAFxqcPVc5jR2BswOwA2iNmGFYE_sbyRg@mail.gmail.com>
+X-Gm-Features: AclHuK_c5K2Xa_OvjKUPQHstmR8REIAhrM_26qFbqmZZXQiExz0QuCddT3LTrwQ
+Message-ID: <CAL4WiipBVMi_fiSQVUAFxqcPVc5jR2BswOwA2iNmGFYE_sbyRg@mail.gmail.com>
+Subject: Re: [syzbot] [net?] memory leak in build_skb
+To: syzbot <syzbot+a3f21220cbbb6e14ee2e@syzkaller.appspotmail.com>, 
+	Steffen Klassert <steffen.klassert@secunet.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, jasowangio@gmail.com, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	pabeni@redhat.com, syzkaller-bugs@googlegroups.com, 
+	willemdebruijn.kernel@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This patch series introduces support for platform bus-based USB4/Thunderbolt
-Host Interface (NHI) controllers on embedded SoCs, along with two fixes/
-improvements in the Thunderbolt core connection manager.
+Le ven. 30 oct. 2026 =C3=A0 04:34, syzbot
+<syzbot+a3f21220cbbb6e14ee2e@syzkaller.appspotmail.com> a =C3=A9crit :
+>
+> Hello,
+>
+> syzbot found the following issue on:
+>
+> HEAD commit:    65ba8f34ec88 Merge tag 'xtensa-20261027' of https://githu=
+b..
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=3D1592353e58000=
+0
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=3Dfbf447a1375a1=
+948
+> dashboard link: https://syzkaller.appspot.com/bug?extid=3Da3f21220cbbb6e1=
+4ee2e
+> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for D=
+ebian) 2.44
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D142ee469580=
+000
+>
+> Downloadable assets:
+> disk image: https://storage.googleapis.com/syzbot-assets/b4e738ce5f2b/dis=
+k-65ba8f34.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/1de9d1ecbbb6/vmlinu=
+x-65ba8f34.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/8a3d79b65181/b=
+zImage-65ba8f34.xz
+>
+> AI-generated root cause summary:
+> In IPsec IP-TFS (XFRM_MODE_IPTFS) processing, when inner packets (includi=
+ng the
+> reused outer skb) are parsed and added to a temporary local 'sublist' dur=
+ing
+> __input_process_payload(), any error encountering invalid header data or
+> truncated payload jumps to 'done:'. At 'done:', packets on 'sublist' are =
+neither
+> delivered nor freed, and the reused outer skb is neither placed in 'defer=
+' nor
+> freed by kfree_skb(), permanently leaking the sk_buff and its attached se=
+c_path
+> extension.
+>
+> full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=3Da3f2122=
+0cbbb6e14ee2e
+>
+> IMPORTANT: if you fix the issue, please add the following tag to the comm=
+it:
+> Reported-by: syzbot+a3f21220cbbb6e14ee2e@syzkaller.appspotmail.com
+>
+> 2026/10/28 09:56:01 executed programs: 5
+> BUG: memory leak
+> unreferenced object 0xffff888104c73c00 (size 240):
+>   comm "syz.0.17", pid 5970, jiffies 4294947974
+>   hex dump (first 32 bytes):
+>     90 38 1f 02 00 c9 ff ff 90 38 1f 02 00 c9 ff ff  .8.......8......
+>     00 00 6a 24 81 88 ff ff 00 00 00 00 00 00 00 00  ..j$............
+>   backtrace (crc 84fdfeb5):
+>     kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+>     slab_post_alloc_hook mm/slub.c:4733 [inline]
+>     slab_alloc_node mm/slub.c:5033 [inline]
+>     kmem_cache_alloc_noprof+0x35b/0x3e0 mm/slub.c:5047
+>     __build_skb net/core/skbuff.c:495 [inline]
+>     build_skb+0x25/0x120 net/core/skbuff.c:511
+>     __tun_build_skb drivers/net/tun.c:1631 [inline]
+>     tun_build_skb+0x489/0x770 drivers/net/tun.c:1726
+>     tun_get_user+0xd2e/0x2040 drivers/net/tun.c:1860
+>     tun_chr_write_iter+0x71/0x120 drivers/net/tun.c:2100
+>     new_sync_write fs/read_write.c:595 [inline]
+>     vfs_write+0x3ae/0x720 fs/read_write.c:687
+>     ksys_write+0xa5/0x170 fs/read_write.c:739
+>     do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+>     do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
+>     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>
+> BUG: memory leak
+> unreferenced object 0xffff888104d139c0 (size 192):
+>   comm "syz.0.17", pid 5970, jiffies 4294947974
+>   hex dump (first 32 bytes):
+>     01 00 00 00 00 02 00 00 00 00 0b 00 00 00 00 00  ................
+>     80 9f 7b 24 81 88 ff ff 00 00 00 00 00 00 00 00  ..{$............
+>   backtrace (crc 420634a7):
+>     kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+>     slab_post_alloc_hook mm/slub.c:4733 [inline]
+>     slab_alloc_node mm/slub.c:5033 [inline]
+>     kmem_cache_alloc_noprof+0x35b/0x3e0 mm/slub.c:5047
+>     __skb_ext_alloc+0x1a/0x50 net/core/skbuff.c:7246
+>     skb_ext_add+0x1a6/0x280 net/core/skbuff.c:7350
+>     secpath_set+0x7c/0xc0 net/xfrm/xfrm_input.c:127
+>     xfrm_input+0x381/0x28a0 net/xfrm/xfrm_input.c:571
+>     vti_input+0xf4/0x160 net/ipv4/ip_vti.c:69
+>     xfrm4_esp_rcv+0x46/0xb0 net/ipv4/xfrm4_protocol.c:104
+>     ip_protocol_deliver_rcu+0x259/0x260 net/ipv4/ip_input.c:207
+>     ip_local_deliver_finish+0x115/0x1e0 net/ipv4/ip_input.c:241
+>     NF_HOOK include/linux/netfilter.h:325 [inline]
+>     NF_HOOK include/linux/netfilter.h:319 [inline]
+>     ip_local_deliver+0x97/0x140 net/ipv4/ip_input.c:262
+>     dst_input include/net/dst.h:481 [inline]
+>     ip_rcv_finish net/ipv4/ip_input.c:492 [inline]
+>     NF_HOOK include/linux/netfilter.h:325 [inline]
+>     NF_HOOK include/linux/netfilter.h:319 [inline]
+>     ip_rcv+0x212/0x230 net/ipv4/ip_input.c:612
+>     __netif_receive_skb_one_core+0xce/0x100 net/core/dev.c:6405
+>     __netif_receive_skb+0x1d/0x80 net/core/dev.c:6518
+>     netif_receive_skb_internal net/core/dev.c:6604 [inline]
+>     netif_receive_skb+0x49/0x200 net/core/dev.c:6663
+>     tun_rx_batched drivers/net/tun.c:1575 [inline]
+>     tun_get_user+0x1ccc/0x2040 drivers/net/tun.c:2053
+>     tun_chr_write_iter+0x71/0x120 drivers/net/tun.c:2100
+>
+> connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
+>
+>
+> ---
+> This report is generated by a bot. It may contain errors.
+> See https://goo.gl/tpsmEJ for more information about syzbot.
+> syzbot engineers can be reached at syzkaller@googlegroups.com.
+>
+> syzbot will keep track of this issue. See:
+> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+>
+> If the report is already addressed, let syzbot know by replying with:
+> #syz fix: exact-commit-title
+>
+> If you want syzbot to run the reproducer, reply with:
+> #syz test: git://repo/address.git branch-or-commit-hash
+> If you attach or paste a git patch, syzbot will apply it before testing.
+>
+> If you want to overwrite report's subsystems, reply with:
+> #syz set subsystems: new-subsystem
+> (See the list of subsystem names on the web dashboard)
+>
+> If the report is a duplicate of another one, reply with:
+> #syz dup: exact-subject-of-another-report
+>
+> If you want to undo deduplication, reply with:
+> #syz undup
 
-Historically, the Thunderbolt NHI driver has assumed a PCI bus binding
-(pci.c), with tb_domain_init()/exit() tightly coupled to the PCI module
-lifecycle. Modern ARM64 SoCs integrate the USB4 NHI controller directly
-onto the platform bus, described via Device Tree or ACPI.
+#syz test
 
-This series decouples the core domain initialization from the PCI driver
-and adds a dedicated platform driver (plat.c) supporting standard platform
-probing, OF/ACPI device tables, runtime PM, and an optional dedicated
-out-of-band wakeup IRQ.
+diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
+index 103cf7c5dbfb..0313a43aa8a9 100644
+--- a/net/xfrm/xfrm_iptfs.c
++++ b/net/xfrm/xfrm_iptfs.c
+@@ -1182,6 +1182,7 @@ static bool __input_process_payload(struct
+xfrm_state *x, u32 data,
+                /* this should not happen from the above code */
+                XFRM_INC_STATS(net, LINUX_MIB_XFRMINIPTFSERROR);
 
-Additionally, this series resolves two issues observed during runtime PM
-and link training:
-1. Premature link-up timeout when bringing up USB3 adapters on links with
-   multiple retimers.
-2. Kernel warnings when authorizing/de-authorizing PCIe tunnels on switches
-   that have been marked unplugged or lost during suspend.
-
-Patches in this series:
-======================
-Patch 1: thunderbolt: add platform nhi driver
-  Decouples tb_domain_init()/exit() using subsys_initcall() and adds plat.c
-  to support memory-mapped NHI host controllers on the platform bus with
-  Device Tree (CONFIG_OF) and ACPI (CONFIG_ACPI) match tables.
-
-Patch 2: thunderbolt: add support optional dedicated wakeup irq
-  Adds support for an optional dedicated wakeup interrupt for platform NHI
-  controllers using dev_pm_set_dedicated_wake_irq(), allowing out-of-band
-  wake-up lines from SoC power management units during low-power states.
-
-Patch 3: thunderbolt: improve usb3 adapter link up timeout value
-  Increases tb_wait_for_port() timeout from 1.0s to 2.5s. In the USB4 spec,
-  Phase 5 (Link Equalization) alone is permitted up to 1000 ms. When factoring
-  in Phase 3/4 and retimer transaction delays across multiple retimers, link
-  training can legitimately take 1.2s to 1.5s+. The previous 1.0s timeout
-  caused premature aborts and disconnects upon wakeup.
-
-Patch 4: thunderbolt: fix pcie tunnel create/destroy core dump
-  Checks sw->is_unplugged in tb_switch_set_authorized(), tb_disconnect_pci(),
-  and tb_tunnel_pci(). When de-authorizing an unplugged/lost switch via sysfs,
-  this prevents redundant lookups and eliminates false-positive
-  WARN_ON(!tunnel) stack traces when tunnels have already been destroyed.
-
-Testing:
-========
-Tested on ARM64 platform hardware with USB4 hubs and downstream PCIe/USB3
-devices across plug/unplug, system suspend/resume, and runtime PM transitions,
-the kernel boots from UEFI/ACPI.
-
-Chunfeng Yun (4):
-  thunderbolt: add platform nhi driver
-  thunderbolt: add support optional dedicated wakeup irq
-  thunderbolt: improve usb3 adapter link up timeout value
-  thunderbolt: prevent pcie tunnel activation/teardown warnings
-
- drivers/thunderbolt/Makefile |   2 +-
- drivers/thunderbolt/domain.c |  10 +-
- drivers/thunderbolt/nhi.c    |   2 +
- drivers/thunderbolt/nhi.h    |   1 -
- drivers/thunderbolt/pci.c    |  26 +-----
- drivers/thunderbolt/plat.c   | 171 +++++++++++++++++++++++++++++++++++
- drivers/thunderbolt/switch.c |   8 +-
- drivers/thunderbolt/tb.c     |   7 ++
- drivers/thunderbolt/tb.h     |   2 -
- include/linux/thunderbolt.h  |   2 +
- 10 files changed, 200 insertions(+), 31 deletions(-)
- create mode 100644 drivers/thunderbolt/plat.c
-
--- 
-2.43.0
-
++done:
+        if (first_skb && first_iplen && !defer && !first_skb_partial) {
+                /* first_skb is queued b/c !defer and not partial */
+                if (pskb_trim(first_skb, first_iplen)) {
+@@ -1198,7 +1199,7 @@ static bool __input_process_payload(struct
+xfrm_state *x, u32 data,
+                if (xfrm_input(skb, 0, 0, -2))
+                        kfree_skb(skb);
+        }
+-done:
++
+        skb =3D skbseq->root_skb;
+        skb_abort_seq_read(skbseq);
