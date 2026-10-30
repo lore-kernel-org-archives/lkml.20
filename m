@@ -1,69 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793350178;
-	b=ZHaFmOqCvhoq1gi6U0ZBkVdtYL43gWmXf6a2qJw8UVh0IQPVemBHrpRKVu3mlV+YKbmY
-	 +VaHMmbX157W9yaAogDDYDoKryyKPQxxIh1oS5Y0PqBvxjLBkUUyx/1HtyDhm8ow49yDk
-	 eGtHtSDxAD9WheYodwBHlTlsj78kxKPXPmQneW5e77ln7gLBXV8SGYXGHGNIza2//Qt2Q
-	 qtZQBYfhq7H6qQSxiTnpSo+b+83XdvDd0wXDcEDEm/NGngyilPtd57UvIN0CPKgvD3qtv
-	 gnrnyl2Ttlz9oIoDlMpsMCy/IUtCjJyvFnkoO+QWSzIy6cekCu+srUVgeCZYOaTdakw==
+	t=1793350250;
+	b=MlhLUDevj6RATEC3Kbh1p/Q+SaiASEIlJtPgIL02ImRS+KgbIc/bGhqJd4FtSl6R12sE
+	 H9MdHIq044aEDFTb7dA3Hy51nfRz4F5Ac3+nCRn5nCqQ9zeq1XnBpUa/h77KgsisneoXi
+	 1wXmy55W2lLMaSRCeI1cuU3WIaXdfv0uXxEzk2Y81iIXGINWVLyqXW+TeN2kl+8DDmt0T
+	 d8h93++P5PIK07ORSkNeRQRz5ZRqBsI6vKPrL+mOASqD5+lKqrW2qui/MokJIa78r1vi6
+	 j8MdMSPT+csg1+jA/XoQxzIy9cO1pbzYVLmyx3+qxXK+kbNbvxJ9aKN+OC0TbzaGogA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793350178;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8PFBa0453peGS7/Cs9P1PeciAx/a1xuZsr6ALPAf46o=;
-	b=V21RzoiGdSRzbpPhikB0pHJwLHeZXCH/ArPq9yRMjpnpz0VIMP2GCXLiTIXno3GHhqfc
-	 fdTTJgYJWPRl5wRPdhs8t1dUTiU61c4vdr3LvPN2FlSLrnxTXuUd867ceHw17fVXyCYLF
-	 6AMnlgApE1MrPEvUNSIIeHqIzvEiU5BlO4/NRiwm/x8++Z56bkCDmv6bj0FEF+Zi3ig2K
-	 f3ej6kuNmlKKlWBTB7bhebbEz+P4uTkfNcGiIay3xi9+4jNKZnXdAoU+KCz/EwYntuoHO
-	 T5Q+T4EduEsEa2YQVwBxtYgluJjQf5ntcSztf5HfuvyV4H/kfI3sUnhlVtho4Cl+b/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793350250;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=E5x7B7nXoL/tCjGbGvP/ubF3LppEPd/RfZ8GtFIZbHY=;
+	b=Mlk9ylX7HGlGH2H/DUgrdYqxvYv4AWCWIMaaFERy+OczUjNddqqcXMqKGV+RhQbLmcHw
+	 GGwMYXs055eUJ5zB+nI0c7vZG6eDek6/8xY+W9WdYOIjQu6dAfJUrJ7w/WfV3Gq2G0hdc
+	 qWpSGpYp7vzp/sQQhIQ/dDROrPhzA9xCdJB8TMkbw5gx0G9jD349+ztsNA31eM140tnM/
+	 cAgSE/VtpmUZaZK7joNblqKDZ6qK7D/6bcQhAMNloffnc/QXVcny6bxiGsneb7mV1zgwt
+	 WDN1pP3bY5RJ0zWLg3dHc8vdO/O+ZQSWuUfax/xbDVVBZ97UwOalf6XfKJ9YYQli20w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unibo.it;
-	spf=pass smtp.mailfrom=cs.unibo.it;
-	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b="vD350/tD";
-	arc=none smtp.remote-ip=130.136.161.50
-Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 88974606A31C;
-	Fri, 30 Oct 2026 08:49:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88974606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bm+7Hx37;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7FC606A31A;
+	Fri, 30 Oct 2026 08:50:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A7FC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=vD350/tD
-Received: from eipi10.cs.unibo.it (unknown [94.32.99.206])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 21EB41C025B;
-	Fri, 30 Oct 2026 09:49:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1793350176;
-	bh=ZygyKgWUKW+0GU3E/KOJede2S8o2FlDkM5rxc9dDDbk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=vD350/tDv92mYDYd3+MLAlQomWxgmhaj4OM8wOUOzShU0ha1u3SUwM2LTDWHQXs6y
-	 K7LZrZeK/RVrJUU9R+h1BWgyT9NwQlfb92un0rwSeG+OG5BHfhjC87IqEMyB5PlZip
-	 QBkHyJ5EeIGV+B7Z2myq2lqEuyxtGWbrE+UikHtM=
-From: Renzo Davoli <renzo@cs.unibo.it>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>
-Cc: Renzo Davoli <renzo@cs.unibo.it>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	=?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
-	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	"Dmitry V . Levin" <ldv@strace.io>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] powerpc/syscall: Remove TIF_SYSCALL_RET
-Date: Fri, 30 Oct 2026 09:49:24 +0100
-Message-ID: <20261030084926.1068384-2-renzo@cs.unibo.it>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261030084926.1068384-1-renzo@cs.unibo.it>
-References: <20261030084926.1068384-1-renzo@cs.unibo.it>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bm+7Hx37
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793350249; x=1824886249;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=CmxciEAo57BZeqnclCgFetzlmtsZaVUtk/MM1fxegNU=;
+  b=Bm+7Hx37K7JRoZBkxxIzxRGimb139IEEYC6lmfYY8Hw5EJvJwIpGfded
+   eEEgGS27furUmhCO7Jpgq+WSydTJN0zb5RYEWtAmmz5mTWalgI+ppm+oi
+   S+jy+6GbtS55fZ2HAyJG+CrG6OA2okM+XpmqL1mw0bsLM6guXtZrFGetN
+   KNksBDfmOaeduo3FfUcmaLYxRL4Ox5wvMLQYkU4FoPknSx0UFOeLTKXcv
+   j47Fygo2ihEj9BQ4QfM/K2TwgzBQO7mtuOU7v5idJWZoETdwbAeqLUdRj
+   irbk4CcKtNmYopDEnakk43RZQG7dIcxn4j3bvzlfEjjWIB9+LMNtFKPnX
+   w==;
+X-CSE-ConnectionGUID: 0bV0CumyQXqTKFeuMqszZA==
+X-CSE-MsgGUID: C1/PdzpgSRas3UGT7iOjbQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="1986455"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="1986455"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 01:50:48 -0700
+X-CSE-ConnectionGUID: +Yp8x0cyRcalWLvDsJ5a9g==
+X-CSE-MsgGUID: YbAuTS6IQoaj06HuKLRvSQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5265042"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa007.jf.intel.com with ESMTP; 30 Oct 2026 01:50:46 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 57E9C99; Fri, 30 Oct 2026 09:50:45 +0100 (CET)
+Date: Fri, 30 Oct 2026 09:50:45 +0100
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>
+Cc: Mika Westerberg <westeri@kernel.org>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 3/4] thunderbolt: improve usb3 adapter link up timeout
+ value
+Message-ID: <20261030085045.GR158991@black.igk.intel.com>
+References: <20261030082539.1208733-1-chunfeng.yun@mediatek.com>
+ <20261030082539.1208733-4-chunfeng.yun@mediatek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,88 +89,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261030082539.1208733-4-chunfeng.yun@mediatek.com>
 
-Commit 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for
-seccomp and ptrace") added TIF_SYSCALL_RET, set by
-syscall_set_return_value(), so that system_call_exception() skips a
-system call whose return value has already been set.
+On Fri, Oct 30, 2026 at 04:25:38PM +0800, Chunfeng Yun wrote:
+> when plug into a usb3 device into usb4 hub's DFP to trigger usb4
 
-The flag is set with set_thread_flag(), i.e. on current rather than on
-the task passed to syscall_set_return_value().  When the caller is a
-tracer, as with PTRACE_SET_SYSCALL_INFO and op ==
-PTRACE_SYSCALL_INFO_EXIT, the flag ends up on the tracer, and the next
-system call of the tracer is silently not executed.  Setting it on the
-right task would not be enough either: at a syscall-exit stop the flag
-would then skip the next system call of the tracee.
+USB 3 device into USB4 hub's downstream facing port to ...
 
-The flag is not needed anymore.  Commit 05c033db7e9a ("entry, treewide:
-Make syscall_enter_from_user_mode[_work]() indicate syscall execution")
-made syscall_enter_from_user_mode_randomize_stack() return false when
-ptrace or seccomp skip the system call, and every in-kernel caller of
-syscall_set_return_value() on the syscall entry path (SECCOMP_RET_ERRNO,
-SECCOMP_RET_TRACE without a tracer, SECCOMP_RET_USER_NOTIF) also makes
-it return false.  A system call with an invalid number, including
-syscall(-1), still gets -ENOSYS.
+> driver wakeup, encounter usb3 link up timeout issue, then cause
+> usb3 hub disconnect:
+> 
+> usb4_hi NVDA8100:00: 0:1: failed to reach state TB_PORT_UP. Ignoring port...
+> usb4_hi NVDA8100:00: 0:1: lost during suspend, disconnecting
+> usb4_hi NVDA8100:00: 0:4 <-> 1:20 (USB3): deactivating
+> usb4_hi NVDA8100:00: deactivating USB3 Down path from 0:4 to 1:20
+> usb4_hi NVDA8100:00: deactivating USB3 Up path from 1:20 to 0:4
+> ...
+> thunderbolt 0-1: device disconnected
+> usb 2-1: USB disconnect, device number 10
+> 
+> Completes link training at ~1.48s and transitions to TB_PORT_UP after
+> change the timeout to 2.5s:
+> 
+> In the USB4 spec, Phase 5 (Link Equalization) alone is allowed up to
+> 1000 ms. When add tPhase3 (100 ms), tPhase4 (100 ms), and retimer
+> transaction delays (tCmdResponse = 50 ms), the physical link is
+> allowed by spec to take 1200 ms to 1500 ms+ to complete initialization.
+> 
+> here are two retimers in the link, if more retimers add it, need more
+> time
+> 
+> Signed-off-by: Chunfeng Yun <chunfeng.yun@mediatek.com>
+> ---
+>  drivers/thunderbolt/switch.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/thunderbolt/switch.c b/drivers/thunderbolt/switch.c
+> index d22d8db8f890..e7ee9639c54c 100644
+> --- a/drivers/thunderbolt/switch.c
+> +++ b/drivers/thunderbolt/switch.c
+> @@ -500,8 +500,9 @@ int tb_port_state(struct tb_port *port)
+>   */
+>  int tb_wait_for_port(struct tb_port *port, bool wait_if_unplugged)
+>  {
+> -	int retries = 10;
+> +	int retries = 25;
+>  	int state;
+> +
 
-Remove the flag.
+This is unrelated change.
 
-Fixes: 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for seccomp and ptrace")
-Cc: stable@vger.kernel.org # v7.3
-Suggested-by: Michal Suchánek <msuchanek@suse.de>
-Assisted-by: claude-opus-5-5
-Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
----
- arch/powerpc/include/asm/syscall.h     | 6 ------
- arch/powerpc/include/asm/thread_info.h | 1 -
- arch/powerpc/kernel/syscall.c          | 4 +---
- 3 files changed, 1 insertion(+), 10 deletions(-)
-
-diff --git a/arch/powerpc/include/asm/syscall.h b/arch/powerpc/include/asm/syscall.h
-index 32be22b995cc..4b3c52ed6e9d 100644
---- a/arch/powerpc/include/asm/syscall.h
-+++ b/arch/powerpc/include/asm/syscall.h
-@@ -98,12 +98,6 @@ static inline void syscall_set_return_value(struct task_struct *task,
- 			regs->gpr[3] = val;
- 		}
- 	}
--	/*
--	 * Mark that a return value has been explicitly set by seccomp or
--	 * ptrace so that system_call_exception() can skip the syscall
--	 * unconditionally, even when the user requested syscall(-1).
--	 */
--	set_thread_flag(TIF_SYSCALL_RET);
- }
- 
- static inline void syscall_get_arguments(struct task_struct *task,
-diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
-index 1e069a2e7ce8..0487e94d3416 100644
---- a/arch/powerpc/include/asm/thread_info.h
-+++ b/arch/powerpc/include/asm/thread_info.h
-@@ -120,7 +120,6 @@ void arch_setup_new_exec(void);
- #endif
- #define TIF_POLLING_NRFLAG	19	/* true if poll_idle() is polling TIF_NEED_RESCHED */
- #define TIF_32BIT		20	/* 32 bit binary */
--#define TIF_SYSCALL_RET		21	/* syscall error value set */
- 
- /* as above, but as bit values */
- #define _TIF_SYSCALL_TRACE	(1<<TIF_SYSCALL_TRACE)
-diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
-index 8529827d697f..f7412556a9e8 100644
---- a/arch/powerpc/kernel/syscall.c
-+++ b/arch/powerpc/kernel/syscall.c
-@@ -18,9 +18,7 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
- 	long ret;
- 	syscall_fn f;
- 
--	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0) ||
--			test_thread_flag(TIF_SYSCALL_RET))) {
--		clear_thread_flag(TIF_SYSCALL_RET);
-+	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0))) {
- 		return syscall_get_error(current, regs);
- 	}
- 
--- 
-2.55.0
-
+>  	if (!port->cap_phy) {
+>  		tb_port_WARN(port, "does not have PHY\n");
+>  		return -EINVAL;
+> -- 
+> 2.43.0
