@@ -1,55 +1,88 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793382747;
-	b=zwKA4Ujz6a1I4nk0lhQcmizsXIIvT1KySr9CGTwXJubL2vKZfcDou7ucYIXP/bd7KZ+p
-	 EiLY+hIqfSkQw3aamqUIzZmeHVhTcpg1y6JOU3Qwdi1/kE3VOExgCuX6Me47GezB3xEhA
-	 XUlIFrufgF4VU4z2OsMtgP0KBGGqBfo33h/L57HWgYMhqLhCWYLFeddB6joI2vw5kI+Ey
-	 2CR0rxwTUHOsJIW5iSjD4eHqa2cVw67OyEWpP/91ibiI7JOPQl1j/PeuVhKYOxeCuNUFM
-	 S1s6edJ8FSiczgsdx2oUAyXK5KmKU+5iEW/dGfCTAue4ljsy78z+zz7VAyqY5t8yoFg==
+	t=1793382806;
+	b=ONsdjWfmniPzIvLlMvYsRq4xsHBpJ81xnWoONiNZAwjXeKD0cT4siW1fl1PzNQzX3Wse
+	 L62KTpSCDY7wVNGJFQRNxBVcjIEKgoDEJcAXyuqgxIQNAKMa9Ho/GymwNqT38bZ1qrFot
+	 y14ULLV3ETo6dnRHejhVDABUSOARU8AP2rH1h3/dPTFySehqNKNpeE0ZCbgoVLhKFuKyM
+	 x2fhdSDjmB7lON6F9gbNGbwgHQ4JnOZ0BJyMUytYnLWWu3TbWNDxBdgaqcpn8Qtn/U+5R
+	 Il1MEvDSdnVQP0gWfvCLvpum+jOBGbtHM0vYQ/k4TNFWqDEhwScDSiyL3BbCjOciKtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793382747;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/yX4qiCWgActF9QSghl2kesacMQRaDgnsGt0G47KLw4=;
-	b=0nPlm8W2GA37fSFMMtKH7nGaJIPGFaZOJt+EKjlMrfXBRNXVH3b+zmZpTROBoYPh7uQM
-	 D4EzrtZWodMpqjVP1F+ccjjbkuidWHq4TzqBAQWcY1lgaWI9RaapTaS6dlf0pFrm8i58g
-	 04by/kwHJiNYTugMidcxbahRx1JixV6Ko7j5MEhH3x7Mz6l5dU16w+U7hFGJLwMvhxawJ
-	 Xj5jna3bI1duf87aN9w99jCik/Aj5J/VosO2/Qo5XyT0n9W/9QXcE2awRxN5l3p1UJ0gr
-	 +u2ZqOA/yPgWNCr3Ol5Q/2Nxrs7pbTo1YCJ1uZ9a1knVmphG+wCy+ZG1aXkT4FU8cVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793382806;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qAHbjk8CdSYMrdXZz4m+f6oiU/FYO+zPJ4vMCM6876U=;
+	b=Hp1np5j4BKLTDg/+2ndVwtNUcjdEDYuPU/eQOTlarlIzpuTKn+APWxqmCQe8jY2Ps5AZ
+	 i4fxW4tb6SuoqKLEyFVpyDbGwgexJWD9okOU4IyJXPIr/SA7LpKOQxRlsgQeELQG+AYdy
+	 JRFQe8FC2ZlSYPfM7Rqj6fT5xaz+FNFj9zqC95QZ06ghpSVXhMOUDOA3yG6LnEAi1WKxM
+	 l/5078uaMjQDEvW66xrflhUCge+bHebBVEG655D5ZZtVld0p2N9NQkPQbZTjC4GQk9zEA
+	 hlUckgurqxgVBpmRUJRfADE+ztZ+l8Bz4zIFgY8AmG+Hq3mfok0p4zxHWFT07ubyQfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UVWFBB5C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrOY1TXt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6D6606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:52:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00800606A31C;
+	Fri, 30 Oct 2026 17:53:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UVWFBB5C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7E081F00A1C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:52:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrOY1TXt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E70991F000C1;
+	Fri, 30 Oct 2026 17:53:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793382746;
-	bh=/yX4qiCWgActF9QSghl2kesacMQRaDgnsGt0G47KLw4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UVWFBB5CKi30fxDlUFaYsC8UqEi+uMGiIvRARIYLKI5BQBDBW+WV7GWzN+bEaGg67
-	 mVKNGcHUfB0x68ao0+tXxn5t7NpPpemE9HPaOUrFEVgFXTML22/dGQN0/XYmvUX9rU
-	 9nOuZNw2nLAR5yom4NvefAxXeRwtngrdMNTt1bxUMWlnUsYiPLKocQhGuwCErxwHTT
-	 fmdXgMoS5xRZ3iInX5b+C46Y5k5cO3ZtwgH8uusLQLm8FROG9oYGtFmqWqRYri9xQh
-	 IJzy66GGvJZerDbNqktWyqgLUH+QGZQVFJx+iPKjwmdjDbivpbUxa90EzPQg4nITzt
-	 +uHHSoeaSj8UA==
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c40e02b2ebaso163447666b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:52:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxGWPp8TH8rZjmP+NE4oNJ8Ggj6SNnSLmsBDp5enMxRV0J29t7wBBD+69iiI4ocEv323GJVPFkktL1aMtw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJ2EIdrL2Op0gyGRVpbsM4eIgpin+eckUkacAdS+lUCpYNSJzy
-	KIkDowu3DFaYR6zsWZr1FGbsMRYs70b4+DypzfOnwN6ZwSbo0OvlkSzVfOIxgZh/oOVrjy3YNfM
-	hkhdyZQEnJiRHt3p2iNkV4ZZYPgbRI6g=
-X-Received: by 2002:a17:907:843:b0:c41:5a0e:3356 with SMTP id
- a640c23a62f3a-c4ca7ab80a6mr283859166b.41.1793382745473; Fri, 30 Oct 2026
- 10:52:25 -0700 (PDT)
+	s=k20260515; t=1793382805;
+	bh=qAHbjk8CdSYMrdXZz4m+f6oiU/FYO+zPJ4vMCM6876U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HrOY1TXtar5XJSzJGmiWQiDfcAMm2pqpGIRjWapPMz+cBBiZ29zDZ7b4qK38g5JgH
+	 gdpsGXDVTNA17RjnCFg4MDmZ3vDHWX2brR5PTmzPjHFdaw1Okptji2gIgR3mi+Ce4b
+	 PUcITCSURdx4PD5i4myqkfz3yQmO4wi8LhK4gNzV3byoKQkxaVnbHkL4mZ/pzdFH1E
+	 VdiKgu24ohq9yEaZb+98JlM4IpCPr/QXYDFiCmc6MT5yN/oVvWFRqLVeFGAG/o0S94
+	 hf5kyAZQ25+tNqH6pezcger4d2NhlnEC7Hk2AdIehgSJ2TxxsqZppaizU2olmE37+P
+	 HojWzxsgkZrng==
+Date: Fri, 30 Oct 2026 12:53:21 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Cunhao Lu <1579567540@qq.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	mfd@lists.linux.dev, Andrew Lunn <andrew+netdev@lunn.ch>,
+	linux-i2c@vger.kernel.org, linux-usb@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Jisheng Zhang <jszhang@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>, Lee Jones <lee@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>, linux-mmc@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	linux-rockchip@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>, David Wu <david.wu@rock-chips.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	linux-gpio@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	linux-phy@lists.infradead.org, Linus Walleij <linusw@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>, linux-serial@vger.kernel.org,
+	linux-clk@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Zhang Rui <rui.zhang@intel.com>, linux-kernel@vger.kernel.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Elaine Zhang <zhangqing@rock-chips.com>, netdev@vger.kernel.org,
+	Jaehoon Chung <jh80.chung@samsung.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	Daniel Lezcano <daniel.lezcano@kernel.org>
+Subject: Re: [PATCH 01/27] dt-bindings: clock: rockchip: Add RK3572 CRU
+Message-ID: <179338280056.1028517.4147995505996173358.robh@kernel.org>
+References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
+ <20261022-add-board-ok3572-c-v1-1-0b0fd85a31ee@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,54 +92,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030095223.325309-1-jiayuan.chen@linux.dev> <20261030095223.325309-3-jiayuan.chen@linux.dev>
-In-Reply-To: <20261030095223.325309-3-jiayuan.chen@linux.dev>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Fri, 30 Oct 2026 10:52:14 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMF-cj4StEz9okWGROGjBhQ1XFVW3H2nJj3b8i5Jj=zAA@mail.gmail.com>
-X-Gm-Features: AclHuK-Xwo9ow1U129u1DE6bxVDM9ppicXKOIUi8wOYOyhyy4kBbPsDwtTVtbqk
-Message-ID: <CAO9r8zMF-cj4StEz9okWGROGjBhQ1XFVW3H2nJj3b8i5Jj=zAA@mail.gmail.com>
-Subject: Re: [PATCH mm-new v1 2/2] mm: vmscan: skip anon folios zswap would
- refuse when writeback is off
-To: Jiayuan Chen <jiayuan.chen@linux.dev>, Usama Arif <usama.arif@linux.dev>
-Cc: linux-mm@kvack.org, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Nhat Pham <nphamcs@gmail.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022-add-board-ok3572-c-v1-1-0b0fd85a31ee@qq.com>
 
-On Fri, Oct 30, 2026 at 2:53=E2=80=AFAM Jiayuan Chen <jiayuan.chen@linux.de=
-v> wrote:
->
-> A memcg with memory.zswap.writeback=3D0 can only swap into zswap. Once
-> zswap stops taking its pages, because the pool is at its limit or the
-> memcg is at memory.zswap.max, swap_writeout() has nowhere to put a
-> dirty folio and returns AOP_WRITEPAGE_ACTIVATE.
->
-> shrink_folio_list() only learns that at the very end. Every folio it
-> picks gets a swap slot, is unmapped, fails in swap_writeout() and goes
-> back to the active list, to be aged and tried again. Each round costs
-> a slot, an rmap walk, a TLB flush and a minor fault for the owner, and
-> frees nothing. The folio also stays in the swap cache holding its slot.
->
-> The obvious place for a zswap check is can_reclaim_anon_pages(), but
-> it cannot go there. Zero-filled folios never reach zswap:
-> swap_writeout() marks them in the swap table and returns before
-> zswap_store() is called. They need no pool space, they are common, and
-> a memcg-wide "no anon" decision would keep them in memory for as long
-> as zswap is full. With zswap full they must still be reclaimable.
 
-I really wonder if we should revisit not swapping zero-filled pages at
-all, and instead mapping them to the zero page read-only (and whatever
-the equivalent for shmem could be), because yes, the right place is
-can_reclaim_anon_pages(). I don't remember what happened to that
-proposal, Usama do you remember?
+On Thu, 22 Oct 2026 00:10:58 +0800, Cunhao Lu wrote:
+> The CRU uses the PMU0 GRF for PLL status and the AUPLL reference mux.
+> Describe the controller and define its clock and reset IDs.
+> 
+> Signed-off-by: Cunhao Lu <1579567540@qq.com>
+> ---
+>  .../bindings/clock/rockchip,rk3572-cru.yaml        |  57 ++
+>  include/dt-bindings/clock/rockchip,rk3572-cru.h    | 560 ++++++++++++++++
+>  include/dt-bindings/reset/rockchip,rk3572-cru.h    | 713 +++++++++++++++++++++
+>  3 files changed, 1330 insertions(+)
+> 
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+
