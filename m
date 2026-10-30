@@ -1,77 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793342869;
-	b=pqjyVn+X1PhU6hi8PQu7GhOZzLpE/DN5vuBQ3Ay19DpK0nnALs0nUutdvYrQrOhHvl3F
-	 eVB1zj2dg8uv7IoSTEu8lg2W8SOyMxwBKXYIC4LhUduo9x5QKXXLzrCFaYGnLfL/FjFJ+
-	 TM46ASgSwCrjxCKSF+V5LbZrK8J8OiZxncZBqryaQAxKHmXijoS5X7iVw7cYpsAeH0ytG
-	 41hdwDM2YHABHdRHJWF7cSHRc/lEQYKv8aIUcuomClKIDcx2HQJo2T42wtR8nKOxcsk34
-	 mKxfX4piDniuoMhpNaZjDlNt9gJVImCUsMGUbeLXNUVYV8qNXo2vjXs4y5RNmig1oRw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793342869;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=jSNCuWQInnB4aTqSt/QqhCYYoxsHtezivvgpUv5+8rE=;
-	b=AN62UqCoUoeW5LL6E1aTitrxFdzxfuMMccnLOwFy92IdazD/CbPrG2tzKJm/EE42h3ET
-	 tptwLte47AkwUKlT781KXVmOsL8K6OSb8uKGKSyJANuVGS1NuMoBoudrDdjju1B4n6Ip5
-	 XD4TDhtFq85nMWBVZ7tWFQqlKQmbMld3ZIjkYdhJQ/4ynjTBcQfMjmIE3c6GkoSF9MwDg
-	 ihxlLppYOVin08vbEFqynjWek8zhVUgoeay2/6qtc347UrBOrohcj7VDh/eypEggEicr+
-	 zyuMdZD32n/8tJkuVIWjNQc5cutYWa9cBdhrO2kGOT2ieA6yu8gLK3f+c6p6pUUdy/g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ikuyo.dev;
-	spf=pass smtp.mailfrom=ikuyo.dev;
-	dkim=pass header.d=ikuyo.dev header.i=@ikuyo.dev header.a=rsa-sha256 header.s=s1 header.b=E98jXeGq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793342892;
+	b=lBVY4MKhNmFZ6run+scCTLgzUexvvaAgAkPLpo8PFBc+PG6+9wUsP4pTgJzpSWODNJUO
+	 P9He/Q4EaTawADb/YDokmIUjbUvvBVPiICFRqRgzgbUzqj0tsoskb2aSQqjpwVe9uXp+h
+	 3u4b6eT012CzvWtCiBWqlDGsdEEVjgb6ZFGUatKPsZfXeDlAvdhoD3BuRbZ7I6rZAANTe
+	 /HoXvXo4TQjkkap5yBWi/lSan+WX/spZ5wmFKNznWQn2/doSbVuHMSeP1VfENhU7mU66B
+	 99menbFyyz2uXE9pbvQORZoktDiY73QzNdAaZwlSWMO78NxNzookF6woHHGqsfSwG3g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793342892;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=K+mdeaRj03KEshJ0LXx81QDIodC6xYZVWe8F5Y5UlGA=;
+	b=SZfkjJg9csnUCatqgBfnTkLv91leRRDj7EXONrM6uxYuph9jRDRXmLytdPWHowCMWwgA
+	 8UNZi9I7bXSYfzO3vWH84L9yIQdY6CMSo3+xn74b+QNj+fzOlLkDPp52aZuatPzp0GBOm
+	 imRPX1F8BP0wT02P6dWlJUWpMUWkutw0UOaytTZImX+hNy9akAmzYfyVq0z6KXMSdTYjW
+	 TlaYCVMiTw3Yu72gNSLU6uRvexm4ZHB6516+29pWSHLFfTkDMSg61vU0wUsm3GzzK0w6d
+	 j6Sr0GcBFEdZ74knFmAvgCaXBaKzHBpwB86IdHKiufiT+2LYhW6/mUS63JievbcLgyg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359E1606A31C;
-	Fri, 30 Oct 2026 06:47:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 359E1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ikuyo.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ikuyo.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ikuyo.dev header.i=@ikuyo.dev header.a=rsa-sha256 header.s=s1 header.b=E98jXeGq
-ARC-Seal: i=1; a=rsa-sha256; t=1793342818; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=NykSCv8xszM0rcbcli9swwgB4qcQp3pl9NVtUMCmn4YJuao73EDqT1tuyAHJUaWmd1iIwkz6oQ7cG4Dr3GCR0zvjPrF5LK2yk7qDJvPUUchz/dVVw31SZX0TiAPifiF7YKCMBj0JDgbeIasaQP7tmWncRuEq2+1iMNRkO273iuE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793342818; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=jSNCuWQInnB4aTqSt/QqhCYYoxsHtezivvgpUv5+8rE=; 
-	b=htGtByCqWghsZgFpqJtFIyD8+emCzrrrMwh4/7ebgmmZ6xOvUVzL8P4C16/ONo+qgpdsPccM2+N1yMOTTVItk+TDdKLwmG+Ayj5NOPGnHbqIr5+3vCrYDZmFsXWQRiox73H9JOGf55n+fpae1IK7GFj0+i76YikY8B0nagPN9kU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ikuyo.dev;
-	spf=pass  smtp.mailfrom=eritque-arcus@ikuyo.dev;
-	dmarc=pass header.from=<eritque-arcus@ikuyo.dev>
-DKIM-Signature: a=rsa-sha256; b=E98jXeGqGHPI5K8Sl59gZfybQYCl/S1MKzCrFkvCfHr/Jf00U9pa4WxXBYzH9eCL7cZPXhqqOQMhJwKlxii8SWjqPGgYwjzCLm/EELRofIcH1tVC04HQp7sB2dl1Q1xb+wQf5Iyop3XFAnTIvfIB8BniposL4FZg/5Bnn8lQOjayJesHkkgnuK83DLDYwo5fEIKXBi0dRj7QIHZzRzwt/EFD+J+wPzZpYKT1UG3L98Y3y4UPcmftdBVKHOvgOUnb52qAGHcFMHQcstH50bjF2oAPquzorLweOIyx+MMd8htaVDh6mrxo5rqTNBvEWuaTtsDPIYHtCgOG5DCcUO29nw==; c=relaxed/relaxed; s=s1; d=ikuyo.dev; v=1; bh=jSNCuWQInnB4aTqSt/QqhCYYoxsHtezivvgpUv5+8rE=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793342815719234.33637440490043;
-	Thu, 29 Oct 2026 23:46:55 -0700 (PDT)
-From: Yiran Qiu <eritque-arcus@ikuyo.dev>
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>,
-	Bobby Eshleman <bobbyeshleman@meta.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	kvm@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yiran Qiu <eritque-arcus@ikuyo.dev>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH RFC net v2 3/3] vsock/virtio: only update a socket's local CID to the transport's CID
-Date: Fri, 30 Oct 2026 02:44:18 -0400
-Message-ID: <20261030064418.133349-4-eritque-arcus@ikuyo.dev>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261030064418.133349-1-eritque-arcus@ikuyo.dev>
-References: <20261030064418.133349-1-eritque-arcus@ikuyo.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD81E606A31D;
+	Fri, 30 Oct 2026 06:48:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD81E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1793342887;
+	bh=K+mdeaRj03KEshJ0LXx81QDIodC6xYZVWe8F5Y5UlGA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=c7RDkqJuG4AnjsL02FvMr/Qs5JKjtinBVZp/jkKnNHu8kbuHap9U4982TO4eqZeZp
+	 l5llhfwdYhh3ognXLSgoN5gT+rZRN4RFxOUqopVYxmk5Sl4NXMc1ZeaTVEusUvzc1l
+	 I/jv/JBHv2oFHqdazLnldFJYthp+12x6mLWw+Yl0oRvYBYYThoSd2xfAAWlyGPNwxg
+	 nX2KJ227bbh1o0AtlMhYqSkeyQ6KmF/N5+1+kRmuF/+h//+HPz8LY2kIb+Qotu42xt
+	 LZtSqyoSh1GSDfb4mbvH6+rhhi/FyeN1XxKUy4bVvwMEIon6FmPgEQnl0RNe8fPxjv
+	 6c6l9SAEzJdbw==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jGBWC6n1Gz4xHH; Fri, 30 Oct 2026 17:48:07 +1100 (AEDT)
+Date: Fri, 30 Oct 2026 16:27:21 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 08/74] livetree: Improve get_node_by_phandle()
+Message-ID: <auQquHfayDEj1K8M@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+ <20260826094950.1088288-9-herve.codina@bootlin.com>
+ <atrTn_I_8O6q9QUW@gractus.seuss>
+ <20261023181533.0c44a57f@bootlin.com>
+ <at6t-l9XYYFfS48T@gractus.seuss>
+ <20261026125615.055e7214@bootlin.com>
+ <auFgv_f0av-JxMjg@gractus.seuss>
+ <20261028094110.2a8133a2@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,61 +76,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Gvg2FxIOocZhrw57"
+Content-Disposition: inline
+In-Reply-To: <20261028094110.2a8133a2@bootlin.com>
 
-virtio_transport_recv_pkt() copies a packet's destination CID into the
-local address of the socket it reaches, so that sockets follow a guest
-CID change after a transport reset.  But the bound-socket lookup also
-delivers packets addressed to VMADDR_CID_ANY, and vsock_loopback can
-carry them: a connect() to VMADDR_CID_ANY goes over loopback when the
-guest->host transport has no CID (no virtio-vsock device, or hv_sock).
-The socket bound to that port then ends up with VMADDR_CID_ANY as its
-local CID: a listener on (VMADDR_CID_LOCAL, P) turns into a wildcard
-listener, and a socket whose connect() was refused for its CID would
-pass the check in virtio_transport_connect() on the next try.
+--Gvg2FxIOocZhrw57
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Only take the destination CID if it differs from the socket's current
-one, is not VMADDR_CID_ANY, and is the transport's own CID.  The
-VMADDR_CID_ANY test is still needed: get_local_cid() itself returns
-VMADDR_CID_ANY while the virtio-vsock device is removed or frozen.
+On Wed, Oct 28, 2026 at 09:41:10AM +0100, Herve Codina wrote:
+> Hi David,
+>=20
+> On Wed, 28 Oct 2026 13:41:14 +1100
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+>=20
+> ...
+>=20
+> > >=20
+> > > Ok, I will rename node->phandle to node->phandle_ and add a comment s=
+aying
+> > > that phandle_ field must not be accessed directly. =20
+> >=20
+> > You can even switch it back after you've checked there are no stray
+> > accesses to it.
+>=20
+> If I switch it back, why talking about renaming?
 
-In a guest without a virtio-vsock device, after a loopback connect() to
-(VMADDR_CID_ANY, P), getsockname() on a listener bound to
-(VMADDR_CID_LOCAL, P) returns VMADDR_CID_ANY on unmodified kernels and
-VMADDR_CID_LOCAL with this patch; vsock_test passes.  Drafted with
-Claude.
+Sorry, I wasn't very clear.  I was just suggesting temporary renaming
+as the best way to make sure you don't have any leftover accesses to
+the field in places you didn't expect.
 
-Fixes: 408624af4c89 ("vsock: use local transport when it is loaded")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-188830@kernel.org/
-Signed-off-by: Yiran Qiu <eritque-arcus@ikuyo.dev>
----
-Since 36c5b48b91ac ("vsock: fix bind() behaviour taking care of CID")
-the CID update no longer helps listeners, and connected sockets are
-reset on a transport reset, so the update could be dropped instead;
-would you prefer that?  Refusing connect() to VMADDR_CID_ANY in
-vsock_use_local_transport() would also work, but would stop guests
-without a guest->host CID from reaching local listeners.
+> Of course, I will do this renaming locally to be sure that I handle all
+> users but in the end no commit will rename this field.
 
- net/vmw_vsock/virtio_transport_common.c |  5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Right, that's what I had in mind.
 
-diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-index 4d0511629044..b276009efab9 100644
---- a/net/vmw_vsock/virtio_transport_common.c
-+++ b/net/vmw_vsock/virtio_transport_common.c
-@@ -1861,7 +1861,10 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
- 	space_available = virtio_transport_space_update(sk, skb);
- 
- 	/* Update CID in case it has changed after a transport reset event */
--	if (vsk->local_addr.svm_cid != VMADDR_CID_ANY)
-+	if (vsk->local_addr.svm_cid != VMADDR_CID_ANY &&
-+	    vsk->local_addr.svm_cid != dst.svm_cid &&
-+	    dst.svm_cid != VMADDR_CID_ANY &&
-+	    dst.svm_cid == t->transport.get_local_cid())
- 		vsk->local_addr.svm_cid = dst.svm_cid;
- 
- 	if (space_available)
--- 
-2.56.0
+> > > Related to existing users, I can see check_explicit_phandles() availa=
+ble
+> > > in the checks.c file.
+> > >=20
+> > > check_explicit_phandles() could use the new get_node_phandle_exising(=
+) with
+> > > the caching feature. The only problematic part will be
+> > > --- 8< ---
+> > > 	if (linux_phandle && phandle && (phandle !=3D linux_phandle))
+> > > 		FAIL(c, dti, node, "mismatching 'phandle' and 'linux,phandle'"
+> > > 		     " properties");
+> > > --- 8< ---
+> > >
+> > > Indeed, this check is done in get_node_phandle_existing() and the fun=
+ction
+> > > returns 0 (invalid phandle) when both properties are set with a diffe=
+rent
+> > > value. A value other than 0 should be returned by get_node_phandle_ex=
+isting()
+> > > to identify that mismatching properties values.
+> > >=20
+> > > This should not be a big deal if we introduced a new invalid phandle =
+value:
+> > >   - 0:
+> > >     Invalid value. Can be returned by get_node_phandle_existing().
+> > >=20
+> > >   - ~0:
+> > >     Unresolved value (phandle value in properties) or value cached in=
+=20
+> > >     phandle->node_ for "mismatch 'phandle' and 'linux,phandle' proper=
+ties
+> > >     values". Can be returned by get_node_phandle_existing().
+> > >=20
+> > >   - (~0)-1:
+> > >     Invalid value in properties and or value cached in phandle->node_=
+ for Invalid value.
+> > >     Will not be returned by get_node_phandle_existing().
+> > >     When this cached value is found, 0 will be returned.
+> > >
+> > > In phandle_is_valid(), those 3 values will be checked to determine if=
+ the phandle
+> > > value is valid or not. =20
+> >=20
+> > Alas, we can't do that.  Which phandle values are valid is long
+> > established from the IEEE1275 days, and we can't really change it.  I
+> > don't _know_ if there are existing trees out there using 0xfffffffe as
+> > a valid phandle, but there could be.
+>=20
+> Ok.
+>=20
+> >=20
+> > *thinks*
+> >=20
+> > In some ways it would be elegant for get_node_phandle_existing() to
+> > report the various different error conditions separately, but I think
+> > the awkwardness of passing that information back to the checks is
+> > going to outweigh it.
+> >=20
+> > So, I think we're actually better off separating lookup of phandles
+> > from validation.  So get_node_phandle_existing() (or whatever we call
+> > it) will return 0 if there's no valid phandle, whether that's simply
+> > because it's missing, or there's something malformed.  Separately
+> > check_explicit_phandles() will report specific types of malformed
+> > phandle properties.
+> >=20
+> > It does result in a little redudant logic, but I think it's the best
+> > overall approach for now.
+>=20
+> Right. Ok on my side to have this redundancy.
+>=20
+> >=20
+> > > Now last point, renaming get_node_phandle_existing().
+> > >=20
+> > > get_node_phandle() already exist. It get a phandle but also if the no=
+de doesn't
+> > > have a phandle, it allocate a new phandle value and set node "phandle=
+" or
+> > > "linux, phandle" property to this allocated value. =20
+> >=20
+> > Ah, sorry, I misunderstood what the "existing" was referring to.
+> >=20
+> > > IHMO, get_node_phandle() should be renamed to set_node_phandle() and
+> > > get_node_phandle_existing() should be renamed to get_node_phandle(). =
+=20
+> >=20
+> > Right, the existing name is bad.  But let's go with
+> > get_or_assign_phandle() for the existing one and get_phandle() for the
+> > new one.  (The "node" added no useful information and this way they're
+> > two new names to reduce confusion).
+>=20
+> Ok, will use those names.
+>=20
+> Best regards,
+> Herv=E9
+>=20
 
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--Gvg2FxIOocZhrw57
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrkKrgACgkQzQJF27ox
+2Gec7hAAgWeo+Z0sG1iqOr74jkQqvOb5649XYemVEA4lhzNPSF5g6mVXbqgM6QvD
+xmACZtGxl3RbUhTssF/JVqFLNBmrsBWFm+gMlukqTXYG/BsniIXU6dUTDrLpGv6D
+eJFsSjUohLsMhWvehnrXQeWrD5AmzQqb5owu2U8A+eo3NhhDL3ne6yYhK1OC767q
++pihiGqznI6WpHoFQxwTIZAP13LI0BQ0XLsN+lHUVxEAbflsw/xTkfNk4WNyReFn
+bibZCJrGURPU5n3M+ReJJoZshcXXgGeWTgBvJI/NKH+NmJ2FVLPHHuLy2bGsCcHx
+G55hVe4lMWsSneYLIRsxUAW1TjBkT7ZPmLIsgXlZE1gccBFNbQgmUKRvqonuCE1W
+/HX3vEF7dgDq4eb8XMBJio91Mkb7/NHKRtCJAWVJtXziYUFF3VNM0F9vcUqeBMmu
+dMinAZw7IdnGv19gw60p9V8+jlEUrmNu97SwSTEeubUmew3TQGiIzEb04fd6EAZl
+YSNty1SlPsnTgeHM5DWR9yCj3GfAaaLF/QiTLFVKCYKv6iJSBR7lsdORQE1i0WfA
+11z7iNEHLzjUtidfdoWflpddE8vEwnS7pzD8m6R57LLLnRJg3q1Prsf5TSVNIOOx
+MVOrwRTwREOzHkkvJcOUXI0HLvcFrHNa6AUSFTlEl9/p1bU/PaQ=
+=ODVP
+-----END PGP SIGNATURE-----
+
+--Gvg2FxIOocZhrw57--
