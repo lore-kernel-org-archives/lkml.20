@@ -1,83 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793336364;
-	b=Boysv5UpjBy0BlyIi/MY1sZT1G0Gp9bLmpAAgfxJy2ybAkmGYATpMxlbLsuFJEYHdczw
-	 uvS3NU8kjriYLXxXGG5DH62HJNbr8kUUnMio7YMW+CsvwcrnVdXPJmTgE7FCgQ0VUW7Xa
-	 oBxdEB0ddUzLJT5PEjTiW7jtEyhhw0zBbgxNnGjr1zISk6YueDgoTJc9nZQ8wjT1DMH0+
-	 Wg71LwkvB+MXJeYoOp2SpqijQP/0TS0ChaS4nKsnNqxHUrmETFxqvzOiIRsLDNN9ZY/L1
-	 2bro8QdjYMxIhhHGmoig4zbiv9dpiKo46wtNJ9X6cmG8th7hqW/hC5bCAkvNnfJxynw==
+	t=1793336393;
+	b=ndWi5oWzN3ocUnblHFOc1sbflfC3iaqCGqZtZKsOyn3rJRLhamWzoi3coq0NEgmQvnJ0
+	 VkHTJ7Slvv0Q5K16EaArFzDA3dU4poi0Qa/UD2PJfogbcnGk+N88nYK8y6tKQZ4KHW16q
+	 eKuz0jvZdEHBVDikjNJ9ists6UTLXnvfvOsXwjOXI0C6Fz3nRzzPlCPb9lSr4E/I0VFVK
+	 +R2Q3Nt4w9Ryf/uGa9SkvzqG0smQnrU4/zWZ3ojq2KyYWCJCP6y9SGAx091mPBjy6MLrq
+	 H05PIg2aCVm0k9r6fdkY+JC78t0NxpQhv4cwymEbkJdzqkzEUj3CQ6SsZevcHLYTzSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793336364;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=0zUjVWLF5PXtLzAudZi15itmOHipn0n12lIE9/19W1o=;
-	b=tqIwAiWg8MR7HKRJueNa6nrxmMV0jS3/Vd20hjOIf6rD116kU8fXsR/FXy49uEK0XMCj
-	 QYhV9W9WujN05UtH4d40BjmeCrSngJJpirszA4DjslMnNUI7gf6ttZTQVg3lKyj4t2Dmu
-	 36CCa5iLj1MqmU62HoaoUQxMqgOF6rjep0AVErzekBHrxfVTYgNQsPna0bJ/jFqwNOy0u
-	 HTXL2/oQUKGHoGmkpijGSuroA0G3WrJh0KOokB5cJxd3orw2+aH5aBo20H/7XALE/uk+Y
-	 dGTkosV4NJZxoajb/fupQGJnmIbQBRTfPpnTfsuZfI9+wFP5KWhihwmkcuUp+kRxYIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793336393;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=e7tEpwtIn4tmjp4Z0Nv9H81+oDdUJIUZCkg7ifmKdAE=;
+	b=h/Y+/7InZtb1zqnDx6uEQC7WM5S7MtRNxeR1nF0MWR3kfEcnxZo5cXLFdpFB91kjq6dA
+	 38L+/jvXp7I9IU8FDeeLJe+D3LxcJcWOGnnrQjn6PZ/B5JAK8XR2X/O1KmmbddkIYCT3N
+	 WHgWrm0K3Wxb83kQObPyQpeTXsI3xXRo4eSCPfv00wkAgEA5MUS7sUEzT32WermesjgJ/
+	 Nt7upqO0dUHamaqifB2LaIhsZixNWv3ScrjqXxBM4nG/amVhJgVa4LQljnmkw7nYVYSyi
+	 KX4h9L8KuLKxH5HWeqZ2nlfOLnBPkGG1rJFi6fKjn2qv48A+I9LmXlaaZRHXpFAMOXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=di8YMlMl;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--vamshigajjela.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AMHzS26m;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5391B606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:59:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5391B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27633606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:59:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27633606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vamshigajjela.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=di8YMlMl
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 1B82940E050A;
-	Fri, 30 Oct 2026 04:59:21 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 1tM-tdFSvD5Y; Fri, 30 Oct 2026 04:59:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793336356; bh=0zUjVWLF5PXtLzAudZi15itmOHipn0n12lIE9/19W1o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=di8YMlMlRdM6OXgt92tOrIG4JIdM4DzPtQv0gQADCrfCQs9s8BW1ysSE7sGUW5YzI
-	 moMDij4boj03QFl52SF4IO/flfxoVgc5k8FQ6E+mDbkionBRwgYGQZ3JnTSkp6M4PN
-	 WMdJVPCQpzHDXS61annpzAGKz6XAwzXgVE4KgGTOsCXTTDE924ApPsxRgxraSZ3Uth
-	 ehg9yVEX9kHfRlV56Wz6+eYoz5ylCzmoR/yAPzVeUHII/KrOFrNCquZMVwqXVXbN19
-	 cMKCJ9G1YLPzMyqDuG3Kfqz44oHCaO4vuoXLJkyUoZKLOFqX+V3yMLOKbrxMGK3h8i
-	 rA1fqlcV4luHL8QCC64QAyfufgYFbp+oQnkbQ1x65T20knjoAUyRHeOY4Wz1pQHFMB
-	 ll0mNTzdYsoJP354TXxbL8Vte/iPMD3cEAtJxzw58LwxpjeJpf0Mj1hlONVfDxgZxy
-	 HalKtrtCSYljJLMORqeBlyuVUoaLx1cI5UCsaL2F7+IbkQaQmQcCKySTQYKIWiQkvK
-	 +b8Fr2fZWtdW8RUMMX+E20x7GopN/wGgerQxMGYotM943RtXwS/kDoEjdL98ZRlIHI
-	 N/4U4ozijhjmk5qPy0FehyBrcd1cOj8GyfJjWVt3yZwhQGVLzk6NNTiVoiYbjf9Fmq
-	 oeQznu4wmLdChk7erkt68DIk=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2A78140E04D6;
-	Fri, 30 Oct 2026 04:59:03 +0000 (UTC)
-Date: Thu, 29 Oct 2026 21:59:00 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
-Cc: Lu Baolu <baolu.lu@linux.intel.com>, Thomas Gleixner <tglx@kernel.org>,
-	Ning Sun <ning.sun@intel.com>,
-	Michal Camacho Romero <michal.camacho.romero@intel.com>,
-	x86@kernel.org, iommu@lists.linux.dev,
-	tboot-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
-	Mateusz Mowka <mateusz.mowka@intel.com>,
-	Adam Pawlicki <adamx.pawlicki@intel.com>,
-	Pawel Randzio <pawel.randzio@intel.com>
-Subject: Re: [PATCH v7 1/2] x86/tboot: Add support for parsing DTPR table and
- disabling TPRs
-Message-ID: <20261030045900.GIauQkFDfs6GnUks0B@fat_crate.local>
-References: <cover.1793273244.git.michal.camacho.romero@linux.intel.com>
- <8549af9ea60b73e120be377877c26d929f1ad25e.1793273244.git.michal.camacho.romero@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AMHzS26m
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a05c820ecbso413486b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:59:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793336392; x=1793941192; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=e7tEpwtIn4tmjp4Z0Nv9H81+oDdUJIUZCkg7ifmKdAE=;
+        b=AMHzS26mzD9JmjdaN1nWBXCyR8Q2auTjDhCiW/4NIimnCZvUO9/BuNbEfpzFicz4zd
+         IwP6Kgh2K53SN1PGJg5ULG1CRrYcz2NVT+q/BedGgIKst0ZStBV4rKwbMA5zevZi3Kzv
+         zkXkIOf7Q3nkRiXpuVscopy75Y39Y5aq51R2EdWBzMY4PSqEdD7W6ASr6nv4x99P4qtt
+         RUAtKSZHhH4X+Kw0sfPF0z1lRxeqjVFKQKzOR9+Lmf8QpoWRahaQhsztK9J3JnlKELGP
+         k1L4+Pwq7CHssWOah1qKcpn9eALcj1yfkBZwg9hS6QPGHXWLW/kJS0hsTzTjpBBHPkSy
+         deKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793336392; x=1793941192;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e7tEpwtIn4tmjp4Z0Nv9H81+oDdUJIUZCkg7ifmKdAE=;
+        b=TzFDmEgSGhy+HBu6a/oNNpgyatF5UTtiz0nk08dh/d8wEi/4GasgtLkYS+wxgjh6EI
+         NhVOfr9s4vsOlqaEpqqxwaibf5nB0Po28o16H7Ku+iRRXKsQpEqac7KRhqxSyEdtiyXM
+         HU2ylR2i75QwjWl2e8ANOBDdtKKV4pB95slfjtSMtWyS7+juWmjnNdBQTniP8wXyDROY
+         H7L/0jteR4P9VzPzBn3ZHz35diLFhZUQ9wt45lTEf+QSbOfxX3yKKUDA4xUnKWbQC5nK
+         2R8cMZ9C+lSxXQEfSY0ZRoYS13MkuCVyjHzKa6WYgdCxkeBa39L6iSv0ajVQkY6Zc1mR
+         l9rg==
+X-Forwarded-Encrypted: i=1; AKwUvBwt8PlPYrmx//PiwrfLGtfcloxeX20aKyM04SA7UqTjblGnf9DsbR+vdxiqGmIXlIWBqTr9IZZ2KJhrJxI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJfRQ+P3sb9RICDvkY1ZTkk+K+Snobu4Wc1Zhz87NLWNFJ2fSoE
+	7TIYoM+DifNM7cbpRafSmNnhR/6ovmfAnAYWQzAhwjqsg334eQotafcvx1y56cF8/X1wvxmgl+w
+	vGY7+Ir32ieNYzdhwerwo75qXT5WJBD94vA==
+X-Received: from pfaj11.prod.google.com ([2002:aa7:928b:0:b0:8a5:a56c:9408])
+ (user=vamshigajjela job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:1785:b0:892:fc00:6e68 with SMTP id d2e1a72fcca58-8a9ba22a4a0mr1167146b3a.3.1793336392054;
+ Thu, 29 Oct 2026 21:59:52 -0700 (PDT)
+Date: Fri, 30 Oct 2026 10:29:45 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,461 +75,86 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <8549af9ea60b73e120be377877c26d929f1ad25e.1793273244.git.michal.camacho.romero@linux.intel.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+Message-ID: <20261030045947.3049598-1-vamshigajjela@google.com>
+Subject: [PATCH v4 0/2] spmi: core: Add generic DebugFS interface for bus inspection
+From: vamshi gajjela <vamshigajjela@google.com>
+To: sboyd@kernel.org, abelvesa@kernel.org
+Cc: abel.vesa@oss.qualcomm.com, jwylder@google.com, 
+	linux-kernel@vger.kernel.org, vamshigajjela@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 29, 2026 at 12:57:26PM +0100, Michal Camacho Romero wrote:
-> Tested-by: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
+From: Vamshi Gajjela <vamshigajjela@google.com>
 
-I sure hope you did test it... :-)
+This series introduces a generic, controller-agnostic DebugFS interface in the
+SPMI core under /sys/kernel/debug/spmi/spmi-<nr>/ to inspect registered
+controllers and perform SPMI transactions during board bringup and debugging.
 
-In any case, you don't need to add that tag to your own patch as that is
-implied.
+Patch 1/2 renames drivers/spmi/spmi.c to spmi-core.c so that the core driver
+and optional debugfs support can be linked into the spmi.ko composite module.
 
-Reality tells a different story, unfortunately... :-/
+Patch 2/2 adds the DebugFS interface (name and xfer) along with its ABI
+documentation under Documentation/ABI/testing/debugfs-spmi.
 
-> Signed-off-by: Michal Camacho Romero <michal.camacho.romero@intel.com>
-> ---
->  arch/x86/kernel/tboot.c | 515 ++++++++++++++++++++++++++++++++++++++--
->  include/linux/tboot.h   |  28 ++-
->  2 files changed, 523 insertions(+), 20 deletions(-)
+Changes in v4:
+- Rebased onto spmi-next (8f70c729e68c).
+- Split the rename of drivers/spmi/spmi.c -> spmi-core.c into a separate
+  preparatory patch.
+- Removed the 'detect' debugfs entry as MIPI SPMI does not mandate a universal
+  register address across all slave devices, and probing 0x0000 fails on
+  controllers with channel/register access policies such as Qualcomm PMIC Arb.
+- Dropped redundant Runtime PM calls from spmi-debugfs.c since SPMI controller
+  drivers manage their own runtime PM inside their transaction callbacks.
+- Gated raw write ('w') and command ('c') operations behind
+  #undef SPMI_ALLOW_WRITE_DEBUGFS (matching regmap-debugfs.c) so that the
+  interface is read-only by default unless explicitly enabled in source.
+- Updated Date and KernelVersion in Documentation/ABI/testing/debugfs-spmi.
+- Link to v3: https://lore.kernel.org/r/20261019202107.888262-1-vamshigajjela@google.com
 
-Below only stylistic issues we pay attention to in the tip tree. Pls have
-a look at 
+Changes in v3:
+- Move internal SPMI core command helpers (spmi_cmd(), spmi_read_cmd(),
+  spmi_write_cmd()) and DebugFS prototypes out of the public
+  include/linux/spmi.h header into a local drivers/spmi/spmi-internal.h
+  header.
 
-https://docs.kernel.org/process/maintainer-tip.html
+Changes in v2:
+- Rename spmi.c to spmi-core.c and link spmi-debugfs.o into the composite
+  spmi.o module so CONFIG_SPMI=m builds cleanly with CONFIG_DEBUG_FS=y.
+- Route DebugFS bus operations through spmi_read_cmd(), spmi_write_cmd(),
+  and spmi_cmd() instead of calling controller callbacks directly,
+  preserving SPMI tracepoints and core validation.
+- Allocate a per-open-file struct spmi_xfer_ctx in open() instead of
+  sharing a controller-wide buffer, avoiding races across concurrent file
+  descriptors, and store struct dentry *debugfs directly on
+  struct spmi_controller.
+- Reset *ppos = 0 on register read commands so repeated transactions on
+  the same open file descriptor work without manual seeking.
+- Restrict SPMI_CMD_ZERO_WRITE at address 0x00 to 7-bit payloads
+  (data[0] <= 0x7f) per the MIPI SPMI specification, falling back to
+  SPMI_CMD_WRITE for 8-bit values.
+- Parse register addresses with kstrtou16() so values above 0xffff are
+  rejected instead of silently truncated.
+- Update Documentation/ABI/testing/debugfs-spmi to document per-fd xfer
+  buffers and 7-bit Zero Write opcode selection.
 
-and fix up coding style to adhere to the tip tree's standard.
+Vamshi Gajjela (2):
+  spmi: core: Rename spmi.c to spmi-core.c
+  spmi: core: Add generic DebugFS interface for bus inspection
 
-> diff --git a/arch/x86/kernel/tboot.c b/arch/x86/kernel/tboot.c
-> index 46b8f1f16676e..47da21ad0f3e2 100644
-> --- a/arch/x86/kernel/tboot.c
-> +++ b/arch/x86/kernel/tboot.c
-> @@ -18,6 +18,7 @@
->  #include <linux/mm.h>
->  #include <linux/tboot.h>
->  #include <linux/debugfs.h>
-> +#include <acpi/actbl1.h>
->  
->  #include <asm/realmode.h>
->  #include <asm/processor.h>
-> @@ -42,6 +43,15 @@ static struct tboot *tboot __read_mostly;
->  
->  static u8 tboot_uuid[16] __initdata = TBOOT_UUID;
->  
-> +/* Global pointer to TXT HEAP base */
-> +static void __iomem *txt_heap;
-> +
-> +/* Global pointer to the DTPR table */
-> +static struct acpi_table_dtpr *dtpr;
-> +
-> +/* Number of active TPRs */
-> +static s64 num_of_enabled_tprs;
-> +
->  bool tboot_enabled(void)
->  {
->  	return tboot != NULL;
-> @@ -223,6 +233,143 @@ static int tboot_setup_sleep(void)
->  
->  #endif
->  
-> +static bool tboot_check_txt_heap_section_bounds(const u64 heap_end,
-> +						void *heap_section,
-> +						u64 *heap_section_size,
-> +						const char *section_name)
-
-Are those aligned on the opening brace? Check all our patches pls.
-
-> +{
-> +	if (!heap_section) {
-> +		pr_err("%s section is NULL\n", section_name);
-> +		return false;
-> +	}
-> +
-> +	if (!heap_section_size) {
-> +		pr_err("%s section size pointer is NULL\n", section_name);
-> +		return false;
-> +	}
-> +
-> +	*heap_section_size = 0;
-> +
-> +	if ((u64)heap_section > heap_end || heap_end - (u64)heap_section < 8) {
-> +		pr_err("%s size field exceeds heap boundary\n", section_name);
-> +		return false;
-> +	}
-> +
-> +	/* Read the size of the current TXT Heap section */
-> +	*heap_section_size = *(u64 __force *)heap_section;
-> +
-> +	if (*heap_section_size < 8) {
-> +		pr_err("%s size is too small\n", section_name);
-> +		return false;
-> +	}
-> +
-> +	if (*heap_section_size > heap_end - (u64)heap_section) {
-> +		pr_err("%s exceeds heap boundary\n", section_name);
-> +		return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +
-> +static bool tboot_check_dtpr_size(const struct heap_ext_data_elt *elt)
-> +{
-> +	u64 dtpr_payload_size, dtpr_offset;
-> +	u32 i, ref_tpr_cnt;
-> +
-> +	struct acpi_table_dtpr   *tmp_dtpr    = NULL;
-> +	struct acpi_tpr_instance *tpr_inst    = NULL;
-> +	struct acpi_tpr_aux_sr   *tpr_aux_srl = NULL;
-> +
-> +	if (!elt) {
-> +		pr_err("DTPR element heap extension data is NULL\n");
-> +		return false;
-> +	}
-> +
-> +	tmp_dtpr          = (struct acpi_table_dtpr *)elt->data;
-> +	dtpr_payload_size = elt->size - sizeof(*elt);
-> +
-> +	if (dtpr_payload_size < sizeof(struct acpi_table_dtpr)) {
-> +		pr_err("DTPR element payload too small for a DTPR header\n");
-> +		return false;
-> +	}
-> +
-> +	if (tmp_dtpr->header.length != dtpr_payload_size) {
-> +		pr_err("Mismatch between DTPR table length and payload size\n");
-> +		return false;
-> +	}
-> +
-> +	dtpr_offset = sizeof(struct acpi_table_dtpr);
-> +
-> +	if (dtpr_offset > dtpr_payload_size) {
-> +		pr_err("TPR header exceeds table's declared size\n");
-> +		return false;
-> +	}
-> +
-> +	if (tmp_dtpr->ins_cnt < 1) {
-> +		pr_err("DTPR table declares no TPR instances\n");
-> +		return false;
-> +	}
-> +
-> +	for (i = 0; i < tmp_dtpr->ins_cnt; i++) {
-> +		/* prove this instance's header is in bounds before reading it */
-> +		if (dtpr_offset + sizeof(struct acpi_tpr_instance) > dtpr_payload_size) {
-> +			pr_err("TPR instance No.%u header exceeds DTPR table size\n", i);
-> +			return false;
-> +		}
-> +
-> +		/* iterate to the current TPR instance */
-> +		tpr_inst = (struct acpi_tpr_instance *)((u8 *)tmp_dtpr + dtpr_offset);
-
-This line is not iterating over anything.
-
-Please check all your comments and tone them down.
-
-> +
-> +		if (tpr_inst->tpr_cnt < 2) {
-> +			pr_err("TPR Instance %u has less than 2 TPRs, further DTPR processing interrupted.\n",
-> +			       i);
-
-Ugly linebreak.
-
-Check the rest for more.
-
-> +			return false;
-> +		}
-> +
-> +		/* all instances must carry the same TPR count as the first */
-> +		if (i == 0) {
-
-		if (!i)
-
-> +			ref_tpr_cnt = tpr_inst->tpr_cnt;
-> +		} else if (tpr_inst->tpr_cnt != ref_tpr_cnt) {
-> +			pr_err("TPR Instance %u has inconsistent TPR count: expected %u, found %u\n",
-> +			       i, ref_tpr_cnt, tpr_inst->tpr_cnt);
-> +			return false;
-> +		}
-> +
-> +		/* iterate over each TPR instance */
-> +		dtpr_offset += sizeof(struct acpi_tpr_instance) +
-> +			       (u64)tpr_inst->tpr_cnt * sizeof(struct acpi_tpr_array);
-> +
-> +		/* verify TPR array size for this instance */
-> +		if (dtpr_offset > dtpr_payload_size) {
-> +			pr_err("TPR instance No.%u TPR entries exceed DTPR table size\n",
-> +			       i);
-> +			return false;
-> +		}
-> +	}
-> +
-> +	tpr_aux_srl = (struct acpi_tpr_aux_sr *)((u8 *)tmp_dtpr + dtpr_offset);
-> +	dtpr_offset += sizeof(u32);
-> +
-> +	if (dtpr_offset > dtpr_payload_size) {
-> +		pr_err("TPR SRL count field exceeds DTPR table size\n");
-> +		return false;
-> +	}
-> +
-> +	dtpr_offset += (u64)tpr_aux_srl->srl_cnt *
-> +		       sizeof(struct acpi_tpr_serialize_request);
-> +	if (dtpr_offset > dtpr_payload_size) {
-> +		pr_err("TPR SRL entries exceed DTPR table size\n");
-> +		return false;
-> +	}
-> +
-> +	if (dtpr_offset < dtpr_payload_size) {
-> +		pr_err("DTPR table is smaller than expected\n");
-> +		return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +
->  void tboot_shutdown(u32 shutdown_type)
->  {
->  	void (*shutdown)(void);
-
-...
-
-> @@ -514,3 +663,331 @@ struct acpi_table_header *tboot_get_dmar_table(struct acpi_table_header *dmar_tb
->  
->  	return dmar_tbl;
->  }
-> +
-> +static struct acpi_table_dtpr *tboot_get_dtpr_table(void)
-> +{
-> +	void *heap_ptr, *config, *sinit_mle_end;
-> +	struct sinit_mle_data *sinit_mle;
-> +	struct heap_ext_data_elt *elt;
-> +	u64 heap_end, heap_size, sinit_mle_size, heap_section_size;
-
-The tip-tree preferred ordering of variable declarations at the
-beginning of a function is reverse fir tree order::
-
-	struct long_struct_name *descriptive_name;
-	unsigned long foo, bar;
-	unsigned int tmp;
-	int ret;
-
-The above is faster to parse than the reverse ordering::
-
-	int ret;
-	unsigned int tmp;
-	unsigned long foo, bar;
-	struct long_struct_name *descriptive_name;
-
-And even more so than random ordering::
-
-	unsigned long foo, bar;
-	int ret;
-	struct long_struct_name *descriptive_name;
-	unsigned int tmp;
-
-Please check all your code.
-
-> +
-> +	if (!tboot_enabled())
-> +		return NULL;
-> +	/*
-> +	 * ACPI tables may not be DMA protected by tboot, so use DMAR copy
-> +	 * SINIT saved in SinitMleData in TXT heap (which is DMA protected)
-> +	 */
-> +
-> +	/* map config space in order to get heap addr */
-> +	config = ioremap(TXT_PUB_CONFIG_REGS_BASE, NR_TXT_CONFIG_PAGES *
-> +			 PAGE_SIZE);
-> +	if (!config)
-> +		return NULL;
-> +
-> +	/* now map TXT heap */
-> +	heap_size  = *(u64 __force *)(config + TXTCR_HEAP_SIZE);
-> +	if (!txt_heap)
-> +		txt_heap = ioremap(*(u64 __force *)(config + TXTCR_HEAP_BASE), heap_size);
-> +
-> +	iounmap(config);
-> +
-> +	if (!txt_heap) {
-> +		pr_err("Failed to map TXT heap\n");
-> +		return NULL;
-> +	}
-> +
-> +	if (heap_size == 0 || (u64)txt_heap + heap_size < (u64)txt_heap) {
-> +		pr_err("TXT heap size invalid or overflows\n");
-> +		goto teardown;
-> +	}
-> +
-> +	heap_end   = (u64)txt_heap + heap_size;
-> +
-> +	/* walk heap to SinitMleData */
-> +	/* skip BiosData */
-> +	/* get BiosData section size */
-> +	if (!tboot_check_txt_heap_section_bounds(heap_end, txt_heap,
-> +						 &heap_section_size, "BiosData")) {
-> +		goto teardown;
-> +	}
-> +
-> +	/* skip OsMleData */
-> +	heap_ptr = txt_heap + heap_section_size;
-> +	/* get OsMleData section size */
-> +	if (!tboot_check_txt_heap_section_bounds(heap_end, heap_ptr,
-> +						 &heap_section_size, "OsMleData")) {
-
-Ugly linebreaks. Let it stick out. Ditto for the rest.
-
-> +		goto teardown;
-> +	}
-> +
-> +	/* skip OsSinitData */
-> +	heap_ptr += heap_section_size;
-> +	/* get OsSinitData section size */
-> +	if (!tboot_check_txt_heap_section_bounds(heap_end, heap_ptr,
-> +						 &heap_section_size, "OsSinitData")) {
-> +		goto teardown;
-> +	}
-> +
-> +	/* jump to the SinitMleData */
-> +	heap_ptr += heap_section_size;
-> +	sinit_mle_size = 0;
-> +	/* now points to SinitMleDataSize; set to SinitMleData */
-> +	if (!tboot_check_txt_heap_section_bounds(heap_end, heap_ptr,
-> +						 &sinit_mle_size, "SinitMleData")) {
-> +		goto teardown;
-> +	}
-> +
-> +	heap_ptr += sizeof(u64);
-> +	sinit_mle = (struct sinit_mle_data *)heap_ptr;
-> +	sinit_mle_end = (void *)sinit_mle + sinit_mle_size;
-> +	if (sizeof(struct sinit_mle_data) > sinit_mle_size) {
-> +		pr_err("SinitMleData size is smaller than expected.\n");
-> +		goto teardown;
-> +	}
-> +
-> +	if (sinit_mle->version < 9) {
-> +		pr_err("Unsupported SinitMleData version: %u\n", sinit_mle->version);
-> +		goto teardown;
-> +	}
-> +
-> +	heap_ptr += sizeof(struct sinit_mle_data);
-> +	if (heap_ptr > sinit_mle_end) {
-> +		pr_err("SinitMleData header out of bounds.\n");
-> +		goto teardown;
-> +	}
-> +
-> +	/*
-> +	 * The SinitMleData extended-data area is a self-describing list of
-> +	 * variable-length elements with no stored element count; it is
-> +	 * terminated only by a HEAP_EXTDATA_TYPE_END element. Traversal must
-> +	 * therefore be driven by each element's own size field. Forward
-> +	 * progress and termination are guaranteed on every iteration:
-> +	 *   - the 8-byte header is bounds-checked before type/size are read,
-> +	 *   - elt->size >= sizeof(*elt) enforces a strictly-positive advance,
-> +	 *   - the "elt <= sinit_mle_end" cap bounds the number of steps.
-> +	 */
-> +	elt = sinit_mle->ext_data_elts;
-> +	do {
-> +		if ((u8 *)elt + sizeof(*elt) > (u8 *)sinit_mle_end) {
-> +			pr_err("SinitMleData element header out of bounds.\n");
-> +			goto teardown;
-> +		}
-> +
-> +		if (elt->size < sizeof(*elt)) {
-> +			pr_err("Invalid SinitMleData element size: %u\n", elt->size);
-> +			goto teardown;
-> +		}
-> +
-> +		if (elt->type == HEAP_EXTDATA_TYPE_END ||
-> +		    elt->type == HEAP_EXTDATA_TYPE_DTPR) {
-> +			break;
-> +		}
-> +
-> +		elt = (void *)elt + elt->size;
-> +	} while ((void *)elt <= sinit_mle_end);
-> +
-> +	if ((void *)elt >= sinit_mle_end) {
-> +		pr_err("Reached the end of SinitMleData without finding DTPR nor END element.\n");
-> +		goto teardown;
-> +	}
-> +
-> +	if (elt->type == HEAP_EXTDATA_TYPE_END) {
-> +		pr_err("DTPR element not found in SinitMleData\n");
-> +		goto teardown;
-> +	}
-> +
-> +	if ((u8 *)elt + elt->size > (u8 *)sinit_mle_end) {
-> +		pr_err("DTPR Table exceeds SinitMleData bounds.\n");
-> +		goto teardown;
-> +	}
-> +
-> +	if (!tboot_check_dtpr_size(elt)) {
-> +		pr_err("Invalid DTPR Table size.\n");
-> +		goto teardown;
-> +	}
-> +
-> +	return (struct acpi_table_dtpr *)elt->data;
-> +
-> +teardown:
-> +	tboot_free_txt_heap_mem();
-> +	return NULL;
-> +}
-> +
-> +s64 tboot_teardown_tprs(void)
-> +{
-> +	s64 ret = 0;
-> +
-> +	if (tboot_is_tpr_protection_enabled() && dtpr)
-> +		ret = tboot_disable_tprs();	/* uses cached dtpr + txt_heap */
-> +
-> +	tboot_free_txt_heap_mem();	/* releases internal mapping */
-> +	dtpr = NULL;
-> +	return ret;			/* 0 = success / nothing to do */
-> +}
-> +
-> +void tboot_free_txt_heap_mem(void)
-> +{
-> +	if (txt_heap) {
-> +		iounmap(txt_heap);
-> +		txt_heap = NULL;
-> +	}
-> +}
-> +
-> +bool tboot_is_tpr_protection_enabled(void)
-> +{
-> +	return num_of_enabled_tprs > 0;
-> +}
-> diff --git a/include/linux/tboot.h b/include/linux/tboot.h
-> index d2279160ef39d..d7c00024b26e0 100644
-> --- a/include/linux/tboot.h
-> +++ b/include/linux/tboot.h
-> @@ -24,10 +24,17 @@ enum {
->  #include <linux/acpi.h>
->  /* used to communicate between tboot and the launched kernel */
->  
-> +/*TXT Extended Data Element Types*/
-> +#define HEAP_EXTDATA_TYPE_END   0
-> +#define HEAP_EXTDATA_TYPE_DTPR 14
-> +
->  #define TB_KEY_SIZE             64   /* 512 bits */
->  
->  #define MAX_TB_MAC_REGIONS      32
->  
-> +/*TPR Base Disable BIT*/
-> +#define TPR_BASE_DISABLE_BIT  BIT(4)
-> +
->  struct tboot_mac_region {
->  	u64  start;         /* must be 64 byte -aligned */
->  	u32  size;          /* must be 64 byte -granular */
-
-Please put side comments over the line they comment.
-
-check your whole code.
-
-Thx.
+ Documentation/ABI/testing/debugfs-spmi |  68 +++++
+ MAINTAINERS                            |   1 +
+ drivers/spmi/Makefile                  |   2 +
+ drivers/spmi/{spmi.c => spmi-core.c}   |  20 +-
+ drivers/spmi/spmi-debugfs.c            | 341 +++++++++++++++++++++++++
+ drivers/spmi/spmi-internal.h           |  28 ++
+ include/linux/spmi.h                   |   6 +
+ 7 files changed, 460 insertions(+), 6 deletions(-)
+ create mode 100644 Documentation/ABI/testing/debugfs-spmi
+ rename drivers/spmi/{spmi.c => spmi-core.c} (97%)
+ create mode 100644 drivers/spmi/spmi-debugfs.c
+ create mode 100644 drivers/spmi/spmi-internal.h
 
 -- 
-Regards/Gruss,
-    Boris.
+2.56.0.317.g454f8302e1-goog
 
-https://people.kernel.org/tglx/notes-about-netiquette
