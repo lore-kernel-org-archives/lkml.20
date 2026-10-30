@@ -1,66 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362044;
-	b=atUkhKDe33hI2YsdWfhZWfqfVXzl7F7BcIyEulkzywlz2W28r+JrF2kjWCMetStzkb/K
-	 0bsmy/jHStL5M72ajKgu9CpSyaj2dB1QiJHIe/0rujei2AHJsG5YAjnWd8QjqKI+wOwVB
-	 lqEH2D5OvO78nf8gUkGvcqpPYV+py5Nrzs6U7WAH47CMVKehNPofjgY8ABn2xGbFX3lIM
-	 wmislCy18ZW/MORyp99OgL2yKXNFddVfXahVuVtGQosfnb9zDgft2XwMHjOinZ8IacbZI
-	 IZWk2xRdp2E3L0ALrBzSktqaTTWrz5zZ46Vl9kdPb15LP/B84D7SK1KAqU+65N9dyJw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362044;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=3oAdiQL1BBq/8Wx7+7+nnqKAavDIGqolwKSp3zNe53I=;
-	b=Wr1K77Fnccpm4aXYM0HukQtGi8fVoNZYeQoHn8wyINxHPARxtOzg5OvJ7SN7doErPIom
-	 U134TFsGNnhMHE2o9ICaKNYVF6S64D9oUtcILaQBd18Z6Abp4/jiw1wUqxXQ1ImHm9wHb
-	 UkcsZ8HNvxisryZwWk0607jHQ+hca6LewpbijQ8jYtyrQKh+sjeb6cJAUG/DYJ+Hot0Ll
-	 qIqzfbbp5EC/TENf7yu199Jlq2qgEWk0Q/C5S4b7MF2/RNVcvBBCVIymYYDH5SYBrC5ur
-	 8D6FL6P91QjOifcVelx3prSL7j9GsqJY6BzE3K1icVPdrrMKf/4tN52h2mzzwqWw9JA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=GGswo4Q7;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.22
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793362078;
+	b=QD3ffsr0xUdd46bZdw/+5B7MaQUXXC9qJ0rteHtcLB36FFXQNfs5MSyNkQ/SK8jMOUZx
+	 nkhAqwYs+r2ETmjpBodmWEvTZCDS359KUQJ/JGHR9Alrv8xMMY+wIxdwz1wyqyQqZKNDa
+	 lO4B3mtFFJD8Yj3PMp6yuubQLb/cqdZ9b4HFVh6t+OxM2Obpz0S6hGWhsean7SdnmAgi/
+	 6uKAH5RYiRY8NKeUzHcWTINRNNk/g74EcgYxmmd9Srij1oTMO1tVVyUw1HaAQFn7coc23
+	 FJcD5BNjJLrHzbwRvkR6fJRxDFQ8VGsh2ZxdPQYJQpVHM5RvZKvs5F/rcavWI7OFnQg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362078;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=x1S44Gd3bkRw1trvloAtMhdCb8IDY/HgNqZBXiQtrcg=;
+	b=SSSEL+gbLxgNotkbpCeoEoq0No7oZkZ+FIexRX8xGmvqS0eBTWyN4ntQPYhc8q+rF5AC
+	 s5r2og3idq0nr9MKVBmTGb7wpW1WtSyo+t5U1wBsXI2R5OTn5QQ6URCA/XoUw77s32mG0
+	 rDt8znh+Wsd4fQ36YjGGozi21xqcYcoXec4hLBiRXq13dRkUkUiK/9VohW3rNf31qUzOJ
+	 2kmJ+BCcOn28LD3aGn/JCnrb0Gc8WyWTHASsYKUkgFjvrwaTW4o/QVZCJaPEY5HWWaHZH
+	 Iz/YsdL1VUnvVzIvygCbb8IvvCVKD6HPK/ppzbTf69/ebZ5tCaqRZXW/rAUk3CwV3qg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=PpJTGwco;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=v6qgZt86;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.22
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [85.215.255.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EEA606A31E;
-	Fri, 30 Oct 2026 12:07:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0EEA606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44BD606A31C;
+	Fri, 30 Oct 2026 12:07:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A44BD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=GGswo4Q7
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=3oAdiQL1BBq/8Wx7+7+nnqKAavDIGqolwKSp3zNe53I=; t=1793362043; x=1794571643; 
-	b=GGswo4Q7HNBjO4TfOrDi533WVeLpu59cRClXWYh0gpDWgaqTjoYJnO8+pvf6UcH2rLHZKbThxQq
-	viNF6E6i5bqdgDSES5G929idm8vQjuxXFaqnVQhyT2TTBQJf6sBc7dVQ7vRtt408Jn6Nl9JEa3riK
-	U5YbTj4tUKJSv2xNTJd5ea/AGHKN53vsxRBdRfGfJW31LtKHmk5ZqQMUdEW8vUN6zuN+48ZSmbwa9
-	0We4Q4+JbchU/sTlIA6kNimHCLaIYpLaSZi7+nZNv7bDc8u73tomUSG+FEZPhpc1sU/AYoTR8CX/j
-	bQjBbtCZli+pQXsLyE70BKEN36sIlIKxEQEg==;
-Date: Fri, 30 Oct 2026 13:07:13 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Ettore Chimenti <ettore.chimenti@linaro.org>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
- <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren
- <tony@atomide.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Christopher
- Obbard <chris.obbard@oss.qualcomm.com>, Andrew Goodbody
- <andrew.goodbody@linaro.org>, Paul Walmsley <paul@pwsan.com>, Russell King
- <linux@armlinux.org.uk>, Rouven Czerwinski <rouven.czerwinski@linaro.org>,
- linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 7/9] ARM: dts: omap: dm816x: Remove hwmod code for
- USB
-Message-ID: <20261030130713.3a404d50@kemnade.info>
-In-Reply-To: <20261028-patch-ektor5-dm8168-dts-v2-7-4544429251e2@linaro.org>
-References: <20261028-patch-ektor5-dm8168-dts-v2-0-4544429251e2@linaro.org>
-	<20261028-patch-ektor5-dm8168-dts-v2-7-4544429251e2@linaro.org>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=PpJTGwco;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=v6qgZt86
+ARC-Seal: i=1; a=rsa-sha256; t=1793362035; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=kKTd6wCEsaht8DbjluO95Vu6WSDHJ6o5troCPVmvsYJq8FSY0Optbt+eu0arUPBPRV
+    2iqdhH9BRwBc5M507SxDoP0e9qu91YdkDBEY3NFhSxD1yaXWH3L9dV4OMiJ5i0TrJy1k
+    wVtOD8G4L6Smt76F7ZfowAl9L34eN4AtuzJmsLFt/33z3kcfjgds4K3OPJWbBiuf3ALo
+    fUSawWjqsHx9KiiY4C+op7BRh99hkIDicwthyEV2XE+EOUJFCvoEdbBddkCB7/0p/7xi
+    u20Io1Px+tNJziR/m1qi0tL+qn0na4K1owoB7erXsCUV8I9Ec90umb9xEAjG0WXkUlLj
+    Edpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793362035;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=x1S44Gd3bkRw1trvloAtMhdCb8IDY/HgNqZBXiQtrcg=;
+    b=Bf4DjswHC0fUbXiR0xn4retlmRuehiE/ZLQPywtkBVVCwYeH0Wb8hH9hg+X+0TFQMH
+    Wst/QcjHK9CPFj/plrziiWmibyjQlGupMlWXWZjQmSTss/zAd+dQVZ7xrpEDYL+z11jH
+    JgW9EdYGEq55n7fc9cJ3i+dBE43lUJau6W0gV0UnxC5FMQ0e3OiCxZN88PtUmqr1G++3
+    FmgRVao9UVc1obHrrXUe4nGyUVlAN/s3xj5nHprIt1LUxP8q7360xZA618qJ21OdQo0r
+    P7V6XspKR6PJ314aNxTOGFJ1GF+zH3YYQ6hg1KjQo7daeyBjwC1GcRRLKfjeClxl2pVa
+    Wveg==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793362035;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=x1S44Gd3bkRw1trvloAtMhdCb8IDY/HgNqZBXiQtrcg=;
+    b=PpJTGwcolYfx2nhhfO/kzOu/NjUgT2Uz/zFooNukjIdg5T/4/RXKJPbhMdaD7kp1XJ
+    KJX7Os6Cjf9urwpdkZzjcN5q9a6nMmtXkvuBf1jajfWdEo5lh1xHn8p/fsJykW8Xst3e
+    WbnH+sw7sl74PnZTsyQY9zKV5V127MaHopb053N6wsvyw8zV6/0/qL41hs/sZ6Zr9suZ
+    kfFlrFpnCjxihocqloiSm2O600bNbOLdJTIJEgqTNECr6GwmQLuCmUixqgIljRSaVgTf
+    881qa0Sahi5l6gc+OmO9vN/m4uCu2OFWddCBfZaZpOpKtvqOLWHkyHvQ39KGTe1RDRWK
+    I/fg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793362034;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=x1S44Gd3bkRw1trvloAtMhdCb8IDY/HgNqZBXiQtrcg=;
+    b=v6qgZt8616eIV00fEc7N64eRxtN+OyU6Jk+wf2PQma88enlaZ6g9HZg57IXgf11VmD
+    4Dq6BBhfAvvsrJDkJKCQ==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2poKmsiNhq7KtjfW47fObhZWSYR4XVi/U0fw"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a229UC7EKvi
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Fri, 30 Oct 2026 13:07:14 +0100 (CET)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,93 +93,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH 1/4] dt-bindings: clock: Add Ingenic X1600 CGU bindings
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20261030-zippy-crocodile-of-enhancement-9fb0f0@quoll>
+Date: Fri, 30 Oct 2026 13:06:43 +0100
+Cc: Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ letux-kernel@openphoenux.org,
+ kernel@pyra-handheld.com,
+ Paul Boddie <paul@boddie.org.uk>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <FE4330E9-6C27-478A-9097-3588D9DB9897@goldelico.com>
+References: <cover.1792955907.git.hns@goldelico.com>
+ <13abd95aaab56ce5c9dc565db7f0198162b0c166.1792955907.git.hns@goldelico.com>
+ <20261030-zippy-crocodile-of-enhancement-9fb0f0@quoll>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-On Wed, 28 Oct 2026 17:06:08 +0100
-Ettore Chimenti <ettore.chimenti@linaro.org> wrote:
+Hi Krzysztof,
 
-> From: Andrew Goodbody <andrew.goodbody@linaro.org>
-> 
-> Remove the hwmod property from the USB controller node and the matching
-> code from the hwmod data file as this is now deprecated.
-> 
-> Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
-> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
-> ---
->  arch/arm/boot/dts/ti/omap/dm816x.dtsi      |  1 -
->  arch/arm/mach-omap2/omap_hwmod_81xx_data.c | 21 ---------------------
->  2 files changed, 22 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-> index b839ee29e9eb..55f4b91fa1fc 100644
-> --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-> @@ -576,7 +576,6 @@ uart3: serial@48024000 {
->  		/* NOTE: USB needs a transceiver driver for phys to work */
->  		usb: target-module@47400000 {
->  			compatible = "ti,sysc-omap4", "ti,sysc";
-> -			ti,hwmods = "usb_otg_hs";
->  			reg = <0x47400000 0x4>,
->  			      <0x47400010 0x4>;
->  			reg-names = "rev", "sysc";
 
-As I have also some hwmod -> ti-sysc conversions cooking, I think I have
-an idea why you put these two in one file. Doing this in lockstep should
-be justified in the commit message.
+> Am 30.10.2026 um 12:24 schrieb Krzysztof Kozlowski <krzk@kernel.org>:
+>=20
+> On Sun, Oct 25, 2026 at 08:18:24PM +0100, H. Nikolaus Schaller wrote:
+>> Add the device tree bindings and the clock ID definitions for the
+>> Clock Generation Unit (CGU) of the Ingenic X1600 SoC.
+>>=20
+>> The clock layout features specific I2S handling. To properly support
+>> the I2S controllers on the X1600 without relying on complex compound
+>> dividers that are not yet natively supported by the drivers, split
+>> the structures to explicitly describe the additional I2S divider
+>> fields. This design accounts for the current driver limitations
+>> regarding division encoding while matching the hardware's internal
+>> gating architecture.
+>>=20
+>> Furthermore, introduce dedicated I2S0 RX and TX clock definitions to
+>> allow independent and precise routing for I2S stream usage.
+>>=20
+>> Co-developed-by: Paul Boddie <paul@boddie.org.uk>
+>> Signed-off-by: Paul Boddie <paul@boddie.org.uk>
+>> Co-developed-by: H. Nikolaus Schaller <hns@goldelico.com>
+>> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+>> ---
+>=20
+> One more nit:
+>=20
+> A nit, subject: drop second/last, redundant "bindings". The
+> "dt-bindings" prefix is already stating that these are bindings.
+> See also:
+> =
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/=
+bindings/submitting-patches.rst#L23
+>=20
+thanks for both suggestions!
 
-I guess you have removed this and seem a fat WARN().
-Analyzing omap_hwmod.c I found that every module action is guarded by
-if (oh->_state != _HWMOD_STATE_INITIALIZED)
-So I think it is time to just denoise that WARN(), since the
-originial authors probably did not have ti-sysc conversion in mind.
-I will prepare a patch for that. But then you can add that snippet to patch 6.
+A V2 is in preparation covering the previous and this comment
+and other aspects as well.
 
-While merging this patches we just have to ensure that the hwmod removal
-comes after adding ti,sysc stuff.
-
-Regards,
-Andreas
-
-> diff --git a/arch/arm/mach-omap2/omap_hwmod_81xx_data.c b/arch/arm/mach-omap2/omap_hwmod_81xx_data.c
-> index 9b5c728fb7da..b9735b507d6b 100644
-> --- a/arch/arm/mach-omap2/omap_hwmod_81xx_data.c
-> +++ b/arch/arm/mach-omap2/omap_hwmod_81xx_data.c
-> @@ -646,26 +646,6 @@ static struct omap_hwmod_ocp_if dm814x_default_l3_slow__usbss = {
->  	.user		= OCP_USER_MPU,
->  };
->  
-> -static struct omap_hwmod dm816x_usbss_hwmod = {
-> -	.name		= "usb_otg_hs",
-> -	.clkdm_name	= "default_l3_slow_clkdm",
-> -	.main_clk	= "sysclk6_ck",
-> -	.prcm		= {
-> -		.omap4 = {
-> -			.clkctrl_offs = DM81XX_CM_DEFAULT_USB_CLKCTRL,
-> -			.modulemode = MODULEMODE_SWCTRL,
-> -		},
-> -	},
-> -	.class		= &dm81xx_usbotg_class,
-> -};
-> -
-> -static struct omap_hwmod_ocp_if dm816x_default_l3_slow__usbss = {
-> -	.master		= &dm81xx_default_l3_slow_hwmod,
-> -	.slave		= &dm816x_usbss_hwmod,
-> -	.clk		= "sysclk6_ck",
-> -	.user		= OCP_USER_MPU,
-> -};
-> -
->  static struct omap_hwmod_class_sysconfig dm816x_timer_sysc = {
->  	.rev_offs	= 0x0000,
->  	.sysc_offs	= 0x0010,
-> @@ -1250,7 +1230,6 @@ static struct omap_hwmod_ocp_if *dm816x_hwmod_ocp_ifs[] __initdata = {
->  	&dm816x_l4_hs__emac1,
->  	&dm81xx_l4_hs__sata,
->  	&dm81xx_alwon_l3_slow__gpmc,
-> -	&dm816x_default_l3_slow__usbss,
->  	NULL,
->  };
->  
-> 
+BR nd thanks,
+Nikolaus
 
