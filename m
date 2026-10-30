@@ -1,75 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793392662;
-	b=sJhAlefNZ+PIiRvUIL4giGw+D5t+IbngzzlvBgqo2nxfGvFSJFRyxObKZw697whBDV6I
-	 TNRbRR3sj03VbgaRost3ffYxKsHe1QuRoxThBKCmNE2T7wig3jnQ4l/mY94Vo0VO3lWmC
-	 Hs/wI4PeE4GkLMf7Xuy3KMDPuuBit/eEyMzv+g+imSFmNwQ/xiiH/8a9DVuhKsjBsPaqf
-	 2pUbG+yiC0mRuomnWPLM3Xv8upzB5oSX5TcMckyeOYAhROfsXT0dRxubligKLVlsFvCUa
-	 7b0qr4odofbe0DFIVpG6nTyIpeRKa/7IU2z7J+E+QV/f6FheFtNBI2ZwtyFreBX402A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793392662;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=Q4l1IdgKE9e9Rw6KLjh8EhRZJBjvLGRhYmbt9KgTwiI=;
-	b=I97uQrRtkJGRSpABL9xlP+QDT5xjNaVLGe15FuB29VssQQBkBI3XqZKbuJdw5kU+rD6K
-	 oHNkj/rQLig6qma2GMrhx/PXTNTa5N8VHFpou5xbQNmGcPfBQITm9zpFxItrSt4ZYmpSr
-	 ZxLa4kX+Gi/isY7RalBK+dFQ3TXhimJj27AbqvMG9YaFWnIVLdgcGZAgOWAqbFsrMFNxa
-	 AQXLI1clqZg+KtIZGX4+A4yDmeaxAHwAm4oiwOAEfj6fAp9PHGebojN8pwic2ZQcZynwO
-	 Rw9l0agMn35RZljh8ZaPpZF6w9tFgTGcdhTtfApZ3UMEFst0QgHzINiCgiFtOG465+w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--vamshigajjela.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Kv0JDKRI;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793392825;
+	b=scHv8F+Ydrh+tkhQCaYHagFE9aTuwoZn0x36hf5V7Zj99+uTlW3Oof5WmzGhwBWC8ku5
+	 ccbZTEfT7tdK1XpJ7/R1810dc4ZJqJs3uNKT/Fit8OuxrxPTmcvH2EvBPYHbA+fVYpC/T
+	 r1nfl7ISLEcWQV0gHOC6wL7uWtktekdRiNaiPv646wioh4NIWPEwMuHqPc0N/+YVy/GeK
+	 u+EuUPiwdIaPEIFsKvI0XPeppc890/5et057Zu2WId3JlpgFo4DE5bhqCVYIuu4wW/1em
+	 Cr4HvRVkie8HhX+V0wWDWUGUv8nc/rATfncKaJxVJ3PD39QuO88RGn1iO4Ki3pla1ag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793392825;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=zmlZ7aNxpgn0VjRrI0W6d9MsyiGPJdUvh/G1Mvp2jpk=;
+	b=ljFf0NyV/EjGloB62JiXJVhbf88BEC+z2PI86S7xFZukkIxEseNfwI5n4W90/HYN3fkv
+	 +IvDu101VVnahQy1UWJZVV4Ek41WCYyJ0iO0gGXARtXwe4XqNs07JCHGJmtuCTmLJfutM
+	 XUxsb/w9PfNAoa3cxzzCKiUYQPk9/OYz6EgF08bJ0amPriqsPoxIoYdCU/f63H7ETfwmX
+	 pLWJptbWMyQtbDJOntY4UIibwAy5qyGV6kjWr6IPq9mDNaHu2i6rK2IzRnCUHi9E8A93y
+	 LUc5TQ1fDvk1op/vOxPT+dzNbeiJx+KQFaNLglEadiG2ov/AkjF/NLYVHSvTC9H2AVQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=udCjAtck;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.50
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010050.outbound.protection.outlook.com [52.101.46.50])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9649606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:37:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9649606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vamshigajjela.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639C6606A31A;
+	Fri, 30 Oct 2026 20:40:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 639C6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Kv0JDKRI
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a0619b1fe5so875160b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:37:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793392661; x=1793997461; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q4l1IdgKE9e9Rw6KLjh8EhRZJBjvLGRhYmbt9KgTwiI=;
-        b=Kv0JDKRIGVIdgbAARW+BARzIEMrjztfEFWgmbDYA3ia6HlUtR+Vg9vZZWuVAtRZdYk
-         miI8e5ddCzdPd0MJ1V1I2sutlsWOiGMNkBvVWvwssjLXj+TM4b2VphR7AhCohkHzpuNH
-         jJfx4Ack/7856HdZh7IZx//l8akXPjqamaUOGGZkDz9bDD7tv1pd2jJdAyMkVw4fcccO
-         uJcR010Vn6moq8oYk8OpUwfHmzHzWvW/Eslw9xkSy+8znvUzk6yloI/aGhIQB3S8chU8
-         v3yJWO4nusuJ0tIFwkZnDRwaP8s8X6AJJWo2RyZIaIGSzuSyO7MoTd2Zb3WmXWS8Rk4c
-         aPCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793392661; x=1793997461;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q4l1IdgKE9e9Rw6KLjh8EhRZJBjvLGRhYmbt9KgTwiI=;
-        b=uovz5jZQd984OuQJh6A01o0xFWc2G5LOBYyXIyYCi3J6rmVV+588AjiZ5chY1T2ni2
-         addsM4aPT/VScOityHYOtH903Lld+wgyWCj0kU40Xe8EhZAtMCKDkFlJzh6Gi9zK4175
-         FUM+p2gmqs9QSVf/C5CC++6VEqRjEsG85AFW7I1iuvT9ObwV/Do9KMsX+/RAlgmadnRn
-         zp+N+BoTokFjgBcw0HxfmJ8yX9R+haHMM97niMjuJeqB7f1b9MnCqX1JoYw3Syw3h0j5
-         2bU8k27wMzFW2T/B3ytutPhg3z10S2JnOr/wc8HCYgtWo+/UBz16s8j4xGP5OoS7bUe+
-         FOmA==
-X-Forwarded-Encrypted: i=1; AKwUvBxdSOHUhiEkpDDd2qMl0HlEpNyaFJmao+qUmYOpTxe8n6uYH4qL3m3nQNHSeYz+AD+Fj15oNzY+xMAJsU8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIUjlCd+nBa2VOIE8tUat4bTG7kNQrhUznfJwcbXoNYbQmPcKQb
-	RVa2bjz8ZjmRKfo4HoAD0ZgZcoFoSWOirOgcIOXKdQPKwKoFmzLYS8j5Q9rVFemAZmicG2XMNL/
-	465UjaqOez04LWIIOUkjyPpAMrqE/IYmsBw==
-X-Received: from pfle16.prod.google.com ([2002:aa7:9210:0:b0:8a0:e479:9889])
- (user=vamshigajjela job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6300:49:b0:3e1:de28:8ebc with SMTP id adf61e73a8af0-3e9289d8c84mr2689437637.49.1793392660725;
- Fri, 30 Oct 2026 13:37:40 -0700 (PDT)
-Date: Sat, 31 Oct 2026 02:07:28 +0530
-In-Reply-To: <20261030203728.3784902-1-vamshigajjela@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=udCjAtck
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jrgp0p+NfnADOLfki3fZSzDWQHxJVRNXUgZXRbfl7pVuqENTtlpJBb39AvNqh1kHgholLM5MZm1OrCZ+xbV4Mu35Q5xEc3rz/akS413VXxpO8dQI8G+J66yom8nZxr7XZlkccRhw/NdYTRRLWz0+PkZCggDliZ/yC1c+To+qgU81NPQfjwEgVyq5rILDBPulOVjjPclJzJBbS4zCptkDXhObHBjSsYynOXAQ35TuGdKMzHSBt+5ME3F9tmJLoIQTBSehFQoPG7vn1iQZVqXLakw0CQ1bFsI/SSIePyCoH8fgqZf7As+lj7bqqK1eTsqMyCGDzgBY10/ieLUMvfHX5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zmlZ7aNxpgn0VjRrI0W6d9MsyiGPJdUvh/G1Mvp2jpk=;
+ b=wd0mwxGxoHTpc6afve8VzpQ8pJsxHEaa5waNcO2f7StVUVEtcZPi25BaYlm3Kx1Mxz43vPNi/nAIm3E7PcFNpq7eYEgIpcMZrSJmaqt0ynDQ+3SZbLHh6G1se55FbtzxtGrOJxXSwdVzdl3VKx4EsyandWzDn/evfA2v76L+HQGbzhvlwhexkybhy4+qu77NOhn7VQbKyVJspJ9lyqnqeqTMwF7QDiZKZJrb8SJNjQWhCgtlQhi71/iNjUMaChH1ke5YsVgYfFRvSR7KR0ROErWJV3Y6TiA87xiSfxqni7PDmd7VEeu+dJOtDvdluwGOrsLd5x10qR7EES3EmK+6qA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zmlZ7aNxpgn0VjRrI0W6d9MsyiGPJdUvh/G1Mvp2jpk=;
+ b=udCjAtckGhk6xtCRuF0hkVrB83LOG1KtnArjDb3NtdtX9sl3mouyY21OzXygn9ipO6QcGAKGZPxfibq/4jb+EvxUowqRbznKUHO8EslxvtOblRMKrFnah+/BAdd14TET3Z1CASE5QxNqDQs8LQ5+njlW6jYtimTYiJWkgaxVEjiR7x80kW8P743iwbvwA7xNrxbbeFLf6XZZjmO1CvnmTE1iucxKlxxfCilvfhhqgiNexuBDy853sym+Xrsj2TxG3h4u0uMhMfWJr5Impdw9zM8PiZA/1Hp8FAIrFSVP7MOZpJAi29IMMJzOtWfi9xoMgUT8gkY9jlmDyBAIbjBBvA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CY5PR12MB6549.namprd12.prod.outlook.com (2603:10b6:930:43::6)
+ by DS7PR12MB8346.namprd12.prod.outlook.com (2603:10b6:8:e5::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 20:40:15 +0000
+Received: from CY5PR12MB6549.namprd12.prod.outlook.com
+ ([fe80::2cdd:a549:db13:202b]) by CY5PR12MB6549.namprd12.prod.outlook.com
+ ([fe80::2cdd:a549:db13:202b%4]) with mapi id 15.21.0546.021; Fri, 30 Oct 2026
+ 20:40:15 +0000
+Message-ID: <fe4b26ba-9854-4375-8caa-9d1b77f9e745@nvidia.com>
+Date: Fri, 30 Oct 2026 16:40:05 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/12] Rust VFIO PCI support and NVIDIA vGPU driver
+To: dakr@kernel.org, acourbot@nvidia.com, kvm@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev,
+ linux-pci@vger.kernel.org
+Cc: alex@shazbot.org, jgg@nvidia.com, yishaih@nvidia.com,
+ skolothumtho@nvidia.com, kevin.tian@intel.com, airlied@gmail.com,
+ simona@ffwll.ch, ojeda@kernel.org, alex.gaynor@gmail.com,
+ boqun.feng@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, jhubbard@nvidia.com, ecourtney@nvidia.com,
+ cjia@nvidia.com, smitra@nvidia.com, kjaju@nvidia.com, alkumar@nvidia.com,
+ ankita@nvidia.com, aniketa@nvidia.com, kwankhede@nvidia.com,
+ targupta@nvidia.com, linux-kernel@vger.kernel.org, zhiwang@kernel.org,
+ zhiw@nvidia.com, boqun@kernel.org, daniel.almeida@collabora.com,
+ tamird@kernel.org, work@onurozkan.dev, jgg@ziepe.ca, bhelgaas@google.com,
+ kwilczynski@kernel.org, dri-devel@lists.freedesktop.org, peter@colberg.org
+References: <20261023154009.2246627-1-xinmengs@nvidia.com>
+Content-Language: en-US
+From: Simon Song <xinmengs@nvidia.com>
+In-Reply-To: <20261023154009.2246627-1-xinmengs@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0176.namprd03.prod.outlook.com
+ (2603:10b6:a03:338::31) To CY5PR12MB6549.namprd12.prod.outlook.com
+ (2603:10b6:930:43::6)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,630 +108,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261030203728.3784902-1-vamshigajjela@google.com>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261030203728.3784902-3-vamshigajjela@google.com>
-Subject: [PATCH v5 2/2] spmi: Add generic DebugFS interface for bus inspection
-From: vamshi gajjela <vamshigajjela@google.com>
-To: Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: Jim Wylder <jwylder@google.com>, linux-kernel@vger.kernel.org, 
-	Vamshi Gajjela <vamshigajjela@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6549:EE_|DS7PR12MB8346:EE_
+X-MS-Office365-Filtering-Correlation-Id: a51e5a4b-3250-4b0f-efbb-08df36c600b5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|22082099003|18002099003|56012099006|11063799006|10067099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	vKwloajxgMDQVTYMd3VGDql/ybHQzJgvGnoF8GS9tYAQyVu8nNgY5HvTXt3tzgW+5zyRvrsgFRzGyq/KhNmg9BZYo8Zb7IED/60QypdKnOG/Xx4paQGvr2+type53dscW+NoZbbsjoovOlLJ+2W0m+BJxdWaDiZMcynvRbLxw3mYp1UQWibAJgzhWlVCzhRqL01f80A6AoZZweQx2qYzuyIyK2/D8+Hwruq/pZQqnEWvH5U387zkqv/JxkApALSz5HoSqNrvdiFctGlkaKAzVctx/h+CQlGyfRZ9NISLT1JcidKg7kYKZLtfB/EKPa8L1GQ+tO5bTYb/uDemyU1qdRJdTsMVW7aD+fomow3SEGj0kjCktWiBDm6FStU9HGjvLreqnFUrUQ1lcIHFdqCAjD8j/dEhqdCqKRt9Xv5XyY1iIko8b0/kFBqcouNkRuHk9ay4PwOvv1zqNxouhWJxF5ERYExZO3DLUZgaQTRlWXQuzkABuBtBjMRsdtspc8LfA648lPJx9HtM4eTpObUNdyM0/RUp/m93y+if6JQHeGUling5/bb+XF6MsayP3CRUErZtCY5nY9l976TtXdFX/QoS3F+N7PjJwoQN42Nqk5HVc9K84eQNxSs3f1rYLrjBi8qQ3XvIRh/9fFJZ6CcUHNjnwH+BVyLWUwGNJYBYqzE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6549.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d0Z3QlJrMFhUQzJ2ZWFuV2k4WTlEZC9Gd212UUh1TFRIYzNDN3RaaEE3MFYz?=
+ =?utf-8?B?SVFVOXNsU3RKcm82c0I4NHNPeXlJTnZnbnBONHNSRnJBOVNxaWFDVVR4RHQv?=
+ =?utf-8?B?RTgzQnBDQTljYlhGczEydjdzQ2dPbXVRN09ZZ1lPZVpIRTB3K2MyQnNZTjdR?=
+ =?utf-8?B?czQ0MjExQVBuYjlzbGVKTFovRmRqb1lzTE5WUlI4VHhoT2tNTEJ1QTFYNm05?=
+ =?utf-8?B?OEVCWnVZRzJLM0x1NzVaWWRzWDFuQTN1N28yMWtreTRLR2xRbXp5VFZUTHZx?=
+ =?utf-8?B?dlJlV2J0TzdvTVpic040RnphVGZ2K21NOFFCc2d0aURwS2tLRHVTVnhRL3dX?=
+ =?utf-8?B?RDhVaHRMUFlIaFBLMFcwNUlaQm15RGdKKzdjM3NQZ3JLS3ZWdFRDVDFHbUR4?=
+ =?utf-8?B?WThWK0RhNzh6bHRGVnNuOE80VTd6VnlDV2NVWCtvNTZRR1ZHb3hURkYybXZV?=
+ =?utf-8?B?ZFlUQk1MZ2Z5MUJqem5pYzBaelZBWURWYXBzTXIrY2tGVm5GK2RHOUhXUVQv?=
+ =?utf-8?B?NTF6eHBIa1NObTBFNVhZdVFod0FwRWFnNGpJUFAyM21EKzhNcEhNLzZmTHlu?=
+ =?utf-8?B?SGxmSUdRTnZiOGVpa1VQZVozWmMxdHZuRExVU2dmOGwyYVpOeFUzQjMrUVNJ?=
+ =?utf-8?B?WkQxRnJQeS9wYUxTYkpZd3F6NUZ3eUZPVHorWjFqU2h5a1JXbVF1dnpGMUtO?=
+ =?utf-8?B?VmFkSy9GWU83ZEtqZHdlTXBjSCs2cDNldUNiaXBkQlNWckhUV2NYc0NVQW9m?=
+ =?utf-8?B?aEQzWnliRGxYTWtLV2YwTWZieTZrRXhHMmV1blNQbzhJSTVobU9FTno4Ynpn?=
+ =?utf-8?B?R2YxSmt6ZUhjYnhhNld0czM0aGg3VWpHc1ZibzdMODAyck9tZlgrL3JCNy8z?=
+ =?utf-8?B?OWNyMWtRR0MyUHI1dmpJSjMrcmgxRjg0RXA4a3o3RE8xRHpYTitxNEY5dGhx?=
+ =?utf-8?B?TGlObkVpZ2UxNVhQM3EvYldkUEt6VGx0bkJtVXVsbHFrditkNThYMkVscXJN?=
+ =?utf-8?B?WFJnaHlaZjVwUnFQQnN2RUJtcUF2di90TDBScmdpQkd2TjRGZXFhYVgrNUVX?=
+ =?utf-8?B?b3g5TDZjY2hxTjIrWUk5TTkxU05ZNnJwREI3d0c1S2xGWEhkTnlURHhvd1BW?=
+ =?utf-8?B?T2Q4dS9QOWFvcGRnM1FDTDJqUVlNK3FXN0JnOTRKTk9aa05vc25OTVI1MlEz?=
+ =?utf-8?B?bVFqNjlWRE0xM0VNUXZicDIwV2dWbHk4aDRLWjgvTDFiWVQ4aEpSLzNFdlMy?=
+ =?utf-8?B?RUlIaVIrVmpHTUdkVUZOMmppcUZETndCcGxkdmh4VzY0WDNrU01pUXUxT3hF?=
+ =?utf-8?B?RU5xNXM4dDE5cUpvUnhONEE2TS83ak44MWFSbjgzejNWVGc2dU1KOVpwbmRZ?=
+ =?utf-8?B?T2NNWlNsWEwyUmpuNEh1b29JWlNncGxtaHVqVC8zYzZTYm9mdHBZUWJnUUpn?=
+ =?utf-8?B?WlNqVG9oWXJkc3FCQ05XZ2pnNXEzakNFblM4dmlVVCtMVGwyQjdocEc5enU2?=
+ =?utf-8?B?NEVQa0JEUnFNcmUrblhiOHRHWFhiRGlGdnUweVVBUU5FNnkyclFreFUzbTZj?=
+ =?utf-8?B?Z2JwZnhKeVZrS3IyOUNVaDVOZFRnditrTGNQRHplQWNKa3Faa3ZTRWlSeEph?=
+ =?utf-8?B?N2VsUW0vZHJVTy82ZHVJK3RUWUROMUh5dHpMTk4wbm5CRjBhS0ltT05ndnIv?=
+ =?utf-8?B?RGlwMlBTSVpKUmdUcGtDZ1ViM2lwM2YrWjdnL09XN2hheHR0ZzlPWERYcmhH?=
+ =?utf-8?B?eXcvRmNLcXdhRzMwa1VnV0dLanlJOUk2VHVKTHU5clBDR3NOdk84SmRMM1k5?=
+ =?utf-8?B?OWhyc3dQVmlITExMcURQS3NhL0JpYTRFanRWZm1rUVpmb3lucjRSUXRuQ0JH?=
+ =?utf-8?B?MHVFMTJJdjBwRnBHYjFqSW4xcVI0M0VJQ2JQYlRCQWJPa2lZQzBrWThGdUU5?=
+ =?utf-8?B?Sks1cFIwNWpSbS84dUNPMTdydUljQTZsQ0lUajVsSzRVTDBZdGhTTkN2bG9W?=
+ =?utf-8?B?WklaT290bW5jQ0FPa1hXaGlFME1IVmJDSDdvbUdlZnoyd2o0NVN6V0RWMTRW?=
+ =?utf-8?B?dmg1cldWejZJVVdNOEhSVTRUM1pEUWFNTGFIUmVNdjhZYXNVWEJMSGo0NU5T?=
+ =?utf-8?B?QkJrVFRoUlNxT3lhaUExekQyWk8zVG9rWDNpakxNdnRpdVNhYzR6Y3dVdkF1?=
+ =?utf-8?B?ZHE5RzBSRTZyMWVpODFZSHphS0NSTFlyM2VQZDhLSUVDVS9mS0dDazN1SHVP?=
+ =?utf-8?B?cWxUbk1qQmpIM1MwNU1NWEdINStVTmhsNk5DR1N3dnVJTlhmMTdoNnNLcFpD?=
+ =?utf-8?B?Y2Y5TEZNRTBBbXBIQUNLSmZZaklYekJSMVc2VHJONm5JVVZzTHpyZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a51e5a4b-3250-4b0f-efbb-08df36c600b5
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6549.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 20:40:15.5551
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Fi+EE1UKU8H1iyAtdNerniF9Xj52GgpNjwLW4Tkuj4/EKseZ10g2ypRg0ntzw25ftAhp5QaObET5S8/5uwPRxA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8346
 
-From: Vamshi Gajjela <vamshigajjela@google.com>
+Hi All,
 
-Introduce a generic, controller-agnostic DebugFS interface in the SPMI
-core under /sys/kernel/debug/spmi/spmi-<nr>/:
-- name: Displays the controller parent device name and OF node.
-- xfer: Transactional interface supporting register reads, writes,
-  and directed command opcodes with automatic opcode selection.
+Following up on this series, I will resolve Gary's documentation comment on patch 1 in the next revision.
 
-Because raw writes and commands to PMICs can damage hardware and bypass
-client drivers and their regmap caches, write ('w') and command ('c')
-operations are disabled by default behind SPMI_ALLOW_WRITE_DEBUGFS. When
-enabled, they restrict access to root (mode 0600) and mark the kernel
-tainted with TAINT_USER.
+Could I get some feedback on the changes in this v2 series?
 
-Detailed interface syntax and parameters are documented in
-Documentation/ABI/testing/debugfs-spmi.
-
-Co-developed-by: Jim Wylder <jwylder@google.com>
-Signed-off-by: Jim Wylder <jwylder@google.com>
-Signed-off-by: Vamshi Gajjela <vamshigajjela@google.com>
----
- Documentation/ABI/testing/debugfs-spmi |  68 +++++
- MAINTAINERS                            |   1 +
- drivers/spmi/Makefile                  |   1 +
- drivers/spmi/spmi-core.c               |  20 +-
- drivers/spmi/spmi-debugfs.c            | 331 +++++++++++++++++++++++++
- drivers/spmi/spmi-internal.h           |  28 +++
- include/linux/spmi.h                   |   6 +
- 7 files changed, 449 insertions(+), 6 deletions(-)
- create mode 100644 Documentation/ABI/testing/debugfs-spmi
- create mode 100644 drivers/spmi/spmi-debugfs.c
- create mode 100644 drivers/spmi/spmi-internal.h
-
-diff --git a/Documentation/ABI/testing/debugfs-spmi b/Documentation/ABI/testing/debugfs-spmi
-new file mode 100644
-index 000000000000..98423d81d408
---- /dev/null
-+++ b/Documentation/ABI/testing/debugfs-spmi
-@@ -0,0 +1,68 @@
-+What:		/sys/kernel/debug/spmi/spmi-<nr>/name
-+Date:		October 2026
-+KernelVersion:	7.5
-+Contact:	vamshi gajjela <vamshigajjela@google.com>
-+Description:
-+		Displays the SPMI controller parent device name and
-+		associated Device Tree node.
-+Users:		Debugging, hardware diagnostics
-+
-+What:		/sys/kernel/debug/spmi/spmi-<nr>/xfer
-+Date:		October 2026
-+KernelVersion:	7.5
-+Contact:	vamshi gajjela <vamshigajjela@google.com>
-+Description:
-+		Transactional interface for raw SPMI bus operations:
-+
-+		- Register Read:
-+		    exec 3<> xfer && echo "r <sid> <addr> [len]" >&3 && cat <&3
-+		  Reads 1 to 16 bytes starting at <addr> from slave <sid>.
-+		  The optional [len] parameter defaults to 1 byte.
-+		  Output is formatted as:
-+		    0x<addr>: <byte0> <byte1> ...
-+		  Each open file descriptor maintains an independent response
-+		  buffer. Reading from the same open file descriptor consumes
-+		  the response; subsequent reads return EOF (0 bytes) until a
-+		  new read command is written.
-+
-+		- Register Write (requires SPMI_ALLOW_WRITE_DEBUGFS):
-+		    echo "w <sid> <addr> <val...>" > xfer
-+		  Writes 1 to 16 bytes starting at <addr> to slave <sid>.
-+		  Values are separated by spaces (e.g. "w 0x4 0x8 0x12 0x34"
-+		  or "w 4 8 12 34"). Disabled by default (-EOPNOTSUPP) unless
-+		  SPMI_ALLOW_WRITE_DEBUGFS is defined at compile time.
-+
-+		- Command (requires SPMI_ALLOW_WRITE_DEBUGFS):
-+		    echo "c <sid> <opcode>" > xfer
-+		  Sends a single SPMI command opcode (e.g. RESET 0x10,
-+		  SLEEP 0x11, SHUTDOWN 0x12, WAKEUP 0x13) to slave <sid>.
-+		  Disabled by default (-EOPNOTSUPP) unless
-+		  SPMI_ALLOW_WRITE_DEBUGFS is defined at compile time.
-+
-+		Parameter Formatting & Validation:
-+		- <sid>: 4-bit Slave Identifier (0x0 to 0xF, supports both
-+		  decimal "4" and hexadecimal "0x4").
-+		- <addr>: 16-bit register address (0x0000 to 0xFFFF) parsed in
-+		  hexadecimal (supports both "0x12" and "12", as well as
-+		  "08", "09").
-+		- [len]: Number of bytes to read (1 to 16 for 8-bit addresses,
-+		  up to 8 bytes for 16-bit extended addresses; default 1).
-+		- <val...>: 1 to 16 hexadecimal byte values (0x00 to 0xFF,
-+		  up to 8 bytes for 16-bit extended addresses). Values
-+		  exceeding 0xFF or payloads exceeding 16 bytes are rejected
-+		  with -EINVAL.
-+		- <opcode>: 1-byte command opcode parsed in hexadecimal
-+		  (0x00 to 0xFF, e.g. "0x10" or "10").
-+		- Trailing unrecognized arguments return -EINVAL.
-+
-+		The interface automatically selects the optimal SPMI opcode
-+		(Register Read/Write, Extended Register Read/Write, Extended
-+		Register Read/Write Long, or 7-bit Zero Write at address 0x00)
-+		based on the address, payload value, and burst length.
-+
-+		All write and command operations mark the kernel as tainted
-+		with TAINT_USER. On failure, the write system call returns a
-+		negative errno (e.g. -EIO on bus NACK/timeout, -EINVAL on
-+		syntax/range error, -EOPNOTSUPP if disabled or unsupported by
-+		the controller).
-+Users:		Debugging, hardware bringup, manufacturing test
-diff --git a/MAINTAINERS b/MAINTAINERS
-index eaeb60c1e1c2..aa9328b4d1c8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25848,6 +25848,7 @@ M:	Abel Vesa <abelvesa@kernel.org>
- L:	linux-kernel@vger.kernel.org
- S:	Maintained
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/sboyd/spmi.git
-+F:	Documentation/ABI/testing/debugfs-spmi
- F:	Documentation/devicetree/bindings/spmi/
- F:	drivers/spmi/
- F:	include/dt-bindings/spmi/spmi.h
-diff --git a/drivers/spmi/Makefile b/drivers/spmi/Makefile
-index 190d560f692e..28737e793a50 100644
---- a/drivers/spmi/Makefile
-+++ b/drivers/spmi/Makefile
-@@ -4,6 +4,7 @@
- #
- obj-$(CONFIG_SPMI)	+= spmi.o spmi-devres.o
- spmi-y			:= spmi-core.o
-+spmi-$(CONFIG_DEBUG_FS)	+= spmi-debugfs.o
- 
- obj-$(CONFIG_SPMI_APPLE)	+= spmi-apple-controller.o
- obj-$(CONFIG_SPMI_HISI3670)	+= hisi-spmi-controller.o
-diff --git a/drivers/spmi/spmi-core.c b/drivers/spmi/spmi-core.c
-index ec97f12046f5..c498bf84f38e 100644
---- a/drivers/spmi/spmi-core.c
-+++ b/drivers/spmi/spmi-core.c
-@@ -17,6 +17,8 @@
- #define CREATE_TRACE_POINTS
- #include <trace/events/spmi.h>
- 
-+#include "spmi-internal.h"
-+
- static bool is_registered;
- static DEFINE_IDA(ctrl_ida);
- static DEFINE_IDA(spmi_subdevice_ida);
-@@ -114,8 +116,7 @@ void spmi_subdevice_remove(struct spmi_subdevice *sub_sdev)
- }
- EXPORT_SYMBOL_NS_GPL(spmi_subdevice_remove, "SPMI");
- 
--static inline int
--spmi_cmd(struct spmi_controller *ctrl, u8 opcode, u8 sid)
-+int spmi_cmd(struct spmi_controller *ctrl, u8 opcode, u8 sid)
- {
- 	int ret;
- 
-@@ -127,8 +128,8 @@ spmi_cmd(struct spmi_controller *ctrl, u8 opcode, u8 sid)
- 	return ret;
- }
- 
--static inline int spmi_read_cmd(struct spmi_controller *ctrl, u8 opcode,
--				u8 sid, u16 addr, u8 *buf, size_t len)
-+int spmi_read_cmd(struct spmi_controller *ctrl, u8 opcode,
-+		  u8 sid, u16 addr, u8 *buf, size_t len)
- {
- 	int ret;
- 
-@@ -141,8 +142,8 @@ static inline int spmi_read_cmd(struct spmi_controller *ctrl, u8 opcode,
- 	return ret;
- }
- 
--static inline int spmi_write_cmd(struct spmi_controller *ctrl, u8 opcode,
--				 u8 sid, u16 addr, const u8 *buf, size_t len)
-+int spmi_write_cmd(struct spmi_controller *ctrl, u8 opcode,
-+		   u8 sid, u16 addr, const u8 *buf, size_t len)
- {
- 	int ret;
- 
-@@ -653,6 +654,8 @@ int spmi_controller_add(struct spmi_controller *ctrl)
- 	dev_dbg(&ctrl->dev, "spmi-%d registered: dev:%p\n",
- 		ctrl->nr, &ctrl->dev);
- 
-+	spmi_controller_debugfs_init(ctrl);
-+
- 	return 0;
- };
- EXPORT_SYMBOL_GPL(spmi_controller_add);
-@@ -679,6 +682,8 @@ void spmi_controller_remove(struct spmi_controller *ctrl)
- 	if (!ctrl)
- 		return;
- 
-+	spmi_controller_debugfs_remove(ctrl);
-+
- 	device_for_each_child(&ctrl->dev, NULL, spmi_ctrl_remove_device);
- 	device_del(&ctrl->dev);
- }
-@@ -702,6 +707,7 @@ EXPORT_SYMBOL_GPL(__spmi_driver_register);
- 
- static void __exit spmi_exit(void)
- {
-+	spmi_debugfs_exit();
- 	bus_unregister(&spmi_bus_type);
- }
- module_exit(spmi_exit);
-@@ -714,6 +720,8 @@ static int __init spmi_init(void)
- 	if (ret)
- 		return ret;
- 
-+	spmi_debugfs_init();
-+
- 	is_registered = true;
- 	return 0;
- }
-diff --git a/drivers/spmi/spmi-debugfs.c b/drivers/spmi/spmi-debugfs.c
-new file mode 100644
-index 000000000000..09fef94fb80d
---- /dev/null
-+++ b/drivers/spmi/spmi-debugfs.c
-@@ -0,0 +1,331 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * SPMI core DebugFS interface
-+ *
-+ * Copyright (C) 2026 Google LLC
-+ */
-+
-+#include <linux/ctype.h>
-+#include <linux/debugfs.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/panic.h>
-+#include <linux/seq_file.h>
-+#include <linux/slab.h>
-+#include <linux/spmi.h>
-+#include <linux/string.h>
-+#include <linux/uaccess.h>
-+
-+#include "spmi-internal.h"
-+
-+/*
-+ * Raw writes and commands to PMICs can damage hardware and bypass
-+ * client drivers. Keep them disabled by default.
-+ */
-+#undef SPMI_ALLOW_WRITE_DEBUGFS
-+
-+struct spmi_xfer_ctx {
-+	struct spmi_controller *ctrl;
-+	struct mutex lock; /* protects xfer_buf and xfer_len */
-+	char xfer_buf[64];
-+	size_t xfer_len;
-+};
-+
-+/* Top-level SPMI debugfs directory (/sys/kernel/debug/spmi) */
-+static struct dentry *spmi_debugfs_root;
-+
-+static int spmi_calc_read_opcode(u16 addr, size_t len, u8 *opc)
-+{
-+	if (len == 0)
-+		return -EINVAL;
-+
-+	if (addr <= 0x1f && len == 1)
-+		*opc = SPMI_CMD_READ;
-+	else if (addr <= 0xff && len <= 16)
-+		*opc = SPMI_CMD_EXT_READ;
-+	else if (len <= 8)
-+		*opc = SPMI_CMD_EXT_READL;
-+	else
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+#ifdef SPMI_ALLOW_WRITE_DEBUGFS
-+static int spmi_calc_write_opcode(u16 addr, const u8 *data, size_t len, u8 *opc)
-+{
-+	if (len == 0)
-+		return -EINVAL;
-+
-+	if (addr == 0 && len == 1 && data[0] <= 0x7f)
-+		*opc = SPMI_CMD_ZERO_WRITE;
-+	else if (addr <= 0x1f && len == 1)
-+		*opc = SPMI_CMD_WRITE;
-+	else if (addr <= 0xff && len <= 16)
-+		*opc = SPMI_CMD_EXT_WRITE;
-+	else if (len <= 8)
-+		*opc = SPMI_CMD_EXT_WRITEL;
-+	else
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+#endif
-+
-+static int spmi_debugfs_name_show(struct seq_file *s, void *data)
-+{
-+	struct spmi_controller *ctrl = s->private;
-+	struct device *parent = ctrl->dev.parent;
-+
-+	if (!parent)
-+		return -ENODEV;
-+
-+	if (dev_of_node(parent))
-+		seq_printf(s, "%s (%pOF)\n", dev_name(parent), dev_of_node(parent));
-+	else
-+		seq_printf(s, "%s\n", dev_name(parent));
-+
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(spmi_debugfs_name);
-+
-+static int spmi_debugfs_xfer_open(struct inode *inode, struct file *file)
-+{
-+	struct spmi_xfer_ctx *ctx;
-+
-+	ctx = kzalloc_obj(*ctx);
-+	if (!ctx)
-+		return -ENOMEM;
-+
-+	ctx->ctrl = inode->i_private;
-+	mutex_init(&ctx->lock);
-+	file->private_data = ctx;
-+
-+	return 0;
-+}
-+
-+static int spmi_debugfs_xfer_release(struct inode *inode, struct file *file)
-+{
-+	struct spmi_xfer_ctx *ctx = file->private_data;
-+
-+	mutex_destroy(&ctx->lock);
-+	kfree(ctx);
-+
-+	return 0;
-+}
-+
-+static ssize_t spmi_debugfs_xfer_read(struct file *file, char __user *user_buf,
-+				      size_t count, loff_t *ppos)
-+{
-+	struct spmi_xfer_ctx *ctx = file->private_data;
-+	ssize_t ret;
-+
-+	mutex_lock(&ctx->lock);
-+	ret = simple_read_from_buffer(user_buf, count, ppos, ctx->xfer_buf, ctx->xfer_len);
-+	if (ret > 0 && *ppos >= ctx->xfer_len)
-+		ctx->xfer_len = 0;
-+	mutex_unlock(&ctx->lock);
-+
-+	return ret;
-+}
-+
-+static char *spmi_debugfs_next_tok(char **str)
-+{
-+	char *tok;
-+
-+	*str = skip_spaces(*str);
-+	if (!**str)
-+		return NULL;
-+
-+	tok = *str;
-+	while (**str && !isspace(**str))
-+		(*str)++;
-+
-+	if (**str) {
-+		**str = '\0';
-+		(*str)++;
-+	}
-+
-+	return tok;
-+}
-+
-+static ssize_t spmi_debugfs_xfer_write(struct file *file, const char __user *user_buf,
-+				       size_t count, loff_t *ppos)
-+{
-+	struct spmi_xfer_ctx *ctx = file->private_data;
-+	struct spmi_controller *ctrl = ctx->ctrl;
-+	unsigned int sid, len;
-+	char *str, *tok;
-+	char kbuf[256];
-+	int ret = 0, i;
-+	u8 data[16];
-+	size_t off;
-+	u8 opcode;
-+	u16 addr;
-+	char type;
-+
-+	if (count == 0 || count >= sizeof(kbuf))
-+		return -EINVAL;
-+
-+	if (copy_from_user(kbuf, user_buf, count))
-+		return -EFAULT;
-+	kbuf[count] = '\0';
-+
-+	str = strim(kbuf);
-+	type = tolower(*str);
-+	if (type != 'r' && type != 'w' && type != 'c')
-+		return -EINVAL;
-+	str = skip_spaces(str + 1);
-+
-+	tok = spmi_debugfs_next_tok(&str);
-+	if (!tok || kstrtouint(tok, 0, &sid) || sid >= SPMI_MAX_SLAVE_ID)
-+		return -EINVAL;
-+
-+	mutex_lock(&ctx->lock);
-+	ctx->xfer_len = 0;
-+
-+	if (type == 'r') {
-+		tok = spmi_debugfs_next_tok(&str);
-+		if (!tok || kstrtou16(tok, 16, &addr)) {
-+			ret = -EINVAL;
-+			goto out;
-+		}
-+
-+		len = 1;
-+		tok = spmi_debugfs_next_tok(&str);
-+		if (tok) {
-+			if (kstrtouint(tok, 0, &len) || len == 0 || len > sizeof(data)) {
-+				ret = -EINVAL;
-+				goto out;
-+			}
-+			if (spmi_debugfs_next_tok(&str)) {
-+				ret = -EINVAL;
-+				goto out;
-+			}
-+		}
-+
-+		if (!ctrl->read_cmd) {
-+			ret = -EOPNOTSUPP;
-+			goto out;
-+		}
-+
-+		ret = spmi_calc_read_opcode(addr, len, &opcode);
-+		if (ret)
-+			goto out;
-+
-+		ret = spmi_read_cmd(ctrl, opcode, sid, addr, data, len);
-+		if (!ret) {
-+			off = scnprintf(ctx->xfer_buf, sizeof(ctx->xfer_buf),
-+					"0x%04x:", addr);
-+
-+			for (i = 0; i < len; i++)
-+				off += scnprintf(ctx->xfer_buf + off, sizeof(ctx->xfer_buf) - off,
-+						 " %02x", data[i]);
-+			off += scnprintf(ctx->xfer_buf + off, sizeof(ctx->xfer_buf) - off, "\n");
-+			ctx->xfer_len = off;
-+			*ppos = 0;
-+		}
-+#ifdef SPMI_ALLOW_WRITE_DEBUGFS
-+	} else if (type == 'w') {
-+		unsigned int val;
-+
-+		tok = spmi_debugfs_next_tok(&str);
-+		if (!tok || kstrtou16(tok, 16, &addr)) {
-+			ret = -EINVAL;
-+			goto out;
-+		}
-+
-+		len = 0;
-+		while ((tok = spmi_debugfs_next_tok(&str)) != NULL) {
-+			if (len >= sizeof(data) || kstrtouint(tok, 16, &val) || val > 0xff) {
-+				ret = -EINVAL;
-+				goto out;
-+			}
-+			data[len++] = val;
-+		}
-+
-+		if (len == 0) {
-+			ret = -EINVAL;
-+			goto out;
-+		}
-+
-+		if (!ctrl->write_cmd) {
-+			ret = -EOPNOTSUPP;
-+			goto out;
-+		}
-+
-+		ret = spmi_calc_write_opcode(addr, data, len, &opcode);
-+		if (ret)
-+			goto out;
-+
-+		add_taint(TAINT_USER, LOCKDEP_STILL_OK);
-+
-+		ret = spmi_write_cmd(ctrl, opcode, sid, addr, data, len);
-+	} else if (type == 'c') {
-+		unsigned int cmd_opc;
-+
-+		tok = spmi_debugfs_next_tok(&str);
-+		if (!tok || kstrtouint(tok, 16, &cmd_opc) || cmd_opc > 0xff) {
-+			ret = -EINVAL;
-+			goto out;
-+		}
-+
-+		if (spmi_debugfs_next_tok(&str)) {
-+			ret = -EINVAL;
-+			goto out;
-+		}
-+
-+		if (!ctrl->cmd) {
-+			ret = -EOPNOTSUPP;
-+			goto out;
-+		}
-+
-+		add_taint(TAINT_USER, LOCKDEP_STILL_OK);
-+
-+		ret = spmi_cmd(ctrl, cmd_opc, sid);
-+#else
-+	} else {
-+		ret = -EOPNOTSUPP;
-+#endif
-+	}
-+
-+out:
-+	mutex_unlock(&ctx->lock);
-+
-+	return ret ? ret : count;
-+}
-+
-+static const struct file_operations spmi_debugfs_xfer_fops = {
-+	.open		= spmi_debugfs_xfer_open,
-+	.release	= spmi_debugfs_xfer_release,
-+	.read		= spmi_debugfs_xfer_read,
-+	.write		= spmi_debugfs_xfer_write,
-+	.llseek		= default_llseek,
-+};
-+
-+void spmi_controller_debugfs_init(struct spmi_controller *ctrl)
-+{
-+	struct dentry *dentry;
-+
-+	dentry = debugfs_create_dir(dev_name(&ctrl->dev), spmi_debugfs_root);
-+
-+	debugfs_create_file("name", 0444, dentry, ctrl, &spmi_debugfs_name_fops);
-+	debugfs_create_file("xfer", 0600, dentry, ctrl, &spmi_debugfs_xfer_fops);
-+
-+	ctrl->debugfs = dentry;
-+}
-+
-+void spmi_controller_debugfs_remove(struct spmi_controller *ctrl)
-+{
-+	debugfs_remove(ctrl->debugfs);
-+}
-+
-+void spmi_debugfs_init(void)
-+{
-+	spmi_debugfs_root = debugfs_create_dir("spmi", NULL);
-+}
-+
-+void spmi_debugfs_exit(void)
-+{
-+	debugfs_remove(spmi_debugfs_root);
-+}
-diff --git a/drivers/spmi/spmi-internal.h b/drivers/spmi/spmi-internal.h
-new file mode 100644
-index 000000000000..6c2ae35200a8
---- /dev/null
-+++ b/drivers/spmi/spmi-internal.h
-@@ -0,0 +1,28 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2026 Google LLC
-+ */
-+#ifndef _SPMI_INTERNAL_H
-+#define _SPMI_INTERNAL_H
-+
-+#include <linux/spmi.h>
-+
-+int spmi_cmd(struct spmi_controller *ctrl, u8 opcode, u8 sid);
-+int spmi_read_cmd(struct spmi_controller *ctrl, u8 opcode,
-+		  u8 sid, u16 addr, u8 *buf, size_t len);
-+int spmi_write_cmd(struct spmi_controller *ctrl, u8 opcode,
-+		   u8 sid, u16 addr, const u8 *buf, size_t len);
-+
-+#if IS_ENABLED(CONFIG_DEBUG_FS)
-+void spmi_debugfs_init(void);
-+void spmi_debugfs_exit(void);
-+void spmi_controller_debugfs_init(struct spmi_controller *ctrl);
-+void spmi_controller_debugfs_remove(struct spmi_controller *ctrl);
-+#else
-+static inline void spmi_debugfs_init(void) {}
-+static inline void spmi_debugfs_exit(void) {}
-+static inline void spmi_controller_debugfs_init(struct spmi_controller *ctrl) {}
-+static inline void spmi_controller_debugfs_remove(struct spmi_controller *ctrl) {}
-+#endif
-+
-+#endif /* _SPMI_INTERNAL_H */
-diff --git a/include/linux/spmi.h b/include/linux/spmi.h
-index 4daebc980501..7dd62db255a4 100644
---- a/include/linux/spmi.h
-+++ b/include/linux/spmi.h
-@@ -85,6 +85,8 @@ void spmi_subdevice_remove(struct spmi_subdevice *sdev);
- struct spmi_subdevice *devm_spmi_subdevice_alloc_and_add(struct device *dev,
- 							 struct spmi_device *sparent);
- 
-+struct dentry;
-+
- /**
-  * struct spmi_controller - interface to the SPMI master controller
-  * @dev:	Driver model representation of the device.
-@@ -92,6 +94,7 @@ struct spmi_subdevice *devm_spmi_subdevice_alloc_and_add(struct device *dev,
-  * @cmd:	sends a non-data command sequence on the SPMI bus.
-  * @read_cmd:	sends a register read command sequence on the SPMI bus.
-  * @write_cmd:	sends a register write command sequence on the SPMI bus.
-+ * @debugfs:	debugfs dentry for this controller.
-  * @priv:	array of private data.
-  */
- struct spmi_controller {
-@@ -102,6 +105,9 @@ struct spmi_controller {
- 			    u8 sid, u16 addr, u8 *buf, size_t len);
- 	int	(*write_cmd)(struct spmi_controller *ctrl, u8 opcode,
- 			     u8 sid, u16 addr, const u8 *buf, size_t len);
-+#if IS_ENABLED(CONFIG_DEBUG_FS)
-+	struct dentry		*debugfs;
-+#endif
- 	u8	priv[];
- };
- 
--- 
-2.56.0.317.g454f8302e1-goog
-
+Thanks,
+Simon
