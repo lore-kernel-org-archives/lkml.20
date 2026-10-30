@@ -1,70 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.22
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793379685;
-	b=wjvsmMV3mbYwHvTuBQTlACaTJB+uf7/pYYbjgRfpcPbhEailSmxA6CY+ibcM/LNGJQ8s
-	 KC33puxtqVAFp2waYY4mVGe25/cyWF7ocEfgOAnqj4MRc+/XrOZ2UTO6DcatbESA+4/cd
-	 NFr9U3YRq2MbBAO3mCxXgkzIS8gddS588zE24hbZimhJ6lHO+0PqDYELZDcC7bGGCrDck
-	 pNHJ6BhNTTnuqS4OgnJv1oqkCcHiBBFIXvd0REvhl6f/pztl7PSZQGF/UZyAApJBirK03
-	 pkr7cuvRXh5AUVwOgUAmgyPNU16MErjS3UzuhZuLm321ZTw3kKwwfBRZ3rPdubzzZ5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793379685;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
-	 Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-Provags-ID:
-	 X-Spam-Flag:UI-OutboundReport;
-	bh=s9cX1gFD+Bkpd+UNN+SfPrifSgjVPXj9Sgn1HdQ/tGE=;
-	b=nze3O/sEsmbFBuOrrQUAHfNWJ+kwk4I4dOWW6wmUc4z3tk0VrZjV0IDCvQqO0AOxPt0G
-	 dhUzIY7hEmsAG9/AXrqrk8oD8k/Ko+sHaD4g6zHp9dHLMjlRySFM8o5dadtMnDZJSizGx
-	 TWOyjKfX/o/uOJnSpaYzif4VMgk7VLjwxRLIttEjD6yXdZMpuWT1+wtIH13vs3GyvPhkT
-	 xX3tTfVx/FwRDle92cBTRtU2U/K0Gzq6pXXpp8up8jnB2BT+jqf3gXPcUuGKTJEdu/rsj
-	 Tv76l8u5Nf1UZmFrWLNVsfo32RT4sfpNzUOlts3bRwuYcWEhMPwQmXPfxO/nBUs0cXw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.de;
-	spf=pass smtp.mailfrom=gmx.de;
-	dkim=pass header.d=gmx.de header.i=efault@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=RMhhYJHl;
-	arc=none smtp.remote-ip=212.227.17.22
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.22
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793379677;
+	b=V+slrrHeWdqAHDxR29Z4TNBLtx059Q2j+HE4ls177UFnXoDTnP3la7INH6dd+viWqaKd
+	 uwJCw3qe5C6sO7Ew+K9jBHze+cRjt/E6WTh3DQM1VxC+nRC1CaLBPnjw8O0c88+PAVc34
+	 OROzbmQTijIym5LnyBI2fo00fF6UZSgc7zuNVJtEtVu70R9vFwk4eJip/nkJXJu+lEhox
+	 tavwoNqruzrit0N3hGJO+Ke08wlQnvlb7omdTYDCqzvln9FNT/g4nraUG5hDeU7zXCD2a
+	 jEY8v2zzGfzmVcGxk5ZoMwB8xw31ugzTFUl49aJ6Goq4z9WTeFZr3J4i5BRdxRtWDyA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793379677;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Tqg22EJf2Z2WlwxRpMN0QmDWKkNLxymQxbRF2/7ELgk=;
+	b=WYLUriWDMIGnavt07hE8oD3drrdZHx//vhQIaWIZRtdDVZ6xTpfyyrlmi9zaLW5ee73N
+	 KsF0vksO28QGSCvFgLfA/PJ/8P+PHEKRMXXEMdSuQLjiERFSv1RioPNWCzrXsjTBWz43U
+	 n/G1cCHDxAp3mijIjUIkdiNnZZOeIoEKR1uc8NkARPcNyK3TQrQC6//JriLcwZ3mnqllf
+	 FFPqmJo6eEQnSazqAf7a/MMs58Kser/hqiXCagoRNQQbRMbECe7pHuw4RyDThHIK/ns3P
+	 dWk7LGfmX0TofZiCNM0DjmSLcycYp1F1ZdoQIv5cblLF7dHeqz9OSJrSJxEjWUpJPRQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=a8EXXbBN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.22
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010022.outbound.protection.outlook.com [52.101.61.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91222606A324
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:01:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91222606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457A5606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:01:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 457A5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmx.de header.i=efault@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=RMhhYJHl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1793379673; x=1793984473; i=efault@gmx.de;
-	bh=s9cX1gFD+Bkpd+UNN+SfPrifSgjVPXj9Sgn1HdQ/tGE=;
-	h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=RMhhYJHlpcRW96ntX5m37HCj7PqYqHAM1QJj2JAuOPHYUCliluMPYfSs+lUArYVC
-	 B8+CjGsmqoH2GIHmyFLVPH1mp+KnhX/ueR3yDpa5G+8W9acikn0fzzjRpNy6nN1ZH
-	 ynw3GJUIfiGXH61kJ+UI5OfMDFdYFSMo4yf9S6qClpRzGRTmfRyLj3THHUJCCNatp
-	 ck807bHrXNrqC6Hab0DTYMTsTMxL5SYvR6T0KFVZABJzzhh2UXj/EpYHw3feFmOP8
-	 XTm46fqukCPszrHphuC6aAsXBazAUHZqy5PW5hellxjw+qS8h1BVJ/iLUiR8m4EaZ
-	 BF0MIoHLVaLP/WkO3w==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N5VHG-1wUEK31Mdu-00w0Ps; Fri, 30
- Oct 2026 18:01:13 +0100
-Message-ID: <5ab06e4740bb0fd177a96e0a31f933a27d081012.camel@gmx.de>
-Subject: Re: [PATCH v3 7/7] sched/eevdf: Move to a single runqueue
-From: Mike Galbraith <efault@gmx.de>
-To: Chengfeng Lin <lin2530632123@gmail.com>, Vincent Guittot
-	 <vincent.guittot@linaro.org>, Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
-	linux-kernel@vger.kernel.org
-Date: Fri, 30 Oct 2026 18:01:12 +0100
-In-Reply-To: <CANGjgd=yr4Zy+SMUsDnBSw05hhn9086NVc9g9SaG0y804=WWrg@mail.gmail.com>
-References: 
-	<CANGjgd=yr4Zy+SMUsDnBSw05hhn9086NVc9g9SaG0y804=WWrg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=a8EXXbBN
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rR8xtN5+ZAQ/exUwxL3wIh3EbbiJUY96zRWVP/98d7n7Sow+EGKMBBVQDFlwzKfKgW1wHM8ibnrfrqWmYLtLlCcnMWd7W/V7WE6cEoKw8I3UQlWdbmEe7fWQScowd4qhnTGflIaMc7xdwCv5+ORJYlp0i3QENiv5bo+avD/E+zLGnsSIswvjYnuXNuEmndXKxDnht1dNa14PY1Na1nVxS5NjA8ypE3i1CDERzV9XqSX9I2M/TsFxTmsQjpXH4L59nlZosrUSqLnzpUmQ2LJqiQDwv/mHvvLm6RSTVybDLlZtfKdVbj1rTwxeJ5bJte2GSBp9EOAMpYCyDZbUAul/2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Tqg22EJf2Z2WlwxRpMN0QmDWKkNLxymQxbRF2/7ELgk=;
+ b=j/4Kz/dDY3t4RuPfE0asnFCaf/NQuTd3Dhv7D50npxSObXJ+SV3bY+Q6Lz2ezoujHfrbthpivqBoUXrjpPANV2u8AXoqIhxXSoF6WUH473Is75/02Y/r+E/esYl7hTdW/bwmX5Shx4KaLus1JYKGWlFxJcik9W0bkJKEh6uCAp4yvvsi7m8pQ5ixYpUvuwHEEA/amHvKhcNLKe6AKJKHufCbs1ZIfjSVtKoq7Tnk5o16EvLUgTpl1W/QWzUMHbNyzW/mEpGZWhno91np/MfIbOYcG+bFz7nBtnDLCRL7tU20YRTzNWDxcqX0MPvq4aRhBjtX1fuPtSK78g0+4yqojQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Tqg22EJf2Z2WlwxRpMN0QmDWKkNLxymQxbRF2/7ELgk=;
+ b=a8EXXbBN/xTM/W3KQdTztae7UyfwPdHY7ki/ji8IHVROJ1H7W4iJwbzVGQw8vszgfgE7yn+weTnr97ntPCwGDOsJAVaZRP0J9PIXJbvM6rr6ZKllR2clUatboYRtL0GmJaNi1BaojPg6qZxoo1LgxX+mJTroOqxTG724oXu6R9QtUiVyd0ZbRhWGDPMZyz3MQOqGIdQTNwsKwIpMu8rROows4dt+3FjT1wOo0vXMn1iLPVvKI5psS19LWKQULSgqsfZt1UO86BQ85FtabW3D6IP3t/TyiP1X7f5syfu1pRFD2hYXEZGsIsV5wrH516nZKjqnoXWwSXgjn+sMI2wpKQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by SA1PR12MB7128.namprd12.prod.outlook.com (2603:10b6:806:29c::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 17:00:55 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 17:00:55 +0000
+Date: Fri, 30 Oct 2026 18:00:46 +0100
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: sched-ext@lists.linux.dev, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH sched_ext/for-7.4-fixes] sched_ext: Fix stale pick when a
+ wakeup resets the donor during dispatch
+Message-ID: <auTNPtiaPyO9R5NG@gpd4>
+References: <20261030142338.3453484-1-tj@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030142338.3453484-1-tj@kernel.org>
+X-ClientProxiedBy: ZR0P278CA0054.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:1d::23) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,140 +98,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:hJpkW40HkwBUg/7TIocFzWlAnJHKl1Eg8/cXIDOm4RAnIYonq36
- Hg8ayTmg+ygj+gyiLvuhdLQ7lOBhbKauFqXLz4mj1ZXZvPSMTj3SLAeEffbgyt3OapsVdl+
- 3Q2bSHCT3/yJG0GJhxgEmxFdLRNRaJ862XBEWP03sAcCUqDw3DfxoCKk2z+tcQThu8LQ1FC
- O0erCO0jcP1B+Kz7m/9hQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:4EXphsqUL/U=;y1HS8X/3R5k9gTgbpCaPycxIlV6
- 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
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|SA1PR12MB7128:EE_
+X-MS-Office365-Filtering-Correlation-Id: 74a8daf2-55a0-494f-1345-08df36a75c9c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|22082099003|18002099003|56012099006|5023799004|11063799006|261022075727099003|261021121427099003|261028144727099003|261026121527099003|261022105027099003|10067099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	CL0VOiTPlcQXty0qq8uCK39U6JKIszRoVyUkWrlWu4driJ4Y75DdYHLcdVNwhS67IyXqln4kl8kLjmv9lTU5NL2ohShGcpivjOgcg1eqm6r+ZD5gFEgj4jYd7BlVSL9jRcfflotv7acmoJQpmoaZz4G4z1zltaNHwLWLJJWCdqVaUsQ+p+NmxcOR7lI5tjcCk8ElxvPb1/h91XE1w6kXMDwVfn17RQNn+RaS601ZHr3x6g/NKLMhvfSJa4bzu93VVvd7l2bWFSo+NtCmPnseOH7uEJM308QTNx9h3dvdEz+DIyEQuhGTGhEm9htjTefwd2gype6hf5JvRMHBQsoSNttbWwyxH2U71Z9Xph5yRuFNz0KHh3Tg0GCUguIpd9wfxTFnqZjk0Y5ZtxyOCT9j5Zb7lJHUl8xZuvmZMN2bqdvmo+xfn7JCcOJX2VdQZwFrkTzT2PSCTGngsqkuj/NjyQpmB27JXU4fB9YgDONbY0xypztsbafYWZNMhGWIKrtfsV4WBK1i3xSzL+TTWxMZ/tIDd8TgjiObTfiZV3CPzPCNHEILTtyDoZ6/UnB8PQ1Tgw1VBdAHDlxEt2lnv9fxr5ZbHCQcgg53jxNyNpEKHj10phIeXw1Vhz0RDVEZ2jemFpsWIz48WPp51bEKtRQ1MPOqu3ifV1Nni54YQAuqRoE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(56012099006)(5023799004)(11063799006)(261022075727099003)(261021121427099003)(261028144727099003)(261026121527099003)(261022105027099003)(10067099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?1qqwjk4nAGDPHni4WreZb6wkGhoK3Kuf13j9lsTFe5bXhGb4yaQcZ4MHAAh7?=
+ =?us-ascii?Q?538johKQVU+dyvhGecYdepZdPYUxaRJhBq7U67rrVGoBLC6S4lxdg9T3+bQ7?=
+ =?us-ascii?Q?luIjXNXO+PkhXU+p+5EWbgHJlH7j8UwPsE9HA/UsskUfIRyM788cLG5P0iQ7?=
+ =?us-ascii?Q?U0hveI2wG0uViNs8QEsVlc8NewqdGftZdYnz1Qk3VU9zngIfRhfJ52mn8/nG?=
+ =?us-ascii?Q?Ou0UokOLSqwRGYWvQVogJ6xsoGQvrF2CQ1cUqh/YayBGidiajecfJW3YLHXn?=
+ =?us-ascii?Q?f9Nga1uoJOUopUtvCQQi4DbQGEM8F3BJC6J6VEjV9dtums/GM6GGK/mNrWob?=
+ =?us-ascii?Q?3GtjJ8kli8dGC6i0ZkqN3Fxvzlou0/HdJRzdt1sFfpRrx3YjkbwCPzXoQJbF?=
+ =?us-ascii?Q?dtnK3o85DFBqcqtmCIbYGv6e3g89gcQ/EAMXU60YM+ZgqOSFE/bdsWCycCoN?=
+ =?us-ascii?Q?err5LmXEFvPtctOoqCWzRQp8n8goSD6O1mEyhcTn6WXIKGkV5gSPGR3MJsnv?=
+ =?us-ascii?Q?gFIyAJqrgCWQJSw8c9d1Fme8WMQ+NXWdA0LTjLJ8+2uxura75E7WA9OOdgj4?=
+ =?us-ascii?Q?xObp6VZKzuvd802N3WINVNsKDxmR9xPookc7AkA79wGJs8Ss3LdSoy+9TjNN?=
+ =?us-ascii?Q?4Ap/+DQMbIz3jIHBPs5HOaX3s5Mns5SvmSX8/LUMSweT32sJSzXwwzOrMEW0?=
+ =?us-ascii?Q?uYcd2XP73r9xTHOtZAwMuBuNxsXvwJG4G/uV4cKnmeMc6MNOPpEglW87SxMp?=
+ =?us-ascii?Q?QPc+i1iB3FcDDxt5z3PMQAtKebpyY0MpAAsird3+1KRneGR0F4Y7+WSVTbhb?=
+ =?us-ascii?Q?xhQ/9+lII7vsq8Zp8vz+4yjJrcGC2QFQjYFu67Q10gldKj7F6UdKPabMticB?=
+ =?us-ascii?Q?2husaJBtqwPoIIgQkKTY3W6/8uPJSiyBQ2NbCj7JzNoQfR9noK/P9+bqKSW3?=
+ =?us-ascii?Q?Pmv6pXkCuHhhRBtrun35nZwb86uhR/a9F4B8LpMbQGq64q1kCxothTE4gujU?=
+ =?us-ascii?Q?b1k8D0X9gdzzlDAyPNRXmDKHOLmTaKUmq0W+UXYfJR1t68ZphXzNhy77Gy6z?=
+ =?us-ascii?Q?d6nHVH/+6A+C2vUmJEQKvHMnrrc3uGEiyJNzI3ownC6aBLeTXq6kVZlq/4l/?=
+ =?us-ascii?Q?a2yWLDs+cLTfw5g3Q0TC+ga7ZL0EUpN+b13nqz+c1DgF3YPFKy6JRE1jtTO1?=
+ =?us-ascii?Q?YjsXTalrh/erBpiOi8XNXy8EO9IsW4eQ4pK5nd3IzqKLbboefJ92PvS0ej5d?=
+ =?us-ascii?Q?OXvZyQFH3xyalWhh0p+WAGAOIp8lDH+DBgUjwvgaO7Ugs/BLYoJdD2FTALWk?=
+ =?us-ascii?Q?AJGv6ncOjwz+zXPss3USCqQKsV90Zwou3sOWA96G0V2HVoGVU9rDudjXub5+?=
+ =?us-ascii?Q?TnHAtRYNloErWZKhHp4BcM9+KQmEEQgnt+xmT4vOxBm8uIyQkaaAn+C34kue?=
+ =?us-ascii?Q?LB0r6wh1mff9J+UF8JUkSGqPmjqIWjzA4IOdA+Y6MwotVp8VBy9g8bYzRTAE?=
+ =?us-ascii?Q?DmgB3SsdepPk2wxrgtMqHq+CVw4i6DTsvmkps1vekxoqgyxmorR3miSMQ5jh?=
+ =?us-ascii?Q?U6qa1juFl1zcwy+UbxsvSvfxfvCU92HDMUMr7mcfRV+zlwslrItwsobrNjgU?=
+ =?us-ascii?Q?La85NUMKXYkanTLhpTz3/HPryK8MHOmLNozJr7ZMl37EoiNY9dN3UXXSXdPw?=
+ =?us-ascii?Q?w2nV4KIeybweVzj8NKz/HeDUbcIKCkDCEb2DD80sUPnF6/JD?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74a8daf2-55a0-494f-1345-08df36a75c9c
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 17:00:55.2416
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: arZkgZJsLXofO2Ixr4bZ/d0q27bzQVgfmSU9XV3NCvJn5qtGiSFA/Ey7l6puYhv5yCtaI0qokZuEmvl11e2Jkw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7128
 
-On Fri, 2026-10-30 at 21:03 +0800, Chengfeng Lin wrote:
-> Hi Vincent, Mike, Peter,
->=20
-> I have additional pipe-handoff throughput results for 333238da9a19
-> ("sched: Update time before requeueing delayed entities"), which Mike
-> identified in his wakeup-jitter test [1]. With 15 workers, will-it-scale
-> throughput on v7.3 is 15.69% lower than v7.1.3 in thread mode and 14.82%
-> lower in process mode. Reverting this commit on v7.2 in a separate contro=
-lled
-> comparison improves 15-worker thread throughput by 13.65%; the 2-worker
-> control changes by -0.48%.
+Hi Tejun,
 
-After much crawling over trees etc, and way more yacking than intended
-for a datapoint, I think I know what's up, and it's simple: there's a
-good reason those "now" updates are event driven.  That one was added
-in the DELAY_DEQUEUE machinery, where it expends and *banks* precious
-fastpath cycles, shifting bean counting enough to make DELAY_DEQUEUE
-measurably less effective.  It looks completely broken with a 20% util
-probe, but more measurement shows that it's not dead, just a bit sad.
+On Fri, Oct 30, 2026 at 04:23:38AM -1000, Tejun Heo wrote:
+> With proxy execution, do_pick_task_scx() passes rq->donor to dispatch_one()
+> as @prev. Unlike rq->curr, the donor can be moved to another CPU by a wakeup
+> while dispatch_one() has the rq lock released:
+> 
+> 1. dispatch_one() releases the rq lock, e.g. to move a task from another
+>    CPU.
+> 2. Another CPU wakes the donor, which proxy execution migrated to this CPU.
+>    proxy_needs_return() dequeues it and resets the donor to rq->curr, and
+>    the wakeup enqueues it, possibly on another CPU.
+> 3. dispatch_one() sees @prev queued and returns SCX_DSP_PREV.
+> 4. do_pick_task_scx() returns @prev, and this CPU runs a task that is queued
+>    on another rq.
+> 
+> The other verdicts are stale too. If the dispatch finds nothing before the
+> wakeup enqueues @prev, SCX_DSP_NONE picks idle, and put_prev_task_scx()
+> parks rq->curr on the local DSQ with nothing to reschedule the CPU, or trips
+> its SCX_OPS_ENQ_LAST warning. SCX_DSP_LOCAL preempts rq->curr even when the
+> dispatch would have kept it.
+> 
+> rq_modified_above() catches the reset only when rq->curr is in a class above
+> ext, and the dl_server pick skips the check.
+> 
+> The verdict, whatever it is, describes the old donor. Restart the pick when
+> @prev is no longer the donor, as dispatch_core_pick() already does whenever
+> the dispatch released the rq lock. The retry runs with rq->curr as the
+> donor, and proxy_needs_return() returns early for the current task, so the
+> donor can't change again.
+> 
+> 7a3a6bfbd62a ("sched: Rework prev_balance() to avoid stale prev references")
+> closed the same window in prev_balance() by reading rq->donor instead of
+> taking @prev. That doesn't work here, as the dispatch never evaluated
+> rq->curr, which may not even be a sched_ext task.
+> 
+> Verified with a synthetic reproducer.
+> 
+> Fixes: c6fe97c34a1a ("sched: Allow enabling proxy exec with sched_ext")
+> Signed-off-by: Tejun Heo <tj@kernel.org>
+> ---
+>  kernel/sched/ext/ext.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+> index 15123f181b5b..3119a1938c6e 100644
+> --- a/kernel/sched/ext/ext.c
+> +++ b/kernel/sched/ext/ext.c
+> @@ -3936,6 +3936,16 @@ static enum scx_dsp_verdict dispatch_pick(struct rq *rq, struct rq_flags *rf,
+>  	verdict = dispatch_one(rq, prev);
+>  	rq_repin_lock(rq, rf);
+>  
+> +	/*
+> +	 * With proxy execution, @prev is the donor and need not be the running
+> +	 * task. A wakeup while dispatch_one() has the rq lock released can
+> +	 * reset the donor and move @prev to another CPU. The verdict was
+> +	 * computed for @prev and doesn't apply once the donor changed. Restart
+> +	 * the pick.
+> +	 */
+> +	if (unlikely(prev != rq->donor))
+> +		return SCX_DSP_RETRY;
+> +
 
-Test probe sent another signal in virgin flat in __dequeue_task(), and
-I think it's valid for that update_curr() too. It seems to be in
-keeping with placement strategy, but with flat changes, we just updated
-the cfs_rq where all the action is, and hierarchy update is right below
-it.. looks like redundant overhead.
+I think Sashiko's first point is that this check comes too late to
+protect accesses inside dispatch_one(). If the donor changes while
+scx_process_sync_ecaps() drops the rq lock, the subsequent
+prev->sched_class test checks the old donor, but update_curr_scx(rq)
+operates on the new rq->donor, which might not be an EXT task.
 
-	-Mike
+Maybe we can detect the donor change before those accesses too?
+
+And the second finding also looks valid, __pick_task_dl() sets
+rq->dl_server even when the server pick returns RETRY_TASK, but
+__pick_next_task() skips clearing it on restart. If the next pass picks
+a non-server task, it inherits the stale server association.
+
+Should we clear rq->dl_server on restart? (I haven't reproduced or
+tested this).
+
+Thanks,
+-Andrea
+
+>  	return verdict;
+>  }
+>  
+> -- 
+> 2.56.0
+> 
