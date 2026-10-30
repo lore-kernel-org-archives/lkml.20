@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793372285;
-	b=fJE2Xjh+0jhF0Z6i3oCe1aM9vKzlqWEKCRSmCWsvdPc8lo4x75kKvesxU5tFqJHbG3zR
-	 7+MGY+gQtEejM0wGYKtxQpFYr/rSDKmZzDqoFK0SvgLyGDbbNQmVAwbYsEZK+q2/AKuy3
-	 cI/KUajjfRJuM4zc/Ckv5QbW6OrzY8UUjxo8Dub3noZx0iExVeh2rfCg2YqgOJEEQJY6f
-	 pKf3I25DRSZE/NX2mtRjJ15DkYl9BTpbDVwvO62RW6A9XeSFkbb7tPkM1FNxubXDCgOWD
-	 6b0fvipQ+JBGBWH9mVRv9gaxqSa+FOOA+NkQdW6iGKwx88didtNFvXqN2rPDdNgeTgw==
+	t=1793372306;
+	b=OAN20+ZMpvTHCP9evi+bQDHqIYoqnzvjtasosQ599gqmI0rJane7jbSHP/7oHEyJSWnI
+	 FiFHCXIqkA5AXoWNHTY3mYnT23jthocxPjcvpBoxfqsFSzZKjFvGjSUxwnIs44pO0hwy1
+	 a4S9O5Ox2s4qDKuEHnzi8hgpJpmJLG+vdMRgK0lM1hJjjg7kubtZMIakKNsgfMRxju27n
+	 3HbndsDW0daQZpWRfaicpVSlR1Pm4h6qSkkQxbiMNebE5Qj5OtWTa7TYJHRhWCipcR0TR
+	 nxfXBc32Fz31wnFwccds5t9n/5PdDWK5Kw4ZbPKYZA4sSfSYkq3jcqppZgt/VKQrhuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793372285;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=JOP1ZJqwLfWc47o5lNqp+A0FsHD1L/OHRPkyxgdQcJE=;
-	b=feIC1I9hzSM5Cb54pygAvQxOOXPbflCsgnjaTYf2K67+pLutAGd7Yj3uHd5te2w2g0rf
-	 cFTR+ecOHpWTfn0IB6bKTQ3GbHdj89+4lisq29Q3UwHNsLl0Pq5mYOxUivIhwd4QLHxD9
-	 cjc24VtUiAyx4PrWjRc9ozk6WYx9CwEvj2c7voWE26YBdTw1vopue46j+FtF7uPqbCA5k
-	 jIdM1qaWFFInPFG/OU9i/IygsI07Pz4hO+dZjT6Zhj2X85PhPYo3sBRUG2oKyoGeKRWtK
-	 OLy0yG72SRMwB4r08/nNMwhT+11XG7J08PzvdAbi3gFCUkwa3/klmIc4W8BF+qad7Rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793372306;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=DUNXpN2VVEcIQImbc7YoIxdXpeHxb6W2cXiqNoHVCq4=;
+	b=HunBciTO/WKWyERwuBGFNYZ51F79EugZGkGwLkASHIn5ReA9MCfMKzDuVfKnLTYVvFhE
+	 hob0ubwD6oIrDkVE5WwzyWHy+LJaSnysEXu/gck6jvIM3lO72Th6oBofCOxQPk7xVwSVw
+	 rPzD7n8lM63o+gEvtMYzW/tROSEGbewCoVEsWdAQWpqOPh37ppnGcodWX0COWHxB1RUU7
+	 pipq/OvvexAYP5/nA8VbqaLOnj3NOkyEghvRJxXi2mI4CinvVYbj+8kqtIemWGFBYr2dg
+	 lUBuHigsy1pZIrAE19XNkSSPM9OywJuvdVUTyIeLfhNO+ZwjzdAeFz8y+Ir/iK36HBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d8VUbISm;
-	arc=none smtp.remote-ip=95.215.58.166
-Received: from mta1.migadu.com (out-166.mta1.migadu.com [95.215.58.166])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LL1N7P9G;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E5C606A322
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:58:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21E5C606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735B2606A31C;
+	Fri, 30 Oct 2026 14:58:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d8VUbISm
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6i8AT+fxo0WX17wdckuy8y081PwuR5XnvWkB+83Gn/4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793372282; v=1; x=1793977082;
- b=d8VUbISmS5KtrNoKG1kHModaINhGERri+7kJzIluv22PQYvwAv50IH4dOVRoKTqsHzGB1LQn
- StLdlCOpoQ0KJiyNe8etlZ1R0FnAWwJXSjeA/hHE36X8tQZgExhcHdRiHpEvqIgB2+IEylsPB3a
- d/hoYjwanHSFbhUA1LxM3RUQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8557ae17c843d9d8;
-	Fri, 30 Oct 2026 14:58:02 +0000
-X-Mizu-Trace-ID: 8557ae17c843d9d8
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <057607f9-64ee-4f90-aab1-a12542c7c755@linux.dev>
-Date: Fri, 30 Oct 2026 15:58:01 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LL1N7P9G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDBE01F000C1;
+	Fri, 30 Oct 2026 14:58:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793372305;
+	bh=DUNXpN2VVEcIQImbc7YoIxdXpeHxb6W2cXiqNoHVCq4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=LL1N7P9GiWY+Ht9DHaO4CPj7BWn5gUuTu7rVqxKzVddINHxmgsNUa42MxQM7UO/ra
+	 TxZlU9nYaarOBEqQKo6DxZs7tF6+Nl298ZihkVcw9dKlwQ/0Zn5hvZn+FqWUboEAVB
+	 5YHr/8jXogDKPsN0XtC1DnMVE/K68qb59gzGvXc3qbJOvTDIR618ccoLwJGxTQ/oXy
+	 NJAEqSGUt0/Vy2HpjFvsGqEnzdVQGc4GID1ymZIy230COvAkvPvW+4lZ/3mvKkfFXd
+	 g/fOf01idt7ScYJR/D9I0zKUayhFIp3eskMSUBaFUciIICSrxP79lkpNFp5fENp94C
+	 Tx75d7F6hRZ9Q==
+From: Christian Brauner <brauner@kernel.org>
+To: Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, Edvard Conrad <edvard@tuta.io>
+Cc: Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+ linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <P58Wrer--F-9@tuta.io>
+References: <P58Wrer--F-9@tuta.io>
+Subject: Re: [PATCH v3] fs: let backing files inherit FMODE_NONOTIFY from
+ the user file
+Message-Id: <20261030-erdumlaufbahn-zehnkampf-annullieren-f6068ed99cc1@brauner>
+Date: Fri, 30 Oct 2026 15:58:22 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,271 +61,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 09/18] HID: asus: add support for gamepad mode
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org,
- linux-input@vger.kernel.org, kernel@lists.opengamingcollective.org,
- Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
- "Luke D . Jones" <luke@ljones.dev>,
- Mateusz Schwartz <matthew.schwartz@linux.dev>,
- Denis Benato <benato.denis96@gmail.com>, Jonathan LoBue
- <jlobue10@gmail.com>, Khamunetri Clark <khamunetriclark@gmail.com>,
- "Derek J. Clark" <derekjohn.clark@gmail.com>,
- Joshua Leivenzon <hacker1024@users.sourceforge.net>,
- Nathan Chancellor <nathan@kernel.org>,
- =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?= <rebecca.mara@posteo.de>,
- Ivan Levchenko <me@livan.pro>, Corentin Chary <corentin.chary@gmail.com>,
- Hans de Goede <hansg@kernel.org>
-References: <20261025235232.129945-1-denis.benato@linux.dev>
- <20261025235232.129945-10-denis.benato@linux.dev>
- <5f908138-980f-2005-b319-38d89a1e59dc@linux.intel.com>
-Content-Language: en-US
-From: Denis Benato <denis.benato@linux.dev>
-In-Reply-To: <5f908138-980f-2005-b319-38d89a1e59dc@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-ce4c1
 
+On Thu, 29 Oct 2026 22:18:40 +0100, Edvard Conrad wrote:
+> When fanotify reports a permission event, copy_event_to_user() creates
+> the event fd with dentry_open_nonotify(), so that the listener's use of
+> that fd does not generate further events. If the event's path is on a
+> stacked filesystem, the stacked filesystem's ->open() opens the real
+> file with backing_file_open(). Since commit ebe559609d78 ("fs: get rid
+> of __FMODE_NONOTIFY kludge"), FMODE_NONOTIFY lives in f_mode only and
+> the backing file does not inherit it: it is allocated with the default
+> fsnotify mode, and fsnotify_open_perm_and_set_mode() raises FS_OPEN_PERM
+> on the real path if the backing filesystem has permission event
+> watchers.
+> 
+> [...]
 
-On 10/26/26 14:20, Ilpo Järvinen wrote:
-> On Sun, 25 Oct 2026, Denis Benato wrote:
->
->> ROG Ally devices can emulate either a mouse+keyboard (desktop mode)
->> or an gamepad device (xbox360 controller in ROG ally and a custom
->> DInput device on newer models): add support for switching the current
->> controller mode.
->>
->> Signed-off-by: Luke Jones <luke@ljones.dev>
->> Signed-off-by: Denis Benato <denis.benato@linux.dev>
->> ---
->>  drivers/hid/hid-asus.c | 158 ++++++++++++++++++++++++++++++++++++++++-
->>  1 file changed, 157 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
->> index a3a21a1493aa..fae5f36a9fa6 100644
->> --- a/drivers/hid/hid-asus.c
->> +++ b/drivers/hid/hid-asus.c
->> @@ -198,6 +198,11 @@ struct ally_joystick_resp_curve {
->>  	struct ally_joystick_resp_curve_param entry_4;
->>  } __packed;
->>  
->> +enum ally_gamepad_mode_index {
->> +	ALLY_GAMEPAD_MODE_GAMEPAD = 0x01,
->> +	ALLY_GAMEPAD_MODE_KEYBOARD = 0x02,
->> +};
->> +
->>  struct ally_config {
->>  	/* Must be locked if the data is being changed */
->>  	struct mutex config_mutex;
->> @@ -411,6 +416,15 @@ enum ally_command_codes {
->>  /* XInput rumble magnitudes use the hardware's 0..100 intensity range. */
->>  #define ALLY_FF_MAX_INTENSITY 100
->>  
->> +static const char *const ally_gamepad_mode_text[] = {
->> +	"gamepad", "desktop"
-> So this paired with ally_gamepad_mode, because ally_gamepad_mode_index is 
-> off-by-one?
->
->> +};
->> +
->> +static const u8 ally_gamepad_mode[] = {
->> +	ALLY_GAMEPAD_MODE_GAMEPAD,
->> +	ALLY_GAMEPAD_MODE_KEYBOARD
-> Almost duplicate of _index variant?
->
-> Couldn't you use [xx] = style initializers with ally_gamepad_mode_text[] 
-> instead?
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Yes, I could and it's what Luke did, but this would make the search
-asymmetric and more difficult so I decided this made other parts
-easier to understand.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Also I don't like treating enums as int and vice-versa because
-it can introduce over time subtle bugs...
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-And I wanted something that made it easier in the future to
-add more modes since I know there is at least one more: "bios".
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-But that requires more time and the benefits of it are unclear
-so I focused on how to make it easier to extend this in a clear way.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
 
->> +};
->> +
->>  static const u8 ALLY_FORCE_FEEDBACK_OFF[] = {
->>  	0x0D, 0x0F, 0x00, 0x00, 0x00, 0x00, 0xFF, 0x00, 0xEB
->>  };
->> @@ -930,6 +944,137 @@ static ssize_t xbox_controller_store(struct device *dev,
->>  
->>  static DEVICE_ATTR_RW(xbox_controller);
->>  
->> +/**
->> + * ally_set_gamepad_mode() - Set the gamepad operating mode
->> + * @ally: ally handheld structure
->> + * @hdev: HID device
->> + * @mode: gamepad mode to set
->> + *
->> + * Return: 0 on success, negative errno on failure
->> + */
->> +static int ally_set_gamepad_mode(struct ally_handheld *ally, struct hid_device *hdev, u8 mode)
->> +{
->> +	u8 payload[] = { mode };
->> +	int ret;
->> +
->> +	if (mode < ALLY_GAMEPAD_MODE_GAMEPAD ||
->> +	    mode > ALLY_GAMEPAD_MODE_KEYBOARD) {
->> +		hid_err(hdev, "Invalid gamepad mode: %u\n", mode);
->> +		return -EINVAL;
->> +	}
->> +
->> +	u8 *buf __free(kfree) = ally_alloc_cmd(CMD_SET_GAMEPAD_MODE, payload, sizeof(payload));
->> +	if (!buf)
->> +		return -ENOMEM;
->> +
->> +	ret = ally_gamepad_send_packet(ally, hdev, buf, ROG_ALLY_REPORT_SIZE);
->> +	if (ret < 0) {
->> +		hid_err(hdev, "Failed to set gamepad mode: %d\n", ret);
->> +		return ret;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +static ssize_t gamepad_mode_show(struct device *dev, struct device_attribute *attr, char *buf)
->> +{
->> +	struct hid_device *hdev = to_hid_device(dev);
->> +	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
->> +	struct ally_handheld *ally = drvdata->rog_ally;
->> +	struct ally_config *cfg;
->> +	u8 mode_byte;
->> +	int i;
->> +
->> +	if (!ally)
->> +		return -ENODEV;
->> +
->> +	cfg = ally_get_config(ally);
->> +	if (!cfg)
->> +		return -ENODEV;
->> +
->> +	guard(mutex)(&cfg->config_mutex);
->> +
->> +	mode_byte = cfg->gamepad_mode;
->> +
->> +	for (i = 0; i < ARRAY_SIZE(ally_gamepad_mode); i++) {
->> +		if (ally_gamepad_mode[i] == mode_byte)
->> +			return sysfs_emit(buf, "%s\n", ally_gamepad_mode_text[i]);
->> +	}
->> +
->> +	/*
->> +	 * The recorded mode only comes from the table above: an unknown
->> +	 * byte means memory corruption, not a userspace-visible value.
->> +	 */
->> +	return -EIO;
->> +}
->> +
->> +static ssize_t gamepad_mode_store(struct device *dev, struct device_attribute *attr,
->> +				  const char *buf, size_t count)
->> +{
->> +	struct hid_device *hdev = to_hid_device(dev);
->> +	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
->> +	struct ally_handheld *ally = drvdata->rog_ally;
->> +	struct ally_config *cfg;
->> +	u8 mode_byte;
->> +	int mode;
->> +	int ret;
->> +
->> +	if (!ally)
->> +		return -ENODEV;
->> +
->> +	cfg = ally_get_config(ally);
->> +	if (!cfg)
->> +		return -ENODEV;
->> +
->> +	mode = sysfs_match_string(ally_gamepad_mode_text, buf);
->> +	if (mode < 0) {
->> +		hid_err(hdev, "Unknown gamepad mode\n");
->> +		return mode;
->> +	}
->> +
->> +	/* Convert the index of the text mode array to the byte
->> +	 * that will be accepted by the ally MCU.
->> +	 */
->> +	mode_byte = ally_gamepad_mode[mode];
->> +
->> +	guard(mutex)(&cfg->config_mutex);
->> +
->> +	ret = ally_set_gamepad_mode(ally, hdev, mode_byte);
->> +	if (ret < 0)
->> +		return ret;
->> +
->> +	cfg->gamepad_mode = mode_byte;
->> +
->> +	hid_dbg(hdev, "Set gamepad mode to %s\n", ally_gamepad_mode_text[mode]);
->> +
->> +	sysfs_notify(&dev->kobj, NULL, "gamepad_mode");
->> +
->> +	return count;
->> +}
->> +
->> +static ssize_t gamepad_mode_index_show(struct device *dev,
->> +				       struct device_attribute *attr,
->> +				       char *buf)
->> +{
->> +	int i;
->> +	ssize_t len = 0;
->> +
->> +	for (i = 0; i < ARRAY_SIZE(ally_gamepad_mode_text); i++) {
->> +		if (!ally_gamepad_mode_text[i] || ally_gamepad_mode_text[i][0] == '\0')
-> [i][0] == '\0' is not true for anything??
->
->> +			continue;
->> +		len += sysfs_emit_at(buf, len, "%s ", ally_gamepad_mode_text[i]);
->> +	}
->> +
->> +	/* Replace the last space with a newline */
->> +	if (len > 0)
->> +		buf[len - 1] = '\n';
->> +
->> +	return len;
->> +}
->> +
->> +static DEVICE_ATTR_RW(gamepad_mode);
->> +static DEVICE_ATTR_RO(gamepad_mode_index);
->> +
->>  /**
->>   * ally_set_vibration_intensity() - Set vibration intensity values
->>   * @ally: ally handheld structure
->> @@ -2217,6 +2362,8 @@ static struct device_attribute dev_attr_right_response_curve_index =
->>  
->>  static struct attribute *ally_config_attrs[] = {
->>  	&dev_attr_xbox_controller.attr,
->> +	&dev_attr_gamepad_mode.attr,
->> +	&dev_attr_gamepad_mode_index.attr,
->>  	NULL
->>  };
->>  
->> @@ -2356,7 +2503,7 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
->>  	}
->>  
->>  	if (!cfg->initialized) {
->> -		cfg->gamepad_mode = 0x01;
->> +		cfg->gamepad_mode = ALLY_GAMEPAD_MODE_GAMEPAD;
->>  		cfg->xbox_controller_enabled = true;
->>  		cfg->left_deadzone = 10;
->>  		cfg->left_outer_threshold = 90;
->> @@ -2926,6 +3073,15 @@ static int hid_asus_ally_init(struct hid_device *hdev, struct ally_handheld *all
->>  				 ret);
->>  	}
->>  
->> +	/*
->> +	 * An MCU reset switches the gamepad mode back to its default:
->> +	 * send the recorded one first, so that every other setting
->> +	 * restored below is applied on top of the expected mode.
->> +	 */
->> +	ret = ally_set_gamepad_mode(ally, hdev, cfg->gamepad_mode);
->> +	if (ret < 0)
->> +		hid_warn(hdev, "Failed to restore gamepad mode: %d\n", ret);
->> +
->>  	/*
->>  	 * The MCU does not keep the vibration intensity across a reset:
->>  	 * send the recorded values again, whichever interface probed.
->>
+[1/1] fs: let backing files inherit FMODE_NONOTIFY from the user file
+      https://git.kernel.org/vfs/vfs/c/c3d355f427ce
+
