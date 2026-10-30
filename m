@@ -1,63 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793404471;
-	b=f0mri9whup+BwLmWhHF85Q9yTiMJPHtFdLOr0qKX6VNI6kT1fVDVYNmLiRoEsqi1fbYt
-	 ZIlCaL8g20mIifZW2nt3dKFeRdQtsQADpiN6G9sB70s5tE1UrvACtqZwqeJkNq2fV9lYh
-	 /hLJceWKn/6R3EAvb3BKCV8bTZVcCTQps/q1sxTpD8aWIa5KSYgwCGx6g9Bqda/adIKcl
-	 z5wv5g4F3OS+6N1gu9d4vQh4uGTMZTOpHqFcouI4twYGhulwYpAo73xejnaUsp0MjPQ+h
-	 Ggo5G/d9GheTco9GO+20X7vBrobo+6xQDwDISJJCJP0lY9WPi2C1lHq7fAnwS3hCKKQ==
+	t=1793404602;
+	b=uw7Rklrn2bwqbBg8v1rTBH2U6CcWaaq8X801zeRX8MB0sj7MsJrXocxiHfr2dH9koPeM
+	 GuCNa+gkeac5t4qwviG8M+KlVjmdGueZ2UZgqJ6kRTyhPC2TEZp3cFqrYFlQ6O77DCHi3
+	 neQHlUxP+N9NRf60rBtt6I/AcmdOjbQly2ApF7V/j8TI7DmGFsM/CXThCbZM/jyoiF1II
+	 uYFY5jGLlFfqxcpI7b/vtbuh7VPuGeg2SmjDYGI6c2Sdw2M4Ie7jGKGs+JFsAhInYdgv2
+	 IeUvNsFaLVhTaFyO+L8Q5a1BvWbIdCep663iH3hMabr4sym5Y9/A8WyF2k1UROSqFmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793404471;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Spam-Status:X-Rspamd-Server:
-	 X-Stat-Signature:X-Rspamd-Queue-Id:X-Session-Marker:X-Session-ID:
-	 X-HE-Tag:X-HE-Meta;
-	bh=xgxwRoaTlzr2lRRyHYemNn4UAN/1kvxamPcokqd3PEE=;
-	b=el/jBrQiF/eXOiW+Wgc+uTrBl5t2hFGK5X6nsthqvbYFzIFnhJhMGomRzxo9/PnAxMbR
-	 lHbO4hhV3pfwiTwZToYGu73/SZLLishV1+cfVMYy7+evo+RA8whedgNXlpZYWo27lqpY2
-	 lJ/lS2bvi/Cr9AnDP6xYBcaHqfe+UQcl3i0BD60lSMY3g4Q3zaZuXFCABTX7AmnkePn4G
-	 t3mRyqaqKoslNDhNcvtxmDfHB8RVI/2h+hxb6zcSMikuU3VAXxMyfWkiFk65UpF3bcd+H
-	 LC9dqnKIogKU0+hNq8gBfMh5lsRDC7cKRkg0uiMD1+xnr1kuu2YOrvxEk1MrVA89skg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793404602;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BDaHsLTeFS9uNn3ux2fwusgfE2J5PsxVZUwAq3RoQ60=;
+	b=InmaIEE4GIpFzjoAorH88wsgC34JLem03HDDluqD6+ut2kyP2P9gHgU7BrcVC7cFwfVU
+	 H56y7dlSZRLL/YCv3LQ8/8WiqenHlfK+IrwaGwsHzwdwWTwETcnxtPDkgd8dMpw90V18f
+	 C3bwuJtvi/yC+PaVGNy44QcDkiG0LPrkE/VfWt0DB2Vywx6D5hIdMeL1s45QpWwLJ+pwC
+	 RmQh8cTJ6q9BfzumEHuy4MoORZR/7aziHQKRmmnFdStwSp0ZAqaW3pvuJBH3uuDKV8hwm
+	 RF6xc7+QHsvTl/efX7ll96XUyO3RMDhKkGq0GL+Tj92Y0qjYzG9ZK3/OzG/dEMlpNww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U3cWys8N;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0C8606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:54:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD0C8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id 6E1651A0847;
-	Fri, 30 Oct 2026 23:54:29 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf01.hostedemail.com (Postfix) with ESMTPA id 7AF4F6000C;
-	Fri, 30 Oct 2026 23:54:27 +0000 (UTC)
-Message-ID: <d3e29969aeaf10b654a3be87601adee6be89c9d6.camel@perches.com>
-Subject: Re: [PATCH] get_maintainer: lazy load JSON::PP only when --json is
- used
-From: Joe Perches <joe@perches.com>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Sasha Levin <sashal@kernel.org>, Andrew Morton
- <akpm@linux-foundation.org>, 	linux-kernel@vger.kernel.org
-Date: Fri, 30 Oct 2026 16:54:26 -0700
-In-Reply-To: <auUps7Hy7W0SqWw3@redhat.com>
-References: <auS7NOsyw7pJ7rbF@redhat.com>
-	 <eb8d1fb4e2a8a32ae1b71df686ed65be800e2918.camel@perches.com>
-	 <auTDEy_vyMixVRTU@redhat.com>
-	 <1ad2ae74e3257578cac561f19af63ccb94fce85a.camel@perches.com>
-	 <auUPo66ISiR2gzmi@redhat.com>
-	 <e184b73da5229fa387074fce2d977994f6464f1e.camel@perches.com>
-	 <auUgX2kp9psrvQ6x@redhat.com>
-	 <9ba498189291b99fe18d3a8ac32722495fa3227d.camel@perches.com>
-	 <auUps7Hy7W0SqWw3@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9EA606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:56:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U3cWys8N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD4BE1F000C1;
+	Fri, 30 Oct 2026 23:56:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793404602;
+	bh=BDaHsLTeFS9uNn3ux2fwusgfE2J5PsxVZUwAq3RoQ60=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U3cWys8NzRoR5iji4VbwnppP2F99hQ09nWZ2HYE+r0avE7eTlictybnZyKKAwL5kZ
+	 fJHD9+5VXqMHbofiQzrm0wGvGx8GiEBtL+AhyD53fY5PqBQWsAdfGmwIDs2/SnrnSI
+	 tE4g4FQtkLP1D0ayza/GkEF4Q5h7Mpk2OzpqvAPkCqXjjoSMjFC99mpXQNsMxFzh2X
+	 UIc4tt3snwnZw9HwgJYT6TWS03nimGOfvfPEblWg2yDoHpLNW5lL9f7/zeEaN4MdFt
+	 h/FvI6hZ7XBVO/kLZlUaTBuEAdvb5XsPUOwzSKqjP+WpInh1m5yMnw2f1wc+OatjOB
+	 j+uez14nOkGLg==
+Date: Fri, 30 Oct 2026 13:56:40 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH sched/urgent] sched/deadline: Fix stale rq->dl_server
+ after a server pick returns RETRY_TASK
+Message-ID: <auUuuJnEI3HWkwYA@slm.duckdns.org>
+References: <20261030221842.4071610-1-tj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,61 +63,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout06
-X-Stat-Signature: 8ebsq91znhu96xxmkr51fojxw5s1hmkp
-X-Rspamd-Queue-Id: 7AF4F6000C
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX1+ohO4d+Vsnb1gWj5oEY41PJyTT0ROUo4Y=
-X-HE-Tag: 1793404467-569245
-X-HE-Meta: U2FsdGVkX1+RgRJMIh6vpLCayKzpaeBfOafdJdCJx8fzIToukV80fRuPXs/NSyjmTYeK7ZmQetuFLlvSb2rFBPF1zsIaWZO163rZBECSUG1Q2J4rfdIwy/Bwr0POVpJKKeN9m8mZGuG4kjstJGcGFapd7LqxsbFb0tDsnuLiYPrYnL5rzSElp/JRU3gdFa4AhvCGDbmQ7xaLQDpnQp6t1QwQv97yxHRj8vWVSZXOib9A9vV5uwij7ccVWd2NirWsodQHGwBj0F85jl+P9/xkMopi9xuukQzDkPQ4PQf/sdaWRNvnzu860l6hrVElUpkM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030221842.4071610-1-tj@kernel.org>
 
-On Sat, 2026-10-31 at 00:35 +0100, Oleg Nesterov wrote:
-> On 10/30, Joe Perches wrote:
-> > On Fri, 2026-10-30 at 23:55 +0100, Oleg Nesterov wrote:
-> > > > > But why? Why make get_maintainer.pl depend on yet another module?
-> > > > > FYI, on my Fedora 44
-[]
-> > > > Module::Load is a core perl module since 5.10 and
-> > > > I think you are using a broken version of a perl installation
->=20
-> > > And how do you think it is broken? my laptop runs the fresh Fedora 44=
-.
-> > It doesn't include perl-core ;)
->=20
-> you can blame the Fedora maintainers, not me ;)
+On Fri, Oct 30, 2026 at 12:18:42PM -1000, Tejun Heo wrote:
+> __pick_task_dl() records the server in rq->dl_server whenever the server's
+> pick returns non-NULL, RETRY_TASK included. __pick_next_task() clears
+> rq->dl_server at its top, but a RETRY_TASK restarts the pick below that
+> clear. put_prev_set_next_task() then hands the stale server to whatever the
+> restarted pick takes.
+> 
+> Since b3a2dfa8b42e ("sched/fair: Add newidle balance to pick_task_fair()"),
+> fair_server_pick_task() returns RETRY_TASK when the newidle balance released
+> the rq lock and a higher class task was enqueued meanwhile.
+> 
+> That task, an RT task for example, then carries the fair server in
+> p->dl_server until it is next put. The RV deadline monitors see the fair
+> server switch in with it, and core scheduling, if enabled meanwhile, treats
+> the task as deadline priority.
+> 
+> Don't record the server when its pick returns RETRY_TASK. The restarted pick
+> records whichever server it goes through, if any.
+> 
+> Verified with a synthetic reproducer.
+> 
+> Fixes: b3a2dfa8b42e ("sched/fair: Add newidle balance to pick_task_fair()")
+> Signed-off-by: Tejun Heo <tj@kernel.org>
 
-<smile>
+Ugh, please ignore this one. Sent out the wrong patch. I'll test Juri's.
 
-That'd be the same as blaming the Fedora maintainers
-for not including development-tools by default.
+Thanks.
 
-> > > I used ./scripts/get_maintainer.pl many years, almost every day, and =
-I never
-> > > needed to install the additional modules. Until ("get_maintainer: add=
- --json
-> > > output mode")
-> >=20
-> > I think that was added in Linus' 7.2 in mid August and in -next since A=
-pril
->=20
-> Yes, I hit this problem months ago, but didn't have time to send the fix.
-
-Nor apparently have time to send an email to the get_maintainer
-maintainer about it either.
-
-> > I don't disagree with the concept of the patch.
-> Great, then perhaps you can ACK my trivial patch? Then we can discuss
-> the possible improvements.
-
-Maybe when it's done without needing updates.
-In the meantime, you have an easy workaround with dnf install perl-core.
-
-> > I think we understand each other fine, you just care less about the
-> > output error message.
->=20
-> Yes, it is true in that I don't really care about the output error messag=
-e.
->=20
-> But then again. This error message can only happen if JSON::PP is not
-> installed, and my patch doesn't make it worse?
-
+-- 
+tejun
