@@ -1,68 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793373027;
-	b=bOrhOzNloNogVevuC1Pj3yAwsETGd/xRTOk/hjEppF68jltkvvcsAdN7h7mn9thZK0+V
-	 L+Tqk7NgCgbpOjMwdXb3xOaHBXAuNdfTpG2mHATI5J5Z2CCuwCepixm0Lz5Ie2Xav9IwM
-	 ED7/+PFkm4Rc5bR5Nr84bK8XtO3nkslQWbm2GXmLpuD8qoj12jNbHMN+/LDg4CVK7joGZ
-	 InIZh93O0E3rIBq43n68P5id1Aae9V2A6KNJ6kSIDQejcQ0qZOKWbhrMZNFVhLcHhR/Zg
-	 Z7Ifv68M1yAAPatBLUoW/LKhhsEMxfo2j5BdX1Xb1nnSSemZm7ALzHeo0Fp0oZ9tVqg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793373027;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Message-ID:
-	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Importance:User-Agent:X-Mailer;
-	bh=SOxU1IrkJoChSZwtgAbY26YGaPbYGPCarslzge/kK34=;
-	b=jtjHFWEtUMMbxp071CnB2NUUcRL2qMR8WWPaqy/5Ea0wGs5JZN+yqTQO9OPPn8jj6a2s
-	 XG4A+4BSBuWfJ8JQclYVKZaUKdRI8vmhA6gnNdHlo7KgC8yL+5QnohNtTBgLzwbLYhyXn
-	 pHgDhwxXMurbQSxBlqyM+WgFNX3m2RII0Doc0TfHjlmtaVmLjeyNPE40EIRS97AkZlYvo
-	 10f0jU+bB7eUUe2uAVYk4jhPxkIgHdxfk0DTJj9GKwSTT4zL16kej5BXkr/SB6nDvo2UA
-	 7qFcp6iG5u3sayEuntYGQ21OCK0UbKKns5W8D5m4ruTcpBx3+ccKiVTdbdsRdLZOsCg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=RjVIgmCE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793373081;
+	b=tbi/JuufxhELmmlWtRMEKtPJYAGAVN353beqOgrwrss3nSK3bbklLrezTue0G0HJKjA6
+	 w8XMYgWk8yczA1w7QE4rxOZhDLx6CDuwmwk9RY4h1W24L5p754/uL3oAOzBrLkfKwk/Hg
+	 CoS4lfqF55OM1dor1BDS/NfXSOZmsKnRWHcx/VOuKZ1ywTefJ6kZHcep9K9Jx4lLf0Xg8
+	 8mznuNEjMMf4jt7r0cNgvDfccxs/6D0/j7U8K72jE8lXSrXjS3vWhw1kyCsMMEziV+DWl
+	 vVqSg84tgaB1thOFJqL4+o/8x55v0+7trEGr/emzCXKNCnC+skYHod5AP38ebgsE4Vw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793373081;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=SknYW3+pVsCwOENllYU3jowrrCPEotGjBjq9wVk1tW0=;
+	b=OqeAdDg+jwvDFay9y14A6hBZFrz9nkG7isuP5twvbC+qTwIZTuZe1ghx/lC2ju0oCecg
+	 68TXJMFV/yLNvJAHZSxqlSSKvlcbAZtHbQ8j4xywAM/gV+cyzE/UFAFbXnS8lcP1t7a2Z
+	 kZ3eSaisP7sMw3w3B6MUg4+raqGjuAhRXfVt7qpNC+PmrUP0TsR8flWjb2CWHP580WMVX
+	 CBoAQds0vqAjGQDr3QD/ntkhwcClOOSnOnCZXlCcYCnRDvZ+EDCz252yy28D1OJAQHBxf
+	 Y9a3MUyNO0Qa3oQQqh3yqDD9D/ogPU3NTcfRJnqU/ARAyuXLeWDXi1GcrmS+tLowa6g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=VAnxgq+X;
+	arc=none smtp.remote-ip=209.85.219.44
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3EAB606A322;
-	Fri, 30 Oct 2026 15:10:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3EAB606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E58606A325
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:11:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75E58606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=RjVIgmCE
-ARC-Seal: i=1; a=rsa-sha256; t=1793373005; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=l2OyCf0tiJGeMLyKQmnA/k2lxLUpwrcd2F0ZIhifaSwLHHwqO2KwHSNcEFQpMaHNlYXTTJmdI4iXw7+aD3N2MvLd5y0Y8iO8ZnnjGYh0DyLnD9faRyAY6x3awEiSP477+CaGgqH9vDi5HkTsQ0hCFI9IowA8iq6Z/gd3C6b5ofc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793373005; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=SOxU1IrkJoChSZwtgAbY26YGaPbYGPCarslzge/kK34=; 
-	b=PcEaetO0knlMfJket7z8i/SkBEKduaSB3zdNn06toYxnhktOvh4EG9Inp3qU4HlaU8CxLTFnAfKAQSi0R0jnaMYv5aBjPreHyesqyo5IPJVLkbtUxTVCj71A88bAh/EA38pKCble0x+fSCThZ1r++s5lYbd4RkZZtr3loVMxAMU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=nicolas.dufresne@collabora.com;
-	dmarc=pass header.from=<nicolas.dufresne@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=RjVIgmCEUVFEGqO23Co1WdR+lY69arY5m0Q8U+3SjKSU/Brnadrsm7sYS17Iw9KScewwqMR0KLb05GRdukcIsbITDeUsSNpJfH97wpAkA46COQoNUJUjgQUeauPSSTX96wUwBg7tWlK24Q7A4ly+XwJXKtCxl/HgNyfg3+eOS20=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=SOxU1IrkJoChSZwtgAbY26YGaPbYGPCarslzge/kK34=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: from mail.zoho.com by mx.zohomail.com
-	with SMTP id 1793373003647307.92338041764765; Fri, 30 Oct 2026 08:10:03 -0700 (PDT)
-Date: Fri, 30 Oct 2026 11:10:03 -0400
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: <wbieganski@baylibre.com>
-Cc: <zhentao.guo@amlogic.com>, <neil.armstrong@linaro.org>,
-	<khilman@baylibre.com>, <jbrunet@baylibre.com>,
-	<martin.blumenstingl@googlemail.com>, <mchehab@kernel.org>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>,
-	<linux-amlogic@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<krzysztof.kozlowski@oss.qualcomm.com>
-Message-ID: <1a18d5c5f7f.3e45f382588509.8172330954347509989@collabora.com>
-In-Reply-To: <179337024629.131241.9227206619077693683.b4-reply@b4>
-References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com> <179337024629.131241.9227206619077693683.b4-reply@b4>
-Subject: Re: [PATCH v12 0/6] Add Amlogic stateless H.264 video decoder for
- S4
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=VAnxgq+X
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-91c19fc50abso10720286d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:11:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1793373079; x=1793977879; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SknYW3+pVsCwOENllYU3jowrrCPEotGjBjq9wVk1tW0=;
+        b=VAnxgq+X4QCFTDu9AfTIw48AdlrmXvNeSuIaONQhqFkWoVPXZBz84mze+bQQdrgAhR
+         Yb1qIjdcTWGrZL1vyxFrdGovjWe0C1rwpn88C7tgXg3BW1x/vT+4lppONNZ8N5T4dIZF
+         A86w3AiVzzJlHYHoWjb+ZBekF/EkxgqB5kFZzSlRgpVyxvegFwpmbFlwECZi5LehdbEw
+         fPlvuM+bv9BCs3E+qbixvAbLVr2hTUtX7fpfDGGuE5hdiG5M5JPOPvHVD91ix6/f0At2
+         dnlRKLnPnupUvjaDpJdUG/mHdwTGSxDI+PfrEZRHaKDbgB1fY52C8lRrarj8WAIdi77C
+         HTkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793373079; x=1793977879;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SknYW3+pVsCwOENllYU3jowrrCPEotGjBjq9wVk1tW0=;
+        b=wEsYWiq69fh+NshU8+Wz+4/nff6qOwmqspkwEXYGtEjSEl8mJVleZRdQAD6q6W2J9r
+         NqJd6898hru9MxH1+VkM4NGQIa1qrA0ujc8ZI4H+7VzFHV+Rq78la2VIX5BhqEEMBE6k
+         Jzx539UXfGvddWfzFw6dYs1RCnzM2CvzOUKQCy0U1c1cKU82id7IzdATLFHE3sfL2eay
+         4hTaHBFzjQZWDlmAAp1djxzgqNbkayaXWtl7RClBHftnduR7jHH0u/DGC9yWuXtpj6Do
+         cDKyhTdL4M3J9Y93+NxEMcvPm5m/+Ztf0npLznXq+ows5FCYNy7o1DU+Aq4GvwHHEN6q
+         JTXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzrqp1wsMhHI+KdHuskDuLnv/g/BSKXmooxBA4GrxP5h5OwUT/inflpIdUGjUoWXabXDTrOh5EQhYIo/1I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhlVCLrQixUr7/UTkXlTBLrbzzj72vU0f9RyV6NZlvA/vSoQL+
+	YszuzW90KI/Ovwqqbm5hHJ24Y2TLWBzRzJcqMlVvY8ua7mXNmP47Ytxq1f46EIg4TBM=
+X-Gm-Gg: AYBFou2xbmFeR6Z6NWcH7Ttd/7PcqqvrzXn1fcafOVqH0BjBJIkUjBv/hhJdpEOp2m7
+	oq7zy7zqWAmcXMSdKBdUtmNlv+XwSi8ZtX138MTH24+h4ScboG62vCnDYTsngr94d389ZshJ0ij
+	i9v4oUq+NF40VAVrUPf3h27eAfn334eZzQlY91fcp8cgO1a0nco/K/L1lRXmxQ+fSgv7dPSl56S
+	Fldoa8tw/k7IbM7dlsiNCLznDXZIXc8yP59/a9l6CSoTFT2O3hfsH/u+YVQ4J2M7WxUdsz5djuM
+	MtzNat53n7EoZQaoOrAbsj5ww0bf7CwXndA/uBS3e16AU4FDn7SFRUrf5tnKBUubXlzdMsDwCJm
+	xHB9DY9ftE3oSEJjchQn+gMwOpl2jBNbvANpqGq9cD35zemth0ktgeeb4Hr8OWchA6wTUoK/KW0
+	+k5MdF8sFnYpVJFNpNv9zIE/PxmfOGHWWsfo4RZSqAPe3fluW6n2bZexKPQ9PbZCv0oGBTdaz9Y
+	DjnmFVxA0jUCXY5n42d/q3+PSK+u+lUEa5Z6q+t/PbuAF1kFFUM162BXVMyXf/pPiaj9dHrsLuX
+	8TFr3VlR2VSaZ5s25jvUpMcPch0VWFr1iAe5DTVn5kahSoBDDPD/wuMUPe3Uk3QeEbcPAEiqb4N
+	NgFcOl+gRE/c=
+X-Received: by 2002:a05:6214:29ec:b0:91c:5fc4:ec2f with SMTP id 6a1803df08f44-91ca4b0dc32mr40691666d6.26.1793373079235;
+        Fri, 30 Oct 2026 08:11:19 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca807047bsm17117606d6.39.2026.10.30.08.11.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 08:11:17 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xMoGB-00000000v1Y-0kVg;
+	Fri, 30 Oct 2026 12:11:15 -0300
+Date: Fri, 30 Oct 2026 12:11:15 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Samiullah Khawaja <skhawaja@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Jeff Layton <jlayton@kernel.org>, Chuck Lever <cel@kernel.org>,
+	Alexander Aring <alex.aring@gmail.com>,
+	Shuah Khan <shuah@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Jeff Xu <jeffxu@google.com>, David Matlack <dmatlack@google.com>,
+	Pasha Tatashin <tatashin@google.com>, linux-mm@kvack.org,
+	linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] mm/memfd: add F_SEAL_PUNCH_HOLE
+Message-ID: <20261030151115.GD3889730@ziepe.ca>
+References: <20261026220546.3114241-1-skhawaja@google.com>
+ <d4891333-43ea-4d74-9fb9-6ad8dac1a446@kernel.org>
+ <20261030121113.GB3889730@ziepe.ca>
+ <2c7aa5c1-3af3-4654-b244-1257d05c9d45@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,45 +116,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Importance: Normal
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2c7aa5c1-3af3-4654-b244-1257d05c9d45@kernel.org>
 
-Hi,
+On Fri, Oct 30, 2026 at 03:39:40PM +0100, David Hildenbrand (Arm) wrote:
 
+> >> I don't see a reason to make userspace (that should not shoot itself into the
+> >> foot) a kernel feature it must activate itself to not shoot itself into the foot.
+> > 
+> > The issue is live update doesn't preserve those background punched
+> > folios and now we have created an UAF attack on the kernel across
+> > kexec if you don't do something about it.
+> > 
+> > There was some notion here that with the right sealing flags we could
+> > tell if everything was 'live update compatible' and then know that
+> > these attacks are impossible.
+> Just remember that there was any hole punch and refuse to live update this instance.
+> 
+> We could likely implement "we saw hole punch on a pinned folio" as well, but I
+> don't think that's required initially.
+> 
+> No need for more shaky seals.
 
----- Le ven., 30 oct. 2026 10:24:06 -0400 wbieganski@baylibre.com a =C3=A9c=
-rit ----
+Ah, yeah that might work out. It has to be checked really late though,
+after userspace cannot change the memfd any further.
 
-
-> Hi,
-> I tested v12 series on AQ222 board with v7.2-rc1. Firmware version:
-> 'v0.4.ff.I0c83495.75444b3' build 'Thu Apr 16 18:18:55 2026'.
-
-
-That reminded me, is that firmware in linux-firmware?
-
-
-Nicolas
-
->
-> RAW NV12 frames at the decoder output were visually OK across typical
-> resolutions and H.264 profiles (main, high, baseline) with and without
-> B-frames in the stream, also with I-frames only streams. I used Gstreamer=
-'s
-> (ver. 1.26) 'v4l2slh264dec' element on Trixie with both mmap and DMA-bufs
-> buffering (on the capture queue only). Input bitstreams where
-> FFmpeg-generated (testsrc2 + libx264) or publicly available test videos.
->
-> Decoder (and the output) remained stable with simulated (non key) frame
-> drop at max resolution (1920x1088, noise generated by FFmpeg's bitstream
-> filter).
->
-> The performance at max resolution, tested with 'filesrc ! parsebin !
-> v4l2slh264dec ! fakevideosink' pipeline was ~85 fps (fixed number of
-> outputted frames divided by the total execution time).
->
-> Tested-by: Wojciech Biega=C5=84ski
->
+Jason
