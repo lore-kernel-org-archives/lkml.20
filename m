@@ -1,68 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.214
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793364683;
-	b=yoUbbVvvpKqtLR+sMf1Gp33cVE7y6vY+tIIaa+feUZqvA9DoGs46r5k4f+GAzyKu9xRW
-	 2mtaAr92nSQsrhrNXD9u4p0EbyAMuaoo0U4A9MLqjsxVE9fLCGv87q1JJkD94gpv1wMZW
-	 r+hJsHdON8z/6dv7ajXCx10LfqmVL+zgaKw1JyV3M51r62boKINSHNovpfvYtpS6ygo9X
-	 8FHrvDwLO7tRPLGvr7Z8jxjlAskvWqt9lviveX98ja9ymIf5wkKcH1WrE3FZZT8OBGkb3
-	 4exoPZ2tEONVeq97ZeabaHEeZnJTptpYMhz928LfrfHlVb4maAkQybxyNVpX+EIiiOw==
+	t=1793364687;
+	b=EtoLiHtKg+2OGIe9FklB8qk+gM9MTrKorhNjEPbS8DS6rMm6acCl9JTsu7F2Zv3xUrc/
+	 GzPTgvVH9NMfpadGHUxz3P6vfdCb2JnSmnLicRth3bvKWRvDiaeUgzA9hTgvQRe7jHz9d
+	 URfLPMwmaEdgiBHCdBLf6X5iroVmueFuTPm8VDZ3onsc9hRZ4rfXhLjzXY7L6T+TPATDO
+	 03nyVg7AnSoq+P9oiWie1PY7MKIODcAGdgX7i/Zx1QGt/14QoSp/OmmBsgKs3VvpaSWEL
+	 M2ucndxP4HoXlSKnRFHoxvsfogYr5vhBmM7l3sF5+PU1VAaa8ZwnksAM69igo2dxPwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793364683;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793364687;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=J603gBsWk1WUnInDsrOoZH+4fJtrDlBZvxmc4O7pP0Q=;
-	b=3hp+63W0btU2l5vTWKRkNEKNVH20ox74xBntE80lhiBtpEhIlOvDkx8h+KDwH9m65ani
-	 +91im55jN8dWqKoyfbRcWFD//ajV/ysZwu4HVzF/YeVJePjR5bA9ZOGDC9ULJBTvZHJ7F
-	 rBOnjBb+/4YuA0dLcABNYMyJpYk7i475bdwVU1523gxcAJLkebNHMiJqViFf919LpYKca
-	 A5wC6sw+9x6UGVJYSlCLLUURAW8n9kpq8mnANHdS9iRt6btOae3jqBBBrPa796HO6Ioiy
-	 xVzSKgfayP3dLrS8e0qcKJapQt5/1Uu9h09hPwdHjjBeKaSvObXmT9l5uvJbHAdzlRQ==
+	bh=pA9rfDOneSvqKwc6dTuw9/r4XLRowQlGBQj7kyGlyzM=;
+	b=Szprr0v2rf3mD4TAxnx9CFyyLJqTsa/EuQs0xztLK1O6zmHBNss9TMZg41Na2hwchlED
+	 a0mjBnGP3CQZcyAOPmcNfDzSBSMPPJi44Zyn35FSQHMBLqHrsh/IP/XuvsMlDPToJEtwG
+	 nj6JYPDHv9JGjXrEAKlFPfAA/7HYTBuPzQcd7rTLN/PWP+e2eCsXbP9nREDgg4BrPoRu+
+	 5Dt5H/0BG7GpGaymlM2AWBtvxi+vRKR9nKNSSe0eV5NglooZkQGOCJBwRalWpJ5OMxh2f
+	 f28MQvDfyTiTXVL1QjGWKUBwAgVQUWWRMYKYRV+KPzmkhE606/Hvrb1YpSNzqeoHf4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=n5CqqJz3;
-	arc=none smtp.remote-ip=95.215.58.214
-Received: from mta1.migadu.com (out-214.mta1.migadu.com [95.215.58.214])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jGRsfSnX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9AB6606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:51:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9AB6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA419606A326;
+	Fri, 30 Oct 2026 12:51:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=n5CqqJz3
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mmKeCbjE3ZYA5V9Lf0Tb2oYgIWNEyo0oHto3fq9oodU=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793364680; v=1; x=1793969480;
- b=n5CqqJz37p9rFuvdI9UpyK0CjidgSh4Fo+rqWnyHglipDdHVQnFSWXiHWoOOeOLmTuxRSOb5
- GkZCrAQn0tn65Fm3CFdWjYissAXFozTgwPAnX67mN8Ck1W5BqAoXUTMBjDHTauw9Bvf4QQI1Rz5
- lr8ozEOTa7S2DCpfHxmqyqUEC898YMqu2KzlsetRT8i647Ox7PEOoAY1OWTSYe1GK3wb96WlU1U
- ysVWEBvJFBP5DWcUDeuDCpxM7U/byS7qU+nQklvFB51qfbRPu26DlfcfXwFgqfSZ5+eUpovWwzx
- Yn67Wgq+tCSN/S1S4waXm8eCISH1OOmdVZ+a2pdHuQRbg==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1a8150d0f62198a2;
-	Fri, 30 Oct 2026 12:51:20 +0000
-X-Mizu-Trace-ID: 1a8150d0f62198a2
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 30 Oct 2026 20:51:16 +0800
-From: Weijie Yuan <kernel@wyuan.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Tomasz =?iso-8859-1?Q?Pakula?= <tomasz.pakula.oficjalny@gmail.com>,
-	Fangzhi Zuo <Jerry.Zuo@amd.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] drm/exec: Fix the drm_exec_retry parameter documentation
-Message-ID: <554e4d14309801a497408a33dc696519597ed941.1793364084.git.wy@wyuan.org>
-References: <4b9b0f01c86a84b4666a1ba38a085c7b84e9a585.1793364084.git.wy@wyuan.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jGRsfSnX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 930961F00A1A;
+	Fri, 30 Oct 2026 12:51:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793364686;
+	bh=pA9rfDOneSvqKwc6dTuw9/r4XLRowQlGBQj7kyGlyzM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jGRsfSnXmDGFeb50hFqvNP0jgf6zQKwM63qJnV2ewQtv5q+O2U+ornwdTzO+pAblh
+	 HnepeOoc49K1VnES8kBtHxTRf5NRxtMuAw+9bHu5eyDUQTrT4UNBzpU02sQ+a/Do4Z
+	 f5DDFixkoLTjiiihhRCXplhIrhyY8ct/R1tDzDtI=
+Date: Fri, 30 Oct 2026 13:51:23 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Peter Schneider <pschneider1968@googlemail.com>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 00/10] 7.2.15-rc1 review
+Message-ID: <2026103019-badge-android-5e34@gregkh>
+References: <20261030121255.257615100@linuxfoundation.org>
+ <e24362cb-bce4-4a9f-b9f5-040aaa2823e0@googlemail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,46 +62,23 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <4b9b0f01c86a84b4666a1ba38a085c7b84e9a585.1793364084.git.wy@wyuan.org>
+In-Reply-To: <e24362cb-bce4-4a9f-b9f5-040aaa2823e0@googlemail.com>
 
-When running 'make htmldocs', Sphinx complains:
+On Fri, Oct 30, 2026 at 01:20:49PM +0100, Peter Schneider wrote:
+> Am 30.10.2026 um 13:15 schrieb Greg Kroah-Hartman:
+> > This is the start of the stable review cycle for the 7.2.15 release.
+> 
+> Three minutes after the release of 7.2.14? Really? That's, well... ambitious.
 
-WARNING: ./include/drm/drm_exec.h:162 function parameter '_exec' not described in 'drm_exec_retry'
-WARNING: ./include/drm/drm_exec.h:162 Excess function parameter 'exec' description in 'drm_exec_retry' (did you mean one of: '_exec')
-WARNING: ./include/drm/drm_exec.h:162 function parameter '_exec' not described in 'drm_exec_retry'
-WARNING: ./include/drm/drm_exec.h:162 Excess function parameter 'exec' description in 'drm_exec_retry' (did you mean one of: '_exec')
+Yes it is :)
 
-If duplicate, please ignore.
+I want this to be the last 7.2.y release, and everyone move to 7.3.y
+after it is out in a day or so.  We have just too many stable kernels
+"in flight" right now, and too many pending patches based on the huge
+number of bugfixes flowing through the system right now.  This is an
+attempt to keep on top of that by reducing our release load (and your
+testing load).
 
-Thanks.
+thanks,
 
--- >8 --
-From: Weijie Yuan <wy@wyuan.org>
-
-drm_exec_retry() takes _exec, but its kernel-doc describes exec.
-This produces missing and excess parameter description warnings.
-
-Use the macro parameter's actual name in the comment.
-
-Fixes: bba175a2d4be ("drm/exec, drm/xe: Avoid abusing the drm_exec retry pointer")
-Signed-off-by: Weijie Yuan <wy@wyuan.org>
----
- include/drm/drm_exec.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-index c92d69a2c793..5a2a8438f094 100644
---- a/include/drm/drm_exec.h
-+++ b/include/drm/drm_exec.h
-@@ -153,7 +153,7 @@ static inline bool drm_exec_is_contended(struct drm_exec *exec)
- 
- /**
-  * drm_exec_retry() - Unconditionally restart the loop to grab all locks.
-- * @exec: drm_exec object
-+ * @_exec: drm_exec object
-  *
-  * Unconditionally retry the loop to lock all objects. For consistency,
-  * the exec object needs to be newly initialized.
--- 
-2.56.0.438.g30c3f27cb8
-
+greg k-h
