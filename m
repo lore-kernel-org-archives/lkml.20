@@ -1,63 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793361846;
-	b=Qkuu0KaGT35sPP+Wigz5C9FBmkQ3GVAspxUeg9k971u6SGqBz8SDCh7wriuFKH60Hv59
-	 dm8KQ7fwN0rfLIOxoNEgSVbPTUfvDDK+AJQ+CrPSwFJe/S3ShM/LZ+yj0DQma1a53P7q/
-	 nayLcH7yFRLysl/boTZR5DoerrFThiBAIXGLwx3nvXBDusoFDGog9fvhdq4l34t5NXkT2
-	 C4GZE77oFBlS3dQXdnbl91TWpoAHvRaXsImEXzRUYAivUy5B6g+WasL9jEiPWb7WSknOr
-	 E5PXoX5NfETgDOncM64ulLfQ91pbQN2j/NTG2Z2b5LCuBooEVo36hVu51GqTvvvUw/w==
+	b=Ilw8Xvj/EF38ouCfDPgWsmV5ZE/I5HDQBuCH5XFSsQKMYw/UdntdgBfYw1g8VCCWppNr
+	 p2tylxMGheIVp9VAPpiSukHAI/8v7aBKi8M+l8IZeYj+34oNN4Z2/fnNO/P7vvVc+I7Qf
+	 K6N31dL3qH69dNNfPKOsJLoJe+jZcvylg+VNhZ0DNY8Ok6D3A85dOjRJEzwJtqasNJp3b
+	 ObXA4Zw1Fdqhtcae+UQkhbezy0KEopYt7Wy+nBaezesmu4LVEZBz/Yb8B+Cbj2bKcwKnZ
+	 bqsRV+nqDqfIRDNzdcckGGudSgnQ8UJlsCzwTKG+A8SVx3f+wjdQ7v/7Mf9V6/NpTww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793361846;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=v82mzkt/jt6jPtl1ei1Iq8wfRsMZYKIpIpg9HbC5F18=;
-	b=xwC80kEQKxk6MjzdbcOyO2/bATnus8N7YFOhpxZfzIcjK8k5TQ6oyQ3Jc3qZlGYjjTcI
-	 HS08m57mtkfvii3ibWoltEdOThurZwC9MUDy+Fwvhk33Inlgf3MJ9t9vSNBVUdjpUGp6J
-	 KjBH3CnfVUwi5fWCF+0ZFszEReYS8qXaj/5CXAqCheV8l+OepL36UWHoQpR2Lp+KdNGdw
-	 i7Wl1vmYGXVkGqrPHg/ftnJYSoIsMUJMA870TtZTSGQjmuJ1e3Wzw26dKePO6My27XivD
-	 e5azm7PQOJDF2P3uKlIOGp7wtiou25y7SjIPrM+qe9PTbOiPSGhnDvvrKaO0iDvs+Tg==
+	bh=fFskA7BssClkLrdVAmdRHZnh5MEeIpbMmJ/sYbXMQIA=;
+	b=oVBlKDpmGI3EPmuCUA1cqP50/NvaCfSCLl0W7gUno8B2LjKmkp2lqHwKQMnZ6nnGxleo
+	 8nyco+Mp39y0/JAqvqjN7vbJKGXWxbAZZfczqRk9FQYuaj3RK1nLh9wj5mWp1mYLIk7DQ
+	 zy+QF8MiTEiy5E/hHNh1lAZ6mA65nx+kIuE+fWqml9BOgESunKUSJX0VYAEMnaZWlosc8
+	 L9xtpzZMRvbu9vInjrBJNDHQqEy6rHVL+402XZrsUqs/tZRjjNlKKxHc1JQY7NFe3UbJl
+	 rf4l0Cjj7gWXzE4Walv/uobcE99liRGNZQBCNmCMPDnV9nhKz6yefLFgyUHuM2ZKRrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bKBGo9SZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JhHYbPbm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E1D606A338
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:04:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70E5E606A336;
+	Fri, 30 Oct 2026 12:04:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bKBGo9SZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56CDA1F000C1;
-	Fri, 30 Oct 2026 12:04:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JhHYbPbm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B1A81F0093A;
+	Fri, 30 Oct 2026 12:04:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793361846;
-	bh=v82mzkt/jt6jPtl1ei1Iq8wfRsMZYKIpIpg9HbC5F18=;
+	bh=fFskA7BssClkLrdVAmdRHZnh5MEeIpbMmJ/sYbXMQIA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bKBGo9SZfxwjC/Xfqsy4J8CcQ7x1O4QhOR3H1pnysW62FBdsJRwtCvOy28QHYKcR3
-	 VrjQ0tY9EXaol2fM77uzLHD7pYPlEk1J4x6OdzYA1y0Ma0UuT1ivg5wMECjifl0Utv
-	 rUnI08CGpjcSJYa7vDOHCTTh8HAsV/KOVk2/4x8DzYVbujacQUZBbpImkrVWvouKx0
-	 QcRuEbgagwyuFa0f3k/RGb/l7/6udXYs+QS3xtQ430YisTQ2zEg/YjK8JAM/8p3iYH
-	 Da5Q8yZeBa+apnfcjjbIDPFYbLXav/zsReh2gHHinKOyVPyxzeM59lHemtrjCLDefk
-	 jVON88cHrKDnw==
-Date: Fri, 30 Oct 2026 14:03:57 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: "Pandey, Radhey Shyam" <radheys@amd.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
-	liam@infradead.org, vbabka@kernel.org, surenb@google.com,
-	mhocko@suse.com, baoquan.he@linux.dev, pasha.tatashin@soleen.com,
-	graf@amazon.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org
-Subject: Re: [RFC PATCH 1/2] kexec: do not place the next kernel in a
- fixed-address CMA area
-Message-ID: <auSHrdDdFrWRsuzM@kernel.org>
-References: <20261014145731.3431527-1-radhey.shyam.pandey@amd.com>
- <20261014145731.3431527-2-radhey.shyam.pandey@amd.com>
- <2vxzh5i5orbv.fsf@kernel.org>
- <auL3UW2InVqYU6Fs@kernel.org>
- <2vxzzevwmz2v.fsf@kernel.org>
- <7625fa23-5f4b-4658-b17a-fe4e58103e7c@amd.com>
+	b=JhHYbPbmPlUKk7hL0xZnl4tgMCzcNtzmSMl6EYeMpMLyjiAx5yCoMsfsfzPtKuJl/
+	 qgItBmRDgUfaBST95tzHm1Twm1SMXoOdawPuR3zhruZji8D6VlFKD8Uxux/zzRSMPC
+	 ZYnW8z+z5GgtC9Sn4E0nRDJJZ0c5jwwTGBaVo8ZP0hj4n5gg1EOR9MjHCA/Ds3B5uV
+	 YwuAZcc1tUZrcZyhHDpOl/Epyoe1MPGBspjwc7O+y31/8TB5QfSC5rzaW+63Diq5fH
+	 +bO1N2sQ8zZXg43wwWvmybfkCF0+VOYS9SQ0k7c6Y5rE439S5I/2OdKCu8S+WN++Eq
+	 1tqoFwsbS2lSA==
+Date: Fri, 30 Oct 2026 12:04:00 +0000
+From: Lee Jones <lee@kernel.org>
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mario Limonciello <Mario.Limonciello@amd.com>,
+	"Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
+	"Prasad, Prasad" <venkataprasad.potturu@amd.com>,
+	Syed Saba Kareem <syed.sabakareem@amd.com>,
+	"N, Poojitha" <Poojitha.N@amd.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 13/21] soundwire: amd: Check ping command response for
+ timeout
+Message-ID: <20261030120400.GG3774906@google.com>
+References: <20261030104840.3361217-1-lee@kernel.org>
+ <20261030104840.3361217-14-lee@kernel.org>
+ <a81780c5-5692-4cbd-9f7d-1f64e78e9017@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,54 +68,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <7625fa23-5f4b-4658-b17a-fe4e58103e7c@amd.com>
+In-Reply-To: <a81780c5-5692-4cbd-9f7d-1f64e78e9017@amd.com>
 
-On Fri, Oct 30, 2026 at 01:22:50PM +0530, Pandey, Radhey Shyam wrote:
-> On 10/29/2026 6:41 PM, Pratyush Yadav wrote:
-> > On Thu, Oct 29 2026, Mike Rapoport wrote:
-> > > On Wed, Oct 28, 2026 at 03:03:16PM +0100, Pratyush Yadav wrote:
-> > > > On Wed, Oct 14 2026, Radhey Shyam Pandey wrote:
-> > > > > @@ -304,6 +317,7 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
-> > > > >   	cma->ranges[0].count = cma->count;
-> > > > >   	cma->nranges = 1;
-> > > > >   	cma->nid = NUMA_NO_NODE;
-> > > > > +	set_bit(CMA_FIXED_BASE, &cma->flags);
-> > > > >   	*res_cma = cma;
-> > > > > @@ -517,6 +531,8 @@ static int __init __cma_declare_contiguous_nid(phys_addr_t *basep,
-> > > > >   	}
-> > > > >   	(*res_cma)->nid = nid;
-> > > > > +	if (!fixed)
-> > > > > +		clear_bit(CMA_FIXED_BASE, &(*res_cma)->flags);
-> > > > 
-> > > > Nit: This reads a bit odd. cma_init_reserved_mem() sets the fixed base
-> > > > and then you clear it later. Wouldn't it be better to just pass the
-> > > > fixed boolean to cma_init_reserved_mem()?
-> > > 
-> > > Actually, we shouldn't expose cma_init_reserved_mem() at all.
-> > > 
-> > > The current callers of cma_init_reserved_mem() should be switched to
-> > > cma_declare_contiguous_nid() that does sanity checks before calling
-> > > cma_init_reserved_mem().
+On Fri, 30 Oct 2026, Mukunda,Vijendar wrote:
+
 > 
-> Thanks Pratyush and Mike for the review.
 > 
-> The switch from cma_init_reserved_mem() to cma_declare_contiguous_nid()
-> looks like a broader CMA refactoring and requires additional changes to work
-> correctly.
-
-Hmm, you are right.
-
-How about we invert the flag meaning?
-Than cma_declare_contiguous_* will set it where appropriate and we won't
-have the weirdness Pratyush pointed out.
-
-And Radhey, please, make your LLM to spill more concise and to the point
-text and teach it to trim emails ;-)
-
-> Thanks,
-> Radhey
+> On 10/30/26 16:16, Lee Jones wrote:
+> > [You don't often get email from lee@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> > 
+> > When amd_sdw_send_cmd_get_resp() times out, it returns -ETIMEDOUT as a
+> > sign-extended 64-bit value.  amd_sdw_read_and_process_ping_status() and
+> > amd_sdw_read_ping_status() extract peripheral status bits directly from
+> > the returned value without checking for -ETIMEDOUT, interpreting the
+> > error code bits as peripheral status values.
+> > 
+> > Check for -ETIMEDOUT before extracting peripheral status from the ping
+> > response, matching amd_program_scp_addr() and amd_sdw_fill_msg_resp().
+> > 
+> > Fixes: d8f48fbdfd9a ("soundwire: amd: Add support for AMD Manager driver")
+> > Closes: https://sashiko.dev/#/bug/linux-c3a53ed5-eb8f-4982-a3b6-db189e009b68
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Lee Jones <lee@kernel.org>
+> > ---
+> >   drivers/soundwire/amd_manager.c | 4 ++++
+> >   1 file changed, 4 insertions(+)
+> > 
+> > diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+> > index a3316efdf8ac..a8220235a2ae 100644
+> > --- a/drivers/soundwire/amd_manager.c
+> > +++ b/drivers/soundwire/amd_manager.c
+> > @@ -448,6 +448,8 @@ static void amd_sdw_read_and_process_ping_status(struct amd_sdw_manager *amd_man
+> >          mutex_lock(&amd_manager->bus.msg_lock);
+> >          response = amd_sdw_send_cmd_get_resp(amd_manager, 0, 0);
+> >          mutex_unlock(&amd_manager->bus.msg_lock);
+> > +       if (response == -ETIMEDOUT)
+> > +               return;
+> ++
 > 
+> Response should be u64.
+> This patch can be dropped.
+> Please refer below fix.
+> https://lore.kernel.org/alsa-devel/20261013085111.2009061-6-Vijendar.Mukunda@amd.com/T/#m786cce22308c97d055566dce17be5a38b5d98e9e
+> I am going to post V4 patch set.
+
+Excellent.  Will do.  Thanks again.
 
 -- 
-Sincerely yours,
-Mike.
+Lee Jones
