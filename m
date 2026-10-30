@@ -1,115 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793370893;
-	b=VKhJd50GeWgZ/FX31NByxucRxyk7pMYj8yibBzKpnRxe9L/vUcdpaUFRijUIREabnIuq
-	 oZMMsd+61S0NYL6z2oushDjCYOrcyp4yIrw57i1N3tDxb2RNOHLi9V6hSNsp4LyeNHki+
-	 14fD+ELJtcRwR2LKyBblQLpurXFp2u4fUTGINHkO52ghglkt2CHZ/qvPKGfgfEL1NB2Kv
-	 ECJn9gU4N7O16YYFc4DS4ZPmxpFwicTgFvfTmq9WxP5kMiZsV9FmZnV00CfG22+Nbi3n+
-	 shNgz45eDEpk2tdsBL03gK3n+GwNEzFRDa0W07R9+ENM00emFoLOJXmnnw9cjcOhS/A==
+	t=1793370953;
+	b=SLrWcpMGzCxKu0CYeuAuFZe345LVgVhQOacd01nOIUhNQOkuqr9rSVlnjAZJLQMWe4cH
+	 gOvJkdlUcJrjicD3CioEyDK3SKoCF2ve45BS4sWm3Ug2Uj1EEXKOj9ZSZ7r7Z8sq/Ggu6
+	 7dYwa5aWzhO6vLyLSD0BtCAL6uhtUz7i3ESrxtVFPn+MKJX2a0F8u7I8vjh9sMUkV1vE/
+	 5yv6ESdNiU2Iz6sSWz7GXUC1cbfbtyxkJJ+643ya/XtTbNtYDF7h/gNT9XRI/oMptwC+b
+	 t/k0uhLDtKO1uazudzeZbW5X0YPbw5MjZmXk0FBcziRnvGXRzEXgC8E2EivdvLQymbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793370893;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
-	 X-Developer-Key:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=N0tykJ0Xn95O/IYd+de/yZqoluyvubMbpjeJRA/Pdc8=;
-	b=MMBUMwUdqNKCA7MHz0a1quLMgWs9d0USEZbIMyRQJP8ERjWfhuWfAeAU7hMOz7zYqQ8s
-	 BYLOjdTqVGZjrdhd518DTt5Uqn/haJExz7Vwj0RKIwgIWbManmrtZSYncEgK//kv/3qew
-	 ccts8mlyhA/mgbaUHFUmLS9KzJEmP77tWngV0bIQddsHXnKN2gWCaZUdYgSzXcJV7/iMm
-	 EWYtHtFBc6PIIRJzmmGBx/XkT0FTBvbE2Ut+keIyA29PDZ2n4YzpP7f0DJXTe7OFW0tRe
-	 Qghu6yhgtCdH2W2QrHQR5jAA+WNf02dsmtGRHmFx6Iz4tbGOG8CHsG3cikOP6JT9eXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793370953;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=y6XXbQ+HdgQmOTZa0aEBan+zjL/ycrb6TKGl8S7Q83w=;
+	b=vPKo/UdW/Ng7SC5a0MtE2ZjKfY2mFdJk8tFWio5kwasVHbpyiDUsC02R4Ht9yGXEEkJ1
+	 OtE/84F9xZWyLkeNezLDAT3ptdFxnbb8svs1dFTaIe2E9zNOXW6sYWQ8rIngtpDcqDGE+
+	 CHMM6s8Q9qByW39LzOBM9rTHwLLYGVFvdO7PUTBzSYkxBdrLn3HturFkj7vJVynvOCpJY
+	 j9QNiGgK4uejI5Y21bxRNnf4RT5or43k9Zn3JAycEOKjtAdHL4/iZI2K/PxSzo06UIAY9
+	 bY0FI6PzNENyOCMcwRoiW9/2x4VHlhWAt83SS0BMAj9dbtibvC5cmIxDPePGKX7mQjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NaTs5chv;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=caj8SCNe;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zc8ZNVO6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A266606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:34:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A266606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B0E606A31A;
+	Fri, 30 Oct 2026 14:35:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NaTs5chv;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=caj8SCNe
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UES6Jt3208994
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:34:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=N0tykJ0Xn95O/IYd+de/yZqoluyvubMbpje
-	JRA/Pdc8=; b=NaTs5chvzAvt+kJZVh+Sl/1U+1t74frI7T9WNo1OUR16iBwmtCc
-	ZJEz1IzIs1c0AUsLYX2c/+1Fz0BCnhhqLFh5jsgMEZN6DygXLQxGScCVCNkEQBG6
-	JhMPG/N0BBjiaTAHrPFBJZqsrk17sNRPVdls4iDSzm5CfIBYTsIX3PMTd+MdVaEb
-	yd6upnByo2YOBnsEHgD3qR4Q5o1dYmgxhh5F9CaLTbihwTCSeRtVg1FewQzwrwhG
-	yKY0xJyb9oXBhoD063E16rVNJaso/7HZKJ4WUmQNFNMlb8lfk2Dx26mk+NHSq69s
-	8Mdtz8gR+jOfCYg2GEIzwrTUD0MPdhxMX0g==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qkgu0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:34:52 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7c0f07b4e97so606219137.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:34:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793370891; x=1793975691; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N0tykJ0Xn95O/IYd+de/yZqoluyvubMbpjeJRA/Pdc8=;
-        b=caj8SCNepN9HFxEmlqbf0EW81l4TJTywCH7orScZ4eDKwoxzOFVF1Brwc8a9GkZQaX
-         h/ERUeDEQlMG2gpgU7PZnt+XkUCBRHPNbXR3HPSYYd9xCSlencHByJ7x4pVqKWkWoWkc
-         7E7bSL19RdggeJt6N1pF4znwQV9LDwwy8VWVicKWp/Rq2Ru6Kp12TW1lttaeMAKF0svX
-         QhzMxu7blq1v8+tBKtLv2k/aPURTGhS2r0sF9gYVCAcmDcT6NHzhAaslX3pGyAflyupv
-         3hVWioDILS55QieqAJJGiliGylMrVINnezlXjgUmS+exKqER6P4DL8dMLe7hcsUgRtMw
-         jtIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793370891; x=1793975691;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N0tykJ0Xn95O/IYd+de/yZqoluyvubMbpjeJRA/Pdc8=;
-        b=I6LrVA9nOveEVITJJ2js3JnE6QFytjgdeWgMASyzA2K3xpVOFRVBJO0X2gYx/4r1mx
-         cn+imk1xKAq/Vw2fZOU5llBqh4Ef3IqKLA42vTHSLQhhH7C/MgJMwZZ5WBO1P8um1eP0
-         Yujq9VsaqKApgrwTMWPDYceFNsBQyFFKcjqQpqkJQLVZljwGp9mgtcFJVjeNsMYQd1C+
-         EWnXOJG6rCI8kRyAGTL9UyBMm7IdBtRvF/y7KYzq6BWzh3ZA98TK8TkZ5gLdF9wzdo9c
-         jBU1j4gJggmIaR8IYUnsPlPP0fG5lVVWUmqhwbrMFF8rglTkNs6bfHfQ4E1ZM7dlicjH
-         Chpg==
-X-Forwarded-Encrypted: i=1; AKwUvBxj+8eewpmO1Xkc9cBF52M/XTGI8GoUhHH7DsYvjRVdBos/YWg2u/F3v1UbtXNdTwylo/6GN/R2yqoKkBg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCUExIYPq+CO7qFh/Bep3n4r3O3I1nHdpfVT5RRGgpPCtBZCQc
-	kHdw0ZR/MBLN4kmSz2RYfvPh/s0YFMdySFakQOpX8iCB2PGtkbUYPuwidlCAyXdrihMedOOQSQ9
-	mHE+A+1kNcOzYAuA81vAMYk43uW9/226Vlx7QDTyVDBYAwNKugS6AqozYLsUqQm+9HSI=
-X-Gm-Gg: AYBFou0bQGJoI1CAcCv6zm56if6HXf43L8ckTNvd5zRjWM9mt0K3bINSncFZHYbUEku
-	BQO7dGqPZlRSpm+J8ytWCFgb/3xCqVeQKjtlWYlChsZkKktbgqKG1Sg27cFbyHRNkVUQh5CVuxc
-	uwkpzZJRRQfOrzeU3Tc90grGrstMCs3C5t7+irpBcL05OAnE7xC57w6Kp0PeP/l585Jt/G0/Gin
-	GqxWQcIkiNIA+zq05J+0qZPxmw42x/EtHVUVUrmCqJc0rEXv9z6DOoVnCiajX1ksFOz5hgzHbYN
-	oUo1J0aq1TQypbGj/aOB8eo9QLI3FAAby/+mkabPWAviGlye35hsj1p1yV3mRLt+a2z9mXDIrEc
-	cZK4ylshrfhAZFdnwQ23UL3W+T3xJn3ynlvPXi2RszJ8ucaJKoJHrxLw/baLl4g==
-X-Received: by 2002:a67:e102:0:b0:7cc:2086:34e0 with SMTP id ada2fe7eead31-7d0728b1cffmr954849137.4.1793370891437;
-        Fri, 30 Oct 2026 07:34:51 -0700 (PDT)
-X-Received: by 2002:a67:e102:0:b0:7cc:2086:34e0 with SMTP id ada2fe7eead31-7d0728b1cffmr954838137.4.1793370890933;
-        Fri, 30 Oct 2026 07:34:50 -0700 (PDT)
-Received: from quoll ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3f9sm3854808f8f.4.2026.10.30.07.34.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 07:34:50 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Kumar Gala <galak@kernel.crashing.org>,
-        Prabhakar Kushwaha <prabhakar@freescale.com>,
-        Li Yang <leoyang.li@nxp.com>, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] memory: fsl_ifc: Do not free unrequested NAND interrupt
-Date: Fri, 30 Oct 2026 15:34:47 +0100
-Message-ID: <20261030143446.248161-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zc8ZNVO6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 697CF1F0093A;
+	Fri, 30 Oct 2026 14:35:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793370952;
+	bh=y6XXbQ+HdgQmOTZa0aEBan+zjL/ycrb6TKGl8S7Q83w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Zc8ZNVO6uRM/ebf2tyuqkNg2F+fe5LIUT6QCAumzzPpOuGmyXnfnNO5s9RSYLm2rE
+	 jwJf7qLnqMB1Nf2QO0gP2HzziZZK6letMz6x4Z1QebhXjhx6Lp5o3hUiQQDX2zhFLu
+	 5wWBHnZAqJxpm4krMusfEm0ziwpBACmY2PLnP7EQIV+ROXKrDC2x0Z413kzf7TnVRa
+	 1IzLYX7Ri/ykqtCagS6CsHGxfJq/AfR5jwjpZPHtLQClzkqVrG8JQ9OGKa/yrF53ml
+	 FKD/f6zB3W/UEBSdx5AyFtTg6EeOre5o75pbwDLQQv3rT/OAi7RJN7FszZ+57tVf4M
+	 radtUUXIQvVSg==
+Message-ID: <43994c77-bde2-47cc-b6bd-5b479672bad2@kernel.org>
+Date: Fri, 30 Oct 2026 15:35:33 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,92 +51,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1707; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=VnXLFImMvRxMQ7SlXqoJrQa7w/qQwQrunbmX6eEKeEY=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq5KsGImAXjbgwuvzTx1GuRZ01zK7r2nV4EdnXQ
- Ie9IhQ4AaGJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCauSrBgAKCRDBN2bmhouD
- 169SD/9y+YrRj/Gdme7ClYogUDgjwba50riEQmLiRNNzFu6MS0UyX5OKo3UVdYowJaCVgOLIvD9
- xzxQdqvlEf4B1NgnluGZJwLWG4q5cQQZmUIDoBbbcZfmnfs572ipIFFvJYXF/ItNHu8teJu+BCC
- o0W1dpvT5O5a1ak7HzI2YxyEJo2bMvY1fBLpGCkCfLgwsTASnFGbSPs0R0GGP0qV3ysgOfuaiEn
- 4GWpv26XcCGZDY4cJFv1yRWiNnZIodNw2byQTLTL58LZ4vndkgMtPdggY+UlQ+SJXsbQUoPi0d2
- BXfiZZ4ZgWfb0UFUSRW+IAlJBa6aDnVzHRW1Jnwwwmoc8zrH5QJTjFakSgF/Nap/Ypbf2cYwbnr
- CbFv52mZKJyc3kf8MmK11dHigHArDrLL0Hs2x7bYpe+KWqRzjs/N3+falcy7lq3ozftcPlQk0fx
- AeTJseOdYnoyushifGRIiVIaqe5qIhTBfsXO1Wto9enTVpNDejvohTpsLfnBst0dP3yKaYeP1mJ
- MDGYyYUU4d76gjcf/txNpu9PRauNwyaZ1Z12shh+J5goe5abaJFiQj6LGMNsrOb/kN46unqBHzJ
- vszxNRbpU6KEsz0G518taLbfUuECxZwsmFL0bQ0Lroi3O6KJZJF22dvrSV+VF+pvom3PMaa8DfQ eYiQ5lE4blhlVmg==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=KsrYSmWN c=1 sm=1 tr=0 ts=6ae4ab0c cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pGS3YSsxsSw2m-bVTj4A:9
- a=ODZdjJIeia2B_SHc_B0f:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: Wre57mA00gpSnQ58tNs_un4Wnm0HcXrc
-X-Proofpoint-GUID: Wre57mA00gpSnQ58tNs_un4Wnm0HcXrc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1OCBTYWx0ZWRfXzomS5Q5FZYV6
- VzZ3Iq2nFwk9qs7H8V+4cJmefr8aUZgYhV2FVgQ1ZiaCcTRztKvrCadtxmamgHIL3vJnD1vNMz6
- UDNYhJPdFIedXgRCBIgUdxuf0wOfpQVY+Qckq/UngTqdf+UX9cojohwI63DpNrsYhixVvJf9TVu
- H0yYcxU6BsI7RbdifBV0kXNPJhQ96cV++AZLSHuxdWCeRiblNFkF+ly4wcjl79Ho3qglrgRJHa/
- XYC6V6+1HPhI+YIVIhJ7Y79AiP4ji6jlL3no8Bzof1emx7bw+TKA1YEBr9lqJPojhA0JhTGH2l9
- Be2eSGNEwYNEK4Qq7VKdwS0uxw8RoV1r+ABQCm0U1Q37JxwFhLjLJfcxap5z0ffCpqKK7fmluHe
- koBVpgTHwJEGArbBoJZ/2+yHmnjnKqeLnd2hokrmrHi/VLrOpJTAINf9DEVvPpXTRHbdQZdN8mR
- Y/QxQ1qsXewRcdG/ZYg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1OCBTYWx0ZWRfXwdd6GL8LGPoL
- MvwF5yJYGHT3we6R7zH/tSiyb2vpjPgvN2UC8iW76Wy2sOS9Dbk2FpDxvhE249ciT+P5upD6J+X
- FmeqxtCrJeybvoSyg7i4Xd94nCCjlIo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
- lowpriorityscore=0 impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300058
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 03/47] mm/memfd: check for real shmem inodes before
+ accessing shmem state
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-cxl@vger.kernel.org, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>
+References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
+ <20261029-fixes_core-v2-3-a64ce7f83abb@kernel.org>
+ <2vxzmrrvmnil.fsf@kernel.org>
+ <297adf4c-1792-4dff-a7c8-2694dc2b1446@kernel.org>
+ <2vxzik2jmkw1.fsf@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <2vxzik2jmkw1.fsf@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The IFC controller may have no NAND interrupt and driver requests it
-only if it was provided.  However driver unconditionally frees such
-interrupt, even if it was not requested, leading to free_irq() of a
-valid, unrequested here 0 interrupt (valid on legacy platforms like some
-PowerPC platforms).
+On 10/30/26 13:29, Pratyush Yadav wrote:
+> On Fri, Oct 30 2026, David Hildenbrand (Arm) wrote:
+> 
+>> On 10/30/26 12:33, Pratyush Yadav wrote:
+>>> Hi David,
+>>>
+> [...]
+>>> Both want to only look at "proper" shmem
+>>> files, and should not do any work on a Coda file with a shmem mapping.
+>>> Plus, someone later down the line might use shmem_file() without knowing
+>>> this subtle problem, and we probably would miss it in review.
+>>>
+>>> For callers that only care about the mapping should then use
+>>> shmem_mapping(). I am not sure if there are any. Perhaps that would be
+>>> collapse_file()? But TBH I don't really understand khugepaged all that
+>>> much. All other callers of shmem_file() seem to care about the actual
+>>> inode.
+>>
+>> Looks like collapse_file() would then use shmem_mapping() for the time
+>> being. God this is confusing.
+> 
+> Yes...
+> 
+>>
+>> What about the following replacement:
+>>
+>>
+>> From 6e3c4f92a651e36ed1ae8d7659d2ca08543fa430 Mon Sep 17 00:00:00 2001
+>> From: "David Hildenbrand (Arm)" <david@kernel.org>
+>> Date: Sat, 24 Oct 2026 21:08:33 +0200
+>> Subject: [PATCH] mm/shmem: make shmem_file() check the file's inode
+>>
+>> shmem_file() only checks if file->f_mapping is a shmem mapping. This
+>> mapping can belong to another file, however, as with a Coda file backed
+>> by a tmpfs container after mmap().
+>>
+>> So it does not guarantee that the file inode is an actual shmem inode.
+>>
+>> Seal handling and memfd preservation use this check before accessing
+>> shmem inode state, so they can access an inode of the wrong type.
+>>
+>> Let's make shmem_file() check the inode's file operations instead, to
+>> identify shmem inodes reliably. This will identify regular shmem inodes,
+>> including memfds and ordinary tmpfs files, independently of wrapper file
+>> operations.
+>>
+>> Use shmem_mapping() in collapse_file() instead to not change the behavior
+>> of collapse_file(): it operates on the page cache and uses mapping->host
+>> for shmem inode operations. Focusing on the file does not seem relevant.
+>>
+>> Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
+>> Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Chris Mason <mason@kernel.org>
+>> Suggested-by: Pratyush Yadav <pratyush@kernel.org>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> 
+> Looks great, thanks!
+> 
+> Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
 
-Fixes: 721c0705906e ("powerpc/mpc85xx: Update interrupt handling for IFC controller")
-Fixes: 3e25f800afb8 ("memory: fsl_ifc: populate child devices without relying on simple-bus")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-1bbccb12-0e0d-40df-bddb-e6251bc0409b
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Thanks!
 
----
+@Mike, @Rik, Ill drop your RB, so please re-review.
 
-Not tested on hardware
----
- drivers/memory/fsl_ifc.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/memory/fsl_ifc.c b/drivers/memory/fsl_ifc.c
-index e89e0c6cc4bc..6dcc317d95d4 100644
---- a/drivers/memory/fsl_ifc.c
-+++ b/drivers/memory/fsl_ifc.c
-@@ -89,7 +89,8 @@ static void fsl_ifc_ctrl_remove(struct platform_device *dev)
- 	struct fsl_ifc_ctrl *ctrl = dev_get_drvdata(&dev->dev);
- 
- 	of_platform_depopulate(&dev->dev);
--	free_irq(ctrl->nand_irq, ctrl);
-+	if (ctrl->nand_irq)
-+		free_irq(ctrl->nand_irq, ctrl);
- 	free_irq(ctrl->irq, ctrl);
- 
- 	irq_dispose_mapping(ctrl->nand_irq);
-@@ -292,7 +293,8 @@ static int fsl_ifc_ctrl_probe(struct platform_device *dev)
- 	return 0;
- 
- err_free_nandirq:
--	free_irq(fsl_ifc_ctrl_dev->nand_irq, fsl_ifc_ctrl_dev);
-+	if (fsl_ifc_ctrl_dev->nand_irq)
-+		free_irq(fsl_ifc_ctrl_dev->nand_irq, fsl_ifc_ctrl_dev);
- err_free_irq:
- 	free_irq(fsl_ifc_ctrl_dev->irq, fsl_ifc_ctrl_dev);
- err_unmap_nandirq:
 -- 
-2.53.0
+Cheers,
 
+David
