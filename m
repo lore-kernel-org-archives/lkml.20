@@ -1,59 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793404602;
-	b=uw7Rklrn2bwqbBg8v1rTBH2U6CcWaaq8X801zeRX8MB0sj7MsJrXocxiHfr2dH9koPeM
-	 GuCNa+gkeac5t4qwviG8M+KlVjmdGueZ2UZgqJ6kRTyhPC2TEZp3cFqrYFlQ6O77DCHi3
-	 neQHlUxP+N9NRf60rBtt6I/AcmdOjbQly2ApF7V/j8TI7DmGFsM/CXThCbZM/jyoiF1II
-	 uYFY5jGLlFfqxcpI7b/vtbuh7VPuGeg2SmjDYGI6c2Sdw2M4Ie7jGKGs+JFsAhInYdgv2
-	 IeUvNsFaLVhTaFyO+L8Q5a1BvWbIdCep663iH3hMabr4sym5Y9/A8WyF2k1UROSqFmg==
+	b=YDbW7/SfCOOabhNjGzwJ8cYuwNz5wLE11DG5EVJflDW6mwhDbOZU57NJjVr9TMcHL9qO
+	 BIIUOLgrgvvEYu0ju7XtoxxXnsmb+56PfVt7vOhDgIlXnclN08gBRtXzrK0/xJeW8EGdi
+	 uxrA84iRX3pchCiF656sM18/B+dqso61p6Z/Pn7WFtKzJjEK0HlQH1cQ6Qt5bnftSjPJ7
+	 zl1O7ZVB7drN83O7aMvmcofHZ9JxUXnmeWG8ihAmwS/2tPeOymIwG+NNCUve53uSXiJFX
+	 F2m0tzb6Pogy+ZNVS3sAcv5qCV0vaulihsldHtyy2QM7N8zvttZEDeSb2qUC195pMsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793404602;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BDaHsLTeFS9uNn3ux2fwusgfE2J5PsxVZUwAq3RoQ60=;
-	b=InmaIEE4GIpFzjoAorH88wsgC34JLem03HDDluqD6+ut2kyP2P9gHgU7BrcVC7cFwfVU
-	 H56y7dlSZRLL/YCv3LQ8/8WiqenHlfK+IrwaGwsHzwdwWTwETcnxtPDkgd8dMpw90V18f
-	 C3bwuJtvi/yC+PaVGNy44QcDkiG0LPrkE/VfWt0DB2Vywx6D5hIdMeL1s45QpWwLJ+pwC
-	 RmQh8cTJ6q9BfzumEHuy4MoORZR/7aziHQKRmmnFdStwSp0ZAqaW3pvuJBH3uuDKV8hwm
-	 RF6xc7+QHsvTl/efX7ll96XUyO3RMDhKkGq0GL+Tj92Y0qjYzG9ZK3/OzG/dEMlpNww==
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=tuKOjEjKEOS6GlJnkqOXy2dtjd2kG7cyiYeWqqFjOA8=;
+	b=npOH+Opk5IVp3Ny8naY2xnqVjBazjPiXAbinL+DonMGKwSDiNIzEnDbk8G9J0nrLH8uu
+	 KzUUW3afQW0484kqaCXD3P+oURuemXo0D8mvqCtEj9YANJt+Uuh4MtjJzlRRBV6R8X6x/
+	 /rj3iXagbw4PdXeVEJ3wuNJdRxBlmyZyEg9GCTIpur23Wndxlz5zc2tK5tesdlJvmqL7Y
+	 1V8kFkTKEK2q73xf69nreN8y7uDsjCXrnDL/bIYLi/UL+TC24Wk3Cm/NCceujT0DwECW+
+	 6vftWhm7JBhaX1N8I+VMKIvV8HiCeAnZE2HYVxxqcqs1/Q+6iXHoVRu4IWDe/UDE/0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U3cWys8N;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=w6rz.net;
+	spf=pass smtp.mailfrom=w6rz.net;
+	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=lsNL5Lff;
+	arc=none smtp.remote-ip=44.202.169.35
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9EA606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:56:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D87606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:56:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6D87606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U3cWys8N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD4BE1F000C1;
-	Fri, 30 Oct 2026 23:56:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793404602;
-	bh=BDaHsLTeFS9uNn3ux2fwusgfE2J5PsxVZUwAq3RoQ60=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U3cWys8NzRoR5iji4VbwnppP2F99hQ09nWZ2HYE+r0avE7eTlictybnZyKKAwL5kZ
-	 fJHD9+5VXqMHbofiQzrm0wGvGx8GiEBtL+AhyD53fY5PqBQWsAdfGmwIDs2/SnrnSI
-	 tE4g4FQtkLP1D0ayza/GkEF4Q5h7Mpk2OzpqvAPkCqXjjoSMjFC99mpXQNsMxFzh2X
-	 UIc4tt3snwnZw9HwgJYT6TWS03nimGOfvfPEblWg2yDoHpLNW5lL9f7/zeEaN4MdFt
-	 h/FvI6hZ7XBVO/kLZlUaTBuEAdvb5XsPUOwzSKqjP+WpInh1m5yMnw2f1wc+OatjOB
-	 j+uez14nOkGLg==
-Date: Fri, 30 Oct 2026 13:56:40 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH sched/urgent] sched/deadline: Fix stale rq->dl_server
- after a server pick returns RETRY_TASK
-Message-ID: <auUuuJnEI3HWkwYA@slm.duckdns.org>
-References: <20261030221842.4071610-1-tj@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=lsNL5Lff
+Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
+	by cmsmtp with ESMTPS
+	id MmDExMw2TLvgbMwSfxTJom; Fri, 30 Oct 2026 23:56:41 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id MwSexfCFs1fkWMwSexKYho; Fri, 30 Oct 2026 23:56:40 +0000
+X-Authority-Analysis: v=2.4 cv=CLMqXQrD c=1 sm=1 tr=0 ts=6ae52eb8
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=UugJSfOUJsejIDDmsRwA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=tuKOjEjKEOS6GlJnkqOXy2dtjd2kG7cyiYeWqqFjOA8=; b=lsNL5LfffEj8u7hIbI+Dr6zUiz
+	Ky/lRqktBDRf2C9GN9XEI1It6oEgmUJcG7W0UcVZabWKR97TT99vyevoOXmPsHy7qhA5QhDivbZc9
+	6PNNAAeGVyIVLnRDSU2Zw/96iE1wgNTzBg3iz38DhQ6x6L/zp6TAO5wFjuXOvXg+SztjwF/5rXEjU
+	znDcqpRO/Cp6/B93AcaFircvX0qyWFXVjYtwfMOWSYHe6JjM1rVDoW7Pen8nsDSO9aNZ8NoCpbvWS
+	INdxT4hhDGAzkWEdG5XGfM/QUbZ4okwIKkTfDP+6C7yWcMuo9w4tgvSBcNPvmYY+NHpMIcWU0Zy2U
+	Q19/iu9A==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:55120 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xMwSd-00000002X6Z-2Tik;
+	Fri, 30 Oct 2026 17:56:39 -0600
+Message-ID: <b069b9b7-49fe-4a39-8f3b-c72f90b2d774@w6rz.net>
+Date: Fri, 30 Oct 2026 16:56:37 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,37 +76,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030221842.4071610-1-tj@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 00/10] 7.2.15-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261030121255.257615100@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261030121255.257615100@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xMwSd-00000002X6Z-2Tik
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:55120
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 17
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfELbssMxQTQkLSI7adLGIuNWCgV6y1ON8wW1l4C+sPfTXfObij5GnIIA4V6X4FuqbxPEu0FnrgPb29Sd6G7NzCuY0PJHDHE0kf0gEBLi9TbJwwgef1MS
+ 6MUrObjhcKU9AS+DFD4UcGJ0GEhUtg+4nucKtzxohQajWWXjTQ1ZCBqZadPnW3LBkC7LvwAU/x8zr2V6Q6WivgtiGaRtmFhK578=
 
-On Fri, Oct 30, 2026 at 12:18:42PM -1000, Tejun Heo wrote:
-> __pick_task_dl() records the server in rq->dl_server whenever the server's
-> pick returns non-NULL, RETRY_TASK included. __pick_next_task() clears
-> rq->dl_server at its top, but a RETRY_TASK restarts the pick below that
-> clear. put_prev_set_next_task() then hands the stale server to whatever the
-> restarted pick takes.
-> 
-> Since b3a2dfa8b42e ("sched/fair: Add newidle balance to pick_task_fair()"),
-> fair_server_pick_task() returns RETRY_TASK when the newidle balance released
-> the rq lock and a higher class task was enqueued meanwhile.
-> 
-> That task, an RT task for example, then carries the fair server in
-> p->dl_server until it is next put. The RV deadline monitors see the fair
-> server switch in with it, and core scheduling, if enabled meanwhile, treats
-> the task as deadline priority.
-> 
-> Don't record the server when its pick returns RETRY_TASK. The restarted pick
-> records whichever server it goes through, if any.
-> 
-> Verified with a synthetic reproducer.
-> 
-> Fixes: b3a2dfa8b42e ("sched/fair: Add newidle balance to pick_task_fair()")
-> Signed-off-by: Tejun Heo <tj@kernel.org>
+On 10/30/26 05:15, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.15 release.
+> There are 10 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 01 Nov 2026 12:12:50 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.15-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-Ugh, please ignore this one. Sent out the wrong patch. I'll test Juri's.
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Thanks.
+Tested-by: Ron Economos <re@w6rz.net>
 
--- 
-tejun
