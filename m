@@ -1,100 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793363647;
-	b=RPb8qboJ3PlK4kngwcnJe/JFOf0+R5jUBKPkKjqV+wKFy/6wNvM10SRyZmNZQOZEAdx7
-	 dxUFdQLXxJFbgkSnEHEiNJr+dAxQuOK/BOKhsP6Ss7x7GsGuoCY9D5jmZmzTgnF+tW3Yl
-	 FT6pD0YflKoyl09ioRx7fxGnwylk4EK0mjkXEG3SuXyBm3Rp8u0cuD0fNV/Kg0OA30Vkq
-	 mQcJbtkop27j5xI8M3ELIz/e06xvlz+PlaIImMhOs0QHvWQLrSZwz5gZvSk4SY98wryta
-	 DkxOyf+yiDtxRWKVnevBfXz1gpc+Au4Lu2B8h+lxUe1tKQkSqnutytROHGX+P+XCJpg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793363647;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=WhO2XispuG63y6vI8Up/ST3FM6vVbr7Lmjvw9Ig2I+g=;
-	b=gFmT+ljberWlaymbJUBxlaCaWgzGK0az7JCtUguGj03RkneDPzg8ExdZmWvPRIH8rFuX
-	 AcxOHG6G6iAGLwQIY4HBwFupeOw19sB4juSFfW2irilCT5SKE8UgZw7A0iJ3uaRsMzXYp
-	 csaN1L2oZPWuslkPCfwiC/+B3TR4LQOeNqNs+MBi0cfga2TtW2D95yoLQfFbixAi9CQYO
-	 NeiOwP/GkA2oRBLQnDOjmRqsLpxEIjPu/DRdUqWSFlLdgO0jmg5bRtzj6S1CRcLzWWNZq
-	 W6EljqZI4nhA44t3GSB4P1hEppZx0jF0tWKoPbS5w2p8rNkErH0eBPBQMht8eEeuRvg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=3x3Wo88M;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793363631;
+	b=mKigElZpOBvWEyIXpbdILEGOOe5p9j9/tRAK2Wyes11G0qJKsvLKFWO9LyBLB+ytIQqy
+	 6BcOOpU6I7oCbs3Q/xdwxeKDunq7RAbu5IugqWK0pxgqTesbPyP7YeOUDrfQrPzVMjzXl
+	 po9TKLHyywbc3ZxPelWPp3w6n3E+PRKWrWkHh5jrlGe+716sTAzMUcnYc9dpsQgKFANv5
+	 PR6ZFwxFCqlMyoXeoTpMnEhvWiL8a0r+NsC7h2r20NjqZpnCh4GNBOuUIMfjiaip6eVG5
+	 vXciK2m4XTWrV25FhdGxhM0140RTq3LKpfk7J8k04AOzTPLWfSxTeL+orORsnm6Dg6g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793363631;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=440yx7MBYSaEWfj/YftcqEO/a5ZeYK5vW1pKavKHSd0=;
+	b=maBtIpDh7n/1u0pTsIwJJnhRIABPaJLFubEoI9ynOzaqBFNqHsOvofXPI+z5PX23kh8q
+	 ZczgQUTEvG5nRU3NazTB6/KONIfRIYMXZxJ979gbAzmKuL84hiueX6LE6pzo065WUtDE3
+	 j773+7fVV5ovR5wiAmO/2x2O05334xCvnokJimKJzo771blr8+pJlAl/zGJc1UbYla5tC
+	 lQnwNJpCoeZDOuQK+D6gbEh+NPiwe8wma3kzjv0rNXXGyAlwKifvxQ6tuXJNbO8vU1S/i
+	 OVxbV1oIRvXdjMLcgFZpzNUJs/0f0hHuUdWHUkfiCTsdbyiqxwaqJ0rf0uEFNRUJsPw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=bpdlFD2y;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE02D606A32C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:34:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE02D606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72139606A31A;
+	Fri, 30 Oct 2026 12:33:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72139606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=3x3Wo88M
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c445c95d553so82353966b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:34:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793363645; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NeOENbMzERr/amhqiF3V5cMFEu08d26utEPkFz9046eNWH/63t2iHmSL/GnAyzn+3w
-         1B9woMRDQ4OpBwW/0qMK45uNhqcBGSUXA6fKeZr6BTqOPJloVMdQ2fljLkJPnBj+pHYw
-         e+qh/J7ElnNBVYbB0kgkUxNEKI278MewxQIv3gnICGZ5fRf4SeKOA3Nzw5Y8QCpb0Fg+
-         1dxgsvVLLTo+oJCPVBa4cCBUsqIj090XXGBt9g4irODxJNsnkz74jO5aglH+qvZhwfEL
-         wj3M+Sz85TiL3vGNJv0de6i6QCygZUwHQCJpxt4nY7pKoZ5I+Rpqoqfvg21zCeO52BB8
-         vvyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WhO2XispuG63y6vI8Up/ST3FM6vVbr7Lmjvw9Ig2I+g=;
-        fh=zH2BH1aU6O2df7nb4U1GTJ0eltUZy6m8UayT7lHCcy8=;
-        b=lGhgNL4s8EEvrOGli842LvLZe5cOHZAHSTC3fzScqV+WLhUR9fY3mULDz2ROprH7Xn
-         PB9AQzEubNeORwJ0SPp9JLXYTS2gRCdihbIQFRsLTDb9qNedMuH/lRNpKigzU0lOSq7j
-         +TXw0J/vKQ8NLhoWo9wmXpgjAGqrL2VOeYJjSnPHpMbhoRAWYdzIPDnL4T02eMkPJR//
-         Z89NtRDp+0RclvNOhcUxHJXlWTC6t/IfNYG+BZaPloPf/ku+kwdGg86iHKOHgGtCGQbB
-         J5mrMcjH7LQM+HXsyv9MkEiHX/RVit/KAwHD/TPfuf4UI4yX+4zKqaXIXfOB4BR6tuvE
-         vNWw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1793363645; x=1793968445; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WhO2XispuG63y6vI8Up/ST3FM6vVbr7Lmjvw9Ig2I+g=;
-        b=3x3Wo88MBsPiYHKjXR9VEC1SiuizJdgLxy1RcgaUT98mgU/ljHgXh7qbrN4bIq7uD+
-         ULsn5wWjBk+O6QwdX9ikQvdX7xsnioEc3b5hC0LEx3ERlVsYZ4+8z30zSo7Q/gXILQiO
-         eyNv0D+/ctiouJd/siqi9lbQYZ/+S4APrMCr/c/F94bNeYLNbLfSno7XxlKfgEhvlAp9
-         2MvlSvGV44mgZC73iWWOv2xapEHXXANTBD58E+QI4YI5qL7gSJtmvFNpK5DrtF4nts3k
-         OqTGMfX2HQOVFfeBkS6fmBDW8Pw6RrJXwHaZfqTkLAJDYfEEsb3+enN2+gX4vFH83DL9
-         FpwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793363645; x=1793968445;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WhO2XispuG63y6vI8Up/ST3FM6vVbr7Lmjvw9Ig2I+g=;
-        b=0rCmmY58rAN6uJNDfUcTcA6wikryEvRfhSvjgLrEf9kc/9CuyAdq8pWJ9b0d+28I/j
-         kmOaNuBYqgj0CZbHksmwdf51hDghwpl0g+dQ6vqu62cgf4ayTVKJxuU86da5BQ3MDbYb
-         2W6TeSO6tWN+U3fYPvGxv5OdeD/joBt2d55SPAax257yplhW3+X1FOV1c6zXYL/aU/5E
-         q76LncyAlmYM/hRvW/QQ9N+V/b7ZLAwfj4p7u6hEnsKYu7SDndL53u84ITD0YqryBN5V
-         I8V8VWaPayQwBOxWjtWcaHzr0DYT4od7PvxFeuXjbXftF/Oyu3mgQ2ndHKnHAs7FF6An
-         QgGA==
-X-Forwarded-Encrypted: i=1; AKwUvBxvUgluTMJBsCM7f8zteXcUuAsV9xmE6YAKg/83tPu9y4u4ozjf9wHQ4uAGwcUOqtvvORSRQsq7KPuaPu0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGOPIJ8Bv3UDljJ2/Wlw8FuUWeAKBrexaHJYJlBAQH6Jr6vE30
-	Ol7eh6Cd65vDVxfS/h4WtdFIqfFMTtFpJKURNU7ojrz9OdCkWmGFkBY64BKAwQfVuMxBoZVcdKP
-	ZTiQGREMUe66/vkzBdn2FrQUTWeRxTmlFlUrrx8NRCkcahTaQhvQ9xRS29bBD
-X-Gm-Gg: AYBFou3edV3mGm2PUclEw/dPJc8U+hJn7n/MoBnkLCoEAKghEbiOk9UC15debk+yGTm
-	9f0WOJP85F1ra0O4GY9QmFCMwVy/iNA/7bplTG0sIk/6+8qySBRzzqWHEhUeSFH76NYw01nVX31
-	L0ySEJD4eQgwFZupSOalH/PZDTeMdS9Gv2OQL6vxYvIKA0UthlHCnJxznZeJ7nbS80cZTU4oY2w
-	g8awuwqMMQW8YWgpsSlysv8m32OdJsgV3sr7zVoh50QAS7rmhEt88YzBY2RXSshBEd5v6A+749z
-	91tHt3nLv2LHUuaf4zGa1ocUSOthZx2XdwR3XuPcnoxgBeLQPkBRcry2sqPNyRcKnSVXpkFvuJv
-	IZJxYW4OlYjqEHsd0z2OhrZ4qEAqO9IlvvDr+IUliDXBdKkx2NiGPEFQke7zIBFflOvRSJg==
-X-Received: by 2002:a17:907:60c8:b0:c49:a4b1:9cb1 with SMTP id
- a640c23a62f3a-c4ca795fa50mr235275666b.3.1793363645151; Fri, 30 Oct 2026
- 05:34:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=bpdlFD2y
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=440yx7MBYSaEWfj/YftcqEO/a5ZeYK5vW1pKavKHSd0=; b=bpdlFD2y3zcUQUq+X1K6OcbQ+r
+	rZeAOi0Xhn7B6yKNPye2jVcb5R8FxpWxs45AutngKvs3Uyq48JJD/CLGW+k4tkb/CqEl0D9mhXkbM
+	ziutWv+5d/l6uHtv8DDy/zAbRWyAJsGEI9zRydqvNOrwAmJDbMIdrm/CV3XTPdYQq/ZHJwRlru5rT
+	k9ReqIYXTjXXT5kZwoXJ/kcskE8qjhLyJ1bU6lMWmkjOSKZfqiOmuuHQdtVi0UEIumRPxAySrU/jC
+	h+RI5nebedjxJmwnlaoBw9JEIUFA6UCjCF0Sqs856PFQR6sJjMXKD0KaCVxoxve4JEAWyLHQlMVVl
+	nl7utUSA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xMlne-003ony-2L;
+	Fri, 30 Oct 2026 12:33:39 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Fri, 30 Oct 2026 05:18:49 -0700
+Subject: [PATCH] ACPI: APEI: GHES: Fix severity check in ghes_log_hwerr()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,103 +62,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029-biwin-tua-quirk-v2-1-4d71af956ac5@flipper.net> <e9ada0a2-aa36-4cde-a7b7-5d4693d372ae@acm.org>
-In-Reply-To: <e9ada0a2-aa36-4cde-a7b7-5d4693d372ae@acm.org>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Fri, 30 Oct 2026 16:33:57 +0400
-X-Gm-Features: AclHuK8mCiMIJSS5TVbq3bssLQ6wBY5LSL7g722rlXFx8SMXsDwvAIAeegWVCKo
-Message-ID: <CAKTNdwGqaTMLK7KYcdayDUuJi8NnA3rR9faqMa5CF1aOOiaY7A@mail.gmail.com>
-Subject: Re: [PATCH v2] scsi: core: Clear power-on UNIT ATTENTION on BIWIN UFS devices
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-ghes-hwerr-sev-v1-1-145ceb996c77@debian.org>
+X-B4-Tracking: v=1; b=H4sIAC2L5GoC/yXMQQrCMBAF0KsMs+5AEkOQXEVc2PptxkWVGa1C6
+ d2ldfk2b2GHKZwrLWyY1fUxcaXYEQ/tMo0QvXIlTiGVGA5BxgaX9oGZOGZBzqGkHMOxL9wRPw0
+ 3/e7h6fy3v/s7hte28Lr+ALaDMH1yAAAA
+X-Change-ID: 20261030-ghes-hwerr-sev-e440624108b6
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
+ Hanjun Guo <guohanjun@huawei.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Shuai Xue <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel-team@meta.com, stable@vger.kernel.org, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1783; i=leitao@debian.org;
+ h=from:subject:message-id; bh=Ov9WcK1Vdwuag3dbjig+CDDxcuZZVh8HgCYniPBlLlM=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq5I6eBrjZ/RmteRo+cIvUd0Qp5xq6wACKB7S+U
+ TbvNdDJ2pyJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauSOngAKCRA1o5Of/Hh3
+ bQjmD/9WpQSYYGNFzVgN+WtPGsGwnAgRZYrnXfx5pbVBrFSN2cT62ALZtVyhEg6RkP4ZEdz+Ftg
+ xbRjmvenEE20PJm84QikzGtqmyrVAqZzFONKBtqET9RNOXQr37pL/37XZPFtR5iZ7f8zVlCU+T0
+ os0Qt4GsUMEsPU5/wFMdMoVuCVVVhXuQbGYNDR2LnAVN+lNzRl0EqL65BPwqjQwuvMOdNFK/gq3
+ Wp742zoYm6pkSv9zrAetipcUTGOx+phX5cVP7iY0Lh5J0sjIlZErypdaMbSj2kot9SDU8c3Obag
+ jXp3cOoGWe0m1/PhBBFlNkyTFp4kaL2GhzGjMkyG+LeSXtmyNL5+Zs5HB1VSGtnp+MTcqH2ladY
+ lwDnoPxHp52vuDhTDIF14m8GHMAcXohIuvCBJJVTBuh6QWsGdzLD/G+74aAw755xUQ0yz6OQ9DP
+ sv3OqhRdTsikfsSF3nYK8cl0gZWX2ihv36q7NYpzgvSRorryf8w8ih3To1jZhRjclB+gFM+o0rm
+ akGhqO22OmmmpMr8lOnd+8Q6Z3NSNK0gQI1apqKxycNqPgXFe5SMP9jO+SXz5qGUtAa2vrknlFn
+ BwFFaQPw+PQHxL2YM4tXUguiaL5H4W/ZwvXQ8OAopig8z9yjepDWFyu/y2wFWlztncqZLm6p/E5
+ Wap1IfMtQddAyOw==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Thu, Oct 29, 2026 at 9:20=E2=80=AFPM Bart Van Assche <bvanassche@acm.org=
-> wrote:
->
-> On 10/29/26 3:41 AM, Alexey Charkov wrote:
-> > The SCSI core retries a command that receives a UNIT ATTENTION and reli=
-es
-> > on the device to clear the condition once reported. The BIWIN
-> > BWU2A0526B128G and BWU2A0516B064G UFS devices do not clear a power on o=
-r
-> > reset UNIT ATTENTION when reporting it to a WRITE. After a device reset=
-,
-> > such as on resume with the UFS link off or in UFS error recovery, write=
-s
-> > then fail on every retry for the full 180s retry window and end in I/O
-> > errors. A TEST UNIT READY or READ clears it.
->
-> Does the attached untested patch help?
+ghes_log_hwerr() is meant to count recoverable GHES errors in
+hwerror_data[], but it skips them and counts informational records
+instead. As a result, recoverable CPU, memory, CXL and vendor-specific
+errors reported through GHES never show up in a vmcore.
 
-Hi Bart,
+ghes_do_proc() passes ghes_log_hwerr() the record severity after
+ghes_severity() has converted it to a GHES_SEV_* value.
+ghes_log_hwerr() compares it against CPER_SEV_RECOVERABLE, which is 0
+in the CPER enum and matches GHES_SEV_NO, so only informational records
+pass and GHES_SEV_RECOVERABLE ones return early.
 
-Thanks a lot for this! I've tested it on five boards: three with BIWIN
-UFS (BWU2A0526B128G x2, BWU2A0516B064G) and two with FORESEE C2G071,
-on next-20261027. Tests: UFS error-handler resets under light writes
-and under fio keeping 128 direct writes outstanding, runtime PM with a
-WRITE as the first command after resume, and suspend to RAM.
+Compare against GHES_SEV_RECOVERABLE instead.
 
-The core idea works well: on the BIWIN devices the TEST UNIT READY
-from the error handler clears the stuck UNIT ATTENTION about 50ms
-after the reset, with no I/O errors, including the saturated-queue
-case that broke my v2. Since the EH commands reuse the failed
-command's tag, they don't need a scheduler tag. The FORESEE devices
-never enter the error handler.
+Recoverable PCIe errors that ghes_handle_aer() hands to AER are also
+counted by pci_dev_aer_stats_incr(), so with the check fixed they are
+counted twice under HWERR_RECOV_PCI. That is not addressed here.
 
-I did run into one regression though. The new scsi_noretry_cmd() check
-in scsi_io_completion_action() is reachable for a UNIT ATTENTION on
-data commands, since blk_stat stays BLK_STS_OK for them and the "Kill
-remainder" path doesn't catch them. So a REQ_FAILFAST_DEV command that
-happens to be the first to see a reset UA now fails instead of being
-retried, on any device. I confirmed this by issuing a readahead during
-a UFS reset: with your patch it failed with "I/O error ... flags
-0x84700" in all 20 runs, on both the BIWIN and the FORESEE devices,
-while without it the READ was retried and succeeded. With md
-raid1/raid10 failfast this would mark a healthy member faulty after a
-bus reset.
+Fixes: 3fa805c37dd4 ("vmcoreinfo: track and log recoverable hardware errors")
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ drivers/acpi/apei/ghes.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Dropping that term fixes it:
+diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+index 663dc2e601cf72..5d888c82efeaa3 100644
+--- a/drivers/acpi/apei/ghes.c
++++ b/drivers/acpi/apei/ghes.c
+@@ -899,7 +899,7 @@ EXPORT_SYMBOL_NS_GPL(cxl_cper_kfifo_get, "CXL");
+ 
+ static void ghes_log_hwerr(int sev, guid_t *sec_type)
+ {
+-	if (sev != CPER_SEV_RECOVERABLE)
++	if (sev != GHES_SEV_RECOVERABLE)
+ 		return;
+ 
+ 	if (guid_equal(sec_type, &CPER_SEC_PROC_ARM) ||
 
-diff --git a/drivers/scsi/scsi_lib.c b/drivers/scsi/scsi_lib.c
---- a/drivers/scsi/scsi_lib.c
-+++ b/drivers/scsi/scsi_lib.c
-@@ -849,9 +849,8 @@ static void scsi_io_completion_action(struct
-scsi_cmnd *cmd, int result)
-  */
-  cmd->device->changed =3D 1;
-  action =3D ACTION_FAIL;
-- } else if (scsi_noretry_cmd(cmd) ||
--   (cmd->allowed !=3D SCSI_CMD_RETRIES_NO_LIMIT &&
--    cmd->retries > max(cmd->allowed, 3))) {
-+ } else if (cmd->allowed !=3D SCSI_CMD_RETRIES_NO_LIMIT &&
-+   cmd->retries > max(cmd->allowed, 3)) {
-  action =3D ACTION_FAIL;
-  } else {
-  /* Must have been a power glitch, or a
-
-With it, all readaheads in the same test (25 runs) were retried and
-succeeded, and the error-handler, runtime PM and suspend tests above
-passed on all five boards.
-
-This keeps failfast commands on today's behaviour for UNIT ATTENTION,
-so failfast WRITEs to a device like the BIWIN ones still go through
-the old uncounted retry loop. Sending them through the new path as
-well (dropping the scsi_noretry_cmd() exclusion in scsi_check_sense()
-too) works, but then scsi_eh_flush_done_q() needs to count their EH
-rounds, or a target that never clears the UA keeps them cycling
-through EH with LU resets until the runtime limit. That seemed like
-more than this fix needs: I'm not aware of anyone running md failfast
-on UFS, and readahead is a READ, which clears the UA on these devices
-anyway.
-
-With that change:
-Tested-by: Alexey Charkov <alchark@flipper.net>
-
-Small nit: the BIWIN parts don't only clear the UA on TEST UNIT READY:
-READ and SYNCHRONIZE CACHE clear it too. It's WRITE that doesn't.
+---
+base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+change-id: 20261030-ghes-hwerr-sev-e440624108b6
 
 Best regards,
-Alexey
+--  
+Breno Leitao <leitao@debian.org>
+
