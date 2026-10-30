@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.143.35
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.147.86
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793394048;
-	b=SV1F4oeOqy6eJcT/A6/nAwEgF2vo46yBf/kpfugmoGTZxDLmLh+3Zts/riN8JcryuL9e
-	 QD5EPY7OP6YLUzE9r9f9R0Zll5K2LCxo9wi4WGKPqTIPzQrMP5ZK91SLl8TkiUO3c11DF
-	 UJSVP5HDPEho5eOI91Q4MYcQJF8P3yICFgbZiAjyGO18B3h1DfofCrLFqmGBkypAX3tUQ
-	 2xWrHXr8EFW5/u5+pTXKHjEkDOalNQSfAxIg8/Dr/BUP9VHp01pVr8CrpVzgNOlHaZ3xY
-	 UFp9LiJ8mwdvC4MKX7RZRpcaRTtTGQ7IzIv/b81SOfZJMKnc7u3IZ/gSPhMajGQ9gpg==
+	t=1793394057;
+	b=iQgBR2sJvcLs2z7XEv+ppjIqfVTPCiDrF8DO5NgzVv8XdWY5WllA+zGLCXdqaBr+mz7s
+	 +9zEW9wLCr28enAJso0jKO4MGjSzlM/F+S1ezqXsGuzT+010xo8xglQTkZ3yllaKbSls3
+	 hryqARSVmzEkPDXjeWTZRRiUZ3nWwViUSGGlw3XHbnO5d/9Rlntlt56fmnXCZ3U/yCw/0
+	 L6QRfNhGoyCz5or8v2xQX4Zbev0DqwP69MGP/+CUaySzMHV9zV+4QQJmUQQs/sjW9I3Hx
+	 /ZEmrhEOkYjmkEunvnpzjqrnonVl7TnI+AlIzFkGuxB9mCgR9VRUyxctvRTiJeWsmdw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793394048;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793394057;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
 	 Received:Received:Received:Received:From:Date:Subject:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:CC:
@@ -25,72 +25,72 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-HPE-SCL:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=LaQqsRxqcz+0ebZE3xpaGXcAgVY7WNkjDdvOMKyIq+E=;
-	b=FMQL62HniXI3MwTuhEiW1fgI/TXEBLz9Uh2dx05HiD6+SRtKCt2uvDiq91oBA+nv/SXm
-	 mwFgA8VTh59rwIwdCDfbWy9KNp/rMYpbpS6Q3AoX9gOHhgQmoGM7AfJl/CVrZEptKJEOy
-	 PkV7reb1X7VSwmwgoMr6PfW+Vnr2w6or3C+Z+iF/av5WR+Kz8ohFYS/Ywbbffwbi51Pc6
-	 kyxKLYKphDyTUrQp8CUvLYqXWFbetHA4m3wgX8Y5w9T5N84eYxQ6qVAtqYme2ORkSjvjf
-	 BSPxXykIixw5kKRCLXHwKT/m/YiOPpkKWAP+URH7oLTaUU5vrNZcG/tWUJV9PkNKwBg==
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-HPE-SCL:X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=sCfLQxYGHYSOyKVT32b17M8L9KDAFJ1YDxMd0tnvBi0=;
+	b=npWb/spT41Mmuu1Cwv1686znsQu9HpFeeesDfr1eB+RVG5lIJVzMlq1riPWoLxiC5PFo
+	 eVhSAH898rxmwErN4nUdhnvK8gRs7RAh64DWpiaxQLAvALOttvPlhYTz3uR1FGGvoJV30
+	 WEgd8eLMxw9hlVe8knWbZcLq+APv0RuwFi8hR0EAK+d+56Or2pd6Rga7JIczjna3DueTe
+	 VCmZzBtSVDnoIWKQy4B98cevlHRlM62J1TGAwvBiiMlLbcr4h5hNFzl1YVEp/yyV6rwbN
+	 8CpBMUjjlisG/ZR+aj1I76r6LlMlZTkbMFg1OzYY/bvWm2D4CCYtfy9SykJtYUWcaoQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=hpe.com;
 	spf=pass smtp.mailfrom=hpe.com;
-	dkim=pass header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=V7X1yLad;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.143.35
-Received: from mx0b-002e3701.pphosted.com (mx0b-002e3701.pphosted.com [148.163.143.35])
+	dkim=pass header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=SJx8SL+J;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.147.86
+Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com [148.163.147.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D087606A31C;
-	Fri, 30 Oct 2026 21:00:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D087606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1AB60A2622;
+	Fri, 30 Oct 2026 21:00:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E1AB60A2622
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hpe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=V7X1yLad
-Received: from pps.filterd (m0134424.ppops.net [127.0.0.1])
-	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UHvYWD1038185;
-	Fri, 30 Oct 2026 21:00:11 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=SJx8SL+J
+Received: from pps.filterd (m0134422.ppops.net [127.0.0.1])
+	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UI07AL770946;
+	Fri, 30 Oct 2026 21:00:30 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps0720; bh=La
-	QqsRxqcz+0ebZE3xpaGXcAgVY7WNkjDdvOMKyIq+E=; b=V7X1yLadI9Vmpg1BIB
-	rNsrD3kAEBsr5PBBH3c5YOYjoyerJ5ikXoz+DCTyWg0s5qNHSEWHpLzLmZSEAXQQ
-	I/zcAtbN1u66fvYsKNKYqnlYVjfuBSBu4Bye1QPk/C1x8yW3qi2fD2g+h9waO8XX
-	TPmGwat8qVnO2irlWdw3FfR4Jr7g/zrKK2V91+bv1EWHYki0PoExsqTGWIOG59my
-	kEUBdLbYXhDMAtxMNOAl8R3qPFe4GtOCX/rsbR3rxTmyPzyz+sg902NPZTzFBGPD
-	NzykCDWq44Z8tNwIgq2lFELezzk8hW4ETFxa0bcXiMyoPejqvaKtLbqS28/Oz6Gs
-	zRIw==
-Received: from p1lg14879.it.hpe.com (p1lg14879.it.hpe.com [16.230.97.200])
-	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4hmx98uj0n-1
+	:message-id:mime-version:references:subject:to; s=pps0720; bh=sC
+	fLQxYGHYSOyKVT32b17M8L9KDAFJ1YDxMd0tnvBi0=; b=SJx8SL+JMyWKn3ReX2
+	ml1ZwfYMqmpPRvNkHpsnNCWWG7opFNEd4WAq+DD9QRyz6gS7Ee3T1/qpWAJao9OL
+	cZh7tGaLEAuJYgW06rVKGaygsIxFBp4i/DnHPUpbSbBjXC/2YygoKYZo88LNySSS
+	rFyd6gho8Afzz9lJA9hR1eN2UECR4pYunyrWtoGBBmCOzGdKElosOnm6irw2lH6k
+	2JcxYh7ZOwbAdeIlbOCzGrOi1U2GzL5kHnpuH20EAv/hUiliu5AGqqtib4X2PBcG
+	0uM+KX8ZrKAQCo0J56exBG8NbDyED3zC395P+VksqjlcgP7z0hX5dDtOCI7WReAB
+	MOlg==
+Received: from p1lg14878.it.hpe.com (p1lg14878.it.hpe.com [16.230.97.204])
+	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4hmvmy4xsn-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 21:00:10 +0000 (GMT)
-Received: from p1wg14923.americas.hpqcorp.net (unknown [10.119.18.111])
+	Fri, 30 Oct 2026 21:00:29 +0000 (GMT)
+Received: from p1wg14925.americas.hpqcorp.net (unknown [10.119.18.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by p1lg14879.it.hpe.com (Postfix) with ESMTPS id 22E03147B1;
-	Fri, 30 Oct 2026 21:00:10 +0000 (UTC)
-Received: from p1wg14928.americas.hpqcorp.net (10.119.18.116) by
- p1wg14923.americas.hpqcorp.net (10.119.18.111) with Microsoft SMTP Server
+	by p1lg14878.it.hpe.com (Postfix) with ESMTPS id 39D75D29D;
+	Fri, 30 Oct 2026 21:00:29 +0000 (UTC)
+Received: from p1wg14927.americas.hpqcorp.net (10.119.18.117) by
+ p1wg14925.americas.hpqcorp.net (10.119.18.114) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Fri, 30 Oct 2026 09:00:09 -1200
-Received: from p1wg14921.americas.hpqcorp.net (16.230.19.124) by
- p1wg14928.americas.hpqcorp.net (10.119.18.116) with Microsoft SMTP Server
+ 15.2.2562.43; Fri, 30 Oct 2026 09:00:14 -1200
+Received: from P1WG14918.americas.hpqcorp.net (16.230.19.121) by
+ p1wg14927.americas.hpqcorp.net (10.119.18.117) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Fri, 30 Oct 2026 09:00:09 -1200
+ 15.2.2562.43 via Frontend Transport; Fri, 30 Oct 2026 09:00:14 -1200
 Received: from CO1PR08CU001.outbound.protection.outlook.com (192.58.206.38) by
- edge.it.hpe.com (16.230.19.124) with Microsoft SMTP Server (version=TLS1_2,
+ edge.it.hpe.com (16.230.19.121) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 30 Oct
- 2026 09:00:09 -1200
+ 2026 21:00:13 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FqPjeyB7zDhePo2EUCTGQXhvq09roaKkojYuKS9p3Rk3bw5Jk8tXQUeOJwgzJAfdRQ3kvD0LR2yLjWwaHArelqt2pS0ISjKIPNRtCu28YkYRrzb+eBv7Vedjn9yQ969B6dnl7GNrfQ8pVKgtzGrfQwFS4AdlUzorJHUCMoi5UpvjM/gSCIFm6No6323val34Ele96qAGxKexDWBAR7H2Iylq5sKdFTkolVeJXgZnD6vuGrVhHBJMIDJX6uYmgs9QJGFxDk27mgozLqYvwOO6WB4GNPpOn707xa/0FhfyGDQpN+waDyFSbDG/HQ0Ms5nBqLk+XbvybxHd3kKV0fQbYA==
+ b=Z+ia2IOBr/FFjC2fcByRU/BBU74UTnxakGT6/3o/4kjAk0MUg/LpUe3aGlkh4MTeDwp2OVpt15DW+UDkVjVuv2/4a1KQC+Aer2JmqthJJl3P7+PGTRbCs1NHwLnPmSz67mP8b2JcChBSzbXui5JGXvWjd14EWl+eGx20Hcmj+o4e6ri8e8px2yAq44O1SwC60l9o8jBKLwKrA4hfIfq7mZCkmLU0RKJvnyaFnm7DBNSeNc5E1CSPELfnNDBJ//3LzDwLBF19GkqTwaaDj2Xv9TprXmWUtMZWleQWRhDghEQ/ryENG+F0aWKo2RyqdoRi1x4HlRdc7FQogOJXK804Zw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LaQqsRxqcz+0ebZE3xpaGXcAgVY7WNkjDdvOMKyIq+E=;
- b=BdfuRjszQqAnDyiIDZa9nrOKYwkCvWg+Z6stER9BR0sRbCT9rcr1n+sVGs+NjaGghJYnARdKNegZkZo4rmxvQWHQMm04UBF2evnHPdnXzHVbM7qfRUeOZjY2OAjts6vwE+yOUpgjbzZl6fDoO37VSJhyhBak2mW+rZfeW7ppMpnD0Nh3v7pBgl92dpnCyMLRzrJpz+65+LW8oSC8l7J0AxTSTzEBQ29DzQ9d24v40xuLTh70Ypdq7t9vEUYoeCII/KWK2WeFIeamS4D7DSDc7yWHM+9LucoT/vzrQ7COTXn4VR6njO/vp9FuH1xENa62IBtRiQv+AbZLvAPcPJjbdg==
+ bh=sCfLQxYGHYSOyKVT32b17M8L9KDAFJ1YDxMd0tnvBi0=;
+ b=Gf+ZmuYLm6eo8bpE3otF+6NJZ6XxoV1rdm3NZ32LBTOBhkKOR4+BARKY9oUuJwH4DWvYC+ApMqTzcfLwX0A1tTRhF1gp6iEV8tZm5H2pO3FN+TkIqFAJyxL6fPm1Q8fbJ68BBF6mmUhVCCTmQ5u4E0CwbpuVfKOZRRFlWG9YjwXNgwWyCBBlzlKFYpolEyRIripS+/5QpkX+CUI/DcvEg/KtFBk9ha40IG0amKp/lcroZkVGHM97B7ByE3FeS/jcWs4fzPiGuimF+grvQtrG9gPmqkuGfb5P1kY4IPyR5BDXk8iiKtbGcPJYmsGbrtNCNB0X3ypicXvXEYc2e+sAxg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=hpe.com; dmarc=pass action=none header.from=hpe.com; dkim=pass
  header.d=hpe.com; arc=none
@@ -100,17 +100,17 @@ Received: from DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:8:225::20)
  by IA4PR84MB951192.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:207:144::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 21:00:06 +0000
+ 2026 21:00:11 +0000
 Received: from DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
  ([fe80::d136:e75e:53c5:73d8]) by DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
  ([fe80::d136:e75e:53c5:73d8%6]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 21:00:06 +0000
+ 21:00:11 +0000
 From: Doug Ledford <doug.ledford@hpe.com>
-Date: Fri, 30 Oct 2026 13:59:01 -0700
-Subject: [PATCH 05/23] net: hpe: sbl: add the PML link layer
+Date: Fri, 30 Oct 2026 13:59:02 -0700
+Subject: [PATCH 06/23] net: hpe: sbl: add link state management
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-cxi-netdev-submission-v1-5-8c2c391cc283@hpe.com>
+Message-Id: <20261030-cxi-netdev-submission-v1-6-8c2c391cc283@hpe.com>
 References: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
 In-Reply-To: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
 To: Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
@@ -130,12 +130,11 @@ To: Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
         Guenter Roeck <linux@roeck-us.net>
 CC: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
         <linux-kbuild@vger.kernel.org>, Doug Ledford <doug.ledford@hpe.com>,
-        "Sandeep
- Bhoot" <sandeep.bhoot@hpe.com>,
-        Mamila Santosh <santosh-kumar.mamila@hpe.com>
+        "Mamila
+ Santosh" <santosh-kumar.mamila@hpe.com>
 X-Mailer: b4 0.16.0
-X-ClientProxiedBy: BN9PR03CA0507.namprd03.prod.outlook.com
- (2603:10b6:408:130::32) To DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
+X-ClientProxiedBy: BL1PR13CA0351.namprd13.prod.outlook.com
+ (2603:10b6:208:2c6::26) To DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
  (2603:10b6:8:225::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -148,475 +147,278 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM4PR84MB3970:EE_|IA4PR84MB951192:EE_
-X-MS-Office365-Filtering-Correlation-Id: e9cbdb66-affd-4db4-ade6-08df36c8c619
+X-MS-Office365-Filtering-Correlation-Id: 9ca5cfb0-4fd2-4446-0427-08df36c8c8ea
 X-LD-Processed: 105b2061-b669-4b31-92ac-24d304d195dc,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|6133799003|18002099003|18092099006|22082099003|3023799007|921020|56012099006|5023799004|261021121427099003|261028144727099003|261026121527099003|10067099003|261026140227099003|261022075727099003|261022113327099003|261022105027099003|261021123027099003|261021135927099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: 4IBgnVkHaniSClcrG9PD46qz1OJ96EAgpjfPzwXVtNAycSkiGa+HLRZ+dPzDdoaIAlfCUa2V4TrGjLefHL8tpPtzc5UuIP8jlj3tY1DhjpyLBoxd/NyTU5Ifyvpq7CbmwQkALXHxRQDPZpAYSfHp57lUImprP1YgxwMHwSW+hrpBXsCDUpzgRRd//EyxriaW8HSiRWxibSvnGLS1RWJ8JGFSl1tH80WSarMuzZycw8sOoXKKo+G3M/SkgbDRqvm1m9SBjcb63P51hSzSSeb8UJFHGXbq9GTXK4yzlbOFdWW0LQSMCMeK5CrPrcuT4bCsqB4FGwr9ltZJls9bNNgeNakGVyFBY4ceHp4sv2UFdIiRW+r0m0v5XsWKNV17hXIAa9faXWoE57Kbv/KFAG6VYSgy+CnklYbaxm4rqSBSMv5GKoU61voHR3eO3Bz7snC2u660zmgu+kylvZN+zu0VDvmjRtYe4D1iDLy/ZbYw7IwFYFl+PmO53ClYEwERQ9937W5ZfuBcM5K6aPv4eWeYtLIgR9fl+UGGfgg63C+l+qu2uRG6rQ7GJsXbemRkl3xWz+HUk7IP4y/M1faYTvReD2T6vBxLukn24rWmR2z+PApCOqpxojjMU4W1qsFHpsGAJ10Xt8RkKORCKJfgE8X3YqBdjHcXWtoOaK3xUGXPyx5J+4Oi8DTnGSGv2MTqUBDVD/3OQGEqzdoKfVhuMk4D9g==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(18002099003)(18092099006)(22082099003)(3023799007)(921020)(56012099006)(5023799004)(261021121427099003)(261028144727099003)(261026121527099003)(10067099003)(261026140227099003)(261022075727099003)(261022113327099003)(261022105027099003)(261021123027099003)(261021135927099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|6133799003|18002099003|22082099003|3023799007|921020|56012099006|5023799004|261021121427099003|261026130827099003|261028144727099003|261026121527099003|261026135527099003|10067099003|261026140227099003|261021133027099003|261022115727099003|261022075727099003|261021130227099003|261022113327099003|261022105027099003|261021123027099003|261021135927099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: FxupuYTuD5169QbiXF/VbhJpoJmGQOk3rDpLoVfw7eEKgVQEGNVPkSlBzHRs5x3lt3d5jbFLMveBE4BvMcgqGAU6L8dUe7HJFN4actdI3hyfbhGlB+wwX3QqF78OSR6o+A2trI4Qr2uaA67OSS0CRKd/2vFw891Zq1BRT1p09YFni7KW2kMx5ormCIUZQZEqw/RtAX8aKlXdUcx7FuuRxr1cDv52a/B+aFlvrXoJSCSDxZMuilImqzv+xOEL86fxRzSIfV+oLpyPfbftVVv8pWFtBgtMkZ4ZQ0VVDIzEq1VjbAeJjC6jLNiNCOkpdsV1VJ2BxCUrhBtp+qViHnXpvuaBJ6V5fluuaZEY3ZvfcMBLOc3QaXqS3gjS/oV3+Bgs+zcTINud1bITKFoU7EgNCpVsn3W3WAckKw1ZPXPWrbzsAECW9qvjDZb5poMkI2VfnDKAAWNz11xGi8HdewNNfMQKtHziwN6viY63lkd6AZ4cxCxD08xjvUVmBVeNPLK4KGFF3q6sUNZcLxo/xuml0cghMap/PoIbh3rrFGX6RGzSNYb+4lS371AzQLCLu5sOtSSd8xinqKn1YUtNUFfOT+nRFp7s6P5LZIKMehwiMePPNQTFipjV54Kod/8nsTAvTozJsKyCF1YUXH2cTg5c+VJ98Mii6uOitKlbmwZMPsmvOatgYcgWXxgVs6r/tne3BBAzbux8aXbPVQhbyZKSyw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(3023799007)(921020)(56012099006)(5023799004)(261021121427099003)(261026130827099003)(261028144727099003)(261026121527099003)(261026135527099003)(10067099003)(261026140227099003)(261021133027099003)(261022115727099003)(261022075727099003)(261021130227099003)(261022113327099003)(261022105027099003)(261021123027099003)(261021135927099003)(261009223027099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VjNrNDl3Y0xpZ0RuS0JBbTRQdTdIS29VaWZLYXgxaXg5bGcxK2IrczdsaFJC?=
- =?utf-8?B?ZWZDU2FXbU43N2sycG83c1d4cmYxZ1JCT0ZpT25lenlFUjBRaE5PRnozOFNy?=
- =?utf-8?B?RWRMUFMvMlBiNEUyOEQ2SmF4bWRSSEN2ZnJ3WFJMV1FsRU9hNHY4RzNtcGtN?=
- =?utf-8?B?SE9QdWhFaFN0ZVRHc3AyYkNrRW1zeS9vTDFLSXFvOG1ZN0EzaWxDNU8yaFRV?=
- =?utf-8?B?amJLOUs3T0c4T1I0R0VKTWdweXBzaDd5alNxWTVaNHRCWDM5UThyU3BlYm1P?=
- =?utf-8?B?QW9GcG9xMUxiVkpQcGhrcW1nTXVtU29rTjlQS1N5SmhsdzZYMkI5dE94RVk0?=
- =?utf-8?B?d3VXMFFOd0RjRzRpOW1wdFNJQU5SM1J6TlBIZ0hKOEYrQ0ZVaVVlUkhJa1cw?=
- =?utf-8?B?SlVUbVdBbXdiVEQ3RWV5QWxONTlxdjE3eHVsTmliMUFkUG5yZllXRmkxM2FF?=
- =?utf-8?B?c3kwcTBVYzhHVEpyRmdJSjBmQk9XN1p5bnFLbHM4UVVNN084ZXhoTmo5ZnI2?=
- =?utf-8?B?dTE0bU4xTlQ2QnFub0Y3V291dDFsNkhBbmloSGk2RSs2L0FyalVmc1RFdXJ2?=
- =?utf-8?B?eVQzMUUwVGdpUlVQK0JiRHBkUUU4L0FiTTF6RXE4YytVT2lIRzNrMHZubGVr?=
- =?utf-8?B?RmxPNTllSGQ4NU8vQ2Iwb1dIV1d1MUNuZzRYUHdXZDBRSWVLOVZ1THZKUWs0?=
- =?utf-8?B?K2Y4Qm41N3g2ZzFwUWdkY0ZkSHRidlZsdU9rUjlJVUpXUTZtc1FQUVFzc3k1?=
- =?utf-8?B?RXl6WjUySGNJRmZXRkErQ2twd0I0ajJFUmM2MWgyTVZBNzdPNWZKM1VzOVBq?=
- =?utf-8?B?akRuR2wvSzhlM2lURFlZQ1U2QUpXelozSU1NamxHdXNGeklicVQrS3FYdHhw?=
- =?utf-8?B?T21UeDUxMFRUUnB4SHNvbFRrTzdlVCtpem13bXppdE5uMElGd3ZvRlBrZ3dv?=
- =?utf-8?B?eHJUckhNTFQ1c2tUSnVDYlJSVFd1MVBvaHd0RU9EaGR2OFAzVmo1VE5HT3NC?=
- =?utf-8?B?SU50Nm0ySjRpNy9mZVJtVURRRlkycXBWWEk5TjdCZGlUUFhodWEzbTl0dGtX?=
- =?utf-8?B?eldVamZQb3pjT0pTYU53bXdVVHRvSUdrODVla09NTXpTc28xMERUOG5OR1VC?=
- =?utf-8?B?VXAvMFk1eTFMZ1BPWmt1bmtMeTFHUHo4VlhQbkxZb3pKK1NFZ1pmL3Z6UDJD?=
- =?utf-8?B?MkxpZm1QZUtwUzhmNTd3Z1IwNExLMElkZFQwWnNWUHhWZlM3SGFVS29oMkNn?=
- =?utf-8?B?VEowelRhRGhkWUVldnJOT1lPa2lvTW9PMm5ldEVLMXRVZlMwUktiaXVFZ0xZ?=
- =?utf-8?B?VlNGc1BPZ3FjRE1tc2V2Nm5HSGV1SEhvVHFLNTlLTE4vUjhMRU56bTdRaVpZ?=
- =?utf-8?B?VStDeHZ6am9uang2UlZ2ZnlZckZKL0c1NDQrcHpzYUVISnI2YmxhL1o1QWV3?=
- =?utf-8?B?ZUtRVkZzMVlwdnBVQ2dsQUZCQ282amdrSUp2TzFnWEt2TG1qTUYwelR4UWxr?=
- =?utf-8?B?T1kwcHF4YVVQL1BXOFdpNWhWSXRucGtpd3ZUNDR5SHNYVlZaekVzQXg5SFVp?=
- =?utf-8?B?c3NPdTRTWFYzVVprL052OWtxUk9MSW94d2xmaFM1SVRDUmdhMXFzYStWUWoy?=
- =?utf-8?B?bkM3Y0FTUzFGWXJTbzdrU2hIcHVNWTdHbERhdWU3c0laUHdQSENSblExT0dG?=
- =?utf-8?B?UGl5ejMzU3hNYWhjemo2MjM1WXM2YmdxUFByMXhWMjVPZkVTb1hMc3JYZURr?=
- =?utf-8?B?RlVqNXF6dFBOWDVGcWpwMlZyWm9Ga2w2SExWMFhRQXVsMFpQckV6aWdQcFZE?=
- =?utf-8?B?M3lOaDFhQWFJaUJicnMveEFUSFlNZzVEdjdZWnFhdi8wYitBR1VTRExNQUpW?=
- =?utf-8?B?b1FKeUJyYzIwOC85TmtVNHFOaTBRYUluMXBUYm00bGZoOUxhbHhiUzlsYkpB?=
- =?utf-8?B?SzloOHVUd1B5WWdSditCQXVJUkE1NUxBMFBxNTE5aGxEK1VPdXp6NUZ2cmFt?=
- =?utf-8?B?akZCQ2dPcTNjSzR5Q2JSUlpYV3cwQUQyZVhIeXczbllmT0tKNDUrTVNwU0s4?=
- =?utf-8?B?NWNxc2ZTUEdjQlduOEcyRWlvUG5NdG5aTnVna2lERmN4c0V1UGdNOGxveHFj?=
- =?utf-8?B?eElaUEREN1VYZHkwejRxRGdFVkUzQjRGR0ljRUhNSWJsdzJPZG4zbXdvaEtZ?=
- =?utf-8?B?Q09mVnNYaU9JUmNLdmtaTDZqb01VNVlvQmozU2RWcU9JUGIzMlFjLzY1bWdp?=
- =?utf-8?B?VUpQNlhBbk56U2NnNUxFMzNlZUpMOTVpbTJ6NHZ5MGQvNldIQXBnN2ZCV05E?=
- =?utf-8?B?Uzk0WlZFMnhDYW9ycVFXUFFIWXZ2NktGNlRxK2NrdmNPYmJYcEQ2Zz09?=
-X-Exchange-RoutingPolicyChecked: hM+JdayHJhrJ6/vgWHgBN2g5T/Bth8N3OAlCZXvDcbmFoEURztwallGWSvfQMQPTntsPm1EfNUmfZcUUAFD5m8oeyAK8BHlB8oN+ZCKIMTjBHgiRaytng4zyKjDdTker+w4dicMBJW4nW92rFTf1ighK/jPwQWyZD8A34vHaw0rrJhofrs+d+oMbnyyhcU0d9Ht01RPOH2nZgN+La8/xm7+CZJ/Up+TrIYaboBGKk+AKx4AWkkciFSbFNCZGg7202QV6W7Il+Dp9s11YhZq7yOtaAnqanBNHN5pJQjowtFpya7nZu+h8LRz+TySzBy4fguros9y9F3qhTRV1+iZ6PA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9cbdb66-affd-4db4-ade6-08df36c8c619
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2RNYlJnWTl2MzBmL2hrN0k0K0ttMjZqaGY1Q2JrTnU3WWhKR0dpUlZENmd1?=
+ =?utf-8?B?dEpXR2FQMVJLeWRCaW53dnVEczRjdEJQUmFZR2xad2NFZ2JaeUtPa0NXVHhR?=
+ =?utf-8?B?SDl1bG5xajVtcDZmRUUrUWpSQ1FPNHdsblcvaTg1Y0U3ODJTMjNBRy9zeCtJ?=
+ =?utf-8?B?M1FLOFdQOE5UY004ZkxlcnZnSkdlNUFvVDg1YWpiZUNVU29YYkg4TU03OTZ6?=
+ =?utf-8?B?RXNobUFjSGlhaXJYbU5LcU9KVkQyY3hKWU9tRGp5QU82dENsU0RlUjUrb0gy?=
+ =?utf-8?B?a1laMmhZa0h1VHU0SlhYWDBRS2ZBNXJJMkJmU3AzQ2l0NXpySkI4RzZMMThY?=
+ =?utf-8?B?Ylp2THVBZUZKRmVqQzFDRVBWcXdzKy9ObXBPMk5jOWdIaUhIOWVNVUlZNk5k?=
+ =?utf-8?B?b0I2UzF4bG83TjRWbTZmQnRkSWxYb21ZNU1XbHpCNWZPT2FDV0ZXd0VsdHJ2?=
+ =?utf-8?B?Yi9uNkkrZFlCVTlrcTZ6cGs4MWpSLzlKNHN5T3RPMmhXQW4yeHNSSm9XZE1z?=
+ =?utf-8?B?VFBTNXJMZFFnSUdtcmlYTHBoOHRvbEowc2Y1NW03N3ZjWWV5YjB4WmpOK3dh?=
+ =?utf-8?B?WUhLaGxzMElkZzAxeUoxVlBlV3JNdjJ5WEV5VU9TUFplbFFkOVU2RTFENDFU?=
+ =?utf-8?B?cVZNZnpLY2w1Q2x6OEdFT0w3TkNWcGFOdEJycGc1dGdwbWJyMlV3YUdkQXcz?=
+ =?utf-8?B?Ni9mRlUvdEVYNnJvTWtlMVJ1SVRxSkkwN0ZlMjAxRHRLWlNBZVBWMGhLN2t0?=
+ =?utf-8?B?ZXFVQS8zcTVNKzhkMEI4WnFvOCtDZkk2Z0lDR2QyUjJVaDFuSExUR1NHSG5v?=
+ =?utf-8?B?WkhWOUFHdWlaRW5rQVJKSWVVOTBvUmtmbEtoSjdQSWg4Umg5aW5zWEgzV2xy?=
+ =?utf-8?B?V2txcWpIMitUbTZWZ1ZRVHloczI0NkJ1UGRyMVBWL1podTNxSUFxV0NWUCtL?=
+ =?utf-8?B?VDUxL2hLSEx5bFR2ekY5ajc5WUM3T0xrL3ltYVJOU2JGcDdUekp1NkMvdS9Q?=
+ =?utf-8?B?UlhKSlpUR3p3QWVqMGNsZnlXS2xxVURkUnNjd1BOWlI1ZURKaVI3cDUrSFpv?=
+ =?utf-8?B?c1hjNUNJZXl0UE9ObDd3YmZPQThqbHlsYUxMenNJNHREWXYrZnE4NmNYRzBL?=
+ =?utf-8?B?T3lqdENWM2J0RHVVcUFWVWRZeFUwaXVZYThkQjdCd1htRWpxTW5kWHRhQTM0?=
+ =?utf-8?B?ZWdSRHZsSjQraXEwUGdTWU9SNEd1TGZSK0JmV1JiT1RyNDQyTldLM2NVVnA0?=
+ =?utf-8?B?amlhbVRUek4rSXJiTlh1RkpsQkl3Sm4xNDNEQlR6QXBhRnFQRVhpZHo3aWFw?=
+ =?utf-8?B?WUcyc2w0bkpOWkZhak95SGo1ZEpyZ2ltS29KMFdIZ1hxV1kvSUwvVkZjNVVo?=
+ =?utf-8?B?elM5c0NrcFdXRTF4UzVJVHZIY0VFRWlHR2VxNEROUTVXMDNUakxUYXJVMnJC?=
+ =?utf-8?B?WEdVS3hRRzZxYjJMWmJlb3lIaTkxWnVDMnFvS1F3cENvVXlMVms0TkpwdHhh?=
+ =?utf-8?B?cG5ERU5OK0hidEZIQTF1SlN4SU5XdWFPZG1pU2lPWUJ6cDJta3JnanJpNjRR?=
+ =?utf-8?B?ZExMWXZNaDRpeWFDdXVVMjMzNERUOEcwTzhhZzRrWFBVdkF3TTdMNlEwZlFy?=
+ =?utf-8?B?WXZtTDZGQVVKcVFrTmRlaEllZFJ0THJjVU83bTlkMXFETnJTSjZtelNSUS9J?=
+ =?utf-8?B?ZFNDWDEzVkNwejV3Q3E0d3lsK2F5Kzg0dTNZSk5xVW1LSUlsTmY4M21Sa2tv?=
+ =?utf-8?B?MlltcGhLN1BDM1RGN1BvZnYyZU1MbVFOWG9Yd2xPQ1hjYlVFTVBnTFNjWEU4?=
+ =?utf-8?B?NkJuU3IrZ2N3VW1NWHNFRW9nc3M4UU9RWXEwU3l3QjI0dzJFUDN4QTJnQTYz?=
+ =?utf-8?B?b1lNT3BsVUtxYlVYdTZQQUJuQ0p0cmtxSGpuc3NRVE0zZ0NFOHZkVlgzeGdU?=
+ =?utf-8?B?T2d0a0lHUWdMVkFHWFoyRkhyb3R1aDN5dDFtSmRXYVpiTjQrL1RRQkVwNFlv?=
+ =?utf-8?B?SmpkbEswV05VSWM5aGZ0dDhNMHZXcXJNNjdSQWc4T1pWK3B5ZjV3U29qclQ1?=
+ =?utf-8?B?bHY3RUIrSlpjNDFpc096RXhMcDYxTVdLWkdTRUhzdzVqcmZwMVhUd25ML3pX?=
+ =?utf-8?B?SGR4ejFuL2VibnZmNndQUzQyM1RVRmNjb1N1OFhvR3BhZjR6WmtEc3pHMnB1?=
+ =?utf-8?B?dlpiZmpyN0RHRkZIYmNubnhzVG0yZmIvUlVMVm1zVjQ2U0FLQXBJaVFkbVhJ?=
+ =?utf-8?B?T3lDbDdLdGZBZzBOSGpxUVcxK1VldDZIeDZNL2RIZEhEbE1JY0c0dWNwdlU1?=
+ =?utf-8?B?T3JFTmVRNWZzWVJkaU4yckFkUjZNUElaUHhQbXZ1ajkyUmRHY2FOZz09?=
+X-Exchange-RoutingPolicyChecked: nPJBW4Zk3koJRCIswfBvOE2SOMSbid1uTfHDw3ixwrX5mR0+e9uK7h5cSjC976DYgAnZlw0Tl8LBz1cXkP2V5dC02KzZbmXmZskasNKp5yMBla98d2hnaa9dsdgxTlfNrBMV4Td4kJvMkMzgIICSooL1vo0IMCjRdbPMG5rTaZpaa4LbcNPMl4tHsP8u16USvLLKTr7gSg4jfs46/ppMk58ZDGeqfsijT5Y2mpV/TtyY7jV9oxtleMu/yWPSDABJIjUvwIFsx4V6JDrcKhmam2RC7CT5V8tEWcpHJKpx7m9uczaRvE0L+JacGiiMQy0wqH9Vq7jTqSatxBEJ2U8+Sw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ca5cfb0-4fd2-4446-0427-08df36c8c8ea
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 21:00:06.0727
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 21:00:11.0477
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 105b2061-b669-4b31-92ac-24d304d195dc
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4NLxAYfZn+Ijs033f4OHnroXQbMda3Qv5qsnCmTn89hHLS0cUyI1pKBjnk5cutu9szOfH83rOprpDhH+sCddAQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ah27lYLZa6g+KzuxxX7b+Uft96E+EsvoQcd0ysCiWHX3si7eWcN63fdTB1d8EBOB/HyD0h/cXhlTU89JfLSX9A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR84MB951192
 X-OriginatorOrg: hpe.com
-X-Authority-Analysis: v=2.4 cv=QOf91QLL c=1 sm=1 tr=0 ts=6ae5055b cx=c_pps
- a=5jkVtQsCUlC8zk5UhkBgHg==:117 a=5jkVtQsCUlC8zk5UhkBgHg==:17
+X-Proofpoint-ORIG-GUID: dZbtSJlitOyY-R2A9zpvjsMWmNBoNBFP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4MyBTYWx0ZWRfX7NH5OuMcl4uT
+ O356aIjvb6yqpOyfvWFxxse9uf42RdGrJKwIREmoAj4ttuVnGYAhJd6Y/3ORmDzIsr+gMTbcksv
+ gCas3ZUpKo4kMG0zArwTSczp5NT0eVjatAIW65w8kCKCqRkFyXvcSbI991oBtPLN3VtVPEIro/L
+ CKsk3BqasclYXi/psECLYMshWnPvc/YVn/QSUZI3YUodriN+5XVsyo2EcV++rESDvJtsynNR5vk
+ Eut15Zszi5LuaIBiUdPS0hSkWr0wQDqQsvG5uWtjYNs5R8QwitP2wju4UqJ/aYwagxa391zUgd2
+ TsDXVGV59Z4leShAojapgRi1oiEbTg/iAdLrna057DZbrK/ov01KAf778KY+7FdtJesw/f8GeGO
+ VY1rBXcTJ7sU4HJVB0L8nLBgV2Dw92ZCvSIYPiobH+uYQg3mN4sx+cT5z7KvW9ZD29uf4Cq+Qqq
+ jRSEjHGmYlUs2p/h4HA==
+X-Authority-Analysis: v=2.4 cv=It6L47/g c=1 sm=1 tr=0 ts=6ae5056d cx=c_pps
+ a=UObrlqRbTUrrdMEdGJ+KZA==:117 a=UObrlqRbTUrrdMEdGJ+KZA==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
  a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=gQcMVamqm3wCPoSYhaRC:22
- a=3haJ9R1Aw3gUfsUHDaCR:22 a=MvuuwTCpAAAA:8 a=7Is5PNyc-Z3HrKzonxwA:9
- a=7J2o5t3KS26tSaJB:21 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: MCCJWv9_q2eqxGD0i9yuku0oufNsQn4A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4MyBTYWx0ZWRfXw55rdD2ZwhOh
- saaI78bJMLJV/nu+h/Rl5GxLcdrzOXkiP78xozDeUVTO6jNifz3xsxvWNCkVzbjRqgzpP0trf5j
- EgAUAfBQ5jltne69clYgey/bguOkRuSVRHR3rw6XPsindRWUL4XuGW0/E5ybUWQSdQEFRutLKSn
- cPvdE5SvVgBC8unE5Psc+1zGsaUjJ8cismTd1REMnxeX3yg+7+8Xj9Q+MCI/t8Otwmdgvx3xbsE
- BA0jk/UxAK0TXcmuL6kbnBnq1fKH20mYu6IP2snXZgPBD4RKlcJTH5jf6Bt/uUaTszm5BeTkUjJ
- +I/onq/pfR8roDezGqpfbObxnOtQcI9JHCRljCn1riw4BWM9l2vpyN0RJQDIu4dnPhTMsDSYpHK
- qpu3SykeIabKGPmMthLXI6ukHawfNq+9fF6jlYXAJ6LZiN9klo49+AtrFp8xfyNVsEEi1N4L0SE
- Er8qoliqZHpvMd8GQEQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4MyBTYWx0ZWRfX5LBm0ctMYya0
- Sx6BAOZsVTKPa5LZ4N3jPUfNc7i3CZklYtiNDasXbWkNV94DvtYLhCI8LEnNCNT8u6SiORWHUtl
- 5gMfHz8u96kQSCuVyldspHvdgBE/nGM=
-X-Proofpoint-ORIG-GUID: MCCJWv9_q2eqxGD0i9yuku0oufNsQn4A
+ a=ModqzXLkJJ0tFyq98apW:22 a=MvuuwTCpAAAA:8 a=QgmGcT5o_GdUoS45VkwA:9
+ a=eYjDDw7RqwnV9FQP:21 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: dZbtSJlitOyY-R2A9zpvjsMWmNBoNBFP
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4MyBTYWx0ZWRfXxOaZWZV0zdCn
+ 40S75VovroSPDplVNO+7H1kxWpC8Ss5+gJ7wAukgjHLln0OIscP9RtW6MEZdO/1aod9NNMD72RS
+ goSsyFAtf4bADDbS/C7KjvmlKygfhOk=
 X-HPE-SCL: -1
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-30_06,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 phishscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0
- bulkscore=0 adultscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
+ spamscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 bulkscore=0 suspectscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300083
 
-Add the PML (physical media layer) code: MAC, PCS and LLR (link level
-retry) configuration and the SerDes operation hooks.  The *_nic files
-hold the parts that only apply to the NIC; the base files are shared
-with the switch variant of this block.
+Add the link state machine: bring-up, auto-negotiation and the NIC
+specific link ops.  This ties the PML and SerDes layers together and
+is what the NIC driver calls to take a link up or down.
 
 checkpatch --strict (100 columns) still reports the following in this
 patch. They need coordination with the internal repositories this code
 is maintained in and will be fixed in V2:
-- WARNING: LONG_LINE (33), LONG_LINE_COMMENT (7), TYPO_SPELLING (2)
-- CHECK: BRACES (20), PARENTHESIS_ALIGNMENT (8), UNNECESSARY_PARENTHESES
-  (7), OPEN_ENDED_LINE (2)
+- WARNING: LONG_LINE (22), LONG_LINE_COMMENT (2)
+- CHECK: BRACES (22), UNNECESSARY_PARENTHESES (8), COMPARISON_TO_NULL
+  (1)
 
-Co-developed-by: Sandeep Bhoot <sandeep.bhoot@hpe.com>
-Signed-off-by: Sandeep Bhoot <sandeep.bhoot@hpe.com>
 Co-developed-by: Mamila Santosh <santosh-kumar.mamila@hpe.com>
 Signed-off-by: Mamila Santosh <santosh-kumar.mamila@hpe.com>
 Signed-off-by: Doug Ledford <doug.ledford@hpe.com>
 ---
- drivers/net/ethernet/hpe/sbl/sbl_pml.c           |  787 ++++++++++++++++
- drivers/net/ethernet/hpe/sbl/sbl_pml_llr.c       |  736 +++++++++++++++
- drivers/net/ethernet/hpe/sbl/sbl_pml_llr_nic.c   |   34 +
- drivers/net/ethernet/hpe/sbl/sbl_pml_mac.c       |  220 +++++
- drivers/net/ethernet/hpe/sbl/sbl_pml_pcs.c       | 1085 ++++++++++++++++++++++
- drivers/net/ethernet/hpe/sbl/sbl_pml_pcs_nic.c   |   53 ++
- drivers/net/ethernet/hpe/sbl/sbl_pml_serdes_op.c |  145 +++
- 7 files changed, 3060 insertions(+)
+ drivers/net/ethernet/hpe/sbl/sbl_link.c        | 1739 ++++++++++++++++++++++++
+ drivers/net/ethernet/hpe/sbl/sbl_link_an.c     | 1010 ++++++++++++++
+ drivers/net/ethernet/hpe/sbl/sbl_link_an_nic.c |  111 ++
+ drivers/net/ethernet/hpe/sbl/sbl_link_nic.c    |  196 +++
+ 4 files changed, 3056 insertions(+)
 
-diff --git a/drivers/net/ethernet/hpe/sbl/sbl_pml.c b/drivers/net/ethernet/hpe/sbl/sbl_pml.c
+diff --git a/drivers/net/ethernet/hpe/sbl/sbl_link.c b/drivers/net/ethernet/hpe/sbl/sbl_link.c
 new file mode 100644
-index 000000000000..367c3184fb79
+index 000000000000..706fa9ba9676
 --- /dev/null
-+++ b/drivers/net/ethernet/hpe/sbl/sbl_pml.c
-@@ -0,0 +1,787 @@
++++ b/drivers/net/ethernet/hpe/sbl/sbl_link.c
+@@ -0,0 +1,1739 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
-+/* Copyright 2019-2023 Hewlett Packard Enterprise Development LP */
++/* Copyright 2019-2026 Hewlett Packard Enterprise Development LP */
 +
 +#include <linux/types.h>
 +#include <linux/kernel.h>
-+#include <linux/slab.h>
++#include <linux/bitops.h>
 +#include <linux/device.h>
 +#include <linux/delay.h>
-+#include <linux/sched.h>
-+#include <linux/jiffies.h>
-+#include <linux/init.h>
-+#include <linux/timer.h>
 +
-+#include <linux/hpe/sbl/sbl_kconfig.h>
 +#include <linux/hpe/sbl/sbl.h>
++#include <linux/hpe/sbl/sbl_an.h>
++#include <linux/hpe/sbl/sbl_fec.h>
++#include <linux/hpe/sbl/sbl_kconfig.h>
 +
 +#include <linux/hpe/sbl/sbl_pml.h>
 +
++#include "sbl_serdes_map.h"
 +#include "sbl_pml_fn.h"
 +#include "sbl_link.h"
-+#include "sbl_internal.h"
++#include "sbl_serdes.h"
 +#include "sbl_serdes_fn.h"
++#include "sbl_internal.h"
 +
-+/* Bring-up PML block of a link */
-+int sbl_pml_start(struct sbl_inst *sbl, int port_num)
++/* detect the presence of our link partner */
++static int sbl_base_link_lp_detect(struct sbl_inst *sbl, int port_num)
 +{
 +	struct sbl_link *link = sbl->link + port_num;
++	int err = 0;
++
++	/* already detected - probably from autoneg */
++	if (link->lp_detected)
++		return 0;
++
++	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_LP_DET);
++
++	/* currently we have only one way to do this */
++	if (link->blattr.options & SBL_OPT_SERDES_LPD) {
++		err =  sbl_serdes_lp_detect(sbl, port_num);
++		if (!err)
++			link->lp_detected = true;
++	}
++
++	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_LP_DET);
++
++	return err;
++}
++
++/* Check/recover SBL FW */
++static int sbl_base_link_check_fix_fw(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	int serdes;
 +	int err;
 +
-+	sbl_dev_dbg(sbl->dev, "%d: pml bring-up starting", port_num);
-+
-+	/* serdes must be up */
-+	if (link->sstate != SBL_SERDES_STATUS_RUNNING) {
-+		sbl_dev_err(sbl->dev, "%d: pml serdes not running", port_num);
-+		err = -ENOLINK;
-+		goto out_err;
++	for (serdes = 0; serdes < sbl->switch_info->num_serdes; ++serdes) {
++		err = sbl_validate_serdes_fw_crc(sbl, port_num, serdes);
++		if (err) {
++			/* Any lane with corrputed FW will cause all lanes for
++			 * the port to be reloaded.
++			 */
++			goto reload_fw;
++		}
 +	}
++	return 0;
 +
-+	/* pcs must be sending am so link partner can tune */
-+	if (!(READ_ONCE(link->link_info) & SBL_LINK_INFO_PCS_TX_AM)) {
-+		sbl_dev_err(sbl->dev, "%d: pml pcs not tx am", port_num);
-+		err = -ENODATA;
-+		goto out_err;
-+	}
-+
-+	/* make sure we have time left */
-+	 sbl_start_timeout_ensure_remaining(sbl, port_num,
-+					    SBL_PML_MIN_START_TIME);
-+
-+	/* make sure am locking is enabled */
-+	if (!(READ_ONCE(link->link_info) & SBL_LINK_INFO_PCS_ALIGN_EN))
-+		sbl_pml_pcs_enable_alignment(sbl, port_num);
-+
-+	err = sbl_pml_mac_config(sbl, port_num);
++ reload_fw:
++	err = sbl_serdes_firmware_flash_safe(sbl, port_num, false);
 +	if (err) {
-+		sbl_dev_err(sbl->dev, "%d: pml mac config failed [%d]", port_num, err);
-+		goto out_err;
++		/* All we can do is report failure here */
++		sbl_dev_err(sbl->dev, "%d: check/fix: fw flash failed [%d]\n",
++			    port_num, err);
++		link->sstate = SBL_SERDES_STATUS_ERROR;
 +	}
-+
-+	sbl_pml_llr_config(sbl, port_num);
-+
-+	/* keep trying to get the PML block up until
-+	 * we succeed, timeout or have a fatal error
-+	 */
-+	while (true) {
-+
-+		/* wait for the pcs to come up  */
-+		err = sbl_pml_pcs_wait(sbl, port_num);
-+		switch (err) {
-+		case 0:
-+			/* good - carry on with mac */
-+			break;
-+		case -ECANCELED:
-+			sbl_dev_dbg(sbl->dev, "%d: pml pcs wait cancelled", port_num);
-+			goto out_err;
-+		case -ETIMEDOUT:
-+			sbl_dev_dbg(sbl->dev, "%d: pml pcs wait timeout", port_num);
-+			goto out_err_invalidate;
-+		default:
-+			sbl_dev_dbg(sbl->dev, "%d: pml pcs wait failed [%d]", port_num, err);
-+			goto out_err_invalidate;
-+		}
-+
-+		sbl_pml_pcs_enable_auto_lane_degrade(sbl, port_num);
-+
-+		/* start mac */
-+		sbl_pml_mac_start(sbl, port_num);
-+
-+		/* start llr */
-+		err = sbl_pml_llr_start(sbl, port_num);
-+		switch (err) {
-+		case 0:
-+			/* all good */
-+			goto out_done;
-+		case -ECANCELED:
-+			sbl_dev_dbg(sbl->dev, "%d: pml llr start cancelled", port_num);
-+			goto out_err;
-+		case -ETIMEDOUT:
-+			sbl_dev_dbg(sbl->dev, "%d: pml llr start timeout", port_num);
-+			goto out_err;
-+		default:
-+			sbl_dev_dbg(sbl->dev, "%d: pml llr start failed [%d]", port_num, err);
-+			goto out_err;
-+		}
-+	};
-+
-+out_done:
-+	/* clear any PML errors which might have been set during startup */
-+	sbl_pml_err_flgs_clear_all(sbl, port_num);
-+
-+	/* pml block is up */
-+	sbl_dev_dbg(sbl->dev, "%d: pml bring-up done (up)", port_num);
-+	return 0;
-+
-+out_err_invalidate:
-+	if (link->dfe_tune_count == SBL_DFE_USED_SAVED_PARAMS) {
-+		/* either the link partner is not starting or the saved params could be bad -
-+		 * we cannot (currently) determine which so destroy the saved params
-+		 * just in case
-+		 */
-+		sbl_dev_dbg(sbl->dev, "%d: pml bring-up - invalidating tuning params", port_num);
-+		sbl_serdes_invalidate_tuning_params(sbl, port_num);
-+	}
-+out_err:
-+	sbl_pml_mac_stop(sbl, port_num);
-+	if (!sbl_debug_option(sbl, port_num, SBL_DEBUG_INHIBIT_CLEANUP))
-+		sbl_pml_pcs_disable_alignment(sbl, port_num);
-+	sbl_dev_dbg(sbl->dev, "%d: pml bring-up failed [%d]", port_num, err);
 +	return err;
 +}
 +
-+/* Take down the PML block of a link */
-+int sbl_pml_link_down(struct sbl_inst *sbl, int port_num)
++static int sbl_link_get_mode_electrical(struct sbl_inst *sbl, int port_num)
 +{
-+	sbl_dev_dbg(sbl->dev, "%d: pml bring-down starting\n", port_num);
++	sbl_dev_dbg(sbl->dev, "bl %d: elec get mode", port_num);
 +
-+	sbl_pml_recovery_cancel(sbl, port_num);
++	return sbl_link_autoneg(sbl, port_num);
++}
 +
-+	/* stop everything in order */
-+	sbl_pml_llr_stop(sbl, port_num);
-+	sbl_pml_mac_stop(sbl, port_num);
-+	sbl_pml_pcs_stop(sbl, port_num);
++/* For now we will just use the configured speed */
++static int sbl_link_get_mode_optical(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
 +
-+	/* clear pml errors */
-+	sbl_pml_err_flgs_clear_all(sbl, port_num);
++	sbl_dev_dbg(sbl->dev, "bl %d: optical link - fixing speed to config value (%s)\n",
++		    port_num, sbl_link_mode_str(link->blattr.link_mode));
++	link->link_mode = link->blattr.link_mode;
 +
-+	sbl_dev_dbg(sbl->dev, "%d: pml bring-down done (down)\n", port_num);
 +	return 0;
 +}
 +
-+/* function to reset the major PML cfg regs to their default values
-+ *
-+ * It would seem that the default for the llr down behaviour is
-+ * SBL_LLR_LINK_DOWN_BLOCK this should be SBL_LLR_LINK_DOWN_DISCARD;
-+ */
-+void sbl_pml_set_defaults(struct sbl_inst *sbl, int port_num)
++/* determine the link mode (speed) */
++static int sbl_base_link_get_mode(struct sbl_inst *sbl, int port_num)
 +{
 +	struct sbl_link *link = sbl->link + port_num;
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+	u64 llr_link_down_behavior;
++	int err = 0;
 +
-+	/* pcs */
-+	if (link->sstate != SBL_SERDES_STATUS_DOWN) {
-+		/* default is to not tx am.
-+		 * we should not do this because it can break optical headshells
-+		 */
-+		sbl_dev_warn(sbl->dev, "%d: pcs reset while serdes is running\n", port_num);
-+	}
-+
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_OFFSET,
-+		    SBL_PML_CFG_PCS_DFLT);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_OFFSET,
-+		    SBL_PML_CFG_PCS_AUTONEG_DFLT);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_TIMERS_OFFSET,
-+		    SBL_PML_CFG_PCS_AUTONEG_TIMERS_DFLT);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_BASE_PAGE_OFFSET,
-+		    SBL_PML_CFG_PCS_AUTONEG_BASE_PAGE_DFLT);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_NEXT_PAGE_OFFSET,
-+		    SBL_PML_CFG_PCS_AUTONEG_NEXT_PAGE_DFLT);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_AMS_OFFSET,
-+		    SBL_PML_CFG_PCS_AMS_DFLT);
-+	sbl_write64(sbl, base | SBL_PML_CFG_TX_PCS_OFFSET,
-+		    SBL_PML_CFG_TX_PCS_DFLT);
-+	sbl_write64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET,
-+		    SBL_PML_CFG_RX_PCS_DFLT);
-+
-+	sbl_write64(sbl, base | SBL_PML_DBG_PCS_OFFSET, SBL_PML_DBG_PCS_DFLT);
-+
-+	/* pcs: we need special AMs for 200GHz mode */
-+	sbl_write64(sbl, base | SBL_PML_CFG_RX_PCS_AMS_OFFSET,
-+		    SBL_PML_CFG_RX_PCS_AMS_SET(SBL_PCS_200_UM_MATCH_MSK,
-+					       SBL_PCS_200_CM_MATCH_MSK));
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_CM_OFFSET,
-+		    SBL_PCS_200_CM);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_UM_OFFSET(0), SBL_PCS_200_UM0);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_UM_OFFSET(1), SBL_PCS_200_UM1);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_UM_OFFSET(2), SBL_PCS_200_UM2);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_UM_OFFSET(3), SBL_PCS_200_UM3);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_UM_OFFSET(4), SBL_PCS_200_UM4);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_UM_OFFSET(5), SBL_PCS_200_UM5);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_UM_OFFSET(6), SBL_PCS_200_UM6);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_UM_OFFSET(7), SBL_PCS_200_UM7);
-+
-+	/* assert we have destroyed any previous pcs config */
-+	link->pcs_config = false;
-+
-+	/* mac */
-+	sbl_write64(sbl, base | SBL_PML_CFG_TX_MAC_OFFSET,
-+		    SBL_PML_CFG_TX_MAC_DFLT);
-+	sbl_write64(sbl, base | SBL_PML_CFG_RX_MAC_OFFSET,
-+		    SBL_PML_CFG_RX_MAC_DFLT);
-+
-+	/* llr */
-+	val64 = SBL_PML_CFG_LLR_DFLT;
-+	llr_link_down_behavior = sbl_pml_llr_link_down_behaviour(sbl, port_num);
-+	val64 = SBL_PML_CFG_LLR_LINK_DOWN_BEHAVIOR_UPDATE(val64,
-+							  llr_link_down_behavior);
-+	sbl_write64(sbl, base | SBL_PML_CFG_LLR_OFFSET, val64);
-+	sbl_write64(sbl, base | SBL_PML_CFG_LLR_SM_OFFSET,
-+		    SBL_PML_CFG_LLR_SM_DFLT);
-+
-+	/* read to flush everything */
-+	sbl_read64(sbl, base | SBL_PML_CFG_LLR_OFFSET);
-+}
-+
-+/* interrupt support
-+ *
-+ * we only have one handler
-+ */
-+int sbl_pml_install_intr_handler(struct sbl_inst *sbl, int port_num, u64 err_flags)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+
-+	if (link->intr_err_flgs) {
-+		sbl_dev_err(sbl->dev, "intr %d: handler already registered\n", port_num);
-+		return -EALREADY;
-+	}
-+	link->intr_err_flgs = err_flags;
-+
-+	return (*sbl->ops.sbl_pml_install_intr_handler)(sbl->accessor, port_num, err_flags);
-+}
-+
-+int sbl_pml_enable_intr_handler(struct sbl_inst *sbl, int port_num, u64 err_flags)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+
-+	if (!link->intr_err_flgs) {
-+		sbl_dev_warn(sbl->dev, "intr %d: no handler registered for enable\n", port_num);
++	/* determine required mode */
++	if (link->loopback_mode == SBL_LOOPBACK_MODE_LOCAL) {
++		/* directly use the mode specified - no media check */
++		link->link_mode = link->blattr.link_mode;
 +		return 0;
 +	}
 +
-+	if ((err_flags & ~link->intr_err_flgs) || !(err_flags & link->intr_err_flgs)) {
-+		sbl_dev_err(sbl->dev, "intr %d: cannot enable flags 0x%llx, 0x%llx\n", port_num,
-+			    err_flags, link->intr_err_flgs);
-+		return -EINVAL;
-+	}
++	switch (link->mattr.media) {
 +
-+	return (*sbl->ops.sbl_pml_enable_intr_handler)(sbl->accessor, port_num, err_flags);
-+}
++	case SBL_LINK_MEDIA_ELECTRICAL:
++		err = sbl_link_get_mode_electrical(sbl, port_num);
++		break;
 +
-+int sbl_pml_disable_intr_handler(struct sbl_inst *sbl, int port_num, u64 err_flags)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
++	case SBL_LINK_MEDIA_OPTICAL:
++		err = sbl_link_get_mode_optical(sbl, port_num);
++		break;
 +
-+	if (!link->intr_err_flgs) {
-+		sbl_dev_warn(sbl->dev, "intr %d: no handler registered for disable\n", port_num);
-+		return 0;
-+	}
-+
-+	if ((err_flags & ~link->intr_err_flgs) || !(err_flags & link->intr_err_flgs)) {
-+		sbl_dev_err(sbl->dev, "intr %d: cannot disable flags 0x%llx, 0x%llx\n", port_num,
-+			    err_flags, link->intr_err_flgs);
-+		return -EINVAL;
-+	}
-+
-+	return (*sbl->ops.sbl_pml_disable_intr_handler)(sbl->accessor, port_num, err_flags);
-+}
-+
-+int sbl_pml_remove_intr_handler(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	int err;
-+
-+	if (!link->intr_err_flgs) {
-+		sbl_dev_warn(sbl->dev, "intr %d: no handler registered to remove\n", port_num);
-+		return 0;
-+	}
-+
-+	err =  (*sbl->ops.sbl_pml_remove_intr_handler)(sbl->accessor, port_num,
-+			link->intr_err_flgs);
-+	if (!err)
-+		link->intr_err_flgs = 0;
-+
-+	return err;
-+}
-+
-+/* Error flags
-+ *
-+ * TODO: inline?
-+ */
-+bool sbl_pml_err_flgs_test(struct sbl_inst *sbl, int port_num, u64 err_flgs)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_ERR_FLG_OFFSET);
-+
-+	return val64 & err_flgs;
-+}
-+
-+void sbl_pml_err_flgs_clear(struct sbl_inst *sbl, int port_num, u64 err_flgs)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+
-+	sbl_write64(sbl, base | SBL_PML_ERR_CLR_OFFSET, err_flgs);
-+}
-+
-+void sbl_pml_err_flgs_clear_all(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 err_flgs;
-+
-+	err_flgs = sbl_read64(sbl, base | SBL_PML_ERR_FLG_OFFSET);
-+	sbl_write64(sbl, base | SBL_PML_ERR_CLR_OFFSET, err_flgs);
-+}
-+
-+static bool sbl_pml_recovery_ignore_down_origin_fault(enum sbl_link_down_origin down_origin)
-+{
-+	switch (down_origin) {
-+	case SBL_LINK_DOWN_ORIGIN_LINK_DOWN:
-+	case SBL_LINK_DOWN_ORIGIN_LOCAL_FAULT:
-+	case SBL_LINK_DOWN_ORIGIN_REMOTE_FAULT:
-+	case SBL_LINK_DOWN_ORIGIN_ALIGN:
-+	case SBL_LINK_DOWN_ORIGIN_HISER:
-+	case SBL_LINK_DOWN_ORIGIN_LLR_MAX:
-+		return true;
 +	default:
-+		return false;
++		sbl_dev_err(sbl->dev, "bl %d: bad media to determine mode", port_num);
++		err = -ENOMEDIUM;
++		break;
 +	}
++	if (err)
++		return err;
++
++	/* ensure the media supports the required mode */
++	if (!sbl_media_check_mode_supported(sbl, port_num, link->link_mode)) {
++		sbl_dev_err(sbl->dev, "bl %d: config mode (%s) not supported by media",
++			    port_num, sbl_link_mode_str(link->blattr.link_mode));
++		return -EMEDIUMTYPE;
++	} else
++		return 0;
 +}
 +
-+void sbl_pml_link_down_async_alert(struct sbl_inst *sbl, int port_num,
-+				   enum sbl_link_down_origin down_origin)
++/* return true if get_mode failed because autoneg timed out */
++static bool sbl_base_link_an_timed_out(struct sbl_inst *sbl, int port_num, int err)
 +{
 +	struct sbl_link *link = sbl->link + port_num;
++
++	if (err != -ETIME)
++		return false;
++
++	if (link->mattr.media != SBL_LINK_MEDIA_ELECTRICAL)
++		return false;
++
++	if (link->blattr.pec.an_mode == SBL_AN_MODE_OFF)
++		return false;
++
++	return true;
++}
++
++static int sbl_link_fault_monitor_start(struct sbl_inst *sbl, int port_num)
++{
++	int err;
 +	u32 base = SBL_PML_BASE(port_num);
 +	u64 val64;
 +	u64 err_flags;
@@ -627,2412 +429,2211 @@ index 000000000000..367c3184fb79
 +	else
 +		err_flags = SBL_PML_REC_FAULT_ERR_FLAGS;
 +
-+	/* going down or in recovery state, so don't need more intrs */
-+	sbl_pml_disable_intr_handler(sbl, port_num, err_flags);
-+
-+	if (sbl_debug_option(sbl, port_num, SBL_DEBUG_INHIBIT_CLEANUP)) {
-+		/* set state to error and signal no cleanup with the error number */
-+		link->blstate = SBL_BASE_LINK_STATUS_ERROR;
-+		link->blerr = -ECONNABORTED;
++	/* make sure we have not already had an error */
++	if (sbl_pml_err_flgs_test(sbl, port_num, err_flags)) {
++		sbl_dev_err(sbl->dev, "fm %d: start - errors already present\n",
++			    port_num);
++		err = -ENETDOWN;
++		goto out;
 +	}
 +
-+	sbl_async_alert(sbl, port_num, SBL_ASYNC_ALERT_LINK_DOWN,
-+			(void *)(uintptr_t)down_origin, 0);
++	sbl_pml_recovery_enable(sbl, port_num);
++
++	err = sbl_pml_install_intr_handler(sbl, port_num, err_flags);
++	if (err) {
++		sbl_dev_err(sbl->dev, "fm %d: intr install failed [%d]\n", port_num, err);
++		goto out;
++	}
++
++	err = sbl_pml_enable_intr_handler(sbl, port_num, err_flags);
++	if (err) {
++		sbl_dev_err(sbl->dev, "fm %d: intr enable failed [%d]\n", port_num, err);
++		goto out_uninstall;
++		return err;
++	}
++
++	if (sbl_pml_err_flgs_test(sbl, port_num, err_flags)) {
++		sbl_dev_err(sbl->dev, "fm %d: link down during start\n", port_num);
++		err = -ENETDOWN;
++		goto out_disable;
++	} else {
++		/* all up and running */
++		sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_FAULT_MON);
++	}
++	return 0;
++
++out_disable:
++	sbl_pml_disable_intr_handler(sbl, port_num, err_flags);
++out_uninstall:
++	sbl_pml_remove_intr_handler(sbl, port_num);
++out:
++	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_FAULT_MON);
++
++	return err;
 +}
 +
-+static void sbl_pml_recovery_origin_counter_update(struct sbl_inst *sbl, int port_num,
-+						   enum sbl_link_down_origin origin)
++static int sbl_link_fault_monitor_stop(struct sbl_inst *sbl, int port_num)
 +{
-+	switch (origin) {
-+	case SBL_LINK_DOWN_ORIGIN_LINK_DOWN:
-+		sbl_link_counters_incr(sbl, port_num, pml_recovery_origin_bl_ldown);
++	int err;
++	u32 base = SBL_PML_BASE(port_num);
++	u64 val64;
++	u64 err_flags;
++
++	val64 = sbl_read64(sbl, base | SBL_PML_CFG_LLR_SM_OFFSET);
++	if (SBL_PML_CFG_LLR_SM_REPLAY_CT_MAX_GET(val64) < SBL_LLR_REPLAY_CT_MAX_UNLIMITED)
++		err_flags = SBL_PML_FAULT_ERR_FLAGS;
++	else
++		err_flags = SBL_PML_REC_FAULT_ERR_FLAGS;
++
++	err = sbl_pml_disable_intr_handler(sbl, port_num, err_flags);
++	if (err) {
++		sbl_dev_err(sbl->dev, "fm %d: intr disable failed [%d]\n", port_num, err);
++		return err;
++	}
++
++	err = sbl_pml_remove_intr_handler(sbl, port_num);
++	if (err) {
++		sbl_dev_err(sbl->dev, "fm %d: intr remove failed [%d]\n", port_num, err);
++		return err;
++	}
++
++	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_FAULT_MON);
++	return 0;
++}
++
++static void sbl_base_link_report_err(struct sbl_inst *sbl, char *txt, int port_num, int err)
++{
++	switch (err) {
++	case -ECANCELED:
++		sbl_dev_dbg(sbl->dev, "bl %d: %s cancelled\n", port_num, txt);
 +		break;
-+	case SBL_LINK_DOWN_ORIGIN_LOCAL_FAULT:
-+		sbl_link_counters_incr(sbl, port_num, pml_recovery_origin_bl_lfault);
-+		break;
-+	case SBL_LINK_DOWN_ORIGIN_REMOTE_FAULT:
-+		sbl_link_counters_incr(sbl, port_num, pml_recovery_origin_bl_rfault);
-+		break;
-+	case SBL_LINK_DOWN_ORIGIN_ALIGN:
-+		sbl_link_counters_incr(sbl, port_num, pml_recovery_origin_bl_align);
-+		break;
-+	case SBL_LINK_DOWN_ORIGIN_HISER:
-+		sbl_link_counters_incr(sbl, port_num, pml_recovery_origin_bl_hiser);
-+		break;
-+	case SBL_LINK_DOWN_ORIGIN_LLR_MAX:
-+		sbl_link_counters_incr(sbl, port_num, pml_recovery_origin_bl_llr);
++	case -ETIMEDOUT:
++		sbl_dev_dbg(sbl->dev, "bl %d: %s timed out\n", port_num, txt);
 +		break;
 +	default:
-+		sbl_dev_warn(sbl->dev, "%d: pml recovery origin (%d) with no counter",
-+			     port_num, origin);
-+		break;
++		sbl_dev_err(sbl->dev, "bl %d: %s failed [%d]\n", port_num, txt, err);
 +	}
-+}
-+
-+/* PML recovery is limited by the combined amount of time spent in one or more
-+ * recovery attempts over a window, rather than by a count. This approximates
-+ * bandwidth loss. For example, 60 ms per second in PML recovery corresponds
-+ * to a roughly %6 loss of bandwidth.
-+ *
-+ * After each successful recovery, the duration is subtracted from the
-+ * remaining time budgeted for the window. The rate test fails if the remaining
-+ * time is insufficient for another attempt.
-+ */
-+static bool sbl_pml_recovery_rate_test(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	u64 window_end = link->pml_recovery.rl_window_start + msecs_to_jiffies(link->blattr.pml_recovery.rl_window_size);
-+
-+	/* reset if not started or window has elapsed */
-+	if (!link->pml_recovery.rl_window_start ||
-+	    link->pml_recovery.init_jiffies > window_end) {
-+		link->pml_recovery.rl_window_start = link->pml_recovery.init_jiffies;
-+		link->pml_recovery.rl_time_remaining = link->blattr.pml_recovery.rl_max_duration;
-+		return true;
-+	}
-+
-+	if (link->pml_recovery.rl_time_remaining < SBL_PML_REC_POLL_INTERVAL)
-+		return false;
-+
-+	return true;
-+}
-+
-+static void sbl_pml_recovery_monitor_fallback_timer(struct timer_list *t)
-+{
-+	struct sbl_pml_recovery *pml_recovery = container_of(t, struct sbl_pml_recovery, timer);
-+	struct sbl_inst *sbl;
-+	struct sbl_link *link;
-+	int port_num;
-+	enum sbl_link_down_origin down_origin;
-+	u32 elapsed;
-+	u32 rl_total_time;
-+	unsigned long timeout;
-+	unsigned long irq_flags;
-+
-+	if (!pml_recovery || !pml_recovery->sbl)
-+		return;
-+
-+	spin_lock_irqsave(&pml_recovery->lock, irq_flags);
-+	if (!pml_recovery->enabled || !pml_recovery->started) {
-+		spin_unlock_irqrestore(&pml_recovery->lock, irq_flags);
-+		return;
-+	}
-+	spin_unlock_irqrestore(&pml_recovery->lock, irq_flags);
-+
-+	sbl = pml_recovery->sbl;
-+	port_num = pml_recovery->port_num;
-+	down_origin = pml_recovery->down_origin;
-+	link = sbl->link + port_num;
-+	timeout = pml_recovery->init_jiffies + msecs_to_jiffies(pml_recovery->timeout);
-+	elapsed = jiffies_to_msecs(jiffies - link->pml_recovery.init_jiffies);
-+	link->pml_recovery.rl_time_remaining -=
-+		jiffies_to_msecs(jiffies -
-+				 link->pml_recovery.last_poll_jiffies);
-+	link->pml_recovery.last_poll_jiffies  = jiffies;
-+
-+	if (sbl_pml_recovery_no_faults(sbl, port_num)) {
-+		sbl_dev_info(sbl->dev, "%d: PML recovered successfully in %ums", port_num, elapsed);
-+		sbl_link_counters_incr(sbl, port_num, pml_recovery_successes);
-+		sbl_pml_recovery_origin_counter_update(sbl, port_num, down_origin);
-+		sbl_link_counters_incr(sbl, port_num, (elapsed < SBL_PML_REC_HISTOGRAM_MAX) ?
-+				      (pml_recovery_histogram_0_9ms + elapsed / 10) :
-+				       pml_recovery_histogram_high);
-+		goto out;
-+	} else if (time_is_before_eq_jiffies(timeout)) {
-+		sbl_dev_info(sbl->dev, "%d: PML recovery monitor timed out (%ums)", port_num, elapsed);
-+		goto out_fail;
-+	} else if (!sbl_pml_recovery_rate_test(sbl, port_num)) {
-+		rl_total_time = link->blattr.pml_recovery.rl_max_duration - link->pml_recovery.rl_time_remaining;
-+		sbl_dev_err(sbl->dev, "%d: PML recovery rate exceeded (%ums/%ums) after %ums", port_num, rl_total_time,
-+			    link->blattr.pml_recovery.rl_window_size, elapsed);
-+		sbl_link_counters_incr(sbl, port_num, pml_recovery_rate_exceeded);
-+		goto out_fail;
-+	}
-+
-+	/* start timer for next poll */
-+	spin_lock_irqsave(&pml_recovery->lock, irq_flags);
-+	if (pml_recovery->enabled)
-+		mod_timer(&pml_recovery->timer,
-+			  jiffies + msecs_to_jiffies(SBL_PML_REC_POLL_INTERVAL));
-+	spin_unlock_irqrestore(&pml_recovery->lock, irq_flags);
-+	return;
-+
-+out_fail:
-+	sbl_pml_link_down_async_alert(sbl, port_num, down_origin);
-+
-+out:
-+	spin_lock_irqsave(&link->fec_discard_lock, irq_flags);
-+	link->fec_discard_time = jiffies;
-+	link->fec_discard_type = SBL_FEC_DISCARD_TYPE_PML_REC_END;
-+	spin_unlock_irqrestore(&link->fec_discard_lock, irq_flags);
-+	spin_lock_irqsave(&pml_recovery->lock, irq_flags);
-+	pml_recovery->started = false;
-+	spin_unlock_irqrestore(&pml_recovery->lock, irq_flags);
-+}
-+
-+void sbl_pml_recovery_init(struct sbl_pml_recovery *recovery)
-+{
-+	spin_lock_init(&recovery->lock);
-+	recovery->enabled = false;
-+	timer_setup(&recovery->timer, sbl_pml_recovery_monitor_fallback_timer,
-+		    TIMER_IRQSAFE);
-+}
-+
-+/* Allow recovery once the fault monitor is about to deliver PML faults */
-+void sbl_pml_recovery_enable(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_pml_recovery *recovery = &sbl->link[port_num].pml_recovery;
-+	unsigned long irq_flags;
-+
-+	spin_lock_irqsave(&recovery->lock, irq_flags);
-+	recovery->enabled = true;
-+	spin_unlock_irqrestore(&recovery->lock, irq_flags);
-+}
-+
-+static void sbl_pml_recovery_monitor(struct sbl_inst *sbl, int port_num,
-+				     enum sbl_link_down_origin down_origin)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	struct sbl_pml_recovery *recovery = &link->pml_recovery;
-+	u32 rl_total_time;
-+	unsigned long irq_flags;
-+
-+	spin_lock_irqsave(&recovery->lock, irq_flags);
-+	if (!recovery->enabled || recovery->started) {
-+		spin_unlock_irqrestore(&recovery->lock, irq_flags);
-+		return;
-+	}
-+
-+	recovery->started = true;
-+	recovery->init_jiffies = jiffies;
-+	recovery->last_poll_jiffies = recovery->init_jiffies;
-+	recovery->sbl = sbl;
-+	recovery->port_num = port_num;
-+	recovery->down_origin = down_origin;
-+	recovery->timeout = link->blattr.pml_recovery.timeout;
-+
-+	if (!sbl_pml_recovery_rate_test(sbl, port_num)) {
-+		rl_total_time = link->blattr.pml_recovery.rl_max_duration -
-+				recovery->rl_time_remaining;
-+		recovery->started = false;
-+		spin_unlock_irqrestore(&recovery->lock, irq_flags);
-+		sbl_dev_err(sbl->dev, "%d: PML recovery rate exceeded (%ums/%ums)", port_num,
-+			    rl_total_time, link->blattr.pml_recovery.rl_window_size);
-+		sbl_pml_link_down_async_alert(sbl, port_num, down_origin);
-+		sbl_link_counters_incr(sbl, port_num, pml_recovery_rate_exceeded);
-+		return;
-+	}
-+	sbl_link_counters_incr(sbl, port_num, pml_recovery_attempts);
-+
-+	spin_lock(&link->fec_discard_lock);
-+	link->fec_discard_time = recovery->init_jiffies;
-+	link->fec_discard_type = SBL_FEC_DISCARD_TYPE_PML_REC_START;
-+	spin_unlock(&link->fec_discard_lock);
-+
-+	/* cancel cannot slip between restarting alignment and arming the poll */
-+	sbl_pml_pcs_disable_alignment(sbl, port_num);
-+	sbl_pml_pcs_enable_alignment(sbl, port_num);
-+	mod_timer(&recovery->timer,
-+		  jiffies + msecs_to_jiffies(SBL_PML_REC_POLL_INTERVAL));
-+	spin_unlock_irqrestore(&recovery->lock, irq_flags);
-+
-+	sbl_dev_info(sbl->dev, "%d: PML recovery started - %s", port_num,
-+		     sbl_down_origin_str(down_origin));
-+}
-+
-+void sbl_pml_recovery_cancel(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	struct sbl_pml_recovery *recovery = &link->pml_recovery;
-+	unsigned long irq_flags;
-+	bool was_started;
-+	u32 elapsed;
-+
-+	spin_lock_irqsave(&recovery->lock, irq_flags);
-+	recovery->enabled = false;
-+	spin_unlock_irqrestore(&recovery->lock, irq_flags);
-+
-+	/* with the gate closed neither the handler nor the timer can rearm */
-+	timer_delete_sync(&recovery->timer);
-+
-+	spin_lock_irqsave(&recovery->lock, irq_flags);
-+	was_started = recovery->started;
-+	recovery->started = false;
-+	spin_unlock_irqrestore(&recovery->lock, irq_flags);
-+
-+	if (!was_started)
-+		return;
-+
-+	elapsed = jiffies_to_msecs(jiffies - recovery->init_jiffies);
-+	spin_lock_irqsave(&link->fec_discard_lock, irq_flags);
-+	link->fec_discard_time = jiffies;
-+	link->fec_discard_type = SBL_FEC_DISCARD_TYPE_PML_REC_END;
-+	spin_unlock_irqrestore(&link->fec_discard_lock, irq_flags);
-+
-+	sbl_dev_info(sbl->dev, "%d: PML recovery canceled (%ums)", port_num, elapsed);
 +}
 +
 +/**
-+ * sbl_pml_hdlr() - local interrupt handler called by surrounding framework
++ * sbl_get_lp_subtype() - Get link partner sub type
 + * @sbl: A slingshot base link device instance
 + * @port_num: port number
-+ * @data: Value is NULL in all cases
++ * @lp_subtype: Value to get Link partner subtype
 + *
-+ * This function does the following operations: Reads PML error-flag
-+ * registers, extracts PCS-lane degradation information for both TX
-+ * and RX paths and issues warning alerts when failure conditions are
-+ * met. If auto negotiation error flags are raised, the function disables
-+ * further PML interrupts. It also logs critical error when all lanes
-+ * are reported down, link faults. It also checks possible case of
-+ * down origin and alert the clients.
++ * This function reads the versions used (cas(v1/v2))
++ * which refers to link partner sub type. Client driver
++ * uses this information for later process
 + *
-+ * Context: Interrupt
-+ *
-+ * Return: 0 on success
++ * Return: 0 on success, negative error code on failure
 + */
-+int sbl_pml_hdlr(struct sbl_inst *sbl, int port_num, void *data)
++int sbl_get_lp_subtype(struct sbl_inst *sbl, int port_num, enum sbl_lp_subtype *lp_subtype)
 +{
-+	struct sbl_link *link = sbl->link + port_num;
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 raised_flgs;
-+	u64 sts_pcs_lane_degrade_reg;
-+	enum sbl_link_down_origin down_origin = SBL_LINK_DOWN_ORIGIN_UNKNOWN;
-+	char pcs_state_str[SBL_PCS_STATE_STR_LEN];
-+	u64 val64;
-+	struct lane_degrade degrade_data;
-+	enum sbl_async_alert_type alert = SBL_ASYNC_ALERT_INVALID;
-+	int result;
-+	unsigned long irq_flags;
++	int              err;
++	struct sbl_link *link;
 +
-+	raised_flgs = sbl_read64(sbl, base | SBL_PML_ERR_FLG_OFFSET) & link->intr_err_flgs;
++	err = sbl_validate_instance(sbl);
++	if (err)
++		return err;
 +
-+	if (!raised_flgs)
-+		return 0;
++	err = sbl_validate_port_num(sbl, port_num);
++	if (err)
++		return err;
 +
-+	if (sbl_debug_option(sbl, port_num, SBL_DEBUG_TRACE_PML_INT)) {
-+		sbl_dev_info(sbl->dev,
-+			     "%d: pml hdlr (%lld %lld hs%lld mr%lld ld%lld) in 0x%llx",
-+			port_num,
-+			SBL_PML_ERR_FLG_AUTONEG_PAGE_RECEIVED_GET(raised_flgs),
-+			SBL_PML_ERR_FLG_AUTONEG_COMPLETE_GET(raised_flgs),
-+			SBL_PML_ERR_FLG_PCS_HI_SER_GET(raised_flgs),
-+			SBL_PML_ERR_FLG_LLR_REPLAY_AT_MAX_GET(raised_flgs),
-+			SBL_PML_ERR_FLG_PCS_LINK_DOWN_GET(raised_flgs),
-+			link->intr_err_flgs);
-+	}
++	if (lp_subtype == NULL)
++		return -EINVAL;
 +
-+	sts_pcs_lane_degrade_reg = sbl_read64(sbl, base | SBL_PML_STS_PCS_LANE_DEGRADE_OFFSET);
-+	degrade_data.tx = SBL_PML_STS_PCS_LANE_DEGRADE_LP_PLS_AVAILABLE_GET(sts_pcs_lane_degrade_reg);
-+	degrade_data.rx = SBL_PML_STS_PCS_LANE_DEGRADE_RX_PLS_AVAILABLE_GET(sts_pcs_lane_degrade_reg);
-+	if (SBL_PML_ERR_FLG_PCS_RX_DEGRADE_GET(raised_flgs) && degrade_data.tx && degrade_data.rx) {
-+		spin_lock_irqsave(&link->fec_discard_lock, irq_flags);
-+		link->fec_discard_time = jiffies;
-+		link->fec_discard_type = SBL_FEC_DISCARD_TYPE_RX_DEGRADE;
-+		spin_unlock_irqrestore(&link->fec_discard_lock, irq_flags);
-+		sbl_dev_warn(sbl->dev, "%d: RX side Degraded -> TX Lanes Available: 0x%llx - RX Lanes Available: 0x%llx",
-+			     port_num, degrade_data.tx, degrade_data.rx);
-+		sbl_async_alert(sbl, port_num, SBL_ASYNC_ALERT_RX_DEGRADE,
-+				&degrade_data, sizeof(degrade_data));
-+	}
++	sbl_dev_dbg(sbl->dev, "%d: get lp subtype", port_num);
 +
-+	if (SBL_PML_ERR_FLG_PCS_TX_DEGRADE_GET(raised_flgs) && degrade_data.tx && degrade_data.rx) {
-+		sbl_dev_warn(sbl->dev, "%d: TX side Degraded -> TX Lanes Available: 0x%llx - RX Lanes Available: 0x%llx",
-+			     port_num, degrade_data.tx, degrade_data.rx);
-+		sbl_async_alert(sbl, port_num, SBL_ASYNC_ALERT_TX_DEGRADE,
-+				&degrade_data, sizeof(degrade_data));
-+	}
++	link = sbl->link + port_num;
 +
-+	result = SBL_PML_ERR_FLG_PCS_TX_DEGRADE_FAILURE_GET(raised_flgs);
-+
-+	if (result) {
-+		alert = SBL_ASYNC_ALERT_TX_DEGRADE_FAILURE;
-+		sbl_async_alert(sbl, port_num, alert, NULL, 0);
-+	}
-+
-+	result = SBL_PML_ERR_FLG_PCS_RX_DEGRADE_FAILURE_GET(raised_flgs);
-+
-+	if (result) {
-+		alert = SBL_ASYNC_ALERT_RX_DEGRADE_FAILURE;
-+		sbl_async_alert(sbl, port_num, alert, NULL, 0);
-+	}
-+
-+	if (alert != SBL_ASYNC_ALERT_INVALID) {
-+		/* if Auto Lane Degrade is enabled, we will print this message regardless of whether
-+		 * the link went down because of lane degrade failure or not
-+		 */
-+		sbl_dev_err(sbl->dev, "%d: pml hdlr - link going down - all lanes down [%d]", port_num, alert);
-+		down_origin = SBL_LINK_DOWN_ORIGIN_DEGRADE_FAILURE;
-+	}
-+
-+	/* autoneg err flags */
-+	if (raised_flgs & SBL_AUTONEG_ERR_FLGS) {
-+		sbl_pml_disable_intr_handler(sbl, port_num, SBL_AUTONEG_ERR_FLGS);
-+		complete(&link->an_hw_change);
-+	}
-+
-+	/* link faults */
-+	if (SBL_PML_ERR_FLG_PCS_HI_SER_GET(raised_flgs)) {
-+		if (sbl_debug_option(sbl, port_num, SBL_DEBUG_IGNORE_HISER)) {
-+			sbl_dev_warn(sbl->dev, "%d: pml hdlr - hiser - ignored", port_num);
-+		} else {
-+			sbl_dev_dbg(sbl->dev, "%d: pml hdlr - hiser", port_num);
-+			down_origin = SBL_LINK_DOWN_ORIGIN_HISER;
-+		}
-+	}
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_LLR_SM_OFFSET);
-+	if (SBL_PML_ERR_FLG_LLR_REPLAY_AT_MAX_GET(raised_flgs) &&
-+	    SBL_PML_CFG_LLR_SM_REPLAY_CT_MAX_GET(val64) < SBL_LLR_REPLAY_CT_MAX_UNLIMITED) {
-+		sbl_dev_dbg(sbl->dev, "%d: pml hdlr - max llr replay", port_num);
-+		down_origin = SBL_LINK_DOWN_ORIGIN_LLR_MAX;
-+	}
-+
-+	if (SBL_PML_ERR_FLG_PCS_LINK_DOWN_GET(raised_flgs)) {
-+		val64 = sbl_read64(sbl, base | SBL_PML_STS_RX_PCS_OFFSET);
-+
-+		if (sbl_debug_option(sbl, port_num, SBL_DEBUG_TRACE_PML_INT)) {
-+			sbl_dev_info(sbl->dev, "%d: pml hdlr - link down (%s)", port_num,
-+				     sbl_pml_pcs_state_str(sbl, port_num, pcs_state_str,
-+							   SBL_PCS_STATE_STR_LEN));
-+		}
-+
-+		if (!SBL_PML_STS_RX_PCS_ALIGN_STATUS_GET(val64)) {
-+			if (sbl_debug_option(sbl, port_num, SBL_DEBUG_IGNORE_ALIGN)) {
-+				sbl_dev_warn(sbl->dev, "%d: pml hdlr - align - ignored", port_num);
-+			} else {
-+				sbl_dev_dbg(sbl->dev, "%d: pml hdlr - align", port_num);
-+				down_origin = SBL_LINK_DOWN_ORIGIN_ALIGN;
-+			}
-+		} else if (SBL_PML_STS_RX_PCS_LOCAL_FAULT_GET(val64)) {
-+			sbl_dev_dbg(sbl->dev, "%d: pml hdlr - local fault", port_num);
-+			down_origin = SBL_LINK_DOWN_ORIGIN_LOCAL_FAULT;
-+		} else if (SBL_PML_STS_RX_PCS_FAULT_GET(val64)) {
-+			if (link->blattr.options & SBL_DISABLE_PML_RECOVERY ||
-+			    sbl_debug_option(sbl, port_num, SBL_DEBUG_REMOTE_FAULT_RECOVERY)) {
-+				sbl_dev_dbg(sbl->dev, "%d: pml hdlr - remote fault", port_num);
-+				down_origin = SBL_LINK_DOWN_ORIGIN_REMOTE_FAULT;
-+			} else {
-+				sbl_dev_dbg(sbl->dev, "%d: pml hdlr - remote fault - ignored", port_num);
-+			}
-+		} else {
-+			sbl_dev_dbg(sbl->dev, "%d: pml hdlr - link down", port_num);
-+			down_origin = SBL_LINK_DOWN_ORIGIN_LINK_DOWN;
-+		}
-+	}
-+
-+	if (down_origin != SBL_LINK_DOWN_ORIGIN_UNKNOWN) {
-+		if (!(link->blattr.options & SBL_DISABLE_PML_RECOVERY) && !link->is_degraded) {
-+			if (sbl_pml_recovery_ignore_down_origin_fault(down_origin)) {
-+				sbl_dev_dbg(sbl->dev, "%d: PML recovery, pml hdlr fault(%d) is ignored", port_num, down_origin);
-+				sbl_pml_recovery_monitor(sbl, port_num, down_origin);
-+
-+			} else
-+				sbl_pml_link_down_async_alert(sbl, port_num, down_origin);
-+		} else {
-+			sbl_dev_info(sbl->dev, "%d: PML recovery is disabled", port_num);
-+			sbl_pml_link_down_async_alert(sbl, port_num, down_origin);
-+		}
-+	}
-+
-+	sbl_write64(sbl, base | SBL_PML_ERR_CLR_OFFSET, raised_flgs);
-+	sbl_read64(sbl, base | SBL_PML_ERR_CLR_OFFSET);  /* flush */
++	*lp_subtype = link->lp_subtype;
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL(sbl_pml_hdlr);
++EXPORT_SYMBOL(sbl_get_lp_subtype);
 +
 +/**
-+ * sbl_pml_recovery_log_link_down() - Print pcs status when link down
++ * sbl_base_link_config() - config base link
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ * @blattr: Pointer to struct sbl_base_link_attr
++ *
++ * Set base link config based on attributes provided
++ *
++ * Context: Process context, Acquires lock and release link->lock <spin_lock>
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++int sbl_base_link_config(struct sbl_inst *sbl, int port_num, struct sbl_base_link_attr *blattr)
++{
++	struct sbl_link *link;
++	int err;
++
++	err = sbl_validate_instance(sbl);
++	if (err)
++		return err;
++
++	err = sbl_validate_port_num(sbl, port_num);
++	if (err)
++		return err;
++
++	sbl_dev_dbg(sbl->dev, "bl %d: config\n", port_num);
++
++	if (!blattr)
++		return -EINVAL;
++
++	if (blattr->magic != SBL_LINK_ATTR_MAGIC)
++		return -EINVAL;
++
++	link = sbl->link + port_num;
++
++	spin_lock(&link->lock);
++
++	if (!(link->blstate & (SBL_BASE_LINK_STATUS_DOWN | SBL_BASE_LINK_STATUS_UNCONFIGURED))) {
++
++		sbl_dev_err(sbl->dev, "bl %d: wrong state (%s) for config", port_num,
++			    sbl_link_state_str(link->blstate));
++		spin_unlock(&link->lock);
++		return -EUCLEAN;
++	}
++
++	memcpy(&link->blattr, blattr, sizeof(struct sbl_base_link_attr));
++
++	link->blconfigured = true;
++
++	if (link->blattr.loopback_mode == SBL_LOOPBACK_MODE_LOCAL) {
++		/* we dont need media to go to down */
++		link->blstate = SBL_BASE_LINK_STATUS_DOWN;
++	} else if (link->mconfigured) {
++		/* we need media as well if not loopback */
++		link->blstate = SBL_BASE_LINK_STATUS_DOWN;
++	}
++
++	spin_unlock(&link->lock);
++
++	return 0;
++}
++EXPORT_SYMBOL(sbl_base_link_config);
++
++/**
++ * sbl_base_link_start() - Initialize and bring up links
 + * @sbl: A slingshot base link device instance
 + * @port_num: port number
 + *
-+ * Print PCS receive path status and eye heights signal when
-+ * reporting link down reason
++ * This function performs full sequence to bring up serdes link.
++ * It handles firmware validation, link mode detection, alignment,
++ * SerDes startup and link integrity checks. This process ensures
++ * link partner is detected and all lanes are properly initialized
++ * and active before reporting the link is up
++ *
++ * Context: Process, May sleep. Uses mutex_lock_interruptible
++ *
++ * Return: 0 on success, negative error code on failure
 + */
-+void sbl_pml_recovery_log_link_down(struct sbl_inst *sbl, int port_num)
++int sbl_base_link_start(struct sbl_inst *sbl, int port_num)
 +{
-+	if (!sbl_pml_recovery_no_faults(sbl, port_num)) {
-+		sbl_pml_recovery_log_pcs_status(sbl, port_num);
-+		sbl_log_port_eye_heights(sbl, port_num);
++	int err;
++	int tmp_err;
++	u32 base = SBL_PML_BASE(port_num);
++	u64 cfg_pcs_reg;
++	u64 sts_pcs_lane_degrade_reg;
++	struct lane_degrade lanes;
++	u32 ucw_adj = 100;
++	u32 ccw_adj = 0;
++	s32 ucw_in = SBL_LINK_FEC_HPE;
++	s32 ccw_in = SBL_LINK_FEC_HPE;
++	struct sbl_link *link;
++
++	err = sbl_validate_instance(sbl);
++	if (err)
++		return err;
++
++	err = sbl_validate_port_num(sbl, port_num);
++	if (err)
++		return err;
++
++	sbl_dev_dbg(sbl->dev, "bl %d: start\n", port_num);
++
++	link = sbl->link + port_num;
++
++	err = mutex_lock_interruptible(&link->busy_mtx);
++	if (err)
++		return -ERESTARTSYS;
++
++	if (link->blstate == SBL_BASE_LINK_STATUS_UP) {
++		/* link came up while waiting for the mutex */
++		mutex_unlock(&link->busy_mtx);
++		return 0;
++	}
++
++	if (link->blstate != SBL_BASE_LINK_STATUS_DOWN) {
++
++		sbl_dev_err(sbl->dev, "bl %d: wrong state (%s) for start", port_num,
++			    sbl_link_state_str(link->blstate));
++		mutex_unlock(&link->busy_mtx);
++		return -EUCLEAN;
++	}
++
++	/* only local loopback is possible without media */
++	if (link->blattr.loopback_mode != SBL_LOOPBACK_MODE_LOCAL) {
++		err = sbl_media_validate_config(sbl, port_num);
++		if (err) {
++			sbl_dev_err(sbl->dev, "bl %d: config unsuitable for media type", port_num);
++			mutex_unlock(&link->busy_mtx);
++			return err;
++		}
++	}
++
++	link->blstate = SBL_BASE_LINK_STATUS_STARTING;
++
++	/* check for loopback mode change */
++	if (link->blattr.loopback_mode != link->loopback_mode)
++		link->llr_loop_time = 0;
++	link->loopback_mode = link->blattr.loopback_mode;
++
++	/* setup the timeout for start to complete
++	 * (autoneg might modify this later)
++	 */
++	sbl_link_init_start_timeout(sbl, port_num);
++
++	/* clear out any residual pcs state */
++	sbl_pml_set_defaults(sbl, port_num);
++
++	/* reset state */
++	link->lp_detected = false;
++
++	/* validate serdes firmwares are (still) uncorrupted, recover them if
++	 * needed
++	 */
++	err = sbl_base_link_check_fix_fw(sbl, port_num);
++	if (err) {
++		sbl_base_link_report_err(sbl, "ensure_healthly", port_num, err);
++		goto out;
++	}
++
++	/* determine the link mode
++	 * this may do autoneg for electrical links
++	 */
++	err = sbl_base_link_get_mode(sbl, port_num);
++	if (err) {
++		if (sbl_base_link_an_timed_out(sbl, port_num, err))
++			sbl_dev_dbg(sbl->dev, "bl %d: autoneg timeout", port_num);
++		else
++			sbl_base_link_report_err(sbl, "get_mode", port_num, err);
++		goto out;
++	}
++
++	/* start sending alignment markers for lp to tune against */
++	err = sbl_pml_pcs_am_start(sbl, port_num);
++	if (err) {
++		sbl_dev_err(sbl->dev, "bl %d: am_start failed [%d]\n", port_num, err);
++		goto out;
++	}
++
++	/* wait until we detect the link partner */
++	err = sbl_base_link_lp_detect(sbl, port_num);
++	if (err) {
++		sbl_base_link_report_err(sbl, "lpd", port_num, err);
++		goto out;
++	}
++
++	/* record when we really start to bring up the link */
++	sbl_link_up_begin(sbl, port_num);
++
++	/* start the serdes */
++	err = sbl_serdes_start(sbl, port_num);
++	if (err) {
++		sbl_base_link_report_err(sbl, "serdes_start", port_num, err);
++		goto out;
++	}
++
++	/* start the pml block (pcs,mac,llr) */
++	err = sbl_pml_start(sbl, port_num);
++	if (err) {
++		sbl_base_link_report_err(sbl, "pml_start", port_num, err);
++		goto out_serdes;
++	}
++
++	/* clearing fec values before start */
++	sbl_zero_all_fec_counts(sbl, port_num);
++
++	/* setup thresholds and adjustments for fec monitoring */
++	err = sbl_fec_thresholds_set(sbl, port_num, ucw_in, ccw_in);
++	if (err) {
++		sbl_dev_err(sbl->dev, "%d: setting fec thresholds failed [%d]",
++			    port_num, err);
++		goto out_pcs;
++	}
++
++	err = sbl_fec_adjustments_set(sbl, port_num, ucw_adj, ccw_adj);
++	if (err) {
++		sbl_dev_err(sbl->dev, "%d: setting fec adjustments failed [%d]",
++			    port_num, err);
++		goto out_pcs;
++	}
++
++	/* start fec checking */
++	err = sbl_fec_up_check(sbl, port_num);
++	if (err) {
++		unsigned long flags;
++
++		sbl_serdes_invalidate_tuning_params(sbl, port_num);
++		sbl_dev_info(sbl->dev, "%d: failed start fec check", port_num);
++
++		/* SSHOTPLAT-5697 forces a maximum effort tune
++		 * straight away after FEC up check fails.
++		 */
++		sbl_dev_dbg(sbl->dev, "bl %d: forcing a maximum effort tune for next retry", port_num);
++		spin_lock_irqsave(&link->lock, flags);
++		link->blattr.options |= SBL_OPT_DFE_ALWAYS_MAX_EFFORT;
++		spin_unlock_irqrestore(&link->lock, flags);
++
++		goto out_pcs;
++	}
++
++	/* start monitoring for link faults */
++	err = sbl_link_fault_monitor_start(sbl, port_num);
++	if (err) {
++		sbl_dev_err(sbl->dev, "bl %d: link fault detect start failed [%d]\n", port_num, err);
++		goto out_pcs;
++	}
++
++	/* final check the link is still up and all lanes remain active */
++	if (!sbl_pml_pcs_up(sbl, port_num)) {
++		sbl_dev_err(sbl->dev, "bl %d: link failed during startup\n", port_num);
++		err = -ENETDOWN;
++		goto out_fm;
++	}
++
++	cfg_pcs_reg = sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET);
++	if (SBL_PML_CFG_PCS_ENABLE_AUTO_LANE_DEGRADE_GET(cfg_pcs_reg)) {
++
++		sts_pcs_lane_degrade_reg = sbl_read64(sbl, base | SBL_PML_STS_PCS_LANE_DEGRADE_OFFSET);
++		lanes.tx = SBL_PML_STS_PCS_LANE_DEGRADE_LP_PLS_AVAILABLE_GET(sts_pcs_lane_degrade_reg);
++		lanes.rx = SBL_PML_STS_PCS_LANE_DEGRADE_RX_PLS_AVAILABLE_GET(sts_pcs_lane_degrade_reg);
++
++		if (lanes.tx != SBL_LINK_ALL_LANES || lanes.rx != SBL_LINK_ALL_LANES) {
++			sbl_dev_err(sbl->dev, "bl %d: lane failed during startup - TX: 0x%llx - RX: 0x%llx",
++				    port_num, lanes.tx, lanes.rx);
++			err = -ENETDOWN;
++			goto out_fm;
++		}
++	}
++
++	/* success ! */
++	sbl_link_up_record_timespec(sbl, port_num);
++	sbl_link_start_record_timespec(sbl, port_num);
++
++	link->blstate = SBL_BASE_LINK_STATUS_UP;
++	link->blerr = 0;
++
++	sbl_dev_dbg(sbl->dev, "starting timer port_num:%d ", port_num);
++	sbl_fec_monitor_start(sbl, port_num);
++	mutex_unlock(&link->busy_mtx);
++
++	return 0;
++
++	/* failed */
++out_fm:
++	sbl_link_fault_monitor_stop(sbl, port_num);
++out_pcs:
++	if (!sbl_debug_option(sbl, port_num, SBL_DEBUG_INHIBIT_CLEANUP))
++		sbl_pml_link_down(sbl, port_num);
++out_serdes:
++	if (!sbl_debug_option(sbl, port_num, SBL_DEBUG_INHIBIT_CLEANUP))
++		sbl_serdes_stop(sbl, port_num);
++out:
++	if (sbl_debug_option(sbl, port_num, SBL_DEBUG_INHIBIT_CLEANUP) ||
++	    sbl_debug_option(sbl, port_num, SBL_DEBUG_INHIBIT_RELOAD_FW))
++		link->reload_serdes_fw = false;
++	else if (sbl_debug_option(sbl, port_num, SBL_DEBUG_FORCE_RELOAD_FW))
++		link->reload_serdes_fw = true;
++
++	if (link->reload_serdes_fw) {
++		sbl_dev_info(sbl->dev, "bl %d: reloading serdes fw\n", port_num);
++		tmp_err = sbl_serdes_firmware_flash_safe(sbl, port_num, true);
++		if (tmp_err) {
++			/* All we can do is report failure here */
++			sbl_dev_err(sbl->dev, "bl %d: fw flash failed [%d]\n",
++				    port_num, tmp_err);
++			link->sstate = SBL_SERDES_STATUS_ERROR;
++		} else
++			link->sstate = SBL_SERDES_STATUS_DOWN;
++		link->serr = tmp_err;
++		link->reload_serdes_fw = false;
++	}
++	link->blstate = SBL_BASE_LINK_STATUS_ERROR;
++	link->blerr = err;
++	mutex_unlock(&link->busy_mtx);
++
++	return err;
++}
++EXPORT_SYMBOL(sbl_base_link_start);
++
++/**
++ * sbl_ignore_save_tuning_param() - Config ignore save tuning parameters
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ * @ignore: If set then ignore save tuning
++ *
++ * This function performs the Load saved tuning params before tuning
++ * when 'ignore' is set false from caller.
++ */
++void sbl_ignore_save_tuning_param(struct sbl_inst *sbl, int port_num, bool ignore)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	unsigned long flags;
++
++	spin_lock_irqsave(&link->lock, flags);
++	if (ignore)
++		link->blattr.options &= ~SBL_OPT_USE_SAVED_PARAMS;
++	else
++		link->blattr.options |= SBL_OPT_USE_SAVED_PARAMS;
++	spin_unlock_irqrestore(&link->lock, flags);
++}
++EXPORT_SYMBOL(sbl_ignore_save_tuning_param);
++
++/**
++ * sbl_enable_opt_lane_degrade() - Enable opt lane degrade
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ * @enable: if set then enable OPT LANE DEGRADE
++ *
++ * This function performs enable auto lane degrade when
++ * 'enable' is set from the caller
++ */
++void sbl_enable_opt_lane_degrade(struct sbl_inst *sbl, int port_num, bool enable)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	unsigned long flags;
++
++	spin_lock_irqsave(&link->lock, flags);
++	if (enable)
++		link->blattr.options |= SBL_OPT_LANE_DEGRADE;
++	else
++		link->blattr.options &= ~SBL_OPT_LANE_DEGRADE;
++	spin_unlock_irqrestore(&link->lock, flags);
++}
++EXPORT_SYMBOL(sbl_enable_opt_lane_degrade);
++
++/**
++ * sbl_disable_pml_recovery() - Disable PML recovery
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ * @disable: if set, then disable PML recovery
++ *
++ * This function performs disable PML recovery
++ * when 'disable' is set from the caller
++ */
++void sbl_disable_pml_recovery(struct sbl_inst *sbl, int port_num, bool disable)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	unsigned long flags;
++
++	spin_lock_irqsave(&link->lock, flags);
++	if (disable)
++		link->blattr.options |= SBL_DISABLE_PML_RECOVERY;
++	else
++		link->blattr.options &= ~SBL_DISABLE_PML_RECOVERY;
++	spin_unlock_irqrestore(&link->lock, flags);
++}
++EXPORT_SYMBOL(sbl_disable_pml_recovery);
++
++/**
++ * sbl_set_degraded_flag() - Set degraded flag
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ *
++ * Context: Process context, Acquires lock and releases is_degraded_lock <spin_lock>
++ */
++void sbl_set_degraded_flag(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++
++	spin_lock(&link->is_degraded_lock);
++	link->is_degraded = true;
++	spin_unlock(&link->is_degraded_lock);
++}
++EXPORT_SYMBOL(sbl_set_degraded_flag);
++
++/**
++ * sbl_clear_degraded_flag() - Clear degraded flag
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ *
++ * Context: Process context, Acquires lock and releases is_degraded_lock <spin_lock>
++ */
++void sbl_clear_degraded_flag(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++
++	spin_lock(&link->is_degraded_lock);
++	link->is_degraded = false;
++	spin_unlock(&link->is_degraded_lock);
++}
++EXPORT_SYMBOL(sbl_clear_degraded_flag);
++
++/**
++ * sbl_get_degraded_flag() - Get degraded flag
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ *
++ * Context: Process context, Acquires lock and releases is_degraded_lock <spin_lock>
++ *
++ * Return: status of degraded flag
++ */
++bool sbl_get_degraded_flag(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	bool degraded_flag;
++
++	spin_lock(&link->is_degraded_lock);
++	degraded_flag = link->is_degraded;
++	spin_unlock(&link->is_degraded_lock);
++
++	return degraded_flag;
++}
++EXPORT_SYMBOL(sbl_get_degraded_flag);
++
++/**
++ * sbl_base_link_enable_start() - Enable base link start
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ *
++ * Context: Process context, Acquires lock and releases link->lock <spin_lock>
++ *
++ * Return: 0
++ */
++int sbl_base_link_enable_start(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++
++	sbl_dev_dbg(sbl->dev, "bl %d: enable start\n", port_num);
++
++	spin_lock(&link->lock);
++	link->start_cancelled = false;
++	spin_unlock(&link->lock);
++
++	return 0;
++}
++EXPORT_SYMBOL(sbl_base_link_enable_start);
++
++/**
++ * sbl_base_link_cancel_start() - Cancel base link start
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ *
++ * Context: Process context, Acquires lock and releases link->lock <spin_lock>
++ *
++ * Return: 0
++ */
++int sbl_base_link_cancel_start(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++
++	sbl_dev_dbg(sbl->dev, "bl %d: cancelling start\n", port_num);
++
++	spin_lock(&link->lock);
++	link->start_cancelled = true;
++	complete_all(&link->an_hw_change);
++	spin_unlock(&link->lock);
++	sbl_fec_monitor_stop(sbl, port_num);
++
++	return 0;
++}
++EXPORT_SYMBOL(sbl_base_link_cancel_start);
++
++bool sbl_base_link_start_cancelled(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	bool cancelled;
++
++	spin_lock(&link->lock);
++	cancelled = link->start_cancelled;
++	spin_unlock(&link->lock);
++
++	return cancelled;
++}
++
++/**
++ * sbl_base_link_stop() - Stop base link
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ *
++ * This function cleanly shuts down previously initialized
++ * SerDes link, link monitoring and stops the PML block.
++ *
++ * Context: Process, May sleep. Uses mutex_lock_interruptible
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++int sbl_base_link_stop(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link;
++	int err;
++
++	err = sbl_validate_instance(sbl);
++	if (err)
++		return err;
++
++	err = sbl_validate_port_num(sbl, port_num);
++	if (err)
++		return err;
++
++	sbl_dev_dbg(sbl->dev, "bl %d: stop", port_num);
++
++	link = sbl->link + port_num;
++
++	err = mutex_lock_interruptible(&link->busy_mtx);
++	if (err)
++		return -ERESTARTSYS;
++
++	sbl_fec_monitor_stop(sbl, port_num);
++
++	if (link->blstate == SBL_BASE_LINK_STATUS_DOWN) {
++		/* link went down while waiting for the mutex */
++		mutex_unlock(&link->busy_mtx);
++		return 0;
++	}
++
++	if (link->blstate != SBL_BASE_LINK_STATUS_UP) {
++		sbl_dev_err(sbl->dev, "bl %d: not up (%s) for stop - ignored", port_num,
++			    sbl_link_state_str(link->blstate));
++		mutex_unlock(&link->busy_mtx);
++		return -EBUSY;
++	}
++
++	/* if keeping serdes up, don't change state to stopping */
++	if (!sbl_debug_option(sbl, port_num, SBL_DEBUG_KEEP_SERDES_UP))
++		link->blstate = SBL_BASE_LINK_STATUS_STOPPING;
++
++	/* We stop the serdes before stopping the pml to avoid breaking AOC firmware,
++	 * really we should stop the pml first. This should be harmless provided
++	 * down detection is off.
++	 */
++	err = sbl_link_fault_monitor_stop(sbl, port_num);
++	if (err) {
++		sbl_dev_err(sbl->dev, "bl %d: link_fault_monitor_stop failed [%d]", port_num, err);
++		goto out;
++	}
++
++	sbl_pml_recovery_cancel(sbl, port_num);
++
++	err = sbl_serdes_stop(sbl, port_num);
++	if (err) {
++		sbl_dev_err(sbl->dev, "bl %d: serdes_stop failed [%d]", port_num, err);
++		goto out;
++	}
++
++	err = sbl_pml_link_down(sbl, port_num);
++	if (err) {
++		sbl_dev_err(sbl->dev, "bl %d: pml_link_down failed [%d]", port_num, err);
++		goto out;
++	}
++
++out:
++	spin_lock(&link->lock);
++	if (err)
++		link->blstate = SBL_BASE_LINK_STATUS_ERROR;
++	/* if keep serdes up, don't change state to down */
++	else if (!sbl_debug_option(sbl, port_num, SBL_DEBUG_KEEP_SERDES_UP))
++		link->blstate = SBL_BASE_LINK_STATUS_DOWN;
++	link->blerr = err;
++	spin_unlock(&link->lock);
++
++	mutex_unlock(&link->busy_mtx);
++
++	sbl_dev_dbg(sbl->dev, "bl %d: stop done", port_num);
++
++	return link->blerr;
++}
++EXPORT_SYMBOL(sbl_base_link_stop);
++
++/**
++ * sbl_base_link_reset() - Reset base link
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ *
++ * This function resets the base link by disabling
++ * pml interrupt handlers, resets serdes and PML block.
++ *
++ * Context: Process, May sleep. Uses mutex_lock_interruptible
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++int sbl_base_link_reset(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link;
++	int err;
++
++	err = sbl_validate_instance(sbl);
++	if (err)
++		return err;
++
++	err = sbl_validate_port_num(sbl, port_num);
++	if (err)
++		return err;
++
++	sbl_dev_dbg(sbl->dev, "bl %d: reset\n", port_num);
++
++	link = sbl->link + port_num;
++
++	err = mutex_lock_interruptible(&link->busy_mtx);
++	if (err)
++		return -ERESTARTSYS;
++
++	sbl_fec_monitor_stop(sbl, port_num);
++
++	link->blstate = SBL_BASE_LINK_STATUS_RESETTING;
++
++	/* disable and remove any pml intr handlers */
++	if (link->intr_err_flgs) {
++		sbl_pml_disable_intr_handler(sbl, port_num, link->intr_err_flgs);
++		sbl_pml_remove_intr_handler(sbl, port_num);
++		link->intr_err_flgs = 0;
++	}
++
++	sbl_pml_recovery_cancel(sbl, port_num);
++
++	err = sbl_serdes_reset(sbl, port_num);
++	if (err)
++		sbl_dev_err(sbl->dev, "bl %d: reset: serdes_reset failed [%d]", port_num, err);
++
++	err = sbl_pml_link_down(sbl, port_num);
++	if (err)
++		sbl_dev_warn(sbl->dev, "bl %d: reset: pcs_link_down failed [%d]", port_num, err);
++
++	link->blstate = SBL_BASE_LINK_STATUS_UNCONFIGURED;
++	link->blerr = 0;
++	link->blconfigured = false;
++	link->pcs_config = false;
++	link->llr_loop_time = 0;
++	link->start_cancelled = false;
++	WRITE_ONCE(link->link_info, 0);
++	link->lp_subtype = SBL_LP_SUBTYPE_INVALID;
++	/* dont reset media attribute */
++
++	/* reset hw */
++	sbl_pml_set_defaults(sbl, port_num);
++
++	sbl_pml_err_flgs_clear_all(sbl, port_num);
++
++	mutex_unlock(&link->busy_mtx);
++
++	return 0;
++}
++EXPORT_SYMBOL(sbl_base_link_reset);
++
++/**
++ * sbl_base_link_try_start_fail_cleanup() - Clean up resources
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ *
++ * Try to clear any error states that are non-fatal so we can directly
++ * attempt another start up.
++ *
++ * Context: Process, May sleep. Uses mutex_lock_interruptible
++ */
++void sbl_base_link_try_start_fail_cleanup(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link;
++	int err;
++
++	err = sbl_validate_instance(sbl);
++	if (err)
++		return;
++
++	err = sbl_validate_port_num(sbl, port_num);
++	if (err)
++		return;
++
++	sbl_dev_dbg(sbl->dev, "bl %d: try start fail cleanup\n", port_num);
++
++	link = sbl->link + port_num;
++
++	err = mutex_lock_interruptible(&link->busy_mtx);
++	if (err)
++		return;
++
++	/* disable and remove any pml intr handlers */
++	if (link->intr_err_flgs) {
++		sbl_pml_disable_intr_handler(sbl, port_num, link->intr_err_flgs);
++		sbl_pml_remove_intr_handler(sbl, port_num);
++		link->intr_err_flgs = 0;
++	}
++
++	/* when debugging we can leave the hw in its current state */
++	if (sbl_debug_option(sbl, port_num, SBL_DEBUG_INHIBIT_CLEANUP)) {
++		sbl_dev_warn(sbl->dev, "%d: hw cleanup inhibited\n", port_num);
++		mutex_unlock(&link->busy_mtx);
++		return;
++	}
++
++	/* clean up the serdes state
++	 * We have to do this before resetting the PML or the optical transceivers can
++	 * fail.
++	 */
++	switch (link->sstate) {
++	case SBL_SERDES_STATUS_RUNNING:
++		sbl_serdes_stop(sbl, port_num);
++		break;
++	case SBL_SERDES_STATUS_AUTONEG:
++		sbl_an_serdes_stop(sbl, port_num);
++		break;
++	default:
++		break;
++	}
++
++	/* still not down! */
++	if (link->sstate != SBL_SERDES_STATUS_DOWN)
++		sbl_serdes_reset(sbl, port_num);
++
++	/* some errors we can clean up and move to down so
++	 * we can try to come up again directly
++	 */
++	if (link->blstate == SBL_BASE_LINK_STATUS_ERROR) {
++		switch (link->blerr) {
++
++		case -EADV:          /* pcs startup saw high serdes error rate */
++		case -EBADE:         /* bad page exchange during auto neg */
++		case -ENETDOWN:      /* pcs dropped out after starting */
++		case -ECHRNG:        /* serdes eye heights went bad during pcs startup */
++		case -ELNRNG:        /* unable to tune properly */
++			sbl_serdes_invalidate_all_tuning_params(sbl);
++			fallthrough;
++		case -ETIME:
++		case -ETIMEDOUT:
++		case -EOVERFLOW:
++		case -ECANCELED:
++		case -ENOSR:         /* llr failed to start */
++
++			link->blstate = SBL_BASE_LINK_STATUS_DOWN;
++			link->blerr = 0;
++			link->pcs_config = false;
++			link->llr_loop_time = 0;
++			link->start_cancelled = false;
++
++			sbl_pml_link_down(sbl, port_num);
++			sbl_pml_set_defaults(sbl, port_num);
++			break;
++
++		default:
++			sbl_dev_err(sbl->dev, "%d: start fail cleanup not clearing err %d\n",
++				    port_num, link->blerr);
++			break;
++		}
++	}
++
++	mutex_unlock(&link->busy_mtx);
++}
++EXPORT_SYMBOL(sbl_base_link_try_start_fail_cleanup);
++
++/**
++ * sbl_base_link_get_status() - Get link status
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ * @blstate: link state
++ * @blerr: link err
++ * @sstate: state
++ * @serr: err
++ * @media_type: media type
++ * @link_mode: link mode
++ *
++ * This function gets base link status from params
++ * used
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++int sbl_base_link_get_status(struct sbl_inst *sbl, int port_num,
++			     int *blstate, int *blerr, int *sstate, int *serr,
++		int *media_type, int *link_mode)
++{
++	struct sbl_link *link;
++	int err;
++
++	err = sbl_validate_instance(sbl);
++	if (err)
++		return err;
++
++	err = sbl_validate_port_num(sbl, port_num);
++	if (err)
++		return err;
++
++	link = sbl->link + port_num;
++
++	if (blstate)
++		*blstate = link->blstate;
++	if (blerr)
++		*blerr = link->blerr;
++	if (sstate)
++		*sstate = link->sstate;
++	if (serr)
++		*serr = link->serr;
++	if (media_type)
++		*media_type = link->mattr.media;
++
++	if (link_mode) {
++		if (link->sstate == SBL_SERDES_STATUS_RUNNING)
++			*link_mode = link->link_mode;            /* actual mode */
++		else
++			*link_mode = link->blattr.link_mode;     /* target mode */
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(sbl_base_link_get_status);
++
++/**
++ * sbl_base_link_state_str() - Read the state of the pcs and serdes
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ * @buf: Destination buffer to write the data
++ * @len: Length of data to write
++ *
++ * This function reads the state of pcs and serdes
++ * and return in the string format
++ *
++ * Return: Number of characters written on success
++ */
++char *sbl_base_link_state_str(struct sbl_inst *sbl, int port_num, char *buf, int len)
++{
++	char pcs_buf[SBL_PCS_STATE_STR_LEN];
++	u8 not_idle_map;  /* not signalling electrical idle */
++	u8 good_eyes_map;
++	u8 active_map;
++
++	if (!buf || !len)
++		return "";
++
++	sbl_pml_pcs_state_str(sbl, port_num, pcs_buf, SBL_PCS_STATE_STR_LEN);
++
++	if (sbl_port_get_serdes_state_maps(sbl, port_num, &active_map,
++					   &not_idle_map, &good_eyes_map)) {
++		/* only active map unavailable */
++		snprintf(buf, len, "pcs %s, serdes -,-/%x", pcs_buf, active_map);
++	} else
++		snprintf(buf, len, "pcs %s, serdes %x,%x/%x", pcs_buf,
++			 not_idle_map, good_eyes_map, active_map);
++
++	return buf;
++}
++EXPORT_SYMBOL(sbl_base_link_state_str);
++
++/**
++ * sbl_link_get_ucw_thresh_hpe() - uncorrected codeword thresholds(hpe)
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ *
++ * This function reads ucw(hpe) based on link mode
++ *
++ * Return: Threshold value on success, 0 on failure.
++ */
++u64  sbl_link_get_ucw_thresh_hpe(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++
++	/* return a little under 1e-10 for all modes and cable types */
++	switch (link->link_mode) {
++	case SBL_LINK_MODE_BS_200G:
++		return 21;
++	case SBL_LINK_MODE_BJ_100G:
++	case SBL_LINK_MODE_CD_100G:
++		return 11;
++	case SBL_LINK_MODE_CD_50G:
++		return 5;
++	default:
++		sbl_dev_err(sbl->dev, "%d: cannot determine ucw rate", port_num);
++		return 0;
 +	}
 +}
-+EXPORT_SYMBOL(sbl_pml_recovery_log_link_down);
-diff --git a/drivers/net/ethernet/hpe/sbl/sbl_pml_llr.c b/drivers/net/ethernet/hpe/sbl/sbl_pml_llr.c
++EXPORT_SYMBOL(sbl_link_get_ucw_thresh_hpe);
++
++/**
++ * sbl_link_get_ucw_thresh_ieee() - uncorrected codeword thresholds(ieee)
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ *
++ * This function reads ucw(ieee).
++ *
++ * Return: Threshold value on success, 0 on failure.
++ */
++u64  sbl_link_get_ucw_thresh_ieee(struct sbl_inst *sbl, int port_num)
++{
++	/* currently these are the same as the hpe values */
++	return sbl_link_get_ucw_thresh_hpe(sbl, port_num);
++}
++EXPORT_SYMBOL(sbl_link_get_ucw_thresh_ieee);
++
++/**
++ * sbl_link_get_ccw_thresh_hpe() - corrected codeword thresholds
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ *
++ * This function reads ccw(hpe) based on link mode
++ *
++ * Return: Threshold value on success, 0 on failure.
++ */
++u64  sbl_link_get_ccw_thresh_hpe(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++
++	/* for electrical links use a threshold of 1.e-5
++	 * (we consider loopback links to be electrical)
++	 */
++	if ((link->mattr.media == SBL_LINK_MEDIA_ELECTRICAL) ||
++	    (link->loopback_mode == SBL_LOOPBACK_MODE_LOCAL)) {
++		switch (link->link_mode) {
++		case SBL_LINK_MODE_BS_200G:
++			return 21250000;
++		case SBL_LINK_MODE_BJ_100G:
++			return 10312500;
++		case SBL_LINK_MODE_CD_100G:
++			return 10625000;
++		case SBL_LINK_MODE_CD_50G:
++			return 5312500;
++		default:
++			sbl_dev_err(sbl->dev, "%d: cannot determine PEC ccw rate", port_num);
++			return 0;
++		}
++
++	}
++
++	/* optical links seem to require a threshold of about 4e-5
++	 * (otherwise pcal can sometimes take us over the threshold)
++	 */
++	if (link->mattr.media == SBL_LINK_MEDIA_OPTICAL) {
++		switch (link->link_mode) {
++		case SBL_LINK_MODE_BS_200G:
++			return 85000000;
++		case SBL_LINK_MODE_BJ_100G:
++			return 41250000;
++		case SBL_LINK_MODE_CD_100G:
++			return 42500000;
++		case SBL_LINK_MODE_CD_50G:
++			return 21250000;
++		default:
++			sbl_dev_err(sbl->dev, "%d: cannot determine AOC ccw rate", port_num);
++			return 0;
++		}
++	}
++
++	/* dont recognise media */
++	sbl_dev_err(sbl->dev, "%d: cannot determine ccw rate - unrecognised media", port_num);
++	return 0;
++}
++EXPORT_SYMBOL(sbl_link_get_ccw_thresh_hpe);
++
++/**
++ * sbl_link_get_ccw_thresh_ieee() - Get correcred code words threshold
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ *
++ * This function reads ccw(ieee) based on link mode
++ *
++ * Return: Threshold value on success, 0 on failure.
++ */
++u64  sbl_link_get_ccw_thresh_ieee(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++
++	/* ieee thresholds are about 2e-4
++	 * We dont care about media type
++	 */
++	switch (link->link_mode) {
++	case SBL_LINK_MODE_BS_200G:
++		return 42500000;
++	case SBL_LINK_MODE_BJ_100G:
++	case SBL_LINK_MODE_CD_100G:
++		return 21250000;
++	case SBL_LINK_MODE_CD_50G:
++		return 10625000;
++	default:
++		sbl_dev_err(sbl->dev, "%d: cannot determine ccw rate", port_num);
++		return 0;
++	}
++}
++EXPORT_SYMBOL(sbl_link_get_ccw_thresh_ieee);
++
++/**
++ * sbl_link_get_stp_ccw_thresh_hpe() - Get Corrected code words(hpe) threshold
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ *
++ * Get Corrected code words(hpe) threshold when STP is used
++ *
++ * Return: Threshold value on success, 0 on failure.
++ */
++u64  sbl_link_get_stp_ccw_thresh_hpe(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++
++	/* for electrical links use a threshold of 1.e-8
++	 * (we consider loopback links to be electrical)
++	 */
++	if ((link->mattr.media == SBL_LINK_MEDIA_ELECTRICAL) ||
++	    (link->loopback_mode == SBL_LOOPBACK_MODE_LOCAL)) {
++		switch (link->link_mode) {
++		case SBL_LINK_MODE_BS_200G:
++			return 2125;
++		case SBL_LINK_MODE_BJ_100G:
++			return 1031;
++		case SBL_LINK_MODE_CD_100G:
++			return 1062;
++		case SBL_LINK_MODE_CD_50G:
++			return 531;
++		default:
++			sbl_dev_err(sbl->dev, "%d: cannot determine PEC stp ccw rate", port_num);
++			return 0;
++		}
++
++	}
++
++	/* optical links seem to require a threshold of about 4e-8
++	 * (otherwise pcal can sometimes take us over the threshold)
++	 */
++	if (link->mattr.media == SBL_LINK_MEDIA_OPTICAL) {
++		switch (link->link_mode) {
++		case SBL_LINK_MODE_BS_200G:
++			return 8500;
++		case SBL_LINK_MODE_BJ_100G:
++			return 4125;
++		case SBL_LINK_MODE_CD_100G:
++			return 4250;
++		case SBL_LINK_MODE_CD_50G:
++			return 2125;
++		default:
++			sbl_dev_err(sbl->dev, "%d: cannot determine AOC stp ccw rate", port_num);
++			return 0;
++		}
++	}
++
++	/* dont recognise media */
++	sbl_dev_err(sbl->dev, "%d: cannot determine stp ccw rate - unrecognised media", port_num);
++	return 0;
++}
++EXPORT_SYMBOL(sbl_link_get_stp_ccw_thresh_hpe);
++
++/**
++ * sbl_link_get_stp_ccw_thresh_ieee() - Get corrected code word(ieee) threshold
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ *
++ * Get Corrected code words(ieee) threshold when STP is used
++ *
++ * Return: Threshold value on success, 0 on failure.
++ */
++u64  sbl_link_get_stp_ccw_thresh_ieee(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++
++	/* ieee thresholds are about 2e-8
++	 * We dont care about media type
++	 */
++	switch (link->link_mode) {
++	case SBL_LINK_MODE_BS_200G:
++		return 4250;
++	case SBL_LINK_MODE_BJ_100G:
++	case SBL_LINK_MODE_CD_100G:
++		return 2125;
++	case SBL_LINK_MODE_CD_50G:
++		return 1062;
++	default:
++		sbl_dev_err(sbl->dev, "%d: cannot determine stp ccw rate", port_num);
++		return 0;
++	}
++}
++EXPORT_SYMBOL(sbl_link_get_stp_ccw_thresh_ieee);
++
++/* Link info
++ * lets you see the current state of the link
++ *
++ * Atomic mask updates preserve concurrently changed flags.
++ */
++void sbl_link_info_set(struct sbl_inst *sbl, int port_num, u32 flag)
++{
++	switch (flag) {
++
++	case SBL_LINK_INFO_LP_DET:
++	case SBL_LINK_INFO_PCS_ANEG:
++	case SBL_LINK_INFO_PCS_TX_AM:
++	case SBL_LINK_INFO_PCS_TX_RF:
++	case SBL_LINK_INFO_PCS_ALIGN_EN:
++	case SBL_LINK_INFO_PCS_A_WAIT:
++	case SBL_LINK_INFO_PCS_F_WAIT:
++	case SBL_LINK_INFO_PCS_UP:
++	case SBL_LINK_INFO_MAC_OP:
++	case SBL_LINK_INFO_OS:
++	case SBL_LINK_INFO_LLR_LOOP:
++	case SBL_LINK_INFO_LLR_MEASURE:
++	case SBL_LINK_INFO_LLR_WAIT:
++	case SBL_LINK_INFO_LLR_RUN:
++	case SBL_LINK_INFO_LLR_DISABLED:
++	case SBL_LINK_INFO_FAULT_MON:
++	case SBL_LINK_INFO_LLR_DETECT:
++		set_mask_bits(&sbl->link[port_num].link_info, 0, flag);
++		break;
++
++	default:
++		sbl_dev_dbg(sbl->dev, "bl %d: unrecognised set info flag (%d)\n",
++			    port_num, flag);
++		break;
++	}
++}
++
++void sbl_link_info_clear(struct sbl_inst *sbl, int port_num, u32 flag)
++{
++	switch (flag) {
++
++	case SBL_LINK_INFO_LP_DET:
++	case SBL_LINK_INFO_PCS_ANEG:
++	case SBL_LINK_INFO_PCS_TX_AM:
++	case SBL_LINK_INFO_PCS_TX_RF:
++	case SBL_LINK_INFO_PCS_ALIGN_EN:
++	case SBL_LINK_INFO_PCS_A_WAIT:
++	case SBL_LINK_INFO_PCS_F_WAIT:
++	case SBL_LINK_INFO_PCS_UP:
++	case SBL_LINK_INFO_MAC_OP:
++	case SBL_LINK_INFO_OS:
++	case SBL_LINK_INFO_LLR_LOOP:
++	case SBL_LINK_INFO_LLR_MEASURE:
++	case SBL_LINK_INFO_LLR_WAIT:
++	case SBL_LINK_INFO_LLR_RUN:
++	case SBL_LINK_INFO_LLR_DISABLED:
++	case SBL_LINK_INFO_FAULT_MON:
++	case SBL_LINK_INFO_LLR_DETECT:
++		set_mask_bits(&sbl->link[port_num].link_info, flag, 0);
++		break;
++
++	default:
++		sbl_dev_dbg(sbl->dev, "bl %d: unrecognised clear info flag (%d)\n",
++			    port_num, flag);
++		break;
++	}
++}
++
++#ifdef CONFIG_SYSFS
++/**
++ * sbl_base_link_sysfs_sprint() - Format link info into buffer
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ * @buf: Destination buffer to write the data
++ * @size: Size of @buf in bytes, the output is truncated to fit
++ *
++ * Context: Process, Acquires lock and release link->lock <spin_lock>
++ *
++ * Return: Number of characters written, at most @size - 1
++ */
++int sbl_base_link_sysfs_sprint(struct sbl_inst *sbl, int port_num, char *buf, size_t size)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	bool mac_tx_op;
++	bool mac_rx_op;
++	u32 mac_ifg_mode;
++	u32 link_info;
++	u64 llr_cfg;
++	u32 llr_mode;
++	u32 llr_down_behavior;
++	u64 llr_sts;
++	int s = 0;
++
++	spin_lock(&link->lock);
++	link_info = READ_ONCE(link->link_info);
++
++	s += scnprintf(buf + s, size - s, "base link state: %s",
++			sbl_link_state_str(link->blstate));
++	if (link->blstate == SBL_BASE_LINK_STATUS_ERROR)
++		s += scnprintf(buf + s, size - s, " [%d]", link->blerr);
++	if (link->blstate == SBL_BASE_LINK_STATUS_STARTING)
++		s += scnprintf(buf + s, size - s, " (%d/%d)",
++				sbl_link_start_elapsed(sbl, port_num),
++				sbl_get_start_timeout(sbl, port_num));
++	if (link->blstate == SBL_BASE_LINK_STATUS_UP)
++		s += scnprintf(buf + s, size - s, " (%lld.%.3ld, %lld.%.3ld)",
++				(long long)link->start_time.tv_sec,
++				link->start_time.tv_nsec / 1000000,
++				(long long)link->up_time.tv_sec,
++				link->up_time.tv_nsec / 1000000);
++	s += scnprintf(buf + s, size - s, "\n");
++
++	if (link_info) {
++		s += scnprintf(buf + s, size - s, "base link info: ");
++		if (link_info & SBL_LINK_INFO_PCS_ANEG)
++			s += scnprintf(buf + s, size - s, "pcs-aneg ");
++		if (link_info & SBL_LINK_INFO_PCS_TX_AM)
++			s += scnprintf(buf + s, size - s, "pcs-tx-am ");
++		if (link_info & SBL_LINK_INFO_PCS_ALIGN_EN)
++			s += scnprintf(buf + s, size - s, "pcs-a-en ");
++		if (link_info & SBL_LINK_INFO_PCS_A_WAIT)
++			s += scnprintf(buf + s, size - s, "pcs-a-wait ");
++		if (link_info & SBL_LINK_INFO_PCS_TX_RF)
++			s += scnprintf(buf + s, size - s, "pcs-tx-rf ");
++		if (link_info & SBL_LINK_INFO_PCS_F_WAIT)
++			s += scnprintf(buf + s, size - s, "pcs-f-wait ");
++		if (link_info & SBL_LINK_INFO_PCS_UP)
++			s += scnprintf(buf + s, size - s, "pcs-up ");
++		if (link_info & SBL_LINK_INFO_LP_DET)
++			s += scnprintf(buf + s, size - s, "lp-det ");
++		if (link_info & SBL_LINK_INFO_MAC_OP)
++			s += scnprintf(buf + s, size - s, "mac ");
++		if (link_info & SBL_LINK_INFO_OS)
++			s += scnprintf(buf + s, size - s, "os ");
++		if (link_info & SBL_LINK_INFO_LLR_LOOP)
++			s += scnprintf(buf + s, size - s, "llr-loop-en ");
++		if (link_info & SBL_LINK_INFO_LLR_DETECT)
++			s += scnprintf(buf + s, size - s, "llr-detect ");
++		if (link_info & SBL_LINK_INFO_LLR_MEASURE)
++			s += scnprintf(buf + s, size - s, "llr-measure ");
++		if (link_info & SBL_LINK_INFO_LLR_WAIT)
++			s += scnprintf(buf + s, size - s, "llr-wait ");
++		if (link_info & SBL_LINK_INFO_LLR_RUN)
++			s += scnprintf(buf + s, size - s, "llr ");
++		if (link_info & SBL_LINK_INFO_LLR_DISABLED)
++			s += scnprintf(buf + s, size - s, "llr-dis ");
++		if (link_info & SBL_LINK_INFO_FAULT_MON)
++			s += scnprintf(buf + s, size - s, "fm ");
++		s += scnprintf(buf + s, size - s, "\n");
++	}
++
++	if (link->blconfigured) {
++
++		if (link->blattr.config_target == SBL_BASE_LINK_CONFIG_PEC) {
++			s += scnprintf(buf + s, size - s, "base link: an: mode %s",
++					sbl_an_mode_str(link->blattr.pec.an_mode));
++			if (link_info & SBL_LINK_INFO_PCS_ANEG) {
++				if (link->blattr.pec.an_mode == SBL_AN_MODE_FIXED)
++					s += scnprintf(buf + s, size - s, "(%s)",
++							sbl_link_mode_str(link->blattr.link_mode));
++				s += scnprintf(buf + s, size - s, ", tries %d, nonce %x, state %s",
++						link->an_try_count, link->an_nonce,
++						sbl_an_get_sm_state(sbl, port_num));
++			}
++			if ((link->blattr.pec.an_mode != SBL_AN_MODE_OFF) && (link->an_rx_count))
++				s += scnprintf(buf + s, size - s, ", received %d",
++					       link->an_rx_count);
++			if (link->an_100cr4_fixup_applied)
++				s += scnprintf(buf + s, size - s, ", 100cr4-fixup");
++			if (link->an_options & AN_OPT_LLR)
++				s += scnprintf(buf + s, size - s, ", llr");
++
++			s += scnprintf(buf + s, size - s, "\n");
++		}
++		sbl_pml_mac_hw_status(sbl, port_num, &mac_tx_op, &mac_rx_op, &mac_ifg_mode, NULL);
++		if (mac_tx_op || mac_rx_op) {
++			s += scnprintf(buf + s, size - s, "base link: mac: tx %d, rx %d, ifg %s\n",
++					mac_tx_op, mac_rx_op, sbl_ifg_config_str(link->ifg_config));
++		}
++
++		llr_cfg = sbl_read64(sbl, SBL_PML_BASE(port_num) | SBL_PML_CFG_LLR_OFFSET);
++		switch (SBL_PML_CFG_LLR_LLR_MODE_GET(llr_cfg)) {
++		case 0:
++			llr_mode = SBL_LLR_MODE_OFF;
++			break;
++		case 1:
++			llr_mode = SBL_LLR_MODE_MONITOR;
++			break;
++		case 2:
++			llr_mode = SBL_LLR_MODE_ON;
++			break;
++		default:
++			llr_mode = SBL_LLR_MODE_INVALID;
++		}
++		switch (SBL_PML_CFG_LLR_LINK_DOWN_BEHAVIOR_GET(llr_cfg)) {
++		case 0:
++			llr_down_behavior = SBL_LLR_LINK_DOWN_DISCARD;
++			break;
++		case 1:
++			llr_down_behavior = SBL_LLR_LINK_DOWN_BLOCK;
++			break;
++		case 2:
++			llr_down_behavior = SBL_LLR_LINK_DOWN_BEST_EFFORT;
++			break;
++		default:
++			llr_down_behavior = SBL_LLR_LINK_DOWN_INVALID;
++		}
++		llr_sts = sbl_read64(sbl, SBL_PML_BASE(port_num) |
++				     SBL_PML_STS_LLR_MAX_USAGE_OFFSET);
++		s += scnprintf(buf + s, size - s,
++			       "base link: llr: mode %s, down %s, loop %lld %s %s\n",
++			       sbl_llr_mode_str(llr_mode),
++			       sbl_llr_down_behaviour_str(llr_down_behavior),
++			       link->llr_loop_time,
++			       SBL_PML_STS_LLR_MAX_USAGE_BUFF_SPC_STARVED_GET(llr_sts) ?
++			       "buf starved" : "",
++			       SBL_PML_STS_LLR_MAX_USAGE_SEQ_STARVED_GET(llr_sts) ?
++			       "seq starved" : "");
++
++		if (link->blattr.options & SBL_DISABLE_PML_RECOVERY)
++			s += scnprintf(buf + s, size - s, "base link: pml rec: disabled\n");
++		else
++			s += scnprintf(buf + s, size - s,
++				       "base link: pml rec: enabled, to %u, rl %u/%u\n",
++				       link->blattr.pml_recovery.timeout,
++				       link->blattr.pml_recovery.rl_max_duration,
++				       link->blattr.pml_recovery.rl_window_size);
++	}
++
++	spin_unlock(&link->lock);
++
++	s += sbl_debug_sysfs_sprint(sbl, port_num, buf + s, size - s);
++
++	return s;
++}
++EXPORT_SYMBOL(sbl_base_link_sysfs_sprint);
++#endif
++
++/**
++ * sbl_base_link_dump_attr() - Format all link attributes into buffer
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ * @buf: Destination buffer to write the data
++ * @size: Size of @buf in bytes, the output is truncated to fit
++ *
++ * Return: Number of characters written, at most @size - 1
++ */
++int sbl_base_link_dump_attr(struct sbl_inst *sbl, int port_num, char *buf, size_t size)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	struct sbl_base_link_attr *attr = &link->blattr;
++	int s = 0;
++
++	s += scnprintf(buf + s, size - s, "%d: base link attributes:\n", port_num);
++
++	if (!link->blconfigured) {
++		s += scnprintf(buf + s, size - s, "not configured\n");
++		return s;
++	}
++
++	s += scnprintf(buf + s, size - s, "options 0x%x", attr->options);
++	if (attr->options) {
++		s += scnprintf(buf + s, size - s, " -");
++		if (attr->options & SBL_OPT_FABRIC_LINK)
++			s += scnprintf(buf + s, size - s, " fabric");
++		if (attr->options & SBL_OPT_SERDES_LPD)
++			s += scnprintf(buf + s, size - s, " serdes-lpd");
++		if (attr->options & SBL_OPT_DFE_SAVE_PARAMS)
++			s += scnprintf(buf + s, size - s, " save-params");
++		if (attr->options & SBL_OPT_USE_SAVED_PARAMS)
++			s += scnprintf(buf + s, size - s, " use-params");
++		if (attr->options & SBL_OPT_RESET_CLEAR_PARAMS)
++			s += scnprintf(buf + s, size - s, " reset-clear-params");
++		if (attr->options & SBL_OPT_ENABLE_PCAL)
++			s += scnprintf(buf + s, size - s, " pcal");
++		if (attr->options & SBL_OPT_DFE_ALWAYS_MAX_EFFORT)
++			s += scnprintf(buf + s, size - s, " max-effort");
++		if (attr->options & SBL_OPT_DFE_ALWAYS_MED_EFFORT)
++			s += scnprintf(buf + s, size - s, " med-effort");
++		if (attr->options & SBL_OPT_DFE_ALWAYS_MIN_EFFORT)
++			s += scnprintf(buf + s, size - s, " min-effort");
++		if (attr->options & SBL_OPT_AUTONEG_TIMEOUT_IEEE)
++			s += scnprintf(buf + s, size - s, " an-timeout-ieee");
++		if (attr->options & SBL_OPT_AUTONEG_TIMEOUT_SSHOT)
++			s += scnprintf(buf + s, size - s, " an-timeout-sshot");
++		if (attr->options & SBL_OPT_AUTONEG_100CR4_FIXUP)
++			s += scnprintf(buf + s, size - s, " an-100cr4-fixup");
++		if (attr->options & SBL_OPT_RELOAD_FW_ON_TIMEOUT)
++			s += scnprintf(buf + s, size - s, " timeout-reload-fw");
++		if (attr->options & SBL_OPT_ALLOW_MEDIA_BAD_MODE)
++			s += scnprintf(buf + s, size - s, " allow-media-bad-mode");
++		if (attr->options & SBL_OPT_ALLOW_MEDIA_BAD_LEN)
++			s += scnprintf(buf + s, size - s, " allow-media-bad-len");
++		if (attr->options & SBL_OPT_ENABLE_ETHER_LLR)
++			s += scnprintf(buf + s, size - s, " enable-ether-llr");
++		if (attr->options & SBL_OPT_ENABLE_IFG_HPC_WITH_LLR)
++			s += scnprintf(buf + s, size - s, " enable-ifg-hpc-with-llr");
++		if (attr->options & SBL_OPT_ENABLE_IFG_CONFIG)
++			s += scnprintf(buf + s, size - s, " enable-ifg-config");
++		if (attr->options & SBL_OPT_DISABLE_AN_LLR)
++			s += scnprintf(buf + s, size - s, " disable-an-llr");
++		if (attr->options & SBL_OPT_LANE_DEGRADE)
++			s += scnprintf(buf + s, size - s, " enable-lane-degrade");
++		if (attr->options & SBL_DISABLE_PML_RECOVERY)
++			s += scnprintf(buf + s, size - s, " disable-pml-recovery");
++	}
++	s += scnprintf(buf + s, size - s, "\n");
++	s += scnprintf(buf + s, size - s, "start_timeout %d\n", attr->start_timeout);
++	if (attr->config_target == SBL_BASE_LINK_CONFIG_PEC) {
++		s += scnprintf(buf + s, size - s, "config_target PEC\n");
++		s += scnprintf(buf + s, size - s, "an_mode %d (%s)\n",
++			       attr->pec.an_mode,
++			       sbl_an_mode_str(attr->pec.an_mode));
++		s += scnprintf(buf + s, size - s, "an_retry_timeout %d\n",
++			       attr->pec.an_retry_timeout);
++		s += scnprintf(buf + s, size - s, "an_max_retry %d\n", attr->pec.an_max_retry);
++	}
++	if (attr->config_target == SBL_BASE_LINK_CONFIG_AOC) {
++		s += scnprintf(buf + s, size - s, "config_target AOC\n");
++		s += scnprintf(buf + s, size - s, "optical_lock_delay %d\n",
++			       attr->aoc.optical_lock_delay);
++		s += scnprintf(buf + s, size - s, "optical_lock_interval %d\n",
++			       attr->aoc.optical_lock_interval);
++	}
++	s += scnprintf(buf + s, size - s, "lpd_timeout %d\n", attr->lpd_timeout);
++	s += scnprintf(buf + s, size - s, "lpd_poll_interval %d\n", attr->lpd_poll_interval);
++	s += scnprintf(buf + s, size - s, "link_mode %d (%s)\n",
++		       attr->link_mode, sbl_link_mode_str(attr->link_mode));
++	s += scnprintf(buf + s, size - s, "loopback_mode %d (%s)\n",
++		       attr->loopback_mode,
++		       sbl_loopback_mode_str(attr->loopback_mode));
++	s += scnprintf(buf + s, size - s, "link_partner %d\n", attr->link_partner);
++	s += scnprintf(buf + s, size - s, "tuning_pattern %d\n", attr->tuning_pattern);
++	s += scnprintf(buf + s, size - s, "precoding %d\n", attr->precoding);
++	s += scnprintf(buf + s, size - s, "dfe_pre_delay %d\n", attr->dfe_pre_delay);
++	s += scnprintf(buf + s, size - s, "dfe_timeout %d\n", attr->dfe_timeout);
++	s += scnprintf(buf + s, size - s, "dfe_poll_interval %d\n", attr->dfe_poll_interval);
++	s += scnprintf(buf + s, size - s, "pcal_eyecheck_holdoff %d\n",
++		       attr->pcal_eyecheck_holdoff);
++	s += scnprintf(buf + s, size - s, "nrz_min_eye_height 0x%x\n", attr->nrz_min_eye_height);
++	s += scnprintf(buf + s, size - s, "nrz_max_eye_height 0x%x\n", attr->nrz_max_eye_height);
++	s += scnprintf(buf + s, size - s, "pam4_min_eye_height 0x%x\n", attr->pam4_min_eye_height);
++	s += scnprintf(buf + s, size - s, "pam4_max_eye_height 0x%x\n", attr->pam4_max_eye_height);
++	s += scnprintf(buf + s, size - s, "fec_mode %d\n", attr->fec_mode);
++	s += scnprintf(buf + s, size - s, "enable_autodegrade %d\n", attr->enable_autodegrade);
++	s += scnprintf(buf + s, size - s, "llr_mode %d (%s)\n",
++		       attr->llr_mode, sbl_llr_mode_str(attr->llr_mode));
++	s += scnprintf(buf + s, size - s, "ifg_config %d (%s)\n",
++		       attr->ifg_config, sbl_ifg_config_str(attr->ifg_config));
++	s += scnprintf(buf + s, size - s, "pml_recovery.timeout %u\n", attr->pml_recovery.timeout);
++	s += scnprintf(buf + s, size - s, "pml_recovery.rl_max_duration %u\n",
++		       attr->pml_recovery.rl_max_duration);
++	s += scnprintf(buf + s, size - s, "pml_recovery.rl_window_size %u\n",
++		       attr->pml_recovery.rl_window_size);
++
++	return s;
++}
++EXPORT_SYMBOL(sbl_base_link_dump_attr);
+diff --git a/drivers/net/ethernet/hpe/sbl/sbl_link_an.c b/drivers/net/ethernet/hpe/sbl/sbl_link_an.c
 new file mode 100644
-index 000000000000..a190f6890b4e
+index 000000000000..aecadbceb593
 --- /dev/null
-+++ b/drivers/net/ethernet/hpe/sbl/sbl_pml_llr.c
-@@ -0,0 +1,736 @@
++++ b/drivers/net/ethernet/hpe/sbl/sbl_link_an.c
+@@ -0,0 +1,1010 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
 +/* Copyright 2019-2025 Hewlett Packard Enterprise Development LP */
 +
 +#include <linux/types.h>
 +#include <linux/kernel.h>
-+#include <linux/slab.h>
 +#include <linux/device.h>
++#include <linux/random.h>
 +#include <linux/delay.h>
-+#include <linux/sched.h>
 +
 +#include <linux/hpe/sbl/sbl.h>
 +#include <linux/hpe/sbl/sbl_an.h>
-+#include <linux/hpe/sbl/sbl_kconfig.h>
 +
 +#include <linux/hpe/sbl/sbl_pml.h>
 +
 +#include "sbl_pml_fn.h"
 +#include "sbl_link.h"
-+#include "sbl_internal.h"
-+
-+static int sbl_pml_llr_ready_wait(struct sbl_inst *sbl, int port_num)
-+{
-+	int err = -1;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: LLR ready wait", port_num);
-+
-+	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_LLR_WAIT);
-+
-+	while (sbl_pml_llr_get_state(sbl, port_num) != SBL_PML_LLR_STATE_ADVANCE) {
-+
-+		if (sbl_start_timeout(sbl, port_num)) {
-+			sbl_dev_err(sbl->dev, "%d: LLR ready wait timeout", port_num);
-+			err = -ETIMEDOUT;
-+			goto out;
-+		}
-+
-+		if (sbl_base_link_start_cancelled(sbl, port_num)) {
-+			sbl_dev_err(sbl->dev, "%d: LLR ready wait cancelled", port_num);
-+			err = -ECANCELED;
-+			goto out;
-+		}
-+
-+		/* should be relatively well synchronised by this point */
-+		usleep_range(5000, 6000);
-+	}
-+
-+	err = 0;
-+
-+out:
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_LLR_WAIT);
-+	return err;
-+}
-+
-+/* calculate the loop time
-+ *
-+ * try to make a number of measurements or timeout/cancelled
-+ */
-+static int sbl_pml_llr_measure_loop_time_ns(struct sbl_inst *sbl, int port_num,
-+					    u64 *llr_loop_time)
-+{
-+	struct sbl_link *link;
-+	u32              base;
-+	u64              min_loop_time;
-+	u64              max_loop_time;
-+	int              x;
-+	u64              val64;
-+	u64              time64;
-+	int              err;
-+
-+	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_LLR_MEASURE);
-+
-+	link = sbl->link + port_num;
-+	base = SBL_PML_BASE(port_num);
-+
-+	min_loop_time  = SBL_PML_LLR_MIN_LOOP_TIME;
-+	max_loop_time  = SBL_PML_LLR_MAX_LOOP_TIME;
-+	*llr_loop_time = SBL_PML_LLR_MAX_LOOP_TIME;
-+	time64         = 0ULL;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: LLR measure loop time (len = %s)(media = %s)",
-+		    port_num, sbl_link_len_str(link->mattr.len),
-+		    sbl_link_media_str(link->mattr.media));
-+
-+	/* calc loop time bounds */
-+	if (link->mattr.len != SBL_LINK_LEN_INVALID) {
-+		err = sbl_media_calc_loop_time(sbl, port_num, &min_loop_time);
-+		if (err) {
-+			sbl_dev_err(sbl->dev, "%d: LLR measure calc loop time failed [%d]", port_num, err);
-+			goto out;
-+		}
-+		/* arbitrary range for max */
-+		max_loop_time = min_loop_time + 100 /* ns */;
-+	}
-+	sbl_dev_dbg(sbl->dev, "%d: LLR measure loop time bounds: min = %lldns, max = %lldns",
-+		    port_num, min_loop_time, max_loop_time);
-+
-+	/* measure loop time */
-+	for (x = 0; x < SBL_PML_LLR_TIMING_LOOPS; ++x) {
-+
-+		if (sbl_start_timeout(sbl, port_num)) {
-+			sbl_dev_err(sbl->dev, "%d: LLR measure loop time timeout", port_num);
-+			err = -ETIMEDOUT;
-+			goto out;
-+		}
-+
-+		if (sbl_base_link_start_cancelled(sbl, port_num)) {
-+			sbl_dev_err(sbl->dev, "%d: LLR measure loop time cancelled", port_num);
-+			err = -ECANCELED;
-+			goto out;
-+		}
-+
-+		/* start a measurement */
-+		sbl_write64(sbl, base | SBL_PML_STS_LLR_LOOP_TIME_OFFSET, 0ULL);
-+		sbl_read64(sbl, base | SBL_PML_STS_LLR_LOOP_TIME_OFFSET);  /* flush */
-+		/* give the measurement time to complete */
-+		udelay(SBL_PML_LLR_TIMING_MEASURE_DELAY);
-+		/* read the measurement */
-+		val64 = sbl_read64(sbl, base | SBL_PML_STS_LLR_LOOP_TIME_OFFSET);
-+
-+		time64 = SBL_PML_STS_LLR_LOOP_TIME_LOOP_TIME_GET(val64); /* ns */
-+		sbl_dev_dbg(sbl->dev, "%d: LLR measure time = %lldns (%d)", port_num, time64, x);
-+
-+		/* if we didn't get a valid time, then wait to retry */
-+		if (!time64)
-+			msleep(SBL_PML_LLR_TIMING_RETRY_DELAY);
-+
-+		/* if we did get a valid time, then check it here */
-+		else if ((time64 >= min_loop_time) && (time64 <= max_loop_time)) {
-+			/* save the fastest time here */
-+			if (time64 < *llr_loop_time)
-+				*llr_loop_time = time64;
-+		}
-+	}
-+
-+	/* check result here */
-+	if (*llr_loop_time == SBL_PML_LLR_MAX_LOOP_TIME) {
-+		if (sbl_debug_option(sbl, port_num, SBL_DEBUG_ALLOW_LOOP_TIME_FAIL)) {
-+			sbl_dev_err(sbl->dev, "%d: LLR measure loop time failed (min = %lld, max = %lld, last = %lld)",
-+				    port_num, min_loop_time, max_loop_time, time64);
-+			err = -ENODATA;
-+			goto out;
-+		}
-+		/* set to max calculated loop time */
-+		*llr_loop_time = max_loop_time;
-+	}
-+
-+	sbl_dev_dbg(sbl->dev, "%d: LLR measure loop time = %lldns", port_num, *llr_loop_time);
-+	err = 0;
-+
-+out:
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_LLR_MEASURE);
-+	return err;
-+}
-+
-+/*   calculate the required size of the llr buffer
-+ *
-+ *   we will use the measured loop time not cable length as we dont
-+ *   always have that.
-+ *
-+ *   TODO: link degrade & mfs
-+ */
-+static void sbl_pml_llr_calculate_capacity(struct sbl_inst *sbl, int port_num,
-+					   u64 *max_data, u64 *max_seq)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+
-+	u64 bytes_per_ns = 25;
-+	u64 bytes_per_frame = sbl_frame_size(sbl, port_num);
-+	u64 cap_data_max;
-+	u64 cap_seq_max;
-+	u64 calc;
-+
-+	switch (link->link_mode) {
-+	case SBL_LINK_MODE_BS_200G:
-+		bytes_per_ns = 25;  /* 25000us */
-+		break;
-+	case SBL_LINK_MODE_BJ_100G:
-+	case SBL_LINK_MODE_CD_100G:
-+		bytes_per_ns = 13;  /* 12500us */
-+		break;
-+	case SBL_LINK_MODE_CD_50G:
-+		bytes_per_ns =  7;  /*  6250us */
-+		break;
-+	}
-+
-+	sbl_llr_max_data_get(sbl, port_num, &cap_data_max, &cap_seq_max);
-+
-+	calc = (link->llr_loop_time * bytes_per_ns) + (bytes_per_frame * SBL_PML_LLR_NUM_FRAMES);
-+
-+	/* units 48 byte quanta */
-+	*max_data = DIV_ROUND_UP(calc, 48);
-+	if (*max_data > cap_data_max) {
-+		sbl_dev_dbg(sbl->dev,
-+			    "%d: LLR max data cap 0x%llx out of bounds, setting to 0x%llx",
-+			port_num, *max_data, cap_data_max);
-+		*max_data = cap_data_max;
-+	}
-+
-+	/* units 32 byte frame size */
-+	*max_seq  = DIV_ROUND_UP(calc, 32);
-+	if (*max_seq > cap_seq_max) {
-+		sbl_dev_dbg(sbl->dev,
-+			    "%d: LLR max seq cap 0x%llx out of bounds, setting to 0x%llx",
-+			port_num, *max_seq, cap_seq_max);
-+		*max_seq = cap_seq_max;
-+	}
-+
-+	sbl_dev_dbg(sbl->dev,
-+		    "%d: LLR cap: data = 0x%llx, seq = 0x%llx",
-+		port_num, *max_data, *max_seq);
-+}
-+
-+/* enable llr timing measurements */
-+static void sbl_pml_llr_enable_loop_timing(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: LLR enable loop timing", port_num);
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_LLR_OFFSET);
-+	val64 = SBL_PML_CFG_LLR_ENABLE_LOOP_TIMING_UPDATE(val64, 1ULL);
-+	sbl_write64(sbl, base | SBL_PML_CFG_LLR_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_LLR_OFFSET);  /* flush */
-+
-+	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_LLR_LOOP);
-+}
-+
-+/* disable llr timing measurements */
-+static void sbl_pml_llr_disable_loop_timing(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: LLR disable loop timing", port_num);
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_LLR_OFFSET);
-+	val64 = SBL_PML_CFG_LLR_ENABLE_LOOP_TIMING_UPDATE(val64, 0ULL);
-+	sbl_write64(sbl, base | SBL_PML_CFG_LLR_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_LLR_OFFSET);  /* flush */
-+
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_LLR_LOOP);
-+}
-+
-+/* set LLR mode */
-+static void sbl_pml_llr_mode_set(struct sbl_inst *sbl, int port_num, u32 llr_mode)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: LLR mode set (%d)", port_num, llr_mode);
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_LLR_OFFSET);
-+	switch (llr_mode) {
-+	case SBL_LLR_MODE_OFF:
-+		val64 = SBL_PML_CFG_LLR_LLR_MODE_UPDATE(val64, 0ULL);
-+		break;
-+	case SBL_LLR_MODE_MONITOR:
-+		val64 = SBL_PML_CFG_LLR_LLR_MODE_UPDATE(val64, 1ULL);
-+		break;
-+	case SBL_LLR_MODE_ON:
-+		val64 = SBL_PML_CFG_LLR_LLR_MODE_UPDATE(val64, 2ULL);
-+		break;
-+	default:
-+		sbl_dev_dbg(sbl->dev, "%d: LLR mode invalid (%d)", port_num, llr_mode);
-+		return;
-+	}
-+	sbl_write64(sbl, base | SBL_PML_CFG_LLR_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_LLR_OFFSET);  /* flush */
-+}
-+
-+/* LLR detect */
-+static int sbl_pml_llr_detect(struct sbl_inst *sbl, int port_num, u32 *llr_mode)
-+{
-+	u32           base       = SBL_PML_BASE(port_num);
-+	u64           val64      = 0;
-+	u64           time64     = 0;
-+	unsigned long last_jiffy = jiffies + msecs_to_jiffies(SBL_PML_LLR_DETECT_TIMEOUT);
-+	int           err        = -1;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: LLR detect", port_num);
-+
-+	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_LLR_DETECT);
-+
-+	/* OFF unless we detect a loop */
-+	*llr_mode = SBL_LLR_MODE_OFF;
-+
-+	sbl_write64(sbl, (base | SBL_PML_STS_LLR_LOOP_TIME_OFFSET), 0ULL);
-+	sbl_read64(sbl, (base | SBL_PML_STS_LLR_LOOP_TIME_OFFSET));  /* flush */
-+	do {
-+
-+		if (sbl_start_timeout(sbl, port_num)) {
-+			err = -ETIMEDOUT;
-+			goto out;
-+		}
-+
-+		if (sbl_base_link_start_cancelled(sbl, port_num)) {
-+			err = -ECANCELED;
-+			goto out;
-+		}
-+
-+		msleep(SBL_PML_LLR_DETECT_DELAY);
-+
-+		val64 = sbl_read64(sbl, (base | SBL_PML_STS_LLR_LOOP_TIME_OFFSET));
-+		time64 = SBL_PML_STS_LLR_LOOP_TIME_LOOP_TIME_GET(val64);                 /* ns */
-+		sbl_dev_dbg(sbl->dev, "%d: LLR time = %lldns", port_num, time64);
-+
-+		if (time64) {
-+			/* loop detected */
-+			if ((time64 < SBL_PML_LLR_MIN_LOOP_TIME) || (time64 > SBL_PML_LLR_MAX_LOOP_TIME)) {
-+				sbl_dev_warn(sbl->dev, "%d: LLR time out of bounds (%lldns)", port_num, time64);
-+				continue;
-+			}
-+			*llr_mode = SBL_LLR_MODE_ON;
-+			err = 0;
-+			goto out;
-+		}
-+
-+	} while (time_before(jiffies, last_jiffy));
-+
-+out:
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_LLR_DETECT);
-+	return err;
-+}
-+
-+/* get LLR mode */
-+static int sbl_pml_llr_mode_get(struct sbl_inst *sbl, int port_num, u32 *llr_mode)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	int               err = -1;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: LLR mode get (%d)", port_num, link->blattr.llr_mode);
-+
-+	switch (link->blattr.llr_mode) {
-+
-+	case SBL_LLR_MODE_MONITOR:
-+		sbl_dev_dbg(sbl->dev, "%d: LLR mode monitor", port_num);
-+		*llr_mode = SBL_LLR_MODE_MONITOR;
-+		return 0;
-+
-+	case SBL_LLR_MODE_ON:
-+		sbl_dev_dbg(sbl->dev, "%d: LLR mode on", port_num);
-+		goto out_on;
-+
-+	case SBL_LLR_MODE_AUTO:
-+		/* check fabric link here */
-+		if (link->blattr.options & SBL_OPT_FABRIC_LINK) {
-+			sbl_dev_dbg(sbl->dev, "%d: LLR mode on fabric", port_num);
-+			goto out_on;
-+		}
-+		/* check ether link here */
-+		if (!(link->blattr.options & SBL_OPT_ENABLE_ETHER_LLR))
-+			goto out_off;
-+		/* check AN options here */
-+		if (link->an_options & AN_OPT_LLR) {
-+			if (link->an_options & AN_OPT_ETHER_LLR) {
-+				if (link->an_options & AN_OPT_HPC_WITH_LLR) {
-+					link->llr_options |= SBL_PML_LLR_OPTION_HPC_WIH_LLR;
-+					link->ifg_config = SBL_IFG_CONFIG_HPC;
-+					sbl_dev_dbg(sbl->dev, "%d: LLR mode on with HPC from AN", port_num);
-+					goto out_on;
-+				}
-+				sbl_dev_dbg(sbl->dev, "%d: LLR mode on without HPC from AN", port_num);
-+				goto out_on;
-+			}
-+			goto out_off;
-+		}
-+		/* do loop detect here */
-+		err = sbl_pml_llr_detect(sbl, port_num, &(link->llr_mode));
-+		switch (err) {
-+		case 0:
-+			if (link->llr_mode == SBL_LLR_MODE_OFF)
-+				goto out_off;
-+			if (link->blattr.options & SBL_OPT_ENABLE_IFG_HPC_WITH_LLR) {
-+				link->llr_options |= SBL_PML_LLR_OPTION_HPC_WIH_LLR;
-+				link->ifg_config = SBL_IFG_CONFIG_HPC;
-+				sbl_dev_dbg(sbl->dev, "%d: LLR mode on with HPC from LOOP", port_num);
-+				goto out_on;
-+			}
-+			sbl_dev_dbg(sbl->dev, "%d: LLR mode on without HPC from LOOP", port_num);
-+			goto out_on;
-+		case -ECANCELED:
-+			sbl_dev_dbg(sbl->dev, "%d: LLR detect cancelled", port_num);
-+			goto out_err;
-+		case -ETIMEDOUT:
-+			sbl_dev_dbg(sbl->dev, "%d: LLR detect timed out", port_num);
-+			goto out_err;
-+		default:
-+			goto out_off;
-+		}
-+		goto out_off;
-+
-+	case SBL_LLR_MODE_OFF:
-+		goto out_off;
-+
-+	default:
-+		sbl_dev_err(sbl->dev, "%d: LLR invalid mode [%d]", port_num, link->blattr.llr_mode);
-+		err = -EBADRQC;
-+		goto out_err;
-+	}
-+
-+out_off:
-+	sbl_dev_dbg(sbl->dev, "%d: LLR mode off", port_num);
-+	*llr_mode = SBL_LLR_MODE_OFF;
-+	return 0;
-+
-+out_on:
-+	*llr_mode = SBL_LLR_MODE_ON;
-+	return 0;
-+
-+out_err:
-+	*llr_mode = SBL_LLR_MODE_OFF;
-+	return err;
-+}
-+
-+/* configure */
-+void sbl_pml_llr_config(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: LLR config", port_num);
-+
-+	/* init to original requested */
-+	link->llr_mode = link->blattr.llr_mode;
-+
-+	/* config */
-+	sbl_write64(sbl, base | SBL_PML_STS_LLR_MAX_USAGE_OFFSET, 0ULL);
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_LLR_OFFSET);
-+	val64 = SBL_PML_CFG_LLR_LLR_MODE_UPDATE(val64, 0ULL);  /* LLR OFF */
-+	val64 = SBL_PML_CFG_LLR_PREAMBLE_SEQ_CHECK_UPDATE(val64, 1ULL);
-+	val64 = SBL_PML_CFG_LLR_ACK_NACK_ERR_CHECK_UPDATE(val64, 1ULL);
-+	val64 = SBL_PML_CFG_LLR_FILTER_LOSSLESS_WHEN_OFF_UPDATE(val64, 1ULL);
-+	val64 = SBL_PML_CFG_LLR_FILTER_CTL_FRAMES_UPDATE(val64, 1ULL);
-+	val64 = SBL_PML_CFG_LLR_SIZE_UPDATE(val64, 3ULL);
-+	val64 = SBL_PML_CFG_LLR_ENABLE_LOOP_TIMING_UPDATE(val64, 0ULL);  /* loop timing off */
-+	val64 = SBL_PML_CFG_LLR_LINK_DOWN_BEHAVIOR_UPDATE(val64,
-+				 sbl_pml_llr_link_down_behaviour(sbl,
-+								 port_num));
-+	val64 = SBL_PML_CFG_LLR_MAC_IF_CREDITS_UPDATE(val64,
-+						      SBL_PML_CFG_LLR_MAC_IF_CREDITS_DFLT);
-+	sbl_write64(sbl, base | SBL_PML_CFG_LLR_OFFSET, val64);
-+
-+	sbl_write64(sbl, base | SBL_PML_CFG_LLR_CF_SMAC_OFFSET,
-+		    SBL_PML_CFG_LLR_CF_SMAC_DFLT);
-+
-+	sbl_write64(sbl, base | SBL_PML_CFG_LLR_CF_ETYPE_OFFSET,
-+		    SBL_PML_CFG_LLR_CF_ETYPE_DFLT);
-+
-+	sbl_write64(sbl, base | SBL_PML_CFG_LLR_SM_OFFSET,
-+		    SBL_PML_CFG_LLR_SM_DFLT);
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_LLR_CF_RATES_OFFSET);
-+	val64 = SBL_PML_CFG_LLR_CF_RATES_LOOP_TIMING_PERIOD_UPDATE(val64, SBL_PML_LLR_TIMING_PERIOD);
-+	sbl_write64(sbl, base | SBL_PML_CFG_LLR_CF_RATES_OFFSET, val64);
-+
-+	sbl_read64(sbl, base | SBL_PML_CFG_LLR_OFFSET);  /* flush */
-+}
-+
-+/* start */
-+int sbl_pml_llr_start(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 llr_max_data;
-+	u64 llr_max_seq;
-+	u64 val64;
-+	u64 recovery_timeout_ns;
-+	int err = -1;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: LLR start", port_num);
-+
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_LLR_DISABLED);
-+
-+	sbl_pml_llr_enable_loop_timing(sbl, port_num);
-+
-+	/* get mode here */
-+	err = sbl_pml_llr_mode_get(sbl, port_num, &(link->llr_mode));
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "%d: LLR get mode failed [%d]", port_num, err);
-+		goto out_err;
-+	}
-+
-+	/* if LLR is OFF then nothing to do here */
-+	if (link->llr_mode == SBL_LLR_MODE_OFF)
-+		goto out;
-+
-+	/* set HPC if needed */
-+	if (link->llr_options & SBL_PML_LLR_OPTION_HPC_WIH_LLR)
-+		sbl_pml_mac_hpc_set(sbl, port_num);
-+
-+	/* start ordered sets */
-+	sbl_pml_pcs_ordered_sets(sbl, port_num, true);
-+
-+	/* measure llr loop time if we don't have it already */
-+	if (!link->llr_loop_time) {
-+		err = sbl_pml_llr_measure_loop_time_ns(sbl, port_num, &link->llr_loop_time);
-+		if (err) {
-+			sbl_dev_err(sbl->dev, "%d: LLR loop measurement failed [%d]", port_num, err);
-+			goto out_err;
-+		}
-+	}
-+
-+	/* set max replay time from loop-back time */
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_LLR_SM_OFFSET);
-+	if (link->blattr.options & SBL_DISABLE_PML_RECOVERY)
-+		val64 = SBL_PML_CFG_LLR_SM_REPLAY_CT_MAX_UPDATE(val64, SBL_DFLT_REPLAY_CT_MAX);
-+	else
-+		val64 = SBL_PML_CFG_LLR_SM_REPLAY_CT_MAX_UPDATE(val64, SBL_LLR_REPLAY_CT_MAX_UNLIMITED);
-+	val64 = SBL_PML_CFG_LLR_SM_REPLAY_TIMER_MAX_UPDATE(val64,
-+							   3 * link->llr_loop_time + 500);
-+	sbl_write64(sbl, base | SBL_PML_CFG_LLR_SM_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_LLR_SM_OFFSET);  /* flush */
-+
-+	/* capacity configuration */
-+	if (link->blattr.options & SBL_OPT_FABRIC_LINK) {
-+		/* these can be set to their defaults for fabric links */
-+		sbl_write64(sbl, base | SBL_PML_CFG_LLR_CAPACITY_OFFSET,
-+			    SBL_PML_CFG_LLR_CAPACITY_DFLT);
-+		sbl_read64(sbl, base | SBL_PML_CFG_LLR_CAPACITY_OFFSET);  /* flush */
-+	} else {
-+		sbl_pml_llr_calculate_capacity(sbl, port_num, &llr_max_data, &llr_max_seq);
-+		val64 = SBL_PML_CFG_LLR_CAPACITY_MAX_DATA_SET(llr_max_data) |
-+			SBL_PML_CFG_LLR_CAPACITY_MAX_SEQ_SET(llr_max_seq);
-+		sbl_write64(sbl, base | SBL_PML_CFG_LLR_CAPACITY_OFFSET, val64);
-+		sbl_read64(sbl, base | SBL_PML_CFG_LLR_CAPACITY_OFFSET);  /* flush */
-+	}
-+
-+	/* set max data age timer & link down timer */
-+	if (link->blattr.options & SBL_DISABLE_PML_RECOVERY)
-+		sbl_write64(sbl, base | SBL_PML_CFG_LLR_TIMEOUTS_OFFSET,
-+			    SBL_PML_CFG_LLR_TIMEOUTS_DFLT);
-+	else {
-+		recovery_timeout_ns = ((u64)link->blattr.pml_recovery.timeout +
-+			SBL_PML_REC_LLR_TIMEOUT_OFFSET) * NSEC_PER_MSEC;
-+		if (recovery_timeout_ns > U32_MAX) {
-+			err = -ERANGE;
-+			goto out_err;
-+		}
-+		val64 = sbl_read64(sbl, base | SBL_PML_CFG_LLR_TIMEOUTS_OFFSET);
-+		val64 = SBL_PML_CFG_LLR_TIMEOUTS_DATA_AGE_TIMER_MAX_UPDATE(val64,
-+			recovery_timeout_ns);
-+		val64 = SBL_PML_CFG_LLR_TIMEOUTS_PCS_LINK_DN_TIMER_MAX_UPDATE(val64,
-+			recovery_timeout_ns);
-+		sbl_write64(sbl, base | SBL_PML_CFG_LLR_TIMEOUTS_OFFSET, val64);
-+	}
-+	sbl_read64(sbl, base | SBL_PML_CFG_LLR_TIMEOUTS_OFFSET);  /* flush */
-+
-+	/* clear all the llr related error flags */
-+	sbl_pml_err_flgs_clear(sbl, port_num, SBL_PML_ALL_LLR_ERR_FLGS);
-+
-+	/* set required mode */
-+	sbl_pml_llr_mode_set(sbl, port_num, link->llr_mode);
-+
-+	/* wait for llr to start */
-+	err = sbl_pml_llr_ready_wait(sbl, port_num);
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "%d: LLR ready wait failed [%d]", port_num, err);
-+		goto out_err;
-+	}
-+
-+	/* success */
-+	sbl_dev_dbg(sbl->dev, "%d: LLR running", port_num);
-+	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_LLR_RUN);
-+
-+out:
-+	sbl_pml_llr_disable_loop_timing(sbl, port_num);
-+	return 0;
-+
-+out_err:
-+	sbl_pml_llr_disable_loop_timing(sbl, port_num);
-+	sbl_pml_llr_stop(sbl, port_num);
-+	return err;
-+}
-+
-+/**
-+ * sbl_pml_llr_get_state() - Get pml llr state
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ *
-+ * Return: state value
-+ */
-+u32 sbl_pml_llr_get_state(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base  = SBL_PML_BASE(port_num);
-+	u64 val64 = sbl_read64(sbl, base | SBL_PML_STS_LLR_OFFSET);
-+
-+	switch (SBL_PML_STS_LLR_LLR_STATE_GET(val64)) {
-+	case 0: /* OFF */
-+		return SBL_PML_LLR_STATE_OFF;
-+	case 1: /* INIT */
-+		return SBL_PML_LLR_STATE_INIT;
-+	case 2: /* ADVANCE */
-+		return SBL_PML_LLR_STATE_ADVANCE;
-+	case 3: /* HALT */
-+		return SBL_PML_LLR_STATE_HALT;
-+	case 4: /* REPLAY */
-+		return SBL_PML_LLR_STATE_REPLAY;
-+	case 5: /* DISCARD */
-+		return SBL_PML_LLR_STATE_DISCARD;
-+	case 6: /* MONITOR */
-+		return SBL_PML_LLR_STATE_MONITOR;
-+	default:
-+		return SBL_PML_LLR_STATE_UNKNOWN;
-+	}
-+}
-+EXPORT_SYMBOL(sbl_pml_llr_get_state);
-+
-+/**
-+ * sbl_pml_llr_stop() - Stop pml llr functionality
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ *
-+ * Configure various pml llr registers to stop functionality
-+ */
-+void sbl_pml_llr_stop(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: LLR stop", port_num);
-+
-+	link->llr_mode = SBL_LLR_MODE_OFF;
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_LLR_OFFSET);
-+	val64 = SBL_PML_CFG_LLR_LLR_MODE_UPDATE(val64, 0LL);  /* LLR OFF */
-+	val64 = SBL_PML_CFG_LLR_FILTER_LOSSLESS_WHEN_OFF_UPDATE(val64, 1ULL);
-+	val64 = SBL_PML_CFG_LLR_FILTER_CTL_FRAMES_UPDATE(val64, 0ULL);
-+	val64 = SBL_PML_CFG_LLR_ENABLE_LOOP_TIMING_UPDATE(val64, 0ULL);
-+	val64 = SBL_PML_CFG_LLR_LINK_DOWN_BEHAVIOR_UPDATE(val64,
-+				 sbl_pml_llr_link_down_behaviour(sbl,
-+								 port_num));
-+	val64 = SBL_PML_CFG_LLR_MAC_IF_CREDITS_UPDATE(val64,
-+						      SBL_PML_CFG_LLR_MAC_IF_CREDITS_DFLT);
-+	sbl_write64(sbl, base | SBL_PML_CFG_LLR_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_LLR_OFFSET);  /* flush */
-+
-+	sbl_pml_pcs_ordered_sets(sbl, port_num, false);
-+
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_LLR_RUN);
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_LLR_DISABLED);
-+}
-+EXPORT_SYMBOL(sbl_pml_llr_stop);
-+
-+/**
-+ * sbl_pml_llr_disable() - Disable pml llr
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ *
-+ * This function disables the LLR feature by updating the LLR
-+ * mode configuration register. Also updates the link info to reflect
-+ * disabled state and clear active status.
-+ */
-+void sbl_pml_llr_disable(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: LLR disable", port_num);
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_LLR_OFFSET);
-+	val64 = SBL_PML_CFG_LLR_LLR_MODE_UPDATE(val64, 0ULL); /* LLR OFF */
-+	sbl_write64(sbl, base | SBL_PML_CFG_LLR_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_LLR_OFFSET);  /* flush */
-+
-+	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_LLR_DISABLED);
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_LLR_RUN);
-+}
-+EXPORT_SYMBOL(sbl_pml_llr_disable);
-+
-+/**
-+ * sbl_pml_llr_enable() - Enable pml llr
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ *
-+ * Sets the LLR mode based on the link configuration to
-+ * enable the LLR feature.
-+ */
-+void sbl_pml_llr_enable(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: LLR enable", port_num);
-+
-+	sbl_pml_llr_mode_set(sbl, port_num, link->llr_mode);
-+}
-+EXPORT_SYMBOL(sbl_pml_llr_enable);
-+
-+/**
-+ * sbl_pml_llr_check_is_ready() - check llr state
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ * @timeout_ms: Value
-+ *
-+ * Check matching LLR state in invervals, if state
-+ * matches then return else sleep in intervals untill timeout.
-+ *
-+ * Context: Sleep in intervals based on condition
-+ *
-+ * Return: true on success
-+ */
-+bool sbl_pml_llr_check_is_ready(struct sbl_inst *sbl, int port_num, unsigned int timeout_ms)
-+{
-+	unsigned long to_jiffy = jiffies + msecs_to_jiffies(timeout_ms);
-+
-+	sbl_dev_dbg(sbl->dev, "%d: LLR check is ready", port_num);
-+
-+	do {
-+		if (sbl_pml_llr_get_state(sbl, port_num) == SBL_PML_LLR_STATE_ADVANCE)
-+			return true;
-+		usleep_range(5000, 6000);
-+	} while (time_before(jiffies, to_jiffy));
-+
-+	return false;
-+}
-+EXPORT_SYMBOL(sbl_pml_llr_check_is_ready);
-+
-+/* behaviour when the link is down
-+ * TODO - revisit with cassini and/or faster restart
-+ */
-+u64 sbl_pml_llr_link_down_behaviour(struct sbl_inst *sbl,
-+				    int port_num)
-+{
-+	if (sbl_is_fabric_link(sbl, port_num)) {
-+		/*   fabric link should really be BLOCK, but only if the pcs
-+		 *   can recover quickly. Currently it can't - pcs failure means
-+		 *   going right back to tuning the serdes.
-+		 */
-+		return 0ULL;
-+	}
-+
-+	return 0ULL;
-+}
-diff --git a/drivers/net/ethernet/hpe/sbl/sbl_pml_llr_nic.c b/drivers/net/ethernet/hpe/sbl/sbl_pml_llr_nic.c
-new file mode 100644
-index 000000000000..d154a2f25c6e
---- /dev/null
-+++ b/drivers/net/ethernet/hpe/sbl/sbl_pml_llr_nic.c
-@@ -0,0 +1,34 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+/* Copyright 2025 Hewlett Packard Enterprise Development LP */
-+
-+#include <linux/types.h>
-+#include <linux/kernel.h>
-+#include <linux/slab.h>
-+#include <linux/device.h>
-+#include <linux/delay.h>
-+#include <linux/sched.h>
-+
-+#include <linux/hpe/sbl/sbl.h>
-+#include <linux/hpe/sbl/sbl_an.h>
-+#include <linux/hpe/sbl/sbl_kconfig.h>
-+
-+#include <linux/hpe/sbl/sbl_pml.h>
-+
-+#include "sbl_pml_fn.h"
-+#include "sbl_link.h"
-+#include "sbl_internal.h"
-+
-+int sbl_frame_size(struct sbl_inst *sbl, int port_num)
-+{
-+	u64 bytes_per_frame = 9216;
-+
-+	return bytes_per_frame;
-+}
-+
-+void sbl_llr_max_data_get(struct sbl_inst *sbl, int port_num,
-+			  u64 *cap_data_max, u64 *cap_seq_max)
-+{
-+	*cap_data_max = sbl_llr_edge_cap_data_max_get();
-+	*cap_seq_max  = sbl_llr_edge_cap_seq_max_get();
-+}
-diff --git a/drivers/net/ethernet/hpe/sbl/sbl_pml_mac.c b/drivers/net/ethernet/hpe/sbl/sbl_pml_mac.c
-new file mode 100644
-index 000000000000..782bfc26451e
---- /dev/null
-+++ b/drivers/net/ethernet/hpe/sbl/sbl_pml_mac.c
-@@ -0,0 +1,220 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+/* Copyright 2019-2021 Hewlett Packard Enterprise Development LP */
-+
-+#include <linux/types.h>
-+#include <linux/kernel.h>
-+#include <linux/slab.h>
-+#include <linux/device.h>
-+#include <linux/delay.h>
-+#include <linux/sched.h>
-+
-+#include <linux/hpe/sbl/sbl.h>
-+#include <linux/hpe/sbl/sbl_kconfig.h>
-+
-+#include <linux/hpe/sbl/sbl_pml.h>
-+
-+#include "sbl_pml_fn.h"
-+#include "sbl_link.h"
-+#include "sbl_internal.h"
-+
-+/* get mode */
-+static void sbl_pml_mac_get_mode(struct sbl_inst *sbl, int port_num, u64 *ifg_mode, u64 *ifg_adjustment)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: MAC get mode", port_num);
-+
-+	/* start with what was requested */
-+	link->ifg_config = link->blattr.ifg_config;
-+
-+	/* check BL options */
-+	if (link->blattr.options & SBL_OPT_ENABLE_IFG_CONFIG) {
-+		/* set using IFG config */
-+		switch (link->ifg_config) {
-+		case SBL_IFG_CONFIG_HPC:
-+			*ifg_mode       = 0;
-+			*ifg_adjustment = 3;
-+			break;
-+		case SBL_IFG_CONFIG_IEEE_200G:
-+			*ifg_mode       = 1;
-+			*ifg_adjustment = 0;
-+			break;
-+		case SBL_IFG_CONFIG_IEEE_100G:
-+			*ifg_mode       = 1;
-+			*ifg_adjustment = 1;
-+			break;
-+		case SBL_IFG_CONFIG_IEEE_50G:
-+		default:
-+			*ifg_mode       = 1;
-+			*ifg_adjustment = 2;
-+			break;
-+		}
-+	} else if (link->blattr.options & SBL_OPT_FABRIC_LINK) {
-+		/* set fabric link */
-+		*ifg_mode       = 0;
-+		*ifg_adjustment = 3;
-+	} else {
-+		/* set ether link */
-+		switch (link->link_mode) {
-+		case SBL_LINK_MODE_BS_200G:
-+			*ifg_mode       = 1;
-+			*ifg_adjustment = 0;
-+			break;
-+		case SBL_LINK_MODE_BJ_100G:
-+			*ifg_mode       = 1;
-+			*ifg_adjustment = 1;
-+			break;
-+		case SBL_LINK_MODE_CD_100G:
-+			*ifg_mode       = 1;
-+			*ifg_adjustment = 1;
-+			break;
-+		case SBL_LINK_MODE_CD_50G:
-+		default:
-+			*ifg_mode       = 1;
-+			*ifg_adjustment = 2;
-+			break;
-+		}
-+	}
-+}
-+
-+/* configure */
-+int sbl_pml_mac_config(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 ifg_mode       = 0;
-+	u64 ifg_adjustment = 0;
-+	u64 val64;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: MAC config", port_num);
-+
-+	sbl_pml_mac_get_mode(sbl, port_num, &ifg_mode, &ifg_adjustment);
-+
-+	/* tx mac config */
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_TX_MAC_OFFSET);
-+	val64 = SBL_PML_CFG_TX_MAC_PCS_CREDITS_UPDATE(val64,
-+						      SBL_PML_CFG_TX_MAC_PCS_CREDITS_DFLT);
-+	val64 = SBL_PML_CFG_TX_MAC_IFG_MODE_UPDATE(val64, ifg_mode);
-+	val64 = SBL_PML_CFG_TX_MAC_IEEE_IFG_ADJUSTMENT_UPDATE(val64, ifg_adjustment);
-+	/* Short preamble is always 0 for now. See Rosetta ERRATA-2594 */
-+	val64 = SBL_PML_CFG_TX_MAC_SHORT_PREAMBLE_UPDATE(val64, 0ULL);
-+	val64 = SBL_PML_CFG_TX_MAC_MAC_OPERATIONAL_UPDATE(val64, 0ULL);
-+	sbl_write64(sbl, base | SBL_PML_CFG_TX_MAC_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_TX_MAC_OFFSET);  /* flush */
-+
-+	/* rx mac config */
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_RX_MAC_OFFSET);
-+	val64 = SBL_PML_CFG_RX_MAC_SHORT_PREAMBLE_UPDATE(val64, 0ULL);
-+	val64 = SBL_PML_CFG_RX_MAC_FILTER_ILLEGAL_SIZE_UPDATE(val64, 1ULL);
-+	val64 = SBL_PML_CFG_RX_MAC_MAC_OPERATIONAL_UPDATE(val64, 0ULL);
-+	sbl_write64(sbl, base | SBL_PML_CFG_RX_MAC_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_RX_MAC_OFFSET);  /* flush */
-+
-+	return 0;
-+}
-+
-+/**
-+ * sbl_pml_mac_start() - Start mac
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ *
-+ * Configure various MAC registers to start tx/rx mac
-+ * and clear if any errors
-+ */
-+void sbl_pml_mac_start(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: MAC start", port_num);
-+
-+	/* tx mac start */
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_TX_MAC_OFFSET);
-+	val64 = SBL_PML_CFG_TX_MAC_MAC_OPERATIONAL_UPDATE(val64, 1ULL);
-+	sbl_write64(sbl, base | SBL_PML_CFG_TX_MAC_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_TX_MAC_OFFSET);  /* flush */
-+
-+	/* rx mac start */
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_RX_MAC_OFFSET);
-+	val64 = SBL_PML_CFG_RX_MAC_MAC_OPERATIONAL_UPDATE(val64, 1ULL);
-+	sbl_write64(sbl, base | SBL_PML_CFG_RX_MAC_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_RX_MAC_OFFSET);  /* flush */
-+
-+	/* clear any errors */
-+	val64 = SBL_PML_ERR_FLG_MAC_TX_DP_ERR_SET(1ULL) |
-+		SBL_PML_ERR_FLG_MAC_RX_DP_ERR_SET(1ULL);
-+	sbl_write64(sbl, base | SBL_PML_ERR_CLR_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_ERR_CLR_OFFSET);  /* flush */
-+
-+	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_MAC_OP);
-+
-+}
-+EXPORT_SYMBOL(sbl_pml_mac_start);
-+
-+/**
-+ * sbl_pml_mac_stop() - Stop mac
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ *
-+ * Configure various MAC registers to off tx/rx mac
-+ */
-+void sbl_pml_mac_stop(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: MAC stop", port_num);
-+
-+	/* rx mac off */
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_RX_MAC_OFFSET);
-+	val64 = SBL_PML_CFG_RX_MAC_MAC_OPERATIONAL_UPDATE(val64, 0ULL);
-+	sbl_write64(sbl, base | SBL_PML_CFG_RX_MAC_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_RX_MAC_OFFSET);  /* flush */
-+
-+	/* tx mac off */
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_TX_MAC_OFFSET);
-+	val64 = SBL_PML_CFG_TX_MAC_MAC_OPERATIONAL_UPDATE(val64, 0ULL);
-+	sbl_write64(sbl, base | SBL_PML_CFG_TX_MAC_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_TX_MAC_OFFSET);  /* flush */
-+
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_MAC_OP);
-+}
-+EXPORT_SYMBOL(sbl_pml_mac_stop);
-+
-+/* get the current hw status */
-+void sbl_pml_mac_hw_status(struct sbl_inst *sbl, int port_num, bool *tx_op, bool *rx_op,
-+			   u32 *ifg_mode, u32 *ifg_adjustment)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: MAC status", port_num);
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_TX_MAC_OFFSET);
-+	if (tx_op)
-+		*tx_op = SBL_PML_CFG_TX_MAC_MAC_OPERATIONAL_GET(val64);
-+	if (ifg_mode)
-+		*ifg_mode = SBL_PML_CFG_TX_MAC_IFG_MODE_GET(val64);
-+	if (ifg_adjustment)
-+		*ifg_adjustment = SBL_PML_CFG_TX_MAC_IEEE_IFG_ADJUSTMENT_GET(val64);
-+	if (rx_op) {
-+		val64 = sbl_read64(sbl, base | SBL_PML_CFG_RX_MAC_OFFSET);
-+		*rx_op = SBL_PML_CFG_RX_MAC_MAC_OPERATIONAL_GET(val64);
-+	}
-+}
-+
-+/* HPC IFG set */
-+void sbl_pml_mac_hpc_set(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base  = SBL_PML_BASE(port_num);
-+	u64 val64 = 0;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: MAC HPC set", port_num);
-+
-+	val64 = sbl_read64(sbl, (base | SBL_PML_CFG_TX_MAC_OFFSET));
-+	val64 = SBL_PML_CFG_TX_MAC_IFG_MODE_UPDATE(val64, 0ULL); /* HPC */
-+	val64 = SBL_PML_CFG_TX_MAC_IEEE_IFG_ADJUSTMENT_UPDATE(val64, 3ULL); /* no adjustment */
-+	sbl_write64(sbl, (base | SBL_PML_CFG_TX_MAC_OFFSET), val64);
-+	sbl_read64(sbl, (base | SBL_PML_CFG_TX_MAC_OFFSET));  /* flush */
-+}
-+
-diff --git a/drivers/net/ethernet/hpe/sbl/sbl_pml_pcs.c b/drivers/net/ethernet/hpe/sbl/sbl_pml_pcs.c
-new file mode 100644
-index 000000000000..81484e177394
---- /dev/null
-+++ b/drivers/net/ethernet/hpe/sbl/sbl_pml_pcs.c
-@@ -0,0 +1,1085 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+/* Copyright 2019,2022-2025 Hewlett Packard Enterprise Development LP */
-+
-+#include <linux/types.h>
-+#include <linux/kernel.h>
-+#include <linux/slab.h>
-+#include <linux/device.h>
-+#include <linux/delay.h>
-+#include <linux/sched.h>
-+
-+#include <linux/hpe/sbl/sbl.h>
-+#include <linux/hpe/sbl/sbl_kconfig.h>
-+#include <linux/hpe/sbl/sbl_pml.h>
-+
-+#include "sbl_pml_fn.h"
-+#include "sbl_link.h"
++#include "sbl_serdes.h"
++#include "sbl_constants.h"
 +#include "sbl_serdes_map.h"
 +#include "sbl_internal.h"
-+#include "sbl_serdes_fn.h"
 +
-+/* Function to find the lanes that data will be arriving on and
-+ * setup the correct active lanes to align and active fec lanes.
-+ */
-+static int sbl_pml_pcs_determine_active_lanes(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	struct serdes_info *serdes =  sbl->switch_info->ports[port_num].serdes;
-+	int i;
++/* for debug purposes we can add an extra null message page for fabric links */
++#define SBL_SEND_EXTRA_FABRIC_NULL_PAGE                 0
 +
-+	sbl_dev_dbg(sbl->dev, "%d: pcs config lanes", port_num);
-+
-+	switch (link->link_mode) {
-+	case SBL_LINK_MODE_BS_200G:
-+		/* 4 lanes of 50Gbps - 8 internal 25Gbps fec lanes
-+		 * setup directly
-+		 */
-+		link->active_rx_lanes  = 0xf;    /* all */
-+		link->active_fec_lanes = 0xff;   /* all */
-+		break;
-+	case SBL_LINK_MODE_BJ_100G:
-+		/* 4 lanes of 25Gbps - 4 internal 25Gbps lanes
-+		 * setup directly
-+		 */
-+		link->active_rx_lanes  = 0xf;    /* all */
-+		link->active_fec_lanes = 0xf;    /* special case */
-+		break;
-+	case SBL_LINK_MODE_CD_100G:
-+		/* 2 lanes of 50Gbps - 4 internal 25Gbps lanes
-+		 * locate incoming lanes 0 and 1
-+		 */
-+		link->active_rx_lanes  = 0;
-+		link->active_fec_lanes = 0;
-+		if (link->loopback_mode == SBL_LOOPBACK_MODE_LOCAL) {
-+			/* we will receive on the tx lanes we went out on */
-+			for (i = 0; i < SBL_SERDES_LANES_PER_PORT; ++i) {
-+				if (serdes[i].tx_lane_source < 2) {
-+					link->active_rx_lanes  |= 0x1 << i;
-+					link->active_fec_lanes |= 0x3 << 2 * i;
-+				}
-+			}
-+		} else {
-+			/* we will receive on the rx lanes */
-+			for (i = 0; i < SBL_SERDES_LANES_PER_PORT; ++i) {
-+				if (serdes[i].rx_lane_source < 2) {
-+					link->active_rx_lanes  |= 0x1 << i;
-+					link->active_fec_lanes |= 0x3 << 2 * i;
-+				}
-+			}
-+		}
-+		break;
-+	case SBL_LINK_MODE_CD_50G:
-+		/* 1 lanes of 50Gbps - 2 internal 25Gbps lanes
-+		 * locate incoming lane 0
-+		 */
-+		if (link->loopback_mode == SBL_LOOPBACK_MODE_LOCAL) {
-+			/* we will receive on the lane 0 we went out on */
-+			for (i = 0; i < SBL_SERDES_LANES_PER_PORT; ++i) {
-+				if (serdes[i].tx_lane_source == 0) {
-+					link->active_rx_lanes  = 0x1 << i;
-+					link->active_fec_lanes = 0x3 << 2 * i;
-+					break;
-+				}
-+			}
-+		} else {
-+			/* we will receive on the rx lane */
-+			for (i = 0; i < SBL_SERDES_LANES_PER_PORT; ++i) {
-+				if (serdes[i].rx_lane_source == 0) {
-+					link->active_rx_lanes  = 0x1 << i;
-+					link->active_fec_lanes = 0x3 << 2 * i;
-+				}
-+			}
-+		}
-+		break;
-+	default:
-+		sbl_dev_err(sbl->dev, "%d: pcs bad link_mode (%d)", port_num, link->link_mode);
-+		return -EBADRQC;
-+	}
-+
-+	return 0;
-+}
-+
-+/* helper state functions */
-+static bool sbl_pml_pcs_locked(struct sbl_inst *sbl, int port_num)
++/* set the reset state */
++static void sbl_an_pml_an_reset(struct sbl_inst *sbl, int port_num, u64 reset_state)
 +{
 +	u32 base = SBL_PML_BASE(port_num);
-+	struct sbl_link *link = sbl->link + port_num;
-+	u64 locked_lanes;
-+	u64 val64;
++	u64 cfg_pcs_autoneg_reg;
 +
-+	val64 = sbl_read64(sbl, base | SBL_PML_STS_RX_PCS_OFFSET);
-+	locked_lanes = SBL_PML_STS_RX_PCS_AM_LOCK_GET(val64);
-+
-+	return (locked_lanes == link->active_fec_lanes);
++	/* reset */
++	cfg_pcs_autoneg_reg = sbl_read64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_OFFSET);
++	cfg_pcs_autoneg_reg = SBL_PML_CFG_PCS_AUTONEG_RESET_UPDATE(cfg_pcs_autoneg_reg, reset_state);
++	sbl_write64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_OFFSET,
++		    cfg_pcs_autoneg_reg);
++	sbl_read64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_OFFSET);
 +}
 +
-+static void sbl_pml_pcs_start_lock(struct sbl_inst *sbl, int port_num)
++static void sbl_an_send_base_page(struct sbl_inst *sbl, int port_num)
 +{
 +	struct sbl_link *link = sbl->link + port_num;
 +	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
 +
-+	sbl_dev_dbg(sbl->dev, "%d: pml bring-up start am lock\n", port_num);
++	/* first page is the base page (whole reg) */
++	sbl_write64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_BASE_PAGE_OFFSET, link->an_tx_page[0]);
++	sbl_read64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_BASE_PAGE_OFFSET);
 +
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
-+	val64 = SBL_PML_CFG_RX_PCS_ENABLE_LOCK_UPDATE(val64, 1ULL);
-+	val64 = SBL_PML_CFG_RX_PCS_ACTIVE_LANES_UPDATE(val64, link->active_rx_lanes);
-+	sbl_write64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
++	sbl_dev_dbg(sbl->dev, "an %d: tx base page: 0x%llx", port_num, link->an_tx_page[0]);
++
++	/* start autoneg by taking an sm out of reset*/
++	sbl_an_pml_an_reset(sbl, port_num, 0);
 +}
 +
-+static void sbl_pml_pcs_stop_lock(struct sbl_inst *sbl, int port_num)
++static u32 sbl_an_get_nonce(void)
++{
++	u16 buf;
++
++	while (1) {
++		get_random_bytes(&buf, 2);
++		buf &= 0x1f;
++		if (buf)
++			return buf;
++	}
++}
++
++static bool sbl_an_base_is_complete(struct sbl_inst *sbl, int port_num)
 +{
 +	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
++	u64 sts_autoneg_base_reg;
 +
-+	sbl_dev_dbg(sbl->dev, "%d: pml bring-up stop am lock\n", port_num);
++	sts_autoneg_base_reg = sbl_read64(sbl, base | SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_OFFSET);
 +
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
-+	val64 = SBL_PML_CFG_RX_PCS_ENABLE_LOCK_UPDATE(val64, 0ULL);
-+	val64 = SBL_PML_CFG_RX_PCS_ACTIVE_LANES_UPDATE(val64, 0ULL);
-+	sbl_write64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
++	return SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_COMPLETE_GET(sts_autoneg_base_reg);
 +}
 +
-+/* wait for the pcs to become aligned */
-+static int sbl_pml_pcs_alignment_wait(struct sbl_inst *sbl, int port_num)
-+{
-+	unsigned long start_jiffy;
-+	int elapsed;
-+	int err = 0;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: pml pcs alignment wait\n", port_num);
-+
-+	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_PCS_A_WAIT);
-+
-+	 /*   poll for all lanes to get bitlock
-+	  *
-+	  *   This might be a very long time as the other end obviously needs to
-+	  *   be coming up at the same time. So start eagerly checking and then back off.
-+	  *
-+	  *   If we are getting a high serdes error rate or bad eyes then we can never
-+	  *   meaningfully lock so bail with an error and the serdes will be retuned.
-+	  *
-+	  *   Occasionally the pcs seems to get stuck and some lanes never come up.
-+	  *   Restarting locking seems to clear this.
-+	  */
-+restart:
-+	start_jiffy = jiffies;
-+	while (!sbl_pml_pcs_locked(sbl, port_num)) {
-+
-+		if (sbl_start_timeout(sbl, port_num)) {
-+			sbl_dev_dbg(sbl->dev, "%d: pcs lock wait timeout\n",
-+				    port_num);
-+			err = -ETIMEDOUT;
-+			goto out;
-+		}
-+
-+		if (sbl_base_link_start_cancelled(sbl, port_num)) {
-+			sbl_dev_dbg(sbl->dev, "%d: pcs lock wait cancelled\n",
-+				    port_num);
-+			err = -ECANCELED;
-+			goto out;
-+		}
-+
-+		elapsed = jiffies_to_msecs(jiffies - start_jiffy);
-+		if (elapsed > 1000) {
-+
-+			/* if we have a high serdes error, we will never align  */
-+			if (sbl_pml_pcs_high_serdes_error(sbl, port_num)) {
-+				sbl_dev_warn(sbl->dev, "%d: pcs lock high serdes error detected\n", port_num);
-+				err = -EADV;
-+				goto out;
-+			}
-+
-+			/* Ensure the serdes is still good (eyes stay open)  */
-+			err = sbl_port_check_eyes(sbl, port_num);
-+			if (err) {
-+				sbl_dev_warn(sbl->dev, "%d: pcs lock some eyes have gone bad", port_num);
-+				goto out;
-+			}
-+
-+			/* restart locking in case it's locked up */
-+			sbl_pml_pcs_stop_lock(sbl, port_num);
-+			sbl_pml_pcs_start_lock(sbl, port_num);
-+
-+			msleep(SBL_PML_PCS_ALIGN_SLOW_POLL_DELAY);
-+		} else if (elapsed > 50)
-+			msleep(100);
-+		else
-+			usleep_range(10000, 11000);
-+	}
-+
-+	/* poll for lane alignment */
-+	start_jiffy = jiffies;
-+
-+	while (!sbl_pml_pcs_aligned(sbl, port_num)) {
-+
-+		if (sbl_start_timeout(sbl, port_num)) {
-+			sbl_dev_dbg(sbl->dev, "%d: pcs align wait timeout\n",
-+				    port_num);
-+			err = -ETIMEDOUT;
-+			goto out;
-+		}
-+
-+		if (sbl_base_link_start_cancelled(sbl, port_num)) {
-+			sbl_dev_dbg(sbl->dev, "%d: pcs align wait cancelled\n",
-+				    port_num);
-+			err = -ECANCELED;
-+			goto out;
-+		}
-+
-+		/* if we lose lock restart trying to lock again  */
-+		if (!sbl_pml_pcs_locked(sbl, port_num)) {
-+			sbl_dev_warn(sbl->dev, "%d: pcs align - lost lock\n", port_num);
-+			goto restart;
-+		}
-+
-+		elapsed = jiffies_to_msecs(jiffies - start_jiffy);
-+		if (elapsed > SBL_PML_PCS_ALIGN_TIMEOUT) {
-+
-+			/* we should have got alignment by now
-+			 * give up, restart locking and try again
-+			 */
-+			sbl_pml_pcs_stop_lock(sbl, port_num);
-+			sbl_pml_pcs_start_lock(sbl, port_num);
-+			goto restart;
-+		} else if (elapsed > 50)
-+			msleep(100);
-+		else
-+			usleep_range(10000, 11000);
-+	}
-+
-+out:
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_A_WAIT);
-+
-+	return err;
-+}
-+
-+static bool sbl_pml_pcs_no_faults(struct sbl_inst *sbl, int port_num)
++static bool sbl_an_base_is_page_recv(struct sbl_inst *sbl, int port_num)
 +{
 +	u32 base = SBL_PML_BASE(port_num);
-+	u64 faults;
-+	u64 val64;
++	u64 sts_autoneg_base_reg;
++	bool val;
 +
-+	val64 = sbl_read64(sbl, base | SBL_PML_STS_RX_PCS_OFFSET);
-+	faults = SBL_PML_STS_RX_PCS_FAULT_GET(val64) | SBL_PML_STS_RX_PCS_LOCAL_FAULT_GET(val64);
++	sts_autoneg_base_reg = sbl_read64(sbl, base | SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_OFFSET);
 +
-+	return (faults == 0ULL);
++	val = (SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_LP_ABILITY_GET(sts_autoneg_base_reg)) &&
++	      (SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_PAGE_RECEIVED_GET(sts_autoneg_base_reg));
++
++	return val;
 +}
 +
-+/* wait for pcs faults to clear
-+ *
-+ * we wait for fault to stay clear as it is momentarily set sometimes
-+ */
-+static int sbl_pml_pcs_fault_clear_wait(struct sbl_inst *sbl, int port_num)
++static bool sbl_an_is_base_page(struct sbl_inst *sbl, int port_num)
 +{
-+	unsigned long start_jiffy = jiffies;
-+	int no_fault_count = 0;
-+	int elapsed;
-+	int err;
++	u32 base = SBL_PML_BASE(port_num);
++	u64 sts_autoneg_base_reg;
++	u64 state;
++	bool val;
 +
-+	sbl_dev_dbg(sbl->dev, "%d: pml pcs fault clear wait\n", port_num);
++	sts_autoneg_base_reg = sbl_read64(sbl, base | SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_OFFSET);
 +
-+	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_PCS_F_WAIT);
++	state = SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_STATE_GET(sts_autoneg_base_reg);
 +
-+	while (true) {
++	val = (state == SBL_PML_AUTONEG_STATE_COMPLETE_ACK) ||
++	      (state == SBL_PML_AUTONEG_STATE_AN_GOOD_CHECK);
 +
-+		/* check for timeout */
-+		if (sbl_start_timeout(sbl, port_num)) {
-+			sbl_dev_dbg(sbl->dev, "%d: pml fault clear wait timeout\n",
-+				    port_num);
-+			err = -ETIMEDOUT;
-+			goto out;
-+		}
++	val = val && (SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_PAGE_RECEIVED_GET(sts_autoneg_base_reg)) &&
++	      (SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_BASE_PAGE_GET(sts_autoneg_base_reg)) &&
++	      (SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_LP_ABILITY_GET(sts_autoneg_base_reg));
 +
-+		if (sbl_base_link_start_cancelled(sbl, port_num)) {
-+			sbl_dev_dbg(sbl->dev, "%d: pml fault clear wait cancelled\n",
-+				    port_num);
-+			err = -ECANCELED;
-+			goto out;
-+		}
-+
-+		/* check we are still aligned */
-+		if (!sbl_pml_pcs_aligned(sbl, port_num)) {
-+			sbl_dev_dbg(sbl->dev, "%d: pml fault clear wait lost alignment\n",
-+				    port_num);
-+			err = -ENOLCK;
-+			goto out;
-+		}
-+
-+		/* check for no fault
-+		 * we need multiple good tests to be sure it is up
-+		 */
-+		if (sbl_pml_pcs_no_faults(sbl, port_num)) {
-+			++no_fault_count;
-+			if (no_fault_count == SBL_PML_REQUIRED_NO_FAULT_COUNT) {
-+				/* done */
-+				err = 0;
-+				goto out;
-+			} else {
-+				/* poll fast and check again */
-+				start_jiffy = jiffies;
-+			}
-+		} else
-+			no_fault_count = 0;
-+
-+		/* wait with backoff */
-+		elapsed = jiffies_to_msecs(jiffies - start_jiffy);
-+		if (elapsed > 5000)
-+			msleep(1000);
-+		else if (elapsed > 100)
-+			msleep(100);
-+		else
-+			usleep_range(10000, 11000);
-+	}
-+
-+out:
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_F_WAIT);
-+
-+	return err;
++	return val;
 +}
 +
-+/* PCS configuration */
-+static int sbl_pml_pcs_config(struct sbl_inst *sbl, int port_num)
++/* Setup the pages */
++static int sbl_an_setup_tx_pages(struct sbl_inst *sbl, int port_num)
 +{
 +	struct sbl_link *link = sbl->link + port_num;
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+	int err;
-+	u64 en_lane_degrade_reg;
 +
-+	sbl_dev_dbg(sbl->dev, "%d: pcs config", port_num);
++	sbl_dev_dbg(sbl->dev, "an %d: run setup tx pages", port_num);
 +
-+	/* work out all the lane config and store in link db */
-+	err = sbl_pml_pcs_determine_active_lanes(sbl, port_num);
-+	if (err) {
-+		sbl_dev_dbg(sbl->dev, "%d: pcs config lanes failed [%d]", port_num, err);
-+		return err;
-+	}
++	/* init to known non-zero value so it's easy to tell used pages from init pages */
++	memset(link->an_tx_page, 0xAA, sizeof(link->an_tx_page));
 +
-+	/* pcs must be off for setting  */
-+	sbl_pml_pcs_stop(sbl, port_num);
++	/* build the base page */
 +
-+	/* clear out the previous active lanes and disable lock */
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
-+	val64 = SBL_PML_CFG_RX_PCS_ACTIVE_LANES_UPDATE(val64, 0ULL);
-+	val64 = SBL_PML_CFG_RX_PCS_ENABLE_LOCK_UPDATE(val64, 0ULL);
-+	sbl_write64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
++	link->an_tx_page[0] = 0;
++	link->an_tx_page[0] |= AN_CW_S_802_3;
 +
-+	/* rapid alignment is broken so disable */
-+	val64 = sbl_read64(sbl, base | SBL_PML_DBG_PCS_OFFSET);
-+	val64 = SBL_PML_DBG_PCS_ENABLE_RAPID_ALIGNMENT_UPDATE(val64, 0ULL);
-+	sbl_write64(sbl, base | SBL_PML_DBG_PCS_OFFSET, val64);
++	if (link->blattr.pec.an_mode == SBL_AN_MODE_FIXED) {
 +
-+	/* pcs config */
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET);
-+	switch (link->link_mode) {
-+	case SBL_LINK_MODE_BS_200G:
-+		val64 = SBL_PML_CFG_PCS_PCS_MODE_UPDATE(val64, 0ULL);
-+		break;
-+	case SBL_LINK_MODE_BJ_100G:
-+		val64 = SBL_PML_CFG_PCS_PCS_MODE_UPDATE(val64, 1ULL);
-+		break;
-+	case SBL_LINK_MODE_CD_100G:
-+		val64 = SBL_PML_CFG_PCS_PCS_MODE_UPDATE(val64, 2ULL);
-+		break;
-+	case SBL_LINK_MODE_CD_50G:
-+		val64 = SBL_PML_CFG_PCS_PCS_MODE_UPDATE(val64, 3ULL);
-+		break;
-+	default:
-+		sbl_dev_dbg(sbl->dev, "%d: pcs link mode invalid (%d)", port_num, link->link_mode);
-+		return -EBADRQC;
-+	}
-+	val64 = SBL_PML_CFG_PCS_ENABLE_AUTO_NEG_UPDATE(val64, 0ULL);
-+	if ((link->blattr.options & SBL_OPT_LANE_DEGRADE) &&
-+	    (link->link_mode == SBL_LINK_MODE_BS_200G))
-+		val64 = SBL_PML_CFG_PCS_ENABLE_AUTO_LANE_DEGRADE_UPDATE(val64, 1ULL);
-+	else
-+		val64 = SBL_PML_CFG_PCS_ENABLE_AUTO_LANE_DEGRADE_UPDATE(val64, 0ULL);
++		switch (link->blattr.link_mode) {
 +
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_OFFSET, val64);
-+
-+	/* pcs tx  */
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_TX_PCS_OFFSET);
-+	val64 = SBL_PML_CFG_TX_PCS_ENABLE_CTL_OS_UPDATE(val64, 0ULL);
-+	val64 = SBL_PML_CFG_TX_PCS_CDC_READY_LEVEL_UPDATE(val64,
-+							  SBL_PML_CFG_TX_PCS_CDC_READY_LEVEL_DFLT);
-+	val64 = SBL_PML_CFG_TX_PCS_GEARBOX_CREDITS_UPDATE(val64,
-+							  SBL_PML_CFG_TX_PCS_GEARBOX_CREDITS_DFLT);
-+	val64 = SBL_PML_CFG_TX_PCS_LANE_0_SOURCE_UPDATE(val64,
-+		 sbl->switch_info->ports[port_num].serdes[0].tx_lane_source);
-+	val64 = SBL_PML_CFG_TX_PCS_LANE_1_SOURCE_UPDATE(val64,
-+		 sbl->switch_info->ports[port_num].serdes[1].tx_lane_source);
-+	val64 = SBL_PML_CFG_TX_PCS_LANE_2_SOURCE_UPDATE(val64,
-+		 sbl->switch_info->ports[port_num].serdes[2].tx_lane_source);
-+	val64 = SBL_PML_CFG_TX_PCS_LANE_3_SOURCE_UPDATE(val64,
-+		 sbl->switch_info->ports[port_num].serdes[3].tx_lane_source);
-+	sbl_write64(sbl, base | SBL_PML_CFG_TX_PCS_OFFSET, val64);
-+
-+	/* pcs rx */
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
-+	switch (link->blattr.fec_mode) {
-+	case SBL_RS_MODE_OFF:
-+		val64 = SBL_PML_CFG_RX_PCS_RS_MODE_UPDATE(val64, 0ULL);
-+		break;
-+	case SBL_RS_MODE_OFF_SYN:
-+		val64 = SBL_PML_CFG_RX_PCS_RS_MODE_UPDATE(val64, 1ULL);
-+		break;
-+	case SBL_RS_MODE_OFF_CHK:
-+		val64 = SBL_PML_CFG_RX_PCS_RS_MODE_UPDATE(val64, 2ULL);
-+		break;
-+	case SBL_RS_MODE_ON_SYN_MRK:
-+		val64 = SBL_PML_CFG_RX_PCS_RS_MODE_UPDATE(val64, 3ULL);
-+		break;
-+	case SBL_RS_MODE_ON_CHK_SYN_MRK:
-+		val64 = SBL_PML_CFG_RX_PCS_RS_MODE_UPDATE(val64, 4ULL);
-+		break;
-+	case SBL_RS_MODE_ON:
-+		val64 = SBL_PML_CFG_RX_PCS_RS_MODE_UPDATE(val64, 5ULL);
-+		break;
-+	default:
-+		sbl_dev_dbg(sbl->dev, "%d: pcs fec mode invalid (%d)", port_num, link->blattr.fec_mode);
-+		return -EBADRQC;
-+	}
-+	val64 = SBL_PML_CFG_RX_PCS_ENABLE_CTL_OS_UPDATE(val64, 0ULL);                   /* ordered sets off */
-+	val64 = SBL_PML_CFG_RX_PCS_HEALTH_BAD_SENSITIVITY_UPDATE(val64, 4ULL);          /* less sensitive */
-+	val64 = SBL_PML_CFG_RX_PCS_ENABLE_RX_SM_UPDATE(val64,                           /* state machine */
-+			(link->blattr.options & SBL_OPT_FABRIC_LINK) ? 0ULL : 1ULL);
-+	en_lane_degrade_reg = sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET);
-+	/* If we disable the following CSR, Auto Lane Degrade is enabled and
-+	 * there is a concern regarding handling of short burst errors
-+	 */
-+	if (SBL_PML_CFG_PCS_ENABLE_AUTO_LANE_DEGRADE_GET(en_lane_degrade_reg))
-+		val64 = SBL_PML_CFG_RX_PCS_RESTART_LOCK_ON_BAD_CWS_UPDATE(val64, 0ULL);     /* restart on 3 bad RS codewords - 0 with autodegrade enabled */
-+	else
-+		val64 = SBL_PML_CFG_RX_PCS_RESTART_LOCK_ON_BAD_CWS_UPDATE(val64, 1ULL);     /* restart on 3 bad RS codewords - 1 with autodegrade disabled */
-+	val64 = SBL_PML_CFG_RX_PCS_RESTART_LOCK_ON_BAD_AMS_UPDATE(val64,                /* restart on 5 bad AMs */
-+			(link->link_mode == SBL_LINK_MODE_BS_200G) ? 1ULL : 0ULL);
-+	val64 = SBL_PML_CFG_RX_PCS_ACTIVE_LANES_UPDATE(val64, link->active_rx_lanes);
-+	val64 = SBL_PML_CFG_RX_PCS_ENABLE_LOCK_UPDATE(val64, 0ULL);                     /* pcs disable lock  (really enable alignment process) */
-+	sbl_write64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET, val64);
-+
-+	link->pcs_config = true;
-+
-+	return 0;
-+}
-+
-+/* Enables auto lane degrading in the hardware.
-+ *
-+ * This function can also be called if the AM_LOCK is observed on some lanes
-+ * but not all and the timeout has expired. This will allow auto lane degrade
-+ * feature to be used when not all lanes are available at the initial link
-+ * bringup.
-+ */
-+void sbl_pml_pcs_enable_auto_lane_degrade(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64, en_lane_degrade_reg;
-+	unsigned long timeout;
-+	int err = 0;
-+
-+	en_lane_degrade_reg = sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET);
-+	if (SBL_PML_CFG_PCS_ENABLE_AUTO_LANE_DEGRADE_GET(en_lane_degrade_reg)) {
-+		timeout = jiffies + usecs_to_jiffies(HM_TIMEOUT);
-+		while (!sbl_pml_rx_pls_available(sbl, port_num)) {
-+			if (time_after(jiffies, timeout)) {
-+				sbl_dev_dbg(sbl->dev, "%d: timeout for rx pls available\n", port_num);
-+				err = -ETIMEDOUT;
-+				goto out;
-+			}
-+		}
-+		timeout = jiffies + usecs_to_jiffies(HM_TIMEOUT);
-+		while (!sbl_pml_lp_pls_available(sbl, port_num)) {
-+			if (time_after(jiffies, timeout)) {
-+				sbl_dev_dbg(sbl->dev, "%d: timeout for lp pls available\n", port_num);
-+				err = -ETIMEDOUT;
-+				goto out;
-+			}
-+		}
-+
-+		val64 = sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
-+		val64 = SBL_PML_CFG_RX_PCS_ALLOW_AUTO_DEGRADE_UPDATE(val64, 1ULL);
-+		sbl_write64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET, val64);
-+
-+		val64 = sbl_read64(sbl, base | SBL_PML_CFG_TX_PCS_OFFSET);
-+		val64 = SBL_PML_CFG_TX_PCS_ALLOW_AUTO_DEGRADE_UPDATE(val64, 1ULL);
-+		sbl_write64(sbl, base | SBL_PML_CFG_TX_PCS_OFFSET, val64);
-+		sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET); /* flush */
-+		sbl_dev_dbg(sbl->dev, "auto lane degrade is enabled");
-+	}
-+out:
-+	if (err) {
-+		sbl_dev_err(sbl->dev, "%d: auto lane degrade is not enabled", port_num);
-+		en_lane_degrade_reg = sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET);
-+		en_lane_degrade_reg = SBL_PML_CFG_PCS_ENABLE_AUTO_LANE_DEGRADE_UPDATE(en_lane_degrade_reg, 0ULL);
-+		sbl_write64(sbl, base | SBL_PML_CFG_PCS_OFFSET, en_lane_degrade_reg);
-+
-+		val64 = sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
-+		val64 = SBL_PML_CFG_RX_PCS_RESTART_LOCK_ON_BAD_CWS_UPDATE(val64, 1ULL);
-+		sbl_write64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET, val64);
-+		sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET); /* flush */
-+		sbl_dev_dbg(sbl->dev, "Restart lock on bad CWS set back to 1 since couldn't enable ALD\n");
-+	}
-+}
-+
-+bool sbl_pml_rx_pls_available(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+	u64 sts_pcs_lane_degrade_reg;
-+
-+	sts_pcs_lane_degrade_reg = sbl_read64(sbl, base | SBL_PML_STS_PCS_LANE_DEGRADE_OFFSET);
-+	val64 = SBL_PML_STS_PCS_LANE_DEGRADE_RX_PLS_AVAILABLE_GET(sts_pcs_lane_degrade_reg);
-+
-+	return (val64 == MAX_PLS_AVAILABLE);
-+}
-+
-+bool sbl_pml_lp_pls_available(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+	u64 sts_pcs_lane_degrade_reg;
-+
-+	sts_pcs_lane_degrade_reg = sbl_read64(sbl, base | SBL_PML_STS_PCS_LANE_DEGRADE_OFFSET);
-+	val64 = SBL_PML_STS_PCS_LANE_DEGRADE_LP_PLS_AVAILABLE_GET(sts_pcs_lane_degrade_reg);
-+
-+	return (val64 == MAX_PLS_AVAILABLE);
-+}
-+
-+/* PCS start-up */
-+void sbl_pml_pcs_start(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+	u32 val32;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: pcs start", port_num);
-+
-+	/* we need updated AMs for 200GHz mode */
-+	val32 = SBL_PML_CFG_PCS_AMS_DFLT;
-+	if (link->link_mode == SBL_LINK_MODE_BS_200G)
-+		val32 = SBL_PML_CFG_PCS_AMS_USE_PROGRAMMABLE_AMS_UPDATE(
-+				val32, 1ULL);
-+	else
-+		val32 = SBL_PML_CFG_PCS_AMS_USE_PROGRAMMABLE_AMS_UPDATE(
-+				val32, 0ULL);
-+	sbl_write32(sbl, base | SBL_PML_CFG_PCS_AMS_OFFSET, val32);
-+
-+	/* start pcs */
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET);
-+	val64 = SBL_PML_CFG_PCS_PCS_ENABLE_UPDATE(val64, 1ULL);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET); /* flush */
-+
-+	/* record if we are trying to align */
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
-+	if (SBL_PML_CFG_RX_PCS_ENABLE_LOCK_GET(val64))
-+		sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_PCS_ALIGN_EN);
-+	else
-+		sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_ALIGN_EN);
-+}
-+
-+void sbl_pml_pcs_enable_alignment(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: pcs enable alignment", port_num);
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
-+	val64 = SBL_PML_CFG_RX_PCS_ENABLE_LOCK_UPDATE(val64, 1ULL);
-+	sbl_write64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET, val64);
-+
-+	/* alignment process is underway */
-+	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_PCS_ALIGN_EN);
-+}
-+
-+void sbl_pml_pcs_disable_alignment(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: pcs disable alignment", port_num);
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
-+	val64 = SBL_PML_CFG_RX_PCS_ENABLE_LOCK_UPDATE(val64, 0ULL);
-+	sbl_write64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET, val64);
-+
-+	/* alignment process is stopped */
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_ALIGN_EN);
-+}
-+
-+/* remote fault.
-+ *
-+ * there is a debug reg we can use to send remote fault to our link partner
-+ */
-+void sbl_pml_pcs_set_tx_rf(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: pcs set tx rf", port_num);
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_DBG_PCS_OFFSET);
-+	val64 = SBL_PML_DBG_PCS_FORCE_TX_DATA_UPDATE(val64, 1ULL);
-+	val64 = SBL_PML_DBG_PCS_FORCE_TX_DATA_RF_UPDATE(val64, 1ULL);
-+	sbl_write64(sbl, base | SBL_PML_DBG_PCS_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_DBG_PCS_OFFSET);
-+
-+	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_PCS_TX_RF);
-+}
-+
-+void sbl_pml_pcs_clear_tx_rf(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: pcs clear tx rf", port_num);
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_DBG_PCS_OFFSET);
-+	val64 = SBL_PML_DBG_PCS_FORCE_TX_DATA_UPDATE(val64, 0ULL);
-+	val64 = SBL_PML_DBG_PCS_FORCE_TX_DATA_RF_UPDATE(val64, 0ULL);
-+	sbl_write64(sbl, base | SBL_PML_DBG_PCS_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_DBG_PCS_OFFSET);
-+
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_TX_RF);
-+}
-+
-+/*   wait for the pcs to come up
-+ *
-+ *   i.e for it to be locked and aligned and faults to have cleared
-+ *
-+ *
-+ */
-+int sbl_pml_pcs_wait(struct sbl_inst *sbl, int port_num)
-+{
-+	char pcs_state_str[SBL_PCS_STATE_STR_LEN];
-+	int err;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: pcs wait", port_num);
-+
-+	/* start locking */
-+	sbl_pml_pcs_start_lock(sbl, port_num);
-+
-+	/* clear forcing remote fault.
-+	 * (it will continue to be set until PCS is actually ready)
-+	 */
-+	sbl_pml_pcs_clear_tx_rf(sbl, port_num);
-+
-+	/* keep trying to bring the pcs up until we timeout */
-+	while (true) {
-+
-+		/* wait for alignment */
-+		err = sbl_pml_pcs_alignment_wait(sbl, port_num);
-+		switch (err) {
-+		case 0:
++		case SBL_LINK_MODE_BS_200G:
++			link->an_tx_page[0] |= (AN_CW_A_200GBASE_CR4) << AN_CW_A_BASE_BIT;
 +			break;
 +
-+		case -ETIMEDOUT:
-+			/* out of time, dump state and give up  */
-+			sbl_dev_err(sbl->dev, "%d: pcs_wait alignment timeout (%s)\n", port_num,
-+				    sbl_pml_pcs_state_str(sbl, port_num, pcs_state_str,
-+							  SBL_PCS_STATE_STR_LEN));
-+			goto out;
++		case SBL_LINK_MODE_BJ_100G:
++			link->an_tx_page[0] |= (AN_CW_A_100GBASE_CR4) << AN_CW_A_BASE_BIT;
++			break;
 +
-+		case -ECANCELED:
-+			sbl_dev_dbg(sbl->dev, "%d: pcs_wait alignment failed [%d]\n", port_num, err);
-+			goto out;
++		case SBL_LINK_MODE_CD_100G:
++			link->an_tx_page[0] |= (AN_CW_A_100GBASE_CR2) << AN_CW_A_BASE_BIT;
++			break;
 +
-+		default:
-+			/* something unexpected */
-+			sbl_dev_err(sbl->dev, "%d: pcs_wait alignment failed [%d]\n", port_num, err);
-+			goto out;
-+		}
-+
-+		/* wait for faults to clear */
-+		err = sbl_pml_pcs_fault_clear_wait(sbl, port_num);
-+		switch (err) {
-+
-+		case 0:
-+			goto out;
-+
-+		case -ENOLCK:
-+			/* alignment lost - try to align again  */
-+			sbl_dev_warn(sbl->dev, "%d: pcs_wait alignment lost - restart (%s)\n", port_num,
-+				     sbl_pml_pcs_state_str(sbl, port_num, pcs_state_str,
-+							   SBL_PCS_STATE_STR_LEN));
-+			continue;
-+
-+		case -ETIMEDOUT:
-+			sbl_dev_err(sbl->dev, "%d: pcs_wait fault clear timeout (%s)\n", port_num,
-+				    sbl_pml_pcs_state_str(sbl, port_num, pcs_state_str,
-+							  SBL_PCS_STATE_STR_LEN));
-+			goto out;
-+
-+		case -ECANCELED:
-+			sbl_dev_dbg(sbl->dev, "%d: pcs_wait fault clear cancelled\n", port_num);
-+			goto out;
++		case SBL_LINK_MODE_CD_50G:
++			link->an_tx_page[0] |= (AN_CW_A_50GBASE_CR) << AN_CW_A_BASE_BIT;
++			break;
 +
 +		default:
-+			/* something unexpected */
-+			sbl_dev_err(sbl->dev, "%d: pcs_wait fault clear failed [%d]\n", port_num, err);
-+			goto out;
++			sbl_dev_err(sbl->dev, "an %d: bad an blattr mode", port_num);
++			return -EINVAL;
 +		}
++	} else {
++		/* all modes we support */
++		link->an_tx_page[0] |= (AN_CW_A_200GBASE_CR4) << AN_CW_A_BASE_BIT;
++		link->an_tx_page[0] |= (AN_CW_A_100GBASE_CR4) << AN_CW_A_BASE_BIT;
++		link->an_tx_page[0] |= (AN_CW_A_100GBASE_CR2) << AN_CW_A_BASE_BIT;
++		link->an_tx_page[0] |= (AN_CW_A_50GBASE_CR)   << AN_CW_A_BASE_BIT;
 +	}
 +
-+out:
-+	/* drop all stage info */
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_ALIGN_EN);
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_A_WAIT);
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_F_WAIT);
++	/* Not sure what to set here - both Arista and Mellanox say zero so for
++	 * now we will do the same and set nothing
++	 */
++
++	/* TODO: Enhance PAUSE support. Currently only symmetric PAUSE is advertised.
++	 * Should support: asymmetric PAUSE modes, flow control negotiation per standard,
++	 * and link partner capability reporting.
++	 */
++	link->an_tx_page[0] |= (AN_CW_C_SYMMETRIC) << AN_CW_C_BASE_BIT;
++
++	sbl_dev_dbg(sbl->dev, "an %d: bp = 0x%llx", port_num, link->an_tx_page[0]);
++
++	/* check for disabled next pages */
++	if (sbl_debug_option(sbl, port_num, SBL_DEBUG_DISABLE_AN_NEXT_PAGES)) {
++		sbl_dev_dbg(sbl->dev, "an %d: next pages disabled", port_num);
++		link->an_tx_count = 1;
++		return 0;
++	}
++
++	/* build HPE OUI next pages */
++
++	/* have next page (set in previous page) */
++	link->an_tx_page[0] |= AN_CW_NP_MASK;
++
++	/* OUI message page */
++	link->an_tx_page[1] = 0ULL;
++	link->an_tx_page[1] |= AN_NP_MP_MASK;
++	link->an_tx_page[1] |= AN_NP_CODE_OUI_EXTENDED_MSG;
++	link->an_tx_page[1] |= AN_NP_OUI_HPE;
++
++	sbl_dev_dbg(sbl->dev, "an %d: np mp = 0x%llx", port_num, link->an_tx_page[1]);
++
++	/* have next page (set in previous page) */
++	link->an_tx_page[1] |= AN_CW_NP_MASK;
++
++	/* unformatted page with OUI message page */
++	link->an_tx_page[2] = 0ULL;
++	link->an_tx_page[2] |= AN_NP_OUI_VER_0_1;
++	/* LLR options here */
++	if (link->blattr.llr_mode == SBL_LLR_MODE_AUTO) {
++		if (!(link->blattr.options & SBL_OPT_DISABLE_AN_LLR)) {
++			link->an_tx_page[2] |= (AN_OPT_LLR << AN_OPT_BASE_BIT);
++			if (link->blattr.options & SBL_OPT_ENABLE_ETHER_LLR)
++				link->an_tx_page[2] |= (AN_OPT_ETHER_LLR << AN_OPT_BASE_BIT);
++
++			if (link->blattr.options & SBL_OPT_ENABLE_IFG_HPC_WITH_LLR)
++				link->an_tx_page[2] |= (AN_OPT_HPC_WITH_LLR << AN_OPT_BASE_BIT);
++			/* TODO: add IPV4 option */
++		}
++	}
++	sbl_an_version_read(sbl, port_num);
++
++	sbl_dev_dbg(sbl->dev, "an %d: np ufp = 0x%llx", port_num, link->an_tx_page[2]);
++
++	link->an_tx_count = SBL_AN_MAX_TX_PAGES;
++
++	return 0;
++}
++
++static int sbl_an_pml_setup(struct sbl_inst *sbl, int port_num)
++{
++	u32 base = SBL_PML_BASE(port_num);
++	u64 cfg_pcs_autoneg_reg;
++	u64 cfg_pcs_reg;
++	u64 cfg_rx_pcs_reg;
++	u64 val64;
++
++	/* disable pcs autoneg
++	 * as pcs is also disabled this will reset the pcs-serdes CDC logic
++	 */
++	cfg_pcs_reg = sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET);
++	cfg_pcs_reg = SBL_PML_CFG_PCS_ENABLE_AUTO_NEG_UPDATE(cfg_pcs_reg, 0ULL);
++	sbl_write64(sbl, base | SBL_PML_CFG_PCS_OFFSET, cfg_pcs_reg);
++	sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET);
++
++	/* configure an */
++	cfg_pcs_autoneg_reg = SBL_PML_CFG_PCS_AUTONEG_RX_LANE_SET(sbl->switch_info->ports[port_num].rx_an_swizzle) |
++			      SBL_PML_CFG_PCS_AUTONEG_TX_LANE_SET(sbl->switch_info->ports[port_num].tx_an_swizzle) |
++			      SBL_PML_CFG_PCS_AUTONEG_RESET_SET(1ULL) |       /* start held in reset */
++			      SBL_PML_CFG_PCS_AUTONEG_RESTART_SET(0ULL) |     /* not used - always zero */
++			      SBL_PML_CFG_PCS_AUTONEG_NEXT_PAGE_LOADED_SET(0ULL);
++	sbl_write64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_OFFSET,
++		    cfg_pcs_autoneg_reg);
++	sbl_read64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_OFFSET);
++
++	/* reset alignment locking */
++	cfg_rx_pcs_reg = sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
++	cfg_rx_pcs_reg = SBL_PML_CFG_RX_PCS_ACTIVE_LANES_UPDATE(cfg_rx_pcs_reg, 0ULL);
++	cfg_rx_pcs_reg = SBL_PML_CFG_RX_PCS_ENABLE_LOCK_UPDATE(cfg_rx_pcs_reg, 0ULL);
++	sbl_write64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET, cfg_rx_pcs_reg);
++	sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
++
++	/* config an timers */
++	val64 = SBL_PML_CFG_PCS_AUTONEG_TIMERS_DFLT;
++	/* disable fault timeout by setting it to its max value  */
++	val64 = SBL_PML_CFG_PCS_AUTONEG_TIMERS_LINK_FAIL_INHIBIT_TIMER_MAX_UPDATE(val64, 0xffffffffULL);
++
++	sbl_write64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_TIMERS_OFFSET, val64);
++
++	/* clear err flags */
++	sbl_pml_err_flgs_clear_all(sbl, port_num);
++
++	/* enable autoneg
++	 * this will take CDC logic out of reset
++	 */
++	cfg_pcs_reg = sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET);
++	cfg_pcs_reg = SBL_PML_CFG_PCS_ENABLE_AUTO_NEG_UPDATE(cfg_pcs_reg, 1ULL);
++	sbl_write64(sbl, base | SBL_PML_CFG_PCS_OFFSET, cfg_pcs_reg);
++
++	/* an reset is still asserted, it will be deasserted after base page is loaded */
++
++	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_PCS_ANEG);
++
++	return 0;
++}
++
++/* perform page exchange
++ *
++ *   Rosetta has a hw bug whereby some error flags cannot be cleared by the normal method
++ *   as the an state machine will continually reassert them. (The failed, complete and
++ *   next page received err flags) so instead we disable intrs for these flags when they
++ *   are received and reset them in wait prepare.
++ *
++ *   For next pages we would like to do:
++ *
++ *      wait_prepare()
++ *      send_next_page()
++ *      wait_for_completion()
++ *
++ *   However this sequence will cause the err flags to be immediately set in the wait
++ *   prepare and the intr fire.
++ *
++ *   The best we can do is
++ *
++ *      preempt_disable()
++ *      send_next_page()
++ *      wait_prepare()
++ *      preempt_enable()
++ *      wait_for_completion()
++ *
++ *     But we can still miss intrs
++ *     There would seem to be nothing we can do about this
++ *
++ *    26 Feb 2021 - added SM exchange to work around rosetta interrupt bug
++ *
++ */
++static int sbl_an_exchange(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	u32 base = SBL_PML_BASE(port_num);
++	unsigned long timeout = msecs_to_jiffies(1000 * link->blattr.pec.an_retry_timeout);
++	unsigned long remaining_jiffies;
++	u64 sts_autoneg_base_reg;
++	int err;
++
++	sbl_dev_dbg(sbl->dev, "an %d: exchange start", port_num);
++
++	if (sbl_base_link_start_cancelled(sbl, port_num))
++		return -ECANCELED;
++	if (sbl_start_timeout(sbl, port_num))
++		return -ETIMEDOUT;
++
++	if (!sbl->is_hw)
++		return 0;
++
++	/* clear any previous pages */
++	memset(link->an_rx_page, 0, SBL_AN_MAX_RX_PAGES * sizeof(u64));
++	link->an_rx_count = 0;
++
++	/* update the nonce */
++	link->an_nonce = sbl_an_get_nonce();
++	link->an_tx_page[0] &= ~AN_CW_T_MASK;
++	link->an_tx_page[0] |= ((link->an_nonce << AN_CW_T_BASE_BIT) & AN_CW_T_MASK);
++
++	/* base page exchange */
++
++	err = sbl_an_hw_wait_prepare(sbl, port_num);
++	if (err)
++		return err;
++
++	sbl_an_send_base_page(sbl, port_num);
++
++	remaining_jiffies = wait_for_completion_timeout(&link->an_hw_change, timeout);
++	if (sbl_base_link_start_cancelled(sbl, port_num))
++		return -ECANCELED;
++	if (remaining_jiffies == 0) {
++		sbl_dev_dbg(sbl->dev, "an %d: base page exchange timeout (nonce %.2x, sm_state %s)",
++			    port_num, link->an_nonce, sbl_an_get_sm_state(sbl, port_num));
++		sbl_an_dump_state(sbl, port_num);
++
++		/* check we have not missed the err flg */
++		if (sbl_an_base_is_complete(sbl, port_num) || sbl_an_base_is_page_recv(sbl, port_num))
++			sbl_dev_err(sbl->dev, "an %d: MISSED A BASE PAGE!!!!", port_num);
++
++		return -ETIME;
++	}
++
++	/* check it is a base page */
++	if (!sbl_an_is_base_page(sbl, port_num)) {
++		sbl_dev_err(sbl->dev, "an %d: missing base page indication", port_num);
++		sbl_an_dump_state(sbl, port_num);
++		return -EBADE;
++	}
++
++	/* copy page to return buffer */
++	sts_autoneg_base_reg = sbl_read64(sbl, base | SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_OFFSET);
++	link->an_rx_page[0] = SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_LP_BASE_PAGE_GET(sts_autoneg_base_reg);
++	link->an_rx_count = 1;
++
++	/* check if an is complete i.e. no one has more to send */
++	if (sbl_an_base_is_complete(sbl, port_num))
++		goto out_success;
++
++	/* since not complete, we must have received a page - check this */
++	if (!sbl_an_base_is_page_recv(sbl, port_num)) {
++		sbl_dev_err(sbl->dev, "an %d: expected page received indication", port_num);
++		sbl_an_dump_state(sbl, port_num);
++		return -EBADE;
++	}
++
++	/* next page exchange */
++	err = sbl_an_page_exchange(sbl, port_num, remaining_jiffies);
 +
 +	if (err)
 +		return err;
 +
-+	/* clear all the PCS related error flags */
-+	sbl_pml_err_flgs_clear(sbl, port_num, SBL_PML_ALL_PCS_ERR_FLGS);
++out_success:
 +
-+	/* note pcs is up */
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_TX_AM);
-+	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_PCS_UP);
++	/* dump the final state on the way out */
++	sbl_an_dump_state(sbl, port_num);
++
++	sbl_dev_dbg(sbl->dev, "an %d: exchange complete", port_num);
 +
 +	return 0;
 +}
 +
-+char *sbl_pml_pcs_state_str(struct sbl_inst *sbl, int port_num, char *buf, int len)
++/* save away the LLR options here */
++static void sbl_an_save_llr_options(struct sbl_link *link, int x)
 +{
-+	struct sbl_link *link = sbl->link + port_num;
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	if (!buf || !len)
-+		return "";
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_STS_RX_PCS_OFFSET);
-+	snprintf(buf, len, "lk %llx/%.2x, a%lld f%lld lf%lld hs%lld",
-+		 SBL_PML_STS_RX_PCS_AM_LOCK_GET(val64),
-+			link->active_fec_lanes,
-+			SBL_PML_STS_RX_PCS_ALIGN_STATUS_GET(val64),
-+			SBL_PML_STS_RX_PCS_FAULT_GET(val64),
-+			SBL_PML_STS_RX_PCS_LOCAL_FAULT_GET(val64),
-+			SBL_PML_STS_RX_PCS_HI_SER_GET(val64));
-+	return buf;
-+}
-+
-+/**
-+ * sbl_pml_pcs_recovery_enable() - Enable PCS recovery
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ *
-+ * Context: Process context, Acquires lock and release
-+ * pcs_recovery_lock <spin_lock>
-+ */
-+void sbl_pml_pcs_recovery_enable(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link;
-+
-+	link = sbl->link + port_num;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: PCS recovery enable", port_num);
-+
-+	spin_lock(&link->pcs_recovery_lock);
-+	link->pcs_recovery_flag = true;
-+	spin_unlock(&link->pcs_recovery_lock);
-+}
-+EXPORT_SYMBOL(sbl_pml_pcs_recovery_enable);
-+
-+/**
-+ * sbl_pml_pcs_recovery_disable() - Disable PCS recovery
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ *
-+ * Context: Process context, Acquires lock and release
-+ * pcs_recovery_lock <spin_lock>
-+ */
-+void sbl_pml_pcs_recovery_disable(struct sbl_inst *sbl, int port_num)
-+{
-+	struct sbl_link *link;
-+
-+	link = sbl->link + port_num;
-+
-+	sbl_dev_dbg(sbl->dev, "%d: PCS recovery disable", port_num);
-+
-+	spin_lock(&link->pcs_recovery_lock);
-+	link->pcs_recovery_flag = false;
-+	spin_unlock(&link->pcs_recovery_lock);
-+}
-+EXPORT_SYMBOL(sbl_pml_pcs_recovery_disable);
-+
-+/**
-+ * sbl_pml_pcs_aligned() - Check pcs align status
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ *
-+ * Return: status of pcs align
-+ */
-+bool sbl_pml_pcs_aligned(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_STS_RX_PCS_OFFSET);
-+
-+	return (SBL_PML_STS_RX_PCS_ALIGN_STATUS_GET(val64) == 1);
-+}
-+EXPORT_SYMBOL(sbl_pml_pcs_aligned);
-+
-+bool sbl_pml_pcs_high_serdes_error(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_STS_RX_PCS_OFFSET);
-+	return SBL_PML_STS_RX_PCS_HI_SER_GET(val64);
-+}
-+
-+bool sbl_pml_pcs_up(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	if (!sbl->is_hw)
-+		return true;
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_STS_RX_PCS_OFFSET);
-+
-+	return SBL_PML_STS_RX_PCS_ALIGN_STATUS_GET(val64) &&
-+			!SBL_PML_STS_RX_PCS_FAULT_GET(val64) &&
-+			!SBL_PML_STS_RX_PCS_LOCAL_FAULT_GET(val64) &&
-+			!SBL_PML_STS_RX_PCS_HI_SER_GET(val64);
-+}
-+
-+bool sbl_pml_recovery_no_faults(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	struct sbl_link *link = sbl->link + port_num;
-+	u64 val64;
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_STS_RX_PCS_OFFSET);
-+
-+	sbl_dev_dbg(sbl->dev, "%d:sbl_pml_recovery fault info val=0x%llx aml=0x%llx fecl:0x%x",
-+		    port_num, val64, SBL_PML_STS_RX_PCS_AM_LOCK_GET(val64), link->active_fec_lanes);
-+
-+	return SBL_PML_STS_RX_PCS_ALIGN_STATUS_GET(val64) &&
-+			!SBL_PML_STS_RX_PCS_FAULT_GET(val64) &&
-+			!SBL_PML_STS_RX_PCS_LOCAL_FAULT_GET(val64) &&
-+			!SBL_PML_STS_RX_PCS_HI_SER_GET(val64) &&
-+			(SBL_PML_STS_RX_PCS_AM_LOCK_GET(val64) == link->active_fec_lanes);
-+}
-+
-+void sbl_pml_recovery_log_pcs_status(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_STS_RX_PCS_DESKEW_DEPTHS_OFFSET);
-+	sbl_dev_info(sbl->dev, "%d: SBL_PML_STS_RX_PCS_DESKEW_DEPTHS_OFFSET = 0x%llx",
-+		     port_num, val64);
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_STS_RX_PCS_AM_MATCH_OFFSET);
-+	sbl_dev_info(sbl->dev, "%d: SBL_PML_STS_RX_PCS_AM_MATCH_OFFSET = 0x%llx",
-+		     port_num, val64);
-+
-+	val64 = sbl_read64(sbl, base | SBL_PML_STS_RX_PCS_FECL_SOURCES_OFFSET);
-+	sbl_dev_info(sbl->dev, "%d: SBL_PML_STS_RX_PCS_FECL_SOURCES_OFFSET = 0x%llx",
-+		     port_num, val64);
-+}
-+
-+/* stop the pcs */
-+void sbl_pml_pcs_stop(struct sbl_inst *sbl, int port_num)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	struct sbl_link *link = sbl->link + port_num;
-+	u64 val64;
-+
-+	if (sbl_debug_option(sbl, port_num, SBL_DEBUG_KEEP_SERDES_UP)) {
-+		sbl_dev_err(sbl->dev, "%d: KEEP SERDES UP", port_num);
-+		return;
++	if (link->blattr.llr_mode == SBL_LLR_MODE_AUTO) {
++		if (!(link->blattr.options & SBL_OPT_DISABLE_AN_LLR)) {
++			if (link->an_rx_page[x] & (AN_OPT_LLR << AN_OPT_BASE_BIT))
++				link->an_options |= AN_OPT_LLR;
++			if (link->an_rx_page[x] & (AN_OPT_ETHER_LLR << AN_OPT_BASE_BIT)) {
++				if (link->blattr.options & SBL_OPT_ENABLE_ETHER_LLR)
++					link->an_options |= AN_OPT_ETHER_LLR;
++			}
++			if (link->an_rx_page[x] & (AN_OPT_HPC_WITH_LLR << AN_OPT_BASE_BIT)) {
++				if (link->blattr.options & SBL_OPT_ENABLE_IFG_HPC_WITH_LLR)
++					link->an_options |= AN_OPT_HPC_WITH_LLR;
++			}
++			/* TODO: add IPV4 option */
++		}
 +	}
 +
-+	sbl_dev_dbg(sbl->dev, "%d: pml pcs stop\n", port_num);
++}
 +
-+	if ((link->sstate != SBL_SERDES_STATUS_DOWN) &&
-+	    (link->mattr.media == SBL_LINK_MEDIA_OPTICAL)) {
-+		sbl_dev_err(sbl->dev, "%d: not stopping pcs because serdes is running",
-+			    port_num);
-+		return;
++static int sbl_an_ability_match(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	u32 fec_ability;
++	u32 tech_ability;
++	u32 pause_ability;
++	u64  last_msg_code = 0;
++	bool expect_hpe    = false;
++	int  x             = 0;
++
++	sbl_dev_dbg(sbl->dev, "an %d: rx count = %d", port_num, link->an_rx_count);
++
++	if (!sbl->is_hw) {
++		/* Netsim/Z1: No AN happening, so just force the response data to the
++		 * tx data to ensure capability match
++		 */
++		link->an_rx_page[0] = link->an_tx_page[0];
++	}
++	/* abilities */
++	tech_ability = (link->an_tx_page[0] & link->an_rx_page[0] & AN_CW_A_MASK)
++			>> AN_CW_A_BASE_BIT;
++	fec_ability = (link->an_tx_page[0] & link->an_rx_page[0] & AN_CW_F_MASK)
++					>> AN_CW_F_BASE_BIT;
++	pause_ability = (link->an_tx_page[0] & link->an_rx_page[0] & AN_CW_C_MASK)
++					>> AN_CW_C_BASE_BIT;
++	sbl_dev_dbg(sbl->dev, "an %d: tech 0x%x, fec 0x%x, pause %d", port_num,
++		    tech_ability, fec_ability, pause_ability);
++
++	/* FEC mode (we only do RS) */
++	if (fec_ability & AN_CW_F_25G_RS_REQ) {
++		/* ignore for now - set in config */
++	} else if (fec_ability & AN_CW_F_25G_BASER_REQ) {
++		sbl_dev_warn(sbl->dev, "an %d: cannot do fec mode baser",
++			     port_num);
++	} else {
++		sbl_dev_dbg(sbl->dev, "an %d: no matching fec mode (partner fec 0x%x)",
++			    port_num, fec_ability);
 +	}
 +
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET);
-+	val64 = SBL_PML_CFG_PCS_PCS_ENABLE_UPDATE(val64, 0ULL);
-+	sbl_write64(sbl, base | SBL_PML_CFG_PCS_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET); /* flush */
++	/* TODO pause */
 +
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_TX_AM);
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_ALIGN_EN);
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_A_WAIT);
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_F_WAIT);
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_UP);
++	/* link mode (speed) */
++	if (tech_ability & AN_CW_A_200GBASE_CR4) {
++		link->link_mode = SBL_LINK_MODE_BS_200G;
++	} else if (tech_ability & AN_CW_A_100GBASE_CR4) {
++		link->link_mode = SBL_LINK_MODE_BJ_100G;
++	} else if (tech_ability & AN_CW_A_100GBASE_CR2) {
++		link->link_mode = SBL_LINK_MODE_CD_100G;
++	} else if (tech_ability & AN_CW_A_50GBASE_KR) {
++		link->link_mode = SBL_LINK_MODE_CD_50G;
++	} else {
++		sbl_dev_err(sbl->dev, "an %d: no matching mode (partner ability 0x%x)",
++			    port_num, tech_ability);
++		return -ENOENT;
++	}
++
++	/* look at next page(s) */
++	link->lp_subtype = SBL_LP_SUBTYPE_UNKNOWN;
++	for (x = 1; x < link->an_rx_count; ++x) {
++
++		/* do message page */
++		if (link->an_rx_page[x] & AN_NP_MP_MASK) {
++			last_msg_code = link->an_rx_page[x] & AN_NP_MSG_MASK;
++			sbl_dev_dbg(sbl->dev, "an %d: msg_code = %llu", port_num, last_msg_code);
++			switch (last_msg_code) {
++			case AN_NP_CODE_NULL_MSG:
++			case AN_NP_CODE_OUI_MSG:
++				/* nothing to do */
++				break;
++			case AN_NP_CODE_OUI_EXTENDED_MSG:
++				switch (link->an_rx_page[x] & AN_NP_OUI_MASK) {
++				case AN_NP_OUI_HPE:
++					/* have HPE OUI message - expect an unformatted page next */
++					expect_hpe = true;
++					break;
++				default:
++					sbl_dev_dbg(sbl->dev, "an %d: unknown OUI = 0x%llX", port_num, (link->an_rx_page[x] & AN_NP_OUI_MASK) >> AN_NP_OUI_BASE_BIT);
++					expect_hpe = false;
++					break;
++				}
++				break;
++			default:
++				sbl_dev_dbg(sbl->dev, "an %d: unknown msg_code = 0x%llX", port_num, last_msg_code);
++				break;
++			}
++			/* go on to next page */
++			continue;
++		}
++
++		/* do unformatted page */
++		switch (last_msg_code) {
++		case AN_NP_CODE_OUI_EXTENDED_MSG:
++			if (!expect_hpe)
++				break;
++
++			/* got a HPE OUI message - check the unformatted page and set options */
++			switch (link->an_rx_page[x] & AN_NP_OUI_VER_MASK) {
++			case AN_NP_OUI_VER_0_1:
++				sbl_an_save_llr_options(link, x);
++				/* save away cassini version here */
++				link->lp_subtype = ((link->an_rx_page[x] >> AN_LP_SUBTYPE_BASE_BIT) & AN_LP_SUBTYPE_MASK);
++				sbl_dev_dbg(sbl->dev, "an %d: HPE an_options = 0x%X, lp_subtype = %d", port_num, link->an_options, link->lp_subtype);
++				break;
++			default:
++				sbl_dev_dbg(sbl->dev, "an %d: unknown OUI version 0x%llX", port_num, link->an_rx_page[x] & AN_NP_OUI_VER_MASK);
++				break;
++			}
++			expect_hpe = false;
++			break;
++		default:
++			sbl_dev_dbg(sbl->dev, "an %d: unknown ufp = 0x%llX", port_num, link->an_rx_page[x]);
++			break;
++		}
++	}
++
++	return 0;
 +}
 +
-+/* enable/disable pcs sending ordered sets */
-+void sbl_pml_pcs_ordered_sets(struct sbl_inst *sbl,
-+			      int port_num, int enable)
++static void sbl_an_update_timeout(struct sbl_inst *sbl, int port_num)
 +{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+	u64 state = (enable) ? 1ULL : 0ULL;
++	struct sbl_link *link = sbl->link + port_num;
++	unsigned int new_timeout = 0;
 +
-+	sbl_dev_dbg(sbl->dev, "%d: pml pcs ordered sets - %s\n", port_num,
-+		    (enable) ? "start" : "stop");
++	if (link->blattr.options & SBL_OPT_AUTONEG_TIMEOUT_SSHOT) {
++		/* use slingshot timeouts - which are longer than the IEEE defaults */
++		switch (link->link_mode) {
++		case SBL_LINK_MODE_BS_200G:
++			new_timeout = SBL_LINK_AUTONEG_TIMEOUT_SSHOT_200;
++			break;
++		case SBL_LINK_MODE_BJ_100G:
++		case SBL_LINK_MODE_CD_100G:
++			new_timeout = SBL_LINK_AUTONEG_TIMEOUT_SSHOT_100;
++			break;
++		case SBL_LINK_MODE_CD_50G:
++			new_timeout = SBL_LINK_AUTONEG_TIMEOUT_SSHOT_50;
++			break;
++		default:
++			sbl_dev_warn(sbl->dev, "an %d: bad mode in update_timeout",
++				     port_num);
++		}
++	}
 +
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET);
-+	val64 = SBL_PML_CFG_RX_PCS_ENABLE_CTL_OS_UPDATE(val64, state);
-+	sbl_write64(sbl, base | SBL_PML_CFG_RX_PCS_OFFSET, val64);
++	if (link->blattr.options & SBL_OPT_AUTONEG_TIMEOUT_IEEE) {
++		/* use IEEE timeouts */
++		switch (link->link_mode) {
++		case SBL_LINK_MODE_BS_200G:
++			new_timeout = SBL_LINK_AUTONEG_TIMEOUT_IEEE_200;
++			break;
++		case SBL_LINK_MODE_BJ_100G:
++		case SBL_LINK_MODE_CD_100G:
++			new_timeout = SBL_LINK_AUTONEG_TIMEOUT_IEEE_100;
++			break;
++		case SBL_LINK_MODE_CD_50G:
++			new_timeout = SBL_LINK_AUTONEG_TIMEOUT_IEEE_50;
++			break;
++		default:
++			sbl_dev_warn(sbl->dev, "an %d: bad mode in update_timeout",
++				     port_num);
++		}
++	}
 +
-+	val64 = sbl_read64(sbl, base | SBL_PML_CFG_TX_PCS_OFFSET);
-+	val64 = SBL_PML_CFG_TX_PCS_ENABLE_CTL_OS_UPDATE(val64, state);
-+	sbl_write64(sbl, base | SBL_PML_CFG_TX_PCS_OFFSET, val64);
-+
-+	/* pci flush */
-+	sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET);
-+
-+	if (enable)
-+		sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_OS);
-+	else
-+		sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_OS);
++	if (new_timeout) {
++		sbl_dev_dbg(sbl->dev, "an %d: update start timeout to %d ms",
++			    port_num, new_timeout);
++		link->an_timeout_active = true;
++		sbl_link_update_start_timeout(sbl, port_num, new_timeout);
++	}
 +}
 +
-+/*   Start/Stop sending am.
++/* If there is no common mode between this port and our link partner
++ * and if the lp advertises 100KR4 and we advertise 100CR4 then add 100CR4
++ * to the lp's abilities.
 + *
-+ *   Start: configures and starts the PCS and then immediately disables the alignment
-+ *   locking process
-+ *
-+ *   Stop: just switched off the PCS
++ * This is necessary because recent Mellanox software no longer advertises
++ * 100CR even though it seems to be able to tune in this mode. Adding 100CR4
++ * to the lp abilities means that we will resolve 100CR4 and start using this
++ * mode.
 + */
-+int  sbl_pml_pcs_am_start(struct sbl_inst *sbl, int port_num)
++#define SBL_AN_KR4_BIT (1ULL << (AN_CW_A_BASE_BIT + AN_CW_A_100GBASE_KR4_BIT))
++#define SBL_AN_CR4_BIT (1ULL << (AN_CW_A_BASE_BIT + AN_CW_A_100GBASE_CR4_BIT))
++
++static bool sbl_an_100cr4_fixup(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++
++	/* check no match */
++	if (link->an_tx_page[0] & link->an_rx_page[0] & AN_CW_A_MASK)
++		return false;
++
++	/* check we want cr4 */
++	if (!(link->an_tx_page[0] & SBL_AN_CR4_BIT))
++		return false;
++
++	/* check lp wants kr4 */
++	if (!(link->an_rx_page[0] & SBL_AN_KR4_BIT))
++		return false;
++
++	/* add cr4 to lp abilities */
++	link->an_rx_page[0] |= SBL_AN_CR4_BIT;
++
++	/* fixup applied */
++	sbl_dev_info(sbl->dev, "an %d: 100cr4 fixup applied", port_num);
++	return true;
++}
++
++int sbl_link_autoneg(struct sbl_inst *sbl, int port_num)
 +{
 +	struct sbl_link *link;
++	u32 base = SBL_PML_BASE(port_num);
++	u32 random;
++	u64 cfg_pcs_reg;
 +	int err;
 +
 +	err = sbl_validate_instance(sbl);
@@ -3043,329 +2644,699 @@ index 000000000000..81484e177394
 +	if (err)
 +		return err;
 +
++	/* set starting point */
 +	link = sbl->link + port_num;
++	link->an_options = 0;
++	link->link_mode  = link->blattr.link_mode;
 +
-+	if (!(link->blstate & (SBL_BASE_LINK_STATUS_STARTING | SBL_BASE_LINK_STATUS_STARTING))) {
-+		sbl_dev_err(sbl->dev, "pcs_am_start %d: wrong state (%s)\n", port_num,
-+			    sbl_link_state_str(link->blstate));
-+		return -ENAVAIL;
++	switch (link->blattr.pec.an_mode) {
++
++	case SBL_AN_MODE_OFF:
++		sbl_dev_dbg(sbl->dev, "an %d: AN off", port_num);
++		/* nothing more to do here */
++		return 0;
++
++	case SBL_AN_MODE_ON:
++	case SBL_AN_MODE_FIXED:
++		/* ok */
++		break;
++
++	default:
++		sbl_dev_err(sbl->dev, "an %d: invalid AN mode (%s)", port_num,
++			    sbl_an_mode_str(link->blattr.pec.an_mode));
++		return -EINVAL;
 +	}
 +
-+	/* configuring will stop the pcs
-+	 * this might perturb link partner when tuning so report we do this
-+	 */
-+	if (READ_ONCE(link->link_info) & SBL_LINK_INFO_PCS_TX_AM)
-+		sbl_dev_dbg(sbl->dev, "%d pcs_am_start: tx am restart\n", port_num);
++	/* we can never be in loopback mode as the nonce will be the same! */
++	if (link->blattr.loopback_mode != SBL_LOOPBACK_MODE_OFF) {
++		sbl_dev_err(sbl->dev, "an %d: cannot autoneg in loopback mode", port_num);
++		return -ENOTUNIQ;
++	}
 +
-+	err = sbl_pml_pcs_config(sbl, port_num);
++	/* pcs must not be enabled and autoneg must be off */
++	cfg_pcs_reg = sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET);
++	if (SBL_PML_CFG_PCS_PCS_ENABLE_GET(cfg_pcs_reg)) {
++		sbl_dev_err(sbl->dev, "an %d: pcs is enabled", port_num);
++		err = -EBUSY;
++		goto out;
++	}
++	if (SBL_PML_CFG_PCS_ENABLE_AUTO_NEG_GET(cfg_pcs_reg)) {
++		sbl_dev_err(sbl->dev, "an %d: autoneg already enabled", port_num);
++		err = -EBUSY;
++		goto out;
++	}
++
++	/* sort out the data to send/receive */
++	err = sbl_an_setup_tx_pages(sbl, port_num);
 +	if (err) {
-+		sbl_dev_err(sbl->dev, "pcs_config %d: failed [%d]\n", port_num, err);
++		sbl_dev_err(sbl->dev, "an %d, page setup failed [%d]", port_num, err);
++		goto out;
++	}
++
++	/* setup */
++	err = sbl_pml_install_intr_handler(sbl, port_num, SBL_AUTONEG_ERR_FLGS);
++	if (err)
++		goto out;
++	link->an_100cr4_fixup_applied = false;
++
++	/* try to negotiate */
++	link->an_try_count = 0;
++	while (1) {
++
++		link->an_try_count++;
++
++		/* keep trying until up timeout expires or cancelled */
++		if (sbl_start_timeout(sbl, port_num)) {
++			err = -ETIMEDOUT;
++			break;
++		}
++		if (sbl_base_link_start_cancelled(sbl, port_num)) {
++			err = -ECANCELED;
++			break;
++		}
++
++		/* setup the serdes and pml */
++		err = sbl_an_serdes_start(sbl, port_num);
++		if (err)
++			break;
++		usleep_range(1000, 2000);
++
++		err = sbl_an_pml_setup(sbl, port_num);
++		if (err)
++			break;
++
++		/* try to exchange pages */
++		err = sbl_an_exchange(sbl, port_num);
++		if (err == -EPROTO) {
++			/* we have received an unexpected base page
++			 * The lp must have restarted autoneg and we should too
++			 *
++			 * However we know that some Mellanox cards will do this if there is no
++			 * ability match - particularly only supporting 100KR4 not 100CR4
++			 * See if we can try to fix this up
++			 */
++			if (link->blattr.options & SBL_OPT_AUTONEG_100CR4_FIXUP) {
++				if (sbl_an_100cr4_fixup(sbl, port_num)) {
++					/* fixup applied */
++					link->an_100cr4_fixup_applied = true;
++					/* carry on to ability match */
++				} else {
++					/* fixup failed - retry exchange */
++					sbl_an_serdes_stop(sbl, port_num);
++					continue;
++				}
++			} else {
++				sbl_an_serdes_stop(sbl, port_num);
++				continue;
++			}
++		} else if (err == -ETIME) {
++			/* we have timed out */
++			if (link->an_try_count < link->blattr.pec.an_max_retry) {
++				/* retry */
++				sbl_an_serdes_stop(sbl, port_num);
++				/* Random delay of 1-5 before retry */
++				get_random_bytes(&random, sizeof(random));
++				random = 1u + (random % 5u);
++				msleep(random);
++				continue;
++			} else {
++				/* give up */
++				break;
++			}
++		} else if (err) {
++			/* other error */
++			sbl_dev_dbg(sbl->dev, "an %d: exchange failed [%d] (sm_state %s)",
++				    port_num, err, sbl_an_get_sm_state(sbl, port_num));
++			break;
++		}
++
++		/* pages have been exchanged - try to resolve the mode etc */
++		err = sbl_an_ability_match(sbl, port_num);
++		if (err) {
++			/* no match - try again (in case they change) */
++			sbl_an_serdes_stop(sbl, port_num);
++			continue;
++		}
++
++		/* see if we need to update the start timeout */
++		sbl_an_update_timeout(sbl, port_num);
++
++		/* we know the lp is there */
++		link->lp_detected = true;
++		break;
++	}
++
++	/* cleanup */
++	if (link->sstate == SBL_SERDES_STATUS_AUTONEG)
++		sbl_an_serdes_stop(sbl, port_num);
++	sbl_pml_disable_intr_handler(sbl, port_num, SBL_AUTONEG_ERR_FLGS);
++	sbl_pml_remove_intr_handler(sbl, port_num);
++
++out:
++	sbl_pml_err_flgs_clear_all(sbl, port_num);
++	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_ANEG);
++
++	return err;
++}
++
++void sbl_an_send_next_page(struct sbl_inst *sbl, int port_num)
++{
++	u32 base = SBL_PML_BASE(port_num);
++	u64 cfg_pcs_autoneg_reg;
++
++	cfg_pcs_autoneg_reg = sbl_read64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_OFFSET);
++	cfg_pcs_autoneg_reg = SBL_PML_CFG_PCS_AUTONEG_NEXT_PAGE_LOADED_UPDATE(cfg_pcs_autoneg_reg, 1ULL);
++	sbl_write64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_OFFSET, cfg_pcs_autoneg_reg);
++}
++
++bool sbl_an_next_is_complete(struct sbl_inst *sbl, int port_num)
++{
++	u32 base = SBL_PML_BASE(port_num);
++	u64 sts_autoneg_next_reg;
++
++	sts_autoneg_next_reg = sbl_read64(sbl, base | SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_OFFSET);
++
++	return SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_COMPLETE_GET(sts_autoneg_next_reg);
++}
++
++bool sbl_an_is_next_page(struct sbl_inst *sbl, int port_num)
++{
++	u32 base = SBL_PML_BASE(port_num);
++	u64 sts_autoneg_next_reg;
++	u64 state;
++	bool value;
++
++	sts_autoneg_next_reg = sbl_read64(sbl, base | SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_OFFSET);
++
++	state = SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_STATE_GET(sts_autoneg_next_reg);
++
++	value =	 (state == SBL_PML_AUTONEG_STATE_COMPLETE_ACK) ||
++		(state == SBL_PML_AUTONEG_STATE_AN_GOOD_CHECK);
++
++	value = value && (SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_LP_ABILITY_GET(sts_autoneg_next_reg)) &&
++		(!SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_BASE_PAGE_GET(sts_autoneg_next_reg));
++
++	return value;
++}
++
++void sbl_an_setup_next_page(struct sbl_inst *sbl, int port_num, int page_idx)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	u32 base = SBL_PML_BASE(port_num);
++
++	sbl_write64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_NEXT_PAGE_OFFSET,
++		    link->an_tx_page[page_idx]);
++	sbl_dev_dbg(sbl->dev, "an %d: tx next page: 0x%llx", port_num,
++		    link->an_tx_page[page_idx]);
++	sbl_read64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_NEXT_PAGE_OFFSET);
++}
++
++void sbl_an_setup_null_page(struct sbl_inst *sbl, int port_num)
++{
++	u32 base = SBL_PML_BASE(port_num);
++	u64 null_page;
++
++	/* Construct a null message page as in 802.3-2015: 28.2.3.4.1 & annex 28C */
++	null_page  = sbl_read64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_NEXT_PAGE_OFFSET);
++	null_page ^= AN_NP_T_MASK;          /* toggle bit 11 */
++	null_page &= ~AN_NP_NP_MASK;        /* clear next page bit */
++	null_page |= AN_NP_MP_MASK;         /* set this is msg page */
++	null_page &= ~AN_NP_MSG_MASK;       /* clear msg code */
++	null_page |= AN_NP_CODE_NULL_MSG;   /* set null msg code */
++	null_page &= ~AN_NP_UCF_MASK;       /* clear unformatted code field code */
++	sbl_write64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_NEXT_PAGE_OFFSET, null_page);
++	sbl_dev_dbg(sbl->dev, "an %d: tx null next page: 0x%llx", port_num,
++		    null_page);
++	sbl_read64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_NEXT_PAGE_OFFSET);
++}
++
++/* setup to detect complete or page received error flags become set */
++int sbl_an_hw_wait_prepare(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	unsigned long flags;
++	int err;
++
++	spin_lock_irqsave(&link->lock, flags);
++	if (link->start_cancelled) {
++		spin_unlock_irqrestore(&link->lock, flags);
++		return -ECANCELED;
++	}
++	reinit_completion(&link->an_hw_change);
++	spin_unlock_irqrestore(&link->lock, flags);
++
++	sbl_pml_err_flgs_clear(sbl, port_num, SBL_AUTONEG_ERR_FLGS);
++
++	err = sbl_pml_enable_intr_handler(sbl, port_num, SBL_AUTONEG_ERR_FLGS);
++	if (err) {
++		sbl_dev_err(sbl->dev, "an %d: intr enable failed [%d]", port_num, err);
 +		return err;
 +	}
-+
-+	/* send remote fault to the link partner */
-+	sbl_pml_pcs_set_tx_rf(sbl, port_num);
-+
-+	/* start the pcs - which will start it sending AM */
-+	sbl_pml_pcs_start(sbl, port_num);
-+
-+	/* if pcs is running it will be sending AMs */
-+	sbl_link_info_set(sbl, port_num, SBL_LINK_INFO_PCS_TX_AM);
-+
-+	/* but definitely not doing any of this yet */
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_ANEG);
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_A_WAIT);
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_F_WAIT);
-+	sbl_link_info_clear(sbl, port_num, SBL_LINK_INFO_PCS_UP);
 +
 +	return 0;
 +}
 +
-+#ifdef CONFIG_SYSFS
-+/**
-+ * sbl_pml_pcs_sysfs_sprint() - Format serdes info into buffer
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ * @buf: Destination buffer to write the data
-+ * @size: Size of @buf in bytes, the output is truncated to fit
-+ *
-+ * This function checks the pcs_config flag and based on that
-+ * it will format serdes info string into buffer.
-+ *
-+ * Context: Process context, Acquires lock and release
-+ * link->lock <spin_lock>
-+ *
-+ * Return: Number of characters written, at most @size - 1
-+ */
-+int sbl_pml_pcs_sysfs_sprint(struct sbl_inst *sbl, int port_num, char *buf, size_t size)
++const char *sbl_an_get_sm_state(struct sbl_inst *sbl, int port_num)
 +{
-+	struct sbl_link *link = sbl->link + port_num;
-+	char state_str[SBL_PCS_STATE_STR_LEN];
-+	int s = 0;
-+
-+	spin_lock(&link->lock);
-+	if (link->pcs_config) {
-+		s += scnprintf(buf + s, size - s, "pcs:  %s (%d %d %d %d) rx %x %s\n",
-+				sbl_link_mode_str(link->link_mode),
-+				sbl->switch_info->ports[port_num].serdes[0].tx_lane_source,
-+				sbl->switch_info->ports[port_num].serdes[1].tx_lane_source,
-+				sbl->switch_info->ports[port_num].serdes[2].tx_lane_source,
-+				sbl->switch_info->ports[port_num].serdes[3].tx_lane_source,
-+				link->active_rx_lanes,
-+				sbl_pml_pcs_state_str(sbl, port_num, state_str, SBL_PCS_STATE_STR_LEN));
-+	}
-+	spin_unlock(&link->lock);
-+
-+	return s;
-+}
-+EXPORT_SYMBOL(sbl_pml_pcs_sysfs_sprint);
-+
-+/**
-+ * sbl_pml_pcs_lane_degrade_sysfs_sprint() - Formats PCS ALD,TX/RX lane degrade into buffer
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ * @buf: Destination buffer to write the data
-+ * @size: Size of @buf in bytes, the output is truncated to fit
-+ *
-+ * This function formats PCS ALD/(TX/RX) lane degrade string into buffer
-+ * based on the flag 'pcs_config'.
-+ *
-+ * Context: Process context, Acquires lock and release
-+ * link->lock <spin_lock>
-+ *
-+ * Return: Number of characters written, at most @size - 1
-+ */
-+int sbl_pml_pcs_lane_degrade_sysfs_sprint(struct sbl_inst *sbl, int port_num, char *buf, size_t size)
-+{
-+	struct sbl_link *link = sbl->link + port_num;
-+	int s = 0;
 +	u32 base = SBL_PML_BASE(port_num);
-+	u64 sts_pcs_lane_degrade_reg = sbl_read64(sbl, base | SBL_PML_STS_PCS_LANE_DEGRADE_OFFSET);
-+	u64 cfg_pcs_reg = sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET);
++	u64 sts_pcs_autoneg_reg;
++	u64 sm_state;
 +
-+	spin_lock(&link->lock);
-+	if (link->pcs_config) {
-+		s += scnprintf(buf + s, size - s, "ALD: %lld - TX: 0x%llx - RX: 0x%llx\n",
-+				SBL_PML_CFG_PCS_ENABLE_AUTO_LANE_DEGRADE_GET(cfg_pcs_reg),
-+				SBL_PML_STS_PCS_LANE_DEGRADE_LP_PLS_AVAILABLE_GET(sts_pcs_lane_degrade_reg),
-+				SBL_PML_STS_PCS_LANE_DEGRADE_RX_PLS_AVAILABLE_GET(sts_pcs_lane_degrade_reg));
-+	}
-+	spin_unlock(&link->lock);
++	sts_pcs_autoneg_reg = sbl_read64(sbl, base | SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_OFFSET);
++	sm_state = SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_STATE_GET(sts_pcs_autoneg_reg);
 +
-+	return s;
++	return  sbl_an_state_str(sm_state);
 +}
-+EXPORT_SYMBOL(sbl_pml_pcs_lane_degrade_sysfs_sprint);
-+#endif
-diff --git a/drivers/net/ethernet/hpe/sbl/sbl_pml_pcs_nic.c b/drivers/net/ethernet/hpe/sbl/sbl_pml_pcs_nic.c
++
++/**
++ * sbl_get_an_pages() - Get an pages
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ * @count: number of pages
++ * @pages: Pointer to max rx pages
++ *
++ * Get number of an pages 'count' and rx pages 'pages'
++ * by reading 'an_rx_count' and 'an_rx_page'
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++int sbl_get_an_pages(struct sbl_inst *sbl, int port_num, int *count, u64 *pages)
++{
++	struct sbl_link *link;
++	int i;
++	int err;
++
++	err = sbl_validate_instance(sbl);
++	if (err)
++		return err;
++
++	err = sbl_validate_port_num(sbl, port_num);
++	if (err)
++		return err;
++
++	if (!count || !pages)
++		return -EINVAL;
++
++	link = sbl->link + port_num;
++
++	/* check we did autoneg successfully */
++	if ((link->blattr.pec.an_mode != SBL_AN_MODE_ON) &&
++	    (link->blattr.pec.an_mode != SBL_AN_MODE_FIXED)) {
++		sbl_dev_info(sbl->dev, "%d: not autoneg mode - no pages to get", port_num);
++		return -ENODATA;
++	}
++	if (!link->an_rx_count) {
++		sbl_dev_info(sbl->dev, "%d: no an pages to get", port_num);
++		return -ENODATA;
++	}
++
++	if (link->an_rx_count > *count) {
++		/* insufficient space
++		 * update size to say how much we need and return
++		 */
++		*count = link->an_rx_count;
++		return -ENOSPC;
++	}
++
++	for (i = 0; i < link->an_rx_count; ++i)
++		*pages++ = link->an_rx_page[i];
++	*count = link->an_rx_count;
++
++	return 0;
++}
++EXPORT_SYMBOL(sbl_get_an_pages);
++
++void sbl_an_dump_state(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	u32 base = SBL_PML_BASE(port_num);
++	u64 val64;
++	int i;
++
++	val64 = sbl_read64(sbl, base | SBL_PML_ERR_FLG_OFFSET);
++	sbl_dev_dbg(sbl->dev, "an %d: dump: err flgs       0x%llx", port_num, val64);
++
++	val64 = sbl_read64(sbl, base | SBL_PML_CFG_PCS_OFFSET);
++	sbl_dev_dbg(sbl->dev, "an %d: dump: cfg pcs        0x%llx", port_num, val64);
++
++	val64 = sbl_read64(sbl, base | SBL_PML_CFG_PCS_AUTONEG_OFFSET);
++	sbl_dev_dbg(sbl->dev, "an %d: dump: cfg pcs an     0x%llx", port_num, val64);
++
++	val64 = sbl_read64(sbl, base | SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_OFFSET);
++	sbl_dev_dbg(sbl->dev, "an %d: dump: sts an base pg 0x%llx", port_num, val64);
++
++	sbl_dev_dbg(sbl->dev, "%d base, complete (%lld), state (%lld) (%s), received (%lld) , base page (%lld), lp (%lld), lp_base (%lld) ",
++		    port_num,
++			SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_COMPLETE_GET(val64),
++			SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_STATE_GET(val64),
++			sbl_an_get_sm_state(sbl, port_num),
++			SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_PAGE_RECEIVED_GET(val64),
++			SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_BASE_PAGE_GET(val64),
++			SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_LP_ABILITY_GET(val64),
++			SBL_PML_STS_PCS_AUTONEG_BASE_PAGE_LP_BASE_PAGE_GET(val64));
++
++	val64 = sbl_read64(sbl, base | SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_OFFSET);
++
++	sbl_dev_dbg(sbl->dev, "%d next, complete (%lld), state (%lld) (%s), received (%lld) , base page (%lld), lp (%lld), lp_next (%lld) ",
++		    port_num,
++			SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_COMPLETE_GET(val64),
++			SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_STATE_GET(val64),
++			sbl_an_get_sm_state(sbl, port_num),
++			SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_PAGE_RECEIVED_GET(val64),
++			SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_BASE_PAGE_GET(val64),
++			SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_LP_ABILITY_GET(val64),
++			SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_LP_NEXT_PAGE_GET(val64));
++
++	sbl_dev_dbg(sbl->dev, "an %d: dump: sts an next pg 0x%llx", port_num, val64);
++
++	for (i = 0; i < link->an_tx_count; ++i) {
++		sbl_dev_dbg(sbl->dev, "an %d: dump: tx pg %d: 0x%llx", port_num,
++			    i, link->an_tx_page[i]);
++	}
++	for (i = 0; i < link->an_rx_count; ++i) {
++		sbl_dev_dbg(sbl->dev, "an %d: dump: rx pg %d: 0x%llx", port_num,
++			    i, link->an_rx_page[i]);
++	}
++}
+diff --git a/drivers/net/ethernet/hpe/sbl/sbl_link_an_nic.c b/drivers/net/ethernet/hpe/sbl/sbl_link_an_nic.c
 new file mode 100644
-index 000000000000..220039733053
+index 000000000000..e9536283c47a
 --- /dev/null
-+++ b/drivers/net/ethernet/hpe/sbl/sbl_pml_pcs_nic.c
-@@ -0,0 +1,53 @@
++++ b/drivers/net/ethernet/hpe/sbl/sbl_link_an_nic.c
+@@ -0,0 +1,111 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
 +/* Copyright 2025 Hewlett Packard Enterprise Development LP */
 +
 +#include <linux/types.h>
 +#include <linux/kernel.h>
-+#include <linux/slab.h>
 +#include <linux/device.h>
++#include <linux/random.h>
 +#include <linux/delay.h>
-+#include <linux/sched.h>
 +
 +#include <linux/hpe/sbl/sbl.h>
-+#include <linux/hpe/sbl/sbl_kconfig.h>
++#include <linux/hpe/sbl/sbl_an.h>
 +
 +#include <linux/hpe/sbl/sbl_pml.h>
 +
 +#include "sbl_pml_fn.h"
 +#include "sbl_link.h"
++#include "sbl_serdes.h"
++#include "sbl_constants.h"
 +#include "sbl_serdes_map.h"
 +#include "sbl_internal.h"
++
++int sbl_an_page_exchange(struct sbl_inst *sbl, int port_num, unsigned long remaining_jiffies)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	int xcng_count = 1;
++	u64 sts_autoneg_next_reg;
++	u32 base = SBL_PML_BASE(port_num);
++	int err;
++
++	/* -- Interrupt based next page exchange sequence -- */
++	do {
++		/* Too many Rx pages ?*/
++		if (xcng_count >= SBL_AN_MAX_RX_PAGES) {
++			sbl_dev_err_ratelimited(sbl->dev, "an %d: rx next page: too many pages %d",
++						port_num, xcng_count);
++			sbl_an_dump_state(sbl, port_num);
++			return -EPROTO;
++		}
++
++		sbl_dev_dbg(sbl->dev, "an %d: next page %d: start", port_num, xcng_count);
++
++		if (sbl_base_link_start_cancelled(sbl, port_num))
++			return -ECANCELED;
++		if (sbl_start_timeout(sbl, port_num))
++			return -ETIMEDOUT;
++
++		/* setup the next page (real or null) */
++		if (xcng_count < link->an_tx_count)
++			sbl_an_setup_next_page(sbl, port_num, xcng_count);
++		else
++			sbl_an_setup_null_page(sbl, port_num);
++
++		/* setup and enable interrupt */
++		err = sbl_an_hw_wait_prepare(sbl, port_num);
++		if (err)
++			return err;
++
++		/* send the next page */
++		sbl_an_send_next_page(sbl, port_num);
++
++		/* wait for next page interrupt */
++		remaining_jiffies = wait_for_completion_timeout(&link->an_hw_change, remaining_jiffies);
++		if (sbl_base_link_start_cancelled(sbl, port_num))
++			return -ECANCELED;
++		if (!remaining_jiffies) {
++			sbl_dev_err(sbl->dev, "an %d: next page %d: exchange timeout", port_num, xcng_count);
++			sbl_an_dump_state(sbl, port_num);
++			return -ETIME;
++		}
++
++		/* check if received page is a next page */
++		if (!sbl_an_is_next_page(sbl, port_num)) {
++			sbl_dev_dbg_ratelimited(sbl->dev, "an %d: next page %d: missing next page indication, resend next-page",
++						port_num, xcng_count);
++			sbl_an_dump_state(sbl, port_num);
++			continue;
++
++		}
++
++		/* put the received page in the buffer if indicated */
++		if (link->an_rx_page[xcng_count - 1] & AN_NP_NP_MASK) {
++			sts_autoneg_next_reg = sbl_read64(sbl, base |
++						  SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_OFFSET);
++			link->an_rx_page[xcng_count] =
++				SBL_PML_STS_PCS_AUTONEG_NEXT_PAGE_LP_NEXT_PAGE_GET(sts_autoneg_next_reg);
++			sbl_dev_dbg(sbl->dev, "an %d: rx next page: 0x%llx",
++				    port_num, link->an_rx_page[xcng_count]);
++			link->an_rx_count++;
++		}
++
++		/* go to the additional next page */
++		xcng_count++;
++
++		/* check to see if the exchange is done */
++	} while (!sbl_an_next_is_complete(sbl, port_num));
++
++	return 0;
++}
++
++void sbl_an_version_read(struct sbl_inst *sbl, int port_num)
++{
++	struct sbl_link *link = sbl->link + port_num;
++
++	/* cassini version here */
++	/* TODO: Implement dynamic version detection from HW device tree or runtime detection.
++	 * Currently hardcoded to CASSINI_V1. Should query actual hardware version
++	 * during autonegotiation setup to properly report link partner capability.
++	 */
++	link->an_tx_page[2] |= ((SBL_LP_SUBTYPE_CASSINI_V1 & AN_LP_SUBTYPE_MASK) << AN_LP_SUBTYPE_BASE_BIT);
++}
+diff --git a/drivers/net/ethernet/hpe/sbl/sbl_link_nic.c b/drivers/net/ethernet/hpe/sbl/sbl_link_nic.c
+new file mode 100644
+index 000000000000..2c0be275d019
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/sbl/sbl_link_nic.c
+@@ -0,0 +1,196 @@
++// SPDX-License-Identifier: GPL-2.0
++
++/* Copyright 2025 Hewlett Packard Enterprise Development LP */
++
++#include <linux/types.h>
++#include <linux/kernel.h>
++#include <linux/device.h>
++#include <linux/delay.h>
++
++#include <linux/hpe/sbl/sbl.h>
++#include <linux/hpe/sbl/sbl_an.h>
++#include <linux/hpe/sbl/sbl_fec.h>
++#include <linux/hpe/sbl/sbl_kconfig.h>
++
++#include <linux/hpe/sbl/sbl_pml.h>
++
++#include "sbl_serdes_map.h"
++#include "sbl_pml_fn.h"
++#include "sbl_link.h"
++#include "sbl_serdes.h"
 +#include "sbl_serdes_fn.h"
++#include "sbl_internal.h"
++
++/**
++ * sbl_link_get_fec_thresholds() - Get fec thresholds
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ * @ucw_bad: Pointer to an int where output is stored(ucw threshold value)
++ * @ccw_bad: Pointer to an int where output is stored(ccw threshold value)
++ * @fecl_warn: Pointer to an int where output is stored(warn threshold value)
++ *
++ * Get threshold values based on link mode used.
++ * @ucw_bad, @ucw_bad and @fecl_warn holds the values and
++ * returns through provided pointers to the caller.
++ *
++ * Return the failure and warning thresholds for fec metrics
++ * monitoring
++ *
++ * The ccw values used here corresponds to a BER of 1.e-4
++ * The ucw values correspond to a little less than 1e-10
++ * The single lane fec warning threshold is the ccw rate divided by
++ * the number of fec lanes in use for the mode.
++ *
++ *
++ * 200G LINK (BS) (CD)
++ *   212500000000 bits/second over a 4-lane link @ 200G
++ *   39062500 cw/s (5440 bits/codeword)
++ *
++ *   (Post)Pre-FEC BER
++ *  21250000.000000 (un)corrected cw/s => 1e-04 BER (1 bad bit per codeword)
++ *   2125000.000000 (un)corrected cw/s => 1e-05 BER
++ *    212500.000000 (un)corrected cw/s => 1e-06 BER
++ *     21250.000000 (un)corrected cw/s => 1e-07 BER
++ *      2125.000000 (un)corrected cw/s => 1e-08 BER
++ *       212.500000 (un)corrected cw/s => 1e-09 BER
++ *        21.250000 (un)corrected cw/s => 1e-10 BER
++ *         2.125000 (un)corrected cw/s => 1e-11 BER
++ *         0.212500 (un)corrected cw/s => 1e-12 BER
++ *         0.021250 (un)corrected cw/s => 1e-13 BER
++ *         0.002125 (un)corrected cw/s => 1e-13 BER
++ *
++ * 100G LINK (BJ)
++ *   103125000000 bits/second over a 4-lane link @ 100G
++ *   19531250 cw/s (5280 bits/codeword)
++ *
++ *   (Post) Pre-FEC BER
++ *   1031250.000000 (un)corrected cw/s => 1e-05 BER (1 bad bit per codeword)
++ *    103125.000000 (un)corrected cw/s => 1e-06 BER
++ *     10312.500000 (un)corrected cw/s => 1e-07 BER
++ *      1031.250000 (un)corrected cw/s => 1e-08 BER
++ *       103.125000 (un)corrected cw/s => 1e-09 BER
++ *        10.312500 (un)corrected cw/s => 1e-10 BER
++ *         1.031250 (un)corrected cw/s => 1e-11 BER
++ *         0.103125 (un)corrected cw/s => 1e-12 BER
++ *
++ * Cassini uses the old
++ *    sbl_link_get_fec_thresholds()
++ * Rosetta uses the newer
++ *    sbl_link_get_ucw_thresh_ieee()
++ *    sbl_link_get_ucw_thresh_hpe()
++ *    sbl_link_get_ccw_thresh_ieee()
++ *    sbl_link_get_ccw_thresh_hpe()
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++int sbl_link_get_fec_thresholds(struct sbl_inst *sbl, int port_num,
++				int *ucw_bad, int *ccw_bad, int *fecl_warn)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	int ucw;
++	int ccw;
++	int warn;
++
++	if (link->sstate != SBL_SERDES_STATUS_RUNNING)
++		return -ENAVAIL;
++
++	switch (link->link_mode) {
++	case SBL_LINK_MODE_BS_200G:
++		ucw = 21;
++		ccw = 21250000;
++		warn = ccw / 8;
++		break;
++	case SBL_LINK_MODE_BJ_100G:
++		ucw = 11;
++		ccw = 10312500;
++		warn = ccw / 8;
++		break;
++	case SBL_LINK_MODE_CD_100G:
++		ucw = 11;
++		ccw = 10625000;
++		warn = ccw / 4;
++		break;
++	case SBL_LINK_MODE_CD_50G:
++		ucw = 5;
++		ccw = 5312500;
++		warn = ccw / 2;
++		break;
++	default:
++		sbl_dev_err(sbl->dev, "%d: bad mode for fec thresh", port_num);
++		return -ENAVAIL;
++	}
++
++	if (ucw_bad)
++		*ucw_bad = ucw;
++	if (ccw_bad)
++		*ccw_bad = ccw;
++	if (fecl_warn)
++		*fecl_warn = warn;
++
++	return 0;
++}
++EXPORT_SYMBOL(sbl_link_get_fec_thresholds);
 +
 +#ifdef CONFIG_SYSFS
 +/**
-+ * sbl_pml_pcs_speed_sysfs_sprint() - Report PCS mode into buffer
++ * sbl_base_link_llr_sysfs_sprint() - Report LLR on/off status into buffer
 + * @sbl: A slingshot base link device instance
 + * @port_num: port number
 + * @buf: Destination buffer to write the data
 + * @size: Size of @buf in bytes, the output is truncated to fit
 + *
-+ * Based on PCS config, this function writes the link mode into
-+ * the provided buffer
++ * This function checks the state info flags of LLR.
++ * Based on this flag, it formats the string indicating
++ * whether LLR is on/off and writes it into provided buffer
 + *
 + * Context: Process context, Acquires lock and release link->lock <spin_lock>
 + *
 + * Return: Number of characters written, at most @size - 1
 + */
-+int sbl_pml_pcs_speed_sysfs_sprint(struct sbl_inst *sbl, int port_num, char *buf, size_t size)
++int sbl_base_link_llr_sysfs_sprint(struct sbl_inst *sbl, int port_num, char *buf, size_t size)
 +{
 +	struct sbl_link *link = sbl->link + port_num;
 +	int s = 0;
 +
 +	spin_lock(&link->lock);
-+	if (link->pcs_config)
-+		s += scnprintf(buf + s, size - s, "%s", sbl_link_mode_str(link->link_mode));
++
++	if (READ_ONCE(link->link_info) & SBL_LINK_INFO_LLR_RUN)
++		s += scnprintf(buf + s, size - s, "on");
 +	else
-+		s += scnprintf(buf + s, size - s, "NA");
++		s += scnprintf(buf + s, size - s, "off");
++
 +	spin_unlock(&link->lock);
 +
 +	return s;
 +}
-+EXPORT_SYMBOL(sbl_pml_pcs_speed_sysfs_sprint);
++EXPORT_SYMBOL(sbl_base_link_llr_sysfs_sprint);
++
++/**
++ * sbl_base_link_loopback_sysfs_sprint() - Report loopback mode status into buffer
++ * @sbl: A slingshot base link device instance
++ * @port_num: port number
++ * @buf: Destination buffer to write the data
++ * @size: Size of @buf in bytes, the output is truncated to fit
++ *
++ * This function gets the loopback mode status and
++ * formats the string into the provided buffer
++ *
++ * Context: Process context, Acquires lock and release link->lock <spin_lock>
++ *
++ * Return: Number of characters written, at most @size - 1
++ */
++int sbl_base_link_loopback_sysfs_sprint(struct sbl_inst *sbl, int port_num, char *buf, size_t size)
++{
++	struct sbl_link *link = sbl->link + port_num;
++	int s = 0;
++
++	spin_lock(&link->lock);
++
++	s += scnprintf(buf + s, size - s, sbl_loopback_mode_str(link->loopback_mode));
++
++	spin_unlock(&link->lock);
++
++	return s;
++}
++EXPORT_SYMBOL(sbl_base_link_loopback_sysfs_sprint);
 +#endif
-diff --git a/drivers/net/ethernet/hpe/sbl/sbl_pml_serdes_op.c b/drivers/net/ethernet/hpe/sbl/sbl_pml_serdes_op.c
-new file mode 100644
-index 000000000000..4ade8b13b398
---- /dev/null
-+++ b/drivers/net/ethernet/hpe/sbl/sbl_pml_serdes_op.c
-@@ -0,0 +1,145 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright 2019-2023,2025 Hewlett Packard Enterprise Development LP */
-+
-+#include <linux/types.h>
-+#include <linux/kernel.h>
-+#include <linux/slab.h>
-+#include <linux/device.h>
-+#include <linux/delay.h>
-+
-+#include <linux/hpe/sbl/sbl.h>
-+#include <linux/hpe/sbl/sbl_kconfig.h>
-+
-+#include <linux/hpe/sbl/sbl_pml.h>
-+
-+#include "sbl_serdes.h"
-+#include "sbl_internal.h"
-+
-+static inline bool sbl_pml_serdes_op_busy(struct sbl_inst *sbl, int port_num)
-+{
-+	u64 val64;
-+
-+	val64 = sbl_read64(sbl, SBL_PML_BASE(port_num) |
-+			SBL_PML_SERDES_CORE_INTERRUPT_OFFSET);
-+	return SBL_PML_SERDES_CORE_INTERRUPT_DO_CORE_INTERRUPT_GET(val64);
-+}
-+
-+/**
-+ * sbl_pml_serdes_op() - Perform a serdes interrupt configuration
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ * @serdes_sel: Value
-+ * @op: Read serdes version
-+ * @data: Set to zero
-+ * @result: Pass this value to caller
-+ * @timeout: Time set used for polling
-+ * @flags: Used to set US/MSec delay
-+ *
-+ * This function validates the instance and port number, picks
-+ * polling interval from the provided flags and executes SERDES
-+ * core interrupt configuration. It polls the completion or timeout
-+ * for this operation and returns success or negative on failure
-+ *
-+ * Context: May sleep based on access to serdes
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+int sbl_pml_serdes_op(struct sbl_inst *sbl, int port_num, u64 serdes_sel,
-+		      u64 op, u64 data, u16 *result, int timeout,
-+		      unsigned int flags)
-+{
-+	struct sbl_link *link;
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+	int delay;
-+	int poll_interval;
-+	unsigned long last_jiffy;
-+	int err;
-+
-+	err = sbl_validate_instance(sbl);
-+	if (err)
-+		return err;
-+
-+	err = sbl_validate_port_num(sbl, port_num);
-+	if (err)
-+		return err;
-+
-+	sbl_dev_dbg(sbl->dev, "serdes op, p%ds%lld, %lld, %lld, %d 0x%x\n",
-+		    port_num, serdes_sel, op, data, timeout, flags);
-+
-+	if (!result)
-+		return -EINVAL;
-+
-+	/* cannot wait infinitely */
-+	if (timeout <= 0)
-+		return -EINVAL;
-+
-+	/* a polling interval is mandatory */
-+	poll_interval = sbl_flags_get_poll_interval_from_flags(flags);
-+	if (!poll_interval)
-+		return -EINVAL;
-+
-+	delay = sbl_flags_get_delay_from_flags(flags);
-+
-+	link = sbl->link + port_num;
-+	err = mutex_lock_interruptible(&link->serdes_mtx);
-+	if (err)
-+		return -ERESTARTSYS;
-+
-+	if (sbl_pml_serdes_op_busy(sbl, port_num)) {
-+		mutex_unlock(&link->serdes_mtx);
-+		return -EBUSY;
-+	}
-+
-+	/* start the operation  */
-+	val64 = SBL_PML_SERDES_CORE_INTERRUPT_SET(serdes_sel, 1ULL, op, data);
-+	sbl_write64(sbl, base | SBL_PML_SERDES_CORE_INTERRUPT_OFFSET, val64);
-+	sbl_read64(sbl, base | SBL_PML_SERDES_CORE_INTERRUPT_OFFSET); /* flush */
-+
-+	if (delay)
-+		udelay(delay);
-+
-+	/* poll for completion or timeout */
-+	last_jiffy = jiffies + msecs_to_jiffies(timeout) + 1;
-+	while (sbl_pml_serdes_op_busy(sbl, port_num)) {
-+		if (time_is_before_jiffies(last_jiffy)) {
-+			mutex_unlock(&link->serdes_mtx);
-+			return -ETIMEDOUT;
-+		}
-+		msleep(poll_interval);
-+	}
-+
-+	/* get the result */
-+	val64 = sbl_read64(sbl, base | SBL_PML_SERDES_CORE_INTERRUPT_OFFSET);
-+	*result = SBL_PML_SERDES_CORE_INTERRUPT_CORE_INTERRUPT_DATA_GET(val64);
-+
-+	mutex_unlock(&link->serdes_mtx);
-+	return 0;
-+}
-+EXPORT_SYMBOL(sbl_pml_serdes_op);
-+
-+/**
-+ * sbl_pml_serdes_op_timing() - serdes core interrupt access timings
-+ * @sbl: A slingshot base link device instance
-+ * @port_num: port number
-+ * @capture: Value to capture the interrupt delay
-+ * @clear: Value to clear interrupt delay
-+ * @set: Value to set interrupt delay
-+ *
-+ * Return: 0 on success
-+ */
-+int sbl_pml_serdes_op_timing(struct sbl_inst *sbl, int port_num, u64 capture,
-+			     u64 clear, u64 set)
-+{
-+	u32 base = SBL_PML_BASE(port_num);
-+	u64 val64;
-+
-+	val64 = SBL_PML_CFG_SERDES_CORE_INTERRUPT_CAPTURE_INTERRUPT_DATA_DELAY_SET(capture) |
-+		SBL_PML_CFG_SERDES_CORE_INTERRUPT_CLEAR_INTERRUPT_DELAY_SET(clear) |
-+		SBL_PML_CFG_SERDES_CORE_INTERRUPT_SET_INTERRUPT_DELAY_SET(set);
-+
-+	sbl_write64(sbl, base | SBL_PML_CFG_SERDES_CORE_INTERRUPT_OFFSET,
-+		    val64);
-+	return 0;
-+}
-+EXPORT_SYMBOL(sbl_pml_serdes_op_timing);
 
 -- 
 2.56.0
