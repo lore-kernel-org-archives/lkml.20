@@ -1,120 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.74.137.57
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793392074;
-	b=oZ9uVxrqktoeeAkGqFVO7QQI4KfUdgzqbRI8pTer230PZqFGgQ+5ddKD0bSU2ESfiutQ
-	 c2ZDxAvjkkhrq5i1e+aY093ihzI8lk8/ojrHet8lTzKxQRlJ74qGMBsVmnXGKT9DRvqkE
-	 I1CrR+Ntc8MSCLgnzyGEeAHh4oP4cpE4o9Z4T6QA0MJJ6zCW6TuYJRLXSDYLJRHZ0QB4o
-	 9OSgtnhaGa7SE4/ZUw4QCxs7kJwniThVCPoSoOSHku8MvYbUjR9AnmHdLgxk4mAZdgcKh
-	 bYeJVpIILEsJaC+vphGgfBja52Y0BJt+dD6aYsIi3Kp5K2yGq+y2sGKY4qKBQRiSEvQ==
+	t=1793392095;
+	b=f6lCV+YFWWeyGztqoST5D1pz+tk0+ngJEEUllYmAyK3S4+VpdRMC/Ya4y6RIP+Eb+ahu
+	 mZ+qVSfQFrIc6x9ycFAX6HItDGI1wNrfwsIYbyulVEjx1HXIyO10rktOz0n63HBSaLpAJ
+	 DOE5uYadpfzQNSwfudVV3+Ii/XDlavxvCM5tuyEtgCR81VDVHFwYk95+w3+TrkNmxDBSH
+	 81e5uFDbz9KmcYDk7bZLsayM9SzNSCDpxRUdEIFKXTvp3uSKWVQrt5HmDrAfBDgFTcQS9
+	 XhF251kHNt13JEj3OH3WGc2ljQn9rUlSl6qdkhYXTMXT0hRsWuBPf/uCq3+eUoUKf6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793392074;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=5xXcIDxiVniNGdcbQJ6nFzj4IsHGrxD6GcvvhJ9Jcnc=;
-	b=mIab0/7njD6vXT9A1BA9L7KMxthPytMc/PVktirF7aTcpHLhkEfmzaQ/dsI2J2DHlbVV
-	 3xYTLxRk5o+Camz4SOPAPv1to/Gb2CJKZnkFUmN1ysdpnRGSglKsUVpSgi4P1nd9YIXPu
-	 Fcj6Ok3z7m33Lkt3Zhi35nr94pChQSLtvRxgCRfYcCLnSr1lvBwJadmUB3qE28x+rrnHx
-	 MMQzvDAkyAcOG6NZw/smdp9szVpnoAwaarN6sQFtjm9bKFiwuguimar5hY02RcadbVEA0
-	 vnscUPRQgnPQLaWctIsqCjroHsrUKWqZ8yw+ogVuKzJo8ShE+xspY/wRMaOjI8BChCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793392095;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=mL5Q/qru/61qA3CeBuTxFCjV0LvdujInnspbH7ZeU+E=;
+	b=Ug5P5D/KBx1d1qyP4yshyiWdQnBz0q65W8sWL6QH09gbyuRCdNPAT+dYVKnO74cvgZdF
+	 GIeHdFhJwz5ZDdUqMWPPXJxI6kVq0HLiQzaIDwDrcowPpfuvU4IqxgGRpoCzQXeKoLIWx
+	 BEbi6AsLdwUehVX857DvIxoeC6zYEcPmS0XitXI0vx6/VM9iqGQrnXrvhZrf5Tj3uwhwK
+	 rJLyPh+CDkVe/PIG5zW9LDeZUxC25mGaywAGcmipP+qDEwlHKR3qwRWkz0hNKVWLZ6JKf
+	 azzJvUQNUf7VJ1G317F/j1P9IkjphZVBfUbXUab9YmvnYef55+i9DvldvOqP0Ri6AJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=atmark-techno.com;
-	spf=pass smtp.mailfrom=atmark-techno.com;
-	dkim=pass header.d=atmark-techno.com header.i=@atmark-techno.com header.a=rsa-sha256 header.s=gw2_bookworm header.b="Qz6wV/h+";
-	dkim=pass header.d=atmark-techno.com header.i=@atmark-techno.com header.a=rsa-sha256 header.s=google header.b=KBww5V3T;
-	arc=none smtp.remote-ip=35.74.137.57
-Received: from gw2.atmark-techno.com (gw2.atmark-techno.com [35.74.137.57])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fVqsV7fn;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA349606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:27:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA349606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=atmark-techno.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atmark-techno.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36988606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:28:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36988606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=atmark-techno.com header.i=@atmark-techno.com header.a=rsa-sha256 header.s=gw2_bookworm header.b=Qz6wV/h+;
-	dkim=pass (2048-bit key, unprotected) header.d=atmark-techno.com header.i=@atmark-techno.com header.a=rsa-sha256 header.s=google header.b=KBww5V3T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=atmark-techno.com;
-	s=gw2_bookworm; t=1793392067;
-	bh=60Y9mp/9FBJ5YXY0MpcbRT4JhDkOWUwbs9rLePa8GmY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Qz6wV/h+plEJd+K67Vb5tmkZWeLR+wDLDtj18Yg8jDfEP/cvYmqStznT1yUO5Oa9R
-	 0Gd2fP/UDAfNu9qCjmz0dHdeVJZN2PFLDE/Xs245jF8aqEyNQ02etJGoWsCriy6hNK
-	 nDLZYBGkccOuzCWBysOiG/vo/T3qZoUBJCbR5PBJAV9YERPaCZSmnuFGHj+pD8DaXD
-	 zk3XptScIGbLi8bJ0ln6v60T6zJWXxzsbp5bOH/Ys8pRmjfWcgT5jqlT8V4e0YWNZL
-	 VgKHg0i5piN1EVNkRWtohxGj0oSJ3jGKoQI7946AtwhhhhDxe2eGlL8mPbF954SSjm
-	 A9kWzTF7o3/ug==
-Received: from gw2.atmark-techno.com (localhost [127.0.0.1])
-	by gw2.atmark-techno.com (Postfix) with ESMTP id 853C44CE
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:27:47 +0900 (JST)
-Authentication-Results: gw2.atmark-techno.com;
-	dkim=pass (2048-bit key; unprotected) header.d=atmark-techno.com header.i=@atmark-techno.com header.a=rsa-sha256 header.s=google header.b=KBww5V3T;
-	dkim-atps=neutral
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by gw2.atmark-techno.com (Postfix) with ESMTPS id CD68E3D6
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:27:46 +0900 (JST)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3abfcf726dcso1472137a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:27:46 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fVqsV7fn
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so1947187eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:28:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=atmark-techno.com; s=google; t=1793392066; x=1793996866; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5xXcIDxiVniNGdcbQJ6nFzj4IsHGrxD6GcvvhJ9Jcnc=;
-        b=KBww5V3TPYMUXEMNVXYyOE/FV8quiZl8H18D8zMs8HCjP3FUk6EFx5TpC3vWms4TWN
-         HVWt8PIZK1z2w2TMYcCkVLa7SVXqDODk4pX84E/3taI5a0cjTx4VZrmkcwuapezHGWGj
-         9wlDJ/SD6/oJGxv8h1EA3rr/jjW4oThK8Ld4QCxhvkxXVyVMWBoF1y1TQXnU859VLPtU
-         BbgtqfQu/epbKbouMgZzAATgU6Of+BbMUV9QnztQXMaUozfNPU73guK5uQPPvNBCFs0R
-         MwyRh5M2OVVE/+RsgPf884z54urqzs2Xb4+oRxeyJe6Co9QoJxvbtcaimXnPsKNFCuZp
-         uouA==
+        d=gmail.com; s=20260707; t=1793392094; x=1793996894; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mL5Q/qru/61qA3CeBuTxFCjV0LvdujInnspbH7ZeU+E=;
+        b=fVqsV7fnRLORtmNrhys9b+TantXua01zSuSpB2Y7bHGlXwvjWU4Qn8XIo1kMk//U7a
+         2oFupwHlTdGxB7FLCJkKNLn6somUoNpexDHXQMvVjYymZbkcK/Cwufp5CN/neeRgbH2l
+         RbO4uZgXHR3qlEGRjhA529T4ZL2zMkPGjqowUw9fyxCwHJ0w8TuVzkDUv9hNf3pdo1MZ
+         LKyO1E84nMpV8VRTF5s3BA53DTawdU/oTTFOH8hGH9ELc+FZhjPyX6wsflUUDL4gbKpO
+         gZWC+zXejGUiUaj6ELKwWDaRwuMFX+j/QFAn4gNpbaLqexQGeUlO4wT/h0a3r0AktP31
+         PLaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793392066; x=1793996866;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5xXcIDxiVniNGdcbQJ6nFzj4IsHGrxD6GcvvhJ9Jcnc=;
-        b=EXTTURAgQTTDraHy3wXbJdTtzm8gmGQcH5js7GkikgzCMPnvzNpFr4OdWalqwosQhS
-         E9JwaUKH8YA9tcOAtzjdXmqIxTNy6M4AIoWGoJp1XB//hJ+99KeUimA62shm4chni5PD
-         K3jIUNYqcrronE12bxOPIZEcNwbCl+Vhvz9ObyJmmG77PkGsHiJDoeVDdzdZLhTizxqz
-         hVy4GosllrEcIprWuFLab9A37mNZJ8+P8xFkQu0Xf4bqdPW2RdMRbA+V3LMTzot2J6Nb
-         tXZ0zCwcfAc2e5Ri8z5uO8SjvJEOoxirx+3ORZIBLLVXSD/6fdRy/dqVQ0Y4SIH08Ulb
-         sdsg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQQMcJ06WrwCRNoAaMM1dWMY2S6xuVanLwBUBl2x2JWSm+8wXmLepT/5o5GUAltzA2Z6RzYRHYFUyBTC8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3Bwb1OMDVMYCysI5Rxm0kJVUgiNuGzAQmQwdJ7VlAZG7oo+11
-	HDyzvnsUuvg7s2xPliU267IKmigWfBbmAx+8IEYThWACCSDgrXBUqbdUw4KKvgnU3dAri6qlyw8
-	HPSqcUCxGigaqF7I45Auvo1vLc/biLDfslVRpP1Gvo8XjZ0v4idVtetzDVdug3JW4WpY=
-X-Gm-Gg: AYBFou1SNnSA2A4cNXyNS5/kpH1gNkNAmbCEEt5Jcdh0sdKr3RIqOGWg9YhnZZhNYxM
-	VR1SXjyOfvNLWjOHjvv2cgxGTklH7DOILwKUMQ2E/Ub71GqkiZfeeI03KaKXIa00cPfByKc3UuA
-	qvs/7W9bBykfZkMbqsT/5VvUyJSK7bshe9jVKsIgXlyGH5jDz8ZhEh4iVt2X2ONHMpj4q3RzMB8
-	OpEwd5MAXfH5Y+oyU0e2tX+ueowcNJV8Jai5bkz16TmqVz6AU3HcOw8jaj270L3jBWcbt3Rc2IW
-	KB59od+Wq+R67hV7uqULyfzTfoY3QGXlUs8DSdOcw8SxKDBzvptWgdWHt4ok9EE9nAi6Wiw2jhB
-	FQpqTOK2BGhVFT46cfhzDnIy9Fvw8Vl/8Xz4la8iYzmNqCAWm5XGMQIHXHJ3Qj2jEvh5Hmbp63r
-	+J/KDwpV0Uw0dB7HwngGN/
-X-Received: by 2002:a17:90b:53ce:b0:3ad:6090:a190 with SMTP id 98e67ed59e1d1-3ae89817b01mr2859639a91.41.1793392065719;
-        Fri, 30 Oct 2026 13:27:45 -0700 (PDT)
-X-Received: by 2002:a17:90b:53ce:b0:3ad:6090:a190 with SMTP id 98e67ed59e1d1-3ae89817b01mr2859629a91.41.1793392065287;
-        Fri, 30 Oct 2026 13:27:45 -0700 (PDT)
-Received: from localhost (sodcd-04p2-40.ppp11.odn.ad.jp. [203.139.65.40])
-        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3ae84596e3bsm5414317a91.9.2026.10.30.13.27.44
+        d=1e100.net; s=20260707; t=1793392094; x=1793996894;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mL5Q/qru/61qA3CeBuTxFCjV0LvdujInnspbH7ZeU+E=;
+        b=N6Gr/CM4uSY3NBj/Qek8ufMon+IMIik/S1cnHzYJTZsjynVvDYODtt9r6D3DP0vgp2
+         bkAZSBeYiTseD/YHQYSbQ8JVqNh25Ey/Sizt2LuG8c5I9hFvT7ogaNJHkvFFtamH2izj
+         rwnmyFgXlGsw411WW2Qdsdb2mqwGconhaOEDb37KZl06uiREHdEDovbq5xtEUaocQg+V
+         /LaG47WThGj4qWelPFYmdlS0Ap1KVa23cIEUouVap3FWDQ6JQix79slITcGcy44MZh0p
+         ag+0YJo9gfTyjcsqLFgN35UKNlzKYf3NH/rOk41bOIVYtY5WeJoler+Mt6rqLSLWOjyD
+         CZjw==
+X-Forwarded-Encrypted: i=1; AKwUvBw43BJCgNdVRt8jflivEtJLAtyxiI400242NMet9IH7f03VMjkXUzpQyFs7fZQBqxhY+u1szIwaROBWhNM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdHhgStsGNICtbZHbBuL/+ZteMY++mcpgs87mN+m2UAEDWzj66
+	wad2g0CqCVNBI3OK1sY825RlNXxRyBEq7LIzCI41f4fFQ/4fzrwzlLcD
+X-Gm-Gg: AYBFou0+eWXMC2V3+bcJqcdQCG7l6DlIs4qub9dW7KrBEbJqK62XUW7I6CqbeuPoUxA
+	pPdE3ArXs3nI/50SxGiCWt5SiFefsHR77y311oEOgajeH5MSLf/sw2H52AN+88Guqj1IIAaEljM
+	yvbZ+fUl3v57xrHI/ruCFaAtMUEvsh+TRDj2SmKR+zUTlTVxRTPs3xZzCgeEKodavz1bK4WCc+Y
+	sDZT/ILm1L/Xn4vzmFODO/2jSR+y2eYj3a4jRjGMCo+rnVigwZX3H2f/pnvSvBvmJafqYUXOkey
+	haW/QpjBWWHqh463U4iz8JEov0GP+MjtFx/5ref82bql2t4McVa11iYInCncs6CNXLKUmbK4n0X
+	/Ng0nV7QbCmo58dJrzzdMy9h4aL2/6Kt4cNOETc36urSvZ/VPBmSU8KNlkxiWSrxh9NlWwhC7qM
+	bKExZR/rQTp4yg5dtUFV+HdcTvxd6cy8kt3voNj1CXfXe0dzQJrFB+ErEIsqOosk4loxC9Jm9SD
+	ICSnyHenzSR5Ma7Ltd8k7X36tXh/sptz5F2dS0WRNhITzcZGzP4iPD5tmm4OaUggoW1A65/LBpJ
+	QlCuo+i/R8hEpe0Xb2WLzQAszu0klZSxfmvWe0E=
+X-Received: by 2002:a05:693c:41d4:10b0:35c:99e1:c755 with SMTP id 5a478bee46e88-36a4242c0e1mr4738625eec.38.1793392094038;
+        Fri, 30 Oct 2026 13:28:14 -0700 (PDT)
+Received: from munique-a520 ([2804:3bf0:fe29:ac41:2d94:706:4bfd:852e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a61a0csm10976489eec.22.2026.10.30.13.28.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 13:27:44 -0700 (PDT)
-Date: Sat, 31 Oct 2026 05:27:33 +0900
-From: Dominique Martinet <dominique.martinet@atmark-techno.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Daisuke Mizobuchi <mizo@atmark-techno.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Steam Lin <stlin2@winbond.com>, linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 02/13] mtd: spinand: winbond: Generalize the KV OOB layout
-Message-ID: <auT9takcaT1TWj0W@atmark-techno.com>
-References: <20261030-winbond-master-w25nxxlvw-v1-0-91f67407dc8b@bootlin.com>
- <20261030-winbond-master-w25nxxlvw-v1-2-91f67407dc8b@bootlin.com>
+        Fri, 30 Oct 2026 13:28:13 -0700 (PDT)
+From: Munique Feitoza <muniquefeitoz4@gmail.com>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	nouveau@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Munique Feitoza <muniquefeitoz4@gmail.com>
+Subject: [PATCH] drm/nouveau: Fix CE channel creation on pre-Kepler GPUs
+Date: Fri, 30 Oct 2026 17:28:09 -0300
+Message-ID: <20261030202809.28723-1-muniquefeitoz4@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,41 +99,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261030-winbond-master-w25nxxlvw-v1-2-91f67407dc8b@bootlin.com>
+Content-Transfer-Encoding: 8bit
 
-Miquel Raynal wrote on Fri, Oct 30, 2026 at 06:45:26PM +0100:
-> --- a/drivers/mtd/nand/spi/winbond.c
-> +++ b/drivers/mtd/nand/spi/winbond.c
-> @@ -318,16 +318,11 @@ static int w25n01kv_ooblayout_ecc(struct mtd_info *mtd, int section,
->  	return 0;
->  }
->  
-> -static int w25n02kv_ooblayout_ecc(struct mtd_info *mtd, int section,
-> -				  struct mtd_oob_region *region)
-> +static int w25nxxkv_kw_ooblayout_ecc(struct mtd_info *mtd, int section,
-> +				     struct mtd_oob_region *region)
->  {
-> -	int num_sections = 4;
-> -	int offset = 64;
-> -
-> -	if (mtd->oobsize == 256) {
-> -		num_sections = 8;
-> -		offset = 128;
-> -	}
-> +	unsigned int offset = mtd->oobsize / 2;
-> +	unsigned int num_sections = mtd->writesize / 512;
+Commit 04e0481526e3 ("nouveau/dmem: Fix privileged error in copy engine
+channel") changed nouveau_accel_ce_init() to unconditionally request a
+privileged channel (priv = true) when calling nouveau_channel_new().
 
-Ah, I couldn't use oobsize for num_sections because of W25N01KV but
-using writesize makes sense as well as there's one section per 512 bytes
-chunk, and this works for all devices.
+However, privileged channels (func->ramfc->priv) are only supported on
+Kepler (gk104_chan_ramfc) and newer FIFO implementations. On pre-Kepler
+GPUs that expose a Copy Engine runlist, func->ramfc->priv is false,
+which causes nvkm_chan_new_() to reject the channel creation with
+-EINVAL:
 
-Good cleanup!
+  nouveau 0000:01:00.0: DRM: failed to create ce channel, -22
 
-Reviewed-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
+Specifically, this affects:
+- Tesla GT215 (NVA3), GT216 (NVA5), GT218 (NVA8), and MCP89 (NVAF)
+  using g84_chan_ramfc (GeForce GT 210/220/240, 310/320M/330M, etc.).
+- Fermi GF100 (NVC0), GF108 (NVC1), GF106 (NVC3), GF104 (NVC4),
+  GF110 (NVC8), GF114 (NVCE), GF116 (NVCF), GF117 (NVD7), and
+  GF119 (NVD9) using gf100_chan_ramfc (GeForce GTX 400/500 series and
+  Fermi-based GeForce GT 600/700 series such as the GT 730).
 
+As a result, drm->cechan remains NULL on Fermi GPUs and TTM buffer moves
+in nouveau_bo_move_init() cannot use the dedicated hardware Copy Engines
+(COPY0/COPY1), falling back to M2MF on the main graphics channel.
+
+Only request a privileged CE channel when device->info.family >=
+NV_DEVICE_INFO_V0_KEPLER.
+
+Fixes: 04e0481526e3 ("nouveau/dmem: Fix privileged error in copy engine channel")
+Signed-off-by: Munique Feitoza <muniquefeitoz4@gmail.com>
+---
+ drivers/gpu/drm/nouveau/nouveau_drm.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index 5e1336615..0a15f1281 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -337,6 +337,7 @@ static void
+ nouveau_accel_ce_init(struct nouveau_drm *drm)
+ {
+ 	struct nvif_device *device = &drm->client.device;
++	bool priv;
+ 	u64 runm;
+ 	int ret = 0;
+ 
+@@ -349,7 +350,13 @@ nouveau_accel_ce_init(struct nouveau_drm *drm)
+ 		return;
+ 	}
+ 
+-	ret = nouveau_channel_new(&drm->client, true, runm, NvDmaFB, NvDmaTT, &drm->cechan);
++	/* nouveau_dmem copies require a privileged channel, which is only
++	 * supported by Kepler and newer FIFO implementations.
++	 */
++	priv = device->info.family >= NV_DEVICE_INFO_V0_KEPLER;
++
++	ret = nouveau_channel_new(&drm->client, priv, runm, NvDmaFB, NvDmaTT,
++				  &drm->cechan);
+ 	if (ret)
+ 		NV_ERROR(drm, "failed to create ce channel, %d\n", ret);
+ }
 -- 
-Dominique
-
+2.56.0
 
