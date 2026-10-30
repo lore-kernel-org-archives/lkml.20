@@ -1,99 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793360191;
-	b=X4jU8jrice+l1wZZnFsYUNfjz+C9AmXLXOACnravM7NZsmS4ckNOcrw/wZbBTx9WBDQG
-	 KvURxV3W7Mzj1PqcVXRIKrktycQpxq3zHO8P3L2esDMS/ccgQeiXc0rollx1h2HOlgs7Y
-	 g8NC2mhc43KJHsZ6ofOWtzllC50fzhkp2GoNK1yr0Q64uxZv5jAN88jwY6hvQ3WgA6cTW
-	 ST8rWFTe+w7VGt7OGurRq6WoPXbPzdIHHOVM5eM3H0wWA8tpLRUTPAhvQc9EWj30aSEgl
-	 xXZz9KaWC0SUGzzLHfn7B1t+WRi+r96B9gZDDHS2jar7stQoDFZ4/CC88qlo6TqX9FA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793360191;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=LtCf5nVW5bznJzuzPUP3xJSxpr7qf7Ib525PZhWyGlc=;
-	b=IdqaVev9AaxPMDyi0z6KWbF6hod717746atwFmSG1h7K0EPPGzCZ/4fleoZAJQ7ABl/e
-	 nhGF3Awpp6QS6ipTfheGi6F2oChQQ0YAO7NxuHZFgzYZxqFnmzBkNSOPJGwRsMroJghA8
-	 Q94vckDi049T1cJYE9T0+Bfd+ODaAWZsnbJ084Uc7FGZh/9dtcrIaBK72vk2apIZhhJjO
-	 Wsd9gMk4d0evhnAYRcv2knq/rUrCflFjEnZfGjN/h6Tl+2Zs791gp9gf2Wr4yBH5uoyoG
-	 XzJI/43vI6I+eSgf1gk0B8pnrX8s98SSaV80ET/ByRifGQk+SFzyCQhSBwc/09YBH/A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=fooishbar.org;
-	spf=pass smtp.mailfrom=fooishbar.org;
-	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=YE69AjFJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793360201;
+	b=btTY6mDegIgHJBy7EfMsuMbln7dZFeweTtQj2IM0O13mPOIKuNkCCoUJeIoE00V1aYuD
+	 JU/OYmwPSdxVCKfbIn/qP9ZiooEzk3EVwJVzf7Lkhs8rdvFBXINF1Rtiga14E4So6jM0x
+	 O0OWP9kORqiUR34cm7IGj3y9UBB5Xe9PpJocS5xG7QTzsxO1PQadvYhNUjiLJnJqYa/9u
+	 FfP6LbHoC9TdQFT7F04T9WbX7ZmMcGSl+nZrHd0EGx5Rb4mbdlXRsDRpYASCdwAXfH+Wi
+	 7qfphg0Wni8sykXDOlO3h5dZk7CYa+z6pKou0FNeGJt/4SNq/ecWnWf2RCDNtUPrfIg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793360201;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=8QuubPiuk6wEOliVDccBxjXQ7fh0FoVKqkHUK2T+A6E=;
+	b=AKTgqsUkK3BStqa52FE48gn5HFCeAHsIqVVWlkR5nP5o1HXuyAEREK+o0NftVuLt2IqW
+	 M6Vhp+j67b/h8nMk4l8PWUQKB+tCM/VhXfDo+XA9Qtz48QQ84IB0AufW/I0t402qxGy1e
+	 anh/TAhVzz5PKAbXAGZBtDgUkmyCuRjZX1ixtEgoJZOz+SWwFBNpMqRZnXDy+cpNNjuoP
+	 5SOis/0KnuzOWoT8BP7uIvNRjDMoPMMUVZ3xiEIfcC6Gz9XYwl0t6Dzc2Z2I0Qas1t4en
+	 4k//VPzUOgk8hZSObIyy6Gq17CaxkKD88OfIwbhodbQTl4tAXAUL3TvSbo8BT8lRsRw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Aa+n9PXJ;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5B6606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:36:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD5B6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD988606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:36:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD988606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=YE69AjFJ
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e98798cbddso2672295ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:36:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793360190; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GT8hi0/dbGG7IeEzgJE6vL0mTCYSmmGl6fBBxUpmjrNwhwOsn83LoN6t9FERuUBlAn
-         MkKKdCi/RJru4g0FBJX+8LpSwt/XImMgx1fHKPq++eto/LkS7n6Zz5zzy6yy/lnsZanb
-         sdDfDiVPToXPJ5SBpj1Lab1LHd3dpqSByAxcBqdbaNqHAMYkOHfIt2PmEpzWME3O0bHZ
-         vSOaCytWmg7bfGAc3kUEVxOJJ/CK+93sCjQUX1Cr9/l1X64TZsnYNmKwWupaMyzkINg4
-         W7ZcCR0R4ct83TXImJRI5aaR//4ZfoaxvRx91ml1+8fz1Ao7xmbrFRETqXXYyghTRJv4
-         kecw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=LtCf5nVW5bznJzuzPUP3xJSxpr7qf7Ib525PZhWyGlc=;
-        fh=Ts3ErbTJOFZ/DGQZIE9jDU8ix8+7OWrXrGCMQs0yUpo=;
-        b=ao9e3t9PcdvkUo8qiIx+yI6RxdWXnqZ7FFtWyiMyStd58jiAFnMGJzxySWvRrM9uAe
-         5XqJaAwuqLgRhZzkIqQa9g8cUdkNdpSxvggtuy9kXudjN8gYLJf7p/3zm3r/A748vQt3
-         DE/bTrsuILFf/jMfShVdMgmBdcazqr6PfwtHQ40rl2AyTxzIWnY9apKbdVcC9zTfZu2Q
-         pBIgf/EHEFL8Z+avemRAREN8NZ3cxTvM1wqwE8GNJpNJej0NumzHkSlRzicM751fgEjM
-         5GIybo3wDbSvq1WlyTfNcy8Xp7TDHdrwmEd0dP5OtRIYC2FzU2VLMpdAW/Kz4RFssDGG
-         CjXg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fooishbar.org; s=google; t=1793360190; x=1793964990; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LtCf5nVW5bznJzuzPUP3xJSxpr7qf7Ib525PZhWyGlc=;
-        b=YE69AjFJX8iH/bYVabiBDOlLVZuf4MDa9bU458YlPkxrzkq7hkxPVR+o3YJSNYeYhQ
-         o/xTq+Vdgo7EMIdvC0T/La4V67J7KtkDP7jep0ixIgwq1GCulpTp3bdBXMM/bnXtHJtO
-         L+paF29Jv1HT0M+d63Bty+LpwoSHhkWMkaW6DT/PmCdViksjsyu139fl6XGBuAAPmWCh
-         wFjOA32Geyi0GuVo6xT7eWxyaZ2CmoREooUoC509h3ywjQfh1DBeF7HwubcHMFht1GEv
-         UR9F7mOocFcgLCbaW46DhEy3OVPU+uJFn+Sk2ifiFzjaHrgS+1v/nvNwkQtRsbxjAw8j
-         g1xQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793360190; x=1793964990;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=LtCf5nVW5bznJzuzPUP3xJSxpr7qf7Ib525PZhWyGlc=;
-        b=iCW7i3zpu87pdNdhzTwWW7Qc+L3UEcTOfvSIMgvP5rUUEgkDni3S5N9H9ihGofhHAG
-         uGJWv03QC5g1aDTkiA+s8CncajtZ2D9seQWSSXNKQz0MiOGL5inZQnIVhqcw9//kwd7i
-         7W0hhgl8D8cpxWoW6tmezwZX0VwCh21G1EZio+19XhCsAZxEcRcUWHJ+AynSdmbqghce
-         aL1D3n6zRjyKD4opQY8Y0/qx1DVJIcQOs8xgV5V9QQbfWrdju3S2MuSsOu0Jey8SAesp
-         sdRY5txSlt2r8g3IP92g2dYXUVPWqiYiH0YC4VRNxTz9b7509xmXJOTESEBoLMyjMxIe
-         3NrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxp9M0goN5sFDEH3KTG9VuXiqqblt2AND74BEbiSqeM6im+lsjuoeIHIg4vNJsv2q4OmL5sIRnC8wuh2lo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtJXse+JW8kAL/7nr8eVrhVDVxjjbk/djp2iWQMryO8jVGt2ab
-	2qgH8HhKezNNaCZYlcm2UuzR7w+BxDJMyvjQIH3NOe3qYAfCu9gZFUoQ/DF9Zlsq9v36EokCLr6
-	YziB9zgymaNgkwpgr25DGmdY2UrROYwscmCIcypMmpw==
-X-Gm-Gg: AYBFou2zkLUmGbK1s7KJeUN95IZXSihsVC2WoJB0qZTiewIrhDtYdwO/SZaSdI6U1RC
-	Mr6mFZ8baLwxEkN52OhYdSuODjb6pOXtMXuk6JaOXvDe1L3CtUmwfuez6uXm25yHAnsgAS/kcxr
-	sXrSltgffFRMxDDUvEGefj5gsXzTiiRdobv17HsnSH9toS95Mjuk2qyd1ymXoBtZAfIdM/trouv
-	x2eWUVVjY8m5M9MoV2/t7mkr8Hqw0rc0bj6/NVtmWMmQB0q5yDuGPM5wQuWj3so6NmenmfQXAYt
-	5Rz5RtxRBKayGspPj8PM+7EAuZ7Ktm1054BxR23m5i++XNdbhjKXBjzRtWrJ4XJHrCCByWlwL+2
-	Bko2R+3dbKkOfnjMrkCdEBksHFlLK9KP5TxFmSZM3rPPd1iEY54FZAfhs7g==
-X-Received: by 2002:a17:90b:4d83:b0:3ab:d26b:c2e9 with SMTP id
- 98e67ed59e1d1-3ae89763ad5mr1536469a91.33.1793360190259; Fri, 30 Oct 2026
- 04:36:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Aa+n9PXJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793360200; x=1824896200;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version:content-transfer-encoding;
+  bh=aadIw4rhulzpa6Y/ZdQ+M80PL9e0mgGB24qkPVmslLE=;
+  b=Aa+n9PXJza882rwIYAPcQ2N9oVgbsrZcR8vz7xof4y8jrlVLVCnPYhXf
+   uAaffLWa+CfL4VHSgGxPeBxRWOGukgge/japOwATIqVLAVIQn2+MLwG7F
+   QwzxnC98pZZ+Jr33QF0/b8wt0Sau9egdltc8y5pWmXYRZ9sBejKc5Q4rd
+   oKla2IjYUEouabzLcwypuRdZ2FDJLWmGU9T9Fz3hoc5kbLDeVS6T0ry/Z
+   b4AfHInMtrzRMfpqgxVeEwZb9bp9X7FvBbN0vM5/+P2NjMvveFY1WGYzW
+   9KxQcAACoNv5MgGKGk6XyQ/sdxliUvsbtiFvJ/7/J6ReZG0BZ6HgoyTLG
+   Q==;
+X-CSE-ConnectionGUID: s8U8hQG2QNiyZiwMhrKgqw==
+X-CSE-MsgGUID: ivtab1CIQ+SnsAhKbBe5Kg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2115249"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2115249"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 04:36:39 -0700
+X-CSE-ConnectionGUID: g+orv7JlT+urDFKI9tyaUA==
+X-CSE-MsgGUID: xJVcYvSyRoGD2TgzkWSP4w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5509613"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.13])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 04:36:34 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Dmytro
+ Malovanyi
+ <dmitrymalovanyy@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>, Patrik Jakobsson
+ <patrik.r.jakobsson@gmail.com>, Lyude Paul <lyude@redhat.com>, Danilo
+ Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] drm/dp: Always use enhanced framing for DPCD r1.2+
+In-Reply-To: <auR8R7G5S8hv5R0e@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
+ <20261029101826.72773-2-dmitrymalovanyy@gmail.com>
+ <auR8R7G5S8hv5R0e@intel.com>
+Date: Fri, 30 Oct 2026 13:36:31 +0200
+Message-ID: <59106a36510e33e851f76c877f41952b11a8c774@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,39 +95,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com> <20261014-dw-hdmi-qp-yuv-v5-6-6fab0fe43a9b@collabora.com>
-In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-6-6fab0fe43a9b@collabora.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Fri, 30 Oct 2026 11:36:18 +0000
-X-Gm-Features: AclHuK-U0mC8XWkCgVPn0dV4tOoEVFqDFmKaCqBI68agDhWQD9u0tSx5WY3ydLY
-Message-ID: <CAPj87rNJgUPhXtBj6tw7pzeHqmbPwkmVzzc6fT5pj_XxAuss=Q@mail.gmail.com>
-Subject: Re: [PATCH v5 06/15] drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE
- overflow on 32-bit
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
-	Andy Yan <andy.yan@rock-chips.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
-	Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org, 
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 13 Oct 2026 at 23:51, Cristian Ciocaltea
-<cristian.ciocaltea@collabora.com> wrote:
-> On architectures where unsigned long is 32-bit, VOP2_MAX_DCLK_RATE * 8
-> is evaluated in 32-bit arithmetic
+On Fri, 30 Oct 2026, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
+> wrote:
+> On Thu, Oct 29, 2026 at 11:18:22AM +0100, Dmytro Malovanyi wrote:
+>> DP 1.2 section 2.2.1.1 says "An upstream device interoperating with a
+>> downstream device with DPCD Revision of 1.2 or higher must enable
+>> Enhanced Framing Mode". So for r1.2+ the DPCD revision is enough, the
+>> DP_ENHANCED_FRAME_CAP bit does not need to be checked.
+>>=20
+>> Some sinks get this bit wrong. The Xiaomi Monitor A24i (P24FBA-RAGL)
+>> sets it in the base receiver caps, but clears it in the extended
+>> receiver caps at 0x2200, which are the ones we use:
+>>=20
+>>   base:     12 0a c4 01 01 00 01 80 02 00 06 00 00 00 81
+>>   extended: 14 0a 44 00 01 00 01 80 02 02 06 00 00 00 81
+>>=20
+>> Through a USB4 dock (CalDigit Element 5) the link trains without
+>> enhanced framing (0x202-0x204: 77 77 81), but the sink never syncs to
+>> the stream (SINK_STATUS 0x205: 00) and shows "No signal". Forcing RBR
+>> does not change it. Connected directly to the laptop the same sink
+>> syncs without enhanced framing, at RBR, HBR and HBR2.
+>>=20
+>> Make drm_dp_enhanced_frame_cap() return true for DPCD r1.2+. This
+>> changes behaviour for every driver using the helper, but only for sinks
+>> which already violate the spec by not setting the bit.
+>>=20
+>> Tested on i915 (Arrow Lake-U), with the dock the link now uses enhanced
+>> framing (0x101: 84) and the sink syncs (0x205: 03).
+>>=20
+>> Fixes: a1d926527b79 ("drm/i915: implement EXTENDED_RECEIVER_CAPABILITY_F=
+IELD_PRESENT")
+>> Cc: stable@vger.kernel.org
+>> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17719
+>> Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
+>> Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+>> ---
+>>  include/drm/display/drm_dp_helper.h | 4 ++++
+>>  1 file changed, 4 insertions(+)
+>>=20
+>> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/d=
+rm_dp_helper.h
+>> index 5b05a7fbe..4f20f60db 100644
+>> --- a/include/drm/display/drm_dp_helper.h
+>> +++ b/include/drm/display/drm_dp_helper.h
+>> @@ -160,6 +160,10 @@ drm_dp_max_lane_count(const u8 dpcd[DP_RECEIVER_CAP=
+_SIZE])
+>>  static inline bool
+>>  drm_dp_enhanced_frame_cap(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+>>  {
+>> +	/* DP 1.2 2.2.1.1: enhanced framing is mandatory for DPCD r1.2+ */
+>
+> DP_ENHANCED_FRAME_CAP is also mandatory so I think this needs
+> a bit more detailed explanation.
 
-On architectures where unsigned long is 32-bit, we will never run VOP2
-code. I guess Sashiko doesn't realise it's just asked you for a
-functionally-correct but completely useless commit.
+Commit message not enough?
 
-Reviewed-by: Daniel Stone <daniels@collabora.com>
+I think the wording in the specs suggest that with DPCD r1.2+ you should
+just enable enhanced framing regardless of the cap.
+
+BR,
+Jani.
+
+>
+>> +	if (dpcd[DP_DPCD_REV] >=3D 0x12)
+>> +		return true;
+>> +
+>>  	return dpcd[DP_DPCD_REV] >=3D 0x11 &&
+>>  		(dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP);
+>>  }
+>> --=20
+>> 2.50.1 (Apple Git-155)
+
+--=20
+Jani Nikula, Intel
