@@ -1,97 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793330999;
-	b=JLIZRNn2lS+P6aGxQ3Wm+wJFKUpuUlvUyWTUW6JHx5kLSBCcChlmFniVdojsVGQTvNL0
-	 VD+OpL6q2ywGkM8CdIY/+v0MrcfsyUGQN4AMRwQIak0qip5g3uPOeubO2xla2zq5FCo70
-	 JhAuveF1Uz32YFIhbYLlfB67z+fpuHrQ6/9YqmZJsAUfUGtugEPhOssk/6Z7MOjbhJcy1
-	 w738HR8B8srKKJHVXQqoNzwX60bIMH+cBJngWlC2dT46kgDhgrxZh1J65jlFdCeRhsjSP
-	 llEEdBayYiIg3krx+r9iie1L40mPaRtmAEruCzC1sWFCaCgVMzJlvus9ByGgy79ra5A==
+	t=1793331084;
+	b=oHP8uqZXQqkOYJFActsQF4i6HmcfPhcwGnNxC7WW7yRwP+nLRqMh4ZbeQSPObJGUgr7f
+	 pU+rnGXTJqSrOPX5lOm2jVaNFJAof+ulneihXFsZO2YhkU7U5rlprIFJLpkJ/mUYqfQsu
+	 tcUq1+jKtHVEuhAxIjKJkRzCuSWCoIJlUVXjkfIjV1PP/atAtw5sQ97Y8Q6GObH/TdJ4R
+	 hDcc/P83eNOaQS8sZEYbujX3y/Jd25GyzqK+XFmsRWFFBZdXQz+sfIX7Xmx0721YAA9nX
+	 N321Wa6yEoVs7oXVlnmDxizN12SkuamvEERxLQx3BUHjXu5vID/HNJlO1dylPIilY9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793330999;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KlleBVM3i1uLVt+wBeFSTUPaEiDOxCnK0ld617cCPMg=;
-	b=3Iwyss+RHcWsPhTb3N1+s80QD25kO/OADRpWHyqmqKEb/nJSfItEOovvAtPvneL8FO4n
-	 cH9FJcBhDOrkiCyeLGdltrYmJOV6JfQJEI1SpG0VSmkKPlzwWctG2nQinkSS1xjnp3cx7
-	 dkXaztWPFnchiTrV0wxmZVb/3wCFNuUmMQNKWG8HSgl8HCxGZQYRaHgp7GuED9SYwNfx2
-	 kURDsI2MON9HptU75DBI0ZtiUN0yjuIGI5MUv0S3FjjqvPkucd8/xa4Ezm8zW1DbOXU2K
-	 2qnszzTHRi78FPn9pkjWhbeUbwv0D9TUkiG7b/W+tiJi3w0A66WQCAVLKXy3zRbmxHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793331084;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=8ktqWfSef3AXz7FND5pOxckiQELIeSzD/uEmAhKFSN4=;
+	b=WWWXhRN51Jcz1CFz0sBUL0R1AKNkumikq03q2Krbs7csA6GKDp3OFghfgIKp5+XJZ4Vm
+	 /1KK3habk/dDO7wtuhdvYJPgxk7MGCzvuWaVZjIfMVypAO89IwMdHWAY6W4vBUR5csVo2
+	 T6LcQFyV7TKWbpaO9Ye7atqwoZbJq8SfecD3U00P5KYCfWMxDqcIy3ny8isukb2AlwDc+
+	 SPfFfpACeKDOt3CJbLW2vhWyNZGkkwnQkts5FqILYsqJbMXNwv8TDF3Wu0blARM4VgFHw
+	 RCGj80NyIaMdfpKMw4NFVMW0mpK3RKGfolIvgdlteXKvWwkcZEElftYLInS0fFw2r3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YklNh9K3;
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=qP4XW4f2;
+	arc=none smtp.remote-ip=117.135.210.8
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8431F606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:29:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8431F606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4DB606A31A;
+	Fri, 30 Oct 2026 03:31:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C4DB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YklNh9K3
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a06210b29fso61242b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:29:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793330994; x=1793935794; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KlleBVM3i1uLVt+wBeFSTUPaEiDOxCnK0ld617cCPMg=;
-        b=YklNh9K3MNu4Vqr2OGSUyszMcNshYyCz+G4TnKQ583DrOxN09+x+RB20wf41XXl7v5
-         AT+hhJGPZtMQQYR8hGbDqZzZmKnQ9YH5RWY1ez44ZBV4tLQZzugxpslI0YNEP0TUeVPA
-         6S2aytsLc0XFTZw7+9Ea7eYhjadLfrrMU9WcYVSsQM0Ixi6pcJvZF9WiHGDTb9tctyQo
-         Aj1skvWVWD0KPpFVFFCSQWGhhAN5VqO+HorNghoGkyjCG6DCEKVoaFcOAlFGk77Oi57P
-         zgL87C5KlyDPRd/ye4xHc5YWFuIs67PsCf+HVH15zlnq6NPtkgXZQya7chtOSpfi0jgO
-         k/sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793330994; x=1793935794;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KlleBVM3i1uLVt+wBeFSTUPaEiDOxCnK0ld617cCPMg=;
-        b=hQzVzGZTjrDCksl/LyZkJ8r3H5weBLbNsXluZVwPlfbEv3TKGdoFjM+FXCSzEPCM5I
-         aZ0u09PXYX9ZZsP5HPDlR5WsmkaPJNUmdCu4V8l6WGor0YRrDX+FoaC+iK6ve/zzn3Q6
-         Zcpco44LgcKyQ9+z8I1fWjbIqri/XCqeXxcJnEAzjb8ss5unBnBPcpl/jnojs7F3MclX
-         ojcdiKiyeN4rglDuwwr7+8AnyH52eh+99rGdhLAm/ePlDhM3MNRR1FeDOQaLsNnKkB0x
-         RWnVHW7iL2GOkf+5Rbf4k3CUolfLb9+LFn2lsnbLMA+egPFfCBRvgYPvn003upr0mZPr
-         GZfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxyZNvaoW6WS5oO6v9qMGWqUyNS9A0g66fGXWhrlSimUVTxikfj64FDla4jxaecad4NGTN584m079gwU8I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLruHh3eJ5m6+qYgeVNDGYSnBfU1GrI/pJx2lkk8G7pacJDMbri
-	JAGrLVYqMOxnFsw+GAdk2Q/WoMrfX1wpTNrlNb+EtK29Gcdw6SZBiNrbTDSd3w==
-X-Gm-Gg: AYBFou1/6zAcyvZCV/2qw7kXOb5zNMMKkZpbApAT/YLrQSej6GL5neY6fvfPQL6d8MN
-	iqRnbdNwf5B2tubDD+R5uWHMaPyK4L1tzrVo+ykNviocrPbKHk8NfoJymRu8+dlAZZSL506cM8/
-	L2E+YezEVV95WCFqXa8pTy3VXh300fnP8FnKMNXuYbY8jSEvre5eRQ+8IW/o+am+R67pPH4ceJ3
-	v87Dri3shZde0IO8w6TiOvuaGxzRk5R8OBdJZQCsUmVgoq5+EUfGsdSEtZZsKBgb7YMqXfHOxUF
-	36vRxms14cHR8x/PdTV7TYru621RgcWhW6SB9S5nR6H4w8k6oYVdNcn5g9dkT4OyPDaezTrpMlU
-	t7xpSEJXlKoqSxOO+KvkAWY87ztCUeZ2QsGsZErqW3AzMNBSEGKkWDmcrTxBWrXpavNqwbl2AGc
-	6gTaSCYZsQNC09yJqPbJmTRYuHhLa5if6tXGWMt5XqZuKZoyuAvQlOKjLGgsjhDwDwp37x3HRPK
-	MLU7eHfpZbEmwmJhsvJZHWyNn2FMcIRDnbSAwi7VanNEmax3Znq/S4FlgMe3xUxytRyhQXqS0W3
-	XesAAZN9UUOdJ+GawKoPEYWE75f35IINHD299yy2d+Hr7iwDfQ4PaKNZ2UxcbGzeLJ1yX/e5jtd
-	wtBremzHzJL+ygRU7d+OH9MtcdT6OfthLjEdGr2HvymL4gXQdQRJKJuE5Xf4GTtiwN0itwhsY
-X-Received: by 2002:a05:6a20:b096:b0:3e2:9dee:42cd with SMTP id adf61e73a8af0-3e928d22422mr943709637.36.1793330993793;
-        Thu, 29 Oct 2026 20:29:53 -0700 (PDT)
-Received: from localhost.localdomain (S0106e0dbd1c8af8c.vc.shawcable.net. [24.85.96.29])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb0981c5desm111713a12.27.2026.10.29.20.29.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 20:29:53 -0700 (PDT)
-From: Mahmoud Abumandour <ma.mandourr@gmail.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mahmoud Abumandour <ma.mandourr@gmail.com>
-Subject: [PATCH v2 2/2] KVM: selftests: Verify that L2's LMSW leaves L1-owned
- CR0 bits alone
-Date: Thu, 29 Oct 2026 20:29:37 -0700
-Message-Id: <20261030032937.2813-3-ma.mandourr@gmail.com>
-X-Mailer: git-send-email 2.40.1.windows.1
-In-Reply-To: <20261030032937.2813-1-ma.mandourr@gmail.com>
-References: <20261030032937.2813-1-ma.mandourr@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=qP4XW4f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=8k
+	tqWfSef3AXz7FND5pOxckiQELIeSzD/uEmAhKFSN4=; b=qP4XW4f28Uio8qY3Q4
+	sZfIiClVGpIuaQKGgHQH/8jZFEgSNsfk8jQNPBb2kEhpReEQ+gs4wZ5NJFGen/3h
+	xuerkNRat0t1ghnobMXMOMyqJngV1+dXv4xXl+Wb8GTWG5dQt/a6i0ibLv0Osi2p
+	M01oBLhgBlrnYxIZFbXM3/vvI=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCkvCgDn7+djD+Rq5VDKBg--.22802S2;
+	Fri, 30 Oct 2026 11:30:44 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: jiri@resnulli.us,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>
+Subject: [PATCH net 0/2] devlink: do not dereference a missing param item or shared buffer
+Date: Fri, 30 Oct 2026 11:30:39 +0800
+Message-Id: <20261030033041.3679526-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,74 +65,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCkvCgDn7+djD+Rq5VDKBg--.22802S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AF18Gr1fZFyUWFyxuFyUJrb_yoW8Ww1rpF
+	WYgFn8tr1DtFWvvr4kZF4xZFyj93WxG34FkFyrtw1Fvan8C3s2qF4Utw4avF4Yy393Ww1j
+	qw13Zan8uFyDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UlD7-UUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlASwh2rkD2QmmwAA3-
 
-Verify that an LMSW in L2 that exits to L0 only leaves an L1-owned CR0.TS=0D
-set, and that L2 reads an L1-owned CR0.NE from the read shadow.=0D
-=0D
-Assisted-by: LLM=0D
-Signed-off-by: Mahmoud Abumandour <ma.mandourr@gmail.com>=0D
----=0D
- .../kvm/x86/nested_exceptions_test.c          | 36 +++++++++++++++++++=0D
- 1 file changed, 36 insertions(+)=0D
-=0D
-diff --git a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c b/too=
-ls/testing/selftests/kvm/x86/nested_exceptions_test.c=0D
-index f47432526e..e33d2e0db0 100644=0D
---- a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c=0D
-+++ b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c=0D
-@@ -109,6 +109,40 @@ static void l1_svm_code(struct svm_test_data *svm)=0D
- 	GUEST_DONE();=0D
- }=0D
- =0D
-+static u64 l2_cr0;=0D
-+=0D
-+static void l2_lmsw_test(void)=0D
-+{=0D
-+	/* Toggle CR0.MP, which KVM intercepts and L1 doesn't. */=0D
-+	asm volatile("lmsw %w0" : : "r" (get_cr0() ^ X86_CR0_MP));=0D
-+	l2_cr0 =3D get_cr0();=0D
-+	asm volatile("fnop" ::: "memory");=0D
-+	GUEST_FAIL("L2's FNOP didn't take #NM");=0D
-+}=0D
-+=0D
-+/*=0D
-+ * L1 owns CR0.TS (set) and CR0.NE, both with a read shadow of 0.  L2's LM=
-SW=0D
-+ * must leave both alone: FNOP takes #NM and L2 reads both as 0.=0D
-+ */=0D
-+static void vmx_run_l2_lmsw(void)=0D
-+{=0D
-+	u64 cr0 =3D vmread(GUEST_CR0);=0D
-+=0D
-+	vmwrite(CR0_GUEST_HOST_MASK, X86_CR0_TS | X86_CR0_NE);=0D
-+	vmwrite(CR0_READ_SHADOW, cr0 & ~(X86_CR0_TS | X86_CR0_NE));=0D
-+	vmwrite(GUEST_CR0, cr0 | X86_CR0_TS);=0D
-+	vmwrite(EXCEPTION_BITMAP, BIT(NM_VECTOR));=0D
-+	vmwrite(GUEST_RIP, (u64)l2_lmsw_test);=0D
-+	vmresume();=0D
-+=0D
-+	GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON), EXIT_REASON_EXCEPTION_NMI);=0D
-+	GUEST_ASSERT_EQ(vmread(VM_EXIT_INTR_INFO) & 0xff, NM_VECTOR);=0D
-+	GUEST_ASSERT_EQ(l2_cr0, (cr0 & ~(X86_CR0_TS | X86_CR0_NE)) ^ X86_CR0_MP);=
-=0D
-+=0D
-+	vmwrite(CR0_GUEST_HOST_MASK, 0);=0D
-+	vmwrite(GUEST_CR0, cr0);=0D
-+}=0D
-+=0D
- static void vmx_run_l2(void *l2_code, int vector, u32 error_code)=0D
- {=0D
- 	vmwrite(GUEST_RIP, (u64)l2_code);=0D
-@@ -149,6 +183,8 @@ static void l1_vmx_code(struct vmx_pages *vmx)=0D
- 	vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS_DF);=0D
- 	vmx_run_l2(l2_ss_injected_df_test, DF_VECTOR, DF_ERROR_CODE);=0D
- =0D
-+	vmx_run_l2_lmsw();=0D
-+=0D
- 	vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS);=0D
- 	vmx_run_l2(l2_ss_injected_tf_test, FAKE_TRIPLE_FAULT_VECTOR, 0);=0D
- 	GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON), EXIT_REASON_TRIPLE_FAULT);=0D
--- =0D
-2.25.1=0D
-=0D
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
+
+Two devlink helpers look an object up by id or index, warn when the
+lookup fails, and then pass the NULL result to code that dereferences
+it. A driver mistake (a param_id that was never registered, an sb_index
+that was never registered or is unregistered twice) therefore costs an
+oops instead of a warning.
+
+  1/2 param: devl_param_value_changed() hands the missing param item to
+      devlink_param_notify() -> devlink_nl_param_fill(), whose first
+      statement dereferences param_item->param.
+
+  2/2 sb: devl_sb_unregister() runs list_del() on the missing shared
+      buffer; list is the first member of struct devlink_sb, so it
+      reads and writes through address 0.
+
+In both cases every other user of the same lookup already returns right
+after the warning, so the fixes just align the remaining callers; there
+is no change of behavior beyond avoiding the dereference. The param side
+follows the example Jiri set for devlink_param_unregister():
+
+Link: https://lore.kernel.org/all/20230126075838.1643665-5-jiri@resnulli.us/
+
+Both Fixes: tags point at the commits that introduced the unguarded
+WARN_ON pattern; the current devl_() functions are pure renames of those
+originals. No in-tree caller triggers either path today (the audit is
+part of a defensive hardening pass), so both are aimed at stopping
+out-of-tree drivers from turning a driver bug into an oops.
+
+Linkui Xiao (2):
+  devlink: param: do not dereference a missing param item
+  devlink: sb: do not dereference a missing shared buffer
+
+ net/devlink/param.c | 3 ++-
+ net/devlink/sb.c    | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+-- 
+2.25.1
+
