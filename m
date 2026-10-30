@@ -1,21 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.147.86
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793394104;
-	b=Xetj1PFCpF6UP05ylhYqi9h8+EXFlA+txinJJwoHfSb4tuQtbN5n7ItdG2mi/D6R6Kuz
-	 pyT519mHs/cCmkyzqMtRkby7XGWl3Nv3q+xfnDRXwNLWJKW5vZBKCzjss14WRF+m38BEk
-	 t3jn+KZIMDsAU0dPIRx4JkKrjUpkNe6nfVlrPzKeiw9UeOGlSWIeWqgeaU5APRQnCKJ95
-	 DAY6kQ7Sf/sSGOOXE9LNIAC+KfTpzdD1lguRUXBkSgng7Eq0hcJl6HgBezn4393sIipxp
-	 MrWREgsWEWLKl3l1+wsuCN4DR9Kzbt0o3fFyM12FNBl9u92DL276NWrjMEpTB1rE8yg==
+	t=1793394113;
+	b=ZXnzWeXv2E90WKTP4B4MdpWldd/NkiNErwaHMtsmP1vbZLkut2BCIQ4WFYla9J6Mj6Au
+	 6yJ3sb0AUGbb/rvaw+JnkENYYDqpCg1hiOu/XdN9w9PXLVe2l2c2s49bs1DJscQjMBsMw
+	 FEBi34np0pq0jhWz9GbiUUvwsagqFKn20nqhw9bCJJCZRLa6ZUoE1HmGGPe1FoBAO3I/B
+	 +K9yz/WJZOUfr7Xjqr2At8bknp37dchR9DIAVBj3IxfMd6N4ToZLhnDnggQiCj0KVkl3v
+	 +EgicFsAEMBh5EO+OY7LaIxWXJsR/Gq6/47f2JEkmOMMMhN6+SE147RDEdjf6pdyDeg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793394104;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793394113;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:Date:Subject:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:CC:
-	 X-Mailer:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 Received:Received:Received:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:CC:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
@@ -25,73 +26,76 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-HPE-SCL:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=a5yIMuO/gDFeL5i0hBrfl3nyk05cMLKgRTWsHouADYk=;
-	b=y/Qz4qCTySE7U89NE/F1lUwBQMZNHmac6IgdGKlagzQv2aCEYViILms3rh0G0OQzml3n
-	 5BdBp9VSkVAzv+2tN4wo4bm0JmmMsKR/hWl0R6m3bbp+mVU/XdKVyIbeir7O2U05Mrsmi
-	 tQqNZbo1JS3i0dO19SKr4zRdRsl1w1C7ju17KTcn0dZs9H2R3F0slkhi7OV1/SHluI2h/
-	 Y85Vi5HJ9osBo2qtQzUrPWTezm90KpE3jdKtG5GRgG3QgdjsNuMtq4q7Ve79iq/Wp9HNc
-	 gSTTvyW+Ip3zDPbIXQUSfqcm0FzKjKPGqbJIXbnMdZA+BGas6eL+QHEL3pRH40QFHag==
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-HPE-SCL:X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=p6PSrk2QBCCyet/EFpzOeLMtNSI3RRR4RYzrh/Vf4CU=;
+	b=TkK4f3Y8SbkDbkyeDAbLj3+aHR3KFFbhhNhVOp1yANuKW0E9z0Z1EP+LsQV2ez3I9Et6
+	 H3J2KW4nFGHYuHcQsPh7qQ5ji2m7xRIO2x9+hrCLMCr5RipHFGDquUI2r1E5d8iMs07lk
+	 7mmvzwYxfAEpwH+R11hW6rfCdg1WOrOvyoaR8YVkOm1mtdWTX5v4im41ZrpKSZKPGFtKr
+	 fWWP07ILboZ6r93V1HLCvez90RWuC/wzUBnxl7KFFvmgaMWpSXU8byBy7cC3FPorUvwHF
+	 jl0HxTgcoZPHhnupqGRQ22KQrTtG0tX9fZy8qUdUfNrdUi21d4N8uebGYUXAUUxs2LQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=hpe.com;
 	spf=pass smtp.mailfrom=hpe.com;
-	dkim=pass header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=cgrV19j1;
+	dkim=pass header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=HEFT5Ht+;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.147.86
 Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com [148.163.147.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A770160A2624;
-	Fri, 30 Oct 2026 21:01:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A770160A2624
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4041B60A2605;
+	Fri, 30 Oct 2026 21:01:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4041B60A2605
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hpe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=cgrV19j1
-Received: from pps.filterd (m0150241.ppops.net [127.0.0.1])
-	by mx0a-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UHxjal1754062;
-	Fri, 30 Oct 2026 21:01:07 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=HEFT5Ht+
+Received: from pps.filterd (m0134422.ppops.net [127.0.0.1])
+	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UHxmpx770048;
+	Fri, 30 Oct 2026 21:01:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps0720; bh=a5
-	yIMuO/gDFeL5i0hBrfl3nyk05cMLKgRTWsHouADYk=; b=cgrV19j1sExakPeR+b
-	kv6mG1bcYe301UODHkDvealQTHZMas6uR10+4ZbVwX42oqCdf8K9vz7ioParvR9B
-	ku5gFz3+MYQ4vDdRumdjfsQUYh/w3eZHptZZapUSQE8z4BGoS5i/IYIoJTK5bEyK
-	TbWlHcS8UGjLdk1SGLvbCdd7r3AzZ7kRbz6P9PSQV94/c2TPW5aArncdLp0i+7eY
-	FVzm1rqMpWjO1dRaIwQv3V9qqR60SNIHTV86/VebvRUxlAXT+bdwCElo2/i8yHYZ
-	mMdgSes87TII5Uudy8K2XAjNuiiW8yMX6p0avrEQaooPROW/T9mXHgA15dglN4xS
-	nsmQ==
-Received: from p1lg14878.it.hpe.com (p1lg14878.it.hpe.com [16.230.97.204])
-	by mx0a-002e3701.pphosted.com (PPS) with ESMTPS id 4hmwcxc8vh-1
+	:message-id:mime-version:references:subject:to; s=pps0720; bh=p6
+	PSrk2QBCCyet/EFpzOeLMtNSI3RRR4RYzrh/Vf4CU=; b=HEFT5Ht+2NMHcMancP
+	QTAW6SxGNuJ28avZrjk0EGj5IUkr8T9y9rV1ykECOMSMBjeo4fiYpSXcs5OB4bW0
+	mgvV9xg5afxiOmskEIWs+nqD4CospvstBBXlDIeOXpWspJBlefbD7czDBNhpNXjt
+	QEHVzmSuubWG3jcQToMi7GSsltejq3X27ndh0LISbt8xckt+fKy6TjhxWYYvMukd
+	nJTcGap4Ultu7xqd9Qws92smWKf2I3ukCgjKXyitu8EujtwViU3BU9giNW1Z1jbm
+	iyYa4eFkUzNAWHpSIsabj/awRME6Pd+Psc8Fp2dZsYZz/wnVKUW9GWlUOr4vIGXY
+	ihtQ==
+Received: from p1lg14879.it.hpe.com (p1lg14879.it.hpe.com [16.230.97.200])
+	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4hmvmy4y4v-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 21:01:06 +0000 (GMT)
+	Fri, 30 Oct 2026 21:01:23 +0000 (GMT)
 Received: from p1wg14924.americas.hpqcorp.net (unknown [10.119.18.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by p1lg14878.it.hpe.com (Postfix) with ESMTPS id 6F97CD2BE;
-	Fri, 30 Oct 2026 21:01:06 +0000 (UTC)
+	by p1lg14879.it.hpe.com (Postfix) with ESMTPS id 8F4A012B73;
+	Fri, 30 Oct 2026 21:01:23 +0000 (UTC)
+Received: from p1wg14927.americas.hpqcorp.net (10.119.18.117) by
+ p1wg14924.americas.hpqcorp.net (10.119.18.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Fri, 30 Oct 2026 09:01:23 -1200
 Received: from p1wg14924.americas.hpqcorp.net (10.119.18.113) by
+ p1wg14927.americas.hpqcorp.net (10.119.18.117) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Fri, 30 Oct 2026 09:01:22 -1200
+Received: from p1wg14921.americas.hpqcorp.net (16.230.19.124) by
  p1wg14924.americas.hpqcorp.net (10.119.18.113) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Fri, 30 Oct 2026 09:01:06 -1200
-Received: from p1wg14919.americas.hpqcorp.net (16.230.19.122) by
- p1wg14924.americas.hpqcorp.net (10.119.18.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Fri, 30 Oct 2026 09:01:06 -1200
+ 15.2.2562.43 via Frontend Transport; Fri, 30 Oct 2026 09:01:22 -1200
 Received: from BYAPR08CU003.outbound.protection.outlook.com (192.58.206.35) by
- edge.it.hpe.com (16.230.19.122) with Microsoft SMTP Server (version=TLS1_2,
+ edge.it.hpe.com (16.230.19.124) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 30 Oct
- 2026 09:01:05 -1200
+ 2026 09:01:22 -1200
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lKhJXypxMFUSnnizLM8zc0H5tLoa/p1NUEXxgc5OvtKRSw0WVVcvl7GF/50JCBKmNbikmIf83M6rkllgjRDaz5iBdVfab1H53AuJ7mUaW7eMv/O0DdnwgZUBedtZeTy+nsrj06q1gzqPL4hWOWahoF3hVaCdmxbFakQpZwFsGqDGGtFMXGZ/jJwNM4OUc9Np2sGMdlRLx4pttdSvI/rp4QNY+TYtrfRvbvuX87r5supDyetiog7PzxPbhHOHiAGwzDr3AlpNLTM9c89dn/oUWPhRGu4+P9oxMaNn3AHXoDW9TqEk6h+1AdrT7+a3XCJ0SbPqHHFRt3J4g/hCUMGWyQ==
+ b=DPN0KfyPEdhbo1O6zSIL8UnV+OdkXMoFORWiwWOHhtGTUWxQWVDZWKdpdH33tXpwX2HxbZ98vX3UaT07k4hfmOlu6HuNwo/4foUMo0FSzdiHNCB/V4p58mXNxiYfvpNASC3eSk3TeOSFXi33pO1b9U5VbOmgTSlcuTiNE7jKgZ8yXe6K1cAR5CnBBBVuZ7wwVb8WSd52eLq3/PKhJJE/p/W1NU1iZrH1m2k+JE3G09U20OMdalX9eTR9aRerZVySohmPVAwmcD4/EVDgQ1p70WPFQRPZkPQ/djN2cA1aB59UZB9eePyLlPAvBhcvh2pMTjIMooh+ftD95mrMxsSuSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a5yIMuO/gDFeL5i0hBrfl3nyk05cMLKgRTWsHouADYk=;
- b=q9t7xfEo3dLoYG4lmwCgL++/cDPeMqzY9FCBbw6Y8FGNEioX7vUt6N80qNZ8zfvCKqhGT3+RXsWzo8Nbi+yGN2U2hmmYttcoO1WKDPL2/594DTC3Rc5Ir4Tzn0ssF+iufgMEDiDunxwGrsl92TXDwKxTtHBvWmvxE92ldd/V5Z7lGqwNvb4D7At9EvW7rcVMZzlgIlFSnZVQ0rIoEPoYeZmBJpmgchBG6Chp08feBa1yJySD+hlgvAI/tEaOBDaOX4DnNvWiTsc0Jv/rmfvLpxHa0Nq1E/Wx3Tfcoo4D/xRL6iWwKZFJnzwlGjrNw8/fQgIl23je3stym2j6Z4SKMA==
+ bh=p6PSrk2QBCCyet/EFpzOeLMtNSI3RRR4RYzrh/Vf4CU=;
+ b=HkAM8bH6ikhDgUV6hvsJsAh5MsceyUBgIg+FnfAAkWsFs4tPFGj4vKQrsaEOi/ZpdvgL2kqvwyEoSyzGYmIrs8qX8YSWtn+8Ef+eedAHsm3/PVv2fxIUZUp2/huXMJljYYJIj/m2DzpWC/v3AQjvlRL4xMXq0OGiVwVkqfFccFtL/Bkf80pQ5oH2o+1GWdPq74+w0cyZaNxlxT9IUswExyBLx9282mx7WmRVaabf1GK/l+yjg/FrXHzQAzhQcv+dWEK3l1bqUbCJQFuzQfxeGpLetlFKVa5+rc2bWGf64C+hcy9CdyxCnBgh/FXGc4PM4lioNKdsw8JIbSmkRU6/8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=hpe.com; dmarc=pass action=none header.from=hpe.com; dkim=pass
  header.d=hpe.com; arc=none
@@ -101,17 +105,17 @@ Received: from DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:8:225::20)
  by IA4PR84MB951192.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:207:144::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 21:01:02 +0000
+ 2026 21:01:18 +0000
 Received: from DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
  ([fe80::d136:e75e:53c5:73d8]) by DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
  ([fe80::d136:e75e:53c5:73d8%6]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 21:01:02 +0000
+ 21:01:18 +0000
 From: Doug Ledford <doug.ledford@hpe.com>
-Date: Fri, 30 Oct 2026 13:59:14 -0700
-Subject: [PATCH 18/23] net: hpe: ss1: add the link layer glue
+Date: Fri, 30 Oct 2026 13:59:18 -0700
+Subject: [PATCH 22/23] net: hpe: ss1: add the Ethernet personality
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-cxi-netdev-submission-v1-18-8c2c391cc283@hpe.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261030-cxi-netdev-submission-v1-22-8c2c391cc283@hpe.com>
 References: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
 In-Reply-To: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
 To: Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
@@ -132,11 +136,10 @@ To: Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
 CC: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
         <linux-kbuild@vger.kernel.org>, Doug Ledford <doug.ledford@hpe.com>,
         "Sandeep
- Bhoot" <sandeep.bhoot@hpe.com>,
-        Mamila Santosh <santosh-kumar.mamila@hpe.com>
+ Bhoot" <sandeep.bhoot@hpe.com>
 X-Mailer: b4 0.16.0
-X-ClientProxiedBy: SA0PR11CA0142.namprd11.prod.outlook.com
- (2603:10b6:806:131::27) To DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
+X-ClientProxiedBy: SA9PR13CA0151.namprd13.prod.outlook.com
+ (2603:10b6:806:28::6) To DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
  (2603:10b6:8:225::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -149,4040 +152,4816 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM4PR84MB3970:EE_|IA4PR84MB951192:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ff41207-f69a-4983-d759-08df36c8e743
+X-MS-Office365-Filtering-Correlation-Id: 719c52c4-a493-4e9d-6b37-08df36c8f164
 X-LD-Processed: 105b2061-b669-4b31-92ac-24d304d195dc,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|6133799003|18002099003|22082099003|3023799007|921020|56012099006|261021121427099003|261026130827099003|261028144727099003|261026121527099003|261026135527099003|10067099003|261026140227099003|261021133027099003|261022115727099003|261022075727099003|261021130227099003|261022113327099003|261022105027099003|261021123027099003|261021135927099003|261009223327099003|261009223027099003|261009220027099003|261009221727099003|261009221227099003;
-X-Microsoft-Antispam-Message-Info: XJRrLQIEAZxZi7WXFWU30tyW3clw6MXm/A+1nWdSJG4UzwLlpYtclh57xUwzHOVW+C8C97KLt8kL703zOYjoPfdBdV5WmbvhRSyY6cU2IFAWPhW8+0IbwAps266mXSEZp0l+ZUT9vYdSIIASJQfcSMHuLjUxq4vFO506gQax5/+QOwSJ2FBSt3fwjrpo5qQB8EBEDHcAMR4V/mLd9KBY5AWDBAOtsxq0W55+P/3+BRMzBYvJ26fghZ9684PUGNTB3IvsBMmqp01sI6vHGE+tdUXmvX3TZg/b42d4oso5ElqJ77TeF9cqiLLP4tyWFMGG5/gVq25UlBoDn3fMy0RNTpKJsK7+Mi1jfZ72ybk/CT9CFH2RIW8ug4VZ1/MxQOr7wbMtJLA+fuJdNlv+ogPSPS1li+Ghuj4lZdTRmKV57b7GDNHV1ZerVhMX3l7ih30hmDpVOhc+NjKr2lJ9yM9qdXKZl5b8GseoQ758uo6DqKVljBm6OENhZIDC9hyyr7dluXZXU4cnD2qcwSVttf0fnUGFKwujzG+hooCLsa3krWxLsxucBujPqN4oMu7V9L9h7Vg2Z3vtzLiNaWDtPykXnEL4Qi+k1cSQZ0OLx2T20LSmRZvfcRye5FwYi14PgHIEL9LQosVxz7HAmPuzfjhvVsE+VtopNXDTvbsXgluCzUBU4+LmzXJj9ZjpHA1I8tIH1nNJWatndTSqyApl8LCqbQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(3023799007)(921020)(56012099006)(261021121427099003)(261026130827099003)(261028144727099003)(261026121527099003)(261026135527099003)(10067099003)(261026140227099003)(261021133027099003)(261022115727099003)(261022075727099003)(261021130227099003)(261022113327099003)(261022105027099003)(261021123027099003)(261021135927099003)(261009223327099003)(261009223027099003)(261009220027099003)(261009221727099003)(261009221227099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|6133799003|18002099003|22082099003|3023799007|921020|56012099006|5023799004|261021121427099003|261026130827099003|261028144727099003|261026121527099003|261026135527099003|10067099003|261026140227099003|261021133027099003|261022115727099003|261022075727099003|261021130227099003|261022113327099003|261022105027099003|261021123027099003|261021135927099003|261009223027099003|261009221227099003;
+X-Microsoft-Antispam-Message-Info: 5tEwhrDBx9Syy1JOdyc5PiG98R3jvBhOqhJQkcAugIGHIEmm1cPcpFbx7icLBY/QLNH922QAC9QX24mjj2ejsq8MIVhSMC30oYV+cviEuvYk2LDWkAa2GDC73xNBHJlkMvGzgYUhSHnEtiikPhxB6SVVrQaYNUULzBI75JZASUQkf8eW501vqvak9W/YwLCFzaCJrcXdBPD2UIEMthBNH9Kso3Bok+ncwd9BrzWogFQc8cU7HAQxFcyrTf88k8h0Kl2SGmSpC+YhCTHvZ1D08cGjPg4GpWyfQ0IGHz3QszFjIddGdxhST7epZFwTnJhlTDdg8h3ccN5a3dvCzMB4gVKiCC+8J009W6mQfy9bJ8/ImgdCpfWvkLl2m0NBW0gwEE/3vbrd4830Bs0W3+UePCnF7BKYp3fZI9jn1262HD1wuY3UuFrmp1et4XMrGbGJzhNleFy6h6VLtbGtNLUQ+4/djvIq21d9RkCt/5FXGTnt7IdxHtHq/plOxE9MV/jF3WLHYJll47hSHwQTo/kc47kM+mDOICt2DzE50Z+UuOEXjunb/A4SYrduhnCiI7wj5TvfPBq4ElLutQvky3WD/p0tcSUtSPQBB7OUqWKsTafnhuwp/iMkeMR4kFA55n5TMwznpGgF3+BsChtAg0qWRFZ2XpqsVBL/b7E8S32ZtFS0r/m4MordN8BRd4Xfs0cbw2FtNdLnBfDsDNo6j3+5Pw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(3023799007)(921020)(56012099006)(5023799004)(261021121427099003)(261026130827099003)(261028144727099003)(261026121527099003)(261026135527099003)(10067099003)(261026140227099003)(261021133027099003)(261022115727099003)(261022075727099003)(261021130227099003)(261022113327099003)(261022105027099003)(261021123027099003)(261021135927099003)(261009223027099003)(261009221227099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Mzg0ZUEyTmI0WVYwaUhpb1U3UTRzQThXdDNlelBTYjQyTHdXNGNMYjhXYXcv?=
- =?utf-8?B?Q1JwK05JaWY5NFZDUGpOOXNIRlBJV1lsaVFRMGJLMGVwUzYrbEhSVzFxQVlB?=
- =?utf-8?B?UzNFV0hwbERtbHZ0dEhKRUFsd1lUZ1g0QzhtU2xUTkd6TGJxUktvVFZhOVhC?=
- =?utf-8?B?WEhaNGJnSkJvRi9STTB2Y1JhNFhIcnUwazVZamJ2UnRKbWN0OHRLVzhHVVFy?=
- =?utf-8?B?R3FLNUJ0U1FKM3N5Z2FOR0xreldSSzNtVFk1bk8wZk9QejNNMGNwL1dyZXBa?=
- =?utf-8?B?Nkd5Q1JxMExaTnp5Q09CMWtvN3V0Rm9XbktQeGh6eUN5ZFM5dWFqVkVrZTZ0?=
- =?utf-8?B?L012K016L29mZzlxdWdSNXFlU2VmTGlZOXo0TEhod1orYU1nWlJrQ3N5eVdJ?=
- =?utf-8?B?ejBoSjdXNDRFNU1TU0hnOFhadDRtdlo0SEFMUFJTNGJzU05xSmhudlQ4cW12?=
- =?utf-8?B?UCt3K0FPUms0Z0syMFNsMURlYndzTW44VHkzdmFQbG9idmFsVmpIWHBETFZB?=
- =?utf-8?B?bHcrcXRxc2RVVHd3OVFlR2RuN0ZVdlk5L21Zc3ZzYkMwSlhPZzVQL0h1YXRj?=
- =?utf-8?B?U2gxM3BiL0ZTZzBPMFdLTFJCT1NYZkp4bzJ2RTQ3R1B6M0tvRFF3TTBXUlBs?=
- =?utf-8?B?K0NtVk51bGJCeVphQmU4UVBWdEpGMndlWUg2KzdmZTNGT0RjRXQ4V1lCYjVm?=
- =?utf-8?B?Z3RFL2dScTc0SVZ2RG9FTVZPaHNpQURVZkQ3RXMwbnZMNk5nYmZ6UnU1eHVm?=
- =?utf-8?B?V015b0FSUGl3dHB1eW1tcG91UjAyaG9SSEVpRFlXTi85MmpreHRmcjZZdHZz?=
- =?utf-8?B?L0hPd3I5SVI5ODBYYjRxNktuMWI3dUJXTlU5cXAyV2cyOEFGNndCU1lBQkpL?=
- =?utf-8?B?bGdnYzVIbGw4MjJnN0RaSEp2NXFUREdkekU1eFJzNER4OSs0R0NsUWI5R2pS?=
- =?utf-8?B?THZPbFVaVVRZSTJmY0I3b2wvRTd1NGhqeVZYbGZqNlB2cE4wQ0lZSHFhNUx2?=
- =?utf-8?B?SkxhN3JiVWdOUTE2Rnpyd0RjZE5vTWU2NGlZK0FDSHNwd3R2UTViU21GRFZD?=
- =?utf-8?B?dXJRcllNbVl0SkhIZDZjZWN0TW9pVlREZHo4UUFPcDlTMXd0NGwraER4Vy9n?=
- =?utf-8?B?NXZJLzMxZkFtMGd2cUZZM3pLcS9PMndTc2t4ME1yRmM3V29ORkdGZ2ljeWhm?=
- =?utf-8?B?Y2NxT2Y0SWluY3RYeUJnUElYbnZpTm9KV09hUmpuR0M2eHU4S3hUOUFUdStU?=
- =?utf-8?B?a2o5bUVRaS9KVVorNkt6eDR4ZDVOUVJiTy94cGFKNmhyTFJNbUVEaFBVSTl5?=
- =?utf-8?B?SldWWkthSE4vUXRrUzhoVUpMUXhXNUxFQTZkVytUVlZxTlBBTkJ2N1UyUUxD?=
- =?utf-8?B?M1ZndnovVUZsd2Vlc2ViTDEzME5FeXNJSkRiT212QzFDS1dRVit2SlBjVU05?=
- =?utf-8?B?MUdEeFJuVTBhb0hVTHFyMnVvK3NhdUlEZG5TR3Z2K1lDZmFpWk9WL2dBa3hE?=
- =?utf-8?B?TmxIYXBoN2E5U2hkR090dkl6TXRScCs4OHZUTGg2NWhlUUx5TFdCQU1VaDVQ?=
- =?utf-8?B?S1lRQ043UWRNNlRYdG5SaGxLZTg5VTNGVVhRQWFhQ201RDZaOVpDd2NQeXlp?=
- =?utf-8?B?WnFpMEVuS2Vwcyttdm9pUFdwMzNRWWpxK0xDSkJYQWFRK0IwbDFLSDlLOTB4?=
- =?utf-8?B?b2ZJcTlueXR1V3hSWVp1elVJRkhTRlN2c3RheU9WSHdiYVdPTldnY0U4cW55?=
- =?utf-8?B?L00rZkdzUld3NlQ4Y3BJQ3VVOW80NGh5ZlBrOGxOcXpXc29IZkhoMXl4R1po?=
- =?utf-8?B?dGpGUzhGdUxHT2hCS1JBMHMrS0ZrUmhod21sYjFyQ3RXQ3Z3N3AwZWgyU3d6?=
- =?utf-8?B?alFtNGVaam5WYkZodVFCdUNFVEhMVHFvN3ZFTy9YbTJQOEc5bnBudllIM210?=
- =?utf-8?B?VVg5dUFoNlFBbXEvUHQ2T1VKYmUrWVRVK29GbDVoYzNPcEdQQWE4OUd2TzBD?=
- =?utf-8?B?YThDZ0ppV3lCQ0hKV05YZW1xQW1QVHp6REVOV2FUUEt3VXlkVlZxWnJjOVdD?=
- =?utf-8?B?VEpUMld6Y0N4TFJLb3lqVURxUzJqSzlxRktuRTZuUE5sOFFOOHgzZU1GWFIv?=
- =?utf-8?B?eHRJMTA1L0JuVThFaFl3M1FXTXRBTGNNTmJzVC9DNVkyUUdWbDVVcS9iMHdQ?=
- =?utf-8?B?TlY3bm40bXZjYm1TS01TVGJ2dmZYNVN6M0xKbDhJRklQWmZ0THJqN2Rpd2JN?=
- =?utf-8?B?TXdYOC9JYk9FYUJ1ZERSV0gzaG9Nc3I4V0FoZEs4TU5CTXFqNGRnWUV4VzI5?=
- =?utf-8?B?THVMRWx1QnQ4VTAzb0RJNTNRck11dzdhQ1JySW1lS1NVd09rYytidz09?=
-X-Exchange-RoutingPolicyChecked: Yyaejm8zRaJLeCpr+M3MryXijJDf6OgD3TvccYHJMp/s9vx4pm5Vx3WIjpavJ6aBQ+moQKu/yixAweQtedbH8+dM8PLGxTkZubxvuMgLpYZ8BXV2dZ0qk3rpPodS/OE3HyMXeB8GxvGw+U93KyHQ4yPsMOg3IzsOhNQ5P2jshiD/uJWohhyxxMum7hr1Bs9d54yMCwkTlAxWLvhJkd4amar8OpTszFt1/WbCalfd/VuzIQ691UI6Bx0Ep7BEnXMMR9x3DipjfyhvwYCfl5CWYcTfr+Px1uJLGD5m6GiFmpzZ+0wVukR7umZWdBpqz3/ccN/oIH3EqTxQGtupBOI+HQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ff41207-f69a-4983-d759-08df36c8e743
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OGJERU41T0U3SFRCUS9HOUtlUEE3R0hnTjJwUVNpS0ZEem56aytydlRhdW1O?=
+ =?utf-8?B?RnVDODAzam5heHR6MC9kQjBmV1BGR0N1eldwSXhzV2NMOGpxWmpzL3hYblB3?=
+ =?utf-8?B?Z2orRnZSYW05ZFlwUmlYcXBRUTlkcDU0SitBR1BGbDcyYk1oMGY3YnpMYzQ2?=
+ =?utf-8?B?a2l2elF6L2dnL05ZRjFNbXVNbDd5Qjd1ZU1WNTlrMjRNY2dXTGttb05LaElM?=
+ =?utf-8?B?SmdGTmJnRnBsQ0FjaC8xNVZOS2p2VkkrZnpPRUMrb09kMlNXcmdIcEgycElw?=
+ =?utf-8?B?U2VOQ1dMTndEdG1SakJTUmdjbjd1L3dLUnYrR01HSWpGdlloQ2pvN0VsNThp?=
+ =?utf-8?B?K0hKZTRkalhVUkJmQUpKRXZhVUhsMXZVczVLNVpmN2RlOThDZ0I2ODFhK01j?=
+ =?utf-8?B?M0xaOE5vbjhwN2pjQVBDQVBDMHJubzltOHRXUmpMTGZJM1kzK3hYSHErTVMv?=
+ =?utf-8?B?Ykh2T3BMQUZaeW1reHZTUnB1U080M2twbnR4ZTdKOVllU1hSSFlCbEt2Z2dy?=
+ =?utf-8?B?N0NFTlhJVysvaG9lQ3pQa09RNkxqVGxIRjVFbzJVMHVPQTZGUi9renZlUXFI?=
+ =?utf-8?B?YWk5UTJSV240K0xadUtkMXBTZGZEcVlKLzdNU1NFbU5DZHVIbHhGT0ttZW84?=
+ =?utf-8?B?RjBSeWNUNW0rQ1MwbjZ2cEVqY1Q4MW5nSEVSbzBMMG9kOFFWRlJ0aTREMWkw?=
+ =?utf-8?B?VWV3bjcrMkh5SWdCNXVuRGJUMUlYaXFURGo5UWtJSC9sUHJmSDVrbHAwdTVt?=
+ =?utf-8?B?RzNTbFNBV2FybjEwWEZ4N1VMM05qVFJ6bkJVdWRBcHR2T0MwZXZCMzJ1a095?=
+ =?utf-8?B?UXBHYjd2aGdTZktYenYyMGpjYWhWdGx0N0FyUUtVYWpPYy9LajlqeVhmZUhn?=
+ =?utf-8?B?L2ZEeCtVUDJPVlNCdERFRTBoT2o4NnhYWHF0Q0loN3lhTlhYbXlTeERhdzlD?=
+ =?utf-8?B?UDB4eVdYMUFJQlRBKzd5eW9JdkJaY1l6NFZZT29vdnI5WEYrUG9GeTk0dGxo?=
+ =?utf-8?B?TXgreGt3UlVuak9NOHg1bGp0SVZ1VUdqQmhVbDQvdFozRWFIamNjajNTbVhi?=
+ =?utf-8?B?YWY1cWtwM0JyYnVYUU16UFRQbWFkWjZDNHQ5R0hMTnp6L1dsMFhZSWtRdUUw?=
+ =?utf-8?B?dHZaWU5NNm5seDRIR3BrNEVhdTBjdVpUZVRWTUZQd0J1R25RZXVzMWw4eHUy?=
+ =?utf-8?B?d3pPMEQ0NlY3YTBrNkVvQmhlVlZITHRpejR5VXZOc2F6YzNrZFdmYzB2UTFp?=
+ =?utf-8?B?M0wzOXVsTkVDSXNvazNkVXFNNDk4bWdtaGF4RmxRbEZUSStkcjExcmNLZ0Yz?=
+ =?utf-8?B?T0ZsWjY1QWIva3l4NVNhcmVEOXZjcUlOem9OR1Z2LzNkVzhNRnVhaVM0czM3?=
+ =?utf-8?B?NjNFejZTRDA3WTNMUmdBMllGVjI1aWltVjhzRlhNNHNpZ0o2ZGdTSXVzK1lq?=
+ =?utf-8?B?WmpPVC9GSEpzT0R1bkU5Z1l5RE8rTlJxR3lJZFFab056dWZIcElJNXlzOUJW?=
+ =?utf-8?B?bkNZU3pRVGFJMUNuRExUNm0veG4waFpXTCtkZGY5UDAvNy9DSWJwV2EzUHIw?=
+ =?utf-8?B?NDlWMldvd1hrTGw1WFBwdEFmVlhkYUJYK3UvUUQrMHNoUTJKK3AxN1MrUG5I?=
+ =?utf-8?B?Wk92akorVlN1ajFQVnE0ZldyUFJST2tURC9iaGZYOTFzY1JKaGFIZFVjcXli?=
+ =?utf-8?B?bWxQOERjL003L01IV2M2VnBaZTNFQXhtT3hCaGZmYmhkQk5DYzFzT1ZlZXhC?=
+ =?utf-8?B?V3NkdTlvd1UwUVB0MW1TeWZjZnJaMGxLeUowZHp5dmtHUmhNWkYzQjV5NGIr?=
+ =?utf-8?B?OWVXQjh2aC9vUGxCNGdkVUlwQzVjWWFQWXJlR3dQS1VVbnJ3eWdCNXl1SXcr?=
+ =?utf-8?B?OEJGWVhBdWtGWElsdjBUR3Zsc2dHRjRxUExYbHg1eUhBUFQzUnh3Wm5ub0tJ?=
+ =?utf-8?B?OFN0YlhndU92OTNtQWVyUmY4TkJkRGhXa2p4UXZxYTlBZk5yZGRVWkRJVEFz?=
+ =?utf-8?B?RTNVTTZnY0xReE5sb01IRVN5STBxZ2s1Nk1BUHRkMTR4ekQzeWZ0L2tmZmpn?=
+ =?utf-8?B?S3ZnNWpxbnhYektUV0t6c1JkMEtNb0k2WnJ0Uk1GMXl1bVBUWXd3VlFYNTQv?=
+ =?utf-8?B?ZjJjd3hnbVE4M1BYbEJSK2c3amQyZ1I5bkdSSWUvR3FJUVlEUUc4Sk90V2Np?=
+ =?utf-8?B?QXd0WElkVVBsbkQ0ZEZQOEFXcEVyKzQ1bmVQcS9iUFM4MVJNaTROTlJQaFFj?=
+ =?utf-8?B?NHVlbGg3V2QzTzdSSWVxcEdtZVA5MzhkM3Y3cWEwV0dyN2REQUh6SVg5cnlI?=
+ =?utf-8?B?WlV1Z1B6S0pOQnlobnp4aTdnWlBpanh3bk1TZTY0MTlCOHY3T1lKQT09?=
+X-Exchange-RoutingPolicyChecked: BRPqVYI0nbLaa8cAQ94mCEpOtqtRRTKZuCCuE5R1d/as9Knc07kTtnaw6RHXA8HbINskAb0Vo19kjk+FptMLdyjtZ9S7TOH3FU4gwn03gWl8xUxSBklgLVwBsrnjgk7a7u1GNAHDF8PJPOjy4OEW/PSux5sdVq6VJ0sF0EMRSbZ67AzxtLrCTbAdUPVjYdNwkADKhC6/jzAQlnxV/bnUa23/Jcd/qPvqrxQhqPtuscG2Tejrjq1rFkqNhYh5chwk68Y4d/DEDmirEcNn596VtgurSulZnzrGg7uRd5pxYaqxphb8mErIXi9NcVcjgqEgVxtROgIvoZmEcc2ww6xF1A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 719c52c4-a493-4e9d-6b37-08df36c8f164
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 21:01:01.9342
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 21:01:18.8532
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 105b2061-b669-4b31-92ac-24d304d195dc
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7nP0zelrB7FPECTQE3KUPss8/AmtI5mjnaumYSt3/b2DvGc9PGTinGgevFWV6+/wbfujO4WM2fQwQ4SA+rUofw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3fSDlWC7YdtZh+vxJjwePUurj2lHXr1AEAayiFy+aLpM9FK2yLosOif4CBODBGQ0w0MDwUjPTgwyx4wCMe4RAw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR84MB951192
 X-OriginatorOrg: hpe.com
-X-Authority-Analysis: v=2.4 cv=N5K8hG9B c=1 sm=1 tr=0 ts=6ae50593 cx=c_pps
- a=UObrlqRbTUrrdMEdGJ+KZA==:117 a=UObrlqRbTUrrdMEdGJ+KZA==:17
+X-Proofpoint-ORIG-GUID: HdZzMsHlut31NecQHXq4CwY6VUDWxvu9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4MyBTYWx0ZWRfXyOAmB0KiQnv/
+ 6jsv9shq5DYSmYr216o0iMORKB1LL5fCGgkHtewELAeCnGSBE/JdNF7cqkLlTGAQnze+uFhsyHl
+ U8WMv5AR1jHE7AEtuKcXUKcas+iZL5BptGKi0gyu/hR2t7lg1THciHydSHfAdY6muIF706+J8nz
+ zxpSPjjRRvxqK69E0AAMK56aDLleLxHGHjnA+dC9QaZ2G0aD+2yyVVCQ8hyBHrn5kCCUc3YQtdI
+ npKEJYAQi8ze/4Df1A8/GRlyR853tpHa1JcHNbdp6UiTy2fJoUaNUUYcY1BrMBatuKALTGmVNeJ
+ vNpMa6IUdHB0SE+AuhmcJL594ToT1yMfI8v7bPzfGvWTr9b9pHnbYTqqkJxfXxxDmwmDYFYDWXF
+ q2xE4e0/AsuLSG6wOOcTAQe551kxpeIQxJ/w47NAjM5pxxZlAFOYVw0jn7fqEeIO+Um5FOBSJQH
+ RwHLmApZYMMkyLN/hfw==
+X-Authority-Analysis: v=2.4 cv=It6L47/g c=1 sm=1 tr=0 ts=6ae505a4 cx=c_pps
+ a=5jkVtQsCUlC8zk5UhkBgHg==:117 a=5jkVtQsCUlC8zk5UhkBgHg==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
  a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=gQcMVamqm3wCPoSYhaRC:22
- a=_ZmgHqWwjZUDpi_pur5s:22 a=MvuuwTCpAAAA:8 a=a-kgvqkP_Nuw5hEgfy0A:9
- a=pUKlrEzGkUvYV7Sx:21 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: srJJ-vtu7Rj0cgzGnqU2kM7DZr2iF9UQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4MyBTYWx0ZWRfX4CI8q2a0aik/
- PYqzdAExtmyi7OZgsk8pVjbI7iN2Zm60cqAY7CtsujaZXlRGcH9huBpY+rc4YGapAhDHtjOWXBn
- 4Yei+WUeOydLK2OAHn32O4rAQEsbQ2syHgr3GrM1FBuhP4zKzbLUh3c5a9djvQwSBfyK4+pHYTw
- Bmf8v4FPNLI3WilVnQDVarHjTSCzSBCO1ZQ2mjCsNgN/z0bHPYOJRkTzA3+6RwQxu3WWglkE4XE
- 8/kO4TdxiQ+vf29cNZggOaA1+yLvzAoLKGlOykqrSLEfdyLK8BvckeooqKX8HWBiGZDfFWtod5y
- TL7v+ZUbhLjAfe6jCXu6e2XOgUir3sxedImbtEaiPdrTDw+9nAt7xmt/mZ55kIosdwUsw42EGuc
- PBTPgOh60dv50mJpfjNMGhcKqxPK5+WiT5w2wGVjbambY5M8hCTnHea23VnyFO/FIbEFprB04jZ
- KDcMXuyRvGLCepzNY7A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4MyBTYWx0ZWRfX7VzQKRzK+kYV
- VgVwgTYAsqrzcTIvnKITeOvoXfc6j+MLo5aXN7ofruSLPPk3AGwDlUGyouWH5sfWZ2GGkS+XP0K
- DP4LnOxbtaBdIvaqDbJP2qFTWOf9TnA=
-X-Proofpoint-GUID: srJJ-vtu7Rj0cgzGnqU2kM7DZr2iF9UQ
+ a=ModqzXLkJJ0tFyq98apW:22 a=MvuuwTCpAAAA:8 a=vrCzqNRu4LroZZJS0koA:9
+ a=8seDEclQYWEnFHh0:21 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: HdZzMsHlut31NecQHXq4CwY6VUDWxvu9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4MyBTYWx0ZWRfX4MGCg3BZiTZ2
+ JFrT0bssPNdqZxgcjC5VlnUO+d69cnzMm9Cn0mYiAwV1Aye4bZZGNy+ZsuLtITpZfxln2a7atag
+ or+tvp1kjoPSnaJbUx5ouOObxzSgFqU=
 X-HPE-SCL: -1
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-30_06,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 priorityscore=1501 phishscore=0 adultscore=0
- suspectscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610300083
+ spamscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 bulkscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300083
 
-Add the glue between the core driver and the SBL and SL link layers,
-the PHY and port helpers.
+Add cxi-eth, the Ethernet netdev personality of the NIC: netdev and
+ethtool operations, hardware timestamp configuration through
+ndo_hwtstamp_get/set, the RX/TX profile lists and the debugfs
+interface.
+
+The driver does not depend on any InfiniBand configuration option; it
+defines the RoCE v2 UDP port locally instead of including
+rdma/ib_verbs.h.
+
+Known limitation, deferred to V2: this patch carries SR-IOV
+virtual-function code (VF-to-PF mailbox requests, mailbox opcodes or VF
+resource handling) from an older, incomplete version of the Cassini
+SR-IOV support. V2 of this series will include the updated SR-IOV
+implementation, so issues in the VF paths should be ignored for now.
 
 checkpatch --strict (100 columns) still reports the following in this
 patch. They need coordination with the internal repositories this code
 is maintained in and will be fixed in V2:
-- WARNING: LONG_LINE (8), CONST_STRUCT (3), ALLOC_WITH_SIZEOF (2),
-  BLOCK_COMMENT_STYLE (2)
-- CHECK: UNNECESSARY_PARENTHESES (65), PARENTHESIS_ALIGNMENT (9),
-  ALLOC_SIZEOF_STRUCT (1), BRACES (1)
+- WARNING: ENOTSUPP (3), AVOID_BUG (2), SPLIT_STRING (2), BRACES (1),
+  MODULE_LICENSE (1)
+- CHECK: CAMELCASE (6), COMPARISON_TO_NULL (5), MULTIPLE_ASSIGNMENTS
+  (2), BRACES (1), OPEN_ENDED_LINE (1), UNNECESSARY_PARENTHESES (1)
 
 Co-developed-by: Sandeep Bhoot <sandeep.bhoot@hpe.com>
 Signed-off-by: Sandeep Bhoot <sandeep.bhoot@hpe.com>
-Co-developed-by: Mamila Santosh <santosh-kumar.mamila@hpe.com>
-Signed-off-by: Mamila Santosh <santosh-kumar.mamila@hpe.com>
 Signed-off-by: Doug Ledford <doug.ledford@hpe.com>
 ---
- drivers/net/ethernet/hpe/ss1/cass_phy.c       |  224 ++++
- drivers/net/ethernet/hpe/ss1/cass_port_misc.c |   68 +
- drivers/net/ethernet/hpe/ss1/cass_sbl.c       | 1706 +++++++++++++++++++++++++
- drivers/net/ethernet/hpe/ss1/cass_sl.c        | 1524 ++++++++++++++++++++++
- drivers/net/ethernet/hpe/ss1/cass_sl_io.c     |  368 ++++++
- 5 files changed, 3890 insertions(+)
+ drivers/net/ethernet/hpe/ss1/cxi_eth.c             |  443 ++++
+ drivers/net/ethernet/hpe/ss1/cxi_eth_debugfs.c     |  206 ++
+ drivers/net/ethernet/hpe/ss1/cxi_eth_ioctl.c       |   44 +
+ drivers/net/ethernet/hpe/ss1/cxi_eth_ops.c         | 2367 ++++++++++++++++++++
+ drivers/net/ethernet/hpe/ss1/cxi_ethtool.c         |  916 ++++++++
+ drivers/net/ethernet/hpe/ss1/cxi_rxtx_profile.c    |  418 ++++
+ .../net/ethernet/hpe/ss1/cxi_rxtx_profile_list.c   |  249 ++
+ 7 files changed, 4643 insertions(+)
 
-diff --git a/drivers/net/ethernet/hpe/ss1/cass_phy.c b/drivers/net/ethernet/hpe/ss1/cass_phy.c
+diff --git a/drivers/net/ethernet/hpe/ss1/cxi_eth.c b/drivers/net/ethernet/hpe/ss1/cxi_eth.c
 new file mode 100644
-index 000000000000..beb5e2edf433
+index 000000000000..f575847120f9
 --- /dev/null
-+++ b/drivers/net/ethernet/hpe/ss1/cass_phy.c
-@@ -0,0 +1,224 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright 2020-2021,2025 Hewlett Packard Enterprise Development LP */
-+/* Cassini pseudo PHY interface
-+ * Copy the interface from drivers/net/phy/phy.c
-+ */
-+
-+#include <linux/debugfs.h>
-+#include <linux/iopoll.h>
-+#include <linux/hpe/cxi/cxi.h>
-+
-+#include "cass_core.h"
-+#include "cass_sbl.h"
-+#include <linux/hpe/sbl/sbl.h>
-+
-+/**
-+ * cass_phy_is_started() - Convenience function to check whether PHY is started
-+ *
-+ * @hw: Cassini device.
-+ */
-+static bool cass_phy_is_started(struct cass_dev *hw)
-+{
-+	lockdep_assert_held(&hw->phy.lock);
-+	return hw->phy.state >= CASS_PHY_UP;
-+}
-+
-+bool cass_phy_is_headshell_removed(struct cass_dev *hw)
-+{
-+	return hw->phy.state == CASS_PHY_HEADSHELL_REMOVED;
-+}
-+
-+void cass_phy_set_state(enum cass_phy_state state, struct cass_dev *hw)
-+{
-+	spin_lock(&hw->phy.lock);
-+	hw->phy.state = state;
-+	hw->phy.generation++;
-+	spin_unlock(&hw->phy.lock);
-+}
-+
-+static void cass_phy_set_up_unless_removed(struct cass_dev *hw)
-+{
-+	lockdep_assert_held(&hw->phy.lock);
-+	if (hw->phy.state != CASS_PHY_HEADSHELL_REMOVED)
-+		hw->phy.state = CASS_PHY_UP;
-+}
-+
-+static void cass_phy_queue_locked(struct cass_dev *hw, unsigned long delay)
-+{
-+	if (hw->phy.stopped || !cass_phy_is_started(hw))
-+		return;
-+
-+	if (!(work_busy(&hw->phy.state_queue.work) & WORK_BUSY_PENDING))
-+		mod_delayed_work(system_power_efficient_wq, &hw->phy.state_queue, delay);
-+}
-+
-+static void cass_phy_queue_state_machine(struct cass_dev *hw,
-+					 unsigned long delay)
-+{
-+	spin_lock(&hw->phy.lock);
-+	cass_phy_queue_locked(hw, delay);
-+	spin_unlock(&hw->phy.lock);
-+}
-+
-+void cass_phy_trigger_machine(struct cass_dev *hw)
-+{
-+	cass_phy_queue_state_machine(hw, 0);
-+}
-+
-+void cass_phy_link_up(struct cass_dev *hw)
-+{
-+	cxidev_warn(&hw->cdev, "CXI_EVENT_LINK_UP");
-+	update_hni_link_up(hw);
-+	update_oxe_link_up(hw);
-+	cass_set_outstanding_limit(hw);
-+	cxi_send_async_event(&hw->cdev, CXI_EVENT_LINK_UP);
-+}
-+
-+void cass_phy_link_down(struct cass_dev *hw)
-+{
-+	cxidev_warn(&hw->cdev, "CXI_EVENT_LINK_DOWN");
-+	cxi_send_async_event(&hw->cdev, CXI_EVENT_LINK_DOWN);
-+}
-+
-+static void cass_phy_check_link_status(struct cass_dev *hw,
-+				       unsigned int generation)
-+{
-+	bool up = cass_link_get_state(hw) == CASS_LINK_STATUS_UP;
-+	enum cass_phy_state target = up ? CASS_PHY_RUNNING : CASS_PHY_NOLINK;
-+	bool changed = false;
-+
-+	/* TODO - phy.state and lstate duplicate one another */
-+	spin_lock(&hw->phy.lock);
-+	/* A stop, start or cable transition since the sample supersedes it */
-+	if (!hw->phy.stopped && hw->phy.generation == generation &&
-+	    hw->phy.state != target) {
-+		hw->phy.state = target;
-+		changed = true;
-+	}
-+	spin_unlock(&hw->phy.lock);
-+
-+	if (!changed)
-+		return;
-+
-+	if (up)
-+		cass_phy_link_up(hw);
-+	else
-+		cass_phy_link_down(hw);
-+}
-+
-+/* cass_phy_start_aneg - start auto-negotiation for the device */
-+static void cass_phy_start_aneg(struct cass_dev *hw, unsigned int generation)
-+{
-+	cass_lmon_request_up(hw);
-+	cass_phy_check_link_status(hw, generation);
-+}
-+
-+static void cass_phy_state_machine(struct work_struct *work)
-+{
-+	struct delayed_work *dwork = to_delayed_work(work);
-+	struct cass_dev *hw =
-+		container_of(dwork, struct cass_dev, phy.state_queue);
-+	enum cass_phy_state old_state;
-+	enum cass_phy_state new_state;
-+	unsigned int generation;
-+	bool needs_aneg = false;
-+
-+	spin_lock(&hw->phy.lock);
-+	if (hw->phy.stopped) {
-+		spin_unlock(&hw->phy.lock);
-+		return;
-+	}
-+	old_state = hw->phy.state;
-+	generation = hw->phy.generation;
-+	spin_unlock(&hw->phy.lock);
-+
-+	switch (old_state) {
-+	case CASS_PHY_DOWN:
-+	case CASS_PHY_READY:
-+	case CASS_PHY_HEADSHELL_REMOVED:
-+		break;
-+
-+	case CASS_PHY_UP:
-+		needs_aneg = true;
-+		break;
-+
-+	case CASS_PHY_NOLINK:
-+	case CASS_PHY_RUNNING:
-+		cass_lmon_request_up(hw);
-+		cass_phy_check_link_status(hw, generation);
-+		break;
-+	case CASS_PHY_HALTED:
-+		if (cass_link_get_state(hw) == CASS_LINK_STATUS_UP)
-+			cass_phy_link_down(hw);
-+		break;
-+	}
-+
-+	if (needs_aneg)
-+		cass_phy_start_aneg(hw, generation);
-+
-+	spin_lock(&hw->phy.lock);
-+	new_state = hw->phy.state;
-+	if (new_state != CASS_PHY_RUNNING)
-+		cass_phy_queue_locked(hw, HZ);
-+	spin_unlock(&hw->phy.lock);
-+
-+	if (old_state != new_state)
-+		cxidev_dbg(&hw->cdev, "PHY state change %d -> %d\n",
-+			   old_state, new_state);
-+}
-+
-+void cass_phy_init(struct cass_dev *hw)
-+{
-+	spin_lock_init(&hw->phy.lock);
-+	INIT_DELAYED_WORK(&hw->phy.state_queue, cass_phy_state_machine);
-+}
-+
-+void cass_phy_bounce(struct cass_dev *hw)
-+{
-+	cass_phy_stop(hw, true);
-+	cass_phy_start(hw, false);
-+}
-+
-+void cass_phy_start(struct cass_dev *hw, bool force_reconfig)
-+{
-+	if (hw->link_config_dirty || force_reconfig)
-+		cass_sbl_configure(hw);
-+
-+	/* Start the PHY directly in UP mode */
-+	spin_lock(&hw->phy.lock);
-+	hw->phy.stopped = false;
-+	hw->phy.generation++;
-+	cass_phy_set_up_unless_removed(hw);
-+	cass_phy_queue_locked(hw, 0);
-+	spin_unlock(&hw->phy.lock);
-+}
-+
-+void cass_phy_stop(struct cass_dev *hw, bool block)
-+{
-+	int err;
-+
-+	spin_lock(&hw->phy.lock);
-+	hw->phy.stopped = true;
-+	hw->phy.generation++;
-+	spin_unlock(&hw->phy.lock);
-+
-+	cancel_delayed_work_sync(&hw->phy.state_queue);
-+
-+	spin_lock(&hw->phy.lock);
-+	if (cass_phy_is_started(hw))
-+		cass_phy_set_up_unless_removed(hw);
-+	spin_unlock(&hw->phy.lock);
-+
-+	if (!block)
-+		err = cass_lmon_request_down(hw);
-+	else
-+		err = cass_link_async_down_wait(hw, CASS_DOWN_ORIGIN_CONFIG);
-+
-+	if (err || (cass_link_get_state(hw) == CASS_LINK_STATUS_ERROR)) {
-+		cass_link_async_reset_wait(hw, CASS_DOWN_ORIGIN_CONFIG);
-+		cass_sbl_configure(hw);
-+		spin_lock(&hw->phy.lock);
-+		cass_phy_set_up_unless_removed(hw);
-+		spin_unlock(&hw->phy.lock);
-+	}
-+}
-diff --git a/drivers/net/ethernet/hpe/ss1/cass_port_misc.c b/drivers/net/ethernet/hpe/ss1/cass_port_misc.c
-new file mode 100644
-index 000000000000..0d01985d1741
---- /dev/null
-+++ b/drivers/net/ethernet/hpe/ss1/cass_port_misc.c
-@@ -0,0 +1,68 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright 2020 Hewlett Packard Enterprise Development LP */
-+
-+#include <linux/types.h>
-+#include <linux/kernel.h>
-+#include <linux/slab.h>
-+#include <linux/device.h>
-+#include <linux/hpe/sbl/sbl.h>
-+
-+#include "cass_core.h"
-+
-+/*
-+ * create and initialise the port array
-+ */
-+int cass_port_new_port_db(struct cass_dev *hw)
-+{
-+	hw->port = kzalloc(sizeof(struct cass_port), GFP_KERNEL);
-+	if (!hw->port)
-+		return -ENOMEM;
-+
-+	spin_lock_init(&hw->port->lock);
-+	hw->port->lstate = CASS_LINK_STATUS_UNCONFIGURED;
-+	init_waitqueue_head(&hw->port->lmon_wq);
-+	spin_lock_init(&hw->port->pause_lock);
-+	hw->port->pause_type = CASS_PAUSE_TYPE_NONE;
-+	hw->port->tx_pause = false;
-+	hw->port->rx_pause = false;
-+	hw->port->lmon_counters = NULL;
-+	hw->port->start_time = 0;
-+	cass_lmon_counters_init(hw);
-+
-+	return 0;
-+}
-+
-+void cass_port_del_port_db(struct cass_dev *hw)
-+{
-+	if (hw->port) {
-+		cass_lmon_kill_all(hw);
-+		cass_lmon_counters_term(hw);
-+		kfree(hw->port);
-+		hw->port = NULL;
-+	}
-+}
-+
-+/*
-+ * text output helpers
-+ */
-+const char *cass_port_subtype_str(enum cass_port_subtype subtype)
-+{
-+	switch (subtype) {
-+	case CASS_PORT_SUBTYPE_IEEE:    return "ieee";
-+	case CASS_PORT_SUBTYPE_CASSINI: return "cassini";
-+	case CASS_PORT_SUBTYPE_LOCAL:   return "local";
-+	case CASS_PORT_SUBTYPE_GLOBAL:  return "global";
-+	default:                        return "unknown";
-+	}
-+}
-+
-+const char *cass_pause_type_str(enum cass_pause_type type)
-+{
-+	switch (type) {
-+	case CASS_PAUSE_TYPE_INVALID: return "invalid";
-+	case CASS_PAUSE_TYPE_NONE:    return "none";
-+	case CASS_PAUSE_TYPE_GLOBAL:  return "global/802.3x";
-+	case CASS_PAUSE_TYPE_PFC:     return "pfc/802.1qbb";
-+	default:                      return "unrecognised";
-+	}
-+}
-diff --git a/drivers/net/ethernet/hpe/ss1/cass_sbl.c b/drivers/net/ethernet/hpe/ss1/cass_sbl.c
-new file mode 100644
-index 000000000000..3b39e917fd5a
---- /dev/null
-+++ b/drivers/net/ethernet/hpe/ss1/cass_sbl.c
-@@ -0,0 +1,1706 @@
++++ b/drivers/net/ethernet/hpe/ss1/cxi_eth.c
+@@ -0,0 +1,443 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * Cassini device handler
-+ * Copyright 2020-2024 Hewlett Packard Enterprise Development LP
++ * Cray Cassini ethernet driver
++ * © Copyright 2018-2020 Cray Inc
++ * © Copyright 2020-2021 Hewlett Packard Enterprise Development LP
 + */
 +
-+#include <linux/iopoll.h>
-+#include <linux/hpe/cxi/cxi.h>
-+#include <linux/hpe/sbl/sbl_mb.h>
-+#include <linux/hpe/sbl/sbl.h>
-+#include <uapi/ethernet/sbl-abi.h>
-+#include <uapi/ethernet/sbl_cassini.h>
-+
-+#include "cass_core.h"
-+#include "cass_cable.h"
-+#include "cxi_ethtool.h"
-+#include "cass_ss1_debugfs.h"
-+
-+#define SYSFS_BUFSIZE        1000
-+
-+static unsigned int pml_rec_timeout = SBL_DFLT_PML_REC_TIMEOUT;
-+module_param(pml_rec_timeout, uint, 0644);
-+MODULE_PARM_DESC(pml_rec_timeout, "PML recovery timeout in ms");
-+
-+static unsigned int pml_rec_rl_max_dur = SBL_DFLT_PML_REC_RL_MAX_DURATION;
-+module_param(pml_rec_rl_max_dur, uint, 0644);
-+MODULE_PARM_DESC(pml_rec_rl_max_dur, "PML recovery max time in ms per window");
-+
-+static unsigned int pml_rec_rl_win_size = SBL_DFLT_PML_REC_RL_WINDOW_SIZE;
-+module_param(pml_rec_rl_win_size, uint, 0644);
-+MODULE_PARM_DESC(pml_rec_rl_win_size, "PML recovery rate limiter window in ms");
-+
-+/**
-+ * cass_sbl_link_attr_cmp() - Check if input attr matches device attr
++/* TODO:
 + *
-+ *  Checks each member of input cass_link_attr against value stored in
-+ *  device. If any values differ, return -1, else return 0.
-+ *
-+ * @hw: the device
-+ * @tgt_val: comparison values
-+ *
-+ * Return: 0 on if the structs are the same, else -1
++ * - address all the TODOs
++ * - a lot of error handling
++ * - support PCI device removal (see srcu usage in cxi_user_core.c)
++ * - find a way to cleanly pass the hash types. Modify ethtool?
++ * - add support for RSS contexts
 + */
-+static int cass_sbl_link_attr_cmp(const struct cass_dev *hw,
-+				  const struct cass_link_attr *tgt_val)
++
++#include <linux/module.h>
++#include <linux/netdevice.h>
++#include <linux/etherdevice.h>
++#include <linux/pci.h>
++
++#include "cxi_eth.h"
++#include "cxi_eth_debugfs.h"
++
++unsigned int rss_indir_size = 64;
++module_param(rss_indir_size, int, 0444);
++MODULE_PARM_DESC(rss_indir_size, "Size of RSS indirection table");
++
++unsigned int max_rss_queues = 16;
++module_param(max_rss_queues, int, 0444);
++MODULE_PARM_DESC(max_rss_queues, "Maximum number of RSS queues (power of 2)");
++
++unsigned int max_tx_queues = 16;
++module_param(max_tx_queues, int, 0444);
++MODULE_PARM_DESC(max_tx_queues, "Maximum number of TX queues");
++
++unsigned int small_pkts_buf_size = CXI_ETH_1_MB;
++module_param(small_pkts_buf_size, uint, 0444);
++MODULE_PARM_DESC(small_pkts_buf_size, "Size of a small packets buffer (4 KiB to 1 GiB, 4 KiB aligned)");
++
++unsigned int small_pkts_buf_count = 4;
++module_param(small_pkts_buf_count, uint, 0444);
++MODULE_PARM_DESC(small_pkts_buf_count, "Number of small packets buffers (1 to 1024)");
++
++unsigned int large_pkts_buf_count = 1024;
++module_param(large_pkts_buf_count, uint, 0444);
++MODULE_PARM_DESC(large_pkts_buf_count, "Number of large packets buffers (1 to 10000)");
++
++unsigned int buffer_threshold = 256;
++module_param(buffer_threshold, uint, 0444);
++MODULE_PARM_DESC(buffer_threshold, "Ethernet packets with length greater than"
++		 " or equal to this threshold are large packets (0 to 16383)");
++
++unsigned int lpe_cdt_thresh_id = 2;
++module_param(lpe_cdt_thresh_id, uint, 0444);
++MODULE_PARM_DESC(lpe_cdt_thresh_id, "LPE append credit id to use (0 to 3)");
++
++static unsigned int rx_repost_retry_ms = 20;
++module_param(rx_repost_retry_ms, uint, 0444);
++MODULE_PARM_DESC(rx_repost_retry_ms,
++		 "Time to wait before retrying to repost an RX buffer, in ms");
++
++static struct dentry *cxieth_debug_dir;
++unsigned long rx_repost_retry_jiffies;
++
++static int idc_dma_threshold_set(const char *val, const struct kernel_param *kp)
 +{
-+	const struct cass_port *port = hw->port;
-+
-+	if ((tgt_val->options != port->lattr.options) ||
-+	    (tgt_val->bl.options != port->lattr.bl.options) ||
-+	    (tgt_val->bl.magic != port->lattr.bl.magic) ||
-+	    (tgt_val->bl.start_timeout != port->lattr.bl.start_timeout) ||
-+	    (tgt_val->bl.config_target != port->lattr.bl.config_target) ||
-+	    (tgt_val->bl.pec.an_mode != port->lattr.bl.pec.an_mode) ||
-+	    (tgt_val->bl.pec.an_retry_timeout != port->lattr.bl.pec.an_retry_timeout) ||
-+	    (tgt_val->bl.pec.an_max_retry != port->lattr.bl.pec.an_max_retry) ||
-+	    (tgt_val->bl.lpd_timeout != port->lattr.bl.lpd_timeout) ||
-+	    (tgt_val->bl.lpd_poll_interval != port->lattr.bl.lpd_poll_interval) ||
-+	    (tgt_val->bl.link_mode != port->lattr.bl.link_mode) ||
-+	    (tgt_val->bl.loopback_mode != port->lattr.bl.loopback_mode) ||
-+	    (tgt_val->bl.link_partner != port->lattr.bl.link_partner) ||
-+	    (tgt_val->bl.tuning_pattern != port->lattr.bl.tuning_pattern) ||
-+	    (tgt_val->bl.precoding != port->lattr.bl.precoding) ||
-+	    (tgt_val->bl.dfe_pre_delay != port->lattr.bl.dfe_pre_delay) ||
-+	    (tgt_val->bl.dfe_timeout != port->lattr.bl.dfe_timeout) ||
-+	    (tgt_val->bl.dfe_poll_interval != port->lattr.bl.dfe_poll_interval) ||
-+	    (tgt_val->bl.pcal_eyecheck_holdoff != port->lattr.bl.pcal_eyecheck_holdoff) ||
-+	    (tgt_val->bl.nrz_min_eye_height != port->lattr.bl.nrz_min_eye_height) ||
-+	    (tgt_val->bl.nrz_max_eye_height != port->lattr.bl.nrz_max_eye_height) ||
-+	    (tgt_val->bl.pam4_min_eye_height != port->lattr.bl.pam4_min_eye_height) ||
-+	    (tgt_val->bl.pam4_max_eye_height != port->lattr.bl.pam4_max_eye_height) ||
-+	    (tgt_val->bl.fec_mode != port->lattr.bl.fec_mode) ||
-+	    (tgt_val->bl.enable_autodegrade != port->lattr.bl.enable_autodegrade) ||
-+	    (tgt_val->bl.llr_mode != port->lattr.bl.llr_mode) ||
-+	    (tgt_val->bl.ifg_config != port->lattr.bl.ifg_config) ||
-+	    (tgt_val->bl.pml_recovery.timeout != port->lattr.bl.pml_recovery.timeout) ||
-+	    (tgt_val->bl.pml_recovery.rl_max_duration !=
-+		port->lattr.bl.pml_recovery.rl_max_duration) ||
-+	    (tgt_val->bl.pml_recovery.rl_window_size !=
-+		port->lattr.bl.pml_recovery.rl_window_size))
-+		return -1;
-+
-+	return 0;
-+}
-+
-+/* Initializes the sbl module. */
-+int cass_sbl_link_start(struct cass_dev *hw)
-+{
++	unsigned long num;
 +	int ret;
-+	int fini_rtn;
 +
-+	cxidev_dbg(&hw->cdev, "initializing SBL...\n");
++	if (!val)
++		return -EINVAL;
 +
-+	ret = cass_port_new_port_db(hw);
++	ret = kstrtoul(val, 0, &num);
++	if (ret || num > C_MAX_IDC_PAYLOAD_RES)
++		return -EINVAL;
++
++	*((unsigned int *)kp->arg) = num;
++
++	return 0;
++}
++
++static const struct kernel_param_ops idc_dma_threshold_ops = {
++	.set = idc_dma_threshold_set,
++	.get = param_get_uint,
++};
++
++unsigned int idc_dma_threshold = C_MAX_IDC_PAYLOAD_RES;
++module_param_cb(idc_dma_threshold, &idc_dma_threshold_ops,
++		&idc_dma_threshold, 0644);
++MODULE_PARM_DESC(idc_dma_threshold, "Ethernet packets up to this size will be"
++		 " sent inline. Larger packets will use DMA. (0 to 224)");
++
++/* List of devices registered with this client */
++static LIST_HEAD(dev_list);
++static DEFINE_MUTEX(dev_list_mutex);
++
++static const struct net_device_ops cxi_eth_netdev_ops = {
++	.ndo_open = cxi_eth_open,
++	.ndo_start_xmit = cxi_eth_start_xmit,
++	.ndo_stop = cxi_eth_close,
++	.ndo_set_mac_address = cxi_eth_mac_addr,
++	.ndo_set_rx_mode = cxi_eth_set_rx_mode,
++	.ndo_change_mtu = cxi_change_mtu,
++	.ndo_hwtstamp_get = cxi_eth_hwtstamp_get,
++	.ndo_hwtstamp_set = cxi_eth_hwtstamp_set,
++};
++
++/* Core is adding a new device */
++static int add_device(struct cxi_dev *cxi_dev)
++{
++	struct net_device *ndev;
++	struct cxi_eth *dev;
++	int rc;
++
++	/* Disable Ethernet devices on VF devices for now */
++	if (!cxi_dev->is_physfn)
++		return -ENODEV;
++
++	ndev = alloc_etherdev_mqs(sizeof(struct cxi_eth), max_tx_queues,
++				  max_rss_queues + 1);
++	if (!ndev) {
++		rc = -ENOMEM;
++		goto err;
++	}
++
++	cxi_set_ethernet_threshold(cxi_dev, buffer_threshold);
++	cxi_set_roce_rcv_seg(cxi_dev, false);
++
++	SET_NETDEV_DEV(ndev, &cxi_dev->pdev->dev);
++
++	dev = netdev_priv(ndev);
++
++	dev->txqs = kcalloc(max_tx_queues, sizeof(*dev->txqs), GFP_KERNEL);
++	if (!dev->txqs) {
++		rc = -ENOMEM;
++		goto err_free_ether;
++	}
++
++	dev->rxqs = kcalloc(max_rss_queues + 1, sizeof(*dev->rxqs), GFP_KERNEL);
++	if (!dev->rxqs) {
++		rc = -ENOMEM;
++		goto err_free_txq;
++	}
++
++	dev->ndev = ndev;
++	dev->cxi_dev = cxi_dev;
++	spin_lock_init(&dev->cq_tgt_req_lock);
++	dev->is_c2 = cassini_version(&dev->cxi_dev->prop, CASSINI_2);
++
++	ndev->netdev_ops = &cxi_eth_netdev_ops;
++	ndev->ethtool_ops = &cxi_eth_ethtool_ops;
++	ndev->watchdog_timeo = CXI_ETH_TX_TIMEOUT;
++
++	//ndev->irq = cxi_dev->pdev->irq;
++	ndev->mtu = ETH_DATA_LEN;
++	ndev->min_mtu = ETH_ZLEN;
++	ndev->max_mtu = CXI_ETH_MAX_MTU;
++	ndev->tx_queue_len = TX_QUEUE_LEN_DEFAULT;
++
++	cxi_eth_devinfo(cxi_dev, &dev->eth_info);
++
++	eth_hw_addr_set(ndev, dev->eth_info.default_mac_addr);
++
++	dev->ringparam.rx_max_pending = LARGE_PKTS_BUF_COUNT_MAX;
++	dev->ringparam.rx_mini_max_pending = num_small_packets(SMALL_PKTS_BUF_COUNT_MAX);
++	dev->ringparam.tx_max_pending = CXI_MAX_CQ_COUNT;
++
++	dev->ringparam.rx_pending = large_pkts_buf_count;
++	dev->ringparam.rx_mini_pending = num_small_packets(small_pkts_buf_count);
++	dev->ringparam.tx_pending = min_t(unsigned int, CXI_MAX_CQ_COUNT,
++					  2 * dev->ndev->tx_queue_len);
++
++	/* Used to set min_free to be equal or higher than buffer_threshold. */
++	dev->min_free = roundup_pow_of_two(buffer_threshold) >>
++		dev->eth_info.min_free_shift;
++
++	ndev->hw_features = NETIF_F_HW_CSUM | NETIF_F_GSO | NETIF_F_SG |
++		NETIF_F_GRO | NETIF_F_RXCSUM | NETIF_F_HIGHDMA |
++		NETIF_F_RXHASH;
++
++	ndev->features = ndev->hw_features;
++	ndev->vlan_features = ndev->hw_features;
++	ndev->priv_flags |= IFF_UNICAST_FLT | IFF_LIVE_ADDR_CHANGE;
++
++	rc = netif_set_real_num_queues(ndev,
++				       min_t(unsigned int, 8, max_tx_queues),
++				       min_t(unsigned int, 8, max_rss_queues));
++	if (rc)
++		goto err_free_rxq;
++
++	rc = register_netdev(ndev);
++	if (rc)
++		goto err_free_rxq;
++
++	/* If the SerDes are up, we must report the carrier as on here,
++	 * since we've already missed the link up event which was sent from
++	 * cxi-ss1
++	 */
++	if (cxi_is_link_up(cxi_dev)) {
++		/* Without the off->on transition, the ip link state will go to
++		 * UNKNOWN.
++		 */
++		netif_carrier_off(ndev);
++		netif_carrier_on(ndev);
++	} else {
++		netif_carrier_off(ndev);
++	}
++
++	device_debugfs_create(cxi_dev->name, dev, cxieth_debug_dir);
++
++	mutex_lock(&dev_list_mutex);
++	list_add_tail(&dev->dev_list, &dev_list);
++	mutex_unlock(&dev_list_mutex);
++
++	dev_info(&cxi_dev->pdev->dev, "%s[%s]: Added Ethernet device",
++		 cxi_dev->name, netdev_name(ndev));
++
++	return 0;
++
++err_free_rxq:
++	kfree(dev->rxqs);
++err_free_txq:
++	kfree(dev->txqs);
++err_free_ether:
++	free_netdev(ndev);
++err:
++	dev_err(&cxi_dev->pdev->dev,
++		"%s[]: Failure(%d): Ethernet device not added",
++		 cxi_dev->name, rc);
++	return rc;
++}
++
++/* From a given CXI device, find the ethernet device. Must be locked. */
++static struct cxi_eth *find_eth_device(const struct cxi_dev *cxi_dev)
++{
++	struct cxi_eth *dev;
++
++	list_for_each_entry_reverse(dev, &dev_list, dev_list) {
++		if (dev->cxi_dev == cxi_dev)
++			return dev;
++	}
++
++	return NULL;
++}
++
++static void remove_device(struct cxi_dev *cxi_dev)
++{
++	struct cxi_eth *dev;
++
++	/* Ethernet devices on VF devices are not added for now, so not removed */
++	if (!cxi_dev->is_physfn)
++		return;
++
++	mutex_lock(&dev_list_mutex);
++	dev = find_eth_device(cxi_dev);
++	if (dev)
++		list_del(&dev->dev_list);
++	mutex_unlock(&dev_list_mutex);
++
++	if (!dev) {
++		dev_info(&cxi_dev->pdev->dev,
++			 "%s[]: Failure(NOT FOUND): no Ethernet device to remove",
++			 cxi_dev->name);
++		return;
++	}
++
++	debugfs_remove(dev->debug);
++
++	unregister_netdev(dev->ndev);
++
++	kfree(dev->rxqs);
++	kfree(dev->txqs);
++	free_netdev(dev->ndev);
++
++	dev_info(&cxi_dev->pdev->dev, "%s[]: Removed Ethernet device",
++		 cxi_dev->name);
++}
++
++static void async_event(struct cxi_dev *cxi_dev, enum cxi_async_event event)
++{
++	struct cxi_eth *dev;
++
++	mutex_lock(&dev_list_mutex);
++	dev = find_eth_device(cxi_dev);
++	mutex_unlock(&dev_list_mutex);
++
++	if (!dev)
++		return;
++
++	netdev_dbg(dev->ndev, "got async event %d\n", event);
++
++	switch (event) {
++	case CXI_EVENT_LINK_UP:
++		netif_carrier_on(dev->ndev);
++		break;
++
++	case CXI_EVENT_LINK_DOWN:
++		netif_carrier_off(dev->ndev);
++		break;
++
++	default:
++		break;
++	}
++}
++
++static int cxi_netdev_event(struct notifier_block *this, unsigned long event,
++			    void *ptr)
++{
++	struct net_device *ndev = netdev_notifier_info_to_dev(ptr);
++
++	if (ndev->netdev_ops->ndo_open == &cxi_eth_open &&
++	    event == NETDEV_CHANGENAME) {
++		struct cxi_eth *dev = netdev_priv(ndev);
++
++		cxi_set_eth_name(dev->cxi_dev, netdev_name(ndev));
++	}
++
++	return NOTIFY_DONE;
++}
++
++static struct notifier_block cxi_netdev_notifier = {
++	.notifier_call = cxi_netdev_event,
++};
++
++static struct cxi_client cxiu_client = {
++	.add = add_device,
++	.remove = remove_device,
++	.async_event = async_event,
++};
++
++static int __init init(void)
++{
++	unsigned int new;
++	int ret;
++
++	if (rss_indir_size && (!is_power_of_2(rss_indir_size) ||
++			       rss_indir_size > CXI_ETH_MAX_INDIR_ENTRIES)) {
++		rss_indir_size = min_t(unsigned int,
++				       roundup_pow_of_two(rss_indir_size),
++				       CXI_ETH_MAX_INDIR_ENTRIES);
++		pr_info("Adjusting rss_indir_size to %d\n", rss_indir_size);
++	}
++
++	if (max_rss_queues > CXI_ETH_MAX_RSS_QUEUES ||
++	    !is_power_of_2(max_rss_queues)) {
++		max_rss_queues = min_t(unsigned int,
++				       roundup_pow_of_two(max_rss_queues),
++				       CXI_ETH_MAX_RSS_QUEUES);
++		pr_info("Adjusting max_rss_queues to %d\n", max_rss_queues);
++	}
++
++	if (max_tx_queues > CXI_ETH_MAX_TX_QUEUES) {
++		max_tx_queues = CXI_ETH_MAX_TX_QUEUES;
++		pr_info("Adjusting max_tx_queues to %d\n", max_tx_queues);
++	}
++
++	if (small_pkts_buf_size < PAGE_SIZE) {
++		small_pkts_buf_size = PAGE_SIZE;
++		pr_info("Adjusting small_pkts_buf_size to %u\n",
++			small_pkts_buf_size);
++	} else if (small_pkts_buf_size > CXI_ETH_1_GB) {
++		small_pkts_buf_size = CXI_ETH_1_GB;
++		pr_info("Adjusting small_pkts_buf_size to %u\n",
++			small_pkts_buf_size);
++	} else if ((small_pkts_buf_size % PAGE_SIZE) != 0) {
++		small_pkts_buf_size = roundup(small_pkts_buf_size, PAGE_SIZE);
++		pr_info("Adjusting small_pkts_buf_size to %u\n",
++			small_pkts_buf_size);
++	}
++
++	new = clamp(small_pkts_buf_count,
++		    SMALL_PKTS_BUF_COUNT_MIN, SMALL_PKTS_BUF_COUNT_MAX);
++	if (new != small_pkts_buf_count) {
++		small_pkts_buf_count = new;
++		pr_info("Adjusting small_pkts_buf_count to %u\n",
++			small_pkts_buf_count);
++	}
++
++	new = clamp(large_pkts_buf_count,
++		    LARGE_PKTS_BUF_COUNT_MIN, LARGE_PKTS_BUF_COUNT_MAX);
++	if (new != large_pkts_buf_count) {
++		large_pkts_buf_count = new;
++		pr_info("Adjusting large_pkts_buf_count to %u\n",
++			large_pkts_buf_count);
++	}
++
++	if (!buffer_threshold) {
++		pr_err("buffer_threshold must be nonzero\n");
++		return -EINVAL;
++	}
++	if (buffer_threshold > 16383) {
++		buffer_threshold = 16383;
++		pr_info("Adjusting buffer_threshold to %u\n", buffer_threshold);
++	}
++
++	if (lpe_cdt_thresh_id > 3) {
++		lpe_cdt_thresh_id = 0;
++		pr_info("Resetting lpe_cdt_thresh_id to 0\n");
++	}
++
++	if (rx_repost_retry_ms < 1 || rx_repost_retry_ms > 5000) {
++		rx_repost_retry_ms = 20;
++		pr_info("Resetting rx_repost_retry_ms to 20ms\n");
++	}
++	rx_repost_retry_jiffies = msecs_to_jiffies(rx_repost_retry_ms);
++
++	ret = register_netdevice_notifier(&cxi_netdev_notifier);
 +	if (ret) {
-+		cxidev_err(&hw->cdev, "cass_port_new_port_db failed [%d]\n", ret);
++		pr_err("Failed to register netdevice_notifier\n");
++		return -EINVAL;
++	}
++
++	cxieth_debug_dir = device_eth_debugfs_init();
++
++	ret = cxi_register_client(&cxiu_client);
++	if (ret) {
++		pr_err("Couldn't register CXI ethernet driver\n");
 +		goto out;
 +	}
 +
-+	ret = hw->link_ops->init(hw);
-+	if (ret != 0) {
-+		cxidev_err(&hw->cdev, "init failed [%d]\n", ret);
-+		goto out_ports;
++	return 0;
++
++out:
++	debugfs_remove(cxieth_debug_dir);
++	unregister_netdevice_notifier(&cxi_netdev_notifier);
++
++	return ret;
++}
++
++static void __exit cleanup(void)
++{
++	cxi_unregister_client(&cxiu_client);
++	unregister_netdevice_notifier(&cxi_netdev_notifier);
++	debugfs_remove(cxieth_debug_dir);
++}
++
++module_init(init);
++module_exit(cleanup);
++
++MODULE_LICENSE("GPL v2");
++MODULE_DESCRIPTION("Cray eXascale Interconnect (CXI) Ethernet driver");
++MODULE_AUTHOR("Cray Inc.");
+diff --git a/drivers/net/ethernet/hpe/ss1/cxi_eth_debugfs.c b/drivers/net/ethernet/hpe/ss1/cxi_eth_debugfs.c
+new file mode 100644
+index 000000000000..310a5a6484b9
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/ss1/cxi_eth_debugfs.c
+@@ -0,0 +1,206 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright 2018 Hewlett Packard Enterprise Development LP */
++
++/* cxi-eth debug fs*/
++#include <linux/netdevice.h>
++#include "cxi_eth.h"
++#include "cxi_eth_debugfs.h"
++
++static u64 bucket_times[NB_BUCKETS];
++
++static void dump_rx_queue(struct seq_file *s, const struct rx_queue *rx)
++{
++	const struct bucket *bucket;
++	int i;
++
++	seq_printf(s, "  EQ=%u, PtlTE=%u TGT PRIO CQ=%u\n",
++		   rx->eq->eqn, rx->pt->id, cxi_cq_get_cqn(rx->cq_tgt_prio));
++
++	seq_printf(s, "  Preferred NUMA Node: %u\n", rx->node);
++	seq_printf(s, "  Preferred CPU: %u\n", rx->cpu);
++
++	seq_printf(s, "  list rx_unallocated=%s\n",
++		   list_empty(&rx->rx_unallocated) ? "empty" : "not empty");
++	seq_printf(s, "  list rx_ready=%s\n",
++		   list_empty(&rx->rx_ready) ? "empty" : "not empty");
++	seq_printf(s, "  list rx_in_use=%s\n",
++		   list_empty(&rx->rx_in_use) ? "empty" : "not empty");
++
++	seq_printf(s, "  rx_bufs_count=%u\n", rx->rx_bufs_count);
++	seq_printf(s, "  append_prio=%llu\n", rx->stats.append_prio);
++	seq_printf(s, "  append_req=%llu\n", rx->stats.append_req);
++	seq_printf(s, "  append_failed=%llu\n", rx->stats.append_failed);
++	seq_printf(s, "  unlinked_prio=%llu\n", rx->stats.unlinked_prio);
++	seq_printf(s, "  unlinked_req=%llu\n", rx->stats.unlinked_req);
++	seq_printf(s, "  Last bad RC for dropped fragment: %u\n",
++		   rx->last_bad_frag_drop_rc);
++
++	/* Each bucket */
++	seq_puts(s, "  bucket for napi_schedule\n");
++	bucket = &rx->eth_napi_schedule;
++	if (bucket->min_ts == UINT_MAX)
++		seq_printf(s, "    min_ts=%llu\n", 0ULL);
++	else
++		seq_printf(s, "    min_ts=%llu\n", bucket->min_ts);
++	seq_printf(s, "    max_ts=%llu\n", bucket->max_ts);
++	for (i = 0; i < NB_BUCKETS; i++) {
++		if (i < (NB_BUCKETS - 1))
++			seq_printf(s, "      < %llu ns       %llu\n",
++				   bucket_times[i],
++				   bucket->b[i]);
++		else
++			seq_printf(s, "      higher          %llu\n",
++				   bucket->b[i]);
++	}
++	seq_puts(s, "\n");
++}
++
++static void dump_cq_info(struct seq_file *s, struct cxi_cq *cq)
++{
++	seq_printf(s, "    id: %u\n", cxi_cq_get_cqn(cq));
++	seq_printf(s, "    ptrs: size32=%u, rp32=%llu, hw_rp32=%u, wp32=%llu, hw_wp32=%llu\n",
++		   cq->size32, cq->rp32, cq->status->rd_ptr * 2,
++		   cq->wp32, cq->hw_wp32);
++	seq_printf(s, "    free CQ slots: %d\n", __cxi_cq_free_slots(cq));
++}
++
++static void dump_tx_queue(struct seq_file *s, const struct tx_queue *txq,
++			  struct cxi_eth *dev)
++{
++	struct netdev_queue *dev_queue =
++		netdev_get_tx_queue(txq->dev->ndev, txq->id);
++
++	seq_printf(s, "  EQ=%u\n", txq->eq->eqn);
++	seq_puts(s,   "  eth1 CQ:\n");
++	dump_cq_info(s, txq->eth1_cq);
++	if (dev->eth2_active) {
++		seq_puts(s,   "  eth2 CQ:\n");
++		dump_cq_info(s, txq->eth2_cq);
++	}
++	seq_puts(s,   "  shared CQ:\n");
++	dump_cq_info(s, txq->shared_cq);
++
++	seq_printf(s, "  Preferred NUMA Node: %u\n", txq->node);
++	seq_printf(s, "  Preferred CPU: %u\n", txq->cpu);
++	seq_printf(s, "  polling: %llu\n", txq->stats.polling);
++	seq_printf(s, "  TXQ EQ credits: %d\n", atomic_read(&txq->dma_eq_cdt));
++	seq_printf(s, "  TXQ stopped count for full CQ: %llu\n", txq->stats.stopped);
++	seq_printf(s, "  TXQ stopped for no EQ credits: %llu\n", txq->stats.stopped_eq);
++	seq_printf(s, "  TXQ restarted count: %llu\n", txq->stats.restarted);
++	seq_printf(s, "  TXQ got busy: %llu\n", txq->stats.tx_busy);
++	seq_printf(s, "  idc: %llu\n", txq->stats.idc);
++	seq_printf(s, "  idc_bytes: %llu\n", txq->stats.idc_bytes);
++	seq_printf(s, "  dma: %llu\n", txq->stats.dma);
++	seq_printf(s, "  dma_bytes: %llu\n", txq->stats.dma_bytes);
++	seq_printf(s, "  dma_forced: %llu\n", txq->stats.dma_forced);
++	seq_printf(s, "  force_dma: %u\n", txq->force_dma);
++	seq_printf(s, "  force_dma_interval: %u\n", txq->force_dma_interval);
++	seq_printf(s, "  netdev queue state: 0x%lx\n", dev_queue->state);
++}
++
++static int dump_dev(struct seq_file *s, void *unused)
++{
++	struct cxi_eth *dev = s->private;
++	u64 min_ts = UINT_MAX;
++	u64 max_ts = 0;
++	int i;
++	int j;
++
++	seq_printf(s, "rss_indir_size=%u\n", rss_indir_size);
++	seq_printf(s, "idc_dma_threshold=%u\n", idc_dma_threshold);
++	seq_printf(s, "small_pkts_buf_size=%u\n", small_pkts_buf_size);
++	seq_printf(s, "small_pkts_buf_count=%u\n", small_pkts_buf_count);
++	seq_printf(s, "large_pkts_buf_count=%u\n", large_pkts_buf_count);
++	seq_printf(s, "num rx_pending=%u\n", dev->ringparam.rx_pending);
++	seq_printf(s, "num rx_mini_pending=%u\n", dev->ringparam.rx_mini_pending);
++	seq_printf(s, "num tx_pending=%u\n", dev->ringparam.tx_pending);
++	seq_printf(s, "num_prio_buffers=%u\n", dev->num_prio_buffers);
++	seq_printf(s, "num_req_buffers=%u\n", dev->num_req_buffers);
++
++	if (!dev->is_active)
++		return 0;
++
++	seq_printf(s, "shared TGT REQ CQ=%u\n",
++		   cxi_cq_get_cqn(dev->cq_tgt_req));
++
++	for (i = 0; i < dev->res.rss_queues; i++) {
++		seq_printf(s, "RX queue %u\n", i);
++		dump_rx_queue(s, &dev->rxqs[i]);
 +	}
 +
-+	hw->port->hstate = CASS_HEADSHELL_STATUS_NOT_PRESENT;
-+
-+	ret = cass_lmon_start_all(hw);
-+	if (ret) {
-+		cxidev_err(&hw->cdev, "cass_lmon_start_all failed [%d]\n", ret);
-+		goto out_sbl;
++	if (dev->res.rss_queues) {
++		seq_printf(s, "PTP RX queue %u\n", PTP_RX_Q);
++		dump_rx_queue(s, &dev->rxqs[PTP_RX_Q]);
 +	}
 +
-+	ret = cass_cable_scan(hw);
-+	if (ret) {
-+		cxidev_err(&hw->cdev, "cass_cable_scan failed [%d]\n", ret);
-+		goto out_lmon;
++	for (i = 0; i < dev->cur_txqs; i++) {
++		seq_printf(s, "TX queue %u\n", i);
++		dump_tx_queue(s, &dev->txqs[i], dev);
 +	}
 +
-+	cass_sbl_set_defaults(hw);
-+	ret = cass_sbl_configure(hw);
-+	if (ret != 0) {
-+		cxidev_err(&hw->cdev, "cass_sbl_configure failed [%d]\n", ret);
-+		goto out_lmon;
++	/* Sum all buckets */
++	seq_puts(s, "\n");
++	seq_puts(s, "ALL buckets for RX napi_schedule\n");
++
++	for (i = 0; i < dev->res.rss_queues; i++) {
++		const struct bucket *bucket = &dev->rxqs[i].eth_napi_schedule;
++
++		if (min_ts > bucket->min_ts)
++			min_ts = bucket->min_ts;
++		if (max_ts < bucket->max_ts)
++			max_ts = bucket->max_ts;
 +	}
-+	cxidev_dbg(&hw->cdev, "SBL initialized\n");
++
++	if (min_ts == UINT_MAX)
++		min_ts = 0;
++
++	seq_printf(s, "    min_ts=%llu\n", min_ts);
++	seq_printf(s, "    max_ts=%llu\n", max_ts);
++
++	for (i = 0; i < NB_BUCKETS; i++) {
++		u64 nb = 0;
++
++		for (j = 0; j < dev->res.rss_queues; j++)
++			nb += dev->rxqs[j].eth_napi_schedule.b[i];
++
++		if (i < (NB_BUCKETS - 1))
++			seq_printf(s, "      < %llu ns       %llu\n",
++				   bucket_times[i],
++				   nb);
++		else
++			seq_printf(s, "      higher          %llu\n",
++				   nb);
++	}
++	seq_puts(s, "\n");
++
++	return 0;
++}
++
++static int dump_dev_debug_dev_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, dump_dev, inode->i_private);
++}
++
++static const struct file_operations cxi_eth_fops = {
++	.owner = THIS_MODULE,
++	.open = dump_dev_debug_dev_open,
++	.read = seq_read,
++	.llseek  = seq_lseek,
++	.release = single_release,
++};
++
++struct dentry *device_eth_debugfs_init(void)
++{
++	int i;
++
++	for (i = 0; i < NB_BUCKETS; i++)
++		bucket_times[i] = 1 << i;
++	return debugfs_create_dir("cxi_eth", NULL);
++}
++
++void device_debugfs_create(char *name, struct cxi_eth *dev,
++			   struct dentry *cxieth_debug_dir)
++{
++	dev->debug = debugfs_create_file(name, 0444, cxieth_debug_dir,
++					 dev, &cxi_eth_fops);
++}
+diff --git a/drivers/net/ethernet/hpe/ss1/cxi_eth_ioctl.c b/drivers/net/ethernet/hpe/ss1/cxi_eth_ioctl.c
+new file mode 100644
+index 000000000000..cd69e2c6fe31
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/ss1/cxi_eth_ioctl.c
+@@ -0,0 +1,44 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Cray Cassini ethernet driver - hardware timestamp configuration.
++ * © Copyright 2021 Hewlett Packard Enterprise Development LP
++ */
++
++#include <linux/netdevice.h>
++#include <linux/net_tstamp.h>
++
++#include "cxi_eth.h"
++
++int cxi_eth_hwtstamp_get(struct net_device *ndev,
++			 struct kernel_hwtstamp_config *config)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++
++	hwtstamp_config_to_kernel(config, &dev->tstamp_config);
++
++	return 0;
++}
++
++int cxi_eth_hwtstamp_set(struct net_device *ndev,
++			 struct kernel_hwtstamp_config *config,
++			 struct netlink_ext_ack *extack)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	struct hwtstamp_config cfg;
++	int rc;
++
++	hwtstamp_config_from_kernel(&cfg, config);
++
++	rc = cxi_eth_cfg_timestamp(dev->cxi_dev, &cfg);
++	if (rc)
++		return rc;
++
++	dev->tstamp_config = cfg;
++
++	dev->ptp_ts_enabled = cfg.rx_filter == HWTSTAMP_FILTER_PTP_V2_L2_EVENT;
++
++	/* Report the configuration actually applied, e.g. TX forced on. */
++	hwtstamp_config_to_kernel(config, &cfg);
++
++	return 0;
++}
+diff --git a/drivers/net/ethernet/hpe/ss1/cxi_eth_ops.c b/drivers/net/ethernet/hpe/ss1/cxi_eth_ops.c
+new file mode 100644
+index 000000000000..d19a6a27aa23
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/ss1/cxi_eth_ops.c
+@@ -0,0 +1,2367 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Cray Cassini ethernet driver
++ * © Copyright 2018-2020 Cray Inc
++ * © Copyright 2020 Hewlett Packard Enterprise Development LP
++ */
++
++#include <linux/delay.h>
++#include <linux/dma-mapping.h>
++#include <linux/etherdevice.h>
++#include <linux/if_vlan.h>
++#include <linux/ip.h>
++#include <linux/ipv6.h>
++#include <linux/netdevice.h>
++#include <linux/pci.h>
++#include <linux/tcp.h>
++#include <linux/udp.h>
++#include <linux/vmalloc.h>
++#include <net/ipv6.h>
++
++#include "cxi_eth.h"
++#include "cxi_core.h"
++
++#define ROCE_V2_UDP_DPORT	4791
++
++static unsigned int tx_eq_count;
++module_param(tx_eq_count, uint, 0444);
++MODULE_PARM_DESC(tx_eq_count, "Override the number of entries in transmit event queue");
++
++static int cxi_rx_eth_poll(struct napi_struct *napi, int budget);
++static void rx_eq_cb(void *context);
++
++static void err_eq_cb(void *context)
++{
++	struct cxi_eth *dev = context;
++	const union c_event *event;
++
++	while ((event = cxi_eq_get_event(dev->err_eq))) {
++		switch (event->hdr.event_type) {
++		case C_EVENT_COMMAND_FAILURE:
++			netdev_warn(dev->ndev, "%s CQ %u disabled\n",
++				    event->cmd_fail.is_target ?
++				    "target" : "transmit",
++				    event->cmd_fail.cq_id);
++			break;
++		default:
++			netdev_warn(dev->ndev, "Unhandled event %u, rc %d\n",
++				    event->hdr.event_type,
++				    event->hdr.return_code);
++			print_hex_dump(KERN_INFO,
++				       "cxi eth unexpected tx event: ",
++				       DUMP_PREFIX_ADDRESS, 16, 1, event,
++				       (8 << event->hdr.event_size), false);
++		}
++
++		cxi_eq_ack_events(dev->err_eq);
++	}
++
++	cxi_eq_int_enable(dev->err_eq);
++}
++
++static void cancel_tx_tstamp(struct cxi_eth *dev, struct sk_buff *skb)
++{
++	if (cmpxchg(&dev->tstamp_skb, skb, NULL) == skb)
++		skb_shinfo(skb)->tx_flags &= ~SKBTX_IN_PROGRESS;
++}
++
++static void finalize_tx_tstamp(struct cxi_eth *dev, struct sk_buff *skb)
++{
++	struct skb_shared_hwtstamps tstamps;
++	int rc;
++
++	if (skb != dev->tstamp_skb) {
++		netdev_warn_once(dev->ndev, "skb != dev->tstamp_skb : %p != %p",
++				 skb, dev->tstamp_skb);
++		return;
++	}
++
++	rc = cxi_eth_get_tx_timestamp(dev->cxi_dev, &tstamps);
++	if (!rc)
++		skb_tstamp_tx(skb, &tstamps);
++
++	/* Release timestamp slot */
++	cmpxchg(&dev->tstamp_skb, skb, NULL);
++}
++
++static void unmap_frags(struct device *dma_dev, struct sk_buff *skb)
++{
++	struct cb_data *cb = (struct cb_data *)skb->cb;
++	int i;
++
++	for (i = 0; i < cb->num_frags; i++) {
++		int len;
++
++		if (i < MAX_CB_LEN) {
++			len = cb->dma_len[i];
++		} else {
++			const skb_frag_t *frag = &skb_shinfo(skb)->frags[i - 1];
++
++			len = skb_frag_size(frag);
++		}
++
++		dma_unmap_single(dma_dev, cb->dma_addr[i], len, DMA_TO_DEVICE);
++	}
++}
++
++/* Prepare the segments in the command, mapping them for DMA */
++static int prepare_frags(struct device *dma_dev, struct sk_buff *skb,
++			 struct c_dma_eth_cmd *dma_eth)
++{
++	struct cb_data *cb = (struct cb_data *)skb->cb;
++	int i;
++
++	BUILD_BUG_ON(sizeof(struct cb_data) > sizeof(skb->cb));
++
++	dma_eth->num_segments = 1 + skb_shinfo(skb)->nr_frags;
++
++	if (skb_shinfo(skb)->nr_frags) {
++		unsigned int segnum = 0;
++
++		cb->dma_len[segnum] = dma_eth->len[segnum] = skb_headlen(skb);
++		segnum++;
++
++		for (i = 0; i < skb_shinfo(skb)->nr_frags; i++) {
++			const skb_frag_t *frag = &skb_shinfo(skb)->frags[i];
++
++			dma_eth->len[segnum] = skb_frag_size(frag);
++
++			if (segnum < MAX_CB_LEN)
++				cb->dma_len[segnum] = dma_eth->len[segnum];
++
++			segnum++;
++		}
++	} else {
++		cb->dma_len[0] = skb->len;
++		dma_eth->len[0] = skb->len;
++	}
++
++	cb->num_frags = 0;
++
++	for (i = 0; i < dma_eth->num_segments; i++) {
++		dma_addr_t dma_addr;
++
++		if (i == 0) {
++			dma_addr = dma_map_single(dma_dev, skb->data,
++						  dma_eth->len[i], DMA_TO_DEVICE);
++		} else {
++			const skb_frag_t *frag = &skb_shinfo(skb)->frags[i - 1];
++
++			dma_addr = dma_map_single(dma_dev, skb_frag_address(frag),
++						  dma_eth->len[i], DMA_TO_DEVICE);
++		}
++
++		if (dma_mapping_error(dma_dev, dma_addr)) {
++			unmap_frags(dma_dev, skb);
++			return -ENOMEM;
++		}
++
++		cb->dma_addr[i] = dma_eth->addr[i] = dma_addr;
++		cb->num_frags++;
++	}
++
++	return 0;
++}
++
++/* A packet was sent with a DMA command. Returns the number of EQ
++ * credits to return to the TX queue.
++ */
++static unsigned int eth_complete(struct cxi_eth *dev, struct tx_queue *txq,
++				 const union c_event *event, int budget,
++				 unsigned int *pkts, unsigned int *bytes)
++{
++	struct net_device *ndev = dev->ndev;
++	struct sk_buff *skb;
++	enum c_return_code return_code;
++
++	if (event->hdr.event_size == C_EVENT_SIZE_16_BYTE) {
++		return_code = event->init_short.return_code;
++		skb = (void *)event->init_short.user_ptr;
++	} else {
++		return_code = event->init_long.return_code;
++		skb = (void *)event->init_long.user_ptr;
++	}
++
++	if (skb == NULL) {
++		/* Bad IDC commands will generate a SEND event on error. */
++		if (return_code == C_RC_OK)
++			netdev_warn_once(dev->ndev,
++					 "Successful command with NULL skb\n");
++
++		ndev->stats.tx_dropped++;
++
++		return 0;
++	}
++
++	if (return_code == C_RC_OK) {
++		ndev->stats.tx_packets++;
++		ndev->stats.tx_bytes += skb->len;
++		*pkts += 1;
++		*bytes += skb->len;
++	} else {
++		netdev_err_once(dev->ndev,
++				"DMA command failed to complete: %d\n",
++				return_code);
++		ndev->stats.tx_dropped++;
++	}
++
++	if (skb_shinfo(skb)->tx_flags & SKBTX_IN_PROGRESS)
++		finalize_tx_tstamp(dev, skb);
++
++	unmap_frags(&dev->cxi_dev->pdev->dev, skb);
++
++	napi_consume_skb(skb, budget);
++
++	return 1;
++}
++
++static int cxi_tx_eth_poll(struct napi_struct *napi, int budget)
++{
++	struct tx_queue *txq = container_of(napi, struct tx_queue, napi);
++	struct cxi_eth *dev = txq->dev;
++	struct netdev_queue *dev_queue =
++		netdev_get_tx_queue(dev->ndev, txq->id);
++	const union c_event *event;
++	int work_done = 0;
++	unsigned int event_count = 0;
++	unsigned int pkts = 0;
++	unsigned int bytes = 0;
++	unsigned int cdts = 0;
++
++	txq->stats.polling++;
++
++	while (work_done < budget && (event = cxi_eq_get_event(txq->eq))) {
++		switch (event->hdr.event_type) {
++		case C_EVENT_SEND:
++			cdts += eth_complete(dev, txq, event, budget, &pkts, &bytes);
++			work_done++;
++			break;
++		default:
++			netdev_warn(dev->ndev, "Unhandled event %u, rc %d\n",
++				    event->hdr.event_type,
++				    event->hdr.return_code);
++			print_hex_dump(KERN_INFO,
++				       "cxi eth unexpected tx event: ",
++				       DUMP_PREFIX_ADDRESS, 16, 1, event,
++				       (8 << event->hdr.event_size), false);
++		}
++
++		event_count++;
++		if (event_count == 16) {
++			cxi_eq_int_disable(txq->eq);
++			event_count = 0;
++
++			atomic_add(cdts, &txq->dma_eq_cdt);
++			cdts = 0;
++		}
++	}
++
++	BUG_ON(work_done > budget);
++
++	/* Check to see if the TX queue needs to be re-enabled. */
++	if (netif_tx_queue_stopped(dev_queue)) {
++		if (__cxi_cq_free_slots(txq->shared_cq) >= 16 &&
++		    __cxi_cq_free_slots(txq->eth1_cq) >= 16 &&
++		    (!dev->eth2_active || __cxi_cq_free_slots(txq->eth2_cq) >= 16) &&
++		    atomic_read(&txq->dma_eq_cdt) > 0) {
++			txq->stats.restarted++;
++			netif_tx_wake_queue(dev_queue);
++		}
++	}
++
++	if (pkts)
++		netdev_tx_completed_queue(dev_queue, pkts, bytes);
++
++	if (work_done < budget && napi_complete_done(napi, work_done)) {
++		/* Ack events and re-enable the EQ interrupt. */
++		cxi_eq_int_enable(txq->eq);
++	} else if (event_count) {
++		cxi_eq_int_disable(txq->eq);
++	}
++
++	atomic_add(cdts, &txq->dma_eq_cdt);
++
++	return work_done;
++}
++
++static void tx_eq_cb(void *context)
++{
++	struct tx_queue *tx = context;
++
++	napi_schedule(&tx->napi);
++}
++
++void enable_tx_queue(struct tx_queue *tx)
++{
++	napi_enable(&tx->napi);
++	cxi_eq_int_enable(tx->eq);
++}
++
++void disable_tx_queue(struct tx_queue *tx)
++{
++	cxi_eq_int_disable(tx->eq);
++	napi_disable(&tx->napi);
++}
++
++void free_tx_queue(struct tx_queue *tx)
++{
++	netif_napi_del(&tx->napi);
++
++	tx->untagged_cq = NULL;
++
++	cxi_cq_free(tx->shared_cq);
++	tx->shared_cq = NULL;
++
++	cxi_cq_free(tx->eth1_cq);
++	tx->eth1_cq = NULL;
++
++	if (tx->eth2_cq) {
++		cxi_cq_free(tx->eth2_cq);
++		tx->eth2_cq = NULL;
++	}
++
++	cxi_eq_free(tx->eq);
++	tx->eq = NULL;
++
++	if (is_vmalloc_addr(tx->eq_attr.queue))
++		cxi_unmap(tx->eq_md);
++	kvfree(tx->eq_attr.queue);
++	tx->eq_attr.queue = NULL;
++
++	tx->dev = NULL;
++}
++
++static void cxi_eth_get_node_cpu(struct cxi_eth *dev, unsigned int queue_id,
++				 unsigned int *queue_node,
++				 unsigned int *queue_cpu)
++{
++	int node;
++	int cpu;
++	int cpu_offset;
++	const struct cpumask *cpus;
++	int cpu_count;
++	int num_cpu_nodes = 0;
++	int i;
++
++	/* Figure out how many numa nodes are online and contain
++	 * CPUs. Apparently linux will reorder the nodes so that the
++	 * empty ones are at the end of the list. If it's not the
++	 * case, then further changes will be needed.
++	 */
++	for_each_online_node(node) {
++		cpus = cpumask_of_node(node);
++		if (!cpumask_empty(cpus))
++			num_cpu_nodes++;
++	}
++	if (!num_cpu_nodes || dev_to_node(&dev->cxi_dev->pdev->dev) < 0)
++		goto fallback;
++
++	/* Round robin queues across all the nodes in the system instead of
++	 * overloading 1 node with multiple queues. Favor the local node to
++	 * start with.
++	 */
++	node = (dev_to_node(&dev->cxi_dev->pdev->dev) + queue_id) % num_cpu_nodes;
++	if (!node_online(node)) {
++		/* For sanity, but that shouldn't be possible. */
++		netdev_err(dev->ndev, "Node %u not online. Defaulting to %u\n",
++			   node, dev_to_node(&dev->cxi_dev->pdev->dev));
++		node = dev_to_node(&dev->cxi_dev->pdev->dev);
++	}
++
++	/* If the queue ID exceeds the number of nodes, multiple queues will be
++	 * mapped to the same node. For this case, round robin queues within the
++	 * node.
++	 */
++	cpus = cpumask_of_node(node);
++	if (cpumask_empty(cpus)) {
++		/* For sanity, but that shouldn't be possible. */
++		netdev_err(dev->ndev, "Node %u is empty. Defaulting to all cpus.\n",
++			   node);
++		cpus = cpu_all_mask;
++	}
++
++	cpu_count = 0;
++	for_each_cpu(cpu, cpus) {
++		if (cpu_is_offline(cpu))
++			continue;
++		/* We only care about CPUs which belong to the NUMA node. */
++		if (cpumask_test_cpu(cpu, cpus))
++			cpu_count++;
++	}
++
++	if (!cpu_count)
++		goto fallback;
++	cpu_offset = (queue_id / num_cpu_nodes) % cpu_count;
++	i = 0;
++	for_each_cpu(cpu, cpus) {
++		if (cpu_is_offline(cpu))
++			continue;
++		if (cpumask_test_cpu(cpu, cpus)) {
++			if (i == cpu_offset)
++				break;
++			i++;
++		}
++	}
++
++	if (cpu < nr_cpu_ids)
++		goto out;
++
++fallback:
++	cpu = cpumask_local_spread(queue_id,
++				   dev_to_node(&dev->cxi_dev->pdev->dev));
++out:
++	*queue_node = cpu_to_node(cpu);
++	*queue_cpu = cpu;
++}
++
++int alloc_tx_queue(struct cxi_eth *dev, unsigned int id)
++{
++	struct tx_queue *tx = &dev->txqs[id];
++	struct cxi_cq_alloc_opts cq_alloc_opts = {};
++	struct c_cstate_cmd c_state = {};
++	unsigned int eq_count;
++	int rc;
++
++	memset(tx, 0, sizeof(*tx));
++
++	cxi_eth_get_node_cpu(dev, id, &tx->node, &tx->cpu);
++
++	tx->force_dma_interval = dev->ndev->tx_queue_len / 8;
++	tx->force_dma = tx->force_dma_interval;
++
++	cq_alloc_opts.count = min_t(unsigned int, CXI_MAX_CQ_COUNT,
++				    2 * dev->ndev->tx_queue_len);
++
++	eq_count = tx_eq_count ? tx_eq_count : 4 * cq_alloc_opts.count;
++	tx->eq_attr.queue_len = PAGE_ALIGN(C_EE_CFG_ECB_SIZE * eq_count);
++
++	tx->eq_attr.queue = kvzalloc_node(tx->eq_attr.queue_len, GFP_KERNEL,
++					  tx->node);
++	if (!tx->eq_attr.queue) {
++		rc = -ENOMEM;
++		goto err;
++	}
++
++	/* Keep a 5% margin for IDC send errors if they ever happen. */
++	atomic_set(&tx->dma_eq_cdt, (eq_count * 95) / 100);
++
++	if (is_vmalloc_addr(tx->eq_attr.queue)) {
++		tx->eq_md = cxi_map(dev->lni, (uintptr_t)tx->eq_attr.queue,
++				    tx->eq_attr.queue_len, CXI_MAP_WRITE, NULL);
++		if (IS_ERR(tx->eq_md)) {
++			rc = PTR_ERR(tx->eq_md);
++			goto err_free_eq_buf;
++		}
++	} else {
++		tx->eq_attr.flags = CXI_EQ_PASSTHROUGH;
++	}
++
++	tx->eq_attr.cpu_affinity = tx->cpu;
++	tx->eq = cxi_eq_alloc(dev->lni, tx->eq_md, &tx->eq_attr, tx_eq_cb, tx,
++			      NULL, NULL);
++	if (IS_ERR(tx->eq)) {
++		rc = PTR_ERR(tx->eq);
++		goto err_unmap_eq_buf;
++	}
++
++	cq_alloc_opts.flags = CXI_CQ_IS_TX | CXI_CQ_TX_ETHERNET;
++	cq_alloc_opts.lcid = dev->eth1_cp->lcid;
++	tx->eth1_cq = cxi_cq_alloc(dev->lni, dev->err_eq, &cq_alloc_opts,
++				   tx->node);
++	if (IS_ERR(tx->eth1_cq)) {
++		rc = PTR_ERR(tx->eth1_cq);
++		goto err_free_eq;
++	}
++
++	cq_alloc_opts.lcid = dev->shared_cp->lcid;
++	tx->shared_cq = cxi_cq_alloc(dev->lni, dev->err_eq, &cq_alloc_opts,
++				     tx->node);
++	if (IS_ERR(tx->shared_cq)) {
++		rc = PTR_ERR(tx->shared_cq);
++		goto err_free_eth1_cq;
++	}
++
++	if (dev->eth2_active) {
++		cq_alloc_opts.lcid = dev->eth2_cp->lcid;
++		tx->eth2_cq = cxi_cq_alloc(dev->lni, dev->err_eq,
++					   &cq_alloc_opts, tx->node);
++
++		if (IS_ERR(tx->eth2_cq)) {
++			rc = PTR_ERR(tx->eth2_cq);
++			goto err_free_shared_cq;
++		}
++	}
++
++	/* Add C_STATE command. */
++	c_state.eq = tx->eq->eqn;
++	c_state.restricted = 1;
++	c_state.event_success_disable = 1;
++	c_state.event_send_disable = 1;
++
++	rc = cxi_cq_emit_c_state(tx->eth1_cq, &c_state);
++	if (rc) {
++		netdev_err(dev->ndev, "Command emit failed: %d\n", rc);
++		goto err_free_eth2_cq;
++	}
++
++	cxi_cq_ring(tx->eth1_cq);
++
++	rc = cxi_cq_emit_c_state(tx->shared_cq, &c_state);
++	if (rc) {
++		netdev_err(dev->ndev, "Command emit failed: %d\n", rc);
++		goto err_free_eth2_cq;
++	}
++
++	cxi_cq_ring(tx->shared_cq);
++
++	if (dev->eth2_active) {
++		rc = cxi_cq_emit_c_state(tx->eth2_cq, &c_state);
++		if (rc) {
++			netdev_err(dev->ndev, "Command emit failed: %d\n", rc);
++			goto err_free_eth2_cq;
++		}
++
++		cxi_cq_ring(tx->eth2_cq);
++	}
++
++	/* Determine which tx_queue CQ should be used for untagged traffic */
++	if (dev->cxi_dev->untagged_eth_pcp == dev->eth1_pcp)
++		tx->untagged_cq = tx->eth1_cq;
++	else if (dev->eth2_active &&
++		 dev->cxi_dev->untagged_eth_pcp == dev->eth2_pcp)
++		tx->untagged_cq = tx->eth2_cq;
++	else
++		tx->untagged_cq = tx->shared_cq;
++
++	tx->dev = dev;
++	tx->id = id;
++
++	NETIF_NAPI_ADD_TX(dev->ndev, &tx->napi, cxi_tx_eth_poll);
 +
 +	return 0;
 +
-+out_lmon:
-+	cass_lmon_kill_all(hw);
-+out_sbl:
-+	fini_rtn = hw->link_ops->link_fini(hw);
-+	if (fini_rtn) {
-+		WARN(1, "SBL link teardown failed during startup unwind: %d\n", fini_rtn);
-+		return fini_rtn;
++err_free_eth2_cq:
++	if (dev->eth2_active) {
++		cxi_cq_free(tx->eth2_cq);
++		tx->eth2_cq = NULL;
 +	}
-+out_ports:
-+	cass_port_del_port_db(hw);
++err_free_shared_cq:
++	cxi_cq_free(tx->shared_cq);
++	tx->shared_cq = NULL;
++err_free_eth1_cq:
++	cxi_cq_free(tx->eth1_cq);
++	tx->eth1_cq = NULL;
++err_free_eq:
++	cxi_eq_free(tx->eq);
++	tx->eq = NULL;
++err_unmap_eq_buf:
++	if (is_vmalloc_addr(tx->eq_attr.queue))
++		cxi_unmap(tx->eq_md);
++err_free_eq_buf:
++	kvfree(tx->eq_attr.queue);
++	tx->eq_attr.queue = NULL;
++err:
++	return rc;
++}
++
++/* Free the receive buffers on the ready lists.
++ * TODO: when closing the device, make sure all buffers are back on
++ * the ready lists.
++ */
++static void free_rx_buffers(struct rx_queue *rx)
++{
++	struct cxi_eth *dev = rx->dev;
++	struct rx_buffer *buf;
++
++	/* Move all buffers to the ready list and free them. */
++	list_splice_init(&rx->rx_in_use, &rx->rx_ready);
++
++	while ((buf = list_first_entry_or_null(&rx->rx_ready,
++					       struct rx_buffer, buf_list))) {
++		list_del(&buf->buf_list);
++		list_add_tail(&buf->buf_list, &rx->rx_unallocated);
++
++		if (buf->ptl_list == C_PTL_LIST_PRIORITY) {
++			if (buf->page) {
++				dma_unmap_page(&dev->cxi_dev->pdev->dev,
++					       dma_unmap_addr(buf, mapping),
++				PAGE_SIZE, DMA_FROM_DEVICE);
++
++				for (; buf->posted_count > 0; buf->posted_count--)
++					put_page(buf->page);
++
++				__free_page(buf->page);
++				buf->page = NULL;
++			}
++		} else {
++			cxi_unmap(buf->md);
++			kvfree(buf->data);
++		}
++		buf->data = NULL;
++	}
++}
++
++/* Allocate and map the receive buffers. */
++static int alloc_rx_buffers(struct rx_queue *rx, unsigned int count,
++			    enum c_ptl_list ptl_list)
++{
++	int rc;
++	unsigned int i;
++	struct rx_buffer *buf;
++	unsigned int data_size;
++	struct cxi_eth *dev = rx->dev;
++	int numa_node = dev_to_node(&dev->cxi_dev->pdev->dev);
++
++	if (ptl_list == C_PTL_LIST_PRIORITY)
++		data_size = dev->eth_info.max_segment_size;
++	else
++		data_size = small_pkts_buf_size;
++
++	for (i = 0; i < count; i++) {
++		buf = list_first_entry_or_null(&rx->rx_unallocated,
++					       struct rx_buffer, buf_list);
++		if (!buf)
++			break;
++
++		list_del(&buf->buf_list);
++
++		buf->data_size = data_size;
++
++		if (ptl_list == C_PTL_LIST_REQUEST) {
++			buf->data = kvzalloc_node(buf->data_size, GFP_KERNEL,
++						  numa_node);
++			if (!buf->data)
++				goto out_requeue;
++
++			buf->md = cxi_map(dev->lni, (uintptr_t)buf->data,
++					  buf->data_size, CXI_MAP_WRITE, NULL);
++			if (IS_ERR(buf->md)) {
++				rc = PTR_ERR(buf->md);
++				netdev_err(dev->ndev,
++					   "cxi_map failed: %d\n", rc);
++				kvfree(buf->data);
++				buf->data = NULL;
++				goto out_requeue;
++			}
++		}
++
++		/* Allocated. Enqueue on the corresponding ready list. */
++		buf->ptl_list = ptl_list;
++
++		list_add_tail(&buf->buf_list, &rx->rx_ready);
++
++		if (ptl_list == C_PTL_LIST_PRIORITY)
++			dev->num_prio_buffers++;
++		else
++			dev->num_req_buffers++;
++	}
++
++	return i;
++
++out_requeue:
++	list_add_tail(&buf->buf_list, &rx->rx_unallocated);
++
++	return i;
++}
++
++/* Re-post an RX buffer. The buffer is on the rx_ready list. */
++static int append_rx_buffer(struct rx_queue *rx, struct rx_buffer *buf,
++			    gfp_t gfp)
++{
++	int rc;
++	dma_addr_t mapping;
++	struct page *page;
++	struct cxi_eth *dev = rx->dev;
++	struct c_target_cmd cmd = {
++		.command.opcode = C_CMD_TGT_APPEND,
++		.ptl_list = buf->ptl_list,
++		.ptlte_index = rx->pt->id,
++		.op_put = 1,
++		.no_truncate = 1,
++		.event_link_disable = 1,
++		.length = buf->data_size,
++		.buffer_id = buf->id,
++		.unrestricted_end_ro = 1,
++		.unrestricted_body_ro = 1,
++		.event_unlink_disable = 1,
++	};
++	int i;
++	size_t posted_offset;
++
++	if (buf->ptl_list == C_PTL_LIST_PRIORITY) {
++		cmd.use_once = 1;
++
++		if (buf->page == NULL) {
++			page = alloc_page(gfp);
++			if (!page) {
++				rc = -ENOMEM;
++				goto fail;
++			}
++
++			mapping = dma_map_page(&dev->cxi_dev->pdev->dev, page,
++					       0, PAGE_SIZE,
++					       DMA_FROM_DEVICE);
++			if (dma_mapping_error(&dev->cxi_dev->pdev->dev,
++					      mapping)) {
++				__free_page(page);
++				rc = -EIO;
++				goto fail;
++			}
++			buf->page = page;
++			buf->mapping = mapping;
++		}
++
++		cmd.start = buf->mapping;
++		cmd.lac = dev->phys_lac;
++		buf->cur_offset = 0;
++		buf->posted_count = 0;
++		posted_offset = 0;
++
++		for (i = 0; i < rx->page_chunks; i++) {
++			cmd.start = buf->mapping + posted_offset;
++
++			rc = cxi_cq_emit_target(rx->cq_tgt_prio, &cmd);
++			if (rc)
++				goto fail;
++
++			get_page(buf->page);
++			buf->posted_count++;
++			posted_offset += dev->eth_info.max_segment_size;
++			rx->stats.append_prio++;
++		}
++	} else {
++		cmd.manage_local = 1;
++		cmd.min_free = dev->min_free;
++		cmd.start = buf->md->iova;
++		cmd.lac = buf->md->lac;
++
++		spin_lock_bh(&dev->cq_tgt_req_lock);
++		rc = cxi_cq_emit_target(dev->cq_tgt_req, &cmd);
++		spin_unlock_bh(&dev->cq_tgt_req_lock);
++
++		rx->stats.append_req++;
++	}
++
++fail:
++	if (rc) {
++		netdev_err_once(dev->ndev, "Append failed on list %d: %d\n",
++				buf->ptl_list, rc);
++		rx->stats.append_failed++;
++	} else {
++		list_del(&buf->buf_list);
++		list_add_tail(&buf->buf_list, &rx->rx_in_use);
++	}
++
++	return rc;
++}
++
++/* Append all ready RX buffers to the portal.
++ * Return the number of buffers appended.
++ */
++int post_rx_buffers(struct rx_queue *rx, gfp_t gfp)
++{
++	struct cxi_eth *dev = rx->dev;
++	unsigned int posted = 0;
++	unsigned int count = 0;
++	struct rx_buffer *buf;
++	struct rx_buffer *tmp;
++	int rc = 0;
++
++	list_for_each_entry_safe(buf, tmp, &rx->rx_ready, buf_list) {
++		rc = append_rx_buffer(rx, buf, gfp);
++		if (rc)
++			break;
++
++		/* Ring the CQ regularly */
++		if (buf->ptl_list == C_PTL_LIST_PRIORITY) {
++			posted++;
++			if (posted == 16) {
++				cxi_cq_ring(rx->cq_tgt_prio);
++				posted = 0;
++			}
++		} else {
++			spin_lock_bh(&dev->cq_tgt_req_lock);
++			cxi_cq_ring(dev->cq_tgt_req);
++			spin_unlock_bh(&dev->cq_tgt_req_lock);
++		}
++
++		count++;
++	}
++
++	if (posted)
++		cxi_cq_ring(rx->cq_tgt_prio);
++
++	return rc ? rc : count;
++}
++
++#define EXPECTED_TARGET_EVENT_SIZE (sizeof(struct c_event_target_enet))
++#define MIN_PACKET_SIZE 64U
++size_t get_rxq_eq_buf_size(struct cxi_eth *dev)
++{
++	size_t num_events;
++
++	/* Calculate the maximum number of events which could occur based on
++	 * RX buffer configuration.
++	 */
++	num_events = dev->ringparam.rx_pending +
++		(small_pkts_buf_count * (small_pkts_buf_size / MIN_PACKET_SIZE));
++
++	return ALIGN((num_events * EXPECTED_TARGET_EVENT_SIZE) +
++		     C_EE_CFG_ECB_SIZE, PAGE_SIZE);
++}
++
++/* CXI_CQ_UPDATE_HIGH_FREQ_EMPTY updates the read pointer every 16 slots.
++ * Since a read pointer status update could be missed on CQ wrap, 2 * 16 slots
++ * should be included as overhead.
++ *
++ * In addition, 4 event slots are reserved for status updates. Thus, an
++ * additional 4 slots should be included as overhead.
++ */
++#define TGT_CQ_OVERHEAD_COUNT ((2U * 16U) + 4U)
++
++int alloc_rx_queue(struct cxi_eth *dev, unsigned int id)
++{
++	int i;
++	int rc;
++	static const struct cxi_pt_alloc_opts pt_alloc_opts = {
++		.en_flowctrl = 1, /* TODO: needed for ethernet? */
++		.ethernet = 1,
++		.do_space_check = 1,
++		.lossless = 1,
++	};
++	struct cxi_eq_attr eq_attr = {};
++	struct cxi_cq_alloc_opts cq_alloc_opts = {};
++	struct rx_queue *rx = &dev->rxqs[id];
++	unsigned int prio_bufs;
++
++	memset(rx, 0, sizeof(*rx));
++
++	cxi_eth_get_node_cpu(dev, id, &rx->node, &rx->cpu);
++
++	rx->dev = dev;
++	rx->id = id;
++	rx->last_bad_frag_drop_rc = C_RC_OK;
++	rx->eth_napi_schedule.min_ts = UINT_MAX;
++
++	INIT_LIST_HEAD(&rx->rx_unallocated);
++	INIT_LIST_HEAD(&rx->rx_ready);
++	INIT_LIST_HEAD(&rx->rx_in_use);
++
++	/* Packets landing on priority buffers will be chopped into
++	 * max_segment_size pieces. Since pages are priority buffers, to avoid
++	 * wasting page memory, pages should be chunked in max_segment_size
++	 * pieces and posted.
++	 */
++	rx->page_chunks = PAGE_SIZE / dev->eth_info.max_segment_size;
++
++	/* The number of priority buffers, not pages, is the size of the RX
++	 * ring divided by number of page chunks. If the
++	 * PAGE_SIZE ==  max_segment_size, the number of prio_bufs will equal
++	 * rx_pending.
++	 */
++	prio_bufs = DIV_ROUND_UP(dev->ringparam.rx_pending, rx->page_chunks);
++	rx->rx_bufs_count = prio_bufs + small_pkts_buf_count;
++	rx->rx_bufs = vzalloc(rx->rx_bufs_count * sizeof(*rx->rx_bufs));
++	if (rx->rx_bufs == NULL) {
++		rc = -ENOMEM;
++		goto err;
++	}
++
++	for (i = 0; i < rx->rx_bufs_count; i++) {
++		struct rx_buffer *buf = &rx->rx_bufs[i];
++
++		buf->id = i;
++		list_add_tail(&buf->buf_list, &rx->rx_unallocated);
++	}
++
++	/* Allocate RX buffers */
++	rc = alloc_rx_buffers(rx, prio_bufs, C_PTL_LIST_PRIORITY);
++	if (rc == 0) {
++		netdev_info(dev->ndev, "Cannot allocate RX priority buffers\n");
++		rc = -ENOMEM;
++		goto err_free_rx_bufs;
++	} else if (rc != prio_bufs) {
++		netdev_info(dev->ndev,
++			    "Only allocated %d RX priority buffers out of %u requested\n",
++			    rc, prio_bufs);
++	}
++
++	rc = alloc_rx_buffers(rx, small_pkts_buf_count, C_PTL_LIST_REQUEST);
++	if (rc == 0) {
++		netdev_info(dev->ndev, "Cannot allocate RX request buffers\n");
++		rc = -ENOMEM;
++		goto err_free_buffers;
++	} else if (rc != small_pkts_buf_count) {
++		netdev_info(dev->ndev,
++			    "Only allocated %d RX request buffers out of %d requested\n",
++			    rc, small_pkts_buf_count);
++	}
++
++	cq_alloc_opts.policy = CXI_CQ_UPDATE_HIGH_FREQ_EMPTY;
++	cq_alloc_opts.count = dev->ringparam.rx_pending + TGT_CQ_OVERHEAD_COUNT;
++	cq_alloc_opts.lpe_cdt_thresh_id = lpe_cdt_thresh_id;
++	rx->cq_tgt_prio = cxi_cq_alloc(dev->lni, dev->err_eq, &cq_alloc_opts,
++				       rx->node);
++	if (IS_ERR(rx->cq_tgt_prio)) {
++		rc = PTR_ERR(rx->cq_tgt_prio);
++		goto err_free_buffers;
++	}
++
++	rx->eq_buf_size = get_rxq_eq_buf_size(dev);
++	rx->eq_buf = kvzalloc_node(rx->eq_buf_size, GFP_KERNEL, rx->node);
++	if (!rx->eq_buf) {
++		rc = -ENOMEM;
++		goto err_free_cq;
++	}
++
++	if (is_vmalloc_addr(rx->eq_buf)) {
++		rx->eq_md = cxi_map(dev->lni, (uintptr_t)rx->eq_buf,
++				    rx->eq_buf_size, CXI_MAP_WRITE, NULL);
++		if (IS_ERR(rx->eq_md)) {
++			rc = PTR_ERR(rx->eq_md);
++			goto err_free_eq_buf;
++		}
++	} else {
++		eq_attr.flags = CXI_EQ_PASSTHROUGH;
++	}
++
++	eq_attr.queue = rx->eq_buf;
++	eq_attr.queue_len = rx->eq_buf_size;
++	eq_attr.cpu_affinity = rx->cpu;
++	rx->eq = cxi_eq_alloc(dev->lni, rx->eq_md, &eq_attr, rx_eq_cb, rx, NULL,
++			      NULL);
++	if (IS_ERR(rx->eq)) {
++		rc = PTR_ERR(rx->eq);
++		goto err_unmap_eq_buf;
++	}
++
++	cxi_eq_int_disable(rx->eq);
++
++	/* Create an Ethernet portal */
++	rx->pt = cxi_pte_alloc(dev->lni, rx->eq, &pt_alloc_opts);
++	if (IS_ERR(rx->pt)) {
++		rc = PTR_ERR(rx->pt);
++		goto err_free_eq;
++	}
++
++	NETIF_NAPI_ADD(dev->ndev, &rx->napi, cxi_rx_eth_poll);
++
++	return 0;
++
++err_free_eq:
++	cxi_eq_free(rx->eq);
++err_unmap_eq_buf:
++	if (is_vmalloc_addr(rx->eq_buf))
++		cxi_unmap(rx->eq_md);
++err_free_eq_buf:
++	kvfree(rx->eq_buf);
++err_free_cq:
++	cxi_cq_free(rx->cq_tgt_prio);
++err_free_buffers:
++	free_rx_buffers(rx);
++err_free_rx_bufs:
++	vfree(rx->rx_bufs);
++err:
++	rx->dev = NULL;
++	return rc;
++}
++
++void free_rx_queue(struct rx_queue *rx)
++{
++	if (!rx->dev)
++		return;
++
++	netif_napi_del(&rx->napi);
++
++	cxi_pte_free(rx->pt);
++	rx->pt = NULL;
++	cxi_eq_free(rx->eq);
++	rx->eq = NULL;
++
++	if (is_vmalloc_addr(rx->eq_buf))
++		cxi_unmap(rx->eq_md);
++	kvfree(rx->eq_buf);
++	rx->eq_md = NULL;
++	rx->eq_buf = NULL;
++
++	cxi_cq_free(rx->cq_tgt_prio);
++	rx->cq_tgt_prio = NULL;
++	free_rx_buffers(rx);
++	vfree(rx->rx_bufs);
++	rx->rx_bufs = NULL;
++	rx->dev = NULL;
++}
++
++void enable_rx_queue(struct rx_queue *rx)
++{
++	napi_enable(&rx->napi);
++	cxi_eq_int_enable(rx->eq);
++}
++
++void disable_rx_queue(struct rx_queue *rx)
++{
++	if (!rx->dev)
++		return;
++
++	cxi_eq_int_disable(rx->eq);
++	napi_disable(&rx->napi);
++}
++
++#define DEFAULT_RESERVED_LES 1024U
++
++static unsigned int get_reserved_les(void)
++{
++	int reserved_les;
++	int max_rx_queues = max_rss_queues + 1; // +1 for PTP queue
++	int max_les_per_queue;
++
++	reserved_les = cxi_get_lpe_append_credits(lpe_cdt_thresh_id);
++	if (reserved_les < 0) {
++		pr_err("Failed to get LPE append credits. Used default %u\n",
++		       DEFAULT_RESERVED_LES);
++		return DEFAULT_RESERVED_LES;
++	}
++
++	max_les_per_queue = reserved_les + small_pkts_buf_count;
++
++	/* Each RX queue needs max_les_per_queue. Since the CXI service reserves
++	 * LEs against each LPE pool (4 pools total), the total number of LEs
++	 * needed needs to be divided by 4. cxi_pte_alloc() will then round
++	 * robind across the LPE pools.
++	 */
++	reserved_les = max_les_per_queue * (max_rx_queues / C_PE_COUNT);
++
++	/* Need to account if the number of queues is not a factor of 4. */
++	if (max_rx_queues % C_PE_COUNT)
++		reserved_les += max_les_per_queue;
++
++	return reserved_les;
++}
++
++/* Allocate the hardware resources and some receive buffers */
++int hw_setup(struct cxi_eth *dev)
++{
++	int rc;
++	int lac;
++	struct net_device *ndev = dev->ndev;
++	const struct cxi_rsrc_limits limits = {
++		.acs = {
++			.max = 1,
++			.res = 1,
++		},
++		.eqs = {
++			.max = 1 + max_rss_queues + (max_tx_queues * 2),
++			.res = 1,
++		},
++		.cts = {
++			.max = 0,
++			.res = 0,
++		},
++		.ptes = {
++			.max = 1 + max_rss_queues,
++			.res = 8,
++		},
++		.txqs = {
++			.max = max_tx_queues * 2,
++			.res = 1,
++		},
++		.tgqs = {
++			.max = 1 + 1 + max_rss_queues,
++			.res = 1,
++		},
++		.tles = {
++			.max = 0,
++			.res = 0,
++		},
++		/* Will actually have 4 * res value for les */
++		.les = {
++			.max = MAX_LE_LIMIT,
++			.res = get_reserved_les(),
++		},
++	};
++	struct cxi_svc_desc svc_desc = {
++		.resource_limits = true,
++		.limits = limits,
++		.is_system_svc = true,
++		.restricted_members = true,
++		.restricted_vnis = true,
++		.num_vld_vnis = 0,
++		.enable = true,
++		.members[0] = {
++			.type = CXI_SVC_MEMBER_UID,
++			.svc_member.uid = (current_euid()).val,
++		},
++	};
++	struct cxi_cq_alloc_opts cq_alloc_opts = {};
++	u8 shared_cp_pcp;
++
++	/* Allocate a Service */
++	rc = cxi_svc_alloc(dev->cxi_dev, &svc_desc, NULL, "ethernet-svc");
++	if (rc < 0) {
++		netdev_info(ndev, "Can't reserve resources: %d\n", rc);
++		goto err;
++	}
++	dev->svc_id = rc;
++
++	dev->lni = cxi_lni_alloc(dev->cxi_dev, dev->svc_id);
++	if (IS_ERR(dev->lni)) {
++		rc = PTR_ERR(dev->lni);
++		netdev_info(ndev, "Can't get an LNI: %d\n", rc);
++		goto err_free_svc;
++	}
++
++	lac = cxi_phys_lac_alloc(dev->lni);
++	if (lac < 0) {
++		rc = -EINVAL;
++		netdev_info(ndev, "failed to get a physical LAC: %d\n", rc);
++		goto err_free_ni;
++	}
++	dev->phys_lac = lac;
++
++	/* Store PCPs for all the Eth Classes */
++	dev->eth1_pcp = cxi_get_tc_req_pcp(dev->cxi_dev, CXI_ETH_TC1);
++	if (dev->eth1_pcp < 0) {
++		rc = -EINVAL;
++		goto err_free_ni;
++	}
++
++	/* Determine if Eth2 is active. Eth1 and Shared will always be active */
++	dev->eth2_pcp = cxi_get_tc_req_pcp(dev->cxi_dev, CXI_ETH_TC2);
++	dev->eth2_active = (dev->eth2_pcp >= 0 && dev->eth2_pcp < 8);
++
++	/* The Shared Ethernet Class is configured with all PCPs apart from
++	 * the ones used by Eth1 and Eth2. Use any of them for configuring
++	 * the CP
++	 */
++	for (shared_cp_pcp = 0; shared_cp_pcp <= 7; shared_cp_pcp++) {
++		if (shared_cp_pcp != dev->eth1_pcp &&
++		    (!dev->eth2_active || shared_cp_pcp != dev->eth2_pcp))
++			break;
++	}
++
++	/* Allocate CPs for each Eth TC
++	 * TODO: Support unique communication profiles + CQ + MCUs for each
++	 * PCP. This may not be feasible with the resource needed for each.
++	 */
++	dev->eth1_cp = cxi_trig_cp_alloc(dev->lni, dev->eth1_pcp,
++					 CXI_ETH_TC1, CXI_TC_TYPE_DEFAULT,
++					 NON_TRIG_LCID);
++	if (IS_ERR(dev->eth1_cp)) {
++		rc = PTR_ERR(dev->eth1_cp);
++		netdev_info(ndev, "Can't allocate Eth1 CP: %d\n", rc);
++		goto err_free_lac;
++	}
++
++	dev->shared_cp = cxi_trig_cp_alloc(dev->lni, shared_cp_pcp,
++					   CXI_ETH_SHARED,
++					   CXI_TC_TYPE_DEFAULT, NON_TRIG_LCID);
++	if (IS_ERR(dev->shared_cp)) {
++		rc = PTR_ERR(dev->shared_cp);
++		netdev_info(ndev, "Can't allocate Eth shared CP: %d\n", rc);
++		goto err_free_eth1_cp;
++	}
++
++	if (dev->eth2_active) {
++		dev->eth2_cp = cxi_trig_cp_alloc(dev->lni, dev->eth2_pcp,
++						 CXI_ETH_TC2,
++						 CXI_TC_TYPE_DEFAULT,
++						 NON_TRIG_LCID);
++		if (IS_ERR(dev->eth2_cp)) {
++			rc = PTR_ERR(dev->eth2_cp);
++			netdev_info(ndev, "Can't allocate Eth2 CP: %d\n", rc);
++			goto err_free_shared_cp;
++		}
++	}
++
++	dev->err_eq_attr.queue_len = PAGE_SIZE;
++	dev->err_eq_attr.queue = (void *)
++		__get_free_pages(GFP_KERNEL | __GFP_ZERO,
++				 get_order(dev->err_eq_attr.queue_len));
++	if (!dev->err_eq_attr.queue) {
++		rc = -ENOMEM;
++		netdev_info(ndev, "Can't allocate the EQ buffer: %d\n", rc);
++		goto err_free_eth2_cp;
++	}
++
++	dev->err_eq_attr.flags = CXI_EQ_PASSTHROUGH;
++	dev->err_eq = cxi_eq_alloc(dev->lni, NULL, &dev->err_eq_attr, err_eq_cb,
++				   dev, NULL, NULL);
++	if (IS_ERR(dev->err_eq)) {
++		rc = PTR_ERR(dev->err_eq);
++		netdev_info(ndev, "Can't allocate the EQ: %d\n", rc);
++		goto err_free_err_eq_buf;
++	}
++
++	cq_alloc_opts.policy = CXI_CQ_UPDATE_HIGH_FREQ_EMPTY;
++	cq_alloc_opts.count =
++		(small_pkts_buf_count * (max_rss_queues + 1)) +	TGT_CQ_OVERHEAD_COUNT;
++	dev->cq_tgt_req = cxi_cq_alloc(dev->lni, dev->err_eq, &cq_alloc_opts,
++				       dev_to_node(&dev->cxi_dev->pdev->dev));
++	if (IS_ERR(dev->cq_tgt_req)) {
++		rc = PTR_ERR(dev->cq_tgt_req);
++		netdev_info(ndev, "Can't allocate the target CQ: %d\n", rc);
++		goto err_free_err_eq;
++	}
++
++	/* Configure RXQ zero used for default/catch-all traffic. */
++	rc = alloc_rx_queue(dev, 0);
++	if (rc) {
++		netdev_info(ndev, "Can't allocate the receive queue: %d\n", rc);
++		goto err_free_cq_tgt_req;
++	}
++	dev->res.ptn_def = dev->rxqs[0].pt->id;
++
++	rc = post_rx_buffers(&dev->rxqs[0], GFP_KERNEL);
++	if (rc < 0) {
++		netdev_info(ndev, "Cannot post any RX buffers: %d\n", rc);
++		goto err_free_rx_queue;
++	}
++
++	/* Configure PTP RX queue */
++	rc = alloc_rx_queue(dev, PTP_RX_Q);
++	if (rc) {
++		netdev_info(ndev, "Can't allocate the PTP receive queue: %d\n",
++			    rc);
++		goto err_free_rx_queue;
++	}
++	dev->res.ptn_ptp = dev->rxqs[PTP_RX_Q].pt->id;
++	rc = post_rx_buffers(&dev->rxqs[PTP_RX_Q], GFP_KERNEL);
++	if (rc < 0) {
++		netdev_info(ndev, "Cannot post RX buffers: %d\n", rc);
++		goto err_free_ptp_queue;
++	}
++
++	rc = alloc_tx_queue(dev, 0);
++	if (rc) {
++		netdev_info(ndev, "Can't allocate the transmit queue: %d\n",
++			    rc);
++		goto err_free_ptp_queue;
++	}
++
++	dev->mac_addr = ether_addr_to_u64(ndev->dev_addr);
++	dev->ptp_mac_addr = PTP_L2_MAC;
++
++	cxi_eth_add_mac(dev->cxi_dev, &dev->res, dev->mac_addr,	false);
++
++	enable_rx_queue(&dev->rxqs[0]);
++	enable_rx_queue(&dev->rxqs[PTP_RX_Q]);
++	enable_tx_queue(&dev->txqs[0]);
++
++	dev->res.rss_queues = 1;
++	rc = cxi_set_rx_channels(dev, dev->ndev->real_num_rx_queues);
++	if (rc) {
++		netdev_info(ndev,
++			    "Can't set the number of RX channels to %d: %d\n",
++			    dev->ndev->real_num_rx_queues, rc);
++		goto err_disable_queues;
++	}
++
++	dev->cur_txqs = 1;
++	rc = cxi_set_tx_channels(dev, dev->ndev->real_num_tx_queues);
++	if (rc) {
++		netdev_info(ndev,
++			    "Can't set the number of TX channels to %d: %d\n",
++			    dev->ndev->real_num_tx_queues, rc);
++		goto err_set_rx_queues;
++	}
++
++	cxi_eth_set_rx_mode(ndev);
++	netif_tx_start_all_queues(ndev);
++	dev->is_active = true;
++
++	return 0;
++
++err_set_rx_queues:
++	cxi_set_rx_channels(dev, 1);
++err_disable_queues:
++	disable_tx_queue(&dev->txqs[0]);
++	disable_rx_queue(&dev->rxqs[PTP_RX_Q]);
++	disable_rx_queue(&dev->rxqs[0]);
++	cxi_eth_set_list_invalidate_all(dev->cxi_dev, &dev->res);
++	free_tx_queue(&dev->txqs[0]);
++err_free_ptp_queue:
++	free_rx_queue(&dev->rxqs[PTP_RX_Q]);
++err_free_rx_queue:
++	free_rx_queue(&dev->rxqs[0]);
++err_free_cq_tgt_req:
++	cxi_cq_free(dev->cq_tgt_req);
++err_free_err_eq:
++	cxi_eq_free(dev->err_eq);
++err_free_err_eq_buf:
++	free_pages((unsigned long)dev->err_eq_attr.queue,
++		   get_order(dev->err_eq_attr.queue_len));
++err_free_eth2_cp:
++	if (dev->eth2_active)
++		cxi_cp_free(dev->eth2_cp);
++err_free_shared_cp:
++	cxi_cp_free(dev->shared_cp);
++err_free_eth1_cp:
++	cxi_cp_free(dev->eth1_cp);
++err_free_lac:
++	cxi_phys_lac_free(dev->lni, dev->phys_lac);
++err_free_ni:
++	cxi_lni_free(dev->lni);
++err_free_svc:
++	cxi_svc_destroy(dev->cxi_dev, dev->svc_id);
++err:
++	return rc;
++}
++
++/* Release hardware resources belonging to a device. */
++void hw_cleanup(struct cxi_eth *dev)
++{
++	int i;
++
++	if (!dev->is_active)
++		return;
++
++	netif_tx_stop_all_queues(dev->ndev);
++
++	dev->is_active = false;
++
++	for (i = 0; i < dev->cur_txqs; i++)
++		disable_tx_queue(&dev->txqs[i]);
++
++	/* Disable RSS support and free RX queues. */
++	cxi_eth_clear_indir_table(dev->cxi_dev, &dev->res);
++	for (i = 0; i < dev->res.rss_queues; i++)
++		disable_rx_queue(&dev->rxqs[i]);
++	disable_rx_queue(&dev->rxqs[PTP_RX_Q]);
++
++	cxi_eth_set_list_invalidate_all(dev->cxi_dev, &dev->res);
++
++	for (i = 0; i < dev->cur_txqs; i++)
++		free_tx_queue(&dev->txqs[i]);
++
++	for (i = 0; i < dev->res.rss_queues; i++)
++		free_rx_queue(&dev->rxqs[i]);
++	free_rx_queue(&dev->rxqs[PTP_RX_Q]);
++
++	cxi_cq_free(dev->cq_tgt_req);
++	dev->cq_tgt_req = NULL;
++	cxi_eq_free(dev->err_eq);
++	free_pages((unsigned long)dev->err_eq_attr.queue,
++		   get_order(dev->err_eq_attr.queue_len));
++	dev->err_eq = NULL;
++	if (dev->eth2_active) {
++		cxi_cp_free(dev->eth2_cp);
++		dev->eth2_cp = NULL;
++	}
++	cxi_cp_free(dev->shared_cp);
++	dev->shared_cp = NULL;
++	cxi_cp_free(dev->eth1_cp);
++	dev->eth1_cp = NULL;
++	cxi_phys_lac_free(dev->lni, dev->phys_lac);
++	dev->phys_lac = 0;
++	cxi_lni_free(dev->lni);
++	dev->lni = NULL;
++	cxi_svc_destroy(dev->cxi_dev, dev->svc_id);
++}
++
++static struct sk_buff *eth_rx_copy(struct rx_queue *rx,
++				   struct rx_buffer *buf,
++				   const struct c_event_target_enet *event)
++{
++	struct cxi_eth *dev = rx->dev;
++	struct net_device *ndev = dev->ndev;
++	struct sk_buff *skb;
++	struct page *page;
++	unsigned char *start;
++	u64 buffer_start;
++	u64 offset;
++
++	if (unlikely(!buf->md || !buf->data))
++		return NULL;
++	buffer_start = CXI_VA_TO_IOVA(buf->md, (uintptr_t)buf->data);
++	if (unlikely(event->start < buffer_start))
++		return NULL;
++	offset = event->start - buffer_start;
++	if (unlikely(offset > buf->data_size ||
++		     event->length > buf->data_size - offset))
++		return NULL;
++	start = buf->data + offset;
++
++	if (likely(rx->frag_state == FRAG_NONE && !event->more_frags)) {
++		/* single fragment */
++		skb = napi_alloc_skb(&rx->napi, event->length);
++		if (unlikely(!skb))
++			return NULL;
++
++		__skb_put_data(skb, start, event->length);
++
++		skb->protocol = eth_type_trans(skb, ndev);
++	} else {
++		skb = napi_get_frags(&rx->napi);
++		if (unlikely(!skb))
++			return NULL;
++
++		/* The SKB may already be full, due to the adapter
++		 * being configured to fragment too much.
++		 */
++		if (unlikely(skb_shinfo(skb)->nr_frags == MAX_SKB_FRAGS))
++			return NULL;
++
++		if (rx->frag_state == FRAG_NONE &&
++		    event->length <= skb_availroom(skb)) {
++			__skb_put_data(skb, start, event->length);
++		} else {
++			if (unlikely(event->length > PAGE_SIZE))
++				return NULL;
++			page = alloc_page(GFP_ATOMIC);
++			if (unlikely(!page)) {
++				napi_free_frags(&rx->napi);
++				return NULL;
++			}
++
++			memcpy(page_address(page), start, event->length);
++
++			skb_add_rx_frag(skb, skb_shinfo(skb)->nr_frags,
++					page, 0, event->length, PAGE_SIZE);
++		}
++	}
++
++	return skb;
++}
++
++static struct sk_buff *eth_rx_frags(struct rx_queue *rx,
++				    struct rx_buffer *buf,
++				    const struct c_event_target_enet *event)
++{
++	struct cxi_eth *eth_dev = rx->dev;
++	struct device *dev = &eth_dev->cxi_dev->pdev->dev;
++	struct sk_buff *skb;
++	struct page *page;
++	int frag_len;
++
++	if (unlikely(!buf->page || !buf->posted_count ||
++		     buf->cur_offset >= PAGE_SIZE ||
++		     event->length > PAGE_SIZE - buf->cur_offset ||
++		     event->length > eth_dev->eth_info.max_segment_size))
++		return NULL;
++
++	skb = napi_get_frags(&rx->napi);
++	if (unlikely(!skb))
++		return NULL;
++
++	/* The SKB may already be full, due to the adapter
++	 * being configured to fragment too much.
++	 */
++	if (unlikely(skb_shinfo(skb)->nr_frags == MAX_SKB_FRAGS))
++		return NULL;
++
++	page = buf->page;
++	frag_len = event->length;
++
++	if (rx->frag_state == FRAG_NONE)
++		prefetch(page_address(page));
++
++	skb_add_rx_frag(skb, skb_shinfo(skb)->nr_frags,
++			page, buf->cur_offset, frag_len,
++			eth_dev->eth_info.max_segment_size);
++	dma_sync_single_for_cpu(dev, buf->mapping + buf->cur_offset, frag_len,
++				DMA_FROM_DEVICE);
++
++	buf->cur_offset += eth_dev->eth_info.max_segment_size;
++	buf->posted_count--;
++
++	if (buf->posted_count == 0) {
++		dma_unmap_page(dev, dma_unmap_addr(buf, mapping), PAGE_SIZE,
++			       DMA_FROM_DEVICE);
++		put_page(page);
++		buf->page = NULL;
++	}
++
++	return skb;
++}
++
++/* Check whether the RoCE packet in the SKB has been segmented by
++ * hardware, which also removed its iCRC. Fix the headers if that
++ * happened.
++ */
++static void check_segmented_roce(struct sk_buff *skb)
++{
++	int frag_len;
++	u16 protocol;
++	struct ethhdr *ethhdr;
++	size_t vhdr_size = 0;
++
++	/* heuristic to figure out whether Cassini stripped the iCRC
++	 * from a RoCE packet, following its segmentation.
++	 */
++	if (skb_shinfo(skb)->nr_frags != 1)
++		return;
++
++	ethhdr = (void *)skb->data;
++	protocol = be16_to_cpu(ethhdr->h_proto);
++
++	/* Check for vlan header - we will support at most one vlan header,
++	 * no nested headers, ipv6 extensions, etc.
++	 */
++	if (eth_type_vlan(ethhdr->h_proto)) {
++		struct vlan_ethhdr *veth;
++
++		veth = (struct vlan_ethhdr *)skb->data;
++		protocol = be16_to_cpu(veth->h_vlan_encapsulated_proto);
++		vhdr_size = sizeof(struct vlan_hdr);
++	}
++
++	/* Check length. ETH+IPv4/6+UDP+BTH headers. */
++	if (skb_headlen(skb) < (54 + vhdr_size) || skb_headlen(skb) > (90 + vhdr_size))
++		return;
++
++	frag_len = skb_frag_size(&skb_shinfo(skb)->frags[0]);
++	if (frag_len != 1024 && frag_len != 2048 && frag_len != 4096)
++		return;
++
++	/* Adjust the IP packet by removing the 4 bytes and
++	 * recomputing the IP header checksum.
++	 */
++	switch (protocol) {
++	case ETH_P_IP: {
++		struct udphdr *udph;
++		struct iphdr *iph;
++
++		iph = (void *)skb->data + sizeof(struct ethhdr) + vhdr_size;
++		iph->tot_len = cpu_to_be16(be16_to_cpu(iph->tot_len) - 4);
++		iph->check = 0;
++		iph->check = ip_fast_csum((const void *)iph, iph->ihl);
++
++		udph = (void *)(iph + 1);
++		udph->len = cpu_to_be16(be16_to_cpu(udph->len) - 4);
++	}
++		break;
++
++	case ETH_P_IPV6: {
++		struct udphdr *udph;
++		struct ipv6hdr *ip6h;
++
++		ip6h = (void *)skb->data + sizeof(struct ethhdr) + vhdr_size;
++		ip6h->payload_len =
++			cpu_to_be16(be16_to_cpu(ip6h->payload_len) - 4);
++
++		if (ip6h->nexthdr != NEXTHDR_UDP) {
++			netdev_warn_once(skb->dev,
++					 "Unexpected ipv6 packet format (nexthdr = %d)\n",
++					 ip6h->nexthdr);
++			return;
++		}
++
++		udph = (void *)(ip6h + 1);
++		udph->len = cpu_to_be16(be16_to_cpu(udph->len) - 4);
++	}
++		break;
++
++	default:
++		netdev_warn_once(skb->dev,
++				 "unexpected protocol in RoCE packet: %x\n",
++				 protocol);
++		return;
++	}
++
++	/* TODO. For now, use a bit in the SKB to tell RXE that
++	 * the iCRC is gone, and that the packet is otherwise correct.
++	 */
++	cxi_skb_icrc_gone(skb);
++}
++
++/* Convert from hash type (i.e. C_RSS_HASH_IPV4_UDP) to linux hash
++ * type (i.e. PKT_HASH_TYPE_L4). Only valid if the hash type is not
++ * C_RSS_HASH_NONE.
++ */
++static const u8 rss_hash_type_to_level[C_RSS_HASH_IPV6_FLOW_LABEL + 1] = {
++	[C_RSS_HASH_IPV4] = PKT_HASH_TYPE_L3,
++	[C_RSS_HASH_IPV4_PROTOCOL] = PKT_HASH_TYPE_L3,
++	[C_RSS_HASH_IPV4_FLOW_LABEL] = PKT_HASH_TYPE_L3,
++	[C_RSS_HASH_IPV6] = PKT_HASH_TYPE_L3,
++	[C_RSS_HASH_IPV6_PROTOCOL] = PKT_HASH_TYPE_L3,
++	[C_RSS_HASH_IPV6_FLOW_LABEL] = PKT_HASH_TYPE_L3,
++
++	[C_RSS_HASH_IPV4_TCP] = PKT_HASH_TYPE_L4,
++	[C_RSS_HASH_IPV4_UDP] = PKT_HASH_TYPE_L4,
++	[C_RSS_HASH_IPV4_PROTOCOL_TCP] = PKT_HASH_TYPE_L4,
++	[C_RSS_HASH_IPV4_PROTOCOL_UDP] = PKT_HASH_TYPE_L4,
++	[C_RSS_HASH_IPV4_PROTOCOL_UDP_ROCE] = PKT_HASH_TYPE_L4,
++	[C_RSS_HASH_IPV6_TCP] = PKT_HASH_TYPE_L4,
++	[C_RSS_HASH_IPV6_UDP] = PKT_HASH_TYPE_L4,
++	[C_RSS_HASH_IPV6_PROTOCOL_TCP] = PKT_HASH_TYPE_L4,
++	[C_RSS_HASH_IPV6_PROTOCOL_UDP] = PKT_HASH_TYPE_L4,
++	[C_RSS_HASH_IPV6_PROTOCOL_UDP_ROCE] = PKT_HASH_TYPE_L4,
++};
++
++static void set_rss_hash_value(const struct c_event_target_enet *event,
++			       struct sk_buff *skb)
++{
++	if (event->rss_hash_type == C_RSS_HASH_NONE ||
++	    event->rss_hash_type > C_RSS_HASH_IPV6_FLOW_LABEL)
++		return;
++
++	skb_set_hash(skb, event->rss_hash_value,
++		     rss_hash_type_to_level[event->rss_hash_type]);
++}
++
++/* Process a received packet */
++static bool eth_receive(struct rx_queue *rx,
++			const struct c_event_target_enet *event)
++{
++	struct cxi_eth *dev = rx->dev;
++	struct net_device *ndev = dev->ndev;
++	struct sk_buff *skb = NULL;
++	struct rx_buffer *buf;
++	bool packet_complete = false;
++
++	/* Find the target buffer */
++	if (event->ptlte_index != rx->pt->id) {
++		netdev_err(ndev, "Unknown portal target in RX event (%d instead of %d)\n",
++			   event->ptlte_index, rx->pt->id);
++		return packet_complete;
++	}
++
++	buf = &rx->rx_bufs[event->buffer_id];
++
++	if (unlikely(event->return_code != C_RC_OK ||
++		     (event->is_roce && !event->more_frags &&
++		      !event->roce_icrc_ok) ||
++		     event->parser_err ||
++		     rx->frag_state == FRAG_DROP)) {
++		goto drop;
++	}
++
++	if (event->ptl_list == C_PTL_LIST_PRIORITY)
++		skb = eth_rx_frags(rx, buf, event);
++	else
++		skb = eth_rx_copy(rx, buf, event);
++
++	if (unlikely(!skb))
++		goto drop;
++
++	if (dev->is_c2) {
++		if (event->seg_cnt == 0) {
++			/* It's a new packet */
++			rx->pkt_cnt = event->pkt_cnt;
++			rx->next_seg_cnt = 1;
++
++			/* Free existing incomplete segments if any */
++			if (rx->frag_state != FRAG_NONE) {
++				ndev->stats.rx_dropped++;
++				rx->frag_state = FRAG_NONE;
++				napi_free_frags(&rx->napi);
++			}
++		} else if (event->pkt_cnt != rx->pkt_cnt ||
++			   event->seg_cnt != rx->next_seg_cnt) {
++			goto drop;
++		} else {
++			rx->next_seg_cnt++;
++		}
++	}
++
++	if (event->more_frags == 0) {
++		__be16 csum;
++
++		ndev->stats.rx_packets++;
++		ndev->stats.rx_bytes += skb->len;
++
++		csum = (__force __be16)event->checksum;
++		skb->csum = (__force __wsum)be16_to_cpu(csum);
++		skb->ip_summed = CHECKSUM_COMPLETE;
++
++		/* Cassini ERRATA-3258. This should test event->timestamp, but
++		 * Cassini 1/1.1 doesn't set it.
++		 */
++		if (dev->ptp_ts_enabled &&
++		    event->ptlte_index == dev->res.ptn_ptp) {
++			struct c_ts ts;
++			int rc;
++
++			rc = skb_copy_bits(skb, skb->len - sizeof(ts),
++					   &ts, sizeof(ts));
++			if (rc)
++				goto drop;
++
++			/* Cassini ERRATA-3276. Ignore the timestamp on Cassini 1
++			 * if ns is close to 1s, as RX timestamp can
++			 * be off by one second in that case. No issue
++			 * on Cassini 2.
++			 */
++			if (dev->is_c2 || ts.ns < 999999700)
++				skb_hwtstamps(skb)->hwtstamp =
++					ktime_set(ts.sec, ts.ns);
++
++			pskb_trim(skb, skb->len - sizeof(ts));
++		}
++
++		if (event->is_roce) {
++			if (skb->len <= 64 && !dev->is_c2 &&
++			    (skb_shinfo(skb)->nr_frags == 0))
++				/* Due to a rarely occurring hardware
++				 * bug, iCRC on packets smaller than
++				 * 65 bytes may be passed although
++				 * they are corrupted.  Tell the rxe
++				 * driver to check it again.
++				 */
++				cxi_force_icrc_check(skb);
++			else if (dev->priv_flags & CXI_ETH_PF_ROCE_OPT)
++				check_segmented_roce(skb);
++		}
++
++		skb_record_rx_queue(skb, rx->id);
++
++		if (ndev->features & NETIF_F_RXHASH)
++			set_rss_hash_value(event, skb);
++
++		if (skb_is_nonlinear(skb)) {
++			napi_gro_frags(&rx->napi);
++
++			rx->frag_state = FRAG_NONE;
++		} else {
++			napi_gro_receive(&rx->napi, skb);
++		}
++
++		packet_complete = true;
++	} else {
++		rx->frag_state = FRAG_MORE;
++	}
++
++requeue:
++	if (event->ptl_list == C_PTL_LIST_PRIORITY) {
++		rx->stats.unlinked_prio++;
++
++		if (buf->page == NULL) {
++			list_del(&buf->buf_list);
++			list_add_tail(&buf->buf_list, &rx->rx_ready);
++		}
++	} else if (event->auto_unlinked) {
++		rx->stats.unlinked_req++;
++		list_del(&buf->buf_list);
++		list_add_tail(&buf->buf_list, &rx->rx_ready);
++	}
++
++	return packet_complete;
++
++drop:
++	/* Error on receive, NIC dropped this frag, or driver dropped a previous
++	 * frag, or skb allocation failure
++	 */
++	netdev_dbg(dev->ndev,
++		   "received return_code=%d more=%d state=%d ptl_list=%d roce=%d\n",
++		   event->return_code, event->more_frags, rx->frag_state,
++		   event->ptl_list, event->is_roce);
++
++	if (event->return_code != C_RC_OK)
++		rx->last_bad_frag_drop_rc = event->return_code;
++
++	/* Not always a whole packet, so in theory a single packet
++	 * could be counted several times, one for each segment.
++	 */
++	ndev->stats.rx_dropped++;
++
++	if (rx->frag_state != FRAG_DROP)
++		napi_free_frags(&rx->napi);
++
++	if (event->more_frags)
++		rx->frag_state = FRAG_DROP;
++	else
++		rx->frag_state = FRAG_NONE;
++
++	goto requeue;
++}
++
++/* RX queue interrupt handler. Disable the interrupts for that EQ and
++ * trigger NAPI.
++ */
++static void rx_eq_cb(void *context)
++{
++	struct rx_queue *rx = context;
++
++	rx->time_napi_schedule = ktime_get_raw();
++	napi_schedule(&rx->napi);
++}
++
++static void add_ktime_to_bucket(struct bucket *bucket, u64 ns)
++{
++	int i;
++
++	if (ns > bucket->max_ts)
++		bucket->max_ts = ns;
++	if (ns < bucket->min_ts)
++		bucket->min_ts = ns;
++
++	i = fls(ns + 1);
++	if (i >= NB_BUCKETS)
++		i = NB_BUCKETS - 1;
++
++	bucket->b[i]++;
++}
++
++#define RX_ETH_EQ_UNACKED_MAX 16U
++
++/* NAPI poll function.
++ * Only the receive event will be counted towards the budget.
++ */
++static int cxi_rx_eth_poll(struct napi_struct *napi, int budget)
++{
++	struct rx_queue *rx = container_of(napi, struct rx_queue, napi);
++	struct cxi_eth *dev = rx->dev;
++	const union c_event *event;
++	int work_done = 0;
++	int event_count = 0;
++	bool reschedule = false;
++	bool packet_processed = false;
++	int rc;
++
++	if (rx->time_napi_schedule) {
++		ktime_t enter_ts;
++		u64 time_exec;
++
++		enter_ts = ktime_get_raw();
++		time_exec = ktime_to_ns(ktime_sub(enter_ts,
++						  rx->time_napi_schedule));
++		add_ktime_to_bucket(&rx->eth_napi_schedule, time_exec);
++
++		/* Prevent adding time when the function is re-entered */
++		rx->time_napi_schedule = 0;
++	}
++
++	while (work_done < budget &&
++	       (event = cxi_eq_get_event(rx->eq))) {
++		switch (event->hdr.event_type) {
++		case C_EVENT_LINK:
++			packet_processed = false;
++			netdev_warn(dev->ndev, "LE append failure: %d\n",
++				    event->tgt_long.return_code);
++			break;
++		case C_EVENT_ETHERNET:
++			packet_processed = eth_receive(rx, &event->enet);
++			if (packet_processed)
++				work_done++;
++			break;
++		case C_EVENT_STATE_CHANGE:
++			packet_processed = false;
++			netdev_warn(dev->ndev, "State change (%d, %d, %d)\n",
++				    event->tgt_long.ptlte_index,
++			       event->tgt_long.initiator.state_change.ptlte_state,
++			       event->tgt_long.return_code);
++			break;
++		default:
++			packet_processed = false;
++			netdev_warn(dev->ndev, "Unhandled event %d, rc %d\n",
++				    event->hdr.event_type,
++				    event->hdr.return_code);
++			print_hex_dump(KERN_INFO,
++				       "cxi eth unexpected target event: ",
++				       DUMP_PREFIX_ADDRESS, 16, 1, event,
++				       (8 << event->hdr.event_size), false);
++		}
++
++		event_count++;
++		if ((event_count >= RX_ETH_EQ_UNACKED_MAX) &&
++		    packet_processed) {
++			cxi_eq_int_disable(rx->eq);
++			rc = post_rx_buffers(rx, GFP_ATOMIC);
++			if (rc < 0)
++				reschedule = true;
++
++			event_count = 0;
++		}
++	}
++
++	BUG_ON(work_done > budget);
++
++	/* ACK all EQ space before appending new buffers. */
++	if (event_count)
++		cxi_eq_int_disable(rx->eq);
++
++	if (!list_empty(&rx->rx_ready)) {
++		rc = post_rx_buffers(rx, GFP_ATOMIC);
++		if (rc < 0)
++			reschedule = true;
++	}
++
++	if (work_done < budget && napi_complete_done(napi, work_done)) {
++		/* Only re-enable interrupts if NAPI is not going to be
++		 * rescheduled.
++		 */
++		if (reschedule) {
++			netdev_warn_once(dev->ndev,
++					 "Forcing NAPI reschedule\n");
++			napi_schedule(&rx->napi);
++		} else {
++			cxi_eq_int_enable(rx->eq);
++		}
++	}
++
++	return work_done;
++}
++
++/* Hardware defined RSS hash bit is one less than the corresponding
++ * c_rss_hash_type enum value. This macro should only be used if the
++ * c_rss_hash_type enum value is not C_RSS_HASH_NONE.
++ */
++#define RSS_HASH_BIT(hash_type) ((hash_type) - 1)
++
++int cxi_eth_open(struct net_device *ndev)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	struct hwtstamp_config ts_cfg = {
++		.flags = 0,
++		.tx_type = HWTSTAMP_TX_OFF,
++		.rx_filter = HWTSTAMP_FILTER_NONE,
++	};
++
++	cxi_set_eth_name(dev->cxi_dev, netdev_name(ndev));
++
++	/* The indirection base is always 0 for now, as there is only
++	 * one Ethernet device supported. The driver will need an
++	 * allocation scheme when VFs support Ethernet.
++	 */
++	dev->res.portal_index_indir_base = 0;
++
++	/* Enable some default hash type.
++	 * TODO: remove when ethtool supports them.
++	 */
++	dev->res.hash_types_enabled =
++		BIT(RSS_HASH_BIT(C_RSS_HASH_IPV4_TCP)) |
++		BIT(RSS_HASH_BIT(C_RSS_HASH_IPV4_UDP)) |
++		BIT(RSS_HASH_BIT(C_RSS_HASH_IPV4_PROTOCOL_UDP_ROCE)) |
++		BIT(RSS_HASH_BIT(C_RSS_HASH_IPV6_TCP)) |
++		BIT(RSS_HASH_BIT(C_RSS_HASH_IPV6_UDP)) |
++		BIT(RSS_HASH_BIT(C_RSS_HASH_IPV6_PROTOCOL_UDP_ROCE));
++
++	cxi_eth_cfg_timestamp(dev->cxi_dev, &ts_cfg);
++
++	return hw_setup(dev);
++}
++
++int cxi_eth_close(struct net_device *ndev)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++
++	hw_cleanup(dev);
++
++	return 0;
++}
++
++/* Get a flow hash for the commands */
++static u8 get_flow_hash(struct sk_buff *skb)
++{
++	u32 hash = skb_get_hash(skb);
++
++	/* XOR the 4 bytes into one */
++	hash ^= hash >> 16;
++	hash ^= hash >> 8;
++
++	return hash & 0xff;
++}
++
++static void cxi_eth_get_skb_checksum_settings(struct sk_buff *skb,
++					      struct cxi_eth *dev,
++					      enum c_checksum_ctrl *ctrl,
++					      unsigned int *start,
++					      unsigned int *offset)
++{
++	__be16 proto;
++
++	if (skb->ip_summed != CHECKSUM_PARTIAL)
++		goto no_crc;
++
++	*start = skb_checksum_start_offset(skb) / 2;
++	*offset = skb->csum_offset / 2;
++
++	if (eth_type_vlan(skb->protocol))
++		proto = vlan_get_protocol(skb);
++	else
++		proto = skb->protocol;
++
++	if (proto == htons(ETH_P_IP)) {
++		struct iphdr *iph = ip_hdr(skb);
++
++		if (iph->protocol == IPPROTO_UDP) {
++			if ((dev->priv_flags & CXI_ETH_PF_ROCE_OPT) &&
++			    ntohs(udp_hdr(skb)->dest) == ROCE_V2_UDP_DPORT)
++				*ctrl = C_CHECKSUM_CTRL_ROCE;
++			else
++				*ctrl = C_CHECKSUM_CTRL_UDP;
++		} else if (iph->protocol == IPPROTO_TCP) {
++			*ctrl = C_CHECKSUM_CTRL_TCP;
++		}
++	} else if (proto == htons(ETH_P_IPV6)) {
++		struct ipv6hdr *iph = ipv6_hdr(skb);
++
++		if (iph->nexthdr == IPPROTO_UDP) {
++			if ((dev->priv_flags & CXI_ETH_PF_ROCE_OPT) &&
++			    ntohs(udp_hdr(skb)->dest) == ROCE_V2_UDP_DPORT)
++				*ctrl = C_CHECKSUM_CTRL_ROCE;
++			else
++				*ctrl = C_CHECKSUM_CTRL_UDP;
++		} else if (iph->nexthdr == IPPROTO_TCP) {
++			*ctrl = C_CHECKSUM_CTRL_TCP;
++		}
++	} else {
++		netdev_warn_once(dev->ndev,
++				 "Checksum type not supported. Protocol=%u\n",
++				 skb->protocol);
++		goto no_crc;
++	}
++
++	return;
++
++no_crc:
++	*ctrl = C_CHECKSUM_CTRL_NONE;
++	*start = 0;
++	*offset = 0;
++}
++
++/* Emit a packet using an IDC command */
++static netdev_tx_t emit_idc(struct sk_buff *skb, struct tx_queue *txq,
++			    struct cxi_cq *cq)
++{
++	struct c_idc_eth_cmd idc_eth = {
++		.fmt = C_PKT_FORMAT_STD,
++	};
++	struct cxi_eth *dev = txq->dev;
++	struct net_device *ndev = dev->ndev;
++	enum c_checksum_ctrl checksum_ctrl;
++	unsigned int checksum_start;
++	unsigned int checksum_offset;
++	int rc;
++
++	cxi_eth_get_skb_checksum_settings(skb, dev, &checksum_ctrl,
++					  &checksum_start, &checksum_offset);
++
++	idc_eth.checksum_ctrl = checksum_ctrl;
++	idc_eth.checksum_start = checksum_start;
++	idc_eth.checksum_offset = checksum_offset;
++	idc_eth.flow_hash = get_flow_hash(skb);
++
++	skb_tx_timestamp(skb);
++
++	rc = cxi_cq_emit_idc_eth(cq, &idc_eth, skb->data, skb->len);
++	if (rc) {
++		/* Hard error which should never happen. */
++		netdev_err(dev->ndev, "TX queue %u full when queue awake\n",
++			   txq->id);
++		txq->stats.tx_busy++;
++
++		return NETDEV_TX_BUSY;
++	}
++
++	txq->stats.idc++;
++	txq->stats.idc_bytes += skb->len;
++
++	ndev->stats.tx_packets++;
++	ndev->stats.tx_bytes += skb->len;
++
++	dev_kfree_skb(skb);
++
++	return NETDEV_TX_OK;
++}
++
++/* Emit a packet using a DMA command */
++static netdev_tx_t emit_dma(struct sk_buff *skb, struct tx_queue *txq,
++			    struct cxi_cq *cq, unsigned int *bytes)
++{
++	struct cxi_eth *dev = txq->dev;
++	struct device *dma_dev = &dev->cxi_dev->pdev->dev;
++	struct net_device *ndev = dev->ndev;
++	struct c_dma_eth_cmd dma_eth = {
++		.read_lac = txq->dev->phys_lac,
++		.fmt = C_PKT_FORMAT_STD,
++		.checksum_ctrl = C_CHECKSUM_CTRL_NONE,
++		.eq = txq->eq->eqn,
++		.user_ptr = (uintptr_t)skb,
++		.total_len = skb->len,
++	};
++	enum c_checksum_ctrl checksum_ctrl;
++	unsigned int checksum_start;
++	unsigned int checksum_offset;
++	int rc;
++
++	if (skb_shinfo(skb)->nr_frags >= C_MAX_ETH_FRAGS) {
++		if (skb_linearize(skb) ||
++		    skb_shinfo(skb)->nr_frags >= C_MAX_ETH_FRAGS) {
++			netdev_warn(ndev, "skb could not be linearized\n");
++			cancel_tx_tstamp(dev, skb);
++			dev_kfree_skb(skb);
++			ndev->stats.tx_dropped++;
++			return NETDEV_TX_OK;
++		}
++	}
++
++	if (prepare_frags(dma_dev, skb, &dma_eth)) {
++		netdev_warn(ndev, "skb could not be mapped for DMA\n");
++		cancel_tx_tstamp(dev, skb);
++		dev_kfree_skb(skb);
++		ndev->stats.tx_dropped++;
++		return NETDEV_TX_OK;
++	}
++
++	cxi_eth_get_skb_checksum_settings(skb, dev, &checksum_ctrl,
++					  &checksum_start, &checksum_offset);
++
++	dma_eth.checksum_ctrl = checksum_ctrl;
++	dma_eth.checksum_start = checksum_start;
++	dma_eth.checksum_offset = checksum_offset;
++	dma_eth.flow_hash = get_flow_hash(skb);
++
++	skb_tx_timestamp(skb);
++
++	rc = cxi_cq_emit_dma_eth(cq, &dma_eth);
++	if (rc) {
++		/* Hard error which should never happen. */
++		netdev_err(dev->ndev, "TX queue %u full when queue awake\n",
++			   txq->id);
++		txq->stats.tx_busy++;
++
++		unmap_frags(dma_dev, skb);
++		cancel_tx_tstamp(dev, skb);
++
++		return NETDEV_TX_BUSY;
++	}
++
++	atomic_dec(&txq->dma_eq_cdt);
++	txq->stats.dma++;
++	txq->stats.dma_bytes += skb->len;
++
++	*bytes += skb->len;
++	return NETDEV_TX_OK;
++}
++
++/* Check whether an outgoing packet can be timestamped, and reserve
++ * the unique slot if it can.
++ */
++static bool tstamp_xmit(struct cxi_eth *dev, struct sk_buff *skb)
++{
++	struct ethhdr *ethhdr;
++
++	if (likely(!(skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP)))
++		return false;
++
++	/* Only Ethernet PTP packets are supported. That's what was
++	 * programmed in cxi_eth_cfg_timestamp().
++	 */
++	ethhdr = (struct ethhdr *)skb->data;
++	if (ethhdr->h_proto != htons(PTP_L2_ETHERTYPE))
++		return false;
++
++	if (cmpxchg(&dev->tstamp_skb, NULL, skb))
++		return false;
++
++	skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
++
++	return true;
++}
++
++static void ring_txq(struct tx_queue *txq)
++{
++	cxi_cq_ring(txq->eth1_cq);
++	if (txq->eth2_cq)
++		cxi_cq_ring(txq->eth2_cq);
++	cxi_cq_ring(txq->shared_cq);
++}
++
++netdev_tx_t cxi_eth_start_xmit(struct sk_buff *skb, struct net_device *ndev)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	unsigned int qid = skb_get_queue_mapping(skb);
++	struct tx_queue *txq = &dev->txqs[qid];
++	struct netdev_queue *dev_queue =
++		netdev_get_tx_queue(dev->ndev, txq->id);
++	unsigned int bytes = 0;
++	netdev_tx_t tx_status;
++	bool kick_cq;
++	bool more = netdev_xmit_more();
++	struct cxi_cq *cq;
++
++	if (eth_type_vlan(skb->protocol)) {
++		/* Tagged traffic. Check PCPs to steer appropriately */
++		struct vlan_ethhdr *veth;
++		unsigned int pcp;
++
++		veth = (struct vlan_ethhdr *)vlan_eth_hdr(skb);
++		pcp = (be16_to_cpu(veth->h_vlan_TCI) & VLAN_PRIO_MASK) >> VLAN_PRIO_SHIFT;
++
++		if (pcp == dev->cxi_dev->untagged_eth_pcp)
++			cq = txq->untagged_cq;
++		else if (pcp == dev->eth1_pcp)
++			cq = txq->eth1_cq;
++		else if (dev->eth2_active && pcp == dev->eth2_pcp)
++			cq = txq->eth2_cq;
++		else
++			cq = txq->shared_cq;
++	} else {
++		/* Untagged traffic. */
++		cq = txq->untagged_cq;
++	}
++
++	if (tstamp_xmit(dev, skb) || skb_shinfo(skb)->nr_frags ||
++	    skb->len > idc_dma_threshold) {
++		tx_status = emit_dma(skb, txq, cq, &bytes);
++		txq->force_dma = txq->force_dma_interval;
++	} else if (--txq->force_dma == 0) {
++		/* Too many consecutive IDC. Use DMA instead */
++		tx_status = emit_dma(skb, txq, cq, &bytes);
++		txq->force_dma = txq->force_dma_interval;
++		txq->stats.dma_forced++;
++	} else {
++		tx_status = emit_idc(skb, txq, cq);
++	}
++
++	/* Kick CQ if netdev TX queue is ready. */
++	kick_cq = __netdev_tx_sent_queue(dev_queue, bytes, more);
++	if (kick_cq)
++		ring_txq(txq);
++
++	/* Stop TX queue if not enough free slots to emit another SKB
++	 * or NETDEV_TX_BUSY is set. 8 slots, aligned on an 8-slot
++	 * boundary, are required to emit the largest IDC or DMA
++	 * commands. TX queue will be re-enabled as space frees up. If
++	 * the TX queue is to be stopped, the TX queue is always
++	 * kicked in an attempt to free up space.
++	 */
++	if (__cxi_cq_free_slots(cq) < 16 || tx_status == NETDEV_TX_BUSY) {
++		if (!kick_cq)
++			ring_txq(txq);
++		netif_tx_stop_queue(dev_queue);
++		txq->stats.stopped++;
++	} else if (atomic_read(&txq->dma_eq_cdt) <= 0) {
++		/* The EQ is getting full */
++		if (!kick_cq)
++			ring_txq(txq);
++		netif_tx_stop_queue(dev_queue);
++		txq->stats.stopped_eq++;
++	}
++
++	return tx_status;
++}
++
++int cxi_eth_mac_addr(struct net_device *ndev, void *p)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	int rc;
++
++	rc = eth_mac_addr(ndev, p);
++	if (rc)
++		return rc;
++
++	dev->mac_addr = ether_addr_to_u64(ndev->dev_addr);
++	ether_addr_copy(dev->cxi_dev->mac_addr, ndev->dev_addr);
++
++	cxi_eth_set_rx_mode(ndev);
++
++	/* We expect the NID to be configured before the MAC address is set.
++	 * To be backwards compatible, we will attempt to set the NID from the MAC address.
++	 * If the NID was not set, it will be derived from the MAC. Otherwise this will be ignored
++	 */
++	cxi_set_nid_from_mac(dev->cxi_dev, ndev->dev_addr);
++
++	return 0;
++}
++
++/* Program MAC filters.
++ *
++ * Since the ethernet driver is the only thing using the MAC filter
++ * (set_list), we can reset the whole list when entering this
++ * function, and reprogram everything.
++ */
++void cxi_eth_set_rx_mode(struct net_device *ndev)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	struct netdev_hw_addr *ha;
++	int rc;
++
++	/* Invalidate all existing filters. */
++	cxi_eth_set_list_invalidate_all(dev->cxi_dev, &dev->res);
++
++	/* Cassini ERRATA-3258. Workaround timestamp bug. Program the PTP MAC
++	 * address first so all the PTP packets will land on the PTP
++	 * RX queue, even if promiscuous mode is enabled.
++	 */
++	cxi_eth_add_mac(dev->cxi_dev, &dev->res, dev->ptp_mac_addr, true);
++
++	if (ndev->flags & IFF_PROMISC) {
++		/* Listen on everything. */
++		cxi_eth_set_promiscuous(dev->cxi_dev, &dev->res);
++		cxi_eth_set_indir_table(dev->cxi_dev, &dev->res);
++		return;
++	}
++
++	rc = cxi_eth_add_mac(dev->cxi_dev, &dev->res, dev->mac_addr, false);
++	if (rc) {
++		netdev_err(ndev, "Cannot program MAC address\n");
++		return;
++	}
++
++	if (ndev->flags & IFF_BROADCAST) {
++		rc = cxi_eth_add_mac(dev->cxi_dev, &dev->res,
++				     0xffffffffffffULL, false);
++		if (rc) {
++			netdev_err(ndev, "Cannot program broadcast address\n");
++			return;
++		}
++	}
++
++	netdev_for_each_uc_addr(ha, ndev) {
++		netdev_dbg(ndev, "Adding UC addr %pM\n", ha->addr);
++
++		rc = cxi_eth_add_mac(dev->cxi_dev, &dev->res,
++				     ether_addr_to_u64(ha->addr), false);
++		if (rc) {
++			netdev_err(ndev, "Cannot program unicast address\n");
++			return;
++		}
++	}
++
++	if (ndev->flags & IFF_ALLMULTI) {
++		/* Accept all multicasts. */
++		rc = cxi_eth_set_all_multi(dev->cxi_dev, &dev->res);
++		if (rc) {
++			netdev_err(ndev,
++				   "Cannot program all multicast addresses\n");
++			return;
++		}
++	} else if (ndev->flags & IFF_MULTICAST) {
++		netdev_for_each_mc_addr(ha, ndev) {
++			netdev_dbg(ndev, "Adding MC addr %pM\n", ha->addr);
++
++			rc = cxi_eth_add_mac(dev->cxi_dev, &dev->res,
++					     ether_addr_to_u64(ha->addr),
++					     false);
++			if (rc) {
++				netdev_err(ndev,
++					   "Cannot program multicast address\n");
++				return;
++			}
++		}
++	}
++
++	cxi_eth_set_indir_table(dev->cxi_dev, &dev->res);
++}
++
++int cxi_change_mtu(struct net_device *ndev, int new_mtu)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	bool was_running;
++	int rc;
++
++	was_running = netif_running(ndev);
++	if (was_running)
++		hw_cleanup(dev);
++
++	rc = cxi_set_max_eth_rxsize(dev->cxi_dev, new_mtu + VLAN_ETH_HLEN);
++	if (rc)
++		netdev_err(ndev, "Invalid MTU size: %u\n", new_mtu);
++	else
++		ndev->mtu = new_mtu;
++
++	if (was_running) {
++		int rc2;
++
++		rc2 = hw_setup(dev);
++		if (rc2) {
++			netdev_err(ndev,
++				   "Failed to setup resources after an MTU change\n");
++			rc = rc2;
++		}
++	}
++
++	return rc;
++}
+diff --git a/drivers/net/ethernet/hpe/ss1/cxi_ethtool.c b/drivers/net/ethernet/hpe/ss1/cxi_ethtool.c
+new file mode 100644
+index 000000000000..67d8a0d23b90
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/ss1/cxi_ethtool.c
+@@ -0,0 +1,916 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Cassini ethernet driver
++ * Copyright 2018,2022,2024,2026 Hewlett Packard Enterprise Development LP
++ */
++
++#include <linux/netdevice.h>
++#include <linux/etherdevice.h>
++#include <linux/ethtool.h>
++#include <linux/firmware.h>
++#include <uapi/linux/net_tstamp.h>
++
++#include "cxi_eth.h"
++#include "cxi_link.h"
++/*
++ * definitions for CXI_GLOBAL_STATS_LEN, cxi_get_ethtool_stats_set,
++ * and cxi_get_ethtool_stats_name.
++ */
++#include "cxi_ethtool_names.h"
++
++/* Ethtool priv_flags */
++static const char priv_flags_str[PRIV_FLAGS_COUNT][ETH_GSTRING_LEN] = {
++	"internal-loopback",
++	"external-loopback",
++	"llr",
++	"precoding",
++	"ifg-hpc",
++	"roce-opt",
++	"ignore-align",
++	"pml-recovery",
++	"link-train",
++	"remote-fault-recovery",
++	"use-unsupported-cable",
++	"fec_monitor",
++	"auto-lane-degrade",
++	"ignore-media-error",
++	"use-supported-ss200-cable",
++	"los-lol-hide",
++	"r1-link-partner"
++};
++
++/* ethtool ops */
++static void cxi_get_drvinfo(struct net_device *ndev,
++			    struct ethtool_drvinfo *info)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++
++	strscpy(info->driver, "cxi_eth", sizeof(info->driver));
++	strscpy(info->version, "0.2", sizeof(info->version));
++	strscpy(info->bus_info, dev_name(ndev->dev.parent),
++		sizeof(info->bus_info));
++	strscpy(info->fw_version, dev->eth_info.fw_version,
++		sizeof(info->fw_version));
++	strscpy(info->erom_version, dev->eth_info.erom_version,
++		sizeof(info->erom_version));
++
++	info->n_priv_flags = PRIV_FLAGS_COUNT;
++}
++
++static int cxi_get_sset_count(struct net_device *ndev, int sset)
++{
++	switch (sset) {
++	case ETH_SS_PRIV_FLAGS:
++		return PRIV_FLAGS_COUNT;
++	case ETH_SS_STATS:
++		return CXI_GLOBAL_STATS_LEN;
++	default:
++		return -EOPNOTSUPP;
++	}
++}
++
++static void cxi_get_strings(struct net_device *ndev, u32 stringset, u8 *data)
++{
++	char *p = data;
++	struct cxi_eth *dev = netdev_priv(ndev);
++	char *dst;
++
++	switch (stringset) {
++	case ETH_SS_PRIV_FLAGS:
++		memcpy(p, priv_flags_str, PRIV_FLAGS_COUNT * ETH_GSTRING_LEN);
++		if (cassini_version(&dev->cxi_dev->prop, CASSINI_1)) {
++			dst = p + 7 * ETH_GSTRING_LEN;
++			memset(dst, 0, ETH_GSTRING_LEN);
++			strscpy(dst, "disable-pml-recovery", ETH_GSTRING_LEN);
++		}
++		break;
++	case ETH_SS_STATS:
++		memcpy(p, cxi_get_ethtool_stats_name, CXI_GLOBAL_STATS_LEN *
++		       ETH_GSTRING_LEN);
++		break;
++
++	}
++}
++
++/* Return the number of RSS queues. */
++static void cxi_get_channels(struct net_device *ndev,
++			     struct ethtool_channels *channels)
++{
++	channels->max_rx = max_rss_queues;
++	channels->max_tx = max_tx_queues;
++	channels->max_combined = 0;
++	channels->max_other = 0;
++	channels->rx_count = ndev->real_num_rx_queues;
++	channels->tx_count = ndev->real_num_tx_queues;
++	channels->other_count = 0;
++	channels->combined_count = 0;
++}
++
++static int cxi_grow_tx_channels(struct cxi_eth *dev,
++				unsigned int num_tx_channels)
++{
++	int i;
++	int rc;
++
++	for (i = dev->cur_txqs; i < num_tx_channels; i++) {
++		rc = alloc_tx_queue(dev, i);
++		if (rc)
++			goto err_free_txqs;
++	}
++
++	for (i = dev->cur_txqs; i < num_tx_channels; i++)
++		enable_tx_queue(&dev->txqs[i]);
++
++	rc = netif_set_real_num_tx_queues(dev->ndev, num_tx_channels);
++	if (rc)
++		goto err_disable_txqs;
++
++	return 0;
++
++err_disable_txqs:
++	for (i = dev->cur_txqs; i < num_tx_channels; i++)
++		disable_tx_queue(&dev->txqs[i]);
++err_free_txqs:
++	while (i > dev->cur_txqs)
++		free_tx_queue(&dev->txqs[--i]);
++
++	return rc;
++}
++
++static int cxi_shrink_tx_channels(struct cxi_eth *dev,
++				  unsigned int num_tx_channels)
++{
++	int i;
++	int rc;
++
++	rc = netif_set_real_num_tx_queues(dev->ndev, num_tx_channels);
++	if (rc)
++		return rc;
++
++	for (i = dev->cur_txqs - 1; i >= num_tx_channels; i--)
++		disable_tx_queue(&dev->txqs[i]);
++
++	for (i = dev->cur_txqs - 1; i >= num_tx_channels; i--)
++		free_tx_queue(&dev->txqs[i]);
++
++	return 0;
++}
++
++int cxi_set_tx_channels(struct cxi_eth *dev, unsigned int num_tx_channels)
++{
++	int rc;
++
++	if (dev->cur_txqs == num_tx_channels)
++		return 0;
++	else if (num_tx_channels < dev->cur_txqs)
++		rc = cxi_shrink_tx_channels(dev, num_tx_channels);
++	else
++		rc = cxi_grow_tx_channels(dev, num_tx_channels);
++
++	if (!rc)
++		dev->cur_txqs = num_tx_channels;
++
++	return rc;
++}
++
++static int cxi_grow_rx_channels(struct cxi_eth *dev,
++				unsigned int num_rx_channels)
++{
++	int rc;
++	int i;
++
++	for (i = dev->res.rss_queues; i < num_rx_channels; i++) {
++		rc = alloc_rx_queue(dev, i);
++		if (rc)
++			goto err_free_rxqs;
++
++		rc = post_rx_buffers(&dev->rxqs[i], GFP_KERNEL);
++		if (rc < 0) {
++			netdev_info(dev->ndev, "Cannot post RX buffers: %d\n",
++				    rc);
++			/* Increment i to free this RXQ. */
++			i++;
++			goto err_free_rxqs;
++		}
++	}
++
++	for (i = dev->res.rss_queues; i < num_rx_channels; i++)
++		enable_rx_queue(&dev->rxqs[i]);
++
++	return 0;
++
++err_free_rxqs:
++	for (i--; i >= dev->res.rss_queues; i--)
++		free_rx_queue(&dev->rxqs[i]);
++
++	return rc;
++}
++
++static void cxi_shrink_rx_channels(struct cxi_eth *dev,
++				   unsigned int num_rx_channels)
++{
++	int i;
++
++	for (i = dev->res.rss_queues - 1; i >= num_rx_channels; i--)
++		disable_rx_queue(&dev->rxqs[i]);
++
++	for (i = dev->res.rss_queues - 1; i >= num_rx_channels; i--)
++		free_rx_queue(&dev->rxqs[i]);
++}
++
++static bool valid_rx_channel_count(unsigned int num_rx_channels)
++{
++	if (!is_power_of_2(num_rx_channels) || num_rx_channels < 1 ||
++	    num_rx_channels > max_rss_queues)
++		return false;
++	return true;
++}
++
++int cxi_set_rx_channels(struct cxi_eth *dev, unsigned int num_rx_channels)
++{
++	unsigned int old_rx_channels = dev->ndev->real_num_rx_queues;
++	int rc;
++	int i;
++
++	if (!valid_rx_channel_count(num_rx_channels))
++		return -EINVAL;
++
++	if (num_rx_channels == dev->res.rss_queues)
++		return 0;
++
++	/* Disable RSS support for all configure MAC addresses/set lists. This
++	 * will temporarily force all traffic to the RXQ 0 which is the
++	 * default/catch-all RX queue.
++	 */
++	cxi_eth_clear_indir_table(dev->cxi_dev, &dev->res);
++
++	rc = netif_set_real_num_rx_queues(dev->ndev, num_rx_channels);
++	if (rc) {
++		cxi_eth_set_indir_table(dev->cxi_dev, &dev->res);
++		goto out;
++	}
++
++	if (num_rx_channels > dev->res.rss_queues) {
++		rc = cxi_grow_rx_channels(dev, num_rx_channels);
++		if (rc) {
++			netif_set_real_num_rx_queues(dev->ndev, old_rx_channels);
++			/* Number of channels have not changed. Re-enable RSS
++			 * and exit.
++			 */
++			cxi_eth_set_indir_table(dev->cxi_dev, &dev->res);
++			goto out;
++		}
++	} else {
++		cxi_shrink_rx_channels(dev, num_rx_channels);
++	}
++
++	dev->res.rss_queues = num_rx_channels;
++	dev->res.rss_indir_size = num_rx_channels > 1 ? rss_indir_size : 0;
++
++	for (i = 0; i < dev->res.rss_queues; i++)
++		dev->res.ptn_rss[i] = dev->rxqs[i].pt->id;
++
++	for (i = 0; i < dev->res.rss_indir_size; i++)
++		dev->res.indir_table[i] =
++			ethtool_rxfh_indir_default(i, dev->res.rss_queues);
++
++	/* Re-enable RSS if number of RX queues is successfully changed. */
++	cxi_eth_set_indir_table(dev->cxi_dev, &dev->res);
++
++out:
++	return rc;
++}
++
++static int cxi_set_channels(struct net_device *ndev,
++			    struct ethtool_channels *ch)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	unsigned int old_tx_channels = dev->cur_txqs;
++	int rc;
++
++	if (ch->combined_count || ch->other_count)
++		return -EINVAL;
++	if (!valid_rx_channel_count(ch->rx_count) || !ch->tx_count ||
++	    ch->tx_count > ndev->num_tx_queues)
++		return -EINVAL;
++
++	/* If interface is not running, update the real TX/RX queue count. The
++	 * real TX/RX queue count is used to initialize TX/RX channels during
++	 * hardware setup.
++	 */
++	if (!netif_running(dev->ndev)) {
++		return netif_set_real_num_queues(ndev, ch->tx_count, ch->rx_count);
++	}
++
++	if (ch->tx_count > old_tx_channels) {
++		rc = cxi_set_tx_channels(dev, ch->tx_count);
++		if (rc)
++			return rc;
++	}
++
++	rc = cxi_set_rx_channels(dev, ch->rx_count);
++	if (rc) {
++		if (ch->tx_count > old_tx_channels)
++			WARN_ON_ONCE(cxi_set_tx_channels(dev, old_tx_channels));
++		return rc;
++	}
++
++	if (ch->tx_count < old_tx_channels)
++		return cxi_set_tx_channels(dev, ch->tx_count);
++	return 0;
++}
++
++static int cxi_get_rxnfc(struct net_device *ndev, struct ethtool_rxnfc *cmd,
++			 u32 *rule_locs)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	int rc;
++
++	switch (cmd->cmd) {
++	case ETHTOOL_GRXRINGS:
++		/* The catch-all queue is always present */
++		cmd->data = dev->res.rss_queues ? : 1;
++		rc = 0;
++		break;
++
++	default:
++		rc = -EOPNOTSUPP;
++		break;
++	}
++
++	return rc;
++}
++
++static u32 cxi_get_rxfh_indir_size(struct net_device *ndev)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++
++	return dev->res.rss_indir_size;
++}
++
++static u32 cxi_get_rxfh_key_size(struct net_device *ndev)
++{
++	return CXI_ETH_HASH_KEY_SIZE;
++}
++
++static int cxi_get_rxfh(struct net_device *ndev,
++			struct ethtool_rxfh_param *rxfh)
++{
++	u8 *key = rxfh->key;
++	u8 *hfunc = &rxfh->hfunc;
++	u32 *indir = rxfh->indir;
++
++	struct cxi_eth *dev = netdev_priv(ndev);
++
++	if (hfunc)
++		*hfunc = ETH_RSS_HASH_TOP;
++
++	if (key)
++		cxi_eth_get_hash_key(dev->cxi_dev, key);
++
++	if (indir && dev->res.rss_queues)
++		memcpy(indir, dev->res.indir_table,
++		       dev->res.rss_indir_size * sizeof(u32));
++
++	return 0;
++}
++
++static int cxi_set_rxfh(struct net_device *ndev,
++			struct ethtool_rxfh_param *rxfh,
++			struct netlink_ext_ack *extack)
++{
++	u8 *key = rxfh->key;
++	u8 hfunc = rxfh->hfunc;
++	u32 *indir = rxfh->indir;
++
++	struct cxi_eth *dev = netdev_priv(ndev);
++	int i;
++
++	if (hfunc != ETH_RSS_HASH_NO_CHANGE && hfunc != ETH_RSS_HASH_TOP)
++		return -EINVAL;
++
++	if (key != NULL)
++		return -EINVAL;
++
++	if (indir) {
++		/* Sanity check the table */
++		for (i = 0; i < dev->res.rss_indir_size; i++) {
++			if (indir[i] >= dev->res.rss_queues) {
++				netdev_warn_once(ndev, "Bad new indirection - %d %d\n",
++						 indir[i],
++						 dev->res.rss_queues);
++				return -EINVAL;
++			}
++		}
++
++		memcpy(dev->res.indir_table, indir,
++		       dev->res.rss_indir_size * sizeof(u32));
++		cxi_eth_set_indir_table(dev->cxi_dev, &dev->res);
++	}
++
++	return 0;
++}
++
++static int cxi_get_module_info(struct net_device *ndev,
++			       struct ethtool_modinfo *modinfo)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++
++	cxi_eth_devinfo(dev->cxi_dev, &dev->eth_info);
++
++	if (dev->eth_info.qsfp_eeprom_len == 0)
++		return -ENOMEDIUM;
++
++	switch (dev->eth_info.qsfp_eeprom[0]) {
++	case 0xc: /* QSFP */
++	case 0xd: /* QSFP+ */
++		modinfo->type = ETH_MODULE_SFF_8436;
++		modinfo->eeprom_len = ETH_MODULE_SFF_8436_LEN;
++		break;
++	case 0x11: /* QSFP-28 */
++	case 0x1E:
++		modinfo->type = ETH_MODULE_SFF_8636;
++		modinfo->eeprom_len = ETH_MODULE_SFF_8636_LEN;
++		break;
++	default:
++		netdev_err(dev->ndev, "Unsupported transceiver type 0x%x\n",
++			   dev->eth_info.qsfp_eeprom[0]);
++		return -EIO;
++	}
++
++	return 0;
++}
++
++static int cxi_get_module_eeprom(struct net_device *ndev,
++				 struct ethtool_eeprom *eeprom, u8 *data)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	int ret;
++
++	ret = cxi_get_qsfp_data(dev->cxi_dev, eeprom->offset, eeprom->len,
++				0, data);
++
++	if (ret > 0)
++		return 0;
++	else
++		return -EINVAL;
++}
++
++static int cxi_get_module_eeprom_by_page(struct net_device *ndev,
++					 const struct ethtool_module_eeprom *req,
++					 struct netlink_ext_ack *extack)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++
++	return cxi_get_qsfp_data(dev->cxi_dev, req->offset, req->length,
++				 req->page, req->data);
++}
++
++static int cxi_flash_device(struct net_device *ndev,
++			    struct ethtool_flash *flash)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	const struct firmware *fw;
++	int rc;
++
++	if (!capable(CAP_SYS_ADMIN))
++		return -EPERM;
++
++	rc = request_firmware(&fw, flash->data, &ndev->dev);
++	if (rc != 0)
++		return rc;
++
++	// TODO? stop adapter
++	rc = cxi_program_firmware(dev->cxi_dev, fw);
++	release_firmware(fw);
++	// TODO? restart adapter
++
++	if (!rc)
++		cxi_eth_devinfo(dev->cxi_dev, &dev->eth_info);
++
++	return rc;
++}
++
++/* Link settings. */
++static int cxi_get_link_ksettings(struct net_device *ndev,
++				  struct ethtool_link_ksettings *s)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	struct cxi_link_info link_info;
++
++	memset(s, 0, sizeof(struct ethtool_link_ksettings));
++
++	cxi_link_mode_get(dev->cxi_dev, &link_info);
++
++	s->base.speed = link_info.speed;
++	s->base.port = link_info.port_type;
++	s->base.duplex = DUPLEX_FULL;
++	s->base.phy_address = 0; /* N/A */
++	s->base.autoneg = link_info.autoneg;
++	s->base.eth_tp_mdix = ETH_TP_MDI;
++	s->base.eth_tp_mdix_ctrl = ETH_TP_MDI;
++
++	ethtool_link_ksettings_add_link_mode(s, supported, Autoneg);
++	ethtool_link_ksettings_add_link_mode(s, supported, FIBRE);
++	ethtool_link_ksettings_add_link_mode(s, supported, TP);
++	ethtool_link_ksettings_add_link_mode(s, supported, Backplane);
++	ethtool_link_ksettings_add_link_mode(s, supported, Pause);
++	if (cassini_version(&dev->cxi_dev->prop, CASSINI_1)) {
++		ethtool_link_ksettings_add_link_mode(s, supported, 50000baseKR_Full);
++		ethtool_link_ksettings_add_link_mode(s, supported, 100000baseCR2_Full);
++		ethtool_link_ksettings_add_link_mode(s, supported, 100000baseCR4_Full);
++		ethtool_link_ksettings_add_link_mode(s, supported, 200000baseCR4_Full);
++		if (s->base.autoneg == AUTONEG_ENABLE)
++			ethtool_link_ksettings_add_link_mode(s, advertising, Autoneg);
++		ethtool_link_ksettings_add_link_mode(s, advertising, Pause);
++		ethtool_link_ksettings_add_link_mode(s, advertising, 50000baseKR_Full);
++		ethtool_link_ksettings_add_link_mode(s, advertising, 100000baseCR2_Full);
++		ethtool_link_ksettings_add_link_mode(s, advertising, 100000baseCR4_Full);
++		ethtool_link_ksettings_add_link_mode(s, advertising, 200000baseCR4_Full);
++	} else if (cassini_version(&dev->cxi_dev->prop, CASSINI_2)) {
++		ethtool_link_ksettings_add_link_mode(s, supported, 100000baseCR2_Full);
++		ethtool_link_ksettings_add_link_mode(s, supported, 200000baseCR4_Full);
++		ethtool_link_ksettings_add_link_mode(s, supported, 400000baseCR4_Full);
++		ethtool_link_ksettings_add_link_mode(s, supported, FEC_RS);
++		if (s->base.autoneg == AUTONEG_ENABLE) {
++			ethtool_link_ksettings_add_link_mode(s, advertising, Autoneg);
++			ethtool_link_ksettings_add_link_mode(s, advertising, 100000baseCR2_Full);
++			ethtool_link_ksettings_add_link_mode(s, advertising, 200000baseCR4_Full);
++			ethtool_link_ksettings_add_link_mode(s, advertising, 400000baseCR4_Full);
++			ethtool_link_ksettings_add_link_mode(s, advertising, FEC_RS);
++		}
++	}
++
++	return 0;
++}
++
++static int
++cxi_set_link_ksettings(struct net_device *ndev,
++		       const struct ethtool_link_ksettings *s)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	struct cxi_link_info link_info;
++
++	cxi_link_mode_get(dev->cxi_dev, &link_info);
++
++	if (s->base.duplex != DUPLEX_UNKNOWN &&
++	    s->base.duplex != DUPLEX_FULL)
++		return -ENOTSUPP;
++
++	if (s->base.eth_tp_mdix != ETH_TP_MDI ||
++	    s->base.eth_tp_mdix_ctrl != ETH_TP_MDI)
++		return -ENOTSUPP;
++
++	if (dev->is_c2 && s->base.autoneg == AUTONEG_ENABLE &&
++	    (link_info.flags & LOOPBACK_MODE) != 0) {
++		netdev_err(ndev,
++			   "autoneg must not be enabled in loopback mode\n");
++		return -EINVAL;
++	}
++
++	link_info.speed = s->base.speed;
++	link_info.autoneg = s->base.autoneg;
++
++	cxi_link_mode_set(dev->cxi_dev, &link_info);
++
++	return 0;
++}
++
++static int cxi_set_priv_flags(struct net_device *ndev, u32 flags)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	struct cxi_link_info link_info;
++	u32 changes;
++	u32 old_flags;
++	u32 debug_flags;
++
++	cxi_link_mode_get(dev->cxi_dev, &link_info);
++	cxi_link_flags_get(dev->cxi_dev, &debug_flags);
++
++	old_flags = dev->priv_flags | link_info.flags | debug_flags;
++
++	changes = flags ^ old_flags;
++
++	if (!changes)
++		return 0;
++
++	if (changes & LOOPBACK_MODE) {
++		u32 loopback_mode = flags & LOOPBACK_MODE;
++
++		if (loopback_mode ==
++		    (CXI_ETH_PF_INTERNAL_LOOPBACK | CXI_ETH_PF_EXTERNAL_LOOPBACK)) {
++			netdev_err(dev->ndev,
++				   "Loopback private flags are mutually exclusive\n");
++			return -EINVAL;
++		}
++	}
++
++	if (changes & flags & LINK_DEBUG_FLAGS &
++	    ~cxi_link_flags_supported(dev->cxi_dev)) {
++		netdev_err(ndev, "Link debug private flag not supported\n");
++		return -EOPNOTSUPP;
++	}
++
++	link_info.flags = flags;
++	cxi_link_mode_set(dev->cxi_dev, &link_info);
++
++	if (changes & CXI_ETH_PF_FEC_MONITOR) {
++		if (flags & CXI_ETH_PF_FEC_MONITOR)
++			dev->priv_flags |= CXI_ETH_PF_FEC_MONITOR;
++		else
++			dev->priv_flags &= ~CXI_ETH_PF_FEC_MONITOR;
++	}
++
++	if (changes & CXI_ETH_PF_ROCE_OPT) {
++		if (flags & CXI_ETH_PF_ROCE_OPT)
++			dev->priv_flags |= CXI_ETH_PF_ROCE_OPT;
++		else
++			dev->priv_flags &= ~CXI_ETH_PF_ROCE_OPT;
++
++		cxi_set_roce_rcv_seg(dev->cxi_dev, flags & CXI_ETH_PF_ROCE_OPT);
++	}
++
++	if (changes & CXI_ETH_PF_IGNORE_ALIGN) {
++		if (flags & CXI_ETH_PF_IGNORE_ALIGN)
++			cxi_link_flags_set(dev->cxi_dev,
++					   0, CXI_ETH_PF_IGNORE_ALIGN);
++		else
++			cxi_link_flags_set(dev->cxi_dev,
++					   CXI_ETH_PF_IGNORE_ALIGN, 0);
++	}
++
++	if (changes & CXI_ETH_PF_PML_REC) {
++		if (flags & CXI_ETH_PF_PML_REC) {
++			dev->priv_flags |= CXI_ETH_PF_PML_REC;
++			cxi_pml_recovery_set(dev->cxi_dev, true);
++		} else {
++			dev->priv_flags &= ~CXI_ETH_PF_PML_REC;
++			cxi_pml_recovery_set(dev->cxi_dev, false);
++		}
++	}
++
++	if (changes & CXI_ETH_PF_REMOTE_FAULT_RECOVERY) {
++		if (flags & CXI_ETH_PF_REMOTE_FAULT_RECOVERY)
++			cxi_link_flags_set(dev->cxi_dev,
++					   0, CXI_ETH_PF_REMOTE_FAULT_RECOVERY);
++		else
++			cxi_link_flags_set(dev->cxi_dev,
++					   CXI_ETH_PF_REMOTE_FAULT_RECOVERY, 0);
++	}
++
++	if (changes & CXI_ETH_PF_USE_UNSUPPORTED_CABLE) {
++		if (flags & CXI_ETH_PF_USE_UNSUPPORTED_CABLE) {
++			dev->priv_flags |= CXI_ETH_PF_USE_UNSUPPORTED_CABLE;
++			cxi_link_use_unsupported_cable(dev->cxi_dev, true);
++		} else {
++			dev->priv_flags &= ~CXI_ETH_PF_USE_UNSUPPORTED_CABLE;
++			cxi_link_use_unsupported_cable(dev->cxi_dev, false);
++		}
++	}
++
++	if (changes & CXI_ETH_PF_USE_SUPPORTED_SS200_CABLE) {
++		if (flags & CXI_ETH_PF_USE_SUPPORTED_SS200_CABLE) {
++			dev->priv_flags |= CXI_ETH_PF_USE_SUPPORTED_SS200_CABLE;
++			cxi_link_use_supported_ss200_cable(dev->cxi_dev, true);
++		} else {
++			dev->priv_flags &= ~CXI_ETH_PF_USE_SUPPORTED_SS200_CABLE;
++			cxi_link_use_supported_ss200_cable(dev->cxi_dev, false);
++		}
++	}
++
++	if (changes & CXI_ETH_PF_IGNORE_MEDIA_ERROR) {
++		if (flags & CXI_ETH_PF_IGNORE_MEDIA_ERROR) {
++			dev->priv_flags |= CXI_ETH_PF_IGNORE_MEDIA_ERROR;
++			cxi_link_ignore_media_error(dev->cxi_dev, true);
++		} else {
++			dev->priv_flags &= ~CXI_ETH_PF_IGNORE_MEDIA_ERROR;
++			cxi_link_ignore_media_error(dev->cxi_dev, false);
++		}
++	}
++
++	if (changes & CXI_ETH_PF_ALD) {
++		if (flags & CXI_ETH_PF_ALD) {
++			dev->priv_flags |= CXI_ETH_PF_ALD;
++			cxi_link_auto_lane_degrade(dev->cxi_dev, true);
++		} else {
++			dev->priv_flags &= ~CXI_ETH_PF_ALD;
++			cxi_link_auto_lane_degrade(dev->cxi_dev, false);
++		}
++	}
++
++	if (changes & CXI_ETH_PF_LOS_LOL_HIDE) {
++		if (flags & CXI_ETH_PF_LOS_LOL_HIDE) {
++			dev->priv_flags |= CXI_ETH_PF_LOS_LOL_HIDE;
++			cxi_link_los_lol_hide(dev->cxi_dev, true);
++		} else {
++			dev->priv_flags &= ~CXI_ETH_PF_LOS_LOL_HIDE;
++			cxi_link_los_lol_hide(dev->cxi_dev, false);
++		}
++	}
++
++	if (changes & CXI_ETH_PF_R1_LINK_PARTNER) {
++		if (flags & CXI_ETH_PF_R1_LINK_PARTNER)
++			dev->priv_flags |= CXI_ETH_PF_R1_LINK_PARTNER;
++		else
++			dev->priv_flags &= ~CXI_ETH_PF_R1_LINK_PARTNER;
++	}
++
++	return 0;
++}
++
++static u32 cxi_get_priv_flags(struct net_device *ndev)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	struct cxi_link_info link_info;
++	u32 debug_flags;
++
++	cxi_link_mode_get(dev->cxi_dev, &link_info);
++	cxi_link_flags_get(dev->cxi_dev, &debug_flags);
++
++	return dev->priv_flags | link_info.flags | debug_flags;
++}
++
++static void cxi_get_ethtool_stats(struct net_device *ndev,
++				  struct ethtool_stats *stats, u64 *data)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	struct cxi_dev *cdev = dev->cxi_dev;
++	int retval;
++	int i;
++
++	retval = cxi_telem_get_selected(cdev, cxi_get_ethtool_stats_set, data,
++					CXI_GLOBAL_STATS_LEN);
++	if (retval != 0)
++		for (i = 0 ; i < CXI_GLOBAL_STATS_LEN ; ++i)
++			data[i] = 0;
++}
++
++static int cxi_get_ts_info(struct net_device *ndev,
++			   struct kernel_ethtool_ts_info *info)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++
++	info->so_timestamping =
++		SOF_TIMESTAMPING_RX_SOFTWARE | SOF_TIMESTAMPING_RX_HARDWARE |
++		SOF_TIMESTAMPING_TX_SOFTWARE | SOF_TIMESTAMPING_TX_HARDWARE |
++		SOF_TIMESTAMPING_SOFTWARE | SOF_TIMESTAMPING_RAW_HARDWARE;
++
++	info->phc_index = dev->eth_info.ptp_clock_index;
++
++	info->tx_types = BIT(HWTSTAMP_TX_OFF) | BIT(HWTSTAMP_TX_ON);
++
++	/* The HW only supports PTP Ethernet filter. Timestamp cannot
++	 * be added to PTP UDP packet.
++	 */
++	info->rx_filters = BIT(HWTSTAMP_FILTER_NONE) |
++			   BIT(HWTSTAMP_FILTER_PTP_V2_L2_EVENT);
++
++	return 0;
++}
++
++static void cxi_get_pauseparam(struct net_device *ndev,
++			       struct ethtool_pauseparam *pause)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++
++	cxi_eth_get_pause(dev->cxi_dev, pause);
++	pause->autoneg = 0;
++}
++
++static int cxi_set_pauseparam(struct net_device *ndev,
++			      struct ethtool_pauseparam *pause)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++
++	if (pause->autoneg != 0)
++		return -EINVAL;
++
++	cxi_eth_set_pause(dev->cxi_dev, pause);
++
++	return 0;
++}
++
++static int cxi_get_fecparam(struct net_device *ndev,
++			    struct ethtool_fecparam *fec)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	struct cxi_link_info link_info;
++
++	cxi_link_mode_get(dev->cxi_dev, &link_info);
++
++	fec->active_fec = link_info.fec_type;
++
++	return 0;
++}
++
++static int cxi_set_fecparam(struct net_device *ndev,
++			    struct ethtool_fecparam *fec)
++{
++	return -ENOTSUPP;
++}
++
++static void cxi_get_ringparam(struct net_device *ndev,
++			      struct ethtool_ringparam *ring,
++			      struct kernel_ethtool_ringparam *kernel_ring,
++			      struct netlink_ext_ack *extack)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++
++	*ring = dev->ringparam;
++
++#ifdef ETHTOOL_RING_USE_CQE_SIZE
++	kernel_ring->cqe_size = get_rxq_eq_buf_size(dev) /
++		sizeof(struct c_event_target_enet);
++#endif
++	kernel_ring->rx_buf_len =
++		dev->ringparam.rx_pending * dev->eth_info.max_segment_size +
++		small_pkts_buf_count * small_pkts_buf_size;
++}
++
++static int cxi_set_ringparam(struct net_device *ndev,
++			     struct ethtool_ringparam *ring,
++			     struct kernel_ethtool_ringparam *kernel_ring,
++			     struct netlink_ext_ack *extack)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++	int rc = 0;
++
++	if (ring->rx_jumbo_pending)
++		return -EINVAL;
++
++	dev->ringparam.rx_pending = clamp(ring->rx_pending,
++					  LARGE_PKTS_BUF_COUNT_MIN,
++					  LARGE_PKTS_BUF_COUNT_MAX);
++
++	dev->ringparam.rx_mini_pending = num_small_packets(
++		clamp(round_up(ring->rx_mini_pending, 4096) /
++		      (small_pkts_buf_size / buffer_threshold),
++		      SMALL_PKTS_BUF_COUNT_MIN, SMALL_PKTS_BUF_COUNT_MAX));
++
++	dev->ringparam.tx_pending = clamp_t(unsigned int, ring->tx_pending,
++					    1, CXI_MAX_CQ_COUNT);
++
++	if (netif_running(ndev)) {
++		hw_cleanup(dev);
++		rc = hw_setup(dev);
++		if (rc)
++			netdev_err(ndev,
++				   "Failed to restart after ringparam change\n");
++	}
++
++	return rc;
++}
++
++static int cxi_set_phys_id(struct net_device *ndev,
++			   enum ethtool_phys_id_state state)
++{
++	struct cxi_eth *dev = netdev_priv(ndev);
++
++	switch (state) {
++	case ETHTOOL_ID_ACTIVE:
++		cxi_set_led_beacon(dev->cxi_dev, true);
++		return 0;
++
++	case ETHTOOL_ID_INACTIVE:
++		cxi_set_led_beacon(dev->cxi_dev, false);
++		return 0;
++	default:
++		return -EOPNOTSUPP;
++	}
++}
++
++const struct ethtool_ops cxi_eth_ethtool_ops = {
++	.supported_ring_params =
++#ifdef ETHTOOL_RING_USE_CQE_SIZE
++	ETHTOOL_RING_USE_CQE_SIZE |
++#endif
++	ETHTOOL_RING_USE_RX_BUF_LEN,
++	.get_drvinfo	= cxi_get_drvinfo,
++	.get_sset_count	= cxi_get_sset_count,
++	.get_strings	= cxi_get_strings,
++	.get_rxnfc	= cxi_get_rxnfc,
++	.get_channels	= cxi_get_channels,
++	.set_channels	= cxi_set_channels,
++	.get_rxfh_indir_size = cxi_get_rxfh_indir_size,
++	.get_rxfh       = cxi_get_rxfh,
++	.set_rxfh       = cxi_set_rxfh,
++	.get_rxfh_key_size = cxi_get_rxfh_key_size,
++	.get_module_info = cxi_get_module_info,
++	.get_module_eeprom = cxi_get_module_eeprom,
++	.get_module_eeprom_by_page = cxi_get_module_eeprom_by_page,
++	.flash_device   = cxi_flash_device,
++	.get_link	= ethtool_op_get_link,
++	.get_link_ksettings = cxi_get_link_ksettings,
++	.set_link_ksettings = cxi_set_link_ksettings,
++	.get_priv_flags     = cxi_get_priv_flags,
++	.set_priv_flags     = cxi_set_priv_flags,
++	.get_ethtool_stats  = cxi_get_ethtool_stats,
++	.get_ts_info        = cxi_get_ts_info,
++	.set_phys_id        = cxi_set_phys_id,
++	.get_pauseparam     = cxi_get_pauseparam,
++	.set_pauseparam     = cxi_set_pauseparam,
++	.get_fecparam       = cxi_get_fecparam,
++	.set_fecparam       = cxi_set_fecparam,
++	.get_ringparam      = cxi_get_ringparam,
++	.set_ringparam      = cxi_set_ringparam,
++};
+diff --git a/drivers/net/ethernet/hpe/ss1/cxi_rxtx_profile.c b/drivers/net/ethernet/hpe/ss1/cxi_rxtx_profile.c
+new file mode 100644
+index 000000000000..f5c978efd183
+--- /dev/null
++++ b/drivers/net/ethernet/hpe/ss1/cxi_rxtx_profile.c
+@@ -0,0 +1,418 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (C) 2024 Hewlett Packard Enterprise Development LP */
++
++/* Common parts of RX and TX Profile */
++
++#include "cass_core.h"
++#include "cxi_rxtx_profile.h"
++#include "cxi_rxtx_profile_list.h"
++
++/**
++ * cxi_rxtx_profile_init() - Initialize the common portions
++ *
++ * @rxtx_profile: profile pointer
++ * @hw: Cassini device
++ * @vni_attr: VNI attributes for profile
++ *
++ */
++void cxi_rxtx_profile_init(struct cxi_rxtx_profile *rxtx_profile,
++			   struct cass_dev *hw,
++			   const struct cxi_rxtx_vni_attr *vni_attr)
++{
++	rxtx_profile->vni_attr.match  = vni_attr->match;
++	rxtx_profile->vni_attr.ignore = vni_attr->ignore;
++	strscpy(rxtx_profile->vni_attr.name, vni_attr->name,
++		ARRAY_SIZE(rxtx_profile->vni_attr.name));
++
++	/* Profiles are long lived.  We indicate this by an
++	 * initial reference count of 1, and a release status of false.
++	 *
++	 * The release operation is atomic: it sets the value of
++	 * 'released' to true, and decrements the reference count.
++	 *
++	 * When no references remain, the profile is deleted.
++	 *
++	 * TODO: is revoke still needed?
++	 */
++
++	refcount_set(&rxtx_profile->state.refcount, 1);
++	rxtx_profile->state.enable = false;
++
++	cxi_ac_entry_list_init(&rxtx_profile->ac_entry_list);
++}
++
++/**
++ * cxi_rxtx_profile_destroy() - tear down common portion
++ *
++ * @rxtx_profile: profile pointer
++ */
++void cxi_rxtx_profile_destroy(struct cxi_rxtx_profile *rxtx_profile)
++{
++	/* TODO: make sure these commented functions get */
++	/* implemented in rx and tx profiles... */
++
++	/* cass_vni_entry_disable_hw(vni_entry); */
++	cxi_ac_entry_list_destroy(&rxtx_profile->ac_entry_list);
++}
++
++/**
++ * cxi_rxtx_profile_find_inc_refcount() - Look up RX Profile in the
++ *                                        device list by ID and increment
++ *                                        its refcount.
++ *
++ * @list: profile list
++ * @profile_id: the ID to use for the lookup
++ * @rxtx_profile: location to place rxtx_profile pointer
++ *
++ * Return: 0 on success or error code.
++ *
++ * Note: this function is used internally for cases where we need to
++ * examine a profile even if it is released or revoked.
++ *
++ * Refcount must be decremented when usage is done.
++ */
++int cxi_rxtx_profile_find_inc_refcount(struct cxi_rxtx_profile_list *list,
++				       unsigned int profile_id,
++				       struct cxi_rxtx_profile **rxtx_profile)
++	__must_hold(&list->xarray.xa_lock)
++{
++	struct cxi_rxtx_profile    *profile;
++	int    ret = 0;
++
++	ret = cxi_rxtx_profile_list_retrieve(list, profile_id, &profile);
++	if (ret)
++		goto out;
++
++	if (!refcount_inc_not_zero(&profile->state.refcount)) {
++		ret = -EBADR;
++		goto out;
++	}
++
++	*rxtx_profile = profile;
++
 +out:
 +	return ret;
 +}
 +
-+int cass_sbl_link_fini(struct cass_dev *hw)
-+{
-+	int err;
-+
-+	if (hw->port_kobj.state_in_sysfs)
-+		kobject_del(&hw->port_kobj);
-+	cass_lmon_kill_all(hw);
-+	err = cass_sbl_exit(hw);
-+	if (err)
-+		return err;
-+	cass_port_del_port_db(hw);
-+	return 0;
-+}
-+
-+/* getters/setters follow */
-+
 +/**
-+ * cass_sbl_mode_set() - Setter for various link configuration options
++ * cxi_rxtx_profile_release() - Mark a Profile as released.
 + *
-+ * Updates the cass_dev cass_link_attr with the target value.
-+ * If there are any differences between the requested config and the
-+ * running config, the link will be torn down and brought back up with
-+ * the new config.
++ * No new references can be taken.
 + *
-+ * @hw: the device
-+ * @link_info: CXI ethtool private flags
++ * @rxtx_profile: pointer to profile
 + */
-+void cass_sbl_mode_set(struct cass_dev *hw, const struct cxi_link_info *link_info)
++void cxi_rxtx_profile_release(struct cxi_rxtx_profile *rxtx_profile)
 +{
-+	struct cass_link_attr attrs = hw->port->lattr;
-+
-+	switch (link_info->flags & LOOPBACK_MODE) {
-+	case 0:
-+		attrs.bl.loopback_mode = SBL_LOOPBACK_MODE_OFF;
-+		break;
-+	case CXI_ETH_PF_INTERNAL_LOOPBACK:
-+		attrs.bl.loopback_mode = SBL_LOOPBACK_MODE_LOCAL;
-+		break;
-+	case CXI_ETH_PF_EXTERNAL_LOOPBACK:
-+		attrs.bl.loopback_mode = SBL_LOOPBACK_MODE_REMOTE;
-+		break;
-+	default:
-+		/* Invalid configuration, no change */
-+		break;
-+	}
-+
-+	if (link_info->flags & CXI_ETH_PF_LLR)
-+		attrs.bl.llr_mode = SBL_LLR_MODE_ON;
-+	else
-+		attrs.bl.llr_mode = SBL_LLR_MODE_OFF;
-+
-+	if (link_info->flags & CXI_ETH_PF_PRECODING)
-+		attrs.bl.precoding = SBL_PRECODING_ON;
-+	else
-+		attrs.bl.precoding = SBL_PRECODING_OFF;
-+
-+	if (link_info->flags & CXI_ETH_PF_IFG_HPC)
-+		attrs.bl.ifg_config = SBL_IFG_CONFIG_HPC;
-+	else
-+		attrs.bl.ifg_config = SBL_IFG_CONFIG_IEEE_200G;
-+
-+	if (link_info->flags & CXI_ETH_PF_PML_REC)
-+		attrs.bl.options |= SBL_DISABLE_PML_RECOVERY;
-+	else
-+		attrs.bl.options &= ~SBL_DISABLE_PML_RECOVERY;
-+
-+	if (attrs.mattr.media != SBL_LINK_MEDIA_OPTICAL) {
-+		if (link_info->autoneg == AUTONEG_DISABLE)
-+			attrs.bl.pec.an_mode = SBL_AN_MODE_OFF;
-+		else
-+			attrs.bl.pec.an_mode = SBL_AN_MODE_ON;
-+	}
-+
-+	if (!cass_sbl_link_attr_cmp(hw, &attrs))
-+		hw->link_config_dirty = false;
-+	else
-+		hw->link_config_dirty = true;
-+
-+	if (hw->link_config_dirty) {
-+		hw->port->lattr = attrs;
-+		/* Bounce the link to apply the new config */
-+		cass_phy_bounce(hw);
-+	}
-+}
-+
-+void cass_sbl_pml_recovery_set(struct cass_dev *hw, bool set)
-+{
-+	sbl_disable_pml_recovery(hw->sbl, 0, set);
-+}
-+
-+/**
-+ * cass_sbl_mode_get() - Getter for various link configuration options
-+ *
-+ * Updates the input tgt_val with the cass_dev cass_link_attr contents.
-+ *
-+ * @hw: the device
-+ * @link_info: location to write cass_link_attr struct
-+ */
-+void cass_sbl_mode_get(struct cass_dev *hw, struct cxi_link_info *link_info)
-+{
-+	const struct cass_link_attr *attrs = &hw->port->lattr;
-+	int sstate;
-+	int blstate;
-+	int link_mode;
-+
-+	memset(link_info, 0, sizeof(*link_info));
-+
-+	sbl_base_link_get_status(hw->sbl, 0, &blstate,
-+				 NULL, &sstate, NULL, NULL, &link_mode);
-+
-+	switch (blstate) {
-+	case SBL_BASE_LINK_STATUS_UNKNOWN:
-+	case SBL_BASE_LINK_STATUS_UNCONFIGURED:
-+	case SBL_BASE_LINK_STATUS_RESETTING:
-+	case SBL_BASE_LINK_STATUS_ERROR:
-+		link_info->speed = SPEED_UNKNOWN;
-+		break;
-+	default:
-+		switch (sstate) {
-+		case SBL_SERDES_STATUS_UNKNOWN:
-+		case SBL_SERDES_STATUS_RESETTING:
-+		case SBL_SERDES_STATUS_ERROR:
-+			link_info->speed = SPEED_UNKNOWN;
-+			break;
-+		default:
-+			cass_sbl_link_mode_to_speed(link_mode, &link_info->speed);
-+		}
-+	}
-+
-+	if (attrs->bl.loopback_mode == SBL_LOOPBACK_MODE_LOCAL)
-+		link_info->flags |= CXI_ETH_PF_INTERNAL_LOOPBACK;
-+	else if (attrs->bl.loopback_mode == SBL_LOOPBACK_MODE_REMOTE)
-+		link_info->flags |= CXI_ETH_PF_EXTERNAL_LOOPBACK;
-+
-+	if (attrs->bl.llr_mode == SBL_LLR_MODE_ON)
-+		link_info->flags |= CXI_ETH_PF_LLR;
-+
-+	if (attrs->bl.precoding == SBL_PRECODING_ON)
-+		link_info->flags |= CXI_ETH_PF_PRECODING;
-+
-+	if (attrs->bl.ifg_config == SBL_IFG_CONFIG_HPC)
-+		link_info->flags |= CXI_ETH_PF_IFG_HPC;
-+
-+	if (attrs->bl.options & SBL_DISABLE_PML_RECOVERY)
-+		link_info->flags |= CXI_ETH_PF_PML_REC;
-+
-+	if (attrs->mattr.media != SBL_LINK_MEDIA_OPTICAL) {
-+		if (attrs->bl.pec.an_mode == SBL_AN_MODE_OFF)
-+			link_info->autoneg = AUTONEG_DISABLE;
-+		else
-+			link_info->autoneg = AUTONEG_ENABLE;
-+	}
-+
-+	switch (attrs->mattr.media) {
-+	case SBL_LINK_MEDIA_ELECTRICAL:
-+		link_info->port_type = PORT_DA;
-+		break;
-+	case SBL_LINK_MEDIA_OPTICAL:
-+		link_info->port_type = PORT_FIBRE;
-+		break;
-+	default:
-+		link_info->port_type = PORT_OTHER;
-+		break;
-+	}
-+}
-+
-+/**
-+ * cass_sbl_get_debug_flags() - Getter for debug flags
-+ *
-+ * Updates the input flags with the current debug flags.
-+ *
-+ * @hw: the device
-+ * @debug_flags: storage for private CXI flags (CXI_ETH_PF_xxx)
-+ */
-+void cass_sbl_get_debug_flags(struct cass_dev *hw, u32 *debug_flags)
-+{
-+	u32 flags;
-+
-+	sbl_debug_get_config(hw->sbl, 0, &flags);
-+
-+	*debug_flags = 0;
-+
-+	if (flags & SBL_DEBUG_IGNORE_ALIGN)
-+		*debug_flags |= CXI_ETH_PF_IGNORE_ALIGN;
-+
-+	if (flags & SBL_DEBUG_REMOTE_FAULT_RECOVERY)
-+		*debug_flags |= CXI_ETH_PF_REMOTE_FAULT_RECOVERY;
-+}
-+
-+/**
-+ * cass_sbl_set_debug_flags() - Setter for debug flags
-+ *
-+ * Updates the debug flags.
-+ *
-+ * @hw: the device
-+ * @clr_flags: desired clear flags
-+ * @set_flags: desired set flags
-+ */
-+void cass_sbl_set_debug_flags(struct cass_dev *hw, u32 clr_flags, u32 set_flags)
-+{
-+	u32 clr_flags_sbl = 0;
-+	u32 set_flags_sbl = 0;
-+
-+	if (clr_flags & CXI_ETH_PF_IGNORE_ALIGN)
-+		clr_flags_sbl |= SBL_DEBUG_IGNORE_ALIGN;
-+
-+	if (set_flags & CXI_ETH_PF_IGNORE_ALIGN)
-+		set_flags_sbl |= SBL_DEBUG_IGNORE_ALIGN;
-+
-+	if (clr_flags & CXI_ETH_PF_REMOTE_FAULT_RECOVERY)
-+		clr_flags_sbl |= SBL_DEBUG_REMOTE_FAULT_RECOVERY;
-+
-+	if (set_flags & CXI_ETH_PF_REMOTE_FAULT_RECOVERY)
-+		set_flags_sbl |= SBL_DEBUG_REMOTE_FAULT_RECOVERY;
-+
-+	sbl_debug_update_config(hw->sbl, 0, clr_flags_sbl, set_flags_sbl);
-+}
-+
-+/* Return whether the link is up or down. */
-+bool cass_sbl_is_link_up(struct cass_dev *hw)
-+{
-+	enum cass_link_status state = cass_link_get_state(hw);
-+
-+	return state == CASS_LINK_STATUS_UP;
-+}
-+
-+/* sbl_ops follow */
-+/**
-+ * cass_read64() - wrapper around Cassini read function
-+ *
-+ * Read a CSR on BAR0.
-+ *
-+ * @pci_accessor: the SBL device
-+ * @offset: offset of the CSR in the region
-+ *
-+ * Return: u64 containing the read result
-+ */
-+static u64 cass_read64(void *pci_accessor, long offset)
-+{
-+	struct cass_dev *hw = (struct cass_dev *)pci_accessor;
-+	size_t len = sizeof(u64);
-+	u64 data_out;
-+
-+	cass_read(hw, (u64)offset, &data_out, len);
-+
-+	return data_out;
-+}
-+
-+/**
-+ * cass_write64() - wrapper around Cassini write function
-+ *
-+ * Modify a control status register (CSR) on BAR0.
-+ *
-+ * @pci_accessor: the SBL device
-+ * @offset: offset of the CSR in the region
-+ * @val: data to write
-+ */
-+static void cass_write64(void *pci_accessor, long offset, u64 val)
-+{
-+	struct cass_dev *hw = (struct cass_dev *)pci_accessor;
-+	size_t len = sizeof(u64);
-+
-+	cass_write(hw, (u64)offset, &val, len);
-+}
-+
-+/**
-+ * cass_read32() - wrapper around Cassini 64-bit read function
-+ *
-+ * Read a CSR on BAR0.
-+ *
-+ * @pci_accessor: the SBL device
-+ * @offset: offset of the CSR in the region
-+ *
-+ * Return: u32 containing the read result
-+ */
-+static u32 cass_read32(void *pci_accessor, long offset)
-+{
-+	struct cass_dev *hw = (struct cass_dev *)pci_accessor;
-+	size_t len = sizeof(u64);
-+	u64 data_out;
-+
-+	cass_read(hw, (u64)offset, &data_out, len);
-+
-+	/* Explicit loss of precision here - Cassini doe not have 32-bit CSRs.
-+	 *  CSRs which are described as 32 bits can be read/written
-+	 *  Using the 64-bit access functions.
++	/* Reduce the reference count.  Note that this function is
++	 * called via pointer to profile, indicating that the caller
++	 * also has a reference to this profile.  Thus the reference
++	 * count after this function returns will be at least 1.
++	 * (Eating the return from cxi_rxtx_profile_dec_refcount() is ok).
 +	 */
-+	return (u32)data_out;
++	refcount_dec(&rxtx_profile->state.refcount);
 +}
 +
 +/**
-+ * cass_write32() - wrapper around Cassini 64-bit write function
++ * cxi_rxtx_profile_revoke() - Revoke the VNI associated with profile.
 + *
-+ * Modify a control status register (CSR) on BAR0.
++ * RDMA operations for this VNI will fail.  Since the Profile is
++ * essentially dead at this point, 'revoke' implies 'release' as well.
 + *
-+ * @pci_accessor: the SBL device
-+ * @offset: offset of the CSR in the region
-+ * @val: data to write
++ * @rxtx_profile: pointer to profile
 + */
-+static void cass_write32(void *pci_accessor, long offset, u32 val)
++void cxi_rxtx_profile_revoke(struct cxi_rxtx_profile *rxtx_profile)
 +{
-+	struct cass_dev *hw = (struct cass_dev *)pci_accessor;
-+	size_t len = sizeof(u64);
-+	u64 wval = 0;
-+
-+	/* Explicit loss of precision here - Cassini doe not have 32-bit CSRs.
-+	 *  CSRs which are described as 32 bits can be read/written
-+	 *  Using the 64-bit access functions.
++	/* Remove all the Access Control entries associated with
++	 * this Profile.  This ensures it can't be used again.
 +	 */
-+	wval |= val;
-+	cass_write(hw, (u64)offset, &wval, len);
-+}
 +
-+static bool cass_sbl_is_fabric_link(void *accessor, int port_num)
-+{
-+	return false;
-+}
++	cxi_ac_entry_list_purge(&rxtx_profile->ac_entry_list);
 +
-+/**
-+ * cass_sbl_get_max_frame_size() - Get MTU
-+ *
-+ * Return the MTU value from the cxi_dev
-+ *
-+ * @accessor: the SBL device
-+ * @port_num: unused
-+ *
-+ * Return: int containing the MTU
-+ */
-+static int cass_sbl_get_max_frame_size(void *accessor, int port_num)
-+{
-+	struct cass_dev *hw = (struct cass_dev *)accessor;
-+	u32 size = C_MAX_HPC_MTU;
++	/* TODO: this has to be done at the RX or TX layer */
++	/* cass_rx_profile_revoke(rx_profile); */
 +
-+	/* SBL uses MTU to set LLR buffer size. Use the largest of the fixed
-+	 * HPC frame size and configurable Ethernet (standard or optimized)
-+	 * frame size(s).
-+	 */
-+	if (hw->max_eth_rxsize > size)
-+		size = hw->max_eth_rxsize;
-+
-+	cxidev_dbg(&hw->cdev, "sbl get_max_frame_size returning %u\n", size);
-+
-+	return size;
++	cxi_rxtx_profile_release(rxtx_profile);
 +}
 +
 +/**
-+ * cass_sbl_pml_hdlr() - The PML block intr handler
++ * cxi_rxtx_profile_get_info() - Retrieve the attributes and state associated
++ *                               with this Profile.
 + *
-+ * This just calls into the sbl block handler, which determines the irq itself
++ * @rxtx_profile: pointer to Profile
++ * @vni_attr: location to place attributes
++ * @state: location to put state
 + *
-+ * @hw: the device
-+ * @irq: unused
-+ * @is_ext: unused
-+ * @bitn: unused
++ * Note: attr and/or state may be NULL.
 + */
-+static void cass_sbl_pml_hdlr(struct cass_dev *hw, unsigned int irq,
-+			      bool is_ext, unsigned int bitn)
++void cxi_rxtx_profile_get_info(struct cxi_rxtx_profile *rxtx_profile,
++			       struct cxi_rxtx_vni_attr *vni_attr,
++			       struct cxi_rxtx_profile_state *state)
 +{
-+	int err;
-+
-+	err = sbl_pml_hdlr(hw->sbl, 0, NULL);
-+	if (err)
-+		cxidev_err(&hw->cdev, "(sbl): call to sbl_pml_hdl failed [%d]\n",
-+			   err);
-+}
-+
-+/**
-+ * cass_sbl_pml_install_intr_handler() - Installs the PML block intr handler
-+ *
-+ * Wrapper around the Cassini IRQ registration function
-+ *
-+ * @accessor: the SBL device
-+ * @port_num: unused
-+ * @err_flags: bitmask of interrupts to enable
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+static int cass_sbl_pml_install_intr_handler(void *accessor, int port_num,
-+					     u64 err_flags)
-+{
-+	struct cass_dev *hw = (struct cass_dev *)accessor;
-+
-+	cxidev_dbg(&hw->cdev, "(sbl): installing intr handlers\n");
-+
-+	hw->pml_err.irq = C_HNI_PML_IRQA_MSIX_INT;
-+	hw->pml_err.is_ext = false;
-+	hw->pml_err.err_flags.c1_hni_pml.qw = err_flags;
-+	hw->pml_err.cb = cass_sbl_pml_hdlr;
-+	cxi_register_hw_errors(hw, &hw->pml_err);
-+
-+	return 0;
-+}
-+
-+/**
-+ * cass_sbl_pml_enable_intr_handler() - Enable bits in PML block intr handler
-+ *
-+ * Wrapper around the Cassini IRQ enable function
-+ *
-+ * @accessor: the SBL device
-+ * @port_num: unused
-+ * @err_flags: bitmask of interrupts to enable
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+static int cass_sbl_pml_enable_intr_handler(void *accessor, int port_num,
-+					    u64 err_flags)
-+{
-+	struct cass_dev *hw = (struct cass_dev *)accessor;
-+	unsigned int irq = C_HNI_PML_IRQA_MSIX_INT;
-+	bool is_ext = false;
-+
-+	cxidev_dbg(&hw->cdev, "(sbl): enabling intr handler\n");
-+	cxi_enable_hw_errors(hw, irq, is_ext, (unsigned long *)&err_flags);
-+
-+	return 0;
-+}
-+
-+/**
-+ * cass_sbl_pml_remove_intr_handler() - Remove PML block intr handler
-+ *
-+ * Wrapper around the Cassini IRQ unregister function
-+ *
-+ * @accessor: the SBL device
-+ * @port_num: unused
-+ * @err_flags: unused
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+static int cass_sbl_pml_remove_intr_handler(void *accessor, int port_num,
-+					    u64 err_flags)
-+{
-+	struct cass_dev *hw = (struct cass_dev *)accessor;
-+
-+	cxidev_dbg(&hw->cdev, "(sbl): removing intr handlers\n");
-+	cxi_unregister_hw_errors(hw, &hw->pml_err);
-+
-+	return 0;
-+}
-+
-+/**
-+ * cass_sbl_pml_disable_intr_handler() - Disable bits in PML block intr handler
-+ *
-+ * Wrapper around the Cassini IRQ disable function
-+ *
-+ * @accessor: the SBL device
-+ * @port_num: unused
-+ * @err_flags: bitmask of interrupts to disable
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+static int cass_sbl_pml_disable_intr_handler(void *accessor, int port_num,
-+					     u64 err_flags)
-+{
-+	struct cass_dev *hw = (struct cass_dev *)accessor;
-+	unsigned int irq = C_HNI_PML_IRQA_MSIX_INT;
-+	bool is_ext = false;
-+
-+	cxidev_dbg(&hw->cdev, "(sbl): disabling intr handler\n");
-+	cxi_disable_hw_errors(hw, irq, is_ext, (unsigned long *)&err_flags);
-+
-+	return 0;
-+}
-+
-+/**
-+ * cass_sbl_link_down_async_handler() - link down handler
-+ *
-+ * Handler function called by the SBL async alert if the alert type is
-+ * a link down event
-+ *
-+ * @hw: Cassini device
-+ * @port_num: unused
-+ * @down_origin: one of enum sbl_link_down_origin
-+ */
-+static void cass_sbl_link_down_async_handler(struct cass_dev *hw, int port_num,
-+					     int down_origin)
-+{
-+	int down_reason;
-+
-+	cxidev_dbg(&hw->cdev, "(sbl): async link down\n");
-+
-+	switch (down_origin) {
-+	case SBL_LINK_DOWN_ORIGIN_LOCAL_FAULT:
-+		down_reason = CASS_DOWN_ORIGIN_BL_LFAULT;
-+		break;
-+	case SBL_LINK_DOWN_ORIGIN_REMOTE_FAULT:
-+		down_reason = CASS_DOWN_ORIGIN_BL_RFAULT;
-+		break;
-+	case SBL_LINK_DOWN_ORIGIN_ALIGN:
-+		down_reason = CASS_DOWN_ORIGIN_BL_ALIGN;
-+		break;
-+	case SBL_LINK_DOWN_ORIGIN_LINK_DOWN:
-+		down_reason = CASS_DOWN_ORIGIN_BL_DOWN;
-+		break;
-+	case SBL_LINK_DOWN_ORIGIN_HISER:
-+		down_reason = CASS_DOWN_ORIGIN_BL_HISER;
-+		break;
-+	case SBL_LINK_DOWN_ORIGIN_LLR_MAX:
-+		down_reason = CASS_DOWN_ORIGIN_BL_LLR;
-+		break;
-+	case SBL_LINK_DOWN_ORIGIN_UCW:
-+		down_reason = CASS_DOWN_ORIGIN_LMON_UCW;
-+		break;
-+	case SBL_LINK_DOWN_ORIGIN_CCW:
-+		down_reason = CASS_DOWN_ORIGIN_LMON_CCW;
-+		break;
-+	case SBL_LINK_DOWN_ORIGIN_LLR_TX_REPLAY:
-+		down_reason = CASS_DOWN_ORIGIN_LLR_TX_REPLAY;
-+		break;
-+	default:
-+		down_reason = CASS_DOWN_ORIGIN_BL_UNKNOWN;
-+		break;
++	if (vni_attr) {
++		vni_attr->ignore   = rxtx_profile->vni_attr.ignore;
++		vni_attr->match    = rxtx_profile->vni_attr.match;
++		strscpy(vni_attr->name, rxtx_profile->vni_attr.name,
++			ARRAY_SIZE(vni_attr->name));
 +	}
 +
-+	cass_link_async_down(hw, down_reason);
-+}
-+
-+/**
-+ * cass_sbl_async_alert() - async alert
-+ *
-+ * Notification function asynchronously called by the base link when it sends
-+ * an alert
-+ *
-+ * @accessor: the SBL device
-+ * @port_num: port number
-+ * @alert_type: one of enum sbl_async_alert_type
-+ * @alert_data: opaque pointer to alert data
-+ * @size: size of the data
-+ */
-+static void cass_sbl_async_alert(void *accessor, int port_num, int alert_type,
-+				 void *alert_data, int size)
-+{
-+	struct cass_dev *hw = (struct cass_dev *)accessor;
-+	int down_origin;
-+
-+	cxidev_dbg(&hw->cdev, "(sbl): %s alert", sbl_async_alert_str(alert_type));
-+
-+	switch (alert_type) {
-+	case SBL_ASYNC_ALERT_LINK_DOWN:
-+		cxidev_warn(&hw->cdev, "(sbl): %d: link down alert\n",
-+			    port_num);
-+		down_origin = (int)(uintptr_t)alert_data;
-+		cass_sbl_link_down_async_handler(hw, port_num, down_origin);
-+		break;
-+	case SBL_ASYNC_ALERT_SERDES_FW_CORRUPTION:
-+		cxidev_crit(&hw->cdev, "(sbl): %d: serdes fw corruption alert\n",
-+			    port_num);
-+		break;
-+	case SBL_ASYNC_ALERT_TX_DEGRADE:
-+		cxidev_warn(&hw->cdev, "(sbl): %d: tx degrade alert\n",
-+			    port_num);
-+		break;
-+	case SBL_ASYNC_ALERT_RX_DEGRADE:
-+		cxidev_warn(&hw->cdev, "(sbl): %d: rx degrade alert\n",
-+			    port_num);
-+		break;
-+	case SBL_ASYNC_ALERT_TX_DEGRADE_FAILURE:
-+		cxidev_warn(&hw->cdev, "(sbl): %d: tx degrade failure alert\n",
-+			    port_num);
-+		break;
-+	case SBL_ASYNC_ALERT_RX_DEGRADE_FAILURE:
-+		cxidev_warn(&hw->cdev, "(sbl): %d: rx degrade failure alert\n",
-+			    port_num);
-+		break;
-+	default:
-+		cxidev_warn(&hw->cdev, "(sbl): %d: unknown alert reported: %d\n",
-+			    port_num, alert_type);
-+		break;
++	if (state) {
++		state->enable = rxtx_profile->state.enable;
++		state->refcount = rxtx_profile->state.refcount;
 +	}
 +}
 +
 +/**
-+ * cass_sbl_sbus_op() - Perform an sbus operation
++ * cxi_rxtx_profile_add_ac_entry() - add an Access Control entry to
++ *                                   an existing Profile
 + *
-+ * Performs target sbus operation on this NIC's Cassini Sbus ring
++ * @rxtx_profile: pointer to Profile
++ * @ac_type: type of AC Entry to add
++ * @ac_data: UID/GID for AC Entry
++ * @ac_entry_id: location to put AC Entry id on success
 + *
-+ * @accessor: the SBL device
-+ * @ring: unused
-+ * @req_data: Data for request
-+ * @data_addr: Data address within the SBus Receiver
-+ * @rx_addr: Address of destination SBus Receiver
-+ * @command: Command for request
-+ * @rsp_data: pointer to store response data
-+ * @result_code: pointer to store result code from SBus request
-+ * @overrun: pointer to store request overrun condition
-+ * @timeout: timeout in ms
-+ * @flags: specified polling delay and interval from cass_timing_flag
-+ *
-+ * Return: 0 on success, negative errno on failure
++ * Return:
++ * * 0       - success
++ * * -EBUSY  - AC Entry already exists
 + */
-+static int cass_sbl_sbus_op(void *accessor, int ring, u32 req_data,
-+			    u8 data_addr, u8 rx_addr, u8 command,
-+			    u32 *rsp_data, u8 *result_code, u8 *overrun,
-+			    int timeout, unsigned int flags)
++int cxi_rxtx_profile_add_ac_entry(struct cxi_rxtx_profile *rxtx_profile,
++				  enum cxi_ac_type ac_type,
++				  union cxi_ac_data *ac_data,
++				  unsigned int *ac_entry_id)
 +{
-+	struct cass_dev *hw = (struct cass_dev *)accessor;
-+	struct cxi_sbus_op_params params = {
-+		.req_data = req_data,
-+		.data_addr = data_addr,
-+		.rx_addr = rx_addr,
-+		.command = command,
-+		.timeout = timeout,
++	/* insert will fail with error if data is already present */
++
++	return cxi_ac_entry_list_insert(&rxtx_profile->ac_entry_list, ac_type,
++					ac_data, ac_entry_id);
++}
++
++/**
++ * cxi_rxtx_profile_remove_ac_entry() - disable access control to a Profile
++ *                                      by access control id.
++ *
++ * @rxtx_profile: pointer to profile
++ * @ac_entry_id: id of AC entry
++ *
++ * Return:
++ * * 0       - success
++ * * -EBADR  - ac entry id unknown
++ */
++int cxi_rxtx_profile_remove_ac_entry(struct cxi_rxtx_profile *rxtx_profile,
++				     unsigned int ac_entry_id)
++{
++	return cxi_ac_entry_list_delete(&rxtx_profile->ac_entry_list,
++					ac_entry_id);
++}
++
++/**
++ * cxi_rxtx_profile_get_ac_entry_ids() - get the list of AC entry ids
++ *                                       associated with a Profile
++ *
++ * @rxtx_profile: pointer to Profile
++ * @max_ids: size of the ac_entry_ids array
++ * @ac_entry_ids: location to store ids
++ * @num_ids: number of valid ids in ac_entry_ids array on success
++ *
++ * Return:
++ * * 0       - success
++ * * -ENOSPC - max_ids is not large enough.  num_ids holds value required.
++ */
++int cxi_rxtx_profile_get_ac_entry_ids(struct cxi_rxtx_profile *rxtx_profile,
++				      size_t max_ids,
++				      unsigned int *ac_entry_ids,
++				      size_t *num_ids)
++{
++	return cxi_ac_entry_list_get_ids(&rxtx_profile->ac_entry_list, max_ids,
++					 ac_entry_ids, num_ids);
++}
++
++/**
++ * cxi_rxtx_profile_get_ac_entry_data() - retrieve the type and data for a
++ *                                        AC entry associated with a Profile
++ *
++ * @rxtx_profile: pointer to Profile
++ * @ac_entry_id: id of AC entry
++ * @ac_type: location to store AC entry type
++ * @ac_data: location to store AC data
++ *
++ * Return:
++ * * 0       - success
++ * * -EBADR  - AC entry id unknown
++ */
++int cxi_rxtx_profile_get_ac_entry_data(struct cxi_rxtx_profile *rxtx_profile,
++				       unsigned int ac_entry_id,
++				       enum cxi_ac_type *ac_type,
++				       union cxi_ac_data *ac_data)
++{
++	return cxi_ac_entry_list_retrieve_by_id(&rxtx_profile->ac_entry_list,
++						ac_entry_id, ac_type, ac_data);
++}
++
++/**
++ * cxi_rxtx_profile_get_ac_entry_id_by_data() - get the AC entry id associated
++ *                                              with a Profile for a given
++ *                                              type and data
++ *
++ * @rxtx_profile: pointer to Profile
++ * @ac_type: type of AC entry to look for
++ * @ac_data: AC entry data to look for
++ * @ac_entry_id: location to store AC entry id on success
++ *
++ * Return:
++ * * 0        - success
++ * * -ENODATA - AC entry with given type&data not found
++ * * -EBADR   - invalid ac_type
++ */
++int cxi_rxtx_profile_get_ac_entry_id_by_data(struct cxi_rxtx_profile *rxtx_profile,
++					     enum cxi_ac_type ac_type,
++					     const union cxi_ac_data *ac_data,
++					     unsigned int *ac_entry_id)
++{
++	return cxi_ac_entry_list_retrieve_by_data(&rxtx_profile->ac_entry_list,
++						  ac_type, ac_data, ac_entry_id);
++}
++
++/**
++ * cxi_rxtx_profile_get_ac_entry_id_by_user() - retrieve the AC entry associated
++ *                                              with a Profile by user and group
++ *
++ * @rxtx_profile: pointer to Profile
++ * @uid: user id
++ * @gid: group id
++ * @netns: The Network Namespace id
++ * @desired_types: one or more of the enum cxi_ac_type values OR's together
++ * @ac_entry_id: location to store AC entry id on success
++ *
++ * Return:
++ * * 0       - success
++ * * -EPERM  - no AC entries found for given uid and gid
++ *
++ * Note: multiple AC entries may apply.  The priority of return is
++ * CXI_AC_UID, CXI_AC_GID, CXI_AC_NETNS, CXI_AC_OPEN.
++ */
++int cxi_rxtx_profile_get_ac_entry_id_by_user(struct cxi_rxtx_profile *rxtx_profile,
++					     uid_t uid,
++					     gid_t gid,
++					     unsigned int netns,
++					     cxi_ac_typeset_t desired_types,
++					     unsigned int *ac_entry_id)
++{
++	return cxi_ac_entry_list_retrieve_by_user(&rxtx_profile->ac_entry_list,
++						  uid, gid, netns, desired_types, ac_entry_id);
++}
++
++struct valid_ac_data {
++	uid_t uid;
++	gid_t gid;
++	unsigned int netns;
++};
++
++struct valid_user_data {
++	unsigned int vni;
++	struct valid_ac_data ac_data;
++};
++
++int vni_overlap_test(struct cxi_rxtx_profile *profile1,
++		     void *user_arg)
++{
++	struct cxi_rxtx_profile  *profile2 = user_arg;
++	bool overlap = vni_overlap(&profile1->vni_attr, &profile2->vni_attr);
++
++	/* ignore profiles with 0 VNI */
++	if (zero_vni(&profile1->vni_attr))
++		return 0;
++
++	return overlap ? -EEXIST : 0;
++}
++
++/* Make sure the VNI space is unique */
++bool unique_vni_space(struct cass_dev *hw,
++		      struct cxi_rxtx_profile_list *list,
++		      const struct cxi_rxtx_vni_attr *attr)
++{
++	int rc;
++	struct cxi_rxtx_profile rxtx_prof = {
++		.vni_attr.match = attr->match,
++		.vni_attr.ignore = attr->ignore,
 +	};
 +
-+	if (flags & SBL_FLAG_DELAY_3US)
-+		params.delay = 3;
-+	else if (flags & SBL_FLAG_DELAY_4US)
-+		params.delay = 4;
-+	else if (flags & SBL_FLAG_DELAY_5US)
-+		params.delay = 5;
-+	else if (flags & SBL_FLAG_DELAY_10US)
-+		params.delay = 10;
-+	else if (flags & SBL_FLAG_DELAY_20US)
-+		params.delay = 20;
-+	else if (flags & SBL_FLAG_DELAY_50US)
-+		params.delay = 50;
-+	else if (flags & SBL_FLAG_DELAY_100US)
-+		params.delay = 100;
-+	else
-+		return -EINVAL;
++	cxi_rxtx_profile_list_lock(list);
 +
-+	if (flags & SBL_FLAG_INTERVAL_1MS)
-+		params.poll_interval = 1;
-+	else if (flags & SBL_FLAG_INTERVAL_10MS)
-+		params.poll_interval = 10;
-+	else if (flags & SBL_FLAG_INTERVAL_100MS)
-+		params.poll_interval = 100;
-+	else if (flags & SBL_FLAG_INTERVAL_1S)
-+		params.poll_interval = 1000;
-+	else
-+		return -EINVAL;
++	rc = cxi_rxtx_profile_list_iterate(list,
++					   vni_overlap_test,
++					   &rxtx_prof);
 +
-+	return cxi_sbus_op(&hw->cdev, &params, rsp_data, result_code, overrun);
++	cxi_rxtx_profile_list_unlock(list);
++
++	return !rc;
 +}
 +
-+/**
-+ * cass_sbl_sbus_op_reset() - Perform an sbus op reset
-+ *
-+ * Note this doesn't reset the sbus - all it does is clear the MB accessor
-+ * registers
-+ *
-+ * @accessor: the SBL device
-+ * @ring: unused
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+static int cass_sbl_sbus_op_reset(void *accessor, int ring)
-+{
-+	struct cass_dev *hw = (struct cass_dev *)accessor;
-+
-+	return cxi_sbus_op_reset(&hw->cdev);
-+}
-+
-+/* End sbl_ops */
-+
-+/* phy_ops follow */
-+/**
-+ * cass_sbl_init() - Create a base link device
-+ *
-+ * Implements phy_ops' .init function
-+ *
-+ * @hw: the device
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+int cass_sbl_init(struct cass_dev *hw)
-+{
-+	struct sbl_inst *sbl;
-+	struct sbl_ops ops;
-+	struct sbl_instance_attr sbl_attr = SBL_INSTANCE_ATTR_INITIALIZER;
-+	struct sbl_init_attr sbl_iattr;
-+	int err = 0;
-+
-+	ops.sbl_read32			 = cass_read32;
-+	ops.sbl_write32			 = cass_write32;
-+	ops.sbl_read64			 = cass_read64;
-+	ops.sbl_write64			 = cass_write64;
-+	ops.sbl_sbus_op			 = cass_sbl_sbus_op;
-+	ops.sbl_sbus_op_reset		 = cass_sbl_sbus_op_reset;
-+	ops.sbl_is_fabric_link		 = cass_sbl_is_fabric_link;
-+	ops.sbl_get_max_frame_size	 = cass_sbl_get_max_frame_size;
-+	ops.sbl_pml_install_intr_handler = cass_sbl_pml_install_intr_handler;
-+	ops.sbl_pml_enable_intr_handler	 = cass_sbl_pml_enable_intr_handler;
-+	ops.sbl_pml_remove_intr_handler	 = cass_sbl_pml_remove_intr_handler;
-+	ops.sbl_pml_disable_intr_handler = cass_sbl_pml_disable_intr_handler;
-+	ops.sbl_async_alert              = cass_sbl_async_alert;
-+
-+	sbl_iattr.magic = SBL_INIT_ATTR_MAGIC;
-+	sbl_iattr.uc_nic = hw->uc_nic;
-+
-+	switch (hw->uc_platform) {
-+	case CUC_BOARD_TYPE_SAWTOOTH:
-+		sbl_iattr.uc_platform = SBL_UC_PLATFORM_SAWTOOTH;
-+		break;
-+	case CUC_BOARD_TYPE_BRAZOS:
-+		sbl_iattr.uc_platform = SBL_UC_PLATFORM_BRAZOS;
-+		break;
-+	default:
-+		sbl_iattr.uc_platform = SBL_UC_PLATFORM_UNKNOWN;
-+	}
-+
-+	sbl = sbl_new_instance(hw, hw, &ops, &sbl_iattr);
-+
-+	if (IS_ERR(sbl)) {
-+		cxidev_err(&hw->cdev, "new sbl instance failed [%ld]\n",
-+			   PTR_ERR(sbl));
-+		err = PTR_ERR(sbl);
-+		goto out_bad_sbl;
-+	}
-+	hw->sbl = sbl;
-+
-+	/* initialise the base link instance */
-+	strscpy(sbl_attr.inst_name, hw->cdev.name,
-+		sizeof(sbl_attr.inst_name));
-+	err = sbl_initialise_instance(hw->sbl, &sbl_attr);
-+	if (err) {
-+		cxidev_err(&hw->cdev, "sbl init failed [%d]\n", err);
-+		sbl_delete_instance(hw->sbl);
-+		goto out_bad_sbl;
-+	}
-+
-+	hw->sbl_counters = NULL;
-+	err = cass_sbl_counters_init(hw);
-+	if (err)
-+		sbl_delete_instance(hw->sbl);
-+
-+ out_bad_sbl:
-+	if (err)
-+		hw->sbl = NULL;
-+
-+	return err;
-+}
-+
-+/**
-+ * cass_sbl_exit() - Delete a base link device
-+ *
-+ * Implements phy_ops' .exit function
-+ *
-+ * @hw: the device
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+int cass_sbl_exit(struct cass_dev *hw)
-+{
-+	int err;
-+
-+	if (!hw->sbl)
-+		return 0;
-+
-+	err = sbl_delete_instance(hw->sbl);
-+	if (err) {
-+		cxidev_err(&hw->cdev, "delete sbl instance failed [%d]\n", err);
-+		return err;
-+	}
-+	cass_sbl_counters_term(hw);
-+	hw->sbl = NULL;
-+	return 0;
-+}
-+
-+void cass_sbl_exit_legacy(struct cass_dev *hw)
-+{
-+	WARN_ON(cass_sbl_exit(hw));
-+}
-+
-+/**
-+ * cass_sbl_power_on() - Bring a link up
-+ *
-+ * Implements phy_ops' .power_on function
-+ *
-+ * @hw: the device
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+int cass_sbl_power_on(struct cass_dev *hw)
-+{
-+	bool auto_restart;
-+	int blstate;
-+	int err = 0;
-+	bool auto_neg_timedout = false;
-+
-+	cxidev_dbg(&hw->cdev, "link: up starting\n");
-+	atomic_inc(&hw->sbl_counters[link_up_tries]);
-+
-+	hw->port->config_state |= CASS_PORT_CONFIGURED;
-+
-+	if (cass_link_get_state(hw) == CASS_LINK_STATUS_UP)
-+		goto out;
-+	else
-+		cass_link_set_state(hw, CASS_LINK_STATUS_STARTING, 0);
-+
-+	cass_link_set_down_origin(hw, CASS_DOWN_ORIGIN_NONE);
-+	auto_restart = hw->port->lattr.options & CASS_LINK_OPT_UP_AUTO_RESTART;
-+
-+	if (hw->port->subtype != CASS_PORT_SUBTYPE_IEEE)
-+		sbl_enable_opt_lane_degrade(hw->sbl, 0, true);
-+	/*
-+	 * bring up the base link (serdes,pcs,mac,[llr])
-+	 */
-+	err = sbl_base_link_start(hw->sbl, 0);
-+	if (err) {
-+		if (err == -ETIME)
-+			auto_neg_timedout = true;
-+
-+		if (auto_restart || (err == -ECANCELED)) {
-+			/*
-+			 * link did not come up
-+			 * try to cleanup base link for another restart attempt
-+			 */
-+			cxidev_dbg(&hw->cdev, "link: base link start failed [%d]\n",
-+				   err);
-+			sbl_base_link_try_start_fail_cleanup(hw->sbl, 0);
-+			sbl_base_link_get_status(hw->sbl, 0, &blstate,
-+						 NULL, NULL, NULL, NULL, NULL);
-+			cxidev_dbg(&hw->cdev, "link: base link status = %d\n",
-+				   blstate);
-+			if (blstate == SBL_BASE_LINK_STATUS_DOWN)
-+				goto out_non_fatal;
-+			else if (blstate == SBL_BASE_LINK_STATUS_UNCONFIGURED)
-+				goto out_non_fatal;
-+			else
-+				goto out_fatal;
-+		} else {
-+			cxidev_err(&hw->cdev, "link: base link start failed [%d]\n",
-+				   err);
-+			err = -ENOLINK;
-+			goto out_fatal;
-+		}
-+	}
-+
-+	atomic_inc(&hw->sbl_counters[link_up]);
-+
-+	/* report success */
-+out:
-+	cass_link_set_state(hw, CASS_LINK_STATUS_UP, 0);
-+	cass_phy_link_up(hw);
-+
-+	hw->port->start_time = ktime_get_seconds();
-+
-+	return 0;
-+
-+out_non_fatal:
-+	if (!auto_neg_timedout) {
-+		cass_link_set_state(hw, CASS_LINK_STATUS_DOWN, 0);
-+		cass_phy_link_down(hw);
-+	}
-+
-+	return err;
-+
-+	/*
-+	 * fatal errors result in the error state and require a reset to clear
-+	 */
-+out_fatal:
-+	cass_link_set_state(hw, CASS_LINK_STATUS_ERROR, err);
-+
-+	return err;
-+}
-+
-+/**
-+ * cass_sbl_power_off() - Bring a link down
-+ *
-+ * Implements phy_ops' .power_off function
-+ *
-+ * @hw: the device
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+int cass_sbl_power_off(struct cass_dev *hw)
-+{
-+	int err = 0;
-+
-+	cxidev_dbg(&hw->cdev, "link: down starting (from %s)\n",
-+		   cass_link_state_str(cass_link_get_state(hw)));
-+
-+	atomic_inc(&hw->sbl_counters[link_down_tries]);
-+
-+	if (cass_link_get_state(hw) == CASS_LINK_STATUS_DOWN)
-+		goto out;
-+	else
-+		cass_link_set_state(hw, CASS_LINK_STATUS_STOPPING, 0);
-+
-+	/*
-+	 * ethernet links need to make sure all flows are empty
-+	 */
-+	sbl_pml_mac_stop(hw->sbl, 0);
-+
-+	/*
-+	 * stop base link
-+	 */
-+	if (hw->port->link_down_origin == CASS_DOWN_ORIGIN_BL_HISER ||
-+	    hw->port->link_down_origin == CASS_DOWN_ORIGIN_LMON_UCW ||
-+	    hw->port->link_down_origin == CASS_DOWN_ORIGIN_BL_DOWN)
-+		sbl_serdes_invalidate_tuning_params(hw->sbl, 0);
-+
-+	err = sbl_base_link_stop(hw->sbl, 0);
-+	if (err) {
-+		cxidev_err(&hw->cdev,
-+			   "link: fabric stop, sbl_link_down failed [%d]\n",
-+			   err);
-+		goto out_fatal;
-+	}
-+
-+	atomic_inc(&hw->sbl_counters[link_down]);
-+
-+	/* report success */
-+out:
-+	cass_link_set_state(hw, CASS_LINK_STATUS_DOWN, 0);
-+	hw->port->config_state &= ~CASS_PORT_CONFIGURED;
-+	cass_phy_link_down(hw);
-+
-+	return 0;
-+
-+out_fatal:
-+	cass_link_set_state(hw, CASS_LINK_STATUS_ERROR, err);
-+
-+	return err;
-+}
-+
-+/**
-+ * cass_sbl_serdes_config_defaults() - Writes a Cassini-specific config to SBL
-+ *
-+ * Updates SBL config to include an additional SerDes config value set.
-+ *
-+ * @hw: the device
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+static int cass_sbl_serdes_config_defaults(struct cass_dev *hw)
-+{
-+	struct sbl_sc_values vals = { 0 };
-+	int rc, err;
-+
-+	/* CONFIG 1: 200G and 100G PEC to switch */
-+	u64 port_mask = 0x1;
-+	u8  serdes_mask = 0xf;
-+	u64 tp_state_mask0 = sbl_create_tp_hash0((u8)CASS_SBL_SC_MASKED_IN,
-+						 (u8)CASS_SBL_SC_MASKED_IN,
-+						 (u8)CASS_SBL_SC_MASKED_OUT,
-+						 (u8)CASS_SBL_SC_MASKED_OUT,
-+						 (u8)CASS_SBL_SC_MASKED_IN,
-+						 (u16)CASS_SBL_SC_MASKED_OUT);
-+	u64 tp_state_mask1 = sbl_create_tp_hash1(CASS_SBL_SC_MASKED_IN);
-+	u64 tp_state_match0 = sbl_create_tp_hash0(CASS_SBL_SC_LP_SWITCH,
-+						 CASS_SBL_SC_LBM_ANY,
-+						 CASS_SBL_SC_NA,
-+						 CASS_SBL_SC_NA,
-+						 CASS_SBL_SC_MT_ELEC,
-+						 CASS_SBL_SC_NA);
-+	u64 tp_state_match1 = sbl_create_tp_hash1(CASS_SBL_SC_NA);
-+
-+	vals.magic    = SBL_SERDES_CONFIG_MAGIC;
-+	vals.atten    = SBL_DFLT_PORT_CONFIG_ATTEN;
-+	vals.pre      = CASS_SBL_PORT_CONFIG1_PRE;
-+	vals.post     = SBL_DFLT_PORT_CONFIG_POST;
-+	vals.pre2     = SBL_DFLT_PORT_CONFIG_PRE2;
-+	vals.pre3     = SBL_DFLT_PORT_CONFIG_PRE3;
-+	vals.gs1      = SBL_DFLT_PORT_CONFIG_GS1_OPTICAL;
-+	vals.gs2      = SBL_DFLT_PORT_CONFIG_GS2_OPTICAL;
-+	vals.num_intr = SBL_DFLT_PORT_CONFIG_NUM_INTR;
-+
-+	err = sbl_serdes_add_config(hw->sbl, tp_state_mask0, tp_state_mask1,
-+				    tp_state_match0, tp_state_match1, port_mask,
-+				   serdes_mask, &vals, false);
-+	/* If we failed trying to add a duplicate config - we still got what
-+	 * we wanted. Return 0.
-+	 */
-+	if ((err == 0) || (err == -EEXIST))
-+		rc = 0;
-+	else
-+		rc = err;
-+
-+	// CONFIG 2: 100G AOC to switch
-+	// All the same mask/match params, save for the following:
-+	tp_state_match0 = sbl_create_tp_hash0((u8)CASS_SBL_SC_LP_SWITCH,
-+					      (u8)CASS_SBL_SC_LBM_ANY,
-+					      (u8)CASS_SBL_SC_NA,
-+					      (u8)CASS_SBL_SC_LM_100,
-+					      (u8)CASS_SBL_SC_MT_OPT_ANY,
-+					      (u16)CASS_SBL_SC_NA);
-+	vals.atten    = CASS_SBL_PORT_CONFIG2_ATTEN;
-+	vals.pre      = SBL_DFLT_PORT_CONFIG_PRE;
-+	vals.post     = SBL_DFLT_PORT_CONFIG_POST;
-+	vals.pre2     = SBL_DFLT_PORT_CONFIG_PRE2;
-+	vals.pre3     = SBL_DFLT_PORT_CONFIG_PRE3;
-+	vals.gs1      = CASS_SBL_PORT_CONFIG2_GS1;
-+	vals.gs2      = SBL_DFLT_PORT_CONFIG_GS2_OPTICAL;
-+	vals.num_intr = CASS_SBL_PORT_CONFIG2_NUM_INTR;
-+	vals.intr_val[0] = CASS_SBL_PORT_CONFIG2_INTR0;
-+	vals.data_val[0] = CASS_SBL_PORT_CONFIG2_DATA0;
-+	vals.intr_val[1] = CASS_SBL_PORT_CONFIG2_INTR1;
-+	vals.data_val[1] = CASS_SBL_PORT_CONFIG2_DATA1;
-+	vals.intr_val[2] = CASS_SBL_PORT_CONFIG2_INTR2;
-+	vals.data_val[2] = CASS_SBL_PORT_CONFIG2_DATA2;
-+	vals.intr_val[3] = CASS_SBL_PORT_CONFIG2_INTR3;
-+	vals.data_val[3] = CASS_SBL_PORT_CONFIG2_DATA3;
-+
-+	err = sbl_serdes_add_config(hw->sbl, tp_state_mask0, tp_state_mask1,
-+				    tp_state_match0, tp_state_match1, port_mask,
-+				   serdes_mask, &vals, false);
-+	if ((err == 0) || (err == -EEXIST))
-+		rc += 0;
-+	else
-+		rc += err;
-+
-+	// CONFIG 3: 200G AOC to switch
-+	// All the same mask/match params, save for the following:
-+	tp_state_match0 = sbl_create_tp_hash0((u8)CASS_SBL_SC_LP_SWITCH,
-+					      (u8)CASS_SBL_SC_LBM_ANY,
-+					      (u8)CASS_SBL_SC_NA,
-+					      (u8)CASS_SBL_SC_LM_200,
-+					      (u8)CASS_SBL_SC_MT_OPT_ANY,
-+					      (u16)CASS_SBL_SC_NA);
-+	vals.atten    = CASS_SBL_PORT_CONFIG3_ATTEN;
-+	vals.pre      = CASS_SBL_PORT_CONFIG3_PRE;
-+	vals.post     = SBL_DFLT_PORT_CONFIG_POST;
-+	vals.pre2     = SBL_DFLT_PORT_CONFIG_PRE2;
-+	vals.pre3     = SBL_DFLT_PORT_CONFIG_PRE3;
-+	vals.gs1      = CASS_SBL_PORT_CONFIG3_GS1;
-+	vals.gs2      = SBL_DFLT_PORT_CONFIG_GS2_OPTICAL;
-+	vals.num_intr = SBL_DFLT_PORT_CONFIG_NUM_INTR;
-+
-+	err = sbl_serdes_add_config(hw->sbl, tp_state_mask0, tp_state_mask1,
-+				    tp_state_match0, tp_state_match1, port_mask,
-+				   serdes_mask, &vals, false);
-+	if ((err == 0) || (err == -EEXIST))
-+		rc += 0;
-+	else
-+		rc += err;
-+
-+	if (rc)
-+		cxidev_err(&hw->cdev, "Failed to update SBL config [%d]\n", rc);
-+	return rc;
-+}
-+
-+/**
-+ * cass_sbl_set_defaults() - Set link defaults
-+ *
-+ * Sets reasonable defaults for 200G Electrical link
-+ *
-+ * @hw: the device
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+void cass_sbl_set_defaults(struct cass_dev *hw)
-+{
-+	struct sbl_media_attr mattr;
-+
-+	/* The media attribute can be configured during cable scan, which has
-+	 * already happened. Don't blow away this information.
-+	 */
-+	mattr = hw->port->lattr.mattr;
-+	memset(&hw->port->lattr, 0, sizeof(struct cass_link_attr));
-+	hw->port->lattr.mattr = mattr;
-+
-+	/* base link config */
-+	hw->port->lattr.bl.magic = SBL_LINK_ATTR_MAGIC;
-+	hw->port->lattr.bl.options = SBL_OPT_ENABLE_PCAL | SBL_DISABLE_PML_RECOVERY;
-+	hw->port->lattr.options = CASS_LINK_ATTR_DEFAULT_OPT_FLAGS
-+		| CASS_LINK_OPT_UP_AUTO_RESTART;
-+
-+	switch (hw->port->lattr.mattr.media) {
-+	case SBL_LINK_MEDIA_ELECTRICAL:
-+	default:
-+		hw->port->lattr.bl.options |= SBL_OPT_AUTONEG_TIMEOUT_SSHOT |
-+			SBL_OPT_AUTONEG_100CR4_FIXUP;
-+		hw->port->lattr.bl.start_timeout =
-+			SBL_LINK_START_TIMEOUT_PEC;
-+		hw->port->lattr.bl.config_target =
-+			SBL_BASE_LINK_CONFIG_PEC;
-+		hw->port->lattr.bl.pec.an_mode =
-+			SBL_AN_MODE_ON;
-+		hw->port->lattr.bl.pec.an_retry_timeout =
-+			SBL_LINK_DFLT_AN_RETRY_TIMEOUT;
-+		hw->port->lattr.bl.pec.an_max_retry =
-+			SBL_LINK_DFLT_AN_MAX_RETRY;
-+		hw->port->lattr.bl.lpd_timeout = 0;
-+		hw->port->lattr.bl.lpd_poll_interval = 0;
-+		hw->port->lattr.bl.dfe_pre_delay =
-+			SBL_DFLT_DFE_PRE_DELAY_PEC;
-+		hw->port->lattr.bl.dfe_timeout =
-+			SBL_DFLT_DFE_TIMEOUT_PEC;
-+		hw->port->lattr.bl.dfe_poll_interval =
-+			SBL_DFLT_DFE_POLL_INTERVAL;
-+		hw->port->lattr.bl.pcal_eyecheck_holdoff =
-+			SBL_DFLT_PCAL_EYECHECK_HOLDOFF_PEC;
-+		hw->port->lattr.bl.nrz_min_eye_height =
-+			SBL_DFLT_NRZ_PEC_MIN_EYE_HEIGHT;
-+		hw->port->lattr.bl.nrz_max_eye_height =
-+			SBL_DFLT_NRZ_PEC_MAX_EYE_HEIGHT;
-+		hw->port->lattr.bl.pam4_min_eye_height =
-+			SBL_DFLT_PAM4_PEC_MIN_EYE_HEIGHT;
-+		hw->port->lattr.bl.pam4_max_eye_height =
-+			SBL_DFLT_PAM4_PEC_MAX_EYE_HEIGHT;
-+		break;
-+	case SBL_LINK_MEDIA_OPTICAL:
-+		hw->port->lattr.bl.start_timeout =
-+			SBL_LINK_START_TIMEOUT_AOC;
-+		hw->port->lattr.bl.config_target =
-+			SBL_BASE_LINK_CONFIG_AOC;
-+		hw->port->lattr.bl.aoc.reserved = 0;
-+		hw->port->lattr.bl.aoc.optical_lock_delay =
-+			SBL_DFLT_OPTICAL_LOCK_DELAY;
-+		hw->port->lattr.bl.aoc.optical_lock_interval =
-+			SBL_DFLT_OPTICAL_LOCK_INTERVAL;
-+		/* hw->port->lattr.bl.options |= */
-+		/*	SBL_OPT_SERDES_LPD; */
-+		hw->port->lattr.bl.lpd_timeout =
-+			SBL_DFLT_LPD_TIMEOUT;
-+		hw->port->lattr.bl.lpd_poll_interval =
-+			SBL_DFLT_LPD_POLL_INTERVAL;
-+		hw->port->lattr.bl.dfe_pre_delay =
-+			SBL_DFLT_DFE_PRE_DELAY_AOC;
-+		hw->port->lattr.bl.dfe_timeout =
-+			SBL_DFLT_DFE_TIMEOUT_AOC;
-+		hw->port->lattr.bl.dfe_poll_interval =
-+			SBL_DFLT_DFE_POLL_INTERVAL;
-+		hw->port->lattr.bl.pcal_eyecheck_holdoff =
-+			SBL_DFLT_PCAL_EYECHECK_HOLDOFF_AOC;
-+		hw->port->lattr.bl.nrz_min_eye_height =
-+			SBL_DFLT_NRZ_AOC_MIN_EYE_HEIGHT;
-+		hw->port->lattr.bl.nrz_max_eye_height =
-+			SBL_DFLT_NRZ_AOC_MAX_EYE_HEIGHT;
-+		hw->port->lattr.bl.pam4_min_eye_height =
-+			SBL_DFLT_PAM4_AOC_MIN_EYE_HEIGHT;
-+		hw->port->lattr.bl.pam4_max_eye_height =
-+			SBL_DFLT_PAM4_AOC_MAX_EYE_HEIGHT;
-+		break;
-+	}
-+
-+	if ((HW_PLATFORM_Z1(hw)) &&
-+	    (hw->port->lattr.mattr.media == SBL_LINK_MEDIA_ELECTRICAL)) {
-+		hw->port->lattr.bl.pec.an_mode = SBL_AN_MODE_FIXED;
-+	}
-+
-+	hw->port->lattr.bl.link_mode          = SBL_LINK_MODE_BS_200G;
-+	hw->port->lattr.bl.loopback_mode      = SBL_LOOPBACK_MODE_OFF;
-+	hw->port->lattr.bl.link_partner       = SBL_LINK_PARTNER_SWITCH;
-+	hw->port->lattr.bl.tuning_pattern     = SBL_TUNING_PATTERN_CORE;
-+	hw->port->lattr.bl.fec_mode           = SBL_RS_MODE_ON;
-+	hw->port->lattr.bl.enable_autodegrade = 0;
-+	if (HW_PLATFORM_ASIC(hw))
-+		hw->port->lattr.bl.llr_mode   = SBL_LLR_MODE_ON;
-+	else
-+		hw->port->lattr.bl.llr_mode   = SBL_LLR_MODE_OFF;
-+	hw->port->lattr.bl.ifg_config         = SBL_IFG_CONFIG_IEEE_200G;
-+	hw->port->lattr.bl.precoding          = SBL_PRECODING_OFF;
-+
-+	hw->port->lattr.bl.pml_recovery.timeout         = pml_rec_timeout;
-+	hw->port->lattr.bl.pml_recovery.rl_max_duration = pml_rec_rl_max_dur;
-+	hw->port->lattr.bl.pml_recovery.rl_window_size  = pml_rec_rl_win_size;
-+}
-+
-+/**
-+ * cass_sbl_configure() - Send configuration to SBL
-+ *
-+ * @hw: the device
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+int cass_sbl_configure(struct cass_dev *hw)
-+{
-+	int err;
-+
-+	cxidev_dbg(&hw->cdev, "Configuring SBL\n");
-+
-+	if ((hw->port->lattr.bl.llr_mode == SBL_LLR_MODE_ON) ||
-+	    (hw->port->lattr.bl.ifg_config == SBL_IFG_CONFIG_HPC))
-+		hw->port->subtype = CASS_PORT_SUBTYPE_CASSINI;
-+	else
-+		hw->port->subtype = CASS_PORT_SUBTYPE_IEEE;
-+
-+	err = hw->link_ops->link_config(hw);
-+	if (err) {
-+		cxidev_err(&hw->cdev, "configure failed [%d]\n", err);
-+		return err;
-+	}
-+
-+	cass_link_set_state(hw, CASS_LINK_STATUS_DOWN, 0);
-+	hw->link_config_dirty = false;
-+	hw->port->config_state |= CASS_TYPE_CONFIGURED | CASS_LINK_CONFIGURED;
-+
-+	return err;
-+}
-+
-+/**
-+ * cass_sbl_reset() - Reset a link
-+ *
-+ * Implements phy_ops' .reset function
-+ *
-+ * @hw: the device
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+int cass_sbl_reset(struct cass_dev *hw)
-+{
-+	int bl_state;
-+	int err;
-+
-+	cxidev_dbg(&hw->cdev, "link: reset (from %s)\n",
-+		   cass_link_state_str(cass_link_get_state(hw)));
-+
-+	atomic_inc(&hw->sbl_counters[link_reset_tries]);
-+
-+	cass_link_set_state(hw, CASS_LINK_STATUS_RESETTING, 0);
-+
-+	/* reset the base link */
-+	sbl_base_link_get_status(hw->sbl, 0, &bl_state, NULL, NULL, NULL,
-+				 NULL, NULL);
-+
-+	if (bl_state != SBL_BASE_LINK_STATUS_UNCONFIGURED) {
-+		err = sbl_base_link_reset(hw->sbl, 0);
-+		if (err)
-+			cxidev_err(&hw->cdev,
-+				   "link: reset, base link reset failed [%d]\n",
-+				   err);
-+	}
-+
-+	spin_lock(&hw->sbl_state_lock);
-+	hw->port->prev_lstate = hw->port->lstate;
-+	hw->port->lstate = CASS_LINK_STATUS_UNCONFIGURED;
-+	hw->port->lerr = 0;
-+	hw->port->config_state &= ~CASS_LINK_CONFIGURED;
-+	spin_unlock(&hw->sbl_state_lock);
-+
-+	atomic_inc(&hw->sbl_counters[link_reset]);
-+
-+	return 0;
-+}
-+
-+/* end phy_ops */
-+
-+/* sysfs */
-+static ssize_t link_show(struct kobject *kobj,
-+			 struct kobj_attribute *kattr, char *buf)
++static int valid_vni_operator(struct cxi_rxtx_profile *rxtx_profile,
++			      void *user_data)
 +{
 +	int rc;
-+	struct cass_dev *hw =
-+		container_of(kobj, struct cass_dev, port_kobj);
++	bool valid = false;
++	unsigned int ac_entry_id;
++	struct cxi_rxtx_vni_attr vni_attr;
++	struct cxi_rxtx_profile_state state;
++	struct valid_user_data *data = user_data;
++	struct cxi_rxtx_vni_attr user_vni = {
++		.match = data->vni,
++	};
++	struct valid_ac_data ac_data = data->ac_data;
 +
-+	if (!cass_version(hw, CASSINI_1))
-+		return snprintf(buf, SYSFS_BUFSIZE, "NOT IMPLEMENTED!!\n");
++	cxi_rxtx_profile_get_info(rxtx_profile, &vni_attr, &state);
 +
-+	rc = cass_link_sysfs_sprint(hw, buf, PAGE_SIZE);
++	if (!state.enable)
++		return false;
 +
-+	return rc;
-+}
-+
-+static ssize_t link_layer_retry_show(struct kobject *kobj,
-+				     struct kobj_attribute *kattr, char *buf)
-+{
-+	int rc;
-+	struct cass_dev *hw =
-+		container_of(kobj, struct cass_dev, port_kobj);
-+
-+	if (!cass_version(hw, CASSINI_1))
-+		return snprintf(buf, SYSFS_BUFSIZE, "NOT IMPLEMENTED!!\n");
-+
-+	rc = sbl_base_link_llr_sysfs_sprint(hw->sbl, 0, buf, PAGE_SIZE);
-+
-+	return rc;
-+}
-+
-+static ssize_t loopback_show(struct kobject *kobj,
-+			     struct kobj_attribute *kattr, char *buf)
-+{
-+	int rc;
-+	struct cass_dev *hw =
-+		container_of(kobj, struct cass_dev, port_kobj);
-+
-+	if (!cass_version(hw, CASSINI_1))
-+		return snprintf(buf, SYSFS_BUFSIZE, "NOT IMPLEMENTED!!\n");
-+
-+	rc = sbl_base_link_loopback_sysfs_sprint(hw->sbl, 0, buf, PAGE_SIZE);
-+
-+	return rc;
-+}
-+
-+static ssize_t media_show(struct kobject *kobj,
-+			  struct kobj_attribute *kattr, char *buf)
-+{
-+	int rc;
-+	struct cass_dev *hw =
-+		container_of(kobj, struct cass_dev, port_kobj);
-+
-+	if (!cass_version(hw, CASSINI_1))
-+		return snprintf(buf, SYSFS_BUFSIZE, "NOT IMPLEMENTED!!\n");
-+
-+	rc = sbl_media_type_sysfs_sprint(hw->sbl, 0, buf, PAGE_SIZE);
-+
-+	return rc;
-+}
-+
-+static ssize_t pause_show(struct kobject *kobj,
-+			  struct kobj_attribute *kattr, char *buf)
-+{
-+	int rc;
-+	struct cass_dev *hw =
-+		container_of(kobj, struct cass_dev, port_kobj);
-+
-+	if (!cass_version(hw, CASSINI_1))
-+		return snprintf(buf, SYSFS_BUFSIZE, "NOT IMPLEMENTED!!\n");
-+
-+	rc = cass_pause_sysfs_sprint(hw, buf, PAGE_SIZE);
-+
-+	return rc;
-+}
-+
-+static ssize_t speed_show(struct kobject *kobj,
-+			  struct kobj_attribute *kattr, char *buf)
-+{
-+	int rc;
-+	struct cass_dev *hw =
-+		container_of(kobj, struct cass_dev, port_kobj);
-+
-+	if (!cass_version(hw, CASSINI_1))
-+		return snprintf(buf, SYSFS_BUFSIZE, "NOT IMPLEMENTED!!\n");
-+
-+	rc = sbl_pml_pcs_speed_sysfs_sprint(hw->sbl, 0, buf, PAGE_SIZE);
-+
-+	return rc;
-+}
-+
-+static struct kobj_attribute dev_attr_link = __ATTR_RO(link);
-+static struct kobj_attribute dev_attr_link_layer_retry =
-+	__ATTR_RO(link_layer_retry);
-+static struct kobj_attribute dev_attr_loopback = __ATTR_RO(loopback);
-+static struct kobj_attribute dev_attr_media = __ATTR_RO(media);
-+static struct kobj_attribute dev_attr_pause = __ATTR_RO(pause);
-+static struct kobj_attribute dev_attr_speed = __ATTR_RO(speed);
-+
-+static struct attribute *port_attrs[] = {
-+	&dev_attr_link.attr,
-+	&dev_attr_link_layer_retry.attr,
-+	&dev_attr_loopback.attr,
-+	&dev_attr_media.attr,
-+	&dev_attr_pause.attr,
-+	&dev_attr_speed.attr,
-+	NULL,
-+};
-+ATTRIBUTE_GROUPS(port);
-+
-+static struct kobj_type port_sysfs_entries = {
-+	.sysfs_ops      = &kobj_sysfs_ops,
-+	.default_groups = port_groups,
-+};
-+
-+int cass_register_port(struct cass_dev *hw)
-+{
-+	int rc;
-+
-+	/* Create the port sysfs entries */
-+	rc = kobject_init_and_add(&hw->port_kobj, &port_sysfs_entries,
-+				  &hw->cdev.pdev->dev.kobj,
-+				  "port");
-+	if (rc)
-+		kobject_put(&hw->port_kobj);
-+
-+	return rc;
-+}
-+
-+void cass_unregister_port(struct cass_dev *hw)
-+{
-+	kobject_put(&hw->port_kobj);
-+}
-+
-+void cass_sbl_link_mode_to_speed(u32 link_mode, int *speed)
-+{
-+	switch (link_mode) {
-+	case SBL_LINK_MODE_BS_200G:
-+		*speed = SPEED_200000;
-+		return;
-+	case SBL_LINK_MODE_BJ_100G:
-+	case SBL_LINK_MODE_CD_100G:
-+		*speed = SPEED_100000;
-+		return;
-+	case SBL_LINK_MODE_CD_50G:
-+		*speed = SPEED_50000;
-+		return;
-+	default:
-+		*speed = SPEED_UNKNOWN;
-+		return;
-+	}
-+}
-+
-+void cass_sbl_link_speed_to_mode(int speed, u32 *link_mode)
-+{
-+	switch (speed) {
-+	case SPEED_200000:
-+	case SPEED_UNKNOWN:
-+		*link_mode = SBL_LINK_MODE_BS_200G;
-+		return;
-+	case SPEED_100000:
-+		*link_mode = SBL_LINK_MODE_BJ_100G;
-+		return;
-+	case SPEED_50000:
-+		*link_mode = SBL_LINK_MODE_CD_50G;
-+		return;
-+	default:
-+		*link_mode = SBL_LINK_MODE_INVALID;
-+		return;
-+	}
-+}
-+
-+int cass_sbl_media_config(struct cass_dev *hw, void *attr)
-+{
-+	int err;
-+
-+	cxidev_dbg(&hw->cdev, "sbl media config\n");
-+
-+	err = sbl_media_config(hw->sbl, 0, attr);
-+	if (err) {
-+		cxidev_err(&hw->cdev, "sbl media config failed [%d]\n", err);
-+		return err;
++	/* If there is a vni match, check if user is authorized */
++	if (vni_overlap(&user_vni, &vni_attr)) {
++		rc = cxi_rxtx_profile_get_ac_entry_id_by_user(rxtx_profile,
++							      ac_data.uid,
++							      ac_data.gid,
++							      ac_data.netns,
++							      CXI_AC_ANY,
++							      &ac_entry_id);
++		if (!rc)
++			valid = true;
 +	}
 +
-+	return 0;
++	return valid;
 +}
 +
-+int cass_sbl_media_unconfig(struct cass_dev *hw)
-+{
-+	int err;
-+
-+	cxidev_dbg(&hw->cdev, "sbl media unconfig\n");
-+
-+	err = sbl_media_unconfig(hw->sbl, 0);
-+	if (err) {
-+		cxidev_err(&hw->cdev, "sbl media unconfig failed [%d]\n", err);
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+
-+int cass_sbl_link_config(struct cass_dev *hw)
-+{
-+	int err;
-+
-+	cxidev_dbg(&hw->cdev, "sbl link config\n");
-+
-+	err = sbl_base_link_config(hw->sbl, 0, &hw->port->lattr.bl);
-+	if (err) {
-+		cxidev_err(&hw->cdev, "Failed to set SBL config defaults\n");
-+		return err;
-+	}
-+
-+	err = cass_sbl_serdes_config_defaults(hw);
-+	if (err) {
-+		cxidev_err(&hw->cdev, "Failed to set SerDes config defaults\n");
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+
-+bool cass_sbl_pml_pcs_aligned(struct cass_dev *hw)
-+{
-+	return sbl_pml_pcs_aligned(hw->sbl, 0);
-+}
-+
-+/*
-+ * Create and initialise the port's counter array
++/**
++ * cxi_valid_vni() - Check if user has permission to use a VNI by searching
++ *                   for a profile containing the VNI.
++ *
++ * @dev: Cassini Device
++ * @type: TX or RX profile
++ * @vni: VNI to verify
++ *
++ * Return:
++ * * true if VNI is valid
 + */
-+int cass_sbl_counters_init(struct cass_dev *hw)
++bool cxi_valid_vni(struct cxi_dev *dev, enum cxi_profile_type type,
++		   unsigned int vni)
 +{
-+	int i;
++	struct cxi_rxtx_profile_list *list;
++	bool valid;
++	struct cass_dev *hw = container_of(dev, struct cass_dev, cdev);
++	struct valid_user_data user_data = {
++		.vni = vni,
++		.ac_data = {
++			.uid = __kuid_val(current_euid()),
++			.gid = __kgid_val(current_egid()),
++			.netns = CURRENT_NETNS_ID(),
++		},
++	};
 +
-+	hw->sbl_counters = kzalloc(sizeof(atomic_t) * CASS_SBL_NUM_COUNTERS, GFP_KERNEL);
-+	if (!hw->sbl_counters)
-+		return -ENOMEM;
++	if (type == CXI_PROF_RX)
++		list = &hw->rx_profile_list;
++	else
++		list = &hw->tx_profile_list;
 +
-+	for (i = 0; i < CASS_SBL_NUM_COUNTERS; ++i)
-+		atomic_set(&hw->sbl_counters[i], 0);
-+
-+	return 0;
++	cxi_rxtx_profile_list_lock(list);
++	valid = cxi_rxtx_profile_list_iterate(list, valid_vni_operator, &user_data);
++	cxi_rxtx_profile_list_unlock(list);
++	return valid;
 +}
-+
-+/*
-+ * Destroy the port's counter array
-+ */
-+void cass_sbl_counters_term(struct cass_dev *hw)
-+{
-+	kfree(hw->sbl_counters);
-+	hw->sbl_counters = NULL;
-+}
-+
-+/*
-+ * Update down origin counters
-+ */
-+void cass_sbl_counters_down_origin_inc(struct cass_dev *hw, int down_origin)
-+{
-+	switch (down_origin) {
-+	case CASS_DOWN_ORIGIN_CONFIG:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_config]);
-+		break;
-+	case CASS_DOWN_ORIGIN_BL_LFAULT:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_bl_lfault]);
-+		break;
-+	case CASS_DOWN_ORIGIN_BL_RFAULT:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_bl_rfault]);
-+		break;
-+	case CASS_DOWN_ORIGIN_BL_ALIGN:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_bl_align]);
-+		break;
-+	case CASS_DOWN_ORIGIN_BL_DOWN:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_bl_down]);
-+		break;
-+	case CASS_DOWN_ORIGIN_BL_HISER:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_bl_hiser]);
-+		break;
-+	case CASS_DOWN_ORIGIN_BL_LLR:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_bl_llr]);
-+		break;
-+	case CASS_DOWN_ORIGIN_BL_UNKNOWN:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_bl_unknown]);
-+		break;
-+	case CASS_DOWN_ORIGIN_LMON_UCW:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_lmon_ucw]);
-+		break;
-+	case CASS_DOWN_ORIGIN_LMON_CCW:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_lmon_ccw]);
-+		break;
-+	case CASS_DOWN_ORIGIN_LLR_TX_REPLAY:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_lmon_llr_tx_replay]);
-+		break;
-+	case CASS_DOWN_ORIGIN_HEADSHELL_REMOVED:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_headshell_removed]);
-+		break;
-+	case CASS_DOWN_ORIGIN_HEADSHELL_ERROR:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_headshell_error]);
-+		break;
-+	case CASS_DOWN_ORIGIN_MEDIA_REMOVED:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_media_removed]);
-+		break;
-+	case CASS_DOWN_ORIGIN_CMD:
-+		atomic_inc(&hw->sbl_counters[link_down_origin_cmd]);
-+		break;
-+	default:
-+		cxidev_err(&hw->cdev, "down origin (%d) with no counter", down_origin);
-+		break;
-+	}
-+}
-+
-+/*
-+ * Update sbl counters
-+ */
-+void cass_sbl_counters_update(struct cass_dev *hw)
-+{
-+	int sbl_counters[SBL_NUM_COUNTERS];
-+	int i;
-+	int err;
-+
-+	err = sbl_link_counters_get(hw->sbl, 0, sbl_counters, 0, SBL_NUM_COUNTERS);
-+	if (err)
-+		return;
-+
-+	for (i = 0; i < SBL_NUM_COUNTERS; ++i)
-+		atomic_set(&hw->sbl_counters[SBL_COUNTERS_FIRST + i], sbl_counters[i]);
-+}
-+
-+int cass_sbl_set_eth_name(struct cass_dev *hw, const char *name)
-+{
-+	sbl_set_eth_name(hw->sbl, name);
-+
-+	return 0;
-+}
-diff --git a/drivers/net/ethernet/hpe/ss1/cass_sl.c b/drivers/net/ethernet/hpe/ss1/cass_sl.c
+diff --git a/drivers/net/ethernet/hpe/ss1/cxi_rxtx_profile_list.c b/drivers/net/ethernet/hpe/ss1/cxi_rxtx_profile_list.c
 new file mode 100644
-index 000000000000..72c8724a3327
+index 000000000000..605f08abe53c
 --- /dev/null
-+++ b/drivers/net/ethernet/hpe/ss1/cass_sl.c
-@@ -0,0 +1,1524 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright 2022,2023,2024,2025,2026 Hewlett Packard Enterprise Development LP */
++++ b/drivers/net/ethernet/hpe/ss1/cxi_rxtx_profile_list.c
+@@ -0,0 +1,249 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Copyright (C) 2024 Hewlett Packard Enterprise Development LP */
 +
-+#include <linux/list.h>
-+#include <linux/mutex.h>
-+#include <linux/delay.h>
++/* RX Profile and TX Profile List Implementations */
 +
 +#include "cass_core.h"
-+#include "cass_sl.h"
-+#include "cass_sl_io.h"
-+#include "cass_cable.h"
-+#include "cxi_ethtool.h"
++#include "cxi_rxtx_profile_list.h"
 +
-+#define CASS_SL_LGRP_NUM            0
-+#define CASS_SL_LINK_NUM            0
-+#define CASS_SL_LLR_NUM             0
-+#define CASS_SL_MAC_NUM             0
++/* **************************************************************** */
++/* RXTX Profile List implementation                                 */
++/* **************************************************************** */
 +
-+#define CASS_SL_INFO_MAP_STR_SIZE   80
-+
-+#define CASS_SL_SERDES_RATE_25  25781250000ULL
-+#define CASS_SL_SERDES_RATE_50  53125000000ULL
-+#define CASS_SL_SERDES_RATE_100 106250000000ULL
-+
-+#define CASS_SL_LINK_DOWN_TIMEOUT_MS  5000
-+
-+/* Default BER goals for FEC
-+ * The maximum rate LLR can incur UCWs (1e-10). Typically a burst error
++/**
++ * cxi_rxtx_profile_list_init() - initialize the Profile list object
++ *
++ * @list: address of list object
++ * @limits: address of index limits struct
++ * @flags: optional flags for xarray
++ * @gfp_opts: memory allocation options for xarray
 + */
-+#define CASS_SL_DEFAULT_BER_MANT_UCW 1
-+#define CASS_SL_DEFAULT_BER_EXP_UCW  -10
++void cxi_rxtx_profile_list_init(struct cxi_rxtx_profile_list *list,
++				struct xa_limit *limits,
++				gfp_t flags,
++				gfp_t gfp_opts)
++{
++	xa_init_flags(&list->xarray, flags);
 +
-+#define CASS_SL_DEFAULT_BER_MANT_CCW 2
-+#define CASS_SL_DEFAULT_BER_EXP_CCW  -5
++	list->limits   = limits;
++	list->flags    = flags;
++	list->gfp_opts = gfp_opts;
++}
 +
-+#define SL_DFLT_PML_REC_TIMEOUT_MS                 60
-+#define SL_DFLT_PML_REC_RATE_LIMIT_MAX_TIME_MS     60
-+#define SL_DFLT_PML_REC_RATE_LIMIT_WINDOW_SIZE_MS  1000
++/**
++ * cxi_rxtx_profile_list_destroy() - remove all Profile references
++ * from the list and free the underlying resources.
++ *
++ * @list: address of list
++ * @cleanup: function to call for additional cleanup processing of each
++ *           profile in the list
++ * @user_arg: second arg to cleanup function
++ */
++void cxi_rxtx_profile_list_destroy(struct cxi_rxtx_profile_list *list,
++				   void (*cleanup)(struct cxi_rxtx_profile *profile,
++						   void *user_arg),
++				   void *user_arg)
++{
++	unsigned long              index;
++	struct cxi_rxtx_profile    *profile;
 +
-+static unsigned int cass_sl_pml_rec_timeout_ms = SL_DFLT_PML_REC_TIMEOUT_MS;
-+module_param(cass_sl_pml_rec_timeout_ms, uint, 0644);
-+MODULE_PARM_DESC(cass_sl_pml_rec_timeout_ms, "PML recovery timeout in ms");
++	index = list->limits->min;
 +
-+static unsigned int cass_sl_pml_rec_rate_limit_max_time_ms = SL_DFLT_PML_REC_RATE_LIMIT_MAX_TIME_MS;
-+module_param(cass_sl_pml_rec_rate_limit_max_time_ms, uint, 0644);
-+MODULE_PARM_DESC(cass_sl_pml_rec_rate_limit_max_time_ms, "PML recovery max time in ms per window");
++	xa_lock(&list->xarray);
 +
-+static unsigned int cass_sl_pml_rec_rate_limit_win_size_ms = SL_DFLT_PML_REC_RATE_LIMIT_WINDOW_SIZE_MS;
-+module_param(cass_sl_pml_rec_rate_limit_win_size_ms, uint, 0644);
-+MODULE_PARM_DESC(cass_sl_pml_rec_rate_limit_win_size_ms, "PML recovery rate limiter window in ms");
++	xa_for_each(&list->xarray, index, profile) {
++		__xa_erase(&list->xarray, index);
++		if (cleanup)
++			cleanup(profile, user_arg);
++	}
 +
-+static struct kobj_type cass_sl_port_sysfs = {
-+	.sysfs_ops = &kobj_sysfs_ops,
++	xa_unlock(&list->xarray);
++	xa_destroy(&list->xarray);
++}
++
++/**
++ * cxi_rxtx_profile_list_lock() - lock the list
++ *
++ * @list: address of list
++ */
++void cxi_rxtx_profile_list_lock(struct cxi_rxtx_profile_list *list)
++	__acquires(&list->xarray.xa_lock)
++{
++	xa_lock(&list->xarray);
++}
++
++/**
++ * cxi_rxtx_profile_list_unlock() - unlock the list
++ *
++ * @list: address of list
++ */
++void cxi_rxtx_profile_list_unlock(struct cxi_rxtx_profile_list *list)
++	__releases(&list->xarray.xa_lock)
++{
++	xa_unlock(&list->xarray);
++}
++
++/**
++ * cxi_rxtx_profile_list_insert() - Allocate a free Id and
++ *                                  add a Profile to the list.
++ *
++ * @list: address of list
++ * @profile: address of Profile to add
++ * @profile_id: location to store newly allocated Id on success
++ *
++ * Return:
++ * * 0 - success
++ *
++ * Errors related to memory allocation failures are also possible.
++ */
++int cxi_rxtx_profile_list_insert(struct cxi_rxtx_profile_list *list,
++				 struct cxi_rxtx_profile *profile,
++				 unsigned int *profile_id)
++	__must_hold(&list->xarray.xa_lock)
++{
++	int    ret;
++
++	ret = __xa_alloc(&list->xarray, &profile->id, profile,
++			 *list->limits, list->gfp_opts);
++
++	if (!ret)
++		*profile_id = profile->id;
++
++	return ret;
++}
++
++/**
++ * cxi_rxtx_profile_list_remove() - remove the Profile from the list
++ *
++ * @list: address of list struct
++ * @rxtx_profile_id: index of Profile
++ *
++ * Return: 0 on success
++ * -EBADR: Profile struct is not in list
++ */
++int cxi_rxtx_profile_list_remove(struct cxi_rxtx_profile_list *list,
++				 unsigned int rxtx_profile_id)
++{
++	struct cxi_rxtx_profile   *previous_entry;
++
++	previous_entry = xa_erase(&list->xarray, rxtx_profile_id);
++
++	return previous_entry ? 0 : -EBADR;
++}
++
++/**
++ * cxi_rxtx_profile_list_retrieve() - get the pointer to a Profile by Id
++ *
++ * @list: address of list
++ * @profile_id: Id of desired Profile
++ * @profile: location to place Profile pointer
++ *
++ * Return: 0 on success
++ * -EBADR: Profile with desired Id not found.
++ */
++int cxi_rxtx_profile_list_retrieve(struct cxi_rxtx_profile_list *list,
++				   unsigned int profile_id,
++				   struct cxi_rxtx_profile **profile)
++{
++	struct cxi_rxtx_profile  *my_profile;
++	int    ret;
++
++	my_profile = xa_load(&list->xarray, profile_id);
++	ret = xa_err(my_profile);
++
++	if (ret)
++		return ret;
++
++	*profile = my_profile;
++
++	return my_profile ? 0 : -EBADR;
++}
++
++/**
++ * cxi_rxtx_profile_list_iterate() - walk list and call function on each member.
++ *
++ * @list: address of list
++ * @operator: function to call (see below).
++ * @user_args: other data to pass to operator (see below).
++ *
++ * This iterator calls the function 'operator(profile, user_args)' for each
++ * profile in the list.
++ * Iteration continues as long as the return value of 'operator' is 0.
++ *
++ * The return value of the iterator function is the final return value
++ * of the operator.
++ *
++ * The caller may lock the list during iteration but it is not required.
++ */
++int cxi_rxtx_profile_list_iterate(struct cxi_rxtx_profile_list *list,
++				  int (*operator)(struct cxi_rxtx_profile *profile,
++						  void *user_args),
++				  void *user_args)
++{
++	struct cxi_rxtx_profile    *profile;
++	unsigned long              index;
++
++	index = list->limits->min;
++
++	xa_for_each(&list->xarray, index, profile) {
++		int ret = operator(profile, user_args);
++
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++struct get_ids_data {
++	size_t         max_ids;
++	unsigned int   *ids;
++	size_t         num_ids;
 +};
 +
-+static struct kobj_type cass_sl_port_num_sysfs = {
-+	.sysfs_ops = &kobj_sysfs_ops,
-+};
-+
-+bool cass_sl_is_pcs_aligned(struct cass_dev *cass_dev)
++static int get_ids_operator(struct cxi_rxtx_profile *rxtx_profile,
++			    void *user_data)
 +{
-+	union ss2_port_pml_sts_rx_pcs_subport sts;
++	struct get_ids_data   *data = user_data;
 +
-+	cass_read(cass_dev, SS2_PORT_PML_STS_RX_PCS_SUBPORT(CASS_SL_LINK_NUM),
-+		  &sts, sizeof(sts));
-+
-+	return !!sts.align_status;
-+}
-+
-+static int cass_sl_speed_get(u32 tech)
-+{
-+	switch (tech) {
-+	case SL_LGRP_CONFIG_TECH_BJ_100G:
-+		return SPEED_100000;
-+	case SL_LGRP_CONFIG_TECH_BS_200G:
-+		return SPEED_200000;
-+	case SL_LGRP_CONFIG_TECH_CK_400G:
-+		return SPEED_400000;
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static u32 cass_sl_tech_get(int speed)
-+{
-+	switch (speed) {
-+	case SPEED_100000:
-+		return SL_LGRP_CONFIG_TECH_BJ_100G;
-+	case SPEED_200000:
-+		return SL_LGRP_CONFIG_TECH_BS_200G;
-+	case SPEED_400000:
-+		return SL_LGRP_CONFIG_TECH_CK_400G;
-+	default:
-+		return 0;
-+	}
-+}
-+
-+void cass_sl_mode_get(struct cass_dev *cass_dev, struct cxi_link_info *link_info)
-+{
-+	cxidev_dbg(&cass_dev->cdev, "sl mode get\n");
-+
-+	memset(link_info, 0, sizeof(*link_info));
-+
-+	/* auto neg */
-+	if (cass_dev->sl.link_config.options & SL_LINK_CONFIG_OPT_AUTONEG_ENABLE) {
-+		cxidev_dbg(&cass_dev->cdev, "sl mode get autoneg enabled\n");
-+		link_info->autoneg = AUTONEG_ENABLE;
-+		link_info->speed   = cass_sl_speed_get(cass_dev->sl.link_up_mode);
-+	} else {
-+		cxidev_dbg(&cass_dev->cdev,
-+			   "sl mode get autoneg disabled (tech_map = 0x%X)\n",
-+			   cass_dev->sl.static_tech_map);
-+		link_info->autoneg = AUTONEG_DISABLE;
-+		link_info->speed   = cass_sl_speed_get(cass_dev->sl.static_tech_map);
++	if (data->num_ids < data->max_ids) {
++		*data->ids = rxtx_profile->id;
++		data->ids++;
 +	}
 +
-+	/* llr */
-+	if (cass_dev->sl.enable_llr)
-+		link_info->flags |= CXI_ETH_PF_LLR;
-+
-+	/* loopback */
-+	if (cass_dev->sl.lgrp_config.options & SL_LGRP_CONFIG_OPT_SERDES_LOOPBACK_ENABLE)
-+		link_info->flags |= CXI_ETH_PF_INTERNAL_LOOPBACK;
-+	else if (cass_dev->sl.link_config.options & SL_LINK_CONFIG_OPT_REMOTE_LOOPBACK_ENABLE)
-+		link_info->flags |= CXI_ETH_PF_EXTERNAL_LOOPBACK;
-+
-+	/* link training */
-+	if (cass_dev->sl.link_config.hpe_map & SL_LINK_CONFIG_HPE_LINKTRAIN)
-+		link_info->flags |= CXI_ETH_PF_LINKTRAIN;
-+	else
-+		link_info->flags &= ~CXI_ETH_PF_LINKTRAIN;
-+
-+	/* FEC Monitor */
-+	if (cass_dev->sl.link_policy.fec_mon_period_ms != 0)
-+		link_info->flags |= CXI_ETH_PF_FEC_MONITOR;
-+
-+	if (cass_dev->sl.link_config.options & SL_LINK_CONFIG_OPT_LOS_LOL_UP_FAIL_HIDE)
-+		link_info->flags |= CXI_ETH_PF_LOS_LOL_HIDE;
-+
-+	/* R1 link partner */
-+	if (cass_dev->sl.lgrp_config.options & SL_LGRP_CONFIG_OPT_R1)
-+		link_info->flags |= CXI_ETH_PF_R1_LINK_PARTNER;
-+	else
-+		link_info->flags &= ~CXI_ETH_PF_R1_LINK_PARTNER;
-+
-+	/* type */
-+	if (cass_dev->sl.media_attr.type & SL_MEDIA_TYPE_BACKPLANE)
-+		link_info->port_type = PORT_DA;
-+	else if (cass_dev->sl.media_attr.type & SL_MEDIA_TYPE_OPTICAL)
-+		link_info->port_type = PORT_FIBRE;
-+	else if (cass_dev->sl.media_attr.type & SL_MEDIA_TYPE_ELECTRICAL)
-+		link_info->port_type = PORT_TP;
-+	else
-+		link_info->port_type = PORT_OTHER;
-+
-+	/* fec type */
-+	if (cass_dev->sl.link_up_fec_type == SL_LGRP_CONFIG_FEC_RS)
-+		link_info->fec_type = ETHTOOL_FEC_RS;
-+	else if (cass_dev->sl.link_up_fec_type == SL_LGRP_CONFIG_FEC_RS_LL)
-+		link_info->fec_type = ETHTOOL_FEC_LLRS;
-+	else
-+		link_info->fec_type = ETHTOOL_FEC_OFF;
-+
-+	cxidev_dbg(&cass_dev->cdev,
-+		   "sl mode get (type = %u, AN = %u, speed = %u, llr = %lu, fec = %u, LB = %lu, R1 = %u)\n",
-+		   link_info->port_type, link_info->autoneg, link_info->speed,
-+		   link_info->flags & CXI_ETH_PF_LLR, !!(link_info->flags & CXI_ETH_PF_FEC_MONITOR),
-+		   link_info->flags & LOOPBACK_MODE, !!(link_info->flags & CXI_ETH_PF_R1_LINK_PARTNER));
-+}
-+
-+static void cass_sl_mode_set_autoneg_enable(struct cass_dev *cass_dev)
-+{
-+	cass_dev->sl.link_config.options |= SL_LINK_CONFIG_OPT_AUTONEG_ENABLE;
-+	cass_dev->sl.lgrp_config.tech_map = cass_dev->sl.autoneg_tech_map;
-+}
-+
-+static void cass_sl_mode_set_autoneg_disable(struct cass_dev *cass_dev)
-+{
-+	cass_dev->sl.link_config.options &= ~SL_LINK_CONFIG_OPT_AUTONEG_ENABLE;
-+	cass_dev->sl.lgrp_config.tech_map = cass_dev->sl.static_tech_map;
-+}
-+
-+void cass_sl_mode_set(struct cass_dev *cass_dev, const struct cxi_link_info *link_info)
-+{
-+	struct sl_link_config *link_config;
-+	struct sl_link_policy *link_policy;
-+	struct sl_lgrp_config *lgrp_config;
-+	u32                    autoneg_mode;
-+	u32                    tech_mode;
-+	bool                   is_mode_changed;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl mode set\n");
-+
-+	link_config = &cass_dev->sl.link_config;
-+	link_policy = &cass_dev->sl.link_policy;
-+	lgrp_config = &cass_dev->sl.lgrp_config;
-+	is_mode_changed = false;
-+
-+	/* speed */
-+	cxidev_dbg(&cass_dev->cdev, "sl mode set (speed = %d)\n", link_info->speed);
-+	tech_mode = cass_sl_tech_get(link_info->speed);
-+	if (tech_mode && cass_dev->sl.static_tech_map != tech_mode) {
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set tech_mode to 0x%X\n", tech_mode);
-+		cass_dev->sl.static_tech_map = tech_mode;
-+		if (!(cass_dev->sl.link_config.options & SL_LINK_CONFIG_OPT_AUTONEG_ENABLE))
-+			cass_dev->sl.lgrp_config.tech_map = cass_dev->sl.static_tech_map;
-+		is_mode_changed = true;
-+	}
-+
-+	/* auto neg */
-+	cxidev_dbg(&cass_dev->cdev, "sl mode set (autoneg = %d)\n", link_info->autoneg);
-+	autoneg_mode = link_config->options & SL_LINK_CONFIG_OPT_AUTONEG_ENABLE;
-+	switch (link_info->autoneg) {
-+	case AUTONEG_DISABLE:
-+		if (autoneg_mode == 0)
-+			break;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set autoneg to off\n");
-+		cass_sl_mode_set_autoneg_disable(cass_dev);
-+		is_mode_changed = true;
-+		break;
-+	case AUTONEG_ENABLE:
-+		if (autoneg_mode != 0)
-+			break;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set autoneg to on\n");
-+		cass_sl_mode_set_autoneg_enable(cass_dev);
-+		is_mode_changed = true;
-+		break;
-+	}
-+
-+	/* llr */
-+	cxidev_dbg(&cass_dev->cdev, "sl mode set (llr = %d)\n",
-+		   !!(link_info->flags & CXI_ETH_PF_LLR));
-+	switch (link_info->flags & CXI_ETH_PF_LLR) {
-+	case 0:
-+		if (!cass_dev->sl.enable_llr)
-+			break;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set LLR to off\n");
-+		cass_dev->sl.enable_llr = false;
-+		cass_dev->sl.link_config.hpe_map &= ~SL_LINK_CONFIG_HPE_LLR;
-+		is_mode_changed = true;
-+		break;
-+	case CXI_ETH_PF_LLR:
-+		if (cass_dev->sl.enable_llr)
-+			break;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set LLR to on\n");
-+		cass_dev->sl.enable_llr = true;
-+		cass_dev->sl.link_config.hpe_map |= SL_LINK_CONFIG_HPE_LLR;
-+		is_mode_changed = true;
-+		break;
-+	}
-+
-+	/* link training */
-+	cxidev_dbg(&cass_dev->cdev, "sl mode set (linktrain = 0x%lX)\n",
-+		   link_info->flags & CXI_ETH_PF_LINKTRAIN);
-+	switch (link_info->flags & CXI_ETH_PF_LINKTRAIN) {
-+	case 0:
-+		if (!(link_config->hpe_map & SL_LINK_CONFIG_HPE_LINKTRAIN))
-+			break;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set linktrain to off\n");
-+		link_config->hpe_map &= ~SL_LINK_CONFIG_HPE_LINKTRAIN;
-+		is_mode_changed = true;
-+		break;
-+	case CXI_ETH_PF_LINKTRAIN:
-+		if (link_config->hpe_map & SL_LINK_CONFIG_HPE_LINKTRAIN)
-+			break;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set linktrain to on\n");
-+		link_config->hpe_map |= SL_LINK_CONFIG_HPE_LINKTRAIN;
-+		is_mode_changed = true;
-+		break;
-+	}
-+
-+	/* loopback */
-+	cxidev_dbg(&cass_dev->cdev, "sl mode set (loopback_mode = %lu)\n",
-+		   link_info->flags & LOOPBACK_MODE);
-+	switch (link_info->flags & LOOPBACK_MODE) {
-+	case 0:
-+		if (!(lgrp_config->options & SL_LGRP_CONFIG_OPT_SERDES_LOOPBACK_ENABLE) &&
-+		    !(link_config->options & SL_LINK_CONFIG_OPT_REMOTE_LOOPBACK_ENABLE))
-+			break;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set loopback to off\n");
-+		lgrp_config->options &= ~SL_LGRP_CONFIG_OPT_SERDES_LOOPBACK_ENABLE;
-+		link_config->options &= ~SL_LINK_CONFIG_OPT_REMOTE_LOOPBACK_ENABLE;
-+		if (cass_dev->sl.old_an_mode == AUTONEG_ENABLE)
-+			cass_sl_mode_set_autoneg_enable(cass_dev);
-+		else
-+			cass_sl_mode_set_autoneg_disable(cass_dev);
-+		if (cass_dev->sl.old_lt_mode)
-+			link_config->hpe_map |= SL_LINK_CONFIG_HPE_LINKTRAIN;
-+		else
-+			link_config->hpe_map &= ~SL_LINK_CONFIG_HPE_LINKTRAIN;
-+		is_mode_changed = true;
-+		break;
-+	case CXI_ETH_PF_INTERNAL_LOOPBACK:
-+		if (lgrp_config->options & SL_LGRP_CONFIG_OPT_SERDES_LOOPBACK_ENABLE)
-+			break;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set serdes loopback to on\n");
-+		lgrp_config->options |= SL_LGRP_CONFIG_OPT_SERDES_LOOPBACK_ENABLE;
-+		cass_sl_mode_set_autoneg_disable(cass_dev);
-+		link_config->options &= ~SL_LINK_CONFIG_OPT_REMOTE_LOOPBACK_ENABLE;
-+		cass_dev->sl.old_an_mode = link_info->autoneg;
-+		cass_dev->sl.old_lt_mode = (link_config->hpe_map & SL_LINK_CONFIG_HPE_LINKTRAIN);
-+		link_config->hpe_map &= ~SL_LINK_CONFIG_HPE_LINKTRAIN;
-+		is_mode_changed = true;
-+		break;
-+	case CXI_ETH_PF_EXTERNAL_LOOPBACK:
-+		if (link_config->options & SL_LINK_CONFIG_OPT_REMOTE_LOOPBACK_ENABLE)
-+			break;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set remote loopback to on\n");
-+		link_config->options |= SL_LINK_CONFIG_OPT_REMOTE_LOOPBACK_ENABLE;
-+		cass_sl_mode_set_autoneg_disable(cass_dev);
-+		lgrp_config->options &= ~SL_LGRP_CONFIG_OPT_SERDES_LOOPBACK_ENABLE;
-+		cass_dev->sl.old_an_mode = link_info->autoneg;
-+		cass_dev->sl.old_lt_mode = (link_config->hpe_map & SL_LINK_CONFIG_HPE_LINKTRAIN);
-+		link_config->hpe_map &= ~SL_LINK_CONFIG_HPE_LINKTRAIN;
-+		is_mode_changed = true;
-+		break;
-+	}
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl mode set (fec_monitor = %u)\n",
-+		   !!(link_info->flags & CXI_ETH_PF_FEC_MONITOR));
-+	switch (link_info->flags & CXI_ETH_PF_FEC_MONITOR) {
-+	case 0:
-+		if (link_policy->fec_mon_period_ms == 0)
-+			break;
-+		link_policy->fec_mon_period_ms = 0;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set fec_monitor to off\n");
-+		is_mode_changed = true;
-+		break;
-+	case CXI_ETH_PF_FEC_MONITOR:
-+		if (link_policy->fec_mon_period_ms != 0)
-+			break;
-+		link_policy->fec_mon_period_ms = -1;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set fec_monitor to on\n");
-+		is_mode_changed = true;
-+		break;
-+	}
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl mode set (los_lol_hide = %u)\n",
-+		   !!(link_info->flags & CXI_ETH_PF_LOS_LOL_HIDE));
-+	switch (link_info->flags & CXI_ETH_PF_LOS_LOL_HIDE) {
-+	case 0:
-+		if (!(link_config->options & SL_LINK_CONFIG_OPT_LOS_LOL_UP_FAIL_HIDE))
-+			break;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set los_lol_hide to off\n");
-+		link_config->options &= ~SL_LINK_CONFIG_OPT_LOS_LOL_UP_FAIL_HIDE;
-+		is_mode_changed = true;
-+		break;
-+	case CXI_ETH_PF_LOS_LOL_HIDE:
-+		if (link_config->options & SL_LINK_CONFIG_OPT_LOS_LOL_UP_FAIL_HIDE)
-+			break;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set los_lol_hide to on\n");
-+		link_config->options |= SL_LINK_CONFIG_OPT_LOS_LOL_UP_FAIL_HIDE;
-+		is_mode_changed = true;
-+		break;
-+	}
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl mode set (r1_link_partner = %u)\n",
-+		   !!(link_info->flags & CXI_ETH_PF_R1_LINK_PARTNER));
-+	switch (link_info->flags & CXI_ETH_PF_R1_LINK_PARTNER) {
-+	case 0:
-+		if (!(lgrp_config->options & SL_LGRP_CONFIG_OPT_R1))
-+			break;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set r1_link_partner to no\n");
-+		lgrp_config->options &= ~SL_LGRP_CONFIG_OPT_R1;
-+		is_mode_changed = true;
-+		break;
-+	case CXI_ETH_PF_R1_LINK_PARTNER:
-+		if (lgrp_config->options & SL_LGRP_CONFIG_OPT_R1)
-+			break;
-+		cxidev_dbg(&cass_dev->cdev, "sl mode set r1_link_partner to yes\n");
-+		lgrp_config->options |= SL_LGRP_CONFIG_OPT_R1;
-+		is_mode_changed = true;
-+		break;
-+	}
-+
-+	/* if anything changed bounce the link */
-+	cxidev_dbg(&cass_dev->cdev, "sl mode set (is_mode_changed = %d)\n", is_mode_changed);
-+	if (is_mode_changed)
-+		cass_phy_bounce(cass_dev);
-+}
-+
-+/* SL has no ignore-align or remote-fault-recovery control; see flags_supported */
-+void cass_sl_flags_get(struct cass_dev *cass_dev, u32 *flags)
-+{
-+	*flags = 0;
-+}
-+
-+void cass_sl_flags_set(struct cass_dev *cass_dev, u32 clr_flags, u32 set_flags)
-+{
-+}
-+
-+void cass_sl_pml_recovery_set(struct cass_dev *cass_dev, bool set)
-+{
-+	cxidev_dbg(&cass_dev->cdev, "pml recovery set\n");
-+
-+	if (set)
-+		cass_dev->sl.link_config.options |= SL_LINK_CONFIG_OPT_PML_REC_ENABLE;
-+	else
-+		cass_dev->sl.link_config.options &= ~SL_LINK_CONFIG_OPT_PML_REC_ENABLE;
-+}
-+
-+struct cass_sl_intr_entry {
-+	struct list_head        list;
-+	sl_intr_handler_t       hdlr;
-+	struct cxi_reg_err_flg  reg;
-+	void                   *data;
-+};
-+
-+static void cass_sl_intr_hdlr(struct cass_dev *cass_dev,
-+			      unsigned int irq, bool is_ext, unsigned int bitn)
-+{
-+	struct cass_sl_intr_entry *intr;
-+	DECLARE_BITMAP(ss2_port_pml_err_flgs, MAX_ERR_FLAG_BITLEN);
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl intr handler (bit = %d)\n", bitn);
-+
-+	lockdep_assert_held(&cass_dev->err_flg_mutex);
-+
-+	list_for_each_entry(intr, &cass_dev->sl.intr_list, list) {
-+		if (test_bit(bitn, intr->reg.err_flags.mask)) {
-+			cxidev_dbg(&cass_dev->cdev, "call handler\n");
-+			bitmap_zero(ss2_port_pml_err_flgs, MAX_ERR_FLAG_BITLEN);
-+			set_bit(bitn, ss2_port_pml_err_flgs);
-+			intr->hdlr((u64 *)ss2_port_pml_err_flgs, 4, intr->data);
-+			break;
-+		}
-+	}
-+}
-+
-+#define CASS_SL_SBUS_CMD_RESET 0x20
-+static int cass_sl_sbus_op(void *sbus_accessor, u8 op, u8 ring, u8 dev_addr, u8 reg,
-+			   u32 *rd_data, u32 wr_data)
-+{
-+	u32 rsp_data;
-+	u8  result;
-+	u8  overrun;
-+	u8  error;
-+
-+	switch (op) {
-+	case SL_SBUS_OP_RST:
-+		return cass_sl_sbus_cmd(sbus_accessor, 0, 0, 0, dev_addr,
-+					CASS_SL_SBUS_CMD_RESET, &rsp_data, &result,
-+					&overrun, &error, 10, 0);
-+	case SL_SBUS_OP_RD:
-+		return cass_sl_sbus_rd(sbus_accessor, dev_addr, reg, rd_data);
-+	case SL_SBUS_OP_WR:
-+		return cass_sl_sbus_wr(sbus_accessor, dev_addr, reg, wr_data);
-+	}
-+
-+	return -EBADRQC;
-+}
-+
-+static int cass_sl_pmi_op(void *pmi_accessor, u8 lgrp_num, u8 op, u32 addr,
-+			  u16 *rd_data, u16 wr_data, u16 wr_data_mask)
-+{
-+	switch (op) {
-+	case SL_PMI_OP_RST:
-+		// FIXME: need to implement
-+		return 0;
-+	case SL_PMI_OP_RD:
-+		return cass_sl_pmi_rd(pmi_accessor, lgrp_num, addr, rd_data);
-+	case SL_PMI_OP_WR:
-+		return cass_sl_pmi_wr(pmi_accessor, lgrp_num, addr, wr_data, wr_data_mask);
-+	}
-+
-+	return -EBADRQC;
-+}
-+
-+static int cass_sl_intr_register(void *intr_accessor, u32 port_grp_num, char *tag,
-+				 u64 *err_flgs, sl_intr_handler_t handler, void *data)
-+{
-+	struct cass_dev           *cass_dev = intr_accessor;
-+	struct cass_sl_intr_entry *intr;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl intr register (0x%llX 0x%llX 0x%llX 0x%llX)\n",
-+		*(err_flgs), *(err_flgs + 1), *(err_flgs + 2), *(err_flgs + 3));
-+
-+	intr = kzalloc(sizeof(*intr), GFP_KERNEL);
-+	if (!intr)
-+		return -ENOMEM;
-+
-+	INIT_LIST_HEAD(&intr->list);
-+	intr->hdlr       = handler;
-+	intr->reg.irq    = C_HNI_PML_IRQA_MSIX_INT;
-+	intr->reg.is_ext = false;
-+	intr->reg.cb     = cass_sl_intr_hdlr;
-+	memcpy(&(intr->reg.err_flags.ss2_port_pml.qw[0]), err_flgs,
-+	       sizeof(intr->reg.err_flags.ss2_port_pml.qw));
-+	intr->data       = data;
-+
-+	mutex_lock(&cass_dev->sl.intr_lock);
-+	mutex_lock(&cass_dev->err_flg_mutex);
-+	list_add(&intr->list, &cass_dev->sl.intr_list);
-+	mutex_unlock(&cass_dev->err_flg_mutex);
-+
-+	cxi_register_hw_errors(cass_dev, &(intr->reg));
-+	mutex_unlock(&cass_dev->sl.intr_lock);
-+
++	data->num_ids++;
 +	return 0;
 +}
 +
-+static int cass_sl_intr_unregister(void *intr_accessor, u32 port_grp_num,
-+				   u64 *err_flgs, sl_intr_handler_t handler)
++/**
++ * cxi_rxtx_profile_list_get_ids() - Get a list of the active IDs
++ *
++ * @list: address of list
++ * @max_ids: size of the ids array
++ * @ids: array to put ids in
++ * @num_ids: number of valid IDs in ids
++ *
++ * Return:
++ * * 0       - success
++ * * -ENOSPC - max_ids is not large enough, num_ids hold required value
++ */
++int cxi_rxtx_profile_list_get_ids(struct cxi_rxtx_profile_list *list,
++				  size_t max_ids,
++				  unsigned int *ids,
++				  size_t *num_ids)
 +{
-+	struct cass_dev           *cass_dev = intr_accessor;
-+	struct cass_sl_intr_entry *intr;
++	struct get_ids_data   data = {
++		.max_ids = max_ids,
++		.ids     = ids,
++		.num_ids = 0,
++	};
++	int    ret;
 +
-+	cxidev_dbg(&cass_dev->cdev, "sl intr unregister (0x%llX 0x%llX 0x%llX 0x%llX)\n",
-+		*(err_flgs), *(err_flgs + 1), *(err_flgs + 2), *(err_flgs + 3));
++	ret = cxi_rxtx_profile_list_iterate(list, get_ids_operator, &data);
++	if (ret)
++		return ret;
 +
-+	mutex_lock(&cass_dev->sl.intr_lock);
-+	list_for_each_entry(intr, &cass_dev->sl.intr_list, list) {
-+		if (memcmp(&(intr->reg.err_flags.ss2_port_pml.qw[0]), err_flgs,
-+			   sizeof(intr->reg.err_flags.ss2_port_pml.qw)) == 0) {
-+			cxidev_dbg(&cass_dev->cdev, "match\n");
-+			cxi_unregister_hw_errors(cass_dev, &(intr->reg));
-+			mutex_lock(&cass_dev->err_flg_mutex);
-+			list_del(&(intr->list));
-+			mutex_unlock(&cass_dev->err_flg_mutex);
-+			kfree(intr);
-+			mutex_unlock(&cass_dev->sl.intr_lock);
-+			return 0;
-+		}
-+	}
-+	mutex_unlock(&cass_dev->sl.intr_lock);
++	*num_ids = data.num_ids;
 +
-+	return -EBADRQC;
++	return (data.num_ids > max_ids) ? -ENOSPC : 0;
 +}
-+
-+static int cass_sl_intr_enable(void *intr_accessor, u32 port_grp_num,
-+			       u64 *err_flgs, sl_intr_handler_t handler)
-+{
-+	struct cass_dev *cass_dev = intr_accessor;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl intr enable (0x%llX 0x%llX 0x%llX 0x%llX)\n",
-+		*(err_flgs), *(err_flgs + 1), *(err_flgs + 2), *(err_flgs + 3));
-+
-+	cxi_enable_hw_errors(cass_dev, C_HNI_PML_IRQA_MSIX_INT,
-+			     false, (unsigned long *)err_flgs);
-+
-+	return 0;
-+}
-+
-+static int cass_sl_intr_disable(void *intr_accessor, u32 port_grp_num,
-+				u64 *err_flgs, sl_intr_handler_t handler)
-+{
-+	struct cass_dev *cass_dev = intr_accessor;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl intr disable (0x%llX 0x%llX 0x%llX 0x%llX)\n",
-+		*(err_flgs), *(err_flgs + 1), *(err_flgs + 2), *(err_flgs + 3));
-+
-+	cxi_disable_hw_errors(cass_dev, C_HNI_PML_IRQA_MSIX_INT,
-+			      false, (unsigned long *)err_flgs);
-+
-+	return 0;
-+}
-+
-+static int cass_sl_dt_info_get(void *dt_accessor, u8 ldev_num, u8 lgrp_num,
-+			       struct sl_dt_lgrp_info *info)
-+{
-+	struct cass_dev *cass_dev = dt_accessor;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl dt info get\n");
-+
-+	info->sbus_ring = 0;
-+	info->dev_id    = 1;
-+	info->dev_addr  = 0x5;
-+
-+	switch (cass_dev->uc_platform) {
-+	case CUC_BOARD_TYPE_WASHINGTON:
-+		switch (cass_dev->uc_nic) {
-+		case 0:
-+			/* TX: [3, 2, 1, 0] = {3, 2, 1, 0inv} */
-+			info->lane_info[3].tx_source = 3;
-+			info->lane_info[3].tx_invert = 0;
-+			info->lane_info[2].tx_source = 2;
-+			info->lane_info[2].tx_invert = 0;
-+			info->lane_info[1].tx_source = 1;
-+			info->lane_info[1].tx_invert = 0;
-+			info->lane_info[0].tx_source = 0;
-+			info->lane_info[0].tx_invert = 1;
-+			/* RX: [3, 2, 1, 0] = {3, 2, 1, 0} */
-+			info->lane_info[3].rx_source = 3;
-+			info->lane_info[3].rx_invert = 0;
-+			info->lane_info[2].rx_source = 2;
-+			info->lane_info[2].rx_invert = 0;
-+			info->lane_info[1].rx_source = 1;
-+			info->lane_info[1].rx_invert = 0;
-+			info->lane_info[0].rx_source = 0;
-+			info->lane_info[0].rx_invert = 0;
-+			break;
-+		case 1:
-+			/* TX: [3, 2, 1, 0] = {3, 2, 1inv, 0} */
-+			info->lane_info[3].tx_source = 3;
-+			info->lane_info[3].tx_invert = 0;
-+			info->lane_info[2].tx_source = 2;
-+			info->lane_info[2].tx_invert = 0;
-+			info->lane_info[1].tx_source = 1;
-+			info->lane_info[1].tx_invert = 1;
-+			info->lane_info[0].tx_source = 0;
-+			info->lane_info[0].tx_invert = 0;
-+			/* RX: [3, 2, 1, 0] = {3, 2inv, 1inv, 0inv} */
-+			info->lane_info[3].rx_source = 3;
-+			info->lane_info[3].rx_invert = 0;
-+			info->lane_info[2].rx_source = 2;
-+			info->lane_info[2].rx_invert = 1;
-+			info->lane_info[1].rx_source = 1;
-+			info->lane_info[1].rx_invert = 1;
-+			info->lane_info[0].rx_source = 0;
-+			info->lane_info[0].rx_invert = 1;
-+			break;
-+		}
-+		break;
-+	case CUC_BOARD_TYPE_KENNEBEC:
-+		/* TX: [3, 2, 1, 0] = {1inv, 0, 2inv, 3} */
-+		/* CSR:      serdes = logical            */
-+		info->lane_info[3].tx_source = 1;
-+		info->lane_info[3].tx_invert = 1;
-+		info->lane_info[2].tx_source = 0;
-+		info->lane_info[2].tx_invert = 0;
-+		info->lane_info[1].tx_source = 2;
-+		info->lane_info[1].tx_invert = 1;
-+		info->lane_info[0].tx_source = 3;
-+		info->lane_info[0].tx_invert = 0;
-+		/* RX: [3, 2, 1, 0] = {2inv, 3, 1inv, 0} */
-+		/* CSR:     logical = serdes             */
-+		info->lane_info[3].rx_source = 2;
-+		info->lane_info[3].rx_invert = 1;
-+		info->lane_info[2].rx_source = 3;
-+		info->lane_info[2].rx_invert = 0;
-+		info->lane_info[1].rx_source = 1;
-+		info->lane_info[1].rx_invert = 1;
-+		info->lane_info[0].rx_source = 0;
-+		info->lane_info[0].rx_invert = 0;
-+		break;
-+	case CUC_BOARD_TYPE_SOUHEGAN:
-+		cxidev_dbg(&cass_dev->cdev,
-+			   "sl dt info get SOUHEGAN (nic = %d)\n", cass_dev->uc_nic);
-+		/* Lane         3210              3210
-+		   ---------------------------------------------
-+		   -tx-lane-map 2310 -rx-lane-map 1023 -a :5.*
-+		   -tx-lane-map 0132 -rx-lane-map 2013 -a 1:5.*  */
-+		switch (cass_dev->uc_nic) {
-+		case 0:
-+			/* TX: [3, 2, 1, 0] = {2, 3, 1, 0} */
-+			/* CSR:      serdes = logical      */
-+			info->lane_info[3].tx_source = 2;
-+			info->lane_info[3].tx_invert = 0;
-+			info->lane_info[2].tx_source = 3;
-+			info->lane_info[2].tx_invert = 0;
-+			info->lane_info[1].tx_source = 1;
-+			info->lane_info[1].tx_invert = 0;
-+			info->lane_info[0].tx_source = 0;
-+			info->lane_info[0].tx_invert = 0;
-+			/* RX: [3, 2, 1, 0] = {1, 0, 2, 3} */
-+			/* CSR:     logical = serdes       */
-+			info->lane_info[3].rx_source = 1;
-+			info->lane_info[3].rx_invert = 0;
-+			info->lane_info[2].rx_source = 0;
-+			info->lane_info[2].rx_invert = 0;
-+			info->lane_info[1].rx_source = 2;
-+			info->lane_info[1].rx_invert = 0;
-+			info->lane_info[0].rx_source = 3;
-+			info->lane_info[0].rx_invert = 0;
-+			break;
-+		case 1:
-+			/* TX: [3, 2, 1, 0] = {0, 1, 3, 2} */
-+			/* CSR:      serdes = logical      */
-+			info->lane_info[3].tx_source = 0;
-+			info->lane_info[3].tx_invert = 0;
-+			info->lane_info[2].tx_source = 1;
-+			info->lane_info[2].tx_invert = 0;
-+			info->lane_info[1].tx_source = 3;
-+			info->lane_info[1].tx_invert = 0;
-+			info->lane_info[0].tx_source = 2;
-+			info->lane_info[0].tx_invert = 0;
-+			/* RX: [3, 2, 1, 0] = {2, 0, 1, 3} */
-+			/* CSR:     logical = serdes       */
-+			info->lane_info[3].rx_source = 2;
-+			info->lane_info[3].rx_invert = 0;
-+			info->lane_info[2].rx_source = 0;
-+			info->lane_info[2].rx_invert = 0;
-+			info->lane_info[1].rx_source = 1;
-+			info->lane_info[1].rx_invert = 0;
-+			info->lane_info[0].rx_source = 3;
-+			info->lane_info[0].rx_invert = 0;
-+			break;
-+		}
-+		break;
-+	default:  /* straight */
-+		info->lane_info[3].tx_source = 3;
-+		info->lane_info[3].tx_invert = 0;
-+		info->lane_info[2].tx_source = 2;
-+		info->lane_info[2].tx_invert = 0;
-+		info->lane_info[1].tx_source = 1;
-+		info->lane_info[1].tx_invert = 0;
-+		info->lane_info[0].tx_source = 0;
-+		info->lane_info[0].tx_invert = 0;
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int cass_sl_mb_info_get(void *mb_accessor, u8 *platform, u16 *revision, u16 *proto)
-+{
-+	struct cass_dev *cass_dev = mb_accessor;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl mb info get\n");
-+
-+	if (platform)
-+		*platform = HW_PLATFORM(cass_dev);
-+	if (revision)
-+		*revision = 0;
-+	if (proto)
-+		*proto = 0;
-+
-+	return 0;
-+}
-+
-+static int cass_sl_dmac_alloc(void *dmac_accessor, u32 offset, size_t size)
-+{
-+	int              rtn;
-+	struct cass_dev *cass_dev = dmac_accessor;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl dmac alloc\n");
-+
-+	rtn = cxi_dmac_desc_set_alloc(&cass_dev->cdev, 1, "fec_id");
-+	if (rtn < 0) {
-+		cxidev_err(&cass_dev->cdev,
-+			   "cxi_dmac_desc_set_alloc failed [%d]\n", rtn);
-+		return rtn;
-+	}
-+	cass_dev->sl.fec.dma_id = rtn;
-+	cxidev_dbg(&cass_dev->cdev, "dma_id = %d\n", cass_dev->sl.fec.dma_id);
-+
-+	cass_dev->sl.fec.cntrs = dma_alloc_coherent(&cass_dev->cdev.pdev->dev, size,
-+						    &cass_dev->sl.fec.dma_addr, GFP_KERNEL);
-+	if (!cass_dev->sl.fec.cntrs) {
-+		rtn = -ENOMEM;
-+		goto out_dmac_fini;
-+	}
-+
-+	cxidev_dbg(&cass_dev->cdev, "cntrs = %p\n", cass_dev->sl.fec.cntrs);
-+	cass_dev->sl.fec.cntrs_size = size;
-+
-+	rtn = cxi_dmac_desc_set_add(&cass_dev->cdev, cass_dev->sl.fec.dma_id,
-+				    cass_dev->sl.fec.dma_addr, offset, size);
-+	if (rtn) {
-+		cxidev_err(&cass_dev->cdev,
-+			   "cxi_dmac_desc_set_add failed [%d]\n", rtn);
-+		goto out_dma_free;
-+	}
-+
-+	return 0;
-+
-+out_dma_free:
-+	dma_free_coherent(&cass_dev->cdev.pdev->dev, size, cass_dev->sl.fec.cntrs, cass_dev->sl.fec.dma_addr);
-+out_dmac_fini:
-+	cxi_dmac_desc_set_free(&cass_dev->cdev, cass_dev->sl.fec.dma_id);
-+
-+	return rtn;
-+}
-+
-+static void cass_sl_dmac_free(void *dmac_accessor)
-+{
-+	struct cass_dev *cass_dev = dmac_accessor;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl dmac free\n");
-+
-+	cxi_dmac_desc_set_free(&cass_dev->cdev, cass_dev->sl.fec.dma_id);
-+	dma_free_coherent(&cass_dev->cdev.pdev->dev, cass_dev->sl.fec.cntrs_size, cass_dev->sl.fec.cntrs,
-+			  cass_dev->sl.fec.dma_addr);
-+}
-+
-+static int cass_sl_dmac_xfer(void *dmac_accessor, void *data)
-+{
-+	int              rtn;
-+	struct cass_dev *cass_dev = dmac_accessor;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl dmac xfer\n");
-+
-+	rtn = cxi_dmac_xfer(&cass_dev->cdev, cass_dev->sl.fec.dma_id);
-+	if (rtn) {
-+		cxidev_err(&cass_dev->cdev, "Unable to get fec cntrs [%d]\n", rtn);
-+		return rtn;
-+	}
-+
-+	memcpy(data, cass_dev->sl.fec.cntrs, cass_dev->sl.fec.cntrs_size);
-+
-+	return 0;
-+}
-+
-+static void cass_sl_ops_init(struct cass_dev *cass_dev)
-+{
-+	cass_dev->sl.ops.read64              = cass_sl_read64;
-+	cass_dev->sl.ops.write64             = cass_sl_write64;
-+
-+	cass_dev->sl.ops.sbus_op             = cass_sl_sbus_op;
-+	cass_dev->sl.ops.pmi_op              = cass_sl_pmi_op;
-+
-+	cass_dev->sl.ops.pml_intr_register   = cass_sl_intr_register;
-+	cass_dev->sl.ops.pml_intr_unregister = cass_sl_intr_unregister;
-+	cass_dev->sl.ops.pml_intr_enable     = cass_sl_intr_enable;
-+	cass_dev->sl.ops.pml_intr_disable    = cass_sl_intr_disable;
-+
-+	cass_dev->sl.ops.dt_info_get         = cass_sl_dt_info_get;
-+	cass_dev->sl.ops.mb_info_get         = cass_sl_mb_info_get;
-+	cass_dev->sl.ops.dmac_alloc          = cass_sl_dmac_alloc;
-+	cass_dev->sl.ops.dmac_xfer           = cass_sl_dmac_xfer;
-+	cass_dev->sl.ops.dmac_free           = cass_sl_dmac_free;
-+
-+	cass_dev->sl.accessors.pci           = cass_dev;
-+	cass_dev->sl.accessors.sbus          = cass_dev;
-+	cass_dev->sl.accessors.pmi           = cass_dev;
-+	cass_dev->sl.accessors.intr          = cass_dev;
-+	cass_dev->sl.accessors.dt            = cass_dev;
-+	cass_dev->sl.accessors.mb            = cass_dev;
-+	cass_dev->sl.accessors.dmac          = cass_dev;
-+
-+	cass_dev->sl.enable_llr              = true;
-+	cass_dev->sl.is_canceled             = false;
-+}
-+
-+#define CASS_SL_CALLBACKS (SL_LGRP_NOTIF_MEDIA_PRESENT     | \
-+			   SL_LGRP_NOTIF_MEDIA_NOT_PRESENT | \
-+			   SL_LGRP_NOTIF_LANE_DEGRADE      | \
-+			   SL_LGRP_NOTIF_LINK_UP           | \
-+			   SL_LGRP_NOTIF_LINK_UP_FAIL      | \
-+			   SL_LGRP_NOTIF_LINK_ASYNC_DOWN   | \
-+			   SL_LGRP_NOTIF_LINK_DOWN         | \
-+			   SL_LGRP_NOTIF_LINK_ERROR        | \
-+			   SL_LGRP_NOTIF_LLR_SETUP         | \
-+			   SL_LGRP_NOTIF_LLR_SETUP_TIMEOUT | \
-+			   SL_LGRP_NOTIF_LLR_RUNNING       | \
-+			   SL_LGRP_NOTIF_LLR_START_TIMEOUT | \
-+			   SL_LGRP_NOTIF_LLR_ERROR)
-+
-+static void cass_sl_uc_led_set(void *uc_accessor, u8 led_state)
-+{
-+	struct cass_dev *hw = uc_accessor;
-+
-+	cxidev_dbg(&hw->cdev, "sl uc led set (state = %u)\n", led_state);
-+
-+	uc_cmd_set_link_leds(hw, (enum casuc_led_states)led_state);
-+}
-+
-+static void cass_sl_uc_ops_init(struct cass_dev *cass_dev)
-+{
-+	cass_dev->sl.uc_ops.uc_read    = cass_sl_uc_read;
-+	cass_dev->sl.uc_ops.uc_write8  = cass_sl_uc_write8;
-+	cass_dev->sl.uc_ops.uc_led_set = cass_sl_uc_led_set;
-+
-+	cass_dev->sl.uc_accessor.uc = cass_dev;
-+}
-+
-+static void cass_sl_callback(void *tag, struct sl_lgrp_notif_msg *msg)
-+{
-+	struct cass_dev *cass_dev = tag;
-+
-+	cxidev_dbg(&cass_dev->cdev, "callback (type = 0x%X)\n", msg->type);
-+
-+	switch (msg->type) {
-+	case SL_LGRP_NOTIF_MEDIA_PRESENT:
-+		cass_dev->sl.media_attr = msg->info.media_attr;
-+		if (msg->info.media_attr.type & SL_MEDIA_TYPE_ACTIVE) {
-+			cass_dev->sl.link_config.hpe_map &= ~SL_LINK_CONFIG_HPE_LINKTRAIN;
-+			cass_sl_mode_set_autoneg_disable(cass_dev);
-+		} else {
-+			cass_dev->sl.link_config.hpe_map |= SL_LINK_CONFIG_HPE_LINKTRAIN;
-+			cass_sl_mode_set_autoneg_enable(cass_dev);
-+		}
-+		cass_dev->sl.has_cable = true;
-+		break;
-+	case SL_LGRP_NOTIF_MEDIA_NOT_PRESENT:
-+		memset(&cass_dev->sl.media_attr, 0, sizeof(cass_dev->sl.media_attr));
-+		cass_dev->sl.has_cable = false;
-+		break;
-+	case SL_LGRP_NOTIF_LANE_DEGRADE:
-+		cxidev_info(&cass_dev->cdev, "lane degrade occurred (rx_degrade_map = 0x%X, tx_degrade_map = 0x%X)\n",
-+			    msg->info.degrade_info.rx_degrade_map,
-+			    msg->info.degrade_info.tx_degrade_map);
-+		break;
-+	case SL_LGRP_NOTIF_LINK_UP:
-+		cass_dev->sl.link_state = SL_LINK_STATE_UP;
-+		cass_dev->sl.link_up_mode = msg->info.link_up.mode;
-+		cass_dev->sl.link_up_fec_type = msg->info.link_up.fec_type;
-+		complete(&(cass_dev->sl.step_complete));
-+		break;
-+	case SL_LGRP_NOTIF_LINK_UP_FAIL:
-+	case SL_LGRP_NOTIF_LINK_ASYNC_DOWN:
-+	case SL_LGRP_NOTIF_LINK_ERROR:
-+		cass_dev->sl.link_state = SL_LINK_STATE_DOWN;
-+		complete(&(cass_dev->sl.step_complete));
-+		cass_link_async_down(cass_dev, CASS_DOWN_ORIGIN_BL_DOWN);
-+		break;
-+	case SL_LGRP_NOTIF_LLR_START_TIMEOUT:
-+	case SL_LGRP_NOTIF_LLR_SETUP_TIMEOUT:
-+	case SL_LGRP_NOTIF_LLR_ERROR:
-+		cass_dev->sl.llr_state = SL_LLR_STATE_OFF;
-+		complete(&(cass_dev->sl.step_complete));
-+		cass_link_async_down(cass_dev, CASS_DOWN_ORIGIN_BL_DOWN);
-+		break;
-+	case SL_LGRP_NOTIF_LLR_SETUP:
-+		cass_dev->sl.llr_state = SL_LLR_STATE_SETUP;
-+		cass_dev->sl.llr_data = msg->info.llr_data;
-+		complete(&(cass_dev->sl.step_complete));
-+		break;
-+	case SL_LGRP_NOTIF_LLR_RUNNING:
-+		cass_dev->sl.llr_state = SL_LLR_STATE_RUNNING;
-+		complete(&(cass_dev->sl.step_complete));
-+		break;
-+	case SL_LGRP_NOTIF_LINK_DOWN:
-+		cass_dev->sl.link_state = SL_LINK_STATE_DOWN;
-+		complete(&(cass_dev->sl.step_complete));
-+		break;
-+	default:
-+		cxidev_err(&cass_dev->cdev, "callback error (type = 0x%X)\n", msg->type);
-+		break;
-+	}
-+}
-+
-+#define CASS_SL_LINK_UP_TIMEOUT_MS    35000
-+#define CASS_SL_LLR_SETUP_TIMEOUT_MS  4000
-+#define CASS_SL_LLR_START_TIMEOUT_MS  3000
-+static void cass_sl_config_init(struct cass_dev *cass_dev)
-+{
-+	cxidev_dbg(&cass_dev->cdev,
-+		   "sl config init (platform = %d, cxi = %u, nic = %d)\n",
-+		   HW_PLATFORM(cass_dev), cass_dev->cdev.cxi_num, cass_dev->uc_nic);
-+
-+	cass_dev->sl.hw_attr.magic   = SL_HW_ATTR_MAGIC;
-+	cass_dev->sl.hw_attr.ver     = SL_HW_ATTR_VER;
-+	cass_dev->sl.hw_attr.nic_num = cass_dev->uc_nic;
-+	cass_dev->sl.hw_attr.cxi_num = cass_dev->cdev.cxi_num;
-+
-+	cass_dev->sl.ldev_config.magic     = SL_LDEV_ATTR_MAGIC;
-+	cass_dev->sl.ldev_config.ver       = SL_LDEV_ATTR_VER;
-+	cass_dev->sl.ldev_config.accessors = &(cass_dev->sl.accessors);
-+	cass_dev->sl.ldev_config.ops       = &(cass_dev->sl.ops);
-+
-+	cass_dev->sl.lgrp_config.magic     = SL_LGRP_CONFIG_MAGIC;
-+	cass_dev->sl.lgrp_config.ver       = SL_LGRP_CONFIG_VER;
-+	cass_dev->sl.lgrp_config.mfs       = 9216;
-+	cass_dev->sl.lgrp_config.furcation = SL_MEDIA_FURCATION_X1;
-+	cass_dev->sl.lgrp_config.fec_mode  = SL_LGRP_FEC_MODE_OFF;
-+	cass_dev->sl.lgrp_config.fec_map   = SL_LGRP_CONFIG_FEC_RS;
-+	cass_dev->sl.lgrp_config.options   = 0;
-+	cass_dev->sl.static_tech_map       = SL_LGRP_CONFIG_TECH_CK_400G;
-+	cass_dev->sl.autoneg_tech_map      = SL_LGRP_CONFIG_TECH_CK_400G |
-+					     SL_LGRP_CONFIG_TECH_BS_200G |
-+					     SL_LGRP_CONFIG_TECH_BJ_100G;
-+	cass_dev->sl.link_up_mode          = 0;
-+	cass_dev->sl.link_up_fec_type      = 0;
-+	cass_sl_mode_set_autoneg_enable(cass_dev);
-+
-+	cass_dev->sl.link_config.magic                             = SL_LINK_CONFIG_MAGIC;
-+	cass_dev->sl.link_config.ver                               = SL_LINK_CONFIG_VER;
-+	cass_dev->sl.link_config.link_up_timeout_ms                = CASS_SL_LINK_UP_TIMEOUT_MS;
-+	cass_dev->sl.link_config.link_up_tries_max                 = 1;
-+	cass_dev->sl.link_config.fec_up_settle_wait_ms             = -1;
-+	cass_dev->sl.link_config.fec_up_check_wait_ms              = -1;
-+	cass_dev->sl.link_config.fec_up_ucw_limit                  = -1;
-+	cass_dev->sl.link_config.fec_up_ccw_limit                  = -1;
-+	cass_dev->sl.link_config.pml_rec_timeout_ms                = cass_sl_pml_rec_timeout_ms;
-+	cass_dev->sl.link_config.pml_rec_rate_limit_max_time_ms    = cass_sl_pml_rec_rate_limit_max_time_ms;
-+	cass_dev->sl.link_config.pml_rec_rate_limit_window_size_ms = cass_sl_pml_rec_rate_limit_win_size_ms;
-+	cass_dev->sl.link_config.pause_map                         = 0;
-+	cass_dev->sl.link_config.options                           = SL_LINK_CONFIG_OPT_PML_REC_ENABLE |
-+								     SL_LINK_CONFIG_OPT_ALD_ENABLE;
-+	cass_dev->sl.link_config.hpe_map                           = SL_LINK_CONFIG_HPE_C2;
-+	cass_dev->sl.link_config.hpe_map                          |= SL_LINK_CONFIG_HPE_LINKTRAIN;
-+	if (cass_dev->sl.enable_llr)
-+		cass_dev->sl.link_config.hpe_map                  |= SL_LINK_CONFIG_HPE_LLR;
-+
-+	cass_dev->sl.link_policy.magic                   = SL_LINK_POLICY_MAGIC;
-+	cass_dev->sl.link_policy.ver                     = SL_LINK_POLICY_VER;
-+	cass_dev->sl.link_policy.fec_mon_ucw_down_limit  = -1;
-+	cass_dev->sl.link_policy.fec_mon_ucw_warn_limit  = 0;
-+	cass_dev->sl.link_policy.fec_mon_ccw_down_limit  = 0;
-+	cass_dev->sl.link_policy.fec_mon_ccw_warn_limit  = 0;
-+	cass_dev->sl.link_policy.fec_mon_period_ms       = -1;
-+
-+	cass_dev->sl.llr_config.magic            = SL_LLR_CONFIG_MAGIC;
-+	cass_dev->sl.llr_config.ver              = SL_LLR_CONFIG_VER;
-+	cass_dev->sl.llr_config.setup_timeout_ms = CASS_SL_LLR_SETUP_TIMEOUT_MS;
-+	cass_dev->sl.llr_config.start_timeout_ms = CASS_SL_LLR_START_TIMEOUT_MS;
-+}
-+
-+static int cass_sl_uc_ops_set(struct cass_dev *cass_dev)
-+{
-+	cxidev_dbg(&cass_dev->cdev, "sl_uc_ops_set\n");
-+
-+	return sl_ldev_uc_ops_set(cass_dev->sl.ldev, &(cass_dev->sl.uc_ops),
-+				&(cass_dev->sl.uc_accessor));
-+}
-+
-+int cass_sl_init(struct cass_dev *cass_dev)
-+{
-+	int  rtn;
-+	char connect_id[12];
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl init (cxi_num = %u)\n", cass_dev->cdev.cxi_num);
-+
-+	if (cass_dev->sl.is_initialized) {
-+		cxidev_dbg(&cass_dev->cdev, "sl already initialized\n");
-+		return -EBADRQC;
-+	}
-+
-+	memset(&(cass_dev->sl), 0, sizeof(cass_dev->sl));
-+
-+	cass_sl_ops_init(cass_dev);
-+	cass_sl_uc_ops_init(cass_dev);
-+	cass_sl_config_init(cass_dev);
-+
-+	INIT_LIST_HEAD(&cass_dev->sl.intr_list);
-+	mutex_init(&cass_dev->sl.intr_lock);
-+
-+	mutex_init(&cass_dev->sl.pmi_lock);
-+	mutex_init(&cass_dev->sl.sbus_lock);
-+
-+	init_completion(&(cass_dev->sl.step_complete));
-+
-+	rtn = kobject_init_and_add(&cass_dev->port_kobj, &cass_sl_port_sysfs,
-+				   &cass_dev->cdev.pdev->dev.kobj, "port");
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev,
-+			   "kobject_init_and_add port failed [%d]\n", rtn);
-+		goto out_kobject_put_port;
-+	}
-+	rtn = kobject_init_and_add(&cass_dev->port_num_kobj, &cass_sl_port_num_sysfs,
-+				   &cass_dev->port_kobj, "0");
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev,
-+			   "kobject_init_and_add port_num failed [%d]\n", rtn);
-+		goto out_kobject_put_port_num;
-+	}
-+
-+	cass_dev->sl.ldev = sl_ldev_new(cass_dev->cdev.cxi_num,
-+					NULL, &(cass_dev->sl.ldev_config));
-+	if (IS_ERR(cass_dev->sl.ldev)) {
-+		rtn = PTR_ERR(cass_dev->sl.ldev);
-+		cxidev_err(&cass_dev->cdev, "sl_ldev_new failed [%d]\n", rtn);
-+		goto out_kobject_put_port_num;
-+	}
-+
-+	rtn = sl_ldev_sysfs_parent_set(cass_dev->sl.ldev, &(cass_dev->port_num_kobj));
-+	if (rtn) {
-+		cxidev_err(&cass_dev->cdev, "sl_ldev_sysfs_parent_set failed [%d]\n", rtn);
-+		goto out_ldev_del;
-+	}
-+
-+	rtn = cass_sl_uc_ops_set(cass_dev);
-+	if (rtn) {
-+		cxidev_err(&cass_dev->cdev, "sl_uc_ops_set failed [%d]\n", rtn);
-+		goto out_ldev_del;
-+	}
-+
-+	cass_dev->sl.lgrp = sl_lgrp_new(cass_dev->sl.ldev,
-+					CASS_SL_LGRP_NUM, &cass_dev->port_num_kobj);
-+	if (IS_ERR(cass_dev->sl.lgrp)) {
-+		rtn = PTR_ERR(cass_dev->sl.lgrp);
-+		cxidev_err(&cass_dev->cdev, "sl_lgrp_new failed [%d]\n", rtn);
-+		goto out_ldev_del;
-+	}
-+
-+	cass_dev->sl.link = sl_link_new(cass_dev->sl.lgrp,
-+					CASS_SL_LINK_NUM, &cass_dev->port_num_kobj);
-+	if (IS_ERR(cass_dev->sl.link)) {
-+		rtn = PTR_ERR(cass_dev->sl.link);
-+		cxidev_err(&cass_dev->cdev, "sl_link_new failed [%d]\n", rtn);
-+		goto out_lgrp_del;
-+	}
-+
-+	cass_dev->sl.mac = sl_mac_new(cass_dev->sl.lgrp,
-+				      CASS_SL_MAC_NUM, &cass_dev->port_num_kobj);
-+	if (IS_ERR(cass_dev->sl.mac)) {
-+		rtn = PTR_ERR(cass_dev->sl.mac);
-+		cxidev_err(&cass_dev->cdev, "sl_mac_new failed [%d]\n", rtn);
-+		goto out_link_del;
-+	}
-+
-+	cass_dev->sl.llr = sl_llr_new(cass_dev->sl.lgrp,
-+				      CASS_SL_LLR_NUM, &cass_dev->port_num_kobj);
-+	if (IS_ERR(cass_dev->sl.llr)) {
-+		rtn = PTR_ERR(cass_dev->sl.llr);
-+		cxidev_err(&cass_dev->cdev, "sl_llr_new failed [%d]\n", rtn);
-+		goto out_mac_del;
-+	}
-+
-+	snprintf(connect_id, sizeof(connect_id), "cas[%d]", cass_dev->cdev.cxi_num);
-+	rtn = sl_lgrp_connect_id_set(cass_dev->sl.lgrp, connect_id);
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl_lgrp_connect_id_set failed [%d]\n", rtn);
-+		goto out_llr_del;
-+	}
-+
-+	rtn = sl_lgrp_hw_attr_set(cass_dev->sl.lgrp, &cass_dev->sl.hw_attr);
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl_lgrp_hw_attr_set failed [%d]\n", rtn);
-+		goto out_llr_del;
-+	}
-+
-+	rtn = sl_lgrp_notif_callback_reg(cass_dev->sl.lgrp, cass_sl_callback, CASS_SL_CALLBACKS, cass_dev);
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl_lgrp_notif_callback_reg failed [%d]\n", rtn);
-+		goto out_llr_del;
-+	}
-+
-+	cass_dev->sl.is_initialized = true;
-+
-+	return 0;
-+
-+out_llr_del:
-+	sl_llr_del(cass_dev->sl.llr);
-+out_mac_del:
-+	sl_mac_del(cass_dev->sl.mac);
-+out_link_del:
-+	sl_link_del(cass_dev->sl.link);
-+out_lgrp_del:
-+	sl_lgrp_del(cass_dev->sl.lgrp);
-+out_ldev_del:
-+	sl_ldev_del(cass_dev->sl.ldev);
-+out_kobject_put_port_num:
-+	kobject_put(&cass_dev->port_num_kobj);
-+out_kobject_put_port:
-+	kobject_put(&cass_dev->port_kobj);
-+
-+	return rtn;
-+}
-+
-+int cass_sl_connect_id_set(struct cass_dev *cass_dev, const char *connect_id)
-+{
-+	int rtn;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl connect id set\n");
-+
-+	rtn = sl_lgrp_connect_id_set(cass_dev->sl.lgrp, connect_id);
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl_lgrp_connect_id failed [%d]\n", rtn);
-+		return rtn;
-+	}
-+
-+	return 0;
-+}
-+
-+int cass_sl_media_config(struct cass_dev *cass_dev, void *unused)
-+{
-+	u32 flags = 0;
-+
-+	cxidev_dbg(&cass_dev->cdev, "media config\n");
-+
-+	if (cass_dev->uc_platform == CUC_BOARD_TYPE_WASHINGTON)
-+		flags |= SL_MEDIA_TYPE_BACKPLANE;
-+
-+	return sl_media_cable_insert(cass_dev->sl.lgrp, cass_dev->qsfp_eeprom_page0,
-+				     cass_dev->qsfp_eeprom_page1, flags);
-+}
-+
-+int cass_sl_media_unconfig(struct cass_dev *cass_dev)
-+{
-+	cxidev_dbg(&cass_dev->cdev, "media unconfig\n");
-+
-+	return sl_media_cable_remove(cass_dev->sl.lgrp);
-+}
-+
-+static void cass_sl_port_group_cfg_set(struct cass_dev *cass_dev)
-+{
-+	union ss2_port_pml_cfg_port_group config;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl port group cfg set\n");
-+
-+	cass_read(cass_dev, SS2_PORT_PML_CFG_PORT_GROUP, &config, sizeof(config));
-+
-+	/* EDGE1 */
-+	config.pg_cfg = 0;
-+
-+	if (cass_dev->sl.lgrp_config.options & SL_LGRP_CONFIG_OPT_R1)
-+		config.link_function = C2_LF_C2_R1;
-+	else
-+		config.link_function = C2_LF_C2_R2;
-+
-+	cass_write(cass_dev, SS2_PORT_PML_CFG_PORT_GROUP, &config, sizeof(config));
-+}
-+
-+int cass_sl_link_config(struct cass_dev *cass_dev)
-+{
-+	/* NO-OP: configuration set happens during link up */
-+	return 0;
-+}
-+
-+bool cass_sl_is_link_up(struct cass_dev *cass_dev)
-+{
-+	return cass_dev->sl.link_state == SL_LINK_STATE_UP;
-+}
-+
-+int cass_sl_link_up(struct cass_dev *cass_dev)
-+{
-+	int          rtn;
-+	unsigned int timeleft;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl link up\n");
-+
-+	if (!cass_dev->sl.has_cable)
-+		return 0;
-+
-+	if (cass_dev->sl.is_canceled)
-+		return 0;
-+
-+	/* initial delay between attempts */
-+	msleep(1000);
-+
-+	cass_dev->sl.link_state       = SL_LINK_STATE_DOWN;
-+	cass_dev->sl.llr_state        = SL_LLR_STATE_OFF;
-+	cass_dev->sl.link_up_mode     = 0;
-+	cass_dev->sl.link_up_fec_type = 0;
-+
-+	if (!cass_dev->sl.is_fw_loaded) {
-+		rtn = sl_ldev_serdes_init(cass_dev->sl.ldev);
-+		if (rtn) {
-+			cxidev_err(&cass_dev->cdev,
-+				   "sl_ldev_serdes_init failed [%d]\n", rtn);
-+			return rtn;
-+		}
-+		cass_dev->sl.is_fw_loaded = true;
-+	}
-+
-+	/* config */
-+	rtn = sl_lgrp_config_set(cass_dev->sl.lgrp, &cass_dev->sl.lgrp_config);
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl_lgrp_config_set failed [%d]\n", rtn);
-+		return rtn;
-+	}
-+	rtn = sl_link_config_set(cass_dev->sl.link, &cass_dev->sl.link_config);
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl_link_config_set failed [%d]\n", rtn);
-+		return rtn;
-+	}
-+	rtn = sl_link_policy_set(cass_dev->sl.link, &cass_dev->sl.link_policy);
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl_link_policy_set failed [%d]\n", rtn);
-+		return rtn;
-+	}
-+	cass_sl_port_group_cfg_set(cass_dev);
-+
-+	if (cass_dev->sl.is_canceled)
-+		return 0;
-+
-+	/* link up */
-+	reinit_completion(&(cass_dev->sl.step_complete));
-+	rtn = sl_link_up(cass_dev->sl.link);
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl_link_up failed [%d]\n", rtn);
-+		goto out_no_link;
-+	}
-+	timeleft = wait_for_completion_timeout(&(cass_dev->sl.step_complete),
-+		msecs_to_jiffies(2 * CASS_SL_LINK_UP_TIMEOUT_MS));
-+	if (timeleft == 0) {
-+		cxidev_dbg(&cass_dev->cdev, "sl_link_up timeout\n");
-+		goto out_link_down;
-+	}
-+	if (cass_dev->sl.link_state != SL_LINK_STATE_UP) {
-+		cxidev_dbg(&cass_dev->cdev, "sl_link_up not up\n");
-+		goto out_link_down;
-+	}
-+
-+	if (cass_dev->sl.is_canceled)
-+		goto out_link_down;
-+
-+	/* enable MAC */
-+	rtn = sl_mac_tx_start(cass_dev->sl.mac);
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl_mac_tx_start failed [%d]\n", rtn);
-+		goto out_link_down;
-+	}
-+	rtn = sl_mac_rx_start(cass_dev->sl.mac);
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl_mac_rx_start failed [%d]\n", rtn);
-+		goto out_mac_tx_stop;
-+	}
-+
-+	if (cass_dev->sl.is_canceled)
-+		goto out_mac_rx_stop;
-+
-+	/* LLR */
-+	if (cass_dev->sl.enable_llr) {
-+
-+		/* config */
-+		rtn = sl_llr_config_set(cass_dev->sl.llr, &cass_dev->sl.llr_config);
-+		if (rtn != 0) {
-+			cxidev_err(&cass_dev->cdev, "sl_llr_config_set failed [%d]\n", rtn);
-+			goto out_mac_rx_stop;
-+		}
-+
-+		/* setup */
-+		reinit_completion(&(cass_dev->sl.step_complete));
-+		rtn = sl_llr_setup(cass_dev->sl.llr);
-+		if (rtn) {
-+			cxidev_err(&cass_dev->cdev, "sl_llr_setup failed [%d]\n", rtn);
-+			goto out_llr_stop;
-+		}
-+		timeleft = wait_for_completion_timeout(&(cass_dev->sl.step_complete),
-+			msecs_to_jiffies(2 * CASS_SL_LLR_SETUP_TIMEOUT_MS));
-+		if (timeleft == 0) {
-+			cxidev_dbg(&cass_dev->cdev, "sl_llr_setup timeout\n");
-+			goto out_llr_stop;
-+		}
-+		if (cass_dev->sl.llr_state != SL_LLR_STATE_SETUP) {
-+			cxidev_dbg(&cass_dev->cdev, "sl_llr_setup not setup\n");
-+			goto out_llr_stop;
-+		}
-+
-+		/* start */
-+		reinit_completion(&(cass_dev->sl.step_complete));
-+		rtn = sl_llr_start(cass_dev->sl.llr);
-+		if (rtn) {
-+			cxidev_err(&cass_dev->cdev, "sl_llr_start failed [%d]\n", rtn);
-+			goto out_llr_stop;
-+		}
-+		timeleft = wait_for_completion_timeout(&(cass_dev->sl.step_complete),
-+			msecs_to_jiffies(2 * CASS_SL_LLR_START_TIMEOUT_MS));
-+		if (timeleft == 0) {
-+			cxidev_dbg(&cass_dev->cdev, "sl_llr_start timeout\n");
-+			goto out_llr_stop;
-+		}
-+		if (cass_dev->sl.llr_state != SL_LLR_STATE_RUNNING) {
-+			cxidev_dbg(&cass_dev->cdev, "sl_llr_start not running\n");
-+			goto out_llr_stop;
-+		}
-+	}
-+
-+	if (cass_dev->sl.is_canceled)
-+		goto out_llr_stop;
-+
-+	cass_link_set_state(cass_dev, CASS_LINK_STATUS_UP, 0);
-+
-+	return 0;
-+
-+out_llr_stop:
-+	sl_llr_stop(cass_dev->sl.llr);
-+	/* need to stop twice to make sure both setup and start are stopped */
-+	sl_llr_stop(cass_dev->sl.llr);
-+
-+out_mac_rx_stop:
-+	sl_mac_rx_stop(cass_dev->sl.mac);
-+
-+out_mac_tx_stop:
-+	sl_mac_tx_stop(cass_dev->sl.mac);
-+
-+out_link_down:
-+	reinit_completion(&(cass_dev->sl.step_complete));
-+	rtn = sl_link_down(cass_dev->sl.link);
-+	switch (rtn) {
-+	case -EALREADY:
-+		break;
-+	case -EINPROGRESS:
-+		msleep(500);
-+		break;
-+	case 0:
-+		timeleft = wait_for_completion_timeout(&(cass_dev->sl.step_complete),
-+			msecs_to_jiffies(2 * CASS_SL_LINK_DOWN_TIMEOUT_MS));
-+		if (timeleft == 0)
-+			cxidev_dbg(&cass_dev->cdev, "sl_link_down (link_up) timeout\n");
-+		break;
-+	default:
-+		cxidev_warn(&cass_dev->cdev, "sl_link_down (link_up) failed [%d]\n", rtn);
-+		break;
-+	}
-+
-+out_no_link:
-+
-+	return -ENOLINK;
-+}
-+
-+int cass_sl_link_down(struct cass_dev *cass_dev)
-+{
-+	int          rtn;
-+	int          err = 0;
-+	unsigned int timeleft;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl link down\n");
-+
-+	/* stop llr */
-+	rtn = sl_llr_stop(cass_dev->sl.llr);
-+	if (rtn) {
-+		cxidev_warn(&cass_dev->cdev, "sl_llr_stop failed [%d]\n", rtn);
-+		err = rtn;
-+	}
-+	/* need to stop twice to make sure both setup and start are stopped */
-+	rtn = sl_llr_stop(cass_dev->sl.llr);
-+	if (rtn && !err) {
-+		cxidev_warn(&cass_dev->cdev, "sl_llr_stop retry failed [%d]\n", rtn);
-+		err = rtn;
-+	}
-+
-+	/* stop MAC */
-+	rtn = sl_mac_tx_stop(cass_dev->sl.mac);
-+	if (rtn) {
-+		cxidev_warn(&cass_dev->cdev, "sl_mac_tx_stop failed [%d]\n", rtn);
-+		if (!err)
-+			err = rtn;
-+	}
-+	rtn = sl_mac_rx_stop(cass_dev->sl.mac);
-+	if (rtn) {
-+		cxidev_warn(&cass_dev->cdev, "sl_mac_rx_stop failed [%d]\n", rtn);
-+		if (!err)
-+			err = rtn;
-+	}
-+
-+	/* down link */
-+	if (cass_dev->sl.link_state != SL_LINK_STATE_DOWN) {
-+		reinit_completion(&(cass_dev->sl.step_complete));
-+		rtn = sl_link_down(cass_dev->sl.link);
-+		switch (rtn) {
-+		case -EALREADY:
-+			break;
-+		case -EINPROGRESS:
-+		case 0:
-+			timeleft = wait_for_completion_timeout(&(cass_dev->sl.step_complete),
-+				msecs_to_jiffies(2 * CASS_SL_LINK_DOWN_TIMEOUT_MS));
-+			if (timeleft == 0) {
-+				cxidev_err(&cass_dev->cdev,
-+					   "sl_link_down (link_down) timed out\n");
-+				return -ETIMEDOUT;
-+			}
-+			break;
-+		default:
-+			cxidev_warn(&cass_dev->cdev, "sl_link_down (link_down) failed [%d]\n", rtn);
-+			return rtn;
-+		}
-+		if (cass_dev->sl.link_state != SL_LINK_STATE_DOWN)
-+			return -EBUSY;
-+	}
-+
-+	if (err)
-+		return err;
-+
-+	cass_link_set_state(cass_dev, CASS_LINK_STATUS_DOWN, 0);
-+
-+	return 0;
-+}
-+
-+int cass_sl_exit(struct cass_dev *cass_dev)
-+{
-+	int rtn;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl exit\n");
-+	if (!cass_dev->sl.is_initialized)
-+		return 0;
-+
-+	rtn = sl_lgrp_notif_callback_unreg(cass_dev->sl.lgrp, cass_sl_callback, CASS_SL_CALLBACKS);
-+	if (rtn != 0) {
-+		cxidev_warn(&cass_dev->cdev, "sl_lgrp_notif_callback_unreg failed [%d]\n", rtn);
-+		return rtn;
-+	}
-+
-+	rtn = sl_llr_del(cass_dev->sl.llr);
-+	if (rtn != 0) {
-+		cxidev_warn(&cass_dev->cdev, "sl_llr_del failed [%d]\n", rtn);
-+		return rtn;
-+	}
-+
-+	rtn = sl_mac_del(cass_dev->sl.mac);
-+	if (rtn != 0) {
-+		cxidev_warn(&cass_dev->cdev, "sl_mac_del failed [%d]\n", rtn);
-+		return rtn;
-+	}
-+
-+	rtn = sl_link_del(cass_dev->sl.link);
-+	if (rtn != 0) {
-+		cxidev_warn(&cass_dev->cdev, "sl_link_del failed [%d]\n", rtn);
-+		return rtn;
-+	}
-+
-+	rtn = sl_lgrp_del(cass_dev->sl.lgrp);
-+	if (rtn != 0) {
-+		cxidev_warn(&cass_dev->cdev, "sl_lgrp_del failed [%d]\n", rtn);
-+		return rtn;
-+	}
-+
-+	rtn = sl_ldev_del(cass_dev->sl.ldev);
-+	if (rtn != 0) {
-+		cxidev_warn(&cass_dev->cdev, "sl_ldev_del failed [%d]\n", rtn);
-+		return rtn;
-+	}
-+
-+	if (cass_dev->sl.is_initialized) {
-+		kobject_put(&cass_dev->port_num_kobj);
-+		kobject_put(&cass_dev->port_kobj);
-+		cass_dev->sl.is_initialized = false;
-+	}
-+
-+	return 0;
-+}
-+
-+int cass_sl_link_fini(struct cass_dev *cass_dev)
-+{
-+	int rtn;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl fini\n");
-+	if (!cass_dev->sl.is_initialized)
-+		return 0;
-+
-+	cass_lmon_kill_all(cass_dev);
-+	rtn = cass_sl_link_down(cass_dev);
-+	if (rtn) {
-+		cxidev_err(&cass_dev->cdev,
-+			   "link quiesce failed; aborting SL teardown [%d]\n", rtn);
-+		return rtn;
-+	}
-+
-+	rtn = cass_sl_media_unconfig(cass_dev);
-+	if (rtn) {
-+		cxidev_warn(&cass_dev->cdev, "media unconfig failed [%d]\n", rtn);
-+		return rtn;
-+	}
-+	cass_dev->port->config_state &= ~CASS_MEDIA_CONFIGURED;
-+	rtn = cass_sl_exit(cass_dev);
-+	if (rtn)
-+		return rtn;
-+
-+	cass_port_del_port_db(cass_dev);
-+	return 0;
-+}
-diff --git a/drivers/net/ethernet/hpe/ss1/cass_sl_io.c b/drivers/net/ethernet/hpe/ss1/cass_sl_io.c
-new file mode 100644
-index 000000000000..5eca53cb0969
---- /dev/null
-+++ b/drivers/net/ethernet/hpe/ss1/cass_sl_io.c
-@@ -0,0 +1,368 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright 2025 Hewlett Packard Enterprise Development LP */
-+
-+#include "cass_core.h"
-+#include "cass_sl_io.h"
-+
-+int cass_sl_uc_write8(void *uc_accessor, u8 page, u8 addr, u8 data)
-+{
-+	struct cass_dev *cass_dev = uc_accessor;
-+	int              rtn;
-+
-+	rtn = uc_cmd_qsfp_write(cass_dev, page, addr, &data, sizeof(data));
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl_uc_write8 0x%x <- 0x%x\n", addr, data);
-+
-+	return rtn;
-+}
-+
-+int cass_sl_uc_read(void *uc_accessor, u32 offset, u32 page, u8 *data, u32 len)
-+{
-+	struct cass_dev *cass_dev = uc_accessor;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl uc read (offset = 0x%X, page = %u, len = %u)\n",
-+		   offset, page, len);
-+
-+	return cxi_get_qsfp_data(&cass_dev->cdev, offset, len, page, data);
-+}
-+
-+u64 cass_sl_read64(void *pci_accessor, long addr)
-+{
-+	struct cass_dev *cass_dev = pci_accessor;
-+	u64              data64;
-+
-+	cass_read(cass_dev, addr, &data64, sizeof(u64));
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl read64 0x%lX = 0x%llX\n", addr, data64);
-+
-+	return data64;
-+}
-+
-+void cass_sl_write64(void *pci_accessor, long addr, u64 data64)
-+{
-+	struct cass_dev *cass_dev = pci_accessor;
-+
-+	cass_write(cass_dev, addr, &data64, sizeof(u64));
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl write64 0x%lX <- 0x%llX\n", addr, data64);
-+}
-+
-+#define CASS_SL_SBUS_RD_CMD           0x22
-+#define CASS_SL_SBUS_RD_DELAY_US      50
-+#define CASS_SL_SBUS_RD_TIMOUT_MS     500
-+#define CASS_SL_SBUS_RD_POLL_INTVL_MS 10
-+int cass_sl_sbus_rd(void *sbus_accessor, u32 sbus_addr, u8 reg_addr, u32 *rd_data)
-+{
-+	int                        rtn;
-+	struct cass_dev           *cass_dev = sbus_accessor;
-+	struct cxi_sbus_op_params  params;
-+	u8                         result_code;
-+	u8                         overrun;
-+
-+	params.req_data      = 0;
-+	params.data_addr     = reg_addr;
-+	params.rx_addr       = (sbus_addr & 0xFF);
-+	params.command       = CASS_SL_SBUS_RD_CMD;
-+	params.delay         = CASS_SL_SBUS_RD_DELAY_US;
-+	params.timeout       = CASS_SL_SBUS_RD_TIMOUT_MS;
-+	params.poll_interval = CASS_SL_SBUS_RD_POLL_INTVL_MS;
-+
-+	mutex_lock(&cass_dev->sl.sbus_lock);
-+
-+	rtn = cxi_sbus_op(&cass_dev->cdev, &params, rd_data, &result_code, &overrun);
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl sbus rd - cxi_sbus_op failed [%d]\n", rtn);
-+		goto out;
-+	}
-+	if (result_code != 4) {
-+		cxidev_err(&cass_dev->cdev, "sl sbus rd - cxi_sbus_op (rc = %d)\n", result_code);
-+		rtn = -EBADRQC;
-+		goto out;
-+	}
-+	if (overrun != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl sbus rd - cxi_sbus_op (overrun = %d)\n", overrun);
-+		rtn = -EIO;
-+		goto out;
-+	}
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl sbus rd (sbus_addr = 0x%08X, reg = 0x%02X, data = 0x%08X)\n",
-+		   sbus_addr, reg_addr, *rd_data);
-+
-+	rtn = 0;
-+
-+out:
-+	mutex_unlock(&cass_dev->sl.sbus_lock);
-+
-+	return rtn;
-+}
-+
-+#define CASS_SL_SBUS_WR_CMD           0x21
-+#define CASS_SL_SBUS_WR_DELAY_US      50
-+#define CASS_SL_SBUS_WR_TIMOUT_MS     500
-+#define CASS_SL_SBUS_WR_POLL_INTVL_MS 10
-+int cass_sl_sbus_wr(void *sbus_accessor, u32 sbus_addr, u8 reg_addr, u32 req_data)
-+{
-+	int                        rtn;
-+	struct cass_dev           *cass_dev = sbus_accessor;
-+	struct cxi_sbus_op_params  params;
-+	u32                        rsp_data;
-+	u8                         result_code;
-+	u8                         overrun;
-+
-+	params.req_data      = req_data;
-+	params.data_addr     = reg_addr;
-+	params.rx_addr       = (sbus_addr & 0xFF);
-+	params.command       = CASS_SL_SBUS_WR_CMD;
-+	params.delay         = CASS_SL_SBUS_WR_DELAY_US;
-+	params.timeout       = CASS_SL_SBUS_WR_TIMOUT_MS;
-+	params.poll_interval = CASS_SL_SBUS_WR_POLL_INTVL_MS;
-+
-+	mutex_lock(&cass_dev->sl.sbus_lock);
-+
-+	rtn = cxi_sbus_op(&cass_dev->cdev, &params, &rsp_data, &result_code, &overrun);
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl sbus wr - cxi_sbus_op failed [%d]\n", rtn);
-+		goto out;
-+	}
-+	if (result_code != 1) {
-+		cxidev_err(&cass_dev->cdev, "sl sbus wr - cxi_sbus_op (rc = %d)\n", result_code);
-+		rtn = -EBADRQC;
-+		goto out;
-+	}
-+	if (overrun != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl sbus wr - cxi_sbus_op (overrun = %d)\n", overrun);
-+		rtn = -EIO;
-+		goto out;
-+	}
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl sbus wr (sbus = 0x%08X, reg = 0x%02X, data = 0x%08X)\n",
-+		   sbus_addr, reg_addr, req_data);
-+
-+	rtn = 0;
-+
-+out:
-+	mutex_unlock(&cass_dev->sl.sbus_lock);
-+
-+	return rtn;
-+}
-+
-+#define CASS_SL_SBUS_OP_DELAY_US      50
-+#define CASS_SL_SBUS_OP_TIMOUT_MS     500
-+#define CASS_SL_SBUS_OP_POLL_INTVL_MS 10
-+int cass_sl_sbus_cmd(void *sbus_accessor, int ring, u32 req_data,
-+		     u8 reg_addr, u8 dev_addr, u8 op,
-+			    u32 *rsp_data, u8 *result_code, u8 *overrun,
-+			    u8 *error, int timeout_ms, u32 flags)
-+{
-+	int                        rtn;
-+	struct cass_dev           *cass_dev = sbus_accessor;
-+	struct cxi_sbus_op_params  params;
-+
-+	params.req_data      = req_data;
-+	params.data_addr     = reg_addr;
-+	params.rx_addr       = dev_addr;
-+	params.command       = op;
-+	params.delay         = CASS_SL_SBUS_OP_DELAY_US;
-+	params.timeout       = CASS_SL_SBUS_OP_TIMOUT_MS;
-+	params.poll_interval = CASS_SL_SBUS_OP_POLL_INTVL_MS;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl sbus cmd\n");
-+
-+	mutex_lock(&cass_dev->sl.sbus_lock);
-+
-+	rtn = cxi_sbus_op(&cass_dev->cdev, &params, rsp_data, result_code, overrun);
-+	if (rtn != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl sbus cmd - cxi_sbus_op failed [%d]\n", rtn);
-+		goto out;
-+	}
-+
-+	cxidev_dbg(&cass_dev->cdev,
-+		   "sl sbus cmd (op - 0x%X, dev = 0x%02X, reg = 0x%02X, data = 0x%08X, result = %u)\n",
-+		op, dev_addr, reg_addr, req_data, *result_code);
-+
-+	// FIXME: for now just checking reset
-+	if (((op & 0xF) == 0) && (*result_code != 0)) {
-+		cxidev_err(&cass_dev->cdev, "sl sbus cmd - cxi_sbus_op (result = %u)\n",
-+			   *result_code);
-+		rtn = -EBADRQC;
-+		goto out;
-+	}
-+	if (*overrun != 0) {
-+		cxidev_err(&cass_dev->cdev, "sl sbus cmd - cxi_sbus_op (overrun = %u)\n", *overrun);
-+		rtn = -EIO;
-+		goto out;
-+	}
-+
-+	rtn = 0;
-+
-+out:
-+	mutex_unlock(&cass_dev->sl.sbus_lock);
-+
-+	return rtn;
-+}
-+
-+#define CASS_SL_PMI_RD_READY_MAX_COUNT 2
-+#define CASS_SL_PMI_RD_READY_DELAY_MS  1000
-+#define CASS_SL_PMI_RD_MAX_COUNT 10
-+#define CASS_SL_PMI_RD_DELAY_MS  100
-+int cass_sl_pmi_rd(void *pmi_accessor, u8 lgrp_num, u32 addr, u16 *data)
-+{
-+	int                           rtn;
-+	struct cass_dev              *cass_dev = pmi_accessor;
-+	int                           x;
-+	union c2_hni_serdes_pmi_ctl   pmi_ctl;
-+	union c2_hni_serdes_pmi_data  pmi_data;
-+
-+	mutex_lock(&cass_dev->sl.pmi_lock);
-+
-+	/* check ready */
-+	for (x = 0; x < CASS_SL_PMI_RD_READY_MAX_COUNT; ++x) {
-+		cass_read(cass_dev, C2_HNI_SERDES_PMI_CTL, &pmi_ctl, sizeof(pmi_ctl));
-+		if (!pmi_ctl.pmi_lp_ack)
-+			break;
-+		msleep(CASS_SL_PMI_RD_READY_DELAY_MS);
-+	}
-+	if (x >= CASS_SL_PMI_RD_READY_MAX_COUNT) {
-+		cxidev_err(&cass_dev->cdev,
-+			   "sl pmi rd - ready timeout (ctl = 0x%016llX)\n", pmi_ctl.qw);
-+		rtn = -1;
-+		goto out;
-+	}
-+
-+	/* start */
-+	pmi_ctl.qw          = 0ULL;
-+	pmi_ctl.pmi_lp_addr = addr;
-+	pmi_ctl.pmi_lp_en   = 1;
-+	cxidev_dbg(&cass_dev->cdev, "sl pmi rd - ctrl 0x%016llX -> 0x%08X\n",
-+		   pmi_ctl.qw, C2_HNI_SERDES_PMI_CTL);
-+	cass_write(cass_dev, C2_HNI_SERDES_PMI_CTL, &pmi_ctl, sizeof(pmi_ctl));
-+
-+	/* poll for done */
-+	for (x = 0; x < CASS_SL_PMI_RD_MAX_COUNT; ++x) {
-+		cass_read(cass_dev, C2_HNI_SERDES_PMI_CTL, &pmi_ctl, sizeof(pmi_ctl));
-+		cxidev_dbg(&cass_dev->cdev, "sl pmi rd - check #%d 0x%08X = 0x%016llX\n",
-+			   x, C2_HNI_SERDES_PMI_CTL, pmi_ctl.qw);
-+		if (pmi_ctl.pmi_lp_error) {
-+			cxidev_err(&cass_dev->cdev, "sl pml rd - error\n");
-+			rtn = -1;
-+			goto out;
-+		}
-+		if (pmi_ctl.pmi_lp_ack)
-+			break;
-+		msleep(CASS_SL_PMI_RD_DELAY_MS);
-+	}
-+	if (x >= CASS_SL_PMI_RD_MAX_COUNT) {
-+		cxidev_err(&cass_dev->cdev, "sl pmi rd - timeout\n");
-+		rtn = -ETIMEDOUT;
-+		goto out;
-+	}
-+
-+	/* check valid */
-+	if (!pmi_ctl.pmi_lp_read_vld) {
-+		cxidev_err(&cass_dev->cdev, "sl pmi rd - data not valid\n");
-+		rtn = -1;
-+		goto out;
-+	}
-+
-+	/* get data */
-+	cass_read(cass_dev, C2_HNI_SERDES_PMI_DATA, &pmi_data, sizeof(pmi_data));
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl pmi rd - read 0x%08X = 0x%016llX\n",
-+		   C2_HNI_SERDES_PMI_DATA, pmi_data.qw);
-+
-+	*data = pmi_data.pmi_lp_rddata;
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl pmi rd (addr = 0x%08X, data = 0x%04X)\n", addr, *data);
-+
-+	rtn = 0;
-+
-+out:
-+	/* finish transaction */
-+	pmi_ctl.qw = 0ULL;
-+	cass_write(cass_dev, C2_HNI_SERDES_PMI_CTL, &pmi_ctl, sizeof(pmi_ctl));
-+
-+	mutex_unlock(&cass_dev->sl.pmi_lock);
-+
-+	return rtn;
-+}
-+
-+#define CASS_SL_PMI_WR_READY_MAX_COUNT 2
-+#define CASS_SL_PMI_WR_READY_DELAY_MS  1000
-+#define CASS_SL_PMI_WR_MAX_COUNT 10
-+#define CASS_SL_PMI_WR_DELAY_MS  100
-+int cass_sl_pmi_wr(void *pmi_accessor, u8 lgrp_num, u32 addr, u16 data, u16 mask)
-+{
-+	int                           rtn;
-+	struct cass_dev              *cass_dev = pmi_accessor;
-+	int                           x;
-+	union c2_hni_serdes_pmi_ctl   pmi_ctl;
-+	union c2_hni_serdes_pmi_data  pmi_data;
-+
-+	mutex_lock(&cass_dev->sl.pmi_lock);
-+
-+	/* check ready */
-+	for (x = 0; x < CASS_SL_PMI_WR_READY_MAX_COUNT; ++x) {
-+		cass_read(cass_dev, C2_HNI_SERDES_PMI_CTL, &pmi_ctl, sizeof(pmi_ctl));
-+		if (!pmi_ctl.pmi_lp_ack)
-+			break;
-+		msleep(CASS_SL_PMI_WR_READY_DELAY_MS);
-+	}
-+	if (x >= CASS_SL_PMI_WR_READY_MAX_COUNT) {
-+		cxidev_err(&cass_dev->cdev,
-+			   "sl pmi wr - ready timeout (ctl = 0x%016llX)\n", pmi_ctl.qw);
-+		rtn = -1;
-+		goto out;
-+	}
-+
-+	/* load data */
-+	pmi_data.qw              = 0ULL;
-+	pmi_data.pmi_lp_wrdata   = data;
-+	pmi_data.pmi_lp_maskdata = ~mask;
-+	cxidev_dbg(&cass_dev->cdev, "sl pmi wr - data 0x%016llX -> 0x%08X\n",
-+		   pmi_data.qw, C2_HNI_SERDES_PMI_DATA);
-+	cass_write(cass_dev, C2_HNI_SERDES_PMI_DATA, &pmi_data, sizeof(pmi_data));
-+
-+	/* start */
-+	pmi_ctl.qw           = 0ULL;
-+	pmi_ctl.pmi_lp_addr  = addr;
-+	pmi_ctl.pmi_lp_en    = 1;
-+	pmi_ctl.pmi_lp_write = 1;
-+	cxidev_dbg(&cass_dev->cdev, "sl pmi wr - ctrl 0x%016llX -> 0x%08X\n",
-+		   pmi_ctl.qw, C2_HNI_SERDES_PMI_CTL);
-+	cass_write(cass_dev, C2_HNI_SERDES_PMI_CTL, &pmi_ctl, sizeof(pmi_ctl));
-+
-+	/* poll for done */
-+	for (x = 0; x < CASS_SL_PMI_WR_MAX_COUNT; ++x) {
-+		cass_read(cass_dev, C2_HNI_SERDES_PMI_CTL, &pmi_ctl, sizeof(pmi_ctl));
-+		cxidev_dbg(&cass_dev->cdev, "sl pmi wr - check #%d 0x%08X = 0x%016llX\n",
-+			   x, C2_HNI_SERDES_PMI_CTL, pmi_ctl.qw);
-+		if (pmi_ctl.pmi_lp_error) {
-+			cxidev_err(&cass_dev->cdev, "sl pmi wr - error\n");
-+			rtn = -1;
-+			goto out;
-+		}
-+		if (pmi_ctl.pmi_lp_ack)
-+			break;
-+		msleep(CASS_SL_PMI_WR_DELAY_MS);
-+	}
-+	if (x >= CASS_SL_PMI_WR_MAX_COUNT) {
-+		cxidev_err(&cass_dev->cdev, "sl pmi wr - timeout\n");
-+		rtn = -ETIMEDOUT;
-+		goto out;
-+	}
-+
-+	cxidev_dbg(&cass_dev->cdev, "sl pmi wr (addr = 0x%08X, data = 0x%04X, mask = 0x%04X)\n",
-+		   addr, data, mask);
-+
-+	rtn = 0;
-+
-+out:
-+	/* finish transaction */
-+	pmi_ctl.qw = 0ULL;
-+	cass_write(cass_dev, C2_HNI_SERDES_PMI_CTL, &pmi_ctl, sizeof(pmi_ctl));
-+
-+	mutex_unlock(&cass_dev->sl.pmi_lock);
-+
-+	return rtn;
-+}
-+
 
 -- 
 2.56.0
