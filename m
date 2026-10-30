@@ -1,48 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=132.226.202.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793335484;
-	b=woxEEC5uGo0iJeA1vj6ix5JG/iAIad4lilA0Se8BXo/OOyiRURNB3dPV1H7Z8/oNVxVT
-	 cjcv0FjgUw8t533tk//Nm7S3gaa4r8JziZmFyt1Cgh/9WJBZC+3CJUZz6LVxQ44JoYSie
-	 9zNmxt5CuqoJMK1ZNzlew+G+gnDyXzt3g8BoykQChlAZ/bYQnTtmTDhy5ZKcdgn4ET1Pf
-	 AfiBDkH6n3xlDF20Y+QmL4zdlYd4RHASqwOkMR0noaMwAuLe8GVFRQ9aSiYILKZGY8z0a
-	 cnBEVGArkFndpDc/dSkSrKax1puLPdqHpyw6f75/16R9vxpm4m7u2xYJZzcp+p13qNA==
+	t=1793335612;
+	b=0vlWcaw+ybRUhwwtluYF4ok1r7GhhERK7LTaoBlYqC+GBM+F652rpVshX3L/mICLF7ki
+	 9N5aML9nn2FUWhkn3VGjBkRKjuE1+pwNdN/Wnw/zr/+O67AnoOZNmiC4cz/6aRKSYVEw5
+	 SqJYzy9ATIh5pAqzWzSQ/uSpC4pgAw4I80GWkPEJwk/AJdcMdXPjNC9WgANrdIntDurdg
+	 WFMv+dne+LJ1nTOI0IyO6gW14qvHL914ytu+W3IRX9uVBuaLjRGORVvmWlO6avE7qRC1W
+	 anVfA2pW1nxMf38R3EXNDAjATpum1USblv6yuj9ngVM2w4vh6cRODZsb7clF4fCrcOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793335484;
-	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
-	 To:Cc:Subject:X-Priority:X-Mailer:X-CM-CTRLMSGS:
-	 Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	 X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=nCGTArrnvYvyIj8LUHLrSTgQzspsnEFFJnHl8rF049A=;
-	b=SzYDGh47SG/yfPPhRBMej4fksHzWhjO14KTnOOMQ9B1eRKz+B+dRMdK/gN5dOhZbqmSZ
-	 q0rFpDDPvuXqt/Yf+fI8XOkvqhSwbK50yJNC4AL3zzvN0On5wY4Q98km8VjaZfGun9k8c
-	 OmOJVzRY43iAzTOdH8rdRdsxtq8X19Y22MIelsQeE4aeMlGlBAvrYNUT7hWGu39zzlJjh
-	 OxViz50cQEKOiV9ZnLj/iW/4DLZZxWd05WBn1U25tRfxBXeACfElrD8m8nLjroGcDwN1X
-	 /7K5DpVrkKFbKOg3UwJsqn1UrOwA6+x8Rub08+8gudJ9o3OS14atM9FehBWhh234q9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793335612;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=DZp5otDluq4NV2cKmLa7Nu+U3zJLkg4HxbRo5oi+i0M=;
+	b=5Blh0pUyckYWX15sXTqNxyleeR9uKlBF6bExx1xwl12hoIIJcQE7qsg+B9a/hcIRfCtA
+	 ebVtH5vAhqeyKdJK5DO0SqgTVgkCmE+4otsZLKqabNiAAmH+YO19xeRJ+IAcM1UrcyB+Z
+	 ev3ndGthN9lZS8W0/gNqxQwQicFMYgX3/+fFnUxSBZSGHjTfLzlLkbEAaH7KhL3AHe7Kt
+	 1ZAusxfvzYraLwMNfYTbZfmsF7sSMlAcRgKluHCPq7ZKdM9f3/1GwRpqxRzW7ArRGpiTL
+	 B3i5V/Ur81Pxl5cc9Ra4oQ/2f7OCMBfvUo9MZhOtsoCqTxw44b8PrdQJXQi0BE6dIEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=132.226.202.154
-Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D2670606A322;
-	Fri, 30 Oct 2026 04:44:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2670606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from xuhx$hust.edu.cn ( [10.12.190.107] ) by ajax-webmail-app1
- (Coremail) ; Fri, 30 Oct 2026 12:44:39 +0800 (GMT+08:00)
-Date: Fri, 30 Oct 2026 12:44:39 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
-To: perex@perex.cz, tiwai@suse.com
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: sound: core: snd_card_free()'s one-shot 'releasing' admission is
-  an unlocked TOCTOU (latent: no concurrent caller in tree today)
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
- 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
-X-CM-CTRLMSGS: =?B?DYc4ETiH6nJ5xwDR7hwMki1N8jM=
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZiFfe4M;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B4D606A31A;
+	Fri, 30 Oct 2026 04:46:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZiFfe4M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F4731F000C1;
+	Fri, 30 Oct 2026 04:46:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793335611;
+	bh=DZp5otDluq4NV2cKmLa7Nu+U3zJLkg4HxbRo5oi+i0M=;
+	h=From:To:Cc:Subject:Date;
+	b=MZiFfe4MaqqgRmB0M8Sok3Bxfg3CbjxRydYTFp7y5XUzPe6DLkiZJUwTknZefJSPr
+	 saZ96LltFBZ124M/oaiB6gcCOLBs4HUO8MYUPaTLrIB3kko2dfCuC0gjv/BITeMs5A
+	 YuKUu69lrKKDpVxInh/TNuYHDscjoLNibIOKlLJU/pK5o7IZu816Jv4IUGx77+a3lT
+	 YMG+qNzOlzINkS7X3PdbZntrmEkkObPHfsWatqZd8MSd+BNcQhokZBWcWIReTo0RSL
+	 RtSh0qwJfgt89xutqRh6vxGG86kdvQDqg7CaQZ4AUT97K+EIM7K+1YGlzEkQPymJ/W
+	 4E8AZY78E4LZQ==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shuah Khan <shuah@kernel.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH] selftests/damon/sysfs_memcg_path_leak: define ksft_skip
+Date: Thu, 29 Oct 2026 21:46:42 -0700
+Message-ID: <20261030044643.157105-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,104 +62,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <7a2791ad.1b56b.1a18b1fcbeb.Coremail.xuhx@hust.edu.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:IAEQrMBmraO3IORq4JxRAQ--.12560W
-X-CM-SenderInfo: bgsqjkayqyjmo6kx23oohg3hdfq/1tbiAgMQB2rjce1GUwADsV
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkKw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Transfer-Encoding: 8bit
 
-c25kX2NhcmRfZnJlZSgpIGltcGxlbWVudHMgaXRzIHJlLWVudHJhbmN5IHByb3RlY3Rpb24gYXMg
-YSBzaW5nbGUKdW5sb2NrZWQgYm9vbGVhbjogaXQgcmVhZHMgY2FyZC0+cmVsZWFzaW5nLCB3cml0
-ZXMgYSBzdGFjayBjb21wbGV0aW9uCnBvaW50ZXIgaW50byBjYXJkLT5yZWxlYXNlX2NvbXBsZXRp
-b24sIGFuZCBvbmx5IHNldHMgcmVsZWFzaW5nID0gdHJ1ZQptdWNoIGxhdGVyIGluc2lkZSBzbmRf
-Y2FyZF9kb19mcmVlKCkgLS0gd2hpY2ggcnVucyBmcm9tIHRoZSBjYXJkX2RldgprcmVmIHJlbGVh
-c2UsIHBvc3NpYmx5IGxvbmcgYWZ0ZXIgdGhlIGNoZWNrLiAgSWYgdHdvIHRocmVhZHMgZXZlcgpl
-bnRlcmVkIGl0IGNvbmN1cnJlbnRseSBmb3IgdGhlIHNhbWUgY2FyZCwgdGhlIHNlY29uZCB3b3Vs
-ZCBlaXRoZXIKZHJvcCBhIHNlY29uZCBjYXJkX2RldiByZWZlcmVuY2UgKGtyZWYgdW5kZXJmbG93
-OiB0aGUgY2FyZCBpcyBmcmVlZAp3aGlsZSBmaWxlcyBhcmUgb3BlbiwgYW5kIHRoZSBsYXRlciBm
-aWxlIGNsb3NlIGRvZXMgYSB0aGlyZApwdXRfZGV2aWNlIG9uIGZyZWVkIG1lbW9yeSksIG9yIG92
-ZXJ3cml0ZSB0aGUgZmlyc3QgY2FsbGVyJ3MKY29tcGxldGlvbiAoc25kX2NhcmRfZG9fZnJlZSgp
-IGNvbXBsZXRlcyBvbmx5IHRoZSBsYXN0IHdyaXRlciwgc28gdGhlCmZpcnN0IGNhbGxlciBzbGVl
-cHMgZm9yZXZlciwgdHlwaWNhbGx5IGhvbGRpbmcgdGhlIGRyaXZlci1jb3JlIGRldmljZQpsb2Nr
-KSwgb3IgcmFjZSBwYXN0IHRoZSBmaXJzdCBjYWxsZXIncyBrZnJlZShjYXJkKSBvdXRyaWdodC4g
-IEkKZW51bWVyYXRlZCBldmVyeSBjYWxsZXIgaW4gdGhlIHRyZWU6IHRvZGF5IHRoZXkgYXJlIGFs
-bCBzZXJpYWxpemVkCihvbmUgZW50cnkgcG9pbnQgcGVyIGNhcmQgYXQgYSB0aW1lIC0tIFBDSSBy
-ZW1vdmUgdW5kZXIgdGhlIHBjaV9kZXYKbXV0ZXg7IG1hbmFnZWQgY2FyZHMgY2FsbCBpdCBtdWx0
-aXBsZSB0aW1lcyBidXQgc2VxdWVudGlhbGx5IG9uIHRoZQpzYW1lIHRocmVhZDsgdGhlIFVTQi1h
-dWRpbyBhbmQgbWlzYyBkcml2ZXJzIHNlcmlhbGl6ZSB2aWEKcmVnaXN0ZXJfbXV0ZXggLyBzaHV0
-ZG93biBjb3VudGVycyAvIGludGVyZmFjZSBsb2NrcyksIHNvIHRoaXMgaXMKcmVwb3J0ZWQgYXMg
-YSBsYXRlbnQsIGRlZmVuc2l2ZS1oYXJkZW5pbmcgaXNzdWUsIG5vdCBhIHJlYWNoYWJsZSBidWcK
-LS0gdGhlIGNvZGUgY29tbWVudCBhdCBzb3VuZC9jb3JlL2luaXQuYzo2NTMtNjU3IGFscmVhZHkg
-YWRtaXRzIHRoZQptdWx0aS1lbnRyeSBkZXNpZ24gKCJ0aGUgcmVsZWFzZSB2aWEgZGV2cmVzIG1h
-eSBjYWxsIHNuZF9jYXJkX2ZyZWUoKQp0d2ljZSBkdWUgdG8gaXRzIG5hdHVyZSIpLCBhbmQgdGhl
-IHByb3RlY3Rpb24gYmV0d2VlbiB0aG9zZSBlbnRyaWVzCmlzIG9ubHkgdGhlIGFzc3VtcHRpb24g
-dGhhdCB0aGV5IG5ldmVyIG92ZXJsYXAuCgpUaGUgZGV0YWlsZWQgZGVzY3JpcHRpb246CiogVGhl
-IGNvZGUgKExpbnV4IDcuMywgc291bmQvY29yZS9pbml0LmM6NjQ5LTY2NykKICAgICAgdm9pZCBz
-bmRfY2FyZF9mcmVlKHN0cnVjdCBzbmRfY2FyZCAqY2FyZCkKICAgICAgewogICAgICAgICAgICAg
-IERFQ0xBUkVfQ09NUExFVElPTl9PTlNUQUNLKHJlbGVhc2VkKTsKICAgICAgICAgICAgICBpZiAo
-Y2FyZC0+cmVsZWFzaW5nKSAgICAgICAgICAgICAgICAgICAgLyogKDEpIHVubG9ja2VkIHJlYWQg
-Ki8KICAgICAgICAgICAgICAgICAgICAgIHJldHVybjsKICAgICAgICAgICAgICBjYXJkLT5yZWxl
-YXNlX2NvbXBsZXRpb24gPSAmcmVsZWFzZWQ7ICAvKiAoMikgdW5sb2NrZWQgd3JpdGUKICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBvZiBhIHN0
-YWNrIGFkZHIgKi8KICAgICAgICAgICAgICBzbmRfY2FyZF9mcmVlX3doZW5fY2xvc2VkKGNhcmQp
-OyAgICAgICAgLyogKDMpIGRpc2Nvbm5lY3QgKwogICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHB1dF9kZXZpY2UsIG5vCiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2FyZC1sZXZlbCBsb2Nr
-ICovCiAgICAgICAgICAgICAgd2FpdF9mb3JfY29tcGxldGlvbigmcmVsZWFzZWQpOyAgICAgICAg
-IC8qICg0KSAqLwogICAgICB9CiAgcmVsZWFzaW5nID0gdHJ1ZSBoYXBwZW5zIG9ubHkgaW4gc25k
-X2NhcmRfZG9fZnJlZSgpCiAgKGluaXQuYzo1ODgpLCBpbnZva2VkIGZyb20gdGhlIGNhcmRfZGV2
-IGRldmljZSByZWxlYXNlCiAgKGluaXQuYzoxNTEtMTU0KSAtLSBpLmUuIGFmdGVyIHB1dF9kZXZp
-Y2UoKSBpbnNpZGUgKDMpIGhhcyBkcm9wcGVkCiAgdGhlIGxhc3QtYnV0LW9uZSByZWZlcmVuY2Us
-IGFyYml0cmFyaWx5IGxhdGVyIHRoYW4gKDEpLgoKKiBDb25zZXF1ZW5jZXMgaWYgYSBjb25jdXJy
-ZW50IHNlY29uZCBlbnRyeSBldmVyIGV4aXN0cwogIDEuIGtyZWYgZG91YmxlIGRyb3A6IHdpdGgg
-b25lIG9wZW4gQUxTQSBmaWxlIChlYWNoIGZpbGUgaG9sZHMgYQogICAgIGNhcmRfZGV2IHJlZmVy
-ZW5jZSwgaW5pdC5jOjExMTEpLCB0d28gcHV0X2RldmljZSgpIGNhbGxzIGZyb20KICAgICB0d28g
-c25kX2NhcmRfZnJlZSgpcyBjYW4gYnJpbmcgdGhlIGtyZWYgdG8gemVybyB3aGlsZSB0aGUgZmls
-ZQogICAgIGlzIHN0aWxsIG9wZW47IHNuZF9jYXJkX2RvX2ZyZWUoKSBmcmVlcyBhbGwgZGV2aWNl
-cyBhbmQgdGhlIGNhcmQKICAgICAoaW5pdC5jOjYxMCksIGFuZCB0aGUgZmlsZSdzIGNsb3NlIHBh
-dGggdGhlbiBkb2VzIGEgdGhpcmQKICAgICBwdXRfZGV2aWNlKCkgKGluaXQuYzoxMTUzKSBvbiBm
-cmVlZCBtZW1vcnkgKGtyZWYgdW5kZXJmbG93ICsKICAgICB0aGUgY2xvc2UgcGF0aCdzIHN1YnNl
-cXVlbnQgd29yayBvbiBmcmVlZCBjYXJkIG1lbW9yeSkuCiAgMi4gY29tcGxldGlvbiBvdmVyd3Jp
-dGU6IHRoZSBzZWNvbmQgY2FsbGVyIG92ZXJ3cml0ZXMKICAgICByZWxlYXNlX2NvbXBsZXRpb24g
-d2l0aCBpdHMgb3duIHN0YWNrIGFkZHJlc3M7IGRvX2ZyZWUKICAgICBjb21wbGV0ZXMgb25seSB0
-aGUgbGFzdCB3cml0ZXIgKGluaXQuYzo2MDctNjA4KTsgdGhlIGZpcnN0CiAgICAgY2FsbGVyIHdh
-aXRzIGZvcmV2ZXIgLS0gd2l0aCBpdHMgY2FsbGVyIGNvbnRleHQgdHlwaWNhbGx5CiAgICAgaG9s
-ZGluZyBhIGRyaXZlci1jb3JlIGRldmljZSBsb2NrLCB0aGlzIGlzIGEgbG9ja2VkLXVwIGhhbmcu
-CiAgMy4gcG9zdC1rZnJlZSBhY2Nlc3M6IGFueSBpbnRlcmxlYXZpbmcgd2hlcmUgdGhlIGZpcnN0
-IGVudHJ5CiAgICAgZmluaXNoZXMga2ZyZWUoY2FyZCkgYmVmb3JlIHRoZSBzZWNvbmQgZXhlY3V0
-ZXMgKDIpLygzKSBpcwogICAgIHN0cmFpZ2h0IFVBRiBvbiB0aGUgY2FyZC4KICBOb3RlIHNuZF9j
-YXJkX2ZyZWVfd2hlbl9jbG9zZWQoKSBpdHNlbGYgKGluaXQuYzo2MjUtNjMzKSBjYWxscwogIHB1
-dF9kZXZpY2UoKSB1bmNvbmRpdGlvbmFsbHkgLS0gc25kX2NhcmRfZGlzY29ubmVjdCgpIGluc2lk
-ZSBpdCBpcwogIG9uZS1zaG90IHZpYSBjYXJkLT5zaHV0ZG93biwgYnV0IHRoZSByZWZlcmVuY2Ug
-ZHJvcCBpcyBub3QgZ3VhcmRlZAogIGVpdGhlciwgc28gYW55ICpjb21iaW5hdGlvbiogb2YgdGhl
-IHR3byBlbnRyeSBmdW5jdGlvbnMgaGFzIHRoZQogIHNhbWUgZXhwb3N1cmUuCgoqIENhbGxlciBl
-bnVtZXJhdGlvbiAod2h5IHRoaXMgaXMgbGF0ZW50IHRvZGF5KQogIC0gSERBIFBDSSBjb250cm9s
-bGVycyAoc25kX2NhcmRfbmV3LCBub24tbWFuYWdlZCk6IHNpbmdsZQogICAgc25kX2NhcmRfZnJl
-ZSgpIGZyb20gUENJIHJlbW92ZSwgdW5kZXIgcGNpX2Rldi0+bXV0ZXgKICAgIChkZXZpY2VfcmVs
-ZWFzZV9kcml2ZXJfaW50ZXJuYWwpLgogIC0gbWFuYWdlZCBjYXJkcyAoc25kX2Rldm1fY2FyZF9u
-ZXcgdXNlcnMpOiBkcml2ZXIgcmVtb3ZlICsgdGhlIHR3bwogICAgZGV2cmVzIGFjdGlvbnMgYWxs
-IHJ1biBzZXF1ZW50aWFsbHkgaW4gdGhlIHNhbWUgdGhyZWFkIGR1cmluZwogICAgZGV2aWNlX2Rl
-bC9kcml2ZXIgdW5iaW5kIChkcml2ZXJzL2Jhc2UvZGQuYzo1OTMtNjE4KTsgdGhlIGZpcnN0CiAg
-ICBjYWxsIGNvbXBsZXRlcyBkb19mcmVlIGFuZCBzZXRzIHJlbGVhc2luZywgdGhlIGxhdGVyIG9u
-ZXMgcmV0dXJuCiAgICBhdCAoMSkuICBUaGlzIGlzIGV4YWN0bHkgdGhlIGNhc2UgdGhlIGluaXQu
-YyBjb21tZW50IGRlc2NyaWJlcy4KICAtIHNuZF9jYXJkX2ZyZWVfb25fZXJyb3IoKTogcHJvYmUt
-Y29udGV4dCwgdW5kZXIgdGhlIGRldmljZSBsb2NrLgogIC0gVVNCIGF1ZGlvIG1haW4gZHJpdmVy
-IChjYXJkLmM6MTExNi8xMTY1KTogcHJvYmUtZXJyb3IgdnMKICAgIGRpc2Nvbm5lY3Qgc2VyaWFs
-aXplZCBieSByZWdpc3Rlcl9tdXRleCArCiAgICBhdG9taWNfaW5jX3JldHVybigmY2hpcC0+c2h1
-dGRvd24pID09IDEgKyBudW1faW50ZXJmYWNlcwogICAgY291bnRpbmcuCiAgLSBsaW5lNiAvIHVh
-MTAxIC8gNmZpcmUgLyBoaWZhY2UgLyBiY2QyMDAwIC8gdXN4Mnk6IHNpbmdsZS1pbnRlcmZhY2UK
-ICAgIGRldmljZSBsb2NrcyBvciBkZXZpY2VzX211dGV4IHNlcmlhbGl6YXRpb24uCiAgLSB2aXJ0
-aW8gKHZpcnRpb19jYXJkLmM6MzU1KTogc2luZ2xlIGNhbGwgdW5kZXIgdGhlIHZpcnRpbyBkZXZp
-Y2UKICAgIGxvY2suCiAgTm8gcGFpciBvZiB0aGVzZSBjYW4gcnVuIGNvbmN1cnJlbnRseSBhZ2Fp
-bnN0IHRoZSBzYW1lIGNhcmQgaW4gdGhlCiAgY3VycmVudCB0cmVlLgoKKiBWZXJpZmljYXRpb24K
-ICBPbiBhIFFFTVUvS1ZNIHg4Nl82NCBndWVzdCB3aXRoIGFuIGVtdWxhdGVkIEludGVsIEhEQSBj
-b250cm9sbGVyCiAgKGludGVsLWhkYSArIGhkYS1kdXBsZXgpLCBLQVNBTiBrZXJuZWwgYnVpbHQg
-ZnJvbSB0aGUgdmFuaWxsYSA3LjMKICB0YXJiYWxsICgrIENPTkZJR19TTkRfSERBX1JFQ09ORklH
-L0dFTkVSSUMpLCBleGVyY2lzaW5nIHRoZSBmdWxsCiAgY2FyZCBjcmVhdGUgLyByZWNvbmZpZyAv
-IFBDSSB1bmJpbmQgLyBiaW5kIGN5Y2xlIGFuZCBhIDQwLXJvdW5kCiAgdW5iaW5kL2JpbmQgY2h1
-cm46IHplcm8gc3BsYXRzIC0tIGNvbnNpc3RlbnQgd2l0aCB0aGUgZW51bWVyYXRpb24KICAodGhl
-cmUgaXMgbm90aGluZyB0byB0cmlnZ2VyKS4gIFRoaXMgaXMgYSBuZWdhdGl2ZSByZXN1bHQgYW5k
-IGlzCiAgcmVwb3J0ZWQgYXMgc3VjaC4KCgoKUmVnYXJkcywKSGFueGlhbmcgWHUKeHVoeEBodXN0
-LmVkdS5jbgoKCg==
+sysfs_memcg_path_leak test uses $ksft_skip without defining it.  As a
+result, the test is marked as passed while it was skipped, like below.
+
+    $ ./sysfs_memcg_path_leak.sh
+    Run as root
+    $ echo $?
+    0
+
+Users who run the test could therefore wrongly believe the test was run
+and passed while it was skipped.
+
+Define the value at the beginning of the test.  After this patch, the
+exit code reflects the skip.
+
+    $ ./sysfs_memcg_path_leak.sh
+    Run as root
+    $ echo $?
+    4
+
+Fixes: dfa3cf0bc018 ("selftets/damon: add a test for memcg_path leak")
+Cc: <stable@vger.kernel.org> # 6.17.x
+Closes: https://sashiko.dev/#/bug/linux-a0456336-0608-4fec-ac22-0ee61d1d6a91
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ tools/testing/selftests/damon/sysfs_memcg_path_leak.sh | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh b/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
+index 34c37129c49fe..d407dddb879ec 100755
+--- a/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
++++ b/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
+@@ -1,6 +1,9 @@
+ #!/bin/bash
+ # SPDX-License-Identifier: GPL-2.0
+ 
++# Kselftest framework requirement - SKIP code is 4.
++ksft_skip=4
++
+ if [ $EUID -ne 0 ]
+ then
+ 	echo "Run as root"
+
+base-commit: 20b1ca206f8a664a16ad3006262c63b5d37b1ecc
+-- 
+2.47.3
