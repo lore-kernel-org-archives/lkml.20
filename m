@@ -1,76 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793386447;
-	b=jn+mBhxV6kKhHAZYsS8kSBBDD7Vzeg69DShTpj53UKp3mBAIFIEPZ0OmQpSfqinko9aH
-	 NzhWamYXkhxlyooQJOkE5WFkQeJTvVSAW5113e2K/En7hCxiGLdu/Khf8a0vMoAlLjDpl
-	 wrVlRPeph+pjJQHKbwelmFC7pdK1VKMHLyRkCtSiXUPgnFA8M0jmizg0vRCYL6LLftMN0
-	 a/4qbj6kNzq+sXfEZbS+c81c4NYW98V9STseiGX2m88RYi0IXpkaPE/J4fmph1+g/Wd/a
-	 8+y6fQQm5IeNfiOUR7NHmy7ZE5e9D84Tp/49pUYhq1tt03pZnDO2OSQWUfRMHU/Ba5w==
+	t=1793386478;
+	b=0pPCoPXnJG56FSe3VqMkWmhTJPJs10Y9axiFDLeu19D783fW9TjgQAgwa1Q73uv0Dc1B
+	 TRg8qw9l6v2v2AiRAQcT/qBGoM+mJK4AmxOs4dRb/p5xK3631leRH0WGBwD8jDnK4IrQG
+	 4vMKJuwjQbhkNbjfCdyw1E0hwBQP0cgEVvPWis4k5rm02jRXow0qnhg56+Sx1fjxLIKSS
+	 kVOb6N+L3sgeAhvDT1HFIF8mwCAMXXxrLjGmee+RDQrOnph2M44Q3yxOV6xjkSitVuejW
+	 lNjJ9G1MJ0SIKn4zg8xGOAGiSVGnNEQuADTRdblOZ5nqVkaAABsK5My7Vuj2/X7tmhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793386447;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=u/p+CdNB031652mF8XZuXCF6muaar3ooWIvBYaXGN3c=;
-	b=mGIc+DTU/evsGT2qNL254OeEF1ngymrewKBRll3gTRNx9JN91aKDGD7/gio3fcyG8+Rj
-	 Pk4xq/u6Da0J3POSQeo0ebsMro2/DJWRa/ZjWX9eXELYOjlOcePZeVRj3eo/l0AmAXTl6
-	 XD8XJkTQkXmKnqYudP2WfjspARATXjKRtUe0SlTts2SjXh9+NV4WGAaqBAlYK3vgVj+1h
-	 01MmH8TtfOoqQkK9Hd8hggGmkRhUyHJumj09FuJlhVKhEVlc8k7nxNHBNYSO/JSAIWAbU
-	 EgWkuay5hLqqnTEW0EOgUmrGPCDGm39A34Jq0wzuMGgf9oMcv7XVc6HTqPuGV8aCWyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793386478;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=Brr2h/G8F5sm++eAkQE0x5CfsLRj1KRFkWsNsX6gqL4=;
+	b=JlSNIG1evO4dqjDMzptwpjrIgBq+TJirc610nF/b0JK4+ohZMsqBU+swBjeu8mTRDfLC
+	 v5PUj8mNfSkiKF0v7kt+hI4vt2ZS/5Wl5Q8ezJoi6vWHkeHWa2J+CKVo1jPQYHjCYNvRT
+	 4D26gqB+0jZIF2yGfsp0joazY5UCI/mzW64yetFCfXaeTR4E4gXfJ5mMVOnnAvX7CicFL
+	 QoQ9Yvx8GK2oRJXNdzl2M5F+vHX78fb/PVdunIgENszm0WkvhGG5B+UaTUtQiGeLQ1ITc
+	 n1JwhMsf2/N3S0NJrzW1A2ldI8hgRCHjpOVEkf/DbQqtbDGg57UGPI4W2LdeAH9nDuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="cnRI/wVD";
-	arc=none smtp.remote-ip=209.85.216.71
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=DbuIQ72q;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4FE606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:54:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED4FE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD95606A31A;
+	Fri, 30 Oct 2026 18:54:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAD95606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cnRI/wVD
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3aca98f01c1so984673a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:54:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793386446; x=1793991246; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=u/p+CdNB031652mF8XZuXCF6muaar3ooWIvBYaXGN3c=;
-        b=cnRI/wVDs05gS9M2Bq0RLbN+ADojbqHvUc87f7ibZ/up8TS9ooi7XFmypERgojXCMB
-         Nku8VC3bOY33aAdfXQg9FmqxGQzv9cRZOEp8T9v8+b+mp4K2d9k/ZafQtAHgMtehPdp7
-         x4CfRAWSC4w2DnJX7B+Sc3CUffw6l5VNkgRgFTNYdyLik/ssf+eN41sDXASLJnzJ4X2i
-         JXMUNH3wQB9L5AByEY+aS/BauKzCUHHFLoo0nk+frQ+t6mUD+9/9E9rmRw4903/1OxkD
-         QnYMFACSTVcv1f5Pl/7jzfFQG47zbMgHOsC6fIBNtnqGsRllKCc0iRCfBscN1SMKwkDD
-         dOmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793386446; x=1793991246;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u/p+CdNB031652mF8XZuXCF6muaar3ooWIvBYaXGN3c=;
-        b=wVcza4kkDpqBLorDeNE6Obb4+o7OYfI9KSfB5YdVDSYa5anc8ypwgm2xPQ74maiCn9
-         uZh+kBE7P5cLLlF+GsE7taE4rKG8Bzv+AhX/4n3lTherEcuYWkPqLGzYesrOCX+xmpz1
-         N7oyUd5VTLDotn6gG3+DgiTjIllvQRvZoakknLLvVZe84546mNisBZTegUgH2F6N9Ao2
-         MrbaPhsI3IrCD5OSG8zrooguywdeUOMu9CiSwt5ohbSn1CBRmAg2Z5tBJO6fonelEml3
-         r1MIIxYX/LYV57W8eSs4OwsDC3xfhfBomLqzAXCgPNIA12YHKO7x+x3zlgCdgk0+1TaB
-         B3nQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz9tUQtRReUkXDkCq8kLa3je7JAhXR0qhGKbpPdlgpQfevs+jG1k0OgfZGKrKrwYeM1ahmW9JrbfxUKWIg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLA1zy7NYld0Q5VVQ0Y8o1k75/NS7ubG03Nu0SDh82Fa+Zs9hYm
-	l5/+VXrGrkySwFnhB/Z/PIo8A6QCsyrVvmHyZRKup7GYrMnrRkBKF23SzJ06kZ/wkGDSeEp3Lok
-	cCT68vQ==
-X-Received: from pgkp2.prod.google.com ([2002:a63:f442:0:b0:cca:5338:9514])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:44:b0:3ab:ab5a:ef06
- with SMTP id 98e67ed59e1d1-3ae896f832bmr2783583a91.12.1793386446130; Fri, 30
- Oct 2026 11:54:06 -0700 (PDT)
-Date: Fri, 30 Oct 2026 11:54:05 -0700
-In-Reply-To: <CALMp9eS_XAyfRQ0aa7pGmC2t-=mbHA7rngWD9oqOB2U8AJZMsw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=DbuIQ72q
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=Brr2h/G8F5sm++eAkQE0x5CfsLRj1KRFkWsNsX6gqL4=; b=DbuIQ72qIeNFwJ6zGY+YCqzgId
+	pZr+fUdvq2MaFQHXsS6SbE8eaXlbw89CsEJz7eAkGcWLBLmIfNWfuDNLXRGWhTlRL5MVZAKl3qmYn
+	lmwsfKMx5iT0xcc3KpFtWOyUoCQKsgmaSRh/sXRXkTBwrJMUrxAn1oD3aUfGXX4dO0QhyDBNcsFEW
+	ahtxF9PiZxVxEMh9/G/X56ywg1tzpvBekjhYbM2uoF2kk85ZmBvkQGEsjhednGw+j1q9zfb2/4IEE
+	vqVoZvr8/1bElk7XzW1n6pT1mJrArgI3Ss3kQekCxYygL02olfBH5fd6rJCtNeMDROmX2DtYYaZLc
+	h+hqFRyA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+Cc: linux-amarula@amarulasolutions.com, michael@amarulasolutions.com,
+ dario.binacchi@amarulasolutions.com,
+ Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+Subject: Re: [PATCH v2 3/3] arm64: dts: rockchip: Add Axelera Embedded 111c
+Date: Fri, 30 Oct 2026 19:54:32 +0100
+Message-ID: <10806856.0AQdONaE2F@phil>
+In-Reply-To: <20261020113717.189082-4-patrick.barsanti@amarulasolutions.com>
+References:
+ <20261020113717.189082-1-patrick.barsanti@amarulasolutions.com>
+ <20261020113717.189082-4-patrick.barsanti@amarulasolutions.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,37 +64,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261030032937.2813-1-ma.mandourr@gmail.com> <auTnBZMSHWKL4j4b@google.com>
- <CALMp9eS_XAyfRQ0aa7pGmC2t-=mbHA7rngWD9oqOB2U8AJZMsw@mail.gmail.com>
-Message-ID: <auTnzSiIihVgs8ha@google.com>
-Subject: Re: [PATCH v2 0/2] KVM: nVMX: Don't let L2's LMSW modify CR0 bits
- owned by L1
-From: Sean Christopherson <seanjc@google.com>
-To: Jim Mattson <jmattson@google.com>
-Cc: Mahmoud Abumandour <ma.mandourr@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Fri, Oct 30, 2026, Jim Mattson wrote:
-> On Fri, Oct 30, 2026 at 11:51=E2=80=AFAM Sean Christopherson <seanjc@goog=
-le.com> wrote:
-> >
-> > On Thu, Oct 29, 2026, Mahmoud Abumandour wrote:
-> > > When L2's LMSW exits to L0 but not to L1, KVM emulates it with
-> > > kvm_lmsw(), which ignores vmcs12's CR0 guest/host mask, so L2 can cha=
-nge
-> > > CR0 bits that L1 owns.
-> > >
-> > > v2:
-> > >  - Patch 2: order the CR0 store before FNOP and check L2's whole CR0.
-> >
-> > I'll send a v3, I already spent an absurd amount of time figuring all o=
-f this
-> > out.  I really hate x86 sometimes.
+Am Dienstag, 20. Oktober 2026, 13:37:17 Mitteleurop=C3=A4ische Normalzeit s=
+chrieb Patrick Barsanti:
+> Add minimal device tree for the Axelera Embedded 111c
+> (rk3588-embedded-111c).
 >=20
-> You should redirect that emotion to KVM APIs!
+> It offers efficient AI compute for multi-stream computer vision and
+> GenAI applications in a compact design. It features a quad-core
+> Axelera AI Metis AIPU and an RK3588 SoC processor.
+>=20
+> This basic version of the dts supports:
+> - Console
+> - eMMC
+> - HDMI
+> - 4x USB-A
+> - 2x Gigabit Ethernet
+> - RTC
+> - Enumeration of on-board Axelera Metis AIPU
+>=20
+> Link: https://axelera.ai/axelera-products/embedded/111c
+> Signed-off-by: Michael Trimarchi <michael@amarulasolutions.com>
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> Signed-off-by: Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
 
-Heh, saying I hate KVM's APIs sometimes would be a lie.  I hate them all th=
-e time.
+that Signed-off chain is not correct.
+
+As it stands, the first signed-off would indicate Michael as the author.
+
+If all 3 of you worked on this, this needs Co-developed-by tags, though
+3 people for one devicetree?
+
+
+
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-embedded-111c.dts b/arch=
+/arm64/boot/dts/rockchip/rk3588-embedded-111c.dts
+> new file mode 100644
+> index 000000000000..a964b46e5c12
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-embedded-111c.dts
+
+please name this rk3588-axelera-embedded-111c.dts
+
+The name is otherwise way too generic.
+
+
+> +			vdd_log_s0: dcdc-reg3 {
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt =3D <675000>;
+> +				regulator-max-microvolt =3D <800000>;
+> +				regulator-name =3D "vdd_log_s0";
+> +				regulator-ramp-delay =3D <12500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +					regulator-suspend-microvolt =3D <750000>;
+
+regulator-suspend-microvolt is deprecated, so should not be used in
+new devicetrees. Same for all other occurences.
+
+
+rest looks ok :-)
+
+
+Thanks
+Heiko
+
+
