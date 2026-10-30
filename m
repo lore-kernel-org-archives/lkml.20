@@ -1,126 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793395197;
-	b=4X4k6Vbg9EmLE4o/dmPAbSSIh5C1FyVsI9eg92aQAOmf5WrICvyZpepH4MJ7OgE6hhc5
-	 fwAl7zPxlNTfDYSqdr2fnJU8vqwgPH4jcL4aSDOF/XPoDijAfHhMNBjV4I8DvZBGfvNc5
-	 55pZ3sr1OKeaK9kUHiL/T7JkavXMUdUpVb0LZGRkz+v4T3VrWRpFN8cHl5lUP7ScUHa/Y
-	 XT2kOVkkqH6wwKdHnolFQKMUCdk6Yq62vdE5YMx/QDG3EfUjZVXIJ6yC2/KiXhb5gZxut
-	 o3grpduPZX+owRAaiNKsHmqJv0mH5uLpKbW/vHGJ2wcbbfjAw0J6SNqD57wcHjIrE4A==
+	t=1793395188;
+	b=Id/cAhGjYp8g5GDgysGoMttoX76TFJ3mnLpOHdesaYspZyW49RFQoyp8ixhwTr+2A1HR
+	 JtiQsNsuQ1kbzYsY8fFwAqnvbCORTi3dYbNI5S9Yt7xTy3xRNgmFj24kUfgg8bj8IyVGj
+	 6IRH++oWu5pLPZ2g4LWl2UR6B7N6xw3tCEyXwEVFdU37BomAMtmXtJjA/sX2IRy0u7vvI
+	 rbhgJ8uoxUPfboPEqYgZBWvui4pXsK7MHRG7uqp1wtr81ro1p0I6+YoPyRZFnmmUbldd/
+	 01KW5wqN8ZAyWQbmY02n+/Yq90AdW9SOQgBcFLy/Z/1134RH/BSSum9T/IywbkpF4ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395197;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Y/GyDAzpwZImWFuqQSsjq6uv+RPz8GtxfDN21Tjamqw=;
-	b=L/v2sX+Epr/YnzUaNM44PJEbT9IdQeUMb229h8jFeJ5ot/f+yAXZeW159Vn20dzlUxDD
-	 zaZHQDhJqepCRP4cc7NJ0Ah/PXz6dRm4MkuQ3Vkr5oricuPaFrIOEZzznn9GanPH3Ow7E
-	 /NbtWh0m8HcQlqlMaNfVR/MTHXp4JfsIbDLk9KcnEo3VGiygsDPBQ42v3l1tprFpyMv3z
-	 Tf6AxZqt6qRFAigYjf0OD+b4ExGeFUSptmGxD1x4TYO6VQi2Blylx4YLTOHxUFj/NqqQc
-	 oYZR30p21ILRqh1e2zhs1PcrqnzchipkUsEKzIRzeUreBsjW3mq48hPDAreMRGqHtiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793395188;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=EbmEgpNrclw3FJ5w3l66lU1yS0lnl+gAefGym+Bc9Es=;
+	b=ElLsBwAw43kNNTt8kM/77f3/v3Acfk0MCeDy/luZrUr4ITaU0jpRUdxJ50bacs8m6f8N
+	 UaJR35zbKYsEviV2wLpJBzm0YJ43qMTJjkwirFf8yIWNlWWjidHaWBaeLrfdBBI/RJsFT
+	 AV9cU6hKDW0To8c/iSoobl9F83WDBOyDP6L1DOhBj5Pqd4EL1kaetq4SPn8MhuWUykXa6
+	 mszECTKiGnDXg6d3sITWXWVKBGg2ATuqq6KoaLk3HmEn2QMA+TZRKACZ2c46pFOpYvmRC
+	 1SVCI5ZvM0prpJEt37WWVwB3BzP1icC5LzG2E8grg1/bRUQyQvVMA6YDO7PxiUgAQ5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kHePRQzT;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=C2xkWlOk;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=gentwo.org;
+	spf=pass smtp.mailfrom=gentwo.org;
+	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=ERxqMAyL;
+	arc=none smtp.remote-ip=62.72.0.81
+Received: from gentwo.org (gentwo.org [62.72.0.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC05760A6F41
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:19:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC05760A6F41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8915360A263D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:19:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8915360A263D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kHePRQzT;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=C2xkWlOk
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69ULJqBf267039
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:19:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Y/GyDAzpwZI
-	mWFuqQSsjq6uv+RPz8GtxfDN21Tjamqw=; b=kHePRQzTFqk8wzeqqTO5gwSq388
-	17kiUznM/dIB9i6P2K/lKZxWNNyvdlc+wY3NfoVgSZVBHAO1XII2KBGGSqbhNzWj
-	UVsSpB06hUhzPpO8Se4h7uC9dc+y/wBAV7mt2bd5SCtLTwRBEU93iWtqWX7hsjCV
-	b/M5C1dt0/U6YF7kfnoVsx/z0XYDB73ZCH+g+GY0KMGeh8Fb6nj0ZlXyxkMBJvAv
-	c5xzEDWBMAn3kbL7y5B7ZKcqjLxAhDGYzoywkeISgmeQl/idblnJV/9pQOc5C7vp
-	epWGu9YVOgXa75KOovCLaKgK7QzU6o9DKjhRLpKaJPsGGNKxpzJ5vxUogqw==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn2x0g1d9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:19:56 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cdac8b7169eso518316a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:19:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793395195; x=1793999995; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y/GyDAzpwZImWFuqQSsjq6uv+RPz8GtxfDN21Tjamqw=;
-        b=C2xkWlOkgGLP6II5tFhA1t1EliYBeX52wm8r5Bg5MoPN3ZkT+BdMgeBK56Y3R41WVv
-         9Ck1M/q9Z13abc0qDfpc6VGJ/0Jx/r3K6N/CNcqFtjzytzH5MDdbpSMWqTcNnA1otKa1
-         RnYHn/BIL+n8YY63RQTPnmAy2lAUGDCY9sBTYIiBv3oDoylD0z5vdCtv8DROG2i94sxx
-         y30Nwx2k6PthDTRP9bN+d84KiyMtO9w1DFp4+xkbtzCcKNpC6Xw810n1Or2a0za2GS7R
-         rIAE85u/NSmv68SpYSNdJGHjfmLomrGXIfrmQp3zMQlM6A6MoY/BfX1LMt0hsCF5iQgW
-         Tqpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793395195; x=1793999995;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y/GyDAzpwZImWFuqQSsjq6uv+RPz8GtxfDN21Tjamqw=;
-        b=JBsymw0vv3NrsEQxARtijDfTMd1SfJnSwlDdpVvz1Ei68ywSQD++Oxw8sYm/nzD/4f
-         RxI8tzm89e2AAINJ+2dhcgMjsngVTQ8vZ7bz6A2F1kH19R4lSdEqA7NZrgtKAd/35OMl
-         9DvT2jbOpV1y3ZUxyUJM6//L2yfszuP/HcUHS0JkpPJi7Pk/9ziq67gv0Yz9L2Nhxjnk
-         6Yq02GEHInmzUkHkhPF3LP4DQ/CHMo77Zz5Plb/bdmH+XSndbYvTgyem09ivgHGhaVQj
-         w5JAH2KRRKQcwzE6IH/bXejzC+reL4KH58zMGfMRdPWGbWaA6ZrptGZErDuigHtFar8I
-         iozA==
-X-Forwarded-Encrypted: i=1; AKwUvBwFFegNPYj27KKGF2FHtzrQ2VbbZ3FCAN8tH1nTZI6j5OuRb4CC0GW+N0TAo5bhdr3j5bVB/b9/oMAzqm4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIeHrfCknSzBr0xPOnY2mnFeU5b0+eNOOrMItfJsdfv2lkA6qfG
-	P7i9zupgPzLP7QNYV7MfC74Uwj0ffhDg1IwTBIwLwQNw4GPOFqgc8r3W5vQ3NNYM8rN1o0XeBOz
-	waI2GsJZAvzVoHsh5FU/n8jevebD01OSF2GXRB9NT3P5KA4/LhA6cROKy7eij/05c3Lw=
-X-Gm-Gg: AYBFou1EdHUfJ08fOBaOMy6zCBtK0ubjuGZkFRTwM4Ea0oS24d4PFLna+UwSHhzHNJ+
-	6PfuQtCHuQ4HitxFEdtRfF9CzEVUg7RklpR7vLcRK9XlVC4aardT/skIz53nFjjNNHykYz3RcAm
-	oVKJoIYpuerin3K0e94lVRZrrwgywkmPlZvpZzHEwcGjMMQGErlZkSIccCZv4xCP/Y8QFjC8hKe
-	nZFPef/J3uOvreUWnL24k/bQKyuT/lq4nDz+UosyNDwF/UI4WO7ards9pUgLfor7qE233+y6hrV
-	WcfmQukXzz/rhBRJkSWK2JmK2olealweiJtAkvvtUPIgi5wCppRWeC2l4LNjQ/copgjwu1Y88I/
-	8bqwZhbQMP5vT45KrUVGHQXKBmrd7lndFi42MdxfTClo/UKvyfA6d18J1fM3rbioocbB/ZRTeZv
-	mmIzpOtumZRWWCI6aPqt3sNbM=
-X-Received: by 2002:a17:90a:ec8e:b0:3ac:a203:e0a1 with SMTP id 98e67ed59e1d1-3ae8980ede9mr2465113a91.37.1793395195205;
-        Fri, 30 Oct 2026 14:19:55 -0700 (PDT)
-X-Received: by 2002:a17:90a:ec8e:b0:3ac:a203:e0a1 with SMTP id 98e67ed59e1d1-3ae8980ede9mr2465097a91.37.1793395194778;
-        Fri, 30 Oct 2026 14:19:54 -0700 (PDT)
-Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net. [67.168.198.145])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845d5e62sm5619069a91.13.2026.10.30.14.19.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 14:19:54 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
-        Alexander Koskovich <akoskovich@pm.me>,
-        Jie Zhang <jie.zhang@oss.qualcomm.com>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v4 11/19] drm/msm/debugfs: Use cleanup.h for gpu state dump
-Date: Fri, 30 Oct 2026 14:18:13 -0700
-Message-ID: <20261030211928.45761-12-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261030211928.45761-1-robin.clark@oss.qualcomm.com>
-References: <20261030211928.45761-1-robin.clark@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=ERxqMAyL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1793395181;
+	bh=KMwGBLiWrhlfByGeo1iA75zagaHMei5yC25q/mBzdfE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=ERxqMAyLX0Hp4FSzptvMcfb/5nCDlT/sRgWW7uKisLZ5naqkjqdJnjEGjNDBm7ekf
+	 YSh8A95FBVL3hD1IWx0Uxpfl1UgpTb70BhGiHy9seJ9wH9jUkWYHLaqcOUsjaYXLnO
+	 UuTflRWy5/yiArzWGZ5J7+Uh4U2i5hc1EYZdGb/4=
+Received: by gentwo.org (Postfix, from userid 1007)
+	id C84D6402A9; Fri, 30 Oct 2026 14:19:41 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTP id C6AF5402A4;
+	Fri, 30 Oct 2026 14:19:41 -0700 (PDT)
+Date: Fri, 30 Oct 2026 14:19:41 -0700 (PDT)
+From: Shubhang <sh@gentwo.org>
+To: Cheng Yongkang <teel4res@gmail.com>
+cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, 
+    Davidlohr Bueso <dave@stgolabs.net>, 
+    Manfred Spraul <manfred@colorfullife.com>
+Subject: Re: [PATCH] ipc/msg: align compat version-0 msqid_ds with native
+ IPC_OLD
+In-Reply-To: <179334902854.2381848.6451191384765841519@gmail.com>
+Message-ID: <b8bd012b-ca39-cd4a-5f2c-727e4f58147b@gentwo.org>
+References: <179328314077.648427.7284615104475689945@gmail.com> <20261029115514.fd04df0fb01f070f0e960eb1@linux-foundation.org> <179334902854.2381848.6451191384765841519@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,102 +64,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: srRVvfPfts4j8CYvDsBtlao7XqTddorq
-X-Authority-Analysis: v=2.4 cv=No9E4MdJ c=1 sm=1 tr=0 ts=6ae509fc cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=isCY8TonHXl0-fnU9HAA:9 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4NCBTYWx0ZWRfX8piKC6pJScpI
- GS13wDNAthhMmG7lJc2oLC9JLobL2Bc334lANpv/FOOSMHwsJx87+TI854H8W56dcq+BsSpwOZs
- LmlQjfgJzJbkhf4LSql/BfN/VSaYgPeq/5U0SFz14VWNvkh3wY4lJuGSwhHhYqkF9LgrFe5mMok
- zt+uaWIKHiaJcC+6hTulLYC/n8YHA8+ECxHkcx6/EMg1/Dd+I5BWJYFS6KnZ9vIFYv6sWPhz3L0
- jeKHapO7O2G2ai+v8yN0kPZD8oMzoJ/ork+3TMit5jxZ2ALVOZd84kytO1sBjck4wYLR4lJt3Bs
- e0opDE6Rs1BYp2qi5nS0SWeRbpL/hpiUa9Siza8OunoBpdpygAdf78YL2nr+ByG+JjiKFjNWsaA
- YDJ6IyDSebzarbLuy2RNGOmSNN3WcA==
-X-Proofpoint-ORIG-GUID: srRVvfPfts4j8CYvDsBtlao7XqTddorq
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4NCBTYWx0ZWRfXye5E4DWhjpf7
- BSM343/u+YQRQ8kB+n8v3FmPfthquGpwfJOcwciBtz1KXM4+fgPEz2KFcPmppwHklmWggzt09tp
- +liiGnDbKr4mLYSWUuG+nFehU5H495k=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 bulkscore=0 adultscore=0 malwarescore=0
- phishscore=0 lowpriorityscore=0 classifier=typeunknown authscore=0 authtc=
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2610300000 definitions=main-2610300084
+Content-Type: text/plain; charset=US-ASCII; format=flowed
 
-We need to move the gpu lock around a bit for the next patch.  Use
-scoped_guard/etc so we don't have to make the error path handling more
-complicated.
+Hi Cheng Yongkang,
 
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/msm_debugfs.c | 31 ++++++++++++-------------------
- 1 file changed, 12 insertions(+), 19 deletions(-)
+On Fri, 30 Oct 2026, Cheng Yongkang wrote:
 
-diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
-index f12701e286ec..b0ddc02f67b5 100644
---- a/drivers/gpu/drm/msm/msm_debugfs.c
-+++ b/drivers/gpu/drm/msm/msm_debugfs.c
-@@ -70,43 +70,36 @@ static int msm_gpu_open(struct inode *inode, struct file *file)
- 	struct drm_device *dev = inode->i_private;
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct msm_gpu *gpu = priv->gpu;
--	struct msm_gpu_show_priv *show_priv;
- 	int ret;
- 
- 	if (!gpu || !gpu->funcs->gpu_state_get)
- 		return -ENODEV;
- 
--	show_priv = kmalloc_obj(*show_priv);
-+	struct msm_gpu_show_priv *show_priv __free(kfree)
-+		= kmalloc_obj(*show_priv);
- 	if (!show_priv)
- 		return -ENOMEM;
- 
--	ret = mutex_lock_interruptible(&gpu->lock);
--	if (ret)
--		goto free_priv;
--
--	pm_runtime_get_sync(&gpu->pdev->dev);
--	msm_gpu_hw_init(gpu);
--	show_priv->state = gpu->funcs->gpu_state_get(gpu);
--	pm_runtime_put_sync(&gpu->pdev->dev);
--
--	mutex_unlock(&gpu->lock);
-+	scoped_guard (pm_runtime_active, &gpu->pdev->dev) {
-+		scoped_cond_guard (mutex_intr, return PTR_ERR(scope.lock), &gpu->lock) {
-+			msm_gpu_hw_init(gpu);
-+			show_priv->state = gpu->funcs->gpu_state_get(gpu);
-+		}
-+	}
- 
- 	if (IS_ERR(show_priv->state)) {
--		ret = PTR_ERR(show_priv->state);
--		goto free_priv;
-+		return PTR_ERR(show_priv->state);
- 	}
- 
- 	show_priv->dev = dev;
- 
- 	ret = single_open(file, msm_gpu_show, show_priv);
- 	if (ret)
--		goto free_priv;
-+		return ret;
- 
--	return 0;
-+	retain_and_null_ptr(show_priv);
- 
--free_priv:
--	kfree(show_priv);
--	return ret;
-+	return 0;
- }
- 
- static const struct file_operations msm_gpu_fops = {
--- 
-2.56.0
+> Hi Andrew,
+>
+> Thanks for the review.
+>
+> I'll fix the Fixes tag: 4693916846269d only moved the compat code, so I'll
+> drop that attribution.  Both omissions are present from the initial import
+> (1da177e4c3f4) and predate git history.  I'll keep the stable Cc.
+>
+> For the dependency, I'll hold the v2 and rebase it on Shubhang's
+> unsigned-long msgctl_down() fix once that lands, so the repaired compat
+> fallback cannot reach the int truncation.  If you would rather queue them
+> together, I can send the v2 on top of his patch with an explicit
+> dependency note.
+>
+> Shubhang, please keep the unsigned-long correction in your respin.
+>
+> Thanks,
+> Cheng Yongkang
+>
 
+The unsigned-long msg_qbytes correction is retained in v3:
+
+https://lore.kernel.org/lkml/20261029-ipc-msg-qbytes-v3-1-fc3f4307c85b@gentwo.org/
+
+Thanks,
+Shubhang Kaushik
