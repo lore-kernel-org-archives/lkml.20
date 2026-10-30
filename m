@@ -1,92 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793325930;
-	b=GCNBnwROYaRUzNGsgWmSvbM2JBXnaUvRwkk1dncmixLW/WvyYwVe7BHcmZ0k3iwsnaCf
-	 qMl6WOW+lu/AidYARu+VXfIeHQll9oavvaTOhpzKDV8K78TeqVlcC0pHd4dEFbIhGPRpq
-	 2ryHfj/+DY/nHIdShYCfu2Jbuv/vGmZkUbHltv4RhnBP55ZPGH+kIV7G98/P3beDnayYU
-	 Hto2ZruGsb4ju4OvXbSvgkjh4bta1wKH3AWKYx/gjZVI1fWuMImUdWvwTDR6/3wIYkA+o
-	 G+J4DOLSgYUbGCNmiRbWHcchSh8LYUvjzKlTX2TuBsZoP6thbPAYwnT9uUqnDwrxTnw==
+	t=1793325942;
+	b=E9suBOdX9S4S27SEO7TQn9NOd0c7pq2zr2ptUlTkdGLlZFXzKgiRaPK8OhwAuyxOoE8I
+	 /ABCR0ICyA90yn5/STsDveA87KcbM5Fmxq5Wz4bVNaQ0IMfkOn03sPd4mRG4Z5gBtlU8q
+	 EhE22aTuqD+8Ecp/+06gn2sFR3F+OZE635hG7wHRV1AY/bok/6bR243Gq/+X1FCXN2FSA
+	 AVbatVUPJnf+UGtffzXH1T/05mcXq2H/w3um/l2RX8j9MmEjFx7O82/aK52fs5jZCvhWK
+	 /BTtARlmdV7iZ0yXFB999jLOS1G7z88fnNMUWkTIVW1NiBUIt1a+2BThgJaZUNm7nKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793325930;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793325942;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=biXKHJPN3s+hXC12si4pB6yD5k6wJNz5r1iCKuyz1ww=;
-	b=ivKwhuNVvWfC8JzASbyj3dKUmZXV+j5l0UiZqNd/ywXMFbA9uhOU58ojR4CMdMCTXjMq
-	 5fw8jW0MNUKs6h7hYyv/enKxHf2BluKI+75tiviFCsu1Fct/RUsZjFGg2ZzrBpyHTgaUK
-	 9fNm4bF+Cpewt7zQHngU3Cv2TghV7ddc0l75P28yi0RrRkaCi0RJqbczxnpyZ67A+sXnY
-	 O7v4fpPu1wpjxTepAW/aTtIAhUArVN38SpN6GQ5A2+jRFsOIx/ziOkwSpFon2BrVKdGky
-	 Wzyfi8VmrqZLjuau5KSGTDx6FBwD95FoPHOy6sg9t5EhDNvT2sExtnZRBPVmRTISUuA==
+	bh=FaBdhe+BilZDrddoVF/yPe3H5iKhhYZT0hc6y5Pow0o=;
+	b=jqLqDD1R6mcCNfECXjlLJXgmKw4CKfmuzV2pR9V5hJrKHxjOTcIA2DJk+YB6nIKZT4ov
+	 QR6Ycg920uD1bxkoOsRByu7AX1KXr+kG4VUS8VuSjEjxxc/R92z9oROYVjmZuEomvgIsq
+	 jX51JqyhkvwZ9/qOKfBkakyCOa0dljExJGksj9mmm/ClxK5dSvaIuP/CmC6KlOlFPFMer
+	 ERNGp2BLQcVBGZdJpqXiYElgK3hzDYXPl6N9rsqG0/h/N4ngNVSwKPXSraKJ1pCN6zQXh
+	 1MdPBU46IOubfhx5MBjzM27NYnZZ/41GkO7d2X0f5FQTchfTqWDu8MS3ehniMqWBVow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wv2rEWuD;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=fHPDKoo8;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=s6rDGbCO;
+	arc=none smtp.remote-ip=202.12.124.148
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68455606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:05:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68455606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFB3606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:05:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BFB3606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wv2rEWuD
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33fb4680717so598070eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:05:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793325930; x=1793930730; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=biXKHJPN3s+hXC12si4pB6yD5k6wJNz5r1iCKuyz1ww=;
-        b=Wv2rEWuD/OxoX8s4TfBvBoUm9E3gIKYlI4zXJ2k7xhtqtie5iSj2iEGHXWhy4+p0su
-         OvEcRY9DnUqeAtFr78vIcvfeo+l473etW2jLCD26i+Ahscr7lzauSFlXP06z+fQoOCKu
-         kN9rNs9QDCVerSCY2wllrE1f3v637QBN+aMO6PZU3GzPK2fdKmNciKb+7ekGUX9pDpO/
-         NEkbUgrPPhuJAb1sshz/DmQ2auZf6UCkaHmMZZNMX9Gsz01wtJSdGPaaSlCdr9WrJgvW
-         AbVm19T4jgH0rgOT8m+qePGFMsrSkierRWqL7Z+mE+vv1sAUeCFvr2g/m83pMYppPOKB
-         yWzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793325930; x=1793930730;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=biXKHJPN3s+hXC12si4pB6yD5k6wJNz5r1iCKuyz1ww=;
-        b=cw6Iu3FiPFhpi8dcIuuw4GtrVL3yFwUdLOnX+fe7mKIkr9d1k297teYm1TG6Vdn0VY
-         I3NFoe43Y+JbEDyxOIGGnfIJ8Qn68GJgBe+DUtF609YKKxIol0YZwRzydjGfYYVI3sIk
-         ggKrk0gNb7tL9lUy4sz2hJ5D0yS5GIEVOqeThVYicIHGGc5azWUCBRY4SInzPkgLMzF8
-         UDryoE1xg3TS7wULXgoCYosxlCNlB4HtUPKFiVAAzdcMcVflm2RF8wUZGHUDK19x1Dss
-         1dOrm1idzyZ7k1PNv9Xpk6gX+gZtHm3a/PzG1o4ouerwoTfVVlBNXDOvEcWVi9CpQvOm
-         ++NA==
-X-Forwarded-Encrypted: i=1; AKwUvBxNTpTCBZ89fZNDBpl4Cox30naOw9JaDP59DjqEBSQcAj9y13Yi3RHpsyrHFfuiHcKHPLozlYcwBnX0nXg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnBo+bHVMcWqY914BSs3GuSizhvY4Fuzai1SQKwUqMevqxZCyY
-	cyty+5HBtPQIEn5BecXeBMYuXtX7ca+yDEIxeJgjr5mAiNvFMUMHPzcWGQCyLXw=
-X-Gm-Gg: AYBFou06Yz55nD3RaXKUoGOGyJjyNb32fG/HrSwPdCSuYo9yW3bmzImdohxw1tD5F5U
-	Ksnuoiz4Amsekrk0INOKMdZeaUu+fXkr1vu5MQdmp6yBCEmqrXqnCpOHHL3FHKGjgGVq4Yt/RvD
-	nCUcLn3Kc9R84yv6emSK3zth2WlDXBVvaPDgA3ahuxpPVWqoRSp3ifcH0AakKKQrzmdZFf7Qogp
-	0SevPlgcgV/6h+eloJ5csFYCtZKTkGiGNy7Pt0SG+3kpRnUEp4PrlRaG3Hw2B9l6ufjiij7l37F
-	7YVkxYb7K8+PbY0tL572hCHyq+NcXfBRGq9TsPruDdGXvoBI3xlV/1pHFrEzv3gQybxHtPRS0WZ
-	BvcW2ty5NUNbeMbjlpl5rqGb894gWzCVkSH+5uNo9uGq2ODy7CSRzT5UrTMD9SboIXFJ3ulXtn7
-	dhrRvGbtRE9i/D94+kaAhvora96oXB8Nftx2GdB5Q0/zOGGxKk6UMYsKLeDID3BEhAjxFa+54rT
-	m+uAvKUI57yyveB61v2pkkkcVnYjSqHriUEKDPjCbf7zd13zKm4RCLwHPDg/3Cndi9aPheP4h+V
-	O30gIMo+5LEewGP+4mhvnpDbPnvpEZTje3cD4jlLPNLm04K0JCfCgPR5+17xvhYcRs2j
-X-Received: by 2002:a05:7301:d198:b0:360:db68:3264 with SMTP id 5a478bee46e88-36a42340756mr1687219eec.6.1793325929228;
-        Thu, 29 Oct 2026 19:05:29 -0700 (PDT)
-Received: from localhost.localdomain ([2406:3003:2002:639c:61c8:985e:fbe6:4d1e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1easm2332068eec.5.2026.10.29.19.05.26
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 19:05:27 -0700 (PDT)
-From: Yige Jiang <yigejiang86@gmail.com>
-To: linux-leds@vger.kernel.org
-Cc: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] leds: pwm-multicolor: Manage the multi-led node reference
-Date: Fri, 30 Oct 2026 10:05:20 +0800
-Message-ID: <20261030020521.9399-1-yigejiang86@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=fHPDKoo8;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=s6rDGbCO
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id 211FE1D000E7
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:05:41 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Thu, 29 Oct 2026 22:05:41 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm2; t=1793325940; x=1793412340; bh=FaBdhe+BilZDrddoVF/yP
+	e3H5iKhhYZT0hc6y5Pow0o=; b=fHPDKoo8utiL93Q5xcoAYH11TXGj6qadP2pnw
+	uV5kbmR3xSN8MkT1Sf/bkFJPt1/Og30cyIB1AKXtnHTHrQBMW6JcIzBUgmm5pFm8
+	b8AS+2VXb9CbOcWJMxvnN/77k8I6vOyVl0Xrcgyp0rywsP3VD6e9SwzsHxYE16q0
+	M3muG+viWNk2ZLgA7o9ueMr0OyavxXdIIcBe45lbnPUO9prhJR6RwdYEKHFroP9A
+	qlew3PcYNJX+OxNslzfkFhV04BBxWtDND7ZUGkgXq3VjUEq1BC7x6+VNtI0lKUos
+	YIFI0TjSDoNxRsiftgCt3ieIs0V1uWwCpi9AskQc+tFsgx7Kw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793325940; x=1793412340; bh=FaBdhe+BilZDrddoVF/yPe3H5iKhhYZT0hc
+	6y5Pow0o=; b=s6rDGbCOD8Kvq7RAlxiea8tzdHMGFGwmorujyn5lo6Ke47BeadQ
+	V/2vCjsZQXefMuaVg9uJYc3Wg+B12Ux2PCHrqmKElxJdPq/Z7NDOypLst/oyZtjW
+	+yrNRkBkPkZurZkQSqFagEynWr0/PtfAE5HWrZEXfU4ICoHkMjupbJXORKHKZNR4
+	UV59jlXyWsnwvw8OTUjK02TXgcuXP8AfhsGMeq8OQR5bcTBDHRoZL7nAV4UJcthD
+	Ok9/ZRWjmTp+2v+6Gv0+KTX+ly26GnU+3YHpcmiKEFpcaWSMzmPsM6ftHhIEwMnM
+	9e9reTn6imBCHgROl8hWkhl5/31CSIbsihA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793325940; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:VPZqZ9xSgoq81lo8pHE4a1rOV9l3FidAbBvJjTWjcqhdut3
+	wVz+XVSVcDbYlj955+5G1W122J/ZC9tn4zOQtNC5Dhi6zq/L8eXos3mNZ1ZJ/g75
+	1/oCFcXjw6ylAKapyYPdxHcnvr20cdaATaajFkpZH51mb04SGDDBc+QC9sSClEmh
+	RwH8yHkCDU5tx9M510lrpnP6C+m/GFSjsaUi3xPI1W862YzSh73F2fYh64lcv8/e
+	Az+etBI4dIjOepb1lwmtx7aF0vCDEi+yFoi66LOx5chTikbNsx/eVzMg05XE7r8n
+	ozqGP7VcCQK6DpBx7Ffmv5qm8Ciwe9mNwe8T74Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:+aMMOfRIwJXoJpN2rY6QcICx8fT0C7uYC286o+L8fNw=:/wP4vCjzLDwPCJDTrFdbpQj6RhesBSCyqe/LqXw9w3c=;
+X-ME-Sender: <xms:c_vjalsvn5sUxkh1taHE3zpY3H8HnCKIDn9hR-MZhS4zkC9MH_Dzjg>
+    <xme:c_vjavJZ5mc_6kdGS3Az8QRsaXsuOrvEZbk-rHg72EvvuU40PrwmdnwvaROX_VRBi
+    YUqMigQexLnAB2OwPKITtGhqtT5F1Toac13gP6_XL4DTGcOgr5tslo>
+X-ME-Received: <xmr:c_vjam-MsECOZfrNMeGRU1oP6v4_nkouWnxpVNgINRUiGktpqXvYKrHdCSA0FI1r>
+X-ME-Proxy-Cause: dmFkZTFaipjI6C9gtG9z8NrfEedlKvdaZbESlsh9dddB1e5Ur0R2NoRyH2lC89j2rrX5WC
+    mWmwvvrt/hKsPc76Eqt3NE8U6vVSGozyzeuHq5w94SNBIx6j3IfRfE8dwT6q9m7sMHogr9
+    8ruGY+N4LnJ9eBdxgfwZV4HWM8tJfycmjXkx98zxPVYGHsFhYQzpPTx+cp6z+jnkbFbdH6
+    +58yvsrAKy2eBG9lgryWABrMduyO1e1fUeHAsudGHUT8C0FP6gdqdWYKLhP/SDlOdc38hD
+    H/yPIbxFiy8yZPtEm4B3LJekJpTgz991hYBYBGGHynnb2G0WdXT/7yQ0AjSBHHJfcLFwRK
+    LSQIBRCRNfNR6lypInrIH/YUsC5HEfzBW6+1GMIjz2qmekRUPKJPN8ewgoEsEWm4jVNf7k
+    Dw1kXbjKrl8kJ4SrYpf+l2PUgn0BAgaDLxPDyncAzVScQ1/+mgxpmdZyKEcZxnKt5qX1bQ
+    nJApTpJQwv4FbAeE7ZXNgxNmJMX3MSZJ/NUXqY5A6h5G22MDnCfxrGQ6zaygY+nmQ2vsQv
+    HbcvOaPu9WgsYdhpgPSm8LSsgBE6O1jHTOzJXNAS0j6MOhnU+xr8ekAMO8WHeBThaqnB5C
+    9kjwYLPVU5ttwa3ZRzq9CPPntvdHqrU8RUbI+jX0bELdKdfCdRzAEMu8KCCw
+X-ME-Proxy: <xmx:c_vjagzl-DNpEypLxdQgzlU046HSTKBDnEMklJ-RUI21waqGsL7o9Q>
+    <xmx:c_vjar6prMEydeuaIcJqsMsUVNvtR-tFCw8hROWCq5gf-kwQ3xB14g>
+    <xmx:c_vjav_0lWTezLdowRoJI9PIiHz1Y5SbclBKyr4R6Cm2IbkwinKkCg>
+    <xmx:c_vjaooolx6yMLzz47g-_Q93CRX9j0eV48taM5vSlM57SRXZxAqs4A>
+    <xmx:dPvjapDfTA8Wi0Wf7wTUYQl_MQqvf5_WlsgJX4ObF6LsUdlEPaMp5zpX>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 29 Oct 2026 22:05:38 -0400 (EDT)
+From: Ian Bridges <icb@fastmail.org>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>
+Subject: [PATCH 0/2] ksmbd: fix DACL evaluation for denies and guest sessions
+Date: Thu, 29 Oct 2026 21:05:21 -0500
+Message-ID: <20261030020523.302085-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,118 +127,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-led_pwm_mc_probe() leaks the multi-led node reference on successful
-probe and if the final PWM update fails. LED registration borrows
-the node, so it must remain valid until the LED is unregistered.
+On an acl_xattr share, smb_check_perm_dacl() has two evaluation errors.
+Patch 1 makes every open evaluate the DACL in order. Today a deny ACE
+that is the first one matching the caller grants every right it does not
+name. Patch 2 stops guest and anonymous sessions from matching
+Authenticated Users ACEs.
 
-Register a managed put action before LED registration. Reverse devres
-order then unregisters the LED before releasing the node on unbind
-or probe failure. Drop the manual error-path put and return directly
-on probe errors, leaving the reference cleanup to devres.
+The two patches belong together. Each one alone moves some guest results
+the wrong way through the other error. Patch 1 alone lets a guest gather
+rights from Authenticated Users ACEs as it walks the DACL. Patch 2 alone
+can leave an Everyone deny as the first ACE a guest matches, and that
+deny then grants every right it does not name.
 
-Fixes: 9fa2762110dd ("leds: Add PWM multicolor driver")
-Assisted-by: LLM
-Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
----
-Changes in v2:
-- Capitalize the subject description to follow the LED subsystem style.
-- Remove the redundant release_mcnode label and return directly from
-  the probe error paths.
+With both applied, every combination of one or two allow or deny ACEs
+for the caller, Everyone and Authenticated Users was tested, with
+READ_DATA, WRITE_DATA, WRITE_EA, APPEND_DATA or full access as the mask
+(930 DACLs). Each DACL also ended with an allow ACE giving the owner
+full access. The tests ran as an authenticated user, a guest and an
+anonymous session. Compared with the base, every result that changes
+agrees with ordered evaluation (MS-DTYP 2.5.3.2) and the definition of
+Authenticated Users (MS-DTYP 2.4.2.4), and no result that agreed
+changes.
 
-v1: https://lore.kernel.org/r/rc-review-20261029-ai27-27-2c77ed65cec2@gmail.com
+Both patches carry Cc stable and need to be backported in this order.
 
-Based on linux-next next-20261016 (2efb7a11f1aa).
-Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_OF_DYNAMIC=y.
-COMPILE_TEST=y.
-The object was rebuilt from this exact base with v2 applied.
-No full kernel or module-link, hardware or runtime test was performed.
+Ian Bridges (2):
+  ksmbd: evaluate the DACL in order for requested access
+  ksmbd: exclude guest and anonymous sessions from Authenticated Users
+    ACEs
 
- drivers/leds/rgb/leds-pwm-multicolor.c | 31 +++++++++++++-------------
- 1 file changed, 16 insertions(+), 15 deletions(-)
+ fs/smb/server/mgmt/user_config.h   |  5 +++++
+ fs/smb/server/smb2pdu.c            | 11 +++++++---
+ fs/smb/server/smbacl.c             | 34 +++++++++++++-----------------
+ fs/smb/server/smbacl.h             |  2 +-
+ fs/smb/server/tests/smbacl_kunit.c |  4 ++--
+ 5 files changed, 31 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/leds/rgb/leds-pwm-multicolor.c b/drivers/leds/rgb/leds-pwm-multicolor.c
-index 6365459ec27f17187804153cde6cb1805eca33e9..10527a64d1982733a43b76bd8bc123aba95b6f72 100644
---- a/drivers/leds/rgb/leds-pwm-multicolor.c
-+++ b/drivers/leds/rgb/leds-pwm-multicolor.c
-@@ -106,6 +106,11 @@ release_fwnode:
- 	return ret;
- }
- 
-+static void led_pwm_mc_put_node(void *data)
-+{
-+	fwnode_handle_put(data);
-+}
-+
- static int led_pwm_mc_probe(struct platform_device *pdev)
- {
- 	struct fwnode_handle *mcnode;
-@@ -121,22 +126,22 @@ static int led_pwm_mc_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, -ENODEV,
- 				     "expected multi-led node\n");
- 
-+	ret = devm_add_action_or_reset(&pdev->dev, led_pwm_mc_put_node, mcnode);
-+	if (ret)
-+		return ret;
-+
- 	/* count the nodes inside the multi-led node */
- 	count = fwnode_get_child_node_count(mcnode);
- 
- 	priv = devm_kzalloc(&pdev->dev, struct_size(priv, leds, count),
- 			    GFP_KERNEL);
--	if (!priv) {
--		ret = -ENOMEM;
--		goto release_mcnode;
--	}
-+	if (!priv)
-+		return -ENOMEM;
- 	mutex_init(&priv->lock);
- 
- 	subled = devm_kcalloc(&pdev->dev, count, sizeof(*subled), GFP_KERNEL);
--	if (!subled) {
--		ret = -ENOMEM;
--		goto release_mcnode;
--	}
-+	if (!subled)
-+		return -ENOMEM;
- 	priv->mc_cdev.subled_info = subled;
- 
- 	/* init the multicolor's LED class device */
-@@ -144,14 +149,14 @@ static int led_pwm_mc_probe(struct platform_device *pdev)
- 	ret = fwnode_property_read_u32(mcnode, "max-brightness",
- 				 &cdev->max_brightness);
- 	if (ret)
--		goto release_mcnode;
-+		return ret;
- 
- 	cdev->flags = LED_CORE_SUSPENDRESUME;
- 	cdev->brightness_set_blocking = led_pwm_mc_set;
- 
- 	ret = iterate_subleds(&pdev->dev, priv, mcnode);
- 	if (ret)
--		goto release_mcnode;
-+		return ret;
- 
- 	init_data.fwnode = mcnode;
- 	ret = devm_led_classdev_multicolor_register_ext(&pdev->dev,
-@@ -161,7 +166,7 @@ static int led_pwm_mc_probe(struct platform_device *pdev)
- 		dev_err(&pdev->dev,
- 			"failed to register multicolor PWM led for %s: %d\n",
- 			cdev->name, ret);
--		goto release_mcnode;
-+		return ret;
- 	}
- 
- 	ret = led_pwm_mc_set(cdev, cdev->brightness);
-@@ -172,10 +177,6 @@ static int led_pwm_mc_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, priv);
- 	return 0;
--
--release_mcnode:
--	fwnode_handle_put(mcnode);
--	return ret;
- }
- 
- static const struct of_device_id of_pwm_leds_mc_match[] = {
 
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+base-commit: af8c72f6550744fe948ef2dbc7ab8739c149aab2
+-- 
+2.47.3
+
