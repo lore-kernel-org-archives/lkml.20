@@ -1,68 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793382283;
-	b=yqb25UhKuEJKtieKFge7vDbBO6gNvoYIgN+Vf5jQyuA6jSfDEv8MoYuzuJM2x01onntX
-	 xJamjQB8sgaFZ4AK1CpeK1HZgchNJOyKyWAB5KSu5bGsKuIdwnnpsdCDeUAFZZdvRw/OO
-	 FG4yPAiekDVLbBKdwb9eK2ej0/TAeSk1eeqQcW2FNaYhf3lTZBr8QHh/r8ngedtNDTvr7
-	 HkbA0hy2fedW+byoF1sCS94Dm/fEJtsaevYpbxmD3e+//BAlf7biRhX8KYQWJSY9zm8eO
-	 ZDZJ0WhE99Vvq8ZrEVVgK4kQxBjN3LtIlTkSLFhrZZuRZAwpU2o/+sf25DQKCh0M39g==
+	t=1793382273;
+	b=hDNIyt1wekP/mRl4VB+6Er7n3OpHcNQQCXAyHyLvyFIuTyHZrW7K4mIvMzlhoBR/HCPH
+	 Sg9ix3ztIyrGdb1Y1DvDGyeLmoW/WcLt8/x2PSrIxAB/gSfaqP056ehBhH2ZDaWfzDqkN
+	 /dvCgz9JYLXKZ6KvuMoWYwf37VuqsxIVk46eVp/7Z26bAq9ptLo2uhYdouxJ5YW8vLrV9
+	 eyrpMeJD080OTM96OkHiV8ngNzwRcTBnui6X5wcFo/fC9q0plAh4yDevtwQQUStwb13xn
+	 RX4KRwlRIwFMjXxhD1X4kka3bFxz8Debg9kKiyFCIgX9nFvdWtl8KjMzUdbI2obkm+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793382283;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=uyz/moT4XWk2hg7FT4YB9Yk/YINtl//XwejBwFZqG4E=;
-	b=K6FMFjBzIJ3md4T3+jD0iQ3GVgW8JqbsmAs3+vKrAPvnYx2WGZOWpDEEgBeoyRxGHnz3
-	 6TKCpmhAIIFC3ht97o5KoinL8DIIcB8OBcwMGUE28wSW6n0X5MK/wXjZbFSKgdxfBJZWV
-	 eRHqBc1eqeFmPAPIknfTh9bj2sDu3Z2zTfpw2zdqtvHPAyY2X11Oc0yM1th/6tlyccMYL
-	 XJu97o7e34vz7CdQw3zISm+OwOQmBalfF1ZWB0dUXciYczbHfYPgfK6Ky4MsXxwoLSMRb
-	 iSC/caJUbWQynQ5rE0kLLkXhX2bi+8JFqYNELPU4/+DvjurszPrGVbU3satYQjP+36A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793382273;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xrEE7uTmE323wt6HSZxT7qh5jw1HK88kniIP1r/imqM=;
+	b=r4zEZFpG1jC7BDdWZ5lS3GjtCiKdyP5zmihIwhkYRHIK3oKUIxaUsClOxI/8MUS8MXxG
+	 Lon1izl4hFkn6eJHKHgf+VlLdPw2WmiL7zQcI//eNOYazJTk6jmHu+WaoPY2KJiE9JgcE
+	 83ls6y9gTwevgsNCUIywC2WB93MbPAiAz9HqGKsTv7n/GrGIRZ3zmuLzPBIcPCd5f3c8T
+	 yS1A4w6PSBQgizyc1s4XcVkjzZqgPes4wjJhZDFXeUjOGdud6w3gXxJoYlfceCx9KvEnc
+	 vuxAsJRIy+HTvi7LNJZCEH2DMFiCnnBi0FibXqlBCC1SLzGoB0Soj+jTMTzzboaE/Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nOVqdeeF;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJyVuyT3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5E1606A327;
-	Fri, 30 Oct 2026 17:44:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA5E1606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E391606A31E;
+	Fri, 30 Oct 2026 17:44:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nOVqdeeF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793382281; x=1824918281;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=7VTKQF8YjTNjE0dGQhTtouqOFNuMnHUVbZ0R3zxvUp8=;
-  b=nOVqdeeFJgeOIzWO2TmaUgnt5B7wvXC1BwAajb7QX+VfCGHQBpIgez5M
-   9O2TNlOEJkf/iBiheRnPEI9m2/ZjvonCbknaedtrBrCqgqn9hpIqTcFZk
-   gu5Ih6kPd6Txo28s3qbsPaHAI6ZzQgiUe69hLgxG4RMLBQD9NnEES4aPf
-   +T3c61f+nh3Rq3nqhYApICYI5LPwdmXsSDVR3xp2CeOHdYarBOkmHFTV7
-   359dy3GsaYZuIR5GV70OZg50P+UvRaHzOUfJedwO7Z9DLhzzLTIKE8eyR
-   RkT3bpD8wHM4deoQ9xMdrHM1MoN68qwyfDz4klzPZvYFWJ3jXQc7dmhfm
-   w==;
-X-CSE-ConnectionGUID: sTikJxK0QgebyNyhzSeF7Q==
-X-CSE-MsgGUID: S+wMicyfQXO/FYYyyrtzXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2168751"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2168751"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:44:40 -0700
-X-CSE-ConnectionGUID: 9BReUaZYTiely0xeakXeAA==
-X-CSE-MsgGUID: MTULlDgyR3qmJkmyy7unuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5514963"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.85]) ([10.125.109.85])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:44:39 -0700
-Message-ID: <8afa233c-13c3-478e-89d2-1d3f87ec7c08@intel.com>
-Date: Fri, 30 Oct 2026 10:44:36 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJyVuyT3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6CCC1F0093A;
+	Fri, 30 Oct 2026 17:44:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793382272;
+	bh=xrEE7uTmE323wt6HSZxT7qh5jw1HK88kniIP1r/imqM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XJyVuyT3frZxoZt8DsS9qmuxYhZmdpXR208K3rJobCxgALwUFDIb/K3JJq14yIdeu
+	 1GZ1iXnxsqwvuXV0+4ZGdnbddglhdhcyY3vdFsnv6ckzU6LUiXwfMoY7qz+b+rLzbo
+	 SlHOiAACgE2FX0Kgwm3T7OQx2VYV1tl4YjPemqhWl4b7leHRRfq+JPTcR5vwexG5Yj
+	 +CWP9MMg38MkceRLa1dup9oh4i5PPHCo8NKzM81azrrdi67aHFfNr5MRKm5oLRxJdZ
+	 kdpX52QJjOeI5F5pItbWgaF9I/1wubkACHZBBzEtqdjXAqhZHCur2feNn0xsg9BrZG
+	 g/ST2UKZdNNNA==
+Date: Fri, 30 Oct 2026 12:44:29 -0500
+From: Rob Herring <robh@kernel.org>
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: connector: Add PCIe M.2 Mechanical Key
+ B connector
+Message-ID: <20261030174429.GA781972-robh@kernel.org>
+References: <20261021-pcie6_fix-v1-0-ad37134c35a3@oss.qualcomm.com>
+ <20261021-pcie6_fix-v1-1-ad37134c35a3@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,134 +64,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cxl/edac: Mask DPA flags in the event record cache key
-To: Jongwon Lee <ai@linux.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Jonathan Cameron <jic23@kernel.org>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>
-Cc: Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
- Richard Cheng <icheng@nvidia.com>, Shiju Jose <shiju.jose@huawei.com>,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261030072721.31970-1-ai@linux.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20261030072721.31970-1-ai@linux.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-pcie6_fix-v1-1-ad37134c35a3@oss.qualcomm.com>
 
-
-
-On 10/30/26 12:27 AM, Jongwon Lee wrote:
-> The low bits of the DPA in a General Media or DRAM event record are
-> flags: bit 0 is VOLATILE and bit 1 is NOT_REPAIRABLE. The trace events
-> report the DPA with CXL_DPA_MASK applied, but cxl_store_rec_gen_media()
-> and cxl_store_rec_dram() use the raw value as the xarray key.
+On Wed, Oct 21, 2026 at 07:21:22PM +0530, Krishna Chaitanya Chundru wrote:
+> Add the devicetree binding for PCIe M.2 Mechanical Key B connector
+> defined in the PCI Express M.2 Specification, r4.2, sec 3.2.19.1. This
+> connector is used to attach WWAN Adapters to the host machine over
+> interfaces such as PCIe, USB3.1 Gen1, SSIC, or USB 2.0, selected by the
+> Adapter's configuration pins.
 > 
-> User space reads the DPA from the trace event and writes it to the
-> mem_repair dpa attribute. If the record had any flag set, xa_load()
-> misses it and the repair fails with -EINVAL. The raw key also lets a
-> repair go through for a record the device marked NOT_REPAIRABLE, if the
-> DPA is written with bit 1 set.
+> The connector provides a primary power supply of 3.3V/VBAT, along with
+> optional GPIO signals for WWAN-specific power/radio control:
+> FULL_CARD_POWER_OFF#, RESET#, W_DISABLE1#/2#, WAKE_ON_WWAN#, and DPR.
 > 
-> Key the records by the masked DPA and skip records marked
-> NOT_REPAIRABLE.
-> 
-> Co-developed with Claude Code.
-
-You can drop this now. Or just put it under ---
-
-> 
-> Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
-> Signed-off-by: Jongwon Lee <ai@linux.com>
-
-Is this a real email address? Please use your actual email. 
-
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 > ---
+>  .../bindings/connector/pcie-m2-b-connector.yaml    | 146 +++++++++++++++++++++
+>  MAINTAINERS                                        |   1 +
+>  2 files changed, 147 insertions(+)
 > 
-> Notes:
->     Tested on QEMU master (b574eaf) with a CXL type 3 device, region
->     committed, KASAN and PROVE_LOCKING on. DRAM events injected with
->     cxl-inject-dram-event at 0x1001, 0x2000 and 0x3002, then a repair
->     requested through mem_repair0..4. Same result for all five:
->     
->       DPA written   before    after
->       0x1000        -EINVAL   ok
->       0x1001        ok        -EINVAL
->       0x2000        ok        ok
->       0x3000        -EINVAL   -EINVAL
->       0x3002        ok        -EINVAL
->       0x5000        -EINVAL   -EINVAL
->     
->     No KASAN, lockdep or WARN output. Only DRAM events were injected; the
->     General Media path has the same change but was not exercised. Not
->     tested on real CXL hardware.
-> 
->  drivers/cxl/core/edac.c | 25 +++++++++++++++++++------
->  1 file changed, 19 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
-> index 34b81e8dfb..b3dfc33ca6 100644
-> --- a/drivers/cxl/core/edac.c
-> +++ b/drivers/cxl/core/edac.c
-> @@ -918,6 +918,21 @@ struct cxl_mem_repair_attrbs {
->  	enum cxl_mem_repair_type repair_type;
->  };
->  
-> +/*
-> + * The low bits of the event record DPA are flags (VOLATILE, NOT_REPAIRABLE).
-> + * Records are looked up by the DPA user space writes back, which comes from
-> + * the trace event and has the flags masked off, so key them the same way.
-> + */
-> +static unsigned long cxl_rec_key(const struct cxl_event_media_hdr *hdr)
-> +{
-> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_MASK;
-> +}
+> diff --git a/Documentation/devicetree/bindings/connector/pcie-m2-b-connector.yaml b/Documentation/devicetree/bindings/connector/pcie-m2-b-connector.yaml
+> new file mode 100644
+> index 000000000000..a7f4bcbc5119
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/connector/pcie-m2-b-connector.yaml
+> @@ -0,0 +1,146 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/connector/pcie-m2-b-connector.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +static bool cxl_rec_not_repairable(const struct cxl_event_media_hdr *hdr)
-> +{
-> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_NOT_REPAIRABLE;
-> +}
+> +title: PCIe M.2 Mechanical Key B Connector
 > +
->  static struct cxl_event_gen_media *
->  cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
->  		       struct cxl_mem_repair_attrbs *attrbs)
-> @@ -929,7 +944,7 @@ cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
->  		return NULL;
->  
->  	rec = xa_load(&array_rec->rec_gen_media, attrbs->dpa);
-> -	if (!rec)
-> +	if (!rec || cxl_rec_not_repairable(&rec->media_hdr))
->  		return NULL;
->  
->  	if (attrbs->repair_type == CXL_PPR)
-> @@ -950,7 +965,7 @@ cxl_find_rec_dram(struct cxl_memdev *cxlmd,
->  		return NULL;
->  
->  	rec = xa_load(&array_rec->rec_dram, attrbs->dpa);
-> -	if (!rec)
-> +	if (!rec || cxl_rec_not_repairable(&rec->media_hdr))
->  		return NULL;
->  
->  	validity_flags = get_unaligned_le16(rec->media_hdr.validity_flags);
-> @@ -1105,8 +1120,7 @@ int cxl_store_rec_gen_media(struct cxl_memdev *cxlmd, union cxl_event *evt)
->  		return -ENOMEM;
->  
->  	old_rec = xa_store(&array_rec->rec_gen_media,
-> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
-> -			   GFP_KERNEL);
-> +			   cxl_rec_key(&rec->media_hdr), rec, GFP_KERNEL);
->  	if (xa_is_err(old_rec)) {
->  		kfree(rec);
->  		return xa_err(old_rec);
-> @@ -1135,8 +1149,7 @@ int cxl_store_rec_dram(struct cxl_memdev *cxlmd, union cxl_event *evt)
->  		return -ENOMEM;
->  
->  	old_rec = xa_store(&array_rec->rec_dram,
-> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
-> -			   GFP_KERNEL);
-> +			   cxl_rec_key(&rec->media_hdr), rec, GFP_KERNEL);
->  	if (xa_is_err(old_rec)) {
->  		kfree(rec);
->  		return xa_err(old_rec);
+> +maintainers:
+> +  - Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> +
+> +description:
+> +  A PCIe M.2 B connector node represents a physical PCIe M.2 Mechanical Key B
+> +  connector. Mechanical Key B connectors are used to connect WWAN devices to
+> +  the host machine over interfaces like PCIe, USB3.1 Gen1, SSIC, or USB 2.0,
+> +  selected by the Adapter's configuration pins.
+> +
+> +properties:
+> +  compatible:
+> +    const: pcie-m2-b-connector
+> +
+> +  vpcie3v3-supply:
+> +    description: A phandle to the regulator for the 3.3v/VBAT supply.
+> +
+> +  full-card-power-off-gpios:
+> +    description: GPIO output to FULL_CARD_POWER_OFF# signal. This signal is
+> +      used by the host system to turn off the entire Adapter. Refer, PCI
+> +      Express M.2 Specification r4.0, sec 3.2.13.1 for more details.
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    description: GPIO output to RESET# signal. This signal is used by the
+> +      host system to place the WWAN Adapter into a power-on reset condition.
+> +      Refer, PCI Express M.2 Specification r4.0, sec 3.2.13.2 for more
+> +      details.
+> +    maxItems: 1
+> +
+> +  w-disable1-gpios:
+> +    description: GPIO output to W_DISABLE1# signal. This signal is used by
+> +      the host system to disable the WWAN radio on the Adapter. Refer, PCI
+> +      Express M.2 Specification r4.0, sec 3.1.12.3 for more details.
+> +    maxItems: 1
+> +
+> +  w-disable2-gpios:
+> +    description: GPIO output to W_DISABLE2# signal (default function of
+> +      GPIO_10). This signal is used by the host system to disable a second
+> +      radio on the Adapter. Refer, PCI Express M.2 Specification r4.0,
+> +      sec 3.1.12.3 for more details.
+> +    maxItems: 1
 
+On the pinouts I find, I only see 0 or 1 w_disable.
+
+> +
+> +  wowwan-gpios:
+> +    description: GPIO input to WAKE_ON_WWAN# (WoWWAN#) signal. The Adapter
+> +      asserts this signal to wake up the host system. Refer, PCI Express M.2
+> +      Specification r4.0, sec 3.2.13.3.6 for more details.
+> +    maxItems: 1
+
+Don't see this on any of them. There is an ALERT# signal.
+
+> +
+> +  dpr-gpios:
+> +    description: GPIO output to the Dynamic Power Reduction (DPR) signal.
+> +      This signal is provided by a host system proximity sensor to the
+> +      Adapter to trigger a reduction in the radio transmit output power to
+> +      meet regulatory SAR requirements. Refer, PCI Express M.2 Specification
+> +      r4.0, sec 3.2.13.4 for more details.
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    description: 32.768 KHz Suspend Clock (SUSCLK) input from the host system to
+> +      the M.2 card. Refer, PCI Express M.2 Specification r4.0, sec 3.1.12.1 for
+> +      more details.
+> +    maxItems: 1
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +    description: OF graph bindings modeling the interfaces exposed on the
+> +      connector. Since a single connector can have multiple interfaces, every
+> +      interface has an assigned OF graph port number as described below.
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: PCIe interface for WWAN
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: SSIC interface for WWAN
+> +
+> +      port@2:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: USB 2.0 interface for WWAN
+> +
+> +      port@3:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: USB3.1 Gen1 interface for WWAN
+
+Port nodes are generally independent. Endpoints are muxed connections. 
+As SSIC and USB3 are the same pins, they should be the same port. You 
+could use endpoint numbering to define SSIC vs. USB3.
+
+Rob
