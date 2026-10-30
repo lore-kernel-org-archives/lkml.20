@@ -1,96 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793365951;
-	b=Dqbb3sAd57NaOgYN8C/X4Ld2W6D8aQG2ICH9NbdqV8bm0v+x6dWSJCIOevl07T83Rp0s
-	 gVgPwzrg6Wnf/9hk56/NKUwcoGIKKBsNyRBYVJoQ1A2g2c8WEHV9Wp1iDy0+lck7qoDfq
-	 XeqLw4HO5dwfJwv52IUNtFr2Dpqvaeyw/JiuVVgmbPrUYuDABWbV2mzNgzkNUw245oGUw
-	 HuIjVAfzOygEenPzxvX3yfVu0lQGqHXcYah6N2SB7XvGbuEjmN3kQPNnrJu7V0B6zXzNt
-	 H8F7lUsPyvHtxCnCojUY9jZdggScpzQOFB0yY/6w1Jpq4nAfLOAD+0nMGHouMPER3MQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793365951;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=dDBHKImO6A2eY0c1X6s+PbB3F+7X5/fjHZPXEe85mFc=;
-	b=RekZDf3f1krsxmlb5cgNLfR0asXrHuvhYkCzDh1tU0N1cqb/L1gRcmZOjiqW+Ccgt02Q
-	 ct58lN8SYvV+4zY7qOhG/vo1vWvE2nkQy2fLnr6ofFn2zWrsI31xJkh2PxhQ5mDqogB47
-	 5QPGKdybJXNuw9XT9pAlnWTRtl3ZiyWhgMWGKmrPzRd9aHQIS+oyJ6UWd86+inwNX1DZS
-	 P0NuKNEFq88A2m3F2pxDuAFci0QjyHNOvLWeDq9ewsOh/K+pt1X/+JbTQs71ejr4dcxB0
-	 RciQ4XZESEdUOb+4C99x1livsySfzAHCw6NzHkY2XU4DMZZNXPaMFPQfeQTKGFGKVvg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uber.com;
-	spf=fail smtp.mailfrom=uber.com;
-	dkim=pass header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=D3yKQ2Jd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793366090;
+	b=wVlD71ZSCsvi4prtpCcIXvFpnctBwRT2wiEOGwGvy011vASlylZSkdJty5SXNzI9fn05
+	 wGorAVcaMVpzpWGywSbyJZehny2aSrK3OYsKE63Jig83mefHt7dekKCWimViiOMkDX+C7
+	 RnT1cNXeCLL8cz8cf0BjijW6yX9MMA3f49XwS/5fX/cV0X9G5/cVOUQIoHOkKYtdxH1T5
+	 gZVC8+BiK5TWzNpxPwct+1V8l61MLMASDMsO93Ff739ZzB2UW1qmKifU2Rm+9FVywVUrz
+	 Y4MiyG5c8/9vyYdhOMmfiNCenAKje03+ICanC1AzqARcHoBzovONIUBgA5oAV3VH9+w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793366090;
+	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6VORSQYAD9hkgCjYkMujVkvIAUlg8MP5kdg3x4OHjys=;
+	b=AKCxtfkmCOK00yjujSDf1sUvrmqvJ/KmgwubeohOc32x88w1o50VE2Z73bTpPC5Hl5aH
+	 +7iGuaurVkijLkFbwlZ6s0b21Gb8pyYkSAQV1Ce0olgOtzumt/NCGmeFz4Qj2ltqz7w3C
+	 2WWGn4SN7tJaKFnJZ971KppYPvVXhxsS7VLuIwMESDEE5Qt3wsGCHWuIYyRpJM/fHi4Ol
+	 q3OEHRpo8U132SrSjlEaSxckSzX3TLsyVtGd8ObnQEafZVtW+dWdg9uqJFM3Luw0OSnln
+	 t2rez+32Hko7A0SjehjT1u+C7ONYnTSxQTLqdMBf5Ww1R74IUZoP7X+b6KUxW3D4xcw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18394606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:12:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18394606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=D3yKQ2Jd
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8aea7b7ca0cso6524527b3.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:12:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793365950; cv=none;
-        d=google.com; s=arc-20260327;
-        b=B1toF+flPvAn4Wc0ExhjEWcwhBBJvWq020it28B8guTefCYqNC333JUTevdHDkcXB6
-         cpMeQLmviCktPH2/8TpuxQrDX/cEHIHTRj69xag3blxuUB9uMpuFdtoWLvjWNcLGSqpn
-         FaGqafCd753yGZQ9qzwPRlGe7OC6PxgZzv08dIqlw8cd0GnEGpAB5+nKTp1YgOh6KSaD
-         G/hlUqaKBCs3MeWrzgcvimAJLRKppyhYY4l5/Iknw282gq8rbq2E5wduyvv7ziLImGx3
-         czkldbeXGo0yTWIhVBPxZwKzYMeJcMedOfTPpRejaozRtm8mL2EbwNi0dosh+THqmlyT
-         rRiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=dDBHKImO6A2eY0c1X6s+PbB3F+7X5/fjHZPXEe85mFc=;
-        fh=6Bs/tNBnUIplkAu9ThvVNPCG8skJJC9q3/KPUf1IBGs=;
-        b=fJ6KCEItrQCX0/pEQdMLSHyviPmHrV/N7cA/ZkHtwGj7boU5Tb0A4fhWJAN8TAucDs
-         Lxbqa+GDe1xeCDVgS26iL0NP+IhnTXRfGVCFBkq6ZybgAYr/XYgD/tFxVU4liZ8OlQXt
-         dgaDmHSLl4PPypJQA7p5mbqjFdVwt5InqfnOuNszyy0C4LEchTPdDqVZL9n3VtwoGEz1
-         7mJz9d5yoZPRMHSitHszp0gNwrkp7kznwj3jXsuIFEnTldatIT+b6WUVC2Z89P46xAth
-         i7/OY782Cg/LwAPFRwZaqr5xJAy5EmhyKVnY2C/ywEcAXtci+fnhdWQ1ly7jx4fmo2KQ
-         g75Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uber.com; s=google; t=1793365950; x=1793970750; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dDBHKImO6A2eY0c1X6s+PbB3F+7X5/fjHZPXEe85mFc=;
-        b=D3yKQ2JdWepoaILQnUijgya8UQM//JiglGXTQB2J6NrWBmvwu1wopzjWxV070FzF5M
-         QcLQaiBhVgJ35vAuvLekKi+yUE62PPqC4LsOqFx9MW33G2SF6KL+iZeE+iw/Rtlf1gVo
-         +g7p3NexqyD7Z3WcyY0kM1ugLrGIn1Z+U3qUE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793365950; x=1793970750;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dDBHKImO6A2eY0c1X6s+PbB3F+7X5/fjHZPXEe85mFc=;
-        b=Z7C1WBzgd3RtGPEZBED4yWHVjocjTwUjWE7ORFUSHgiEInWrnHoGbzJ1ouai0voUsa
-         KkubCtZWHAh+PG5m448txyp0Nkb0aeCIPU+FTlGqR3LV80j4D2DBRpGi8Wa4tALp4LHj
-         j7X04Izi5VG9lS6W7v9IPumzj9seH0PvxfSfD9USjDLZH862mJpglAzwsTGWt62N6b74
-         TepzaNyDN35V15RNuHUOXf7rbhlHn/xyXCfS2X0Eku6WSgHO83Ryg4tI6TeY0rSck+dX
-         +3IB9PNU7lfiEx32kgkt4N4n7XZ1fdaBG+QwxsGmZgXQl0Uj2dgvu6WF3kz993zGp6b9
-         T5ew==
-X-Forwarded-Encrypted: i=1; AKwUvBwz0lT2DsYkf/gUVSq30BLBfWswyc7C771qsGm67VkCtJHOr5k0Y4Shbajlng1g7t3Qu+CQAvfirHYiuuU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxNP8vUw7VoQen07nv58m0aKSgriYtsRguh39hxPmyzVwDqJ9x
-	m5CL2vFCqwE+LdWBNig1ziGFj5pefneh9uaKmA6Oq9Lo4fmWlxzXgwYiig8eS3yZO/Y+0pSF/qP
-	dkbAuVbYhK2lPrtnb9KSENX6SvC5A5sel2OXos+fzdQ==
-X-Gm-Gg: AYBFou0pnDH5TJuM5EWbkrQ1nI9ccQ/AMypP24znrVQI73EQb4xZYqxjlnZ91rS58Ra
-	/roLLmQAga4HwTtH/XkKJZF+N0hgHeS/ry9aPT9G/33E4/d7y/gR4HuSuSQGZs8kVAZF8D9R1XH
-	6b74qDMz/SJV9kO4bwkrb2HRIpKu5TJK8EjfR5sgbSm1M4eVt40tIZnq/CyvQpv+qxYHzWcQl26
-	YS13xberansybMRbvyzt/Gil/3X2UlV57HgvC0n5iecNyaNAfT0hw4k6k+ETaUXtV/Tm0a4r72d
-	21Tww8ld9UzhvxLTg5fAdnCc30QGXnURgO61MBdEUlFJnsb58qtlUdGnXH2uQYofRd/B3owq5+e
-	gRWSEbN2J1T79lMNn/IYJEpMZiiaukg3BcI+snPtwAqkzUguriFsWmsAO8PU7jgiKymRs4A==
-X-Received: by 2002:a05:690e:1699:b0:67a:6b2b:b864 with SMTP id
- 956f58d0204a3-67ba4ee9dedmr1201735d50.45.1793365949593; Fri, 30 Oct 2026
- 06:12:29 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A505606A31A;
+	Fri, 30 Oct 2026 13:14:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A505606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: d76768b4d46311f19a56ed5b684f684d-20261030
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CHARSET
+	HR_CHARSET_NUM, HR_CTE_8B, HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD
+	HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER
+	HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_CHARSET
+	HR_TO_CHARSET_NUM, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME, IP_UNTRUSTED
+	SRC_UNTRUSTED, IP_LOWREP, SRC_LOWREP, SA_TRUSTED, SA_EXISTED
+	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD
+	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
+	AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:69b5ee93-52ae-4c4a-9985-d8c17c632739,IP:10,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:10
+X-CID-INFO: VERSION:1.3.19,REQID:69b5ee93-52ae-4c4a-9985-d8c17c632739,IP:10,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:10
+X-CID-META: VersionHash:7db8b62,CLOUDID:34c42cb444fc9590b091253d6743d438,BulkI
+	D:261030211439NJ1LLJM9,BulkQuantity:0,SF:10|38|66|78|102|127|136|865|898,T
+	C:nil,Content:0|15|50|99,EDM:-3|-100,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,
+	QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
+	,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d76768b4d46311f19a56ed5b684f684d-20261030
+X-User: sunshaojie@kylinos.cn
+Received: from sunshaojie-pc [(114.244.3.119)] by mailgw.kylinos.cn
+	(envelope-from <sunshaojie@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1702212056; Fri, 30 Oct 2026 21:14:30 +0800
+From: Shaojie Sun <sunshaojie@kylinos.cn>
+To: Tejun Heo <tj@kernel.org>,
+	Waiman Long <longman@redhat.com>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>
+Cc: cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shaojie Sun <sunshaojie@kylinos.cn>
+Subject: [PATCH] cgroup/cpuset: Drop redundant no-cpu check in partcmd_update with newmask
+Date: Fri, 30 Oct 2026 21:14:08 +0800
+Message-ID: <20261030131408.1054507-1-sunshaojie@kylinos.cn>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,51 +86,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260928075237.3055101-1-irogers@google.com> <20261027231513.816148-1-irogers@google.com>
- <20261027231513.816148-8-irogers@google.com>
-In-Reply-To: <20261027231513.816148-8-irogers@google.com>
-From: Alireza Haghdoost <haghdoost@uber.com>
-Date: Fri, 30 Oct 2026 06:12:13 -0700
-X-Gm-Features: AclHuK8xzB6Md5YiYDKg7cBeqIUYy-GW213xYmIva0VuA5491eZtPnV7iOerbJU
-Message-ID: <CA+w=M=Sx_X=NsvvNEtwgjBtHZg=fnPiaBPyqopHXze3NRe7mLg@mail.gmail.com>
-Subject: Re: [PATCH v2 07/18] perf symbol: Switch backing storage from rbtree
- to struct symbols array
-To: Ian Rogers <irogers@google.com>
-Cc: acme@kernel.org, namhyung@kernel.org, adrian.hunter@intel.com, 
-	james.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 4:15 PM Ian Rogers <irogers@google.com> wrote:
-> + if (symbols->sorted && symbols->cnt > 0 &&
-> + !symbol__less_or_equal(symbols->symbols[symbols->cnt - 1], sym))
-> + symbols->sorted = false;
+update_parent_effective_cpumask() with a non-NULL newmask is only ever
+reached from partition_cpus_change(), and only after validate_partition()
+has checked the very same condition with the very same arguments:
 
-Just want to call out that in here, every out-of-order insert clears
-sorted, and the next lookup qsort()s the whole array.
-This is fixed in 9/18 I think but moving the sorted insert into
-this patch make it more clean.
+  tasks_nocpu_error(parent_cs(cs), cs, trialcs->effective_xcpus)
 
-Some behaviour notes:
+since newmask is exactly trialcs->effective_xcpus and both functions use
+parent_cs(cs) as the parent. cs, parent and cpu_active_mask cannot change
+in between either, as cpuset_mutex and cpu_read_lock are held for the
+whole operation. Hence
 
-- Symbols with the same start are now ordered by end instead of by
-insertion order. That can change which alias
-symbols__fixup_duplicate() keeps.
+  nocpu = tasks_nocpu_error(parent, cs, newmask);
 
-- The order of full ties now depends on qsort() being stable.
-Patch 09/18 replaces it with a stable sort, but still falls
-back to qsort() if the merge buffer can't be allocated.
+is always false here and the block that turns a "nocpu" condition into
+PERR_NOCPUS is dead code. A new CPU list that would drain the parent is
+fully handled by validate_partition(), which routes the write to
+partcmd_invalidate and hands the partition's CPUs back to the parent.
 
-- On libc.so.6 I see 62 differing @plt-name lines compared with the
-previous patch, for example __GI_memcpy@plt, although both sides
-still have 55 @plt symbols. My guess is that this comes from
-get_ifunc_name(): for an unnamed R_X86_64_IRELATIVE relocation it
-resolves the addend with dso__find_symbol_nocache(), and libc has
-several IFUNC names or aliases at the same address. The old rbtree
-and the new array do not necessarily return the same alias there,
-because same-start symbols are now ordered by end and full ties go
-through qsort(). The PLT address and count stay the same, but the
-displayed name changes. Was that intended?
+The "!adding || !cpumask_intersects(addmask, cpu_active_mask)" test that
+guards the block does not change this: the block can only be entered when
+nocpu is true, and that never happens here.
 
-Thanks,
-Alireza
+Drop the redundant check and the dead PERR_NOCPUS block, and leave a
+comment pointing at where the "parent could be drained" case is handled.
+The empty-newmask check in the same branch is left alone: it validates
+the newmask argument of this function, while what is removed here is a
+decision that belongs to validate_partition().
+
+No functional change.
+
+Signed-off-by: Shaojie Sun <sunshaojie@kylinos.cn>
+---
+ kernel/cgroup/cpuset.c | 20 +++++---------------
+ 1 file changed, 5 insertions(+), 15 deletions(-)
+
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 3219f927c35e..c7b3a734cda8 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -2016,9 +2016,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+ 			goto write_error;
+ 		}
+ 
+-		/* Check newmask whether cpus are available for parent/cs */
+-		nocpu = tasks_nocpu_error(parent, cs, newmask);
+-
+ 		/*
+ 		 * partcmd_update with newmask:
+ 		 *
+@@ -2033,6 +2030,11 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+ 		 * For invalid partition:
+ 		 *   delmask = newmask & parent->effective_xcpus
+ 		 *   The partition may become valid soon.
++		 *
++		 * Note that the no-cpu check is not repeated here:
++		 * validate_partition() has already evaluated
++		 * tasks_nocpu_error() with this very mask, and a failing
++		 * write is routed to partcmd_invalidate instead.
+ 		 */
+ 		if (is_partition_invalid(cs)) {
+ 			adding = false;
+@@ -2056,18 +2058,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+ 			cpumask_and(tmp->new_cpus, tmp->delmask, cpu_active_mask);
+ 			WARN_ON_ONCE(!cpumask_subset(tmp->new_cpus, parent->effective_cpus));
+ 		}
+-
+-		/*
+-		 * Make partition invalid if parent's effective_cpus could
+-		 * become empty and there are tasks in the parent.
+-		 */
+-		if (nocpu && (!adding ||
+-		    !cpumask_intersects(tmp->addmask, cpu_active_mask))) {
+-			part_error = PERR_NOCPUS;
+-			deleting = false;
+-			adding = cpumask_and(tmp->addmask,
+-					     cs->effective_xcpus, parent->effective_xcpus);
+-		}
+ 	} else {
+ 		/*
+ 		 * partcmd_update w/o newmask
+-- 
+2.50.1
+
