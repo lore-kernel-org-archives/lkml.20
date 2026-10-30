@@ -1,98 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793330782;
-	b=3CNHDeTaFhqOw08r38uHxoCnh2ztUdBBLa8VxQEHLfvha5okoHQkrgDOcXRw3jzlMQsK
-	 Zu9Q8Dt9v/OWbz7cTGUVA+lUdILXhFCP1ynp9PZc+p7YdyzMmh2Rb6lfLkHiVmUrX68uG
-	 HVaMIdP/5fojBSLT2n9QEsuZj43eSxNRF3ghArZ2zdWkL/b4p4uV4R4Oi6iUT8Sk+AomB
-	 1HDow7ch1rBfV1q9p86a6/hc28DgCoTRt83OsQedLU6R+xl0Wl6+EY+ZZA8V8AtuCeCzL
-	 Tlo+P4lHAQ6iJCUaYRfUHbIUtk6vAeokNrmxfm8Dr4oWn+G7XeIUqIu7NPBbxmF8PXg==
+	t=1793330813;
+	b=yuVT3YvXWRVUQJxCWyn642X1YoAdv1nMrg4oPO9IE1EmqyZJ+XC385t3DWYMjx9cC31o
+	 QFi74/S6BJHyumB63/kXIJxRZnMCtlkJLbhjWFXfE90lDcDsrU4iQq8fCRrJ8n1gIz6sQ
+	 CGGj8p7m/yvarELr/ZqwN5UyMd45ZkWyFRcbEqplBPXIwHlsmuMKPPgC9cJmM+bWc2cj1
+	 /0msvlW2o45yd7Q3sYLgrc++i/OY9F39R2kVkJPNu4dP363P7Yzxn272CvXPAdaeoY2QL
+	 VKN2fzeGlQ/I1IfhCwFfrqbnoZUJljyrCqYulfrPGDJeXFNpzUK0iq0EJOqUgCYkblQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793330782;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793330813;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=FQPXKr3w+/Ds5uyhexgQpZ3Q50KApvR7JQ4uZtG0Rss=;
-	b=B+RUEjwVKI19d4X/+v/ubnOqZ3/HG3FnbfY4OiNU1IRQXg/6WSTwolSTlPSB5C3RXK4c
-	 ieoIoeQKRGDyUdARVo+cXQ8XHTPFQ5255jHXVtaoZxU8J4lmcxFZBQWuU1eq8Ef7Cks5M
-	 G6U50P4wSlLalN34VkrZ8x7K2JVAcjv5HM9n85GSXWJx6XTkPGSFvxRZkM3UlYAa9HgSm
-	 ozML32fQJq1R2u+OW01qEKaG6SgyD0gt2Kq1McwqW8injeelW9swSjhY7VApL3L76ZzkZ
-	 ccZ8v1oEHy/e4qdjdd1sBseKonALcDcmd3vg/CtEGbcKHgc0yfivHlG6HbG9+TsiW3w==
+	bh=gNgrq0owYBabIu+cyKFWAz7J9oi+IwK3EkpuRpgRVL0=;
+	b=WAAnZ9d7v2vhP5zSyxw0nsbTQyfna3NG5+CiauUKSS8ZiZCaQOQ0k9XrorrsiNbMbpUo
+	 wvZeRREK04hdomOoc7+BqB9OXDly6acaYqYpl1WeodgziKqZQhVjajhtytxUXxNQ5Dm0c
+	 TODQklUVjP0z7qHZkmd14QHaHosNnmSeGQUNDsmYOP1gJWI49ry9oBP9jN+kltpVrd0d8
+	 gg33BnU7b/A18cBr94AuPtRwg75z16IxgDIYeLaU6k4jhpzdGymk7jbUVg6mvBZe0BnXC
+	 Za9VOnmi8MmbUh3rJvHJGUDvluYmIp1Ah2SG4/Wv+Q+93DgBCUPuJ+jTOq8rJuQRm2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=cvziuYvO;
-	arc=none smtp.remote-ip=209.85.160.182
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ff5he46p;
+	arc=none smtp.remote-ip=95.215.58.224
+Received: from mta1.migadu.com (out-224.mta1.migadu.com [95.215.58.224])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD46606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:26:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAD46606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98980606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:26:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98980606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=cvziuYvO
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-533861a59b8so2829161cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:26:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1793330781; x=1793935581; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FQPXKr3w+/Ds5uyhexgQpZ3Q50KApvR7JQ4uZtG0Rss=;
-        b=cvziuYvOVzFZocDxF+ucfhtYbfLsWTaXChkz3r6vlmZ6/7GMz4SXolSLq3chMpwqfr
-         R6IsQYrNGpb5cjr7F8LnSVgSapPZCK1S0d/WsePhsWkrxpFU0fydNG7qvL1fwmbtwXjd
-         pK98kpt7dN6w2n4q4E56rDGZ5yU9HJAcmWl+hjjRSJccZkSOe76GDbWf6G1dPs85y7PD
-         Sgp3V1ZemkhjA8hpQQ/lkz4s0ckSgeZZ5TGK2e/BDWi7Q59kjk8rgQr5ryQMURVUJ6o2
-         Dyl5/c+w1p955BNE5H+nXA57po6+hzGKd7NhqQ2f8PC6zUTwicswoX0eqb7LbIYJg0Ek
-         rRRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793330781; x=1793935581;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FQPXKr3w+/Ds5uyhexgQpZ3Q50KApvR7JQ4uZtG0Rss=;
-        b=MjiGEwrWN7WsthYMeKlqFV/H2+F2qQVpduGK/jpmzLwdl2YCBowPagp6oyL4wCHUp/
-         rFd0Au5pIOL9lCtqPF1576ttH3QL7tIsa7B40EB5haEUGAEVoS9km54El8Pr6SbTcywe
-         MpiFXRKWG6t86U8GeM2DWVyrbWaZzWSZ0zPTd2lnN2B2jRYVB9Z5N0/aQQORr+vHSGMm
-         Y35UBr1gL9qJA9A5DwjOGmHrqqoKlZkQh4LZZYe1aw+xxg5aU8hbBP3nQh0N8NN8l36W
-         HMwZ8F4dYlNMhSj5JMkO3rkbYPO/MIx95XHOY4FA9lUoBRguWfiFvYB6qzl7eewTTb4Z
-         UuoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzaHDbYkLIHoG2XM4qRWKkItjuQYKej3ZdJM8RcAbeV3rwvDLD9d6K4hc8jdnWF2T2rOjGyD3m/4dAEi+Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRfPr3OPKLqqCzBW/9MED9dIpbl1oiTIy/wlX5WV/qUotNef0z
-	Zhk8lyDR+Q8TSzjEVotfPlxi7k9xrZis+yPsjjSZ9ZCe96NRAEYdv2GOb8IZ5qXf5w==
-X-Gm-Gg: AYBFou2UxXHO/v+KBexf3kTuGgJd+YxaryxWqER/WY7rEQC3pL7gUFIhPWEjuyxGJNe
-	nUcWZJRSl/M+iU0ewxgJ0QvIptQp1o8E4TQQyBGhtBCUzlI5kZQmAVm28tE4VkZ/v6h+pI4S6Nb
-	pif28Q0Dz9+NfwN8TxG00ZVbhhHuWRHqMUVtuQfUKZsXzVnkfxHjPUbrPgLAeVWkflVItECiCkr
-	Qyb4GSG4Po6KQtORHC9nWlV0hn4Op/EyDCKers+Avppibn18qMUZLxodnS1ULv0afWDcPq3Sddx
-	NH6C+GF3guDiNW0tm5UbegFNiyGZvU+CBCQR7U/Vr3VefZBvSzX6+/LYCj5lUvkA4A7T3mMGaOC
-	85FAJDlVwUuDGRqKhYlReEL1Mh/lC6NgF2Cd9MicRbkdWb3FBmlU1xtvp6WrZ8cFtYhT9Ai5yCX
-	iUJRPUiX+Z84Upzqx/blBmzXRGpG3AfrtFUes9WALBle5LqCI7ONiD+iEcpEpvYROOHdMTcnimK
-	nFvnnh5KWOX7wtrW+OXWdnpC9NZhEEZBucCKC3TJE9GoCbdFJzhXCwFMbVFUA+5yi3F+7RiFiDb
-	fBdv2RzqDMKoL6OltM+sIoUMc2zLc+ha/9JzYaLwNmkFlqaRJC/t
-X-Received: by 2002:ac8:6f12:0:b0:51c:fc4:a144 with SMTP id d75a77b69052e-542b405957emr16806811cf.4.1793330780610;
-        Thu, 29 Oct 2026 20:26:20 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca804dc9fsm4001476d6.24.2026.10.29.20.26.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 20:26:20 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org
-Cc: horms@kernel.org,
-	jchapman@katalix.com,
-	tparkin@katalix.com,
-	gnault@redhat.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] l2tp: only return sessions of the given tunnel in l2tp_session_get()
-Date: Thu, 29 Oct 2026 23:26:17 -0400
-Message-ID: <20261030032617.4065353-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ff5he46p
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=P4sVG6gAsKMk1pWV0klicmych+OKQW4cm/nQyosN14Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793330809; v=1; x=1793935609;
+ b=Ff5he46pDGf+pB2O3fS0/jXrpWZXVWnKu18xIxaG0+jhTChfs8Q1kJwqq2ZcxnGf1Z9dNf2J
+ BAZH4mKir2E42QKTC2lpY1wqN4GQh+fWp+/Qczt6IENBy9kGptvz9C7H7gXexbF3i1oeazubadL
+ +LVQNWcgIbmO5AeYc035JYmE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3cf042a3802d9ad0;
+	Fri, 30 Oct 2026 03:26:49 +0000
+X-Mizu-Trace-ID: 3cf042a3802d9ad0
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <9d592d49-ebc8-4a3d-af1d-6cb688d2065d@linux.dev>
+Date: Fri, 30 Oct 2026 11:26:40 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,85 +58,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v5 1/2] veth: keep carrier off when resizing channels
+ with a down peer
+To: Xia Yan <yana06070@163.com>, netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ horms@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, pabeni@redhat.com, shuah@kernel.org,
+ hangbin.liu@linux.dev, stable@vger.kernel.org
+References: <20261029024259.3700-1-yana06070@163.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <20261029024259.3700-1-yana06070@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Commit 5f77c18ea556 ("l2tp: use IDR for all session lookups") made
-pppol2tp_connect() and the netlink session commands find sessions with
-l2tp_session_get(), passing the socket of the tunnel they name.
 
-L2TPv3 session IDs are unique per network namespace, except that
-sessions carried over UDP are only unique per UDP socket, the socket of
-their tunnel. However, l2tp_v3_session_get() only checks the socket when
-another session has the same session ID. Otherwise it returns the
-session, whichever tunnel it belongs to. As of now, a session command
-that names the wrong tunnel acts on a session of another tunnel, and a
-PPPoL2TP socket for a second L2TPv3 tunnel fails with EEXIST, because it
-finds session 0 of the first tunnel.
+On 10/29/26 10:42 AM, Xia Yan wrote:
+> veth_set_channels() temporarily turns carrier off while reconfiguring a
+> running interface. It then turns carrier on for both ends without
+> checking whether the peer is administratively up. If only one end is up,
+> changing its channel counts therefore reports LOWER_UP even though the
+> peer remains down.
+>
+> For example, after creating a pair with two RX and TX queues per end:
+>
+>    ip link set vca up
+>    ethtool -L vca rx 1 tx 1
+>
+> vca incorrectly reports LOWER_UP while vcb is still down.
+>
+> Only restore carrier when the peer has IFF_UP, matching veth_open().
+> The local interface is already known to be running at this point.
+>
+> Found during LLM-assisted source review and reproduced with a veth pair
+> in network namespaces, without kernel instrumentation or error injection.
+> The companion veth.sh test reproduces the two mixed up/down failures
+> before the fix and passes after it.
+>
+> Fixes: 4752eeb3d891 ("veth: implement support for set_channel ethtool op")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> Assisted-by: LLM
+> Signed-off-by: Xia Yan <yana06070@163.com>
 
-The issue can be reproduced with:
 
-    ip l2tp add tunnel tunnel_id 3 peer_tunnel_id 3 encap udp \
-        local 127.0.0.1 remote 127.0.0.1 udp_sport 5003 udp_dport 6003
-    ip l2tp add tunnel tunnel_id 4 peer_tunnel_id 4 encap udp \
-        local 127.0.0.1 remote 127.0.0.1 udp_sport 5004 udp_dport 6004
-    ip l2tp add session tunnel_id 3 session_id 7 peer_session_id 7
-    ip l2tp del session tunnel_id 4 session_id 7
-    ip l2tp show session
 
-Before that commit, the delete fails with "No such device", and session
-7 of tunnel 3 is still listed. After that commit, the delete succeeds,
-and session 7 of tunnel 3 is gone.
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-This patch will make l2tp_session_get() return NULL when the L2TPv3
-session it finds does not belong to the given socket. The receive path
-calls l2tp_v3_session_get() directly and is not changed.
 
-Fixes: 5f77c18ea556 ("l2tp: use IDR for all session lookups")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
-Changes in v2:
-- Compare the session's tunnel socket with sk instead of the tunnel ID
-  (Guillaume).
-- Describe session IDs as unique per netns, and per UDP socket for UDP
-  encap, in the commit message.
-- v1: https://lore.kernel.org/netdev/20261025145831.2133617-1-hengyul@cs.unc.edu/
+Thanks, I clearly remember it has been reported somewhere...
 
-Tested with the commands above, the same session ID in two UDP tunnels
-(still allowed) and in two IP tunnels (still refused), and two PPPoL2TP
-tunnel sockets.
-
- net/l2tp/l2tp_core.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/net/l2tp/l2tp_core.c b/net/l2tp/l2tp_core.c
-index 7e042a3e648c..0cd3e38bf662 100644
---- a/net/l2tp/l2tp_core.c
-+++ b/net/l2tp/l2tp_core.c
-@@ -315,10 +315,19 @@ EXPORT_SYMBOL_GPL(l2tp_v2_session_get);
- struct l2tp_session *l2tp_session_get(const struct net *net, struct sock *sk, int pver,
- 				      u32 tunnel_id, u32 session_id)
- {
-+	struct l2tp_session *session;
-+
- 	if (pver == L2TP_HDR_VER_2)
- 		return l2tp_v2_session_get(net, tunnel_id, session_id);
--	else
--		return l2tp_v3_session_get(net, sk, session_id);
-+
-+	/* l2tp_v3_session_get() doesn't check sk if the ID hasn't collided */
-+	session = l2tp_v3_session_get(net, sk, session_id);
-+	if (session && session->tunnel->sock != sk) {
-+		l2tp_session_put(session);
-+		return NULL;
-+	}
-+
-+	return session;
- }
- EXPORT_SYMBOL_GPL(l2tp_session_get);
- 
-
-base-commit: 7076f684d5132e6a6145e1da2fa74771ecd052e5
--- 
-2.53.0
-
+> ---
+> Changes in v5:
+> - Driver code is unchanged.
+> - The companion test drops unnecessary quotes around literal up
+>    and carries Hangbin's review and test tags.
+>
+> v4: https://lore.kernel.org/netdev/20261024093007.12981-1-yana06070@163.com/
+>
+> Changes in v4:
+> - Driver code is unchanged. Add Hangbin's Reviewed-by.
+> - The companion test drops the extra GRO on/off runs, as discussed
+>    with Hangbin, and keeps up/up and both mixed up/down states.
+>
+> v3: https://lore.kernel.org/netdev/20261022085842.2527-1-yana06070@163.com/
+>
+> Runtime testing of v4 on 513444cc62e2, x86_64 QEMU/KVM with three vCPUs:
+> - Complete default veth.sh:
+>    before: 56 checks pass, two mixed up/down carrier checks fail;
+>    after: all 58 checks pass. The 55 existing checks pass on both.
+> - Script exit status: 1 before, 0 after. No checks were skipped.
+> - Both guests powered down normally.
+> - The runtime results above are from v4. The only v5 script change
+>    removes quotes around a literal argument.
+>
+>   drivers/net/veth.c | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+> index 643b97dc52456df80de10068ccac9af2ada70256..4e75830061ccd3def0476b19a2f92e818464fce9 100644
+> --- a/drivers/net/veth.c
+> +++ b/drivers/net/veth.c
+> @@ -1372,9 +1372,10 @@ out:
+>   		 * to identify the range we have to disable
+>   		 */
+>   		veth_disable_range_safe(dev, new_rx_count, old_rx_count);
+> -		netif_carrier_on(dev);
+> -		if (peer)
+> +		if (peer && (peer->flags & IFF_UP)) {
+> +			netif_carrier_on(dev);
+>   			netif_carrier_on(peer);
+> +		}
+>   	}
+>   
+>   	/* update XDP supported features */
+>
+> base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
+>
