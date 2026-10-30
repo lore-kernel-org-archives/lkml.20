@@ -1,102 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793327441;
-	b=sHYi17XXfYfy6H4z3Pvv3jRE5BC5xtb4szywokG10WUA6F3iA5gOr0OpRb4hNb3EFMGb
-	 TKvcULQRgSiV9TWZoLRGIHs33MUS0yc+D4XhQqSyUpPp5MVDzv5qER/HYNfb/gn/RPlYf
-	 dzFiRpLpiYKz8HR0YSfOk6jqhABqxbIqCYt1oR+fqRL32/7P2y0iK0pRBNn0g3aZ6z4Yh
-	 EKcQlqbVriJPsqJ1CauW6cMCEZIQtyjICCGnFjXWkiLIGD3/FYakuNdSqZ0vDZNBUhpnY
-	 wnXi8NYjLlsTxideqDsxf0KXpxDmMpvLH9VJhUuHUTvum8vV6TgDofVM1eAcMmiFbMQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793327441;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=v5VYmc2HDzcSq4knARbKbUwFAzTpnHrwQ7qzGl0SDd8=;
-	b=B70OyKB3e7yjjhl4B9iySg5qei+njsy48JkGGbVF2GGRDx+jJ06+qnKrQkr7HQpYqqdZ
-	 6SUTS0XRDoMj8ZyrOL5mmmDWZUrQaztlxio2OQz0IqM1/jIKjROGoDcm/r/J0qkfzITSE
-	 3LIzlPw9Dy/8h0DyCPo8KBaEX1dnAtJkG/hzJrUUV0VGC1s/mNESGGJvZQWspEsj5jvqm
-	 LnvVbuhLfoMl8IgKnyFlxsUeXkEUJWkOqFH58VYGW9rFxK1AvCnajfENhJURPBBJoO3EY
-	 yY48V2PcNw2XuMwU7dxLGb7qk5K3hy/vB2wxU4eZaR19d2rvtqH3kLGQ/nwt8evwi0Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e8gfzGoR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793327484;
+	b=26sA/C1MFRzlEVX3lEl0s5uNN+uWhGvRgkta+fQ0Oqdhjq/OJTpGk+Gqq6OmwrCXSev+
+	 9o0e70wzz2d3FExlQ6PsU/kggsmSxKRNwmyHNNkc52TGAux9VRTeUBaqTM/cG+AGovdEN
+	 w/pA8U/yAk6W5agScVfKEyq4+tQQ+s1byNr/XAtHcqelktvftcB1e2C1YjZh8qRa+pj+o
+	 hh4JAj+JuqXCFGRN1bbN52guq2MsFyvx7trjRqCXWVeb/XxoWxe4bbu29u8n3hzjmBFKJ
+	 GK+bIl28KAH7Q8w1iVWu3DIRWdCpTJTp7rExOU7HeP2n0T+jbdh+HY0xAwq8Y/X39hw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793327484;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:
+	 X-Zmail-LocalSMTP:X-Zmail-RealSender:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 X-ZMAIL-USEORIGINALEMLTOOUTBOUND:Content-Transfer-Encoding:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=F0TSJYgAt9wrDoqXicJayvqpbTvTCb9uspY/q/ePjKU=;
+	b=C25++NDiV7LEVtz0ele329/pWyImlcj623i10aVIMIUKlPsYApqo6/sXwwTml68Xeqie
+	 riOIv7GwaXsE2iy4XJZTNaujmLe3wcUhMlpnTuVBg1ZtzkDd+k3Uxo9s6FFlYWuL5Lm8c
+	 S2+xg2UVZelCQ+d/SGzf+7cZc0xgKDdtyX2ckzHIVmtKsmdjFNSnZut03AQu5cPCJKEFJ
+	 KFV3SClJyB4GO/TQV3q2vBLomIfsISR5BRXsDNWtcvzPz3qhVeOCjTkupIrL6HeMqatbZ
+	 Naq1vJ1XIItR8RGsA4i490/Y/OnQWAcnjKx6imUMmEfHoIAAzXdZoa6lCqeRe5lUK8w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=sanechips.com.cn;
+	spf=pass smtp.mailfrom=sanechips.com.cn;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDE1606A322
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:30:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDDE1606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e8gfzGoR
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a9787a156eso2205541fa.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:30:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793327439; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RIwYOf138U9TvmJPR0U/loX5idkDbzJlobBRWEA15io52GdxcQkvb8/hqJ4YLNAso5
-         6m9F5i31Gj0vOORH37NB8Fy9a+k4b9MDjU2g5yZ3mIeeQuNQ5ZOorx/rpX6mEXT7h5kW
-         ygpz/OrLxzsr+J3AgMZ3uPSi98KO+UfKVYDObIkrKOCGLWbhqKPpDVb81HiGZFf0FYkT
-         wEb6P7aX+h0v2u5IvJLKgr6OC9JmFVv6QBhUQVJtYWYQDj8XTLSR+2gdkL5JVAadf0tV
-         oibQctbXCBlX7Pb8owzXhgZ1yG4svu23Y0E74txGBm1cL+vEQrhv1QMuySkIUjU5lNqD
-         wFhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=v5VYmc2HDzcSq4knARbKbUwFAzTpnHrwQ7qzGl0SDd8=;
-        fh=U5M0bR2DuOHMziPFQbA69d0HM6nzJqcfV4cOs5Um6IM=;
-        b=i3L5L+DdBMDNrI4mEmHGpLk6wEazmXwo+D/ZM0y0hKTOxPhDaYFELRFTFG9OLAKfx2
-         D9ufqhCTc6iyGb/3J0YRrLkfCEFfKuWshY+2AUEoKTbvkX0TZTK96DM0q1l04DshwZUM
-         79SAhB3qQh0V3xvNa33rNTHuHPVh1wVZiLsBe5paX5YTSDhb3kinTWPMlEVNxMN26+LD
-         T7SKj5okW641mSduISKwRJeLYZY7Q7aofo9iSVHSHHXYBItMDiaD47W08CQKG3uhbOBT
-         PGy63eJ+Te2nHFenGiTrJGB2y380gxzuX/ge6s009z5kjEq6W+E0Xbi1y68+tpy6kbod
-         Sk0g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793327439; x=1793932239; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v5VYmc2HDzcSq4knARbKbUwFAzTpnHrwQ7qzGl0SDd8=;
-        b=e8gfzGoRM385FEsKyD02HVJxEcPcs7T3QOF/fJWMMm30PlbFERmKncV3Hstqsx2052
-         lf0xfBvCVoO5IbSgaLtFUi3IOlIFZz1uzqLANxW84fUcWsKuv/UhGHOgEFLFNpxKSITg
-         iZr0fs5CcKrN13lt42exXW7GYdCcJsaFZq1uGXQ+jrn6ASA4gprfcgsdP4KKcpG1aYfU
-         C+NMi78+7JV7NTPtMAWIFI7q/n2x8uJES+rD5YbbVVnNBM1jrYwFbIqfjStrL9BYr9jO
-         zsfza/TSP1s8HBRuKorim1idzGf7awlWuP58iN3WCOzZWQE5eRHJv9Wta5sLZjEEvL0F
-         LSEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793327439; x=1793932239;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v5VYmc2HDzcSq4knARbKbUwFAzTpnHrwQ7qzGl0SDd8=;
-        b=Rs+qWEOxFpkH07rvaSK2BIIhkflUC/32L3HJyLJszo0Xj2pow87oQl4U72GmdNI8Eh
-         SZtTyGaju2RovarVfnCaHqDSggBOvAse//tH+vAOuVgxqLLTo38bzigUPP2rQa6/vZb8
-         N+Dy88h3CUW3V6/kgXdaDbQNlZLAwWB0xgtVfm+jYCkI1DSvBV9CGPoGtqDcTkV0Hrzy
-         5mxqlcxvhzqAz5geLZG2pv/yUOpXblx4vjPm42mcos2EWffsJ5bq5g7BkTsVomVhsTWf
-         3IwyP93Y+DSRGNyLi9G8la00xnWBbkHmq1XSPKFE8FTI1KzMChyZHdfa2GewJNUTzSbp
-         CyuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBycne9hug0nM5QJPBaffBh03OYLC7bqW0opJ2iNxkYWpOH7Jo7ttXPX27+xBG5G3mSjQSRz4GmG0F15vY8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTDX/xoH2Bb5lknuZAD5hECOXSmrJWtMFogYvC35K/wHfUmDx5
-	YXsH9yBbau4VJMOqnrGj+ant/EyteReDEdcO8FkysRRaHR9jIDc4Wc0/RleW7Ju62I7ETbrjecU
-	RNcaTS0AWt/uquAnbMlxXiK9MTY/JVqQ=
-X-Gm-Gg: AYBFou2/gYxjMoe/MxHNG40vy1PHM/u3smmE2V7T0wVXpaWxKQOU+bichAAm436n6X1
-	nluWZR6Ro824Dk4+8jsaGcH1hXLxYtNUjy2lJnYefKwxd/jNqsjf25sjXXB8ESdplUvjUWOz/Z4
-	nlqdCn2cwjl3sHvGAWPryMr4BdoNo/6Ip8XTq47AXUdubi7pdkvqbx/KYCwIp2fJlwTRwkrYuBO
-	fvK4Cp3reGGEjYqgdkgmhvypTBR53ANx0lvVfm5QxaIf5Je6nRMK6InZxOldAJOyPoUttfVCV9/
-	a1XmQZ9kMkW0UYbcnWlQkBPaomE2KVFqEbbRB4RoGRVybxE+elF9YZgUchC7AbS3vlti2r6/wDM
-	YHvqNPdg7aQX1nLdFxTIaInfwVgDxzAJMUfc3sbeY7EeOCmFY1fMQX9JYv0kywABhMjz4UFYLdP
-	VOIF+dyxQBCBZAqB7imCDGIiZxzTnwy3UbCmeIV+kMxfASwGX0eYuMy9n0VGZC69VDafY6bW98z
-	k8tJAIruxLs
-X-Received: by 2002:a05:6512:2251:b0:5bf:cfc3:5954 with SMTP id
- 2adb3069b0e04-5bfd954b9f2mr211780e87.1.1793327438692; Thu, 29 Oct 2026
- 19:30:38 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28404606A320
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:31:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28404606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sanechips.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sanechips.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jG4ps6VlHz5B1C7;
+	Fri, 30 Oct 2026 10:31:17 +0800 (CST)
+Received: from szxlzmapp02.zte.com.cn ([10.5.231.79])
+	by mse-fl1.zte.com.cn with SMTP id 69U2V9Yu030476;
+	Fri, 30 Oct 2026 10:31:09 +0800 (+08)
+	(envelope-from gong.shuai@sanechips.com.cn)
+Received: from ubuntu-35-gs (unknown [10.230.214.35])
+	by smtp (Zmail) with SMTP;
+	Fri, 30 Oct 2026 10:31:10 +0800
+X-Zmail-TransId: 3e816ae40168028-1fbe9
+X-Zmail-LocalSMTP: 1
+X-Zmail-RealSender: gong.shuai@sanechips.com.cn
+From: Gong Shuai <gong.shuai@sanechips.com.cn>
+To: fangyu.yu@linux.alibaba.com
+Cc: gong.shuai@sanechips.com.cn, iommu@lists.linux.dev,
+        kvm-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-riscv@lists.infradead.org
+Subject: Re: [RFC PATCH v5 03/10] iommu/riscv: report iommu capabilities
+Date: Fri, 30 Oct 2026 10:31:04 +0800
+Message-ID: <20261030023104.51259-1-gong.shuai@sanechips.com.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261020094106.92722-4-fangyu.yu@linux.alibaba.com>
+References: <20261020094106.92722-4-fangyu.yu@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,108 +69,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028025026.11401-1-testwrzwrz@gmail.com> <20261028025026.11401-2-testwrzwrz@gmail.com>
-In-Reply-To: <20261028025026.11401-2-testwrzwrz@gmail.com>
-From: Jason Xing <kerneljasonxing@gmail.com>
-Date: Fri, 30 Oct 2026 10:30:00 +0800
-X-Gm-Features: AclHuK9V4fvZWJ4AFY9w_N67m8fmBuNScc36Y8vzCOEgxwll8I8B9GuAiObXkno
-Message-ID: <CAL+tcoA0jyxR875KocG6fwNSOPjfC-pdhJt0xCbsDQMtiNx8qQ@mail.gmail.com>
-Subject: Re: [PATCH net v3 1/2] xsk: defer software checksum until the skb is complete
-To: Rongzheng Wang <testwrzwrz@gmail.com>
-Cc: netdev@vger.kernel.org, Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
-	Magnus Karlsson <magnus.karlsson@intel.com>, Stanislav Fomichev <sdf@google.com>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, stable@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ZMAIL-USEORIGINALEMLTOOUTBOUND: 1
+Content-Transfer-Encoding: 8bit
+X-MAIL:mse-fl1.zte.com.cn 69U2V9Yu030476
+X-TLS: YES
+X-ENVELOPE-SENDER: gong.shuai@sanechips.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Fri, 30 Oct 2026 10:31:17 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE40175.001/4jG4ps6VlHz5B1C7
 
-On Wed, Oct 28, 2026 at 10:50=E2=80=AFAM Rongzheng Wang <testwrzwrz@gmail.c=
-om> wrote:
->
-> When XDP_UMEM_TX_SW_CSUM is used with multi-buffer TX, xsk_skb_metadata()
-> calls skb_checksum_help() while only the first descriptor has been added =
-to
-> the skb. The checksum therefore covers just the first fragment, and
-> skb_checksum_help() sets ip_summed to CHECKSUM_NONE, so the remaining
-> fragments are never included in the checksum.
->
-> Move the software checksum calculation to the point where the last
-> descriptor has been added to the skb.
->
-> On a checksum failure the packet is now dropped instead of being returned
-> to the application for a retry. This path is not reachable with the
-> existing metadata validation, but the behavior change is intentional.
->
-> Fixes: 11614723af26 ("xsk: Add option to calculate TX checksum in SW")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rongzheng Wang <testwrzwrz@gmail.com>
+Hi Fangyu,
 
-Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
-
-> ---
->  net/xdp/xsk.c | 23 +++++++++++++++--------
->  1 file changed, 15 insertions(+), 8 deletions(-)
+> From: Tomasz Jeznach <tjeznach@rivosinc.com>
 >
-> diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-> index 33475b180ea6..aa6b010192ad 100644
-> --- a/net/xdp/xsk.c
-> +++ b/net/xdp/xsk.c
-> @@ -1011,14 +1011,6 @@ static int xsk_skb_metadata(struct sk_buff *skb, v=
-oid *buffer,
->                 skb->csum_start =3D hr + csum_start;
->                 skb->csum_offset =3D csum_offset;
->                 skb->ip_summed =3D CHECKSUM_PARTIAL;
-> -
-> -               if (unlikely(pool->tx_sw_csum)) {
-> -                       int err;
-> -
-> -                       err =3D skb_checksum_help(skb);
-> -                       if (err)
-> -                               return err;
-> -               }
->         }
+> Report RISC-V IOMMU capabilities required by VFIO subsystem
+> to enable PCIe device assignment.
 >
->         if (flags & XDP_TXMD_FLAGS_LAUNCH_TIME)
-> @@ -1030,6 +1022,15 @@ static int xsk_skb_metadata(struct sk_buff *skb, v=
-oid *buffer,
->         return 0;
->  }
->
-> +static int xsk_skb_sw_csum(struct sk_buff *skb, struct xsk_buff_pool *po=
-ol)
-> +{
-> +       if (unlikely(pool->tx_sw_csum &&
-> +                    skb->ip_summed =3D=3D CHECKSUM_PARTIAL))
-> +               return skb_checksum_help(skb);
-> +
-> +       return 0;
-> +}
-> +
->  static struct sk_buff *xsk_build_skb_zerocopy(struct xdp_sock *xs,
->                                               struct xdp_desc *desc)
->  {
-> @@ -1275,6 +1276,12 @@ static int __xsk_generic_xmit(struct sock *sk)
->                 if (xp_mb_desc(&desc)) {
->                         xs->skb =3D skb;
->                         continue;
+> Signed-off-by: Tomasz Jeznach <tjeznach@rivosinc.com>
+> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+> Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
 
-nit: since we have 'continue' here.
-
-> +               } else {
-
-How about removing the 'else' branch to avoid unnecessary indentation?
+This patch has already been merged
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=3069e8f3e1e9bdf007316eadae4d1777065e7b78
 
 Thanks,
-Jason
+Shuai
 
-> +                       err =3D xsk_skb_sw_csum(skb, xs->pool);
-> +                       if (unlikely(err)) {
-> +                               xsk_drop_skb(skb);
-> +                               goto out;
-> +                       }
->                 }
+> ---
+>  drivers/iommu/riscv/iommu.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
 >
->                 err =3D __dev_direct_xmit(skb, xs->queue_id);
-> --
-> 2.39.5 (Apple Git-154)
->
+> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+> index fe8e6d0f8a23..40beccedd39f 100644
+> --- a/drivers/iommu/riscv/iommu.c
+> +++ b/drivers/iommu/riscv/iommu.c
+> @@ -1444,6 +1444,16 @@ static struct iommu_group *riscv_iommu_device_group(struct device *dev)
+>  	return generic_device_group(dev);
+>  }
+> 
+> +static bool riscv_iommu_capable(struct device *dev, enum iommu_cap cap)
+> +{
+> +	switch (cap) {
+> +	case IOMMU_CAP_CACHE_COHERENCY:
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +
+>  static int riscv_iommu_of_xlate(struct device *dev, const struct of_phandle_args *args)
+>  {
+>  	return iommu_fwspec_add_ids(dev, args->args, 1);
+> @@ -1505,6 +1515,7 @@ static void riscv_iommu_release_device(struct device *dev)
+> 
+>  static const struct iommu_ops riscv_iommu_ops = {
+>  	.of_xlate = riscv_iommu_of_xlate,
+> +	.capable = riscv_iommu_capable,
+>  	.identity_domain = &riscv_iommu_identity_domain,
+>  	.blocked_domain = &riscv_iommu_blocking_domain,
+>  	.release_domain = &riscv_iommu_blocking_domain,
+> -- 
+> 2.50.1
