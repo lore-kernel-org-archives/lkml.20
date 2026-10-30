@@ -1,63 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=88.99.92.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793369387;
-	b=f+niUvWlJUf3y0+k7AEET57xz+65tkoXnQidibGmWlLbfZD/811A6wTFdHTfMZ6W2BoL
-	 hHiLFEARvTErXHYoijxX85L3r3ABaImr+EO7cnwpRXWLBiHHAJL0L1aOjsZyT06XKzhZ7
-	 /MBDiA4PVDGl+EUKGBMQk4a9mNoeLScLrhAMAx3/h7CQ6I0gM+BuzB4mHJfBah4/zFV00
-	 r1cWRwjP+tklJHL3IkQPJykPYKiHZQMhc0mHQUfjt+4kP/lKDxN8n8gHjyRfG3DHIqDcs
-	 SxUOBAemlNgbq+azZjcadjPtzYXvfXXght5jvSHhyNP5rOP4kV+FGrPiFVGfBJ9g9bg==
+	t=1793369423;
+	b=epCIjwj+lOqNGChCCGZ/cU9aqK4D4mMtyig1TH8Ik8EpgKPosofImZQ++44VA3gDnhKV
+	 Nn9ZMbaGVup/7y0ZdaoAhYMvn7xQdjyhIYWGLsXuIqoM7dM3s2j7IVlJnuofBn2QzZU+S
+	 q3STNw3iB6RNQNHx86/Bmo7Wb9iuW0uox5TsQehSBX6S0s98rNjXo7uw44p4hrzwTnhFu
+	 13dzg4vX6hbsNNl7UwP0KjAJrdL1mwenU0WgbAz7l3XV7PTyOgwtBtMAQoMKNzEQWMALp
+	 6vjWSOLkG9Sc+DaY068xi0yQDLoC6uS983yUzx9vL7ZSqAd5R2vYwaUT67d6k4UPLZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793369387;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=WmS+CVCzuvxVoE760Ui7VRLzK1RM3gMsHjnco6tBH0o=;
-	b=tGCwD73FiPmjn1sAjg4GOLhUIHyYM7BuK4+ZyTQgM+HnEJAyYVSOL7/1wDW4cqU3IwLU
-	 Afek5vZFKenKXU7hI/MtFuF574kM5WvqVG0FywMfeP9wqwJRiFmx4BbCS3QeA8cB1B7D+
-	 3DDTLDvDXlpFWfS5cfYcY/3cKzdCyosSziG4w3LukyyJk9E7NWYI7tCVldx0e7aJxxeb1
-	 BkRlNtBHwEa+m5tqs7uJz1qdXkw6Oh1/Im4Yz1DTuLmmKFVi8uMxJdq4nPXlKWBlS/cKV
-	 zX7PlRi6P2w0ikaUqiWBgjONQrDXYudH1zBB89ZmpEa6w3EVjH0NLRN6/amiEEzb+Mw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793369423;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=nF6oG7qdYpsHcUJcCpTVAL6/z6SjIIvM80+qHFQC0Tc=;
+	b=5IcsoEM4HG+ZVPKdwITDjx5Uly9Vyia07A2DEJRs9RzwHyi0kz0pdbnLjExKW6+joreJ
+	 1pb1ACGaVL3EAX/c2IVxe47cvWOPGrUwvHddgi2048PjObx7ON4eB6u0HVmwCUakzQLLe
+	 LeEPYPjuQRbk5csTbfALb1PCT/vXTVRiFwc3IGaYDg6ahxcZdlU8HCynKXbDGa5SP7tfd
+	 Umx9ymKcakoR89UAavBlcQjasH8iNGyRz+3cTCd47HkLLRtbDERJc32UrPwehCOGur1HJ
+	 gmW0ehl0x1/I2FoIbzym00C3gDHNx6zY7l2dSeo2RcWv2GU5VR8ZE0uLeN9a9sGytQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=rojer.me;
-	spf=pass smtp.mailfrom=rojer.me;
-	dkim=pass header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=V0Mkl8Gh;
-	arc=none smtp.remote-ip=88.99.92.76
-Received: from mail1.rojer.cloud (mail1.rojer.cloud [88.99.92.76])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tXq+wL7O;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D131606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:09:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D131606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rojer.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rojer.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E030606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:10:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E030606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=V0Mkl8Gh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rojer.me; s=main;
-	t=1793369378; bh=NipbTtAjrLg4RMpGQO/RHv1pYjokrJm5L1BpWTaf3GM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=V0Mkl8Ghdd2HNA6zHhz65BdcmVQ3oYhm5osD02nZiuvK4cB+MDBtixGN1vzm8JZo4
-	 p57AMRO5w2r2WovVlOq55cZUeS0KRvk9mDSqse62BP2PZlKOPMRFtSM+WYqZb4zyNt
-	 aCLYZgHMzfd43b9684pUG0F9U2klCT0SnhLMWX6DDk1GqZuoOyBzWodjgCvPhHtTqD
-	 /SnpbDqRbbVvfGORD7VwTqE3gVeJTv0MHFdw3PEaD6bsv/DF0CZeNAF81yyt0Rb9Vn
-	 tjY3fd1Ti8NB3qFkF7Nfe1V5QNIcJKUx3S5uB08bctpI/qj9MfppjXH5+ZvYGjHGjv
-	 pLEjWx0vKgHMg==
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail1.rojer.cloud (Postfix) with ESMTPSA id 749352165D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:09:38 +0000 (UTC)
-Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-4af173320f9so602835b6e.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:09:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByutg11o+NBypXJIdlnVQQAkfz/xnuQru0wkzXD8TVb7RUF8TWboz+WJKuEDkLuK8T6BkOZjCxgzbbxsmw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpxjnAy3QBIXL8qS2dYL5Zg5ypcPBbGUQb3xmgq3cAh1HoEFZg
-	V9Gdo4IT0iBtHAkBAg7eKEjKGblLNmcqOj1w8bAttu1krDsbRRoYmE7fbHOY195tQU2gJcGr0dK
-	7TLeYEQ9DjAtZK6c9Usc5muBX1xMQSQ==
-X-Received: by 2002:a05:6808:6404:b0:4f2:4d2f:7ba with SMTP id
- 5614622812f47-5640d953debmr1796710b6e.8.1793369376966; Fri, 30 Oct 2026
- 07:09:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tXq+wL7O
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c45111bebso335854f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:10:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793369422; x=1793974222; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nF6oG7qdYpsHcUJcCpTVAL6/z6SjIIvM80+qHFQC0Tc=;
+        b=tXq+wL7O4VBPBYITmcItGx3NcHxmEYMBduIYQBbj6RE988KULxBYq0p+J2tOUpYIhP
+         AtwMt2jwV1lLB/exueIgOHT3X1Ot8xMkd1XDH1fiFtE3bV7lq98MUdpZPO9SkraAqwne
+         jOJmxVVCI5BrjBUCvjZkjfXezxi2LuuHsT3VZE9Q4bcEZDJJsw3B720rezXthflWXj7c
+         8fkWo3qfJEPiRDmzPeJzLTErUzouV5rqaHKLMrEhqYN46i88IYU4EmSfgY+OwrT3dT9Q
+         Y7/9b5jj592pYRZ0iiTvnpbkEtVXQbzBxC3/QyhPJ/rYosUgBcOI403dumVNcCncNu1t
+         fXgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793369422; x=1793974222;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nF6oG7qdYpsHcUJcCpTVAL6/z6SjIIvM80+qHFQC0Tc=;
+        b=bLrwyBdABeBLX+MUHyhUm4ZcKQVX3MRo4x5BkePi/IFTReOMkepJa1vXxDI7pVdrMR
+         xV+drw0p8cq2M4gYNc+om96JJ2QfultTgtTlNq/7Ki95oA/HtRjGvVJHSv3630zfrnLz
+         f1JegL23Iwjwu2brdRJCefE4iXFYRJgHN+2qUwWBfGNmGTqckMueTg8QzBWn/YaLrnR8
+         5DdFXbVj3T+34GukyxL4XItmCSc//4T6cm9wKhG0C/YySK7xm2MQWFLqOYbdJfpNJGEg
+         3t0O7MbBc/GUBiSCX50K27JPpIhu1dxMERBlFVLt+7oUqVNmenWUh7drX00D88e0rKhN
+         camA==
+X-Forwarded-Encrypted: i=1; AKwUvByGyzSwXSrI1XTpChEpNUvrWj/OF+aA0wkl4h8ASedWJ3o1CXtshTJVo4yNSbgXPXhPmIm7OvjijNszxMs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVj4KUruYW1YcuqygQ+Sbzi2zxpC2RghbkrkL6l7qbsjI2XKUF
+	gx4PmKwNZi9gCdDRkfPBRV39JDjSlYwdA3XZV76SlBcBNTgASMAz/JB6
+X-Gm-Gg: AYBFou3Jkj/iezmcptCbbwXB1BkYZzn39j00/DNmawYc0iZzJQVYd8n/p74mlfi4E54
+	E+ZhlexsK/eFw83HgKDX9R6HfElIC7JFGY9Zl9ExbPOYFLiFXoZsmmxFbmrWm2K+cfpqioijjd6
+	a+WX35bmeuqer1wLWWVIjYl/cehlgB7alwQRfbeRQwu3pjERBXhae3jjXtYH8d738FIH4zy4xPs
+	UTXFlW4x2DPgxyWw2TAmxoSr9iPId0jJncenaMUTZqQHi0EPmdpqK1UN2CAY5dwxUWltEJvlM42
+	s7iaXLjnDqVBy7CGFKYgsb//O50UHJ3DhS1Q13DtDN+EjmHGy0vyJEpj7bBn8IPtiUrXhXn/05C
+	AMnnj4rdst2b7Su0WTrk9E8CHeVSrx0ZjWzIYYLgoC64beNZ9ISJrzozyqHlK0S98kdy8joTSz9
+	SliQNdOyzUkvQj6Cjmt0P0cvyhK9obDKnzFyIQk8lt4wstjTnoPsvAu3UQRD2zUTh0b0MbYV/aw
+	Z1JxgmEiH/g5k3dyKrPY+0t0Cl9N52d9u++aFWSai8hxNieFeKThJ988vqLfNVJSWFg5WcEt32z
+	RW+n6kvG2eJxE46Mm2543sCas01svgP6HIUk8yFSDDXv9UlnDRBrcUVqtAzzfaZwX9tCNODLtc1
+	1RM1LtZNP
+X-Received: by 2002:a5d:6f0e:0:b0:48d:ea67:79d4 with SMTP id ffacd0b85a97d-48e6e518c14mr5740707f8f.53.1793369421351;
+        Fri, 30 Oct 2026 07:10:21 -0700 (PDT)
+Received: from localhost.localdomain ([2001:861:39c2:e340:24ce:a263:4d8:38f1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71ba53d7sm5181973f8f.53.2026.10.30.07.10.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 07:10:19 -0700 (PDT)
+From: Romain TISSERAND <romain.tisserand@gmail.com>
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: Romain TISSERAND <romain.tisserand@gmail.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Liu Ying <victor.liu@nxp.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/bridge: dw-mipi-dsi: use the lane rate for lbcc when lanes run faster
+Date: Fri, 30 Oct 2026 15:10:18 +0100
+Message-ID: <20261030141018.3851266-1-romain.tisserand@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <9e3dc854-b2f5-459c-8267-55e88e87f5b5@rock-chips.com>
+References: <20261025142639.3454322-1-romain.tisserand@gmail.com> <9e3dc854-b2f5-459c-8267-55e88e87f5b5@rock-chips.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,111 +115,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027122417.954133-1-rojer@rojer.me> <20261027122417.954133-2-rojer@rojer.me>
- <CAPx+jO-SrC-8DKEfOC9KTMY=zHyiNVqNwiZyf7ipvX1=ZzZ1iw@mail.gmail.com>
-In-Reply-To: <CAPx+jO-SrC-8DKEfOC9KTMY=zHyiNVqNwiZyf7ipvX1=ZzZ1iw@mail.gmail.com>
-From: "Deomid \"rojer\" Ryabkov" <rojer@rojer.me>
-Date: Fri, 30 Oct 2026 16:09:25 +0200
-X-Gmail-Original-Message-ID: <CABFmFwoXejC7p_i4i4nctsqJ5e+CUP8tN5LnJ=5LVtuQPiCPhQ@mail.gmail.com>
-X-Gm-Features: AclHuK8qEgLA1GddyFvod5CZ6IsCRLe_wzw9sQ6U-TsEP2z-vAr9UYuIT3oUqm8
-Message-ID: <CABFmFwoXejC7p_i4i4nctsqJ5e+CUP8tN5LnJ=5LVtuQPiCPhQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] mmc: core: sdio: retry without UHS if UHS init fails
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: ulfh@kernel.org, linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	shawn.lin@rock-chips.com, llj@rock-chips.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Ulf,
+Hi Chaoyi,
 
-it's not wrong: after the "Read the common CIS tuples" and the
-subsequent vendor check the only two outcomes can be oldcard =3D=3D NULL
-or card =3D=3D oldcard.
-but your way is clearer, i will send v3 with it.
-thanks for the review!
+On 10/26/2026 3:17 AM, Chaoyi Chen wrote:
+> Adding different glue code for each implementation seems like a good
+> idea.
+>
+> Maybe you should try to add a new callback in dw_mipi_dsi_plat_data ?
 
-On Fri, 30 Oct 2026 at 16:10, Ulf Hansson <ulf.hansson@oss.qualcomm.com> wr=
-ote:
->
-> On Tue, Oct 27, 2026 at 1:24=E2=80=AFPM Deomid rojer Ryabkov <rojer@rojer=
-.me> wrote:
-> >
-> > If mmc_sdio_init_uhs_card() fails, e.g. because tuning finds no
-> > working sample phase, card initialisation fails and the card is not
-> > usable at all, even though it would work fine in high-speed mode.
-> >
-> > This happens for example on the FriendlyElec NanoPi R2S Plus when the
-> > SDIO pins of the RTL8822CS Wi-Fi module are left at their default 4 mA
-> > drive strength:
-> >
-> >   dwmmc_rockchip ff5f0000.mmc: All phases bad!
-> >   mmc2: tuning execution failed: -5
-> >   mmc2: error -5 whilst initialising SDIO card
-> >   [... repeated for every init frequency ...]
-> >   mmc2: Failed to initialize a non-removable card
-> >
-> > There is already a fallback for a failure to read the CCCR in UHS mode:
-> > reset the card and restart the init sequence without R4_18V_PRESENT.
-> > Do the same when UHS init fails, so that the card comes up in
-> > high-speed mode instead:
-> >
-> >   mmc2: UHS init failed (-5), retrying without UHS
-> >   mmc2: Skipping voltage switch
-> >   mmc2: new high speed SDIO card at address 0001
-> >
-> > The fallback is taken at most once, as the retry doesn't request UHS.
-> >
-> > Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
-> > Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
-> > ---
-> >  drivers/mmc/core/sdio.c | 10 ++++++++--
-> >  1 file changed, 8 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/mmc/core/sdio.c b/drivers/mmc/core/sdio.c
-> > index 83085e76486..6787fdf1c53 100644
-> > --- a/drivers/mmc/core/sdio.c
-> > +++ b/drivers/mmc/core/sdio.c
-> > @@ -867,8 +867,14 @@ static int mmc_sdio_init_card(struct mmc_host *hos=
-t, u32 ocr,
-> >         /* Only if card supports 1.8v and UHS signaling */
-> >         if ((ocr & R4_18V_PRESENT) && card->sw_caps.sd3_bus_mode) {
-> >                 err =3D mmc_sdio_init_uhs_card(card);
-> > -               if (err)
-> > -                       goto remove;
-> > +               if (err) {
-> > +                       pr_warn("%s: UHS init failed (%d), retrying wit=
-hout UHS\n",
-> > +                               mmc_hostname(host), err);
-> > +                       mmc_sdio_pre_init(host, ocr_card,
-> > +                                         card !=3D oldcard ? card : NU=
-LL);
->
-> Is this really correct?
->
-> If there is an oldcard we should *not* pass the card (since it would
-> be equal to oldcard) to mmc_sdio_pre_init() as it would remove it.
->
-> If there is no oldcard (oldcard =3D=3D NULL), we should pass the card to
-> mmc_sdio_pre_init() to make it remove it.
->
-> In other words, how about just:
-> "oldcard ? NULL : card"
->
-> > +                       retries =3D 0;
-> > +                       goto try_again;
-> > +               }
-> >         } else {
-> >                 /*
-> >                  * Switch to high-speed (if supported).
-> > --
-> > 2.53.0
-> >
->
-> Kind regards
-> Uffe
+Makes sense. For v2 I've dropped the threshold and added an optional
+get_hcomponent_lbcc() callback to dw_mipi_dsi_plat_data. The Rockchip
+glue implements it from its lane rate, and the other glues keep the
+current code since they don't set it.
 
+I've retested on the GPD XD and will send it on November 1st.
 
-
---=20
-Deomid "rojer" Ryabkov
-rojer@rojer.me
+Thanks,
+Romain
