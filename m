@@ -1,72 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793404602;
-	b=YDbW7/SfCOOabhNjGzwJ8cYuwNz5wLE11DG5EVJflDW6mwhDbOZU57NJjVr9TMcHL9qO
-	 BIIUOLgrgvvEYu0ju7XtoxxXnsmb+56PfVt7vOhDgIlXnclN08gBRtXzrK0/xJeW8EGdi
-	 uxrA84iRX3pchCiF656sM18/B+dqso61p6Z/Pn7WFtKzJjEK0HlQH1cQ6Qt5bnftSjPJ7
-	 zl1O7ZVB7drN83O7aMvmcofHZ9JxUXnmeWG8ihAmwS/2tPeOymIwG+NNCUve53uSXiJFX
-	 F2m0tzb6Pogy+ZNVS3sAcv5qCV0vaulihsldHtyy2QM7N8zvttZEDeSb2qUC195pMsQ==
+	t=1793404650;
+	b=SZzwu5OnPKBNCpdLBjT0CK5xO/t1EP1ausyEdEFmRpTI6sXcHSdaEgQIi01pLSOyZpTb
+	 3LYg7HSthP8/VImdIRP69U0Qu4i3ubq1VncpjkU35TsVV0eRIRIWW28ZpZZ/W0TLKmG6q
+	 DFOKFo6oR3hJ4+wue7hvs5kBBzIxFTaE1AMW+FfuHrt6FmO9FCZ8mmaC4KX3K+kRPbgAz
+	 AK1s4N3JOh6HKKbw0XUxY/x8LQDuR7k8+re4PEw6AYa4n8H+t3LQH3FNJxFN1Of4DP+sd
+	 wJLsK7/GvHCcTFs/k/g9pzB6gRVLetu/BK96LohWKeK0JgQxealERuklJZ74d979Gkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793404602;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=tuKOjEjKEOS6GlJnkqOXy2dtjd2kG7cyiYeWqqFjOA8=;
-	b=npOH+Opk5IVp3Ny8naY2xnqVjBazjPiXAbinL+DonMGKwSDiNIzEnDbk8G9J0nrLH8uu
-	 KzUUW3afQW0484kqaCXD3P+oURuemXo0D8mvqCtEj9YANJt+Uuh4MtjJzlRRBV6R8X6x/
-	 /rj3iXagbw4PdXeVEJ3wuNJdRxBlmyZyEg9GCTIpur23Wndxlz5zc2tK5tesdlJvmqL7Y
-	 1V8kFkTKEK2q73xf69nreN8y7uDsjCXrnDL/bIYLi/UL+TC24Wk3Cm/NCceujT0DwECW+
-	 6vftWhm7JBhaX1N8I+VMKIvV8HiCeAnZE2HYVxxqcqs1/Q+6iXHoVRu4IWDe/UDE/0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793404650;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3EuxvSewNdXujnqS9ssYqa7k7KdCysDqjb7ER7jH6jU=;
+	b=E7O3fvqFeg0fjJdtBcBZEadqiCYufPyjycCH6GJndYcs8hieEBaz8jRSgNvGQPkllI6Z
+	 9MFrXHH84fWglBXUfg1bRNt7oSz3cx1fuDNz1IxzVam64BFHkFQse/U+en+d1NWfDuCiN
+	 bYlqAtxDISHQf+nlvhy7NJ9X102zpLAkPj4ksURwlf5YmyxsmQ4qV90jj0I+KMQkqO9G9
+	 JeJe0F99FSySfe71TNh5lHmW0QoBpoBS/uEtAJrCkAme9YsxiX9AqTZORfRbt4OuqDvcI
+	 g+vPPleLYjcGjSOVT0Fcivstji8MY+QWYVpVxsrW7WIHgnDJLzuvmbu4V318/uaEQaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=w6rz.net;
-	spf=pass smtp.mailfrom=w6rz.net;
-	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=lsNL5Lff;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aUy+mhUK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D87606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:56:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6D87606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9AB606A31A;
+	Fri, 30 Oct 2026 23:57:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=lsNL5Lff
-Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
-	by cmsmtp with ESMTPS
-	id MmDExMw2TLvgbMwSfxTJom; Fri, 30 Oct 2026 23:56:41 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id MwSexfCFs1fkWMwSexKYho; Fri, 30 Oct 2026 23:56:40 +0000
-X-Authority-Analysis: v=2.4 cv=CLMqXQrD c=1 sm=1 tr=0 ts=6ae52eb8
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=UugJSfOUJsejIDDmsRwA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=tuKOjEjKEOS6GlJnkqOXy2dtjd2kG7cyiYeWqqFjOA8=; b=lsNL5LfffEj8u7hIbI+Dr6zUiz
-	Ky/lRqktBDRf2C9GN9XEI1It6oEgmUJcG7W0UcVZabWKR97TT99vyevoOXmPsHy7qhA5QhDivbZc9
-	6PNNAAeGVyIVLnRDSU2Zw/96iE1wgNTzBg3iz38DhQ6x6L/zp6TAO5wFjuXOvXg+SztjwF/5rXEjU
-	znDcqpRO/Cp6/B93AcaFircvX0qyWFXVjYtwfMOWSYHe6JjM1rVDoW7Pen8nsDSO9aNZ8NoCpbvWS
-	INdxT4hhDGAzkWEdG5XGfM/QUbZ4okwIKkTfDP+6C7yWcMuo9w4tgvSBcNPvmYY+NHpMIcWU0Zy2U
-	Q19/iu9A==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:55120 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xMwSd-00000002X6Z-2Tik;
-	Fri, 30 Oct 2026 17:56:39 -0600
-Message-ID: <b069b9b7-49fe-4a39-8f3b-c72f90b2d774@w6rz.net>
-Date: Fri, 30 Oct 2026 16:56:37 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aUy+mhUK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 954F51F000C1;
+	Fri, 30 Oct 2026 23:57:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793404649;
+	bh=3EuxvSewNdXujnqS9ssYqa7k7KdCysDqjb7ER7jH6jU=;
+	h=From:To:Cc:Subject:Date;
+	b=aUy+mhUKlPKj1k00PKbTZpkFkKrS3+kMpmdSwLcIpi6goyoc+1q+TfcNL0aD0W9Yt
+	 blWj39Bpsm2omJ3oxc4A3nfCzxwZZrcBRTeiOxEGqbSqccSrXeOccywf1GNJp5fYro
+	 d9qGdXt7OCs67PLCK5sorexaNEuel2Rngrc7AzBeAa9lSV67vjN3/oLUJ/U7qdo6Hz
+	 bFsKBEcNKqiJfHdYLEIY6z/TkKqF3aS98aF97zpvFBQ0WwDn2SaILWaTtxUY/etqKm
+	 v7bq6T1w8x0fnS6o9ozW/4WxDiYra2wCntLHPrDesy4iJLLmWM6ZJt6tuUBFop0zfC
+	 Je2rOQagLbWew==
+From: Tejun Heo <tj@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCH v2 sched_ext/for-7.4-fixes] sched_ext: Fix stale pick when a wakeup resets the donor during dispatch
+Date: Fri, 30 Oct 2026 13:57:28 -1000
+Message-ID: <20261030235728.4098872-1-tj@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,63 +61,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 00/10] 7.2.15-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261030121255.257615100@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20261030121255.257615100@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xMwSd-00000002X6Z-2Tik
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:55120
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 17
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfELbssMxQTQkLSI7adLGIuNWCgV6y1ON8wW1l4C+sPfTXfObij5GnIIA4V6X4FuqbxPEu0FnrgPb29Sd6G7NzCuY0PJHDHE0kf0gEBLi9TbJwwgef1MS
- 6MUrObjhcKU9AS+DFD4UcGJ0GEhUtg+4nucKtzxohQajWWXjTQ1ZCBqZadPnW3LBkC7LvwAU/x8zr2V6Q6WivgtiGaRtmFhK578=
+Content-Transfer-Encoding: 8bit
 
-On 10/30/26 05:15, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.15 release.
-> There are 10 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sun, 01 Nov 2026 12:12:50 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.15-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+With proxy execution, do_pick_task_scx() passes rq->donor to dispatch_one()
+as @prev. Unlike rq->curr, the donor can be moved to another CPU by a wakeup
+while dispatch_one() has the rq lock dropped:
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+1. dispatch_one() drops the rq lock, e.g. to move a task from another CPU.
+2. Another CPU wakes the donor, which proxy execution migrated to this CPU.
+   proxy_needs_return() dequeues it and resets the donor to rq->curr, and
+   the wakeup enqueues it, possibly on another CPU.
+3. dispatch_one() sees @prev queued and returns SCX_DSP_PREV.
+4. do_pick_task_scx() returns @prev, and this CPU runs a task that is queued
+   on another rq.
 
-Tested-by: Ron Economos <re@w6rz.net>
+sched_proxy_block_task() resets the donor the same way when another CPU sets
+@prev's policy to SCHED_EXT or moves it to another BPF scheduler, and blocks
+@prev instead.
+
+Whatever dispatch concluded, and whatever it does with @prev after the drop,
+is about a task this CPU no longer owns. rq_modified_above() catches the
+reset only when rq->curr is in a class above ext, and the dl_server pick
+skips the check.
+
+Restart the pick when @prev is no longer the donor, as dispatch_core_pick()
+already does after a lock drop. dispatch_one() tests after each step that
+can drop the lock, and scx_dispatch_sched() decides per ops.dispatch() call
+whether to hand @prev over, which also covers a class or scheduler change
+across a drop. The donor only ever changes to rq->curr during a pick, so the
+retried pick can't go stale again.
+
+7a3a6bfbd62a ("sched: Rework prev_balance() to avoid stale prev references")
+closed the same window in prev_balance() by reading rq->donor instead of
+taking @prev. That doesn't work here, as the dispatch never evaluated
+rq->curr, which may not even be a sched_ext task.
+
+Verified with a synthetic reproducer.
+
+v2: Also cover rq lock drops inside dispatch (sashiko).
+
+Fixes: c6fe97c34a1a ("sched: Allow enabling proxy exec with sched_ext")
+Signed-off-by: Tejun Heo <tj@kernel.org>
+---
+ kernel/sched/ext/ext.c     | 20 +++++++++++++++++++-
+ kernel/sched/ext/inlines.h | 29 ++++++++++++++++++++++++++---
+ 2 files changed, 45 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index cd923f9f1f2a..43cf98c1d511 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -3407,6 +3407,12 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
+ 		rq->scx.cpu_released = false;
+ 	}
+ 
++	/* the ecaps sync may have dropped the rq lock */
++	if (scx_dsp_prev_stale(rq, prev)) {
++		verdict = SCX_DSP_RETRY;
++		goto out;
++	}
++
+ 	if (prev->sched_class == &ext_sched_class) {
+ 		update_curr_scx(rq);
+ 
+@@ -3449,8 +3455,19 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
+ 	}
+ 
+ 	verdict = scx_dispatch_sched(root_sch, rq, prev, false);
+-	if (verdict != SCX_DSP_NONE)
++
++	/* scx_dispatch_sched() may have dropped the rq lock */
++	if (scx_dsp_prev_stale(rq, prev))
++		verdict = SCX_DSP_RETRY;
++
++	switch (verdict) {
++	case SCX_DSP_RETRY:
++		goto out;
++	case SCX_DSP_NONE:
++		break;
++	default:
+ 		goto has_tasks;
++	}
+ 
+ 	/*
+ 	 * Didn't find another task to run. Keep running @prev unless its own
+@@ -3517,6 +3534,7 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
+ 		     rq->scx.nr_immed))
+ 		scx_schedule_reenq_local(rq, 0);
+ 
++out:
+ 	rq->scx.flags &= ~SCX_RQ_IN_DISPATCH;
+ 	return verdict;
+ }
+diff --git a/kernel/sched/ext/inlines.h b/kernel/sched/ext/inlines.h
+index 1e39d12678c4..fb0c58927d42 100644
+--- a/kernel/sched/ext/inlines.h
++++ b/kernel/sched/ext/inlines.h
+@@ -18,9 +18,28 @@ enum scx_dsp_verdict {
+ 	SCX_DSP_NONE,		/* nothing to run */
+ 	SCX_DSP_LOCAL,		/* local DSQ has tasks */
+ 	SCX_DSP_PREV,		/* keep running @prev */
+-	SCX_DSP_RETRY,		/* pick helpers only: restart the pick */
++	SCX_DSP_RETRY,		/* restart the pick */
+ };
+ 
++/**
++ * scx_dsp_prev_stale - Test whether dispatch's @prev went stale
++ * @rq: rq being dispatched for
++ * @prev: @rq's donor when dispatch started
++ *
++ * With proxy execution, @prev is the donor and may not be the running task.
++ * Another CPU can reset the donor to rq->curr while dispatch has the rq lock
++ * dropped. Dispatch restarts the pick when that happened and doesn't hand the
++ * old donor to the BPF scheduler.
++ *
++ * During a pick, the donor only ever changes to rq->curr. Only __schedule() on
++ * this CPU sets a different donor, after the pick, so the restarted pick takes
++ * rq->curr as @prev and can't go stale again.
++ */
++static inline bool scx_dsp_prev_stale(struct rq *rq, struct task_struct *prev)
++{
++	return sched_proxy_exec() && unlikely(prev != rq->donor);
++}
++
+ /*
+  * One user of this function is scx_bpf_sub_dispatch() which can be called
+  * recursively as sub-sched dispatches nest. Always inline to reduce stack usage
+@@ -33,8 +52,7 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
+ 	struct scx_dsp_ctx *dspc = &this_cpu_ptr(sch->pcpu)->dsp_ctx;
+ 	int nr_loops = SCX_DSP_MAX_LOOPS;
+ 	s32 cpu = cpu_of(rq);
+-	bool prev_on_sch = (prev->sched_class == &ext_sched_class) &&
+-		scx_task_on_sched(sch, prev);
++	bool prev_on_sch;
+ 
+ 	if (scx_consume_global_dsq(sch, rq))
+ 		return SCX_DSP_LOCAL;
+@@ -106,6 +124,11 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
+ 			rq->scx.sub_dispatch_prev = prev;
+ #endif
+ 
++		/* the dispatch so far may have dropped the rq lock */
++		prev_on_sch = !scx_dsp_prev_stale(rq, prev) &&
++			      prev->sched_class == &ext_sched_class &&
++			      scx_task_on_sched(sch, prev);
++
+ 		SCX_CALL_OP(sch, dispatch, rq, scx_cpu_arg(cpu),
+ 			    prev_on_sch ? prev : NULL);
+ 
+-- 
+2.56.0
 
