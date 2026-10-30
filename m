@@ -1,93 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793340023;
-	b=b5q3xBbw8GALjP+Il233AbdAb5bmAb6LLbU/sZawp1deR7fasr4nl8gf2u4Ghy7RrbJW
-	 n7BFCRipyydMJFVo/qjonPTYA7xVTk603xxF0ySVq/TDYZhNpNZl/BxNQOlvJkB7JfoOn
-	 oBTbDJYA3YHo1VZw7fCs50Cf+GoNRLlYh8ffS+0v1q0p+F/RSwL9ZZwCPbuhZrFs+PcbK
-	 cqaIwgh+F3AYWoAG+0mgz8+LgFxeqerC3jEe+h0mnR24k+UkA4iGenaSAL2cwwYqAUox+
-	 xNa1ivQ2UIyvbxIIvAWNDWXqNb74oWjd+RtB694lF1LZv46kRMF1d3rORIe+rhVjInA==
+	t=1793340028;
+	b=YnOkauKFed1WDD1a39UIBQV0wzpektLqo6Ku62bqNKZBly6wp218PQzbuhTRh25QCox5
+	 juw/qEQWEg2+PF2qcgcNybjVi08ng+oayY9ortckyXz1pDEsWpprbr4vpf9HC+J9HpQcl
+	 QC9Ukwt1NVaYEb0Ze6ffxGf8vVNy/6fG8LO4c/NVIP908aRog3i2R2OCJDpxt1s5cEyq9
+	 0IYjyn/m9FyKdzUa53K71TuKZn5qzUrt7dqtEpm0kyTxQRAmsLfJJVK9W/NpbkhgcDwO9
+	 RJwEFvIFqIP0rtKu8o5CjyG217M3vHXM2O0dx+9QrwV89ok32sZky2+gpIj06o8EYuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793340023;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/6bqAv1/Jm5xeOExYjkOudRYuHmH74jNAMEu3UFrpqM=;
-	b=pE073A0XB2Ivslf/tXvDYwP/ygJlxHysZwcO1gyize6K1Dccvcw+IsOSf8goJIATxi0U
-	 3ezHWc9tY/cdlHcuL64cczJUPokPA8xzUDiCJvzWfjoMs0sDXAzNHMyUHSKPwGBW1W+6C
-	 2xfZtF0rW6F+5XV45tkYHdqBHQb1SaKFPuw2gMCvzz85ll/aXqiYt4k8yY+n5hkGYZxsw
-	 xRKWuQi4aBLAwLJCbCVF0D+YzyATnCMtMi60dThT97Lnv8Ie6BKlLYWKMEXRdORUelvEj
-	 txWVRB8t0B6z3e9EwCoOHZ75H+Fut4LkB9sq7O1U2FGIwm5PS9lRS9/k6Uv99CwMMvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793340028;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=X0371SJevF519y+FyAxegceguZyUW/5BWi3LbfDEn5s=;
+	b=qQjqVZKoCosIS08RP3LICmcCn3zdS8XiSL/iOL7Sw6CCe7PES9Q8CIaS4VU/reIybeED
+	 L/VI8SXK2fKL6grTr9QvWUeFQgUQawp9PMvPKXE0UnoeGhdy3USzX7/zm3Y3o4LUjP3c/
+	 FSbxBb4C+dDpW2jaMe9N+9TcOza70wSQq0E2KmLtlx+sm4y0/njYA2sMjNjH7JRRtS1np
+	 y1IUNf8Y7tCGgQgA4TisBSwV8aSZxF1LClMJoty3jBlGtU3Ec2MzdkGOXpCak9KGJb2k4
+	 q+JM1Ax1jqilpXiDG1jTJQU5HgtPTUhD3CqZHD24D6CKyraUNXNPbV89Dz/blhCYJeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hfiuqSdg;
-	arc=none smtp.remote-ip=74.125.229.7
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E358606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:00:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E358606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hfiuqSdg
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-369f126a526so571319eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:00:23 -0700 (PDT)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8EC29606A325;
+	Fri, 30 Oct 2026 06:00:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EC29606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793340022; x=1793944822; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/6bqAv1/Jm5xeOExYjkOudRYuHmH74jNAMEu3UFrpqM=;
-        b=hfiuqSdgGTyi3DgDanEABTUkeTWUf9tE0vV1yMhwhlDpkwVFWU7y0V8y80TLGzKTQi
-         p9Z7zIgcyDWyHKCgcl4Wf/UqvNquZcX+2FS1WruyZyY4bEfsSi82bGHVrmNv5C9fZC/p
-         h5K0zy2lJLwfTQBhvQ2NGnQ9MFJaR8LMsV+3E2qefIx8deA4LBAnSdWQC/Vxpr/x59nt
-         I5o6LpJLGPc9n+MQnr3RP3XCdaay8q0WgJ2w3F8xWXKbm9718GJk4tZx7WikAG/ccMJk
-         KQigOP0f4mRJvNJ+3W8bHqocfcxuatZd8V6q4AsOO4ckf0V4YWttLVg+HgUoebfjkU/C
-         Qr0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793340022; x=1793944822;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/6bqAv1/Jm5xeOExYjkOudRYuHmH74jNAMEu3UFrpqM=;
-        b=Sr5nOha8zxN+MPzJcTolz4gvM1U39GsexmahGuFWVOEAltu+bj/p7q8YRbcQ1qAXNt
-         N3XmlgPJnYuGP5jOFg9VwJj1IMVjBeGURz37k7VVoBgGagHEiJGz1pE69JNF2UaY9sj5
-         Ihx6jNNturl4Brz8e6hTizTVESRzqcLMgR13rd7kJSUDZDGsqqGa28fbH8Moajh7JvQD
-         gZ1cEsyjMBZgPNuYw+Vz+u+roVDJkVlnvEW88v2vYeAOa1HimpE5sSeB8cjMR0PfDQqV
-         ykdbxgGhRm5s5eieSQgDRoCinshvEKY3oXWVpZDdHNfwYi3cXzPTHkHcLfTD6LFT8EGl
-         9dNA==
-X-Forwarded-Encrypted: i=1; AKwUvBz4pfEUiwgmkTM2ir6+4OzV4v2nzgnP79udxww1OlFEOJ33Dg6CVEPq1wtLIAZuABX1cmcYj5qb0Fuvpgk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIO18kmP9OFMqONTxc9+R0XN86+IxV4d3Ufwq83yHue6IXYuW6U
-	ny83cXINzcBjTvmj+PGtxqLEAKUDwGFWG0sXXjitY48Xx0V/qCR96cBa
-X-Gm-Gg: AYBFou1iq/eqxy3OB5+vYLsuP6Ofh9DEKT4w+ZLRcEXvAYo+UfkmHv0fDhAS5z9+Jv/
-	tqBAl8vqInsJ/Grv5Sn+EER3p3/fCvCk1Krrwa9NGwTI/fJFD3ykK3teG1tuYeI8OHUbyTuuOee
-	l7NIEfsj22w+bF5Z1m3SK4J1Q9bjnqv1UFZb8JWuV3yjbQqdP3D3sLZPjiLeaMGVg5+FZO8r+WC
-	7JlnKeiy0s5b9Fei1dyBvQKPsxl2uevy1DJupZCUynlC8UBLKZfPgY7hF0J7Ys+SCMp35hbCtZm
-	HVxumxvSPXMbcXp9wR+VvJHIwoquBH31Fl2IqXCkbUHguHnMP222YPv8otgoNjBPSrXgvdpwykI
-	sH4dPAkay4FeKPY71nEMYoMIcTUGhJLeqCQQEDki5OBZcOAN1jY5AZ0hc7g7iWi5shq8LgnA9o7
-	yErkczURLCLew8GDtkV78pDZPN3J/ZC74IZiuLBaLxawAeq03z9+cPGg/CtQcdG7Cp4c1Mwy1Um
-	l4Cqs3nOzBUr64DWOJbGqc8549+NT40LQaByl4kUuNs++kvkq8GjEg1h7AOGQA0ge2l2DlpYAHG
-	2Qeh3AIMi7xYwfVaAYdcPDlsVfcB80bWKPOMzTHQCHsCWpNiIYk+WojB
-X-Received: by 2002:a05:693c:69c9:b0:36a:13df:749d with SMTP id 5a478bee46e88-36a423b3dffmr1914478eec.24.1793340022086;
-        Thu, 29 Oct 2026 23:00:22 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a96172sm3833306eec.27.2026.10.29.23.00.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 23:00:21 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: hirofumi@mail.parknet.co.jp
-Cc: akpm@linux-foundation.org,
-	brauner@kernel.org,
-	linux-fsdevel@vger.kernel.org,
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:MIME-Version:
+	Content-Transfer-Encoding; bh=X0371SJevF519y+FyAxegceguZyUW/5BWi
+	3LbfDEn5s=; b=W8CqS+rKD4+vKLb+VNpXGC+V8EpTCEZFWHWD6e7vO5oPAuvuWv
+	OAkmfQJkdU2arKTwBrYQzxsDqN3wyt3nufIOCYBB510E2eFzbZvsWZzkPtUtQonc
+	zpjgNOmuFK6uvLmrF/CY7I3yNL/nA9iUIe+McLMfWtR8eSRf2C7g4ypgs=
+Received: from localhost.localdomain (unknown [223.160.172.89])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkDW_gRoMuRqdYcHAQ--.5955S2;
+	Fri, 30 Oct 2026 14:00:10 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH v3] fat: fix parent link count when replacing a sibling directory
-Date: Fri, 30 Oct 2026 06:00:11 +0000
-Message-ID: <20261030060011.70237-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH v3] media: dvb-core: prevent frontend thread resurrection
+ after unregister
+Date: Fri, 30 Oct 2026 13:59:55 +0800
+Message-ID: <20261030.pref-01.1bb885fdc3d94a60@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.45.1.windows.1
+In-Reply-To: <20261027012542.5029-1-25031212351@stu.xidian.edu.cn>
+References: <20261027012542.5029-1-25031212351@stu.xidian.edu.cn>
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,137 +64,38 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkDW_gRoMuRqdYcHAQ--.5955S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYp7k0a2IF6F4UM7kC6x804xWl14x267AK
+	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1j
+	6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gr
+	1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAac4AC62xK8xCEY4vEwIxC
+	4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
+	IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
+	M4x0Y48IcxkI7VAKI48JMxkIecxEwVAFwVW8AwCF04k20xvY0x0EwIxGrwCF54CYxVCY1x
+	0262kKe7AKxVWUAVWUtwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j
+	6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64
+	vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_
+	Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0x
+	vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jr_-PUUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUCD2rjY8F8lgAAsL
 
-vfat_rename() and do_msdos_rename() adjust parent link counts only when
-updating the dotdot entry for a move between different parents. Replacing
-an existing empty directory in the same parent also removes a
-subdirectory, but leaves the parent's link count unchanged.
+Hi Mauro,
 
-For example, renaming one of two sibling directories over the other
-leaves the parent with four links instead of three. stat and ls report
-the stale count, and find -links 3 does not match the parent.
+Could you please review this patch?
 
-Drop the parent's link count for this case after the source entry has
-been removed successfully. Leave cross-parent renames, regular files
-and the existing error paths unchanged.
+  [PATCH v3] media: dvb-core: prevent frontend thread resurrection after
+  unregister
 
-Share the parent link count check with rmdir through fat_dir_drop_nlink().
-Only decrement counts of at least three and report a filesystem error
-otherwise, rather than reducing a corrupted directory's count below two.
-Export the helper for the VFAT and MSDOS modules.
+It prevents the DVB frontend thread from being restarted after the
+frontend has been unregistered.
 
-Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
-Changes in v3:
-- Move the parent link count check into fat_dir_drop_nlink() in the FAT
-  module and export it with EXPORT_SYMBOL_GPL(), as requested by
-  OGAWA Hirofumi.
-- Use the helper in all four places: the VFAT and MSDOS rmdir paths and
-  the two sibling-directory replacement paths.
-- Retain Hirofumi's Acked-by from v1.
+The patch is unchanged. I am copying this address for visibility.
 
-Changes in v2:
-- Check the parent link count before decrementing it and report low
-  counts with fat_fs_error(), matching rmdir(), as noted by Sashiko.
+Original submission:
+https://lore.kernel.org/r/20261027012542.5029-1-25031212351@stu.xidian.edu.cn
 
-v1: https://lore.kernel.org/r/20261028211626.26103-1-dennylin0707@gmail.com
-
- fs/fat/dir.c         | 10 ++++++++++
- fs/fat/fat.h         |  1 +
- fs/fat/namei_msdos.c |  9 +++------
- fs/fat/namei_vfat.c  |  9 +++------
- 4 files changed, 17 insertions(+), 12 deletions(-)
-
-diff --git a/fs/fat/dir.c b/fs/fat/dir.c
-index 35bdb62944a2..0cebcaf82426 100644
---- a/fs/fat/dir.c
-+++ b/fs/fat/dir.c
-@@ -963,6 +963,16 @@ int fat_dir_empty(struct inode *dir)
- }
- EXPORT_SYMBOL_GPL(fat_dir_empty);
- 
-+void fat_dir_drop_nlink(struct inode *dir)
-+{
-+	if (dir->i_nlink >= 3)
-+		drop_nlink(dir);
-+	else
-+		fat_fs_error(dir->i_sb, "parent dir link count too low (%u)",
-+			     dir->i_nlink);
-+}
-+EXPORT_SYMBOL_GPL(fat_dir_drop_nlink);
-+
- /*
-  * fat_subdirs counts the number of sub-directories of dir. It can be run
-  * on directories being created.
-diff --git a/fs/fat/fat.h b/fs/fat/fat.h
-index 76978a268410..a8a3ca4f465b 100644
---- a/fs/fat/fat.h
-+++ b/fs/fat/fat.h
-@@ -332,6 +332,7 @@ extern const struct file_operations fat_dir_operations;
- extern int fat_search_long(struct inode *inode, const unsigned char *name,
- 			   int name_len, struct fat_slot_info *sinfo);
- extern int fat_dir_empty(struct inode *dir);
-+void fat_dir_drop_nlink(struct inode *dir);
- extern int fat_subdirs(struct inode *dir);
- extern int fat_scan(struct inode *dir, const unsigned char *name,
- 		    struct fat_slot_info *sinfo);
-diff --git a/fs/fat/namei_msdos.c b/fs/fat/namei_msdos.c
-index c7500c2859e0..5a43d042eb01 100644
---- a/fs/fat/namei_msdos.c
-+++ b/fs/fat/namei_msdos.c
-@@ -333,12 +333,7 @@ static int msdos_rmdir(struct inode *dir, struct dentry *dentry)
- 	err = fat_remove_entries(dir, &sinfo);	/* and releases bh */
- 	if (err)
- 		goto out;
--	if (dir->i_nlink >= 3)
--		drop_nlink(dir);
--	else {
--		fat_fs_error(sb, "parent dir link count too low (%u)",
--			dir->i_nlink);
--	}
-+	fat_dir_drop_nlink(dir);
- 
- 	clear_nlink(inode);
- 	fat_detach(inode);
-@@ -565,6 +560,8 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
- 		(void)sync_inode_metadata(old_dir, 1);
- 
- 	if (new_inode) {
-+		if (is_dir && old_dir == new_dir)
-+			fat_dir_drop_nlink(old_dir);
- 		drop_nlink(new_inode);
- 		if (is_dir)
- 			drop_nlink(new_inode);
-diff --git a/fs/fat/namei_vfat.c b/fs/fat/namei_vfat.c
-index ff7652bf0410..791f2d7b8509 100644
---- a/fs/fat/namei_vfat.c
-+++ b/fs/fat/namei_vfat.c
-@@ -809,12 +809,7 @@ static int vfat_rmdir(struct inode *dir, struct dentry *dentry)
- 	err = fat_remove_entries(dir, &sinfo);	/* and releases bh */
- 	if (err)
- 		goto out;
--	if (dir->i_nlink >= 3)
--		drop_nlink(dir);
--	else {
--		fat_fs_error(sb, "parent dir link count too low (%u)",
--			dir->i_nlink);
--	}
-+	fat_dir_drop_nlink(dir);
- 
- 	clear_nlink(inode);
- 	fat_truncate_time(inode, NULL, FAT_UPDATE_ATIME | FAT_UPDATE_CMTIME);
-@@ -1011,6 +1006,8 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
- 	vfat_update_dir_metadata(old_dir, &ts);
- 
- 	if (new_inode) {
-+		if (is_dir && old_dir == new_dir)
-+			fat_dir_drop_nlink(old_dir);
- 		drop_nlink(new_inode);
- 		if (is_dir)
- 			drop_nlink(new_inode);
-
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
--- 
-2.43.0
+Thanks,
+YuanZhe
 
