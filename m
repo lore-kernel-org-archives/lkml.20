@@ -1,68 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793380097;
-	b=Evplfl0SXSsjufFTsn8SFrQaPiYn9TrebeKnBAbs4jFsse0OPRdwhH9LyvpwQLAVFpfY
-	 c8eAEe3I6ciiUh3wwi+bODWOVBFpzvmT3w8ztD4R+mFfjvTtdfALknTE3JSK2WYCE1skk
-	 TmOQPuSBJh0tWvfhFbhFTuhxOmIegqkBW4CwNUN3Asotf2OpfVUT3VcbxKA74iDqhqZsb
-	 s1euyDEgqb8Bc6QJ+jzHsxqm/wwEeC8QPEMV9WxjsyUAv3Zq24wjvIB1MyVXZmBCYb9Rw
-	 Mlf3jfkSL9nqBoxPyxwBV9gSMcpGALigEiRGhr1dUqbHmO2kX3HQS7qja+GTNppojXA==
+	t=1793380098;
+	b=hxMZ737j1S6XCQLwxwaQ/lV4peBlqlWMmvTFxnVzEdXmd2fcmuPx7q8t6COn4aGFIeKz
+	 gWHVH9u508iPHBhWrTb+dyaIVH5cEh2WfihbdiU5wtIf+EWSURlWiQ7uTv8jJ1jJh1izE
+	 K023DnQnlV6pJYOfe7hOvbEWTo4+olB/YHHXrnB2yT/Q3rZTN4BLKiqZnI8jZyrLJPqH4
+	 BY9GyKlC4E+0XkCdMh2+UtS6OtYIKDnf6sGgEQx7dzZKJLCz8ctzkmGnP3wk8S8b7fuE5
+	 Fj1D10dlNqFGIgEHR96AMdPuYYo1Oq9TdXsHicrfjqubVYPz+S3CMbWu9aMrczOg3+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793380097;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=MxTNcFovyeUvNcbkqmtArfTu7j98UPGtZOH5XMgUOCs=;
-	b=GtHKtkA9OyqZSMFhOObYQdPdd356ESNW3fCyoyjEuvKRvO8Yigv+q72hYYhjn6aG1pC5
-	 DxxV1R4IlFuipewi6pfd/5Sw8HTPCAA8Khdct2MFW6iuIvXEbmbgjEALjPOkmC57ANVdR
-	 wdLVRuEeGm8u9iwSTVR4vM5AkCetoLt+Q2A8rW7OKpMMUqeOF5D0IoEXl5pLHzQO+vfch
-	 AZU9EEKlZcpqSbMNCo9Iwngk9ElnxkNmaajyDlNfwiNMbhfDGCVbUW2rTWEp4ugd3g1Kb
-	 7Ol+3ESIjv6WcpNuqxUcXhR9cJ0Wz1W1tUtjnLHSAgqQ/0NI9EUp4QyeRcHWPtu+AVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793380098;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=UJQFo6lBsRxUZVqaTAfTugCYtH9lDVXLbR2YaM1dQaQ=;
+	b=VycFYsEiDdRVBu7pepg4WfaIrPGQCcRY5MF8EKHGNxpNXtIeQu3J7xIYAg0zjVPudlX5
+	 h6udhFA8T7fVWvvdq15dx0sWJClB4MT4p/YeYGojENVINIcbMPQOwziYjJPgIU3BmccBQ
+	 UJV2xD3UnTPPpk9DC0/MPMHVi2El1Junl9MVexf0g1BgW6Bd/QTVZ25w8zNXNQaL+f4Qy
+	 F4+m62bur3ecYCOiOdy9oRxsSQw8S1XoSh9hjQ16sAuVYPzGZ6IHk6Lefd4x+attMP8Gl
+	 MrkWPSyDtWG+Hv7zmoelHJ9RsGBHh2wPIqcLdDWhlTwFfyvbwzd7NePo4ha4MP2M5sA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DuwCMLGa;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PtFuYrJH;
+	arc=none smtp.remote-ip=209.85.217.42
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1113606A31D;
-	Fri, 30 Oct 2026 17:08:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1113606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0CB606A324
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:08:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB0CB606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DuwCMLGa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793380097; x=1824916097;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=aUI5eh52NNsqWKRcNFvW4Cmvnj+EOLZmBgtljE5pYJA=;
-  b=DuwCMLGah0Gc/H7wWBT+hSTOleLV+rgz/4TlAdR6jqVZ5pTURcrhGVrh
-   niVaNtam273+TA3Tk007bfL9op3GnuRRdo9tjFV/ssWF5MgLUyehlOESW
-   C7lq7s6nBJdRZUy3ySOH60Vbwz8iWmMbhQTNPDZzRZ+EmN1mK/OXY3zYy
-   yTWDhasNquG/netfSujG/YU6yh/pquLoaFXyf2lBcvmetyuhrmLlV5z7B
-   ijELFQiNcQhxBLLXOWXwmH1mn6QQHS3OBxpoHhzirCJWUhzzjGpmH0k/Q
-   8eOS40l/KA3UzBLJK+HVIUJQT+hfaHN3z7Ro9ZSifs0nEwx9Kzg4KRTrz
-   A==;
-X-CSE-ConnectionGUID: NL+6DPJuQXGKXAKhp5ieeg==
-X-CSE-MsgGUID: uqDw+bccQO69435ePBQZUA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2166570"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2166570"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:08:16 -0700
-X-CSE-ConnectionGUID: FS20cj/BT1m6um7dSnznlQ==
-X-CSE-MsgGUID: MkZ1mWf0R9CCr+KttFsBTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5615077"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.85]) ([10.125.109.85])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:08:14 -0700
-Message-ID: <b9539a2c-fbe3-4043-9347-b60cbc375fe1@intel.com>
-Date: Fri, 30 Oct 2026 10:08:13 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PtFuYrJH
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7c2f48f3a96so311543137.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:08:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793380097; x=1793984897; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=UJQFo6lBsRxUZVqaTAfTugCYtH9lDVXLbR2YaM1dQaQ=;
+        b=PtFuYrJHVVjxsD3+QnaSsedFWNS4nLWLqgvQv9apD0CYg5eNqRuNk6eZI0jdSZ6Q8/
+         SBwnmkPqnWIk//ri5tKsgwcIul7GOTra7xsgHbKxGtHZZ1hxyVA38OX9DMfgbypyckWj
+         2g68t60m9Mg4vbUOrIyMhhks2iiLLoNgOaadCYN/QGP6Q7p5jK0Mf2mxgu2eyD/S3SjR
+         pcF/3efkDIquTT4hk1qE/3q9Hts+Gic2hBNKmagf47naDwa5XKie4fsfnogh80rCo71W
+         6lcflru1iV7jjyM/TKK/ITzoZTgmQUugv/sRQYeidVrpm6ger3hXQYcP3e1Wmp2emTZh
+         DDdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793380097; x=1793984897;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UJQFo6lBsRxUZVqaTAfTugCYtH9lDVXLbR2YaM1dQaQ=;
+        b=wrbQyrscK6ko0OmvSwWXCFCXAehf2LohWqH/CKTCbXVesdasZ80bx6HPz9XQtWrK/y
+         fIFbJ2KRMNnZm6MuEhl8ylqUaG8Pe7s+K48IzVFboxavHs8b4qHyN3Zw880UsqpJH8cD
+         uWzIkDAHaPquE+8vaejc0w6Bd3E6zZpqEim8p/69KLvM4a9sPICFgBbPJgGOpYcYsjN+
+         N9szm4qwSCILnuydVMOlZO0xg9b9S6EKyBBiDR4fRGj9j80P1TZPOJonJDT/eu/R2nEE
+         6mT0hbfsZQPddTf/GzYl+ugCZJa9wfnDASuv3lKJPW6r3SoXLcoVdMJOV7/cpO6Ese6L
+         pMYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ3x5UaEiAVKSlkvd2EQPNXACLci94LgGretlvfVjdcy1jP2JwtKD/VuLUg/9IpJEWPW1rm1rXRDabBj4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCs0tXLBgq+/m2D/t3snS+kK8uTLfJlBSN1k0I8JhRm4nDW2wS
+	T6YTgKyGrJj6b7Ok4vatC4aVDZTcIrTvKlqikcII7PKg3VBfa5+hxcm9
+X-Gm-Gg: AYBFou29jF2S318F8Fsc6pF0P5liOS0UnPAMjAjBOpKiherRsNTZ87XWxwx22eFkuqL
+	RJyGuGScqrpYU+D9YjFFtVfT9c+pEkLw2/36Gd/MOwTRku2LDQsT3H8QCn2JULGbJvwe7m+GB+d
+	iIyd21fkPoyNk2GeyUKI26GoHegN8qv+xL8xj+4MaghANVxY/WOoyc/swsZuQI8sMKZdsDzvDV0
+	XT/4roqn3IhpKXIqsDnD61XnluC84Bcf8qHnzIIG7panZv5QRiqvJQyrpkV5U9Kq3OAMUN2KFpq
+	fQbsRRLTr86w+Ge1PrsXTQY9O4TZ6KjCD3bfbuIuXIC/Mr/qGbnHJlJbwC4atIMH68jbTyJ8ZsG
+	hke/weJLXx1f1L80Nut3x/D7byz9bO5O4ediKn727vvAogA/6Lc9/WVdRjgXnJvM0xmCKTLiDr4
+	bDHqBDxRlBgjUwZIkvgvgOjI75JIzf+X2uBN9Vbz8RMRmIcBgTsuAs4QOVh27qIleUTnbjhJjy+
+	QxJUegl+39USfTzpjuHo+XGOsPjhEMpnotyLmCnoB/nechwmjy1I0nM5Bp9zv9eQQqHFVlkeLeN
+	go/D54UPslVbuBa9QTqgQKyqwvi2/TYPSXGY6jN15CeSXmKAntRCXPAR5aD3j9kkDOI/dTm3LaJ
+	8IKTvda3AYoMSu+BVygu81Y4g6MtAGvtRpWgoyi/FAJpyfyEbA9/wZetJJp91buoiSbGo
+X-Received: by 2002:a05:6102:50a5:b0:7cc:25bc:3b20 with SMTP id ada2fe7eead31-7d072bb35d2mr1407630137.7.1793380096890;
+        Fri, 30 Oct 2026 10:08:16 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-992ee3a066esm3190273241.5.2026.10.30.10.08.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 10:08:16 -0700 (PDT)
+Date: Fri, 30 Oct 2026 13:08:15 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Ahmad AG <ahmadag1001@gmail.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: kuba@kernel.org, 
+ davem@davemloft.net, 
+ edumazet@kernel.org, 
+ pabeni@redhat.com, 
+ horms@kernel.org, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.2ea2182d344a4@gmail.com>
+In-Reply-To: <CAASqGyYfFwZizof-O+Bn3_H85sEFytVr9GapOVQsW9miVa+Zsg@mail.gmail.com>
+References: <20261030100504.23498-1-ahmadag1001@gmail.com>
+ <willemdebruijn.kernel.2e53c121ad9ea@gmail.com>
+ <CAASqGyYfFwZizof-O+Bn3_H85sEFytVr9GapOVQsW9miVa+Zsg@mail.gmail.com>
+Subject: Re: [PATCH net v2] net/packet: account user-triggered allocations to
+ memcg
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,109 +107,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cxl/port: Fix endpoint RAS error unmasking
-To: Richard Cheng <icheng@nvidia.com>, dave@stgolabs.net, jic23@kernel.org,
- alison.schofield@intel.com, vishal.l.verma@intel.com
-Cc: iweiny@kernel.org, ming.li@zohomail.com, linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org, kaihengf@nvidia.com, kobak@nvidia.com,
- newtonl@nvidia.com, kristinc@nvidia.com
-References: <20261030095923.46051-1-icheng@nvidia.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20261030095923.46051-1-icheng@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 7bit
 
+Ahmad AG wrote:
+> Thanks. I will send a v3 to net-next, without the Fixes and stable
+> tags, keeping the allocations that scale with user input (ring
+> buffers, fanout array, membership entries) and leaving the small
+> fixed-size per-socket ones such as the rollover state alone. I will
+> add __GFP_NOWARN to the vmalloc fallback.
 
+Just be careful that net-next is closed.
 
-On 10/30/26 2:59 AM, Richard Cheng wrote:
-> Commit dab7162d0ae7 ("cxl/port: Move endpoint component register
-> management to cxl_port") moved EP RAS handling from cxl_pci to cxl_port,
-> while cxl_ras_unmask() have the assumption that port->uport_dev is a PCI
-
-s/have/has/
-
-> device.
-> If the topology use cxl_memdev as uport_dev, the PCI check will fail and
-> CXL RAS masks remain set.
-
-Endpoint ports always use memdev as uport_dev right? Maybe we can say the unmask has never run.
-
-> 
-> Resolve memdev uports to their parent dev and verify the device is PCI.
-> 
-> Fixes: dab7162d0ae7 ("cxl/port: Move endpoint component register management to cxl_port")
-> Signed-off-by: Richard Cheng <icheng@nvidia.com>
-> ---
-> Reproducer is a QEMU Type-3 guest
-> 
-> 1. Ensure no CXL region is active and PCIe AER is enabled.
-> 2. Restore the emulated RAS registers to their reset masks.
-> 3. Reprobe cxl_pci and read the masks again.
-> 
-> ```
-> BDF=$(basename "$(dirname "$(readlink -f /sys/bus/cxl/devices/mem0)")")
-> BAR0=$(awk 'NR == 1 { print $1 }' /sys/bus/pci/devices/$BDF/resource)
-> UNC_MASK=$(printf '0x%x' $((BAR0 + 0x1084)))
-> COR_MASK=$(printf '0x%x' $((BAR0 + 0x1090)))
-> 
-> busybox devmem "$UNC_MASK" 32 0x1cfff
-> busybox devmem "$COR_MASK" 32 0x7f
-> 
-> echo "$BDF" > /sys/bus/pci/drivers/cxl_pci/unbind
-> echo "$BDF" > /sys/bus/pci/drivers/cxl_pci/bind
-> udevadm settle
-> 
-> busybox devmem "$UNC_MASK" 32
-> busybox devmem "$COR_MASK" 32
-> ```
-> 
-> Before the fix, the masks remain 0x1cfff and 0x7f. After the fix,
-> both masks read as zero.
-> 
-> Best regards,
-> Richard Cheng.
-> ---
->  drivers/cxl/port.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/cxl/port.c b/drivers/cxl/port.c
-> index c12fd0b89883..c48216e5078f 100644
-> --- a/drivers/cxl/port.c
-> +++ b/drivers/cxl/port.c
-> @@ -74,15 +74,18 @@ static int cxl_switch_port_probe(struct cxl_port *port)
->  
->  static int cxl_ras_unmask(struct cxl_port *port)
->  {
-> +	struct device *host = port->uport_dev;
->  	struct pci_dev *pdev;
->  	void __iomem *addr;
->  	u32 orig_val, val, mask;
->  	u16 cap;
->  	int rc;
->  
-> -	if (!dev_is_pci(port->uport_dev))
-> +	if (is_cxl_memdev(host))
-> +		host = host->parent;
-> +	if (!host || !dev_is_pci(host))
->  		return 0;
-> -	pdev = to_pci_dev(port->uport_dev);
-> +	pdev = to_pci_dev(host);
-
-Can we simplify this to something like:
-	struct cxl_memdev *cxlmd = to_cxl_memdev(port->uport_dev);
-	struct device *parent = cxlmd->dev.parent;
-
-	if (!dev_is_pci(parent))
-		return 0;
-	pdev = to_pci_dev(parent));
-
-Also, maybe we should rename it to cxl_endpoint_ras_unmask(struct cxl_port *endpoint) to be intentionally clear?
-
->  
->  	if (!port->regs.ras) {
->  		pci_dbg(pdev, "No RAS registers.\n");
-> 
-> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-
+It makes sense to send this to net, just probably not stable
+material.
