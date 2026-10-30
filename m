@@ -1,111 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793364806;
-	b=Pk4EmFmg1GogCCWZh8YgINRsTiGI4MjM8En/kxJ/Zv2NxdRXqX1FmzD8WVsWu0nz7Y4l
-	 cd1W2Y4kmCtUgTGu4gtsus5Ev+muY0+HIkvQOUxpQxgBbRV6onRFkhTf3hl0NySSe4FzT
-	 ICyHussAzMyGkORvjdSnJ9ZiZAj3MzpLhAT593VX2UqyObyN/eJuwBa0G9CadEZrDNI3t
-	 z0vPjP/xKZuSoNSo5y4b1vvcmrB7lV6r4d9fSc7OxRlcPa5tISFpnR0tJ6EPtlufylBh+
-	 c2wZpXB6qnMRUdAH46IrKjZfUPNWLF59c8ueUPmc3pWZvuA1SnJH99QpYm+a/A2Wg7Q==
+	t=1793364813;
+	b=T8zaZJSI8fc3TueX3TEfF9oJtmxlqgJSUeCgHlsCsaCl58/oTxUa7oxTSUqlzkJfOiub
+	 6WskblXVGTAPy9Lj7YG6KvGzzZSnr3roAwgD5JDai/Crof8D6vuQqjXFtbUCxfTVwaW+2
+	 4A/5uc1ayRyEDgh4s614q3pNE1s2GKBQzhwiGy+TVryxKoJ7cuE30zmP9UsimrVDYs8t/
+	 5C4PnaCB6QJgm8Ukf95/KV3dndROFDmM3j7QDYeuEjAjfXQ61sX0S8UcsLalNw002Klcl
+	 CWm9uXg4cURJ9kym+o4KckrletxOhmE32RHow36CDiIt3Xlp8rF0vvQngHA4738RZ+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793364806;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=g+dtRrOqxcIMInZ6Na2UXxrAIiwdWRlYssjy62GnXog=;
-	b=t+zC/1ceXDRggB6sVv1CTHGFOtts8PfZMiLVD4grrFqwcA7YjPyyrvZGiuV2nfcTXrfp
-	 rUypCfNrwd0psPTAnWP4jJ9HP0qDmbTZLMVHqTb2SNeuO+sSCJ2fzpCULjwUClWseQesf
-	 PmWDRSlr+u2BS9yYq53jov0XzIvOEfmOoKwJGUL88jDoWAfaXZaSC0PsxX3jjE+sNJwp5
-	 0xaLWhjVjwSoVturXgVz1uunQrFgJbu3Zbn7QumypOM5DEbrzA4kY+SVSDgq0KF8Ckt/F
-	 hELvmXQqseyRux2l5L3X2OV8raWJoq5CR5Fv1Csh/zxZxxlddGUtxrR1y7bP8hvfyAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793364813;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=frvv6tcU3LMgjEDgFGjkYc4XINTd2XEZyaxle6//g4U=;
+	b=pyrmxRqojubZOu+ijN1MHGcdnDpHm1xMnSemn33Ro8GjTMZSevO7jqtOq5fSz01xI6Ub
+	 VboAnGYod1Ce/Ff/czZN8cAXLkiFUZtQrF5i33xl4jYvBIP+VwJ1hqAnZeT8e8OqLGu2e
+	 hbiU8ZceqRDf0bDCeOKdTCTgFty/h9z2QdGm1FmHCkvNbKodeLVteeY3ehGZ8ZQMjBNrN
+	 xT2QGzFgmM/IaG1RW1o9A2SlldXDu42CNHLxOmxbBaoS+fWNWGWmqAHAFEg2vtl8+WlWQ
+	 3twWADxIb1G2tYgITUU1MyvacR5HlKtOGECSUcAy6BgPuhedo7I5lCokhThmgRAPUUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QHLg8D2R;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=K3blMq+d;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=olIHMhsq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9600606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:53:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9600606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88029606A33A;
+	Fri, 30 Oct 2026 12:53:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QHLg8D2R;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=K3blMq+d
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UBG8bB3719522
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:53:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	g+dtRrOqxcIMInZ6Na2UXxrAIiwdWRlYssjy62GnXog=; b=QHLg8D2RjXAaou0v
-	R1IjeLGQW/bJr9wx7PDHnJoz6QxHcuu+OSaPeqhnUuwDgqUJhjj838LUGt+xTG3V
-	zXJDARApLPB6FiSZL5aVY8guaoypz00b20wpF7AeyirK+iehxUv+BfZc9npuZlGk
-	RXN1rraLVUIUbonQfOPBfJGfbS1cC+kUlg/sqzGsR3lgCtjBHz92iJAX+jHQWghg
-	6/6jCnqmvXIPNDoDf6TbIEnwlSOCnxnziEImiqXjODaMw4zIAghEjzXEWDqbyzt+
-	LzqT989BVDhaDJ4JIBEBcs2ArQklEBOrZDxkR9z30HiZu/FeKWBlou7zMw3ey+iT
-	kNU3EA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qu2f0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:53:24 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-944102381acso14981985a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:53:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793364804; x=1793969604; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g+dtRrOqxcIMInZ6Na2UXxrAIiwdWRlYssjy62GnXog=;
-        b=K3blMq+d1BLeWDJN+pm0IaVzxw/NLpSXOhROOsj7YNHsC72hR2NbzRcIimwlsisMbY
-         Z2ukZjUDp2GI7qzvMz52d77QPJlzmkNJKLWzhu8QpQYEpO00+qTfHiniZmF/Ofl72LWs
-         4Me8AOBGSG5oz88WdAFOPYwYkCdF9USKb/g6wmYGXnu19r7t+eojeI1W+XbxjqTA4j3d
-         94++/wixPxqZ1hCqMAk58dFv5XMKxi15bVvqSe4ul5byaDRwxYqJ+ZQh1igO/fqkbPA4
-         CB0+XcwqrE+qRERJp1veUJPXzbTCVs42RqP0hiy2I2Re7j9StB9rwX0KlkzL17ko6hP0
-         BUMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793364804; x=1793969604;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g+dtRrOqxcIMInZ6Na2UXxrAIiwdWRlYssjy62GnXog=;
-        b=Ov4h1y2TGOft2ZJA+y+qQU4lKdWQtyVhLgCZLLYloHZMVZ2CgRai+gaqaWAd3p27sb
-         wk/N9bdxzUZgxX2o+cRcLe7PGeuSXAIMkzmLEODgZtbpfL26eGtANsEZMk3vS1s1R/5D
-         l16zR/ptrrGnDt/9x62ARGT8K/ILBDfcswcxHLhCNkLv6fJhADIYI7AV2Vwz0A5JimXv
-         XvgAm3imzbrOIs6XlyqLuge+KWVC8Ld6BpQFOQkz4e8YAiIbUZQCYswWybTp3MRbfGa2
-         OS27wjqc0czjfnhk8dtmbpGVqH1KLVUO4wnG2acAaFFTWce9LwraolAaUGXMGUlF+pCH
-         le2w==
-X-Forwarded-Encrypted: i=1; AKwUvBxICC+M5yUBK1Hz34Coz+YXu9Ub8oiq4xOc72VZMeG55oL/+0Xita0+vPeyWeF7T06aqzQrBZO83UN/xow=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJE5NdO41xZ271RiMlq/rpxhNWYWCIE4y0rfXbsrIjYvbO91Aj
-	ZYVIJMYOPTy43yxA3b440yGyq9Fq8KnGCoRL8yhFNwPiRDuOkONKhjJFqq6hxskFJl4PH+9/5zK
-	cro/EGbsPMaOShl3SGKyOC7A8ZWWEhnDPEzy8dhB5Aafi5S5hW4/1Ulwfqc9IAglZUsw=
-X-Gm-Gg: AYBFou3kqnIayC83jLusXBborGSlLAaoHKpGLYP01sUmhupd4YMVuZz0w4SSqEnHPnw
-	o3fu3d08w/7kwIAIWmFEvMzIAMMyS27lw4KvlvEJkKuos4AOKSayer2cluFF7WreY95gu9k1Un9
-	pKjg0A2tVO5uMLhR77mOqMKE0zMQdhXELvumBw3n/TOA5v/j9Bq8ICBEDoHC6X3/jkp2/W870nW
-	mQuyaoxAhZ10jYtvBRJKaSZ7025ZS1FNllLw5PpZEeilYIeypxF0PlQ4T+b8B/mhy9dj/NXTlE+
-	f3tIelyK/pKAHSlH09WgJ1+vulJT9pxiHGMuQmCTFhLLcPgqbGPA4L/g9f4IxlDSvFRU3bJG6XX
-	sY9VzwyOBUJcuMRoi9nwTZFHChf3z9d0tWALqeaJ1vU1d9IiZXaQ8myXSC8InitBE/9N8QEQ=
-X-Received: by 2002:a05:620a:a8d5:10b0:93a:14c:329c with SMTP id af79cd13be357-944214d09d9mr372318685a.1.1793364804315;
-        Fri, 30 Oct 2026 05:53:24 -0700 (PDT)
-X-Received: by 2002:a05:620a:a8d5:10b0:93a:14c:329c with SMTP id af79cd13be357-944214d09d9mr372314285a.1.1793364803770;
-        Fri, 30 Oct 2026 05:53:23 -0700 (PDT)
-Received: from [10.169.205.110] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabcfd249sm63470066b.20.2026.10.30.05.53.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 05:53:22 -0700 (PDT)
-Message-ID: <cbb0c355-7401-4edb-b67c-00976e1a3763@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 13:53:20 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=olIHMhsq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9205C1F00A02;
+	Fri, 30 Oct 2026 12:53:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793364813;
+	bh=frvv6tcU3LMgjEDgFGjkYc4XINTd2XEZyaxle6//g4U=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=olIHMhsq8Ahi4xlYkqsUDUAFN6cKOa0RiamKEXNGkWC+09PgsivGO1jODa/FSyJKC
+	 9TgoBDgecOU5kdarcOOxcNL9EoZ9ivUREbqaaPBL0DO6220xwaotGHHP5C35YQLUul
+	 pQ8BsTH/E3JrKhHeTIrO8YASxOCLqN/I9NElyHcA+klCJQnj5Wxe8/8ue/l5Zs8aTo
+	 n6sJb/VDzhPcmCfO7HkXvg6j0Lx798u4TBgdHdAsjUSR4e0dwfwZizGjGChM+CFV5+
+	 vN/SI5rfqshqZdIrLXGIGvXVOm+W3q6Vyaz1JlSUywq0IYaAPG4GG+r6j+iQl9fXha
+	 3fp8sQlCj+XbA==
+Subject: Re: [PATCH net v4 3/3] sfc: ptp: avoid racing PPS timestamp updates
+From: netdev-bot+sashiko@kernel.org
+To: alex.austin@amd.com
+Cc: ecree.xilinx@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ richardcochran@gmail.com, alucerop@amd.com, pieter.jansen-van-vuuren@amd.com,
+ netdev@vger.kernel.org, linux-net-drivers@amd.com,
+ linux-kernel@vger.kernel.org
+Date: Fri, 30 Oct 2026 12:53:32 +0000
+Message-ID: <179336481210.3134.2636807043421655737@kernel.org>
+In-Reply-To: <20261026123023.3566549-4-alex.austin@amd.com>
+References: <20261026123023.3566549-4-alex.austin@amd.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,99 +64,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] arm64: dts: qcom: milos-nothing-asteroids: Enable
- Bluetooth
-To: Alexander Koskovich <akoskovich@pm.me>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261029-asteroids-dts-updates-v1-0-79351337d681@pm.me>
- <20261029-asteroids-dts-updates-v1-2-79351337d681@pm.me>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261029-asteroids-dts-updates-v1-2-79351337d681@pm.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: gJSBnDbziUOluP5vXjLiNFVV0MB65NUZ
-X-Proofpoint-ORIG-GUID: gJSBnDbziUOluP5vXjLiNFVV0MB65NUZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1MSBTYWx0ZWRfX9AnJ+Fy24MvB
- qQEMa9ivx5jUqGOGXIQ0x02thcOGp6o8864CVKt8Z7fMaeNlba59+uXAvFgaScm1Ke+cKhbTcwW
- sm7sYd7xZ3eGMxBDiBr3rN8XI1WWwvyPhVHeLCWrYE/Z1sNW3S72wqlBDjF/EyNkXXawqd7BJET
- vi5ROQDbFM74baT07OE7DyEtsk2wSKefmFnMn+2vfKLyzv+MJhpN3Di/qKCKurPWhmWD3NI5dJw
- nyonvCvmCEkhLqRDqFcKFLZTCGjihXxvX1W4+vbShAkLB7lSowcLAwOZgrknrEXrr/8KDKiv/cj
- ryzCwQhSGI5U8el7JCamWdQlw6OWVcYy0Ov9DiPFd+zmMZJPUkmM9lDRKLO8ilqAhthmuLc1lWc
- OQX7TA/9AkynxSviKOx6/1Hy8GkCcUkVHCCKYvDI6XG0V3lfgnH5esmcGoT2DctjQkbFcvr/8l/
- mo8Q8FN5TpvkTpiPRzA==
-X-Authority-Analysis: v=2.4 cv=dPgzC+Zb c=1 sm=1 tr=0 ts=6ae49344 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=Q61tBkWn-twudPVU9zMA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1MSBTYWx0ZWRfX20MVKz50u6HA
- VZARWDg09OLdIPygsQqTc+r1CbFfu1541mnozmDwQtbeIKeViooqjjwLcIr0j6bcbnbJacUbTbl
- vfkVypaFqRCyMxg6vNQ4Ku4FUmAF2x8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 spamscore=0 malwarescore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300051
 
-On 10/29/26 11:33 PM, Alexander Koskovich wrote:
-> Add the nodes to describe the WCN6755 chip with its PMU and Bluetooth
-> parts.
-> 
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> ---
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-[...]
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-> +&pmr735b_gpios {
-> +	s1j_enable_default: s1j-enable-default-state {
-> +		pins = "gpio1";
-> +		function = PMIC_GPIO_FUNC_NORMAL;
-> +		power-source = <0>;
-> +		bias-disable;
-> +		output-low;
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The consuming driver takes care of the output state
+- [Medium] This patch removes the shared ptp->host_time_pps race from
+  drivers/net/ethernet/sfc/ptp.c, but the same race is still present in…
 
-[...]
+--
 
-> +	bluetooth_enable_default: bluetooth-enable-default-state {
-> +		pins = "gpio53";
-> +		function = "gpio";
-> +		output-low;
-> +		bias-disable;
+sfc: ptp: avoid racing PPS timestamp updates
 
-Similarly here
+This patch removes the shared host_time_pps field from struct
+efx_ptp_data in sfc/ptp.c. efx_ptp_synchronize() now returns the PPS
+timestamp through storage owned by the caller. The PPS worker therefore
+no longer copies a field that a concurrent SIOCSHWTSTAMP-driven
+synchronization could be rewriting.
 
-> +	};
-> +
->  	assist_default: assist-default-state {
->  		pins = "gpio71";
->  		function = "gpio";
-> @@ -905,6 +1079,32 @@ &uart5 {
->  	status = "okay";
->  };
+> diff --git a/drivers/net/ethernet/sfc/ptp.c b/drivers/net/ethernet/sfc/ptp.c
+> index e26269fae38d6..37511f234d76d 100644
+> --- a/drivers/net/ethernet/sfc/ptp.c
+> +++ b/drivers/net/ethernet/sfc/ptp.c
+
+[ ... ]
+
+> @@ -1500,14 +1504,15 @@ static void efx_ptp_pps_worker(struct work_struct *work)
+>  {
+>  	struct efx_ptp_data *ptp =
+>  		container_of(work, struct efx_ptp_data, pps_work);
+> +	struct pps_event_time host_time_pps = {};
+>  	struct efx_nic *efx = ptp->efx;
+>  	struct ptp_clock_event ptp_evt;
 >  
-> +&uart11 {
-> +	/delete-property/ interrupts;
-> +	interrupts-extended = <&intc GIC_SPI 586 IRQ_TYPE_LEVEL_HIGH 0>,
-> +			      <&tlmm 51 IRQ_TYPE_EDGE_FALLING>;
-> +
-> +	pinctrl-1 = <&qup_uart11_sleep_cts>,
-> +		     <&qup_uart11_sleep_rts>,
-> +		     <&qup_uart11_sleep_tx>,
-> +		     <&qup_uart11_sleep_rx>;
+> -	if (efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS))
+> +	if (efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS, &host_time_pps))
+>  		return;
+>  
+>  	ptp_evt.type = PTP_CLOCK_PPSUSR;
+> -	ptp_evt.pps_times = ptp->host_time_pps;
+> +	ptp_evt.pps_times = host_time_pps;
+>  	ptp_clock_event(ptp->phc_clock, &ptp_evt);
+>  }
 
-Please align the '<'s
+[Severity: Medium]
+This fixes the race in sfc/ptp.c. Is the same race still present in the
+Siena copy of this code, drivers/net/ethernet/sfc/siena/ptp.c? That file
+also descends from the Fixes target 7c236c43b838, and this patch doesn't
+touch it.
 
-Konrad
+In siena/ptp.c, efx_ptp_process_times() still writes the shared field:
+
+drivers/net/ethernet/sfc/siena/ptp.c:efx_ptp_process_times() {
+    ...
+	/* Set PPS timestamp to match NIC top of second */
+	ptp->host_time_pps = *last_time;
+	pps_sub_ts(&ptp->host_time_pps, delta);
+    ...
+}
+
+The Siena efx_ptp_pps_worker() copies it after synchronization returns,
+with no lock held:
+
+drivers/net/ethernet/sfc/siena/ptp.c:efx_ptp_pps_worker() {
+    ...
+	ptp_evt.type = PTP_CLOCK_PPSUSR;
+	ptp_evt.pps_times = ptp->host_time_pps;
+	ptp_clock_event(ptp->phc_clock, &ptp_evt);
+}
+
+Meanwhile, the SIOCSHWTSTAMP path can run another synchronization:
+
+efx_siena_ptp_change_mode()
+    efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS * 2)
+        efx_ptp_process_times()
+            ptp->host_time_pps = *last_time;
+
+Can this give the partially updated PPS timestamp that the commit message
+describes, but for Siena NICs?
+
+Siena also looks more exposed than sfc was before this series. The Siena
+efx_ptp_synchronize() takes no phc_lock or any other mutex. The
+WRITE_ONCE(*start, 0) handshake runs before efx_siena_mcdi_rpc_start(),
+and the ptp->timeset[] processing runs after efx_siena_mcdi_rpc_finish().
+Could two concurrent synchronizations clobber each other's state there
+too?
+
+The earlier patch in this series, "sfc: ptp: serialize host and MC
+synchronization transactions", seems to have handled that only for sfc.
+
+Should the same caller-owned out-parameter change, along with the
+serialization, also be applied to siena/ptp.c? If not, could the commit
+message say why Siena is left out?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026123023.3566549-1-alex.austin%40amd.com
