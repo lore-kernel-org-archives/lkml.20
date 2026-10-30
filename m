@@ -1,75 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793396075;
-	b=qV6WutKIj2mXvddy4R4PTIDqCrUSWKIsL2nE0FbM6/s/19PWpR6grBU4SxnTbTU/tQpd
-	 1pARFLH+bFo6vnc2WgLH6Ht1oAfIVBMJBbAqLdrTeBgx8rHgMUm9Bz3V9AYcBckpc5APu
-	 mzGzMtk4ZLY/qykT+1UStqBkOQE3UT6DPpO0wHd6W02/m1USJntqSJ7B8Ju1mCFqiuICP
-	 UacxKwyxF7viDb1rW8vxC11ub9BJb++X48kzfAsK5EyV1ujE2mMqpqvC1gAyXfst6TUUX
-	 MRwTVXmjBLmEG+84BmCPgN5XWb+9W7tSBWbMRrmNocaVLwSkEdxRK/4obosSKJB5GlA==
+	t=1793396087;
+	b=MUkOe0eaSBMjbLQwXU1gZjQhw2ssMU8oyoDYEVgsNROYhKeTjx/rpphh6i5KctrLoufE
+	 pgYuaWCvRLSdWkWtsYJpSPaVQcgT4jsyZGBXjRTUMkFvb+x/lXHsehkYeHOlT5LX7CDgA
+	 lYenwHIPNZoQX2hTR5pmf7wDv9X/meXKLqpPTweFiu9WZG8pSE7EjKJ5AarAp26d+fh8G
+	 3IDHZeGqiUKx1xIRUeSx50sDkZecSw5y3NWKWj6kukQeoWvYgI9PdethPLqJTjAFQi8rI
+	 88sv9FiYD5oKs6sxxuiXza7p/Uv4EH8K+l0Rn9EMvvXnM0YVHGQ2v28AHZQOeysYGmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793396075;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=pfyuaHVWliYihnuN7VxgyTXmn4J3zXZExhdUzMnnin4=;
-	b=1P6HK5hL7DqdxeRlgrm+JteCBtadQVaC+ZbYn7mGCK9YmrDjY4kAMOHjhSXqLwU92rX4
-	 0q9OxQj6oGX2G9PMeNR5YavkF0JsaD0Tw/pSr6NRp0S+vtmxv7DhioLbq0Owt7D/AFUsR
-	 dTHDSzbCFqH77cE/DkzXulgHry/+SGD+bmW8Yhll2QdUdPg9xVnHRyYTeGKZubvuUNKFj
-	 SW9e+IfDMdi59L4ivH1et/hL1Rov98B/2qJbryn5cmlm7BD0t2zU1aL0vkibA11OzT5fJ
-	 DE4hfDuVHALT6SuB3JtMKgMDFksq6zs4D9oT13RvCeeNrJzF8aa5nL9dt3xuIH5wA7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793396087;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=xq+NA1zj5BEONru8YUkjauomU7/b7gTd1VCdgXZzmfQ=;
+	b=bxDzjoAlyb5lN4esEur32mE4as39i3MiBpqqu4DZ15Upo3oFVM28R6Z2ydAW78dN8H0D
+	 lzUDQKJlWxzgEC4EnR+Odo3iS3kbMi7VR4e5iZIRzLm1m4dcq5GlPsWhzT1NYZu/LCRns
+	 k9XabCe/1OkK82FocuoGeUv1fUK5ywFsFkjKiwSZbBZqobSWU9S6mzSLPM7AlpDLVVv/0
+	 YEGPeywJTSBVXDOWZZISg997kAjZz590VbSm7fW4Ie4/Nq+/4bq9oetEmHtXfqEdttepM
+	 r7ivVKTcRvRkFDZvBQ3aXjZzEZ1RUev3ViIBJJC31yGQ9C7Git8gfD/7VhSwF9PEkMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--nkapron.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Us1b9MPK;
-	arc=none smtp.remote-ip=209.85.215.198
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=fIT6yLRN;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36798606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:34:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36798606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nkapron.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38318606A31D;
+	Fri, 30 Oct 2026 21:34:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38318606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Us1b9MPK
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc7e0321ec1so1365182a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:34:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793396073; x=1794000873; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pfyuaHVWliYihnuN7VxgyTXmn4J3zXZExhdUzMnnin4=;
-        b=Us1b9MPK2UkdFkcu8FM3bwwt0idTT53OhPJL2rsEaQj/4F/vgFNF26WjmBSFnyq4v4
-         MpfN1SoSaQygsuMoDR5WtCIWphUmN86VvhGEQCkY+DFQiKoildphuWY85vKqM0Dh4yqG
-         1DUTmVa2NxREgzm0rXCanf/YexfUlUokBAEyyzLnUmW1NWbgpdFhuRsSkOp98zAu9XT9
-         KXj3Vy0l1Msk7esBJDjWmYWdx239d7IZYG7ds/Pt4hcfhwy91zZCvpryWM1X6kynDvjF
-         jAiJ8j5AJTf17Sa7OntEuJ2E0VXmTzYTru6vIGA8l9h1q755yD+m7vbUtewBmXNo20LM
-         Ay/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793396073; x=1794000873;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pfyuaHVWliYihnuN7VxgyTXmn4J3zXZExhdUzMnnin4=;
-        b=tna7p90DkdP4x9UnapBUVMQ/apsrI6MBsI13Gu0if7ntCbwt9IevkbnKHkVJclmJAK
-         IUajnQnblbpagQlTpL4OXEd67Z9nbOxlQClrfWcD3p1STh0RxggC8I6sdCJsjKPiJpvb
-         oPBXwvLNttV0WByrVS6u6472MhLATXwRtkrPEbbyvtw1innsF+jUfSxHIGGd7+5OkQeh
-         0Ph90o1XuQEwAM1bhgM8kPTGcFA/sED3RjNzcVkvkM+6qWZN0H89SGo/3/BMax7VxMuS
-         KW69rTntaLs/R5F7oNpUbdpMNwGD8ObzHrDvl9nXdiFBjWomK6JUgZbsAY1HkQSAClgx
-         oCXw==
-X-Forwarded-Encrypted: i=1; AKwUvBxuKVjxb7u02q/iZfBD2sfeQTGPhwJcToTr0JFx5EgrUdlieKvfbYIHg9l0bc64nGDhda2aFrytECaDHq4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJDQ32F//ZDH8ArLxIBpkT0bwKS+pd3y3qEzM1tnbyWa8f1WLge
-	IYcOhvXqIh/Jj5b7sKeccIvK7fOTskVfr1qo9uWp9x7MUxvPO4qnAQ7u1tzpPjyOKZhGGYJYIPy
-	xEWmHmKQcgw==
-X-Received: from pfbfo7.prod.google.com ([2002:a05:6a00:6007:b0:89e:861c:6b1f])
- (user=nkapron job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:2583:b0:3e2:86b6:9be1
- with SMTP id adf61e73a8af0-3e928ac6de9mr3264932637.70.1793396073279; Fri, 30
- Oct 2026 14:34:33 -0700 (PDT)
-Date: Fri, 30 Oct 2026 21:34:28 +0000
-In-Reply-To: <20261020051446.92179-1-yuz08559@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=fIT6yLRN
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7AEFB4B0;
+	Fri, 30 Oct 2026 22:32:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793395949;
+	bh=UHYyaFSKiE4grvzN2qAkv8GWlcmzU//DzI8Ey+F66Oo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=fIT6yLRN/3r5O15kcnS1ioTAFqE53Z0NPFFyQ69NyzeI3KpRtrNqhqr0k/qrRoKQ3
+	 ohPFaiNArumGdv+o7Aex7mbquTSqefGzqUVV7A+O4taoeD8+hrLiz4sGogCqM02Ogy
+	 rYvIUk5Wdmu///mkEEecong4RxIKnC4aSjCHyBRw=
+Date: Fri, 30 Oct 2026 23:34:42 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-media@vger.kernel.org,
+	Phong Hoang <phong.hoang.wz@renesas.com>
+Subject: Re: [PATCH v3 10/15] media: vsp1: Fix access to reserved registers
+Message-ID: <20261030213442.GB3178046@killaraus.ideasonboard.com>
+References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
+ <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-10-e052903a3832@ideasonboard.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,79 +73,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261020051446.92179-1-yuz08559@gmail.com>
-X-Mailer: b4 0.17-dev
-Message-ID: <179339606875.2659781.13239690891562364438.b4-review@b4>
-Subject: Re: [PATCH] usb: gadget: f_hid: avoid copy_from_user() under get_report_spinlock
-From: Neill Kapron <nkapron@google.com>
-To: Yu Zhang <yuz08559@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-10-e052903a3832@ideasonboard.com>
 
-> f_hidg_get_report() copies the userspace report into a freshly allocated
-> 'entry' before taking get_report_spinlock.  When the report id is already
-> present in the list it then copies the same userspace buffer a second
-> time into the existing entry, this time while holding get_report_spinlock
-> (acquired with spin_lock_irqsave()):
+On Thu, Oct 15, 2026 at 04:51:50PM +0900, Paul Elder wrote:
+> From: Phong Hoang <phong.hoang.wz@renesas.com>
 > 
-> 	spin_lock_irqsave(&hidg->get_report_spinlock, flags);
-> 	ptr = f_hidg_search_for_report(hidg, report_id);
-> 	if (ptr) {
-> 		if (copy_from_user(&ptr->report_data, buffer,
-> 				sizeof(struct usb_hidg_report))) {
+> Some modules of VSP are not available in all instances,
+> so fix access to reserved registers.
 > 
-> copy_from_user() may fault and sleep, which is not allowed while holding
-> a spinlock with interrupts disabled:
-> 
-> 	BUG: sleeping function called from invalid context at ./include/linux/uaccess.h:169
-> 	in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 3481, name: hidg_getreport
-> 	 __might_fault+0x4d/0x60
-> 	 f_hidg_get_report+0x155/0x310
-> 	 f_hidg_ioctl+0xbd/0xe0
-> 	 __x64_sys_ioctl+0x120/0x170
-> 	 do_syscall_64+0xf9/0x540
-> 
-> This is reached by issuing GADGET_HID_WRITE_GET_REPORT twice for the same
-> report id (the first call inserts the entry, the second takes the update
-> path).  On a non-debug kernel a userspace buffer crafted to fault (e.g.
-> via userfaultfd) would sleep with the spinlock held and interrupts
-> disabled.
-> 
-> The data has already been copied into 'entry' before the lock is taken,
-> so reuse it instead of copying from userspace again under the lock.  This
-> also drops a redundant second read of the user buffer.
-> 
-> Fixes: a139c98f760e ("USB: gadget: f_hid: Add GET_REPORT via userspace IOCTL")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+> Signed-off-by: Phong Hoang <phong.hoang.wz@renesas.com>
+> Reviewed-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
 > ---
->  drivers/usb/gadget/function/f_hid.c | 8 +-------
->  1 file changed, 1 insertion(+), 7 deletions(-)
->
-> diff --git a/drivers/usb/gadget/function/f_hid.c b/drivers/usb/gadget/function/f_hid.c
-> index 3c6b43d06a6d..520892bbfbef 100644
-> --- a/drivers/usb/gadget/function/f_hid.c
-> +++ b/drivers/usb/gadget/function/f_hid.c
-> @@ -668,13 +668,7 @@ static int f_hidg_get_report(struct file *file, struct usb_hidg_report __user *b
+>  drivers/media/platform/renesas/vsp1/vsp1_drv.c | 34 ++++++++++++++++++--------
+>  1 file changed, 24 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_drv.c b/drivers/media/platform/renesas/vsp1/vsp1_drv.c
+> index 6ec8c234ea29939e4aebdf56fc51ae1cc5c69156..819c5eda9171d8ef7c8fc88adc959019b6bed497 100644
+> --- a/drivers/media/platform/renesas/vsp1/vsp1_drv.c
+> +++ b/drivers/media/platform/renesas/vsp1/vsp1_drv.c
+> @@ -560,20 +560,34 @@ static int vsp1_device_init(struct vsp1_device *vsp1)
+>  	for (unsigned int i = 0; i < vsp1->info->uif_count; ++i)
+>  		vsp1_write(vsp1, VI6_DPR_UIF_ROUTE(i), VI6_DPR_NODE_UNUSED);
 >  
->  	if (ptr) {
->  		/* Report already exists in list - update it */
-> -		if (copy_from_user(&ptr->report_data, buffer,
-> -				sizeof(struct usb_hidg_report))) {
-> -			spin_unlock_irqrestore(&hidg->get_report_spinlock, flags);
-> -			ERROR(cdev, "copy_from_user error\n");
-> -			kfree(entry);
-> -			return -EINVAL;
-> -		}
-> +		ptr->report_data = entry->report_data;
->  		kfree(entry);
->  	} else {
->  		/* Report does not exist in list - add it */
-LGTM, thanks!
+> -	vsp1_write(vsp1, VI6_DPR_SRU_ROUTE, VI6_DPR_NODE_UNUSED);
+> -	vsp1_write(vsp1, VI6_DPR_LUT_ROUTE, VI6_DPR_NODE_UNUSED);
+> -	vsp1_write(vsp1, VI6_DPR_CLU_ROUTE, VI6_DPR_NODE_UNUSED);
+> -	vsp1_write(vsp1, VI6_DPR_HST_ROUTE, VI6_DPR_NODE_UNUSED);
+> -	vsp1_write(vsp1, VI6_DPR_HSI_ROUTE, VI6_DPR_NODE_UNUSED);
+> -	vsp1_write(vsp1, VI6_DPR_BRU_ROUTE, VI6_DPR_NODE_UNUSED);
+> +	if (vsp1_feature(vsp1, VSP1_HAS_SRU))
+> +		vsp1_write(vsp1, VI6_DPR_SRU_ROUTE, VI6_DPR_NODE_UNUSED);
+> +
+> +	if (vsp1_feature(vsp1, VSP1_HAS_LUT))
+> +		vsp1_write(vsp1, VI6_DPR_LUT_ROUTE, VI6_DPR_NODE_UNUSED);
+> +
+> +	if (vsp1_feature(vsp1, VSP1_HAS_CLU))
+> +		vsp1_write(vsp1, VI6_DPR_CLU_ROUTE, VI6_DPR_NODE_UNUSED);
+> +
+> +	if (vsp1_feature(vsp1, VSP1_HAS_HSIT))
+> +		vsp1_write(vsp1, VI6_DPR_HST_ROUTE, VI6_DPR_NODE_UNUSED);
+> +
+> +	if (vsp1_feature(vsp1, VSP1_HAS_HSIT))
+> +		vsp1_write(vsp1, VI6_DPR_HSI_ROUTE, VI6_DPR_NODE_UNUSED);
+> +
+> +	if (vsp1_feature(vsp1, VSP1_HAS_BRU))
+> +		vsp1_write(vsp1, VI6_DPR_BRU_ROUTE, VI6_DPR_NODE_UNUSED);
+>  
+>  	if (vsp1_feature(vsp1, VSP1_HAS_BRS))
+>  		vsp1_write(vsp1, VI6_DPR_ILV_BRS_ROUTE, VI6_DPR_NODE_UNUSED);
+>  
+> -	vsp1_write(vsp1, VI6_DPR_HGO_SMPPT, (7 << VI6_DPR_SMPPT_TGW_SHIFT) |
+> -		   (VI6_DPR_NODE_UNUSED << VI6_DPR_SMPPT_PT_SHIFT));
+> -	vsp1_write(vsp1, VI6_DPR_HGT_SMPPT, (7 << VI6_DPR_SMPPT_TGW_SHIFT) |
+> -		   (VI6_DPR_NODE_UNUSED << VI6_DPR_SMPPT_PT_SHIFT));
+> +	if (vsp1_feature(vsp1, VSP1_HAS_HGO))
+> +		vsp1_write(vsp1, VI6_DPR_HGO_SMPPT, (7 << VI6_DPR_SMPPT_TGW_SHIFT) |
+> +			   (VI6_DPR_NODE_UNUSED << VI6_DPR_SMPPT_PT_SHIFT));
+> +
+> +	if (vsp1_feature(vsp1, VSP1_HAS_HGT))
+> +		vsp1_write(vsp1, VI6_DPR_HGT_SMPPT, (7 << VI6_DPR_SMPPT_TGW_SHIFT) |
+> +			   (VI6_DPR_NODE_UNUSED << VI6_DPR_SMPPT_PT_SHIFT));
 
-Reviewed-by: Neill Kapron <nkapron@google.com>
+I'm fairly sure the hardware would work fine without those checks, but I
+understand there's a desire to pass certifications. As this isn't in a
+hot patch,
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+
+>  
+>  	vsp1_dlm_setup(vsp1);
+>  
 
 -- 
-Neill Kapron <nkapron@google.com>
+Regards,
+
+Laurent Pinchart
