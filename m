@@ -1,72 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793366127;
-	b=CLrG+a3vfe0ZCAj+2sDzQMbC/42GBUBLzIJpgUmaomDxFSNT7T5UgDsQO7X00w57w6O+
-	 FjUJnLU7Ym5q3zyHMqrRVQ0+xVHl3p5pU7HOwsd/cBgXZn1ekanPwB2ocV4adEmARiL7a
-	 NATbtG5zsdBlLFYqJiSaQvr0mhYN5AGJH5X5xiuYjjJ0pmK+0FwJhLbyQ3TFJwHyzQGBa
-	 lCdadoNPm6wJa5pEx80FUkyMFE/eviElUxs4i2yoIufhbWN1B2ucG8Qb5uMkLh3sNf+kZ
-	 klwIgtpHntK35Xdi7k5LNkDKZEMEY7tkjCbh6nTMU989h8SNOchK8as/cxsEDZl/Asg==
+	t=1793366259;
+	b=ODEGCIpWlsCgwYX8RvrVay1KSqtHLsWiyiCS+mtB70VnuoR/JlutAw3ABsvJCwE8NIS8
+	 jFXvhgLaVGIdA5Q5t7ZBVwHgD/KQRrp+k+DnGoZaabIH3Ic7Xz6vUGzXInOWyyr9VDoIP
+	 koRyZItSoOe1mPWzFveXO18NhS93Ir6BxDsH6aj5wHHc8Sy/dZTgcQdjT8XKvBISa5YaJ
+	 KJ1d8C/2/utQkwDV3rEAaPOXQpROZmY02DP85egPF0XGrGc7oCOMbzWnhxqI13QGtKsFg
+	 F8E17jL/dNsfxOz1XTJ1I5psAmhpDm09cyTC0JAW7Ic4zk8I1G8nH7IehaJg9DbKsug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793366127;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+2nvKM88jwoLfLwwyKqMT179aru67saPys7pTH9M+hw=;
-	b=ex5GpYctn41SE9oHArkg9v6PzDfHTWC3N3iItKMRYf3UkmSWphWJSJjBPgI9acXj138L
-	 +skvZ5O0xJRr14ejP+mZmKbnG8CKBtMrXO9F1DZptX96//+FPBii9tUC1qunAhqgizZJ8
-	 GjfgEQAuOcBTuHAhufb/KbDgCv9PvM/OutqyXWw31lnqOlW9wpvFI4uqgpz50jzL5YqLh
-	 jquu75Q9DDEN7IeLxGaiLMmN0ELlrI3mudjgj89BcLijDlHa15YtIxvz3jpxLtLvKn+rI
-	 NBi7koqED29QXM5CW3nhlyuxPbSdvZnb5YY61+aVt28Fdzz5HU/cNu69rZ5z1Jipikg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793366259;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bhseTYkSHUica+S5LVec+4or3W7ZXkrIkBeRpANvA8g=;
+	b=CvQHM3tKnYK54IbVejZ8S/bbzIlWeAV7xu7hGD3/Trg4NgS5BToCqtWlDabOdi5DsWpP
+	 7q7AMKvcLvZR05mLZD4BgyHWacuNlu+tC+3rLHa5X3sW1Vzs7XfLcbEtj/KxbUL4vpOQQ
+	 v4MKm2xrGI8/p24IdwmA5CnKIjE+yl4dHVLXbceyy9jIIIBaK06eeuqMh6lVSvBQ182e0
+	 H9JTLzPXW8Casahyy6wEkrQsRu8aaI504EO1wYByZ7u0S2Wcg4HKjbSeQmiAq1dYKAm/t
+	 PmJGVPZ6OizwCVgwdBOA8htbubWTkKe2bMaYEOGRJg8/fh3EcTZ6kOuuowHyo0mXZ8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=qbXUnsaY;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EN4CDrWN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FB4606A32C;
-	Fri, 30 Oct 2026 13:15:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19FB4606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760BE606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:17:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=qbXUnsaY
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:From:Reply-To;
-	bh=+2nvKM88jwoLfLwwyKqMT179aru67saPys7pTH9M+hw=; b=qbXUnsaYgGJOKfhy4lCxY4koQE
-	ApDfE9QjUvUWKCd6RJ0OLR/qfKLzgHi6TGSwEVRh/qXkKQnpRAguHcNN3ccGRVeKPVVHO3veK7zeY
-	wakKwef63z3j13AauGS0WDZnDPNjv6ZgGVFjfcLydZ0+XfjvUJ80Oknu4ApmCqdi99xquCV5DJG7K
-	xwhPKVHtg60jR+FberxrUCX3IUfIJzWFcjmJD14i9RbPXhl3Cig3Ub6bQuOZoIp18NyfvV77B6QWt
-	g1XLhwgCwkySfAbihuxHfDMJd9TB0yFZN3QwzkjGgx57wTBl4XQsz5zEV2zGasisC9ExMeTp27bPB
-	88PbPhzg==;
-Received: from [179.105.94.163] (helo=prince)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xMmRi-00Ezw7-59; Fri, 30 Oct 2026 14:15:02 +0100
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Lucas Tanure <lucas.tanure@neat.no>
-Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
-	Dom Cobley <popcornmix@gmail.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/3] drm/vc4: hdmi: enable scrambling before the TMDS clock starts
-Date: Fri, 30 Oct 2026 10:13:48 -0300
-Message-ID: <179336602325.1953359.580164990520983023.b4-ty@igalia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261026164028.78792-1-lucas.tanure@neat.no>
-References: <20261026164028.78792-1-lucas.tanure@neat.no>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EN4CDrWN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7537B1F000C1;
+	Fri, 30 Oct 2026 13:17:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793366259;
+	bh=bhseTYkSHUica+S5LVec+4or3W7ZXkrIkBeRpANvA8g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EN4CDrWNAbXKxJQyXan2diA+mvpaEwAj5+X3esCbgv8QIkTpoClmEpgnyyJIaGFXL
+	 XrktCygbjCf4B+bi9rvP5MibGHSoXq9dspISeOQeYC236l/FAec/74BV15g5JppjzI
+	 RP0oIciCc/d0DclR22lwBF1WklAqUoZ+HBo3MPFKHz15vJ5Q3Oq6NQ9ahFfHyTADwT
+	 77m39KFV1bKbXYU/tcHBcNpI/wa98UrYuHIWE3BbMRF/lQKLqioHbux1M9G62x0pDM
+	 K44WJwmo+ZdBKZb5BITAotb50saafyM+w109I7Glf3tjcuI7d2RSLCdDLBQ6NY8lpP
+	 SM66LfwdjBlpg==
+Message-ID: <61beb545-32ba-4c16-9c6e-27948d294ee4@kernel.org>
+Date: Fri, 30 Oct 2026 14:17:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,29 +51,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/9] w1: ds2805: use the bus mutex to talk on the bus
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org,
+ stable <stable@kernel.org>
+References: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
+ <20261027-llm-char-misc-w1-v1-5-d2e6bfafb6a4@linuxfoundation.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261027-llm-char-misc-w1-v1-5-d2e6bfafb6a4@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-On Mon, 26 Oct 2026 16:40:25 +0000, Lucas Tanure wrote:
-> HDMI 2.0 asks the source to set TMDS_Bit_Clock_Ratio in the sink while
-> the TMDS clock is stopped and to start the clock at least 1 ms later.
-> vc4 writes the bit, and enables the scrambler, at the end of the enable
-> sequence, long after the PHY has started, and clears it before the PHY
-> stops. A sink that samples the bit when the clock appears never locks
-> a 4K60 signal from a Raspberry Pi 5, while laptops that follow the
-> order work on the same sink.
+On 27/10/2026 17:04, Greg Kroah-Hartman wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
 > 
-> [...]
+> Since commit b02f8bede217 ("W1: split master mutex to avoid deadlocks.")
+> the slave drivers serialise their accesses to the bus with bus_mutex.
+> This driver takes the mutex of the master in the callbacks of its eeprom
+> file instead.
+> 
+> That mutex is held while a slave which has disappeared from the bus is
+> removed, which waits for the sysfs callbacks of the slave to return.  A
+> callback which is waiting for the mutex at that moment never does: both
+> tasks are stuck, and with them the thread of the bus master.
+> 
+> Besides, it does not keep the other slave drivers off the bus, so that two
+> transactions can get mixed up on the wire.
+> 
+> Fixes: f6887531c0c6 ("drivers: w1: Add 1w slave driver for DS28E05 EEPROM")
+> Cc: stable <stable@kernel.org>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
 
-Applied to drm-misc-fixes, thanks!
-
-[1/3] drm/vc4: hdmi: power down the BCM2712 PHY when the output is disabled
-      commit: a59a60e6e9e3a1d5177b28577d935d5ee37ace66
-[2/3] drm/vc4: hdmi: always cancel the scrambling work synchronously
-      commit: 2e47848f0d076dec66df3bc403214073cd2214ac
-[3/3] drm/vc4: hdmi: enable scrambling before the TMDS clock starts
-      commit: 81383bd290a18f06ccf9b0bfb29e1a3ef73d9357
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
-- Maíra
+Krzysztof
