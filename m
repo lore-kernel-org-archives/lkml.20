@@ -1,103 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.30
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793365552;
-	b=KGwFvFEOSIruRo+LJrhlIe4ppd5JiiLgS6stzbeS+WUiSDTu4wH1O8/95Sc8JhxLoiFZ
-	 0zTUCnaxzFF5yTQyUBFlK7JkR5TqtMmlqZEfF+h1rR84Smi55Ka4X2e3Bt3s21h7YGeKE
-	 kedcTbemFvnuu7f56p03MwSYUYSd/ik6Htk6eYvokiIGVpwQHfb+nx/T3UfAbcfLchp1c
-	 2xMi6fLqw+jybrED6i6qHU4DRelEd5mHIoxjxfidmFRR4xNLP7c237RP0ag1MJ8X9hQGt
-	 CukVA5ZjX2mDbpJKbP27t23WydgGj+wez9qtbq+XE9bGdaoGbiUlcYWDsVWy3galZ8Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793365552;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=14PfnsdPhnqz2A3Lf0RDtajzYPCsZBzqqFsm84SgIKI=;
-	b=ygg8xj6GKdl2Rh2tKi+Hglm6KQ5+6t+8eR07WKC5WpIXd9IE4B91z7vuULF53W2p97G2
-	 z9WPufNcory2hkrSSBkQAR1i4ksfxUDBeJX+BPdWTLkOWWc1ep+i4yDZPu8AXr5373SMf
-	 MU64YLk/C1a1YysZQuSEwqiShsp8+eLSG3IqQFGCYZlcpeqsDzW1Ux8CjKFBeCkz+6xWv
-	 2lskt70fCV+M921nXszgLCYrNNIuU+9qgXqyj/A/FtRPiAy5SPhC34AG5TN8TYtTVfRqr
-	 CDL0UYyWwRmTb/RKZQw4Wh986Is9xNtVBXZ94Ah9FpSBcCYUIJicjqXLzUyHg0/NUQw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=L+4XH4eb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.30
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013030.outbound.protection.outlook.com [52.101.72.30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8F5606A320;
-	Fri, 30 Oct 2026 13:05:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC8F5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=L+4XH4eb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ehtt53d7DBfk5632fPQ3sNumxKMw0/HbwQdOPHtBX6xOTMDGMjV6scN+/XJhd+F5gbr63ZlB1VGrli2vS45QGBtIB4GaOcnqkjiOX08WHGmzpVdwIMBC8Hjq9DT/XRn2oUl3R68ZPmXEPchQkOX3IO+OOraAX5o4tHKq3oNzCtU0E4pXyVmN26x1kx/bDyXzT2uh7RLWHYvpRc7YuPFcrXMc87808oA9SYr46LPgy6zY8+nU4Tybf3Ikqw/1NHkRx9GKkYSOX9zL8+uoQIJ1hIHsMhpjPc1B0C3ERpN0Yz/QnVgQnsVE9HafyGf1+FBpr9zSgDNsI2aV087nlLINMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=14PfnsdPhnqz2A3Lf0RDtajzYPCsZBzqqFsm84SgIKI=;
- b=c5ddbReEu3veIadsQClpHiuucWvfBkoGaQ6e8HZ65OCUv0E2DDGgzqGB5udbGE5JrLCOF+CmO1MYKWs6xhzE3zPSWC91lN1QeBhTAMVHoB8N7oEHznm/aTd8kU8Lq9tJiBtNXvcvqVjp6vCeYk3v8qZxagldLInxNh0CE8bF7BsFIE+4/Rx+gKnw7kUSD4RoiFzMOftbYFQ7aSEU7EUCJK0MERKxzEDaF4yMnq0jl/xG1RPsqCF0jrBwh1aLj74xrmNQEbtsTMPFx2DY+3lxqHnpN3wmkOTc1pREq224g1oHWIYoU5ji+714U5aOuLn8Y+NF4cL5PE1w3MfzQrrfTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=14PfnsdPhnqz2A3Lf0RDtajzYPCsZBzqqFsm84SgIKI=;
- b=L+4XH4ebNOS2/juD6HoiPDVDWA5ZWegV10z2Z1yvOu+bxmMD2KiAZ1cDLZ9R/OCoo5C23oJ7xdL7x3oRjU5SwvJJgmP4DoZFm7vvHfxO5V0vvW2G726UG1iq23Jx5Mum/JQlhL/ahWGlQ6zwHXmjrFNZfVaSt+0DdlYJs8W00Khf/3vDQK0Fqrx14fytNX6HEXAyffW11upT3DezNricZ7kZFjCJdT1U8WyDFOzC9Ymc4GJpqSMDyfmTdWO35BUM1JrzKvW+jYbvcPDKDHzAYVJrfK+ULLTCISC8sbBHhHsfVxOeFVHgE0sQvVmXNU/HYq/mOJoa9Zv0ypR8Xlxxkg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by AM9PPF97652C55F.eurprd04.prod.outlook.com
- (2603:10a6:20f:fff1::a14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 13:05:49 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 13:05:49 +0000
-Date: Fri, 30 Oct 2026 15:05:45 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v8 07/15] drm/imx: dc: Add PRG support
-Message-ID: <auSNHjK_WDLfLCUr@vm>
-References: <20261030-imx8-dc-prefetch-v8-0-c4f81afd4533@nxp.com>
- <20261030-imx8-dc-prefetch-v8-7-c4f81afd4533@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030-imx8-dc-prefetch-v8-7-c4f81afd4533@nxp.com>
-X-ClientProxiedBy: AS4P189CA0002.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d7::11) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793365556;
+	b=zYvkP8SRlGYsxwBgWiNpg8lSjPBoY1WvL5PLOmN/+paFPID4f0JIaX+zZkMLl0lGfrzH
+	 863ATNRYFxoUpt2Qkn+SuiQg18YBk7hqHQfdzIvaDM1ynEYPhflJIotJRCVc/DR5kvhsi
+	 JTnAZZyaYCwXstPc8/1SpbXhxvzosAjUmRICDJcNRQue4FnDjmJzg0RbLTBVZTguVAtdM
+	 kF6PoedxRyZsz4x5m/bLcWDrdvFthi6a6BohKaqSjDXT1/is8+vZZkCZJGU64qNpudspZ
+	 ulLd3qg/rasBCwT7dUP6+M9mh6r09+w5CqYMJ3P7zzpv9xzh3TwxA35iHkXyig2a3pg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793365556;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=UTx52JTaNLihAvuaFwu6EdyQhcOp4tcp7+Zh6xi+HS8=;
+	b=LF9lsCtL4ZOGgx/HbXsiT9VqAmdmcz5uGMrHWo/em1Fi+GNEILEYZBmSiHzanTRtKIzD
+	 SDsRg9FnQ99OP4YY9+T426l+9SJgyWAZ3cEMxJUCws0HmCiZU1paYakp3aQata96IYuDF
+	 ewezKZtxH/ZyPpumrliw3frXMnUkc9CJ3TA7jctHPQLcK0Z1cUCF+cQUDC1s6tioVQ4Tx
+	 I8XpWlSfZZnm4CKESy+YicofUcrxseZiAMpgJ1tvS2DLvK5+kLegRB5vmh3/YzFdG6d5H
+	 J0AhaLK9/ig7O/WW4LbH1hzMUKSyhxgRrQZA5yk9huK1eqwV2tmZUgT1ap/JBT6/ypA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6AA30606A31C;
+	Fri, 30 Oct 2026 13:05:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AA30606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=UTx52JTaNLihAvuaFwu6EdyQhcOp4tcp7+
+	Zh6xi+HS8=; b=cymqIvohehS50JDj0kO4gmvdgDC2BBy3b7P08RDo1bA99S80Eb
+	qf+LOFFO5dogWG1Oc+C19USOBfa6Bva+cGMO+2kmmIYig6MilgHqhWOB4M9z165B
+	Nu5ktt83Q2C35OXj4xMlhxUq/AOl3XeEGjM9k0W+0u5ecevggBtH7cF+c=
+Received: from user-virtual-machine.localdomain (unknown [223.160.172.89])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDmKwEgluRq1XcKAQ--.39307S2;
+	Fri, 30 Oct 2026 21:05:37 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Sean Young <sean@mess.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	=?UTF-8?q?David=20H=C3=A4rdeman?= <david@hardeman.nu>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH v2] media: rc: fix use-after-free of rc_map.name on register error path
+Date: Fri, 30 Oct 2026 21:05:35 +0800
+Message-Id: <20261030130535.2921-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <auRsPM9YO4aXd8qL@extorris.mess.org>
+References: <20261027014144.9144-1-25031212351@stu.xidian.edu.cn> <20261027021718.14264-1-25031212351@stu.xidian.edu.cn> <20261030.pref-04.ec83d43911ee476d@stu.xidian.edu.cn> <auRsPM9YO4aXd8qL@extorris.mess.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,141 +62,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|AM9PPF97652C55F:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ca6f336-2bab-442c-8e5a-08df368684b5
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|19092799006|5023799004|11063799006|4143699003|56012099006|261009223027099003|261028144727099003|261026140227099003|261021123027099003|261021121427099003|261022105027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	AgDB8Au9SHLTdYA6u3nlUl69u/DYByeCV0GKYMVj+vWz5dJbPLgoo4nkDnx8ZM+kOIRH6oFEpLmuP8E0CxMioCt93OnAkgUPY1s18lfShO6i+wovdlpPk0pakRWYMFHIk0lbmvS64EEhJVzAHhF6ICJoebv9CNt+kuLbu4QXVL0shpjGTF9Ol9Ji0SVU5sAVb5XsD+FnHeq7AIxCzc4SzUtfwL09kLPS7ji39M0uwBFEZ5IyI0SrKApXiaZ1t45dMP2pGB7zlwH/Gn4QasoD3XEWhXgU5IDxQEzFAE09xr2IrOyvsBE80ktOQ1Uhr6BNlpFmZRe66YEWXx7u088cgiqOnA9Fs5TKVB+i5mrwNpTIi50sUWxnM9s33CgT5SSvMKYr/7YjI7uDmiDgKQ5zpaROrwqN3rzbve95w4fFFN95sdbSYRq0XRDD5o+UVYfvC1GTMi/yE1fOxXIyak1ckzXm/3m5tCSRHNnX7d5Tez35FmSVAELOdAMS/8uw9sSqJzKSRcp4NQL8E49G52LL9exq6IwSn29M+6zcGpC9X/yk2Ym+gEQIdwjrYMS3143sonPiyZc603tSVl77M3p/faIz5u1cQadmFrfWLqUqgKYyR/V2pOYhy95/EQxi4JFYLQs0DyhwTXfJg8AuT8V1PkAjt/cyuNG4tq2Oh8YLeHM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(19092799006)(5023799004)(11063799006)(4143699003)(56012099006)(261009223027099003)(261028144727099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022105027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rzuVYVoFMvNrTj18v21jp0nm2X9YV4nUtZcEjNpwFqJnUPDlP89EX0QG7iYA?=
- =?us-ascii?Q?5g4h+ayo4V1Ojl+LVMYySfXcZHu2E7RYyogfPS/39Mzhir3hoJ/i/QFblTvZ?=
- =?us-ascii?Q?f5HnZWiyfREE7mENGFax98VguCceF9yu1niXugyNbdibGHEHFzUdh4v0Ctkk?=
- =?us-ascii?Q?HSQo4ouEUnuQS3QjUzlbeACMdJ9j9JQ6l3Kz5yFVkioc0+fSjglFMmukt6yx?=
- =?us-ascii?Q?vg1buk5PEVF66bQO/ZN2YR7Ye3MZoLjRtuGcra5UEEAJh7at6VjIfWvjPe3g?=
- =?us-ascii?Q?HcuWORrKFKAZPbbpFnFeX6BXD/rk/7WjQGK+j+9iti7J0OPyMR64lONLpYnJ?=
- =?us-ascii?Q?NkRUwvbDwXffrcCVjyNxUZoPOz92TiB9B4feO2QHvrSnKSSY+g/rt/0ZbpTW?=
- =?us-ascii?Q?gj5TNHlG86RSJ0QEJp0gnqKv6HTswG5T5bUkw6SWCDjQ91V6Wv8rwg43N9aB?=
- =?us-ascii?Q?hce34fcmhFHQxTAp5h2nrbsCT4J3HVE4llvLNogZtZ52aaYvTWB0DJHmNXXR?=
- =?us-ascii?Q?oQMVkN0PYfFPwZlnH/KwgrWHFn2Qogm2yim68bf/o+M4LnyLF145m35i8xl7?=
- =?us-ascii?Q?2ydDUGX69OwMpZ2w7BtQxFxBaVJcQ5vjeSJvktwQQfO6OAUR6AelgsTJv7Nr?=
- =?us-ascii?Q?xwXYMaErteXoSof01PVt3fwET4m9aSqIfP6QhkDJmR4rrJpQyP2S56xBvKYo?=
- =?us-ascii?Q?2rHkpFL5TldctHsBhcxHjBnVr3bTc3TmPDzJBPGOO6Fa98S/pdYr7ZnWmkg3?=
- =?us-ascii?Q?j3T/f/Ad9aQlrugDAFFWqGRJ2FztxNAZvPrABHKygRGlKeX5u47HmoEMk8Oz?=
- =?us-ascii?Q?9Kh3MBIQMuUSguDyeWoK4XQWbXs4pkfj/Gbj3zpKAQu7jfCtx7BKtElXILuI?=
- =?us-ascii?Q?AsvvNQwBBSYdjrY4y1Ho0gc89dbe8Q9N5ZFWooJ0QF0qXFeJwNe8TRsosuHO?=
- =?us-ascii?Q?dFi9pnqwSI8Ffhuk1t/9sxrgxyLXqdAIWnnxOIkbPvRu8vOPMo1v4+4ord3q?=
- =?us-ascii?Q?h1inPSwGJLJjJgvMjlNgW1R3DlA27/OEeExO6Q+IPuOfrBmmxPc6H6lPvkxf?=
- =?us-ascii?Q?4g2Hzg6DeTqm8/7jcIZOlW+vHkWT6qZAMd3oYynpm3LNNz7Gl3JPV5jvnD9n?=
- =?us-ascii?Q?k7FPxM3sxge1Bp7JlIC9WKuidd+borU3v5FTwgHt58Jpixe3bctLXJZe6sPJ?=
- =?us-ascii?Q?R1O2AqMgHGq6y0OA//FWmyAS0HEsn0oP0bur+87Kfpe8f3mEiM02nOQYUU5t?=
- =?us-ascii?Q?3+4P5Z48+Bi8E34ZOMFCPV1J/jaVuaNJxI1QHA9tIEUIM1XICq2ngc2Os4S6?=
- =?us-ascii?Q?qiApWuSwXipOTXALTsQHxUfzFqu2hppKkG412Dd1hJR0YoGBZkrO3wufmJPE?=
- =?us-ascii?Q?vhhLaNnkkJeTkVXBqlzbHjOsFIgZmZxxnwoDH11QYI4tlbm+sjR9djYhE8Gu?=
- =?us-ascii?Q?1jPodcIfjEKGtGqMcFwZ8b/lkQmJDeHc1veTacf31a13Gl6Diy95dwCPrKR5?=
- =?us-ascii?Q?/BhNKU2v4WwtnKDz3AG6Nswr1cTeLK59f9OgewdmC22UZ0HDz7qXU2xTjTmi?=
- =?us-ascii?Q?BwiKHkLbdjvlXsgw8wbub0fZBLegeB9ESMTb5a/7f1yDW0yyWdoZFJupleSH?=
- =?us-ascii?Q?R7sJfYoO08TXO0SQMif7KSIYdZHRfRNl5q4tau8JR9IT2HpfV1QEGS1cii2U?=
- =?us-ascii?Q?MK7HL8hrXUM0N4K7QeV6RHz3jdjmeD9GX4RDeYHZjydgGxLY9tuAMTyV7m0Z?=
- =?us-ascii?Q?uAMzJjViCQ=3D=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ca6f336-2bab-442c-8e5a-08df368684b5
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 13:05:49.1425
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vaBOpMICMsXbirL6IK/UpogHheeNVorTMiRXXZMJrHL9aon6MK5D+q7nfkSgW3Rj/jwlNTt91V0F+rTKsu25Ag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PPF97652C55F
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkDmKwEgluRq1XcKAQ--.39307S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXFWDXrWrtFykWr1UXrW7XFb_yoW5GF1rpa
+	yrKas8K3yqkr4jqwsIqF4UZa429w4fAw4rAry5Gryjk3y5uryftFZ5AFyUWa4UAr97CFyU
+	trZ8tw48Z398CaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9qb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVWxJr0_GcWlnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8I
+	j28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr
+	4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxG
+	rwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Xr4l42xK82IYc2Ij64vIr41l4I8I3I
+	0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWU
+	GVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI
+	0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0
+	rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJbIYCTnIWIevJa73UjIFyTuYvjxUyDPiUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUCD2rjY8GjNQADs0
 
-On Fri, Oct 30, 2026 at 05:54:31PM +0800, Liu Ying wrote:
-> Display Prefetch Resolve Gasket(PRG) is a part of a FetchUnit's
-> prefetch engine.  It sits between a Display Prefetch Resolve
-> Channel(DPRC) and a FetchUnit.  Add a platform driver to support
-> the PRG.
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Acked-by: Maxime Ripard <mripard@kernel.org>
-> Signed-off-by: Liu Ying <victor.liu@nxp.com>
-> ---
-> v8:
-> - Fix dc_prg_burst_size_fixup() to avoid overflowing signed integer 1.
->   (Sashiko AI bot)
-> - Check device_link_add()'s return value and bail out if needed.
->   (Sashiko AI bot)
-> - Drop unused header files.  (Laurentiu)
-> 
-> v7:
-> - Collect Maxime's A-b tag.
-> - Return 128B burst size from dc_prg_burst_size_fixup() when baddr == 0.
->   This avoids undefined behavior of __ffs(0).  (Sashiko AI bot)
-> - Initialize and declare prg_node at the same time.  (Sashiko AI bot)
-> - Add device link between PRG's consumer and PRG.  (Sashiko AI bot)
-> 
-> v6:
-> - Include "dc-drv.h" to avoid build warning with C=1.
-> - Fix PRG BYPASS programming.
-> 
-> v4:
-> - Sort bits and bitfields in descending order for register PRG_CTRL.
-> 
-> v2:
-> - Manage clocks with bulk interfaces.  (Frank)
-> - Collect Frank's R-b tag.
-> ---
->  drivers/gpu/drm/imx/dc/Makefile |   2 +-
->  drivers/gpu/drm/imx/dc/dc-drv.c |   1 +
->  drivers/gpu/drm/imx/dc/dc-drv.h |   1 +
->  drivers/gpu/drm/imx/dc/dc-prg.c | 318 ++++++++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/imx/dc/dc-prg.h |  35 +++++
->  5 files changed, 356 insertions(+), 1 deletion(-)
->
+Hi Sean,
 
-[...]
+You are right, and thanks - that is a good point. Once rc_dev_uevent()
+returns -ENODEV, dev_uevent() fails and kobject_uevent_env() bails out,
+so the KOBJ_REMOVE event is never sent at all. udev has seen the
+KOBJ_ADD, so suppressing the remove leaves it with a stale device. That
+is the wrong direction.
 
-> diff --git a/drivers/gpu/drm/imx/dc/dc-prg.c b/drivers/gpu/drm/imx/dc/dc-prg.c
-> new file mode 100644
-> index 000000000000..46108f7e09af
-> --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dc/dc-prg.c
+The strings themselves are not the problem at the point the remove
+uevent is generated: rc_map.name, driver_name and device_name are all
+still valid until the driver frees the rc_dev after rc_register_device()
+returns, which is well after device_del(). What we need is that nothing
+is freed before the uevent is sent, not that the uevent is suppressed.
 
-[...]
+So the error path should keep the device registered until device_del()
+has sent the remove uevent: at out_rx only unregister the input device
+(it is a child of dev->dev), keep the keymap for the uevent, and move
+both the clearing of registered and the freeing of the keymap after
+device_del(). device_del() drains the sysfs readers, so rc_dev_uevent()
+cannot run afterwards and rc_map.name can be freed at that point.
 
-> +
-> +bool dc_prg_stride_supported(struct dc_prg *prg,
+Something like this against next-20261026:
 
-I searched all commits and this function is never touched again. So, you could
-safely get rid of 'prg' argument since it's never used.
+ out_rx:
+-	rc_free_rx_device(dev);
++	/* Keep the keymap until the remove uevent has been sent. */
++	if (dev->input_dev) {
++		input_unregister_device(dev->input_dev);
++		dev->input_dev = NULL;
++	}
+ out_lirc:
+-	scoped_guard(mutex, &dev->lock)
+-		dev->registered = false;
+-
+ 	lirc_unregister(dev);
+ 	device_del(&dev->dev);
+-	/* registered already cleared above */
++
++	/*
++	 * The remove uevent has been sent and the sysfs readers have
++	 * been drained; lirc file descriptors that are still open must
++	 * not reach the driver any more.
++	 */
++	scoped_guard(mutex, &dev->lock)
++		dev->registered = false;
+ 	goto out_free_table;
 
-Otherwise:
-Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+out_free_table already frees the keymap after device_del(), so the
+out_rx path gets the deferred free without a new label. rc_dev_uevent()
+keeps its registered check: it is still what keeps open lirc descriptors
+away from the driver, and it now runs only after the uevent has been
+delivered.
 
-> +			     unsigned int stride, dma_addr_t baddr)
-> +{
-> +	unsigned int burst_size;
-> +
-> +	burst_size = dc_prg_burst_size_fixup(baddr);
-> +
-> +	stride = dc_prg_stride_fixup(stride, burst_size);
-> +
-> +	if (stride > DPU_PRG_MAX_STRIDE)
-> +		return false;
-> +
-> +	return true;
-> +}
+The same ordering exists in rc_unregister_device() since 4f0835d6677d:
+it clears registered and frees the input device and the keymap before
+device_del(), so the remove uevent is suppressed there as well. I am
+happy to send the error path patch only, or to extend it to
+rc_unregister_device() as well - let me know which you prefer, and I
+will rebase it on linux-next.
 
-[...]
+If you fold this into your series, a Reported-by: YuanZhe Liu
+<25031212351@stu.xidian.edu.cn> for the analysis would be appreciated.
 
--- 
 Thanks,
-Laurentiu
+YuanZhe
+
