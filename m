@@ -1,61 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.238.174.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793385911;
-	b=FXejLNsRFpYN35n9+dEzse0M9Is6/4qcP1kDXpobPTrsd5dnULpPFSx3UqOnZksWBsvT
-	 FhGXJ+fmuWXHXS0RW9G7gQ3px8eJJkJGox2ovSvVMgk5nMsSTfIaJG4Y5SHftqVmtt25Q
-	 w5MwNMUJ9Ku8AUqNRP6lyDyZv30y2Iag7Pz/z99gDsnuSInte5dWn5Pwj1FOZEzaZyvkA
-	 n9lXDPDiYmeIDRxUMkZzrU7qhwbdmbLN4ta18G3nzk0KOgvDGr441oeBQHawtIeU1iAEJ
-	 Cu4/RNfU8OUNK3B1fFOFIqEt1VsQx+Hkf9/ZUVTKDQzMK9ULG4BoObOGzBcmEPagFcg==
+	t=1793386025;
+	b=pBISSswhSgLYIxN2ImrzAAL5K8T6r9aTD8AUdqr8xvSk4vBfTdrEh6rUeECN2JldJ6u0
+	 iI+XpCGOoz/Kdc4bVqbhV84PtcEq8R5IR+1xr7S3SbIuvPKfXuSV6CT9s+fMUWE5HtHNm
+	 tYJY8NvBVIpFvJnH6t9dvAGe6imT+Qu8XXNV+Kkq9WUSYdjQM9IyaWAVDEw5Io+j45xD2
+	 Ck0iThe+w14vbUziqfvHj4cHRzU1wFtk7lHFb/Asa1ZoczX4xN3mu2WoKZOLM6X9u7HMC
+	 xAGcV3HsChQfpPcKz4XEFYfj1xmMQAbifDo7cEnw7sqd9Vju5AiCLXt4NRNFFTOdJOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793385911;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5EPCnIcfvXerHvRmTGariLfLXLNGocNWN1mkzax41Wc=;
-	b=pBoH7O0R+/0BJofnNCK/SomzHqMm7xM5KiSw6150WSwijhztKHxMchkRn8XKvd8/F3Ar
-	 ZDPkynXjYk98/cBWReEDSE1JDTIMYseEht3Xy6G4ys49/fdUdgn8Sn26sJ47zk4ltFFG1
-	 9lIAqsRzNW/SZLA8ek5rnpv0IEVC1VgfQJbShbkp+CfHXB2xrEPjbM9FesmOGcz+F5AoP
-	 NES87jppl3OO78ikKK0aKu0oQH1Bmz9IWNrS1qT6FML8jYQX9EW6NJYrWC7fY4xd4ARDX
-	 wo5IDvvAGOypfREl+ECaDCGiQVHTIn6TWhRIvrftJ4Euykz8ysau4Ps290M/OVuVVpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793386025;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
+	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
+	 Content-Type;
+	bh=tmFJTDvtKn4g2hsRLOIIPO6ilZ/8ju1fOi4oViychXk=;
+	b=SDlnwjQPYLuplPTAIKUHjD1J8lPN4cyeQvpq5BP5Zkt9t9xp5iYmvFUPx/P3GEu9r/gW
+	 9YjJxbcfnykpnXfaa68IzE84nljdRh8lsfB6YrOuRumZgxSIk6RoUcjNnyxGBiXr26wwS
+	 BJstaWmaKw8NHTwAaOVYJB7Q4NcgyxuVeXT8/MTMBCRstus/SdCPLS+uQYdKY8S+Bo5Cy
+	 1RcDn5Bq22FBDthtCXuP9/fzU2XRJ9nxwl7t0Z28CZsiREqdm6g4Yf21hHWbeJxtlwnCd
+	 kSj/p9DWTk6tyc6M7LaLSGCKYTQi87KK9tiZXWQUwpCjjbv4Jg+5G14dmQTrzjD5Y8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbaV4lxW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ssi.bg;
+	spf=pass smtp.mailfrom=ssi.bg;
+	dkim=pass header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=6HuVJG3F;
+	arc=none smtp.remote-ip=193.238.174.39
+Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC079606A31D;
-	Fri, 30 Oct 2026 18:45:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864C2606A31A;
+	Fri, 30 Oct 2026 18:47:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 864C2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbaV4lxW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4510A1F000C1;
-	Fri, 30 Oct 2026 18:45:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793385910;
-	bh=5EPCnIcfvXerHvRmTGariLfLXLNGocNWN1mkzax41Wc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cbaV4lxWKK5WATUJ1chE7QyUtFKPWgYg/uWeiSgJ06C0O3r29jyraE3caiUocEG0e
-	 bsSNPSvZJzik9l9p6c7QAxBUoOjfPpWPQL9xTeBnXhsl8N0g40eCloezfiWm+OUiDN
-	 trsUdhqAZhMctuclEr2SuSX6wlV4wzbC3YKj6BhzXKJsTOsswTgdlqy6b5HMClSijp
-	 Twf89t9LxdzNen76s/XWYBERULPTZrTbgDTboDE+54t7q5jCujYoGCfVcN/AbfrNDb
-	 QHu4WWYbJ21TJ6UPmhoJQdXRDt66DOV7maeZfLmuTmtrJxrKx/WpjLAAHKIPbdr7VN
-	 jKM/CRNmOzd0w==
-Date: Fri, 30 Oct 2026 18:45:06 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Parshuram Thombare <pthombar@cadence.com>,
-	devicetree@vger.kernel.org, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jisheng Zhang <jszhang@kernel.org>, Fei Xie <fei.xie@horizon.auto>
-Subject: Re: [PATCH 2/3] spi: dt-bindings: cdns,xspi: add ACMD and internal
- DMA properties
-Message-ID: <20261030-ecologist-booting-a6ae4eb55a28@spud>
-References: <20261029-xspi-cadence-add-acmd-v1-0-53cd44690e04@analog.com>
- <20261029-xspi-cadence-add-acmd-v1-2-53cd44690e04@analog.com>
- <20261029-tag-scrutiny-b9ef1299e88c@spud>
- <auRpD5u6JQgwQM4f@nsa>
+	dkim=pass (4096-bit key, unprotected) header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=6HuVJG3F
+Received: from mx.ssi.bg (localhost [127.0.0.1])
+	by mx.ssi.bg (Potsfix) with ESMTP id 9228F21F7C;
+	Fri, 30 Oct 2026 20:47:00 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
+	:content-type:content-type:date:from:from:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
+	 bh=tmFJTDvtKn4g2hsRLOIIPO6ilZ/8ju1fOi4oViychXk=; b=6HuVJG3FBfxg
+	KJn40TJUZZlKKu48G5zQuzNOPWiPp6hmjwwAuHiA5TIYnrY5KtdHkv7+SSDXqNbJ
+	8h74abPZtR7BBgAK9YxjBqJpEDaTktsVO7dVG5oGF5+kYa5gFiEm0mclxFQAQYSa
+	XdhwbjMRNeRNh1IZx8vg/LI3SryFHSK3Zm3P0unYHAtgNPLbMWeXmIfwqc/MFI8J
+	Dr9cvCQPzXFnFghUK5E88UvPd7+I1dVWNO5G49wniv6TI4tymQQSwjPGB30yswQ8
+	73fvhYE6dybh83qY+ElOY62JFB7GFy2iNwmQ6WMjzOFHZtHtbZe+9cyKq7iCYZ4+
+	q3oAg8wsBXsIf/CV0CLf/NbihcUkP+3aP6PsiFu6zB6KKOvAz+r4GGEOxuJsO1rK
+	K9Kkm8EceUsiRYUFPu+Lwt58J3OR9h38DpeX4KB6H1fjc+Tmgx11+GrFWTFlEHUz
+	2clDT/D+CJBovsBFKI/ff0RK36bc8A0nyQEIeYY+yIWmKZsooBWOP+cPWfFGn02i
+	CqyQtfMBzC45oJrvxTHxXIc0JjS+xb127WXYSXYMDxUx0D1GuU4nrfCMXbZTu5+R
+	wz5KOuVO3OE0IZBwySQEMLOm8c6CTS1YgvD/KrpOj/SZUQ7YPtIiNR7jLRSuug5z
+	dEGaMmm8/qkydgCny34h/vir51trkgI=
+Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
+	by mx.ssi.bg (Potsfix) with ESMTPS;
+	Fri, 30 Oct 2026 20:47:00 +0200 (EET)
+Received: from ja.ssi.bg (unknown [213.16.62.126])
+	by box.ssi.bg (Potsfix) with ESMTPSA id D2D54609F8;
+	Fri, 30 Oct 2026 20:46:59 +0200 (EET)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 69UIktnU063584;
+	Fri, 30 Oct 2026 20:46:56 +0200
+Date: Fri, 30 Oct 2026 20:46:55 +0200 (EET)
+From: Julian Anastasov <ja@ssi.bg>
+To: Star Chang <starchang@google.com>
+cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+        davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+        pabeni@redhat.com, horms@kernel.org, johannes@sipsolutions.net,
+        johannes.berg@intel.com, linux-kernel@vger.kernel.org,
+        wangroger@google.com
+Subject: Re: [PATCH net v4] net: Fix Hole-196 vulnerability by dropping
+ unicast ARP/IP in L2 BMC
+In-Reply-To: <20261030065258.818406-1-starchang@google.com>
+Message-ID: <ed3b982c-ff5f-79e7-6c72-0b2899c84cb6@ssi.bg>
+References: <20261026150539.1357037-1-starchang@google.com> <20261027015619.1745984-1-starchang@google.com> <5c1fe870-39ff-e83e-e479-0e1f0fed6a83@ssi.bg> <20261028061644.2997812-1-starchang@google.com> <f631e178-d9ec-f335-9163-c44a9e6c58af@ssi.bg>
+ <20261030030715.604215-1-starchang@google.com> <20261030065258.818406-1-starchang@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,60 +83,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uKc01hmH0VtcXB41"
-Content-Disposition: inline
-In-Reply-To: <auRpD5u6JQgwQM4f@nsa>
+Content-Type: text/plain; charset=US-ASCII
 
---uKc01hmH0VtcXB41
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 30, 2026 at 09:57:36AM +0000, Nuno S=E1 wrote:
-> On Thu, Oct 29, 2026 at 06:31:00PM +0000, Conor Dooley wrote:
-> > On Thu, Oct 29, 2026 at 04:03:17PM +0000, Nuno S=E1 wrote:
-> > > The Cadence xSPI controller supports an auto command (ACMD) mode where
-> > > high level sequences (read, program, erase) are handled by the
-> > > controller and data can be moved by its internal DMA. Whether ACMD can
-> > > be used, and whether the internal DMA bus requester interface is wire=
-d,
-> > > depends on how the IP is integrated (e.g. external SRAM, interconnect
-> > > wiring) and cannot be discovered from the controller.
-> > >=20
-> > > Add the cdns,has-acmd and cdns,has-internal-dma boolean properties to
-> > > describe that. The internal DMA is only used by ACMD, so properly
-> > > reflect that.
-> >=20
-> > Why would these properties be needed? What the controller support surely
-> > can be determined from the specific compatible for the SoC integration?
->=20
-> Alright, I'm more used to describe peripherals than this kind of IPs but
-> I imagined that these being properties of the IP that would make sense
-> to describe them in binding. Ok, but I sees this leaves the door
+	Hello,
 
-Basically the "rule" is "if it can be determined from the compatible, it
-should be". Adding properties ends up with people having to figure out
-exactly which features/quirks etc that their device needs and if things
-are discovered after the fact it requires updating devicetrees that may
-be bundled with firmware etc. Properties that are used to say that
-something can do a feature should really only be used when the board
-layout etc is what determines if the feature is available. That's much
-more common for ADCs or w/e that are off-chip devices.
+On Fri, 30 Oct 2026, Star Chang wrote:
 
-> open to just add properties in integrations that would not make sense
-> and if we're going to have any compatible conditional kind of handling,
-> I guess it makes them pointless.
+> Hi Julian,
+> 
+> Thank you! Your point is spot-on: in a shared-key Wi-Fi network, an attacker
+> can simply broadcast a forged GARP reply (sip == tip == gateway_ip) to poison
+> the gateway MAC for all peers. Giving GARP an exemption indeed leaves a door open.
+> 
+> We verified the Android / mobile use case and confirmed that completely
+> disallowing neighbor learning from L2 BMC is safe:
 
---uKc01hmH0VtcXB41
-Content-Type: application/pgp-signature; name=signature.asc
+	The only purpose of neigh_event_ns() is to flood the
+cache with NUD_STALE entries that on confirmed traffic avoid the
+ARP probing:
 
------BEGIN PGP SIGNATURE-----
+1. If entry was missing => create NUD_STALE entry with the hwaddr
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauTlsgAKCRB4tDGHoIJi
-0tT0APsGkClLzsaUhB//dnE4VWj/t8QllLlPxrmNyrTe7hZakgEAi2lH8ESaq6J1
-8mgwDkF846CJavKSTS5WpWN7TgYW/g0=
-=N0N9
------END PGP SIGNATURE-----
+2. If entry was present => update it only if hwaddr changes,
+if hwaddr is same => do nothing
 
---uKc01hmH0VtcXB41--
+	Same is for the neigh_update() after arp_accept() for
+broadcasts.
+
+	So, if we do not want to keep STALE entries with
+wrong address learned from broadcasts, we should not call 
+neigh_event_ns() and the neigh_update().
+
+> - Gateway validation: Android relies on NUD (Neighbor Unreachability Detection)
+>   unicast probes and unicast replies (PACKET_HOST), never on broadcast replies.
+> - Wi-Fi Roaming: Roaming clients *send* GARP to notify the AP/switch; they do
+>   not need to receive broadcast GARP.
+> - Router failover: NUD naturally detects stale neighbor state and re-probes
+>   via unicast, recovering within seconds.
+> 
+> For v6, following your guidance:
+> 1. L2 BMC ARP Replies:
+>    Drop all of them unconditionally (including GARP) with
+>    SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST.
+> 2. L2 BMC ARP Requests:
+>    Process and send replies as usual, but suppress updating/creating neighbor
+>    cache entries.
+> 
+> Does this match your vision for v6? If so, I will prepare the patch accordingly.
+
+	I don't know IPv6 well, so I can not help here.
+
+Regards
+
+--
+Julian Anastasov <ja@ssi.bg>
+
