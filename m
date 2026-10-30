@@ -1,78 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793358793;
-	b=cj0Vt5sF3NZw1BXLqO3R2BH0tAqa50w4ygYNTAfjwoh1GkXjzfNn61//hggMjY0kZU1G
-	 I4CA/QqhPWbx8a5Yx5YR29yhiJBoocg+qqR9aTN7UhziCDcik308cNEEASzKNt3lt81yy
-	 Tav49+NNZV9m2r7h4g44giX5NPi1Jg3YnPvUjr8MfOJIRDaRTKqod3AFdimn2gngFcmDr
-	 qnWsCu6/Raba/p1by52oXRKDaOh4FdeHJhie+JgjuiBql5nPnY7rj+B3jYCJw4GLPDgEL
-	 PrGyWEv9M7Yp14FqtDbyhVywcSb+i5RqlTyC0HPAsj5A6bBi8zB3AELCK4NvaKlabXg==
+	t=1793358843;
+	b=zBRzmAkLlf8mXOqWf/tt+gpHBc2aQRLDXdZfLXiA4sCCs+fj6qVGKCWfsZ6RnBjibLQn
+	 28fL+TAzt/Gb7+bBEqdeGYMRzl5BvdknzQfsXKZ3HHS1Yjetgfc6/9MZY1OuX1GUZ6hvU
+	 g9y85Fo5J8P+AXbPqPcGqqxshE6dhB2eDtemznp6AgVXmEoMtYbGX92dCHYYgxLvJnwaQ
+	 cjVGvgAGUYm3tZuRB0xLYqNlnEkyx/4Xa/JUNMnNwsfymxZsNG0MHtlN+1H1+qeDdBuGq
+	 4zZ+jthmWONDYEsSpgGsI2tCdY3Ru77lZKfK8SgPxRbasJl68zhXyz9xw5Lc87/KwOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793358793;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=lA6TJOaRxsa4Fs8ttaPCMuiOdnwDekD+hly6/8eGHww=;
-	b=WQFsS/ST2genJ/zmEZHcufEsTVu2JWg8fKovzeMmREg/17o9W1DBAuxoNMXHBbfBLXfC
-	 Wby94uEcTGa5DPVIj0JiJghUgWz824B5U4T6bUTttlCM7j82DjDocxmUA9in+hA8Shy6f
-	 aBTzBANxtSwJWt0ziv3DNJ8Kpib7uZnGehEBQ/1gDG/smNbKI2Xgsdaf15na81sj4j/pb
-	 J0C1huW5kD0FCBKd4NSXGcIo9gg9Q481ZGhC54ecnsNHWVCdeWVJSoyCTBnGMMltVDNts
-	 glXOxZW44RyxpcE2nMlMM108ZFlHKMyXTZOx/RO/XPkFR0zA9Zj/Dd5PKTb99ggS+QQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793358843;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0dxLnqnKHk7JrwJj1lgccrPmrlsj56UqJLmrfHHcnT0=;
+	b=ViAWBjQ6cYVHlQTSV0LDRqE2tnbJQ5Kh9Yzuz7x+E//i5Ev5OxKfwOKv663LFsEnZYqw
+	 yQyUsXc9RI6o6ot+FoTRhOubzbMevV0D6zVkT3ngZRjADVt8Lrz7QmbTef+p5siteFtvf
+	 7COhgeq1o3vofS23vBK+QDdvTAuhPXv1/YzRvqXaEUOdDP24po/6rQJn585OSwWt8O/Ni
+	 XGlVNcFfCAFbgRD80uQ9im7E2hSlBpKKVwyIDxcACwjk7Mjd/JTpjX3LHd0idqmRblNVq
+	 n9q++GrdSnqO3nFyk9kFjXtCAhiOB0jeb/GP/JtRfWCwCjyc1bXDM+MfrkkyDpCqptg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=nFDu680s;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DD968606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:13:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD968606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=z6nUozFi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A26606A31A;
+	Fri, 30 Oct 2026 11:14:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=nFDu680s
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=nFDu680sWTPFHy4B3sLoILYc4GXFPEXQOnUHzZRCF31jhj38JpRrS62LE1t4+irWTmosP1frNFZYt
-	 k6RlXiZRanJlMCR/fcbNXWwTLu6KCJCwSTGM/J856hWHtGRAsnB9zKMo3jWrKmDcjySb+ISAKg2q3F
-	 KyIUzc06klWeWWIs=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46ae47bc151d-14be0;
-	Fri, 30 Oct 2026 19:13:07 +0800 (CST)
-X-RM-TRANSID:2ee46ae47bc151d-14be0
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.101])
-	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96ae47bc0125-5c588;
-	Fri, 30 Oct 2026 19:13:07 +0800 (CST)
-X-RM-TRANSID:2ee96ae47bc0125-5c588
-From: laixiangwu <laixiangwu@cmss.chinamobile.com>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Lucas Stach <l.stach@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	laixiangwu <laixiangwu@cmss.chinamobile.com>
-Subject: [PATCH v2] drm/imx/dcss: Fix clock leak on blkctl init failure
-Date: Fri, 30 Oct 2026 19:13:03 +0800
-Message-ID: <20261030111304.2205-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <20261030083342.1531-1-laixiangwu@cmss.chinamobile.com>
-References: <20261030083342.1531-1-laixiangwu@cmss.chinamobile.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=z6nUozFi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97F3D1F000C1;
+	Fri, 30 Oct 2026 11:14:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793358842;
+	bh=0dxLnqnKHk7JrwJj1lgccrPmrlsj56UqJLmrfHHcnT0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=z6nUozFi30L3ho7OJ1Zk0ppl37/A2DCvJ9ZRsLf3nc6kO9PJnKFydNTwGlrYyPO3V
+	 XOWrbUxUzSfe4RQRgrWkYwrYGf+stBciqpIN/fvleM9Lm7Ntd8MTglMoNeK5jIu6S3
+	 4zOxUJwR9W8+u9tfVjCaDVzLKmsug6fwwrifFIis=
+Date: Fri, 30 Oct 2026 12:13:58 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: amine-ayaou@hotmail.com
+Cc: nkapron@google.com, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: gadget: legacy: ether: fix RNDIS for Windows hosts
+Message-ID: <2026103022-skeptic-deskbound-3471@gregkh>
+References: <MRVP191MB2786AD66C3EAB9F32E5B84F9EF6D2@MRVP191MB2786.EURP191.PROD.OUTLOOK.COM>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,96 +53,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <MRVP191MB2786AD66C3EAB9F32E5B84F9EF6D2@MRVP191MB2786.EURP191.PROD.OUTLOOK.COM>
 
-dcss_submodules_init() enables the DCSS clocks before initializing the
-submodules, but if the first submodule (blkctl) fails to initialize the
-function returns directly, without disabling the clocks again. All the
-later error paths already jump to err_clocks, which calls
-dcss_clocks_disable().
+On Fri, Oct 30, 2026 at 10:17:06AM +0100, amine-ayaou@hotmail.com wrote:
+> From: Amine Ayaou <amine-ayaou@hotmail.com>
+> 
+> Fix RNDIS for Windows hosts by adding Microsoft OS 1.0
+> descriptor that allows Windows to identify the RNDIS function.
 
-Since the clocks are only devm-managed for their reference (devm_clk_get),
-a blkctl init failure leaves all five DCSS clocks prepared and enabled.
+No, please no.
 
-Jump to err_clocks so the clocks are disabled like on the other error
-paths.
+RNDIS should NEVER be used, it's not required by any shipping OS that I
+know of these days, do you?
 
-Also rename the error labels of dcss_submodules_init() to the more
-common err_<x> style, which describes what is cleaned up from each
-label on, and update the gotos accordingly.
+Why do you want this?  And are you really still using the "legacy" USB
+gadget drivers?  If so, why?  What is preventing you from using the
+"new" ones?
 
-Fixes: 9021c317b770 ("drm/imx: Add initial support for DCSS on iMX8MQ")
-Suggested-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
+I ask as we are about to delete these legacy drivers and I don't want to
+have anyone add new features to them.
 
----
-V1 -> V2: Also rename the error labels of dcss_submodules_init() and
-update the gotos accordingly, as suggested in review.
----
- drivers/gpu/drm/imx/dcss/dcss-dev.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+> g_ether currently advertises its RNDIS configuration using
+> the legacy NetChip VID/PID and the RNDIS control interface
+> class, subclass and protocol values provided by f_rndis
+> (02/02/FF).
+> 
+> While the Linux rndis_host driver still recognizes the legacy
+> 02/02/FF RNDIS interface descriptors, modern Windows hosts
+> do not bind the RNDIS driver to g_ether.
 
-diff --git a/drivers/gpu/drm/imx/dcss/dcss-dev.c b/drivers/gpu/drm/imx/dcss/dcss-dev.c
-index 7fd0c4c14..206679d52 100644
---- a/drivers/gpu/drm/imx/dcss/dcss-dev.c
-+++ b/drivers/gpu/drm/imx/dcss/dcss-dev.c
-@@ -70,45 +70,45 @@ static int dcss_submodules_init(struct dcss_dev *dcss)
- 
- 	ret = dcss_blkctl_init(dcss, base_addr + devtype->blkctl_ofs);
- 	if (ret)
--		return ret;
-+		goto err_clocks;
- 
- 	ret = dcss_ctxld_init(dcss, base_addr + devtype->ctxld_ofs);
- 	if (ret)
--		goto ctxld_err;
-+		goto err_clocks;
- 
- 	ret = dcss_dtg_init(dcss, base_addr + devtype->dtg_ofs);
- 	if (ret)
--		goto dtg_err;
-+		goto err_ctxld;
- 
- 	ret = dcss_ss_init(dcss, base_addr + devtype->ss_ofs);
- 	if (ret)
--		goto ss_err;
-+		goto err_dtg;
- 
- 	ret = dcss_dpr_init(dcss, base_addr + devtype->dpr_ofs);
- 	if (ret)
--		goto dpr_err;
-+		goto err_ss;
- 
- 	ret = dcss_scaler_init(dcss, base_addr + devtype->scaler_ofs);
- 	if (ret)
--		goto scaler_err;
-+		goto err_dpr;
- 
- 	dcss_clocks_disable(dcss);
- 
- 	return 0;
- 
--scaler_err:
-+err_dpr:
- 	dcss_dpr_exit(dcss->dpr);
- 
--dpr_err:
-+err_ss:
- 	dcss_ss_exit(dcss->ss);
- 
--ss_err:
-+err_dtg:
- 	dcss_dtg_exit(dcss->dtg);
- 
--dtg_err:
-+err_ctxld:
- 	dcss_ctxld_exit(dcss->ctxld);
- 
--ctxld_err:
-+err_clocks:
- 	dcss_clocks_disable(dcss);
- 
- 	return ret;
+modern Windows hosts know that rndis is a lame protocol and should never
+be used :)
 
+Seriously, it's a broken one, there is no security for it and it's only
+good for very very old desktop systems that never were updated to a
+modern operating system.  And even then I would argue it shouldn't be
+used.
 
+> Notes:
+>     g_ether's RNDIS is useful when a network interface via USB
+>     is needed early during boot, before a filesystem is available
+>     (e.g., nfsroot).
 
+useful for which side?  What can you do with this "during boot"?  And
+you are connecting to a nfs windows server with it?
+
+>     Alternatives for having a network interface via USB during
+>     boot are configfs and g_ncm.
+
+YEs.
+
+>     Configuring the gadget through configfs requires userspace,
+>     which is unavailable before mounting the NFS root when
+>     no initramfs is used.
+
+Then use an initramfs :)
+
+>     NCM (g_ncm) is not an option on hosts that only provide
+>     RNDIS support.
+
+What hosts exactly are that?  And why would you connect to them?
+
+>     Tested on BeagleBone Black with a Windows 11 host
+>     (Version 10.0.26200, Build 26200)
+>     RNDIS automatically bound with the patch.
+
+And did your nfs server on that host work properly?
+
+Sorry for the rant, but I really want to delete this stuff as it should
+never be used anymore...
+
+thanks,
+
+greg k-h
