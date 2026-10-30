@@ -1,102 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793366559;
-	b=3PX7au+rjmP6o/f1u9MPDEUNVASEOqCT9qAhYiWxHomQl26H42oJ8+wcHGTDGwgA/CC1
-	 TCT791XQzoEGWICj8hwvT9sIcQ7VhLUJWH9vOalsnIGstD0bjVmkLH8KXTUl8mcaP3H3F
-	 5zMcUrQ8yitZ1g/WVi2++8DHO3JZ4Ci+XrE6nPx3bTOdPiJn+gYG74hxcCwPwVUbT1agA
-	 oPvOoCu/kXqQvX/D2SCagta2zirzF8ncGVrVpg6Emx96GhHYigXn7t1gHI0zX/+F073rL
-	 fZywPQDHI0dh4VkQ3mKb/ZcIogU36M74FOc668gGb7MAZxtb1zJavtEI1PnALNGPNqw==
+	t=1793366614;
+	b=WIOUuzv/+DjCeqjNGhDoAzW++rNxrYUlgYmFMagX5fl2uUTEVRRuMAJZOoCHhNAXpvlb
+	 LI771/r3nJLlyz225oFUGvOv1yfPJdkcBSzMvCXaAW5roAvaTaJGc2sh4CtnLClts8esn
+	 fKMkT8XRi2bsll0Y0BeCxC+Ktlrb9K8Zw9MteetlbdrGXNCRCWMp4zcB9sAfFxPHp3B1e
+	 Gv6XZAqD6dmiL6pTf6sgjBJiQfZ1BmJSOkqIIUXHwANxJxeQxIkKNrQuwtBIB6NGHMHpB
+	 ewGOEf9W/rGC8Z3UifVHDImbIaXuT3wPr3PWJ12xuX1iL28k9rUlgElmf0rEVGTXgpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793366559;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=j2UAE94DwDtj5LC5+N6jjgw+UMIRPadcwNXB/HMtjzU=;
-	b=1fuwAUKxkOXZvPOKUNjt6Nm2puHUBY/5SbxGndHMsp+h6a81nfZrxoKOT3qIk444ya3b
-	 6cEUq5L4lLiGWi6wGZgpG022z0O+unaCWFZ81+6F8Mj+5E6LgVlxwDb+uom9a/5QJ6nus
-	 ar07/IOeJsAPe7A1qsAA0H6zAG/8+8a9twDWMxEdr8TTDRNMhPiDluX7sPo+JMx2xw9lY
-	 WaqcCCLAxjONzIh3KiZW2z0DUgJdMsjZTqebEB3hwYezsPGaXql1hwSxodb5FLTquTD4N
-	 +qaYVHyiGBOKdMdLn2EkjfXZjGSOzDVXmVsCObAKbOpUI0zmNewjEa5zDQ9JIXGSNDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793366614;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=3iFFSDMFcLLNzrnpdKibwgYyXoRd2Mab2qyNz87t56A=;
+	b=fvtYav63OMGYBOLxHQ5S/V5swtffkqiF8AFuhX9yTuKPo/v9bswikpbcZPRCcQn4bmVf
+	 PC73Dyo2UhG0BUVWKBywOfb3hxqzw1QQKtQ2TKUJKfn6JWUErFROc7KUmIuCDJUlWYTzB
+	 3ZBixGite56JpXp+1H3QRuA2fvDk76cZDrBpRsJG1uGkDyoseDmF+qzYl3KYZl2g9DUKB
+	 7E9zxLhHtgKs9/Na3s83J8JlNrWt7zq0XI4OhO2KlF5iHsWsKkp31DE2c4pxG9RW1pIUJ
+	 Z1X+WZEnRiyWM2vqiVp31aVnLQ1EyXulsDKgTJQQmuwkKv8A0d0lXWvsb/5hVnqaIaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=XHGg+9JK;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=NM6HgPDW;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	dmarc=pass header.from=kroah.com;
+	spf=pass smtp.mailfrom=kroah.com;
+	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=ipbDjU6v;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=iaNV8m4q;
+	arc=none smtp.remote-ip=103.168.172.153
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86839606A31A;
-	Fri, 30 Oct 2026 13:22:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86839606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FDA606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:23:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8FDA606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=XHGg+9JK;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=NM6HgPDW
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UBI7k91436892;
-	Fri, 30 Oct 2026 09:22:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=j2UAE94DwDtj5LC5+N6jjgw+UMIRPadcwNXB/HMtjzU=; b=XHGg+9J
-	KDzSNB+JROdc4hcYks3nREF0z6Z0neuy+5uxM3t5IN1qIQI3n/8wW7rP7E3hSq8s
-	g1ValLDLfKUx9690UPlgizlMWfvbMb3B+lJqZ+YsRvmUUow+sIf0wKyRGFMcO2Pt
-	lK7sneWIj99uV9KX7rGT5JIfTJHbU5+O646cKFd7NeWJjhpVvvKZCHiT1V0DPT1e
-	3svSc15Yh/x/OUQxm9D987o/L6kyfyVNs373fGRZlObw55tueEO1OogCQeangsIr
-	eFnUT6jIShCnbHBOo7UqPz+lAI6125qKuG6aR6O38Iof1MUuRyyjry8vCvZU8Q/j
-	oELl18GBlXq0Ppg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=j2UAE
-	94DwDtj5LC5+N6jjgw+UMIRPadcwNXB/HMtjzU=; b=NM6HgPDWWduO9A+1lCEEl
-	6ipgpN9QMWgjOOOK6QOPqhxH+e5GE5ZcWTkrpqMEBGiBSPbdlpOfOv00VrpYPBoc
-	a9ZUIFIkaFlxcDZyGCSb++Z2sc9KtO8fj8S9QQcQS18TlXM0L3xkoR77dqZ++lLD
-	YZg5ilyOxP6tt3FxbtMtPcabfIk3x7KYfR4NaP/M9d+bf74MDnxEVDH4P+maSMd7
-	l3xKVNV/iPd+7aiFdgDMDTq/YU4mqITubdYwlZxtfIeGyJAOMm3RZ3e/HkWPt38p
-	fwXHzRiFZJtpX2+Ro8jqHuYvUlUYiKv9FDlbuM94Djq+fUBF9VLhGott1VYzkAUM
-	A==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hme7acduy-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 09:22:34 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 69UDMXfx010514
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 30 Oct 2026 09:22:33 -0400
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 30 Oct 2026 09:22:33 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 30 Oct 2026 09:22:33 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Fri, 30 Oct 2026 09:22:33 -0400
-Received: from HYB-aFjnqsVU6Ag.ad.analog.com ([10.66.6.191])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69UDMKjm024982;
-	Fri, 30 Oct 2026 09:22:23 -0400
-From: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-To: <jic23@kernel.org>
-CC: <sergiu.cuciurean@analog.com>, <dlechner@baylibre.com>,
-        <nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <ukleinek@kernel.org>,
-        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-pwm@vger.kernel.org>
-Subject: Re: [PATCH 2/2] iio: adc: add ltc2387 driver
-Date: Fri, 30 Oct 2026 15:22:14 +0200
-Message-ID: <20261030132214.327546-1-Nicolae-daniel.Deaconescu@analog.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261028023919.21834986@jic23-hlaptop>
-References: <20261028023919.21834986@jic23-hlaptop>
+	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=ipbDjU6v;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=iaNV8m4q
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 171C014001BD
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:23:33 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Fri, 30 Oct 2026 09:23:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793366613;
+	 x=1793453013; bh=3iFFSDMFcLLNzrnpdKibwgYyXoRd2Mab2qyNz87t56A=; b=
+	ipbDjU6vMBgFlYgZ4nv//SqUjhran7lV5JaohmdCW6FccCrD2bHWiy5sza8RokiC
+	zvSERorqVtqS/8FIOLvdOgt5W5j35J3YjvuWPKCIl9UhhKHcLLFXH29q9uaEhdo1
+	T5KX99gHvFffmqt61ZRmjRIqlkbaAk3Em7mwHa/AgU/U4zFGpj9mBY/Kjupc4tRJ
+	1VDybcv+NEe7K5yqczACaeP/j/eQa1VI/wL++0RhqiJbjR7WONpXSg6fRSHLjbdl
+	7ohCltsFiy8jdQ4WbnBivawN2qg/0yb7F2I1PeKvQ4RuNLeAMyek8xjtzJAiHyo9
+	7HsyAcWAbmGw34y5OXGmeg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793366613; x=
+	1793453013; bh=3iFFSDMFcLLNzrnpdKibwgYyXoRd2Mab2qyNz87t56A=; b=i
+	aNV8m4qA5vBZ5Yx9Wh3y0kNE+d4UfeBKhaX7RloXs3dQ2dcN/bEjUvbdJ+mY9c7W
+	/yruBJS/UsDp1n7vf7oYM7n4tRYw+fcCHkEnRhKJRzn4BBA/KQiA5m7Z7/zAx/S0
+	03VAn50kXVyj4egAxlWUy1kbb7Ra65ch2bVOnQZ9FrRYhJ4E5Yw+qXCDHRf0H9PS
+	jG75A8xVxvmH1Nph49Nr7+7wCRn5BV0EExXcETzC8J40u6hmtRT5j2RsIqhqpKGG
+	XwT+sxDhY0nbVURADJksOIa+2EHUiDZ/zO/CPRZ15FnJ29E4EPG64g1Xo1jxFABY
+	texKJn3rg4fnTULYIrObw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793366613; d=kroah.com;
+	mf=PGdyaWZmaW5Aa3JvYWguY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:LhKNpp5aaeGjQNyICqIHUS+TLqlrI6JekW1AKGxVip0cGqL
+	GJhsVIDqvDAaTP/g6RwMNLmJz5moivcOXZZ/ylC6kSqMRG6iquEXt3tuQeYOl6BV
+	Qr1YgxOer+L6J2X+3aP6tHBA9uejV0IHVVK2HKeu1uWNNve2+AI+PjqL73FtMkJZ
+	O26VK2Oa4+qi0uscAHvY90f2L5rJN0hz3HnUtLBAtU7hQc+ezSJcXl3S4CYDoPkX
+	xJK44XqcFY8IwB788TWcJoGcSFHF4F6Qs9NIQFaQeb+XoTaMEpapidwIHouggAol
+	Y1SxO5Udedu+wNd2e28Hm8KHD6Cp/SaFVFN6vfA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:VERx+3TZYQ5BgoeARkcwD7V3+61VQjl81BzhkNXBJ0g=:npABc192swzfsTp0K+i29xh2HGvrl0+1pYiHUAsgToQ=;
+X-ME-Sender: <xms:VJrkakuTr6yVHY5ssnXklm8njIajhSKtgEBiKmu11-P_RFMsBR1vOA>
+    <xme:VJrkapnqOUNW8iaU7Z6gKpjJC-StUG1uJrK6PkdUAyM384OJVMJJy5mpnrqOCTGvw
+    averxZafmF0xOWLEMAx72btJBl8WHWp4qrcJpFg91K71fmEQuxS>
+X-ME-Received: <xmr:VJrkavRmE2Wb7WbJ70ykM8SM2LhUms6lwX8rK8-Ol3H-Pf5ypQ6GGOOk1b8-YC8oxBI>
+X-ME-Proxy-Cause: dmFkZTGrQ9ERLFaBKIwVbIetyXJ03PlGFnJXk6lW5sR7vq77CBIZF/yfVrvnZOnJNsRs7v
+    9SQVc4rRLF7fmXlkvn22Ia7us8+VCF1dxXt5+DVof+jPIQEfxnfHN/wwcOYkwnMDTbn4b5
+    lYe5KPinDKTWjZhGXlemaqWJDZXhQ2q8BhYw7xXOXoiElSEg4zL2D2lCGbDjIAO2uMxKBf
+    Gd9fXknASByuIm+1tpKBKJhS7zxJlLv5/45KZnDrpFFhXWBcJwsWnzz0N3Q54R/eQ/qWUH
+    Is1Knh+BByUNF36x/bma5Jo5IkhItuucCBdgqFMNDj7/kL+SFTK0KOS1aNzDZeARTiIpg8
+    ae13XMrF4MrNhMsQi/A+7E/angESrvPSvw2T2qM+Vs6W8tJFm1kdIisY4pagJaGek4R9Ts
+    ftT6t97dN9/91SnN5QfpRb5N0wVW0V/oxmubNk8cnMAA1k8pSMT7nXizSrbwM3r5sx4wQp
+    HnZAmfFlcCnajXs1XJBKV3VETWsLVGBApfMlrf9aYPfwLMpm2fkVfkMehQBjRLfyNnp22S
+    prI2M14ZyR0L3vRHHLksWx5WFtJONo3EpSNy4XGvID9ij63twWNhtpq8Hiud7JiY1/my4D
+    fiYQtkFluReKVi12LS+ueQTdt+qkSROFi8hfsSxRJU7sqUlfZux7ExqrnXTg
+X-ME-Proxy: <xmx:VJrkanKMHEs_uyMgGiycU4FW2YVbEgr7RWCcopNzSy82Ku2ufkghJw>
+    <xmx:VJrkahFaXnPbZtuRTU-xKAqcXbPZDMD_SdEHR4KQSjHbklfvTCZkuQ>
+    <xmx:VJrkas0-MQ8m40wBS_Ths3vZQkb_VBFfx_mFr_9xiT0G5I6alW1DKw>
+    <xmx:VJrkahL2SfrYQBVC1VUX3C1XlIcDBFQIXSXKexAsb1N5kiK2AYKnsw>
+    <xmx:VZrkapL2DExd5SglAtqcQdKKd3RpNr_uvzCDpl5l6D1xZRUL8ovSj4wC>
+Feedback-ID: i1d2843be:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 30 Oct 2026 09:23:30 -0400 (EDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,47 +116,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Authority-Analysis: v=2.4 cv=bcX+w+PB c=1 sm=1 tr=0 ts=6ae49a1b cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=uXIjobp8t2wMuQ0fPvqm:22 a=YXEIlvhfyepGEwiY_-oA:9
-X-Proofpoint-GUID: JN8he33VGWJsHSRbojmuxX0BypCuBSP7
-X-Proofpoint-ORIG-GUID: JN8he33VGWJsHSRbojmuxX0BypCuBSP7
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1MyBTYWx0ZWRfX8k/N9fY+Y8jl
- RL8YPi8BtsCdcYRgKjSq8zq8J+qPUEN9z9QuVYF9rVBuaE766EfmWYFIm2GsNA77RPR1MPSyIgK
- R14OSPtCY4hkizovss/2mpFaey09U2CjZoO++uyypoXMpbSWSIYg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1MyBTYWx0ZWRfX+HAtx+6NIOWw
- 47/dqxtepKpLBCbMUuBFQC5HYhwLsjg/DX27NMxd4KPfaUOiCrptaCkPLIJJDEtCCS7ucNh0Ozr
- joj960KQoUw4JOJLGimiDEDOHxsTaWykURrfB+TsHRmrT5Rmc4iI1P52ryUSiAaBz8nEsKE7Zu/
- /VS4iGHmHGr0ZiVx+B1kdHGsP29SYN5wEy5wOSK4gzYIvQLZeRUSZPxUA/qg+h8IgjtHjEs/e/N
- FynUrsticJC/PED8n7kb3fWpBrLrLdBCpM/FNZ2SSl4SLCNdTx1Dvgx5eCh+Bvx+r/i+2+lJ4Cw
- X+C8CtuA1xhNtzsRNmuKdUYv/V/K+yYzFLg5c/oGVVBpJNlz/H9uRldQRp9WZo2mgsdfiVsntHB
- RhodziAiJ1XIKURzYj9xCI6QuelGZ9kV//VWt68K255g+fhVb0rzftUY3dHbMN8UuG3N6kt4+Mw
- 35Q5N8JtdT1MEHlBH/A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 suspectscore=0 impostorscore=0 priorityscore=1501
- phishscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300053
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v6 4/5] leds: trigger: netdev: Report invalid interval
+ to user space
+From: Griffin Kroah-Hartman <griffin@kroah.com>
+To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+Cc: linux-leds@vger.kernel.org, Lee Jones <lee@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+ "Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Kees Cook <kees@kernel.org>, 
+ =?utf-8?q?Marek_Beh=C3=BAn?= <kabel@kernel.org>, 
+ Christian Marangi <ansuelsmth@gmail.com>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261027113349.383147-5-alexander.sverdlin@siemens.com>
+References: <20261027113349.383147-1-alexander.sverdlin@siemens.com>
+ <20261027113349.383147-5-alexander.sverdlin@siemens.com>
+Date: Fri, 30 Oct 2026 14:23:25 +0100
+Message-Id: <179336660572.12256.13380616711233326853.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793366610; l=414;
+ i=griffin@kroah.com; s=20260910; h=from:subject:message-id;
+ bh=npABc192swzfsTp0K+i29xh2HGvrl0+1pYiHUAsgToQ=;
+ b=RLvWDp1lFv4PcXCMdTdySgvaxoeYhcbnoa5npr8oLI0nT/hKL+5hX77+TBvizfCje3oEosEzN
+ rY01YbO8vN2AeHZMHzgFSwWkNHS/0hbonRnASj1ivqGHBf9slkAxbTZ
+X-Developer-Key: i=griffin@kroah.com; a=ed25519;
+ pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
 
-On Wed, 28 Oct 2026 02:39:19 +0000, Jonathan Cameron wrote:
-> > +	/* Gain * 1000 when adi,gain-milli is absent; unity for the bare parts. */
-> Gain / 1000?  If its in units of milli.
-> For the unity parts why 0?
+On Tue, 27 Oct 2026 12:33:44 +0100, A. Sverdlin <alexander.sverdlin@siemens.com> wrote:
+> interval_store() silently accepts out-of-range values: a write outside
+> the [5, 10000] ms bounds returns the full count as if it succeeded, yet
+> the interval is left unchanged.
+> 
+> Reject out-of-range values with -EINVAL instead.
+> 
+> 
+> [...]
 
-The value is stored as gain * 1000, so a gain of 2 is 2000. I'll reword
-the comment to say that.
+Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
 
-The bare LTC2387-16 and -18 use 1000, which is unity. Only the ADAQ23876
-and ADAQ23878 use 0: their gain is pin-strapped, so there is no default
-and adi,gain-milli is required. In v2 the comment will say so, and probe
-will fail if the property is missing.
+-- 
+ 
 
-Thanks,
-Daniel
