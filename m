@@ -1,115 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793365696;
-	b=bRvROvmp5Ct2EvON9+cBLq8+Mhc+2btxEuq31aVOpyw8wKipD1ISLkdKcxPijUhEFJ8w
-	 IVtNMu+I05oSwCFn/deJOnlVz7nzPS6cFZ/AXJvOz54v93Z2e6Dx7Gj8ZpegGqtGgVqSl
-	 +NhfGIptFhx0MBt2GUHXo+0n1ci4SoMlX6qZ6YjNu/8b5CB+swHKWlPPr/GBTfbrPAZ1g
-	 maChcSHSoSGPrr9iYCUYwBP+Tqg7esAkyYvL8Tr2mI2UjPfzNyLuoE/Ll19WnvCr3hMJn
-	 DYipyUhu+xB1O554Cz1+U6935hWzfXvf98kS5oI7yT+1weXEiZPmZiQTSb7geqRCoFw==
+	t=1793365744;
+	b=V7smhPRSc8DTcaCQ9cl3LoiRCngcD8m3ZEwPleC020VD8cLZQjsP9JRhREZ0l/CVdWKs
+	 zkeJ6dYEB4TROdM3ywKaoqcuUQtXdF+jQxIWSwQs1dK+P3v49/VKHnNp0H2l2QjKI/JgC
+	 m68hbZQfQLp/ohjAbXNZ6PM2dYVSgq0OFxcYVPqejdlnnmCVyIy8VKdNyBG7aBhpvJbpG
+	 LeDN8PQeyu8MOb5mVKC4ic3Q16cHZ6UGEOkI7NFXKAoBHKchOu62YhZqUTO2EX7Iy25nD
+	 aFvQpoiXxm3PRXmCQLsi7xxgLTIxaDNGS7M627RNBhFn9kvrXCH69RiymVcxHqE62Bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793365696;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=tbKkDfSrsNI3XHQAy/Crl7KwhoEpqjXNtSdtk80lCW8=;
-	b=Hy+fi6adWO47AKsNsmhd/tnH/rSB+UQX/dF+dmZgXArSBZR7XJL6bSsBLOT+ro02KtcV
-	 abLjkyYC2jCbvwtNaGpOTJr+vCd0UcSFfSN45B8M6tn48aLZVUTf5D9Ka4668h2PDnCa3
-	 I2t437DTd5ZqvvWBYh7tyt/lywsqs7BSWRI7w6fvOtpB2p/yJX2Azjt/QUxGmH4uolpZO
-	 vGcz4TvPh5Y+HoJU2mpBd1OoIAboR8qZ9q5+2sjojLnfBwk8Vjg500VQZcKGiTlcT78OE
-	 rO0A33sViB4n9cugjv2m4o7WeceNGdBKqHlkXcWQ4h3bCunlqLSMkwxj+s8GwPAbr1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793365744;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=y4P301YqaFnb7KKDE2QgQixMk0k7HBc05iLOcpHCCho=;
+	b=3EbznR9SIF2ddzMJhnuzdyxExTA8Qt/7VhHp1gNlfvUe+HD8EZwqpknxYE7fxyU/7Jqf
+	 DAcBgM8iYnEUcpqqc/6MnF/6p9MWnPbUcbAD1e+RCLtMBVS/GXTnj/YHRnD6sG4n51Ja0
+	 sQ/q/mQpEiWy9ejwZTmd7RQqWzO/tWE5/yUgqW12wODEcr02xSZrSniMQmXxza/72Xm2p
+	 k7DcWcK+7YJWy6efhfQj1UD78MweTROOumDTTbFTeBvpTLrE4p0y/BMjGjcq9ZkRAd1RJ
+	 LiEBgSu/03/FUeB55jryMMQp+oqi5V4UVyftRjiI2Pe/nzxtAJ0mwBKI+xHsuE3JR8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmpxchg.org;
-	spf=pass smtp.mailfrom=cmpxchg.org;
-	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=qglcOBdl;
-	arc=none smtp.remote-ip=209.85.128.174
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jofX2PlH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CGG4eFhg;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BD8606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:08:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39BD8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CB8606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:09:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85CB8606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=qglcOBdl
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8565d77c277so5581907b3.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:08:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jofX2PlH;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CGG4eFhg
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UBFwbH3089189
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:09:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	y4P301YqaFnb7KKDE2QgQixMk0k7HBc05iLOcpHCCho=; b=jofX2PlH9sK44rY1
+	hTJwH/V8S1h2Ehj/NWXUdY64MVX3m+B7He4PrRq6Yb9Iekg2dQxrn0HvtZI28zJ9
+	RRcY15pL9JIX/ZRIW1lSCPl2zi8c+svbt1KdqyBn7OuE618BEsyNZA/awYfXJfHZ
+	x394lXmUJwAi5oWW7Y3mnrQb4mhpf5ALmAZkfuOBe1PS6soxP30XEchqhEVQXb8S
+	6wfxhs5I3ebouclMOJoynZoJ8Lm7FMseFxIg3Aa7qkHnSU7I8HOiGB0jkDZ1sMbu
+	mKCDKfioiruMwPg2jwuK8B5KLaUXuIWmy2seuAdgtrA912gg7ClcJYCBdXlsoH4r
+	r9G6wA==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qk5xk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:09:03 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-988ba2453abso18905241.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:09:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1793365694; x=1793970494; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tbKkDfSrsNI3XHQAy/Crl7KwhoEpqjXNtSdtk80lCW8=;
-        b=qglcOBdlxqExNnKNr9WJQFtaTi7hDrTa2j8FfXnoY6QXcAb7NSQHHQOEXtAntspqSq
-         DV0NnbNmPi8XS5+LqmgdE0gUDFtekniCIyp7pF38uwA3xxDkTeEZIeY5g1FswYmwVbsw
-         d1lP343ABe/ITAxcoU+yDsz9sn7ps2rQ0OpO0Dz6yJ1CNuDyyGCAcSz/VjKEv85NnRK5
-         gFbQj3Erf+Pf2vJGXNcihtGbZxZ9YX5SleJUTE9omUFiPV0gIPwjIYrJJxnYGTESz8L8
-         NG7Z+2pcEz9YduJaHwBOzLaRNcNsX2GC64gi2IPjcs3n364i8Tp94Wzjh2cBfzaXT/Hk
-         Ehbw==
+        d=oss.qualcomm.com; s=google; t=1793365743; x=1793970543; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y4P301YqaFnb7KKDE2QgQixMk0k7HBc05iLOcpHCCho=;
+        b=CGG4eFhgjFpoCVhXhzoK7DzZqrspLx156azgmt8v84zkPP8XRAjOHqYpMQV6a/yZlW
+         ZqCtlIg39cs7+vE6cD0Bimac8XPWBBwyfI/jsiK10gEDqjiiDe0yaahdMTZLj2BLsFwu
+         czhBf3ftOZ4awB9FjiAEfZl/FAmGPBVN3vnosXqlbnGcrvK8mPD0zyfC5zBBATsqZ5ME
+         QBbAF7BX1tXWg+qhLASO2jaOYB1mMlp2oTZlvyY2YddfFzl8CrX/SyiiE8ET9CXhGTTz
+         CyOkKd1cDy5dt4k12lA/MLBh06tvJ87ZY9su2WJf7D1zEaNzDBTvLBKhxUYqpHUxc8GD
+         qDpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793365694; x=1793970494;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tbKkDfSrsNI3XHQAy/Crl7KwhoEpqjXNtSdtk80lCW8=;
-        b=gCqI2F68CbR+H6KCOb0LYe4oXZQCdKCNfi/ZR4z5h5Bixje/rgViyBoToSBsKohrv4
-         0W7sa2vCZ7ksxX+amykvc217B1nuN8DYSvs1NbQfoeHyTN6aZFFUZ7T9wLUPUWPa0PZk
-         b3qxfd/tLwrxIa5HEheEJ1+zbPKS/S9jJX0gX0vf+CTyJ3gkUAlbFXGfp3qMNUL811O8
-         u9JuctVX9gwZsZbeEw+ubu/pdYigUq8ALz3yesPjavDNApXQ4gkTrLrENYSOhZSJFF2k
-         BCVHs/vh2bhY8g4nmcRjhN7hvt3qUWPZ+mYLCTnKlRVROGrLjv1ISayTbCY1grsaqS7I
-         lE2A==
-X-Forwarded-Encrypted: i=1; AKwUvByDqA4JuvYpq/ym+f1GsE6uNNmq93Jsb+oLGBfLb0Z3PZi9M57eb1platm1AZbTfdwJsYmKlnB18olPh4Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZfTv7w1OLy5jrJd6V4RQJNuv9lHW96UjbXEtPRhma0skc+CAe
-	MxjHP2SgXSPVmL8QvAyekHW60jrb7GBfQspw6dp0k0QXe0qxs07DySYg+hcpnm5uKhY=
-X-Gm-Gg: AYBFou31UjlyjbXOf2fXv46EwLa/+Hw/3VM9us0eiJ39NrAX7GSQpkWemBek8FOVcOC
-	5Pnet8U6jdZHP5WEJqrijhGItAlUdZ8qPppPoNW60xgCZqZQi+kJPgTF5oeVmYBx6J1G7jKk+xV
-	zNeLprSpsvdGiV8LKrO1fNSc8ek6khagZVAAAgytdO4b5KYUijepLhbbVaqvIdfnzsXarO+1YTJ
-	IUjIxjQXgh3I9OuJtlBVtPOfx20x9DKn99OFj9oYesGSFX4Dv5L0WUD0RLOWcx7Iz/7d7Tk/YmA
-	6Jk+h5TtJr3ZD03q14VEs3luYa51squ28SmaiqKOUHyfqdw9EJEXfcOdGarmCbLPoKPvXjgaKIR
-	0Z2PedQWb0nHLFW5zobW/qG9gDkDG/3vDGuYFFQD55Iiug1s4TQSFE7qvCAujADz7iTWmn4ppuY
-	kLZw+fh29s3hW2+Bd5btzvlgAMB46WdKfljbrE7PaD9OXsQ17+zVSDWaPvKoYXMmfmV2lsjmKIp
-	WD8Q4ZCma4a0FHRwZG4RWVJAi3XYFbZ9jZOs9QHw04YhiOEJBiPlezEyz7XmyDBMP0olVs+e9/i
-	mvWgrnepRVkQh4QUbzAzR3mFdEQpsXTelh/CMjWyOAXCJAECsQ==
-X-Received: by 2002:a05:690c:9e:b0:8b0:9e38:f407 with SMTP id 00721157ae682-8b2b672f790mr14821957b3.32.1793365693838;
-        Fri, 30 Oct 2026 06:08:13 -0700 (PDT)
-Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b7198c65sm7731727b3.36.2026.10.30.06.08.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 06:08:12 -0700 (PDT)
-Date: Fri, 30 Oct 2026 09:08:04 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Kairui Song <ryncsn@gmail.com>
-Cc: Christoph Hellwig <hch@lst.de>,
-	Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>,
-	linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Usama Arif <usamaarif642@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Chuanhua Han <hanchuanhua@oppo.com>,
-	Mani Tofigh <mt4022@columbia.edu>, linux-kernel@vger.kernel.org,
-	Josef Bacik <josef@toxicpanda.com>
-Subject: Re: [PATCH 2/3] mm/swap: account synchronous swap reads as memory
- stall
-Message-ID: <auSWtJzFQ7KdElKL@cmpxchg.org>
-References: <20261030-swap-fixes-v1-0-73f73a59f2fc@tencent.com>
- <20261030-swap-fixes-v1-2-73f73a59f2fc@tencent.com>
- <auOz00OGB_8dgniC@cmpxchg.org>
- <CAMgjq7BYgXLheXDyc=p2mNgxdP3+92v2WHGiXiweDrsiYQ0u2g@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1793365743; x=1793970543;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y4P301YqaFnb7KKDE2QgQixMk0k7HBc05iLOcpHCCho=;
+        b=k0Wwid9DIr8XeyhL1l1DmGnLBtwCowpW7gAiRK+e8MSE1qt7WlkibEZ8SZX1JYKXzX
+         cP77PlbG9l86DDRyspg9VnoAEdHz0D8fr8hllAem/YdQUHJgeke3/oPHMAgPAclVkLS3
+         7nYuK8NAmK9ak33geaxKw9ZwBdLKEgLRs1rfU4N6fmxF4VGOyHrjdMs4MoSphJdwS9na
+         dLhmuQMRrW9ReUKK2q2bD9aJd40atLOl6X/XQlpPqADxGPxoN0ssRBBo2lJG49JidN2s
+         g/tLTdl2RXenhlIP5Nf4RsMyKnn2TIow25yZMRL0wYpGygLvne8WAICFx0fj6ebFrZtm
+         ATZw==
+X-Forwarded-Encrypted: i=1; AKwUvBzAzPCW5grNPEhlr61+b/s2VMveFD+ClPzKXRL5BbkN9KOvwkWEivJPRFPoy8aDbEFmR6jWbvZpYdssjKw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwgc9xYDCnwv2OraGBfVXfhj71Se2nWN1CcFW5XYnqDNRZVzgc
+	23ZLRaU/klGRUpwzbSaiiw+2cG7KO5PzkcyH/jUTl8Brbj6YdAECUoXtt7WZ5wwg6jWtp14rq6l
+	822y83+HSR24K3UJV8WjIZqG2OJ7za1CtmYZoDjyThpGpQLD7WJFa0mI46JChacmTqPA=
+X-Gm-Gg: AYBFou24vDuRD0+pLiup5nEtxtG21EXVNE4hM9JcgokvpgLeX2xmzOFGXlBf+xMOrkv
+	U7hu/kQw2HQhstxs0bo4XBy3VLdHbz66YuiCdRwuiKKDq9MKMl/SBCpHicWG6XaM5qI6DxnDUqq
+	uFmhvjR+uqgdYuAFBDYXxBWKqGm287nGMNeHm55d1+xf+mWQNXgJPMknN+nriXnBKpPPFeXEiha
+	MDXKTFnx03p1WhxHiGTKClrjmvt3DzPvrmzfzOiRQiK6eLLNRoqwRf5f1yAokJUXw8cXQejixXg
+	lR1ETy6iPif56gfPSyeJ63JwApUVGI8pHHfEqbt5WsRTYiliRJuhkuYXkTtBuFjBEiFb9WGBlFF
+	vFWoyZS9LRPQESwj2GmvZlsUjBiy0JKdobqZAeP8u/TKZMNMWT9PQ0jsjW0nyAtEMT05S8lk=
+X-Received: by 2002:a05:6102:868f:20b0:7b4:f1cd:80dd with SMTP id ada2fe7eead31-7d0727a54dbmr802572137.1.1793365741999;
+        Fri, 30 Oct 2026 06:09:01 -0700 (PDT)
+X-Received: by 2002:a05:6102:868f:20b0:7b4:f1cd:80dd with SMTP id ada2fe7eead31-7d0727a54dbmr802519137.1.1793365741491;
+        Fri, 30 Oct 2026 06:09:01 -0700 (PDT)
+Received: from [10.169.205.110] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4d7b01b5esm605327a12.20.2026.10.30.06.08.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 06:08:59 -0700 (PDT)
+Message-ID: <3f11cf8c-db2a-4243-b1f6-7f2cb9a7a87e@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 14:08:55 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,80 +115,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMgjq7BYgXLheXDyc=p2mNgxdP3+92v2WHGiXiweDrsiYQ0u2g@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 05/14] firmware: qcom: scm: Configure LPAC aperture
+To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>
+Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        devicetree@vger.kernel.org
+References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
+ <20261029-descriptive-name-lpac-upstream-v2-5-a21a5c850961@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-5-a21a5c850961@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: KOvWfaHT7bhCVQv5K0UEx5ANNiWKjTKp
+X-Authority-Analysis: v=2.4 cv=KLzPn1Fo c=1 sm=1 tr=0 ts=6ae496ef cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=pGLkceISAAAA:8 a=HiRCik2jR1DMqHai1FgA:9 a=QEXdDO2ut3YA:10
+ a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1MiBTYWx0ZWRfX4vTE6iIqjd7T
+ p2fam9J3Jmw859SLr2MaiFqThkHyWp5FmBdhPm2/Bfv/JJ2pe1le7AP4WPRbpS88+obX+gCW8R0
+ KfKAswg31JRexT69bnZh3fxKTLl0ogspsdk9m5QNi3MoBfcax+4HSWekB11ZoDNx2Itxq07aI+r
+ ywKaF2NUidLCU34ZjxeDryxle2b3Zb6RTEAyWvqCRR5NLpVgLcgwA2hpfnGQfGXsUdnmT92wexq
+ 4wNvWIwHwy60KfWcasf0nDCk5T5KzFL+jiSieR/6VOd3NM5bW0FruhhcrTFw4RZVVFnB3G6RsUd
+ JCP9p3QmIGer+rBZUivjo9BiiPtK//FPinlVyTPKko8jM1dlIsKXtaKgsyBsQrFGFl7tlWN0qig
+ RIbL/8neCutPK4rVQRADkIarPjcqTAR3Qh+IdvT1MSOJ93XHYSQciOr3vTJ6E1P4310zXNbhLHB
+ 6n8OrX/71Ox1UALsNTw==
+X-Proofpoint-ORIG-GUID: KOvWfaHT7bhCVQv5K0UEx5ANNiWKjTKp
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1MiBTYWx0ZWRfX7JpDA6jMDfVk
+ jmpdTQ77bGOWh9DDax20VPAV8uc4jpZ2Ka6UPTXLCwoXQFhn73+Yee/0A+FS5l1/YTHBW7ZeMxJ
+ XijRwHlFFvQGiAJafJ3olUieVjWDeNs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 spamscore=0 malwarescore=0 impostorscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300052
 
-On Fri, Oct 30, 2026 at 07:16:51PM +0800, Kairui Song wrote:
-> On Fri, Oct 30, 2026 at 5:00 AM Johannes Weiner <hannes@cmpxchg.org> wrote:
-> >
-> > On Fri, Oct 30, 2026 at 02:31:42AM +0800, Kairui Song via B4 Relay wrote:
-> > > From: Josef Bacik <josef@toxicpanda.com>
-> > >
-> > > Swap-ins from SWP_SYNCHRONOUS_IO devices such as zram are no longer
-> > > counted in PSI memory pressure or in the swapin and thrashing delays of
-> > > delay accounting.  Refaults of the workingset from zram, the main input
-> > > to userspace OOM handlers like lmkd and systemd-oomd on zram systems,
-> > > become invisible in /proc/pressure/memory.
-> > >
-> > > swap_read_folio() opens the accounting window with
-> > > psi_memstall_enter() and delayacct_swapin_start() and, per its comment,
-> > > means to count the submission time.  For synchronous devices the
-> > > submission is the entire read: swap_bdev_submit_read() does
-> > > submit_bio_wait() and completes the folio.  Since reads are batched in
-> > > a swap_iocb, swap_read_folio() only queues the folio with
-> > > swap_add_folio(), and the bio is submitted later by swap_read_submit()
-> > > in the caller, e.g. swapin_sync(), after the window has been closed.
-> > > By then the folio is uptodate and unlocked, so the fault does not wait
-> > > on the folio lock either and the read time is not counted anywhere.
-> > >
-> > > Found by code inspection; not reproduced.
-> > >
-> > > Fix by submitting synchronous reads from within swap_read_folio(), as
-> > > was done before the batching, rather than from the caller.  This gives
-> > > up batching of readahead for synchronous devices, which do their I/O
-> > > inline anyway, in exchange for keeping the accounting simple and in one
-> > > place.
-> > >
-> > > Fixes: dda8fb68b590 ("mm/swap: also use struct swap_iocb for block I/O")
-> > > Assisted-by: LLM
-> > > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> > > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> > > Signed-off-by: Kairui Song <kasong@tencent.com>
-> >
-> > Hm, this isn't a complete fix to the problem described. IO throttling
-> > happens at submission time, so there can be significant delays on
-> > async devices too that are no longer tracked since the culprit change.
+On 10/29/26 2:52 PM, Anna Maniscalco wrote:
+> In order to be able to update the SMMU registers from CP for page table
+> updates we need to configure the LPAC aperture to include the context
+> bank that will be associated with SID 1.
 > 
-> Yeah you are right! Thanks for the heads up, not only a sync isssue
-> indeed, async devices are affected too :(, throttled swap fault also
-> went unaccounted.
+> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+> ---
+>  drivers/firmware/qcom/qcom_scm.c        | 18 ++++++++++++++++++
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  6 ++++++
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  1 +
+>  include/linux/firmware/qcom/qcom_scm.h  |  1 +
+>  4 files changed, 26 insertions(+)
 > 
-> > How about keeping the accounting window open across the batch? Opens
-> > on first read, closes on submission. A batch with at least one
-> > workingset folio is "contaminated" and the whole sequence and
-> > submission becomes a stall. Would need to pull the !can_merge flush
-> > out of the batch-add function to get the accounting window right but
-> > that seems reasonable.
-> 
-> Won't this cause an amplified PSI reading if only one folio in a batch
-> is workingset? Maybe not a big issue though.
+> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
+> index 9b06a69d3a6d..92093399f20d 100644
+> --- a/drivers/firmware/qcom/qcom_scm.c
+> +++ b/drivers/firmware/qcom/qcom_scm.c
+> @@ -1204,6 +1204,7 @@ int qcom_scm_restore_sec_cfg(u32 device_id, u32 spare)
+>  EXPORT_SYMBOL_GPL(qcom_scm_restore_sec_cfg);
+>  
+>  #define QCOM_SCM_CP_APERTURE_CONTEXT_MASK	GENMASK(7, 0)
+> +#define QCOM_SCM_LPAC_APERTURE_CONTEXT_MASK	GENMASK(7, 1)
+>  
+>  bool qcom_scm_set_gpu_smmu_aperture_is_available(void)
+>  {
+> @@ -1229,6 +1230,23 @@ int qcom_scm_set_gpu_smmu_aperture(unsigned int context_bank)
+>  }
+>  EXPORT_SYMBOL_GPL(qcom_scm_set_gpu_smmu_aperture);
+>  
+> +int qcom_scm_set_gpu_smmu_lpac_aperture(unsigned int context_bank)
+> +{
 
-Hm, I think the only option to avoid this would be to split the batch
-and flush more frequently, which I'm not sure is worth it. The batch
-size is only 32 folios...
+Please make qcom_scm_set_gpu_smmu_aperture() take a parameter instead
+- bit 8=0 is QCOM_SCM_CP_APERTURE_REG, bit 8 =1 is
+QCOM_SCM_CP_LPAC_APERTURE_REG
 
-diff --git a/mm/page_io.c b/mm/page_io.c
-index 22e5ac1d298f..806cfe633a95 100644
---- a/mm/page_io.c
-+++ b/mm/page_io.c
-@@ -207,6 +207,8 @@ static bool swap_can_merge(struct swap_io_ctx *ctx, struct folio *folio,
- 
- 	if (ctx->sis != sis)
- 		return false;
-+	if (rw == READ && ctx->workingset != folio_test_workingset(folio))
-+		return false;
- 	return sis->ops->can_merge(folio, prev_folio, prev_folio_size, rw);
- }
- 
+Konrad
