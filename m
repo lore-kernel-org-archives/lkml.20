@@ -1,45 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793377270;
-	b=Ah8hpabsRdgm0VvIihCx78TtpHWnmYOe499ggbuhjQdiT+mNc81y7JaLFhDhDPCLs8wL
-	 t5BEcXEm816caSJw7ovhcmwBXhhET4wK/5TmqW5UDMaiLpEO9r19uElhHsgkl57uZ8QfI
-	 5/+Fvuk9Ayb17YrVC4YIaDucBEcJf/U72inwfmhR4QPaQpHgRGzYORJmrUqeWZvwkv9hI
-	 BolHoWGxWosPnntCCc62sn0An4md+giGLF0bMn4LQETgm7PlKDBsiZH3NZ1OPdSWSikFY
-	 o/7KBVOw7lR8RrKeHbttAx6w8hxM/oGN8CIrVfPWSG+KNPkx6+d+KX+Y9p/i9rom7vQ==
+	t=1793377277;
+	b=BEy0WAlk62anFWKPk/w2qcog3AqjflZ0bVM3BXKWGvwaNolUV6KJwh8vV+V1nUJezrDh
+	 kvtV9sARzEk/nkedRT69hgFr6vFZn7kBDunIxOhU+0HaxRYnzfny9dYKelur64CcDvbFl
+	 is+hW/rKsE0a+wz7thlAOQ51D0JTUsvV3IMpttoBY20gB98xGH8EHfae9k0p4XTG71tP7
+	 EgW0elWNPYi+uAjpLsqCf7Y5G8rG39eIx3qnl5G5NOVCoGlB/7rti6MozgGfzbwbliiRo
+	 trx1FzethPEA3stZZc5cEC7q5a2r6GwC8wQ147IZYKGUhoTEwtwGWO9vjJDTtiNAsqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793377270;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=udOIgOnRpmfUdv0bh3ybI3j3Y+iWGTB4HI/6ns4924E=;
-	b=NP9lJ7rGnTf4uACjoB4Wct97V70K7L035h9pzG3/C2iYZX68TMvE0PJTMsWnp2MD9xtS
-	 B0wXMBirlO3IrUB73zWbskCLNByh6QO4cxByv9Zkr6j851lMBhJ9vJ/20Icke8rh/RZdf
-	 JyrPPMmlTALlJlhs022GViIflQEgEGxV3rvcLhRDq/lF3Y4lwMVBgSB9wp3EKRBxPma0l
-	 FoHHcTZ7Xo3b2uCS2f3dYeoOfKoamAK/KQ2yPyoCajdgNHOXjQXO8/j566o20nZX5PlsG
-	 4pJwKlCtrKZJwXq4hk+JenxTIhXBpFbkwBsOIFpJ+r1mWBWm9dY3WHmWs7skHQx2mkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793377277;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=NiCv4TzAu5z9UeTUiidIChOBFFfvn1mb27PyQpvB9kE=;
+	b=qnm7rc04tXDMvUeyNRjXpIrI99pKVcL0qjProZbKIa6xRgBIZGNVDUwU99joC7x4sCMr
+	 xIlkselB5++HiYNI5XNff1vjxUst2ZLHAlABD8luL1xaTvy0iYbme5QeO4TOU8ejDi7ZC
+	 miEqw/TEesCraZ8jhwz0+ccPzCGUfQZ7g8dbckV+uPFN+JIfP5aXS3xdKTjYdDKEVeb9V
+	 7iDaHLpy+PHWKNOTULyvBPrdm0tsLLmSF9BAEWXJWhlecMQ3jBwIX46S/K+gHLx3oEF+R
+	 yYcYyODWRtt9GBeHIRhm/m8GNrxy69wyBB40eBQFTntBiJuzdpwJ60Tdzl+tMd3szQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k4HnNyfU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o2AFWnrQ;
+	arc=none smtp.remote-ip=209.85.160.52
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0B2606A31A;
-	Fri, 30 Oct 2026 16:21:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 737D3606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:21:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 737D3606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k4HnNyfU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1719B1F00A16;
-	Fri, 30 Oct 2026 16:21:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793377270;
-	bh=udOIgOnRpmfUdv0bh3ybI3j3Y+iWGTB4HI/6ns4924E=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=k4HnNyfUIOtYMFlRCWtpHSC3Gq7SbzybJuuAGB1SoseXGQB13Thg49wH0lyyKx2kp
-	 rwPTy4CTsoa/X+YZCZKlV7kjOG4+/s8KtYLx2tSz7AlduZyLb3Pf7GfXTrgEWyZPr1
-	 H05ejjngptgDmNw3GcKTi0TzpPMl4IhfuvD1B/bxwIihWFy8yEXyhQDtFyKNlfOfG8
-	 8e84nz/zpcsNfv8tVnhQtBkPm5zlfSRU8CweagNzz8GHNSxG1ObhMwSdHMeptzEGTr
-	 yZwam54QaERVkNAclE0p8NjctdXt7OOKUC3yv4Eo+SxpVx1bg3JTm05OCF1v1Z302+
-	 OWzuTdwIigkSQ==
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o2AFWnrQ
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-486f013db83so315765fac.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:21:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793377275; x=1793982075; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NiCv4TzAu5z9UeTUiidIChOBFFfvn1mb27PyQpvB9kE=;
+        b=o2AFWnrQOwPhuS49gaxhb1HgLi4Eu7sqSP3MFnax3w6vq/4ch92RT3cUpbl899YW4l
+         Oe1p7MCHutef6NUdpbJcWfBWfIF3ythh7UDTq91BMd98rvXFr7lFcZK04V9TxKcT9FzN
+         n5gU9QShTcXbP8SPbFgA/9kfoFbSOvwll0KfLOt3QsgLVfLAuRFJ1CKjMNAsjI/4NJQu
+         5TnUOp/wzKiDiP5KLNzVP1Fx/Zu8ENGgv9tvb4uOy9JKpUTyWIR/o0WK9da/nFewanZb
+         rc4ayD2XcL7E1N4Qc9qSJmgf2SVn6swyhY+o4tV3ynhICQfdWAhnnkLmn8Jpihn92xNd
+         7ylQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793377275; x=1793982075;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NiCv4TzAu5z9UeTUiidIChOBFFfvn1mb27PyQpvB9kE=;
+        b=Ko4Tyy1a5FdaV9S9be8nbOuIuqb698UE+ZtkVpY87DnmSQRfeWdYMz1i7GBshNS3dr
+         Gtnmg/ge67EdC5RzzAnru3T97QGgtpHtRfqaSdLPps4E7HuEVdtHuXe6crr3/kuevRwN
+         rvNxoRnPscJmJFmhzv3Pc6KwoCzN26+ZhTyCGfKlKDLAxKIPvT9+MfxyeyZToXcrZLm9
+         Fn1QlaZ/2FV3UWrKhQXsQmTJTvKzvUn+WZkSYfqjHrrKFTKOyDBwjpLVCnMk0S3dpHsN
+         giLfkXLiolofXDVSxtvtZC1c+9ZEuQckQ5GFV+LnJ2ztTA0jDbtF9cifZS6YL6d4jSsI
+         PqlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz/NISMqWj68uqkIE+dMuCnKeiA/FvbAW/w9dDFupnmC/E65vpMK11qzA8wj2YD8eBq72GtVYGmObfvo+Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIl/gvQGoXfoJ6iToHoVsPwZy0MwXBxxxz44l6mngVZoFhQLvn1
+	Wt1LhbMv2JhstU+NxOp9urzB1YffHX370uoHtMZXeQpZqVg9YvPlz/U0
+X-Gm-Gg: AYBFou1O7wjNFo7AxjJ3at0wszAzduMN3YUAbrURgS3aUDt8gEKx9grhN9u+N6+YxVR
+	9SeX6sDHWQF11n0sOdNUx4/7lEOxOzRF+9T0UxAV3wtZFk0NDfgiB4+rQu4E+XQrWA8ieM3pUPq
+	0nxcBqwr5T29OLdffr9iXm/MzuYvOoRvAvY6O0Z6TbjovyuhowQxDopqVI0LMz+ugvbHkhJlgYZ
+	QQjU2OWDRz8xdW2oJIRVCTo5XEke2EdlutUzP5evU3eS6QsKrYiGVtkiBkrPRPtJwVy6kuOEt8L
+	wxt5ITjgB46Gelh/nCvr6W/UfbAKdQtDLmd1pCesPEIuoRNQCFmOwdUga+MjSJb5eYxnFqam1nU
+	WVlukAe0OzwyhpPW3GHyY4zaFoevu0apQppAZZuq/lSYM3mRI1opI5BFWHLJ1cdcGJtUgIw8LAe
+	kLDYMR7aXkQVmeYDliBGLo5D9A1eep+XKlhAEownuE1H/oa4a+iEdP2UPd6zE8VNURl7o7rtFnq
+	JJpKItHv9SWtplfYTPh+fuNnBVUjQUlP7RsF1IVGz1kt+Jlj//NGDUyxMsfzXYfZyNJVXSm0Irx
+	zDRIdB3jmDc3zUdUP2aDLffDKh0NFuQE/Km5lKuan37dugC2I7xF08kqo5gpq4ghs4PH7uMHROo
+	kBReHSsL4dUIVXp4Rvod2B8FIZyuHXv+InCbT6HcDW3CMf8Jl1zaNaW6tZm6xzNSTpqN14vYqzh
+	QHFdfsHEa8q0TjPkE=
+X-Received: by 2002:a05:6871:3149:b0:4a7:4323:3fe1 with SMTP id 586e51a60fabf-4a9075f9d96mr1952103fac.20.1793377275138;
+        Fri, 30 Oct 2026 09:21:15 -0700 (PDT)
+Received: from brev-9gdpyq8lp.ap-south-1.compute.internal (ec2-3-110-210-194.ap-south-1.compute.amazonaws.com. [3.110.210.194])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a92167b03csm322536fac.2.2026.10.30.09.21.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 09:21:14 -0700 (PDT)
+From: Samarth Narang <samarth.colleges@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Han Xu <han.xu@nxp.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Richard Weinberger <richard@nod.at>,
+	linux-mtd@lists.infradead.org,
+	imx@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Samarth Narang <samarth.colleges@gmail.com>
+Subject: [PATCH v2 4/6] mtd: rawnand: omap2: terminate DMA when prefetch cannot be enabled
+Date: Fri, 30 Oct 2026 16:20:39 +0000
+Message-Id: <20261030162041.2998170-5-samarth.colleges@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261030162041.2998170-1-samarth.colleges@gmail.com>
+References: <20261030162041.2998170-1-samarth.colleges@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,79 +110,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 3/3] regulator: Add TI LM51772 support
-From: Mark Brown <broonie@kernel.org>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Herve Codina <herve.codina@bootlin.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-In-Reply-To: <20261030-paul-lm51772-v3-3-0de62c22f342@bootlin.com>
-References: <20261030-paul-lm51772-v3-0-0de62c22f342@bootlin.com>
- <20261030-paul-lm51772-v3-3-0de62c22f342@bootlin.com>
-Date: Fri, 30 Oct 2026 16:21:02 +0000
-Message-Id: <179337726255.87968.9906404525377602371.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1897; i=broonie@kernel.org;
- h=from:subject:message-id; bh=jMwa/kcGaL6Xfql2/0CDg5Mt5kMCBxc1ReQQYJlcb68=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLKeHH5/tP5JpNsOgWtv7Dy+evQ+PjUl7uaMm+Kar9blH
- Qn5/lxyfUcpC4MYF4OsmCJLXBb3y/qS12v4Di5sg5nDygQyhIGLUwAmEpDKyLDls4TTS1X9hpuR
- nZ5z3kgtXLvs5pLqhfyvTRxb3vn4pcUx/FP+s0Ol4Yqro1HgLLlNM1UFpjqlbNm+8uque6mf1rj
- EveQDAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-> Add driver for the TI LM51772 buck-boost voltage regulator.
+When omap_prefetch_enable() fails because the prefetch engine is busy,
+omap_nand_dma_transfer() unmaps the buffer and falls back to a CPU copy
+without terminating the previously issued DMA descriptor. The descriptor
+may therefore continue accessing the unmapped buffer, while its callback
+could also signal info->comp for a subsequent transfer.
 
-> @@ -0,0 +1,903 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * TI LM51772 I2C regulator driver
-> + *
-> + * Datasheet: SNVSC22D (September 2025)
-> + *
-> + * Copyright (c) 2026 Bootlin
-> + */
+Terminate the DMA channel with dmaengine_terminate_sync() before
+unmapping the buffer, ensuring that the outstanding transfer has stopped
+before the fallback path proceeds.
 
-Please make the entire comment block a C++ one so things look more
-intentional.
+Fixes: 03d3a1df6da6 ("mtd: nand: omap2: Start dma request before enabling prefetch")
+Assisted-by: LLM
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+---
+This issue was identified by a research static analyzer for DMA
+lifecycle ordering and has not been validated on hardware.
 
-> +static int lm51772_irq_map_event(int irq, struct regulator_irq_data *rid, unsigned long *dev_mask)
-> +{
+ drivers/mtd/nand/raw/omap2.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-> +	ret = regmap_read(regmap, LM51772_REG_CLEAR_FAULTS, &reg);
-> +	if (ret)
-> +		return REGULATOR_FAILED_RETRY;
-
-This register appears to be clear on read so it should be marked as
-precious, otherwise debugfs will eat notifications.
-
-> +/*
-> + * For < 24V, voltages are set in 10mV monotonous steps.
-> + * For >= 24V, voltages are set in 20mV monotonous steps.
-> + */
-> +static const struct linear_range lm51772_voltage_ranges[] = {
-> +	REGULATOR_LINEAR_RANGE(LM51772_DIV10_MIN_UV, 0, 99, 0),
-> +	REGULATOR_LINEAR_RANGE(LM51772_DIV10_MIN_UV, 100, 2399, LM51772_DIV10_STEP_UV),
-
-Looks like this ought to cover 2400 too since there's overlap between
-the two ranges?  If we don't have it then the driver will get upset if
-it finds the hardware with that configuration when it starts.
-
-> +	  .active_discharge_mask = LM51772_FORCE_DISCH,
-> +	  .active_discharge_on = FIELD_PREP_CONST(LM51772_FORCE_DISCH, 1),
-> +	  .active_discharge_off = FIELD_PREP_CONST(LM51772_FORCE_DISCH, 0),
-
-It looks like this is an always on load on the output rather than
-something only enabled when the regulator has been disabled so we'll end
-up with an extra power drain for no reason.  Possibly we should have
-core support for hardware that needs such manual management, though the
-datasheet suggests DICHARG_CONFIG0/1 might be more appropriate for what
-the API is looking for here?
-
+diff --git a/drivers/mtd/nand/raw/omap2.c b/drivers/mtd/nand/raw/omap2.c
+index 552f36da7..b6bd4386c 100644
+--- a/drivers/mtd/nand/raw/omap2.c
++++ b/drivers/mtd/nand/raw/omap2.c
+@@ -417,9 +417,11 @@ static inline int omap_nand_dma_transfer(struct nand_chip *chip,
+ 	/*  configure and start prefetch transfer */
+ 	ret = omap_prefetch_enable(info->gpmc_cs,
+ 		PREFETCH_FIFOTHRESHOLD_MAX, 0x1, len, is_write, info);
+-	if (ret)
++	if (ret) {
+ 		/* PFPW engine is busy, use cpu copy method */
++		dmaengine_terminate_sync(info->dma);
+ 		goto out_copy_unmap;
++	}
+ 
+ 	wait_for_completion(&info->comp);
+ 	tim = 0;
 -- 
-Mark Brown <broonie@kernel.org>
+2.34.1
+
