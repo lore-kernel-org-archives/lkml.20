@@ -1,58 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793378262;
-	b=P5fmp1ArJ+3pabAxbZl8eV82tuKmS3mDkKp5Xgx3qcY5krVyXiK5UeQ+s/G796SoIvpt
-	 a1/y9dAPXypj8CLtk47F9HK8KyGgSxfT6/yt7sr5AzFVkS2G4Q70mmWn4sZpykxJRFwLp
-	 K4RWAURQEZg55aX/TZtCd4YZP/GESgbOb/JDSdQ/S3tlWKYZKCoHtYLFAnx0xGTpaS4iB
-	 abkknsEbqsF9Y9pTxI2oYlWiZcPgxyn46VqYpk4hWizwdDQ//wB01hmXT04og3gUliPLc
-	 dbeeBACZxJYb3abpO/x3O1eBfJh/LrhMFc1UG2zk7ajtClWJUCU1XeTG/FlYkANpjUA==
+	t=1793378271;
+	b=T+Gbs4CAix/jEG4LMN9TbUhNps2UFpds1L7diQoKKRzlTi50QoFIfc0MxYTxtuTb9A43
+	 2I6Ip6apZCvofN/MK6qCklMp+X5BR/Fogdw5+To73RjP7Yh2vxGyKlZw36gZx38brNYIC
+	 mtBfj0TQ8KHuCpZcN8N51MLYeeOi9hD9Ynpxnb2BRgMwEyVAfZM1m+jEFp1oYd4xOY/2o
+	 D7nKyb1bDtakrc6h5QjL1qw/7qtQ90gbTKt0SC8HNFTX4yom04Q1uN0KbLdH5mrfjyqYP
+	 FE9N3BpClm9pBO4AONbJlP3wChRQHNpJLURIEEVUQlgYJp1WtWfIX90Gk9TtZltjs7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793378262;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=33pgoCRtok2DxSGUPX/ZLZHekoBUewGbl3Bijyuxc90=;
-	b=lpqzk/cxg2ANjMvPAgyMVGJDYXkmsontnN7DCTqDsBDK+VDiIfwa8wbce4N71HnJGyR2
-	 5fkjalRiyCKS3FMt0/o6mZcR+6ASledq14DMNYS7H8IrnIZi9OpSEiKws923jJHB6wjr5
-	 BdebrvDQdVJ/4ausl5wEJjXilCOgd2vToh6Qmvm7auYl/nSAMNKpu38aRwbt7xVrEEuk+
-	 Pyjl4EqsPnV4cA5NKpz82WoD1/yM6JJM9qJ3QHKXoQtNFg6FEiABkkVku7MMvwqrvV8wB
-	 7TBlfsAkP/eu7JL6NutAVFvyMZiH9CkpUKuPuy9JgMAzMliwnqz1FNYvS22svEdC7HQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793378271;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7d1lCXfokWEj2gU8Igqxg+UFuk512owNqo1b4Avmm/M=;
+	b=X5IJYUqQx3d3Heg2IFvpemO9BoR1JGmHE9kUihhHf7A2nxjyQN+SH6UooCUn+nYto3NM
+	 jHy5RO0Zm7l2K3qdjoT4k3sTxE9azfA7+LBriBDMlySzbkGRYBLhZaz0TRPoGQi+ctp94
+	 9PuDJGnkC7CxttNK1ucDIDc6loLflN+cLqJOWBbOGpcAmsKXZjBWrI14symNaNHHHQZuH
+	 NwHOUvjmy5yBpAv6vcLbzQ9xNQnU6S7U8kuIklK38hT9e3g4pYkyfko1hXtw3K+vtaR7c
+	 FMq9MdHwPdhHVDK2rtLg1cdfcK3NexjSK94dFCwuF9csXFta6w/tNXJIFpL37GHyY+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gqWWnPQZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ol18xVxM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E197606A31A;
-	Fri, 30 Oct 2026 16:37:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 330B5606A31E;
+	Fri, 30 Oct 2026 16:37:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gqWWnPQZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BE911F0093A;
-	Fri, 30 Oct 2026 16:37:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ol18xVxM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C383E1F000C1;
+	Fri, 30 Oct 2026 16:37:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793378261;
-	bh=33pgoCRtok2DxSGUPX/ZLZHekoBUewGbl3Bijyuxc90=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=gqWWnPQZeLYACz3DaqF5hLs9ZSNymK/LLVs1DQAlAggJbkPe4UJGp9jQVaNr9tBfx
-	 n/27tmHJijua0jDmWP9nPNzrw3g+LeGA7eQ7dDLjAZNqo3BuFDe9D/xEy+PbGQWYWz
-	 stBL+rKXdpbTcUySIC4T4oux+bAn2kmUw0sRIrTS2Fs8VltjEyOQx+QwqD4sic9Qt9
-	 4czl7FlQHGn3Bljyn7oUj9e5uI3fnig3rC12aBaJYWNJmTYQz1ly/30i+dCxrF9An7
-	 UbomUvv7PJpZ04qW/VB2choRB1cu27Lk3oA/Wfd7yC38iqeaDIcCmvba/ap3ybON7X
-	 wCExXADyS5T6g==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 6002DCE09CD; Fri, 30 Oct 2026 09:37:41 -0700 (PDT)
-Date: Fri, 30 Oct 2026 09:37:41 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Marco Elver <elver@google.com>
-Cc: Alexander Potapenko <glider@google.com>,
-	Boqun Feng <boqun.feng@gmail.com>, kasan-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
-	Kees Cook <kees@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] kcsan: Reset per-task KCSAN state on fork
-Message-ID: <b32fabb0-a9ee-4a9f-acd6-3511548a7f65@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261030145655.439579-1-elver@google.com>
+	s=k20260515; t=1793378271;
+	bh=7d1lCXfokWEj2gU8Igqxg+UFuk512owNqo1b4Avmm/M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ol18xVxMdakMmQ5o6hmkFU+jYtBnvdSdUFnrhXqci8M4OykyzE2NMVRH/egBxaTTU
+	 VFE5WBaDBbhH5qQ5rJcdM++3JI2fhZIPpJ2ueerpveoxEqQ71C8PZS0OnLQab4SQOU
+	 Q+G6xuCI2/urWo4OXD+FGMyT3fzL9ojuBwO9Txabrj+d/mJp1XWMhJvMriCR5OT2s/
+	 PZb2gt+i768FF1mO/dqFkWPTmgz5x8QA985kKFojROCBIpFOlqoLKRa39qC6LKjgqd
+	 GN/O3WsHoZvBysPeEeP0zc3UVoaO7qWmwiAev+GfwMThbLmbfw6677Ol9rgJkgPX9J
+	 2VhtlM7bEqeyA==
+Date: Fri, 30 Oct 2026 11:37:48 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Val Packett <val@packett.cool>
+Cc: Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	~postmarketos/upstreaming@lists.sr.ht,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	phone-devel@vger.kernel.org, linux-usb@vger.kernel.org,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Bjorn Andersson <andersson@kernel.org>
+Subject: Re: [PATCH v3 1/2] dt-bindings: usb: fsa4480: Add an optional audio
+ port/endpoint
+Message-ID: <179337826787.501373.7297897424032125426.robh@kernel.org>
+References: <20261020162101.1527014-1-val@packett.cool>
+ <20261020162101.1527014-2-val@packett.cool>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,138 +68,22 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261030145655.439579-1-elver@google.com>
+In-Reply-To: <20261020162101.1527014-2-val@packett.cool>
 
-On Fri, Oct 30, 2026 at 02:56:19PM +0000, Marco Elver wrote:
-> arch_dup_task_struct() copies the parent's task_struct verbatim, which
-> includes kcsan_ctx and kcsan_stack_depth; nothing reinitializes them for
-> the child.
-> 
-> With CONFIG_KCSAN_WEAK_MEMORY this leaks a live reorder_access: an
-> access whose simulated reordering is only valid until the parent returns
-> from the frame that performed it (tracked via kcsan_stack_depth and
-> cleared by __tsan_func_exit()). The child inherits both the entry and
-> the parent's stack depth, but never returns through the parent's frames,
-> so the entry is never invalidated and is replayed on every subsequent
-> check_access() of the child.
-> 
-> The most direct way to hit this is the copy itself: __tsan_memcpy()
-> runs check_access() on the destination before copying. If that access is
-> selected for a watchpoint, set_reorder_access() records it (ptr = the
-> child's task_struct, ip in arch_dup_task_struct()) in the parent's ctx,
-> and the memcpy then copies that entry into the child. For an idle task
-> created by fork_idle(), the stale access covers thread_info.flags, which
-> other CPUs frequently access, resulting in false positive reports and:
-> 
->   WARNING: kernel/kcsan/report.c:344 at sanitize_stack_entries+0x120/0x12c
->   Cannot find frame for arch_dup_task_struct+0x40/0x154 in stack trace
->   ...
->   Call trace:
->    sanitize_stack_entries+0x120/0x12c (P)
->    print_report+0x84/0x488
->    kcsan_report_known_origin+0x14c/0x1ec
->    kcsan_setup_watchpoint+0x578/0x864
->    __kcsan_check_access+0x1ec/0x1f8
->    do_raw_spin_lock+0xa4/0x1c4
->    _raw_spin_lock+0x70/0x88
->    rcutree_report_cpu_starting+0x1ac/0x4b8
->    secondary_start_kernel+0xe8/0x28c
->    __secondary_switched+0xc0/0xc4
-> 
-> Reset the child's KCSAN state in dup_task_struct() after the copy,
-> alongside the existing kcov/kmsan initializers.
-> 
-> Reported-by: Paul E. McKenney <paulmck@kernel.org>
-> Link: https://lore.kernel.org/all/97f6213a-1dec-494e-96d1-abe546bce993@paulmck-laptop/
-> Fixes: 69562e4983d9 ("kcsan: Add core support for a subset of weak memory modeling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Marco Elver <elver@google.com>
 
-Thank you, Marco!  I will be testing this over the weekend.
-
-							Thanx, Paul
-
+On Tue, 20 Oct 2026 13:20:30 -0300, Val Packett wrote:
+> The fsa4480 mux is physically connected not only to a Type-C port
+> controller, but also to an audio codec which has to be notified when
+> an analog audio accessory has been plugged in.
+> 
+> Describe a second port intended for the codec. Keep it optional to make
+> sure existing device trees do still validate.
+> 
+> Signed-off-by: Val Packett <val@packett.cool>
 > ---
->  include/linux/kcsan.h | 10 ++++++++++
->  kernel/fork.c         |  2 ++
->  kernel/kcsan/core.c   | 13 +++++++++++++
->  3 files changed, 25 insertions(+)
+>  .../devicetree/bindings/usb/fcs,fsa4480.yaml  | 94 +++++++++++++------
+>  1 file changed, 66 insertions(+), 28 deletions(-)
 > 
-> diff --git a/include/linux/kcsan.h b/include/linux/kcsan.h
-> index c07c71f5ba4f..c7e9d15dd7bd 100644
-> --- a/include/linux/kcsan.h
-> +++ b/include/linux/kcsan.h
-> @@ -13,6 +13,8 @@
->  #include <linux/kcsan-checks.h>
->  #include <linux/types.h>
->  
-> +struct task_struct;
-> +
->  #ifdef CONFIG_KCSAN
->  
->  /*
-> @@ -66,9 +68,17 @@ struct kcsan_ctx {
->   */
->  void kcsan_init(void);
->  
-> +/**
-> + * kcsan_task_init - initialize KCSAN state of a new task
-> + *
-> + * @task: task to initialize; must have been copied from its parent already.
-> + */
-> +void kcsan_task_init(struct task_struct *task);
-> +
->  #else /* CONFIG_KCSAN */
->  
->  static inline void kcsan_init(void)			{ }
-> +static inline void kcsan_task_init(struct task_struct *task) { }
->  
->  #endif /* CONFIG_KCSAN */
->  
-> diff --git a/kernel/fork.c b/kernel/fork.c
-> index 5ef413368912..62a096ca8dce 100644
-> --- a/kernel/fork.c
-> +++ b/kernel/fork.c
-> @@ -93,6 +93,7 @@
->  #include <linux/compiler.h>
->  #include <linux/sysctl.h>
->  #include <linux/kcov.h>
-> +#include <linux/kcsan.h>
->  #include <linux/livepatch.h>
->  #include <linux/thread_info.h>
->  #include <linux/kstack_erase.h>
-> @@ -986,6 +987,7 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
->  
->  	kcov_task_init(tsk);
->  	kmsan_task_create(tsk);
-> +	kcsan_task_init(tsk);
->  	kmap_local_fork(tsk);
->  
->  #ifdef CONFIG_FAULT_INJECTION
-> diff --git a/kernel/kcsan/core.c b/kernel/kcsan/core.c
-> index a3aa5e5b039d..26755add7cdb 100644
-> --- a/kernel/kcsan/core.c
-> +++ b/kernel/kcsan/core.c
-> @@ -828,6 +828,19 @@ void __init kcsan_init(void)
->  	}
->  }
->  
-> +void kcsan_task_init(struct task_struct *task)
-> +{
-> +	/*
-> +	 * dup_task_struct() copies the parent's kcsan_ctx, including a
-> +	 * reorder_access that is still live in the parent's frame.
-> +	 */
-> +	memset(&task->kcsan_ctx, 0, sizeof(task->kcsan_ctx));
-> +	task->kcsan_ctx.scoped_accesses = (struct list_head){ LIST_POISON1, NULL };
-> +#ifdef CONFIG_KCSAN_WEAK_MEMORY
-> +	task->kcsan_stack_depth = 0;
-> +#endif
-> +}
-> +
->  /* === Exported interface =================================================== */
->  
->  void kcsan_disable_current(void)
-> -- 
-> 2.56.0.317.g454f8302e1-goog
-> 
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+
