@@ -1,72 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793361074;
-	b=mzH22y/ILrSlAROnxdJpCmC06NacrtgDTrXOR0sMNxkzBJlpzne9lXBdvjcN18WgS2yF
-	 jGqFv8YO3kKv65CGO7udKRZ1BLYFYJUJN+dTdr9+lJDZJKZJ9YmwwLWilLWoT9lLIaATP
-	 8fd3ryuqvnO/cczORwJrlN3okcjL8VVq8D8+xyMo29KovWZhEULmnbOdfHay66mOPeZOE
-	 8+nTDU9FN7cA0oOjcV9elHBaMs5awfzMibaFN+HabBB8ln1MBFDVdtQBVkhZBdBhy/zpZ
-	 SGNnGX3Atp4P2wUIykhiM3+bssqcZzzwaw/qM/ral+T8C14n5fmIeMjkzexlnaKabmA==
+	t=1793361116;
+	b=dKF5b0wnAN1LXwBSQ4XXT46jrpVZg82xcWfxlyN3HvX7nD2syAU6Yi4/XGmnEHVu0C3K
+	 KWMQVKlinKItjfkcxpNYjTX7oo2kpLTEXfzrPGHpiw67YUAEQK4CzQoWISGknJ8G5CaO9
+	 DtNe/Z6QlPXp+g3AmUZUs/JtXV4GISDLH1PF+epcuej8fwRN2pMImDM+adR8lDQhk+DUp
+	 FtUQ0JHUK5v6svMuzCo04+Op/cJg9JatGmCO8tq4zzkbiaZbBPzSHIPSVshWTtOaGpHbz
+	 3vQxheo7+HrsCWhSMaotWOAD8Q+xpib4A5wfvM5FAi/yxy3MRjocup1OSy9PYZOz5Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793361074;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=EV9q3xMYUg7eyUdptCPQkT+NInqEVi2Bft0i/3u9pWc=;
-	b=S6SpWoUqDp965fHzlKbuZ7dOx+J6689TyPB8sSWGGfl2qhHmJTG1T7LsS2kYt4JYVQVU
-	 df7FO1w84x/aNgsgmZAD8PAZuHfgXGL0ghBsnQasJK8u0lC1Rl7BsX6r4v5efJ2dKDVTt
-	 ZimjCXeoFhBhiC3BWBru3YBmdHen7xhwrHpb7eXRMGsg8dPSL+UJdBS2yq3VPkUrqek1C
-	 58Dg7Sbnm2MiMngwrT7L++gJhwKuOG7MPnkeYYJSi0I628dWJ8+sW/IzSdGQKqYNwqDbf
-	 mHce/i/8xokVMe2e2NDo7Pmy4mef6k+6EgW16VOkuXAWYqeC8RSSkq6Hvob5zHkXP6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793361116;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=n9kcoaXq9ZX8rpwr/RlmQNWBtCpFTUM1yYrrw2E3eQY=;
+	b=1UD8+vtIIz9HkQuc03onG4I2E93gTnouXSxPiSZGWCvL5ynfIy21Ic72VwAA5zCwy8Go
+	 EpodDFjDfTqL+mGxI8cgzma1/4tT3FeIuf7zmTjn/mSNtJ1XgLEl0hotiCf3SQdXVNeZ9
+	 RKhuPIxeRO15HlM8RgRe3nzkMswVxiqbV6bvHzRMN76rQ5PqhVnpmYA41kkZVSY6QRvva
+	 Oj/Fkc7RnLgNZqGgUkNY290ZkEzGMhWdNDujgrP5JFPFb4eJ09LBpForbaeBfcIRrByuq
+	 15ZSa7QHLMFNuQvDYXGqwKG6kU7msD5FCSg2dI/g4rPZjcAek8EnY55v0+MQ66mxZYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lhbs403c;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A7504606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:51:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7504606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HevXf8d8;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B26606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:51:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85B26606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lhbs403c
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2A79E1682;
-	Fri, 30 Oct 2026 04:51:10 -0700 (PDT)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A3AE73F7B4;
-	Fri, 30 Oct 2026 04:51:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793361073; bh=Mc3ZxWgjpeC+0tTsnex0ZyBfJ8y4oR4Ncako7tOwxzw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=lhbs403ceP0i6J8ZnKQpDhpeznmarJmBUeflvdmtHnlB2nPAIKDzzcVGkjSj9dQ7W
-	 vtYBO7rtqa2fVQpvzW5QK31u40tMnW4Jc2IGyVrESGNTwnIebruQEJnQGn+OPTDhPw
-	 Gf2ge37yfRyKGQJ5KxdYYDrHf/8gyFWRm3p7HOp4=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Tian Zheng <zhengtian10@huawei.com>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	liuyonglong <liuyonglong@huawei.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Zhou Wang <wangzhou1@hisilicon.com>
-Subject: Re: [RFC PATCH 5/5] KVM: arm64: Enable HAFDBS for guests not on migration
-Date: Fri, 30 Oct 2026 11:51:08 +0000
-Message-ID: <auSErGzYpiTxgsgb@LeoBrasDK>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <b8f76a0a-8b1e-4167-81cc-b3a4ee79fb6b@huawei.com>
-References: <aqsl1_IqnV2r8kUL@kernel.org> <aqvt2gnlBZeNsaf4@LeoBrasDK> <as-mH36YSMxAosND@LeoBrasDK> <3e464bef-8dfe-44a3-afea-3c276ae87cd8@huawei.com> <attMtUqxNsuPooix@LeoBrasDK> <8eaaba87-7881-49c4-a76a-51dec2f29ffc@huawei.com> <auCPEQmnFwWldTaM@LeoBrasDK> <52945586-8c5c-4991-bd92-fe02aaf79fbe@huawei.com> <auM0CWJTPzYUTknh@LeoBrasDK> <b8f76a0a-8b1e-4167-81cc-b3a4ee79fb6b@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HevXf8d8
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15943c9c005so1059780c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:51:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793361116; x=1793965916; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=n9kcoaXq9ZX8rpwr/RlmQNWBtCpFTUM1yYrrw2E3eQY=;
+        b=HevXf8d8OLPlf55rrpk2CJ2RYu0Pok6eNVW1u67C3MLD1VKcGuWmoeGKx9unYYZB3d
+         vbN5SD9iZgXFEV5BUMja5rI2DrtE3/dqfAMtnqzY5QDiLS6PcoJHEDg+uWG09nmyDREY
+         BKHrDnEYxA8wxEDyr+EFwMdffM7oKdRG1LJGE0HvaMNiOpgn/ucUPXjqpRH/GS5RRCEs
+         ZICuZMN8emg3UF6hGfCqNymAUxO7f07LU9kmH+96QyTLV92MJjZfofrfFwEKYhaiQkN1
+         nMO5dXFXOSyQ6YnU9Vb13vIYVurOOjbHcSYYVaMhXkKQb9flw6LQLq7kaig0GWUTmd7l
+         DuhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793361116; x=1793965916;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=n9kcoaXq9ZX8rpwr/RlmQNWBtCpFTUM1yYrrw2E3eQY=;
+        b=ZQGYeBMtSzLl71RNBQQnjQ/uIiJ7wpbhrqfpc30Rmeu04INyH8zCryp7znCeNxkuAr
+         6RltqcXtu63pBTNfoOb1WveoYT0Sg72CXvD5BnZ4yEtMneCNtiK7/9tDcd9D/VFZcy2f
+         j8oTrM0bbiP7TNl52WWPIPd8tWCM54kmyVMJz/4DvJz/CgLIpBRUDkrJyVG87D8oZIeQ
+         tEw/hrJx/Do0XbgNqCBrsnay3pdjvOO3bLPJuwuK1kc4J6Tm4X7+4yV+3cGmDUQMynsw
+         KYs5ZsxMYo3gbsFApaX2qp4wpB3XTi4k4S83Cz2nPn61I1Tclcd/W+hlH79DaLNkgskt
+         KQIw==
+X-Forwarded-Encrypted: i=1; AKwUvBxkqJip2xcg2OvB3NHY3xIo6O7+FFm+TontxjXzbsRGak0264Pxd8bS066gdEwtb0RIeYkTAOQ5qmDAkE0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL31pFDHjyfCS2GBUkRmImYw5G1/HzSvXhcrHDhdR+bIbxfwEFy
+	OXVNeBRpxQrQTb6wC2BRyEYwrCbdZ3eqFVZwR0JkG5g9FYRett37Uhg5jywaPvPg
+X-Gm-Gg: AYBFou3Rg05oOA2/BHeIgJRU8PEMmzn2yxWfucyyGJtBeJqm61pnRTEzvM0yQ3Vbatc
+	IXplsA9ju3TWlpFUqVA3/TZnKOoemkVskPjdAaXEHwGE90+EtD2izmd9v2Vgh9BL28AHeEavE4b
+	Du08sLVyFKML2dfvBeC5yL8EM3GidT+xQKGj15mZXRS43JBWCxJd8cyi3f3ceF0oK3VgdpB3u7L
+	IjbhoSWiJTG+RUKnaw+sAAsR5yz196r/3vpdixAditAesCS7JIBQUrNavBqd8AJi8f9zIaQBaXs
+	GvIVUz94kTHnI9+0WNSxODRySLYwhA7Nw1o4lU2GfNzkrAbuH6Oad+JSUwL2/ZCnLI2C5P2h+U1
+	h6I604EOnIQe4QyAmhJHEjLOHKtXI4fmq5XR3UI9TTgXPCjdhyRSbaS7uD6/0RdJvGsneYdllJC
+	PuRZ8LgsqvUhFI93KMc1YjlkHaUefqWJ822TdiJMGmLuMYU3XClWDAd8yNEOU/MsSyDIASPaj1F
+	DW3XrkHStKYNrByt6vs+JvFORPfEnGmebtsNFgAbQeVbcjn7tO1lh0k0kCyxryeIGj43kxDI6p1
+	m9aJIaZhTrTNLP+ig/sQz0q7
+X-Received: by 2002:a05:7022:b90d:b0:163:a197:722d with SMTP id a92af1059eb24-1ac55777052mr2693722c88.4.1793361115315;
+        Fri, 30 Oct 2026 04:51:55 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1abcd6f1sm6437304c88.20.2026.10.30.04.51.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 04:51:54 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Subject: [PATCH bpf-next v2 00/22] bpf: Replace bpf_patch_insn_data() with
+ a list of deferred patches
+Date: Fri, 30 Oct 2026 07:51:45 -0400
+Message-Id: <20261030-bpf-verifier-patch-batch-v2-0-55cd43439f7c@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,51 +92,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANKE5GoC/4WNQQqDMBBFryKz7pRJKtZ25T2Ki6gTHagaEgkW8
+ e5Nc4FuPjw+7/8DAnvhAM/iAM9RgqxLAn0poJ/MMjLKkBg06UoRKeycxZgcK+zRma2fsMupy1J
+ TTVzf7gMk3Xm2sufpF/yshfcN2tRMErbVf/JnVLn/Px8VEhqlB1sbeqiKmnE28r726wzteZ5fS
+ tp2v8oAAAA=
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-On Fri, Oct 30, 2026 at 02:01:49PM +0800, Tian Zheng wrote:
-> 
-> 
-> On 10/29/2026 7:54 PM, Leonardo Bras wrote:
-> > On Thu, Oct 29, 2026 at 10:54:24AM +0800, Tian Zheng wrote:
-> > > Hi Leo,
-> > > 
-> > > I've read your discussion with Oliver on DBM RFC v2. As a suggestion,
-> > > maybe we should go with Oliver's approach, i.e. revert to the v1 scheme
-> > > and continue fixing from there.
-> > 
-> > Hi Tian,
-> > I have been reading a bit more about permission indirection to try figuring
-> > out a way that the change may work for both ways.
-> > 
-> > The problem with the previous approach is that it assume DBM=write at all
-> > times, which is not architecturally correct. Having DBM=write only on
-> > HAFDBS=on as suggested would require us to transverse the whole pagetable
-> > to convert encodings when we enable/disable it, which can be quite
-> > expensive.
-> > 
-> > One option would be to always enable HAFDBS when system supports HDBSS, but
-> > I still have to figure out if that causes any performance regression before
-> > suggesting.
-> > 
-> > The option I am pursuing is thinking on an unified code path for direct
-> > permissison (both HACDBS=on and HACDBS=off) so we don't have to convert
-> > between them, neither worry about the impact of HAFDBS=on on performance.
-> > 
-> > I will reply on the thread once I figure one of those options out.
-> > 
-> > Thanks!
-> > Leo
-> 
-> Hi Leo,
-> 
-> Sounds good. I'll wait for your next version and review it once it's
-> posted.
-> 
-> Thanks,
-> Tian
+bpf_patch_insn_data() and bpf_patch_insn_single() apply a patch right
+away: they move the tail of the instruction and aux data arrays and walk
+the whole program to fix up branches and every table that names
+instructions. Removing instructions works the same way.
 
-Awesome, thanks!
-Leo
+A pass that patches M instructions of an N instruction program does
+O(N * M) work. Eduard pointed out that this takes a large share of the
+time to load pyperf180 [1], and with bpf_jit_harden=2 or many nops to
+remove it gets to minutes.
+
+Replace them with a list that a pass fills with patches and commits
+once in O(N + inserted instructions). Following the layout of Jiong's
+RFC [2], the list goes to core.c and the verifier side to fixups.c,
+then each pass moves over and the last patch removes the old code. As
+Andrii suggested there, map every old index to a new one once and
+relocate all jumps through that map. Since passes queue patches in
+increasing order of the instruction they replace, keep the list in a
+sorted array instead of a linked list.
+
+  1-3   the patch list in core.c and in the verifier
+  4-6   bpf_do_misc_fixups(), gotol for a backward may_goto
+  7-9   removal of instructions, dead code and nops
+  10    zext
+  11-13 patching an instruction twice, inserting in front of one
+  14-17 ctx accesses, may_goto counter setup, hidden subprog, bpf_loop()
+  18-19 commit without a verifier env, constant blinding
+  20    removal of the old code
+  21-22 selftests
+
+Load times on an x86_64 VM with 32 vCPUs, the base commit below with
+and without the series, measured in one round: perf stat -r30 --
+veristat -q <obj> averaged over two runs, -r10 for BPF_F_TEST_RND_HI32
+and bpf_jit_harden=2, three runs of loading 131072 "ja 0":
+
+                                   base       patched
+  pyperf180                       0.512 s    0.350 s
+  pyperf600                       1.407 s    0.885 s
+  strobemeta                      0.591 s    0.588 s
+  test_verif_scale2               0.643 s    0.646 s
+  pyperf180, BPF_F_TEST_RND_HI32  1.708 s    0.360 s
+  pyperf600, BPF_F_TEST_RND_HI32  5.161 s    0.891 s
+  pyperf180, bpf_jit_harden=2     3.185 s    0.362 s
+  pyperf600, bpf_jit_harden=2     9.879 s    0.899 s
+  131072 "ja 0" removed          53.146 s    0.769 s
+
+With bpf_jit_harden=2, test_verifier's "ld_dw: xor semi-random 64 bit
+imms, test 5" doesn't load within 900 s on base and loads in 5 s with
+the series.
+
+For the 1052 objects of the selftests, every program that loads has the
+same xlated code, line info and func info on both kernels, by default,
+with BPF_F_TEST_RND_HI32 and with bpf_jit_harden=2, masking the
+immediates that hold addresses, BTF ids and blinding constants.
+test_verifier passes on both, test_bpf fails the same 53 tests on both
+when hardened, and test_progs only shows failures that are flaky in
+parallel runs.
+
+[1] https://lore.kernel.org/bpf/a714ee96d0ad96bbc9d51037616e5c4e2790a8ec.camel@gmail.com/
+[2] https://lore.kernel.org/bpf/1562275611-31790-1-git-send-email-jiong.wang@netronome.com/
+
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+V1 -> V2:
+- Convert every pass and remove the old patching code (Alexei)
+- Build the new image in core.c, so that blinding without a verifier env
+  uses the list too
+- Let the list remove instructions, insert in front of one and patch one
+  twice
+- Pick JEQ or gotol for a backward may_goto from its offset grown by the
+  patches in between, v1 picked JEQ when that offset was -32768 (CI bot)
+- Test a backward may_goto expanded to gotol
+- Test a jump that the patches push out of its 16-bit range, and a gotox
+  to a patched insn
+- Rebase onto current bpf-next, which adds the arena_scalar rewrite
+
+v1: https://lore.kernel.org/r/20261001-bpf-verifier-patch-batch-v1-0-a12df8a09160@gmail.com
+
+---
+Qiliang Yuan (22):
+      bpf: Add a list of deferred instruction patches
+      bpf: Remap the verifier state through the patch list
+      bpf: Apply single-instruction patches of the verifier in place
+      bpf: Queue the rewrites of bpf_do_misc_fixups()
+      bpf: Expand a backward may_goto to gotol when patches push it out of range
+      bpf: Drop the constant delta from bpf_do_misc_fixups()
+      bpf: Let the patch list remove instructions
+      bpf: Remove dead code through the patch list
+      bpf: Strip nops through the patch list
+      bpf: Batch the patches of bpf_opt_subreg_zext_lo32_rnd_hi32()
+      bpf: Allow patching an instruction twice through the patch list
+      bpf: Teach the patch list to insert in front of an instruction
+      bpf: Allow inserting in front of a queued patch
+      bpf: Move bpf_convert_ctx_accesses() to the patch list
+      bpf: Insert the may_goto counter setup through the patch list
+      bpf: Append the hidden subprog through the patch list
+      bpf: Inline bpf_loop() calls through the patch list
+      bpf: Apply the patch list without a verifier env
+      bpf: Blind constants through the patch list
+      bpf: Remove the old instruction patching code
+      selftests/bpf: Test jumps around patches of bpf_do_misc_fixups()
+      selftests/bpf: Cover a backward may_goto pushed out of range by patches
+
+ include/linux/bpf.h                                |    4 +-
+ include/linux/bpf_verifier.h                       |   87 +-
+ include/linux/filter.h                             |   16 -
+ kernel/bpf/bpf_insn_array.c                        |   35 +-
+ kernel/bpf/core.c                                  |  552 ++++++---
+ kernel/bpf/fixups.c                                | 1285 +++++++++-----------
+ kernel/bpf/verifier.c                              |   46 +-
+ tools/testing/selftests/bpf/prog_tests/verifier.c  |    2 +
+ .../selftests/bpf/progs/verifier_patch_list.c      |  210 ++++
+ 9 files changed, 1240 insertions(+), 997 deletions(-)
+---
+base-commit: 7101b10cf281f629ac58c99697ca6f6d082b99a7
+change-id: 20261001-bpf-verifier-patch-batch-2442080e837d
+
+Best regards,
+-- 
+Qiliang Yuan <odys.yuan@gmail.com>
+
