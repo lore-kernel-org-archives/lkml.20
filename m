@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793373223;
-	b=uYS6gV8LS7cYtrVLhhMex72g9PK+ZcroROnYXF/Y964Clj8Do8A28MuEVomzAaDPwzIu
-	 KJpCqjGPuSj3GJPQVmCYY8mmq+pHLtsIPwKtYv0cKma0lWJkagcS/1Eymj7WGC42AaHJ3
-	 hbZD8lQxO0cvgUHGuEmdh/cWnHTt9L2kO12gYQzeatZlR9jjzV+rQN19+UhTl1f1nJKeQ
-	 WUJbzxqn1awABHyXZjjYYr7nh11zVUjNZ1M7MSGXzPM5F6/N0nPNPfuT4AEFPMMxh5HD6
-	 HRGRtiybXoUQMAp3dy/gl9cedxJB/6k+32BbtxzDUL8OJYIbzRjbsr/ehhAhAjAwLbw==
+	t=1793373220;
+	b=CN//73PtoE+1395QSPySFSFLNn0HL3nK4DApJYkKEolWJ3EFc8+PS3CI8D/sAeFJVE5K
+	 KvG9D1MDW3EC7GgcWe0eNpydfJ6t3ixMWK/jHTLhVODbjoy5SNdABPOHDhTIVdRtOtty3
+	 1jcFlWDFvdrF41rr2hWZrg5UV1XESnp/AZmZP9fUOMx9G/POwtwTjuTpj5fYIx59sX3y3
+	 xauQcRrxInNqWFwI94+x7T0k6XbGb5KRv+lTgeWdMDEi4U0pPuwd/1uDNp0xZ08+rfqcR
+	 mU+O4XVb3S1rqUSSELXKzw9DAzCUweqtX0pCZbT/8ntM7Hq5fO9GCUDqw3g5IKJXZtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793373223;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793373220;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=vrFLm/cCax5yQI71l8CSG587q1vifAi7hQZt2T8Cg7s=;
-	b=WVy0qdCvYzz4Z/4/iqTwaeYcOUWy2IRpWQA3Dta/pjmFrRr7M2szjIpLriaAJtm/fHX6
-	 WmvWSZQH/CahA2Zh6pt/sM1rPrN/Z8zIQTvkrLCr2ZEtqr69V2hC8q8mYAfBr7GbxWn6j
-	 H6GzOpp1sYSCLPKIjOJ3ZWL9mNTlciPsFcEjDcURdEL/f9UJmSXWb6mxrSuQr9R4WBBV4
-	 +RAO0XURe7Mb1aK2l/TLAzgpgisWD6ft25SnsGCXlPiFYiFcZKzo3qZRpU5x7vhBMXBcz
-	 Cectxa83vs3Wk7d3qdCnzhnKKoDfGhPYQFXjnswO8bkY+6h5zEaVVPdM40E+u/PtzaQ==
+	bh=1MLWFfUJ7F55h4sb4NUxEMLDS0WrEggl4s/5D7oHub4=;
+	b=I84WEKjjYQMwPxbWFCjL8RmRpbK03djo3EpbkiTyme4rpH+PuSFJ+de6jvZT/hu7lfqy
+	 yBHvom/Ts7MtE/v6kaboo12M2I5zOn+PRdRzbkOYWbXPzmKmgHQorEXuoTiA/jKdHyPba
+	 jPKUyZ+hmSUZRNmTO5K/6xBf+pXSh14F1R2yoAPANAMEhc7KzVU1slhbHA8LXU03jANDq
+	 rPiwiGzA3bg5beTnVl6J2xPjykByT/mL14OhekEWofWxRffLWbNR3JOIB5Ye2gFAXCiZX
+	 /lAAhNdfj81QzIiikjIlHTMkm4J6nw1/iS3gnqMMh4lfX01voZfcrC7hH4vX84l3jrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RQomrtf8;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=fzRdxyNe;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7DE5660A2601;
-	Fri, 30 Oct 2026 15:13:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DE5660A2601
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E5C7E60A262D;
+	Fri, 30 Oct 2026 15:13:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5C7E60A262D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RQomrtf8
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=fzRdxyNe
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BCCCD1BD0;
-	Fri, 30 Oct 2026 08:13:38 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 33D571682;
+	Fri, 30 Oct 2026 08:13:36 -0700 (PDT)
 Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A41193F59E;
-	Fri, 30 Oct 2026 08:13:39 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 18A3D3F59E;
+	Fri, 30 Oct 2026 08:13:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793373221; bh=9ktypl1JqI0GWoy1OCHdCp+amWjg+77FtBUCJzM1uhE=;
+	t=1793373219; bh=Ir98YJCZTEZmvWLsHi0UjK0B8K30meN/k+Jc00XpUqU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=RQomrtf8+sgBKINaoHQMAlmUVuVhlfl8M1vvS0QUiWt4M8crnz6+AI0JE2WLt3K/0
-	 V9fkSrUudlNWatWkFGfbhhZyizf/pWJd16VhJvNMcVAFovJCRgRXQs62Lspsou9aSU
-	 2WR+qvYS/9NaoIBVcngBehERKkODxhAuI9XWCi3I=
+	b=fzRdxyNeV60QRhcFw8FZqGL5kGhC59QctJKcNU+GycnG/YEh6IpMA4JxqFGlmZXO6
+	 BKyOAypX+Qp7dl+UoEOJW32ONwPxFI/8AhOpJJt88DVaywyv6YcH+YpHOeonovyPFW
+	 smiAQq5bgS+r3VIg3P3bcPp54dZd4Kf/QV/gL9uE=
 From: Leo Yan <leo.yan@arm.com>
-Date: Fri, 30 Oct 2026 15:13:14 +0000
-Subject: [PATCH v3 07/14] perf cs-etm: Factor out final instruction sample
- synthesis
+Date: Fri, 30 Oct 2026 15:13:13 +0000
+Subject: [PATCH v3 06/14] perf cs-etm: Mark branches that were not taken
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,7 +57,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-perf_cs_etm_fix_non_taken-v3-7-7629b52ab047@arm.com>
+Message-Id: <20261030-perf_cs_etm_fix_non_taken-v3-6-7629b52ab047@arm.com>
 References: <20261030-perf_cs_etm_fix_non_taken-v3-0-7629b52ab047@arm.com>
 In-Reply-To: <20261030-perf_cs_etm_fix_non_taken-v3-0-7629b52ab047@arm.com>
 To: Arnaldo Carvalho de Melo <acme@kernel.org>, 
@@ -71,129 +70,61 @@ Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, coresight@lists.linaro.org,
  linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Leo Yan <leo.yan@arm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793373201; l=3739;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793373201; l=1932;
  i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=9ktypl1JqI0GWoy1OCHdCp+amWjg+77FtBUCJzM1uhE=;
- b=x4NYgbz3FMG00a7UH+RzdMK0YhVi7rrz8hLReaLrwJlij0ZmF10X2JUFCJ5tgK36/GfCX6pIz
- 1KzkACdRPThAFtqZDkSBtAB5XNODWB9xefL/KeC0SF95KRWbsR3d5uD
+ bh=Ir98YJCZTEZmvWLsHi0UjK0B8K30meN/k+Jc00XpUqU=;
+ b=f+qzmd9pJ3zuO8A5Cr0MGhXVst6eEd4MCmRqaQL2S+bE5H88Sv1XYgqXMQvitbl89kd0R7sEz
+ O3bkIRG7AdQAaskvhiTfTRhJYcUiRnzaDM8CDXuiJ8H7U4qVlTKvdgc
 X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
  pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-cs_etm__flush() and cs_etm__end_block() duplicate the instruction sample
-used to report the remaining branch history at the end of a trace.
+An exception can transfer execution to the kernel after any instruction.
+When this creates a trace boundary, perf may attribute the trace-end
+sample to the last instruction in the range. If that instruction is an
+untaken branch, reporting only its branch type can make the transfer look
+like a taken branch.
 
-Move this code into cs_etm__synth_last_instruction_sample(), preserving
-the sample generation and instruction period reset.
+Set PERF_IP_FLAG_NOT_TAKEN for branch ranges when
+last_instr_taken_branch is false. This records the decoded branch
+outcome independently of exception entry.
+
+For a discontinuity without an exception element, perf script previously
+reported an untaken B.LS as:
+
+  tr end  jcc             4000f8 => 0       b.ls #0x400118
+  tr strt jmp                  0 => 4000fc
+
+With the not-taken flag set:
+
+  tr end  jcc/not_taken/  4000f8 => 0       b.ls #0x400118
+  tr strt jmp                  0 => 4000fc
+
+Here, 4000f8 remains the last traced instruction and 4000fc is the trace
+restart address. These boundary samples do not establish an IRQ entry or
+an exception return; the not_taken flag records only the branch outcome.
 
 Reviewed-by: James Clark <james.clark@linaro.org>
 Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
- tools/perf/util/cs-etm.c | 71 ++++++++++++++++++------------------------------
- 1 file changed, 26 insertions(+), 45 deletions(-)
+ tools/perf/util/cs-etm.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
-index 7cb9f69ead2b134b62653f133da7bdec23aaf280..9abbbc28dd1e2a66eadd663ce18217cd62deb390 100644
+index 9126f6327e98b67852b6a55980d67abb24de17fe..7cb9f69ead2b134b62653f133da7bdec23aaf280 100644
 --- a/tools/perf/util/cs-etm.c
 +++ b/tools/perf/util/cs-etm.c
-@@ -1727,6 +1727,28 @@ static int cs_etm__synth_instruction_sample(struct cs_etm_queue *etmq,
- 	return ret;
- }
+@@ -2457,6 +2457,11 @@ static int cs_etm__set_sample_flags(struct cs_etm_queue *etmq,
+ 			packet->flags = PERF_IP_FLAG_BRANCH |
+ 					PERF_IP_FLAG_RETURN;
  
-+static int cs_etm__synth_last_instruction_sample(struct cs_etm_queue *etmq,
-+						 struct cs_etm_traceid_queue *tidq)
-+{
-+	struct cs_etm_packet *packet = tidq->prev_packet;
-+	int ret;
++		/* Report branch that is not taken */
++		if ((packet->flags & PERF_IP_FLAG_BRANCH) &&
++		    !packet->last_instr_taken_branch)
++			packet->flags |= PERF_IP_FLAG_NOT_TAKEN;
 +
-+	if (!etmq->etm->synth_opts.last_branch ||
-+	    !etmq->etm->synth_opts.instructions)
-+		return 0;
-+
-+	if (packet->sample_type != CS_ETM_RANGE)
-+		return 0;
-+
-+	ret = cs_etm__synth_instruction_sample(etmq, tidq, packet,
-+					       cs_etm__last_executed_instr(packet),
-+					       tidq->period_instructions);
-+	if (!ret)
-+		tidq->period_instructions = 0;
-+
-+	return ret;
-+}
-+
- /*
-  * The cs etm packet encodes an instruction range between a branch target
-  * and the next taken branch. Generate sample accordingly.
-@@ -2065,28 +2087,9 @@ static int cs_etm__flush(struct cs_etm_queue *etmq,
- 	if (tidq->prev_packet->sample_type == CS_ETM_EMPTY)
- 		goto swap_packet;
- 
--	if (etmq->etm->synth_opts.last_branch &&
--	    etmq->etm->synth_opts.instructions &&
--	    tidq->prev_packet->sample_type == CS_ETM_RANGE) {
--		u64 addr;
--		/*
--		 * Generate a last branch event for the branches left in the
--		 * circular buffer at the end of the trace.
--		 *
--		 * Use the address of the end of the last reported execution
--		 * range
--		 */
--		addr = cs_etm__last_executed_instr(tidq->prev_packet);
--
--		err = cs_etm__synth_instruction_sample(
--			etmq, tidq, tidq->prev_packet, addr,
--			tidq->period_instructions);
--		if (err)
--			return err;
--
--		tidq->period_instructions = 0;
--
--	}
-+	err = cs_etm__synth_last_instruction_sample(etmq, tidq);
-+	if (err)
-+		return err;
- 
- 	if (etm->synth_opts.branches &&
- 	    tidq->prev_packet->sample_type == CS_ETM_RANGE) {
-@@ -2108,8 +2111,6 @@ static int cs_etm__flush(struct cs_etm_queue *etmq,
- static int cs_etm__end_block(struct cs_etm_queue *etmq,
- 			     struct cs_etm_traceid_queue *tidq)
- {
--	int err;
--
- 	/*
- 	 * It has no new packet coming and 'etmq->packet' contains the stale
- 	 * packet which was set at the previous time with packets swapping;
-@@ -2119,27 +2120,7 @@ static int cs_etm__end_block(struct cs_etm_queue *etmq,
- 	 * event for the branches left in the circular buffer at the end of
- 	 * the trace.
- 	 */
--	if (etmq->etm->synth_opts.last_branch &&
--	    etmq->etm->synth_opts.instructions &&
--	    tidq->prev_packet->sample_type == CS_ETM_RANGE) {
--		u64 addr;
--
--		/*
--		 * Use the address of the end of the last reported execution
--		 * range.
--		 */
--		addr = cs_etm__last_executed_instr(tidq->prev_packet);
--
--		err = cs_etm__synth_instruction_sample(
--			etmq, tidq, tidq->prev_packet, addr,
--			tidq->period_instructions);
--		if (err)
--			return err;
--
--		tidq->period_instructions = 0;
--	}
--
--	return 0;
-+	return cs_etm__synth_last_instruction_sample(etmq, tidq);
- }
- 
- static int cs_etm__flush_stack_cb(struct thread *thread,
+ 		/*
+ 		 * Decoder might insert a discontinuity in the middle of
+ 		 * instruction packets, fixup prev_packet with flag
 
 -- 
 2.34.1
