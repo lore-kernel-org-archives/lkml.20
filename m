@@ -1,74 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793385664;
-	b=Jt3lqT7r5Nh1lkvi78AVRoR8fYQbqU4nmly9Hoxsy7iehofafg2ReT7LukBGVeOzxyHB
-	 zxYv9Yy0eeTP+jieabXfq+XQANx9In0Q+vSxlSYfJaSpCFMnoXj/Q1PmLBAmKJ1+9goD2
-	 nYu8RZzhjAx7davdlZp0PDskYfscRleJ+CphtUMUqYBgWLv6SyUPuqJK9iShfCRvlAeMH
-	 j5IlZFPgr3IP+2kSriaUT2kSDXC7rpj0QPtcrNS1K+I0qq5Yxuw4sWbkiiHr9NbdjQjfk
-	 6SdaGio1ELyWKPh6XyuawZshHM+jwSXdS0mMYNxMOu753uTvZPbBIOhcETJgqrzaelw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793385664;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793385762;
+	b=IGFM5uOlHWp59WNFxS/CzFBw4m68VD1AU+B8w61SaLKbNaJotTyXYEAZE65PgMsLd1Ay
+	 I3ztWyCF0aqwEbX6LE6pfaEXhIlePLNhhuuvVLvTM60SOT5hHypf7iQjCQw+i4UYBHol9
+	 P0Kde7n3nowNGEDgEnXXTqw1t0xH08mzqJyhPQqZZ9aO5LFsCEBwdHpmQVQGM+lserddl
+	 FipebIoA5R2lNhFZA2Bo68K6tNFjvRqaZuAuGd/z9jDR1fO+Im9D+UWN6WzVmOqbuu17q
+	 xJ3Zm2yRzpGI0bEItxlObWpRA6gl+COf/kqa0+yShsQRVh+vQIKv2M9suPde+0rUE3A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793385762;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Ru4Nxp5wg59Jn04kqGuPVEqcSV5Cvw988WkwJ8HZ7Wg=;
-	b=iHZDHuSIuq/YL+o2dW7wI+anw49srKge64zSre5PF+u0lDUgM+zKiR/u0RmsAysmUV5V
-	 4DsDZ81PpzYpgjD9bRnRcS/dD3fuZaoae+B+HzlMfI4jnTnGsnJTVeT4/U5CNKyfI37Fh
-	 ddQZR+b/r2506WctSWi0zNJ2oSSRnzfCzvgu833h/xp22qmlE6z3DmLLPMgYS4fWlfMc1
-	 +90Llb2dQ314QZo08zfYOEtl3aBUIwlmPDHBvEFzvPCz127vaq30PUOsLGdL7hrZiEpUS
-	 eIWUJOTunS1n4Tw8CWzGfWRlJEHamyiiVGMh3b7xiaR4vYIAuFm7axIOpvEH/6NKiNg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CJ1cgqaC;
-	arc=none smtp.remote-ip=209.85.215.200
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ArYrG0SZmM4/M6BZSvCDJn/YoiUDh8QaQvrAG71KqZI=;
+	b=L7fLc/+4PVrlhbling4U3ykiCe6jvj69YI1hc9ZscfOiqq+dJOP2Dz+wwDxhgozX5aTz
+	 xxtOKy7NaDy5WEHXqJLzrIei/dkei0jBkD6BPfiE9S9XdLnjpr/p3l3CDDUNMummIPgcV
+	 v6P2evTDMScVigH+q8gtURLiTQgaVTrpO4pY9PgRJoodM2dkCXA+O0JiDBpDPt+VKWaQ+
+	 nNTQTGApU4ztJ5Epuy/tWA6sQFytkRZu6+5kTlYvUgIZsMF9vVd0zR4EFt2mpZWH0IbTH
+	 BhZBRy1md8o5CJII/yRVpKcgHoEEV64rQrmE3EalPfqpRw/f6avziZYKlO6xnsz+rDw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ilhiRFdm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A91606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:41:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46A91606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD637606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:42:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD637606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CJ1cgqaC
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd67e98f68fso1083807a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:41:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ilhiRFdm
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ab98332238so647268a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:42:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793385761; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bQSpD69/9NSuyrYZb4cSYxvQ2pWDixU9Gb2r88Xfu1zMWYcYM7H3ke/AuO6j3p1uXH
+         s62XE7hjEbh5VwIfwF5AkUIg8e0v5bGsxvhUaKN4CDh0wXiR9QYsE9t6LS1J/5Mjcvb7
+         Z6I7/zm6vyA2Ay4JlQ/RwdZUjdLAPRf1OS3miW+BrbA50PPrtTqk/Q4lfK/RcC8miHwB
+         KsK8qRohL6LQ/TcWivsb9rWWp1CVsmY812oi3DzDFZXY7Zof1lbfcWugr6eVcGdzkX8G
+         0uWCbOxwjBNo7Gbqq2W6G/KyfRPnCVd7d8ofN5O9Dgu/hAl9VL0IgdGusLYCoCFiZkiR
+         rmgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ArYrG0SZmM4/M6BZSvCDJn/YoiUDh8QaQvrAG71KqZI=;
+        fh=8asgM3jb2Pyc1naYmp05v4nDbZiwEs8ZTjK4YTv883k=;
+        b=RbwXmQ8eFROiI9j21J5tSSggVY1T3yoEEYJTSP6sK9iwSHCG/LRt/Zt4w4molPk3VQ
+         K2MZWQ9vvCiY4H+N8S8PMj+BwteF+APcHA/PoUN1f/h/OzMd2K4xStWWBc5uveFHU9jV
+         Me0Wr9dtZW37/eowwj72o7DCQuplM4+PO/odc6Ieyhz7Co0w6VLVzCU7WkcNdmFfWcvS
+         G+ghKXgncOyt3K4lV1BMurhGgidhfulsjm2bTBnKeTgTM1jAeM9mistd+bxGkDPGYH0i
+         FHHokNiIgAkOmjhlWOln38hOoR1LzaQJue3AV+qW4ZTDFCB2Op7DM6U72n8DyFjOioGY
+         NWSw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793385663; x=1793990463; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ru4Nxp5wg59Jn04kqGuPVEqcSV5Cvw988WkwJ8HZ7Wg=;
-        b=CJ1cgqaCdmVkgVvoSrpzV90w4M7aiPEyxsQZxW975c3eTbCo96gClsF/cWMXPA0Cjg
-         8hXj73iQEJ5a04jQ3GlJnrHGR1XdoyMHwB32fx7DA/4o8Nvh7bnf/IU7Mwcrcy5w5ZTL
-         ulr2a4S4ghGVbhzgRzWIHQw0iqVNNTL211N7NPeaOOtxudS3IiSk16RGCp6UCNRd+3a+
-         eh702HsaufX8wgyMLK33k+Km5UKfPtYmQdXjM32FR1nxQ0lTzOKcCOSr5kANZ3IqvfFj
-         A2PdelYDK2e8DE144SdV+ZOnYx13tscLUlAws2FBKTapr7kJsa9Ia6QKr3TuUIoPQHwV
-         hxig==
+        d=gmail.com; s=20260707; t=1793385761; x=1793990561; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ArYrG0SZmM4/M6BZSvCDJn/YoiUDh8QaQvrAG71KqZI=;
+        b=ilhiRFdmDF7b2CCOVYg3yrhn1I/DSoWRa475WOgAruostyli6ZMqjZ8ESu/yy5CChS
+         ORPsHXhLPSB1d8qNrTp62GpyH8yrD+KcK/Sl4X0TBIun9uQC8HbkSLeOQxdSLJiYuFMf
+         XQv6Iyxweil5+vEvXvkSgud6DAU4epItDzW6UJ1rlDcLV2A5Mbef3YHl3NS1jQUpnBCz
+         cXtS2Y1FhBsB8+HetmFOuYCQG3xb3XiaIZrXChQ1r6BwCboqJU6zWBFLaNgS9KhzrizS
+         BIhSTD4xZXL4O7bpS/UEY3kl5bLzYJWvjxr8L2bxTLch81x4AItH1ByoYLZFjTdsOMix
+         sxDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793385663; x=1793990463;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ru4Nxp5wg59Jn04kqGuPVEqcSV5Cvw988WkwJ8HZ7Wg=;
-        b=PaQRN/LdsrIOCNJUC4e6L6/3F5RrWcLgJ7KzB9zvWC81XGECuDUQ/zzGWcr+ujolS6
-         +pMJSWNhzURoerU2n+6yknsU+3apI6SwXW+u5q6leLQtAKVPNdaMycqT9Zf+1o+XwvkF
-         T1AXgplGThcDUEpVni3fejWHKnvd/CHibB3Q2UUq04VIlldZ5btpAxt8wnScXw44vh0D
-         +pMGXCt6na9zOYR+7/L9vPT5ooATL6SWZ8pWimszhTl1dXQsgTDF6S8BsuSyxebatOqM
-         wVO0tbR+EVvhDTkQDVzztjmtas0lkzugVdrfMxN28hzqB2HgiYclcjkXWhqltFLuLNH4
-         NJWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzaBGA+VxxB9DOfjSqJDCKtnvUk1JhYXcERIBog0VX+x8UZ69duYPfh5szsNfhnUkgdH1nKg0U4fDBWwWI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIu5zJiFcXy1gebQcMKcO0iBYImqNlYmZgxtvLHDogNHlzXPfN5
-	C/zjvaz8BGNzIB8D9caQNHYj97fKA8PIKZP2fN+954j9WK7O3OErxUyPuuDyNPdOe8e51QfOWo+
-	NAqvIKA==
-X-Received: from plhq17.prod.google.com ([2002:a17:903:11d1:b0:2e9:64c:38da])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e74e:b0:2ea:33ae:d3e3
- with SMTP id d9443c01a7336-2eb36520f26mr32504155ad.61.1793385663293; Fri, 30
- Oct 2026 11:41:03 -0700 (PDT)
-Date: Fri, 30 Oct 2026 11:41:02 -0700
-In-Reply-To: <20261030032937.2813-3-ma.mandourr@gmail.com>
+        d=1e100.net; s=20260707; t=1793385761; x=1793990561;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ArYrG0SZmM4/M6BZSvCDJn/YoiUDh8QaQvrAG71KqZI=;
+        b=F81CA/Ye0nT0wgHOdeRSLNi1FZBZfCa+Xfeaw2ao0TSCEdj02hhIHYbpcop8bGEBFw
+         LJmuP5fYU3AjbCFh7gnjOTIEPWwnXdEcsoHO6FV9ezRcGB6LBI+koxGpV9HZ5fDlNeh+
+         0Ru8GAthpsZDQNU2+NddxVQ0FcAVeQihjvbwdA14WPhW87MU9fcGUyu8ANwVWsQBEEJr
+         MGOCRLHP/TrIqd7/uk8cbPsKZhZxyMv1zqrFE6IEyNDIl5LmLYx4w+qm6lf0bQ3njvoI
+         telaHfXTSlUwTrh1yd69ebtTSlUGx/0Szi3CfUjDw6vXf8x8ffFmdGstm8Omp2uqy8mQ
+         /FmQ==
+X-Forwarded-Encrypted: i=1; AKwUvByTD9fPja2jdKoSjYnq90287Ks44HgRcU7kh4wPWe/nyJ9eS/s1lO5klf8WKWWaGKnUvYeGBX/pgmb7TJY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgwfZ1TWdmKzJw6g953XGiTEHZpEPkbgVZTWyK8yZEXcD3AThV
+	nqyOyaClgcGA8eTcLCj2v04x3/jRexA9fsNe/ENssmH4X0Kjt96zg+4sOFgK0crIG5UAkEBBMqf
+	0FBbzT3DhhV+Ape9NkU0Zx11nt1TDru4=
+X-Gm-Gg: AYBFou11sGffKain8pW2VWqDUReZLvxWjNvHASmqFWq4TSm8icBlrkjiv7/DGWsbGJk
+	u68cswxmOJ47ua94X+craVIjI51FGmCO0W1hv+Sz8IryWRfO6wx+YHTgtyCLkVUr69tq+s9PCYB
+	2Dm5NLHCUwKH48wdy7tjOK4mYdNXYt49JZdUm/EnVTQ2uVqdKVGz33FbD5Blyi+1RvvyuR/zikK
+	HOvp6lmLAkSAOxOjy7Zs8KKRqaB7z/7/mDNWGH9PRKUE/Pv0iQYvUAbQjgEWneQDBxkSt3YYng4
+	U4s7q6K+V+awm1Vo8hx4Nxnb5N9jV886m82e2/iW5b3rdnbGcfAWv+iy9sil6vPzBSYC00Zrr5t
+	GVuIrVtF1H+ggYCZ9NAZF5xsB8zadEgPGZLKxXG2+yUtrtxpjsvozQ+2l3zwmfffDr53UDdPQRv
+	8E7qhgaBhYuCaCbl+Z3s/4maSorAhPgmXIANnBMKusr2HDo7Hq+0K2ZuI=
+X-Received: by 2002:a17:90b:54cd:b0:3ab:2737:3392 with SMTP id
+ 98e67ed59e1d1-3ae897a87admr2747287a91.53.1793385761164; Fri, 30 Oct 2026
+ 11:42:41 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,100 +104,210 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261030032937.2813-1-ma.mandourr@gmail.com> <20261030032937.2813-3-ma.mandourr@gmail.com>
-Message-ID: <auTkvnRMn4tlcuqp@google.com>
-Subject: Re: [PATCH v2 2/2] KVM: selftests: Verify that L2's LMSW leaves
- L1-owned CR0 bits alone
-From: Sean Christopherson <seanjc@google.com>
-To: Mahmoud Abumandour <ma.mandourr@gmail.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <20261023001603.560210-8-wusamuel@google.com> <20261023001603.560210-9-wusamuel@google.com>
+ <CAEf4Bzb--Jzz696u057G9_CgQN7zf6ksvoL80KJacKO2CorsnQ@mail.gmail.com>
+ <CAG2Kctojb7xiOqTmwWqoAKFaNUECjOzXVc_t6KbG13Pqm2dbng@mail.gmail.com>
+ <CAEf4Bzbs8F1DPBz=WXVTExrrNjzvaFsi4L+HEj+zbUTpPSTX5g@mail.gmail.com>
+ <CAG2KctpSTCyWQHgJ8GyFEhHPdFawUa6zy0g7rkfCcujJRN6f6w@mail.gmail.com>
+ <CAEf4BzbyqPC=RQGWEdpkqu1WDQ2_S0H8pZU2i=_gLuSDQtpFbg@mail.gmail.com> <20261030153528.0d5113e7@pumpkin>
+In-Reply-To: <20261030153528.0d5113e7@pumpkin>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Fri, 30 Oct 2026 11:42:28 -0700
+X-Gm-Features: AclHuK-VjFk5niMzo0il-rDmeKs0ZQg3btwvPCyolGTPblfqirktPQXtvuort7I
+Message-ID: <CAEf4Bzbw6hZ3T6uO-ah7c0+K9_kc+k32hV88YFP=qPnHos+-AQ@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to /proc/kallsyms
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Samuel Wu <wusamuel@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026, Mahmoud Abumandour wrote:
-> Verify that an LMSW in L2 that exits to L0 only leaves an L1-owned CR0.TS
-> set, and that L2 reads an L1-owned CR0.NE from the read shadow.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Mahmoud Abumandour <ma.mandourr@gmail.com>
-> ---
->  .../kvm/x86/nested_exceptions_test.c          | 36 +++++++++++++++++++
->  1 file changed, 36 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
-> index f47432526e..e33d2e0db0 100644
-> --- a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
-> +++ b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
-> @@ -109,6 +109,40 @@ static void l1_svm_code(struct svm_test_data *svm)
->  	GUEST_DONE();
->  }
->  
-> +static u64 l2_cr0;
-> +
-> +static void l2_lmsw_test(void)
-> +{
-> +	/* Toggle CR0.MP, which KVM intercepts and L1 doesn't. */
-> +	asm volatile("lmsw %w0" : : "r" (get_cr0() ^ X86_CR0_MP));
+On Fri, Oct 30, 2026 at 8:35=E2=80=AFAM David Laight
+<david.laight.linux@gmail.com> wrote:
+>
+> On Thu, 29 Oct 2026 15:54:01 -0700
+> Andrii Nakryiko <andrii.nakryiko@gmail.com> wrote:
+>
+> > On Thu, Oct 29, 2026 at 3:36=E2=80=AFPM Samuel Wu <wusamuel@google.com>=
+ wrote:
+> ...
+> > > > > Makes sense, but I'm thinking v3 doesn't need pagination or batch=
+ing.
+> > > > > I didn't see any performance wins when profiling libbpf, and it c=
+an be
+> > > > > added later without breaking UAPI.
+> > > > >
+> > > > > > on input I'd also add module name as optional input argument, w=
+ith
+> > > > > > "vmlinux" limiting to just vmlinux, set module name to just tha=
+t name,
+> > > > > > and NULL/zero meaning "we don't care"
+> > > > >
+> > > > > Makes sense, so here is a possible plan for QUERY_BY_NAME:
+> > > > > - Optional module filter: NULL =3D any, "vmlinux", or a module na=
+me
+> > > > > - Returns the first match by default (vmlinux first, then modules=
+). An
+> > > > > ALL_MATCHES flag searches everything and reports the number of ma=
+tches
+> > > >
+> > > > searches everything as in all modules, or you mean just full linear=
+ scan?
+> > >
+> > > I envision ALL_MATCHES to do some form of lower_bound() +
+> > > upper_bound() on vmlinux since it's sorted, and then linear scan of
+> > > all modules. Of course, just one of the two or both aforementioned
+> > > things depending on the module filter (any, vmlinux, module).
+> >
+> > no point in upper_bound() if it's sorted, you just start at
+> > lower_bound and go linearly from there. I don't think it's realistic
+> > to assume large number of duplicates, so I wouldn't optize for that,
+> > one log(N) lower bound + linear scan will be faster in most cases,
+> > probably
+>
+> Doing a system call for each symbol is probably fine and scales nicely.
 
-We should add lmsw(), and also test MOV CR0 because it's easy to do so.
+Yep, I agree, for BY_NAME case it should be totally adequate. And I
+agree about not needing to do full count, just whether there is more
+is good enough, good suggestion!
 
-> +	l2_cr0 = get_cr0();
-> +	asm volatile("fnop" ::: "memory");
-> +	GUEST_FAIL("L2's FNOP didn't take #NM");
+> Just return the symbol number (in the by-address list or by-name list)
+> so that the application can request the next one.
+> While the application probably isn't interested in symbols with a
+> lot of duplicates, some symbols get duplicated thousands of times.
+> So you have to allow for them.
+>
+> (My kallsyms patches get scripts/kallsyms to mark when a symbol is a dupl=
+icate
+> of the previous one, but after a short linear scan for the first it falls
+> back on the binary search otherwise looking up some symbols takes a long =
+time.)
+>
+> ...
+> > > > >
+> > > > > > tl;dr, this is the right direction, but I think we should polis=
+h API a
+> > > > > > bit more to be more universally useful and extensible
+> > > > > > > +
+> > > > > > > +#define KALLSYMS_QUERY_SIZE_VER0       40 /* sizeof first pu=
+blished struct */
+> > > > > > > +
+> > > >
+> > > > [...]
+> > > >
+> > > > > >
+> > > > > > PROCMAP_QUERY uses offsetofend() for the last defined field, an=
+y
+> > > > > > reason to have this #define and BUILD_BUG_ON here?
+> > > > >
+> > > > > David pointed out that the size field in struct kallsyms_query is
+> > > > > redundant. In v3, I can drop the size field and use _IOC_SIZE(cmd=
+),
+> > > > > keep the *_SIZE_VER0 define (since we need minimum size). Perfect=
+ly
+> > > > > fine to switch to the PROCMAP_QUERY style though if preferred.
+> > > >
+> > > > I'm not sure how size is redundant, I don't see ioctl subsystem
+> > > > accepting argument size as a separate parameter, so the size has to
+> > > > come from the user and be embedded in user-provided structure, if w=
+e
+> > > > want any sort of backward/forward compatibility. At least looking a=
+t
+> > > > PROCMAP_QUERY I don't see how we could have avoided it, so not sure
+> > > > how we can do that here.
+> > >
+> > > My understanding is that the size is encoded in the ioctl command
+> > > itself: _IOWR() puts sizeof(struct) into the command number when
+> > > userspace is compiled, so _IOC_SIZE(cmd) is the struct size of the
+> > > header the caller was built against.
+>
+> Yep, I think that was added by the BSD kernels (but not SYSV) when they
+> changed from 16bit to 32bit.
+> Linux mostly uses it, but not always.
+> If it were used consistently (or the high two direction bits are guarante=
+ed
+> unset) then the ioctl syscall wrapper can do the user copies.
+>
+> You'll find that _IOC_SIZE() is used in many places.
+> Amongst other things it can select between 64bit and 32bit compat structu=
+res.
 
-*sigh*
+I see the trend to stick to fixed sized __u64 and __u32, which allows
+to not worry about compat. I'd go with that (we have used that
+appraoch extensively in BPF syscall and it has never backfired, as far
+as I know)
 
-Again, I have no idea if you/AI even realize the careful dance that's going on
-here.  I *wanted* to say this should simply have L2 assert on the expected CR0
-value, but doing so results in false passes because trying to report the assert
-means making a ucall(), ucall_alloc() does a memset(), and the compiler likes to
-generate SIMD instructions for memset().  I.e. trying to report a failure triggers
-the #NM that L1 expects.
+>
+> > oh, interesting, I didn't realize we embed struct size into ioctl cmd
+> > and match it exactly. I see that pm_scan_arg has the same __u64 size
+> > in the struct approach, I'd stick to that, and when we extend any of
+> > them we'd need to make sure to either ignore or hard-code the size
+> > part, hm..
+> >
+> > > That said, either way is fine. We could mirror PROCMAP_QUERY style fo=
+r
+> > > consistency.
+>
+> There is nothing to be consistent with.
+> These are the first ioctls for /proc/kallsyms.
 
-So the code is fine, but this needs a big fat pile of comments and the changelog
-needs to explain what's going on as well.
+consistency in the sense of these ioctl-based interfaces into
+otherwise historically text-based interfaces.
 
-> +}
-> +
-> +/*
-> + * L1 owns CR0.TS (set) and CR0.NE, both with a read shadow of 0.  L2's LMSW
-> + * must leave both alone: FNOP takes #NM and L2 reads both as 0.
-> + */
-> +static void vmx_run_l2_lmsw(void)
-> +{
-> +	u64 cr0 = vmread(GUEST_CR0);
-> +
-> +	vmwrite(CR0_GUEST_HOST_MASK, X86_CR0_TS | X86_CR0_NE);
-> +	vmwrite(CR0_READ_SHADOW, cr0 & ~(X86_CR0_TS | X86_CR0_NE));
-> +	vmwrite(GUEST_CR0, cr0 | X86_CR0_TS);
-> +	vmwrite(EXCEPTION_BITMAP, BIT(NM_VECTOR));
-> +	vmwrite(GUEST_RIP, (u64)l2_lmsw_test);
-> +	vmresume();
-> +
-> +	GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON), EXIT_REASON_EXCEPTION_NMI);
-> +	GUEST_ASSERT_EQ(vmread(VM_EXIT_INTR_INFO) & 0xff, NM_VECTOR);
-> +	GUEST_ASSERT_EQ(l2_cr0, (cr0 & ~(X86_CR0_TS | X86_CR0_NE)) ^ X86_CR0_MP);
+I'm intending to fix PROCMPA_QUERY's embedded size (so that to
+user-space it stays the same no matter the evolution of PROCMAP_QUERY
+interface). I really think we should start with embedded size zero
+here and have size embedded in query struct itself. This is another
+thing that we've been doing in bpf() syscall for a really long while,
+and given how dynamic and complex that syscall is, we had a great
+success in building and evolving API in such a way that user-space
+code doesn't have to care all that much about multitude of different
+versions.
 
-Just use vmx_run_l2(), most of this is copy+pasted from there anyways.
+I'd really-really want us to not have
+KALLSYMS_QUERY_BY_NAME_{V1,V2,V3}, it's just a pain for user space.
+The evolution logic for versioning is simple: if user space provides
+too large struct, unrecognized (by kernel) fields should be zero. If
+user space provides too short struct (for initial version we can
+enforce minimal supported version from the get go), then we just not
+touch any fields added after that size. That's all there is to it.
+User space, on its part, just provides its knowledge of struct size,
+and then kernel will implicitly assume zeros where appropriate.
 
-> +
-> +	vmwrite(CR0_GUEST_HOST_MASK, 0);
-> +	vmwrite(GUEST_CR0, cr0);
-> +}
-> +
->  static void vmx_run_l2(void *l2_code, int vector, u32 error_code)
->  {
->  	vmwrite(GUEST_RIP, (u64)l2_code);
-> @@ -149,6 +183,8 @@ static void l1_vmx_code(struct vmx_pages *vmx)
->  	vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS_DF);
->  	vmx_run_l2(l2_ss_injected_df_test, DF_VECTOR, DF_ERROR_CODE);
->  
-> +	vmx_run_l2_lmsw();
-> +
->  	vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS);
->  	vmx_run_l2(l2_ss_injected_tf_test, FAKE_TRIPLE_FAULT_VECTOR, 0);
->  	GUEST_ASSERT_EQ(vmread(VM_EXIT_REASON), EXIT_REASON_TRIPLE_FAULT);
-> -- 
-> 2.25.1
-> 
-> 
+really, this is a good way to evolve API
+
+>
+> I'd also point out the _IOC_SIZE() is limited to 14 bits.
+> There is much less scope for applications causing grief with very out
+> of range values - indeed you don't get past the switch statement.
+>
+> David
+>
+> > >
+> > > > >
+> > > > > Thanks Andrii for all the thoughtful feedback!
+> > > > >
+> > > > > > > +               return -EINVAL;
+> > > > > > > +
+> > > > > > > +       err =3D copy_struct_from_user(&karg, sizeof(karg), ua=
+rg, usize);
+> > > > > > > +       if (err)
+> > > > > > > +               return err;
+> > > > > > > +
+> > > > > >
+> > > > > > [...]
+> >
+>
