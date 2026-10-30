@@ -1,54 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793384700;
-	b=lfx2q3y51wkc+YlFR6SMbes9jB8knVzm4k8AkalnM+2omXd8a8bd3r/1dSdHPKia8xmM
-	 X5k9VfB4o9IfAfbajkZwMjzcLOWoiRW2dUIVFHUC4yG/BC2epBGdyjnec+liMvCNZhN6S
-	 LGYldt2q7JaABrCSHN4DoKivpTQ4cer5NlnK9cWMpZQ1/HxHnlMH/FQ5HD2wAVZ5M1j63
-	 +GOXUCYmVRzpkvqClTzgDIG8KWab5BQUQ6AN/jA6em9CV6nBp/vGhfXbg+9TzwpCS2dGb
-	 k4lgVSb+NLsfYv6RPhV3JAwo4uPZ82ZPdOWmWzws60pV/fkG1tJcEurRCLme6pFZMpA==
+	t=1793384760;
+	b=Pud9SyWRZcKNPlgE8wgAqBg/cXUD9IW2QPszlLRhj3g25CI/2VVIJoTDVR3Q1QwAzIKL
+	 6nss4duNoJhaCZcjiXTK1mEXidZJLnCkcJt+smjVUADP07B1hXm/FarfMYl3IMdQ0brWn
+	 SVlj5j0NDMhtX4jicBvUgtjCrVJctboxJ81rEo3L53R8VNd45HBbqHrEWNHuVgVeA3WtD
+	 WiuOaE8MIkEH82DrgfG781aJh5EUKEhEjpejeChjDdJ8aDnrlztIL9EZ7kDpLNoGWkczQ
+	 aWQJQZd7CPwQnbxYEgRnp2lz+lyfbW2+KduaAnttmYWxxLtAYEieVheLwHZ9OoR9YyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793384700;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding;
-	bh=41o/DgL+nFsgsid8TUUhF8UMTGKy2cZolj/OO47kSSA=;
-	b=hPal4yEo4BLay6495RQpgJohcgoqOxbgKgFim4nFlUHf23bc4Ct+K0wi0cLf4hP2bemh
-	 axZMbsIDH3OaF620cZdOk+MzeCblRzL+YDT+pn7+Z/7R8LylZdnRFG5r39KTTGjbmujVU
-	 2trgSTbI0ST+eN4dseMDw+ElB38Rbh01s5d52dCm6Zu532xd/34fTXcQNsFacPdZ608uo
-	 K3/K4UByeSTFKmzRwBzRcwB+T6NG5Ty2vaXp22UZusIexdqA4w6UquA9758H46RdS5hQp
-	 p1Z2MPwXQzMvKQBdvNnlMkywl1P9EX3ViDoEXtlPJZzuVfKq/TStF3krEvLuB+jVifg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793384760;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=jNyQUjUQJUIyMMQ0wfpgXGfUPfMmddjjb+UShX+g7BI=;
+	b=flZx1ie7fXpW+EqCje0+AuM+tjLvJYXebpvrj6plCsuC3DaEar2NVk7+9D3Z56YbcfXX
+	 1T7Pn8vpccsTUHhlvvQA9qQQuGi1+2nyotGhzilB8x+sayfJW1XzaTIC1TMIDE1vSbX4b
+	 s0tX6G7iQBZapeULzlwGFLOYZpqaAjROlBEovmMrSjmgn0q/52dvhXR7m/A0Rawp41340
+	 xCGmT1yVK8hXTchFVMMkYAPYHGKRezZ/4wjZnhPWJyLZgSLOlDwJEqori15aUwDfTX7jH
+	 ToGEp1y3y4VJExjiwnVDuPYh5DT1fJiUC9LbiworqarHDp+/Khur4HovMvFV7LA1JaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hp4F5d2j;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C12D9606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:24:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C12D9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ofi0ncZG;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F29606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:25:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7F29606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hp4F5d2j
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 797331576;
-	Fri, 30 Oct 2026 11:24:54 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F2AA03F673;
-	Fri, 30 Oct 2026 11:24:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793384697; bh=Hncs4sYrggz4WDHbAbVosY9saDcGH6y08xLwvNmlY1k=;
-	h=Date:From:To:Cc:Subject:From;
-	b=hp4F5d2jY3YM6uMlyJaG4ge3pwI1CwDW+i6DjDsVgIB+7FFO37YxnNCQelnVxb1Uh
-	 NxEur+hb4SV3N454QfyHO/3UQjbJ8PqKsscMGq1TwQZ/vKK+zvDqszUMf6UjLApkz9
-	 kDky0JxLx98gu4gHZx/KQbmwxwOU/qK1jhaVlsIw=
-Date: Fri, 30 Oct 2026 18:24:54 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] arm64 fixes for 7.4-rc1
-Message-ID: <auTg9t-da3RFo9nx@arm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ofi0ncZG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793384758;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=jNyQUjUQJUIyMMQ0wfpgXGfUPfMmddjjb+UShX+g7BI=;
+	b=Ofi0ncZGWKae0BmQVNQbiYj3ggJ80cxFnOMIVTu3oIkpyOKy5DCS4uqQbMWLUMMRDoYAti
+	w0Ao4dSW5IEpWRXqjqwE83l6sg/rgD5lyG8Um9976/pX+HzNqU3WxGiFK1trARpu3EH9ZR
+	wkiIpCn7bkotmA3S7On10IcuqBZCeno=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-687-85Lc-lXeMXGCnQI4NdiFNA-1; Fri,
+ 30 Oct 2026 14:25:56 -0400
+X-MC-Unique: 85Lc-lXeMXGCnQI4NdiFNA-1
+X-Mimecast-MFC-AGG-ID: 85Lc-lXeMXGCnQI4NdiFNA_1793384755
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EE4091955F30;
+	Fri, 30 Oct 2026 18:25:54 +0000 (UTC)
+Received: from pbonzini-thinkpadx1carbon6th.rmtit.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D25D31800347;
+	Fri, 30 Oct 2026 18:25:53 +0000 (UTC)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: torvalds@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Subject: [GIT PULL] Second batch of KVM changes for Linux 7.4 merge window
+Date: Fri, 30 Oct 2026 19:25:52 +0100
+Message-ID: <20261030182552.1269009-1-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,72 +74,230 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Hi Linus,
+Linus,
 
-Here are three fixes that turned up during the merging window: shadow
-stack not freed during a failed fork or it is unmapped from parent when
-a worker thread exits (same commit covers both); PTE_CONT set on
-PROT_NONE entries but subsequently ignored by the unfolding code since
-pte_valid() is false (pte_present() is true); an MPAM lock not released
-on the error path. Thanks!
+The following changes since commit 164405e8e9a0378c7e1aff2254625a6553a291f1:
 
-The following changes since commit d0de3a73194a250a2e5ffbf1dc604c0bcbb16e8a:
-
-  Merge branch 'for-next/fw-rmi' into for-next/core (2026-10-15 19:09:31 +0100)
+  KVM: always make in-place conversion a compile-time constant when possible (2026-10-21 03:28:21 -0400)
 
 are available in the Git repository at:
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux tags/arm64-fixes
+  https://git.kernel.org/pub/scm/virt/kvm/kvm.git tags/for-linus
 
-for you to fetch changes up to f46be4da2cbb17574b5369517a9a1e1b414063b4:
+for you to fetch changes up to 1689c80fca308978ea1c9f03d15a500f4e44e2e1:
 
-  selftests/arm64: GCS must not leak on a failed clone3 (2026-10-29 20:42:23 +0000)
-
-----------------------------------------------------------------
-arm64 fixes:
-
- - Release the GCS on a failed fork. copy_thread() can allocate a GCS
-   for CLONE_VM threads but a later copy_process() failure left the VMA
-   in the parent's mm. Implement exit_thread() to free it and stop
-   kernel threads and user workers inheriting the parent's GCS
-   base/size. Add a kselftest for the clone3() failure case
-
- - Do not set PTE_CONT on invalid PTEs in contpte_set_ptes(). Batched
-   set_ptes() of present-invalid entries (e.g. PROT_NONE) created contpte
-   groups that the single-PTE helpers did not unfold, corrupting a
-   neighbouring guard marker via test_and_clear_young_ptes()
-
- - Release the MPAM mon_sel lock on the mpam_save_mbwu_state() error
-   paths
+  Merge tag 'kvmarm-fixes-7.4-1' of git://git.kernel.org/pub/scm/linux/kernel/git/kvmarm/kvmarm into HEAD (2026-10-28 19:01:07 +0100)
 
 ----------------------------------------------------------------
-Iván Ezequiel Rodriguez (2):
-      arm64/gcs: release GCS on failed fork
-      selftests/arm64: GCS must not leak on a failed clone3
+Arm:
 
-Ping Li (1):
-      arm_mpam: Release the mon_sel lock on mpam_save_mbwu_state() errors
+- Fix a couple of embarrassing merge mistakes in kvmarm-7.4
 
-Zhao Gongyi (1):
-      arm64/mm: restrict transparent contpte mappings to valid PTEs
+- Cleanup the HCR_EL2 bit fields to exclusively use the generated
+  definitions, fixings a nasty regression introduced in 6.16, where
+  barriers were not upgraded from NSH to ISH anymore
 
- arch/arm64/Kconfig                                 |   1 +
- arch/arm64/include/asm/pgtable.h                   |   3 +
- arch/arm64/kernel/process.c                        |  17 +++
- arch/arm64/mm/contpte.c                            |   4 +-
- drivers/resctrl/mpam_devices.c                     |  12 +-
- tools/testing/selftests/arm64/gcs/.gitignore       |   1 +
- tools/testing/selftests/arm64/gcs/Makefile         |   3 +-
- .../testing/selftests/arm64/gcs/gcs-clone-pidfd.c  | 168 +++++++++++++++++++++
- tools/testing/selftests/arm64/gcs/gcs-locking.c    |  20 ---
- tools/testing/selftests/arm64/gcs/gcs-util.h       |  24 +++
- tools/testing/selftests/arm64/gcs/libc-gcs.c       |  20 ---
- 11 files changed, 224 insertions(+), 49 deletions(-)
- create mode 100644 tools/testing/selftests/arm64/gcs/gcs-clone-pidfd.c
+- Fix publication of state when a vcpu is forced out of the guest
 
--- 
-Catalin
+- Let vcpu pausing nest correctly
+
+- Sanitise ID_AA64MMFR3_EL1.S1P[IO]E to follow the rules of the architecture
+
+- Don't warn on SMCCC filter reserved range allocation failure
+
+- Prevent GICv5 and TLBI hypercalls to be used from the host when pKVM
+  is active
+
+- Enforce that only GICv3 guests are supported for pKVM
+
+- Don't try to access GICv5 EL2 sysregs from EL1
+
+- Compute architectrally correct values for ID_AA64MMFR3_EL1.S1P[IO]E
+  by checking the feature dependencies
+
+- Require matching VGIC and ITS model
+
+- Cleanup TRACE_REMOTE dependencies
+
+- Fix random comments
+
+Arm selftests:
+
+- selftests: Skip unwritable ID fields in the failed-run test
+
+- Move pkvm_selftests() after all CPUs have initialized EL2
+
+RISC-V:
+
+- Allow Zicclsm, Ziccamoa, Ziccif, Za64rs for KVM guest
+
+- Implement KVM_PRE_FAULT_MEMORY ioctl()
+
+- Replace imsic switch-case macros with range checks
+
+RISC-V fixes:
+
+- Avoid redundant interrupt check for pending timers
+
+- Reject vCPU creation after AIA initialization
+
+- Fix build with vector support disabled
+
+- Fix IPI delivery for out-of-order vcpu_id
+
+- Use a raw lock for IMSIC wakeup state
+
+- Reject vCPU creation after AIA initialization
+
+RISC-V selftests:
+
+- Lazy V-extension enablement for KVM selftests
+
+- Show sepc/scause/stval CSRs in KVM selftests vcpu dump
+
+----------------------------------------------------------------
+Andrew Jones (2):
+      RISC-V: KVM: Reject vCPU creation after AIA initialization
+      RISC-V: KVM: Use a raw lock for IMSIC wakeup state
+
+Fuad Tabba (10):
+      KVM: arm64: vgic-its: Don't map an LPI from more than one event
+      KVM: arm64: vgic-its: Remove the pending state of a discarded LPI
+      KVM: arm64: Don't WARN on SMCCC filter reserved range allocation failure
+      KVM: arm64: Reject the GICv5 CPU interface hypercalls under pKVM
+      KVM: arm64: Return on kvm_gmem_get_pfn() failure in gmem_abort()
+      KVM: arm64: Reject the stage-2 flush hypercalls under pKVM
+      KVM: arm64: Validate the host-provided vgic model in pKVM
+      KVM: arm64: vgic: Do not access the GICv5 CPU interface from EL1
+      KVM: arm64: Fix stale VGICv3 comments in the nVHE world switch
+      KVM: arm64: Set HCR_EL2.BSU to Inner Shareable for guests
+
+Heinrich Schuchardt (2):
+      RISC-V: KVM: Allow Zicclsm, Ziccamoa, Ziccif, Za64rs in guest
+      KVM: riscv: selftest: add Zicclsm, Ziccamoa, Ziccif, Za64rs
+
+Jinyu Tang (4):
+      KVM: riscv: Avoid redundant interrupt check for pending timers
+      KVM: riscv: Implement KVM_PRE_FAULT_MEMORY
+      KVM: selftests: Add RISC-V Sv57 page table indexing
+      KVM: selftests: Enable pre_fault_memory_test for RISC-V
+
+Marc Zyngier (12):
+      KVM: arm64: nv: Move L2->L1 switch on interrupt early
+      KVM: arm64: Move OUTSIDE_GUEST_MODE publication past context being saved
+      KVM: arm64: Move IN_GUEST_MODE ahead of state being loaded
+      KVM: arm64: Turn vcpu->arch.pause into a counter
+      KVM: arm64: vgic: Stop the target vcpu when disabling LPIs
+      KVM: arm64: vgic-its: Stop the VM when handling MOVALL
+      KVM: arm64: Convert HCR_xyz to HCR_EL2_xyz
+      KVM: arm64: Get rid of compatibility HCR_EL2 aliases
+      KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E
+      Merge branch kvm-arm64/hcr-cleanup into kvmarm-master/fixes
+      Merge branch kvm-arm64/cross-vcpu-sync into kvmarm-master/fixes
+      Merge branch kvm-arm64/misc-fixes-7.4-1 into kvmarm-master/fixes
+
+Matthias Goergens (1):
+      MAINTAINERS: name the kvm-riscv/linux riscv_kvm_next branch
+
+Oliver Upton (1):
+      KVM: arm64: Add helpers to halt a vCPU
+
+Paolo Bonzini (2):
+      Merge tag 'kvm-riscv-7.4-1' of https://github.com/kvm-riscv/linux into HEAD
+      Merge tag 'kvmarm-fixes-7.4-1' of git://git.kernel.org/pub/scm/linux/kernel/git/kvmarm/kvmarm into HEAD
+
+Sascha Bischoff (3):
+      KVM: arm64: gic-v5: Drop unused addr variable
+      KVM: arm64: vgic: Require matching VGIC and ITS models
+      KVM: selftests: Reject GICv3 ITS with a GICv5 VGIC
+
+Sasha Levin (2):
+      KVM: arm64: Take a protected vCPU's TWI and TWE only at vCPU load
+      KVM: arm64: selftests: Skip unwritable ID fields in the failed-run test
+
+Stefan Butz (1):
+      RISC-V: KVM: Don't write MMIO load result to x0
+
+Vincent Donnefort (2):
+      KVM: arm64: Move pkvm_selftests() after all CPUs have initialized EL2
+      tracing/remotes: Fix TRACE_REMOTE build when TRACING=n
+
+Xiaofeng Yuan (2):
+      RISC-V: KVM: Fix IPI delivery for out-of-order vcpu_id
+      RISC-V: KVM: Replace imsic switch-case macros with range checks
+
+Yong-Xuan Wang (1):
+      KVM: riscv: selftests: Dump sepc/scause/stval on vcpu_arch_dump()
+
+Zhanpeng Zhang (1):
+      RISC-V: KVM: Fix build with vector support disabled
+
+jinrui (1):
+      KVM: selftests: riscv: Add lazy V extension enablement for guests
+
+ MAINTAINERS                                        |   2 +-
+ arch/arm64/include/asm/el2_setup.h                 |   4 +-
+ arch/arm64/include/asm/hardirq.h                   |   6 +-
+ arch/arm64/include/asm/kvm_arm.h                   |  79 +----------
+ arch/arm64/include/asm/kvm_asm.h                   |  22 +--
+ arch/arm64/include/asm/kvm_emulate.h               |  18 +--
+ arch/arm64/include/asm/kvm_host.h                  |  10 +-
+ arch/arm64/include/asm/kvm_mte.h                   |   4 +-
+ arch/arm64/include/asm/kvm_pkvm.h                  |   1 -
+ arch/arm64/include/asm/kvm_ptrauth.h               |   4 +-
+ arch/arm64/kernel/head.S                           |   4 +-
+ arch/arm64/kvm/Kconfig                             |   2 +-
+ arch/arm64/kvm/arm.c                               | 100 ++++++++------
+ arch/arm64/kvm/at.c                                |  18 +--
+ arch/arm64/kvm/config.c                            |  78 +++++++++++
+ arch/arm64/kvm/emulate-nested.c                    | 116 ++++++++--------
+ arch/arm64/kvm/guest.c                             |   2 +-
+ arch/arm64/kvm/handle_exit.c                       |   2 +-
+ arch/arm64/kvm/hyp/include/hyp/switch.h            |  14 +-
+ arch/arm64/kvm/hyp/include/nvhe/pkvm.h             |  13 +-
+ arch/arm64/kvm/hyp/nvhe/host.S                     |   2 +-
+ arch/arm64/kvm/hyp/nvhe/hyp-init.S                 |   2 +-
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c                 |  15 ++-
+ arch/arm64/kvm/hyp/nvhe/mem_protect.c              |   6 +-
+ arch/arm64/kvm/hyp/nvhe/pkvm.c                     |  41 +++---
+ arch/arm64/kvm/hyp/nvhe/switch.c                   |   4 +-
+ arch/arm64/kvm/hyp/vgic-v3-sr.c                    |   4 +-
+ arch/arm64/kvm/hyp/vhe/switch.c                    |  12 +-
+ arch/arm64/kvm/hyp/vhe/tlb.c                       |   2 +-
+ arch/arm64/kvm/hypercalls.c                        |   4 +-
+ arch/arm64/kvm/inject_fault.c                      |   6 +-
+ arch/arm64/kvm/mmu.c                               |   9 +-
+ arch/arm64/kvm/nested.c                            |  16 ++-
+ arch/arm64/kvm/pkvm.c                              |   4 +-
+ arch/arm64/kvm/sys_regs.c                          |  26 ++--
+ arch/arm64/kvm/vgic/vgic-init.c                    |  17 +++
+ arch/arm64/kvm/vgic/vgic-irs-v5.c                  |   3 +-
+ arch/arm64/kvm/vgic/vgic-its.c                     |  85 ++++++++++--
+ arch/arm64/kvm/vgic/vgic-mmio-v3.c                 |  15 ++-
+ arch/arm64/kvm/vgic/vgic-v3-nested.c               |   4 +-
+ arch/arm64/kvm/vgic/vgic.c                         |  15 +--
+ arch/riscv/include/asm/kvm_vcpu_vector.h           |   6 +-
+ arch/riscv/include/uapi/asm/kvm.h                  |   4 +
+ arch/riscv/kvm/Kconfig                             |   1 +
+ arch/riscv/kvm/aia_imsic.c                         | 149 +++++----------------
+ arch/riscv/kvm/gstage.c                            |   6 +-
+ arch/riscv/kvm/isa.c                               |   8 ++
+ arch/riscv/kvm/mmu.c                               |  47 +++++++
+ arch/riscv/kvm/vcpu.c                              |   3 +
+ arch/riscv/kvm/vcpu_insn.c                         |   2 +-
+ arch/riscv/kvm/vcpu_sbi_replace.c                  |  12 +-
+ arch/riscv/kvm/vcpu_timer.c                        |   6 +-
+ arch/riscv/kvm/vm.c                                |   1 +
+ include/kvm/arm_vgic.h                             |   6 +-
+ kernel/trace/Kconfig                               |   1 +
+ tools/testing/selftests/kvm/Makefile.kvm           |   1 +
+ tools/testing/selftests/kvm/arm64/set_id_regs.c    |  13 +-
+ tools/testing/selftests/kvm/arm64/vgic_v5.c        |  32 +++++
+ .../selftests/kvm/include/riscv/processor.h        |  19 +++
+ tools/testing/selftests/kvm/lib/riscv/processor.c  | 109 +++++++++++++--
+ tools/testing/selftests/kvm/riscv/get-reg-list.c   |  16 +++
+ 61 files changed, 768 insertions(+), 465 deletions(-)
+
