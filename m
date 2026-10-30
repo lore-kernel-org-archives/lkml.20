@@ -1,111 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793353963;
-	b=46+DDyBQbRAtB0X0lt5bh/tVIKL5izV1iaiES/UFab6pDnTk/JjJhAwIlb0eIjEUaiPC
-	 5FtDiwOAEjdvSDdHV/Lg1kJGO3cLnthjqvOfHiSHQSaQeHKDLgUEAw7LEedVJPFGjhikZ
-	 iiwj0797WRDdgY77nL2/eaHVEeGyNkg2jEJdQPNxJJLUQWUoH8ITvtsZyzl8Q7dnz+7kh
-	 TnqmbYLX4OyneSRmDw1YLbARnMA1tiFcd+TY90ghlGrcRdjjqclt+Wa5XfQpVXzhOpJtt
-	 pec7FkTxicdQImsZ1dPxym3dFfoXhSkeG3vr4iQ61cwcXxEW63Ez/qVmePuOuY2KRNw==
+	t=1793353959;
+	b=zy06ld8nXP95ZVjWAnNSgEgBHGPCYk7usvb4BKz3DwupkBlqS4UhNeIVZFKGjwrxMV2n
+	 /ksV42cf1Yz2dCSLjSAyCCehFbfXTzLNakXngLb4gKjKkOT2SrNQnOPmsnmad+DXvrmuY
+	 Ek+mazu5JCqbJK3pA4MmUWtMycTcv/6SwHVAZ4aNdyZ3k99ldgbnUfpJGwrvj7lK8KQ3F
+	 UuuZ+oU5rEmiTvY1zsbd5Vp8Xps9nkHME/I55ZSm4WYsrvZ3/QyILD7mgEcbQ+gWJBPDW
+	 FxwepyCktB4lYWy+mDiw3pxpYHp7O5tVDe1WI8gKly1qV+xk8ibfXrDcndQ0JJek+bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793353963;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2B3bjvz5/cRFhwo9ukB7ZLLCsSJwpiNTa01piLcwoAs=;
-	b=uuy4QM2Q8cLqOVX+jbIcnXG63QbhAvFza7NcAkkkIsSbuLL5rPs7MXn+5ukU45pBxz91
-	 21lACeemRO4W3HgQl7g+sA+Z504nZrUCswLbV88BJ27DX82gNHPMzUSJ8mtnHTdmu63Y5
-	 bfzHQLxR2lKchwt4EgFFuWHXM3gHgZLAvQb8MKe9j3/uOXqt5vdLXx7C1u55W/JW4H+Vn
-	 0jQFHVButC34Nj+SY39xPXTblUEzdrYo/0CLw+Z1J862DFQ4biGubhVrZBcb3p9xzgMRp
-	 Ifudo+ANUopKIiKy3Hd9nG24TEwjpRQ28iRVEmVHe9q0kQ5icyl2JzNX9EU8Y8XYHkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793353959;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=H3pdNgV2kIMazb8X+rUUMyHlKbuV+ZiZTksRXL4D6lI=;
+	b=LDaAtpAEF7RMVeOVK007/bRiVcf1JXgtvszCdbJbYDoa3DfHzEfYd+gJUXfopaP3UDyK
+	 F8llPUk7nxd+tRgtCG3bbndtE4E4pS11/3Tgu5KGVVA7bG9KnlvV0XkRnIOle6s6CCsa3
+	 A5RlbocDt6NPToPSXwxc8h/9ed9J25Gvbx62xsztPNN/MvWVeOHXPLlnGz+9uJy/8FH8s
+	 DeSOKOcvnRfu5mSNUULJNCv6Dtwb7tx1uLWhtoPAuYH75fB/VcYD3wvdg7Ig+MAifoX2a
+	 BTfyjFC9ohree9WC2Zaq2sec2wVrnvpD1pM49mn3Nu2dJkYqTDtTdsML9s1idh6A3nQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bsuXLYgo;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=91.218.175.111
+Received: from mta0.migadu.com (out-111.mta0.migadu.com [91.218.175.111])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55D2606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:52:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C55D2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bsuXLYgo
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c38ac26cc5dso74201666b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:52:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793353961; x=1793958761; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2B3bjvz5/cRFhwo9ukB7ZLLCsSJwpiNTa01piLcwoAs=;
-        b=bsuXLYgolet9UtrpUXTjhF0NtZvh4wUfphWhBPdTzAHZ+voK+TzvSJt4jqtpIr4hDY
-         BC576Tfm8MvgNixvYZj6Dqi4K3sFXUSX/7ZAfmkSmMMCDN7GxC4LIVVNW4r0Hl+mplFs
-         W2by6S5cSgPj0g0wmpKfwfNf/zqgAEOXhiapRngSS2+Fa9wKQHztRhPeqLJ2d8kb2IO7
-         Pq0H2NawTdGX7CmkA2qi3LE66II3XNjS223Mo2JwjVI062D0QJpvSdz+nUrtA+uP1o+G
-         Q76CkUSavVprulwf+DpSyGG/1MWy2CHk3nt+Xc9tqJwtIHmBIFhTi8Seu1+BLrOUwvFD
-         2wXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793353961; x=1793958761;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2B3bjvz5/cRFhwo9ukB7ZLLCsSJwpiNTa01piLcwoAs=;
-        b=xM+iVhUvXtxRWH8ID9qL2ZJdOxV0pNv0RraqIlCLQD1dbrZlTXB26DV0oK0uE1Fcri
-         DI78SlFj3zk1zYGk+RhY2QwdkfmG9hsciq/8Jhu/QXh+D/E1qK30zaND8Rw+C38cwnUB
-         br9NDaTA3p75b5Ew2EVYyP3kEmupGawdaV/z19gqq3Kjkbh4/PHD4ulXWfSE9aoz6tbp
-         8wq0X4NaZ7mv39dl7nneHETEOxRQkEIrhWgunY5TG4o1q9xL8XIn3gFimTnNsY8emknM
-         0ic8EemuyXOs2eukTRV+ZzJ+M8VfbRflHANlcK1xaNxrZ0gtl6e+y/Iq2GCF36ZkrRj3
-         2z5w==
-X-Forwarded-Encrypted: i=1; AKwUvBx17KIO9rrmAJ/CCuUCSj0V0FXq+5/pu9GWSnKJ2/Og7UDXUww/qW8JGLfACKjKX0aTrJI7Zryl5B5JI/g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK2KyP14CqA69pEI1OJ9ip9+sIT1+Vi1jCSbtkDVk+usg0rqJPQ
-	9fKmdbDeh7tMhb9DyMSWiDGxfMi73cPhbHmQ/f+xk2+9ALSfg8QU/CiJ
-X-Gm-Gg: AYBFou06RFBxVnkgiKDGFOgU/kAq5yLqup6MfTgQ1z0gdo1+vSnmkf+NJLQUNp3BYJH
-	XIs6UW9hzH04na9l1UlOGj2uAmv3Ri6W40UkAbbYxMTPwIEgbi/eDh8xIMzz/Wq0G070IHK5Lly
-	boN5JwTCX3ejodMpXpLwPDlck3TVk8K9BCnd28sXhawVzvICJilAUP37i6Oa8YpjEIyR0uxJcj9
-	KjbmkNdYGJEhzN2jVsv9b0tKTph6ztidxw/cOllG5jwcEcFgtOQ+P9NZ9UxSMOW6uzqqkv8PtBr
-	OfjXXxJ/IejrXN7of13OcTzIxZRIkDpV8zWz+ks33qN93PxuXgPq+N3W/qt9JYTsYGkDNvdHj7D
-	gouzAglhxA9Gs/Fswd5lY1OlxmofO1F35oVh4zWD66RC+hO46cKAV+GRMv9eHr/K8Nf1lX65Qyu
-	tzknto8kh4a9wgnGCas8zAeGBAfkban1sJFNia7TBXiyH6tGaIoLfChmqAf1iXjj6AvbRqjK2m6
-	f/vtvBV8i8wOycLqOToRHU3cZQUE9hoWV+71dakmfM86gZ1v68j32lC3oHmUZyfo76f2A==
-X-Received: by 2002:a17:907:d26:b0:c2d:c800:d797 with SMTP id a640c23a62f3a-c4ca79478f8mr163699766b.6.1793353960890;
-        Fri, 30 Oct 2026 02:52:40 -0700 (PDT)
-Received: from pc636 ([2001:9b1:d5a0:a500::800])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4d7b1d556sm432290a12.28.2026.10.30.02.52.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 02:52:40 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
-Date: Fri, 30 Oct 2026 10:52:37 +0100
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-	"Liam R. Howlett (Google)" <liam@infradead.org>,
-	Michal Hocko <mhocko@suse.com>
-Cc: "Liam R. Howlett (Google)" <liam@infradead.org>,
-	Uladzislau Rezki <urezki@gmail.com>, Michal Hocko <mhocko@suse.com>,
-	Baoquan He <bhe@redhat.com>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988CC606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:52:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 988CC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1p2vPcKyuahPiXCpBK1Tm8nVn5slemcow3+ebdFu0mI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793353954; v=1; x=1793958754;
+ b=SpdV53gaDoeTngFa7y6FaAQdRKpkiOm5tM2wSWFWy98yAZlWdEwaGoxv4LBdM+RWAGrANlvb
+ jaLhxCYw+uLQN2JZdWAMIunuToWU5dp1rASctC1jrhuZIe0Q/BBG5joTMcQuFpqypHLbE4Wbxub
+ DpYTALbNaUUDx7OaSPdt4JaQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id df75d9a41b4a335a;
+	Fri, 30 Oct 2026 09:52:34 +0000
+X-Mizu-Trace-ID: df75d9a41b4a335a
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: linux-mm@kvack.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
-	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
-Message-ID: <auRo5WBj2OlKlWGW@pc636>
-References: <20261028154218.1668182-1-liam@infradead.org>
- <20261028154218.1668182-5-liam@infradead.org>
- <auKshDXKQXt1kvjy@gondor.apana.org.au>
- <auMbCuecFeRmBFSK@pc636>
- <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
- <auQhkHG6XlgNTdRr@gondor.apana.org.au>
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	David Hildenbrand <david@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH mm-new v1 0/2] mm: vmscan: skip anon folios zswap would refuse when writeback is off
+Date: Fri, 30 Oct 2026 17:52:16 +0800
+Message-ID: <20261030095223.325309-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,32 +83,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auQhkHG6XlgNTdRr@gondor.apana.org.au>
+Content-Transfer-Encoding: 8bit
 
-> On Thu, Oct 29, 2026 at 10:53:56AM -0400, Liam R. Howlett (Google) wrote:
-> >
-> > Given where we are in the release, this fixes a real issue that can
-> > happen so maybe we take this now and settle the general handling later?
-> 
-> There is no rush at all since the bug that you found has existed
-> since 2025:
-> 
-> commit c6307674ed82c0c57d6e1e3408e84ac449ab8e94
-> Author: Uladzislau Rezki (Sony) <urezki@gmail.com>
-> Date:   Tue Oct 7 14:20:35 2025 +0200
-> 
->     mm: kvmalloc: add non-blocking support for vmalloc
-> 
-> Let's take the time to fix this properly.
-> 
-The problem with spin_lock_irqsave() is that vmalloc() path can take
-time to alloc and map pages. I am not sure this is worth to switch to
-irq-save locking primitive. So this is the "heaviest" allocator in the
-kernel. Callers have to be careful how the call vmalloc().
+memory.zswap.writeback=0 is what we set for latency sensitive services:
+their cold anon pages may go to zswap, but never to disk, a swapin
+from disk is a latency spike they cannot afford. Such a memcg can only
+swap into zswap. When zswap stops taking its pages, because the pool
+hit max_pool_percent or the memcg hit memory.zswap.max, reclaim still
+goes through the motions on its anon LRU: every folio it picks gets a
+swap slot, is unmapped, is refused by zswap_store() and is activated
+again. Nothing is freed, the folio now sits in the swap cache holding
+a slot, and the owner takes a minor fault on the next access.
 
-IMO, this caller has to be fixed.
+memory.reclaim below is just the easiest way to trigger it. The same
+loop runs whenever the memcg is reclaimed: when it hits memory.max, or
+when kswapd walks it under node pressure. Neither is something the
+service can opt out of.
 
---
-Uladzislau Rezki
+Patch 1 is a refactor so the memcg zswap check can be reused from
+reclaim. Patch 2 adds the check to shrink_folio_list(). It cannot go
+into can_reclaim_anon_pages(): zero-filled folios never reach zswap
+and must stay reclaimable.
+
+Numbers from a 16-CPU, 32G QEMU guest on mm-new, zswap with
+max_pool_percent=2 (~640M), a memcg with memory.zswap.writeback=0
+holding 3G of 2:1 compressible anon. The pool fills up after ~300k
+pages. Then 5 x "echo 512M > memory.reclaim", and the task walks its
+3G once:
+
+                     minor faults on the walk
+                     MGLRU        classic LRU
+  before             786,454      786,452
+  after              301,168      301,158
+
+The ~300k after the patch are the pages that really are in zswap
+(stored_pages was 301,133 / 301,165), swapped back in once each. The
+other ~485k before the patch are pages zswap refused: unmapped, left
+in the swap cache, mapped again on the next touch.
+
+Jiayuan Chen (2):
+  mm: memcontrol: split mem_cgroup_may_zswap() out of
+    obj_cgroup_may_zswap()
+  mm: vmscan: skip anon folios zswap would refuse when writeback is off
+
+ include/linux/memcontrol.h |  5 +++++
+ include/linux/zswap.h      |  5 +++++
+ mm/memcontrol.c            | 26 ++++++++++++++++++--------
+ mm/page_io.c               | 15 ++++++++++++++-
+ mm/swap.h                  | 12 ++++++++++++
+ mm/vmscan.c                | 17 +++++++++++++++++
+ mm/zswap.c                 | 11 +++++++++++
+ 7 files changed, 82 insertions(+), 9 deletions(-)
+
+-- 
+2.43.0
+
