@@ -1,54 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.29
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793338351;
-	b=uDRyA0Tq+otIzh0wSCdFv55k+oCTHH3aUGvo6EzJh6mtCPjsb5QgZuigcf3oHoE/q5/3
-	 RuMfwdLXhHgD3Vd7M1o0i0roIqKfmCAjYilqevCJMuEKfsU+4Um8tIjsIst11gZJk3/5N
-	 ukt4g9AV08UTaXXt/CBHjHLG5x9yvsWVWwW+Jp7xGtsyOXLW/U9L31bAY98/vt6t+qGS7
-	 UbcEvzW4G3+m6mkZKhm5tlvj2/sRstucIrXHIlHlQc/Bu2IfI5oNfMGkoVo+9sglwPR7s
-	 LfYcCVt3ObHIU/3JLC/oyCUuoXvxToJ21skDgJHmvcxVB3afdx/6r+EntRSRgH5JJOA==
+	t=1793338456;
+	b=xy+mTeAn/aKYsC9MNh4pFJwVpwX6XDoi/SfLf5CmwWaYimPQBtzCs8N/o16AzFAJ5TvT
+	 ZCNbK4yZ33u79bp3/G9Yb8sjUNT0VUzDHfstQq8yHyGY6atQp45St/+9cMPQTxDX557u0
+	 ZUD5Ob1OJVbLr0elhSngEHvFimt9C0gBEJ8/BcQXhdeCzb8pA8QdFwqd3MjEfBEwKbAp4
+	 g98WPJH2h/fhTohXWdPIQaAHyRPDSZ0jJ8ImTYHuims3NoXP3BW5FWnosE9K/O+pqs/SV
+	 vHYdHIggAq0ikcslIqRyszbntZz8p/mO+bVlKX2tyQp1DRm1F5IzfrTfxK8VGMUGEaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793338351;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=VTDrdrBuAyTJnkqjgvXYYtVwc9zTl+F88XwMGcc4YDE=;
-	b=TpLu4Wyb3NdSdew6ZAhx4q5AM3z6Vl0Qw+DQ4IYHLPk4QZHO4wedDx4zgcZq34qyUQDc
-	 06dlw/+9YSeyKkw1mBajnio5SgqxwVDLR/dwW387UCBwGadWoUNUNaEr0IgoId3/oSQLi
-	 SDUwBuRsXEtXrjiGNOzzJVUcth1eblhVxbP9eiWqXvx4bZo4I63I/h/Ly/A9VaPndlnki
-	 1VEWv20Lcr9AMdTJ0/pHfvuq6mo0IOQVd/ZwrQEzzGbot3Wkj7sNvioz8MHBy2xESY6wI
-	 oJS51+aLERWKHHU3jFWm6WbpQwZl6EAbszDKrCzBnZL9GpBZjGzJeskAz3aZWPyPcag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793338456;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=mSF4SGZPS2CDzaKvvs/6H+aTKl4UYtTySMgMP/nGH+Q=;
+	b=qdblJ+qLvEcleXddn7icRy04waDfsIzudN7rrw3dEvJw3drW/WDrp6KSvfsGace3p9ab
+	 Drr56t+tADxaaL90YeAg9eTiKdnppFdOtPxULlLheV48yHiYNxyp5BJ8r+e9a752weV/P
+	 CfOBYP4tT6evO+OO9ZlkFE9fWr+zJrqLAHWke7sOfIUUo/LwQyySlZ3BkqsSX5FmGkLWL
+	 NId6iUWc/L04zeb5Mbuv63/RPaDQ8WEllN5YMlDtJbgFVJiMhnkhWHyrv6RLJEOGdcE+Q
+	 Tbj6gMwSp//uXfkdUVDQzSf1Iy6OtcFHBU4W2g8QxEmlwdx+/Z0LvsxwY3n52wZIy5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vHfRjYMT;
-	arc=none smtp.remote-ip=91.218.175.29
-Received: from mta0.migadu.com (out-29.mta0.migadu.com [91.218.175.29])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=AqVZcw9p;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E0E606A334
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:32:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5E0E606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875F7606A31E;
+	Fri, 30 Oct 2026 05:34:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 875F7606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vHfRjYMT
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Bf0WWkeJSETIqyNNL0Tk2W1KhY+0SCl/fI1XWH+Qygc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793338342; v=1; x=1793943142;
- b=vHfRjYMTLE8GNmV/NQ930J2ywQJhyanjVI75XVY+Rep9T7tsczB1jt3b7nefwWbYQQHhTYpb
- iqzg8eNAu1Xwp0lliVRb1Bc0n0dDbxlw7ENRHSVJ1UOiue1mIXVgC4W1E5mOo6hJME16DhnrQBq
- go8H6oQ4AOnRkh5x1foQvjtU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 9f9ebc0d777873bb;
-	Fri, 30 Oct 2026 05:32:22 +0000
-X-Mizu-Trace-ID: 9f9ebc0d777873bb
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=AqVZcw9p
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 89DB040E04D6;
+	Fri, 30 Oct 2026 05:34:12 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id i4pfNfqK1sze; Fri, 30 Oct 2026 05:34:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793338448; bh=mSF4SGZPS2CDzaKvvs/6H+aTKl4UYtTySMgMP/nGH+Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AqVZcw9p1+5S1S7HgvPNff56JVxj7Eq28TIv2ohiPqPrGlBnjtFe4h3zRcEsSPk16
+	 zUISLeO/wToHBdLBKZhm6HAn2PPM+gY69OytGcnQfGvWWmXRGHkueqRut7VE0KHtRt
+	 jZaYeyeK2z23onvqGz5/01td0aWJWigWhJlmm/+TV8JEQcCtHx7x2eHhTrYftkmlVf
+	 XyQ5l9APzEnYz/0M/EwSOUc+sG7od5Wf9iXuz7Oi5b4u5L+rEKuqbR4Cbb1lN3l8EQ
+	 WRjjt065wQmSEtDPB1d18ONOS7+KdmfAUl8PGiQUNHa0KE9j3Ce+9vpQBK0gMG78SB
+	 H65MzfQNE3rK4GMXP1UAnw14Pj0j03AFmKgyD3kyUWAeTYxdhb+zGU8MAFgGuQUUaL
+	 jue3QGKh5QmChjn7gUfelvO0o1nOb04UbFZKXm2MttMtTI70tYOyz+CGkPdXvuLDUr
+	 F2lPtXFBkmN0eiFjeRDgsdm6ZK0fhXjyzkm25iuMKMeez2yPHzX5F2NMMqnTjPhna2
+	 74qvDSNhYaaTWzYWGe8IhD8PTI8pHMCZcTONu8LMSAmhUDaMn93Y8FeW1n28h1zEdO
+	 zIGZ2V8sk2VJm2bWrnzkwFAPFP4vM3oGXcSjBRjjNaLwCK7LvO1TucixSLqwV8zF7f
+	 BTCUXvJxciVUqGzVPM03QzXQ=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EA24340E04D5;
+	Fri, 30 Oct 2026 05:33:59 +0000 (UTC)
+Date: Thu, 29 Oct 2026 22:33:56 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: x86@kernel.org, mario.limonciello@amd.com, tzimmermann@suse.de,
+	aaron.ma@canonical.com, linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] x86/video: Preserve the default VGA fallback for legacy
+ modes
+Message-ID: <20261030053356.GJauQsRF8Rl_co7FOv@fat_crate.local>
+References: <20261029162311.3389523-1-hengyul@cs.unc.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,95 +80,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH] mm/hugetlb_vmemmap: Fix usemap overrun on nodes with
- multiple ranges
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261029212137.3141875-1-tim.c.chen@linux.intel.com>
-Date: Fri, 30 Oct 2026 13:32:06 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>,
- Frank van der Linden <fvdl@google.com>,
- Mike Rapoport <rppt@kernel.org>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- Mohini Narkhede <mohini.narkhede@intel.com>,
- Pooja Jain <pooja.jain@intel.com>,
- Doug Nelson <doug.nelson@intel.com>
-Content-Transfer-Encoding: 7bit
-Message-Id: <0611C182-4A76-4751-A04B-0849EC31DAD3@linux.dev>
-References: <20261029212137.3141875-1-tim.c.chen@linux.intel.com>
-To: Tim Chen <tim.c.chen@linux.intel.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261029162311.3389523-1-hengyul@cs.unc.edu>
 
-
-
-> On Oct 30, 2026, at 05:21, Tim Chen <tim.c.chen@linux.intel.com> wrote:
+On Thu, Oct 29, 2026 at 12:23:11PM -0400, Hengyu Liang wrote:
+> Commit 596b3678326d ("x86/video: Only fall back to vga_default_device()
+> without screen info") made video_is_primary_device() rely exclusively
+> on screen_info resources whenever any are available.
 > 
-> sparse_init_nid() allocates one usemap slot (struct mem_section_usage)
-> per present section in [pnum_begin, pnum_end), and
-> sparse_init_early_section() hands them out in order, with a BUG_ON() when
-> they run out. hugetlb_vmemmap_init_early(nid) however initializes the
-> sections of every bootmem gigantic page on the node, including pages
-> outside the range being initialized. If a node's memory is split into
-> more than one range, sparse_init() calls sparse_init_nid() once per range,
-> and this takes more slots than were allocated. The same happens if a
-> gigantic page straddles a node boundary.
+> However, screen_info_resources() also returns legacy I/O and memory
+> ranges for VGA text modes. These ranges are not PCI BARs, so the resource
+> lookup fails and the default VGA fallback is skipped.
 > 
-> For example, with this SRAT layout every node has a small range below 4G
-> and a large range above 4G:
+> On a SeaBIOS QEMU guest with bochs and VKMS, the boot VGA loses its DRM
+> boot_display attribute and fbcon leaves the console on VKMS. This can
+> be checked with:
 > 
->  Node 0 PXM 0 [mem 0x00000000-0x2fffffff]          768 MB  (low)
->  Node 0 PXM 0 [mem 0x100000000-0x80cfffffff]               (high)
->  Node 1 PXM 1 [mem 0x30000000-0x5fffffff]          768 MB  (low)
->  ...
+>     cat /sys/class/drm/card1/boot_display
+>     stty -F /dev/tty1 size
 > 
-> In 128 MB memory sections (x86_64 SECTION_SIZE_BITS = 27), node 0's low
-> range is sections 0x00-0x05 (6 present sections) and its high range is
-> sections 0x20-0x1019. The low ranges of the other nodes are 4 or 6
-> sections, all smaller than the 8 sections of a 1G page.
+> Without the fix, boot_display is missing and tty1 is 48 rows by 128
+> columns. With it, boot_display contains 1 and tty1 is 50 rows by 160
+> columns.
 > 
-> Node 0's first range has 6 sections, so 6 slots. With "hugepagesz=1G
-> hugepages=400", hugetlb_vmemmap_init_early(0) then initializes node 0's
-> 1G page at 0x67c0000000 (sections 0xcf8-0xcff, in its high range), and
-> the 7th section hits the BUG_ON() (seen on v7.2.6):
+> Use resource-based selection only for linear framebuffers. Fall back to
+> vga_default_device() for legacy display modes, while keeping EFI and
+> VESA framebuffer ownership authoritative.
 > 
->  kernel BUG at mm/sparse.c:268!
->  RIP: 0010:sparse_init_early_section+0x9f/0xb0
->  RAX: 0000000000200000 RBX: 0000000000000cfe RCX: 0000000000000020
->  RDX: 0000000000000cfe RSI: ffd7e1d09fc00000 RDI: ff252cb28ffb3f50
->  R10: ff252cb28ffb3d40 R13: 0000000000000d00
->  Call Trace:
->   hugetlb_vmemmap_init_early+0xe1/0x140
->   sparse_init_nid+0x56/0x370
->   sparse_init+0x192/0x2b0
->   free_area_init+0x7f/0x690
->   start_kernel+0x64/0x540
+> Fixes: 596b3678326d ("x86/video: Only fall back to vga_default_device() without screen info")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+> ---
+> Tested in QEMU/KVM with identical KASAN configs: SeaBIOS VGA text mode
+> (with and without VKMS), VESA, and OVMF with one and two virtual GPUs.
+> All 26 guest-only helper checks pass, including EFI/VESA framebuffer
+> ownership, missing framebuffer resources, and addresses above 4 GiB.
+> Also build-tested x86-32 with/without CONFIG_SCREEN_INFO, and x86-64
+> without CONFIG_SCREEN_INFO.
 > 
-> Here RDX is the section number, and R10/RDI are 6 slots apart: the start
-> of the usemap buffer and its current position, which is the end.
+>  arch/x86/video/video-common.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-A detailed analysis.
+Queued, thx.
 
-> 
-> Pass the section range to hugetlb_vmemmap_init_early() and only pre-HVO a
-> page whose sections are all present and within it. Ranges are disjoint,
-> so each page is handled once, in its own range.
-> 
-> Skipped pages are not marked HUGE_BOOTMEM_HVO. Their sections get a
-> regular memmap from sparse_init_nid(), and the pages are optimized later
-> by hugetlb_vmemmap_optimize_bootmem_folios().
+-- 
+Regards/Gruss,
+    Boris.
 
-Thanks for fixing this.
-
-However, the master branch has already switched to section-based vmemmap
-optimization, it has been already fixed. So this fix should target the
-stable kernels (6.18, 7.2 and 7.3).
-
-The change LGTM. So:
-
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-
-Thanks.
+https://people.kernel.org/tglx/notes-about-netiquette
