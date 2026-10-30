@@ -1,86 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793348276;
-	b=IsIJu2Lt88ZH3y5Uyyc7eQDgcUCPEeQYN6j3q9uJvzUoTBmotgpWRS+KHk7liwnqkhGj
-	 2PqkDRgHdzb6YJvHkqtSjy0lEYXsHNbSCD+5uXAOhF5vVrxpsY77zcl7VDVLJb/ZEZdyQ
-	 ogwh1uSGiBlFDyQf0GEje3YZi6k2imr2rZZSNxL7evG7mHh4+Q/N/Rb7Yv4Tn0vvLWxOv
-	 XO8Z4WLB9dWFCyvvpnozEaKx+C3pm6WnEmtW7fzPV/ryCSdcdTz6TBy24cR5YAfKMJWZR
-	 Fzl7sBLU1v8pAFeT/XKSIkWSElSPU31GoyVC/p7SIxKWtsttFdqQcOvP47cF9aGVmsg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348276;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793348299;
+	b=Okb4zF5YsfVNx+dhtIy0TyRqLbqUhdjiaomZLro3/NbMEc/Be2/B0s5tLWeVUsHerY1X
+	 zDRVy6jzcKvBXq0y1yn83vm6UMvzrCw2PYTi2InyrQtjQam3qIOyc6n4mzfBgY2mM5geI
+	 kC/U3nXeqXwTMAfZeY2aw8HJDLz5m3gHvb9B926jVkLd/3CG9OeW4kWIbMD69ZA/84BGB
+	 TxT3YHrzLYe1GnQE59QkPKGIE9V6NkAjqi7fJNKe91B6OlP7uBqgZqXJcLINCbSzvGaPn
+	 2owPXHGpYRA2LAbZR9e7l5Iac1GX7IA3gbLzpiccFveY/pcgl2IUbOUkcqRxK3rqHGA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348299;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=+KG1RMx/uhvuJyslhkkILwlui3s8aJ1rFpXKcWZ5CEM=;
-	b=D3cSrVIsc61NhquA0E5tCQ8etAsv0hWNxBQts/nLVxLLjMfmqLwTbgCuIsIgjeHP/1W2
-	 QWONqptfSNSygKBs+swDtBvaln0qZ0n8P9KCEcFrsGzeUKFn4MuohGe4JguodmybeNjtL
-	 40BytDmQO7fLFzhga3FTZKG15pjRrCphJythYYxy3PiaA0t5l+nkD7fBZt2h+r25x8/g6
-	 GJy5gT3TdZwFWBZ+a3s76flHtJOeUZGTiYp3aG9cPjH3RVzjvBife1Fpb+etAGt3alZBA
-	 comWV7neEYgh8XbjDry+OU6Ki9H2XkMtqyVglUDOPMvx3lR2LAZikDBazZ9I8Xq2G2A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aE0vZPZ3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F31606A31C;
-	Fri, 30 Oct 2026 08:17:55 +0000 (UTC)
+	bh=ObwGFit3UU3D1k7FJoLE7Rk8Vud49AulHNT/pROT5iU=;
+	b=vOJrxWHUpNyh2YsqQhofrq1ero/ygTzsq71Vuj+0bpeTYlZL+a53qHNpsrmTYmvkCXe7
+	 +CEoa+xGPmg5LKQC9GEpRNy/3lrLXbqAEb92fyBsnf2a/emvIQQRYxluXHHZGqNnP6xKM
+	 tahyyGU0JdMIn/SXkMF6CsN9CMqHe80zsJxZK6mcjnA2Eu8Yza5CG1WTncgU3qY1s6iZx
+	 fIgJuEPftaYaRSsfSsWmVRw3uTYsIoofFFb0M0qQrmquyQw3oemspeg8/Ck1ixHOITQ06
+	 xaExyqTruOu/cVt9FldqrRBWMiy9dRc0mjkicLOCUUHV/aUqnpiogO8tquGyWf7dStA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cs.unibo.it;
+	spf=pass smtp.mailfrom=cs.unibo.it;
+	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=OoTodfeL;
+	arc=none smtp.remote-ip=130.136.161.50
+Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 640F1606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:18:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 640F1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aE0vZPZ3
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793348275;
-	b=ZnJhAhc3af4DzLcSbBXOnBiCqW7OiE2krlv7OLRMA38P3q/1m9y96qkDJqvdnx3+j8/O
-	 PlMHqDjs18RVcMNL/j2uHtXOv4i3CUrFUw6ZFLAi7jKLIRIqAkh0USnHDAgN9dOMbQ4h7
-	 pZrUs6zzHuBqAdQrayqXhixe2ddm5cDQp+F7HFEweTv/Su/Mk6JoNQkpxjzpO6Z2MQVhp
-	 npYIOQwYQai/IBhmdQPfxCUWy3XEk/PiOLEUndKoLkWGzq1cHR3k4HlYxYcHpNDD8BjD6
-	 tCllAc0ikXI1cDvxBwMX6syF4LiPf94LDXHONnHCxetmiaKT62s61pclqISS7B74I5A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793348275;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+KG1RMx/uhvuJyslhkkILwlui3s8aJ1rFpXKcWZ5CEM=;
-	b=IM4sBb44aCfKT6WVOxgLhJ8CPxOYHTpwi9485bjzDiYPD5/kds5GX1ZyQU9unY1YQB9N
-	 ti2r9OlOg0Qz595YUjj1QzERxQZo8ns4AuaHUQUBIKyN5BI+5+CTrGQH4wDOVANBlYICT
-	 c/uvGgEVTUyXL2qsnyaeBSwuy/veT3QhLGq5lc8ZntOjdvLGrLsx0iQIyCqye/K1AKvGD
-	 XOp0IrOJxUQBu6qNBdf0TBXl6zWtftx1THXlQ4JfPx4ICIBmesoz8oZYY/e37agUAk6df
-	 dtaU7lpHPdXw7DWGFKMjp2Hg5JEKAYzFdMxpS768b6oYUv9aSlHxFbQV3HfeqYsJpBA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id EA8981F0093A;
-	Fri, 30 Oct 2026 08:17:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793348275;
-	bh=+KG1RMx/uhvuJyslhkkILwlui3s8aJ1rFpXKcWZ5CEM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=aE0vZPZ3KVL9SaWkop9ib7BlPO9m/Ds2hmkGUBvO1d7YrwCjOT/cjpfvsZok8FR+s
-	 MEhPiectiCi2IZcqYJsW+TlGCUcugx8MEevflQiCuidkgV4JIiFhmQGudBEWgwAG3X
-	 ohCamD7hqtxlwO4uA1zhiSsZcnj4VzkJwOl68n53RigaU1ZRZ8UaiBVgtY91RMgrju
-	 OtQAAfNpcn2m6Gl4NGuploTZGpMnyVzyZAqdIJ5zsJEqzAfhyyw+xKsQehfUNV48MK
-	 QD6Y4cglnDuLYy9TxNCSgYeXIL1IS9H2E8zIoGyE+am5pcx8/lsx7Q1IDiGOiOQ7iq
-	 rgjtUSCyGY1fg==
-Date: Fri, 30 Oct 2026 09:17:37 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Eddie James <eajames@linux.ibm.com>, Joel Stanley
- <joel@jms.id.au>, Jonathan Cameron <jic23@kernel.org>, Nuno
- =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, Paulius
- Zaleckas <paulius.zaleckas@gmail.com>
-Subject: Re: [PATCH 1/3] iio: pressure: dps310: reject a zero rate or
- oversampling ratio
-Message-ID: <20261030091737.00003868@kernel.org>
-In-Reply-To: <20261029220635.18816-2-zoone.rupert@gmail.com>
-References: <20261029220635.18816-1-zoone.rupert@gmail.com>
-	<20261029220635.18816-2-zoone.rupert@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=OoTodfeL
+Received: from eipi10.cs.unibo.it (unknown [94.32.99.206])
+	by mail.virtlab.unibo.it (Postfix) with ESMTPA id B97D71C0043;
+	Fri, 30 Oct 2026 09:18:14 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
+	s=virtlab; t=1793348295;
+	bh=o+9ASTpYwoNfBlSWNdqTGEVvnobhYXlVi0xXeRuWCfk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=OoTodfeL2SM/MZ6/XpMgR/fakswsVWwYnc6G8r8W6JM0wLSYJY+wrL9maocR6voe4
+	 28d4Ug8vSgHX3W7G4YKApA/Z3QiKVPf97SHsceBLEdkyIgRj3hKGA3uAuRLc/G7xHt
+	 ntZBaFyZ/Sm26XgUJ+hsiK4tPjqjdEZ0cirj2R3s=
+From: Renzo Davoli <renzo@cs.unibo.it>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>
+Cc: Renzo Davoli <renzo@cs.unibo.it>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	=?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
+	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	"Dmitry V . Levin" <ldv@strace.io>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] powerpc/syscall: Fix the return value of skipped syscalls
+Date: Fri, 30 Oct 2026 09:17:53 +0100
+Message-ID: <20261030081757.1065832-1-renzo@cs.unibo.it>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,28 +70,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 30 Oct 2026 00:06:33 +0200
-Rupesh Majhi <zoone.rupert@gmail.com> wrote:
+When ptrace or seccomp skip a system call on powerpc, the return value
+they set is lost or the tracer is affected:
 
-> The rate and ratio setters accept 0, which also covers 0.5. ilog2(0)
-> gives -1, which masked into the register is 128 Hz or the reserved
-> precision 0b1111. The latter makes every pressure read fail with
-> -ERANGE and temperature read 974 degrees C.
-> 
-> Reject values below 1.
-> 
-> Fixes: ba6ec48e76bc ("iio: Add driver for Infineon DPS310")
-> Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260921183132.233136-1-zoone.rupert%40gmail.com
-> Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
-> ---
+ - syscall_set_return_value() sets TIF_SYSCALL_RET on current, which is
+   the tracer when called through PTRACE_SET_SYSCALL_INFO, so the next
+   system call of the tracer is silently skipped (1/2);
 
-Reviewed-by: Joshua Crofts <crofts@kernel.org>
+ - system_call_exception() returns syscall_get_error() for a skipped
+   system call, which is 0 for any non-error value, so a success value
+   set by a tracer or by a SECCOMP_RET_USER_NOTIF listener is replaced
+   with 0 (2/2).
 
+Both problems are in v7.3.  1/2 does not apply as is to v7.3, which
+still has the two separate TIF_SYSCALL_RET checks from before commit
+66236558dfac ("powerpc/syscall: Avoid atomic test_and_clear_thread_flag
+on fast path"); the code it leaves behind is the same, and 2/2 then
+applies on top.
+
+Tested on QEMU pseries (TCG, -cpu power9), ppc64le guest config, on
+mainline 734bef548a96, with ppc_skip_repro.c [1] (a tracer sets the
+return value with PTRACE_SET_SYSCALL_INFO and then makes a system call;
+a tracer skips a system call at a PTRACE_EVENT_SECCOMP stop with
+PTRACE_POKEUSER, with both "sc" and "scv 0") and with the ptrace and
+seccomp selftests:
+
+                                           mainline    + 1/2       + 2/2
+  tracer syscall after SET_SYSCALL_INFO    not run     correct     correct
+  skipped syscall, success value, sc/scv   returns 0   returns 0   correct
+  skipped syscall, error value, sc/scv     correct     correct     correct
+  selftests/ptrace set_syscall_info        FAIL        pass        pass
+  selftests/seccomp/seccomp_bpf (*)        14 FAIL     14 FAIL     all pass
+
+  failing in mainline and with 1/2 only:
+  user_notification_{basic,child_pid_ns,sibling_pid_ns,fault_recv,addfd,
+  addfd_opath,addfd_rlimit,addfd_send_interrupted,sync,fifo,
+  wait_killable}, TRACE_syscall.seccomp.syscall_faked,
+  notification_restart.{killable,both}.after_receive
+
+(*) not counting user_notification_wait_killable_after_reply (100000
+    notifications with a 1 ms itimer), which hits the 30 s harness
+    timeout under emulation on all three kernels.
+
+Build-tested with W=1: ppc64le guest config, ppc64_defconfig (BE),
+pmac32_defconfig.
+
+Changes in v3:
+- Split in two patches, one per Fixes: tag: 1/2 removes TIF_SYSCALL_RET
+  (suggested by Michal), 2/2 fixes the return value.
+- 2/2 returns syscall_get_error() ?: regs->gpr[3] instead of
+  regs->gpr[3], so the error path is unchanged (suggested by Mukesh).
+- Applies unchanged to current mainline (d89e1d186ec9).
+- Link to v2:
+  https://lore.kernel.org/lkml/20261023180735.853655-1-renzo@cs.unibo.it/
+
+Changes in v2:
+- Rebased on mainline 734bef548a96, after commit 66236558dfac.
+- Link to v1:
+  https://lore.kernel.org/lkml/20261018151539.440213-1-renzo@cs.unibo.it/
+
+[1] https://lore.kernel.org/lkml/ato6Tq0aKdqqdqyJ@cs.unibo.it/
+
+Renzo Davoli (2):
+  powerpc/syscall: Remove TIF_SYSCALL_RET
+  powerpc/syscall: Return the preset value of skipped syscalls
+
+ arch/powerpc/include/asm/syscall.h     |  6 ------
+ arch/powerpc/include/asm/thread_info.h |  1 -
+ arch/powerpc/kernel/syscall.c          | 13 +++++++++----
+ 3 files changed, 9 insertions(+), 11 deletions(-)
+
+
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
 -- 
-Kind regards,
-Joshua Crofts
+2.55.0
+
