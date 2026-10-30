@@ -1,98 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793377895;
-	b=S7MRlIM6TCMfA9+zeEpKuDAStmUIh684Xb0RZzW9HGHQWyekw7XeAxYbuy+M0+ezGnkD
-	 H55PQzMTNYKA8NPK/WEqNJE6xgIqhK3YyjHJZrTEEsV8AyAnMc+izqWlJkDdX8xc+3EhA
-	 0hjqjzzdab6K0Vrk8Mpb1+MlAtEaL4DxotbLI6At6GoEb8J3OyZeIF8UKb+p9Iva8a44Z
-	 beceRN5sbztQsN4b2eLvk/D8isGKDCcoi7TGgqjG8jehda18HfxKvsyWS9jMmGpeX1E7B
-	 V4pkvkc4BzYcxuInYTq7sdcjszkUhEVNuc0ufsg0jFR7/fIEQaD7whoQnPbGiLOjLqw==
+	t=1793377918;
+	b=QUKLVuLqI8Tx1X3cwPZtyfr6sobdEjCokRiRpg5SZH0FhMLT0VwgeEIJTTko8O61oY0R
+	 QNPJmAm0fB2Q9rSRPCn2Q8nz86edwQrsNDtkD4TYDJf5E3dD5RRXw3ZVcQqHAgYNhUkq3
+	 cgiaDnv4FH9X726wxegONNpB5o5nKKkA5J5f1j9QqvfWxYESx3VX80uynandmMMmxgh0H
+	 vH5vJTNWvEyj8Jczrp5LRmUnQXH5/KFSFQuoTAcPSvGuSvGTUY5sQIubgxb/XT+UjJpmb
+	 lhH2CJgXbRwv9xTOeJnewv+yAgoqlXUHk9VbDpujtTHL5ZWCO8Q5wyQQA2b7BYa3EoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793377895;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1gGF1mtAr/lwTqIAotY13/mj9rw+PP7UFZyG/jdv9hY=;
-	b=hbJGAgmZtX1GJFHU1bXDmfLQU12qA3EThH9CavSiZeIjuZXVycDg/sitoxOFaVcg41c8
-	 XopJT4NgMzWBDbGHJgFu0a30Njs6JQ+6cMtdC8Z5pcRl45hYc67vpYEB7nQMlObQsmxC/
-	 /1lqP3R4+UQuA05aIJ/Ousk9x/t7v0ScORo9tzDzsBNgsbkl1mBHP7FQEGsI03A8qQdHt
-	 8yHmFgz7YDPVT6ofoB92ERFC1JaqE7060kendc5A7P5I7Yt1R5x1cOdCUyYySZQcuItKS
-	 J7n1LB7pNcs8G144duiwCUInXaD0Tv5kdjYvwI+ITGcksojgmjE2Q7hwLVtv00/n1mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793377918;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=Pq+i8rJi/9ZoV6LFHD0nn/AL1YjVYkhOQnH0yPWO1Xc=;
+	b=EGJVHQbmDc7uAZZz/WFgfgzESn5d7UShSSy9r16UYG7znGbDJQUeIkaKT5gfhBbkAEcT
+	 prgmeD+Pg8QPgX4eCGTOLC7RU+fPgRCy4E5wZxCivcVe3mWMDuCsFDjNnXYcuPOB6KAX2
+	 IHfeG/4ellMyeX6c2WRILoX+h6YJ7uGGQATKtZSsPHNrJxO1BeOB9nhL3YpS1EIv7UNQn
+	 s1+06jRUb/k+Kvof4IF/amknnKokbtubwZZLQJDYySZLMKfOQL6pSyeNjIFCyOPlEV1SS
+	 4iX4Jdv0cmVl1sM1ZfO4qlhzkM61s5Leo1594aGomSHHBO7poW6CH9eDVk8PMbebqxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hdprGwCS;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=kmJA83O+;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEA4606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:31:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AEA4606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB568606A31F;
+	Fri, 30 Oct 2026 16:31:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB568606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hdprGwCS
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so10334705e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:31:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793377893; x=1793982693; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1gGF1mtAr/lwTqIAotY13/mj9rw+PP7UFZyG/jdv9hY=;
-        b=hdprGwCSzXf7PRKQ/V5wvfaVkpaM2GmUVffQo54E2zGDxNlDOBku6jVRQrBvOEGPw6
-         os5QkDVc5h5REpSPb+OJH/0yxAl9ymggDnYFOn4pUmDwgvn+kjTlv6nTaErQzZHXHGfO
-         NvfrNDuU6i/W9D9XQ68WspWENQMBFPh0poo7f9kjoV40fMjuWt1VGQQ3V5CH4uaNdp99
-         BDf+G0piQkL8K2u8K5xFRHm28dB1YLroHCLaoW1zvMgSirm0rIfjWpzEKUGrkw4QIusM
-         Q7OXVBfjO2rFU0sg1y78nmoid9RwPqeLOMbm/jBjxhqkgsQFkMrokIb0SzzO9BIjLOzV
-         XS9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793377893; x=1793982693;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1gGF1mtAr/lwTqIAotY13/mj9rw+PP7UFZyG/jdv9hY=;
-        b=MuR3GyYJAiEfn3T0jy1PUaKHcNGbf9nXrWyVv8tusl7/u0vW45mBUQCBIutm6jvThj
-         /lrrYfGdJOze+77QZUbpOLI/sFBWXhtJDvdOKRFUtBhw9qG39bhImgPz6vR3WYiCxUlD
-         rWxjNXMzpF5/orsANe3FMIM3m5kW2MBQZO7hpJVlzMNclule3D9lw0QXEswgehsLUOd0
-         kmYm7A/QIW36KgMxtcrY79ZLBKdW5kgh5cA6bZfj/qbubWi+AUrXRWgy08T5+pJOy/u0
-         Dl4W6wJ1dCAenXVkN1PV6KhV+uVYhlPYVTl+1sNwy+ehOJ/VrhLS0/NfT26g9cNPd7Ct
-         LhpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx20noTSU+4tT/8UWInk6jd1siZOFry3kthXLFypQbQ2VbZNPLidNJt40tSBkyt37YeaDD1vXTjgkH8POA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJObd/eQFl7bmM4eXIHQkINJ4xjBaC7dk2b5vu9anfpIf75rKEt
-	mokif688HjSwhEr2k+GYG4tIAJZl9VdaIgtn60dBHi6dzPBFmUHwiAcI
-X-Gm-Gg: AYBFou0ji2iTVyjJgsn7FhY26wP9AAf7HynLgVUpWYge4VvgKqaNdO4gz5q5nK8+F+p
-	II6Hc/Oq+bny5h9yPOnVt+bWa2gRPu9NZKat+3zwKPA1wOnzbfUhKXCIZx4H8qe3QpTOjayWul2
-	wfGBmX5RlzoUt9w5r9SO7ZyimtVj/zCGl0C9df97ulTwY0iBIEe1JnPbX5TguplW7Go/jfF6zgL
-	3+xbB01SXbXcw7E7iTob5GUFbckq+6RIs0bChjinME+Jj+lBaDhLHXt1c4IIlN0rIJXd9rvb2+G
-	47vD9eCXit+xjrtZK9p44r4AzmxHAh2uJIst1eYjfQS4EDAYUr7KyGIUno0wmRDwd5DTo7DFCeS
-	Z3qQx5WijhCz9PFu4hzWf8n0G0F17SoWZ8U4/NLy3hJHMoolMcxE+Rmj/DSH0HG476ehB9DymDR
-	DfQQGD48plqd71Ry+wv0tArsRnMrlcTm4R02uNZoC4yfYShZXu9wUCsHUll50W8y1PBVyH+U2sf
-	mpHdBGdsEvMp8K3OYY3tBIgTFvGNpWZn2FiMgE3Bg/0qvlIQYTlh8IIa4tFYFPa7LcbGcIS/boS
-	KSQGVsUDk4HS2sgEurklw24OjyNDrorlCiTw+8hd8xUfJfkeZeqmgw5jKSJvqoau4g==
-X-Received: by 2002:a05:600c:1c0f:b0:4a2:150f:1601 with SMTP id 5b1f17b1804b1-4ac1709a7bdmr62699895e9.12.1793377893396;
-        Fri, 30 Oct 2026 09:31:33 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d4f9sm4141958f8f.2.2026.10.30.09.31.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 09:31:32 -0700 (PDT)
-Date: Fri, 30 Oct 2026 16:31:31 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>, ardb@kernel.org,
- Jason@zx2c4.com, linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] lib/crypto: aes: use memzero_explicit() instead of
- memset()
-Message-ID: <20261030163131.21d8f0ff@pumpkin>
-In-Reply-To: <20261029173119.GE1862@quark>
-References: <20261028142636.5888-1-raizudeen.kerneldev@gmail.com>
-	<20261028155134.GA4041913@google.com>
-	<20261028205633.7625d789@pumpkin>
-	<20261029173119.GE1862@quark>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=kmJA83O+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=Pq+i8rJi/9ZoV6LFHD0nn/AL1YjVYkhOQnH0yPWO1Xc=; b=kmJA83O+MQfglZeCpSQOE4P75x
+	ull6C2vVsipPfVK7BWmaTdd7EdxnKHQt8oDYQ8TCBPiJqs1MLx0fQniY1wScXct7QQbo5KpyCT3RY
+	7MV5myrJmIn/Uy+YrNClos9+yKJjrS95t8kBFcatMlO55ehbd6FdoCAQdy1pEtXUlMAjdxtoXIQMj
+	33raxOS/q9ehBseYiDaFuj6l7yrf9LjCBvJgX/0+Uw37xOvOAztuMPcJ3WxlZ52T+oUM00S3oQ/p6
+	cZjJ/gbx1uWUvZ6xPLt9ZSYJUfXII52A3Ubvn8cryTSJDYKKfaWMBmMXy8bRmUnOj89Ebf6HPgRG1
+	gAKUH1Bg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xMpWD-003x1v-29;
+	Fri, 30 Oct 2026 16:31:53 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Fri, 30 Oct 2026 09:31:43 -0700
+Subject: [PATCH RFC 1/2] net/mlx5: Submit blocking commands from the
+ caller's context
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,76 +63,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-mlx5-cmd-wq-v1-1-1458b2aed637@debian.org>
+References: <20261030-mlx5-cmd-wq-v1-0-1458b2aed637@debian.org>
+In-Reply-To: <20261030-mlx5-cmd-wq-v1-0-1458b2aed637@debian.org>
+To: Saeed Mahameed <saeedm@nvidia.com>, Leon Romanovsky <leon@kernel.org>, 
+ Tariq Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Breno Leitao <leitao@debian.org>, 
+ kernel-team@meta.com
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2270; i=leitao@debian.org;
+ h=from:subject:message-id; bh=/85JIr0ETe8f+4pRr4MDFjchmH9gZ5ulHRVINwtreoc=;
+ b=owEBbAKT/ZANAwAIATWjk5/8eHdtAcsmYgBq5MZyYdCWBWfs86LIQZNZeYvPd6p/gMZp20vuj
+ gh2L5AaMM2JAjIEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauTGcgAKCRA1o5Of/Hh3
+ bQEzD/isKA+azalzoS9OvSRRJzHF5gGcjOoH7b+Xc9CLDP1o16VxdvZ+euLjRzFyAyQmi6WMdS8
+ irl41IIE/jmr1n5e3PfeUEQ77BdH25QaAK3zQ8FpNW1zquaiQ4qjkVk6LBnRQP0HrxTKKDAOA89
+ eNssF9n3IkSMeSzg9hf0EbKM25NHbu5Tv4QZtKnM9/pgdLbJyi6VHkhvvv0RSoO36BO6dPddN41
+ XX7MNVLSxnKz5xGjtsKq57Gx7TJJt9aR+7vSErCq7fcwPbUEv5fZRx7kauIAnLruqp0ykw9bDoR
+ FPgMd0MNFGL/B/Dso/oxH3YUefj9ZgYQWynR31Nzh/JWxwtWNKr1MIVJYb/3fCvNDJ7hYp2d0J9
+ HUnEDxcYOIHlgQWNOJxQDEBZr5o0O266aOo//DWWNJWuTJRcOzEKvQ3OOZ5w5IKWcsljPS7Jmm0
+ cyilxznT5bx+35y0KlaLAb2wquPebkKGcBBS/P6XXD35xzXRDA5n7XFPdDPauexXB0fZLHYDyU+
+ eOiw+H/b4x2WvxRbjFbvTupHaCNXaJz9OvSiw/Jr1y8BjyCTwFRZUY0293wEiU5z3tHJLIMqFV9
+ nwnZzbIDa3aKpO2TsMSnfvUDce58YxtGmPMbgpWrtDgOoy8EpxAVxu1IWNUjWJqgJqKqiZULUWM
+ Pbo1DyBEkdq2q
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Thu, 29 Oct 2026 10:31:19 -0700
-Eric Biggers <ebiggers@kernel.org> wrote:
+mlx5_cmd_invoke() queues every command that is not a page-queue command
+on the ordered cmd->wq, and a blocking caller then sleeps in wait_func()
+until the command completes. The work item only takes a command slot,
+writes the descriptor and rings the doorbell, so each blocking command
+pays for a queue_work(), a worker wakeup and a context switch while its
+caller sits idle.
 
-> On Wed, Oct 28, 2026 at 08:56:33PM +0000, David Laight wrote:
-> > On Wed, 28 Oct 2026 15:51:34 +0000
-> > Eric Biggers <ebiggers@kernel.org> wrote:
-> >   
-> > > On Wed, Oct 28, 2026 at 07:56:36PM +0530, Mohamad Raizudeen wrote:  
-> > > > aes_gcm_decrypt() and aes_ccm_decrypt() use plain memset() to wipe the
-> > > > output buffer when authentication fails. But the compiler can optimize
-> > > > that wipe away, so use memzero_explicit() instead of memset().
-> > > > 
-> > > > This matches every other sensitive wipes in this file, which already
-> > > > uses memzero_explicit() for keystream blocks, tmp buffers, ctx
-> > > > teardowns.
-> > > > 
-> > > > Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-> > > > ---
-> > > >  lib/crypto/aes.c | 4 ++--
-> > > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > > > 
-> > > > diff --git a/lib/crypto/aes.c b/lib/crypto/aes.c
-> > > > index e1c191551736..7814ef525239 100644
-> > > > --- a/lib/crypto/aes.c
-> > > > +++ b/lib/crypto/aes.c
-> > > > @@ -1733,7 +1733,7 @@ int aes_gcm_decrypt(u8 *dst, const u8 *src, size_t data_len, const u8 *authtag,
-> > > >  		 * Clear the inauthentic decrypted data so that callers won't
-> > > >  		 * receive it even if they fail to correctly handle errors.
-> > > >  		 */
-> > > > -		memset(dst, 0, data_len);
-> > > > +		memzero_explicit(dst, data_len);    
-> > > 
-> > > This isn't for "zeroization" (making the data unavailable in ramdumps),
-> > > though.  It's just so the caller doesn't accidentally use the
-> > > inauthentic data, as the comment right above it states.  
-> > 
-> > It is also a parameter so has to be zeroed anyway.
-> > memzero_explicit() is used to clear on-stack buffers.  
-> 
-> Well, that assumes link-time optimization is not done.  The kernel
-> supports being built with link-time optimization.
-> 
-> I guess the motivation for this patch would be:
-> 
->     (1) Shut up LLMs that think the use of memset() is inconsistent
-> 
->     (2) Maybe the caller really does want "zeroization" for the dst
->         buffer, even on failure -- and this guarantees it for them, even
->         if LTO is enabled, without having to do it themselves.  (Though
->         on success, they'll have to do it anyway.)
-> 
-> So I'm tempted to apply this patch anyway.
-> 
-> But the zeroization stuff is getting kind of annoying at this point,
-> when it's unreliable anyway (it's not like we zero out the registers,
-> which can then be spilled to the stack and/or written to the task_struct
-> on context switch) and can even be counterproductive (by forcing data to
-> be written to memory so that memset() can run on it, instead of kept
-> entirely in registers).  And Sashiko likes to flag them as Critical
-> issues, which is not at all accurate.
+All ordered workqueues share one unbound worker pool, so the command
+work items of every mlx5 function also contend on a single pool->lock.
+On an arm64 host with a dozen mlx5 functions in switchdev mode, where
+monitoring daemons read /proc/net/dev, lock contention profiling put
+36% of the pool->lock wait in queue_work() called from cmd_exec(), and
+the rest in the workers running the command and stats work items.
 
-OTOH, if someone does a memset() then maybe the compiler should never
-throw it away?
+Page-queue commands already call cmd_work_handler() directly. Do the
+same for every command without a callback. Callback commands keep using
+the workqueue, since mlx5_cmd_exec_cb() must not block.
 
-David
+Firmware runs up to max_reg_cmds commands concurrently, so callers could
+not rely on the submission order, and the slot semaphore still serves
+its waiters in FIFO order.
 
-> 
-> - Eric
-> 
+With 32 parallel ethtool -S loops on a ConnectX-4 Lx, this removes all
+46.7k mlx5_cmd work items of the run and cuts kworker context switches
+from 50.7k to 3.9k.
+
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ drivers/net/ethernet/mellanox/mlx5/core/cmd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/cmd.c b/drivers/net/ethernet/mellanox/mlx5/core/cmd.c
+index 84583dc5eb1c05..988518155582a4 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/cmd.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/cmd.c
+@@ -1301,7 +1301,8 @@ static int mlx5_cmd_invoke(struct mlx5_core_dev *dev, struct mlx5_cmd_msg *in,
+ 
+ 	INIT_DELAYED_WORK(&ent->cb_timeout_work, cb_timeout_handler);
+ 	INIT_WORK(&ent->work, cmd_work_handler);
+-	if (page_queue) {
++	/* A blocking caller waits for the command anyway, submit it inline */
++	if (page_queue || !callback) {
+ 		cmd_work_handler(&ent->work);
+ 	} else if (!queue_work(cmd->wq, &ent->work)) {
+ 		mlx5_core_warn(dev, "failed to queue work\n");
+
+-- 
+2.53.0-Meta
 
