@@ -1,52 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356943;
-	b=1/fhMFuV9EADNOqeyVYUWqBhEfAcCY2ZghT2HpoWpNHXyN19YXLyj4006cTqpwWex6Ad
-	 nx4nAA+AHlmjZC7li6GSCo4L5THNxrDwFVq1Gx5ntqptse5GP4jfG/3dYCoglkiAM4mhO
-	 6Ikcv1J0BTD6sRLdc66Ja1q7SIhCNG3kL3LR6usl05+aVWIuo8LWL1LSEz3r8zBiwSnBS
-	 u4x5I3e0X6dHaVSO4aohqBgF9a2+jUYNhxdzXEvapRy0YHGHRmrFbRoISwAqTNEA4zpb/
-	 gguwA8O9DwUaAVb3WEVZHz3PGavunJOGl36EeyMjGowGJ8Ryc+8wNsbga3fFiSEG+5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356943;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=V91mG1ucI7P99bGc4LQseFhOC+7VxJiPPM+PptTC53o=;
-	b=VvaVWUX9h0MmSDRV+b841y2gETW+uBvIsJh6TiSrMAIsjzFy+DhYXaksp+FaM2BKX+4+
-	 nxRZuJlwnmNiVvqkpt7Q5brJ8/QFoq87cqmIZL2uQw9pKqtRVeyuaENltnphcLBhfGgyA
-	 UqIxsoeLHjkZGZw4e09JORGDA6RJiMDjlOd0fdFAJs4wMVS0NaR0jz60qHz9TgPWoGhJx
-	 o3XrH8kv63DGzmQ55ruc+CBaPxHCl7e0JfYfsLhtwHmQq4NeWWS3NANUjmkQTMJ8uCwps
-	 GIpZpZ+q7BhMCWywV76aIueCeu76qTdYQU4e2EH15fhZIURX0xc8IrylfWVoB15DOIg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=phytium.com.cn;
-	spf=pass smtp.mailfrom=phytium.com.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 80694606A31E;
-	Fri, 30 Oct 2026 10:42:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80694606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytium.com.cn
-Received: from prodtpl.icoremail.net (unknown [10.12.1.20])
-	by hzbj-icmmx-7 (Coremail) with UTF8SMTP id AQAAfwD36r6KdORqiF4HBQ--.9378S2;
-	Fri, 30 Oct 2026 18:42:19 +0800 (CST)
-Received: from phytium.com.cn (unknown [218.76.62.144])
-	by mail (Coremail) with SMTP id AQAAf8Dwj3KGdORqNXXzAA--.24040S3;
-	Fri, 30 Oct 2026 18:42:15 +0800 (CST)
-From: xiong yining <xiongyining1480@phytium.com.cn>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	chenbaozi@phytium.com.cn,
-	"zhongqiu . han" <zhongqiu.han@oss.qualcomm.com>,
-	xiong yining <xiongyining1480@phytium.com.cn>
-Subject: [PATCH v3] selftests: cpufreq: stop CPU hotplug loop after cpufreq update test
-Date: Fri, 30 Oct 2026 18:42:13 +0800
-Message-Id: <20261030104213.2030283-1-xiongyining1480@phytium.com.cn>
-X-Mailer: git-send-email 2.34.1
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793356951;
+	b=WjMv7QKHr+LIse2gN1zdZIrGP0zH80Ot9KJ3DQ7qJSteU/ID84XE1CW3pl9A4Kpz91lx
+	 7rztSTtRPuAu1MfEPqOI+4hEw1Ot1b4H1gKwNzmGq++oFLSOd8G2xawpsn6/0Ungvg6ls
+	 Kk9mBWk3Iq69nY6uBjVQQjZlC6LOZ9jM5e1fXbJJpuWB1s4qGb+PAmiZR3aaZJWpFoOMy
+	 suAvlv63f8tAVDtOetGVPsjhrOUIsfFnssNviFHcOI1TfEaUqpAvP2k0zKVxCG5Wk4gbV
+	 cQnE/Ku1ElLo6gowPq1DIxlWbJgINBI5jZRCZ3gEKfqrbRp6AH2MaXpkAeb/PynPVmg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356951;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
+	 X-Accept-Content-Type;
+	bh=exE+hHt5oQLFBWrYD1Rh+zr0AUD2QpnwnfsG4mC3MFY=;
+	b=4NjfT8uecnq69ozAOieb9qU8Njywpm8hYfzuTWd9XOVuH78ixaE5BXlOUfxM99NmLFkk
+	 UfpJ7XLtqyBaMzwvo+L5tpv6MBbzCZgc9943fix444cCLKzPju2TWlb+Xw1L1gFQXsx8E
+	 6yQ2Pi1EPqm97epFTHMq70sjzaHT03+/+FXMnWaoQ+0Sy2ISsoJmV/COPhslIAMjLwD6H
+	 i78uxglC+qSctQZWCT5H4vbYwGr+7jACUHVIW6fUUrD5zilAJKP/gNfc3qybkXXJfUBrP
+	 fYUS+AJknTaKgT+R3C7QUU/WGRUEGxy870GVbJZU8xuWoL9euBbNuaJMteUHSvagK1w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=aY9yRZIh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798BE606A32A;
+	Fri, 30 Oct 2026 10:42:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 798BE606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=aY9yRZIh
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 409BA2007F9;
+	Fri, 30 Oct 2026 11:42:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793356947;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=exE+hHt5oQLFBWrYD1Rh+zr0AUD2QpnwnfsG4mC3MFY=;
+	b=aY9yRZIhh039IwXU2DWf1dZuEtB5T4HK4ECstmByqUYwciV67tCVO3pG3c24P4irt4onNX
+	p8o6NaIuZrm5HkxR6+3BrUJ5aTPGEbcaMNsCHO3PD8S9gl6eCCCHAuQJsf6joq4EacFPHs
+	fXg+jC0yP8RFkcx/90P+p5elCvPTrFsvSsAxuUP3hgrH9HoKX9/Wh7zOSqqQbQv2BJYOjv
+	tj/NUTjtrWmlmSwIQjdBNCyCY5Sn8+P8c3TNF6misXF0+H8KMiKGnDzTkgdT4a1uFW3S+0
+	SujX6AMro3JjTUzVpwAgZGWGUrih7SXZ4m4h/beaDzCemQf2cg6f3avxDXJIww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793356947;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=exE+hHt5oQLFBWrYD1Rh+zr0AUD2QpnwnfsG4mC3MFY=;
+	b=AVT5i78lYaHZ+hblbkNogAi5ghNTNp5X7HSwH0/ccpC2UwqSb8y5ZjwrQ1hPrCv9Uxpd9r
+	donv6rWnGF2zlECy/PGHOjHT6SAMRR54V29UgHYdlYAXRyaMpqvbEf7EGBWIyHbnOq5LQv
+	X5qy/EQMP/f/YOwKEp/FGNN3Fwn1UgYWoxF+TbQaldgeInveGaMgpSS9CYJpEGTASR9vYX
+	aTrFeLlBctqtKXlg6Tp1anIuItb+JWoZEPcm+oQ6uBY0Hvy8BSh7hUkKDvVEW7j8ftqCAp
+	2ralFJ8fG+FCBb8OE7rNnawWAlEWLLyJB8/x3XzXRWTtjwArOmhDrnXl3wt9Sw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793356947; a=rsa-sha256;
+	cv=none;
+	b=cnmwy/oYBVOkobgdVRCeb28DXdGW1R1bjoBGMpVHZhXuM7hjjp3SEXMv1Yoc9iq4mUTOJ+
+	DWPN5BpP3JircJE/NJEHageqloDkSyhbVwlsZbe/g2g0Dc4Qhq7y7oZInXG8epHr44ySxu
+	qpwX7FxMmSJBfRtuqbwyZqlr03tNf4ZM5nSpirN36k8Y59G0hbUCLvlvuuDQ6MN+qSxTmg
+	s7LkGPldFsF/MnOW2zXIhJK283pk1YXy/AZYSTOwXHHGfM6JKFNprtilvssA3mqqHV+cfY
+	dDa8gMNJa7IFZ8Ib7r5WwYg7wFEYK/dS2fYLnxdqW254KDOjqDN7NjxHN7PkmQ==
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xMk43-001rLi-0a;
+	Fri, 30 Oct 2026 11:42:27 +0100
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xMk43-0000000EobU-0Gac;
+	Fri, 30 Oct 2026 11:42:27 +0100
+Date: Fri, 30 Oct 2026 11:42:27 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Carlo Szelinsky <github@szelinsky.de>
+Cc: Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kyle Swenson <kyle.swenson@est.tech>, Ross Cawston <ross@r-sc.ca>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, netdev-bot+sashiko@kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2 07/14] net: pse-pd: do not tie a shared power
+ domain to its creator's devres
+Message-ID: <auR0k1ECrKc0awIz@pengutronix.de>
+References: <20261023215416.1087206-1-github@szelinsky.de>
+ <20261029104851.464294-1-github@szelinsky.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,125 +107,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:AQAAf8Dwj3KGdORqNXXzAA--.24040S3
-X-CM-SenderInfo: x0lr0wp1lqx0bjrumio6sk53xlxphulrpou0/1tbiAQAECmrjns4IMwAOsj
-Authentication-Results: hzbj-icmmx-7; spf=neutral smtp.mail=xiongyinin
-	g1480@phytium.com.cn;
-X-Coremail-Antispam: 1Uk129KBjvJXoWxWF15Kw48tw15GFW7tr45GFg_yoW5Ww43pF
-	WkGw45twn7CF1qyws3G34UX3y8X3Z3CF47Wrsaqr1Svw15JF9Iv3WSg3W7WFy3uFWkZw4F
-	kanYy3W09rWYyrJanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvTs0mT0YCTnIWj
-	DUYxn0WfASr-VFAU7a7-sFnT9fnUUIcSsGvfJ3UbIYCTnIWIevJa73UjIFyTuYvj4RJUUU
-	UUUUU
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261029104851.464294-1-github@szelinsky.de>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-Original test uses a fixed 5000 iteration loop to trigger CPU hotplug
-for verifying cpufreq synchronization between CPU hotplug and sysfs
-writes.
+Hi Carlo,
 
-Two issues exist:
-1. Background hotplug task keeps running after test completes, causing
-redundant CPU on/offline operations.
-2. When cpufreq frequency setup is slow, the hotplug loop may exit
-before frequency updates finish, which breaks test purpose.
+On Thu, Oct 29, 2026 at 11:48:51AM +0100, Carlo Szelinsky wrote:
+> On Fri, 23 Oct 2026 23:54:15 +0200, Carlo Szelinsky wrote:
+> > One downside: Mark and Liam would then have to review the rdev->supply
+> > change inside a bigger patch. If you prefer, I can keep 12 separate
+> > for them and only merge 7 and the power domain part of 11.
+> >
+> > Is that what you meant?
 
-Use signal notification to terminate the infinite hotplug loop, and
-add an EXIT trap to clean up the hotplug child when this test function
-terminates abnormally.
+ack
 
-This makes hotplug run only during cpufreq sysfs write test,
-align with test objective.
+> Hi Oleksij,
+> 
+> a short ping on this. The answer decides how I build v3, and I would
+> like to send it soon.
+> 
+> If I hear nothing by Monday, November 2, I will keep 12 separate and
+> merge only 7 and the power domain part of 11.
 
-Signed-off-by: xiong yining <xiongyining1480@phytium.com.cn>
----
-Changes in v3:
-- Start the hotplug child after governor switch and sysfs frequency reads,
-to avoid -EBUSY errors when the target CPU is offline.
+ack.
 
-Changes in v2:
-- Stop the hotplug child process by signal notification instead of
-a stop file, avoiding the predictable temporary path.
-- Add an exit trap so the hotplug child is also cleaned up when the
-main shell terminates abnormally.
-- Link to v1:
-https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg2662696.html
+> Mark, Liam: if you find a moment, Oleksij's question on 12/14 about the
+> PSE core using rdev->supply is still open:
+> https://lore.kernel.org/netdev/atnK9lEinSLgx5yK@pengutronix.de/
 
-This addresses the security and robustness concerns raised by Sashiko.
----
- .../selftests/cpufreq/special-tests.sh        | 30 +++++++++++++++----
- 1 file changed, 24 insertions(+), 6 deletions(-)
+On 8, I agree with Sashiko, please move the unregistering flag from 10
+into 8:
+https://lore.kernel.org/netdev/179274321725.3134.14426162965545087203@kernel.org/
 
-diff --git a/tools/testing/selftests/cpufreq/special-tests.sh b/tools/testing/selftests/cpufreq/special-tests.sh
-index e87ed7c8e5e5..0665da8f2444 100755
---- a/tools/testing/selftests/cpufreq/special-tests.sh
-+++ b/tools/testing/selftests/cpufreq/special-tests.sh
-@@ -16,6 +16,8 @@ source cpu.sh
- source cpufreq.sh
- source governor.sh
- 
-+HOTPLUG_PID=""
-+
- # Test 1
- # $1: policy
- __simple_lockdep()
-@@ -92,6 +94,16 @@ governor_race()
- 	restore_all_governors
- }
- 
-+hotplug_cleanup()
-+{
-+	if [[ -n "$HOTPLUG_PID" ]]; then
-+		kill -s SIGTERM "$HOTPLUG_PID"
-+		wait "$HOTPLUG_PID"
-+
-+		HOTPLUG_PID=""
-+	fi
-+}
-+
- # Test 4
- # $1: cpu
- hotplug_with_updates_cpu()
-@@ -101,14 +113,18 @@ hotplug_with_updates_cpu()
- 	# switch to ondemand
- 	__switch_governor_for_cpu $1 "ondemand"
- 
--	for i in `seq 1 5000`
--	do
--		reboot_cpu $1
--	done &
--
- 	local freqs=$(cat $filepath/scaling_available_frequencies)
- 	local oldfreq=$(cat $filepath/scaling_min_freq)
- 
-+	(
-+		local quit=0
-+		trap 'quit=1' SIGTERM
-+		while [ "$quit" -eq 0 ]; do
-+			reboot_cpu "$1"
-+		done
-+	) &
-+	HOTPLUG_PID=$!
-+
- 	for j in `seq 1 5000`
- 	do
- 		# Set all frequencies one-by-one
-@@ -117,14 +133,16 @@ hotplug_with_updates_cpu()
- 		done
- 	done
- 
-+	hotplug_cleanup
-+
- 	# restore old freq
- 	echo $oldfreq > $filepath/scaling_min_freq
- }
- 
- hotplug_with_updates()
- {
-+	trap 'hotplug_cleanup' EXIT
- 	save_all_governors
- 	for_each_non_boot_cpu hotplug_with_updates_cpu
--	wait
- 	restore_all_governors
- }
 -- 
-2.34.1
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
