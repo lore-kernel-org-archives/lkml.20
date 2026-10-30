@@ -1,54 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793372207;
-	b=seIyCfe4a3MXej8tuC5SB3y5jOvaX+Z6xcjzzQf6/Bz4nZ2ftAHA7WHUIzrpKrv//NmZ
-	 OAPNGGFxKbULhvCNUf9zfZrV0On0sRMzoO95UwKlEsbVTnY4BsfB0Qb0WXx2fFbJ+HTDT
-	 ge0TEPKxoaz8o9OryKTNo497IuDsh/am1fQ0sqYke8rxW2X/hwNAGQr6urMEre8N+MDpc
-	 aQLDoCvzdE1YgDi+udKyYKn3XJ8EIUUyACJ0Je1jdgAvn0p93Ya8t6aRzzxELe0jjRHKh
-	 wxFEIleG0rYe0gAqzh/oVCi1JI59krAsY4K3zyOOLY9HmnUB8ZBwCovFj6/sdYAWOQQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793372207;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=+YF+v1dNguT0ji48f97fFUgP//UB342uvDZm32hXdz4=;
-	b=c4RRntDQ2cCn9caOSq7bJhwsWFGpLdMjLr52HUe2YGg8BvXFaCL6h9AyHFff4WuVp5xf
-	 CT8Yqnawm27iZP8rGfxDWavgwpjREXND88KLnQOK2o4X1jVpS6+5bP5yVwKELMRkR0G3C
-	 aoMY6pFAtFlDuN0D1vGj9t3+jZaiso3yOOy3awaPb0A4yHp36XXpTld9R5ydFZBIbH+HG
-	 5i2naWOLiCUJRDAPqL28PXAtTevKcZr5MdCET6kNIvyGJ4W5Tl//2WwGO/tfK+Szn5KrN
-	 AtCjq324XTJfWO0jeBKhvT1tAPxQvfZLB0PNUx+pCk06ySQ1WegmhwainXspGS7iRmA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mY/Zaw59";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.22
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793372219;
+	b=T4r675ocL+JstHkDmL80kz8odCmwzx7uGZufXrkuQYmIw/dEYsiwZ0RTV4WH41W4BlvI
+	 mqil4+L3zDns6WHtc8amhe/sXEiwHDAwE7Vheio+xRl/23ZWUNC0SC79RG7iUqK4Qr4Q0
+	 62w2ANzvhXk9bop+9Fgdk0wy2rMxjjo++QInrDFwQTfabDs74UwUkgcGBg69HAIErYFl2
+	 G646OrNQxsk0uZXxigxMSa+LBByraoOPg6GXdAQCzLOnObd8fYV8NbVMXkiAdPVMpc+yP
+	 e6xD5hwjwqmUtPJGpoRGnjCkEXL6NUMnpC5rR+N5/ZM1pIx2cGkPWL7t40rm0YCHvAg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793372219;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=4GiA4AvP6nLFyzEPwyp6Cif2UUoEWQ4mZJz8ZgDL7Gs=;
+	b=Yb6W9xZ4xxxF3Q0CCGvcCS66muGM8+38SE2opsvOMi/JgTPrZaotAQ9tDA/XtXBqqn3O
+	 TtkiEn0JF1oh5+hPGw5wH0dSBQOqrwqe5llqz8/QCE+wRxgrik5Y7pybO/+Q09OW3TEAV
+	 eROnwZxmQwLiRL2V7gwfh22xd95pKPjcvKS8ozuMtEOc/nzTRof9qvn2KbEwyXg8DQ6q2
+	 e4PfvXl0mBx4X6TiqCLsAmtUxNY84hNI79ktJOc/lLP33fJ47uckst//gy5I3SVW6ZOJy
+	 vNqCTonPaV9+CZ5ngg2DPM5ORwQMpKM1GVh7GcbnKpJQAMieSEnB4Ipcs2195EJbGYQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=MoLOTZrj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.22
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013022.outbound.protection.outlook.com [40.107.159.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED47606A31A;
-	Fri, 30 Oct 2026 14:56:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36DE8606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:56:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36DE8606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mY/Zaw59
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69AE71F000C1;
-	Fri, 30 Oct 2026 14:56:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793372206;
-	bh=+YF+v1dNguT0ji48f97fFUgP//UB342uvDZm32hXdz4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=mY/Zaw59ABpCATRKfpNaVWpWjx+PYvx0uoFKpoRf7tuGJqg9V8mNjQzssL0Y7Aslr
-	 /7MsKJmiSxhlESmHp9NhXyokp+17Kj3s3yrTqIHdCiW5fl9mu4tWJJzybcdysO85PH
-	 u5KruxsyqXc6ictftQwlcIJK5N4YnSrsV7lW4NcqPZllS9xg+Uy0kxR4MW/5P88XlS
-	 /aiu44/7cPIr5SWJwsza4bgN3KIMfGicR5/gOYP4u8Dki0Ks7Hndqb7NvaKGShRDiD
-	 Y0Ciu2OqIJzqifHoKBh5/6UeJ7/APHO74TMZ/wuIPijLkDypXBDN9IkzyrxatrCMEJ
-	 PAZN3mp+OZp/Q==
-From: Christian Brauner <brauner@kernel.org>
-To: viro@zeniv.linux.org.uk, Daehyeon Ko <4ncienth@gmail.com>
-Cc: linux-fsdevel@vger.kernel.org, jack@suse.cz, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261018051708.2422394-1-4ncienth@gmail.com>
-References: <20261018051708.2422394-1-4ncienth@gmail.com>
-Subject: Re: [PATCH] splice: avoid stale f_pos writeback on error
-Message-Id: <20261030-bosheit-einmieten-abkoppeln-f815d1179ab7@brauner>
-Date: Fri, 30 Oct 2026 15:56:43 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=MoLOTZrj
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WLO3kIwZIL9BI+lCRr8wHoRQIqwx+uML6zYpMiE4Mj+ZrqFv7feNjfBbt6NTB7zoxV7lR2YuO8nDvrMOkhfyWNNxWpljlXA5HVAvmCT9marKiRxX1asP0HFB/gVgHdoiuokECzcKeuGEXOZ/phDgNol44M5TDnOy6xPLOsu2EDG+e4Acf/lQx8q9jdx/TKnzHtMcSTnPEJjBbDJpmnutUSRr/dKhtABTFJsGQZg7YW2ONP7a4MFlhytrcRjkydWq3V34wXUlHehu4rep+CQ6K4/a4jwCxghT9hAFHDkUGRKChUIMmCTMgSvrX8XN+f0x3Tfjpp26bCXIF63fZVwvFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4GiA4AvP6nLFyzEPwyp6Cif2UUoEWQ4mZJz8ZgDL7Gs=;
+ b=WwWZ81Nd243Mg6uiH3uF+GgO0+lLGvHxDcAbE8GqopFnYVjdv80Bj5bxqKIY3R2iwdnBq2d3PPLW0S/OF/nCEj03zybtok10KeFqVLo7U4va7Wo5IzoV/EZnO/arHtQiVhvU5anhYK8t8VHyVpOwBSjxEL9USfuTOZxAwuckLnmzCfJftcpG3Nv9hOBoi7rG+xEA+WSAzYgJ4hP7dpp64QuH68zNVT3tiYymp+D7wxzFiDVEO7tqsDdCtEWqDF7DgCiK2sQGIAdfufGX5Gb8eWzWzblv4WYJTedIxFEMRdM6ZmfEYwOx1EepaH9zQLimMNM72rplxjE0jO2JTsv6Lw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4GiA4AvP6nLFyzEPwyp6Cif2UUoEWQ4mZJz8ZgDL7Gs=;
+ b=MoLOTZrjZMvf37MKoRNlKVUNG21IiX25XWKAkyXs+0DaRkoS3DvWYsu6p83aev6Gg3ZgTeo66epNSaOprt6+J5B/B+PI8lO9COsfUILZzru3gYuhfKbupdN8Sn78TWoZNwLreRoLmaYLujclvfg5ngOh2DHu3vBtffCFgYNgdg/9Q98axhYYlmPuCeOCUI+Nj7k5DmYqzamrucFdKNQyGZpATfjzIhZdapDaMzJZX4h20S4HbXK+irP+koqgHxjq5FaNmadyMxJl1T1iEaMaVzJ6eB75CkM77AjI9aZtA+d5WeiwCawl5shvEKTHZj/tUNInj7wIrPIFeXSgf0Xv1w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
+ (2603:10a6:20b:75e::21) by VI2PR04MB10224.eurprd04.prod.outlook.com
+ (2603:10a6:800:228::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 14:56:55 +0000
+Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
+ ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
+ ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 14:56:55 +0000
+Date: Fri, 30 Oct 2026 09:56:46 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Samarth Narang <samarth.colleges@gmail.com>
+Cc: Han Xu <han.xu@nxp.com>, Miquel Raynal <miquel.raynal@bootlin.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Richard Weinberger <richard@nod.at>, imx@lists.linux.dev,
+	linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mtd: rawnand: gpmi: terminate the DMA chain on
+ completion timeout
+Message-ID: <auSwLrB2ewr2j-c2@SMW015318>
+References: <20261030143945.2923554-1-samarth.colleges@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030143945.2923554-1-samarth.colleges@gmail.com>
+X-ClientProxiedBy: DS7PR03CA0344.namprd03.prod.outlook.com
+ (2603:10b6:8:55::28) To AMBPR04MB12445.eurprd04.prod.outlook.com
+ (2603:10a6:20b:75e::21)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,41 +98,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-ce4c1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|VI2PR04MB10224:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3dd638c4-d5d6-4f82-241a-08df36960a1a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|376014|1800799024|366016|6133799003|18002099003|22082099003|10067099003|56012099006|11063799006|261026140227099003|261021121427099003|261028144727099003|261022105027099003|261026121527099003|261022075727099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	Cwb5jiPmAcmxYBNK2Ssv9EH/+tNqjbvUNFEf4w9Uh6NcgoNA5O51SsDaMRc2WaBGA0dddD5FJvfQ+tp67rWnwPm6HFZYP9u95dyOxUFCo9RBiC3R+F6QP3DaZPJJR+TZExPEi01a0AX6F9w6OT0WHoVddCrvpikdBtr6Wji/TqScovry99LKpMbwIDflQkJwIUqCV9wTbvjb7EQ/o3VgJFznia5lsl28EX1srXwhRgmoQ+I0ywTZFmmB45qGJ0h+lNdQlzGxEZH5IUPe63T5Fa2av4DXV6WFiYgaCP24UAcxQVn20Ea/ZxPton6O1TeghSEDLtbtaUHMH6gaNHUayNtXGpHyOZyAs/IcKYx6JRiY31x2cjLIhkfql8y+Us/Koea+M+JouvsWkKE1hzh9PNVk1GPlRfwWLu2wmI7kAqttZHvvRtyd+GJyiIPFjvtaY7GJKgRgA020uTzHrnIyOfPd5RfdQaJm8taUBYWp99sJXMpL8E/eMUz/pLJqLCDsANV2VdHGcBqr4aRyYd+Wp93l2fX9mOTk7udHg5w3QCer9MZJmcg5L72TokAo1Da8/y1E8Ng1frVjnwTCvMnephGs9FZgknB30aGmwwlZhFiNaWi8nUncfqnAUz2JV3GiXs2268cIBLy8sEk03ycwfqye6nX1MD+0iZmp+Co2lww=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006)(261026140227099003)(261021121427099003)(261028144727099003)(261022105027099003)(261026121527099003)(261022075727099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?HY8PNDbOaIm5DTJTZnR0HgcZrt1j5bChzyttpFVViA9s8We6fUEXyELGyrpn?=
+ =?us-ascii?Q?NTdeEi4CV2EwiIRXiZR3X3qVUg7eBXf6IIcGhdiqVAa07uyjgUTgHYAo607m?=
+ =?us-ascii?Q?rtaQ+WY5Q7EplC+N7rUFCyaO3OHIm/9EYnRGlg2vPvz7qH3hP0zQ+pPjzoRT?=
+ =?us-ascii?Q?fPf+vdXv9174FHhHxDjpaQC0u7vg0FK45LL2XnfSKsRjS6u7opGXN8dRWA+R?=
+ =?us-ascii?Q?sbg6d6cnrID/+0pQLaqrW9tmHl0W27Hj4G5YmwXOQ91c08gMEQVBkfqZPEHv?=
+ =?us-ascii?Q?4WWxKFelBy0T3NW24szueKMEfn/RRKrvD3eiIac+EmhSuMMzkjlaU0nJ7E8T?=
+ =?us-ascii?Q?EfM3U8n+CPb9eQuYlPf0q+3oLAglUTokNa4hfGo0fz8T3oBPH3xJMdign9R3?=
+ =?us-ascii?Q?X6JVhBADVe+YWpGnNyy7hbaLvboa1BZxvYPZRRExo7rG0GaFazMc+dtKgkom?=
+ =?us-ascii?Q?FOn3gcAq7FVmKTOpC6pC5jA6kGMxBXL/fBl76z17V6hwfCEzirdxqBRbpT56?=
+ =?us-ascii?Q?dKEjqV64h179ZX2HaZideqIbFHTOOH3xK/rBUk0X0M/4MICfU0TZfUCto2DQ?=
+ =?us-ascii?Q?L5WK4UG1a6u2bM02ptwLDFmTqE2CA/mpIW3vXJnmi3W+64QW2Ed6Y635w8Ni?=
+ =?us-ascii?Q?iqPixIoDmtUCBiDwUto/mwlDT30eVtNnGpxvhAWk5VwjbAb+Rcj++9YN8lHw?=
+ =?us-ascii?Q?DV3VBM7dSSPfa8pWD7FwU4UkNwgtOoZbvYYsS7JCZHnUPZjLi6mkZa2EEbL0?=
+ =?us-ascii?Q?nXVrYJZlSI/HcwGil5b3myKENVg4yj188qo+9PWhR3I76ylkiAITL/WguxYe?=
+ =?us-ascii?Q?+4xb5XihwqBvPKk2AOpuRhDIOrGvKyaGUapdFUMdeucnbQluD4fLlNOlLBMI?=
+ =?us-ascii?Q?8ubGkTpGNG5Gby7Hz51Rfs9OzC/L/Gy25MvdIgjZx2sti4W5vYhsYT7H+uoI?=
+ =?us-ascii?Q?wUIJQMMi90nzLQgJBU9O4aOwXVuB+fAyxH+bx1peTVnSS0KHs/QXNHypvG0E?=
+ =?us-ascii?Q?jAnykjuTAQAEFwVVPyYojOopDtWBUQevMfPAZwS7g8egvrCqQXzIB85b+phe?=
+ =?us-ascii?Q?BYuyP14kNYy55OqDuZVWhtroy1vFs7kEySiXIObeOjhvPiZ3XBe/aPSCfAhN?=
+ =?us-ascii?Q?bkLlUUzm0FEjdC4HEoYZxu8dipSRItvQmXVYMvpRZ/TUWXiMOY1+0P3MK2ol?=
+ =?us-ascii?Q?3u4YZOzQ3pGiybCZ354OwFsLcFeKXq/H2CiKXLFDEjPXg/aNZ+Fb2it2AJFE?=
+ =?us-ascii?Q?e4c62cWkNd/1mPBV6gXY56pP0yeX7NiWvzAnxkmz5QbKjRvmrsftR21haDnH?=
+ =?us-ascii?Q?BoIh4B03D+7QYF/y0VOMhL+kxGtohmWf3+NO5TrXFNgSqKrLauc0rO0926EV?=
+ =?us-ascii?Q?MljlT/8eg4bD8dr0rUTuNAuNRUD1i9fWcr001YQZXckwhYdUgiLp1rNs046C?=
+ =?us-ascii?Q?iMTGEKUrLyyDxL1RC2y8QQMN1h53Z/IvwYsX+NMmErsnquviJAt6QNyOwZaY?=
+ =?us-ascii?Q?rU3Wi269IB3O60yVZNVDK/CMBSW6jZ9ZDbfBBOig07TPiWxjw+Q3c9wbQviP?=
+ =?us-ascii?Q?kD+7i+TOV+Obpm0F5JzWqrxzZFHYrR33HMRJT2Dj6r6Uz5dCez5Kk7NrDWse?=
+ =?us-ascii?Q?egQ4ZbHV87Ew2w67K8LSU/aESNixOnhi+DS9gFgFzwP4v7wvn2/ZMiEAG6qM?=
+ =?us-ascii?Q?OWxhuvEKyu9w7SlUP+qA8NN/PyMT1jeDMm+9Phq4dvgnjeFl/oTE6wFfbhwa?=
+ =?us-ascii?Q?OyNdO5U2tHFiJvNSOJILYKGYICv/sR3Bjpe1pAUpZODfvoKYqtfX?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3dd638c4-d5d6-4f82-241a-08df36960a1a
+X-MS-Exchange-CrossTenant-AuthSource: AMBPR04MB12445.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 14:56:55.4181
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4+gBRPVJx06nxQQ1H4MDnEGpgfBhYuQCGqu4KtYxeNNOxdlURfVCBquogy3/KegShP7Bw0yzL7YTTF31flJZcwCkSRxbKuO5D3kpKI8acLGV7PgbLOrMT26u3Nq4YeAx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10224
 
-On Sun, 18 Oct 2026 14:17:08 +0900, Daehyeon Ko wrote:
-> do_splice() snapshots an implicit file position before calling the splice
-> helper. Since splice does not take f_pos_lock, another operation on the
-> same open file description can update f_pos while the helper is blocked.
-> If the helper then fails, the unconditional writeback restores the stale
-> snapshot.
-> 
-> For a directory without ->splice_read, a file-to-pipe splice fails with
-> -EINVAL. A concurrent directory mutation and getdents() call can advance
-> f_pos and refresh the filesystem's revalidation cookie before that failure
-> restores only the old position. The next ext2 readdir can then trust an
-> offset inside a directory entry and copy data from the adjacent page to
-> userspace.
-> 
-> [...]
+On Fri, Oct 30, 2026 at 02:39:45PM +0000, Samarth Narang wrote:
+> [You don't often get email from samarth.colleges@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> When DMA completion times out in gpmi_nfc_exec_op(), the driver unmaps
+> the operation's buffers and returns -ETIMEDOUT without stopping the APBH
+> DMA channel. Since mxs-dma leaves the channel in DMA_IN_PROGRESS, the
+> pending descriptor chain may resume after the timeout, while a
+> subsequent operation can append new descriptors to the stale chain and
+> cause the old DATA_IN transfer to execute again against an unmapped
+> buffer.
+>
+> This can result in DMA writes to memory that has already been released,
+> including buffers freed after ONFI parameter page detection in
+> nand_onfi_detect().
+>
+> Terminate the channel with dmaengine_terminate_sync() before unmapping
+> so that outstanding transfers are stopped and subsequent operations
+> begin with a fresh descriptor chain.
+>
+> Fixes: ef347c0cfd61 ("mtd: rawnand: gpmi: Implement exec_op")
+> Assisted-by: LLM
+> Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+> ---
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
-
-[1/1] splice: avoid stale f_pos writeback on error
-      https://git.kernel.org/vfs/vfs/c/79b496ebe382
-
+> This issue was identified by a research static analyzer for DMA
+> lifecycle ordering and has not been validated on hardware.
+> Compile-tested only.
+>
+>  drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c |    2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
+> index 527165ccc..a8106de2c 100644
+> --- a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
+> +++ b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
+> @@ -2659,6 +2659,8 @@ static int gpmi_nfc_exec_op(struct nand_chip *chip,
+>         if (!to) {
+>                 dev_err(this->dev, "DMA timeout, last DMA\n");
+>                 gpmi_dump_info(this);
+> +               /* Retire the APBH chain before its buffers are unmapped. */
+> +               dmaengine_terminate_sync(get_dma_chan(this));
+>                 ret = -ETIMEDOUT;
+>                 goto unmap;
+>         }
+>
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+>
