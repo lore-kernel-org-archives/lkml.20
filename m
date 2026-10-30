@@ -1,106 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793389710;
-	b=zjg6YoucII5eWDqBtbtJC3lYiwmcejdudMzztlqeeTEg/kWg35L7nfa+1MNQEOfmlMeq
-	 zn23crYai28ZvSb3CjmuT7tSWHneyuNUcsxUyn459KTVJ7W82ePB8CToWLpng+BgWeKy/
-	 ibJy0fZ5ISiQBlxrUYtfaXk+yTJq1EYTWTINmFeD5HZVb5FoEIxNDQklkC3IYIXCl3n6J
-	 6SpMTKKUo6iVMUa0ZqM3ciooiyX/iXJZlUoBbZBOcymMB4jA1N7jFPDsUa/TDFJByBotX
-	 eRgUkXG1FyuGt72usFCQ4l1atGhgbQCEjzBHzZxvMD4s06B7gPXphyCA4mLDngopQlA==
+	t=1793389743;
+	b=AdR9xEm5G3P9yOL0Lk5U03bUn+e5BHOs/QAqpSkVE9y0rqEA3ykpsSOjBYma7i7bQWz5
+	 S3IMXbJT5p6AIVN9y1RKmtgkZOxGoqN5clg7DnKRAScicC5kxtj9e2xEi/w6kz93JIA0d
+	 qQtZfCh0Yl761jsvs4FCzAgOK+J0mB9HpNucLWVIqOob9Pn0bXSJKshUkSaRgrmwK9RhJ
+	 s5z8KyaYM+cmRqzxtwI2RhyeKjxAfgpB49Bx8ygszkfJERn9x9fn/ku7ZBJdrk4JA0hV5
+	 jEHl+4x26hahE5+8y3itomsWTBQJRpt7ufnGijtxhmCm3JcYrXjsbQwrC1FfObtFr4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793389710;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=5cAqrwEG4tJIMReOWfjqK8hyBrP8PRADznX2SjMD38Q=;
-	b=rC8/MUMWOYSLH4citx7ZNVMmb95ueOm/dk/rkac/PH06NpW/zW8QtrG7ZZZk7rRuOkuG
-	 eoZs46/wb7sosBDm6kv0y1xmZR8JWqxP5bCtz1shb8ZuFxYQVZGea08+xE6JCwnol3OST
-	 cAqlpaRTSqVgVfU+F4+rohDmLndSiQmzVz2y6uqmo3q96bpT5M3trlH6xRnx1XDxCeUpY
-	 ZkmYMRVAo3+BtGPmzRbv7pbp1EdICwgwrowk+C1A2MN4/8XCX3rhFX5c/dmP3fOw//Itg
-	 U+UVWsD0A6IDYqvJT1RkbyW8LWlKMdlnroK7atuf7MxJB0OmgimxCD6fFGM4y+je3cA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793389743;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=Z8g4xiibKWQuuJs7EMwmXcAQgq7/Z7zwBqVvlgwyNzc=;
+	b=fMFYYXEXaRQUI8WorHZdnoIaFLCBgHAs4AoFxF3DASfldSEAoxHOOOuM8A2rSq1GXJ4H
+	 hGNk4/lmZ4mgVOUCeX2Q12UeXLKO6xsYLa4fZ0rANYToJT4NPemKl1dS/b6rJ9H3ifR7W
+	 TmA0F495KbAWbvlqhnJEAjFnZo6WAQpOQjmnht6umyM8wqti6j274WqFYf15hK0e75jd+
+	 rFCE+U4nurIb97Y/+y7qUU65mOOC32+MvQZ4r/CRd4jq4G+BamyJG/GlvxbSvp/rPtnc7
+	 jluJguHJLf91sZtFVqgWT7vb7q+GxU5h54jq1rlbnNXyvpFDzv56H9zqwi1C3BE9OPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=fXjOzohu;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=yPk7oTaK;
+	arc=none smtp.remote-ip=35.89.44.33
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57710606A31A;
-	Fri, 30 Oct 2026 19:48:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57710606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5B7606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:49:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF5B7606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=fXjOzohu
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=yPk7oTaK
+Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
+	by cmsmtp with ESMTPS
+	id Mrpbx6KxXaC0UMsb0xDOf8; Fri, 30 Oct 2026 19:49:02 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Msb0xHtn2QfwNMsb0xpqap; Fri, 30 Oct 2026 19:49:02 +0000
+X-Authority-Analysis: v=2.4 cv=bfprUPPB c=1 sm=1 tr=0 ts=6ae4f4ae
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=OuZLqq7tAAAA:8
+ a=EUspDBNiAAAA:8 a=3OfnbWqpRXkE7MXKp-4A:9 a=CjuIK1q_8ugA:10
+ a=AKGiAy9iJ-JzxKVHQNES:22 a=KPbNTLLc3YvdawN95zVk:22
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=5cAqrwEG4tJIMReOWfjqK8hyBrP8PRADznX2SjMD38Q=; b=fXjOzohuKhVw0dSm7kurhSEjMx
-	6ncivLeUVzuEuljHndk6KFMsr0Gp5XJxpEaViT0PKxjF1DxJfKVZD6Q9Al06C0cKCR263e2//KE/9
-	BhqcqOXfNHTNAU8tqbvd360LrmpIB7/G6QybSUdbCUP+XIVqT+B4wc0s+jHx/u/oZmUGjxHOSgHuD
-	ij8KyKAVJ4xrVQoXVUEhC4MyuFwAz5abZibH9qw/n8SJv12+1cg+iQN2+0QVbJrsVhozc2r2JDydh
-	94x47YWl3uDla8PHV/FnwU3PocKKFJUVUdCMHBvxmzPrP1wVloEWX1Va5n3rsEpyB+qYG+JdCSjcj
-	2hxJXohQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xMsa2-0000000Abtz-11sU;
-	Fri, 30 Oct 2026 19:48:02 +0000
-Date: Fri, 30 Oct 2026 19:48:02 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
-	Hugh Dickins <hughd@google.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>, Jan Kara <jack@suse.cz>,
-	Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
-	Alistair Popple <apopple@nvidia.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
-	Minchan Kim <minchan@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Chris Li <chrisl@kernel.org>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Gregory Price <gourry@gourry.net>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
-	linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 06/46] mm/filemap: read mapping->a_ops->free_folio under
- i_lock
-Message-ID: <auT0csDIJwvwfDqb@casper.infradead.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-6-6f74bec9a5bb@kernel.org>
- <auDG-5bYh2tSQem8@pedro-suse.lan>
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=Z8g4xiibKWQuuJs7EMwmXcAQgq7/Z7zwBqVvlgwyNzc=; b=yPk7oTaK9jPnNUqNMPC6twzpsT
+	nytbZs7aIA1qfH8e9yM5XmhTrSl/cYbIZ9RliN0XK6PH+8fH6iMHI1gCwt/eOdzUc49xyR7pm2jYG
+	R9wLgSVekO9zz7XW1C3SjWJ2jdanQoPmO4H3xTNiPdbDJTuDCzQpc8aBllvgvys8U4au70SjQAcVr
+	9kcENVpW6s4Z+c++LnSDgqh02SbHMxe8Bio+xFCpQVb4Mg/zNG/QunFRcwYu/SoYh8Aehzm3qPknX
+	EZ4s/wFn4ZXU94FbWoY7yOx8zm4QD7ylqGwONkzT2WrVTWpzZjoPkVFtX5kt1BNNAWsdLe/GcdbYI
+	A7exSNtw==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:44054 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xMsat-00000003tHT-0RvI;
+	Sat, 31 Oct 2026 01:18:55 +0530
+Date: Fri, 30 Oct 2026 12:48:52 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Rajendra Nayak <quic_rjendra@quicinc.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Krishna Manikandan <quic_mkrishn@quicinc.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+	linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org
+Subject: Re: [PATCH v7 03/11] dt-bindings: watchdog: qcom-wdt: Document
+ MSM8952 watchdog
+Message-ID: <7ba73247-d832-423b-8020-21cc135cd02b@roeck-us.net>
+References: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
+ <20261030-msm8952-initial-support-v7-3-ad748ace375d@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,35 +118,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <auDG-5bYh2tSQem8@pedro-suse.lan>
+In-Reply-To: <20261030-msm8952-initial-support-v7-3-ad748ace375d@mainlining.org>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xMsat-00000003tHT-0RvI
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:44054
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 8
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfEss1AN32Rp8kmYI164SX5+pguEkMytbL3RcjcS1bWJd9FD/5AUZwn++JOWB6w2uroI5YhOoKE8uMndvhU4S3V9RNvv+wEtk7iSFJ2RtQtblbcEgYoSE
+ XumlqLoxg4JnqmSgEGs2MjArjNFBZafSxcs0fMxOh94EdKv+GMfXAY3bqjrn7diAqP+vNCv56ObH4QknDKa6K/xKSme8jfwQe+NY1s1MRfCOwkOm1F/IT9GU
 
-On Tue, Oct 27, 2026 at 03:47:35PM +0000, Pedro Falcato wrote:
-> On Tue, Oct 27, 2026 at 12:17:26AM +0100, David Hildenbrand (Arm) wrote:
-> > From: Josef Bacik <josef@toxicpanda.com>
-> > 
-> > memory_failure() -> ... -> filemap_remove_folio() can read mapping->a_ops
-> > after the inode has been freed. Once the folio is deleted from the
-> > pagecache it no longer pins the mapping, so after i_lock is dropped
-> > e.g., a concurrent final iput() can evict and free the inode before
-> > filemap_free_folio() looks up mapping->a_ops->free_folio.
+On Fri, Oct 30, 2026 at 12:02:34AM +0300, Muzaffer Kadir wrote:
+> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 > 
-> Ok, but after iput() then nothing also pins the filesystem, and thus the
-> module. So we can be calling into total garbage. So what gives?
+> Document the watchdog found on MSM8952.
 > 
-> You can't just take the pointer, you need to make sure the filesystem
-> is also still alive.
+> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-I hate the existance of ->free_folio().  It'd be lovely to get rid of
-it, but I think that's outside the scope of this patch series.
+Applied.
 
-This patch narrows down the race (and removing modules is a CONFIG
-option anywaysoit actually fixes it for some users).  I think this
-patch is a significant enough improvement that it's worth applying and
-perhaps we can work on removing ->free_folio in the near future?  There
-are only four implementations of it today:
-
-fs/nfs/dir.c:   .free_folio = nfs_readdir_clear_array,
-fs/orangefs/inode.c:    .free_folio = orangefs_free_folio,
-mm/secretmem.c: .free_folio     = secretmem_free_folio,
-virt/kvm/guest_memfd.c: .free_folio = kvm_gmem_free_folio,
-
+Thanks,
+Guenter
