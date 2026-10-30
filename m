@@ -1,66 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793384552;
-	b=bQUsh9+wr5tenJJkqjNpvgnemEYYq4EoIlk2Gc548vT6a80cfw6kmC2v/nJSSpux/SyS
-	 SIwaqcgqUEecMBTYdsJB8qUoIz6ANefPk9trPO1CBUvwuUcUhAaYSt8rz2a0vnMHPvMuR
-	 NwpQ1Gf/R8NE4IzHQEpMmX6YyPq+esMoX71An6uAdWq3RKPV7lO+2tNa5rniYfVC0NZJ9
-	 Uow8yXZesvL8vRE+/hSwRJkA/5W8IMiaomzNH3x9I+l3tKvoGtrk6Y+b/H1DoSGg5QlC7
-	 0xWbrb6XZ+knL8EbqlviGcOobrQQEb2r3ofw3RQGzvJDGzaKXwTg8izVugOl1h5r00g==
+	t=1793384585;
+	b=fdhW3a5AyeTBCYNav2Z8W90bXEuHBLaUrNz0jtN9sB0ArmupB66B9hAWlL6CrsHSy+2E
+	 B/nacfX/0g+vYZ6PoPyxxSxxEPcDHzquzib++aJs1wGhI5u//c7K8fEyYz+inp/WoHfqe
+	 Bjz7iD7xM9N5zdXfN5TteorF7FI9d6iU3JKz+6Fd62gYeoREXd0rDoBFNBrpL0NJg/54e
+	 Z5rJbmkEH+EEmnPszFoOovxdov4QQHuXyg5Ln6pP5klXvlfRraZrtCcKlKZggRzfzRPEt
+	 Oe3Gtd8OHwAJhRFfO8MA/a7kmS94nLoJe5YPZ8PiLjBAlN6uFVQvmv+nrEdg+uuVcZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793384552;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=IhyvZUUu/9Pqj0G5T+OOMZeqorFoP0fF5JBfpfONpxQ=;
-	b=Z25oS28Q2gnh6Ctw5B3TlxE3wmkdKuo6vpG8MEkLZ5EPPqUUjIHuDO7OBgSsk1hwjaL1
-	 P9gJTBU6+LLPUqg6ZbjwoFmonPmrQvJtzCTaTypMnr7t0c6mJJYl6cbPT0g0a8fH5609i
-	 9TOQQW6GmrZKVpIqxHDsRp3ytcjdoIVCyWv9W8ph/tfw5y26A51lo+yUgn5u9bYBUpt2o
-	 rdRQW9HiNITMQGFiBwyuQguM3YoMpIOs6Er0kOvFBtG/eKKYEvpt3w67RcFckUPxPkT2a
-	 7eUMs3bGZWsyzS4IhAyAaA/RFh3dA0mETlZEF9bWEQw8HQFmG6T2KQdECXYAIi0AyoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793384585;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=ZuCTTJahYnNgXBnjJFa/P9r47QdaMC3kb1A3Ip9nQnk=;
+	b=d/xSWBttuAQHe/zu6PkQ8KKYQyPXwZ2n7fglfoyMpo75MBDprMoyO27kV3Wiuuk/hZ/f
+	 mk4AqND03LXDsyCgQYT8+zxb6zl1lq+HmE+c/qXJyR0u/WH+OrbRyVhY33ZdolnjjTh+J
+	 uIvBijVwqB3NjSKg2zyn+LX7Dtl6pyjtSbMm+2dRURzGuJ5RnUPcVm+jw/6mPKLqNDjk5
+	 17BPBjZMzH3e5vBmnJDDy30ZcyMo0gtCgleFKCuqDBwqbMLupwQdTUG7rvVDhDO2+4Yw1
+	 1gkj/OyP5U8gIRaeUuPsDc3NTl0oiRRQLtROZhVkpShY4zQGUjKOTuYjGbx0XECue4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RN5Sm/kc";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WFeyBdSS;
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E8F606A31C;
-	Fri, 30 Oct 2026 18:22:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15553606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:23:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15553606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RN5Sm/kc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DFE21F000C1;
-	Fri, 30 Oct 2026 18:22:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793384551;
-	bh=IhyvZUUu/9Pqj0G5T+OOMZeqorFoP0fF5JBfpfONpxQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RN5Sm/kckP5b5QiYILmF/NuxP5huXk/5np5PefaFjluRtOKBZy7ToFgK6NnazBe6z
-	 kT+qDljrYb9ubutfP724x0fmPTeAkznBIhtNYeZVwHe+WGjGDkwawPQvO72BsPDbeM
-	 28Ui6Juc196u/T0DzIGq78nj58bHIsWS8BAZqUk8oxZ0QSCMMPlM2R8bbE+8G+XfB6
-	 w9pAICRPA07/M5048JrxtQdjbYL79wAcYQNk1x8PlNf7XWWWBGuPIs8oyLHEUJvkMI
-	 HY+rLPmLlI4Ilsrl7ApBFgBmAgLmirQWkzk+/iH3+uAl4xJxwvz8RTDnW6ocPa8hKz
-	 2SwgMNeXKUjIw==
-Date: Fri, 30 Oct 2026 13:22:27 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	linux-phy@lists.infradead.org,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Scott Branden <sbranden@broadcom.com>, linux-kernel@vger.kernel.org,
-	Ray Jui <rjui@broadcom.com>, linux-arm-kernel@lists.infradead.org,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	linux-usb@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [PATCH 6/9] dt-bindings: usb: generic-ehci: Add the NSP
- compatible
-Message-ID: <179338454691.1217805.11713868240616162011.robh@kernel.org>
-References: <20261021172819.668120-1-florian.fainelli@broadcom.com>
- <20261021172819.668120-7-florian.fainelli@broadcom.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WFeyBdSS
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ae7faf4ff7so1433062a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:23:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793384584; x=1793989384; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZuCTTJahYnNgXBnjJFa/P9r47QdaMC3kb1A3Ip9nQnk=;
+        b=WFeyBdSS4AnKpqCBN25WUsGg3QoMITt/+KAANL75ZYyHsdllbu3798KDB/id0sDalA
+         13IwC+gNFLjM5IkgfuD/ErD7n0MUTIjAArggtWf8mQSz9V6SWy7dQIX2NG236jL7KMQH
+         narDBsQkbDNVd6k4qGX7mXW8Kqz4NK0WwKQMUVtyuBBwgTAN7YNShVqINkTuPhviDBla
+         ZwmjmMBJChdvKe4IbjghOUqDkR3ydUNvN/PdHkHvhCtmVncr6ZpP7UCJ3cWIYC2f6wQ7
+         ja/7G5/sOMrcYRCTI0zj/7HMKpyy4O1Je3+y0uarOokC8dwdFwMOZKGcYXRrnh4O1c/1
+         46MQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793384584; x=1793989384;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZuCTTJahYnNgXBnjJFa/P9r47QdaMC3kb1A3Ip9nQnk=;
+        b=UwymOPvcyfKIYcNDhB/r2v3ryEPSYNRBP45lvAfA7L0wy5skZfrl6Gs53A8aaU7f6B
+         vEX91dGzw+Js7B8iQcEZ4ITb72KUPB7kdmVUjLJnc1Mk1moezyUg3FSX543hHdhKpyud
+         0OgFC9pME9JCakKDL1Cin/6SE/8kMxPRXlvj5QLZgTMH4vxUqzWAR93i78uGZhWDEd2N
+         pe8+U0sq6hxz1JUWlGZCISYBpnh8Bb4FPBYIhbH5zBM3E4fG4cJP/RvlZWTBBpix1650
+         wYbuuqOH0wetH7L8i7CYC5u7NYoPX/LBdi3whp0MCbHhpBVmPM2sjPig1iVqM1G5Dscy
+         IcwA==
+X-Forwarded-Encrypted: i=1; AKwUvBwfYkhuSwfkzvQZGA+xHuCE2Y21MJstJ5CjFhxhDj/cKnEmc3ZZ7joSOE/mGE7GugzuI5Z5mBawCKyq/Ec=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIcOcsAYIgBdeslSOk2hL+nkx5R3z4H4ytUvgmRscsiAgKjBdN0
+	E+BqAEROXFkc/5nTOTUfjBA1nGK5JXJaccTdZXwRnPsiG497wuDW5rzeuGVcOxepaqxfTd5eevy
+	iyM/3hA==
+X-Received: from pjbpj10.prod.google.com ([2002:a17:90b:4f4a:b0:3ad:6c5f:feb0])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:e70c:b0:3ab:2737:3393
+ with SMTP id 98e67ed59e1d1-3ae89835d94mr2612585a91.40.1793384584151; Fri, 30
+ Oct 2026 11:23:04 -0700 (PDT)
+Date: Fri, 30 Oct 2026 11:23:03 -0700
+In-Reply-To: <20261030032937.2813-2-ma.mandourr@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,22 +77,187 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021172819.668120-7-florian.fainelli@broadcom.com>
+Mime-Version: 1.0
+References: <20261030032937.2813-1-ma.mandourr@gmail.com> <20261030032937.2813-2-ma.mandourr@gmail.com>
+Message-ID: <auTgh5uP5tpL8BlP@google.com>
+Subject: Re: [PATCH v2 1/2] KVM: nVMX: Don't let L2's LMSW modify CR0 bits
+ owned by L1
+From: Sean Christopherson <seanjc@google.com>
+To: Mahmoud Abumandour <ma.mandourr@gmail.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-
-On Wed, 21 Oct 2026 10:28:15 -0700, Florian Fainelli wrote:
-> Describe the EHCI controller in Broadcom Northstar Plus SoCs with a
-> SoC-specific compatible. It needs the same FIFO threshold programming
-> as other iProc EHCI controllers, which generic-ehci alone cannot select.
+On Thu, Oct 29, 2026, Mahmoud Abumandour wrote:
+> When L2's LMSW exits to L0 but not to L1, emulate it through
+> handle_set_cr0(), as is done for MOV to CR0.  kvm_lmsw() ignores
+> vmcs12's CR0 guest/host mask, so L2 could change CR0 bits that L1 owns,
+> e.g. clear TS, and read their effective values instead of the read shadow.
 > 
-> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> Fixes: eeadf9e7558c ("KVM: nVMX: Handling of CR0 and CR4 modifying instructions")
+> Signed-off-by: Mahmoud Abumandour <ma.mandourr@gmail.com>
 > ---
->  Documentation/devicetree/bindings/usb/generic-ehci.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  arch/x86/kvm/vmx/vmx.c | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
 > 
+> diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+> index b341af4c60..3633496299 100644
+> --- a/arch/x86/kvm/vmx/vmx.c
+> +++ b/arch/x86/kvm/vmx/vmx.c
+> @@ -5748,6 +5748,21 @@ static int handle_cr(struct kvm_vcpu *vcpu)
+>  	case 3: /* lmsw */
+>  		val = (exit_qualification >> LMSW_SOURCE_DATA_SHIFT) & 0x0f;
+>  		trace_kvm_cr_write(0, (kvm_read_cr0_bits(vcpu, ~0xful) | val));
+> +		if (is_guest_mode(vcpu)) {
+> +			struct vmcs12 *vmcs12 = get_vmcs12(vcpu);
+> +			unsigned long mask = vmcs12->cr0_guest_host_mask;
+> +			unsigned long cr0;
+> +
+> +			/*
+> +			 * LMSW leaves the bits L1 owns unmodified, as does a MOV
+> +			 * to CR0 that writes their read shadow values.  Emulate
+> +			 * it as that MOV: L2's view of CR0 with LMSW's bits.
+> +			 */
+> +			cr0 = (kvm_read_cr0(vcpu) & ~mask) |
+> +			      (vmcs12->cr0_read_shadow & mask);
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+This is quite confusing.  This *looks* like it incorrectly handles CR0.PE for the
+case where PE=1 in guest_cr0 and the guest/host mask, but PE=0 in cr0_read_shadow.
+In that insane scenario, LMSW with PE=0 won't be intercepted by L1, but needs to
+preserve PE=1 in the "hardware" value while also keeping PE=0 in the read shadow.
 
+The above initially preseve CR0.PE=1, but then drops it from the effective @val
+passed to handle_set_cr0().  Which works in the end handle_set_cr0() preserves
+L1-owned bits using guest_cr0, but piecing that all together is confusing because
+at first (and second, and third...) glance, it's very easy to think that *this*
+ code is taking responsibility for enforcing the cr0_guest_host_mask, but the
+ownership is super weirdly split across this code and handle_set_cr0().
+
+I also don't like that this duplicates logic for kvm_lmsw() and handle_set_cr0().
+
+Unless I'm missing something, we can handle all of this in handle_set_cr0() simply
+by ensuring handle_set_cr0() (and handle_set_cr4() for completeness) preserve bits
+that are L1-owned in the read shadow.  handle_set_cr{0,4} currently squeak by
+without explicitly doing so, because straight writes via MOV CR will generate a
+nested VM-Exit to L1 if the incoming value toggles any of the shadowed bits.  I.e.
+it's only LMSW that can kinda sorta toggle bits in violation of the intercept
+controls.
+
+So, as a prep patch, this:
+
+diff --git arch/x86/kvm/vmx/vmx.c arch/x86/kvm/vmx/vmx.c
+index b341af4c6057..544b7840897c 100644
+--- arch/x86/kvm/vmx/vmx.c
++++ arch/x86/kvm/vmx/vmx.c
+@@ -5629,22 +5629,19 @@ static int handle_set_cr0(struct kvm_vcpu *vcpu, unsigned long val)
+ {
+        if (is_guest_mode(vcpu)) {
+                struct vmcs12 *vmcs12 = get_vmcs12(vcpu);
+-               unsigned long orig_val = val;
++               u64 mask = vmcs12->cr0_guest_host_mask;
+ 
+                /*
+-                * We get here when L2 changed cr0 in a way that did not change
+-                * any of L1's shadowed bits (see nested_vmx_exit_handled_cr),
+-                * but did change L0 shadowed bits. So we first calculate the
+-                * effective cr0 value that L1 would like to write into the
+-                * hardware. It consists of the L2-owned bits from the new
+-                * value combined with the L1-owned bits from L1's guest_cr0.
++                * L2 is writing a CR0 value that isn't modifying any of L1's
++                * shadowed bits (see nested_vmx_exit_handled_cr()), but *is*
++                * modifying L0 shadowed bits.  Set the "hardware" CR0 and the
++                * read shadow using the L2-owned bits from the new value,
++                * combined with the L1-owned bits.
+                 */
+-               val = (val & ~vmcs12->cr0_guest_host_mask) |
+-                       (vmcs12->guest_cr0 & vmcs12->cr0_guest_host_mask);
+-
+-               if (kvm_set_cr0(vcpu, val))
++               val &= ~mask;
++               if (kvm_set_cr0(vcpu, val | (vmcs12->guest_cr0 & mask)))
+                        return 1;
+-               vmcs_writel(CR0_READ_SHADOW, orig_val);
++               vmcs_writel(CR0_READ_SHADOW, val | (vmcs12->cr0_read_shadow & mask));
+                return 0;
+        } else {
+                return kvm_set_cr0(vcpu, val);
+@@ -5655,14 +5652,13 @@ static int handle_set_cr4(struct kvm_vcpu *vcpu, unsigned long val)
+ {
+        if (is_guest_mode(vcpu)) {
+                struct vmcs12 *vmcs12 = get_vmcs12(vcpu);
+-               unsigned long orig_val = val;
++               u64 mask = vmcs12->cr4_guest_host_mask;
+ 
+                /* analogously to handle_set_cr0 */
+-               val = (val & ~vmcs12->cr4_guest_host_mask) |
+-                       (vmcs12->guest_cr4 & vmcs12->cr4_guest_host_mask);
+-               if (kvm_set_cr4(vcpu, val))
++               val &= ~mask;
++               if (kvm_set_cr4(vcpu, val | (vmcs12->guest_cr4 & mask)))
+                        return 1;
+-               vmcs_writel(CR4_READ_SHADOW, orig_val);
++               vmcs_writel(CR4_READ_SHADOW, val | (vmcs12->cr4_read_shadow & mask));
+                return 0;
+        } else
+                return kvm_set_cr4(vcpu, val);
+
+
+and then the fix becomes:
+
+diff --git arch/x86/kvm/vmx/vmx.c arch/x86/kvm/vmx/vmx.c
+index 544b7840897c..2d5feeb8a059 100644
+--- arch/x86/kvm/vmx/vmx.c
++++ arch/x86/kvm/vmx/vmx.c
+@@ -5743,8 +5743,10 @@ static int handle_cr(struct kvm_vcpu *vcpu)
+                break;
+        case 3: /* lmsw */
+                val = (exit_qualification >> LMSW_SOURCE_DATA_SHIFT) & 0x0f;
+-               trace_kvm_cr_write(0, (kvm_read_cr0_bits(vcpu, ~0xful) | val));
+-               kvm_lmsw(vcpu, val);
++               val |= kvm_read_cr0_bits(vcpu, ~0x0eul);
++
++               trace_kvm_cr_write(cr, val);
++               (void)handle_set_cr0(vcpu, val);
+ 
+                return kvm_skip_emulated_instruction(vcpu);
+        default:
+
+> +			err = handle_set_cr0(vcpu, (cr0 & ~0x0eul) | val);
+> +			return kvm_complete_insn_gp(vcpu, err);
+
+This needs to (a) be a separate patch and (b) apply to L1 as well (though I'm not
+even sure if you/AI realize this is a bug fix).   Emulation of LMSW originally
+suppressed the return value, because outside of VMX operation, LMSW can't #GP on
+a bad value.  LMSW can't set reserved bits (for the CPU models KVM supports), and
+it can't toggle any bits that trigger additional checks, e.g. can't try to clear
+CR0.PG while in 64-bit mode.
+
+But with VMX, must-be-1 and must-be-0 bits become a thing, and so LMSW could #GP
+if it tried to set/clear a bit in violation of those masks.
+
+Ugh, never mind, screw this.  KVM doesn't support arbitrary MSR_IA32_VMX_CR0_FIXED1
+values, i.e. doesn't let userspace require that arbitrary bits always be '0', and
+instead relies on common CR0 reserved bit checks.  KVM (very, very stupidly) does
+allow userspace to expand the set of must-be-1 (MSR_IA32_VMX_CR0_FIXED0) bits), and
+so *in theory* LMSW could fault when clearing EM, MP, or TS.  Of course, no sane
+VMM sets those as must-be-1 bits.  And to make this a complete trainwreck, KVM
+doesn't update its own guest/host masks, i.e. it's own intercepts, to ensure it
+enforces the must-be-1 bits.
+
+E.g. if userspace made CR0.TS a must-be-1 bit, then the guest could violate that
+so long as it doesn't toggle any other bits that would trigger a VM-Exit.
+
+I see absolutely zero reason to try and fix KVM.  Letting userspace make CR0.TS
+a must-be-1 bit is beyond stupid.  KVM already requires CR0 and CR4 must-be-1
+masks to be a superset of KVM's "defaults", so userspace can only make things
+more restrictive.
+
+So, rather than synthesize #GPs, I think we should prevent nVMX MSRs from inducing
+#GPs in the first place, and then WARN.
+
+> +		}
+>  		kvm_lmsw(vcpu, val);
+>  
+>  		return kvm_skip_emulated_instruction(vcpu);
+> -- 
+> 2.25.1
+> 
