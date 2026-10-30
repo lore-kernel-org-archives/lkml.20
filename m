@@ -1,85 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.180.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793349629;
-	b=pxo9qE2sOVjDgg5AFxs8ZGxWQPS2SKD/dY2rGjug0IEMh5c7HhjKeIvV6G/k2WYe0VsT
-	 ykcCUwDzEWRm5FvSsqGL4hEdbBOcc3uNjB5KEdIrkv6JW6Acn2ZsJugfQmk+Zepkj4uH4
-	 xmdTh0UjXH0Zt9//GWBZJHnbQXaRuW1H7oLqQ3xRaXZCLZNXOZjmYvxYD3rCVfsNAgdD0
-	 /mLw+RKw1Sj5HonfU9l8e5EVi4pDx9dQE5eYpvxqmDg0n99/4sGMYbfwnNL45eQP6u8UQ
-	 23vj7RJQAO/o3IzPOGkES6F19hv6B1hqqYae0vH/1VQHTynZKWJh3jiHQLr/ts89Yyg==
+	t=1793349627;
+	b=mDNSomb2jLmBwNHxRpsyPf2qyhODWXHndaBPqA0uMFoK5Aljq7vSfi3Fuss+NL9Et+ev
+	 Tfpj9RIrnc87LMxb9kGlaE8seeu8eEhUVxdOMKh2o7p7HdTq/ECw72cIOVL4nnr22JxFH
+	 hOvSEvCF1edUcsYQTID7/baeV0OKz11SJAyqG6mFZ3SEMkYSSx3Kc+rgZzEX8rU/SBAGU
+	 hhp+ZABmfkDrNIWlh7UJlk2zyGJSRv0E4tKmGpZzXTtAP/S0hBL43/wuALS0v9Fjrwuv7
+	 WzDuwaNPY7QzzDtm8pNf2olarI8F2KfO6wQdL2bMfBFMfWXNd0b7s7TdwAiWxAVaZlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793349629;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-Originating-IP:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID;
-	bh=8oS54XVS99i+9N1HcwjATWp2jSqRRknqP/3EMXP6MwY=;
-	b=DEScfJcRLbfc0zYul93vT//rYKonYzoGNMPkN1nckYZ2AlJs9wPnCwSF8paw9b2qUmo4
-	 nmWqQlKzigaShENw2/XvD+00l7Dd5437fsPeTMmK/q5DyTscmzzz/KRT+RRXIu/aXm+XF
-	 b4yiJ1i248bEZ6qVTdqfKSas1yMQVjW0S27IPr7E1f7+uOZqxghzBlS0PNyq768P/1f6l
-	 GzNDlRrOg/le95AS4J1o+45UnzkKpi+thzUhaww5Cy5rQqKDSaR2AB73sa0/1RZg3NLIM
-	 u8fA9qzOGcHSwahE3HBPB7Y1fcahygdv7Zyf7GoYQ5McDsNuNPfnHlC5GwZLi8bsVQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793349627;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=p2lbErXysC5keIICd/9Oecm+satsW+gqAIlkh7mZJ8M=;
+	b=b7hF/7lpjRT1JF7de9x4T4DKrs8QtQCroOIOmVeeIVG+mP13escAedFYo1X5KcCvQKPa
+	 DvX896TxbDBp+PP56vaY/zfxEUIeWm9BtLWjxNJYyxNv3U4wJb4f1ROHzb8W288fT7KXl
+	 pwHQmKKC6Zp/1aXglmoNM6tFHkFjBEfnuH+cg5cJZX7vukduOs4V5OS6p9kv+YNO7kAFa
+	 bOyIUNhBO0Cudm24hIEozz9VxuGgYKAUcv/7BEYIDKChgwxbN5pgAhzj1FAO916z8tSbx
+	 ox3FCEmKaSN0GIY0c18HlTrVGRd/BtvReFtCp147wXdGYW9lCbqCWWGpxzYxQzonsJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=imgtec.com;
-	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=YVrbptK7;
-	arc=none smtp.remote-ip=185.132.180.163
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hwGefDb1;
+	arc=none smtp.remote-ip=74.125.228.6
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657CD606A32F
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:40:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 657CD606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7FA606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:40:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC7FA606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=YVrbptK7
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8G6Q7557406;
-	Fri, 30 Oct 2026 08:39:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=8
-	oS54XVS99i+9N1HcwjATWp2jSqRRknqP/3EMXP6MwY=; b=YVrbptK7nofPMOzp/
-	/lyID7ilR6HLomQwPxrj1ILh1AHo0DHZYiSryyClG1JTZ6LOY6r23KqWnyDma5It
-	TBKiyS8v8gjYt6PE52YnTssdGs//f2d4/qz2R8LKY8y/C7wmG60LeWeBgPIWyfFz
-	YP40Os4Dm7Kj63506Q3m42iWHGJaCCDua4uv6fMpA8zikc6GldMq8Lx8C/NTdUBb
-	vy5zxYFxFycc8nExe42B28lQ9KXnmo5zJKYjQaQaDWrAnYQGX2GDVa1E2BBjO28T
-	8Fz0YUvPPdJQQb5zi3eNBPRvSR93CMPOcrrPAp0IRxk1nsgTvxgowkcOzLIbRr3U
-	NcYxw==
-Received: from hhmail02.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hmcee0ctp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 08:39:49 +0000 (GMT)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.2.42) by
- HHMAIL02.hh.imgtec.org (10.100.10.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 30 Oct 2026 08:39:48 +0000
-From: Alessio Belle <alessio.belle@imgtec.com>
-To: Frank Binns <frank.binns@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Donald Robson <donald.robson@imgtec.com>,
-        Sarah Walker <sarah.walker@imgtec.com>,
-        Alessio Belle
-	<Alessio.Belle@imgtec.com>,
-        Matt Coster <opensource@mtcoster.net>,
-        "Michal
- Wilczynski" <m.wilczynski@samsung.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-        "kernel
- test robot" <lkp@intel.com>,
-        Luigi Santivetti <luigi.santivetti@imgtec.com>
-In-Reply-To: <20261029-fix_imagination-v4-1-689745dd52ef@samsung.com>
-References: <20261029-fix_imagination-v4-1-689745dd52ef@samsung.com>
-Subject: Re: [PATCH v4] drm/imagination: Align rogue_fwif_hwrtdata to 64
- bytes
-Message-ID: <179334958843.48356.5098117179149056889.b4-ty@b4>
-Date: Fri, 30 Oct 2026 08:39:48 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hwGefDb1
+Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cd8b58dd4c1so7861a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:40:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793349626; x=1793954426; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=p2lbErXysC5keIICd/9Oecm+satsW+gqAIlkh7mZJ8M=;
+        b=hwGefDb1SWctrOe6SQdKvltFiVhjCBvK4nzZjKCLo7KEWh0S1Zef9SO464ErUQOnLK
+         8FjZ1sDDtHIsonQIgKxdTbLw4uIwlQi2nGAu4hwzz932I4/O5msW4V89rV0kqfPaLFRU
+         ZOMZ4hAF3PZ+bdVnT6jOMAnlLN0O6O2bNyLkCE38yNOTsQb+5ERP3XhcxZTbgSh8SEzT
+         /gGQsfwAVL7tr+QOnNY7VjxbAkKIfyvzEwF8oaJytuHFBdkInK5U+5Jg6sYYnc4Yqwjo
+         jNeC6Qp9fJRlf3KL++vTrCllFwypFsOFxMglcQOeCJww6ajRJy0ioYfNOuXNSBojxPhi
+         gQOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793349626; x=1793954426;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p2lbErXysC5keIICd/9Oecm+satsW+gqAIlkh7mZJ8M=;
+        b=f4HEcKeu7sWPegBM65SRrROH/Q514CSrSWu2Ic5shytDL0QXWDXu2NkvUOf51fyyJ/
+         eyzRn4IItoVMJ2Y80QZyNiQI2KWSI6dpTEdngH/UP3I1hJmEAK3F+PybZaAP3a+dU+UT
+         gKsEoQL6En4Ua0DQWc5cHiQl9cXiRcjFpWNQ9w8xZAoYop9DxUZklb5CDJ7K/syXhgv8
+         HS7LGf+0pVihzy7WDOiKYHy10Bqrc58CtEijiGQ+MW2fkWSl5BYkqA+m6de/F5OQElaj
+         NTJVJKcKIJ52AqU/9i32Ow9F82MJkazyfYoF7MscotqTag7N4irPjOau8cG6k2579JEk
+         pH6A==
+X-Forwarded-Encrypted: i=1; AKwUvBwYBKOJXzq89DlROk3cMRXNtPi5VbHZPN2kTU4NNbxL4gY+ul7YSO+wLBUfyRh66vRQYwhxrdn6zgs74I4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJebacQfOHXjiYIcA9X4pUrk3byA/dGrSMgkCEe8RJDMp1X4tbI
+	Tl6tRQZL3veoRQ6f6R52X8k+K9HVRnSTSVS7qsl3xYe+UlXybPlrTHhy
+X-Gm-Gg: AYBFou2ipS3C9w08KUN4lfciWmurZTQamjNPPnbtfeFcupaWZdfgcc0oPowbLntUSer
+	LTBCH63B/Nj1CUGMzvphvlQN7XUg3Hdei5STRhpJiP6SoOTuBfwuLVsiYKDBz9M4HCkXp6vIwGb
+	2LE76MVzexjEUCZlgdpIjsECVTPTiJv2C7uAg4SmPRSgb6gg6SeJLv+j6bDjMHQ/fcaga0gbZup
+	8R4/F2mhNiQdBNYVWhzJOHG5So/lj05MTcbQTa4g81Gblht75B2x0rm8zsnjetyHug+Bn1bWkW6
+	zzje/xVKiQA/X107myD6Gg4N0b7H0xUXKRTbAGpkqJPDXfQuea6w6krAk3z1XMv/jcxtgh+6Pg4
+	MTtEMzENOPFOsBHEk0VOkmJNdFnvpljyDGM3EKMZH3Eva7XYbGgo4QMjVx0QdfvfH46pEw+u9Lv
+	bEnAers1k3jePgP0bUGg7FkaHdyiKLHFJ0UjOmSY2vpeTlwFvqLyEXc9RiXhD/H2RdUMIHLOQ8K
+	1FbZP8TS26FqctgqFpZfl8JXgBgE4OYcdWQMJtqAHiFc/MkQMjBP9kiWGS4Qj71wfKP/v4NV8+Y
+	zMsoNArSO3raltHnMv/C6Q3h+ooybW/Wv98obFOxsK4Eljvlo/3rWsGrGGQf5G4=
+X-Received: by 2002:a05:6a20:2586:b0:3e1:9071:acb2 with SMTP id adf61e73a8af0-3e928a0b0bbmr1315570637.33.1793349626005;
+        Fri, 30 Oct 2026 01:40:26 -0700 (PDT)
+Received: from localhost.localdomain ([240e:46d:2600:2f3f:1d83:9185:c6a1:9ca1])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a9eef96e53sm486051b3a.20.2026.10.30.01.40.21
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 30 Oct 2026 01:40:25 -0700 (PDT)
+From: Rongzheng Wang <testwrzwrz@gmail.com>
+To: Jason Xing <kerneljasonxing@gmail.com>
+Cc: netdev@vger.kernel.org,
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+	Magnus Karlsson <magnus.karlsson@intel.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	stable@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4 1/2] xsk: defer software checksum until the skb is complete
+Date: Fri, 30 Oct 2026 16:40:17 +0800
+Message-Id: <20261030084017.16202-1-testwrzwrz@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <CAL+tcoDUGqk-KfMBqdG4RBURHQc=9J+Ce7B7CZZWRN5yN7pRrw@mail.gmail.com>
+References: <20261030023248.78802-1-testwrzwrz@gmail.com> <20261030023248.78802-2-testwrzwrz@gmail.com> <CAL+tcoDUGqk-KfMBqdG4RBURHQc=9J+Ce7B7CZZWRN5yN7pRrw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,46 +104,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAzNCBTYWx0ZWRfX+sQBUcRN180i
- WGXSIWhLPcXzCtkMqgXUTOViE1C8nDvF3412kI/cFMlcwxRzT6sg1csb2pCg8OrlSnzJXDcZH2o
- 9QItOistGvI6QOVD499clYe/sNFvEaKX85IH332XYvhUwqTlzTmNzZUMcwyYJi4Htzj0loSPXVp
- JSbAQui6BxNHXr6C9YJub3kmDe2mAhS06DwBZu8KopLyJiVp+hh7KA85u+XL5Qhmn3t0gQVHPyo
- T4RUbgJ3WrvjgVCtDh+Bwsg5LGtgzGnmh4Qs2Pr/tTfVN1TRzDtcdXCmKbBw47d0Ptp6kklG9lp
- psb8jV82doTX5K/y3MZzBTsYqRfk0efeiap9bZBBu32EK9aG+rtJngadaIuenggL29hP83odxvf
- TOdAbxv5RuuzRGTaozhKCe/UcIh2qLWBgTTT6RKhOND8VRQDlErkj/R/lcbHrEfeORIWVSIgcS7
- M8zbX6GGJ4RDuYIWW6Q==
-X-Authority-Analysis: v=2.4 cv=a9alZkSF c=1 sm=1 tr=0 ts=6ae457d5 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=_X9-3wFeGQYA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=PDPf7ECf0n-Q5fV5cTcA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: yiOVoJUd0F9FSO0JkehLh3JOK_kgIG9j
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAzNCBTYWx0ZWRfXyO6iGIsswSZN
- 7EWmENouHqD6CzP5AsBInVLL/+FkuMq/DY9Ymy20q2HTH2JkECHJW2ktJ9YCY5uiwbALorDMlx1
- mZXddH2JKxkpmuO6nitOaiMZntEFjlY=
-X-Proofpoint-GUID: yiOVoJUd0F9FSO0JkehLh3JOK_kgIG9j
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 29 Oct 2026 09:17:18 +0100, Michal Wilczynski wrote:
-> Sparse (W=1) builds fail because `SIZE_CHECK(struct rogue_fwif_hwrtdata,
-> 384)` expects 384 bytes, but the compiler generates a 336-byte
-> structure.
-> 
-> This is due to an alignment conflict: the inner member `cleanup_state`
-> requires 64-byte alignment, but the outer struct is explicitly marked
-> `__aligned(8)`.
-> 
-> [...]
+Hi Jason,
 
-Applied to drm-misc-fixes, thanks!
+Thanks for the review. This was a timing race, not intentional: your v3
+reply (the Reviewed-by plus the else-branch nit) arrived at 10:30, while
+v4 was sent at 10:32 and had already been prepared without it. I should
+have checked the thread before sending.
 
-[1/1] drm/imagination: Align rogue_fwif_hwrtdata to 64 bytes
-      commit: 6c6200ffebf9766fd5d9293002298ea371c261c1
+I'll send a v5 as a new thread with the unnecessary else removed, exactly
+as you suggested, and your Reviewed-by carried on patch 1. Patch 2 is
+unchanged.
 
-Best regards,
--- 
-Alessio Belle <alessio.belle@imgtec.com>
-
+Thanks,
+Rongzheng
