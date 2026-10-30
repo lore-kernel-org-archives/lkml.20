@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793368535;
-	b=GXYaj0P0aReFbWAXGvpABkFKVquv6o7PYuBsivQDWBsoi9255bSFTBWT2ADktoxAKHhu
-	 3PnNjK5/lX+IQSGRhQrTYKlPaoCraHrFQ0QwhG7YIrCxnztG7rpQb3Nmm6b66stZJnBn/
-	 i9cExHPZkyabi9p9afIiULR+u4LbpZhZjF0UvosXFYM66PmpAVVqS5rqq/aIPg9yHFBnI
-	 jLdL1AAZsQrZptbTjL2/JuRDlJFESyQb/6NdMA6ycUHF23vmJalfsBmR6RXS9D8Ych4QT
-	 mmrTLA4Lrt2rmBF8WYxLgiZGc3JKCCpFVXaH7ST9vqu8CXw8ePW3zfgjYrPCY9CIE1g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793368535;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=dtvSC+Ou86by9mEh2D4NPgVOHJN4VrQWEhxe1Vpo7Eo=;
-	b=wv11tmrGMk0/wBOGqB5i1lxF3TePosHBQ/FYkb0ejpGhOzK8HdzpLBPFh3h55i3yOA/d
-	 c5TvnhR8pMPegfFSmfntiOJ6ZIwH7f0gCepxiVFw9dfFyDWRLgj0w5RVdKjZe+Hl1pWDP
-	 5M8pOv5tMkPv/JeDeeC+VqHx3+W9ociPJ4CzVsAwie3SN8HjmZwiiOkISdg3EvgPQ2ynw
-	 KlJq1GyUnimlCRLl9XI9OuX3GxinbuQ1WBAr1JrNMr68kpzH3T/Xcg/qBWEV/H+Y4xpAH
-	 7S2bqE9VM1K3b21+LW4jjCOAW/Fd2RikPPhjw20cTIdsYEFkiOu4LhWSgTmsN4GZp0g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uber.com;
-	spf=fail smtp.mailfrom=uber.com;
-	dkim=pass header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=HTq6J8Yn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793368543;
+	b=HohUVsVAs8NFi3osqK+9SfijU5wxVTxncYs8Ai1Lueiz2BADHFL2ohiOdQnW/4e7/YXN
+	 CDjjQn02ZdE9baEQnQk+Ld9x5vHnl3REISFhPEV4a3Y77V9K2TWwMTGqphYsqoMtTaCT9
+	 naR0DeTyLyeuZCVo9gI7MSP27N7inNHjWao/+vQn8OJK7K81xLqo3zqlp+fGu4F92SXeU
+	 n7e1NuR5IvjSg1E6pCUsAMYmetNnnxLCnDvwveFDi5P9B7UDjpI02O3Pm4uB5uXhTyHri
+	 zn0QKBfQD0EVW261vG8oldsRUJAoOFGkVADdPpr+LSk4GNm6xJiry3X5ZcGyTCekcHg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793368543;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=hq/ITHDPKhsaZYtxIJNeYSL+fowXViXhcQBhV0cbkcI=;
+	b=oymGzqm1pqeZScC5GsDNEoBmof56z+F1fWqK0wCkICWHKoncE62mXOmMxjMwGR8T5VQy
+	 k6XXSYkbppMFWnBVGAqpvgOuvpcoj7AEEiQImB9jxBxzwn9djxNUuXXPKbXsZTv4301mb
+	 VoLc0i1GrHTSCqSjr7KZ96c3hsxLcMaOrwA77rNRZPNk+dwCcCAWnkVflPOVBFrkPH7QD
+	 305n/FJii6ZjrhJ6KLGowmqS+zfahPCkLG6vpFhI53wfVVcDWJuX9AVztImre0dlc90dt
+	 MQA0RmVplrn45PvOkO6NfeqBjuxKowAIqPZOIgZw4Ydk5VGFNbAiWZOq+izsXrFvmug==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJ7WyrZ3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94DD3606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:55:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94DD3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D57A606A31C;
+	Fri, 30 Oct 2026 13:55:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=HTq6J8Yn
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-6798d4ab549so657005d50.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:55:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793368534; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QxIvvkogPg4Mkek1x3P6vlBT+P6iDiHhUc0tm9yKq3T6rQoBk6V/jmqkLoWvEbTbGd
-         Fys98XAXOwHpy8oF8w6mYnBpAQhFeNA4Yugsqm2Ery47riCXROxLnBkGyV3x4b+LBYb0
-         HJRZ6Dub837lfpCDJoKYnt5tIaDbZ8cebmi3eCZ7h7TIh6LqmgfVyNgQcild0IMKdEY8
-         30hj8Ta5O4xPFItx0I0j4HiJAta71gI5qDmjmvR41HpHPz+JIk3R4k7rqvsa2heKsW/2
-         n34N2MrfS8cNsFZhQIMvnr+WMcPQjoDEufr+pdMQLzEtKfa/x0NigvPW/KG5xll3bDsJ
-         V6ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=dtvSC+Ou86by9mEh2D4NPgVOHJN4VrQWEhxe1Vpo7Eo=;
-        fh=+1iHD1B1TqPNgqPgd3hK11ULmc9MSlfCZDKAY0pn5hU=;
-        b=ay+08BGlOu4pXrp7PEdngxfysBILkMEpW4mwxFnetH/nqOWphRccj1qXu6QsSkrkvW
-         Q8KQTGncM7Ly09bkUc+Mj1M6GgSV4QrEk1jGnCElTBM8VCwfLkUYvs76fg0cR4WQDD95
-         XcJDbadUcwVqSn0KkIbUGYftEDn1NR12y3m8A4+63WGKE7hYobGYZRiDRbTC6FsHnCsS
-         dxKb8+LYPjNSjS0grHSlnFZXyl+rpyukfVON/zyaqOekYvs/j7QpddGH6uysCKGDS8Gr
-         pu+tvfL8tniUNCU+acuMQoNvu0ANDrIWfGZ/RsnN3iNw/YDL58y1AGnZb+OFG/XPkIfq
-         BQiw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uber.com; s=google; t=1793368534; x=1793973334; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dtvSC+Ou86by9mEh2D4NPgVOHJN4VrQWEhxe1Vpo7Eo=;
-        b=HTq6J8YnXw3xvmdibnTPCJR2Q7OYBdd0aaU08pAC+fJSm6T050J1q6VthBz+ieLF8T
-         wG9FAaY4x8O5ECRsM+e8ykmRqZQ+3TabAyD43C6Hc46e7O4P/s7dM4rxQfMmVFlmRSwS
-         9AuYDmWe6hLCsB83P4QLBv3o8M65TGcru8Iu0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793368534; x=1793973334;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dtvSC+Ou86by9mEh2D4NPgVOHJN4VrQWEhxe1Vpo7Eo=;
-        b=yjmJ1TMf0rwHUzbHnyUvcwq5RpZm3ub4YzgFaJNR9BcKGUIgkbFY5TDS4Mvd7S8Ejo
-         wVdjjWUxlBQphZTKGZUfn6T9HMUly6Dr5Xqrx3YVAq72EfzTiKFtqCDOt5oTTXgbqQTu
-         9YgWxgZNvrTSDFyMTbtb84Y8/xjfX06kTe3/t0FJuNVmuAGjOLiCzw8WFsarsJn9SqMa
-         SJzz4pD5pUIg9T6/zpga2Q0B4GGnR+oN40IYKQSffvk78UbhfsbkBaDEltfL0C7KHtAG
-         8VrhL47W7NzO4v4zegzAyKPzLdEMBDZbq5EspRLQizLSkNVauXjLd9/AP6hhn86j9SW8
-         hcZg==
-X-Forwarded-Encrypted: i=1; AKwUvBxudv+PZ+gaOczaytI3UWjHWTNaU8aAX2EPcWHnLjiiCxE0624Bre4OJRfi8lrrmwGUTZmAH9im2RF7kXQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxmqf0Av611Uhh7sidKJv4Cbx+dYENgxlcVvxPpszYnznQ0c3u
-	Xt624ov4ARi4999ZHy28+q1M4EAo0V8FoI4QCDfl++6ElL/SgKA+UOlCXMj/PzNlpu/JYe6o2t9
-	lp7jdsSN0M3Vm+aYRnsKX8OXqy6uDuDvFSX5GVgJBRg==
-X-Gm-Gg: AYBFou1ZAa0x8Wmo3GWX/SS+NnmEhrKW8xje8o0z5aJiW/4kXf+yPsDLop0FqXNmUJg
-	WtG0QXTjDfwjP5G1fyPzDhDRcfWKxoJUPNORwpkYP12v15j686CYMMaJALI/Iu0LQ/MrSxuUvaI
-	7quuyZZ1W850ULapmYdc6u92eeeNoH7q7QHv4WifjXC8WNRFnK2B1M2i1PEQP+FAUo+5rEykV84
-	NdZk9+3g4VLplcwpgutHxnokT4JhnK8cqyJZIRsB+TV+uuw0U2GWBwCONW0CEzbzk2Axi+Xfp/x
-	Z/I03ZE3TZNYE9Q90idAbpoD8uQiu+gVpBHf/QOD0D4lOjuIp5EHCRiqyTJqVq2VbhsZXwTy/sa
-	fbLnXR0KYixunLnOuFc7aZpfihQErHpY/wPUyGg7ke6Iwy8wrwMhrA1IXUgJMiyHbLu0UEQ==
-X-Received: by 2002:a05:690e:814:10b0:679:5ce3:b32 with SMTP id
- 956f58d0204a3-67ba4c90a09mr1194821d50.5.1793368533419; Fri, 30 Oct 2026
- 06:55:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJ7WyrZ3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03611F00A02;
+	Fri, 30 Oct 2026 13:55:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793368542;
+	bh=hq/ITHDPKhsaZYtxIJNeYSL+fowXViXhcQBhV0cbkcI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZJ7WyrZ32WBSj9e7CMgbduAW4b5h75b4OEMAJcys0OXJrMdDNmNtU2ZBHq5e/UdBx
+	 VqYQ0h4oDEFN3gmBlTmi11lbmVDwO+XaENK0JTAd6qJJ6AU7b/9BanFXRMvcZzWr42
+	 UckvSplD9xjf+LjMfa4ikcMhy9mdsFCF0MJh3/TOrayRUJs5JujPeCcNq8O0iOabug
+	 2BhNayNNqe4XRIddW79elrm/n8MSgTUrLuqVKbrsd5CjdkhFSZsasW8n+hZ2bd67+h
+	 4zWE7Siy29a0QYGWlaGHZeyPOHSE8XMGigGO/qtyznva01b59wWUkkAczozIvzxDWq
+	 CQsMwd5kR4wUg==
+Message-ID: <e21c7cc5-2dcb-40bd-bcc5-8d0475b22fb0@kernel.org>
+Date: Fri, 30 Oct 2026 14:55:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,39 +51,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260928075237.3055101-1-irogers@google.com> <20261027231513.816148-1-irogers@google.com>
- <20261027231513.816148-19-irogers@google.com>
-In-Reply-To: <20261027231513.816148-19-irogers@google.com>
-From: Alireza Haghdoost <haghdoost@uber.com>
-Date: Fri, 30 Oct 2026 06:55:16 -0700
-X-Gm-Features: AclHuK9DrHFFdDSfKhPwaxq5H2pjidaEA0BUvDK6bP_W-cA5-k9M1Y8SIrY3tlY
-Message-ID: <CA+w=M=Sja18zN1foZ4oP7AVyxMGjtNNaBaMOhVnT48wZofKR7Q@mail.gmail.com>
-Subject: Re: [PATCH v2 18/18] perf test symbols: Add tests for symbol
- shrinking and session alloc wrappers
-To: Ian Rogers <irogers@google.com>
-Cc: acme@kernel.org, namhyung@kernel.org, adrian.hunter@intel.com, 
-	james.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] bindings: Add devicetree bindings for new
+ phyFLEX-i.MX 95 Libra RDK
+To: Benjamin Hahn <B.Hahn@phytec.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Yannic Moog <y.moog@phytec.de>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ upstream@lists.phytec.de
+References: <20261030-wip-bhahn-imx95_upstreaming-v1-0-1c1cebb5be99@phytec.de>
+ <20261030-wip-bhahn-imx95_upstreaming-v1-1-1c1cebb5be99@phytec.de>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261030-wip-bhahn-imx95_upstreaming-v1-1-1c1cebb5be99@phytec.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 4:15 PM Ian Rogers <irogers@google.com> wrote:
-> + if (!dso__can_shrink_symbols(dso) || dso__kernel(dso))
-> + return TEST_OK;
+On 30/10/2026 14:32, Benjamin Hahn wrote:
+> Add devicetree bindings for new phyFLEX-i.MX 95 Libra RDK and
+> phyFLEX-i.MX 95 FPSC Gamma SoM.
+> 
+> Signed-off-by: Benjamin Hahn <B.Hahn@phytec.de>
 
-This passes without testing anything when the DSO can't be shrunk, for
-example a perf binary without .symtab. TEST_SKIP would make that
-visible.
+You hit some combos for subject...
 
-No test makes an allocation fail, so the shrink-and-retry path in the
-session wrappers, where 12/18 combines with the 15-17/18 plumbing,
-never runs. Other gaps:
 
-- a reload after the file is gone (15/18)
-- a lookup from another thread during a reload
-- kallsyms alias groups (09/18)
-- the merge sort with many ties
-- after a reload, only one symbol's identity is checked, not the count
-or the order
+Please use subject prefixes matching the subsystem. You can get them for
+example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
+your patch is touching. For bindings, the preferred subjects are
+explained here:
+https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
 
-Thanks,
-Alireza
+
+A nit, subject: drop second/last, redundant "devicetree bindings for".
+The "dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+
+> ---
+>  Documentation/devicetree/bindings/arm/fsl.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+> index 656f2596e1d5..f917ae7202e9 100644
+> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
+> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+> @@ -1551,6 +1551,13 @@ properties:
+>            - const: phytec,imx95-phycore-fpsc  # phyCORE-i.MX 95 FPSC
+>            - const: fsl,imx95
+>  
+> +      - description: PHYTEC phyFLEX-i.MX95 FPSC-Gamma SoM based boards
+> +        items:
+> +          - enum:
+> +            - phytec,imx95-phyflex-libra-rdk    # i.MX 95 phyFLEX Libra RDK
+
+Never tested :/
+
+
+Best regards,
+Krzysztof
