@@ -1,77 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793367355;
-	b=0kOnEcE754QrSEnOvMclLzmaChFRnEJ4hNryaxj0TFtoIh5pnEkQ+sn9f/lrIAumrhHh
-	 5GboevK8d3s+URlEp3Qfb52GDMeSm9yR0dCcATQyz4fRMWEpLJE6wr4b7l5ZlB4OhaGVK
-	 q2b8MaqxAyLFsyaRJ2V3726H4WicvMo+HlQWRon75o98+3Didumx4HhxRxaic8azLp7OK
-	 TGnhyU5yIi2ds51AsAupKrUvYkw68eClzA9zlw786gWvkGUD14tpcLELMQT2KeT4W7OX7
-	 1DpFBI9zAhYaW1xZT25DQsAep9dGtYNWrYAafz1FWdaIWs+/rysLF0gQPnj13iZ69lg==
+	t=1793367383;
+	b=NLTSDNqOhXIrEURTuQckzWkQkF+8jQ1AKphxWxE7ilKGMKxEn/6R4K/hL4O5Ay8OvaxE
+	 WfycApjw/fTMEj8OfbIIYVy32mOIGzDom9oH9S4fFAvt9TKSPZRhuRs1RzCnuvIg0iN1U
+	 3GIbyqVAC2jjGYckV6vVJFRw7dYq90ueh7UK8SsaJrhGTeUdnh8lUZtBs7kK/w69TBIi0
+	 BdbJFbgNOe9QY+4Jkvo6I0ftYnFPAyKhtgyJAhTjowVvk4EfYYdcoBykq/vFOnbsrTsIh
+	 45dybSZVXrpn1dg7lXB9PW9UMQvannRRPSAuD4ANuwZvZlArl7X6ealsyHga5wpIorQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793367355;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NKmp+ui2Bo98qe07VUZSa+u7FLoONy+lMEEgOv7rH+E=;
-	b=U86y50nSmaXtH3vnnjnPy8zt10PzY63qt2Fe2RwuALqYTvrNjoPyT0m8SD3K+CUtVN/2
-	 rPJja9p1h3a715n2tJfaVsfoWfyTB+C2xQykudVeUHn7dpchDFxupDFmkflAb6F2P5/uA
-	 pel7TLKKz7cESnSHeyvAb/gjEvkW+UyHadwZZpPxiikXCP1wzXBdW+nZWwUnTV8GJ9S0t
-	 Ywa6e36U5j/ppuKjziYytYhByOqU7yR7m+ezFOovytmsy1O1pJzo++glrsGndZ29dmMvT
-	 FZdvdV35lQHqiMwd8vM8c/G5JthB6vV3ZmZeSyZGa+ZIC4yovwcZh5MZKRhLae08nEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793367383;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=cpffohKLuv36UmVbfHA97m52TAwDv1Wbcfu5/pTTMlA=;
+	b=GOQ4xlOUPv+Mj9bbr32EyI5Rsx2ELvcy+AtAPnJuh6/JF+jEBZMD6q4hZ41HJqg4DuiC
+	 cagwilfH2ZkZeE02nIjdDHTJkG7NKdtIkcMzR7wPs1jfpf2b/Aecelvx3Svdzdy26yzJ7
+	 qf7vqaXklYvcsq/yqksumOzXN7HFDFwRdPo3+eY0lGCwkABi5CZo5J0S0U3z4KeIQeNm5
+	 AR8ePfCdT0nor1Ggi5+2DI8ZiYf3YPxL5O7Q6G/Gl/BPLK8cXvND1uTq0pBtJLVQpBbrU
+	 dhQ57suUB45v3rj1v+6IBGfoAz7W6FuxzLK3pX/s1XcB7fhEOCtDqdSCRV4nuw6hrJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=a8sqbx3o;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61AD7606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:35:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61AD7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=OlCRu9y3;
+	arc=none smtp.remote-ip=185.70.43.166
+Received: from mail-43166.protonmail.ch (mail-43166.protonmail.ch [185.70.43.166])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0DCE606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:36:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0DCE606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=a8sqbx3o
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=a8sqbx3oNNhXt0lqJ1Oxjxjwozq8dO9yMt7Z2eHUcN5GhpHTZGfVKfN2BUaOgM11ES27bKPL8uAYx
-	 SIRIMgLuWtZ+MZeX7q7s1GSV7tlfLvQ/I04QNVltqxYIsn64Vww7MvseqcqvZAm9UDkFPo8mRkX9rV
-	 VAdEBgeocndfTbUI=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56ae49d338d7-7381f;
-	Fri, 30 Oct 2026 21:35:49 +0800 (CST)
-X-RM-TRANSID:2ee56ae49d338d7-7381f
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[112.22.250.195])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6ae49d33695-0d785;
-	Fri, 30 Oct 2026 21:35:49 +0800 (CST)
-X-RM-TRANSID:2eea6ae49d33695-0d785
-From: laixiangwu <laixiangwu@cmss.chinamobile.com>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>
-Cc: laixiangwu <laixiangwu@cmss.chinamobile.com>,
-	dri-devel@lists.freedesktop.org,
-	Lucas Stach <l.stach@pengutronix.de>,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Pengutronix Kernel Team <kernel@pengutronix.de>
-Subject: Re: [PATCH] drm/imx/dcss: Fix clock leak on blkctl init failure
-Date: Fri, 30 Oct 2026 21:31:30 +0800
-Message-ID: <20261030133355.1938-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <auRgElrEh0YlUaKc@vm>
-References: <auRgElrEh0YlUaKc@vm>
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=OlCRu9y3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1793367381; x=1793626581;
+	bh=cpffohKLuv36UmVbfHA97m52TAwDv1Wbcfu5/pTTMlA=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=OlCRu9y3ohB39uW1cyRI9d7TO+hdKEaTtkI4D1k2iV7dlQ9jk3AoknOadq0l0rW9N
+	 ZWam0D69NSMTzrHP7rAOjFOlpoJTTnQI3G+R3Wyem56aBPZ9m/yWlg7cbm5twnFqjU
+	 v/XBhV/uyZq3ii9bkORd9qeJ1tKWM7Qt5VSga6z0gESnEGXkSbc1ll0KYI0QFD//AY
+	 n74Aqccp3p5LFH0PbNdbxcov6FwmKO3fzD4JL3oOAdYgsOcHCKEtAI26TyLsk+FDrq
+	 YAw2zIS58pkLvL7Mnw5ALhRhq1aqaWW7k9DuBHEuOq1rBgED2oiXXcwFj+bB+XpoeN
+	 tSoxxQnLL9pEg==
+Date: Fri, 30 Oct 2026 13:36:17 +0000
+To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+From: Turritopsis Dohrnii Teo En Ming <teo.en.ming@protonmail.com>
+Cc: "ceo@teo-en-ming-corp.com" <ceo@teo-en-ming-corp.com>
+Subject: Linux Kernel TCP Flaw With 9.8 CVSS Score Affects Ubuntu, Red Hat and Other Distributions
+Message-ID: <iDl3H6luC9kFpl5o67GXY-nezXRU-BHSPQjUlh6EbPff8ZumhzIIfH0cyd9BEbWc2Cb9owUW7eu94dqdwChS8jWfEQP0FksNBnokK91abRQ=@protonmail.com>
+Feedback-ID: 39510961:user:proton
+X-Pm-Message-ID: 85f4b08ad9ed1114a943b56f9578ed82b64a8952
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,16 +61,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Laurentiu,=0D
-=0D
-Thank you for the review!=0D
-=0D
-I've renamed the error labels as you suggested and sent a v2, which=0D
-threads below this mail. Please take a look.=0D
-=0D
-Best regards,=0D
-laixiangwu=0D
+Subject: Linux Kernel TCP Flaw With 9.8 CVSS Score Affects Ubuntu, Red Hat =
+and Other Distributions
+
+Good day from Singapore,
+
+Here is an article which I would like to share.
+
+Article: Linux Kernel TCP Flaw With 9.8 CVSS Score Affects Ubuntu, Red Hat =
+and Other Distributions
+Link: https://thehackernews.com/2026/10/linux-kernel-tcp-flaw-with-98-cvss.=
+html?m=3D1
+Date of article: 29 Oct 2026
+
+Thank you.
+
+Regards,
+
+Mr. Turritopsis Dohrnii Teo En Ming
+Targeted Individuals Singapore
+Government-Induced Schizophrenia, Government-Induced Health and Medical Pro=
+blems, and Government-Induced Extreme Poverty for the Past 20 Years (Govern=
+ment Persecution)
+Why is the Government SOOO ADAMANT, INSISTENT AND PERSISTENT about maintain=
+ing Absolute and Total CONTROL over all of my Android (Linux) phones for th=
+e past 20 years???
+30 Oct 2026 Friday 9.32 pm Singapore Time
+
+
+
 
 
