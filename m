@@ -1,98 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793389820;
-	b=rUrJu7jY+vXpUHBGPDSLhZw/dKob/AH0SYFwwOQtAlQgCdOHp1kAbZzKIWeycFURUyZc
-	 cYC8FpJ5f/syxlYO96or6RpVgc9V/bvDPRx78bNiN1bLzzx8XDvs1vIBcwZzP9uNoOqhI
-	 rjEpkFNnWHG7K+XIuttzFN6hROjY+WfRi6f8Zm5EikZ1U42jt8tQldz2xgYdIMnRR3vID
-	 ncLPOPGVcebQR5aT2qXLTu97kCfcD4+K+jXibXnW/upaxHZm/VURGlEs2M7nELNFi6fMs
-	 P18xSSuUdlmhnpbFGme3i/USOMylmPRX7TZ+aQmupau4sZH/DzNjJJj9HpdkOSLtGIA==
+	t=1793389831;
+	b=ZCfywjTdTQUOGEs0bwJGAeg2y00nl82PCGgzEZnrpdzahLXk1gbwNrciQGcVnAfooLAl
+	 TN3FI+jP57xorHDvXVJCL92+kx6drKe4ELgeYalh07Ia/25pb+RPBkyChNtaj+pW7UWJu
+	 ePEVr00auegUjcbxLWfP43LghFJg0/78ww6gCa8TySsqJodngRnl6fVc/jvsjjou9mcfJ
+	 Qoa+DF+gQ6h7SFtOaOZX37lerXdDlBZxNhH0nZaIeXKrlTY+Gj8tCw7U5UvWIwG+dcL/u
+	 0/Nn1Glsmz7xjXfz0pvkbjfBKhhVGcraJCEFZ+krQ+hixWzUBEgPRhvtitE6ZK8tZ/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793389820;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=sEaAj7L7ItwQxArcMJg/ysXYsqtPbJ9UNO11ET+2E+g=;
-	b=JMMo2i82CD4oFV/EbqgwEANG6DLK/q2qYA596cOwg1tmuNgvO8r791eIsZSlLSF6daWz
-	 g/IVs84z1gxGVhx4idUA75nAoS8nxSlBBhQR+MZN1+eZXF7gAnUrhvUhAwfsQTRE9238l
-	 iuVote//4Sjl7fvqMJU1z54E30Bxry+BX8saluQA82tqSiij24zK+H9PWEU12Ov5pkGyy
-	 HwzHCWKGHMOWjquLb3eSBKFjHKhjxQezFx+sK141wA34Jg0Sw13eQKvBa1FeicCFRy5E2
-	 YbNz49rAOGfXAHPFV04ybF3cycjc+hII5+r0m+lJoHml4LgUt9OPpjDUjGrV85HxiXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793389831;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6snMzTb+JvWCKUInfh9pIostURAAoVzKiUmt0eO+WnI=;
+	b=Zs7lhNw/KCv68EG1rp9PSbJMdLjIonz/XHWJ8KtsdQ0uABYHhRzv8BEAkYzKHBAJrAzb
+	 f5KkqB/KOTuzw3mtgbOR7wTW79G/kyYq5ibwQrV+VylfMfNPu242Wsq2aQalihxKivqwI
+	 WjwzEEx5KCnzus11CfUgCnVPFeFytwBz8mtjDp3LBKji2CrBeWqYgbVlfCpcbStbZCzCX
+	 vn9PNlsac/xRgtXPkDp3ZWgwSO0sgzJUSNv/wTw03GR69AnyzJcqYiK+aFZJwqOgxaOj+
+	 qZC2ybEFKPtnbI7kCNGb4W8RRnyULuuG4fQlV2+FAoVdhv2LElxfBpUzRGj++JpAGjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=XJp6JKJy;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hOoEOD4G;
+	arc=none smtp.remote-ip=209.85.222.42
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E51A606A31E;
-	Fri, 30 Oct 2026 19:50:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E51A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C62606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:50:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23C62606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=XJp6JKJy
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id DCA2140E03BE;
-	Fri, 30 Oct 2026 19:50:17 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id BWhGogmD7hSx; Fri, 30 Oct 2026 19:50:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793389814; bh=sEaAj7L7ItwQxArcMJg/ysXYsqtPbJ9UNO11ET+2E+g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XJp6JKJyqgvz0ecw98cfcEZk49v6hdXNUj7ge7teuEu+TL25s3vUwNdmhs0OqcQsJ
-	 Ej+1WU7hhZKyYZZEPXWqsbKqforvRvs6tPqDkCK3f0jeWJYELj5Z6m0c+CzyxYdnEL
-	 1srqs8AqGzjlat5zA+DDfI/KA+suUXQf0yW08sSFxBcqT0YHUMNq0UKagg5ygeyP2n
-	 yVZfbr7oV0O45RjO+DMMRumpJGmSPH5S2N/+rppol15KnxGr0nARD7UaAoA3vybGns
-	 EFICC/6X2EUdLm/nwhK/RQHVGjqf5zys6O0UwWfPrXMl0pLSYqeeY6zLazpYmCYiAk
-	 Na+COgsVUPX+dkqD6WR12vgKzc8ZgCbLVV22k/+HqeFi2xdFiTqsy/BA9mdgfOsffp
-	 nvNSNG78osxwqNIHw3Edb3YoVpuaOXp6kup0cDpIA9xLDXdxxF/v0uThh7qKfbVDUW
-	 Dtb0xSlHI0+O5eijPY9u5jRBi/iiHIy0O8uc82Bfkvk1/zFStKe/1NbQcoiqk1Opsm
-	 nKl+vPDm173jGUP6QCN5dmCh/gidr2ozAyPNfyt1biD1DDTW5w3GnDEF/ezy3SX4HB
-	 cxfb8hYkycI4AH/QMMeEGENLkmp6XD5UazcdK1eQ2Mewoo5+G6giP9oZ2sVMH4SpgK
-	 Imk18ki9Gq0fUbtHjJPXIR7g=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 3893140E02B7;
-	Fri, 30 Oct 2026 19:49:57 +0000 (UTC)
-Date: Fri, 30 Oct 2026 12:49:53 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Joe Perches <joe@perches.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	"biju.das.au" <biju.das.au@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	Au Dang <au.dang.jx@renesas.com>
-Subject: Re: [PATCH] MAINTAINERS: Fix Intel TDX kernel file patterns
-Message-ID: <20261030194953.GEauT04SAhyseued3N@fat_crate.local>
-References: <072dd88c-4ca1-4c8a-98b1-7783bc43c1c5@kernel.org>
- <TY3PR01MB11346BAE55FF22F66E86A6F8B86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <afdf1864-4721-4177-bc18-2a5821d97559@kernel.org>
- <20261027205411.GAauEPc4AtLwvrDfFr@fat_crate.local>
- <7b0a2e98-c614-4cdd-8604-3b5b21e8474f@kernel.org>
- <20261028154743.GCauIZH3pZm24jCX9b@fat_crate.local>
- <20261030023338.GGauQCAuYyXGwIhlqX@fat_crate.local>
- <7d35e2db2da34735760a08a6f103abee075413c8.camel@perches.com>
- <20261030182031.GAauTf71ujnYNQPluW@fat_crate.local>
- <f0bbfcecd63e11fedc4a745aa357fd8c529df097.camel@perches.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hOoEOD4G
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-98c78660542so588476241.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:50:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793389830; x=1793994630; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6snMzTb+JvWCKUInfh9pIostURAAoVzKiUmt0eO+WnI=;
+        b=hOoEOD4GrD1rj+/jlK6vAJLtx725KtQwcw9r+UgKd+FL3cuoo47HpArBVTUWw7qe74
+         f6T10mO1UB1TecbX9S0EDjoGA9rzyprG6/CARGgK2NejFu9Yrm6RKrVCV4nuZcjAtK+q
+         lET2fd4OQlYBpfaidjPz/DO7f8YxOfhEg4VCAKQmsiOLaCP5ByruTh8t4G6L+2Jn8f6Y
+         iGI7ugOroZHo6Wn+MiZ1EX6eL9vMIhLXs2mdhSl3AXN4BRX+75Cd7Owy025cI80uHkKb
+         jzv6DXEVgLHzIVAO7NjJInmdwNNsdRjvhfvXBfR6mzzT0/ssHXpLSAJYH38JOlHOAw2/
+         PMwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793389830; x=1793994630;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6snMzTb+JvWCKUInfh9pIostURAAoVzKiUmt0eO+WnI=;
+        b=qX3luq1kpqPOIk/FyuG3hv5j4NWx6NA4GLicw+9OgGcI67+//60IQbEoqRiw2iEo9d
+         k6to+92tRCWdFbquQLrjEtDIPbZlZpS1q6cZsn52I2Ic8mfNZtUpBF+xnmPFvyeBaxpo
+         etdK/L2vCat+QNwYmI6N08fdW7UtLSZ7JG45JCER21LpYrx1cHQFeblFFZoUsXRjFO7U
+         B4Y3WAa3ZwxK759qRr0INXr3DbF+WGzLrydNFDvDA6cspg8RtghOQFeTgDbFM8CyrTRM
+         RjgQivZbUelA94looQrP/7diOJt5L1bnRIE1N4xAUGRvIPggfycWgV53Bsb7OegTWTHC
+         Kg3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzd8oAAfXoycct9DJpaisjrMBxBT+Wn0F3ftiwXC0comyyQpFWTSMfE1oE84Hay6vTD/Sc1rCe3cTXL44E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWtrmbPZNnwcbffyMFNVxQNBLaDtVQfK4iumieUP0KU8i3qiQB
+	VkbjfcKVQwInFvljaSttInJz6ZgAgOhvKg5lfMLiJeaXMJ08MM21InFBvLMV/uaF
+X-Gm-Gg: AYBFou3e8nDsDRtxC8jqtCPRFkQIP1llragD1Bl4nJ4nFQxjXAmhjecvXL/9JxkH4YG
+	KvpW87l+ufy19vKSrdpQhUSEefEMp2BHNWqeLyPT62QH1QqcoynHjO+CtdHVq8f0wp5mWDd0z1N
+	XMpLWZgLkF1qJSEj8WqHtwit4onDUPTaRjdQ9h9NH/Duyi2pX11hcTAwvjxgY0ZQwLlOCOZfdad
+	5SzLq1GKwE/tdHn70B5f6MuEprSZjX8rjyyakGPgkknRT4iDAQ17z6PS9bf7HnzyUznRc+Y8lqN
+	5J4lGP52C2Hox49dzf+kmkJXaZ0rUL6BovOCH5dx6Ht3toQCYwaG/FWPTnGoUxXzJbr9vsD/DLO
+	22DD/anU7mqUiK4lW710M24cwgJgq5wB1hJBC54abvz3xOvmUonPzVxe+/8zHTjTTL5VJFmmJd4
+	XTFphDGNwCiW9CaZOuoHVZGI89Cn33l6P1d0f/uUIOTvlDxbtLJX3Mz3z1w4zwNlfo09q6mYUPD
+	Radz+04uhlgvqa1wynuVKxySwVhpZQxNkhg6nu65zEeh4R1wjVS4LAFygeHdITSEEZOGfY+0a5I
+	6DqN5rRymn77YWZhEzXIHRYMciD3ixEXySwQx8o=
+X-Received: by 2002:a05:6102:8086:b0:7cc:32ce:4c5e with SMTP id ada2fe7eead31-7d0726b4e19mr1974710137.16.1793389830084;
+        Fri, 30 Oct 2026 12:50:30 -0700 (PDT)
+Received: from munique-a520 ([2804:3bf0:fe29:ac41:2d94:706:4bfd:852e])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69bf34c0sm3449419e0c.8.2026.10.30.12.50.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 12:50:29 -0700 (PDT)
+From: Munique Feitoza <muniquefeitoz4@gmail.com>
+To: Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+	Linus Walleij <linusw@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Munique Feitoza <muniquefeitoz4@gmail.com>
+Subject: [PATCH] pinctrl: amd: Clear interrupt enable on spurious IRQ and skip unhandled EOI
+Date: Fri, 30 Oct 2026 16:50:25 -0300
+Message-ID: <20261030195025.5153-1-muniquefeitoz4@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,23 +97,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <f0bbfcecd63e11fedc4a745aa357fd8c529df097.camel@perches.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 12:40:05PM -0700, Joe Perches wrote:
-> 	   scripts/get_maintainer.pl has different behavior for files that
-> 	   match F: pattern and matches of N: patterns.  By default,
-> 	   get_maintainer will not look at git log history when an F: pattern
-> 	   match occurs.  When an N: match occurs, git log history is used
-> 	   to also notify the people that have git commit signatures.
+When do_amd_gpio_irq_handler() detects a spurious interrupt on a pin
+that is not configured as an IRQ line (!gpiochip_line_is_irq()), it
+currently only clears BIT(INTERRUPT_MASK_OFF) while leaving
+BIT(INTERRUPT_ENABLE_OFF) set. Unlike amd_gpio_irq_disable(), leaving
+INTERRUPT_ENABLE_OFF enabled allows the pin status bit to keep
+re-asserting in WAKE_INT_STATUS_REG0/1. Clear both INTERRUPT_MASK_OFF
+and INTERRUPT_ENABLE_OFF when disabling a spurious GPIO IRQ on both
+main and RGPIO banks.
 
-Aha, ok. Will change.
+Additionally, if no GPIO interrupt was handled (ret == false), return
+early before acquiring gpio_dev->lock and writing EOI_MASK to
+WAKE_INT_MASTER_REG. This avoids unnecessary MMIO accesses and spinlock
+contention when the IRQ line is shared or asserted by an unhandled
+spurious interrupt storm.
 
-Thx.
+Signed-off-by: Munique Feitoza <muniquefeitoz4@gmail.com>
+---
+ drivers/pinctrl/pinctrl-amd.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/pinctrl/pinctrl-amd.c b/drivers/pinctrl/pinctrl-amd.c
+index 9fa752f55..428440949 100644
+--- a/drivers/pinctrl/pinctrl-amd.c
++++ b/drivers/pinctrl/pinctrl-amd.c
+@@ -671,7 +671,8 @@ static bool do_amd_gpio_irq_handler(int irq, void *dev_id)
+ 			raw_spin_lock_irqsave(&gpio_dev->lock, flags);
+ 			regval = readl(amd_gpio_pin_reg(gpio_dev, irqnr + i));
+ 			if (!gpiochip_line_is_irq(gc, irqnr + i)) {
+-				regval &= ~BIT(INTERRUPT_MASK_OFF);
++				regval &= ~(BIT(INTERRUPT_MASK_OFF) |
++					    BIT(INTERRUPT_ENABLE_OFF));
+ 				dev_dbg(&gpio_dev->pdev->dev,
+ 					"Disabling spurious GPIO IRQ %d\n",
+ 					irqnr + i);
+@@ -722,7 +723,8 @@ static bool do_amd_gpio_irq_handler(int irq, void *dev_id)
+ 			raw_spin_lock_irqsave(&gpio_dev->lock, flags);
+ 			regval = readl(amd_gpio_pin_reg(gpio_dev, pin));
+ 			if (!gpiochip_line_is_irq(gc, pin)) {
+-				regval &= ~BIT(INTERRUPT_MASK_OFF);
++				regval &= ~(BIT(INTERRUPT_MASK_OFF) |
++					    BIT(INTERRUPT_ENABLE_OFF));
+ 				dev_dbg(&gpio_dev->pdev->dev,
+ 					"Disabling spurious GPIO IRQ %d\n",
+ 					pin);
+@@ -735,7 +737,7 @@ static bool do_amd_gpio_irq_handler(int irq, void *dev_id)
+ 	}
+ 
+ 	/* did not cause wake on resume context for shared IRQ */
+-	if (irq < 0)
++	if (irq < 0 || !ret)
+ 		return false;
+ 
+ 	/* Signal EOI to the GPIO unit */
 -- 
-Regards/Gruss,
-    Boris.
+2.56.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
