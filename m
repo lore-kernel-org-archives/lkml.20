@@ -1,82 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793355360;
-	b=LBaySvlur9zwBJA/w+rHBktvT0w3kqMh0X6Mq5Pjxcib/4TSHoI021F1ppdgNYS2o55M
-	 6cvWzUi1eeLB/K/UKrUjegHje2NEfhKdrdn7Zh/YU3IogAtzSHxk3de7HMReJz44c8XGd
-	 NNkLxxiFZmq6WqpwvGscfN2rDVU6wZMSpayf9GXdE2HJwwqFy2qqTnpCwUUFaxmF6FP+O
-	 w1l3Q0Va+3SCiRZqZ5+PtWVPg7RACcCQxZsJxFGdt5DQjQhqHjE9BvXWqwHKhKRtHy7HG
-	 QBMGWeKRMSh98DFPjDo7843PNy4Q17HJtdjs18SUAedDVdYCcjuvOvdT7RjFIZlptdw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793355360;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=kkuv7O8q4cZvOapU+GF7kcHYvW6qtmGdZ3sS6JlSXTM=;
-	b=Ob1c30o4SU6g4e7waSS9Vr5NAwgM3+BSf6knPyhJ9KWgVW3QBZQpynSyD3aRr9wPT0Yc
-	 vTxojDzI0lOV7/++S9yqFz7uEpMD4XEwnNha5NhF/ng0u9CQxr7kuoOKhhsIWTsTN0j2P
-	 33Q5BzUS0Qdg1sKWKI5W4TM6Vlwqoj99Scu8/71KzEA83D8n/3a0w4P3CijCd75GZLWXF
-	 UxZLGZ2k7SPNruZwpdW9CjrO8NSRxB0qkH8uI9a8UUwWP+SA5NappzlD89RLVKCORZyVI
-	 BIQn9OrWd1ZMF3RLqQEFGAe0kwrsKtPtKxI6J+n/8CPFjJb+yk4Bw4hzqCXl9RK7Ykg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JNJHQQiO;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793355403;
+	b=GzJgTKd99aVMhcCfr04z3WLa1I0zb6AlnvXHZWALyfXcWryheS0eoD+46a6p/hl9Kkb7
+	 1FTggY1yKmyzZ2qGOHhoLDcAxe+Jqry8CSFPNVxkAwTDbV/KtiFxtCOE2sM+zWroex4PW
+	 y5dAi0Hi0ZU8nmu7JlnOxItNWWq3VAtpVHJ1LZhNqDF1hBk3EUV8/MyBU8mHfjGhZi3Av
+	 msjThzXXU3/9uK3fCV4jfCBkv0c91bTpSAB/HpGSHT2cJebf3+qiNO/YAhT5fqfru2H5D
+	 Ny5qA5XdGeHcB+cMaCDVc357AHQoiU9MY/vkHqT6vOr+2PBhwq2u1m+LMwIKfbUY5wg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793355403;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=jKKR4S9AQhJDStSbuwGW0EWdZumlZVGx3b3Yu5Euvig=;
+	b=1/IVfz+hzzWD8GliTGgbhvYWleQCTNTO5UDgr0eJvc9k5GwuMbW4swzl3Wy+4wqrCgqQ
+	 kytoWsYcOsOm/aRCVgDMG/8ffze/cRvpDKtVWKQkMW+hodvaZLL4vZFGdxSPL1+Fx0YsZ
+	 wOh2UCmGvwnnwMZfDZ8iB4Myoeb+g5qxlhft29Bj60ttMEReZmAB9Kf/tXJ4krkNsZ/RD
+	 Rkl1qLx0J1GgPEei9x1OOV2FQGXG0+6XMVPGlHYcU13QDWyXxWYfn881TJJu8DonQwCl2
+	 uHJ7R+NsSTshtTzAcGt/7sRE7yjCV2ka1oliyP59emiAqAJxjJciSQL6RhIjKOZdh5A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=qWMrOsrQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.13
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013013.outbound.protection.outlook.com [52.101.83.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19E2606A31E;
-	Fri, 30 Oct 2026 10:15:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D19E2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D759E606A31D;
+	Fri, 30 Oct 2026 10:16:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D759E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JNJHQQiO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793355360; x=1824891360;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=R+nXYiYx7BRcU9Txb0qgGufnwiu0QV9je3piyvExs5Y=;
-  b=JNJHQQiOJZKhBltWPxUDqpj9Qj1Mb0wkeZZG11/KVY9EhFgMP/fsgZHO
-   dqw22CiuFm+m/V5Gb4rgI5ZHfOcF4SSq8t2ZQ/VD8GctH2kheq9Z1tH+C
-   prOBdFlqcigAsLCZNd8Ub97LsQT3GjHz7DI47Aq/QlZqgIttWidHHYdEP
-   7Mnww578anwx31XzGj7p4CQILCBExdhxWBmNE2tTynxfX1hQjUgsmb4XK
-   SClUXvkMrU/yY7lYNB8w64g8xXAfvxTpy3xr6Labnh1Dc7HMyZ0/EW6uK
-   Ihmspk+xTzkUH/McNhEFyuC5RGERP+wT4XLIfNdb6shkN95jmCrPCmXX/
-   Q==;
-X-CSE-ConnectionGUID: smSCnRHWTFi40h5v5Uj9MQ==
-X-CSE-MsgGUID: /wfF+frSSxG4IocZWNvnaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2116785"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2116785"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 03:15:59 -0700
-X-CSE-ConnectionGUID: rt5aEbZaTLaQ3qY9NGwQOQ==
-X-CSE-MsgGUID: 9YaRD7l3S2mTmC0XfSnmRg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5305192"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.32])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 03:15:54 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 30 Oct 2026 12:15:51 +0200 (EET)
-To: James Hilliard <james.hilliard1@gmail.com>
-cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-    Jernej Skrabec <jernej.skrabec@gmail.com>, 
-    Samuel Holland <samuel@sholland.org>, LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>, devicetree@vger.kernel.org, 
-    linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v5 7/8] serial: 8250_dw: discover Allwinner A523 FIFO
- depths through FCC
-In-Reply-To: <20261029-submit-h616-uart-fifo-v1-v5-7-53b433aebbf8@gmail.com>
-Message-ID: <3d7af02e-4196-bb82-9579-467e88879021@linux.intel.com>
-References: <20261029-submit-h616-uart-fifo-v1-v5-0-53b433aebbf8@gmail.com> <20261029-submit-h616-uart-fifo-v1-v5-7-53b433aebbf8@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=qWMrOsrQ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xgvKyHb6Ei/Z+OiKPd/kPj24frDpRo25dpw1FJMQ2iwPIKXPRrm9ACNiLV9hqbfKiL1vnfeqeSSQAegMKRGEO+1p8fBUlX1WAr2hGYlUuGeNVz6yKxNJ/gt4J2aJ1C8WyDCEQ8dM1YPU9MLQ3ch0hmM90oNelPw1e29Jxwv/kuMxhDe3nF0AghNMdhx3NSDiA02WO2awexUYxvWJ8TjbUM66qN5vC+RBGQtyUN0X6HZ01kJf1c0FYLr+1DG8vGedh0BDdKBa2nod7VcPTAGxrY4WXxAftF3BeyQYDUukSoOgeyGqWRiiYvZxocJ9Am35g1uMwHLA0QvS9VomBNt+sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jKKR4S9AQhJDStSbuwGW0EWdZumlZVGx3b3Yu5Euvig=;
+ b=XdnC7oyZoawqZDhqku7mGzBBcguOjufpIm6yNCztT1bjAZCEtwZC08D1nFl3yf8D/0tlPQ14BMA9eYgiR6NZZD81diNZDzM+KTO2glhB/SEh4ZTKbnWqR9LAk9bjHHnEBeYU2glBcbpwRm1mizB4fpZnbCIDlJJutVnnQxk1+1+0mgvFiJCm9kS0AZH+62+hYWQ+d4seSDjTNgQBjnON1L4uObAQ0/lmXnkPZQWEzXuiFYK54sjxvT1p+Kc5p3AuaK+ghQQreHKCkkUX6yzroHDNKDI7Kfc37aLrqdNJIVtbzIAbDwWH0QswSwgHEXlJxqrXS+yXRVxzKKszSTmD9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jKKR4S9AQhJDStSbuwGW0EWdZumlZVGx3b3Yu5Euvig=;
+ b=qWMrOsrQDRxIRB1M7AB2GJJUI9BVoFR8nvi9OblMHvKKGIT2xcjC0/jkoG9xcd2MtjIO1rPLCGVYeyKxjIrEumZ3tKQAamScFl/4Oj2fNwgnv5CoBmTJhfjoiMdNRACT/xwKzcO4umK5U2T3YJJ+h8HELud2OYghHY/gd7uyAm/QQWVsB0y78b5sNsWwyheaiuF76pKfebZ9gDNuIv48En+f1VfK+is9q6mtHWOcZcQL3XfEuR9GXGoglZObmfM0CIUQmnQZrQNDarqeJoc5jIVr1zrk6AGSA4YXq6jVqYlkIlwMqEX0a8v3t+9nslz4Ksy0eDpgPBO6zluZFOvKZw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by VI0PR04MB12032.eurprd04.prod.outlook.com
+ (2603:10a6:800:311::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 10:16:38 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 10:16:37 +0000
+Date: Fri, 30 Oct 2026 12:16:33 +0200
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Ying Liu <victor.liu@nxp.com>, Frank Li <frank.li@oss.nxp.com>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, linux-clk@vger.kernel.org, imx@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v10 2/9] drm/bridge: fsl-ldb: Get the next non-panel
+ bridge
+Message-ID: <auRsorXM4UQJzoWF@vm>
+References: <20261006-dcif-upstreaming-v10-0-bcfb28de0aae@oss.nxp.com>
+ <20261006-dcif-upstreaming-v10-2-bcfb28de0aae@oss.nxp.com>
+ <179334897994.680709.5849266352850173475.b4-review@b4>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179334897994.680709.5849266352850173475.b4-review@b4>
+X-ClientProxiedBy: FR4P281CA0321.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:eb::13) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,128 +107,191 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|VI0PR04MB12032:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28724186-5cc2-4593-25f6-08df366ee1f3
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|1800799024|366016|6133799003|10067099003|22082099003|18002099003|56012099006|11063799006|4143699003|261026130827099003|261026140227099003|261026121527099003|261028144727099003|261021123027099003|261022075727099003|261021135927099003|261021130227099003|261022113327099003|261021121427099003|261022115727099003|261022105027099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	svlBkGyq0gktqEMXwglYLJEd2zAT4S8N8OHx30T3ocD7m9eT80Ai8ztRuQArHGIx8+d2x0fx7ku3ybSKk7HkyoVWNK/WdlU7bq/qaNqB4mWJp/AxA83oLbKc3mMge4a2kgEow8AiZvN/a9eS4sbBD8MpHMr4k0Q1Cim6ubwmqOlV7E96MN2h0QC0NzfHEO/QpDltwKx4eTYU+RkXz7yuopawlf4artuih2wLM5fbL2Vy6HWUh6kcBA2rQcssQM4ZNjUnSlol3XlLNKd7BNEC+6vWwD6395AXh9j5OleB/c+lsZVlqZt15SyCp1KltoCcYvgxodUhOC0BCZ7+ULbYboey4xou6O7PHNddTcDqn+nD3bBBB2O1Uj9hIpKJ0cgYMu6qSqVPWSNYBATNlspoSesVjAaffNwTihxjGVLUDAThQz80SjSJ+spHTRbSXAU2ic4vTv8J18QFyp/NHVFfvezypvAvpsrcUmX+GuVVCBF2MbioFSurX8vI28A3+9QiAss+qJXTDid3YXRvdy3tdkeMcRByOtd7l9vaCR/LDghm6ffZu02ZgLhyWAu5QL3SDnhFA5enNjVYbbQgtJb6RcclgNFkEg/Q0a9ZN1SiBXo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(261026130827099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021123027099003)(261022075727099003)(261021135927099003)(261021130227099003)(261022113327099003)(261021121427099003)(261022115727099003)(261022105027099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?mkQ2BZemnFPd4RGFmY6oRcpMwlFCV3IJnN5vqdFXikWI4LtGCjPJglqWLQVx?=
+ =?us-ascii?Q?HBS0BEYtp12PsvBmdPZrDi6mCExfqFFCMeMVDTQyFEWuGkFheQdDAQFUTD/G?=
+ =?us-ascii?Q?qhE9TrAGCEP86ic3DPkHUMakOWGtJT/8sSsrNOS/YXwgJu6PHAizpu6rQlIL?=
+ =?us-ascii?Q?C+ridy24UVWnnSjXIrx8S1CVrX2D987ukNBBZNZ1Ku0PObBrAbfXBbdzt5Md?=
+ =?us-ascii?Q?1dk+4g2Xz+RkD9CxrShevOuHE0KDcm9J8m9V5Ft3gB1AQi5e792JcYTQQbrT?=
+ =?us-ascii?Q?PdEuGrNkpRoTtWcr7aGIUSTVt4d5ON2U2fnIWKcIgP78V7oo4o0sVVnmdvY5?=
+ =?us-ascii?Q?dhup4NNX2cjPm5dW8sDk4rL2Lu4yh9eMTfh/IR5EIeLJfmHURb65uDWiHm0v?=
+ =?us-ascii?Q?DNXtfTZIiX7bzfYb55FP5cAd+JaD+DeJokW3gDtSX22FN9IiQ4cwYRWQw6LE?=
+ =?us-ascii?Q?VyXOxs8GWFIKLSYJVWd+IR/1a3gjaxScXuaIayJEw+kJO7NVsg2dXWWdy4UK?=
+ =?us-ascii?Q?j7+Llk9n64/K6V/d7pYUfoZlZz0WfWBgHwLJu+BkwyviuXPbldre1uz9T2t8?=
+ =?us-ascii?Q?whn7SCUapcOEyDzDwQ3Iyy9xrvwJUZo5URHKOePlVhe3yJ+pa+nDK/WU3E8E?=
+ =?us-ascii?Q?5FpTSncUQrEBYB8UGGM53SuGZ7y/kAQHthL/C3EW5jpe5QS5Wj6EN1qVDARm?=
+ =?us-ascii?Q?uNy77+khyUEwzU9USDJKRmgBmVhdJGIrJTZfT5MuCmTG7017QxfxCAY/y0HR?=
+ =?us-ascii?Q?Ja7s4wgjoNMugcCWL/PRet63xo9Jqt+5qyAy5F+HtMeJ7U2knlVUfaxNXSRc?=
+ =?us-ascii?Q?uNnN2UwTTrlcKF7Rmaz66NJPmv8cQx0CXb7b9ZHBAbdtHOvPvr5yCq/TaX+M?=
+ =?us-ascii?Q?s8LieEbPKbqgtoBgYXinp7pc9fzpU1A8wDyTjas8WaDEr38J6rPfJbzwo4nr?=
+ =?us-ascii?Q?H1db44HsHiW08kpXUsmzWl2xZiCSxrGn5+CTHiQl5UCVsjD43zabk0DVQ+qz?=
+ =?us-ascii?Q?fqCVNe2S3XfnJhRhD3OgJTarnUj97PjUj2KulGu9rvbUMsi2XT/cUphvB1sc?=
+ =?us-ascii?Q?DPPHe5Tk0Tz1lW1cbc45zOBT5oAyLcitPGPWenTyfJ3yYFjHG7Pl6A40akUL?=
+ =?us-ascii?Q?R+7fY1C52CfkvsXMHtHfkaUBi1XjNudi7NvKhpqj1f6FeIgQDwp4wkLt+Wcl?=
+ =?us-ascii?Q?aCmniLmQpG0uaGliEqMwNeiUtvZdZwRkICERWsxwz2YAPzLssGntUmWMjrln?=
+ =?us-ascii?Q?M7/wvKQxio5LYl3d1OsFtFY7VyHpJAyy0WF5pRKablo5nwaGQbzWkkNI4Gpu?=
+ =?us-ascii?Q?3zTyj/By7+JZJ4E7DlObuc9Rrsi9/C2VCv1AlZ9FJOv4zkbiDoJi97CkNT6y?=
+ =?us-ascii?Q?3b3fcGmt4FPErO4YhJDYh5pZ4/FvGD6CI/OzXFVbgxBjDyxQgxfrr+vKY+7b?=
+ =?us-ascii?Q?Klw59qEYA7DZZCZ0CoWSqA2QouhKQEcU/TK2IUoTvJNB8pEQwGoLBfg/c00Q?=
+ =?us-ascii?Q?UsRlxZaDWbeDqF9OafoDHvF7aAp2VVv+gLsBmBZ1azAhayxuJtoweeUTy7Kw?=
+ =?us-ascii?Q?XAneBWxrxFV1L/6zeKfigifD6WiM8K07hJXabnywSJ0NxIRT2Of/oZIt6cm6?=
+ =?us-ascii?Q?dzwawba+hvFyWIFtioVv+GZq0Lob4bNOxsHCZMPyuuO/w+zRY4+ZLD0l9Cw/?=
+ =?us-ascii?Q?Rue+pn9af0fggcBg3USI5d9NxnrLG8tF3FLSatG7ecQdZ48yn8ffFWDdh4j+?=
+ =?us-ascii?Q?zTnt34g5IQ=3D=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28724186-5cc2-4593-25f6-08df366ee1f3
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 10:16:37.7081
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: s3WsjzDIIYyL/XM1DLF375O/gNLQcy4Mugo/YLX9mpLpAXKa7DHFZIve31C5lY+2t/9VnXUwW3Rpd6QVYDLhug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12032
 
-On Thu, 29 Oct 2026, James Hilliard wrote:
+Hi Luca,
 
-> The A523 UART integration, also used by A527 and T527, has 64-byte FIFOs
-> on UART0 and 128-byte FIFOs on UART1 through UART7. Each controller reports
-> its TX/RX FIFO depth in bits 31:8 of the FIFO Clock Control register at
-> offset 0xf0. The field holds a byte count, not a logarithmic encoding.
-> 
-> Read this field in the sunxi setup callback when platform data does not
-> provide a fixed FIFO size. A fixed size takes precedence, so H616 retains
-> its 256-byte configuration without accessing FCC. The probe has already
-> enabled the clocks and deasserted reset before invoking the callback.
-> Leave the FIFO clock-control bits untouched.
-> 
-> Validate the depth before generating the RX trigger table or setting the
-> transmit load. The quarter-full threshold must be positive and the
-> FIFO-depth-minus-two threshold must fit in the byte-sized table and RX
-> trigger API. Report an invalid depth and fail probe instead of generating
-> zero or truncated thresholds.
-> 
-> Select this setup for the A523 compatible. Derive the transmit load and
-> RX threshold table from the discovered depth using the common sunxi
-> helpers. This handles the different FIFO sizes with one compatible and
-> one receive-trigger mapping.
-> 
-> Like H616, this integration has Allwinner-specific debug-divisor and
-> RS485 registers overlapping the generic DesignWare feature probes. Use
-> the common sunxi PIO setup, BUSY-safe integer divisor programming and
-> software RS485 handling. Keep the APB clock gate enabled during termios
-> updates with SKIP_SET_RATE.
-> 
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
->  drivers/tty/serial/8250/8250_dw.c | 23 +++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
-> 
-> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-> index 3bc6735fc253..2ab91f479fc6 100644
-> --- a/drivers/tty/serial/8250/8250_dw.c
-> +++ b/drivers/tty/serial/8250/8250_dw.c
-> @@ -17,6 +17,7 @@
->  #include <linux/device.h>
->  #include <linux/err.h>
->  #include <linux/io.h>
-> +#include <linux/limits.h>
->  #include <linux/lockdep.h>
->  #include <linux/module.h>
->  #include <linux/mutex.h>
-> @@ -45,6 +46,10 @@
->  #define RZN1_UART_xDMACR_8_WORD_BURST	(2 << 1)
->  #define RZN1_UART_xDMACR_BLK_SZ(x)	((x) << 3)
->  
-> +/* Allwinner FIFO Clock Control register */
-> +#define SUNXI_UART_FCC			0xf0
-> +#define SUNXI_UART_FCC_FIFO_DEPTH		GENMASK(31, 8)
-> +
->  /* Quirks */
->  #define DW_UART_QUIRK_OCTEON		BIT(0)
->  #define DW_UART_QUIRK_ARMADA_38X	BIT(1)
-> @@ -64,6 +69,7 @@
->  struct dw8250_platform_data {
->  	u8 usr_reg;
->  	u32 cpr_value;
-> +	/* Fixed sunxi FIFO depth; zero selects discovery through FCC */
->  	unsigned int fifo_size;
->  	unsigned int quirks;
->  	int (*setup)(struct uart_port *p);
-> @@ -729,6 +735,16 @@ static int dw8250_sunxi_setup(struct uart_port *p)
->  	p->type = PORT_16550A;
->  	p->flags |= UPF_FIXED_TYPE;
->  	p->fifosize = data->pdata->fifo_size;
-> +	if (!p->fifosize) {
-> +		u32 fcc = dw8250_readl_ext(p, SUNXI_UART_FCC);
-> +
-> +		p->fifosize = FIELD_GET(SUNXI_UART_FCC_FIFO_DEPTH, fcc);
-> +	}
-> +	/* The RX trigger table must contain positive, byte-sized thresholds */
-> +	if (p->fifosize < 4 || p->fifosize - 2 > U8_MAX)
+Thanks for looking over this patch.
 
-One additional comment.
+On Fri, Oct 30, 2026 at 09:29:39AM +0100, Luca Ceresoli wrote:
+> Hello Laurentiu,
+> 
+> > The next bridge in bridge chain could be a panel bridge or a non-panel
+> > bridge.  Use devm_drm_of_get_bridge() to replace the combination
+> > function calls of of_drm_find_panel() and devm_drm_panel_bridge_add()
+> > to get either a panel bridge or a non-panel bridge, instead of getting
+> > a panel bridge only.
+> 
+> Since commit b7797081ccfe ("drm/panel: embed a drm_bridge into every
+> drm_panel") there is no such thing as a panel_bridge. Now every panel just
+> embeds a bridge, and there is no reason to use the panel_bridge API. All
+> bridges/encoders/whoever needing to interact with "the next component, be
+> it a bridge or a panel" should just use the bridge API.
+> 
+> The old panel_bridge APIs are deprecated [0] and by now they are just
+> complicated wrappers to the bridge API.
+> 
+> I'm addressing the conversion to bridge API and eventual removal of the
+> deprecated panel_bridge API as time permits (but pathces would be
+> welcome). This driver has already been converted by commit 802372cf316a
+> ("drm/bridge: fsl-ldb: don't create a panel_bridge"), so this patch is
+> basically not changing anything: it's still getting a pointer to the next
+> bridge, but switches to a slightly more complicated implementation.
+> 
+> So I'd drop this patch.
 
-What is the reason for this "byte-sized" limit? Is it Allwinner specific 
-or perhaps the use of unsigned char in 8250 driver to store them?
+Agreed
 
-In the DW databook the CPR given fifosizes go all the way up to 2k. I'm 
-not sure how large actual UARTs make them but applying the FCR formulas 
-one could get > U8_MAX thresholds.
+> 
+> Still it's good to get rid of the obsolete "panel" wording because now we
+> don't interact with a panel aymore, see below.
 
-If it's just 8250 drivers type limitation, I think the comment should 
-make that obvious the type could be changed as needed.
+OK, I'll replace this patch with one addressing your comments below.
+
+> 
+> [0] https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/Documentation/gpu/todo.rst#remove-panel_bridge-api-functions
+> 
+> >
+> > Signed-off-by: Liu Ying <victor.liu@nxp.com>
+> > Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+> >
+> > diff --git a/drivers/gpu/drm/bridge/fsl-ldb.c b/drivers/gpu/drm/bridge/fsl-ldb.c
+> > index 7ec84c81cd78..52ae7f5b63c7 100644
+> > --- a/drivers/gpu/drm/bridge/fsl-ldb.c
+> > +++ b/drivers/gpu/drm/bridge/fsl-ldb.c
+> > @@ -294,8 +294,8 @@ static const struct drm_bridge_funcs funcs = {
+> >  static int fsl_ldb_probe(struct platform_device *pdev)
+> >  {
+> >  	struct device *dev = &pdev->dev;
+> > -	struct device_node *panel_node;
+> 
+> This could be renamed remote_bridge, or next_bridge_node, or the like.
+> 
+> >  	struct device_node *remote1, *remote2;
+> > +	struct drm_bridge *next_bridge;
+> >  	struct fsl_ldb *fsl_ldb;
+> >  	int dual_link;
+> >
+> > @@ -318,19 +318,16 @@ static int fsl_ldb_probe(struct platform_device *pdev)
+> >  	if (IS_ERR(fsl_ldb->regmap))
+> >  		return PTR_ERR(fsl_ldb->regmap);
+> >
+> > -	/* Locate the remote ports and the panel node */
+> > +	/* Locate the remote ports. */
+> 
+> This is OK.
+> 
+> >  	remote1 = of_graph_get_remote_node(dev->of_node, 1, 0);
+> >  	remote2 = of_graph_get_remote_node(dev->of_node, 2, 0);
+> >  	fsl_ldb->ch0_enabled = (remote1 != NULL);
+> >  	fsl_ldb->ch1_enabled = (remote2 != NULL);
+> > -	panel_node = of_node_get(remote1 ? remote1 : remote2);
+> 
+> I'd leave it as is, it's just less code (and more efficient FWIW)
+> than... see below (*)
+> 
+> >  	of_node_put(remote1);
+> >  	of_node_put(remote2);
+> >
+> > -	if (!fsl_ldb->ch0_enabled && !fsl_ldb->ch1_enabled) {
+> > -		of_node_put(panel_node);
+> > -		return dev_err_probe(dev, -ENXIO, "No panel node found");
+> > -	}
+> > +	if (!fsl_ldb->ch0_enabled && !fsl_ldb->ch1_enabled)
+> > +		return dev_err_probe(dev, -ENXIO, "No next bridge node found");
+> 
+> This can be simplified by using a clenaup action on panel_node (or whatever
+> the new name will be), so the of_node_put() would disappear. See for
+> example commit 23bc92902edd ("drm/mxsfb/lcdif: simplify ep pointer
+> management using __free").
+> 
+> 
+> > @@ -339,10 +336,14 @@ static int fsl_ldb_probe(struct platform_device *pdev)
+> >  	if (of_property_present(dev->of_node, "nxp,enable-termination-resistor"))
+> >  		fsl_ldb->use_termination_resistor = true;
+> >
+> > -	fsl_ldb->bridge.next_bridge = of_drm_find_and_get_bridge(panel_node);
+> > -	of_node_put(panel_node);
+> > -	if (!fsl_ldb->bridge.next_bridge)
+> > -		return -ENODEV;
+> > +	next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node,
+> > +						    fsl_ldb->ch0_enabled ? 1 : 2,
+> > +						    0);
+> 
+> (*) ...this code.
+> 
+> > +	if (IS_ERR(next_bridge))
+> > +		return dev_err_probe(dev, PTR_ERR(next_bridge),
+> > +				     "failed to get next bridge\n");
+> > +
+> > +	fsl_ldb->bridge.next_bridge = next_bridge;
+> >
+> >  	if (fsl_ldb_is_dual(fsl_ldb)) {
+> >  		struct device_node *port1, *port2;
+> 
+> Luca
+> 
+> -- 
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+> 
 
 -- 
- i.
-
-> +		return dev_err_probe(p->dev, -EINVAL,
-> +				     "invalid FIFO size %u\n", p->fifosize);
-> +
->  	up->capabilities = UART_CAP_FIFO | UART_CAP_NOTEMT | UART_CAP_AFE;
->  
->  	dw8250_sunxi_setup_rxtrig(p);
-> @@ -972,6 +988,12 @@ static const struct dw8250_platform_data dw8250_h616_data = {
->  	.setup = dw8250_sunxi_setup,
->  };
->  
-> +static const struct dw8250_platform_data dw8250_a523_data = {
-> +	.usr_reg = DW_UART_USR,
-> +	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
-> +	.setup = dw8250_sunxi_setup,
-> +};
-> +
->  static const struct dw8250_platform_data dw8250_octeon_3860_data = {
->  	.usr_reg = OCTEON_UART_USR,
->  	.quirks = DW_UART_QUIRK_OCTEON,
-> @@ -1024,6 +1046,7 @@ static const struct dw8250_platform_data dw8250_tda54 = {
->  static const struct of_device_id dw8250_of_match[] = {
->  	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
->  	{ .compatible = "allwinner,sun50i-h616-uart", .data = &dw8250_h616_data },
-> +	{ .compatible = "allwinner,sun55i-a523-uart", .data = &dw8250_a523_data },
->  	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
->  	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
->  	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
-> 
-> 
-
+Thanks,
+Laurentiu
