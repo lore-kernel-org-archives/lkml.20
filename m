@@ -1,101 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793385762;
-	b=IGFM5uOlHWp59WNFxS/CzFBw4m68VD1AU+B8w61SaLKbNaJotTyXYEAZE65PgMsLd1Ay
-	 I3ztWyCF0aqwEbX6LE6pfaEXhIlePLNhhuuvVLvTM60SOT5hHypf7iQjCQw+i4UYBHol9
-	 P0Kde7n3nowNGEDgEnXXTqw1t0xH08mzqJyhPQqZZ9aO5LFsCEBwdHpmQVQGM+lserddl
-	 FipebIoA5R2lNhFZA2Bo68K6tNFjvRqaZuAuGd/z9jDR1fO+Im9D+UWN6WzVmOqbuu17q
-	 xJ3Zm2yRzpGI0bEItxlObWpRA6gl+COf/kqa0+yShsQRVh+vQIKv2M9suPde+0rUE3A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793385762;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793385874;
+	b=0e7jE4Vr4q7jO2K4+AW4ym794YQm4gUAr6N2Qr/cYwKeS4kBByWy9ArQvvOmLWDoWTHk
+	 u9Xwr5gyr9BCi+I4+E0gC9aljBezgnW32Mf6iXDcUnTfespIsBtKY7iaWGX4+bpkJMH3C
+	 D6Tcph9pSpGG0JoN4Ohl4W/qdmEdu3CEd0z7CZLuVxxOU5uZ3RRjlVFcN0ojwJ5n/SaCL
+	 0jtZ+HtwMdWCaZFs4KOYxTsAeqqF9RDdADDB9FcTwKYpHhVbxNFEQfN5f7646QYMbOLrr
+	 kIy3JsI9IgVht1gy+HIDkPKMGytBayZBOAVj3GnUZZSKyX+dpaJCIhG18DH/VNjCR6g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793385874;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ArYrG0SZmM4/M6BZSvCDJn/YoiUDh8QaQvrAG71KqZI=;
-	b=L7fLc/+4PVrlhbling4U3ykiCe6jvj69YI1hc9ZscfOiqq+dJOP2Dz+wwDxhgozX5aTz
-	 xxtOKy7NaDy5WEHXqJLzrIei/dkei0jBkD6BPfiE9S9XdLnjpr/p3l3CDDUNMummIPgcV
-	 v6P2evTDMScVigH+q8gtURLiTQgaVTrpO4pY9PgRJoodM2dkCXA+O0JiDBpDPt+VKWaQ+
-	 nNTQTGApU4ztJ5Epuy/tWA6sQFytkRZu6+5kTlYvUgIZsMF9vVd0zR4EFt2mpZWH0IbTH
-	 BhZBRy1md8o5CJII/yRVpKcgHoEEV64rQrmE3EalPfqpRw/f6avziZYKlO6xnsz+rDw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ilhiRFdm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=plQGU0/59tXvVFv7NZ2tZ2O/Wh2AnzL9Gn/KxlsSxWg=;
+	b=lgncTo/VOH/YH0N79R+x3BEUFj2eu08IaXCVjGjacKHN7lzY+TBLTEEi1tqYwyZ9HhCG
+	 v3QvSxiAns+facU578rAKH08i3eZdg0xZDjgfCK1KpSDufquxkHp+ZAlX9NCxb7rcZqHQ
+	 EdaQ8QuKxcTeITZckPRsUSmQiRiiQGOFSYIucCvYsa3NoXxDXjHclpKOWGNCpuiNeFXDS
+	 edE0LSJxFwF/TF4mud92si8XgPkqiHiVhAzMqSnupp+8u8dBcLBKaDs7q0xxyGYFr6fqg
+	 4Q6ubi/MQgVUAH1ZT6Lkr6pLcWLNjFV16dRK/mvLzTXt1u/qzNK/laR/gPXIDoXTPcA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oOP3e5f5;
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD637606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:42:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD637606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E34606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:44:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5E34606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ilhiRFdm
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ab98332238so647268a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:42:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793385761; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bQSpD69/9NSuyrYZb4cSYxvQ2pWDixU9Gb2r88Xfu1zMWYcYM7H3ke/AuO6j3p1uXH
-         s62XE7hjEbh5VwIfwF5AkUIg8e0v5bGsxvhUaKN4CDh0wXiR9QYsE9t6LS1J/5Mjcvb7
-         Z6I7/zm6vyA2Ay4JlQ/RwdZUjdLAPRf1OS3miW+BrbA50PPrtTqk/Q4lfK/RcC8miHwB
-         KsK8qRohL6LQ/TcWivsb9rWWp1CVsmY812oi3DzDFZXY7Zof1lbfcWugr6eVcGdzkX8G
-         0uWCbOxwjBNo7Gbqq2W6G/KyfRPnCVd7d8ofN5O9Dgu/hAl9VL0IgdGusLYCoCFiZkiR
-         rmgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ArYrG0SZmM4/M6BZSvCDJn/YoiUDh8QaQvrAG71KqZI=;
-        fh=8asgM3jb2Pyc1naYmp05v4nDbZiwEs8ZTjK4YTv883k=;
-        b=RbwXmQ8eFROiI9j21J5tSSggVY1T3yoEEYJTSP6sK9iwSHCG/LRt/Zt4w4molPk3VQ
-         K2MZWQ9vvCiY4H+N8S8PMj+BwteF+APcHA/PoUN1f/h/OzMd2K4xStWWBc5uveFHU9jV
-         Me0Wr9dtZW37/eowwj72o7DCQuplM4+PO/odc6Ieyhz7Co0w6VLVzCU7WkcNdmFfWcvS
-         G+ghKXgncOyt3K4lV1BMurhGgidhfulsjm2bTBnKeTgTM1jAeM9mistd+bxGkDPGYH0i
-         FHHokNiIgAkOmjhlWOln38hOoR1LzaQJue3AV+qW4ZTDFCB2Op7DM6U72n8DyFjOioGY
-         NWSw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oOP3e5f5
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ae6fda7a00so1076697a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:44:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793385761; x=1793990561; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ArYrG0SZmM4/M6BZSvCDJn/YoiUDh8QaQvrAG71KqZI=;
-        b=ilhiRFdmDF7b2CCOVYg3yrhn1I/DSoWRa475WOgAruostyli6ZMqjZ8ESu/yy5CChS
-         ORPsHXhLPSB1d8qNrTp62GpyH8yrD+KcK/Sl4X0TBIun9uQC8HbkSLeOQxdSLJiYuFMf
-         XQv6Iyxweil5+vEvXvkSgud6DAU4epItDzW6UJ1rlDcLV2A5Mbef3YHl3NS1jQUpnBCz
-         cXtS2Y1FhBsB8+HetmFOuYCQG3xb3XiaIZrXChQ1r6BwCboqJU6zWBFLaNgS9KhzrizS
-         BIhSTD4xZXL4O7bpS/UEY3kl5bLzYJWvjxr8L2bxTLch81x4AItH1ByoYLZFjTdsOMix
-         sxDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793385761; x=1793990561;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793385873; x=1793990673; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ArYrG0SZmM4/M6BZSvCDJn/YoiUDh8QaQvrAG71KqZI=;
-        b=F81CA/Ye0nT0wgHOdeRSLNi1FZBZfCa+Xfeaw2ao0TSCEdj02hhIHYbpcop8bGEBFw
-         LJmuP5fYU3AjbCFh7gnjOTIEPWwnXdEcsoHO6FV9ezRcGB6LBI+koxGpV9HZ5fDlNeh+
-         0Ru8GAthpsZDQNU2+NddxVQ0FcAVeQihjvbwdA14WPhW87MU9fcGUyu8ANwVWsQBEEJr
-         MGOCRLHP/TrIqd7/uk8cbPsKZhZxyMv1zqrFE6IEyNDIl5LmLYx4w+qm6lf0bQ3njvoI
-         telaHfXTSlUwTrh1yd69ebtTSlUGx/0Szi3CfUjDw6vXf8x8ffFmdGstm8Omp2uqy8mQ
-         /FmQ==
-X-Forwarded-Encrypted: i=1; AKwUvByTD9fPja2jdKoSjYnq90287Ks44HgRcU7kh4wPWe/nyJ9eS/s1lO5klf8WKWWaGKnUvYeGBX/pgmb7TJY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgwfZ1TWdmKzJw6g953XGiTEHZpEPkbgVZTWyK8yZEXcD3AThV
-	nqyOyaClgcGA8eTcLCj2v04x3/jRexA9fsNe/ENssmH4X0Kjt96zg+4sOFgK0crIG5UAkEBBMqf
-	0FBbzT3DhhV+Ape9NkU0Zx11nt1TDru4=
-X-Gm-Gg: AYBFou11sGffKain8pW2VWqDUReZLvxWjNvHASmqFWq4TSm8icBlrkjiv7/DGWsbGJk
-	u68cswxmOJ47ua94X+craVIjI51FGmCO0W1hv+Sz8IryWRfO6wx+YHTgtyCLkVUr69tq+s9PCYB
-	2Dm5NLHCUwKH48wdy7tjOK4mYdNXYt49JZdUm/EnVTQ2uVqdKVGz33FbD5Blyi+1RvvyuR/zikK
-	HOvp6lmLAkSAOxOjy7Zs8KKRqaB7z/7/mDNWGH9PRKUE/Pv0iQYvUAbQjgEWneQDBxkSt3YYng4
-	U4s7q6K+V+awm1Vo8hx4Nxnb5N9jV886m82e2/iW5b3rdnbGcfAWv+iy9sil6vPzBSYC00Zrr5t
-	GVuIrVtF1H+ggYCZ9NAZF5xsB8zadEgPGZLKxXG2+yUtrtxpjsvozQ+2l3zwmfffDr53UDdPQRv
-	8E7qhgaBhYuCaCbl+Z3s/4maSorAhPgmXIANnBMKusr2HDo7Hq+0K2ZuI=
-X-Received: by 2002:a17:90b:54cd:b0:3ab:2737:3392 with SMTP id
- 98e67ed59e1d1-3ae897a87admr2747287a91.53.1793385761164; Fri, 30 Oct 2026
- 11:42:41 -0700 (PDT)
+        bh=plQGU0/59tXvVFv7NZ2tZ2O/Wh2AnzL9Gn/KxlsSxWg=;
+        b=oOP3e5f5EwtSeLWUiI3FRElxXMunJCatDCTKvdAt4IJD4dHYMOr+ws8sv5FW/Nu6L0
+         0gTkhvEWudnm8hbSamuLgmp+fB59bdwBpmeZ3LkRuv9Cj1NhARFo0jYMDeCQYniwvZfQ
+         bq4SSSVRHE5HpZRzcG5dGaBp3qtjdXkmDU2+rv3NFWLHiD6rG0yqWgSZ0LzAOHvtS8Iw
+         YTKWl9wpXOa/DsoR89Q4N3FhffNQLC0GcZIWfUIC20FsMpyprKF0B8t5h4Rj6L+/S2G5
+         dDqdsEauGbylO/D7AtzlOIvKzQFcmY5Zhcq5vddMcfrOgx+MtLQu8Kjb1bzlfYTylFGx
+         fnGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793385873; x=1793990673;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=plQGU0/59tXvVFv7NZ2tZ2O/Wh2AnzL9Gn/KxlsSxWg=;
+        b=BPVqNKPRw7HHVwYd1cYJQeA8bTI5pawYxruUHPZZeDnyLUFGXyJiEXTXJ0yK3cSrAQ
+         bb2SUv7RKczABQZK+rLpHsrnojvcwNVuAoTyM/iVsQ8gsKQSZCuA7bJSIrehX3AbWF3o
+         86KMWrqs1ZBIcQPF1zD+siHvDy/E+GdmLZrc+G+aH7256yLqXxhZVJEPlKEywCgWZ75L
+         iQQo1OJOhSnMQIwknbx0A0OTnhjeL/gUEEKo+7QT6klYoNqsjQWjyus+ryJUiaQjlgD8
+         cYoOXxMVwWZrHodOLcfLgQRZyyZ3yszMPs+5GEQ/HvbRPkm+YAVPQNIC0Zqv2Qww4+CW
+         rIIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwcAssIHXLZE1eSSy34YB6X0Go3MVe3eCjmldKksVZS5cbQ1eHzmrw5vqom8BJIlodSxMYZQkR8VxB9710=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBMs5r5VmfY5ijiHmxi19FFfJytbruUgjWkS2YIQEGT8cojgIB
+	StGClZ4a1uvogD0XG7aZ2eQBA3C2EGYPmda+r8cecJ7eIyldVlAjdgCmNnj1W89DGGOj2mie41W
+	7JTmSsA==
+X-Received: from pjon10.prod.google.com ([2002:a17:90a:928a:b0:3ac:2cdc:a8ca])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:33c5:b0:3a7:ef4:164b
+ with SMTP id 98e67ed59e1d1-3ae89574cf7mr2533447a91.2.1793385872887; Fri, 30
+ Oct 2026 11:44:32 -0700 (PDT)
+Date: Fri, 30 Oct 2026 11:44:32 -0700
+In-Reply-To: <auTgh5uP5tpL8BlP@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,210 +77,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261023001603.560210-8-wusamuel@google.com> <20261023001603.560210-9-wusamuel@google.com>
- <CAEf4Bzb--Jzz696u057G9_CgQN7zf6ksvoL80KJacKO2CorsnQ@mail.gmail.com>
- <CAG2Kctojb7xiOqTmwWqoAKFaNUECjOzXVc_t6KbG13Pqm2dbng@mail.gmail.com>
- <CAEf4Bzbs8F1DPBz=WXVTExrrNjzvaFsi4L+HEj+zbUTpPSTX5g@mail.gmail.com>
- <CAG2KctpSTCyWQHgJ8GyFEhHPdFawUa6zy0g7rkfCcujJRN6f6w@mail.gmail.com>
- <CAEf4BzbyqPC=RQGWEdpkqu1WDQ2_S0H8pZU2i=_gLuSDQtpFbg@mail.gmail.com> <20261030153528.0d5113e7@pumpkin>
-In-Reply-To: <20261030153528.0d5113e7@pumpkin>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Fri, 30 Oct 2026 11:42:28 -0700
-X-Gm-Features: AclHuK-VjFk5niMzo0il-rDmeKs0ZQg3btwvPCyolGTPblfqirktPQXtvuort7I
-Message-ID: <CAEf4Bzbw6hZ3T6uO-ah7c0+K9_kc+k32hV88YFP=qPnHos+-AQ@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to /proc/kallsyms
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Samuel Wu <wusamuel@google.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+References: <20261030032937.2813-1-ma.mandourr@gmail.com> <20261030032937.2813-2-ma.mandourr@gmail.com>
+ <auTgh5uP5tpL8BlP@google.com>
+Message-ID: <auTlkNFh5C7nqzoi@google.com>
+Subject: Re: [PATCH v2 1/2] KVM: nVMX: Don't let L2's LMSW modify CR0 bits
+ owned by L1
+From: Sean Christopherson <seanjc@google.com>
+To: Mahmoud Abumandour <ma.mandourr@gmail.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Fri, Oct 30, 2026 at 8:35=E2=80=AFAM David Laight
-<david.laight.linux@gmail.com> wrote:
->
-> On Thu, 29 Oct 2026 15:54:01 -0700
-> Andrii Nakryiko <andrii.nakryiko@gmail.com> wrote:
->
-> > On Thu, Oct 29, 2026 at 3:36=E2=80=AFPM Samuel Wu <wusamuel@google.com>=
- wrote:
-> ...
-> > > > > Makes sense, but I'm thinking v3 doesn't need pagination or batch=
-ing.
-> > > > > I didn't see any performance wins when profiling libbpf, and it c=
-an be
-> > > > > added later without breaking UAPI.
-> > > > >
-> > > > > > on input I'd also add module name as optional input argument, w=
-ith
-> > > > > > "vmlinux" limiting to just vmlinux, set module name to just tha=
-t name,
-> > > > > > and NULL/zero meaning "we don't care"
-> > > > >
-> > > > > Makes sense, so here is a possible plan for QUERY_BY_NAME:
-> > > > > - Optional module filter: NULL =3D any, "vmlinux", or a module na=
-me
-> > > > > - Returns the first match by default (vmlinux first, then modules=
-). An
-> > > > > ALL_MATCHES flag searches everything and reports the number of ma=
-tches
-> > > >
-> > > > searches everything as in all modules, or you mean just full linear=
- scan?
-> > >
-> > > I envision ALL_MATCHES to do some form of lower_bound() +
-> > > upper_bound() on vmlinux since it's sorted, and then linear scan of
-> > > all modules. Of course, just one of the two or both aforementioned
-> > > things depending on the module filter (any, vmlinux, module).
-> >
-> > no point in upper_bound() if it's sorted, you just start at
-> > lower_bound and go linearly from there. I don't think it's realistic
-> > to assume large number of duplicates, so I wouldn't optize for that,
-> > one log(N) lower bound + linear scan will be faster in most cases,
-> > probably
->
-> Doing a system call for each symbol is probably fine and scales nicely.
+On Fri, Oct 30, 2026, Sean Christopherson wrote:
+> On Thu, Oct 29, 2026, Mahmoud Abumandour wrote:
+> diff --git arch/x86/kvm/vmx/vmx.c arch/x86/kvm/vmx/vmx.c
+> index 544b7840897c..2d5feeb8a059 100644
+> --- arch/x86/kvm/vmx/vmx.c
+> +++ arch/x86/kvm/vmx/vmx.c
+> @@ -5743,8 +5743,10 @@ static int handle_cr(struct kvm_vcpu *vcpu)
+>                 break;
+>         case 3: /* lmsw */
+>                 val = (exit_qualification >> LMSW_SOURCE_DATA_SHIFT) & 0x0f;
+> -               trace_kvm_cr_write(0, (kvm_read_cr0_bits(vcpu, ~0xful) | val));
+> -               kvm_lmsw(vcpu, val);
+> +               val |= kvm_read_cr0_bits(vcpu, ~0x0eul);
+> +
+> +               trace_kvm_cr_write(cr, val);
+> +               (void)handle_set_cr0(vcpu, val);
+>  
+>                 return kvm_skip_emulated_instruction(vcpu);
+>         default:
+> 
+> > +			err = handle_set_cr0(vcpu, (cr0 & ~0x0eul) | val);
+> > +			return kvm_complete_insn_gp(vcpu, err);
+> 
+> This needs to (a) be a separate patch and (b) apply to L1 as well (though I'm not
+> even sure if you/AI realize this is a bug fix).   Emulation of LMSW originally
+> suppressed the return value, because outside of VMX operation, LMSW can't #GP on
+> a bad value.  LMSW can't set reserved bits (for the CPU models KVM supports), and
+> it can't toggle any bits that trigger additional checks, e.g. can't try to clear
+> CR0.PG while in 64-bit mode.
+> 
+> But with VMX, must-be-1 and must-be-0 bits become a thing, and so LMSW could #GP
+> if it tried to set/clear a bit in violation of those masks.
+> 
+> Ugh, never mind, screw this.  KVM doesn't support arbitrary MSR_IA32_VMX_CR0_FIXED1
+> values, i.e. doesn't let userspace require that arbitrary bits always be '0', and
+> instead relies on common CR0 reserved bit checks.  KVM (very, very stupidly) does
+> allow userspace to expand the set of must-be-1 (MSR_IA32_VMX_CR0_FIXED0) bits), and
+> so *in theory* LMSW could fault when clearing EM, MP, or TS.  Of course, no sane
+> VMM sets those as must-be-1 bits.  And to make this a complete trainwreck, KVM
+> doesn't update its own guest/host masks, i.e. it's own intercepts, to ensure it
+> enforces the must-be-1 bits.
+> 
+> E.g. if userspace made CR0.TS a must-be-1 bit, then the guest could violate that
+> so long as it doesn't toggle any other bits that would trigger a VM-Exit.
+> 
+> I see absolutely zero reason to try and fix KVM.  Letting userspace make CR0.TS
+> a must-be-1 bit is beyond stupid.  KVM already requires CR0 and CR4 must-be-1
+> masks to be a superset of KVM's "defaults", so userspace can only make things
+> more restrictive.
+> 
+> So, rather than synthesize #GPs, I think we should prevent nVMX MSRs from inducing
+> #GPs in the first place, and then WARN.
 
-Yep, I agree, for BY_NAME case it should be totally adequate. And I
-agree about not needing to do full count, just whether there is more
-is good enough, good suggestion!
+Argh, that's not going to work.  Thanks to KVM's massive "attack" surface, a.k.a.
+save/restore APIs, it's possible for userspace to shove a value into vcpu->arch.cr0
+that's in violation of must-be-1 bits.  I.e. userspace can trigger the WARN.
 
-> Just return the symbol number (in the by-address list or by-name list)
-> so that the application can request the next one.
-> While the application probably isn't interested in symbols with a
-> lot of duplicates, some symbols get duplicated thousands of times.
-> So you have to allow for them.
->
-> (My kallsyms patches get scripts/kallsyms to mark when a symbol is a dupl=
-icate
-> of the previous one, but after a short linear scan for the first it falls
-> back on the binary search otherwise looking up some symbols takes a long =
-time.)
->
-> ...
-> > > > >
-> > > > > > tl;dr, this is the right direction, but I think we should polis=
-h API a
-> > > > > > bit more to be more universally useful and extensible
-> > > > > > > +
-> > > > > > > +#define KALLSYMS_QUERY_SIZE_VER0       40 /* sizeof first pu=
-blished struct */
-> > > > > > > +
-> > > >
-> > > > [...]
-> > > >
-> > > > > >
-> > > > > > PROCMAP_QUERY uses offsetofend() for the last defined field, an=
-y
-> > > > > > reason to have this #define and BUILD_BUG_ON here?
-> > > > >
-> > > > > David pointed out that the size field in struct kallsyms_query is
-> > > > > redundant. In v3, I can drop the size field and use _IOC_SIZE(cmd=
-),
-> > > > > keep the *_SIZE_VER0 define (since we need minimum size). Perfect=
-ly
-> > > > > fine to switch to the PROCMAP_QUERY style though if preferred.
-> > > >
-> > > > I'm not sure how size is redundant, I don't see ioctl subsystem
-> > > > accepting argument size as a separate parameter, so the size has to
-> > > > come from the user and be embedded in user-provided structure, if w=
-e
-> > > > want any sort of backward/forward compatibility. At least looking a=
-t
-> > > > PROCMAP_QUERY I don't see how we could have avoided it, so not sure
-> > > > how we can do that here.
-> > >
-> > > My understanding is that the size is encoded in the ioctl command
-> > > itself: _IOWR() puts sizeof(struct) into the command number when
-> > > userspace is compiled, so _IOC_SIZE(cmd) is the struct size of the
-> > > header the caller was built against.
->
-> Yep, I think that was added by the BSD kernels (but not SYSV) when they
-> changed from 16bit to 32bit.
-> Linux mostly uses it, but not always.
-> If it were used consistently (or the high two direction bits are guarante=
-ed
-> unset) then the ioctl syscall wrapper can do the user copies.
->
-> You'll find that _IOC_SIZE() is used in many places.
-> Amongst other things it can select between 64bit and 32bit compat structu=
-res.
-
-I see the trend to stick to fixed sized __u64 and __u32, which allows
-to not worry about compat. I'd go with that (we have used that
-appraoch extensively in BPF syscall and it has never backfired, as far
-as I know)
-
->
-> > oh, interesting, I didn't realize we embed struct size into ioctl cmd
-> > and match it exactly. I see that pm_scan_arg has the same __u64 size
-> > in the struct approach, I'd stick to that, and when we extend any of
-> > them we'd need to make sure to either ignore or hard-code the size
-> > part, hm..
-> >
-> > > That said, either way is fine. We could mirror PROCMAP_QUERY style fo=
-r
-> > > consistency.
->
-> There is nothing to be consistent with.
-> These are the first ioctls for /proc/kallsyms.
-
-consistency in the sense of these ioctl-based interfaces into
-otherwise historically text-based interfaces.
-
-I'm intending to fix PROCMPA_QUERY's embedded size (so that to
-user-space it stays the same no matter the evolution of PROCMAP_QUERY
-interface). I really think we should start with embedded size zero
-here and have size embedded in query struct itself. This is another
-thing that we've been doing in bpf() syscall for a really long while,
-and given how dynamic and complex that syscall is, we had a great
-success in building and evolving API in such a way that user-space
-code doesn't have to care all that much about multitude of different
-versions.
-
-I'd really-really want us to not have
-KALLSYMS_QUERY_BY_NAME_{V1,V2,V3}, it's just a pain for user space.
-The evolution logic for versioning is simple: if user space provides
-too large struct, unrecognized (by kernel) fields should be zero. If
-user space provides too short struct (for initial version we can
-enforce minimal supported version from the get go), then we just not
-touch any fields added after that size. That's all there is to it.
-User space, on its part, just provides its knowledge of struct size,
-and then kernel will implicitly assume zeros where appropriate.
-
-really, this is a good way to evolve API
-
->
-> I'd also point out the _IOC_SIZE() is limited to 14 bits.
-> There is much less scope for applications causing grief with very out
-> of range values - indeed you don't get past the switch statement.
->
-> David
->
-> > >
-> > > > >
-> > > > > Thanks Andrii for all the thoughtful feedback!
-> > > > >
-> > > > > > > +               return -EINVAL;
-> > > > > > > +
-> > > > > > > +       err =3D copy_struct_from_user(&karg, sizeof(karg), ua=
-rg, usize);
-> > > > > > > +       if (err)
-> > > > > > > +               return err;
-> > > > > > > +
-> > > > > >
-> > > > > > [...]
-> >
->
+So as much as I want to WARN, in practice no real world use case will induce a #GP
+on LMSW (or hell, even trigger an exit on LMSW), so I'll go with your patch of
+synthesizing a #GP (which is better than silently failing).
