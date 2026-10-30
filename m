@@ -1,98 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793333835;
-	b=4mdAzvPDUvdNO5XpXo4ITlzmeQuVE76bNAtCjkv7kOUGLFCErIGNOHbRY8XuHp4sZWlC
-	 o7LhVa++FAjtR+PiRo4LdKOaJYYBn/o7Hc8tpSDh8gEpndGmS2xdQFTDJJZEyU8E5iZ5r
-	 ZGFtsok9Pyf0Hcwpp37Yb0u0tfX8E91J7eufecsmZLbAGUJL7G9or/H0SC8e1KEzVxQLi
-	 WTl0spqYiYRx9no2qM++Qax7P1kwrDxzwcXlF4V1ZDWSTSDrX6Ektkxy129OvJ98Ek0S6
-	 +THJffLoWMNGZF9kcWIOu1M9sfdCYtohhfVb6aZXp0Yb6rAYMY2sAYQnW+nyhHZ5qAg==
+	t=1793333972;
+	b=jt90orSCiuDoUnTMzWe0CNi7tqJ4zTvHg+Ll3pD922bBKBdsthUU+9jLzEXJmfjsVDq9
+	 tyK7tSZA7F7We8lrtGFoWhI8Af1jjNcru7SFKSR0EMjie2K7+/T4NR26/EYUvSAM8IW4k
+	 9w/xjLctZas8b8M6Q0adK3IW+2jsS88esK9ntLjFUxzARYvYRZ5HTrM6tA8maNxq9kv56
+	 c9TvsMUGFkIY23p6Z8egD+Q+ajTkuopzb/2A+UMdlcbAB6ySb9tHu8XJekM4mwC/bm3ST
+	 g3UKruEe000JsGNyuV11wMMBtXtwdbg9qcxEIcvjN5EO1g9XKW3qEWyZO32dwAxeakg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793333835;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793333972;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=34dnmmkWDdF/oQw4NU5mpC/U4TyeuwFcAYBy77dBteo=;
-	b=nBGrdfkl4kwYIIWsMamQqcX+uFgvBIAvX70YSjW2y144PXeCdD2YjIdpNuQan5ZScN93
-	 JUA6r16QOup5S4H2YXalR9DkT04l9wySVb791gL50SsKgqjJhTsxXp6FLLRGyuns+TFp8
-	 lpeZ8y+zVaCHG3xmtl3CVMU7fBkjLUu5tMjlf1m1YCJMcL+25vLJD8aRQabiQzciThv6q
-	 p4elXYN/O1cTIf6W9Bck4YWkUegrOAnT6KwEZ8pTNSehyAg6VeuQwL3fScD4jZJPXtnJI
-	 Vk6MDNB4FZu33V6pmWXYyRelAaVc3A6/n15zWc4UbDSES8iEG2KWqWwgo8/ACbSj5jw==
+	bh=ixvNCvc3ElMgxUSC7xZq0g0AIW9Y+WnUXNOWMqR4I1Q=;
+	b=KsTLT03nzHhk3NisE7azhF1sLNai7W1L2mDTFBpokp5mapb5f+vgKsqtea04QwQHlJkW
+	 7nRpXGlukN611kKV1snLnvtdWeKgAqG34rPr2hyXb5HiLKruj52flkQfbCvYV837iElRF
+	 IZMggKsbYmUSPVuF8b+z4eIs39PlgBT9QLuOucqz4uplW+w07wwuATOnd6O5e3S2SlGha
+	 WbflZPh+wiw53dchQc3Q2qgcXGiW1MqUqjvWfvBIQXnSl/yq1PPIYHHaxX5oqnM0QSPl5
+	 C0ggYX+DTGesOZJpuXk1kaIULVYlXWSAFr3iaASKLhakFQOAQ6wioz/QrDc/3Czd4GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=OZmzPUqV;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IsgslOaG;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F3D606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:17:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06F3D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B1D606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:19:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1B1D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=OZmzPUqV
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso716697eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:17:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IsgslOaG
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ac7c7b3a90so109273a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:19:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793333834; x=1793938634; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793333971; x=1793938771; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=34dnmmkWDdF/oQw4NU5mpC/U4TyeuwFcAYBy77dBteo=;
-        b=OZmzPUqV8JacF/fKoK38M0oLokxwF5OISQGwSkwiQvrytldIvdy2QHxVS3F16S/saO
-         SFUxGH6Z0JPnX0MO+nTvOV7z46S63NNZKX3H44VmnyzB1LG6ekYM7Lbl7fieZoI16kbS
-         7G2LyJrbNyj6RSYk2oV63mP3EBM2RnQeVhMI8=
+        bh=ixvNCvc3ElMgxUSC7xZq0g0AIW9Y+WnUXNOWMqR4I1Q=;
+        b=IsgslOaGls1pJvu5hBLCIrJnozn/KIWrwwwzBoV/v30/KrDa5ZNG2cwOkjyDunXVGz
+         /Puay8lmldHZyh8Ch+VmCqCZF37So1H/4U5sOFLaYS6GwtcgfSo86vEvmX3ptD1Azxql
+         NUXM9CHKeckLBjUi61W9V8wFevGFMAkUUQgEfH7+P03Azh/g1D2I5hXukEQbUK3mAy/4
+         gPAJ+KmHE4sbWH1bVeWANThWAkJduAHrie2x1PTriLftmJhq9aGunQM44TvLtNcNE1Jt
+         6P/gqLvRDs0oVAR0v9Du9fA9DV9wwfC95ZD5NKee2NZBLBGJ3Yx/3SIVe13kbDa2s7Vm
+         icCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793333834; x=1793938634;
+        d=1e100.net; s=20260707; t=1793333971; x=1793938771;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=34dnmmkWDdF/oQw4NU5mpC/U4TyeuwFcAYBy77dBteo=;
-        b=FML9Ct4PRFIBU7jpM9PrCeqei5vyCzVL1XXRXVVaGRxDCDp04OcdTYd4L6wYBCv8ym
-         x0zNr4FCioKhBGvxtLI95ISqrYQb8jRtLi4CYuNVujE0jxmMokOf1vEB40oKBT6pIvg3
-         0mxSEmZRmomZDKVP3unPPZ4R/JNsMj6xdQ93HmOA0hGxwBLR2ZKN5ETrKqEJsjyxk+EG
-         9DIx3Y8ud7GitLCzHS7O5uHgm05u+uC/1NA7zADvuNZeF9+LYW7f/qAO5sjHjLdO8xin
-         JqWERlFXwWBVr2waERz+cQ+cu7gSLiDnObX9ORHvCWmDzpK7SgQod/4R95wtuxlGnHdi
-         /fPw==
-X-Forwarded-Encrypted: i=1; AKwUvBzORtZCF/VcHFTU5q8KVzV/6NHlRAQ8FekexIm7VDdTyGzHXvzSR1Se+zW70w/WyEDHrkJa6Um5OrWKKSU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJWe6KnTIHfRT1p+SA0uVzMtA5RZlR83QEyfH083sNkB07mJh0A
-	cd779AxcF2qwctqnj3F3saVUzQY1DmVi1aa6w5KzebSRuJU8EEM1JqC9PWd+1ik7WA==
-X-Gm-Gg: AYBFou0hqo+KYhVRpV4QRWvjiHS9dgDRRAH3JcElNYV16y6xCfsH7UHZLlV4EmdyNQV
-	Ooi9BFMv6EyU5X1a45M0kbEpeDovxvMzow9KfW3GyBX+YSZZXK4xg2zLeP/FpOmRj0LUrIVDYNr
-	EXvLxFSSqqWMfWUmhRe2siP7Q1wGJIi68++u/dddci/OvJ56gxonoRWjH6WTZj21GxwyDGgESlB
-	fvden/v1iERMn9V5DAG1nehNbgS6CpgC71oVITgO6//DYlw0A+RE9Vh5TdNmceitH1+92pLLlmJ
-	xoa6F1K+Wthmu92nV8OottmzkCRj81/kUqB8IyvAZPPx6WVIAne0uSFQD+X/0rD1A7HCierMNmm
-	uDJgB2QOax0cgy3RpTS4WD63K5vmPXCcr0KAykkZDNNHZr5rg+CqFHRKVKapsFux0FCxJzHK8ju
-	RHwkps2ZkzKCAJOLhqq3gzLyRJ9Ws1W7wrRdI9seqZ1gyPz44CDx+6H6CTpePr0vlstwp7uSSLr
-	eiWrKUBX3o1iouv5cADVHnuF8m1QlfMb/3bq7TNGcHAVMrTDtiidyo5cTHKHSRJDm7NH9hOufq+
-	5K4nd07nk4noplAtdsmJcm4rAjRv45hYN2QBGRQ5Iymvhh845vHC4eMwEmLRcu3IliKRUyRpzN0
-	FDO/9O/h+tuVE8Xk4EQ==
-X-Received: by 2002:a05:7301:2511:b0:36a:1872:4b35 with SMTP id 5a478bee46e88-36a42203e6fmr1814009eec.2.1793333833628;
-        Thu, 29 Oct 2026 21:17:13 -0700 (PDT)
-Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:7476:5b7a:d979:2d91])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429467cdsm3329154eec.19.2026.10.29.21.17.11
+        bh=ixvNCvc3ElMgxUSC7xZq0g0AIW9Y+WnUXNOWMqR4I1Q=;
+        b=zicgZJM3FhXJnXmEosfTJKGoDopHDqgcT6wDJ13k0zI5D8pPS44nUpSDzgmiVq7PA7
+         MkofxvTkzs2DcO9ou67wLoqxwBhf2rNNX5l0ZW13FHbBSP9ZyfQQYvX1d3CC8QAb1zdq
+         IRo/Zi4NS0KKNQ7I6kh+C3ll5lM/OYb/xKgZ/TFMygYYLCXrExra+os/TVeLgRhR2hb5
+         CcCOkAw/lXYpgEi7op3bEN4dITxXhI3d3eOi8DALKRBSsBQmuEsES21Qf3fHaMKQi/Es
+         NHcaldhmKfKZdXLkwm6ZkyIMQers/vlCHnswYlq1IynQIVq9ght8oYg7XuWUpoitUIxW
+         lDIg==
+X-Forwarded-Encrypted: i=1; AKwUvBwGD2OUDb8MaGkh/ajZ4LhV2m8CjK6HCrVbIqFQDLFKN6ti8kjCXvWSYf6kstnm0ztwwlm5X59W+UGhIBQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLq6tMYue4vWGriZKlsW4NyIxoEUgkR1QK77Zf9DjW94BJN9/gu
+	dCI/Im5guGCqY5Z3i/2i28l8CmprZjX862fuQEtAKjdY5b5WtiHd3fQ=
+X-Gm-Gg: AYBFou0KKcOyijberVsuGyLpO+r9sIOI34Klhv9Fds58p2+eGKjOPbuoLO3jt0orjNA
+	ImDGJRXo6tfbKznb8s/XZgBGHO2fcrX+bOl+/UL7/B8T4HJVEj/TWyLZXNlSWY6sZ74m5dO+xvN
+	nP2wAJrrPWFK/tGb7kaLaZZCxdHM2B101/ITMJny4jk5KwcCZJyG02U4quMGRSCML4yawYq0qbA
+	QfBTuTyxLdlCmGNX5kqzitcqo8Ry7YtOiO0RLASlHuk4MBA4tXoitSCZilNm87eQDAsPU4H108r
+	FtMzIsq3OpCPte6RmKm4yVau++6jk10dn8eO/fGFRpazBZJX8H54vqdns9K5g+KWZokiVaFLUsk
+	3R7HuY8KhkZTee7LlTjIzx6VDx4A5tGbAKBuxxzzf2aSVY+fMGlbztMgM0kAklWNvrRbbGhZTU8
+	24TOpw3oLHIeIO8HD/YopmX6K01PN5SJCjiUli308Fp/fs2G5mpmRmo3mQ+wTcIJ5PH1YQsS49b
+	y1IrDpoLKQLrbNrLLbEZP5Gz7OJytQxSSAjto7de4sFQeUXs2xvkP1y5HE7yKKkOASVeXNPD7nC
+	mRG53qHZqjgu23sXueuEBAurKI+PWmZUej4ha0zM732AIIkqSntJFdZt5QZ6GEsCwMxL
+X-Received: by 2002:a17:90b:4406:b0:3ac:b6eb:e0dd with SMTP id 98e67ed59e1d1-3ae8984de49mr744782a91.50.1793333970822;
+        Thu, 29 Oct 2026 21:19:30 -0700 (PDT)
+Received: from freddie-kane.lan ([71.212.222.246])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85cb1bfdsm1030302a91.0.2026.10.29.21.19.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 21:17:13 -0700 (PDT)
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Brian Geffon <bgeffon@google.com>,
-	Minchan Kim <minchan@kernel.org>,
-	Richard Chang <richardycc@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-mm@kvack.org,
-	Josef Bacik <josef@toxicpanda.com>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH 2/2] zram: lz4/lz4hc: accept dictionaries of more than 64 KiB
-Date: Fri, 30 Oct 2026 13:16:50 +0900
-Message-ID: <f2ac22a731e507e90217a5e9cf29c987ec24e2b0.1793333729.git.senozhatsky@chromium.org>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-In-Reply-To: <20da9e9a5ffefd1e6875e311d3740b9f3c1061f3.1793333729.git.senozhatsky@chromium.org>
-References: <20da9e9a5ffefd1e6875e311d3740b9f3c1061f3.1793333729.git.senozhatsky@chromium.org>
+        Thu, 29 Oct 2026 21:19:30 -0700 (PDT)
+From: Burke Cates <burke.cates@gmail.com>
+To: Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>
+Cc: jjohnson@kernel.org,
+	ath12k@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH ath-next] wifi: ath12k: fix MLO 4-way handshake timeout on QCC2072
+Date: Thu, 29 Oct 2026 21:19:01 -0700
+Message-ID: <20261030041902.2740757-1-burke.cates@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260815014329.3748059-1-miaoqing.pan@oss.qualcomm.com>
+References: <20260815014329.3748059-1-miaoqing.pan@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,66 +101,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+On Sat, Aug 15, 2026 at 09:43:29AM +0800, Miaoqing Pan wrote:
+> This is observed on QCC2072 where EAPOL M3 uses the MLD address,
+>
+>   deauthenticated (Reason: 15=4WAY_HANDSHAKE_TIMEOUT)
 
-From: Josef Bacik <josef@toxicpanda.com>
+I hit this on an ASUS Zenbook A16 (UX3607OA, Snapdragon X2 Elite)
+with the on-board QCC2072: Wi-Fi 7 MLO SSIDs (SAE, PMF required; one
+6 GHz-only, one 2.4+5+6 GHz) failed with reason 15 whatever the
+association link, with M3 dropped by mac80211. Non-MLO WPA2-PSK on
+5 GHz was fine.
 
-LZ4_loadDict() and LZ4_loadDictHC() only use the last 64KiB of a
-dictionary and return how much they used, which the zram backends
-take for an error.  Expect that instead.
+With this patch, applied as posted, both MLO SSIDs connect. I tested
+on v7.3-rc5 and again on v7.3, each plus out-of-tree Glymur
+platform/board patches; on v7.3 the tri-band SSID connected as MLO
+(on its 6 GHz link) and rejoined MLO after s2idle resume. That tree
+also carries your separate dp_peer fix (8b6b871332b5, "Fix failure to
+create ath12k_dp_peer on MLO reconnect"). I haven't tried the rebase
+onto ath/main that Jeff asked for.
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Jens Axboe <axboe@kernel.dk>
----
- drivers/block/zram/backend_lz4.c   | 4 +++-
- drivers/block/zram/backend_lz4hc.c | 4 +++-
- 2 files changed, 6 insertions(+), 2 deletions(-)
+Tested-on: QCC2072 hw1.0 PCI WLAN.COL.1.0.c2-00277-QCACOLSWPL_V1_TO_SILICONZ-1
 
-diff --git a/drivers/block/zram/backend_lz4.c b/drivers/block/zram/backend_lz4.c
-index 9767482a2fea..bad648c158da 100644
---- a/drivers/block/zram/backend_lz4.c
-+++ b/drivers/block/zram/backend_lz4.c
-@@ -4,6 +4,7 @@
- 
- #include <linux/kernel.h>
- #include <linux/lz4.h>
-+#include <linux/sizes.h>
- #include <linux/vmalloc.h>
- 
- #include "backend_lz4.h"
-@@ -39,7 +40,8 @@ static int lz4_setup_params(struct zcomp_params *params)
- 		return -ENOMEM;
- 
- 	ret = LZ4_loadDict(dict_stream, params->dict, params->dict_sz);
--	if (ret != params->dict_sz) {
-+	/* Only the last 64 KiB of a dictionary are of use */
-+	if (ret != min_t(size_t, params->dict_sz, SZ_64K)) {
- 		vfree(dict_stream);
- 		return -EINVAL;
- 	}
-diff --git a/drivers/block/zram/backend_lz4hc.c b/drivers/block/zram/backend_lz4hc.c
-index 2d1364a29b27..5825c8ba78da 100644
---- a/drivers/block/zram/backend_lz4hc.c
-+++ b/drivers/block/zram/backend_lz4hc.c
-@@ -4,6 +4,7 @@
- 
- #include <linux/kernel.h>
- #include <linux/lz4.h>
-+#include <linux/sizes.h>
- #include <linux/vmalloc.h>
- 
- #include "backend_lz4hc.h"
-@@ -46,7 +47,8 @@ static int lz4hc_setup_params(struct zcomp_params *params)
- 
- 	LZ4_resetStreamHC(dict_stream, params->level);
- 	ret = LZ4_loadDictHC(dict_stream, params->dict, params->dict_sz);
--	if (ret != params->dict_sz) {
-+	/* Only the last 64 KiB of a dictionary are of use */
-+	if (ret != min_t(size_t, params->dict_sz, SZ_64K)) {
- 		vfree(dict_stream);
- 		return -EINVAL;
- 	}
--- 
-2.56.0.317.g454f8302e1-goog
+Tested-by: Burke Cates <burke.cates@gmail.com> # ASUS Zenbook A16 (UX3607OA)
 
+AI coding assistants helped run these tests and draft this reply; the
+results are from the hardware runs.
+
+Thanks,
+Burke
