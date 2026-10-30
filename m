@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793399629;
-	b=h0wWnoP4CuE+I4KIohp1/KFxfH7gtk05jLCTQ3Y0fqtcKSnzQVB2CIVTokdhG1dpuEa3
-	 v+kWpasCn8OiUQmieB8CJPq2CBsPdhakYk4HoCJTPlwtoLXGb+hjZYY5rWRCQq1sEGHmM
-	 IO+NDZeDgmNryskCph7XGTYe1RQQSZWh+3Mo1GDTLkD1Jh+9MG3bx4uKa/YmlHmM4nPyb
-	 g4nFfG5qs3veglqcsaXgxrs+fiJkQAsPmaGJNGnOGc66clud0sftP1VmBat45FwlqsYdG
-	 GywNmoxkPxLTj8G/aqSqTCH3Ep4ev23QlOa6reha6M4ih0OOQC/rEPxmdhArF6Y4Gjg==
+	t=1793399624;
+	b=BtAHCUORiEOAVH5N1W9HZeMDnLCfOLa5qA2CgglJhghTpczBRyFkQZe8SkChhK8wjrXC
+	 iv3Abj1i9GVhz5KOLbOycXHqeFFxJsl/eCobMp8DHfLHpRzxs8qPNC+6Shq88wQHkXLk1
+	 YrwhtL6qJhUPJy0hfTTW6zspWRIY5TWQsLyf8STW8sDmSex8Kc1hDPhyXgCy+f6IWmw9H
+	 gMj5o2Y5OCyi2JWSzzpQaSwpk5ozVunLQ9GBb5jrEUt+XOFPSWkKKeWYFtVXFRQaxGdAv
+	 Q4RX3lm2enNyJR/oslir5Ob6rxjVxrk4JBUGQ1J+82+WNkWLoIcdcT/tybjioYPGG+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793399629;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793399624;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=ucXB7kIXkR22wptA4ECw1Ukmrn4C7DPZ8GfL9sZbPxg=;
-	b=rKrBVtmwXkeZuj0D6dbtLG34VN+VCkcJjGSjevS4mATU1LX0F9d77ARSw9snpsD+E9lG
-	 M39aVMU/PDAi/TOjHpIgSYuHvl0XETo3yNbdOf2itnWr74tZDAiKvgYl9W2ffzQdRpVY0
-	 EZO5LLG09ewOIo8K8fUxq1MDbfaSm5LOLk6XDFxqXbqkXd04xE77CMjjR3i9Jw4GIgC4y
-	 Qy8rxU0HQbvcWRbm5tE5bi8OF0dwmkG5t+T4U8C6vb4N82yo97LKmsr+jssrvRI9M+vgx
-	 sAF05jI2hDT3X5zPMRrrW8e+6iEE4nrFC/iyBLawY9RR9q1rMQHh6QmmHN8cX5p1rcQ==
+	bh=HCDkI+BzP0zTvfHzTEgMZGxHihmLBLovpb+ZElG6bg0=;
+	b=Y0sFbfXmdTH4A3SXC4MtSW9A/u87Nx6uaR6IsCoiAMM7Je71yWPqzPB1IYJ/u1TPCqKC
+	 gMoyCKvjnnv4m7jVJfDRYNaRDCkdstGMa5qzY77HdAY8wa3IgD7PDejj1xULEA6ygtSQI
+	 Zl52+N7ETgfITf/m914JaPvodfndbBXwhbsBbmPWBRvSF6CzqgLuwbU5+iY3KKzlBI4xB
+	 7s8SxiB8TNi3mROQbnCASXJp7XS0oNvShwUvLRU9UIZ1lt5h5MxgZXXGHzCYyffLOn4KT
+	 8tSdehJ7mONCygGHpoO7CkaeoQ6eDKXptPZrToap1TT1Pr/lkSbhFxw+39yho9L4uZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Vk97GFiK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fmY0mRE5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD373606A31E;
-	Fri, 30 Oct 2026 22:33:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050C0606A31A;
+	Fri, 30 Oct 2026 22:33:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Vk97GFiK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC75A1F000C1;
-	Fri, 30 Oct 2026 22:33:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793399628;
-	bh=ucXB7kIXkR22wptA4ECw1Ukmrn4C7DPZ8GfL9sZbPxg=;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fmY0mRE5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 461F01F000C1;
+	Fri, 30 Oct 2026 22:33:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793399623;
+	bh=HCDkI+BzP0zTvfHzTEgMZGxHihmLBLovpb+ZElG6bg0=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Vk97GFiKii5heUCxUE0rGgXFrRQo8z7xlej80GQQndc0rTb+p2aICUANyQvibAKyg
-	 3OoZjHTlLmP6Ja46z3aZqb0EUlojQj/Fyg6xq1NJ0wjDXXR4Sfb69m1VHnONpbtdby
-	 0uhiQy7RzXCMegLzFo3y0rRkPyBUmBm9gD1U7PGY=
-Date: Fri, 30 Oct 2026 15:33:47 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>,
- Jisheng Zhang <jszhang@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, linux-riscv@lists.infradead.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-next@vger.kernel.org
-Subject: Re: [PATCH linux-next] riscv/mm: fix up the mm-fixes merge of
- free_pmd_table()
-Message-Id: <20261030153347.5641a97e22e18ddff6043416@linux-foundation.org>
-In-Reply-To: <20261030221401.155797-1-sashal@kernel.org>
-References: <as0D2sHzh_UnNF5L@sirena.org.uk>
-	<20261030221401.155797-1-sashal@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	b=fmY0mRE5zQhua/jGYMFiEduqZiWNM9z5RsG5wnWCnJhKxSxIYzNmYykqg9UCbUxNQ
+	 WsTy+BNiK2YpAJdQciclRTuoPtwIW/pVenJ1P2IS+jaBb/2gbN7Z09Ue8ufpwx0RSa
+	 HUIn4BwK7pixq/P8I2RwFnZD4GJ0P9FsjLsOqB30zFgTTXzZY3OnjJPqh2ilx5Ec4I
+	 zjhINxkZ3bnJPBxLq8aWL8+fa+G83/V0x0pDZPsePjZRKgAoSmcEWm3C9FoeqRKpO9
+	 3ODxaVhWO6hxrIn7Qvzh5ZRoSvSwvVwET2/AIVXh3qk2jafVnK0VtdHtE2sPLdLaqI
+	 RVdKgsIBLoJpA==
+Date: Fri, 30 Oct 2026 15:33:42 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
+Subject: Re: [PATCH net-next v4] net: phy: aquantia: Add support for 5GbaseR
+Message-ID: <20261030153342.41d9868b@kernel.org>
+In-Reply-To: <20261030-aquantia-support-5gbaser-v4-1-7dfb0cf306de@oss.qualcomm.com>
+References: <20261030-aquantia-support-5gbaser-v4-1-7dfb0cf306de@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,31 +60,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Fri, 30 Oct 2026 18:14:01 -0400 Sasha Levin <sashal@kernel.org> wrote:
+On Fri, 30 Oct 2026 15:51:42 +0800 Hongmei Xu wrote:
+> Aquantia PHYs can operate with a 5G USX interface between the PHY
+> and MAC, reported as interface type 12 in the PHYXS vendor interface
+> status register (MDIO_PHYXS_VEND_IF_STATUS_TYPE_USX_5G).
 
-> The mm-fixes merge reuses an older resolution of the conflict in
-> remove_pud_mapping() and keeps the free_pmd_table() call that passes
-> is_vmemmap. Commit f998a21c2ba5 ("riscv/mm: fix hotplug page-table
-> destructor handling") in mm-fixes removed that argument, so a riscv
-> build with CONFIG_MEMORY_HOTPLUG fails:
-> 
->   arch/riscv/mm/init.c:1657:35: error: too many arguments to function call, expected 2, have 3
-> 
-> Drop the argument to match the mm-fixes version of the call.
-> 
-> ---
-> Mark, this applies on top of next-20261030 and is meant to be folded into
-> the mm-fixes merge resolution. Next/merge.log says it was resolved using
-> a previous resolution, I think the one from the risc-v/mm conflict on
-> 2026-10-12, which had the same problem (next-20261012 has it too).
+## Form letter - net-next-closed
 
-Thanks.  The "mm: Fix page-table teardown during memory hot-remove", v3
-series was problematic, but I now have all four patches lined up in
-Muchun's as-sent order in mm-hotfixes-unstable.  I'll push that in the
-next hour or three.  Then hopefully any -next merge resolution can just
-go away.
+The merge window for Linux v7.4 has begun, and the net-next
+tree is now closed for new drivers, features, code refactoring
+and optimizations. We are currently accepting bug fixes only.
+
+Please repost when net-next reopens. There is some uncertainty
+about how long this merge window will last, so please check
+https://netdev.bots.linux.dev/net-next.html
+before reposting. net-next _may_ reopen on Nov 2nd.
+
+See: https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#development-cycle
+-- 
+pw-bot: defer
+pv-bot: closed
 
