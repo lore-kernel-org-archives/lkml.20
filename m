@@ -1,98 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793358660;
-	b=NKp9QDIjwDFQF1ygRaU4ER0w+QlA734HwWZBUydTUXcxEJM6E8t49Z04wIIOkwy8G1s0
-	 ANjLyAY4WAGssb4TWjH8k5KMRwo5YTQfABXy8tTbhAwan/KohhmmY4fr+ZCAHlMUgeg8J
-	 Frgk6+7DMXwKdW56cT1soRTWu6gbP7ueTTpqFa2KBMWNBbQmtXKvsU9BsV0iRM48Fll3T
-	 /BUFrORiMf2Sh0PwffZzG3ywuxvowZtfNgYDdOp5kt+zE/r0n3IN2ZjT+KWTjHSdaoCRM
-	 SEnQnboofu2Gg0OPyZqmpDwZmsDkr68xesaA7GMFA2Ez/zd+wF87tzcb3VMWP/ehJdg==
+	t=1793358663;
+	b=xp/hjG3LAWhuk2I2EmjqlG1tyHcX6mtxwSrXMc4W9LqRt/xuAKxA64ZagQrhbH5dQ+0H
+	 PxP59nyn4WmLAwkuIp066h32TPBvlkE/CvLtrLw4yYP265ZIiJphFtGGcswawAzoDV90P
+	 QMeHzIfCkQ87RQckG9lIp/mDEhHY/oheVx4tL3IGFyUrrQAPFYFKVv9zUuDzSr0PoOEL5
+	 ass7fqQuzCbOERE9cqa8xogRCfc0DPBqbw24Ft9nuftZvjEKisAulIDIIgMic0NLoADBm
+	 oh3lKbzzESJz7iVAJ4VBkCRXoO2jnRTRnu0Pj0BPbcjIIFCllzWhu41SuzqlwgEM/EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793358660;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=46Vjwa9uE7FzNJRa2W9YmO/vasAer+dAOb58elbr7/s=;
-	b=gHb29Ae83p9DzHsrlODO5nLFCaNWgllX6fsKQiEAmdVTEkWHt18NXinqt+0A4zPMFQMi
-	 gwgmeYNIeCGRrKXxGlQ0aW0khGFVB3cTLSmBmAvmwlWAR59GXV1F//O/y+h7Vv7mEFFLu
-	 JLs/GyYty41I0+yyna5lYeoQ6g7D41BvqY0ZPMlTguroIU+SkqLk4IcIx8d3A1vFoOFkq
-	 pvosInlbMDqdokiCkocri3vrVfCyr6GPw5mkwrn9llRA1g2b+sZ7aqKdrMT/70zcsRdAz
-	 QIRGwzKIofy1CXKvwCEBOEEngZcv8LrudKLDvjyZXUJHCjBYu6O0zDkAX/LpWZVRfIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793358663;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
+	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=SY4wxRo5GhJ45am6vNPa4jgHWsz5BB1NdrAbB4X90Uk=;
+	b=Py8m3N2gjyW7n9fQZpHi2S7uC3BZa/3SN0S6qZ9sIcROP0EMmyRWC3lXU4wk2znXNl59
+	 KPzOK9MXuT2J0zTndp3xHPGYYZL0bEZ9VAamMw8qwfkk4xV9xeP9gX1qwlGMm2SR44msw
+	 e1Z1OfwGC9jD2AoB4pk1H/Sc/VIySegWXWy+Aiksdb3BtEB6VrqpnKymaqWf9Gx9Y/I8G
+	 rcTW9uOXqolGr3bKVC4WakU40x4EHYfUwsKM6AkosNbN7oWC9fTZhGpFiUEYUSJnvDTxL
+	 4uQkrEec/lAT7Whys5Ek6nk2q8eRG8cDCALGqX3IH6ycSPDwhblzW0cYGrfp3+G0Wyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="DfbsY6t/";
-	arc=none smtp.remote-ip=209.85.222.44
-Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=WuVsOsho;
+	arc=none smtp.remote-ip=203.254.224.33
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9BC606A322
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:11:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F9BC606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA79606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:11:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AA79606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DfbsY6t/
-Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-9906c3fc88cso324015241.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:11:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793358659; x=1793963459; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=46Vjwa9uE7FzNJRa2W9YmO/vasAer+dAOb58elbr7/s=;
-        b=DfbsY6t/6BLhRw3tbLgCCfjBA6TOS24zTyzU6NzQuCjFbxJFUti7riKimMyqdVcj/N
-         Sukln1wgCrDXfGIDiXsxcaF8yKq1Vya1C4g12bvniAoD/3WK+kUZOhkYo0cCER69Zder
-         rvNo4j6BniMcqAmiW3nYTrh1NCb1jWGm2G+6GQHwYPvueYXYgWM2qT3ZOVjOi43emS6s
-         zFFpzKZnnLJvWNtUib+byTc0DvmBzlQ+Mm7RszeYmas24HslfWk75su4piwO8IIsuHZI
-         usOpzFBn8e7CSVHc9AC3xOiawgPEEsD+6XLIJmg6NIkFHFoBacgN7SPlil6NmS8aC+rz
-         X/Tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793358659; x=1793963459;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=46Vjwa9uE7FzNJRa2W9YmO/vasAer+dAOb58elbr7/s=;
-        b=gVaBho7tEL4Zfm2KuFziByrVKW9CI8HD5H87v9Y5jD9+hF/zf6FOufolPGkX2Y/NTx
-         RqNQUJ3V3qSUc+Ajb1W0qMU/2fg1m4/0l21ktw2zz3wKqOdURru4LrQ9jTGZzy/MT0f0
-         Xy1bknKIozjEq/oNMz9vwihP/t4A264ERB+t6gyXW7cqI3QBPNBmpcYU7sQRLRoKKMe+
-         Y3qn2MWeYsqPF/SkxUGWGcQBALmagsg6SCQzkdUNJ01Lhio8MJVVegODicByCjB/udL/
-         Zuk2xTRoZz6FISmLVHU2qb9NQbPnxAW3GTITwIB6vt0wbJLxxd4HQWW/ozbmf6rumR6p
-         bgAw==
-X-Forwarded-Encrypted: i=1; AKwUvBw53WqNm9RRhjJ0n7I9HnmEtjVVdYBZQeMRrKu5tNZqwWMvzX0csaOomnpNw8J0O2EJElGcHLa2xjAYkB4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNuh6JSyKV/Z/tCfcFqAwDrCiGhwmktQYPy+zUGvN5wCXveoIv
-	+gt9p5PO0kdkhU67FxieZXz+AIKb7X9HIoHSGva70RV2C+t5gm7zEiSzTB0ZtUc4
-X-Gm-Gg: AYBFou0Et6zqBUNLQq70ZBDaGC4UDrpin1HHTkzTb8NE/3WBu2ghRTLuus2AF1YKQhS
-	z3CEu0kA7Jsc0lPKK4rBTCZk4ah9lw6AOU2Ijtyvnhuz4yMXI/kT1Ub8mfz2LXBJGYy3DU/uDF5
-	zU0xuUxXc5xXu5nZWJxh7T9IqvTIQlVidl1rqD21Mj5bk9SKM0UTKklnqSPjHuSCEuogK9qUMaZ
-	7fyxMm0bvjwnGItc4nSjANUius91MCOmJ2CK5QkqZ0aD9GZHFiflMIXKyWTHJmyET5U0wVEis4q
-	IBYHY9kKUwpUkkkReDx/8dABwrpEI3K1dK1y18YG3OQgs+Xl6oLEefGRupbBxvbkaqDqkMHHxd2
-	DAruCik5WLnCBSAsHRxzf96cYwDT/uH4fJ//jlnM05EKDiBgJMaisM8Nv65Eb/acbuZYiLcGO3P
-	yP4j3uN7myiYxpeQptwcqHCBnVxFVgdoTFoBjogWHYVONBW/24FUqy/Juq7/Of05ZEb5OPcqLJB
-	dnWvpPE2O3id5o12TJmvMPTZhcd5Nk7EwUKVuPIUnrar1ogXTgtZXOp2s0I8T8Buf34KjjEYIuu
-	xHiYudoRu2ZVCljy1s/hRFld31Gbw9zdn/5ZGxJEaInPMQS2h+AyWsAJwJsbRdNYD+cg6UsE6ZA
-	JwCgIifhmMzLLQuQfdy8i2P0t2d3nqBBnG7kIzOqN
-X-Received: by 2002:a05:6102:604b:b0:7cc:25bc:3b27 with SMTP id ada2fe7eead31-7d07226d973mr786120137.5.1793358658951;
-        Fri, 30 Oct 2026 04:10:58 -0700 (PDT)
-Received: from 1.0.0.127.in-addr.arpa ([191.34.116.20])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d07754c1b4sm1841044137.4.2026.10.30.04.10.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 04:10:58 -0700 (PDT)
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, oe-linux-nfc@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH net 1/3] nfc: hci: free the skb sent through LLC nop
-Date: Fri, 30 Oct 2026 08:10:42 -0300
-Message-ID: <179335864272.64596.14178706469641120758@gmail.com>
-In-Reply-To: <179335864271.64596.805818095553030218@gmail.com>
-References: <179335864271.64596.805818095553030218@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=WuVsOsho
+Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261030111052epoutp035de4ddd272b19f110c8c4e90de4171ee~jSjF6owXX0120101201epoutp03U
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:10:52 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261030111052epoutp035de4ddd272b19f110c8c4e90de4171ee~jSjF6owXX0120101201epoutp03U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793358653;
+	bh=SY4wxRo5GhJ45am6vNPa4jgHWsz5BB1NdrAbB4X90Uk=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=WuVsOshoTwpDilGuOk+yYKZ+QaJtFkyWyg4zQqIuGT0J9hEx1xdYog4XrQ179vH7u
+	 zH0kf8sQmyCtkk94m3OtY7k+6lD+pHw/8L2wKj1HbOEnneKzPJBSdGcHiL/agNiSwo
+	 UopOKbipVzjiUb1EEWUN/b6sCalAeiSVGOqcvS4M=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261030111051epcas2p1739d8d51872fed66f46b0d03aac8c37e~jSjE70Cls2221722217epcas2p1H;
+	Fri, 30 Oct 2026 11:10:51 +0000 (GMT)
+Received: from epcas2p1.samsung.com (unknown [182.195.38.212]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4jGJLM48MZz3hhT7; Fri, 30 Oct
+	2026 11:10:51 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053~jSjEFl-1I2427424274epcas2p27;
+	Fri, 30 Oct 2026 11:10:51 +0000 (GMT)
+Received: from apsw.samsungds.net (unknown [12.80.211.160]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261030111050epsmtip197593379bee8be86f3c259c6c18b1e03~jSjD9Mf1Y2560625606epsmtip11;
+	Fri, 30 Oct 2026 11:10:50 +0000 (GMT)
+From: Kiwoong Kim <kwmad.kim@samsung.com>
+To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alim.akhtar@samsung.com, avri.altman@wdc.com, jejb@linux.ibm.com,
+	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com,
+	hy50.seo@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
+Cc: stable@vger.kernel.org, stanleyjhu@google.com, Kiwoong Kim
+	<kwmad.kim@samsung.com>
+Subject: [PATCH v3] ufs: mcq: fix dev cmd abort path and add OCS poll after
+ sq cleanup
+Date: Fri, 30 Oct 2026 20:10:45 +0900
+Message-ID: <20261030111045.982094-1-kwmad.kim@samsung.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,52 +81,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053
+References: <CGME20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053@epcas2p2.samsung.com>
 
-nfc_hci_msg_tx_work() hands each frame to nfc_llc_xmit_from_hci() and
-only frees it if that fails: on success the LLC engine owns it.  SHDLC
-queues the frame and frees it once it is acked, but LLC nop passes it
-straight to the driver's xmit, and the phy write operations of its
-users (the MEI phy of pn544 and microread) copy the data out and leave
-the skb alone, so every frame sent to the controller is leaked.
+In MCQ mode, ufshcd_mcq_abort() falls through to ufshcd_try_to_abort_task()
+for all timed-out commands. However, device management commands (query, NOP)
+use reserved requests and are not SCSI I/O commands. The ABORT TASK task
+management function is designed for SCSI I/O UPIUs and is not applicable to
+device management UPIUs.
 
-This was found by LLM-assisted code review and confirmed with a
-test-only module that registers st21nfca with LLC nop on a virtual phy
-and a userspace controller emulator: 20 device up/down cycles leaked
-598 skbuff_head_cache objects, and none with this patch.
+Fix this by checking ufshcd_is_scsi_cmd() in ufshcd_try_to_abort_task(). When
+the request is a reserved (device management) command, skip the TM path and
+call ufshcd_clear_cmd() directly instead.
 
-Free the frame in llc_nop_xmit_from_hci() once the driver has sent it.
+Additionally, extend ufshcd_mcq_sq_cleanup() to poll the OCS field in the
+UTRD of a device management command after a successful SQ_CUS poll. UFSHCI
+does not specify the order between the OCS update and the SQ_CUS update, so
+OCS may still be stale when cleanup returns. Without this poll, a late
+response to a timed-out query can arrive while a retry is already in flight,
+leaving the host with two query contexts and raising IS.UTPES.
 
-Fixes: 8af00d48dc92 ("NFC: Add a nop (passthrough) llc module to llc core")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
+The poll is limited to device management commands because
+ufshcd_compl_one_cqe() copies the OCS from the CQE into the UTRD only for
+them. For SCSI commands, the OCS in the UTRD stays
+OCS_INVALID_COMMAND_STATUS, so polling it would always time out.
+
+The poll waits until OCS is no longer OCS_INVALID_COMMAND_STATUS or
+MCQ_POLL_US elapses. -ETIMEDOUT is returned only if OCS is still
+OCS_INVALID_COMMAND_STATUS after the poll. Any other value, such as
+OCS_ABORTED reported by the host controller for the cleaned-up request,
+means the cleanup has completed.
+
+--
+Here is the timeline of an actual case for this that happened with kernel 6.18.
+1. The host sent a query but the device didn't respond with it for a long time.
+
+[ 7384.156142] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_mcq_sq_cleanup, hwq 0: cleanup return code (RTC) 0
+[ 7384.156154] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
+
+2. So after the query was timed out, the driver did SQ cleanup.
+Then the host updated CQ update and raised IS.CQES,
+Unfortunately, complete() was called the driver's ISR afterward.
+
+3. The driver started to retried the query. In the meantime, it set OCS to 0xF.
+Then the driver didn't wait for completion due to the previous complete() call,
+and just checked OCS.
+
+[ 7384.156163] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = 15
+
+5. The driver retried the query again, but the device didn't return anything,
+so the query was also timed-out.
+
+[ 7385.660108] [3:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
+
+6. A few seconds later, the device returned the response of the 1st query,
+but since the host was holding two query contexts and couldn't handle it,
+it raised IS.UTPES.
+
+Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
+
 ---
- net/nfc/hci/llc_nop.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+Changes since v2:
+- Use read_poll_timeout() for the OCS poll in ufshcd_mcq_sq_cleanup().
+  The open-coded loop did not re-read the OCS after the timeout, so it
+  could return a false -ETIMEDOUT if the OCS was updated while sleeping
+  in the last iteration (Sashiko).
 
-diff --git a/net/nfc/hci/llc_nop.c b/net/nfc/hci/llc_nop.c
-index f9c826a13..1603e435b 100644
---- a/net/nfc/hci/llc_nop.c
-+++ b/net/nfc/hci/llc_nop.c
-@@ -67,8 +67,17 @@ static void llc_nop_rcv_from_drv(struct nfc_llc *llc, struct sk_buff *skb)
- static int llc_nop_xmit_from_hci(struct nfc_llc *llc, struct sk_buff *skb)
- {
- 	struct llc_nop *llc_nop = nfc_llc_get_data(llc);
-+	int r;
- 
--	return llc_nop->xmit_to_drv(llc_nop->hdev, skb);
-+	/* The driver does not take ownership of the frame (the phy write
-+	 * operations copy it out), and nfc_hci_msg_tx_work() only frees it
-+	 * on error, so it is ours to free once it has been sent.
-+	 */
-+	r = llc_nop->xmit_to_drv(llc_nop->hdev, skb);
-+	if (r == 0)
-+		consume_skb(skb);
-+
-+	return r;
+Link: https://lore.kernel.org/linux-scsi/sashiko-outbox-190791@kernel.org/T/#t
+
+Changes since v1:
+- Limit the OCS poll in ufshcd_mcq_sq_cleanup() to device management
+  commands. ufshcd_compl_one_cqe() copies the OCS from the CQE into the
+  UTRD only for them, so for SCSI commands the poll always ran for
+  MCQ_POLL_US and then failed with -ETIMEDOUT (Sashiko).
+- Return -ETIMEDOUT only if OCS is still OCS_INVALID_COMMAND_STATUS
+  after the poll. OCS_ABORTED, which the host controller reports for
+  the cleaned-up request, is no longer treated as a cleanup failure
+  (Sashiko).
+- Update the commit message to match.
+
+Link: https://lore.kernel.org/linux-scsi/sashiko-outbox-190714@kernel.org/T/#t
+---
+ drivers/ufs/core/ufs-mcq.c | 21 +++++++++++++++++++++
+ drivers/ufs/core/ufshcd.c  |  4 ++++
+ 2 files changed, 25 insertions(+)
+
+diff --git a/drivers/ufs/core/ufs-mcq.c b/drivers/ufs/core/ufs-mcq.c
+index 8106d55f4041..7c2aa0e9466a 100644
+--- a/drivers/ufs/core/ufs-mcq.c
++++ b/drivers/ufs/core/ufs-mcq.c
+@@ -550,6 +550,13 @@ static int ufshcd_mcq_sq_start(struct ufs_hba *hba, struct ufs_hw_queue *hwq)
+ 	return err;
  }
  
- static const struct nfc_llc_ops llc_nop_ops = {
++static enum utp_ocs ufshcd_mcq_read_ocs(struct ufs_hw_queue *hwq,
++					struct ufshcd_lrb *lrbp)
++{
++	guard(spinlock_irqsave)(&hwq->cq_lock);
++	return READ_ONCE(lrbp->utr_descriptor_ptr->header.ocs);
++}
++
+ /**
+  * ufshcd_mcq_sq_cleanup - Clean up submission queue resources
+  * associated with the pending command.
+@@ -609,6 +616,20 @@ int ufshcd_mcq_sq_cleanup(struct ufs_hba *hba, int task_tag)
+ 			 __func__, id,
+ 			 FIELD_GET(SQ_ICU_ERR_CODE_MASK, readl(reg)));
+ 
++	/*
++	 * For device management commands, there is no order guaranteed between
++	 * OCS update and CUS update, which is why we need to wait here. SCSI
++	 * commands are excluded because the OCS in their UTRD is not updated
++	 * from the CQE.
++	 */
++	if (!err && blk_mq_is_reserved_rq(rq)) {
++		enum utp_ocs ocs;
++
++		err = read_poll_timeout(ufshcd_mcq_read_ocs, ocs,
++					ocs != OCS_INVALID_COMMAND_STATUS, 20,
++					MCQ_POLL_US, false, hwq, lrbp);
++	}
++
+ 	if (ufshcd_mcq_sq_start(hba, hwq))
+ 		err = -ETIMEDOUT;
+ 
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index bcc2512bf34b..7fc80926eeec 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -8046,6 +8046,9 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
+ 
+ 	lrbp = scsi_cmd_priv(cmd);
+ 
++	if (!ufshcd_is_scsi_cmd(cmd))
++		goto clear_cmd;
++
+ 	for (poll_cnt = 100; poll_cnt; poll_cnt--) {
+ 		err = ufshcd_issue_tm_cmd(hba, lrbp->lun, tag, UFS_QUERY_TASK,
+ 					  &resp);
+@@ -8091,6 +8094,7 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
+ 		return err;
+ 	}
+ 
++clear_cmd:
+ 	err = ufshcd_clear_cmd(hba, tag);
+ 	if (err)
+ 		dev_err(hba->dev, "%s: Failed clearing cmd at tag %d, err %d\n",
 -- 
 2.43.0
 
