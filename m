@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793383715;
-	b=Vozt3O/sAeh+CIpQkUgpjlM+oeclDTLE1sQtBltT/TuqiceUHIcf9JGvAETz3ZohkGEq
-	 o3s6Fdlqu7VQUQozvQzSwJFjfXXtI+ndCRXZtDgbVvjU0y3Kdq3tR8jwraf1Nq+0iMIl/
-	 tG2AaQ+gZv8/RDG7mtM0KV4Ql4CovzT+mkB9MoNVaB6SAxNU1RipxgqlD7LzxaYBNzeew
-	 Yv2Go45QkqXA/3Jg4U226u3mZTkgPqI+AWaXgGagDfr8WwCbYe4RdsDFP0KCWrDvsS9el
-	 qwXGYitOByCnqOAweNuNeUUK42EPOFgTdSCl0cuaiCL5m2YK+XsATOyc3QaMpLZ00AA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793383715;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=QVKMydU/thLME4tk0hjz4sP1iIZCD+FNDdETjFTH1wc=;
-	b=0Hz7CQI6T/Lx0XAN5r+UfWD0joDl9fkefZpPuScYbsHs7vkpOscl7xK/E3rAUUEXfXO/
-	 f1FT7hdG3XJnUd2nwP/0M1UHQSdALNHX/fkv89Aw5+nlafqPzqwXOLTyP2TrFsptjPkYf
-	 WZscgn1ME0ViV7iL4cR8ioHyo7IDXL+ugA6C3xMmnhmTDBIy9e0O4sD5/I7DZPBVYnn0M
-	 jCYAh8lKh4CEA0bmhNHUImRH1M3PxROi9jxhsmLkmd03TKvILyv8H47Z3oXB0C/5syE2+
-	 wCtiQ+hCYa68cftSvDReYGQmh47SOi1iji1LvQBLMiajxyaueY7Zhem17q6S9DZKzww==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=Lposd8Qn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.75.77.166
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793383720;
+	b=f+oTVEJDgkyY2rIIsF3CpCR08DeoIrj3O55WIG9SmpTy7rczAU3OSfITw9Mg70FIMypp
+	 luvXFg/l+0myULLM6KwpEGdMwdT1kT1rbTkkWTawaXljUGwsB8Q8luE1kb6RQ6Usi+7YW
+	 Js1DzQFx8N6AmdCtDsHsutCtiOLXv+SQmaBVLgGJuQRTLD1jdYCAFT6cCrlSu0De0CayM
+	 mbrzKDXqZs2AH7nX9tsiF5pH7XP92l2PxNBbwDLm16IA7YfRFf7uDAWB+VU/N21U43bDk
+	 oiBN9ZjQhawng4bSeYZXHTq4THiFzVqX1gV4d1wK4/xYLG/OEMr35LdCuUnPNKeZDpg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793383720;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=wP2uKJAR/PdPYRR58NON2g95Mn0ql5N7em5CuGJSfP0=;
+	b=D1WKKGxOLgat7OvR+8lYsXe2OtUM53DcBvrFsfK0Lju9BCPgKWpLbtetyQqbqeiNSFk3
+	 y6oGRUn2hRhQVFP0+HeRpFPbwoilKQ8HQJdpABzmmzK1mSjoriLMdq+AkqXnvCBpv+BM3
+	 yBdsDhIjB1UgXa7sdGwOa4twohaMcQCZEI/NPgNvZuGu5+RwF1PDA+NUfGpc3124ms9Og
+	 YA1ZJOriQYf6zGyCjyIRcQyV7LSEw/b9xN5yeGRFfoQ7dMwIZCB5vrFL0yoj07IXY03BT
+	 NkC11ab0B+CZuAHHYxq6YreUHpph6igm75FW7R8r2MeBJcV4pxD3P+GlnHkA6CDUdzA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=adriel.eu;
+	spf=pass smtp.mailfrom=adriel.eu;
+	dkim=pass header.d=adriel.eu header.i=@adriel.eu header.a=rsa-sha256 header.s=dkim header.b=BqYndvZZ;
+	arc=none smtp.remote-ip=51.75.77.166
+Received: from mail.adriel.eu (mail.adriel.eu [51.75.77.166])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44EF606A31C;
-	Fri, 30 Oct 2026 18:08:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C44EF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D441B606A31F;
+	Fri, 30 Oct 2026 18:08:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D441B606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=adriel.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=adriel.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=Lposd8Qn
-ARC-Seal: i=1; a=rsa-sha256; t=1793383674; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=D3MBAA2RV9JUP7T4/6JJ77ZbLpLnUGmQ/f9MrNVw4WNZBARPtkxqnAMycgC/xNDAPEDv2qTbNMxscTwgNBnxzAWVKMa5r8KKL0eGriVTorMspzOOFXwtkEGy0s7DPuMiMUjNlaegbLPAW5q4cAQ9H5GPugl3ZvVszL88FAdhKDo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1793383674; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=QVKMydU/thLME4tk0hjz4sP1iIZCD+FNDdETjFTH1wc=; 
-	b=Vbi6DAafjCVdxAwf6rg5DHUhXcXD2xRYQxxnv19Rf9KxZmFgQZVzxm1Ne/DEnGzFeJY8elq7OmWBnjUVgFP9TD9lcPsOOvxX4Wcv4ifYBT0nkJ7MeFM6/XwRCgWGKD+rxkOB0HQvdbVNWrdsEw7M8ELvTf/qPsSQ7PLMboCBGm0=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=Lposd8Qn9kdkRC2sYlxa0WOlkAA0mdUn3f0TOBw4v4w4+IF365qd8Ir3d6eaXQ0+vDAC8JhV8+cWFCuguva1v/4S+OWFZvObVFblzFE2C9crKE8F3KHvtz30JTSYCjecrxq/b1CBY0wxs/CNFsEbuGj2wI9PXEN9fdWmR8kLEPE=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=QVKMydU/thLME4tk0hjz4sP1iIZCD+FNDdETjFTH1wc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1793383672930887.0016081954384;
-	Fri, 30 Oct 2026 19:07:52 +0100 (CET)
-From: Igor Velkov <iav@iav.lv>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, Detlev Casanova <detlev.casanova@collabora.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Diederik de Haas <diederik@cknow-tech.com>, Jonas Karlman <jonas@kwiboo.se>, Francesco Saverio Pavone <pavone.lawyer@gmail.com>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Igor Velkov <iav@iav.lv>
-Subject: Re: [PATCH] media: rkvdec: Do not keep the clocks enabled from probe
-Date: Fri, 30 Oct 2026 20:05:00 +0200
-Message-ID: <20261030-rkvdec-runtime-pm-clocks-nicolas-reply-1@iav.lv>
-In-Reply-To: <76e2e993fa5a8fd054bad97505907d3c4e88e11c.camel@collabora.com>
-References: <20261030-rkvdec-runtime-pm-clocks-v1-1-fb2c5b629e79@iav.lv> <76e2e993fa5a8fd054bad97505907d3c4e88e11c.camel@collabora.com>
+	dkim=pass (2048-bit key, unprotected) header.d=adriel.eu header.i=@adriel.eu header.a=rsa-sha256 header.s=dkim header.b=BqYndvZZ
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7243426194F;
+	Fri, 30 Oct 2026 14:08:29 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adriel.eu; s=dkim;
+	t=1793383711; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=wP2uKJAR/PdPYRR58NON2g95Mn0ql5N7em5CuGJSfP0=;
+	b=BqYndvZZynu4yoErIJySJAEvgQUdgHQuRJs7LYSoGsbLpmaZv0vuObuBcueAQYgf68fE82
+	ZyblxR5539Oa+x2sh9E8GSaF7EOTdJmReDRK61ZO58+IiZvEBFWC4aEn4DEsvpv2+q/UKb
+	U6VhmSoP5W2n0SJTxHcxvhkxBO7fOtoCsqTqMlYzOtZirfX52q/86YXkqkeE8EojdVOway
+	FWqS02HP/ZBeVD93IIHpiDFk0f2Lqq9B1eqR+1IxLVn+Ttm5WB4wQ5g1ofiYqeA22ehqgW
+	RTKkGTPT29O7YwMel7290bXMnVWn8HbackRafvfH6ATAuYtVmBFroHzZlscc+w==
+From: Adriel Santos <adriel@adriel.eu>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH ath-next 0/2] wifi: ath11k/ath12k: fix a double free when the first fragment's descriptor copy fails
+Date: Fri, 30 Oct 2026 15:07:03 -0300
+Message-ID: <20261030180705.1702009-1-adriel@adriel.eu>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,16 +62,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, 30 Oct 2026 08:49:03 -0400, Nicolas Dufresne wrote:
-> So if CONFIG_PM is not set, the initial resume will never occur, and first mmio
-> access will likely hang the CPU. We need a clean pattern to handle this, and
-> perhaps review other similar drivers while at it.
+In both drivers, the RX defragmentation path queues fragment 0 before it
+copies the fragment's REO destination descriptor. If that GFP_ATOMIC copy
+fails, the caller frees the skb while it is still queued, which leads to a
+double free or a use after free plus a NULL dereference on reinjection.
+Both patches move the copy before the queueing.
 
-PM=n only happens with COMPILE_TEST: ARCH_ROCKCHIP selects PM on arm64 and
-arm. rkvdec had the same gap until 6a846f7d72c7; rga and rkisp1 have it today.
-v2 keeps the clocks enabled from probe when PM is off, as etnaviv and v3d do:
-https://lore.kernel.org/r/20261030-rkvdec-runtime-pm-clocks-v2-1-8ff510a231de@iav.lv
-rga and rkisp1 as separate patches?
+Patch 1 was tested on IPQ5018 on an OpenWrt backports tree, with forced
+allocation failures (details in its notes); patch 2 is compile tested
+only.
+
+Both bugs were found during an LLM-assisted review of the RX fragment
+handling, and an LLM coding assistant also helped write the patches and
+run the bench tests described in patch 1's notes. I reviewed the
+analysis, the code and the test results, and I am responsible for both
+patches.
+
+Adriel Santos (2):
+  wifi: ath11k: copy the first fragment's descriptor before queuing it
+  wifi: ath12k: copy the first fragment's descriptor before queuing it
+
+ drivers/net/wireless/ath/ath11k/dp_rx.c       | 22 ++++++++++---------
+ drivers/net/wireless/ath/ath12k/wifi7/dp_rx.c | 22 ++++++++++---------
+ 2 files changed, 24 insertions(+), 20 deletions(-)
+
+-- 
+2.47.3
+
