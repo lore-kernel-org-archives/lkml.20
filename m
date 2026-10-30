@@ -1,98 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.59
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793352392;
-	b=SOzKO6+OJaqLHv8WTlQv/iECDdHWDGj7Q5lqripu1KJfJ2cX8+fCqfRcJ05KwkxahEWT
-	 gSaYDKXkdm1NkzBJLrKuaxeR4fsSxWrlVd7E8Nt8D3GG+jmroisqij3g7V4aqf3hhE79W
-	 U4aTdsn81VSBhyX0OeGnwCOPAsRr4bopzeGGhD8fUlUHQX70XZA9sl2lk1ht6ZewNWNbi
-	 YYEYebkckEWGZmgLfRMd3AjrySKYqX0u6O1VIj4dkArcvj8DC0z/h4bcAeo5Ir9HNrOKu
-	 tTjScRMQtcK/DXT6p9SqsipIBjAoWjrREPWTxD8HnAncnSOQmt7gY6p04NGD/w6hwFg==
+	t=1793352418;
+	b=unpEtuoxcKFc1aoQrLYva7IBu+1bEvztZeQri+IR3YLKFQIhHhdnx5JxI2CKaMOK55Lo
+	 671r29Td8EOrOO4X8UNakCp41+bx8AXnbZcbF9Zpj0j3yslrgTPbVaVh9pCfIG8cXpeXw
+	 VD0Iia5gUrIpUdquDSD/MIKm4kMwKVR1/S1y6f5rVOhpdSW6ItQVikN4xo44HxtNMJFV/
+	 EYE4joo1JUn9jiU3gwkyZ35zbcY7rm6wuSqL+zwvnqZWiGdnfoB8XTNdHPj8h+nakZ81R
+	 tCgR1JYFF+vfto/AUVNwoXRBMnJgGS57YcSXf+CQJx//z2SIAu/lcl/smCUp4D3ENWw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352392;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ahy0xUmJw7Iw8hPoCL1y6gFlmd60i7ViCyX0v8RePWE=;
-	b=aVrI6ndYBIxxygH61yBa2SemccgHN0n1QNBHH8KuXTiRj1cXOpckZB4OW3A8+T0mr71J
-	 3qTT+vNWziXjUSGZkyjXHN6GYB8X53h1dgtBUIG2Zxb8hdr/KUW21yLQSoRjntkPidwhC
-	 bcHfN8VALC7wcp6d4DJdJmFuCYG8zTFl2yrKDG0oPQb1l1fkdFuHpzn40yW/N9x39JQKV
-	 FbR4XuT5sp+upUxAyUAhm8c3V1xqOo/oh1UeLqG2i05GEDwrLO0voUVJeDohWFtLqx/Sp
-	 MM3f32lIrYU+EbH9/eTXfunuk/KQADaV0mdBfYL489e8IyJQG/vT0KhZma5hUzAmwTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352418;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=a7q+/4+4zxMUP673wzD4KRVvcydFuIy84hUuAGiF6LM=;
+	b=E2+jOD6uevzUUi/jd6zjiSBxN/fDNOH6J9N5tdxckj23VSq+uhqts7ZpzIGxdspXPK3r
+	 4TDaknqUrx4FviTA2MZ8HwFC3LzbQxbGMcKhu0FwlOolGY1fWE0QBiM9Db/qmDbFgElxO
+	 AYK2gsYfPnpfXlj0DRAx31lX9yJmIvsU3YoNL7YtRnBVan4Yrk7ZDJBo6XEKvcV/30wFJ
+	 T8U8n9WllvrPlLP4M+UvtNNuJdVPjLt+TAM9bwp0QeHrD0pOfTWFq88GKg3CzZ3Dm2zrB
+	 qpNpeMXwa1upzdZpSdH0N8CmkXQ/FrpQmW0toCEDu7QulgEW79sdnJk7JiwHjuyHffQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=D1FrHBuD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.59
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011059.outbound.protection.outlook.com [40.107.130.59])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ayciZqaX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 684C2606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:26:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 684C2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6633E606A322
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:26:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6633E606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=D1FrHBuD
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IqCfx3BmpiSjNom04IoA734vP04dWtIsahr2ZNVrDzmHjKXQmJGZk5LndcMQdgbGjMpzZhtP4WZJlHwqpToCVLAXvF06qkx23v06cKUSAlnRSX6E0DegC1FScP8BRJfS8pF+v4H1EGpAylpeHkj7O3vG4FWNW80FXGSuvWlgBATKdAspQjNzYsILZ6pHkVw9BV5zpHGlFFTTVCPKcONm6HkUWwVcsVQUzaDyigrEweXYEvey7BjnIqhf1Skbl4blfv4kFzrIpkbX1uhWlp2hFVMKSmCoyAAAPyHOs2EJGvIseX1AB+6ZrcYndyWz1tGtMJ0l/EWqtpSe7VRJDVm+Zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ahy0xUmJw7Iw8hPoCL1y6gFlmd60i7ViCyX0v8RePWE=;
- b=IwEmdE1TQ6CCuT6gzIsoXamnnOKsoKtOS2nk4hEonaTORj1j4/vuLVpeUW7HnuA+3jRI30O6xT2yWLtkHP0MMZ528K7ufe5LKInZFtrkpk7L/5ZE7OSV/+U2RcUn8cEQ3rRBWNrrqDNLkc9/fqOxBxkHgyBST+heKvzdaVKpzYOsnlsQ2fS47V3/Cn2QzpNtseXHPXJkHLiBPchEtq1SgazTLrCfvJXA1baaNoNwcUlSZCuCvdoMZY21mAVhf+0D3EDupwd6nGqZqEWC2OousEWqq8Quuwe9rLpzw+cALUWHKmijxOCE2ER65Jj57UsGCQLo3zST/RzCK/Hhiz8uIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ahy0xUmJw7Iw8hPoCL1y6gFlmd60i7ViCyX0v8RePWE=;
- b=D1FrHBuDgljUQgAEQVhifap1l8cXIo6Um6z18geQEzDNE1OQxx4CIj5B5Q3K9fr3n2i5jEVg6UrMPcFBgPY99brkVBiJ8iBzRwYm9r6vdp6WlTXa4qFTzGHwZ7CK6xzBT2j5FSpiZXlu4/HDIkZpWNLIkgrBn0+YS1pDBN49N64AMjBXTsCITExz79QzOO57HlKhZ8YJf9N8ZK2y4tL1gkG10mLX0f6aYIfAcMDKeyT/suyGgOZinRWdY5qPg0w2qDzNwsIS+tcseeSymWS7B7k8lrQdTlRCqWHPctoC1CnTaYk9oKa56FonwYMidwb1CRSyMxV9nTTaHhzzf7V6Uw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by AS8PR04MB7701.eurprd04.prod.outlook.com
- (2603:10a6:20b:293::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 09:26:26 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 09:26:26 +0000
-Date: Fri, 30 Oct 2026 11:26:22 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: laixiangwu <laixiangwu@cmss.chinamobile.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Lucas Stach <l.stach@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	dri-devel@lists.freedesktop.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/imx/dcss: Fix clock leak on blkctl init failure
-Message-ID: <auRgElrEh0YlUaKc@vm>
-References: <20261030083342.1531-1-laixiangwu@cmss.chinamobile.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030083342.1531-1-laixiangwu@cmss.chinamobile.com>
-X-ClientProxiedBy: FR2P281CA0093.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::18) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ayciZqaX
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b488586facso537261a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:26:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793352416; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Phm+0XC9hq6VrKiwyb0XeBTQECv7XDZGGPcwy8g3OKCjiJlEHMhwpuqYga+hID/l5n
+         cgPsJ6XWFxF0l+wsxAlemrTFACdfxXGdtmwNKNmkEC/T9xeBUXK/zf696uajWEOio4vC
+         egYGK8FWWE93B40uidAOsbliyJb4ePT7a4qW56Lcr5YUob21ZgtFm3Kmszg71h48GG+Y
+         jiqvX8LJAMKECE8suDQov0uEYBOk6+676R+64V4SmpA4/1z0qwjFa9fhi61e4ZDuS436
+         ZZoKVjgN82mrsmyVcjJPeeAU7vU7f6No8p7ckuDE5U3ncTh6bB6Ti3XQqDH6AoiBIW2j
+         +k8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=a7q+/4+4zxMUP673wzD4KRVvcydFuIy84hUuAGiF6LM=;
+        fh=cFtO6HJ/AVO6u3W1Kfmj9p2LByCBFZ5+IIPzD8u0FuE=;
+        b=XaxEdGeuM6sZGj/KUhicNF4RJguJOc/1TDbTpR2kWMK4VUZqWN9c30d5fm+e3yRYMB
+         CWGGW1X1zt5CMZUfkFLYWpQSQOxKYDMyK9ce9KrOEW7jhgpfbjrB8rXAk+vYroJtw+HB
+         jElvhhSwni3rIMDvez7i0A7POL+VvSbRIerJFvX41pU3oHd4F8HoCRLRj3UObMXz8oQA
+         TRJyhgCA/dTKPkqBSOpSEuhCLiX2v8U8VMRtmyztZYoIDaBWh0nRcyXw2bUyiBcGLGq0
+         UkFTcp1cp4KR/vGsK1WTK6BmkLjvxgqWItQjU35vis1UxI+wcLMN/kSOPaDXXKHKNH4W
+         qHmA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793352416; x=1793957216; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=a7q+/4+4zxMUP673wzD4KRVvcydFuIy84hUuAGiF6LM=;
+        b=ayciZqaXdQP8kxCzQupvDq5/ksF/5+X55nmxdHSDPXRtmFf8SIUDZkZaCXg6JnRxZT
+         /PTNG35skuMUuytLlEpxoAJQ6sNewaygA79NJwF8mxa/zBRUdamK5O6BmpwPv3afvnYc
+         NJ8Hbr3+omGNtgKFNtMzEGPHzmcIS3++nOUYbqexCw6Ob9qX3CD3rpUt2Ukp7kJZT264
+         NpxOo0kDthQ25ZLLxaw87HUmbG7uFxnkhcYvmkjcaZXyCnX6/5bGiw55XEbK57jZhFJ8
+         45Vse3mblR+uUMn6tMWl5Odsfk2aOVTQ/Nar5QHsjTE3aU7OBwVlXyMXOj2D/BB5ss/c
+         WEdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793352416; x=1793957216;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a7q+/4+4zxMUP673wzD4KRVvcydFuIy84hUuAGiF6LM=;
+        b=MOOpz9BDKYAZqzTeTNR4PTVKkm8doTgtltxcJxx2bHreAS6rrdQCKbi6ShUSs2m5e1
+         ZmWzqh83el5JaIJ87VyLRczFDBjBRZpxsFG/Cgk7j3LwegE3y4N+HNt1cmNkxZdK3XCQ
+         ZNZAqDXBR3lyr5fGhL43J3YFpmPs6OvkvPKRFBFjMHj0YV3uwhbvVSxTeQcXQZBq37vk
+         n/LPvTSfFT2RrMu/TXwRXhDEM0yn+PmQOWtDGPMuM8DReELuza7c/GiKBaoUs3SzLdLb
+         Tmo9uEZWpxnsQdsz54NtHnLrHNn7vxdur3LXo4+CjocDq/u3vCrGPcoupDH38SMyIf4W
+         tdjA==
+X-Forwarded-Encrypted: i=1; AKwUvBzYHIkMb2QPSsAaa3gmnzFsX+L8uXO9pI2PT4NUVfshQPO/krZqLaDxjKYgbIU1v/KGkOvlQf9YSCG7tyk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzaoc7fp9Knu0qfE5KPV3mJACyEvg92dxlDKmIrC7j0KbdmPde
+	zwNqzZeQtrpSjIT/2W0oZ1G7MyOKFls7twOpmgQ5YQaiS2DpGnOoltpI14tDBUFgyG1llWBuzgs
+	t9JJ6LoXnHCHpDdL+Fb0U4S4RkwNhwgJ+WBSQ
+X-Gm-Gg: AYBFou3uOQcz/rWxHU4XExk/n4UH27XT8AOsSvl+EmVbkGlZEznbJ3IQ7b7rgmwhLTq
+	ZYiBgBkNOtpQBas6FGGicnYKI3irbAb+4oRf6ZKrfGXpRoGuOdCcCTjQfXUD4W6jnFFTIaoAVt+
+	8CjG9p4aizalr3kmpHpvb4W39ZNEzdjiV55Z/AivvMdDfTbWEXMY08GwY5/1NZdwYuJKchFM2/s
+	wMRUkZ70ocGIEmFNIsCM+UAaLLToKLllGovsMdjtTrnWJuKgt5UiVnskMWYbog91zqbuXcRy5ld
+	RzYSg5kiakGhxqIlP/7YkqYOuQa3CyFkmGmCh4Gvr33jJJqkyDRZ3pSoUYSpPpeTud82qhLBOVy
+	JB6cd9jR7JjutM6yM6rGd2V93QWnwZdDIRZ2+TNQaMSdow337IVe4AJGDYLKMHn8A+aKscw==
+X-Received: by 2002:a17:907:72c8:b0:c41:c106:9772 with SMTP id
+ a640c23a62f3a-c4ca792f071mr151923666b.1.1793352415540; Fri, 30 Oct 2026
+ 02:26:55 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,110 +104,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|AS8PR04MB7701:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38fdd46f-ae0f-444a-e9d9-08df3667df11
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|1800799024|366016|10067099003|22082099003|18002099003|56012099006|11063799006|261026121527099003|261028144727099003|261026140227099003|261021121427099003|261021123027099003|261022105027099003|261022075727099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	kqemCdIkRSuYdX5McsLZRmz/vsyDAYBiIpFtBdKeM5a7L1aCFeD/nn1vs6JN6v0WzZyooa/Q63luhOcLafTyRy6osfmJk677Kyyx8XhqeaGMwWQgFjqKOawUX2f+VmHvZQQ70HZtK7FRqLqIRiF9BS6qrjMVbl5SUJA/pKiXIkBIvbXFAlDFhgTEkSl1XInYRQvEvk8MECachvWolNoPMszllRacvomAo9Bg5iI4FcUv3ojf+rHKMOTBgQp+I9E7zaioPhfp+9fXmCZuXE8gdxE38R+a3BKZh81qA7hUNJF6zeKG9UbFW3YXHqgDSRpwjAGuEV/zLVVQ+Q/WPeVoYH1JadeIbAaj0jPt5lL3X949zQx+5nLbZKLSO2xOBPbWvnYSQAHkdJFqWZ++COLoR8DoDL5+j0Wd/CSQqz+Asvg/iUYWiINTPguydBPDaY6oiBvtXpXbj+xaRMmr3MsYBrdxEUfIzotyitw0NH7LA6/Ti/J4tIS8s3/i9ueKeOPN3yrkLhyytp/HriiJHnohXyMSzT731fcF6PKcILqFK8kwVMKxGGoMDnCfhN+DCrzncjjjoftUCFS1rsAYRE8Q/ZOynqIx+GwseqTbVnUk4q3rK7VcoEj4d1WBFHcYE5JTWfE6JTS5AoCWde6he+LGPjPl88qjQErr//oqkbDrS20=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(1800799024)(366016)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(261026121527099003)(261028144727099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?F1Fh9nFmidJmNz0ySM4557Z2v9lNfiU82T/Ct+lxY8clbLKOJMVrK3JHPbXC?=
- =?us-ascii?Q?zuvfa/WOe9lhFwt/a/EIXH4lVcwgHFeAdgZiwPdzUyzvSXk8DVAaHUHavIs+?=
- =?us-ascii?Q?NzUKXoNSO9ogRQUONYzEGnUSyuEw6BNJKgth42a/UF52M8WtsFcK5qNCJuxu?=
- =?us-ascii?Q?FhZeVIc4aaxt7GiOnY2hT3tGbSiCHPgv2yfNU7ayU1GUngMcN/OpdmQ7pKNp?=
- =?us-ascii?Q?Ri9WWLwWFB7xhZQo4r1708wpYSR3OsqksVPDKRNHx3iNCIIzLJoBDJFtOUFZ?=
- =?us-ascii?Q?Cm0LjJ0h6Hpa4bvBr6V5hCXPc8oDf38ZGHffFztZVN3H6wxf3BRiXwdNau+Q?=
- =?us-ascii?Q?uVgR7O1wba3CeoozRYqUKe66OZhyqLTycA8h/6a7ZTH1m51jdXuauQ4Dp6Gx?=
- =?us-ascii?Q?YMggaA8OKq5ngdTvj9WiPGfb7gt/SUhWd3ndQgLQMoLvnkOTEieaZfntCWm+?=
- =?us-ascii?Q?WuDJZNTaLskWGj+g8PwE94H488KSl1EZBLV6Tp3h5fJ7nJWIXNXHhBmcXTp8?=
- =?us-ascii?Q?uFudc6Z6uEcpk65IH4PyafRxaj3MWveMJsdnppITfZ58eDg4M5jz98cRbIAi?=
- =?us-ascii?Q?BsBUqqY9ESJZcWRkIgqDFF17Wm1xtntcyvvgGYdrA4O1B1VNGGdzcrMzj5za?=
- =?us-ascii?Q?E3ktqI8eV4ymnKAdIAsLSz0TD2AFDQ4E+4zWig15mZ99gyB2Tt0Knh+sSF83?=
- =?us-ascii?Q?zNVyU0Afc9jrCHCgOhI0skLrvusN568nyJKgWCKrw25xI7tZpH4tG1FbVaUv?=
- =?us-ascii?Q?i1yWtQU9fdZfPlfqUErGgtfVi2Hiiv9OyN2G/gO8jZvqfQX4bYCEk3ZY7GPu?=
- =?us-ascii?Q?GgO44ifeAFtfMbV/al+0QBygsKJUa6rpLo05/33lhqUOUufCHF7OqZaE1duM?=
- =?us-ascii?Q?1ljiBSn6kqiJBDXtJQJ5Bk46ZlYqhmMel9HvCQzUzP1U8H7n6siNup9dur9r?=
- =?us-ascii?Q?oK8G1Cn64ozcPkcZ8Kl2S0WpDn3QAuSr1lW17WdvEppdsY/ZgP5W7Skc+iv/?=
- =?us-ascii?Q?Vzs4J1jakmB37ro7BfE8r8r0BIWtZauWYbyV0i4Hgy8PMHiUvubNHf8h67av?=
- =?us-ascii?Q?sFSWIrVAt8lfaZ5O+JLwb9e4weE2ThxhFp3DRi1QbwfSUqmOnSM2/qaUe3P0?=
- =?us-ascii?Q?r4wPf2WyWK71C3RTPRjF18eVkrH8A2s+rIZLk0lRqy1vV7ahy3xo2b88Hvt2?=
- =?us-ascii?Q?paclpLcPs8wi94zgyTdDyYEneVyIfdmaL1Z4sEkM7YzOlvrYt4cxnedGQS/t?=
- =?us-ascii?Q?zq3nwS8vPwgFhzixr82oQ2AM6W/j1rF8f5UDOqorV7uBCTbaNqshPyHsFTu2?=
- =?us-ascii?Q?uaamQoxc64aZl/+vb6OZ0ETy2D2kVM8tMYk+XLOsEhWn29HwcwY+u6nfYoGK?=
- =?us-ascii?Q?geqInicWItDNf219zQIYyAtm9FWz0v5dJsnTGvmjL6/j1MNUUr+BbWT4kGO3?=
- =?us-ascii?Q?uMGACsFuZzAW5PUrz2X0TlLpN205Z9eA3Pfu418waScDuixRpJP09OgeKJ37?=
- =?us-ascii?Q?pvrEMuxU4+3rS2BixcSGrAevnFOhFjfyd2JNhKwA6B2Q+sTnCmnAeTOXdmQZ?=
- =?us-ascii?Q?9Xo4X9UdHUufTKzEmPSZYstYzeuk9BmYyQIbLSdwMSWOFCqaKSXBbxCaZolD?=
- =?us-ascii?Q?z5VIs4Q8r5Rf9G112T3f7mM0d5f7dexCh34cUQvrdkYFc0eBZReEpogmVYUK?=
- =?us-ascii?Q?yhwVuwQhDritnMBsm5vXy0O7v25YZIyrYcMaN0jBQFojJA4D0x/tEG3n+5dV?=
- =?us-ascii?Q?fZSSOM4dJw=3D=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38fdd46f-ae0f-444a-e9d9-08df3667df11
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 09:26:26.5039
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hHYHlR15ksNwxrCdR31gD1S7qaHYn/5yTlXK4rVRXjX7nhVBDWDvFpNO6NDcgMS6DnTolGfbTsbBU44ST2yUag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7701
+References: <P58Wrer--F-9@tuta.io>
+In-Reply-To: <P58Wrer--F-9@tuta.io>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Fri, 30 Oct 2026 10:26:44 +0100
+X-Gm-Features: AclHuK_RA6XrlgVHuWWMqlPNjOqYiitwMvc6OBqsxoVy-pqo9NlWDMGkDue8iP8
+Message-ID: <CAOQ4uxjqa_bTBaScWMfoUvhHL_xSxDQ2xK7+r9YsaWOaXfKC5Q@mail.gmail.com>
+Subject: Re: [PATCH v3] fs: let backing files inherit FMODE_NONOTIFY from the
+ user file
+To: Edvard Conrad <edvard@tuta.io>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, 
+	"linux-unionfs@vger.kernel.org" <linux-unionfs@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
-
-Thank you for the fix.
-
-On Fri, Oct 30, 2026 at 04:33:42PM +0800, laixiangwu wrote:
-> dcss_submodules_init() enables the DCSS clocks before initializing the
-> submodules, but if the first submodule (blkctl) fails to initialize the
-> function returns directly, without disabling the clocks again. All the
-> later error paths already jump to ctxld_err, which calls
-> dcss_clocks_disable().
-> 
-> Since the clocks are only devm-managed for their reference (devm_clk_get),
-> a blkctl init failure leaves all five DCSS clocks prepared and enabled.
-> 
-> Jump to ctxld_err so the clocks are disabled like on the other error
-> paths.
-> 
-> Fixes: 9021c317b770 ("drm/imx: Add initial support for DCSS on iMX8MQ")
-> Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
+On Thu, Oct 29, 2026 at 10:18=E2=80=AFPM Edvard Conrad <edvard@tuta.io> wro=
+te:
+>
+> When fanotify reports a permission event, copy_event_to_user() creates
+> the event fd with dentry_open_nonotify(), so that the listener's use of
+> that fd does not generate further events. If the event's path is on a
+> stacked filesystem, the stacked filesystem's ->open() opens the real
+> file with backing_file_open(). Since commit ebe559609d78 ("fs: get rid
+> of __FMODE_NONOTIFY kludge"), FMODE_NONOTIFY lives in f_mode only and
+> the backing file does not inherit it: it is allocated with the default
+> fsnotify mode, and fsnotify_open_perm_and_set_mode() raises FS_OPEN_PERM
+> on the real path if the backing filesystem has permission event
+> watchers.
+>
+> Before that commit __FMODE_NONOTIFY travelled in f_flags, and overlayfs
+> copies the user file's f_flags into the backing open
+> (ovl_open_realfile()), so the backing file was exempt implicitly. Commit
+> bc2473c90fca ("ovl: enable fsnotify events on underlying real files")
+> relied on that when it dropped FMODE_NONOTIFY from OVL_OPEN_FLAGS.
+>
+> The nested event is queued to the same group, from inside the
+> listener's read(2), and can only be answered by another reader thread
+> of that group. A listener holding filesystem marks on both the stacked
+> and the backing filesystem therefore deadlocks as soon as all of its
+> reader threads are inside such a read(2) at the same time, and every
+> other task that touches a marked filesystem queues up behind it.
+>
+> Observed with a commercial anti-malware agent (16 reader threads) on an
+> ostree/composefs host: / is an overlayfs whose data layer is the ostree
+> object store on the same btrfs that holds /etc and /home, and a
+> systemd-sysext overlay sits on /usr. Every on-demand scan of /usr wedged
+> the whole machine until the group was killed. Stack of a blocked reader
+> thread on 7.2.7:
+>
+>   fanotify_get_response
+>   fanotify_handle_event
+>   send_to_group
+>   fsnotify
+>   __fsnotify_parent
+>   do_dentry_open
+>   vfs_open
+>   backing_file_open
+>   ovl_open_realfile [overlay]
+>   ovl_open [overlay]
+>   do_dentry_open
+>   vfs_open
+>   backing_file_open
+>   ovl_open_realfile [overlay]
+>   ovl_open [overlay]
+>   do_dentry_open
+>   vfs_open
+>   dentry_open_nonotify
+>   copy_event_to_user
+>   fanotify_read
+>   vfs_read
+>   ksys_read
+>
+> Userspace cannot avoid this: the backing open happens while the kernel
+> builds the fd, before the event is reported, and fid reporting is not
+> available for permission event classes.
+>
+> Make a backing file inherit FMODE_NONOTIFY when the user file it is
+> opened for must not generate events. This restores the pre-6.14
+> behaviour for the fds that fanotify creates (and for any other
+> FMODE_NONOTIFY file), while ordinary opens through a stacked filesystem
+> keep generating events on the real path, as intended by bc2473c90fca.
+>
+> Verified with a self-contained reproducer (private tmpfs lower layers, an
+> overlayfs over them, FAN_OPEN_PERM filesystem marks on the overlay and on
+> one lower layer, a child opening a file through the overlay) in a qemu
+> VM on this tree built with defconfig plus OVERLAY_FS, FANOTIFY and
+> FANOTIFY_ACCESS_PERMISSIONS: without this patch the listener's read(2)
+> never returns and the child's open is released only by the listener's
+> death; with it read(2) returns, the event is answered and the open
+> completes.
+>
+> backing_tmpfile_open() is left alone: its only caller is
+> ovl_create_tmpfile(), whose user file is a regular overlayfs file.
+>
+> Fixes: ebe559609d78 ("fs: get rid of __FMODE_NONOTIFY kludge")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+> Signed-off-by: Edvard Conrad <edvard@tuta.io>
 > ---
->  drivers/gpu/drm/imx/dcss/dcss-dev.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/imx/dcss/dcss-dev.c b/drivers/gpu/drm/imx/dcss/dcss-dev.c
-> index 7fd0c4c14..551786060 100644
-> --- a/drivers/gpu/drm/imx/dcss/dcss-dev.c
-> +++ b/drivers/gpu/drm/imx/dcss/dcss-dev.c
-> @@ -70,7 +70,7 @@ static int dcss_submodules_init(struct dcss_dev *dcss)
-> 
->         ret = dcss_blkctl_init(dcss, base_addr + devtype->blkctl_ofs);
->         if (ret)
-> -               return ret;
-> +               goto ctxld_err;
+> v3:
+> - Back to the v1 change in backing_file_open(). The init_file()
+>   variant posted as v2 was larger without being more general; Amir
+>   withdrew that suggestion and reviewed v1 instead.
 
-With this change, now the label names I chose when I first developed this
-driver don't feel right. Could you please send a v2 and rename those labels
-below as well?
+Apologies for the detour
 
-I'm thinking:
-ctxld_err -> err_clocks
-dtg_err -> err_ctxld
-ss_err -> err_dtg
-dpr_err -> err_ss
-scaler_err -> err_dpr
+> - Add Amir's Reviewed-by. Drop the Assisted-by and Suggested-by
+>   trailers and the blank line in the trailer block, as asked.
+> - Keep the subject line from v2, which is the prefix used for
+>   fs/backing-file.c.
+> - The reproducer posted inline with v1 is now an LTP test, under
+>   review as syscalls/fanotify26:
+>   https://lore.kernel.org/ltp/P50G-yE--F-9@tuta.io/
 
-Update those 'goto' lines accordingly.
+Thanks for following up on that!
+Amir.
 
--- 
-Thanks,
-Laurentiu
+>
+> v2: https://lore.kernel.org/all/P4wV1J9--F-9@tuta.io/
+> v1: https://lore.kernel.org/all/P4sl5iz--F-9@tuta.io/
+>
+> Tool disclosure (Documentation/process/generated-content.rst): the
+> stack analysis, the git-history search for the regressing commit, the
+> patch text, the commit message and the reproducer were produced with
+> an AI coding assistant (Anthropic Claude Code) under my direction over
+> interactive sessions; I reviewed, built and tested the result. No
+> static analysis tools beyond checkpatch were used.
+>
+>  fs/backing-file.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>
+> diff --git a/fs/backing-file.c b/fs/backing-file.c
+> index 5614cb7801e..24357bf9328 100644
+> --- a/fs/backing-file.c
+> +++ b/fs/backing-file.c
+> @@ -43,6 +43,17 @@ struct file *backing_file_open(const struct file *user=
+_file, int flags,
+>         if (IS_ERR(f))
+>                 return f;
+>
+> +       /*
+> +        * A user file that must not generate fsnotify events (e.g. the f=
+d
+> +        * that fanotify creates for a permission event with
+> +        * dentry_open_nonotify()) must not generate them through its bac=
+king
+> +        * file either. Otherwise a listener watching the backing filesys=
+tem
+> +        * gets a nested permission event from its own read(2), which onl=
+y
+> +        * another reader of the same group can answer.
+> +        */
+> +       if (FMODE_FSNOTIFY_NONE(user_file->f_mode))
+> +               file_set_fsnotify_mode(f, FMODE_NONOTIFY);
+> +
+>         path_get(user_path);
+>         backing_file_set_user_path(f, user_path);
+>         error =3D vfs_open(real_path, f);
+> --
+> 2.56.0
+>
