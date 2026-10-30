@@ -1,99 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793360688;
-	b=t44Roxw8Hbv//ALCplRES9dOG7dQLPWBZGqhrOgQO7sjQ8yx7gbHf9v/9YlJk2462DcC
-	 J1Tpi/ACedkauehpJ/Om4b8lOygJcO3uzt0gos0S8OfKBuBhzOQ5CpW50uNzmEXTuM5lb
-	 a0k6ChbBR8cNmRZOdj69wqFl5v5jlvVwJ5pEJgDPiGsqRpjqvPUknz7hVL3F0Act6uXZ/
-	 ta+AHwDG/H7mI8Ks4CbgmukZpyI/zbHMRQ2XHHirZxXY3x+MgYm/7n0pRVsNX6BE1ljkF
-	 CGTQJVNmZM+5bb+BhQHTaQDPLKEZBnR8NCs5bkHTBvJibwdkNhNB0a9qp2wzHOS0VNA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793360688;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.5
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793360686;
+	b=IzBjlJV/ak1WZvCepRdqJUWwV6qFUEQbCtD/wZpU2PLHUeplQgLbljubN+NY463+fHUr
+	 rOQQgaLD/1zCpng+WpOnxLe3wB30sgkIy5+WMeED297bWDRwqud9H+dtAo+PJUy0me+CL
+	 iURbocpXF7FzU7/y8yXAMs7PHobCUfGcm6y/zngot3E2kKchx06mFUbpGpFMJUfoCGomL
+	 MXY9Olnctj0auQRvBg8wmlzUntazwm2FstbU9zwDJvBO+jpVWrqSWvVoJYD1kvd3myJJf
+	 eH7NyP5SbL5AiTalgPs/oc7518dhmYweT21/PYb7LcYwlYKj7+KoZJEQoPNrPrjJkLg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793360686;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=gj1ttizdUersx8xsUhnFSQQTCr6CuiJthd1Zca2e+6c=;
-	b=HHgdtCFOvwaoDdxekjpi7S2ok54X/qHoX+sYYwXWDu6aCmsLJZTqPVJXaqE0yHKOsphS
-	 D8sfrAS/VXbquD7LE/2mxlp0m//nym62poNQD1l+MwAjcB3KaZVeedTWKanEmBKYIMfNr
-	 ugjM+lSXFCDL2pgp9RQINQVztuwOb2pDwYKtMKo2JMTxUHGUaUnSLzRiyKRq2hUHPzFp+
-	 mjO2bVGGUka9hlk8xQKQQxQiVIUBjfYa/5GeYpXmGhtkwRKeLeg7ajBxkSvvW+i0IawYN
-	 il9k22LlOBv4ifaFwlDAoJDJWA9Si1af9CwESY01xxqH8GaQVFuoi8MqVGAqyJ4DonQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=fooishbar.org;
-	spf=pass smtp.mailfrom=fooishbar.org;
-	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=GAh88GJw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=J/6UIvMwC+2M7xk6hrl7rsj5PVVyi+u7mrNva4BtF6A=;
+	b=GE5XRUDNDzwvCSWSTUj7gx/9O36/0fg3xnj9ASpvf6nlrr0m7cclFmo9+nLs+ensVTRo
+	 t6aO93FGW//KpIXAzptQROXyQ/vBGKGFTFwx8Rs1mKACwCRhGi7GNTvBio42SngsbYtrX
+	 ag3D8XEhZU4c66nX6Pf9w1mq5YWtrJ79AraHNUncPBsqfmPGX2ia+aqkeLttJDnxEne3U
+	 vHwkE3RuUBJBne3oDUnJf8pyVjJsOcrMmakxUtVquDhbThiUF3z007tAgFoJcf/CEOXE4
+	 ME2U5xymWNPtHc2iXuwo7sG1VyUTPYfvXhpsL53Jye5p/d25qTYyh9uJpn9OmRgP7/w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g2ZLV5dl;
+	arc=none smtp.remote-ip=74.125.228.5
+Received: from mail-pz2-f5.google.com (mail-pz2-f5.google.com [74.125.228.5])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBB3606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:44:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DBB3606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B889606A333
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:44:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B889606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=GAh88GJw
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e8246b13cbso5100945ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:44:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793360687; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qET6BzT+mlvIBYy+f821Aw54j7iQg3VmhEoVZFPWLuNHrim7lmdkEar8TRHFxJ0pfl
-         fWg+1aEq3L4bIRzTc9vqA+n2suxu5vc1MgafKHfnM/schPX5uOQ6feLjTv3/BkJc1aOz
-         iqfQFRYeRaY1UjUEfb86BAuJ0ik0Gqe9cfKaOz1yct8fZyo7WlqA9Se4wh1V3IHdyT2W
-         P/v6ThgLnXzkp9wR+ZivLw76W8xAyFp0iRhQPZXAjphoZfjMkLNyyNHNiKNcHUseE4tT
-         0qwvPdsUozntxUTuBMN2HUN9YoKcj3dz/6hIy2Yi9MUNoP6QvtcdSKehgtl7MRYsGAaG
-         FdtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=gj1ttizdUersx8xsUhnFSQQTCr6CuiJthd1Zca2e+6c=;
-        fh=5eXpO5QLRoCla2UqQuOIohZ7ZOk1zBtLvqqM6mdiEY8=;
-        b=Dx0tnU5zQMOzdxokfmsQUcbrTbOLvqRI8yru+KwtpvEIFQ2OaE3G+mYmNfIJGB1JmL
-         1k3TjB48S5+uWFUDitkmUOp70dAGwk7f3VwLRdkK9zBij205sDozoZAt33YqBBwTio/h
-         HYyduU7cjmYwCyZPdgXUjxr/VlT24WjPqS5AUMYDIq2bjAec5b1nXKZGo6hcZ0/xH/bD
-         MOoEodCE+uozNA+BZqCIJewHlgiMa7DeTd2ZYddIwgW6AusE/ALBtRqqvlzubVjaLwcv
-         v+Yqi3jtEkERv87JukuBVSaxynDRRXHrweHASl3AI76IbFW0WOy/vP8PE5BF5uC9yUNV
-         rEkA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g2ZLV5dl
+Received: by mail-pz2-f5.google.com with SMTP id 41be03b00d2f7-cdac05f11bcso110169a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:44:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fooishbar.org; s=google; t=1793360687; x=1793965487; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gj1ttizdUersx8xsUhnFSQQTCr6CuiJthd1Zca2e+6c=;
-        b=GAh88GJwQN8NKkj9foR5zmReCQEkwgJJ6OE8L2/dYYFWjcjtaoE7T+TJKPTlRXv6em
-         I524efNvsDKUnOHNoSreO+XJ/Jho9cMqLvi2xucn7t/bmmwY5MfWd7dLzdyRxTpnreRm
-         NcXTcY/0WsUa1J4o8Z3sUR+3rswBzee/0NTQgqeSG3cbg6AGU0H8LDsx58GE34y6aNRh
-         0JhJsHewnmuF/+p+cRG4ox3fr9NrNgFjIfVoXvG7xkHakQvIt4RvCVKHndexJ2iTAcxj
-         SfEvGsT1EFxnr2Ax/KfQZDy8dpjePngDmSfq/zMLjg3tA21BpA1lWHpfsqVfwa0BlBUh
-         7C+Q==
+        d=gmail.com; s=20260707; t=1793360684; x=1793965484; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=J/6UIvMwC+2M7xk6hrl7rsj5PVVyi+u7mrNva4BtF6A=;
+        b=g2ZLV5dlxpbuDPCjK1MaVrsjqjHMaipBPBqsisVQUZ6Ty0skoAdWgIyeA/J9clATlp
+         1p31QUCLSPGy4TWe5KV53YJ0M5p3O8t50RFB+4xnBn+6p7AZfE273lGPVGIPHOozNW4I
+         Brk88Y8w+9TGUkPqvbXhVtdn57OSLzIo8kkyGSJKcqqMoGP9/9uk2gR7hADIIutWzDjg
+         7gpHz4vxYE0+7wo7MVXxWBdrsSaWVdHnQ86v2oJOfSh+JISrsA4SZCk6lj5ulEpnJ10Q
+         ulC+27nUlFpdausCL04tV09g1AbYKQxaiCg3/e6n6n8iqx/cOEYX/bJmH8eJ822ICDF1
+         m3xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793360687; x=1793965487;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gj1ttizdUersx8xsUhnFSQQTCr6CuiJthd1Zca2e+6c=;
-        b=tFpJ1xu0vC5/Clr7NJ/7QMzKWQK8cR3PcE7HWCCzYiQ0yLpiv8/gNCaTToEVOwlWhG
-         bWksNkE4zFXxKDsHJfiPl93HlDyee9NdwKzDKHL+i0a2dhcjIskWIgjFr0SU+5H6N/jq
-         1eTcJFfsjESp4DPE67FxjL7IDWQJBkLR1cTD93X521i3EEKvkLUMSvCp5WkyCBQ3p7lC
-         ti55KKVhmXEpMgnTpXqeDuVgj63Gc4Qe9cVlfb1gmPgsaWAZL6LwjiaRfALjRVE37yrV
-         goU4TWW+rpiELaHQjqP8fo3xJlrHZjuNQDRkGJnCIDq7Aii8L0qOn1RUgcwScW0xe5E0
-         WLgg==
-X-Forwarded-Encrypted: i=1; AKwUvBy7UHKAqkX4+P9JBBd3MAuoICqy/nlA8ukfvBL3UUaMxQYcR0BWCCcONBbfLVHcA+YDM0k9LK67mO/JreE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKoGHLFodxqcTHltwjyGb9K26kAYcZLiaBzo5B+G3zTqPRbkgPm
-	R+RHUgey0P5tkvYPVttzzjVjuPaajTtrPma9csPz4YuLqh31imhDP4YNiiVhaoHJhvqsUzWlMLq
-	yJW0WfXrt9WJx7XINl3mKbEv5Yy55TUfC3vTZJoVL+g==
-X-Gm-Gg: AYBFou0ZlnJO2hfAzVjFJJ7BHkJjhddGEKG3m2UsIJVLbI43PStck10sZ3CYmFCMVBT
-	sZgy+6/H7bkEOu5eb0LiDVlO0Dsho/ZFSy5mlQrhrVVab3O2qgjvGGUOYOhtDbZdypFZ+SqiFTk
-	58O34AvC5+j5ReaAvFlUFZVbRq4gArbHx4yVd9FHmnwqwlfWFppmPeTKTRymi8AD6CIhgshGd3o
-	mxbzDdCYvez0hQYysplEoLFGshxukC11JHdoySOb8Ok6Kx9aUpkBOMSgfWvpbjYxOyf5oQDigfF
-	ihEO2NULAAHJzUaACLuwf90bQhLliFb3SW2m6A2L56RZs/MGw9xuYV9Klgr/d0WZkhn1ksAStxZ
-	S273KV9uqP0sWYRrEc75gGex15RJgDXT3YB03
-X-Received: by 2002:a17:903:37ce:b0:2e9:6333:fbb7 with SMTP id
- d9443c01a7336-2eb364f49fcmr22277985ad.51.1793360687631; Fri, 30 Oct 2026
- 04:44:47 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793360684; x=1793965484;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J/6UIvMwC+2M7xk6hrl7rsj5PVVyi+u7mrNva4BtF6A=;
+        b=Ep6fB+JSzfvJzens2X1N1EhyD+lfZXdJCFcJLr70+h2zKY381lMn35eAgMFpefXGZw
+         FQoP/Shzst1+XqHFzkm+ZiXymhttr8QFJy5658p+OVFT5qvN/lzQGciyeqGjWmF5vNXa
+         6CdQdLGo4/CfbSAVsoXXv/zMUkcv4ZfjIB1Nc5mAn5nX4Q2VxOMtT7ZWBcFsLhq11OpR
+         G/zwG8kvdDLNbUa/ZeSyC4F6sDLkirMc7vTOjJi1R+FFD4rIy6m2751Stn57KcD9ytKQ
+         CKqzKG1wV0hrjyVbpZAnAqFOmrcrvlp5cFol+s+V10tugl3sM4dpmY6R80h9UprP0dJW
+         zi9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwpECcQAH3GjV2tDyN+9uzahmzUZY+njuy70Eav1gXxV1YliUhoP/F028gfjiAfFGTTGaiu4YpV3sh9EJA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLR8h65b9Dq12Ut3BeDrqcSzzXbEnxKCkK5HTJzMlLE9jHyARiH
+	+6dO/iSS7TPUvVWoBPNx7a+j5ormOIkVvqwisPtgUOGJOGXXxzS53qTK
+X-Gm-Gg: AYBFou3EADFrAc6XU87GUA76weod5TDjAVoFjY8IdouJDe8fcgrubly0IQHkUb1ryur
+	+x2cX9z4zNWfp6w9/8omdVxE/3lzApPsDUfrNv6Qz6b3kefCf1rSYFn1YNRbTSoNbbRgueUvnHu
+	RxQ1WezPlOJRnpEXWrJrqiMbKLDUqRn1rtNh+yzuSkAZbwvWLMfE+z3mq6mYsBtDaTL/9TyTFAk
+	zpCf+G5b40PpyUSdkaJUjIj13BncT7YDuz7GNVNZnSM5SOoVx1Enl6X36sLTF++YrNbYkOBuP29
+	1zbGZyNpA9JtKT6CJI6S5frlVKOvB08Q7mvLmgb0W0NrTS1B0aRTgAOUBKwW89mtyWPU8iayn5u
+	BeM0xMcYd0FBFM7TSsQV0p4mOIcTTfjlFqcilrQIqjOfWo9BtO3C8+/3rE0tVppvLGJKovfCaxp
+	excBLLs5PKMuC683yaXj28I0I86w2b6eoUaT3GwNs2zI0Rf4XXNytfuUBHs+Yfoco09h3d08Sm4
+	0Ak6+llLLmaTVSqEbNQ2cc44plO0OBGbxeZQV9YIaSBS1aL8valcnJ3C+H02k1DlEgJHVFnshK4
+	hlpKnkzgM0HX1DOJcIsZyA==
+X-Received: by 2002:a05:6a00:2d1c:b0:8a0:7dc4:95c0 with SMTP id d2e1a72fcca58-8a9be5896acmr1842901b3a.15.1793360684421;
+        Fri, 30 Oct 2026 04:44:44 -0700 (PDT)
+Received: from debian ([169.211.140.146])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a9eef957e6sm660253b3a.15.2026.10.30.04.44.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 04:44:43 -0700 (PDT)
+Date: Fri, 30 Oct 2026 07:44:36 -0400
+From: Kwanghoon Son <asdfkwang@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH RFC 12/12] MAINTAINERS: Add Bouffalo Lab BL808 support
+Message-ID: <auSDJH9V31wmbrYv@debian>
+References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
+ <20261029-rust-bl808-console-v1-12-b736ee920078@gmail.com>
+ <20261029-spyglass-evasion-772697094cb9@spud>
+ <20261029-amuser-savior-6a6ab062f471@spud>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,43 +121,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com> <20261014-dw-hdmi-qp-yuv-v5-9-6fab0fe43a9b@collabora.com>
-In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-9-6fab0fe43a9b@collabora.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Fri, 30 Oct 2026 11:44:36 +0000
-X-Gm-Features: AclHuK-Q06xdaUmiDGoTsq9LRujvtZmp-FKJhNsOOxfBrNNarZ1Qbmr7JOv-ovk
-Message-ID: <CAPj87rPEz=Y+dZayouddZRn2ZHSVNk9BAjBqz34PJyjDRba5=Q@mail.gmail.com>
-Subject: Re: [PATCH v5 09/15] drm/rockchip: vop2: Consolidate HDMI PHY PLL
- clock parent switch
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
-	Andy Yan <andy.yan@rock-chips.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
-	Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org, 
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Igor Paunovic <royalnet026@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-amuser-savior-6a6ab062f471@spud>
 
-Hi,
+On Thu, Oct 29, 2026 at 07:20:41PM +0000, Conor Dooley wrote:
+> On Thu, Oct 29, 2026 at 07:08:56PM +0000, Conor Dooley wrote:
+> > On Thu, Oct 29, 2026 at 01:05:53AM -0400, Kwanghoon Son wrote:
+> > > Add a MAINTAINERS entry for the Bouffalo Lab BL808 platform, device trees
+> > > and Rust serial driver and abstractions.
+> > > 
+> > > Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
+> > > ---
+> > >  MAINTAINERS | 13 +++++++++++++
+> > >  1 file changed, 13 insertions(+)
+> > > 
+> > > diff --git a/MAINTAINERS b/MAINTAINERS
+> > > index 801f964899ba790a8f71fe61f9b3777a494dabd5..b76d3e168468bf6139c958a81b626c73b422c0d4 100644
+> > > --- a/MAINTAINERS
+> > > +++ b/MAINTAINERS
+> > > @@ -4926,6 +4926,19 @@ S:	Maintained
+> > >  F:	Documentation/devicetree/bindings/iio/imu/bosch,bmi323.yaml
+> > >  F:	drivers/iio/imu/bmi323/
+> > >  
+> > > +BOUFFALO LAB BL808 SUPPORT
+> > > +M:	Kwanghoon Son <asdfkwang@gmail.com>
+> > > +L:	linux-riscv@lists.infradead.org
+> > > +L:	linux-serial@vger.kernel.org
+> > > +S:	Maintained
+> > 
+> > Missing git tree, unless you're expecting me to apply patches for the
+> > platform for you?
 
-On Tue, 13 Oct 2026 at 23:51, Cristian Ciocaltea
-<cristian.ciocaltea@collabora.com> wrote:
-> +                       if (!vp->dclk_src)
-> +                               vp->dclk_src = clk_get_parent(vp->dclk);
+I added this entry after seeing checkpatch's MAINTAINERS warning,
+but made its scope too broad. I'll separate the BL808 platform support
+from the generic Rust serial abstractions in MAINTAINERS.
 
-Why not do this at init, where we setup the rest of our clock tree?
+> 
+> Additionally, are you actually going to add wider scale support for this
+> device? Like a clock-controller driver and the various other
+> peripherals, or is this really just a vehicle to support your rust
+> serial driver work?
+> 
 
-The rest is:
-Reviewed-by: Daniel Stone <daniels@collabora.com>
+Yes, I'd like to extend BL808 support beyond serial. I have local work
+on peripheral clock/reset support, pinctrl/GPIO, SPI and PWM, including
+an SPI display on the M1s Dock.
 
-Cheers,
-Daniel
+I'd like to bring those pieces upstream incrementally as they are ready!
+
+> > 
+> > > +F:	Documentation/devicetree/bindings/riscv/bflb.yaml
+> > > +F:	Documentation/devicetree/bindings/serial/bflb,uart.yaml
+> > > +F:	arch/riscv/boot/dts/bouffalolab/
+> > > +F:	drivers/tty/serial/bflb_uart.rs
+> > 
+> > > +F:	rust/helpers/serial.c
+> > > +F:	rust/kernel/serial.rs
+> > > +F:	rust/kernel/serial/
+> > 
+> > These should probably not be maintained under the arch support since
+> > they're not platform specific.
+> > 
+> > > +
+> > >  BPF JIT for ARC
+> > >  M:	Shahab Vahedi <list+bpf@vahedi.org>
+> > >  L:	bpf@vger.kernel.org
+> > > 
+> > > -- 
+> > > 2.47.3
+> > > 
+> 
+> 
+
+Thanks for review!
+
+Best regards,
+Kwang.
