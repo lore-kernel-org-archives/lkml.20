@@ -1,99 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793360922;
-	b=ykTPVEGKzxZE4o2tTIRNqrGu0RPIilDUfKBU8mF9Fm8pNW/V2BLVAIekRRH8qq8m8mx/
-	 cwlF05CAkd8lkrOPtdn8c8Zk8rwecwVZYHw91+XmZdmGJYSiDKPFlrsGzCnegJCIYQShJ
-	 Dvw+oJPyjJ8xr6TPfEXIaUxmjdhXtG5Pq0MbABJl8sDKZRWcwMT8Sou3lcrud6iO327Ut
-	 G0d2KgD/81JU+8/ck2f2pdMBOPkaksfr6peS6XnIbONKwfen7ncybCavxjlhAowY6iF23
-	 qNrZSUd1Qrt25NBoZIIV0A6aMP8NkTtRqekBvxxRpQkWdo5mn8dXWIFpwcdXw54/HqQ==
+	t=1793360950;
+	b=a3LzlA3dlV5Zj8Z8wZP36YQjHYjsMxvNor03BjwrCwh2JDptu1uq8zCcPfz6TefKOzlZ
+	 y2V3yIG8JlYNElCEKZQelXwf6CeoVITDiFqghyHYD+WaITKJxHZ/CfAulRHkIGOGuwKOm
+	 q7OwrXXS7OoZOrTEjTbx+ieJ2od+cjm7S09ubHzKGfYEmh/E1OHxTYutlp0EdR+ivY/QO
+	 JrcJKL7mJdVNYhtdKo36rl7A4CuAt3L/ZqI/IXErxmrnVWMegJ9L6E8m2f/5F0NsoYMBg
+	 JUm96Vss39yjg+xJ5v905jyBHfEM3YrenCQCeXWht9f1ODBdHiFbO9lv2DksdIgpznw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793360922;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793360950;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=rytTxuDwmZaxUvmFDOrr2QKEaKAyu/0j3T9Yur/Ie+Q=;
-	b=jbsHFq+OCwzOVHJxFvzaZ4DtMRnV8soRHFUAtyTHyV7RwAtL90/ScAKVNazXc1EaMTeB
-	 s1Ng+hWN/2Nvyp51KdFnyypApaQdCWdERgagiDYQ1QhzMWAekSvbL3Fl5M1XbCd0ftVfp
-	 VZaI9S7V2eP3uR4oVMwrRfWSD4FQ92ezjwPQatBPrYbqUpssc0HgupR4fuCMKXXxpKfxc
-	 IEec95Vp7NOmFcoh1u7d+KlylNCT+UdE3oJcKwIuuQ5LYPLbRvshDXfY0MX4oL0w93Gy7
-	 dT4Jw5drB7z3DG/LoSQMd0TIAWGESJCfB6b2n1tSAc2uwuxBBbis6s+hRCPcPWSoEEg==
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=cN/kTdZeplcVxA05yfEtV/oWHM65qTlYYKDtomQxBWo=;
+	b=T9enii5hEoc58UTBUylIioUZuilffYh1unI2tP/DKEulmVbJ2jFXub/RAaBaIc1893BV
+	 oGzO1EuhJ3YWpZCmVCp8/j63oTzYGAK2OyShqM6HlRvPRb4fkksxgSy/13gXrbqudb1RZ
+	 khhTbNs2vkX/t4nnGOYITQ9028lLeueFldPmN43i0MoiSmub5ETtgMu8HFR9XsmQZGl7f
+	 EU8nCDRPkI/5322AcDvy0sAognAntyT3+pgX+vpVrPIfqS9X8grXP3T63s+4lqXP8llpy
+	 5n11AW1UJU+1ff/4foYvMvPACTdhUTuEPh0dQ7CpzIau5B4ltWceHTUUj/QWGk+kmSA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=fooishbar.org;
-	spf=pass smtp.mailfrom=fooishbar.org;
-	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=LSdvu+y3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FBx+faCc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942EB606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:48:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 942EB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747E6606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:49:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 747E6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=LSdvu+y3
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cd623dfe420so416422a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:48:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793360921; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FBx+faCc
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91c60e30054so7200876d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:49:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793360949; cv=none;
         d=google.com; s=arc-20260327;
-        b=g4PRVVyrya3cj4J4tH6Uh6IADQtI1+LPMY7+u+7o2EYKWXRpuEpTIW7GK+regJGRiS
-         77wR33hirmNK0jFVc6fuRgy8EEs/oOmd+Qzr+vPw5ijXRh7Ds8QEhoKiztFHLUEmr6AP
-         fEAzO98Ytwb6G7zTrFkt4N0jqKw24yd+uylm+/mrmE/mipGTrJd54rqmV+mj+mYpEdfc
-         tznStwM1ME4fBrig2VMJJp465koPOZbZC38A7DgtPYvHCAFVbh9uRuZnEQKE2cv9D9+n
-         meyWC9pUfHMdj4SL3uu07cwjsCguCELOVlTnpJw7/OrLp8UlNMRe9w+byTFx6MiONurI
-         ml9w==
+        b=Sz78icY9tMlycQw8YKBl23pC3vBwsFJHfI+e4IVVqBxFXjrIN/0NXziEjZsCmAL5Is
+         9xo1qK6rqOQhiGx4dKQpi/NFkd7G3nMoij7MJjWeDNKfKT2c4dRtqAf2pOppd78cbQ6x
+         dCz2vmw2c3DFvExLhQ/XAbVAki2Wze7auDkuTHWxkA6aVOpf5TftVxFZAdZ7PRgU4JZS
+         ab9kFinIdIWyCOvfKT7hrM/xA2zryLdc5UoZeWQFN5jsXuB+fZFS6OO4GDyuYKxSDmFR
+         GTPkzM6l/Ypbhon+HyTCBqBaDHftm+D7G2pY6szuzVMNK9F2eiIBqO4Pe3O4Hzy1LpYG
+         yDwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=rytTxuDwmZaxUvmFDOrr2QKEaKAyu/0j3T9Yur/Ie+Q=;
-        fh=05ciksguoz+X0anCG8vEaeBMSBaDM7UjklwhFdDilow=;
-        b=GFSL9IHbRu3tQTnyJmo2TufDrXWH9xpqQ4hzldqhSR87RAjbzsdLu1HcQqwJZqeEsu
-         1oWMO59gsHRQGEnXFpiSuw+YVnaW20ucJLlDAtr34dlcEV+5Ki7Cj/jm43L9+w3QLY/Q
-         jcM+tRc7Oe8ZhRX2ffr9fV33FUgpzLu+px6DiAc6OFgbuJ71Tult4pXM/PWdoxlDO1Q/
-         H7ntnz0s2TIxtVfj8zTZ0gfM5FU6yfdKbiHVv3j4IaChd9lhC5wtOFMFYCSpywcNeiBg
-         1t7ctC11QTGAiL8jdtOaaMOw5a3i3XszE29rEBajjnTfLSMWsfqcfCzHMjzjtndSgqCX
-         fOqA==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cN/kTdZeplcVxA05yfEtV/oWHM65qTlYYKDtomQxBWo=;
+        fh=cTfUncotj/Wk9cVJzgHQO+DMccIlk6JBOO6n0YLic4Y=;
+        b=J1G2zDc5qd52O1n7dg6PJjy42PONKWRPe16nqWXTku/FjKqgZGY9eAxQEUoiHJTle4
+         0gq9S8bwofhC+V1ej6S9Y/rhGT048Qg6NGS50QJJ91FN249tFHBxU3rhDY0fiAZsCRQL
+         h4/SBt4TzGN+EQ+MtHj9eFnMLl4MVtdBloZM4+EFnY1ei3/+hNq3P26Y2k1+nr9Vzug6
+         eNl1z0MC8GlWr3ptHxLhEOo/hmQKoxomhmui/mYPEXOsCk4qmp5bnGbQ4vtvKDQIFWj7
+         SFJBCCeuRwInHOfMdjS2EIVqXOG3jOQ4bZ0l3yiYyWgzi0gtmn2lvH/Div198b1ynpTO
+         /TPg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fooishbar.org; s=google; t=1793360921; x=1793965721; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rytTxuDwmZaxUvmFDOrr2QKEaKAyu/0j3T9Yur/Ie+Q=;
-        b=LSdvu+y3IPgRcAtg5miAIlPbVuoMPy9U227DfxhrEUc8OusbTn/n4kyWv4rIf5N4KD
-         kb0MeajT5M41marBN+SVSmLB42TAhxaXGb6fI0cUSHaWjsAEGYqmlFIkW59zpAvebknQ
-         xaDbsDAyA0pyae5AkMfKJKbuVWlX89rdnUILjmpOMhG16mjCi6pJKx2kQjgjom27KJV8
-         e6OWyIcV7NqM1RBbja0vE1wTJC9XZ0ctrCh9PwQHcYZTw1+MC/Qce7hNAZAImXVfl6KX
-         HIXgX0xhL67Lk5sFtaB06/YOwieAxWt42lgUp01mG04sRvW+XTi+rJcBWIMf+xuXI1lc
-         Hp0A==
+        d=gmail.com; s=20260707; t=1793360949; x=1793965749; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cN/kTdZeplcVxA05yfEtV/oWHM65qTlYYKDtomQxBWo=;
+        b=FBx+faCc8UdbEPnXz2CionMZefSq8McWMXQvMV7Z+S+AAasXQo+14XwEbBhg4QJpQg
+         ptOUWt+JRV8JNla0xN0S7pV4gp8UBckzhuc8739qYmq2+dDaBsyx6wmbJP8Www75WLdX
+         bQlhOl5u3nN4Qwy/1voJulPXduiQSY+ZSxov7H7ebdK2+H62NzHrO7I98X1QUTxkSR7O
+         fA/qsKkScK8cH1lkKX3hIodPzjs6VEi/R+uV97U5/xzXNS920pcw85lBsMOOKvTtKt2E
+         a/rKdd2rbkyrPrVdmZRQS9oZRHyRUtqODnnrHMkDJM51CHM7uuJ7KjOHuMPWFQose4y3
+         tZ7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793360921; x=1793965721;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rytTxuDwmZaxUvmFDOrr2QKEaKAyu/0j3T9Yur/Ie+Q=;
-        b=cyK1U8jZkknpDBgotfojqJiW1MY7ELH7PTwRgJFmunZDj++I9/CqBORd5VY5dObyjE
-         Lo+ed9RfAmdoV2ohBgIhHSsqv1TS5qezTbUBMAHBgD3jDQ/uAH3wU3uLgmktNn9PLH30
-         KL4Pv3ZX7N3jlQU1iY8eH8+x6KuC3+0Bi/OBgk+F0HQr6IzxWstl6xMpvSTClU6998Q+
-         7GCXukEL9VRJutkniSi16+E2I3YADs3DfzA+P2TN2T8A9SDSGNFwm4fMmqg+jiw8PRob
-         42GGfeiSdSzKcwpdcOuBQMTZymMWLs90HeEFpNttBtFX/5+LmouyzaAFR0FzTpdbcp/f
-         faGg==
-X-Forwarded-Encrypted: i=1; AKwUvBxpaqmMgdSlGFBO4KzfDTQ5w76ETpzDB+7uNPC9+N+QK3YAeXTfPkXbNG/23D5SJji6BDY/5QfzB6v+g9U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLLLiKrE14Iz0QXKLOgU15gfCOhPUgXRGIGWhiIbzhiKOcx4Mh5
-	itiXH/ZiFPUQ6rG2s/TmTkx8jMUOdQQjxsT7xIOMEWzda/zay1K3IXuwp91Ba5+UBVLwzWYoe/S
-	8OxFkTr6tO7w9In/xbNywsF+tmlc3k0AOIDdBfVH1oQ==
-X-Gm-Gg: AYBFou3elCNV7I3B7faCx15qIlTtGimYjWtFa1CB2Jo+BgrcyvAPiqIWtv7CooHi9mJ
-	tZ51abWjbDn6AgAWGtzOdzxcLL3i5YyLzhG/Op7TY/9UXN2nKFR93SmS3FNcMYf1ahwSBYOw2Om
-	gmi/Mlcj9Zt4gs1RkXcRUbZnPnwDWPTC6ujyJTFP2FIa8UlR7cnuBpdtFQl5QRKy3wCfArkCSW1
-	qEng9GnBFeH12YCZ8UEnW2XH/9ivbE3gZdml98s91H05XsT0wuUaL11hdMMjsL3gO+pjAvoOF4U
-	j0DqKL9pB5iCFGuZ2M5QF8LqJ7iwjkOGzipnHqiX48crlIBIgYhtm3J3SdA1IsPXGcgqOQbQ3iw
-	fo8RB05DM0RP2MFN7+5FZtICFH7XmNNyBYfmw9Lw1++4eYplz9M3AaCYzag==
-X-Received: by 2002:a05:6a20:d10f:b0:3cd:3e77:1dcd with SMTP id
- adf61e73a8af0-3e928a7e442mr2014372637.1.1793360921012; Fri, 30 Oct 2026
- 04:48:41 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793360949; x=1793965749;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cN/kTdZeplcVxA05yfEtV/oWHM65qTlYYKDtomQxBWo=;
+        b=seEWhGbEgYvEVrMxsyVPjLHJi7OhgHoXVqPQ1L9NhFJaO0rnSLzt95FY5Uhk1y6ie5
+         K2qfkfq9vKJ/1kfZ/rQyK2AL+lTzCRbhE+0LHY5gVpsBXDEexa81Zp+2n+dgWW9XnI5Q
+         Mnf+TJ70E/nt3x15nU9+SAWswmOXc+kfcXuDm7CLHZhdM9ZIkBNzOzMzLOsGvKncd5ca
+         qnkHf+RJoaLwabexl9cgXmI/w+4o70/OcP0/eSwK7fMt3ao7UOJVLQvnw5FjZLSU7sD4
+         mrPZZNhqmZlcOx9FZ0CAABNnR6gkyAHyrHCDowY+uLtW08zEEd4DYArHcUfofG8OX/G+
+         xtcw==
+X-Forwarded-Encrypted: i=1; AKwUvBxZ/Af4+RrO5V+ls6vVVQW5fuHKlyL1i1UfbPcwZ/z55b+a5pfEf3lOPLwdQ8FgLjGvisZ2c0LaM9JJKyc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhNq2b1DbQpGHJH4iurC2fkdpg105msUHZ1mv/umyFSb/SlaFe
+	VpqPdCURhXftMVDFtIxmoKebZlaQT4VSJ9Da6CRVh63HMq6tp2gW2RDXXWlFSclgFHrI3aHnkAd
+	dlqPWMxJPWFs4Awy1B9KPoduPaLyqbLA=
+X-Gm-Gg: AYBFou1y+ULryayeWSFpptdSyIlSM2HL7KzH9wzfVPL+Ogml7s0tQqpo3nOqA73aGMN
+	IaR6nKlYzJ8UbobNwkGPuBfBO5ReUeNqwFjhfkpOTl632MOxV7ofTrcc/d/UzmpgPaOBfQy01rS
+	MZTcZWtIRyOlgT2qea/dfxweeiBvVZlGLLxLMay+J1+Skk73P4Fk3SroEO1I1OUnkdECkhwvFHq
+	yQubt/JnvHGkiMmmxBd3LmhnGACgdPHHEQwxnxjBVde1SaHhIJTGp/jWTa0Z0wkjJoZ9Y5nsPwB
+	0e3RfWkua7CvwsBPKcon/iAMSINGBoxSWPAUH2CU6nao6koE2kMKkoGfYIvoaAFYLl3To+6//SX
+	oVqYsXdUTU+f/r1N4GUE1SilOJCWBbfRje7la52zG9Ri+dlz/czc+8vUhBPshQFpnsmk1NxN1Fy
+	g2RQfJLNbelDJXFbsTU468J/Z9bBz78IVI9qamHMmJEFlatPp7wmXvTIYNz9zLfvMOc8e/u/3fl
+	8Ov4yEwEBAmISx+LdVwEdpI
+X-Received: by 2002:a05:6214:230e:b0:91c:7f16:dd81 with SMTP id
+ 6a1803df08f44-91ca4b1ab28mr25702266d6.22.1793360949101; Fri, 30 Oct 2026
+ 04:49:09 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,45 +106,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com> <20261014-dw-hdmi-qp-yuv-v5-11-6fab0fe43a9b@collabora.com>
-In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-11-6fab0fe43a9b@collabora.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Fri, 30 Oct 2026 11:48:28 +0000
-X-Gm-Features: AclHuK9bHaRXHNAR7u16We-RytuEmqtwRDDQT6RAcbrEMxFejcbNnPABR9ssHjo
-Message-ID: <CAPj87rN7RWfEa_YypQq+quER7V6pt2A3q4fYRuUXF3_Ch7yL8A@mail.gmail.com>
-Subject: Re: [PATCH v5 11/15] drm/bridge: dw-hdmi-qp: Log resolution and
- refresh rate in atomic_enable()
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
-	Andy Yan <andy.yan@rock-chips.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
-	Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org, 
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Igor Paunovic <royalnet026@gmail.com>
+References: <20261029222951.19065-1-ic.gabrielribeiro@gmail.com>
+In-Reply-To: <20261029222951.19065-1-ic.gabrielribeiro@gmail.com>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Fri, 30 Oct 2026 08:48:57 -0300
+X-Gm-Features: AclHuK8QWpHxlNT5Zke5Es-oVsU72PV8OOx-IR9iKRxSGgSHEZHP0bVpaNgsQVE
+Message-ID: <CAMAsx6fmcnH6sQgMpnqbzcpc7_Jq6pDPDWAiRfTH0Hobn6d0_w@mail.gmail.com>
+Subject: Re: [PATCH v3] docs: translations: pt_BR: add maintainer PGP guide
+To: ic.gabrielribeiro@gmail.com
+Cc: linux-doc@vger.kernel.org, corbet@lwn.net, skhan@linuxfoundation.org, 
+	rdunlap@infradead.org, sashal@kernel.org, kees@kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 13 Oct 2026 at 23:51, Cristian Ciocaltea
-<cristian.ciocaltea@collabora.com> wrote:
-> The debug entry in the HDMI branch of dw_hdmi_qp_bridge_atomic_enable()
-> previously printed the literal string 'HDMI' as the mode field, giving
-> no information about the actual display timing being configured.
+On Thu, Oct 29, 2026 07:30 PM, Gabriel Ribeiro
+<ic.gabrielribeiro@gmail.com> wrote:
 >
-> Extend it to include the active resolution and refresh rate by
-> retrieving the CRTC mode from the incoming atomic state:
+> Translate the maintainer PGP guide into Brazilian Portuguese and
+> add it to the pt_BR process index.
 >
->   dw_hdmi_qp_bridge_atomic_enable mode=HDMI:1920x1080@50Hz fmt=RGB rate=185625000 bpc=10
->
-> This makes the log line self-contained and directly useful when
-> debugging mode-setting issues, format negotiation, or TMDS rate
-> mismatches without having to cross-reference a separate mode dump.
+> Signed-off-by: Gabriel Ribeiro <ic.gabrielribeiro@gmail.com>
+> ---
+> Changes in v3:
+> - Preserve source certainty, tone, scope, and emphasis in reviewed passag=
+es.
+> - Restore the =E2=80=9Call downloads=E2=80=9D qualifier and remove the un=
+supported software detail.
+> - Clarify Nitrokey eligibility and Git tag-signature wording.
 
-Reviewed-by: Daniel Stone <daniels@collabora.com>
+Hi Gabriel,
+
+Looks good to me. One note please always keep the changes from the
+previous versions in the changelog, or add links to them on lore.
+
+Reviewed-by: Daniel Pereira <danielmaraboo@gmail.com>
+
+Thanks,
+Daniel
