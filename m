@@ -1,54 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793387187;
-	b=yKMPqg7enPXS3pI9CBO7U3ajdumz/E7XsQSWT8s00u2xgY9Z8dR9O40lQTJkPKWq8Pr7
-	 ImaiIUsZuanmc6ps4lFJ8p+hDTRZCaRoAAoN1nN2JBUDTG+4h4PY+hjB8ZeHs25WCPLy1
-	 yzZ622FVnu6z4dSHPNRfGS7oIcW+ulrtVplHHaWHvBpODYUUBOKJPsd1XmA6IgDitS46R
-	 B8GWH/r2jCW2FXhUXtzVDTDUMjFdaRYZFdiPOG4ONMg18DHDpw2YGTpwcxkV65Ht9qgzz
-	 6HgY3hzrJcpJJgUuyp4/p1xO9k9AGF6mKJfqL28A4/cwijeNw42XFr8YFQJjEEs2VQg==
+	t=1793387204;
+	b=mN2H+XNNbQqde+VvT7MUietKkHW3Q6QUi+5kqGI1Vrb9x3clh9GYl29aUnD94anLqgEa
+	 S5VED8LcGJYAvEO7hmYN86oPeDdiRpVnKcWxvyhwweY6pkJ4HQZTh/ULU/LBD6pKGmQCX
+	 iY7HJepcI/rvORl7e56eN5Gd+mx2zDPm6UNGDzNybv9yjBOsdHADqXIR3j28HIPLiUPjr
+	 BzgB0CDUJESFinYqwDrJa0qp+F23nqB1Eo6VHAjLQeUwK8tcVTjlQ1HmVcZJemGAv/ukS
+	 /60jNE6IFXqPWx2w1M8db5YHShw+ss0r8P1iB86GhlNbEt5/SdwUGMY2ON110y7oLDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793387187;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=P34PV8Gm+eH9EYncABOzzwaQjPvD79yWmom9r8Oz8AM=;
-	b=Kw+7Oyyg8pLt6wXuHMSdOl+ZJifYEyA9SiXNtRS1MUvrkK+is62xJJVsAfxHWZhtlhCM
-	 h4mMzSsSf+cGp1kqWIIOANOk6jJ/WygSd5pAVKgpAUGVjMw0pKsxN21VioDNpFul40wnO
-	 keHyuFs+0nDdTA3nLwtEYntqm//kSjW5o1idCt7qh1p4394vM4ZXFN+wf8syKJXFfiEKc
-	 Rp7OnyxH+BT5+bDmiedWBrXRyvdLhn17x8typlBOwlG+qeHM+7oUzTJudfaDYXI8/0Y0N
-	 sNoK0pDT947jx3CcwWTP7b+tb7BPScDH549C3CHnOm1ftTgyTh8SkDuYTMzvRZcQ9Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793387204;
+	h=Received:DKIM-Signature:Date:From:To:List-Id:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=igS9NIjqOfUuXPFoRBs4EfzR/DCNQe96++qaiu7rMb4=;
+	b=3Vz7wsBMG7d/64z8HY5OaZ0rnX2EuHoQ7POKnn6M1NPcm4wpKyqS1+/N4Y77qRwd7jVc
+	 mXV9vx2xtmoWJ7s397p6BJ8e2iHoL+UIli2E4Bhwr08vz02f+t31JldJhpNw7nJeRAZSS
+	 0rG1oV47Exl42kelLtYqPAKgqDnlWK79miNZ8rvWtgFxuaFbsRlKRuiGNBi1xslibl6sp
+	 Y0dyMcXxeXl/5bcIbOv3TLHtkju92NNbo1jYlNZLVT0lReHLfovJ+rWQSkwlapyjTPZkI
+	 ezyT1rR6wTkjRmQCj7e8PQ8HO0dp5jB62H0ctpTcyyff5nEfCr3qGxJ7K1OF6Lc19Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=efENOTEs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfSY0Ojr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ABE4606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:06:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C73606A31A;
+	Fri, 30 Oct 2026 19:06:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=efENOTEs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 666C11F000C1;
-	Fri, 30 Oct 2026 19:06:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793387186;
-	bh=P34PV8Gm+eH9EYncABOzzwaQjPvD79yWmom9r8Oz8AM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=efENOTEsBtK2gX5ib4tCjhpG5DyOZiEQaiCmzyqXq4PCXRIDX1h3u/sp59LOUG5VZ
-	 HA4iTppjwzs9nqIynwW3ktF0kkh2KSd79OVFDSh+Md/fCF8BXhexVXoPWKMJIjTGxw
-	 4btgvHlY9mtYNmt/7uXFlttC0Wt9EF85qvQvGmLU=
-Date: Fri, 30 Oct 2026 12:06:25 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, David Hildenbrand
- <david@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kernel-team@meta.com
-Subject: Re: [PATCH v2] mm: kmemleak: scan modified objects as soon as they
- are grayed
-Message-Id: <20261030120625.c2aa64b3e6378a2e78f2f676@linux-foundation.org>
-In-Reply-To: <20261030-kmemleak-gray-drain-v2-1-3ec29a96668e@debian.org>
-References: <20261030-kmemleak-gray-drain-v2-1-3ec29a96668e@debian.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfSY0Ojr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E15A1F0093A;
+	Fri, 30 Oct 2026 19:06:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793387203;
+	bh=igS9NIjqOfUuXPFoRBs4EfzR/DCNQe96++qaiu7rMb4=;
+	h=Date:From:To:List-Id:Cc:Subject:References:In-Reply-To;
+	b=QfSY0Ojr0sFQ1mFwZ2i26Xl2HA22T+mXqL3M25S7YrxJpnAO2ggABcqyFicaxFtL5
+	 JupaOvol2LGHtrNAcjAbAhcq91KVQmaS/CCPOrbZ0e5KvqhGAzywTXEkm+1FwqFHS1
+	 dY7rMdcWR8gafaSOh6UPVCS2hX5A9QurMlS0vibQ/WPpBajdhAj1uQ9DBm6DhCqpb/
+	 QKMW/5nB2hoboY9GTQmkknjL0kjc1UzBjEw2f1urX7xORD0kXXNKDwkqnr0jmDAFdr
+	 lze/2kkPdbL69MzdXIFExw7KId6jkHEKMAtjkywVenlRlUGWqdnVt4gzQF7X/YdzHe
+	 wQ8ZxxFX7aCiQ==
+Date: Fri, 30 Oct 2026 12:06:43 -0700
+From: Kees Cook <kees@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Bill Wendling <morbo@google.com>, Petr Mladek <pmladek@suse.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuvam Pandey <shuvampandey1@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH] seq_buf: Mark a seq_buf overflowed when terminating it
+ loses a byte
+Message-ID: <202610301206.5E80A3396A@keescook>
+References: <20261029053250.i.220-kees@kernel.org>
+ <auMwo_T_FsZp5UsB@devuan>
+ <20261029091845.21464a1a@gandalf.local.home>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,60 +62,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029091845.21464a1a@gandalf.local.home>
 
-On Fri, 30 Oct 2026 11:31:10 -0700 Breno Leitao <leitao@debian.org> wrote:
+On Thu, Oct 29, 2026 at 09:18:45AM -0400, Steven Rostedt wrote:
+> Hmm, I was thinking that this should first check if the string is already
+> terminated with a nul byte. Why add another one if it is?
 
-> kmemleak keeps reporting the guard page of a systemd-journald thread
-> stack on Meta's debug kernels, even with min_unref_scans set:
-> 
->   unreferenced object 0xffff88829a30ae40 (size 256):
->     comm "systemd-journal", pid 961, jiffies 4294814590
->     backtrace (crc 49b3881c):
->       kmem_cache_alloc_noprof+0x2ee/0x630
->       vm_area_dup+0x36/0x750
->       __split_vma+0xef/0x7d0
->       vma_modify+0x11c3/0x18a0
->       vma_modify_flags+0x1ea/0x2a0
->       mprotect_fixup+0x249/0x630
->       do_mprotect_pkey+0x531/0x820
->       __x64_sys_mprotect+0x7c/0x90
-> 
-> The VMA is still mapped. It was never faulted in, so it has no anon_vma
-> and no file, and the only pointer to it is a slot in a maple tree leaf.
-> The mm tree runs in RCU mode: every write replaces the leaf with a copy
-> and frees the old one after a grace period. journald rewrites its tree
-> every couple of seconds, while a scan on a large debug host takes many
-> minutes, so the leaf kmemleak queued is freed before its turn, and the
-> copy that replaced it was linked after its parent had been scanned.
-> 
-> The pass over modified objects is meant to catch such moved references,
-> and the new leaf, being a new white object, does get grayed there.
-> 
-> But the gray list is only scanned after the whole object_list walk, and
-> by then that copy has been replaced and freed as well. The confirmation
-> scan has no such pass, so the miss repeats round after round no matter
-> how many consecutive scans are required.
-> 
-> Scan the gray list during the walk instead, within a jiffy of an object
-> being grayed. Do it from a variant of kmemleak_cond_resched(), which
-> already pins the current object while the RCU read lock is dropped. The
-> live leaf is then read shortly after the walk reaches it, before it can
-> be freed.
-> 
-> Scanning the gray list after every grayed object made a full scan 41%
-> slower (1.72s -> 2.42s, arm64 guest with lockdep) when the pass grays a
-> million objects that do not point to each other. Scanning it at most
-> once a jiffy keeps that at the baseline, leaves idle, file storm and
-> mmap churn workloads unchanged, and still removes the false positives
-> at HZ=100.
+Oh, ew, yes. Fixing...
 
-Thanks.  I'm thinking
-
-Fixes: 04609ccc40c4 ("kmemleak: Reduce the false positives by checking for modified objects")
-cc:stable
-
-Agreed?
-
+-- 
+Kees Cook
