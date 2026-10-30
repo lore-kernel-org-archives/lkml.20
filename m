@@ -1,82 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793354895;
-	b=aFXeeAkUReah1S/I5ng+MwbMtgKWaFxznVf2UCFC5uv59Z5b+i/+J1flWwAXSzoIsQ+l
-	 stGTThH+IlWeekYX3WMwp5YJJiJ2I9baRBznNXJyY9kwgmNBWUA26OuOY+QOp0Xgf9kiw
-	 uU2v+TaD5zWjgj4IhhfbKqN5d7Y2cSx78VsjMKB+ZXgtNR8NpC7Q5TU+aGhDk+Rh9/dJI
-	 K4yjmAN5DpWFAUAbpgXbF/kYJROYVD89LDwLvSvG7u2qIsJiFCz5vESbrcjUGlUR+ifj6
-	 2I25gCNlTfzNfNYS7aeV6ueqUlag+eTfSV3993aHc4WEnxqLz/PcKLm8xWLLSpp0nVg==
+	t=1793354917;
+	b=zReVz1s6HmpokVYfYHm57q2aN6jRQR/kMmOBa3Af8hbAe4Drg6l5b5mnwPJKgvB13Omp
+	 CRWP7sKF+bTDNZOZF9liFB38t5LXXryhNaF0g+V87GIn7hz3gt8eJLQE5DDfEBrGAHkYS
+	 OYSLzNIR7ZHzvaYij5K9zcyIrThEsPo/gIRh7/gmlavtACY0Upt7XqFEKQOO2eJb0Miw9
+	 p7qz2/EruOBPMD/x6kdgcME+XhHWuvaoHiR7t2S9nQZfB5POrJcPm3Jt5dKQh/EP0NFlZ
+	 SMmHUq0adeS81vKOj/2YY/OSXq8+LOPJdj1pSKv7JXKg3XcJlW37OHBItrVSMrtt4Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793354895;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=C0/mwmzFbhrf2oh9K+Po1CByufDjKwjIEZTp3nBdSuk=;
-	b=YKFl8FRINoXtWhLbwHdJl/lB7swynykPO3J2wYeGnpvHr+Egc7bu8UcLMI0vQjsFjEwt
-	 6jha3fh70HlfqaxQe3QuCY133ZpmF0RlzjkeMqKbHATSbyZ+CARAgTfIztgPC/jTA/jSA
-	 YpPnW8ynz6Icz3IZFg7dqQQs0Qk6vY1K3J2WFk3JQyNNVM9RUE0BDdBDqH+I5bzmCT2O5
-	 rdBJ43Lx2wm09i6ipNniR7jlIAX0vEHonC0E38UfYWUTAoPEtOqsaI5FQBSkIKluzOUAp
-	 lQmdzQiTFbt4aeuAyeTRjBEYCvk4KDIdHX0bBsatyLFD/G91Xwjc2s50idybRObiVdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793354917;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=rB83N3gV3BeJ5vg2nmtSPJxp4JMkDHnYRcorV3eP9TQ=;
+	b=AJeaJ3vAkEEulJucdydbeWFRD6PQP9Q5AsItoE0JFxD1kIybkVi1eRgK2YDp97gK0yMH
+	 RAi+iNrb4AB8BMdu/HPWZOjAV5xmAy6ERf7C90MPtJeirDr4tEOToyZ+wa8CPWG7VrjS3
+	 MduT2zJHop3Z+FHw3CzlR4NxlxEkqiPZTR+kQsprAnNm8/EOadp5k611DYUpWnF2SpcnH
+	 eisIZJP7RaHu+1O8i3pfEQ5XPVsRzB5C8oRtvp0qeXgPZP5OG0Vy2enAyrtDwyh60KkbO
+	 SdRrROvFMSddtpPhbdF1dn4MTb1HksJoLEPmtgaAniySObMpXklHJm/CYUjO2abpoDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FTt5mfpN;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b="o/PJ5Mcp";
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=CmuYqQ53;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5468F606A31A;
-	Fri, 30 Oct 2026 10:08:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5468F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF95606A31C;
+	Fri, 30 Oct 2026 10:08:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FF95606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FTt5mfpN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793354895; x=1824890895;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=zOblnyUyv9NKvrPuHMLJ0x2zFEjfb1OCZnMziEeVx3Y=;
-  b=FTt5mfpNahmYKtP54WqqmFsGzaBq5J/AGV82Gc5erynrV8cK3zhv11u7
-   7buQcNSlLXgghfH22SaHQOvVaGyQ0BiBsjabF0vI6DrlLX5moUekOmz77
-   GBRU1uAHz52PENMn4Pr4kcNs2ovI8BRN2xIhoiKnu+wvG3DvoAkH/gkDt
-   401ppQ7VVi5zOelrqyDrFVD0PGT8TSIEKKi0IxZMZl9UtN8f0+YoE8/lZ
-   ROIfgMoq5xk6IB7FDlU9gafm8DQbRjsnwMDjVkTMnibSylK9F1mwROL91
-   iz9kZFtVTbvWHnQ9zVd7Wvb1T+JsEPQA02DDfc6ugM3l+/UyyQVBcFdNa
-   Q==;
-X-CSE-ConnectionGUID: ZcTf5pbcS8a4/w6tRBqsyg==
-X-CSE-MsgGUID: xUb/PUENRrOQrD8YbX6s8Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2217930"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2217930"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 03:08:14 -0700
-X-CSE-ConnectionGUID: AHNzZJnuTeKLjfxz5wU0HA==
-X-CSE-MsgGUID: 9I/0TBI1QOi05253dVUlJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5737947"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.32])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 03:08:08 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 30 Oct 2026 12:08:06 +0200 (EET)
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-cc: James Hilliard <james.hilliard1@gmail.com>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-    Jernej Skrabec <jernej.skrabec@gmail.com>, 
-    Samuel Holland <samuel@sholland.org>, LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>, devicetree@vger.kernel.org, 
-    linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v4 4/5] serial: 8250_dw: configure the Allwinner H616
- UART
-In-Reply-To: <auHW9nkDqZUXeHNZ@ashevche-desk.local>
-Message-ID: <3e73ec0c-2623-d891-7146-dcf1c7a68c41@linux.intel.com>
-References: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com> <20261027-submit-h616-uart-fifo-v1-v4-4-d37e018fd0a6@gmail.com> <auHW9nkDqZUXeHNZ@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=o/PJ5Mcp;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=CmuYqQ53
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8H635602163;
+	Fri, 30 Oct 2026 06:08:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	DKIM; bh=rB83N3gV3BeJ5vg2nmtSPJxp4JMkDHnYRcorV3eP9TQ=; b=o/PJ5Mc
+	pjaHb/X6EI3oPQuxxA+GEz3s6qqHmxg7FpgKMI9/rUBt2y91JlmXC4OG8Dvat8dh
+	w5/6y9xQjbTBg1fdL8T59Dpsr0QhltFxxp5bN6698rt5/hkwrzG/dXz4KCpwVJdZ
+	V1TwSXLWfJJvugGXTIsTvQS5JIUlS0vlIYPsBZDMmKirkqmHTqDhhIc+FTLD/L5y
+	MHTdboWJQHryMRi4pi5S1A5hNHrhh3C6+jFKr2Rb13Md+wSyeQIg6WvibAnWLS7a
+	dYForgNn1pEgQ1sBsCi/QXOWuZxdhGJm5EU4Wx45sRGYkvU8hJLFUQiHQllFFum4
+	ZrN6VPFARI+1bOw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=rB83N
+	3gV3BeJ5vg2nmtSPJxp4JMkDHnYRcorV3eP9TQ=; b=CmuYqQ53BKrE2PwWZyoIJ
+	NwmJZjDoOcKGFiBUfevb6y4EKAzaf5WYiZCYSl8lE4EElw0IiB68T5ddBV9AVGLn
+	HgeY2zEDjzHiaFEpHsnK/A0RiXbZgtufSat0Hu/wNAbbAQ49qjrWCpmEzMNiInLm
+	coFmfxJ/ODTZdWdT4CtZwzITn4VWAISy9bRnBak6zm5ccVEzEd+2SxQ4qAsFC7ph
+	EHsthd1Xon76+cO3zah7xtHdl1qwzrEmJFr4cmDBNBqkf5ehCqEuholNuonvSScv
+	q01l/WsSDe0XTiOT7yp3xFya+Kv3idkDI8ZMN8YXJ9LQHE4dbvgb2FOMPXi30GwR
+	w==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hme7d3d98-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 30 Oct 2026 06:08:32 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 69UA8VGL001023
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 30 Oct 2026 06:08:31 -0400
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 30 Oct 2026 06:08:31 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 30 Oct 2026 06:08:31 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 30 Oct 2026 06:08:31 -0400
+Received: from HYB-aFjnqsVU6Ag.ad.analog.com ([10.66.6.190])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69UA8EL5029419;
+	Fri, 30 Oct 2026 06:08:17 -0400
+From: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+To: <andriy.shevchenko@intel.com>
+CC: <sergiu.cuciurean@analog.com>, <jic23@kernel.org>, <dlechner@baylibre.com>,
+        <nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <ukleinek@kernel.org>,
+        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-pwm@vger.kernel.org>
+Subject: Re: [PATCH 0/2] iio: adc: add LTC2387 and ADAQ2387x support
+Date: Fri, 30 Oct 2026 12:08:08 +0200
+Message-ID: <20261030100808.217874-1-Nicolae-daniel.Deaconescu@analog.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <auDJu8u85flQ9bjo@ashevche-desk.local>
+References: <auDJu8u85flQ9bjo@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,83 +106,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-ORIG-GUID: Y9IXxxQKZsSwnW_0Rvg35XwwaMMAEpyA
+X-Authority-Analysis: v=2.4 cv=Yt2a1IYX c=1 sm=1 tr=0 ts=6ae46ca0 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=2yiQNUo5oANuN7_DN_sA:9 a=TUjgQ2XdYqcA:10
+X-Proofpoint-GUID: Y9IXxxQKZsSwnW_0Rvg35XwwaMMAEpyA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA0MCBTYWx0ZWRfXy9dkJ7CHkft5
+ GBT2+96oS21doNcjvaGPqAK6tkZS+CoAbzqdfs0JbzPT3K6+KrMYL1TlDwyIiiIcmxgUqQ/VgZ1
+ 735GdTzacKp0hRWZnKdB0U4BxJB/AC4c4X7YniH66y/e9ZUDZptmySQkygNj4sroYR+KH/f7K1/
+ 7VHNHJ53oSBAn3jCJNsW2dezTIMQgeHc3sQBekYM4L8ApHqbtdRIlyUmxf50ESiaNypNDMI40pS
+ 309YrSAHmaN2o+fZpitj+GwbsDMrD+he1Uv16Vw/TQ2lH/jaktDNc3VbVr9vlS/8CqlyElkQ4I5
+ mp+J5ZJ1bosifmuj+oB+pXaFH1f1dYQskXXKme33YgpHBMJ6YIW99309nb5zViufB4bFgloWxYH
+ uSjyDKQk0dvE/K3skFTFGAK+uRDh+2UF6xJAjHtQoempkEY9megyzjwAdAF6/ZgYeo9UWxsL34+
+ i/60lvvRyK7cGc7lxhg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA0MCBTYWx0ZWRfX41MKkoPiFGbl
+ GK+PYXPwUZ24EaeqL5wIqJtwqQSbgBbvXJlHDB2p0Kp7XnwYVw4ak48CWrfuqZBccwe2Y0dpQfq
+ Ez64uakrPlePqqrKWAf2IuwEB0zG6WznfD9aUklncsGj6WHH+t+U
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1011 priorityscore=1501 phishscore=0 malwarescore=0
+ adultscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300040
 
-On Wed, 28 Oct 2026, Andy Shevchenko wrote:
+On Tue, Oct 27, 2026 at 17:56:43 +0200, Andy Shevchenko wrote:
+> Why have you written a brand new driver?
 
-> On Tue, Oct 27, 2026 at 05:05:32PM -0600, James Hilliard wrote:
-> > H616 has 256-byte transmit and receive FIFOs, but its optional DesignWare
-> > component parameter register reads as zero. Generic 16550 probing leaves
-> > the port using the 16-byte FIFO configuration and its trigger-level table.
-> > 
-> > Keep PORT_16550A and describe H616's fixed 256-byte FIFO depth in platform
-> > data. Use common Allwinner setup helpers to configure the transmit load
-> > and receive trigger table from that depth.
-> > 
-> > Derive the receive thresholds from the documented 1-byte, quarter-full,
-> > half-full and FIFO-depth-minus-two mapping. On H616 these are 1, 64, 128
-> > and 254 bytes; the normal 16550A half-full FCR setting selects 128 bytes.
-> > 
-> > Build the threshold table during setup and use the shared 8250 conversion
-> > helper to select the nearest lower threshold for sysfs writes.
-> > 
-> > Serialize trigger changes with termios and hold a runtime PM reference
-> > while programming FCR, preserving the FIFO contents. Propagate runtime
-> > resume errors before changing either the FCR shadow or the hardware.
-> > 
-> > Advertise automatic flow control so CRTSCTS enables MCR.AFCE. The
-> > DesignWare termios path selects hardware CTS handling, so the capability
-> > must be present for the corresponding hardware control to be enabled.
-> > 
-> > Select the fixed configuration through the platform setup callback.
-> > H616 has debug-divisor and RS485 control registers at the offsets used to
-> > detect DesignWare hardware RS485 and fractional-divisor support. Avoid
-> > those probes and retain the BUSY-safe integer divisor hook and software
-> > RS485 handling.
-> > 
-> > Use the existing SKIP_SET_RATE quirk to keep the UART clock enabled during
-> > termios changes. Its clock is a gate on the shared APB2 source, rather than
-> > an independent baud-rate generator.
-> 
-> ...
-> 
-> > +	unsigned int fifo_size;
-> 
-> This is should come from DT (based on the property or compatible),
-> 
-> ...
-> 
-> >  	u8			no_int_count;
-> > +	u8			rxtrig_bytes[UART_FCR_R_TRIG_MAX_STATE];
-> 
-> Why do you need it here? Can it be provided via driver_data?
-> 
-> ...
-> 
-> > +/* The trigger is the masked, unshifted FCR receive trigger field. */
-> > +static unsigned int dw8250_sunxi_rxtrig_bytes(struct uart_port *p, unsigned int trigger)
-> > +{
-> > +	switch (trigger) {
-> > +	case UART_FCR_TRIGGER_1:
-> > +		return 1;
-> > +	case UART_FCR_TRIGGER_4:
-> > +		return p->fifosize / 4;
-> > +	case UART_FCR_TRIGGER_8:
-> > +		return p->fifosize / 2;
-> > +	default:
-> > +		return p->fifosize - 2;
-> > +	}
-> > +}
-> 
-> You don't need this, just provide a set of numbers directly.
+ad7625 is the closest existing driver, and it shares the transport:
+CNV PWM, clk_gate PWM and the AXI ADC backend. The converters differ
+in a few ways though. For instance, the LTC2387 is DDR on one or two
+lanes. ad7625 is one bit per clock on one lane. Also, the ad7625
+clamps the period to 100 ns (10 MSPS). The LTC2387 runs at 15 MSPS.
 
-That was my first thought as well, but James explained that he wanted to 
-reuse this for HW different fifosize which makes sense.
-
-And these formulas are given in DW spec so I suppose we could actually 
-infer these for all DW UARTs, not just these ones being added now, using 
-the same formulas. (A future work item.)
-
--- 
- i.
-
+Thanks,
+Daniel
