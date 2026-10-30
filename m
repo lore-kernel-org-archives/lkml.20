@@ -1,99 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=176.10.93.31
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793358674;
-	b=F2PexzYcBCZNZZfmWa1azyY/dcs2xYIQH+RxHFz9wQwVrXIrbs/xZLALXe9zdiaqTmrl
-	 RMFhsKOIVScjpv9UJXfq4A0EzaIwyoeqrJPL4Nsfdaesx9oA7PnmlWTTmOJQwqscRIVsg
-	 ywa7qOpJ/6icpjr8D4OP/s13QKwmnpla/DE6b6pwBSbR7InUZ8sc/gMShXKEjAPRrpf14
-	 ZVhVvAFMuiGC48GNsbk0CqN85CLte7F/jNsErRioemQ8kioMD2ueh2v7XTgABq+qRj/sm
-	 pOJlWjIQ7d/B5Sdn7XjF4vvjlnoOnlknazP572mzyqww99MUGbHOGWZPy38RflpgJTw==
+	t=1793358705;
+	b=X0p3p6Fk0BoVl6DggPvu9JqYCex+kYYwLeyLwecuBRSoKzYd6kghg7QtFPjTi8Tresqu
+	 bYMbNwZuyJ2KVk12lM1o5EEeurmD5wsWIXBSh6WqffuSKYDaE4oezsHgp7xrrntZ6cj+f
+	 neKPAYuEWskBBDuw3J3Qx1SWyDNRXsbostKCkUa/aS7G/RMoRnqEMbvRcF0MIhryFDHbZ
+	 t7UFU8Vhn34FRPvv2wR8U9ejPpXYNSrBNw+XFfBeQIlJ2cGp4jycuYS6dgHtvhVK1+cZU
+	 ItYZ8HJIbt4ARQMZrnPkmGRNme8NwR0UI3OnsiSW6BW5TAmbDkpDg08DiXw/eIWIdhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793358674;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=KmOrBm1qC65xwrgbyzMtaj27QcC/iPJg0n2kc5knBkY=;
-	b=apV7tzghDKi5GaRVI9o/xwFWWcclNimOa1k4t9FVTJRevi8hdWEwNNpzatoDiMbTaBUt
-	 ZvEI88F5AblZ/Nw0JlVF5iGE4WWcZm17iSobC2UlFZOmc6WAWVX/HBAhERBiTrVqerES8
-	 YGJqguq9dFh4LdXuuNHLcw3JfL3GCqBuxU2gnLMEbziz04O3XAYTXmADSDSdWpBrvwW9C
-	 1trUgce3CvdUTvfCJp2gOgqhwYGE9EPZprutfRSwQqsEkRHJo0rHUYMvZbs2HSVj/w4YL
-	 wG4LecRBqWNXTwEKo64N6jx2KfOIAu25L3WsMdobAfqiy7RNX3mv3nEw2JbZ8hnGuKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793358705;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
+	bh=y2UG5XiP3g7yITzPkEcF1pPDNm2Tb3z2RMnHFZbQ/4w=;
+	b=KSHPNnMoxddEXVsFiqhDxolhh6X+mo/LgQxqm99Ahj/3cxsMEnE9WPAFpSmullUEoh4B
+	 eCp9vZLr8VkZo1E02KiQjsB1iKSbsyN/UQhPxtIoqiIFnVvWr1T1Msa0NFihdIsJL2mhQ
+	 PtlNl5zx4DB+Toz1Vvk2qFQnzQySsHVCAcymAEeiUbqiZwIeXDC4IDfVBsDMXDbsRbcOK
+	 AZjgpCq87hNYXTE+akVsWs/yY8kKw8z3ZKikawmn7x2bYhDAvk2Eex0CmzyVpulUJdlj9
+	 rN6Gy9JZE6A100p2bu/v0B543A0PxAXQL6NXgzAwQt4zX8xXr/UCFOXev6BWQ2Qt2Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zWuZnZ9o;
-	arc=none smtp.remote-ip=209.85.217.43
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=cyberprotect.ru;
+	spf=pass smtp.mailfrom=cyberprotect.ru;
+	dkim=pass header.d=cyberprotect.ru header.i=@cyberprotect.ru header.a=rsa-sha256 header.s=dkim-r header.b="en/CuDcL";
+	dkim=temperror header.d=cyberprotect.ru header.i=@cyberprotect.ru header.a=ed25519-sha256 header.s=dkim header.b=wJ5wFA11;
+	arc=none smtp.remote-ip=176.10.93.31
+Received: from mx2.cyberprotect.ru (mx2.cyberprotect.ru [176.10.93.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B726606A338
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:11:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B726606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C6D606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:11:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71C6D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cyberprotect.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberprotect.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zWuZnZ9o
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7c3b6e8225dso390255137.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:11:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793358673; x=1793963473; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KmOrBm1qC65xwrgbyzMtaj27QcC/iPJg0n2kc5knBkY=;
-        b=zWuZnZ9oXZ5HmCIQULU2ysuHIxEAao+4ssIn5SxifJ4hATR4wMsIroOAme4Ha/exnz
-         u88h30A443XorD04h9OibQs3AsxA6ZdamxupOrVxZmd3EGYNVgVGNaxpoWqBmHABT2xI
-         WLGkfFKwu8xMSJKQ5KztKDRtkUQp36XNPrft9PZilrNktRx87afAV8xhQ+ZGCGTXO/rd
-         V9cqMdNvHJX173W7Ibnw1ymxuMOGbV3fE6maXXbnkKvuHGwIuL2fWCxaIkda43uOG2yM
-         nBQcbsHBTUj7XPCLwskOI4Y+i6RuXou02KmEArxLxiz+vwAGjSpiqLrIFGCjnlw7jO/3
-         V20Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793358673; x=1793963473;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KmOrBm1qC65xwrgbyzMtaj27QcC/iPJg0n2kc5knBkY=;
-        b=DZFki32UciX3xk9twXyWYg33Ivy33+eL88HslBu4mPzlCwEDaQWh1jd8MLBX4TV9eZ
-         1FmIyyi1hBR378yzZQyvM/vm9A9X7Er66S2mFFfBMQ6mRiKsJyJq4qc3FRDqlHOv+0gZ
-         jwybPHQdN70zunIleoPZ89pGiR8nj2Rj9rTXL4V1OmLzY/rdESP/+lzdqg6HnqcKuEf1
-         Mhv2kiRnWAqwFmRGO3KMH3qM0aDmhJeaQ0BJp5FY7PrS/UUsk77C5lCZNpG4uHLWa/w/
-         XcqEk127+OW3lZWKEA20ixliVszGKK1pngZi348c/6PDDK9P6smt6VZOwXDxipLtP5B7
-         KV8A==
-X-Forwarded-Encrypted: i=1; AKwUvBxhD4orBvXWxqU2xMyvHz0LEAsFUslSYrBa0g70n6g8nRfobksxVSM3uZJlKJVZgERKv2VFdN5Ete6fHpE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLP9EuJsEFqJa/6fcsmyhEDljecCc7we9UlEEm5DNJTMMwnssr6
-	kMNV2ydaj6eZpJfTZRby8QXq9Nja8zqp3SAKKDTUClyhtAeJQgvuBdhF
-X-Gm-Gg: AYBFou0rog3GFJejPKrfH6VpUplarzyCAgVvJ5mpDiWWSqR+bqDicIkOF2mBeRnPCzp
-	KGIb+QUXgkqzznE/VjOtb2Lcd9vMNR2tLSrseaogu/Pu5x/CG16bGzXW/iUuKXndfVCG1mB8xuB
-	HfsC/RHlJEczq7o+XLPGLVbSLLI4e5bUkmtKf9517dUo44ZKR8z6wbnDANSH9Jh0FDKYc2lHD0P
-	sWEQJs64W+g7pHkCvV+wNtDIJ4txl1yZD4iHYmcV/Dy8IIS9IgXz0ZCGrSK44DqGlZDy2pOf003
-	Zmoe/15FTsA2fX6tGMJQDeyhj/wCCFJdZhdyYn2H/DTPHALxcR9IgP5GYxJR83y1BDfGm/pZgnF
-	5AM2USlhW1oceIfmaDS6e3MUb6hDXtvmUg2p00QtXOtjSSnXlJl3GjR/ksIyhqnh6Fyr+x5rMuI
-	GvFdPgbP4WOQej1LNQFzMKF8vq6LxD6Rr3JobQR5OKIPSj3GpXk2FiEnzsDTUKttAB23On9Nh+w
-	NBCLbZqJ/ZpfZQI9e7FSFRZu2c1X4sNehB2yH13QSDlNFQFbkMxUow53WK+2D5akUHf+mf4Wj6v
-	qJqO1u0OH99j7/AF+xFGV8WtJCyf2SvNqrLDIgObWrLCGc+KyRx+ziClqmviNJ/yByggBIDNcSW
-	W3FAWNrChanN0OsQ1Zj4=
-X-Received: by 2002:a05:6102:3588:b0:7cc:2c52:47aa with SMTP id ada2fe7eead31-7d071f2ec61mr1143935137.0.1793358672919;
-        Fri, 30 Oct 2026 04:11:12 -0700 (PDT)
-Received: from 1.0.0.127.in-addr.arpa ([191.34.116.20])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d07754c1b4sm1841044137.4.2026.10.30.04.11.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 04:11:12 -0700 (PDT)
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, oe-linux-nfc@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject:
- [PATCH net 3/3] nfc: llcp: free the response skb when the data exchange fails
-Date: Fri, 30 Oct 2026 08:10:42 -0300
-Message-ID: <179335864272.64596.2156668877648051796@gmail.com>
-In-Reply-To: <179335864271.64596.805818095553030218@gmail.com>
-References: <179335864271.64596.805818095553030218@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.a=rsa-sha256 header.s=dkim-r header.b=en/CuDcL;
+	dkim=temperror header.d=cyberprotect.ru header.i=@cyberprotect.ru header.a=ed25519-sha256 header.s=dkim header.b=wJ5wFA11
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=cyberprotect.ru; s=dkim-r; h=MIME-Version:Date:From:Sender:Reply-To;
+	bh=y2UG5XiP3g7yITzPkEcF1pPDNm2Tb3z2RMnHFZbQ/4w=; b=en/CuDcL+5jwmgnpwkKdpI5t8V
+	TgTJ8YKS3fwRNGxQ2KGZMr3oATnZrgQcvcqxZ9NpSGFTCOJADSouw7fnWC/z2N4ZFKsw/Ad7lGvTH
+	OUHadaiufZXXPC/M2WsdemNmPwmf7aiUKJ244i3e95vrDH793k0lekV0NERqMK7w9Lwua/8QbOr+z
+	4sIZ5Mh58WGFGIx5paTq5U9+XFEmptRgr+e7ElAydQv/BGjGfGslqUH3mi1AnNWIc3HrHW+YLhG6V
+	C9l85nIY0K3TpEcv63Ru3uZHGIBLyafdtMTbz50KIoTpX4diCF2c3lkLYJS75Y/+fivpICIn2POnR
+	WB4ivUyQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=cyberprotect.ru; s=dkim; h=MIME-Version:Date:From:Sender:Reply-To;
+	bh=y2UG5XiP3g7yITzPkEcF1pPDNm2Tb3z2RMnHFZbQ/4w=; b=wJ5wFA11KvVIDlHAYVZ6ptfJWl
+	gJNam8mGIePiIzeF2mmJHpkgEr4bdKq5C2duA3rZoxYh1gNXulaV0e7QLTDQ==;
+From: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+To: Jaegeuk Kim <jaegeuk@kernel.org>
+CC: Chao Yu <chao@kernel.org>, <linux-f2fs-devel@lists.sourceforge.net>,
+	<linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>, Dmitriy
+ Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>,
+	<syzbot+8b85865808c8908a0d8c@syzkaller.appspotmail.com>
+Subject: [PATCH] f2fs: reject mount when block_count exceeds device capacity
+Date: Fri, 30 Oct 2026 14:11:12 +0300
+Message-ID: <20261030111112.20953-1-Dmitry.Chumachenko@cyberprotect.ru>
+X-Mailer: git-send-email 2.49.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,41 +66,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AIP-EXCH-1.aip.ooo (10.77.28.101) To AIP-EXCH-1.aip.ooo
+ (10.77.28.101)
 
-nfc_llcp_recv() is the data exchange callback for LLCP PDUs sent in
-initiator mode, and it returns without freeing the skb when err is set.
-Like for raw sockets, the skb can carry the response even when err is
-set: the HCI core passes it on with the error derived from the
-controller's result code, and NCI does the same for a frame interface
-data packet with a non-zero status byte.  So each failed exchange leaks
-an skb.
+During fuzz testing, the following issue was discovered.
 
-This was found by LLM-assisted code review.
+INFO: task kworker/u9:2:981 blocked for more than 122 seconds.
+      Not tainted 7.1.0-rc4-00103-ge94869f14310 #59
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/u9:2    state:D stack:25800 pid:981   tgid:981   ppid:2      task_flags:0x4208060 flags:0x00080000
+Workqueue: writeback wb_workfn (flush-7:0)
+Call Trace:
+ <TASK>
+ __schedule+0x122f/0x6530
+ rt_mutex_schedule+0x96/0xe0
+ __rt_mutex_slowlock_locked.constprop.0+0x13bd/0x3280
+ rwbase_write_lock+0x5df/0x720
+ f2fs_down_write_trace+0xc8/0x320
+ f2fs_balance_fs+0x6ee/0xa50
+ f2fs_write_inode+0x5e4/0x15a0
+ __writeback_single_inode+0xcda/0x1360
+ writeback_sb_inodes+0x767/0x1d90
+ __writeback_inodes_wb+0xf8/0x2d0
+ wb_writeback+0x723/0xb90
+ wb_workfn+0x8e6/0xc10
+ process_one_work+0xa0e/0x1980
+ worker_thread+0x5ef/0xe50
+ kthread+0x370/0x450
+ ret_from_fork+0x72b/0xd50
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
 
-Free the skb on the error path; it is NULL when the error does not come
-with a response, and kfree_skb() handles that.
+The superblock declares a block_count larger than the backing device, but
+sanity_check_raw_super() validates block_count only against segment_count
+and never against the device size, so the oversized filesystem mounts and
+its main area extends past the end of the device.
 
-Fixes: d646960f7986 ("NFC: Initial LLCP support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
+On the first fallocate(), f2fs_balance_fs() runs foreground GC, which
+selects a victim segment located beyond the device. The blocks are valid
+per on-disk metadata, so is_alive() accepts them and do_garbage_collect()
+keeps issuing reads past the end of the device without making progress,
+while holding sbi->gc_lock. Writeback and sync then block on gc_lock
+indefinitely, producing the hung task above.
+
+This only affects single-device setups: on a multi-device volume
+block_count is the whole-filesystem total and legitimately exceeds the
+primary device, so the check is restricted to single-device images and
+compares block_count against the backing device capacity.
+
+Fixes: aff063e266cb ("f2fs: add super block operations")
+Reported-by: syzbot+8b85865808c8908a0d8c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=8b85865808c8908a0d8c
+Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
 ---
- net/nfc/llcp_core.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/f2fs/super.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-index 74bf81700..f0632a0b9 100644
---- a/net/nfc/llcp_core.c
-+++ b/net/nfc/llcp_core.c
-@@ -1638,6 +1638,8 @@ void nfc_llcp_recv(void *data, struct sk_buff *skb, int err)
- 
- 	if (err < 0) {
- 		pr_err("LLCP PDU receive err %d\n", err);
-+		/* skb may carry the response even when the exchange failed */
-+		kfree_skb(skb);
- 		return;
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index fabcafafabf1..ba484a32f292 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -3445,6 +3445,13 @@ static int sanity_check_raw_super(struct f2fs_sb_info *sbi,
+ 			  segment_count, le64_to_cpu(raw_super->block_count));
+ 		return -EFSCORRUPTED;
  	}
++	if (!RDEV(0).path[0] &&
++	    le64_to_cpu(raw_super->block_count) > sb_bdev_nr_blocks(sbi->sb)) {
++		f2fs_info(sbi, "block_count(%llu) exceeds device capacity(%llu blocks)",
++			  le64_to_cpu(raw_super->block_count),
++			  (unsigned long long)sb_bdev_nr_blocks(sbi->sb));
++		return -EFSCORRUPTED;
++	}
  
+ 	if (RDEV(0).path[0]) {
+ 		block_t dev_seg_count = le32_to_cpu(RDEV(0).total_segments);
 -- 
-2.43.0
+2.49.0
 
