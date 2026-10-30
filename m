@@ -1,126 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793395284;
-	b=xhnogB/R7jkD6V8yDxyWVpSiYxIcVaBN/6pVk//thu7KK/CswwHMvBoFfXtc4/7N03IB
-	 TTT6elrKS4w3sd4NfzYte8ljby42fd7CSJAavggIV6GMQVcKtoOVyE1euVxPQ2h649ZdV
-	 jhdY4Zl0T0a1aYO+gL62PDrgSj3wGZNrgJ2ZUgMBKi3RQtfmwxIKkSEEkUf8EH3Nq2fZn
-	 SZzAbd5g7fepXOVQRTQl+yi/DX64GulBTUn3ubG0U5ddUrEqo0/MwyYLTWdeATYOGDtzN
-	 a8IHGoQjx4V/kJuMuD1aWlQK6Lb7NGL8O9rhFixhzvjYDqkxQ4HJcYe0QgzF4nxcIgg==
+	t=1793395301;
+	b=3KaguNfsqfnFUM60wonn9Gl2znJAuLwc5s5R21u+L5QMCHaLHQCRiH+YdZJcO5SE7qGj
+	 qFHfZAPDH2HaHfgBjIm0AdsL8Kg1VhcXwjR4LUwvcWrbl1j+g2HTACKpO/8w63tiYLEVr
+	 I3xR/NmyKuq0PUHGxSb7f+l/6P+s9v/kmTj8GvMagM6cUJDT2fMSgBjZ8OEJKAuE7HpEw
+	 zBj7NptzA7c1mXS2/frnV8GMBUAixv1+BktUGG3yMRUSlst0xO/NQEMi4z3OfpdDKfUDp
+	 v5jNTRkcUI2gtDMjlI2jVPMsg7D06vB8mgi2c9wy/MP37YISs5rzrreKaxtsHFvKVJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395284;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=HQX9cJw2kzgbRp5ZXfT3vcd1PI1jMq0ASyGe44SgcLI=;
-	b=g/TeYNn5fT/Kr3PQkr8JcJnYIlmF/U6O3/eibRyLanyWbdSUCpFa5RZb07KNk394YMzB
-	 wo6uOqK+n4kL3iSj8cHeXudGsBAJRgS4YF4/USZQLkXjO5d9h0QzuHhgPYQ2Y2QAhG3UC
-	 raiDhU7/48Fv7HI8rbLYmHnSSn28/s/vLaeOxL9WPgnVeSv4yGXhenGensLhBhGmfQLSc
-	 kUwrxTVjTn6rbwSG+bjcm0VRksrnl6Wp10d0FFsYS6sfQfyX5AqGDUrUKSHWo4geVe0gj
-	 qscrd8N7uoIjFhT/UIvZmnPx+xITEqtP9sKBkU5pEW2136aqCogeh9s5SJFojikPVjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793395301;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
+	 To:Cc:Content-Type;
+	bh=5FKhrgmuBOI6zmiBkedaxKopKidBxwZmFCvEG3c53fo=;
+	b=Rmm05HPio6+PoSjeIyVMXKrYgZeO1TbIvS2oN/LUL2dIOdv7Bxm2WqLFHQzwuHxdAUai
+	 mOj0QyT1xt0dc/l9SzDRQHhbBfUpKJoZGp283xabfgZiNmGnvza0+/VH67Uwa2jZiut5B
+	 V1OyHGlD8M42719QOL83ac9TccDxWee+NlyLbO9F9+mqYH3YtyQPXxqoxjVpX+tk8My2G
+	 b1Y/NvrglOxRBsebjcjM0Fp33JxsnZlVMOAFcj6cTcmisZ84/uqkko4XQf/qLT/zfn0rC
+	 9F1wnt4U9FCdpr4ShsQxdG5MZBe4BSHMQQvYuOx96rNFELrCqHm7+KP59xOz4bE5QFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=EtigL5D7;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wn6wGwFZ;
-	arc=none smtp.remote-ip=202.12.124.152
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="ere2/lcc";
+	arc=none smtp.remote-ip=209.85.216.71
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1808460A6F55
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:21:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1808460A6F55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D6560701D1
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:21:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60D6560701D1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=EtigL5D7;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wn6wGwFZ
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 5032D7A0145
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:21:22 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Fri, 30 Oct 2026 17:21:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793395281;
-	 x=1793481681; bh=HQX9cJw2kzgbRp5ZXfT3vcd1PI1jMq0ASyGe44SgcLI=; b=
-	EtigL5D7X3Ci0fdiYSyY6w7E2heYOCP4KYtQm64NUT1PLaPa4z3vESeUztDNJzGt
-	iZvEY9sPTHbAqlOd4AydzcBTOsoKwse/lUfrhh+nIQ0WtE3+bGC8EX7iD7BCbDX0
-	Ex5V4jQbKmmnOLTRi1JJZmG5uo3YS25LjpAPyAXRXHkhnFLvF5R5qBGhvtjPVfPz
-	dM3ppSYsfgIEtWpoO8WVa6ydMsdPEMPUMe8LU43E4Ki/M/kgl3SnmOsM1kl0JZ0u
-	GDr2p5040VOF69X3lGI7R5LNg9ddJpvW1PgecuPpUCAypDYVlbb9zOxX1PIT1LzM
-	07Kuum3c7mVvqPYGu+UKKg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793395281; x=
-	1793481681; bh=HQX9cJw2kzgbRp5ZXfT3vcd1PI1jMq0ASyGe44SgcLI=; b=w
-	n6wGwFZzDf8z8hu4ZTzBEmHruyIYa7EKwLy9q6Jxhyiova0T0pka1Y/hD+eBIFmJ
-	9c63wqYYVhgVXiukrJ+rdoZW7Cou+Al8jRbf1+Rg/j0ZlPYxl1ouIiGhJ9cuI2S0
-	2yEuiRW1XmuQFvXbnIlnLlDc3+M3UDj0JDpRSUiR3q57kuT3ez5sn8spmNoKhX2R
-	r0qn0W0DqOax1CVIkA2Z0k2t70jAOwZ/RXucBVR2LU7nAlyw1xhCJaPGLIgyJDda
-	ozEfARV2JK9BS68/sZVbYnJdGD2JXONSB/Rv1SzDcutiKDVIwRfR8pUaNC56O3/d
-	k3JuDsDIjx0PCXZdXymRA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793395281; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:RkUQHwhkyp67oYHQPYpeiLwwq/NR7l4+QHgEAZ9yntcPmOs
-	jyJ+4tbfEaJP8UGEgXytOsR25F9pBS8QDyKOMrsUT9Yb+1RTBGJxc6oipt8JV+/D
-	qRzqllCKwzFHptM5huMdRAj1tsrT9DHhtlXciPsCuWlipQkgTqPz8DPSOnpfPYH3
-	YxvV67sQmBG7c9nJJD0SOG5H4LOUesHJJeOtO6dmYAoauz4VQ54hxbdCTPq+SlS9
-	xB4iKxp2k9Fn6eHrPtR72Q4wMm2T8tYs8LMR2KVfFBm4QosAJu2hdXxLBEIv08Ti
-	u2pGW5cbcsv21iUYLWJS4JjgXGW2Zm/8PDKJOZg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:mv4aGPcAwkiXx8VjHMnj2do5S6mOFkP/wTto/isqEDQ=:CkHN/CEk7RtqsrgxCKdks+dxaIj4YkGXmvUoGunDtU0=;
-X-ME-Sender: <xms:UQrlamwQ0wp5NMTR8_DkMZw9udTOE_0tE6HKXbSDPbQCe6LxeGaOZg>
-    <xme:UQrlaqbXLTPCgqL0wurDeYBMCdb2hzT4WAEGyzpX5IyZh75w4EhKMSPpn_4cMBKre
-    pGcGenKkvQjP_EmyMkl9eSCUrmm2AMCUKfV4OZ2DqZqxHyJS8DDDw>
-X-ME-Received: <xmr:UQrlan0D5YSzqL_fNh7UuDr1gQ6aYa5K9HKpctWhkRzEhX087R6MjslZvgAadQ>
-X-ME-Proxy-Cause: dmFkZTE9Qh59DEx5nBSxZ4EeJRHFHQUhtDF7/XkmVFDFZ1f8L9mJVueb32IcXNnhguBPcy
-    oVhHboeHNk9hdJEswRPzUXFTt4r8VkNlA/hsFSvMf/O5KTL7M5hFrbG5vNZ3om0ctjr+7U
-    08HiGDASsNv4o8fW4CNazOXJF/nasRc+CmXNe4E7KbEgewlslmUiXMUwmD5KhBCj9WWwMS
-    T6Wkb+meTa/IhB01JPwRkyqEpj1gT820d6i0HSXfnkS/JNLfbF8t4EkjpkYi8irYjUxdse
-    kMJKsuE9nUEvzkblcySo/ojLVkWWzPeH7dm0err5Aarel59lew26uF2QYMwNHhYI0Ag0Kp
-    TDk6xIhPWm4yKaA3f6hGs18C4XZUop54Wl2swPD53gjeTdt2Fdm0mdCrT8bxKUmcOkEdhS
-    QtD6N3scm8JyelIiJycBKlif3ZPP4S3OoVyAlmcgvHMU0m+TS/8bBfrcWbFiWbmvrKwBZy
-    4i97X7yHFchoUYyqDXS7tP6qutvr5B7sYeoyiuCFelEYj9UVmOZorlfiGI9aP/cI9eMPXM
-    cY1Z7V1EaYt7N3aAREmyuySkfTGRaerZ7HLBWlbfhRbbRmmr9WhdhuPf+AgbzTZw3oIbcl
-    MKgqHOV3B4jBz5xroZpDePlLg2LylNHdjAm5e4E4mqv3HNCqTvPcw85jj9Sw
-X-ME-Proxy: <xmx:UQrlasdIS0aBLRAipTfkHYbCnkUaoh4aSD9-QQLubmqqPHa_oICRMQ>
-    <xmx:UQrlakLo1Lfzqrx-r37RRIV5xqNZ6x6utW1nyG18F2fyRqCdWZQPRg>
-    <xmx:UQrlaqrPl0x1b85hwT7y5l-0AfdHkOBSkYMR8xoNvEM5R3CachtbzA>
-    <xmx:UQrlaisy2HZxZ7svPUW0si3-gyZMFUUxhdawqML4YW_Bje2PmyYaVQ>
-    <xmx:UQrlavZgftgP_iY9aDoLfI03lmwiLeIAG6BtAMIf-TOJLJFkfAcRq5t8>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 30 Oct 2026 17:21:20 -0400 (EDT)
-Date: Fri, 30 Oct 2026 15:21:18 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>,
- kvm@vger.kernel.org, linux-kernel@vger.kernel.org, Kevin Tian
- <kevin.tian@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- stable@vger.kernel.org, Ankit Agrawal <ankita@nvidia.com>, "Ritesh Harjani
- (IBM)" <ritesh.list@gmail.com>, alex@shazbot.org, David Matlack
- <dmatlack@google.com>
-Subject: Re: [PATCH v1] vfio/pci: pass FAULT_FLAG_WRITE to
- vmf_insert_pfn_pmd/pud()
-Message-ID: <20261030152118.72b62a9a@shazbot.org>
-In-Reply-To: <20261024015540.538758-1-almasrymina@google.com>
-References: <20261024015540.538758-1-almasrymina@google.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ere2/lcc
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ae7faf4ff7so1619090a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:21:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793395301; x=1794000101; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5FKhrgmuBOI6zmiBkedaxKopKidBxwZmFCvEG3c53fo=;
+        b=ere2/lcc27eNxrxNs+g/wtc7nCAhUB6ExrqPny7khKZ7U9gJDx6jNpKUW45FB9WFiO
+         Jns71PT+ZtwZ4wW8G/DUQwRrukq9/6q0Ai/b9Yr6Me/oE7dM97JSajHR1qAdUT6+a5B1
+         OIHGmJXlrc6rwa86724IhFutpisdDBZ39YjafvmdGNd5i/D6V50mDPG0wPcd+P1stBzD
+         p4lVPQ2XIIDXHXXhp8xfaaY+CCruhAeQiMHKCBD/N5tHFrfoBrDMxjcbg7ALtaHpsNHc
+         zq7X+u+fv0nMLRpuyG5pvIyB+gudbNmn3zGoSyGTJUQlr4vn19GAZmMkTHwinTiAhDrT
+         gT1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793395301; x=1794000101;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5FKhrgmuBOI6zmiBkedaxKopKidBxwZmFCvEG3c53fo=;
+        b=pneqG6YNuEmFUkDAB6DBpi4wnajRjhJmqjkAyT2zpodWEEIvUuOeyfMQO5OTBqGbIw
+         Pvu6FQgQAuujOuEjDv9gv64u6B+AkCcMK8OI51U3xSPO7baBPrDm4j8Onfk5OMIH0qu1
+         dQGQ34xXnBBHyXMhR+/JO0+pG+BN+qlNhu7CaclYhtAynmoMlFhHmicFMZWeYJNQY7+y
+         801yXyHNLpI8pRaJmVxtkwTYRHecK65Kb7YEmdA10xhaEBcyUXuHOk5QEE+e4NMGSkE+
+         tPs36TENAOhImHbk2Z1BsuC6KHOjIXsGtQY+mdH24GlLkxFR5pyanhLJEfoZSNDb5enW
+         dE6w==
+X-Forwarded-Encrypted: i=1; AKwUvByWWhALP8nxhCq1HdRLIaUYaprAnNpLc3Mc0OFrhzE7ngwV9nWRaz8bPecQbc577Ss3RRYxgUmWyC/pPiM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0YyIM2n7SIv+/zmd0D7TV8ak1GRvsVGnX9w3Rc6xJRIoJrZzW
+	v59dnQP750S/lb4jofxsOMtQgMAtqRfnpp7ADBKzPgwXqbfaymXf4IistzWfwpUa6D/YxQE14T9
+	B7/v4oQ==
+X-Received: from pjbpj10.prod.google.com ([2002:a17:90b:4f4a:b0:3ad:6c5f:feb0])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:e70c:b0:3ab:2737:3393
+ with SMTP id 98e67ed59e1d1-3ae89835d94mr2921939a91.40.1793395300614; Fri, 30
+ Oct 2026 14:21:40 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Fri, 30 Oct 2026 14:21:10 -0700
+In-Reply-To: <20261030212112.2598640-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,82 +79,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261030212112.2598640-1-seanjc@google.com>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261030212112.2598640-23-seanjc@google.com>
+Subject: [PATCH v4 22/23] KVM: nVMX: Don't load+put the vCPU when freeing
+ nested state for a dying vCPU
+From: Sean Christopherson <seanjc@google.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jim Mattson <jmattson@google.com>, 
+	James Houghton <jthoughton@google.com>, Chris Mason <mason@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, 24 Oct 2026 01:55:40 +0000
-Mina Almasry <almasrymina@google.com> wrote:
+Drop the vcpu_{load,put}() pair when freeing nested state for a dying vCPU,
+as nothing in what was free_nested() requires the vCPU to be loaded, common
+x86 doesn't require the vCPU to be loaded when it's dying (because SVM
+never loads the vCPU), KVM now explicitly handles taking the vCPU off the
+PI wakeup list (was subtly being handled by vt_vcpu_pi_load()), and the
+rest of vmx_vcpu_load() has no effects outside of loading/modifying the
+VMCS or vCPU-specific metadata.
 
-> vfio_pci_vmf_insert_pfn() unconditionally passes write=false to
-> vmf_insert_pfn_pmd() and vmf_insert_pfn_pud().
-> 
-> In insert_pmd() and insert_pud(), write=false skips marking newly
-> inserted PMD/PUD entries dirty/young via pmd_mkyoung(pmd_mkdirty()) and
-> maybe_pmd_mkwrite(). Furthermore, when vma_wants_writenotify() is active
-> on a shared writable VMA (for example, after CLEAR_REFS_SOFT_DIRTY
-> clears VM_SOFTDIRTY and calls vma_set_page_prot()), vm_page_prot is
-> downgraded to read-only so insert_pmd()/insert_pud() with write=false
-> installs a write-protected huge PMD/PUD. Subsequent write faults enter
-> wp_huge_pmd() or wp_huge_pud(), which invoke vma->vm_ops->huge_fault()
-> to upgrade the entry in place. Because vfio_pci_vmf_insert_pfn() passes
-> write=false, insert_pmd() and insert_pud() see !pmd_none(*pmd) with
-> !write, do nothing, and return VM_FAULT_NOPAGE without setting the write
-> bit or splitting the huge page, causing an infinite write page-fault
-> loop.
-> 
-> Pass vmf->flags & FAULT_FLAG_WRITE to vmf_insert_pfn_pmd() and
-> vmf_insert_pfn_pud() so write faults properly mark huge PFNMAP entries
-> dirty and writable.
+As for put(), because the vCPU obviously can't be loaded at the start of
+nested_vmx_free_vcpu(), "guest_state_loaded" can't be true and thus
+vmx_prepare_switch_to_host() must be a nop.  Similarly, the vCPU can't be
+blocking when it's dying, and so vt_vcpu_pi_put() is also a nop (and if
+it's not, that would be a fatal bug as it means the vCPU would be left on
+the PI wakeup list after being freed).
 
-This seems correct to me, but the commit log misses the human
-practicality portion of the argument, or at least buries it too subtly
-for me in the soft-dirty references.  AIUI, this is effectively only
-reached by something like CRIU twiddling clear_refs via procfs on a
-running process.  That's the kind of thing someone evaluating this for
-stable would want to know.
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/kvm/vmx/nested.c | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
 
-Given this unique use case, this also looks like a selftest candidate
-(Cc +David).  Thanks,
-
-Alex
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 4a8f57eb3277..51183520f64a 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -330,7 +330,7 @@ static void nested_put_vmcs12_pages(struct kvm_vcpu *vcpu)
+ 	vmx->nested.pi_desc = NULL;
+ }
  
-> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
-> Cc: stable@vger.kernel.org
-> Cc: Ankit Agrawal <ankita@nvidia.com>
-> Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> Assisted-by: LLM
-> Signed-off-by: Mina Almasry <almasrymina@google.com>
-> ---
->  drivers/vfio/pci/vfio_pci_core.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index fcbb2da860e2..204d959086e9 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -1745,6 +1745,8 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
->  				   unsigned long pfn,
->  				   unsigned int order)
->  {
-> +	bool write = vmf->flags & FAULT_FLAG_WRITE;
-> +
->  	lockdep_assert_held_read(&vdev->memory_lock);
->  
->  	if (vdev->pm_runtime_engaged || !__vfio_pci_memory_enabled(vdev))
-> @@ -1754,10 +1756,10 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
->  		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
->  
->  	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PMD_PFNMAP) && order == PMD_ORDER)
-> -		return vmf_insert_pfn_pmd(vmf, pfn, false);
-> +		return vmf_insert_pfn_pmd(vmf, pfn, write);
->  
->  	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PUD_PFNMAP) && order == PUD_ORDER)
-> -		return vmf_insert_pfn_pud(vmf, pfn, false);
-> +		return vmf_insert_pfn_pud(vmf, pfn, write);
->  
->  	return VM_FAULT_FALLBACK;
->  }
-> 
-> base-commit: 076d7e989cb69f6ded7d60f2a080eb909930061b
+-static void free_nested(struct kvm_vcpu *vcpu)
++void nested_vmx_free_vcpu(struct kvm_vcpu *vcpu)
+ {
+ 	struct vcpu_vmx *vmx = to_vmx(vcpu);
+ 
+@@ -390,14 +390,7 @@ static void nested_vmx_do_vmxoff(struct kvm_vcpu *vcpu)
+ 		free_vmcs(shadow_vmcs);
+ 	}
+ 
+-	free_nested(vcpu);
+-}
+-
+-void nested_vmx_free_vcpu(struct kvm_vcpu *vcpu)
+-{
+-	vcpu_load(vcpu);
+-	free_nested(vcpu);
+-	vcpu_put(vcpu);
++	nested_vmx_free_vcpu(vcpu);
+ }
+ 
+ #define EPTP_PA_MASK   GENMASK_ULL(51, 12)
+-- 
+2.56.0.385.gac671c819a-goog
 
