@@ -1,108 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793384152;
-	b=oLUcM2auvhUolCQf8oXWjBw41mvytnlMzRzx9wOmPD/PefA6o6OkFyIstW0rw/fkcAvx
-	 vbhTBH418ZYYiiFK4oX9bEXNbt/zlYFknyoWkp0D/BiY+e00Ejpz5P1HBHVs0VqB8KuH5
-	 e7CRlhGqYegb9pfp/FUf23UfqTAnNdSEWKSRLVemfESzs4f2gY3LDo04ovgLwEUC4FE09
-	 cmfF+Vvoio5jQoZeL+dOXe0CNimlo35irjnyl6EnyRhdJgt/4NUHlAP57Ti2enqZw5mGy
-	 NCcvKDbUWbVws1O7Li7RywO0Oa1wRrIoqfEpT0c0dySDTr+rnxo4EERbkIefVb4ukoQ==
+	t=1793384154;
+	b=XIGOdiBTWqvxY7I9bzGqhtmx9A2jmiNh9dmfi+etVRCUd6pkdXjPmt+KuLt4WfAiWQKN
+	 zzr74jQpL2KwTOygt7doMUF7HwebnvNC+F4ou1Ez35pv5bcqbt3hz57B7JRyytNdAAIf5
+	 eP/RzF4Kph96WIuZjcylViu3iuPaMHowra8icoGbmCArsrMoZWfePo8crHpbSIycP/8Ri
+	 GXyHapBq64EhnMLiJjyLBju5/1pXQJuvT2BaCq69myjxXQDBtP96LzqU0QLe6QnML35yJ
+	 p3o5FJoJMze2Rst0/RpwLhtnp3gknzgE/Y7VNdIVC8GTcA8w51OJJqKc8tw9ljzn10g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793384152;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793384154;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JT98i7tTE8+7Wnceh3gOSujC6CU3HNUaQsZFPRUss18=;
-	b=TYEfpNpPqgBjYBM6f2ZP4GvJFLUeDd6lMmoJTcZkT4IZx2ziQg9PzHsd7xKZayFtfyHb
-	 zNUdn62jaeziKihgtjbvvtqePok03yJUInHeUTNqyAO3JW8bkr7BpWdDK6p/ZDaNmRAAn
-	 biI/Z8WorHUdHEK94WsNZ9YIB8nkHcrqAypVDbopxOMqvQxzAfqLbKR1KyHXKYLY7tyFk
-	 cPZ22yHHZ+qXsGfNaYxLfTp4ETczrzJBznOuShtXYgrCFZ+ENxDXv38A6x4WnBHdQ/CBv
-	 02pQPERrY95w71i+PuYk7/5nMkk19vsESbmdHUIDamlvwuV8mAETfSE/5lTueTYoJeA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=L7ar4WAN3UXBnRdyQx7m5lT8b0DpMHKQHo9PR1aXr18=;
+	b=U7BF2KtO3p/y9mzTbr72AwQAZG1kL44rYKYhwWNKSNo/hQctkyrDW4NNHSnZqKi+U5HS
+	 5Dq6OuAklQdVXOCXKWCSBvdnNsQZIl1vYWEvMDClm58DKQq1J8ju7bZoK21HtTWYByUJT
+	 7ubUEEir7Ggq/wVo7ahVFDj15Z00Rtms+mhm4lgSgrPfUoHLpvvEzPAqP8x+ll9FJ0pyT
+	 ineJ+3sa/hjjx3NBjNhz9MxvOytOSQGMHhRRUMO5rEBY2uUfsbSI79cP4w3/5y1a8sKfg
+	 8RAx0VXvfmgpEb9dVxIcIHbKJSL6u23YBfpsz7gF8rDZkze7lHu7cRuICPA88LR1rMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ZPH/T5pR";
-	arc=none smtp.remote-ip=209.85.217.44
-Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
+	dmarc=none header.from=x6u.co;
+	spf=pass smtp.mailfrom=x6u.co;
+	dkim=pass header.d=x6u.co header.i=@x6u.co header.a=rsa-sha256 header.s=google header.b=hbxUTMQ7;
+	arc=none smtp.remote-ip=209.85.222.51
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E45D60A2614
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:15:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E45D60A2614
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C302C60A2608
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:15:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C302C60A2608
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZPH/T5pR
-Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-7c3b75caad1so734331137.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:15:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=x6u.co header.i=@x6u.co header.a=rsa-sha256 header.s=google header.b=hbxUTMQ7
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-9851592ada1so276276241.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:15:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793384150; x=1793988950; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JT98i7tTE8+7Wnceh3gOSujC6CU3HNUaQsZFPRUss18=;
-        b=ZPH/T5pRfv2+n+jrlvc1xzTgmkP9ezwXLCPxSoTv85g9I71iFVopojwBNDCMbkYClz
-         jPAUCw3GQ2Drj8Va2jKGS9KdendiE92pyS+Z0uKnp9AjJLz7nAqkxwwrp13TWA2uXrLW
-         cPp+oVbnIaz4uXhMDM0wrEm7I3nVic/4wcMQupvwL6GNjAYRk2VnTVeGn8++twir0gj9
-         qWTSXNNL0Shj/HnI1qByT/ggqvYgqyayWXIt3F8e6GZIdzQlxAXB5Iy5I1lPcIOmDVz+
-         C+sdi6PJbu5PwqMod7t2iXYzoO4e2ORDuJ0IcCePtlIr0AZ7MaG4UIcbN/tq4os+/52A
-         d9wQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793384150; x=1793988950;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=x6u.co; s=google; t=1793384153; x=1793988953; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JT98i7tTE8+7Wnceh3gOSujC6CU3HNUaQsZFPRUss18=;
-        b=CyFBubWiiAo3Ej3PuFdFwiqeoKnW9Ggw6uGUdvFWgyOZ9+SIf51mGMn3LQirbEjeX7
-         AwxG2KOv4WIcv+Yxa4zgzRt/4Vm56aQ6bG7mdo0lEsQ4ePLXYqHy8yqAc9ibS83iQm0M
-         vELCQOdHPA4J03AQMpNYAw9uvQCip6MKOwyrdMl3uIVVL8MG9JCaohk+z4gRflYWbhCm
-         DHrnwTkdTIlVVTO8HdTH7vxcGqoUPvHaKgHS5cGQzWR1m1FePuCBuorovTXkeILcRUhl
-         L0gPtaKbKSdV2REFm2ZUtppmJw35XW7KMOJGI7Ol9z558b4uqpqgztVtJo0yShHhICzW
-         QlBg==
-X-Forwarded-Encrypted: i=1; AKwUvBzWkUD6JbABZgzZkHwyWKvhESiVrsUtHCh74sB6z1ZPx1IC1lK+ig48Om4LyxW/ixkDJK1s83e48ioNmIk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5S18gZu0MDrUOgJQc2gYvVf12XcoHgMMNcmOZndBW7EretBDF
-	S4E3MmD0ugu4vV6hz7wkKuuvEnEhtxANU8UxBYApC2FmDeFo9tw93la2
-X-Gm-Gg: AYBFou0eifNUihrKON0QlCPqFhvsjMrXbSkubQJd5BmrY0PvoAdJwhPMHBSW1DTDvb6
-	hidv7a7L2avicv6K1XZhHvpaAXtcWaLOO3a8XjB9pimk7j0TkGfWUBWx44PzS3HzVv86CT/BxB1
-	WgaqAFvgaYn1J1tubAnWggWDe3Y1QCLwS1OFh1PKhVMY6yvoALWs+S88ZseJHeOsqriZX/XKB8g
-	1Oa8Wc0GcVcj8CqrPyENfkZwwas3vhNuemeqakoROt2fh2bY/YcgpKLIiwj/+jMh1k5mWqI7CDF
-	q7BuNWM0khjhC/i5nkz4Hbe5/Az9Xrb4D71e9Sg+RbVyNy+lCykC7OBrnL1U8SH1IIOBJLncRP7
-	Nr+wSDrAr/8v7hQFRecEETXwEnuQDF3MwdtLImEZgJVe3OMGPs/2XK7C9GC5tlEww87vBm7Naoi
-	sXyF9GiGNCIdWubds4mOSdntlJnqM2zCJyNvYgwtTzlc9aRZkTl6JM7G2RHDRhJgARlg2w152fE
-	/u/ukvV633/D1WeIHa5pUzBRNzNGVIHMyW0mbzdGg9J13tv8m4ptNYyFCjBFhDnfoHgn8kbTBrt
-	Nh3cJF0wnOo3i1UJEWMNcWhwoJ8wQROyWjLDGMg2Oe+uGM+ij585LSap3JZMRUFpYvx7YT6AaZm
-	mrgc4neYfh6aYlR2tzZj7wNWjkBKBkdm/okSSWXssX6UYEs6fHhSAXJsDYdi3D/dBT2cvKmCf6q
-	K4krM=
-X-Received: by 2002:a05:6102:441a:b0:7c3:881f:b775 with SMTP id ada2fe7eead31-7d072cac30amr1845875137.24.1793384150011;
-        Fri, 30 Oct 2026 11:15:50 -0700 (PDT)
-Received: from ututo.. ([2803:9810:87dd:de10:2772:b6de:3686:bd70])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d077393404sm3017737137.2.2026.10.30.11.15.44
+        bh=L7ar4WAN3UXBnRdyQx7m5lT8b0DpMHKQHo9PR1aXr18=;
+        b=hbxUTMQ7hWfx+LOb8VX+BpQxWFc9WMPuPr93teTZjtIPrghQ9fo/HVj4pzgvEGrpNa
+         qQLmXqS72FYsC5SPNH7DP4kzffMykrnk+kQ2sb5H5kFGlepFdG94xSkVjBKbrop8L0+1
+         TJxxJx/7DTFigUsdYRAuqZGkCKG0ndRWQ0CTXkA5vmxi1bPWjo+P3T2zdoauYMNwOLKt
+         BSjhRco7jMLjsfdMcc2KQpnHoBoofmIucIqNqkKH25YG7fzi8QIt4EDeBccAOFXrnlDy
+         MafdUwezpfrimWYlklzLz8q9SIezWc42ltyZ3YA0Ihn8AGiVr9pnZIxxbv+zTxFTHJaJ
+         aZyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793384153; x=1793988953;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=L7ar4WAN3UXBnRdyQx7m5lT8b0DpMHKQHo9PR1aXr18=;
+        b=BDliv7VrluwTrnuP319AHmX4m9HMw4R0zUSR5EGCKtR1mEzQQDZKtDu+n0C6taSbWd
+         Lrclpa8P+ZivAO4//dA3+MZ4MxuwrBvoQUDF/0Fk2GWN3l57garefKxOr18eISoYjUa/
+         xt1Hi/52JjR5ppeW+7gTLf40WqUa9hoxMgQ6VOjo39W2NxytUaclp9xWL64JtmF710cA
+         D1XvCNUZ0QinqrxpLj4Zowqqob+1Ws9BHIOZh8bZgHKJ8xzzuvXlhuu/Snlk43YqTv06
+         zky4jtZhIkyKS7oYjoVO+qmoJmvDR5eecU++qNKvhvYrP1qgGS4ByBh53JY8JbSwJcgF
+         PwiA==
+X-Forwarded-Encrypted: i=1; AKwUvBzxJxxLi/+9qK1JngB3XnMl0BebhtP9eHMN3Km2y6a4088ya5G/4d2BJyVaUEPiRDke9fcwKw8OiI15R5k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcg0zEIHJdNSFfh7IYPOffo/zDqpjEy1cH1zmFTghNvzb6dhDF
+	tUzMSK00Y4IwoBHWAManqtiDPRgUNQ5XODWoqgTHbhjD5VyOWorExejO26P1hSSJMpzX
+X-Gm-Gg: AYBFou3sg0PwFL+kKlzkG9N0J/+890eQ9q957pCpgRaJPvCOlCQYOpuaOWaykZUFpRh
+	P2V9GcEAtLOa2kXHtnC3o4GpNK5H8BhnuX4Bk5qVOzzuS4XYBY1dyRkQa5mFUdXlnRYA5MUWZeF
+	+PKAh9mumIN1aQBx0Q5hjuxiQM6nJ0E+rZOU1GCIwI8U6Z6UNFrB7MM6W0qfx6bdjJ6zIKwaZzF
+	iP48MvGOom2qLN21GyeUB1I3BNumoQmS1nLP9oNqK6ugQCMj90SqHOkyLE7xl0SzSCvfAH75h0j
+	NwxKk2GBsXVB8sh1JrHcVhdwRSHC09TRwK2djCt6/s8uQRxoMzkbQ9wh0oJh3zR5gHxJaDQ12jb
+	UACU6HXNM1RdHNn3TVReYO0N94qAkv0DD7Q44iDX0iJHOK5R48RFHtbuaqtov6F6PCqZeMr9qXd
+	E3pOY7Uc9z83kDD9gs+zbsvAt8lzV6yJmomqHTKW63KJqyn1Qb0BMvtM6+WHjt54tqWfMJroxUB
+	e97dD8TKYtd6+fNXU7s8WAVq6+MHxspqAuRnMP/XjoKst2xKUQwjsQXG+epgteLY1neo6ho1wkr
+	m1QhsaZLJaIA5t21IbZOq+00k3AzJk7hsfSOi791gxd9dv8jED/595odnbqCM/4s7kLSbdYusQR
+	WUrA4zFgAPB2OaRD/nRJzDfGLDbr3chhmwbtS1eE9k+c=
+X-Received: by 2002:a05:6102:8097:b0:7c3:3890:6076 with SMTP id ada2fe7eead31-7d0725cfd65mr1551425137.6.1793384152685;
+        Fri, 30 Oct 2026 11:15:52 -0700 (PDT)
+Received: from worldpeace10.c.googlers.com.com (109.243.150.34.bc.googleusercontent.com. [34.150.243.109])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d07754c1c6sm3077931137.3.2026.10.30.11.15.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 11:15:49 -0700 (PDT)
-From: Lucas Costa <2000.costalucas@gmail.com>
-To: dakr@kernel.org,
-	ojeda@kernel.org
-Cc: bhelgaas@google.com,
-	kwilczynski@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	lyude@redhat.com,
-	linux-pci@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] samples: rust: add QEMU EDU sample driver
-Date: Fri, 30 Oct 2026 15:15:39 -0300
-Message-ID: <20261030181540.102665-1-2000.costalucas@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 30 Oct 2026 11:15:52 -0700 (PDT)
+From: David Hu <dhu@x6u.co>
+To: Mustafa Ismail <mustafa.ismail@intel.com>,
+	Shiraz Saleem <shiraz.saleem@intel.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Jacob Moroni <jmoroni@google.com>,
+	intel-wired-lan@lists.osuosl.org,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Hu <xuehaohu@google.com>
+Subject: [PATCH rdma-next v4 6/6] RDMA/irdma: Support UMEM attribute for SRQ creation
+Date: Fri, 30 Oct 2026 18:15:12 +0000
+Message-ID: <20261030181512.2056056-7-dhu@x6u.co>
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+In-Reply-To: <20261030181512.2056056-1-dhu@x6u.co>
+References: <20261030181512.2056056-1-dhu@x6u.co>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,570 +106,127 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a Rust PCI driver sample for QEMU's educational ("edu") device.
-It exercises the Rust PCI, IRQ, and DMA abstractions: MMIO
-identification/liveness checks, interrupt status handling, an
-MSI-backed factorial computation with a bounded wait, a coherent-DMA
-round trip, and PCI config-space reads.
+From: David Hu <xuehaohu@google.com>
 
-Also add the PCI teardown helpers and Completion timeout support used
-by the sample.
+Support the standard 1-step queue buffer creation for SRQ by
+`UVERBS_ATTR_CREATE_SRQ_BUF_UMEM` via `ib_umem_get_attr()`.
 
-Run QEMU with `-device edu` to probe it.
+Set up hardware pble directly from the pinned SRQ umem via
+`irdma_setup_q_pbl_from_umem()`.
 
-Signed-off-by: Lucas Costa <2000.costalucas@gmail.com>
+Proper umem and pble cleanup, and error unwind are added into existing
+`irdma_srq_free_rsrc()` upon SRQ destruction.
+
+We maintain backward compatibility for the legacy 2-step registration if
+the UMEM attribute is not provided.
+
+Signed-off-by: David Hu <xuehaohu@google.com>
 ---
- rust/kernel/pci.rs              |  14 ++
- rust/kernel/pci/id.rs           |   8 +-
- rust/kernel/sync/completion.rs  |  20 +-
- samples/rust/Kconfig            |  11 +
- samples/rust/Makefile           |   1 +
- samples/rust/rust_driver_edu.rs | 423 ++++++++++++++++++++++++++++++++
- 6 files changed, 474 insertions(+), 3 deletions(-)
- create mode 100644 samples/rust/rust_driver_edu.rs
+ drivers/infiniband/hw/irdma/verbs.c | 68 ++++++++++++++++++++++++-----
+ 1 file changed, 58 insertions(+), 10 deletions(-)
 
-diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-index 3ec897709e89..810703d7a2fb 100644
---- a/rust/kernel/pci.rs
-+++ b/rust/kernel/pci.rs
-@@ -445,6 +445,20 @@ pub fn pci_class(&self) -> Class {
-         // SAFETY: `self.as_raw` is a valid pointer to a `struct pci_dev`.
-         Class::from_raw(unsafe { (*self.as_raw()).class })
-     }
-+
-+    /// Disable bus-mastering for this device.
-+    #[inline]
-+    pub fn clear_master(&self) {
-+        // SAFETY: `self.as_raw` is guaranteed to be a pointer to a valid `struct pci_dev`.
-+        unsafe { bindings::pci_clear_master(self.as_raw()) };
-+    }
-+
-+    /// Disable the device.
-+    #[inline]
-+    pub fn disable_device(&self) {
-+        // SAFETY: `self.as_raw` is guaranteed to be a pointer to a valid `struct pci_dev`.
-+        unsafe { bindings::pci_disable_device(self.as_raw()) };
-+    }
- }
+diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/irdma/verbs.c
+index 41e56ab8aa6d..7e8a5e481730 100644
+--- a/drivers/infiniband/hw/irdma/verbs.c
++++ b/drivers/infiniband/hw/irdma/verbs.c
+@@ -1996,9 +1996,16 @@ static void irdma_srq_free_rsrc(struct irdma_pci_f *rf, struct irdma_srq *iwsrq)
+ 		iwsrq->kmem.va = NULL;
+ 	} else {
+ 		/* Not called in any failure path, so iwpbl is valid. */
+-		struct irdma_mr *iwmr = iwsrq->iwpbl->iwmr;
++		if (iwsrq->iwpbl) {
++			struct irdma_mr *iwmr = iwsrq->iwpbl->iwmr;
  
- impl<'a> Device<device::Core<'a>> {
-diff --git a/rust/kernel/pci/id.rs b/rust/kernel/pci/id.rs
-index dbaf301666e7..2747d92be91b 100644
---- a/rust/kernel/pci/id.rs
-+++ b/rust/kernel/pci/id.rs
-@@ -154,9 +154,13 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+-		refcount_dec(&iwmr->user_ring_refs);
++			if (iwmr && refcount_dec_and_test(&iwmr->user_ring_refs)) {
++				ib_umem_release(iwmr->region);
++				if (iwsrq->iwpbl->pbl_allocated)
++					irdma_free_pble(rf->pble_rsrc, &iwsrq->iwpbl->pble_alloc);
++				kfree(iwmr);
++			}
++		}
+ 	}
  
- /// Once constructed, a `Vendor` contains a valid PCI Vendor ID.
- impl Vendor {
--    /// Create a Vendor from a raw 16-bit vendor ID.
-+    /// Create a [`Vendor`] from a raw 16-bit vendor ID.
-+    ///
-+    /// Prefer one of the named [`Vendor`] constants where one exists. This is intended for
-+    /// vendor IDs that have no dedicated constant, e.g. test or emulated devices whose IDs
-+    /// are not shared between multiple drivers and thus do not belong in `pci_ids.h`.
-     #[inline]
--    pub(super) fn from_raw(vendor_id: u16) -> Self {
-+    pub const fn from_raw(vendor_id: u16) -> Self {
-         Self(vendor_id)
-     }
+ 	irdma_free_rsrc(rf, rf->allocated_srqs, srq->srq_uk.srq_id);
+@@ -2425,6 +2432,7 @@ static int irdma_setup_umode_srq(struct irdma_device *iwdev,
+ 				 struct ib_udata *udata,
+ 				 struct uverbs_attr_bundle *attrs)
+ {
++	struct irdma_srq_uk_init_info *ukinfo = &info->srq_uk_init_info;
+ 	struct irdma_create_srq_req req = {};
+ 	struct irdma_ucontext *ucontext;
+ 	struct irdma_srq_mr *srqmr;
+@@ -2440,14 +2448,49 @@ static int irdma_setup_umode_srq(struct irdma_device *iwdev,
+ 	if (ret)
+ 		return ret;
  
-diff --git a/rust/kernel/sync/completion.rs b/rust/kernel/sync/completion.rs
-index 35ff049ff078..83a22d25b61d 100644
---- a/rust/kernel/sync/completion.rs
-+++ b/rust/kernel/sync/completion.rs
-@@ -6,7 +6,12 @@
- //!
- //! C header: [`include/linux/completion.h`](srctree/include/linux/completion.h)
+-	spin_lock_irqsave(&ucontext->srq_reg_mem_list_lock, flags);
+-	iwpbl = irdma_get_pbl((unsigned long)req.user_srq_buf,
+-			      &ucontext->srq_reg_mem_list);
+-	spin_unlock_irqrestore(&ucontext->srq_reg_mem_list_lock, flags);
+-	if (!iwpbl)
+-		return -EPROTO;
++	if (attrs && uverbs_attr_is_valid(attrs, UVERBS_ATTR_CREATE_SRQ_BUF_UMEM)) {
++		struct irdma_mem_reg_req srq_req = {};
++		struct ib_umem *umem;
++		u32 total;
++		u8 shift;
  
--use crate::{bindings, prelude::*, types::Opaque};
-+use crate::{
-+    bindings,
-+    prelude::*,
-+    time::Delta,
-+    types::Opaque, //
-+};
+-	iwsrq->iwpbl = iwpbl;
++		irdma_get_wqe_shift(ukinfo->uk_attrs, ukinfo->max_srq_frag_cnt, 0, &shift);
++		srq_req.rq_pages =
++			DIV_ROUND_UP((ukinfo->srq_size << shift) * IRDMA_QP_WQE_MIN_SIZE,
++				     IRDMA_HW_PAGE_SIZE);
++		total = srq_req.rq_pages + IRDMA_SHADOW_PGCNT;
++
++		umem = ib_umem_get_attr(&iwdev->ibdev, attrs,
++					UVERBS_ATTR_CREATE_SRQ_BUF_UMEM,
++					total << IRDMA_HW_PAGE_SHIFT,
++					IB_ACCESS_LOCAL_WRITE);
++		if (IS_ERR(umem))
++			return PTR_ERR(umem);
++
++		iwsrq->iwpbl = irdma_setup_q_pbl_from_umem(iwdev, umem,
++							   iwsrq->ibsrq.pd,
++							   IRDMA_MEMREG_TYPE_SRQ,
++							   &srq_req);
++		if (IS_ERR(iwsrq->iwpbl)) {
++			ret = PTR_ERR(iwsrq->iwpbl);
++			iwsrq->iwpbl = NULL;
++			ib_umem_release(umem);
++			return ret;
++		}
++		iwpbl = iwsrq->iwpbl;
++	} else {
++		if (!req.user_srq_buf)
++			return -EINVAL;
++
++		spin_lock_irqsave(&ucontext->srq_reg_mem_list_lock, flags);
++		iwpbl = irdma_get_pbl((unsigned long)req.user_srq_buf,
++				      &ucontext->srq_reg_mem_list);
++		spin_unlock_irqrestore(&ucontext->srq_reg_mem_list_lock, flags);
++		if (!iwpbl)
++			return -EPROTO;
++
++		iwsrq->iwpbl = iwpbl;
++	}
+ 	srqmr = &iwpbl->srq_mr;
  
- /// Synchronization primitive to signal when a certain task has been completed.
- ///
-@@ -111,4 +116,17 @@ pub fn wait_for_completion(&self) {
-         // SAFETY: `self.as_raw()` is a pointer to a valid `struct completion`.
-         unsafe { bindings::wait_for_completion(self.as_raw()) };
-     }
-+
-+    /// Wait for completion of a task, with a timeout.
-+    ///
-+    /// Returns `true` if the task completed before `timeout` elapsed, and `false` otherwise.
-+    pub fn wait_for_completion_timeout(&self, timeout: Delta) -> bool {
-+        let timeout = timeout.as_millis().clamp(0, u32::MAX as i64) as u32;
-+        let jiffies = crate::time::msecs_to_jiffies(timeout);
-+
-+        // SAFETY: `self.as_raw()` is a pointer to a valid `struct completion`.
-+        let remaining = unsafe { bindings::wait_for_completion_timeout(self.as_raw(), jiffies) };
-+
-+        remaining != 0
-+    }
- }
-diff --git a/samples/rust/Kconfig b/samples/rust/Kconfig
-index 31d62533ef25..b654751041fa 100644
---- a/samples/rust/Kconfig
-+++ b/samples/rust/Kconfig
-@@ -190,4 +190,15 @@ config SAMPLE_RUST_HOSTPROGS
+ 	if (iwpbl->pbl_allocated) {
+@@ -2615,7 +2658,12 @@ static int irdma_create_srq(struct ib_srq *ibsrq,
+ 	if (iwsrq->user_mode && iwsrq->iwpbl) {
+ 		struct irdma_mr *iwmr = iwsrq->iwpbl->iwmr;
  
- 	  If unsure, say N.
- 
-+config SAMPLE_RUST_DRIVER_EDU
-+	tristate "QEMU EDU Driver"
-+	depends on PCI
-+	help
-+	  This option builds the Rust QEMU EDU PCI driver sample.
-+
-+	  To compile this as a module, choose M here:
-+	  the module will be called rust_driver_edu.
-+
-+	  If unsure, say N.
-+
- endif # SAMPLES_RUST
-diff --git a/samples/rust/Makefile b/samples/rust/Makefile
-index b986b681cde5..57d944baa781 100644
---- a/samples/rust/Makefile
-+++ b/samples/rust/Makefile
-@@ -17,6 +17,7 @@ obj-$(CONFIG_SAMPLE_RUST_DRIVER_AUXILIARY)	+= rust_driver_auxiliary.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_SERDEV)		+= rust_driver_serdev.o
- obj-$(CONFIG_SAMPLE_RUST_CONFIGFS)		+= rust_configfs.o
- obj-$(CONFIG_SAMPLE_RUST_SOC)			+= rust_soc.o
-+obj-$(CONFIG_SAMPLE_RUST_DRIVER_EDU) += rust_driver_edu.o
- 
- rust_print-y := rust_print_main.o rust_print_events.o
- 
-diff --git a/samples/rust/rust_driver_edu.rs b/samples/rust/rust_driver_edu.rs
-new file mode 100644
-index 000000000000..f21619e7bdc7
---- /dev/null
-+++ b/samples/rust/rust_driver_edu.rs
-@@ -0,0 +1,423 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Rust QEMU EDU driver sample (based on QEMU's edu device).
-+//!
-+//! To make this driver probe, QEMU must be run with `-device edu`.
-+
-+use kernel::{
-+    device::{
-+        Bound,
-+        Core, //
-+    },
-+    dma::{
-+        Coherent,
-+        CoherentBox,
-+        Device as _,
-+        DmaMask, //
-+    },
-+    io::{
-+        poll::read_poll_timeout,
-+        register,
-+        register::Array,
-+        Io, //
-+    },
-+    irq::{
-+        self,
-+        Flags,
-+        Registration, //
-+    },
-+    pci,
-+    prelude::*,
-+    sync::Completion,
-+    time::Delta,
-+    types::ScopeGuard, //
-+};
-+
-+mod regs {
-+    use super::*;
-+
-+    register! {
-+        pub(super) IDENTIFICATION(u32) @ 0x0 {
-+            31:0 version;
-+        }
-+
-+        pub(super) LIVENESS(u32) @ 0x4 {
-+            31:0 value;
-+        }
-+
-+        pub(super) FACTORIAL(u32) @ 0x8 {
-+            31:0 value;
-+        }
-+
-+        pub(super) STATUS(u32) @ 0x20 {
-+            7:7 irq_on_done;     // 0x80: raise an IRQ when the factorial is done
-+            0:0 computing;       // 0x01: set while a factorial is being computed
-+        }
-+
-+        pub(super) INTERRUPT_STATUS(u32) @ 0x24 {
-+            31:0 status;
-+        }
-+
-+        pub(super) INTERRUPT_RAISE(u32) @ 0x60 {
-+            31:0 raise;
-+        }
-+
-+        pub(super) INTERRUPT_ACK(u32) @ 0x64 {
-+            31:0 ack;
-+        }
-+
-+        // The EDU DMA registers are documented as 64-bit, but QEMU's edu device
-+        // accepts 4-byte accesses to these registers and zero-extends the
-+        // written value, and this driver only uses addresses/counts that fit in
-+        // 32 bits (a 28-bit DMA mask), so a single `u32` access per register is
-+        // correct and sufficient here.
-+        pub(super) DMA_SRC_ADDR(u32) @ 0x80 {
-+            31:0 src;
-+        }
-+
-+        pub(super) DMA_DST_ADDR(u32) @ 0x88 {
-+            31:0 dst;
-+        }
-+
-+        pub(super) DMA_CNT(u32) @ 0x90 {
-+            31:0 size;
-+        }
-+
-+        pub(super) DMA_CMD(u32) @ 0x98 {
-+            31:0 cmd;
-+        }
-+    }
-+
-+    pub(super) const END: usize = 0x9C;
-+}
-+
-+type Bar0<'bound> = pci::Bar<'bound, { regs::END }>;
-+
-+struct SampleDriverData<'bound> {
-+    pdev: &'bound pci::Device,
-+    // Held for the lifetime of the bound device so the BAR mapping stays alive;
-+    // all register access happens during probe, so the field is never read again.
-+    #[expect(dead_code)]
-+    bar: Bar0<'bound>,
-+}
-+
-+struct SampleDriver;
-+
-+// The QEMU EDU device's PCI IDs. These are specific to this emulated device and are not
-+// shared with any other driver, so they are kept local here rather than in `pci_ids.h`.
-+// `0x1234` is QEMU's conventional vendor ID, which has no dedicated `pci::Vendor` constant.
-+const VENDOR_ID_QEMU: u16 = 0x1234;
-+const DEVICE_ID_EDU: u32 = 0x11e8;
-+
-+kernel::pci_device_table!(
-+    PCI_TABLE,
-+    <SampleDriver as pci::Driver>::IdInfo,
-+    [(
-+        pci::DeviceId::from_id(pci::Vendor::from_raw(VENDOR_ID_QEMU), DEVICE_ID_EDU),
-+        ()
-+    )]
-+);
-+
-+impl SampleDriverData<'_> {
-+    /// The value the EDU device reports from its `IDENTIFICATION` register.
-+    const EDU_ID: u32 = 0x010000ed;
-+
-+    /// Confirm we are really talking to an EDU device by reading its ID register.
-+    fn identification(bar: &Bar0<'_>) -> Result {
-+        if bar.read(regs::IDENTIFICATION).version().get() != Self::EDU_ID {
-+            return Err(ENODEV);
-+        }
-+
-+        Ok(())
-+    }
-+
-+    /// Liveness check: the EDU device inverts (bitwise NOT) whatever we write to the
-+    /// `LIVENESS` register, so writing `x` and reading back `!x` proves MMIO works.
-+    fn liveness(bar: &Bar0<'_>) -> Result {
-+        let pattern: u32 = 0xdead_beef;
-+
-+        bar.write_reg(regs::LIVENESS::zeroed().with_value(pattern));
-+
-+        let readback = bar.read(regs::LIVENESS).value().get();
-+
-+        if readback != !pattern {
-+            return Err(EIO);
-+        }
-+
-+        Ok(())
-+    }
-+
-+    /// Exercise the interrupt registers at the MMIO level.
-+    ///
-+    /// Writing a bitmask to `INTERRUPT_RAISE` asserts those bits in
-+    /// `INTERRUPT_STATUS` (and, if an IRQ is enabled, makes the device raise an
-+    /// interrupt); writing the same bitmask to `INTERRUPT_ACK` clears them
-+    /// again. Here we raise a test bit, confirm the status register reflects it,
-+    /// then acknowledge it and confirm it clears -- all without registering a
-+    /// handler. Wiring up MSI and an actual IRQ handler is a later step.
-+    fn interrupt_status(bar: &Bar0<'_>) -> Result {
-+        let pattern: u32 = 0x0000_0001;
-+
-+        bar.write_reg(regs::INTERRUPT_RAISE::zeroed().with_raise(pattern));
-+
-+        if bar.read(regs::INTERRUPT_STATUS).status().get() != pattern {
-+            return Err(EIO);
-+        }
-+
-+        bar.write_reg(regs::INTERRUPT_ACK::zeroed().with_ack(pattern));
-+
-+        if bar.read(regs::INTERRUPT_STATUS).status().get() != 0 {
-+            return Err(EIO);
-+        }
-+
-+        Ok(())
-+    }
-+
-+    /// Make the edu device compute a factorial and inform the cpu
-+    /// of completion via an IRQ
-+    fn factorial_irq(pdev: &pci::Device<Bound>, bar: &Bar0<'_>) -> Result {
-+        let operand: u32 = 6;
-+
-+        let msi = pci::IrqTypes::default().with(pci::IrqType::Msi);
-+        let vectors = pdev.alloc_irq_vectors(1, 1, msi)?;
-+
-+        let registration = KBox::pin_init(
-+            unsafe {
-+                Registration::new(
-+                    vectors.index(0)?.into(),
-+                    Flags::TRIGGER_NONE,
-+                    c"rust_driver_edu",
-+                    try_pin_init!(EduIrq {
-+                        done <- Completion::new(),
-+                        bar,
-+                    }? Error),
-+                )
-+            },
-+            GFP_KERNEL,
-+        )?;
-+
-+        // Arm the "raise an IRQ when done" bit, then start the computation.
-+        bar.write_reg(regs::STATUS::zeroed().with_irq_on_done(true));
-+        bar.write_reg(regs::FACTORIAL::zeroed().with_value(operand));
-+
-+        // Sleep until the handler calls `complete_all()` from IRQ context.
-+        if !registration
-+            .handler()
-+            .done
-+            .wait_for_completion_timeout(Delta::from_secs(1))
-+        {
-+            bar.write_reg(regs::STATUS::zeroed());
-+
-+            let pending = bar.read(regs::INTERRUPT_STATUS).status().get();
-+            bar.write_reg(regs::INTERRUPT_ACK::zeroed().with_ack(pending));
-+
-+            registration.synchronize();
-+
-+            return Err(ETIMEDOUT);
-+        }
-+
-+        let result = bar.read(regs::FACTORIAL).value().get();
-+
-+        if result != factorial_helper(operand) {
-+            return Err(EIO);
-+        }
-+
-+        Ok(())
-+    }
-+
-+    /// Tests a full DMA round-trip, writing from RAM -> device buffer,
-+    /// and then from device buffer -> RAM
-+    fn dma_test(pdev: &pci::Device<Core<'_>>, bar: &Bar0<'_>) -> Result {
-+        const DEV_BUF: u32 = 0x40_000;
-+        const LEN: usize = 512;
-+        const CMD_START: u32 = 1 << 0;
-+        const CMD_TO_RAM: u32 = 1 << 1;
-+
-+        unsafe { pdev.dma_set_mask_and_coherent(DmaMask::new::<28>())? };
-+
-+        let mut src: CoherentBox<[u8]> = CoherentBox::zeroed_slice(pdev.as_ref(), LEN, GFP_KERNEL)?;
-+        src.fill(0xa5);
-+
-+        let src: Coherent<[u8]> = src.into();
-+
-+        let dst: Coherent<[u8]> =
-+            CoherentBox::<[u8]>::zeroed_slice(pdev.as_ref(), LEN, GFP_KERNEL)?.into();
-+
-+        let src_dma = src.dma_address() as u32;
-+        let dst_dma = dst.dma_address() as u32;
-+
-+        let wait_dma = || {
-+            read_poll_timeout(
-+                || Ok(bar.read(regs::DMA_CMD).cmd().get()),
-+                |cmd| *cmd & CMD_START == 0,
-+                Delta::from_millis(10),
-+                Delta::from_secs(1),
-+            )
-+        };
-+
-+        // 1) RAM -> device internal buffer. CMD is written last: it triggers the transfer.
-+        bar.write_reg(regs::DMA_SRC_ADDR::zeroed().with_src(src_dma));
-+        bar.write_reg(regs::DMA_DST_ADDR::zeroed().with_dst(DEV_BUF));
-+        bar.write_reg(regs::DMA_CNT::zeroed().with_size(LEN as u32));
-+        bar.write_reg(regs::DMA_CMD::zeroed().with_cmd(CMD_START));
-+        if wait_dma().is_err() {
-+            // The EDU device cannot abort an in-flight DMA. Keep the buffer
-+            // alive so the device cannot write to freed memory.
-+            core::mem::forget(src);
-+            return Err(ETIMEDOUT);
-+        }
-+
-+        // 2) device internal buffer -> RAM, landing in `dst`.
-+        bar.write_reg(regs::DMA_SRC_ADDR::zeroed().with_src(DEV_BUF));
-+        bar.write_reg(regs::DMA_DST_ADDR::zeroed().with_dst(dst_dma));
-+        bar.write_reg(regs::DMA_CNT::zeroed().with_size(LEN as u32));
-+        bar.write_reg(regs::DMA_CMD::zeroed().with_cmd(CMD_START | CMD_TO_RAM));
-+        if wait_dma().is_err() {
-+            // The EDU device cannot abort an in-flight DMA. Keep the buffer
-+            // alive so the device cannot write to freed memory.
-+            core::mem::forget(dst);
-+            return Err(ETIMEDOUT);
-+        }
-+
-+        // Transfer completed, check dst is the expected value
-+        let out = unsafe { dst.as_ref() };
-+        if out.iter().any(|&b| b != 0xa5) {
-+            return Err(EIO);
-+        }
-+
-+        Ok(())
-+    }
-+
-+    fn config_space(pdev: &pci::Device<Bound>) {
-+        let config = pdev.config_space();
-+
-+        // Some PCI configuration space registers.
-+        register! {
-+            VENDOR_ID(u16) @ 0x0 {
-+                15:0 vendor_id;
-+            }
-+
-+            REVISION_ID(u8) @ 0x8 {
-+                7:0 revision_id;
-+            }
-+
-+            BAR(u32)[6] @ 0x10 {
-+                31:0 value;
-+            }
-+        }
-+
-+        dev_info!(
-+            pdev,
-+            "edu config space read8 rev ID: {:x}\n",
-+            config.read(REVISION_ID).revision_id()
-+        );
-+
-+        dev_info!(
-+            pdev,
-+            "edu config space read16 vendor ID: {:x}\n",
-+            config.read(VENDOR_ID).vendor_id()
-+        );
-+
-+        dev_info!(
-+            pdev,
-+            "edu config space read32 BAR 0: {:x}\n",
-+            config.read(BAR::at(0)).value()
-+        );
-+    }
-+}
-+
-+impl pci::Driver for SampleDriver {
-+    type IdInfo = ();
-+    type Data<'bound> = SampleDriverData<'bound>;
-+
-+    const ID_TABLE: pci::IdTable<Self::IdInfo> = &PCI_TABLE;
-+
-+    fn probe<'bound>(
-+        pdev: &'bound pci::Device<Core<'_>>,
-+        _info: Option<&'bound Self::IdInfo>,
-+    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-+        dev_dbg!(
-+            pdev,
-+            "Probe Rust QEMU EDU driver sample (PCI ID: {}, 0x{:x}).\n",
-+            pdev.vendor_id(),
-+            pdev.device_id()
-+        );
-+
-+        pdev.enable_device_mem()?;
-+        pdev.set_master();
-+
-+        let cleanup = ScopeGuard::new(|| {
-+            pdev.clear_master();
-+            pdev.disable_device();
-+        });
-+
-+        let bar = pdev.iomap_region_sized::<{ regs::END }>(0, c"rust_driver_edu")?;
-+
-+        SampleDriverData::identification(&bar)?;
-+        SampleDriverData::liveness(&bar)?;
-+        SampleDriverData::interrupt_status(&bar)?;
-+        SampleDriverData::factorial_irq(pdev, &bar)?;
-+        SampleDriverData::dma_test(pdev, &bar)?;
-+        SampleDriverData::config_space(pdev);
-+
-+        dev_info!(pdev, "EDU device probed: all checks passed.\n");
-+
-+        cleanup.dismiss();
-+
-+        Ok(SampleDriverData { pdev, bar })
-+    }
-+}
-+
-+impl Drop for SampleDriverData<'_> {
-+    fn drop(&mut self) {
-+        dev_dbg!(self.pdev, "Remove Rust QEMU EDU driver sample.\n");
-+
-+        self.pdev.clear_master();
-+        self.pdev.disable_device();
-+    }
-+}
-+
-+/// Per-interrupt state shared between process context and IRQ context.
-+///
-+/// The factorial computation signals `done` from the IRQ handler; the process
-+/// context that started it waits on the same [`Completion`].
-+#[pin_data]
-+struct EduIrq<'bar, 'bound> {
-+    #[pin]
-+    done: Completion,
-+    bar: &'bar Bar0<'bound>,
-+}
-+
-+impl irq::Handler for EduIrq<'_, '_> {
-+    // Runs in IRQ context when the EDU device raises its interrupt.
-+    fn handle(&self) -> irq::IrqReturn {
-+        let pending = self.bar.read(regs::INTERRUPT_STATUS).status().get();
-+
-+        if pending == 0 {
-+            return irq::IrqReturn::None;
-+        }
-+
-+        self.bar
-+            .write_reg(regs::INTERRUPT_ACK::zeroed().with_ack(pending));
-+        self.done.complete_all();
-+
-+        irq::IrqReturn::Handled
-+    }
-+}
-+
-+// Helper functions
-+fn factorial_helper(n: u32) -> u32 {
-+    if n <= 1 {
-+        return 1;
-+    }
-+
-+    n * factorial_helper(n - 1)
-+}
-+
-+kernel::module_pci_driver! {
-+    type: SampleDriver,
-+    name: "rust_driver_edu",
-+    authors: ["Lucas Costa"],
-+    description: "Rust QEMU EDU driver",
-+    license: "GPL v2",
-+}
+-		refcount_dec(&iwmr->user_ring_refs);
++		if (iwmr && refcount_dec_and_test(&iwmr->user_ring_refs)) {
++			ib_umem_release(iwmr->region);
++			if (iwsrq->iwpbl->pbl_allocated)
++				irdma_free_pble(rf->pble_rsrc, &iwsrq->iwpbl->pble_alloc);
++			kfree(iwmr);
++		}
+ 	}
+ 	irdma_free_rsrc(rf, rf->allocated_srqs, iwsrq->srq_num);
+ 	return err_code;
 -- 
-2.43.0
+2.56.0.317.g454f8302e1-goog
 
