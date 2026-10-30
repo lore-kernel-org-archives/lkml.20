@@ -1,90 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793360009;
-	b=ZXP+xcYRiMV+pN0iXQv+aFiyS2TqJWARC+71Gie4qvPFg2IHV9rUtriXy3x/S1N6PnW+
-	 6ZYra3PoGKAUPmhlRXuc0c7zNQ2Cyo7eLTC39EWkAG+NivqTQJUc8tHNPu0n32BfNDpKn
-	 cbDeVZDqKqOr9pSxRwAyBGm2C5fIFcrsXlDbizuIL04ELt1lfzvfJxGJPdtaH1um8DBcM
-	 nGxl7eVOWkvX0oBY69AchHR3LMY17nhkZ4nyCTnNP1ugsvAhVhOFfePvTJeUghPCmQwRk
-	 XfpvfsuHg1gtEOcD0DD94JOcXZ4qo6wvBQUp8Eo/cZcLdfYc8FrJwXiLmQ3i9aEQ6bQ==
+	t=1793360042;
+	b=VkniVUGDJhTvq+YGgzvvrZcodRtna5rHAb5BJmftJLdtRjvPZl3U0lS0ilcdXvYZV39F
+	 5QKWjM3VkqBJSNpPWuKkI454SxwLFmPfxzB7+sfZ2IiPrsQFKjWTowKLyX9VLX6fV/QL+
+	 G+XyxOTyAERbv9eaWSd3MyOMNLkJ2g3r9oy9D+0FgByRApHcHOzsnH5zWQ4Ogr1wKaGQT
+	 3azUK7Gd6fZyTmf6T1Rq8RrKwJSdG7v66IDFEe95XlYooXprdokshIo/XIl4Y9aTvBxWA
+	 lMCLOgH9Zsn60g+1iq6aveHy22+1CxAua/K3fHEh4zKDsqmS/AyY8ql2yAHkzQzdXsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793360009;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793360042;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=bZaJpSBnRnIzHfby/IEH5papD2tr6l6Mxu5ubacaA1o=;
-	b=FK46LHNmLy4RWc6T7SqXpWA9U2FSunOqK8LzhGVU0WzmA/daKYYgRoVuYyipkheIJgcU
-	 hAhApL0VZAsuE1f5ywVn9Um5/wNfLjeTuzHlPyJ7EKA+UOoXWOstot9ImtiRhYNOJ27LL
-	 UZvmyR26rOPRVufyNPbvrJnZiA9Q251jwlKDb16tLqcAKp78/znprOpL3nyGSgCM5Y+qL
-	 LLFZsGaqovou07SoPhnvK4Pxz/Q8ufSbiYO/M9vm1iWEkp4v7/C4Zw0LTWi6v+NoiHtcK
-	 wtBeGEpV5dt6n84Kq7+cwQKEhNUjfUr6BTVNzIDsXECJOBmlAMpGvcyBEBZrioto1hQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cI5Hjpdp7zO9I2V61FPJbbgLxeyy0DYFAxQRxLR6EAc=;
+	b=VFHFBx9FERyR9JIpIYNBo3tZh97x5pLe4YEIAHRfDQmvuT2X5KTF7jEA7PXgr9rWlxWA
+	 dsXCFXrmparbLUYCGdd5UpkdR8/wYc9HFjQyHDk4PdgF3AYPQdVGnxaFttZhJGQna83CH
+	 anL/LVEmWI6My/57jQDC5R4Um2tRGTsaEPK1ulQOD8V5QZSAFTT6Nq9+gmx3o3FVcFvgp
+	 WvhYIFB2wM+NWl5ZOz4l/WQ0dBAVi8N3ozLzrAcF9gyiFiH/jFUeIW/an1kBCBMNi4/zR
+	 KKsHWY0PdEJRZe/e1XNB0abiOeV+M/z4b7Klw4KofMNlsePEJ9FCwSpVdtO4wcI2wiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0QwfQ+M4;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qJbow+Ry;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FE2606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:33:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85FE2606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE332606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:34:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE332606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0QwfQ+M4
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso3749835e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:33:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qJbow+Ry
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1a2761c69fbso1458928c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:34:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793360008; x=1793964808; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bZaJpSBnRnIzHfby/IEH5papD2tr6l6Mxu5ubacaA1o=;
-        b=0QwfQ+M4pqkC5u62cw75u2+XSb+cYHQ6dcG52A4GcbASAjxWgw0XMJyjZq3w7z965Q
-         JLAKu0c5yawJaknInT8nPk5L1yXlOc3cc6UYIoBKhaX4RWEKCNooF77f0gkxjjeQngG5
-         mN7/nkjCl1PD5/QCcZGKA96hpmrrcbrG+5/HYKs6M1Iof0fzZTr0LRS8/FKop5OvGgBl
-         NpXqGn+n6wI6ykjGQ8d1XwnBoQTH7Jo8X9kChGlyKIoSIKDz1p8HZJk33e7G8tjVZVGi
-         jUH4rTJKlFjAuqHeG5nm5LT1cZUD6431jtWE+bqcEJuCJ3VQvuCwTWNKsNhOEDGH2xOH
-         xu4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793360008; x=1793964808;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793360041; x=1793964841; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bZaJpSBnRnIzHfby/IEH5papD2tr6l6Mxu5ubacaA1o=;
-        b=aePwoTf5CASFjNpWqgtkm02qZkib0nL7cpT2PeNawyJpwhEEaTN8F9FAlJ0xETh/ge
-         cNXC94AT5m/IQrXgP3es+16uhjSIdfoYJpiI1JDlQ4LwumxtkqhjmubWLd+bnNJgftIB
-         fFiJ1tTujkpkeVk5Ta7rA6Wj4PXZvXwX1J0jNlL+Ncupq2YulSNLAC4Cti4g8Ccbtg6j
-         CPas75qKCtWd4azcl1zCcEqqzkUtaz9d5N0LDn6YTk6D6dqp6vWlFMiQdZiMMsKBY/I6
-         1VuLlUdubL7p89t4sUCWv+z0Rd9EfvoB+fUqKYH7SUmd0UntTdds1Hy6EjR6qTOF7alq
-         QRoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzXpPdFdCeJrJVfiyWmNRvml9qJFjtIt0Ii+vlCK6QjTiQaTpFoKHh/vBZdxNPX8eE49AnrbVOGnSGNS3Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6AsKLhrJ9GAdxOpjiBBytLV9PfgGl2RbX/H/10niNUPHeK4vZ
-	2CdFOr0UYJ+HmfPTeR+kw2DqTPvTPZPTgV6wHvTN0A+Kkycd13c02q6ARA1EgqHL
-X-Gm-Gg: AYBFou1pOePBlYTQ0qiqclsiJQAuOP0vIvzBki2fCkKLjtfpQpGNhf15N4kof9taRt3
-	Ykp6Wj74SwecU4Z1PeEV7CfWUL2S9+jDXn6GbfGAkkGzbvf6oPUF6RtEhgziH1QAVRlYqo7h6nk
-	FuWv6ETh1J+daFi5FJTvKfQKwSJ8bx0b6jwP34KCHRrghSP+TjPXMjBzGzI3eV+h1kLJvyTLmVI
-	x1eFhAnDu7eSKlaw6EyRAdOPjMsnvYPiOByL5RNOmrCJii0i1y3KTt5Ik8s64B3Jm76jLM+cZjB
-	M61H3kdLr8XebZqPZzB8QENWNPC8e/5tex+lOF8sdjqkc2ckrN+QS/rr+U+NdsLdQKxTrg53nX0
-	nXZMhfmgN2z8qFNaqSIabuwDqXUvI1XJs7gcZH3z+2BxtRBTlIf1ycmMUvFED09Blf9z0UhedPd
-	3Ik77rxzDy4OStwlZOQuKucrMNakBtNjpgUuiDl3RLX9O+DVZy555kUYN5ZTMOk51n0bcf8Oy69
-	JsQ62Z/Gx+L8nWCpwOiWOx8k8Kb4oUJW6ormyR93IpARRD2YXr6n8MWmcJG2mLOpRFRechTChpA
-	1i3n75npAxicGaWDcGsUxXKlFMbA3Hc3Ozdu
-X-Received: by 2002:a05:600c:1f93:b0:4a3:2f35:38b6 with SMTP id 5b1f17b1804b1-4ac180f1e69mr43043085e9.24.1793360007504;
-        Fri, 30 Oct 2026 04:33:27 -0700 (PDT)
-Received: from LAPTOP-AVI.lan ([2a06:c701:4773:6f00:5a44:fb2c:3845:1154])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f047bfsm130748805e9.3.2026.10.30.04.33.26
+        bh=cI5Hjpdp7zO9I2V61FPJbbgLxeyy0DYFAxQRxLR6EAc=;
+        b=qJbow+RyFWF5QFZ1uK9QqF+vowuLwxygWZLw3anLNkpKt2i+llLDUTDFmgfzAzjRDW
+         oyoO4VUhqgpzvKvOjHKs+v0GdLN2btyCgZ3VD+WGsHR2hYOqCkx85LT38YXk/IqcJNiC
+         h234mBMjvur1K224jgfEktoInVsrpWOUt4hyGawetllJ/V8UOmCz7Zbvn3P8c1/uezFi
+         FxbQZNbgWqxGWcS8MfP6+lGInMZVeDUSpYHXoakWwI2Xw0JJ6Q8TR1wo+c6TG7Zkw5yE
+         dI2qrjaklS8FQIjpCEZTp6sr0+yqS1dWRZD32ne98Gi6+XLuQYF1tvdu3epsW3V+mlGu
+         EquA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793360041; x=1793964841;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cI5Hjpdp7zO9I2V61FPJbbgLxeyy0DYFAxQRxLR6EAc=;
+        b=xfgMMpSZEjJmGt2q0bzSdCwFRskBlU3JjC2C0jMyZVH64QM9qeyMFSI3IL6adAgYcZ
+         FwlwFzyn9v2WVlCjzHsAGZG+n7sz82AvlxG7LNofZqaZYxkQKlqsisf6awwBL5xTLiJx
+         ilRU5NJmLRM/nMqGU9WXIZ87bP8IEVMVw5/TgoaMllTeuLp0MnNCNrCZeq3jjWz2HBMv
+         fJr31nmJJdZGMTruywUxAieoxiGv9ZNw0e6u+L7eOYPpZpAHjyX3d66Aq4etBhxCkhSs
+         a9VeQQnjJ7hXl4mQCrGxuwvJ0pry9jn2GbOj5D8A7JhCbCaA3rP59hJlC1xaM7kbYVGF
+         o/Tw==
+X-Forwarded-Encrypted: i=1; AKwUvByjzyKKSYd1n4IiOtt51gi+nWV9lPZCQ2NkEjSK9RenXn6jT3QLF9mxxftsSRnOfPgZ2GJiprTg0L980RY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK921XjGUmHTTg5VHbm2Qt/EjgUG7hNN6HZI7NFoZyxpd3nxAJu
+	Xm0ob4l2mi1ohXcHoQrpxY82u2s05jrDwc2B2Xd+29L6w+4rV0TdEObx
+X-Gm-Gg: AYBFou1LekXFVd1kWmAG31KPawYzBeTYQcYMturygRtesFoAwxdMtw3Ogcs/k9SY5Y9
+	tCKQs0CN4NWe/1YP4FhJ0b77fHbWtlX+v6u28XLw+UFNg4luQiKBPH94f89zwB7IVu+oP0jyJAh
+	H5DxYLkMp15b2TKfsE//k8UEztP3UeaT6RTTnv5N//aXjpfwegyVJ06Fl+45dkYQXv9uq/XLVm9
+	Mm08KtUTJI7VE0QjISErxRcSsAwLJDk3AYUM6YoBzDQA2lwdMHYEncMkgqKdzAaZ9J6NbCkwPzO
+	nq07PV677s9ric8SQb/8Rg5G6bn9D0EJb24f78KrVoBDMF6/nRA//ZVwcqzhnOFtHxFWQi1i2O6
+	+C7LN6kgJyX5hdNdUpb4FOassefz319AjaCTVzg31OoOh6BoC56GbMZjZtT6In8428wkQ79WwJO
+	6xKYOOL1Gy0ypKD6Z5yYsldeAKNw39v/eZCHU0MNVTvvTdwiIYgTyJaNz+dJRv26mmGmUNX0Jvb
+	LYvhpKniCCq1sLqjYsZImrWQIt5JT19q1tfNnM1GlDz1kaDtREgBNwfz0JSMtQMYGyQISHoeCZD
+	FQfoliwXTvnF2Yqrs4obbgWeUrXU3AnJZ4hrtRlNHDAUrw==
+X-Received: by 2002:a05:701b:424b:20b0:199:7dff:f9cc with SMTP id a92af1059eb24-1ac5ceefcafmr2906676c88.42.1793360040974;
+        Fri, 30 Oct 2026 04:34:00 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac193b8179sm7809929c88.11.2026.10.30.04.33.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 04:33:27 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Fei Li <fei1.li@intel.com>
-Cc: Shuo Liu <shuo.a.liu@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] virt: acrn: stop CPU removal when offlining fails
-Date: Fri, 30 Oct 2026 13:33:25 +0200
-Message-ID: <20261030113324.2265585-2-thnkslprpt@gmail.com>
+        Fri, 30 Oct 2026 04:34:00 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: jirislaby@kernel.org,
+	dmitry.torokhov@gmail.com,
+	mathieu.poirier@linaro.org,
+	linux-serial@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: Re: [PATCH v4 1/2] tty: sysrq: don't expose a partially written reset_seq
+Date: Fri, 30 Oct 2026 19:33:56 +0800
+Message-ID: <20261030113356.248358-1-zhanxusheng1024@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026103043-tributary-partake-aefd@gregkh>
+References: <2026103043-tributary-partake-aefd@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,60 +104,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-remove_cpu_store() ignores errors from remove_cpu() and calls
-hcall_sos_remove_cpu() even when Linux cannot offline the CPU.
-This can leave Linux and ACRN with inconsistent CPU ownership.
+Hi Greg,
 
-Return the offlining error before issuing the hypercall. If the
-hypercall subsequently fails, bring the CPU back online only when
-it was online before the removal attempt.
+On Fri, Oct 30, 2026 at 09:33:41AM +0100, Greg KH wrote:
+> So this feature has never worked?  Or it is just "one change only"?  So
+> your change is an addition to the feature, not a bugfix?
 
-Fixes: 279dcf693ac76 ("virt: acrn: Introduce an interface for Service VM to control vCPU")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
----
-Compile-tested CONFIG_ACRN_HSM=m with W=1; no ACRN Service VM runtime test.
- drivers/virt/acrn/hsm.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+It is a fix.  154b7a489a5b ("Input: sysrq - allow specifying alternate
+reset sequence") added reset_seq as a writable parameter, together with
+a version counter so that each keyboard rereads the sequence after a
+write.  The reread just never clears the old keys, so on a keyboard
+that already used the old value, a new one has never worked.  Hardly
+anyone changes it at runtime, which is likely why nobody noticed.
 
-diff --git a/drivers/virt/acrn/hsm.c b/drivers/virt/acrn/hsm.c
-index f170ff4617fdd..79f8e50f0ac5c 100644
---- a/drivers/virt/acrn/hsm.c
-+++ b/drivers/virt/acrn/hsm.c
-@@ -437,6 +437,7 @@ static ssize_t remove_cpu_store(struct device *dev,
- 				const char *buf, size_t count)
- {
- 	u64 cpu, lapicid;
-+	bool was_online;
- 	int ret;
- 
- 	if (kstrtoull(buf, 0, &cpu) < 0)
-@@ -445,8 +446,12 @@ static ssize_t remove_cpu_store(struct device *dev,
- 	if (cpu >= num_possible_cpus() || cpu == 0 || !cpu_is_hotpluggable(cpu))
- 		return -EINVAL;
- 
--	if (cpu_online(cpu))
--		remove_cpu(cpu);
-+	was_online = cpu_online(cpu);
-+	if (was_online) {
-+		ret = remove_cpu(cpu);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	lapicid = cpu_data(cpu).topo.apicid;
- 	dev_dbg(dev, "Try to remove cpu %lld with lapicid %lld\n", cpu, lapicid);
-@@ -459,7 +464,8 @@ static ssize_t remove_cpu_store(struct device *dev,
- 	return count;
- 
- fail_remove:
--	add_cpu(cpu);
-+	if (was_online)
-+		add_cpu(cpu);
- 	return ret;
- }
- static DEVICE_ATTR_WO(remove_cpu);
+> So this isn't a "real" issue?  If you are modifying the key sequence,
+> how can you press the key at the same time?  Doing "major" rework for
+> that might just not be worth it.
 
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
--- 
-2.43.0
+Agreed, please drop 1/2.  With only 2/2, that race can hit any
+keyboard, not only ones that never used a sequence.  Do you want 2/2
+resent on its own?
 
+Thanks,
+Zhan Xusheng
