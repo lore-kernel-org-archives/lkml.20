@@ -1,77 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793358663;
-	b=xp/hjG3LAWhuk2I2EmjqlG1tyHcX6mtxwSrXMc4W9LqRt/xuAKxA64ZagQrhbH5dQ+0H
-	 PxP59nyn4WmLAwkuIp066h32TPBvlkE/CvLtrLw4yYP265ZIiJphFtGGcswawAzoDV90P
-	 QMeHzIfCkQ87RQckG9lIp/mDEhHY/oheVx4tL3IGFyUrrQAPFYFKVv9zUuDzSr0PoOEL5
-	 ass7fqQuzCbOERE9cqa8xogRCfc0DPBqbw24Ft9nuftZvjEKisAulIDIIgMic0NLoADBm
-	 oh3lKbzzESJz7iVAJ4VBkCRXoO2jnRTRnu0Pj0BPbcjIIFCllzWhu41SuzqlwgEM/EA==
+	t=1793358667;
+	b=vSCFpDXoGUBIhwV9cXiZpf2Od8LzLBhTqm6jENI5720ylxnUHeqxow2HY/8Ea+TNC1np
+	 SZytYuxxOCD/prDn2UUbVWK/BJmjFdY0bCv3Oxihx50ihg/EekUurECJYzdQUqw0l14L0
+	 aAdJH6JSxidsOmfMgWjI4cjo7Tws2XlMAznM3o16TBLrzZNuuZZ3DQYW/uDd74EHpYVln
+	 HXSYIFfz2zAcIDMOK2+lnVHYUz54SVMQAzgesjRcTmtgtoivTGtvlO2nbpXKPvUuXJL+f
+	 E1Au2cydi51PrJa0jK1cQifFKfaZXebWH8I4DDSagtTS7eU4uoKeOCh3lEH6rOeFuQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793358663;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
-	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=SY4wxRo5GhJ45am6vNPa4jgHWsz5BB1NdrAbB4X90Uk=;
-	b=Py8m3N2gjyW7n9fQZpHi2S7uC3BZa/3SN0S6qZ9sIcROP0EMmyRWC3lXU4wk2znXNl59
-	 KPzOK9MXuT2J0zTndp3xHPGYYZL0bEZ9VAamMw8qwfkk4xV9xeP9gX1qwlGMm2SR44msw
-	 e1Z1OfwGC9jD2AoB4pk1H/Sc/VIySegWXWy+Aiksdb3BtEB6VrqpnKymaqWf9Gx9Y/I8G
-	 rcTW9uOXqolGr3bKVC4WakU40x4EHYfUwsKM6AkosNbN7oWC9fTZhGpFiUEYUSJnvDTxL
-	 4uQkrEec/lAT7Whys5Ek6nk2q8eRG8cDCALGqX3IH6ycSPDwhblzW0cYGrfp3+G0Wyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793358667;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=+WghCCVj/g7O1H6Bv64tZFo0L+kNuS7zgljqJhCtvfE=;
+	b=iKNv0UU6hTd1Q3nGmvNJ2j+xJ2677R3JfJ4zlhFLoCksZZRVPtRwLC08Ad5HDs1pZcX8
+	 8Jaj6nYJNWYMuOburBEHgNzrBpXTnPtV3VwSgWoIeyKzamFPqvtKVymjIXY5trBc0c+gS
+	 WQfYgu5vmV8c4T4MxbV6Uhc984zKYmjjQ7HG9eaoNL97qep2CfBcvCKIz6dSi3WU+iyrB
+	 SVXo27IUTfOyDtvYA7ek1UlNYsYeStJ249+wVtQyFOotfo3UTJN+eLlKPkgP1CdWIZkoB
+	 bp2RbpEzN78I5SjUcOVH9PPMYH/NaSemeon3SHPqV47zxD+Oa0xcVU/41eeB62+fc0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=WuVsOsho;
-	arc=none smtp.remote-ip=203.254.224.33
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jsZq87Nc;
+	arc=none smtp.remote-ip=209.85.222.42
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA79606A331
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:11:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AA79606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9588F60A260A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:11:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9588F60A260A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=WuVsOsho
-Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261030111052epoutp035de4ddd272b19f110c8c4e90de4171ee~jSjF6owXX0120101201epoutp03U
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:10:52 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261030111052epoutp035de4ddd272b19f110c8c4e90de4171ee~jSjF6owXX0120101201epoutp03U
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793358653;
-	bh=SY4wxRo5GhJ45am6vNPa4jgHWsz5BB1NdrAbB4X90Uk=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=WuVsOshoTwpDilGuOk+yYKZ+QaJtFkyWyg4zQqIuGT0J9hEx1xdYog4XrQ179vH7u
-	 zH0kf8sQmyCtkk94m3OtY7k+6lD+pHw/8L2wKj1HbOEnneKzPJBSdGcHiL/agNiSwo
-	 UopOKbipVzjiUb1EEWUN/b6sCalAeiSVGOqcvS4M=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261030111051epcas2p1739d8d51872fed66f46b0d03aac8c37e~jSjE70Cls2221722217epcas2p1H;
-	Fri, 30 Oct 2026 11:10:51 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.212]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4jGJLM48MZz3hhT7; Fri, 30 Oct
-	2026 11:10:51 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053~jSjEFl-1I2427424274epcas2p27;
-	Fri, 30 Oct 2026 11:10:51 +0000 (GMT)
-Received: from apsw.samsungds.net (unknown [12.80.211.160]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261030111050epsmtip197593379bee8be86f3c259c6c18b1e03~jSjD9Mf1Y2560625606epsmtip11;
-	Fri, 30 Oct 2026 11:10:50 +0000 (GMT)
-From: Kiwoong Kim <kwmad.kim@samsung.com>
-To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	alim.akhtar@samsung.com, avri.altman@wdc.com, jejb@linux.ibm.com,
-	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com,
-	hy50.seo@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
-Cc: stable@vger.kernel.org, stanleyjhu@google.com, Kiwoong Kim
-	<kwmad.kim@samsung.com>
-Subject: [PATCH v3] ufs: mcq: fix dev cmd abort path and add OCS poll after
- sq cleanup
-Date: Fri, 30 Oct 2026 20:10:45 +0900
-Message-ID: <20261030111045.982094-1-kwmad.kim@samsung.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jsZq87Nc
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-98c6e050c5dso315155241.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:11:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793358665; x=1793963465; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+WghCCVj/g7O1H6Bv64tZFo0L+kNuS7zgljqJhCtvfE=;
+        b=jsZq87NcQfTZpaVK69QLYee3ckZ37vLXsRiXIosB9EJM2g0zFCXwWJAOd68DGuPHaS
+         LfK3N3M1jYLIExY9JTp8RfnYngWVpuPMKV3hBIfQax9b43PrZHgYsbdbvZ7yjThJzVlv
+         5F99iF1S2TCF/Qxgn9e3YVLL632hAD8Gv+2/RE6LJYyYiJ7S2Zi0cbRo9GsoquIquPJL
+         aFEAv7dPVqJX8OwLQzfAMzHutxscUmMHHRzCqoaSRZN4fg+kD86oHe3oAYqJp1wuNKBY
+         8zV5KFQmJ62hKDVeUtg7nPh6/xMPSOHf+JsfDb8CJBEuXbnn0Rt607qZxGeV9oqoTFRJ
+         gSJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793358665; x=1793963465;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+WghCCVj/g7O1H6Bv64tZFo0L+kNuS7zgljqJhCtvfE=;
+        b=qfaDL3qfU2RsognutpcCrRbyoIujqcoJLv4YE3rBlCfZZjwdQ80EcWLP6+5jW+jQFq
+         +H3GHSxfQ8VLyCJhctBK0DeiPf6kPXYplt1ZMozfHshpduG5jJgWP9QPzs22vimBlkDh
+         w9CU7w2RCANhhAHHwc1FaLZ8qJSQZoz/YmPe7TGH7JCG9bES8wgtqtoctHzP4rPFoLjy
+         yJHNzeUEZ6ySPlK7jq7fFvXfjqSO3J1vvKaaBXjSVpSxpWfwMKrc7ASFf9/vZll8N8BB
+         oGNtfuLfSsPjAzJ091u8eqVnOa3oeHZgQdhIcY2LPMPT49/nPKnaVGPALCLdE5gGus0h
+         p+2w==
+X-Forwarded-Encrypted: i=1; AKwUvBzfR5OAHBwKsHl9byH4RJnqsWRL5DQK6pW9OSWL6IL9P9tmiZ/dofggFYczvM+uCZSBo0lOY4elb3bKBfY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQ7rv/FrLyDsc05q6svSyida1CR0bBmKKOeLDGRkCq87eCS2vL
+	Iu/c9229df1hw+rYqiwBHguGjEexjduZ65ku4CqTvaFikjJyVqI3YQdY
+X-Gm-Gg: AYBFou3DtCZHuIu+NSnicvQj/YDwWm2085Q5fEzdyzRcM0vbc/v1smHEzlCsvYsj+ol
+	Sk8t/XYpbWI4aaz9POd0vylsPlSkfHPlVxV+EgISF39GddkxE2nrgDHzsaDGT1pq0sJgJaSlN91
+	irrUYEhvklOCultap2S0jU17Gjs8m56piInnwueutBTsALIWvQ881lSS18Ti8LJ9uXGTQdyQ8U2
+	lAo8KYqwndhBCOpNM543NjYbYpcyaekj2hUdOGJ5Go5UXKWqkH7hBjpSeK8Ai6eZ+yhmZPIE3Cp
+	wM3qJKf7eCl5vmQn2xB9L8blz4zpgCrbJLXDtv35PDVRs7CawBjn4eelomLwqssTM7OKC5h1Wfa
+	8MPoK36MbyWICNT/qyi5/ruQ6lcgw0hEACz4H3UfwXoFub7MSmPxRszI6BOaIT7M5Gr+X1ShqEn
+	1zkVpAsccMCA3md+bHvYMkPP+6Yja4iBifUuDZ9HwcIfPq8af5usVp7PTpzwyjoUYX1uRnYm4PU
+	RTDznWCWJGmV20dc8s+mDfwRG6DdC4sIHaxTYIo5sCWksNMc/t8idiVZSD0QNuu00zF6zp7itBO
+	QYZkKopCGk7UVlBeYsJC60j03NWn6PAT2poxgBwaMIyVS/OeOfvj4tS314cVoJQwecfAAjBwYNy
+	WvTKZRETaNCZIFuI8Y1rDmu82CLs5ntPHOoHUrLgw
+X-Received: by 2002:a05:6102:2b85:b0:79e:373e:8216 with SMTP id ada2fe7eead31-7d0723d2480mr1002923137.0.1793358665428;
+        Fri, 30 Oct 2026 04:11:05 -0700 (PDT)
+Received: from 1.0.0.127.in-addr.arpa ([191.34.116.20])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d07754c1b4sm1841044137.4.2026.10.30.04.11.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 04:11:05 -0700 (PDT)
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, oe-linux-nfc@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH net 2/3] nfc: rawsock: free the response skb when the data
+ exchange fails
+Date: Fri, 30 Oct 2026 08:10:42 -0300
+Message-ID: <179335864272.64596.4931238314416806197@gmail.com>
+In-Reply-To: <179335864271.64596.805818095553030218@gmail.com>
+References: <179335864271.64596.805818095553030218@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,161 +103,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053
-References: <CGME20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053@epcas2p2.samsung.com>
 
-In MCQ mode, ufshcd_mcq_abort() falls through to ufshcd_try_to_abort_task()
-for all timed-out commands. However, device management commands (query, NOP)
-use reserved requests and are not SCSI I/O commands. The ABORT TASK task
-management function is designed for SCSI I/O UPIUs and is not applicable to
-device management UPIUs.
+rawsock_data_exchange_complete() only frees the skb it is given when
+the exchange succeeded.  But the skb can carry the response even when
+err is set: the HCI core passes it on with the error derived from the
+controller's result code (__nfc_hci_cmd_completion() gives it to the
+callback and does not free it, and hci_transceive_cb() and the pn544,
+st21nfca and microread data exchange callbacks forward it as is), and
+NCI does the same for a frame interface data packet with a non-zero
+status byte.  So each failed exchange on a raw socket leaks an skb, and
+a controller or tag that keeps failing exchanges leaks memory without
+bound.
 
-Fix this by checking ufshcd_is_scsi_cmd() in ufshcd_try_to_abort_task(). When
-the request is a reserved (device management) command, skip the TM path and
-call ufshcd_clear_cmd() directly instead.
+This was found by LLM-assisted code review.
 
-Additionally, extend ufshcd_mcq_sq_cleanup() to poll the OCS field in the
-UTRD of a device management command after a successful SQ_CUS poll. UFSHCI
-does not specify the order between the OCS update and the SQ_CUS update, so
-OCS may still be stale when cleanup returns. Without this poll, a late
-response to a timed-out query can arrive while a retry is already in flight,
-leaving the host with two query contexts and raising IS.UTPES.
+Free the skb on the error path too; it is NULL when the error does not
+come with a response (digital, timeouts, device close), and
+kfree_skb() handles that.
 
-The poll is limited to device management commands because
-ufshcd_compl_one_cqe() copies the OCS from the CQE into the UTRD only for
-them. For SCSI commands, the OCS in the UTRD stays
-OCS_INVALID_COMMAND_STATUS, so polling it would always time out.
-
-The poll waits until OCS is no longer OCS_INVALID_COMMAND_STATUS or
-MCQ_POLL_US elapses. -ETIMEDOUT is returned only if OCS is still
-OCS_INVALID_COMMAND_STATUS after the poll. Any other value, such as
-OCS_ABORTED reported by the host controller for the cleaned-up request,
-means the cleanup has completed.
-
---
-Here is the timeline of an actual case for this that happened with kernel 6.18.
-1. The host sent a query but the device didn't respond with it for a long time.
-
-[ 7384.156142] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_mcq_sq_cleanup, hwq 0: cleanup return code (RTC) 0
-[ 7384.156154] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
-
-2. So after the query was timed out, the driver did SQ cleanup.
-Then the host updated CQ update and raised IS.CQES,
-Unfortunately, complete() was called the driver's ISR afterward.
-
-3. The driver started to retried the query. In the meantime, it set OCS to 0xF.
-Then the driver didn't wait for completion due to the previous complete() call,
-and just checked OCS.
-
-[ 7384.156163] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = 15
-
-5. The driver retried the query again, but the device didn't return anything,
-so the query was also timed-out.
-
-[ 7385.660108] [3:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
-
-6. A few seconds later, the device returned the response of the 1st query,
-but since the host was holding two query contexts and couldn't handle it,
-it raised IS.UTPES.
-
-Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
-
+Fixes: 23b7869c0fd0 ("NFC: add the NFC socket raw protocol")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
 ---
-Changes since v2:
-- Use read_poll_timeout() for the OCS poll in ufshcd_mcq_sq_cleanup().
-  The open-coded loop did not re-read the OCS after the timeout, so it
-  could return a false -ETIMEDOUT if the OCS was updated while sleeping
-  in the last iteration (Sashiko).
+ net/nfc/rawsock.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Link: https://lore.kernel.org/linux-scsi/sashiko-outbox-190791@kernel.org/T/#t
-
-Changes since v1:
-- Limit the OCS poll in ufshcd_mcq_sq_cleanup() to device management
-  commands. ufshcd_compl_one_cqe() copies the OCS from the CQE into the
-  UTRD only for them, so for SCSI commands the poll always ran for
-  MCQ_POLL_US and then failed with -ETIMEDOUT (Sashiko).
-- Return -ETIMEDOUT only if OCS is still OCS_INVALID_COMMAND_STATUS
-  after the poll. OCS_ABORTED, which the host controller reports for
-  the cleaned-up request, is no longer treated as a cleanup failure
-  (Sashiko).
-- Update the commit message to match.
-
-Link: https://lore.kernel.org/linux-scsi/sashiko-outbox-190714@kernel.org/T/#t
----
- drivers/ufs/core/ufs-mcq.c | 21 +++++++++++++++++++++
- drivers/ufs/core/ufshcd.c  |  4 ++++
- 2 files changed, 25 insertions(+)
-
-diff --git a/drivers/ufs/core/ufs-mcq.c b/drivers/ufs/core/ufs-mcq.c
-index 8106d55f4041..7c2aa0e9466a 100644
---- a/drivers/ufs/core/ufs-mcq.c
-+++ b/drivers/ufs/core/ufs-mcq.c
-@@ -550,6 +550,13 @@ static int ufshcd_mcq_sq_start(struct ufs_hba *hba, struct ufs_hw_queue *hwq)
- 	return err;
- }
+diff --git a/net/nfc/rawsock.c b/net/nfc/rawsock.c
+index f7d7a599f..74ef3906c 100644
+--- a/net/nfc/rawsock.c
++++ b/net/nfc/rawsock.c
+@@ -156,8 +156,9 @@ static void rawsock_data_exchange_complete(void *context, struct sk_buff *skb,
  
-+static enum utp_ocs ufshcd_mcq_read_ocs(struct ufs_hw_queue *hwq,
-+					struct ufshcd_lrb *lrbp)
-+{
-+	guard(spinlock_irqsave)(&hwq->cq_lock);
-+	return READ_ONCE(lrbp->utr_descriptor_ptr->header.ocs);
-+}
-+
- /**
-  * ufshcd_mcq_sq_cleanup - Clean up submission queue resources
-  * associated with the pending command.
-@@ -609,6 +616,20 @@ int ufshcd_mcq_sq_cleanup(struct ufs_hba *hba, int task_tag)
- 			 __func__, id,
- 			 FIELD_GET(SQ_ICU_ERR_CODE_MASK, readl(reg)));
+ 	pr_debug("sk=%p err=%d\n", sk, err);
  
-+	/*
-+	 * For device management commands, there is no order guaranteed between
-+	 * OCS update and CUS update, which is why we need to wait here. SCSI
-+	 * commands are excluded because the OCS in their UTRD is not updated
-+	 * from the CQE.
-+	 */
-+	if (!err && blk_mq_is_reserved_rq(rq)) {
-+		enum utp_ocs ocs;
-+
-+		err = read_poll_timeout(ufshcd_mcq_read_ocs, ocs,
-+					ocs != OCS_INVALID_COMMAND_STATUS, 20,
-+					MCQ_POLL_US, false, hwq, lrbp);
-+	}
-+
- 	if (ufshcd_mcq_sq_start(hba, hwq))
- 		err = -ETIMEDOUT;
- 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index bcc2512bf34b..7fc80926eeec 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -8046,6 +8046,9 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
- 
- 	lrbp = scsi_cmd_priv(cmd);
- 
-+	if (!ufshcd_is_scsi_cmd(cmd))
-+		goto clear_cmd;
-+
- 	for (poll_cnt = 100; poll_cnt; poll_cnt--) {
- 		err = ufshcd_issue_tm_cmd(hba, lrbp->lun, tag, UFS_QUERY_TASK,
- 					  &resp);
-@@ -8091,6 +8094,7 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
- 		return err;
- 	}
- 
-+clear_cmd:
- 	err = ufshcd_clear_cmd(hba, tag);
++	/* skb may carry the response even when the exchange failed */
  	if (err)
- 		dev_err(hba->dev, "%s: Failed clearing cmd at tag %d, err %d\n",
+-		goto error;
++		goto error_skb;
+ 
+ 	err = rawsock_add_header(skb);
+ 	if (err)
+@@ -180,7 +181,6 @@ static void rawsock_data_exchange_complete(void *context, struct sk_buff *skb,
+ error_skb:
+ 	kfree_skb(skb);
+ 
+-error:
+ 	rawsock_report_error(sk, err);
+ 	sock_put(sk);
+ }
 -- 
 2.43.0
 
