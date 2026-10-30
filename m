@@ -1,93 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793329059;
-	b=t0KdyTG28aOaasHHSXgDZAtqdFPTYDGt1CfOZirxT9qehrtp4482cLl6HVm+uJHkjks4
-	 P7QHNESmJlCXXMQG+CmIndo88ja4OTumG0p61gWMWYiPH9SdBB/qSJ0AIdkIL1+a8hXyq
-	 MM9jpvM9HCEcnyeCvDYGfhAFWDDBnePUft/9KndRunrq526P0PFGO2lkeO7XdcQ5/GyMI
-	 DIH82lSVrV2VNVIIi64paqCsDTKHtYATcJJx5PQuVhE5SAhER6nqvaMb4J3+kYenfaaB7
-	 hYNdZ8xjO/SOmkL0pYlIHzR7IAUVtgRMUPWsoCDMrEbWvbtY+VtMgfVaQVQXIbdZFZQ==
+	t=1793329148;
+	b=oO8/d74FL4uUX2wU3wYR9mhOlSlpJH0EPNMs4IIYgRWCleWeVcbDigP17BdcIXmilvsW
+	 XxV1BqbuzzN/z2dmSH/Mh5Xth2ZGIuuyzwv+t6rF/dklkqr1sVNY0xTFNjzN04N0l9m2D
+	 AC5BDQO7M0WoJcTwuwb5F+jx8FXRdmUXi0qfkDaA/K1oiZmkHspVdc4WKFfUBYU2mMUFW
+	 ao6rZ7JtuE8sztRlRrA32n8qqiD/SwZAKu6r1P1q1M6S06EAe+YvyOL2OwgU3Yicnggg6
+	 b68y4gvlykJ14+h9KdC73hmKirFO19TaBCBGe9wZxDp7fywoBGRXwYFhIQoY1qYioZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793329059;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=R29eOO7MluwzQ+8n9YmxiuPXIbP8eqbXNdA0VYXai58=;
-	b=xeann5Bb8pfabcxUXJrdEVlm2lkKtqgb/eov+5K+MgdVavm91uC6BvJLSuLGZFeYKr28
-	 ybS60AvAIlCQsPPNAUe3jIHY0WIctiGDnVQxVklObS5XE6ULwnTOowDsaVOFXjIvCUA9g
-	 Rw5jUjcIs8STsR+3hyw3f8BN7n1yZrNbSH9d7TYxtTfOkOxR1fqW9ZTTZ6wQn+PsRexjK
-	 HzvAGsV6ntPtVb2EtWvaIIoARDQh9BTob92w306zkUmj3z98PBsWu8HNSHgBHqYGbfqKe
-	 1UEOABxEKjiWLAPWSIe3JfN1f6b8I6PouSiCCotJb9k9tapL6Sy/s67rzJQ9HY3EfTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793329148;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=k/Cb+9PJIrDQIPotGU391kdpQTlHe+ce4bWa99eeXrE=;
+	b=OQb7zedwO45qhXDZ43m30YE+8+P6r6Gl9kGM3n2zgkDm/Hx3e5ZyD3oVmgb2Ze6uEKa0
+	 ahxhwV/qb279xcmvhn0nQnHlMGMq1fVxN5SrUM8cfTXaIBGTub0ZIw8FzIxFqoVq+mWpS
+	 9PzuEcmv05cgrs/ya4lw9pbl9ecw7vST6VqcBjPFnVANAJyir69WRG6V9tyG2JBO1k+qx
+	 vTZfoo95scQ1nrbgFos/whW2laO2lnm3W3mtWbt0EURMV18kOFJUs4Lcb4wRDo9LdXi0I
+	 J9T8uSebVAoa2tuAlJoEXeZzOsiYibyF+DyOmRKPJY7GhsJ+UUmagTlXQFeeiCOmLSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=D0h1BDdj;
-	arc=none smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=XccjRenk;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419DA606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:57:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 419DA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8CA606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:59:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE8CA606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=D0h1BDdj
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-675617e81f9so179377d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:57:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1793329057; x=1793933857; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R29eOO7MluwzQ+8n9YmxiuPXIbP8eqbXNdA0VYXai58=;
-        b=D0h1BDdjx/7rfkEfgzolA/olPpLTEtkcAC8fILKxjO6ClRo7FoeIHl3TtFT2euqOQN
-         zfMslcyqheQPRgDV9RBjtgAZPrzG/20Wbe5GarD9g4supvFu2wBlfk93dan3O0LFaWyr
-         X0rqlIhGXUm8vgBa0NaY7mOutQnpxMs+jON9lh1Y+msRnGBSePP9tFvWcqfyofMUtiNa
-         FuH1SvPNkoKLosDdYSQI8hbWWNbyE+QArk4pbmL1jeNsT1FPDznP4/UkMay7mtHk2ApD
-         1JlZRH6aptNzMRLrluUniTEJ6jccyc9NCbjHEsRI+Ee5iGqMkoLCyTrfdx1wXyazjMV6
-         h6+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793329057; x=1793933857;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R29eOO7MluwzQ+8n9YmxiuPXIbP8eqbXNdA0VYXai58=;
-        b=b7CGFtvkMsUaDax7De6fswu3h+Db1IJHKglmqQRU8Xo7co+ydMoKfvQnk3Mxs8Nv7x
-         izuV2y5dIDWlrct74k8r/cy2gQJSvQyLuvATrh/c5OuWRYuVnPFd7sMEEbIPgf4rqPlV
-         8tu7xrmwXY+bPpup7B1AOv2cj2jNJUn8T/g59HdBmr+2ayHAcKIqrOU4McdHJQoZO8n/
-         VGPjl5ch9dA+4j1jqTQGq9D9prM98Ky/oy/+O9loUAckY+v2DUuBPCO0t+O87icjfT/B
-         ilJZg4XCTY9rnZ8vex9uXJrc5myHT0xVONC6xkSI2P6KiGlrvDqo0PnF5/BHzR6lU02F
-         mYFQ==
-X-Forwarded-Encrypted: i=1; AKwUvByqSBVc7hzZ48ZYIdp5hTNR7PXJnFhunMLwpvN52FuC687wDZPZ5LcIuTu+v1eT7Xc+r+XNcSSn6fe7uvQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLLc6UV9u8rsPhYnifoX6Hq2sZyLe30+PaSpW3X8aDmHbxt1vKn
-	2cx4InntP7IYG+zO8GDdBOS2vyTJvx0a8L8AypuwW6tN2f9sivOm+rAmqdew5chGzA==
-X-Gm-Gg: AYBFou2pP/XFswUtkzx2HfTbAQlY2aGALiDmpgvcpHGoL0jRG5rBdgNoURQIA0ALGiL
-	e82AW0AMvw1h5It6wTO871h4kYhkjFkojPpVnfVNTbQwwO6rMgZ0H4vqJUCCKAq9p5uIk8LJ+Ow
-	NsEsrsh9/vQvuASnxSPNki70nIl6msF8ZkfHcZxPyzlwxSYmWf2uZ+xYIb8dD+3WtknygitmR14
-	+A/R7s7P167WOzQoPgD3Di5S/WosDcJRV+9ymH/hiA/Axv24G13SYlp/z1Q9MwzOG8qUBwGColf
-	VhzBb4ZIJhJjcMH8E2A54z8pP+/VNMaXqI0D/Djsk8+5zqoDF4HVit0u2w/8zFt8PoiPmA5k/5t
-	NzJ/vqQaw8y/rPSfXxYZS1o2S6mx5fkfQuCV31dAPUI9UUB7FTBhP13OVQzwVUu55jjWkmkO7HG
-	uqHHTlo6dYWNODxQ8kHfC9UrJk1GhwXZBrR+gBXOaXmsUzeBcSvqYGNaNJURcAXBlxPpSRZ5E7E
-	ZoGhZl5BpAIMnzq4cEiPlYVAIil6ahqKSB7qeg417RHh+YgZ0GFv32x5T7I0wUG7wBkhNuyYqDs
-	6+pjTIjxIsx+O7KYDTaPTTnwy7nfbwF0eqVc3QFrf2kzzJ6Qng4=
-X-Received: by 2002:a05:690e:1243:b0:671:70d1:d6e1 with SMTP id 956f58d0204a3-67ba4fdb0bemr838413d50.83.1793329056973;
-        Thu, 29 Oct 2026 19:57:36 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67ba7509f13sm242820d50.13.2026.10.29.19.57.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 19:57:36 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	linux-ext4@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=XccjRenk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=k/
+	Cb+9PJIrDQIPotGU391kdpQTlHe+ce4bWa99eeXrE=; b=XccjRenk5yuZ0Xaqvn
+	+DcQWWoHIWQJHUdZ6tn4dTwSN3U5JPjkkz7+MymaHI0bQU8/O+mcYKGx/VQPkLwg
+	1EvUhYR/R2Zqtk/mLBbD2fTJhXjlA329fsP57usR9o3p3TIyYn+Ze8qp4M9WdZyd
+	xV3C2vxsQhA8tJcYDwZhVRuqM=
+Received: from neo-TianYi510Pro-15ICK.. (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgCnZfjfB+RqfTvxCg--.40090S4;
+	Fri, 30 Oct 2026 10:58:46 +0800 (CST)
+From: liuqiangneo@163.com
+To: "Michael S . Tsirkin" <mst@redhat.com>,
+	David Hildenbrand <david@kernel.org>
+Cc: Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
 	linux-kernel@vger.kernel.org,
-	kartikey406@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] ext4: do not report inline conversion allocation failures as fs errors
-Date: Thu, 29 Oct 2026 22:57:30 -0400
-Message-ID: <20261030025730.3965245-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+	virtualization@lists.linux.dev,
+	Qiang Liu <liuqiang@kylinos.cn>
+Subject: [PATCH 2/3] virtio_balloon: add tracepoint for host ack latency
+Date: Fri, 30 Oct 2026 10:58:33 +0800
+Message-ID: <20261030025834.19160-3-liuqiangneo@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261030025834.19160-1-liuqiangneo@163.com>
+References: <20261030025834.19160-1-liuqiangneo@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,57 +68,101 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgCnZfjfB+RqfTvxCg--.40090S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZFy5WFyfGw18KF4kCFy7trb_yoW5AFyxpF
+	nxArnIk3yUXr42qFyfta1j9r15u397GryfJFWSgw1UCr43JFyDKr4DKF1qyFyrAr4vg3s3
+	uFn2qFZ0kF1kZw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jfAwxUUUUU=
+X-CM-SenderInfo: 5olx1xxdqj0vrr6rljoofrz/xtbC3wbOMGrkB+brpQAA3G
 
-When truncate grows an inline-data file beyond its inline capacity,
-ext4_setattr() first calls ext4_convert_inline_data(). If the conversion
-fails, it jumps to err_out and passes the error to ext4_std_error().
+From: Qiang Liu <liuqiang@kylinos.cn>
 
-Allocating the first block can fail with -ENOSPC or -EDQUOT on a healthy
-filesystem. Reporting these as filesystem errors records an error in the
-superblock and, with errors=remount-ro, aborts the journal and rejects
-subsequent writes with -EROFS.
+Balloon inflate/deflate block in tell_host() for host buffer consumption.
+Host-side stalls are easily mistaken for guest allocation issues.
 
-For example, create a filesystem with inline_data,quota and mount it with
-usrquota,errors=remount-ro. Create a small inline file owned by a user with
-a 1 MiB block quota, then let that user fill the quota in a second file.
-Growing the inline file with ftruncate() returns EDQUOT, after which even
-root can no longer create a file.
+Add virtio_balloon_host_ack to record tell_host() wait time,
+virtqueue and PFN count, to split balloon latency between guest and host.
 
-Return conversion errors directly, as other callers of
-ext4_convert_inline_data() do. The conversion helper handles its own
-cleanup, and lower layers report metadata and journal errors.
-
-Fixes: ed9356a30e59 ("ext4: convert inline data to extents when truncate exceeds inline size")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Signed-off-by: Qiang Liu <liuqiang@kylinos.cn>
 ---
-Tested on x86-64 KVM with KASAN, comparing ext4/dev at 8c4f6e337634
-with this patch (28 allocation-pressure cases per kernel):
-- ENOSPC and EDQUOT with 1K/4K blocks, default/nodelalloc/data=journal,
-  buffered_iomap and bigalloc, using remount-ro and continue policies.
-- Failed conversion preserves inline data; 16 repeated failures on the
-  patched kernel do not increase quota usage. Removing the allocation
-  limit permits a successful retry.
-- Remount readback and e2fsck -fn pass for all 28 images per kernel.
-- A device-mapper block-bitmap read failure still returns EIO, records a
-  filesystem error and rejects subsequent writes with EROFS.
+ drivers/virtio/virtio_balloon.c       | 19 +++++++++++++++++--
+ include/trace/events/virtio_balloon.h | 22 ++++++++++++++++++++++
+ 2 files changed, 39 insertions(+), 2 deletions(-)
 
- fs/ext4/inode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 6ede3644a738..02011f65ab32 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -7123,7 +7123,7 @@ int ext4_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
- 		    attr->ia_size > EXT4_I(inode)->i_inline_size) {
- 			error = ext4_convert_inline_data(inode);
- 			if (error)
--				goto err_out;
-+				return error;
- 		}
+diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
+index 2d0b16383661..c4fdc6815b41 100644
+--- a/drivers/virtio/virtio_balloon.c
++++ b/drivers/virtio/virtio_balloon.c
+@@ -19,6 +19,7 @@
+ #include <linux/wait.h>
+ #include <linux/mm.h>
+ #include <linux/page_reporting.h>
++#include <linux/ktime.h>
+ #define CREATE_TRACE_POINTS
+ #include <trace/events/virtio_balloon.h>
  
- 		if (shrink) {
+@@ -197,8 +198,22 @@ static void tell_host(struct virtio_balloon *vb, struct virtqueue *vq)
+ 		return;
+ 	virtqueue_kick(vq);
+ 
+-	/* When host has read buffer, this completes via balloon_ack */
+-	wait_event(vb->acked, virtqueue_get_buf(vq, &len));
++	/*
++	 * When host has read buffer, this completes via balloon_ack.
++	 *
++	 * The latency is only measured when the tracepoint is enabled, so a
++	 * disabled tracepoint adds no clock reads on this (hot) path.
++	 */
++	if (trace_virtio_balloon_host_ack_enabled()) {
++		ktime_t start = ktime_get();
++
++		wait_event(vb->acked, virtqueue_get_buf(vq, &len));
++		trace_virtio_balloon_host_ack(vb->num_pfns,
++					      vq->name,
++					      ktime_to_ns(ktime_sub(ktime_get(), start)));
++	} else {
++		wait_event(vb->acked, virtqueue_get_buf(vq, &len));
++	}
+ }
+ 
+ static int virtballoon_free_page_report(struct page_reporting_dev_info *pr_dev_info,
+diff --git a/include/trace/events/virtio_balloon.h b/include/trace/events/virtio_balloon.h
+index f733fc360d8b..559deb997e88 100644
+--- a/include/trace/events/virtio_balloon.h
++++ b/include/trace/events/virtio_balloon.h
+@@ -81,6 +81,28 @@ TRACE_EVENT(virtio_balloon_deflate,
+ 		  __entry->requested, __entry->deflated, __entry->num_pages)
+ );
+ 
++TRACE_EVENT(virtio_balloon_host_ack,
++
++	TP_PROTO(unsigned int num_pfns, const char *vq_name, s64 latency_ns),
++
++	TP_ARGS(num_pfns, vq_name, latency_ns),
++
++	TP_STRUCT__entry(
++		__field(unsigned int, num_pfns)
++		__string(vq_name, vq_name)
++		__field(s64, latency_ns)
++	),
++
++	TP_fast_assign(
++		__entry->num_pfns = num_pfns;
++		__assign_str(vq_name);
++		__entry->latency_ns = latency_ns;
++	),
++
++	TP_printk("vq=%s num_pfns=%u latency=%lldns",
++		  __get_str(vq_name), __entry->num_pfns, __entry->latency_ns)
++);
++
+ #endif /* _TRACE_VIRTIO_BALLOON_H */
+ 
+ /* This part must be outside protection */
 -- 
-2.53.0
+2.43.0
+
+
+No virus found
+		Checked by Hillstone Network AntiVirus
 
