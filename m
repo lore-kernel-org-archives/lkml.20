@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357453;
-	b=dstZ6QJ82vmiXLGMfuJDvsJrxebLWb42fEMFtG5aSCAhD9f5ZRGKMpGRiJWTvEqaj0Uv
-	 1TpsyKyxmeOVBtseJISONOc06N0Dai2y9wWZm4e/07emli4VjLS25Y1gUYLsFiqtK+zIv
-	 upgvEj5R7+QZeUllY31cwFN8vrkSs2/xTEBJ00Cvdfv4Fp2EiNeSmFui4cPx+8ngNiHKC
-	 HWGEpyIGiolX/PpF2SRtl8L6oyX2pQVHs3BlBzrVf9861aao4BTqhMc2yWUZzYqaQZU4q
-	 Tzi/UM33IkAC5pFpFj9oQ7XdJiJuvLY9MrwWYXNYDosmw37sGA1AzbhZ1rXtA1GsiYA==
+	t=1793357459;
+	b=r6E56VAQTBbqMhOWTC0pSekACgfrsmDP2h8MJpt0PkeXCdXrffyztA4w2tC4iZUi/TWJ
+	 TZO0qhnb3dC/vCUWNYPFEeD3UufobmIt6pEQVa2mG3f8bwDzwprmMRH3kW77IjEHyTpG8
+	 ZDFAw4nl1rmN2qpSxmbYDoaIgA3zrVFqMWV0OTVUE4BTGxh61eOmssP95tRAE0ZXNwi8H
+	 PSqI0aq3lLZt50F3Ae0q3Ke8Kygm5STXUuO2wiYwdT3JwqfOlph8wAA4k6qexMMWaf0VR
+	 c8wsGC2A+FUxeI22X8GomgilHAGVPZryuSJ0KGWV7McJFxVGyzmiN0FkTwXNn5b52qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357453;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=3ZA1tFIQbefFkP0k1Tx7ybaXRmfxV/nEBepijkpjAgg=;
-	b=B0HQAnIKS3Jb4y6yVsLx2/hr2T9BdKiz/6HOJZL1Gj/pFb3sFfRswGEXQb6wB0ROyYIn
-	 kqqDwZtr2tnvf8B+5CpVrm1vEpPgGxFN7b/81/wbq0bIhLZrTN7IXij/GdFeATuhS1VlF
-	 iNM5J7VcBrqturvWGG5jq0bvaYkaXXTEKE4AuGjANGIRafAZPwF/ck9bksx/OR7gMmAEU
-	 9jYOtfPB4MGSE+DRsjs2thGLzXxsCuVYdaHqAsmrkrgil4c5oAa2W+R0z15cqPOsN8mZe
-	 YIFsFtUc54/DXJnpYGKmMXLoy9HkMQ227rTPcC1Gs+fVNyfV43N8Rd1pVY6O2qDIuBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357459;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=m9OIGk7Och9/7W7VBGIbXqrvhsGJ/tw00Ksy3Ru99n0=;
+	b=HWnoZsmLaKfdvZq2YvvSx9N+TyYt8lgKJkS41Eq0pHalWlkQE8CZGg0GB0tE2xuKjvh5
+	 8dtA8BiqlQkjlVsnnycG+uezWQKk6wsnwfibV//WcSmQvuSe8cwq30CUoo3eFMvr4mzw5
+	 7JYTxruxN0wEw8f6IhZFqaDGTdA+DfN8LH34i5v9SWyDFsZLU8sY/9RZO1apT6HU0FGFn
+	 /tfVpbwzxiaHoPaZh1sE+c4MCnkpzpWr8+RXL07Pxb7W1wv3Y1zvYkqwVEGJSi0sf3aar
+	 9AC8Jp90g1tl5x9WFDsKDAp4wvlRGDP+xx29iYNA/4LLW89CczukIzgFAg9/+jUmIAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CxOdNEIH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36646606B979;
-	Fri, 30 Oct 2026 10:50:53 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WBEEk86T;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65FA560A2621
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:50:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65FA560A2621
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CxOdNEIH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7933A1F000C1;
-	Fri, 30 Oct 2026 10:50:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793357453;
-	bh=3ZA1tFIQbefFkP0k1Tx7ybaXRmfxV/nEBepijkpjAgg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=CxOdNEIHHgwssYhKwmgc//1ZAjB1rGJWu73+RkAkWS2DonjemBGQs4gvvlgVitqJz
-	 281Lgnu0wWAImoTpPH9sdd6YHBX+mNtmsAwczMwKX7G0o/dzk/vvxDbQZ9BPXUoyLY
-	 vO70fmZEuTnGCADkyQllCua2LJAFzSXmQctuXiKJQsx/21WZRVW90P4cp4ud4kbc/V
-	 WJc1sLtmlWd4xn+ywxeGJ+6jgJtbmHaeFffSDLsIAVsEPKL3dju9ojiRh3gftbxlh+
-	 1wyIM2nM1ZWlVf3dX7Os/lV0MxSngisB6J7jTW5AtZmoRYgUziQpfhk67Bd6iAmDNU
-	 h+hWxV6O7qIvQ==
-Subject: Re: [PATCH net v2] bonding: fix missing down path on speed/duplex
- failure after FAIL->UP
-From: netdev-bot+sashiko@kernel.org
-To: timur.stukan.linux@gmail.com
-Cc: netdev@vger.kernel.org, hangbin.liu@linux.dev, razor@blackwall.org,
- fmancera@suse.de, jv@jvosburgh.net, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Fri, 30 Oct 2026 10:50:52 +0000
-Message-ID: <179335745203.3134.6448413016247418659@kernel.org>
-In-Reply-To: <20261028104758.299129-1-timur.stukan.linux@gmail.com>
-References: <20261028104758.299129-1-timur.stukan.linux@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WBEEk86T
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8C3531BD0;
+	Fri, 30 Oct 2026 03:50:54 -0700 (PDT)
+Received: from [10.57.79.231] (unknown [10.57.79.231])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 545D73F673;
+	Fri, 30 Oct 2026 03:50:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793357457; bh=uV5YcTtCLVEXriZ7dyCjSz+UGinUL/gRKTjrpczvAi0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=WBEEk86ThlBDyE9YT/FmcB/75IIP+BNg9u267PpFztFaTe8ofgwXfmUI/RvtHbnRl
+	 uu0mcaVivYpyvlti8ZpTnxcjMREMJza16ky6Jaz0YDWBCFu4PjQ+IG6IkC6Vg6FAeB
+	 uzmQqLX4hye3NjKCneSC9vxoov+DLbRYAguLDgHU=
+Message-ID: <75772ae5-d297-4894-971a-683f92fb87a4@arm.com>
+Date: Fri, 30 Oct 2026 10:50:53 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,159 +53,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] sched/uclamp: Fix race condition leading to
+ imbalanced uclamp_rq
+To: Qais Yousef <qyousef@layalina.io>, Ingo Molnar <mingo@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
+ linux-kernel@vger.kernel.org, Wei Wang <wvw@google.com>
+References: <20261029131354.11030-1-qyousef@layalina.io>
+ <20261029131354.11030-2-qyousef@layalina.io>
+ <c4740152-e873-4409-b3a8-16c5a49548dd@arm.com>
+ <d944d543-1756-43d8-aa08-bcbbf6df712f@layalina.io>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <d944d543-1756-43d8-aa08-bcbbf6df712f@layalina.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 10/29/26 23:43, Qais Yousef wrote:
+> On 10/29/26 15:58, Christian Loehle wrote:
+> 
+>>> diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+>>> index 76f3c84ca6846..84301fc49e699 100644
+>>> --- a/kernel/sched/idle.c
+>>> +++ b/kernel/sched/idle.c
+>>> @@ -502,6 +502,25 @@ static void set_next_task_idle(struct rq *rq, struct task_struct *next, enum snt
+>>>        * lost_idle_time of clock_pelt
+>>>        */
+>>>       update_idle_rq_clock_pelt(rq);
+>>> +
+>>> +    /*
+>>> +     * Due to a race condition when enabling sched_uclamp_used static key,
+>>> +     * we can end up with imbalance where uclamp_rq_inc_id() has happened
+>>> +     * on a CPU without uclamp_rq_dec_id() on another CPU that hasn't seen
+>>> +     * the static key flipped. The race condition is unlikely, but ensure
+>>> +     * the uclamp_rq() state is set properly on each entry to idle.
+>>> +     *
+>>> +     * The reset will cause the uclamp_max from uclamp_idle_value() to be
+>>> +     * lost. Since we are imbalanced, hard to know what is right. So just
+>>> +     * cleanup. This should be a transient error state once we recover
+>>> +     * everything should work as expected.
+>>> +     *
+>>> +     * We need to be careful of some paths that can force idle with tasks
+>>> +     * are still queued.
+>>> +     */
+>>> +    if (uclamp_is_used() &&
+>>> +        !rq->nr_running && unlikely(!uclamp_rq_is_idle(rq)))
+>>
+>> just checking nr_running isn't enough as CFS bandwidth throttling (a fun one
+>> recently!) will decrement it through dequeue_task_fair() without calling
+>> uclamp_rq_dec(), i.e. it's clamps must remain valid AFAICS.
+> 
+> I think this and the rt group throttling are false positives. Do they actually force idle or just under contention dequeue the task temporarily to allow other queued tasks to run?
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+It forces idle, I can reproduce active=1 and bucket->tasks=0 and the WARN_ON_ONCE triggers:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+[  329.665099] WARNING: kernel/sched/core.c:1845 at uclamp_rq_dec_id+0x10c/0x1dc, CPU#5: systemd-journal/281
+[  329.679279] Modules linked in:
+[  329.682333] CPU: 5 UID: 0 PID: 281 Comm: systemd-journal Tainted: G S                   7.3.0-uclamp-cfs-repro-20261030 #2 PREEMPT_RT 
+[  329.694411] Tainted: [S]=CPU_OUT_OF_SPEC
+[  329.698323] Hardware name: Radxa Computer (Shenzhen) Co., Ltd. Radxa Orion O6/Radxa Orion O6, BIOS 1.1.0-1 2025-12-25T02:55:53+00:00
+[  329.710222] pstate: 834000c9 (Nzcv daIF +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+[  329.717174] pc : uclamp_rq_dec_id+0x10c/0x1dc
+[  329.721524] lr : uclamp_rq_dec_id+0x98/0x1dc
+[  329.725786] sp : ffff800081bb3a80
+[  329.729089] x29: ffff800081bb3a90 x28: 0000000000000001 x27: ffffb54253580c40
+[  329.736219] x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000000
+[  329.743348] x23: 0000000000000000 x22: ffff000085462380 x21: ffff0001fb6e2c40
+[  329.750478] x20: 0000000000000000 x19: 0000000000000000 x18: 0000000000000000
+[  329.757606] x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
+[  329.764736] x14: 0000000000000000 x13: 0000000000000001 x12: 0000000000000000
+[  329.771865] x11: 0000000000000000 x10: 006c616e72756f6a x9 : 0000000000000000
+[  329.778993] x8 : 006c616e72756f6a x7 : ffff000085462380 x6 : 0000000000000001
+[  329.786122] x5 : 00000000000000e1 x4 : ffff4abfa8162000 x3 : ffff0001fb6e2c40
+[  329.793251] x2 : 000000000000000c x1 : 0000000000000000 x0 : 0000000000000000
+[  329.800380] Call trace:
+[  329.802816]  uclamp_rq_dec_id+0x10c/0x1dc (P)
+[  329.807168]  dequeue_task+0x54/0x134
+[  329.810737]  __schedule+0x6b0/0x1018
+[  329.814307]  schedule+0x34/0xd4
+[  329.817440]  schedule_hrtimeout_range_clock+0x108/0x11c
+[  329.822657]  schedule_hrtimeout_range+0x14/0x20
+[  329.827179]  do_epoll_wait+0x47c/0x594
+[  329.830922]  do_compat_epoll_pwait.part.0+0x14/0xb4
+[  329.835792]  __arm64_sys_epoll_pwait+0x74/0x114
+[  329.840314]  invoke_syscall+0x54/0x108
+[  329.844055]  el0_svc_common.constprop.0+0xc0/0xe0
+[  329.848750]  do_el0_svc+0x1c/0x28
+[  329.852055]  el0_svc+0x38/0x250
+[  329.855189]  el0t_64_sync_handler+0xa0/0xe4
+[  329.859363]  el0t_64_sync+0x17c/0x180
+[  329.863018] ---[ end trace 0000000000000000 ]---
 
-- [Medium] In 802.3ad mode, a slave that has already gone through the
-  full down path can now go through it a second time.
-- [Medium] The fix only sends `slave->link == BOND_LINK_FAIL` through the
-  full down path.
 
---
+> 
+> If this is the last running task and throttling can force it off the queue partially then enter idle, I don't think the bug is here. It should do a full dequeue then. But I am not awfully familiar with this code, so could be missing something.
+> 
+> For context, below is Sashiko's full report. Proxy and core scheduling seems to cause temporarily context switch to idle. No idea about sched_ext. 3 and 4 seem false positive to me.
+> 
+> --->8---
+> 
+> Can calling init_uclamp_rq(rq) in set_next_task_idle() corrupt rq->uclamp
+> when the runqueue schedules the idle task while uclamp-active tasks are still
+> queued on rq?
+> In kernel/sched/core.c, init_uclamp_rq() zeroes all bucket->tasks counters
+> and resets rq->uclamp[clamp_id].value without clearing
+> p->uclamp[clamp_id].active on tasks that remain on rq:
+> kernel/sched/core.c:init_uclamp_rq() {
+>     for_each_clamp_id(clamp_id) {
+>         uc_rq[clamp_id] = (struct uclamp_rq) {
+>             .value = uclamp_none(clamp_id)
+>         };
+>     }
+>     rq->uclamp_flags = UCLAMP_FLAG_IDLE;
+> }
+> When those still-queued tasks are later dequeued, uclamp_rq_dec_id() in
+> kernel/sched/core.c sees uc_se->active is still true while bucket->tasks was
+> zeroed (or decrements another task's bucket reference count):
+> kernel/sched/core.c:uclamp_rq_dec_id() {
+>     if (unlikely(!uc_se->active))
+>         return;
+>     bucket = &uc_rq->bucket[uc_se->bucket_id];
+>     WARN_ON_ONCE(!bucket->tasks);
+>     if (likely(bucket->tasks))
+>         bucket->tasks--;
+> }
+> There appear to be several normal scheduling paths that reach
+> set_next_task_idle() while tasks remain queued on rq with
+> p->uclamp[clamp_id].active set and UCLAMP_FLAG_IDLE cleared:
+> 1. With proxy execution enabled, proxy_deactivate() and proxy_migrate_task()
+> in kernel/sched/core.c call proxy_resched_idle(rq) ->
+> put_prev_set_next_task(rq, rq->donor, rq->idle) -> set_next_task_idle()
+> immediately before calling block_task() or deactivate_task():
+> kernel/sched/core.c:proxy_deactivate() {
+>     proxy_resched_idle(rq);
+>     block_task(rq, donor, state);
+> }
+> Here set_next_task_idle() zeroes bucket->tasks via init_uclamp_rq(rq), and on
+> the very next line block_task() -> dequeue_task() -> uclamp_rq_dec() ->
+> uclamp_rq_dec_id() triggers WARN_ON_ONCE(!bucket->tasks). Similarly,
+> find_proxy_task() calls proxy_resched_idle(rq) when a mutex-blocked donor and
+> other runnable tasks remain queued on rq.
+> 2. With core scheduling enabled, pick_next_task() in kernel/sched/core.c can
+> force-idle an SMT sibling rq_i that still has runnable tasks queued when no
+> task matches the core cookie:
+> kernel/sched/core.c:pick_next_task() {
+>         if (!cookie_equals(p, cookie)) {
+>             p = NULL;
+>             if (cookie)
+>                 p = sched_core_find(rq_i, cookie);
+>             if (!p)
+>                 p = idle_sched_class.pick_task(rq_i, rf);
+>         }
+> }
+> 3. With CFS bandwidth throttling enabled, throttle_cfs_rq_work() in
+> kernel/sched/fair.c dequeues tasks via dequeue_task_fair() directly without
+> going through dequeue_task() and uclamp_rq_dec():
+> kernel/sched/fair.c:throttle_cfs_rq_work() {
+>         dequeue_task_fair(rq, p, DEQUEUE_SLEEP | DEQUEUE_THROTTLE);
+>         list_add(&p->throttle_node, &cfs_rq->throttled_limbo_list);
+> }
+> 4. With RT group bandwidth throttling enabled, sched_rt_runtime_exceeded() in
+> kernel/sched/rt.c dequeues the throttled rt_rq via sched_rt_rq_dequeue() ->
+> dequeue_top_rt_rq() without calling dequeue_task() and uclamp_rq_dec() on the
+> queued RT tasks:
+> kernel/sched/rt.c:sched_rt_runtime_exceeded() {
+>         if (rt_rq_throttled(rt_rq)) {
+>             sched_rt_rq_dequeue(rt_rq);
+>             return 1;
+>         }
+> }
+> 5. With sched_ext enabled (where ext_sched_class sets uclamp_enabled),
+> do_pick_task_scx() in kernel/sched/ext/ext.c returns NULL when the local DSQ
+> is empty even if tasks enqueued on rq reside in a non-local DSQ or BPF
+> custody:
+> kernel/sched/ext/ext.c:do_pick_task_scx() {
+>         p = first_local_task(rq);
+>         if (!p)
+>             return NULL;
+> }
+> When any of these paths causes rq to schedule rq->idle while tasks with
+> p->uclamp[clamp_id].active remain on rq, wouldn't init_uclamp_rq(rq) wipe
+> active frequency clamps and corrupt the bucket task counts?
 
-bonding: fix missing down path on speed/duplex failure after FAIL->UP
-
-With this patch, bond_mii_monitor() no longer pre-commits BOND_LINK_UP
-proposals, so bond_miimon_commit() can still see the previous link state
-when the speed/duplex lookup fails. Slaves coming from BOND_LINK_FAIL now
-go through the regular down path, including failover. That path is moved
-into the new bond_miimon_slave_down(), and DOWN/BACK slaves are still
-reverted to DOWN directly.
-
-> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-> index 7019e5d8fdc8e..9bafcddbb453c 100644
-> --- a/drivers/net/bonding/bond_main.c
-> +++ b/drivers/net/bonding/bond_main.c
-
-[ ... ]
-
-> @@ -2807,10 +2828,21 @@ static void bond_miimon_commit(struct bonding *bond)
->  			err = bond_update_speed_duplex(slave);
->  			netdev_unlock_ops(slave->dev);
->  			if (err && bond_needs_speed_duplex(bond)) {
-> -				slave->link = BOND_LINK_DOWN;
->  				if (net_ratelimit())
->  					slave_warn(bond->dev, slave->dev,
->  						   "failed to get link speed/duplex\n");
-> +				/* Coming from FAIL, the slave is still in
-> +				 * use and may be curr_active_slave, so take
-> +				 * it through the full down path. Coming from
-> +				 * DOWN/BACK, it was never brought up, so just
-> +				 * revert it to DOWN.
-> +				 */
-> +				if (slave->link == BOND_LINK_FAIL) {
-> +					if (bond_miimon_slave_down(bond, slave))
-> +						do_failover = true;
-> +					continue;
-> +				}
-
-[Severity: Medium]
-Does slave->link == BOND_LINK_FAIL always mean the slave is still in use?
-
-In 802.3ad mode, bond_slave_netdev_event() can set FAIL on a slave that
-is already DOWN:
-
-drivers/net/bonding/bond_main.c:bond_slave_netdev_event() {
-    ...
-		if (bond_update_speed_duplex(slave) &&
-		    BOND_MODE(bond) == BOND_MODE_8023AD) {
-			if (slave->last_link_up)
-				slave->link = BOND_LINK_FAIL;
-			else
-				slave->link = BOND_LINK_DOWN;
-		}
-    ...
-}
-
-last_link_up is a timestamp and is never cleared. Take a slave that was
-up once and then went through the down path. If NETDEV_CHANGE arrives
-when carrier returns and speed/duplex is still unknown, the slave is
-relabelled FAIL. The next bond_miimon_inspect() sees FAIL with carrier up
-and proposes BOND_LINK_UP from the "recovered before downdelay expired"
-branch.
-
-There is also a race: inspect proposes UP for a DOWN/BACK slave, and a
-carrier notifier sets FAIL between rcu_read_unlock() and rtnl_trylock()
-in bond_mii_monitor().
-
-Before this patch, bond_mii_monitor() committed the UP proposal first.
-That overwrote the notifier's FAIL, and a speed/duplex failure then only
-did slave->link = BOND_LINK_DOWN. With the new skip in bond_mii_monitor():
-
-	if (slave->link_new_state == BOND_LINK_UP)
-		continue;
-
-FAIL is still set when this branch runs. If speed/duplex is still
-invalid, bond_miimon_slave_down() runs a second time for a port that is
-already disabled.
-
-Would that increment link_failure_count again and log "link status
-definitely down" twice? It would also send another NOTIFY_NOW lower state
-event, rerun bond_3ad_handle_link_change(BOND_LINK_DOWN), and possibly
-request failover.
-
-The patch notes call the notifier relabelling pre-existing, but only for
-the FAIL->DOWN downdelay route. This looks like a new route to the same
-double down accounting, and the new comment states the "still in use"
-assumption as fact.
-
-> +				slave->link = BOND_LINK_DOWN;
->  				continue;
->  			}
-
-[Severity: Medium]
-Can an in-use slave reach this fallback with slave->link == BOND_LINK_UP?
-
-bond_miimon_inspect() runs under RCU only. In the BOND_LINK_BACK case it
-can propose BOND_LINK_UP once updelay expires or ignore_updelay is set.
-
-Between rcu_read_unlock() and rtnl_trylock() in bond_mii_monitor(),
-another RTNL holder can call bond_select_active_slave(). Examples are
-__bond_release_one(), bond_enslave(), the primary/prio/active_slave
-option setters and NETDEV_CHANGENAME. If that picks the BACK slave, it
-gets promoted:
-
-drivers/net/bonding/bond_main.c:bond_change_active_slave() {
-    ...
-		if (new_active->link == BOND_LINK_BACK) {
-			...
-			new_active->delay = 0;
-			bond_set_slave_link_state(new_active, BOND_LINK_UP,
-						  BOND_SLAVE_NOTIFY_NOW);
-
-			if (BOND_MODE(bond) == BOND_MODE_8023AD)
-				bond_3ad_handle_link_change(new_active, BOND_LINK_UP);
-
-			if (bond_is_lb(bond))
-				bond_alb_handle_link_change(bond, new_active, BOND_LINK_UP);
-    ...
-}
-
-The slave is now curr_active_slave with link == UP, and in alb/tlb it
-holds the bond MAC. bond_mii_monitor() skips the UP proposal. If
-bond_update_speed_duplex() then fails here, the FAIL check is false. The
-active slave is set to DOWN without bond_miimon_link_change(), TLB/RLB
-cleanup or failover. The next inspect sees DOWN with no carrier and does
-nothing.
-
-bond_enslave() can leave the same link == UP / link_new_state == UP state
-if it completes in that window, even when its own speed/duplex check
-failed.
-
-This path behaves the same as before the patch. But the new comment says
-DOWN/BACK slaves were never brought up, and that is not true here.
-
-Would checking for "not DOWN/BACK", or for slave == curr_active_slave,
-catch this case as well as FAIL?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028104758.299129-1-timur.stukan.linux%40gmail.com
