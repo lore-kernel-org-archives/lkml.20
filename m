@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793391726;
-	b=UMIwAmpUtQuPrDme3i3RJznRp9dFA2ihPa0ZRB/whhFvqXCFoeuXalHhL81xidWfnkL9
-	 mFFdjO0RnoH11Its8vw/JJjaesijMtP1jw6Ubhidx8tMnEMsrr+zo3GN8moqW879tnq4P
-	 D9TTg77GCUVsiUgoqkC2BB9oKUBgTmbl7sOscmQoNTPIFSqGDM45rybfb37TVZH5bVk8U
-	 Qtiozmy4nnb8kzonJ2mT9rgIxrzKjJDP3b1HLW+kAD0hG/50hlusgJiYy9nHerPuH9IDx
-	 0OeC7V1PluB43SmtjjVoNRSKNCXxg18FEE3dJv/egpi4U7mxS1aWBEqIoV75vpIm6Mg==
+	t=1793391734;
+	b=CH0L6srzDulKHuppVKi90inPRwKu3FoRFnA/+TsXa3h9FcUlumrcIPkUe4Zl2rYosKL/
+	 Mmd/Lk3I2tlYkBQfpMV2+fvNzHfn4cjnqPJrIf6/9Qh/eyZvm1styKgFmREcgfLz3w6Yp
+	 SxhUglxXgSAf5EoWc3qwtjXBMDHr4sURWAHKzwibOALPgvI16HQ+IZCs8YMVoamz7D7yl
+	 JTt5lz2XF40flqbyCgHAqUvoWzDNN82DOQhfybvddmKm3DawOOe1/JuwoFObFFgAWzE0h
+	 9VzIou/ZHBORYETJOksWeTvASeyNmFmETpdS38z8ZyWhmIMjQ69gaZLNqk5yYHxOfQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793391726;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=/ZKYNvV99olnOAN3/wz742NSCo6uP+fRvmVfRPXXfag=;
-	b=if0CIwKhzBTTWaiYhSnsPiiLOSYzbY871XaebIeIsKKrsam+f9kwK9l1TIMTfAVPwuR3
-	 OuM7vYPXtmtRYCBxRg+K2jwLJnq71jry/Fp9vKIkrv2bj3O/OK/VsvDhOq3wOryrF0k0g
-	 N13WfJ4pv2mOc4h33S0NMr+WguqSAvPpQ6b1RBAF3xWNFbxJ8Wftr6y33EZqQQgs39VD3
-	 eYBH009HKZMdNv6wf9o3UMBpVTY+zGRe0qpHZ95pyOSL18q+dm3inR7zJAtrQx0P5TpA2
-	 EWMPsHIhlKc16wpdY1VN7R7AUKDE1ClhVzQZx/YwnC3qyxiUyZ18b6ZwOUN5zT3TdjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793391734;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=DoH7ZIsXpJXFetRYLlF20+LdvZo7E3uvFNET+WuFyYk=;
+	b=TLdB87fWhBiroMJYqsWk1YUtpUCe5LIUFrhFeebA1vK/uJOoItixxW0qcIwPlIn0B3kK
+	 hp3Fzm+LAY5k9o6kO/HrtvdiHwQoZLEeaR7YwWDRG0r1Keeq+cTVXIlvyELW6NyPvRZRh
+	 OBxkEJoTSJtodDZa38XUDeUXmw2Gr1xmZBVNE2IDtFpDklVs3zfJTSNsyWS9AgvBIh/tN
+	 dGaTVvg+0tuwX8p5VTSON+GByeNUicNDYjCt7T3ICFFapDWwFYtfgXnr8xSH7t6wqnetA
+	 BL3uNY8IZQV82Ji54inZKka+oVqyEnXHMmtrdvSBM4FMqnr/CKteWqx/U022mJrmKdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Rm4/aJkl";
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QOzjLC8T;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D449606A31A;
-	Fri, 30 Oct 2026 20:22:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D449606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4B3606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:22:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Rm4/aJkl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793391723; x=1824927723;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vPSnCcsxmoggsBL8AhqusSxvlXgXWzci4B57bAku3no=;
-  b=Rm4/aJklIqaRbvWzOW46M7Bu54lIxabPwXxZF6UiLwikvxhV4zH/46Bw
-   sXXmmuOMD3p+NyioeGcIPbMr3ya07ON6cxle9Wbh8EL2Juap3thd0Uocs
-   TRj61I++arOY8y5GONegdVB8Rb032tibs81vQi5+jenMxyEw30MqGByjP
-   gA5sT+/HbG5V8vqfox6YvtPhckjOiCdOnb1FbHBggUGJh7aULuvU6ILqM
-   xAjk/DT/j+q2eMb1BZxYIqIp7o1pQ6x5YDMqQUoer3cuQLMgsqYzUgUQP
-   rex16/YqcLXwtPstXsdZhnE8RIpN3nt+0PQ0pDHdttYXaLgrwRyjCe362
-   w==;
-X-CSE-ConnectionGUID: Sr5yW7YyRPOgOLUM/v3TdQ==
-X-CSE-MsgGUID: YHqHCuJ8SruzwI2xhT7G/A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2257870"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2257870"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 13:22:02 -0700
-X-CSE-ConnectionGUID: uq676+OpSbuSH9Qj21B94w==
-X-CSE-MsgGUID: mVKp5fG6TpmsPslS7cKOTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="6069808"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa010.fm.intel.com with ESMTP; 30 Oct 2026 13:21:54 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xMt6k-00000000cBs-3Ksb;
-	Fri, 30 Oct 2026 20:21:50 +0000
-Date: Sat, 31 Oct 2026 04:21:16 +0800
-From: kernel test robot <lkp@intel.com>
-To: hang.suan.wang@altera.com, Dinh Nguyen <dinguyen@kernel.org>,
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
-	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Gabriel Whigham <gabewhigham@gmail.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Douglas Anderson <dianders@chromium.org>,
-	Will Deacon <will@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, linux-doc@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	muhammad.nazim.amirul.nazle.asmade@altera.com,
-	tze.yee.ng@altera.com, chee.nouk.phoon@altera.com,
-	genevieve.chan@altera.com, adrian.ho.yin.ng@altera.com
-Subject: Re: [PATCH v8 3/3] firmware: socfpga-fcs: add Altera SoCFPGA FCS
- driver with SDOS feature
-Message-ID: <202610310455.KTHdfiRf-lkp@intel.com>
-References: <d2a662d1b783146e48642dc85c920008a02b433c.1793197438.git.hang.suan.wang@altera.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QOzjLC8T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E6C01F000C1
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:22:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793391733;
+	bh=DoH7ZIsXpJXFetRYLlF20+LdvZo7E3uvFNET+WuFyYk=;
+	h=From:Date:Subject:To:Cc;
+	b=QOzjLC8TV1bzY4rvio0R/7Xxvb2ZWzdLGvSclLElPjzbxbktZtZs4hAMbQdcUP/Qk
+	 zFId1uFurAZrI1QEKpHS9QGKWGpQVVXNRSdZBEwISG3vWfRxuR9auw8GbYxWlMb57S
+	 +t8b/bxIwGdoHh4fwEJobqiYOTH0c1nKNQwVGGLFyL3QViaokMtF4IDbgr/Hljlm4C
+	 Kqrp2YrgPZpMEPXijFPvwgMuVTr/ptkBtOGV0mfRxq29Sk/CjX1KlX7k6VJT5thhJM
+	 njSGFkK/EUQogUOx/UiG53oTE/XengyymIEQjm1qs1MmmDgvS3oCenZ4xfhVLJ+K6c
+	 kNLnwUVo36OxA==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so1149646e87.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:22:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzyIzzS2a4GPkcdhrso3ulyv80WxiJ56u99oSLx+HzTvKX015Nf6+pvycRDgLzRZtPD4+WxtZgDMKLjFcw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJGWTg1rc/0gOKuLWinDsclWu+W+Kxk+7UMlASKKYwEBkN/NTEY
+	9oaixoa7zDaJO5aWSiFWyq6M6AB6dQ45xMVJz65hR7rKwGemZutxOVvcHr7U3JkW5L8p5a4cgCQ
+	slOvcXyKHZfGVLw68mlso0AioGKVv+QA=
+X-Received: by 2002:a05:6512:b86:b0:5be:50f5:f789 with SMTP id
+ 2adb3069b0e04-5bfd95796cdmr1212390e87.45.1793391731946; Fri, 30 Oct 2026
+ 13:22:11 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,64 +59,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d2a662d1b783146e48642dc85c920008a02b433c.1793197438.git.hang.suan.wang@altera.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 30 Oct 2026 21:21:58 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jsHWBL0901EUHMAV4ZzfAP54_W2ag8qEo_f896pG6dUg@mail.gmail.com>
+X-Gm-Features: AclHuK9iRGyl88l6iIw_7GHDRD-etfBjpr9N8mSUmyQ9RL9WPyfHnvnkLV7yvKM
+Message-ID: <CAJZ5v0jsHWBL0901EUHMAV4ZzfAP54_W2ag8qEo_f896pG6dUg@mail.gmail.com>
+Subject: [GIT PULL] ACPI support fixes for 7.4-rc1
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: ACPI Devel Maling List <linux-acpi@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi Linus,
 
-kernel test robot noticed the following build warnings:
+Please pull from the tag
 
-[auto build test WARNING on akpm-mm/mm-everything]
-[also build test WARNING on linus/master next-20261029]
-[cannot apply to v7.3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+ git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git \
+ acpi-7.4-rc1-2
 
-url:    https://github.com/intel-lab-lkp/linux/commits/hang-suan-wang-altera-com/firmware-stratix10-svc-increase-args-array/20261028-221419
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-patch link:    https://lore.kernel.org/r/d2a662d1b783146e48642dc85c920008a02b433c.1793197438.git.hang.suan.wang%40altera.com
-patch subject: [PATCH v8 3/3] firmware: socfpga-fcs: add Altera SoCFPGA FCS driver with SDOS feature
-config: arm64-allmodconfig (https://download.01.org/0day-ci/archive/20261031/202610310455.KTHdfiRf-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project c2ea4440d4b64c148de4fdfca1fc2c437a0701e4)
-rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610310455.KTHdfiRf-lkp@intel.com/reproduce)
+with top-most commit 3f971ee94fb57377f0a9d5a8d190d1d465ac6b80
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610310455.KTHdfiRf-lkp@intel.com/
+ Merge branches 'acpi-driver' and 'acpi-sysfs'
 
-All warnings (new ones prefixed by >>):
+on top of commit 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
 
->> Warning: drivers/firmware/socfpga-fcs-core.c:74 function parameter 'priv' not described in 'fcs_svc_send_sync'
->> Warning: drivers/firmware/socfpga-fcs-core.c:112 function parameter 'priv' not described in 'fcs_svc_send_async'
->> Warning: drivers/firmware/socfpga-fcs-core.c:197 function parameter 'priv' not described in 'fcs_svc_send_request'
->> Warning: drivers/firmware/socfpga-fcs-core.c:282 function parameter 'priv' not described in 'fcs_open_session_locked'
->> Warning: drivers/firmware/socfpga-fcs-core.c:282 function parameter 'owner' not described in 'fcs_open_session_locked'
->> Warning: drivers/firmware/socfpga-fcs-core.c:318 function parameter 'priv' not described in 'fcs_close_session_locked'
->> Warning: drivers/firmware/socfpga-fcs-core.c:353 function parameter 'priv' not described in 'fcs_ctx_begin'
->> Warning: drivers/firmware/socfpga-fcs-core.c:384 function parameter 'priv' not described in 'fcs_ctx_end'
->> Warning: drivers/firmware/socfpga-fcs-core.c:417 function parameter 'priv' not described in 'fcs_get_atf_version'
->> Warning: drivers/firmware/socfpga-fcs-core.c:465 function parameter 'priv' not described in 'fcs_sdos_crypt'
->> Warning: drivers/firmware/socfpga-fcs-core.c:612 function parameter 'priv' not described in 'fcs_read_version_from_atf'
->> Warning: drivers/firmware/socfpga-fcs-core.c:669 bad line: 
-   Warning: drivers/firmware/socfpga-fcs-core.c:709 bad line: 
->> Warning: drivers/firmware/socfpga-fcs-core.c:74 function parameter 'priv' not described in 'fcs_svc_send_sync'
->> Warning: drivers/firmware/socfpga-fcs-core.c:112 function parameter 'priv' not described in 'fcs_svc_send_async'
->> Warning: drivers/firmware/socfpga-fcs-core.c:197 function parameter 'priv' not described in 'fcs_svc_send_request'
->> Warning: drivers/firmware/socfpga-fcs-core.c:282 function parameter 'priv' not described in 'fcs_open_session_locked'
->> Warning: drivers/firmware/socfpga-fcs-core.c:282 function parameter 'owner' not described in 'fcs_open_session_locked'
->> Warning: drivers/firmware/socfpga-fcs-core.c:318 function parameter 'priv' not described in 'fcs_close_session_locked'
->> Warning: drivers/firmware/socfpga-fcs-core.c:353 function parameter 'priv' not described in 'fcs_ctx_begin'
->> Warning: drivers/firmware/socfpga-fcs-core.c:384 function parameter 'priv' not described in 'fcs_ctx_end'
-   Warning: drivers/firmware/socfpga-fcs-core.c:417 function parameter 'priv' not described in 'fcs_get_atf_version'
-   Warning: drivers/firmware/socfpga-fcs-core.c:465 function parameter 'priv' not described in 'fcs_sdos_crypt'
-   Warning: drivers/firmware/socfpga-fcs-core.c:612 function parameter 'priv' not described in 'fcs_read_version_from_atf'
-   Warning: drivers/firmware/socfpga-fcs-core.c:669 bad line: 
-   Warning: drivers/firmware/socfpga-fcs-core.c:709 bad line: 
+ Merge tag 'driver-core-7.4-rc1' of
+git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+to receive ACPI support fixes for 7.4-rc1.
+
+These address assorted issues in ACPI support code and work around
+concurrency-related issues in AML on some platforms:
+
+ - Separate handler locking from sysfs lifetime in the ACPI platform
+   profile driver to avoid possible deadlocks due to sysfs accesses
+   during driver removal (Daniel Lezcano)
+
+ - Introduce additional locking around the evaluation of selected ACPI
+   control methods in a few places to work around issues related to
+   concurrency in AML on some platforms (Ali Ahmet Memi=C5=9F)
+
+ - Address two issues reported by Sashiko in the ACPI table data sysfs
+   interface (Jamie Nguyen)
+
+ - Initialize parser_state.aml_end in acpi_install_method() properly to
+   avoid out-of-bounds accesses during control method installation (Ivan
+   Hu)
+
+Thanks!
+
+
+---------------
+
+Ali Ahmet Memi=C5=9F (4):
+      ACPI: utils: Add exclusive AML evaluation helpers
+      ACPI: battery: Evaluate battery methods exclusively
+      thermal: intel: int340x: Evaluate _TMP exclusively
+      platform/x86: ideapad-laptop: Evaluate ACPI methods exclusively
+
+Daniel Lezcano (1):
+      ACPI: platform_profile: Separate handler locking from sysfs lifetime
+
+Ivan Hu (1):
+      ACPICA: Initialize parser_state.aml_end in acpi_install_method()
+
+Jamie Nguyen (2):
+      ACPI: sysfs: Map only the requested range in acpi_data_show()
+      ACPI: sysfs: Finish sysfs init when creating a table file fails
+
+---------------
+
+ drivers/acpi/acpica/nsxfname.c                     |  1 +
+ drivers/acpi/battery.c                             | 12 ++--
+ drivers/acpi/platform_profile.c                    | 82 +++++++++++++-----=
+----
+ drivers/acpi/sysfs.c                               | 20 +++---
+ drivers/acpi/utils.c                               | 41 +++++++++++
+ drivers/platform/x86/lenovo/ideapad-laptop.c       | 12 ++--
+ .../intel/int340x_thermal/int3403_thermal.c        |  3 +-
+ .../intel/int340x_thermal/int340x_thermal_zone.c   |  6 +-
+ .../int340x_thermal/processor_thermal_device.c     |  2 +-
+ include/acpi/acpi_bus.h                            |  7 ++
+ 10 files changed, 129 insertions(+), 57 deletions(-)
