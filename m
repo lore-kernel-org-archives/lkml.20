@@ -1,48 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793399409;
-	b=xRomKtA/fIw7GGqa13j6Dc2YU58RfrEoqKldracMmNbfZaMUPywYziXk0ROSfVdn35M6
-	 1vbBqz+pbIxZ0C9zMd6NcvpSP3yjtsVOf0x32DhURhuzZgcFhpKmqxRNcCrY5WHuOeMeZ
-	 DzWc4B4smO15axWvd51J9QUqfgCeUu2qL3SymI1jQvzZ+zMfjcySlpK3zjI+bWsXHiQTs
-	 onhWT2FQQvW2FXljVexcwd4NtxhQZQhKPz7/ZPwy9YKdGtK8x7RpVJGjMCSj5/xgTfUf0
-	 GZRX6/hemn4/rQW+6vXQO+Vm0nVAeyGYU/YS9/ewt+Cy66cUqWNIvqgXtAGHHm+t/8Q==
+	t=1793399479;
+	b=sJu+pfI7HaenSoyRKl6zqVwapgk4MQuNRgfczkSiRHaQniIX6F6EcKCHcYaSuodgbKXS
+	 yjrE8UOp0pjdCaBk1hOCFSPFev3XQEiC6HGs2l1Rs7neMAu6Lvb+MFdFzS46NG3UloyzW
+	 OXTGdPFRIQ+9RNCFYeMbCRHjQsB3wtdK4EjN3A2Pl3p+q0l+rk6Hnbt9DWbteWg7do81w
+	 Z9N/VpU4OgO5wD7oFYQeaq5X+9FCf2PGXC/B6iBmaQdHLigCwzYQbOWjWKjmgKethEG3y
+	 yAa7mkyBnupUfBSdvdBmdSjCWy84hQ0+4gBH1GA4d2ZEwEw7HjF1Kctf19xk+zjN2lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793399409;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793399479;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2cuNjmvZKnPvPjsqg7Q58J8xu19bFXf2Ow+4KUERHXA=;
-	b=ReVwNJJD5Yg8widQQHj3hRDXPCF6TZqrx7sX+GsBz8TLY8zkZYpqwOORH7sHSvrQuPya
-	 GJN/TdcGntFdAJhyMwWzgZkCm7YH6mI8VpMa0UrndxFQpnQLek8EQr4GSQYbfgNiHZlSr
-	 K5blCZ4DbvEfG9EHoYSu4Bjxp85epSGJv5z5WdelN8lB2Od4pArzMj5gwRG2XfXMfCp4W
-	 9lsi9qO/PWzlPQOilhKJ2sVSW7vG6s5h4m2W48kJy65bg509ycn25c7qqbRFXOP4JTAIZ
-	 LhcVFrcF+oCXhalbacuP2yQ7hAv8KG54UEaJzPCgV8D35cc0AScFhQ0gJYz9QDY90mQ==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=u4i08XfvjxZQq2WmcsQfove9xezxcApRnsZ13Qb1Yug=;
+	b=5tJHT7JkPn9muuykTLK4qSPrHasfqZioYsrMnppj5RWbRvxow1i4u6kA29QVYLCxdXkZ
+	 uRQu4K6vbfhwzJMcxa6i1SMnaIJev8x3tyLI3nbKGYFM5PlMVQD9Cwm0lJ6OPNIRskxT9
+	 aBYHMyvlFZjpO3NXnL/sptIy/HRc1lUBcCE6ItXCr9pYhxTLurh28weSqa+Ij0wZsTDzE
+	 DCGJaIkCLrIBEjFL1VfKyXDqJcB/gdLnXfgXK2ictKxmpMSeenqj37zcsttji+rqx1334
+	 BhtzMZpzT7Y6QAJXp/BW7mquRvvvlQlLLGqBZf9iOx25K/bfKC2aRDoXx0/depD5ZkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="UXHY/z/M";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UiV/8+Xb";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087E7606A31D;
-	Fri, 30 Oct 2026 22:30:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F531606A31A;
+	Fri, 30 Oct 2026 22:31:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UXHY/z/M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F33F01F000C1;
-	Fri, 30 Oct 2026 22:30:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793399408;
-	bh=2cuNjmvZKnPvPjsqg7Q58J8xu19bFXf2Ow+4KUERHXA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UXHY/z/M6VFNnMtfA8LYA60iyd7VvgLLXhW8V5aypu2KaLPOGkQnceylC9GITthBx
-	 LEtO2P/xO8ACR22Z3CYANzt5B7rqu4G+dSYj4yuB1or+wEtcEmUp1NaCKnhWwa/BaW
-	 pCvTFtRFtD2pur1/PqyOP0sV+gFJTVXF/7WkjebQ=
-Date: Fri, 30 Oct 2026 23:30:05 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [GIT PULL] USB serial fixes for 7.4-rc1
-Message-ID: <2026103057-wriggle-unclothed-f1db@gregkh>
-References: <auTTUf8alxj9ay6X@hovoldconsulting.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UiV/8+Xb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 013F21F000C1;
+	Fri, 30 Oct 2026 22:31:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793399479;
+	bh=u4i08XfvjxZQq2WmcsQfove9xezxcApRnsZ13Qb1Yug=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UiV/8+Xbv7p5vT/2rYxF8yVt931uVfP6+H31IPpPgC/qb3i1plcoJu3zKxr7/kvja
+	 Ndu66o46Epb0UM4ILJIeHwraRT+n4Nj8KozXCWToAXYGXR6GfKsZEvd1z6OOfsCUZK
+	 9/gnE2jMgN+zGRVPtV7TFtSsZ+vMtogS4yFBQbfA1T/La5wb89LWySWec3JvHLpU7Q
+	 0gpKMvn97pf2VRGVqk89JuvX/8VU2EtBbCBr8wqZyha7a3FcWsdmyM6wSn5+HlVN6x
+	 zDT9jEYDSk4SKg9tJL29Sr4jPR8eG0ey1zYdmH8C5NAnv8zLHjmrQCHJ+DYvdhFMDM
+	 l2cIA7V2Sm3GA==
+Date: Fri, 30 Oct 2026 15:31:18 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Shubhang <sh@gentwo.org>
+Cc: Paolo Abeni <pabeni@redhat.com>, Toke =?UTF-8?B?SMO4aWxhbmQtSsO4cmdl?=
+ =?UTF-8?B?bnNlbg==?= <toke@toke.dk>, Jamal Hadi Salim <jhs@mojatatu.com>,
+ Jiri Pirko <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Simon Horman <horms@kernel.org>, Jonas
+ =?UTF-8?B?S8O2cHBlbGVy?= <j.koeppeler@tu-berlin.de>, Shubhang Kaushik
+ <shubhang@os.amperecomputing.com>, "Christoph Lameter (Ampere)"
+ <cl@gentwo.org>, Toke =?UTF-8?B?SMO4aWxhbmQtSsO4cmdlbnNlbg==?=
+ <toke@redhat.com>, cake@lists.bufferbloat.net, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] net/sched: sch_cake: skip redundant cake_mq rate
+ updates
+Message-ID: <20261030153118.1d9f255b@kernel.org>
+In-Reply-To: <bc677053-f438-fda5-defc-a53532262779@gentwo.org>
+References: <20261026-net_sched_sch_cake-v2-1-cb1d4e6ed990@gentwo.org>
+	<bb202893-9fd5-4dad-ad69-9f86dfd91cc3@redhat.com>
+	<bc677053-f438-fda5-defc-a53532262779@gentwo.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,21 +68,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auTTUf8alxj9ay6X@hovoldconsulting.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 30, 2026 at 06:26:41PM +0100, Johan Hovold wrote:
-> The following changes since commit c339f4010dea8b0d754f84ace70cd1b089878ef8:
-> 
->   Merge tag 'platform-drivers-x86-v7.4-1' of git://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86 (2026-10-28 07:36:32 -1000)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/johan/usb-serial.git tags/usb-serial-7.4-rc1-2
-> 
-> for you to fetch changes up to ab89a9dab02d9553eb0cc27fd3e4a4998acbc8e9:
+On Thu, 29 Oct 2026 14:45:19 -0700 (PDT) Shubhang wrote:
+> I repeated the test with whole-host CPU accounting on this 80-core system 
+> and could not measure a reliable aggregate CPU-use difference; throughput 
+> was unchanged. The benefit is visible in focused cake_configure_rates() 
+> trace, but I agree this is more appropriate for net-next.
 
-Pulled and pushed out, thanks.
-
-greg k-h
+In which case you'll need to repost once
+https://netdev.bots.linux.dev/net-next.html
+says net-next is open. Make sure to remove the Fixes tag.
