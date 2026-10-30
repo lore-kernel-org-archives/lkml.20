@@ -1,60 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793323676;
-	b=euca9Ycbh3pLn/twaRcdaU83Ehg+nJu8KkyLlFpZngsT3qUjXakW4pr+m9+U2LFK912O
-	 0Qjwyuhff3J1k3koOjlKxZUY+4/bkTsu0QoIhfhsAg5pjWGGIAJIL3+RhNWOUItXjPVgC
-	 fNQztR5wBEt8iJrU5Lt8/VJUxUNiy0DhZLgxE1n6WGnePT9D3exYJKYuKTpWQGnQm0d7L
-	 xKx+00Ij1n9ioHELao004VsQ1oYqoiQlSia6PQv8HiKObXqJhaJLlFwtD/naiX4EByqR+
-	 4sDpMWzaewwemU9kJHZMVPlcEIf2CP4zz0FecPDoUhzUWvOxTEZUPvx3cMqMj1e8B5w==
+	t=1793323699;
+	b=NZkg+cySjt4xMLaoAkOlgkRNb4bxCLEA43nfGzFAbdeXPrhJadsUXI7mGFCOIF/iGQ/z
+	 8/zA6OddlJB1pvt90OtSlBUSBdM5z2reXA7Sxb0phtf/A0+9uMlXGPbbyW47/42bVBG9N
+	 L+mbKVBR3u7/1v1vLxGztKHnf14EHBS5n605PTJNUlgR10n+ILk7rEOl5gLw4VFKNSqcK
+	 a8BQubKD2kyZSUyDUgpQ1QknDFvz+yQcu1LPNtrZojkzcZNaYJzsLd/I2VMs9BXUqmGLl
+	 N69LEQWrSD5wYWmMrfDPP/cKcrvKy/hxpyL7sNpDXTnDuoVJAkbTV/+Fka397gRT4kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793323676;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=FUuEMEp4Sq4+y9YNfcK1/A/G/PTtLzDOc0DPIC0ZA9Q=;
-	b=cWlH8UQDvzENeutu1eWtHK/remOJXZcQJW2F9fTUJLleCl9mGCJr5DMU14HTTpp4l7+J
-	 jT6tFG8DRC1CJi7FLhyX72yARhbvkEpsYLoexYP+UPD+6kOGpHdQWhR+ecxX6BGd9slaH
-	 jsTLZhN6J7klouGjfC7GFEIdiR8eHL1kFOKz88WTd3URyAznPatOlsRuQX3/8Bj0KObbN
-	 Npsp5x+FuLZyn9wbM0N1a79NazJTeFLy/oPppYx90MjwKrZdYYwVW4yH+MCCJKvKUQLeZ
-	 Tne+Pvz1XypfF7/LX1Mf4WMk0E9XbkBO6WLDZaZS1f0MrxIpXe1uQY1Y5rpuPRxVmvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793323699;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ko4ls3qqVzlXNxfX8a12H6URoQecw8b9jhJGN2hC6OU=;
+	b=cIeBhdZMk5wtgBLZM4HafzVLEgKkqqDouUmBr7r16aw17yjuD71pi064U+SN+24eC1Qx
+	 aS/bavtEANy7odK5FK/InJ7D36zS62KqpahNxnigiuxmUql7ZLNNth70xL5E4uYvIY3S/
+	 6yN2wxQ1KZLdVsyyzMbD5Cu90Fmj8v5aqMF6HTZK0OHQxoj1JIKwctKJIMceKAFbzVuBm
+	 grvvfWRRVDkyvQ1RztLrpxWZ1hKHMvC9EbcKZL61dfWb8anhHaggS/DErSWI4uBHwcsEX
+	 mdzx4UiyfWU2s3i1DzgfeecumlDuLHhu/fvQjKuGgW8i6XUV5NJh2wzNjNEYhz/+Asw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Lafy3Bx/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C307C606A31A;
-	Fri, 30 Oct 2026 01:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lafy3Bx/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 111FD1F000C1;
-	Fri, 30 Oct 2026 01:27:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793323675;
-	bh=FUuEMEp4Sq4+y9YNfcK1/A/G/PTtLzDOc0DPIC0ZA9Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Lafy3Bx/zY7kgVvrbo4ZtiaAI4XfHukxMcompVEw2fX6IOYTpGmmd3NKbK2POBab1
-	 XjO7VLTzkiQOMJQWc/L0Qe9NwhGrBVjHUIAEl3Nwd2EquWVQ0FKcvUz0CqO7GRH0We
-	 z6aNmIHHqWzTIl0WSBD1BeKmXKXV1umK0iiVPEA7Dzh5jvJn6Q4PVtwNCBYHMs3Tw/
-	 y4PD/qlqZrRWcVtqDe1Nky7ZA6vsVEo2LFajwDrIetgPH3mGblMNIqKr2lDXop0bpE
-	 aUq7PN1FDVsu3XQzp3QW0m+g9zV1vRyZiZSPlofbPV0kmY8ywmUQWrEGCJYLaGTkNX
-	 R1qt3B05a2Oaw==
-Date: Thu, 29 Oct 2026 18:27:53 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] riscv: dts: thead: beaglev-ahead: Cleanup with
- dt-check-style
-Message-ID: <auPymWTegG8Gj1bt@thelio>
-References: <20261002-fix-dts-th1520-v1-0-9a8810091d47@axis.com>
- <20261002-fix-dts-th1520-v1-1-9a8810091d47@axis.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AF6606A31A;
+	Fri, 30 Oct 2026 01:28:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2AF6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 2ac56d20d40111f19a56ed5b684f684d-20261030
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d9dd9a9e-0abc-435d-bb0d-7869c202ddda,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:754df53d9fe5c0d59af7f0c20fcefc06,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50|99
+	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 2ac56d20d40111f19a56ed5b684f684d-20261030
+X-User: huangwei@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <huangwei@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 519817670; Fri, 30 Oct 2026 09:28:10 +0800
+From: Huang Wei <huangwei@kylinos.cn>
+To: Craig Hesling <craig@hesling.com>
+Cc: Johan Hovold <johan@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	leStoppe <lestoppe@gmail.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	huangwei@kylinos.cn
+Subject: Re: [PATCH] USB: serial: simple: narrow OWON match to avoid breaking VDS1022
+Date: Fri, 30 Oct 2026 09:28:05 +0800
+Message-Id: <20261030012805.4087311-1-huangwei@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <fa1ec0429fe8c1287c126b50989f1cffe2567a86.camel@hesling.com>
+References: <20260810091322.2201740-1-huangwei@kylinos.cn> <fa1ec0429fe8c1287c126b50989f1cffe2567a86.camel@hesling.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,29 +73,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002-fix-dts-th1520-v1-1-9a8810091d47@axis.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 03:43:33PM +0200, Kanak Shilledar wrote:
-> A lot of warnings were thrown via krzk's updates to the dt-check-style
-> tool. These were observed when running the tool in strict mode. Most
-> of the issues were related to missing blank lines and out of order
-> properties and nodes such as:
-> 
-> 	thead/th1520-beaglev-ahead.dts:43: [child-name-order] child node 'leds' out of name order
-> 	thead/th1520-beaglev-ahead.dts:46: [property-order] property 'compatible' out of canonical order (should sort before 'pinctrl-0')
-> 	thead/th1520-beaglev-ahead.dts:79: [child-name-order] child node 'hdmi-connector' out of name order
-> 	thead/th1520-beaglev-ahead.dts:115: [required-blank-lines] "status" must be preceded by a blank line
-> 	[...]
-> 
-> Fix these warnings to make the file more readable and maintainable
-> along with that to make it more compliant with the devicetree
-> specifications.
-> 
-> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
-> ---
->  arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts | 119 +++++++++++----------
->  1 file changed, 62 insertions(+), 57 deletions(-)
+Hi Craig,
 
-Reviewed-by: Drew Fustini <fustini@kernel.org>
+Thanks for weighing in, and for the background on the original
+intent - that closes the loop on the question from August.
+
+On binding the VDS1022's serial interface: the practical issue is
+that the userspace ecosystem for it already exists and runs on
+libusb - leStoppe's tool is the florentbr/Owon-VDS1022 one, and
+that is exactly what made this a regression: it worked out of the
+box before commit 4cc01410e1c1, and the kernel binding broke it
+immediately. Pre-claiming the interface breaks real users today,
+whatever the merits of a serial-based toolchain would be.
+
+The "looks like serial" point is also subtler than it appears -
+plenty of devices expose two bulk endpoints without being serial,
+and the VDS1022's protocol is binary request/response with the
+framing done in the tool (leStoppe mentioned even the SCPI
+commands need enabling through the tool's socket, so it is not
+plain-text SCPI-over-tty like the HDS200). A generic serial
+binding gets you a tty speaking a private binary protocol, which
+only helps if someone writes matching userspace.
+
+Your end goal is not wrong though - if a serial-based VDS1022 tool
+shows up someday, the tuple match keeps the interface available and
+it can be bound deliberately at that point. What we shouldn't do is
+claim it speculatively and break the existing libusb users.
+
+On the HDS272S older-firmware check - that would be genuinely
+useful whenever you get to it, no urgency. The commit-message dump
+and leStoppe's VDS1022 dump are the only two data points either way.
+
+Thanks,
+Huang Wei
