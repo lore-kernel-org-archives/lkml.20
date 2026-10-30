@@ -1,59 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793390832;
-	b=0M2qPmKHGbywSAinQNooWRQqx5QxsUXMpzSeXBD67NFGLhSQTtFou+YB/mVi1qR/hPNR
-	 QpoGnThmN6k6TRuW5JnGfS1vxy9yW7os33Fa4xmf2vt5eGFGCbXIPeZbSlieg3JxudScI
-	 /Sl1drQw9deLcBE1oWx+HVMhXLSd7aPsS8ScqXrA6zpU2o9KxhVCkJq2rUKM7zDWH3mxN
-	 5CR29InmAYfT9hTi6ZvQ8bteAyPncY0ILl3BjIT9jfwvyZeX3fv3YMua5GnRDFQ1P/2t8
-	 he7pA69OIaKtGuZQa2bZdqRHfSeC4oNCJMj5mA9n3eB4VnXwKJRRSNjBcY01Qyzi39w==
+	t=1793390838;
+	b=QL0ILwRh5GIwI6qB4nvl6lEX25WRTbZIK7GSEpsJl1hvKTkex7T+QBlkwldNyLC0rlrr
+	 NbQ174ghx2xbi+nwcMD0nBWkn1hH+qLBKNr5rhOuTnUjxcrssKnSEzr1RbQ4GoqukZHx6
+	 LYSaUetzZKUHvrT2PH56zng3PQdMiUGSzD5SgDmdXolVJsTeuE+alS0aDb4LS6+YSIbxF
+	 LeGYe7oWZNV9Kyq31N3W0cpJfF9ei7KWM2hHPdEdD9/tPxXLcHAyExoq1xbNzTTFlhmSz
+	 6scYLlXA9FaRpuvhdPZTQS2McZC/Fk/g4ynBxWKGpSbYwQwF4HU3EM4mEphV99sVPgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793390832;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=QJDDgqPhmpgr24cJQYE2mT3Nmxs4hMnayZXdVHDbk84=;
-	b=2ZBy8ZqlcCH9CH7+/B3lfOtPxWN0iAVM1PQw19p1g+ZrR9cXaX5iy9QtccKUm+5n53ug
-	 z4PQTozcXgLLgYzgJodEYAbgOOSMasQI1wb6svyDtRHKgWQ48YYgqP1SrdqqQl25K3/42
-	 tO4upEKrbvYjzQhNRrOKlPL+oWfWYc24cyVn028tunp0U96bstIfsD0J6IkrupheUkn74
-	 JlgdDVt7swjJSgLWVls4gSQcaa0XJf7iU/duJn6Qzcwi+dopnmNGo6XOuHbBzab+6So9V
-	 H3bz+wQRDjZ0DgR6mk7EFvyMThSKVWbpSsctxEybAj7BjjOT8TPz7hNyFT12v+hwhSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793390838;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KmJVN+NKveF6HgY1Y/eSpfSbY+XEPQzQszmXYvUfvC4=;
+	b=2wFPcZbvn8BPrsjVu0FcVvDRGcgarZtEP6Tn0PNz5RubCEXk+oTlWlpDvJaTgPHzVVRz
+	 pqq3uOVD2a1Hqgs8o5UU2k91TXnfWWkUxbKwY1dbTaR5ScHU0MzsJdVtUhZguJ5jRFw1P
+	 iDCR1xN//m/EOQED7Lx7aaV5SdBLbT7bOARKGGfLBdikWhkupsp4/Bl0i61JFo1HSbxEb
+	 0FSVJPdp2k6ymTzSD9JGNibGQ3Sz3lFVL49Z1y57XIq9yGgNC1TSeK4noIcIvs/HIOuY4
+	 7RPf70MW3dbXlFZADXBslAfsCM5zFGXAh9pZa3/3w+LPdyRyaRPTdu329M7Cs2RHQBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fv3HM2kI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="JNfA/ShB";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jzkq7PHf;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07BBF606A327;
-	Fri, 30 Oct 2026 20:07:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4408E606A325
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:07:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4408E606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fv3HM2kI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADE791F00A02;
-	Fri, 30 Oct 2026 20:07:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793390831;
-	bh=QJDDgqPhmpgr24cJQYE2mT3Nmxs4hMnayZXdVHDbk84=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fv3HM2kI7PWnqLUSVyAnEu3JV+znovDfa9o8iwG4JLDu+CTVeuVQGpxU91ptoso8l
-	 LQsmqNfZZNQl7eO5ilc9oI60oi63jdOmybmHtD3s9YlIshFDqJMJcbOXbSQsPWaF5v
-	 euxrYyKa6s1XSbWbH0cl3NiNDDlvBnAzaGN13kUFhfUfI13ePDFFBXXvJAdOIc71s5
-	 zmKexB2d8oEyWoUqvInzW6mOal+wGn1EbR+JT0l2/BKDUcK4yySzSm3x7Q1VvAFu3t
-	 8om36Dn+piewF8fHSOsTNOylPfVQIPivbS/rYrmq/o59OIhhylz+0Kt/PzMQlFaB3o
-	 tk0U68RBedFEw==
-Date: Fri, 30 Oct 2026 21:07:06 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Kees Cook <kees@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Bill Wendling <morbo@google.com>, Petr Mladek <pmladek@suse.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Shuvam Pandey <shuvampandey1@gmail.com>, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] seq_buf: Mark a seq_buf overflowed when terminating it
- loses a byte
-Message-ID: <auT3Lt4y9s-8g_FK@devuan>
-References: <20261029053250.i.220-kees@kernel.org>
- <auMwo_T_FsZp5UsB@devuan>
- <20261029091845.21464a1a@gandalf.local.home>
- <auNNcmUuR8DS7Hys@devuan>
- <20261029101838.7c34a2f2@gandalf.local.home>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JNfA/ShB;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jzkq7PHf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793390837;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KmJVN+NKveF6HgY1Y/eSpfSbY+XEPQzQszmXYvUfvC4=;
+	b=JNfA/ShB/hbCEdIiwOlkHQyl4LSCaeLBvsgm5/L8t6e680hDsHomsrtZsjKSj1fc8XAOcl
+	PNzE4w2Py0ooVc7TQkYRfrhPrDZi0cDU9GimukvUcX3zHnTo2+eh8wQeDwV2yls+l3x5+X
+	5aX5Bq8ety31HH4pm3PrRd+63sGnafU=
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
+ [74.125.82.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-656-Nr5_x341NGSUgyViD_HFhA-1; Fri, 30 Oct 2026 16:07:16 -0400
+X-MC-Unique: Nr5_x341NGSUgyViD_HFhA-1
+X-Mimecast-MFC-AGG-ID: Nr5_x341NGSUgyViD_HFhA_1793390835
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-351788121cfso4930409eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:07:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793390835; x=1793995635; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KmJVN+NKveF6HgY1Y/eSpfSbY+XEPQzQszmXYvUfvC4=;
+        b=jzkq7PHf3CZp7AsHDDr6pFlanEm5fLjGRAJNZN78d95nRU5gTJiUhQ89yWBd+4dkMR
+         IYyl+CrEEmQujw69VsAm1KT7EQNmNYy5nr/C3TmyCoJPqYIbv4/ini4F4Y//U7HsAoS2
+         /xty1ecluaD3hWLo0dnaFNP+W/I6VqF34Jd1vLxBzvZd/xW3eR90MM0K9jHEj7Omu8s1
+         YiHIj0T/0Up/IWBXsblEDIWXAI4Y1MrE+jr11SoJDC/vIdFui427B+xW4xXGsTcng+co
+         Hr0VmQpAmtJP440Mn6tYam6O4L76jFeuSY5WpeWT690kr+aqAyPK/fOZlMffjSycFkYb
+         FS9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793390835; x=1793995635;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KmJVN+NKveF6HgY1Y/eSpfSbY+XEPQzQszmXYvUfvC4=;
+        b=0sQiRPrVbhQyRAgxkkHto0r7JN95Z+MDKO1T8JEvRd+BjpHPeVW3CVekCHyIa0ntJ/
+         SEqFHRsljhIavuwXgGBuEeA42e6l3qMftZkBFBZ9Ma2gzK6sfcOrSmEzzGviE9qqHtz5
+         WdhI3C1dauD4UJYfbhDeBF/e7/KEKzjZ/b62GDhaKW8WAPbGl413Im2uFBQWMBThYtU9
+         ns8RsbmhXpmudjEVbLKsOe26QUO4a00/z51SGgVYL8PbstIjNf2UAy3f74UPKfGlQWnH
+         86AaZzpETVOMPUAKblkYxJbg2OVjEdb99iw/hP0ScId+3OtJCgov8qFYIo0vcTpmwzL3
+         WkfA==
+X-Gm-Message-State: AFq9FYLoT5JkVzEhk3HW9ImHyNSmSk2MfIzrKRm17DfxeVcxkxDtm30Q
+	8PMmtY2+DgGpUFukQh5AkhbG7CgFa1b3IA5OKjMyRcj8MoroRfOm00s/b6K26Rej3lG1bkaN6gR
+	WHLjEixofbInYdufgV1uYmXSiEsVGVe/LLbMMEDtsEZlklQ+EXDbOrH7qLSGm9LrVR3QdWGgtRb
+	bBfaCPW0st2YVqgbK9zl061AGpMf5tODe5m74ZC9+Vmi8jRALj
+X-Gm-Gg: AYBFou15FEMPPWYvWOmj20pLYHZ+7NJSxZTg/qcW58U3wQf3ZSmPl4TE5wgZIkRligO
+	KnH57Y8ITCdhlfCZv6Q9j+MoSsJ/rXNKVbE5GpHTzSdX6Sz2Zb2bKowK2hEwCxdOhcBRqnByblr
+	+3VVBFGK6JZ5S3hKHdkAmsVyzfvuC5ozBIFhY407CeKkmYje3fgIi3VlAk4U33sbTOk2R5Bzw/T
+	G+BAKaOZR5obWTFsWHDEhpw9VvufqOj8ENLf8OEq0bN0q1Dme9SetjMR+SHhET040b76iyykVMd
+	GgE/3C3AI/bjFLAbLiVBioRCUQ6mLGi9bNx2csUIweJzckfi8nzDQWXNTFVEZvZSfoudhE6UYni
+	NC6APTOhn6vUGjvLmRaQ5DnvXYCGOvUg7SR1uNmXPB8cpfEjlTU9SgAuOMjEXo2kNbilbLDiqtx
+	n8RbOwe3BdaTX3rg==
+X-Received: by 2002:a05:693c:880b:20b0:369:ff7d:840 with SMTP id 5a478bee46e88-36a423e3607mr5250118eec.21.1793390834495;
+        Fri, 30 Oct 2026 13:07:14 -0700 (PDT)
+X-Received: by 2002:a05:693c:880b:20b0:369:ff7d:840 with SMTP id 5a478bee46e88-36a423e3607mr5250070eec.21.1793390833726;
+        Fri, 30 Oct 2026 13:07:13 -0700 (PDT)
+Received: from fedora.armenon-thinkpadp16vgen1.bengluru.csb ([49.47.195.13])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42aa8999sm10581834eec.29.2026.10.30.13.07.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 13:07:13 -0700 (PDT)
+From: Arun Menon <armenon@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Peter Huewe <peterhuewe@gmx.de>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	linux-integrity@vger.kernel.org,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Arun Menon <armenon@redhat.com>
+Subject: [PATCH v6 5/7] tpm: Increase TPM_BUFSIZE to 8KB for chunking support
+Date: Sat, 31 Oct 2026 01:36:47 +0530
+Message-ID: <20261030200649.357508-6-armenon@redhat.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261030200649.357508-1-armenon@redhat.com>
+References: <20261030200649.357508-1-armenon@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,108 +120,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jhcsbhgj56dj35dk"
-Content-Disposition: inline
-In-Reply-To: <20261029101838.7c34a2f2@gandalf.local.home>
+Content-Transfer-Encoding: 8bit
 
+From: Arun Menon <armenon@redhat.com>
 
---jhcsbhgj56dj35dk
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Kees Cook <kees@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Bill Wendling <morbo@google.com>, Petr Mladek <pmladek@suse.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Shuvam Pandey <shuvampandey1@gmail.com>, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] seq_buf: Mark a seq_buf overflowed when terminating it
- loses a byte
-Message-ID: <auT3Lt4y9s-8g_FK@devuan>
-References: <20261029053250.i.220-kees@kernel.org>
- <auMwo_T_FsZp5UsB@devuan>
- <20261029091845.21464a1a@gandalf.local.home>
- <auNNcmUuR8DS7Hys@devuan>
- <20261029101838.7c34a2f2@gandalf.local.home>
-MIME-Version: 1.0
-In-Reply-To: <20261029101838.7c34a2f2@gandalf.local.home>
+TPM_BUFSIZE limits the TPM2 command the kernel builds before handing
+it to a chip driver's send() callback. TPM 2.0 Library Part 3:
+Commands v185 adds ML-DSA key objects and the ML-KEM
+TPM2_Encapsulate()/TPM2_Decapsulate() commands (sections 14.10,
+14.11) [1]. NIST FIPS 204, Table 2, gives the largest ML-DSA
+parameter set, ML-DSA-87, a 4896-byte private key and a 2592-byte
+public key [2].
+Loading such a key pair with TPM2_Load, plus header, handle and session,
+comes to roughly 7.7KB - more than the current 4096-byte TPM_BUFSIZE.
 
-Hi Steve,
+Raise TPM_BUFSIZE to 8192 bytes. It covers this command with
+headroom, and keeps every kzalloc(TPM_BUFSIZE, ...) call in the TPM
+stack at an order-1 page allocation rather than a higher order.
 
-> Date: 2026-10-29 10:18:38-0400
-> From: Steven Rostedt <rostedt@goodmis.org>
->
-[...]
-> > > > > @@ -137,10 +137,16 @@ static inline size_t __seq_buf_terminate(st=
-ruct seq_buf *s)
-> > > > >  {
-> > > > >  	size_t end;
-> > > > >   =20
-> > >=20
-> > > Hmm, I was thinking that this should first check if the string is alr=
-eady
-> > > terminated with a nul byte. Why add another one if it is?
-> > >  =20
-> > > > > -	if (seq_buf_buffer_left(s))
-> > > > > +	if (seq_buf_buffer_left(s)) { =20
-> > >=20
-> > > 		if (s->len && !s->buffer[s->len - 1])
-> > > 			return;
-> > >  =20
-> > > > >  		end =3D s->len;
-> > > > > -	else
-> > > > > +	} else {
-> > > > >  		end =3D s->size - 1; =20
-> > >=20
-> > > 		if (!s->buffer[end])
-> > > 			return;
-> > >=20
-> > > Otherwise this overflows the buffer even when it is already terminate=
-d. =20
-> >=20
-> > If it is already terminated, s->buffer+s->len points to the NUL, right?
->=20
-> Not necessarially, a seq_buf_putmem() could have added the NUL terminator.
-> Then calling seq_buf_str() or seq_buf_terminate() should not overflow it.
+This matches the largest parameter set defined today. NIST has already
+published PQC families with larger keys and signatures than ML-DSA
+(e.g. FIPS 205/SLH-DSA), so a future algorithm could exceed 8192 bytes.
+CRB chunking, added later in this series, does not change that; it only
+lets an already-built command cross a smaller MMIO window in pieces,
+it does not change how large a command the generic stack can build.
 
-Ugh!  This is another can of worms.  Do we need to accept users calling
-_putmem() including a NUL terminator?  Perhaps we could ask users to not
-include that NUL with _putmem() (and if they do so, then the buffer
-might have two NULs, which isn't terrible).  Or perhaps _putmem() could
-do .len-- if the last byte is a NUL.
+[1] https://medias.cdn.trustedcomputinggroup.org/production/Trusted_Platform_Module_2_0_Library_Part_3_Commands_Version_185_pub_87a5c10230.pdf
+[2] https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf
 
-Anyway, I'm disliking this API too much, and will probably work on my
-own stpecpy()/seprintf() pointer-based pair of APIs to replace
-strscpy(9)/snprintf(3), which are much simpler to use correctly, and
-require much less churn than moving from strscpy(9)/snprintf(3) to
-seq_buf.
+Signed-off-by: Arun Menon <armenon@redhat.com>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Link: https://lore.kernel.org/r/20261029181541.99505-6-armenon@redhat.com
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ include/linux/tpm_command.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/include/linux/tpm_command.h b/include/linux/tpm_command.h
+index fc446a1282e2..4ad11068b090 100644
+--- a/include/linux/tpm_command.h
++++ b/include/linux/tpm_command.h
+@@ -434,7 +434,7 @@ struct tpm2_context {
+  */
+ 
+ #define TPM_DIGEST_SIZE		20	/* Max TPM v1.2 PCR size */
+-#define TPM_BUFSIZE		4096
++#define TPM_BUFSIZE		8192
+ 
+ /*
+  * SHA-512 is, as of today, the largest digest in the TCG algorithm repository.
+-- 
+2.56.0
 
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---jhcsbhgj56dj35dk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrk+OQACgkQ64mZXMKQ
-wqmgMg/9EEOoifhLaZxKkNnS1jL/LV9w9VNkkp2iZ5oPwJwzWkr4PHcvMZSBpTR9
-zeo5XYDMl8OtR6RSlI8BhYpZQzOtuiUXvJ2MEYXYVsXPXolDCWziBjJQr11vfr21
-/vhsRg8LxwIVBun5E20F0GnYPCtj/bB0PlyLymimLK2pO69sUo5Dr2/qIzHPa28W
-80IdQBk+X6yQ6/ueawzmBaMJ8mzD7rFvafy64etpXOgQ9vKNDMBEFFlhoRBfpNGJ
-ePhVJRRhqvJNpcykIHVyFoDlfd6fAVU00EB94sEg2ZePFMqoY30U5itthAlVOLNz
-wshz+1LyCcmE5CHedm0/AlVXwfUBdFVaR9+Qzgbjq+T90kciaKpsMatOnsvzjzHX
-jSm+kgoEc7d+hrC3NkX3eeTh89YZRiV3wHZJl87Oy+2Ux6QlpQn49VZDszgoNfb8
-lUMR4OZxKuqRoVJhTJXEl32k8P9aljDGqt6t7DJ5TvNlCC5cd5S4JQBfvvEx26T5
-9PTJ3QyFMom5+2Aox9SV6u0I4q77wjmznaShL86aMVpQgBzSECaMvIwnVFu5VkTH
-qchnqpoe6GAglEcS1ZPk6pf8gGl32JoH5JQ0dvs5vr0Hc/yjy4y1DKLOYYvv11ds
-zKas/Py0HQGjgJ6Eo5l1rvxNz6ehWvGb/0OtE2kKkXri5iLMvTc=
-=Ut2j
------END PGP SIGNATURE-----
-
---jhcsbhgj56dj35dk--
