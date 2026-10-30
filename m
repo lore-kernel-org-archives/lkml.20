@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793381609;
-	b=J8AXHJ6BockDfV36SDKzHEsrHHR4GdOJOOgja7H1Gnu2UP5ovAkNgOLdVcqUslY0vfjD
-	 Cyw6spK0R4+QmgyCq4Nba0N11dwC0f4mloudnOnX2WlpugjUhabrZz5FJIFA15ad0KNvF
-	 M1gKXAqHvbj5C2xkfk8PO7/wa2zqCy3x0ECFP+irzW8kkINke43u4BH7MXBdu1pENo0Yb
-	 UQAdgURQoc8Ffxubk9YKHnEqJLKF455UI0x4yt1XErhI/j+Lfzfjb1HKQgZXy1yp5LQS9
-	 HkP2c5gjkhP8twyjScxPs2tMvksMr8nIYhmea04UB+jJrZFny72f6P0HOvBRmktSuaw==
+	t=1793381633;
+	b=YPRW7V/YtlokWtDn+IDVpSLq+JT4UY4LMP8jA+T7xluZ7tzsx4hB1qWkXTtZBuMYAG9S
+	 G3YK4ePKcT5ADgRrtVKLqBuNAgdAOAc6mEjLsrF2GQ58f35z/rq28SMV6bX3AUQKSmw13
+	 W/q8g7iB4bqW8l3z4TnNQ0QwUyJDacrbTKI8VSQ12OCJQZ6OQrKMjtEU7nJ4oUI1ce/5r
+	 0S8DO5xmKZZoV06MHQG2XF0w0kK1Q1UEO2Dt6tJYj2Ua+uZBQ7BNTToSwSaWdghecZkVJ
+	 NbGC/CLsimfk3MCMPvKD8OS09Cqd86+Ey+R47qESnl5niOJTS2GjpB4DQIdC214Pbog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793381609;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793381633;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
 	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
-	bh=Wqhob1kKf6CSb1SlklMoXqrkoKUJdJ4GFmlTJDvAxz4=;
-	b=dM1a//HihY6uKpWxYqji9Oe+9xlqoPm3uxqidxR6u0z8Q+g1aL7qtue/kHbAORp0cf76
-	 3GYZidLtYA474rEbIodI82N8Jw78ehLPNU6++4f7DaKJ4jfu47csQB71cV/4hp6IT+fg2
-	 bax3PayHkbyV96S6a5fCHoeiEYXVCq1bdU36vlwqlFWXovpsnimcCksEWwQ9TcepIqjo9
-	 alYq59k8vJAU8cbizAj+R1bLq3oGBn+lb3KCI1i89LWVbEd4ijiwytd7Q/sXvhOicSOT6
-	 3dq8ZvDY+b6R/sPQfmIXUQrq794TCm60L/TYkAVKYhYwdeco4VGvaWq093E1aahN3Gw==
+	bh=qlwc36A4ODweVRTdlPrBcvgE5VORohTG+4sT2a2cxVY=;
+	b=TvALVjxchOPnMm/gBPLmm2OFkYcXRJZOO9/4LkCWQb3AAw6k43miZgfj/J5G+EESGl4v
+	 lSEuvQA5G8+vFVnlWG+JZYuAvv6p7s8zZn7OK5uIJgEJ7cdEUV5yDq4x8SzivNj9dig3s
+	 Jyo+gP8JiBjrhSDwU7soCw6z1l1/A7g8oI9qBsQjkpATbFo1r4X2QlsllEXH2c0yAWVCN
+	 ywUrGQBhCr+h9OTtD62c9QZInt2rrQkQScMCTxjxfSVtwMi9DF2+No1NJUYj0dnqcv+50
+	 6xh/tYDg2lDCEdtIf4k/jmg4dfY3iNgZhmbbvY0Xr/narznzMzDYGWlmvwC8cXQ8bbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tvLH3IJ+;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=pEhvDTEB;
 	arc=none smtp.remote-ip=185.171.202.116
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72DE606A31A;
-	Fri, 30 Oct 2026 17:33:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A72DE606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290F5606A31E;
+	Fri, 30 Oct 2026 17:33:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 290F5606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tvLH3IJ+
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=pEhvDTEB
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 2AEAEC49F70;
-	Fri, 30 Oct 2026 17:34:30 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 72100C49F70;
+	Fri, 30 Oct 2026 17:34:54 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 45D31603C2;
-	Fri, 30 Oct 2026 17:33:27 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 67B94103290E8;
-	Fri, 30 Oct 2026 18:32:56 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 883D2603C2;
+	Fri, 30 Oct 2026 17:33:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DE46A103290EE;
+	Fri, 30 Oct 2026 18:33:20 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793381599; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1793381624; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=Wqhob1kKf6CSb1SlklMoXqrkoKUJdJ4GFmlTJDvAxz4=;
-	b=tvLH3IJ+lAa+c1GDZJCdwzBG8lri4Ce0vDhFLbebUNhON2Fv77P9vI7IwLSfeyC6gCptFG
-	M0Zgo31a7fJtDWTkFGV6ZWpVqfWav/ZlTuTdS77qDa2ADyQzF1biqjGaJ52HYJjelpTyA8
-	78Txna1gVOn87a/EzGf517G9Wi90irQmp68QjmTBG2hi2anHJ/gar0CBLQdc8zb4eIFvVb
-	0/R2ROVUuBYLMmAT2UVIdwDj6R8J6fUMeT6w3n5ECLjA44QaGvkYoKqNIVVTf5GjtwnhF2
-	jsJ04NRKc9yG+3DNV5zsQKh8aii82ZUqWjYjVyeKGO+ceajBYz/0OpTscGm/VQ==
+	bh=qlwc36A4ODweVRTdlPrBcvgE5VORohTG+4sT2a2cxVY=;
+	b=pEhvDTEBEwVItv0jhhVKLGV7jEVW1hTRDVjj2kPeOz30bAYzGdHbA0F/UMOD9eiB8/bPNs
+	73Od0sjzXMENwQfkuYpBp53+mlwEtx6J/xYm93Ri3liMT4WhpuzSzUE1LJtyUqMPk6ajaX
+	gtOOk7T5PUY27SY3eEE+paI1c6eKCUs7HfuLArc3aFysbBxZv/SeZSVSHTD7f//gLCgi1S
+	sTg1YQSidOOIJaVnjbpU0nK+2osw4bd8W09zoWwuVdHIEDGOZCKbjbFWTUqpwv7HCPCgIk
+	CM3IUOSpzEmTIC/F+TdxZ26gxCd0fECzKg7112uVuFyuDKxopYCMyfAbvn8A6g==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,7 +61,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 11/35] drm/rockchip: lvds: use drm_panel_bridge_add()
+Subject: Re: [PATCH 12/35] drm/rockchip: rgb: use drm_panel_bridge_add()
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Douglas Anderson <dianders@chromium.org>, 
@@ -137,15 +137,15 @@ Cc: Douglas Anderson <dianders@chromium.org>,
  linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
  linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
  linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
-In-Reply-To: <20261026-drm-panel-funcs-v1-11-5e3070a3478f@oss.qualcomm.com>
+In-Reply-To: <20261026-drm-panel-funcs-v1-12-5e3070a3478f@oss.qualcomm.com>
 References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
- <20261026-drm-panel-funcs-v1-11-5e3070a3478f@oss.qualcomm.com>
+ <20261026-drm-panel-funcs-v1-12-5e3070a3478f@oss.qualcomm.com>
 Date: Fri, 30 Oct 2026 18:28:25 +0100
-Message-Id: <179338130521.3009485.1014998607879976180.b4-review@b4>
+Message-Id: <179338130523.3009485.5235549188282708456.b4-review@b4>
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 26 Oct 2026 13:10:00 +0200, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+On Mon, 26 Oct 2026 13:10:01 +0200, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
 > The connector type passed to drm_panel_bridge_add_typed() has been
 > ignored since commit b7797081ccfe ("drm/panel: embed a drm_bridge into
 > every drm_panel"), the bridge always has the type of the panel.
