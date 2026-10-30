@@ -1,104 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793349239;
-	b=MdWuysK+oCbEfiiqdrtm/LIGjdt31+FHtDW8kXnGLzTAETBVEnPvmcsBAnfM7XlHpi6+
-	 6csSnKtFf1WM0WerxB08vN5Nm7cOhrPK2HAu8pyoDAIUYB0cVd4upJHVENFchD1P20AEL
-	 uBYuruj/wp7FrO5No4syqSBn7cLr6dafBhJNxoX/eVXUp+R232sEBZpn/prL6ZhfSCdKn
-	 kuut1/BTzR5EtgNIMLqYuD79435N4lmggYnUAedcqbbZGQ1QVlDN1TFphSF+LTPXPCg2P
-	 cSpc772XysYE/+jcpzdm8+U/zBo5a/g5BxXVQisJZw6xPyJ8LxADiEDLvAzwcFHM1vQ==
+	t=1793349278;
+	b=K9V7y5ywh80mo4BB8bwjztlodE+vHv0Qt4HhpBa4I2v6zL1AECOy3GYmVy2BLxV1+GPl
+	 w1ZxezDcyalICxWmuzNRZgbgqmNlMosnm9hr2iy5T1xJnGGH1NC0tVE7MxdLzAEEoZtIO
+	 w28E8/tbnmpnA3mH+LTs26VP5lpm5sdDsBrIKyRyJ5BUr80FgwM8LT4cvccouv9GNIHVM
+	 /AuDi2CUiWqPm5udtd1VIasLyZA/6Dz6CJQOtofYQvt4WAJqFkHGNiMGFjGTvwmBZiUY1
+	 cgrnsJq1r5pSdLUF38H8sk35mWD3T3z8c7dfuE5UarU4FkvSPmJMNwcMFm1Sli844nQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793349239;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=fbEtnkUKPu+LL9E6R37XAYXOIcXTLbcLWYw0vich8Gw=;
-	b=TGUL6P91wqz3NV4pWmBS9/D3KDVXDersZfp38JXS2R13x9DlpMuHTULqnrfSjd3UHsUm
-	 7uq7j9/ew4hExG/EKjz3Vt379QJLjgAce+5HuvRcNFsRGparmjr9hmr+F7OGwe/gf0VOu
-	 /hKxXjY8AZW/6JXn7EPyQca48TUVoUgoFaOV4a5U3qXbiFbDVdNp5CReoEXZGK+xb+pHe
-	 JCHNEshH+YPVxqcc8dpCT7aJBDb2oCUfhIj5hznchlJTHHtlSR8AhqFYGB9/xKua+qBqW
-	 AP5pfYSM1L1V7FEzyEVscsFoudsfxtmCfv4TQTD18kwaXjDbpm8DvbtWoG4Zxb4bP+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793349278;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=M1YFIP1momfayTo5BQCGcGIZ358SmM7AYY10VJeYGMA=;
+	b=QMa8ew59UyXQbB7wcXpHKQ289sxdhc3Nw3xRizTC/LiRlHHR2qDu+59ZHnkK8jTpvZKV
+	 dtQ4INVF7VDbDCzssdJU90k3Dlwlwhr+m3FzwzX3jO8WsUgReSGcqX8g8btu/6Qre9Tjc
+	 dohvJr71SgI+Nj+g2y2GYCVSkuzbphlOBO76rp8jekQXlWm5UrklBLpoGa5/hEfprmlvl
+	 POrCjSMyTkapw4NHRQ2pBVsG5yzSQvuQIEqwBLXfTNhFy62sIPtKTVb44vViLllh6h9Qr
+	 /QZH1fWD6wMv1LXQXK1Yu/Qc5nh8E8OjMTT79+JfOrz/caI6inCVFu7jXoyoi/iIoFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v9+37NTp;
-	arc=none smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=FGrASAKh;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF90606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:33:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF90606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C8D606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:34:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3C8D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v9+37NTp
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc147d86bebso322546a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:33:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793349238; x=1793954038; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fbEtnkUKPu+LL9E6R37XAYXOIcXTLbcLWYw0vich8Gw=;
-        b=v9+37NTpncjz5uNRKBSmEC6F5DmnHYno7bYlIXbKI6whONJ3cXJ/qmiz9n2pl4359u
-         tZxZgMBmayuaB8epP2qsBSh0EveeyJMuGPRoejdGPN16bcyomVO08mpm1FUwLLetV0rL
-         xStpIV1mp+8hpY/UcJk51WC8yiF6UExbuVO8ht/2QWvBg8uZrWESD1wpmUzWSBqk4NP8
-         Ag5IjIlG2BouAE1ONfvM8ohLSVYUpSscjlO2O2GVpxuamF9rd9mvJrH9PEOMe+YL9U0x
-         hz1pwjs9u5FObeUYOnoZTG4TX57pdO6jgDNHlhjSBz00Gj7RBEDnAWBas7vug+pZsFnp
-         0Cbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793349238; x=1793954038;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fbEtnkUKPu+LL9E6R37XAYXOIcXTLbcLWYw0vich8Gw=;
-        b=VIgwUP5nk19zodxgA3o0G0egHu11ICiHKXVRKbFqmvqJBm6sgc8GCF5LuSCfceR/6v
-         s9BlI0ZK153/nFodcd00yl5jrlCM5zMAo4NjSIh992yc/9X5O3GNYe4NPHPDISkBSQ/d
-         gVlgZj8alfIxNP8ET55Dv0etJCdA3xqomtqYs4fuKCsmkhCCWaBAC/TJFvKk5thokdwP
-         uuM96GX083F2DiD6AJzfEwoIH37TOppdYfQXNRNxDDRHs9zt5hPWYoAs+zeR3gJgYOuY
-         QeaLArFDe0Cyj8jJP4cOLf4sa2H/rM9BvD4kFCMxDem/lihCrUqk2MdlkfDOEBlYMxrF
-         GdLg==
-X-Forwarded-Encrypted: i=1; AKwUvBw7hfnqGlTVlUsztEH5hGA1T55HsNSpUgfmsvvSYRBl9X8jD2x/KcrRGQVbo6vJkpMG0obpicnQGpdg0rA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJq8+OkBOSJWa+QeAFE8zYjZ11/40VvjD98h9+braLHpD0un33
-	y1RS17gzUU7J1WG8FajhGapPNKspqma/KihBWTUEkWhLg88yFPsc6elf
-X-Gm-Gg: AYBFou2Ng2y/nr5IuTaXRAB8WTRQ9VMNjtbG7fhiEJjBuA2BnvZG1CQ7DJLz7VUU6pz
-	9J7SBRwKJJXEoUjZKjnBaU/JlkVJDavlZauM8Qxcrv//c04FrZ0OOz+wiN+O2LIknNApEy6/bau
-	EMhIDJMS2o2epAmzeJUc26lj4H5MDJOQS+0mKZ85Z8l879cVO0NZxDy6AbYaoc4IsZxQ5CajxzD
-	OmPWayiV9/crF+AJ4ymzCtWUo+JEx4ekT4oYVUG3OjyybcWaHTuliYkdfF0sJLWwJz+udG5fTB3
-	PN/AEPk13x+ClCUoExwsCEqIsHOZXmmRN4r5liXL7TrgVPZb940uVEBTCc9Ttqe43FMU9l2IcaQ
-	xIImTQkmsdP4TzE+R8zvj0mrbPFfpCRlYQAtplgLHe/uLk/jbmk3pJwdmHESCYkqfkHg2j4aCIc
-	zFXQ+kQrr+INDSBCAlrSnuXz1QvWV0XSJ4O1FfcVEOaPZtz7eIkC656phb9NnAXp6GdTFmzNy3E
-	bboivcVwEv0hzUsFs1WXW03dKhpz3l0qI+uOJsRYSl4N09FfIPpdmvX94fuwbD4bn9IbWbReHxm
-	m+oWJX/isKVD/6XWiVj3614UMzThkM+AY2jD7bcqanNL+V4RADUfjXKa2H9dxbbnpCClriLpDxq
-	6TDTSH2KKRLASWlgWsl69TJ1nuJXudcDqQHREXN84PGuVe19Yc2s+cqp6VH0dxRj7FqYfM2MuKU
-	tOwTyGGxTDU2dE2A1awP5gmN0N6nAfZ5UJCyw=
-X-Received: by 2002:a17:90b:2f0f:b0:3a7:9ec3:ea0e with SMTP id 98e67ed59e1d1-3ae8974a292mr952529a91.22.1793349238418;
-        Fri, 30 Oct 2026 01:33:58 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85e4ff4csm1490961a91.1.2026.10.30.01.33.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 01:33:57 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	Randy Dunlap <rdunlap@infradead.org>,
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=FGrASAKh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=M1
+	YFIP1momfayTo5BQCGcGIZ358SmM7AYY10VJeYGMA=; b=FGrASAKhoFjTvfxLMT
+	i3GP66lHj4rMVS2psQz1PJc2yH9/Ox8KXkblBjd4kNzs4YfcH5K+zQZgUkOqXK1h
+	5aO6BnTKaBX7/uN+XuXYWYvH1g4zPWQkgdszX2hdU0KCAN+QTm/SqcijWGI6c1zQ
+	ov7QOQnYgv6UGzpGL1djF8dsE=
+Received: from neo-TianYi510Pro-15ICK.. (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgAXRXl+VuRqCoKSCg--.15983S3;
+	Fri, 30 Oct 2026 16:34:10 +0800 (CST)
+From: liuqiangneo@163.com
+To: "Michael S . Tsirkin" <mst@redhat.com>,
+	David Hildenbrand <david@kernel.org>
+Cc: Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
 	linux-kernel@vger.kernel.org,
-	workflows@vger.kernel.org
-Subject: [PATCH v2] Documentation/process: Add a maintainer entry profile for KVM/arm64
-Date: Fri, 30 Oct 2026 16:33:51 +0800
-Message-ID: <20261030083351.3040604-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	virtualization@lists.linux.dev,
+	Qiang Liu <liuqiang@kylinos.cn>
+Subject: [PATCH v2 1/3] virtio_balloon: add tracepoints for inflate and deflate operations
+Date: Fri, 30 Oct 2026 16:33:58 +0800
+Message-ID: <20261030083400.66005-2-liuqiangneo@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261030083400.66005-1-liuqiangneo@163.com>
+References: <20261030083400.66005-1-liuqiangneo@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,249 +68,189 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgAXRXl+VuRqCoKSCg--.15983S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW3GFyUWF1rGw1xKFWxCFWfZrb_yoW7Ar4UpF
+	s7Arn0kw47XrW7Ka4fCF4rWrsxZwn7CFWxtFyaga4UCF43JFZrKr1DtrWDJF4UAry0grnI
+	ga9xXF1DCan0vaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jTKZJUUUUU=
+X-CM-SenderInfo: 5olx1xxdqj0vrr6rljoofrz/xtbC4AKJ6mrkVoLWYQAA3s
 
-KVM/arm64 has no P: entry in MAINTAINERS, so nothing tells a contributor
-that the kvmarm tree is used for integration only, or what the
-maintainers expect patches to be based on.  Marc Zyngier said a profile
-would help.
+From: Qiang Liu <liuqiang@kylinos.cn>
 
-Add one covering the trees, the base for patches, the submit checklist,
-key cycle dates and review cadence, and point the KVM/arm64 entry at it.
+When the guest responds unexpectedly to balloon resize requests,
+the actual applied delta cannot be observed from the guest side.
 
-Link: https://lore.kernel.org/all/875wzu4vuv.wl-maz@kernel.org/
-Link: https://lore.kernel.org/all/87tsnb2dtq.wl-maz@kernel.org/
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+Add a "virtio_balloon" trace system with three tracepoints:
+config_change (target / resulting size / delta), and
+inflate and deflate (requested / applied page units / resulting size).
+
+Signed-off-by: Qiang Liu <liuqiang@kylinos.cn>
 ---
-Changes since the RFC
-(https://lore.kernel.org/all/20260925085621.562448-1-matthias.goergens@gmail.com/):
+ MAINTAINERS                           |  1 +
+ drivers/virtio/virtio_balloon.c       | 13 ++++
+ include/trace/events/virtio_balloon.h | 87 +++++++++++++++++++++++++++
+ 3 files changed, 101 insertions(+)
+ create mode 100644 include/trace/events/virtio_balloon.h
 
-- Point at the MAINTAINERS entry instead of naming maintainers and lists.
-- Describe master, topic branches and shared branches; drop the open
-  questions, which the RFC's Sashiko review had also flagged.
-- Base: prefer -rc1 to -rc3, not kvmarm/next; leave conflicts visible.
-- Subject lines: capital letter after the prefixes.
-- Architecture references: prefer rule identifiers; drop the comparison
-  with KVM x86.
-- Testing: selftests usually at the end of the series, reproducible
-  performance measurements, tests encouraged rather than required for NV.
-- Key cycle dates: no new features after -rc6; how fixes are sent.
-- Review cadence: stability of commit IDs; answering bot reviews.
-- Posted as a new thread, with the documentation maintainers and lists
-  on Cc.
-
-Steffen, Marc asked you for a short addition on KVM/arm64 on s390 for
-the Trees section.  I've left it out and can add it as a follow-up.
-
-Oliver, thanks for inviting an updated patch.  Corrections are welcome.
-
- .../process/maintainer-kvm-arm64.rst          | 181 ++++++++++++++++++
- MAINTAINERS                                   |   2 +
- 2 files changed, 183 insertions(+)
- create mode 100644 Documentation/process/maintainer-kvm-arm64.rst
-
-diff --git a/Documentation/process/maintainer-kvm-arm64.rst b/Documentation/process/maintainer-kvm-arm64.rst
-new file mode 100644
-index 0000000..3b0bb56
---- /dev/null
-+++ b/Documentation/process/maintainer-kvm-arm64.rst
-@@ -0,0 +1,181 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+KVM/arm64
-+=========
-+
-+This document describes how KVM/arm64 (``arch/arm64/kvm/`` and the other
-+files listed under "KERNEL VIRTUAL MACHINE FOR ARM64 (KVM/arm64)" in
-+MAINTAINERS) is maintained.  It supplements
-+Documentation/process/submitting-patches.rst.
-+
-+Overview
-+--------
-+
-+The maintainers, reviewers and mailing lists for KVM/arm64 are listed in its
-+MAINTAINERS entry.
-+
-+Trees
-+~~~~~
-+
-+The KVM/arm64 tree is::
-+
-+  git://git.kernel.org/pub/scm/linux/kernel/git/kvmarm/kvmarm.git
-+
-+This tree is used for integration only: no development happens in it, and
-+most patches should not be based on it (see `Base for patches`_).  Its
-+branches are:
-+
-+``next``
-+  Changes queued for the next merge window.  linux-next merges this branch.
-+
-+``fixes``
-+  Fixes for the release currently in its -rc phase.  linux-next merges this
-+  branch too.
-+
-+``master``
-+  Follows the -rc tags in Linus Torvalds' tree.
-+
-+Changes leave the tree as signed tags, which are pulled into the main KVM tree
-+(``git://git.kernel.org/pub/scm/virt/kvm/kvm.git``) and from there reach Linus
-+Torvalds.
-+
-+Topic branches are managed by the maintainers in their private trees, and only
-+the result of integrating them is pushed out.  The exception is shared
-+branches, which are published when necessary.  Where a series also touches
-+code maintained elsewhere, most often the arm64 architecture code, the
-+maintainers may set up a shared stable branch, based on an -rc tag, that both
-+trees merge.  Say in the cover letter which parts of a series touch other
-+subsystems.
-+
-+Base for patches
-+~~~~~~~~~~~~~~~~
-+
-+Base your patches on a tag published in Linus Torvalds' tree, preferably -rc1
-+to -rc3.  If you rely on something merged later, for example a fix merged in
-+-rc4, say why in the cover letter.  Patches based on linux-next are
-+discouraged.
-+
-+Do not base patches on ``kvmarm/next`` either: it is rebuilt regularly, so a
-+commit on it is generally the wrong base.  If your series conflicts with work
-+queued there, leave the conflict for the maintainers to see, as it is a sign
-+that something needs a closer look.  A proposed resolution is welcome.  The
-+exception is a series that strictly continues one that has already been
-+queued.
-+
-+If your series depends on something else that is not yet in mainline, such as
-+another series under review, say so in the cover letter and name exactly what
-+it applies on top of.
-+
-+Use ``git format-patch --base`` so that the base commit is recorded in the
-+patches.
-+
-+Submit Checklist Addendum
-+-------------------------
-+
-+Recipients and threading
-+~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+Send the whole series to all of the maintainers and reviewers listed for
-+KVM/arm64, not a selection of them.  Post each new version as a new thread,
-+not as a reply to the previous version, with a cover letter for anything
-+longer than a single patch.
-+
-+Subject lines
-+~~~~~~~~~~~~~
-+
-+Changes to KVM/arm64 use the ``KVM: arm64:`` prefix, often followed by a
-+sub-topic such as ``nv:`` or ``vgic:``.  Selftest changes use ``KVM: arm64:
-+selftests:`` or ``KVM: selftests:``.
-+``git log --oneline`` on the files you touch shows what is in use.  The text
-+after the prefixes starts with a capital letter, for example ``KVM: arm64: nv:
-+Fix life cycle of the nested_mmus array``.
-+
-+Architecture references
-+~~~~~~~~~~~~~~~~~~~~~~~
-+
-+KVM/arm64 code tracks the Arm Architecture Reference Manual (the "Arm ARM",
-+document DDI0487) closely.  Where a change depends on architected behaviour,
-+explain why the change is needed and cite the Arm ARM in the commit message
-+or in a comment.  Where the rule has an identifier, such as ``R_QXXPC``, quote
-+that: identifiers stay the same across revisions of the document, while
-+section numbers do not.  Otherwise give the revision along with the section,
-+for example ``DDI0487L.a D24.2.70``.  The same applies to other architecture
-+documents.
-+
-+Testing
-+~~~~~~~
-+
-+Say in the cover letter how the series was tested: which tests, and on which
-+hardware or model.  The KVM selftests (``tools/testing/selftests/kvm/``) and
-+kvm-unit-tests are the usual test suites.  Put selftest changes in patches of
-+their own, separate from the KVM changes and usually at the end of the series.
-+
-+KVM/arm64 can run in several modes, which are described under
-+``kvm-arm.mode=`` in Documentation/admin-guide/kernel-parameters.txt.  Test
-+the modes your change can affect.
-+
-+If a patch aims to improve performance, describe exactly how you measured it,
-+in enough detail for others to reproduce the results.  Measurements made on a
-+software model such as QEMU or the Arm FVP say nothing about performance on
-+hardware.
-+
-+New tests are encouraged, particularly for nested virtualisation, where
-+coverage is poor.  Depending on the change, selftests may not be enough; the
-+maintainers may ask for testing with a VMM, for example.
-+
-+Userspace API
-+~~~~~~~~~~~~~
-+
-+Document changes to the userspace API, usually in
-+Documentation/virt/kvm/api.rst or in the files under
-+Documentation/virt/kvm/devices/ and Documentation/virt/kvm/arm/.
-+
-+Fixes
-+~~~~~
-+
-+Add a ``Fixes:`` tag for bug fixes.  If the fix should go to stable kernels,
-+add ``Cc: stable@vger.kernel.org``; the maintainers may add it when applying
-+if the bug calls for it.
-+
-+Key Cycle Dates
-+---------------
-+
-+Changes for the next merge window are queued on ``next``.  New features are
-+usually not merged once -rc6 has been published; from then on, only fixes are
-+queued.  This is not a hard rule, but posting a feature just before -rc6
-+guarantees nothing.
-+
-+Fixes for the current release are queued on ``fixes`` and sent upstream at
-+intervals that depend on how severe the bugs are.  There is no cut-off for
-+fixes, but the maintainers may defer a low-priority fix to the next merge
-+window.
-+
-+Review Cadence
-+--------------
-+
-+Unless the maintainers ask for a new version sooner, allow at least a week
-+between versions of a series, and only post a new version once there has
-+been enough review to justify it.  Posting more often delays review rather
-+than speeding it up.
-+
-+Pinging a series that has had no response is fine.
-+
-+Answer reviews from bots such as Sashiko as you would any other review, even
-+if only to say that a finding is wrong.  Pre-existing problems that a bot
-+points out, and that are unrelated to the series, need not be fixed in its
-+initial posting.
-+
-+Applied patches are normally acknowledged in reply to the posting, naming the
-+branch (``next`` or ``fixes``) and the commits.  The maintainers try not to
-+change the commit IDs of applied patches, but the IDs of merge commits almost
-+always change.
-+
-+Minor problems are often fixed up by the maintainers when applying; if they
-+say "no need to resend", don't.
-+
-+Security issues
-+---------------
-+
-+Bugs that let a guest attack its host, or a nested guest attack its guest
-+hypervisor, should be reported as described in
-+Documentation/process/security-bugs.rst.
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 7a162e9..183bf34 100644
+index e4ca41cdd872..0ef6f34471de 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -14596,7 +14596,9 @@ R:	Zenghui Yu <yuzenghui@huawei.com>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
- L:	kvmarm@lists.linux.dev
+@@ -29590,6 +29590,7 @@ M:	David Hildenbrand <david@kernel.org>
+ L:	virtualization@lists.linux.dev
  S:	Maintained
-+P:	Documentation/process/maintainer-kvm-arm64.rst
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/kvmarm/kvmarm.git
-+F:	Documentation/process/maintainer-kvm-arm64.rst
- F:	Documentation/virt/kvm/arm/
- F:	Documentation/virt/kvm/devices/arm*
- F:	arch/arm64/include/asm/kvm*
-
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+ F:	drivers/virtio/virtio_balloon.c
++F:	include/trace/events/virtio_balloon.h
+ F:	include/uapi/linux/virtio_balloon.h
+ 
+ VIRTIO BLOCK AND SCSI DRIVERS
+diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
+index ab3e3d887e00..2d0b16383661 100644
+--- a/drivers/virtio/virtio_balloon.c
++++ b/drivers/virtio/virtio_balloon.c
+@@ -19,6 +19,8 @@
+ #include <linux/wait.h>
+ #include <linux/mm.h>
+ #include <linux/page_reporting.h>
++#define CREATE_TRACE_POINTS
++#include <trace/events/virtio_balloon.h>
+ 
+ /*
+  * Balloon device works in 4K page units.  So each page is pointed to by
+@@ -285,6 +287,8 @@ static unsigned int fill_balloon(struct virtio_balloon *vb, size_t num)
+ 	/* Did we get any? */
+ 	if (vb->num_pfns != 0)
+ 		tell_host(vb, vb->inflate_vq);
++
++	trace_virtio_balloon_inflate(num, num_allocated_pages, vb->num_pages);
+ 	mutex_unlock(&vb->balloon_lock);
+ 
+ 	return num_allocated_pages;
+@@ -333,6 +337,8 @@ static unsigned int leak_balloon(struct virtio_balloon *vb, size_t num)
+ 	if (vb->num_pfns != 0)
+ 		tell_host(vb, vb->deflate_vq);
+ 	release_pages_balloon(vb, &pages);
++
++	trace_virtio_balloon_deflate(num, num_freed_pages, vb->num_pages);
+ 	mutex_unlock(&vb->balloon_lock);
+ 	return num_freed_pages;
+ }
+@@ -567,11 +573,18 @@ static void update_balloon_size_func(struct work_struct *work)
+ 	diff = towards_target(vb);
+ 
+ 	if (diff) {
++		unsigned long target = vb->num_pages + diff;
++		unsigned long before = vb->num_pages;
++
+ 		if (diff > 0)
+ 			diff -= fill_balloon(vb, diff);
+ 		else
+ 			diff += leak_balloon(vb, -diff);
+ 		update_balloon_size(vb);
++
++		trace_virtio_balloon_config_change(target, vb->num_pages,
++						   (long)vb->num_pages -
++						   (long)before);
+ 	}
+ 
+ 	if (diff)
+diff --git a/include/trace/events/virtio_balloon.h b/include/trace/events/virtio_balloon.h
+new file mode 100644
+index 000000000000..f733fc360d8b
+--- /dev/null
++++ b/include/trace/events/virtio_balloon.h
+@@ -0,0 +1,87 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#undef TRACE_SYSTEM
++#define TRACE_SYSTEM virtio_balloon
++
++#if !defined(_TRACE_VIRTIO_BALLOON_H) || defined(TRACE_HEADER_MULTI_READ)
++#define _TRACE_VIRTIO_BALLOON_H
++
++#include <linux/tracepoint.h>
++
++/*
++ * All page counts reported by these events are in balloon page units, i.e.
++ * the 4K units the virtio balloon device operates on.  Divide by
++ * VIRTIO_BALLOON_PAGES_PER_PAGE to obtain the number of guest pages.
++ */
++
++TRACE_EVENT(virtio_balloon_config_change,
++
++	TP_PROTO(unsigned long target, unsigned long num_pages, long delta),
++
++	TP_ARGS(target, num_pages, delta),
++
++	TP_STRUCT__entry(
++		__field(unsigned long, target)
++		__field(unsigned long, num_pages)
++		__field(long, delta)
++	),
++
++	TP_fast_assign(
++		__entry->target = target;
++		__entry->num_pages = num_pages;
++		__entry->delta = delta;
++	),
++
++	TP_printk("target=%lu num_pages=%lu delta=%ld",
++		  __entry->target, __entry->num_pages, __entry->delta)
++);
++
++TRACE_EVENT(virtio_balloon_inflate,
++
++	TP_PROTO(unsigned long requested, unsigned long inflated,
++		 unsigned long num_pages),
++
++	TP_ARGS(requested, inflated, num_pages),
++
++	TP_STRUCT__entry(
++		__field(unsigned long, requested)
++		__field(unsigned long, inflated)
++		__field(unsigned long, num_pages)
++	),
++
++	TP_fast_assign(
++		__entry->requested = requested;
++		__entry->inflated = inflated;
++		__entry->num_pages = num_pages;
++	),
++
++	TP_printk("requested=%lu inflated=%lu num_pages=%lu",
++		  __entry->requested, __entry->inflated, __entry->num_pages)
++);
++
++TRACE_EVENT(virtio_balloon_deflate,
++
++	TP_PROTO(unsigned long requested, unsigned long deflated,
++		 unsigned long num_pages),
++
++	TP_ARGS(requested, deflated, num_pages),
++
++	TP_STRUCT__entry(
++		__field(unsigned long, requested)
++		__field(unsigned long, deflated)
++		__field(unsigned long, num_pages)
++	),
++
++	TP_fast_assign(
++		__entry->requested = requested;
++		__entry->deflated = deflated;
++		__entry->num_pages = num_pages;
++	),
++
++	TP_printk("requested=%lu deflated=%lu num_pages=%lu",
++		  __entry->requested, __entry->deflated, __entry->num_pages)
++);
++
++#endif /* _TRACE_VIRTIO_BALLOON_H */
++
++/* This part must be outside protection */
++#include <trace/define_trace.h>
 -- 
-2.56.0
+2.43.0
+
+
+No virus found
+		Checked by Hillstone Network AntiVirus
 
