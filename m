@@ -1,115 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793378243;
-	b=XJ34K2cziuz2uBOj9pYj8rgGgRb5ZOCvYDnWgdQkeLYdNJd7++1lmsihiYM1M2uJ8H/I
-	 vJiVV4wMxZ5VDn1WRJOCbgS1HfZiezYNLNgGyvvsFLdc2b1pu++aJTVqHD2bz68ZYwG8O
-	 r9nmU9ZEufCO5Wm+gJDtlLiVVja2RYk6p/Bv+7+xP0RB3v/I8lxS2bDKaG1hEsikpm3nX
-	 xRRzTqZikm7R0zw8nhYggmbiDOUG2uKxPzHFI0eg9bjipim7VgYVmMfBi3SjkKKIiQBk8
-	 Er3erobaLQ2iN64san30erXzmPFRYFjB5vkJeOsmO0yHhEaUf9MGToTgTSfI9gLqzSg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793378243;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=GdDJn8/yPENzlbSKGbhxLdOCcVj9F9rnm9o38JMn230=;
-	b=fSN/1XXTf+OjyUQabBCOVq4ye7KoM2kehVtYMy70mylXmJypp0yrMpu435F3oaZEyDF0
-	 EP1Nk2/hpUUE930ztsmH/noyK+35M2espY+RXnEuVA65as+0yG3yxp/lAoglE+WboRzHO
-	 9ABcFqMYs9ZGa6VHIaFuubo+yVA/QMS5iFlgkZI5sY4JlRMQwsh2vMQ7YaBRnSAxj3cEM
-	 Wbgaq8ctGOsjNcknzOtx/bTUHBbaFJhhZTSXja/7A7xUmfwR+5gUnyHTwovtsw9ovl7Nv
-	 QfJ6QQVybDJSnmJrfY3l0oy/CG9FmNfj/qBQmupgyrwr+cO7ocpZsGvyosy8wYfrigA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RPlKECSu;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="bgKx/ncV";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793378250;
+	b=1mmP1aMke+IcU+nfA4UHaYivOfhJvbp7dXJqTfQp/0BAmvlDTZG4ytiYRSbmkFhQ2Omd
+	 yVZmHQa9F2jThaSrMgcBGGuDaVErZFrBjSKdTXChJ/qXPtiZnFDdvx+2pf9p45WmRvZre
+	 bNuPaohHD+vfpMjIOh8No+Dh0vE7T3o7jWlQTkaWo3XIGcg1CAQGrKpJ6TNVZ48SJO7C/
+	 sNID+Zd/zw3tdZEi8VReXSO40KhLPabHva82zWyvH8dBQbnIEag1X64hWWqFbfU2NwCdI
+	 45l8lpx7zKsgRr2b2NcMZcfLCsvxlQR2gaRIT2yY5T5utFr8pif5Z2369LIkhMXAFww==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793378250;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=zAYL3j86a7Q88ddu69k+6OJol7/H9flq8cPsx2AHE54=;
+	b=SyVjVXl/7otxxFjwjdSiUjecQLvCPI44zZd7qcawA7ccM+RxNsJL0JPrEEhRfF2QxMat
+	 5DiGb+1xG7lryZP1HQ+CTyUwV2+CHk9jVaVv3jN0l2aLlLnZkF0cuWxSp0gQ0det30bEW
+	 c0cC7VvZdPVZLEaNA4WPfQ0ZyyVb1FvdTNB3/7IjarLVnNZq4IyF2Do/wQeQrMnaXVPEU
+	 kJWwLPg6OZcDSBAX4+2YFOpcIbsqarObKFtD1IGAW7UiLDexuVrodOlAG4PyrmVo8aLSz
+	 2hoXVi9z/Wa4s2eCjM3qAAiaUx++rfs7G4yJ/rcEX4LDNYznCUzYtT18Z48CaS/EG0g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JKB03Jte;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.170
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D75606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:37:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5D75606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D7E4606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:37:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D7E4606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RPlKECSu;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bgKx/ncV
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UERLeW2495322
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:37:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=GdDJn8/yPENzlbSKGbhxLdOC
-	cVj9F9rnm9o38JMn230=; b=RPlKECSu55BpkSCCITsv2RcSgXO8JJ8CpQsn0dta
-	0d4f/IIe7RsF4Jw4LcyAvuNWRBF5EezYD/U/A3Wy+ox+hSy54551dfjrKzdL9zBP
-	577lFSfDV5gphtz79AtUJCa+MqOH4+p8m4JplkbNPYqkguI5E6miFptznGwarrs3
-	Qpre/W74Dkdu2E0SjQxisWBIPLS2oxNG1Zn2SGDDVUZ08D/s+PcSD/Uc3oQjQHzY
-	UMR9IHifDJYAHFaYZUwSw0pGncby2vMiP2CQXyVhY9EtigzBpKRf9hLCOfc81IuY
-	KhGj2QS4zUwUOUa8W4HyHPjtrEhsAbA85DyFSp5xWro+qA==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6p42sb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:37:21 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7bf08dc2fc8so180307137.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:37:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JKB03Jte
+Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5eab93a9862so211687e0c.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:37:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793378249; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jnWffD1YNmnqKFMZmjhuLVW2abEGvRSI59F5MgiFH+WNVqePHA/m0RKOlkGL6ZagAP
+         3QbtFmBRxkTfu0MDj5ys06E7qYMTsRC8ay91IHupWPtNtGE/ubt/SgumfFCkngLBdacM
+         yfejdqEbzpTSnvZjXOAZqpkGrkMZfPM6OgZwNc2lTWJy/R4mZ8g3z4fWRgE3v/rnQ4AF
+         bqFsYoMWERviXo+TnRhdLx9+311sC4Dibp2AnJdr02XRdbT5EzqjGsGOSILOwdLjNxL8
+         iIIWjSvAKMN6jDjL29AK0gOQVDIUx6OAytrh1DkNFR0SS13QHOZ0Cz2jCbpjNBKZFj7G
+         V64Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zAYL3j86a7Q88ddu69k+6OJol7/H9flq8cPsx2AHE54=;
+        fh=NTKIsPc8s9kXjnjk7v5tM2cKMaV6fwrwLh6frBc3cM4=;
+        b=qCGT/v+WdhTeuLW3EvDQmKMrb+IJRz7oQS0kYyXuwClaqD136d+/gLE7uLVGD98/KE
+         OTCC1XgaJffdv+tiRYhPxlNH0aBhU/OlxeN9KftqvzDisHJpuuqzyXgz03J28Co0+eqo
+         jNl2DLIKAhgk117rlrNjaOrXntjEmWkNRa1TPyxBvPUQNBhkca05Wm1zCHxzF9Qkd9j+
+         3Snlqn0d7Ch3jgR5hcby2/lPbp9zHc2kqWdUCuq77Gyfp8lX20NKMtqBpj8yOReRuBK1
+         1R/hE6N77dU/TS+8Rpj0KyYCkBPSH54SXi+DAoo1xxpihISUB7OSsQr23Ow3xF+jTUjc
+         BNGA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793378241; x=1793983041; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793378249; x=1793983049; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=GdDJn8/yPENzlbSKGbhxLdOCcVj9F9rnm9o38JMn230=;
-        b=bgKx/ncVy+d9XvznfswvfHEfjUfP7vSw7mYUvazgof3i19zkupIGl5262C3IesCK+V
-         g8ezeltS/FX7J3hEgB8EUPS6V6yXgU0UT4DeApkGxiVgQBLjVViHUj+g/2aHCLr2SowC
-         LxBnQfJgpcm0BVZjh3TV/f2fDPLiFJSzKrOb1YDvy5tIUOwh5wsyvgfnrJOCmIv8X6h5
-         2+J7WDSNxBsjkKWAxyGkXycz+uA88eNwgLgJBnZ6G9G7oT6rkqthf2nVrosWimnTkG/X
-         p8h3lsGVBs6XKcR6Oeeu584L3nBUMi2hI5KQsedOXSe9gtQaWjzUjWbFN1RwANEyUjUw
-         E/0g==
+        bh=zAYL3j86a7Q88ddu69k+6OJol7/H9flq8cPsx2AHE54=;
+        b=JKB03Jte4+7R2ngephq58nAE/tcbmHPMF2QEwMNcXU2F7eetDr/WOmYYlrl44yTqtN
+         RIh8vMqfHczAbS7oGRzxCVewG5/XeZzhAJyX39H6+H0XsFYxArtwVV6LWtWjhdQIbx/V
+         KI9ZYuayZ4HpVmreMInLlqienLA+uWClI4EWmg606uOzKOtFAf3NtWYG2ZjrwUCojYMm
+         je+haQM3/zKDV6LHPvT3lA2D7L/EzQl5NYYnuokdS8L0VywnuRIO0kr2ekPxYeF+wBhm
+         vPFJGJlNc2AQkjhbFmM50CKxUl3Bp/vnrm0svDBLygp6UjBwL9P8qCzytttXGRW7vh8n
+         ZOsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793378241; x=1793983041;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793378249; x=1793983049;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GdDJn8/yPENzlbSKGbhxLdOCcVj9F9rnm9o38JMn230=;
-        b=nYbSg0kH2lXACp2YUAfvNa5VFO5y43oNSw5pQduNPPnKAe37B6OjmogJV7tEv6u43w
-         eS/5cvwvI6MVlCiic3PV2UhfcSRvB6d5xTOS0Gm8/9ZTMMjcFzi9U2FdrRo+vl4xX04r
-         xgYAqm+aXSaGhYCXWg3YRuhfAPYTwvLdZ7W77dpGSp3gfBWhMnvpKDrRpmvnmuifILgd
-         CzKVw5TzgAGZotffDYJrC4a9SoGns2DjRcDzteR3iG7JsO8UkLgtWYv3GWsCyWlfdaqA
-         ac/HsNgifZdFnyhXwr7lfC66eDppzudKZdXtYFrK0hS4G0MF8l3mRAbeNHJMttGEgMPT
-         3fJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwvErAW+L23M+RUbWmivII6dQOzrVRY0xHRbO9rEzXksrtv6uEyAL7oSCoCfHGD8IT0y44PKTWdyE9zAFs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIofpAS5l3ldoptPWamVFSQQDSIkNkejmvyrI4jNBiYtgBnFdso
-	7m7GXcIgjGAoaev1dCz1uZJbg3WQNwdAOR6yRodNuT0Rf3ZUq/OoVy1dDzBJOgWAk1JnkuM9pkb
-	Y4jdvPtTPNY4Nq02Ge0TtXLryLadM7+3x7B1YUg9SOPrRpkMqKoXUHKDdRIrHCe4ttWs=
-X-Gm-Gg: AYBFou3qLOfCgF7UWFXMYRwH1Bi9BT0+7e17/si+3QnUf07zoD+0syvvknxH6UTkdyp
-	nHASfpBUARD/3J+ABj26yUbkc8sA1FEcrLhpIMTgYaurLQ8WCqrVgb4+s4BEoAVjw2il1vbUH/9
-	Bihv764QnhiDHciVGnYHcm/VX+UxRHAdexojzOZcHuvhBF9a6N7BaBKKTY5HCkB20racgqrCe6r
-	f+sC08BQbaOwYuA0lxIk4+C0NG2HgL2gkp8yfJDGKMb21QtGRGV32fUUWVRLmdrHDiyuB1s7N6i
-	b/ed6p9VPfsqUteIjuM1lGOcxtr9U7j5Nt7xwjC40Uh6A52Jbpfv+/vZGIMdgT1yyU6UP9JpJam
-	ISGHNnztAt1otRgag4RBUdUDOslSKS/0u7eK65zOcUiJteZi9hMSLXp1vLsaBq2sp
-X-Received: by 2002:a05:6102:5494:b0:7cc:56a:58da with SMTP id ada2fe7eead31-7d072ca43d8mr1277916137.23.1793378240440;
-        Fri, 30 Oct 2026 09:37:20 -0700 (PDT)
-X-Received: by 2002:a05:6102:5494:b0:7cc:56a:58da with SMTP id ada2fe7eead31-7d072ca43d8mr1277904137.23.1793378239872;
-        Fri, 30 Oct 2026 09:37:19 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71ba5dc2sm3957322f8f.54.2026.10.30.09.37.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 09:37:19 -0700 (PDT)
-Date: Fri, 30 Oct 2026 18:37:18 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: vamshi gajjela <vamshigajjela@google.com>
-Cc: sboyd@kernel.org, abelvesa@kernel.org, jwylder@google.com,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] spmi: core: Rename spmi.c to spmi-core.c
-Message-ID: <kmxzieqtwbby2mzjo3s7yl4yt272ldylmvepurtsbu5jsxgfwx@zfco2h2tvvu2>
-References: <20261030045947.3049598-1-vamshigajjela@google.com>
- <20261030045947.3049598-2-vamshigajjela@google.com>
+        bh=zAYL3j86a7Q88ddu69k+6OJol7/H9flq8cPsx2AHE54=;
+        b=NrZrxTXBAW7fmZOzgHhQRdhVmizez2aUXnnIk2CjlZlL1Uid6DPhDEc+sKw9+9GA92
+         zvXZUct7lf/kKJOSyGxrbApYvif8lXhpR7jZDkUovwm4itbl+TFVY1FYN4jEbVkz7/ZQ
+         fQprNHnsq13XM0nZgaTTuw/u2dcn5ympohZgc1E3MkWT4sW678NtBf5qL9jQFU47Xv8i
+         +sACHbhaa6p5ouMP53yTK8a8LTG96H7NUJXOkpqjC8YhoEu1gBqZnSv8TjqI/5FUydFK
+         zPeCfjQ3b9b3w0uGZfpwtq9U/jgENqme7GfGUkkK7D7VvvCmtORhoyMgO7GUxpGn7v6e
+         oMKg==
+X-Forwarded-Encrypted: i=1; AKwUvBxTc3SNkhFizt0RCzrLn32jILr8BDJgB8kW+VYOt17HnxfIvITElqirEst+E1ECSuvLsLJ5h1RBYWcMw3Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxv/fSamIpb0/6YMxHbajI69MgGLUvYQ1cUQAVG2ElapSoYmPH
+	SXXDy1kSS+V1R3p6ypATtMFIntlB5VkfU2dzwv+Lb7FHq2UEoXAc8rAax7zfAlgTJznRuzVlRrx
+	CMqN1fDeBQsz3ZZRH3KJ7hDMLuyqLKhQ=
+X-Gm-Gg: AYBFou2dVsjJ2oI5GZGhivIAfWa+K+hDjDCKHBIAmqujjPUb25UcHeOQm+Ot4aQSyO6
+	wskuG888tf2bz1Z8NRb1MbhQ8nYzXjbMq0RduOHjeGEQYcW8BKulRHkBCDWy4BGG6FeZTkxifHi
+	cN7G28nzMMlXse3V7lDmuXoTbzqnOdfmyvIGMzcyx0higacNjQlCWjVelLVpvmR7Ti2eMXWiOoO
+	poGQ/eZlrJKYibj2mhk4Hr4+21JXsh0EJhCqtdrc7Kka1e4rFRc7WN1BUhzvGAbNFYvgxDBUjlT
+	yPKPJfjM+7fjpWbHA7HTUd2bnxNlWLLpLscjSlPpy23EbXRkGb5whmCL+o+8LTpF7B9Cp05KdF5
+	Qaorm2ddhKdsiJfnhx9Um9fryT5d6JR0x01KPnjd/Gu5ab2ID5hh1g8je6D6Sc85Iv2oDaNKmd+
+	YNgaF3RUxZ
+X-Received: by 2002:a05:6122:3d0b:b0:5ea:d1c4:7cbe with SMTP id
+ 71dfb90a1353d-5ec6899a08emr1698294e0c.23.1793378249305; Fri, 30 Oct 2026
+ 09:37:29 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,51 +105,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030045947.3049598-2-vamshigajjela@google.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA2NiBTYWx0ZWRfX+ZKCyf1jACkW
- 1Itxy/fPWnSlQClaubHtzeJ1w5pgDto6aCkOdGQx4DV99IfIeylSKLPGOA/LtttgA8oweX9Djfv
- qiazOZws45bqoHykjJ4m1vreW3aP4eD357x87KbFDPj6bgwmVfsIM7TSqoReGiOsk3XtKJlMbfK
- KLffTwYuvHzZH/i3AN/FzQ16KnxHmi/raSZ56Pd1TD52lAqDMK2qHS3V5FJRzAt3AkIQ+edIGoc
- 9AUBCVmFenI5oESpLA4leI0qvknocUYC+eEkgxHl5rbxajhyH8gvzfL8ultiFDw0gIISnhqMVtd
- V6JXxAWb5ZqSwSYlWffBVJhqM25aHKby2x9YzGA7C91+ZTtvNQuxcg00Andta920dpsEC2wiabX
- nnypFZjOFvaDXmahbJU9OxXnKOMsWHpGZujtKTYn96HPKCrErcmZoFFf+GDNQWyk/GwN8aJtZ+S
- BtmcQhR+ot9WrP3d5xA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA2NiBTYWx0ZWRfXxwF4cuLH4yFs
- mwMsYhi+jyATftrGV+ewBgFzYciB7y0+1BrXGRPNy0r+tdmHxAcH3Ecwf+T+XXeGF8bBeJgRJ2T
- Z6kU0r58qvrq5Jnp9C+JxyI5e/7i0rU=
-X-Proofpoint-ORIG-GUID: nzqflLFgQLCuEXvJdVMR1vTC4MXtU3PB
-X-Proofpoint-GUID: nzqflLFgQLCuEXvJdVMR1vTC4MXtU3PB
-X-Authority-Analysis: v=2.4 cv=TL3Q2Fla c=1 sm=1 tr=0 ts=6ae4c7c1 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=1XWaLZrsAAAA:8 a=EUspDBNiAAAA:8 a=CfHLt7jyb1YQYF4RJS8A:9 a=CjuIK1q_8ugA:10
- a=QYH75iMubAgA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1015
- adultscore=0 bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610300066
+References: <20261030161046.1497894-1-gourry@gourry.net>
+In-Reply-To: <20261030161046.1497894-1-gourry@gourry.net>
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+Date: Fri, 30 Oct 2026 12:37:18 -0400
+X-Gm-Features: AclHuK94a7ygO8e952sy9QWMqMjYz7wrdIjjao0GQyAzyDD8wGX-wdE4eecWNOg
+Message-ID: <CAN+CAwNsU5cOLvvHttz=9FOdqHEy62cmvVmJzhL4_1EhHwfyVw@mail.gmail.com>
+Subject: Re: [PATCH] mm/mempolicy: use one node set for interleave weights
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, rakie.kim@sk.com, 
+	ying.huang@linux.alibaba.com, harry@kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26-10-30 10:29:46, vamshi gajjela wrote:
-> From: Vamshi Gajjela <vamshigajjela@google.com>
-> 
-> Rename drivers/spmi/spmi.c to spmi-core.c and build it into the
-> composite spmi.o object to allow linking multiple files into the
-> spmi core module.
-> 
-> Signed-off-by: Vamshi Gajjela <vamshigajjela@google.com>
+On Fri, Oct 30, 2026 at 12:12=E2=80=AFPM Gregory Price (Meta) <gourry@gourr=
+y.net> wrote:
+>
+> From: Andrew Morton <akpm@linux-foundation.org>
+>
+> From: Andrew Morton <akpm@linux-foundation.org>
+>
+> Switching weighted interleave back to automatic mode while memory is
+> being onlined can cause a kernel divide error on x86, and a panic if
+> panic_on_oops is set.
+>
+> reduce_interleave_weights() scans N_MEMORY three times, but hotplug
+> can cause N_MEMORY to change at runtime - and torn reads on that
+> nodemask can cause a total sum of zero bandwidth.  A node that
+> was hot-unplugged and then hotplugged back can then cause this
+> loop to generate a div/0.
+>
+> Record the nodes visited while summing their bandwidth, then use
+> that same set when scaling and reducing the weights.  This gives
+> us a consistent state even if N_MEMORY changes.
 
-Subject prefix for SPMI core is just "spmi:", please drop the "core:".
+Makes a lot of sense to me. Thanks for the fix!
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
 
-I should've spotted that earlier. Sorry.
-
-With that fixed:
-
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Fixes: e341f9c3c841 ("mm/mempolicy: Weighted Interleave Auto-tuning")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
