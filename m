@@ -1,97 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793397530;
-	b=O5/8fGR2DOl2HMudzBVpK2mwMNQegoD7ZQwhf8c1KCcC9rQ9BFCGF4RHrQBbJpbXtA4w
-	 JIduPopWh/9yGFQio4Hs6cMugdK/nwKIDwmAlyGg3onW7ioie9O22FDF+R36LYEx+n3rb
-	 gz3suxY1r8wwQlKs8oFeKufxzpbi7lqe9YRM7mJkPU3noqUyOvLQesVBi2orM549FK0ov
-	 sA2fnHkhtWRFKGtE1IaMvqDr25z07y5gOcj6qysP4UzEYSr3QtMf9E3Nte0IDuW2gB6ZC
-	 1aWwbFgPeJ7jI2VLB2g0km5FsMFYC27r6XHWf3WdTShyBmcT2P/UB4LgLd/lI1S0f6A==
+	t=1793397566;
+	b=gC66jAMW6HYlwGUF9QoLPVzwqhyfIZFTuA5DwtjgQ6e1SKvDIeOwHrLCKU5dxH6/7TL5
+	 m58k42Dsoklx/PsDmwR+bD+Ez6uEe1NLbUCpgRu3yvDMKaL9e6J8yzcYXHO3D3oUXzbqX
+	 GERjv+6OB30V8GVCnr+ZqgggNm6RSz3JF5fLrYDjShu0R6oHplhA/w+0oXjsaNBPkdDuS
+	 YwGJb5BOQPKFLT6SFcu/rYprfilVXSNLgJjP+RJ9pgIEmKdJItxo2KyD98phbrSzeiPZ0
+	 tp5QI/qiPCDgpfJ1omDX1HpGVKADx3UBDyHhQWcu+7F9JIisaUZ3rMrOTk0tu82fEnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793397530;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793397566;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Yx1pZLwwkBWkRpnVSBKgTH165jQvpQXHy1+6SegQOjs=;
-	b=hZepn0y1sxrGnbnF4gT1b0IQXvSGY1GMEd/B6XucPXF71f9NL+kZmniCkZ3NJ2COeRLP
-	 HphvxsMkezCX2uuISUfDZuJpqW+9vXXpEz5WI1/2Fs3StoQ+KnXf3BtHpMNv3BjsAN+mk
-	 gIN/tlDbidYiN4qyBOFOpqTC/n1K9A9JRAuMHhPhlZRX4sNQiale6QGo0cxtUYPtcBoTw
-	 lxzkfLfmgVWjWP0IBlSngUNL1WaISaJQ73B3A0iKj4uBOaqj7H5PsB4cXJis9cyyMEB5a
-	 5fZpWLXJ5pdhe0JoszZX9J4l8nJ/9nQfi0BBTjTxRhqHXZEdP3xP0hh57YrR16+4Lig==
+	bh=UYIWoFisBkbrng3LjjKl6CMStSYrercs1Yl20n+415c=;
+	b=U3fwI6o1Z7xI0AXMSWm0avmuevumD8tUHw31IHpZbIQlsCi8bUc1I7HjRdoBTi9jQJt2
+	 ILjiTc27b2n1pNhlnusKvITlihJzBDBsa0N5oM3xi+6GYoOGj8f8C90X5ewIct/kKkPyt
+	 UhtlpdFGY2+/jbHold/aDld0w8xaaHe5p7oN1K+O7Y1flAbvEvtTQfuNzZyhYI+qVcqKE
+	 2F9Xufu2vfKoK29nImhW+n6JqFC79+Tl30deq4EW1uWuXFuBraKj8gw/mnB61ptLDtdF2
+	 ben7rsm+5A+oRspvyyCSxx2Zm9nB1TXiKvShRoAPTR/rfcdwhjtRXPgBC9iVmJrxmEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i92gPEUD;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L295eTdS;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5401606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:58:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5401606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC85606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:59:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADC85606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i92gPEUD
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48df4f540ebso601426f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:58:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L295eTdS
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so12452445e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:59:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793397528; x=1794002328; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793397564; x=1794002364; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Yx1pZLwwkBWkRpnVSBKgTH165jQvpQXHy1+6SegQOjs=;
-        b=i92gPEUDyMGl87Bni12lIhJYA35+je6eGDu/IbhGrl7zFcJgHN70Ms7/OIyFCpPAch
-         5sJ4rGyxEJsLPUxGBJEXDaGq5vx0uUN5EfuEEVQjPzIkeXXzdyuVaxxcZkupYg44rg92
-         C2JFcS2DQENfuR/iH6TUaJXf9Xq+WC4S80JLVRjP7R9VkZySw1E3nLM3xx/Z9K+XtbzW
-         wHSJgLt40uz+jeFIGZOQAuYfsv5Fo5lWWmi+LlxGluHoL4dv59dgkiKmITSmRqLF+EhA
-         O+8vUjGeKNjs0GT7Jc26SNfLsJF3D+/N7wdE67lWwhtf+Mqj5SKzCk4y5NBe38mImVRp
-         Yfqw==
+        bh=UYIWoFisBkbrng3LjjKl6CMStSYrercs1Yl20n+415c=;
+        b=L295eTdSoN7ErpWdwDYHwSLcNa07vb0WiKNjdwJCIHe/eU8RUDRsAHr0GD/Jrou3CU
+         2h2SNxiFU5VF35r/1Muk0rKMnA0bda/XcEV68gFo87iRe+xbR4BNRByBT7CAqVlRpAh+
+         5NCX4w6KxZTImwB9FrSmLepyYCJWDBdJ60cSoiazfN65FjR12fA91kWBt6RYuxHsLN5N
+         qub+EyLFUFu+5kJW30KX9mLrsPVBuEhHkPQEO8+zZtjgjLdpisWPY9PNfVFIwJqWgToB
+         kIFSzGQt3PMVY5QiU7xabtYi0OI7+x70gRL5alleyE8VFueTJ0O26iVU4z3w9a/+7ldw
+         iTTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793397528; x=1794002328;
+        d=1e100.net; s=20260707; t=1793397564; x=1794002364;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Yx1pZLwwkBWkRpnVSBKgTH165jQvpQXHy1+6SegQOjs=;
-        b=tDWYU8IQe42p1OcPw+FduAbW2F3iqoEv+cZ/8BdB1+wLSA+s09bxMwf8zg6Boq0pKO
-         DVF9j/4STKnBLuPAlDm5/Am6qkiHwTtnruEAcZlRj+enspgxqc15W148CARQ0NCnm2Bd
-         J+Kgt4aEro11lOWoaKjUcF+ERgi4Rt0h7sstQGsfTy/K9XIzaGM+MR2Zs8p1a+SeMBeb
-         DqF0NpIcbP7iQosDTXRnNxiOpjk7lbT2EHZgV5+P5G2+gHXTJH7TtS+bk/vE5EcbbwTj
-         OzbqNlbgt/QzhK3/AtX4m2o6mTVx3hsyB12HtXpxqvaexXSJvlY/8lurPyy9zSdUSyor
-         1j4g==
-X-Forwarded-Encrypted: i=1; AKwUvBz8xOR3JdRtCEtsfdsTLW/fX/+4NbWjJQyBXWXdCJNPUbbMRH9TczYwALmX34d82pj554uSJC982eRKH3Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKsMf6KZiRQEtSH/5G1aH9s5yrEa/BSi8F5mtOJXYpmRZmYZDV
-	NvVJ1vlH/hECLeE5MwLhY737uz2iuNgFydeCQ+eRFIHGaz90CR327QuU
-X-Gm-Gg: AYBFou0MAjsoBhyE0Bq3j8VT2QoJ7UwwHQUJDTXfpONKnoYO49TMZyJ3vPmupIJUoLl
-	9AsGXkPCSFQFRWIqO379thLFbOIrBvDmVHQ6vlSgHnNT/NiA850/cz3pZZiAiO0LcPonEuo5aq9
-	8gDfvFk2AMhm34T4b6iEVMdDDy21HP430X6igjg+2arlAiZKrcQ6tuizyzK6rpUG/l9IV8dKTZU
-	0866wkR24+3+EBSgrIgp6+JGv4dXu+OtzEwZN1IJwo27lzDrtxmV0Zrp8VY4V5G8FQCP4THuCQo
-	VXXh9MPu0JtGAVBYw1K8q3zViPQiZWzwsXjXKHzFq58bGn7tQFR1CkLBxTSh7lOsZAesDf46CZY
-	R6gFgBTuY9hpzftoM7L8JY3UgSg/rGnNTfNE6o0E5GYYuRiMAZActsZp2reUPklJ+VLc7xa0Htb
-	B3MB3Ty+7oB8uPyUB8lX0phGzuD1x/ea8FDBsAvBiLs/Khlw3Eghd5UxZNwRCOJjHOjvIMPwIrF
-	05wISBRjFwzwwES3wArT3bOrifJVgdb+Iwy5MPqa96P/XXupBQE5iNLoToRsROL+/PttzH85wlo
-	s/DFGo8BoH/iyQkdJh2Hi5M88E4hitR70jbDlFpoQSTsuTQUOH6crAZM6a3X
-X-Received: by 2002:a05:6000:402c:b0:48d:f39b:83de with SMTP id ffacd0b85a97d-48e6e2bdf87mr10007670f8f.3.1793397527950;
-        Fri, 30 Oct 2026 14:58:47 -0700 (PDT)
-Received: from fedora.domain.name ([217.218.153.252])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b9b54dsm5312409f8f.47.2026.10.30.14.58.44
+        bh=UYIWoFisBkbrng3LjjKl6CMStSYrercs1Yl20n+415c=;
+        b=NVqhQNVLzjhiVoqiaBeopM35vj87lkhY9FEvMeOnQBezbPDwL2SzQfUYCUTnB7NBCa
+         QjDVLkzc0a37JnTikf7fpQY55FfFQfg6MptVRcGlD5kWK05+rLkNbaSXQQJN2yHWcdAU
+         JLWZy0mC5Ga6hcbF/RXhbWBOYaYqQhXZhNe3J65Znjd+EO4b/XK8OiobDABSgy1kEZHp
+         LGpnrXxuoOYwW7FfRhypTS4326qZ7NGHdp1XZf9EkQDo3ksXOuG+WlTw+8kfUgEwiJDk
+         Uw/mw85tuGiJwr6MNHS33oE1FhZJftLpXP0jN26Rno2cIuQeGBMIHm4MnWQMWYzwpyTQ
+         32FQ==
+X-Forwarded-Encrypted: i=1; AKwUvByrCkDGf3uf55YUlaJ6aMtYPmQebxmxmN0+3trlJDsjFwnvagQnfasTbkl+O8ndBfksE/qxUTLNHPMLGNE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9WgM/6c3Mjky8LLfdFhuhD6+T/Z23KXtWjmYOJiCur5wdN+Cw
+	DaeTVq8y1GnmistBXCzgNdXRyiFfiKSOt9G7o3GHIB+gHHsKmXm38tU9
+X-Gm-Gg: AYBFou2vIeY9VimA2Dr1DkbMKVdOtdiYyz+awLpaK56usEhDXiWH/vYuNhQjSUOsemw
+	ZUZ4eTEkdkeWuLFzFES8z9rYXbfkQQM0DJTCFbNx7ce+AiMZ2yLTUMtWj25gfZbgM29lfVxDsm1
+	0kdSKqjfiGWhwu0NO16AjnxKaqzoK7fRKIdoA3UgpNFnEOY7Cu4AQlseiOPd4X27Bx7l5vimDZq
+	qkJ4v2aUM4F2ZA2ah6c5KXld9FN5ah+W8hpYYxqDYkaZnpynjLQSrscOtCFKL4Ok4iLnqsl/QoW
+	J0xV0ca7QISIkanXwNMSUdzzjVIalexP4JXbey/zeHKVOPcUC1+5gv53IYQ+skb3TrQa3qpM+aS
+	F2/Pk4fAV1h3HewJ41s+/W5oXpSbi0NIEd3BW0G1D2o0PaSPvwgrgkmK2IRIJOXBF4m5gmAFBVZ
+	91jVejrA1UuVOLItqPh6b21uaRyekK8s0PMAGg0+I8p58m5U1Rw7QBUQNU3x2K2KUj5rR9nQliW
+	ADS8Q7x4VMy423xg0Uw53MTmAUB3wd/SNi62wuSWY7MLFgbInKeQRjTg5JU4UBX3A5H7YDCoO9m
+	jgF1VPcL+DFPyZvpRePds9+zp6CZsy1hKLiOTmSy4bOt2w==
+X-Received: by 2002:a05:600c:8119:b0:4a1:cef3:fb3a with SMTP id 5b1f17b1804b1-4ac17a36a28mr69980545e9.9.1793397563837;
+        Fri, 30 Oct 2026 14:59:23 -0700 (PDT)
+Received: from linux-virtualbox ([176.123.20.239])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80306sm5776764f8f.33.2026.10.30.14.59.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 14:58:47 -0700 (PDT)
-From: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
-To: akpm@linux-foundation.org,
-	david@kernel.org,
-	shuah@kernel.org
-Cc: linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kas@kernel.org,
-	yeoreum.yun@arm.com,
-	ziy@nvidia.com,
-	Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
-Subject: [PATCH] selftests/mm: handle child status safely in khugepaged
-Date: Sat, 31 Oct 2026 01:28:41 +0330
-Message-ID: <20261030215841.229969-1-ampr.mhd@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Fri, 30 Oct 2026 14:59:23 -0700 (PDT)
+From: Salah Ahmed <haddad2inc@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	netdev@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] net: dsa: qca8k: expose cached per-port MIB counters via get_stats64
+Date: Sat, 31 Oct 2026 00:58:31 +0300
+Message-ID: <20261030215831.17997-1-haddad2inc@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,142 +103,266 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The khugepaged selftest reports child exit status through a shared
-variable without checking that the child actually ran to completion.
-When fork() fails or the child is killed by a signal, the status is
-undefined and the test can report a false pass.
+DSA user port netdev statistics count only CPU-seen traffic, so bridge
+offloaded forwarding is invisible to /sys/class/net/<port>/statistics, to
+rtnetlink IFLA_STATS and to every kernel consumer of them, including the
+netdev LED trigger. The switch MIB counters see every frame crossing the
+port, but reading them costs a register transaction per counter on a bus
+that is either MDIO or MDIO-over-Ethernet, while consumers such as the LED
+trigger call dev_get_stats() several times per second.
 
-Capture the waitpid() result and distinguish normal exit, signal
-death, and fork failure before interpreting the status. Report the
-child's actual termination cause in the TAP output so failures are
-visible rather than silently masked.
+Use the pattern that is already established for switch drivers: ar9331 in
+this same directory caches a rtnl_link_stats64 behind a spinlock, refreshes
+it from a delayed work and serves it from .get_stats64, and ksz does the
+same. Poll RxGoodByte/TxByte per user port and serve the cached values.
 
-Signed-off-by: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+The poll is adaptive rather than fixed. A consumer that derives a rate
+from these counters only sees the wire when the cache moves, so a fixed
+period sets the latency of every rate-based consumer to that period.
+Refresh four times a second while the counters move and once a second
+while they are idle: an idle switch stays cheap, and a busy one is
+reported within a quarter of a second. The work also runs once as soon as
+it is armed, so the first consumer after a link comes up does not read
+zeros for a whole period.
+
+The work is scheduled with schedule_delayed_work(), i.e. on system_wq like
+ar9331 does, and not on system_power_efficient_wq. With
+CONFIG_WQ_POWER_EFFICIENT_DEFAULT the power-efficient workqueue arms
+deferrable timers, which do not wake an idle CPU; on a single-core switch
+SoC that is mostly idle this deferred a nominal 3 s poll by several more
+seconds, and consumers saw the wire that late.
+
+DSA serves a user port either from the driver's .get_stats64 or from
+dev_get_tstats64(), never from both, so the cache has to be layered on top
+of the software counters: start from dev_get_tstats64() and override only
+the byte counters with the wire values. Otherwise installing .get_stats64
+would drop rx_packets/tx_packets to zero and break every consumer that
+looks at packets, including the netdev LED trigger in tx/rx mode. The MIB
+counts every frame crossing the port including the CPU-bound ones, so the
+wire byte counters are a superset of the software ones and replacing them
+loses nothing.
+
+Each 64-bit counter is read with a single regmap_bulk_read() so that no
+other register access can land between the low and the high half of the
+same counter.
+
+The cache fields sit at the top of struct qca8k_priv to stay clear of
+target-specific patches that extend its tail, such as the ipq40xx IPQ4019
+built-in switch support. The poll work is armed at the end of
+qca8k_setup(): a failing setup never reaches the remove callback, so
+arming it earlier would leave the delayed work running after the driver is
+gone.
+
+The poll work is armed at the end of qca8k_setup() and stopped from a new
+.teardown op. DSA calls .teardown both on the dsa_switch_setup() error
+paths that follow a successful ops->setup() - the tag protocol setup and
+the user MDIO bus allocation and registration - and from
+dsa_unregister_switch(), so the work cannot outlive the driver data it
+reads. Stopping it in qca8k_sw_remove() alone misses the probe error
+path: dsa_register_switch() fails, probe fails, devm frees priv and the
+armed work then runs on freed memory.
+
+Signed-off-by: Salah Ahmed <haddad2inc@gmail.com>
 ---
- tools/testing/selftests/mm/khugepaged.c | 57 +++++++++++++++++++++----
- 1 file changed, 48 insertions(+), 9 deletions(-)
+ drivers/net/dsa/qca/qca8k-8xxx.c   |  17 +++++
+ drivers/net/dsa/qca/qca8k-common.c | 110 +++++++++++++++++++++++++++++
+ drivers/net/dsa/qca/qca8k.h        |  15 ++++
+ 3 files changed, 142 insertions(+)
 
-diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
-index 1bc7acc66a46..2dd68dde1c14 100644
---- a/tools/testing/selftests/mm/khugepaged.c
-+++ b/tools/testing/selftests/mm/khugepaged.c
-@@ -1007,6 +1007,7 @@ static void collapse_compound_extreme(struct collapse_context *c, struct mem_ops
- static void collapse_fork(struct collapse_context *c, struct mem_ops *ops)
- {
- 	int wstatus;
-+	pid_t pid;
- 	void *p;
+diff --git a/drivers/net/dsa/qca/qca8k-8xxx.c b/drivers/net/dsa/qca/qca8k-8xxx.c
+index 07227ae8bc..08f3ef00e6 100644
+--- a/drivers/net/dsa/qca/qca8k-8xxx.c
++++ b/drivers/net/dsa/qca/qca8k-8xxx.c
+@@ -2020,6 +2020,14 @@ qca8k_setup(struct dsa_switch *ds)
+ 	/* Set max number of LAGs supported */
+ 	ds->num_lag_ids = QCA8K_NUM_LAGS;
  
- 	p = ops->setup_area(1);
-@@ -1019,7 +1020,8 @@ static void collapse_fork(struct collapse_context *c, struct mem_ops *ops)
- 		fail("Fail");
- 
- 	ksft_print_msg("Share small page over fork()...");
--	if (!fork()) {
-+	pid = fork();
-+	if (pid == 0) {
- 		/* Do not touch settings on child exit */
- 		if (ops->check_huge(p, hpage_pmd_size, 0, hpage_pmd_size))
- 			success("OK");
-@@ -1034,9 +1036,20 @@ static void collapse_fork(struct collapse_context *c, struct mem_ops *ops)
- 		ops->cleanup_area(p, hpage_pmd_size);
- 		_exit(exit_status);
- 	}
-+	if (pid < 0) {
-+		fail("fork() failed");
-+		goto out;
-+	}
++	/* Arm the MIB poll work only after every failure path in this
++	 * function is behind us. DSA calls .teardown both on the
++	 * dsa_switch_setup() error paths that follow a successful
++	 * ops->setup() and from dsa_unregister_switch(), so the work is
++	 * always stopped again.
++	 */
++	qca8k_mib_poll_start(priv);
 +
-+	while (waitpid(pid, &wstatus, 0) == -1) {
-+		if (errno == EINTR)
+ 	return 0;
+ }
+ 
+@@ -2030,11 +2038,20 @@ static const struct phylink_mac_ops qca8k_phylink_mac_ops = {
+ 	.mac_link_up	= qca8k_phylink_mac_link_up,
+ };
+ 
++static void qca8k_teardown(struct dsa_switch *ds)
++{
++	struct qca8k_priv *priv = ds->priv;
++
++	qca8k_mib_poll_stop(priv);
++}
++
+ static const struct dsa_switch_ops qca8k_switch_ops = {
+ 	.get_tag_protocol	= qca8k_get_tag_protocol,
+ 	.setup			= qca8k_setup,
++	.teardown		= qca8k_teardown,
+ 	.get_strings		= qca8k_get_strings,
+ 	.get_ethtool_stats	= qca8k_get_ethtool_stats,
++	.get_stats64		= qca8k_get_stats64,
+ 	.get_sset_count		= qca8k_get_sset_count,
+ 	.set_ageing_time	= qca8k_set_ageing_time,
+ 	.support_eee		= dsa_supports_eee,
+diff --git a/drivers/net/dsa/qca/qca8k-common.c b/drivers/net/dsa/qca/qca8k-common.c
+index ab978cc836..7c446f507f 100644
+--- a/drivers/net/dsa/qca/qca8k-common.c
++++ b/drivers/net/dsa/qca/qca8k-common.c
+@@ -520,6 +520,116 @@ void qca8k_get_ethtool_stats(struct dsa_switch *ds, int port,
+ 	}
+ }
+ 
++/* Two cadences, picked per round by the work itself: while the wire counters
++ * move the cache is refreshed four times a second so that a rate consumer
++ * sees the traffic almost immediately, and once a second while they are
++ * idle, which keeps the MDIO cost of an idle switch low.
++ *
++ * schedule_delayed_work() (system_wq) is used deliberately instead of a
++ * power-efficient workqueue: with CONFIG_WQ_POWER_EFFICIENT_DEFAULT the
++ * latter arms deferrable timers that do not wake an idle CPU, which on a
++ * single-core switch SoC delayed a 3 s poll by several more seconds and
++ * made consumers see the wire late. ar9331 schedules its equivalent MIB
++ * work the same way.
++ */
++#define QCA8K_MIB_POLL_IDLE	HZ
++#define QCA8K_MIB_POLL_ACTIVE	(HZ / 4)
++
++/* RxGoodByte / TxByte offsets in the per-port MIB block, both 64-bit wide */
++#define QCA8K_MIB_RXGOODBYTE	0x3c
++#define QCA8K_MIB_TXBYTE	0x84
++
++/* Read one 64-bit MIB counter in a single regmap transaction, so that no
++ * other register access can land between the low and the high half.
++ */
++static int qca8k_mib_read_wire(struct qca8k_priv *priv, int port, u32 off,
++			       u64 *val)
++{
++	u32 raw[2];
++	int ret;
++
++	ret = regmap_bulk_read(priv->regmap, QCA8K_PORT_MIB_COUNTER(port) + off,
++			       raw, ARRAY_SIZE(raw));
++	if (ret)
++		return ret;
++
++	*val = raw[0] | ((u64)raw[1] << 32);
++
++	return 0;
++}
++
++static void qca8k_mib_poll_work_fn(struct work_struct *work)
++{
++	struct qca8k_priv *priv = container_of(work, struct qca8k_priv,
++					       mib_poll_work.work);
++	struct dsa_switch *ds = priv->ds;
++	bool busy = false;
++	u64 rx, tx;
++	int port;
++
++	for (port = 0; port < QCA8K_NUM_PORTS; port++) {
++		if (!dsa_is_user_port(ds, port))
 +			continue;
- 
--	wait(&wstatus);
--	exit_status = WEXITSTATUS(wstatus);
-+		fail("waitpid() failed");
-+		goto out;
-+	}
-+
-+	exit_status = WIFEXITED(wstatus) ? WEXITSTATUS(wstatus) : KSFT_FAIL;
- 	if (exit_status == KSFT_FAIL)
- 		goto out;
- 
-@@ -1054,11 +1067,13 @@ static void collapse_fork(struct collapse_context *c, struct mem_ops *ops)
- static void collapse_fork_compound(struct collapse_context *c, struct mem_ops *ops)
- {
- 	int wstatus;
-+	pid_t pid;
- 	void *p;
- 
- 	p = alloc_hpage(ops);
- 	ksft_print_msg("Share huge page over fork()...");
--	if (!fork()) {
-+	pid = fork();
-+	if (pid == 0) {
- 		/* Do not touch settings on child exit */
- 		if (ops->check_huge(p, hpage_pmd_size, 1, hpage_pmd_size))
- 			success("OK");
-@@ -1084,9 +1099,20 @@ static void collapse_fork_compound(struct collapse_context *c, struct mem_ops *o
- 		ops->cleanup_area(p, hpage_pmd_size);
- 		_exit(exit_status);
- 	}
-+	if (pid < 0) {
-+		fail("fork() failed");
-+		goto out;
-+	}
-+
-+	while (waitpid(pid, &wstatus, 0) == -1) {
-+		if (errno == EINTR)
++		if (qca8k_mib_read_wire(priv, port, QCA8K_MIB_RXGOODBYTE, &rx))
 +			continue;
-+
-+		fail("waitpid() failed");
-+		goto out;
-+	}
- 
--	wait(&wstatus);
--	exit_status = WEXITSTATUS(wstatus);
-+	exit_status = WIFEXITED(wstatus) ? WEXITSTATUS(wstatus) : KSFT_FAIL;
- 	if (exit_status == KSFT_FAIL)
- 		goto out;
- 
-@@ -1105,11 +1131,13 @@ static void collapse_max_ptes_shared(struct collapse_context *c, struct mem_ops
- {
- 	int max_ptes_shared = thp_read_num("khugepaged/max_ptes_shared");
- 	int wstatus;
-+	pid_t pid;
- 	void *p;
- 
- 	p = alloc_hpage(ops);
- 	ksft_print_msg("Share huge page over fork()...");
--	if (!fork()) {
-+	pid = fork();
-+	if (pid == 0) {
- 		/* Do not touch settings on child exit */
- 		if (ops->check_huge(p, hpage_pmd_size, 1, hpage_pmd_size))
- 			success("OK");
-@@ -1145,9 +1173,20 @@ static void collapse_max_ptes_shared(struct collapse_context *c, struct mem_ops
- 		ops->cleanup_area(p, hpage_pmd_size);
- 		_exit(exit_status);
- 	}
-+	if (pid < 0) {
-+		fail("fork() failed");
-+		goto out;
-+	}
-+
-+	while (waitpid(pid, &wstatus, 0) == -1) {
-+		if (errno == EINTR)
++		if (qca8k_mib_read_wire(priv, port, QCA8K_MIB_TXBYTE, &tx))
 +			continue;
 +
-+		fail("waitpid() failed");
-+		goto out;
++		spin_lock_bh(&priv->stats_lock);
++		if (priv->port_stats[port].rx_bytes != rx ||
++		    priv->port_stats[port].tx_bytes != tx)
++			busy = true;
++		priv->port_stats[port].rx_bytes = rx;
++		priv->port_stats[port].tx_bytes = tx;
++		spin_unlock_bh(&priv->stats_lock);
 +	}
++
++	schedule_delayed_work(&priv->mib_poll_work,
++			      busy ? QCA8K_MIB_POLL_ACTIVE : QCA8K_MIB_POLL_IDLE);
++}
++
++/* Serve the wire counters on top of the software ones. May be called in
++ * atomic context, so only the cache is touched here. The MIB sees every
++ * frame crossing the port, including bridge-offloaded traffic that never
++ * reaches the CPU, so DSA user ports finally report the truth on the wire
++ * to every standard kernel consumer, without ethtool or userspace helpers.
++ *
++ * DSA calls either .get_stats64 or dev_get_tstats64(), never both, so the
++ * packet and error counters collected by the DSA xmit/receive paths have to
++ * be picked up here as well or they would be lost.
++ */
++void qca8k_get_stats64(struct dsa_switch *ds, int port,
++		       struct rtnl_link_stats64 *s)
++{
++	struct qca8k_priv *priv = ds->priv;
++	struct rtnl_link_stats64 wire;
++
++	dev_get_tstats64(dsa_to_port(ds, port)->user, s);
++
++	spin_lock_bh(&priv->stats_lock);
++	wire = priv->port_stats[port];
++	spin_unlock_bh(&priv->stats_lock);
++
++	s->rx_bytes = wire.rx_bytes;
++	s->tx_bytes = wire.tx_bytes;
++}
++
++void qca8k_mib_poll_start(struct qca8k_priv *priv)
++{
++	spin_lock_init(&priv->stats_lock);
++	INIT_DELAYED_WORK(&priv->mib_poll_work, qca8k_mib_poll_work_fn);
++
++	/* Read once right away: without it the first consumer after a link
++	 * comes up sees zeros for a whole poll period.
++	 */
++	schedule_delayed_work(&priv->mib_poll_work, 0);
++}
++
++void qca8k_mib_poll_stop(struct qca8k_priv *priv)
++{
++	cancel_delayed_work_sync(&priv->mib_poll_work);
++}
++
+ int qca8k_get_sset_count(struct dsa_switch *ds, int port, int sset)
+ {
+ 	struct qca8k_priv *priv = ds->priv;
+diff --git a/drivers/net/dsa/qca/qca8k.h b/drivers/net/dsa/qca/qca8k.h
+index 9563388930..edab7e1218 100644
+--- a/drivers/net/dsa/qca/qca8k.h
++++ b/drivers/net/dsa/qca/qca8k.h
+@@ -443,6 +443,15 @@ struct qca8k_led {
+ };
  
--	wait(&wstatus);
--	exit_status = WEXITSTATUS(wstatus);
-+	exit_status = WIFEXITED(wstatus) ? WEXITSTATUS(wstatus) : KSFT_FAIL;
- 	if (exit_status == KSFT_FAIL)
- 		goto out;
+ struct qca8k_priv {
++	/* Cached per-port wire statistics from the switch MIB, refreshed by
++	 * mib_poll_work so that .get_stats64 (atomic context) never sleeps.
++	 * Placed at the top of the struct to stay clear of target-specific
++	 * patches that extend its tail (e.g. ipq40xx IPQ4019 support).
++	 */
++	struct rtnl_link_stats64 port_stats[QCA8K_NUM_PORTS];
++	spinlock_t stats_lock; /* guards port_stats[] */
++	struct delayed_work mib_poll_work;
++
+ 	u8 switch_id;
+ 	u8 switch_revision;
+ 	u8 mirror_rx;
+@@ -513,6 +522,12 @@ int qca8k_rmw(struct qca8k_priv *priv, u32 reg, u32 mask, u32 write_val);
+ /* Common ops function */
+ void qca8k_fdb_flush(struct qca8k_priv *priv);
  
++/* Cached MIB statistics served from atomic context */
++void qca8k_get_stats64(struct dsa_switch *ds, int port,
++		       struct rtnl_link_stats64 *s);
++void qca8k_mib_poll_start(struct qca8k_priv *priv);
++void qca8k_mib_poll_stop(struct qca8k_priv *priv);
++
+ /* Common ethtool stats function */
+ void qca8k_get_strings(struct dsa_switch *ds, int port, u32 stringset, uint8_t *data);
+ void qca8k_get_ethtool_stats(struct dsa_switch *ds, int port,
 -- 
-2.55.0
+2.53.0
 
