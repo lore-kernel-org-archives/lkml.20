@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793329326;
-	b=AXjnJPBhhvMVhs3q+e7VhUT9aw1cn86JRzZBJcmuocmXetMWF8p3GhyH5xeRLKZMOd/s
-	 iz5pnNLBUDjT1tcTvX2PVTzepa3eY28kxI75u565FlfVQW6jQWSH3C8VHjje7HZfzTJJf
-	 vI7iA505mvEk2I8DHAsXijclHncFBqUrW3w/9EhmucegIvdNaT7/XlXBJp+ShJL7P/gq5
-	 5/HmnJIH73vzHK9XqLSj/occgkOz1hkNWlcJ1lBVU/FI4flQeXZzOj7ZfBxfjneKYWSBp
-	 xqgA4/diqUVr1M4CoiHNd2HHiWZBp42BH+P1dS5eq4YMbwE46s3z+NWHJ950ERJZ/1g==
+	t=1793329414;
+	b=TNpa/3Cix7mtT2jlnJSAjAu9ZxZL+l6Lb5OquWD3Mz4CXJMYV5Kx1fkA28qfAM56RP9e
+	 x27X8zFFeifAGTUfK1K22ZJbGWzKp1+Qkg9uGqsLeh1m4ejSvjAHk7uTeUEuz61iDPO3v
+	 0XA/kVWHbaoVpycd8EL83R1uYNpsIkrlXtix2qBSmE72Ts2M2ypM6KgISWC9q+M7iEx/v
+	 AxgeVQ/ZEh9/BSLfNW1it+b7vOSTezFrVQrPcEzLdXde+h/90IpXzb47GoeP/U++DTrnu
+	 Z8y0D3c9p01goS7oP7ua9zzid+AMnvICfCRZ39PJqOmLJQQKX4OEsFcCHanKKU7VImw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793329326;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qyPBZSpQjOcOhJDdOO7H9HvPVzvgTK2UU66TCKWXkQw=;
-	b=FI8HwAMWH2xK4zvyYVBC41aa2rVyjOrTpnW8qUzSepmeXgjeHD3Dh8FpRcCoqR1237sH
-	 LXt6fZD9DIGuhjWTyT+FAOW8qWLi7ymgw8EFIH+M+zRnZOrKj73cexFw88fsvS8QWqau6
-	 Fe6hjwNWSMeISk5J0+pnc4xXFCMDoz7tyn/4tFz7LhmRm2Mel7m5YEGVBgfC/REVeYWD2
-	 ThaILPi09O34G0goYjqpL/b65hAybfOz3vq4b3Gsd6dsUZS1BYKNNTAbE8ffc2y4tK83o
-	 i7rlneuyoiuH90vBjOawmV8hFGRkWGnsecK0TGrIb+HlifVZ7beUNjKOwJJcUGTOkkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793329414;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=P1HTdK9Us/nXxv6524NGuZeaCWy7CFdEOV2AIIWt1JQ=;
+	b=CAHjPovUA9oiI1QKp55TOfWavVuzDlSqbI8ewGwgMMXESR0zRqwMIUq0pVjv9prm2eKZ
+	 IixsxxQJJH7wzQ1/Y4PW92zcZmiC/nn95zqyGEWZeQegjpJKyXMvl/1mTh15XMMsJjBfs
+	 5yfcDDclRTC48qZ0kc0i+U/241pk5SeTRvFajshN4QDkC6lQ29JiROvJi5/ljgYwc0sOU
+	 +oAgFQiH9IR9hPSSGU205OZF8d+zWMwbiZk6ogT4lDshrbvkjifwWRRqFno2ZyFQL0kVb
+	 DUrYN8VwYvSnpKgyKghlRsXZis60A7ZcdycNqJiGBFWQL+GA6pB9zlW2E60cBdDqrkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zdj2gBbg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KKaSdtvp;
+	arc=none smtp.remote-ip=95.215.58.197
+Received: from mta1.migadu.com (out-197.mta1.migadu.com [95.215.58.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B739606A32C;
-	Fri, 30 Oct 2026 03:02:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6500B606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:03:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6500B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zdj2gBbg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3EB71F000C1;
-	Fri, 30 Oct 2026 03:02:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793329326;
-	bh=qyPBZSpQjOcOhJDdOO7H9HvPVzvgTK2UU66TCKWXkQw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=zdj2gBbgAeReQfQjHbzuJ2hwH63lWKUM1c+KbxLLeEGWR2HOmjFYCMF0vXph8C5tO
-	 5e5h7NSPT4i09TJ14R00Ciyd9pYL0RIuLhuR+M1Pq1pJijuTHuYivUwu8GN4GDwVpv
-	 uMZCL8Atee0JiF1xV9AfslSy3V7BCAXlWy727VTY=
-Date: Thu, 29 Oct 2026 20:02:05 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Brian Geffon <bgeffon@google.com>, Barry Song <baohua@kernel.org>, Bo
- Zhang <zhangbo0325@gmail.com>, Minchan Kim <minchan@kernel.org>, Richard
- Chang <richardycc@google.com>, linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v7 00/15] zram: redesign zcomp and rework backends
-Message-Id: <20261029200205.ee2a4788b8fdba4a75c2edd9@linux-foundation.org>
-In-Reply-To: <20261025021839.1542805-1-senozhatsky@chromium.org>
-References: <20261025021839.1542805-1-senozhatsky@chromium.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KKaSdtvp
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=A7GiL3udSSdyFKnyh+0Vow6D9krgem3lJz6Fq4u8pT4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793329411; v=1; x=1793934211;
+ b=KKaSdtvpu7txiAPoaxO8Yi6oAg91UieXpbfe9qIH3UNe/A6K+26PUE7c87i/lLbsBJfJcwDy
+ HnXgdIK9fg6F+VRmcJTj7SAJUXDJfeOGWvmjFSXMhkmUpcqbaQFxIPp4jFyCXa5y/2/JK3WWnBO
+ 6f5UQ7hbWl/4DFYCEZ9Mr+n4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 70512d1ee8cb6ea0;
+	Fri, 30 Oct 2026 03:03:31 +0000
+X-Mizu-Trace-ID: 70512d1ee8cb6ea0
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,34 +57,168 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH] powerpc/mm: fix uninitialized ZONE_DEVICE struct pages
+ with PMDs
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <h5i4wlx5.ritesh.list@gmail.com>
+Date: Fri, 30 Oct 2026 11:03:08 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Mike Rapoport <rppt@kernel.org>,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Pavithra <pavrampu@linux.ibm.com>,
+ "Aneesh Kumar K . V" <aneesh.kumar@linux.ibm.com>,
+ linux-mm@kvack.org,
+ linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <20FE1232-A48B-4F72-8F18-89EFF70EE0FE@linux.dev>
+References: <20261029063601.1961415-1-songmuchun@bytedance.com>
+ <h5i4wlx5.ritesh.list@gmail.com>
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On Sun, 25 Oct 2026 11:18:16 +0900 Sergey Senozhatsky <senozhatsky@chromium.org> wrote:
 
-> The series has a number of memory usage optimisations and fixes
-> that result in savings from double digits KB to triple digits
-> KB per-context/per-CPU, depending on backend and its configuration.
-> More details are in the corresponding commit messages.
 
-Thanks, I'll queue this.
+> On Oct 29, 2026, at 23:45, Ritesh Harjani (IBM) =
+<ritesh.list@gmail.com> wrote:
+>=20
+> Muchun Song <songmuchun@bytedance.com> writes:
+>=20
+> Thanks Muchun,
+>=20
+>> PowerPC radix vmemmap population can reuse an existing PMD mapping =
+while
+>> populating a device DAX range whose section is marked as HVO-enabled. =
+The
+>> reused mapping is an ordinary vmemmap mapping: the redundant tail =
+struct
+>> pages are not remapped to the shared tail page.
+>>=20
+>> Leaving the section marked as HVO-enabled makes later ZONE_DEVICE
+>> initialization treat the range as optimized and initialize only the =
+struct
+>> pages that would be backed by a real HVO mapping. The remaining tail =
+struct
+>> pages can then be left uninitialized even though they are still used =
+as
+>> metadata for the device DAX compound page.
+>>=20
+>> This first triggers a zone mismatch warning in __init_single_page(), =
+then
+>> faults while initializing the pageblock flags:
+>>=20
+>>  WARNING: mm/mm_init.c:600 at __init_single_page+0xd0/0xf4
+>>  Call Trace:
+>>    memmap_init_zone_device+0x164/0x430
+>>    memremap_pages+0x43c/0x93c
+>>    devm_memremap_pages+0x3c/0xa4
+>>    dev_dax_probe+0x264/0x3d0
+>>    dax_bus_probe+0x140/0x1c8
+>>=20
+>>  BUG: Kernel NULL pointer dereference on read at 0x00001400
+>>    __set_pfnblock_flags_mask.constprop.0+0x34/0x160
+>>    memmap_init_zone_device+0x358/0x430
+>>=20
+>> On kernels without these initialization-time diagnostics, the
+>> uninitialized metadata remains latent. When userspace later maps and
+>> accesses the affected device DAX range, the kernel operates on those =
+struct
+>> pages and panics at that point instead of during device =
+initialization.
+>>=20
+>> The Fixes target predates the section-based vmemmap optimization
+>> infrastructure, so older kernels do not have section state that can =
+be
+>> marked non-HVO. Backports to such kernels need to handle the =
+PMD-reuse case
+>> in powerpc radix code directly, for example by initializing the tail =
+struct
+>> pages that core ZONE_DEVICE initialization would otherwise skip.
+>>=20
+>=20
+> Actually that would be totally new code right? It won't be a straight
+> forward backport, correct? ...=20
 
->  drivers/block/zram/backend_842.c     |   6 +-
->  drivers/block/zram/backend_deflate.c |  98 +++++----
->  drivers/block/zram/backend_lz4.c     |  85 ++------
->  drivers/block/zram/backend_lz4hc.c   | 105 ++++------
->  drivers/block/zram/backend_lzo.c     |   6 +-
->  drivers/block/zram/backend_lzorle.c  |   6 +-
->  drivers/block/zram/backend_zstd.c    | 133 +++++++-----
->  drivers/block/zram/zcomp.c           | 298 +++++++++++++++++++++++----
->  drivers/block/zram/zcomp.h           |  53 ++++-
->  drivers/block/zram/zram_drv.c        |  71 ++++---
->  10 files changed, 546 insertions(+), 315 deletions(-)
+Right. Because it's impossible to backport the whole section-based =
+vmemmap
+optimization infrastructure (48 commits).
 
-I've always put zram material into mm.git's mm-unstable/mm-stable branch. 
-Because "ram", I guess.
+>=20
+>> Mark the section as non-HVO when reusing an existing PMD mapping, so =
+the
+>> section's HVO state matches the actual vmemmap layout and all =
+required
+>> struct pages are initialized.
+>>=20
+>> Fixes: f2b79c0d7968 ("powerpc/book3s64/radix: add support for vmemmap =
+optimization for radix")
+>> Cc: stable@vger.kernel.org
+>=20
+> ... then should we mark Cc: stable here with the above mentioned fixes
+> tag? Because this patch cannot be backported as is to older kernels -
+> for the reasons you mentioned above.
 
-But it's a blockdev, so I'll henceforth carry it in mm.git's
-mm-nonmm-unstable/mm-nonmm-stable branches.
+The comment following the trailer is used to guide stable maintainers to
+backport proper prerequisite commits. It's hard to do that. So I choose =
+to
+mention the alternative in the commit message. But with the help of LLM,
+I found the alternative is also not the right solution. The reason is as =
+below.
+
+That pmd_leaf() path only creates or reuses the vmemmap mapping. After =
+it
+returns, sparse_add_section() calls page_init_poison() on the whole =
+memmap,
+which overwrites any page state initialized there.
+
+Therefore, older kernels must pass the PMD-leaf information to
+memmap_init_zone_device() and let it initialize all real tail struct
+page entries. Initializing them immediately in the PowerPC pmd_leaf()
+branch would be too early.
+
+Another solution is making vmemmap_can_optimize() range-aware by passing
+the vmemmap start and end addresses.
+
+On PowerPC, reject the optimization when any part of the range is =
+already
+covered by a PMD leaf. This ensures that an existing PMD mapping is =
+reused
+normally and that all real tail struct page entries are initialized =
+later
+by the core code.
+
+Maybe it should be a separate patch for old kernels? Thoughts?
+
+>=20
+>> Reported-by: Pavithra <pavrampu@linux.ibm.com>
+>> Closes: =
+https://lore.kernel.org/r/97f85592bb78a273be8519e6897e7f9b9bd31469.1793070=
+429.git.ritesh.list@gmail.com
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>> ---
+>> arch/powerpc/mm/book3s64/radix_pgtable.c | 11 ++++++++++-
+>> 1 file changed, 10 insertions(+), 1 deletion(-)
+>>=20
+>=20
+> I think, this patch should go via mm tree, due to all the dependencies
+> coming from there, right?
+
+Better. I hope Andrew will pick it up once I send a v2 version with more
+proper commit message changed.
+
+Thanks.
+
+>=20
+> -ritesh
+
 
