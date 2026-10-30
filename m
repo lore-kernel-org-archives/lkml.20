@@ -1,52 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793351577;
-	b=RTVfBMxAl5M86sR+GpaZv59ElrgbLdAVXkLsUg8YH1DHbO7UX1gW2OSJMRJbT+onKlgB
-	 mauSaKr53APUXYZO1MHZSbPptbOww/Fq56Qh9RBKovS7g+5jntMdmpjsVtAKJ9YjVthjg
-	 UKcns4On7+ZpMamW76bNGDmXTds1w1HGemt/A7pHGKKocfkTydE+RdVgzS/j095ymZz9v
-	 0UESaOtwiF9C2SfvEjLZSElvFtkLUE0GgrRa2zAgqP7annbsJxW6xDTxnzKXbBZJr8vjI
-	 mep4OLpLfS/GyAgvFKAYIXGtXXyAcMydIji/zff+sdaPQU5d4JFTzCGm2JACDmn0tjg==
+	t=1793351593;
+	b=cNhInUuGopzEvE9qshVMkchueCVUXgDTjvTLF4Dqy7NBv38jwFbaUuyykX3YQZLHfMRt
+	 dT6j3xobOH6t7A8hpq2QKH6+rqCuM45ICQJRU3EQHySoqhUKXfeTMTO2MzjPs51vWpvGr
+	 jpMkczP9ZExoCZ0nLJFj6v9SYPjWLhvrGmYQH0H4TgmkJMVn1BNsyTydx5sWMwTKx2lEE
+	 v4eyyPELDjScHk2joUX75+PJR22Vl45uUVwsTtX6CrCPZFtsG3WLHJkQgyfHQ1ahEMVkg
+	 TuPaQ/mocGVR9moFbCaYiTXYGguzq8R7BCxG7rlzHTvIF1RtOgm7JY2Lqcczs9Y2D/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793351577;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KkxotD1wD6foVjYR2Bpi4d6Lv4CK6kLaSFBOfUoryjw=;
-	b=USpS3k6dNYIw75Ii1tirbD55elnwpTM/HK+Wik90gs3ZU2EKkhO1n3eO21AdgWGXvB4p
-	 0Yi2RYqNSzvqYGhoKCUepR1q73zbVdKKtbTyIbTqQ8HUy4PcI+pFCHm26Jvmnl/mXW0BR
-	 VuME9Zdn6IrAYLRSDD7YWzOZedu95SvUt7TOZSn9kGxcnVq4vhDiAuRrHBf3Awf58pTYq
-	 9KeBPmO24P7owCToNiyuc1WdAQBtNl85VSjgyy0Kd2VjOmMD2NQ3K1cea25e4rZEa+C6q
-	 zXbHbpFZoi+HL22PEVvO1wd/8Q+Hi7h3bb8k9KCeoo/1NdimZ9znzJDei2h4y1OxdBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793351593;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=XmIjZzmN9QtdmMFdq/RvopM7L7VH+D444+wD0S3j5jA=;
+	b=Z7ufi9gInSXvbzcBSQEOUCfhTgOgOuRWiQJd1DCBR/T19MeLB1iyA+x7i1iRT8ddc9cv
+	 E4JViAgqZELaFO87JiGONf3KgRJPvf0XLnW1CyrH9EzeWS5es9iNfe/KrY7tL63kxSQJJ
+	 t5GBxiuL1XsnZM4xL/d6z0wDXstPgjtwd92H9OHo/iqvBYPKFaOlRJo2//sI+55N9RmSL
+	 GBio/T72btl3mt3vN5FSpsn5zMMWVz0pYAOePmNim4Khg1WX7oHfnRK9DK51Fq3K54gO4
+	 lUFO2X+ohq9u+irL8Yqz8Bo5/gdkd0AaZTWKpoHyzpenbmhX90ePDEL6pG6Muy6sSLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unibo.it;
-	spf=pass smtp.mailfrom=cs.unibo.it;
-	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=a7RQT89L;
-	arc=none smtp.remote-ip=130.136.161.50
-Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4AC2B606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:12:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AC2B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=a7RQT89L
-Received: from cs.unibo.it (unknown [94.32.99.206])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPSA id 1BD191C0253;
-	Fri, 30 Oct 2026 10:12:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1793351575;
-	bh=xlehuRukHUr3q3Q4REfyP01kXXOrLzKq5OuFCj1ZV1c=;
-	h=Date:From:To:Subject:References:In-Reply-To:From;
-	b=a7RQT89Lm08Qfhee6msSdYaTnm8CGAhAL31b/2OvDJsPOgz/7PvMLgOMCVIbXlja1
-	 0uRbuDy5ZTqEp3Jm9ozitRHsghvvL0Y+jPEHvbVx5/we2zKa9Z/0y1BJuY5pVeZ9Jx
-	 +Oqpg0tMdlcNLhJAzjtY10ZjdHRyMpK3gI9uOLjE=
-Date: Fri, 30 Oct 2026 10:12:53 +0100
-From: Renzo Davoli <renzo@cs.unibo.it>
-To: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 0/3] PTRACE_SET_SYSCALL_INFO: add support for seccomp
- syscall skipping
-Message-ID: <auRflWy1m79nKiLc@cs.unibo.it>
-References: <20261020152945.575664-1-renzo@cs.unibo.it>
- <atzlc9tg2MTdnRtj@cs.unibo.it>
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35697606A31C;
+	Fri, 30 Oct 2026 09:13:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35697606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8Cx_9KkX+RqZckaAA--.12333S3;
+	Fri, 30 Oct 2026 17:13:08 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJDxTs+iX+Rqp2sxAA--.37235S2;
+	Fri, 30 Oct 2026 17:13:07 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: bpf@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v2] selftests/bpf: Enable signed overflow and small value tests for LoongArch
+Date: Fri, 30 Oct 2026 17:13:05 +0800
+Message-ID: <20261030091305.3277-1-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,28 +55,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atzlc9tg2MTdnRtj@cs.unibo.it>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxTs+iX+Rqp2sxAA--.37235S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxAw47XFykXFyfWFyxGF1kXrc_yoWrKFWfpF
+	WUu3sxGr48Xw17WrZIqFWDGF45ZFn2ga4rWr9Yqr1fAw4DJr9Fqw1Ivws5GayYqF18uwn0
+	9F17Z3ZIq3Wjy3gCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUkFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
+	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv
+	67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2
+	Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
+	6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0x
+	vE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE
+	42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6x
+	kF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07j1WlkUUUUU=
 
-On Sat, Oct 24, 2026 at 07:05:55PM +0200, Renzo Davoli wrote:
-> On Tue, Oct 20, 2026 at 05:29:40PM +0200, Renzo Davoli wrote:
-> > prerequisite-patch-id: abdd0fc0973bc3845ae7bfe84d855a7213ccd3d7
+The LoongArch hardware divider handles signed overflow boundaries (such
+as INT_MIN/-1 or LLONG_MIN/-1) natively and perfectly well on physical
+silicon: (1) for division operations, it naturally returns the dividend
+itself; (2) for modulo operations, it returns 0.
 
-This prerequisite-patch-id is no longer valid.
+Furthermore, small value signed calculations with negative divisors work
+correctly as expected.
 
-The prerequisite patch "powerpc/syscall: Return the preset value of
-skipped syscalls" is now at v3:
-https://lore.kernel.org/lkml/20261030084926.1068384-1-renzo@cs.unibo.it/
+Thus add the __arch_loongarch macro tag to these 16 test cases to enable
+them for LoongArch in verifier_sdiv.c.
 
-the new patch-id(s) are:
-[PATCH v3 1/2] powerpc/syscall: Remove TIF_SYSCALL_RET
-  55e7bbbc0c0ed582cdcb72dc4f611335e680ee0e
-[PATCH v3 2/2] powerpc/syscall: Return the preset value of skipped
-  e324a2aebf21084c59b25ddf5421df35fc803f69
+Before:
+  $ sudo ./test_progs -t verifier_sdiv | tail -1
+  Summary: 1/128 PASSED, 16 SKIPPED, 0/0 FAILED
 
-This series still applies and builds on top of v3, so no new
-version is needed.
+After:
+  $ sudo ./test_progs -t verifier_sdiv | tail -1
+  Summary: 1/144 PASSED, 0 SKIPPED, 0/0 FAILED
 
-Best regards
-  renzo
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+---
+ .../testing/selftests/bpf/progs/verifier_sdiv.c  | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/tools/testing/selftests/bpf/progs/verifier_sdiv.c b/tools/testing/selftests/bpf/progs/verifier_sdiv.c
+index d6cbe1e27fd6..4ac92335da91 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_sdiv.c
++++ b/tools/testing/selftests/bpf/progs/verifier_sdiv.c
+@@ -775,6 +775,7 @@ SEC("socket")
+ __description("SDIV64, overflow r/r, LLONG_MIN/-1")
+ __success __retval(1)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: r2 = 0x8000000000000000")
+ __xlated("2: r3 = -1")
+ __xlated("3: r4 = r2")
+@@ -810,6 +811,7 @@ SEC("socket")
+ __description("SDIV64, r/r, small_val/-1")
+ __success __retval(-5)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: r2 = 5")
+ __xlated("1: r3 = -1")
+ __xlated("2: r12 = r3")
+@@ -839,6 +841,7 @@ SEC("socket")
+ __description("SDIV64, overflow r/i, LLONG_MIN/-1")
+ __success __retval(1)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: r2 = 0x8000000000000000")
+ __xlated("2: r4 = r2")
+ __xlated("3: r2 = -r2")
+@@ -865,6 +868,7 @@ SEC("socket")
+ __description("SDIV64, r/i, small_val/-1")
+ __success __retval(-5)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: r2 = 5")
+ __xlated("1: r4 = r2")
+ __xlated("2: r2 = -r2")
+@@ -887,6 +891,7 @@ SEC("socket")
+ __description("SDIV32, overflow r/r, INT_MIN/-1")
+ __success __retval(1)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: w2 = -2147483648")
+ __xlated("1: w3 = -1")
+ __xlated("2: w4 = w2")
+@@ -922,6 +927,7 @@ SEC("socket")
+ __description("SDIV32, r/r, small_val/-1")
+ __success __retval(5)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: w2 = -5")
+ __xlated("1: w3 = -1")
+ __xlated("2: w4 = w2")
+@@ -953,6 +959,7 @@ SEC("socket")
+ __description("SDIV32, overflow r/i, INT_MIN/-1")
+ __success __retval(1)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: w2 = -2147483648")
+ __xlated("1: w4 = w2")
+ __xlated("2: w2 = -w2")
+@@ -979,6 +986,7 @@ SEC("socket")
+ __description("SDIV32, r/i, small_val/-1")
+ __success __retval(-5)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: w2 = 5")
+ __xlated("1: w4 = w2")
+ __xlated("2: w2 = -w2")
+@@ -1001,6 +1009,7 @@ SEC("socket")
+ __description("SMOD64, overflow r/r, LLONG_MIN/-1")
+ __success __retval(0)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: r2 = 0x8000000000000000")
+ __xlated("2: r3 = -1")
+ __xlated("3: r4 = r2")
+@@ -1031,6 +1040,7 @@ SEC("socket")
+ __description("SMOD64, r/r, small_val/-1")
+ __success __retval(0)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: r2 = 5")
+ __xlated("1: r3 = -1")
+ __xlated("2: r4 = r2")
+@@ -1061,6 +1071,7 @@ SEC("socket")
+ __description("SMOD64, overflow r/i, LLONG_MIN/-1")
+ __success __retval(0)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: r2 = 0x8000000000000000")
+ __xlated("2: r4 = r2")
+ __xlated("3: w2 = 0")
+@@ -1083,6 +1094,7 @@ SEC("socket")
+ __description("SMOD64, r/i, small_val/-1")
+ __success __retval(0)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: r2 = 5")
+ __xlated("1: r4 = r2")
+ __xlated("2: w2 = 0")
+@@ -1105,6 +1117,7 @@ SEC("socket")
+ __description("SMOD32, overflow r/r, INT_MIN/-1")
+ __success __retval(0)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: w2 = -2147483648")
+ __xlated("1: w3 = -1")
+ __xlated("2: w4 = w2")
+@@ -1137,6 +1150,7 @@ SEC("socket")
+ __description("SMOD32, r/r, small_val/-1")
+ __success __retval(0)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: w2 = -5")
+ __xlated("1: w3 = -1")
+ __xlated("2: w4 = w2")
+@@ -1169,6 +1183,7 @@ SEC("socket")
+ __description("SMOD32, overflow r/i, INT_MIN/-1")
+ __success __retval(0)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: w2 = -2147483648")
+ __xlated("1: w4 = w2")
+ __xlated("2: w2 = 0")
+@@ -1191,6 +1206,7 @@ SEC("socket")
+ __description("SMOD32, r/i, small_val/-1")
+ __success __retval(0)
+ __arch_x86_64
++__arch_loongarch
+ __xlated("0: w2 = 5")
+ __xlated("1: w4 = w2")
+ __xlated("2: w2 = 0")
+-- 
+2.42.0
+
