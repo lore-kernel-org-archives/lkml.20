@@ -1,101 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793378150;
-	b=AOKl1xqQxALcxSD93vyGeg1LCyO5RO0CHnidAl/s00tvlP0jvEQEGRBzb+oabeYSQjyZ
-	 KNrm8PnDpLEO1g/yd7E9ZNQ3YOzNdCg34GCU5ApAmSnB86H97Ame17HSdKs6TlRlA4f4I
-	 lJNoI83Pahb+pLn1nI0vJQIWuPUxKjb3wXEE4qAIljmMOLwGqvLs45J/rEdQm8tYB00IL
-	 DXW64tKX1NaRJmLgl12h9N7B6IN9YSQXktpw33c3QB/YpCe77WdXev2TZI/UV3ndXbSDh
-	 19v7FCFeB6yEEpIoEAjl6xTXXnLBczneIJX+4GAKm5+gCmtKpQ/Q3LwhNwN2Im2DsOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793378150;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793378154;
+	b=mKrIVhvu+UegVvzQwwJEOC/Dm3UZHJSR8usSCCN2ScYzu3iEGxqPZ6BkBPrjrIidDD9i
+	 8ihm+V+aQ4bTRoGmXKqIgJEXksCOCJKZKh8k9lZOM4CPBIrq//qsS0JaVTDsF7nKZXzHC
+	 Ou6auiTowBMG+vkz0I8TPAUzwDsjkcbgRiH6ZQnwWCQDf1MlSGwbhKKOW45Lo60qNsvZ0
+	 Mi6Zm64zG5I79qZBNUwoGU1VFGwdrKKKCEUSWV+h1oUSscnobZq2TiUqErl5SuiTQnx4w
+	 h5tY1PQQiEj5eG1Vkw9V1cIjk/jGlBKy6q+vczS9W9x9RmjWXS8ijK7Hj6/qhJ2jaGA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793378154;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=BMm2o25mhTZ/C2HIIR1IZKofC9feViQ2U4GTb8F8Udo=;
-	b=IyMDdKxXAnGP5VzbIlepPplrbmGsTDFVjM7Gmz31vvhCJhvs5WYvvnSrtk2Ec9lgTm2v
-	 8dd/LBCvOUL/0T/+sbKUB7cwg5XxUOLHDVE/x1QyPuqz1hbvlyQ1mQZLm+aQe4bMD7q2J
-	 gkrMUkmdjgAZmU8kRPenKWAged5UXRYc1zC1Ym42cjr9H3mO6nHG5bmMTqO0MgrMi8lxC
-	 Vxc7oPWxdm0nWRw1X/9K5vxOR2wlQ79W2jqod2BDjj4AYUFHAXcjigFWWEzaMJhABnkEZ
-	 HZi3Tcmu/ezxTRjD1WCcoiCTDRlDcVgihoTVrOTKshqjO7ENG1hXauB0deyjLyXYe5g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FSb0SO8d;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.177
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=C27CPAIU3rCWv1caX+bgOf8gRpTTIO2oZucMeDYt7Ag=;
+	b=KPVlgs10VLKBJQoETIyQnsBhLPAwj48sLYoCCf8R8ZXlDEX10q9LliKsD5AhkhJIeMiO
+	 BdhYUIl8dV224x0PCoX5P/V3DuujYfuGNOXDNerm6WhEYBX8NHeVlckxVVNG79p8aXAeV
+	 Y/yYYdtr+8NnsVLwn2kJDNRz+F/T3D9prkzz6MZJxiZwxV1Rzz34UiwlWJLiLaGpveQfv
+	 dBFelMS8CSst3s393jARNI6aAlwwiRkDQ4upPWdwxN1QGOoMP8piqdN0tuA4yH4Uru3T3
+	 GYjDkLJQRJq6afNY6yDi079pIfxU8454hN+fxFGzJJyXkx07yF+CsPycn1FWWVvt1sA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amarulasolutions.com;
+	spf=pass smtp.mailfrom=amarulasolutions.com;
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=hsRGFSSW;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20EBC606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:35:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20EBC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41770606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:35:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41770606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FSb0SO8d
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5c9e7731b34so775048e0c.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:35:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793378149; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TVdpSYlv1q3mzs6B9FERQuia7IRIAI0b6/aO+R4dDUcmqHnqJWiySJLEnPVos31W74
-         nZxMxMUTmKXH5rRFIXyg9COEhL+zXFDhOFI5Hr9OkXlvx7vPB5ECtFaJqPfNCpjHynt1
-         rkqjwJH693Trsvk/0r0rXsh9ncjOSLky6wc/xMdtZCdO0v6V7Qh+nxOU3aXAPDIt7Rm5
-         XwT0lj+b6CylvN0228ugdKJd3i8YD038ZCBw94geNdACC3KQ8CYPjYSJyXmoMjB8Gwwg
-         8Jvnwa73jakRIZB2Sg3oIHON7B4ZIP1xsgngMUZBus2Fi8QGd1GMoVKejRVYLAFCbGgQ
-         XzEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BMm2o25mhTZ/C2HIIR1IZKofC9feViQ2U4GTb8F8Udo=;
-        fh=aD1crJT9wi0MJkMR/lRwgHCYHO7gyFB379J2OmZhrYw=;
-        b=rz3QAIoZyJDvG24FKyotVNZONi8Rw9v5tRVftaUe2fVZD55XcohP+G9yCNdP45Jqc2
-         aRx8/YL4CXv1g1SWBwFj6QIYcEzwVcQBt4KqMd8PtGeTrkU2SAQAFfgyRO/yFsMYU7t+
-         gCU3I1GgLOrFMmnhiOyM7DDVYrQldLaO2xcY2M1x6bvJMgkc+hYWNM4Is6QOfygaj+XR
-         c1/Inw1CQCXJKEeScW5fX8fzlIask0/feJyUpbdUXUfOla7FLMDIKUhlPngvo1nXSWy8
-         EAeE2YJwm0AaZWUzGVv/F0ByS6SLhn4olalcME7UiXqIsjam4HwEuHcqErQBFlbYBSiZ
-         wdZA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=hsRGFSSW
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so9989045e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:35:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793378149; x=1793982949; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BMm2o25mhTZ/C2HIIR1IZKofC9feViQ2U4GTb8F8Udo=;
-        b=FSb0SO8dEzCjBzxj7XFmH/MJsHgEJiwSmwxWPyGw885/RWyW7qIx+3sO8H0mMTs3TL
-         ietozhtYd/jmOxRok9faH7M/85JDhno+5t64t4hTHRQjs7+VK7hIJeNy1IIBpZoQ+Zl4
-         X747RH8dvqIGlEM5E+h8kuwNapJnRPdE+UTh9zJ0C99drP+nxy6g4PCWZ4cSuMneLnPW
-         e0WnuN6JMdjBpOCrSao+8e9g2FfZvwu7wnm8yV9TB5sZDQ9rRBcYvhZVB6n2uXqlSoYy
-         J48Mci865JW2w+IFFOjhXVW4hpLirTiX4InI1rBIWwXCnA0Mj629v5nw6T1e+HlmLYET
-         SdJA==
+        d=amarulasolutions.com; s=google; t=1793378153; x=1793982953; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C27CPAIU3rCWv1caX+bgOf8gRpTTIO2oZucMeDYt7Ag=;
+        b=hsRGFSSWo8wApRPKJHaNm6BbRbpz7q6s9AOrNTZBhYQL1B6V9gWecyn4zjjveUMsf+
+         RV8gOsrxn6DwVt/VnKcI7rAFdHt9esplQ8tYcjO+5O5qMqQPgoutG3SQlf8bNn0LXRZD
+         hMERcILGw5DQDrRZdN+/d8NxuwzIQYvi6S1n4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793378149; x=1793982949;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BMm2o25mhTZ/C2HIIR1IZKofC9feViQ2U4GTb8F8Udo=;
-        b=J6+0bEUD3h9Gz93V256nPmvbbcKN/1xck22YkFYTv97NPf6/btviYvnwz8M1oE1epP
-         JS+7DVNOMzFgdkvZKk+92g+uWjyUDliktqyOK2KkUwBI+v++PXO650YVGVriUW7MrIIF
-         ghM74cBKjnSchv0uxkOn/VuQFV8xqkTyTZq6apbv8XgGz8A70K5/jsX3RQrcWJqEuOEu
-         cq9aClU+XBGuouJ8SfxhUaJvq1N+ub+idYtpkhcP4QqlXGeMEqlcSuXiU39GtBhyoXKZ
-         jQuA7ekh91i7e4FUoT1ZVL3W/BgBRWvg6sAI/YSVfJOUEUwmR7qhCfGCUMkxdObVtDOT
-         3Dzw==
-X-Forwarded-Encrypted: i=1; AKwUvBz1vd1Y7q4wQozxS8h0RD6acItiTGNfXYDkwPw09yjn7UEjeLrQk+mmTLQT9uOCZJEBomCCjaME3CEVu8I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK//PKJnzxiMGDrTnYo20KZxRVaCtiRiC8uF7Zr0dBzi1ILPwsv
-	jVpZLdhlbOS03ImU+uwgTQNQhewf9hGu8XIzsShHzaOPMzBrT/aDKORiu0uXXKIRxz6SM4KBGRJ
-	gOhkdz4wo/7tWZWr6UF06BjVio4s2jwY=
-X-Gm-Gg: AYBFou1HjWMVMiDgcSNRFlLR/LkXyvTkrgp6lHY5KDt3fmhpRpWiEQnNjpidAJc/8tP
-	ARZqvU+9wrMH53fzV+4y1AYqbzyY65OXGFNxm7QNXpOKSH+DmmhwctBlnQ7VG5YNPZ3+YdCf/zD
-	+C7WPXv0O8aDk3n+R4QcSWIYp+f7sAYvihyZaCBnLlWuCfPUsUlM4IUG/l+1NJPOzcEPBYwBDtB
-	kLSV7PiwRQOCVdCzOGJKaY7IJ7rGCpGOB00E/LLfA2SV3XkYcJ7Husq0rcs2WuFEIoMWTLfcgvj
-	dqfWVJnnClrC23C7G+/YzuWpvG94x6h6gH705FqxR6CZbHRJ5QUpynwMa1KPxyD5z3wgMUCVQ0s
-	27b/t+tpOl4scHrm/OYSN+XaOA2nWNaFD6QroFVLBlDrMnaA6TWADXUEkCKyGz7FRz/f184lfXz
-	72z/rItKhe
-X-Received: by 2002:a05:6122:1822:b0:5ea:9843:fc3e with SMTP id
- 71dfb90a1353d-5ec68978ff7mr1643923e0c.19.1793378149125; Fri, 30 Oct 2026
- 09:35:49 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793378153; x=1793982953;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C27CPAIU3rCWv1caX+bgOf8gRpTTIO2oZucMeDYt7Ag=;
+        b=nwd4rHmkWEQ1UcySpxhtCxBXH7LIHZp6wgpBoh02Zz/yqLyC/uqWHbfxYz4ncyoqIk
+         9jO8IE3cYdU3+P8gwH1tgtAb1rNK6lriY3/RNCIeRirftz2EarQWvAraNRxIFg0FdQOL
+         rMpAfWb1SseJCCLezRetgJWG6SwHgebr8LJZYlvmj1XzXezD41/sATSE4LOhhWqsbEZy
+         1DE5u/0wDVceSm0DTHGBDVuZAK+EiXRiK+ZR81v8Viwvm1bfFbFsm00yAyE+hcgc/asN
+         aZpAzzgbQhgtdILAYiR0dlNcct9Hs45zi94DGLH6F11X5WCAnK3e/6mr5cir6pBfkqtd
+         6MQw==
+X-Gm-Message-State: AFq9FYLnQH2u5vnyyH63DPwkTZm1R4YABL25c2NxFfM7F7mDAy3wkp5L
+	BeeFGkSs6kbvx3OW7hmZ5S4hgwWOyEIO/wHvo84UT3VuKGc5xNYeDR8rbeJntGevGSBzFMQ6g0E
+	nqn64
+X-Gm-Gg: AYBFou1yyv/4+NEhCEU9ZN7tfE7gRv8W9YgguIottQjev6o092f2IzS4+H8BbORpLFR
+	HOqw5kDoREECUJXqFP12B2nAs9hUMcG+UtwvFHj1GvtDu9nbEEsjJjue/XtaMogiaOS7/bFx1/c
+	LUC1FVZOK4sqALabvs3yErK5kbSIne/UXjioXeQeTf642ivzi+3GPWFNCAocYh2OFE04cuD4gAt
+	4257uS4gFbMiH6Zz6HPnSt/eUhqkYZJE+Ilq8GGhMkZWgcVIXJuXCZGn+AcJpeeUx5ASudRqzU2
+	GVVgpBI/k1cFJ/HoGAUsWauimkcqbn6GdR5sG/0GP9wTqwDemQqYNmmGEducEl/QFw5HmgtEvGk
+	7pTvt6pRbt0MSgc3uTKkWTwWsigIuLR1WxIEOAZcD7M+EpiqgzlrFiWfKjSVfK9x3s9TWUo2mRk
+	ERVvA0gzpYO4+43kfl4mJy5pqMdNkTFssYhOY3hgkPdRXmoEWgofBPrECF3liG68SxMHmW765+r
+	xSKjwzmkQ2QlMvBbj/Y84nMxPKNhbaVCEUJ5/DmjlSmBIO78MSryv66wnAFjmy/TrG13AAGkmXp
+	k5+4ghXfQ6AocCJmnAiwbHR769vHIclTGaBMIkfm8bmksnXGvM4GkJiW9MlBmxvV6JFWMxv3iPV
+	86VDR7wBl8NGddHZxWOBGCJY4c+PUi+sNGvbPDlG1g5QbtM1+5rruzkqRshAxcWib61fN6qz7AC
+	COSwm2p4u0FdDUyc0+HqUpK6rl3A==
+X-Received: by 2002:a05:600c:4715:b0:4a3:598e:e7a8 with SMTP id 5b1f17b1804b1-4ac150b28bamr66801575e9.4.1793378152471;
+        Fri, 30 Oct 2026 09:35:52 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b723fcsm4084806f8f.14.2026.10.30.09.35.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 09:35:51 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: michael@amarulasolutions.com,
+	linux-amarula@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Joseph Guo <qijian.guo@nxp.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Mehmet Fide <mehmet.fide@screeningeagle.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH 0/5] arm64: support Engicam i.Core MX8M Plus FE C.TOUCH 2.0 board
+Date: Fri, 30 Oct 2026 17:35:39 +0100
+Message-ID: <20261030163547.2682583-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,63 +114,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030161234.1505367-1-gourry@gourry.net>
-In-Reply-To: <20261030161234.1505367-1-gourry@gourry.net>
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-Date: Fri, 30 Oct 2026 12:35:38 -0400
-X-Gm-Features: AclHuK9W6RlBHbspzEKRUiw6R1UQQGsojPWuAYuMETiBtEJzcKWSFyDZ9UWEpL0
-Message-ID: <CAN+CAwN+OPMPpVdBA+XtQvFpDy+EOY2TAiusxMjYR+r0F+MPhw@mail.gmail.com>
-Subject: Re: [PATCH v2] mm/mempolicy: recompute automatic interleave weights
- on memory hotplug
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, rakie.kim@sk.com, 
-	ying.huang@linux.alibaba.com, harry@kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 12:12=E2=80=AFPM Gregory Price (Meta) <gourry@gourr=
-y.net> wrote:
->
-> In auto mode, weighted interleave derives each node's weight from its
-> bandwidth, reduced over the nodes in N_MEMORY. HMAT and CXL report a
-> node's bandwidth once, when the node first gains memory, and nothing
-> else on the hotplug path recomputes the weights.
->
-> This can result in a major skew in distribution and overload tiers
-> with more data than their respective bandwidth can support, resulting
-> in a performance regression.
->
-> With HMAT bandwidths of 100G for nodes 0-3, and 50G and 25G for kmem
-> nodes 4 and 5, weighted_interleave/nodeN reads:
->
->   event             node 0-3   node 4   node 5
->   node 4 online         7         3        -
->   node 4 removed        7         -        -
->   node 5 online         7         -        1
->   node 4 back           7         1        1
->   Expected:             6         3        1
->
-> Toggling auto off and on generates the correct result, but we should
-> detect this and fix it during hotplug. Recompute the weights from the
-> recorded bandwidth whenever a node gains/loses its first/last memory.
->
-> The notifier cannot fail the hotplug, which has already happened, so
-> warn once if the new weights cannot be allocated. The next recompute
-> starts from the full bandwidth table and corrects them.
->
-> mempolicy_set_node_perf() now only records the bandwidth and calls the
-> same helper, so the bandwidth is kept even if allocating the new weights
-> fails. wi_state_lock is dropped between the two steps, which should be
-> safe because racing writer simply causes it to run with newer state.
->
-> Fixes: e341f9c3c841 ("mm/mempolicy: Weighted Interleave Auto-tuning")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+This series adds initial support for the Engicam i.Core MX8M Plus Fast
+Ethernet C.TOUCH 2.0 board, based on the i.Core MX8M Plus Fast Ethernet
+SoM.
 
-Hello Gregory,
+The support includes device tree descriptions for the SoM and for the
+C.TOUCH 2.0 carrier board, together with an overlay for the 10.1"
+LVDS display (C.TOUCH 2.0 10.1" Open Frame).
 
-I think you may have dropped my review tag from the previous
-version!!! I believe the only thing that changes is the warn, so
-please feel free to add:
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+
+Dario Binacchi (5):
+  arm64: dts: imx8mp-icore-mx8mp: enable the watchdog
+  dt-bindings: arm: fsl: support Engicam i.Core MX8M Plus FE C.TOUCH 2.0
+    board
+  arm64: dts: freescale: support Engicam i.Core MX8M Plus FE SoM
+  arm64: dts: freescale: support Engicam i.Core MX8M Plus FE C.TOUCH 2.0
+    board
+  arm64: dts: freescale: add Engicam C.TOUCH 2.0 LVDS display overlay
+
+ .../devicetree/bindings/arm/fsl.yaml          |   7 +
+ arch/arm64/boot/dts/freescale/Makefile        |   8 +
+ ...ctouch2-overlay-am-1280800w8tzqw-t00h.dtso |  53 ++++++
+ .../freescale/imx8mp-icore-mx8mp-ctouch2.dtsi | 166 ++++++++++++++++++
+ .../imx8mp-icore-mx8mp-fe-ctouch2.dts         |  17 ++
+ .../dts/freescale/imx8mp-icore-mx8mp-fe.dtsi  |  62 +++++++
+ .../dts/freescale/imx8mp-icore-mx8mp.dtsi     |  13 ++
+ 7 files changed, 326 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-ctouch2-overlay-am-1280800w8tzqw-t00h.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-ctouch2.dtsi
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-fe-ctouch2.dts
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-fe.dtsi
+
+---
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+branch: engicam-imx8mp-icore-fe-ctouch2
+
+-- 
+2.43.0
+
