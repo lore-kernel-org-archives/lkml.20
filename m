@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793381034;
-	b=u1gXZNeGpTSO6JFC4EknpMxbu9hHb1hiXQnTOdwM0ic0QDV31p6k8RJANJT5U8eYLwHd
-	 3KAVCGWkUuMEit/tPBunq1toHVbXWvV2/FZgdTlPo4xzEP1KZCF9LovtOTFeeDSlyW/ag
-	 Xq7VN1iiJ5q8Y1tPjP8/Mo98rs24ILJDWDvmPzpO8CSUZZ4lYOS7xhjWpwK1Z32M2gf/X
-	 S5DHI7qnBZGgVhIU4r1sMHiuy6gqxS+23m0paWbf9hAqkmxZMppEIeFYsPyZffgX4Kl+x
-	 2oN4vhN+1toROV2k6wgO/LP/+910C6EF9+0GIPHce5X+jsT0g06C669+tncJdL/CTfQ==
+	t=1793381064;
+	b=wwl6R5nH8JX9ZWGJvcbzpKsL2b/m37Bf1As2u66tOPfYvzBnPjRhufxZBv17m4Menpok
+	 bVuaiqzSkRGaqO7i3ZJjZ7b3zjym6GjAR1Gb5YwwolXGCtG4zOHBj/EVliLdVC+e8Zf/M
+	 rl6Ce9j2Spg6Fgegh/0xF3AG6E7jRFV1OqxRfzfWLZsalzxk4w9McTfy8NAM37gxOLF3A
+	 G3q/BRPrI8lcVfw0hbXol4SK8w2rxgXfCoEcOZPriJ4i+ZZl0IxMQ94Uh3RRcfZ8Me2pR
+	 al7zXH84M7+8g/2pK0Ydi5PBzEkalfe5Wb86Px5E4Dquu/Rr02vdGlq2XIka+hqcojQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793381034;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793381064;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
 	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=S4N8TPIiWWlaffvzOsFOBPVAruHG0QeVKLuSe0btBn0=;
-	b=1zc/hNxIwYgL31AxLYY5i0Df0efkYgK5C/7JPj6Gjk3dsD7iObyYsDQTYdoVB9PFFAmW
-	 dx4x4x1cX8k7VOLhS4bVbAZBIZvdhAEgaMQwdzqnvgNMi2ZBfmh7bb3KItqo2IbaXEDvI
-	 CV5WVSThgIOCBAkqpMl0x0G60vUvVUBWg85uUNSthnWiw04myP28rfAB+zwJbgWEv+lrr
-	 SQqokyBKyGwh7qMrvB2Ow+k4NBNW8LdnO5dhqNbL/xk1vnilvVPMCSbcAUahLDkhNRq9v
-	 e0MBjMI5dqZHrXBNxuXK2+S44/Da32fSCkdN/p5LN7SvLIO/UbC3vBzKGtgSBkiqMQA==
+	bh=Mg6aSAW2nZlqKBjxYch0/lj+ItuvCiiIEV6k8koKlxI=;
+	b=qn+RZpL5wsNZORCqPW4XyVipr9ge+IAemku3x+c/tTIMZPkfLd1bA1s8BzxOhp/2bQJb
+	 orDinvikkySwoybSB+iTSEDZ8ZMtQoeVVwK20/U95DuqNaqaXeJQOM1shIHAHZrzszuDO
+	 wNbcmaeX+wr7d0KjCb9jx7JHWhhVIIPCuZejO6XRQW6ooU/4GxU//is+x6RdI8mqKWhhl
+	 g0GnMU2e4TqeQXZgT7Jd2VXx+8W0Cqg8PcJ5WLNdg/meHQ1qiac0JzHOTjBzS529zII2d
+	 53WfOBpQ+fM1i44z9UI9ZQ5sgz4Evb3PDQKvOwFK8UJ/Qybr+4l51ha2xAH9XwcR9AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YTFGJS3v;
-	arc=none smtp.remote-ip=209.85.217.53
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q6QALrR2;
+	arc=none smtp.remote-ip=209.85.222.51
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0E4606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:23:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D0E4606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F0D606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:24:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5F0D606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YTFGJS3v
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-74ab99038afso634799137.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:23:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q6QALrR2
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-990835cec4bso676626241.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:24:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793381033; x=1793985833; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793381063; x=1793985863; darn=vger.kernel.org;
         h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=S4N8TPIiWWlaffvzOsFOBPVAruHG0QeVKLuSe0btBn0=;
-        b=YTFGJS3v3/aVDq4+r1W98vA45nFikeEjXo8wFlXjxvzYjHxAamD00S60pVWGMr9R3y
-         beKrWCJ0qWberEkhh0bByA0ycVRgNqWu0BXG65KC49jPqu8l/cFFZrpkkV+9MBj4VHQ1
-         O61QSrAJShl4k7wjoMoQ1FNNzdXfb74iQ07MncyhUPfD7s4DPxAxUeqM+pfxpISs5whx
-         z5q8onutacRwRE4rfvaQ5OHAB3fShOZDjunP6yrM6o2KKw88204Xtlb9mTRzk6UVHtwM
-         H40OuU0oD/eOv/Cn/JgfyqWl1gmwMfz4Wo3qRf8OgvOCp9iuwPhyN7cYbzO/uTLe9SxW
-         1PpA==
+        bh=Mg6aSAW2nZlqKBjxYch0/lj+ItuvCiiIEV6k8koKlxI=;
+        b=q6QALrR26xp1pZTmOjBiJQd/a5Lm6Yd5RIj414nvPbtFArwCkl4wUob15cgpXIyDRf
+         9EknwI24ica7HnQO7BghZtSGSkaBZSJK+p7X6WBqw+bXQBoL1bBhv89fPR60Z4/Qi96a
+         +bF5Lf+BMQWaAoXCHEmXvOz4vGc2+/sEcaiPbRTqIDMSsaSjAve7hszrtyf+0nKKSCxR
+         NsIdPQLVMrvEd2eJ7LTgiSWGdBVliDx5BOsaMRKna+p/UhIzXUWRVFO/PTaJDZP829Mr
+         vadxyEYXk3wGsiQp/pO/2kwKVC8NZFm19NaGDhhcrcJaWtLeYFS5MSIc09y0Z5y31+HL
+         vFug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793381033; x=1793985833;
+        d=1e100.net; s=20260707; t=1793381063; x=1793985863;
         h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=S4N8TPIiWWlaffvzOsFOBPVAruHG0QeVKLuSe0btBn0=;
-        b=wX19dqSs2SR6jIBKW1x8OaUrlI6r+Y9GyyOPHnwXH+bHh95htNYejwCbMyHFn0B+8T
-         haw9L4aIjsQGX5dHRqGfHUAd4J1o3PiVyarwSW8UEMiVGXvlyFYmXbl2cuIIYdhyCnIY
-         +Yrp92rcPtg/iARm2Yt1WFBJKEBl6Yn4uPD6s7wFjjfHTut/umhk6LOTNJ3wycxwc67K
-         /eyW+g8XFKY0hgvEfkuWnaL5B3+gh5Au8eFOMLsmFuLy4HhzE3ajPnhH+XeEdCrQnOrS
-         tUDRcbhEv8tpwtX/EUYlUlqrvJrgvUtoGjpmiCr8MP+2seAsl/3HnLeTbjQsgMdWyf2n
-         321w==
-X-Forwarded-Encrypted: i=1; AKwUvBwHInJ9NmaPqFYi4gbsN6fTsgFKPHyy04a+3pBPtBYgMOhcSHbzUl6Q23LVq4j+yx9TcOmYMOi38/kEKb8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4rnY6DGd02WgPK7Q7kTUjo5+s+2TVPoI0yYGn5iyG50vVEo6F
-	9N0iO+8OsjyQE8BSJu/IxGZNSLVl+hdRTedGWFlkdNWPiY3yXzWBXDk7
-X-Gm-Gg: AYBFou04Nvcv3P23IA1ROWq9RGLNFxogwQIUdXV36bH1nFfLiHMfjicXyfwzKC8HF8A
-	poEKnI8zps7NTDxR2gXttAZqIBK977udig/jpIWvoB87FwhCERE8dk9x49XfXYaZlQsLPlILmvC
-	b9BhXPGfmaYUlJFirkBECFycVGR5FCLpkZmVKZGMVDPpzT0PHe52mwMKffkoLPHGuPgTmxJR+hn
-	t4IquFO/sA34s1+ZZl4VeZ6U1Jn0vwJKABtMJ3JmHt6yFD5+VocQK6fOdUTEVnydQ1IWJomZu9r
-	TEDP8b5T96qfX3LCFyYfaIM9L9/O2N6YidlP22htXnP3ZyaFpntQdu3HEVWbUfXfJE77gYoEHfm
-	nGfs+w8aB62GG3SPeWoVunwgFzYCJxo3BIxvhlynGayAfEMt306WBGJZGLMM1lNC+RFyI/w4bcQ
-	R4lG7ZbNjKErSznJNW2PtaZc2aV1RZseu53Ed3X/OtQsA6onqfgDhk1W185O1tX9NvkrJJ2fMr4
-	41sgHkdI4pN9riIU35BGfQVToFLMecpAWI+FmMzadp6GkvG9nGpheiTe7CEUgLNwY/pcCKV8Xbs
-	opbrTKPL8NQDfUb9Sr/ipwC5besuMpOhKcl3MYj//INFiUN79efDUxm6zPyxb2byuCN/K3U6xGN
-	RxlB1/pArXdJvNW7YCVWZWU7Fhlv2O7nvHsDZOvnp+2bkqnpt2mdtO3/jd64PGS4hqkZbjGcWTU
-	m407ve+KGtOLrNWOHqYATNqS5ctjgLWLDexB8Qgxw=
-X-Received: by 2002:a05:6102:8092:b0:7cc:56a:58d3 with SMTP id ada2fe7eead31-7d07279cd1amr1615059137.31.1793381033093;
-        Fri, 30 Oct 2026 10:23:53 -0700 (PDT)
+        bh=Mg6aSAW2nZlqKBjxYch0/lj+ItuvCiiIEV6k8koKlxI=;
+        b=xW1eA3LGsYGVHBwkx9BTLIBmjwUVed6550LP18y1+OsrxaeVbXxKzDFWqaj+JL4PAn
+         T0LuNoJdgVazV+OitcMkRF20SBCULMaRPpzat6cAdpq+fxK/lkRvLLF707NgVKyVZYIr
+         2RilKSEGxTlETzm30SUdnV/nZZeuiNNgLTosG7HlMHMxsNvcZyBHkVQbJdFRQhAd0DEl
+         BL4V11yujB+egbwo+A81Oey6WLVxcxfODn+8iqfIYf7q3SuSFFdth5cgeROBmMeV9LNZ
+         +IW/PfO0v4Gller0y7Q/f49bri0cPms5+fMfREl8IwHfsQp9ugf4NQkqMdIoV6TxLf8T
+         wZJg==
+X-Forwarded-Encrypted: i=1; AKwUvByzAXCh35cdhsQU5H+jyvd7nVa75cbluQvSinGW/WD0CVFLWdM1M8+EbeybBKp3U0mzedfV9OsjDxkdKQE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJd9Tc9uNW01wX2dtIAnF9xuWM65La9tnP9cJY8pmeQ8llhyzA6
+	m+GOMKP82WBGBe5GnMJtfKOhQKCdOY01VJD5/cxfcjSECupTB9B+bXgv
+X-Gm-Gg: AYBFou2BSL2Y+yeXmFp5z1C1H/S426eVQY9lSg02DRiO/pFTA8GoNpPsQL41agnlqhV
+	ImhxCXO6ZCKGKs6ZmWEC28t1q1j0Fi0500XdO3JNa/Pdt/nLnZVKN/s0hTwmmn9anHSrmVxyz5D
+	k3jefW5DyBkV8Sm04EqFeMAFZ3Jx0bt2TMPIePHavyHm71CKgNNVxl5oIx70gDy1u/j/UXrw03t
+	qfl/MWyURVk9cCEMYw2JEiWhtCOEHyLo3cGzodo8m2ThCmcfsdbS8bgONA+UGsmr4Avl0nDcr63
+	XOdCY/UNCOJczOhcu+qqtzWdBpZQOAmZNbaSSb9WgVG3qGM9jkyqOBtogLSPc16gQs4BMT3Gd9X
+	c649qZRE5ds/wWJNsEbIyS6rCpmzJa/C2WEB2ZqssSSRAA+gkjuWsI5DrccOdxIblbkwg01JT1L
+	knzah1MAnF0Xanufd0S6JTJf4bPs9QVwtVUWkNlKVOuTDyd95YJtbSw5iS4rvDPQdlUiP3bC30M
+	dBBt4Ud2zFCUCTKeWYVSqtsNdicpqGOeavwX99zOUQWAkJCh6A4eK4KC1gPiSGPB4RSKbNkFNZQ
+	HA0bk6j96NvvdqQi2tYyNtNbY5KvFg8VPe0mpkfgQqS7RSVz0v32AX/URG/s6kpqi11URTd+Csz
+	l1lwmSSbl144OPEOH/RzJs5eeLEnkvD8Cwjp945e3Qud2sL6AG/wdWaumspTZj23o1dQU72Wz/8
+	WIukM6BjrJcE84q3rcJA==
+X-Received: by 2002:a05:6102:c01:b0:7d0:5688:f507 with SMTP id ada2fe7eead31-7d072c596c4mr1583521137.20.1793381062741;
+        Fri, 30 Oct 2026 10:24:22 -0700 (PDT)
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([2804:18:15f:b9ba:756b:b70a:a34a:8232])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d07754c1b4sm2990154137.4.2026.10.30.10.23.48
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d077393404sm2868377137.2.2026.10.30.10.24.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 10:23:52 -0700 (PDT)
+        Fri, 30 Oct 2026 10:24:22 -0700 (PDT)
 From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-To: =?utf-8?q?=C3=96mer?= Mete Kaya <omermetekaya0@gmail.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>,
- Hangbin Liu <hangbin.liu@linux.dev>, Andrew Lunn <andrew+netdev@lunn.ch>,
- David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Jiri Pirko <jiri@resnulli.us>,
- syzbot+88435e204734072bf39a@syzkaller.appspotmail.com, netdev@vger.kernel.org,
+To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
+Cc: David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Jon Maloy <jmaloy@redhat.com>,
+ netdev@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2] netdevsim: reject port addition and clean up
- ports after a failed reload
-Date: Fri, 30 Oct 2026 14:23:45 -0300
-Message-ID: <179338102577.65907.6165293008000000698@gmail.com>
-In-Reply-To: <20261030001444.289973-1-omermetekaya0@gmail.com>
-References: <20261030001444.289973-1-omermetekaya0@gmail.com>
+Subject: Re: [PATCH net v4] tipc: raise the minimum bearer MTU to fit tunnel
+ and crypto overhead
+Date: Fri, 30 Oct 2026 14:24:15 -0300
+Message-ID: <179338105585.65961.17235832504055289741@gmail.com>
+In-Reply-To: <AM7P189MB1137B1760C380E81E5A3CD8AC66D2@AM7P189MB1137.EURP189.PROD.OUTLOOK.COM>
+References: <179322942644.17111.4355153262478871713@gmail.com> <AM7P189MB1137B1760C380E81E5A3CD8AC66D2@AM7P189MB1137.EURP189.PROD.OUTLOOK.COM>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -107,19 +106,18 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-On Fri, Oct 30, 2026, Ömer Mete Kaya wrote:
-> nsim_drv_port_add() does not check devlink_is_reload_failed(), so ports
-> can be added via new_port after a failed reload.
+Hi Tung,
 
-I sent a fix for the same syzbot report a bit earlier, which only
-deleted the leftover ports in nsim_dev_reload_destroy().  Rejecting
-new_port once the reload has failed is the better fix, so please take
-this one and drop mine.
+The only items in that checkpatch run are about the Assisted-by trailer:
 
-I tested this patch on net/main (94cea342e891) on arm64 QEMU with KASAN,
-running the syzbot C reproducer.  Without a fix it hits the WARNING in
-bpf_offload_dev_destroy() and then a slab-use-after-free in
-devlink_bus_name() through the leftover netdev; with this patch there
-is no warning or KASAN report in 3 runs.
+  WARNING: Non-standard signature: Assisted-by:
+  ERROR: Unrecognized email address: 'Claude:claude-opus-5-5'
 
-Tested-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+That line is there on purpose: it discloses that an AI coding
+assistant was used, in the "Assisted-by: AGENT:MODEL" form.  checkpatch
+does not know the tag yet and parses its value as an email address.
+There is nothing reported against the code or the rest of the commit
+message.
+
+Thanks,
+Joas
