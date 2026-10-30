@@ -1,101 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.225.85
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793357333;
-	b=TUujLZ7WNvLtm7n+eRzlqeWEkLMOlo7mVMMKF5l5BN9l6GJoVklqsJgLEh2vfYZ1xzRp
-	 3c1/xaxJZ+iVfYZJqyFM6sBOLzZMfl189mscM9T2np8atFVxNRiovTiOkmfEm94KKKQyA
-	 zPn7ugHv298wZ5esNvKxmXORutc8kuqPBoUFeIjrMhrMBXrfsE350iI2U3rg+Lmr2jxBa
-	 SjHRpOPJkZ/TOQk1rjO4HmN2evIdJ3XFv0qAWzWBVyGF27SjkSQJZ1Pu8wUvcaPucm9QB
-	 eAIsLHb0aspvSVSF9beu7wptMLsGJVCVbhJGkk1InLhxFCPtV22Q6CrJeM3D9WCOfdg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357333;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=EFa9H0DOJfAGUAuUI/NEV1TFJF/b8DmJzU/Ou2CZuNA=;
-	b=RDmJNFZP7GT3j0bDhpFOvxb8913IlYFKn4o4EI03rvFqIIVwbpnZiqWDkutdJosQDjJi
-	 3zCH+SXx+CaLUGN4e3tL6+5V6Z3/vXn5Tt1JOfPtt0gx1fD3ElUMB7tAbX87QLB0mJOwK
-	 ueclq3twTi5F+cXPWoWcogneSnh05ATjAf/H0ntvUUzh/WE2lPFhwLrijkixIbWDxE52h
-	 uGNftIrFFjGg9KFivGXNkY+1xlCQFSFskNYzhHYBMBmvb3CWYXpCQ0YxGX7SHHiRnTulF
-	 49sK63YkKMkPg0Je/OynLBl7GpRHpxqOLFtc4bC5BdfiKIo6K7PNwmkv9pA512MI3TA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=siliconsignals.io;
-	spf=pass smtp.mailfrom=siliconsignals.io;
-	dkim=pass header.d=siliconsignals.io header.i=@siliconsignals.io header.a=rsa-sha256 header.s=selector1 header.b=RxhgeRkj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.225.85
-Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020085.outbound.protection.outlook.com [52.101.225.85])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793357378;
+	b=GTMO4QsswhVVvkhuLuOcaBQjx+ZjbZz5YkneYpF/VEvMAhKZG3fP4qjCAIuum9ekIpID
+	 qXDdouj4Z349cc21+gAjanW4R9DCj1owRitwHDavwOZGJHwP2TmyuzBOkrweDJz3NAQS1
+	 EKjWVhZrvWGs4KL472EoTivnVymxanGhPtFi87UYkuWvDGZtMT+NAYumAM4YsL/HIhysF
+	 ywYQ92rJgAfS9unAQAgXAYeH2KJTes7bbIoxrTFJETIgJ0adrA2vpTZrduSQ2yaWWPjDY
+	 NXiPqa16586i/rtXo8cb33+wbSzd+G8A+2HTJjh5PqMyH0P7mv6LK+s7eA783/L7r4w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357378;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Ge8hADgfac7MKFfaAfAW05gt3hYkAz9wTRvWiuoBv98=;
+	b=i5Zmpiz2dvKhfEP6C+DeA0biUrFeBaogt+vhmaSP897O5XRq39Qxt1a4gNC9RsOBd0dm
+	 yyx/yJlTqNjmAOnlmnAW1kMUPMWzFpXiBzGAUkCUXWpwkfzrDqxLhyKNTPSM+uLAKYL3S
+	 anmX+Fl+11rtc1m+crj+kcngzoS9ApwfuQHpdyApsb6fIRk4wzrNH9jgBmAw+ewnrzGnq
+	 tghSJduYC3tmZqwKkEcfAJlacdPSENK39eWk4A1L2BJ2cNgctuPkgB0blrIYO4C1hx+Im
+	 WXvYeZklB+eeX/kfqmXX/anmDxtqnBmZSBH0tCdDJ0fdboV0BL5Di9Ql8bzTqNs34gQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MduejGOR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19CD606A336;
-	Fri, 30 Oct 2026 10:48:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D19CD606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87212606A325
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:49:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=siliconsignals.io header.i=@siliconsignals.io header.a=rsa-sha256 header.s=selector1 header.b=RxhgeRkj
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pdnZmgQOtHhhoDcag4iBK7dWY+CGbefjDK2PT8GNZtC+kHgcuR3L46K+Fq0EztUihNWH58KVu6sE/KTGO3W3QdamHnRWsSDx8VW0qt3eLJkoB9K4rM1XvEJusQ2wubOqwcKPdjEQpvEIxrlXYGWskjJs5cd+jAl7m3mTXJJjSKzcEkuMdEfaJbJmdmh0JTEVoqXU5P9KcJ9F1rCXGMvx1K8vgE1gDwhUnPKQEVnhzCwQFM3YRew+LblSxSzoAU3UlmYXXYv8SMsDVwVJy12FX2FtkEpVt1NbV2NE1HrgYgCwqfSo3HfNd5HDH0Be7LbaVAWHu5fOou4KqsDJAe9lsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EFa9H0DOJfAGUAuUI/NEV1TFJF/b8DmJzU/Ou2CZuNA=;
- b=J5oej0eAeVygKrQb0Ylr/cTIq6HbE2qdi9tnt8MQpcbEhuEhMYO2TWNb8GL8NweaonWs7/+HU/Wl4JRLQRcVA6nwdnO7xaG93refuPVj10CJYErmoFDJhzp8vonpOpxxZoUPWvWt8YJUM9d8p6Ig6oD7Za0zQlA5HsU6/zZhgiFIcxO2mlN6jkMq8+xhc9597Lau2eBpJupTJ2xXb8EcAhEfQxIj93IiYtoqBeA9HoN6yRWuPyzX2L6itKPSxnqOPMJ3gENI3JCpUZN9/33mVMH4geop+pZhWWIfzIb07fpt+6Kyxg5higuHGBO332lnv06r5rqK8iFHy+k5G4zO6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EFa9H0DOJfAGUAuUI/NEV1TFJF/b8DmJzU/Ou2CZuNA=;
- b=RxhgeRkj7j//q4liZFd0zYkw8/Dxs+Mg32HyoIyO4m1xyYmWT1OJgPvUlU4LCTCx79sIH+i1fslvRo8rjHmeqr1cHymEfCw2gmYaPn3PmfiJLl0rIPolclO8IHVOJqRPoWH3dUV5pIqChWuNhD4scIaB8EXm57bdNsWvqfIdLujauESdAsgB06jY8ee/8fqRd2KS6qzAaOXCCd2m+CW+w5zdvBXMOJxoNz3By9YokU4ivH6uWqpb9RT65864cNltn28DbDqUHqkrDcp9uVAMQWj9iC6rRfwV1sT16ZAMW9X3q0JBLdxERCyEg3Ynu8salnWGcaRePxFdrHlX/7epcg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
- by PN6P287MB5027.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:2ff::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 10:48:49 +0000
-Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
- ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
- ([fe80::ce63:5749:b390:508b%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 10:48:48 +0000
-From: Tarang Raval <tarang.raval@siliconsignals.io>
-To: sakari.ailus@linux.intel.com
-Cc: jai.luthra@ideasonboard.com,
-	Tarang Raval <tarang.raval@siliconsignals.io>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
-	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 05/15] media: i2c: os05b10: add register definitions and use them in init table
-Date: Fri, 30 Oct 2026 16:17:54 +0530
-Message-Id: <20261030104806.1223991-6-tarang.raval@siliconsignals.io>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261030104806.1223991-1-tarang.raval@siliconsignals.io>
-References: <20261030104806.1223991-1-tarang.raval@siliconsignals.io>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PN0PR01CA0006.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:4f::11) To PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:199::7)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MduejGOR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B3491F00A15
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:49:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793357378;
+	bh=Ge8hADgfac7MKFfaAfAW05gt3hYkAz9wTRvWiuoBv98=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MduejGOR49bV/g+WDvkkka5dwZR6dPDtapJ4D0FcpYj0cjsNyTmxIkBQXoxqYj3cL
+	 c2bF4g7TyB/95HyAxCNAZK8coQ6VMrTERDOPIFa1y6G+gI/IWsQWN6Pc5eMAanxVN6
+	 0fn6+Rpd/JHSln8pg4D54Q2x7ar3vbugqQULQLlJ/95VEnqF9T4s187xKSJbcD6ogA
+	 EuhA5qaDz8UJfXtL79EywR7xdfkRHTbB2Bsc3Q10BVe2LPd/kEYh1MyJOGhD5knafj
+	 vQ1sQGVmBn3w1o0af/EswCFiE80uqyuN6clERzHxJQnt992zCmHYDG8C4Z9iC4i4Uz
+	 bdo2mXumBu4Fg==
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93e503815adso49063185a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:49:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy3aJS+3aHV5kHsoGdumdewgkVXkj9aBLJOZDMFVQkqc5atCujQnvyVoVXHY0ImFy4NwUxjJkU4O8nepKA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDdvu29foqrqe8a3l4z5ds41kZ0FoXGOaKuaRDyKdx/RUODEF8
+	xzIP5NuBIXiKZMTocDL4g6COKwczsSKMs2uELFhIANaTAhb78qgk1SyA/ksLzEHEvDfhowqeQZV
+	s+/BvU65OBankPJaffzrL7eA4VOdnPcI=
+X-Received: by 2002:a05:620a:370e:b0:93f:6c67:152d with SMTP id
+ af79cd13be357-9442175069cmr320613985a.38.1793357377323; Fri, 30 Oct 2026
+ 03:49:37 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,232 +59,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3P287MB1829:EE_|PN6P287MB5027:EE_
-X-MS-Office365-Filtering-Correlation-Id: e23631a3-444d-40d0-9161-08df36736108
-X-LD-Processed: 7ec5089e-a433-4bd1-a638-82ee62e21d37,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|52116014|38350700014|56012099006|261009223027099003|261021123027099003|261022105027099003|261028144727099003|261026140227099003|261021121427099003|10067099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
- 6SaX1xTc/xtUSmTHfSouy2woeULCk0AvKi4E1KSePuKDzEDKA0303kicKxHGU8+TX6y8Z/57isClFDFfbY5QeSkJKMB5RjF5tQVr/kGhe+rcIcWC6Lp4IJDEUws0dj/Z6IMFh/T2C2R+4sE89IZ6cEdh6fdkqv5bQ6E+1GytQYVhKbl5H0TIgg5G5cx0oZsY2ISQeHT4Wkol0ZvMaZr0OtJVKhcd8HgMkIonF21lkXWY62OX37asgagv3WKiKFQZepE4tfEd0TTi1KdHMMm4d3uIx/Xd0PWMZ0Fy8KPo5QqofGRrsibuEJZae6N2+UUHvo574qvos0iJ9xWvRr6nP15eRzDBDNX8Uq3OMwbxihbGc0n7IiwgJ2KQAiypFhGufRe1wsvZ5SVHqNhAhTq6RdtUJTD0/yoUeVnEgvAch4pjKXKABJK/zAyVWutqQmgMqfS5Bg8fxyOVouW50hswyI6FpDDIV+Xp6qoTMyP1xjUipvX+0LJm0tMtzT8sHEiD7tYB63IJxO7ZXdlSx9/OVinqfkT3L/16eyW4ukWieFEjzUsoWZ1a2v1SzOJMWJ2XhCAJykb5qTu5+o+ud8TT/FptT5qIXq/K3oSmkm6PUBQL/RPAAzty7RlsUexv9FEy70pWzAGWT9IVQO+FreVfVUAeNucBlo9E4ppLZtnqPmYEyygOpa+qtpRiobIJxzrFw3uT+SgyqgRW6OzxoV6loy/a/2Zu36oVwPBYb5f+SeY=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(52116014)(38350700014)(56012099006)(261009223027099003)(261021123027099003)(261022105027099003)(261028144727099003)(261026140227099003)(261021121427099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?tU95gRK6BKrI3vq9A6o45c1ST6v9aEd3v4XZwoYtBOGFUk2zu/FhHMdkZTPj?=
- =?us-ascii?Q?tE76lJOvPVCP5wXfZGo09gm0zGxPM+WqfYZ2jD09dkM+2LQ8rwVr1F9Gq9t2?=
- =?us-ascii?Q?dxnNBvFnTi5CxPi+DxnwgOGpGLk2lZAMODU2+YjcB9wbKTXEqo8H8AgLlUAM?=
- =?us-ascii?Q?wQyWpWXumpL6qsMta3O5DaSuGqZOgFNKDK18NOlFLzMO8a76ilg625S04l2t?=
- =?us-ascii?Q?dlSjkymI7E4pStsDXti9iJ9mtqWlMAU2+vIHvBbPc8mjONLwh2VZSAsUM1Ub?=
- =?us-ascii?Q?vUpDxAtIVPZbCwR/FGOTW9eNCg8pHZIk5ClW848JCJwTCXKzgxhGWPjw56yx?=
- =?us-ascii?Q?9OKMYSNwr0bVnu8hshih3VsJCVNFdRDc1boXtLan51AhUfXowcru12cWWQMn?=
- =?us-ascii?Q?tt00irqTjk1mGYLVxirAq3XEhNUlHRnXzO7jLQVlz6+pqINIgNxFFYsRQViU?=
- =?us-ascii?Q?SNxPZ6pRHLk9tIqSWIiF7R+7xevT3hzCSH+9NKRhtm/dM0H73byP/nSTtCP7?=
- =?us-ascii?Q?euapZwCG1xOgm6fo6+1RhG9U+9lDoCyNeu5Z8nre9oGbE+8XYIjPHgtrQq2G?=
- =?us-ascii?Q?fF8U/0FCAIu/Y11DJL+1i2UoXbyxGew4HsP3psqynWw4c6pnsBzRLKgKeIdI?=
- =?us-ascii?Q?lMX5IiMBkEoeGrKq+1BK03M+E+yBd9g8GHaS/hI5QGg2zCeak/C2R0Pg3l8C?=
- =?us-ascii?Q?s11vIrRp2JmeITXGKaDOpao6Yg9f/MGwmVG3hI5g8ZtFhwypimvBJxGmM8sr?=
- =?us-ascii?Q?Re+zul49SMooBxdefiBtyPs+/I4zZrPX+4hRpiC+fgC7s1s+Ita9QSQXlPIC?=
- =?us-ascii?Q?oJMXrif1XPas9rnaE3kMK45sehw3X+PLCkW3yOszsSOKY38CkJLtcj751ktu?=
- =?us-ascii?Q?EaYGa83RP7+GR0p+VBiYLMpvl2Zn8SR37h8M3bZNk75FGdCp1s6JHQ3FOyiK?=
- =?us-ascii?Q?/BZY2CeqEy4eAZUhTlvUzQVLqsHxhGO+6Hzod5TcH5SSeACRYCkClu76dqYz?=
- =?us-ascii?Q?grGv5UY+JB1uZFl5I/NftK0vog7Y4pGm1Gai2t1dEPJD1ASE4a/pMOEkHzID?=
- =?us-ascii?Q?/oIdiQYyApIUTA9Pjka/ruuZeEjAjL6hsreUBueEAkrAyGzl25d7x268E55V?=
- =?us-ascii?Q?Eq6OPMuCPe1SasbMGyg4woAg3PMj0PmdGVcFGvjBhphcG+U2W4nAlmk0VMhf?=
- =?us-ascii?Q?KrYj/nKNNjpwkeQTuonOZw0WULNxN2kEA5htp1dujb+YfvdszY2Tx61XCYLJ?=
- =?us-ascii?Q?7FYzrV/CQ15wq26jyVR+Fov+IHSGQiFQpgCcz4oRT/I2yJdlOr82/x3Ftec7?=
- =?us-ascii?Q?bvxQJIGFgDqyQ0pXcHEHpeI2RuJkzN73Eek2Lu56/ZlBVw4ROD6P2IXGjHar?=
- =?us-ascii?Q?lpJ8MICGLitUR2TNCqj5X9q9nRKG9lkHL2Tqxu/xYJBxpFShR7s6JS812QVu?=
- =?us-ascii?Q?mkYftKkqmcvVsvL/is23OT5v2JP+l99kv+QMG//qekjSyDsbOmmibrmSM524?=
- =?us-ascii?Q?wHIdPACcKbh6kiKv6Y2iRN7t95Mfve7a59Fsciab92Hb/Wb0PuEpNJNmg+oN?=
- =?us-ascii?Q?YVVhnKjOGbOsKNGlzeXpNXXwaCrUNwEtn21oab0i5yLOzmPsj+oNoTj6elAy?=
- =?us-ascii?Q?6MP4lZBPbLgd6JA/oDlX/mI4UUG1J5MEAImKr1YGfOT3s9BjZb4Zb1mCmf3M?=
- =?us-ascii?Q?/tzgNOIOvwJGU6zZ/uhX9O6g/GpGkiUArd3Hrgvwcj1CmXK1vdPaor1iGUyH?=
- =?us-ascii?Q?Liym7X8bEBD0z2RpFH8/LFky4qHihms=3D?=
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-Network-Message-Id: e23631a3-444d-40d0-9161-08df36736108
-X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 10:48:48.7848
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k9FE7Ei8nmrOWj2lMaDFHQZj2LWdkkMmN5IBwI724WQJYHbA9EqtsRZnXpYY5ZIlSVuyVBNluzUGtJpyp9gGHz4f7DLryYa0KcbUxFw13Rs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN6P287MB5027
+References: <179248830836.1744016.8424217811286616919.noio-mglru-rfc-v2@bytedance.com>
+ <0cbd219d-f69d-4f72-aec5-43e1f2d978de@linux.alibaba.com> <20261022102726.56682-1-baohua@kernel.org>
+ <fc302ca3-6bf6-4bde-b3e8-8d2e93a4e4ac@linux.alibaba.com> <CAGsJ_4z9GZkpV+mpoGogma4oSX4cHy+2UDzyUQSjjOLOfekEPg@mail.gmail.com>
+ <4e647816-0b8b-4a75-8777-8580a574d752@linux.alibaba.com> <CAGsJ_4xVR53NcKuN3bA6v+O=37PeQ2Vnj-8WHo6ScYH96N4seA@mail.gmail.com>
+ <179307231985.76444.4463824301717648100.noio-rfc-v2-coordination@bytedance.com>
+In-Reply-To: <179307231985.76444.4463824301717648100.noio-rfc-v2-coordination@bytedance.com>
+From: Barry Song <baohua@kernel.org>
+Date: Fri, 30 Oct 2026 18:49:25 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zvbOW3kGDZF0iXxZyWbv-LJo56W+uMM_Btk-sHRf5aMA@mail.gmail.com>
+X-Gm-Features: AclHuK8XCpEGNqAtN3doj9652by5qHmAXJ7EjWFLqe_stHXIVl1CGsrIrXfddGY
+Message-ID: <CAGsJ_4zvbOW3kGDZF0iXxZyWbv-LJo56W+uMM_Btk-sHRf5aMA@mail.gmail.com>
+Subject: Re: [RFC PATCH v2] mm: vmscan: avoid anon scanning for GFP_NOIO with
+ low swapcache in MGLRU
+To: Xiang Liu <liuxiang.277@bytedance.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Bo Zhang <zhangbo56@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Define named register macros for OS05B10 and replace raw register
-addresses in the common initialization array with the new definitions.
-This improves readability and maintainability without changing
-functionality.
+On Tue, Oct 27, 2026 at 1:15=E2=80=AFPM Xiang Liu <liuxiang.277@bytedance.c=
+om> wrote:
+>
+> Hi Barry, Baolin,
+>
+> Thanks for the review and discussion.
+>
+> I've seen the RFC v5 "mm: mglru: fix swappiness behavior" series, where
+> Bo's patch 14/14 addresses the same GFP_NOIO issue on top of the new
+> scan-budget model.
+>
+> Baolin wrote on Oct 21:
+> > IMO, 'swappiness' and 'scan_swappiness' are really confusing.
+>
+> For a standalone v3, I plan to rename scan_swappiness to
+> evict_swappiness to make its role clearer, keeping the rest of the v2
+> implementation unchanged. The split in v2 preserves the original policy
+> for anon aging, including the page-table walk.
+>
+> Barry wrote on Oct 22:
+> > IMHO, this is confusing but this is a possible way to fix it before we
+> > land something [...]
+>
+> Before preparing a v3, would a standalone fix against the current MGLRU
+> code still be useful as an interim fix before the scan-budget series
+> lands?
 
-Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
-Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
----
- drivers/media/i2c/os05b10.c | 108 ++++++++++++++++++++++--------------
- 1 file changed, 67 insertions(+), 41 deletions(-)
+Hi Xiang,
 
-diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
-index 7f6cb4c7edc8..3f478bad1fbc 100644
---- a/drivers/media/i2c/os05b10.c
-+++ b/drivers/media/i2c/os05b10.c
-@@ -38,6 +38,16 @@
- #define OS05B10_MODE_STANDBY		0x00
- #define OS05B10_MODE_STREAMING		0x01
- 
-+#define OS05B10_REG_PLL_CTRL(n)		CCI_REG8(0x0300 + (n))
-+
-+#define OS05B10_REG_MIPI_SC_CTRL	CCI_REG8(0x3016)
-+#define OS05B10_4_LANE_MODE		0x72
-+#define OS05B10_2_LANE_MODE		0x32
-+
-+#define OS05B10_REG_MIPI_SC_CTRL_1	CCI_REG8(0x3022)
-+#define OS05B10_10BIT_MODE		0x01
-+#define OS05B10_12BIT_MODE		0x61
-+
- #define OS05B10_REG_EXPOSURE		CCI_REG24(0x3500)
- #define OS05B10_EXPOSURE_MIN		2
- #define OS05B10_EXPOSURE_STEP		1
-@@ -47,13 +57,43 @@
- #define OS05B10_ANALOG_GAIN_MIN		0x80
- #define OS05B10_ANALOG_GAIN_MAX		0x7C0
- #define OS05B10_ANALOG_GAIN_STEP	1
--#define OS05B10_ANALOG_GAIN_DEFAULT	0x80
-+#define OS05B10_ANALOG_GAIN_DEFAULT	OS05B10_ANALOG_GAIN_MIN
-+
-+#define OS05B10_REG_DIGITAL_GAIN	CCI_REG16(0x350a)
-+#define OS05B10_DIGITAL_GAIN_MIN	0x400
-+#define OS05B10_DIGITAL_GAIN_MAX	0x3fff
-+#define OS05B10_DIGITAL_GAIN_STEP	1
-+#define OS05B10_DIGITAL_GAIN_DEFAULT	OS05B10_DIGITAL_GAIN_MIN
-+
-+#define OS05B10_REG_ANALOG_GAIN_SHORT	CCI_REG16(0x350c)
-+#define OS05B10_REG_DIGITAL_GAIN_SHORT	CCI_REG16(0x350e)
-+#define OS05B10_REG_EXPOSURE_SHORT	CCI_REG24(0x3510)
-+
-+#define OS05B10_REG_X_ADDR_START	CCI_REG16(0x3800)
-+#define OS05B10_REG_Y_ADDR_START	CCI_REG16(0x3802)
-+#define OS05B10_REG_X_ADDR_END		CCI_REG16(0x3804)
-+#define OS05B10_REG_Y_ADDR_END		CCI_REG16(0x3806)
-+#define OS05B10_REG_X_OUTPUT_SIZE	CCI_REG16(0x3808)
-+#define OS05B10_REG_Y_OUTPUT_SIZE	CCI_REG16(0x380a)
- 
- #define OS05B10_REG_HTS			CCI_REG16(0x380c)
- 
- #define OS05B10_REG_VTS			CCI_REG16(0x380e)
- #define OS05B10_VTS_MAX			0x7fff
- 
-+#define OS05B10_REG_ISP_X_WIN		CCI_REG16(0x3810)
-+#define OS05B10_REG_ISP_Y_WIN		CCI_REG16(0x3812)
-+#define OS05B10_REG_X_INC_ODD		CCI_REG8(0x3814)
-+#define OS05B10_REG_X_INC_EVEN		CCI_REG8(0x3815)
-+#define OS05B10_REG_Y_INC_ODD		CCI_REG8(0x3816)
-+#define OS05B10_REG_Y_INC_EVEN		CCI_REG8(0x3817)
-+
-+#define OS05B10_REG_FORMAT1		CCI_REG8(0x3820)
-+#define OS05B10_MIRROR			BIT(3)
-+#define OS05B10_FLIP			GENMASK(5, 4)
-+
-+#define OS05B10_REG_FORMAT2		CCI_REG8(0x3821)
-+
- #define OS05B10_LINK_FREQ_600MHZ	(600 * HZ_PER_MHZ)
- 
- static const struct v4l2_rect os05b10_native_area = {
-@@ -77,30 +117,25 @@ static const char * const os05b10_supply_name[] = {
- };
- 
- static const struct cci_reg_sequence os05b10_common_regs[] = {
--	{ CCI_REG8(0x0301), 0x44 },
--	{ CCI_REG8(0x0303), 0x02 },
--	{ CCI_REG8(0x0305), 0x32 },
--	{ CCI_REG8(0x0306), 0x00 },
--	{ CCI_REG8(0x0325), 0x3b },
-+	{ OS05B10_REG_PLL_CTRL(0x01), 0x44 },
-+	{ OS05B10_REG_PLL_CTRL(0x03), 0x02 },
-+	{ OS05B10_REG_PLL_CTRL(0x05), 0x32 },
-+	{ OS05B10_REG_PLL_CTRL(0x06), 0x00 },
-+	{ OS05B10_REG_PLL_CTRL(0x25), 0x3b },
- 	{ CCI_REG8(0x3002), 0x21 },
--	{ CCI_REG8(0x3016), 0x72 },
-+	{ OS05B10_REG_MIPI_SC_CTRL, OS05B10_4_LANE_MODE },
- 	{ CCI_REG8(0x301e), 0xb4 },
- 	{ CCI_REG8(0x301f), 0xd0 },
- 	{ CCI_REG8(0x3021), 0x03 },
--	{ CCI_REG8(0x3022), 0x01 },
-+	{ OS05B10_REG_MIPI_SC_CTRL_1, OS05B10_10BIT_MODE },
- 	{ CCI_REG8(0x3107), 0xa1 },
- 	{ CCI_REG8(0x3108), 0x7d },
- 	{ CCI_REG8(0x3109), 0xfc },
- 	{ CCI_REG8(0x3503), 0x88 },
--	{ CCI_REG8(0x350a), 0x04 },
--	{ CCI_REG8(0x350b), 0x00 },
--	{ CCI_REG8(0x350c), 0x00 },
--	{ CCI_REG8(0x350d), 0x80 },
--	{ CCI_REG8(0x350e), 0x04 },
--	{ CCI_REG8(0x350f), 0x00 },
--	{ CCI_REG8(0x3510), 0x00 },
--	{ CCI_REG8(0x3511), 0x00 },
--	{ CCI_REG8(0x3512), 0x20 },
-+	{ OS05B10_REG_DIGITAL_GAIN, OS05B10_DIGITAL_GAIN_DEFAULT },
-+	{ OS05B10_REG_ANALOG_GAIN_SHORT, 0x0080 },
-+	{ OS05B10_REG_DIGITAL_GAIN_SHORT, 0x0400 },
-+	{ OS05B10_REG_EXPOSURE_SHORT, 0x000020 },
- 	{ CCI_REG8(0x3600), 0x4d },
- 	{ CCI_REG8(0x3601), 0x08 },
- 	{ CCI_REG8(0x3610), 0x87 },
-@@ -274,34 +309,25 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
- 	{ CCI_REG8(0x37f5), 0x00 },
- 	{ CCI_REG8(0x37f6), 0x00 },
- 	{ CCI_REG8(0x37f7), 0x00 },
--	{ CCI_REG8(0x3800), 0x01 },
--	{ CCI_REG8(0x3801), 0x30 },
--	{ CCI_REG8(0x3802), 0x00 },
--	{ CCI_REG8(0x3803), 0x00 },
--	{ CCI_REG8(0x3804), 0x0b },
--	{ CCI_REG8(0x3805), 0x5f },
--	{ CCI_REG8(0x3806), 0x07 },
--	{ CCI_REG8(0x3807), 0xa7 },
--	{ CCI_REG8(0x3808), 0x0a },
--	{ CCI_REG8(0x3809), 0x20 },
--	{ CCI_REG8(0x380a), 0x07 },
--	{ CCI_REG8(0x380b), 0x98 },
--	{ CCI_REG8(0x380c), 0x06 },
--	{ CCI_REG8(0x380d), 0xd0 },
--	{ CCI_REG8(0x3810), 0x00 },
--	{ CCI_REG8(0x3811), 0x08 },
--	{ CCI_REG8(0x3812), 0x00 },
--	{ CCI_REG8(0x3813), 0x08 },
--	{ CCI_REG8(0x3814), 0x01 },
--	{ CCI_REG8(0x3815), 0x01 },
--	{ CCI_REG8(0x3816), 0x01 },
--	{ CCI_REG8(0x3817), 0x01 },
-+	{ OS05B10_REG_X_ADDR_START, 0x0130 },
-+	{ OS05B10_REG_Y_ADDR_START, 0x0000 },
-+	{ OS05B10_REG_X_ADDR_END, 0x0b5f },
-+	{ OS05B10_REG_Y_ADDR_END, 0x07a7 },
-+	{ OS05B10_REG_X_OUTPUT_SIZE, 0x0a20 },
-+	{ OS05B10_REG_Y_OUTPUT_SIZE, 0x0798 },
-+	{ OS05B10_REG_HTS, 0x06d0 },
-+	{ OS05B10_REG_ISP_X_WIN, 0x0008 },
-+	{ OS05B10_REG_ISP_Y_WIN, 0x0008 },
-+	{ OS05B10_REG_X_INC_ODD, 0x01 },
-+	{ OS05B10_REG_X_INC_EVEN, 0x01 },
-+	{ OS05B10_REG_Y_INC_ODD, 0x01 },
-+	{ OS05B10_REG_Y_INC_EVEN, 0x01 },
- 	{ CCI_REG8(0x3818), 0x00 },
- 	{ CCI_REG8(0x3819), 0x00 },
- 	{ CCI_REG8(0x381a), 0x00 },
- 	{ CCI_REG8(0x381b), 0x01 },
--	{ CCI_REG8(0x3820), 0x88 },
--	{ CCI_REG8(0x3821), 0x00 },
-+	{ OS05B10_REG_FORMAT1, 0x88 },
-+	{ OS05B10_REG_FORMAT2, 0x00 },
- 	{ CCI_REG8(0x3822), 0x12 },
- 	{ CCI_REG8(0x3823), 0x08 },
- 	{ CCI_REG8(0x3824), 0x00 },
--- 
-2.34.1
+It's a difficult question to answer. In the long term, we
+hope Bo's patch 14/14 will be the final solution, but we're
+not sure when it can land.
 
+Your approach is a bit ugly, but it looks like a quick fix. we use
+0 for reclamation to make sure we only reclaim file, but we use
+the original swappiess for aging -  where all files and anons can be
+normally aged.
+
+ I think the real problem is that reclaimable type and swappiness
+are too tightly coupled in MGLRU. In fact, they should be
+orthogonal, except for swappiness=3D0 and swappiness=3D201.
+
+Actually, the current get_swappiness() implementation has some
+bugs. For example, it returns 0 when swap is full or close
+to the cgroup's swap limit. But this is only a temporary
+state: swap usage can drop below the limit again after
+unmapping or killing processes.
+
+However, once get_swappiness() returns 0, anon pages may
+suffer from cold/hot inversion.
+
+That's why I think we should avoid hacking get_swappiness()
+any further.
+
+
+>
+> Or would you prefer to handle this issue through the new series? In that
+> case, I can use my GFP_NOIO workload to help test Bo's patch 14/14.
+>
+
+If possible, do you think you could extract the code from
+patch 14/14, even without the scan-budget-based model?
+This might give us a chance to land it earlier as a
+standalone change?
+
+Best,
+Barry
