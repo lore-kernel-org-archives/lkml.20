@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793378846;
-	b=ZHyo7GzaWoE41nuEIjMzig/6XO1dc05TFjUy5QTSgV7Bj7lKzSreZBmHvtKHtGBuifnF
-	 xs5y1hFoL/oUJFSZOf4KaZllVLLgcM/T43rSJp2Sh0NhuaLMMDJPk5sCPqZyn6qKIaw4l
-	 MdvjHYX0WR/QRAQoJwfoaCpLp3uGzY5Rkv370RPeKr4HDaYsD3wOWylk+V3Ckm+fE5QS0
-	 rPv2M2xOY/adqHDwb4YC6z6CdehONxzwufZ1CG+gHmodfLlPztqmCFAL4cd+seUnmjEf9
-	 Wv5t5fqrItYG5rviPUQdkVb4vtDnWuHjAu71cGUUFKyKlvZuFJkrQ/BRkcsAu5eb76w==
+	t=1793378840;
+	b=I1I9fA2wp/Cr4k8MHD+CEw81jrTqH+SpdM0dDYtoA/InKxbFaPQsetlyCBe56JGbWffG
+	 +zv2ruYfahxxTSKA1i/MjP+hQPMxCDZgDp7uJxPMv0NB5a7EjWGYKfKtxOSo+zi1amwx6
+	 s9cVVqncNpTHuMIkCVzzevXmGzlVSXsNZv9xedFQeceJX3sF8KWl9Kuya81PPCleb9cJ1
+	 WsqOAcd9Q3fjJAJZ/7K/eQhhxnYbRVY9Hsxfk8gjSjrcVja954uEc+Mk4MWSqRp33S8Ng
+	 ciMwUM7qs+R23M/LWzlwwbhJRDFm4dBlm3qUyJ2eYiDCGKSgFM93vHUe9BiNXtFM2Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793378846;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793378840;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=Vc5E4+Ssczp9QqqAMSwBt1/0zekjXCj4f66pJCUu2A4=;
-	b=pNnCaz2OhRQZHiEhyfIFB48t0BsuW6/ln+e8vkioBDTRQAvq2SyuwZ6JA52AgGif0D9U
-	 3VJvuHnGuDNUes3O/suRycRZpStKis+1a0bDviGA55aGfiHXifBQzE+lZbrg275XJWH6/
-	 DntTNKLnomDaSQgCWDGOZWYMF1RfcP9in0HUUweEvFGMn/jTI3l+NhdEy+64wIHC0eY9+
-	 pP8E30fXmBpPctzTkIdolDcT3ZL7zCh9wwIar8pRzpmzSLliR/lflHu5eQmHYrEEVGLkc
-	 aaDqEZCrKqdJFgXDwqBPw7D59FeNfJ59KTyr0IiVtQ1RtEKjfioVfzSzS6Kul3bDfSg==
+	bh=1JNCQP+uPHSWlFQ9/h+R6elRqx5vlsNj2kueH8DsSN4=;
+	b=XCBalr33hNR+QATLkYUOglGyu/k/dq4Emn9yP9RjUxYdqMKFqIvAkm8t0MV54UTd9jjR
+	 ueBMwuvdJIMNobqYJohaXaN7XYQOIlokclaelEefwC9XOXo8TIrwzUjwV9h2Yjq4Z+XMs
+	 l//r6U5F8ZBUll1KnroCXnDdRhHH11WuKChyRpA+BneqICRGZnLcoyxY+PWHkjQ5/M+vD
+	 KqExf1MoN1HF4/3JEjUXM3SqZ3BfQhk5T6C3ESh351zzh8688+jckWrueViliLtplhc4I
+	 5ohmMVysXqQXVwS/nKqdH3kk3m8D1V8Rz9NKBBCDlX6sbEpRLhzODlIdxbhcBIrMPKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=0pUMXTt2;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=EKDUZOLb;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F92606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:47:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28F92606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66719606A31A;
+	Fri, 30 Oct 2026 16:47:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66719606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=0pUMXTt2
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=EKDUZOLb
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 813984E413A1;
-	Fri, 30 Oct 2026 16:47:23 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id AEE281A13CC;
+	Fri, 30 Oct 2026 16:47:15 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 556F4603C2;
-	Fri, 30 Oct 2026 16:47:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 59B1410328D09;
-	Fri, 30 Oct 2026 17:47:14 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 80907603C2;
+	Fri, 30 Oct 2026 16:47:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 69A7E103290EE;
+	Fri, 30 Oct 2026 17:47:07 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793378837; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Vc5E4+Ssczp9QqqAMSwBt1/0zekjXCj4f66pJCUu2A4=;
-	b=0pUMXTt2WjegjNz6CgycCAwFApRiGG7Teb7c/515QxSGN6/+NeSV0nRHdGUm8fcvU/BAik
-	uiuY5nhwH1y70mGFVs8+OrdDwpokpeqBta1QtdpbF4bCd9cVj/8xJCawGbNdz1oerHQBH8
-	YpqNQhagEKy565Tb4NgOMVX1xjqD5hrUO8l+6jd60t9vZHUUMZRJromBlIolgB7a8Fes4L
-	Y9qkxyXFcmt6ZaG8kY5ca04gOd1kW3JQi4hKZqjdDHkUvYq1V8L2ReHb4r4nvgCYCuPI2S
-	RRbfm+HLVhKIs5aPMWJ8IpTKZM3eAquJtBonSQsAGuAsoWB+3LvE4R4dGTZlmA==
+	t=1793378833; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=1JNCQP+uPHSWlFQ9/h+R6elRqx5vlsNj2kueH8DsSN4=;
+	b=EKDUZOLbUJClzt52D4WlwvQnQ2r+Exo4KVJO5/fzACzfQCNKZQMfowQ8jdFA5EwEwNCxv8
+	W9r2D6Zx4fl1N1KrJMdVoqb1zZwEZyX88qY9BjuCZeq+etsIVFUAJTmACvctuDWWU5j62r
+	ncsnVb51UTUv+aRGAuT7kPhgyU2bMfRyuwPOXmh9+7JhSDW3shUoI7mlVAM7y0M5duh5nm
+	aiWPmZwgjYoZ7T2MJMh5S7rAdCpbf3j5OK4UdlrszYVPkDktify4HV2C9UCeJpzaoT7VCL
+	+JvXtwvQSJaEhLMBYwEQ4v6motTUEz9nYG+KulU1wzTKsrcGsJLrbFRIfbI0YA==
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
@@ -74,12 +73,10 @@ Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
 	linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] dt-bindings: iio: adc: add Texas Instruments TLA2528
-Date: Fri, 30 Oct 2026 17:47:03 +0100
-Message-ID: <20261030164705.297354-2-maxime.chevallier@bootlin.com>
+Subject: [PATCH v2 0/2] Add driver for the TI TLA2528 i2c ADC
+Date: Fri, 30 Oct 2026 17:47:02 +0100
+Message-ID: <20261030164705.297354-1-maxime.chevallier@bootlin.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261030164705.297354-1-maxime.chevallier@bootlin.com>
-References: <20261030164705.297354-1-maxime.chevallier@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,135 +89,46 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-The TI TLA2528 is a simple 8-channel, 12-bit ADC and GPIO chip
-accessible over i2c. The ADC part has an AVDD supply that doubles as a
-reference.
+Hi everyone,
 
-As this chip can be used both for its ADC and GPIOs, let's allow
-describing each ADC channel individually. If no ADC chan description is
-represented, all channels will be exposed as analog inputs.
+This is V2 for the TLA2528 ADC support, V1 was sent almost a year ago
+and was already resurecting yet another older series from Rodolfo
+Giometti [1]. Sorry for the slow iteration.
 
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
- .../bindings/iio/adc/ti,tla2528.yaml          | 91 +++++++++++++++++++
- MAINTAINERS                                   |  6 ++
- 2 files changed, 97 insertions(+)
+This V2 addresses the various comments that were made on V1, thanks
+again to everyone involved in the first review round (Jonathan, Andy,
+Matti and David)
+
+This was tested on a custom board based on imx93, with a 3v3 ref supply.
+
+Maxime  
+
+[1] : https://lore.kernel.org/linux-iio/20210802130441.972978-1-giometti@enneenne.com/
+
+V2:
+  - Describe AVDD and DVDD in the bindings instead of vref.
+  - Add gpio-controller
+  - Allow describing individual ADC channels
+  - Switch to regmap with caching
+  - Reset the chip at probe time
+  - Small cleanups following all the reviews
+  - Moved MAINTAINERS to patch 1
+
+V1: https://lore.kernel.org/linux-iio/20251223155534.220504-1-maxime.chevallier@bootlin.com/
+
+Maxime Chevallier (2):
+  dt-bindings: iio: adc: add Texas Instruments TLA2528
+  iio: adc: add driver for Texas Instruments TLA2528 adc
+
+ .../bindings/iio/adc/ti,tla2528.yaml          |  91 +++++++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/adc/Kconfig                       |  12 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/ti-tla2528.c                  | 245 ++++++++++++++++++
+ 5 files changed, 356 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml
+ create mode 100644 drivers/iio/adc/ti-tla2528.c
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml b/Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml
-new file mode 100644
-index 000000000000..7a50a5026c1e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml
-@@ -0,0 +1,91 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/ti,tla2528.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments TLA2528 8-channel 12-bit I2C ADC
-+
-+maintainers:
-+  - Maxime Chevallier <maxime.chevallier@bootlin.com>
-+
-+description:
-+  Each of the 8 input pins can be configured as an analog input, a digital
-+  input or a digital output.
-+
-+properties:
-+  compatible:
-+    const: ti,tla2528
-+
-+  reg:
-+    maxItems: 1
-+
-+  avdd-supply:
-+    description: Analog supply, also used as the ADC reference voltage.
-+
-+  dvdd-supply: true
-+
-+  gpio-controller: true
-+
-+  "#gpio-cells":
-+    const: 2
-+
-+  "#io-channel-cells":
-+    const: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+patternProperties:
-+  "^channel@[0-7]$":
-+    type: object
-+    $ref: adc.yaml
-+    description: Represents an analog input.
-+
-+    properties:
-+      reg:
-+        description: AIN pin number
-+        minimum: 0
-+        maximum: 7
-+
-+    required:
-+      - reg
-+
-+    unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - avdd-supply
-+  - dvdd-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        adc@17 {
-+            compatible = "ti,tla2528";
-+            reg = <0x17>;
-+            avdd-supply = <&reg_adc_supply>;
-+            dvdd-supply = <&reg_adc_supply>;
-+            #io-channel-cells = <1>;
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            channel@0 {
-+                reg = <0>;
-+            };
-+
-+            channel@3 {
-+                reg = <3>;
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7a162e9bcab1..471585b29c19 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -27715,6 +27715,12 @@ F:	include/dt-bindings/soc/ti,sci_pm_domain.h
- F:	include/linux/soc/ti/ti_sci_inta_msi.h
- F:	include/linux/soc/ti/ti_sci_protocol.h
- 
-+TEXAS INSTRUMENTS' TLA2528 ADC DRIVER
-+M:	Maxime Chevallier <maxime.chevallier@bootlin.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Supported
-+F:	Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml
-+
- TEXAS INSTRUMENTS' TMP117 TEMPERATURE SENSOR DRIVER
- M:	Puranjay Mohan <puranjay@kernel.org>
- L:	linux-iio@vger.kernel.org
 -- 
 2.56.0
 
