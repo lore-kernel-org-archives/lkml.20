@@ -1,89 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362575;
-	b=bynb0PYjr/48u3W4MabBT36Pj3ma2Qjb9HTix+sjsemdIXSaTwONJTrIqzTQxgbbTEB5
-	 4gE37I4pODDkCwJmu1EUS4vK8/F+7JORJ/eOZtXwOkKOo6SaTAZkzLjWoBZcpc7PB+VXe
-	 ej229h5Bm8+HdeX5u5CEqg7c8ABdd36jfiRfdEwFMfUPtvC73oqGBiiUb62wsISfm5lV8
-	 lPnUI1otVNM6CoValPOFbFUJbsTYZvOGowkzqYvp+yhYv5HCky7SQbbIP67vlWK7FiMy5
-	 2QJMHLe6EM4w64d9uHK5K3xXaSsjHnmL6cxBgQY1hDKbQQui7mnP6vME25Pp3TdrF4w==
+	t=1793362608;
+	b=sXA6O4dNqJrgfIrp7U4OZ/GWLsXBsFPkCbiZXUtuWWKT032s71s5B42Gcg5i46ZV6yUj
+	 EhmZUceWo7Fcy1Djpgkb5nqjsuKZ68IWmDRIosRRF0yILKBhnpF+R4FGWq0rBAfr3LVtZ
+	 OdFmgko/kv1nGKvI6FNICtNf+iENYNrjWAemUX/MaltBP+IPZkmMkVtx0Ebc8yTUNE/oD
+	 QXwJlawYShjw4rjO3DixtFpFE6CsepzF1sH0KxeWNxvVO3opMgUhUT0z04pPvZ0FBWIkJ
+	 YusQ8H1jYMm04gAcfJIzEL/bz9NITpruzhDfiUPNHtVNBbjMmv8fEEqBN4jh7Ubx1ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362575;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362608;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=zfGTr8GP82BAHjVGcRWUJj13EK5BmCatBJlN0vTN3F8=;
-	b=aigfqhjTasBOdUfAMoaKwjUEzUP/2sPjo2dYziA8OYApCnz7jggN2f0QlCKel+RcUPQm
-	 ZcmHWsxe8wPncCI1esbou+njOgH4Ts+w8t6LIK5PNg9C86m+sY1wqlRMz2yqUh7z0X/QM
-	 3H3aLj/+H2A4S0RF1hIel21RBtXJEdhBCboHz79dcOYLvsjHrZNnfNjhNwWc/NhjdyEzD
-	 Ks61pN+W7Ve+tV9YQYzOlooTZiARwiFVO79+7WiaxYmliVhSCtHFX1HqRO8amZW6GQ1Sy
-	 yRn9k1MlWFkPhY3Zltv/tThbSRV3piinA5pLoOKyvqngvhbdOycURkLlUAJ4Ijz4/tw==
+	 X-Gm-Message-State:X-Received:Date:Mime-Version:X-Mailer:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=401n+ZrTzD2Uf9jF8wRJmI5BgTpaeQ35V3fMgzsFnx8=;
+	b=cs9jDWFZhot4rH/8p62ULZpMjh4ZggC5FgOT5y6UU4OjBh5jw+kNI6NdRCfXHS3A8OgM
+	 MqkI1v0JnnEexpN5YC7x5hf+UsZfyPFiD9GgPHyDo2/hMIAhc8D5VidToWHibhBYqC/8G
+	 iGL7ZnRM/li8zrWVvtyPiIo4NX7iLY4qeJOa/5y53uRyItVR7h+g7anBPpmO9+RSRkBAl
+	 fiGYj2gQYVtxzOPGHYWBdNq/mJh6LHGkyMtFPiyI/6Soookv91DsFqj1TJxMUdnaTBT1e
+	 auo7VT40wBaKz4JceKWERH9XAmazbfD7TXgV+vu8dw1Jf0nXsHXiCclDpk8xqV/F19A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RrANfIKA;
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JivvvA3G;
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9CC606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:16:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C9CC606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64108606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:16:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64108606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RrANfIKA
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4697404c2bso74092066b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:16:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JivvvA3G
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a03834d8ffso789154b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:16:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793362573; x=1793967373; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zfGTr8GP82BAHjVGcRWUJj13EK5BmCatBJlN0vTN3F8=;
-        b=RrANfIKAnQwplsmZf36+g8+qb3TJPI+P1KTq3sqddtfDdH+c//CF5suiAvJdCgHaPG
-         qb+fo4e1Wwqk3uokpKcZliooux8JXq1kiQnTeCH4Fn9C96BP8RWlLJs61pZqqDMFL7ZY
-         cT9mork83Z4eIk3vT9UcY97Fi+tQSgAO3GSsWBMyW6KPO5kBQ+9jQc/7cRyP08tS44IT
-         UJjhAcCL33stKASvnoauVxdJVVHIJ1lJQ9TvmvjGdyLHE1R598R4G8ZZ9qqf4/Blv8pO
-         Gmmdt1iwM4zUhSHyJqYMqmTI8OURU06VfhtmDaWPvxeWg5Bo0+9gVkZT2rfWVOiY8cON
-         2+ZQ==
+        d=google.com; s=20260707; t=1793362608; x=1793967408; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=401n+ZrTzD2Uf9jF8wRJmI5BgTpaeQ35V3fMgzsFnx8=;
+        b=JivvvA3G7Ttaj5BpIEgT/nHfrKnLVfGrFerx33hz2KxeaSi0r6tnn4facUBmz1kV49
+         f++UvC2TYyX3R7uDE/xRxjV3UJ7SoIxHyu9SLCHYCKEdJzfuSJ9W8tcQRdkoxOEjdU6C
+         4npNV1fGQegj/ExwOdN0RZuoyOGSdSp1s0p/suUx/3nmBMPMIRlLeuevBSGJuORWMghF
+         AwaId4un8aVWKK2NuGjXP7iiW9YwWqvqjKc/OtHCdrQL1OZAyKkbh4vU832EtUbU+Riz
+         P6IPY7wpdGOl4Xk27mjMAUDYtPho3okr990vSYLOkxIJZl/VFTVw+PQqkmRSEnxIUhH7
+         bMGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793362573; x=1793967373;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=zfGTr8GP82BAHjVGcRWUJj13EK5BmCatBJlN0vTN3F8=;
-        b=S8OR63dC6UBtBv/9a39Fvh8bHffsaNTRU34EmlLJD+ja9EAbp73OOTg8VlpCjNpbdb
-         zwhi8zB8ZAJsr/TuaQUXv/enKCxMDdMEBk7GaFaV2uKAf9mC4rJDZkhO44cuSxJhPB7b
-         U0XJgbqzvQ9UAl8/ruCoJ29ZuZNYwiBR2BmK2GgphRXehO+6zOEeOtt4r7ogvgaZnkrf
-         Iwqpxk06tVlAW9+eM3AcQ1Toh1n3j93wXpahfRO7uarctPga2yGi7I/dsYkQQHwUXVs7
-         HR8imbzEANFzT/9FUwt7m8eA4nQqCzS+gPw5zzKIhJg3rpaNiFyVlV3I9zeh1Qtt4/Ol
-         X4+A==
-X-Forwarded-Encrypted: i=1; AKwUvBx7RwmYUCRrsaHNf6V7+OTTSr8RO85BTibd4+P2CcHS7lmhCfOTOXQZn6bOn/eOSOOIbJ6rcY8sl8RcMKY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsOWxqdkOg258Q2tHcQOLYmUjXpn6gP9pR/n5d94+4wMzpXysQ
-	lqyNVHVKaBsh6abjbZNZ5kh0FUcL0wv1ZMZ141bFWG9gwyKG2auUs8u7ZRVsbnzXw4slNE8MZQP
-	T08FCaVo=
-X-Gm-Gg: AYBFou01S5o8G1h6uvUW1Y5VOP/JoZRaY6UkkpMSDJrkemmQ2SWTA07b5oSzsGwgM3R
-	Ugvwuxtv8TEpmRv/RncKK/6R88qid9L4+bNYXGS0jVad5ELaQ1AnDVT9d05zxdiJXVJSYWC2u5B
-	KXxIEn4O0H9AqumnMZYjh/AYjZYK7ZWkmjd5oil8hK15R7+xPrDEGrwdhCJWYv7lJeuEbRri29p
-	Pv7ukp1gRcLI1AiS8jLLqrqpJiDL79gsGRIRl3ear8ezRaiiEZAyyDgpx+vLefr5HCQbWbfV3Sp
-	FlB6oMYd11lxZZkdKNF7G5D7kJIIAKlLdTjDvW7+Ulkm5QQKJWTOhAOx9ATMYdfNkS1RxPMV7J5
-	eypW49eUko/FK9Q2MzggF0bXTtmjGXhOVz0TtMfzueCSPF4Xeh/5QWjCtkfbdIML/xi3y9cBEc4
-	LHipdbHqps10V61gi1NX3SbRi2TECmBQaNDABKKxcIc+MOb144u2oji58nq4F08vYMDW0sRRUwP
-	+JZqiRpHjeEtwdQJcVnnB+P1tPZudqrQPJMDZMiFMfbrnDnB9TIQZdR9eCMBOlbCYweiue1rMGP
-	oozQ0FrV51eatmxwkWtJG7TYqgMHKH51R1cThw/iNFLw4tqOblSCjYsm84fz6OhhMriW3dhUp/+
-	UWgadEPt8ycpOIqi6xi2c
-X-Received: by 2002:a17:907:86a7:b0:c40:80eb:c54e with SMTP id a640c23a62f3a-c4ca792ea6fmr195573666b.4.1793362572692;
-        Fri, 30 Oct 2026 05:16:12 -0700 (PDT)
-Received: from puffmais2.c.googlers.com (180.192.141.34.bc.googleusercontent.com. [34.141.192.180])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe4aa12sm59377166b.52.2026.10.30.05.16.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 05:16:12 -0700 (PDT)
-From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Fri, 30 Oct 2026 12:15:53 +0000
-Subject: [PATCH 6.12.y v2] kbuild: link-vmlinux.sh: improve detection of
- third pass requirement
+        d=1e100.net; s=20260707; t=1793362608; x=1793967408;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=401n+ZrTzD2Uf9jF8wRJmI5BgTpaeQ35V3fMgzsFnx8=;
+        b=cfShu8OAoYP1LW0UbwTXCG6XLWwccH8FfMFwQrJchivrY3143BljbX3vYdWmZNbu93
+         hIRc52ampGAAbQ26t+irAiEm5UWCfJQb4+i0DnJtkw1cdmMkv3DYavbMHWoIjbzQnlcK
+         UMECNpuj0pPCA0VMnn3+0tqkzDVMJhGvJSywGF/viFlAv2QjNpOL3HxWpAky3fqot+9U
+         gcC4bVXic8cMhWzKt5NRyAOPwV8xJkWcq8Xf9tttb6LC6izFucmBdtPwweOO3Tha9R4R
+         t1mT1IRhgzs+4MN7gUxLbd2RRx1hQSZVrknAM/Vq3YD7OdMLecWnQ0k+H8pftwXS3prA
+         V4Cw==
+X-Gm-Message-State: AFq9FYKIpyVpJ97zO8BN4zplXIBVrEFj5yT7Uz0M9reFtDesRWwCTj1T
+	zU6qpGQzLI7wXBfYJYulCGCVHtgjPQsPy0G+foXJmp7T5ev+b5UYV8ERdGOpwpmBgryjuODDy1s
+	CGVLljqn3/JZ37vDkajfjnA==
+X-Received: from pffh8-n1.prod.google.com ([2002:a05:6a00:c248:10b0:889:4fa3:fafc])
+ (user=jenhaochen job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:17a4:b0:89a:5:92c8 with SMTP id d2e1a72fcca58-8a9bfde72eamr1964748b3a.51.1793362607469;
+ Fri, 30 Oct 2026 05:16:47 -0700 (PDT)
+Date: Fri, 30 Oct 2026 12:16:33 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,132 +74,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261030-linux-kallsyms-fix-6-12-v2-1-689a11cb5b7b@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAHiK5GoC/4VNSw6CMBC9Cpm1QzoDqeDKexgWDQzQiNS0SiCEu
- zvhAr7d+++QJHpJcMt2iLL45MOshC8ZtKObB0HfKQc2bMkUBic/f1d8umlK2yth71e0SIzs7LV
- 3UpECtP2Oot65/ACbE+cbNKqPPn1C3M7DhU737/ZCSFi3ZdFWNXdiyrsmXQx5iAM0x3H8AD53d
- UvHAAAA
-X-Change-ID: 20261030-linux-kallsyms-fix-6-12-2a67fae81111
-To: stable@vger.kernel.org
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>, 
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel-team@android.com, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-X-Mailer: b4 0.14.3
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+Message-ID: <20261030121633.258612-1-jenhaochen@google.com>
+Subject: [PATCH] zstd: Build with -O3 and use shift mask on arm64
+From: Jenhao Chen <jenhaochen@google.com>
+To: Nick Terrell <terrelln@fb.com>
+Cc: linux-kernel@vger.kernel.org, Minchan Kim <minchan@kernel.org>, 
+	Martin Liu <liumartin@google.com>, Ben Wei <benwei@google.com>, 
+	Jenhao Chen <jenhaochen@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-commit 14b8b4bf2d7bd5d58c17adbeed0edfda1dfc1a7f upstream.
+Upstream user-space zstd builds with -O3 by default, and lib/lz4/Makefile
+already sets ccflags-y += -O3. However, lib/zstd/Makefile compiles at
+-O2, and BIT_getMiddleBits() only enables the branchless shift-and-mask
+path on x86_64, falling back to a BIT_mask[] lookup table load on arm64.
 
-It can happen that symbol sizes within .tmp_vmlinux1.kallsyms.o and
-.tmp_vmlinux2.kallsyms.o differ, without affecting file size on disk
-because of section alignment and/or padding emitted by the assembler.
+Add ccflags-y += -O3 to lib/zstd/Makefile and enable the shift-and-mask
+path in BIT_getMiddleBits() on __aarch64__. On arm64, this reduces zstd
+CPU cycles by ~7% and improves decompression throughput by 12-23%.
 
-link-vmlinux.sh doesn't detect this case currently and keeps using
-.tmp_vmlinux2.kallsyms.o to link the final vmlinux. Due to the
-different symbol sizes, other symbols are shifted within the final
-image compared to .tmp_vmlinux2, and the final comparison of System.map
-against "${kallsyms_sysmap}" fails with the message:
-
-    Inconsistent kallsyms data
-    Try "make KALLSYMS_EXTRA_PASS=1" as a workaround
-
-This can happen in particular if the linker emits additional symbols
-that might have different names between our (re-)linking steps, e.g.
-because those names depend on the virtual address of the symbol. Linker
-stubs for ARM errata work-arounds are one such case.
-
-These changed symbol names can cause the output of the token
-compression of kallsyms.c to change due to the changed symbol substring
-count, which in turn can change the size of the kallsyms_names symbol
-itself, causing the potential shift of subsequent symbol addresses in
-.tmp_vmlinux2.kallsyms.o and therefore the final image.
-
-Update link-vmlinux.sh to not rely on file size of
-.tmp_vmlinux?.kallsyms.o alone but to also consider symbol offsets
-within to resolve this, and do a third pass if required.
-
-Signed-off-by: André Draszik <andre.draszik@linaro.org>
-Tested-by: Nathan Chancellor <nathan@kernel.org>
-Reviewed-by: Nicolas Schier <nsc@kernel.org>
-Signed-off-by: Nicolas Schier <nsc@kernel.org>
-[AD: adjust context]
-Signed-off-by: André Draszik <andre.draszik@linaro.org>
+Signed-off-by: Jenhao Chen <jenhaochen@google.com>
 ---
-This patch fixes an actual problem people are seeing in various
-different kernel versions.
+ lib/zstd/Makefile           | 2 ++
+ lib/zstd/common/bitstream.h | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-The version from 7.3 doesn't apply cleanly on 6.12 and a minor context
-update was necessary.
-
-The bug was introduced by 7e2b37c971a2 ("kbuild: kallsyms allow
-3-pass generation if symbols size has changed") in v4.10.
-
-Cheers,
-Andre'
----
-Changes in v2:
-- drop a left-over sentence from the v6.18 version of this patch that
-  doesn't apply here anymore
-- Link to v1: https://lore.kernel.org/r/20261030-linux-kallsyms-fix-6-12-v1-1-9c43c892de04@linaro.org
----
- scripts/link-vmlinux.sh | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
-
-diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index 94f794ca11ca..a5729419a452 100755
---- a/scripts/link-vmlinux.sh
-+++ b/scripts/link-vmlinux.sh
-@@ -131,6 +131,18 @@ gen_btf()
- 	btf_vmlinux_bin_o=${btf_data}
- }
+diff --git a/lib/zstd/Makefile b/lib/zstd/Makefile
+index be218b5e0ed59..900922ab5b94a 100644
+--- a/lib/zstd/Makefile
++++ b/lib/zstd/Makefile
+@@ -12,6 +12,8 @@ obj-$(CONFIG_ZSTD_COMPRESS) += zstd_compress.o
+ obj-$(CONFIG_ZSTD_DECOMPRESS) += zstd_decompress.o
+ obj-$(CONFIG_ZSTD_COMMON) += zstd_common.o
  
-+# Check if kallsymso_prev and kallsymso differ
-+# If symbol sizes within ${kallsymso} change, any symbols within vmlinux are
-+# likely to shift, invalidating ${kallsymso}.
-+# Since file size can remain unchanged even if symbol sizes change, compare the
-+# actual symbols instead of relying on file size only.
-+kallsymso_changed()
-+{
-+	${NM} -n "${kallsymso_prev}" > "${kallsymso_prev}.sym"
-+	${NM} -n "${kallsymso}" > "${kallsymso}.sym"
-+	! cmp -s "${kallsymso_prev}.sym" "${kallsymso}.sym"
-+}
++ccflags-y += -O3
 +
- # Create ${2}.o file with all symbols from the ${1} object file
- kallsyms()
- {
-@@ -151,6 +163,7 @@ kallsyms()
- 	${CC} ${NOSTDINC_FLAGS} ${LINUXINCLUDE} ${KBUILD_CPPFLAGS} \
- 	      ${KBUILD_AFLAGS} ${KBUILD_AFLAGS_KERNEL} -c -o "${2}.o" "${2}.S"
- 
-+	kallsymso_prev="${kallsymso:-}"
- 	kallsymso=${2}.o
- }
- 
-@@ -263,7 +276,12 @@ if is_enabled CONFIG_KALLSYMS; then
- 	sysmap_and_kallsyms .tmp_vmlinux2
- 	size2=$(${CONFIG_SHELL} "${srctree}/scripts/file-size.sh" ${kallsymso})
- 
--	if [ $size1 -ne $size2 ] || [ -n "${KALLSYMS_EXTRA_PASS}" ]; then
-+	# Due to alignment, file size of the kallsymso object file might remain
-+	# unchanged even if individual symbols within change size. Changed
-+	# symbol sizes can still shift other symbols, though. Therefore, don't
-+	# rely on file size alone.
-+	if [ $size1 -ne $size2 ] || kallsymso_changed || \
-+			[ -n "${KALLSYMS_EXTRA_PASS}" ]; then
- 		vmlinux_link .tmp_vmlinux3
- 		sysmap_and_kallsyms .tmp_vmlinux3
- 	fi
-
----
-base-commit: 85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
-change-id: 20261030-linux-kallsyms-fix-6-12-2a67fae81111
-
-Best regards,
+ zstd_compress-y := \
+ 		zstd_compress_module.o \
+ 		compress/fse_compress.o \
+diff --git a/lib/zstd/common/bitstream.h b/lib/zstd/common/bitstream.h
+index 86439da0eea76..01e69ab7053b4 100644
+--- a/lib/zstd/common/bitstream.h
++++ b/lib/zstd/common/bitstream.h
+@@ -299,7 +299,7 @@ FORCE_INLINE_TEMPLATE BitContainerType BIT_getMiddleBits(BitContainerType bitCon
+      * such cpus old (pre-Haswell, 2013) and their performance is not of that
+      * importance.
+      */
+-#if defined(__x86_64__) || defined(_M_X64)
++#if defined(__x86_64__) || defined(_M_X64) || defined(__aarch64__)
+     return (bitContainer >> (start & regMask)) & ((((U64)1) << nbBits) - 1);
+ #else
+     return (bitContainer >> (start & regMask)) & BIT_mask[nbBits];
 -- 
-André Draszik <andre.draszik@linaro.org>
+2.56.0.317.g454f8302e1-goog
 
