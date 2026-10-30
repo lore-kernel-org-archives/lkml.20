@@ -1,70 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356067;
-	b=nSJKiUfyhEgsSHTJ180T6YkXxLC3wNYabaCw49m2tepve1Na6S2fiqCF5bJcWRPzomD6
-	 WC7PFXu+wmyzTK3SwjEK9jQObpA2SYVMZfvxyv8K7OZstEJ8GiL8ZPYvLVJACZJYNk9my
-	 mtUHLxukniDMBPDcqrDa96i/WUR+bAPf2dVy8FoM3n/rReeuNCTJTEoDW//h9RwYOJV10
-	 4ONjaVR8cRfom37b8o704ycPqiwmiZG9L3E9pDni6UEZfNbneUDxivIJcmjNekWpvw7bF
-	 9ZBmeimNBr6s+Hj1mxZlJy/RFHzuA4y1bpt04zWMKbWq/2wpWEWIZgQ6zH1JzEXiN+g==
+	t=1793356070;
+	b=ul5b0CTXQOMpU5tr1+G752dmqppCqjxtl3VQfiChjbt77VtDxERnNv2ZnHfd2pcW3306
+	 fYz/+Zs3w7E2abwISWDwG+jPmoDLJMElGeFXP1qN0g8bflCgPqRgkT+uTQSh/r9wLnNVc
+	 9tXC1Ae7pcApIZUys+t39mdFzX5hdIwkQjYt2w59F9kMZ3ecVXiySk63xa9IolgSPk9x9
+	 qFtw1DjkIw8ebY9yDolhrD2KiPRob8HNN42IzXiyf/mdu+s7hNNB763k9pkhFrSpg1GRK
+	 2gAUt5IRHLg0mQN6DpUzVjJZRMFwLiqmxmGhMp5s7hIh8q8ZXN7IZwuAC1tYpEc/h5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356067;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=n/M6XmCa6PAXRWxE9lzhWOYKw3B2kszDymNiyKm5Pww=;
-	b=sdFTLedp8KCdYt6KrKDDxOGVPEdq6IMLeMubZngjTmFHagUxY/ipLiukS+fVOvc2n4zU
-	 vpT/on3KbYOHS/xTkF/kI6BAde6xeuvn/+w8zm1P2lQOZTMwyTuZpvGrcY9eeuVURn3oA
-	 jFJD/XdOG3w0stPX3oxiQudRWMegnaIUm8h9m72G33VKkvSRaUXdDuoDTMh6nhooiD4ze
-	 EMHnQjtSFCz3g6YxuROxr9lUCFbpiTDt5q8TtEcLSv1SIJkjExRu4yKXdhBRRQAlUuvA/
-	 AvM+dSI0uaoEqh4rfd0wvblXQfQTVPOKYbnOLTOkLYZ8mdgc4mG+3cPmsWWVvqqsKpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356070;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=RymG5Zs9FwMJtITbzdgvGCkoIgIBEM6um3giVlZIMck=;
+	b=wFWShO7OWqQrfEsGHwbyk+Zgezyp4bYFxBjibWsoe01UaYy1gg2Bx1jmFUmWKINAcdkM
+	 /OXTAvMfYipywQBfJvF+MbcnbcfnfYyHzBavzdzJifAz/82J9cBbV+dks2WBvZlUMqlkg
+	 N9pVObQSWVYKzlQAYUgd5n/W/8waJMMTqNU+k3kiZ3A53oX7/wpUpHnMVVkO9a+e20bOq
+	 8SLrzsqKlwAgioHSI3BLOMPLUK1EdQ4aJDEqV19HV/1PIYgrMkV7Gg1cndcTvgTN7casH
+	 0C4lilXsVAJvMAmi2g3hHi1hjE187klxNyhlglXNeb5j0836lGA3z49sQ/ZxQpJ1wGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=dcs7DmLJ;
-	arc=none smtp.remote-ip=212.27.42.4
-Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bZcLkSiy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D57606A324;
-	Fri, 30 Oct 2026 10:27:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05D57606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D85F606A334
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:27:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=dcs7DmLJ
-Received: from stf-laptop.peak-system.com (unknown [IPv6:2a02:8424:8fef:6e01:2a4e:9a3e:485b:cbb0])
-	(Authenticated sender: stephane.grosjean@free.fr)
-	by smtp4-g21.free.fr (Postfix) with ESMTPSA id A8C2B19F593;
-	Fri, 30 Oct 2026 11:27:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1793356065;
-	bh=n/M6XmCa6PAXRWxE9lzhWOYKw3B2kszDymNiyKm5Pww=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=dcs7DmLJzPrw6X0IezWsSU+FhZ5RRh2IPHuaMDVUIAFrrBIUzjIvDa0WT9+HQkTHx
-	 bB2NlrSDLJnsI7Hw4tKDlR4WwFYwvKyzd0m1fkK9Lp4yrc7rLQ8x3acAib47+R4v/j
-	 ZgbUlDwecCh68cGJMSSFaRDIKGvbp9h7UZIX3zXTYfGDH6xyPp7P/Vm4kd33YjXE0U
-	 f/xyMODwf8lelrqA5NSDeYdeRtihL35B5eqBIThblzDptD0qR380ufM7iEPU+Z707T
-	 rjYx1ULo69TR7IsTLG2WHDRZB8+nj5oW9qeKVNLL728l161HXbiwGLDPZEe8N+ChIr
-	 p9kEiCA7tJdnQ==
-From: =?UTF-8?q?St=C3=A9phane=20Grosjean?= <stephane.grosjean@free.fr>
-To: netdev-bot+sashiko@kernel.org
-Cc: mkl@pengutronix.de,
-	mailhol@kernel.org,
-	wg@grandegger.com,
-	error27@gmail.com,
-	lukas.magel@posteo.net,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	kuba@kernel.org
-Subject: Re: [PATCH v6 08/13] can: peak_usb: reject records for unset channels in PCAN-USB Pro
-Date: Fri, 30 Oct 2026 11:27:01 +0100
-Message-ID: <20261030102705.30262-3-stephane.grosjean@free.fr>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <179281433330.3130.2295013111859378415@kernel.org>
-References: <20261022-canfd_check_channel_idx-v6-0-197704231551@peak-system.fr> <20261022-canfd_check_channel_idx-v6-8-197704231551@peak-system.fr> <179281433330.3130.2295013111859378415@kernel.org>
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bZcLkSiy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112351F000C1;
+	Fri, 30 Oct 2026 10:27:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793356069;
+	bh=RymG5Zs9FwMJtITbzdgvGCkoIgIBEM6um3giVlZIMck=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=bZcLkSiynlmM8mmekL2+i7H1+ZOSrbnf75FBYKtErwXYHPas26GMjT+dMEaTggWx0
+	 ShLhUU0BjTuyOiAKjoe+iotdxyNGZZz3O9jD+Ggiu8nfRBKUfTTgpvpalwnSKUAkr2
+	 k3NM/Vz7hXZC+Fx00HM3jz2hxhZJq7URdDstG2Y4oEolEVFJaoZQtB/Aiuj3kntd8l
+	 uMPrWQs+Niakas3pMR3C4rXu5zrOEJ09dgdoemimSVhIGLg1dRtkCxPTOXzouBc3j1
+	 zstygkeZL0rl8KN27napRTH0HqhoVvxgqvJ7VG93zOv0VZK4gvxptNBuCfuspDC/Sq
+	 g2uB1fcF0mn8Q==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Fri, 30 Oct 2026 11:27:33 +0100
+Subject: [PATCH v7 01/16] drm/amd/display: Fix planes atomic_create_state
+ implementation
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,52 +53,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261030-drm-reset-state-flag-v7-1-4e55eaeae683@kernel.org>
+References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
+In-Reply-To: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1628; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=HLVzeyqKpswstRmnOeZPJueli10TkjAEfdifLM4/WJw=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPCsWvWfD6/niZt29lWPjkBffXvTnOU7n88lmvBoOJn
+ Hb58vWcHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiZ70Y69TuL/SI+uT1kPnQ
+ FMOQ7/Fzw97fF2nSSVDnO8PSGmAkckpg/dQDrU8mdqtJG32fsuvsf8b6hNRPW75M2C0eza543Wb
+ Lw3M/jS6U5sw4tzwxoqJT6++co1yBvgv8r2W5mmzOl7izU5wJAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-On 24/10/2026 05:58, netdev-bot+sashiko@kernel.org wrote:
-[...]
-> [Severity: Medium]
-> Should an empty slot be treated as an error here? The commit message
-> describes this as an expected window: channel 0's RX is running before
-> channel 1 has been initialized.
-[...]
-> Would it work better to skip just this record and go on to the next one?
-> The same applies to the -EINVAL return added to
-> pcan_usb_pro_handle_error().
->
-> Two later commits in the series seem to resolve this.
-[...]
-> At this commit, though, the window is still there.
+Commit 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
+converted the amdgpu planes to use atomic_create_state instead of reset.
 
-Right, at this commit the rest of the transfer is dropped, as for the
-other malformed records, and as patch 6 does for the PCAN-USB FD. I
-kept it that way on purpose, as in v6: patch 9 makes this branch
-unreachable, so that an empty slot can then only come from a bogus
-record, and patch 12 removes the dump in pcan_usb_pro_decode_buf() and
-rate limits the other one. Skipping the record would only matter to a
-tree that takes this patch without patch 9, and all of them carry a
-Fixes: tag.
+Unlike reset, atomic_create_state is meant to allocate a new default
+state without any side effect on the hardware or software state.
 
-[...]
-> [Severity: High]
-> This is a pre-existing issue, but pdev->usb_if is only assigned here,
-> after the netdev has already been registered.
-[...]
-> The later commit "can: peak_usb: register the netdevs only once all
-> channels are set up" seems to fix this.
-[...]
-> [Severity: High]
-> This isn't a bug introduced by this patch, but can this kfree() cause a
-> use-after-free on the probe error path in peak_usb_create_dev()?
-[...]
-> The WRITE_ONCE() added here runs before the kfree(), so it is fine by
-> itself. The later commit "can: peak_usb: register the netdevs only once
-> all channels are set up" removes register_candev() from
-> peak_usb_create_dev(), and its commit message names this use-after-free.
+However, during the conversion we forgot to remove the call to destroy
+the existing plane state if any. While this was expected from a reset
+implementation, it's not for an atomic_create_state one. Remove it.
 
-Agreed for both: they are pre-existing, and fixed by patch 9 of this
-series, whose commit message describes them.
+Fixes: 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
-Thanks!
+---
 
-Stéphane
+To: Harry Wentland <harry.wentland@amd.com>
+To: Leo Li <sunpeng.li@amd.com>
+To: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+To: Christian König <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 2f88b9d65b82..779dabb7fc51 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1821,7 +1821,4 @@ STATIC_IFN_KUNIT struct drm_plane_state *amdgpu_dm_plane_drm_plane_create_state(
+ 	}
+ 
+-	if (plane->state)
+-		plane->funcs->atomic_destroy_state(plane, plane->state);
+-
+ 	__drm_atomic_helper_plane_state_init(&amdgpu_state->base, plane);
+ 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+
+-- 
+2.55.0
+
