@@ -1,110 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793378154;
-	b=mKrIVhvu+UegVvzQwwJEOC/Dm3UZHJSR8usSCCN2ScYzu3iEGxqPZ6BkBPrjrIidDD9i
-	 8ihm+V+aQ4bTRoGmXKqIgJEXksCOCJKZKh8k9lZOM4CPBIrq//qsS0JaVTDsF7nKZXzHC
-	 Ou6auiTowBMG+vkz0I8TPAUzwDsjkcbgRiH6ZQnwWCQDf1MlSGwbhKKOW45Lo60qNsvZ0
-	 Mi6Zm64zG5I79qZBNUwoGU1VFGwdrKKKCEUSWV+h1oUSscnobZq2TiUqErl5SuiTQnx4w
-	 h5tY1PQQiEj5eG1Vkw9V1cIjk/jGlBKy6q+vczS9W9x9RmjWXS8ijK7Hj6/qhJ2jaGA==
+	t=1793378161;
+	b=ygD+tZ2pM6AlzsrBEdZb3c+rkAu7uYwUW/WPwsAXjP7o02BW4amMd/pBj24j9juKxFW2
+	 83TrcMxlgO3YnuPCsUDZozrPTfbYfQn8ebljmhPrdqEsnpMgADSj+YukyIScN4qdpVVpy
+	 lJbWp+lxV0OeMCnGPtVLnR9F7sGZrW7VF2TfkzxGLFlA4jZmnsYsvsoeMv7bPNhObsFvg
+	 4uy3uRkOngzZ04PR2hnd4VXrmNGziQkNteW5lJeuhIGwXcBJtCxd81q/BMPaGBEeOrnXa
+	 t8XwJrqx7xyv+BHrnlU6jA8Mn6V7frc69ux5oJFZk/3TkTWFvK86GVOHYCuNaTGLpqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793378154;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793378161;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=C27CPAIU3rCWv1caX+bgOf8gRpTTIO2oZucMeDYt7Ag=;
-	b=KPVlgs10VLKBJQoETIyQnsBhLPAwj48sLYoCCf8R8ZXlDEX10q9LliKsD5AhkhJIeMiO
-	 BdhYUIl8dV224x0PCoX5P/V3DuujYfuGNOXDNerm6WhEYBX8NHeVlckxVVNG79p8aXAeV
-	 Y/yYYdtr+8NnsVLwn2kJDNRz+F/T3D9prkzz6MZJxiZwxV1Rzz34UiwlWJLiLaGpveQfv
-	 dBFelMS8CSst3s393jARNI6aAlwwiRkDQ4upPWdwxN1QGOoMP8piqdN0tuA4yH4Uru3T3
-	 GYjDkLJQRJq6afNY6yDi079pIfxU8454hN+fxFGzJJyXkx07yF+CsPycn1FWWVvt1sA==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Z35yEEi9TZLdCD1HTNmsvOHqwJ3ebC3waffosyNXYts=;
+	b=VHNNRv51M44bE4KuGf9RJV+ECIS+tGMAixxzdMsNtw+g+9DZJUd4GcjrgrLBAXWvxs/W
+	 dCukgU8g52sYuL3L4DjxxG/dyo7lnw+YFXkQDoioGIEPz+r3vXty8KfOGRQ2g8nKcIUdm
+	 JwnVI0vfxrNfT47kUt9ArqtA8RBj5SH8t1kiT8Bi8yxp2BCUficlet7aSrJVUbIR/DSkh
+	 vrR4LJiyDaHeaqq1m/izjl4H1WLS07WwkYN8ncF6Quwd7jFm7ebOgdttey7rZJ4Qfqj1y
+	 dj1dSMXSH+l7Pc8iDHuqZ7dvIK9VTRQvu6yNg7hcOsTsa9sNY3u1fclyjrZ61eEgTCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amarulasolutions.com;
 	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=hsRGFSSW;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=ic4Lkxi3;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41770606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:35:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41770606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E73606A329
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:36:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96E73606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=hsRGFSSW
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so9989045e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:35:54 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=ic4Lkxi3
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so5752435e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:36:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1793378153; x=1793982953; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C27CPAIU3rCWv1caX+bgOf8gRpTTIO2oZucMeDYt7Ag=;
-        b=hsRGFSSWo8wApRPKJHaNm6BbRbpz7q6s9AOrNTZBhYQL1B6V9gWecyn4zjjveUMsf+
-         RV8gOsrxn6DwVt/VnKcI7rAFdHt9esplQ8tYcjO+5O5qMqQPgoutG3SQlf8bNn0LXRZD
-         hMERcILGw5DQDrRZdN+/d8NxuwzIQYvi6S1n4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793378153; x=1793982953;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=amarulasolutions.com; s=google; t=1793378159; x=1793982959; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=C27CPAIU3rCWv1caX+bgOf8gRpTTIO2oZucMeDYt7Ag=;
-        b=nwd4rHmkWEQ1UcySpxhtCxBXH7LIHZp6wgpBoh02Zz/yqLyC/uqWHbfxYz4ncyoqIk
-         9jO8IE3cYdU3+P8gwH1tgtAb1rNK6lriY3/RNCIeRirftz2EarQWvAraNRxIFg0FdQOL
-         rMpAfWb1SseJCCLezRetgJWG6SwHgebr8LJZYlvmj1XzXezD41/sATSE4LOhhWqsbEZy
-         1DE5u/0wDVceSm0DTHGBDVuZAK+EiXRiK+ZR81v8Viwvm1bfFbFsm00yAyE+hcgc/asN
-         aZpAzzgbQhgtdILAYiR0dlNcct9Hs45zi94DGLH6F11X5WCAnK3e/6mr5cir6pBfkqtd
-         6MQw==
-X-Gm-Message-State: AFq9FYLnQH2u5vnyyH63DPwkTZm1R4YABL25c2NxFfM7F7mDAy3wkp5L
-	BeeFGkSs6kbvx3OW7hmZ5S4hgwWOyEIO/wHvo84UT3VuKGc5xNYeDR8rbeJntGevGSBzFMQ6g0E
-	nqn64
-X-Gm-Gg: AYBFou1yyv/4+NEhCEU9ZN7tfE7gRv8W9YgguIottQjev6o092f2IzS4+H8BbORpLFR
-	HOqw5kDoREECUJXqFP12B2nAs9hUMcG+UtwvFHj1GvtDu9nbEEsjJjue/XtaMogiaOS7/bFx1/c
-	LUC1FVZOK4sqALabvs3yErK5kbSIne/UXjioXeQeTf642ivzi+3GPWFNCAocYh2OFE04cuD4gAt
-	4257uS4gFbMiH6Zz6HPnSt/eUhqkYZJE+Ilq8GGhMkZWgcVIXJuXCZGn+AcJpeeUx5ASudRqzU2
-	GVVgpBI/k1cFJ/HoGAUsWauimkcqbn6GdR5sG/0GP9wTqwDemQqYNmmGEducEl/QFw5HmgtEvGk
-	7pTvt6pRbt0MSgc3uTKkWTwWsigIuLR1WxIEOAZcD7M+EpiqgzlrFiWfKjSVfK9x3s9TWUo2mRk
-	ERVvA0gzpYO4+43kfl4mJy5pqMdNkTFssYhOY3hgkPdRXmoEWgofBPrECF3liG68SxMHmW765+r
-	xSKjwzmkQ2QlMvBbj/Y84nMxPKNhbaVCEUJ5/DmjlSmBIO78MSryv66wnAFjmy/TrG13AAGkmXp
-	k5+4ghXfQ6AocCJmnAiwbHR769vHIclTGaBMIkfm8bmksnXGvM4GkJiW9MlBmxvV6JFWMxv3iPV
-	86VDR7wBl8NGddHZxWOBGCJY4c+PUi+sNGvbPDlG1g5QbtM1+5rruzkqRshAxcWib61fN6qz7AC
-	COSwm2p4u0FdDUyc0+HqUpK6rl3A==
-X-Received: by 2002:a05:600c:4715:b0:4a3:598e:e7a8 with SMTP id 5b1f17b1804b1-4ac150b28bamr66801575e9.4.1793378152471;
-        Fri, 30 Oct 2026 09:35:52 -0700 (PDT)
+        bh=Z35yEEi9TZLdCD1HTNmsvOHqwJ3ebC3waffosyNXYts=;
+        b=ic4Lkxi3utc+GIcfBeUXcYcc6N52EQuzHV8WF4YzRvpImZi9SQQ6VKRJgU0Vwf7Nup
+         RPRM682vaWNWfLNrKEDhT4UWylFdpVEpnYv8dObGM7ayQyMXU+aHV7EjBWErD7EkJN3M
+         jclabqmLej4weDe1lPhN+LcejEb6QQNrOG2ss=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793378159; x=1793982959;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z35yEEi9TZLdCD1HTNmsvOHqwJ3ebC3waffosyNXYts=;
+        b=e6nVY+80xwtGmYucnqqBLzqDqTut+i5Po50HAmSZqsOoUOadUNRNO+sLs3LKn9dfs+
+         rfDKWLeZJayRzys1dflFHJdBEKPIfHulU9BryMyti+ghobC4Cf0F8OEwxUWpEvNa84E6
+         xdU3UzwP8PxfXESsqAv7DZZfMXprmqjI2vMTGEfoq7f1DMXy1b3F+QcBL/qRF549kOyx
+         JJnD1wBuDb/SqHa4EL+/H0amsYVwUJYXRXK3ODCG+wSZSu++00y1RbzB6tTW7n53fpwS
+         JJLkMlR3wbIjPq3uVaHIoBtzggGQk5QRX6ATWFqJuFnKRexCekcAxgiS4UvH495UiYbR
+         1Hcw==
+X-Gm-Message-State: AFq9FYI6hYLAStmFdvOSSzEPgNpTOukEEIu+VFpzuaVVA+Oet8SmGWJu
+	pkU/ySmFi++6gC0vhQbFsZlM7/qJQE1E9U8CyVjjAQ91ohpOPJoCM+TcWoUB78epnqxAp/TlvH1
+	E2JOk
+X-Gm-Gg: AYBFou3ut1aqDX/7IZoamo4V2N3tHYZ8vti0jiRs0ultT4I+0naPjudKLbh670VXZSD
+	Mr1jMdi3QqoQemqh2fUAMVpFrAklT9iB4jdF0WpphUycvp2HJOxdtpEC0FuirTYuKn0nmciLQbb
+	zY5eC/BjwJ6GNXdoSUtDubtokiSXDbauT+nSqOa6ygINSIojSuhoiCqDHRmIB2RWYQh2riHTljU
+	d+G5V2flFYLSlH2DXGcWL+wkLIEQB3Ce1EthdnvtgpKc3G/E9AqaL/wQQvH+TSy9aJZj7sW/0iH
+	MLOCsgZyqesp4ndYcCMFF4RnEkj+xQiyahTf2PhpqOCUPhNraPYg+sQZJJ1tqqTGzF+q5wmrLei
+	XB+ZcyLZk+Qv9nKl4pVzxBQbFTOsOfms8oCIJOUG8zZaK04fcKTpgh/A5fVJ3BGlxB8jpUraDKf
+	qrPWWC4Sx+79OeazsdY/mqQ9NuvNAzl1WHybIwRkDOgg1bo55JNUZyjrIG6am7ocrMLkNc0X26R
+	fmPfYbeTN8IqbymV2eKv2Mkkbvzn8c0dWjalY59AfDJ5CUvZVGRibbLOLsW3Dz81ayvXk+w+9oY
+	ImNWI752S1SDqzWjzOjzPLl83JAHByICoYjai4ksxMuGxlAIWZ1lW0D3ypBwAOgTnU/qMG1hr42
+	TUUU61zHRWlCUkhjXikhv5BGnuSe9//atz6ipzfQoyBSTnGiuK2KEEgX/usycqIn+GKlod91rP6
+	rtsdJ5uPNLB51+Wj5d6omAGDYo9Q==
+X-Received: by 2002:a05:600c:6095:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4ac18b7e1c1mr61761445e9.23.1793378158975;
+        Fri, 30 Oct 2026 09:35:58 -0700 (PDT)
 Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b723fcsm4084806f8f.14.2026.10.30.09.35.50
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b723fcsm4084806f8f.14.2026.10.30.09.35.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 09:35:51 -0700 (PDT)
+        Fri, 30 Oct 2026 09:35:58 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
 Cc: michael@amarulasolutions.com,
 	linux-amarula@amarulasolutions.com,
 	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
 	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
 	Frank Li <Frank.Li@nxp.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Joseph Guo <qijian.guo@nxp.com>,
-	Josua Mayer <josua@solid-run.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
-	Maud Spierings <maudspierings@gocontroll.com>,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
 	Pengutronix Kernel Team <kernel@pengutronix.de>,
 	Rob Herring <robh@kernel.org>,
 	Sascha Hauer <s.hauer@pengutronix.de>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Stefano Radaelli <stefano.r@variscite.com>,
 	devicetree@vger.kernel.org,
 	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 0/5] arm64: support Engicam i.Core MX8M Plus FE C.TOUCH 2.0 board
-Date: Fri, 30 Oct 2026 17:35:39 +0100
-Message-ID: <20261030163547.2682583-1-dario.binacchi@amarulasolutions.com>
+Subject: [PATCH 4/5] arm64: dts: freescale: support Engicam i.Core MX8M Plus FE C.TOUCH 2.0 board
+Date: Fri, 30 Oct 2026 17:35:43 +0100
+Message-ID: <20261030163547.2682583-5-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261030163547.2682583-1-dario.binacchi@amarulasolutions.com>
+References: <20261030163547.2682583-1-dario.binacchi@amarulasolutions.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,41 +109,236 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds initial support for the Engicam i.Core MX8M Plus Fast
-Ethernet C.TOUCH 2.0 board, based on the i.Core MX8M Plus Fast Ethernet
-SoM.
+Support Engicam i.Core MX8M Plus Fast Ethernet C.TOUCH 2.0 board with:
 
-The support includes device tree descriptions for the SoM and for the
-C.TOUCH 2.0 carrier board, together with an overlay for the 10.1"
-LVDS display (C.TOUCH 2.0 10.1" Open Frame).
+ - 10/100 Ethernet
+ - CAN
+ - RTC
+ - USB host, through an on-board hub
+ - USB OTG, device only
+ - Micro SD card connector
+ - LVDS display connector
 
+The C.TOUCH 2.0 carrier board is described in a separate dtsi, so that
+it can be shared with the other i.Core MX8M Plus SoMs.
 
-Dario Binacchi (5):
-  arm64: dts: imx8mp-icore-mx8mp: enable the watchdog
-  dt-bindings: arm: fsl: support Engicam i.Core MX8M Plus FE C.TOUCH 2.0
-    board
-  arm64: dts: freescale: support Engicam i.Core MX8M Plus FE SoM
-  arm64: dts: freescale: support Engicam i.Core MX8M Plus FE C.TOUCH 2.0
-    board
-  arm64: dts: freescale: add Engicam C.TOUCH 2.0 LVDS display overlay
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+---
 
- .../devicetree/bindings/arm/fsl.yaml          |   7 +
- arch/arm64/boot/dts/freescale/Makefile        |   8 +
- ...ctouch2-overlay-am-1280800w8tzqw-t00h.dtso |  53 ++++++
+ arch/arm64/boot/dts/freescale/Makefile        |   1 +
  .../freescale/imx8mp-icore-mx8mp-ctouch2.dtsi | 166 ++++++++++++++++++
  .../imx8mp-icore-mx8mp-fe-ctouch2.dts         |  17 ++
- .../dts/freescale/imx8mp-icore-mx8mp-fe.dtsi  |  62 +++++++
- .../dts/freescale/imx8mp-icore-mx8mp.dtsi     |  13 ++
- 7 files changed, 326 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-ctouch2-overlay-am-1280800w8tzqw-t00h.dtso
+ 3 files changed, 184 insertions(+)
  create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-ctouch2.dtsi
  create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-fe-ctouch2.dts
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-fe.dtsi
 
----
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
-branch: engicam-imx8mp-icore-fe-ctouch2
-
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index a80cccf34eb5..bf324cdec879 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -655,6 +655,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-hummingboard-pulse.dtb
+ DTC_FLAGS_imx8mp-hummingboard-ripple := -@
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-hummingboard-ripple.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-icore-mx8mp-edimm2.2.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-icore-mx8mp-fe-ctouch2.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-iota2-lumpy.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-kontron-bl-osm-s.dtb
+ 
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-ctouch2.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-ctouch2.dtsi
+new file mode 100644
+index 000000000000..5338aeb6ec92
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-ctouch2.dtsi
+@@ -0,0 +1,166 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2026 Amarula Solutions, Dario Binacchi <dario.binacchi@amarulasolutions.com>
++ * Copyright (C) 2026 Engicam srl
++ *
++ * Engicam C.TOUCH 2.0 carrier board for i.Core MX8M Plus SoMs.
++ */
++
++/ {
++	aliases {
++		rtc0 = &pcf8563;
++		rtc1 = &snvs_rtc;
++	};
++
++	backlight: backlight {
++		compatible = "pwm-backlight";
++		pwms = <&pwm2 0 100000 0>;
++		brightness-levels = <0 100>;
++		num-interpolated-steps = <100>;
++		default-brightness-level = <80>;
++	};
++
++	chosen {
++		stdout-path = &uart2;
++	};
++
++	reg_3v3: regulator-3v3 {
++		compatible = "regulator-fixed";
++		regulator-name = "3v3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++	};
++
++	reg_usdhc2_vmmc: regulator-usdhc2 {
++		compatible = "regulator-fixed";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_reg_usdhc2_vmmc>;
++		regulator-name = "VSD_3V3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&gpio2 19 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++};
++
++&flexcan2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_flexcan2>;
++	status = "okay";
++};
++
++&i2c2 {
++	clock-frequency = <100000>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c2>;
++	status = "okay";
++
++	pcf8563: rtc@51 {
++		compatible = "nxp,pcf8563";
++		reg = <0x51>;
++	};
++};
++
++&pwm2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm2>;
++	status = "okay";
++};
++
++/* console */
++&uart2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart2>;
++	status = "okay";
++};
++
++/* USB OTG, device only */
++&usb3_phy0 {
++	status = "okay";
++};
++
++&usb3_0 {
++	status = "okay";
++};
++
++&usb_dwc3_0 {
++	dr_mode = "peripheral";
++	status = "okay";
++};
++
++/* USB host, through the on-board hub */
++&usb3_phy1 {
++	status = "okay";
++};
++
++&usb3_1 {
++	status = "okay";
++};
++
++&usb_dwc3_1 {
++	dr_mode = "host";
++	status = "okay";
++};
++
++/* micro SD */
++&usdhc2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
++	cd-gpios = <&gpio2 12 GPIO_ACTIVE_LOW>;
++	bus-width = <4>;
++	vmmc-supply = <&reg_usdhc2_vmmc>;
++	status = "okay";
++};
++
++&iomuxc {
++	pinctrl_flexcan2: flexcan2grp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SAI5_MCLK__CAN2_RX		0x154
++			MX8MP_IOMUXC_SAI5_RXD3__CAN2_TX		0x154
++		>;
++	};
++
++	pinctrl_i2c2: i2c2grp {
++		fsl,pins = <
++			MX8MP_IOMUXC_I2C2_SCL__I2C2_SCL		0x400001c2
++			MX8MP_IOMUXC_I2C2_SDA__I2C2_SDA		0x400001c2
++		>;
++	};
++
++	pinctrl_pwm2: pwm2grp {
++		fsl,pins = <
++			MX8MP_IOMUXC_GPIO1_IO11__PWM2_OUT	0x116
++		>;
++	};
++
++	pinctrl_reg_usdhc2_vmmc: regusdhc2vmmcgrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SD2_RESET_B__GPIO2_IO19	0x40
++		>;
++	};
++
++	pinctrl_uart2: uart2grp {
++		fsl,pins = <
++			MX8MP_IOMUXC_UART2_RXD__UART2_DCE_RX	0x40
++			MX8MP_IOMUXC_UART2_TXD__UART2_DCE_TX	0x40
++		>;
++	};
++
++	pinctrl_usdhc2: usdhc2grp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SD2_CLK__USDHC2_CLK	0x190
++			MX8MP_IOMUXC_SD2_CMD__USDHC2_CMD	0x1d0
++			MX8MP_IOMUXC_SD2_DATA0__USDHC2_DATA0	0x1d0
++			MX8MP_IOMUXC_SD2_DATA1__USDHC2_DATA1	0x1d0
++			MX8MP_IOMUXC_SD2_DATA2__USDHC2_DATA2	0x1d0
++			MX8MP_IOMUXC_SD2_DATA3__USDHC2_DATA3	0x1d0
++			MX8MP_IOMUXC_GPIO1_IO04__USDHC2_VSELECT	0xc0
++		>;
++	};
++
++	pinctrl_usdhc2_gpio: usdhc2gpiogrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SD2_CD_B__GPIO2_IO12	0x1c4
++		>;
++	};
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-fe-ctouch2.dts b/arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-fe-ctouch2.dts
+new file mode 100644
+index 000000000000..c4271cffca9a
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-fe-ctouch2.dts
+@@ -0,0 +1,17 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2026 Amarula Solutions, Dario Binacchi <dario.binacchi@amarulasolutions.com>
++ * Copyright (C) 2026 Engicam srl
++ */
++
++/dts-v1/;
++
++#include "imx8mp.dtsi"
++#include "imx8mp-icore-mx8mp-fe.dtsi"
++#include "imx8mp-icore-mx8mp-ctouch2.dtsi"
++
++/ {
++	model = "Engicam i.Core MX8M Plus Fast Ethernet C.TOUCH 2.0";
++	compatible = "engicam,icore-mx8mp-fe-ctouch2", "engicam,icore-mx8mp-fe",
++		     "fsl,imx8mp";
++};
 -- 
 2.43.0
 
