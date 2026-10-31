@@ -1,52 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793456094;
-	b=fRNPYeCkowBwAcztNVUk7qsq3ZARWXb7MeKyOhffr1kTCTC58baaSuMNfCqemA7lsh8P
-	 QLNTVoYn40/C5wAoMGrV1a6M1PaJrn7UiVHMJBGOhrWH/q3bqSUMMZM9s3UhNTsX7L8MA
-	 97tha6hgo1eHcsp/ANHYHcOQK4Hv+9CsfnMBwVBKqr58VapfHorqDLsMyrLnkYRI6lP+U
-	 kVq1ga57gEeuIk952b2IV3oGmngyKUNOJ/haUyeCWp4WgSe8UkQZtqBfpUj4uwX+mQiWT
-	 9CApkooQJfxzah+uyNhLIwFKafVmaW7ZzO5qjAznrGInog92DmJTuOI1p6R8qBbjzuQ==
+	t=1793456158;
+	b=gKrqimv/Uapcua5S/4ffPsn5nM2DWM3CbhiNRnkGsdb6XRfQ0RzcBEih2xVRYD8Z4Qa9
+	 w9pf8ZHOa17cfXc+2Lp6JugXj2paQ9AqdmNYBnFLpmsJowjrvskgLiYz0MMf6DsZTk1Bb
+	 NtiCIKGUt+S8qPZv0k/iD3zexPrVsfMWpx14DvqU9nqSC+SS4JFNFcl0cHhiwxiWdmtqj
+	 +aCab1pxysiefP7vflhxZEbio8VM70F09nSnQJt6GWVSaugWrkT8HxA5T2OP7X+ZH6O5R
+	 qkiXdtimQAzvXtqCKdYAbij08JjBiDXW5BWdb8xVJsiSM1NQlg8O3Av2EEM/J1WU1sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793456094;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=dLfGjB5/bNYF1bkGN6xxoI/qGxpyUkDnj7InTq3oPOQ=;
-	b=10W7YUdJBLdI9FLqOfbyyrVormvHi5DzjsJKWEGlahacbRzaphltFFF7D16IlDO+Y7a0
-	 goaTIvDAHoLbiNhFibWRg57bejZdXhcHDUqU6cXQhw4Fxz3iB7Koh9eKqsxFwlEmekqYv
-	 T5FivBsyRASlItktFGKcHSOG/+duzZLgAKtxCBqmqwiXxpGusn6VyDoyKwcf029tGGuf4
-	 fTK4Je/wcIgFriOAMR21imHL7MOID3yaBXKQkpAhxXb+tmw42yxCteu4m67Jmr3Gug1O5
-	 MNXPa6h3+NGrrWZ0gd0zZWrvXTLelgFwPOAphsjXVY6v2ut75IRzm1wKoysqY0UtKyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793456158;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Wnbq5enmeXXMtrxXOCknlMCahlJdLBMQr0NRDI8YZbI=;
+	b=NJBlhU1C0V3ZI843arPHI+T9dH89CMWPch4jGMdsZXJPY2I1AkGb5idYtMJ9nUi5sB7E
+	 xtW0zsgRiDBB1n7LC3ugkulD8uhl9PEB1uFHBga0FRmvkE+z++8LoSmdrhA7cLTCmSYef
+	 hWCu1om6uqi6MPi4nKNdPkbzVstgsXCqtk1L7QJ8ocQShUo2SpoOcjBfh5PuMqmXyBSZP
+	 h0NskavFhStRj7Kwc2+bGMGhqRYbQ5S8VAaydEP7lkoGBKe/AbEzWavgEkRlqbPsyKsIy
+	 lOVpAmJXJA3y6PQtSibgN4ykcNbJJakXq5k8wlSiy3KO/oasDpi2arl81c1xZ8zMP0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=JrifTBuS;
-	arc=none smtp.remote-ip=101.71.155.101
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IK25MfUb;
+	arc=none smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EDB4606A31C;
-	Sat, 31 Oct 2026 14:14:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EDB4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D77606A31E
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:15:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7D77606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=JrifTBuS
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 53071d15f;
-	Sat, 31 Oct 2026 22:14:45 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,
-	stable@vger.kernel.org,
-	linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IK25MfUb
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e9e53d011eso13433715ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:15:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793456157; x=1794060957; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Wnbq5enmeXXMtrxXOCknlMCahlJdLBMQr0NRDI8YZbI=;
+        b=IK25MfUbibJHZUCnSy2S2WtN6BBRl4Wc0Ck8mJ2goevSyMxcRwogr+b0tBucuBqDir
+         viXNGP5/fkKG65t/UebwN5ESDx3o9MkaCjiN+I8661dR4ti74jf66KO69msGBzQzfVNh
+         Lc+oueTWrXa+fTRTWK7tpTHHo4R+TOQfoIYojkroNPSBvrwchRzlwAGgEJoWrfWm9lkP
+         9wna8rK3tDwdZDhgd1beGnrlMF7A4DTG3DubG4jSwjKtJ7DZ3ArGCKIngcvwgJhb2+kO
+         AVZcVTl958lPkczzXxQCZpZzfY/+fYk/fwqcjTLKHtzwm/5o/BYPmOAV/slCIuEjvEoF
+         sTFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793456157; x=1794060957;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Wnbq5enmeXXMtrxXOCknlMCahlJdLBMQr0NRDI8YZbI=;
+        b=2vXEXnJnQA68G5EHdlKn0gwVfeSSTJbPV79FBtX8OBoyF/ZFKvb1l4159xkl4TXFm6
+         DurImxJRpuGPuAP1fs42wzFcM54/n78jj4xLa/LgO9qQOkm2Mq+CgMLzSR+Wtaa3QNHe
+         Z9UAI4ibvYU++mFFJGURwATL7mfgDW5kWyinEIXf8/TeBGAwcHB1shxd3HwpVWV1OdSg
+         M1nCwI0bi4Bs4RJcQ8KEuqzVWYGQHhnJLgQSB2iP4L40D1vBUcR5IobynFBNarWNCpvW
+         jShc+DK0ZZp0Rqo689hS5uVINpZ1ND1q+Bjfl1G1AepYGWH8euIJ3HIHQ1jyL+KF0KSL
+         KlZw==
+X-Forwarded-Encrypted: i=1; AKwUvBxdhoPBqdud3Gcp5Eqx3qXhUkvN7BS+wBYuCjdDUQEvqi5h9Ck5MG4a82VzKkL7/YXBIqQSgjirBli/Ma4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJcp3UYf5FbmalOs8CTaUG5+C3fkJOQM7FiqULo5t4KxLKhTM7
+	4CUq3CQzhgung3AfKhOeBk7yYPqmCxHsywKjOYQJtdeMhESqxaotBWQi
+X-Gm-Gg: AYBFou0TFXJT4uVMW6Wvk4EDMZNd9qWQcET/fMLnOT2IIlKwMsbd7M6fYWVirwP62lu
+	vCDvhieb39EVM9jgH1amp4dv4v3tzEGlr4jgbh7Zq9dKMjK6NhQPWhOurPiqyaXMur5qs7aadxT
+	DQJZuSJOSJN9Zx81y6VlQDe9MdJQbJziSXaZVnyQSRyPO1ZXqiuYsxWp5b8aOO3+7WyVrssqzoa
+	/ZvOu6QrkbjH7Rv47Re7zj+oSz/e6nPYq+WFJVGBHp6pI269csLEUh18T0XJWVzFWVJDnQbXxUQ
+	ZA2xbq2pvEeUnP8sMzRBKFZwfEioRuncXoIbYD94A9pICd3o8JKKE8qKi9P2XJwRpqra3cXiSzC
+	zoju+XzsKUrQeAqPXIdTtIAEGbAQJaalD40bKSTwJ6j0dw5GFslgRcta/WPz5b/8fAGrrPYd8Kg
+	oeFbkO3/AUT1IlcRLQyFKGeTRJWHCsUMCb9phk81C7ipObiMvIQ7J0cMncxyufmHPbvdx0wuFqs
+	OSI/4EBoAWBdTRG5CpWhz/9gXwmkai4DCf2wO3SJX3hxm40+OEFdFT3jvMN3ws6VtnXQm1Y4nOt
+	HayiZXq25VkQzN1Xf94bs2jUQfDz5qLOh6uj9TCT
+X-Received: by 2002:a17:902:f548:b0:2e9:572a:7da7 with SMTP id d9443c01a7336-2eb364f1979mr52661215ad.49.1793456156941;
+        Sat, 31 Oct 2026 07:15:56 -0700 (PDT)
+Received: from arch.localdomain ([152.175.67.103])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb38e9633fsm15743805ad.0.2026.10.31.07.15.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 07:15:56 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: broonie@kernel.org
+Cc: conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	heiko@sntech.de,
+	jerrysteve1101@gmail.com,
+	krzk+dt@kernel.org,
+	lgirdwood@gmail.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Antti Palosaari <crope@iki.fi>
-Subject: [PATCH] media: msi2500: Fix potential resource leaks on video registration failure
-Date: Sat, 31 Oct 2026 22:14:44 +0800
-Message-ID: <644df9eff4356d494f87c344f7c30c4f0e092eec.1793455789.git.liguangshuo@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	linux-rockchip@lists.infradead.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	robh@kernel.org,
+	tiwai@suse.com
+Subject: Re: [PATCH v2 2/2] ASoC: codecs: add support for Everest ES7202 PDM ADC
+Date: Sat, 31 Oct 2026 22:15:46 +0800
+Message-ID: <20261031141546.153385-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <179330018771.62540.301527067818961107.b4-review@b4>
+References: <179330018771.62540.301527067818961107.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,51 +109,124 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa19250193503a1kunmbf44fc0a86af8
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHh5MVhlNGUxLSEpLSk1KTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=JrifTBuSX+iWlihjLRDQVtFNWG8S5GE/OSLzaUgkkt4DlF1RKrZEsTMohZaZ23cS+AJCl5tNew8fgDGhI8FG+S6l077I+b+lP7pX5Fvs+3ypFxi52vrPDaDAuH4JBow1CyrFXuolNR3yxoOmGjScJcCk+Y1rturtmGGysimEv2o=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=dLfGjB5/bNYF1bkGN6xxoI/qGxpyUkDnj7InTq3oPOQ=;
-	h=date:mime-version:subject:message-id:from;
 
-If video_register_device() fails, probe skips cleanup of the control
-handler and the registered SPI controller before freeing dev. This
-leaks control allocations and leaves the controller registered with
-driver data pointing to freed memory.
+Hi,
 
-Jump to err_free_controls to unwind both resources before unregistering
-the V4L2 device and freeing dev.
+Thanks for your review.
 
-This issue was found by our static analysis tool under development.
+> > Add support for the Everest ES7202, a 2-channel PDM analog-to-digital
+> > converter controlled over I2C. The device outputs PDM data to the SoC
+> > PDM controller and is configured through registers for supply voltage,
+> > analog front-end and per-channel PGA gain.
+> 
+> This looks pretty good, a few relatively minor issues below but nothing
+> major.
+> 
+> > --- a/sound/soc/codecs/Kconfig
+> > +++ b/sound/soc/codecs/Kconfig
+> > @@ -1274,6 +1274,16 @@ config SND_SOC_HDMI_CODEC
+> >  config SND_SOC_ES7134
+> >  	tristate "Everest Semi ES7134 CODEC"
+> >  
+> > +config SND_SOC_ES7202
+> > +	tristate "Everest Semi ES7202 CODEC"
+> > +	depends on I2C
+> > +	select REGMAP_I2C
+> 
+> You should also add this to SND_SOC_ALL_CODECS.
 
-Fixes: 2e68f841a5d1 ("[media] msi3101: use msi001 tuner driver")
-Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:gpt-6-astra
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
----
-Build-tested drivers/media/usb/msi2500/msi2500.o with x86_64
-allmodconfig (GCC, W=1). Rechecked the complete probe rollback.
-No hardware runtime or fault-injection testing was performed.
+Added.
 
- drivers/media/usb/msi2500/msi2500.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> > --- /dev/null
+> > +++ b/sound/soc/codecs/es7202.c
+> > @@ -0,0 +1,367 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/*
+> > + * Copyright (C) 2020 Everest Semiconductor Co Ltd.,
+> > + * Copyright (C) 2026 Jun Yan <jerrysteve1101@gmail.com>
+> > + */
+> 
+> Please make the whole comment block C++ so things look more intentional.
 
-diff --git a/drivers/media/usb/msi2500/msi2500.c b/drivers/media/usb/msi2500/msi2500.c
-index 282256ab812a..2a2773722172 100644
---- a/drivers/media/usb/msi2500/msi2500.c
-+++ b/drivers/media/usb/msi2500/msi2500.c
-@@ -1280,7 +1280,7 @@ static int msi2500_probe(struct usb_interface *intf,
- 	if (ret) {
- 		dev_err(dev->dev,
- 			"Failed to register as video device (%d)\n", ret);
--		goto err_unregister_v4l2_dev;
-+		goto err_free_controls;
- 	}
- 	dev_info(dev->dev, "Registered as %s\n",
- 		 video_device_node_name(&dev->vdev));
+Done.
 
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+> 
+> > +#include <linux/bitfield.h>
+> > +#include <linux/delay.h>
+> > +#include <linux/device.h>
+> > +#include <linux/gpio/consumer.h>
+> > +#include <linux/i2c.h>
+> > +#include <linux/module.h>
+> > +#include <linux/of.h>
+> > +#include <linux/regmap.h>
+> > +#include <linux/regulator/consumer.h>
+> > +#include <sound/pcm.h>
+> > +#include <sound/pcm_params.h>
+> 
+> linux/of.h and sound/pcm_params.h aren't needed I think.
+> 
+Right, both removed.
+
+> > +static bool es7202_volatile_reg(struct device *dev, unsigned int reg)
+> > +{
+> > +	/* status and device-id registers are read-only, never cached */
+> > +	return reg == ES7202_CHIP_STA ||
+> > +	       reg == ES7202_DEV_ID1 ||
+> > +	       reg == ES7202_DEV_ID0;
+> > +}
+> 
+> A switch statement would be neater and would probably generate
+> equivalent code.  Are you sure that the ID registers are actually
+> volatile, that's quite unusual?  If they've volatile the hardware is
+> accessed on each read, if you just omit the default then they will be
+> cached after the first read.
+> 
+
+Thanks for catching this. The ID registers are static and don't need
+volatile marking. I'll drop them from es7202_volatile_reg() and use
+.writeable_reg to make them read-only, so they are still cached after
+the first read but skipped by regcache_sync().
+
+> Also should the rest register be uncached so we don't try to write it
+> back out as part of a cache sync by mistake?
+> 
+
+Agreed, I missed this. I'll mark ES7202_RESET volatile so it can't be
+written back during a cache sync.
+
+> > +static const struct regmap_config es7202_regmap = {
+> > +	.reg_bits	= 8,
+> > +	.val_bits	= 8,
+> > +	.max_register	= ES7202_DEV_ID0,
+> > +	.reg_defaults	= es7202_reg_defaults,
+> > +	.num_reg_defaults = ARRAY_SIZE(es7202_reg_defaults),
+> > +	.volatile_reg	= es7202_volatile_reg,
+> > +	.cache_type	= REGCACHE_MAPLE,
+> 
+> I notice that other Everest devices set use_single_read and
+> use_single_write - especially for write we can easily trigger
+> multi-register write as part of a regcache sync so if the device lacks
+> support it'll create bugs.
+> 
+
+Thanks. The other Everest codecs are the only precedent here - the
+ES7202 datasheet does not document multi-register (auto-increment)
+writes, so I cannot rely on them. I'll set use_single_read and
+use_single_write so a regcache sync can never turn into a burst write.
+
+> > +	es7202->supply = devm_regulator_get_optional(dev, "vdd");
+> > +	if (IS_ERR(es7202->supply)) {
+> 
+> Unless the device can operate without power this should be a normal
+> regulator_get(), the core will substitude a dummy regulator if it's not
+> configurd by the firmware.
+> 
+
+Right, VDD supply is required. I'll use devm_regulator_get() instead.
+
+I'll send a v3 with these changes.
+
+> -- 
+> Mark Brown <broonie@kernel.org>
+
