@@ -1,92 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793452278;
-	b=yDPVOTcyzRPUJJFOmkFwkfHFWPVpcc8K2lemvLMiQSU3PSBoIua3opT7BXzqddM1zj+P
-	 Vh8Y61g7GyaUikhvDpKUmV8duSzf7RNKkchGbmrgxjPMLioGu33Y76MQQQDv+2Fxx4T5m
-	 NNhESjMr+tvysSfUo4bRbKV+AteiyUs0SiAxPxT8VQzyBshmpZkqAQF0mPf4VZjipGK98
-	 Tpjow4tRbCGpro/OEKcC6GecL/YijFjYoTKLoh62wFE5uTBsJOjKnl25CA5g9lx9E88Dy
-	 0nKbrsyPOzTf/YZa257P1iJpNTsrqtNeLia847wPoX/NYMDQvK7sYM0pFX0RQsU7aeQ==
+	t=1793452279;
+	b=Fex+e0WFISgCA21sUsNNUfmLQr7gzTr8C8y1O6qYTd+P1PFpJrRq3MSI+oX6aVXo7j5y
+	 dqk5P8Wfc0wjJjgGIsFImU8vsXA2e3gGLreo0MoNnUZjKO61dWwHWE4y4BC8B9izmCLqw
+	 t66ywGL3tQobEdtvswesOg5QWwYx0C5WpyCjI1Qt9YChpuhld85klsUB4gs36Ba2IkCcc
+	 4GMSZ/TsEd6jrvCuWs7nTnjB9wVPQtv0Ui6P+9d3v8GS/+6KcuCLzPUBs6hktt/yRPqNS
+	 Cfn6hLlA9bEQkZENUpT07MAcwRkxOJJLpKXVJcXl37OJ/J4KzHnhFyiA7XRepx3KjsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793452278;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=isPmbyXwoawb4v6VwfGam596nKy3bfRm/KBHkrnGamg=;
-	b=bl4QRkHwHJ2Ehhr/m0/vmVks+WgKCqAlOiGMNO4oQvhCBPmIye70EyhLDaRb6BXlvl6+
-	 p1oS6hDhkNi6aeJT5qXx/Yu3WV1BY33pH1BM8LCAhoBHwQ0HGhBzgdE0Iui3ZYWp0a9Pz
-	 YKYnQRXLD+c4a6dJUiCqUtIU8zmQudbMpOZ8AJJBSv7+lXkww5MFv5LBv53S3e/p3Yjon
-	 jvxF04UCyTcQx64FoowvqrndUTtGWDvTjVxUd+YbmtZiJ26uGnDCx8bnsFJ9tYeUlz2v8
-	 1mfnqe6FKMTQ6aDRqhQ55qGXS1W8m2wDB3WU8dei/L8ylxELeTOO6urCAK5Ua87vp8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793452279;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=WWgW/g4YO7586v7SAbI7xaWfELdoMfth43jpoeeiAQQ=;
+	b=KM5oRw2hPG80hncB7oyLirRwLS9ebFGFiHaawHPJvVcrf8bSDRh3O9AvxyXpZZ5/Jiic
+	 vTBYzgfNsZQocTmi53HIYLDe1hRwYwfQvMNls4rvAfQWeyqOrMkHQhzTw50qYYTTNKEGp
+	 CLCBqgyVWKQOmPvFvaHHElJFMsTxUJMtmgK/ZVfwQM2je+EWXRUOelS2nVdVctM9M1xuI
+	 Z3q/9ggRCokA8upE0BrprZip3fYxghuCt+5NajxgcHpXrrfXeDPHLIHUGMDPDz9iomnRw
+	 FPXEJgvmFYe7LeKiv9EZEu4+OmpfK4bhYtMPcVLHitYD0tTltFjHEUY1CgJZisfPL0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Kn+jwqdJ;
-	arc=none smtp.remote-ip=52.26.1.71
-Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UJycIeZZ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VOqQ6Z1j;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D62606A33F;
-	Sat, 31 Oct 2026 13:11:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72D62606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2DC60A260C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:11:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF2DC60A260C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Kn+jwqdJ
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UJycIeZZ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VOqQ6Z1j
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VCxrEF3208191
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:11:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=WWgW/g4YO75
+	86v7SAbI7xaWfELdoMfth43jpoeeiAQQ=; b=UJycIeZZOVEJM23TomL5BqvlIvl
+	CRAa9LGX+7B01T6CzVsSaicjM1IPbumDR52UvIbWpTzbzOgplUzJ1vEyYw4mXOE4
+	6aG0W3IuQxsk8xbiu/f3EWd2NB+DwLbJt0JRmm9niFhpdJ1BAps1sFCK19Rkvvcs
+	Q9RdYDjE0AVQWCP2AaicJmXny65KzDroEZLbq2/gjhrrT2OusZ8PjJRs6lZXv26/
+	qqS81/+hhYgazlQnqjsDPN/9d8Z9FdzuBmVvnOprZglotOd241VHuUBisBVaDyN1
+	8ENfKDAvxCzaam2AJZIjkV4FaXa2u8ILq+LoAVMZMfnGfylk21Q1i8vNPAQ==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn79rsa0j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:11:18 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1663fb7e005so1863061c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:11:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1793452278; x=1824988278;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=isPmbyXwoawb4v6VwfGam596nKy3bfRm/KBHkrnGamg=;
-  b=Kn+jwqdJJuUdsWM4LYikOLcK67qNax8yb4U83vj9VOrdNXoTKj/Eg5HW
-   aecXBX2yU4zevfSdSXyXwXRoowAmT+0e0VsHjrA9c4pyOcddCU5XEP56v
-   ms4wMa2PuydQt4DmsX4kZrBESbMOwn5XxhVbXkqsj46p1wWalMWJlvQYU
-   aXgyiDUCjN1SooTVRVByaTGEl9cV8nYzmsVWB5Y6AVTSzEpkXkySoQy+r
-   s/4H1FXFZZE/1FfqSm4vu6sXNOtc9tvb5ByAEI6u9uy7l4bQGmQKWk6LA
-   0Brp8pey+Zq+khx6YbsGe9VM+Hz0XKPVcnqnUqkEslnrLlx+Ym/zTlaCq
-   A==;
-X-CSE-ConnectionGUID: JoO1aI4/QE2S3bCQOA6CxQ==
-X-CSE-MsgGUID: iZI+jainQguDw7MTkcoiKg==
-X-IronPort-AV: E=Sophos;i="6.27,188,1787011200"; 
-   d="scan'208";a="32778309"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 13:11:18 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:11982]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.7.65:2525] with esmtp (Farcaster)
- id 9a9685ef-35e1-47f0-bc60-0eefd24eaeec; Sat, 31 Oct 2026 13:11:17 +0000 (UTC)
-X-Farcaster-Flow-ID: 9a9685ef-35e1-47f0-bc60-0eefd24eaeec
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Sat, 31 Oct 2026 13:11:17 +0000
-Received: from dev-dsk-wanjay-2c-d25651b4.us-west-2.amazon.com (172.19.198.4)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Sat, 31 Oct 2026 13:11:17 +0000
-From: Jay Wang <wanjay@amazon.com>
-To: <bpf@vger.kernel.org>, Alexei Starovoitov <ast@kernel.org>, "Daniel
- Borkmann" <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
-	"Eduard Zingerman" <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi
-	<memxor@gmail.com>
-CC: Ihor Solodrai <ihor.solodrai@linux.dev>, Alan Maguire
-	<almagui@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, Yonghong Song
-	<yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Steven Rostedt
-	<rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, "Mathieu
- Desnoyers" <mathieu.desnoyers@efficios.com>,
-	<linux-trace-kernel@vger.kernel.org>, Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>, <linux-kbuild@vger.kernel.org>, "Arnd
- Bergmann" <arnd@arndb.de>, <linux-arch@vger.kernel.org>, <x86@kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Hazem Mohamed
- Abuelfotoh" <abuehaze@amazon.com>, Bjoern Doebel <doebel@amazon.de>, "Martin
- Pohlack" <mpohlack@amazon.de>, <jay.wang.upstream@gmail.com>
-Subject: [PATCH bpf-next 05/13] bpf: let btf_parse_module() adopt the caller's copy of the module BTF
-Date: Sat, 31 Oct 2026 13:09:51 +0000
-Message-ID: <20261031130959.23472-6-wanjay@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261031130959.23472-1-wanjay@amazon.com>
-References: <20261031130959.23472-1-wanjay@amazon.com>
+        d=oss.qualcomm.com; s=google; t=1793452277; x=1794057077; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WWgW/g4YO7586v7SAbI7xaWfELdoMfth43jpoeeiAQQ=;
+        b=VOqQ6Z1j/geTkmPgSXEfIOVxI+KszftaQ6ti6vJZYloop+wDMN1rXAAHx3TB9PQCso
+         iFy6ZMMKLR0cJ8UJtEReHxYnBypRjyc7PMdOsuVi4Rd1tm6oS/mWwyLwuWdsZpQZe+4T
+         dzkGyAcqYWN80ToAHcmsnkdn/uZsSzdGwVOu/t/tjdbyvGjFqQP9MGty/hOaLLjyHBLE
+         1WrhxODSIWx9c2pOiGTPDsFclENt2SZqSfovOG/F8zhXUk68a4cBe4noONqDhdyzKrej
+         2MhEL1O9Q5RHRnfBw05OM76gB6VHvJYWommAmKvhAZet1Uw4SNY+7xHD08906xAuxVjE
+         St/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793452277; x=1794057077;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WWgW/g4YO7586v7SAbI7xaWfELdoMfth43jpoeeiAQQ=;
+        b=bYExWvRDcof+4+UG4TVITp5vX1x64pG5x6+8mCGbZ2Ybh/L7+L0QihtrBEqzzDjieU
+         vMltImsy1PqbONPENs2YBYoZ4xmGBFIorUsj2hiVGMKVUN1tzRHtPhTE/urJWRPWcsKE
+         auFynQC/I2N2WOzGgHV8dfvSQZ91fjoSJ5qeKbIpCGqzOnFsahciRjVY7fvbB+/RtgS4
+         W7pZB4kRHKNquUF8t1LPW1VRmB4o29C6+ZdvVUeHPFPoKsnA6ss7L4Ga2Jl+tgAkqk8j
+         5yVYBHSg0AyNdMgrpzoTFVHum2hz+AcYRCO4OQDjc5E70ois2Wpuem/TFnis8z3rgFt7
+         ZksQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz9YidBArvtK6PFS4Hvyq8EUhLnch1KIPAlsTfZhv0YhdSJKwZUfvoBap9QZl6fgIo50JvmBLp8H60u6jE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5QfWL6d6ya8x5GGuA3mrm2TAycxKGPAZXMQsI6rq/5QVElhZQ
+	tpp2s3919txYWtgTFcJE6yBqGG7+b2zjIlQRzpbLHWqEidyA5td1GwjhTJKMrA+6qO/EpN5i9hg
+	N2LIETfNeo8gr4ERKZCZqvYSKIZY76QfS8CRY9Bz0NdEPmFUqv13/YE/8AgCnQL/Q2/s=
+X-Gm-Gg: AYBFou0SSxgupLU++2Ya1xn+WMmUkkK7TmURw1kUkV0rBdrvCBxHI73GG0An5bXTwLZ
+	JA5s2MgFwEL7lII+VYZOa/JIEUTxhTSGRHraQz0EcZl852ZJ94Wq/regOOgySKbfwFJeGDOZ6LL
+	VnsNZXa4CfgX/ld7/z5P3xNZZgWGSWs3TMNxUpt5Q7/clY0rZalD6g1KLnuCn21sQ9S7ddO6I+G
+	uZGaxJ+648S9TD3rpH0TEbr+0UoU7VJZ4VjUMyUwCFnWnpnWnCLkI9K6LfbeaxZhd1sIw7QIdvP
+	z+1jtFHia020z2AAwYd1RePbEW+AAfDPfdHj1H4lIOhodPL9jdUU7sOPdhMx6qz4Ku6JeIXOqZg
+	f8ZHC/yIKK50TxCY1CqzO7Fq9l/DIQZeMTbvCEJyAdq3E1s/A4GMrj5DUv08gVpkFvOdjCv5Kd4
+	0nB3L5HRgn1ykzebhFHk+znlMpSprJ4Zpm
+X-Received: by 2002:a05:701b:458c:b0:18d:9eec:e0be with SMTP id a92af1059eb24-1ac56c9fe8amr6039030c88.2.1793452276912;
+        Sat, 31 Oct 2026 06:11:16 -0700 (PDT)
+X-Received: by 2002:a05:701b:458c:b0:18d:9eec:e0be with SMTP id a92af1059eb24-1ac56c9fe8amr6038983c88.2.1793452276036;
+        Sat, 31 Oct 2026 06:11:16 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1845817csm15717872c88.5.2026.10.31.06.11.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 06:11:15 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v3 6/6] arm64: dts: qcom: lemans: Enable lemans-sa8255p-ride board support
+Date: Sat, 31 Oct 2026 21:10:42 +0800
+Message-ID: <20261031131042.1200862-7-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
+References: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,152 +129,294 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+X-Proofpoint-ORIG-GUID: j984C0u45rxCkJs-63myd3PKlqnVT9TH
+X-Authority-Analysis: v=2.4 cv=Wtq+otfv c=1 sm=1 tr=0 ts=6ae5e8f6 cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=MNDMu2h6GyehcEZcpm4A:9 a=Kq8ClHjjuc5pcCNDwlU0:22
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA1MiBTYWx0ZWRfX+T/XX0Qzygwx
+ HWkG2nUY0oC7SPX3MsUy+RyB5Iy+FHqXAm55yGhyn/zghI1MCQ2FYKj6P008OnWFhJ7trdImNyZ
+ StaABDR/Digl+extQ35D6h7l0cHKt8E=
+X-Proofpoint-GUID: j984C0u45rxCkJs-63myd3PKlqnVT9TH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA1MiBTYWx0ZWRfXzDAgajv39RqH
+ VFuBI4aG1jgeAcWha0BjQ32NlfZqBT4+PPUUjZChx/cn6KxZVnD8S+YFPsx8xsg8fijhotCx+//
+ Fl8+vPnANFdUDWsbO01R24IcW5ZFBs+KFX44ghCVfUCnJJEK/Ovt3ygyjjB7l/CRc9pOEOBge3p
+ WcMTiD4tcQtuUEIFCgkWIjW9PnkTQcq8TibkWxb6wPew6VEIKbjtWGlJJspgVJ4R8JYoBUc2fdk
+ 5gZdb8ZtejOywKzvyQI7/6BsTZEbT88qM2fAiovgixFTl7rT7Ehl70FZqdmqFGjMNPfIT0z3ytX
+ 26aPwfF2SGGSkkI1r4pcVEOO1+NNnNZkJhifPEXj6dacvN5zcaG8Cx9TXyzkSg7v9rV8Pno0jUf
+ 94/9FsOXTFPta2TzGUDd1PHsYy4TjMK8s8Eo8Q55T/qMqsxwIQsR/Q4F0widswSCDVHKS/b6Szs
+ UkBb50JF2XhBu+3tARA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-31_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 bulkscore=0
+ priorityscore=1501 spamscore=0 adultscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310052
 
-btf_parse_module() makes its own kvmemdup() of the module's .BTF
-section, and of its .BTF.inline section through btf_parse_split().
-Move both copies to the caller, btf_module_notify(), and let the result
-take ownership of them: the new struct btf the module BTF copy, and the
-returned inline BTF the inline copy, relocated in place.  On failure,
-and for an inline BTF that fails validation, the caller frees what was
-not taken.
+From: Nikunj Kela <quic_nkela@quicinc.com>
 
-No functional change: /sys/kernel/btf/<module> and <module>.inline keep
-serving btf->data and the relocated inline BTF, which are the same
-buffers as before.
+Add initial device tree support for the Lemans SA8255P Ride board. Enable
+UFS storage, UART10 as the serial console, PCIe EP interfaces, thermal
+zones for PMM8654AU sensors, and SCMI protocol nodes.
 
-This prepares for parsing the vmlinux BTF on first use (later in this
-series): a module that loads before that keeps its copies unparsed and
-exposes them in sysfs right away.  Parsing them later must adopt those
-buffers rather than make second copies, so that the sysfs files stay
-valid and the data exists only once.
-
-Co-developed-by: Ihor Solodrai <ihor.solodrai@linux.dev>
-TODO-NEEDS-IHOR: Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
-Signed-off-by: Jay Wang <wanjay@amazon.com>
+Co-developed-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
+Signed-off-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
+Signed-off-by: Nikunj Kela <quic_nkela@quicinc.com>
+Co-developed-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 ---
- kernel/bpf/btf.c | 47 ++++++++++++++++++++++++++++++++++-------------
- 1 file changed, 34 insertions(+), 13 deletions(-)
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../boot/dts/qcom/lemans-sa8255p-ride.dts     | 222 ++++++++++++++++++
+ 2 files changed, 223 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
 
-diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
-index 58d8b21d9895..59d6f44cbe17 100644
---- a/kernel/bpf/btf.c
-+++ b/kernel/bpf/btf.c
-@@ -6969,8 +6969,9 @@ __u32 btf_relocate_id(const struct btf *btf, __u32 id)
- 
- #ifdef CONFIG_DEBUG_INFO_BTF_MODULES
- 
-+/* @data is a copy owned by the returned BTF; the caller frees it on error */
- static struct btf *btf_parse_split(struct btf_verifier_env *env,
--				   const char *name, const void *data,
-+				   const char *name, void *data,
- 				   unsigned int data_size, struct btf *base_btf)
- {
- 	struct btf *btf;
-@@ -6986,11 +6987,7 @@ static struct btf *btf_parse_split(struct btf_verifier_env *env,
- 	btf->named_start_id = 0;
- 	strscpy(btf->name, name);
- 
--	btf->data = kvmemdup(data, data_size, GFP_KERNEL | __GFP_NOWARN);
--	if (!btf->data) {
--		err = -ENOMEM;
--		goto errout;
--	}
-+	btf->data = data;
- 	btf->data_size = data_size;
- 
- 	err = btf_parse_hdr(env);
-@@ -7014,6 +7011,7 @@ static struct btf *btf_parse_split(struct btf_verifier_env *env,
- 	return btf;
- 
- errout:
-+	btf->data = NULL;
- 	btf_free(btf);
- 	return ERR_PTR(err);
- }
-@@ -7085,10 +7083,16 @@ static int btf_rebase_inline(struct btf *inline_btf,
- 	return 0;
- }
- 
--static struct btf *btf_parse_module(const char *module_name, const void *data,
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 88230c4e00ea..c2d2dc1019c8 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -63,6 +63,7 @@ lemans-evk-el2-dtbs := lemans-evk.dtb lemans-el2.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-el2.dtb
+ lemans-evk-ifp-mezzanine-dtbs	:= lemans-evk.dtb lemans-evk-ifp-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-ifp-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= lemans-sa8255p-ride.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= mahua-crd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= mahua-lenovo-thinkpad-t14s-gen7-lcd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= milos-fairphone-fp6.dtb
+diff --git a/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts b/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
+new file mode 100644
+index 000000000000..6f19064997a4
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
+@@ -0,0 +1,222 @@
++// SPDX-License-Identifier: BSD-3-Clause
 +/*
-+ * @data and @inline_data are copies made by the caller.  On success the
-+ * returned BTF owns @data, and *@relocated_inline_data is @inline_data,
-+ * relocated in place, unless the inline BTF is invalid.  The caller frees
-+ * the copies this does not take.
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + */
-+static struct btf *btf_parse_module(const char *module_name, void *data,
- 				    unsigned int data_size, void *base_data,
- 				    unsigned int base_data_size,
--				    const void *inline_data,
-+				    void *inline_data,
- 				    unsigned int inline_data_size,
- 				    void **relocated_inline_data)
- {
-@@ -7156,6 +7160,7 @@ static struct btf *btf_parse_module(const char *module_name, const void *data,
- 		if (err) {
- 			pr_warn("failed to relocate module [%s] inline BTF: %d\n",
- 				module_name, err);
-+			inline_btf->data = NULL;
- 			btf_free(inline_btf);
- 		} else {
- 			*relocated_inline_data = inline_btf->data;
-@@ -7179,12 +7184,16 @@ static struct btf *btf_parse_module(const char *module_name, const void *data,
- errout:
- 	kvfree(module_str_map);
- 	btf_verifier_env_free(env);
--	if (inline_btf)
-+	if (inline_btf) {
-+		inline_btf->data = NULL;
- 		btf_free(inline_btf);
-+	}
- 	if (!IS_ERR(base_btf) && base_btf != vmlinux_btf)
- 		btf_free(base_btf);
--	if (btf)
-+	if (btf) {
-+		btf->data = NULL;
- 		btf_free(btf);
-+	}
- 	return ERR_PTR(err);
- }
- 
-@@ -9445,7 +9454,7 @@ static int btf_module_notify(struct notifier_block *nb, unsigned long op,
- 	struct module *mod = module;
- 	struct bin_attribute *attr;
- 	struct btf *btf;
--	void *inline_data = NULL, *relocated_inline_data = NULL;
-+	void *data, *inline_data = NULL, *relocated_inline_data = NULL;
- 	unsigned int inline_data_size = 0;
- 	int err = 0;
- 
-@@ -9473,11 +9482,23 @@ static int btf_module_notify(struct notifier_block *nb, unsigned long op,
- 			err = -ENOMEM;
- 			goto out;
- 		}
--		btf = btf_parse_module(mod->name, mod->btf_data, mod->btf_data_size,
-+		data = kvmemdup(mod->btf_data, mod->btf_data_size, GFP_KERNEL | __GFP_NOWARN);
-+		if (inline_data) {
-+			inline_data = kvmemdup(inline_data, inline_data_size,
-+					       GFP_KERNEL | __GFP_NOWARN);
-+			if (!inline_data)
-+				pr_warn("failed to validate module [%s] inline BTF: %d\n",
-+					mod->name, -ENOMEM);
-+		}
-+		btf = !data ? ERR_PTR(-ENOMEM) :
-+		      btf_parse_module(mod->name, data, mod->btf_data_size,
- 				       mod->btf_base_data, mod->btf_base_data_size,
--				       inline_data, inline_data_size,
-+				       inline_data, inline_data ? inline_data_size : 0,
- 				       &relocated_inline_data);
-+		if (inline_data != relocated_inline_data)
-+			kvfree(inline_data);
- 		if (IS_ERR(btf)) {
-+			kvfree(data);
- 			kfree(btf_mod);
- 			if (!IS_ENABLED(CONFIG_MODULE_ALLOW_BTF_MISMATCH)) {
- 				pr_warn("failed to validate module [%s] BTF: %ld\n",
++
++/dts-v1/;
++
++#include <dt-bindings/gpio/gpio.h>
++
++#include "lemans-gearvm.dtsi"
++
++/ {
++	model = "Qualcomm Technologies, Inc. SA8255P Ride";
++	compatible = "qcom,sa8255p-ride", "qcom,sa8255p";
++
++	aliases {
++		serial0 = &uart10;
++		serial1 = &uart4;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	thermal-zones {
++		pmm8654au_0_thermal: pm8255-0-thermal {
++			polling-delay-passive = <100>;
++			thermal-sensors = <&scmi23_sensor 0>;
++
++			trips {
++				trip0 {
++					temperature = <105000>;
++					hysteresis = <0>;
++					type = "passive";
++				};
++
++				trip1 {
++					temperature = <125000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		pmm8654au_1_thermal: pm8255-1-thermal {
++			polling-delay-passive = <100>;
++			thermal-sensors = <&scmi23_sensor 1>;
++
++			trips {
++				trip0 {
++					temperature = <105000>;
++					hysteresis = <0>;
++					type = "passive";
++				};
++
++				trip1 {
++					temperature = <125000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		pmm8654au_2_thermal: pm8255-2-thermal {
++			polling-delay-passive = <100>;
++			thermal-sensors = <&scmi23_sensor 2>;
++
++			trips {
++				trip0 {
++					temperature = <105000>;
++					hysteresis = <0>;
++					type = "passive";
++				};
++
++				trip1 {
++					temperature = <125000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		pmm8654au_3_thermal: pm8255-3-thermal {
++			polling-delay-passive = <100>;
++			thermal-sensors = <&scmi23_sensor 3>;
++
++			trips {
++				trip0 {
++					temperature = <105000>;
++					hysteresis = <0>;
++					type = "passive";
++				};
++
++				trip1 {
++					temperature = <125000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++	};
++};
++
++&gpll0_board_clk {
++	clock-frequency = <300000000>;
++};
++
++&pcie0_ep {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie0_ep_clkreq_default &pcie0_ep_perst_default
++		    &pcie0_ep_wake_default>;
++	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 0 GPIO_ACTIVE_HIGH>;
++};
++
++&pcie1_ep {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie1_ep_clkreq_default &pcie1_ep_perst_default
++		    &pcie1_ep_wake_default>;
++	reset-gpios = <&tlmm 4 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 5 GPIO_ACTIVE_HIGH>;
++};
++
++&qupv3_id_0 {
++	status = "okay";
++};
++
++&qupv3_id_1 {
++	status = "okay";
++};
++
++&scmi3 {
++	status = "okay";
++};
++
++&scmi4 {
++	status = "okay";
++};
++
++&scmi5 {
++	status = "okay";
++};
++
++&scmi6 {
++	status = "okay";
++};
++
++&scmi11 {
++	status = "okay";
++};
++
++&scmi15 {
++	status = "okay";
++};
++
++&scmi23 {
++	status = "okay";
++};
++
++&sleep_clk {
++	clock-frequency = <32000>;
++};
++
++&tlmm {
++	pcie0_ep_clkreq_default: pcie0-ep-clkreq-default-state {
++		pins = "gpio1";
++		function = "pcie0_clkreq";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	pcie0_ep_perst_default: pcie0-ep-perst-default-state {
++		pins = "gpio2";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-pull-down;
++	};
++
++	pcie0_ep_wake_default: pcie0-ep-wake-default-state {
++		pins = "gpio0";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	pcie1_ep_clkreq_default: pcie1-ep-clkreq-default-state {
++		pins = "gpio3";
++		function = "pcie1_clkreq";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	pcie1_ep_perst_default: pcie1-ep-perst-default-state {
++		pins = "gpio4";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	pcie1_ep_wake_default: pcie1-ep-wake-default-state {
++		pins = "gpio5";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++};
++
++&uart4 {
++	status = "okay";
++};
++
++&uart10 {
++	status = "okay";
++};
++
++&ufs_mem_hc {
++	status = "okay";
++};
++
++&xo_board_clk {
++	clock-frequency = <38400000>;
++};
 -- 
-2.47.3
+2.43.0
 
