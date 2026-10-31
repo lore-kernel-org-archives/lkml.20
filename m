@@ -1,98 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.86
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793437993;
-	b=czI7MHEcnD5AlOVxHtYdrKRpauJG6ukysxe7Zi5Tq/ClacoovoswEpkJyI1ur1Pag5ya
-	 6mdsCAm68prhkonkLvCTFKJB4UmDisEYsm/1zei9ozwpeAz3Azw6MrMO9di/a2QIpb5T2
-	 z3NMMJW20bXOZPgso/53rzg7u0OZQ5NmO6jYpYG6NHjrg+b7hRnR9Idw56NSZpmPC4BG2
-	 E7qVUwg+QWHwJRzDH6IsEqws0SaI5J62+tgpaCaej/FE5O3eaQFmWr6rkAY61/njkXTZR
-	 aUUTocQHSmlddqLobnXasz04dnoPZ5YTvogH/xkV7oeCaQ5CUkG7xuKDOAFmlk197jg==
+	t=1793438138;
+	b=XFa5/0SM4unJTVKE3uYnmn6rZ5od/U+TJ5sZncMHPgvhpijHCeuQGQri+vXwqxbjFF78
+	 N/im+K+hx7SmOBVQmuTiZe7JYqDkubBJiAql+jMoDqAOX93q+XM7gV9lrjqexKgoIU0q0
+	 RxvDUQvOeGATD2F4oNALoPMsHHrI1HfsHbUlHEPwdF9Ut9NVeNdysvQr+m5OPujEZnNsW
+	 cW/C8D5g87efemtnng66w98E5/q+8oq8qDtTrkUYmZmyr6gV7JxXlZJRj2+IHtP4204T0
+	 7JqkSa3Q9xi+SY661s1SfSu8y2ezVeSBUJV4TUWS6fvHGZoJuTPDUceW2JHoid3UtHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793437993;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yvb6WJh+6K9JJR5AEaTQbWzXxWner501dTBgAUHA8yQ=;
-	b=eRNGdkvjawir8gcSv9z/A6Rpv+y6KI5IcJ9JuQZT5+mFmvbZ6HA/ZmcKR7KOL6rtnPFc
-	 KRfquC8F/W2w5kOs7woewUyBktMIWTmjE9eY61ktlR91H7emCshQ3mB61LMn14fDN6VG2
-	 59R3X0dJ/9oqMRVLYjjf/2Yew1kNYw6bxaQZFqINXbZJmg3usNoC4KBsY2bwDmikHgkZD
-	 D3pKQeu8+2ufNKvtrq788ap8uNgekhFwUFrP7AiQaBtbeUqGpeh/1HM6QZUZWqivvKfL5
-	 OJR5tCqkttySmq0FTcIn1v9JdHsGXqxEEnMcMYPhw55+UQ+FRfaAItsVGBaEIPT3uiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793438138;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-CMAE-Envelope;
+	bh=adFeSo6LiWLBq4ge/dKAXyxOGLioJz7noYoprivxhPQ=;
+	b=Uap4z2E3Y2xXlh9jo/61Oyrec2ieqaZX7UAIgyg3yBocgz9JC6gBgSjlm/CLt9mjJIAL
+	 +Z7EZ8tIpgD/mH0PYPOZ5w5h/ObJopRHINMqB9bu86iVOnTwe2nAC6iNHgS4GV+Ur3TsH
+	 4wOL4Hcqs3pZDPWsAQ2J9l3gzSvq6eyU1iy/R0ulDn/3APzxJf1Hi4kDizphW88WHInYD
+	 h+a6gKC05lHUpTvauCI+TZFa/h1uMrVH/XPrIaQVPf5oKCP1s8MRhXrBNyCmdGV9/hvql
+	 ZYnN8fo+KZxHVjRwBHCwAQIZAe1/rB2Cn8flIrA7QzuumW8jBGNsj7u786k5Yslrr+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l8TRV+nK;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mythread.it;
+	spf=pass smtp.mailfrom=mythread.it;
+	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=AZkLuA0r;
+	arc=none smtp.remote-ip=62.149.156.86
+Received: from smtpcmd0986.aruba.it (smtpcmd0986.aruba.it [62.149.156.86])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9214606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:13:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9214606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E612606A320
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:15:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E612606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l8TRV+nK
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1adbf62dd31so1348245c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:13:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793437992; x=1794042792; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yvb6WJh+6K9JJR5AEaTQbWzXxWner501dTBgAUHA8yQ=;
-        b=l8TRV+nKZq27poYKUBpHFHNHKP/A+FczxkUjgPZVg+TgooT7d3lvIHeADPQPVRY0lA
-         ZnItKG79DJ9KXKc9uCmGPVHZfqpf8LCTG6ViNOh1WAdo7ydTAS8gYl+GH4u01SA2+KU7
-         lG/vGR96+URF1BiPqfinuaUFYyeClCicViVPlp9lFumQgAY1Tz7pzl/Yy0Dzv2hyv6MZ
-         EW4Tvlswug29I0wvMtsMAE8js/f0jjfd6vBZPE2R50YSSlBPKqnwA7XVS0mVjktukqGW
-         tBYXmhpeZkL8+szN0YCHIUl0UvwvwQOdzIPSFab110vwhZF5O0FIx99fsDeZwHyqpQdw
-         Qm9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793437992; x=1794042792;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yvb6WJh+6K9JJR5AEaTQbWzXxWner501dTBgAUHA8yQ=;
-        b=wITu2YLwCzo5piGvhLQIThk6/Fje2XeOelWHPP+Hp2Rtwq4zz9Ft5ut1E3PJKz5l2v
-         yFb6VjW1Uh72vYKfsHazYe/nVXC5mGKiJ5eOvq70R+PK5X5DO8X1XmbdIA9keIRl2bMg
-         6csJ4WQPRqOboLTDaSh3XapxbPLWQIHGqglcW4OO5WQ779RFTP5EnIlnoemL2pa9W6fs
-         HV9OqqXQyitWFPHHQGy3yeLO5GHS2YzSuTa26ElkAEr8lXPYBoJ6ON3I64tEh0qjanlz
-         jY/nwpOWxNbfKheA3KB21AvSeHPeRJDZNwhPBCgXlJHzLF9myJUSkF4MXlcQFDl8O18E
-         Xd9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz2L0Xb5rwcdOn48swmgykimSmajgWHbOD4Sj1gd1wj3g58yUy2GLkLLlx1xMfvVjL7SPIxgZiVB/jCUB0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+dpFq+XcHig3Pi5YfuBmXVMUDecN52ffCTKNSaHAKbe4/vij2
-	hLMFJUM9KOK/m0Engznd9TPTpQhuzXDtyVirfE8ltCl82IRkrsSGFaeW
-X-Gm-Gg: AYBFou0Wp5x7Zb5OMVeTb00XxwbeykrOO343oKYjmYtvJWKVKhr6udIJxXb1r8NUalj
-	RpkB47GAIv7ZxkaGu49CkKL38J6nIOjnK9wqsoa9rvMSuGMeLaNx+idzypz2VoPn2+2CW8iU6d4
-	cnuD1QLw6tTAQyyH1KyM5yEIi4dIERisLiC42qHEhvQDA2fU4KwJAzoDzpbv49ZngmtFuM1CrP4
-	pCJmctp4+sPti0LzmbQ3mSWEJ9BscuJJ8conDeS5dQbm+3w3/ryL+CvZ1UMQSpkQmcrKMHCTooZ
-	e7C61JMp50fY3Um+k2C/sxHaXwmifyibK1cdDiG3J7eIy3ohdlxdo7FyuRpx6HvCfE3A5VytSgD
-	tBNDml6HomD1r+l3MiOyPRtUCDahKP6vFTQRd1rSqC5qN0kv4uLBin0ZJ6FeExm01639EHiNh1a
-	NWSLesAcI3nE1dPMc6RgzWbv4YsgbJsF1X2HBvhlwqW1JC1vpiBqyniZ1trwXPdY5OBQ00SVR0D
-	6jKIUeYQeDVo0yhY0ghzXXx+3bHsGgU4HmdSHm2sWKfPtIUXzNfZGj5+QtnZySdvMskvrg6tvRP
-	QzM0wr4ZWQ7Ye8AMQklqLyTBG2Ecd468Drd3
-X-Received: by 2002:a05:7022:3b88:b0:1a8:ff0b:a4e1 with SMTP id a92af1059eb24-1ac5c8380aamr7862765c88.18.1793437991368;
-        Sat, 31 Oct 2026 02:13:11 -0700 (PDT)
-Received: from archlinux ([2401:4900:ccca:8aae:db4f:18dc:62fa:a502])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6eabbsm15771014eec.24.2026.10.31.02.13.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 02:13:10 -0700 (PDT)
-From: Nithishvelan M <mnithishvelan@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>
-Cc: David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux@analog.com,
-	Nithishvelan M <mnithishvelan@gmail.com>
-Subject: [PATCH v2] staging: iio: frequency: ad9832: use devm_mutex_init()
-Date: Sat, 31 Oct 2026 14:42:36 +0530
-Message-ID: <20261031091236.40401-1-mnithishvelan@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=AZkLuA0r
+Received: from [127.0.0.1] ([79.43.52.162])
+	by Aruba SMTP with ESMTPSA
+	id N5BMx1hYL6q8sN5BPxVoSe; Sat, 31 Oct 2026 10:15:27 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
+	t=1793438127; bh=HfN5B1zdByBYfML7ECe9pT8WMCncWhH5/RQHDDrcjxM=;
+	h=From:Subject:Date:MIME-Version:Content-Type:To;
+	b=AZkLuA0r9WxOjrHLimI+vPJqJyNjPmlZpHxgZ+mctxf+OZ2JfF8bGdBwJgQjDbaN9
+	 MV7BcFLFJ8HhFzjXJRO5euGpdzi/H5a07TzwHbjLR8VbNh2OAb4bcEOsbXajmw+nSO
+	 iCJe9TJwlAsoEPCfiEjbJahxlUQBtyrJoxH2Hr2mky3DjwTAq5myBOlGuF5ZQQDEDC
+	 e21O/4dpxa7i+0IbRcdcKDOVDs0goO/2LGd8PRQgVBKutmE9bOcrAyc5OtQBu01qzN
+	 7S+QSGcaFH9DZ774MsMFp/iZfwmFWkeCtBjQs7lJsRWkTXHldsVo62HaOQj5OL2G6r
+	 ooBjR7PBYwbLg==
+From: Alessio Ferri <alessio.ferri@mythread.it>
+Subject: [PATCH wireless-next v3 00/10] bcma-ac-rev1: support 4352/4360
+ rev3 chips
+Date: Sat, 31 Oct 2026 10:15:22 +0100
+Message-Id: <20261031-bcma-ac-rev1-v3-0-1fbe38e8179b@mythread.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,40 +59,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAKqx5WoC/23NTQ6CMBAF4KuQrq1pCxbqynsYF/0ZpEbAtBUhh
+ LtbykaNyWxeZr43M/LgLHh0zGbkYLDe9l0M+S5DupHdFbA1MSNGGKeEFljpVmKpcTym2MhKFLR
+ gpSA1iuThoLZjqjujl3VwB+9xB2NAl23tn+oGOqyVK2isD72b0vuBJvb/UxyCFScVCGHy+sBP7
+ RQaB9Ls7VY+sA/Oyh/OEheKU51Twcg3X5blDUxa3gQKAQAA
+X-Change-ID: 20261014-bcma-ac-rev1-da894142790f
+To: =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, 
+ Michael Buesch <m@bues.ch>, vit9696 <vit9696@protonmail.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mips@vger.kernel.org, Alessio Ferri <alessio.ferri@mythread.it>, 
+ b43-dev@lists.infradead.org
+X-Mailer: b4 0.15.2
+X-CMAE-Envelope: MS4xfOd7s3KzrSBYunUKqXBlJDC83HYowjIiUewPkbHeW9ZVuORYU494wfI6zThqAswEdw4W9F3uYvmFFKgX6oDzXxCorpkXWuE+5kvRCyqw8UtJqpYiBXZl
+ 5Zla5aRRVNnGEYNMdqqoHsJcnxqrH4NZvZvzxllFK7YBntGCG3UAtBd/qb76nhvfMWgSuXrp+bGS9/cpK9r2lwxihU+ibQRkSoLhfEYtC/VE8qp61GrlLI6M
+ BIlaYhpSoA1zrZkmVPpVbaJsJip9e9OFVMRtqRAE815UJlFMxDluOV+zgMKZ8zKGbx64nkrhQSgHOujtwqFClvGncJrJ9/fPfK/C/cKzmyWBnb9mV+BQQVm6
+ qRcVnNDQjIS7CMIoomNQhu6W2pqcz145DmEHpc/BrJvcAOt9QVxXBJrlD3OVTKtmwTwtkWH73ruilBTQMKW5SjR3TgcQew==
 
-Replace mutex_init() with devm_mutex_init() in ad9832_probe() and
-check its return value. The driver already uses devm_* helpers for
-its other resources and has no remove() callback, so this ensures
-the mutex is destroyed automatically on teardown when mutex
-debugging is enabled.
+Preparatory work in the bring up of AC family rev1 chips, in particular,
+the bcm4352 rev3 and bcm4360 rev3. When public sources were found, the 
+same gates applied for operations were ported in this code.
 
-No functional change intended. Compile-tested only.
+Initialize the PMU, the PCIe2 core and chipcommon of the BCM4352/BCM4360
+family on chip based on the open source version of broadcom driver, parse 
+SPROM revision 11, read the NVRAM variables set on top of the SPROM, and 
+bind bcma-pci-bridge to the BCM4352.
 
-Signed-off-by: Nithishvelan M <mnithishvelan@gmail.com>
+Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
 ---
+Changes in v3:
+- regated most of the checks on the proper version/flag present
+  instead of forcing everything to be rev3 only, as Vitaly suggested
+- Added nvram parsing for all params found in a real northstar router
+- Removed AvVmid parsing from nvram, as it doesn't seems to be useful
+- Added missing pci ids for 4352/4360 variants
+- Link to v2: https://patch.msgid.link/20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it
+
 Changes in v2:
-- Add blank line after "st->spi = spi;" (Andy)
+- gated chipcommon behaviour on its own revision instead of chip rev as
+  pointed out by Vitaly
+- Link to v1: https://patch.msgid.link/20261014-bcma-ac-rev1-v1-0-b608e99d3f56@mythread.it
 
- drivers/staging/iio/frequency/ad9832.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+To: Rafał Miłecki <zajec5@gmail.com>
+To: Michael Buesch <m@bues.ch>
+To: vit9696 <vit9696@protonmail.com>
+Cc: linux-wireless@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-mips@vger.kernel.org
+Cc: b43-dev@lists.infradead.org
 
-diff --git a/drivers/staging/iio/frequency/ad9832.c b/drivers/staging/iio/frequency/ad9832.c
-index 35f823f24f..e3b4e19a8d 100644
---- a/drivers/staging/iio/frequency/ad9832.c
-+++ b/drivers/staging/iio/frequency/ad9832.c
-@@ -325,7 +325,10 @@ static int ad9832_probe(struct spi_device *spi)
- 		return PTR_ERR(st->mclk);
- 
- 	st->spi = spi;
--	mutex_init(&st->lock);
-+
-+	ret = devm_mutex_init(&spi->dev, &st->lock);
-+	if (ret)
-+		return ret;
- 
- 	indio_dev->name = spi_get_device_id(spi)->name;
- 	indio_dev->info = &ad9832_info;
--- 
-2.56.0
+---
+Alessio Ferri (10):
+      bcma: core: clear only FORCEHT for BCMA_CLKMODE_DYNAMIC
+      bcma: pmu: init PLL and resources on BCM4352/BCM4360
+      bcma: pcie2: request HT on BCM4352/BCM4360
+      bcma: chipcommon: enable asynchronous GPIO interrupts
+      bcma: extract SPROM revision 11
+      firmware: bcm47xx_sprom: read the SPROM revision 11 fields from NVRAM
+      firmware: bcm47xx_sprom: read ledbh4..ledbh15 from NVRAM
+      firmware: bcm47xx_sprom: read boardflags3 from NVRAM over the SPROM
+      bcma: add the single-band BCM4352/BCM4360 PCI IDs
+      wifi: b43: add the 2.4 GHz BCM4352/BCM4360 to the supported bands
+
+ drivers/bcma/core.c                         |   2 +-
+ drivers/bcma/driver_chipcommon.c            |   3 +
+ drivers/bcma/driver_chipcommon_pmu.c        |  81 +++++++++
+ drivers/bcma/driver_pcie2.c                 |   3 +
+ drivers/bcma/host_pci.c                     |   8 +-
+ drivers/bcma/sprom.c                        | 200 +++++++++++++++++++++-
+ drivers/firmware/broadcom/bcm47xx_sprom.c   | 253 +++++++++++++++++++++++++---
+ drivers/net/wireless/broadcom/b43/main.c    |   6 +
+ include/linux/bcm47xx_sprom.h               |  15 ++
+ include/linux/bcma/bcma_driver_chipcommon.h |  15 ++
+ include/linux/ssb/ssb.h                     |  70 ++++++++
+ include/linux/ssb/ssb_regs.h                |  94 +++++++++++
+ 12 files changed, 722 insertions(+), 28 deletions(-)
+---
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+change-id: 20261014-bcma-ac-rev1-da894142790f
+
+Best regards,
+--  
+Alessio Ferri <alessio.ferri@mythread.it>
 
