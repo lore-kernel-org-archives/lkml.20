@@ -1,70 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.159
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793447090;
-	b=0Avh/TVmBvHOImTyNN0uVi1GUDWKYdVWYdVepjEKacl/BCE+n3TcwQaipc45kc8AUgJM
-	 +rCVg0dDKsC7n+e7MVXEfz9aBv1FAeOvQ82SUChxKfYdQftLgm+0Ipai3DGuMsam6UxFd
-	 0ln4+jzwtN0AI0VWghM6jKZ/09ur7zqeEuYtGkV8sSh+DSZ2MhQ9Kbz+dY38+WYGPmdg0
-	 tEMuly2ldHxn/RIHLj1z1v6VHTul7jdNyZA7Gce2vJKIPSjOGvnzWPYUjZGdJXv1SGs50
-	 jS36h8sTnc/S4NFX420AWtSwluWFXP6OC3Ey/qxMSf25nk6aLbbd8PDHM8SVgZwm/rw==
+	t=1793447105;
+	b=MQ3+8yNn2dYyclJq7ILzdAQKuq+gsO2mUFs6x5k6c4MxT4vXT2rLvHtHwnd1CAaZPztX
+	 NxH88NVnidMAccj2yzhLs4sO2oA6nxJb88zBIsA/O4RkcjbI6ZdnXLu7BOtg30pZPkEME
+	 /oCKttFuw6q5e2owwEC1cDUZMmJAxOCDUiQyt7yR3k1Zw/KmTaAxKYMTjmAdMd2Y0JPn6
+	 MAuK7DxfrnkyaugBBsFXumXBh75c8hnTTzaoCfmSRcTZ/1QcVP4UfIfgxSC5ikMDdcem/
+	 oHA+4q0RlCroXTTm7CrKf30ps6K9e3AT+bjFw8Vt7rE72x/GqXQ5BDFYda0g4fSj52A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793447090;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=CVHGbPYBXbnlGmadd7sg4ULsHDVkzLKJ1bNCGoljV8I=;
-	b=WDaLaKQXkqp0m12Byi1XW4/vjTGYsHYzQnbCq/59XghBWR/X3rnz6ShhQhXQrcOkLoJW
-	 9hjdSXf1vCjmp5asV7EnWfWb+2KwPjMHI/W6ERTDX3bwxkqGIyH1+s/P04vmHDa1wzNLk
-	 nwxSq1E5bvlIJ48653iZG0jrEDfLbe7byy+VclLd4zoazC3c93oNqkjW5xDQQmP8M7YVD
-	 xKkzRMMgcxX7Wbm4MNA9KVyJaACo2g76SUosYebtY7qtPGUDXmwpbHBTdlTJfyvlES507
-	 eS1oLxqUgdnOilE9HmIyrxmOhBdarAw+ikD240/JT+kOUfthc4/JZ6pxw/gDNGspY8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793447105;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding;
+	bh=yh5/viyfu5/4siOeSTWNKrs82ssQB+LUPwEsikY9lcE=;
+	b=HHRLrsO2ce3YT0cOXWvjbrkD//IcLoLXtite66NE7t7tcziK3QXwC7yLTXd9c9LT4L9l
+	 PurHJ/CQcRNj0JiSWFGWpOcioB1jKskUdvbV0uhb8W+3MYw8PWUs+yuiAt+/kBKOACLmt
+	 pVHFZUamRom5lTdx8hmimLuxEmTbzOi/GYnQZpDdV9ehZzLNPGN4ZHiN8cYJC8PMfDWPu
+	 musR5MbLobgx088liK81Cv6RG8HCVjsaePwz6NwITvkw2oBfCJWtIw0LTwiB/pyMpp5WN
+	 WDEAz/fv4OVR2jfvTnlI0OQVdbAxIYvXmleXNwKTcK+xtCS9k9bWfg5HhA36Km1rBSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=xbyOkOlu;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4073606A31A;
-	Sat, 31 Oct 2026 11:44:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4073606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=none header.from=flapping.org;
+	spf=pass smtp.mailfrom=flapping.org;
+	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=cfvKvvQQ;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ZXOkY+BK;
+	arc=none smtp.remote-ip=103.168.172.159
+Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4405B606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:45:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4405B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=xbyOkOlu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=xbyOkOluZiPxoxtnXmeMntgSXkhHxsiL+Q9xChsHip2tg8YB3dPxFZ2wxTPTxoJTKOIr3DuZlEbj1
-	 V2oTC/Xby5YWJPG20AIRSOIxvHN7KaTxRws/CmaXgdSkzxHlvJCBiXm0jLwjnHZf21P4XdmkdnF3zF
-	 tcIAWGxE0KESy99g=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76ae5d49b899-7ba42;
-	Sat, 31 Oct 2026 19:44:38 +0800 (CST)
-X-RM-TRANSID:2ee76ae5d49b899-7ba42
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from [198.18.0.33] (unknown[222.93.19.82])
-	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76ae5d4a4b6b-82117;
-	Sat, 31 Oct 2026 19:44:38 +0800 (CST)
-X-RM-TRANSID:2ee76ae5d4a4b6b-82117
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: Yingjie Wang <1075151112@qq.com>
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, alexhenrie24@gmail.com, linux-kernel@vger.kernel.org,
- yana06070@163.com
-Subject:
- Re: [PATCH net v3] ipv6: reject wrapped temporary address preferred lifetimes
-Date: Sat, 31 Oct 2026 19:44:36 +0800
-Message-ID: <179344707641.114606.12665582704521593779@cmss.chinamobile.com>
-In-Reply-To: <tencent_7A270291DDE5CD89DAFFE8A745D094D5BD06@qq.com>
-References: <tencent_C2E4FE9B7C0A05615861782611715EAA9C0A@qq.com>
- <tencent_7A270291DDE5CD89DAFFE8A745D094D5BD06@qq.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=cfvKvvQQ;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ZXOkY+BK
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 8C28E1400213
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:45:04 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Sat, 31 Oct 2026 07:45:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1793447103;
+	 x=1793533503; bh=yh5/viyfu5/4siOeSTWNKrs82ssQB+LUPwEsikY9lcE=; b=
+	cfvKvvQQK0Till+ZvkhKrooF1GFzpPk/cTtcTzL5C42uYaftGbASwExLaMnH2SqE
+	53XYMevv7BltNRV7VHEcNq4zZYwpGtE/bWwZsgHCPEn2oigpnBSYjh+EPdHidMIs
+	FBX7L1xqM0OI7sXBCYrcsvdwmp4AsqwJF8jU3uSqRDvHw8sQntfCGD2TQ52f8Xsk
+	s9mTaJN0jULB6/NVXkzRt+T5Uzaj8N9+fjVFoLmS65CtgSW22tZ1tFa3efw98EuF
+	H87mIrEWu+DTiG5QJj+XrkNjUNA0FkKqmAioTI4JMfFc1jkhk8Mgx6uvU0nF8UB3
+	JrVk/NB0imxkEaLtT0f8SQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793447103; x=
+	1793533503; bh=yh5/viyfu5/4siOeSTWNKrs82ssQB+LUPwEsikY9lcE=; b=Z
+	XOkY+BKfZHTse5dxNa54bPDrR9vMh419do6VV7dAGlC6Q/6+jCMD+HQaRYM/3D6/
+	ehw/Xoshfu6FSzL9sEvSVfDQiXJx+y7VCX5foC+4z+JL0gyGw7W5ATrBigZqxikp
+	iFlTmCReA2UlbkGQ0djdeI+C83HwXOEpGPO8ARX0yueGtMzgwwllZEV0hGNYhzqU
+	c3eskfCbz2WDinXmt+jgzh4GxhyJlwougFkEHsVxFKRjhHgb/rJOZdgSeNwE4nwR
+	+D/dkZLvF9632nZSdl9G83+IPYVnyYtEppo6nhiR2hX9DtsVavVDHsOV1Q/z9DoE
+	XYnnDDPAVd5xCL3H6I3kA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=flapping.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793447103; d=flapping.org;
+	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:tu9cmdMTX47JqD6t5u/15eesYfqNKw5SVaKQaD7b505deHa
+	OmNkOpwZPxJHPh6XE4kqW9gglGQGnG7wM2TuUVxC39w9jthEEPvm6L+HAqfQ3vEH
+	hv5bZ+eZcJZY6tLx03NKp7vHBPiqi+CJ3zOFYcz+Z1XljsNP6bPDBA/HfzMUrwzF
+	dXzEejPu7Uwu2ZPRPtOPGAe5ocsSN7Vt5EQNN4n2eUvpeTKHfS4P8GA9JDu/H7yc
+	ddaIquaxphfv2ZoyaIQb/6qDXBUsYP6Y7qQJoALhDGLuueJcTMBUYKUgNg8bIteh
+	W42nUUbRKj8jSKyP/MUB07aQqaUK5R3u7gfnuYA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:KXLoH1m/hV1wdE+3oTpYMjEPpvFJYk5uqNHzi4shSqA=:YyWA9MNFewHphcHPyxED9CWS9/SONiVR5GIBBIDtxTo=;
+X-ME-Sender: <xms:v9TlarEctQ-huGeWNrppPKwYyaza21w2Ojw5JUGUKFrXTNYGCcax9Q>
+    <xme:v9TlalyD6qv5t36r7s2n2Fqv1xZlIpRcCPyDh9DJxX-_77lNw2qnnkrS8VF-5IwN8
+    JziAoZV9b8e9lM4Zfy06zwlg2Wdj7_Fp2-oDohU-I9M_5FgNul1pEMb>
+X-ME-Received: <xmr:v9TlatFR_-O6CJYslIWGYvPQXzccM2WHzJtZHn5OUKg22ay3RQA0EKun-L7Ja93olMPwVS2npeK301d0fT8KmM0J>
+X-ME-Proxy-Cause: dmFkZTEZRQ55MN00/HAZ2yP690811VpJh/TI4buxn6M2o3NJe5GvuNqDXbYicOWvZwLzOb
+    e/PEMlu2zxYPd1bx0ooNMwpUS0TPxcwzYtgt9e9SloI/dF0FXE2HTWTmaVLrAN+opzQ3MA
+    N9fFCrr0rPPRJaOZ2jUGi+qSI2xTPDpp8bYwwsy3Yqm8MY4JavcjO0sF4UiCZDUm41M+gy
+    gCu/2VBFATHVcV0EJKNJzzL2fuLWhbl2EGpXaXecQm6JUrTQBuOF4RwxiQfahFAhyBJybg
+    v0Kbdyr8PFkIShXSBd5B++zc6oOsa38ZOTNZk4eGeSWhlNRsXNIGsP4AvFNkKQeC9OeylK
+    FsSxQA5PwNbk04rZdcVTnKKr6sjE7Lt8zgKaoUDtCLgMk+ZWK2C3doYUT/h/E1so9XRRKV
+    1gGSMrSNfn0le57VMnceK1BjzW8c9f0Z82a3r7DM9G12XJtDfmKY7KJJdnKZTs7R8eNumz
+    QCHTKrUF76FcGM2tHGqqW+bNyFL1JbOOGOvkNlmbcYnghrsZQdL5NeMTGX9HJuyUhTLiTz
+    0ZP3XPIuGfRXIsl9YnrmiNJSD84ro3SUVgTXnBvq2OPfJ4g5oqQKosSjKDPOlIxtrfecwB
+    B8Ru6h0xplYIs08HazmRSBG3ud/bTte+wzRJYwDtFMKtGEMbKURVaWyjU9Qw
+X-ME-Proxy: <xmx:v9Tlaqs0KIwHRU9mLi5NOVXDb4VaGfxhYgmN2xU3gPWojxSZxXSqNw>
+    <xmx:v9TlahVn2M5m4y1RxFQLjmTuxAsgsX6GBTbzow17p6bvEMG700O4HQ>
+    <xmx:v9Tlaq7zeq23eCyj2tYhE5kuo27K2uPKifOYwCXNx4dNriboIIzjew>
+    <xmx:v9TlalZ-gSbYk3vQowgasPq_sj12coZfzISKRwz5zB0lD6r0XDqmmg>
+    <xmx:v9TlaiJJD7PBCQ1JQ5_seJXitBfxJqMUQKxheitCtz2DiVgHyaVVSuFa>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 31 Oct 2026 07:44:56 -0400 (EDT)
+Date: Sat, 31 Oct 2026 20:44:53 +0900 (JST)
+Message-Id: <20261031.204453.2065904807866384795.tomo@flapping.org>
+To: chenhan0017.work@gmail.com
+Cc: rust-for-linux@vger.kernel.org, a.hindborg@kernel.org,
+ boqun@kernel.org, fujita.tomonori@gmail.com, frederic@kernel.org,
+ lyude@redhat.com, tglx@kernel.org, anna-maria@linutronix.de,
+ jstultz@google.com, sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
+ tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
+ miguel.ojeda.sandonis@gmail.com, tomo@flapping.org,
+ georgeandrout13@gmail.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v5 2/3] rust: time: make Delta division and remainder
+ fail consistently
+From: FUJITA Tomonori <tomo@flapping.org>
+In-Reply-To: <20261031103206.24051-3-chenhan0017.work@gmail.com>
+References: <20261031103206.24051-1-chenhan0017.work@gmail.com>
+	<20261031103206.24051-3-chenhan0017.work@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,39 +133,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On Sat, 31 Oct 2026 18:32:05 +0800
+chenhan <chenhan0017.work@gmail.com> wrote:
 
-One question on the clamp added by f4bcbf360ac8, separate from the
-wrap fixed here - I don't think this patch needs to address it. I have
-only followed the source and have not run this case.
+> Delta's division and rem_nanos() use Rust operators on 64-bit and C
+> helpers on 32-bit. The report shows that rem_nanos(0) can return 10 for
+> a 10 ns dividend on ARMv7, while the same call panics on x86-64. The
+> i64::MIN / -1 case also differs, and neither API documents these inputs.
+> 
+> Check for zero divisors and i64::MIN with -1 before the architecture-
+> specific code, and document the panic conditions on each method. This
+> matches Rust's signed division and remainder operators, including when
+> overflow checks are disabled. Valid-input results and API signatures
+> are unchanged; invalid inputs now panic on 32-bit too.
+> 
+> No in-tree calls to either API were found at the base commit. The checks
+> stay in the existing methods so the fix does not depend on introducing
+> a math module.
+> 
+> Fixes: 4521438fb076 ("rust: time: Implement basic arithmetic operations for Delta")
+> Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+> Closes: https://github.com/Rust-for-Linux/linux/issues/1254
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: chenhan <chenhan0017.work@gmail.com>
 
-As far as I can tell the clamp's termination relies on cfg.valid_lft
-and if_public_preferred_lft being finite. Consider a public address
-with both lifetimes at INFINITY_LIFETIME and a large regen_advance,
-with no wrap involved. For example with regen_min_advance=2,
-regen_max_retry=3, dad_transmits=1, an RA Retrans Timer around
-28,600,000 ms and HZ=1000, regen_advance is around 85802; raising
-regen_max_retry via sysctl has the same effect.
-
-If temp_prefered_lft is set below regen_advance, the effective
-max_desync_factor goes negative, desync_factor is reset to 0, and the
-clamp engages on every creation. The clamped preferred lifetime
-regen_advance + age + 1 then passes all three checks, including the
-new one. But the temporary address inherits the public address's
-tstamp, so addrconf_verify_rtnl() finds it due for regeneration one
-second after each creation: one new temporary address per second,
-each living about temp_valid_lft. Creation is only refused once age
-grows enough that regen_advance + age + 1 exceeds cfg.valid_lft,
-which here is just temp_valid_lft, so the accumulation is bounded,
-but with the numbers above it can still reach tens of thousands of
-addresses.
-
-Is this finite-lifetime assumption part of the intended behavior of
-the clamp, or would it be worth tightening separately?
-
-Thanks,
-Xia
-
-
+Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
