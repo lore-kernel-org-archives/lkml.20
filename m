@@ -1,102 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793436251;
-	b=X4d8erjxDL+LA8oJJb8nX5z9BiWHKpLjJr9DI0Aboo6GPgEFqFwHQRr8PT1jgWZL2XPm
-	 2y59tEjAXH+/ymNZo2bXCVBS0qWz6jDSottOaGXad9aZlDY414xYfuJS0ibyi0sY+TYyQ
-	 A6BIn+jPnhksOzCDT2p76Z3Rk2UscLRdDkZPv5zb1G9XkDiheHEo2fAmxMqQzkIarsfbE
-	 PbHOMGMNDXt4H+ipDOq1Yr52Fa5uaklGcFD3Q8n6ZWBfgIPthGNr8IgSVC+tf4Eq8vf+m
-	 q6+ZiXM5ARv47AIPQSZUhtjhgD7/jGn2CLbHenBPvwhbJINlEZqiuBfla22TqXqt8Ug==
+	t=1793436383;
+	b=DhavEXEcBkQFGdJDRw6tmpoomArXRiMphXkC+8lX6fDPz48640FKJeEYc0cOQOnJRC3H
+	 7VisNzGW/Y33ENuJYQR/DlMA1hI1zgcyLpVneFZwBQLoQH4XOz3TAYRbR33cnHO9SsSs4
+	 vXBV1zC06keRag8rK3Dbh9MV0NaTwbJVuvTr5l0bYAl5YqHAQ5X4Hk+rGMyeAN8lZcE4L
+	 4bNByfUjgQu2yo3ZOt2z7re4oaSA3y+aLCx+lUgfBgrw7WWr5CHuAMB532YFFUJJXS32Y
+	 iEdn49DrkpMnIlCYwPDExwxscYrgxC9WpZZvwgqnK8DQuwfzUt+4ain26CJgHzjmeag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793436251;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=W7C9cpmzdFca870tYxpXsF2MjrgsKkdtNJLk6fjsOEI=;
-	b=C8dO34n1vZaHpFQI/Oxr9TDdmbMKhVqZm+gSZcuU2TSenVcVWiwM9Z3zyMP2OfitfrlO
-	 duuw1TnkhYS7tfZTWQWDWq+86mGU+r6GbJ6HPBc7kazk1Z3IFe+a+T429I1bd+NoyioM8
-	 +g2DJfKbSd+rCeoAlj1UrzXgGQQf5WgX8VFNjjfOeyRtIwDwiHm8bZLHxP64u+dQQwqdG
-	 jjUCaL3Zd/EPkp8pdNytTYj8jS5NGlvtdX7enaTxGEQep8GLYPInbuGhNtq7TCz0DBIfo
-	 ntMlplvbF5imLchjZPfRF897FTciW9woE7uUO4XCToXE66Y24ex9H1H/cHyQwqe5Xsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793436383;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=msGgE+yF4ldZ/hVSYFnQ0w1ommr92ISaYkckmm0P1Lo=;
+	b=1ayu0F9aduW0PahZsSMyOTSw+bjWGKPnnXSIm5ehsLMOfXeJEKi5/VLSHAUqch7tFGGe
+	 8Q0RvUtkOUmjBnYWJdluUkYx1VFUJYw9jn05y41NRKpIFfHbmuN8D2u4WjQBzA+5pw09E
+	 7srF0oWkMJFBjIp61joYB2SwNGrQrXuJ7rCBnANq5IsMiz9ktdtBlUPNEtiru2MA4dN+h
+	 lHxO0Zhnn5jTyO19QFsOxk8un8QwAw8Ohh+9eWgnudZy5tjcDBLIwb/swfRlSbxoxmqnV
+	 0hjQ9IJao0TQ40buEJIvGv7w2ivtlLSJkxiER8NcLE8NSEmBdQiaemuV5/JGQz2+J4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MJNJZifK;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=iOjBj1M5;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Tg5JJ1LZ;
+	arc=none smtp.remote-ip=202.12.124.144
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBFD606A31C;
-	Sat, 31 Oct 2026 08:44:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DBFD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4142606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:46:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4142606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MJNJZifK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793436249; x=1824972249;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=wn8SFowoel5epk8m5Si6mxTN8wfKc2MuePpSe+sjbLY=;
-  b=MJNJZifKks8msiDDTcsubAz8Flw64AfLcsvFH3BruUk9obfl7QY2NXb3
-   NpRsus+d2uLYRFgYZGOHVvhordHKa+0vmTubjylePTHxleVy03LDmFoe0
-   EluMIMucdmTBJmInPRzTb69QuqzCUrOI0zKgCHGOabJLH7SwuOF2oMxxn
-   4rct3ChXXshKoAH2i9KwXky8H4CeycU33xHzkXkSwoyd3dvqNsZ+Hpigj
-   xojbqz76MwGxVzgwQzcnfXtIFY5cbZNbUqyltTmP9AFllcS3+jvzsyFzR
-   XcjQkzmZlJbItfNVAxB8d3PKu6wCH2ZVjD1ittFhY/MVMxS4Mt7cQH8+m
-   Q==;
-X-CSE-ConnectionGUID: avOEHitMR72MqAImxd8aYA==
-X-CSE-MsgGUID: DsCaJd+UTumHnlgAusFkXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2185102"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2185102"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 01:44:08 -0700
-X-CSE-ConnectionGUID: kFJld0R6TF22hO1251niqA==
-X-CSE-MsgGUID: vR+J2NnMRyGUqn4j6kuC/Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="6184723"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.127])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 01:44:03 -0700
-Date: Sat, 31 Oct 2026 10:44:00 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Raul E Rangel <rrangel@chromium.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Tony Lindgren <tony@atomide.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Richard Genoud <richard.genoud@bootlin.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Timur Tabi <timur@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v8 6/6] serial: 8250: retain DMA resources when
- termination fails
-Message-ID: <auWqUIBUs0_7bnGU@ashevche-desk.local>
-References: <20261029-submit-serial-8250-dma-cancel-v1-v8-0-3fd56ba352ed@gmail.com>
- <20261029-submit-serial-8250-dma-cancel-v1-v8-6-3fd56ba352ed@gmail.com>
- <auNW_Oc-Ao5Iw-Gw@ashevche-desk.local>
- <CADvTj4pOg4w5LpFW_E3qzP7FZDnDgpB8LyR9xxhT_mZre21vFw@mail.gmail.com>
- <auRl9ztbav4nHi7U@ashevche-desk.local>
- <CADvTj4p8tjwdftg+H11ob0iaBZKxXrTdkSmhfZHjOYunm5tr9w@mail.gmail.com>
- <auTZtteCFnuoMD3p@ashevche-desk.local>
- <CADvTj4rXXAEnTyu_AzpF41a2YSHHG1ANozCUSePBoH3QZYbBQg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=iOjBj1M5;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Tg5JJ1LZ
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id 2E3741D00099
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:46:22 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Sat, 31 Oct 2026 04:46:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793436368;
+	 x=1793522768; bh=msGgE+yF4ldZ/hVSYFnQ0w1ommr92ISaYkckmm0P1Lo=; b=
+	iOjBj1M56eoItO6tNRWpq2cxUbDavNE8q8cgYQB8Z49EaYXHr6M9cTTdtCFyBzTZ
+	tCNcwY7tUDBxv0sLxjO8rD7nR6YXRN3BRx9XUQkB5q5x9sXkCkxUdr1IJf5UMLcR
+	7rq3QAUXwHp/BKsugxXKubFctv9lpDTB8xFPllNF8PipfPJQPNmjurAcQp2g4ejL
+	X/TcQ6SVMEnA5O2FuVZ6d/hN/S9TRYCURWWe3qVE51pErSBA+jA1PdmjuwY9i/5T
+	PaNBDB0Fpz4AJr2JUWMo0RvVSfwpHSRmFBuYzMLjvk/cExDu7uYNak8f+zExlU1M
+	R1VKBw2xoc7hN5denXaovg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793436368; x=
+	1793522768; bh=msGgE+yF4ldZ/hVSYFnQ0w1ommr92ISaYkckmm0P1Lo=; b=T
+	g5JJ1LZTqOr8WLikhg8u5M4GuboYRlxoHDqnR4QG+zo2qnYZkh0VO7eUlN6ONrLm
+	Jm2FM8LfTXCqbw57UHhKVgcVhUj5VJmGaA0dKC2gA398dH6qz1iZGkvBAZaTRHLn
+	Iv12ng0ROVS8CTyrns1iX5G4SOPPR3tBq0VJT92Snba5erex6WUM8Mi1KVfnKGjN
+	gtfVZq1Sr4ewuox7TGsvDN+6MCO/AMfRObXA5yJQs8JInOk4+/OUErW3FOKQQ2Da
+	/0nzoS0Ln9M7FstcNb4BsZ2ihpYmaonQsRqxewaexopQFJFQp51LfD9ead7flsV1
+	qYfw2yyTz+kogXCAtmjuA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793436368; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:SWsPZPh4MtCRsammBDFuCv9bstqHLTNzfbykHIA9BU6d8A9
+	Vn9Xs643TSZt/ryYWoF2HZ0B1SZSKMyEhH+2r5DlJGBMDkEs+XJFDN5iJprMadLn
+	YZRDKkI+1+PZuZivvtxjJCJBTcYWiTFUaO5vcF6jlO/ZoSX4Co7MlhTQzai+L2qQ
+	rerbgO5EgnvDSv5WQuNVIY6HchzC36ZXV2zp0+JFg1sleifGdhSi/y9HDhG+PJ0m
+	mOoi9bXkb/dOJhsFrNGsImZYWWBf72PP7S5OV+9yyt6Cn8NtGhW9wyERisT1iijl
+	ajDXPPCgy/xN0j745GQQSO6/3sHTnVa3DDGBs3g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:DBCrIjIkVPy9E7TbpmIDmzZrpDEjPavd4lx9kW7Prm8=:+rGYpdDfWx7RnLSKI4uxQpJm3+zNhvevO3bKngOM/Y4=;
+X-ME-Sender: <xms:yqrlamhADgRXWsgMZcJ4Y-RLw8kZzAmKaFqslTYZ2vH76HGnCkrgfg>
+    <xme:yqrlah2wXfPeSYUK0Cr8IpNXwIH8fmTEGFZ79feGD4APuyusVHzzMZRZ6sAb_Dr2J
+    UEA_Qn2WeornjlHq1w3mWLC3BCp3unILXDzHG3b6nH5jUzJMl_GokX3>
+X-ME-Proxy-Cause: dmFkZTE5t6BGJhdkGVNsXvVFxG1PcWpcpaMhViOBoS29Z4IFtbWTY5VslSFz/ieBRekhxo
+    8wE4Rgao449UxofVC9dweH4g0Im1LFnNKfP2sUCQBPMznfpFmE5IYIhsHxHZrSWuhcxPjj
+    pFGWB+EiTp7IgKsYCQnEKT27KjFC5JUGCrq90pwpSk7L98jXiXTk3iQml2J58lotNEd8gk
+    E+reYaX61yAaBKmrs9EjDyeuxBtr3baeQ99ms++NR/C20r8cY9vFIGZsI8NFPEpOHnU7ID
+    JbMacxnBrf5AClPeqJAsllU/qrRvXGtIzSIotIk6zgZLqaZesMWPn3562bGEWrPEN0QPav
+    q2zlKF1LO8u/1VfYLjkzXVPNxpGg8ZdoHVwjOs0j1cqD1a5U0H8L4e7i39D9ev8uzaFcF6
+    ZySz0D90KOc+Kgj8OZvr3mzmRhVLBtvITEsiXM8VdcdlfkJ2XFrTint9fbXg721C8r/mG+
+    N7soSFDGhlUntFCl7zCPF3C4rgGRxk3nCAqVkxrF45o4KtrHrqaiv5X/5/k3H8QtRwt53L
+    YbL1lpnolpfqE78xStkmXVblwFabvKaZzFcBpwNoHauXyNj/hEr+zd1y9QJnfX7yg9fNt/
+    9/kSKCJCTcH9zgKaMcuX+y4oCQKBh10y9hX4O+RIJCv1XGdZ29EWldvw7mfA
+X-ME-Proxy: <xmx:zarlasia4nTnHGA1Uoq7Fhc46-NVfVxCW-0TsLMswAsmRJ3r56iqmw>
+    <xmx:zarlap6KPH5HrHfekntMhXpGMKYngs2nIF2zligOZDFZ1irTW9A_4A>
+    <xmx:zarlahoKJUoYhxylNVHM6OU_amnGKVZrr3JPvAZ71CgWQmRGzKaboQ>
+    <xmx:zarlavV4c8EyBAN3hieIRNj0o1hlqPkqd72qTJMHJ53A8RzxHKFmZg>
+    <xmx:0Krlanumh2_K8AaRftPevYqxuaW1fUH9KS3HAjRN5X0ZU5e8ZXinJ0MA>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 39A3632A0097; Sat, 31 Oct 2026 04:46:02 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,107 +115,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADvTj4rXXAEnTyu_AzpF41a2YSHHG1ANozCUSePBoH3QZYbBQg@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-ThreadId: A4AbHx5UfGss
+Date: Sat, 31 Oct 2026 09:45:31 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Marek Vasut" <marex@nabladev.com>,
+ "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
+ "Mateusz Nowicki" <mateusz.nowicki@posteo.net>,
+ "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
+ "Thomas BOURGOIN" <thomas.bourgoin@st.com>
+Cc: "Rob Herring" <robh@kernel.org>, krzk+dt@kernel.org,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Lionel DEBIEVE" <lionel.debieve@foss.st.com>,
+ "Amelie DELAUNAY" <amelie.delaunay@foss.st.com>,
+ "Patrice Chotard" <patrice.chotard@foss.st.com>, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kernel <kernel@dh-electronics.com>,
+ "Geert Uytterhoeven" <geert+renesas@glider.be>,
+ "laurent.pinchart" <laurent.pinchart@ideasonboard.com>,
+ "Fabrice GASNIER" <fabrice.gasnier@foss.st.com>,
+ "Stefano Babic" <sbabic@nabladev.com>,
+ "Etienne Carriere" <etienne.carriere@foss.st.com>
+Message-Id: <cbcb8d78-51f3-41ab-80d6-fe3f0623da5c@app.fastmail.com>
+In-Reply-To: <1b14e1e4-962f-4391-91fd-b09143641643@nabladev.com>
+References: <20260907091400.55954-1-mateusz.nowicki@posteo.net>
+ <7ee09655-2fef-4334-b0aa-b56f7ae03f74@foss.st.com>
+ <1b14e1e4-962f-4391-91fd-b09143641643@nabladev.com>
+Subject: Re: [PATCH] arm64: dts: st: fix arm,smc-id of the SMC watchdog on stm32mp2
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 30, 2026 at 12:08:52PM -0600, James Hilliard wrote:
-> On Fri, Oct 30, 2026 at 11:54 AM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> > On Fri, Oct 30, 2026 at 11:09:53AM -0600, James Hilliard wrote:
-> > > On Fri, Oct 30, 2026 at 3:40 AM Andy Shevchenko
-> > > <andriy.shevchenko@linux.intel.com> wrote:
-> > > > On Thu, Oct 29, 2026 at 11:19:59AM -0600, James Hilliard wrote:
-> > > > > On Thu, Oct 29, 2026 at 8:24 AM Andy Shevchenko
-> > > > > <andriy.shevchenko@linux.intel.com> wrote:
-> > > > > > On Thu, Oct 29, 2026 at 01:37:02AM -0600, James Hilliard wrote:
+On Sat, Oct 31, 2026, at 06:59, Marek Vasut wrote:
+> On 9/28/26 10:45 AM, Alexandre TORGUE wrote:
+>> On 9/7/26 11:14, Mateusz Nowicki wrote:
 
-...
+> At this point, with Linux 6.18 the kernel is trying to trigger the WDT 
+> using SMC ID 0xb200005a , which on my machine works (older OP-TEE OS). 
+> When I boot linux-next , it is using ID 0xbc000000 and my system reboots 
+> after 32 seconds. (not even mainline Linux versions are consistent here 
+> now, sigh)
+>
+> I actually found this behavior the other way around -- while forward 
+> porting a system to the new OP-TEE OS 4.8.0 port, which I installed, 
+> then booted Linux 6.18.y, machine started rebooting (SMC ID mismatch, 
+> new OP-TEE expects 0xbc000000 and linux-stable sends 0xb200005a), so I 
+> booted recovery, and ... recovery is also Linux 6.18.y, so I could not 
+> recover the machine that way anymore.
+>
+> Currently, I added [1] to OP-TEE OS as a mitigation of this ABI break, 
+> but I don't think everyone can still update their bootloader stack in 
+> this way. And with this patch in place (and inconsistency between Linux 
+> stable 6.18.y and upcoming 7.4.y) the ABI break will cause some serious 
+> mess.
+>
+> How shall we deal with this ?
 
-> > > > > > > +     while (rx_ret || tx_ret) {
-> > > > > > > +             dev_err_ratelimited(p->port.dev,
-> > > > > > > +                                 "DMA termination failed: RX %d, TX %d; retrying\n",
-> > > > > > > +                                 rx_ret, tx_ret);
-> > > > > >
-> > > > > > > +             msleep(100);
-> > > > > >
-> > > > > > Huh?!
-> > > > > >
-> > > > > > > +             if (rx_ret)
-> > > > > > > +                     rx_ret = dmaengine_terminate_sync(dma->rxchan);
-> > > > > > > +             if (tx_ret)
-> > > > > > > +                     tx_ret = dmaengine_terminate_sync(dma->txchan);
-> > > > > > > +     }
-> > > > > >
-> > > > > > This is unacceptable. Sleeping is okay, but value should really match the
-> > > > > > baudspeed and other parameters of the transfer.
-> > > > >
-> > > > > This sleep is backoff after dmaengine_terminate_sync() has returned
-> > > > > an error, rather than an estimate of UART transmission time. Each
-> > > > > retry asks the provider to stop the channel again; elapsed time is
-> > > > > never treated as evidence that the resources are safe to free.
-> > > > >
-> > > > > The particular 100 ms interval has no hardware-derived justification.
-> > > > > However, I don't yet see a sound way to derive the retry cadence from
-> > > > > baud rate either. RX can be waiting for input, TX can be held by flow
-> > > > > control, and callback retirement is a separate requirement from
-> > > > > moving bytes through the UART.
-> > > > >
-> > > > > Do you have a particular provider failure mode in mind where retrying
-> > > > > termination should follow the serial transfer timing? I'd like to
-> > > > > base the interval on the condition that can make termination succeed,
-> > > > > rather than substitute a wire-time estimate for an arbitrary delay.
-> > > >
-> > > > Termination of DMA sometimes require to clean up internal FIFOs and other state
-> > > > machines. That's what happens on HW side. In the software waiting for too much
-> > > > may lead to the very big undesired latencies. The value of 100ms sounds insane
-> > > > to me for the HSUART cases (megabaud range of speed). Also note, not every PCB
-> > > > design uses HW flow control, so this may be even worse for them.
-> > >
-> > > The 100 ms interval can add unnecessary teardown latency if a failed
-> > > termination becomes retryable much sooner. There is no hardware-derived
-> > > justification for that particular value.
-> > >
-> > > The FIFO/state-machine draining is part of the provider's stop sequence.
-> > > For example, DW performs its FIFO-empty polling inside
-> > > dwc_terminate_all(). If termination succeeds, this patch proceeds without
-> > > the retry sleep, regardless of baud rate. The sleep is only reached
-> > > after an error during DMA release, not during normal RX delivery.
-> > >
-> > > Baud rate can influence how quickly a transmit FIFO drains, even without
-> > > flow control. However, the termination error does not tell 8250 whether
-> > > that drain is still progressing, how much remains, or whether the
-> > > controller needs a different recovery operation. That distinction matters
-> > > when choosing a retry interval: a shorter interval reduces the added
-> > > latency, but does not establish that retrying can recover the channel.
-> > >
-> > > There is also a specific API detail here: dmaengine_terminate_sync()
-> > > returns immediately if device_terminate_all() fails, without reaching
-> > > dmaengine_synchronize(). Consequently, an error leaves callback draining
-> > > unconfirmed as well. The retry cadence can change, but resource release
-> > > still requires successful termination and synchronization.
-> >
-> > Most likely this is AI slop. I can't see the justification for 100ms.
-> > Can you explain that?
-> 
-> 100 ms was an arbitrary backoff to avoid a tight retry loop if
-> termination keeps failing. It was not derived from the baud rate,
-> FIFO depth, or a DMA provider's recovery timing.
-> 
-> That motivation explains sleeping between retries, but not choosing
-> 100 ms. I don't have evidence supporting that particular interval.
+I think for the kernel it's pretty clear, we have to revert it
+to avoid the regression on old firmware, at least for boards
+that have ever shipped with that version. I count eight boards
+for stm32mp2 in upstream Linux, do we know how many of them
+are affected by the ABI break?
 
-Yep. And that's what my point is about. Any big sleeps has to be explained
-and justified.
+Newer boards can override this if they always supported the
+new ABI.
 
-> > > > > Regardless of the retry interval, shutdown cannot release the buffers
-> > > > > until the provider establishes that DMA and its callbacks have stopped.
+For the firmware change, I can see multiple ways forward, depending
+on what the original reason for the change was:
 
--- 
-With Best Regards,
-Andy Shevchenko
+- (obviously) revert to accepting both values forever on boards
+  that ever had the old ABI in the past.
 
+- For boards that can have either firmware, use separate dtb
+  files that match whatever the firmware is. This only makes
+  sense if the firmware is fundamentally incompatible for
+  reasons other than this constant. I think we did this for
+  firmware with and without op-tee.
 
+- Add a workaround in u-boot to patch the dtb at boot time to
+  match whatever op-tee version is being used. This would be
+  the cleanest but requires extra work.
+
+     Arnd
