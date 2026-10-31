@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793433222;
-	b=Re3o3TtkWKKelbpkGiYZBxmPZpiwO8/+LW708q/uUJy94o2dn/vxNmdqo4fW48v5t7/L
-	 6JPuWBrQqG6NZ5FUTCaVqHKqv7HZTL9DF7H4OF5m0AZ4ZDF2qVZFoMGZrlWluTQ3vjRtA
-	 RAterE84AucDAk2q44msFigY1Exasxew1Q3OOrIzgOLcwRS01KlXD5Zpnenmcw7cJ8IFS
-	 EQAuH3kE6w8tsqld9VsHXjJEseiqVrx4x99HOUEhyZoIcG7Xgra4lteRD5mAjzwZY2wOJ
-	 mxhNEGx/hX67KbV97hUnMOwnox3G5Zfz6ntE1VtAPJ6r9wC5xnuphfWSVNzOgk97ZUA==
+	t=1793433223;
+	b=a/Yygpteapz00cH275kwcSzvsgLBKQCPoPKgN4+fOnnV4xS0MpI6fAQFf0Zqj+1ms9YQ
+	 EsIUpwGOuG7ljEYk8kR6M0+tOYaV4gwqOWP1ylhA626dZPdKg86hK7dccuoVBT5EuS/ED
+	 x6C5TTZhrHTQ2MQX0dQaflKumzdsPqOKeINvMzRwd73ZU9Q+hleH03OEqW9Q1DEfS6om9
+	 bpdJw4o9PJRs1hbusxPKVnR9Lz5oHbHjQQiqtAZ6UMnB8DnQRpiz3X0nqhgeACYA72sqX
+	 P0d9iz553llyg80H/KDeAnRB483tIB9KIF/AnEFshGil58euF70KPxKEAvfsBnm63yw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793433222;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793433223;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RC377F6Q8z5zRhi6tzzOZ9WrBx+Hhd5evmJ+C0Qr7vI=;
-	b=hwcSI/Q8WMGbXt4HJBjxzCkST4A1WPo2Cuom/j6Wz1PGLSJtQGPj7SIqYjM0CGgeWTh8
-	 j3DUHDXM3K62J2lHFiVy7Hzc/Zv/BWRshRQ20JLe0KD1SHMUmDWlJz2W8z/3rr/tDoDIt
-	 nC4/5A6WG5v8PNEkFdGINopmBoZMKhRrwzQt7clVQUIEDTkqzqKkHprKr/OydKWt+cQWW
-	 kjVhuCHymxssWRFPOwdMxECbDeHwnS3r3zdkaaIK4eR1dNa6ba5NF7YLE4r6BrUXEt+fM
-	 Q+ov6Do8aFR16HL73/h04L3L3NKmuavM6SM41hoIqacuNiAVvn8GRxVex1pRhoWLhlg==
+	bh=5I/M6wdi2jOCfK3LwER7yDmFVkWMVJrAzbNNw9R5mH4=;
+	b=EfMW+oblp2B0Z8b34HweaPW7EZb3hecF9FwLIrG0n6JgKTNEJTpZYuuFzpEMNuFvieGK
+	 oJ8rUyVdFmDU/VWgR2e0jw/RWBkZBmtSD9gCI56Tii7BbqSVyT91OpqrJDO04oSiaC79v
+	 7OdlH+XA7BO4ufd9nm1awZZXqschhqfTzBmQI66WWEWASKVKtSLoKH4KsEcV2TLjjaHJ9
+	 EgLpsYGlH8p0L2+qzkmVs4YWqPCQQ8Yzi04X4q5qM3KXykfv0QgzeT+qDzGkZWh2hgUvj
+	 UDGShAyHiclEE45c3nB84N29Pq+TTXPWbMV+/ueHdDlRpelr1+Z7cRgTLY1WzBHLP7Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U88o+8Wf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IrPNG/Od";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E454606A31C;
-	Sat, 31 Oct 2026 07:53:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BDB606A333;
+	Sat, 31 Oct 2026 07:53:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U88o+8Wf
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrPNG/Od
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793433222;
-	b=IcrQ8KVv8gQKi1KRFi2mDXk3jOEGXVnoYRVsvbo8bT9hBMEVnom7TGYMVwkaMbi0sc6J
-	 hDQWgFlM/5YjRTl68RfAXR20OokRby7E2+4DePkIcNCgEwAzlfxPrn78YynwEk6RXVhdR
-	 /BJ3bSi/uJrf1DB+bI6WEWXlPsiyWHYEoxzKrKvmzjeS3ZVUd0kqdHUVpzDOgHCwdLoJu
-	 QTA//hOWidhNNuI4S3B/LHP14j1PfkQcj+u/nCljni+1OvdbeNbUn4IHQ1BahCG2bgh5+
-	 6A0xVez23O6+JYu8vk4igXpInJmldFFCZRhSU7ecSojfjvdYbSyxm6OYQPdN1LpsqRw==
+	t=1793433223;
+	b=Vab59YrZ02/mby/QKMngDoWHNeJFEESS3vQWxeC/uZ1angEfJqgQiztDEw2oIQKcc7he
+	 6R/FOVNyZG0Z44mysEPpANGt3oMeIaWxPDAjrxm9wMN6n1jCeCrMQZr/VGUYlWsIUzZT2
+	 Pf+oZ00SoydSKI/az24iSA8S/mU3Y9fhKjXG/GDQjFvvL+70rq6NCOB3qhdITGNxrlMjm
+	 V9cC5FTQg4nQgiBjiDWvPcIx/+5GuArqzOzNb3H+IPLeRj+6HtfEHNdghzWX8zZnezllM
+	 KbwpyvjT5/Bow+sMMjocnhE4/pV9t7d1Jyx6T+XfrmG6v3+qbo25QAQO2tqljwzX3cw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793433222;
+	c=relaxed/relaxed; t=1793433223;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RC377F6Q8z5zRhi6tzzOZ9WrBx+Hhd5evmJ+C0Qr7vI=;
-	b=u3vKBM47H1oxpljeWh9xb5YvIvV/nRxQo65Fd1AW079fOv75OKDhotniG7ohqhbUp4xS
-	 0gyEomJ3h99t5yg304qpsckVIl9vZBJZxb7QzFu/hgNh1ICTJtYN5yFm1JobSttvNFJsK
-	 OzLcR9NXjDUWfWP8wUc9TyJP8BHCEFrZvJnjNFkRYPdYfUBOu8JuTBkB9vb+B3Ep4Q71J
-	 lvmyItXfpYRCZ0DP72XwqUr2yayoO0fQaY/gPZZFdBsMYoSvRwxOiDza3A3mTnzwLR6pz
-	 QsMrnHvwvBZ1nMb4rJtSYLELmHbX/+HxbHoo86ol/dpFp2GzNRiYHGXJdtyhkmgJK7w==
+	bh=5I/M6wdi2jOCfK3LwER7yDmFVkWMVJrAzbNNw9R5mH4=;
+	b=j4s+kUPaEAqrXK7dQoSuWo4N1XQ5y/G9dtXBDyktLhv1469D0zt4pJK1LQgFWCLjyju/
+	 1CMFbwOmaNYfdzXc7mt7JHh8PhA33IjyQ5ok7fxiUg1Mo2mNezHfpaZhbuuAaEZhuFDWh
+	 pNdzUFXeaL0fzExltnhovcm5CtcXu7ye46vA6GhUtGF1WNG4jGdF4qB9qylZZlZLedfD4
+	 sibDzAq+ykXXxm4gtWoCAYyISnna88R974C3J+Sfh0dJVumCnGE08RvT9FZ0obzP3dHK4
+	 EJfpVvW8MGexObb3pAHcFp9Qeh5psAFRD32f8upd7SQMFNC3lPgb9/FgEt6QWSJvPXA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id ACC5F1F00919;
+	by smtp.kernel.org (Postfix) with ESMTPS id C2DF31F00A02;
 	Sat, 31 Oct 2026 07:53:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793433222;
-	bh=RC377F6Q8z5zRhi6tzzOZ9WrBx+Hhd5evmJ+C0Qr7vI=;
+	s=k20260515; t=1793433223;
+	bh=5I/M6wdi2jOCfK3LwER7yDmFVkWMVJrAzbNNw9R5mH4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=U88o+8WfcJSUR8xIU/27yVby3tojBBaCKbeem1oOLL0oAvgspvNC05cnflw7vo9DX
-	 00H1/0i+ZJcN/olknGaDqTzc2OErBxkDrg7vp380mL19HlrVNpFMXZUvokbT8BHEgk
-	 33r0ELpXyXF8qmi5SWim16G2Fuv5+4jr8focV/yD0sH/eqMtqNp7H5Qwgsp0nwSm7n
-	 HwTiGwXHeBu12CAYmrY+5eG400eAEXE0WXg4fwwGZxAR/IDgcJ0BGTHxMXcdyhsCL1
-	 kFS/cgxodeDT+xTR8HIiR7gzTci5teWASbdSruXeYQyboj9YAavTNsGRIropTaJbiS
-	 8sAboKkmKTvzQ==
+	b=IrPNG/Od715qWChTiryZMi8u0z7SthBp64a98UreueagI39iMG3bN7D9J7krcPFM/
+	 jtkdXjZKz/mZUhbqmhpJ6uoLDd3UcABeAhUhKe2/nmcYW3R2WuGgvdn5wEE7XGkzDg
+	 M3Te+4u4gSys+PZKA381zuGoyBfaMB4gyj9QcFK/xVDWj05PcAF2IbcBAmpePTmXEd
+	 jkEKbAKXhHVgKaU9hjnqLpx+H4bbbFUOPRRhTrr6DIig7MzTbWVtL7yQP14/xUj1bO
+	 QPp4Jd+6iczQY/aruwF1lZjJmzuT4feQpUZ43WcEvuuGeKz+HJvYcchkUNr7H/HueQ
+	 PWf3iEDyzyJgw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3E4B0442F6;
+	by lkml.kernel.org (Postfix) with ESMTP id 5346945308;
 	Sat, 31 Oct 2026 07:53:41 +0000 (UTC)
 From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Sat, 31 Oct 2026 13:23:37 +0530
-Subject: [PATCH 1/5] dt-bindings: display/msm: dsi-controller-main: Add
- SM7250
+Date: Sat, 31 Oct 2026 13:23:39 +0530
+Subject: [PATCH 3/5] dt-bindings: display/msm: Add SM7250 MDSS
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261031-dpu-sm7250-v1-1-159f403ec405@brar.si>
+Message-Id: <20261031-dpu-sm7250-v1-3-159f403ec405@brar.si>
 References: <20261031-dpu-sm7250-v1-0-159f403ec405@brar.si>
 In-Reply-To: <20261031-dpu-sm7250-v1-0-159f403ec405@brar.si>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -102,11 +101,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793433218; l=1468;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793433218; l=11934;
  i=patches@brar.si; h=from:subject:message-id;
- bh=6SbwGceVC9vKT2xEXfQ+/gx3XJ8s8yaQo74zaxUPzEQ=;
- b=/h9U/cBBx9rgDAzT27cbyYXjoOawQS9Ki4BjMGT4urFWhbTcumBQcszg8SAF3kcmwJndRzW5F
- d+bdSOpPyqrAxBTF33jnMvdAnkf8Hqv6+t1oRc8h/jgHhQSNKrxEWfK
+ bh=NQdQjP11P2GJDS2SObUCgpCt52BM2wDyEVzfKj5IM6A=;
+ b=9md7q/9XW1+6eRJX9nlFZf23cuBnnS1nfbea56wp/+4KfKwrFagPiwXdqJF3rH+c/OoLFbJqx
+ qMVdSmWtzSMBG9v/UTrQa6hol+EyiGcINj/7xkNSip2gYKPoi4AB8SJ
 X-Developer-Key: i=patches@brar.si; a=ed25519;
  pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
 X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
@@ -117,37 +116,373 @@ Content-Transfer-Encoding: 7bit
 
 From: Ishu Brar <patches@brar.si>
 
-The SM7250 DSI controller is the same 6.x hardware as the SM8250 one,
-with the same six clocks, so add its compatible next to its SM7150 and
-SM8250 siblings in both the compatible list and the six-clock if/then
-block. No driver change is needed, the controller is matched through the
-generic qcom,mdss-dsi-ctrl fallback.
+Add the binding for the SM7250 Mobile Display Subsystem. It has the
+same clocks and children as the SM8250 one, so it is modeled on
+qcom,sm8250-mdss.yaml. The example uses the SM8250 clock and
+interconnect headers, as the SM7250 ones are not upstream yet.
 
 Signed-off-by: Ishu Brar <patches@brar.si>
 ---
- Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ .../bindings/display/msm/qcom,sm7250-mdss.yaml     | 351 +++++++++++++++++++++
+ 1 file changed, 351 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index e4fd1cbbd4e0..d447d7cc1a1e 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -39,6 +39,7 @@ properties:
-               - qcom,sm6350-dsi-ctrl
-               - qcom,sm6375-dsi-ctrl
-               - qcom,sm7150-dsi-ctrl
-+              - qcom,sm7250-dsi-ctrl
-               - qcom,sm8150-dsi-ctrl
-               - qcom,sm8250-dsi-ctrl
-               - qcom,sm8350-dsi-ctrl
-@@ -358,6 +359,7 @@ allOf:
-               - qcom,sm6375-dsi-ctrl
-               - qcom,sm6150-dsi-ctrl
-               - qcom,sm7150-dsi-ctrl
-+              - qcom,sm7250-dsi-ctrl
-               - qcom,sm8150-dsi-ctrl
-               - qcom,sm8250-dsi-ctrl
-               - qcom,sm8350-dsi-ctrl
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm7250-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm7250-mdss.yaml
+new file mode 100644
+index 000000000000..aada943e0cf3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm7250-mdss.yaml
+@@ -0,0 +1,351 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/msm/qcom,sm7250-mdss.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm SM7250 Display MDSS
++
++maintainers:
++  - Ishu Brar <patches@brar.si>
++
++description:
++  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
++  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
++  bindings of MDSS are mentioned for SM7250 target.
++
++$ref: /schemas/display/msm/mdss-common.yaml#
++
++properties:
++  compatible:
++    const: qcom,sm7250-mdss
++
++  clocks:
++    items:
++      - description: Display AHB clock from gcc
++      - description: Display hf axi clock
++      - description: Display sf axi clock
++      - description: Display core clock
++
++  clock-names:
++    items:
++      - const: iface
++      - const: bus
++      - const: nrt_bus
++      - const: core
++
++  iommus:
++    maxItems: 1
++
++  interconnects:
++    items:
++      - description: Interconnect path from mdp0 port to the data bus
++      - description: Interconnect path from mdp1 port to the data bus
++      - description: Interconnect path from CPU to the reg bus
++
++  interconnect-names:
++    items:
++      - const: mdp0-mem
++      - const: mdp1-mem
++      - const: cpu-cfg
++
++patternProperties:
++  "^display-controller@[0-9a-f]+$":
++    type: object
++    additionalProperties: true
++
++    properties:
++      compatible:
++        const: qcom,sm7250-dpu
++
++  "^dsi@[0-9a-f]+$":
++    type: object
++    additionalProperties: true
++
++    properties:
++      compatible:
++        items:
++          - const: qcom,sm7250-dsi-ctrl
++          - const: qcom,mdss-dsi-ctrl
++
++  "^phy@[0-9a-f]+$":
++    type: object
++    additionalProperties: true
++
++    properties:
++      compatible:
++        const: qcom,dsi-phy-7nm
++
++required:
++  - compatible
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/qcom,dispcc-sm8250.h>
++    #include <dt-bindings/clock/qcom,gcc-sm8250.h>
++    #include <dt-bindings/clock/qcom,rpmh.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interconnect/qcom,icc.h>
++    #include <dt-bindings/interconnect/qcom,sm8250.h>
++    #include <dt-bindings/power/qcom,rpmhpd.h>
++
++    display-subsystem@ae00000 {
++        compatible = "qcom,sm7250-mdss";
++        reg = <0x0ae00000 0x1000>;
++        reg-names = "mdss";
++
++        interconnects = <&mmss_noc MASTER_MDP_PORT0 QCOM_ICC_TAG_ALWAYS
++                         &mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>,
++                        <&mmss_noc MASTER_MDP_PORT1 QCOM_ICC_TAG_ALWAYS
++                         &mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>,
++                        <&gem_noc MASTER_AMPSS_M0 QCOM_ICC_TAG_ACTIVE_ONLY
++                         &config_noc SLAVE_DISPLAY_CFG QCOM_ICC_TAG_ACTIVE_ONLY>;
++        interconnect-names = "mdp0-mem", "mdp1-mem", "cpu-cfg";
++
++        power-domains = <&dispcc MDSS_GDSC>;
++
++        clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
++                 <&gcc GCC_DISP_HF_AXI_CLK>,
++                 <&gcc GCC_DISP_SF_AXI_CLK>,
++                 <&dispcc DISP_CC_MDSS_MDP_CLK>;
++        clock-names = "iface", "bus", "nrt_bus", "core";
++
++        interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-controller;
++        #interrupt-cells = <1>;
++
++        iommus = <&apps_smmu 0x820 0x402>;
++
++        #address-cells = <1>;
++        #size-cells = <1>;
++        ranges;
++
++        display-controller@ae01000 {
++            compatible = "qcom,sm7250-dpu";
++            reg = <0x0ae01000 0x8f000>,
++                  <0x0aeb0000 0x2008>;
++            reg-names = "mdp", "vbif";
++
++            clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
++                     <&gcc GCC_DISP_HF_AXI_CLK>,
++                     <&dispcc DISP_CC_MDSS_MDP_CLK>,
++                     <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
++            clock-names = "iface", "bus", "core", "vsync";
++
++            assigned-clocks = <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
++            assigned-clock-rates = <19200000>;
++
++            operating-points-v2 = <&mdp_opp_table>;
++            power-domains = <&rpmhpd RPMHPD_CX>;
++
++            interrupt-parent = <&mdss>;
++            interrupts = <0>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    dpu_intf1_out: endpoint {
++                        remote-endpoint = <&dsi0_in>;
++                    };
++                };
++
++                port@1 {
++                    reg = <1>;
++                    dpu_intf2_out: endpoint {
++                        remote-endpoint = <&dsi1_in>;
++                    };
++                };
++            };
++
++            mdp_opp_table: opp-table {
++                compatible = "operating-points-v2";
++
++                opp-200000000 {
++                    opp-hz = /bits/ 64 <200000000>;
++                    required-opps = <&rpmhpd_opp_low_svs>;
++                };
++
++                opp-300000000 {
++                    opp-hz = /bits/ 64 <300000000>;
++                    required-opps = <&rpmhpd_opp_svs>;
++                };
++
++                opp-345000000 {
++                    opp-hz = /bits/ 64 <345000000>;
++                    required-opps = <&rpmhpd_opp_svs_l1>;
++                };
++
++                opp-460000000 {
++                    opp-hz = /bits/ 64 <460000000>;
++                    required-opps = <&rpmhpd_opp_nom>;
++                };
++            };
++        };
++
++        dsi@ae94000 {
++            compatible = "qcom,sm7250-dsi-ctrl", "qcom,mdss-dsi-ctrl";
++            reg = <0x0ae94000 0x400>;
++            reg-names = "dsi_ctrl";
++
++            interrupt-parent = <&mdss>;
++            interrupts = <4>;
++
++            clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
++                     <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
++                     <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
++                     <&dispcc DISP_CC_MDSS_ESC0_CLK>,
++                     <&dispcc DISP_CC_MDSS_AHB_CLK>,
++                     <&gcc GCC_DISP_HF_AXI_CLK>;
++            clock-names = "byte",
++                          "byte_intf",
++                          "pixel",
++                          "core",
++                          "iface",
++                          "bus";
++
++            assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>,
++                              <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
++            assigned-clock-parents = <&dsi0_phy 0>, <&dsi0_phy 1>;
++
++            operating-points-v2 = <&dsi_opp_table>;
++            power-domains = <&rpmhpd RPMHPD_CX>;
++
++            phys = <&dsi0_phy>;
++            phy-names = "dsi";
++
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    dsi0_in: endpoint {
++                        remote-endpoint = <&dpu_intf1_out>;
++                    };
++                };
++
++                port@1 {
++                    reg = <1>;
++                    dsi0_out: endpoint {
++                    };
++                };
++            };
++
++            dsi_opp_table: opp-table {
++                compatible = "operating-points-v2";
++
++                opp-187500000 {
++                    opp-hz = /bits/ 64 <187500000>;
++                    required-opps = <&rpmhpd_opp_low_svs>;
++                };
++
++                opp-300000000 {
++                    opp-hz = /bits/ 64 <300000000>;
++                    required-opps = <&rpmhpd_opp_svs>;
++                };
++
++                opp-358000000 {
++                    opp-hz = /bits/ 64 <358000000>;
++                    required-opps = <&rpmhpd_opp_svs_l1>;
++                };
++            };
++        };
++
++        dsi0_phy: phy@ae94400 {
++            compatible = "qcom,dsi-phy-7nm";
++            reg = <0x0ae94400 0x200>,
++                  <0x0ae94600 0x280>,
++                  <0x0ae94900 0x260>;
++            reg-names = "dsi_phy",
++                        "dsi_phy_lane",
++                        "dsi_pll";
++
++            #clock-cells = <1>;
++            #phy-cells = <0>;
++
++            clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
++                     <&rpmhcc RPMH_CXO_CLK>;
++            clock-names = "iface", "ref";
++            vdds-supply = <&vreg_dsi_phy>;
++        };
++
++        dsi@ae96000 {
++            compatible = "qcom,sm7250-dsi-ctrl", "qcom,mdss-dsi-ctrl";
++            reg = <0x0ae96000 0x400>;
++            reg-names = "dsi_ctrl";
++
++            interrupt-parent = <&mdss>;
++            interrupts = <5>;
++
++            clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK>,
++                     <&dispcc DISP_CC_MDSS_BYTE1_INTF_CLK>,
++                     <&dispcc DISP_CC_MDSS_PCLK1_CLK>,
++                     <&dispcc DISP_CC_MDSS_ESC1_CLK>,
++                     <&dispcc DISP_CC_MDSS_AHB_CLK>,
++                     <&gcc GCC_DISP_HF_AXI_CLK>;
++            clock-names = "byte",
++                          "byte_intf",
++                          "pixel",
++                          "core",
++                          "iface",
++                          "bus";
++
++            assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>,
++                              <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
++            assigned-clock-parents = <&dsi1_phy 0>, <&dsi1_phy 1>;
++
++            operating-points-v2 = <&dsi_opp_table>;
++            power-domains = <&rpmhpd RPMHPD_CX>;
++
++            phys = <&dsi1_phy>;
++            phy-names = "dsi";
++
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    dsi1_in: endpoint {
++                        remote-endpoint = <&dpu_intf2_out>;
++                    };
++                };
++
++                port@1 {
++                    reg = <1>;
++                    dsi1_out: endpoint {
++                    };
++                };
++            };
++        };
++
++        dsi1_phy: phy@ae96400 {
++            compatible = "qcom,dsi-phy-7nm";
++            reg = <0x0ae96400 0x200>,
++                  <0x0ae96600 0x280>,
++                  <0x0ae96900 0x260>;
++            reg-names = "dsi_phy",
++                        "dsi_phy_lane",
++                        "dsi_pll";
++
++            #clock-cells = <1>;
++            #phy-cells = <0>;
++
++            clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
++                     <&rpmhcc RPMH_CXO_CLK>;
++            clock-names = "iface", "ref";
++            vdds-supply = <&vreg_dsi_phy>;
++        };
++    };
++...
 
 -- 
 2.56.0
