@@ -1,49 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793406958;
-	b=iBw9UzLXTyngnmG9qhvbE3B3oNQrkjMPiTFbOUkJt2cFQXBvvCuJ08Vg8l8hgPESNC5Y
-	 rhBM/5nrQx2wm4R6d4KWjiqQnYvRirJYYF3JHwjvNypgeDG8HiTM3IX51pfBoL5Fct9nj
-	 F54hfrypRAhve10Ut8wdZuZmjV7lr31d22Ys/fu9lMWToMJfzcVLmEO+lTNqUIIXoX1W2
-	 2IpfodwCh5tHlRDDdIU16I63c/AfknDz6tUMCF+/Ylj41b0YP9rOXVRQLWAFSVzxEzKm1
-	 VmFw+F8AaoP7PyRovORh2V2Pj/aYy5FGDdHj6RTEIg2mSxtLXLKniJSeUzz6U2xC+dA==
+	t=1793407177;
+	b=WQmTZSTp64TUQUAGnTRnDlIczHDzSzUMQAOQm1nJxHnvuN/+mLDSNIf/weknEOTGGXTs
+	 MIy3XSUlC8+boZyJ0EIDXPlLf1xgeU87JJkpmbnh2dEQMae2Tg9y/3g7sdWX+RkP3XtGy
+	 FLlCN+hd78Mkb5dugwv0kDFv1K2QcGFeFCGBmezUVV6ZX5NPyK5sq+f+tdyq839cNBHYK
+	 dV7IfyMNObWESxM5c8GWSLrX2smPc0iqm+TRL2CbjMlWGw1VV9mWN5KsRlTDkHGGZuiWt
+	 Y+bhqIjf3UT2557j5eAe2DAmfX5jgiNGSpclIOUa8CHDB7+OJhvg3lKIKxmLOIA9Q6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793406958;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
-	 X-Spam-Checker-Version;
-	bh=EQ7fNiO0P3mhoLAhbj+6WfCFh3aUC3uBzQXi0YuoPKA=;
-	b=o7nlXFhz72O644fHUeiUEHgzkNqZBU2DoYNiSfTH+xON6Kwwscqz14amM/KPJiHhR+iv
-	 XJNB1u9tZUGIl/74u39rwRc3P4k3t6kQCkUy2py68kCrYe9jSogsq6Vp/41etq/tO0LSt
-	 soRhSLSuz0ZWtE3pFeYryyh9vHJddLoJe7EcyvvNMPZGf10jrGkmb/bRLpRd1XBcf3sJW
-	 zn2v4MuR3eDT5KMPOiHSUkpDG/q9tJl21i2fCHgbPQzroLqXXWwhCCq4R2eBRzOIZtT5M
-	 lvQbv5bLi77z3VV0YVqY3pZmu1EPx4xCy6+JBpQiaDDk/F4GSza1yBiGyb1FK8GtahA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793407177;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=5BAPwHDIfEubAB0o/RcmdVXqwks4sfJbcqO9fW2tVD0=;
+	b=1SwwoRLMu/6qM/1RH7nsBAX8E3q2yeEsPr1ADVbkdmueXN7yv+IUBdbxka7zkgZMP3OK
+	 w0lFfZ51CgE7UPxiZFWK9cFI9Q2Mwncw3AE2pN3o4OANmXVSgjowjAH2jiRrKejE7k1Kg
+	 C/8+QeUaLqJY6Hx3DyYxg6l8ry3fAGbI6pPQU2kHig6UnzX6djUXn1Zby42fqhultLfAZ
+	 Oh8LRp+fnansDSGz2z1NcZOq7/umXM1E7mGVXyqWF+23+30j8NVGKOLV503hpSKNEPJ3M
+	 BARYihJMOuoRW7uG6EkLvKiGtJeOFdi8tddJ04C+kp4kt2f5cU6r/FfsaAcTcilvpHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=cFReCf0d;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77D6C606A31A;
-	Sat, 31 Oct 2026 00:35:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77D6C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="K/XZ72zX";
+	arc=none smtp.remote-ip=91.218.175.23
+Received: from mta0.migadu.com (out-23.mta0.migadu.com [91.218.175.23])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3168606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:39:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3168606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=cFReCf0d
-Received: from [100.64.217.159] (unknown [20.191.74.188])
-	by linux.microsoft.com (Postfix) with ESMTPSA id AA10520B7166;
-	Fri, 30 Oct 2026 17:35:44 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com AA10520B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793406945;
-	bh=EQ7fNiO0P3mhoLAhbj+6WfCFh3aUC3uBzQXi0YuoPKA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=cFReCf0dabEhVznpQ0oD55qIBHIWSpDa9udX1pxRG3zX1SNL32mSHA7gtkVWZ3o5R
-	 a5Ybru57SRz08HUAxBWKguLzKeKVQ8iP0UxbJlrd/cesfBW1GSHpRKtSd5qKYZ/4rS
-	 7CgsawYhdc/qNWDJX2md8+pz2f2nsiQImu+7nhJs=
-Message-ID: <8d175247-24a9-42ee-8ce8-4bdfce6db548@linux.microsoft.com>
-Date: Fri, 30 Oct 2026 17:35:58 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K/XZ72zX
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ccTYSbFE6432gMlGOh0Xb0afH0jlRKw0VR85GRLF68M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793407173; v=1; x=1794011973;
+ b=K/XZ72zXQFm34wy+kyRho7nbTp1xGwe8R8aOLAaBOmUN4M6mRdBqC5+776NMcE7yzFhgSfFK
+ C5+qegnXG2tZY7LrVLBSewAAjqwBVhnweSKzl67O7B+gs1KeExdnd1GKKGQwHJavuofbmE9er5k
+ OmsG6UAXJScLi+pCLcErbni0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 5630e70bea526243;
+	Sat, 31 Oct 2026 00:39:33 +0000
+X-Mizu-Trace-ID: 5630e70bea526243
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,85 +57,126 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/6] firmware: smccc: Detect hypervisor via RSI host
- call in CCA Realms
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
- mhklinux@outlook.com, will@kernel.org, mark.rutland@arm.com,
- lpieralisi@kernel.org, sudeep.holla@kernel.org, arnd@arndb.de,
- thuth@redhat.com, linux-hyperv@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arch@vger.kernel.org, Suzuki K Poulose <Suzuki.Poulose@arm.com>
-References: <20261002215725.2015959-1-kameroncarr@linux.microsoft.com>
- <20261002215725.2015959-3-kameroncarr@linux.microsoft.com>
- <auPOnb_9Jfzh-oQE@arm.com>
-Content-Language: en-US
-From: Kameron Carr <kameroncarr@linux.microsoft.com>
-In-Reply-To: <auPOnb_9Jfzh-oQE@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 3/7] MAINTAINERS: add Zi Yan as co-maintainer for MEMORY
+ MANAGEMENT - THP
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261030-maintainers-v1-3-97278f8a5f54@kernel.org>
+Date: Sat, 31 Oct 2026 08:39:01 +0800
+Cc: Alistair Popple <apopple@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Byungchul Park <byungchul@sk.com>,
+ Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>,
+ Dave Chinner <david@fromorbit.com>,
+ David Rientjes <rientjes@google.com>,
+ Dennis Zhou <dennis@kernel.org>,
+ Dev Jain <dev.jain@arm.com>,
+ Gregory Price <gourry@gourry.net>,
+ Hao Li <hao.li@linux.dev>,
+ Harry Yoo <harry@kernel.org>,
+ Hugh Dickins <hughd@google.com>,
+ Jann Horn <jannh@google.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ John Hubbard <jhubbard@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Kairui Song <kasong@tencent.com>,
+ Kemeng Shi <shikemeng@huaweicloud.com>,
+ Kiryl Shutsemau <kas@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Miaohe Lin <linmiaohe@huawei.com>,
+ Michal Hocko <mhocko@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Nhat Pham <nphamcs@gmail.com>,
+ Nick Piggin <npiggin@gmail.com>,
+ Nico Pache <nico.pache@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+ Pedro Falcato <pfalcato@suse.de>,
+ Peter Xu <peterx@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Rakie Kim <rakie.kim@sk.com>,
+ Rik van Riel <riel@surriel.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Tejun Heo <tj@kernel.org>,
+ Uladzislau Rezki <urezki@gmail.com>,
+ Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Will Deacon <will@kernel.org>,
+ Xu Xin <xu.xin@linux.dev>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Youngjun Park <youngjun.park@lge.com>,
+ Zi Yan <ziy@nvidia.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <47C979F1-F892-480D-A12E-CEAAF3A7C260@linux.dev>
+References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+ <20261030-maintainers-v1-3-97278f8a5f54@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On 10/29/2026 3:54 PM, Catalin Marinas wrote:
-> On Fri, Oct 02, 2026 at 02:57:21PM -0700, Kameron Carr wrote:
->> +#ifdef CONFIG_ARM64
->> +static struct rsi_host_call uuid_hc;
->> +static DEFINE_SPINLOCK(uuid_hc_lock);
->> +
->> +/*
->> + * Helper function to get the hypervisor UUID via an RsiHostCall.
->> + */
->> +static void arm_smccc_realm_get_hypervisor_uuid(struct arm_smccc_res *res)
->> +{
->> +	guard(spinlock_irqsave)(&uuid_hc_lock);
->> +
->> +	memset(&uuid_hc, 0, sizeof(uuid_hc));
->> +	uuid_hc.gprs[0] = ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID;
->> +
->> +	if (rsi_host_call(__pa_symbol(&uuid_hc)) != RSI_SUCCESS) {
->> +		res->a0 = SMCCC_RET_NOT_SUPPORTED;
->> +		return;
->> +	}
->> +
->> +	res->a0 = uuid_hc.gprs[0];
->> +	res->a1 = uuid_hc.gprs[1];
->> +	res->a2 = uuid_hc.gprs[2];
->> +	res->a3 = uuid_hc.gprs[3];
->> +}
->> +#endif
->> +
->>  bool arm_smccc_hypervisor_has_uuid(const uuid_t *hyp_uuid)
->>  {
->>  	struct arm_smccc_res res = {};
->>  	uuid_t uuid;
->>  
->> -	arm_smccc_1_1_invoke(ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID, &res);
->> +#ifdef CONFIG_ARM64
->> +	if (is_realm_world())
->> +		arm_smccc_realm_get_hypervisor_uuid(&res);
->> +	else
->> +#endif
->> +		arm_smccc_1_1_invoke(ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID,
->> +				     &res);
-> 
-> Is this meant to be generic? I'm not sure the trick to pass
-> ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID in gprs[0] and forward it to the
-> host is a documented ABI. I think it even confuses other realm guests
-> that don't expect this (e.g. kvm_init_hyp_services()).
-> 
-> I thought realms should stick to the RSI interface and not try to guess
-> the host hypervisor. But if you do need this, a better fit would be in
-> hyperv_detect_via_smccc() (if realms don't boot with ACPI).
-> 
-> I'll leave it to Sudeep or Suzuki to comment further.
 
-I moved this code to a Hyper-V specific location as you suggested.
 
-Let me know if you have any other concerns.
+> On Oct 31, 2026, at 05:34, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> Zi has been contributing to THP consistently and reliably over many
+> years and is considered one of our most valuable THP experts. As THP =
+is
+> an especially active area lately, having a single dedicated THP =
+maintainer
+> is not sustainable.
+>=20
+> Fortunately, Zi volunteered to take on more responsibility by stepping
+> up as a THP co-maintainer. So let's do exactly that.
 
-[v6] https://lore.kernel.org/all/20261031001412.4150488-1-kameroncarr@linux.microsoft.com/
+I'd also like to say that this is well deserved =E2=80=94 I've seen how =
+much effort
+he's put into the review work in this area.
 
--- 
-Regards,
-Kameron
+Acked-by: Muchun Song <muchun.song@linux.dev>
+
+Thanks.
+
+>=20
+> His placement in the MAINTAINERS entry is very convenient to perform
+> this change :)
+>=20
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+> MAINTAINERS | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 0baeb37b0dcdc..02b5b542f81ee 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17817,7 +17817,7 @@ F:	mm/swapfile.c
+> MEMORY MANAGEMENT - THP (TRANSPARENT HUGE PAGE)
+> M:	Andrew Morton <akpm@linux-foundation.org>
+> M:	David Hildenbrand <david@kernel.org>
+> -R:	Zi Yan <ziy@nvidia.com>
+> +M:	Zi Yan <ziy@nvidia.com>
+> R:	Baolin Wang <baolin.wang@linux.alibaba.com>
+> R:	Liam R. Howlett <liam@infradead.org>
+> R:	Nico Pache <nico.pache@linux.dev>
+>=20
+> --=20
+> 2.43.0
+>=20
+
