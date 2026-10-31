@@ -1,107 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793475043;
-	b=k5d7bK8jrCh+Gn/Kere5wiKQcmiG7eSnw586m0L2E1ljb4AWQSVCitbVwWkLpWmT8GzQ
-	 32eoD0ZacvWWz2u0zqOBf2PXPGTmtqbU8t57jBmAQsqZxnNU7lkjq0tkWGP0XNucbBYOL
-	 I1eGLTt57WNGKHEcfulIVVg/DZFjSIjGs7yPoyGrTPKTAD3w/DXw9N3L5dLRHEDYceJUj
-	 iy2qPnGamBVKanHBFUSjEM7PIqK4TYQQXAOrb0qNi+ObPsmCOzQyuoswIwHa3xXFX9Muw
-	 Ex2RXrA+lupzdP7FiXtHf5zo25BK0PHLXC6JFy4aZE4XC+jfbhnxlACZvGQkVfcdG+w==
+	t=1793475085;
+	b=uq3n/EVhcaJN439HuxJXqJ7scTp8unV67beFDyGB9y7YT5VPi4l7tjRYlWjdb7C9/EDL
+	 UQV2pg4mlh597Ry5QXGz2akSScaXt+U3Ts5ElCsrnhsrhN3qFMopk9Ml2HFDJZdsM3Up7
+	 vHqiePAvH9VxC76A2C9S+hgqxd+OKkhL/Gd28BCHWp6ba8icv2OFF2kKOmlVHJ3uAuxGb
+	 7uzYQ3i11/MMCwUk7/ON3rw5xdUl3tQWk1hJG89rBsgb8mSb/3NQ8eVS3CWzlBApEn8to
+	 Q0xLAZy9IlPlpRt5XVoxYoOJC+bd++wCYpx+S55CSW6qA1n411QqTXlpBb9ouqPQYMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793475043;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=+8QGpnyPZ7DhkQpiphg595uJGsoBZBg/wk/3XMNmDqI=;
-	b=kM+aADxGGHG4lXHTNthvk72Pth+t1ziPla4XPH2cdIc5BNP+o2tmTyk5IBdjV+R15rb4
-	 0+4d56mvoLOyBTORu1H2zEPeVru3WznvhxIu0LLZlLrplL6OYwaBh7krJKYrI8YiWOf/v
-	 QPyQLgpr64/o4uDXsVs24abFAAUodXKNnWTQzyO0nbmVGQL5uAQ7PosHa5aSqDp0kMaan
-	 tb4dkDmclW3/dEENQcTLWREfdF26peNrtMU3tIjwNcQPwNKFeCRYqCm050mlpLhTgw+zC
-	 ZY0vQjtliTI0jMv7hj3eg/rHL9LV11l1LpfVPRgQi/vXHwNssODu3r0aDCA2BPau0Yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793475085;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
+	bh=B/EvEc+3U71IzwH2HcK6Z9ISYDUHNnpY/jZzn50DDTc=;
+	b=Ab3sJCCqY7yAtpIg9kNic7A91geGV/5L50dmxRW9/ftAKTRcMtdnDoPOQ57fDNwuNA3T
+	 Xl1dA7V6pO6u/SscBFAsCELEalRih0HN0wk4Vp0umXHE1l3JF2+io7rOmhRfnzNdI2yqK
+	 3YqqK+Hz3siOpD43B1FFI9qqGFLmng7lLUFAbYPfI6s/rzkBcflpsDQdfRs+KEHKQNGBc
+	 c5+ZDb/lXVi7xSaL/fgGo0PtMC/Ac24IljWNtjHOUTcN9TyR1JMHiaL5tp4Z1Wt6hIJ6a
+	 paqYqMmIYw9rMVjJ/LWRmjsqE0wsVJTsEHb/3yHZp4VqOO46Y71ECt/xTxMBIF2eytQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HhBwmS8h;
-	arc=none smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=hsal.es;
+	spf=pass smtp.mailfrom=hsal.es;
+	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=mlCMrPQr;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C3E606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:30:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47C3E606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01782606A31A;
+	Sat, 31 Oct 2026 19:31:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01782606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HhBwmS8h
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e9f6a16afcso31785ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:30:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793475043; x=1794079843; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+8QGpnyPZ7DhkQpiphg595uJGsoBZBg/wk/3XMNmDqI=;
-        b=HhBwmS8hyGxnbnWQ16k8eUFYhNVqQ8Pdk0pITn0ZQ0rKFcHCqClnIq4GLoWvbyCX5F
-         aogBcNkbqBpnw28f0Qq0ECzOvgyN7dwKNJFnB/pfwuJVmtHIwNFj8+0p89XKCrxVg8K4
-         Se2hglS5l06jFdkXfD/g8GLdVoTA9gSZUL0dVuN2MX0YYY6tWmLUIwwD+WKq0TOqpZLM
-         EYs0KI37srggPyQbBF76ext6w+/OJCkWkaI1Dp6uuEqN6T1khzsBmZjaeNb/hC0mM4Jm
-         4G3pKOUuA2MPiqe+xj83D5cn8sAKFCUfMTPxxLnf+5QUL4QYRdmIKAqxkE1lHYp5OMFI
-         xn5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793475043; x=1794079843;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+8QGpnyPZ7DhkQpiphg595uJGsoBZBg/wk/3XMNmDqI=;
-        b=PepUt/P0eI90YsFxjLvHodhY3ACIMXS8Sa8puHSC0EJDSZvdTzzyfyKa9+7DXe4dLU
-         lQ/q2ozJFqVD/2GusQlg2RH7BupkbHJyVj8SJmYOb4P9EMgGF6uyTs/bYZ4BjGbxJ0/g
-         paC2Dkg/vuIpnlKGsXvFM6yABwTm7eyuKFDwWiCmgzZmtjSNNeGlSqolzGqHc3AOILtc
-         Ao0U6B81Svq1wQnKgHjJzpEt98zHXqybgkE7VumaUwlF5QRUb5SiMGkmpab3IAiFSpbf
-         8AbTkveelFRJtJZ/fAtLSaoDD0zlJfnfCtn/khncYMi+hOcdmWtVVnrHcKpQrqwBruQp
-         PyCw==
-X-Forwarded-Encrypted: i=1; AKwUvBxR6J8Y3jTN91DdLtPXCuUwDywzqNgW0lEA0rUhW/wFKEyHPU/N/Aj70a5xw9RJHrpsYqGIq5Au2pAz5Ro=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMEZLcPtmYwWqSxOoc8K6KO9SEZoYoKKaJnFWzXDnxVtJjRO5L
-	ipQgIlbpBjgbCgbBWHxkCZP02Ky/XYgJcflwmWFVcWKyGavExYyqcTEswhApi+aEFQ==
-X-Gm-Gg: AYBFou23qYSWjGrclTlz43syfWeY6H3yjwRWDsFjZzGzXXu3jWgxwnMF8wlElVHymox
-	G64n8pHe9dFdNpE4+oFXKcKW0IOraVO1ppmA3gLXiCfQqhCwnb5BoJgKaN3kdHLO26MdESLZV4o
-	c9OOO/ZcO+F6RHbJPQLnxYsSi0cYco6JxQWxL16yBhANeB6q0/sIrhohC/mQuk6b76XPaMYPV+A
-	wiZRLiWb572oOynGWWmfsfY+fgTSiY/FQ3FVQaCZHXu1g1b2nW4k9EWwnVw2MFqiy/TqMs55ywL
-	6QQX8HcFDt98k1fzxKKo46OhW6rnlcq1aIZtl6F8h9+A1T9obwsZGJQpKkgRJXxreGkV05CGNek
-	Nh3j7WhE3iGCtCUv2TIzdyUImfKqhzuULbeK/PWniMcxO2XlVn8d1r/Bxx/vjmiDmc4l6Iv36W9
-	F6q4oEvrCE0a9jaJEfiz1GxZwW4Lnr0O0TgusV3J7O1R0wjDSk1AVtxc2CQKJSEgeGI+62rN/cB
-	Pjne39vjjp3c8F+ZwWV8MLBEpU2t6V8ZBC3VkmxpZobypwFpeMxBpxCKKEEOJrXgO0Z4QQjGgIB
-	RmYKBl01DIhVObPYqJaL/hDbiaFWsrgmXrvTktwhfSa34JNK7irq9pJt3QWqvmAQ51v1yeig+vK
-	Fj93EtMVQkk6PWvpyR+SMhg==
-X-Received: by 2002:a17:903:3904:b0:2e2:d665:6ad8 with SMTP id d9443c01a7336-2eb1b81b9e8mr16615795ad.4.1793475041906;
-        Sat, 31 Oct 2026 12:30:41 -0700 (PDT)
-Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e9b1506sm12552004a91.15.2026.10.31.12.30.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 12:30:39 -0700 (PDT)
-Date: Sat, 31 Oct 2026 19:30:36 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andy Lutomirski <luto@amacapital.net>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, Jeff Layton <jlayton@kernel.org>, Chuck Lever <cel@kernel.org>, 
-	Alexander Aring <alex.aring@gmail.com>, Shuah Khan <shuah@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>, 
-	Vivek Kasireddy <vivek.kasireddy@intel.com>, Jeff Xu <jeffxu@google.com>, David Matlack <dmatlack@google.com>, 
-	Pasha Tatashin <tatashin@google.com>, linux-mm@kvack.org, linux-api@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] mm/memfd: add F_SEAL_PUNCH_HOLE
-Message-ID: <auZAViCjlzN3gd6g@google.com>
-References: <20261026220546.3114241-1-skhawaja@google.com>
- <d4891333-43ea-4d74-9fb9-6ad8dac1a446@kernel.org>
- <20261030121113.GB3889730@ziepe.ca>
- <2c7aa5c1-3af3-4654-b244-1257d05c9d45@kernel.org>
- <auTR9SnDLsLVmnJ7@google.com>
- <CALCETrV5eqg6d9=+BQhCpRwBNe3aCQiut8vxPBs8b7PToqjaHg@mail.gmail.com>
- <auVRLPmbWYvMnly-@google.com>
- <bb50fcfa-9d71-4905-a76a-ab7bc149d62b@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=mlCMrPQr
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jH7PN2C6dz8smx;
+	Sat, 31 Oct 2026 20:31:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+	t=1793475080;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=B/EvEc+3U71IzwH2HcK6Z9ISYDUHNnpY/jZzn50DDTc=;
+	b=mlCMrPQrdwVLrAYK7atgewqZu5SONcKkuZ3Qshhry2MsQ2dGlgH5Gdi1n2sE9nnJ/MdwBt
+	+C3L8bk+VCz2lNYFBBNOFNVhcoZmSYZiW+LvIyTYM0nw5FdFkAE0mJxtyuwVvw8ckei33L
+	dQ15bwL9n9/8H7SUSO+TntBDyWB4zHSOwGKiRaigun7Czg3Kq9Q3aWpeQj7MhHpLIG8BRu
+	W1FMsDoe/HAurJ7cWOFpOKuFKsHHE2rAoNsjpWY+srHl6RzdXAuxMsoJlJBuwpmWFdACht
+	USvxNKA9h5APoSmfQnK89aXxSscw+x3GbdY86lR0LvMmu6h0w12PC7nWJNpO4A==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: "Ashton A." <me@ashtonantila.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Len Brown <lenb@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	linux-acpi@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ACPI: processor: thermal: Do not leave a stale limit when not throttling
+Date: Sat, 31 Oct 2026 19:31:17 +0000
+Message-ID: <20261031193117.3400172-1-hugo@hsal.es>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028-acpi-thermal-stale-limit-v1-1-4b0ab3230f01@ashtonantila.com>
+References: <20261028-acpi-thermal-stale-limit-v1-1-4b0ab3230f01@ashtonantila.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,112 +79,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <bb50fcfa-9d71-4905-a76a-ab7bc149d62b@kernel.org>
+X-Rspamd-Queue-Id: 4jH7PN2C6dz8smx
 
-On Sat, Oct 31, 2026 at 10:32:32AM +0100, David Hildenbrand (Arm) wrote:
->On 10/31/26 04:03, Samiullah Khawaja wrote:
->> On Fri, Oct 30, 2026 at 03:43:53PM -0700, Andy Lutomirski wrote:
->>> On Fri, Oct 30, 2026 at 10:40 AM Samiullah Khawaja <skhawaja@google.com> wrote:
->>>>
->>>> >On 10/30/26 13:11, Jason Gunthorpe wrote:
->>>> >> On Fri, Oct 30, 2026 at 11:20:30AM +0100, David Hildenbrand (Arm) wrote:
->>>> >>>
->>>> >>> We have the exact same situation when userspace maps anonymous folios
->>>> into vfio
->>>> >>> and then desides to MADV_DONTNEED the pages. Or any other memory backend
->>>> that is
->>>> >>> used for such purposes.
->>>> >>>
->>>> >>> User space must not zap/punch things that might be pinned elsewhere.
->>>> >>>
->>>> >>> That's not specific to memfd, udmabuf, iommufd or anything else.
->>>> >>>
->>>> >>> I don't see a reason to make userspace (that should not shoot itself into
->>>> the
->>>> >>> foot) a kernel feature it must activate itself to not shoot itself into
->>>> the foot.
->>>>
->>>> Agreed, for normal use this is userspace's problem. The seal was meant
->>>> for the kernel to cheaply verify at preserve time that nothing was
->>>> punched.
->>>>
->>>> >>
->>>> >> The issue is live update doesn't preserve those background punched
->>>> >> folios and now we have created an UAF attack on the kernel across
->>>> >> kexec if you don't do something about it.
->>>> >>
->>>> >> There was some notion here that with the right sealing flags we could
->>>> >> tell if everything was 'live update compatible' and then know that
->>>> >> these attacks are impossible.
->>>> >Just remember that there was any hole punch and refuse to live update this
->>>> instance.
->>>> >
->>>> >We could likely implement "we saw hole punch on a pinned folio" as well, but I
->>>> >don't think that's required initially.
->>>>
->>>> If I understand correctly, you mean recording on the memfd that a hole
->>>> punch happened, and refusing the live update if it did? That would work
->>>> and is much cheaper than what we do today, where iommufd walks all the
->>>> mapped pages at preserve time. For truncate, the existing F_SEAL_SHRINK
->>>> is enough or I can record that also on the memfd. I will send patches
->>>> for this.
->>>
->>> This entire situation continues to give me the willies.  After much
->>> prodding and contemplating (in my own brain), I got a friendly LLM to
->>> report:
->>>
->>> --- begin AI output ---
->>>
->>> IOMMU_IOAS_MAP_FILE uses memfd_pin_folios(). Collapse [MADV_COLLAPSE
->>> or khugepaged] checks the old folio’s reference count, so a pin
->>> acquired before that check makes collapse fail.
->>>
->>>  The problematic interleaving is:
->>>
->>>  1. collapse_file() locks and unmaps the old folio, then passes its
->>> reference-count check (mm/khugepaged.c:2446).
->>>  2. memfd_pin_folios() (mm/gup.c:3483) obtains the old folio from the
->>> file’s XArray and pins it, without taking the folio lock.
->>>  3. Collapse copies the contents and replaces the old cache entries
->>> with the new huge folio. It does not repeat the reference check or
->>> freeze the old count.
->>>  4. IOAS retains the old physical pages; accesses through the file
->>> use the new folio.
->>>
->>> --- end AI output ---
->>>
->>> Is this correct?  I haven't personally verified it.  But this whole
->>
->> Yes, I think this is correct. memfd_pin_folios() pins the folios
->> directly without taking the folio lock. Other page cache lookups lock
->> the folio and recheck folio->mapping, e.g. shmem_get_folio_gfp(). Only
->> memfd_pin_folios() misses it.
->>
->> This scenario is different from punch hole or MADV_DONTNEED where the
->> user decides to remove the pinned memory. Here the kernel is removing
->> the pinned page without the user knowing. Collapse already checks the
->> refcount to avoid this.
->>
->> The recent fix [1] by Chris already takes the folio lock for !uptodate
->> folios. I think we can take the lock unconditionally and recheck
->> folio->mapping, that should fix this. I can send a patch for this fix,
->> if folks agree.
->
->I have another patch from Anthropic on my "rework schlop" queue that should fix
->this:
->
->"mm/gup: pin memfd folios under the folio lock".
->
->
->We'd do just what we do in other context now, which is checking under folio lock
->whether the folio was truncated.
->
->Care to send a proper fix?
+I ran into the same bug on an ASUS ROG Flow X13 (Ryzen 9 5980HS,
+amd-pstate active), whose battery profile turns boost off. I've been
+carrying a similar fix since 2026-10-17 and found this patch while
+reviewing mine before sending it. After boost came back, every policy
+stayed at 3.3 GHz instead of 4.85 GHz until the Processor cooling
+devices were moved to 1 and back to 0. With the fix, all 16 policies
+return to 4.85 GHz. My copy reads reduction_step(cpu) once into a
+local, which I'd suggest if you respin, but it is the same change.
 
-Sure, I will send a fix.
+Two additions for the commit message, if you think they help: the
+cpufreq core lowers cpuinfo.max_freq in cpufreq_boost_set_sw() as well,
+so acpi-cpufreq is affected too, and the thermal core writes state 0 at
+zone registration, not only on resume.
 
-Thanks,
-Sami
+Steps above 0 still keep the boost state of when they were set. I'm
+looking at recomputing the limit when boost changes and will send that
+separately as an RFC series.
+
+Adding linux-pm, which this didn't go to.
+
+Tested-by: Hugo Sales <hugo@hsal.es>
