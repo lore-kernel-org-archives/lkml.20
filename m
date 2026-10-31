@@ -1,110 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793461693;
-	b=ymTeQRniS90p8ggF4K4LG/roYEClIagLP9XyWXptogA6cOXGSPlJtLw8OzbaSFjC8DkX
-	 coq0Rb8snAnNJMWWaQY6cbJ3kFa6OfO94wBFTJuqRPefupq/1VT4bABaW/Y45GLuJEBdA
-	 7jQv8I2OeaVPJ8pxyy7uAATC2yqX4lglX/G/+4LpiGDcPfHJI9Yi5p32nbaWpBojkmHAv
-	 kVO7CM804z8uknWnfcyKRvJiazsFTzaJjei1YT+V4HDitlD+aoL3DEAUxrBXOo5nHy/T9
-	 oEpX0Xp2jo9YNVHujYTaZ1uajVygbqhNZCboIeZnA06QXn0GfFhEXSPMmsAuy2Ntjjw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793461693;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=0B/Jt4PrkjhDnRBbGsYYmLETRWHMQgnj6GHzv/YqbfE=;
-	b=nQO2pJVst6Adj3/CfScJW3f3zfKDOa0osO97spe7lwgqCFek3+3C40cCIT5ed4bU5ybm
-	 AdZJ2dfLOHYYJvduxbjOzE6J2WAg20oHxLArVikj+6fPKMGfukpIygjkjk7fRgdOhgkCW
-	 V84FLStd36l2xJrww1PZyHpSIQE02q+Zer/RZEAKS8+9sGo+EVj2qpfozLqAjZMNCdFzK
-	 EYJbVHKLlmE2L/VCysWbYU4J+wkxkV7cEY0FoOyYQde1zgNBS5/iVpB4rMrF5EPK9XZZK
-	 Lb9GWPTxfdBej/m5ElGdsWU1+PexqNS3A3Hd2/n6zhwefZ1qh+EzUfJ0/A+6fXjZFiA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b="eqG+dkL/";
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=ZUivIN9B;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793462047;
+	b=pcqti/yKHKDeKqhJJrfDQUKbQ8PODF7S0vfbv4lwVRcqgw3Xc+EwaCwCwF8QXYltGB0w
+	 ugXbEe43uICkK3ADZ/oRqbQ6a9cWjFPpRJYAxmdqH6aiXWYtMTqHaGqNoOAspkGTEbo3S
+	 /thNBDH7PES8MeuibgCEgMS2WQ3PrLRmuV8SxmWbPy5YuscXb9PRDp9fhtJr2MVe+oXNu
+	 EW8eD/vjPzhNqU1booI83ZBttBFFHFU0yRrT2zxi2n3zJGkXz56e+3LjlzIo21XvUZ96e
+	 KK/kpDM1/Tx9k4OyLGZ8euuDTZ/WWwymMyYvTezzGwm/QCaDvv9PgT1UtZ6j94knrZw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793462047;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Ap1THHwprcvvPpcpEr48EzhOSj8jQxbUx0lCFpj9fSg=;
+	b=Tb/7ZkXkXlTnI+lf8m39xdvmjo99t8SoVinEtEZlvamMrerQY1jJqbYQTrAC8bGYGKHH
+	 T2FM832Py9xonRQKk0secOQTWCH7tHMdgndpx3/nuEmnJL0VX8A6DnpZM7OepxI8nIPDn
+	 3Vn89L78C5Hqp/rU/lLjXerdZszbzXEsXu7aZbZ2sChyP7QwLLDWP559La9VIpFBLkp6d
+	 Frh3qJnm2zmfuYdz0bjWaklmdQnge19Qy0/rfRK3RolGLYGe/r97W/Qpf6YDRYWDwiURq
+	 29hiWLYq3JSO3SfcgH46+7lacMbzBS10lyWnifOUuVUv6W3DpNfORigFH3HcvhvrEEg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rk4jeYmj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76EB606A31A;
+	Sat, 31 Oct 2026 15:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rk4jeYmj
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793462046;
+	b=qHCoqKyIud9ankdDKVPRv3kPaZWAkhwMw3gThypHx5nFNxXL9dNbXmHkZY9HZBk4dGni
+	 Oqywbiab0fobzwjPEHQGTHbdmiKazSdXhvL9Mafe1kv5YxaIVzGnf2bhOTz+dP2K6Lvk5
+	 zPKqYyT3FxlxOlEQ7C+SwuotL+SVgfeP6GrIyyCIW/esY1xtuRy3kN5hUM7NEZ4+T92pv
+	 8NGthvWS6n8MdD3hd3T4QbKvQZq30LiCvjYxk7tJD96XDGKlZkDaRokSzrvIUkdg2g/MD
+	 GTPe3yXf8p7ctKFstr0sFxYnMmvz/4ADVhOh/6P7vG7iA8yvozWCN8z3rkkwMhYHuHA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793462046;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=Ap1THHwprcvvPpcpEr48EzhOSj8jQxbUx0lCFpj9fSg=;
+	b=yNbCEoa6JT0We21VPaABUiEr41AB+NTqbSBokZcVSQOoN7PovgW7SkVy9se/2ZvEaSbp
+	 /6qQdhsJN9xtvN1OAIIgIvdbrTCzb77eeKQiaPqe1BbjFMRRf29okhDo00tbpArs5jFK/
+	 vis/2Yni+BiHhOutACAvEr5BTUQOEDkUueT+6vH79kVLprLvC+OYUKwa9badsQfjRDmac
+	 FX6FXdd9K40pxptuK4pG58YSHoq342XpFAObDcUnfAbeMNw+W3LL1+89kAayfPyvEe9Eq
+	 q88Nwx97JGzkpWsftuPPu2ExCkIPxYRTWKig+Kp91GkRXXTluFf86FsxLfwCR1N075w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AB0606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:48:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30AB0606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=eqG+dkL/;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=ZUivIN9B
-Received: from pps.filterd (m0167072.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VDmT2K3266650
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:48:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pps01; bh=0B/Jt4PrkjhDnRBbGsYYmLETRW
-	HMQgnj6GHzv/YqbfE=; b=eqG+dkL/DIdDxKBio1cYT1jv31aCRgvdOlPth5bvUl
-	R0Bx03HdiL/JUQFbhUqDPsrxZIg5QRHJNgT7IAOaIQ7HHfX6Vd1vnFOVZD4WCxot
-	XbLw+J4fFpzwYVabOPUgbdbC8GoxlQj3QdmgEgBrT7O3P8vP0Ol2gtPunwqsvk+o
-	SIQTej/u/GcV0OuoqQ59f4w3OUbvr908K2lshMi05wv7s1gtw8OKM3ZYRBK9PU1c
-	E2c54XqfrrL6hSh8D1MqGENTjNgoQwEJKo9ukUbVWUfnxsyQ6lc1AqfdtVTssvOm
-	WjciJi+B22MTmMX3CoeLMayuxhLH3GJXIDbJ3t0eHEmA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hncgq9wm8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:48:12 -0400 (EDT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-53639e47be2so32249751cf.3
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:48:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1793461691; x=1794066491; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0B/Jt4PrkjhDnRBbGsYYmLETRWHMQgnj6GHzv/YqbfE=;
-        b=ZUivIN9B9YBRuVmDazt8fmKGWIa9T5DWFm4d+B1TMyiJU3PWY2jVfttjsI1i70Laam
-         l0KrU68sd584ySXlvkOkk4zVCcwlLyj+Qqr44XEgzOW5Nf2Lk92iXMQV16n411fxKIru
-         YPPejzPQkPndTiLvR1OFwGBsqGFSCkt9299NAg6wTcadOKnmKnoGy1WfQbhGc/HyGwRS
-         ADY1+2PPYDIgR3j4M0KfUzjHVuYxkMsOJ1bgvtXzrQfI64pXXsnLGlSdHpszDOmm2x42
-         jq00NpqGi1tDMzfNHWsEGP+p4ap6K4TcBwdcuLQzji114wXI3W2Hh4B6q5zQPKxbZDFI
-         AudQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793461691; x=1794066491;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=0B/Jt4PrkjhDnRBbGsYYmLETRWHMQgnj6GHzv/YqbfE=;
-        b=dVP3IN6v2XEwy3nyocirjSK8O01dBn2GylzVoRmwSTlavWwPVX78VsMFGucQh0mRMT
-         kMMJYVkCw7vqFWFIMhTt4sqkttFOuDUwQhOLOHQsjbs3BAZDAgOAewYcE6nRb+3JWLeG
-         wl4HDP3enoMY2KEPlyx+rxLnXW2CCR2kwx8UZrLZGBbPOsxWPxAJMhUHFawWbfJPkFSk
-         Gz+FpnxvAVgvOJib+g50/dCvYs4DfDv2gPmJu/1OmMqOdlkTxwOPudNb6EPpESjoerqi
-         qISO31pnfQ3LMgUpXSofECW4gHmE9gKi6Vn73AuIR+hNr5gkQz+e1RHifPdd6c51PfIP
-         F7tg==
-X-Forwarded-Encrypted: i=1; AKwUvBzNiGCk+aMz4t8a5p4BpcnStzsbv3gZBIkraUcM1+wUzPKgQK2lvw0YxyV8IGak/wHtprveqUrbW5dXCqc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL8KG+EQUmgTk78W6tiYM+4Y2r+9uUjhKXyLFoKPY2BkS/zRrY8
-	bDUi0MiFwS88eTkv+cMuJU4dkT85g7du3UDUDytfVvJ27Ge/STyR/MXin/8SN66N+2q3LoMSGSt
-	4eLvP0WKgHnw5itAGgJiwSQenzpjbBjuUs1FEmJ1jkIVm4MrqbpjWfDlKggCBotG6KfoZRg==
-X-Gm-Gg: AYBFou1JyaXIdLGcoxBl6b5wsV6hyhoRv8zT9pOgSEgMiPKn6Xv57g+rItZswQKb7cA
-	U9lFVZkZb7pYYTeo2JJkYWUtZ1AtOlcNTPY9Ws9UD30anVxNSlL5WkZqwH2t08Jrr48ZilSZnw3
-	hi1yKJcMFoUrztZ/Xn018V8EFBd/AU6vaO5dfvd9x7BTG6l8nsOiBaKPsm1A79CzunWwNTd0bmC
-	ooEIjK5RGrwFU14JY91y0v39bjFezF8SmaRdsi+FA6hwD2ajci6OE8Hhxhv1CYSF3gACnebL3VD
-	iI41qMuuflZJPxQjvtH6Oq0i4eC+KASgmkVAjHb+rZbvdQAOVzlBNU3Jcx7m3Rrz3aEHFto3NbC
-	1EJ0KBVw3GE33UtNGDbTCBQAzMaa4BHVIU8s9pYWo5sIElgHyZFrwHjnhEw==
-X-Received: by 2002:a05:620a:1d06:b0:944:a46:5c1f with SMTP id af79cd13be357-944217452e1mr861669385a.40.1793461691231;
-        Sat, 31 Oct 2026 08:48:11 -0700 (PDT)
-X-Received: by 2002:a05:620a:1d06:b0:944:a46:5c1f with SMTP id af79cd13be357-944217452e1mr861665885a.40.1793461690718;
-        Sat, 31 Oct 2026 08:48:10 -0700 (PDT)
-Received: from [127.0.1.1] ([37.142.159.89])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80333sm9694395f8f.32.2026.10.31.08.48.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 08:48:09 -0700 (PDT)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Sat, 31 Oct 2026 11:47:48 -0400
-Subject: [PATCH] mm/userfaultfd: store the child's new uffd context in the
- wait queue entry
+	by smtp.kernel.org (Postfix) with ESMTPS id C25111F000C1;
+	Sat, 31 Oct 2026 15:54:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793462046;
+	bh=Ap1THHwprcvvPpcpEr48EzhOSj8jQxbUx0lCFpj9fSg=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Rk4jeYmj2TqA8WYuJ7O5v4lxoitZ0tJRKLlflsDdldQxbttrnAbYX4NOk6wpm5t72
+	 Uqku29GoLGMiag4okPBCSWCrQLqAI/ri6DzLXR6UJsSOFvAGvBUZzE7W2ZHWx/bZ2e
+	 +o5GpEiSg2Nn9LlnHWooZdLZGqSXlfKOy7raB+KI3VvdSeR0ouhhmmh+4AM4K13zN6
+	 NfWewSdDpCllFCOE1bPna6h2LDkauC334y+9ZlVEFo/3p9xM2G6cDdnCQnzGRVnr0e
+	 4IcGVeojLxgKU+BXNqZPsoZ7pDRiiP3TSKMAlulaiElTyI7qCBnotUXaMwJn4jC7DM
+	 rB9d6eoJiOfHA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 210B645F38;
+	Sat, 31 Oct 2026 15:54:05 +0000 (UTC)
+From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
+Date: Sat, 31 Oct 2026 15:54:05 +0000
+Subject: [PATCH nf] netfilter: nft_set_rbtree: do not pair an expired start
+ with another interval's end
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,140 +84,171 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261031-b4-nft-rbtree-gc-v1-1-51d087c187a6@gmail.com>
+X-B4-Tracking: v=1; b=H4sIABwP5moC/x3MPQqAMAxA4atIZgNtFUWvIg79SWuWKqmIIN7d4
+ vgN7z1QSJgKzM0DQhcX3nOFbhvwm82JkEM1GGUGrTqNrsccTxR3ChEmjzpMfjTBWeMC1OwQinz
+ /ywVyhPV9P2GHHG1mAAAA
+To: Pablo Neira Ayuso <pablo@netfilter.org>, 
+ Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joas Antonio dos Santos <joasantonio108@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793462044; l=6188;
+ i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
+ bh=TXKOw0AxzyY7cMw4G7eFALzoeAvz3Y6zIv9RayVZTE4=;
+ b=/rn2K5I4dav/QPkX0MaECT7axMWE8jro/pg2Q2KvcLdtZwbnQSGzDkOufsj8iPvvWTppNgxGE
+ dk97FoPqZCiC6VN2jy53gJEmH+KX3tZjDswEu4TfzD/oZHO8eBxe3Yt
+X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
+ pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
+X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
+ auth_id=1371
+X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Reply-To: joasantonio108@gmail.com
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-uffd-fork-ctx-v1-1-a837fd576ffc@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAKMN5moC/yXMTQ5AMBBA4avIrE3Sn7BwFbGgnWFIkBaRiLsrl
- t/ivQsiBaEIVXZBoEOiLHOCzjNwQzv3hOKTwShTamU17sweeQkTuu1EY5lUadvCeYLUrIFYzu9
- XN7/j3o3ktncC9/0ACm7sEHEAAAA=
-X-Change-ID: 20261031-uffd-fork-ctx-23fe063a5cde
-To: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
-        Peter Xu <peterx@redhat.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793461688; l=3087;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=4VwRN2aXCA+IhJ6bxdAbQ/+gb2gC5RTAIQ2hevD75F0=;
- b=VS5pRjL5E2ZcJ4ee/ZGTrATXKELkz1s6LtsMjvYqAjM7zUNhwY3vw5GE3DpFv97TmyWb6ODwl
- xBtBxSwLNZPCaLWfaSp5pzvFwELwA2t97mg9o+wfjeq+dNQtbeCfwvy
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-ORIG-GUID: mW5mQTqtuuRSCtMwrpXIOX-D1suA2NEf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA2MiBTYWx0ZWRfXwOKRqo4jiWMj
- AzEVr70IPXhgLELvKAUXlOitKKOlalixhuFTKn20FP56dpYmh3xut1FIddIzI99BL6nhkN/Uptz
- Zv5AQ/uqzWFB7K+VvffyZ5umzjx6UOeMcr36H8fLhFX68QLDGaRejJLMt5B8ZvnrpCPib2Q9HkF
- qW7EK/CNa9erxhZAR2QvokP4gPAiLf7qFWZcXMZgSkkLfgTiZ1EMyLT879jta7KI1QUaup4hXNT
- x8aP98EIgXEozb1wsZyIFeniifC4ckG9SnPWVE3rJT7n6M1LuPcdg7RYxOBdUY3WEYlKTiVI6NU
- PIF/WD0h3XYPCJ+QEaB0q+IP5tKVGXQQznIY7yixcJVZKngYgWYV4PxPFXN1x0qiZLnpEpj5uN6
- SM4X9KYpXKSS43p3cgFbwrptzvRlpp/JY3l7IceR/0la4jDq24+b8Is+u6AzHCRYClzqyRq6hIi
- TAVL47YVDqExGukZmTQ==
-X-Proofpoint-GUID: mW5mQTqtuuRSCtMwrpXIOX-D1suA2NEf
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA2MiBTYWx0ZWRfX1xYkOd+Vfkcw
- 8F+Y0sBhvXJKRqdbuJELUFA3tNCIX4WnR/c1ONpVKWfHL4V68t0+o93TU6W05kayXY/AMmV+vF9
- 5cxWOinoUtq3r/MgUkOfJl43rmyP2sStH3kFNG4wzO2QCmkp1vOk
-X-Authority-Analysis: v=2.4 cv=ZIpCCn7b c=1 sm=1 tr=0 ts=6ae60dbc cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=P+xgYyhW+KadpqoI50EQPQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=SsB-OO3BMngHh3ZO9fOt:22
- a=bMp_idCJdzv5ZnZB5UwA:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11952
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 phishscore=0 clxscore=1015 adultscore=0
- malwarescore=0 bulkscore=10 impostorscore=10 suspectscore=0
- lowpriorityscore=10 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2610310062
 
-A UFFD_EVENT_FORK message cannot carry the child's fd when it is queued,
-because the fd has to be installed in the fd table of whichever task
-reads the event. The forking task has to hand the reader the new context
-itself. It does that by casting the child's userfaultfd_ctx pointer into
-the arg.reserved.reserved1 field of the UAPI struct uffd_msg, which the
-readers cast back.
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-That temporarily puts a kernel pointer in a struct that is copied to
-userspace, and results in ugly casts when passing the uffd context
-around. While resolve_userfault_fork() currently zeroes reserved1 before
-it is exposed to userspace, this unnecessarily risks leaking a kernel
-pointer to userspace if future modifications are buggy.
+Garbage collection of an expired interval start element also removes its
+end element. Both the insertion path, nft_rbtree_gc_elem(), and the
+commit path, nft_rbtree_gc_scan(), find that end element by its position
+in the tree, and both can pick the end element of a different, live
+interval:
 
-Store the fork_ctx pointer in struct userfaultfd_wait_queue instead,
-which is kernel-internal and passed around anyway. The casts and the
-zeroing go away, at the (negligible) cost of 8 more bytes on the
-stack.
+- nft_rbtree_gc_elem() walks towards higher keys and skips end elements
+  that are not active in both generations. If the end element of the
+  expired interval is being deleted in the same transaction, the walk
+  skips it, passes the start element of the next interval and takes that
+  interval's end element instead.
 
-No functional change.
+- nft_rbtree_gc_scan() remembers the last end element it visited in
+  rbe_end, but does not clear it when it visits a live start element. An
+  expired start element without an end element (a start-only element, or
+  an interval whose end element was already removed) then takes the end
+  element of the live interval above it.
 
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+In both cases the live interval [S, E) loses E: the set no longer holds
+the interval that userspace added, and deleting [S, E) later fails with
+ENOENT.
+
+In the insertion path, stop the walk at the first element that is active
+in the current generation. Elements added by this transaction are still
+skipped, as intended by commit 60c0c230c6f0 ("netfilter: nft_set_rbtree:
+skip end interval element from gc"). If that element is a start element,
+the expired interval has no end element. If it is an end element that
+this transaction is removing, leave it to the transaction. In the commit
+path, clear rbe_end when a live start element is visited.
+
+Reproduced on current mainline under QEMU (arm64, KASAN), from an
+unprivileged user in a new user and network namespace:
+
+- insertion path: add [10,20) with a 50ms timeout and [30,40), wait,
+  then in one batch delete the end element 20 and add [12,13).
+  Before: a GET for 45 finds an element, the end element 40 is gone and
+  deleting [30,40) fails with ENOENT. After: 45 is not found, 40 is
+  present and the delete succeeds.
+
+- commit path: add [30,40) and a start-only element 10 with a 50ms
+  timeout to a set with a 100ms gc interval, wait, then add [200,201),
+  whose insertion walk stops at the highest element, so only the
+  commit-time scan reaches 10. Before: the end element 40 is gone and
+  deleting [30,40) fails with ENOENT. After: both work.
+
+Normal expiry, and a new interval whose end element shares the key of an
+expired start element (the case handled by 60c0c230c6f0), behave the same
+before and after. About 39000 random batches on interval sets with
+timeouts, with and without slab/page allocation fault injection, showed
+no KASAN, lockdep or WARN reports with the patch applied.
+
+The insertion path issue was found with a small nfnetlink fuzzer. Both
+paths had been pointed out earlier by the netdev AI review of commit
+86b6471e690c ("netfilter: nft_set_rbtree: skip transaction elements
+during GC"), see the Link below.
+
+Fixes: f718863aca46 ("netfilter: nft_set_rbtree: fix overlap expiration walk")
+Fixes: 8d8540c4f5e0 ("netfilter: nft_set_rbtree: add timeout support")
+Link: https://lore.kernel.org/all/179063970372.3145.17414936987144600093@kernel.org/
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
 ---
- mm/userfaultfd.c | 19 ++++++-------------
- 1 file changed, 6 insertions(+), 13 deletions(-)
+Tool-use note: the fuzzer, the directed tests and the analysis were
+prepared with help from an LLM-based assistant; I reviewed the change
+and built and ran all tests myself. Test harness available on request.
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 3b71712edab4..cae70df89c00 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -2430,6 +2430,8 @@ struct userfaultfd_wait_queue {
- 	struct uffd_msg msg;
- 	wait_queue_entry_t wq;
- 	struct userfaultfd_ctx *ctx;
-+	/* UFFD_EVENT_FORK: the context created for the child */
-+	struct userfaultfd_ctx *fork_ctx;
- 	bool waken;
- };
+This is a resend through the kernel.org web endpoint: my earlier
+submission of this patch was blocked by my mail provider and never
+reached the lists.
+---
+ net/netfilter/nft_set_rbtree.c | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
+
+diff --git a/net/netfilter/nft_set_rbtree.c b/net/netfilter/nft_set_rbtree.c
+index fbe1750f1..086823067 100644
+--- a/net/netfilter/nft_set_rbtree.c
++++ b/net/netfilter/nft_set_rbtree.c
+@@ -215,17 +215,25 @@ nft_rbtree_gc_elem(const struct nft_set *__set, struct nft_rbtree *priv,
+ 	struct nft_set *set = (struct nft_set *)__set;
+ 	struct rb_node *prev = rb_prev(&rbe->node);
+ 	struct net *net = read_pnet(&set->net);
++	u8 cur_genmask = nft_genmask_cur(net);
+ 	struct nft_rbtree_elem *rbe_prev;
  
-@@ -3006,14 +3008,8 @@ static void userfaultfd_event_wait_completion(struct userfaultfd_ctx *ctx,
- 			 * didn't.
- 			 */
- 			__remove_wait_queue(&ctx->event_wqh, &ewq->wq);
--			if (ewq->msg.event == UFFD_EVENT_FORK) {
--				struct userfaultfd_ctx *new;
--
--				new = (struct userfaultfd_ctx *)
--					(unsigned long)
--					ewq->msg.arg.reserved.reserved1;
--				release_new_ctx = new;
--			}
-+			if (ewq->msg.event == UFFD_EVENT_FORK)
-+				release_new_ctx = ewq->fork_ctx;
+ 	/* search for end interval coming before this element.
+ 	 * end intervals don't carry a timeout extension, they
+ 	 * are coupled with the interval start element.
++	 *
++	 * Skip elements added in this transaction. The first element
++	 * that is active in the current generation is either the end
++	 * element of this interval or the start element of another
++	 * interval, in which case this interval has no end element.
+ 	 */
+ 	while (prev) {
+ 		rbe_prev = rb_entry(prev, struct nft_rbtree_elem, node);
+-		if (nft_rbtree_interval_end(rbe_prev) &&
+-		    nft_set_elem_active(&rbe_prev->ext, NFT_GENMASK_ANY))
++		if (nft_set_elem_active(&rbe_prev->ext, cur_genmask)) {
++			if (!nft_rbtree_interval_end(rbe_prev))
++				prev = NULL;
  			break;
++		}
+ 
+ 		prev = rb_prev(prev);
+ 	}
+@@ -233,7 +241,11 @@ nft_rbtree_gc_elem(const struct nft_set *__set, struct nft_rbtree *priv,
+ 	rbe_prev = NULL;
+ 	if (prev) {
+ 		rbe_prev = rb_entry(prev, struct nft_rbtree_elem, node);
+-		nft_rbtree_gc_elem_move(net, set, priv, rbe_prev);
++		/* end element is being removed by this transaction */
++		if (nft_set_elem_active(&rbe_prev->ext, NFT_GENMASK_ANY))
++			nft_rbtree_gc_elem_move(net, set, priv, rbe_prev);
++		else
++			rbe_prev = NULL;
+ 	}
+ 
+ 	nft_rbtree_gc_elem_move(net, set, priv, rbe);
+@@ -911,8 +923,11 @@ static void nft_rbtree_gc_scan(struct nft_set *set)
+ 			rbe_end = rbe;
+ 			continue;
  		}
+-		if (!__nft_set_elem_expired(&rbe->ext, tstamp))
++		if (!__nft_set_elem_expired(&rbe->ext, tstamp)) {
++			/* rbe_end belongs to this live interval */
++			rbe_end = NULL;
+ 			continue;
++		}
  
-@@ -3111,7 +3107,7 @@ static void dup_fctx(struct userfaultfd_fork_ctx *fctx)
- 	msg_init(&ewq.msg);
- 
- 	ewq.msg.event = UFFD_EVENT_FORK;
--	ewq.msg.arg.reserved.reserved1 = (unsigned long)fctx->new;
-+	ewq.fork_ctx = fctx->new;
- 
- 	userfaultfd_event_wait_completion(ctx, &ewq);
- }
-@@ -3404,7 +3400,6 @@ static int resolve_userfault_fork(struct userfaultfd_ctx *new,
- 	if (fd < 0)
- 		return fd;
- 
--	msg->arg.reserved.reserved1 = 0;
- 	msg->arg.fork.ufd = fd;
- 	return 0;
- }
-@@ -3482,9 +3477,7 @@ static ssize_t userfaultfd_ctx_read(struct userfaultfd_ctx *ctx, int no_wait,
- 			*msg = uwq->msg;
- 
- 			if (uwq->msg.event == UFFD_EVENT_FORK) {
--				fork_nctx = (struct userfaultfd_ctx *)
--					(unsigned long)
--					uwq->msg.arg.reserved.reserved1;
-+				fork_nctx = uwq->fork_ctx;
- 				list_move(&uwq->wq.entry, &fork_event);
- 				/*
- 				 * fork_nctx can be freed as soon as
+ 		/* end element needs to be removed first, it has
+ 		 * no timeout extension.
 
 ---
-base-commit: 243e8cdab64129d6207c398f8cf5fbb1962ff7e1
-change-id: 20261031-uffd-fork-ctx-23fe063a5cde
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+change-id: 20261031-b4-nft-rbtree-gc-1d9c72dba2bd
 
 Best regards,
---  
-Tal Zussman <tz2294@columbia.edu>
+-- 
+Joas Antonio dos Santos <joasantonio108@gmail.com>
+
 
