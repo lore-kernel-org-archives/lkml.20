@@ -1,91 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793473694;
-	b=tIc1z/ZTLsI4dv9nLF49DsrdGkniqS/MiEuiQWN8Xw4ABWf4j/1nxqJnqrRB3eAevumY
-	 x42cy8UCf5ttBEsYx/SkKTxUtWrLYxIfzIuHTpG8wWWaJQ7/8mvzbpTM0uhjFnVjbNtOw
-	 DjW87DgBjqH2PeTvCwUQYMTeK2fDI59KCAyqSd+21cER2/9u+ZBaPyWyMxCwwv+MRqP0b
-	 OnaoySCr6CHh8Bslcw3rjdEvRMX5iy5x/Enjq0EtKm9dIMFhZ/nfcuGztnVVtWi4oUbfi
-	 4SR2KNhrM0AgHS1synLysjd0X/x5g0HUcaCfhfGlcsOcV4juVp6drHm57WetZcQxelQ==
+	t=1793473790;
+	b=HabjO9x5+8ulz65pLli0g8aqHYW687E2llJq5fcgP1LXpSngXGP7ozw3htXgg28MGUuO
+	 4hYlb+pspkBNhzLkPFamxYW1uj+UJYmbIyEJj9IXNtMSCuexBwSCMI7lSveDNZZcrv1m4
+	 1GiACdKj58h6HXirkWJibGnxoi6NcyVKxqPu3sOYf7mC7bTzssHzClaBqQ0uBPhPSWytT
+	 mdRWn4YQEDDBIWG+qrylXBEndLuRqnj6CFiPzhQixWIXW1796HQM1gRA6hMTZG7drCFyZ
+	 98blSLNCugMXVf5YqxSkNZVGWy7QSBdxNyeEWuVFOM88+jrRIWJgxF0l3FTBQjdG9KQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793473694;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=/LscOLn41OKpLbVnPd4xE9dms+FzlvehR8MBG5Utoss=;
-	b=qVB4PW4uD9bvNHd3f9hmbbMwpUlqm18Qsb8N1y32YZojKxjpiRJrAI513essc0XFVtc7
-	 89h09w/Br56ovHxOPbteBGsA3C5qvgT5MsipDzUMcOmhsjo9wNxSvwZ1NEE3nPo2fg3pC
-	 UGWREoXLebqwWvpw3GdHM6bIy0jNFN0M4ahHDF7+FDtTURGl3JSBPRAmvmuLMLUe/Dvwy
-	 vJuxPlA4jFxY6bvM6xuS4RMEi84fjoP94DxJFEze5clFMC2zclkszp5+L4hOtlY7i4qM5
-	 vRjxBOhgXlDYICcIKdWebQi+Tm7Kiu1QFEKpa2DLht9G5huar04MN1b84FV4VvqE/4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793473790;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=b+Qh5Uwalfg4+sQsbYwohX2NOBHbbc/nf2ild3+ohzI=;
+	b=wIPu/tDt0icu52GfUFwuhzI3ClU5hIAr4jXcPa6eAvtQecVLxB5XEoYz1vC2YYSvZ0Ya
+	 irFgFQl/mTCG4uSzVUJV6/dfot56ZWIWUW5lzFpXxtLH98Cv3Xpccs/T0k6pz2mhMUWFE
+	 JN7CxU8j+oPgrn+1pcc5A0HfIb9b8TAaOI06nDmO/6JelpFOGOE9Vl2/Dmm4Ci01e4rLn
+	 GaDbLBhZlENZZGJ+qXqCk3i6EmFcSLLhpg38gr6kXC5V9G72pFAXRSCo4/4XnCZzUC89A
+	 Qlh5FZiTrSvo0r0sH/DcKHotqhv/G2FsbAjT3xLFyNxX59RSjJ6dG6ZEv2ebjgwlAwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PpAcvhxg;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E45F8606A31A;
-	Sat, 31 Oct 2026 19:08:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E45F8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PpAcvhxg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793473692; x=1825009692;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=c29btWuVr0fvimsA9IMS8mmau5ofOCQF01O8gAxcQhg=;
-  b=PpAcvhxgvwn+hvLmIud3tNdaJdTe2NoMYhCCd7vKzns1/Kh1X2ZCsfmN
-   lZF5Kg6lINbfxM2MlRn0wY19TVj7gyoNh6lNYmK9QMqNw0T0Jb3CmNLhO
-   9qOVBgXmc9rDsr9GJGJAwBy4JVPlqEOYQOnQCR9nkqyKiq0lWRBrlvg/L
-   xQ7Xrnwrvt5+E4EBqfs1Zofjk8HOxXLpUzc+j3SzNvda48WqHaYP3LVG7
-   6iOJUb+rbU83PpJS++PKg7DuXEZ5IiLzkUvjlAvhMEOkES/9gFIoEzi7w
-   amK7r/h4pjKtSXg24OovfEV3TORN+L4kV8GRgAoO/6Ncr3qZ5ubafQgMD
-   A==;
-X-CSE-ConnectionGUID: MX326MZ5RsOxmYBwvCy8PQ==
-X-CSE-MsgGUID: 8jBG2I/pSYSycJgHuyXcZw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11952"; a="2214133"
-X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
-   d="scan'208";a="2214133"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 12:08:11 -0700
-X-CSE-ConnectionGUID: z0oV6JnFSHymNAR8O0W/Fw==
-X-CSE-MsgGUID: xDOKj0fAQDSeoLb0Nh5wsg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
-   d="scan'208";a="6096436"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 31 Oct 2026 12:08:06 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xNEQt-00000000d5Q-2MJy;
-	Sat, 31 Oct 2026 19:08:03 +0000
-Date: Sun, 1 Nov 2026 03:07:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>
-Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v5 11/11] drm/tegra: Add support for 8-bit CPU interface
-Message-ID: <202611010236.HbsmlTpw-lkp@intel.com>
-References: <20261029152909.234584-12-clamor95@gmail.com>
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8605F606A31A;
+	Sat, 31 Oct 2026 19:09:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8605F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=b+Qh5Uwalfg4+sQsbYwohX2NOBHbbc/nf2
+	ild3+ohzI=; b=OZLx7He7D9sWFx/jS8d1BqhnntFDHg2vzEGnO6cw6aH1sTzqFR
+	S9/jwtY31X0kzr9yWPE6Li7aVpcL6dJ8+IP3MA38LtYakBiocNxz+ZilyQS/5Cq8
+	/42lp5DfmgmF7GvVxUUqSlKYoP38by4Lq5Fi+JF82KQkOjO4Wp9I7MKgM=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.19])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkCm6v_xPOZquI0SAQ--.42611S2;
+	Sun, 01 Nov 2026 03:09:38 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.de>
+Cc: Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] ALSA: bcd2000: Fix use-after-free of MIDI URBs on file close
+Date: Sun,  1 Nov 2026 03:09:36 +0800
+Message-Id: <20261031190936.5696-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <874ie1rbge.wl-tiwai@suse.de>
+References: <874ie1rbge.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,39 +61,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029152909.234584-12-clamor95@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkCm6v_xPOZquI0SAQ--.42611S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxZw1kCr13tFyxWF43Ww45KFg_yoW5Ar1kpF
+	W8Kr4Yyr1DGrn09FySyF1kCF1Fy3Wxta4DKryrW34YyFyrXw13tay0kF15ursxCryfG390
+	vF1ktFWfGFs8Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15Mc
+	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
+	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6rWl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
+	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
+	IYCTnIWIevJa73UjIFyTuYvjxUyfb8UUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUDD2rmBsIaGwAAsC
 
-Hi Svyatoslav,
+bcd2000_disconnect() calls snd_card_disconnect(), which only prevents
+new opens, and then frees the MIDI URBs.  A rawmidi file that was
+already open can still be closed afterwards, and its close callback,
+bcd2000_midi_output_close(), calls usb_kill_urb() on midi_out_urb.
 
-kernel test robot noticed the following build errors:
+The URB pointers are cleared on disconnect and their accesses are
+serialized with midi_lock, but bcd2000_midi_output_close() reads
+midi_out_urb without that lock.  The check can therefore pass just
+before the pointer is cleared, and usb_kill_urb() then runs on the URB
+that has already been freed:
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on drm/drm-next linus/master v7.3 next-20261030]
-[cannot apply to tegra/for-next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+  BUG: KASAN: slab-use-after-free in usb_kill_urb+0x74/0x80
+  Read of size 8 at addr ffff8880078e7d40
+   usb_kill_urb
+   bcd2000_midi_output_close
+   close_substream
+   rawmidi_release_priv
+   snd_rawmidi_release
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Svyatoslav-Ryhel/drm-Add-MIPI-DBI-bus-support/20261029-172859
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20261029152909.234584-12-clamor95%40gmail.com
-patch subject: [PATCH v5 11/11] drm/tegra: Add support for 8-bit CPU interface
-config: arm-randconfig-1001-20261031 (https://download.01.org/0day-ci/archive/20261101/202611010236.HbsmlTpw-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 13.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261101/202611010236.HbsmlTpw-lkp@intel.com/reproduce)
+  Allocated by: usb_alloc_urb <- bcd2000_init_midi <- bcd2000_probe
+  Freed by:     usb_free_urb <- bcd2000_midi_free
+                <- bcd2000_disconnect
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611010236.HbsmlTpw-lkp@intel.com/
+Take the lock in bcd2000_midi_output_close() and reference the URB with
+usb_get_urb() before releasing it.  The URB then stays valid until
+usb_put_urb() after usb_kill_urb() has returned, even if a disconnect
+frees it in the meantime.  usb_kill_urb() itself cannot run under
+midi_lock, as the completion handler takes the same lock.
 
-All errors (new ones prefixed by >>):
+Fixes: b47a22290d58 ("ALSA: MIDI driver for Behringer BCD2000 USB device")
+Cc: stable@vger.kernel.org
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+v3: reference the URB under midi_lock in bcd2000_midi_output_close()
+    instead of waiting for open files in bcd2000_disconnect(), which
+    would block the USB disconnect path on userspace.
 
-   arm-linux-gnueabi-ld: drivers/gpu/drm/tegra/dbi.o: in function `tegra_dbi_probe':
->> dbi.c:(.text+0x874): undefined reference to `devm_mipi_dbi_device_register'
+ sound/usb/bcd2000/bcd2000.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+diff --git a/sound/usb/bcd2000/bcd2000.c b/sound/usb/bcd2000/bcd2000.c
+index 2bd49bf82748..0fd086cac955 100644
+--- a/sound/usb/bcd2000/bcd2000.c
++++ b/sound/usb/bcd2000/bcd2000.c
+@@ -183,10 +183,24 @@ static int bcd2000_midi_output_open(struct snd_rawmidi_substream *substream)
+ static int bcd2000_midi_output_close(struct snd_rawmidi_substream *substream)
+ {
+ 	struct bcd2000 *bcd2k = substream->rmidi->private_data;
++	struct urb *urb = NULL;
+ 
+-	if (bcd2k->midi_out_active && bcd2k->midi_out_urb) {
+-		usb_kill_urb(bcd2k->midi_out_urb);
+-		bcd2k->midi_out_active = 0;
++	/*
++	 * Reference the URB under the lock so that it stays valid until
++	 * usb_kill_urb() returns, even if a disconnect frees it in the
++	 * meantime.  usb_kill_urb() cannot run under the lock, as the
++	 * completion handler takes the same lock.
++	 */
++	scoped_guard(spinlock_irqsave, &bcd2k->midi_lock) {
++		if (bcd2k->midi_out_active && bcd2k->midi_out_urb) {
++			urb = usb_get_urb(bcd2k->midi_out_urb);
++			bcd2k->midi_out_active = 0;
++		}
++	}
++
++	if (urb) {
++		usb_kill_urb(urb);
++		usb_put_urb(urb);
+ 	}
+ 
+ 	return 0;
+-- 
+2.34.1
+
