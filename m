@@ -1,86 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793448435;
-	b=d3M+LFomvuuk1xKnyFbxc1ZACFnhDPEjOGzbLoPtirH9hkDkXanjuMOD1rgJ1n8mOafm
-	 blqgmNhWdG5ntNSJDdxudSkZAbEhmwK8gLIbKmdGuj1Q9+cM9pHHMembhJ8DuHrzpYc8i
-	 BRlXVxv73nhmvgOHxN1MFwE/6P1p8JftQoK/8TNDlzMC/LHsByCjnz9g1abcBaNe4fgUX
-	 lqmfbGjTVwr5AFhARqRlL9Qb0ZCN7Cdd30PMP8cROS1wzFoGd8VmCu9QIw8EhG9Ge/zKf
-	 tUT1ijIsPTcX0t2V7QUAjVvtGld4As4fSl0ci8ulp3ngYVt9izokJDQ4VOmuPDmR22w==
+	t=1793448441;
+	b=3IpfeTXVSnvFTDL57pwYrwo6hFWVs04uFxc1pqHEfS1w4N+HWbk/DWQQOogvPh6mh6aR
+	 XyNx72m2vEHtrcYZSNEICOtrAAg8/VsiDO+b+ri6vbrHvhS3/BnepzoF6IyeGpZCbbdLI
+	 4uMzAEi8Dusu56//8GucF0NXV+7wH7YFTuvlqWWXDllu0pWmIB/dH/+uhL7tGazyIhHXF
+	 kbDhMQCkGKk5QZtm8UFEizt9rHEEhEprD5tnkdVSI0SbmItnuC+w4Wz30cy15tRBKYmO9
+	 Alk4xa14dw9pZf5QOvUSpjCQ0tym1J04jWcjZbe7buRWBBv/XaLomU5kRuJrhQHppXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793448435;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=+l1RRgq+C9AayOmwqqNeY+nzGv5HKvLpPKk8tw/PkoQ=;
-	b=VUZ3PaWqBvLBSQR7PNEios6JIpYQ1bMlCYkeLPTiPMIj7fdx6bqyyAMUwtgpWddFA/NU
-	 jqwA7hnd0AtligvwZr4E9c5NBRnM7Zl/9NMNYkBXi098S//mgXnJVk121YHKRAID8p5OB
-	 mzJCyllxwVNB0jsfjBc9hL0RPF5Yn3dWX4v/xUArYuoGfoGcvOhD+I/0eg1CN7kdIxLZd
-	 6C53zE/OzacNSDg6owNkI89QW9N9s3yga+w6USw59KKmCXyaisnHWxCe6I3eyyVgDNNgA
-	 XKlssYoSQcSXOmXOs7gId7gPsYXC2U+yrCFW6byxiDI8c/h3FTy4IC32/u2txXM7gjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793448441;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Ra9w+zWZgwoCxB8YuqKLO7gy/hnQxYG7gsDPgEiLLpU=;
+	b=B3hl2unlyn3YoyHJMlrahKHQiNZ5+ZUYLs5nVQalOXb6DlRSlQL6xSK3cHi9v/ZcvV73
+	 WSOakC+n5nscZZ1C8Yx8PCRIVeGR1x0G7vpwI0VZt74gug5rIparW9Nft8hRubOOF3+U6
+	 DQmHCpBBG1IgnuSD0YqXZSF7E085FVw/gPG3MIxI+y4TLLxh+xurRuIhycUGtz1MoFfNy
+	 5p0G2wfNZPegxQCfFg/9rGu2XPqCYk+x6de3IcKxKukpTKRbfBOKXYryS2huW14qXFTD4
+	 g/IE5QCy4LJe24TLkd/tnMKZZwe6qzihSq6+fbaJ68Buu+G6tgfJPUTeHKqWFFfbJeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k5pQxOSG;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=posteo.net;
+	spf=pass smtp.mailfrom=posteo.net;
+	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=OjAlI7I3;
+	arc=none smtp.remote-ip=185.67.36.65
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DE6606A31E;
-	Sat, 31 Oct 2026 12:07:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74DE6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A6360A2605
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:07:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68A6360A2605
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k5pQxOSG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793448434; x=1824984434;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2NOLA5XLr0F+d2rcxhw0zW65IDgq0qHt9PrC2igHtR4=;
-  b=k5pQxOSG7azQND/AcZuzs3XsntWJI61kUbDswhhMOGyutMUU6dciBlII
-   MkCVebYpkno1KGjFYuJVi2mFUgHC9UdkRbTMIiFsvXVxCsCLffkCD2rjW
-   ljkYQE2SXqNxbncc0HEWXT/DgKEbBAK1ERzMdBweU3HStxTd3KrXEDLeJ
-   fXZMb5vwRji6EMsjS1LgwuNaxxmI4UvPxIV9wlU32SOILkn+rQTa2mMRy
-   fCRcXGXmbj0o4MB+rtlcStzheZAqHw4Pe8ehaoiA3c1YlPRTEsL58qkly
-   GXqX8lKlp2rGQQCtkr2EAiF/i6coMoPJqpIAoWn6lKhNPWY7Urx0NPgzu
-   w==;
-X-CSE-ConnectionGUID: vyeiD72CScKJcvOhpPd90g==
-X-CSE-MsgGUID: RpFbSmK1RsWDcailyE28yA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2111055"
-X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
-   d="scan'208";a="2111055"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 05:07:13 -0700
-X-CSE-ConnectionGUID: aRmGSsk1R1ugqt8b3FW5xQ==
-X-CSE-MsgGUID: IYxRFdnZT1CpmNC+dmjNEg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
-   d="scan'208";a="7493584"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa011.fm.intel.com with ESMTP; 31 Oct 2026 05:07:09 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xN7rV-00000000coK-1izy;
-	Sat, 31 Oct 2026 12:07:05 +0000
-Date: Sat, 31 Oct 2026 20:07:03 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>, jgg@ziepe.ca,
-	alex@shazbot.org, pbonzini@redhat.com, seanjc@google.com,
-	bhelgaas@google.com, jjohnson@kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	johannes@sipsolutions.net, mani@kernel.org, lpieralisi@kernel.org,
-	kwilczynski@kernel.org, robh@kernel.org, vkuznets@redhat.com,
-	kevin.tian@intel.com, linux-pci@vger.kernel.org,
-	kvm@vger.kernel.org, linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org, ath12k@lists.infradead.org,
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=OjAlI7I3
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout01.posteo.de (Postfix) with ESMTPS id E0478240029
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:07:14 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
+	s=1984.8680eb; t=1793448434;
+	bh=Ra9w+zWZgwoCxB8YuqKLO7gy/hnQxYG7gsDPgEiLLpU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:From;
+	b=OjAlI7I37GMxg1ZeHT8HQkXDsSmLMMkV7waYDyjYo0Y1HZ9vQYV7H69rlnUF+vtoy
+	 87i4JOAjwn0lLHfeyNLLhYYb+oeJvv4XSBQ9RuyVZ5SDqdCrFWfKlSzVC7VhtX1ZMY
+	 cz6495e9GBehHoyQQbp7Tcgr0DFXAzWQThSqlNWdXn6Q0oeNvR9uT+4mU3btkyMuHo
+	 Q3KdN+9Q7JcBK7jWz3xgB8zNckqh38qIzxTLEh+gWZbPmhtCbjqsknKz2HtVunDUOV
+	 r3tLlTt9IBfbKBJH23CDyOmElTtDAcYj373hQrUm3ceEWN6md/AXsCbTdYDxrY2JF+
+	 1tskkiQIIUrHQ==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4jGxXx0lm9z6v26;
+	Sat, 31 Oct 2026 13:07:13 +0100 (CET)
+From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+To: Ulf Hansson <ulfh@kernel.org>,
+	linux-mmc@vger.kernel.org
+Cc: Christophe Kerello <christophe.kerello@foss.st.com>,
+	Mateusz Nowicki <mateusz.nowicki@posteo.net>,
+	Russell King <linux@armlinux.org.uk>,
+	Linus Walleij <linusw@kernel.org>,
+	Yann Gautier <yann.gautier@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Subject: Re: [PATCH v3 2/8] KVM: add PCI MSI hypercall for VFIO passthrough
-Message-ID: <202610311919.NWIUCtPb-lkp@intel.com>
-References: <20261029163713.1366077-3-jtornosm@redhat.com>
+	stable@vger.kernel.org
+Subject: [PATCH 3/3] mmc: mmci: stm32: lock the STM32MP25 delay block again before tuning
+Date: Sat, 31 Oct 2026 12:07:14 +0000
+Message-ID: <20261031120700.42576-4-mateusz.nowicki@posteo.net>
+In-Reply-To: <20261031120700.42576-1-mateusz.nowicki@posteo.net>
+References: <20261031120700.42576-1-mateusz.nowicki@posteo.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,40 +78,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029163713.1366077-3-jtornosm@redhat.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Jose,
+Once locked, the DLL of the delay block follows voltage and temperature
+but not a change of the clock frequency. RM0457 requires the DLL to be
+disabled and locked again after a frequency switch.
 
-kernel test robot noticed the following build errors:
+sdmmc_dlyb_mp25_enable() only sets EN, so a DLL left enabled by an
+earlier tuning keeps its old lock. On the STM32MP257F-DK eMMC, switching
+from DDR52 to HS200 then made the tuning pick a wrong phase in 9 of 18
+tries. With this change the phase was correct in all 12 tries.
 
-[auto build test ERROR on pci/next]
-[also build test ERROR on pci/for-linus linus/master next-20261030]
-[cannot apply to kvm/queue kvm/next ath/ath-next kvm/linux-next v7.3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Clear EN and wait for LOCK to drop before enabling the DLL again.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Jose-Ignacio-Tornos-Martinez/vfio-add-helper-to-find-PCI-device-by-vendor-device-ID/20261029-173706
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git next
-patch link:    https://lore.kernel.org/r/20261029163713.1366077-3-jtornosm%40redhat.com
-patch subject: [PATCH v3 2/8] KVM: add PCI MSI hypercall for VFIO passthrough
-config: x86_64-randconfig-1011-20261031 (https://download.01.org/0day-ci/archive/20261031/202610311919.NWIUCtPb-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311919.NWIUCtPb-lkp@intel.com/reproduce)
+Fixes: b5c3eb385797 ("mmc: mmci: stm32: add delay block support for STM32MP25")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+---
+ drivers/mmc/host/mmci_stm32_sdmmc.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610311919.NWIUCtPb-lkp@intel.com/
+diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
+index d74efdff6ac2..2310dba75c35 100644
+--- a/drivers/mmc/host/mmci_stm32_sdmmc.c
++++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
+@@ -541,11 +541,21 @@ static int sdmmc_dlyb_mp15_prepare(struct mmci_host *host)
+ static int sdmmc_dlyb_mp25_enable(struct sdmmc_dlyb *dlyb)
+ {
+ 	u32 cr, sr;
++	int ret;
+ 
++	/*
++	 * The DLL tracks voltage and temperature but not a frequency switch
++	 * (RM0457), start the lock sequence again on the current clock
++	 */
+ 	cr = readl_relaxed(dlyb->base + SYSCFG_DLYBSD_CR);
+-	cr |= DLYBSD_CR_EN;
++	writel_relaxed(cr & ~DLYBSD_CR_EN, dlyb->base + SYSCFG_DLYBSD_CR);
++	ret = readl_relaxed_poll_timeout(dlyb->base + SYSCFG_DLYBSD_SR,
++					 sr, !(sr & DLYBSD_SR_LOCK), 1,
++					 DLYBSD_TIMEOUT_1S_IN_US);
++	if (ret)
++		return ret;
+ 
+-	writel_relaxed(cr, dlyb->base + SYSCFG_DLYBSD_CR);
++	writel_relaxed(cr | DLYBSD_CR_EN, dlyb->base + SYSCFG_DLYBSD_CR);
+ 
+ 	return readl_relaxed_poll_timeout(dlyb->base + SYSCFG_DLYBSD_SR,
+ 					   sr, sr & DLYBSD_SR_LOCK, 1,
+-- 
+2.56.0
 
-All errors (new ones prefixed by >>):
-
->> ld.lld: error: undefined symbol: vfio_file_find_pci_device
-   >>> referenced by vfio.c:405 (arch/x86/kvm/../../../virt/kvm/vfio.c:405)
-   >>>               vmlinux.o:(kvm_vfio_pci_msi_alloc)
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
