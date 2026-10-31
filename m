@@ -1,55 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793438388;
-	b=2pGnvYDHyB2U+D+q/2BNfuWtZaIG7yS18+VvxXUEdxaAgW2b5KMu9iTEN8YotFdmdXGJ
-	 vPax880AcTmiPAwPAix+PQEe7LPCu04Ni6FolFJpc3Mmv4FGvlJN5hOXMZJWhXBsz9BF+
-	 1XDUjBVi6yLzSdWxwX1pXGyQXKmTuYrn2SOxQT2mdmwrMchr5oqPesUi4kHEAzMjk+Viw
-	 N5rXzUFjxZOfpBSUcrAyQNhs88VY46iHlDup61Fe+0Qh3ujtPJWwYK1VMBzAI0fQ2zk/L
-	 hJ4dfRlSYzDBaEup3PtvWbbFYpOiaMYy/0HXv4X1e7OXpGp+7Z6/+mEGboJ5yrjTTbg==
+	t=1793438424;
+	b=iLbZObrh3nxMRzZ55GdbeYJaOJIOlkoZY4QtYKN4GZzN+04/gUfw6uQGavWVwKw+acJv
+	 xBGnMK2t9Diso1y8Kxf1ikHNvS4FflWbq8Xqgk2blMn1uuk0S0d49FTkJm4pGH/Dn077W
+	 uZK7y8XXHvFRot4s/KaDKoVPHxBGkyuKAK/JawApHPfEFAf2w1Eqbq9XSWmCldJq6pCBN
+	 eGXxKfuQBrnoqDcgvd+G47fGyYtQgZ4upzAsj6GjGDY1O5DoBmyhFMu5xR0o+rGExCj6l
+	 7y6sGEcbNwPdmvhd+SmlTkHdEZjf5JUeA4+0HzIwbWoXqv3OGwcyY51ZljEv7x9FGoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793438388;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793438424;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vOd3Fxn6yvB2VyZrBg3cap4BKOQOr3E+6p4jJYft2n0=;
-	b=Bzhba3jqmtVjfOq9gMWq5FB8AEZVrhetbuF06Jvh9EnGB9/8hpa76Gn05QHc1QnKTbt2
-	 3XCtMnlY05yA7lcYnzqHzXM0OLsmw2rkeHnzjtadp+r4JBJKVc1JnsOittcotfUsMz/vN
-	 rYF7CPRugo0JBPS08AP8O988YyUAKJJz+HAZE9T4Vy2DnkYzOt5HV0IKrFhYMvdH1eGZe
-	 RsPuoYlRh2Gb3UVNmATJJW9YC6YFmuWK/CRhpV6/OzhYMBghCE8O1ghN+l1hmaSeddm/V
-	 dxTZXYF+L0OvN83dAgIT/hl1ZivnB+4/YBmwRKsTlLlyHeBYrAaWOx2ZMwZskjFSH0A==
+	bh=dLwZlfqngcUMXWHHM0GFPkimZNPQuLtLOOkOpLsUjjg=;
+	b=aTIJoriWatyNpE7xzb55RXPYJkZvfFT0Dj/VwUIe6hJV8pbRhNc48XGtsPke5uNiLF8K
+	 unKZ6/32S0/BwzOfXXsLhLHdXzmStN5IsssMlfBTr09sHQFuUelK6FUhzlp4MoIWew/sy
+	 LuV+WwOK1OdgBOMAgX/cNhibvzsxlagqQwzvqLpIbZZRo05fPbtMYcqNqvOWhX1E9tfAi
+	 Ng/re5PPwFh2D2NBVDC9Lp0mnbQAs1I5QkI1AeqchHyjrJsNCBKhxvSVCU8TNzE7befA+
+	 N58t3Z+c9R9wRCmhYF+6IHsHH0RcNrCxPNkz6JeU5zrqcdf5ziV+zoEVHt1OUPnBXRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="h/wVuqj2";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VRaEF/4D";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id B21DC606A31A;
-	Sat, 31 Oct 2026 09:19:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C834B606A31A;
+	Sat, 31 Oct 2026 09:20:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h/wVuqj2
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B8D791F000C1;
-	Sat, 31 Oct 2026 09:19:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VRaEF/4D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44E1A1F000C1;
+	Sat, 31 Oct 2026 09:20:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793438387;
-	bh=vOd3Fxn6yvB2VyZrBg3cap4BKOQOr3E+6p4jJYft2n0=;
+	s=k20260515; t=1793438423;
+	bh=dLwZlfqngcUMXWHHM0GFPkimZNPQuLtLOOkOpLsUjjg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=h/wVuqj2u/y4XTuMZ6ypvyS0TFhy84J7BOxIso9WwSyz+fpUDzr3fDwZCN6+KqIEH
-	 QOpt/UtaGkbD8aNMrhndQyykTdnEqwTqN49iYueoeFsYQj6meAugSYa2921HpvmRln
-	 SA7wWgtWdqJXf9PX7FR9zcPt/arlKlBA4zYovvIw+SfZCyg1f5ti0dcBW3ndTL/o5w
-	 tg2m68vSlOu+xLzwK4+XA8tbg1ZNfKM78Ev7ouAO8w/vPRnalP7Nf5g1/9PmmftgLR
-	 qDd1Wl9hECHsJv1ZSA8sMdDoJi3q8gO38x+ZO8QTyvYhobByXt/W9d7e9ciVntjIpN
-	 6QB89j5cJlffw==
-Date: Sat, 31 Oct 2026 11:19:43 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Anvik Loitongbam <permissiontogallop@gmail.com>
-Cc: keyrings@vger.kernel.org, David Howells <dhowells@redhat.com>,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] KEYS: request_key: enforce keyring restrictions on
- constructed keys
-Message-ID: <auWyr4u0icssaOHy@kernel.org>
-References: <20261030173930.40948-1-permissiontogallop@gmail.com>
- <auWk2PAYDgQGXLqr@kernel.org>
+	b=VRaEF/4DeMBVRS71BuPehLobGcZjQr4lbt3Eg5H3r0+MSS/zy7bVsOkDYlcOX2x8t
+	 ef/45OQj6sN9w7U1GRdYDZPpCYIPwBvWc93HADX7RFUBJsbXgkUt7juyplVQnOTmge
+	 t5bjZ0D9tQed9CbbBroLcc7+hGf2dtFjrjkFWbZTUM8rwn4Ndux5b/2VQa/X648bNV
+	 V220Z2PhgazW5bp+GQrfoq3zNnJuN7bx69Ix4qS1/HWYSuKtMWCS4Z++lGdcN91Glx
+	 39nz0LpcCAVE/g8qhcslvcIR4JDwOHgF+iZeF7vyQZrQzFidDp8WaoS64i33vvXsG2
+	 m3cFWvjbE+6TA==
+Date: Sat, 31 Oct 2026 11:20:14 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>
+Subject: Re: [PATCH 0/2] mm/userfaultfd: recheck WP registration in the
+ hugetlb UFFDIO_COPY retry
+Message-ID: <auWyzvThW5EAT_XQ@kernel.org>
+References: <20261029221129.89068-1-azpijr@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,78 +65,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="fP9ujw+JDj5S0FS3"
-Content-Disposition: inline
-In-Reply-To: <auWk2PAYDgQGXLqr@kernel.org>
-
-
---fP9ujw+JDj5S0FS3
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261029221129.89068-1-azpijr@gmail.com>
 
-On Sat, Oct 31, 2026 at 10:20:44AM +0200, Jarkko Sakkinen wrote:
-> I tried to go through the code change now as it is huge and there was no
-> explanation why you need to do all of this.
+Hi Jose,
+
+On Thu, Oct 29, 2026 at 11:11:00PM +0100, Jose A. Perez de Azpillaga wrote:
+> The urgent fixes made hugetlb_fault() tolerate uffd bits left in VMAs
+> that are no longer registered for them, and asked for follow-ups that
+> remove the sources [1]. This is one: a hugetlb UFFDIO_COPY_MODE_WP copy
+> that has to fault in its source page doesn't recheck the WP registration
+> before retrying, so re-registering the range without WP in that window
+> leaves a uffd-wp PTE behind.
 > 
-> It is full out-of-scope changes. Please redo this just as a scoped bug
-> fix, and don't add any new flags.
+> Patch 1 adds the check the non-hugetlb retry already gets from
+> mfill_get_vma(). Patch 2 adds a uffd-unit-tests case for it, which fails
+> on hugetlb without patch 1.
+> 
+> Question:
+> 
+> - The non-hugetlb retry compares the whole mfill_retry_state. hugetlb
+>   copies into a freshly allocated folio, so only WP seemed to matter
+>   there. Mike, would you rather have the full comparison on both paths?
 
-Unfortunately it immediately hit me after sending this how to fix the bug,
-and it does not make much sense to ask to write the same fix I would do
-myself anyway.
+Let's keep things simple and easily backportable :)
 
-I'll rather go this time with the attached patch and consider this as a
-bug report (as marked by reported-by).
-
-Thank you for your contribution.
-
-Br, Jarkko
-
---fP9ujw+JDj5S0FS3
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0001-KEYS-Reject-restricted-dest_keyring-in-construct_all.patch"
-
-From 2e37dd3a4fe1c10ebaeec3243e48baa25a6efa1b Mon Sep 17 00:00:00 2001
-From: Jarkko Sakkinen <jarkko@kernel.org>
-Date: Sat, 31 Oct 2026 11:06:59 +0200
-Subject: [PATCH] KEYS: Reject restricted dest_keyring in construct_alloc_key()
-
-construct_alloc_key() links keys into dest_keyring without checking
-restrict_link, allowing keys whose key->state reaches KEY_IS_POSITIVE to
-remain in a restricted keyring when instantiated without relinking into
-dest_keyring. Reject restricted destination keyrings with -EPERM after
-__key_link_lock() unless KEY_ALLOC_BYPASS_RESTRICTION is set.
-
-Cc: stable@vger.kernel.org
-Fixes: 5ac7eace2d00 ("KEYS: Add a facility to restrict new links into a keyring")
-Reported-by: Anvik Loitongbam <permissiontogallop@gmail.com>
-Closes: https://lore.kernel.org/keyrings/20261030173930.40948-1-permissiontogallop@gmail.com/
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
- security/keys/request_key.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/security/keys/request_key.c b/security/keys/request_key.c
-index 22cd66a44da5..715ef3cc51b3 100644
---- a/security/keys/request_key.c
-+++ b/security/keys/request_key.c
-@@ -404,6 +404,13 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
- 		ret = __key_link_lock(dest_keyring, &key->index_key);
- 		if (ret < 0)
- 			goto link_lock_failed;
-+
-+		/* The payload is not yet available to check the restriction. */
-+		if (dest_keyring->restrict_link &&
-+		    !(flags & KEY_ALLOC_BYPASS_RESTRICTION)) {
-+			ret = -EPERM;
-+			goto link_alloc_failed_unlocked;
-+		}
- 	}
+Since hugetlb does not leave a folio from the original VMA behind there's
+no inconsistency we need to worry about.
  
- 	/*
+> The other source 6/10 of [1] mentions, UFFDIO_COPY in MODE_WP racing
+> with UFFDIO_UNREGISTER [2], is closed by "mm/userfaultfd: write-lock the
+> VMA before waking waiters when unregistering" [3].
+> 
+> Based on mm-unstable.
+> 
+> Tested on x86_64 in QEMU.
+> 
+> [1] https://lore.kernel.org/20261015-urgent_fixes-v1-0-42796911043b@kernel.org
+> [2] https://lore.kernel.org/20261015-urgent_fixes-v1-6-42796911043b@kernel.org
+> [3] https://lore.kernel.org/20261027-fixes_core-v1-23-6f74bec9a5bb@kernel.org (v1, now 23/47 in v2)
+> 
+> Jose A. Perez de Azpillaga (2):
+>   mm/userfaultfd: recheck WP registration in the hugetlb UFFDIO_COPY
+>     retry
+>   selftests/mm: add a uffd test for re-registering during UFFDIO_COPY
+> 
+>  mm/userfaultfd.c                             |   4 +
+>  tools/testing/selftests/mm/uffd-unit-tests.c | 105 +++++++++++++++++++
+>  2 files changed, 109 insertions(+)
+> 
+> 
+> base-commit: 24d45a1475dd4c671feb1df705f67ef2fc293969
+> -- 
+> 2.55.0
+> 
+
 -- 
-2.47.3
-
-
---fP9ujw+JDj5S0FS3--
+Sincerely yours,
+Mike.
