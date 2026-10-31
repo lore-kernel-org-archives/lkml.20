@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793405678;
-	b=0Pi/6bomPQcreD0364tQJ0xs42Ho+lTmCCS+Q/7svheNYx9hjlOym8Xl3uzajW9aXIuG
-	 K/XutxFvnYUmMvn/tMDjIuW2qeuF9fzBkx/GNcLKnWtCpd6oWdLUqrnYRnbkSZ9ta1MYO
-	 2NvGqmEMHAKEYokXm5Xwg9x7ExXBkVKpQbVd2eapj8BEQhEayD5eCE3iS3IrUczyxjOFL
-	 o96iCje+ZqHbNVEkuNXOMjX2pUBMQdoAnyOR8c3azNMd1f3wJCeVkTLOsJ/BTMQKmg8uP
-	 qU6DnRVM2/8t2li+W8DX6owqmtjVrzeGmpvGUUwUM34PUHwSB3XvwgfEfeEe6QUcjdg==
+	t=1793405680;
+	b=5TCHaOBqt7ur8ExVX29U+a/JAIxEF3HolXB6G594N59qI4h2VftSkwU167QgKfvSRTbd
+	 n0huQHDHFJbutFswmChc4QRD9iZxqTqWHyq8tDS8QHi3q+Ojwr8Nov6DKNMibrBN5Y7DI
+	 07z3qK+cXwJ20vCOZWHGye8H6eYlb7MX6ww+fc6yxm69PvTbibsSbNC5XuP1Vzv10YSAq
+	 oju4sFnQNP030q8ijKwP0d92DD1cVUqTRE4ejuOxC90yL53yD/U6RwFdfDSUelRxHefHe
+	 cv+PPHq+TmGK+0CSmpyr9DQw354kbx62G4YNwDfT2WUUYFvt2tB4GTMIJvugevMcsJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793405678;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793405680;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Spam-Status:X-Spam-Checker-Version;
-	bh=Hq3qHGQR7nv/3NC9Br2iwzyPeeGRgGD2fYTnbPgW0qA=;
-	b=GBmBTHhLmXjecq6qQ+IucSs0tr3J9FBktiEgz7EAVLA7ZZMksOFHp7WET5jceLqP0Pbm
-	 8qHunN4Q6SNAMuI6/mFeDwwebr4TDB0RBJ9e1myKUemiuqkVWSQGlVR+I0bKZHdVi6iO1
-	 uMP/0En/h3tvJ5J73c2wjZDxgMAzjBXvKcvJjIJTWUg8+X5a0U3n+XX9UdqbkKS9IIhRi
-	 +T76jwPheRwvYeGRcIGEKr0d5kzZetwQYJGxYUIhrH1+9YoKjckd4QlXOlkcENyvvrHAI
-	 3TNH7rlOS38Qvgr8M3PTzRIlFjmQMRXwB1ifI0DL5lW3UJV6Ppg1uEtUoBDcJbbiMiQ==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Spam-Status:X-Spam-Checker-Version;
+	bh=kQ5/8xbFXcvnPBvtpcGqH1Rld8p6e60w+RwWV7HqUUY=;
+	b=Gf9r5RhWc5qtCHm5rdDVgVpyL1MynBqSa+kII8NqphPoMd5Zq/50w13bhhLv9LpWRC80
+	 helxH+cf3YBw059EuAZKZ5KRQagLnHCYIS+BEEL3odJ52LqhLFDKx5+SOmRoNMftxW8AZ
+	 63dBQqyw5ikwRmaWrBB9sviHTKjljyifZbU97tIKCtMkr/04WflBGmHHHU2Jko1A9fAaW
+	 3Hi5KNkNP0L20gqjcDdx5r7Q2B2NGZLW0sP5LKjSdraO6fclWxpsQabnmrhiW9dSsqC2t
+	 qdSyOvDw832zCgPUyEX01Esm6eiELcRcD5cCueHFTkhBkdFBQ6wylLrEY6g/kkvZvFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.microsoft.com;
 	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=C2NnhdMq;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="P+ekTsJ/";
 	arc=none smtp.remote-ip=13.77.154.182
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A2F6606A31D;
-	Sat, 31 Oct 2026 00:14:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A2F6606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 84631606A337;
+	Sat, 31 Oct 2026 00:14:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84631606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=C2NnhdMq
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=P+ekTsJ/
 Received: from linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net (linux.microsoft.com [13.77.154.182])
-	by linux.microsoft.com (Postfix) with ESMTPSA id A7DBB20B7166;
-	Fri, 30 Oct 2026 17:14:24 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A7DBB20B7166
+	by linux.microsoft.com (Postfix) with ESMTPSA id 013DB20B716E;
+	Fri, 30 Oct 2026 17:14:27 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 013DB20B716E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793405664;
-	bh=Hq3qHGQR7nv/3NC9Br2iwzyPeeGRgGD2fYTnbPgW0qA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=C2NnhdMqxNXKrhhx7bh6/zGSQFCn3+/nXNbYbSrYButfurlnwkMWud2lCo4z8xymU
-	 qPmhm7y/OIZzFYRjW7k1GW6xKJ8+f2IulBwlX4qXf4n9umohAyHjrjIzMsKVGzkr7e
-	 CFz5R50xGAeDo374L0bYFcQIEniU4NIYWYj+6jmo=
+	s=default; t=1793405667;
+	bh=kQ5/8xbFXcvnPBvtpcGqH1Rld8p6e60w+RwWV7HqUUY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=P+ekTsJ/opLRlBEuR94J9UjkhCsMFfvbJjvtZq0w5TiN+3cUChC2aO680+dVW09+I
+	 2hdyQHwno/0Pb+ZYwbxTcIKDd4brQJqsI//6Z7wH7IH4z3rTgNTJPrI02KpISZtYwH
+	 20LERihtY+OHRaORU8w9VUVm+0X4/W2rHEUtg4v8=
 From: Kameron Carr <kameroncarr@linux.microsoft.com>
 To: decui@microsoft.com,
 	haiyangz@microsoft.com,
@@ -57,10 +57,12 @@ Cc: arnd@arndb.de,
 	sudeep.holla@kernel.org,
 	thuth@redhat.com,
 	will@kernel.org
-Subject: [PATCH v6 0/6] arm64: hyperv: Add Realm support for Hyper-V
-Date: Fri, 30 Oct 2026 17:14:06 -0700
-Message-ID: <20261031001412.4150488-1-kameroncarr@linux.microsoft.com>
+Subject: [PATCH v6 4/6] Drivers: hv: Mark shared memory as decrypted for CCA Realms
+Date: Fri, 30 Oct 2026 17:14:10 -0700
+Message-ID: <20261031001412.4150488-5-kameroncarr@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261031001412.4150488-1-kameroncarr@linux.microsoft.com>
+References: <20261031001412.4150488-1-kameroncarr@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,79 +74,108 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Realms (CoCo VMs on ARM) require host calls to be routed through the RMM
-(Realm Management Monitor) via the RSI (Realm Service Interface). This
-series implements most of the necessary changes to support Realms on
-Hyper-V.
+In hv_common_cpu_init(), the per-CPU hypercall input/output pages need
+to be marked as decrypted (shared) for confidential VM isolation types.
+This is already done for SNP and TDX isolation; extend the same handling
+to Arm CCA Realm guests so that the host hypervisor can access the
+shared hypercall buffers.
 
-One required change is not included in this series. The two buffers
-allocated via vzalloc() in netvsc_init_buf() cannot be decrypted in
-vmbus_establish_gpadl(). Currently only linearly mapped memory can be
-decrypted.
+is_realm_world() is declared in include/linux/arm-rsi-cmds.h which only
+builds on arm64 (it includes <asm/memory.h>), so using it directly in
+the arch-neutral drivers/hv/hv_common.c would break the x86 build.
+Introduce a Hyper-V-specific helper following the established
+hv_isolation_type_snp() / hv_isolation_type_tdx() pattern.
 
-This patch series was tested by booting a Realm on Cobalt 200 running
-Windows. I tested 4KB and 64KB page size. I replaced vzalloc() in
-netvsc_init_buf() with alloc_pages_node() -> set_memory_decrypted() ->
-vmap() in my testing as a workaround for the issue mentioned above [1].
+On architectures other than arm64 the weak default keeps the existing
+behaviour.
 
-Changes since v1 [2]:
-  Patch 1: Add explicit padding to the RSI host call structure
-  Patch 3: Change from a per-cpu pointer lazily allocated to an array
-             of host call structs indexed by cpu id
-  Patch 4: Align input_page + output_page allocation to PAGE_SIZE since
-             that is the smallest unit of memory that can be decrypted
-           ~Remove KASAN tags before passing address to
-             set_memory_decrypted() since __is_lm_address() does pointer
-             arithmetic.~ (reverted in v3)
-  Patch 5: Add a helper function to reduce repetition
-           Check for NULL before indexing into host call array
+Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+Signed-off-by: Kameron Carr <kameroncarr@linux.microsoft.com>
+---
+ arch/arm64/hyperv/mshyperv.c   |  5 +++++
+ drivers/hv/hv_common.c         | 17 +++++++++++++----
+ include/asm-generic/mshyperv.h |  1 +
+ 3 files changed, 19 insertions(+), 4 deletions(-)
 
-Changes since v2 [3]:
-  Patch 3: Remove hv_hostcall_free() and inline the logic for simplicity
-           Reorder edits to keep #include line at the end of the file
-  Patch 4: Remove kasan_reset_tag()
-
-Changes since v3 [4]:
-  Rebased onto arm64 for-next/smccc-bus which includes moving RSI header
-  files out of arch/arm64 [5]
-
-Changes since v4 [6]:
-  Patch 1, 2, 4: Fix commit message to reflect the new header file names
-  Patch 5: Remove extra blank line
-
-Changes since v5 [7]:
-  Patch 2: Move Realm hypervisor detection out of the generic
-           arm_smccc_hypervisor_has_uuid() into hyperv_detect_via_smccc()
-           so other SMCCC users are unaffected
-  Patch 3: Drop the <linux/arm-rsi-cmds.h> include, now added in patch 2
-
-[1] https://lore.kernel.org/all/20260721195633.1438361-1-kameroncarr@linux.microsoft.com/
-[2] https://lore.kernel.org/all/20260609181030.2378391-1-kameroncarr@linux.microsoft.com/
-[3] https://lore.kernel.org/all/20260625173500.1995481-1-kameroncarr@linux.microsoft.com/
-[4] https://lore.kernel.org/all/20260721201148.1441143-1-kameroncarr@linux.microsoft.com/
-[5] https://lore.kernel.org/all/20260923140405.1111554-4-aneesh.kumar@kernel.org/
-[6] https://lore.kernel.org/all/20261001220552.1793471-1-kameroncarr@linux.microsoft.com/
-[7] https://lore.kernel.org/all/20261002215725.2015959-1-kameroncarr@linux.microsoft.com/
-
-Kameron Carr (6):
-  arm64: rsi: Add RSI host call structure and helper function
-  arm64: hyperv: Detect Hyper-V via RSI host call in CCA Realms
-  arm64: hyperv: Add per-CPU RSI host call infrastructure for CCA Realms
-  Drivers: hv: Mark shared memory as decrypted for CCA Realms
-  arm64: hyperv: Route hypercalls through RSI host call in CCA Realms
-  arm64: hyperv: Implement hv_is_isolation_supported() for CCA Realms
-
- arch/arm64/hyperv/hv_core.c       | 155 +++++++++++++++++++++++-------
- arch/arm64/hyperv/mshyperv.c      |  62 +++++++++++-
- arch/arm64/include/asm/mshyperv.h |   4 +
- drivers/hv/hv_common.c            |  17 +++-
- include/asm-generic/mshyperv.h    |   1 +
- include/linux/arm-rsi-cmds.h      |  22 +++++
- include/linux/arm-smccc-rsi.h     |   7 ++
- 7 files changed, 228 insertions(+), 40 deletions(-)
-
-
-base-commit: bce57945f5e7207960b2bd567a6e880f90258ffb
+diff --git a/arch/arm64/hyperv/mshyperv.c b/arch/arm64/hyperv/mshyperv.c
+index 46ab2da..da6c3aa0 100644
+--- a/arch/arm64/hyperv/mshyperv.c
++++ b/arch/arm64/hyperv/mshyperv.c
+@@ -182,3 +182,8 @@ bool hv_is_hyperv_initialized(void)
+ 	return hyperv_initialized;
+ }
+ EXPORT_SYMBOL_GPL(hv_is_hyperv_initialized);
++
++bool hv_isolation_type_cca(void)
++{
++	return is_realm_world();
++}
+diff --git a/drivers/hv/hv_common.c b/drivers/hv/hv_common.c
+index 31256cb..a60c92c 100644
+--- a/drivers/hv/hv_common.c
++++ b/drivers/hv/hv_common.c
+@@ -476,6 +476,7 @@ int hv_common_cpu_init(unsigned int cpu)
+ 	u64 msr_vp_index;
+ 	gfp_t flags;
+ 	const int pgcount = hv_output_page_exists() ? 2 : 1;
++	const size_t alloc_size = ALIGN((size_t)pgcount * HV_HYP_PAGE_SIZE, PAGE_SIZE);
+ 	void *mem;
+ 	int ret = 0;
+ 
+@@ -489,7 +490,7 @@ int hv_common_cpu_init(unsigned int cpu)
+ 	 * online and then taken offline
+ 	 */
+ 	if (!*inputarg) {
+-		mem = kmalloc_array(pgcount, HV_HYP_PAGE_SIZE, flags);
++		mem = kmalloc(alloc_size, flags);
+ 		if (!mem)
+ 			return -ENOMEM;
+ 
+@@ -499,14 +500,16 @@ int hv_common_cpu_init(unsigned int cpu)
+ 		}
+ 
+ 		if (!ms_hyperv.paravisor_present &&
+-		    (hv_isolation_type_snp() || hv_isolation_type_tdx())) {
+-			ret = set_memory_decrypted((unsigned long)mem, pgcount);
++		    (hv_isolation_type_snp() || hv_isolation_type_tdx() ||
++		     hv_isolation_type_cca())) {
++			ret = set_memory_decrypted((unsigned long)mem,
++						   alloc_size >> PAGE_SHIFT);
+ 			if (ret) {
+ 				/* It may be unsafe to free 'mem' */
+ 				return ret;
+ 			}
+ 
+-			memset(mem, 0x00, pgcount * HV_HYP_PAGE_SIZE);
++			memset(mem, 0x00, alloc_size);
+ 		}
+ 
+ 		/*
+@@ -666,6 +669,12 @@ bool __weak hv_isolation_type_tdx(void)
+ }
+ EXPORT_SYMBOL_GPL(hv_isolation_type_tdx);
+ 
++bool __weak hv_isolation_type_cca(void)
++{
++	return false;
++}
++EXPORT_SYMBOL_GPL(hv_isolation_type_cca);
++
+ void __weak hv_setup_vmbus_handler(void (*handler)(void))
+ {
+ }
+diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
+index bf601d6..1fa79ab 100644
+--- a/include/asm-generic/mshyperv.h
++++ b/include/asm-generic/mshyperv.h
+@@ -79,6 +79,7 @@ u64 hv_do_fast_hypercall16(u16 control, u64 input1, u64 input2);
+ 
+ bool hv_isolation_type_snp(void);
+ bool hv_isolation_type_tdx(void);
++bool hv_isolation_type_cca(void);
+ 
+ /*
+  * On architectures where Hyper-V doesn't support AEOI (e.g., ARM64),
 -- 
 2.45.4
 
