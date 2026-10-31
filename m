@@ -1,90 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793422596;
-	b=oo8FSMazKALxBKFnL0+J/mzOc+bZ6ttQBp5B4Of3RARI0SgjppkaKXCn9F6RHwbQ5XfP
-	 YGpqakVfX+qhhpu2y5bDcH0qSEWtcSriwXvBJGwcY+DUzlrp0Ef0DVo+tzQBq0ey5Cv/E
-	 +eB+df5b1WluJRtsooykFEfnG1ZPsUQHzUy85FkfKhYrA961Of7VDsf+Z2Q9IP6AMVji2
-	 DvIZHmy99jdz+lAnase8LjntV7OUX/M8IzhyhfHGnuo/iD6EYu0Cxda1ZfD4agokkvR82
-	 5iSlKX12KlpT2mp6fZVa5Isyum2A1GYKy+NWSMjHqZo4iii41HU24pad1LCJ8srWXWQ==
+	t=1793423277;
+	b=UYW1IPYvgpIv2gYyrHQiXsgpkDB7x6VKirBHhRuv7Uf5mABeG575ViI5/HCb61yV4fZI
+	 E1KdeSt0zn4a8hJjHlX0Yaa8DNpeHI8nrpy9zGvVSRefCc2s5/QSCfsKNnXLsqznrWlDx
+	 nkHQnJippIhsuIROuuOOw6gHTTF1LJe7xMch76hwU2UozcyHR5LUXqmI5SVEphoP+zOwK
+	 O0Y91fTQUXJDm0gCY86MH0+kjXR1T4FHS/OtX5/9x6zaFVTn4JLoM3gJAemPTz6CDwgRW
+	 KWwYgg28NNqUXkm8s/Mmk9gGKmnkH1g/U/K9LQmOyB+4iYTsVf9Jb6GFrXM2Uzy7AFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793422596;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793423277;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=hEvfN2in4LxIcbfP/vztl08HHOpTmxjwkLdA4M0dyFU=;
-	b=1FIr/LD8UhRemKqnz5zFuQtVitrcHri/7Wm1/zGr+wyfPjB+9uBy7imBkShrXzh4d4Ef
-	 /M4eJZb/55rkWTMcQze2W1wSZVhWwvs/sQrrKi9ynTGl07ChzafvjV1oICWPkE2RJby1X
-	 osGWTJ9AMz5xMkWEOebX9dTgNlTy26mfTsIDaxW+e2hjHUCne8htzw43wxr/qpbdvSm92
-	 9IB5IuD0MKrb/Lv8leCGlBGedsTea9jwgPEk8eYioCMj3Si0LX+aFwsc6SZkOeuJ5Xmvt
-	 KLCnDy5oA+xbt61wjysEQzhoHzrFSrIciqSivRmZba15eNd5Q1ZPHjCc7qN5vblXYUw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LHwpZd2hxgw9EW+51k+f4+mN+FOI4H2HOB0NQ4Pk+Sg=;
+	b=S0IE/fs+bF/QVQqdKx0ZnkxhwNhVVpsl0iZ0jxzhPsS1djy6Fi2PWqJNn39uFjmvex6c
+	 zojINOsr8dcDxFzV9h+3A+NyZBXZ4ElWpGtBcvdchHEoCCjszybQI3b2Wvz+m2OF2IuDw
+	 LRVTUP8q6C0JZXWRn21hB+hPAdhaJ4lHKSMdfNgcY5nDmw+D3KcFiHGzwf0YOcegwTniu
+	 SXvoNZkVuro8xWLgRJxY2vPi1aJFCqv9uvfy71EeYos6U8RMUSOB/g7ip48xl+/Ug2T9F
+	 XZLfkIDkEK7W6r/scfo2s1B/E19D/G2U8bCaDI8ZuBVCb+qZfWzR3F4z1V66TK580/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G9ETcpem;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	dmarc=pass header.from=openai.com;
+	spf=pass smtp.mailfrom=openai.com;
+	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=JIuk46PK;
+	arc=none smtp.remote-ip=209.85.160.48
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D38A606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:56:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D38A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A508E606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:07:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A508E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G9ETcpem
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e96502e447so13185135ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:56:34 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=JIuk46PK
+Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-49e1251674cso649743fac.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:07:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793422594; x=1794027394; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=hEvfN2in4LxIcbfP/vztl08HHOpTmxjwkLdA4M0dyFU=;
-        b=G9ETcpemj+dUivyZfucVpH9xUsE13MbZ3cmOIFLDq3p2mcxpZWztcY19k9mj6mrC/E
-         GazR2qtYzLuTtCYy3MIAfsHDpYXfOL7gXfN9YymPQQj81hmNtyPs0LLlpOFu9LHkfIr+
-         mBRhlcAEtz5cWjHDsONrxMV96gzKJDjjoM5A15Ni+xmleIJGPGaHi+crLSFMjcNs83dj
-         KqFQpvybFAmXC0cbdvM/dQ0k210QQ9TKypvt9AGqKx4cpDUNt5vJ1pkWZhWug2bkZohZ
-         /RtOBHl4nGsroTXdhpSFeLcqyXa2VSdxnqai8u/eO4tMcgaAKJxDHSy/PjoskXdzk6tw
-         TurQ==
+        d=openai.com; s=google; t=1793423275; x=1794028075; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LHwpZd2hxgw9EW+51k+f4+mN+FOI4H2HOB0NQ4Pk+Sg=;
+        b=JIuk46PKuL3WEnPTO4ohToX07UJwVSchjMXxsocHyjk2/oJSQ0bF1XU3rrDNDiTZzo
+         oRbFyEhM09Np6ZESZH0yLqCNF8a4jSRE/C3quGuoYlYl+UV8Rz00i2c8d1Hx3iZi6p+I
+         z5RFvVBoPb/Ygg8gGBDs0OAbDjYujx5udli1o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793422594; x=1794027394;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=hEvfN2in4LxIcbfP/vztl08HHOpTmxjwkLdA4M0dyFU=;
-        b=D14wjFLDRtci0P06u6sadQs4LJGfsJeP0hWW9Uk9hcQVKn5JNudkBhSF73SrWWy9FP
-         F1IsfIj63QbFZJUdOsDx2YtU1KWfjgLftrUlPT1BicnEUQeHa1Bol+u0JMtNMMK4Gkeg
-         LVsrdAxYjJN/pDu4dTIgN1kem7aUCsCZvVwovpUSVire1Js/vfigsS8S4zJErXtS8iYH
-         x0b9EJmpdUwaWEYfKKbE0FDIBcLKibagWTnZfY8VAqOmjC7suCC8quxJ4Xz5E0DnuPmm
-         W7elVLlz+Be4rnkmRKmOxir76w6zM0OY+hlV4a52HmYrLyFYdDmm1YkuBOFNtEN3pihV
-         +siA==
-X-Forwarded-Encrypted: i=1; AKwUvBylxVzhuAofpCV/f5CNX4VxqZDcpUA21Uvz2Jg6H2AaphKGbyMIFsdeWzmw+SyuOQZaEIKP4SO4gRw7tVk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYInb0oyvusHVWYktqXc0Obg+0ZJeCeCG8QEDkxGGZICUX1oRN9A
-	Bth29qPsy7mCpYRHSkyYCoeVpIvV8d+1DfvtQ2x5vaCc+6uzbGNTbtvf49s7wg==
-X-Gm-Gg: AYBFou2ye0ntqIcIft4oOWkrnrK5Ig3y6ooiz5brfUydp9Hv5FVRfZNf0+ZjfopV0uv
-	OlVKYObVCdUEZK7WyAVkK/k97aVIfL+C8lBcnJ1tkDWVfjfWJAldml2FwiThBYP6XF70IBH67r1
-	jDRTxmPOeAILpKyYHNNbxjOUDCj6DZ0UZHOs/F2aeCwxbaYtuw58Pz3R7z6M9W0To4XSBo/sMbl
-	1LneDmKN1ie4SPB+oxA4QfnwYPuVZwSsQgV9D8Za57/6pr/QGP5O1wLL+BM0J5xsaKCyJeFVbt4
-	aLlYCpvUuJATFU8GYUyWVDYiiIiHtOoEtY+YnVo2J6R0IFgl2upIQHLLUfgI1J6buUkdf7MWodr
-	4SP2CgWJGOSTQrECgYK6/Z0Cz8vpL/5kduxqgImhHDLeJLI/rgGWOuzp7/ZlJApC72HIcpqqY3Y
-	hHRjTmXcy6f43ucVyX/A0XmlaYqoj010ce5YIJoib2aOpFx1NqgZRgQdy51N8KUGc7R7y2H8cxs
-	AVxFCdKlBNT8NWrFdS5ZupTZzFxPnQ2LrMaAgloWErYDPLF0hWWYuchKqmr1/DEXXPylQSAP1Cb
-	wne9B61Mj/sk5xO4vUCneRHi2RwWpveouhEaHrzcINNEnnaOxDG1sd6HVfyW26cTuiUzuQyDOkk
-	hdzlwvCWyzUa3nu4oUttHcGdVhdz6yQyBJAXss1BX194ey5TtzIxx8ySgus0HYtRRFbsp58oBoi
-	SzDftdAeYasKlccIQw+fx9qmY=
-X-Received: by 2002:a17:902:eccb:b0:2e5:d2b1:c70b with SMTP id d9443c01a7336-2eb36536d3amr42961375ad.60.1793422594375;
-        Fri, 30 Oct 2026 21:56:34 -0700 (PDT)
-Received: from [192.168.2.3] ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39267b8asm12657775ad.44.2026.10.30.21.56.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 21:56:33 -0700 (PDT)
-From: James Calligeros <jcalligeros99@gmail.com>
-Date: Sat, 31 Oct 2026 14:56:15 +1000
-Subject: [PATCH v2] ASoC: tas2770: Configure transmit clock edge when
- setting DAI format
+        d=1e100.net; s=20260707; t=1793423275; x=1794028075;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LHwpZd2hxgw9EW+51k+f4+mN+FOI4H2HOB0NQ4Pk+Sg=;
+        b=GRo8i2XkPtYbyjAg+ZlmgGEze9qP/YLjBElc+dBSLDC2/VHuB3+HPb1I+9BlEL79G9
+         7KamAcBwr3KMDnajXcSCbN/k0P+8GsjBlO4FgeUFkAzDH6nLdcxOgGTzD8/8G97uxP+i
+         6IELQ9FSpYpDVPu/rz/EshHYphHxofuYE6VitpA6VAplwnGpvoq/E2a2Ts5LKFnqZ3RM
+         WMmyYQJDE65RkHvcy8DEhz5NkrNUH0aPVKR9VI5vCMyMHNjH/zSkiV+o/5Lc1ngosqrX
+         zgMobzizWcAAcsLTM46ifzL3I1PN9lBrc7Nzapde4+SnzSUbBjmW0WO+t7V8Zns3n+FP
+         0E0A==
+X-Forwarded-Encrypted: i=1; AKwUvByMbgoFaR/jc7mPMZEPWVaOf5UcXhd2d0wiDnIroS4glM5B/EYVPFecu3PGn54rsqLjFy6ICPBqRGdvs0Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWqXL2V7zyGSbbOPqmsINIrUhy8cKo5zwEZp3tM4KSlXQf/KW4
+	+x1m8bfYJ+de59199m3yGytVckO7WWYviR25Us4sYF82X4+9GsPM/t0u5X2Lc1ZdxrFjBq8rV/v
+	EMP8EGDc=
+X-Gm-Gg: AYBFou1c1GbLHiKuJYh28xdwg8+xxQJG8PEFLEWj4XXTiUaSOwENG7XLL7dSN+sPW2y
+	rw3cAXsZIF4a8IWcKbdDaZzvRwpJqXFwdwX8BqH9zMVuzUwdEnAL1JARihY0KUQ1vpzddMBgvif
+	jVLmyRYwqTMO8Wf7bTKSlqMvkBxVQQOeWweDcKaADm3tXtbusDW84/wN/vfKAWhlKnVh+4coew7
+	4pfKsc2bXEAm241Z8340TL0qg+xgQgPNQ1Gyggrg6Fmcgr4ggq7uQFBM85BrQgvjnvQcEXomQ4/
+	ZqNoGAFA2AKpmT+QB5yE0JvcXCVCkSxR/Oeg1E9oyCawdLS2tOVGCCMnJnM9AktSAnnbVkWY+10
+	dYjMiOQIfFpCz/qI5dFGYMfNMCGTx02FlZy8+0nLiIwToAQSD6e7abwl4+Qj0IGHrk8PUso7wVf
+	XHxVQ32KSD7SQu3AGACiaWevmtyarjp07+OxTCsibKSbEh5zsvCIlc9Wjkxv91i3lrG3zP/WTcj
+	K0Aw783JQZyyPBy7IhKqEYAtl2cJ+61vFCfbMBZ2/7cEN2B+j09eByE/wVxIIaad0tvcgdESiN0
+	uUhZPXYGB3Wy3bYp6ZaiuAEAys5LUzkM6u2tjtpYv40slMOY76WHBceyAI/11IbofJaZvPm9xJN
+	vvJOJa1g0xwo9xVCp+oH/QEJpSKad/g==
+X-Received: by 2002:a05:6870:8092:b0:4a6:f676:ecef with SMTP id 586e51a60fabf-4a9077af209mr3002687fac.55.1793423275411;
+        Fri, 30 Oct 2026 22:07:55 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a921a60ea8sm1626065fac.15.2026.10.30.22.07.54
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 30 Oct 2026 22:07:54 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: netdev@vger.kernel.org
+Cc: edumazet@kernel.org,
+	davem@davemloft.net,
+	linux-kernel@vger.kernel.org,
+	outbounddisclosures@openai.com
+Subject: [PATCH net v2] net: gro: avoid parsing headers from shared fragments
+Date: Fri, 30 Oct 2026 22:07:52 -0700
+Message-ID: <20261031050752.31869-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,117 +95,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-tas2770-sdout-clkedge-v2-1-afeeba781cbb@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4XM2pq2vNSV/2FYlHaAKlDTKURD+
- HcLxqXLk5x7zwKE3iLBJVnA42zJujGCPCSgOzW2yKyJDJLLQvCUs6BIliVnZNwUmO4faKJUZ5i
- eTX2SpeQQt0+PjX3tv7fqyzTVd9RhO9uMzlJw/r2HZ7F5v4b405gFEyyXRWFUk+ZNpq/toGx/1
- G6Aal3XD2U64VvMAAAA
-X-Change-ID: 20261030-tas2770-sdout-clkedge-b4e39db82720
-To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Frank Shi <shifu0704@thundersoft.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- asahi@lists.linux.dev, James Calligeros <jcalligeros99@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3386;
- i=jcalligeros99@gmail.com; h=from:subject:message-id;
- bh=OwmxCPcbFYhY5r4ZNCYTw9bPJZ3qesg9plNIEYpdPFI=;
- b=kA0DAAoW1DYy0VH3eWAByyZiAGrldPijNpCpGHEs8q2g4WcZj7Fi1TpLi5pdfRl+4xeZ2DEfS
- IiRBAAWCgA5FiEEsIISSJsyBtmPFHm91DYy0VH3eWAFAmrldPgbFIAAAAAABAAObWFudTIsMi41
- KzEuMTIsMywyAAoJENQ2MtFR93lgkhUBAI1VZm0L1FZETGpuMHxwe/eAnJ1+fyZx35jlD8ToqFi
- gAQCkDc/wnTqGnaIaHiYLN0cZdOvaw9JYk3Qm21hQrtoSDw==
-X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
- fpr=B08212489B3206D98F1479BDD43632D151F77960
+Content-Transfer-Encoding: 8bit
 
-On reset, TAS2770 is configured to transmit on the falling edge
-of the I2S clock. If BCLK is inverted, we are also receiving on the
-falling edge. This can cause data leaving the codec to be corrupted.
-Transmit should happen on the rising edge of the clock when receiving
-on the falling edge, and vice versa.
+When an skb has an empty linear head, skb_gro_reset_offset() can expose
+the first page fragment directly to GRO header parsers. For an
+SKBFL_SHARED_FRAG skb, those bytes may still be writable through a file
+mapping. Headers validated during receive can therefore differ from the
+headers later copied into the linear head and used during completion.
 
-Fix up tas2770_set_fmt to take into account the BLCK polarity and
-always transmit on the correct edge of the clock. This fixes
-corrupted VISENSE data on Apple Silicon platforms at sample rates
-above 48 kHz.
+For example, changing an IPv6 destination-options length between the
+short and full header fetches in ipv6_gro_pull_exthdrs() can make
+ipv6_gro_complete() pass an out-of-bounds offset to udp6_gro_complete().
+A userspace reproducer triggered a KASAN slab-out-of-bounds read there
+on an unmodified kernel as UID 1000. The same completion path can write
+the UDP checksum and length through the invalid offset. The packet has
+trusted TCP GSO metadata and spliced file data, so it reaches completion
+without an skb zerocopy destructor or a second GRO packet.
 
-Fixes: 1a476abc723e ("tas2770: add tas2770 smart PA kernel driver")
-Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+Disable the direct-fragment fast path for skbs with externally writable
+fragments. With an empty linear head, frag0_len remains zero, so
+skb_gro_header_slow() pulls each required header into the linear head
+before it is inspected. Subsequent pulls preserve the validated prefix.
+This covers both gro_receive_skb() and napi_gro_frags(), including other
+protocols using the same helpers. Linear headers and private fragments
+retain their existing fast paths.
+
+Codex assisted with review of the supplied report, reproducer and draft
+fix, related-path analysis, and this changelog. The patched
+net/core/gro.o builds with W=1 using the supplied x86-64 configuration,
+allyesconfig and allmodconfig. The fix was checked by code-path analysis;
+the reproducer and kernel selftests have not been run on a booted
+patched kernel.
+
+The issue was found by an LLM.
+
+Fixes: dff0b0161ad5 ("net: gro: parse ipv6 ext headers without frag0 invalidation")
+Cc: stable@kernel.org
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
-Changes in v2:
-- Check return value when setting REG4...
-- Move configuration from VISENSE transmit to DAI format setup
-- Select TX clock edge based on the requested BCLK polarity
-- Link to v1: https://patch.msgid.link/20261031-tas2770-sdout-clkedge-v1-1-5266daf35f4c@gmail.com
----
- sound/soc/codecs/tas2770.c | 9 +++++++++
- sound/soc/codecs/tas2770.h | 4 +++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+I have a reproducer for this issue.
 
-diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
-index 882e19857697..67ff2dd949be 100644
---- a/sound/soc/codecs/tas2770.c
-+++ b/sound/soc/codecs/tas2770.c
-@@ -353,6 +353,7 @@ static int tas2770_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 	struct tas2770_priv *tas2770 =
- 			snd_soc_component_get_drvdata(component);
- 	u8 tdm_rx_start_slot = 0, invert_fpol = 0, fpol_preinv = 0, asi_cfg_1 = 0;
-+	u8 tx_edge;
- 	int ret;
+v2:
+- add Fixes tag
+- explain that the issue was found by LLM
+
+v1: https://lore.kernel.org/netdev/20261030042212.73949-1-kylebot@openai.com/
+
+ net/core/gro.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/core/gro.c b/net/core/gro.c
+index 1b033855a20d..d6cf2d497934 100644
+--- a/net/core/gro.c
++++ b/net/core/gro.c
+@@ -413,7 +413,8 @@ static inline void skb_gro_reset_offset(struct sk_buff *skb, u32 nhoff)
+ 	headlen = skb_headlen(skb);
+ 	NAPI_GRO_CB(skb)->frag0 = skb->data;
+ 	NAPI_GRO_CB(skb)->frag0_len = headlen;
+-	if (headlen)
++	/* Shared fragments must be pulled into the linear head before parsing. */
++	if (headlen || skb_has_shared_frag(skb))
+ 		return;
  
- 	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
-@@ -369,12 +370,14 @@ static int tas2770_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 		fallthrough;
- 	case SND_SOC_DAIFMT_NB_NF:
- 		asi_cfg_1 |= TAS2770_TDM_CFG_REG1_RX_RSING;
-+		tx_edge = TAS2770_TDM_CFG_REG4_TX_FALING;
- 		break;
- 	case SND_SOC_DAIFMT_IB_IF:
- 		invert_fpol = 1;
- 		fallthrough;
- 	case SND_SOC_DAIFMT_IB_NF:
- 		asi_cfg_1 |= TAS2770_TDM_CFG_REG1_RX_FALING;
-+		tx_edge = TAS2770_TDM_CFG_REG4_TX_RISING;
- 		break;
- 	default:
- 		dev_err(tas2770->dev, "ASI format Inverse is not found\n");
-@@ -387,6 +390,12 @@ static int tas2770_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 	if (ret < 0)
- 		return ret;
- 
-+	ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG4,
-+					    TAS2770_TDM_CFG_REG4_TX_EDGE,
-+					    tx_edge);
-+	if (ret < 0)
-+		return ret;
-+
- 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
- 	case SND_SOC_DAIFMT_I2S:
- 		tdm_rx_start_slot = 1;
-diff --git a/sound/soc/codecs/tas2770.h b/sound/soc/codecs/tas2770.h
-index 102040b6bdf8..666a9631c65d 100644
---- a/sound/soc/codecs/tas2770.h
-+++ b/sound/soc/codecs/tas2770.h
-@@ -74,7 +74,9 @@
- #define TAS2770_TDM_CFG_REG4_TX_KEEPER BIT(5)
- #define TAS2770_TDM_CFG_REG4_TX_FILL BIT(4)
- #define TAS2770_TDM_CFG_REG4_TX_OFFSET_MASK GENMASK(3, 1)
--#define TAS2770_TDM_CFG_REG4_TX_EDGE_FALLING BIT(0)
-+#define TAS2770_TDM_CFG_REG4_TX_EDGE	BIT(0)
-+#define TAS2770_TDM_CFG_REG4_TX_RISING	0x0
-+#define TAS2770_TDM_CFG_REG4_TX_FALING	0x1
-     /* TDM Configuration Reg5 */
- #define TAS2770_TDM_CFG_REG5  TAS2770_REG(0X0, 0x0F)
- #define TAS2770_TDM_CFG_REG5_VSNS_MASK  BIT(6)
+ 	pinfo = skb_shinfo(skb);
 
----
-base-commit: 11ae63bd9030349a0136fb2edd1622a4a029edc8
-change-id: 20261030-tas2770-sdout-clkedge-b4e39db82720
-
-Best regards,
---  
-James Calligeros <jcalligeros99@gmail.com>
+base-commit: 2a500a04d6f969318c05f46aedb6e73fc1963a00
+-- 
+2.55.0.openai.911.g06873a30d2f3
 
