@@ -1,89 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793412920;
-	b=p0wYdPydPqO0J8iZGzLbcK5imkTfPuJ88WFV8S87Vkns3xD88NfPegQenvqhDi/2Cbe0
-	 h2QAXd7Hgn1nQlJxV+s6gzQ2mDw0lAxGfKZfgpdBN9TLRvjpEqawHiKrSpzlLaNqPbtBx
-	 jysorOdnvnuVUk2Bjn7nahNm/LvbctQzLzmPOa4Eja1cpu3Ri4a08NRtJ1JqlHv9jrNaS
-	 nUJvtyvsoWGsMtdqwsK33o4py8IvrI7pFLhKGEPGsgOXMA9qQIvjPPFDXcBsInoAdk/Gb
-	 Y1acTxql1LYOtKUHoatVlUzRIJPdHHk76J1Q5Qb40hjrc1iSyeutVFq24T8LslQ0ESQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793412920;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=0SEzR/ufTmBewXqynudJstt5wvDRwVALxX8EDKc0tqg=;
-	b=3C8vpEuFl1Erv7GjHI6g7Aqy0MNRZNmUC/TX/RpTMce3mNlWOAg+RVxCpU2kiG5XhbiJ
-	 jTK+9LUPaKEjcXsMhn3OrQ6tow/KPWs6rF32O+OoSki2QwF6jaWuXdNYplczlHG3zi92Q
-	 QEHwgsqPzqdxpg0x9pmQy0yLLcPMNRnBnEgHJkpgalVYNqPS5hudqZSyQ7Jx3C59yw76Y
-	 bGvrzb2GP/14aWoshIZUApniPjQCD+3NF468XMMDtW8QB+6rDBG8o5vkP0LMo/dOtagRb
-	 n2cYvuZHvrb9P244Bj2kfh6pk7Vc7RHmA+5uD0vZwpFN3TjFTescpGmQViovlbgkQrA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Ffz+sS/H";
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793413028;
+	b=tMHnlyDNZ3VuaoUSyvlumZc74TDAC1XH2QaegSsMOwSdUTx0T/k45UfApvI4OJW/0cmm
+	 iByBCiELSjxP1YFedDJVHdpqG9naIQU+D3UDB0sza93u/PUJ7zyNGT5bwNbOinTIhyy/e
+	 rPvJdQ4cL/TSQE/rbPOgqKQboPTApInQAQILSgKmxeJ66N9WrA9q3dXGEOmTBa1cNLHR6
+	 VXSwC8qJBgMxdOeR69cPkUuvzqT+o7C/9CXWWWsP7rvx25cEYkySgDGDHozOowuh2UPXv
+	 1MpS7Nv/S6Had8HhFos6Hj/29di48movZiSDKYsCbOPzy3Y2Ts+FdM7IouxBaAx0dpw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793413028;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=/ImO1VjA+otPTSpViii2nHBRztvxR270ZPGdI6v9FU4=;
+	b=yth6j7zL1MlUX8YMmFG7y+cXH5WimYwoHEsTRyWJ8bpr9qWmLZh+fZT6QOwW6SlJxe1B
+	 eeOSOesZ0GiYBUJ9l26BJF1wlvIITnpcpQj+p2dJVvyLQLmU35JNBtgpy7ybqoY+5oRcv
+	 Nkh6rXrX8QhDoYv5FljlGsR85c0HxEf7SExENoSQWUEQwAzjbShNQNXMiMcf4/nPczO4b
+	 QrVx2eYD3dVikG/8iCHRZRlgxQndhLnvgTp1U0UVhJPxSw5YylCNpQF3fh7LmKp+WQ1xk
+	 4Pvzu8siHVdyMQcGqP51bZVrUrHEfwVrH0dVnePswr43veP2X4BsgtNxCNTjD+F/9lA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PZ1qCJ46;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.53
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010053.outbound.protection.outlook.com [52.101.46.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8AB606A322
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:15:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B8AB606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF06A606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:17:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF06A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ffz+sS/H
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793412919; x=1824948919;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JDGnfo9AO3La6lbmSWT/ExmOzEpPsX5TkCTGoppcGTk=;
-  b=Ffz+sS/HMnP/ci3DyL8sXpvUS4MHZol414VTyrCmWEVzE3Qw1mq8Dx8P
-   HotAn3CRC4EJ9HNKmRAyKHvqXFl6JOLzPH95ExNWsq6GDPNmScUBp/2cy
-   dxl9ysOMwW9cR8PYfMyX6tWgwVUSng9fMAREr9E4W1aA9GVpVzSLZM2G/
-   A4c8ZU7FH2yfpKT5k96/RjT/SjLRpnOk/V64wTIflcSqftPUrCL4F+IkK
-   GqkSmZzizqCy3cFu3Hk0mxw4F3WYQhjxgdG7ZuYMdBRbfPcY4OmhIhO3N
-   v426YhtFFkQoJxkQ4scfvnutZdYWRtFN0apUCPeq8yVmKvC0VaE9NcPH7
-   A==;
-X-CSE-ConnectionGUID: 455rR8t9Q7GTznaKRN5SbQ==
-X-CSE-MsgGUID: L35yHWzLSRWEFm3PlEQemg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2092329"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2092329"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 19:15:18 -0700
-X-CSE-ConnectionGUID: AiHVaetHQuKJFUKKhBg86g==
-X-CSE-MsgGUID: 37q5X9yRROuT9Ddl+x8oDQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5467278"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 30 Oct 2026 19:15:11 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xMycd-00000000cSC-3G7I;
-	Sat, 31 Oct 2026 02:15:07 +0000
-Date: Sat, 31 Oct 2026 10:14:53 +0800
-From: kernel test robot <lkp@intel.com>
-To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, cfu@wavecomp.com,
-	torvalds@linux-foundation.org, olof@lixom.net,
-	aleksa.paunovic@htecgroup.com, arikalo@gmail.com,
-	Boqun Feng <boqun@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Vladimir.Kondratiev@mobileye.com
-Subject: Re: [PATCH v3 1/2] riscv: build kernel atomics from LR/SC when Zaamo
- is disabled
-Message-ID: <202610311058.zODtC2bF-lkp@intel.com>
-References: <20261026-lrsc-only-v3-1-ec29c8190fb1@mobileye.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PZ1qCJ46
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ulqfubuabl3YUA6TpOC/fmQN9XoAdzWwpeP06xTU2gVIdO8LtDY+aTN65TqIO5eOU241XIMRRbBrtoKQeaFvBGT9xxKgE8FaHLdxqXEbdzGHe7jSiIniQeUY6DOgl7cF6TbOo9HbrAFXn4CUliM78fWCs2Yh8ZLJ7HJT4xi8mry1TW34LuHQGZKUvO6pfGluqOgcw2Ffyc7CYkIr1/vWyD9VfIwwVuMrKMSnFt0pbgXvNjkwLqAzZwLXtm8GpUr/J2KzriiTa77Z7oG9mJyatdaSJJv4F2+YaF+d9s2vf72nsVQ2PaSpthi2XhjDmIMSQj7yAwDG051ubWeVKafTFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/ImO1VjA+otPTSpViii2nHBRztvxR270ZPGdI6v9FU4=;
+ b=nBcu91Vp8uQ71irNYtLqqMpOwokeii8NOut5Ec8+1Nlk2KeNdu/65WuyGcc3fjpSjY5V8/HJTqPC4RZ+ieRpgYyWx0KvcxpEfpWjZL5NQ/6LqMCd2bpjxvK9k6aHPSKsFm6NAgxAMZgfbyWBjQCM28HLms0zRiP+W1n3C3fqi+VVQN7od2ovGZi47ZUV3VSTruU3J7MU+YHJ+z7K0dWZUhRNlf0av+D8bsw9+uv4jSa0UStzMo8NChTdY7tE76+0pplsqYkAxzl3Uado2r98u4Nw9UmpFW/ZEBc+vzmvHindSiWz9VqsUsL6cCJitHfeFTBAapq9ufJobZPB2Id3DQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/ImO1VjA+otPTSpViii2nHBRztvxR270ZPGdI6v9FU4=;
+ b=PZ1qCJ46sLCf6KMxB1hkpZ08NlMDRNvufA7prJkEohVkxsc5Yfygl+I6AuwNLdmpCD1wi2eO9uvtTLX7XffIUiYlYPgfIZYchiYBJrztOWtYIFLugnRy6twWd+rRtQlesybT7xY6IimkzO6zaExfeOFG0Snd22R45sob930Mgpg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY0PR12MB226969.namprd12.prod.outlook.com
+ (2603:10b6:930:130::18) by CH3PR12MB647349.namprd12.prod.outlook.com
+ (2603:10b6:610:365::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Sat, 31 Oct
+ 2026 02:17:05 +0000
+Received: from CY0PR12MB226969.namprd12.prod.outlook.com
+ ([fe80::f47a:5d4e:f3d5:5b26]) by CY0PR12MB226969.namprd12.prod.outlook.com
+ ([fe80::f47a:5d4e:f3d5:5b26%4]) with mapi id 15.21.0569.009; Sat, 31 Oct 2026
+ 02:17:05 +0000
+Message-ID: <369b53b5-2380-4ca3-9f10-db7f77eeb107@amd.com>
+Date: Fri, 30 Oct 2026 20:17:04 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] drm/amd/display: Fall back to the native mode, not
+ the first, on eDP/LVDS
+To: Hugo Sales <hugo@hsal.es>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, "Chung, ChiaHsuan (Tom)" <chiahsuan.chung@amd.com>
+References: <74c73b6f-a6b3-4652-8da1-b5c46ae58809@amd.com>
+ <20261024163347.2413649-1-hugo@hsal.es>
+ <20261024163347.2413649-2-hugo@hsal.es>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20261024163347.2413649-2-hugo@hsal.es>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4P223CA0006.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:303:80::11) To CY0PR12MB226969.namprd12.prod.outlook.com
+ (2603:10b6:930:130::18)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,43 +100,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-lrsc-only-v3-1-ec29c8190fb1@mobileye.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY0PR12MB226969:EE_|CH3PR12MB647349:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69c5f37d-d7c5-42d5-c989-08df36f50f05
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|4143699003|10067099003|11063799006|56012099006|261021121427099003|261022075727099003|261022105027099003|261026140227099003|261026121527099003|261028144727099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	okJOgNW9ujz/z7ykF6bMvBAsdWAhz2anLpcWF+L1zngS7NoJ8swPkP8OR8dGr+3aQKDT0IsE2AaHKrtWiO+0fJb8FJXRdzBCmKz5inc1MNtwenJSX9VkxAZN2WCPcrW8pin7Oc++Zev4itavkZqDquyDKNXw6jZMTEtBB5ItVuMZvBMAGRLN/L1A0IT4N2qtMEznc9Smor5Ye2Qgj+IBtYGl3z/IkZRh6E9LvXxf77D7Wp0xyKymA625wqqOweOkCgCvKMyRIMKgmVGXu/pgjs50/ZibSb3FCuokYEFy93Cbv7JOXeZyU5mRSDuvdc6s643/pvYzjp3ufMCVoAB3TMY7wtyPF32n9A06PNAsSGd7gx2tiitSKm4w+iiEuIK6xia+Kgjuk1HkMzxxn51FfzRYXW4/qS7Cw6BbnFYlaYjw/wbaWfTn/W5Unlno86KHXqP17q/wo8PrxX8acfxGLszxcWuuw4i/dCRbwLuNHrVCnkhOP7adok0Ov3Em2SwinF23kXz1zakLbkeM0RINevWmvf/cLvzcXr4mDLBFU21SDrxIFYTv6Xa+CQBJNb9dkQ8rr14Z7IY7Zw2bPdWdhVtjsVzoCC9rfVK+9P5o360=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY0PR12MB226969.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(4143699003)(10067099003)(11063799006)(56012099006)(261021121427099003)(261022075727099003)(261022105027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ekxEeWtUKzBkS3hwVnozRU9JTnpJZXJGTGEwLzBLRkREc1B2bHdIUDlmbTUy?=
+ =?utf-8?B?OXhEU2xxVWZnbnd2Ty9YYlhNTTlndkVGOE4yRSt5N25DYTlsMUtWcGE2bWps?=
+ =?utf-8?B?RzE2UXBYTEcwWlhrNytuQk1WTytxTUh0YnhtaXljcldKMXpBQ2VtdTRvaWFl?=
+ =?utf-8?B?Qm1ZYXYxV3dObzJkQzg1MVlnS3pyQU5uNURNTE82aW9IckFqaDZvK2NhTTVD?=
+ =?utf-8?B?bVB4RVdkOW5iSmIyVXlUVWpKdGJYczZwYkZRZEwzWlBIZjZDZkk1R0h1VkFL?=
+ =?utf-8?B?MExoaWdqSElxR2hrdExxSjVtOXN5ejExV0o0MHFEYUQ1TGVac0lPUUFVL1BM?=
+ =?utf-8?B?M0RncS85L1o1NG9OTHBSQW1MYWkrNFBReElwU0tCVVloRTF3NGdZSk02MERt?=
+ =?utf-8?B?TWMwR0Nvazl5MjQ0Z2lzZzBSa0RqRHFXV0pwYlp6SElwQkJUdk41d3grcytv?=
+ =?utf-8?B?UmVMSGxiUHl0M2YxbVoyMXpnVlZidXA5SFM3ZTVqUkp6ZlZtMHM2a05idnQx?=
+ =?utf-8?B?ZTNLcGFwNkY1YndMWjM2ajVVSkFBRWpyMnVXSG9ML0tZUlBkQm4ydTJlOXAx?=
+ =?utf-8?B?KzgwMGFYYjdXOW9YSHBjWVFUSkJMRGVFQytnYTZCMlp3ckVRcVk2Zndna0JL?=
+ =?utf-8?B?Q0E3YWl0VFp1TmJiSWNqd0hjUWVDRzJZZGJGNEh0bzgyL1pHNVZEOEVpRHlD?=
+ =?utf-8?B?YlpSdi9XcWV4cjNzRzFLY2hUWGV6MEJtQU1uMEZ6WXAxZ3NwL2hiWEN4eTZ6?=
+ =?utf-8?B?TWYzakFabFo2N2tPQkhqbUVMc2dqRXJjSHFwK2w4aGx3UE9wcXcyWXNhRnhC?=
+ =?utf-8?B?UWVDQmJNVlhlSElqSVBQMnB5OTNGMUN3aFA3Z2VwOFF6bURuTFk4SHJoaXIx?=
+ =?utf-8?B?b3JWbkRDc0srd21tOG5GZFEzNDBlUmU1cjAwRzdvRmJVSE1ZZVkwTFRBVVM2?=
+ =?utf-8?B?RWVDK1FBeUtPYlpueEd3WW9WQzNPb2EwV0oxVC9MRkd3d25rWGFXSjNRTkhx?=
+ =?utf-8?B?N1p0WnJGRisvTDVXeHE5WjlxY3V3V3FJU3NxN3pCVng4Rld6RjZIVUhNQ0dG?=
+ =?utf-8?B?Y0VmSmN4ejEraFBlUEtQUmpHTHZuY1lnenZsMW5rRE55cGdneUVCeDRKUktr?=
+ =?utf-8?B?TWc0OEJJb3doa05OR24xeUJQalhJdVlVdHJXb0JVeEdIRWtFOEVWZGkycUlT?=
+ =?utf-8?B?dlNYUmx0WGVkVWNhNTB3NnpDeS9udTdMVk9nZ2kxVDFBQVZnMDhhRXZZNnZr?=
+ =?utf-8?B?enRpNDltaHFobEYzSXNwdVZRTE1NWU80T1dzMWlXT1JOOWVub2p6UFB4TFQ5?=
+ =?utf-8?B?Um1kaDlnVERYbVdyazhsSzVDcHN4Y1l1NmxnbG1Fejd3T29wQmRLeVFqZVk4?=
+ =?utf-8?B?dUc3T1o0M2M1aU9TTkVhc1kzK09wdThsbjYrMVBZUkpidlRjVXVENzdOYm5B?=
+ =?utf-8?B?UXRjNzZjTkNIMk1kN0tnUlYvT01BSXZ5REFybkh6TmdtQUZKWkFQVHdMZGw0?=
+ =?utf-8?B?OUhiTFBEYlZ0YWhtM3R4Ni9tSUhqNi9IYjZrTm9EaDM4ckM4MXlFdWh1YlhE?=
+ =?utf-8?B?S2Z2cVZsckRWT1lWTFQxOUxSSjFZL3pqU1p5RGpvQ2ZYR0NKbXJVSG1abHM4?=
+ =?utf-8?B?UldxRmFLS0F6ZklPclRGRmtLS2QyY1JtZGZFQVZsb0doRHY2T0VTSDIzLy9k?=
+ =?utf-8?B?aTA5Yy9Kbkt1VzlpV3RvS2lSZ1p5WlFxWVlLRU44QlBRNkx5eCtyZGRSbWlK?=
+ =?utf-8?B?bjd2THBBM0dYZENLWHlkZ29rOXdBNVBBbndjV0NsUC83K052L3ArbEx3YkZJ?=
+ =?utf-8?B?dll2cFU4VU1BalRvV0tzaHZoS3FNT3VpUzN1d0RCT1dtTmxwUVZrbGFKbWRH?=
+ =?utf-8?B?cXdnWHZQYUtka0hzdEcrd0VDUVhQL3N1cG1WejJVeS9WK3JOVzQrQ05rSUJ2?=
+ =?utf-8?B?MG9VSkdMNHBTeGxmU3VhYnNEYXVnMzFKdzh5amlwU1Z5SGtTYTB0NkFIaEpF?=
+ =?utf-8?B?enJvMnRlVG12Q0plVmhlYWxqZ3lDWlJZSklaajFsZGUrckU3NXkvUjdMY1FW?=
+ =?utf-8?B?RGpQVC9KRDJCQzRTT0lpYmVVWWNkSUhYWVdGL2tSeGlWcEdtUU5KZXcrTE9E?=
+ =?utf-8?B?VnByT0J6dzdtWDNTSHVsMjZnbFFubWtzcEVWb1BDcnNDYVh2WEZuSHBpbXZW?=
+ =?utf-8?B?bWF4T3htbER0dHBmSGRoUGYvWGlWQVQwK3k4cEZBYy8wWnE3Y3pucmhzZjAx?=
+ =?utf-8?B?Ynppd0d5T2hBazd0ZXU0MDQwQ05KUWRyNXd4VGh1eFc0NzNyQlpzVU9YUmZJ?=
+ =?utf-8?Q?GdF409w3CLs8FQvhSV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69c5f37d-d7c5-42d5-c989-08df36f50f05
+X-MS-Exchange-CrossTenant-AuthSource: CY0PR12MB226969.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 02:17:05.8025
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LDFm3C/nGU4vzbeEuxptW8BO/OIEj+MWdi9oC9kQBqmkl5v12WcWOqU9IwdfokBCY+XEFTDnTe56BoYDhGfNzQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB647349
 
-Hi Vladimir,
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-kernel test robot noticed the following build errors:
+On 10/24/26 10:33, Hugo Sales wrote:
+> [Some people who received this message don't often get email from hugo@hsal.es. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> Currently, create_stream_for_sink() takes the native timing for a scaled
+> mode from the preferred mode in connector->modes. After fbdev emulation
+> probes with size limits below the native resolution, as it does when
+> video= sets a smaller mode, that mode is no longer in the list
+> 
+> If that probe is the last one before a suspend, for example after an
+> HDMI hotplug, the resume finds no preferred mode, and the panel is
+> driven with the scaled mode's timing instead of its own
+> 
+> amdgpu_dm_get_native_mode() copies the preferred mode to the encoder on
+> every probe, before the size limits apply. When connector->modes has no
+> preferred mode, take a mode of the native size from the list, or that
+> copy if the limits pruned them all. The list comes first because
+> mode_valid may have rejected the copy's timing and kept another mode of
+> the same size. Limit this to eDP and LVDS, where amdgpu turns scaling on
+> by itself. On other connectors mode_valid can also leave the preferred
+> mode out, and then the first valid mode is the right fallback
+> 
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5983
+> Signed-off-by: Hugo Sales <hugo@hsal.es>
+> ---
+>   .../display/amdgpu_dm/amdgpu_dm_connector.c   | 47 +++++++++++++++++++
+>   1 file changed, 47 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index ded8e21897f1c..a13e3b641fd27 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -257,6 +257,8 @@ STATIC_IFN_KUNIT void update_subconnector_property(struct amdgpu_dm_connector *a
+>   EXPORT_IF_KUNIT(update_subconnector_property);
+> 
+>   STATIC_IFN_KUNIT int amdgpu_dm_connector_get_modes(struct drm_connector *connector);
+> +STATIC_IFN_KUNIT struct drm_encoder *amdgpu_dm_connector_to_encoder(
+> +       struct drm_connector *connector);
+> 
+>   STATIC_IFN_KUNIT void amdgpu_dm_fbc_init(struct drm_connector *connector)
+>   {
+> @@ -1545,6 +1547,51 @@ create_stream_for_sink(struct drm_connector *connector,
+>                          break;
+>                  }
+>          }
+> +
+> +       /*
+> +        * After a probe with size limits smaller than the preferred mode,
+> +        * connector->modes no longer has that mode, and the first mode left
+> +        * would become the stream timing. fbdev emulation probes with limits
+> +        * that video= can set below the native size. Only eDP and LVDS panels
+> +        * get a fallback here, since they take only their native size. On other
+> +        * connectors mode_valid can also reject the preferred mode, and then
+> +        * the first valid mode is the right one
+> +        *
+> +        * Take a mode of the native size from connector->modes if one is left,
+> +        * since mode_valid may have rejected the preferred timing itself. The
+> +        * probe sorts the list, so the first one has the highest refresh rate
+> +        * left. If the limits pruned them all, use the copy of the preferred
+> +        * mode that amdgpu_dm_get_native_mode() keeps in the encoder. It is
+> +        * made on every probe, before the limits apply
+> +        */
+> +       if (!preferred_mode && aconnector && aconnector->drm_edid &&
+> +           (connector->connector_type == DRM_MODE_CONNECTOR_eDP ||
+> +            connector->connector_type == DRM_MODE_CONNECTOR_LVDS)) {
+> +               struct drm_encoder *encoder = amdgpu_dm_connector_to_encoder(connector);
+> +               const struct drm_display_mode *enc_native =
+> +                       encoder ? &to_amdgpu_encoder(encoder)->native_mode : NULL;
+> +
+> +               if (enc_native && enc_native->clock) {
+> +                       list_for_each_entry(connector_mode, &connector->modes, head) {
+> +                               if (connector_mode->hdisplay == enc_native->hdisplay &&
+> +                                   connector_mode->vdisplay == enc_native->vdisplay) {
+> +                                       preferred_mode = connector_mode;
+> +                                       break;
+> +                               }
+> +                       }
+> +
+> +                       /*
+> +                        * saved_mode is only used for FreeSync video modes, and
+> +                        * that path doesn't read preferred_mode
+> +                        */
+> +                       if (!preferred_mode) {
+> +                               drm_mode_init(&saved_mode, enc_native);
+> +                               drm_mode_set_crtcinfo(&saved_mode, CRTC_INTERLACE_HALVE_V);
+> +                               preferred_mode = &saved_mode;
+> +                       }
+> +               }
+> +       }
+> +
+>          if (!preferred_mode)
+>                  preferred_mode = list_first_entry_or_null(
+>                                  &connector->modes,
+> --
+> 2.55.0
 
-[auto build test ERROR on c03c1a14507dfaf8b856c2608f9ac216021fc222]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Vladimir-Kondratiev/riscv-build-kernel-atomics-from-LR-SC-when-Zaamo-is-disabled/20261026-112002
-base:   c03c1a14507dfaf8b856c2608f9ac216021fc222
-patch link:    https://lore.kernel.org/r/20261026-lrsc-only-v3-1-ec29c8190fb1%40mobileye.com
-patch subject: [PATCH v3 1/2] riscv: build kernel atomics from LR/SC when Zaamo is disabled
-config: riscv-randconfig-1000-20261031 (https://download.01.org/0day-ci/archive/20261031/202610311058.zODtC2bF-lkp@intel.com/config)
-compiler: riscv32-linux-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311058.zODtC2bF-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610311058.zODtC2bF-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> cc1: error: -march=rv32imc_zalrsc: unsupported ISA substring '_zalrsc'
-   make[3]: *** [scripts/Makefile.build:290: scripts/mod/empty.o] Error 1 shuffle=1963593903
->> cc1: error: -march=rv32imc_zalrsc: unsupported ISA substring '_zalrsc'
-   make[3]: *** [scripts/Makefile.build:185: scripts/mod/devicetable-offsets.s] Error 1 shuffle=1963593903
-   make[3]: Target 'scripts/mod/' not remade because of errors.
-   make[2]: *** [Makefile:1424: prepare0] Error 2 shuffle=1963593903
-   make[2]: Target 'prepare' not remade because of errors.
-   make[1]: *** [Makefile:248: __sub-make] Error 2 shuffle=1963593903
-   make[1]: Target 'prepare' not remade because of errors.
-   make: *** [Makefile:248: __sub-make] Error 2 shuffle=1963593903
-   make: Target 'prepare' not remade because of errors.
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
