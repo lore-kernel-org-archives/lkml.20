@@ -1,94 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793448708;
-	b=x/FiQA+RYnGeaGPtz3RzjAZLls4uC0aSFPolXKT6tiI1H6fwTWnquBI1VW4h+SR90n31
-	 fkhuyrjSf0hRBLetZABWJYI+HRQrmHxXotYGzmrKEHgQM1IZMhvsKYCZogPc3Mu8Kmf/f
-	 Jlf/l6nB77sChILh05F7hpf12rh5WGeW6afGXFY0zC/ojDLMp9o1Ww2pB898k4h3Tsw6U
-	 zlQr9QKvD+6JGMoEYjR0bd43u3mtPpUebFFI/yRDLXb/dap/D01Z9oX4DCPcckjUB4B2J
-	 5ErbzjKO+9+7LzM0fZsneYGXOKoZLYQgGEoKsLfFtuilctTGP+6pAcOEc7M8c/4NFsA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793448708;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793448796;
+	b=UUPyBFhruUEWPmuB/duIDfgJ2NuyXviTQaP25U6+iBCsjElcH4h1glRrp+Vvs/fmvT0A
+	 JrWyH63CXeEnFc+QAoj637f1tv+tX5lP+mXMItiLP1IvJLA6XfMl1Y9CX3JQY3rOdCSnp
+	 N5iGDoXl/Yy0Y33Yo8DiKeYQE6zkJ9ATmZE/e5QpY3Fq+pPDggFmaS8m6z8bGwhjVa+QI
+	 blfCYrKTgCqEPUZ25/imvl83KZLm94211agAs2X4bRdEDknNkElS+9dUIpCz3aCCHlHb/
+	 q84l0iA+5YQhaKTdSxd8JWOCYWJvKwC9fBDHB1EvWePiZtcLVIj9r9wzi96gXgwvIhA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793448796;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BT6J6/b48vPr/t0dhtJHyqHkA9y0z58dhZE+8yeOg4k=;
-	b=zi7NnmfT2CEOeQX3u1oaqMBn7kFA8K7pWXYMnpOwWRMjA6CArsfrEJSBuSfqLYConxba
-	 BArJ44FKClj/xJAXSvK80/6udkLabrZfCp9Z4Ae00wGZxOrHb3oALqGoZUkGnJWl6vuDV
-	 Ek3vtm2//EIbCwG1ZvtSIA0eq8IBpcEkPApbVtUm5gTf1f0yZ9oXUsfdCxAf4k54wyfQL
-	 tUos2gSiAw1+D1J56igUuekBozkLvnzshXc/w5HvAK1+CZ/FIutVKI4k9bqCVbtPQGE99
-	 kPCXA06btqkukKpjhA7GOBdQEZuGPYG5g2TrxKlfxU+38aA2IZ6VFpyzh97Smc0jAtA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=92RxbdIoYdks54JXgIdkuC9nu61dKUU8qHkYk11QqtA=;
+	b=ZgvCI85Q1Kx5AgdnhENw+stQ9nwY32m5hJnO0JfASNkJvbbyutQaJlzvFS4VQylBDK27
+	 7MyiogS4EZmc31M27Rwa4TFNe+tw5UfIFNmz4LO2QqdmSsPbRnVfT1C1K3Zxp+LO/sdgq
+	 3MMfMUU//bh8IciqO0JUsrEl5/iYzA2bqg9+1Wheznt/Np6QSW7LaaCSP9oMWlk8qsLCl
+	 3B+vwSM96XFm2Ba5K8lHh3QWWqVkeR2aI2NDcYVp6oyCCvf/DTQp6FY8GQY6qwvMKEeq7
+	 RgCpe5Y/W3Bgg0/Q/lToC2D54h4LrCoPQ/lWyJUzBOA8RaTAtiyxtyhtwP5vYe5K0DQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ssVuBEYZ;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z9fry2D8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CF7606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:11:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4CF7606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D0B606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:13:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24D0B606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ssVuBEYZ
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-15ea896ddc8so2717533c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:11:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z9fry2D8
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1931ff67a29so1495247c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:13:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793448795; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eAuual4CgeHdUJPW7gu9o1O4lI/w2dfxD07IO6Tf/JjbldoonkGGvJgGAnwZlIlYnb
+         0AHqAprgPZg2FNJdLiVGQt1RWGR6geOuV4r/0XgwyUROQGaaw+pDnHyyqAa+4ISMbcHS
+         X5RMxyztDk7ht3RiTK4FJ3JbUJx1AO7/5ljYSbpVDj8j7zGHu0IkR9c5GtgBV9Vpb5qU
+         gXIRuuORPYfS6bejUXWrMYDeGGx47rF9ZlvaQePeqWBncr8DCqLN5UcG7kZHvAVXs93c
+         DAncWia8bXogjdlPGTkIgUZwrzAcD65+nwnis4lAyj8oj12H7h9NjjYgYBWrfHM83l+7
+         GE9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=92RxbdIoYdks54JXgIdkuC9nu61dKUU8qHkYk11QqtA=;
+        fh=a9FYkmgBrtqIEuPRM0fU+uNnbUckDpTJm9E5aWevIoo=;
+        b=arE+809FPKbtRJrVBhks0TvERAWuXdJw/fGeAxbm3y5XJ3ItdtOoiWadeN2O0vXwIb
+         x8/WHf8QMl+eWLtrKHzgtkgo+TOh2Ihs8IvpEpadU8TSkf1s1023UxJJnV/ZjPqwqDKN
+         gYXu6D12wxkobY6BP9crwZ2DDwTUVkBVCbtMW/Vo7/04s3iHjOEXyk/3nQMNUMJxk1Cy
+         lzw6LT6ElxyRX9TNzrGvFUEvY+HFC2v1kgM7/s8sGzolKZ9utUooHrGaEIl6M6y3hG71
+         qdtNhHHnP23p3yT8r+/zeNkxHJJGDeoQnGqCg4UKdb5DigQ6CD8tNc+WTRFxnocZ6yZQ
+         Mnuw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793448707; x=1794053507; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BT6J6/b48vPr/t0dhtJHyqHkA9y0z58dhZE+8yeOg4k=;
-        b=ssVuBEYZ3bBYs5Ngxno/LuPVQxnI36NF8euRmCmpArxfYozZ9uinigoPgmJUDFD7j0
-         KQJW2qarGxekzDvMZuUikY6tDRZhQpsw58FP8iceugb0Dt7Yq6EVULMYQlM5I8WVb0mG
-         MVxWLZjzOjg1qy32H4tjYiS4pjGXhsooOJtYzt1wiyU4WpaOcpOQPddzfjqC+Eddq5TE
-         ZKyK2jqvNIFn4NGV/BLKtxrUrfFSJwsVHCV1KMutftgv1nmO/uYDCuIXk5VnTUhVNLGU
-         QbjcLr0MfDz5lrsIj4giWSWo3goNUGBFou9nKIQ9oeyPTAhBDwOtW1qz3FDxSztnEd0e
-         fxmg==
+        d=gmail.com; s=20260707; t=1793448795; x=1794053595; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=92RxbdIoYdks54JXgIdkuC9nu61dKUU8qHkYk11QqtA=;
+        b=Z9fry2D8wh2yx0cc7IMuInySHMnBgZbBvurkYrzrVLpzrJAe3y5yXU2AWQE3h/oXn2
+         Ug6cpQxxeatxaF2T2Rx5HmyNsQqlx78qpKU1OcaYFQKo4r2egqAgUjH5FqGTgJVPx80a
+         9J0ZBmcxfYcm/P3sM7nF4EOe23jNHXB+3If/aFu/i+rhExoDPTMO/o2B5/jbNpFDfZHD
+         KpT0PzcQyaq/zKlBVODJx/ycVjE+tkMgLga/eqM/m4CJ1TNeFYYH2g4QCQ//ULX5IwFE
+         SyKEoTt/xhnxQrY7nrzSJh/uXYlRAM+JuwEQNTmHF/qkM6HovV4uAd0v7b3UUVF/zDSe
+         ZU9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793448707; x=1794053507;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BT6J6/b48vPr/t0dhtJHyqHkA9y0z58dhZE+8yeOg4k=;
-        b=rbNjrRY7Ni0R0cJ6s7U4UkCiCr+J04ClRCjl1MFw1Si0+J+Gs+DwWUXhqLwsp0wxQV
-         4CsJeqHOeX4EVJVnC+rydG/OdvWgm3wIAbrJkJROrTcRYgEM4UDLQ746/qnwEDKw704j
-         UaJU/h/YheRrRVJ6JRedem37pIRRUWvykBqQiIhpgY5AqNuDjBpis6x4i4gQVnMx2u6x
-         ro6KSl/dxtoVZOCASCAT/dKqhOcgRKvA4lIfb90HVaUu2Mqk7g9BCmMukPghtyoYi1Zl
-         nI1qFzsrGtdzNDLSYjW6dbs0p7PO91APN4rsq2+vplvEVbEDW2WDV4PV65sY0DlJ0Vxc
-         Vg6w==
-X-Forwarded-Encrypted: i=1; AKwUvBz9Q7GOa/LX+IYvJmiFKW2GowN6nBdVplNLuGZk+OaHPQoznIwJfY6aYJrftCmCClpsZJeji1SDxNfTXDk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3WD5EMifYtksr0YJ4zUYzOlWICUtkQy0CKGWYFw6sKbWuUTaN
-	Lq4jYgRNgtLqC81DBpTLk1ir0ppCu2dA+kvBuLS9wdqqYYZfMjtWnJID
-X-Gm-Gg: AYBFou0RWxT5zeQHcfEc/423+qzN+zLS79qAKyRpt2mP1J6iR7N5RIkcsG/Rv/l9aAb
-	BfOZIzus0LPEMNrPbk6skcMA8JwBz19T5GBPhMsYM7va95s/v8ZnMmliUegUjyTYjiep/XRAUtJ
-	T4sdMfQ+QepBdMf73yxULTlZQ5J4zUcFNSBykHVcI7L18JvTgfOeKeLZaSqhoDoejtXqBdS8TPw
-	GlHjw9Ake6Ojdn2WO7hRMaBSZAk6656IBvD6knq2VktxzfUP2QUmEJVwRZ5IeVRWjW93vP2r1H/
-	x2KrFyPkvDzl7lyH+695IYJfAu3ODOil4YdpkId2kn0ZY+OZAK6ap7O3g6qzIwz/E8bt6uH8ZpE
-	QND8JqkIUJM1l6c78GKWt/NZvRfBMv6mZNKzAmwudJ/AD+obw31k9EQij/iLMv+iqwlTYBSxINC
-	YOJx+btf7ZKs4gmGdhU5ZUVkYz6cy2n2Mh7zofR8jPbvIzsFk6m1CKJrn4zHG1RllFD3HDTrXXL
-	TcccQGrf1DClRjCvPlnVNQRePuRfOPLv07PspQi8X+yKdoHOb6t8iLpuRNzI3qxFMzShuy4g87M
-	i5MXegWN1ZnMWTUEP/tbUd3PvmWQa42f5xU=
-X-Received: by 2002:a05:7022:3a02:b0:169:bef5:f445 with SMTP id a92af1059eb24-1ac55774bf9mr7170978c88.4.1793448706406;
-        Sat, 31 Oct 2026 05:11:46 -0700 (PDT)
-Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c27cdsm26762301c88.10.2026.10.31.05.11.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 05:11:45 -0700 (PDT)
-From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-To: linuxppc-dev@lists.ozlabs.org
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
-	linux-kernel@vger.kernel.org,
-	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
-	chleroy@kernel.org,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Subject: [PATCH] powerpc/entry: Trace the IRQ disable before irqentry_exit() on 32-bit
-Date: Sat, 31 Oct 2026 17:41:37 +0530
-Message-Id: <a14571be1897955f43d9994f0e093de3ada6ecde.1793447880.git.ritesh.list@gmail.com>
-X-Mailer: git-send-email 2.39.5
+        d=1e100.net; s=20260707; t=1793448795; x=1794053595;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=92RxbdIoYdks54JXgIdkuC9nu61dKUU8qHkYk11QqtA=;
+        b=Y1mwZpPHRZnvY7HF9trtSXSWroC7A9aJSNyXUS0kzHgzabf7HSCHdBqkxNxurMZDUD
+         9/UVTXZFXdjO2LgoDQghKcdBjmUa1U0D0w5azUHvzheCYdGQ/XLQshXaH7ENx6z47l/F
+         yiqwurK8yheYAkFqeIBBiHemtvgv14Ym7zgbITZX0LnICrLwQS0vbZt5zccTSw4rbZ6l
+         ek9E6/8RXSZVyo/ut9TA+psgeFF0FkmRTln42TfpitXw25oBeQ/Ju7Z7WR4npJ4aphq3
+         r+4O5YXY97YVWmOpvyDR4FSRIMnw0KgkawBkktmfQNe08hldYHZPBcAYTROGfoCZu//E
+         iZMA==
+X-Forwarded-Encrypted: i=1; AKwUvBwUxpzMXzrP3cbICndHjU/a9xbNQJ99BUWRZuofkuk2aBDUY3JEKsTwTQeMbr75WtFVtkQyC3E9eUyIiEY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKnM1H5mA/yoGJWEYB5dIi/QQZBBmHqnR8vhE0NjFfi8h7JHLZs
+	ffMmfgSHbwHGRPCBZFmTKI17/RBj1vMe9J7RsxSW3D/AevRRNjb/u9rH3JSz2WvcBD4ZdGM7Lvd
+	fK3/CUlNzA2M/lpKffE6Ed4bjZT68yodtcQV6
+X-Gm-Gg: AYBFou0Km1d+PjAQgg/ZI3XHPYfKfEZhvvdiYYjS/5Bewq0jaPz9Mtq2PI9q5e2+uUC
+	EwQirfLF/ooHWkx8GYIuZNYtBOsv8R52Kb84ij6lebCK3m2vLoSHFMoS0uMA+ADsX53ynfgSysb
+	hl7i+K4ZnSP7S6JDa0hj07dg/TKMgkrELOqYouN4d8Q2pqAwpUiV0y1837wDPAGPUNb9MeydmwD
+	mCGTXZiCPvdic/HDXYnHELGWoDFFUhQPRAD+hhw1mKGX0UF0KPLbKiXH6mozVbleob5mlwFN02C
+	/9Eb9Y7dnESy7Bp9pptzHylEnFTjoQDOpHrk2GzdkPY3hX+KeiYCFbp0/IFqxrQLDWB00rQHNSf
+	V3t877S7ebTQfydD7WYBw80q84Nzou/KKZYsU5xFO5jNRC/kjEDcMlx72+OXnQQuNT+KmtiA=
+X-Received: by 2002:a05:7022:f50a:b0:149:50cb:2175 with SMTP id
+ a92af1059eb24-1ac5cb1881bmr6786689c88.33.1793448795055; Sat, 31 Oct 2026
+ 05:13:15 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,72 +104,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CABD5TJy-sp0knXTpaBhJ4+zvc42jaDFggX7jKpqUvz6tTVhoTA@mail.gmail.com>
+ <CABD5TJyqC846A1=dL2F540X2rs-t2Xv=uT2SzLLtCnczCYHqeA@mail.gmail.com> <CABD5TJxfTaNfLvPEjyGwrTb9Jn-bqq0mjXjUn7Vv7dCeLD_6pQ@mail.gmail.com>
+In-Reply-To: <CABD5TJxfTaNfLvPEjyGwrTb9Jn-bqq0mjXjUn7Vv7dCeLD_6pQ@mail.gmail.com>
+From: Anup Keshwani <keshwani.anup@gmail.com>
+Date: Sat, 31 Oct 2026 17:43:03 +0530
+X-Gm-Features: AclHuK85zhkFXPh1CfiySAdqs0FwOZF4O4AGOyDP7lNgetzPcM9OWC97WmNYNNk
+Message-ID: <CABD5TJzXM+XCM0fhkRCaKdr9wQcgCTvH0RhhUpfaR1X2=z9VBw@mail.gmail.com>
+Subject: Re: Subject: [PATCH] ACPI: video: Add backlight=native quirk for Dell
+ OptiPlex AIO 7410 35W
+To: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, johannes.goede@oss.qualcomm.com
+Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, hansg@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit 63a7531ca31f ("powerpc/entry: Fix irq_soft_mask corruption on
-replayed interrupt exit") changed arch_interrupt_exit_prepare() to
-disable interrupts with hard_irq_disable() instead of
-local_irq_disable().
-This is correct for 64-bit (since it takes care of everything there)
-however, it breaks lockdep on 32-bit.
+Dear Maintainers,
 
-exceptions such has page fault handling (do_page_fault()), re-enables
-interrupts since handling a page fault can sleep. Then generic irq exit
-expects the arch to disable the interrupts back before returning to the
-user/kernel in their arch_interrupt_exit_prepare() function, before
-irqentry_exit() is called. irqentry_exit() then checks for lockdep's irq
-tracing state and expects the interrupts to be off.
+I noticed that the following patch
+https://patchwork.kernel.org/project/linux-acpi/patch/20261010124830.116750=
+-1-chitranshmandhaniya@gmail.com/
+was recently accepted. I actually submitted the identical fix a few
+months ago here:
+https://patchwork.kernel.org/project/linux-acpi/patch/CABD5TJy-sp0knXTpaBhJ=
+4+zvc42jaDFggX7jKpqUvz6tTVhoTA@mail.gmail.com/
 
-Note that on 32-bit we don't have any soft mask and hard_irq_disable()
-just clears the MSR[EE] state and does not update the irq tracing state
-unlikes local_irq_disable(). This causes the lockdep to warn like:
+I just wanted to point this out so that we can ensure the history
+reflects the original implementation, or perhaps I could be added as a
+co-developer or 'reported by contributor'.
 
-    WARNING: include/linux/irq-entry-common.h:540 at irqentry_exit+0x398/0xd1c, CPU#1: init/1
-    NIP  irqentry_exit+0x398/0xd1c
-    LR   do_page_fault+0x390/0x7b4
-    Call Trace:
-     do_page_fault+0x218/0x7b4
-     DataStorage+0x15c/0x180
-    --- interrupt: 300 at __arch_clear_user+0x10/0xcc
+Thanks,
+Anup
 
-    WARNING: include/linux/irq-entry-common.h:312 at irqentry_exit+0x224/0xd1c, CPU#1: init/1
-    NIP  irqentry_exit+0x224/0xd1c
-    LR   do_page_fault+0x390/0x7b4
-    Call Trace:
-     __per_cpu_offset+0x0/0x60 (unreliable)
-     do_page_fault+0x390/0x7b4
-     InstructionStorage+0x150/0x160
-    ---- interrupt: 400 at 0xb77b059c
-
-So, use local_irq_disable() on 32-bit which clears MSR[EE] and also
-records the transition for lockdep. For 64-bit we keep hard_irq_disable().
-
-Fixes: 63a7531ca31f ("powerpc/entry: Fix irq_soft_mask corruption on replayed interrupt exit")
-Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
----
-This was caught during debugging some other issue on 32-bit platform.
-When lockdep is enabled there, this warning can be easily seen during bootup
-itself.
-
- arch/powerpc/include/asm/entry-common.h | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/arch/powerpc/include/asm/entry-common.h b/arch/powerpc/include/asm/entry-common.h
-index 8e91489fdf2b..c944a267532d 100644
---- a/arch/powerpc/include/asm/entry-common.h
-+++ b/arch/powerpc/include/asm/entry-common.h
-@@ -268,7 +268,10 @@ static inline void arch_interrupt_exit_prepare(struct pt_regs *regs)
- 	}
-
- 	/* irqentry_exit expects to be called with interrupts disabled */
--	hard_irq_disable();
-+	if (IS_ENABLED(CONFIG_PPC64))
-+		hard_irq_disable();
-+	else
-+		local_irq_disable();
- }
-
- static inline void arch_interrupt_async_enter_prepare(struct pt_regs *regs)
---
-2.39.5
-
+On Tue, Aug 4, 2026 at 11:21=E2=80=AFPM Anup Keshwani <keshwani.anup@gmail.=
+com> wrote:
+>
+> Hi Rafael, len, and Hans,
+>
+> Resending this reminder to Hans' updated kernel.org address (apologies
+> for the bounce).
+> Just a gentle ping on this backlight quirk patch when you have a moment.
+>
+> Please let me know if any changes are needed.
+>
+> Thanks,
+> Anup
+>
+> On Tue, Aug 4, 2026 at 11:10=E2=80=AFPM Anup Keshwani <keshwani.anup@gmai=
+l.com> wrote:
+> >
+> > Hi Rafael, Len, and Hans,
+> >
+> > Just a gentle ping on this backlight quirk patch when you have a moment=
+.
+> >
+> > Please let me know if any changes are needed.
+> >
+> > Thanks,
+> > Anup
+> >
+> > On Tue, Jun 16, 2026 at 12:29=E2=80=AFAM Anup Keshwani <keshwani.anup@g=
+mail.com> wrote:
+> > >
+> > > From b289e63d7f44500517dc94b7028b707616fd1dd1 Mon Sep 17 00:00:00 200=
+1
+> > > From: Anup Keshwani <anup.keshwani@dell.com>
+> > > Date: Tue, 16 Jun 2026 02:57:11 +0530
+> > > Subject: [PATCH] ACPI: video: Add backlight=3Dnative quirk for Dell O=
+ptiPlex AIO
+> > >  7410 35W
+> > >
+> > > Dell All In One (AIO) models released after 2017 may use a backlight
+> > > controller board connected to a UART.
+> > >
+> > > In DSDT this uart port will be defined as:
+> > >
+> > > Name (_HID, "DELL0501")
+> > > Name (_CID, EisaId ("PNP0501")
+> > >
+> > > Signed-off-by: Anup Keshwani <anup.keshwani@dell.com>
+> > > ---
+> > >  drivers/acpi/video_detect.c | 8 ++++++++
+> > >  1 file changed, 8 insertions(+)
+> > >
+> > > diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.=
+c
+> > > index 458efa4fe..10e3c1657 100644
+> > > --- a/drivers/acpi/video_detect.c
+> > > +++ b/drivers/acpi/video_detect.c
+> > > @@ -886,6 +886,14 @@ static const struct dmi_system_id
+> > > video_detect_dmi_table[] =3D {
+> > >   DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex 7770 AIO"),
+> > >   },
+> > >   },
+> > > + {
+> > > + .callback =3D video_detect_force_native,
+> > > + /* Dell OptiPlex AIO 7410 35W */
+> > > + .matches =3D {
+> > > + DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+> > > + DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex AIO 7410 35W"),
+> > > + },
+> > > + },
+> > >
+> > >   /*
+> > >   * Models which have nvidia-ec-wmi support, but should not use it.
+> > > --
+> > > 2.43.0
