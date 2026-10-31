@@ -1,57 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793434655;
-	b=l9CTIvEsZihan6W3nu5StmZ8nei2xM+4duR3+6KsOnOC77auMJGMRMWtCNCx8DeooSbU
-	 hL/6uSDgHoG2Ux1Rmlc7ixFGWRIcDULer71fVdHW/dKDeKjgFxaeeT1RAOzj51h2MOY4A
-	 emx1lRfw2qIvXkSRByR9jMjK64BZYpPbjoeRKGBu7Fzs5/UB+T81rrftL7hRzBJRXGKql
-	 fxrOZoRLl0kPQkL/FD5sNK+0XDy7Xvi6n0Z8bNkpUB8/L3p2LEvYYzvnGVrxSipZo53bs
-	 iv73c/UFrqJozu1/DxYkjgWlMI+gnEQtPKgv4/NOPIjuBZvwIN2Emx15qBsSZNBIR/Q==
+	t=1793434689;
+	b=aHCNNwsLaKXNz5aBrdkAOc4nakMbsNqfenW/jsgWFtkbU4YbUQ3VFEtpfqIp4lBPKIm7
+	 4TVFVDrUMG3uk0vWArD6u57PFbgpR93R+1s+Scz8i10bud85jlVPl50D3jrsTJWTR/vs5
+	 mf60O1vQiAKWLMrhydS9iilVmbTm+DuXed6TfRwW2OdDEvhJx2CGc0dhSyj12IS9aLIrz
+	 uq8vgWx7zGNPJF5eOcsdgFlBOqynRvBOqidjcpIBjW5rSj8i+GThoZ6nVdV9bKwyku1HL
+	 P0Hy6xlZd7TLb9EN7cJcOn5cJhqR9vSizs9pOB5WwrXS9GzU84jDpcOnfot8vVJODMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793434655;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=zlB2Ne42ndQ0FL9gkgblkMSA18ikPceLQS/DuNnQLKE=;
-	b=CADOQQAya+ELPFmvh/lEaXsCg1gD0rzWGMf8myhx4B3KqG2WGHIIugcKsWH1MqZ6v99h
-	 Q9RKRjohT8JFfDq0Kn2Aw9xpZmga3cAxEVoIwdsVfmrPLNao1Fyie+/TskP4RD1WHdwwn
-	 gzusnBTlJq45T7q67+DTKlh2e922Keucnj6eqTm4eJeMsG36EaJzm/SRPAXS32MA1vIJ2
-	 rxmAxEpi+dLY7xUxetEGfe+zd5RgnzSyXlgio6za0d8ZRAiWY6lhCS73CjGQbS8oPiOuQ
-	 sgPoq8PysWT7jQab4c19r28LnD14XZPutujlroQ673jVhMAt6UdToW6w3dolA19Pi0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793434689;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xcR6OO9DMf/GV3DMUQD0OFfeXG/gnWXrfg7cl7YoGnE=;
+	b=t3myTqfHMJJmMNQWKZFYhlpw4sZPf1Ngi182mdm6T6hat54STSA/GthTP6oPKjX5rkZC
+	 tjshQR/Cnkk0h93QfD0oBv6pUe/+PNafMwIfqc2H8R/Pei8W0S81LCyJx6Dv/Ogma9wCI
+	 cS2lkWoGVdp+46b6PqMIkUnWl4SDy3OiiM7+NLT9w9bIkZLV7HcyVZFTopqSEa8b550r0
+	 v7fFbGz7MbweJyQ/Yr2YPF75dfZNBvxDmil8N0dRevbxBbwLWSjLyTsjgN3MdqWMPOfmW
+	 UEcHPfw/1qxjqs9j8+leFBMjS5xeWtYFS013enng9ASnxheL4E13Fuj+P6fmKBcK+zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gc7Gz9WO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="zKULn/6D";
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE1B606A31D;
-	Sat, 31 Oct 2026 08:17:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324BD606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:18:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 324BD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gc7Gz9WO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A8021F00919;
-	Sat, 31 Oct 2026 08:17:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793434654;
-	bh=zlB2Ne42ndQ0FL9gkgblkMSA18ikPceLQS/DuNnQLKE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gc7Gz9WOZ3h4bcDUmAusCDBgODUj2PxxkBVzl/x3aGapAW7F999wEGq09QNOtEFcO
-	 p/KVqv6A49oojmWfuf1aHJ4amOzRg718pLS+Hyc22k3ht3K0yTlJCNL9Rhz5FOJadS
-	 QK5YBzLDbIS+q0daPGodDDQaAl0wzeuqTEHS7mvgT50N3DoGZp8i+3KA+RvDX/aV+9
-	 X4im1pNwPjFdZkCoBcatD6tK61R154QGlP3NVsofNq6Y7jWyWD0T6G+MGB2yVDymNC
-	 roVo8sMAyt3OsD39Ze8CiorkJLiv0hEOhVgueUsXCzwJyHNV0hy81jmo29EV2LHgjB
-	 mKx254578kTgA==
-Message-ID: <sashiko-outbox-191824@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC net v2 2/2] af_packet: retire TPACKET_V3 blocks without
- waiting for copiers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jingxuan Xie" <jingxuanxie@deeproute.ai>
-Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261030081704.251652-3-jingxuanxie@deeproute.ai>
-References: <20261030081704.251652-1-jingxuanxie@deeproute.ai>
- <20261030081704.251652-3-jingxuanxie@deeproute.ai>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 31 Oct 2026 08:17:33 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zKULn/6D
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac7842c17dso979654a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:18:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793434688; x=1794039488; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xcR6OO9DMf/GV3DMUQD0OFfeXG/gnWXrfg7cl7YoGnE=;
+        b=zKULn/6Dode09/lnBjRIO9OamUmJKqsN3UyMmIPm1wcXvP1MO+eJTj2vp5pX8oBLMq
+         LfpYtOMFP20aXUWHKlPQkX6kRjD8kc9f6R4sTNMK/p8xMxLUXH0bQJPCeRPaJiHePuVV
+         NeSt1VX+SJf7MLTgXbVM3GItqzA/l2zYjw0Yyj4p0/T0fJ//gf/Zbx2BTWNFpnZ3A0BR
+         J3tuOZSj7lpfcOIvLRUbJpkELPIxayjn7O4Rd3KOCArYkRtGOepzAzBE0wNh5ZLcmh/e
+         h8KrVl5961YqnT+3/vrRSgScW7kw+jBiYipM5JJwRy5ze/Ll07G03CIE8sVKelWERVpg
+         QAQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793434688; x=1794039488;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xcR6OO9DMf/GV3DMUQD0OFfeXG/gnWXrfg7cl7YoGnE=;
+        b=lbMekUehmSaPk/FW3VUONmKCZO15vuyQJUz7ZF70Jbwp1I3Z+Ovvk9Y6A+74n2keS+
+         N/BDWqKfEvXABEWZRa/8cYGnu5RCpUZGA2scgY7QGLgbkZaGc7L4bUcfMLdjUKUZlb1y
+         5wztyqcSPRaamA3iFk0n0SVrRpAKXe8DKWlra3e5UUNLfZXJDxjLLpRXEtp2kYPFKHpW
+         JXFZ8fHqFxvut7JRgxuOxlYFBcQgipjhGgAB32k88yVsI6dLc1uyeAzRVTHH8bcWRKPB
+         aM4t3vGqW4C7mUetkfIHsy9ZhSCBnEbGDSfvd81KJVTLC67CMtOU032Af3v2v7yeF9i8
+         psQg==
+X-Forwarded-Encrypted: i=1; AKwUvBy9Sdk6b8JOzakVFoA1GZmW9KKBXfaQLTnk66dPXJMSCHcgFRDRvAHpqwzj+dL8PJ8MU0PZOYbIBSw2ewI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDxwaN8qODF3fq67OcR6T0bPpo0HnbG9GAFS4NDsKACRSVKmjS
+	xd2i61LZEsqbvCJtulhTBCLU6YApkZSe/3fEUD6+LSpgVO5Mx7AWHQil
+X-Gm-Gg: AYBFou2jHHU2dnv/ZEANFKJGDeLfig+YyB9ZL8DVrnm9j05d0xO9m+731A1qsrkqlFP
+	Exl4a5HQ1SYkHYh2KDQO5F51BmhIkVjiDVXL+PrxAlSPSGQblcMBPxx87D+vhm71I2kHtczkuNS
+	r3yl7aVRhDLbNLA+FcfdBcKUY2pD3yO7vGbQR4yc0RcneMUme/7XscdNO/n5F+Xdd94qAllVlh9
+	KdkVx0jY763JrFrKbx0pelNrYQl4TOWHGjVJv71Ha069xqx1l737REffpBQs1UBtxs8trntkFpX
+	6E4cGnvvmzZbQTunvLpWEWXCNb5o6Po+q/46OfC+nMWs+iFDGc3MSf+thgTh3lQM3It+EGdT2Pg
+	Gas4p+Q7YeI4/N7alPtPsEw5aJkFmVrELtIj4hA2fODYkGVYkyseDdJFpWWyuqDGxMlIwL+TU54
+	Sp6Qlsht+OZWPWyjGzgoEUeVarFtF6hbaNBPhR0/QpLVfr3bB0wYS7laGW46LJ7zNCjZqzIfOX/
+	7W717a1PeFeReIQAg+EzRhcbFHzH6BKemTw5XUDpciVJWP4OTwMlUUfgIMdyuuMGAE8RynZy8RM
+	WjTb8yh3sBbqJGH2KrBAqkQE+ZtXMzoWhKAwv7WejohCHyztYwx2bKeTUa5lByfiLMY=
+X-Received: by 2002:a17:90b:43:b0:3a7:e126:4980 with SMTP id 98e67ed59e1d1-3ae8979de24mr3720019a91.43.1793434688533;
+        Sat, 31 Oct 2026 01:18:08 -0700 (PDT)
+Received: from asahi.tail4da9e3.ts.net ([218.48.198.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e99b267sm11288897a91.14.2026.10.31.01.18.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 01:18:08 -0700 (PDT)
+From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>,
+	James Tai <james.tai@realtek.com>,
+	=?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-realtek-soc@lists.infradead.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] pinctrl: realtek: Write the encoded slew rate value
+Date: Sat, 31 Oct 2026 17:18:04 +0900
+Message-ID: <20261031081804.218566-1-pocj8ur4in@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,145 +99,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] af_packet: prb_retire_current_block() trusts user-mapped BLOCK_NUM=
-_PKTS
-- [Medium] af_packet: tpacket_rcv() bypasses ROOM_NONE drop when in_flight =
-is non-zero
---
+rtd_pconf_parse_conf() maps slew-rate arguments 1, 10, 20 and 30 to the
+two-bit field values 0, 1, 2 and 3. However, it shifts the original
+argument into the register value instead of using the computed encoding.
+After masking, these arguments write 1, 2, 0 and 2 respectively. In
+particular, the distinct 10 and 30 settings write the same field value.
 
-commit 9f9d78a929f32b0ce1f7614bea46eb96c69e1ab8
-Author: jingxuanxie <jingxuanxie@deeproute.ai>
+Use set_val when constructing the register value so that both individual
+pin and group configuration apply the existing conversion. Leave argument
+validation, field offsets, masks and regmap error handling unchanged.
 
-af_packet: retire TPACKET_V3 blocks without waiting for copiers
+Fixes: dcc9334435b0 ("pinctrl: realtek: add support for slew rate, input voltage and high VIL")
+Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
+---
+An arm64 QEMU kernel exercised the RTD1625 MAIN2 pin and group
+state-selection paths using the real pinctrl callbacks and a synthetic
+regmap backend. A slew-rate request of 10 wrote field value 2 before
+the change and 1 after it, while adjacent bits were preserved. No
+board device tree, physical MMIO or signal timing was tested.
 
-This commit replaces the TPACKET_V3 ring-wide read/write lock with per-block
-in-flight copy accounting in struct pgv so that full or expired blocks can
-be sealed and advanced without waiting for active copiers to complete.
-Sealed blocks are subsequently published in order under the receive queue
-lock once their in_flight count reaches zero.
+ drivers/pinctrl/realtek/pinctrl-rtd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> index 7b3e1e27f7771..5bc486326be93 100644
-> --- a/net/packet/af_packet.c
-> +++ b/net/packet/af_packet.c
-[ ... ]
-> @@ -950,31 +949,24 @@ static void prb_retire_current_block(struct tpacket=
-_kbdq_core *pkc,
->  		struct packet_sock *po, unsigned int status)
->  {
->  	struct tpacket_block_desc *pbd =3D GET_CURR_PBLOCK_DESC_FROM_CORE(pkc);
-> +	struct pgv *block =3D &pkc->pkbdq[pkc->kactive_blk_num];
-> =20
-> -	/* retire/close the current block */
-> -	if (likely(TP_STATUS_KERNEL =3D=3D BLOCK_STATUS(pbd))) {
-> -		/*
-> -		 * Plug the case where copy_bits() is in progress on
-> -		 * cpu-0 and tpacket_rcv() got invoked on cpu-1, didn't
-> -		 * have space to copy the pkt in the current block and
-> -		 * called prb_retire_current_block()
-> -		 *
-> -		 * We don't need to worry about the TMO case because
-> -		 * the timer-handler already handled this case.
-> -		 */
-> -		if (!(status & TP_STATUS_BLK_TMO)) {
-> -			/* Waiting for skb_copy_bits to finish... */
-> -			write_lock(&pkc->blk_fill_in_prog_lock);
-> -			write_unlock(&pkc->blk_fill_in_prog_lock);
-> -		}
-> -		prb_close_block(pkc, pbd, po, status);
-> +	if (!BLOCK_NUM_PKTS(pbd))
->  		return;
-> -	}
-> +	block->retire_status =3D status;
-> +	WRITE_ONCE(block->last_pkt, (struct tpacket3_hdr *)pkc->prev);
-> +	pkc->pending_blocks++;
-> +	pkc->kactive_blk_num =3D GET_NEXT_PRB_BLK_NUM(pkc);
-> +	prb_publish_blocks(pkc, po);
->  }
+diff --git a/drivers/pinctrl/realtek/pinctrl-rtd.c b/drivers/pinctrl/realtek/pinctrl-rtd.c
+index 60222339726b4..656c281c557ac 100644
+--- a/drivers/pinctrl/realtek/pinctrl-rtd.c
++++ b/drivers/pinctrl/realtek/pinctrl-rtd.c
+@@ -438,7 +438,7 @@ static int rtd_pconf_parse_conf(struct rtd_pinctrl *data,
+ 		sr_off = config_desc->base_bit + config_desc->slew_rate_offset;
+ 		reg_off = config_desc->reg_offset;
+ 		mask = 0x3 << sr_off;
+-		val = arg << sr_off;
++		val = set_val << sr_off;
+ 		break;
+ 
+ 	case PIN_CONFIG_INPUT_VOLTAGE_UV:
+-- 
+2.55.0
 
-[Severity: High]
-Can a user process with the RX ring mapped read-write corrupt the kernel's
-block tracking state by writing 0 to pbd->hdr.bh1.num_pkts
-(BLOCK_NUM_PKTS(pbd)) while packets are in flight on the current block?
-
-Because struct tpacket_block_desc lives in the shared packet_mmap() buffer,
-user space can zero BLOCK_NUM_PKTS(pbd) while tpacket_rcv() copiers are
-active on the block (or between the check in
-prb_retire_rx_blk_timer_expired() and the check in
-prb_retire_current_block()). When that happens, prb_retire_current_block()
-returns early without setting block->last_pkt, incrementing
-pkc->pending_blocks, or advancing pkc->kactive_blk_num.
-
-Both callers (__packet_lookup_frame_in_block() and
-prb_retire_rx_blk_timer_expired()) immediately call
-prb_dispatch_next_block(pkc, po) on the next line:
-
-	prb_retire_current_block(pkc, po, 0);
-
-	/* Now, try to dispatch the next block */
-	curr =3D (char *)prb_dispatch_next_block(pkc, po);
-
-Since pkc->kactive_blk_num was not advanced and block->last_pkt is still
-NULL, prb_dispatch_next_block() sees prb_curr_blk_in_use(pkc) =3D=3D 0 on t=
-he
-same active block and calls prb_open_block(pkc, pbd), which resets
-pkc->nxt_offset to the start of the block and runs:
-
-	atomic_set(&block->in_flight, 0);
-
-while the earlier tpacket_rcv() copiers are still writing into that block.
-When those earlier copiers finish and call
-atomic_dec_return_release(&copy_block->in_flight), block->in_flight can hit
-0 prematurely while a newly dispatched copier is still running, or underflow
-to -1 and permanently wedge prb_publish_blocks().
-
-[ ... ]
-> @@ -2306,8 +2295,10 @@ static int tpacket_rcv(struct sk_buff *skb, struct=
- net_device *dev,
->  	if (!res)
->  		goto drop_n_restore;
-> =20
-> -	/* If we are flooded, just give up */
-> -	if (__packet_rcv_has_room(po, skb) =3D=3D ROOM_NONE) {
-> +	/* V3 allocation must get a chance to publish completed pending blocks.=
- */
-> +	if (__packet_rcv_has_room(po, skb) =3D=3D ROOM_NONE &&
-> +	    (po->tp_version !=3D TPACKET_V3 ||
-> +	     !READ_ONCE(po->rx_ring.prb_bdqc.pending_blocks))) {
->  		atomic_inc(&po->tp_drops);
->  		goto drop_n_restore;
->  	}
-
-[Severity: Medium]
-When the ring is full and a copier on the oldest pending block (at
-publish_blk_num) is preempted or still in flight, does this check bypass the
-lockless ROOM_NONE drop path on every arriving packet even though
-prb_publish_blocks() cannot publish anything?
-
-In prb_publish_blocks(), publication stops as soon as the block at
-publish_blk_num has a non-zero in_flight count:
-
-	while (pending--) {
-		struct pgv *block =3D &pkc->pkbdq[pkc->publish_blk_num];
-		struct tpacket_block_desc *pbd =3D (void *)block->buffer;
-
-		/* Pairs with the release decrement after every completed copy. */
-		if (atomic_read_acquire(&block->in_flight))
-			break;
-
-If a copier on publish_blk_num is preempted and subsequent traffic seals the
-remaining blocks in the ring, __packet_rcv_has_room() returns ROOM_NONE
-while pending_blocks > 0. Because tpacket_rcv() only checks
-!READ_ONCE(po->rx_ring.prb_bdqc.pending_blocks) without checking whether the
-head pending block's in_flight count has reached 0, every arriving packet
-will take sk->sk_receive_queue.lock, call prb_publish_blocks() which
-immediately breaks out of the loop, fail packet_current_rx_frame(), and jump
-to drop_n_account where it triggers sk->sk_data_ready(sk) on every dropped
-packet.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030081704.2516=
-52-1-jingxuanxie@deeproute.ai?part=3D2
