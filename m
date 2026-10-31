@@ -1,102 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793454486;
-	b=kjc+iXBEXPRrOGdZhWbUXsiYaOpIEnRL8TgXz60IISbYcQAL7qWQGWe7w7z+pr0JTIdI
-	 NmrHnwrbxhtSUwoXYyBq/T4ozuNouPvUTgCE95NCfPe4KxALCxLtIm+h3DkAxrbF4XWRk
-	 LG2ioH4pBs5cc/I7zmeLEiWOM6MoI361sepvLMVzE8ROgYaUfS5vmriQ6q4EBdjNDYNY4
-	 V8J82ZyX7Ya1TzRL0J9Vi7Qua06j1e4HB+g3kpXDeUU1Xv9ijD7txQkAWH9DF0zhMs5rM
-	 Juf4WOrVtdvYqS4pYFJMf9RHp1CQFzzdD4AIhG3wQgBeMGjrKfCXTDhWsKXgY1fkX7A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793454486;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793454614;
+	b=gkKneNxb1mk4m9kZUzfqJF1h0lEAffEkL8jzEFMnFqGwFi5WdF5k+algVpo8Gk1X/Vsn
+	 NxMgfV0EQRyQS0UMct+J1+YmIT+oXN8zyZP4Y+TAxs6pHL/si6hlX0uMe9iN+Dz7fBrQ9
+	 oYVJG+xUCKqUVw8MhQjtbNE81Ua62GkmvtbhoeXQrvCKkzGiQcfLn6OtMt4P7XCPsZMRR
+	 gHSX+gtozQdYa89LrFF/K2wCP48eCwgi64JUsVB6ThottxZjb9UvtkOoFMTDOEjXj31Rp
+	 qdJ+oz33dEs4DGBzAGj7/VukxfMjrnBGILcn6wCiJ69hJS0U9VOeNufksMLjtfPqcAw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793454614;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=BbQ2P2hdcvSxuVd0XerZaY3G71JLR+7tFvsWSDDSvFg=;
-	b=K/fwWo4rkpQLDkCo6833FBJMwzBHl+BNfYWqQ1NuN3Jj0zWQUPkCqOqbnJI2W/9HFkuo
-	 cKyThp87XjCsTLvhxCyyPo6wsJWqbt8qadT2NAADcFSdg6BwqU+K9+ic0J184mzAoqnVv
-	 YNs483vYgICeDNKF/XAokuD9yxc3HYQKTHRKr1lD86cHkoKXVShPYS7HOKTmW1ve73GGU
-	 u72lNeYgnOReD2kIMswDzamdg9FWAm4yqGEvufpGuE6mL/G8pNg6Mq3GP6El9zBr1KBVO
-	 zJwjUOVotWiWYm5SYsV6eIyIYEqMDzpiQ0WaDWwoarCe+llpqzqonpsUWyT3Qc3UWgA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=q8xXFgm02QuTQ9KygADKrC85zWxCKIT0/FsOPIPoUtQ=;
+	b=29OO3jrnpd7ovLA6TEuREaJ+WheSetZAxA0cDcUxkCVd6qi2fMLwo+9Qu4++CbXrALYd
+	 ZxyawUuDysKr7tuGNRGtV5v0CEUyTIAx4vtEnIBxrGOQFL42lL1JMQ9v7go+m7opsaTF8
+	 U151L/lsgNXHx0/apgmtVbZzG8oq3ZiLrluATaMyk1v7I0CwNyIi6cZGwxlVs8T5PECP5
+	 CRnr9krcm0P8BpUSc5wiV2JVLx905QMBf8gcyT6EWjgAGLKJ862s2v42vIP+PBc7VHxWM
+	 zXMzk2VxmzdhAZiz7zLD5bb/kClkX/Hi3Ob5vq0vUzr1Qbv92uIFH6/q6g89D+no4aQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rkDRkqWi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.180
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v5DiwfCp;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BC7606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:48:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69BC7606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B85606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:50:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29B85606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rkDRkqWi
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5ec3561ad43so994499e0c.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:48:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793454485; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lH4fR1MsMdy5tV/6uSITerFdQBSP9iUa8FW/8HyNm5ZXkWsZlhQvtyCXqeZ79fmx5s
-         8pdomOLnDwbeYcAVo2GOVF+ROqcquG/Ow6ZQ7S9uYzuybWHggeNZEmUDOlibfvKFg6uy
-         lZGaR/wFRwjRiLk+j/9L6TcdQMbXCu4cT/Phicpy6Op+ZMfizsTrJzhlFj+KHUDjvj1z
-         WUKYoYtCYIM6ImPFP6JWKTA1Pq+Qb2/jwPMpGvJFcvVOTt/5+9Lujs8xi3VcB3Cz/Dti
-         EPFg4VrutjGEgDOgpned2p0rJ3Aj/mujFScl7lQ7INSXD0K0wk9zDfnRY+cbdMQxiI/6
-         TNlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BbQ2P2hdcvSxuVd0XerZaY3G71JLR+7tFvsWSDDSvFg=;
-        fh=bth4UIub3BfKgFznipVrfuiOqh8jPBo74CwcqmdB4EI=;
-        b=VTIFyR1ITQ+DW9eWVFY6zJAzaIU036rxPW+Yj55eqoTs9tYvnGKvKtZFG7j0THYGXU
-         2ZATPZ6TK6aLrxgFaWvRnpHZNbgb1KzMVDK4qTZi+hIikw31EUYSxFXvnQp7pFoHo/XR
-         bNx8DwgDptTreA9qvunMlEJKHuDryZw+/DxbPTiDRhBh72ZMLHzWJpYA7tgqgxgBpAV/
-         ElZc7PJ9iZESmofq508PFdDV9muTPfl0MYZzNvmBTnLEltwwxR/bHIv/B8F49ld7hQuF
-         b83dfmGAfqlUV9WQ6HjBMx9LEVx2jFPwR+KEB6GNY5bVvofYl8cOl1+560/16cb8otbH
-         8dZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v5DiwfCp
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a7992e2f7dso17301255e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:50:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793454485; x=1794059285; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793454612; x=1794059412; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=BbQ2P2hdcvSxuVd0XerZaY3G71JLR+7tFvsWSDDSvFg=;
-        b=rkDRkqWiP7mYasGzl7HLsSyvzgviydPmn2SFlPqV2nM0CwtFqG7brFBDLIakLKQVA2
-         KYxP3jLGnrG+5/8BNcD4wAUoY8jediwgqGrJV0aZiRQiexnGUkOVocxVMgrDQM9UwHJo
-         BYu1MbMROC6gUJTqoXAi0ugFZhLv6Xx7i2o1JG6a2veTgUXZ8NQmM+r+bFXZ6d/OWMZz
-         HBS+9lUN2pFLAKeGpFmglMR4nOXrTku/FS/H83VOX/8pyj9rI9R81u6lhKqT8+XHIqB5
-         wstnB3ykdVefN27zy/RjSJWPZ2oG69ew3Nw1vVjqSV//dkLpJNrV3ZJDioq/Lrw6O/y7
-         kzqw==
+        bh=q8xXFgm02QuTQ9KygADKrC85zWxCKIT0/FsOPIPoUtQ=;
+        b=v5DiwfCpx5KEUTjOyLYiULGbD+7eYFKX3RXlFKl5LZ0+N1kV3ksDEoBrOarNjGYKQz
+         oiVZ+map/6l/0C6U2oUSrWQ0GGvRxVKn6vC28YzGpIlTNHnqDPVYhkSLJKl94XFdsAIj
+         SlOuwpaZO3TxtydkD2paGKeH6sigaKBKbgeHukfofA2mOF/fdLnCt01IweYveCgqRqj7
+         ZG87mO5IiZZxrrgb/0XjGuA7yJRdCbZ20F/3MaMQBPB09QRGXz2nOBYJaSY/JpB41H30
+         ENSVp6rtqPv6BlK007bqGMrn0ZskbRhi1yHHjl5p/RWVTTI2RjwlJGCM0e7KHPJ0FA8x
+         gCNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793454485; x=1794059285;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793454612; x=1794059412;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BbQ2P2hdcvSxuVd0XerZaY3G71JLR+7tFvsWSDDSvFg=;
-        b=IfLhfkCVxkC+FdXK/uEosvRPSmpdwndVEfoxnHlq1vjGURBbVV78PWV4u7gq6n/FK/
-         XlgVUBxe6ADH9dWIeu4QzeJhi+RZoUIib+MR+1Re1yEKD5MGYKMFUmEeBEINJnCw39Cg
-         oBRgUHM6wJZ3N3Stm68BDKWGUgGvgcPB3Undj4P7lzYh3UEIa/WMH5m/nrAbCtAHSh/X
-         ulx+u08S4xpue3w5x9/NGyk6UeVCbmP0a73jBMyTL7hQjFziy33iF2U5ChkRQbBh6rbC
-         Q26WD1tkoo1kPtlu3XP2uQcLX2JsGRbD1hA+5JeBBXWyOLc3BluiTh5SkStA2Doa04PS
-         4uVw==
-X-Forwarded-Encrypted: i=1; AKwUvBwTgFmkqgTickP6llZA05LA+5qPbWfE4L9yiC/vL/1h2cENlbnhbfgOIpn9HmIQEqDIiVOVm/wj6hjtHDk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8r1VxNZ3aYqOHXMfPMfy/QObnBZIkUeiVQQzYeU/EQajO2ver
-	+EDcDV/1yQkAr02MUMnYUgWygN2D/Z+Rj1um7MMgguRBOhKC/Zmr4jyZkn4jDPUF3EpBI7KGt42
-	1C8ydwlb2BC01FZqezpA/48bSOs/p7As=
-X-Gm-Gg: AYBFou036rPiUZ+N5kW58CioRwpSDPMpm2973iuZHcmpEcAmKReYRn5o6S0U6I0VovF
-	8ZpWvuUh4Iwg+F6aVl/8+bxiV2ZuIaOzEC//ffLYncVbxac6kDfFFLWfBs7mHKq1RXBS2Xhe3SD
-	zOs3K+R9kHKiNjmvV5DC2ag5E9TekQlfl+IKXqHnmlJY2KJnTc55n3PxcJxHkStHNcJkidyfQ08
-	rgf1GRx8zqGBFwFvFk/Hljskn6mAgFSTXuJd8Sa13xOeYQ++lQvmMh92hXJJWEAk5gCvM0WFWs+
-	1r//2Hjz202GkzKzM/4TQUNFicGVR2U16xfb9eKsjGqlOZapmxrmZEGRFE6QQJWu2Mar01D3Ddz
-	QZHlRGpN03yvF+VjJ3+igbr4LEbGUzWFlnXhpxf8xysk6M+Pf5GHystNNC52a1pWwwiO+Y/E5mO
-	NjYtho1IKNSTpjXG8X9Wb5JwF7OxgjwogyjW4N6VoqL0YVgfLOjqbDX1B8arHrkyb0SMuV9Conn
-	m432MM1+GNbdeeySbHces4KWeDM3/WIDWwG3GYYao+bKczxlt9Y7+S9CeOxekE/WqMAEk4N
-X-Received: by 2002:a05:6122:2089:b0:5ea:bda1:7689 with SMTP id
- 71dfb90a1353d-5ec6871d58cmr2859290e0c.4.1793454485423; Sat, 31 Oct 2026
- 06:48:05 -0700 (PDT)
+        bh=q8xXFgm02QuTQ9KygADKrC85zWxCKIT0/FsOPIPoUtQ=;
+        b=HEbEQXVHtI9b5W+p7EOLPRRmlLFYiO7UdymjDAA+wB8XWstYup6Y+ENe73eCdvOjL/
+         lUhjY8a4r1T1rTt9qm7MLJdPhvbeELNJDZ8VCILNIOqoDGuFtniBpNcEKqGX532JcSvt
+         F3VodWQhhsHWTlWUH+8IT0z5fh5yOFkw57dMFwZ1YLP6Kvr+F5DMjgI6XVAO1qjaK+NY
+         61xuUsh9rnUNCeb0mmfO6QgKKwtPhTi5bu2mnrhlBVWSz5rx4H1lNDgGEzbTROPGWsKM
+         mKQxd8CmrcDrk2GyVL6BwHlJIlNu/a2j/qwQIfejHudPbws/SeMfesL0lxB4LzxhcSkz
+         J7gw==
+X-Forwarded-Encrypted: i=1; AKwUvBzzEHV1VLAKAF5eKl9Ph9jAPBiWZ8ONuPUgwCBg9OnTZaPI1FKkpnSXzau2Exkl7k4zoyCLqyG3nvBqd7E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIIfcP9UNI2Myqgfc8lWI5gcAOWNl1lIAHyEpCkazNNA+LSYYHJ
+	JO+MluifnuCS+rZ48zDHVH47oja5++VOfKy1Qr8g4ep9/sayT/tvFiST
+X-Gm-Gg: AYBFou1Cos8E1tIP7r1HbiC+sMAMRAGOPAfoWvAQuByU2u/oe1ypPp1eiSbX9JcC5Jb
+	rluWZylIU9dvtWOMb0eeofI7jto9aLUuwsCEGlI2ZhBDEL4t4J3zXdM+wAOfUxfhlp9sV5B8FFL
+	vY28uo6kWzUzJzgd5JEYWCym6J6/Lu7QPTboJ5SjNeEikoYHVKQLgoqMLQbEB9u5K8HLBBHF41W
+	4+dDi5NvXaI82xD38Kv7vJFrPZOid315qee2XvyxIN1Sl0j10RxH+0JFGGgocfgVV05Mljj/f2p
+	cdDpvaPF3yexyM+ElCZivRVH3uWF8xmLd8DUkloGtK3Kqq9/am3HnrQUUGOctD6BdVCfHLOnE1Z
+	N3Dp4VtJVqIg92Hq2ui8i1O6AbEgvgyz7mbtJPOWEvrffN8CS9gGfFfQsGiszXxZ3HkW8gIKiNS
+	/iDx7IJYZoAfFS0WS2mHhJBvqyODOIx/zYpNSk8ivePOlTdMQdmzVKEWvgKKPlziZPlywNU/xkx
+	u04Qp5pu6OLmQdWrVgy7PU5yzCBq1zr45Ro3moz+CjzJqT7qooRiYQ+duXAeUS/45IrW4qgkysx
+	lJO97NlUphwdG16Gz2j6iImm4JkqukWXTOuYfoS0vNFnug52046LVdvhXd+zcbmykJOPV9pwu5f
+	ogdEKopSBtpsQt2r3RwD6ZyqiJ0p1zn4H6jP4K8QHIv2VLNhohmK0XcqtByyaxzlikkM=
+X-Received: by 2002:a05:600c:354a:b0:4a3:5aee:2c25 with SMTP id 5b1f17b1804b1-4ac181e759dmr127440445e9.31.1793454612490;
+        Sat, 31 Oct 2026 06:50:12 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81b7fe80sm234950815e9.11.2026.10.31.06.50.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 06:50:11 -0700 (PDT)
+Date: Sat, 31 Oct 2026 16:50:08 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: linfordWu <linfordwu@163.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: vme_user: fix probe error path resource handling
+Message-ID: <auXyEB82y-I-j7Zc@stanley.mountain>
+References: <20261031133433.1826133-1-linfordwu@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,74 +97,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1793364709.git.edumucelli@gmail.com> <cover.1793442331.git.edumucelli@gmail.com>
- <undine-1793452028139689664-4d0bf20c02a1c855@undined.local> <undine-1793453483000634761-30a1647e17bcfa19@undined.local>
-In-Reply-To: <undine-1793453483000634761-30a1647e17bcfa19@undined.local>
-From: Eduardo Mucelli <edumucelli@gmail.com>
-Date: Sat, 31 Oct 2026 14:47:26 +0100
-X-Gm-Features: AclHuK-CABaNQB74HJ7PdtyWxA8ibq3ZtpeO760CuQ3ML4Pfc3yrhorQo8HvhwQ
-Message-ID: <CAK0NWSMdLB2Hcyw64ah+SB2ir+-idmRRDJVDqPZUABzbfetMJg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/4] tools/bootconfig: Preserve tracing settings during export
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261031133433.1826133-1-linfordwu@163.com>
 
-Thanks, Masami!
+On Sat, Oct 31, 2026 at 09:34:33PM +0800, linfordWu wrote:
+> The probe error paths free the current master or slave resource before
+> jumping to cleanup loops that free it again. They also pass NULL
+> resources to the VME release helpers when window allocation fails, and
+> pass a NULL buffer to vme_free_consistent() when buffer allocation
+> fails.
+> 
+> Let the common cleanup paths own all resource releases and guard the
+> resource and buffer pointers so each failure path only releases objects
+> that were allocated successfully.
+> 
+> Signed-off-by: linfordWu <linfordwu@163.com>
 
-On Sat, Oct 31, 2026 at 2:31=E2=80=AFPM Masami Hiramatsu (Google)
-<mhiramat@kernel.org> wrote:
->
-> On Sat, 31 Oct 2026 22:07:08 +0900, Masami Hiramatsu (Google) <mhiramat@k=
-ernel.org> wrote:
-> > On Sat, 31 Oct 2026 11:25:30 +0100, Eduardo Mucelli Rezende Oliveira <e=
-dumucelli@gmail.com> wrote:
-> > > Hi Masami,
-> > >
-> > > Thanks for the review. I've updated the event-filter patch to use the
-> > > explicit delimiter pattern you suggested. It now warns and skips filt=
-ers
-> > > that contain delimiters and both quote types, since bootconfig cannot
-> > > represent them. The other three patches are unchanged.
-> > >
-> > > Changes in v2:
-> > > - Patch 1: use explicit escapes in *[,\;\#\}]* for the delimiter chec=
-k.
-> > >   The semicolon also needs escaping for the shell to parse the patter=
-n.
-> > > - Patch 1: detect both quote types, warn on stderr and skip the filte=
-r.
-> > > - Patches 2-4: no changes.
-> > >
-> > > The series keeps event filters, generic trigger counts, histogram
-> > > variable ordering and paused histogram state during export. It is sti=
-ll
-> > > based on bootconfig/fixes, including the two fixes you picked up earl=
-ier.
-> > >
-> > > I retested the filter change in a temporary tracefs instance on my Ub=
-untu
-> > > machine, running kernel 7.0.0-38-generic, with recording disabled. I =
-also
-> > > checked the mixed-quote cases against real tracefs filters and added
-> > > regression checks for both quote orders and all four delimiters. The
-> > > fixture checks cover each fix and the full series.
-> >
-> > Thanks, this series looks good to me. Let me pick those.
->
-> BTW, I will move these fixes (including your previous series of patches)
-> to bootcofig/core, instead of bootconfig/fixes, because it fixes a script
-> which is not related to kernel build/boot process but just helping specif=
-ic
-> users - who can easily get the latest kernel.
->
-> Thanks,
->
-> --
-> Masami Hiramatsu (Google) <mhiramat@kernel.org>
->
+This driver has been removed from the latest tree.
 
+regards,
+dan carpenter
 
---=20
-Eduardo Mucelli R. Oliveira -- http://eduar.do
