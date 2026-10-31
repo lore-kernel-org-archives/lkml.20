@@ -1,95 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793442111;
-	b=rjO9irQcNj4THuuvb5HSXXGtSue5gv0P46NP4kyU8V3hYkGwRZkmL/mfynbbvLOoHZyz
-	 6i/UyyFrWmpbhEsrmrDRIVfjRzKj0nylviEtPjhy43rNW8JaCyk97QIDrYjnGRh6IP1Yi
-	 LS0TXe4olUsT0OlZjv7ZMS6XMNqUN8FUosOJecvr5MOiKrU95PkWAzVkElKkNWqP923zX
-	 U2sl9qmtjUZyxiozin95zEb4HUGyV7c4wDcKBVII7c2iTV3snO7YNJ4OM2ad4+l5Zbdxa
-	 gmWorQyJhKudv42dC+nwlIC97SzNk2ouivV+63cjJzRaSwrzlN0uVcF3Sa5FRXaNHfg==
+	t=1793442202;
+	b=eCtX8WAPIEjKCZiRav0vnNNpi3loa/ajvYuZAFT1CgMgIT4oqx9y1XmCIPCx1wYvsJe7
+	 NEHHw9VEkUTunQEyIDLKwPRx6ZnAw4nCtXq2UuBx344CtBC2RVsAgHJgV66045Q0ERXhi
+	 GwPi3hPFXyvI14Fc78pFf0sdGGHUKL0i8TBKr93CFOlzPbBQalpAghfWz52JMysPtN4wL
+	 kOhpOkrmo2LLpgNO9wsnarKxrJtiR+11g/pemPjlKGiOrCpTfjFELosO4q425xigXLrOg
+	 8tdoz0XiKLl3dk6Tdwe6k/Ei5BkB9wtX9APH8788GDnXDrrS+QHh55jbkY/fdHktbsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793442111;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=H2n5rvEmZawleJvXW2iwJ/2FM80C7pwmFa2gEkkaLOQ=;
-	b=ecIu5G24W96PNPI3+cFefrcaQIfu0ys6wgPbq0UUn64DIgyDQuS2CwYeKsm5vLd2Y+0U
-	 DxDU9IGlb3e70p+/zaX1kIRC97mZLjAUitbdDPC6nFVdIo31s7Jvv8t1YdedWWq8GBwm/
-	 i9KNOeyCBcvSbiFyh4bnKZQA0E7wti/+q5hQHsqRU5gWpSF3nSdk33Jb3OSRWVn1Gx3Kx
-	 LhkRqrql4IXIQf3qfXq+cpdRY9ShtsVojN7fkYuTzlwI2Np5CMblK7ipPHkhfMaRtAMvK
-	 cuUxNN+uKFLQs2Q46e4Ta2kmBysjyTBCecRNhbkTtS6ORBusIhkeIY/444oK2/Ho/fQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793442202;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=iq1VW8nkh3jlpFmdOaxI2MJ1haFWUOn/1TFy/634l24=;
+	b=KwevB1Bf79+D1oRQ4CNAFgpp7BiFhelfXaSW3SvyDymCr1TXARuheXxM21SfYoGawCYQ
+	 uLFjhEE02Drwjp7zzWHVJuDCFdLr5OYPs3Pl2Vf81PfyMNP6+/5dDIYt9p4lk5Sg6+ZVo
+	 3HSff2D39T2HwG40uGFxRGaAJzbE31FUnsKdv34tzuzZRxUnnq68xxWNP6k8++lPiWIZG
+	 UuOJAYv1OVIBYxEuze0IUL0rTneopR1OJJb/PCsSwuV54N/7h4BT112/qJ+0k6wj0Ltbo
+	 ZT7MsIBm2kH4RepiuIOd+4Y481ypHURznhfkYYvqfHXkPnj/y48uE2T2AZij9aqk3+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aHCOAozE;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2PgfgsYs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D4E606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:21:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4D4E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E953606A31A;
+	Sat, 31 Oct 2026 10:23:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aHCOAozE
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so9422805e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:21:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793442109; x=1794046909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H2n5rvEmZawleJvXW2iwJ/2FM80C7pwmFa2gEkkaLOQ=;
-        b=aHCOAozEayO/tn/0TW0arhTa5D7UGVboOJkhGa0sRb3GIpYYiHFVGlKSaWSg+LkZRG
-         whKqQ+BmwPd0Rz86HU6PuFwNvPDFBcIU/c7aVNVmokCaDm00RZokt6NNSyJz/12Qi04U
-         08r7r3yZs+gsu8z0/AOOy1vO2ViZXsrbw54hHCKBtjBeka+XAeYTJ49NYM0CU2maykdJ
-         Kexc+WL0XAVfVKtuB+5NB17l1gD191egPnSa1AHzCwU38IOJCMtoSu7Ywp1EkgfJXeHW
-         iecdqubAs/ghMtah/Z7BffR5N6ZK1XHTlou19m+xDzqg8ZTCkCd2anWqycIGhQqHq73M
-         edXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793442109; x=1794046909;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H2n5rvEmZawleJvXW2iwJ/2FM80C7pwmFa2gEkkaLOQ=;
-        b=Q2drqtkb2hEyKlOcFu1aJXx18zt5S+LQokYefPelQSL3Zy/3agqtOvWUOfAftF3CfC
-         9YCEslrjTj26GgWTbmeckTSUsb1/vtS0KxUqP4oBcI0BD/EEe1OLueNKkLixvgFe5obD
-         NsXIkSD9l9BI8i4umIsfVTzZoJpWM1vLqejUIk+bmkUi4oBUSRS/7r1xDwCWcUnB4mx7
-         ViKhoyiFB0JegFuP7tOEG3EVDD/EtuRbSXZ7TyCUhvnSwIsz44S2EQMLmzFSmZXz0KRE
-         fW7WnNIAjJcQyCuP1XcATo1PoUoMnS6rtrA5a3fwSlatHUfPLj2PzPW+3x0/5D2pz48S
-         hUag==
-X-Forwarded-Encrypted: i=1; AKwUvBxNiTaU5gTKcRAmIhKs3CE/mieKuoyvl+0ePvhueaz8xq+FIb/a6y6MCLtOSRhurWgiGk/M+q/TdBIKVAU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjytmhChv0Fk/O00KcQap4F1XVKr53F5m/eoG3Z5MUo24lvyNz
-	s7KmBWp+PE0FdjP6q4DRSpFKM8ozc6hIgJX2zcahMTlf6fmnjYezKly6
-X-Gm-Gg: AYBFou2veowWLYuZuT5k25YLPW0VvJo3wSbVPeyGTKUPyq6YeTw+qFr4kwctiAtzaq3
-	fVgUJEMTXg0uyI11YT7BlWde3RFtboAKJ+D/hCMFMPDV3adkOE1pRE0IvTjgeqkj0i7kxmh1c0K
-	411Vd3EF9bsocpg8020ewWzphqmtVzW6NLMdaj/vgQxy1V+Ahek4RUsueB3HkfKClZYr+SGL0Q3
-	a9XyzGkefi29JFUY1r50JhxgxZl1nL8AiuRPDkKr0dntXyTE5lGzDN1DnNmYW7JtWb/tPa946qw
-	A9hkwnbjygUqm79vJQQ2B7vK2K/TOs5rCWME5xkTvY94CNqa2R5FgZyaBNyyjOpp2yW8hBhLrNg
-	3D16pOqLUDppDEF2CYFU0kodXrmv3Aue5U2OVOhm/v2hlCzCHesE1lz5aiCERkBu/Dw/NJ/IZRF
-	oMNovz5ECBIbVq0ODLySqOLKrzX76RVtsMJiOhEvMlrE0Qr8OaRLTwoMMPYjTp4W4KA3edD7ps0
-	LTR09cs4dK1Kp+ACrN3MbzkK4gM0K6PeKcOzWVxZ/owXz7e7jltQSBBL+LUXyKbuT99qOXZ0MSM
-	RdDVM8xRjv9BedFRPRWaQXvsaODp77OkxiVRBGOHl6ikKYbBiXTmh0U4h8YiXpbfgAg=
-X-Received: by 2002:a05:600c:19c8:b0:4a3:59c9:a743 with SMTP id 5b1f17b1804b1-4ac1913ef8fmr107844405e9.27.1793442109074;
-        Sat, 31 Oct 2026 03:21:49 -0700 (PDT)
-Received: from OmniBook3.station ([2a02:b023:13:69f1:e78:b69f:1c29:ec5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abea72254csm65226785e9.1.2026.10.31.03.21.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 03:21:48 -0700 (PDT)
-From: Gianluca Balboni <gianluca.balboni06@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Gianluca Balboni <gianluca.balboni06@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop 16-by0xxx
-Date: Sat, 31 Oct 2026 11:21:36 +0100
-Message-ID: <20261031102136.24600-1-gianluca.balboni06@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2PgfgsYs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6A0E1F000C1;
+	Sat, 31 Oct 2026 10:23:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793442201;
+	bh=iq1VW8nkh3jlpFmdOaxI2MJ1haFWUOn/1TFy/634l24=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=2PgfgsYscZSBXrYMAvlPIYLkaV+PwEBlHmSm3fmtUO+XrqrEKma4j4Y6uvjUO7w6Q
+	 AeBxE98zNnIempOLP/11iD1u6VMnQbyqvfVKkPZ7TdIzcVkYZ6yDSn5gqrVE8CdPXK
+	 mvgCaw5n0tk1wk1jYDOXAcP27EUmVvCFEsIzMiHY=
+Date: Sat, 31 Oct 2026 11:23:13 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: plaztininikolai@gmail.com
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Hans de Goede <hansg@kernel.org>, linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] leds: triggers: Add led_trigger_for_each_led()
+Message-ID: <2026103131-unharmed-dizzy-ade8@gregkh>
+References: <20261030-leds-input-events-brightness-v4-0-5ea0ead7480c@gmail.com>
+ <20261030-leds-input-events-brightness-v4-1-5ea0ead7480c@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,39 +55,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030-leds-input-events-brightness-v4-1-5ea0ead7480c@gmail.com>
 
-The HP OmniBook 3 Laptop 16-by0xxx (board ID 8EE3) has an internal DMIC
-connected to the AMD ACP6x audio coprocessor. The BIOS does not set the
-AcpDmicConnected _DSD property or the _WOV method, and the board is missing
-from yc_acp_quirk_table[], so acp6x_probe() returns -ENODEV and no DMIC
-capture device is registered.
+On Fri, Oct 30, 2026 at 09:51:31PM +0800, Nikolay Plastinin via B4 Relay wrote:
+> From: Nikolay Plastinin <plaztininikolai@gmail.com>
+> 
+> led_trigger_event() sets one brightness for all LEDs using a trigger.
+> A trigger which restores a different brightness per LED needs to iterate
+> over the attached LEDs instead.
+> 
+> Add led_trigger_for_each_led(), a wrapper around list_for_each_entry_rcu(),
+> so triggers can perform this iteration without spelling out the list
+> members. Document that callers must hold the RCU read lock throughout
+> the iteration and must not sleep while accessing the LEDs.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Nikolay Plastinin <plaztininikolai@gmail.com>
+> ---
+>  include/linux/leds.h | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/include/linux/leds.h b/include/linux/leds.h
+> index a515f075c..675c58661 100644
+> --- a/include/linux/leds.h
+> +++ b/include/linux/leds.h
+> @@ -11,6 +11,7 @@
+>  #include <dt-bindings/leds/common.h>
+>  #include <linux/device.h>
+>  #include <linux/mutex.h>
+> +#include <linux/rculist.h>
+>  #include <linux/rwsem.h>
+>  #include <linux/spinlock.h>
+>  #include <linux/timer.h>
+> @@ -502,6 +503,17 @@ struct led_trigger {
+>  	const struct attribute_group **groups;
+>  };
+>  
+> +/**
+> + * led_trigger_for_each_led - iterate over the LEDs attached to a trigger
+> + * @pos: struct led_classdev pointer used as the loop cursor
+> + * @trig: trigger whose LEDs are iterated
+> + *
+> + * The caller must hold the RCU read lock throughout the iteration and must
+> + * not sleep while accessing the LEDs.
+> + */
+> +#define led_trigger_for_each_led(pos, trig) \
+> +	list_for_each_entry_rcu(pos, &(trig)->led_cdevs, trig_list)
+> +
 
-Add a DMI quirk entry for this model to enable ACP DMIC support.
+No need for this when you are only using it in one place, AND you are
+always going to forget to grab the rcu lock.  Just "open code" it
+please, that way driver authors don't get confused and use this
+accidentally in the future.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Gianluca Balboni <gianluca.balboni06@gmail.com>
----
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+thanks,
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index a7fa0e8c460d..7a629b35e076 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -762,6 +762,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
-+			DMI_MATCH(DMI_BOARD_NAME, "8EE3"),
-+		}
-+	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
- 			DMI_MATCH(DMI_BOARD_NAME, "8EE4"),
- 		}
--- 
-2.56.0
+greg k-h
