@@ -1,84 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.80.4.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793487142;
-	b=iNEqlO/IJ+ACQByLEcNMgjZhMYAucZ6iHjhR7+glCga3Fb6SO7g3ZDMhVLQgjdkNeF4E
-	 jpNcQKnmURG+NdQYNGROKDSFHsfTlpKDyvbtYhiVl4yC5nd4ECYsqwPBKKQLqcy0OP5Yh
-	 QBTaVyejikQ7O12dEJ/06ceI+MegVKvPpxoatejTcUf8qFWtzn32XUkPn03CFlUhNuvq2
-	 BPPcrakFwk5ZbgAa0+asXpCFJr16eFb3uGD5G/14p9lNPZo1NVejOTSHLa3CMPEqUdG1W
-	 QwF3587m/iA6Bkhcl1DW5tV2TnRfs87npKCIM3OesagFy+s4EkvaJB/rhmf71PrR+oQ==
+	t=1793487160;
+	b=EKv1v+xjCp9fUxUQdnWOtx36r5EVLEXQWxJI3FpcAs0hz22uS8oTIZrM6GMVRzXH2jZo
+	 H2WOy6djY3lAjeZqTMs1khZzopP3Xr6VLAfZ3SbAPj0EvCVCVWzjcVZlQv4zUq4lLZTyy
+	 cuWG8miHGASCxu1pIBcIWisAcAJQi8YGLae/L6iwLhs8ObkWoWXAhTI6RUJNI/G8DChGi
+	 3mPO68nuTqwb/CTipPHp6jqDGseABnvPDYpoKGgWDdvmj3R0RQM1mT3attRkSErLHCecW
+	 PwWUPJp4pWCbwbYpTjhMcwcbY+rB0efAWSya8YBzOXAIhLBBG6nT6KEDSrosOjbp+YQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793487142;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:From:To:
-	 Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:X-Virus-Scanned:
-	 X-Virus-Status;
-	bh=YtcXc7aLOndtCVpRibayt2mWzlaxCsEW5ery43WlDls=;
-	b=YCOK1LxrXIl/qSlEANutTkS+6+XUhvydIN/xqherrcK0KSQQlyFHmINYXGRcwu4cNOm9
-	 iOfk5zGDosT1IUbU7ja/KmOQKy79cLQYv8Im+8CgkC6q+IE6kUDihlS9prSzkk/kJg+2r
-	 1CVEojYgFi2PRtSKxmzVppgPjFVqWP5sjlij6h9y+J0HeJUucEcggbCW7gJoTX7Y6HBj0
-	 G/0tq1A2pr9XL5o3XksIN8YYDzPpAQXXnmDzD0ACIObp2Byl8V4xFj5KscYTiU8VKLdTm
-	 jzUyOML0DYJYUE64BpPV4w7TIlOEMsTQJ4khC4KkkHdnR+VIRArrkQLRcqyS53yMsuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793487160;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Subject:From:To:Cc:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=+OzKgdaaBnPfV5yc0/wuuWajJJT+0oOzbHEMb7GwaoU=;
+	b=uqDpjrtOrztw8QxSU4R2NHzxbWFsEhE69bItnUK+e2j+Q1r7y3XgySglvhBvauQyMRa2
+	 2FH0pZhAYyLfM49aG1SkQ8f2rRs3M8lcY2rJ5nIqHExrpVaGOCW3yG982ue/N7BGzTEZF
+	 kPBQ89jJDqXrDax0FDTXUfwk+vAoFol/934xJ4yB0bJRWHqdaM0kOQI4SMkY2uqdG71ru
+	 bi10AinHIpgirbN1DPRoXu5nJtP4hNIu33pU0nqz5/bQVjMpmFurN/ZBm55vm4wXVse5l
+	 wSleF/8Jl+4Np99ulY8HJa5TCqqvDzOXrRhlfHqNYsU9dNdAJc6yugmmodHdIS8hjKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniroma2.it;
-	spf=pass smtp.mailfrom=uniroma2.it;
-	dkim=temperror header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=IR2DuHuu;
-	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=aN2Jpu8p;
-	arc=none smtp.remote-ip=160.80.4.37
-Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 252D3606A31F;
-	Sat, 31 Oct 2026 22:52:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 252D3606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jOv05ia6;
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5263260A2627
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 22:52:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5263260A2627
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=IR2DuHuu;
-	dkim=pass (2048-bit key, unprotected) header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=aN2Jpu8p
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth-2019-1.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 69VMpGxJ021942;
-	Sat, 31 Oct 2026 23:51:21 +0100
-Received: from localhost.localdomain (unknown [160.80.105.87])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id AD5E31228D4;
-	Sat, 31 Oct 2026 23:51:11 +0100 (CET)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1793487071; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YtcXc7aLOndtCVpRibayt2mWzlaxCsEW5ery43WlDls=;
-	b=IR2DuHuutlfeKKSfRFKKMkyfHerCF3SjU+TYJayX+AGn2IZhbfoSBE4ednONFnz716i+8X
-	pxjbqG8GX8QQ3xCg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1793487071; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YtcXc7aLOndtCVpRibayt2mWzlaxCsEW5ery43WlDls=;
-	b=aN2Jpu8pGj1Wr+BvQH7769YJVM1ocom2NVnkUUN1cCd1fU0LfTpMJvp+CsrLNz04auny6R
-	prY6GdsTICB/vJMC9+V8JJLu0QkEJj2LeCH/aiuYv40SWKVxmu4yy+gwcN4b1fAxnwYQJC
-	cuA1SD+ceiOR+k4Z+OsV299mL1T7LcGA2NW2aNHLjAMZOcYGBuGNMkabuhQ9W/hc7PAw7M
-	eSECgQ8+1ZW2x/Br4W+qDaLQfwnRAOL++7s94NFG6JH511TeeVIqmWHCkNZ8x+u571/pfA
-	hys0Vn3xR0dBIYZxdZBy5RG9JlLCizX25sXtvMb5jYsQbnMuHfy/GlohFFGRuw==
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-        Shuah Khan <shuah@kernel.org>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-        linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
-        David Lebrun <david.lebrun@uclouvain.be>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Mathieu Xhonneux <m.xhonneux@gmail.com>,
-        David Lebrun <dlebrun@google.com>, Hangbin Liu <hangbin.liu@linux.dev>,
-        Stefano Salsano <stefano.salsano@uniroma2.it>,
-        Andrea Mayer <andrea@common-net.org>,
-        Andrea Mayer <andrea.mayer@uniroma2.it>
-Subject: [PATCH net 1/6] seg6: fix skb checksum update helpers
-Date: Sat, 31 Oct 2026 23:50:28 +0100
-Message-Id: <20261031225033.64-2-andrea.mayer@uniroma2.it>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261031225033.64-1-andrea.mayer@uniroma2.it>
-References: <20261031225033.64-1-andrea.mayer@uniroma2.it>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jOv05ia6
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e9f6a16aedso11602705ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:52:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793487160; x=1794091960; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
+         :from:subject:message-id:date:content-type:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+OzKgdaaBnPfV5yc0/wuuWajJJT+0oOzbHEMb7GwaoU=;
+        b=jOv05ia68UaXzOGFYYheGtAmkHq+O8IkgQ8xSRv8VAoKgs8TE8QgNj29TqiX0b4GZ+
+         BaVmJ65lrUkOaeAydV1x1dhkjf80dyTDNlVzWchF0N9RrTY8ryiHY4JBBVQccaQGPo29
+         0C333Ovl3iF338f31XSjephfl8scKoz3NsWY1jtXejWHHoOCDWB/cUL/TFM895WL3Nol
+         4H9AMv/hS0HSvpHsx7UpGIsUujQfcyPDJS5emTIrKKm9RfezbjBYWfmB1lZ3jFl9T2hc
+         7o5Yx2Mq74Nvt7JcUNFqLhTVlesKoqIU6TGaXqnUHlhGxtJUJXjTcoLBRy1i/RlKrSiz
+         v0Tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793487160; x=1794091960;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
+         :from:subject:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+OzKgdaaBnPfV5yc0/wuuWajJJT+0oOzbHEMb7GwaoU=;
+        b=w7GB08KItXSksbbkUkIJtXj7VxfLjlB06ehxqhDaxhpfXIfeuF3CCMBjdjcTgdiaPw
+         lcRadQtUbXJ/a5cff9joT/pYJ5Rlkq3syAG9PWmdVjcWCmafl5MtEyj8j+JlLxXBnfxX
+         fA5IHZCmp++YrBoenyUQt61LEf2fpWHPTfQRn9wILws68+KIzPRQCtEjl4SVA8GaaSwp
+         Q9mtLGky7676nppKcOXTMUnDZ66HNeZncpptBMaj7hWCr7Aozd1B8SpVB43DVoed1+R/
+         ZlgFWZQjZFOMBLGggz06hxe2oOJaW2klGb5LmLE0CQWUfyyuBG7RmAPxg+8vUUnPwzko
+         9UnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzjumyQMuwxTiv/dv2m59LjEbQiI9TD+4d7uGCXKAVgegeftgmloGKxTXeEt3BmryS/O9FnbRMeGPkk8do=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9aJExBphQDbhwHgTYGwvfp5V/nM1hCoTZtdljtDkwufGq5eS7
+	BFXJW6GssYOVsBhmI2idT1vxlH4Fi/nZlmHt1ugcxiqT8iQxlncOV9B/
+X-Gm-Gg: AYBFou2MVdqYWxEh9Hlm8Q5elLH85v6XI2ZN2zn5KX/s5qPezBwrwlsvDNSJ2zWnkus
+	yI7KOSheC0wM23k52uxQMZDz6ibrEfe3vAb/ndM0jAa1ZdW96N85+t8wipDRMIwgOkj9EbvLQOJ
+	M9eLkZGtYq9/rln5drYEeDGN5QZpaDYLGPdZsyhm43w8icqH5P3K+sMH6TSbX0vgkKEqEKRMrvr
+	IZag3IoDCfP1+40RwbWQLRXctjUg0QmNBi7vKwtYxPSMTGzvgB3wklT4u0jwmY/Gyl7J4JYN/lG
+	WALWl3dyUUNLz4jPV8Fhl81TlnBKdOKTXDkfjt9NcwHjXCHoYjh2XOsCtI3MOCxS3340yrFLzba
+	AXXnCDe/qs181Buw+/e5LyUJK6c9WFr4x52NbB4Nes5SxuCwm5HoY+kXORHvyFXfyT3yrvJ8lBE
+	o9/+ViJ3BrXqF4UTrgxD/lvwdlq3HOZPKmdlQSQfcmA45BN5JaWSOfXsQT3qT4NEVZzK+idcLji
+	QhyeuDj8DPHWG1NavOkRsB6OXjRwaBSAWr/kCCJQvmUkyeL82PJ963fObbQ4OSF+uCQOVJgC0bG
+	rYkhjIlqzfadDWWfNlL3UVvZ+k0A+ka2KyznoKknkySWu3G9xV7in+bkQtLfnf7cghd72ef8aWW
+	Rz6pQQvI7hOQPp8Otz7s3AR6rDVJSW6FIM99jhQSx3uSpX2N695wiD4g=
+X-Received: by 2002:a05:6a00:22c7:b0:878:3705:2515 with SMTP id d2e1a72fcca58-8a9bf71a1e1mr5277325b3a.53.1793487159530;
+        Sat, 31 Oct 2026 15:52:39 -0700 (PDT)
+Received: from localhost ([153.61.198.247])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8ac269b8805sm162543b3a.44.2026.10.31.15.52.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 31 Oct 2026 15:52:39 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 31 Oct 2026 22:52:38 +0000
+Message-Id: <DMJE4YGAEGPX.2PIN4TJJ0AV0N@gmail.com>
+Subject: Re: [PATCH bpf-next] bpftool: Preserve unsigned enum64 values in
+ data dumps
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Hungyu Lin" <dennylin0707@gmail.com>, <qmo@kernel.org>,
+ <bpf@vger.kernel.org>
+Cc: <daniel@iogearbox.net>, <andrii@kernel.org>, <yonghong.song@linux.dev>,
+ <linux-kernel@vger.kernel.org>
+In-Reply-To: <20261031223617.367-1-dennylin0707@gmail.com>
+References: <20261031223617.367-1-dennylin0707@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,62 +102,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
 
-With CHECKSUM_COMPLETE, ipv6_srh_rcv() updates skb->csum for the new
-Segments Left and destination address through seg6_update_csum().
-Replacing "from" with "to" in the packet must change skb->csum (C) to
-C - from + to, but update_csum_diff4() and update_csum_diff16() compute:
+On Sat, Oct 31, 2026 at 03:36 PM Hungyu Lin <dennylin0707@gmail.com> wrote:
+> @@ -204,7 +204,10 @@ static int btf_dumper_enum64(const struct btf_dumper *d,
+> -	jsonw_int(d->jw, value);
+> +	if (btf_kflag(t))
+> +		jsonw_int(d->jw, value);
+> +	else
+> +		jsonw_uint(d->jw, value);
 
-  ~csum_partial({ ~from, to }, ~C) = ~(~C + ~from + to) = C + from - to
+btf_dumper_enum() has the same problem.
 
-This does not affect packets forwarded by ip6_forward(), which sets
-ip_summed to CHECKSUM_NONE. But when the packet is delivered on the same
-node and skb->csum was computed in software, for instance by conntrack, UDP
-can drop the packet as a checksum error. With skb->csum computed by the
-device, TCP can instead log a "hw csum failure", as if the device had
-computed a wrong skb->csum.
+Fix all in one patch:
 
-Fix update_csum_diff4() and update_csum_diff16() to compute C - from + to.
-
-Found by manual code inspection, while checking that the skb->csum updates
-in the SRv6 receive path are consistent. A following commit adds a selftest
-that reproduces the problem with a tc ct action. The issue was confirmed in
-a VM without kernel changes or error injection: with the rest of this
-series and without this patch, that selftest fails, as UDP drops datagrams
-as checksum errors. Also tested against the srv6 selftests, and with a
-ConnectX-6 Lx NIC (mlx5) that provides CHECKSUM_COMPLETE.
-
-Fixes: 1ababeba4a21 ("ipv6: implement dataplane support for rthdr type 4 (Segment Routing Header)")
-Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
----
- include/net/seg6.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/include/net/seg6.h b/include/net/seg6.h
-index 82b3fbbcbb93..01d8034e48fc 100644
---- a/include/net/seg6.h
-+++ b/include/net/seg6.h
-@@ -19,7 +19,7 @@ static inline void update_csum_diff4(struct sk_buff *skb, __be32 from,
+diff --git a/tools/bpf/bpftool/btf_dumper.c b/tools/bpf/bpftool/btf_dumper.c
+index 3267163..09dd428 100644
+--- a/tools/bpf/bpftool/btf_dumper.c
++++ b/tools/bpf/bpftool/btf_dumper.c
+@@ -149,7 +149,8 @@ static int btf_dumper_enum(const struct btf_dumper *d,
+ 			    const void *data)
  {
- 	__be32 diff[] = { ~from, to };
- 
--	skb->csum = ~csum_partial((char *)diff, sizeof(diff), ~skb->csum);
-+	skb->csum = csum_partial(diff, sizeof(diff), skb->csum);
- }
- 
- static inline void update_csum_diff16(struct sk_buff *skb, __be32 *from,
-@@ -30,7 +30,7 @@ static inline void update_csum_diff16(struct sk_buff *skb, __be32 *from,
- 		to[0], to[1], to[2], to[3],
- 	};
- 
--	skb->csum = ~csum_partial((char *)diff, sizeof(diff), ~skb->csum);
-+	skb->csum = csum_partial(diff, sizeof(diff), skb->csum);
- }
- 
- struct seg6_pernet_data {
--- 
-2.43.0
+ 	const struct btf_enum *enums = btf_enum(t);
+-	__s64 value;
++	bool is_signed = btf_kflag(t);
++	__s64 value, val;
+ 	__u32 i;
 
+ 	switch (t->size) {
+@@ -157,20 +158,21 @@ static int btf_dumper_enum(const struct btf_dumper *d,
+ 		value = *(__s64 *)data;
+ 		break;
+ 	case 4:
+-		value = *(__s32 *)data;
++		value = is_signed ? (__s64)*(__s32 *)data : *(__u32 *)data;
+ 		break;
+ 	case 2:
+-		value = *(__s16 *)data;
++		value = is_signed ? *(__s16 *)data : *(__u16 *)data;
+ 		break;
+ 	case 1:
+-		value = *(__s8 *)data;
++		value = is_signed ? *(__s8 *)data : *(__u8 *)data;
+ 		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+
+ 	for (i = 0; i < btf_vlen(t); i++) {
+-		if (value == enums[i].val) {
++		val = is_signed ? (__s64)enums[i].val : (__u32)enums[i].val;
++		if (value == val) {
+ 			jsonw_string(d->jw,
+ 				     btf__name_by_offset(d->btf,
+ 							 enums[i].name_off));
+@@ -178,7 +180,10 @@ static int btf_dumper_enum(const struct btf_dumper *d,
+ 		}
+ 	}
+
+-	jsonw_int(d->jw, value);
++	if (is_signed)
++		jsonw_int(d->jw, value);
++	else
++		jsonw_uint(d->jw, value);
+ 	return 0;
+ }
+
+@@ -204,7 +209,10 @@ static int btf_dumper_enum64(const struct btf_dumper *d,
+ 		}
+ 	}
+
+-	jsonw_int(d->jw, value);
++	if (btf_kflag(t))
++		jsonw_int(d->jw, value);
++	else
++		jsonw_uint(d->jw, value);
+ 	return 0;
+ }
+
+
+pw-bot: cr
