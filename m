@@ -1,77 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793427329;
-	b=5fEgHn9ELDyr5ibiAo/B9vFHSmAsfVPR3HedFGa0Yt4j35XaGbaks3LAFHL+HgUkaxNP
-	 uG965FMrfL9w90O8RTVdDJFjJNo09EbBGMasIcMV9IgjnidQlP+Jy0GDQbgt6bLKhK70B
-	 3qt4oiyhscRzzj0+ktzEE6Il3kRQNvVMp5NPh+sq9k75/tuW+WI6/jdXlUIs+7PKlivnI
-	 j0IaLdL43o/bJ2PWn9OaScK+hqYX6G2AuNzPrTfBooHEH+sE7xZvp3ajS5H2mA2RisNhW
-	 I1I3KugkMXyp2Mfi++i7tHeFqpYXGipLjDJfKNI/A/1FqNHip5sx/6Aa1jvIzh8Clvg==
+	t=1793428557;
+	b=FxaB4LSTgU10iFr5sKWcQxPT/5wz/M2wR1cVGkknhBGpO0KhZN0Yj2ACV828yxBV7xkO
+	 F07P+hR8k4MydiLM66f555d+fueO0piFczYIFyRiugH9R5peOnpwwU8U26xD8GqMUibdE
+	 tdBsadKBQ7/L7J3IGaqMLQFRyoRj1VtqyYCltPed9w5yZhoZBHtksTfDpMmubz6/PdhaL
+	 l2uvKEE43/JqROs9gYPGHHOhmCVFuq1N3k5UO3Um1EJDWOSJLzIXuR0iufQ90hqcgoVsc
+	 X0tSwxpJ23+3QRNcYSf+0KzZo7RIvEeARZJWlTDiNOpqzcELtz4TuzZdUolLNyum4ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793427329;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=HuGUo0v+R9av9/MPhsxSkYxao4B6X/dKacIweSE1NvI=;
-	b=ceQthYLxUJ+tZN5E2RyTKhsZq3WJdsM8RUdNAniGm+LRq53/DiXlG2PZNhAGAi/xmIiC
-	 y7CPis+zuWxgx1CBrkVc2CZrWNp59FP4gVL7gn4T+CS9nZiRTHGP7VtEPt0cyM0ynusJi
-	 mel3tms4UOCDeaqAj42k/mYcji/EGHsbYz7SoI5EhhpZb2vZSpAYSo4aUclPHih5dD/BV
-	 GQTd25paIIHTgEQ7XMnwlQDClz73mgn/Pko68YzJ3OgWc+7w9EWiDG3vL/Yea4wjTpNZ3
-	 P7I//lkeDZAWCLyABmr13c1NUoMCLj6wP8cabUxvYX4qFD0Os8nXnSDOLrRL4D1kdTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793428557;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=V1iyPpXNxuCTE05GQf3YfwT3z9gwpbdB+e14JlNIXAc=;
+	b=aKVL/Gt+FTDymSntMMr36D7r7mT1u2bX0Zit2HE+Qleb51dNypKLFKqQD9zAIQXXpU+v
+	 JX/qo7SK+cLu54C0pQyj319+lgtMrO7XC0P97GoWkvQ0a+4juAWwHGL6UCSARIWzNIbqY
+	 onLKLFF93HQbAptDikf1OFqtrZEq7tJbuTCd2jFGwUzxiMgShtRLuwtAUE9c8gmiIqZHZ
+	 /yOu+6VpvwlxFo3+Hg/Ncn/7rwX+MyNoUIsMyKZlF6SoaVUvvRX5sRfP326wSoJqfTuto
+	 4VlCDSvwymoda8OVaZ6MjXgyReZBy+OVvYlTk1SpQKZAlpgh0/3Goh3UA3ugIYxiStA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FlUzJJbt;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HY7LdNlW;
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788A0606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:15:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 788A0606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6045606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:35:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6045606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FlUzJJbt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793427329; x=1824963329;
-  h=date:from:to:cc:subject:message-id;
-  bh=vWcV4k3CKrpu0RXSR1JUj3KTs6CCAB1EnUXXgEEr9UY=;
-  b=FlUzJJbtvd3mDFpvDamulOd7S9XF05S3CHAVfszQSlXJF/ASJeXX7yzh
-   h/m+4GQ0CEGUXQKoJEI8jSRktcXmtfgHvGEO7VX96NlsDftwu0W2zjnMN
-   UKIWQ6UgTJIzos3piDA/pMQBJGlhju0ekLwxVMtsiTvqx7OXkONUkNH8f
-   EpPNDsHj8P7KoAHmS8CppPNaJzKhYiG8XnbsgfLeqeF06Z6PLEvczgmTZ
-   3OQB3EPwvk3fpACUwAkgSk+s29PfmJV0HtXocfgUF2nKYs1lEWMicxlCc
-   Y3Y+YQH+aQVYC86iSmbmGJr5gNMBCN5QuX8EfYVp1dDd+Xd90CgDHnVxv
-   g==;
-X-CSE-ConnectionGUID: /3k+RmRgRsCBzx020YwU+g==
-X-CSE-MsgGUID: 7kVtYNGtQESLE3pGutxQqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2080867"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2080867"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 23:15:28 -0700
-X-CSE-ConnectionGUID: Nc64eSwwReeISxRtBCQIpw==
-X-CSE-MsgGUID: MxsqBaK3R26oTxW3C2vu6g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="6028674"
-Received: from igk-lkp-server01.igk.intel.com (HELO 58ca8a381a5c) ([10.211.93.152])
-  by fmviesa007.fm.intel.com with ESMTP; 30 Oct 2026 23:15:26 -0700
-Received: from kbuild by 58ca8a381a5c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xN2N9-000000005tF-1tue;
-	Sat, 31 Oct 2026 06:15:23 +0000
-Date: Sat, 31 Oct 2026 07:14:37 +0100
-From: kernel test robot <lkp@intel.com>
-To: Huacai Chen <chenhuacai@loongson.cn>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, Jiaxun Yang <jiaxun.yang@flygoat.com>
-Subject: fs/ecryptfs/miscdev.c:285:13: sparse: sparse: restricted
- __be32 degrades to integer
-Message-ID: <202610310715.jnQiuxAF-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HY7LdNlW
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-147be78cd56so1182282c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:35:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793428556; x=1794033356; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V1iyPpXNxuCTE05GQf3YfwT3z9gwpbdB+e14JlNIXAc=;
+        b=HY7LdNlWl3xyv7R4MZS1+26m0bFrVUOgM5rqY+BcvaDWBKDR4wF88v+mUi6SDSRitN
+         C/pn3HEAqar3PaUgS0hv75qqcdnXQQ0dVLlPdriX0xQDnECb+9vP7pkc4jDq6VjHXOII
+         2qzBcQamxh7XxVz8ZibmXPclrxEmJmUfZRuf9Wo5bL8NI/Zb5+U//RqZW3pf7Zr5STQ/
+         udj8dcDJmPxHXng4YwjNmkpgKdCDOkZE+JUQLLRfwq+8yBVbxrYydZFN9UFg3awwOzPP
+         bBiP6By/jiTDs7np4+aUTIWWsa4OMifR4DVfcruPbTCdFkzjRZT7vth3op8GHbCPtZ1A
+         +j3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793428556; x=1794033356;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V1iyPpXNxuCTE05GQf3YfwT3z9gwpbdB+e14JlNIXAc=;
+        b=kwXbJRAzimdtJfthzykTbcYjWxN/SotFbIFi5b8t2zeARiL45gjK2cg/wq7i3ZXo4a
+         5SUzCyBYWpasEoNL+2KBfRk2MZGwleH9zYhbtZ07lwFj7C3R9w96OUqjJEJ0zNPDg+6R
+         gLVwKChP9TwGQtyQAy9Z1L5xY6wP+CsE0zgxPe+TWFNMZNZRlnyZEsboIybmiY6z6/+i
+         E3bp7oP/GJ/ZWAq856yO5EJn/beMJmE6LqPGwPn42AwbGc5lGsAN1xQV7nHnLXMTmc7T
+         2hJGb6emW7LvnMFkh2tArs0CHmpnU8DtnDnoJyJovWYan1xb8s1Yv/HM5isF7IGldwe4
+         pBDA==
+X-Forwarded-Encrypted: i=1; AKwUvBz9fcnHwkLLhd9L48HcsPvlds9XuYSaPEH7akDg+itvCmrHZSFabgwJ2TOdqMMGE8hRBNAGOJ08o0O4jCw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTWusXDBUHr+NPRXOKliRW1R5gHx/1W+SbMz3Z8yNg7W53AtgO
+	dizb7KlHrGjCtsvJp3Z7k21ZF/JEXXAZvobdz/lRYnqVoAbB5P6jilOUnOtWXL+M3A0C5Zb9e5t
+	RWT/BpeqdFw==
+X-Received: from dlef13.prod.google.com ([2002:a05:7022:b0cd:b0:1ad:689e:820])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:7f12:b0:1ab:faad:cc9
+ with SMTP id a92af1059eb24-1ac5bbb503dmr6067332c88.11.1793428555302; Fri, 30
+ Oct 2026 23:35:55 -0700 (PDT)
+Date: Fri, 30 Oct 2026 23:35:46 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,153 +75,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+Message-ID: <20261031063549.1281324-1-irogers@google.com>
+Subject: [PATCH 0/3] perf symbols/callchain/annotate: Bug fixes from symbol
+ reference counting review
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
+Cc: Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Alireza Haghdoost <haghdoost@uber.com>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   36aad21d50d1af3f6954bb0c988257a908202477
-commit: 3d9aba6618d115750729bba2d1f8af180bd7d3bd LoongArch: Adjust build infrastructure for 32BIT/64BIT
-date:   6 months ago
-config: loongarch-randconfig-r2300-20261031 (https://download.01.org/0day-ci/archive/20261031/202610310715.jnQiuxAF-lkp@intel.com/config)
-compiler: loongarch64-linux-gcc (GCC) 16.2.0
-sparse: v0.6.5-rc1-21-g84ec0658
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610310715.jnQiuxAF-lkp@intel.com/reproduce)
+While reviewing the v2 symbol reference counting series [1], Alireza
+Haghdoost identified three existing bugs in callchain merging, ELF
+zero-size symbol end calculation across .symtab and .dynsym, and basic
+block range splitting/cleanup in 'perf annotate'.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 3d9aba6618d1 ("LoongArch: Adjust build infrastructure for 32BIT/64BIT")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610310715.jnQiuxAF-lkp@intel.com/
+Pull these three fixes out ahead of v3 of the main series so they can
+land for the v7.4 merge window:
 
-sparse warnings: (new ones prefixed by >>)
->> fs/ecryptfs/miscdev.c:285:13: sparse: sparse: restricted __be32 degrades to integer
->> fs/ecryptfs/miscdev.c:285:13: sparse: sparse: restricted __be32 degrades to integer
->> fs/ecryptfs/miscdev.c:285:13: sparse: sparse: cast from restricted __be32
+1. perf callchain: Fix loss of symbol in merge_chain_branch()
+   Restore .sym = list->ms.sym when constructing the temporary
+   struct map_symbol in merge_chain_branch(), fixing missing symbol
+   names and inlined frames in 'perf report --children'.
 
-vim +285 fs/ecryptfs/miscdev.c
+2. perf symbol-elf: Fix zero-size symbol end calculation across .symtab
+   and .dynsym
+   Move symbols__fixup_end(), symbols__fixup_duplicate(), and
+   maps__fixup_end() from dso__load_sym_internal() to dso__load_sym() so
+   zero-size .symtab symbols do not get extended across following
+   .dynsym-only functions before .dynsym is loaded, and add a unit test
+   in 'perf test symbols'.
 
-48399c0b0e6172 Tyler Hicks     2012-01-14  196  
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  197  /**
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  198   * ecryptfs_miscdev_read - format and send message from queue
-2ecaf55db6dcf4 Tyler Hicks     2012-06-11  199   * @file: miscdevfs handle
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  200   * @buf: User buffer into which to copy the next message on the daemon queue
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  201   * @count: Amount of space available in @buf
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  202   * @ppos: Offset in file (ignored)
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  203   *
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  204   * Pulls the most recent message from the daemon queue, formats it for
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  205   * being sent via a miscdevfs handle, and copies it into @buf
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  206   *
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  207   * Returns the number of bytes copied into the user buffer
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  208   */
-f66e883eb6186b Michael Halcrow 2008-04-29  209  static ssize_t
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  210  ecryptfs_miscdev_read(struct file *file, char __user *buf, size_t count,
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  211  		      loff_t *ppos)
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  212  {
-2ecaf55db6dcf4 Tyler Hicks     2012-06-11  213  	struct ecryptfs_daemon *daemon = file->private_data;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  214  	struct ecryptfs_msg_ctx *msg_ctx;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  215  	size_t packet_length_size;
-48399c0b0e6172 Tyler Hicks     2012-01-14  216  	char packet_length[ECRYPTFS_MAX_PKT_LEN_SIZE];
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  217  	size_t i;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  218  	size_t total_length;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  219  	int rc;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  220  
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  221  	mutex_lock(&daemon->mux);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  222  	if (daemon->flags & ECRYPTFS_DAEMON_ZOMBIE) {
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  223  		rc = 0;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  224  		printk(KERN_WARNING "%s: Attempt to read from zombified "
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  225  		       "daemon\n", __func__);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  226  		goto out_unlock_daemon;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  227  	}
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  228  	if (daemon->flags & ECRYPTFS_DAEMON_IN_READ) {
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  229  		rc = 0;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  230  		goto out_unlock_daemon;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  231  	}
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  232  	/* This daemon will not go away so long as this flag is set */
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  233  	daemon->flags |= ECRYPTFS_DAEMON_IN_READ;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  234  check_list:
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  235  	if (list_empty(&daemon->msg_ctx_out_queue)) {
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  236  		mutex_unlock(&daemon->mux);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  237  		rc = wait_event_interruptible(
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  238  			daemon->wait, !list_empty(&daemon->msg_ctx_out_queue));
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  239  		mutex_lock(&daemon->mux);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  240  		if (rc < 0) {
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  241  			rc = 0;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  242  			goto out_unlock_daemon;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  243  		}
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  244  	}
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  245  	if (daemon->flags & ECRYPTFS_DAEMON_ZOMBIE) {
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  246  		rc = 0;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  247  		goto out_unlock_daemon;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  248  	}
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  249  	if (list_empty(&daemon->msg_ctx_out_queue)) {
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  250  		/* Something else jumped in since the
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  251  		 * wait_event_interruptable() and removed the
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  252  		 * message from the queue; try again */
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  253  		goto check_list;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  254  	}
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  255  	msg_ctx = list_first_entry(&daemon->msg_ctx_out_queue,
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  256  				   struct ecryptfs_msg_ctx, daemon_out_list);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  257  	BUG_ON(!msg_ctx);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  258  	mutex_lock(&msg_ctx->mux);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  259  	if (msg_ctx->msg) {
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  260  		rc = ecryptfs_write_packet_length(packet_length,
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  261  						  msg_ctx->msg_size,
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  262  						  &packet_length_size);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  263  		if (rc) {
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  264  			rc = 0;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  265  			printk(KERN_WARNING "%s: Error writing packet length; "
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  266  			       "rc = [%d]\n", __func__, rc);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  267  			goto out_unlock_msg_ctx;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  268  		}
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  269  	} else {
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  270  		packet_length_size = 0;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  271  		msg_ctx->msg_size = 0;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  272  	}
-48399c0b0e6172 Tyler Hicks     2012-01-14  273  	total_length = (PKT_TYPE_SIZE + PKT_CTR_SIZE + packet_length_size
-48399c0b0e6172 Tyler Hicks     2012-01-14  274  			+ msg_ctx->msg_size);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  275  	if (count < total_length) {
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  276  		rc = 0;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  277  		printk(KERN_WARNING "%s: Only given user buffer of "
-df261c52abdef1 Michael Halcrow 2009-01-06  278  		       "size [%zd], but we need [%zd] to read the "
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  279  		       "pending message\n", __func__, count, total_length);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  280  		goto out_unlock_msg_ctx;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  281  	}
-79bc12a0a09c2e Al Viro         2008-05-21  282  	rc = -EFAULT;
-79bc12a0a09c2e Al Viro         2008-05-21  283  	if (put_user(msg_ctx->type, buf))
-79bc12a0a09c2e Al Viro         2008-05-21  284  		goto out_unlock_msg_ctx;
-48399c0b0e6172 Tyler Hicks     2012-01-14 @285  	if (put_user(cpu_to_be32(msg_ctx->counter),
-48399c0b0e6172 Tyler Hicks     2012-01-14  286  		     (__be32 __user *)(&buf[PKT_CTR_OFFSET])))
-79bc12a0a09c2e Al Viro         2008-05-21  287  		goto out_unlock_msg_ctx;
-48399c0b0e6172 Tyler Hicks     2012-01-14  288  	i = PKT_TYPE_SIZE + PKT_CTR_SIZE;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  289  	if (msg_ctx->msg) {
-79bc12a0a09c2e Al Viro         2008-05-21  290  		if (copy_to_user(&buf[i], packet_length, packet_length_size))
-79bc12a0a09c2e Al Viro         2008-05-21  291  			goto out_unlock_msg_ctx;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  292  		i += packet_length_size;
-79bc12a0a09c2e Al Viro         2008-05-21  293  		if (copy_to_user(&buf[i], msg_ctx->msg, msg_ctx->msg_size))
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  294  			goto out_unlock_msg_ctx;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  295  		i += msg_ctx->msg_size;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  296  	}
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  297  	rc = i;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  298  	list_del(&msg_ctx->daemon_out_list);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  299  	kfree(msg_ctx->msg);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  300  	msg_ctx->msg = NULL;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  301  	/* We do not expect a reply from the userspace daemon for any
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  302  	 * message type other than ECRYPTFS_MSG_REQUEST */
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  303  	if (msg_ctx->type != ECRYPTFS_MSG_REQUEST)
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  304  		ecryptfs_msg_ctx_alloc_to_free(msg_ctx);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  305  out_unlock_msg_ctx:
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  306  	mutex_unlock(&msg_ctx->mux);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  307  out_unlock_daemon:
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  308  	daemon->flags &= ~ECRYPTFS_DAEMON_IN_READ;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  309  	mutex_unlock(&daemon->mux);
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  310  	return rc;
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  311  }
-8bf2debd5f7bf1 Michael Halcrow 2008-04-29  312  
+3. perf annotate: Fix block_range symbol loss on split and leaks on exit
+   Preserve .sym = entry->sym when splitting head/tail basic block
+   ranges in block_range__create(), add block_ranges__exit(), and release
+   resolved branch_info addr_map_symbol references in
+   process_branch_stack().
 
-:::::: The code at line 285 was first introduced by commit
-:::::: 48399c0b0e6172888a2e2e36df1595ab1e049ba8 eCryptfs: Replace miscdev read/write magic numbers
+This series was prepared with the assistance of Antigravity and Gemini 4.
 
-:::::: TO: Tyler Hicks <tyhicks@canonical.com>
-:::::: CC: Tyler Hicks <tyhicks@canonical.com>
+Link: https://lore.kernel.org/linux-perf-users/20261027231513.816148-1-irogers@google.com/ [1]
+Assisted-by: Antigravity:Gemini-4
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Ian Rogers (3):
+  perf callchain: Fix loss of symbol in merge_chain_branch()
+  perf symbol-elf: Fix zero-size symbol end calculation across .symtab
+    and .dynsym
+  perf annotate: Fix block_range symbol loss on split and leaks on exit
+
+ tools/perf/builtin-annotate.c |   5 +
+ tools/perf/tests/symbols.c    | 169 ++++++++++++++++++++++++++++++++++
+ tools/perf/util/block-range.c |  16 ++++
+ tools/perf/util/block-range.h |   1 +
+ tools/perf/util/callchain.c   |   1 +
+ tools/perf/util/symbol-elf.c  |  36 +++++---
+ 6 files changed, 213 insertions(+), 15 deletions(-)
+
+-- 
+2.56.0.317.g454f8302e1-goog
+
