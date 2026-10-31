@@ -1,66 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.162
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793407631;
-	b=D9WP46jkte6pkF3mF/FZm94UbxSYbk8HJmp+ROEKZtT3BUqgP62hRt8+4kCNEcqgDuKp
-	 Wf8Jz2dgtIl1df0uUILkkvpc5Z48SmsUOjwcHwokydJzX3WX6JYdsUQVMS9d9NoG6UnY2
-	 tfI5bsSdQky1JVbkFDz56/OSGtxu8WD/FSmAMoOizoa1yHHBjKQDZBOo8xeR5hdRFlohn
-	 6mmpb4acKRt7X7R9zO/cwqztiUvZtewY7hbWj4NnaGcl877pAtBA8RRCqckLYSeRw8RCt
-	 Hx95nEw2x3ZjXnnQ1C3QXHZuuFpulUueZZFL50JMryaIsRV2twHCvMx1xonsru8Wqnw==
+	t=1793407645;
+	b=Bdgo965zdNXyJCb7XjjKL/tRngZUCZg1jFrR0K/A4c/PH3d3kRXVbaDbZfQCa291aSgg
+	 r+VKolfDXvVhpotUA5i/Cz1ie+pf9a8/KC7rpIc7KL+eCzCVkl1Yd8KpGEOQQV/COSSrB
+	 1g7YPBFRruZplktDOtCyEDFe55u/b0rb7o5xE7Okh7D5WH4AosMKv2uvO4EJbrbJHMDPT
+	 6M8sBpzR6Bfgu6MYqwiqeB5S2FT0Fdu3nnE/zzJxZSnTtg7KgoHCLLdjKNkMKIYZnGHyC
+	 YCi8o6bUgn/m9mgKoPTFEegHoW9w1a24Y/rdfCa0F6TshbWMgSL6Flwz7MGBzrsNG4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793407631;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UCvegi+i1apDZdVVmEmHCl1vJCt7SNjmj4csEy7A/78=;
-	b=u/GdqfW/uE7thawlynekHnBgLzqKcWxeNTCQ9tRU9SZrY/VLBtpGOnghmZyww0v/F5Ld
-	 1fdkBieXuGpI25fvNDv++RJAqtjWYbqp+525O1kNRS52JJw42418z4WbU3H6PZz6vBZYu
-	 cyZ6gH0W5HqY5oW9noW1Qin2fAWW5Gx68up5+jOcnfIoPS4TMqki+oELuDTX1TDbKg9Wa
-	 hGx0DLTYOnHGahFIku7wEbBqIAJRnENWpsF+7VUj4r1+idy03KljzYdz8Y598vLLjfJIp
-	 pbJLsP0Y5uFWFhC4pnvsJ0A0MmpSh+nkE/Xtk1Njg95evbpV5u+bxaCTDl7mPQFjksQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793407645;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gICekddm+mAtn+ovZE3h1rRofC0U8eOQNuHmng1tQgk=;
+	b=NHyF3G/3IM4UhxIvQgABHIrn0o1UrbdaIY2DoB8ZQyQKe1w+gRVuwuogPWbNzSQ+9Qok
+	 7QpElFoccHNlwOxL/Po8lJaMhW3sHikKJiUH5N53dieV/I+SqEr/esroIs+2Bx5KpYgIo
+	 v/uI2NPOSBXvPatwWod3OLHVAGEiA15ZuMOD6Yizu2jeX6HTAQFbmGBaoxPrKSMwL1X2Q
+	 zHBQ0/Tjfawdy/eLKrTsxj5YuWpIlHhDT9LKJ+lknLgybzXO6gqsHS+a7KsSrQaCHt/Kb
+	 5ifWjf/o3mPKz65aLmFXMupMat3F4Z6TM4f3kSbPnRMgSzPinv9iEln6aDPDuDF42AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=hG6omZN9;
-	arc=none smtp.remote-ip=202.108.3.162
-Received: from mail3-162.sinamail.sina.com.cn (mail3-162.sinamail.sina.com.cn [202.108.3.162])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HbHkAiSS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3F3606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:47:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA3F3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DA1606A31A;
+	Sat, 31 Oct 2026 00:47:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=hG6omZN9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793407629;
-	bh=UCvegi+i1apDZdVVmEmHCl1vJCt7SNjmj4csEy7A/78=;
-	h=From:Subject:Date:Message-ID;
-	b=hG6omZN9DURI0dH/sTwnwwe+TDeUZ/ZPV1hBazZJdPMPg2RVfBNbGZLkrNyRkLSsF
-	 wl/W2/VAyTlUuJtnDgU6E9xOziVQBXjXKrxEVLUNeNRhZbb9kxgWK/k1ybk33JPZpU
-	 Pm4b/kTv7cAUi6QnqAq54aUsXwfY31d/BiP6GQQA=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.246.236.199])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6AE53A860000686A; Sat, 31 Oct 2026 08:47:05 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 8196726291870
-X-SMAIL-UIID: EE7AC67ADAD14D6B94E3B3DDB2C746CE-20261031-084705-1
-From: Hillf Danton <hdanton@sina.com>
-To: NeilBrown <neilb@ownmail.net>
-Cc: "Kal Cutter Conley" <kalcutterc@nvidia.com>,
-	"Chuck Lever" <cel@kernel.org>,
-	linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sunrpc: fix lost wakeups when stopping service threads
-Date: Sat, 31 Oct 2026 08:46:56 +0800
-Message-ID: <20261031004657.251-1-hdanton@sina.com>
-In-Reply-To: <179340033904.269288.4611945330659974906@noble.neil.brown.name>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HbHkAiSS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C3351F000C1;
+	Sat, 31 Oct 2026 00:47:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793407644;
+	bh=gICekddm+mAtn+ovZE3h1rRofC0U8eOQNuHmng1tQgk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HbHkAiSSwMzvNBXoYFivoCfMEWS0OqcwdsYj3mTbqghgp7vwwIybQSTG5YfoReW3K
+	 w+FcP02Y2K335A8q58tNkj/i8qft/eQ8PGcDwApJ23xOldMxd1vdjzeqqJzR878f6W
+	 cQI6qwubl2KjTHsOwV7XGzWICnPOMrjHpVIosUDCjnGgFzQ/OmBNkoLPuI2LhI4/uU
+	 7n6sFQbFYNKOtLn5hLoNQ7hxaPVuApck7jhn4ooisjKtk86Q4JQnQlePUku/DSG1QL
+	 Q9XuRhw98XpYPbSOKkS5Rg4/ulYscecaWNi4lI7qHu9+Pi/QE8rxtvJK+nybxEcTN2
+	 8T4l48YXvonaw==
+Date: Fri, 30 Oct 2026 14:47:23 -1000
+Message-ID: <1a24bcdde0bb6e4a8c839351002e841d@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Juri Lelli <juri.lelli@redhat.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, Luca Abeni <luca.abeni@santannapisa.it>, Andrea Righi <arighi@nvidia.com>, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: sched/deadline: total_bw leak when a task leaves SCHED_DEADLINE while not queued
+In-Reply-To: <auRh42kZI1xLIWNr@jlelli-thinkpadt14gen4.remote.csb>
+References: <2b5fb3f22bca6aa383be8f4781923392@kernel.org> <auRh42kZI1xLIWNr@jlelli-thinkpadt14gen4.remote.csb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,138 +57,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-On Sat, 31 Oct 2026 09:45:39 +1100 NeilBrown wrote:
-> On Sat, 31 Oct 2026, Kal Cutter Conley wrote:
-> > Stopping NFS can leave rpc.nfsd 0 in an uninterruptible wait with
-> > this stack:
-> > 
-> >   svc_stop_kthreads [sunrpc]
-> >   svc_set_num_threads [sunrpc]
-> >   nfsd_svc [nfsd]
-> >   write_threads [nfsd]
-> >   nfsctl_transaction_write [nfsd]
-> > 
-> > SP_NEED_VICTIM and SP_VICTIM_REMAINS remain set while all remaining
-> > nfsd threads sleep in svc_recv() and none has RQ_VICTIM set.
-> > 
-> > The stop request is published with unordered set_bit() operations.
-> > svc_pool_wake_idle_thread() checks the idle list and task state before
-> > calling wake_up_process(). If it sees an empty list or TASK_RUNNING,
-> > it skips the wakeup and its memory barrier. The requester can therefore
-> > miss a sleeping worker while that worker misses the stop request.
-> > 
-> > Order work publication before both lockless checks, even when no
-> > wakeup occurs. Pair with set_current_state() and llist_add() in
-> > svc_thread_wait_for_work(), so the worker observes the pending work or
-> > the requester observes the idle worker and wakes it.
-> > 
-> > Fixes: 60749cbe3d8a ("sunrpc: change sp_nrthreads from atomic_t to unsigned int.")
-> > Signed-off-by: Kal Cutter Conley <kalcutterc@nvidia.com>
-> > ---
-> >  net/sunrpc/svc.c | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> > 
-> > diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
-> > index af8d87c1de83..f3cc63acc5e1 100644
-> > --- a/net/sunrpc/svc.c
-> > +++ b/net/sunrpc/svc.c
-> > @@ -29,6 +29,8 @@
-> >  #include <linux/sunrpc/clnt.h>
-> >  #include <linux/sunrpc/bc_xprt.h>
-> >  
-> > +#include <asm/barrier.h>
-> > +
-> >  #include <trace/events/sunrpc.h>
-> >  
-> >  #include "fail.h"
-> > @@ -693,6 +695,13 @@ void svc_pool_wake_idle_thread(struct svc_pool *pool)
-> >  	struct svc_rqst	*rqstp;
-> >  	struct llist_node *ln;
-> >  
-> > +	/*
-> > +	 * Order work publication before the idle-list and task-state checks,
-> > +	 * even when wake_up_process() is skipped. Pairs with the barriers in
-> > +	 * set_current_state() and llist_add() in svc_thread_wait_for_work().
-> > +	 */
-> > +	smp_mb();
-> > +
-> 
-> I don't like this.  Stand-alone barriers are, I think, harder to read
-> than barriers combined with operations, like smp_load_acquire() or
-> similar.  And this one seems quite detached from anything.
-> 
-> If I understand correctly, the possible race is between
-> svc_thread_wait_for_work which includes:
-> 
-> 		llist_add(&rqstp->rq_idle, &pool->sp_idle_threads);
-> 		if (likely(svc_thread_should_sleep(rqstp)))
-> 
-> and svc_stop_kthread which includes:
-> 
-> 		set_bit(SP_NEED_VICTIM, &pool->sp_flags);
-> 		svc_pool_wake_idle_thread(pool);
-> 
-> The first sets ->sp_idle_threads.first and then checks SP_NEED_VICTIM
-> and the second sets SP_NEED_VICTIM and then checks
-> ->sp_idle_threads.first.
-> 
-> So we need barriers to ensure the values are seen is the expected order.
-> Have I missed anything?
-> 
-> llist_add() always calls try_cmpxchg() which is fully ordered, so no
-> extra barriers are needed there.
-> 
-> There is no barrier between the set_bit)( and the READ_ONCE() in
-> svc_pool_wake_idle_thread(), so you added one.  I agree that is correct
-> and solves the problem.
-> But it is only this call to svc_pool_wake_idle_thread() that needs a
-> barrier, not all calls.  So I would prefer the barrier went in
-> svc_stop_kthreads().   Do you have a reason for not including it there?
-> 
-> We do need a full memory barrier - a "release" on the set_bit and an
-> "acquire" on the test of ->sp_idle_threads.first
-> 
-> I would be happy with smp_load_acquire(->sp_idle_theads_first) in
-> svc_pool_wake_idle_thread().  I'm not sure it is needed though.
-> 
-> I would like set_bit_release(SP_NEED_VICTIM) in svc_stop_kthreads()
-> but we don't have that.
+Hello, Juri.
 
-It is on the way [11].
+On Fri, Oct 30, 2026 at 10:22:43AM +0100, Juri Lelli wrote:
+> Does the below help?
 
-[11] Subject: [PATCH 1/2] asm-generic/bitops: Add set_bit_release()
-https://lore.kernel.org/lkml/20261021095512.1345191-3-phasta@kernel.org/
+Yes, it fixes the leak. On abf8c33470f7 with the patch, the reproducer leaks
+0 in all three cases, and 60s of random policy churn ends with total_bw back
+at its starting value. Two problems though.
 
-> We could do
->    atomic_long_fetch_or_release(BIT(SP_NEED_VICTIM), (atomic_long_t*)&pool->sp_flags)
-> but that is ugly.
-> 
-> So I think the best solution is
-> 
-> 		set_bit(SP_NEED_VICTIM, &pool->sp_flags);
-> 		/* Order SP_NEED_VICTIM before testing sp_idle_threads,
->                  * matching svc_thread_wait_for_work() which orders
->                  * setting sp_idle_threads before testing the bit
-> 		 */
-> +               smp_mb__after_atomic();
-> 		svc_pool_wake_idle_thread(pool);
-> 
-> We probably need the same in svc_wake_up() after the set_bit().
-> 
-> Does this make the barriers easier to understand?
-> 
-> Thoughts?
-> 
-> Thanks,
-> NeilBrown
-> 
-> 
-> >  	rcu_read_lock();
-> >  	ln = READ_ONCE(pool->sp_idle_threads.first);
-> >  	if (ln) {
-> > 
-> > base-commit: b803428098f6fcd584db9f0499217b80e465bb34
-> > -- 
-> > 2.53.0
+sched_setattr(SCHED_OTHER) with SCHED_FLAG_KEEP_PARAMS on a sleeping
+DEADLINE task leaves it DEADLINE, but each call releases its bandwidth, and
+its exit releases it again. total_bw relative to before the task became
+DEADLINE, with a 2ms/10ms task (0.2 CPU = 209715):
+
+  after the DEADLINE set        +209715
+  after the 1st KEEP_PARAMS call      0
+  after the 2nd                 -209715
+  after the 3rd                 -419430
+  after the task exits          -629145
+
+After that, sched_setattr(SCHED_DEADLINE) for a new 2ms/10ms task fails with
+-EBUSY while a 3ms/10ms one is admitted, and offlining a CPU fails with
+-EBUSY.
+
+Switching a sleeping DEADLINE task to SCHED_OTHER after its CPU was offlined
+crashes in the __dl_sub() the patch adds, dividing by
+dl_bw_cpus(task_cpu(p)), which is 0 for that root domain:
+
+  Oops: divide error: 0000 [#1] SMP NOPTI
+  RIP: 0010:switched_from_dl+0x13a/0x3e0
+
+Unpatched mainline only leaks in this case.
+
+Thanks.
+
+--
+tejun
