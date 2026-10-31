@@ -1,66 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793415208;
-	b=mHNkhwAYT4H41BAqv38CIP+FZ/43rdtnlawiIkVG2X1wx2PBbk0Sf8YjJjkn+nzWMXon
-	 ADMNK8t+P8BZEiNVWM/5kOqPeSnG1CtmD4i+wpaMzzLC88kt/RLMTb+MxEPRCfTrE8Fbo
-	 F7+UBbdOcnF6Trz1vpqUnjZqXy5eTwMM5eFr1lurFVeuOYRTOOYvaH3mWK15WiFfNp74k
-	 rkYi7eRpVgt1302/zZuQ+85aojdFQDv4fJ74L7KXRbsAwDnKH5cbtpttTD0HB06HTQzvx
-	 oKwj1TZ2RN5XEql6x8XHWr/1ziwf9gsPvwafvp65evvU2mS6jKQ6cVEGkqFmbAI5O/Q==
+	t=1793415538;
+	b=1n7fUXBhFZ0OfOIAMArz/gZvdtsNipZX2YFasoGlX7guaWugYV5uob3y58F0LqqKaBk4
+	 Gas83X3+ioi1dY5IDznLchIlVJWD9026nlQTZKHFkv9sGBnSFyafJzImuQWkYQi4oybZk
+	 94iM/okrZP1+rh3e+lGEiXKy349rLiEKaUwP01IE5zP+38dB73NNlfYn3XmYcXsSg4nZr
+	 VuYZBIYQQo4U2t0iW9i6AnHm9Jon4uaUC6QaYsC7THR5Nix9f3krQmps0wI+0PVoZuHSV
+	 nh2c8EJRIr9X4ESCnNiLf4SMI9+m2R4jjQiC5rZlv8mNLAr7ncJ5GujTEvhI4ZGcTFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793415208;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=LXWnYsnYf3m/A416tBsZ1WanRPHnR82xpzLLxgdmEQ4=;
-	b=nYvXxCOfVIU60VpTEr+pBWElr6K0ECIKbB2cnfRoMqPhbP2DzBKeTxzRSTGUqX7lXY1P
-	 svf7zlGCCoNWHPL7YPxOTLAeRw5UdaIsMLZCUpTMUvZExZR6JNbjqk9Y2vq6ZETr+YMFU
-	 IVnSji4IlwQB0ol9Qt5WGh6HPvnM9rI4gD7lwAg8JU7JkfzRjBLrT+6oRQG5HByVw6AHK
-	 ++aAzXqgOs4KXxmdjWJfZP6vjTRhTFL6PlLh3JJmvfehek7V13GK0q0ZVIbWoXfrnzsoa
-	 jdvERqjqlQ5DsZ9ES5Tbe3QMu7qhcxrq8QTGdQTtrYNPh+34OnUuSKHvJz7iLK5k3fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793415538;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=JkfOBmmLSdrkWhRF5jU/G/pRdN9hDyVrLyqK8ebtGdc=;
+	b=C/DhjdGYMpA+IB9VdC33PTyJ7pMIDyO6PpLV+lsV08eYbBpo/cK8MyQQ8mzEQFwwAIQ7
+	 MjEZZ5RelTFYZRMBimpZtEnYWRZWTrcxxH3WQtKXOwPWOSQjE9iUsx5jKes8Bra3I08SG
+	 KyIvwruuhUdKwAQttDfpCZoMIsvk2UBUCxvVA6zMcSY0reXhUvMCtpN5uGGWntn0aeVSi
+	 CT3sZdvCpjO0ZnzJxnexdVxKZfT0326R2Z0sCPWB3HfvKMAIhFaS2WPgQnHb4hdPYNWKl
+	 ALtvqnHOTJtFAM3G+MrmeihXEmEC7jACFOrlvml7p8uHhNK1JVNxYdVrO82nIzAhfxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=lU483Isu;
-	arc=none smtp.remote-ip=113.46.200.226
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jxeGsHyt;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3938E606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:53:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3938E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA41606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:58:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDA41606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=lU483Isu
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=LXWnYsnYf3m/A416tBsZ1WanRPHnR82xpzLLxgdmEQ4=;
-	b=lU483Isu10yhdK1smAVSajHGV7hh4vyIxPXpyDXT2hcs6gZS13icBdTTOh8krqrbxvhmYvYV9
-	/+L3RbD2vPOvQsNLhM+MXw3I8CKkAu2Sn6kJa4K2jjZ5GlZyCYTHMXOMLSqFVG9+KG3M545nBQi
-	KWtjh4LQ24CF1M+6ZYOXMr4=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jGjFs0t1NzKm5K;
-	Sat, 31 Oct 2026 10:53:21 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 18D0740561;
-	Sat, 31 Oct 2026 10:53:24 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 31 Oct
- 2026 10:53:23 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
-	<fenghuay@nvidia.com>, <tan.shaopeng@jp.fujitsu.com>, <jic23@kernel.org>,
-	<zengheng4@huawei.com>, <gshan@redhat.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH] arm_mpam: resctrl: Leave CDP off when there are too few PARTIDs
-Date: Sat, 31 Oct 2026 10:52:57 +0800
-Message-ID: <20261031025257.1540228-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jxeGsHyt
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36a1947498bso848971eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:58:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793415537; x=1794020337; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JkfOBmmLSdrkWhRF5jU/G/pRdN9hDyVrLyqK8ebtGdc=;
+        b=jxeGsHytW4yu/6DB/vxLQDJ6XTdzQ9NKtaGobF2RApLEBOkWjHOQt5/g8EHt4G1+dt
+         HuBNuEO1zy1r0Se125GkCO4kMRCm4VPpJn+3xfmpchJRgHRNZZD5fnr+iZ5m2J0/GoPM
+         69/JHz422gSJWQMY2eoLlmiuythx8B8J9Mpv06hBhalfMJPbxC/Qq3VCGasiCA42QX3C
+         MEZw/86OUC+8Cyrcglu8b/tKz9f3aeaA5cf8umGvRpxP/1jXIwKWnI5vlvri5ngY7OOn
+         tWi3fBnqhTmOgjUt3QyMwCjN0k6nU2Juzf7HmGfAjGhjPIE6KF2lV3lt7wRV1sr3qhZz
+         87Zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793415537; x=1794020337;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JkfOBmmLSdrkWhRF5jU/G/pRdN9hDyVrLyqK8ebtGdc=;
+        b=qKPA+DZj/xECPT+FOgWE1ZH5t6OOd+2E7tWnpdAJiBcOwyy0aK/XOF+o/GvltsM6HU
+         Qky8z7Mvk08+/ojfIetzryeLy04cvJuuAyOFMVXLVw3L4C5AaXpdnX4XR2wIMI6exT0q
+         YcfWzl8ldYVn00uWczMnZ9pB7yqbpqpOYPltzIcp0hKkos3KsOw6hNDHVR5zl/uSpkBZ
+         q5l8ykWXt3WlW2Dllt8zbAiHacIWK+pEd66Nsi9zmpwHYEBoEYEwJtz/run3cl2h6NA/
+         i0RcmXxd9so885+7/pfXMuboOCHHABtOGnV7QhzObwt6s9oKKwOLpwnmyaJALF9Lchlk
+         X3jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxK1xBu1TwmVwdROKHB0c5/i+E2jPGTCGjs79Ae7/nhKukScY8lEPnfGNMWSsEM57XUwKe6HnZVIMJA5Ec=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSLxhgxyKiDNQT1jXNuqOkoPmA6cx0jkA/uMoqaSbyNRpbqDYt
+	QN664pIVmhu7ln+KEDkD7rXg+ALpApjks2VxcF2DobFkUqHwuB3ZRnaf
+X-Gm-Gg: AYBFou1jS1kqCTAqk2VNas5OqNEsJd4wld4QXF5SY3vwTjE6lNZJS2FCiXKu2ZXaZA6
+	lV6vHpqLO3n8wPR/JLVJ6qj0jiK4LvMrqfsZEVGBnfhh2rebtwBIerFfLnTjFA8LSf+jceFqURf
+	IQcQBwS1b8Uz2wmeLQXNmBzPjtQDsGiQzoVWjVTBKDKSe25w8PZdPzi09bmEZ60nc80M0ZhQxk7
+	imRGlFJGcdg+09ZcSa2bxpnt403ly1HOIEEwE7Pzgc7W+019resQHWUWoLT47J3Ou98Z0Y4SDma
+	I0AFPqAcs1vbjPr47iKKcgGkSTnZjCCJBa++iBcqYXr5F9AieowISs6TUd/pyOu9UhlVngN3yzz
+	9fbEDnVrQU8nxj6gbO+9/Ea+B+Z4WzcmEXAdzLIRmCzs/E1O8yQxKNpj1InSCeHn39ooCnFmKa7
+	ZFbukHoOSqFjAdQYy3G7oTbRq89k/c4yAO/pi7ZnfQniHeUvjRMtdjj+lggBqNMqlBLh+fsmeEV
+	laXc5ijBrfbT3+ATwdUhf/ZynjvSFNm05YnletpceFcfLXUuVXk/6ZIlFTCxmdsbqUgJ2N1aqrD
+	dBV50PBA0DI1RbQX/uz9D9PmDkhjWLp3/txfPr5bEAzGjQs=
+X-Received: by 2002:a05:7022:1181:b0:154:e9d2:d741 with SMTP id a92af1059eb24-1ac5bbb4870mr5104907c88.8.1793415536649;
+        Fri, 30 Oct 2026 19:58:56 -0700 (PDT)
+Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1b0a628bsm10940998c88.22.2026.10.30.19.58.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 19:58:56 -0700 (PDT)
+From: zhangbo56 <zhangbo0325@gmail.com>
+X-Google-Original-From: zhangbo56 <zhangbo56@xiaomi.com>
+To: senozhatsky@chromium.org
+Cc: akpm@linux-foundation.org,
+	baohua@kernel.org,
+	bgeffon@google.com,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	minchan@kernel.org,
+	richardycc@google.com,
+	zhangbo0325@gmail.com,
+	zhangbo56 <zhangbo56@xiaomi.com>
+Subject: Re: [PATCH v7 00/15] zram: redesign zcomp and rework backends
+Date: Sat, 31 Oct 2026 10:58:46 +0800
+Message-Id: <20261031025846.3774596-1-zhangbo56@xiaomi.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261025021839.1542805-1-senozhatsky@chromium.org>
+References: <20261025021839.1542805-1-senozhatsky@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,55 +107,30 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
-Enabling CDP requires at least 2 PARTIDs. If there are too few PARTIDs,
-resctrl_arch_set_cdp_enabled() returns -EINVAL, but only after it has
-recorded CDP as enabled, halved the monitor count and turned off the
-mbw_max MBA control. resctrl then believes CDP is off, which leaves the
-two sides out of step and the halved monitor count and the missing MBA
-control are not undone.
+I reported performance numbers earlier; this is a follow-up focused on
+stability.
 
-Check the PARTID limit before anything is changed so a failed enable has
-no effect.
+I ran an 8-hour stress test of this series using the following workload:
+16 memcgs each looping a kernel build with tight memory limits to push
+anon memory out to the zram swap (zstd), plus continuous CPU hotplug
+(~113ms per cycle, 254k cycles). Repeated contained memcg OOM kills kept
+the per-CPU streams constantly torn down and re-created under load.
 
-Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
-RFC v2 -> v1:
-- Check mpam_partid_max ahead and The partid_d/partid_i determination
-  remains in place.
-- Update the commit message as Ben suggested.
----
- drivers/resctrl/mpam_resctrl.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Result: ran to completion, no issues.
+  * dmesg clean - no BUG/Oops/stall/lockup/hung task/warning, no zram
+    driver messages.
+  * zram io_stat: failed_reads=0, failed_writes=0, invalid_io=0 across
+    ~3.56 billion operations.
+  * All CPUs back online cleanly.
 
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 5468367776e2..aa3b3a093857 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -210,6 +210,9 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
- 	if (enable)
- 		pr_warn("CDP is an expert feature and may cause MPAM to malfunction.\n");
- 
-+	if (enable && mpam_partid_max < 1)
-+		return -EINVAL;
-+
- 	/*
- 	 * resctrl_arch_set_cdp_enabled() is only called with enable set to
- 	 * false on error and unmount.
-@@ -239,9 +242,6 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
- 		mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = true;
- 
- 	if (enable) {
--		if (mpam_partid_max < 1)
--			return -EINVAL;
--
- 		partid_d = resctrl_get_config_index(RESCTRL_RESERVED_CLOSID, CDP_DATA);
- 		partid_i = resctrl_get_config_index(RESCTRL_RESERVED_CLOSID, CDP_CODE);
- 	}
--- 
-2.34.1
+A shorter lz4 (stateless) run was also clean.
+
+Environment: 7.3.0-rc5-mmnew+, x86_64, PREEMPT, 28 CPUs, 8 GB RAM.
+
+For the whole series:
+Tested-by: zhangbo56 <zhangbo56@xiaomi.com>
+
+Thanks,
+Bo
 
