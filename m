@@ -1,64 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.77.101.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793444773;
-	b=ozysdjD9aQQeE6Eewzzz5lD3IjsZVirRNgvCwPZvNHAms2UDT3sBBtsKpHic/U038Wnl
-	 hQcM88NUA9qRWT8+onXjZYZds4fjwDJd3UW0/d/zIaVTJXP9rOtUrrBoGcuRy1WZNhrZy
-	 FGKRv4nrCzCDJXAa7wsUXdLm2j+1aBlhAuVlHNKXvYAiMbQZLHZlHqgukvvxeVqCzTbTE
-	 trCn2yTt6atj57wibc5KKuoEGMQC/wlOqGfyKZuHvFKxTHom3f81+Jb3ubSXWju/v4Xmm
-	 kjMDjNfBCy5Kv0+mFWMvVluBNxUiULtvkQICyiXN8Av5df7YHm0is+B+NAJKv8pNXvQ==
+	t=1793444926;
+	b=S/kmNNmaGUhSAgmNDpJQy2Gf2Cz5p/KH5h+68ldkpuYnIoXDS/wlbp6n7atJot4/ZFJC
+	 otB8G7hff9HLSsLVk+jib669QEXj+bNklbK/JH81saSBA5qicOyOEAZ4ZqvppSgOvhMgz
+	 cUfNloOLNuEEupt4BhvKlXk6Rk6riesrigsS0iUfw62rL7sb5jLv+dENz46TcYL3Qk6j6
+	 YfN9IUjTkbltpB5neeLoBW0xB4Dq1Vm1T0nPK+yK2pBkuxYwk0gkGyyU9iDlebYYGmXAw
+	 BFoeHPgvVutMhqAGWNzKDE6Vd/AZfCZ+ZZCxQtftKLKY9rvOWA2xAcnx5LJvoSoGEJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793444773;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-WP-MailID:X-WP-AV:X-WP-SPAM;
-	bh=YYYiZeIarG26HWVQV4zePGaIw+qvE8QRJcOljSaV4/I=;
-	b=Y1bW2lSsRTWO59nlhzH3ViaT0xPSw1QHtoBCQz8RyJr8lCQbSycPeqaROWwcRN8U8h9/
-	 SWdmFg2EeXTPnaToYu9Mz8iiTwUhmDU2K+aU+cHCV8/vEkmWlp9YfV7F5wZyp5gR9sXTK
-	 ES0QTUcJzhtw+xw+WNhFUiCvUmZYpNHmAcVWAK45NzcOLWXdIUTGYnXGyz5KztNfVoeE9
-	 6GraJibhftrJJMAVabLRm0vr/RmdfXa+TEUOWrcgSc4DuVqVI2Tj6Aom2b2oRH7AAjXcP
-	 sTZ3deZOPfrGqGJmukXR7f0kchWB2DZ3S6o/CUvKDYRA/D6ScpGHzLPKtuE3c3s6O7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793444926;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qn1VaOGofv/ujd8ZvwN7vtgFnr5O801uRmpZaOHHctg=;
+	b=z7pC7ANCOnveSRhkZk9mEndqmcWXnqiE8ldorf9D/DU+Mhvb6D43wKTzUbylwGO+Ytwv
+	 Lr5oZEVsXA35zULqnEO/o74xG45kVqt8TZf2/7B5q1xBtFL5M8qSpmOR/ktaTlWnvVcI3
+	 3H0UdUxrEbeo9JHkjmnce5skCu9wytBACAy6t7agS0D5qvvF14QDcHcvfkeYgpiwxICef
+	 pgQHIXSLmh9jQea+bB3oYHH/cZcbIOCoirALzdelA3+EtDxV/IV+49hLYfXIAmUxIr2ka
+	 vEi32BUg4nHy1bI98618FsmFhP+frrHDsPRkludqbNL/NuFnHTrmQHgJnWv0PP/O0uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wp.pl;
-	spf=pass smtp.mailfrom=wp.pl;
-	dkim=pass header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=ivqmU6Ia;
-	arc=none smtp.remote-ip=212.77.101.11
-Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EIMQ7ych;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FED606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:06:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22FED606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A9B606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:08:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3A9B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=ivqmU6Ia
-Received: (wp-smtpd smtp.wp.pl 21341 invoked from network); 31 Oct 2026 12:06:09 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
-          t=1793444769; bh=YYYiZeIarG26HWVQV4zePGaIw+qvE8QRJcOljSaV4/I=;
-          h=From:To:Cc:Subject;
-          b=ivqmU6IaMbGCXikTf1UbD9GQ79SBcXQ1+hKLAMKhXPZRMuZsDbmL0/jrUXmWCFKQV
-           EDhhXrSfDSDwtSbCTQrndUFWBTYjnddU2+hhzEvXp23+Rfsjc5b4QexyyoFIXmc31J
-           y766Qhpezbw3Jnc3FstR87giVAC+wG2eH9EJGlYeUKndyaY5xd58vupzGuuUq4UqLW
-           7GPkroGj3iEB+ZUkqTo0lWmnyqKd+rYkBcno/Kevtlmhyy+zL9IjBCsV5NrReVmTyx
-           DNFjBNO5NZ2egN5RaZl3BTh04B0RLo7RxEsRYb9HTqGYob6HLpiEt5qPKdE6TsCKG5
-           FfpzI5Dj77iIQ==
-Received: from localhost (77-236-11-144.static.play.pl [77.236.11.144])
-          (envelope-sender <stf_xl@wp.pl>)
-          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <hjf3108@gmail.com>; 31 Oct 2026 12:06:09 +0100
-Date: Sat, 31 Oct 2026 12:06:08 +0100
-From: Stanislaw Gruszka <stf_xl@wp.pl>
-To: Jie Feng <hjf3108@gmail.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Johannes Berg <johannes@sipsolutions.net>
-Subject: Re: [PATCH wireless-next 6/8] wifi: rt2800: set the mac80211
- fast-xmit and aggregation flags
-Message-ID: <20261031110608.GD31143@wp.pl>
-References: <20261029134752.1299130-1-hjf3108@gmail.com>
- <20261029134752.1299130-7-hjf3108@gmail.com>
- <20261030091743.GB27096@wp.pl>
- <CABOQOSX6mBCtTTg9eJX665t7tj65jo=9hVTgr7pmFRB6csG2Yg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EIMQ7ych
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so9587795e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:08:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793444924; x=1794049724; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qn1VaOGofv/ujd8ZvwN7vtgFnr5O801uRmpZaOHHctg=;
+        b=EIMQ7ycheZTgXQbRjcokmpZmK/CLPHtHH2SfHppIfhg2oKERKmSzR7izvPkjWhe74x
+         JtC85StnC4zSC+HggZdELNK4281l1dAisngx+zfIAY6Qu+2H7ma1noI0MeSUNAh2dkWN
+         tHXY0IBTqo3993BBJsPrPrHzwlvDcxMNJEc6bgMA4BOrQRLMTJwOVcBQ2y1fw/1Djr7W
+         NdJklECyUwPZHY1sHxiqOfAG2Pu/6pi4TrfMLcYmj2qMObldWiiA/NrEcKR8pKUkdae1
+         Qr3WBG91dtg2IhgBcP1taAgips5v+ROTywpFHCCvAAVR5jULGSVMpbySJVrfjBSSUQKw
+         tEiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793444924; x=1794049724;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qn1VaOGofv/ujd8ZvwN7vtgFnr5O801uRmpZaOHHctg=;
+        b=d3vhMKDjn0RTHdwAjUHQ0BSMCyYYiuV2A1eSThhGT5tPGRYRt1D5toz2D5g2URAtAM
+         v4rBFbVgPcuEwJKYef2HvAFY4vpr/EOBE0aq6DRWgfVhBCrcaHn19YQpvevsIVw7mm0k
+         yRqMbtolANhJ9P9t0Vpwwn22AbIAI5KuwOZOnYE3KxAMqKDZe8DDU2FRi0HIv84yhg8F
+         ysO29b8cTGQy4TPan5JYeQvPov03H6GsbSW8iWTJopnkQjrgWWC8bATW6B4tmr7h9iuR
+         gdFmPS2bDXM/sAuGmQMmouw/aJ7qLdYgIV4lyE4va0oixGFpZVdOYpge6d9Cb50jYU0+
+         iQ/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx2WfMLPgc2k1yd/1Gp6lg6SGUXHl8W3hQlOmGOERc1mw17/ZIuJhKvT22yV2NlCEDSXWJ6IAeZx7358zg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIl94gbqvanNIbJrerbOEdqSIq2mAIGVr0dlf5hmF/Ilx8Eh9kK
+	+ED/60k7qOrxX0h8tZ09HTvONLFbxi/ewXlMcdLnJ0lE4oFnUAJXHaH/
+X-Gm-Gg: AYBFou1E3hQ/mqY/+nhcIfzuBYAXT4r1JxRkd8w/j3gu/uqxASfENLJJRpEAvP/s1e1
+	3JOS2k6JUp1bk/x7QmR72q7kbe16uTin1J1uWQRIpN4fvDxvBsye27YZONlCIBhrHasZIJqdKdQ
+	qBjNYBx7CT1N/QKh/LiZ/aJ0uJ1BUBuLsjblCuZfRl7n6qQdmS8qm3uUNeTDLm98UCSA2nCnDyq
+	hKrW7f8nQ+x26Lmyi65jDq/jKzuY1Kj0w36PXRENZp3PmuA6rTovS5gWMA8qkRpPabv0Uh+WlnM
+	mV70Ji0yvzfiZtTwiYBqJawdWJhYQbU2Wjc2RUCa6V2dPU+PpUeiq87HtP1MDHOhJ8WoXfn02jd
+	0HTSoaw8QUwR6CqAxIuauKExlAQOfIOjUadkOknhH3dOseuhfGZREEKc4izEMFYlGVZHTEG7KJd
+	YrqxviFF1kX8ntlyWK7YiHw/ZrBo95LyOBKEvuN2Ks8YSzWHpz4Wxx9uor3dMn6lqzgw2CNO2c8
+	Q9J42QJPzOdBmxNCh7ZGD8QV1/3r2souwBtrrvToOBd7FzEa4bHaAoXZfecBcTkuy2vCfeSimXt
+	8iulZTUGoPGJOpPQ4u5DKnMNNgKK59oCuLPfghR/hkFyTD+m0BBQcgeJpnwbSBrhNQ==
+X-Received: by 2002:a05:600c:138c:b0:4a1:f90d:6f4c with SMTP id 5b1f17b1804b1-4ac17ffaff2mr107425825e9.7.1793444923989;
+        Sat, 31 Oct 2026 04:08:43 -0700 (PDT)
+Received: from localhost.localdomain ([2a06:c701:4773:6f00:c8d4:ec29:293e:f39])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b728f9sm8190774f8f.10.2026.10.31.04.08.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 04:08:43 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: netdev@vger.kernel.org
+Cc: edumazet@kernel.org,
+	kuniyu@google.com,
+	pabeni@redhat.com,
+	willemb@google.com,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	horms@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH net 1/2] net: check the sendmsg LSM hook for every batched message
+Date: Sat, 31 Oct 2026 13:08:40 +0200
+Message-ID: <0b1a91e7fa0de128c6e2bd3ae2f5c960a5c0f883.1793444262.git.thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,67 +101,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CABOQOSX6mBCtTTg9eJX665t7tj65jo=9hVTgr7pmFRB6csG2Yg@mail.gmail.com>
-X-WP-MailID: 8ae6e56a1c67c4863d898adb9f9c23ef
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000001 [MbKR]                               
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 07:33:44PM +0800, Jie Feng wrote:
-> On Fri, 30 Oct 2026 at 17:17, Stanislaw Gruszka <stf_xl@wp.pl> wrote:
-> >
-> > On Thu, Oct 29, 2026 at 09:47:47PM +0800, Ho Jie Feng wrote:
-> > > Enable AMSDU TX/RX support for this driver, which can increase
-> > > throughput.
-> > >
-> > > Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
-> > > ---
-> > >  drivers/net/wireless/ralink/rt2x00/rt2800lib.c | 3 +++
-> > >  1 file changed, 3 insertions(+)
-> > >
-> > > diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
-> > > index 032cd6ac345f0..8b4458a74d33d 100644
-> > > --- a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
-> > > +++ b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
-> > > @@ -11861,6 +11861,9 @@ static int rt2800_probe_hw_mode(struct rt2x00_dev *rt2x00dev)
-> > >       ieee80211_hw_set(rt2x00dev->hw, SIGNAL_DBM);
-> > >       ieee80211_hw_set(rt2x00dev->hw, SUPPORTS_PS);
-> > >       ieee80211_hw_set(rt2x00dev->hw, TX_STATUS_NO_AMPDU_LEN);
-> > > +     ieee80211_hw_set(rt2x00dev->hw, SUPPORT_FAST_XMIT);
-> >
-> > IFICT this flag will not take the effect since we have SUPPORTS_PS.
-> > Also for WAP3 (802.11w) we fallback to software encryption -
-> > that will prevent fast xmit as well. To truly enable
-> Yeah, that is true. I also have a patch that enables hwcrypto in that case.
+sendmmsg() skips security_socket_sendmsg() when two consecutive
+messages have the same explicit destination address. The comparison
+does not account for the message size, so a BPF LSM policy that denies
+large sends can be bypassed by placing an allowed message first.
 
-So let's wait until all needed parts will be in tree or posted in the
-same patchset before advertising the support.
+Use __sock_sendmsg() for the cached-destination case as well, so that
+every message undergoes the LSM check. Keep the remainder of the
+address-caching logic unchanged in this minimal correction.
 
-> > fast xmit, I think we would need add hardware encryption support for
-> > WPA3 and also compromise by remove Power Save support (which is disabled by
-> > default, so that's possibly fine).
-> I think maybe a more general patch to mac80211 to enable fast-xmit when PS
-> is disabled and not only checking the feature flag will be better?
+Fixes: 228e548e6020 ("net: Add sendmmsg socket system call")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ net/socket.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Sounds like good idea to me, but let check with Johannes (cc-ed).
+diff --git a/net/socket.c b/net/socket.c
+index 2e3b5737c481..c2a85224ab55 100644
+--- a/net/socket.c
++++ b/net/socket.c
+@@ -2709,7 +2709,7 @@ static int ____sys_sendmsg(struct socket *sock, struct msghdr *msg_sys,
+ 	    used_address->name_len == msg_sys->msg_namelen &&
+ 	    !memcmp(&used_address->name, msg_sys->msg_name,
+ 		    used_address->name_len)) {
+-		err = sock_sendmsg_nosec(sock, msg_sys);
++		err = __sock_sendmsg(sock, msg_sys);
+ 		goto out_freectl;
+ 	}
+ 	err = __sock_sendmsg(sock, msg_sys);
+-- 
+2.43.0
 
-> > > +     ieee80211_hw_set(rt2x00dev->hw, TX_AMSDU);
-> > > +     ieee80211_hw_set(rt2x00dev->hw, SUPPORTS_AMSDU_IN_AMPDU);
-> Although I think this flag will still be useful for this patch.
-
-AFICT TX_AMSDU require FAST_XMIT. I think we could potentially enable
-RX SUPPORTS_AMSDU_IN_AMPDU as long all buffer sizes setup by the driver
-and configured in registers allow handling big enough frames. Though
-I don't know how much beneficial that would be since we most likely 
-can not configure very large (A)MPDU buffers. Need to check.
-
-Regards
-Stanislaw
-
-> > >
-> > >       /*
-> > >        * Don't set IEEE80211_HW_HOST_BROADCAST_PS_BUFFERING for USB devices
-> > > --
-> > > 2.53.0
-> > >
