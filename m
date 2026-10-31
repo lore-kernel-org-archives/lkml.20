@@ -1,97 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793457161;
-	b=yAc8i5cb4VNKeIGR1texuh9CekvMBs2UJ/UZoEnZBL2xQjpFME4leLTC2PcR7WC2nyVl
-	 14/LjRHyYTYS5Hgb/yy90Rl/3xNc2Nv4rUnVPxpgR37k5q4uL2SnZ7fCo0UiiShPAVJFf
-	 fARMzR/UKAeeRr7jXIc7MhwquJijyKyO4TQK7JNvHmTOAOoDVCoHof8EVqrBBcppX3dDV
-	 RxhJWkMqmQOyHWFlbatcup0NO+hsbxRrYPDqhltPOl3jAZxTQie5Wnrrod3Wv7ZN47WN8
-	 7AmgKd/xjC3RKOhELD4PUJ3QS0axC9EP5nkMKO0F3bSyg7uCfIDGAZm2GcFYQHRyxKA==
+	t=1793457244;
+	b=rpoGjV1jC6WPrVo7ASyxQojfgG5IuUhPLDVrHECnd3JhILNje2FCNF6vmSawu65n/Zs3
+	 W21Ry4mnTb2K8oCI0VW7SQY3JtVIuaAV0poFvcdOyv1uB0p3So9nSCDzmaYkqQKKg6h1m
+	 mY7APs15rsJhc/uU8ciZfKGq8I9r30lLInxpLNzBRGQAKwU8iNHoalJ2aft2xZM1kGX5E
+	 Ce77C77/SbzVQY8S5lvOBtB+nYpeYjGy0bycmv7JGWAPvTjYMRW16neKCqeMYfE3cwR57
+	 y//B2jcQYTLFp62A1Tefcpx3f1N/a2rf8GluuvmKdg7JT8zE6Kk7O8QmeAu8PPui6HQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793457161;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=t+mEHp2k2iMpiIV7c9dpwWqNWogWRyGSpy9pUvk2R4M=;
-	b=eGuXawl9Y5cyq/VPpJQIeSG/k6LRSgdMx5X5KdPQAz+6R/cmQYLWE0V79yTuvQ2tYsy8
-	 d+JIwCNu7Fa8qtJptzQv8XxlQLn7nyjaOJyTk0UjjGnM23AALbjvzlXF4R/5PjDfjKv1N
-	 Rix7HsCuOnCWJ/+eOVtvPu+PGQIUgY0zVluuOmacBjE0KTyhuCjSo26HUU7eWIxLblnuE
-	 4bSplINi1T9NlOFSnbLow++cO+ztWXBywdINJ60nElOuhfSex5oUB/y50AqgdNp9btA6b
-	 0f/HV8TR+3u6CuXjOuTE2n8CZx4aQVDgnzj9c3/f7NC4y2PODydl+hhzwKz5i1ruLNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793457244;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Rspamd-Queue-Id;
+	bh=JJxlWD63aBsqJYxjsMpskuAarA2LuQHZe+BxsUgGNdk=;
+	b=TDZ+cmRezJEtg8yyTLHVeyw/xhzlZbUulJyocczMiCrsTETaxyJZTYjOXdbehPx6eCIz
+	 CRSUPsySc/rF4Tk0eHH8AnReVlKEw5Tmssu89/YCTCc7O+JpU0X75oaDsoDaB+kfMqU/s
+	 jQvFXKKuPEdUxbCstT2d8oRFmOwdynnvPkQSqBVbiq0sybk1DVy0/S5Mb/qwN/2BSWpgx
+	 aOBXVI/yDzS9dnbDZBbbkFG385q3DqgKooP/VWHPgrfvTLG2aD2zEAd3F05vTBWuVr9dT
+	 DJZMl7cwdQd5xblNBGb9S0di6pa3iA+vei8R5pR/CY9TPwTVmZSQWNvj/LlpSCQPgSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HNIov5Hx;
-	arc=none smtp.remote-ip=209.85.222.44
-Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=hsal.es;
+	spf=pass smtp.mailfrom=hsal.es;
+	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=QlMBxbyW;
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECEF606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:32:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DECEF606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDED7606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDED7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HNIov5Hx
-Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-980c4258105so935623241.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:32:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793457160; x=1794061960; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t+mEHp2k2iMpiIV7c9dpwWqNWogWRyGSpy9pUvk2R4M=;
-        b=HNIov5HxemII9fg7ZOJfww6zl/v1YonN5bBI7jzpqtwCrLZEZYPM86wXmwuL8bwvRQ
-         a3lZshxnsd1cq85QPHqlEhTgut7OdXwreYjAcjiFhK2x4APlkAPjf+RZrROv2S8XN6EI
-         jw5sHa1acUuZ0UhnX/9fOT6NQa4jSN3CDLcuZfPtUapABvelkN2E4JL+xgb22ctKsp8F
-         UaF1ZfO/2OJDUCDgJUC7t6Amfou6MM8V9T12caukXu5v+EMD2dEobSzNfMdrfrIbqYtQ
-         4Qq8qmWfwe2GgdPYieQcsPQy63pVuu9NIV+bC6MBga7Q5T212bmWR2meh5S7c7HWRdbs
-         VBTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793457160; x=1794061960;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t+mEHp2k2iMpiIV7c9dpwWqNWogWRyGSpy9pUvk2R4M=;
-        b=uBpUm8ePKNbdGOjZLnVmdBgK22POYUInIWfEAMbbAJ2lbklk9v1GApBa/gt520C2zN
-         tcuYBICHwa3R8gE40mJZcisjEcG/3n8hPZI1uS4ubxCsek/4eUCgUgGLDhbW3cjE9Mp1
-         sJ+3HBeihC/ppGPooGAnJtK4ms7ecsZ2xENwKHtEjmZu+sM5dYIwwWm6/uZwyO7VZVJC
-         oeCm0l5GF+VmYU0BpDqdunNQUKnsk4w4LRsYm5ZVgcRQT+eLEmolC9RmWfqO5OWVb3I4
-         xw+mCVkYs9wIWyxMJSVPCIMzvf3vad2j6eA9KkH3DVhR/ik5GX0V8moyk1wyAR6tMP/b
-         6Jeg==
-X-Forwarded-Encrypted: i=1; AKwUvBz6AA4xVRavc10iTqBFwV7XsiD7mzmd2WpjVal5y4gSblyspU0/c50fD9iTlZ0dzYWvuZwzs8hg4LexV5g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVOgLTdtzfTy2fmmWzrC1oPu/LmS86QGwzyFQ9CAeLBmEOaGu5
-	1mYn1psJjjn0HidEBwRfGrF4yGeSOP+gHKPR7wDpKWwKqYP5Yo1HPqBv
-X-Gm-Gg: AYBFou3/Yt9n5lR19ptqH47U2VRVB8zxDIHVzDCkqQfoA0uqaPUvlMwitlRyzciJOU7
-	yJyUWuDuttEYBis99Vn75rualUgAscTX1tXeQkIB6iyPwG+e9VB/9TCwW1tJJ8OO6VsUQp1YV9+
-	/v8F92OoP+PJnQ86GKRDt7Jcoo/k8V4NW3hDshAEsDxsSXjeeit8p5qnxFhbUsTv64PpGjozAQd
-	zToNDIKOmSQXFAED2Dt2vQ4F31Iqc/08kEtcOrTFNUAJ7vuQy+r5aBi/6CZ2inUQf89y1tttxbf
-	XHJstzcgQa3fWkpeVdyE367z/uieyzwZl1n/MVxOebXchDKmK8re0EFXExhNLUEvGDhmXsOUisP
-	gpf1yk8d6YC5IuiTqlJ7h9Rl9koP+NsFwX7yQU/Xv2BZQBr3emjeSfa5Nt3G4viczz9HWDagHog
-	63MYbU/R72fHTaiSPBQudEBTI8+E5HVNd82vLvDQ/DBNYii5drxHgbQD+tHWxR6Ui34Zo515Nmb
-	bRIv9oNbfnEGR8OT0HHYSOgBWF5LZjZrU8BvxgC9H2ZYy1pGtxJENnHFmIRuVgS8k0TVAk2e53w
-	x4T/3IWBDVXmFrMOBwl+khgnEFuvUUeyKXDSoSRqQYg5KFB4B6/fjRwN706l0sW0xGNbEQlNia2
-	D76U=
-X-Received: by 2002:a05:6102:5689:b0:7a5:391c:37ac with SMTP id ada2fe7eead31-7d072bc752fmr2816224137.10.1793457159749;
-        Sat, 31 Oct 2026 07:32:39 -0700 (PDT)
-Received: from dell-pro-plus ([2804:29b8:5080:dd51:39c5:770e:6bea:512e])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69a459e2sm5946577e0c.1.2026.10.31.07.32.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 07:32:39 -0700 (PDT)
-From: Gabriel Ribeiro <ic.gabrielribeiro@gmail.com>
-To: linux-doc@vger.kernel.org
-Cc: danielmaraboo@gmail.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	sashal@kernel.org,
-	kees@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Gabriel Ribeiro <ic.gabrielribeiro@gmail.com>
-Subject: [PATCH] docs: translations: pt_BR: add init troubleshooting guide
-Date: Sat, 31 Oct 2026 11:32:16 -0300
-Message-ID: <20261031143216.70219-1-ic.gabrielribeiro@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=QlMBxbyW
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jH0p96d3jzKns0;
+	Sat, 31 Oct 2026 15:33:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+	t=1793457233;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=JJxlWD63aBsqJYxjsMpskuAarA2LuQHZe+BxsUgGNdk=;
+	b=QlMBxbyWN/sCO7MqyUVkdEO72SoGJSRzibe78vkhI7vch95b0USADPTeX71/5pZu9dzvQm
+	u8ZN7hC2xAw15sXAhqbbPpwtfxvgta/c8lPhV5zEMQpZ//bapB9gW7QsSc1y0qhYec0Vbi
+	l0anjli0zixULwuZeu0sjESQx4i4CRcNWs5bXYGHrsjIvAA2ag2uCvdHyIh2m195gjnUYS
+	iDXIO5hbjUAnRL/g9c/zkOLWNV0KLYvcKJ0ei6riZoMyIZPWk/mcNcyDrGVa5ZtkyldQWx
+	eKSJW/gT9mCReLoDhBPBIrGCF0XJg6jVQ1gNeg6ybqSJ5+p8N4k3FqDim48w/w==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: harry.wentland@amd.com,
+	sunpeng.li@amd.com,
+	siqueira@igalia.com,
+	alexander.deucher@amd.com,
+	amd-gfx@lists.freedesktop.org
+Cc: alex.hung@amd.com,
+	mario.kleiner.de@gmail.com,
+	nicholas.kazlauskas@amd.com,
+	ray.wu@amd.com,
+	bhawanpreet.lakha@amd.com,
+	ivan.lipski@amd.com,
+	chiahsuan.chung@amd.com,
+	jerry.zuo@amd.com,
+	Aric.Cyr@amd.com,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: Hold the VRR vblank reference only on active CRTCs
+Date: Sat, 31 Oct 2026 14:33:51 +0000
+Message-ID: <20261031143351.3222033-1-hugo@hsal.es>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,104 +86,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jH0p96d3jzKns0
 
-Signed-off-by: Gabriel Ribeiro <ic.gabrielribeiro@gmail.com>
+amdgpu_dm_handle_vrr_transition() takes a vblank reference when a CRTC
+state turns VRR on and drops it when a later state turns it off. It only
+looks at freesync_config.state, and disabling a CRTC keeps that state,
+so a suspend or DPMS off with VRR active keeps the reference
+
+On resume, drm_atomic_helper_resume() first calls drm_mode_config_reset(),
+which swaps the CRTC state for a zeroed one. The restored state then goes
+from VRR_STATE_UNSUPPORTED to active and takes a second reference, and
+the first is never dropped. The vblank irq stays on for good, so the CRTC
+never idles and PSR is never entered
+
+A VRR change on a disabled CRTC can't take the reference at all, since
+vblank is off there and drm_crtc_vblank_get() fails with a WARN
+
+On a Cezanne laptop with VRR always on, each suspend added one to the
+eDP CRTC's vblank refcount, and it stayed at 1 rather than 0 after VRR
+was turned off again
+
+Treat VRR as active for the reference only while the CRTC is active too.
+Disabling the CRTC then drops it and enabling it takes it again, which
+balances suspend, resume and DPMS, and the get only happens once
+manage_dm_interrupts() has turned vblank on
+
+Fixes: 66b0c973d7f7 ("drm/amd/display: Prevent vblank irq disable while VRR is active. (v3)")
+Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
- .../translations/pt_BR/admin-guide/index.rst  |  6 +-
- .../translations/pt_BR/admin-guide/init.rst   | 58 +++++++++++++++++++
- 2 files changed, 63 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/translations/pt_BR/admin-guide/init.rst
 
-diff --git a/Documentation/translations/pt_BR/admin-guide/index.rst b/Documentation/translations/pt_BR/admin-guide/index.rst
-index f0f096a74..cb5a64f82 100644
---- a/Documentation/translations/pt_BR/admin-guide/index.rst
-+++ b/Documentation/translations/pt_BR/admin-guide/index.rst
-@@ -72,6 +72,11 @@ Rastreando e identificando problemas
- Aqui está um conjunto de documentos voltados a usuários que estão tentando
- rastrear problemas e bugs em particular.
+Tested on an ASUS ROG Flow X13 (GV301QH, Cezanne, DCN 2.1) with VRR
+set to always on in Hyprland. bpftrace on drm_handle_vblank showed the eDP
+CRTC's vblank refcount go up by one on every suspend before this patch.
+With it, the refcount reads the same before and after a systemctl
+suspend, and drops to 0 once VRR is turned off
+
+dm_test_handle_vrr_transition_round_trip now sets base.active on both
+states, since an inactive CRTC no longer takes the reference. The
+three new cases cover the CRTC turning off and on with VRR left on
+
+amdgpu_dm KUnit on amd-staging-drm-next (ba496bb83788) passes apart
+from dm_mst_test_dsc_link_bpp_between_limits and the two
+dm_test_crtc_enable_vblank_ips_restore cases, which fail or panic in
+drm_vblank_restore() without this patch as well
+
+ .../display/amdgpu_dm/amdgpu_dm_freesync.c    | 12 ++-
+ .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 98 +++++++++++++++++++
+ 2 files changed, 108 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+index 386ba88c57c6a..ee8a11f62a0d3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+@@ -414,8 +414,16 @@ void amdgpu_dm_handle_vrr_transition(struct amdgpu_display_manager *dm,
+ 				     struct dm_crtc_state *new_state)
+ {
+ 	struct amdgpu_device *adev = dm->adev;
+-	bool old_vrr_active = amdgpu_dm_crtc_vrr_active(old_state);
+-	bool new_vrr_active = amdgpu_dm_crtc_vrr_active(new_state);
++	/*
++	 * A disabled CRTC keeps its freesync state, but drm_crtc_vblank_get()
++	 * fails there because vblank is off. Hold the reference only while
++	 * the CRTC is active as well, which also covers resume, where the
++	 * reset state lost track of the reference taken before suspend
++	 */
++	bool old_vrr_active = old_state->base.active &&
++			      amdgpu_dm_crtc_vrr_active(old_state);
++	bool new_vrr_active = new_state->base.active &&
++			      amdgpu_dm_crtc_vrr_active(new_state);
  
-+.. toctree::
-+   :maxdepth: 1
-+
-+   init
-+
- Todolist:
+ 	/* Only DCE gates vupdate on VRR, keep it enabled for DCN */
+ 	bool vrr_gates_vupdate = amdgpu_ip_version(adev, DCE_HWIP, 0) == 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
+index 710cdc7f40bf8..3268bdb1043ba 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
+@@ -855,8 +855,10 @@ static void dm_test_handle_vrr_transition_round_trip(struct kunit *test)
+ 	mutex_init(&adev->dm.dc_lock);
  
- *   reporting-issues
-@@ -83,7 +88,6 @@ Todolist:
- *   tainted-kernels
- *   ramoops
- *   dynamic-debug-howto
--*   init
- *   kdump/index
- *   perf/index
- *   pstore-blk
-diff --git a/Documentation/translations/pt_BR/admin-guide/init.rst b/Documentation/translations/pt_BR/admin-guide/init.rst
-new file mode 100644
-index 000000000..2532c07c0
---- /dev/null
-+++ b/Documentation/translations/pt_BR/admin-guide/init.rst
-@@ -0,0 +1,58 @@
-+.. SPDX-License-Identifier: GPL-2.0
+ 	old_state.base.crtc = &acrtc->base;
++	old_state.base.active = true;
+ 	old_state.stream = stream;
+ 	new_state.base.crtc = &acrtc->base;
++	new_state.base.active = true;
+ 	new_state.stream = stream;
+ 	new_state.freesync_config.state = VRR_STATE_ACTIVE_VARIABLE;
+ 
+@@ -867,6 +869,99 @@ static void dm_test_handle_vrr_transition_round_trip(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, atomic_read(&vblank->refcount), 0);
+ }
+ 
++/*
++ * Runs a transition on a CRTC whose vblank is on with two references held,
++ * so a get or put never has to enable or disable it, and returns the
++ * refcount afterwards
++ */
++static int dm_test_vrr_transition_refcount(struct kunit *test,
++					   bool old_active, enum mod_vrr_state old_vrr,
++					   bool new_active, enum mod_vrr_state new_vrr)
++{
++	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
++	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
++	struct dm_crtc_state *old_state, *new_state;
++	struct drm_crtc *crtc;
++	int refcount;
 +
-+Explicando a mensagem de travamento na inicialização: "No working init found."
-+==============================================================================
-+:Autores: Andreas Mohr <andi at lisas period de>
-+          Cristian Souza <cristianmsbr at gmail period com>
++	KUNIT_ASSERT_EQ(test, drm_vblank_init(&adev->ddev, 1), 0);
++	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(2, 1, 0);
++	dm->adev = adev;
++	mutex_init(&dm->dc_lock);
 +
-+Este documento apresenta algumas causas gerais da falha ao carregar o binário
-+init (listadas aproximadamente na ordem em que ocorrem).
++	crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, crtc);
++	crtc->dev = &adev->ddev;
 +
-+1) **Não foi possível montar o sistema de arquivos raiz**: Defina o parâmetro
-+   do kernel "debug" (no arquivo de configuração do carregador de inicialização
-+   ou em CONFIG_CMDLINE) para obter mensagens mais detalhadas do kernel.
++	old_state = kunit_kzalloc(test, sizeof(*old_state), GFP_KERNEL);
++	new_state = kunit_kzalloc(test, sizeof(*new_state), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, old_state);
++	KUNIT_ASSERT_NOT_NULL(test, new_state);
++	old_state->base.crtc = crtc;
++	old_state->base.active = old_active;
++	old_state->freesync_config.state = old_vrr;
++	new_state->base.crtc = crtc;
++	new_state->base.active = new_active;
++	new_state->freesync_config.state = new_vrr;
 +
-+2) **O binário init não existe no sistema de arquivos raiz**: Certifique-se de
-+   que o tipo do sistema de arquivos raiz está correto (e de que o parâmetro
-+   do kernel ``root=`` aponta para a partição correta) e de que os drivers
-+   necessários — como os de hardware de armazenamento (por exemplo, SCSI ou
-+   USB!) e os de sistema de arquivos (ext3, jffs2 etc.) — são compilados no
-+   kernel (ou, alternativamente, estão disponíveis como módulos a serem
-+   pré-carregados por um initrd).
++	adev->ddev.vblank[0].enabled = true;
++	atomic_set(&adev->ddev.vblank[0].refcount, 2);
 +
-+3) **Dispositivo de console com problemas**: Possivelmente há um conflito na
-+   configuração de ``console=`` que deixa o console inicial indisponível. Por
-+   exemplo, alguns consoles seriais não são confiáveis devido a problemas com
-+   IRQs seriais (por exemplo, ausência de configuração baseada em interrupções).
-+   Tente especificar outro dispositivo no parâmetro ``console=`` ou, por
-+   exemplo, usar ``netconsole=``.
++	amdgpu_dm_handle_vrr_transition(dm, old_state, new_state);
++	refcount = atomic_read(&adev->ddev.vblank[0].refcount);
 +
-+4) **O binário existe, mas as dependências não estão disponíveis**: Por
-+   exemplo, bibliotecas necessárias ao binário init, como
-+   ``/lib/ld-linux.so.2``, podem estar ausentes ou danificadas. Use
-+   ``readelf -d <INIT>|grep NEEDED`` para descobrir quais bibliotecas são
-+   necessárias.
++	/* drm_vblank_init_release() warns if vblank is still enabled */
++	adev->ddev.vblank[0].enabled = false;
++	atomic_set(&adev->ddev.vblank[0].refcount, 0);
 +
-+5) **Não é possível carregar o binário**: Certifique-se de que a arquitetura
-+   do binário corresponda à do hardware. Por exemplo, pode haver uma
-+   incompatibilidade entre i386 e x86_64 ou uma tentativa de carregar um binário
-+   x86 em hardware ARM. Se você tentou carregar aqui um arquivo que não é
-+   binário (um script de shell?), certifique-se de que o script
-+   especifique um interpretador na linha de shebang do script (``#!/...``)
-+   que funcione corretamente, incluindo suas dependências de
-+   biblioteca. Antes de investigar scripts, é melhor testar primeiro um
-+   binário simples que não seja um script, como ``/bin/sh``, e confirmar que
-+   ele é executado com sucesso. Para saber mais, adicione código a
-+   ``init/main.c`` para exibir os valores de retorno de kernel_execve().
++	return refcount;
++}
 +
-+Amplie esta explicação sempre que encontrar novas causas de falha (afinal,
-+carregar o binário init é uma etapa de transição CRÍTICA e difícil, que deve ser
-+tão tranquila quanto possível); em seguida, envie um patch à LKML.
-+Outras tarefas pendentes:
++/**
++ * dm_test_vrr_transition_crtc_off_drops_ref - Test disabling the CRTC drops the ref
++ * @test: The KUnit test context
++ *
++ * Disabling the CRTC keeps the freesync state, as on suspend or DPMS off.
++ * The reference must still be dropped, since resume restores the state from
++ * a reset one and takes a new reference
++ */
++static void dm_test_vrr_transition_crtc_off_drops_ref(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test,
++			dm_test_vrr_transition_refcount(test, true, VRR_STATE_ACTIVE_VARIABLE,
++							false, VRR_STATE_ACTIVE_VARIABLE),
++			1);
++}
 +
-+- Implementar as várias chamadas de ``run_init_process()`` usando um array de
-+  estruturas, para armazenar o valor de retorno de cada chamada a
-+  ``kernel_execve()`` e, em caso de falha, percorrer **todos** os resultados e
-+  registrá-los (uma correção de usabilidade muito importante).
-+- Tentar tornar a própria implementação mais útil em geral, por exemplo,
-+  fornecendo mensagens de erro adicionais nos pontos afetados.
++/**
++ * dm_test_vrr_transition_crtc_on_takes_ref - Test enabling the CRTC takes the ref
++ * @test: The KUnit test context
++ *
++ * Covers resume, where the old state is a reset one, and DPMS on
++ */
++static void dm_test_vrr_transition_crtc_on_takes_ref(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test,
++			dm_test_vrr_transition_refcount(test, false, VRR_STATE_UNSUPPORTED,
++							true, VRR_STATE_ACTIVE_VARIABLE),
++			3);
++}
++
++/**
++ * dm_test_vrr_transition_crtc_off_keeps_ref - Test no ref change while off
++ * @test: The KUnit test context
++ *
++ * A disabled CRTC has vblank off, so a VRR change there must neither take
++ * nor drop a reference
++ */
++static void dm_test_vrr_transition_crtc_off_keeps_ref(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test,
++			dm_test_vrr_transition_refcount(test, false, VRR_STATE_UNSUPPORTED,
++							false, VRR_STATE_ACTIVE_VARIABLE),
++			2);
++}
++
+ static struct kunit_case amdgpu_dm_freesync_tests[] = {
+ 	/* amdgpu_dm_is_timing_unchanged_for_freesync */
+ 	KUNIT_CASE(dm_test_timing_unchanged_null_args),
+@@ -910,6 +1005,9 @@ static struct kunit_case amdgpu_dm_freesync_tests[] = {
+ 	/* amdgpu_dm_handle_vrr_transition */
+ 	KUNIT_CASE(dm_test_handle_vrr_transition_inactive),
+ 	KUNIT_CASE(dm_test_handle_vrr_transition_round_trip),
++	KUNIT_CASE(dm_test_vrr_transition_crtc_off_drops_ref),
++	KUNIT_CASE(dm_test_vrr_transition_crtc_on_takes_ref),
++	KUNIT_CASE(dm_test_vrr_transition_crtc_off_keeps_ref),
+ 	{}
+ };
+ 
 -- 
 2.56.0
 
