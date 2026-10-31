@@ -1,100 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793448796;
-	b=UUPyBFhruUEWPmuB/duIDfgJ2NuyXviTQaP25U6+iBCsjElcH4h1glRrp+Vvs/fmvT0A
-	 JrWyH63CXeEnFc+QAoj637f1tv+tX5lP+mXMItiLP1IvJLA6XfMl1Y9CX3JQY3rOdCSnp
-	 N5iGDoXl/Yy0Y33Yo8DiKeYQE6zkJ9ATmZE/e5QpY3Fq+pPDggFmaS8m6z8bGwhjVa+QI
-	 blfCYrKTgCqEPUZ25/imvl83KZLm94211agAs2X4bRdEDknNkElS+9dUIpCz3aCCHlHb/
-	 q84l0iA+5YQhaKTdSxd8JWOCYWJvKwC9fBDHB1EvWePiZtcLVIj9r9wzi96gXgwvIhA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793448796;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=92RxbdIoYdks54JXgIdkuC9nu61dKUU8qHkYk11QqtA=;
-	b=ZgvCI85Q1Kx5AgdnhENw+stQ9nwY32m5hJnO0JfASNkJvbbyutQaJlzvFS4VQylBDK27
-	 7MyiogS4EZmc31M27Rwa4TFNe+tw5UfIFNmz4LO2QqdmSsPbRnVfT1C1K3Zxp+LO/sdgq
-	 3MMfMUU//bh8IciqO0JUsrEl5/iYzA2bqg9+1Wheznt/Np6QSW7LaaCSP9oMWlk8qsLCl
-	 3B+vwSM96XFm2Ba5K8lHh3QWWqVkeR2aI2NDcYVp6oyCCvf/DTQp6FY8GQY6qwvMKEeq7
-	 RgCpe5Y/W3Bgg0/Q/lToC2D54h4LrCoPQ/lWyJUzBOA8RaTAtiyxtyhtwP5vYe5K0DQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z9fry2D8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793448813;
+	b=XGqC0ibOL8M3jYrcARTmqQ5LUBmmIllSXft8tvEVboo3BMBaDaTtELt1oi57kgd4DGpr
+	 yxtsobAX2kJk/0Nv7VfBIilsO8eB8RujOBn4RvIvMlu6A1ccBfqZKkMn7R5U+U2jf8x8I
+	 yqjPLNsSO8rZFWf3V3panYf2q2/XCo6v7KdBJXm5tNR3bChtzeruDUzybWHf95ruY1o0N
+	 +D5lfzv6YAmRJXJcRAWU9aG0HKW2lXrj0VqAP2h3DLnrtetun99xEu2/BBFqSsTmqXHIl
+	 /AZu5fZ0SUYiW5lG/70isYF48Coe7eNlb04eCdx/KL0ZmZw0U4okLExPV1A09lj83zg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793448813;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=PJd/nptdnC1n5bUkePO/xl7mlQ8XownhXVpCQRExh0U=;
+	b=z4RhY3IKp1LJ118aQ2nWBeY6bgIDbdrpxanEnzi36TiJhO9sC8oiOvInliEQULfIUhc1
+	 MsIOLoRO/hBeUf+vW+AGUjegFwPb4FLTn3ghpKSJb6Yk/NGweKsbyTYjNZ02uqiZ317mz
+	 NiShUIf23dvKJetG+TxgO2SfSP5FZbYVFHNTuWT3XytZPn27mHtTbLb+czmOrHTTlncLc
+	 RzXTN+LuV2zjCO8zh+aZhPXz0zkErMZDnmJEX1VtHm8uNxWxFUtPNmLhvHh3a1/N0w4BK
+	 pYf72dyoaep26HgV7gqgAylx0HCIIGbeN+mA89r8M0A9OXpqF2AycXCWub5X59lFVqw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FXbPWG3P;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D0B606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:13:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24D0B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499AE606A31C;
+	Sat, 31 Oct 2026 12:13:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z9fry2D8
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1931ff67a29so1495247c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:13:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793448795; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eAuual4CgeHdUJPW7gu9o1O4lI/w2dfxD07IO6Tf/JjbldoonkGGvJgGAnwZlIlYnb
-         0AHqAprgPZg2FNJdLiVGQt1RWGR6geOuV4r/0XgwyUROQGaaw+pDnHyyqAa+4ISMbcHS
-         X5RMxyztDk7ht3RiTK4FJ3JbUJx1AO7/5ljYSbpVDj8j7zGHu0IkR9c5GtgBV9Vpb5qU
-         gXIRuuORPYfS6bejUXWrMYDeGGx47rF9ZlvaQePeqWBncr8DCqLN5UcG7kZHvAVXs93c
-         DAncWia8bXogjdlPGTkIgUZwrzAcD65+nwnis4lAyj8oj12H7h9NjjYgYBWrfHM83l+7
-         GE9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=92RxbdIoYdks54JXgIdkuC9nu61dKUU8qHkYk11QqtA=;
-        fh=a9FYkmgBrtqIEuPRM0fU+uNnbUckDpTJm9E5aWevIoo=;
-        b=arE+809FPKbtRJrVBhks0TvERAWuXdJw/fGeAxbm3y5XJ3ItdtOoiWadeN2O0vXwIb
-         x8/WHf8QMl+eWLtrKHzgtkgo+TOh2Ihs8IvpEpadU8TSkf1s1023UxJJnV/ZjPqwqDKN
-         gYXu6D12wxkobY6BP9crwZ2DDwTUVkBVCbtMW/Vo7/04s3iHjOEXyk/3nQMNUMJxk1Cy
-         lzw6LT6ElxyRX9TNzrGvFUEvY+HFC2v1kgM7/s8sGzolKZ9utUooHrGaEIl6M6y3hG71
-         qdtNhHHnP23p3yT8r+/zeNkxHJJGDeoQnGqCg4UKdb5DigQ6CD8tNc+WTRFxnocZ6yZQ
-         Mnuw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793448795; x=1794053595; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=92RxbdIoYdks54JXgIdkuC9nu61dKUU8qHkYk11QqtA=;
-        b=Z9fry2D8wh2yx0cc7IMuInySHMnBgZbBvurkYrzrVLpzrJAe3y5yXU2AWQE3h/oXn2
-         Ug6cpQxxeatxaF2T2Rx5HmyNsQqlx78qpKU1OcaYFQKo4r2egqAgUjH5FqGTgJVPx80a
-         9J0ZBmcxfYcm/P3sM7nF4EOe23jNHXB+3If/aFu/i+rhExoDPTMO/o2B5/jbNpFDfZHD
-         KpT0PzcQyaq/zKlBVODJx/ycVjE+tkMgLga/eqM/m4CJ1TNeFYYH2g4QCQ//ULX5IwFE
-         SyKEoTt/xhnxQrY7nrzSJh/uXYlRAM+JuwEQNTmHF/qkM6HovV4uAd0v7b3UUVF/zDSe
-         ZU9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793448795; x=1794053595;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=92RxbdIoYdks54JXgIdkuC9nu61dKUU8qHkYk11QqtA=;
-        b=Y1mwZpPHRZnvY7HF9trtSXSWroC7A9aJSNyXUS0kzHgzabf7HSCHdBqkxNxurMZDUD
-         9/UVTXZFXdjO2LgoDQghKcdBjmUa1U0D0w5azUHvzheCYdGQ/XLQshXaH7ENx6z47l/F
-         yiqwurK8yheYAkFqeIBBiHemtvgv14Ym7zgbITZX0LnICrLwQS0vbZt5zccTSw4rbZ6l
-         ek9E6/8RXSZVyo/ut9TA+psgeFF0FkmRTln42TfpitXw25oBeQ/Ju7Z7WR4npJ4aphq3
-         r+4O5YXY97YVWmOpvyDR4FSRIMnw0KgkawBkktmfQNe08hldYHZPBcAYTROGfoCZu//E
-         iZMA==
-X-Forwarded-Encrypted: i=1; AKwUvBwUxpzMXzrP3cbICndHjU/a9xbNQJ99BUWRZuofkuk2aBDUY3JEKsTwTQeMbr75WtFVtkQyC3E9eUyIiEY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKnM1H5mA/yoGJWEYB5dIi/QQZBBmHqnR8vhE0NjFfi8h7JHLZs
-	ffMmfgSHbwHGRPCBZFmTKI17/RBj1vMe9J7RsxSW3D/AevRRNjb/u9rH3JSz2WvcBD4ZdGM7Lvd
-	fK3/CUlNzA2M/lpKffE6Ed4bjZT68yodtcQV6
-X-Gm-Gg: AYBFou0Km1d+PjAQgg/ZI3XHPYfKfEZhvvdiYYjS/5Bewq0jaPz9Mtq2PI9q5e2+uUC
-	EwQirfLF/ooHWkx8GYIuZNYtBOsv8R52Kb84ij6lebCK3m2vLoSHFMoS0uMA+ADsX53ynfgSysb
-	hl7i+K4ZnSP7S6JDa0hj07dg/TKMgkrELOqYouN4d8Q2pqAwpUiV0y1837wDPAGPUNb9MeydmwD
-	mCGTXZiCPvdic/HDXYnHELGWoDFFUhQPRAD+hhw1mKGX0UF0KPLbKiXH6mozVbleob5mlwFN02C
-	/9Eb9Y7dnESy7Bp9pptzHylEnFTjoQDOpHrk2GzdkPY3hX+KeiYCFbp0/IFqxrQLDWB00rQHNSf
-	V3t877S7ebTQfydD7WYBw80q84Nzou/KKZYsU5xFO5jNRC/kjEDcMlx72+OXnQQuNT+KmtiA=
-X-Received: by 2002:a05:7022:f50a:b0:149:50cb:2175 with SMTP id
- a92af1059eb24-1ac5cb1881bmr6786689c88.33.1793448795055; Sat, 31 Oct 2026
- 05:13:15 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FXbPWG3P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A2511F00A02;
+	Sat, 31 Oct 2026 12:13:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793448812;
+	bh=PJd/nptdnC1n5bUkePO/xl7mlQ8XownhXVpCQRExh0U=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=FXbPWG3PToGgxptpFnojITlre50TZXpXDLBX+NT4iMla4bSOz5galxm8v5qdpA26h
+	 CCQ7t20EsGWoDSg5NgTYXfhwNJWQVfm6zSsLjtO5spPXTX1iBn45jzsQJxnhu6nBq+
+	 qvPrcJUOHBNcch1rV6CW961oPFsDni+TtxfMcCgvhzlpdVVo0AdmcOol63RZxusY2c
+	 VEvQdsw9opJbNVXCTzX/b+ow9cBHba9frY4Z9KwSWgn+RtyWJYHT4hAOBxkMm6nDDW
+	 tot/gRYIC8+J44v2m4UfHXxzjdic89RLwEPhAqivKRsV7XY/uhURxenMV/yYyNdmr4
+	 fuU5HWdvtpzxQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,108 +49,295 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CABD5TJy-sp0knXTpaBhJ4+zvc42jaDFggX7jKpqUvz6tTVhoTA@mail.gmail.com>
- <CABD5TJyqC846A1=dL2F540X2rs-t2Xv=uT2SzLLtCnczCYHqeA@mail.gmail.com> <CABD5TJxfTaNfLvPEjyGwrTb9Jn-bqq0mjXjUn7Vv7dCeLD_6pQ@mail.gmail.com>
-In-Reply-To: <CABD5TJxfTaNfLvPEjyGwrTb9Jn-bqq0mjXjUn7Vv7dCeLD_6pQ@mail.gmail.com>
-From: Anup Keshwani <keshwani.anup@gmail.com>
-Date: Sat, 31 Oct 2026 17:43:03 +0530
-X-Gm-Features: AclHuK85zhkFXPh1CfiySAdqs0FwOZF4O4AGOyDP7lNgetzPcM9OWC97WmNYNNk
-Message-ID: <CABD5TJzXM+XCM0fhkRCaKdr9wQcgCTvH0RhhUpfaR1X2=z9VBw@mail.gmail.com>
-Subject: Re: Subject: [PATCH] ACPI: video: Add backlight=native quirk for Dell
- OptiPlex AIO 7410 35W
-To: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, johannes.goede@oss.qualcomm.com
-Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, hansg@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 2/2] phy: add a driver for T-Head TH1520 USB PHY
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Wei Fu <wefu@redhat.com>, Drew Fustini <dfustini@tenstorrent.com>, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ Icenowy Zheng <uwu@icenowy.me>, Han Gao <rabenda.cn@gmail.com>
+In-Reply-To: <20261009090444.3319517-3-zhengxingda@iscas.ac.cn>
+References: <20261009090444.3319517-1-zhengxingda@iscas.ac.cn>
+ <20261009090444.3319517-3-zhengxingda@iscas.ac.cn>
+Date: Sat, 31 Oct 2026 17:43:00 +0530
+Message-Id: <179344878055.5901.6127263477546911730.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8331; i=mani@kernel.org;
+ h=from:subject:message-id; bh=dId6tLZSjtbmcyoI3RlGhmmOJqb+GkYVdFxndwegmJU=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5dtbWWVyN85bSTsl8lATWrpjOwJm1s8rYWEPt
+ vlgZcQAVqqJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauXbWwAKCRBVnxHm/pHO
+ 9WOyB/9hAjdmWUSwLj1dOBWKc8cCMv4RiTQJItriqmItKTyp0heV2M7Bw4ucM0e2PqCgmxy+Xjj
+ tIriEvjTRSI/0WyQGW3eEfEK1vNPLbFhIlGYsYBZL1ri6DKyQbaGZSEwpgJZVx9bN3OAhOgujbf
+ vw9T13gv4O050TRLr2jPx7uUsqO9Jpr/6tPYSGZbLlnj+aJMzf2IHUEL0eUlB2CCPIsOwM5B5Zn
+ q9v+7J4wP5uIY1U2wtsr481rlxKasTfuMMszYnsppLJQ/Qm6LBWUt5R+wv//6rn14uLZO08wLFd
+ b7c5NjW4fGI9qt3cWZ2WTz13K4J2utZx8XGrMh+KQGykj8Gd
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-Dear Maintainers,
+On 2026-10-09 17:04 +0800, Icenowy Zheng wrote:
+> The USB PHY on T-Head TH1520 SoC is a Synopsys USB 3.0 FemtoPHY, with
+> some PHY parameters exported as another system controller along with it.
+> 
+> A few PHY parameters have unusable defaults. Add a driver that programs
+> them before releasing the PHY from reset in addition to
+> clock/reset/regulator management.
+> 
+> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> ---
+> Changes in v3:
+> - Use fsleep() to replace udelay(), and add proper inclusion of
+>   linux/delay.h for this function. (fsleep() suggested by Drew and
+>   inclusion suggested by Sashiko)
+> - Adapt Drew's suggestion on the wording of the commit message's 2nd
+>   paragraph.
+> Changes in v2:
+> - Removed unreferenced register names.
+> - Changed the behavior to leaving bus clock on instead of binding it to
+>   the regmap.
+> - Removed early return for reset deassert failure in phy exit callback.
+> - Tweaked the Kconfig item (removed default value and added "select
+>   REGMAP_MMIO).
+> 
+>  drivers/phy/Kconfig                |   1 +
+>  drivers/phy/Makefile               |   1 +
+>  drivers/phy/thead/Kconfig          |  12 ++
+>  drivers/phy/thead/Makefile         |   2 +
+>  drivers/phy/thead/phy-th1520-usb.c | 181 +++++++++++++++++++++++++++++
+>  5 files changed, 197 insertions(+)
+>  create mode 100644 drivers/phy/thead/Kconfig
+>  create mode 100644 drivers/phy/thead/Makefile
+>  create mode 100644 drivers/phy/thead/phy-th1520-usb.c
+> 
+> diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
+> index 19f3b7d12b7d4..a05019020ee09 100644
+> --- a/drivers/phy/Kconfig
+> +++ b/drivers/phy/Kconfig
+> @@ -200,6 +200,7 @@ source "drivers/phy/st/Kconfig"
+>  source "drivers/phy/starfive/Kconfig"
+>  source "drivers/phy/sunplus/Kconfig"
+>  source "drivers/phy/tegra/Kconfig"
+> +source "drivers/phy/thead/Kconfig"
+>  source "drivers/phy/ti/Kconfig"
+>  source "drivers/phy/xilinx/Kconfig"
+>  
+> diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
+> index d7aa516bcc49e..0ac5b21477619 100644
+> --- a/drivers/phy/Makefile
+> +++ b/drivers/phy/Makefile
+> @@ -52,5 +52,6 @@ obj-$(CONFIG_GENERIC_PHY)		+= allwinner/	\
+>  					   starfive/	\
+>  					   sunplus/	\
+>  					   tegra/	\
+> +					   thead/	\
+>  					   ti/		\
+>  					   xilinx/
+> diff --git a/drivers/phy/thead/Kconfig b/drivers/phy/thead/Kconfig
+> new file mode 100644
+> index 0000000000000..ba0ceac54c1b0
+> --- /dev/null
+> +++ b/drivers/phy/thead/Kconfig
+> @@ -0,0 +1,12 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +config PHY_TH1520_USB
 
-I noticed that the following patch
-https://patchwork.kernel.org/project/linux-acpi/patch/20261010124830.116750=
--1-chitranshmandhaniya@gmail.com/
-was recently accepted. I actually submitted the identical fix a few
-months ago here:
-https://patchwork.kernel.org/project/linux-acpi/patch/CABD5TJy-sp0knXTpaBhJ=
-4+zvc42jaDFggX7jKpqUvz6tTVhoTA@mail.gmail.com/
+Can you name this PHY driver based on some family or means other than SoC name?
+Naming the driver per SoC usually ends up confusing as more SoCs will end up
+reusing them.
 
-I just wanted to point this out so that we can ensure the history
-reflects the original implementation, or perhaps I could be added as a
-co-developer or 'reported by contributor'.
+> +	tristate "USB PHY driver for T-Head TH1520 SoC"
+> +	depends on ARCH_THEAD || COMPILE_TEST
+> +	depends on COMMON_CLK
+> +	depends on HAS_IOMEM
+> +	depends on OF
+> +	depends on RESET_CONTROLLER
+> +	select GENERIC_PHY
+> +	select REGMAP_MMIO
+> +	help
+> +	  Enable support for the USB PHY on the T-Head TH1520 SoC.
+> diff --git a/drivers/phy/thead/Makefile b/drivers/phy/thead/Makefile
+> new file mode 100644
+> index 0000000000000..5b459bc7004bd
+> --- /dev/null
+> +++ b/drivers/phy/thead/Makefile
+> @@ -0,0 +1,2 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +obj-$(CONFIG_PHY_TH1520_USB) += phy-th1520-usb.o
+> diff --git a/drivers/phy/thead/phy-th1520-usb.c b/drivers/phy/thead/phy-th1520-usb.c
+> new file mode 100644
+> index 0000000000000..6cb0e51401374
+> --- /dev/null
+> +++ b/drivers/phy/thead/phy-th1520-usb.c
+> @@ -0,0 +1,181 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2026 Institute of Software, Chinese Academy of Sciences (ISCAS)
+> + *
+> + * Authors:
+> + * Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/delay.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/phy/phy.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/reset.h>
+> +
+> +#define USB_SYSCON_OFFSET		0xf000
+> +
+> +/* All the below registers are in the USB syscon region */
+> +#define USB_SSP_EN			0x34
+> +#define USB_SSP_EN_REF_SSP_EN		BIT(0)
+> +
+> +#define USB_SYS				0x3c
+> +#define USB_SYS_COMMONONN		BIT(0)
+> +
+> +/* The last register according to the manual */
+> +#define USB_TEST_REG3			0x5c
+> +
+> +struct th1520_usb_phy {
+> +	struct platform_device *pdev;
+> +	struct phy *phy;
+> +	struct regmap *regmap;
+> +	struct clk *ref_clk;
+> +	struct reset_control *phy_reset;
+> +};
+> +
+> +static int th1520_usb_phy_init(struct phy *phy)
+> +{
+> +	struct th1520_usb_phy *th1520_phy = phy_get_drvdata(phy);
+> +	int ret;
+> +
+> +	ret = clk_prepare_enable(th1520_phy->ref_clk);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = reset_control_assert(th1520_phy->phy_reset);
+> +	if (ret)
+> +		goto err_disable_clk;
+> +
+> +	/*
+> +	 * Do some initial PHY setup:
+> +	 * - Set COMMONONN to allow the PHY to automatically power down.
+> +	 * - Set REF_SSP_EN to enable feeding reference clock to SuperSpeed
+> +	 *   PHY clock PLL.
+> +	 */
+> +	regmap_set_bits(th1520_phy->regmap, USB_SYS, USB_SYS_COMMONONN);
+> +	regmap_set_bits(th1520_phy->regmap, USB_SSP_EN, USB_SSP_EN_REF_SSP_EN);
+> +
+> +	ret = reset_control_deassert(th1520_phy->phy_reset);
+> +	if (ret)
+> +		goto err_disable_clk;
+> +
+> +	fsleep(10);
+> +
+> +	return 0;
+> +
+> +err_disable_clk:
+> +	clk_disable_unprepare(th1520_phy->ref_clk);
+> +	return ret;
+> +}
+> +
+> +static int th1520_usb_phy_exit(struct phy *phy)
+> +{
+> +	struct th1520_usb_phy *th1520_phy = phy_get_drvdata(phy);
+> +	int ret;
+> +
+> +	ret = reset_control_assert(th1520_phy->phy_reset);
+> +	clk_disable_unprepare(th1520_phy->ref_clk);
+> +
 
-Thanks,
-Anup
+Sashiko has some comment here. I believe reset_control_assert() is not going to
+fail, but still it would be better to follow proper semantics.
 
-On Tue, Aug 4, 2026 at 11:21=E2=80=AFPM Anup Keshwani <keshwani.anup@gmail.=
-com> wrote:
->
-> Hi Rafael, len, and Hans,
->
-> Resending this reminder to Hans' updated kernel.org address (apologies
-> for the bounce).
-> Just a gentle ping on this backlight quirk patch when you have a moment.
->
-> Please let me know if any changes are needed.
->
-> Thanks,
-> Anup
->
-> On Tue, Aug 4, 2026 at 11:10=E2=80=AFPM Anup Keshwani <keshwani.anup@gmai=
-l.com> wrote:
-> >
-> > Hi Rafael, Len, and Hans,
-> >
-> > Just a gentle ping on this backlight quirk patch when you have a moment=
-.
-> >
-> > Please let me know if any changes are needed.
-> >
-> > Thanks,
-> > Anup
-> >
-> > On Tue, Jun 16, 2026 at 12:29=E2=80=AFAM Anup Keshwani <keshwani.anup@g=
-mail.com> wrote:
-> > >
-> > > From b289e63d7f44500517dc94b7028b707616fd1dd1 Mon Sep 17 00:00:00 200=
-1
-> > > From: Anup Keshwani <anup.keshwani@dell.com>
-> > > Date: Tue, 16 Jun 2026 02:57:11 +0530
-> > > Subject: [PATCH] ACPI: video: Add backlight=3Dnative quirk for Dell O=
-ptiPlex AIO
-> > >  7410 35W
-> > >
-> > > Dell All In One (AIO) models released after 2017 may use a backlight
-> > > controller board connected to a UART.
-> > >
-> > > In DSDT this uart port will be defined as:
-> > >
-> > > Name (_HID, "DELL0501")
-> > > Name (_CID, EisaId ("PNP0501")
-> > >
-> > > Signed-off-by: Anup Keshwani <anup.keshwani@dell.com>
-> > > ---
-> > >  drivers/acpi/video_detect.c | 8 ++++++++
-> > >  1 file changed, 8 insertions(+)
-> > >
-> > > diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.=
-c
-> > > index 458efa4fe..10e3c1657 100644
-> > > --- a/drivers/acpi/video_detect.c
-> > > +++ b/drivers/acpi/video_detect.c
-> > > @@ -886,6 +886,14 @@ static const struct dmi_system_id
-> > > video_detect_dmi_table[] =3D {
-> > >   DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex 7770 AIO"),
-> > >   },
-> > >   },
-> > > + {
-> > > + .callback =3D video_detect_force_native,
-> > > + /* Dell OptiPlex AIO 7410 35W */
-> > > + .matches =3D {
-> > > + DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-> > > + DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex AIO 7410 35W"),
-> > > + },
-> > > + },
-> > >
-> > >   /*
-> > >   * Models which have nvidia-ec-wmi support, but should not use it.
-> > > --
-> > > 2.43.0
+> +	return ret;
+> +}
+> +
+> +static const struct phy_ops th1520_usb_phy_ops = {
+> +	.init		= th1520_usb_phy_init,
+> +	.exit		= th1520_usb_phy_exit,
+> +	.owner		= THIS_MODULE,
+> +};
+> +
+> +static const struct regmap_config phy_regmap_config = {
+> +	.reg_bits = 32,
+> +	.val_bits = 32,
+> +	.reg_stride = 4,
+> +	.max_register = USB_TEST_REG3,
+> +};
+> +
+> +static int th1520_usb_phy_probe(struct platform_device *pdev)
+> +{
+> +	struct phy_provider *phy_provider;
+> +	struct device *dev = &pdev->dev;
+> +	struct th1520_usb_phy *th1520_phy;
+> +	struct reset_control *bus_reset;
+> +	struct clk *bus_clk;
+> +	void __iomem *base;
+> +	int ret;
+> +
+> +	th1520_phy = devm_kzalloc(dev, sizeof(*th1520_phy), GFP_KERNEL);
+> +	if (!th1520_phy)
+> +		return -ENOMEM;
+> +
+> +	th1520_phy->pdev = pdev;
+> +
+> +	base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+> +
+> +	th1520_phy->ref_clk = devm_clk_get(dev, "ref");
+> +	if (IS_ERR(th1520_phy->ref_clk))
+> +		return PTR_ERR(th1520_phy->ref_clk);
+> +
+> +	/* Enable the bus clock and leave it that way */
+> +	bus_clk = devm_clk_get_enabled(dev, "bus");
+> +	if (IS_ERR(bus_clk))
+> +		return PTR_ERR(bus_clk);
+> +
+> +	/* De-assert the bus reset and leave it that way */
+> +	bus_reset = devm_reset_control_get_exclusive_deasserted(dev, "bus");
+> +	if (IS_ERR(bus_reset))
+> +		return PTR_ERR(bus_reset);
+> +
+> +	th1520_phy->phy_reset = devm_reset_control_get_exclusive(dev, "phy");
+> +	if (IS_ERR(th1520_phy->phy_reset))
+> +		return PTR_ERR(th1520_phy->phy_reset);
+> +
+> +	/*
+> +	 * Schematics of several boards (Lichee Module 4A/Milk-V Meles)
+> +	 * describe this power rail as always-on.
+
+Make use of 80 columns.
+
+> +	 */
+> +	ret = devm_regulator_get_enable(dev, "avdd33-usb3");
+> +	if (ret)
+> +		return ret;
+> +
+> +	th1520_phy->regmap = devm_regmap_init_mmio(dev,
+> +						   base + USB_SYSCON_OFFSET,
+> +						   &phy_regmap_config);
+> +	if (IS_ERR(th1520_phy->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(th1520_phy->regmap),
+> +				     "Failed to init regmap\n");
+> +
+> +	th1520_phy->phy = devm_phy_create(dev, dev->of_node, &th1520_usb_phy_ops);
+> +	if (IS_ERR(th1520_phy->phy)) {
+> +		dev_err(dev, "failed to create PHY\n");
+
+dev_err_probe()
+
+- Mani
+
+
