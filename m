@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793556196;
-	b=2QhYXnKimQ8GAVvVfahAmboiNSadglVe70WlqGVtkOtPn0XrjbCeuawbVDLne7hi8xka
-	 kdQvybjsumZKzwrPW06hrDvGEM+Oyp7y5NNWzXgqKtN/Ug7te0ooIHeNzPPdMAtfB/5Uc
-	 N252FKF94+GTncolH8OfKbmhjX/0+6RR58ycsiDwZ+f1TsVQDPHjmT6kFELUWEqo5oxad
-	 hC2HbNFj5WGQkNnlbHkfNoD53u78bAcWAti0ls7UM0TAKL6qcHf2O9IQJTS7EmuzJ1leJ
-	 6W8I9UjE2lHYjTUZ5P0gjYSgwhOzfzq6Suyzwle0ejUjclaZBrgoBdJuG3SfRPbb4aQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793556196;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=eXHwMW4V4v8WMpgUgtwJi5ivKtzvlCeyOpj5yYo5S2Y=;
-	b=Pmppxf94sXnZCgk2KS2wotirjY2t3yvR21+PReKfuWq9lTeOOdPFUdW4UvRHKuEJcZ9V
-	 OGwdnZHMB65BS4QkQzs2hQwva7DzwaPJm3uY3q9BB30LR0oIpZS0F4gIed4WbIM5K8yjb
-	 BWRVVYrFZpwGfPipQixVb+JTmJXKck6AX/FF0U9Fd1qvR6u3vRXI3z3VkfaSbXISFdqMH
-	 1vwCp53hxZDWirpeZiu/9S/S7zUuuql0wnq58f2f+32uLqRIdTJa7+GSVSSCEC8OFwRPj
-	 vN75Ak1rhbZSxuvPH9N63Qtg692INxYbpPSsLWklglin0GYQT3Hr/nZSoQ0Ennugyug==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=mg0iYvul;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.210
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793556291;
+	b=YosZpilVMpTje54lbNqYbAk7hO6+xO+bLRnk2SVZLX7TLefn3ImI7lSbVPL/WB7Gl28N
+	 OIaJwc5oFsTJzoVqwYPiKxbJffHCt5QrchzxkYl4OLVmAsUs+VkUN0gD+RMRc1V5okJlC
+	 gnkNcXq0wW5oho/+liRWLKbto7V/Uwh4+esjXna+Qi6LJJEf24Z6TK+2tu1vAnnR96AMz
+	 S1tzPGlWlUGhBf5ZiR1hAL99dVMX2ajKm1YQ66NF1PZyo5uArcuBvPL576ASxpZ5nNFF+
+	 JjXa02166FaXSEIoP64ty7UJR0jkR01cRuRU83FW52NWYJBIgw33BGV7XFxVt6hRMOg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793556291;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=LYyqboXdIBzGq/CwwE0/RCPQD2DfivCnnBGtlUgka8A=;
+	b=Of2zc/vIxbmIUUhqpEd6A6EAhP7vfCwcKa7blqfuEcAk42qNPpllgkq2rBw1T6D64zmR
+	 LBNjZSiUlcm1WUyfhKWYEFMbOhTtd/P04ZGq+T9pI6GDE6J1rbfaTv91+hDIGREUERSQ5
+	 JceAEcsNl16tmgQLUSL3/XGdgidnlLvZj/b2sOfL16jdyVWBAxPPTdGGH9EjXNkl4kGCj
+	 p8NPp9+t79iycNZHAxG0vFsvsXwa62pzXtAZk76N7lXSFc0rEKA2rX6pOMLZ5H5XoCf1P
+	 0RGjgAHuiEKAdOlNVJwiDLm2ebmonbsIzJ71k7nCNOHPWEl7/KrTTF6epK03l3pztmg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=afqooPYA;
+	arc=none smtp.remote-ip=203.205.221.210
+Received: from out203-205-221-210.mail.qq.com (out203-205-221-210.mail.qq.com [203.205.221.210])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AC660A2601;
-	Sun,  1 Nov 2026 18:03:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5AC660A2601
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4973E606A324;
+	Sun,  1 Nov 2026 18:04:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4973E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=mg0iYvul
-ARC-Seal: i=1; a=rsa-sha256; t=1793556163; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=jMfJx7mtJyvrl3hUMFXapoMuOUV0SW6njFh2wylHXITowpncs3kDe6RSZpctLhPcC9UEhO1QTHht9SG4glxsGPhwsiit30FYux7h73qov0oZbRkoE4u3+sh3V8090mGQMd470smDKWYoM2ceo9TvkH3iOAuvnIZdDf1eEJom+i8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793556163; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=eXHwMW4V4v8WMpgUgtwJi5ivKtzvlCeyOpj5yYo5S2Y=; 
-	b=XGbUC6+DOYEYYsCfwCgdmiekVba2XSqAjiNBGyrv22DYhE8FP48ze15u/GyHx9YnWc2XOx33wseNndNH6n3ioyuTq1CW1pWAfS8aoh+e146eBqC3JCUyewwXZC/JUYbHI0whcGcbZ6wyjKbZ2TQONP73xYhVptEMsm/TD4SSrF8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=mg0iYvul/EpjF52CrVKwuu2v4fCljaQRbvIOvjnfI8Ue5JzT5rpq++u7Mu8mvopHg3mnDNEVUnxlg7eJ0QWyUUJu9ijeqALN/upZmEMU1yUc6yg90bVkl25Ed5SW01CRJNaG+Q89G2yqUwoTf1XAxQZcKruQhhQEUN3dNqmgDsG0HKWulYx813jotdto6ZzDFbGXOq1UfbLSwaZUtTz8/DFUsGcp4jZCjGCn4fwfzoBZdvH/aphGb6Ak8T7OEs5Ls/rjQkZ6JEAq9LKmgVfwcIFbyFHbIBQLmUCLlcjshXJPu2+sQuApYPM80RvAPPvG9GZD7yugxrQl+NHaxPLVpQ==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=eXHwMW4V4v8WMpgUgtwJi5ivKtzvlCeyOpj5yYo5S2Y=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793556161090217.19737328716076;
-	Sun, 1 Nov 2026 10:02:41 -0800 (PST)
-Message-ID: <0fd34add2ef37f6abcab1301f6249cc68423f148.camel@rong.moe>
-Subject: Re: [RFC PATCH 0/1] platform/x86: thinkpad_acpi: Add support for
- auto keyboard backlight
-From: Rong Zhang <i@rong.moe>
-To: Qiling Zhu <kmatzkaczor244@gmail.com>, Mark Pearson	
- <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,  Henrique de Moraes Holschuh	
- <hmh@hmh.eng.br>
-Cc: Vishnu Sankar <vishnuocv@gmail.com>, Vishnu Sankar
- <vsankar@lenovo.com>,  Griffin Kroah-Hartman	 <griffin@kroah.com>,
- ibm-acpi-devel@lists.sourceforge.net, Lee Jones	 <lee@kernel.org>,
- linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,  Pavel Machek
- <pavel@kernel.org>, platform-driver-x86@vger.kernel.org,
- vishnuocv@gmail.com, vsankar@lenovo.com
-In-Reply-To: <20261101100123.28749-1-kmatzkaczor244@gmail.com>
-References: <20261101100123.28749-1-kmatzkaczor244@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 01:57:33 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=afqooPYA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793556280; bh=LYyqboXdIBzGq/CwwE0/RCPQD2DfivCnnBGtlUgka8A=;
+	h=From:To:Cc:Subject:Date;
+	b=afqooPYAmxQH5F1YRVAj2pBrnLRT1197zCJt7xor4IsGSKBHnFXBVi8JbQ2ufPHQB
+	 xb0JPYiitbd8YVaT0ItColuq07Ho9Q+C4V/LXpAZMleW/mHnlqbCWvSj2LLMPraRsZ
+	 Ik0CMqSRYyHTDSLU/lXXsS9+Crojq1QHw3yIKwgw=
+Received: from [172.18.4.77] ([111.31.227.58])
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id 1258B23B; Mon, 02 Nov 2026 02:04:37 +0800
+X-QQ-mid: xmsmtpt1793556277tco5hrfpg
+Message-ID: <tencent_5C7F8B8D303ABD994244C1F814473DA5B60A@qq.com>
+X-QQ-XMAILINFO: NC4p7XQIBeahkpsAabajIhOpaIENfCc12td3HavyUmzdgLXtc/MdrH3oMVGlBZ
+	 B3SOvdJyT3d2PxlQ/Igc505LEvU9m/LRGnLTYrlqbz4/rNZvdiuK51cUSx+mwNDgINIF/0RWc26j
+	 98DtjEv6OelHteu/TNsSJtlMwonR0KFpFRn9YvikFHz9fAsmvNtQ6ri1/aCRJZf/Wm6Z2/gbiWRG
+	 Z7YSOfJFhJq5fMxdVaw83UiWQjlduY0R03rel3B4AXeIWPPe8ArYm7jIbFp5hDUJ/6gegtIwe1SD
+	 J42yT79/pHom8QIjzIsIovl6iHfqocaEQPqyTQCuJsMe/qookhnaLhZFgv7hRQOxfnaApcbP5THh
+	 zxV6mg9YsICzI3ayv81CXvj2E3Z3GSPKiuSkGgpKzUbwPSg5e1HwsXePEQPueaHdv7Y5khWQQ9Rl
+	 bAknmmWeCtZ8Gepwsqb6Nw+pBTShKDLeAUpEgoOKrl+2BJ2r/WJP+bQpr1ho89ttUtdNgScwqy9M
+	 xmTzUlKsLHsy/w9sEV2YxNRjujfJABd3nxhW7Rs7kfAcNbW0ZTnnpSEjaKTgrvsUE2miX+iwB5RR
+	 n9Krq28tHzVH4t+JFFgwvOL3fmR5SZJ00XfWFoA+qOXIEhEBIibgI0heNudIiE46j1HQcuj/HaRg
+	 6j5Xcn8W3c5ZQGcgSyWQtdhZYhysklDsMYUWX8BRggV53b/B1+yE1tohOM9pcCGj8RAa4CUrv21a
+	 Q1xeQy+iQDSVqlRN8BlUZMy7Ba+HAVKk/bHp4ymsvuJ6Hgs3FQ//6d0TTfvEQmYfJmoVrXUxZjiw
+	 IBdN2ARO+sAw/IFYejVemRK5PUAU9VxKqfjlzArHXxza3j6nY1chyFOMKE+NKUaKcwfS5+T4K57O
+	 AwVioMDobsfk/uke4vCKuR3KGZfvl9dKveBPL4b3KkspLm4tzk2uHfjR0SVClaQm1xvhsCnMJTvD
+	 CQkRVapFZM0wShYcBI+zOP4KrARE3Pie7UNwRU+CPHTzNiuFk0YEGQXPUAcqhcoBamj+Dmc97zvT
+	 70b0wDkwqFxS57YCOKorfsaGUPAjlfnSqtjBypYnT7reuCjW+c
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: Guikun Yang <yangguikun19@qq.com>
+To: ntfs@lists.linux.dev, Namjae Jeon <linkinjeon@kernel.org>,
+ Hyunchul Lee <hyc.lee@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: [Bug report] ntfs: initialized_size from $LogFile $DATA drives an
+ unvalidated loop bound in ntfs_empty_logfile() - UBSAN shift-out-of-bounds
+ (ilog2) at rw-mount
+X-OQ-MSGID: <c7-ntfs-logfile-ubsan-20261031@qq.com>
+Date: Sat, 31 Oct 2026 20:00:00 +0800
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,100 +79,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-10+b1 
-X-ZohoMailClient: External
 
-Hi Qiling,
+To: ntfs@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+    Namjae Jeon, Hyunchul Lee
+Subject: [Bug report] ntfs: initialized_size from $LogFile $DATA drives an
+ unvalidated loop bound in ntfs_empty_logfile() - UBSAN
+ shift-out-of-bounds (ilog2) at rw-mount
 
-Thanks for working on this.
+Hi,
 
-On Sun, 2026-11-01 at 18:01 +0800, Qiling Zhu wrote:
-> Hi Mark, Ilpo, Rong,
->=20
-> Recent ThinkPads with an ambient light sensor (ALS) support an auto
-> mode for the keyboard backlight: the EC picks the backlight level
-> according to ambient light. The mode is EC keyboard backlight level 3,
-> above the two fixed levels exposed so far, and it is reachable only
-> through the Fn+Space shortcut, which is handled entirely by the
-> firmware. Userspace can neither select the mode nor observe whether it
-> is active.
->=20
-> This series wires the auto mode up as a private hardware control
-> trigger, "tpacpi-kbd-auto", on top of the hw control trigger framework
-> that recently landed in mainline [1]. With it:
->=20
->   - selecting the trigger writes EC level 3 (auto mode on); writing
->     "none" turns the backlight off
->   - the trigger state (bracketed in the trigger sysfs attribute, and
->     the new trigger_may_offload_to_hw attribute) is the userspace
->     view of auto mode; reading brightness returns -ENODATA while
->     auto mode is active, per the framework semantics
->   - Fn+Space keeps cycling through levels and auto mode as before,
->     and the trigger state now follows hardware-initiated transitions
->     automatically
->=20
-> This is the thinkpad_acpi counterpart of the ideapad-laptop wiring
-> from the same framework series, which is still queued; this patch
-> depends only on the LED core parts already in mainline and can be
-> applied independently.
->=20
-> For background: the February discussion settled that auto mode must
-> not be exposed as a brightness value [2], but no agreement was
-> reached back then on how to expose it instead; the hardware control
-> trigger approach was established later by the framework series [1].
->=20
-> Tested on a ThinkPad X1 Carbon Gen 14 (MT 21V8) running linux-next
-> next-20261030: 61 scripted user-visible assertions covering the
-> software paths, the Fn+Space event chain and the unchanged legacy
-> behavior, plus manual exercising of both the Fn+Space cycling and
-> desktop-environment brightness controls; checkpatch --strict clean.
->=20
-> Deliberately unchanged (details in the commit message):
->=20
->   - max_brightness stays 2; auto mode is not multiplexed into the
->     brightness value
->   - writing 3 to /proc/acpi/ibm/kbdlight keeps returning -EINVAL
->   - module unload still turns the keyboard backlight off
->=20
-> Two open questions, the main reason for the RFC tag:
->=20
->   1. MLCG returns capability bits in the upper 16 bits; does one of
->      them indicate auto mode support? If yes, I would gate trigger
->      registration on it. Mark, does the EC documentation say?
->   2. On models without an ALS, the EC behavior when asked for level 3
->      via MLCS is unknown to me. If it is undefined rather than
->      rejected, optimistic registration would need a rethink (e.g.
->      DMI whitelisting).
->=20
-> Rong, happy to rebase this on top of your series or fold it in, if
-> you prefer to keep both wirings together.
+While fuzzing single-byte corruptions of NTFS metadata with an automated
+mount harness, we found that ntfs_empty_logfile() trusts the on-disk
+initialized_size of the LogFile's $DATA attribute as a loop bound without
+any check against the runlist or the volume size, and a single flipped
+byte in a read-write mount sends the kernel into a shift-out-of-bounds
+panic inside the readahead path.
 
-(+CC Vishnu)
+The code (fs/ntfs/logfile.c, ntfs_empty_logfile()):
 
-AFAIK, Vishnu is also working on adding the same support using the hw
-control trigger framework. Maybe they can answer your questions or
-integrate your patch into theirs.
+    end_vcn = (log_ni->initialized_size + vol->cluster_size_mask) >>
+          vol->cluster_size_bits;
+    ...
+    if (rl[1].vcn > end_vcn)
+        len = end_vcn - rl->vcn;
+    end = NTFS_CLU_TO_B(vol, lcn + len);
+
+    page_cache_sync_readahead(sb->s_bdev->bd_mapping, ra, NULL,
+        start >> PAGE_SHIFT, (end - start) >> PAGE_SHIFT);
+    ...
+    } while ((++rl)->vcn < end_vcn);
+
+The inode loader does validate the on-disk trio against each other
+(ntfs_non_resident_sizes_inconsistent(): initialized_size >= 0,
+initialized_size <= data_size, data_size <= allocated_size,
+allocated_size cluster-aligned). What is missing is any relation between
+those sizes and the runlist length or the volume size: initialized_size
+is used directly as end_vcn, and the readahead/loop bounds follow it out
+of the volume. For comparison, ntfs_check_logfile() scans the LogFile
+using i_size (= data_size) truncated to MaxLogFileSize, but that
+truncation happens on a local variable only, and ntfs_empty_logfile()
+runs afterwards on the untruncated initialized_size.
+
+Trigger: one byte. In a mkntfs-created 64MB image, flip byte 0x4947 in
+MFT record 2 (a high byte of the $DATA non-resident size fields) to
+0xFF and mount read-write:
+
+    UBSAN: shift-out-of-bounds in ./include/linux/log2.h:57:13
+    shift exponent 64 is too large for 64-bit type 'long unsigned int'
+    Call Trace:
+     ...
+     page_cache_sync_ra.cold+0x19/0x46
+     ntfs_empty_logfile+0x763/0xd50
+     ntfs_fill_super+0x4085/0x71d0
+     ...
+    Kernel panic - not syncing: UBSAN: panic_on_warn set ...
+
+Reproduced 3/3 runs on a self-built 7.3.0 kernel (CONFIG_NTFS_FS=y,
+CONFIG_UBSAN=y) under QEMU/KVM. The function and the missing
+runlist/volume bound are unchanged in current mainline.
+
+Notes:
+
+- ntfs_check_logfile() scans with i_size (= data_size, still sane), finds
+  no restart pages, reports the LogFile as not empty; the emptying then
+  runs anyway on the crafted initialized_size. The panic happens inside
+  mount(), before any other syscall.
+- A natural fix is to reject or clamp initialized_size (and the derived
+  end_vcn) against the runlist extent or the volume size when the inode
+  is loaded or when the emptying loop starts. Happy to test a patch.
+- This needs a crafted image, like the rest of our NTFS corruption
+  testing; we are reporting it because it is a kernel-crashing UBSAN
+  violation reachable from mount, the class of bug syzkaller-style
+  fuzzing of mount images finds and fixes routinely.
+
+The reproducer bundle (image after the single-byte flip, clean control
+image, a moderate-value variant that mounts cleanly, the flip harness,
+guest init, and a README with field offsets and expected output) is
+available on request.
+
+Environment: QEMU/KVM x86_64, 1 vCPU, self-built 7.3.0 with
+CONFIG_NTFS_FS=y, CONFIG_KASAN_GENERIC=y, CONFIG_UBSAN=y. The driver is
+fs/ntfs as merged in 7.3.
 
 Thanks,
-Rong
+Guikun Yang
 
->=20
-> Comments welcome.
->=20
-> Regards,
-> Qiling Zhu
->=20
-> This patch was developed with LLM assistance; I reviewed every design
-> decision against the framework sources and validated the behavior on
-> real hardware myself.
->=20
-> [1] https://lore.kernel.org/r/20260618-leds-trigger-hw-changed-v2-0-c28c4=
-4053cf3@rong.moe/
-> [2] https://lore.kernel.org/r/20260203232219.11683-1-vishnuocv@gmail.com/
->=20
-> Qiling Zhu (1):
->   platform/x86: thinkpad_acpi: Add support for auto keyboard backlight
->=20
->  drivers/platform/x86/lenovo/Kconfig         |   1 +
->  drivers/platform/x86/lenovo/thinkpad_acpi.c | 104 ++++++++++++++++----
->  2 files changed, 88 insertions(+), 17 deletions(-)
