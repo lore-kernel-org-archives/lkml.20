@@ -1,115 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.76.192
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793442770;
-	b=ZZDRZWzREKcM2CWmNBsksWmbWzFscz2s6jm5jxLbGj5ZSihBTZwQHbaP1eELHJJIaimg
-	 UckReInJ1WoHIc/FFW9moEL33WfRpaj1TQOsl8A5p4Ouo+vdqLqxAsYUhQwoLq8HPBei6
-	 omFfMgy729YvLgs7tdK79KMxLFe/tJroCZxCmCPRGB4Jk7TWb3lyPyz81TR8y8wMegYFr
-	 HwaSCxG3EqcuFTANKuVrOX0PzNCDQ+cQWiyb+eCRMOyKEbPKPd52fSfzhsTII9mQjyyll
-	 4KWPCq3BTbLnqhjanhGSE0Nppwe/u++xYQfXQ54tTFMwqCTckn/GtmFMS2VO+xhPE5Q==
+	t=1793442924;
+	b=smZP6WIo/biRFsy4fa/bNXoPeOEME0U4aWbdGeZFSw7AfznQCiPiZNo9wlBeU/s8Lq9l
+	 pnWT+nZiEpkXZjHVyWbrxiu3F6amC3EKBCezSBXW1koY079eBp1eGQSeTBnuXL2Nsp4RN
+	 VYDc1GWPBjJheRa/+F/Fl8Q0SowxFmdwhrZvrgOcEfpwg6sLy281cDZC1XdZzxN/4dd7m
+	 RNwIn83Yhopo39pMU5tTrkWkSFi1VkpWBcZqDcA2zE5m5thIubLEkBdu2AqfyQsHuzQny
+	 NY46Ds0MqSSaeMAKsGOAyAM4PSN7zkVpEG3xHkBIsFn2/rcS3b9l1Gou259MJ3Y3Rtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793442770;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=SUuvul+SEemQ79xrz7tisvNK9CayGcgBDTH8UommGa4=;
-	b=Sg3iwtSbkCJpt0ZqtZWe0XIapmhkM0Gcy9+moYTu4ptU/GW4trL+DncU6Ymb87m2X4cg
-	 xIjmsUbN/VrRYlC0gXOeJYDB5F5zqjrIzqW06+vDCS4O1PY+o/rHCOh4OinDsJ9wmGZBV
-	 ANuzzaCqrMromZgCbfxrxG+U+xEgFDcO0W4kEQfIIV5BVBBi141lK+cbcHQaKNnhyLOVJ
-	 EJm61ffmM3pGNWzt7F9/CiXNdg5IoQlQW77s4fnvD1MFeJieTSsvmMbmoxLtFnCCimvdd
-	 gZ5xg4KRvIwuBuD0TAYkfiHybNzazjLmVbbVpP3vmHvGExvzHpt4Vx6y4QQVqza5Ocw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793442924;
+	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
+	 Received:From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Authority-Info-Out:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-JNJ;
+	bh=TF9wjAhk19qujT+sypenru2/VpLrnSRDil9zbXRDolI=;
+	b=WKXwAl6OrVYtNotGVueW2xjyD+zRrWXHrBmc8z8IpEQwMoFmfmf6D/g8M/9PZNE/Zm03
+	 63SN0rhcjiwe0Mg6N9u2naXZhj/bMSjXEFOvwDJuA2GbIWoEnnkA8T1w30nKH4bkYWBc7
+	 m9ff2ymGR9lMMRe9BUSiJFKiR78QShLDhLEGidqrOM+cf4DCDe2d03TZTVt98JQr4fXW6
+	 2xcuXqKU1kDXObkNj9oaTv6jfQ21X9tOd2pytqFpSTAenVhqEGgGSr6tz/C7cgY6suN9E
+	 b46gvYL9aJxF/80ONYDFyBlXZe5W0Pvm2F6fZcfi5J0MWmoYXBojGNgR78PUxcexCTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uTesODHF;
-	arc=none smtp.remote-ip=74.125.227.138
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=HqYB3oEY;
+	arc=none smtp.remote-ip=57.103.76.192
+Received: from outbound.st.icloud.com (st-2006i-snip4-1.eps.apple.com [57.103.76.192])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB605606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:32:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB605606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3115F606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:35:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3115F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uTesODHF
-Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2e96be2196bso5128935ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:32:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793442769; x=1794047569; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SUuvul+SEemQ79xrz7tisvNK9CayGcgBDTH8UommGa4=;
-        b=uTesODHFHAFZYflePfTY5g8to5ZWchzv35QN/8YJAkzxPDXV3H8LVBY9vBxTFbYDtu
-         bKcwH10A6xZREWuvZh9zHfQeRGVKgFCugxLV9y9bAc/O8HOhEUd6DBaU6wMQCia/efo/
-         LPAjfGAHAtzdHnz46yufiR7vbpPBOX6XKc0AXcSqFFkT94BZI2a7BZkEQilwijQOjN+u
-         QRAP66OHTxYRJomeBHj3I/ZxRxUlcPGtG3oWmvMJm9t0gtdVkuKoRQIivVq1tOQwLKI/
-         0WjR4dRBKJ9yOT7xSYOHDi8y4ovWw73gHUKGNflnaah1URonwnme2PrE3cWVDZoBRnf9
-         +PJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793442769; x=1794047569;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SUuvul+SEemQ79xrz7tisvNK9CayGcgBDTH8UommGa4=;
-        b=MschAbenY4SgJj5MHxBxtvxX/Pd9X8QY4lu5pBHvFMVB+xJwpUfoYtkqt5Dvl4uS7d
-         3pxeGTxNakBRGW+i+ip2aT9ggUzy2+nypfoF/OU6ZZwMfylj4rgH2NGfhehDrC5g4ZAK
-         cll54Jw1kaWBycEk2Tp97Ybu1z3eHYtR80nvATJWmAm9JtRBx6bNaCZSbbbXtIqFow0Q
-         afeuB29pJtbj5Og3bQ+HMZRIGg2fl6iTeRzpSY0uwB7l4uD73cU6Fm1IZN9+vDm1givz
-         kG42IRZptkEwHIdoBXZA12b+eIHUJZ12qL1GLTF3keSlHE161e8tg5ULtcnmCY87ognN
-         77Dg==
-X-Forwarded-Encrypted: i=1; AKwUvBxyeDtr6dX3M9SerwLhansKJgim7VUqmrjwJVvp0CHmRH7iA4evK5VqomojxYhrZEBZ6Dj1Uf0/5sDFSts=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8XyXT2AgANQdXDKa8b1wCkH9svCy6a6ZxJFmwgXm8Ssc2e2xA
-	awGzJcL13pSkr/Pt1eLRfUqZT7eGTu31MBnpNzW/McaJgPlUFQhyzk4=
-X-Gm-Gg: AYBFou1h5SuN9L0kVskQv70P/8I3sqR8eW3ipnHTz+s0uICOUV7Nn7e6KKPW0+bFX0j
-	8U+PWTPRGj7iPZ2Ingfzel1xRfngFpoYUpLpkCZ3uthqvPJLMhyPyCREf+/f2jUnkrHUN0qwAtN
-	uO+OZHwh63/I1kDe5c7FpRp2HgnBUv9hXuiwJxbLLC8uT5p49NRvuOCnrC7GZM9ZJhwc/e9s2BS
-	1KypWUPiSs/r2AwoUO09Vzh4OI7sp3FFnrypGryxrIGGgX8B3GiyxCCNPW/xo3cYHTwWEsMI/lW
-	l6U/5R6WorFgMGmbvrlUFh9PzB86wz3q/t2u/kR47RNZWpXYqZ+nSkWbywNVR3JLxmXQHNgwgp5
-	zAxAN2GbpzExCHiy4YUVipvUdE4zAQaZhbOq61HY1RI+KEbPZpLKFqkopg4JuFgjWXWhGK8+SHu
-	fF4uPw3s9jSfWutocHyUlkBEn7QXF55pzp2tmK4i2ox04e/7/On6Rm+9Uy9G0q3FcKr3Bcsb2pt
-	pX+6qqF+pEHcFmdYmk6fzCXymBvUgegRow3doU+zCrDsbZ5I5MwNDbdoXM9cXJqj55dArEvHeZK
-	Vm6yBvBpa1IAVfpLZOMA5h301b/73zIGM0/VilSJc8rHQv12amXxHSlsNFg1zg==
-X-Received: by 2002:a17:902:ebd1:b0:2e2:d834:a40f with SMTP id d9443c01a7336-2eb363965d7mr46196985ad.9.1793442768660;
-        Sat, 31 Oct 2026 03:32:48 -0700 (PDT)
-Received: from WIN-2DEDQG69EF6.localdomain ([2a13:a5c6:1ff1:280f:be24:11ff:feb0:8690])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3928104asm14817275ad.53.2026.10.31.03.32.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 03:32:47 -0700 (PDT)
-From: chenhan <chenhan0017.work@gmail.com>
-To: rust-for-linux@vger.kernel.org
-Cc: a.hindborg@kernel.org,
-	boqun@kernel.org,
-	fujita.tomonori@gmail.com,
-	frederic@kernel.org,
-	lyude@redhat.com,
-	tglx@kernel.org,
-	anna-maria@linutronix.de,
-	jstultz@google.com,
-	sboyd@kernel.org,
-	ojeda@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	miguel.ojeda.sandonis@gmail.com,
-	tomo@flapping.org,
-	georgeandrout13@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 3/3] rust: math: add signed division and remainder helpers
-Date: Sat, 31 Oct 2026 18:32:06 +0800
-Message-Id: <20261031103206.24051-4-chenhan0017.work@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261031103206.24051-1-chenhan0017.work@gmail.com>
-References: <20261031103206.24051-1-chenhan0017.work@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=HqYB3oEY
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-7 (Postfix) with ESMTPS id 836F518002AC;
+	Sat, 31 Oct 2026 10:35:18 +0000 (UTC)
+X-ICL-RepId: 01a19187-2ffe-7f37-83e6-650ace3cdb46
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQtJCkMGXwFeCEADQwZbC1BcHA4XXhtCFUsVXANcDkswUBtfAkIPHBNWFRMLU1ZbE1UXRgkZCF0dGQpQUAZcEhhcFFxQWB5GElYNXQkZGEZeUBtfAkIPHBNWFRMdQxkPKwhKBEMHRQJeCyUTCVNWWxNVF0YJGQhdHRkVWgkKVwBAC04CXQRaHxJYDFAFGh9eEhQeXxhEAx8GD1UDQAZSAkUKQQteDg5XE3kMVgNUDlwEFxtcAAlLRglJHQ4EVAddBV0=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1793442923; x=1824978923; bh=TF9wjAhk19qujT+sypenru2/VpLrnSRDil9zbXRDolI=; h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:x-icloud-hme; b=HqYB3oEYQlIiyoG6tZT7m4zY4rDz4ZEzfzFbboOdWvf7GInevj4AoiuGX1AqlrQ9naJ3pPGtgtYi9MSD/04HCKfoWWoiRJi+6S9zuEBKeUxonmQSxQJ4ha1X2OoNW8usw0Jnyg3E7ZuPTF/njmG/ghyEPoZ3u2IskaEuf9c3tA1JPe26up2+s9QXwprQLH3gMOqoYFeqfm+VL81W+beUqiEAyER/7iPrhZWZaI6zZ19Ib98Z3o3be3x5csGorM+TOLiKtwr26VLn21GRYCUPHBmHjuSPKT6PTL/OjOe9RVv4untoTeleCCQtUTAC8v903j7W3cGDUa00eJPxmixp0w==
+Received: from [192.168.5.15] (unknown [17.156.216.30])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-7 (Postfix) with ESMTPSA id 1E979180028E;
+	Sat, 31 Oct 2026 10:35:11 +0000 (UTC)
+From: Zhang Peng <zippermonkey@icloud.com>
+Subject: [PATCH v6 0/5] mm: batch TLB flushing for dirty folios in vmscan
+Date: Sat, 31 Oct 2026 18:35:07 +0800
+Message-Id: <20261031-batch-tlb-flush-v6-0-190539839eec@tencent.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,202 +57,211 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOzW7DIAzA8VepOJfJYCBhp73HtAMfpkFKmymk0
+ aYq7z7aSzaxHv+W/LNvrNCcqbDXw43NtOaSp0sNczywMLjLiXiOtZkEaQDBcu+WMPBl9DyN1zL
+ w3mIC0sYra1jd+pwp5a+H+P5Re8hlmebvx4FV3KfPrVVw4OT7RLGLwll6y2GcrvElTGd2x1b5C
+ 5CmBWQFFCBpiSh1UA2AO6AEtABWICXwNqJDLVwDqB3QUreAqkCPXW+jcT4ANIDegU7+84GuQPR
+ WoYMI0fg/wLZtP/31W92zAQAA
+X-Change-ID: 20260309-batch-tlb-flush-893f0e56b496
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, 
+ Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Zhang Peng <bruzzhang@tencent.com>
+X-Mailer: b4 0.14.3
+X-Authority-Info-Out: v=2.4 cv=aLf9aL9m c=1 sm=1 tr=0 ts=6ae5c469
+ cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
+ a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=x7bEGLp0ZPQA:10 a=YE32fvk_ji8A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=bC-a23v3AAAA:8 a=v3ZZPjhaAAAA:8 a=VwQbUJbxAAAA:8 a=GvQkQWPkAAAA:8
+ a=x62JkHqQUASQIWwaIBUA:9 a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: MJG8eOUb2qqdo1XdSKXTDwaXd0_yVlYE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA0MiBTYWx0ZWRfX/hNeDvXzs0rC
+ tRA9r8J60psOSPuRiKIESZ+yFT5iU4plrz7jlKDYt1lAqYUHgP6LyfqK9ddk5kR5Sl5zfZFM22s
+ EQ6XdNFDlg5NS/qhedHGCNKv5WGy6RsG0In172qVyE0M94jbYIV0gJ1YFoOjEsENTjKQ25ZMNzU
+ gHJ5YnHKNeqImknme8vcQtG0Ds2L5aye5E2hVgz83RPY71zZOwTz0bPFZOohwcvrUgx0tWybcIy
+ 2GlEl9+MPYuf+SLuRYFTonWoIXmvIBabvgObvIsoTFIZ3aVKnD2l4K1M2BixqlT+IIso9ZYGhz0
+ S/APTJQZOeS+BkcOEtsnTuCM0evP9GIUIaNcRbTt5oSO1oBdkfxeUtY6WHKs9Q=
+X-Proofpoint-GUID: MJG8eOUb2qqdo1XdSKXTDwaXd0_yVlYE
+X-JNJ: AAAAAAABgGMsqP/5mGRIJkz2S58inUAsI3AyWrVwe8N+RFPHspy383DCUgk+FRFTFWoXuy
+ lo3OgNu/KWhQi9Vn9zf+ZN2XyQRhhrY6iAgy3/kPkbNqXR97NTYHyvDMbH4EaWiKeZTLQv
+ RVUXE3bn7mt9FNDKSd9hI52uS6ottHMt/XAtz7Sbb0Vp1vhvbB2cG/YimUn72zIsYXtGEG
+ zQH1B0HZM/ZBokexrUTk3TKDN3fJDxAZtip9/HHjSpiCXOz/0/n6bYtVWSRIe4HwyEpR/F
+ IdZ4HuK4lPE95kTVBpy7UyYsa1TTJ68qFWwWTnk8keC3cFa5qTaBhdbZ43cZD8TiOrg7d7
+ GBkK93kgi5KnzPdzFgNyz8MJe/z657dwQ3OLpwame0sRBxNE6+C6BdJ8sgmWiFXpGNL+Yf
+ 6m5taK94rPk/OIQs7BKcjKFw1CDFSd79PuCc5hEyP4QyZOhNCNt5ZUCN/yVo97dUIiMUNf
+ U5VCm92oC/0NGgbcoyfOae6kiwm5uitZNEzJaS0PcQP7ra4U+4imxti0feByUIPIL9ZT6r
+ PwIjlGEPja5G9pAuac+kes2DVIMmItXH+jXvU5jt5LGSRcMAASUFj2/TU8Bnszin5DEJTI
+ T7HXG92PEtEE5W5OgeOhZALdjHtDZ7c2bGZEVQoCBLOVheavgRbpO+v0tVje4LV29VLwJ6
+ o0axOOb7IqTaSBns5cwAB/+TJzGmQU69r0N9XZDcBjpx7kK1I1XLv7CKpyXhR3YDzMOkmL
+ 87IJJRPTezVRPflTJeGuygneOT9JfLPF50sR3ay1lJW6Gn9bGeJ4GAhOwyJU/RybQYcquV
+ q0W7vW/3Xffdz+y8jMQOW+L7snNTjKdEEnSo0rsSgdcyyhleyuR6MhrSarMhbdEPV/zw46
+ ms60ePetRW8pxovLU5h7soQfQv964y26yeIelJJ70ogSlMUZaTKUrdL5OnWwKNNjnzYkzP
+ Nzd5yuatzirzCCahviXOfKu+/vTVjVhE1UviyWDlWsEWchAEYFI/xzt3Tu9DxXXwewY2cd
+ FiE0KczhyOBw1xrqZ4j5gHOTzy+LHYB+1BoOKzpoYJw+OdP8YPMzJbNJUW0Az3869y2yyZ
+ 8n1ysp55eYGE7Fbg8opkmwLXPqgMkbwe+SMU9lzGVPXGIXuU8ifYcpj+HhkflaquLYIx+o
+ iyd0MXBOwqy1oXlMam6LS7LIYQWSsrXXvHnGY8/pbJ9umnImy2U3juRAlgl9HL57S0DXMW
+ s8CYU834FtQVEO8jKpgvys71EoDXBDh2+J/Aw6DN6o+kofCquqHOd+n8wlS9ndvBsyNq+z
+ dTDdP0bwX8f/ExBNChwzjHqCdUtJTjPMj/v5Tm/huGBiKiY+cMkaXDacZnF6nlBOGcAG3R
+ Uj8yIRCpk6negzVZT6jJ/+6mZTGDY218I04nooRq+sZXTOEO5ooHI8lneavdhs5y8nssai
+ AgF8SyUZUjQNo=
 
-Delta's division and remainder implementations operate on integers and
-do not depend on time units. Move them into a math module to provide a
-common home for arithmetic helpers, with Delta as the initial user.
+This series introduces batch TLB flushing optimization for dirty folios
+during memory reclaim, aiming to reduce IPI overhead on multi-core systems.
 
-Expose div64_s64() for an i64 dividend and divisor, and div_s64_rem()
-for an i64 dividend and an i32 divisor. The latter returns an i64 quotient
-and an i32 remainder, matching the results of the C helper without
-exposing its output pointer. Delta's rem_nanos() uses the remainder and
-converts it to i64. Both helpers retain Rust's signed operator semantics
-and unconditional panic checks, using the existing C helpers on 32-bit.
+Background
+----------
+Reclaim calls try_to_unmap_flush_dirty() before writing out each dirty
+folio. When writable TLB entries are pending, this triggers a flush.
+On systems that use IPIs for TLB shootdowns, frequent flushes can add
+significant overhead.
 
-Keep the Delta API and its panic conditions unchanged. Document the
-quotient and remainder semantics and link to the corresponding C header.
-This is separate from the preceding behavior fix so that introducing
-the math module is not required for a backport.
+Approach
+--------
+Collect dirty folios into a folio_batch, releasing their locks while
+collecting the batch so swap faults can progress. Before writeout, try
+locking each folio again and recheck writeback, mappings and DMA pins.
+Keep eligible folios locked, flush pending writable TLB entries once,
+then page them out. Process a final partial batch at the end of the scan.
 
-Assisted-by: LLM
-Signed-off-by: chenhan <chenhan0017.work@gmail.com>
+Changes
+-------
+Patch 1: Extract the folio activation block at activate_locked into
+         folio_activate_locked().
+Patch 2: Extract the folio-freeing path (buffer release, lazyfree,
+         __remove_mapping, folio_batch drain) into folio_try_reclaim_free().
+         Group retained folios, deferred frees and the reclaimed count
+         in reclaim_folio_state, local to each shrink_folio_list() call.
+Patch 3: Extract the pageout() dispatch state machine into folio_try_pageout().
+Patch 4: Extract the TTU setup and try_to_unmap() block into folio_try_unmap().
+Patch 5: Implement batch TLB flushing logic. Dirty folios are accumulated in
+         batches and a single TLB flush is performed for each batch before
+         calling pageout.
+
+Testing
+-------
+The benchmark script uses stress-ng to compare TLB shootdown behavior before and
+after this patch. It constrains a stress-ng workload via memcg to force reclaim
+through shrink_folio_list(), reporting TLB shootdowns and IPIs.
+
+Core benchmark command: stress-ng --vm 16 --vm-bytes 2G --vm-keep --timeout 60
+
+==========================================================================
+                 batch_dirty_tlb_flush Benchmark Results
+==========================================================================
+  Kernel: 7.0.0-rc1+   CPUs: 16
+  MemTotal: 31834M   SwapTotal: 8191M
+  memcg limit: 512M   alloc: 2G   workers: 16   duration: 60s
+--------------------------------------------------------------------------
+Metric                 Before        After             Delta (abs / %)
+--------------------------------------------------------------------------
+bogo ops/s             28238.63      35833.97          +7595.34 (+26.9%)
+TLB shootdowns         55428953      17621697          -37807256 (-68.2%)
+Function call IPIs     34073695      14498768          -19574927 (-57.4%)
+pgscan_anon (pages)    52856224      60252894          7396670 (+14.0%)
+pgsteal_anon (pages)   29004962      34054753          5049791 (+17.4%)
+--------------------------------------------------------------------------
+
+Suggested-by: Kairui Song <kasong@tencent.com>
+Signed-off-by: Zhang Peng <bruzzhang@tencent.com>
 ---
-Changes since v4:
-- Explain that the preceding zero-divisor check establishes the C call
-  precondition; keep MIN/-1 checks for Rust panic semantics.
-- Retain the output-pointer validity explanation for the remainder call.
+Changes in v6:
+- Keep the four preparatory patches and the batching patch in one series,
+  as requested by Barry.
+- Patch 1: Clarify the folio_activate_locked() comment and retain Barry's
+  Reviewed-by. Document the BUG-to-WARN change in the commit message.
+- Patch 2: Return KEEP, ACTIVATE or DONE explicitly, leaving activation
+  visible in the caller as requested by Barry. Group retained folios,
+  deferred frees and the reclaimed count in reclaim_folio_state.
+- Patch 3: Return explicit pageout outcomes, including separate locked
+  and unlocked keep results. Leave activation and the subsequent reclaim
+  attempt in the caller. Document lock and ownership contracts and make
+  the mapping pointer and saved page count const.
+- Patch 4: Retain Barry's Reviewed-by.
+- Patch 5: Use the explicit helper results and reclaim_folio_state,
+  reducing the batch helper from eight arguments to six in response to
+  David's suggestion.
+- Patch 5: Replace v5's temporary pointer array with batch reuse. Save
+  the original count, reinitialize the batch, and use folio_batch_add()
+  to collect folios that pass validation. Document that reinitialization
+  preserves the array and additions cannot overwrite unread entries.
+- Patch 5: Explain the writeback, mapping and DMA-pin rechecks, including
+  why the folio lock alone does not exclude GUP. Rename the batch and
+  helper around pageout and remove the redundant next label.
+- Link to v5:
+  https://patch.msgid.link/20260720-batch-tlb-flush-v5-0-db943a0d0d6b@icloud.com
 
- rust/kernel/lib.rs  |  1 +
- rust/kernel/math.rs | 71 +++++++++++++++++++++++++++++++++++++++++++++
- rust/kernel/time.rs | 50 ++++---------------------------
- 3 files changed, 78 insertions(+), 44 deletions(-)
- create mode 100644 rust/kernel/math.rs
+Changes in v5 (addressing David Hildenbrand's review on v4):
+- Patch 1: Drop the nr_pages parameter; use folio_nr_pages() inside
+  folio_activate_locked(). Add VM_WARN_ON_ONCE_FOLIO(!folio_test_locked)
+  at the top of the function. Turn the VM_BUG_ON_FOLIO(folio_test_active)
+  into VM_WARN_ON_ONCE_FOLIO and move it to the top.
+- Patch 2: Rename folio_free() to folio_try_reclaim_free() to make the
+  reclaim-specific role clear and justify the bool return. Make nr_pages
+  const. Add VM_WARN_ON_ONCE_FOLIO(folio_ref_count, folio) at the free_it:
+  label. Drop the now-redundant "swapped out as a whole" comment and the
+  "else continue" after goto keep_locked.
+- Patch 3: Rename pageout_one() to folio_try_pageout() for consistency
+  with the other helpers. Fix continuation-line alignment.
+- Patch 4: Fix continuation-line alignment.
+- Patch 5: Replace the in-place folio_batch_reinit() + walk pattern
+  with a plain local array; @fbatch is now only read during the walk
+  and cleared once afterwards, so its invariant is never temporarily
+  broken. Add a comment documenting why each recheck (writeback, mapped,
+  dma_pinned) is required.
+- Link to v4: https://lore.kernel.org/r/20260525-batch-tlb-flush-v4-0-83789d6abc00@icloud.com
 
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index 4d5c96ddc49c..60c2af705b47 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -98,6 +98,7 @@
- pub mod kunit;
- pub mod list;
- pub mod maple_tree;
-+pub mod math;
- pub mod miscdevice;
- pub mod mm;
- pub mod module;
-diff --git a/rust/kernel/math.rs b/rust/kernel/math.rs
-new file mode 100644
-index 000000000000..0b4738ba97c1
---- /dev/null
-+++ b/rust/kernel/math.rs
-@@ -0,0 +1,71 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Integer arithmetic helpers.
-+//!
-+//! C header: [`include/linux/math64.h`](srctree/include/linux/math64.h).
-+
-+/// Divides an [`i64`] dividend by an [`i64`] divisor, rounding towards zero.
-+///
-+/// # Panics
-+///
-+/// Panics if `divisor` is zero, or if `dividend` is [`i64::MIN`] and `divisor` is `-1`.
-+#[inline]
-+pub fn div64_s64(dividend: i64, divisor: i64) -> i64 {
-+    if divisor == 0 {
-+        panic!("attempt to divide by zero");
-+    }
-+
-+    if dividend == i64::MIN && divisor == -1 {
-+        panic!("attempt to divide with overflow");
-+    }
-+
-+    #[cfg(CONFIG_64BIT)]
-+    {
-+        dividend / divisor
-+    }
-+
-+    #[cfg(not(CONFIG_64BIT))]
-+    {
-+        // SAFETY: `divisor` is non-zero due to the check above.
-+        unsafe { bindings::div64_s64(dividend, divisor) }
-+    }
-+}
-+
-+/// Divides an [`i64`] dividend by an [`i32`] divisor, returning `(quotient, remainder)`.
-+///
-+/// The quotient is rounded towards zero. A non-zero remainder has the sign of `dividend`.
-+///
-+/// # Panics
-+///
-+/// Panics if `divisor` is zero, or if `dividend` is [`i64::MIN`] and `divisor` is `-1`.
-+#[inline]
-+pub fn div_s64_rem(dividend: i64, divisor: i32) -> (i64, i32) {
-+    if divisor == 0 {
-+        panic!("attempt to divide by zero");
-+    }
-+
-+    if dividend == i64::MIN && divisor == -1 {
-+        panic!("attempt to divide with overflow");
-+    }
-+
-+    #[cfg(CONFIG_64BIT)]
-+    {
-+        let divisor = i64::from(divisor);
-+        let quotient = dividend / divisor;
-+        let remainder = dividend % divisor;
-+
-+        // CAST: |remainder| < |divisor| <= 2^31, so the remainder fits in i32.
-+        (quotient, remainder as i32)
-+    }
-+
-+    #[cfg(not(CONFIG_64BIT))]
-+    {
-+        let mut remainder = 0;
-+
-+        // SAFETY: `divisor` is non-zero due to the check above.
-+        // `&mut remainder` provides a valid, aligned, writable pointer for this call.
-+        let quotient = unsafe { bindings::div_s64_rem(dividend, divisor, &mut remainder) };
-+
-+        (quotient, remainder)
-+    }
-+}
-diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
-index c9a2dc50ff4c..f38e2fbd2670 100644
---- a/rust/kernel/time.rs
-+++ b/rust/kernel/time.rs
-@@ -27,6 +27,8 @@
- use core::marker::PhantomData;
- use core::ops;
- 
-+use crate::math;
-+
- pub mod delay;
- pub mod hrtimer;
- 
-@@ -418,24 +420,7 @@ impl ops::Div for Delta {
-     /// and `rhs` represents `-1` nanosecond.
-     #[inline]
-     fn div(self, rhs: Self) -> Self::Output {
--        if rhs.value == 0 {
--            panic!("attempt to divide by zero");
--        }
--
--        if self.value == i64::MIN && rhs.value == -1 {
--            panic!("attempt to divide with overflow");
--        }
--
--        #[cfg(CONFIG_64BIT)]
--        {
--            self.value / rhs.value
--        }
--
--        #[cfg(not(CONFIG_64BIT))]
--        {
--            // SAFETY: `rhs.value` is non-zero due to the check above.
--            unsafe { bindings::div64_s64(self.value, rhs.value) }
--        }
-+        math::div64_s64(self.value, rhs.value)
-     }
- }
- 
-@@ -634,32 +619,9 @@ pub fn to_jiffies_timeout(self) -> Delta<Jiffy> {
-     /// nanoseconds and `divisor` is `-1`.
-     #[inline]
-     pub fn rem_nanos(self, divisor: i32) -> Self {
--        if divisor == 0 {
--            panic!("attempt to calculate the remainder with a divisor of zero");
--        }
--
--        if self.value == i64::MIN && divisor == -1 {
--            panic!("attempt to calculate the remainder with overflow");
--        }
--
--        #[cfg(CONFIG_64BIT)]
--        {
--            Self {
--                value: self.as_nanos() % i64::from(divisor),
--            }
--        }
--
--        #[cfg(not(CONFIG_64BIT))]
--        {
--            let mut rem = 0;
--
--            // SAFETY: `divisor` is non-zero due to the check above.
--            // `&mut rem` provides a valid, aligned, writable pointer for this call.
--            unsafe { bindings::div_s64_rem(self.as_nanos(), divisor, &mut rem) };
--
--            Self {
--                value: i64::from(rem),
--            }
-+        let (_, remainder) = math::div_s64_rem(self.as_nanos(), divisor);
-+        Self {
-+            value: i64::from(remainder),
-         }
-     }
- }
+Changes in v4 (addressing Barry Song's review on v3):
+- Drop the "track reclaimed pages in reclaim_stat" patch; keep
+  shrink_folio_list() returning nr_reclaimed directly. Avoids touching
+  the function signature and its MGLRU evict_folios() and
+  reclaim_clean_pages_from_list() callers in this series.
+- Rename folio_active_bounce() to folio_activate_locked(). The new name
+  reflects the precondition (the folio is locked) that callers care about.
+- Split the folio_free()/pageout_one() extraction into two patches;
+  make pageout_one() return bool so shrink_folio_list() can see whether
+  the folio was reclaimed or kept.
+- Move the !folio_mapped() check out of folio_try_unmap() into the
+  caller, so folio_try_unmap() is only invoked for mapped folios.
+- Link to v3: https://lore.kernel.org/r/20260410-batch-tlb-flush-v3-0-ff0b9d3a351a@icloud.com
+
+Changes in v3:
+- Patch 5: Replace folio_test_lru() condition check with
+  VM_WARN_ON_FOLIO assertion, as PG_lru should never be set for
+  isolated folios
+- Patch 5: Add comment explaining folio_batch reuse-in-place
+  technique in pageout_batch()
+- Patch 5: Rewrite comment above folio_unlock() to explain why the
+  folio is unlocked while batching
+- Link to v2: https://lore.kernel.org/r/20260326-batch-tlb-flush-v2-0-403e523325c4@icloud.com
+
+Changes in v2:
+- Fix incorrect comment about page_ref_freeze
+- Add folio_maybe_dma_pinned() check in pageout_batch()
+- Link to v1: https://lore.kernel.org/r/20260309-batch-tlb-flush-v1-0-eb8fed7d1a9e@icloud.com
+
+---
+Zhang Peng (5):
+      mm/vmscan: introduce folio_activate_locked() helper
+      mm/vmscan: extract folio reclaim freeing from shrink_folio_list()
+      mm/vmscan: extract folio pageout from shrink_folio_list()
+      mm/vmscan: extract folio unmap logic into folio_try_unmap()
+      mm/vmscan: batch dirty TLB flushes before pageout
+
+ mm/vmscan.c | 510 +++++++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 335 insertions(+), 175 deletions(-)
+---
+base-commit: 9c449f885765cf8d80b2c60b1971e774bba51a3f
+change-id: 20260309-batch-tlb-flush-893f0e56b496
+
+Best regards,
 -- 
-2.34.1
+Zhang Peng <bruzzhang@tencent.com>
 
