@@ -1,49 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793436174;
-	b=HApfUtFunoWyCnGu8+Iq4WLaFAuVZjUU54vZu7MI7A8Fu5oyxpxvaf/4TnqkxR2FCVu/
-	 6PBwjUY6pXMtZZJJVUF2xwvTjkBQPnUf2RZGRX9sVulE3czywoLKmXWL482GFrxQlVmJM
-	 xw5O70ogf46xrtoKv+UrDhitzpNfio6FYivJUJMT4teksEyZdPiJUzmXUjIEPNPsku691
-	 6MkLNLr5CY7dO1ufoljCBZ4Z/acVMi7w3DSP34hpXUwiO9puHxDNcIENzljoLqAgwf7LB
-	 OjRjYY9GkwxLauYoFwsBukS9cpUZKETMJ140bjtcqn5UyKlZcgjVhJPI/h3h3xI2U4Q==
+	t=1793436214;
+	b=ZFl1Q44S5KxUyCy2znNZ3H64n4VaQwoifXHEIBM568BToCakOTtyGpbCAmLursysgO/c
+	 AQZhTnRhUqwZw7yUzUKY+KfIR1Ak+aSj9SOvs96eo1y7GTSVXL6fjG1ws3zczuSKtDW/5
+	 u3VeTVwGVGH8t/oP4f0qSt/woBK8N+oBTrOA2YXt4/KrIXUoai99k/U8AchIao1u1bk/H
+	 UCfwymVi/7VpJQvnHKi0qIsRSbTWoNhGYLeR/ssQ3Zfjj0jvUXeWIMuM010foixozAPd6
+	 4FV/GZSCcxP7TNHQJyPaBdltw1Vpc4a647cy6di952ZXBkV50pTyzox9qi1hrrLg7WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793436174;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=zyM541AR7ZZE38ApRIgXfw9vU7L1IaJEwloMzTLw3Ig=;
-	b=3sp4Z6ekbn2LcGzMrls9H4x37gI7DvYp892X72S15GaqmiIMx0Fsc1DdyKixWPIWWBkJ
-	 HhPqlbBAn1if8XKgMKQJxEgrekBvSDw/g3ezYmknxPhzd3D/fJBkL5XxRGDmNEYW9+vUR
-	 6INr8kwujrv30u+jCDjrk90fYbOnSRyc9SAEZXi5o4lKBZGsFd5DIV3Z+mi5FY4NaPvuU
-	 2C0OQ7SsJQ9rVd7qiXp4SMlqXBXWOt7Jxxt/2xaEhO2mnKOVlEOxzpnDN/b71PoLE568z
-	 uYH7Olhc4Lw6wkb/T55O+/lWQjrkoBvD0kGT3OXuqUOHktJvygFmujFOQS4fRsuAwHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793436214;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ad7gFIQdBQZKzkKCsOE/9mkrFdAk1a3efziNmDQqoYk=;
+	b=Cr9gYoHpC0blhNp370pqJy/cBKEpazdz6sgITQcohLEmExaloU5Kfpshtq4tkY4aD3Yf
+	 lcznamHcWdTF09Vws79INjMTKjF1ADQGe7GMXFrNbJlCydtyUp7mJq9ryH9HnhsNwKIeW
+	 rzP2O++xw1cP5fQS4gN4qD14jTd/vSmyL5hU66L5jPY0eKbj33kUYlXPDd7qDggT8yiYL
+	 iBIHpNRua7K0B8nTvQcVG7EdArTGMW6n64hrsN67VTM9nzDt9VsBRG9CMFyfNdX57reFB
+	 QnNHMXSuH58Psh3FnviyKTVjrmc6NxWLtgZqIeejy9eCfEbRFL73paPLo/KXG84geHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=fencjVNn;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 369DB606A31A;
-	Sat, 31 Oct 2026 08:42:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 369DB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gDWGI5ul;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E6B606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:43:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56E6B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=fencjVNn
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1D2171595;
-	Sat, 31 Oct 2026 01:42:48 -0700 (PDT)
-Received: from [10.57.13.152] (unknown [10.57.13.152])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7B38B3F59E;
-	Sat, 31 Oct 2026 01:42:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793436171; bh=avExJZ8pIb5Ca/dscv5M6k88MfirFVDBlv6ja+R8bbw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fencjVNnt00wM0wda3KJv3WoRmZ8GoSQNWWxyQRTkf7seFOhLkY2VnuWG+597t0Ez
-	 +itFgbGaU/suCHgpoFnAbgN+AQ4E3wUGbwU9OaVV8jDvTTym1FhRUmtTgNedvKgBUS
-	 uz1DkVoVayYJVDZ+51JRhGrKSIrbf6I74AdaRYLo=
-Message-ID: <a1d9608c-8169-49c5-b843-ed9d304136ed@arm.com>
-Date: Sat, 31 Oct 2026 08:42:46 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gDWGI5ul
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48b042c0759so751347f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:43:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793436212; x=1794041012; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ad7gFIQdBQZKzkKCsOE/9mkrFdAk1a3efziNmDQqoYk=;
+        b=gDWGI5ul7OPLpHwRY/foqogofpQSVG6INHe0USsjKb961EtCT7nDj4a6B3yTS+dW0Z
+         /RETt4vAROFvGI3DRN21HTlVMvmp4CIUi7Th+/xnvj8M3r3MEoqMTKPBpe9S+tCaTb73
+         n/XlQdOgT9i3vU5S5U98/LhcnIXq9LDWrX5adZUrxam995+tiFurTBecyqeA6abOh8TF
+         WdauYPBz6UActVTI59z18M4Th380HWDSyVFx7s9b8J5MYqClAZ/YKR4lrh62lNMJw/yA
+         LngZV2B2l3ZSfprlljxsu0nCNCUvo8FYjNm9lwunW1xLJBhPU4m5P63MJD31M5YkIXzU
+         5xCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793436212; x=1794041012;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ad7gFIQdBQZKzkKCsOE/9mkrFdAk1a3efziNmDQqoYk=;
+        b=emfLfbSqOJ/i0MiV5j/+kc8XB59MBjxYYRzNCPYT7Ovd0i+K1WVAF3e0Otly6F9B1w
+         +yTkzQKNWL8LBszSvfTk1Pd2bAvmxkuCKZMPDwrAq9WFGq5rZR8OmrYzdRkdqX9UWQk2
+         5u+9jCZh7nRnSB2nRVphT9ct+DRkjzUNjvsiTSypK1antctpHD0Z+h9sbexUOq6uokFx
+         ahwqaBK1mznv0YopODlh0SNocpDDCeKeWAIOT8BJNdVQWGZer6RN3FXSOGnILn+oLbfs
+         vKwFEjXdhnxpFAX8WWfoEQ3WzO6E8i7jnYOknCF7AZumsE8pUzSDKQpGT0tXWIB6qUPn
+         QK5A==
+X-Forwarded-Encrypted: i=1; AKwUvBy69R+i+RxnVEMYO+9qodm46Oh8qx13wA10o3crQ2jC6vAfaOZ1ftQa5Tj4k5rJ29Fq3wQxNJhUzrhCjDk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8Szlh/5BvST0TYI+hmV9OPwj8Q6/w6dD3TA1k2VnYpnISCwI7
+	BprpGP4FuBH8Fu3FH+01hYza6BBpfu/tK2pQhWQD8zf9JRrDLvtMAINd3QZw7ZGf
+X-Gm-Gg: AYBFou3HuBWgBkw8huYOWgQgibxHGFa8BU3cUcV51A0oIE6LoiYFLMAsbIcsDmZNfxi
+	Z3EUkEs4UeUnfYAIrCmjWXGwa+ksyd3y8zetP2r+JgMCKzQ9pPVya4bPi75AnsbIYWBZJjzxCbY
+	bjle2zR7yVI2RI2NAaXnSEZ6FFq8lTetzPs9FimvfJX9GVcaLxiPSj7Qxu+3GTmGG4CI8oZQYen
+	0c1QKvBmj/zNJc+n4NsFIeOaODqI4PdmMMOE6vQrpHl/SP3cGMzZcSZTAtbHsVv3GzJ51SeV9+b
+	9uVphfYYI6gU/kU7g6ECJqTLAMOHd6Cv/o16F0RMoHPEpDfT3iboGMTKKJ0uXQ4Nzp1ILJ21LtB
+	HAmDp4CqfTrdvXIXPYS7sP1t0FV40ljP71YBBxO7Txydm8p8ff6eV/Wy2YRF5i9r6D/7WWZRWsM
+	RAab4q/VlFcpKw4OVKmaX5u7HqKK5gkwCd1z0D+h+DuOKk9JCdDz2Z2JaqwkF0j3VajP9PScUGp
+	RlouqIsl8bQQzOGpZmhxR78OODPSDlT9lskUxfuyzraU9w5krvLeaNQ4H/5PUP1vrUgSWuabVk7
+	wDPKG82p2CpGk83mYLjb4c7eFNz64cu41H7JJBrDK+Mi7HQUDx9OMZEMZVIwg8qL6t2KezjoPpY
+	gQhwg+nQ=
+X-Received: by 2002:a5d:5e01:0:b0:48e:296a:27f7 with SMTP id ffacd0b85a97d-48e6e4fae29mr10390799f8f.24.1793436211428;
+        Sat, 31 Oct 2026 01:43:31 -0700 (PDT)
+Received: from pop-os.. ([51.36.40.122])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d5dfsm8772221f8f.3.2026.10.31.01.43.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 01:43:30 -0700 (PDT)
+From: Ahmad AG <ahmadag1001@gmail.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: kuba@kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable+noautosel@kernel.org,
+	Ahmad AG <ahmadag1001@gmail.com>
+Subject: [PATCH net v3] net/packet: account user-triggered allocations to memcg
+Date: Sat, 31 Oct 2026 11:43:16 +0300
+Message-ID: <20261031084316.387533-1-ahmadag1001@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,170 +102,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [EXTERNAL] Re: [PATCH v5 2/6] firmware: smccc: Detect hypervisor
- via RSI host call in CCA Realms
-Content-Language: en-GB
-To: Dexuan Cui <DECUI@microsoft.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Kameron Carr <kameroncarr@linux.microsoft.com>
-Cc: Haiyang Zhang <haiyangz@microsoft.com>,
- "wei.liu@kernel.org" <wei.liu@kernel.org>,
- "mhklinux@outlook.com" <mhklinux@outlook.com>,
- "will@kernel.org" <will@kernel.org>, "Mark.Rutland" <Mark.Rutland@arm.com>,
- "lpieralisi@kernel.org" <lpieralisi@kernel.org>,
- "sudeep.holla@kernel.org" <sudeep.holla@kernel.org>,
- "arnd@arndb.de" <arnd@arndb.de>, "thuth@redhat.com" <thuth@redhat.com>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>
-References: <20261002215725.2015959-1-kameroncarr@linux.microsoft.com>
- <20261002215725.2015959-3-kameroncarr@linux.microsoft.com>
- <auPOnb_9Jfzh-oQE@arm.com>
- <CH4PPF0966F22FCAF3D8C6535743902930DBF6C2@CH4PPF0966F22FC.namprd21.prod.outlook.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <CH4PPF0966F22FCAF3D8C6535743902930DBF6C2@CH4PPF0966F22FC.namprd21.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi
+A packet socket allocates memory for its user that is not charged to
+the user's memory cgroup:
 
-On 31/10/2026 04:47, Dexuan Cui wrote:
->> From: Catalin Marinas <catalin.marinas@arm.com>
->> Sent: Thursday, October 29, 2026 3:54 PM
->>   ...
->> + Suzuki
->>   ...
->>> +static void arm_smccc_realm_get_hypervisor_uuid(struct arm_smccc_res
->> *res)
->>> +{
->>> +	guard(spinlock_irqsave)(&uuid_hc_lock);
->>> +
->>> +	memset(&uuid_hc, 0, sizeof(uuid_hc));
->>> +	uuid_hc.gprs[0] = ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID;
->>> +
->>> +	if (rsi_host_call(__pa_symbol(&uuid_hc)) != RSI_SUCCESS) {
->>> +		res->a0 = SMCCC_RET_NOT_SUPPORTED;
->>> +		return;
->>> +	}
->>> +
->>> +	res->a0 = uuid_hc.gprs[0];
->>> +	res->a1 = uuid_hc.gprs[1];
->>> +	res->a2 = uuid_hc.gprs[2];
->>> +	res->a3 = uuid_hc.gprs[3];
->>> +}
->>> +#endif
->>> +
->>>   bool arm_smccc_hypervisor_has_uuid(const uuid_t *hyp_uuid)
->>>   {
->>>   	struct arm_smccc_res res = {};
->>>   	uuid_t uuid;
->>>
->>> -
->> 	arm_smccc_1_1_invoke(ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC
->> _ID, &res);
->>> +#ifdef CONFIG_ARM64
->>> +	if (is_realm_world())
->>> +		arm_smccc_realm_get_hypervisor_uuid(&res);
->>> +	else
->>> +#endif
->>> +
->> 	arm_smccc_1_1_invoke(ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC
->> _ID,
->>> +				     &res);
->>
->> Is this meant to be generic? I'm not sure the trick to pass
->> ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID in gprs[0] and forward it to
->> the host is a documented ABI. I think it even confuses other realm guests
->> that don't expect this (e.g. kvm_init_hyp_services()).
+- PACKET_RX_RING and PACKET_TX_RING: the ring blocks themselves
+  (alloc_one_pg_vec_page(), both the page allocation and the vmalloc
+  fallback), the block array (alloc_pg_vec()), and the rx_owner_map
+  bitmap of a TPACKET_V1/V2 RX ring. The size comes from the
+  tpacket_req passed to setsockopt() and has no limit other than
+  available memory.
+- PACKET_FANOUT: the group created by fanout_add(), about 1 MB per
+  group with max_num_members = 65536 (a 512 KB array, rounded up to an
+  order-8 allocation) since commit 9c661b0b8544 ("net/packet: make
+  packet_fanout.arr size configurable up to 64K").
+- PACKET_ADD_MEMBERSHIP: one struct packet_mclist per distinct entry
+  (packet_mc_add()), with no limit on the number of entries.
 
-Yes, this is how a Realm can talk to the Host hypervisor, i.e, 
-RSI_HOST_CALL. In simpler terms, HVC is routed to Realm world for
-Realms (e.g., a Paravisor running in Realm world Plane-0).
-A Realm must always use RSI_HOST_CALL to reach the non-secure
-hypervisor. RSI_HOST_CALL expects the arguments to be passed
-in a "memory" area to preserve forward compatibility with
-the SMCCC standards to allow for using the full argument/result
-list.
+A process with CAP_NET_RAW, which an unprivileged user has in its own
+user and network namespace, can therefore pin kernel memory far beyond
+the memory.max of its cgroup. With memory.max set to 16M, a test
+running as uid 1000 took 525508 KB of system memory with 64 sockets
+each mapping an 8 MB TPACKET_V2 RX ring (1 MB blocks) while
+memory.current grew by 1024 KB; 264832 KB with 256 sockets each
+creating a fanout group with max_num_members = 65536 (memory.current
++512 KB); and 46000 KB with 100 sockets holding 2000 PACKET_MR_PROMISC
+entries each on lo (memory.current +124 KB).
 
-The RMM does the job of copying the arguments from the Realm memory
-to the rec_exit.gprs for consumption by the Host. The host can then
-return the results in rec_entr.gprs, which then gets copied over
-to the Realm memory area.
+Allocate these with GFP_KERNEL_ACCOUNT, as other allocations a user
+can make on demand in the networking stack already do, for example the
+AF_XDP rings since commit b0057c68df71 ("xsk: account ring allocations
+to memcg"). vzalloc() takes no gfp mask, so the vmalloc fallback becomes
+__vmalloc() with __GFP_ZERO; it also takes __GFP_NOWARN, like the page
+allocation before it and the pg_vec allocation, so that a ring that does
+not fit, in the cgroup or in the system, fails with -ENOMEM and no
+allocation warning. These
+allocations scale with sizes or counts the user chooses. The small
+fixed-size ones, the rollover state, the per-CPU TX pending counter and
+the deferred-free work of a TX ring, are left unaccounted: there is at
+most one of each per socket or ring, so the socket bounds them. skbs
+are bounded by sk_rcvbuf and sk_sndbuf and are left as they are, as is
+the per-packet zerocopy state in tpacket_snd(), which lives only as
+long as its skb. struct packet_sock itself comes from sk_alloc(), and
+the netdev_hw_addr entries that PACKET_MR_MULTICAST and
+PACKET_MR_UNICAST add through dev_mc_add() and dev_uc_add() live in
+net/core; neither is changed here.
 
-> 
-> Hi Catalin,
-> Regarding the concern about passing ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID
-> In gprs and forwarding it to the host via an RSI Host Call: if I read the code correctly,
-> this pattern actually aligns seamlessly with the current KVM host-side
-> implementation for ARM CCA (e.g., in the v16 patchset [1]).
-> 
-> In arch/arm64/kvm/rmi-exit.c, when a Realm guest triggers an
-> RMI_EXIT_HOST_CALL, KVM intercepts it and invokes rec_exit_hvc():
-> 
-> case RMI_EXIT_HOST_CALL:
-> 	rec_exit_hvc(vcpu);
-> 	kvm_make_request(KVM_REQ_RMI, vcpu);
-> 	return ARM_EXCEPTION_TRAP;
-> 
-> Inside rec_exit_hvc(), KVM copies the GPRs from the rec run structure
-> into the vCPU registers and explicitly emulates a standard HVC
-> exception by populating esr_el2:
-> 
-> static void rec_exit_hvc(struct kvm_vcpu *vcpu)
-> {
->          struct realm_rec *rec = &vcpu->arch.rec;
->          int i;
-> 
->          for (i = 0; i < REC_RUN_GPRS; i++)
->                  vcpu_set_reg(vcpu, i, rec->run->exit.gprs[i]);
-> 
->          vcpu->arch.fault.esr_el2 = (ESR_ELx_EC_HVC64 << ESR_ELx_EC_SHIFT) |
->                                       ESR_ELx_IL;
-> }
-> 
-> After doing so, it returns ARM_EXCEPTION_TRAP, causing KVM's generic
-> exception handling loop (kvm_arch_vcpu_ioctl_run() -> handle_exit()) to
-> route it straight into the standard handle_hvc() ->
-> kvm_smccc_call_handler() path.
-> 
-> Because KVM deliberately unpacks the RSI Host Call structure and pushes
-> it down the traditional non-CVM HVC servicing pipeline, the guest passing
-> standard SMCCC Function IDs inside the gprs array of an RSI Host Call is
-> exactly how the host expects to handle hypervisor services. It shouldn't
-> break or confuse other standard realm implementations since this exact
-> emulation block translates the RSI exception back into a generic HVC
-> abstraction for the hypervisor layer.
->   
->> I thought realms should stick to the RSI interface and not try to guess
->> the host hypervisor. But if you do need this, a better fit would be in
->> hyperv_detect_via_smccc() (if realms don't boot with ACPI).
->>
->> I'll leave it to Sudeep or Suzuki to comment further.
->>
->> --
->> Catalin
-> 
-> As I described above, this patch from Kameron should work fine.
-> 
-> BTW, as Kameron mentioned in another reply, he better organized the
-> code by moving the code in this patch into
-> arch/arm64/hyperv/mshyperv.c: hyperv_detect_via_smccc().
+With the change each of the three tests in the 16M cgroup is stopped
+by the cgroup's OOM killer. With memory.max at 1G the rings charge
+525436 KB for 525536 KB of system memory used, the fanout groups
+262400 KB for 264608 KB, and the membership entries 26880 KB for 200000
+entries. These figures are from a KASAN kernel, which inflates the small
+objects. With 8 MB blocks, which always take the vmalloc fallback, a
+32 MB ring charges 32636 KB for 32768 KB used (1G). In the 16M cgroup
+the cgroup's OOM killer then acts; with oom_score_adj -1000, so that
+nothing can be killed, ring setup fails with -ENOMEM and no vmalloc
+allocation warning. A workload whose memory.max leaves no room for its
+rings now sees ring setup fail or the cgroup's OOM killer act.
 
-Any Realm specific stuff must be handled accordingly in the 
-"enlightened" path, not in the common code like this patch.
+The missing charges were found by code inspection of net/packet/ with
+the help of an LLM and then triggered with a small test program that
+creates the sockets, rings, groups and entries and reads
+memory.current; the numbers above are from that program. Tested in a
+QEMU/KVM guest on the net tree (x86_64_defconfig plus kvm_guest.config,
+KASAN, MEMCG, PACKET), running the test as uid 1000 in a cgroup v2
+memory cgroup. tools/testing/selftests/net/psock_fanout, psock_tpacket
+and psock_snd.sh pass before and after.
 
-Cheers
-Suzuki
+Reproducer, as uid 1000 in a cgroup v2 memory cgroup with memory.max
+16M: unshare(CLONE_NEWUSER | CLONE_NEWNET), then 64 times:
+socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL)); PACKET_VERSION
+TPACKET_V2; PACKET_RX_RING with tp_block_size 1 MB, tp_block_nr 8,
+tp_frame_size 2048, tp_frame_nr 4096; mmap the 8 MB ring and write
+one byte per block. Compare the growth of memory.current with the
+drop in MemFree. The other two tests replace the ring with one
+PACKET_FANOUT group per socket (max_num_members 65536, 256 sockets)
+or 2000 PACKET_MR_PROMISC entries on lo per socket (100 sockets).
 
+The ring pages have never been charged to memcg, and the membership
+entries and block array not since commit a9bb7e620efd ("memcg: only
+account kmem allocations marked as __GFP_ACCOUNT"); neither has a
+culprit commit. The Fixes tag covers only the fanout array growth.
 
-> (technically, IMO this change is unnecessary)
-> 
-> Thanks,
-> Dexuan
-> 
-> [1] https://gitlab.arm.com/linux-arm/linux-cca/-/tree/cca-host/v16
-> [2] https://lore.kernel.org/all/20261031001412.4150488-3-kameroncarr@linux.microsoft.com/
+Fixes: 9c661b0b8544 ("net/packet: make packet_fanout.arr size configurable up to 64K")
+Cc: <stable+noautosel@kernel.org> # changes memcg charging of existing packet rings; not stable material
+Signed-off-by: Ahmad AG <ahmadag1001@gmail.com>
+---
+Tool use: an LLM coding assistant (Claude Code) found the missing
+charges by code inspection, drafted the patch, the test program and this
+message, and ran the tests in the QEMU guest; I reviewed every hunk, the
+results and this message before sending.
+
+v3:
+  - target net as Willem suggested; stable+noautosel instead of a stable Cc
+  - Fixes: 9c661b0b8544 instead of 1da177e4c3f4
+  - leave the fixed-size per-socket allocations (rollover, per-CPU pending
+    counter, deferred TX ring free) unaccounted
+  - add __GFP_NOWARN to the vmalloc fallback like the pg_vec allocation
+  - give the reproduction steps and reword the Fixes rationale
+v2: https://lore.kernel.org/netdev/20261030100504.23498-1-ahmadag1001@gmail.com/
+  - cover all user-triggered allocations in one patch; sent with git send-email
+v1: https://lore.kernel.org/netdev/CAASqGyZ-9hqZGWNJShxnrSiXDO==51SVsQW_x_mk993y1pNO8A@mail.gmail.com/
+
+ net/packet/af_packet.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index cf6429f0947..3cec23a505b 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -1778,7 +1778,8 @@ static int fanout_add(struct sock *sk, struct fanout_args *args)
+ 			/* legacy PACKET_FANOUT_MAX */
+ 			args->max_num_members = 256;
+ 		err = -ENOMEM;
+-		match = kvzalloc_flex(*match, arr, args->max_num_members);
++		match = kvzalloc_flex(*match, arr, args->max_num_members,
++				      GFP_KERNEL_ACCOUNT);
+ 		if (!match)
+ 			goto out;
+ 		write_pnet(&match->net, sock_net(sk));
+@@ -3773,7 +3774,7 @@ static int packet_mc_add(struct sock *sk, struct packet_mreq_max *mreq)
+ 		goto done;
+ 
+ 	err = -ENOBUFS;
+-	i = kmalloc_obj(*i);
++	i = kmalloc_obj(*i, GFP_KERNEL_ACCOUNT);
+ 	if (i == NULL)
+ 		goto done;
+ 
+@@ -4494,7 +4495,7 @@ static void packet_free_tx_ring(struct sock *sk, struct pgv *pg_vec,
+ static char *alloc_one_pg_vec_page(unsigned long order)
+ {
+ 	char *buffer;
+-	gfp_t gfp_flags = GFP_KERNEL | __GFP_COMP |
++	gfp_t gfp_flags = GFP_KERNEL_ACCOUNT | __GFP_COMP |
+ 			  __GFP_ZERO | __GFP_NOWARN | __GFP_NORETRY;
+ 
+ 	buffer = (char *) __get_free_pages(gfp_flags, order);
+@@ -4502,7 +4503,8 @@ static char *alloc_one_pg_vec_page(unsigned long order)
+ 		return buffer;
+ 
+ 	/* __get_free_pages failed, fall back to vmalloc */
+-	buffer = vzalloc(array_size((1 << order), PAGE_SIZE));
++	buffer = __vmalloc(array_size((1 << order), PAGE_SIZE),
++			   GFP_KERNEL_ACCOUNT | __GFP_ZERO | __GFP_NOWARN);
+ 	if (buffer)
+ 		return buffer;
+ 
+@@ -4523,7 +4525,8 @@ static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order, bool tx_ring
+ 	struct pgv *pg_vec;
+ 	int i;
+ 
+-	vec = kzalloc_flex(*vec, pg_vec, block_nr, GFP_KERNEL | __GFP_NOWARN);
++	vec = kzalloc_flex(*vec, pg_vec, block_nr,
++			   GFP_KERNEL_ACCOUNT | __GFP_NOWARN);
+ 	if (unlikely(!vec))
+ 		return NULL;
+ 	vec->order = order;
+@@ -4648,7 +4651,8 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
+ 		default:
+ 			if (!tx_ring) {
+ 				rx_owner_map = bitmap_alloc(req->tp_frame_nr,
+-					GFP_KERNEL | __GFP_NOWARN | __GFP_ZERO);
++					GFP_KERNEL_ACCOUNT | __GFP_NOWARN |
++					__GFP_ZERO);
+ 				if (!rx_owner_map)
+ 					goto out_free_pg_vec;
+ 			}
+
+base-commit: 7b29287b182fc50518e9e65c41f86d24a05b7205
+-- 
+2.43.0
 
