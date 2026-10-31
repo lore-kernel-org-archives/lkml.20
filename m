@@ -1,49 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793440348;
-	b=VClG1e+qq8jU2/+GU5dbOAMye4HN8KO92s+YewTuSfzpDCvvDg0OoevYUJeorMjISd2h
-	 2jbtIfb//TXvQTBBUiCYGmsHzR7LqgNWI5o3sMUv+I8JJko8JW4rgqJnSTbYx51Dzer/N
-	 NJaodtXPm7jhS6cJNawUE401fXqGYa7X27xHzgaBNyIWkP2witQQDBGCrC5f76r7Hb9dq
-	 6096dybfqRtVJJti3KMIPBq8SIAbNhZVkE4G70+YsrbkNaj7AdgCJzkDiqBugRCO1oup1
-	 eOF9MY/H1aSrMiqHdCfRek7zLX7Ij/Gxr4nVDpO0lNSG9eYEJO+krWeI07enPnqm8lA==
+	t=1793440513;
+	b=isUR46geRbS7Kmyg/HlblSwOnCj8OVWGZxWk/tB4AjMdoeKdFgzRC15Fc242bP+5aAyP
+	 O4AbHrk6+9wBzVc4LESoAQmpCPb/5zrW/ZopeJsfHvdf36o2/ipaLdgFbY7cG3rlHi+ji
+	 aRBlww/Je69Q38WDyA6LQxhpjgabd8kftGYOKAtSkcK7kiRiSwQ7ckl40vBy0mcGdzlh8
+	 0h4utxnDn76b02BAhaZ7UB7yqHrlL7vyh5N4A/afFRABmTPHbBf4/0IwjEvBVhBAktIai
+	 aPd3n2t5DZQkMvpMUJiytsKwpwCPRQvzERz/iD1q3Dr1z3jOTzjK5rBeA8kpB3FNYnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793440348;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=P+XDhasxBREAHMJWaTnaRrbmO35vpS7TJxAQhlwiqYY=;
-	b=IShThGVaL7BJOV9YINdl6r2KRBQtbYaTIyXc2gTnbKIpGgzGeUXbrAUfNssmTaVktnk5
-	 z8V/N/P2F8FgZIBeSKfZxlIaGN+XwKz2eB1Kv21Kh1wyLVbvjtKDpc1kmyXtXmP/sR3FM
-	 rDfSrv6pFxtl0pXNvTtqwJKNhO5l24sGND2JNXlPqhlXmKiYFH7dL7germ+A+AwOULzfh
-	 gCDVU1gihUojgr3olcA0sZjwwDCcFP/plvYEqVXb/SFTKTJdZ38yihL/hzPcD3qayyek3
-	 2EoNh4XhdYxIVWFiHDK6igha0+SCqgjS7aRX4NX06R4tVPQov/dT0c86HHw9qynBYxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793440513;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=zUoiAQ/eIl9mxZDtmdwiOfm6Vo77qK+7yYPtMHdNZHI=;
+	b=VuSshOUacSIaQ0QF1X+zGHoxNM/qbnVLgAZlZwycYVqwhJ/TM5qzuyhXb4kcoM8TU1AN
+	 97qmWhsgvEo8PFrHNEKdgYb7FS0ZZNiNT2CZ7epBOyjcUGBQ7VvVTW7el6yPyGSvoLfgu
+	 Jg8iV6NsNEbypN+vfO18coMr9dnBitf2W4CXNg+Cr6dENS9X1JeLhnqgC7yCuYSvp/laT
+	 5AklYDLzBc1p/9mzGmSWKwBha8bpj84V3hgNPSMGprmgSUL3o3lnxMaDhucIcKoZq8uUU
+	 ADIDey+zAtr48yi0GpPbUsVvG0yctLAUtESYTalG1jRBLo/1MUajPEoTr6+3hn62Q7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mm/XhP7H";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="BL/zvNX/";
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090E7606A31A;
-	Sat, 31 Oct 2026 09:52:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A4A606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:55:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07A4A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mm/XhP7H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECB401F000C1;
-	Sat, 31 Oct 2026 09:52:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793440347;
-	bh=P+XDhasxBREAHMJWaTnaRrbmO35vpS7TJxAQhlwiqYY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=mm/XhP7HPzo+iFoVllgXYlAnByRSGdmEmQ/9WKMRbKjP9gf3uokjKC5NnR5B3Ub/0
-	 df3PiunpjyE567NZ1zBV+tZM/rAOyYte79fMgzRX8xb1Jw5+RRsKg9cba6L4fDpu4J
-	 dbeRuNMuFh8XWCB3F2fTvLcoauM/ZmvDce60MDqxjOp4hjk75ZMWebupjRfd1ssHP3
-	 RF1SriyTNMONJLj1srRxbt9Lj/xl7DWYcaVNvpp2N+phftZoU8/tH9J9wXRfuk02EY
-	 OjKf5XK7hX1//dPKa46gIrs8/UpIGMlYMN5XKpuUgrJihaeRboayI8kWy1HZdnQrGU
-	 oJnIAqua6PDFg==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:40:16 +0100
-Subject: [PATCH v3 47/47] fs/proc/task_mmu: refuse addresses beyond 32 bits
- on 32bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BL/zvNX/
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a215e64962so14690075e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:55:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793440511; x=1794045311; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zUoiAQ/eIl9mxZDtmdwiOfm6Vo77qK+7yYPtMHdNZHI=;
+        b=BL/zvNX/tBrF6IXRqpOnI0jDf796deWz5IB9oDGIraKRvWYUoRZrsdlICJzU7YUx1L
+         A5lY7thvAKSAPQfvF7IpAVWPxnH5oySXW9I0vKfHnZfsg3RWY593Y3EPaFgeh0e7OFGB
+         Q8SJ5KMqgR8Xr+52d+tZkXlv6P1XsPoMuvwo3yZzUXLdvuGBUebZo75XB0nvudrG7ogS
+         PXoOkVU0W+Z/NwDEw7JTePQsMh+gJXaZYAFbDDqD6J8KfpC8ns+AGDMHCkamXHsPJ5S5
+         Nw62fFp3kik8vLKa1FR5MfPzCy6RMgjQRDiv15YF875DzK+IpA/VGQmldHTRzxg82A7W
+         Czxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793440511; x=1794045311;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zUoiAQ/eIl9mxZDtmdwiOfm6Vo77qK+7yYPtMHdNZHI=;
+        b=aFjq69sjdX4yGrav3o+OYptGSu8REZNdiF6OxnlxFs0A/+hoPFYls7nNiLexawj6VJ
+         ZUv0fWLXr2fp2JtJkrq9u1H6yHxN1+nMGXcZlRWVelXaGrVrVbzpZqoa3alarXTrXK0e
+         9xAM2hxYIYX86Czu+LWpsm/JOQ4tu0PMtipZLX1EG+Yya8YiWGcP7Jc8iZWRC7/AT2x1
+         gBghalDucEUEnyBPDniqMIWXr+5x0TU7ZlT7Iymn3cAXwzBkvou8b2nu3EWcXhPlBC+T
+         Z8UGMIDhUULIn6utA6GtCFla3ttLuAP29YADVkYdaO5CvctI70Oz3BNan5d/Om/ibzqL
+         fGnA==
+X-Forwarded-Encrypted: i=1; AKwUvBwKoz2xbZwHrY1ryBSQGnX4T/dFeLZ1srpNpucSkGmv88tjP/5qtpfwFZXPUz3UKQKUHPD7aBrqgdUsyhI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbLS3yqmxb+hlS6br2EVdUdHbncQ7wxuS8mYXycoWzkL+JFPvh
+	UwbYyf621kUViP6TbD+GM8T2gKsWCoVUJ0SA1hNyi4tqXYSW1vSs1N5u
+X-Gm-Gg: AYBFou2GIfHuo+WVHJhRj2khHKifCleZPXsLxngHI2MSR9rUUSATV3FvkWjL0daB4qP
+	zfRt0Y+nodU2/kp8rhut66jFjcl5SWPq9W1SDJSgMpVPBS+zRDcecG3UX5hELuwRj6Q7JGAwG5M
+	Yuc1BF8heXlPuiy71pJVEbpCA1QAdYl4PJjVtk1dE1tsHjmnUSIwXPMmoIx49H2KIKD+w2JNGBd
+	1LU9GKzens3SeWBnnGLMSpMWCPXTVPAET8VwTAP0G4fRqyfmzdtTj4b5liQabqv1XGHhUeQK1Vu
+	jHSsfCIqioaKdL1lqsfFR/HWG1q+qSW9gZNsaN7YE61oJSLzBvhtyeXYt8rheqpashTuDUat7cx
+	Ai3WHSIV0mcGOYWmK4F2yYOpAkT7rqF+Mgbgxdk+hLiPq+9QAcEPUn+dqglBUwK2Q8r4Va0V3Y3
+	sta0XBI0OYOHIidgAfsJch/nsYSayeaRGy29eGLOYiUmFssjkQbbd8sLyJ5KuI90scFL0CiAuQs
+	Ul3eYmTxd60HOrq6rSuIfvG+qoJSJurIc8ZYAtlxv98G97jcaTm5pwzusIQuNVeMbAWaAac4gh3
+	w8RsZdM7eU+W7D4TuJBgVLeYfGQL/lLFk6FaZqxbstWb1bmwBeRq5eKTpimY6+2/uWL1BQTXxWG
+	96SLsL+Nji4XL5uXnUOdLrU3TfKDqZ9f9N1Rs01NlSPGecTsP01BpPZgUIBb1nofoWt0=
+X-Received: by 2002:a05:600c:1385:b0:4a3:5991:718 with SMTP id 5b1f17b1804b1-4ac182dc0a1mr114344385e9.16.1793440511385;
+        Sat, 31 Oct 2026 02:55:11 -0700 (PDT)
+Received: from archlinux.tailbe3ea7.ts.net ([95.173.233.214])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78a6bsm7869505f8f.27.2026.10.31.02.55.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 02:55:11 -0700 (PDT)
+From: Ismail Tarim <ismailtarim7@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: James Ogletree <jogletre@opensource.cirrus.com>,
+	Fred Treven <fred.treven@cirrus.com>,
+	Ben Bright <ben.bright@cirrus.com>,
+	patches@opensource.cirrus.com,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] Input: cs40l50 - fix work item leak in stop worker
+Date: Sat, 31 Oct 2026 12:54:35 +0300
+Message-ID: <20261031095438.3070451-2-ismailtarim7@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261031095438.3070451-1-ismailtarim7@gmail.com>
+References: <20261031095438.3070451-1-ismailtarim7@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,102 +102,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-fixes_core-v3-47-d6437171ecc3@kernel.org>
-References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
-In-Reply-To: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>, 
- Muhammad Usama Anjum <usama.anjum@arm.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1750; i=david@kernel.org;
- h=from:subject:message-id; bh=d8AVCy95kfas+cJ7pSeAW9fI96TKmix6WWb4ARgBYj0=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKebs+uWlm2vM6eedFfrsPlmn5VRldO9lvIXFeflLt4m
- UjDL9sJHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEykXYWR4eH/x/2/vSJVbgRt
- 27d0zhqZ4nL5itJpMbbKUsv1G6dMymb4X93EcfrTp/qNqTE90isL4+W72IwZ/7uandbptO5xmr2
- PAQA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+cs40l50_playback() allocates a work item for every playback request,
+and the start and stop workers are responsible for freeing it.
+cs40l50_stop_worker() returns early when pm_runtime_resume_and_get()
+fails and never frees the item.
 
-The addresses in struct pm_scan_arg are 64 bits wide.  The first thing
-pagemap_scan_get_args() does with them is to cast them to unsigned
-long.  On a 32-bit kernel the upper half is dropped without a word:
-PAGEMAP_SCAN of 0x100001000-0x100002000 scans, and with
-PM_SCAN_WP_MATCHING write-protects, 0x1000-0x2000, stores the result
-at the lower half of vec, and reports success.
+Free it on that path too, as cs40l50_start_worker() already does.
 
-Return -EFAULT, as for other addresses outside of the address space.
-
-This is probably not worth CCing stable.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Fixes: c38fe1bb5d21 ("Input: cs40l50 - Add support for the CS40L50 haptic driver")
+Signed-off-by: Ismail Tarim <ismailtarim7@gmail.com>
 ---
- fs/proc/task_mmu.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Build-tested only (W=1, x86_64 defconfig with the CS40L50 drivers as
+modules). I do not have CS40L50 hardware, so this was not runtime
+tested.
 
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 7452b695fdaec..762b6dbb81e4a 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -3032,6 +3032,12 @@ static int pagemap_scan_get_args(struct pm_scan_arg *arg,
- 	     arg->category_anyof_mask | arg->return_mask) & ~PM_SCAN_CATEGORIES)
- 		return -EINVAL;
+ drivers/input/misc/cs40l50-vibra.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/input/misc/cs40l50-vibra.c b/drivers/input/misc/cs40l50-vibra.c
+index 68f0c40ef..cbe69f6c7 100644
+--- a/drivers/input/misc/cs40l50-vibra.c
++++ b/drivers/input/misc/cs40l50-vibra.c
+@@ -384,12 +384,12 @@ static void cs40l50_stop_worker(struct work_struct *work)
+ 	struct cs40l50_vibra *vib = work_data->vib;
  
-+	/* Don't cut 64-bit numbers down to addresses that happen to work. */
-+	if (arg->start != (unsigned long)arg->start ||
-+	    arg->end != (unsigned long)arg->end ||
-+	    arg->vec != (unsigned long)arg->vec)
-+		return -EFAULT;
-+
- 	arg->start = untagged_addr((unsigned long)arg->start);
- 	arg->end = untagged_addr((unsigned long)arg->end);
- 	arg->vec = untagged_addr((unsigned long)arg->vec);
-
+ 	if (pm_runtime_resume_and_get(vib->dev) < 0)
+-		return;
++		goto err_free;
+ 
+ 	vib->dsp.write(vib->dev, vib->regmap, vib->dsp.stop_cmd);
+ 
+ 	pm_runtime_put_autosuspend(vib->dev);
+-
++err_free:
+ 	kfree(work_data);
+ }
+ 
 -- 
-2.43.0
+2.56.0
 
