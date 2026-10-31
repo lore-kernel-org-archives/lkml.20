@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793431963;
-	b=DbsemPbvjIVHXcd0E86n4IBu6QCdmVeK5hupKusVUwvppM6wXECC8vK0vMlTOBL7FhL4
-	 xHgue5BVwEqng4hAcy+z7OWhEO83DOVX8KcBToIz5IS0nq8gq/mS5Oe41lhJLghYj6jkF
-	 r9AgweUoyzsdwRfFuQ9yp/B8Yqzf7rCZwND52jTf97iRO4YEY2P6dnOT1MpFtwPAVeQ0F
-	 4uZKdhwDO0nAyKGg8iN9K0FukmQz4L7VrVT7f3o8IVb1qjTpR9ENwVwPINHxlKfvVSJbW
-	 Fa7VccOkg0E3ChLmdI2yYliUYiU6lktEEayCHnhbrudy1twYOH2qZeAzPPkBeYYAAqA==
+	t=1793431958;
+	b=psW0kdBSAwHAz0gRerQA2tDpXZ9iyt4KhIjPiThzxnClTY2G/WXeAV7ToHayWOfmJaOj
+	 DTDRPj6EG+lf1+3o3NEpualMmqVvOMlrnkrpZ6NovB7FhcRWGxlD3VQ8Zq2o9AXRjmubF
+	 2htYhuvPJhdkeel6RjzXZRgIR6vnBNbkuSImMETsV3ByX6wvidoQylJNAA+9yT3KtunyK
+	 YWdLjjwgbS/DOvLustailj10Ss31ERre+4B2SHR/C5bq9PlOIRhpCMN//JKWMVU84vFZ0
+	 wHV9POsQ4xNhibz26MQuC7ZSbVEwceRHRH9YqlBRDp4pMn2gdkMFd/LQZ8mW8gq1hxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793431963;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793431958;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=M6Kw+2ZkPNmmmVtdjl+hjlT9G0MDLpS6DZPqvvJBmbk=;
-	b=4DMUKulkMzCkzQ2u84eRHusqfqi5uLPObp9eO5dlw4wmNMgeLXFcVqRFQSaToXRbzYZW
-	 qoqG9LP/KnQ7f5S6uyuLKZ0g+szx6eRJ+bPA8xzKophJl8MIII859DWGKUwUJ73jKJWOU
-	 ySzgkV+dR/zYWjccmfK4E8iOelIRyEwDwQuWY16ckKxGVtESD22GuqkBsrLxOwZYQnafy
-	 VRgWyOR0HgqZsCFq3wPHtwTrJ5URy7gh48sn33ybqyyapYeKIBnWTTorzZVaT5sVFYHWs
-	 94uj0yY7+sOh+0oS+okD9JKSyfkQo6dnNXEpSqFrhuGK2wkegtN6F4R5gpy0uiPmBeg==
+	bh=SfJSeQMEyrSl8TrWVW2x1shy/UkqWuiEJl8Abe5S1GI=;
+	b=WexhTq7V9VocRkPfz2BRge+L4MZRjoxeI5MGqJTTwTlebzBSBA9KNVjKVr2zBGuwGrpu
+	 r6vEvzyto4KPH6G7u6Je8A7HK0Xhdm2zoXB3na4W1VVz2IQ8Bd5hQYryqtOmZ95fz3WhE
+	 KgLOaov8dv970EU2tm7MmGwhHfZ3WjJ3RgoODIWfpRUTPSKbfM0VzpusKQczFDPgcPyPz
+	 LHpPFCv6HYmGaIZZA9WuIVm4ggQdmtZa5yQIvDxQv+5pzswL2PdPJhqEWQlckWhMI5nKE
+	 YNbq5lWjEFOWqMiStEPUWjK4lVTY4zmZZU+JgJ8AC/2t5KLLjCexdT90k3I8DB3P//Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rwyZXJZm;
-	arc=none smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WUvoMCrJ;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D781606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:32:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D781606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4843606A31E
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:32:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4843606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rwyZXJZm
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cd5cd8d89a7so617968a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:32:42 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WUvoMCrJ
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ae486f8a27so921720a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:32:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793431962; x=1794036762; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793431957; x=1794036757; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M6Kw+2ZkPNmmmVtdjl+hjlT9G0MDLpS6DZPqvvJBmbk=;
-        b=rwyZXJZmIKzk6f+J4wV1wvSZJN+xIl1EYMTKp7Za9DOH4LuoQYIJTb3Y1DQmFRWj5h
-         hr84Ma2NqAMZm2fbN/7/4LfjCI6qVBUhts7EZb9EFCrdQnZ4gnE4lh7LcYqFl6NQrWkt
-         wh9Bp1d4GQOnt+6oBGvQOxg+Mg9zedLpzbBRKqpFB7f3o+f4pZXX/uTpXqb/olOnXQTD
-         W9oc6YMLWTrA0Ka2B9qZ8Nxc5T6kBKIjp+xD97CQKvOFroPY7dXyKHboTsxnHRNZ/Y6F
-         iTRdJhag4Rzgoo4iNYznxvfpvckHfdllpOTL7b7X2RHJjnwjW2z9nP2/XOT9F5CffoQ4
-         8ueA==
+        bh=SfJSeQMEyrSl8TrWVW2x1shy/UkqWuiEJl8Abe5S1GI=;
+        b=WUvoMCrJdotF6Nozt/nScnWru/GaTVV7wrCTeykbDr0ob8tKN2IX2Mta06OqminXdZ
+         /y/0Qs2f4bUeAU5wlqAhWbgemJqYIPhVIksDtUGRxqzQTP5IlC/qBZa+w/9wafKHllr0
+         We3HvQkAA5h1RAE7Tas+ZpsRHKAsLXsB5cwcfRvkeymrqoDq0OVeVgWNTUyniqbrgz4C
+         sBugevnfMgduMmBWGBdY0rV+qgyFsQ5Vj4sxhkpoPkJBmRRM+/A3aUpVD3JLCBW+DPY6
+         6/EANOgYpz34kZirt3Kq5mu79dk//aJzcbxTWiESKtkBaZX0AD8kIDcyU95qxSIDcYpB
+         UrhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793431962; x=1794036762;
+        d=1e100.net; s=20260707; t=1793431957; x=1794036757;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M6Kw+2ZkPNmmmVtdjl+hjlT9G0MDLpS6DZPqvvJBmbk=;
-        b=eZ1CM7yBJMBDCp+PvaQqZfX+y+vay5kAfLJNOp0nCUu3nN7wyz3AqGxW43WRoh3zIT
-         pZYNOdrtTqejRT6bG46SlK3gcASw5a6JkfrrnVY6kP5MavCA2HMBDoEVyuW2AQ3R2tST
-         zbRuFBpySDKvE4jrL3oV0vZgFQu9gYNveAkJUybZ0UPnRcP1IBTsRuMMmglEnCBgZWuV
-         ccWCprpOyCN1ubv7YZGt2h799zlyfroHjIrkhYaHmGHYtu4PYyF5z2rvZWGVnB8qCfid
-         z1Y9wnGkZVqePqEVr2d5pcPYIoA0+rebCUJMqIEfG1buR0aUmSZkhhvBSkhh1ZKoKote
-         PsYA==
-X-Forwarded-Encrypted: i=1; AKwUvBwP2mNqFA5dhfLeF6DugZrXR19xnWE9oskJsz/VXm0P9hKYxGFSpXlAdsHLqa9UxNeup0nC3r1v7OhOWWE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTrEA0BjGROzz3ZIlJKUm6Zs5t3xj2n5vgVS0Z2fka5VKqhFnI
-	BAxVW1RUhgpieonwWTTC0j0A179vhpoEG9bxNDdcbzW22z5MrkZNBgps
-X-Gm-Gg: AYBFou2Qt28laBv7NAIWOsG82HiUcRg8tlNtVptNEO4puVpXVqWROuspR7KvSPvg95B
-	nqQ176D9elUs47k2LWYKDwbJq3ysT8+XAxhRix/6GZYlkxIzyyoQDjcMIKZE5DdeO2TAMczrCT3
-	z67pFB9bCRc6s2tydMAatN1Ch9+ER0PDSNHMX1cqSU/TBm2D1u0745tnYCRljO8lIIXVBf8zwfj
-	jE4/+vNkJMVzBhH5SWe1BgDDr+ie2E0i3WwEu6/abZ/yy9KKG3qpPsd8HC6jvnLDUYwSTt09XB9
-	u+RcWDaoh/cz9+OZvpnFi1YtlVcs0G1y7gAZ/KYpX6klNbqm9sRpMZuj82wMu7JvH+gmLbDPx4S
-	J52ndFar30ksmpIAp2/m10IOO3wsX9hGKLYYFEox+xH3AILFBAZMENuQs4Y3sdk0pe1kLj002FS
-	p7LkMkeAulm9FbMgmZNUtfBL+JN8kh0Q3b76iUxlhLr24MhHxDlCzxJCSBfUZF2nDHLGbnMp2ry
-	uV++2fgzOnBQKJ36AVdNAG05vaie6WDlMQrxuTEZfN6cVL/wAKKI/8F/ZT5/xnYmE+qU9EcvGIi
-	wEJoyJLN5fj3fxrmPw5P63xVRYOi0o25vhFov1uEgEWciA==
-X-Received: by 2002:a17:90b:4a4a:b0:3ac:8446:c1a5 with SMTP id 98e67ed59e1d1-3ae897d313cmr3466248a91.48.1793431961896;
-        Sat, 31 Oct 2026 00:32:41 -0700 (PDT)
+        bh=SfJSeQMEyrSl8TrWVW2x1shy/UkqWuiEJl8Abe5S1GI=;
+        b=UaAkoAo/a1aD/v6FWk4Q0HbRv0hBskz7G2QLHchQm5sV73l4NryOmYSi9/TaflsRzC
+         n7Na36CEMYDDG3adE8QgDFDw8E6tr+8r/idoOGljeUjQJ5P2/XUoRbLxvP7ejos84adF
+         0CQ3egVaQdA76+BV2/5fHO+pZPvrRe2BaTmVwoCt892/bZjTgvU5xs2V00ZUUh14eLMU
+         u+hV4Cm0QEvs0Q+dQaf+p/sx0Q4FEf0bUHqnJrK5s8LDWJJ7XoAKLxn6bDcxXYn3xd2L
+         hJp68wFHYSE08mQvYh331pp73b3cyy2kC7QIIYHclp/Q6bGocHfJQxBCJFwI6UfhYHU3
+         N7Aw==
+X-Forwarded-Encrypted: i=1; AKwUvBwVYs0/ARUnSS5VDFbUyZ5GvxRKryop2SOhm3m2LvHGgQe0UwUSCvb8lJLjQLBHv5X4SCDgPvRZ78bcink=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHKFlXVBp/kOn5CdVN3Iee5P1xvjqDPAaFzz+2PLhCPNGMswYp
+	CSQf0kfquDveXqaQhnyAG1HmlIOxxYqLiOGH70De03oCDQ9ZP61IAr6A
+X-Gm-Gg: AYBFou2OLcnZmhazRNdL7+AufVYEN5yOvPE1gadN4YFMR0JMxlh2j4EmR9b8oh3VN+x
+	xS2E2olrwowLFKBxPTo6h5Cj6gWLLzXLY6s54fApkTr8fGid8kmO25j3ALP6g3P2HUldozOHS6s
+	7AwbY19LdKP9fkG7wysswjvCW5g5Nll6Dl4Oo1YZX0at/+K+3U09eCeNTItXxz6o1PoE5JloS7a
+	s8vBuFKOAKfRABsARG3bFP+R5ZPD/kIxsm7+2FatdoMhaILdrUW1t2ILzTT+E1lHmbH0/ru/D2L
+	sthp+l2S0hpaj6uFiSoEDs8fMOfX+mRMryfnOtnhQeCk7LtjCzCGvaGgTH0qNnKOBVhv6ECy70y
+	gSPxBGJbwCXEkeYosOAq8v493P4oIOZ3Rc33Sy3KHLNBFxsFcv121/kVOGKf5MJWbZCE17Hr41F
+	W7jE2P+YMQSr58qQArO0chz6+VDlCeTeG8Gq0KBKpP7oJLKVWKeooejglt3oc6r64RHmsqgqJdd
+	7XMfxhKGbykzNwQzZ9I/wd9lyX6gmnnpr1FCLOsuginbdjbqCGcn0gdwME4zXDi4NCdwDAp0mQR
+	rWVPjDUEhkg1RjWtrCI54JGT
+X-Received: by 2002:a17:90b:1b12:b0:39e:3713:c2e4 with SMTP id 98e67ed59e1d1-3ae896f51e5mr4069580a91.14.1793431957117;
+        Sat, 31 Oct 2026 00:32:37 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae841dd1b9sm6691486a91.0.2026.10.31.00.32.37
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae841dd1b9sm6691486a91.0.2026.10.31.00.32.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 00:32:41 -0700 (PDT)
+        Sat, 31 Oct 2026 00:32:36 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
 To: marcel@holtmann.org,
 	luiz.dentz@gmail.com
@@ -86,9 +86,9 @@ Cc: linux-bluetooth@vger.kernel.org,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH v3 2/3] Bluetooth: hci_core: Hold the request lock for the power-on update
-Date: Sat, 31 Oct 2026 15:32:23 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0184-v9-4094fa28af7bd56a283a-2@gmail.com>
+Subject: [PATCH v3 1/3] Bluetooth: SMP: Serialize forced BR/EDR channel changes
+Date: Sat, 31 Oct 2026 15:32:22 +0800
+Message-Id: <pm-bluetooth-objects-candidate-0184-v9-4094fa28af7bd56a283a-1@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <pm-bluetooth-objects-candidate-0184-v9-4094fa28af7bd56a283a-0@gmail.com>
 References: <pm-bluetooth-objects-candidate-0184-v9-4094fa28af7bd56a283a-0@gmail.com>
@@ -103,62 +103,182 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When the controller is already up in the HCI_AUTO_OFF window, for
-example after set_public_address() or set_external_config() queued
-hdev->power_on, hci_power_on() runs hci_powered_update_sync() directly.
-The update registers the SMP channels and sends HCI commands through
-__hci_cmd_sync() and its variants, which require hdev->req_lock. Commit
-cf75ad8b41d2 ("Bluetooth: hci_sync: Convert MGMT_SET_POWERED") dropped
-the request lock that this path held around the update.
+The force_bredr_smp debugfs switch creates and removes the BR/EDR SMP
+root channel in hdev->smp_bredr_data without holding hdev->lock. The
+other users of that channel hold the lock: l2cap_connect_cfm() looks up
+fixed channels during HCI event processing, and hci_dev_close_sync()
+removes the root through smp_unregister().
 
-hdev->power_on runs on hdev->req_workqueue, which orders it with the
-other request works, but not with request lock users in process context
-such as the HCIDEVRESET ioctl or an rfkill block. Such a user can close
-the controller after the HCI_UP test or while the update runs, and the
-update then registers the SMP channels again after hci_dev_close_sync()
-unregistered them:
+Enabling the switch can let a connection confirmation use a root that
+is not fully initialized. smp_add_cid() publishes the channel through
+l2cap_chan_create() and sets BT_LISTEN before it assigns the channel
+operations and the parent lock nesting level:
 
-  hdev->power_on                  HCIDEVRESET ioctl
-  test HCI_UP
-  clear HCI_AUTO_OFF
-                                  hci_req_sync_lock()
-                                  hci_dev_close_sync()
-                                    smp_unregister()
-  hci_powered_update_sync()
-    smp_register()
-    send HCI commands
+  Debugfs writer                  HCI receive worker
+  smp_add_cid()
+    l2cap_chan_create()
+    l2cap_add_scid()
+    chan->state = BT_LISTEN
+                                  hci_dev_lock(hdev)
+                                  l2cap_connect_cfm()
+                                    l2cap_global_fixed_chan()
+                                    l2cap_chan_lock(root)
+                                    l2cap_new_connection()
+                                      root->ops->new_connection()
+    chan->ops = &smp_root_chan_ops
 
-Take the request lock again before testing that the controller is up,
-as hci_power_on_sync() runs the same update with the lock held when
-management powers on the controller through the cmd_sync queue.
+Disabling the switch can race with power-off, which releases the same
+channel:
 
-Fixes: cf75ad8b41d2 ("Bluetooth: hci_sync: Convert MGMT_SET_POWERED")
+  Debugfs writer                  Power-off
+  smp_force_bredr(hdev, false)
+    chan = hdev->smp_bredr_data
+                                  hci_dev_lock(hdev)
+                                  smp_unregister(hdev)
+                                    smp_del_chan(chan), chan is freed
+                                  hci_dev_unlock(hdev)
+    smp_del_chan(chan)
+      reads chan->data after the free
+
+Hold hdev->lock around smp_force_bredr() in the debugfs writer and
+annotate that requirement. smp_unregister() leaves HCI_FORCE_BREDR_SMP
+set, so after power-off the slot is empty while the switch still reads
+as enabled. Disabling it then passes NULL to smp_del_chan() even without
+a race; skip the deletion in that case and only clear the flag.
+
+Both reports below come from test kernels with scheduling hooks that
+widen these windows. In the enable case lockdep also reported recursive
+locking just before the oops, because the root still had the default
+nesting level.
+
+Oops report as below:
+
+    Oops: general protection fault, probably for non-canonical address
+    0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+    KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+    Workqueue: hci1 hci_rx_work
+    RIP: 0010:l2cap_new_connection+0x16c/0x320
+    Call Trace:
+     <TASK>
+     l2cap_connect_cfm+0x46c/0xe60
+     hci_remote_ext_features_evt+0x67d/0xbd0
+     hci_event_packet+0x894/0xc70
+     hci_rx_work+0x367/0xf00
+     process_one_work+0x908/0x19c0
+     worker_thread+0x65c/0xe40
+     kthread+0x34f/0x460
+     ret_from_fork+0x659/0x940
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+
+KASAN report as below:
+
+    ==================================================================
+    BUG: KASAN: slab-use-after-free in smp_del_chan+0xd2/0xe0
+    Read of size 8 at addr ffff888112a2e4a0 by task sh/493
+
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     kasan_report+0xe0/0x110
+     smp_del_chan+0xd2/0xe0
+     smp_force_bredr+0xda/0x200
+     force_bredr_smp_write+0xc9/0x130
+     full_proxy_write+0x11f/0x180
+     vfs_write+0x25a/0x1010
+     ksys_write+0x111/0x200
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+     </TASK>
+
+    Allocated by task 493:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x251/0x610
+     l2cap_chan_create+0x47/0x930
+     smp_add_cid+0x309/0x4f0
+     smp_force_bredr+0x17d/0x200
+     force_bredr_smp_write+0xc9/0x130
+     full_proxy_write+0x11f/0x180
+     vfs_write+0x25a/0x1010
+     ksys_write+0x111/0x200
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 496:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x307/0x580
+     l2cap_chan_put+0x273/0x3a0
+     smp_unregister+0x59/0xe0
+     hci_dev_close_sync+0x4c9/0x1150
+     hci_set_powered_sync+0x4a7/0x680
+     set_powered_sync+0xaa/0x150
+     hci_cmd_sync_work+0x1b3/0x450
+     process_one_work+0x908/0x19c0
+     worker_thread+0x65c/0xe40
+     kthread+0x34f/0x460
+     ret_from_fork+0x659/0x940
+     ret_from_fork_asm+0x1a/0x30
+
+    The buggy address belongs to the object at ffff888112a2e000
+     which belongs to the cache kmalloc-2k of size 2048
+    The buggy address is located 1184 bytes inside of
+     freed 2048-byte region [ffff888112a2e000, ffff888112a2e800)
+    ==================================================================
+
+Fixes: 300acfdec916 ("Bluetooth: Introduce force_bredr_smp debugfs option for testing")
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
 Assisted-by: LLM
 
- net/bluetooth/hci_core.c | 3 +++
- 1 file changed, 3 insertions(+)
+ net/bluetooth/hci_debugfs.c | 2 ++
+ net/bluetooth/smp.c         | 2 +-
+ net/bluetooth/smp.h         | 3 ++-
+ 3 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index 2a29cfdee9728..55bad385e78c4 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -1006,14 +1006,17 @@ static void hci_power_on(struct work_struct *work)
+diff --git a/net/bluetooth/hci_debugfs.c b/net/bluetooth/hci_debugfs.c
+index cd5ef398f2382..f513731053d28 100644
+--- a/net/bluetooth/hci_debugfs.c
++++ b/net/bluetooth/hci_debugfs.c
+@@ -525,7 +525,9 @@ static ssize_t force_bredr_smp_write(struct file *file,
+ 	if (err)
+ 		return err;
  
- 	BT_DBG("%s", hdev->name);
++	hci_dev_lock(hdev);
+ 	err = smp_force_bredr(hdev, enable);
++	hci_dev_unlock(hdev);
+ 	if (err)
+ 		return err;
  
-+	hci_req_sync_lock(hdev);
- 	if (test_bit(HCI_UP, &hdev->flags) &&
- 	    hci_dev_test_flag(hdev, HCI_MGMT) &&
- 	    hci_dev_test_and_clear_flag(hdev, HCI_AUTO_OFF)) {
- 		cancel_delayed_work(&hdev->power_off);
- 		err = hci_powered_update_sync(hdev);
-+		hci_req_sync_unlock(hdev);
- 		mgmt_power_on(hdev, err);
- 		return;
- 	}
-+	hci_req_sync_unlock(hdev);
+diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
+index 984b2d0b5e3e9..0e442cc2a35da 100644
+--- a/net/bluetooth/smp.c
++++ b/net/bluetooth/smp.c
+@@ -3356,7 +3356,7 @@ int smp_force_bredr(struct hci_dev *hdev, bool enable)
+ 			return PTR_ERR(chan);
  
- 	err = hci_dev_do_open(hdev);
- 	if (err < 0) {
+ 		hdev->smp_bredr_data = chan;
+-	} else {
++	} else if (hdev->smp_bredr_data) {
+ 		struct l2cap_chan *chan;
+ 
+ 		chan = hdev->smp_bredr_data;
+diff --git a/net/bluetooth/smp.h b/net/bluetooth/smp.h
+index c86c463890078..13fe40c0cb244 100644
+--- a/net/bluetooth/smp.h
++++ b/net/bluetooth/smp.h
+@@ -193,7 +193,8 @@ bool smp_irk_matches(struct hci_dev *hdev, const u8 irk[16],
+ int smp_generate_rpa(struct hci_dev *hdev, const u8 irk[16], bdaddr_t *rpa);
+ int smp_generate_oob(struct hci_dev *hdev, u8 hash[16], u8 rand[16]);
+ 
+-int smp_force_bredr(struct hci_dev *hdev, bool enable);
++int smp_force_bredr(struct hci_dev *hdev, bool enable)
++	__must_hold(&hdev->lock);
+ 
+ int smp_register(struct hci_dev *hdev);
+ void smp_unregister(struct hci_dev *hdev);
