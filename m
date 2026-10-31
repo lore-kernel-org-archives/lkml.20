@@ -1,82 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793457244;
-	b=rpoGjV1jC6WPrVo7ASyxQojfgG5IuUhPLDVrHECnd3JhILNje2FCNF6vmSawu65n/Zs3
-	 W21Ry4mnTb2K8oCI0VW7SQY3JtVIuaAV0poFvcdOyv1uB0p3So9nSCDzmaYkqQKKg6h1m
-	 mY7APs15rsJhc/uU8ciZfKGq8I9r30lLInxpLNzBRGQAKwU8iNHoalJ2aft2xZM1kGX5E
-	 Ce77C77/SbzVQY8S5lvOBtB+nYpeYjGy0bycmv7JGWAPvTjYMRW16neKCqeMYfE3cwR57
-	 y//B2jcQYTLFp62A1Tefcpx3f1N/a2rf8GluuvmKdg7JT8zE6Kk7O8QmeAu8PPui6HQ==
+	t=1793457264;
+	b=31Lm56T1EQyDCdcMjz1+SRO6FXit9lnAoRgMJSyadGuoJpgLL9wV446qpSq4UAy/sQyq
+	 k47TpQRaeerf/oCmwsUFDol5lcN/hvaZoDq/ADK+ggdz63XAhQMnvVoqqQGbhewe3Qmrq
+	 d2fdjLm08mocZWLi+H9WSPrT++rnmewThPNVEHxr5IO5z0yTRMBTIBryGMokrw17yRumD
+	 rI3ztF1aAbjt+seO9PPO7mF06yF6yOiLiBD5xm20+0Se17XZr+bmPOYg8jRW/fAw5jx1H
+	 OARpIB3e0rL2cZNu3Vr+U7Z1soMAzZ5LrtXPc/ulC6wGKIn3P3h8ui1vdlRxRG+NyDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793457244;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Rspamd-Queue-Id;
-	bh=JJxlWD63aBsqJYxjsMpskuAarA2LuQHZe+BxsUgGNdk=;
-	b=TDZ+cmRezJEtg8yyTLHVeyw/xhzlZbUulJyocczMiCrsTETaxyJZTYjOXdbehPx6eCIz
-	 CRSUPsySc/rF4Tk0eHH8AnReVlKEw5Tmssu89/YCTCc7O+JpU0X75oaDsoDaB+kfMqU/s
-	 jQvFXKKuPEdUxbCstT2d8oRFmOwdynnvPkQSqBVbiq0sybk1DVy0/S5Mb/qwN/2BSWpgx
-	 aOBXVI/yDzS9dnbDZBbbkFG385q3DqgKooP/VWHPgrfvTLG2aD2zEAd3F05vTBWuVr9dT
-	 DJZMl7cwdQd5xblNBGb9S0di6pa3iA+vei8R5pR/CY9TPwTVmZSQWNvj/LlpSCQPgSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793457264;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:User-Agent;
+	bh=wmUlHuqBLh5kgE9P0I7jDj71Idh4M39E1I25dVG2A0o=;
+	b=Pyq3aZLSjabLm5nFYMjzNt2lkQO8D0xv9gkO8s0xtbsO5CvR6bk+q9cCpd98OOxjQye5
+	 /hiFVQGn0hPux0tLZ/VZ9AbrjBaaxAeE4i/BPSBwwer5vSyxtJc37a9by29tKijNCYdmr
+	 sjVScjrVdw/Dw98j/vK88RS+RPW7vBlcR6cu7H5OMDQ3FeaGYjbCFu5QcQmiiQMMwDCFV
+	 nLeiqGgztzTMoLq7eCFbrJMbjC62gXPXlI3OnznEidwYnC9zy6rSn8aKldHVj1XSas64v
+	 +QTcjAwBsDvD2big0sWcXtOdIxiAUwOIJgK3bSPm1pUoo7oPLOf788lfQEJD2VZ6VNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hsal.es;
-	spf=pass smtp.mailfrom=hsal.es;
-	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=QlMBxbyW;
-	arc=none smtp.remote-ip=80.241.56.161
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jUCsnsfW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDED7606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:34:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDED7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5471F606A31A;
+	Sat, 31 Oct 2026 14:34:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=QlMBxbyW
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jH0p96d3jzKns0;
-	Sat, 31 Oct 2026 15:33:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1793457233;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=JJxlWD63aBsqJYxjsMpskuAarA2LuQHZe+BxsUgGNdk=;
-	b=QlMBxbyWN/sCO7MqyUVkdEO72SoGJSRzibe78vkhI7vch95b0USADPTeX71/5pZu9dzvQm
-	u8ZN7hC2xAw15sXAhqbbPpwtfxvgta/c8lPhV5zEMQpZ//bapB9gW7QsSc1y0qhYec0Vbi
-	l0anjli0zixULwuZeu0sjESQx4i4CRcNWs5bXYGHrsjIvAA2ag2uCvdHyIh2m195gjnUYS
-	iDXIO5hbjUAnRL/g9c/zkOLWNV0KLYvcKJ0ei6riZoMyIZPWk/mcNcyDrGVa5ZtkyldQWx
-	eKSJW/gT9mCReLoDhBPBIrGCF0XJg6jVQ1gNeg6ybqSJ5+p8N4k3FqDim48w/w==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: harry.wentland@amd.com,
-	sunpeng.li@amd.com,
-	siqueira@igalia.com,
-	alexander.deucher@amd.com,
-	amd-gfx@lists.freedesktop.org
-Cc: alex.hung@amd.com,
-	mario.kleiner.de@gmail.com,
-	nicholas.kazlauskas@amd.com,
-	ray.wu@amd.com,
-	bhawanpreet.lakha@amd.com,
-	ivan.lipski@amd.com,
-	chiahsuan.chung@amd.com,
-	jerry.zuo@amd.com,
-	Aric.Cyr@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Hold the VRR vblank reference only on active CRTCs
-Date: Sat, 31 Oct 2026 14:33:51 +0000
-Message-ID: <20261031143351.3222033-1-hugo@hsal.es>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jUCsnsfW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0935A1F00919;
+	Sat, 31 Oct 2026 14:34:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793457264;
+	bh=wmUlHuqBLh5kgE9P0I7jDj71Idh4M39E1I25dVG2A0o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jUCsnsfWetnqFakKIw+xGL5zpziAhBDKe1hm5Aq4qLgkVwdgC6wJy1uN0js2ptJGf
+	 rIuGVTof7ztnNfHEpMcMdFbbgmPj/cHbo09ThqHqUtLXdp60ksbu3EdJQlLADoiWDg
+	 rdgXNTK9ilG9E0pXcoduUfVKHj3Zd1Z2J6BNBKYNcCbsVMAVqv7uyGayyyyovOwnTp
+	 G5h5wyuFwBuMQa/GVZ8XJiWo+ToWf7jTKF/x7Xe2phPvpuBGmIRYJG9CyMmq3ivAen
+	 I1AKgCxqjfBnQUhCwdZoEzL5aE/2/z+w5p6PPXYTDxOddMAnFpng/9ze6MO+53pFLz
+	 W/S6DsKbk5Xvg==
+Received: by pali.im (Postfix)
+	id A0AC0809; Sat, 31 Oct 2026 15:34:20 +0100 (CET)
+Date: Sat, 31 Oct 2026 15:34:20 +0100
+From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: koraynilay <koray.fra@gmail.com>, David Sterba <dsterba@suse.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Chris Mason <mason@kernel.org>, Jan Kara <jack@suse.cz>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Sean Smith <defendthedisabled@gmail.com>,
+	Andrey Albershteyn <aalbersh@kernel.org>,
+	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Pedro Falcato <pfalcato@suse.de>
+Subject: Re: [RFC PATCH v2 1/2] vfs: add provenance time (ptime)
+Message-ID: <20261031143420.is7g6wgdpwbo6wvz@pali>
+References: <20261028134728.294127-1-koray.fra@gmail.com>
+ <20261028134728.294127-2-koray.fra@gmail.com>
+ <auILs54TUcWXf3us@pedro-suse.tail5790ac.ts.net>
+ <auMzpUIEmGCE_x_N@amir-ThinkPad-T480>
+ <CAOQ4uxiuy0VwZj+3M-zRqQ49WTpHZpiaQ+6MZ8z8WdLjyQM_zA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,203 +70,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jH0p96d3jzKns0
+In-Reply-To: <CAOQ4uxiuy0VwZj+3M-zRqQ49WTpHZpiaQ+6MZ8z8WdLjyQM_zA@mail.gmail.com>
+User-Agent: NeoMutt/20180716
 
-amdgpu_dm_handle_vrr_transition() takes a vblank reference when a CRTC
-state turns VRR on and drops it when a later state turns it off. It only
-looks at freesync_config.state, and disabling a CRTC keeps that state,
-so a suspend or DPMS off with VRR active keeps the reference
+On Saturday 31 October 2026 15:18:05 Amir Goldstein wrote:
+> On Thu, Oct 29, 2026 at 12:53 PM Amir Goldstein <amir73il@gmail.com> wrote:
+> >
+> > On Wed, Oct 28, 2026 at 02:56:39PM +0000, Pedro Falcato wrote:
+> > > On Wed, Oct 28, 2026 at 02:47:27PM +0100, koraynilay wrote:
+> > > > Add provenance time (ptime), indicating the time when a file or
+> > > > directory was created. This is user-settable via file_setattr() and
+> > > > retrievable via statx(2) (using STATX_PTIME) or file_getattr().
+> > > >
+> > > > The semantics of when to preserve this new timestamp are the same as
+> > > > mtime, the idea being that there is a correspondence like this:
+> > > >
+> > > > ctime <-> btime
+> > > > mtime <-> ptime
+> > > >
+> > > > so every operation (copying, moving, ...) that currently preserves mtime
+> > > > should also preserve ptime.
+> > > >
+> > > > Furthermore, in order to avoid the legacy FS_IOC_FSSETXATTR accepting
+> > > > FS_XFLAG_PTIME, add an FS_FILE_ATTR_XFLAGS_MASK mask to support new
+> > > > xflags, and use it in fileattr_to_file_attr()/file_attr_to_fileattr() to
+> > > > allow ptime to be used with the file_setattr()/file_getattr() syscalls.
+> > >
+> > > Random comment, but: could this be doable with xattrs instead? I'm not sure
+> > > where I would put the xattrs code (if in userspace exclusively, or if hooking
+> > > the VFS up with this, or if doing it on the filesystem side), but it would
+> > > surely be less disruptive than modifying a bunch of filesystems one-by-one.
+> > >
+> > > This patch is quite simple, but changing btrfs, then ext4, xfs, etc is a
+> > > mess, and inevitably you can't get these timestamps until you upgrade your
+> > > filesystems.
+> > >
+> >
+> > I disagree.
+> >
+> > I think that creation time should be a first class property in
+> > filesystems that support it.
+> >
+> 
+> One of the reasons that I think this API is a good match for the Windows
+> style creation time is that it was already discussed as an API for the
+> Windows style DOS attributes [1].
+> 
+> koraynilay,
+> 
+> In your next posting, I suggest that you first demonstrate how the proposed
+> API is used to facilitate filesystems that already support a user-settable
+> creation time (smb, ntfs,vfat,exfat), before adding btrfs support.
 
-On resume, drm_atomic_helper_resume() first calls drm_mode_config_reset(),
-which swaps the CRTC state for a zeroed one. The restored state then goes
-from VRR_STATE_UNSUPPORTED to active and takes a second reference, and
-the first is never dropped. The vblank irq stays on for good, so the CRTC
-never idles and PSR is never entered
+FYI, also nfs4 (the protocol itself) supports setting and changing the creation time.
+And maybe there are more filsystems which support it...
 
-A VRR change on a disabled CRTC can't take the reference at all, since
-vblank is off there and drm_crtc_vblank_get() fails with a WARN
+I think that ufs2 on FreeBSD supports changing it via utime() syscall.
 
-On a Cezanne laptop with VRR always on, each suspend added one to the
-eDP CRTC's vblank refcount, and it stayed at 1 rather than 0 after VRR
-was turned off again
-
-Treat VRR as active for the reference only while the CRTC is active too.
-Disabling the CRTC then drops it and enabling it takes it again, which
-balances suspend, resume and DPMS, and the get only happens once
-manage_dm_interrupts() has turned vblank on
-
-Fixes: 66b0c973d7f7 ("drm/amd/display: Prevent vblank irq disable while VRR is active. (v3)")
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
-
-Tested on an ASUS ROG Flow X13 (GV301QH, Cezanne, DCN 2.1) with VRR
-set to always on in Hyprland. bpftrace on drm_handle_vblank showed the eDP
-CRTC's vblank refcount go up by one on every suspend before this patch.
-With it, the refcount reads the same before and after a systemctl
-suspend, and drops to 0 once VRR is turned off
-
-dm_test_handle_vrr_transition_round_trip now sets base.active on both
-states, since an inactive CRTC no longer takes the reference. The
-three new cases cover the CRTC turning off and on with VRR left on
-
-amdgpu_dm KUnit on amd-staging-drm-next (ba496bb83788) passes apart
-from dm_mst_test_dsc_link_bpp_between_limits and the two
-dm_test_crtc_enable_vblank_ips_restore cases, which fail or panic in
-drm_vblank_restore() without this patch as well
-
- .../display/amdgpu_dm/amdgpu_dm_freesync.c    | 12 ++-
- .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 98 +++++++++++++++++++
- 2 files changed, 108 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-index 386ba88c57c6a..ee8a11f62a0d3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-@@ -414,8 +414,16 @@ void amdgpu_dm_handle_vrr_transition(struct amdgpu_display_manager *dm,
- 				     struct dm_crtc_state *new_state)
- {
- 	struct amdgpu_device *adev = dm->adev;
--	bool old_vrr_active = amdgpu_dm_crtc_vrr_active(old_state);
--	bool new_vrr_active = amdgpu_dm_crtc_vrr_active(new_state);
-+	/*
-+	 * A disabled CRTC keeps its freesync state, but drm_crtc_vblank_get()
-+	 * fails there because vblank is off. Hold the reference only while
-+	 * the CRTC is active as well, which also covers resume, where the
-+	 * reset state lost track of the reference taken before suspend
-+	 */
-+	bool old_vrr_active = old_state->base.active &&
-+			      amdgpu_dm_crtc_vrr_active(old_state);
-+	bool new_vrr_active = new_state->base.active &&
-+			      amdgpu_dm_crtc_vrr_active(new_state);
- 
- 	/* Only DCE gates vupdate on VRR, keep it enabled for DCN */
- 	bool vrr_gates_vupdate = amdgpu_ip_version(adev, DCE_HWIP, 0) == 0;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-index 710cdc7f40bf8..3268bdb1043ba 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-@@ -855,8 +855,10 @@ static void dm_test_handle_vrr_transition_round_trip(struct kunit *test)
- 	mutex_init(&adev->dm.dc_lock);
- 
- 	old_state.base.crtc = &acrtc->base;
-+	old_state.base.active = true;
- 	old_state.stream = stream;
- 	new_state.base.crtc = &acrtc->base;
-+	new_state.base.active = true;
- 	new_state.stream = stream;
- 	new_state.freesync_config.state = VRR_STATE_ACTIVE_VARIABLE;
- 
-@@ -867,6 +869,99 @@ static void dm_test_handle_vrr_transition_round_trip(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, atomic_read(&vblank->refcount), 0);
- }
- 
-+/*
-+ * Runs a transition on a CRTC whose vblank is on with two references held,
-+ * so a get or put never has to enable or disable it, and returns the
-+ * refcount afterwards
-+ */
-+static int dm_test_vrr_transition_refcount(struct kunit *test,
-+					   bool old_active, enum mod_vrr_state old_vrr,
-+					   bool new_active, enum mod_vrr_state new_vrr)
-+{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct dm_crtc_state *old_state, *new_state;
-+	struct drm_crtc *crtc;
-+	int refcount;
-+
-+	KUNIT_ASSERT_EQ(test, drm_vblank_init(&adev->ddev, 1), 0);
-+	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(2, 1, 0);
-+	dm->adev = adev;
-+	mutex_init(&dm->dc_lock);
-+
-+	crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, crtc);
-+	crtc->dev = &adev->ddev;
-+
-+	old_state = kunit_kzalloc(test, sizeof(*old_state), GFP_KERNEL);
-+	new_state = kunit_kzalloc(test, sizeof(*new_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, old_state);
-+	KUNIT_ASSERT_NOT_NULL(test, new_state);
-+	old_state->base.crtc = crtc;
-+	old_state->base.active = old_active;
-+	old_state->freesync_config.state = old_vrr;
-+	new_state->base.crtc = crtc;
-+	new_state->base.active = new_active;
-+	new_state->freesync_config.state = new_vrr;
-+
-+	adev->ddev.vblank[0].enabled = true;
-+	atomic_set(&adev->ddev.vblank[0].refcount, 2);
-+
-+	amdgpu_dm_handle_vrr_transition(dm, old_state, new_state);
-+	refcount = atomic_read(&adev->ddev.vblank[0].refcount);
-+
-+	/* drm_vblank_init_release() warns if vblank is still enabled */
-+	adev->ddev.vblank[0].enabled = false;
-+	atomic_set(&adev->ddev.vblank[0].refcount, 0);
-+
-+	return refcount;
-+}
-+
-+/**
-+ * dm_test_vrr_transition_crtc_off_drops_ref - Test disabling the CRTC drops the ref
-+ * @test: The KUnit test context
-+ *
-+ * Disabling the CRTC keeps the freesync state, as on suspend or DPMS off.
-+ * The reference must still be dropped, since resume restores the state from
-+ * a reset one and takes a new reference
-+ */
-+static void dm_test_vrr_transition_crtc_off_drops_ref(struct kunit *test)
-+{
-+	KUNIT_EXPECT_EQ(test,
-+			dm_test_vrr_transition_refcount(test, true, VRR_STATE_ACTIVE_VARIABLE,
-+							false, VRR_STATE_ACTIVE_VARIABLE),
-+			1);
-+}
-+
-+/**
-+ * dm_test_vrr_transition_crtc_on_takes_ref - Test enabling the CRTC takes the ref
-+ * @test: The KUnit test context
-+ *
-+ * Covers resume, where the old state is a reset one, and DPMS on
-+ */
-+static void dm_test_vrr_transition_crtc_on_takes_ref(struct kunit *test)
-+{
-+	KUNIT_EXPECT_EQ(test,
-+			dm_test_vrr_transition_refcount(test, false, VRR_STATE_UNSUPPORTED,
-+							true, VRR_STATE_ACTIVE_VARIABLE),
-+			3);
-+}
-+
-+/**
-+ * dm_test_vrr_transition_crtc_off_keeps_ref - Test no ref change while off
-+ * @test: The KUnit test context
-+ *
-+ * A disabled CRTC has vblank off, so a VRR change there must neither take
-+ * nor drop a reference
-+ */
-+static void dm_test_vrr_transition_crtc_off_keeps_ref(struct kunit *test)
-+{
-+	KUNIT_EXPECT_EQ(test,
-+			dm_test_vrr_transition_refcount(test, false, VRR_STATE_UNSUPPORTED,
-+							false, VRR_STATE_ACTIVE_VARIABLE),
-+			2);
-+}
-+
- static struct kunit_case amdgpu_dm_freesync_tests[] = {
- 	/* amdgpu_dm_is_timing_unchanged_for_freesync */
- 	KUNIT_CASE(dm_test_timing_unchanged_null_args),
-@@ -910,6 +1005,9 @@ static struct kunit_case amdgpu_dm_freesync_tests[] = {
- 	/* amdgpu_dm_handle_vrr_transition */
- 	KUNIT_CASE(dm_test_handle_vrr_transition_inactive),
- 	KUNIT_CASE(dm_test_handle_vrr_transition_round_trip),
-+	KUNIT_CASE(dm_test_vrr_transition_crtc_off_drops_ref),
-+	KUNIT_CASE(dm_test_vrr_transition_crtc_on_takes_ref),
-+	KUNIT_CASE(dm_test_vrr_transition_crtc_off_keeps_ref),
- 	{}
- };
- 
--- 
-2.56.0
-
+> Thanks,
+> Amir.
+> 
+> [1] https://lore.kernel.org/linux-fsdevel/20241227121508.nofy6bho66pc5ry5@pali/
