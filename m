@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.86
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793438138;
-	b=udadAp5DoEsilH5kWrgWsua36auXrZW5sSJspR9kgnFHnMdDK15mRaaz/91gHM9AOQ4K
-	 hKCzZTAt1sxThJZuslDkICcz2BGLp8jSOQT1IS16WBrh8o/iMWWHTYMODXrptVkqL86ww
-	 DzfBbGC5dT6CZyQjd1/QbfyYdU9brWRS91icXY+DWGtVFo/5FCG1MKYOnwTpEmGCmThkf
-	 SphES5w6OGRf1pZ/0sa9eFR2MGECo9/+MZdNbGh7QJlpshHUgu0IYWUSpepdnG+iemNFa
-	 1qW/DkyeUUexu8fsHtE63XIpalIxJPsnVPfz3ojbxA7Oxjhc/KfwkB1EK0w1NAklHOQ==
+	t=1793438139;
+	b=o8IMyZuX+/hYpoi/PQw7r2BM/sEZvjN8BBx2PHkPNHcScIoQyyOf7etJEPx+olAziuOX
+	 C1XtebKmIGDSt3TM4N4f0jKNIEF8udhu5fo8NuPKV9fkKRxqrGlpGivWWJH+1wU6xynM5
+	 jwlF6p7S3ItDgO52EtFHySwQuMexwEqxeJJhr+Aw8SJcYzKqWmRQtU769SKo17mdK+aSP
+	 y09BQdii6JkcgZtss2OFMiuicFOPEs2W4vo+5A5MPlJztiEDRsCIlPir44/NnhUVdtUDc
+	 c/aV9v0E73tDVk+ipaplrIulJ0/0LodsYMOTw/3vVSlK3zFEGGt53NBtoOHfGvQxZEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793438138;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793438139;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-CMAE-Envelope;
-	bh=WvG0kClh0TtoSxBVHbwJqxA9jzJi1q8SGW5f3Mvk2Ls=;
-	b=waQEZtzJbYzLS2terdB6mEWAc82UAwazYIqm9UV3fUbZ0iSWpUjtZ6B1LZ+OK91rQIC0
-	 0Tt2AHpCvypuZQgRdlW5uGkzEYa01E7RHfr6VMQXrIWC6gyvK9CBlIRpjwdQ6MV7FlnUK
-	 fr8BIbLJ3juzOQ9FBole1TNTNmAoN3orC2r6CM/yNDskSr0SGb3X3osACpiyIxod3OyW8
-	 vUX0Mm0+oVzHlzEOKd1KDjyMZ956JoDhMPUncqd3EJaZrP/QBgnFtbbT42Sfjz5Ejzx8J
-	 KAhnHWCroSxyfDL3s1vS25O6fMHVumE5j5zdY/pBTI/rgVfMoWJgNZSqXizQTPkIujQ==
+	bh=zrja8EfzhNwVxcvFfot4BI2Qx5xO8+yUBu2o21YSgFo=;
+	b=Qj/DfodEen6VnA+C9iZzHhegovrshAa5T4o6af7kXa71QtG36sbmlyDgniEpMYkQSzq5
+	 9fO6VMGDWO1JN6eH+dPGOY1T948MQ98kxOgMR3tQ32l4dDlN28l+evcYUNYSjPRkdtHrz
+	 qvrJfhTv64lzbylFMxSFbV7PePmazCX7IACfjwiblWxtmplBq8+b5sMnYFfTrrRLohffl
+	 9opGBPKX6OMBR7Omg2TBRUUCHEwQ5+ys04xv7EBZxZXx2SFH9Glvn3VQDkByk5r3KEIDt
+	 OY4Sa1Q32lr+uDrjjgFvgJj9vxp1cYGQ3slCA04GSBmde42LiN4SEyLtRqh3qk5SQ2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mythread.it;
 	spf=pass smtp.mailfrom=mythread.it;
-	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=kLYFVlG+;
+	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=DTAxr4Om;
 	arc=none smtp.remote-ip=62.149.156.86
 Received: from smtpcmd0986.aruba.it (smtpcmd0986.aruba.it [62.149.156.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D456606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:15:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D456606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2D1606A330
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:15:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD2D1606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=kLYFVlG+
+	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=DTAxr4Om
 Received: from [127.0.0.1] ([79.43.52.162])
 	by Aruba SMTP with ESMTPSA
-	id N5BMx1hYL6q8sN5BQxVoTY; Sat, 31 Oct 2026 10:15:28 +0100
+	id N5BMx1hYL6q8sN5BQxVoTp; Sat, 31 Oct 2026 10:15:28 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1793438128; bh=oLRFKUwHbKhCHiC98MhkOwsf0J/5kYlXvF/Sbi45IsU=;
+	t=1793438128; bh=8fZI2lXxC8ogDCARFPexqgWvoMA8iZm/DndUACcPEas=;
 	h=From:Date:Subject:MIME-Version:Content-Type:To;
-	b=kLYFVlG+VuwFQuO/+rVyYamfoQH+7fPZs3AI7Bg3WlQxVSFGSlvj+5Thvd07S/vlJ
-	 U+Eai+VTOGA02m+KmFTGaK0npTANJ9OqaHRPgtS2oAuYjZ+uMlTW0W6IjSNsDlHQND
-	 iXwsn9D0bevkfsLBuWDHi7j3GRCFNBoiyU6RCcQPxcGcjCc4b6JFmnPmXYrIKvSbS0
-	 kspBPp26qA7QwnV74mjKiTxOjY8EZQ7UQU94Zej5p106PswubQntxXqLTPHA6+Ov9Y
-	 WJAF9yrtNAKFGINKPhHBt26FWdK2g1Qdp3ZBMqvKTs6hcIn3C/6GBrC+GxAWSMZIaG
-	 CMHtK3f6SmASg==
+	b=DTAxr4OmeQgKxqJqvfBEMu7wy0x5r0+sV/eoVy7EcpWItwA+E/sZMslMwRPO7OmZf
+	 xNIMVkFkT2aJduygBcqgW7psaeChTW8tX3wibkGngZ2PeDIdBcMBoMELiiMfa0Aidg
+	 8FTaeinXIGflb1s7JVM56rNVa8REndzZ9Qsn7P+vpju+Frsj3Xb8D4NbBkKQGGjmLo
+	 khMMA65jcMPvgAgZQxb9x4fIl0lDP5BFfdfRtq/PSug5ZFzJ8dQ05MnmW/r47rnl02
+	 K6VuD4jISAPzlh9wZGFm56/Bi1Ug0tWStmq2gK2gNzs73kXNmj6rgPhAopXFOmUdl0
+	 xqidBWwY9RX+Q==
 From: Alessio Ferri <alessio.ferri@mythread.it>
-Date: Sat, 31 Oct 2026 10:15:25 +0100
-Subject: [PATCH wireless-next v3 03/10] bcma: pcie2: request HT on
- BCM4352/BCM4360
+Date: Sat, 31 Oct 2026 10:15:26 +0100
+Subject: [PATCH wireless-next v3 04/10] bcma: chipcommon: enable
+ asynchronous GPIO interrupts
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,7 +60,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-bcma-ac-rev1-v3-3-1fbe38e8179b@mythread.it>
+Message-Id: <20261031-bcma-ac-rev1-v3-4-1fbe38e8179b@mythread.it>
 References: <20261031-bcma-ac-rev1-v3-0-1fbe38e8179b@mythread.it>
 In-Reply-To: <20261031-bcma-ac-rev1-v3-0-1fbe38e8179b@mythread.it>
 To: =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, 
@@ -74,28 +74,42 @@ X-CMAE-Envelope: MS4xfLXXc5T4eu0nzpLMSWy+X5gfVikXSiNlEnMUR1sGQcqxa6SVj1y5a5wd0dI
  SDXhXP/V5eYCEg50yMUi52TFaydiMm7Xx46MXbDqHcmG2OQ9Eup0t0G5MMnN1ooBkh2IkNMS9DZg/FMEN6nTP7nJD/fp78DT+kp96s0AXXHj6ZtkxVcJi4Il
  NnoIGNBrsJS+ImjydHvTtXFfYTb6w7/MKLrrg75LPB+xXp4AV3u+XHLYiJZtY9f5ULRWNX0/Pm6ox4B4yPuRQibKbgtm6A==
 
-Set HAVEHTREQ in the PCIe2 core's clock control on chip revs before 4,
-as Broadcom's driver does.
+Set CORECTL_ASYNCGPIO on chipcommon rev 21 and later, as Broadcom's
+driver does at attach, so that GPIO interrupts are generated without the
+backplane clock.
 
 Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
 ---
- drivers/bcma/driver_pcie2.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/bcma/driver_chipcommon.c            | 3 +++
+ include/linux/bcma/bcma_driver_chipcommon.h | 1 +
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/bcma/driver_pcie2.c b/drivers/bcma/driver_pcie2.c
-index cf889fc62..54daeaa43 100644
---- a/drivers/bcma/driver_pcie2.c
-+++ b/drivers/bcma/driver_pcie2.c
-@@ -170,6 +170,9 @@ void bcma_core_pcie2_init(struct bcma_drv_pcie2 *pcie2)
- 	case BCMA_CHIP_ID_BCM4360:
- 	case BCMA_CHIP_ID_BCM4352:
- 		pcie2->reqsize = 1024;
-+		if (ci->rev < 4)
-+			pcie2_set32(pcie2, BCMA_CLKCTLST,
-+				    BCMA_CLKCTLST_HAVEHTREQ);
- 		break;
- 	default:
- 		pcie2->reqsize = 128;
+diff --git a/drivers/bcma/driver_chipcommon.c b/drivers/bcma/driver_chipcommon.c
+index fd91a39f0..f5e1b5415 100644
+--- a/drivers/bcma/driver_chipcommon.c
++++ b/drivers/bcma/driver_chipcommon.c
+@@ -227,6 +227,9 @@ void bcma_core_chipcommon_init(struct bcma_drv_cc *cc)
+ 			((leddc_on << BCMA_CC_GPIOTIMER_ONTIME_SHIFT) |
+ 			 (leddc_off << BCMA_CC_GPIOTIMER_OFFTIME_SHIFT)));
+ 	}
++
++	if (cc->core->id.rev >= 21)
++		bcma_cc_set32(cc, BCMA_CC_CORECTL, BCMA_CC_CORECTL_ASYNCGPIO);
+ 	cc->ticks_per_ms = bcma_chipco_watchdog_ticks_per_ms(cc);
+ 
+ 	cc->setup_done = true;
+diff --git a/include/linux/bcma/bcma_driver_chipcommon.h b/include/linux/bcma/bcma_driver_chipcommon.h
+index 525155658..c7d69d583 100644
+--- a/include/linux/bcma/bcma_driver_chipcommon.h
++++ b/include/linux/bcma/bcma_driver_chipcommon.h
+@@ -54,6 +54,7 @@
+ #define BCMA_CC_CORECTL			0x0008
+ #define  BCMA_CC_CORECTL_UARTCLK0	0x00000001	/* Drive UART with internal clock */
+ #define	 BCMA_CC_CORECTL_SE		0x00000002	/* sync clk out enable (corerev >= 3) */
++#define  BCMA_CC_CORECTL_ASYNCGPIO	0x00000004	/* GPIO IRQs without backplane clock */
+ #define  BCMA_CC_CORECTL_UARTCLKEN	0x00000008	/* UART clock enable (rev >= 21) */
+ #define BCMA_CC_BIST			0x000C
+ #define BCMA_CC_OTPS			0x0010		/* OTP status */
 
 -- 
 2.34.1
