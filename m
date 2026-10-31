@@ -1,59 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793483771;
-	b=sq99vykAgJDmOpfc0VqvFuguG39NUmtbB4u8svX6EYZPhJxAJ28QNk1avIWFjtrpGlRo
-	 zovbepluYbLymCbuBmEdThW4Fef1iPOnGFAv7mnlT4/1uuSlETUnVhBD7iBwkrcxxAzYw
-	 N6Hm/EQYzrD7z5YFVfsQ3YU/Gi8T9klk+uZw1iSOdmr1y3aSG3B1USam8ecO4ff5sepMy
-	 iX/uLRzx3HZvZVdmVGmJ1a4d8GrvQvWv9/JJI3rqjNtIo6dmHh0L7lDNRplVb2S5WcF2d
-	 sFjYijNimD6PbZTDGJ1ePgst51Hvo42r7XzlDkvpg7sDADAs5rF67jLXBezsvPJrXRw==
+	t=1793483826;
+	b=q8ePlygHNOpy9jQLtcIIDHelJbYJxa2FgsvqJf/itv2DTx0mNnRypImA1tSZdxMl+GEl
+	 MbrPRMxvGxe8pW8siacmbU3nzOsSmhwAiSeo6N7f69eQWfjhTCVtJokEIn+z6via++6DB
+	 K39yv8ZtttNg0zyAlitj2/YnmIY+oAhO+fo3LlPt239bS3ov4PmAu1ODVug8p1AK0Qd9l
+	 5emtDT+LkULtU/M0tJVSEerPr012n2fVm+aINBY5qzwboBPB33wVP+/7QfM8X8uP2Qv4k
+	 +Kbeix24E4bpCRX0Z51yJ9hW14tErgBB8VQhrjzpYdaZjlew3k/JNzWhujf3p6uJPTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793483771;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=w4CIcxiTCNFLsGNTBS4u6EFdTdib0ADNzyxSejSonw0=;
-	b=mANJdPzfxUyJaCPOHF5gz7uV8kYy35fyvqvEsMNw93EnOBSwC9CPBEUXOQyK1TrL/Y+P
-	 51wGgxk4gQR/54wvLN0JaP/gRRJiCOtmLRAN4lJoIlB4Du87CyDWN4C0rBU6I6OAes0XE
-	 EzZuuihLC3gQrlOcWSv/emALjs1dpUKFI8r6C+/hRWiqErNO00y0dO2lKYuxpP9JvbcR/
-	 OkoVJ980afF6+ifs1zigq4GeSJmxTkooAtorEahgiTwPL+jYn1W4nQRLy73JY30j3l0nN
-	 AlF7YOoUAb8dr6eyf5U+sI9mySLQ5Hg4ryMiqWhMmqHmp0x4YVlyTG/ycLo3eTqTD1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793483826;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Rspamd-Queue-Id;
+	bh=qfzGNiaYyEMORFtY8Ei8nisce4Apsfe/vB+EPdpQ9as=;
+	b=43UkASQe8eMlBt+VQ3FvfqOGC8NG45F1sWj5dsom7iyogRWz5KZ3RwXTg4vMxNx8fCO/
+	 LbnXup6RgGmPUgnTNiaMxUcaT2ewUw3VYwEWG7KjJrs7SwU8vn3XCzOadQEXojxbS+aD4
+	 tadMHTl+e4HUeMQhgiv40JmlpFjmsipaGvNVJIXRHoODgGCSVrjr80JYn/9puR0fvHjlF
+	 F4/rvuKjnSE9TQ5nj2IBsfwfYe/dmqsWBGTwy4uZNXD+i/pwXOaGLkzTPpxrdw1fc8TOk
+	 ng+82H9VHN0qENNkegEQSq7Zf9N+263rodywYepnnUnPtM33difOKVpy4Y9k6DGHVPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wee9UDSg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=hsal.es;
+	spf=pass smtp.mailfrom=hsal.es;
+	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b="oJNrw0X/";
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5FA6606A327;
-	Sat, 31 Oct 2026 21:56:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB63606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:57:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DB63606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wee9UDSg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DFDD1F00A1F;
-	Sat, 31 Oct 2026 21:56:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793483766;
-	bh=w4CIcxiTCNFLsGNTBS4u6EFdTdib0ADNzyxSejSonw0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Wee9UDSgn2UQPX64XuXtcBr/9ePGxenkBHCV/9WBCugmaq0IRCbB+ezb76t9wA6Mr
-	 8rQYitQZUNy3o+o6mqPgfqA1mayWuGXWekZZMabstzK8aFSFVKVzXiEm8ISDqQiYHb
-	 NlCjtX//h1EaZdKo5oARCD134P+Oej0ujNt+ktUhhptMg07WuNSyj5ysBMk7BU4Qmt
-	 Q1rrmv6XKML6lZP+DegxfbdhXQuEImuFO7SLKLecR2o5iPntU8m6I0qO0PQfrbu/U2
-	 echbfAVREWJmPg1aeSXffiwZNVSzt+JflWmcbmI32iSo6fvuD3KqgtcYkk+UFHCv6l
-	 Ha9/sBbKjYdgQ==
-Subject:
- Re: [PATCH net v3 7/8] net: dsa: b53: harden mirror register programming
-From: netdev-bot+sashiko@kernel.org
-To: florian.fainelli@broadcom.com
-Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, vivien.didelot@gmail.com, linux-kernel@vger.kernel.org
-Date: Sat, 31 Oct 2026 21:56:05 +0000
-Message-ID: <179348376557.3131.9793537339199409475@kernel.org>
-In-Reply-To: <20261030211617.288562-8-florian.fainelli@broadcom.com>
-References: <20261030211617.288562-8-florian.fainelli@broadcom.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=oJNrw0X/
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jHBdV2QjqzKp1j;
+	Sat, 31 Oct 2026 22:57:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+	t=1793483822;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=qfzGNiaYyEMORFtY8Ei8nisce4Apsfe/vB+EPdpQ9as=;
+	b=oJNrw0X/3EPwm/RCRHmlI+8LXbSCRHtnE2dgRvG9xfZVAWvj8mWqDOMk4xIA+Ct2EQWNJo
+	v+kojkhkPymYGzSKX/OOyylVmeLuebPHrikhvIt43UVjjWHKtns1wjIhmz9ivSSggxBg4l
+	+XET4ZQPRZCgodhTOe8vWtNkKTnjC7H4nPGeEKCD3JmmjH/2bo0zk5HKw71+JCNKMDZLxy
+	NrN9JyVEwhi/D22ZMvSNCrN57qA54ELPhstyI6Ln/5uCwn6Ay9uCkL2ylrQlf4gmFSlETw
+	JlDkElprXz/auyw9LzzuCjtyouO67MhYv8YVc9vVw/8t/Lsu85ZroXaZ+fKdTw==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] drm/client: Clear stale cmdline modes before the 1024x768 clone pass
+Date: Sat, 31 Oct 2026 21:56:58 +0000
+Message-ID: <20261031215700.1077873-1-hugo@hsal.es>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,111 +75,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jHBdV2QjqzKp1j
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+drm_client_target_cloned() first tries to clone with the mode each
+connector got from the kernel's video= option, then falls back to
+1024x768 on every connector. The fallback keeps the modes the first
+pass left behind, so a connector that has a video= mode set and no
+1024x768 mode can make it report a clone with modes that differ. On a
+single-CRTC device one connector then gets no CRTC
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Patch 1 frees those modes before the fallback. Patch 2 adds a KUnit
+test that fails without it
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Sashiko flagged this while reviewing my fbdev probe series [1]. I
+haven't hit it on hardware: it needs a single-CRTC device with two
+connected outputs and video= set on only some of them, and it only shows
+on the fbdev console. The KUnit test reproduces it, but how often it
+happens on real systems is unconfirmed
 
-- [Medium] This patch adds an unconditional b53_mirror_init() call to
-  bcm_sf2_sw_setup() (drivers/net/dsa/bcm_sf2.c).
+[1] https://lore.kernel.org/all/20261024165355.2782145-1-hugo@hsal.es/
 
---
+Hugo Sales (2):
+  drm/client: Clear cmdline modes before the 1024x768 clone pass
+  drm/tests: client-modeset: Test cloning with video= on one connector
 
-net: dsa: b53: harden mirror register programming
+ drivers/gpu/drm/drm_client_modeset.c          |   2 +
+ .../gpu/drm/tests/drm_client_modeset_test.c   | 109 +++++++++++++++++-
+ 2 files changed, 110 insertions(+), 1 deletion(-)
 
-This commit clears the mirror capture control register and both
-source-control registers during b53 and bcm_sf2 setup. It checks every
-mirror register access and only increments the source reference count
-once hardware programming has succeeded. It also decides whether the
-destination is occupied from the source masks instead of MIRROR_EN.
 
-> diff --git a/drivers/net/dsa/bcm_sf2.c b/drivers/net/dsa/bcm_sf2.c
-> index 9e5713015187b..9f54cd414c18f 100644
-> --- a/drivers/net/dsa/bcm_sf2.c
-> +++ b/drivers/net/dsa/bcm_sf2.c
-> @@ -1059,6 +1059,11 @@ static int bcm_sf2_sw_setup(struct dsa_switch *ds)
->  {
->  	struct bcm_sf2_priv *priv = bcm_sf2_to_priv(ds);
->  	unsigned int port;
-> +	int ret;
-> +
-> +	ret = b53_mirror_init(ds);
-> +	if (ret)
-> +		return ret;
->  
->  	/* Enable all valid ports and disable those unused */
->  	for (port = 0; port < priv->hw_params.num_ports; port++) {
-
-[Severity: Medium]
-Can this lose the installed mirror rules across suspend/resume?
-
-The resume path also calls bcm_sf2_sw_setup():
-
-drivers/net/dsa/bcm_sf2.c:bcm_sf2_sw_resume() {
-    ...
-	ret = bcm_sf2_cfp_resume(ds);
-    ...
-	ds->ops->setup(ds);
-
-	return 0;
-}
-
-So every resume now writes 0 to B53_MIR_CAP_CTL, B53_IG_MIR_CTL and
-B53_EG_MIR_CTL. The tc matchall mirror rules stay installed.
-
-dev->ports[].mirror_count[] also keeps its value. The only thing that
-clears it is the memset in b53_reset_switch(), and the bcm_sf2 path never
-calls that.
-
-CFP gets restored by bcm_sf2_cfp_resume(), but nothing reprograms the
-mirror registers after resume.
-
-After resume, b53_mirror_add() would hit this:
-
-	if (*mirror_count) {
-		(*mirror_count)++;
-		return 0;
-	}
-
-A new rule for a port and direction that already has a reference would
-then return success without programming the hardware.
-
-The new occupancy check would also read all-zero source masks:
-
-	if (((reg | other_reg) & MIRROR_MASK) &&
-	    (cap_ctl & CAP_PORT_MASK) != mirror->to_local_port) {
-
-That would accept a rule with a different destination while software
-still tracks rules for the old one.
-
-Doesn't this break the rule that mirror_count[] follows the hardware
-source mask bits? The commit message relies on that when it says
-"Reference counting must not record a first source reference until
-hardware programming has succeeded".
-
-bcm_sf2_sw_rst() may already clear these registers through EN_CHIP_RST.
-If so, the stale count came from the earlier patch in this series, "net:
-dsa: b53: reference count shared mirror source bits", and this patch makes
-the wipe unconditional.
-
-If the reset does not clear them, which is the case the commit message
-describes, this patch causes the loss on resume.
-
-The problem is still there at the end of the series. "net: dsa: b53: fix
-mirror port encoding on BCM5325 and BCM5365" only changes the port and
-capture encoding.
-
-A related question: bcm_sf2_sw_resume() ignores the return value of
-ds->ops->setup(). If b53_mirror_init() fails during resume, the new early
-return skips the port, VLAN and ACB setup below and no error is reported.
-Is that intended?
-
+base-commit: a1e63ab695ad76850ab9787b9eb6aab695dc2965
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030211617.288562-1-florian.fainelli%40broadcom.com
+2.56.0
+
