@@ -1,54 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793407177;
-	b=WQmTZSTp64TUQUAGnTRnDlIczHDzSzUMQAOQm1nJxHnvuN/+mLDSNIf/weknEOTGGXTs
-	 MIy3XSUlC8+boZyJ0EIDXPlLf1xgeU87JJkpmbnh2dEQMae2Tg9y/3g7sdWX+RkP3XtGy
-	 FLlCN+hd78Mkb5dugwv0kDFv1K2QcGFeFCGBmezUVV6ZX5NPyK5sq+f+tdyq839cNBHYK
-	 dV7IfyMNObWESxM5c8GWSLrX2smPc0iqm+TRL2CbjMlWGw1VV9mWN5KsRlTDkHGGZuiWt
-	 Y+bhqIjf3UT2557j5eAe2DAmfX5jgiNGSpclIOUa8CHDB7+OJhvg3lKIKxmLOIA9Q6w==
+	t=1793407178;
+	b=ZDSWJ/brQJrM0rkeYGPGGQVBIMoCO0Qj6RtQVWxiYO1ZP5JpMwFtlcKSwt5hgpAVmLLO
+	 7Lbg48bRSJFgemylZfxcsLGaPelqABxvZnKi6/oWOR56EP75vE6JxkSSMv2BkS+iLDuPq
+	 fD/RgpySJ9/DuTaI+jZH0WlqaA3uIV7UH06VtVPyL3kSes6x6VArOIJXg6xoZrg5gMM89
+	 XW1pu2hbj9yqw66brICeZuI6zAMTRL43qfJjgh6EHAy6g6s4QDu57xDdMcwVX1aLo3Kdd
+	 G2bm5BXHwNjfGDBN2eLGNStAUelHdidPt0Nvf+PXTFEaefRJU83nPFn6ltftmgPipcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793407177;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=5BAPwHDIfEubAB0o/RcmdVXqwks4sfJbcqO9fW2tVD0=;
-	b=1SwwoRLMu/6qM/1RH7nsBAX8E3q2yeEsPr1ADVbkdmueXN7yv+IUBdbxka7zkgZMP3OK
-	 w0lFfZ51CgE7UPxiZFWK9cFI9Q2Mwncw3AE2pN3o4OANmXVSgjowjAH2jiRrKejE7k1Kg
-	 C/8+QeUaLqJY6Hx3DyYxg6l8ry3fAGbI6pPQU2kHig6UnzX6djUXn1Zby42fqhultLfAZ
-	 Oh8LRp+fnansDSGz2z1NcZOq7/umXM1E7mGVXyqWF+23+30j8NVGKOLV503hpSKNEPJ3M
-	 BARYihJMOuoRW7uG6EkLvKiGtJeOFdi8tddJ04C+kp4kt2f5cU6r/FfsaAcTcilvpHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793407178;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding;
+	bh=vdswqzPj/pu4tu5VvYCgpsHGE7MYzuyamDvA7wdAGDo=;
+	b=XIZYxjMUBxTuFUp1E0VlSvRXWdXym4PlEGu5Dol6OjZSfKPqriud1tbvt0tgJnzLRZGP
+	 rJOBLtQrZsqa5nlm41Ap7JyyGQbI85e66afr85dk5VXiViWYiF4VXPgWo5Y0D+MaS7YIU
+	 3LI0LDn9XZ2Dl1p29lFxgL9DYWdBsIWYpbzt9GNFXIiGiKx32DTzVO4ETIjBxxot8VLxD
+	 WwOx6h0IOTeLEtwSTUyFo2FS/1t8DW5QOdlbuSuu3wxfBxRfsmkOW9wSadkIRIWWzMDxe
+	 GCph9ftnZGPcYIw9lyvvs4djy4+VJObbQAq8S7FSFn+51EV+CGqJKCAhrnkuT9QBLOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="K/XZ72zX";
-	arc=none smtp.remote-ip=91.218.175.23
-Received: from mta0.migadu.com (out-23.mta0.migadu.com [91.218.175.23])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=flapping.org;
+	spf=pass smtp.mailfrom=flapping.org;
+	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=TEl6JY7c;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=VQB6BNnb;
+	arc=none smtp.remote-ip=202.12.124.155
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3168606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:39:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3168606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A0A606A326
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:39:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42A0A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K/XZ72zX
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ccTYSbFE6432gMlGOh0Xb0afH0jlRKw0VR85GRLF68M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793407173; v=1; x=1794011973;
- b=K/XZ72zXQFm34wy+kyRho7nbTp1xGwe8R8aOLAaBOmUN4M6mRdBqC5+776NMcE7yzFhgSfFK
- C5+qegnXG2tZY7LrVLBSewAAjqwBVhnweSKzl67O7B+gs1KeExdnd1GKKGQwHJavuofbmE9er5k
- OmsG6UAXJScLi+pCLcErbni0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 5630e70bea526243;
-	Sat, 31 Oct 2026 00:39:33 +0000
-X-Mizu-Trace-ID: 5630e70bea526243
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=TEl6JY7c;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=VQB6BNnb
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 45ABF7A014D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:39:37 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Fri, 30 Oct 2026 20:39:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1793407176;
+	 x=1793493576; bh=vdswqzPj/pu4tu5VvYCgpsHGE7MYzuyamDvA7wdAGDo=; b=
+	TEl6JY7cNKUhEz0jszJ8JE6KIigwJB9rpAXdbAZ1SO6jZ95MlMiPoU7QjAMxbuJ6
+	K/4+G/pDeMLOd0QjDrwuvk6N9tgfUe68DpZNBT6NQx4SHrRhgL7faFBOQHPplcu/
+	FfuHQpQtyNTEDWVdZQ1M0OB9r8opiwKk646YO/X/M6ypU1jQ2Viw/HaA6CpcI2f0
+	dWcqpE+hqCn6L/8DORzk9vuFFGxFLA1DmMJzkpURH9P2KiKwbvpwkg5OVmGAo0Wg
+	7N8xCSfnufRXBtawflF5aIJvzPgvnKN8nuQ7L72iarBCEca4DGCd+Hic/qcu+aJk
+	deI7z0exsQOU3F1LeOM2Ug==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793407176; x=
+	1793493576; bh=vdswqzPj/pu4tu5VvYCgpsHGE7MYzuyamDvA7wdAGDo=; b=V
+	QB6BNnbP9zTpO9hRF4INJbBCYzWmYfm9JmEQ+8GEvXGwJmWsBNybu4dMMZAQRasw
+	kvvzHBcWBqia/xeseMprBDnzZ2pmiaATIHK057M4kXyb6Ni0jXQFQJb3KtrS0nz/
+	BWV0m8bdlLjRXxwByaU/GZrqVdyp9DyXEHoJMFxA0wa3ukrjlg3gIw2P8ajxQ0Qh
+	2NEtu5l4PP+kdwwbxdX8p1Lunj1GZ4TKpIr/CxD5QFbT11NyoleKk68gy2vb2yjL
+	wZEr+9xyTLD5lM2WFmQtfOPiuQMyqjmec8JJ5ny3onYGzPVTQM6S3Q7I5ezKWp/5
+	j+0OBuAs119miwdJp419A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=flapping.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793407176; d=flapping.org;
+	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:lWdwYtSwTurba5GyIkwpBB8QbTBzF/Wp9/UI14UG+Gq5mrs
+	akid0xFEUZQM7/zV/gS/BJSHPJFwPiRt2+2AlHWHZ895IlC3BPkQfKTNAqjOSIXV
+	oTKOiLs0cSPChD/8eP7RAWCRZKouRCPDG0RxbeeLcVpO7RnUyPYK4bxk87fXA8/n
+	doE2VNJ1IRvy45EInojD7Y8upMJIIckx/WrzbKCKanBAGjBwT5T5YoIWgs4D3qHz
+	g0AZ2gM+J6IhBWr1Qux+nSCk9aM62/uI3iEBNai4a2WnmMJcowUXrc2A10w/jjoQ
+	XUj56nhXVZBpUj//9Uov4SPl7Nr2sXIXqMjn7og==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:KQ1olCpBuriKBYBP8axrDCuWxr4llCjJfgJ1E9E6JxI=:vdswqzPj/pu4tu5VvYCgpsHGE7MYzuyamDvA7wdAGDo=;
+X-ME-Sender: <xms:yDjlauQrJxkPfhNCUri7g4-cm0AW3nKJTh1izQtpubVW2GvFv-XV4A>
+    <xme:yDjlars-QxkdA3xpnPEFufL6-SJNnbxPXvHr6FgYeLSpPFjbLZufzXRFNQ-joeEEL
+    yUdcbbbeD9C7i4PdBkucYBzDqwvJbJE4NxaLStaH7Sim0QCS1lsxPEy>
+X-ME-Received: <xmr:yDjlajDBB0BX9-3xPOY3xu9crhkuoCIPwghxG-6qPpURS5pDvLoDfsDLOVZX9x2eReTVGXgrid5Yzde7YhT_ytYn>
+X-ME-Proxy-Cause: dmFkZTGvjFG8DHwcdZ0uQY/tdyzUIFMEBr/0ctBz6Vh1z4KgGBxcxyVj9GpuOe07IhSDJw
+    HA7tN4OleJrH/6qOqT14gMoYkHjLXEV9ryT81pA0HuWt6dlOi5/sMZ1Sb1249qaHUPx9Q5
+    xtfhVZtFvmLDMYGP+40uMAi9PFn1NDuTVx6B7yQNMfchN1e2sTUVtD3qP6Xj5yNNknlp3K
+    h56xzpUBPIqTOu9Y/xwjDP+BVy/5p0+6iuQVctmU79LAQFC6XSsadROUWCIss1TxoHfHSD
+    orXK5q1UGdHG64bIClO1tugsBPZW88Utzebn0hrzQw4RvsoBOi6kMKwkFQrWOLLVBJdFCd
+    jizbEJUDXPKUV4koLZJi7AyPK/rzfK/Reve8ek9XcnKis5AdVW6Q70h3qfHlo4WiOmuPpn
+    SzBUP2MTiaGqy1L7DtVKiC31nUqvEwQF6rPpgajGg0UoIHzaDzEu0j95LbgxS8ZyMKDb7F
+    3fCgCdUTn1Wex3SzjRU3wJUPQQcbano9ACBjPC873lAD+LUUDsx4aS/AtbfVtjUHwSFRzX
+    QAg2ZD2NgmOLUcXDR7PAtkKtSncvsHGxftMdFzIlarj9GYK4WcF+TLL7Wijiq24p6woVvQ
+    bqnbuy/26vBKddstwZfNe6vcQYSPB5B6Hn64rQJkL2Aoe91RCz7N2IHjmDmw
+X-ME-Proxy: <xmx:yDjlage_AQgn3or9ZA1dmcctT_J-g3vaYGjg6nC1oPvJYVRvBRvrog>
+    <xmx:yDjlajrywdiW3i0-2LJh8os4mHgo8vH7Hagn08mD9qiSy3akNQsHcA>
+    <xmx:yDjlas52YkgrBZQOeSgFxeYv52Z_2iwsvroM4mqgqB0MvSjqjHbWjg>
+    <xmx:yDjlajCe8IwVZSQyZDnnmk8N-raY8UMk_GaPcKvDvkbrAgqYqjRYuA>
+    <xmx:yDjlarht5nxRb1JN74sRMX1rWv4ducLuqOvY_rCExihiVSOdxeVSZnHU>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 30 Oct 2026 20:39:31 -0400 (EDT)
+Date: Sat, 31 Oct 2026 09:39:29 +0900 (JST)
+Message-Id: <20261031.093929.648818945104239611.tomo@flapping.org>
+To: boqun@kernel.org
+Cc: tomo@flapping.org, mike@fireburn.co.uk, a.hindborg@kernel.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ojeda@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
+ dakr@kernel.org, daniel.almeida@collabora.com, frederic@kernel.org,
+ tglx@kernel.org, anna-maria@linutronix.de, jstultz@google.com,
+ sboyd@kernel.org
+Subject: Re: [PATCH 9/9] rust: time: add ktime_get_real_seconds
+From: FUJITA Tomonori <tomo@flapping.org>
+In-Reply-To: <auTpDD4GRiD00jP2@tardis.local>
+References: <87h5jzx5gj.fsf@t14s.mail-host-address-is-not-set>
+	<20261030075750.356854-1-mike@fireburn.co.uk>
+	<20261030.190502.1711453613571853758.tomo@flapping.org>
+	<auTpDD4GRiD00jP2@tardis.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,126 +131,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 3/7] MAINTAINERS: add Zi Yan as co-maintainer for MEMORY
- MANAGEMENT - THP
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261030-maintainers-v1-3-97278f8a5f54@kernel.org>
-Date: Sat, 31 Oct 2026 08:39:01 +0800
-Cc: Alistair Popple <apopple@nvidia.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Byungchul Park <byungchul@sk.com>,
- Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>,
- Christoph Lameter <cl@gentwo.org>,
- Dave Chinner <david@fromorbit.com>,
- David Rientjes <rientjes@google.com>,
- Dennis Zhou <dennis@kernel.org>,
- Dev Jain <dev.jain@arm.com>,
- Gregory Price <gourry@gourry.net>,
- Hao Li <hao.li@linux.dev>,
- Harry Yoo <harry@kernel.org>,
- Hugh Dickins <hughd@google.com>,
- Jann Horn <jannh@google.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- John Hubbard <jhubbard@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>,
- Kairui Song <kasong@tencent.com>,
- Kemeng Shi <shikemeng@huaweicloud.com>,
- Kiryl Shutsemau <kas@kernel.org>,
- Lance Yang <lance.yang@linux.dev>,
- "Liam R. Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Miaohe Lin <linmiaohe@huawei.com>,
- Michal Hocko <mhocko@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Nhat Pham <nphamcs@gmail.com>,
- Nick Piggin <npiggin@gmail.com>,
- Nico Pache <nico.pache@linux.dev>,
- Oscar Salvador <osalvador@suse.de>,
- Pedro Falcato <pfalcato@suse.de>,
- Peter Xu <peterx@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- Rakie Kim <rakie.kim@sk.com>,
- Rik van Riel <riel@surriel.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Suren Baghdasaryan <surenb@google.com>,
- Tejun Heo <tj@kernel.org>,
- Uladzislau Rezki <urezki@gmail.com>,
- Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>,
- Will Deacon <will@kernel.org>,
- Xu Xin <xu.xin@linux.dev>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Youngjun Park <youngjun.park@lge.com>,
- Zi Yan <ziy@nvidia.com>,
- Jason Gunthorpe <jgg@ziepe.ca>,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <47C979F1-F892-480D-A12E-CEAAF3A7C260@linux.dev>
-References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
- <20261030-maintainers-v1-3-97278f8a5f54@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
+On Fri, 30 Oct 2026 11:59:24 -0700
+Boqun Feng <boqun@kernel.org> wrote:
 
+> The way I see it is from kernel::time perspective, we still want to make
+> sure the APIs are still in the same abstraction layer, a
+> ktime_get_real_seconds() co-exists with Instant::now() as the public
+> interface layer breaks that in my opinion. And the generic type
+> parameter should be flexible enough to avoid introduce anything we don't
+> have a user yet.
 
-> On Oct 31, 2026, at 05:34, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> Zi has been contributing to THP consistently and reliably over many
-> years and is considered one of our most valuable THP experts. As THP =
-is
-> an especially active area lately, having a single dedicated THP =
-maintainer
-> is not sustainable.
->=20
-> Fortunately, Zi volunteered to take on more responsibility by stepping
-> up as a THP co-maintainer. So let's do exactly that.
+OK. I sent a series that adds a unit parameter to `Instant` and a
+seconds based `Instant` on top of it, with `Sub` and the other
+arithmetic on `Instant<C, Nsec>` only:
 
-I'd also like to say that this is well deserved =E2=80=94 I've seen how =
-much effort
-he's put into the review work in this area.
+https://lore.kernel.org/rust-for-linux/20261031003334.4161188-1-tomo@flapping.org/
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
-
-Thanks.
-
->=20
-> His placement in the MAINTAINERS entry is very convenient to perform
-> this change :)
->=20
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
-> MAINTAINERS | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 0baeb37b0dcdc..02b5b542f81ee 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17817,7 +17817,7 @@ F:	mm/swapfile.c
-> MEMORY MANAGEMENT - THP (TRANSPARENT HUGE PAGE)
-> M:	Andrew Morton <akpm@linux-foundation.org>
-> M:	David Hildenbrand <david@kernel.org>
-> -R:	Zi Yan <ziy@nvidia.com>
-> +M:	Zi Yan <ziy@nvidia.com>
-> R:	Baolin Wang <baolin.wang@linux.alibaba.com>
-> R:	Liam R. Howlett <liam@infradead.org>
-> R:	Nico Pache <nico.pache@linux.dev>
->=20
-> --=20
-> 2.43.0
->=20
-
+What it costs is a new trait `InstantUnit` with a read function, a
+second method on `ClockId`, and per-unit invariants on
+`Instant`. Please take a look and tell me if this is fine.
