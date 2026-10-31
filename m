@@ -1,77 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=134.76.10.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793440607;
-	b=oJuIR1XZKMuXuLRTN+DUtvEjJwNbrKXBTfYdKNrwE2iGhp7T8Xc1JeytQH2Rie8D7FPQ
-	 yp6RZpWdcNu+ssbtzSy326glyDnaTly5cW5x3xG2jFkvm4sxqVxgE4LdhsP5voTHafjxO
-	 PGp1MqLHNSLu6ZsIAN2vJhS1nPhrMG31ma4sA/24ntENPyafUIUdMGvZAhQ41ZrTBEXT1
-	 kfgoIjuIaYd144yGx/jGVEEv4dpx2rDUyUydY2bR0M3xul1Izi/unG6jopewArs8s8B5p
-	 wsAZviTaevbXMTl1e9IlYCd5oDKIc0vgRRNcSswx/9MLeTFHqChGv1c5c+o7o0SkNvA==
+	t=1793440639;
+	b=liYzM6gbrVbibqoI1GiK+ThjS7FDwrNkdjp7OdZbJ/qTxnk/zgrGr53UJgqmkL3AntF5
+	 LeOdgYE9Fb8a55Cv6MIZGCx1yVc2sppTlxmzvbomJ7YoNuWWfMf9PZsZ+Htbw1jbfd4h1
+	 +S9XYw4p9VC7T1yvpBcXqNZO+i/Z8NAjDiikPfsiwfZaCSO2TMn973+QOrHZFwHaBLllp
+	 SXpclob/WaNhX60861v5Eah8qsuvfr3R0W+mWDes1vDBlWzMFpFgWTxraPwoRMM7HIi3C
+	 ucoyMQbKNNtGK5ir59hVmDIxmYoO4B5ynsDRtVEmsJWCMHcLPPX4ZxyzRjC70ckNZ4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793440607;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-Virus-Scanned:X-Spam-Level;
-	bh=j3mJbUipG7teIjK/zO0RNtzSRCV/bGl/8Rxk9Uq3fU8=;
-	b=rTBIRgzji9R4A29teMO5K8RKnY8OtBdId5dU9HgNKESZpHITBK/7NB/6bVMI4QarvBvM
-	 sWAT+pt/sBawidiVoyqRbCRNP9f4k8BzDQzTNB5VtjZHkZs+XNWEZTW8c7kbzlwnX2ZxJ
-	 QvXU0ocBPc0L8fViAHbALYDsKiYR2SdFSHEtlg7GsWnGNpzLWK5MjjAqmQ4ktUI3Ofjmz
-	 eYo0dnnX57LRCMTnxpumUbKABv6OlAQ/9ZGqxFmE0oWNBynpbjjLsAi/AAQ1RBEGbvego
-	 iTrRQfRcDlXbappX6CVDdRO/j6Og9aWPLWrHDOHoip31fFOZ2SSiV1RDOfvTHNBUS+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793440639;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=OsyNUXVXYVasBHvigfoIW6Ne0ad3jx5r3liNsbVXCQA=;
+	b=iqBFArpNIso3XzIBXl89Tjk0CNdrEGZnwocCUHPbtGGgq4UkAfoIa/uvomAtJjMB600T
+	 WsPZbpXTPAlBbswWg1w+l+VadQ72cSr2mF/RHhWCoyzCMYyARNi35TutUBFH3gmtrhg7Z
+	 ZAXeQvYkhgtvPKRuoiGxNMvVMpSRpegkhxt89xKuNZU8eC9pm7UDlwIu6qFBknroxIWN/
+	 iJhtityd42Vy+LUKGsYQWPIrwliz414Y81SJbbF7duOD3/JwSW4EEGLHylDXb+TqrO5wn
+	 QJq5JOsahFZaEvVyNZrMJoEs7OZeI5wFffCgHCpD/oDWK0R+/j4bsylSYOJcaGd7q9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cispa.de;
-	spf=pass smtp.mailfrom=cispa.de;
-	dkim=pass header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=NJcQcjk8;
-	arc=none smtp.remote-ip=134.76.10.21
-Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XnTL5T+D;
+	arc=none smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2264F606A31C;
-	Sat, 31 Oct 2026 09:56:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2264F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cispa.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cispa.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A0B606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:57:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73A0B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=NJcQcjk8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=cispa.de;
-	s=2023-rsa; h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:CC:To:From:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=j3mJbUipG7teIjK/zO0RNtzSRCV/bGl/8Rxk9Uq3fU8=; b=NJcQcjk8iHIhc+dC2kxaTsw3hc
-	ohv9B90sMpGgDNmrSHnuT0HN3qeTE2Hd/ztql/oFSN03Ge73O+rwycqUhumzflJ3Exmn84kJdnn8g
-	cCb5NVNhheUQnhdrAQgv2CC05+KqIJtnMs9hTrxG/Zj8qt2FB8PpPT+aifcz5+rsJgyOEcDDmNjZo
-	SSeitO40rSClCzVa/zma9u4v1h3ct0vsS6fvIGqPXRqw9WD77gsmzrwO+ssgyiM/24RK56phpw3Pn
-	M10PH5ePPm9flWFCxH2NqGM96Ud3FNoqMBCCEFakuVxrBqx50/Caw0ah4jEeuK+2dJWvPZb843/sB
-	w3SvEjmQ==;
-Received: from mailer.gwdg.de ([134.76.10.26]:48267)
-	by mailer.gwdg.de with esmtp (GWDG Mailer)
-	(envelope-from <amirmohammad.eftekhar@cispa.de>)
-	id 1xN5pL-001XaV-1N;
-	Sat, 31 Oct 2026 10:56:43 +0100
-Received: from mbx19-gwd-01.um.gwdg.de ([10.108.142.50] helo=email.gwdg.de)
-	by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
-	(GWDG Mailer)
-	(envelope-from <amirmohammad.eftekhar@cispa.de>)
-	id 1xN5pL-000U3o-00;
-	Sat, 31 Oct 2026 10:56:43 +0100
-Received: from localhost (10.250.9.199) by mbx19-gwd-01.um.gwdg.de
- (10.108.142.50) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Sat, 31 Oct
- 2026 10:56:35 +0100
-From: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-To: <yosry@kernel.org>, <seanjc@google.com>
-CC: <pbonzini@redhat.com>, <jmattson@google.com>, <kvm@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <amirmohammad.eftekhar@cispa.de>,
-	<amirmohammadeftekhar@gmail.com>
-Subject: Re: [PATCH] KVM: nSVM: Reset the virtual VMLOAD/VMSAVE bit in vmcb02 on every nested VMRUN
-Date: Sat, 31 Oct 2026 10:56:24 +0100
-Message-ID: <20261031095624.212806-1-amirmohammad.eftekhar@cispa.de>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <att-Epjatf5sw-ba@google.com>
-References: <att-Epjatf5sw-ba@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XnTL5T+D
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1aa27963eso4473192a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:57:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793440638; x=1794045438; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OsyNUXVXYVasBHvigfoIW6Ne0ad3jx5r3liNsbVXCQA=;
+        b=XnTL5T+DL2phlNXmbqkLLhvirOg7giMe+mzsT6jZ3P8q/gtVkvtsUMetvI3WeBSUvk
+         llwG/hhPLVMRmIyp8d5tgkbOZoBBQIuLCegr9vGom7SruDl1DB179AUZ/Yhhfxjzf7c7
+         CxwW9/z1nouoKL6XVjZYisWJa+bfFOXecphWR9/tI5EnH739xdz7+xgWS5H71GI5KCAd
+         nIdiHLJGUT8eLmrYRG9E2+VcvEy9Ru36X6uVFpmK7yOe6qdRHTjuMFHgVpM+Dy6CQgMv
+         SyHcR9mvXrE9s3dzRZVY4TJ9SDpnQTzTYsZRKuGZqj4rI1QiINkvSJasKRJ0GPmbEcEb
+         sXsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793440638; x=1794045438;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OsyNUXVXYVasBHvigfoIW6Ne0ad3jx5r3liNsbVXCQA=;
+        b=s+K9VgbnDAuVQKMq/yknl56mh72K9jxVf/WbTDjVBT9aZi2p7Z2UYrWfAD3PrzgpN+
+         dP+Y6NITcxgvil+OtY/1jlnjJePWWfgIKmQkHaiCFcl5BgcdRRt9iLyRhyLfEX+G84ug
+         TH4SXd49G9mBIVJUIpt5hcadASsIm50xwsNFwQyFWWESqSdD/JvY9PdDRvHKgpS+7u2n
+         kqAlJiX61xEvCEVyErIyTANoT3FeLEeLW5ESu5eA7P6bI2ud2Vb3lcyg1jX+BMjcITD3
+         FkPFF2AZaaPydjPjjzBRArEKsV/LjSa6TaQNhjIDUO0Z3wOOdh9xYnna3HInpCYFVHXk
+         6XTg==
+X-Forwarded-Encrypted: i=1; AKwUvByYobmNInRa82bkgdGzflwq89b6r9jGNbxFo2+mSWdsy7zDDtRcacIG3rGFC57tGL1v3bueOiy9NAZ4XqY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFo2/GMYbnZEnONbUeBcHYACmQzX9i0ryCvj50+o7ZjryFOHjA
+	d565Hy2zsDMupWv77cK+/bjI1l29Ku55EEIzW8BADDiU9EE/JcT7oK+Y
+X-Gm-Gg: AYBFou2tr1tAD3c+8A9HbWWtP/j84ge3Id8BC/mM2Jb1/JgEfIbr8qGs/+Xx0Uv2mna
+	RkB2nJa3nV6yEDyZk90Czsdqq8UBNio+3idLlgM6E4FSjKfLIeOwigq8VTmXEFYzN09217E+6aF
+	y+KheZv95tWxQ8KwR3VYqyTG4C5cGpMyLuPRMZMnjuKWl1AtDBUzGY8VOChNLynqyPg8x/JBjHr
+	QVU7sucYMMDITG0dZMiwbPAmxo1wF7k4L9Cz4954IYcF3PcY0CzK78umTDys0Ph/IzEAxTsVhH1
+	m6DpJOTReuTZmgK++68KcR28t+UyE56Nz9iuS5Q/JCtZlu0CxfgkKAvN+Q3YUPzW89RDfsyiJW3
+	LOtsxum7KpOEL76Yn1wkjNYku0htb+dFRu9/lrDe2p48a/+uk33/eRm+451m1wPHDOmoouv8OZa
+	TyiJYeDBQ3m2KKd7FxMq2Aj2msOXaXCX7Om9YkbdmVk4VYR8QbVOZAlSi03FnmnL3H0PnJhmLLT
+	8SJi31Nv9GBmqHnkDaSdlglmuQutylaj28GXPLqqZ65Ib8B2HkYO/tQciXVrbluOWHLyHy1r+7T
+	rbvEKkIVNEg8CPWqtxr9HvjAHIqK3x/FDrGwnSDugH88fUGLKP4pMLw096+51Movnpoqq2HY7be
+	/kJjQ9z0xIOi5aSpspllpnCeRN/t5nHfrRg==
+X-Received: by 2002:a17:907:940f:b0:c2e:1b6b:8b19 with SMTP id a640c23a62f3a-c49d142cb22mr731014066b.23.1793440637746;
+        Sat, 31 Oct 2026 02:57:17 -0700 (PDT)
+Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe1002asm162304466b.45.2026.10.31.02.57.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 02:57:17 -0700 (PDT)
+From: Amir Goldstein <amir73il@gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Miklos Szeredi <miklos@szeredi.hu>,
+	Christian Brauner <brauner@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-unionfs@vger.kernel.org
+Subject: [GIT PULL] overlayfs fixes for 7.3
+Date: Sat, 31 Oct 2026 10:57:16 +0100
+Message-ID: <20261031095716.3030288-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,65 +99,93 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MBX19-GWD-07.um.gwdg.de (10.108.142.60) To
- mbx19-gwd-01.um.gwdg.de (10.108.142.50)
-X-Virus-Scanned: (clean) by clamav
-X-Spam-Level: -
 
-On Fri, Oct 23, 2026, Yosry Ahmed wrote:
-> Running the selftest under the probe on Zen 2/3/4/5, vmcb02 rows with both
-> vls=1 and the VMLOAD/VMSAVE intercept set still exit 0x82/0x83, so the
-> intercept is honored even with VLS enabled.
-> Can you share a standalone reproducer?
+Hi Linus,
 
-Thanks for the cross-microarch data and for the script. You are right, and I
-withdraw the intercept-drop claim. I reran this on a VLS-capable box
-(Threadripper PRO 5965WX, Zen 3, kvm_amd vls=1) with your bpftrace unchanged,
-and both your selftest and my own reproducer line up with your reading.
+Please pull overlayfs fixes for 7.3.
 
-1. Your selftest reproduces your result here. Every VMRUN where vmcb02 carries
-   both the VLS bit and the VMLOAD/VMSAVE intercept exits 0x82/0x83, the
-   intercept wins:
+- Was in linux-next overnight
 
-   vmcb02[vls=1 vmld_icpt=1] vmcb12[vls=1 vmld_icpt=1]  VMLOAD -> 0x82
-   vmcb02[vls=1 vmld_icpt=1] vmcb12[vls=1 vmld_icpt=1]  VMSAVE -> 0x83
-   vmcb02[vls=1 vmld_icpt=0] (intercept clear)          VMLOAD virtualized, no 0x82/0x83
+- Gone through the usual overlayfs test routines
 
-   So VLS virtualizes only when the intercept is clear; with both bits set the
-   intercept is honored, exactly as you measured.
+- Includes one change in vfs code, factor out helper
+  try_take_dentry_name_snapshot() with RVB from Christian
 
-2. My reproducer does build the stale both-bits state, and it is still harmless.
-   Tracing --step vls-stale on the same box:
+- Merges cleanly with master branch of the moment
 
-   arm    vmcb12(vls,icpt)  vmcb02(vls,vmld_icpt)   entry_rip   exit
-   clean  (0,1)             (0,1)                   0x1004000   0x82  VMLOAD intercepted
-   run1   (1,0)             (1,0)                   0x100400a   0x72  VLS on, VMLOAD virtualized, RIP advances
-   run2   (0,1)             (1,1)  <- stale VLS     0x100400f   0x72  resumes already on the CPUID
+Note that commit 8457ca071faba ("selftests/ovl: fix detached layer
+mountinfo expectations") was already merged via Christain's vfs.fixes
+PR from earlier today is duplicate and also on my branch.
 
-   run2's vmcb02 is the exact case my patch was about: the VLS bit is left set
-   from run1 while KVM sets INTERCEPT_VMLOAD for run2. But its 0x72 is not a
-   dropped intercept. run1 virtualized the VMLOAD and advanced L2's RIP to the
-   CPUID, and my test runs run1 and run2 on one shared L2 context without
-   resetting RIP, so run2 resumes past the VMLOAD and never re-executes it. The
-   0x72 is that CPUID. Had VMLOAD actually run in run2 with both bits set, your
-   selftest shows it would have exited 0x82. My earlier Zen 4 "repro" was the
-   same RIP artifact, except that box could not enable VLS at all, so vmcb02
-   never even carried the bit and I misread the CPUID as a virtualized VMLOAD.
-
-So the stale bit is real in the code, but it does not drop the intercept: the
-hardware honors the intercept over VLS, as you said. The E3 / cross-layer
-framing was wrong and I withdraw it.
-
-What survives is only the hygiene you and Sean already pointed at:
-virt_ext/misc_ctl2's VLS bit is OR-set in nested_vmcb02_prepare_control() and
-never cleared, while misc_ctl is reset from vmcb01 a few lines above. Worth
-folding into Sean's cleanup (initialize misc_ctl2 = 0 and un-invert the check to
-match nested_vmcb02_recalc_intercepts()), as hygiene, not a guest-reachable fix.
-The forward WARN in my original patch was oriented wrong; drop it.
-
-Sorry for the noise on the security angle, and thanks for pushing back with the
-measurements.
+Standard maintainers race and miscommunication. No merge conflict.
+Let me know if you want me to drop this patch from my branch.
 
 Thanks,
-Amirmohammad
+Amir.
+
+----------------------------------------------------------------
+The following changes since commit 214897acc8c2e5d6b63189d23ccaed6fa2af45a9:
+
+  Revert "namei: don't reveal overmounted entries in refwalk" (2026-10-16 10:50:57 +0200)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/overlayfs/vfs.git ovl-fixes-7.3
+
+for you to fetch changes up to 1d27da7de3f74405b1de85ad26c5ea90f826114b:
+
+  ovl: check the casefold flag of directories only (2026-10-29 13:40:31 +0100)
+
+----------------------------------------------------------------
+overlayfs fixes for 7.3
+
+- Fixes for bugs found by Chris Mason's AI review, several of them
+  reachable by unprivileged users: an info leak, use-after-free and NULL
+  deref bugs, an RCU walk stall with remote layers and data loss with
+  nfs_export
+
+- Fix copy up of files with an empty security.capability xattr, which
+  any user could set to block copy up
+
+- Fix a regression from v6.16 with the override_creds mount option
+
+- Two casefold fixes
+
+----------------------------------------------------------------
+Amir Goldstein (6):
+      ovl: fortify ovl_copy_xattr() against underlying layer modifications
+      ovl: add assertions in dir cache code
+      vfs: add try_take_dentry_name_snapshot()
+      ovl: skip copy up of empty security.capability
+      selftests/ovl: fix detached layer mountinfo expectations
+      ovl: fix mount setup failing when override_creds drops CAP_SYS_ADMIN
+
+Chris Mason (13):
+      ovl: do not copy up an xattr value that was never read
+      ovl: set OVL_WHITEOUTS before publishing the upper dir
+      ovl: check that the parents of volatile/dirty are dirs
+      ovl: take a snapshot of the name for copy up
+      ovl: do not take a name snapshot in RCU walk
+      ovl: use the pinned upper dir in ovl_fix_origin()
+      ovl: hold a reference on the parent in readdir
+      ovl: do not copy up a dentry that was removed
+      ovl: fix a torn path in ovl_get_redirect()
+      ovl: read the nlink xattr of every indexed non-dir
+      ovl: always encode the origin fh when index is enabled
+      ovl: set the revalidate flags after d_instantiate()
+      ovl: check the casefold flag of directories only
+
+Hungyu Lin (1):
+      ovl: reserve space for the casefolded name terminator
+
+ fs/dcache.c                                        |  29 +++++-
+ fs/overlayfs/copy_up.c                             | 110 +++++++++++++--------
+ fs/overlayfs/dir.c                                 |  22 ++++-
+ fs/overlayfs/inode.c                               |  16 ++-
+ fs/overlayfs/namei.c                               |  11 ++-
+ fs/overlayfs/overlayfs.h                           |   8 +-
+ fs/overlayfs/readdir.c                             |  65 +++++++++---
+ fs/overlayfs/super.c                               |  39 ++++++--
+ include/linux/dcache.h                             |   1 +
+ .../filesystems/overlayfs/set_layers_via_fds.c     |  18 ++--
+ 10 files changed, 233 insertions(+), 86 deletions(-)
