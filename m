@@ -1,51 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793441579;
-	b=RK/KEKQgSUAyAO5/1AJZ3YffS0fas7dBCZDXyFxY6ekrfc6OfC6roN6gDWmEnkLHuZ4/
-	 tWAHQ3X1dc8HW199xH1MsSazzJgYX0ifP7a7ELGrOaJpTmCqx1GVr0mawHJewXkSIqxKb
-	 7wcIgmL8wmy+EB9aNbfe6Iv2of7s6QAuYGsPrX7B04gpHk/dvnQM49fuAeelLPowSNdPx
-	 9rD3UBcw+Yoo9JTPrYoXXN1yWUVsbnHfZk7fyI6ZEfmvQ9VRo61qnWt3YNzGkDfNJiHHQ
-	 w2ic54S8Q0u0ZTddn/e0xfzZgd4VmP6Zg8OOjt1lYUFdn/dxNXOfR8rIc/LzUEUUYOQ==
+	t=1793441841;
+	b=xLmFKxj0OTLjFxyOoferfM9F3gurWyGjvg1EY7rFVtIvsfBr9CkgdEBOuV1YZgtCfBpT
+	 T3LfcXlduNPyzzstdQKDB54rk9mgWEMeMnlRyq635WXR6b4+8TZjHcC4u6wlzfDn5rJPC
+	 9en5mk8g25Z0QBO/0y15mgt053Irtpagi/OwMLO/6YnGSlTiHnV6uJDRLrJslgwCLMI7V
+	 unqZ/f/2AJihtaKjpZHoo2xxvyfj+Te2At0RvdM33NfmxZTGLD4c8V/5ECscUsi3qXyLn
+	 OpHj1+Tmkecv77OKOYtvl+K2p4AYnxmTR3JzGoFNHBeFOf6MBq5t6PAG4w3CyHZiOog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793441579;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=dDCOuaNWdFHWDg4eo0if1LTvwbtTxO+pnWs7/GHeHF8=;
-	b=pofInRJHcQSwgo57nUGWid2VweAr2pzD52Tu0o6IJDbxlDvy4KOAHIr0ErfThFZXphrd
-	 kVP8zXQ5kSAXTxtZZvT0jnpOva6Og2wO84QGDho3diZOX6GPqe7owaMsJqODIe0CejwqJ
-	 QZQMbZg38mo+B5A6kBcEAMUTLPYr28h0cLrm1n3yO8vbozxw/iIZqFxaLpdhi4x8vUALm
-	 aevXyY+mWz7pN4eTI3QLFT9Ebfl9VY2NzYxKoPkgNLPaLbmszAoDUeod1FN9bMZN/ulNb
-	 tUUmvtuXGfQ9uHPJUHiPtuSYJtc/VOE+PQxfPErtf6i7GucOuOuXJU0hhcGz4mDxPrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793441841;
+	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=+hK+CT14oZ0X9dMr1eoY8PLrTY71QuWo7rMzXyf33Ec=;
+	b=uADf40zaYBSYOff6l88LDLPCrhLZAp7NH0kisCcAafBuXdR5bai7dzXhky715SydmH6J
+	 +9C4vjKswRkTQCJMu4TZ4Pny//cf0VGxDG8HsfWzwlmNiTmnZJKWDMnSPzSQAdFhARGHd
+	 r6MXWuv+n3WNjmKOLFpUjCxxYYz1QE8ogyFQcdkSawkcdTjitaJ52W+c8ePgfwFWCMnVn
+	 /nE+2Kp2nykqU8b5xW9mlT4psdC6/xsty36ZjXERCxUYFV8gg/oJ4XZ1GP55McVFyEgva
+	 F/TmTIOAdka2Ewb1xDz4+H0OirmOFI1DLf53neX8lnAIm0T3mF1oQdi11JZ6S4l3RCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=95.215.58.99
-Received: from mta1.migadu.com (out-99.mta1.migadu.com [95.215.58.99])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F703606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:12:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F703606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lZTmGrotgsDGI65tFXKRdBILlZ1ISbBZpIj7+K9DZDI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793441574; v=1; x=1794046374;
- b=oLB06oPtTuGAdIRr8hXKWIyuAE/VFfRZ2aSmX+nn2L9fhl77u8r1uFIBARMhGEesrc4oTcLk
- Ny18QOASskvHzGJGUQU9J9Xr62mA/lMG67loRk4XIPBfwTHygeyAP57pQtg+X9uScl77eSjNhc9
- ynBvjhd1WXGHSz4P5Yf3JqXA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 3800c739b860db0f;
-	Sat, 31 Oct 2026 10:12:54 +0000
-X-Mizu-Trace-ID: 3800c739b860db0f
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21AB7606A31A;
+	Sat, 31 Oct 2026 10:17:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21AB7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 3c205f26d51411f19a56ed5b684f684d-20261031
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_DIGIT_LEN
+	HR_FROM_NAME, HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER
+	HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT
+	HR_TO_DOMAIN_COUNT, HR_TO_NAME, IP_TRUSTED, SRC_TRUSTED, SA_TRUSTED
+	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
+	DMARC_NOPASS, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS
+	GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:53b4c4bd-1434-4885-b910-329b736392c5,IP:10,
+	URL:0,TC:0,Content:37,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:72
+X-CID-INFO: VERSION:1.3.19,REQID:53b4c4bd-1434-4885-b910-329b736392c5,IP:10,UR
+	L:0,TC:0,Content:37,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTI
+	ON:quarantine,TS:72
+X-CID-META: VersionHash:7db8b62,CLOUDID:e43b9f5b8de7744da9526a2d0acc7c8b,BulkI
+	D:2610311817137CTBOW59,BulkQuantity:0,SF:10|66|78|81|82|127|865|898,TC:nil
+	,Content:4|15|50|99,EDM:5,IP:-2|1,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BE
+	C:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ASC,TF_CID_SPAM_IBB
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 3c205f26d51411f19a56ed5b684f684d-20261031
+X-User: liqiang01@kylinos.cn
+Received: from cvdaxia.localdomain [(116.128.244.169)] by mailgw.kylinos.cn
+	(envelope-from <liqiang01@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1034254473; Sat, 31 Oct 2026 18:17:11 +0800
+From: Li Qiang <liqiang01@kylinos.cn>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liqiang01@kylinos.cn
+Subject: [PATCH v2] pipe: avoid an extra kmap round trip for short copies
+Date: Sat, 31 Oct 2026 18:16:45 +0800
+Message-ID: <20261031101645.912671-1-liqiang01@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261030-almosen-kaleidoskop-alpinsport-aa25b8e28d7b@brauner>
+References: <20261030-almosen-kaleidoskop-alpinsport-aa25b8e28d7b@brauner>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,80 +84,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v5 4/6] mm/vmscan: pass scan_control to the vmscan
- tracepoints
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261031090041.58574-5-ridong.chen@linux.dev>
-Date: Sat, 31 Oct 2026 18:12:27 +0800
-Cc: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Dave Chinner <david@fromorbit.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Qi Zheng <qi.zheng@linux.dev>,
- Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
- bpf@vger.kernel.org,
- Ridong Chen <chenridong@xiaomi.com>,
- "open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org (ope>)
-Content-Transfer-Encoding: 7bit
-Message-Id: <DBDE2024-5586-4938-A8A5-B6247E2B2BF2@linux.dev>
-References: <20261031090041.58574-1-ridong.chen@linux.dev>
- <20261031090041.58574-5-ridong.chen@linux.dev>
-To: Ridong Chen <ridong.chen@linux.dev>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+anon_pipe_write() requests PAGE_SIZE bytes when copying into a new
+pipe page, even when fewer bytes remain in the source iterator.
+The iterator copy is already clamped to the available data, so no
+data is copied twice. However, after consuming a non-empty iterator
+with less than PAGE_SIZE bytes, copy_page_from_iter() enters its loop
+once more and performs an extra kmap_local_page()/kunmap_local() pair
+before the zero-byte copy makes it stop.
 
+Limit the requested copy size to the remaining iterator count so that
+the loop exits after copying the available data. This is a performance
+optimization; the copy semantics are unchanged.
 
-> On Oct 31, 2026, at 17:00, Ridong Chen <ridong.chen@linux.dev> wrote:
-> 
-> From: Ridong Chen <chenridong@xiaomi.com>
-> 
-> Several vmscan tracepoints spell out reclaim state as individual
-> arguments, all of which the caller already holds in struct scan_control.
-> Now that the struct is visible from the trace header, pass sc directly
-> and pick the fields out in TP_fast_assign instead of spelling them out
-> at every callsite:
-> 
-> - mm_vmscan_direct_reclaim_begin, mm_vmscan_memcg_reclaim_begin and
->  mm_vmscan_node_reclaim_begin: gfp_mask and order.
-> 
-> - mm_vmscan_lru_isolate, mm_vmscan_lru_shrink_inactive and
->  mm_vmscan_lru_shrink_active: reclaim_idx, order and priority.
-> 
-> - mm_vmscan_reclaim_pages: nr_scanned. nr_reclaimed stays a separate
->  argument: it is the return value of shrink_folio_list(), which does
->  not update sc->nr_reclaimed.
-> 
-> - mm_vmscan_balance_pgdat_end: order and nr_reclaimed. highest_zoneidx
->  stays a separate argument: it is a balance_pgdat() parameter, and
->  sc.reclaim_idx may differ from it by the time the end event fires.
-> 
-> No functional change. The tracefs event format (TP_STRUCT__entry and
-> TP_printk) is unchanged, so tracefs-based consumers are unaffected.
-> BPF programs attached via raw_tp/tp_btf see the new TP_PROTO and need
-> to be adjusted; tracepoints are not a stable ABI (see
-> Documentation/bpf/bpf_design_QA.rst).
-> 
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+UnixBench pipe results on Hygon C86 7490 (Hygon 4):
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+| Threads | Before | After | Improvement |
+|---------|--------|-------|-------------|
+| 1       | 835    | 854   | +2.28%      |
+| 256     | 179293 | 182895 | +2.01%     |
 
-Thanks
+Signed-off-by: Li Qiang <liqiang01@kylinos.cn>
+---
+Thanks, Christian, for the clarification, and Mateusz for taking a look
+and supporting the change.
+
+As Christian pointed out, the iterator copy is already clamped to the
+available data; this change only avoids an extra kmap round trip. I have
+updated the subject and commit message accordingly.
+
+Changes in v2:
+- Reword the subject and commit message to describe this as a performance
+  optimization, with no data copied twice.
+- Explain the extra kmap_local_page()/kunmap_local() pair avoided.
+- No code changes from v1.
+
+ fs/pipe.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/fs/pipe.c b/fs/pipe.c
+index 292425a834dd..da5583f7f37d 100644
+--- a/fs/pipe.c
++++ b/fs/pipe.c
+@@ -595,7 +595,9 @@ anon_pipe_write(struct kiocb *iocb, struct iov_iter *from)
+ 				break;
+ 			}
+ 
+-			copied = copy_page_from_iter(page, 0, PAGE_SIZE, from);
++			copied = copy_page_from_iter(page, 0,
++						     min_t(size_t, PAGE_SIZE,
++							   iov_iter_count(from)), from);
+ 			if (unlikely(copied < PAGE_SIZE && iov_iter_count(from))) {
+ 				anon_pipe_put_page(pipe, page);
+ 				if (!ret)
+
+base-commit: 47324d3a5b3abd781295044d01d92d09f184e872
+-- 
+2.43.0
 
