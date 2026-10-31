@@ -1,84 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793465761;
-	b=VehTrKOnnbK/RdANYUJ9ST+d/dM2BcWXrfm9F+9zvAOvMsqXz6I7MOXjm3LblC6GLntB
-	 yYDSpx33/zZCYASxNK4uNohtZcOecHx4zxp13T31Dn8K2ZJ9z5X10VQDWM4oYswSEoe79
-	 Uv73rCGHGO2xquQFgOwECWlqdWOQSzY+fvyxX6jePftjYxiscZvU+NRiYWGsHKOnybAVW
-	 RMEyhAxXvaY5R1tS6mP4h/kFtBgv6pbKQSU75WM603RMD6gtcP337DPSgEH4zW3aDUamm
-	 akpmJMEy/N1x7FSG6xcEg1vraF25EkVey6gyAaPWT/LnNhxfDtMLAncE33zXRvJt0yg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793465761;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793465817;
+	b=mwL5NccIRhfHlW4GfeF0trQjz2ROj1PzbL/+vKZp7CJ4al1fqO4z5rNxhTRbV+fkcvUm
+	 1gITxz/lK9lZEbGEISyF4BNAPyjqo80pIVaiy/fdXd+e9Wd1WCvHWdtzpu8Yf72/ID3wr
+	 OyYw9xXpdPlQY+tdJ0EsqnP0AE0OYKQg555VFtp2e0423azBC1XKdunKh9xa+szrbsGyN
+	 u0klAHCgLI+adLFoRhPq23Q4lgjxhAw1vXOpMGnX7Hr1mkVP4JL2kJ2XefnpuZ6MtcML6
+	 doVOZs7yDOsc5M62zbfGT/DnAZtrzAJxTzZjtodiBWcjkDk2ZJahXB+z8cQqN7wn+jQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793465817;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=dTSpWgCuU+uPZLriefRpG7c7+1TKz+jm36CBK/vsWJk=;
-	b=XpysT9E/rQp64QKeYR3GJOhNvY+g9wM7I2oSxz/4MQPvwZWVxn4bRyhcYtm8VmP8h9kP
-	 2nmdEs3N2hyA/ASPxGxEDz0IV8vVF7jBrWljPt+sX0YdkdYoTmBD4nB3zJyrI9gnmMIPg
-	 jtYeV4YVHkoGZXTXBYss8rZpeamj3eP+jZrsL59UU7KfdAG0sN5IUIvMVigTr4y22a8WY
-	 GzT4fyPxfJ8RXRXAOS/AqYrw5aURQKwWL/jxeOvtFVFTzDyVuYInrB3WPqWf83cPSONCd
-	 j+fuPd/48H1gnutdxJSn/AJYc0w0HeEcFxxhBraailqdT+mg/wNYA/0ryDrhuuhy/Qg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nexthop.ai;
-	spf=pass smtp.mailfrom=nexthop.ai;
-	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=REnspDXt;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=5HsQn+K8WRVcTEBks1X7UbNy0Qj9FUVgHxdKvavTijw=;
+	b=vEg2b65pcpcoqK5mZdw2KvcgDNyBHvyt9/NICtYAxqUjaaibGFpWE4kmMh4u0gb7zLbC
+	 GX0ICF1slCePpEa2KHlTPJ3nhOF1yfDergd6SemJN+u1hNiA1HKlLKeoimB7WAyqPcSqP
+	 U4VWKktXST321szK8z+dccfRdoKNCGtMQnIT2JIIO0hcpMIs35lAzLBYQ4+pjmJbE3NRt
+	 yiRy7XgHhUkpZ1b5K60U5Gxu6om8EGvMy5xgrPJAO4Kg2isnymTKcXJz0L1K+UgrvrbBM
+	 EMoYCBq7/ew2EzEWNcvMI9jnt0hd4oiAozt2t/r/eSFbzdzmD302E1RbQeWRof/5dRg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pRhNZdpa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D45E606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:56:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D45E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4906606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:56:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4906606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=REnspDXt
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1ae18eb9ad0so1471373c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:56:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pRhNZdpa
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b1a86c0316so2241399a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:56:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793465815; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MC3hd3G3FRxzDrtP/Ymvta+2uCDZUPsaYT6P+MRxofb5WY4O1V1S2JoRk/Ro3dCDvw
+         ohhstNRqmv8XZYUEoGdJU1wiHyw7tr0Jumrlnb3ik63Ve4It9GJSJlSmjkDfEQNut/lu
+         HBE5K8BWxAbI3/n3Sg/J8RkAbolAh/xWjbWNlo/OjMs+nh6Wn/BF5JkCmIZCNrugwYp8
+         NH1wM1sSXDnHGlJkZjYF28v+GynNC8ExkB62SdsRAl3zGFkfWA+P8Evx4vB8+F+Pi9eP
+         zyPeICxWuApMFIB+ca1qAjYZ8yt1bLmIYURS1TIWTuzeicb57pRkLfzTyPbpdVi8BFzv
+         EwKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5HsQn+K8WRVcTEBks1X7UbNy0Qj9FUVgHxdKvavTijw=;
+        fh=vdgq2HJB2AFSMqIOeL/YKdVEmiZrMxNb33zI6w7NLhk=;
+        b=Ayk7EWQbnCwF+oJECtCSExxuThJycrXCOWRKjyxtHwtejWlZWl5Xm1bPud+7oHjab2
+         2k23qvQgdlULIJTah8ybnZ5DaCCOiWAwOs63kbWQHA5jQwrLyreIiJcdb6HPhxWTssI1
+         ZATa/CIVGvu2VM1LlGo07QAhVMDF/gymEd1IMjNBVJQX8O71Gf+XsGOEGcJUT0T7li/v
+         V/bmds/vFLOUps05Fb0H4ptswtoimv8/51588HsvZY7zbwNOE7XHt/qgWdHIhAbhuqXU
+         yCvmBKpQJzIwjAfYOjiYSn/KIx4HgBaNeLHR8MHSw9zAoj4RjQTHh0mI9sC717DqtqH2
+         258A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1793465760; x=1794070560; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dTSpWgCuU+uPZLriefRpG7c7+1TKz+jm36CBK/vsWJk=;
-        b=REnspDXt+lRcxcp94OICDLypGbuOKyCjYRTlZ8QxpOGOD/WcUbDMN8O87C0EzS5UbH
-         MQ4zjwmACZ/pc67zk2cSLhpLFdA/fPA2CijbU5WtXW+A4anQtI977v6hGmbFP8CAVVbG
-         VeOE/gGNtxRthMf33tWZ6UY4ItrNj/LdHDtfulZtzF82/dqO7e6ppHfP95h+EqkrZgQm
-         tFKGT6wZpO8Oew+0k3NsoOYHf148k6g8PFRY/DLQrssuXEME11rbKsfzQQ9bOF4HyYQl
-         ZxeHqNAkvqaMdt1FXjihcuQZ0kT6wvgGewF5IMb7pOmNBK+g9R4V+K82agU4w5nD4Awk
-         IaVA==
+        d=gmail.com; s=20260707; t=1793465815; x=1794070615; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5HsQn+K8WRVcTEBks1X7UbNy0Qj9FUVgHxdKvavTijw=;
+        b=pRhNZdpaQpuD/DUfFEwMnU+S4r8hXkZIlNiw05lpKyGMFbu03Yn0xOjPZK2W+NXcsX
+         vpv6J0xZwT+fseXy+hry9PYW9akel5JR6dDK94C3l6CvvoV5rjRDDQur7yGUJ84IB7TB
+         Vq5U2qLARabEaHBXA6orhMC+zcjBKYM+MDX5CL+eErqkjG2n3QghA6G89U2DAz4AwY5j
+         t9qydXkaS/lca7N8CM8yhdveM4aGUHBLfBHfiBWsDBj5aIoNM+/N+xtgkC6GulXMpbPl
+         PR1xG6fg+OLJV4r4HVfASJb73BjxpLXSBS8Mp08pCNYk2MwPqY5OwboE7XoS1K/BRSV0
+         tHxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793465760; x=1794070560;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793465815; x=1794070615;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dTSpWgCuU+uPZLriefRpG7c7+1TKz+jm36CBK/vsWJk=;
-        b=e96N0Fbr0QRlGF4epNEsGLga1s47hW0SxstcmkWIFQJxtszIRdnUL3L2pzgAW3ZLyx
-         5QAPakBEXoYuIZKRzjsW2Q0IrhfDJFs0d1lJfIF/W/iWyfJP8f1BQ0ESgm4umNQVAoaU
-         kWNzavYwFQbLtfqMcEzyRW415I4uzr95LF0lgqEjiVJXw+MdayC/2umSxzX2Q5/Jza5l
-         +5zTTIVc1WAIXTqDvrx/qfASkja7I8143giNcJrF1ZuHdt7vrjwov/VRkh8zEL1k3vdx
-         aFXU4ZNcJiDMJ22WhDMqU6PWsnKCD/e9MitgHbIVuGrF53RkdBFyPDYeKvIhExzvpOvC
-         2Xmg==
-X-Forwarded-Encrypted: i=1; AKwUvBwh7dvgzy4TQ1H/jQ7AZ/qybw2/ujNGWUYCN7ZeNObF6PPgDfY6G3vUlvLfsSvFy54l6jgmCkj6WXkyjg0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIUb1L7+r53klXn1w7NrBltDQX9gc8xAab4f03XwVGPfvO61NiX
-	ayKLNbjbYCf+PJD52J/zOlUnAHxF4PjqnZEBE42p33YojOI2NDpLzZTqU0JzbvWxPKI=
-X-Gm-Gg: AYBFou3AHx1WiEAMyZnsJC1vLFTCPNjti6F2OC1NyLz1FbxmCN9ZbDkxk6gEr50IcR9
-	j1jGheC2F7MO5dlUd8S7SSlAQi7fKwFHVGVxTHDRlaAIBBgjNKqMK12wQx1TqaSA6uyZbSKUosQ
-	XpU3IBAWogQ6a7Lz3zi6+2fW3KuQ6K2dVCq3gLS1IqSROb3lBTPfkAe7rIpUD6WLrlxTOZSkD0G
-	6zXoIurldQC9WWuylAdYAJ2ilaNxPtt0jhuDbHJmUzId37Imkraqe2F4or4nW7uQ7t3p45dQXvk
-	dQ6E3IM3eoh9LYxqIuJCOpGeZQSIJfqhDtPzaTNcBocQUaYqjpzk9Vm+oqcbK9BDk6KOWRLRQMp
-	cUKefoElyD0QJMA6D8KJbKTfQkUn4a0uAmfwB3xnxLDvOcTlperz/+hA16QdDcLzTRnXAHZiV5U
-	gjxU/3uE7t1HJrEYlXKWS7ek+4qEigSumGEkk/OPetQW4MUI3iCssM2EPGPo1qcKuJnZOFn8Ctj
-	QnJudUuoKQBXLXQPZT+tS4nlOQDZ3KykGRtw6YTXgDiTdSqfMWHBtMbiA5I8FZBrGKJf1M5Nugx
-	ZdWIOO0559gVCsIgHmSx9YK10cSZRw==
-X-Received: by 2002:a05:701b:4517:10b0:185:fd0c:4585 with SMTP id a92af1059eb24-1ac5fb18de9mr7587298c88.33.1793465760211;
-        Sat, 31 Oct 2026 09:56:00 -0700 (PDT)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19f4a04esm17690437c88.15.2026.10.31.09.55.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 31 Oct 2026 09:55:59 -0700 (PDT)
+        bh=5HsQn+K8WRVcTEBks1X7UbNy0Qj9FUVgHxdKvavTijw=;
+        b=K946FJFaXtUmyVbAPdNkcD7+ffpAb9M6d8ok+pblkL6qrCFQfe2zIsnpn/yedPBN0k
+         /ALYlf2YFjfnVLrIY14KVm1ZbVIxKbRK+rUCs/PE5UzVnglMgFuTXYHhIiQKB0LQEJGO
+         y1KrnyapnfzyfdMNSHHKx7Cgw4fIg8ADaNiaxqJ5h8rsx69b0xsrA/ivIVGkILXlkb05
+         Kby6MByp+LeXHEMntkJ1Efkm3/Jm0taTIxq/K6UObjgq2Ebx0nXCw71Vq1CJ6xs5T/h/
+         eztQZwEb9SBOhmrxO0IJQ3FLcTn2zpzxwr+bJvsh+oGoBpLkNyuYHKJjDjFwN0khzvva
+         wTdw==
+X-Forwarded-Encrypted: i=1; AKwUvByFt73YdJ/aCGQ00bQ+nkRzArdf4cb4o58oxDS9MGwNfwBD033HJpdFfzIyApQeuVDXpi/oT2NmpWgQtaM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLvd8idvQDsFNnOKEU9MZEuYGxCkbvC+LhjgTzjPBJ/E+2JZt3b
+	MG5JLmI33IpgNuNw8LZE9dq5s2CQs/auzpBPi2zURZyeA7JVl575OqKpsg9W+wVlin19WNTtzxz
+	Q4vqEVHZbRSRUlxy5xpL47JtUZyxc7yI=
+X-Gm-Gg: AYBFou2RogdrziWGk69W/NoBgfQHl3fNoSOf+Bk8RisJfraZ6DcjF2+nTdEgT6XMZFi
+	KwX0dsBmE3NuoHW3P0/vHUJKQ1lerEbqwWhrd/Kz3Thl/EnFAuqfBRVC4rgMEwgD6z1aActw19/
+	pu7xHvbcxZXEIugFS89O/Q3WoW/8FFimbWH/6Eio9eHpH0NfjZZknVRogaqfyzp4KDO9sY6Ef7X
+	wG1Bud5tUuDcGBuh8JbGeLJvS45cx9Qj7G5TJgKdnA4Tfh2KY04aVsqT0MJITGqv2vRTeTrM+eA
+	CA1EBUuqbhFOQK4bDCxb2XhC8RzH/KeyIyQnfqBypvK/vqZObmQlZ6cb693RohBMWK2S7ycaFHH
+	gPvXXnZ+7qgINL+U7dbvn3Js/uYDU9/Vr0/OUkdTVYQncCT3hjJgCKHL6I5pfa6E89HzrIRtrA7
+	bw+Rz+i0p7DEtS5MkdcXX7sag=
+X-Received: by 2002:a05:6402:5007:b0:6b4:d1ed:95b3 with SMTP id
+ 4fb4d7f45d1cf-6b4d5727afcmr4034555a12.41.1793465815192; Sat, 31 Oct 2026
+ 09:56:55 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,176 +104,181 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20261030-alpha-profileme-v2-0-c702f1c65272@gmail.com> <20261030-alpha-profileme-v2-5-c702f1c65272@gmail.com>
+In-Reply-To: <20261030-alpha-profileme-v2-5-c702f1c65272@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sat, 31 Oct 2026 17:56:42 +0100
+X-Gm-Features: AclHuK8up6u9Y3pPa0-yJ_2iRNWdsswN4WKtEkOWWp8jiOXqmU8vIfOM971mbzM
+Message-ID: <CA+=Fv5QJqj0azuYhFE0PNZp7EqBgDzxvuTiW498kptnGBz1pHQ@mail.gmail.com>
+Subject: Re: [PATCH v2 5/5] alpha/perf: optionally randomize the ProfileMe
+ sampling interval
+To: Matt Turner <mattst88@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 31 Oct 2026 09:55:58 -0700
-Message-Id: <DMJ6JVD0I6KI.2DKEVAB8RYTO4@nexthop.ai>
-Cc: <linux-arm-kernel@lists.infradead.org>, <linux-i2c@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Sasha Levin" <sashal@kernel.org>,
- "Siddarth Chilukuri" <siddarth@nexthop.ai>, <stable@vger.kernel.org>
-Subject: Re: [PATCH v2] Revert "i2c: xiic: defer RX_FULL until all trailing
- bytes are in FIFO"
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>, "Michal Simek"
- <michal.simek@amd.com>, "Andi Shyti" <andi.shyti@kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20261008-i2c-xiic-block-read-nack-v2-1-76735ed0b0bf@nexthop.ai>
-In-Reply-To: <20261008-i2c-xiic-block-read-nack-v2-1-76735ed0b0bf@nexthop.ai>
 
-On Thu Oct 8, 2026 at 6:01 PM PDT, Abdurrahman Hussain wrote:
-> This reverts commit e6fe3ea04f0113fe4d47c03d76e03805a4768ca7.
+Hi Matt,
+
+On Fri, Oct 30, 2026 at 5:04=E2=80=AFAM Matt Turner <mattst88@gmail.com> wr=
+ote:
 >
-> That commit raised the Rx FIFO threshold for an SMBus block read whose
-> trailing bytes fit in the FIFO, on the grounds that firing RX_FULL with
-> the last byte still in flight made xiic_read_rx() NACK, and so truncate,
-> that byte. NACKing the last byte does not truncate it: it is how a
-> master ends a read. The byte is still clocked in and is drained on the
-> bytes_rem =3D=3D 0 path that follows, which also issues the STOP.
+> A fixed sampling interval can phase-lock with a loop whose length divides
+> it, so that the same few instructions are profiled over and over while
+> the rest of the loop is never seen. DCPI avoided this by randomizing the
+> interval.
 >
-> What the higher threshold does instead is skip the bytes_rem =3D=3D 1
-> branch, the only place that sets NO_ACK, so every trailing byte is now
-> ACKed. Having had its last byte ACKed, the target goes on to drive the
-> next one, and the STOP that follows lands in the middle of it.
+> Add a randomize config bit that varies each interval by up to 1/16 of
+> the period in either direction. Only ProfileMe events accept it, since
+> Aggregate mode samples already land a variable distance from the
+> instruction that overflowed. Counts are unaffected, because prev_count
+> already records the value actually written to the counter. The jitter
+> is computed with mul_u64_u32_shr() and the sum saturates, so that a
+> period beyond 32 bits cannot overflow.
 >
-> Some targets ride this out; others are left wedged until the next
-> transactions clock them free. A TDK FS1412 fails the two transfers that
-> follow any block read, so it never probes: pmbus reads MFR_ID as a block
-> and then VOUT_MODE as a byte. A Renesas RAA228246 and one RAA228244 on
-> the same controller fail the plain block read itself and the byte read
-> after it.
+> The jitter comes from a per-CPU prandom state rather than
+> get_random_u32_below(), which takes the batched entropy local lock and
+> triggers an invalid wait context report from lockdep in the PMI.
 >
-> With commit b7e6df2f52ed ("i2c: xiic: preserve PEC byte length in SMBus
-> block read setup") and commit 840d8acc8792 ("i2c: xiic: don't clobber
-> msg->len to signal block-read completion") in place, PEC block reads
-> pass at the original threshold. The PEC failures the reverted commit
-> attributed to the threshold came from the bugs those two fix; all three
-> were developed together against an ADM1266, which rides out the extra
-> ACK, so the regression did not show.
->
-> Twenty rounds per device of a block read and a PEC block read of MFR_ID,
-> each followed by a byte read:
->
->                before                      after
->             block  PEC   byte after     block  PEC   byte after
->   FS1412    20/20  0/20  20/40 fail     20/20 20/20   0/40 fail
->   RAA228246  0/20 20/20  20/40 fail     20/20 20/20   0/40 fail
->   RAA228244  0/20 20/20  20/40 fail     20/20 20/20   0/40 fail
->
-> A second RAA228244 and an Infineon XDPE1A2G5B passed every round before
-> and after.
->
-> Fixes: e6fe3ea04f01 ("i2c: xiic: defer RX_FULL until all trailing bytes a=
-re in FIFO")
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> Cc: stable@vger.kernel.org # v6.3+
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
 > ---
-> A follow-up to my xiic block-read series, now in 7.3-rc as
-> b7e6df2f52ed, e6fe3ea04f01 and 840d8acc8792. The second of those
-> stopped NACKing the final byte of a block read that fits in the Rx
-> FIFO, which leaves some PMBus targets wedged for the next couple of
-> transfers.
+>  arch/alpha/kernel/perf_event.c | 37 ++++++++++++++++++++++++++++++++++++=
+-
+>  1 file changed, 36 insertions(+), 1 deletion(-)
 >
-> Tested on a 6.12 kernel carrying that series, against an AXI IIC
-> controller with an FS1412, RAA228244/RAA228246 and XDPE1A2G5B behind
-> it, using plain and PEC block reads and the byte reads that follow.
+> diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_even=
+t.c
+> index c9d4b13817bc..c553cbd6c7a3 100644
+> --- a/arch/alpha/kernel/perf_event.c
+> +++ b/arch/alpha/kernel/perf_event.c
+> @@ -16,6 +16,9 @@
+>  #include <linux/kdebug.h>
+>  #include <linux/mutex.h>
+>  #include <linux/init.h>
+> +#include <linux/math64.h>
+> +#include <linux/overflow.h>
+> +#include <linux/prandom.h>
 >
-> The same happens on a second board, where two of four ISL68225s behind
-> the same AXI IIC core fail plain block reads and the transfer
-> after them. A capture of SCL/SDA taken inside the FPGA shows the
-> mechanism: after the last byte of an MFR_ID block read the master
-> drives ACK, the target starts on the next byte with SDA low, and the
-> STOP the master then attempts never appears, leaving SDA held low. With
-> this change the last byte is NACKed and the STOP is clean, and all four
-> pass.
+>  #include <asm/hwrpb.h>
+>  #include <linux/atomic.h>
+> @@ -33,9 +36,11 @@
+>  /* Layout of attr.config for PERF_TYPE_RAW events; see format/ in sysfs.=
+ */
+>  #define ALPHA_PERF_CONFIG_EVENT                0xffULL
+>  #define ALPHA_PERF_CONFIG_PROFILEME    BIT_ULL(8)
+> +#define ALPHA_PERF_CONFIG_RANDOMIZE    BIT_ULL(9)
 >
-> PEC block reads do not regress: 1000 PEC block reads of MFR_ID per
-> device, each followed by a byte read, on the FS1412, both RAA parts, the
-> XDPE1A2G5B and a further RAA228244 passed without a failure, both with
-> this revert alone and with Siddarth's patch on top of it.
+>  /* hw_perf_event.flags */
+>  #define ALPHA_PERF_FLAG_PROFILEME      0x1
+> +#define ALPHA_PERF_FLAG_RANDOMIZE      0x2
 >
-> With this change a block read ends with a NACK, and so with TX_ERROR,
-> like any other read. That puts it in the window Siddarth's patch closes,
-> where xiic_process() sees TX_ERROR before RX_FULL and resets the core
-> even though the data is already in the Rx FIFO:
+>  /* For tracking PMCs and the hw events they monitor on each CPU. */
+>  struct cpu_hw_events {
+> @@ -59,6 +64,9 @@ struct cpu_hw_events {
+>  };
+>  DEFINE_PER_CPU(struct cpu_hw_events, cpu_hw_events);
 >
->   https://lore.kernel.org/linux-i2c/20261005-i2c-xiic-rx-fifo-v1-1-0177ac=
-5f72d7@nexthop.ai/
+> +/* For randomizing sample intervals from the PMI, where locks are not al=
+lowed. */
+> +static DEFINE_PER_CPU(struct rnd_state, alpha_perf_rnd);
+> +
 >
-> The two touch different functions and apply cleanly to v7.3-rc6 in
-> either order.
-> ---
-> Changes in v2:
-> - Revert e6fe3ea04f01 outright instead of moving the threshold back by
->   truncated), and with b7e6df2f52ed and 840d8acc8792 in place PEC block
->   reads pass at the original threshold. The code change is the same
->   single line as v1 minus its tail =3D=3D 1 branch, which could never run
->   (Siddarth, Sashiko): reads with fewer than two trailing bytes are
->   padded to SMBUS_BLOCK_READ_MIN_LEN first.
->   Sashiko review: https://sashiko.dev/#/patchset/20261008-i2c-xiic-block-=
-read-nack-v1-1-94882af6e598%40nexthop.ai
-> - Link to v1: https://patch.msgid.link/20261008-i2c-xiic-block-read-nack-=
-v1-1-94882af6e598@nexthop.ai
 >
-> To: Michal Simek <michal.simek@amd.com>
-> To: Andi Shyti <andi.shyti@kernel.org>
-> To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-i2c@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> hand: that commit's premise was wrong (a NACKed last byte is not
-> ---
->  drivers/i2c/busses/i2c-xiic.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+>  /*
+> @@ -246,10 +254,12 @@ static int ev67_raw_event_valid(u64 config)
 >
-> diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.=
-c
-> index 5e397a7e63f6..76ef9c26ed57 100644
-> --- a/drivers/i2c/busses/i2c-xiic.c
-> +++ b/drivers/i2c/busses/i2c-xiic.c
-> @@ -569,11 +569,11 @@ static void xiic_smbus_block_read_setup(struct xiic=
-_i2c *i2c)
->  			i2c->smbus_actual_len =3D 1 + rxmsg_len + pec_len;
->  		} else {
->  			/*
-> -			 * All trailing bytes fit in the Rx FIFO. Defer RX_FULL
-> -			 * until every one of them is buffered, so the drain
-> -			 * takes xiic_read_rx()'s bytes_rem =3D=3D 0 path.
-> +			 * All trailing bytes fit in the Rx FIFO. The widened
-> +			 * condition above guarantees rxmsg_len + pec_len >=3D 2,
-> +			 * so this cannot underflow.
->  			 */
-> -			rfd_set =3D rxmsg_len + pec_len - 1;
-> +			rfd_set =3D rxmsg_len + pec_len - 2;
->  			i2c->rx_msg->len =3D rxmsg_len + 1 + pec_len;
->  		}
->  		xiic_setreg8(i2c, XIIC_RFD_REG_OFFSET, rfd_set);
+>  PMU_FORMAT_ATTR(event, "config:0-7");
+>  PMU_FORMAT_ATTR(profileme, "config:8");
+> +PMU_FORMAT_ATTR(randoThe v2 arithmetic handles the large-period overflow=
+ case. I tested
+randomized instruction sampling with a period of 10000 on all three
+CPUs of my ES40. Repeated runs completed without hangs or kernel
+warnings.
+
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>mize, "config:9");
 >
-> ---
-> base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-> change-id: 20261007-i2c-xiic-block-read-nack-d2b735baddd3
+>  static struct attribute *ev67_format_attrs[] =3D {
+>         &format_attr_event.attr,
+>         &format_attr_profileme.attr,
+> +       &format_attr_randomize.attr,
+>         NULL,
+>  };
 >
-> Best regards,
+> @@ -367,6 +377,22 @@ static int alpha_perf_event_set_period(struct perf_e=
+vent *event,
+>                 ret =3D 1;
+>         }
+>
+> +       /*
+> +        * Vary each new interval by up to 1/16 of the period either way,=
+ so
+> +        * the samples cannot phase-lock with a loop whose length divides=
+ the
+> +        * period. The count stays exact because prev_count records the v=
+alue
+> +        * actually written.
+> +        */
+> +       if (ret && (hwc->flags & ALPHA_PERF_FLAG_RANDOMIZE) && period >=
+=3D 8) {
+> +               long jitter =3D period / 8;
+> +               u32 r =3D prandom_u32_state(this_cpu_ptr(&alpha_perf_rnd)=
+);
+> +               long offset =3D mul_u64_u32_shr(jitter, r, 32) - jitter /=
+ 2;
+> +
+> +               if (check_add_overflow(left, offset, &left))
+> +                       left =3D LONG_MAX;
+> +               local64_set(&hwc->period_left, left);
+> +       }
+> +
+>         /*
+>          * Hardware restrictions require that the counters must not be
+>          * written with values that are too close to the maximum period.
+> @@ -738,7 +764,8 @@ static int __hw_perf_event_init(struct perf_event *ev=
+ent)
+>                 return -EOPNOTSUPP;
+>         } else if (attr->type =3D=3D PERF_TYPE_RAW) {
+>                 if (attr->config & ~(ALPHA_PERF_CONFIG_EVENT |
+> -                                    ALPHA_PERF_CONFIG_PROFILEME))
+> +                                    ALPHA_PERF_CONFIG_PROFILEME |
+> +                                    ALPHA_PERF_CONFIG_RANDOMIZE))
+>                         return -EINVAL;
+>                 ev =3D attr->config & ALPHA_PERF_CONFIG_EVENT;
+>                 if (!alpha_pmu->raw_event_valid(ev))
+> @@ -763,6 +790,14 @@ static int __hw_perf_event_init(struct perf_event *e=
+vent)
+>                 return -EINVAL;
+>         hwc->flags =3D profileme ? ALPHA_PERF_FLAG_PROFILEME : 0;
+>
+> +       if (attr->type =3D=3D PERF_TYPE_RAW &&
+> +           (attr->config & ALPHA_PERF_CONFIG_RANDOMIZE)) {
+> +               if (!profileme)
+> +                       return -EINVAL;
+> +               prandom_init_once(&alpha_perf_rnd);
+> +               hwc->flags |=3D ALPHA_PERF_FLAG_RANDOMIZE;
+> +       }
+> +
+>         /*
+>          * We place the event type in event_base here and leave calculati=
+on
+>          * of the codes to programme the PMU for alpha_pmu_enable() becau=
+se
+>
 > --
-> Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> 2.55.0
+>
 
-Hi Andi,
+The v2 arithmetic handles the large-period overflow case. I tested
+randomized instruction sampling with a period of 10000 on all three
+CPUs of my ES40. Repeated runs completed without hangs or kernel
+warnings.
 
-Gentle ping on this one. It missed 7.3, so v7.3 and v7.3.1 now ship
-e6fe3ea04f01, and any pmbus device on xiic that reads a block (the
-FS1412 above, for one) fails to probe. Could you take the revert
-through i2c-fixes for 7.4-rc?
-
-When you apply it, the stable hint should be
-
-Cc: stable@vger.kernel.org # v7.3
-
-rather than "# v6.3+". Sasha dropped e6fe3ea04f01 from the older stable
-queues, so 7.3.y is the only stable branch that has it.
-
-The patch still applies cleanly on current mainline. I can resend
-against -rc1 if that's easier for you.
-
-Thanks,
-Abdurrahman
-
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
