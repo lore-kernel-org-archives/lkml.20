@@ -1,84 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.238.174.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793477601;
-	b=0Q/pmJ55Var4F/8VcpCnhzUF/7OqQLLjOdPXmZpRlYwDRcQ4teeqTyyu9IcR7OtJXEw0
-	 h8DkiIip2iOLKJU09ue91laeYkiTcg+vDcnPSIdR0wp7GFnbU/C5n2M2vT+zKU3e0lFbr
-	 CRibwecVCXEdYXJWRGvqPgZMNJoB3JeGgQkHvidD2z5C5tyWhoRZxeFw0O1iEMYqmnIzA
-	 to9zbL457og8zRLIfoEvdWpOylz1+m+P+0ys3B8q09UEjjsPGHhv9fBfhxtbrIRQw4joJ
-	 G1ZcR3xVajEyxUTTtyoycmdf2/Gi0cZWA1MUb2uTWcxF8tVW8yCiuMdm9ZnhWDxLPEA==
+	t=1793477609;
+	b=xQ16jdc8jKNGKc8gB9otp53URJTM3FGeIY9hcHXvXupm+EMUWh6CmKx+yqMcvuaeOp9Z
+	 MLN7cCEZWKXF9kR6XcyieLTeAyGRamtbH7n66mzXW49Nom5B1KhWN0L0HyeJUunJQlKPU
+	 SkdAFqDDlAQD2Q3/c++sgUPYpGJ38Fx2Ku0492PSbG/hvv5g31KhLbpVdzutqtSezyuCI
+	 rBYly4fVUn+8DuhGHEelMGpwsPhAWt99HE7KUUCi+9KYNLrurl+vx1MIWfdOLYEWx3gjR
+	 RZaaa25i6Zrswh21c1OzXSf6B1gfayWZh4RncsRrZyx2Et1rh8WcvqkMBeVe3Cgs7dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793477601;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
-	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
-	 Content-Type;
-	bh=cPFfTN6/hzKEJ9Jp6JStK5DFXphnyN3uZMogfrm57M0=;
-	b=S6U9M148Ktoac3Cs28eI8qNgUOP0V2uP3nxyKqyOtPaBn533I6cgKwlVQc0JgiO8d8A1
-	 x2sJpWWBxxEXXXSOd6FcMB+eG4skaIG9ZgeUrvEMzTRuCNr4mC6rGj6aR35xHlR3qkCxK
-	 ZDjg4fMi6x+l4CW41ak8YHofgS3CD6MNZJgJndv4xcpkGTmQHSrauH6BZqd1Kyu+P6gYc
-	 M8WQX2g9HUta5nkdck2X4ZekcI0dpYDto8apGru1JNh9JsIffUxIBVW1ERvnQPeTpJmxU
-	 FMRH829xoDytoza17Qgv6qKGEemWVXwGu91tBO7/7EP40jIVDHDxa8SJu1klopR1Gig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793477609;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ECtJrZ810nCPL/tA58/OGxY/aV7ZpN5NiiX8ilCDeYc=;
+	b=fIilRebuz/kUbRtxV9qHalivvarf6ScQuKw1CzA/TWOolv0KJOUO2Y7BnZeyMKXx5ra8
+	 qnWGHcLwHlfottCDJGvBXAHP1ivrAtqmvjT415WPydt/P40h7/UVgBYZ9pLAqTBaDoD9h
+	 jYFD7wetxmOOAAVelTrmYX2LlTWKQawTJ4K+r6FFq8aNuNeAEhmJaYH3gOiaQqTOHLQV3
+	 7kbx3Hw4jSoZme9MQ3NSuTm804T7drPMNi4ID4qDoWChNxMmtdFvrmOcNyznVefwSqZcD
+	 CKFonR/Ic0R5t8ZuOM0v7+bhMck/jayd6yyzoGhwsbwWgaQOX00w5WAxTljvuhrg3BQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ssi.bg;
-	spf=pass smtp.mailfrom=ssi.bg;
-	dkim=pass header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=MSldMUD4;
-	arc=none smtp.remote-ip=193.238.174.39
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JO0s5P9L;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F16606A31A;
-	Sat, 31 Oct 2026 20:13:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09F16606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588D2606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:13:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 588D2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=MSldMUD4
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 229ED21F72;
-	Sat, 31 Oct 2026 22:13:09 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=cPFfTN6/hzKEJ9Jp6JStK5DFXphnyN3uZMogfrm57M0=; b=MSldMUD40SxN
-	Oc/nqD0+2eFqMgpsSOMyF8QenoUqgGCIbswEi9MVdXrvg8nq+VPXqChk4Gf3pNTD
-	4JIF2LAN///G8fogaO5MxHGmj2Fz4aCPSPHGVDNKb49BDcRCdAgaJD3S0IjOwKYK
-	W3XsMNljqBKfVIolK1qyJtZisSzIqG1cLPbV2I/g725GHhrGbO0spFpDP4RI3i2n
-	yRO1fjCrUAzFPfNHVB0ApECEYup2TUiWyjnHH3agPKLgXpd7QnqAo+iaqgFA6Yhc
-	f7+KOpgb0iTJXqN5H7AKTCYwkA/HIEA2pCMGE43x24e793FjQoDv3h/ZMjT44n28
-	KZZTjnQmI/ISeqoQtMPsolABooAosI+KHNxZ0uQiZ6Na3vi81teJBQ+fvVd/nIKu
-	SlumkEMdW3PCtaZd34gyYmqE5PTcyB5AAbjmpmMORdH2R0zkEf0Fbup5i3M/0aKT
-	UtZqtsEQPNrsJxM9xFKBfqtT3CU+Vy0QwhEa5cbDhgrOpakg4Kq1Epophb6gQlwz
-	W/Bt3UTm/cynm/btp3iadhN/TrjO3B/vPdP+O0QJiKYmfssjwSzt5+m+T6aJYuey
-	6vHRNohdF4+BVfLgogL+svUDyOno6GRaAhGm3VyoYmt8pNg7WAD9f9HSwqOfjMEB
-	q2BswHCKydG1hUzx2mHBj9gA+932hbk=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Sat, 31 Oct 2026 22:13:08 +0200 (EET)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 866C2601BB;
-	Sat, 31 Oct 2026 22:13:08 +0200 (EET)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 69VKD0jG037434;
-	Sat, 31 Oct 2026 22:13:01 +0200
-Date: Sat, 31 Oct 2026 22:13:00 +0200 (EET)
-From: Julian Anastasov <ja@ssi.bg>
-To: Yingjie Wang <x-professor@outlook.com>
-cc: "lvs-devel@vger.kernel.org" <lvs-devel@vger.kernel.org>,
-        "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-        "horms@verge.net.au" <horms@verge.net.au>,
-        "pablo@netfilter.org" <pablo@netfilter.org>,
-        "fw@strlen.de" <fw@strlen.de>, "phil@nwl.cc" <phil@nwl.cc>,
-        "davem@davemloft.net" <davem@davemloft.net>,
-        "edumazet@kernel.org" <edumazet@kernel.org>,
-        "kuba@kernel.org" <kuba@kernel.org>,
-        "pabeni@redhat.com" <pabeni@redhat.com>,
-        "netfilter-devel@vger.kernel.org" <netfilter-devel@vger.kernel.org>,
-        "coreteam@netfilter.org" <coreteam@netfilter.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH nf] ipvs: avoid wrapping persistent service timeouts
-In-Reply-To: <4f420fda8690ac470be44b3da284b65501c77bb5.1793430892.git.x-professor@outlook.com>
-Message-ID: <5fa37fba-530c-2c5b-038e-9cb95e34023d@ssi.bg>
-References: <4f420fda8690ac470be44b3da284b65501c77bb5.1793430892.git.x-professor@outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JO0s5P9L
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so1084105e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:13:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793477608; x=1794082408; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ECtJrZ810nCPL/tA58/OGxY/aV7ZpN5NiiX8ilCDeYc=;
+        b=JO0s5P9LKzHMJsghAXI2fQw6MYABlSmwkj7a/v+KCDLJELV+EzUS4lOt9yLLHatFyy
+         JZZX7Fyqc5ctSKdH0f4WVFOKCDTdqVh3Pw5f/96Xil7dHguEAG/XjLRcdfbkP1iYhrLp
+         XLNkiUEWR6+m8Qa0h0L2+FsdNgCjFv3LxSkYKn7DGpdgluvTptcNwtsspo++cZbrIwM6
+         NUnb2xa/u1yknNCSPFGTPtTxFJs/ZhdimnLAsjKZKJquGA0pvpKrKfBn6WVFoMjoagNH
+         4jREjFmhaaBiYS7aIZraF8v7Yzl0f5N5Z8Pl7Azm511BDTwh69lw6fLU5eyB2X1pOBJL
+         O9Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793477608; x=1794082408;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ECtJrZ810nCPL/tA58/OGxY/aV7ZpN5NiiX8ilCDeYc=;
+        b=dL6yDjYjgt1WbFbpxiOOPo4/nXdP1bSW/TdQw1v0wyUlZ9uxmFosGZ+5J2xE3we/3E
+         A+u7BUEIAj+q0TRG/E+SvynaYmeF4tNVznWGQyOy2ZktVbI8kfW0ANiBWnjOBiXUKpff
+         VXDWZel0hAVyPoPASng5vY0+mJU0G53P/xxhtc6yeDeVmfXZEnCryIs2M9V85dxBc79J
+         b8ucF5YKM5wZX+R6GqqC3LxcBESla4HH8nr2W3AXpcIv8VgW9jfv9Hfgsfc3y/FoR5sS
+         y/ypCQasFvdKpq9Yd/x75hvQDemn91AoqJZ1/YpUf5NpSLwna9XoZHc2TPpE5kYz1pzU
+         FFcw==
+X-Forwarded-Encrypted: i=1; AKwUvBz4aB1vQtlKi77ZjRwu4vuf37GGtK9p1aToNA2bRYMMtg9btIHD2Qumk4wpJ+XWgDR38XVM+6/n6rn/X58=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLLYfRHz8/aIqjAuW5kpDrDvrp/2faATnm0XCZYPXcpd+b3TB3R
+	pYcNFP/jRaI3KutJu5Sk/bhab78Z8PpZAc5yqKyozSKvGQj7h8u3t5hLpR34gB4m
+X-Gm-Gg: AYBFou3S4M2k+q5itVWLlauYMeLMXMffqKqWJz2JvYmUnZyNFJt5gBl6Q+GOy0eIeLv
+	N9930JpUwBKJXacYznJQaSnpyC5zwLNayIdFRdjy2eCu2Uwgj/f/vga++dxN3COhQOIytGshsVr
+	xFwHidEVOe50+F7VyLcbxvNnoWars6+svoeeiV2zAgMfGgviC7rS8l6kZB2GMDzDyB92pyqe11D
+	oUYGirKz8KX29inAxW9kipZtCWtzXdYkV2reWi3j8GkYNRl5NzN1aUEOUV8AE76ZKWNVpRVHiuq
+	TLVKa5lLADKQIHwgx66VX+j8jcQuycr5LkbgFpGxhhLSmAMcOcn2paCUD8DRk7z3zmQxFSW42PR
+	+mkDq1wWlfmMMD18mNiX24FReZqLQKz3wjbJXV+DfpZClwXTAc1gqoNRH/FbCjmSNDkfB/vVmDF
+	5o6PfNBLjtEs1ws++GFr1ebR4uhG6oYy/+cirhTak1ikbfcvm6tyEMbtuYhrYz6qv8oY9akyD10
+	qE4sEfi1aUSsLBiXRO3g2FrMuzE+3S3OSDEUDxqhxBKqjomH3ZvV0UQWpbrhdl7mhZc7StKdxXu
+	XzDzO9vIJfnAXYHo8zxJ0bIK
+X-Received: by 2002:a05:600c:198c:b0:4a2:5ca:767f with SMTP id 5b1f17b1804b1-4ac151a9a36mr144521815e9.4.1793477607538;
+        Sat, 31 Oct 2026 13:13:27 -0700 (PDT)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8011csm11733605f8f.31.2026.10.31.13.13.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 31 Oct 2026 13:13:26 -0700 (PDT)
+Message-ID: <751f878c-1a2f-4fbe-a255-3520ffaa2f28@gmail.com>
+Date: Sat, 31 Oct 2026 21:13:25 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,154 +92,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/userfaultfd: store the child's new uffd context in the
+ wait queue entry
+To: Tal Zussman <tz2294@columbia.edu>,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
+ Peter Xu <peterx@redhat.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261031-uffd-fork-ctx-v1-1-a837fd576ffc@columbia.edu>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261031-uffd-fork-ctx-v1-1-a837fd576ffc@columbia.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-	Hello,
-
-On Sat, 31 Oct 2026, Yingjie Wang wrote:
-
-> ip_vs_add_service() and ip_vs_edit_service() convert the persistent
-> timeout from seconds to jiffies with u->timeout * HZ. Both operands are
-> unsigned int and the value comes unchecked from the socket API or from
-> IPVS_SVC_ATTR_TIMEOUT, so timeouts above UINT_MAX / HZ wrap.
+On 10/31/26 4:47 PM, Tal Zussman wrote:
+> A UFFD_EVENT_FORK message cannot carry the child's fd when it is queued,
+> because the fd has to be installed in the fd table of whichever task
+> reads the event. The forking task has to hand the reader the new context
+> itself. It does that by casting the child's userfaultfd_ctx pointer into
+> the arg.reserved.reserved1 field of the UAPI struct uffd_msg, which the
+> readers cast back.
 > 
-> With HZ=1000, 4294968 seconds becomes 704 jiffies and is reported back
-> as 0 seconds. Persistence templates copy svc->timeout, so their timer is
-> armed for 0.7 seconds and a client can be moved to another real server
-> long before the configured timeout.
+> That temporarily puts a kernel pointer in a struct that is copied to
+> userspace, and results in ugly casts when passing the uffd context
+> around. While resolve_userfault_fork() currently zeroes reserved1 before
+> it is exposed to userspace, this unnecessarily risks leaking a kernel
+> pointer to userspace if future modifications are buggy.
 > 
-> A related boundary exists on 32-bit kernels. Some products that fit in
-> unsigned int exceed the maximum safe jiffy delay. For example, 4294967
-> seconds becomes 4294967000 jiffies with HZ=1000. Adding that delay to
-> jiffies wraps, and the timer code can treat the result as already expired.
+> Store the fork_ctx pointer in struct userfaultfd_wait_queue instead,
+> which is kernel-internal and passed around anyway. The casts and the
+> zeroing go away, at the (negligible) cost of 8 more bytes on the
+> stack.
 > 
-> Limit the seconds value using both the storage width and
-> MAX_JIFFY_OFFSET before multiplying by HZ. Saturate out-of-range values
-> instead of rejecting requests that previously succeeded. Also print the
-> stored unsigned timeout with %u in /proc/net/ip_vs, since a valid stored
-> value can exceed INT_MAX.
+> No functional change.
 > 
-> The overflow was reproduced in an x86-64 QEMU guest (HZ=1000) through
-> the IPVS socket API. A persistent one-packet UDP service with two real
-> servers was set to 4294968 seconds, and a client in another network
-> namespace sent two datagrams 1.5 seconds apart. On the base kernel the
-> template expired between the datagrams, as it did for a 1-second
-> control, and the second datagram went to the other real server. With
-> this change the template remained present and both datagrams went to the
-> same server. The 300-second control was unchanged.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 > ---
+>  mm/userfaultfd.c | 19 ++++++-------------
+>  1 file changed, 6 insertions(+), 13 deletions(-)
 > 
-> Notes:
->     ip_vs_set_timeout() rejects global TCP/UDP timeouts above INT_MAX / HZ
->     with -EINVAL. This path saturates instead because the persistent timeout
->     is a __u32 whose full range has always been accepted. Saturation avoids
->     adding a new error result while keeping the stored delay within both the
->     storage width and the safe jiffy range.
-> 
->  net/netfilter/ipvs/ip_vs_ctl.c | 19 ++++++++++++++-----
->  1 file changed, 14 insertions(+), 5 deletions(-)
-> 
-> diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
-> index ce9fe20d6106a..0d4a113eb5a7f 100644
-> --- a/net/netfilter/ipvs/ip_vs_ctl.c
-> +++ b/net/netfilter/ipvs/ip_vs_ctl.c
-> @@ -1749,6 +1749,15 @@ static void ip_vs_dest_trash_expire(struct timer_list *t)
->  	spin_unlock(&ipvs->dest_trash_lock);
->  }
+> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> index 3b71712edab4..cae70df89c00 100644
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -2430,6 +2430,8 @@ struct userfaultfd_wait_queue {
+>  	struct uffd_msg msg;
+>  	wait_queue_entry_t wq;
+>  	struct userfaultfd_ctx *ctx;
+> +	/* UFFD_EVENT_FORK: the context created for the child */
+> +	struct userfaultfd_ctx *fork_ctx;
+>  	bool waken;
+>  };
 >  
-> +/* Convert seconds without overflowing or exceeding a safe jiffy delay. */
-> +static unsigned int ip_vs_svc_timeout(unsigned int timeout)
-> +{
-> +	unsigned long max_secs;
-> +
-> +	max_secs = min_t(unsigned long, UINT_MAX, MAX_JIFFY_OFFSET) / HZ;
-> +	return min_t(unsigned long, timeout, max_secs) * HZ;
-> +}
-> +
-
-	Better to add something like this in include/net/ip_vs.h,
-it will be used in multiple files:
-
-/* All timeouts up to 31 days */
-#define IP_VS_TIMEOUT_MAX_SECS	(86400 * 31)
-
-static inline unsigned long ip_vs_timeout_ticks(unsigned int secs)
-{
-	secs = min_t(unsigned int, secs, IP_VS_TIMEOUT_MAX_SECS);
-#if BITS_PER_LONG <= 32
-	secs = min_t(unsigned int, secs, MAX_JIFFY_OFFSET / HZ);
-#endif
-	return (unsigned long) secs * HZ;
-}
-
-	The IP_VS_TIMEOUT_MAX_SECS value comes from the ipvsadm
-MAX_TIMEOUT. It is used both for service persistence and the
-protocol timeouts. We have to add checks in ip_vs_add_service and
-ip_vs_edit_service for IP_VS_TIMEOUT_MAX_SECS and to return -EINVAL.
-As the timeout field in struct ip_vs_service is unsigned int, it
-should be changed to unsigned long, it is in ticks. The checks in 
-ip_vs_set_timeout() should be for IP_VS_TIMEOUT_MAX_SECS, not for
-INT_MAX / HZ.
-
-	Then when we convert the secs to ticks we should use
-ticks = ip_vs_timeout_ticks(secs). This includes svc->timeout and
-the assignments in ip_vs_set_timeout().
-
-	Also, ip_vs_proc_conn() in ip_vs_sync.c should use
-cp->timeout = ip_vs_timeout_ticks(timeout) too, instead of
-MAX_SCHEDULE_TIMEOUT / HZ * HZ. This place is the reason we
-to add the first line in ip_vs_timeout_ticks(), the other
-places will have early check for IP_VS_TIMEOUT_MAX_SECS.
-
-	The idea is to reject timeouts above 31 days but
-to silently clamp the value to MAX_JIFFY_OFFSET / HZ due to
-32-bit platform limits.
-
->  /*
->   *	Add a service into the service hash table
->   */
-> @@ -1864,7 +1873,7 @@ ip_vs_add_service(struct netns_ipvs *ipvs, struct ip_vs_service_user_kern *u,
->  	svc->port = u->port;
->  	svc->fwmark = u->fwmark;
->  	svc->flags = u->flags & ~IP_VS_SVC_F_HASHED;
-> -	svc->timeout = u->timeout * HZ;
-> +	svc->timeout = ip_vs_svc_timeout(u->timeout);
->  	svc->netmask = u->netmask;
->  	svc->ipvs = ipvs;
->  
-> @@ -2031,7 +2040,7 @@ ip_vs_edit_service(struct ip_vs_service *svc, struct ip_vs_service_user_kern *u)
->  	 * Set the flags and timeout value
->  	 */
->  	svc->flags = u->flags | IP_VS_SVC_F_HASHED;
-> -	svc->timeout = u->timeout * HZ;
-> +	svc->timeout = ip_vs_svc_timeout(u->timeout);
->  	svc->netmask = u->netmask;
->  
->  	old_pe = rcu_dereference_protected(svc->pe, 1);
-> @@ -3064,9 +3073,9 @@ static int ip_vs_info_seq_show(struct seq_file *seq, void *v)
+> @@ -3006,14 +3008,8 @@ static void userfaultfd_event_wait_completion(struct userfaultfd_ctx *ctx,
+>  			 * didn't.
+>  			 */
+>  			__remove_wait_queue(&ctx->event_wqh, &ewq->wq);
+> -			if (ewq->msg.event == UFFD_EVENT_FORK) {
+> -				struct userfaultfd_ctx *new;
+> -
+> -				new = (struct userfaultfd_ctx *)
+> -					(unsigned long)
+> -					ewq->msg.arg.reserved.reserved1;
+> -				release_new_ctx = new;
+> -			}
+> +			if (ewq->msg.event == UFFD_EVENT_FORK)
+> +				release_new_ctx = ewq->fork_ctx;
+>  			break;
 >  		}
 >  
->  		if (svc->flags & IP_VS_SVC_F_PERSISTENT)
-> -			seq_printf(seq, "persistent %d %08X\n",
-> -				svc->timeout,
-> -				ntohl(svc->netmask));
-> +			seq_printf(seq, "persistent %u %08X\n",
-> +				   svc->timeout,
-> +				   ntohl(svc->netmask));
->  		else
->  			seq_putc(seq, '\n');
+> @@ -3111,7 +3107,7 @@ static void dup_fctx(struct userfaultfd_fork_ctx *fctx)
+>  	msg_init(&ewq.msg);
 >  
+>  	ewq.msg.event = UFFD_EVENT_FORK;
+> -	ewq.msg.arg.reserved.reserved1 = (unsigned long)fctx->new;
+> +	ewq.fork_ctx = fctx->new;
+>  
+>  	userfaultfd_event_wait_completion(ctx, &ewq);
+>  }
+> @@ -3404,7 +3400,6 @@ static int resolve_userfault_fork(struct userfaultfd_ctx *new,
+>  	if (fd < 0)
+>  		return fd;
+>  
+> -	msg->arg.reserved.reserved1 = 0;
+>  	msg->arg.fork.ufd = fd;
+>  	return 0;
+>  }
+> @@ -3482,9 +3477,7 @@ static ssize_t userfaultfd_ctx_read(struct userfaultfd_ctx *ctx, int no_wait,
+>  			*msg = uwq->msg;
+>  
+>  			if (uwq->msg.event == UFFD_EVENT_FORK) {
+> -				fork_nctx = (struct userfaultfd_ctx *)
+> -					(unsigned long)
+> -					uwq->msg.arg.reserved.reserved1;
+> +				fork_nctx = uwq->fork_ctx;
+>  				list_move(&uwq->wq.entry, &fork_event);
+>  				/*
+>  				 * fork_nctx can be freed as soon as
 > 
-> base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
-> -- 
-> 2.43.0
+this LGTM:
 
-Regards
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
---
-Julian Anastasov <ja@ssi.bg>
-
+-- 
+cheers,
+jose a. p-a
