@@ -1,76 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793436052;
-	b=I1XJ18CyRI5dj+q6qZlR78KxzK3su5YwfssIKSE2a6CK9usF4HU7n/q/eFj2EMgDvboZ
-	 hC9727LAFBCsnMWMVB5FZmaEX2T+KypjjJGtKTM7P/Is8uQLU38VjMTEWbEi4pR4FR1JL
-	 tC9jsqs/Ty8m2NEHqdkS3i7UtXxXj/C/mPurmp8rc6JQi4E2WO6ZF2hcM0QGdj0YkGYR6
-	 rT6oFgOf/GJOLkcr8Fti8S61C1t5HcxJuWNw3Kye4VPcNmbFFFIIXgE06ZFtErrngD8iN
-	 Eo45o5W1UBC6t9qCDaDYRoZCcf4H9N99ic/42SqCshGtWpxl9OcBrwpCMNyIVBXOJGg==
+	t=1793436114;
+	b=4zW9/mmBdZHN4Aej8dPQi9Yggmwr8NjOZ1n26DGalnDe854HLdgAnr/zLKaf1kIHPCnT
+	 h9oQxY+a6GnfSK8Odr3QS5oTAbOZHo7GJ9NxU/xm1EE4m8wOZg8mdDcvgU0yqlVTN202+
+	 dHdgw5UX8fXCfbnuFstdaD76xwK9xZ6j2lve3hBMTaFzKGlIw+qJEQ0gX4IWuFITjWvQ2
+	 Rn1m1kXy0dYBy4Fwe+8uBYDyEsr6w0xQvuaedxWQQKug/TdrS/7h8SVgyvEz0ZzFVG6N+
+	 XQ9eyDW4FZx1nlpxQACNobANbM5vJDtaNFc42OloP8r2yuWxvT7QCMWPUjR5hXpK9Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793436052;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=6svTTISeQUYx1ZIWsfbO5edWqBQzyZocELnYvruPeJQ=;
-	b=pC7GTyGIKvApg0mGnpzysqYk/2nF3hFTf+nwiqLBKNcLkUIzD5NkJkDsMxtawjRX59Wt
-	 F7lFgHH58PY2qGgfYjQ+AocqFkCEnkbYOj+4twMk18n7APkZNyH93zQhNvYz6bUV501Yq
-	 1NFtWnYnnOB/R1EGxEZWuMkurG3IOnAUV9LFpGkTgEhz4ujw87ymfzEefMJyUjNyQgzIp
-	 qlyA78MBhZ1E4CH1gVtCMDAzmxBXD6yhdOdDEnOciQBtnGxZNeG5svaFRNNGyVKzrO3k5
-	 +ttWIcEYEulZxpVvP5b8VyGqkZHRgmMJdlsUifS32JCONgFla88eVem9D8XZakuEpFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793436114;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=78bE4Ellr1i3XQW6TTPvGswuyz5drWs9Sc9H0dy0gGo=;
+	b=4WMh+0NNAZ/KYH0wOITSP83KNwfEvf8e/RysSvujPBpd/n0gjtlcKoZDG7WLyrhAJyh+
+	 rxE3L4K/FhgKPgO2icd4KFv4R7mVWiRXgilbypO1zmIBC0nOs3VeGVMz3lKe8/CuzY1NA
+	 eS5zKBqReD9kGdLvPWWW4lAqiAEjCmOCxsJJS9krl4aNknHXb37FLt9FT4rpKIDyTPGYd
+	 CA9bB3kKGrlhPVL6TRn0wevGHoXhye2L079kIYlurjpr0hmG2yjgH7qyPjfaUCA2FLZRE
+	 Iv0KdiruvYzdPYZtC6izZHL4nA1MA/+6psBg0ed3VXXRrx88e/VGhvIXhOap9UfG9sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LNZJGkN5;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=EsOQ0YMM;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3897606A31A;
-	Sat, 31 Oct 2026 08:40:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3897606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBAD606A31A;
+	Sat, 31 Oct 2026 08:41:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DBAD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LNZJGkN5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793436051; x=1824972051;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=BF/278JGTfk0RG+nqNh0X0rOdKPRj+r50jvDUKTf/J8=;
-  b=LNZJGkN5fedasx/u5ahJXkPVl9/IPrxuqAP3zyBld8km64y73a01J4qi
-   WWPAWivQaD2yNoBwehBW+puWITbKJDsFGNhips1ZoDzmxTTr8Rw5h7Be/
-   3BhP/n4nb7p2YwY0DdL6wlPnylkphlkZy5hw3YXNsICycWUgKzEgAk7D/
-   OuaNr6E5IBJ7MTXrmheO8hF2vIUtJMaES/xUMZY8kDOSEBrWPyonl8rDZ
-   SvYrj4b1uUdP8G/NHTw2Jjg0AY7O3U9eNeCD0fQFGsSOp3LaAKFyhU/6h
-   U6Nlm1WpPMA/f3WPirQBVh4PQenFcEDBVOHTBWdwZCvIUlGLv56qUqY0v
-   A==;
-X-CSE-ConnectionGUID: seBf/9a7SLygy5yT3URlxg==
-X-CSE-MsgGUID: Ur5zWpxmQWOuAR7hXF5cwg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2080793"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2080793"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 01:40:50 -0700
-X-CSE-ConnectionGUID: GO8Lq7JGTfyf+TJ2wWyVRw==
-X-CSE-MsgGUID: edkas0dCReeUBlowOcjoDg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="7429665"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.127])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 01:40:48 -0700
-Date: Sat, 31 Oct 2026 10:40:46 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Avishek Chaulagain <chaulagainavishek14@gmail.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	andy@kernel.org, gregkh@linuxfoundation.org,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: atomisp: Remove redundant return statements
-Message-ID: <auWpjhhTGEJS09n0@ashevche-desk.local>
-References: <20261030193322.13777-1-chaulagainavishek14@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=EsOQ0YMM
+Received: from hawking.lan (ntp.lan [10.0.1.1])
+	by www.nmnhosting.com (Postfix) with ESMTPSA id 0F2C2401D6;
+	Sat, 31 Oct 2026 19:41:47 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1793436107;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=78bE4Ellr1i3XQW6TTPvGswuyz5drWs9Sc9H0dy0gGo=;
+	b=EsOQ0YMMa9j8jRi/VEaKb9RgsXY82OYrC9R2f1Lrb5L3UY6QKuUf2WDoUbPAopD4nG1tOD
+	ssh3M+a3F7HIPIZeMSUXJ3Ugu6/+FCAaJnlRCkXdXHiK5HV1cM4V8FQ02Qx20gTXczp1On
+	1sCBWmKBYpHPkK6nWsPVW61Fduc4/z5XrhLeX2agSbuelIjcLdNPomhjLtDo+Zp6zEqn/h
+	ig+8Gakyc3ZG/32N+DLqYH/rtFyGchei92kuHBngU9splW3rNV2uideDG5KH9pFh5ZbPqn
+	o6BT14Ionej6I/rrIcAPfBSFBK9S+naDdsV/CEVVbLAsFCV4Dk4blHyzZDrLXA==
+Message-ID: <7c8bd6660a0bf47c169ae6a803b57e459ad41bbb.camel@d-silva.org>
+Subject: Re: [PATCH rtw-next v7 2/4] wifi: rtw88: sdio: Track running state
+ and cancel TX worker on stop
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Luka Gejak <luka.gejak@linux.dev>, linux-wireless@vger.kernel.org, 
+ Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@kernel.org>
+Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Jernej Skrabec
+	 <jernej.skrabec@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sat, 31 Oct 2026 19:41:46 +1100
+In-Reply-To: <aa2500ed53d315edb7d6622dac3350fdd92b879b@linux.dev>
+References: <20261031033526.474710-1-alastair@d-silva.org>
+	 <20261031033526.474710-3-alastair@d-silva.org>
+	 <aa2500ed53d315edb7d6622dac3350fdd92b879b@linux.dev>
+Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
+ keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
+ VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
+ Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
+ KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
+ muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
+ fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
+ 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
+ QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
+ duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
+ KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
+ EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
+ DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
+ ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
+ N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
+ ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
+ MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
+ hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
+ SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
+ 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
+ uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
+ mPNRYYcR0u2mNy1EJII04w==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,29 +96,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030193322.13777-1-chaulagainavishek14@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Fri, Oct 30, 2026 at 07:33:04PM +0000, Avishek Chaulagain wrote:
-> A return statement at the end of a void function is redundant; control
-> returns to the caller once the closing brace is reached. Remove the two
-> such 'return;' statements in hmm_bo_release() and hmm_bo_vunmap(), as
-> reported by checkpatch.pl.
-
-Usually we expect deeper cleanups for this driver, see [1] for the best
-(so far) example how somebody can help with it without having deep knowledge
-on the particular hardware.
-
-This type of change has been appeared many times in the mailing list, you
-can study the case why it's still not in the upstream.
-
-[1]: https://lore.kernel.org/linux-media/20261027230807.2407261-1-vladurares@gmail.com/
-
--- 
-With Best Regards,
-Andy Shevchenko
 
 
+On Sat, 2026-10-31 at 07:10 +0000, Luka Gejak wrote:
+> Hi Alastair,
+>=20
+> Thanks for the new version. One comment below.
+>=20
+> October 31, 2026 at 4:35 AM, "Alastair D'Silva" <alastair@d-silva.org> wr=
+ote:
+>=20
+> > diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c
+> > b/drivers/net/wireless/realtek/rtw88/sdio.c
+> > index e39284b71837..253467250ee6 100644
+> > --- a/drivers/net/wireless/realtek/rtw88/sdio.c
+> > +++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+>=20
+> [ ... ]
+>=20
+> > @@ -1069,20 +1072,38 @@ static int rtw_sdio_start(struct rtw_dev *rtwde=
+v)
+>=20
+> [ ... ]
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 sdio_release_host(rtwsdio->sdio_func);
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 queue_delayed_work(rtwsdio->txwq, &rtwsdio->t=
+x_handler_data->work, 0);
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
+> > =C2=A0}
+>=20
+> I brought up this rearm on v6, but looking at the callers again I think i=
+t
+> may run a bit too early. rtw_sdio_start() is called from rtw_power_on(),
+> so the worker can start on whatever is parked before rtw_core_start() is
+> done with the device:
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rtw_core_start()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rtw_power_on()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rtw_hc=
+i_start()=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 <- worker queued here
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rtw_fw=
+_send_general_info()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rtw_co=
+ex_init_hw_config()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rtw_sec_enable_sec=
+_engine()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set_bit(RTW_FLAG_R=
+UNNING, rtwdev->flags)
+>=20
+> The parked frames got their TX descriptor in rtw_sdio_tx_write() before
+> the stop, with the macid and sec type of that session. So if I read it
+> right, after an interface down/up or an idle IPS cycle they can go out fo=
+r
+> a station that is gone, and maybe even before rtw_sec_enable_sec_engine()
+> has run. Resume from WoWLAN looks similar, rtw_wow_stop() starts the
+> HCI while the WoWLAN firmware is still loaded and rtw_wow_swap_fw()
+> follows right after.
+>=20
+> PCI drops what is left in its rings in rtw_pci_stop(), through
+> rtw_pci_dma_release(). Maybe doing the same here would be safer, purging
+> rtwsdio->tx_queue[] with ieee80211_purge_tx_queue() and clearing
+> tx_queue_stopped[] with a wake of those queues, instead of the rearm.
+> What do you think?
+
+Agreed, your trace of the callers makes it clear that re-arming in
+rtw_sdio_start() is too early and risks transmitting frames with stale
+TX descriptors from the previous session (or while WoWLAN firmware is
+still loaded).
+
+Purging rtwsdio->tx_queue[] and waking any stopped AC queues in
+rtw_sdio_stop() after cancel_delayed_work_sync() is much cleaner and
+matches rtw_pci_stop(). Since rtwsdio->tx_queue_stopped[] is indexed by
+enum rtw_tx_queue_type while ieee80211_wake_queue() takes the mac80211
+AC index, I propose doing the following in rtw_sdio_stop() (and
+dropping the re-arm from rtw_sdio_start()):
+
+	cancel_delayed_work_sync(&rtwsdio->tx_handler_data->work);
+	for (i =3D 0; i < RTK_MAX_TX_QUEUE_NUM; i++)
+		ieee80211_purge_tx_queue(rtwdev->hw, &rtwsdio->tx_queue[i]);
+	for (i =3D 0; i < IEEE80211_NUM_ACS; i++) {
+		queue =3D rtw_tx_ac_to_hwq(i);
+		if (rtwsdio->tx_queue_stopped[queue]) {
+			rtwsdio->tx_queue_stopped[queue] =3D false;
+			ieee80211_wake_queue(rtwdev->hw, i);
+		}
+	}
+
+>=20
+> The stop/start cycling in the cover letter was also run on 7.2.10, where
+> tx_handler_data->work is still a work_struct and the 8723BS HISR mask is
+> not there yet, so I guess the board ran a backport. Was this version run
+> on the board as posted?
+>=20
+
+The test board's base kernel is an Armbian sunxi64 build (versioned
+7.2.10-edge-sunxi64 by Armbian). For the test run, rtw88_sdio.ko was
+built directly from the rtw-next sdio.c/sdio.h (including delayed_work
+and RTW_SDIO_HISR_CLEAR_MASK) with our patches applied, and only
+rtw_is_8723bs() stubbed to false so rtw88_sdio.ko matched the struct
+rtw_dev layout of the board's existing rtw88_core.ko. For v8 I will
+build and load the full rtw-next drivers/net/wireless/realtek/rtw88/
+module set on the board so it runs completely unmodified as posted.
+
+--=20
+Alastair D'Silva
+0493 18 5566
